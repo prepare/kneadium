@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
     <Filter Include="include">
@@ -16,9 +16,24 @@
     <Filter Include="cefclient\res">
       <UniqueIdentifier>{1177910C-2DCE-8F2F-24FB-580080DDACDC}</UniqueIdentifier>
     </Filter>
+    <Filter Include="cefclient\ExportFuncs">
+      <UniqueIdentifier>{8e14635c-ea73-4cb6-b79e-8a05a5a0829d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="cefclient\CoreApp">
+      <UniqueIdentifier>{48e805fe-7ba7-4513-8d93-a0dfcabffe33}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="cefclient\TestCase_Unmodified">
+      <UniqueIdentifier>{02f7e11c-a721-463c-8b9e-4fcea131ad72}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="cefclient\static_or_consts">
+      <UniqueIdentifier>{3b8e91bf-f02f-4d25-abf6-0db02ac5eb64}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="cefclient\Modified">
+      <UniqueIdentifier>{20a8d92a-a090-4823-9e39-31720701ef90}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
-    <None Include="cefclient.gyp"/>
+    <None Include="cefclient.gyp" />
     <ClInclude Include="include\cef_trace.h">
       <Filter>include</Filter>
     </ClInclude>
@@ -235,94 +250,22 @@
     <ClInclude Include="include\wrapper\cef_zip_archive.h">
       <Filter>include\wrapper</Filter>
     </ClInclude>
-    <ClInclude Include="cefclient\binding_test.h">
-      <Filter>cefclient</Filter>
-    </ClInclude>
-    <ClCompile Include="cefclient\performance_test_tests.cpp">
-      <Filter>cefclient</Filter>
-    </ClCompile>
-    <ClCompile Include="cefclient\cefclient_win.cpp">
-      <Filter>cefclient</Filter>
-    </ClCompile>
-    <ClInclude Include="cefclient\window_test.h">
-      <Filter>cefclient</Filter>
-    </ClInclude>
-    <ClCompile Include="cefclient\window_test_win.cpp">
-      <Filter>cefclient</Filter>
-    </ClCompile>
-    <ClInclude Include="cefclient\string_util.h">
-      <Filter>cefclient</Filter>
-    </ClInclude>
-    <ClInclude Include="cefclient\resource.h">
-      <Filter>cefclient</Filter>
-    </ClInclude>
     <ClCompile Include="cefclient\cefclient_osr_widget_win.cpp">
-      <Filter>cefclient</Filter>
-    </ClCompile>
-    <ClInclude Include="cefclient\resource_util.h">
-      <Filter>cefclient</Filter>
-    </ClInclude>
-    <ClInclude Include="cefclient\dialog_test.h">
-      <Filter>cefclient</Filter>
-    </ClInclude>
-    <ClInclude Include="cefclient\client_handler.h">
-      <Filter>cefclient</Filter>
-    </ClInclude>
-    <ClInclude Include="cefclient\client_switches.h">
-      <Filter>cefclient</Filter>
-    </ClInclude>
-    <ClInclude Include="cefclient\dom_test.h">
-      <Filter>cefclient</Filter>
-    </ClInclude>
-    <ClInclude Include="cefclient\util.h">
-      <Filter>cefclient</Filter>
-    </ClInclude>
-    <ClInclude Include="cefclient\cefclient.h">
-      <Filter>cefclient</Filter>
-    </ClInclude>
-    <ClCompile Include="cefclient\string_util.cpp">
       <Filter>cefclient</Filter>
     </ClCompile>
     <ClInclude Include="cefclient\cefclient_osr_widget_win.h">
       <Filter>cefclient</Filter>
     </ClInclude>
-    <ClCompile Include="cefclient\client_switches.cpp">
-      <Filter>cefclient</Filter>
-    </ClCompile>
     <ClCompile Include="cefclient\client_handler.cpp">
       <Filter>cefclient</Filter>
     </ClCompile>
-    <ClCompile Include="cefclient\cefclient.cpp">
-      <Filter>cefclient</Filter>
-    </ClCompile>
-    <ClInclude Include="cefclient\scheme_test.h">
-      <Filter>cefclient</Filter>
-    </ClInclude>
     <ClCompile Include="cefclient\osrenderer.cpp">
       <Filter>cefclient</Filter>
     </ClCompile>
     <ClCompile Include="cefclient\client_app_delegates.cpp">
       <Filter>cefclient</Filter>
     </ClCompile>
-    <ClCompile Include="cefclient\dom_test.cpp">
-      <Filter>cefclient</Filter>
-    </ClCompile>
-    <ClInclude Include="cefclient\performance_test.h">
-      <Filter>cefclient</Filter>
-    </ClInclude>
-    <ClCompile Include="cefclient\performance_test.cpp">
-      <Filter>cefclient</Filter>
-    </ClCompile>
-    <ClCompile Include="cefclient\dialog_test.cpp">
-      <Filter>cefclient</Filter>
-    </ClCompile>
-    <ResourceCompile Include="cefclient\cefclient.rc">
-      <Filter>cefclient</Filter>
-    </ResourceCompile>
     <ClCompile Include="cefclient\client_renderer.cpp">
-      <Filter>cefclient</Filter>
-    </ClCompile>
-    <ClCompile Include="cefclient\scheme_test.cpp">
       <Filter>cefclient</Filter>
     </ClCompile>
     <ClInclude Include="cefclient\client_app.h">
@@ -334,22 +277,7 @@
     <ClInclude Include="cefclient\osrenderer.h">
       <Filter>cefclient</Filter>
     </ClInclude>
-    <ClCompile Include="cefclient\resource_util_win.cpp">
-      <Filter>cefclient</Filter>
-    </ClCompile>
-    <ClCompile Include="cefclient\client_handler_win.cpp">
-      <Filter>cefclient</Filter>
-    </ClCompile>
     <ClCompile Include="cefclient\client_app.cpp">
-      <Filter>cefclient</Filter>
-    </ClCompile>
-    <ClInclude Include="cefclient\performance_test_setup.h">
-      <Filter>cefclient</Filter>
-    </ClInclude>
-    <ClCompile Include="cefclient\window_test.cpp">
-      <Filter>cefclient</Filter>
-    </ClCompile>
-    <ClCompile Include="cefclient\binding_test.cpp">
       <Filter>cefclient</Filter>
     </ClCompile>
     <None Include="cefclient\res\small.ico">
@@ -394,5 +322,122 @@
     <None Include="cefclient\res\logo.png">
       <Filter>cefclient\res</Filter>
     </None>
+  </ItemGroup>
+  <ItemGroup>
+    <CustomBuild Include="binary_distrib\cef_binary_3.1547.1412_windows\cefclient.gyp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="cefclient\ExportFuncs.h">
+      <Filter>cefclient\ExportFuncs</Filter>
+    </ClInclude>
+    <ClInclude Include="cefclient\CommonModule.h">
+      <Filter>cefclient\CoreApp</Filter>
+    </ClInclude>
+    <ClInclude Include="cefclient\client_handler.h">
+      <Filter>cefclient</Filter>
+    </ClInclude>
+    <ClInclude Include="cefclient\binding_test.h">
+      <Filter>cefclient\TestCase_Unmodified</Filter>
+    </ClInclude>
+    <ClInclude Include="cefclient\dialog_test.h">
+      <Filter>cefclient\TestCase_Unmodified</Filter>
+    </ClInclude>
+    <ClInclude Include="cefclient\performance_test.h">
+      <Filter>cefclient\TestCase_Unmodified</Filter>
+    </ClInclude>
+    <ClInclude Include="cefclient\performance_test_setup.h">
+      <Filter>cefclient\TestCase_Unmodified</Filter>
+    </ClInclude>
+    <ClInclude Include="cefclient\scheme_test.h">
+      <Filter>cefclient\TestCase_Unmodified</Filter>
+    </ClInclude>
+    <ClInclude Include="cefclient\dom_test.h">
+      <Filter>cefclient\TestCase_Unmodified</Filter>
+    </ClInclude>
+    <ClInclude Include="cefclient\window_test.h">
+      <Filter>cefclient\TestCase_Unmodified</Filter>
+    </ClInclude>
+    <ClInclude Include="cefclient\cefclient.h">
+      <Filter>cefclient\static_or_consts</Filter>
+    </ClInclude>
+    <ClInclude Include="cefclient\client_switches.h">
+      <Filter>cefclient\static_or_consts</Filter>
+    </ClInclude>
+    <ClInclude Include="cefclient\resource.h">
+      <Filter>cefclient\static_or_consts</Filter>
+    </ClInclude>
+    <ClInclude Include="cefclient\resource_util.h">
+      <Filter>cefclient\static_or_consts</Filter>
+    </ClInclude>
+    <ClInclude Include="cefclient\string_util.h">
+      <Filter>cefclient\static_or_consts</Filter>
+    </ClInclude>
+    <ClInclude Include="cefclient\util.h">
+      <Filter>cefclient\static_or_consts</Filter>
+    </ClInclude>
+    <ClInclude Include="cefclient\Common_win.h">
+      <Filter>cefclient\CoreApp</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="cefclient\ExportFunc.cpp">
+      <Filter>cefclient\ExportFuncs</Filter>
+    </ClCompile>
+    <ClCompile Include="cefclient\CommonModule.cpp">
+      <Filter>cefclient\CoreApp</Filter>
+    </ClCompile>
+    <ClCompile Include="cefclient\cefclient_win.cpp">
+      <Filter>cefclient\Modified</Filter>
+    </ClCompile>
+    <ClCompile Include="cefclient\client_handler_win.cpp">
+      <Filter>cefclient\Modified</Filter>
+    </ClCompile>
+    <ClCompile Include="cefclient\binding_test.cpp">
+      <Filter>cefclient\TestCase_Unmodified</Filter>
+    </ClCompile>
+    <ClCompile Include="cefclient\dialog_test.cpp">
+      <Filter>cefclient\TestCase_Unmodified</Filter>
+    </ClCompile>
+    <ClCompile Include="cefclient\performance_test.cpp">
+      <Filter>cefclient\TestCase_Unmodified</Filter>
+    </ClCompile>
+    <ClCompile Include="cefclient\performance_test_tests.cpp">
+      <Filter>cefclient\TestCase_Unmodified</Filter>
+    </ClCompile>
+    <ClCompile Include="cefclient\scheme_test.cpp">
+      <Filter>cefclient\TestCase_Unmodified</Filter>
+    </ClCompile>
+    <ClCompile Include="cefclient\dom_test.cpp">
+      <Filter>cefclient\TestCase_Unmodified</Filter>
+    </ClCompile>
+    <ClCompile Include="cefclient\window_test.cpp">
+      <Filter>cefclient\TestCase_Unmodified</Filter>
+    </ClCompile>
+    <ClCompile Include="cefclient\window_test_win.cpp">
+      <Filter>cefclient\TestCase_Unmodified</Filter>
+    </ClCompile>
+    <ClCompile Include="cefclient\cefclient.cpp">
+      <Filter>cefclient\static_or_consts</Filter>
+    </ClCompile>
+    <ClCompile Include="cefclient\client_switches.cpp">
+      <Filter>cefclient\static_or_consts</Filter>
+    </ClCompile>
+    <ClCompile Include="cefclient\resource_util_win.cpp">
+      <Filter>cefclient\static_or_consts</Filter>
+    </ClCompile>
+    <ClCompile Include="cefclient\string_util.cpp">
+      <Filter>cefclient\static_or_consts</Filter>
+    </ClCompile>
+    <ClCompile Include="cefclient\Common_win.cpp">
+      <Filter>cefclient\CoreApp</Filter>
+    </ClCompile>
+    <ClCompile Include="cefclient\main.cpp">
+      <Filter>cefclient\Modified</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="cefclient\cefclient.rc">
+      <Filter>cefclient\static_or_consts</Filter>
+    </ResourceCompile>
   </ItemGroup>
 </Project>

@@ -113,7 +113,8 @@ class ClientAppExtensionHandler : public CefV8Handler {
                        const CefV8ValueList& arguments,
                        CefRefPtr<CefV8Value>& retval,
                        CefString& exception) {
-    bool handled = false;
+   
+	bool handled = false;
 
     if (name == "sendMessage") {
       // Send a message to the browser process.
@@ -240,6 +241,9 @@ void ClientApp::OnRenderThreadCreated(CefRefPtr<CefListValue> extra_info) {
 }
 
 void ClientApp::OnWebKitInitialized() {
+
+
+
   // Register the client_app extension.
   std::string app_code =
     "var app;"

@@ -28,6 +28,8 @@
 #include "cefclient/string_util.h"
 #include "cefclient/window_test.h"
 
+#include "ExportFuncs.h"
+
 namespace {
 
 // Custom menu command Ids.
@@ -91,7 +93,7 @@ ClientHandler::ClientHandler()
   : m_MainHwnd(NULL),
     m_BrowserId(0),
     m_bIsClosing(false),
-    m_EditHwnd(NULL),
+   /* m_EditHwnd(NULL),*/
     m_BackHwnd(NULL),
     m_ForwardHwnd(NULL),
     m_StopHwnd(NULL),
@@ -153,6 +155,7 @@ void ClientHandler::OnBeforeContextMenu(
     CefRefPtr<CefFrame> frame,
     CefRefPtr<CefContextMenuParams> params,
     CefRefPtr<CefMenuModel> model) {
+
   if ((params->GetTypeFlags() & (CM_TYPEFLAG_PAGE | CM_TYPEFLAG_FRAME)) != 0) {
     // Add a separator if the menu already has items.
     if (model->GetCount() > 0)
@@ -246,9 +249,10 @@ void ClientHandler::OnBeforeDownload(
     CefRefPtr<CefDownloadItem> download_item,
     const CefString& suggested_name,
     CefRefPtr<CefBeforeDownloadCallback> callback) {
+  
   REQUIRE_UI_THREAD();
   // Continue the download and show the "Save As" dialog.
-  callback->Continue(GetDownloadPath(suggested_name), true);
+  callback->Continue(GetDownloadPath(suggested_name), true);  
 }
 
 void ClientHandler::OnDownloadUpdated(
@@ -459,31 +463,60 @@ void ClientHandler::OnRenderProcessTerminated(CefRefPtr<CefBrowser> browser,
 CefRefPtr<CefResourceHandler> ClientHandler::GetResourceHandler(
       CefRefPtr<CefBrowser> browser,
       CefRefPtr<CefFrame> frame,
-      CefRefPtr<CefRequest> request) {
-  std::string url = request->GetURL();
-  if (url.find(kTestOrigin) == 0) {
-    // Handle URLs in the test origin.
-    std::string file_name, mime_type;
-    if (ParseTestUrl(url, &file_name, &mime_type)) {
-      if (file_name == "request.html") {
-        // Show the request contents.
-        std::string dump;
-        DumpRequestContents(request, dump);
-        CefRefPtr<CefStreamReader> stream =
-            CefStreamReader::CreateForData(
-                static_cast<void*>(const_cast<char*>(dump.c_str())),
-                dump.size());
-        ASSERT(stream.get());
-        return new CefStreamResourceHandler("text/plain", stream);
-      } else {
-        // Load the resource from file.
-        CefRefPtr<CefStreamReader> stream =
-            GetBinaryResourceReader(file_name.c_str());
-        if (stream.get())
-          return new CefStreamResourceHandler(mime_type, stream);
-      }
-    }
+      CefRefPtr<CefRequest> request) {	 
+  
+		  
+   
+  if(HasManagedCallBack())
+  {
+	  
+	 const wchar_t*result= ManagedCallBack3(
+	 MYCEF_FILTER_URL_FOR_RESOURCE,
+	  request->GetURL().ToWString().c_str());
+	   
+
+	  if(result){
+
+
+		 CefString cc= CefString(result);
+		 const char* tt= cc.ToString().c_str();
+		 
+		 CefRefPtr<CefStreamReader> stream =
+             CefStreamReader::CreateForData(
+             static_cast<void*>(const_cast<char*>(tt)),
+			 cc.length());
+              
+
+		 ASSERT(stream.get());
+		 return new CefStreamResourceHandler("text/html", stream);
+	  }
+	  
   }
+  //std::string url = request->GetURL();
+  //
+  //if (url.find(kTestOrigin) == 0) {
+  //  // Handle URLs in the test origin.
+  //  std::string file_name, mime_type;
+  //  if (ParseTestUrl(url, &file_name, &mime_type)) {
+  //    if (file_name == "request.html") {
+  //      // Show the request contents.
+  //      std::string dump;
+  //      DumpRequestContents(request, dump);
+  //      CefRefPtr<CefStreamReader> stream =
+  //          CefStreamReader::CreateForData(
+  //              static_cast<void*>(const_cast<char*>(dump.c_str())),
+  //              dump.size());
+  //      ASSERT(stream.get());
+  //      return new CefStreamResourceHandler("text/plain", stream);
+  //    } else {
+  //      // Load the resource from file.
+  //      CefRefPtr<CefStreamReader> stream =
+  //          GetBinaryResourceReader(file_name.c_str());
+  //      if (stream.get())
+  //        return new CefStreamResourceHandler(mime_type, stream);
+  //    }
+  //  }
+  //}
 
   return NULL;
 }
@@ -502,8 +535,7 @@ bool ClientHandler::OnQuotaRequest(CefRefPtr<CefBrowser> browser,
 void ClientHandler::OnProtocolExecution(CefRefPtr<CefBrowser> browser,
                                         const CefString& url,
                                         bool& allow_os_execution) {
-  std::string urlStr = url;
-
+  std::string urlStr = url; 
   // Allow OS execution of Spotify URIs.
   if (urlStr.find("spotify:") == 0)
     allow_os_execution = true;
@@ -569,16 +601,15 @@ void ClientHandler::OnCursorChange(CefRefPtr<CefBrowser> browser,
   if (!m_OSRHandler.get())
     return;
   m_OSRHandler->OnCursorChange(browser, cursor);
-}
-
+} 
 void ClientHandler::SetMainHwnd(CefWindowHandle hwnd) {
   AutoLock lock_scope(this);
   m_MainHwnd = hwnd;
 }
 
 void ClientHandler::SetEditHwnd(CefWindowHandle hwnd) {
-  AutoLock lock_scope(this);
-  m_EditHwnd = hwnd;
+  //AutoLock lock_scope(this);
+  //m_EditHwnd = hwnd;
 }
 
 void ClientHandler::SetButtonHwnds(CefWindowHandle backHwnd,
@@ -762,24 +793,25 @@ void ClientHandler::CreateProcessMessageDelegates(
 }
 
 void ClientHandler::BuildTestMenu(CefRefPtr<CefMenuModel> model) {
-  if (model->GetCount() > 0)
-    model->AddSeparator();
+  
+ //if (model->GetCount() > 0)
+ //   model->AddSeparator();
 
-  // Build the sub menu.
-  CefRefPtr<CefMenuModel> submenu =
-      model->AddSubMenu(CLIENT_ID_TESTMENU_SUBMENU, "Context Menu Test");
-  submenu->AddCheckItem(CLIENT_ID_TESTMENU_CHECKITEM, "Check Item");
-  submenu->AddRadioItem(CLIENT_ID_TESTMENU_RADIOITEM1, "Radio Item 1", 0);
-  submenu->AddRadioItem(CLIENT_ID_TESTMENU_RADIOITEM2, "Radio Item 2", 0);
-  submenu->AddRadioItem(CLIENT_ID_TESTMENU_RADIOITEM3, "Radio Item 3", 0);
+ // // Build the sub menu.
+ // CefRefPtr<CefMenuModel> submenu =
+ //     model->AddSubMenu(CLIENT_ID_TESTMENU_SUBMENU, "Context Menu Test");
+ // submenu->AddCheckItem(CLIENT_ID_TESTMENU_CHECKITEM, "Check Item");
+ // submenu->AddRadioItem(CLIENT_ID_TESTMENU_RADIOITEM1, "Radio Item 1", 0);
+ // submenu->AddRadioItem(CLIENT_ID_TESTMENU_RADIOITEM2, "Radio Item 2", 0);
+ // submenu->AddRadioItem(CLIENT_ID_TESTMENU_RADIOITEM3, "Radio Item 3", 0);
 
-  // Check the check item.
-  if (m_TestMenuState.check_item)
-    submenu->SetChecked(CLIENT_ID_TESTMENU_CHECKITEM, true);
+ // // Check the check item.
+ // if (m_TestMenuState.check_item)
+ //   submenu->SetChecked(CLIENT_ID_TESTMENU_CHECKITEM, true);
 
-  // Check the selected radio item.
-  submenu->SetChecked(
-      CLIENT_ID_TESTMENU_RADIOITEM1 + m_TestMenuState.radio_item, true);
+ // // Check the selected radio item.
+ // submenu->SetChecked(
+ //     CLIENT_ID_TESTMENU_RADIOITEM1 + m_TestMenuState.radio_item, true);
 }
 
 bool ClientHandler::ExecuteTestMenu(int command_id) {

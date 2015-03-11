@@ -18,19 +18,20 @@
 #include "cefclient/string_util.h"
 #include "cefclient/util.h"
 
-CefRefPtr<ClientHandler> g_handler;
-CefRefPtr<CefCommandLine> g_command_line;
+ 
+CefRefPtr<CefCommandLine> g_command_line; 
 
-CefRefPtr<CefBrowser> AppGetBrowser() {
-  if (!g_handler.get())
+
+CefRefPtr<CefBrowser> AppGetBrowser(CefRefPtr<ClientHandler> g_handler2) {
+  if (!g_handler2.get())
     return NULL;
-  return g_handler->GetBrowser();
+  return g_handler2->GetBrowser();
 }
 
-CefWindowHandle AppGetMainHwnd() {
-  if (!g_handler.get())
+CefWindowHandle AppGetMainHwnd(CefRefPtr<ClientHandler> g_handler2) {
+  if (!g_handler2.get())
     return NULL;
-  return g_handler->GetMainHwnd();
+  return g_handler2->GetMainHwnd();
 }
 
 void AppInitCommandLine(int argc, const char* const* argv) {
@@ -96,6 +97,7 @@ void RunGetSourceTest(CefRefPtr<CefBrowser> browser) {
 }
 
 void RunGetTextTest(CefRefPtr<CefBrowser> browser) {
+
   class Visitor : public CefStringVisitor {
    public:
     explicit Visitor(CefRefPtr<CefBrowser> browser) : browser_(browser) {}
@@ -119,8 +121,8 @@ void RunRequestTest(CefRefPtr<CefBrowser> browser) {
   CefRefPtr<CefRequest> request(CefRequest::Create());
 
   // Set the request URL
-  request->SetURL("http://tests/request");
-
+  //request->SetURL("http://tests/request");
+  request->SetURL("http://localhost/");
   // Add post data to the request.  The correct method and content-
   // type headers will be set by CEF.
   CefRefPtr<CefPostDataElement> postDataElement(CefPostDataElement::Create());

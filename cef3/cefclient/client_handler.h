@@ -305,13 +305,13 @@ class ClientHandler : public CefClient,
   bool m_bIsClosing;
 
   // The edit window handle
-  CefWindowHandle m_EditHwnd;
+  /*CefWindowHandle m_EditHwnd;*/
 
   // The button window handles
   CefWindowHandle m_BackHwnd;
   CefWindowHandle m_ForwardHwnd;
   CefWindowHandle m_StopHwnd;
-  CefWindowHandle m_ReloadHwnd;
+  CefWindowHandle m_ReloadHwnd; 
 
   CefRefPtr<RenderHandler> m_OSRHandler;
 
