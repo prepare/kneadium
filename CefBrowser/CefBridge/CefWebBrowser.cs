@@ -17,9 +17,9 @@ namespace LayoutFarm.CefBridge
 
     public sealed class CefWebBrowser : Control
     {
-        private bool _handleCreated;
-
-        IntPtr mycefhandler;
+        bool _handleCreated;
+        CefBrowserAgent cefBrowserView;
+        bool nativeHandleCreated = false;
 
         public CefWebBrowser()
         {
@@ -46,14 +46,15 @@ namespace LayoutFarm.CefBridge
                 | ControlStyles.AllPaintingInWmPaint
                 | ControlStyles.Selectable,
                 true);
-
-
         }
         public void NavigateTo(string url)
         {
-            LayoutFarm.CefBridge.Cef3Binder.NavigateTo(this.mycefhandler, url);
+            this.cefBrowserView.NavigateTo(url);
         }
-
+        public CefBrowserAgent Agent
+        {
+            get { return this.cefBrowserView; }
+        }
         protected override void OnHandleCreated(EventArgs e)
         {
             base.OnHandleCreated(e);
@@ -69,24 +70,19 @@ namespace LayoutFarm.CefBridge
                     MessageBox.Show("cef 3 not found");
                 }
 
-                this.mycefhandler = LayoutFarm.CefBridge.Cef3Binder.MyCefCreateClientHandler();
-                LayoutFarm.CefBridge.Cef3Binder.MyCefSetupWindowsBegin(this.mycefhandler, this.Handle);
-                LayoutFarm.CefBridge.Cef3Binder.MyCefSetupWindowsEnd(this.mycefhandler, this.Handle, 0, 0, 800, 500);
-
-                LayoutFarm.CefBridge.Cef3Binder.MyCefDoMessageLoopWork();
-
+                this.cefBrowserView = new CefBrowserAgent(this.Handle, 0, 0, 800, 500);
                 nativeHandleCreated = true;
             }
             _handleCreated = true;
 
         }
-        bool nativeHandleCreated = false;
+
 
         public void PrepareNativeClose()
         {
             if (nativeHandleCreated)
             {
-                Cef3Binder.MyCefCloseHandle();
+                this.cefBrowserView.CloseView();
                 nativeHandleCreated = false;
             }
         }

@@ -23,8 +23,8 @@ int MyAppInit01(HINSTANCE hInstance)
 {	
 	
 	//---------------------
-  CefMainArgs main_args(hInstance);
-  CefRefPtr<ClientApp> app(new ClientApp);
+   CefMainArgs main_args(hInstance);
+   CefRefPtr<ClientApp> app(new ClientApp);
 
    //Execute the secondary process, if any.
    int exit_code = CefExecuteProcess(main_args, app.get());
@@ -37,8 +37,7 @@ int MyAppInit01(HINSTANCE hInstance)
 	//Parse command line arguments. The passed in values are ignored on Windows.
    AppInitCommandLine(0, NULL);
 
-   CefSettings settings;
-
+   CefSettings settings; 
 	//Populate the settings based on command line arguments.
    AppGetSettings(settings);
 

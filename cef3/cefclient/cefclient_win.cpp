@@ -60,14 +60,14 @@ void AppQuitMessageLoop() {
 } 
 //=================================================================================
 //my extension
-void MyCefSetupWindowsBegin(void* cefClientHandler, HWND hWndParent)
+void MyCefSetupWindowsBegin(ClientHandler* cefClientHandler, HWND hWndParent)
 { 
 	ClientHandler* g_handler2 = (ClientHandler*)cefClientHandler;
 	g_handler2->SetMainHwnd(hWndParent);
 }
  
 //my extension
-void MyCefSetupWindowsEnd(void* cefClientHandler,HWND hWndParent,int x,int y,int width,int height)
+void MyCefSetupWindowsEnd(ClientHandler* cefClientHandler,HWND hWndParent,int x,int y,int width,int height)
 {	   
       
       RECT rect;	  
@@ -116,4 +116,9 @@ void MyCefSetupWindowsEnd(void* cefClientHandler,HWND hWndParent,int x,int y,int
           ManagedCallBack(1,L"OKOK-F");
       }
       //------------------------
+}
+void MyCefCloseHandler(ClientHandler* cefClientHandler)
+{	
+
+
 }

@@ -9,7 +9,7 @@ del03 managedListner3;
 
 int MyCefGetVersion()
 {	
-	 return 31;
+	 return 1001;
 }
 //-----------------------------------------------------------
 int RegisterManagedCallBack(void* funcPtr,int callbackKind)
@@ -61,11 +61,14 @@ bool HasManagedCallBack()
 		return false;
 	}
 }
-void* MyCefCreateClientHandler()
-{
+//ClientHandler* MyCefCreateClientHandler()
+//{	
+//	return new ClientHandler();
+//}
+ClientHandler* MyCefCreateClientHandler()
+{	
 	return new ClientHandler();
 }
-	
 void MyCefRunMessageLoop()
 {
 	 CefRunMessageLoop();
@@ -79,10 +82,7 @@ bool MyCefUseMultiMessageLoop()
 {
 	return IsMultiMessageLoopApp();
 }
-void MyCefCloseHandle()
-{
-	 CefShutdown();
-}
+ 
 int MyCefInit(HINSTANCE hInstance)//,CefSettings* settings)
 {	 
 	return MyAppInit01(hInstance);  
@@ -101,25 +101,61 @@ int MyCefInit(HINSTANCE hInstance)//,CefSettings* settings)
 	//	CefDoMessageLoopWork();
 	//}
  }  
-
-void NavigateTo(void* g_ClientHandler, const wchar_t* url)
+ void MyCefQuitMessageLoop()
 {
-	 // When the user hits the enter key load the URL
-    
-	/*wchar_t* newcopy = new wchar_t[wcslen( L"http://localhost/testme/index.php")];
-	wcscpy(newcopy,url);
+	CefQuitMessageLoop();
 
-	std::wstring newcopy2 = std::wstring(newcopy);  */ 
-	CefRefPtr<ClientHandler> g_handler_= (ClientHandler*)g_ClientHandler;
-	CefRefPtr<CefBrowser> browser = g_handler_->GetBrowser(); 
-	browser->GetMainFrame()->LoadURL(CefString(url));
-	
-   /*  CefRefPtr<CefBrowser> browser = g_handler->GetBrowser();
-     wchar_t strPtr[MAX_URL_LENGTH+1] = {0};
-      *((LPWORD)strPtr) = MAX_URL_LENGTH;
-        LRESULT strLen = SendMessage(hWnd, EM_GETLINE, 0, (LPARAM)strPtr);
-        if (strLen > 0) {
-          strPtr[strLen] = 0;
-          browser->GetMainFrame()->LoadURL(strPtr);
-        }*/  
+}
+
+//-----
+//easy ...
+void NavigateTo(ClientHandler* g_ClientHandler, const wchar_t* url)
+{    
+	auto browser = g_ClientHandler->GetBrowser(); 
+	browser->GetMainFrame()->LoadURL(CefString(url)); 
+}
+void ExecJavascript(ClientHandler* g_ClientHandler, 
+	const wchar_t* jssource,
+	const wchar_t* scripturl)
+{
+	auto browser = g_ClientHandler->GetBrowser(); 
+	browser->GetMainFrame()->ExecuteJavaScript(CefString(jssource),
+		CefString(scripturl),0);
+} 
+void PostData(ClientHandler* g_ClientHandler, 
+	const wchar_t* url,
+	void* rawDataToPost,
+	size_t rawDataLength)
+{
+
+	 // Create a new request
+  CefRefPtr<CefRequest> request(CefRequest::Create());
+  
+  //Set the request URL
+  //eg. request->SetURL("http://tests/request");
+  request->SetURL(url);
+
+  // Add post data to the request.  The correct method and content-
+  // type headers will be set by CEF.
+  
+  CefRefPtr<CefPostDataElement> postDataElement(CefPostDataElement::Create());   
+  
+  //eg.  
+  /*std::string data = "arg1=val1&arg2=val2";
+  postDataElement->SetToBytes(data.length(), data.c_str());*/
+
+  postDataElement->SetToBytes(rawDataLength,rawDataToPost);
+  CefRefPtr<CefPostData> postData(CefPostData::Create());
+  postData->AddElement(postDataElement);
+  request->SetPostData(postData);
+
+  // Add a custom header
+  CefRequest::HeaderMap headerMap;
+  headerMap.insert(
+      std::make_pair("X-My-Header", "My Header Value"));
+  request->SetHeaderMap(headerMap);
+
+  // Load the request
+  auto browser = g_ClientHandler->GetBrowser(); 
+  browser->GetMainFrame()->LoadRequest(request); 
 }

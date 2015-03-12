@@ -30,19 +30,32 @@ extern "C"{
 	MY_DLL_EXPORT int MyCefShutDown();
 
 	//create new client handler for window
-	MY_DLL_EXPORT void* MyCefCreateClientHandler();
-	MY_DLL_EXPORT void MyCefSetupWindowsBegin(void* cefClientHandler, HWND parentWindow);
-	MY_DLL_EXPORT void MyCefSetupWindowsEnd(void* cefClientHandler,HWND hWndParent,int x,int y,int width,int height);
-
-	MY_DLL_EXPORT void MyCefCloseHandle();
+	MY_DLL_EXPORT ClientHandler* MyCefCreateClientHandler();
+	MY_DLL_EXPORT void MyCefSetupWindowsBegin(ClientHandler* cefClientHandler, HWND parentWindow);
+	MY_DLL_EXPORT void MyCefSetupWindowsEnd(ClientHandler* cefClientHandler,HWND hWndParent,int x,int y,int width,int height);
+	MY_DLL_EXPORT void MyCefCloseHandler(ClientHandler* cefClientHandler);
+	
 	MY_DLL_EXPORT bool MyCefUseMultiMessageLoop();
 	//---------------------------------------------------------------------
 	MY_DLL_EXPORT void MyCefRunMessageLoop();
 	MY_DLL_EXPORT void MyCefDoMessageLoopWork(); 
-	 
+	MY_DLL_EXPORT void MyCefQuitMessageLoop();
+	
 	//---------------------------------------------------------------------
-	MY_DLL_EXPORT void NavigateTo(void* g_ClientHandler, const wchar_t* url);
-	//---------------------------------------------------------------------
+	//easy ...
+	MY_DLL_EXPORT 
+	void NavigateTo(ClientHandler* g_ClientHandler, const wchar_t* url);
+	
+	MY_DLL_EXPORT 
+	void ExecJavascript(ClientHandler* g_ClientHandler, 
+		const wchar_t* jssource,
+		const wchar_t* scripturl);
+
+	MY_DLL_EXPORT 
+	void PostData(ClientHandler* g_ClientHandler, 
+		const wchar_t* jssource,
+		void* rawDataToPost,size_t rawDataLength);
+	//--------------------------------------------------------------------- 
 }
 
 

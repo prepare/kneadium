@@ -62,6 +62,7 @@
     <Reference Include="System.Windows.Forms" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="CefBridge\CefBrowserAgent.cs" />
     <Compile Include="Form\Form1.cs">
       <SubType>Form</SubType>
     </Compile>

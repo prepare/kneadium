@@ -270,10 +270,10 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam,
           GetClientRect(hWnd, &rect);         
 
 		  //1. create handler
-		  void* myclientHandler= MyCefCreateClientHandler();
+		  auto myclientHandler= MyCefCreateClientHandler();
 		  //2. set handler main windows
 
-		  g_handler = (ClientHandler*)myclientHandler;
+		  g_handler = myclientHandler;
 		  MyCefSetupWindowsBegin(myclientHandler, hWnd); 
 		  
           editWnd = CreateWindow(L"EDIT", 0,

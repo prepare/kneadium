@@ -59,10 +59,7 @@ namespace CefBridgeTest
                 Console.WriteLine(str);
             }
         }
-        void TestMe001()
-        {
 
-        }
 
 
         void tt_Tick(object sender, EventArgs e)
@@ -74,6 +71,24 @@ namespace CefBridgeTest
         private void button7_Click(object sender, EventArgs e)
         {
             this.cefWebBrowser1.NavigateTo("http://localhost/html5/mycanvas.html");
+        }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            cefWebBrowser1.Agent.ExecJavascript(
+                "window.open('http://localhost/html5/mycanvas.html');", "about:blank");
+
+        }
+
+        private void button2_Click(object sender, EventArgs e)
+        {
+            string data = "arg1=val1&arg2=val2";
+            byte[] dataBuffer = Encoding.UTF8.GetBytes(data);
+
+            cefWebBrowser1.Agent.PostData(
+                "http://tests/request",
+                dataBuffer, 
+                dataBuffer.Length);
 
         }
 

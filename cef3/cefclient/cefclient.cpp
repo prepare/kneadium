@@ -143,6 +143,7 @@ void RunRequestTest(CefRefPtr<CefBrowser> browser) {
 }
 
 void RunPopupTest(CefRefPtr<CefBrowser> browser) {
+
   browser->GetMainFrame()->ExecuteJavaScript(
       "window.open('http://www.google.com');", "about:blank", 0);
 }
