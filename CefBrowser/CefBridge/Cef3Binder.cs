@@ -18,6 +18,8 @@ namespace LayoutFarm.CefBridge
     [return: MarshalAs(UnmanagedType.LPWStr)]
     delegate string ManagedListenerDel3(int mIndex, [MarshalAs(UnmanagedType.LPWStr)]string methodName);
 
+    [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
+    public delegate void CefStringCallback(int id, [MarshalAs(UnmanagedType.LPWStr)]string content);
 
 
     static class Cef3Binder
@@ -169,12 +171,9 @@ namespace LayoutFarm.CefBridge
         public static extern void MyCefRunMessageLoop();
         [DllImport(CEF_CLIENT_DLL)]
         public static extern void MyCefDoMessageLoopWork();
-        
+
         [DllImport(CEF_CLIENT_DLL, CallingConvention = CallingConvention.Cdecl)]
         public static extern void MyCefCloseHandler(IntPtr handle);
-
-
-
 
         [DllImport(CEF_CLIENT_DLL, CharSet = CharSet.Unicode)]
         public static extern unsafe void NavigateTo(IntPtr clientHandler, string urlAddress);
@@ -183,7 +182,12 @@ namespace LayoutFarm.CefBridge
         public static extern void ExecJavascript(IntPtr clientHandler, string jssource, string scripturl);
 
         [DllImport(CEF_CLIENT_DLL, CallingConvention = CallingConvention.Cdecl, CharSet = CharSet.Unicode)]
-        public static unsafe extern void PostData(IntPtr clientHandler, string url, byte* data, int len);
+        public static extern void PostData(IntPtr clientHandler, string url, byte[] data, int len);
+
+        [DllImport(CEF_CLIENT_DLL, CallingConvention = CallingConvention.Cdecl, CharSet = CharSet.Unicode)]
+        public static extern void DomGetTextWalk(IntPtr g_ClientHandler, CefStringCallback strCallBack);
+        [DllImport(CEF_CLIENT_DLL, CallingConvention = CallingConvention.Cdecl, CharSet = CharSet.Unicode)]
+        public static extern void DomGetSourceWalk(IntPtr g_ClientHandler, CefStringCallback strCallBack);
 
 
         public static void SetupCefWindow(IntPtr clientHandler, IntPtr parentWindow,
@@ -193,8 +197,6 @@ namespace LayoutFarm.CefBridge
             Cef3Binder.MyCefSetupWindowsEnd(clientHandler, parentWindow, x, y, width, height);
             //Cef3Binder.MyCefDoMessageLoopWork();
         }
-
-
     }
 
     internal static class NativeMethods

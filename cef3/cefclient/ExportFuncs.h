@@ -22,7 +22,8 @@ extern "C"{
 
 	typedef void (*del02)(int oIndex,const wchar_t* methodName);
 	typedef const wchar_t* (*del03)(int oIndex,const wchar_t* methodName);
-	  
+	typedef const void (*del04)(int oIndex,const wchar_t* textContent);
+
 	MY_DLL_EXPORT int RegisterManagedCallBack(void* callback,int callBackKind);    
 	//---------------------------------------------------------------------
 	MY_DLL_EXPORT int MyCefGetVersion();
@@ -55,12 +56,18 @@ extern "C"{
 	void PostData(ClientHandler* g_ClientHandler, 
 		const wchar_t* jssource,
 		void* rawDataToPost,size_t rawDataLength);
+
+	MY_DLL_EXPORT 
+	void DomGetTextWalk(ClientHandler* g_ClientHandler,del04 strCallBack);
+	MY_DLL_EXPORT 
+	void DomGetSourceWalk(ClientHandler* g_ClientHandler,del04 strCallBack);
 	//--------------------------------------------------------------------- 
 }
 
 
 void ManagedCallBack(int id,const wchar_t* info); 
-const wchar_t* ManagedCallBack3(int id,const wchar_t* info);
+const wchar_t* ManagedCallBack3(int id,const wchar_t* info); 
+
 bool HasManagedCallBack(); 
 //---------------------------------------------------------------------
 #define MYCEF_BROWSER_URL_CHANGED  1000

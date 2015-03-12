@@ -7,6 +7,7 @@ using System.IO;
 
 namespace LayoutFarm.CefBridge
 {
+
     public class CefBrowserAgent
     {
         IntPtr cefBrowerAgent;
@@ -41,17 +42,25 @@ namespace LayoutFarm.CefBridge
         }
         public void PostData(string url, byte[] data, int len)
         {
-            unsafe
-            {
-                fixed (byte* h = &data[0])
-                {
-                    Cef3Binder.PostData(this.cefBrowerAgent, url, h, len);
-                }
-            }
-
+            Cef3Binder.PostData(this.cefBrowerAgent, url, data, len);
         }
 
-    }
+        public void GetText(CefStringCallback strCallback)
+        {
+            //keep alive callback
+            keepAliveCallBack.Add(strCallback);
+            Cef3Binder.DomGetTextWalk(this.cefBrowerAgent, strCallback);
+        }
 
+        public void GetSource(CefStringCallback strCallback)
+        {
+            //keep alive callback
+            keepAliveCallBack.Add(strCallback);
+            Cef3Binder.DomGetSourceWalk(this.cefBrowerAgent, strCallback);
+
+        }
+        List<CefStringCallback> keepAliveCallBack = new List<CefStringCallback>();
+
+    }
 
 }
