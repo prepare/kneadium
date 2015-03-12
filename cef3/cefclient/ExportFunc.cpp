@@ -159,3 +159,36 @@ void PostData(ClientHandler* g_ClientHandler,
   auto browser = g_ClientHandler->GetBrowser(); 
   browser->GetMainFrame()->LoadRequest(request); 
 }
+ 
+
+
+class MyCefStringVisitor : public CefStringVisitor {
+   public:
+    explicit MyCefStringVisitor(CefRefPtr<CefBrowser> browser, del04 strCallBack) : 
+			browser_(browser),
+			strCallBack_(strCallBack)
+			{}
+    virtual void Visit(const CefString& string) OVERRIDE {		  
+		strCallBack_(0,string.c_str()); 
+    }
+   private:
+    CefRefPtr<CefBrowser> browser_;
+	del04  strCallBack_;
+    IMPLEMENT_REFCOUNTING(Visitor);
+}; 
+
+void DomGetTextWalk(ClientHandler* g_ClientHandler,del04 strCallBack)
+{ 
+  auto browser1 = g_ClientHandler->GetBrowser();   
+  //TODO: check mem leak here
+  auto visitor= new MyCefStringVisitor(browser1,strCallBack); 
+  browser1->GetMainFrame()->GetText(visitor);
+
+}
+void DomGetSourceWalk(ClientHandler* g_ClientHandler,del04 strCallBack)
+{ 
+  auto browser1 = g_ClientHandler->GetBrowser();   
+  //TODO: check mem leak here
+  auto visitor= new MyCefStringVisitor(browser1,strCallBack); 
+  browser1->GetMainFrame()->GetSource(visitor);
+}

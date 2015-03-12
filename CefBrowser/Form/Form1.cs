@@ -87,9 +87,29 @@ namespace CefBridgeTest
 
             cefWebBrowser1.Agent.PostData(
                 "http://tests/request",
-                dataBuffer, 
+                dataBuffer,
                 dataBuffer.Length);
 
+        }
+
+        private void button3_Click(object sender, EventArgs e)
+        {
+
+            cefWebBrowser1.Agent.GetText(
+                (id, str) =>
+                {
+                    Console.WriteLine(str);
+                });
+
+        }
+
+        private void button4_Click(object sender, EventArgs e)
+        {
+            cefWebBrowser1.Agent.GetSource(
+                (id, str) =>
+                {
+                    Console.WriteLine(str);
+                });
         }
 
     }
