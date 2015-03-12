@@ -89,6 +89,37 @@ bool ParseTestUrl(const std::string& url,
 
 int ClientHandler::m_BrowserCount = 0;
 
+CefCallbackArgs::CefCallbackArgs()
+	:method_id(0),
+	input(NULL),
+	outputBuffer(NULL),
+	outputLen(0),
+	resultKind(0)
+{  
+
+} 
+const wchar_t* CefCallbackArgs::GetInputString()
+{
+	return this->input;
+}
+void CefCallbackArgs::SetInputString(CefString* inputstr)
+{	
+	//create new
+	size_t len = inputstr->length();
+	this->input = new wchar_t[len];
+	wcscpy(this->input,inputstr->c_str());	 
+}
+ 
+void CefCallbackArgs::SetOutputString(const void* dataBuffer,int len)
+{	
+	this->outputLen = len;
+	this->outputBuffer = new char[len];
+	memcpy(this->outputBuffer,dataBuffer,len);	 
+
+	this->resultKind =1;
+}
+ 
+//------------------------------------------------
 ClientHandler::ClientHandler()
   : m_MainHwnd(NULL),
     m_BrowserId(0),
@@ -98,6 +129,7 @@ ClientHandler::ClientHandler()
     m_ForwardHwnd(NULL),
     m_StopHwnd(NULL),
     m_ReloadHwnd(NULL),
+	_mcallback(NULL), //for managed callback
     m_bFocusOnEditableField(false) {
   CreateProcessMessageDelegates(process_message_delegates_);
 
@@ -465,15 +497,58 @@ CefRefPtr<CefResourceHandler> ClientHandler::GetResourceHandler(
       CefRefPtr<CefFrame> frame,
       CefRefPtr<CefRequest> request) {	 
   
-		  
    
+  if(this->_mcallback)
+  {
+	  //create  
+	  //managed call arg
+	  CefCallbackArgs callArgs; 
+	  auto url = request->GetURL();
+	  callArgs.SetInputString(&url);
+	  this->_mcallback(0,&callArgs); 
+	  //then check result*** 
+	  if(callArgs.resultKind >0)
+	  { 
+		  CefRefPtr<CefStreamReader> stream =
+          CefStreamReader::CreateForData(
+				callArgs.outputBuffer, 
+                callArgs.outputLen);
+		  ASSERT(stream.get()); 
+		  return new CefStreamResourceHandler("text/html", stream);
+	  } 
+  }
+  
+  std::string url = request->GetURL();
+  if (url.find(kTestOrigin) == 0) {
+    // Handle URLs in the test origin.
+    std::string file_name, mime_type;
+    if (ParseTestUrl(url, &file_name, &mime_type)) {
+      if (file_name == "request.html") {
+        // Show the request contents.
+        std::string dump;
+        DumpRequestContents(request, dump);
+        CefRefPtr<CefStreamReader> stream =
+            CefStreamReader::CreateForData(
+                static_cast<void*>(const_cast<char*>(dump.c_str())),
+                dump.size());
+        ASSERT(stream.get());
+        return new CefStreamResourceHandler("text/plain", stream);
+      } else {
+        // Load the resource from file.
+        CefRefPtr<CefStreamReader> stream =
+            GetBinaryResourceReader(file_name.c_str());
+        if (stream.get())
+          return new CefStreamResourceHandler(mime_type, stream);
+      }
+    }
+  }
+
   if(HasManagedCallBack())
   {
 	  
 	 const wchar_t*result= ManagedCallBack3(
-	 MYCEF_FILTER_URL_FOR_RESOURCE,
-	  request->GetURL().ToWString().c_str());
-	   
+		 MYCEF_FILTER_URL_FOR_RESOURCE,
+		 request->GetURL().ToWString().c_str()); 
 
 	  if(result){
 
@@ -492,32 +567,7 @@ CefRefPtr<CefResourceHandler> ClientHandler::GetResourceHandler(
 	  }
 	  
   }
-  //std::string url = request->GetURL();
-  //
-  //if (url.find(kTestOrigin) == 0) {
-  //  // Handle URLs in the test origin.
-  //  std::string file_name, mime_type;
-  //  if (ParseTestUrl(url, &file_name, &mime_type)) {
-  //    if (file_name == "request.html") {
-  //      // Show the request contents.
-  //      std::string dump;
-  //      DumpRequestContents(request, dump);
-  //      CefRefPtr<CefStreamReader> stream =
-  //          CefStreamReader::CreateForData(
-  //              static_cast<void*>(const_cast<char*>(dump.c_str())),
-  //              dump.size());
-  //      ASSERT(stream.get());
-  //      return new CefStreamResourceHandler("text/plain", stream);
-  //    } else {
-  //      // Load the resource from file.
-  //      CefRefPtr<CefStreamReader> stream =
-  //          GetBinaryResourceReader(file_name.c_str());
-  //      if (stream.get())
-  //        return new CefStreamResourceHandler(mime_type, stream);
-  //    }
-  //  }
-  //}
-
+  
   return NULL;
 }
 
@@ -813,6 +863,11 @@ void ClientHandler::BuildTestMenu(CefRefPtr<CefMenuModel> model) {
  // submenu->SetChecked(
  //     CLIENT_ID_TESTMENU_RADIOITEM1 + m_TestMenuState.radio_item, true);
 }
+void ClientHandler::SetManagedCallBack(managed_callback mcallback)
+{
+	this->_mcallback = mcallback;
+}
+
 
 bool ClientHandler::ExecuteTestMenu(int command_id) {
   if (command_id == CLIENT_ID_TESTMENU_CHECKITEM) {

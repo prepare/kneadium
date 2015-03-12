@@ -18,6 +18,38 @@
 // window.
 // #define TEST_REDIRECT_POPUP_URLS
 
+typedef void (*del02)(int oIndex,const wchar_t* methodName);
+typedef const wchar_t* (*del03)(int oIndex,const wchar_t* methodName);
+typedef void (*del04)(int oIndex,const wchar_t* textContent);
+
+
+class CefCallbackArgs
+{
+public:
+	CefCallbackArgs();
+	int method_id;
+	int resultKind;
+
+	//input
+	const wchar_t* GetInputString();
+	void SetInputString(CefString* inputstr);
+
+	 
+	void SetOutputString(const void* dataBuffer,int len);
+
+	wchar_t* input;
+	
+	//output blob***
+	void* outputBuffer;	 
+	int outputLen;
+
+private:	
+	
+	
+};
+
+typedef void (*managed_callback)(int id, CefCallbackArgs* args);
+
 
 // ClientHandler implementation.
 class ClientHandler : public CefClient,
@@ -266,6 +298,12 @@ class ClientHandler : public CefClient,
   void EndTracing();
 
   bool Save(const std::string& path, const std::string& data);
+   
+
+  //---------------------
+  void SetManagedCallBack(managed_callback mcallback);
+
+  //---------------------
 
  protected:
   void SetLoading(bool isLoading);
@@ -342,6 +380,13 @@ class ClientHandler : public CefClient,
   // Number of currently existing browser windows. The application will exit
   // when the number of windows reaches 0.
   static int m_BrowserCount;
+
+
+  //--------------------------------------
+  managed_callback _mcallback;
+  
+
+  //--------------------------------------
 
   // Include the default reference counting implementation.
   IMPLEMENT_REFCOUNTING(ClientHandler);

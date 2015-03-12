@@ -20,9 +20,6 @@
 
 extern "C"{
 
-	typedef void (*del02)(int oIndex,const wchar_t* methodName);
-	typedef const wchar_t* (*del03)(int oIndex,const wchar_t* methodName);
-	typedef const void (*del04)(int oIndex,const wchar_t* textContent);
 
 	MY_DLL_EXPORT int RegisterManagedCallBack(void* callback,int callBackKind);    
 	//---------------------------------------------------------------------
@@ -59,9 +56,20 @@ extern "C"{
 
 	MY_DLL_EXPORT 
 	void DomGetTextWalk(ClientHandler* g_ClientHandler,del04 strCallBack);
+	
 	MY_DLL_EXPORT 
 	void DomGetSourceWalk(ClientHandler* g_ClientHandler,del04 strCallBack);
+
+	MY_DLL_EXPORT 
+	void AgentRegisterManagedCallback(ClientHandler* g_ClientHandler,managed_callback callback);
 	//--------------------------------------------------------------------- 
+
+	MY_DLL_EXPORT 
+	void CefCallbackArgsSetOutputString(CefCallbackArgs* args,const void* outputBuffer,int len);
+
+	MY_DLL_EXPORT 
+	void CefCallbackArgsGetInputString(CefCallbackArgs* args,wchar_t* resultBuffer,int* len);
+	 
 }
 
 

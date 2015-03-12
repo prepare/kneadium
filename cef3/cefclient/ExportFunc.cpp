@@ -192,3 +192,19 @@ void DomGetSourceWalk(ClientHandler* g_ClientHandler,del04 strCallBack)
   auto visitor= new MyCefStringVisitor(browser1,strCallBack); 
   browser1->GetMainFrame()->GetSource(visitor);
 }
+void AgentRegisterManagedCallback(ClientHandler* g_ClientHandler,managed_callback callback)
+{
+	g_ClientHandler->SetManagedCallBack(callback);
+}
+
+	  
+void CefCallbackArgsSetOutputString(CefCallbackArgs* args,const void* outputBuffer,int len)
+{
+	args->SetOutputString(outputBuffer,len);
+} 
+void CefCallbackArgsGetInputString(CefCallbackArgs* args,wchar_t* resultBuffer,int* len)
+{	 
+    auto wstr= args->input;
+	*len = wcslen(wstr);
+	wcscpy(resultBuffer, wstr);
+}

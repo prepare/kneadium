@@ -21,6 +21,14 @@ namespace LayoutFarm.CefBridge
     [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
     public delegate void CefStringCallback(int id, [MarshalAs(UnmanagedType.LPWStr)]string content);
 
+    [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
+    unsafe delegate void AgentManagedCallback(int id, IntPtr args);
+
+
+    //typedef void (*managed_callback)(int id,
+    //const wchar_t* methodName,
+    //const wchar_t* inputDataString,
+    //void* outputDataBuffer,size_t outputLen);
 
     static class Cef3Binder
     {
@@ -34,7 +42,7 @@ namespace LayoutFarm.CefBridge
         static string libPath = @"..\\..\\..\\cef3\out\Release\";
         const string CEF_CLIENT_DLL = "cefclient.dll";
 #else
-        static string libPath = @"D:\famous_opensource_2_html_engine\cef4\cef_binary_3.1547.1412_windows32\out\Release\";
+        static string libPath = @"..\\..\\..\\cef3\out\Release\";
 #endif
 
         static ManagedListenerDel managedListener;
@@ -186,8 +194,22 @@ namespace LayoutFarm.CefBridge
 
         [DllImport(CEF_CLIENT_DLL, CallingConvention = CallingConvention.Cdecl, CharSet = CharSet.Unicode)]
         public static extern void DomGetTextWalk(IntPtr g_ClientHandler, CefStringCallback strCallBack);
+
         [DllImport(CEF_CLIENT_DLL, CallingConvention = CallingConvention.Cdecl, CharSet = CharSet.Unicode)]
         public static extern void DomGetSourceWalk(IntPtr g_ClientHandler, CefStringCallback strCallBack);
+
+
+        [DllImport(CEF_CLIENT_DLL, CallingConvention = CallingConvention.Cdecl)]
+        public static extern void AgentRegisterManagedCallback(IntPtr g_ClientHandler, AgentManagedCallback agentManagedCallback);
+
+
+        [DllImport(CEF_CLIENT_DLL, CallingConvention = CallingConvention.Cdecl)]
+        public static unsafe extern void CefCallbackArgsSetOutputString(IntPtr callArgsPtr,
+            byte* resultBuffer, int strlen);
+
+        [DllImport(CEF_CLIENT_DLL, CallingConvention = CallingConvention.Cdecl)]
+        internal static unsafe extern void CefCallbackArgsGetInputString(IntPtr callArgsPtr, char* resultBuffer, out int len);
+
 
 
         public static void SetupCefWindow(IntPtr clientHandler, IntPtr parentWindow,

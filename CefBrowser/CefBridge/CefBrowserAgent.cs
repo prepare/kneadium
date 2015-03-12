@@ -10,9 +10,11 @@ namespace LayoutFarm.CefBridge
 
     public class CefBrowserAgent
     {
+
+
         IntPtr cefBrowerAgent;
         IntPtr parentWindowHandler;
-
+        AgentManagedCallback managedCallback;
 
         internal CefBrowserAgent(IntPtr parentWindowHandler,
             int x, int y, int w, int h)
@@ -21,6 +23,10 @@ namespace LayoutFarm.CefBridge
             //create cef browser view handler  
             this.cefBrowerAgent = Cef3Binder.MyCefCreateClientHandler();
             Cef3Binder.SetupCefWindow(cefBrowerAgent, parentWindowHandler, x, y, w, h);
+
+            managedCallback = new AgentManagedCallback(this.OnNativePartCallBack);
+            Cef3Binder.AgentRegisterManagedCallback(this.cefBrowerAgent, managedCallback);
+
         }
 
         internal IntPtr Handle
@@ -61,6 +67,45 @@ namespace LayoutFarm.CefBridge
         }
         List<CefStringCallback> keepAliveCallBack = new List<CefStringCallback>();
 
-    }
 
+        void OnNativePartCallBack(int id, IntPtr callBackArgs)
+        {
+            NativeArgs nativeArgs = new NativeArgs(callBackArgs);
+            string requestURL = nativeArgs.GetInputString();
+            nativeArgs.SetOutputString(@"<http><body>Hello!</body></http>");
+
+        }
+    }
+    public struct NativeArgs
+    {
+        IntPtr argPtr;
+        public NativeArgs(IntPtr argPtr)
+        {
+            this.argPtr = argPtr;
+        }
+        public string GetInputString()
+        {
+            char[] resultBuffer = new char[1024];
+            int resultLen;
+            unsafe
+            {
+                fixed (char* h = &resultBuffer[0])
+                {
+                    Cef3Binder.CefCallbackArgsGetInputString(this.argPtr, h, out resultLen);
+                }
+            }
+            return new string(resultBuffer, 0, resultLen);
+        }
+        public void SetOutputString(string str)
+        {
+            byte[] buffer = Encoding.UTF8.GetBytes(str.ToCharArray());
+            unsafe
+            {
+                fixed (byte* b = &buffer[0])
+                {
+                    Cef3Binder.CefCallbackArgsSetOutputString(this.argPtr, b, buffer.Length);
+                }
+            }
+        }
+    }
 }
