@@ -203,24 +203,39 @@ void AgentRegisterManagedCallback(ClientHandler* g_ClientHandler,managed_callbac
 }
 
 	  
-void CefCallbackArgsSetOutputString(CefCallbackArgs* args,const void* outputBuffer,int len)
+void MyCefCbArgs_SetResultAsString(CefCallbackArgs* args,const void* outputBuffer,int len)
 {
 	args->SetOutputString(outputBuffer,len);
 } 
  
-
-jsvalue CefCallbackArgsGetInputString2(CefCallbackArgs* args)
-{ 
-	/*auto wstr= args->input;
-	auto len = wcslen(wstr);
-	wchar_t* buffer= new wchar_t[len]; 
-	wcsncpy(buffer,wstr,len);*/
-	auto wstr=(wchar_t*)args->arg1.value.str;
-	jsvalue txstr;
-	txstr.length = wcslen(wstr);
-	txstr.value.str = (uint16_t*)wstr; 
-	return txstr;	 
+jsvalue MyCefCbArgs_GetArg(CefCallbackArgs* args,int argIndex)
+{  
+	switch(argIndex)
+	{
+		case 0:
+			return args->arg0;
+		case 1:
+			return args->arg1;
+		case 2:
+			return args->arg2;
+		case 3:
+			return args->arg3;
+		case 4:
+			return args->arg4;
+	}
+	//empty
+	jsvalue v;
+	v.type =  JSVALUE_TYPE_EMPTY;
+	v.length =0;
+	return v;
+	 
+}  
+int MyCefCbArgs_ArgCount(CefCallbackArgs* args)
+{
+	return args->argCount;
 }
+
+
 void JsValueDispose(jsvalue value)
 {	
 	delete value.value.str;
@@ -237,8 +252,7 @@ class ProcessRequestArgs
 {
 public:
 	//call .net args...
-	CefRequest* req; 
-
+	CefRequest* req;  
 	//----------------
 	void* outputResult;
 };
@@ -315,7 +329,7 @@ class ClientSchemeHandler2 : public CefResourceHandler {
                                   CefString& redirectUrl) OVERRIDE {
     REQUIRE_IO_THREAD();
 
-    ASSERT(!data_.empty());
+    //ASSERT(!data_.empty());
 
     response->SetMimeType(mime_type_);
     response->SetStatus(200);

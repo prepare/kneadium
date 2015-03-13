@@ -89,15 +89,8 @@ bool ParseTestUrl(const std::string& url,
 
 int ClientHandler::m_BrowserCount = 0;
 
-CefCallbackArgs::CefCallbackArgs()
-	:method_id(0),
-	argCount(0), 
-	outputBuffer(NULL),
-	outputLen(0),
-	resultKind(0)
-{  	 
-
-
+CefCallbackArgs::CefCallbackArgs() 
+{  	  
 } 
  
 void CefCallbackArgs::SetOutputString(const void* dataBuffer,int len)
@@ -105,8 +98,7 @@ void CefCallbackArgs::SetOutputString(const void* dataBuffer,int len)
 	this->outputLen = len;
 	this->outputBuffer = new char[len];
 	memcpy(this->outputBuffer,dataBuffer,len);	 
-
-	this->resultKind =1;
+	this->resultKind =JSVALUE_TYPE_STRING;
 }
  
 //------------------------------------------------
@@ -482,6 +474,7 @@ void ClientHandler::OnRenderProcessTerminated(CefRefPtr<CefBrowser> browser,
     frame->LoadURL(startupURL);
 }
 
+
 CefRefPtr<CefResourceHandler> ClientHandler::GetResourceHandler(
       CefRefPtr<CefBrowser> browser,
       CefRefPtr<CefFrame> frame,
@@ -489,21 +482,17 @@ CefRefPtr<CefResourceHandler> ClientHandler::GetResourceHandler(
   
    
   if(this->_mcallback)
-  {
-	  //create  
-	  //managed call arg
-	  CefCallbackArgs callArgs; 
-	  auto url = request->GetURL();
-	  //covert to utf16
-	  jsvalue v;
-	  v.type =2; //eg.
-	  v.value.str = (uint16_t*)url.c_str();
+  {		
+	  CefCallbackArgs callArgs;
+	  memset(&callArgs,0,sizeof(CefCallbackArgs));
+	  //std::wstring str1 = request->GetURL();
+	  callArgs.arg0= ConvToJsValue(request->GetURL());
 	  
-	  //callArgs.SetInputString(&url);
-	  this->_mcallback(0,&callArgs); 
+	  this->_mcallback(2,&callArgs); 
 	  //then check result*** 
+
 	  if(callArgs.resultKind >0)
-	  { 
+	  {		
 		  CefRefPtr<CefStreamReader> stream =
           CefStreamReader::CreateForData(
 				callArgs.outputBuffer, 

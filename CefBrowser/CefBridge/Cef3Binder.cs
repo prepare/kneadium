@@ -21,7 +21,7 @@ namespace LayoutFarm.CefBridge
     [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
     public delegate void CefStringCallback(int id, [MarshalAs(UnmanagedType.LPWStr)]string content);
 
-    [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
+    [UnmanagedFunctionPointer(CallingConvention.StdCall)]
     unsafe delegate void AgentManagedCallback(int id, IntPtr args);
 
     struct MyTxString
@@ -32,7 +32,7 @@ namespace LayoutFarm.CefBridge
         {
             unsafe
             {
-                return new string((char*)data, 0, Len);               
+                return new string((char*)data, 0, Len);
             }
         }
         public void Dispose()
@@ -43,8 +43,81 @@ namespace LayoutFarm.CefBridge
             this.Len = 0;
         }
     }
+    [StructLayout(LayoutKind.Explicit)]
+    struct JsValue
+    {
+        [FieldOffset(0)]
+        public int I32;
+        [FieldOffset(0)]
+        public long I64;
+        [FieldOffset(0)]
+        public double Num;
+        /// <summary>
+        /// ptr from native side
+        /// </summary>
+        [FieldOffset(0)]
+        public IntPtr Ptr;
 
+        /// <summary>
+        /// offset(8)See JsValueType, marshaled as integer. 
+        /// </summary>
+        [FieldOffset(8)]
+        public JsValueType Type;
 
+        /// <summary>
+        /// offset(12) Length of array or string 
+        /// </summary>
+        [FieldOffset(12)]
+        public int Length;
+        /// <summary>
+        /// offset(12) managed object keepalive index. 
+        /// </summary>
+        [FieldOffset(12)]
+        public int Index;
+        public static JsValue Null
+        {
+            get { return new JsValue() { Type = JsValueType.Null }; }
+        }
+
+        public static JsValue Empty
+        {
+            get { return new JsValue() { Type = JsValueType.Empty }; }
+        }
+
+        public static JsValue Error(int slot)
+        {
+            return new JsValue { Type = JsValueType.ManagedError, Index = slot };
+        }
+
+        public override string ToString()
+        {
+            return string.Format("[JsValue({0})]", Type);
+        }
+    }
+    enum JsValueType
+    {
+        UnknownError = -1,
+        Empty = 0,
+        Null = 1,
+        Boolean = 2,
+        Integer = 3,
+        Number = 4,
+        String = 5,
+        Date = 6,
+        Index = 7,
+        Array = 10,
+        StringError = 11,
+        Managed = 12,
+        ManagedError = 13,
+        Wrapped = 14,
+        Dictionary = 15,
+        Error = 16,
+        Function = 17,
+
+        //---------------
+        //my extension
+        JsTypeWrap = 18
+    }
     //typedef void (*managed_callback)(int id,
     //const wchar_t* methodName,
     //const wchar_t* inputDataString,
@@ -59,7 +132,7 @@ namespace LayoutFarm.CefBridge
         static IntPtr hModule;
         //-------------------------------------------------
 #if DEBUG
-        static string libPath = @"..\\..\\..\\cef3\out\Release\";
+        static string libPath = @"..\\..\\..\\cef3\out\DEBUG\";
         const string CEF_CLIENT_DLL = "cefclient.dll";
 #else
         static string libPath = @"..\\..\\..\\cef3\out\Release\";
@@ -240,13 +313,15 @@ namespace LayoutFarm.CefBridge
 
 
         [DllImport(CEF_CLIENT_DLL, CallingConvention = CallingConvention.Cdecl)]
-        public static unsafe extern void CefCallbackArgsSetOutputString(IntPtr callArgsPtr,
+        internal static unsafe extern JsValue MyCefCbArgs_GetArg(IntPtr cbArgPtr, int index);
+
+
+        [DllImport(CEF_CLIENT_DLL, CallingConvention = CallingConvention.Cdecl)]
+        public static unsafe extern void MyCefCbArgs_SetResultAsString(IntPtr callArgsPtr,
             byte* resultBuffer, int strlen);
 
-        
-        [DllImport(CEF_CLIENT_DLL, CallingConvention = CallingConvention.Cdecl)]
-        internal static unsafe extern MyTxString CefCallbackArgsGetInputString2(IntPtr callArgsPtr);
 
+       
 
 
         [DllImport(CEF_CLIENT_DLL, CallingConvention = CallingConvention.Cdecl)]

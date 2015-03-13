@@ -24,7 +24,7 @@ namespace LayoutFarm.CefBridge
             this.cefBrowerAgent = Cef3Binder.MyCefCreateClientHandler();
             Cef3Binder.SetupCefWindow(cefBrowerAgent, parentWindowHandler, x, y, w, h);
 
-            managedCallback = new AgentManagedCallback(this.OnNativePartCallBack);
+            managedCallback = new AgentManagedCallback(this.OnUnmanagedPartCallBack);
             Cef3Binder.AgentRegisterManagedCallback(this.cefBrowerAgent, managedCallback);
 
         }
@@ -68,11 +68,12 @@ namespace LayoutFarm.CefBridge
 
         List<CefStringCallback> keepAliveCallBack = new List<CefStringCallback>();
 
-
-        void OnNativePartCallBack(int id, IntPtr callBackArgs)
+        void OnUnmanagedPartCallBack(int id, IntPtr callBackArgs)
         {
+
             NativeArgs nativeArgs = new NativeArgs(callBackArgs);
-            string requestURL = nativeArgs.GetInputString();
+            string requestURL = nativeArgs.GetArgAsString(0);
+
             //test change content here 
             if (requestURL.StartsWith("http://www.google.com"))
             {
@@ -80,6 +81,7 @@ namespace LayoutFarm.CefBridge
             }
         }
     }
+
     public struct NativeArgs
     {
         IntPtr argPtr;
@@ -87,12 +89,10 @@ namespace LayoutFarm.CefBridge
         {
             this.argPtr = argPtr;
         }
-        public string GetInputString()
+        public string GetArgAsString(int index)
         {
-            MyTxString ptr = Cef3Binder.CefCallbackArgsGetInputString2(this.argPtr);
-            string result = ptr.GetString();
-            //ptr.Dispose();
-            return result; 
+            var v = Cef3Binder.MyCefCbArgs_GetArg(argPtr, index);
+            return Marshal.PtrToStringUni(v.Ptr);
         }
         public void SetOutputString(string str)
         {
@@ -101,7 +101,7 @@ namespace LayoutFarm.CefBridge
             {
                 fixed (byte* b = &buffer[0])
                 {
-                    Cef3Binder.CefCallbackArgsSetOutputString(this.argPtr, b, buffer.Length);
+                    Cef3Binder.MyCefCbArgs_SetResultAsString(this.argPtr, b, buffer.Length);
                 }
             }
         }

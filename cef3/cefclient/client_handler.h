@@ -12,7 +12,7 @@
 #include <string>
 #include "include/cef_client.h"
 #include "cefclient/util.h"
-#include "mycef.h"
+#include "cefclient/mycef.h"
 
 // Define this value to redirect all popup URLs to the main application browser
 // window.
@@ -24,8 +24,9 @@ typedef const wchar_t* (*del03)(int oIndex,const wchar_t* methodName);
 typedef void (*del04)(int oIndex,const wchar_t* textContent);
 
 class CefCallbackArgs;
-typedef void (*managed_callback)(int id, CefCallbackArgs* args);  
-typedef void (*managed_callback2)(int id, void* args);
+
+typedef void (__stdcall *managed_callback)(int id, void* args);  
+typedef void (__stdcall  *managed_callback2)(int id, void* args);
 
  
 
@@ -34,18 +35,19 @@ class CefCallbackArgs
 public:
 	CefCallbackArgs();
 	int method_id;
-	
-	struct jsvalue arg0;
+	 
+	struct jsvalue arg0;//this arg for instant method
 	struct jsvalue arg1;
 	struct jsvalue arg2;
-	struct jsvalue arg3; 
+	struct jsvalue arg3;
+	struct jsvalue arg4;
 
 	void* outputBuffer;	 
 	int outputLen;
 	int resultKind;
 	int argCount;
+
 	void SetOutputString(const void* dataBuffer,int len);  
-private:	 
 };
 
 

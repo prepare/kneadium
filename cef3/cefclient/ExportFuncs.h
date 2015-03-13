@@ -78,7 +78,7 @@ extern "C"{
 	//--------------------------------------------------------------------- 
 
 	MY_DLL_EXPORT 
-	void CefCallbackArgsSetOutputString(CefCallbackArgs* args,const void* outputBuffer,int len);
+	void MyCefCbArgs_SetResultAsString(CefCallbackArgs* args,const void* outputBuffer,int len);
  
 	//--------------------------------------------------------------------- 
 	MY_DLL_EXPORT 
@@ -86,8 +86,9 @@ extern "C"{
 
 	//--------------------------------------------------------------------- 
 	MY_DLL_EXPORT 
-    jsvalue CefCallbackArgsGetInputString2(CefCallbackArgs* args);
-	 
+    jsvalue MyCefCbArgs_GetArg(CefCallbackArgs* args,int argIndex);
+	MY_DLL_EXPORT 
+    int MyCefCbArgs_ArgCount(CefCallbackArgs* args);
 	//--------------------------------------------------------------------- 
 	//scheme and request
 	MY_DLL_EXPORT 

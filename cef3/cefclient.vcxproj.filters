@@ -378,7 +378,7 @@
     <ClInclude Include="cefclient\Common_win.h">
       <Filter>cefclient\CoreApp</Filter>
     </ClInclude>
-    <ClInclude Include="mycef.h">
+    <ClInclude Include="cefclient\mycef.h">
       <Filter>cefclient\CoreApp</Filter>
     </ClInclude>
   </ItemGroup>
@@ -436,6 +436,9 @@
     </ClCompile>
     <ClCompile Include="cefclient\main.cpp">
       <Filter>cefclient\Modified</Filter>
+    </ClCompile>
+    <ClCompile Include="cefclient\mycef_impl.cpp">
+      <Filter>cefclient\CoreApp</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
