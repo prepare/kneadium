@@ -381,6 +381,7 @@
     <ClInclude Include="cefclient\client_renderer.h" />
     <ClInclude Include="cefclient\osrenderer.h" />
     <ClInclude Include="cefclient\performance_test_setup.h" />
+    <ClInclude Include="mycef.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="cefclient\CommonModule.cpp" />

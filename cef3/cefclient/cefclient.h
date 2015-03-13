@@ -8,12 +8,8 @@
 
 #include <string>
 #include "include/cef_base.h"
-#include "cefclient/client_app.h"
-
-
-
-
-
+#include "cefclient/client_app.h" 
+#include "mycef.h"
 
 class CefApp;
 class CefBrowser;
@@ -52,6 +48,9 @@ void RunRequestTest(CefRefPtr<CefBrowser> browser);
 void RunPopupTest(CefRefPtr<CefBrowser> browser);
 void RunPluginInfoTest(CefRefPtr<CefBrowser> browser);
 void RunOtherTests(CefRefPtr<CefBrowser> browser);
+
+
+
 
 #if defined(OS_WIN)
 void RunTransparentPopupTest(CefRefPtr<CefBrowser> browser);

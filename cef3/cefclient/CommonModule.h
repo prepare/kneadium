@@ -18,10 +18,11 @@
 
 std::string MyAppGetWorkingDirectory();
 void MyCefInitWorkingDir();
-int MyAppInit01(HINSTANCE hInstance);
+int MyAppInit01(HINSTANCE hInstance,CefRefPtr<ClientApp> app);
 bool IsMultiMessageLoopApp(); 
 //---------------------------------------------------------------------------
 void MySetupWindowsEnd(HWND hWndParent,int x,int y,int width,int height);
 std::string AppGetWorkingDirectory();
+
 
 

@@ -12,11 +12,15 @@
 #include <utility>
 #include <vector>
 #include "include/cef_app.h"
+#include "client_handler.h"
 
 class ClientApp : public CefApp,
                   public CefBrowserProcessHandler,
                   public CefRenderProcessHandler {
  public:
+
+  managed_callback myMxCallback; 
+
   // Interface for browser delegates. All BrowserDelegates must be returned via
   // CreateBrowserDelegates. Do not perform work in the BrowserDelegate
   // constructor. See CefBrowserProcessHandler for documentation.
@@ -125,7 +129,8 @@ class ClientApp : public CefApp,
   static void CreateRenderDelegates(RenderDelegateSet& delegates);
 
   // Registers custom schemes. Implemented in client_app_delegates.
-  static void RegisterCustomSchemes(CefRefPtr<CefSchemeRegistrar> registrar,
+ 
+  void RegisterCustomSchemes(CefRefPtr<CefSchemeRegistrar> registrar,
                                     std::vector<CefString>& cookiable_schemes);
 
   // CefApp methods.

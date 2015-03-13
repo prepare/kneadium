@@ -63,6 +63,8 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="CefBridge\CefBrowserAgent.cs" />
+    <Compile Include="CefBridge\ClientApp.cs" />
+    <Compile Include="CefBridge\CustomSchemeAgent.cs" />
     <Compile Include="Form\Form1.cs">
       <SubType>Form</SubType>
     </Compile>

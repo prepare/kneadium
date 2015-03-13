@@ -60,11 +60,15 @@ bool HasManagedCallBack()
 	{
 		return false;
 	}
+} 
+ClientApp* MyCefCreateClientApp()
+{
+	return new ClientApp();
 }
-//ClientHandler* MyCefCreateClientHandler()
-//{	
-//	return new ClientHandler();
-//}
+void MyCefClientAppSetManagedCallback(ClientApp* clientApp,managed_callback myMxCallback)
+{
+	clientApp->myMxCallback = myMxCallback;
+}
 ClientHandler* MyCefCreateClientHandler()
 {	
 	return new ClientHandler();
@@ -83,9 +87,10 @@ bool MyCefUseMultiMessageLoop()
 	return IsMultiMessageLoopApp();
 }
  
-int MyCefInit(HINSTANCE hInstance)//,CefSettings* settings)
-{	 
-	return MyAppInit01(hInstance);  
+int MyCefInit(HINSTANCE hInstance,ClientApp* app)//,CefSettings* settings)
+{	  
+	CefRefPtr<ClientApp> myApp = app;
+	return MyAppInit01(hInstance,myApp);  
 }
 
  void MyCefDoMessageLoopWork()
@@ -202,9 +207,206 @@ void CefCallbackArgsSetOutputString(CefCallbackArgs* args,const void* outputBuff
 {
 	args->SetOutputString(outputBuffer,len);
 } 
-void CefCallbackArgsGetInputString(CefCallbackArgs* args,wchar_t* resultBuffer,int* len)
+ 
+
+jsvalue CefCallbackArgsGetInputString2(CefCallbackArgs* args)
+{ 
+	/*auto wstr= args->input;
+	auto len = wcslen(wstr);
+	wchar_t* buffer= new wchar_t[len]; 
+	wcsncpy(buffer,wstr,len);*/
+	auto wstr=(wchar_t*)args->arg1.value.str;
+	jsvalue txstr;
+	txstr.length = wcslen(wstr);
+	txstr.value.str = (uint16_t*)wstr; 
+	return txstr;	 
+}
+void JsValueDispose(jsvalue value)
+{	
+	delete value.value.str;
+}
+void CefRequest_GetURL(CefRequest* req,wchar_t* resultBuffer,int* len)
+{		 
+	auto url= req->GetURL().c_str(); 
+	*len = wcslen(url);
+	wcscpy(resultBuffer, url);
+}
+
+//-----------------------------------------------------------
+class ProcessRequestArgs
+{
+public:
+	//call .net args...
+	CefRequest* req; 
+
+	//----------------
+	void* outputResult;
+};
+
+
+typedef void (*ClientSchemeHandler2_ProcessRequestCb)(int id, CefRequest* cefRequest);
+
+class ClientSchemeHandler2 : public CefResourceHandler {
+ public:
+  
+  ClientSchemeHandler2_ProcessRequestCb processReqCb;
+
+  ClientSchemeHandler2() : offset_(0) {}
+
+  virtual bool ProcessRequest(CefRefPtr<CefRequest> request,
+                              CefRefPtr<CefCallback> callback)
+                              OVERRIDE {
+    REQUIRE_IO_THREAD();
+
+    bool handled = false; 
+    AutoLock lock_scope(this);
+	if(processReqCb)
+	{	
+
+		processReqCb(0,request);
+
+	}
+	////send to 
+ //   std::string url = request->GetURL();
+ //   if (strstr(url.c_str(), "handler.html") != NULL) {
+ //     // Build the response html
+ //     data_ = "<html><head><title>Client Scheme Handler</title></head><body>"
+ //             "This contents of this page page are served by the "
+ //             "ClientSchemeHandler class handling the client:// protocol."
+ //             "<br/>You should see an image:"
+ //             "<br/><img src=\"client://tests/client.png\"><pre>";
+
+ //     // Output a string representation of the request
+ //     std::string dump;
+ //     DumpRequestContents(request, dump);
+ //     data_.append(dump);
+
+ //     data_.append("</pre><br/>Try the test form:"
+ //                  "<form method=\"POST\" action=\"handler.html\">"
+ //                  "<input type=\"text\" name=\"field1\">"
+ //                  "<input type=\"text\" name=\"field2\">"
+ //                  "<input type=\"submit\">"
+ //                  "</form></body></html>");
+
+ //     handled = true;
+
+ //     // Set the resulting mime type
+ //     mime_type_ = "text/html";
+ //   } else if (strstr(url.c_str(), "client.png") != NULL) {
+ //     // Load the response image
+ //     if (LoadBinaryResource("logo.png", data_)) {
+ //       handled = true;
+ //       // Set the resulting mime type
+ //       mime_type_ = "image/png";
+ //     }
+ //   }
+
+ //   if (handled) {
+ //     // Indicate the headers are available.
+ //     callback->Continue();
+ //     return true;
+ //   }
+
+    return false;
+  }
+
+  virtual void GetResponseHeaders(CefRefPtr<CefResponse> response,
+                                  int64& response_length,
+                                  CefString& redirectUrl) OVERRIDE {
+    REQUIRE_IO_THREAD();
+
+    ASSERT(!data_.empty());
+
+    response->SetMimeType(mime_type_);
+    response->SetStatus(200);
+
+    // Set the resulting response length
+    response_length = dataLen;
+  }
+
+  virtual void Cancel() OVERRIDE {
+    REQUIRE_IO_THREAD();
+  }
+
+  virtual bool ReadResponse(void* data_out,
+                            int bytes_to_read,
+                            int& bytes_read,
+                            CefRefPtr<CefCallback> callback)
+                            OVERRIDE {
+    REQUIRE_IO_THREAD();
+
+    bool has_data = false;
+    bytes_read = 0;
+
+    AutoLock lock_scope(this);
+
+    if (offset_ < dataLen) {
+      // Copy the next block of data into the buffer.
+      int transfer_size =
+          std::min(bytes_to_read, static_cast<int>(dataLen - offset_));
+      memcpy(data_out, (char*)data_ + offset_, transfer_size);
+      offset_ += transfer_size;
+
+      bytes_read = transfer_size;
+      has_data = true;
+    }
+
+    return has_data;
+  }
+
+ private:
+  
+  void* data_; //content is binary blob
+  size_t dataLen;
+
+  std::string mime_type_;
+  size_t offset_;
+
+  IMPLEMENT_REFCOUNTING(ClientSchemeHandler2);
+  IMPLEMENT_LOCKING(ClientSchemeHandler2);
+};
+class ClientSchemeHandlerFactory2 : public CefSchemeHandlerFactory {
+ public:
+	 //call to manaed side to create 
+  managed_callback2  callback2_newSchemeHandler;
+  // Return a new scheme handler instance to handle the request.
+  virtual CefRefPtr<CefResourceHandler> Create(CefRefPtr<CefBrowser> browser,
+                                               CefRefPtr<CefFrame> frame,
+                                               const CefString& scheme_name,
+                                               CefRefPtr<CefRequest> request)
+                                               OVERRIDE {
+    REQUIRE_IO_THREAD();
+
+	
+	ClientSchemeHandler2* newHandler= new ClientSchemeHandler2();
+	//ask .net side for new scheme handler***
+	
+	//callback2_newSchemeHandler(0,
+
+    return newHandler;
+  }
+  IMPLEMENT_REFCOUNTING(ClientSchemeHandlerFactory2);
+};
+
+
+
+//scheme
+CefSchemeHandlerFactory* MyCef_CreateSchemeHandlerFactory(managed_callback2 callback2_newSchemeHandler)
 {	 
-    auto wstr= args->input;
-	*len = wcslen(wstr);
-	wcscpy(resultBuffer, wstr);
+	//call from .net side		
+	
+	ClientSchemeHandlerFactory2* schemeFactory2= new ClientSchemeHandlerFactory2();
+	schemeFactory2->callback2_newSchemeHandler=callback2_newSchemeHandler;
+	return schemeFactory2;
+}
+//-----------------------------------------------------------
+void MyCef_CefRegisterSchemeHandlerFactory(  
+	const wchar_t* schemeName,
+	const wchar_t* startURL,
+    CefSchemeHandlerFactory* clientSchemeHandlerFactoryObject)
+{ 
+	CefRegisterSchemeHandlerFactory(
+		schemeName,
+		startURL,
+		clientSchemeHandlerFactoryObject);
 }

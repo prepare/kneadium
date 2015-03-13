@@ -22,6 +22,13 @@ void ClientApp::CreateRenderDelegates(RenderDelegateSet& delegates) {
 // static
 void ClientApp::RegisterCustomSchemes(
     CefRefPtr<CefSchemeRegistrar> registrar,
-  std::vector<CefString>& cookiable_schemes) {
-  scheme_test::RegisterCustomSchemes(registrar, cookiable_schemes);
+    std::vector<CefString>& cookiable_schemes)
+{
+	if(this->myMxCallback)
+	{  
+		//send to
+		myMxCallback(0,NULL);
+	}
+	//others...
+	scheme_test::RegisterCustomSchemes(registrar, cookiable_schemes);
 }

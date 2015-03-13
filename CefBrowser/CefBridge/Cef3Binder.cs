@@ -24,6 +24,26 @@ namespace LayoutFarm.CefBridge
     [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
     unsafe delegate void AgentManagedCallback(int id, IntPtr args);
 
+    struct MyTxString
+    {
+        public int Len;
+        public IntPtr data;
+        public string GetString()
+        {
+            unsafe
+            {
+                return new string((char*)data, 0, Len);               
+            }
+        }
+        public void Dispose()
+        {
+            Cef3Binder.DisposeTxString(this);
+            //clear unmanaged memory
+            this.data = IntPtr.Zero;
+            this.Len = 0;
+        }
+    }
+
 
     //typedef void (*managed_callback)(int id,
     //const wchar_t* methodName,
@@ -50,7 +70,8 @@ namespace LayoutFarm.CefBridge
         static IntPtr cef3CallbackPtr;
         static IntPtr cef3CallbackPtr_3;
         static bool _loadCef3Success = false;
-
+        static CefClientApp clientApp;
+        static CustomSchemeAgent customScheme;
 
         //-------------------------------------------------
         public static bool IsLoadCef3Success()
@@ -93,8 +114,19 @@ namespace LayoutFarm.CefBridge
             regResult = RegisterManagedCallBack(cef3CallbackPtr_3, 3);
             //-----------------------------------------------------------
             //init cef 
-            int result2 = MyCefInit(System.Diagnostics.Process.GetCurrentProcess().Handle);
 
+            clientApp = new CefClientApp();
+            //set some scheme here
+
+
+            clientApp.InitWithProcessHandle(System.Diagnostics.Process.GetCurrentProcess().Handle);
+
+            //-----------------------------------------------------------
+            //test***
+            //register custom scheme 
+
+
+            //-----------------------------------------------------------
 
             // if (!MyCefUseMultiMessageLoop())
             //{
@@ -106,7 +138,7 @@ namespace LayoutFarm.CefBridge
             // }
 
             Console.WriteLine(regResult);
-            Console.WriteLine(result2);
+
 
         }
         static bool LoadLibCef()
@@ -157,10 +189,14 @@ namespace LayoutFarm.CefBridge
         public static extern int MyCefGetVersion();
 
         [DllImport(CEF_CLIENT_DLL)]
-        public static extern IntPtr MyCefCreateAppInitializer(IntPtr hInstance);
+        internal static extern IntPtr MyCefCreateClientApp();
 
         [DllImport(CEF_CLIENT_DLL)]
-        public static extern int MyCefInit(IntPtr appInitializer);
+        internal static extern void MyCefClientAppSetManagedCallback(IntPtr clientApp, AgentManagedCallback callback);
+
+
+        [DllImport(CEF_CLIENT_DLL)]
+        public static extern int MyCefInit(IntPtr processHandle, IntPtr clientAppHandle);
 
         [DllImport(CEF_CLIENT_DLL)]
         public static extern bool MyCefUseMultiMessageLoop();
@@ -207,9 +243,21 @@ namespace LayoutFarm.CefBridge
         public static unsafe extern void CefCallbackArgsSetOutputString(IntPtr callArgsPtr,
             byte* resultBuffer, int strlen);
 
+        
         [DllImport(CEF_CLIENT_DLL, CallingConvention = CallingConvention.Cdecl)]
-        internal static unsafe extern void CefCallbackArgsGetInputString(IntPtr callArgsPtr, char* resultBuffer, out int len);
+        internal static unsafe extern MyTxString CefCallbackArgsGetInputString2(IntPtr callArgsPtr);
 
+
+
+        [DllImport(CEF_CLIENT_DLL, CallingConvention = CallingConvention.Cdecl)]
+        internal static unsafe extern void MyCef_CefRegisterSchemeHandlerFactory(
+           string schemeName,
+           string startURL,
+           IntPtr clientSchemeHandlerFactoryObject);
+
+
+        [DllImport(CEF_CLIENT_DLL, CallingConvention = CallingConvention.Cdecl)]
+        internal static extern void DisposeTxString(MyTxString myTxString);
 
 
         public static void SetupCefWindow(IntPtr clientHandler, IntPtr parentWindow,

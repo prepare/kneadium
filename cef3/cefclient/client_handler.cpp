@@ -91,24 +91,14 @@ int ClientHandler::m_BrowserCount = 0;
 
 CefCallbackArgs::CefCallbackArgs()
 	:method_id(0),
-	input(NULL),
+	argCount(0), 
 	outputBuffer(NULL),
 	outputLen(0),
 	resultKind(0)
-{  
+{  	 
+
 
 } 
-const wchar_t* CefCallbackArgs::GetInputString()
-{
-	return this->input;
-}
-void CefCallbackArgs::SetInputString(CefString* inputstr)
-{	
-	//create new
-	size_t len = inputstr->length();
-	this->input = new wchar_t[len];
-	wcscpy(this->input,inputstr->c_str());	 
-}
  
 void CefCallbackArgs::SetOutputString(const void* dataBuffer,int len)
 {	
@@ -504,7 +494,12 @@ CefRefPtr<CefResourceHandler> ClientHandler::GetResourceHandler(
 	  //managed call arg
 	  CefCallbackArgs callArgs; 
 	  auto url = request->GetURL();
-	  callArgs.SetInputString(&url);
+	  //covert to utf16
+	  jsvalue v;
+	  v.type =2; //eg.
+	  v.value.str = (uint16_t*)url.c_str();
+	  
+	  //callArgs.SetInputString(&url);
 	  this->_mcallback(0,&callArgs); 
 	  //then check result*** 
 	  if(callArgs.resultKind >0)
@@ -541,33 +536,7 @@ CefRefPtr<CefResourceHandler> ClientHandler::GetResourceHandler(
           return new CefStreamResourceHandler(mime_type, stream);
       }
     }
-  }
-
-  if(HasManagedCallBack())
-  {
-	  
-	 const wchar_t*result= ManagedCallBack3(
-		 MYCEF_FILTER_URL_FOR_RESOURCE,
-		 request->GetURL().ToWString().c_str()); 
-
-	  if(result){
-
-
-		 CefString cc= CefString(result);
-		 const char* tt= cc.ToString().c_str();
-		 
-		 CefRefPtr<CefStreamReader> stream =
-             CefStreamReader::CreateForData(
-             static_cast<void*>(const_cast<char*>(tt)),
-			 cc.length());
-              
-
-		 ASSERT(stream.get());
-		 return new CefStreamResourceHandler("text/html", stream);
-	  }
-	  
-  }
-  
+  } 
   return NULL;
 }
 

@@ -1,3 +1,4 @@
+
 #include "cefclient/cefclient.h"
 #include <windows.h>
 #include <commdlg.h>
@@ -18,13 +19,25 @@
 
 #define MY_DLL_EXPORT __declspec(dllexport) 
 
+
+
+
 extern "C"{
 
 
 	MY_DLL_EXPORT int RegisterManagedCallBack(void* callback,int callBackKind);    
 	//---------------------------------------------------------------------
 	MY_DLL_EXPORT int MyCefGetVersion();
-	MY_DLL_EXPORT int MyCefInit(HINSTANCE hInstance);
+	//---------------------------------------------------------------------
+
+	MY_DLL_EXPORT
+    ClientApp* MyCefCreateClientApp();
+
+	MY_DLL_EXPORT
+	void MyCefClientAppSetManagedCallback(ClientApp* clientApp,managed_callback myMxCallback);
+	
+	//---------------------------------------------------------------------
+	MY_DLL_EXPORT int MyCefInit(HINSTANCE hInstance,ClientApp* app);
 	MY_DLL_EXPORT int MyCefShutDown();
 
 	//create new client handler for window
@@ -37,8 +50,8 @@ extern "C"{
 	//---------------------------------------------------------------------
 	MY_DLL_EXPORT void MyCefRunMessageLoop();
 	MY_DLL_EXPORT void MyCefDoMessageLoopWork(); 
-	MY_DLL_EXPORT void MyCefQuitMessageLoop();
-	
+	MY_DLL_EXPORT void MyCefQuitMessageLoop(); 
+
 	//---------------------------------------------------------------------
 	//easy ...
 	MY_DLL_EXPORT 
@@ -66,10 +79,29 @@ extern "C"{
 
 	MY_DLL_EXPORT 
 	void CefCallbackArgsSetOutputString(CefCallbackArgs* args,const void* outputBuffer,int len);
+ 
+	//--------------------------------------------------------------------- 
+	MY_DLL_EXPORT 
+	void DisposeJsValue(jsvalue myTxStr);
+
+	//--------------------------------------------------------------------- 
+	MY_DLL_EXPORT 
+    jsvalue CefCallbackArgsGetInputString2(CefCallbackArgs* args);
+	 
+	//--------------------------------------------------------------------- 
+	//scheme and request
+	MY_DLL_EXPORT 
+	void MyCef_CefRegisterSchemeHandlerFactory(
+			const wchar_t* schemeName,
+			const wchar_t* startURL,
+			CefSchemeHandlerFactory* clientSchemeHandlerFactoryObject);
 
 	MY_DLL_EXPORT 
-	void CefCallbackArgsGetInputString(CefCallbackArgs* args,wchar_t* resultBuffer,int* len);
-	 
+    CefSchemeHandlerFactory* MyCef_CreateSchemeHandlerFactory();
+
+	MY_DLL_EXPORT
+	void CefRequest_GetURL(CefRequest* req,wchar_t* resultBuffer,int len); 
+	//---------------------------------------------------------------------  
 }
 
 
@@ -83,3 +115,4 @@ bool HasManagedCallBack();
 #define MYCEF_BROWSER_SEND_NOTIFICATION  1002
 #define MYCEF_FILTER_URL_FOR_RESOURCE  1003
 //---------------------------------------------------------------------
+//

@@ -12,43 +12,43 @@
 #include <string>
 #include "include/cef_client.h"
 #include "cefclient/util.h"
-
+#include "mycef.h"
 
 // Define this value to redirect all popup URLs to the main application browser
 // window.
 // #define TEST_REDIRECT_POPUP_URLS
 
+
 typedef void (*del02)(int oIndex,const wchar_t* methodName);
 typedef const wchar_t* (*del03)(int oIndex,const wchar_t* methodName);
 typedef void (*del04)(int oIndex,const wchar_t* textContent);
 
+class CefCallbackArgs;
+typedef void (*managed_callback)(int id, CefCallbackArgs* args);  
+typedef void (*managed_callback2)(int id, void* args);
+
+ 
 
 class CefCallbackArgs
 {
 public:
 	CefCallbackArgs();
 	int method_id;
-	int resultKind;
-
-	//input
-	const wchar_t* GetInputString();
-	void SetInputString(CefString* inputstr);
-
-	 
-	void SetOutputString(const void* dataBuffer,int len);
-
-	wchar_t* input;
 	
-	//output blob***
+	struct jsvalue arg0;
+	struct jsvalue arg1;
+	struct jsvalue arg2;
+	struct jsvalue arg3; 
+
 	void* outputBuffer;	 
 	int outputLen;
-
-private:	
-	
-	
+	int resultKind;
+	int argCount;
+	void SetOutputString(const void* dataBuffer,int len);  
+private:	 
 };
 
-typedef void (*managed_callback)(int id, CefCallbackArgs* args);
+
 
 
 // ClientHandler implementation.

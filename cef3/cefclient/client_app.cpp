@@ -176,6 +176,8 @@ class ClientAppExtensionHandler : public CefV8Handler {
 
 
 ClientApp::ClientApp() {
+
+  myMxCallback= NULL;
   CreateBrowserDelegates(browser_delegates_);
   CreateRenderDelegates(render_delegates_);
 

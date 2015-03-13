@@ -378,6 +378,9 @@
     <ClInclude Include="cefclient\Common_win.h">
       <Filter>cefclient\CoreApp</Filter>
     </ClInclude>
+    <ClInclude Include="mycef.h">
+      <Filter>cefclient\CoreApp</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="cefclient\ExportFunc.cpp">

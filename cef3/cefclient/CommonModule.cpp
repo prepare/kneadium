@@ -19,13 +19,12 @@ void MyCefInitWorkingDir()
 		szWorkingDir[0] = 0;
 	}
 }
-int MyAppInit01(HINSTANCE hInstance)
+int MyAppInit01(HINSTANCE hInstance,CefRefPtr<ClientApp> app)
 {	
-	
+   
 	//---------------------
    CefMainArgs main_args(hInstance);
-   CefRefPtr<ClientApp> app(new ClientApp);
-
+   //--------------------- 
    //Execute the secondary process, if any.
    int exit_code = CefExecuteProcess(main_args, app.get());
    if (exit_code >= 0){

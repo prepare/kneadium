@@ -84,7 +84,9 @@ int APIENTRY wWinMain(HINSTANCE hInstance,
   UNREFERENCED_PARAMETER(hPrevInstance);
   UNREFERENCED_PARAMETER(lpCmdLine); 
   //=====================================
-  int initcode= MyAppInit01(hInstance);
+  CefRefPtr<ClientApp> app(new ClientApp);
+  int initcode= MyAppInit01(hInstance,app);
+
   if(initcode >=0){  
       return initcode;
   }

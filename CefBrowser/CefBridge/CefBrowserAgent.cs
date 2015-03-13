@@ -65,6 +65,7 @@ namespace LayoutFarm.CefBridge
             Cef3Binder.DomGetSourceWalk(this.cefBrowerAgent, strCallback);
 
         }
+
         List<CefStringCallback> keepAliveCallBack = new List<CefStringCallback>();
 
 
@@ -72,8 +73,11 @@ namespace LayoutFarm.CefBridge
         {
             NativeArgs nativeArgs = new NativeArgs(callBackArgs);
             string requestURL = nativeArgs.GetInputString();
-            nativeArgs.SetOutputString(@"<http><body>Hello!</body></http>");
-
+            //test change content here 
+            if (requestURL.StartsWith("http://www.google.com"))
+            {
+                nativeArgs.SetOutputString(@"<http><body>Hello!</body></http>");
+            }
         }
     }
     public struct NativeArgs
@@ -85,16 +89,10 @@ namespace LayoutFarm.CefBridge
         }
         public string GetInputString()
         {
-            char[] resultBuffer = new char[1024];
-            int resultLen;
-            unsafe
-            {
-                fixed (char* h = &resultBuffer[0])
-                {
-                    Cef3Binder.CefCallbackArgsGetInputString(this.argPtr, h, out resultLen);
-                }
-            }
-            return new string(resultBuffer, 0, resultLen);
+            MyTxString ptr = Cef3Binder.CefCallbackArgsGetInputString2(this.argPtr);
+            string result = ptr.GetString();
+            //ptr.Dispose();
+            return result; 
         }
         public void SetOutputString(string str)
         {
