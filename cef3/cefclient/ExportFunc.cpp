@@ -203,9 +203,12 @@ void AgentRegisterManagedCallback(ClientHandler* g_ClientHandler,managed_callbac
 }
 
 	  
-void MyCefCbArgs_SetResultAsString(CefCallbackArgs* args,const void* outputBuffer,int len)
+void MyCefCbArgs_SetResultAsBuffer(CefCallbackArgs* args,
+	int resultIndex,
+	const void* outputBuffer,
+	int len)
 {
-	args->SetOutputString(outputBuffer,len);
+	args->SetOutputString(resultIndex,outputBuffer,len);  
 } 
  
 jsvalue MyCefCbArgs_GetArg(CefCallbackArgs* args,int argIndex)

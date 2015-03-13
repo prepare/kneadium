@@ -30,25 +30,7 @@ typedef void (__stdcall  *managed_callback2)(int id, void* args);
 
  
 
-class CefCallbackArgs
-{
-public:
-	CefCallbackArgs();
-	int method_id;
-	 
-	struct jsvalue arg0;//this arg for instant method
-	struct jsvalue arg1;
-	struct jsvalue arg2;
-	struct jsvalue arg3;
-	struct jsvalue arg4;
 
-	void* outputBuffer;	 
-	int outputLen;
-	int resultKind;
-	int argCount;
-
-	void SetOutputString(const void* dataBuffer,int len);  
-};
 
 
 

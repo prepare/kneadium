@@ -78,7 +78,7 @@ extern "C"{
 	//--------------------------------------------------------------------- 
 
 	MY_DLL_EXPORT 
-	void MyCefCbArgs_SetResultAsString(CefCallbackArgs* args,const void* outputBuffer,int len);
+	void MyCefCbArgs_SetResultAsBuffer(CefCallbackArgs* args,int resultIndex, const void* outputBuffer,int len);
  
 	//--------------------------------------------------------------------- 
 	MY_DLL_EXPORT 

@@ -105,4 +105,30 @@ struct jsvalue
 
 jsvalue ConvToJsValue(std::wstring str);
 
+class CefCallbackArgs
+{
+public:
+	CefCallbackArgs();
+	int method_id;
+	 
+	struct jsvalue arg0;//this arg for instant method
+	struct jsvalue arg1;
+	struct jsvalue arg2;
+	struct jsvalue arg3;
+	struct jsvalue arg4;
 
+    struct jsvalue result0;//this arg for instant method
+	struct jsvalue result1;
+	struct jsvalue result2;
+	struct jsvalue result3; 
+	struct jsvalue result4; 
+
+	//void* outputBuffer;	 
+	//int outputLen;
+	int resultKind;
+
+	int argCount;
+	int resultCount;
+
+	void SetOutputString(int resultIndex, const void* dataBuffer,int len);  
+};

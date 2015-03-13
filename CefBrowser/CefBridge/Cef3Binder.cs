@@ -317,7 +317,9 @@ namespace LayoutFarm.CefBridge
 
 
         [DllImport(CEF_CLIENT_DLL, CallingConvention = CallingConvention.Cdecl)]
-        public static unsafe extern void MyCefCbArgs_SetResultAsString(IntPtr callArgsPtr,
+        public static unsafe extern void MyCefCbArgs_SetResultAsBuffer(
+            IntPtr callArgsPtr,
+            int resultIndex,
             byte* resultBuffer, int strlen);
 
 

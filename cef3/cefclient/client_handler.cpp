@@ -89,18 +89,9 @@ bool ParseTestUrl(const std::string& url,
 
 int ClientHandler::m_BrowserCount = 0;
 
-CefCallbackArgs::CefCallbackArgs() 
-{  	  
-} 
- 
-void CefCallbackArgs::SetOutputString(const void* dataBuffer,int len)
-{	
-	this->outputLen = len;
-	this->outputBuffer = new char[len];
-	memcpy(this->outputBuffer,dataBuffer,len);	 
-	this->resultKind =JSVALUE_TYPE_STRING;
-}
- 
+const int MET_GetResourceHandler=2;
+
+
 //------------------------------------------------
 ClientHandler::ClientHandler()
   : m_MainHwnd(NULL),
@@ -484,21 +475,31 @@ CefRefPtr<CefResourceHandler> ClientHandler::GetResourceHandler(
   if(this->_mcallback)
   {		
 	  CefCallbackArgs callArgs;
-	  memset(&callArgs,0,sizeof(CefCallbackArgs));
-	  //std::wstring str1 = request->GetURL();
-	  callArgs.arg0= ConvToJsValue(request->GetURL());
-	  
-	  this->_mcallback(2,&callArgs); 
+	  memset(&callArgs,0,sizeof(CefCallbackArgs)); 
+	  callArgs.arg0= ConvToJsValue(request->GetURL());	  
+
+	  this->_mcallback(MET_GetResourceHandler,&callArgs); 
 	  //then check result*** 
 
 	  if(callArgs.resultKind >0)
 	  {		
+		  //mime type
+		  auto mimeL= callArgs.result0.length/2;//wchar_t => 2 byte per 1 char
+		  auto mimeData= callArgs.result0.value.ptr;
+
+		  std::wstring mime = std::wstring((wchar_t*)mimeData,mimeL);
+		  //-------
+		  //stream part
+		  auto dataLen =  callArgs.result1.length;
+		  auto data =  callArgs.result1.value.ptr;
+
 		  CefRefPtr<CefStreamReader> stream =
           CefStreamReader::CreateForData(
-				callArgs.outputBuffer, 
-                callArgs.outputLen);
+				data, 
+                dataLen);
+
 		  ASSERT(stream.get()); 
-		  return new CefStreamResourceHandler("text/html", stream);
+		  return new CefStreamResourceHandler(mime, stream);
 	  } 
   }
   

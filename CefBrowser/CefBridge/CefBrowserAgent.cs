@@ -8,6 +8,9 @@ using System.IO;
 namespace LayoutFarm.CefBridge
 {
 
+
+
+
     public class CefBrowserAgent
     {
 
@@ -71,39 +74,66 @@ namespace LayoutFarm.CefBridge
         void OnUnmanagedPartCallBack(int id, IntPtr callBackArgs)
         {
 
-            NativeArgs nativeArgs = new NativeArgs(callBackArgs);
-            string requestURL = nativeArgs.GetArgAsString(0);
+            switch ((MethodName)id)
+            {
+                case MethodName.MET_GetResourceHandler:
+                    {
+                        GetResourceHandler(new ResourceRequestArg(
+                            new NativeCallArgs(callBackArgs)));
 
+                    } break;
+            }
+        }
+        protected virtual void GetResourceHandler(ResourceRequestArg req)
+        {
+            //sample here
+            string requestURL = req.RequestUrl;
             //test change content here 
             if (requestURL.StartsWith("http://www.google.com"))
             {
-                nativeArgs.SetOutputString(@"<http><body>Hello!</body></http>");
+                req.SetResponseData("text/html", @"<http><body>Hello!</body></http>");
             }
+        } 
+
+        public class ResourceRequestArg
+        {
+            NativeCallArgs nativeArgs;
+            internal ResourceRequestArg(NativeCallArgs nativeArgs)
+            {
+                this.nativeArgs = nativeArgs;
+            }
+            public string RequestUrl
+            {
+                get
+                {
+                    return this.nativeArgs.GetArgAsString(0);
+                }
+            }
+            public void SetResponseData(string mime, string str)
+            {
+                nativeArgs.SetOutput(0, mime);
+                var utf8Buffer = Encoding.UTF8.GetBytes(str.ToCharArray());
+                nativeArgs.SetOutput(1, utf8Buffer);
+            }
+            public void SetResponseData(string mime, byte[] dataBuffer)
+            {
+                nativeArgs.SetOutput(0, mime);
+                nativeArgs.SetOutput(1, dataBuffer);
+            }
+        }
+
+
+
+        //---------
+        //map with unmanaged part
+        enum MethodName
+        {
+            MET_GetResourceHandler = 2
         }
     }
 
-    public struct NativeArgs
-    {
-        IntPtr argPtr;
-        public NativeArgs(IntPtr argPtr)
-        {
-            this.argPtr = argPtr;
-        }
-        public string GetArgAsString(int index)
-        {
-            var v = Cef3Binder.MyCefCbArgs_GetArg(argPtr, index);
-            return Marshal.PtrToStringUni(v.Ptr);
-        }
-        public void SetOutputString(string str)
-        {
-            byte[] buffer = Encoding.UTF8.GetBytes(str.ToCharArray());
-            unsafe
-            {
-                fixed (byte* b = &buffer[0])
-                {
-                    Cef3Binder.MyCefCbArgs_SetResultAsString(this.argPtr, b, buffer.Length);
-                }
-            }
-        }
-    }
+
+
+
+
 }
