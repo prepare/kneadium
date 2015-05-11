@@ -12,11 +12,15 @@
 #include <string>
 #include "include/cef_client.h"
 #include "cefclient/util.h"
-
+#include "cefclient/mycef.h"
 
 // Define this value to redirect all popup URLs to the main application browser
 // window.
 // #define TEST_REDIRECT_POPUP_URLS
+
+
+
+class MethodArgs; 
 
 
 // ClientHandler implementation.
@@ -266,6 +270,12 @@ class ClientHandler : public CefClient,
   void EndTracing();
 
   bool Save(const std::string& path, const std::string& data);
+   
+
+  //---------------------
+  void SetManagedCallBack(managed_callback mcallback);
+
+  //---------------------
 
  protected:
   void SetLoading(bool isLoading);
@@ -305,13 +315,13 @@ class ClientHandler : public CefClient,
   bool m_bIsClosing;
 
   // The edit window handle
-  CefWindowHandle m_EditHwnd;
+  /*CefWindowHandle m_EditHwnd;*/
 
   // The button window handles
   CefWindowHandle m_BackHwnd;
   CefWindowHandle m_ForwardHwnd;
   CefWindowHandle m_StopHwnd;
-  CefWindowHandle m_ReloadHwnd;
+  CefWindowHandle m_ReloadHwnd; 
 
   CefRefPtr<RenderHandler> m_OSRHandler;
 
@@ -342,6 +352,13 @@ class ClientHandler : public CefClient,
   // Number of currently existing browser windows. The application will exit
   // when the number of windows reaches 0.
   static int m_BrowserCount;
+
+
+  //--------------------------------------
+  managed_callback _mcallback;
+  
+
+  //--------------------------------------
 
   // Include the default reference counting implementation.
   IMPLEMENT_REFCOUNTING(ClientHandler);

@@ -8,17 +8,19 @@
 
 #include <string>
 #include "include/cef_base.h"
-#include "cefclient/client_app.h"
+#include "cefclient/client_app.h" 
+#include "mycef.h"
 
 class CefApp;
 class CefBrowser;
 class CefCommandLine;
+class ClientHandler;
 
 // Returns the main browser window instance.
-CefRefPtr<CefBrowser> AppGetBrowser();
+CefRefPtr<CefBrowser> AppGetBrowser(CefRefPtr<ClientHandler> g_handler2);
 
 // Returns the main application window handle.
-CefWindowHandle AppGetMainHwnd();
+CefWindowHandle AppGetMainHwnd(CefRefPtr<ClientHandler> g_handler2);
 
 // Returns the application working directory.
 std::string AppGetWorkingDirectory();
@@ -46,6 +48,9 @@ void RunRequestTest(CefRefPtr<CefBrowser> browser);
 void RunPopupTest(CefRefPtr<CefBrowser> browser);
 void RunPluginInfoTest(CefRefPtr<CefBrowser> browser);
 void RunOtherTests(CefRefPtr<CefBrowser> browser);
+
+
+
 
 #if defined(OS_WIN)
 void RunTransparentPopupTest(CefRefPtr<CefBrowser> browser);
