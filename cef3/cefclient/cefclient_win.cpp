@@ -55,7 +55,8 @@ void AppQuitMessageLoop() {
     ///ASSERT(hMessageWnd);
     //PostMessage(hMessageWnd, WM_COMMAND, ID_QUIT, 0);
   } else {
-    CefQuitMessageLoop();
+
+     CefQuitMessageLoop();
   }
 } 
 //=================================================================================
@@ -109,16 +110,29 @@ void MyCefSetupWindowsEnd(ClientHandler* cefClientHandler,HWND hWndParent,int x,
       if(result)
       {
           CefString ccstr= CefString(g_handler2->GetStartupURL());	  
-          ManagedCallBack(0, ccstr.ToWString().c_str() ); 
+          ManagedNotify(0, ccstr.ToWString().c_str() ); 
       }
       else
       {
-          ManagedCallBack(1,L"OKOK-F");
+          ManagedNotify(1,L"OKOK-F");
       }
       //------------------------
 }
 void MyCefCloseHandler(ClientHandler* cefClientHandler)
 {	
+	 CefRefPtr<ClientHandler> g_handler = (ClientHandler*)cefClientHandler;
 
+	 if (g_handler.get() && !g_handler->IsClosing()) {
+        CefRefPtr<CefBrowser> browser = g_handler->GetBrowser();
+        if (browser.get()) {
+          // Notify the browser window that we would like to close it. This
+          // will result in a call to ClientHandler::DoClose() if the
+          // JavaScript 'onbeforeunload' event handler allows it.
+          browser->GetHost()->CloseBrowser(false);
+
+          // Cancel the close.
+          //return 0;
+        }
+      }
 
 }

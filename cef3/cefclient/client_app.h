@@ -135,7 +135,8 @@ class ClientApp : public CefApp,
 
   // CefApp methods.
   virtual void OnRegisterCustomSchemes(
-      CefRefPtr<CefSchemeRegistrar> registrar) OVERRIDE {
+      CefRefPtr<CefSchemeRegistrar> registrar) OVERRIDE
+  {
     RegisterCustomSchemes(registrar, cookieable_schemes_);
   }
   virtual CefRefPtr<CefBrowserProcessHandler> GetBrowserProcessHandler()

@@ -66,6 +66,7 @@
     <Compile Include="CefBridge\ClientApp.cs" />
     <Compile Include="CefBridge\CustomSchemeAgent.cs" />
     <Compile Include="CefBridge\NativeCallArgs.cs" />
+    <Compile Include="CefBridge\RenderDelegateSet.cs" />
     <Compile Include="Form\Form1.cs">
       <SubType>Form</SubType>
     </Compile>

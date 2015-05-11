@@ -38,6 +38,7 @@ namespace LayoutFarm.CefBridge
         }
         internal void CloseView()
         {
+           
             Cef3Binder.MyCefCloseHandler(this.cefBrowerAgent);
         }
 
@@ -80,7 +81,10 @@ namespace LayoutFarm.CefBridge
                     {
                         GetResourceHandler(new ResourceRequestArg(
                             new NativeCallArgs(callBackArgs)));
-
+                    } break;
+                case MethodName.MET_TCALLBACK:
+                    {
+                        //Console.WriteLine("TCALLBACK");
                     } break;
             }
         }
@@ -93,7 +97,7 @@ namespace LayoutFarm.CefBridge
             {
                 req.SetResponseData("text/html", @"<http><body>Hello!</body></http>");
             }
-        } 
+        }
 
         public class ResourceRequestArg
         {
@@ -128,7 +132,8 @@ namespace LayoutFarm.CefBridge
         //map with unmanaged part
         enum MethodName
         {
-            MET_GetResourceHandler = 2
+            MET_GetResourceHandler = 2,
+            MET_TCALLBACK = 3
         }
     }
 

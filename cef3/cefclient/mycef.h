@@ -105,10 +105,10 @@ struct jsvalue
 
 jsvalue ConvToJsValue(std::wstring str);
 
-class CefCallbackArgs
+class MethodArgs
 {
 public:
-	CefCallbackArgs();
+	MethodArgs();
 	int method_id;
 	 
 	struct jsvalue arg0;//this arg for instant method
@@ -132,3 +132,8 @@ public:
 
 	void SetOutputString(int resultIndex, const void* dataBuffer,int len);  
 };
+
+typedef void (*delTraceBack)(int oIndex,const wchar_t* methodName);  
+//for visitor
+typedef void (*delTextWalk)(int oIndex,const wchar_t* textContent);
+typedef void (__stdcall *managed_callback)(int id, void* args);   

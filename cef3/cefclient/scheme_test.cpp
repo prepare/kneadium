@@ -151,6 +151,7 @@ class ClientSchemeHandlerFactory : public CefSchemeHandlerFactory {
   IMPLEMENT_REFCOUNTING(ClientSchemeHandlerFactory);
 };
 
+//------------------------------------------------------------------------------------------
 class ClientSchemeHandler2 : public CefResourceHandler {
  public:
 
@@ -264,18 +265,31 @@ class ClientSchemeHandler2 : public CefResourceHandler {
 
 
 
-class ClientSchemeHandlerFactory2 : public CefSchemeHandlerFactory {
+class ClientSchemeHandlerFactory2 : public CefSchemeHandlerFactory
+{
  public:
-  managed_callback2  mcallback2;
+  managed_callback  mcallback2;
   // Return a new scheme handler instance to handle the request.
   virtual CefRefPtr<CefResourceHandler> Create(CefRefPtr<CefBrowser> browser,
                                                CefRefPtr<CefFrame> frame,
                                                const CefString& scheme_name,
                                                CefRefPtr<CefRequest> request)
-                                               OVERRIDE {
-    REQUIRE_IO_THREAD();
-    return new ClientSchemeHandler2();
+                                               OVERRIDE 
+  {
+  
+	
+	REQUIRE_IO_THREAD();
+	
+	MethodArgs callBackArgs; 
+	memset(&callBackArgs,0,sizeof(MethodArgs));
+
+	//return result
+	mcallback2(11,&callBackArgs);
+	return (CefResourceHandler*)callBackArgs.result0.value.ptr;
+	//call to mananaged callback? 
+    //return new ClientSchemeHandler2();
   }
+
   IMPLEMENT_REFCOUNTING(ClientSchemeHandlerFactory2);
 };
 

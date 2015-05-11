@@ -4,8 +4,7 @@
 using namespace std;  
 //--------------------------------
 //static
-del02 managedListner;
-del03 managedListner3;
+delTraceBack notifyListener= NULL;
 
 int MyCefGetVersion()
 {	
@@ -18,7 +17,7 @@ int RegisterManagedCallBack(void* funcPtr,int callbackKind)
 	{
 		case 0:
 			{
-				managedListner= (del02)funcPtr;		    
+				notifyListener= (delTraceBack)funcPtr;		    
 				return 0;
 			}break;
 		case 1:
@@ -26,33 +25,24 @@ int RegisterManagedCallBack(void* funcPtr,int callbackKind)
 			 
 			}break;
 		case 3:
-			{
-				managedListner3= (del03)funcPtr;		    
+			{   
 				return 0;
 			}break;
 	} 
 	return 1;
 }
 //-----------------------------------------------------------
-void ManagedCallBack(int id,const wchar_t* info)
+void ManagedNotify(int id,const wchar_t* info)
 {
-	 if(managedListner)
+	 if(notifyListener)
 	 {
-		 managedListner(id,info);
+		notifyListener(id,info);
 	 } 
 }
-
-const wchar_t* ManagedCallBack3(int id,const wchar_t* info)
+ 
+bool HasManagedNotify()
 {
-	 if(managedListner3)
-	 {
-		return managedListner3(id,info);
-	 } 
-	 return NULL;
-}
-bool HasManagedCallBack()
-{
-	if(managedListner)
+	if(notifyListener)
 	{
 		return true;
 	}
@@ -169,7 +159,7 @@ void PostData(ClientHandler* g_ClientHandler,
 
 class MyCefStringVisitor : public CefStringVisitor {
    public:
-    explicit MyCefStringVisitor(CefRefPtr<CefBrowser> browser, del04 strCallBack) : 
+    explicit MyCefStringVisitor(CefRefPtr<CefBrowser> browser, delTextWalk strCallBack) : 
 			browser_(browser),
 			strCallBack_(strCallBack)
 			{}
@@ -178,11 +168,11 @@ class MyCefStringVisitor : public CefStringVisitor {
     }
    private:
     CefRefPtr<CefBrowser> browser_;
-	del04  strCallBack_;
+	delTextWalk strCallBack_;
     IMPLEMENT_REFCOUNTING(Visitor);
 }; 
 
-void DomGetTextWalk(ClientHandler* g_ClientHandler,del04 strCallBack)
+void DomGetTextWalk(ClientHandler* g_ClientHandler,delTextWalk strCallBack)
 { 
   auto browser1 = g_ClientHandler->GetBrowser();   
   //TODO: check mem leak here
@@ -190,20 +180,18 @@ void DomGetTextWalk(ClientHandler* g_ClientHandler,del04 strCallBack)
   browser1->GetMainFrame()->GetText(visitor);
 
 }
-void DomGetSourceWalk(ClientHandler* g_ClientHandler,del04 strCallBack)
+void DomGetSourceWalk(ClientHandler* g_ClientHandler,delTextWalk strCallBack)
 { 
   auto browser1 = g_ClientHandler->GetBrowser();   
   //TODO: check mem leak here
   auto visitor= new MyCefStringVisitor(browser1,strCallBack); 
   browser1->GetMainFrame()->GetSource(visitor);
-}
+} 
 void AgentRegisterManagedCallback(ClientHandler* g_ClientHandler,managed_callback callback)
 {
 	g_ClientHandler->SetManagedCallBack(callback);
 }
-
-	  
-void MyCefCbArgs_SetResultAsBuffer(CefCallbackArgs* args,
+void MyCefCbArgs_SetResultAsBuffer(MethodArgs* args,
 	int resultIndex,
 	const void* outputBuffer,
 	int len)
@@ -211,7 +199,7 @@ void MyCefCbArgs_SetResultAsBuffer(CefCallbackArgs* args,
 	args->SetOutputString(resultIndex,outputBuffer,len);  
 } 
  
-jsvalue MyCefCbArgs_GetArg(CefCallbackArgs* args,int argIndex)
+jsvalue MyCefCbArgs_GetArg(MethodArgs* args,int argIndex)
 {  
 	switch(argIndex)
 	{
@@ -233,7 +221,7 @@ jsvalue MyCefCbArgs_GetArg(CefCallbackArgs* args,int argIndex)
 	return v;
 	 
 }  
-int MyCefCbArgs_ArgCount(CefCallbackArgs* args)
+int MyCefCbArgs_ArgCount(MethodArgs* args)
 {
 	return args->argCount;
 }
@@ -243,31 +231,11 @@ void JsValueDispose(jsvalue value)
 {	
 	delete value.value.str;
 }
-void CefRequest_GetURL(CefRequest* req,wchar_t* resultBuffer,int* len)
-{		 
-	auto url= req->GetURL().c_str(); 
-	*len = wcslen(url);
-	wcscpy(resultBuffer, url);
-}
-
-//-----------------------------------------------------------
-class ProcessRequestArgs
-{
-public:
-	//call .net args...
-	CefRequest* req;  
-	//----------------
-	void* outputResult;
-};
-
-
-typedef void (*ClientSchemeHandler2_ProcessRequestCb)(int id, CefRequest* cefRequest);
-
-class ClientSchemeHandler2 : public CefResourceHandler {
- public:
   
-  ClientSchemeHandler2_ProcessRequestCb processReqCb;
 
+ 
+class ClientSchemeHandler2 : public CefResourceHandler {
+ public: 
   ClientSchemeHandler2() : offset_(0) {}
 
   virtual bool ProcessRequest(CefRefPtr<CefRequest> request,
@@ -277,12 +245,7 @@ class ClientSchemeHandler2 : public CefResourceHandler {
 
     bool handled = false; 
     AutoLock lock_scope(this);
-	if(processReqCb)
-	{	
-
-		processReqCb(0,request);
-
-	}
+	 
 	////send to 
  //   std::string url = request->GetURL();
  //   if (strstr(url.c_str(), "handler.html") != NULL) {
@@ -385,7 +348,7 @@ class ClientSchemeHandler2 : public CefResourceHandler {
 class ClientSchemeHandlerFactory2 : public CefSchemeHandlerFactory {
  public:
 	 //call to manaed side to create 
-  managed_callback2  callback2_newSchemeHandler;
+  managed_callback  callback2_newSchemeHandler;
   // Return a new scheme handler instance to handle the request.
   virtual CefRefPtr<CefResourceHandler> Create(CefRefPtr<CefBrowser> browser,
                                                CefRefPtr<CefFrame> frame,
@@ -396,9 +359,8 @@ class ClientSchemeHandlerFactory2 : public CefSchemeHandlerFactory {
 
 	
 	ClientSchemeHandler2* newHandler= new ClientSchemeHandler2();
-	//ask .net side for new scheme handler***
-	
-	//callback2_newSchemeHandler(0,
+	//ask .net side for a new scheme handler***	
+	MethodArgs callbackArgs;
 
     return newHandler;
   }
@@ -408,7 +370,7 @@ class ClientSchemeHandlerFactory2 : public CefSchemeHandlerFactory {
 
 
 //scheme
-CefSchemeHandlerFactory* MyCef_CreateSchemeHandlerFactory(managed_callback2 callback2_newSchemeHandler)
+CefSchemeHandlerFactory* MyCef_CreateSchemeHandlerFactory(managed_callback callback2_newSchemeHandler)
 {	 
 	//call from .net side		
 	

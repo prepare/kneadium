@@ -19,13 +19,22 @@ namespace CefBridgeTest
 
             //=======================
         }
+        delegate void SimpleDel();
+        bool isCloseFirst = false;
         protected override void OnClosing(CancelEventArgs e)
         {
             tt.Enabled = false;
-
-
-            this.cefWebBrowser1.PrepareNativeClose();
-            base.OnClosing(e);
+            if (!isCloseFirst)
+            {
+                this.cefWebBrowser1.PrepareNativeClose();
+                
+                e.Cancel = true;
+                isCloseFirst = true;
+            }
+            else
+            {
+                base.OnClosing(e);
+            } 
         }
         protected override void OnLoad(EventArgs e)
         {
@@ -70,7 +79,9 @@ namespace CefBridgeTest
 
         private void button7_Click(object sender, EventArgs e)
         {
-            this.cefWebBrowser1.NavigateTo("http://localhost/html5/mycanvas.html");
+            //this.cefWebBrowser1.NavigateTo("http://localhost/html5/mycanvas.html");
+            this.cefWebBrowser1.Focus();
+            this.cefWebBrowser1.NavigateTo("http://10.0.2.71");
         }
 
         private void button1_Click(object sender, EventArgs e)
@@ -114,6 +125,11 @@ namespace CefBridgeTest
 
         private void button5_Click(object sender, EventArgs e)
         {
+
+
+
+
+
 
         }
 

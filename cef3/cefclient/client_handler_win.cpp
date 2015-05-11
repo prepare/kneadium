@@ -20,12 +20,12 @@ void ClientHandler::OnAddressChange(CefRefPtr<CefBrowser> browser,
 {
   REQUIRE_UI_THREAD();  
 
-  if(HasManagedCallBack())
+  if(HasManagedNotify())
   {		
 		
 	  if (m_BrowserId == browser->GetIdentifier() && frame->IsMain())   {
 
-		  ManagedCallBack(
+		  ManagedNotify(
 			  MYCEF_BROWSER_URL_CHANGED,
 			  url.ToWString().c_str());
 	  }
@@ -43,10 +43,10 @@ void ClientHandler::OnTitleChange(CefRefPtr<CefBrowser> browser,
                                   const CefString& title) {
   REQUIRE_UI_THREAD();
   
-  if(HasManagedCallBack())
+  if(HasManagedNotify())
   {	
 	  if (m_BrowserId == browser->GetIdentifier())   {
-		   ManagedCallBack(
+		   ManagedNotify(
 			  MYCEF_BROWSER_TITLE_CHANGED,
 			  title.ToWString().c_str()); 
 	  }
@@ -62,21 +62,21 @@ void ClientHandler::OnTitleChange(CefRefPtr<CefBrowser> browser,
 
 void ClientHandler::SendNotification(NotificationType type) {
   
-  if(HasManagedCallBack())
+  if(HasManagedNotify())
   {	  
 	  switch (type) {
 	  case NOTIFY_CONSOLE_MESSAGE:
-		ManagedCallBack(
+		ManagedNotify(
 			  MYCEF_BROWSER_SEND_NOTIFICATION,
 			  L"console msg"); 
 		break;
 	  case NOTIFY_DOWNLOAD_COMPLETE:
-		ManagedCallBack(
+		ManagedNotify(
 			  MYCEF_BROWSER_SEND_NOTIFICATION,
 			  L"download complete"); 
 		break;
 	  case NOTIFY_DOWNLOAD_ERROR:
-		ManagedCallBack(
+		ManagedNotify(
 			  MYCEF_BROWSER_SEND_NOTIFICATION,
 			   L"download error"); 
 		break;

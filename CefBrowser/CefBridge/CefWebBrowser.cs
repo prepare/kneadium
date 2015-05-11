@@ -68,16 +68,12 @@ namespace LayoutFarm.CefBridge
                 if (!LayoutFarm.CefBridge.Cef3Binder.IsLoadCef3Success())
                 {
                     MessageBox.Show("cef 3 not found");
-                }
-
+                } 
                 this.cefBrowserView = new CefBrowserAgent(this.Handle, 0, 0, 800, 500);
                 nativeHandleCreated = true;
             }
-            _handleCreated = true;
-
-        }
-
-
+            _handleCreated = true; 
+        } 
         public void PrepareNativeClose()
         {
             if (nativeHandleCreated)

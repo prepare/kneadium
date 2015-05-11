@@ -19,20 +19,8 @@
 // #define TEST_REDIRECT_POPUP_URLS
 
 
-typedef void (*del02)(int oIndex,const wchar_t* methodName);
-typedef const wchar_t* (*del03)(int oIndex,const wchar_t* methodName);
-typedef void (*del04)(int oIndex,const wchar_t* textContent);
 
-class CefCallbackArgs;
-
-typedef void (__stdcall *managed_callback)(int id, void* args);  
-typedef void (__stdcall  *managed_callback2)(int id, void* args);
-
- 
-
-
-
-
+class MethodArgs; 
 
 
 // ClientHandler implementation.

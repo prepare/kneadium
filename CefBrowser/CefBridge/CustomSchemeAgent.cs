@@ -7,6 +7,23 @@ using System.IO;
 
 namespace LayoutFarm.CefBridge
 {
+    public struct CefSchemeRegistrar
+    {
+        IntPtr nativePtr;
+        internal CefSchemeRegistrar(IntPtr nativePtr)
+        {
+            this.nativePtr = nativePtr;
+        }
+        public void AddCustomScheme(
+            string scheme_name,
+            bool is_standard,
+            bool is_local, 
+            bool is_display_isolated)
+        {
+            //call to native 
+
+        } 
+    }
 
     public class CustomSchemeAgent
     {
@@ -15,13 +32,31 @@ namespace LayoutFarm.CefBridge
         {
             this.schemeName = schemeName;
         }
+        public string SchemeName
+        {
+            get { return this.schemeName; }
+        }
     }
+
+
+
     public class CefSchemeHandler
     {
+        IntPtr ptr;
+        internal CefSchemeHandler()
+        {
+
+        }
 
     }
+
     public class CefSchemeFactory
     {
+        IntPtr nativeSchemeFactory;
+        internal CefSchemeFactory()
+        {
+
+        }
 
     }
 

@@ -91,6 +91,8 @@ int ClientHandler::m_BrowserCount = 0;
 
 const int MET_GetResourceHandler=2;
 
+const int MET_TCALLBACK=3;
+
 
 //------------------------------------------------
 ClientHandler::ClientHandler()
@@ -370,6 +372,15 @@ bool ClientHandler::DoClose(CefRefPtr<CefBrowser> browser) {
 void ClientHandler::OnBeforeClose(CefRefPtr<CefBrowser> browser) {
   REQUIRE_UI_THREAD();
 
+   
+  if(this->_mcallback)
+  {		
+	  MethodArgs callArgs;
+	  memset(&callArgs,0,sizeof(MethodArgs));  
+	  this->_mcallback(MET_TCALLBACK,&callArgs); 
+	  //then check result*** 
+  } 
+
   if (m_BrowserId == browser->GetIdentifier()) {
     // Free the browser pointer so that the browser can be destroyed
     m_Browser = NULL;
@@ -397,7 +408,10 @@ void ClientHandler::OnBeforeClose(CefRefPtr<CefBrowser> browser) {
 
   if (--m_BrowserCount == 0) {
     // All browser windows have closed. Quit the application message loop.
-    AppQuitMessageLoop();
+	if(!this->_mcallback)
+	{	
+		  AppQuitMessageLoop();
+	}   
   }
 }
 
@@ -474,8 +488,8 @@ CefRefPtr<CefResourceHandler> ClientHandler::GetResourceHandler(
    
   if(this->_mcallback)
   {		
-	  CefCallbackArgs callArgs;
-	  memset(&callArgs,0,sizeof(CefCallbackArgs)); 
+	  MethodArgs callArgs;
+	  memset(&callArgs,0,sizeof(MethodArgs)); 
 	  callArgs.arg0= ConvToJsValue(request->GetURL());	  
 
 	  this->_mcallback(MET_GetResourceHandler,&callArgs); 
@@ -483,13 +497,13 @@ CefRefPtr<CefResourceHandler> ClientHandler::GetResourceHandler(
 
 	  if(callArgs.resultKind >0)
 	  {		
-		  //mime type
+		  //1. mime type
 		  auto mimeL= callArgs.result0.length/2;//wchar_t => 2 byte per 1 char
 		  auto mimeData= callArgs.result0.value.ptr;
-
 		  std::wstring mime = std::wstring((wchar_t*)mimeData,mimeL);
+
 		  //-------
-		  //stream part
+		  //2. stream part
 		  auto dataLen =  callArgs.result1.length;
 		  auto data =  callArgs.result1.value.ptr;
 

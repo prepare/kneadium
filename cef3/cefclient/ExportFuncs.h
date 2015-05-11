@@ -17,13 +17,9 @@
 #include "cefclient/scheme_test.h"
 #include "CommonModule.h"
 
-#define MY_DLL_EXPORT __declspec(dllexport) 
+#define MY_DLL_EXPORT __declspec(dllexport)  
 
-
-
-
-extern "C"{
-
+extern "C"{ 
 
 	MY_DLL_EXPORT int RegisterManagedCallBack(void* callback,int callBackKind);    
 	//---------------------------------------------------------------------
@@ -50,10 +46,14 @@ extern "C"{
 	//---------------------------------------------------------------------
 	MY_DLL_EXPORT void MyCefRunMessageLoop();
 	MY_DLL_EXPORT void MyCefDoMessageLoopWork(); 
-	MY_DLL_EXPORT void MyCefQuitMessageLoop(); 
+	MY_DLL_EXPORT void MyCefQuitMessageLoop();  
+	//---------------------------------------------------------------------
+	
+
+
 
 	//---------------------------------------------------------------------
-	//easy ...
+	//for client handler 
 	MY_DLL_EXPORT 
 	void NavigateTo(ClientHandler* g_ClientHandler, const wchar_t* url);
 	
@@ -65,30 +65,29 @@ extern "C"{
 	MY_DLL_EXPORT 
 	void PostData(ClientHandler* g_ClientHandler, 
 		const wchar_t* jssource,
-		void* rawDataToPost,size_t rawDataLength);
+		void* rawDataToPost,
+		size_t rawDataLength);
 
 	MY_DLL_EXPORT 
-	void DomGetTextWalk(ClientHandler* g_ClientHandler,del04 strCallBack);
+	void DomGetTextWalk(ClientHandler* g_ClientHandler,delTextWalk strCallBack);
 	
 	MY_DLL_EXPORT 
-	void DomGetSourceWalk(ClientHandler* g_ClientHandler,del04 strCallBack);
+	void DomGetSourceWalk(ClientHandler* g_ClientHandler,delTextWalk strCallBack);
 
 	MY_DLL_EXPORT 
 	void AgentRegisterManagedCallback(ClientHandler* g_ClientHandler,managed_callback callback);
 	//--------------------------------------------------------------------- 
 
+	
 	MY_DLL_EXPORT 
-	void MyCefCbArgs_SetResultAsBuffer(CefCallbackArgs* args,int resultIndex, const void* outputBuffer,int len);
- 
-	//--------------------------------------------------------------------- 
+    jsvalue MyCefCbArgs_GetArg(MethodArgs* args,int argIndex);
 	MY_DLL_EXPORT 
-	void DisposeJsValue(jsvalue myTxStr);
+    int MyCefCbArgs_ArgCount(MethodArgs* args);
 
-	//--------------------------------------------------------------------- 
 	MY_DLL_EXPORT 
-    jsvalue MyCefCbArgs_GetArg(CefCallbackArgs* args,int argIndex);
-	MY_DLL_EXPORT 
-    int MyCefCbArgs_ArgCount(CefCallbackArgs* args);
+	void MyCefCbArgs_SetResultAsBuffer(MethodArgs* args,int resultIndex, const void* outputBuffer,int len);
+ 
+	 
 	//--------------------------------------------------------------------- 
 	//scheme and request
 	MY_DLL_EXPORT 
@@ -99,17 +98,13 @@ extern "C"{
 
 	MY_DLL_EXPORT 
     CefSchemeHandlerFactory* MyCef_CreateSchemeHandlerFactory();
-
-	MY_DLL_EXPORT
-	void CefRequest_GetURL(CefRequest* req,wchar_t* resultBuffer,int len); 
-	//---------------------------------------------------------------------  
+ 
 }
 
 
-void ManagedCallBack(int id,const wchar_t* info); 
-const wchar_t* ManagedCallBack3(int id,const wchar_t* info); 
+void ManagedNotify(int id,const wchar_t* info);   
+bool HasManagedNotify(); 
 
-bool HasManagedCallBack(); 
 //---------------------------------------------------------------------
 #define MYCEF_BROWSER_URL_CHANGED  1000
 #define MYCEF_BROWSER_TITLE_CHANGED  1001

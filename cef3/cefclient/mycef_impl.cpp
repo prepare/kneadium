@@ -19,11 +19,11 @@ jsvalue ConvToJsValue(std::wstring str)
 
 //------------------------------------------------------------------
 
-CefCallbackArgs::CefCallbackArgs() 
+MethodArgs::MethodArgs() 
 {  	  
 } 
  
-void CefCallbackArgs::SetOutputString(int resultIndex, const void* dataBuffer,int len)
+void MethodArgs::SetOutputString(int resultIndex, const void* dataBuffer,int len)
 {	
 
 	 

@@ -9,14 +9,18 @@
 #include "cefclient/scheme_test.h"
 
 // static
-void ClientApp::CreateBrowserDelegates(BrowserDelegateSet& delegates) {
+void ClientApp::CreateBrowserDelegates(BrowserDelegateSet& delegates)
+{
 }
 
 // static
-void ClientApp::CreateRenderDelegates(RenderDelegateSet& delegates) {
+void ClientApp::CreateRenderDelegates(RenderDelegateSet& delegates) 
+{	
   client_renderer::CreateRenderDelegates(delegates);
   dom_test::CreateRenderDelegates(delegates);
   performance_test::CreateRenderDelegates(delegates);
+  //register custom render delegate 
+
 }
 
 // static
@@ -29,6 +33,9 @@ void ClientApp::RegisterCustomSchemes(
 		//send to
 		myMxCallback(0,NULL);
 	}
-	//others...
-	scheme_test::RegisterCustomSchemes(registrar, cookiable_schemes);
+	else
+	{
+		//others...
+		scheme_test::RegisterCustomSchemes(registrar, cookiable_schemes);
+	}
 }
