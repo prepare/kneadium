@@ -105,33 +105,40 @@ int APIENTRY wWinMain(HINSTANCE hInstance,
   sandbox_info = scoped_sandbox.sandbox_info();
 #endif
 
-  CefMainArgs main_args(hInstance);
+ 
   CefRefPtr<ClientApp> app(new ClientApp);
+   
+  int initcode= MyAppInit01(hInstance,app);
 
-  // Execute the secondary process, if any.
-  int exit_code = CefExecuteProcess(main_args, app.get(), sandbox_info);
-  if (exit_code >= 0)
-    return exit_code;
-
-  // Retrieve the current working directory.
-  /*if (_getcwd(szWorkingDir, MAX_PATH) == NULL)
-    szWorkingDir[0] = 0;*/
-  MyCefInitWorkingDir();
-
-  // Parse command line arguments. The passed in values are ignored on Windows.
-  AppInitCommandLine(0, NULL);
-
-  CefSettings settings;
-
-#if !defined(CEF_USE_SANDBOX)
-  settings.no_sandbox = true;
-#endif
-
-  // Populate the settings based on command line arguments.
-  AppGetSettings(settings);
-  
-  // Initialize CEF.
-  CefInitialize(main_args, settings, app.get(), sandbox_info);
+  if(initcode >=0){  
+      return initcode;
+  }
+//  CefMainArgs main_args(hInstance);
+//
+//  // Execute the secondary process, if any.
+//  int exit_code = CefExecuteProcess(main_args, app.get(), sandbox_info);
+//  if (exit_code >= 0)
+//    return exit_code;
+//
+//  // Retrieve the current working directory.
+//  /*if (_getcwd(szWorkingDir, MAX_PATH) == NULL)
+//    szWorkingDir[0] = 0;*/
+//  MyCefInitWorkingDir();
+//
+//  // Parse command line arguments. The passed in values are ignored on Windows.
+//  AppInitCommandLine(0, NULL);
+//
+//  CefSettings settings;
+//
+//#if !defined(CEF_USE_SANDBOX)
+//  settings.no_sandbox = true;
+//#endif
+//
+//  // Populate the settings based on command line arguments.
+//  AppGetSettings(settings);
+//  
+//  // Initialize CEF.
+//  CefInitialize(main_args, settings, app.get(), sandbox_info);
 
   // Register the scheme handler.
   scheme_test::InitTest();
@@ -155,7 +162,8 @@ int APIENTRY wWinMain(HINSTANCE hInstance,
 
   int result = 0;
 
-  if (!settings.multi_threaded_message_loop) {
+  //if (!settings.multi_threaded_message_loop) {
+  if(!IsMultiMessageLoopApp()){
     // Run the CEF message loop. This function will block until the application
     // recieves a WM_QUIT message.
     CefRunMessageLoop();

@@ -1278,14 +1278,14 @@
     <ClCompile Include="cefclient\Common_win.cpp">
       <Filter>cefclient\CoreApp</Filter>
     </ClCompile>
-    <ClCompile Include="cefclient\CommonModule.cpp">
-      <Filter>cefclient\CoreApp</Filter>
-    </ClCompile>
     <ClCompile Include="cefclient\mycef_impl.cpp">
       <Filter>cefclient\CoreApp</Filter>
     </ClCompile>
     <ClCompile Include="cefclient\cefclient_win.cpp">
       <Filter>cefclient\Modified</Filter>
+    </ClCompile>
+    <ClCompile Include="cefclient\CommonModule.cpp">
+      <Filter>cefclient\CoreApp</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
