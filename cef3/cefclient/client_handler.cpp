@@ -921,7 +921,11 @@ void ClientHandler::BuildTestMenu(CefRefPtr<CefMenuModel> model) {
   submenu->SetChecked(
       CLIENT_ID_TESTMENU_RADIOITEM1 + test_menu_state_.radio_item, true);
 }
-
+void ClientHandler::SetManagedCallBack(managed_callback mcallback)
+{
+	this->_mcallback = mcallback;
+}
+ 
 bool ClientHandler::ExecuteTestMenu(int command_id) {
   if (command_id == CLIENT_ID_TESTMENU_CHECKITEM) {
     // Toggle the check item.

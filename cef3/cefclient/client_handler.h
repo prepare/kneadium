@@ -15,7 +15,7 @@
 #include "include/cef_client.h"
 #include "include/wrapper/cef_helpers.h"
 #include "include/wrapper/cef_message_router.h"
-
+#include "cefclient/mycef.h"
 #if defined(OS_LINUX)
 // The Linux client uses GTK instead of the underlying platform type (X11).
 #include <gtk/gtk.h>
@@ -295,7 +295,9 @@ class ClientHandler : public CefClient,
   void EndTracing();
 
   bool Save(const std::string& path, const std::string& data);
-
+  //---------------------
+  void SetManagedCallBack(managed_callback mcallback); 
+  //---------------------
  private:
   void SetLoading(bool isLoading);
   void SetNavState(bool canGoBack, bool canGoForward);
@@ -387,7 +389,9 @@ class ClientHandler : public CefClient,
   // Number of currently existing browser windows. The application will exit
   // when the number of windows reaches 0.
   static int browser_count_;
-
+  //--------------------------------------
+  managed_callback _mcallback; 
+  //--------------------------------------
 #if defined(OS_LINUX)
   // Linux-only implementation of GTK-based dialog boxes.
   static void OnDialogResponse(GtkDialog *dialog,
