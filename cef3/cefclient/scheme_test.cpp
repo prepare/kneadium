@@ -3,8 +3,10 @@
 // can be found in the LICENSE file.
 
 #include "cefclient/scheme_test.h"
+
 #include <algorithm>
 #include <string>
+
 #include "include/cef_browser.h"
 #include "include/cef_callback.h"
 #include "include/cef_frame.h"
@@ -12,9 +14,9 @@
 #include "include/cef_response.h"
 #include "include/cef_request.h"
 #include "include/cef_scheme.h"
+#include "include/wrapper/cef_helpers.h"
 #include "cefclient/resource_util.h"
 #include "cefclient/string_util.h"
-#include "cefclient/util.h"
 
 #if defined(OS_WIN)
 #include "cefclient/resource.h"
@@ -32,20 +34,19 @@ class ClientSchemeHandler : public CefResourceHandler {
   virtual bool ProcessRequest(CefRefPtr<CefRequest> request,
                               CefRefPtr<CefCallback> callback)
                               OVERRIDE {
-    REQUIRE_IO_THREAD();
+    CEF_REQUIRE_IO_THREAD();
 
     bool handled = false;
-
-    AutoLock lock_scope(this);
 
     std::string url = request->GetURL();
     if (strstr(url.c_str(), "handler.html") != NULL) {
       // Build the response html
-      data_ = "<html><head><title>Client Scheme Handler</title></head><body>"
+      data_ = "<html><head><title>Client Scheme Handler</title></head>"
+              "<body bgcolor=\"white\">"
               "This contents of this page page are served by the "
               "ClientSchemeHandler class handling the client:// protocol."
               "<br/>You should see an image:"
-              "<br/><img src=\"client://tests/client.png\"><pre>";
+              "<br/><img src=\"client://tests/logo.png\"><pre>";
 
       // Output a string representation of the request
       std::string dump;
@@ -63,7 +64,7 @@ class ClientSchemeHandler : public CefResourceHandler {
 
       // Set the resulting mime type
       mime_type_ = "text/html";
-    } else if (strstr(url.c_str(), "client.png") != NULL) {
+    } else if (strstr(url.c_str(), "logo.png") != NULL) {
       // Load the response image
       if (LoadBinaryResource("logo.png", data_)) {
         handled = true;
@@ -84,9 +85,9 @@ class ClientSchemeHandler : public CefResourceHandler {
   virtual void GetResponseHeaders(CefRefPtr<CefResponse> response,
                                   int64& response_length,
                                   CefString& redirectUrl) OVERRIDE {
-    REQUIRE_IO_THREAD();
+    CEF_REQUIRE_IO_THREAD();
 
-    ASSERT(!data_.empty());
+    DCHECK(!data_.empty());
 
     response->SetMimeType(mime_type_);
     response->SetStatus(200);
@@ -96,7 +97,7 @@ class ClientSchemeHandler : public CefResourceHandler {
   }
 
   virtual void Cancel() OVERRIDE {
-    REQUIRE_IO_THREAD();
+    CEF_REQUIRE_IO_THREAD();
   }
 
   virtual bool ReadResponse(void* data_out,
@@ -104,12 +105,10 @@ class ClientSchemeHandler : public CefResourceHandler {
                             int& bytes_read,
                             CefRefPtr<CefCallback> callback)
                             OVERRIDE {
-    REQUIRE_IO_THREAD();
+    CEF_REQUIRE_IO_THREAD();
 
     bool has_data = false;
     bytes_read = 0;
-
-    AutoLock lock_scope(this);
 
     if (offset_ < data_.length()) {
       // Copy the next block of data into the buffer.
@@ -131,7 +130,6 @@ class ClientSchemeHandler : public CefResourceHandler {
   size_t offset_;
 
   IMPLEMENT_REFCOUNTING(ClientSchemeHandler);
-  IMPLEMENT_LOCKING(ClientSchemeHandler);
 };
 
 // Implementation of the factory for for creating schema handlers.
@@ -143,7 +141,7 @@ class ClientSchemeHandlerFactory : public CefSchemeHandlerFactory {
                                                const CefString& scheme_name,
                                                CefRefPtr<CefRequest> request)
                                                OVERRIDE {
-    REQUIRE_IO_THREAD();
+    CEF_REQUIRE_IO_THREAD();
     return new ClientSchemeHandler();
   }
 

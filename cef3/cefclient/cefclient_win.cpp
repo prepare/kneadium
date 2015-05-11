@@ -3,22 +3,40 @@
 // can be found in the LICENSE file.
 
 #include "cefclient/cefclient.h"
+
 #include <windows.h>
 #include <commdlg.h>
 #include <shellapi.h>
 #include <direct.h>
 #include <sstream>
 #include <string>
+
+#include "include/base/cef_bind.h"
 #include "include/cef_app.h"
 #include "include/cef_browser.h"
 #include "include/cef_frame.h"
-#include "include/cef_runnable.h"
+#include "include/cef_sandbox_win.h"
+#include "include/wrapper/cef_closure_task.h"
 #include "cefclient/cefclient_osr_widget_win.h"
 #include "cefclient/client_handler.h"
 #include "cefclient/client_switches.h"
 #include "cefclient/resource.h"
 #include "cefclient/scheme_test.h"
 #include "cefclient/string_util.h"
+
+
+// When generating projects with CMake the CEF_USE_SANDBOX value will be defined
+// automatically if using the required compiler version. Pass -DUSE_SANDBOX=OFF
+// to the CMake command-line to disable use of the sandbox.
+// Uncomment this line to manually enable sandbox support.
+// #define CEF_USE_SANDBOX 1
+
+#if defined(CEF_USE_SANDBOX)
+// The cef_sandbox.lib static library is currently built with VS2013. It may not
+// link successfully with other VS versions.
+#pragma comment(lib, "cef_sandbox.lib")
+#endif
+
 
 #define MAX_LOADSTRING 100
 #define MAX_URL_LENGTH  255
@@ -31,6 +49,8 @@ TCHAR szTitle[MAX_LOADSTRING];  // The title bar text
 TCHAR szWindowClass[MAX_LOADSTRING];  // the main window class name
 TCHAR szOSRWindowClass[MAX_LOADSTRING];  // the OSR window class name
 char szWorkingDir[MAX_PATH];  // The current working directory
+UINT uFindMsg;  // Message identifier for find events.
+HWND hFindDlg = NULL;  // Handle for the find dialog.
 
 // Forward declarations of functions included in this code module:
 ATOM MyRegisterClass(HINSTANCE hInstance);
@@ -56,12 +76,6 @@ class MainBrowserProvider : public OSRBrowserProvider {
   }
 } g_main_browser_provider;
 
-#if defined(OS_WIN)
-// Add Common Controls to the application manifest because it's required to
-// support the default tooltip implementation.
-#pragma comment(linker, "/manifestdependency:\"type='win32' name='Microsoft.Windows.Common-Controls' version='6.0.0.0' processorArchitecture='*' publicKeyToken='6595b64144ccf1df' language='*'\"")  // NOLINT(whitespace/line_length)
-#endif
-
 // Program entry point function.
 int APIENTRY wWinMain(HINSTANCE hInstance,
                      HINSTANCE hPrevInstance,
@@ -70,11 +84,20 @@ int APIENTRY wWinMain(HINSTANCE hInstance,
   UNREFERENCED_PARAMETER(hPrevInstance);
   UNREFERENCED_PARAMETER(lpCmdLine);
 
+  void* sandbox_info = NULL;
+
+#if defined(CEF_USE_SANDBOX)
+  // Manage the life span of the sandbox information object. This is necessary
+  // for sandbox support on Windows. See cef_sandbox_win.h for complete details.
+  CefScopedSandboxInfo scoped_sandbox;
+  sandbox_info = scoped_sandbox.sandbox_info();
+#endif
+
   CefMainArgs main_args(hInstance);
   CefRefPtr<ClientApp> app(new ClientApp);
 
   // Execute the secondary process, if any.
-  int exit_code = CefExecuteProcess(main_args, app.get());
+  int exit_code = CefExecuteProcess(main_args, app.get(), sandbox_info);
   if (exit_code >= 0)
     return exit_code;
 
@@ -87,11 +110,15 @@ int APIENTRY wWinMain(HINSTANCE hInstance,
 
   CefSettings settings;
 
+#if !defined(CEF_USE_SANDBOX)
+  settings.no_sandbox = true;
+#endif
+
   // Populate the settings based on command line arguments.
   AppGetSettings(settings);
-
+  
   // Initialize CEF.
-  CefInitialize(main_args, settings, app.get());
+  CefInitialize(main_args, settings, app.get(), sandbox_info);
 
   // Register the scheme handler.
   scheme_test::InitTest();
@@ -110,6 +137,9 @@ int APIENTRY wWinMain(HINSTANCE hInstance,
 
   hAccelTable = LoadAccelerators(hInstance, MAKEINTRESOURCE(IDC_CEFCLIENT));
 
+  // Register the find event message.
+  uFindMsg = RegisterWindowMessage(FINDMSGSTRING);
+
   int result = 0;
 
   if (!settings.multi_threaded_message_loop) {
@@ -119,12 +149,16 @@ int APIENTRY wWinMain(HINSTANCE hInstance,
   } else {
     // Create a hidden window for message processing.
     hMessageWnd = CreateMessageWindow(hInstance);
-    ASSERT(hMessageWnd);
+    DCHECK(hMessageWnd);
 
     MSG msg;
 
     // Run the application message loop.
     while (GetMessage(&msg, NULL, 0, 0)) {
+      // Allow processing of find dialog messages.
+      if (hFindDlg && IsDialogMessage(hFindDlg, &msg))
+        continue;
+
       if (!TranslateAccelerator(msg.hwnd, hAccelTable, &msg)) {
         TranslateMessage(&msg);
         DispatchMessage(&msg);
@@ -206,11 +240,76 @@ BOOL InitInstance(HINSTANCE hInstance, int nCmdShow) {
 
 // Change the zoom factor on the UI thread.
 static void ModifyZoom(CefRefPtr<CefBrowser> browser, double delta) {
-  if (CefCurrentlyOn(TID_UI)) {
-    browser->GetHost()->SetZoomLevel(
-        browser->GetHost()->GetZoomLevel() + delta);
+  if (!CefCurrentlyOn(TID_UI)) {
+    // Execute on the UI thread.
+    CefPostTask(TID_UI, base::Bind(&ModifyZoom, browser, delta));
+    return;
+  }
+
+  browser->GetHost()->SetZoomLevel(
+      browser->GetHost()->GetZoomLevel() + delta);
+}
+
+// Show a warning message on the UI thread.
+static void ShowWarning(CefRefPtr<CefBrowser> browser, int id) {
+  if (!CefCurrentlyOn(TID_UI)) {
+    // Execute on the UI thread.
+    CefPostTask(TID_UI, base::Bind(&ShowWarning, browser, id));
+    return;
+  }
+
+  if (!g_handler)
+    return;
+
+  std::wstring caption;
+  std::wstringstream message;
+
+  switch (id) {
+    case ID_WARN_CONSOLEMESSAGE:
+      caption = L"Console Messages";
+      message << L"Console messages will be written to " <<
+              std::wstring(CefString(g_handler->GetLogFile()));
+      break;
+    case ID_WARN_DOWNLOADCOMPLETE:
+    case ID_WARN_DOWNLOADERROR:
+      caption = L"File Download";
+      message << L"File \"" <<
+              std::wstring(CefString(g_handler->GetLastDownloadFile())) <<
+              L"\" ";
+
+      if (id == ID_WARN_DOWNLOADCOMPLETE)
+        message << L"downloaded successfully.";
+      else
+        message << L"failed to download.";
+      break;
+  }
+
+  MessageBox(g_handler->GetMainWindowHandle(),
+             message.str().c_str(),
+             caption.c_str(),
+             MB_OK | MB_ICONINFORMATION);
+}
+
+// Set focus to |browser| on the UI thread.
+static void SetFocusToBrowser(CefRefPtr<CefBrowser> browser) {
+  if (!CefCurrentlyOn(TID_UI)) {
+    // Execute on the UI thread.
+    CefPostTask(TID_UI, base::Bind(&SetFocusToBrowser, browser));
+    return;
+  }
+
+  if (!g_handler)
+    return;
+
+  if (AppIsOffScreenRenderingEnabled()) {
+    // Give focus to the OSR window.
+    CefRefPtr<OSRWindow> osr_window =
+        static_cast<OSRWindow*>(g_handler->GetOSRHandler().get());
+    if (osr_window)
+      ::SetFocus(osr_window->hwnd());
   } else {
-    CefPostTask(TID_UI, NewCefRunnableFunction(ModifyZoom, browser, delta));
+    // Give focus to the browser.
+    browser->GetHost()->SetFocus(true);
   }
 }
 
@@ -257,13 +356,54 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam,
 
     return (LRESULT)CallWindowProc(editWndOldProc, hWnd, message, wParam,
                                    lParam);
+  } else if (message == uFindMsg) {
+    // Find event.
+    LPFINDREPLACE lpfr = (LPFINDREPLACE)lParam;
+
+    if (lpfr->Flags & FR_DIALOGTERM) {
+      // The find dialog box has been dismissed so invalidate the handle and
+      // reset the search results.
+      hFindDlg = NULL;
+      if (g_handler.get()) {
+        g_handler->GetBrowser()->GetHost()->StopFinding(true);
+        szLastFindWhat[0] = 0;
+        findNext = false;
+      }
+      return 0;
+    }
+
+    if ((lpfr->Flags & FR_FINDNEXT) && g_handler.get())  {
+      // Search for the requested string.
+      bool matchCase = (lpfr->Flags & FR_MATCHCASE?true:false);
+      if (matchCase != lastMatchCase ||
+          (matchCase && wcsncmp(szFindWhat, szLastFindWhat,
+              sizeof(szLastFindWhat)/sizeof(WCHAR)) != 0) ||
+          (!matchCase && _wcsnicmp(szFindWhat, szLastFindWhat,
+              sizeof(szLastFindWhat)/sizeof(WCHAR)) != 0)) {
+        // The search string has changed, so reset the search results.
+        if (szLastFindWhat[0] != 0) {
+          g_handler->GetBrowser()->GetHost()->StopFinding(true);
+          findNext = false;
+        }
+        lastMatchCase = matchCase;
+        wcscpy_s(szLastFindWhat, sizeof(szLastFindWhat)/sizeof(WCHAR),
+            szFindWhat);
+      }
+
+      g_handler->GetBrowser()->GetHost()->Find(0, lpfr->lpstrFindWhat,
+          (lpfr->Flags & FR_DOWN)?true:false, matchCase, findNext);
+      if (!findNext)
+        findNext = true;
+    }
+
+    return 0;
   } else {
     // Callback for the main window
     switch (message) {
     case WM_CREATE: {
       // Create the single static handler class instance
       g_handler = new ClientHandler();
-      g_handler->SetMainHwnd(hWnd);
+      g_handler->SetMainWindowHandle(hWnd);
 
       // Create the child windows used for navigation
       RECT rect;
@@ -309,24 +449,30 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam,
           reinterpret_cast<WNDPROC>(GetWindowLongPtr(editWnd, GWLP_WNDPROC));
       SetWindowLongPtr(editWnd, GWLP_WNDPROC,
           reinterpret_cast<LONG_PTR>(WndProc));
-      g_handler->SetEditHwnd(editWnd);
-      g_handler->SetButtonHwnds(backWnd, forwardWnd, reloadWnd, stopWnd);
+      g_handler->SetEditWindowHandle(editWnd);
+      g_handler->SetButtonWindowHandles(
+          backWnd, forwardWnd, reloadWnd, stopWnd);
 
       rect.top += URLBAR_HEIGHT;
 
       CefWindowInfo info;
       CefBrowserSettings settings;
 
+      // Populate the browser settings based on command line arguments.
+      AppGetBrowserSettings(settings);
+
       if (AppIsOffScreenRenderingEnabled()) {
         CefRefPtr<CefCommandLine> cmd_line = AppGetCommandLine();
-        bool transparent =
+        const bool transparent =
             cmd_line->HasSwitch(cefclient::kTransparentPaintingEnabled);
+        const bool show_update_rect =
+            cmd_line->HasSwitch(cefclient::kShowUpdateRect);
 
         CefRefPtr<OSRWindow> osr_window =
-            OSRWindow::Create(&g_main_browser_provider, transparent);
+            OSRWindow::Create(&g_main_browser_provider, transparent,
+                              show_update_rect);
         osr_window->CreateWidget(hWnd, rect, hInst, szOSRWindowClass);
-        info.SetAsOffScreen(osr_window->hwnd());
-        info.SetTransparentPainting(transparent ? TRUE : FALSE);
+        info.SetAsWindowless(osr_window->hwnd(), transparent);
         g_handler->SetOSRHandler(osr_window.get());
       } else {
         // Initialize window info to the defaults for a child window.
@@ -335,7 +481,7 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam,
 
       // Creat the new child browser window
       CefBrowserHost::CreateBrowser(info, g_handler.get(),
-          g_handler->GetStartupURL(), settings);
+          g_handler->GetStartupURL(), settings, NULL);
 
       return 0;
     }
@@ -357,29 +503,24 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam,
           g_handler->CloseAllBrowsers(false);
         return 0;
       case ID_WARN_CONSOLEMESSAGE:
-        if (g_handler.get()) {
-          std::wstringstream ss;
-          ss << L"Console messages will be written to "
-              << std::wstring(CefString(g_handler->GetLogFile()));
-          MessageBox(hWnd, ss.str().c_str(), L"Console Messages",
-              MB_OK | MB_ICONINFORMATION);
-        }
-        return 0;
       case ID_WARN_DOWNLOADCOMPLETE:
       case ID_WARN_DOWNLOADERROR:
-        if (g_handler.get()) {
-          std::wstringstream ss;
-          ss << L"File \"" <<
-              std::wstring(CefString(g_handler->GetLastDownloadFile())) <<
-              L"\" ";
+        ShowWarning(browser, wmId);
+        return 0;
+      case ID_FIND:
+        if (!hFindDlg) {
+          // Create the find dialog.
+          ZeroMemory(&fr, sizeof(fr));
+          fr.lStructSize = sizeof(fr);
+          fr.hwndOwner = hWnd;
+          fr.lpstrFindWhat = szFindWhat;
+          fr.wFindWhatLen = sizeof(szFindWhat);
+          fr.Flags = FR_HIDEWHOLEWORD | FR_DOWN;
 
-          if (wmId == ID_WARN_DOWNLOADCOMPLETE)
-            ss << L"downloaded successfully.";
-          else
-            ss << L"failed to download.";
-
-          MessageBox(hWnd, ss.str().c_str(), L"File Download",
-              MB_OK | MB_ICONINFORMATION);
+          hFindDlg = FindText(&fr);
+        } else {
+          // Give focus to the existing find dialog.
+          ::SetFocus(hFindDlg);
         }
         return 0;
       case IDC_NAV_BACK:   // Back button
@@ -436,6 +577,10 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam,
       case ID_TESTS_TRACING_END:
         g_handler->EndTracing();
         return 0;
+      case ID_TESTS_PRINT:
+        if(browser.get())
+          browser->GetHost()->Print();
+        return 0;
       case ID_TESTS_OTHER_TESTS:
         if (browser.get())
           RunOtherTests(browser);
@@ -450,41 +595,66 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam,
       return 0;
 
     case WM_SETFOCUS:
-      if (g_handler.get() && g_handler->GetBrowser()) {
-        // Pass focus to the browser window
-        CefWindowHandle hwnd =
-            g_handler->GetBrowser()->GetHost()->GetWindowHandle();
-        if (hwnd)
-          PostMessage(hwnd, WM_SETFOCUS, wParam, NULL);
+      if (g_handler.get()) {
+        CefRefPtr<CefBrowser> browser = g_handler->GetBrowser();
+        if (browser)
+          SetFocusToBrowser(browser);
       }
       return 0;
 
-    case WM_SIZE:
-      // Minimizing resizes the window to 0x0 which causes our layout to go all
-      // screwy, so we just ignore it.
-      if (wParam != SIZE_MINIMIZED && g_handler.get() &&
-          g_handler->GetBrowser()) {
+    case WM_SIZE: {
+      if (!g_handler.get())
+        break;
+
+      // For off-screen browsers when the frame window is minimized set the
+      // browser as hidden to reduce resource usage.
+      const bool offscreen = AppIsOffScreenRenderingEnabled();
+      if (offscreen) {
+        CefRefPtr<OSRWindow> osr_window =
+            static_cast<OSRWindow*>(g_handler->GetOSRHandler().get());
+        if (osr_window)
+          osr_window->WasHidden(wParam == SIZE_MINIMIZED);
+      }
+
+      if (g_handler->GetBrowser()) {
+        // Retrieve the window handle (parent window with off-screen rendering).
         CefWindowHandle hwnd =
             g_handler->GetBrowser()->GetHost()->GetWindowHandle();
         if (hwnd) {
-          // Resize the browser window and address bar to match the new frame
-          // window size
-          RECT rect;
-          GetClientRect(hWnd, &rect);
-          rect.top += URLBAR_HEIGHT;
+          if (wParam == SIZE_MINIMIZED) {
+            // For windowed browsers when the frame window is minimized set the
+            // browser window size to 0x0 to reduce resource usage.
+            if (!offscreen) {
+              SetWindowPos(hwnd, NULL,
+                  0, 0, 0, 0, SWP_NOZORDER | SWP_NOMOVE | SWP_NOACTIVATE);
+            }
+          } else {
+            // Resize the window and address bar to match the new frame size.
+            RECT rect;
+            GetClientRect(hWnd, &rect);
+            rect.top += URLBAR_HEIGHT;
 
-          int urloffset = rect.left + BUTTON_WIDTH * 4;
+            int urloffset = rect.left + BUTTON_WIDTH * 4;
 
-          HDWP hdwp = BeginDeferWindowPos(1);
-          hdwp = DeferWindowPos(hdwp, editWnd, NULL, urloffset,
-            0, rect.right - urloffset, URLBAR_HEIGHT, SWP_NOZORDER);
-          hdwp = DeferWindowPos(hdwp, hwnd, NULL,
-            rect.left, rect.top, rect.right - rect.left, rect.bottom - rect.top,
-            SWP_NOZORDER);
-          EndDeferWindowPos(hdwp);
+            HDWP hdwp = BeginDeferWindowPos(1);
+            hdwp = DeferWindowPos(hdwp, editWnd, NULL, urloffset,
+                0, rect.right - urloffset, URLBAR_HEIGHT, SWP_NOZORDER);
+            hdwp = DeferWindowPos(hdwp, hwnd, NULL,
+                rect.left, rect.top, rect.right - rect.left,
+                rect.bottom - rect.top, SWP_NOZORDER);
+            EndDeferWindowPos(hdwp);
+          }
         }
       }
-      break;
+    } break;
+
+    case WM_MOVING:
+    case WM_MOVE:
+      // Notify the browser of move events so that popup windows are displayed
+      // in the correct location and dismissed when the window moves.
+      if (g_handler.get() && g_handler->GetBrowser())
+        g_handler->GetBrowser()->GetHost()->NotifyMoveOrResizeStarted();
+      return 0;
 
     case WM_ERASEBKGND:
       if (g_handler.get() && g_handler->GetBrowser()) {
@@ -596,7 +766,7 @@ void AppQuitMessageLoop() {
   if (command_line->HasSwitch(cefclient::kMultiThreadedMessageLoop)) {
     // Running in multi-threaded message loop mode. Need to execute
     // PostQuitMessage on the main application thread.
-    ASSERT(hMessageWnd);
+    DCHECK(hMessageWnd);
     PostMessage(hMessageWnd, WM_COMMAND, ID_QUIT, 0);
   } else {
     CefQuitMessageLoop();

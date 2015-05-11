@@ -15,21 +15,21 @@
 void ClientHandler::OnAddressChange(CefRefPtr<CefBrowser> browser,
                                     CefRefPtr<CefFrame> frame,
                                     const CefString& url) {
-  REQUIRE_UI_THREAD();
+  CEF_REQUIRE_UI_THREAD();
 
-  if (m_BrowserId == browser->GetIdentifier() && frame->IsMain())   {
+  if (GetBrowserId() == browser->GetIdentifier() && frame->IsMain()) {
     // Set the edit window text
-    SetWindowText(m_EditHwnd, std::wstring(url).c_str());
+    SetWindowText(edit_handle_, std::wstring(url).c_str());
   }
 }
 
 void ClientHandler::OnTitleChange(CefRefPtr<CefBrowser> browser,
                                   const CefString& title) {
-  REQUIRE_UI_THREAD();
+  CEF_REQUIRE_UI_THREAD();
 
   // Set the frame window title bar
   CefWindowHandle hwnd = browser->GetHost()->GetWindowHandle();
-  if (m_BrowserId == browser->GetIdentifier())   {
+  if (GetBrowserId() == browser->GetIdentifier()) {
     // The frame window will be the parent of the browser window
     hwnd = GetParent(hwnd);
   }
@@ -51,20 +51,21 @@ void ClientHandler::SendNotification(NotificationType type) {
   default:
     return;
   }
-  PostMessage(m_MainHwnd, WM_COMMAND, id, 0);
+  PostMessage(main_handle_, WM_COMMAND, id, 0);
 }
 
 void ClientHandler::SetLoading(bool isLoading) {
-  ASSERT(m_EditHwnd != NULL && m_ReloadHwnd != NULL && m_StopHwnd != NULL);
-  EnableWindow(m_EditHwnd, TRUE);
-  EnableWindow(m_ReloadHwnd, !isLoading);
-  EnableWindow(m_StopHwnd, isLoading);
+  DCHECK(edit_handle_ != NULL && reload_handle_ != NULL &&
+         stop_handle_ != NULL);
+  EnableWindow(edit_handle_, TRUE);
+  EnableWindow(reload_handle_, !isLoading);
+  EnableWindow(stop_handle_, isLoading);
 }
 
 void ClientHandler::SetNavState(bool canGoBack, bool canGoForward) {
-  ASSERT(m_BackHwnd != NULL && m_ForwardHwnd != NULL);
-  EnableWindow(m_BackHwnd, canGoBack);
-  EnableWindow(m_ForwardHwnd, canGoForward);
+  DCHECK(back_handle_ != NULL && forward_handle_ != NULL);
+  EnableWindow(back_handle_, canGoBack);
+  EnableWindow(forward_handle_, canGoForward);
 }
 
 std::string ClientHandler::GetDownloadPath(const std::string& file_name) {
