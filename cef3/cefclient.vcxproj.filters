@@ -745,6 +745,15 @@
     <Filter Include="cefclient\Modified">
       <UniqueIdentifier>{2e638e0f-dc21-4896-9cce-f5be3c161e81}</UniqueIdentifier>
     </Filter>
+    <Filter Include="cefclient\CoreApp">
+      <UniqueIdentifier>{0f600bc2-4f4a-4ec4-8a49-ea2ed695fbf5}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="cefclient\OnlyStandaloneApp">
+      <UniqueIdentifier>{d7869d97-aa35-4ebe-bb29-0ab2602c8eb2}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="cefclient\DragDrop">
+      <UniqueIdentifier>{3cba7d4a-cef0-45b3-a7d2-46389886e87e}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="include\base\cef_atomic_ref_count.h">
@@ -1101,9 +1110,6 @@
     <ClInclude Include="cefclient\client_renderer.h">
       <Filter>cefclient</Filter>
     </ClInclude>
-    <ClInclude Include="cefclient\dragdrop_events.h">
-      <Filter>cefclient</Filter>
-    </ClInclude>
     <ClInclude Include="cefclient\osrenderer.h">
       <Filter>cefclient</Filter>
     </ClInclude>
@@ -1158,12 +1164,6 @@
     <ClInclude Include="include\internal\cef_win.h">
       <Filter>include\internal</Filter>
     </ClInclude>
-    <ClInclude Include="cefclient\cefclient_osr_dragdrop_win.h">
-      <Filter>cefclient</Filter>
-    </ClInclude>
-    <ClCompile Include="cefclient\cefclient_osr_dragdrop_win.cpp">
-      <Filter>cefclient</Filter>
-    </ClCompile>
     <ClInclude Include="cefclient\cefclient_osr_widget_win.h">
       <Filter>cefclient</Filter>
     </ClInclude>
@@ -1210,6 +1210,24 @@
     <ClInclude Include="cefclient\string_util.h">
       <Filter>cefclient\static_or_const</Filter>
     </ClInclude>
+    <ClInclude Include="cefclient\cefclient_osr_dragdrop_win.h">
+      <Filter>cefclient\DragDrop</Filter>
+    </ClInclude>
+    <ClInclude Include="cefclient\dragdrop_events.h">
+      <Filter>cefclient\DragDrop</Filter>
+    </ClInclude>
+    <ClInclude Include="cefclient\ExportFuncs.h">
+      <Filter>cefclient\ExportFuncs</Filter>
+    </ClInclude>
+    <ClInclude Include="cefclient\Common_win.h">
+      <Filter>cefclient\CoreApp</Filter>
+    </ClInclude>
+    <ClInclude Include="cefclient\CommonModule.h">
+      <Filter>cefclient\CoreApp</Filter>
+    </ClInclude>
+    <ClInclude Include="cefclient\mycef.h">
+      <Filter>cefclient\CoreApp</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <CustomBuild Include="binary_distrib\cef_binary_3.2171.1979_windows32\cefclient.gyp" />
@@ -1248,10 +1266,25 @@
     <ClCompile Include="cefclient\string_util.cpp">
       <Filter>cefclient\static_or_const</Filter>
     </ClCompile>
-    <ClCompile Include="cefclient\cefclient_win.cpp">
+    <ClCompile Include="cefclient\client_handler_win.cpp">
       <Filter>cefclient\Modified</Filter>
     </ClCompile>
-    <ClCompile Include="cefclient\client_handler_win.cpp">
+    <ClCompile Include="cefclient\cefclient_osr_dragdrop_win.cpp">
+      <Filter>cefclient\DragDrop</Filter>
+    </ClCompile>
+    <ClCompile Include="cefclient\ExportFuncs.cpp">
+      <Filter>cefclient\ExportFuncs</Filter>
+    </ClCompile>
+    <ClCompile Include="cefclient\Common_win.cpp">
+      <Filter>cefclient\CoreApp</Filter>
+    </ClCompile>
+    <ClCompile Include="cefclient\CommonModule.cpp">
+      <Filter>cefclient\CoreApp</Filter>
+    </ClCompile>
+    <ClCompile Include="cefclient\mycef_impl.cpp">
+      <Filter>cefclient\CoreApp</Filter>
+    </ClCompile>
+    <ClCompile Include="cefclient\cefclient_win.cpp">
       <Filter>cefclient\Modified</Filter>
     </ClCompile>
   </ItemGroup>

@@ -24,7 +24,12 @@
 #include "cefclient/scheme_test.h"
 #include "cefclient/string_util.h"
 
-
+//--------------------------------------
+// 
+#include "CommonModule.h"
+#include "ExportFuncs.h"
+#include "Common_win.h"
+//--------------------------------------
 // When generating projects with CMake the CEF_USE_SANDBOX value will be defined
 // automatically if using the required compiler version. Pass -DUSE_SANDBOX=OFF
 // to the CMake command-line to disable use of the sandbox.
@@ -44,11 +49,17 @@
 #define URLBAR_HEIGHT  24
 
 // Global Variables:
-HINSTANCE hInst;   // current instance
+extern HINSTANCE hInst;  
+extern TCHAR szOSRWindowClass[MAX_LOADSTRING]; // the OSR window class name  
+
+//HINSTANCE hInst;   // current instance
+//TCHAR szOSRWindowClass[MAX_LOADSTRING];  // the OSR window class name
+
+
 TCHAR szTitle[MAX_LOADSTRING];  // The title bar text
 TCHAR szWindowClass[MAX_LOADSTRING];  // the main window class name
-TCHAR szOSRWindowClass[MAX_LOADSTRING];  // the OSR window class name
-char szWorkingDir[MAX_PATH];  // The current working directory
+
+//char szWorkingDir[MAX_PATH];  // The current working directory
 UINT uFindMsg;  // Message identifier for find events.
 HWND hFindDlg = NULL;  // Handle for the find dialog.
 
@@ -82,7 +93,8 @@ int APIENTRY wWinMain(HINSTANCE hInstance,
                      LPTSTR    lpCmdLine,
                      int       nCmdShow) {
   UNREFERENCED_PARAMETER(hPrevInstance);
-  UNREFERENCED_PARAMETER(lpCmdLine);
+  UNREFERENCED_PARAMETER(lpCmdLine); 
+
 
   void* sandbox_info = NULL;
 
@@ -102,8 +114,9 @@ int APIENTRY wWinMain(HINSTANCE hInstance,
     return exit_code;
 
   // Retrieve the current working directory.
-  if (_getcwd(szWorkingDir, MAX_PATH) == NULL)
-    szWorkingDir[0] = 0;
+  /*if (_getcwd(szWorkingDir, MAX_PATH) == NULL)
+    szWorkingDir[0] = 0;*/
+  MyCefInitWorkingDir();
 
   // Parse command line arguments. The passed in values are ignored on Windows.
   AppInitCommandLine(0, NULL);
@@ -757,9 +770,9 @@ LRESULT CALLBACK MessageWndProc(HWND hWnd, UINT message, WPARAM wParam,
 
 // Global functions
 
-std::string AppGetWorkingDirectory() {
-  return szWorkingDir;
-}
+//std::string AppGetWorkingDirectory() {
+//  return szWorkingDir;
+//}
 
 void AppQuitMessageLoop() {
   CefRefPtr<CefCommandLine> command_line = AppGetCommandLine();

@@ -10,7 +10,7 @@
 #include "include/cef_base.h"
 #include "cefclient/client_app.h"
 #include "cefclient/client_handler.h"
-
+#include "mycef.h"
 class CefApp;
 class CefBrowser;
 class CefCommandLine;
