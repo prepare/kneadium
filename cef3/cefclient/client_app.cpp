@@ -15,15 +15,29 @@
 #include "include/wrapper/cef_helpers.h"
 
 ClientApp::ClientApp() {
+	myMxCallback= NULL;
 }
 
 void ClientApp::OnRegisterCustomSchemes(
     CefRefPtr<CefSchemeRegistrar> registrar) {
+
+
   // Default schemes that support cookies.
   cookieable_schemes_.push_back("http");
-  cookieable_schemes_.push_back("https");
+  cookieable_schemes_.push_back("https"); 
 
-  RegisterCustomSchemes(registrar, cookieable_schemes_);
+  if(this->myMxCallback)
+  {  
+		//send to
+		myMxCallback(0,NULL);
+  }
+  else
+  {	 
+	   RegisterCustomSchemes(registrar, cookieable_schemes_);
+		////others...
+		//scheme_test::RegisterCustomSchemes(registrar, cookiable_schemes);
+  }
+
 }
 
 void ClientApp::OnContextInitialized() {
