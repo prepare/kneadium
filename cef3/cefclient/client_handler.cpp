@@ -687,6 +687,12 @@ void ClientHandler::SetMainWindowHandle(ClientWindowHandle handle) {
   main_handle_ = handle;
 }
 
+void ClientHandler::SetEditHwnd(CefWindowHandle hwnd) {
+   //AutoLock lock_scope(this);
+   this->edit_handle_ = hwnd;
+   //m_EditHwnd = hwnd;
+}
+
 ClientWindowHandle ClientHandler::GetMainWindowHandle() const {
   CEF_REQUIRE_UI_THREAD();
   return main_handle_;

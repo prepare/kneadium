@@ -57,17 +57,19 @@ void ClientHandler::SendNotification(NotificationType type) {
 }
 
 void ClientHandler::SetLoading(bool isLoading) {
-  DCHECK(edit_handle_ != NULL && reload_handle_ != NULL &&
-         stop_handle_ != NULL);
+  /*DCHECK(edit_handle_ != NULL && reload_handle_ != NULL &&
+         stop_handle_ != NULL);*/
+  DCHECK(edit_handle_ != NULL);
+
   EnableWindow(edit_handle_, TRUE);
   EnableWindow(reload_handle_, !isLoading);
   EnableWindow(stop_handle_, isLoading);
 }
 
 void ClientHandler::SetNavState(bool canGoBack, bool canGoForward) {
-  DCHECK(back_handle_ != NULL && forward_handle_ != NULL);
+  /*DCHECK(back_handle_ != NULL && forward_handle_ != NULL);
   EnableWindow(back_handle_, canGoBack);
-  EnableWindow(forward_handle_, canGoForward);
+  EnableWindow(forward_handle_, canGoForward);*/
 }
 
 std::string ClientHandler::GetDownloadPath(const std::string& file_name) {

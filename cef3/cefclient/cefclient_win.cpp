@@ -54,7 +54,7 @@ extern TCHAR szOSRWindowClass[MAX_LOADSTRING]; // the OSR window class name
 
 //HINSTANCE hInst;   // current instance
 //TCHAR szOSRWindowClass[MAX_LOADSTRING];  // the OSR window class name
-
+CefRefPtr<ClientHandler> g_handler;
 
 TCHAR szTitle[MAX_LOADSTRING];  // The title bar text
 TCHAR szWindowClass[MAX_LOADSTRING];  // the main window class name
@@ -76,12 +76,14 @@ HWND CreateMessageWindow(HINSTANCE hInstance);
 LRESULT CALLBACK MessageWndProc(HWND, UINT, WPARAM, LPARAM);
 
 // The global ClientHandler reference.
-extern CefRefPtr<ClientHandler> g_handler;
+//extern CefRefPtr<ClientHandler> g_handler;
 
 class MainBrowserProvider : public OSRBrowserProvider {
+public:
+  CefRefPtr<ClientHandler> my_g_handler; 
   virtual CefRefPtr<CefBrowser> GetBrowser() {
-    if (g_handler.get())
-      return g_handler->GetBrowser();
+    if (my_g_handler.get())
+      return my_g_handler->GetBrowser();
 
     return NULL;
   }
@@ -423,88 +425,124 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam,
     switch (message) {
     case WM_CREATE: {
       // Create the single static handler class instance
-      g_handler = new ClientHandler();
-      g_handler->SetMainWindowHandle(hWnd);
 
-      // Create the child windows used for navigation
-      RECT rect;
-      int x = 0;
+		 //-----------------------------------------
+          RECT rect;
+          int x = 0;
 
-      GetClientRect(hWnd, &rect);
+          GetClientRect(hWnd, &rect);         
 
-      backWnd = CreateWindow(L"BUTTON", L"Back",
-                              WS_CHILD | WS_VISIBLE | BS_PUSHBUTTON
-                              | WS_DISABLED, x, 0, BUTTON_WIDTH, URLBAR_HEIGHT,
-                              hWnd, (HMENU) IDC_NAV_BACK, hInst, 0);
-      x += BUTTON_WIDTH;
-
-      forwardWnd = CreateWindow(L"BUTTON", L"Forward",
-                                WS_CHILD | WS_VISIBLE | BS_PUSHBUTTON
-                                | WS_DISABLED, x, 0, BUTTON_WIDTH,
-                                URLBAR_HEIGHT, hWnd, (HMENU) IDC_NAV_FORWARD,
-                                hInst, 0);
-      x += BUTTON_WIDTH;
-
-      reloadWnd = CreateWindow(L"BUTTON", L"Reload",
-                                WS_CHILD | WS_VISIBLE | BS_PUSHBUTTON
-                                | WS_DISABLED, x, 0, BUTTON_WIDTH,
-                                URLBAR_HEIGHT, hWnd, (HMENU) IDC_NAV_RELOAD,
-                                hInst, 0);
-      x += BUTTON_WIDTH;
-
-      stopWnd = CreateWindow(L"BUTTON", L"Stop",
-                              WS_CHILD | WS_VISIBLE | BS_PUSHBUTTON
-                              | WS_DISABLED, x, 0, BUTTON_WIDTH, URLBAR_HEIGHT,
-                              hWnd, (HMENU) IDC_NAV_STOP, hInst, 0);
-      x += BUTTON_WIDTH;
-
-      editWnd = CreateWindow(L"EDIT", 0,
+		  //1. create handler
+		  auto myclientHandler= MyCefCreateClientHandler();
+		  //2. set handler main windows 
+		  g_handler = myclientHandler;
+		  MyCefSetupWindowsBegin(myclientHandler, hWnd); 
+		  
+          editWnd = CreateWindow(L"EDIT", 0,
                               WS_CHILD | WS_VISIBLE | WS_BORDER | ES_LEFT |
                               ES_AUTOVSCROLL | ES_AUTOHSCROLL| WS_DISABLED,
                               x, 0, rect.right - BUTTON_WIDTH * 4,
                               URLBAR_HEIGHT, hWnd, 0, hInst, 0);
 
-      // Assign the edit window's WNDPROC to this function so that we can
-      // capture the enter key
-      editWndOldProc =
-          reinterpret_cast<WNDPROC>(GetWindowLongPtr(editWnd, GWLP_WNDPROC));
-      SetWindowLongPtr(editWnd, GWLP_WNDPROC,
-          reinterpret_cast<LONG_PTR>(WndProc));
-      g_handler->SetEditWindowHandle(editWnd);
-      g_handler->SetButtonWindowHandles(
-          backWnd, forwardWnd, reloadWnd, stopWnd);
+          // Assign the edit window's WNDPROC to this function so that we can
+          // capture the enter key
+          editWndOldProc =
+              reinterpret_cast<WNDPROC>(GetWindowLongPtr(editWnd, GWLP_WNDPROC));
+          SetWindowLongPtr(editWnd, GWLP_WNDPROC,
+              reinterpret_cast<LONG_PTR>(WndProc));
+          g_handler->SetEditHwnd(editWnd);
+          //g_handler->SetButtonHwnds(backWnd, forwardWnd, reloadWnd, stopWnd);
 
-      rect.top += URLBAR_HEIGHT;
+          rect.top += URLBAR_HEIGHT;
 
-      CefWindowInfo info;
-      CefBrowserSettings settings;
+    
+          MyCefSetupWindowsEnd(myclientHandler, hWnd,rect.left,rect.top, rect.right - rect.left,rect.bottom - rect.top);
 
-      // Populate the browser settings based on command line arguments.
-      AppGetBrowserSettings(settings);
+          return 0; 
 
-      if (AppIsOffScreenRenderingEnabled()) {
-        CefRefPtr<CefCommandLine> cmd_line = AppGetCommandLine();
-        const bool transparent =
-            cmd_line->HasSwitch(cefclient::kTransparentPaintingEnabled);
-        const bool show_update_rect =
-            cmd_line->HasSwitch(cefclient::kShowUpdateRect);
 
-        CefRefPtr<OSRWindow> osr_window =
-            OSRWindow::Create(&g_main_browser_provider, transparent,
-                              show_update_rect);
-        osr_window->CreateWidget(hWnd, rect, hInst, szOSRWindowClass);
-        info.SetAsWindowless(osr_window->hwnd(), transparent);
-        g_handler->SetOSRHandler(osr_window.get());
-      } else {
-        // Initialize window info to the defaults for a child window.
-        info.SetAsChild(hWnd, rect);
-      }
+      //g_handler = new ClientHandler();
+      //g_handler->SetMainWindowHandle(hWnd);
 
-      // Creat the new child browser window
-      CefBrowserHost::CreateBrowser(info, g_handler.get(),
-          g_handler->GetStartupURL(), settings, NULL);
+      //// Create the child windows used for navigation
+      //RECT rect;
+      //int x = 0;
 
-      return 0;
+      //GetClientRect(hWnd, &rect);
+
+      //backWnd = CreateWindow(L"BUTTON", L"Back",
+      //                        WS_CHILD | WS_VISIBLE | BS_PUSHBUTTON
+      //                        | WS_DISABLED, x, 0, BUTTON_WIDTH, URLBAR_HEIGHT,
+      //                        hWnd, (HMENU) IDC_NAV_BACK, hInst, 0);
+      //x += BUTTON_WIDTH;
+
+      //forwardWnd = CreateWindow(L"BUTTON", L"Forward",
+      //                          WS_CHILD | WS_VISIBLE | BS_PUSHBUTTON
+      //                          | WS_DISABLED, x, 0, BUTTON_WIDTH,
+      //                          URLBAR_HEIGHT, hWnd, (HMENU) IDC_NAV_FORWARD,
+      //                          hInst, 0);
+      //x += BUTTON_WIDTH;
+
+      //reloadWnd = CreateWindow(L"BUTTON", L"Reload",
+      //                          WS_CHILD | WS_VISIBLE | BS_PUSHBUTTON
+      //                          | WS_DISABLED, x, 0, BUTTON_WIDTH,
+      //                          URLBAR_HEIGHT, hWnd, (HMENU) IDC_NAV_RELOAD,
+      //                          hInst, 0);
+      //x += BUTTON_WIDTH;
+
+      //stopWnd = CreateWindow(L"BUTTON", L"Stop",
+      //                        WS_CHILD | WS_VISIBLE | BS_PUSHBUTTON
+      //                        | WS_DISABLED, x, 0, BUTTON_WIDTH, URLBAR_HEIGHT,
+      //                        hWnd, (HMENU) IDC_NAV_STOP, hInst, 0);
+      //x += BUTTON_WIDTH;
+
+      //editWnd = CreateWindow(L"EDIT", 0,
+      //                        WS_CHILD | WS_VISIBLE | WS_BORDER | ES_LEFT |
+      //                        ES_AUTOVSCROLL | ES_AUTOHSCROLL| WS_DISABLED,
+      //                        x, 0, rect.right - BUTTON_WIDTH * 4,
+      //                        URLBAR_HEIGHT, hWnd, 0, hInst, 0);
+
+      //// Assign the edit window's WNDPROC to this function so that we can
+      //// capture the enter key
+      //editWndOldProc =
+      //    reinterpret_cast<WNDPROC>(GetWindowLongPtr(editWnd, GWLP_WNDPROC));
+      //SetWindowLongPtr(editWnd, GWLP_WNDPROC,
+      //    reinterpret_cast<LONG_PTR>(WndProc));
+      //g_handler->SetEditWindowHandle(editWnd);
+      //g_handler->SetButtonWindowHandles(
+      //    backWnd, forwardWnd, reloadWnd, stopWnd);
+
+      //rect.top += URLBAR_HEIGHT;
+
+      //CefWindowInfo info;
+      //CefBrowserSettings settings;
+
+      //// Populate the browser settings based on command line arguments.
+      //AppGetBrowserSettings(settings);
+
+      //if (AppIsOffScreenRenderingEnabled()) {
+      //  CefRefPtr<CefCommandLine> cmd_line = AppGetCommandLine();
+      //  const bool transparent =
+      //      cmd_line->HasSwitch(cefclient::kTransparentPaintingEnabled);
+      //  const bool show_update_rect =
+      //      cmd_line->HasSwitch(cefclient::kShowUpdateRect);
+
+      //  CefRefPtr<OSRWindow> osr_window =
+      //      OSRWindow::Create(&g_main_browser_provider, transparent,
+      //                        show_update_rect);
+      //  osr_window->CreateWidget(hWnd, rect, hInst, szOSRWindowClass);
+      //  info.SetAsWindowless(osr_window->hwnd(), transparent);
+      //  g_handler->SetOSRHandler(osr_window.get());
+      //} else {
+      //  // Initialize window info to the defaults for a child window.
+      //  info.SetAsChild(hWnd, rect);
+      //}
+
+      //// Creat the new child browser window
+      //CefBrowserHost::CreateBrowser(info, g_handler.get(),
+      //    g_handler->GetStartupURL(), settings, NULL);
+
+      //return 0;
     }
 
     case WM_COMMAND: {
@@ -792,4 +830,82 @@ void AppQuitMessageLoop() {
   } else {
     CefQuitMessageLoop();
   }
+}
+//----------------------------------------------------------------------------------
+//my extension
+void MyCefSetupWindowsBegin(ClientHandler* cefClientHandler, HWND hWndParent)
+{ 
+	ClientHandler* g_handler2 = (ClientHandler*)cefClientHandler;
+	 g_handler2->SetMainWindowHandle(hWndParent);
+	//g_handler2->SetMainHwnd(hWndParent);
+	 
+}
+ 
+//my extension
+void MyCefSetupWindowsEnd(ClientHandler* cefClientHandler,HWND hWndParent,int x,int y,int width,int height)
+{	   
+      RECT rect;	  
+      rect.left = x;
+      rect.top = y;
+      rect.right  =  x+ width;
+      rect.bottom = y+ height; 
+
+      CefRefPtr<ClientHandler> g_handler2 = (ClientHandler*)cefClientHandler;
+      CefWindowInfo info;
+      CefBrowserSettings settings;
+
+      // Populate the browser settings based on command line arguments.
+      AppGetBrowserSettings(settings);
+
+      if (AppIsOffScreenRenderingEnabled()) {
+        CefRefPtr<CefCommandLine> cmd_line = AppGetCommandLine();
+        const bool transparent =
+            cmd_line->HasSwitch(cefclient::kTransparentPaintingEnabled);
+        const bool show_update_rect =
+            cmd_line->HasSwitch(cefclient::kShowUpdateRect);
+
+        CefRefPtr<OSRWindow> osr_window =
+            OSRWindow::Create(&g_main_browser_provider, transparent,
+                              show_update_rect);
+        osr_window->CreateWidget(hWndParent, rect, hInst, szOSRWindowClass);
+        info.SetAsWindowless(osr_window->hwnd(), transparent);
+        g_handler2->SetOSRHandler(osr_window.get());
+      } else {
+        // Initialize window info to the defaults for a child window.
+        info.SetAsChild(hWndParent, rect);
+      }
+
+      // Creat the new child browser window
+       bool result= CefBrowserHost::CreateBrowser(info, g_handler.get(),
+          g_handler2->GetStartupURL(), settings, NULL);
+	    
+
+      if(result)
+      {
+          CefString ccstr= CefString(g_handler2->GetStartupURL());	  
+          ManagedNotify(0, ccstr.ToWString().c_str() ); 
+      }
+      else
+      {
+          ManagedNotify(1,L"OKOK-F");
+      }
+      //------------------------
+}
+void MyCefCloseHandler(ClientHandler* cefClientHandler)
+{	
+	 CefRefPtr<ClientHandler> g_handler = (ClientHandler*)cefClientHandler;
+
+	 if (g_handler.get() && !g_handler->IsClosing()) {
+        CefRefPtr<CefBrowser> browser = g_handler->GetBrowser();
+        if (browser.get()) {
+          // Notify the browser window that we would like to close it. This
+          // will result in a call to ClientHandler::DoClose() if the
+          // JavaScript 'onbeforeunload' event handler allows it.
+          browser->GetHost()->CloseBrowser(false);
+
+          // Cancel the close.
+          //return 0;
+        }
+      }
+
 }
