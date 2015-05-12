@@ -255,6 +255,9 @@
     <ClInclude Include="ExportFuncs.h">
       <Filter>cefclient\my_ext</Filter>
     </ClInclude>
+    <ClInclude Include="mycef.h">
+      <Filter>cefclient\my_ext</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <CustomBuild Include="CMakeLists.txt" />

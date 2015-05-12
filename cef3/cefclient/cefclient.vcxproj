@@ -497,6 +497,7 @@ if %errorlevel% neq 0 goto :VCEnd</Command>
     <ClInclude Include="common\client_switches.h" />
     <ClInclude Include="common\scheme_test_common.h" />
     <ClInclude Include="ExportFuncs.h" />
+    <ClInclude Include="mycef.h" />
     <ClInclude Include="renderer\client_app_renderer.h" />
     <ClInclude Include="renderer\client_renderer.h" />
     <ClInclude Include="renderer\performance_test.h" />

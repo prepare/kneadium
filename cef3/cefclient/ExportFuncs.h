@@ -2,5 +2,7 @@
 extern "C"{  	 
 
 	MY_DLL_EXPORT int MyCefGetVersion(); 
+	MY_DLL_EXPORT int RegisterManagedCallBack(void* callback,int callBackKind); 
+
 
 }
