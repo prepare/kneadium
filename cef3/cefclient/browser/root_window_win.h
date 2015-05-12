@@ -41,6 +41,13 @@ class RootWindowWin : public RootWindow,
                    CefWindowInfo& windowInfo,
                    CefRefPtr<CefClient>& client,
                    CefBrowserSettings& settings) OVERRIDE;
+
+  void Init(RootWindow::Delegate* delegate, 
+					HWND managedSurfaceHwnd,
+                    const CefRect& bounds,
+                    const CefBrowserSettings& settings,
+                    const std::string& url) OVERRIDE;
+
   void Show(ShowMode mode) OVERRIDE;
   void Hide() OVERRIDE;
   void SetBounds(int x, int y, size_t width, size_t height) OVERRIDE;
@@ -49,7 +56,7 @@ class RootWindowWin : public RootWindow,
   ClientWindowHandle GetWindowHandle() const OVERRIDE;
 
  private:
-  void CreateBrowserWindow(bool with_osr, const std::string& startup_url);
+  void CreateBrowserWindow(HWND managedSurfaceHwnd, bool with_osr, const std::string& startup_url);
   void CreateRootWindow(const CefBrowserSettings& settings);
 
   // Register the root window class.

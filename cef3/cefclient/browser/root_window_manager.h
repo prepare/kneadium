@@ -49,7 +49,7 @@ class RootWindowManager : public RootWindow::Delegate {
 
  //---------------------
   //my extension, ****
-  void RegisterManagedSurfaceWindow( 
+  scoped_refptr<RootWindow> RegisterManagedSurfaceWindow( 
 	HWND managedSurfaceHwnd,
     const CefRect& bounds,
     const std::string& url);

@@ -83,6 +83,13 @@ class RootWindow :
                            CefWindowInfo& windowInfo,
                            CefRefPtr<CefClient>& client,
                            CefBrowserSettings& settings) = 0;
+  //my extension 
+  virtual void Init(RootWindow::Delegate* delegate, 
+					HWND managedSurfaceHwnd,
+                    const CefRect& bounds,
+                    const CefBrowserSettings& settings,
+                    const std::string& url) = 0;
+
 
   enum ShowMode {
     ShowNormal,

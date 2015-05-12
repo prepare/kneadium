@@ -83,15 +83,7 @@ client::ClientHandler* MyCefCreateClientHandler(client::MainContextImpl* mainCon
 	const CefRect rect(x,y,w,h);	 
 	mainContext->GetRootWindowManager()->RegisterManagedSurfaceWindow(
 		parentWindowHandler,
-		rect, std::string());
-
-	  //context->GetRootWindowManager()->CreateRootWindow(
-  //    true,             // Show controls.
-  //    settings.windowless_rendering_enabled ? true : false,
-  //    CefRect(),        // Use default system size.
-  //    std::string());   // Use default URL.
-
-
+		rect, std::string()); 
 	return NULL;
 }
 	

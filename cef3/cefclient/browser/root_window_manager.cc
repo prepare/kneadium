@@ -48,11 +48,27 @@ scoped_refptr<RootWindow> RootWindowManager::CreateRootWindow(
 }
 //-------------------------------------------------------------
 //my extension
-void RootWindowManager::RegisterManagedSurfaceWindow( 
+scoped_refptr<RootWindow> RootWindowManager::RegisterManagedSurfaceWindow( 
 	HWND managedSurfaceHwnd,
     const CefRect& bounds,
     const std::string& url) {
-		 
+	
+  CefBrowserSettings settings;
+  MainContext::Get()->PopulateBrowserSettings(&settings);
+
+ /* scoped_refptr<RootWindow> root_window = RootWindow::Create();
+  root_window->Init(this,managedSurfaceHwnd,bounds,settings,
+	  url.empty() ? MainContext::Get()->GetMainURL() : url);
+
+  return root_window;*/
+  return NULL;
+  //set 
+ /* scoped_refptr<RootWindow> root_window = RootWindow::Create();
+  root_window->Init(this, with_controls, with_osr, bounds, settings,
+                    url.empty() ? MainContext::Get()->GetMainURL() : url);
+*/
+
+
 }
 
 
