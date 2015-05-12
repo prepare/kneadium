@@ -59,9 +59,20 @@ client::ClientApp* MyCefCreateClientApp()
      app = new client::ClientAppOther();
    return app;
 }
-
-int MyCefInit(HINSTANCE hInstance,client::ClientApp* app)
+//4.
+client::MainContextImpl* MyCefInit(HINSTANCE hInstance,client::ClientApp* app)
 {
 	CefRefPtr<client::ClientApp> myApp = app;   
 	return DllInitMain(hInstance,myApp);
 } 
+//5. 
+void MyCefClientAppSetManagedCallback(client::ClientApp* clientApp,managed_callback myMxCallback)
+{
+	clientApp->myMxCallback = myMxCallback;
+}
+//6.
+void MyCefDoMessageLoopWork()
+{		
+	CefDoMessageLoopWork();
+}
+	

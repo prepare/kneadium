@@ -11,4 +11,4 @@
 #include "cefclient/common/client_app_other.h"
 #include "cefclient/renderer/client_app_renderer.h"
 
-int DllInitMain(HINSTANCE hInstance, CefRefPtr<CefApp> app);
+client::MainContextImpl* DllInitMain(HINSTANCE hInstance, CefRefPtr<CefApp> app);

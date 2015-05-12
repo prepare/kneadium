@@ -99,7 +99,7 @@ int RunMain(HINSTANCE hInstance, int nCmdShow) {
 }
 
 
-int InitDllApp(HINSTANCE hInstance, CefRefPtr<CefApp> app) {
+client::MainContextImpl* InitDllApp(HINSTANCE hInstance, CefRefPtr<CefApp> app) {
   CefMainArgs main_args(hInstance);
 
   void* sandbox_info = NULL;
@@ -128,12 +128,12 @@ int InitDllApp(HINSTANCE hInstance, CefRefPtr<CefApp> app) {
   // Execute the secondary process, if any.
   int exit_code = CefExecuteProcess(main_args, app, sandbox_info);
   if (exit_code >= 0)
-    return exit_code;
+    return NULL;
   
   //-------------------------------------------------------------------------------------
   // Create the main context object.
-  scoped_ptr<MainContextImpl> context(new MainContextImpl(command_line, true));
-
+  //scoped_ptr<MainContextImpl> context(new MainContextImpl(command_line, true));
+  auto mainContext= new MainContextImpl(command_line, true);
   CefSettings settings;
 
 #if !defined(CEF_USE_SANDBOX)
@@ -141,7 +141,7 @@ int InitDllApp(HINSTANCE hInstance, CefRefPtr<CefApp> app) {
 #endif
 
   // Populate the settings based on command line arguments.
-  context->PopulateSettings(&settings);
+  mainContext->PopulateSettings(&settings);
 
   // Create the main message loop object.
   /*scoped_ptr<MainMessageLoop> message_loop;
@@ -151,7 +151,7 @@ int InitDllApp(HINSTANCE hInstance, CefRefPtr<CefApp> app) {
     message_loop.reset(new MainMessageLoopStd);
 */
   // Initialize CEF.
-  context->Initialize(main_args, settings, app, sandbox_info);
+  mainContext->Initialize(main_args, settings, app, sandbox_info);
 
   // Register scheme handlers.
   test_runner::RegisterSchemeHandlers();
@@ -175,13 +175,13 @@ int InitDllApp(HINSTANCE hInstance, CefRefPtr<CefApp> app) {
   //context.reset();
 
   //return result;
-  return -1;
+  return mainContext;
 }
 
 }  // namespace init_main
 }  // namespace client
  
-int DllInitMain(HINSTANCE hInstance, CefRefPtr<CefApp> app)
+client::MainContextImpl* DllInitMain(HINSTANCE hInstance, CefRefPtr<CefApp> app)
 {	
 	return client::init_main::InitDllApp(hInstance,app);
 }
