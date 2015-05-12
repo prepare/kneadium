@@ -88,6 +88,8 @@ bool ParseTestUrl(const std::string& url,
 }  // namespace
 
 int ClientHandler::browser_count_ = 0;
+const int MET_GetResourceHandler=2;
+const int MET_TCALLBACK=3;
 
 ClientHandler::ClientHandler()
   : browser_id_(0),
@@ -98,6 +100,7 @@ ClientHandler::ClientHandler()
     forward_handle_(NULL),
     stop_handle_(NULL),
     reload_handle_(NULL),
+	_mcallback(NULL), //for managed callback
     focus_on_editable_field_(false) {
 #if defined(OS_LINUX)
   gtk_dialog_ = NULL;
@@ -418,7 +421,14 @@ bool ClientHandler::DoClose(CefRefPtr<CefBrowser> browser) {
 
 void ClientHandler::OnBeforeClose(CefRefPtr<CefBrowser> browser) {
   CEF_REQUIRE_UI_THREAD();
-
+  
+  if(this->_mcallback)
+  {		
+	  MethodArgs callArgs;
+	  memset(&callArgs,0,sizeof(MethodArgs));  
+	  this->_mcallback(MET_TCALLBACK,&callArgs); 
+	  //then check result*** 
+  } 
   message_router_->OnBeforeClose(browser);
 
   if (GetBrowserId() == browser->GetIdentifier()) {
@@ -455,7 +465,12 @@ void ClientHandler::OnBeforeClose(CefRefPtr<CefBrowser> browser) {
     message_router_ = NULL;
 
     // Quit the application message loop.
-    AppQuitMessageLoop();
+    //AppQuitMessageLoop();
+	 // All browser windows have closed. Quit the application message loop.
+	if(!this->_mcallback)
+	{	
+		  AppQuitMessageLoop();
+	}   
   }
 }
 
@@ -512,6 +527,37 @@ CefRefPtr<CefResourceHandler> ClientHandler::GetResourceHandler(
     CefRefPtr<CefFrame> frame,
     CefRefPtr<CefRequest> request) {
   CEF_REQUIRE_IO_THREAD();
+
+  if(this->_mcallback)
+  {		
+	  MethodArgs callArgs;
+	  memset(&callArgs,0,sizeof(MethodArgs)); 
+	  callArgs.arg0= ConvToJsValue(request->GetURL());	  
+
+	  this->_mcallback(MET_GetResourceHandler,&callArgs); 
+	  //then check result*** 
+
+	  if(callArgs.resultKind >0)
+	  {		
+		  //1. mime type
+		  auto mimeL= callArgs.result0.length/2;//wchar_t => 2 byte per 1 char
+		  auto mimeData= callArgs.result0.value.ptr;
+		  std::wstring mime = std::wstring((wchar_t*)mimeData,mimeL);
+
+		  //-------
+		  //2. stream part
+		  auto dataLen =  callArgs.result1.length;
+		  auto data =  callArgs.result1.value.ptr;
+
+		  CefRefPtr<CefStreamReader> stream =
+          CefStreamReader::CreateForData(
+				data, 
+                dataLen); 
+		  DCHECK(stream.get());
+		  return new CefStreamResourceHandler(mime, stream);
+	  } 
+  }
+
 
   std::string url = request->GetURL();
   if (url.find(kTestOrigin) == 0) {
