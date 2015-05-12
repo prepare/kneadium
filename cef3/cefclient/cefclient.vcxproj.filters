@@ -127,6 +127,9 @@
     <ClCompile Include="browser\window_test_win.cc">
       <Filter>cefclient\browser</Filter>
     </ClCompile>
+    <ClCompile Include="ExportFuncs.cpp">
+      <Filter>cefclient\my_ext</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="browser\binding_test.h">
@@ -248,6 +251,9 @@
     </ClInclude>
     <ClInclude Include="browser\util_win.h">
       <Filter>cefclient\browser</Filter>
+    </ClInclude>
+    <ClInclude Include="ExportFuncs.h">
+      <Filter>cefclient\my_ext</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

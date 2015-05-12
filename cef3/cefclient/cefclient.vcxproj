@@ -18,7 +18,7 @@
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
-    <ConfigurationType>Application</ConfigurationType>
+    <ConfigurationType>DynamicLibrary</ConfigurationType>
     <UseOfMfc>false</UseOfMfc>
     <CharacterSet>Unicode</CharacterSet>
   </PropertyGroup>
@@ -39,7 +39,6 @@
     <OutDir Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">D:\zzshare\CefBridge3\cef3\cefclient\Debug\</OutDir>
     <IntDir Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">cefclient.dir\Debug\</IntDir>
     <TargetName Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">cefclient</TargetName>
-    <TargetExt Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">.exe</TargetExt>
     <LinkIncremental Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</LinkIncremental>
     <GenerateManifest Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">false</GenerateManifest>
     <OutDir Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">D:\zzshare\CefBridge3\cef3\cefclient\Release\</OutDir>
@@ -497,6 +496,7 @@ if %errorlevel% neq 0 goto :VCEnd</Command>
     <ClInclude Include="common\client_app_other.h" />
     <ClInclude Include="common\client_switches.h" />
     <ClInclude Include="common\scheme_test_common.h" />
+    <ClInclude Include="ExportFuncs.h" />
     <ClInclude Include="renderer\client_app_renderer.h" />
     <ClInclude Include="renderer\client_renderer.h" />
     <ClInclude Include="renderer\performance_test.h" />
@@ -534,6 +534,7 @@ if %errorlevel% neq 0 goto :VCEnd</Command>
     <ClCompile Include="common\client_app_other.cc" />
     <ClCompile Include="common\client_switches.cc" />
     <ClCompile Include="common\scheme_test_common.cc" />
+    <ClCompile Include="ExportFuncs.cpp" />
     <ClCompile Include="renderer\client_app_delegates_renderer.cc" />
     <ClCompile Include="renderer\client_app_renderer.cc" />
     <ClCompile Include="renderer\client_renderer.cc" />
