@@ -130,6 +130,9 @@
     <ClCompile Include="ExportFuncs.cpp">
       <Filter>cefclient\my_ext</Filter>
     </ClCompile>
+    <ClCompile Include="dll_init.cpp">
+      <Filter>cefclient\my_ext</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="browser\binding_test.h">
@@ -256,6 +259,9 @@
       <Filter>cefclient\my_ext</Filter>
     </ClInclude>
     <ClInclude Include="mycef.h">
+      <Filter>cefclient\my_ext</Filter>
+    </ClInclude>
+    <ClInclude Include="dll_init.h">
       <Filter>cefclient\my_ext</Filter>
     </ClInclude>
   </ItemGroup>
