@@ -75,4 +75,23 @@ void MyCefDoMessageLoopWork()
 {		
 	CefDoMessageLoopWork();
 }
+//7.
+client::ClientHandler* MyCefCreateClientHandler(client::MainContextImpl* mainContext,
+	HWND parentWindowHandler,
+    int x, int y, int w, int h)
+{ 
+	const CefRect rect(x,y,w,h);	 
+	mainContext->GetRootWindowManager()->RegisterManagedSurfaceWindow(
+		parentWindowHandler,
+		rect, std::string());
+
+	  //context->GetRootWindowManager()->CreateRootWindow(
+  //    true,             // Show controls.
+  //    settings.windowless_rendering_enabled ? true : false,
+  //    CefRect(),        // Use default system size.
+  //    std::string());   // Use default URL.
+
+
+	return NULL;
+}
 	

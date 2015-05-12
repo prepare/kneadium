@@ -46,6 +46,20 @@ scoped_refptr<RootWindow> RootWindowManager::CreateRootWindow(
 
   return root_window;
 }
+//-------------------------------------------------------------
+//my extension
+void RootWindowManager::RegisterManagedSurfaceWindow( 
+	HWND managedSurfaceHwnd,
+    const CefRect& bounds,
+    const std::string& url) {
+		 
+}
+
+
+
+
+//-------------------------------------------------------------
+
 
 scoped_refptr<RootWindow> RootWindowManager::CreateRootWindowAsPopup(
     bool with_controls,
