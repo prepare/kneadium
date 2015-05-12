@@ -297,8 +297,7 @@ class ClientHandler : public CefClient,
   bool Save(const std::string& path, const std::string& data);
   //---------------------
   void SetManagedCallBack(managed_callback mcallback); 
-  void SetEditHwnd(CefWindowHandle hwnd);
-  //---------------------
+  
  private:
   void SetLoading(bool isLoading);
   void SetNavState(bool canGoBack, bool canGoForward);

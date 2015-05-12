@@ -367,7 +367,13 @@ bool ClientHandler::OnBeforePopup(CefRefPtr<CefBrowser> browser,
 
 void ClientHandler::OnAfterCreated(CefRefPtr<CefBrowser> browser) {
   CEF_REQUIRE_UI_THREAD();
-
+  if(this->_mcallback)
+  {		
+	  MethodArgs callArgs;
+	  memset(&callArgs,0,sizeof(MethodArgs));  
+	  this->_mcallback(MET_TCALLBACK,&callArgs); 
+	  //then check result*** 
+  } 
   if (!message_router_) {
     // Create the browser-side router for query handling.
     CefMessageRouterConfig config;
@@ -732,12 +738,7 @@ void ClientHandler::SetMainWindowHandle(ClientWindowHandle handle) {
 
   main_handle_ = handle;
 }
-
-void ClientHandler::SetEditHwnd(CefWindowHandle hwnd) {
-   //AutoLock lock_scope(this);
-   this->edit_handle_ = hwnd;
-   //m_EditHwnd = hwnd;
-}
+ 
 
 ClientWindowHandle ClientHandler::GetMainWindowHandle() const {
   CEF_REQUIRE_UI_THREAD();

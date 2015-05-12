@@ -19,26 +19,27 @@ void ClientHandler::OnAddressChange(CefRefPtr<CefBrowser> browser,
                                     const CefString& url) {
   CEF_REQUIRE_UI_THREAD();
 
-  if (GetBrowserId() == browser->GetIdentifier() && frame->IsMain()) {
-    // Set the edit window text
-    SetWindowText(edit_handle_, std::wstring(url).c_str());
-  }
+  //if (GetBrowserId() == browser->GetIdentifier() && frame->IsMain()) {
+  //  // Set the edit window text
+  //  SetWindowText(edit_handle_, std::wstring(url).c_str());
+  //}
 }
 
 void ClientHandler::OnTitleChange(CefRefPtr<CefBrowser> browser,
                                   const CefString& title) {
   CEF_REQUIRE_UI_THREAD();
 
-  // Set the frame window title bar
-  CefWindowHandle hwnd = browser->GetHost()->GetWindowHandle();
-  if (GetBrowserId() == browser->GetIdentifier()) {
-    // The frame window will be the parent of the browser window
-    hwnd = GetParent(hwnd);
-  }
-  SetWindowText(hwnd, std::wstring(title).c_str());
+  //// Set the frame window title bar
+  //CefWindowHandle hwnd = browser->GetHost()->GetWindowHandle();
+  //if (GetBrowserId() == browser->GetIdentifier()) {
+  //  // The frame window will be the parent of the browser window
+  //  hwnd = GetParent(hwnd);
+  //}
+  //SetWindowText(hwnd, std::wstring(title).c_str());
 }
 
 void ClientHandler::SendNotification(NotificationType type) {
+  
   UINT id;
   switch (type) {
   case NOTIFY_CONSOLE_MESSAGE:
@@ -54,6 +55,8 @@ void ClientHandler::SendNotification(NotificationType type) {
     return;
   }
   PostMessage(main_handle_, WM_COMMAND, id, 0);
+
+
 }
 
 void ClientHandler::SetLoading(bool isLoading) {

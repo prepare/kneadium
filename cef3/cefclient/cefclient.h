@@ -16,10 +16,10 @@ class CefBrowser;
 class CefCommandLine;
 
 // Returns the main browser window instance.
-CefRefPtr<CefBrowser> AppGetBrowser();
+CefRefPtr<CefBrowser> AppGetBrowser(CefRefPtr<ClientHandler> g_handler2);
 
 // Returns the main application window handle.
-ClientWindowHandle AppGetMainWindowHandle();
+ClientWindowHandle AppGetMainWindowHandle(CefRefPtr<ClientHandler> g_handler2);
 
 // Returns the application working directory.
 std::string AppGetWorkingDirectory();

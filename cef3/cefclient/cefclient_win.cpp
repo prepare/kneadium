@@ -450,7 +450,7 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam,
               reinterpret_cast<WNDPROC>(GetWindowLongPtr(editWnd, GWLP_WNDPROC));
           SetWindowLongPtr(editWnd, GWLP_WNDPROC,
               reinterpret_cast<LONG_PTR>(WndProc));
-          g_handler->SetEditHwnd(editWnd);
+          g_handler->SetEditWindowHandle(editWnd);
           //g_handler->SetButtonHwnds(backWnd, forwardWnd, reloadWnd, stopWnd);
 
           rect.top += URLBAR_HEIGHT;
