@@ -38,12 +38,12 @@ int APIENTRY wWinMain(HINSTANCE hInstance,
   sandbox_info = scoped_sandbox.sandbox_info();
 #endif
 
-  // Provide CEF with command-line arguments.
-  CefMainArgs main_args(hInstance);
 
-  // SimpleApp implements application-level callbacks. It will create the first
+   // SimpleApp implements application-level callbacks. It will create the first
   // browser instance in OnContextInitialized() after CEF has initialized.
   CefRefPtr<SimpleApp> app(new SimpleApp);
+  // Provide CEF with command-line arguments.
+  CefMainArgs main_args(hInstance); 
 
   // CEF applications have multiple sub-processes (render, plugin, GPU, etc)
   // that share the same executable. This function checks the command-line and,

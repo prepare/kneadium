@@ -1,4 +1,4 @@
-﻿<?xml version="1.0" encoding="UTF-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <Project DefaultTargets="Build" ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup Label="ProjectConfigurations">
     <ProjectConfiguration Include="Debug|Win32">
@@ -11,14 +11,14 @@
     </ProjectConfiguration>
   </ItemGroup>
   <PropertyGroup Label="Globals">
-    <ProjectGUID>{967E4144-CC4E-40F5-8F28-88EC72196C4C}</ProjectGUID>
+    <ProjectGUID>{74F53381-2526-4EBA-9F7E-78EDF9D0D19F}</ProjectGUID>
     <Keyword>Win32Proj</Keyword>
     <Platform>Win32</Platform>
     <ProjectName>cefsimple</ProjectName>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
-    <ConfigurationType>Application</ConfigurationType>
+    <ConfigurationType>DynamicLibrary</ConfigurationType>
     <UseOfMfc>false</UseOfMfc>
     <CharacterSet>Unicode</CharacterSet>
   </PropertyGroup>
@@ -34,29 +34,28 @@
     <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
   </ImportGroup>
   <PropertyGroup Label="UserMacros" />
-    <PropertyGroup>
-      <_ProjectFileVersion>10.0.20506.1</_ProjectFileVersion>
-      <OutDir Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">D:\zzshare\CefBridge3\cef3\cefsimple\Debug\</OutDir>
-      <IntDir Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">cefsimple.dir\Debug\</IntDir>
-      <TargetName Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">cefsimple</TargetName>
-      <TargetExt Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">.exe</TargetExt>
-      <LinkIncremental Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</LinkIncremental>
-      <GenerateManifest Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">false</GenerateManifest>
-      <OutDir Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">D:\zzshare\CefBridge3\cef3\cefsimple\Release\</OutDir>
-      <IntDir Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">cefsimple.dir\Release\</IntDir>
-      <TargetName Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">cefsimple</TargetName>
-      <TargetExt Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">.exe</TargetExt>
-      <LinkIncremental Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</LinkIncremental>
-      <GenerateManifest Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">false</GenerateManifest>
-    </PropertyGroup>
+  <PropertyGroup>
+    <_ProjectFileVersion>10.0.20506.1</_ProjectFileVersion>
+    <OutDir Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">C:\WImageTest\CefBridge\cef3\cefsimple\Debug\</OutDir>
+    <IntDir Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">cefsimple.dir\Debug\</IntDir>
+    <TargetName Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">cefsimple</TargetName>
+    <LinkIncremental Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</LinkIncremental>
+    <GenerateManifest Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">false</GenerateManifest>
+    <OutDir Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">C:\WImageTest\CefBridge\cef3\cefsimple\Release\</OutDir>
+    <IntDir Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">cefsimple.dir\Release\</IntDir>
+    <TargetName Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">cefsimple</TargetName>
+    <TargetExt Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">.exe</TargetExt>
+    <LinkIncremental Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</LinkIncremental>
+    <GenerateManifest Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">false</GenerateManifest>
+  </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
-      <AdditionalIncludeDirectories>D:\zzshare\CefBridge3\cef3;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>C:\WImageTest\CefBridge\cef3;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <AssemblerListingLocation>Debug/</AssemblerListingLocation>
       <BasicRuntimeChecks>EnableFastChecks</BasicRuntimeChecks>
       <CompileAs>CompileAsCpp</CompileAs>
       <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
-      <DisableSpecificWarnings>4100;4127;4244;4512;4701;4702;4996</DisableSpecificWarnings>
+      <DisableSpecificWarnings>4100;4127;4244;4512;4701;4702;4996;4481</DisableSpecificWarnings>
       <ExceptionHandling>
       </ExceptionHandling>
       <FunctionLevelLinking>true</FunctionLevelLinking>
@@ -72,10 +71,10 @@
     </ClCompile>
     <ResourceCompile>
       <PreprocessorDefinitions>__STDC_CONSTANT_MACROS;__STDC_FORMAT_MACROS;WIN32;_WIN32;_WINDOWS;UNICODE;_UNICODE;WINVER=0x0602;_WIN32_WINNT=0x602;NOMINMAX;WIN32_LEAN_AND_MEAN;_HAS_EXCEPTIONS=0;CEF_USE_ATL;CMAKE_INTDIR=\"Debug\";%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>D:\zzshare\CefBridge3\cef3;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>C:\WImageTest\CefBridge\cef3;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ResourceCompile>
     <Midl>
-      <AdditionalIncludeDirectories>D:\zzshare\CefBridge3\cef3;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>C:\WImageTest\CefBridge\cef3;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <OutputDirectory>$(IntDir)</OutputDirectory>
       <HeaderFileName>%(Filename).h</HeaderFileName>
       <TypeLibraryName>%(Filename).tlb</TypeLibraryName>
@@ -85,7 +84,7 @@
     <PostBuildEvent>
       <Message>Adding manifest...															</Message>
       <Command>setlocal
-mt.exe -nologo -manifest "D:/zzshare/CefBridge3/cef3/cefsimple/cefsimple.exe.manifest" "D:/zzshare/CefBridge3/cef3/cefsimple/compatibility.manifest" -outputresource:"D:/zzshare/CefBridge3/cef3/cefsimple/Debug/cefsimple.exe";#1
+mt.exe -nologo -manifest "C:/WImageTest/CefBridge/cef3/cefsimple/cefsimple.exe.manifest" "C:/WImageTest/CefBridge/cef3/cefsimple/compatibility.manifest" -outputresource:"C:/WImageTest/CefBridge/cef3/cefsimple/Debug/cefsimple.exe";#1
 if %errorlevel% neq 0 goto :cmEnd
 :cmEnd
 endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
@@ -94,7 +93,7 @@ exit /b %1
 :cmDone
 if %errorlevel% neq 0 goto :VCEnd
 setlocal
-"C:\Program Files\CMake\bin\cmake.exe" -E copy_if_different D:/zzshare/CefBridge3/cef3/Debug/d3dcompiler_43.dll D:/zzshare/CefBridge3/cef3/cefsimple/Debug/d3dcompiler_43.dll
+"C:\Program Files (x86)\CMake\bin\cmake.exe" -E copy_if_different C:/WImageTest/CefBridge/cef3/Debug/d3dcompiler_43.dll C:/WImageTest/CefBridge/cef3/cefsimple/Debug/d3dcompiler_43.dll
 if %errorlevel% neq 0 goto :cmEnd
 :cmEnd
 endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
@@ -103,7 +102,7 @@ exit /b %1
 :cmDone
 if %errorlevel% neq 0 goto :VCEnd
 setlocal
-"C:\Program Files\CMake\bin\cmake.exe" -E copy_if_different D:/zzshare/CefBridge3/cef3/Debug/d3dcompiler_47.dll D:/zzshare/CefBridge3/cef3/cefsimple/Debug/d3dcompiler_47.dll
+"C:\Program Files (x86)\CMake\bin\cmake.exe" -E copy_if_different C:/WImageTest/CefBridge/cef3/Debug/d3dcompiler_47.dll C:/WImageTest/CefBridge/cef3/cefsimple/Debug/d3dcompiler_47.dll
 if %errorlevel% neq 0 goto :cmEnd
 :cmEnd
 endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
@@ -112,7 +111,7 @@ exit /b %1
 :cmDone
 if %errorlevel% neq 0 goto :VCEnd
 setlocal
-"C:\Program Files\CMake\bin\cmake.exe" -E copy_if_different D:/zzshare/CefBridge3/cef3/Debug/ffmpegsumo.dll D:/zzshare/CefBridge3/cef3/cefsimple/Debug/ffmpegsumo.dll
+"C:\Program Files (x86)\CMake\bin\cmake.exe" -E copy_if_different C:/WImageTest/CefBridge/cef3/Debug/ffmpegsumo.dll C:/WImageTest/CefBridge/cef3/cefsimple/Debug/ffmpegsumo.dll
 if %errorlevel% neq 0 goto :cmEnd
 :cmEnd
 endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
@@ -121,7 +120,7 @@ exit /b %1
 :cmDone
 if %errorlevel% neq 0 goto :VCEnd
 setlocal
-"C:\Program Files\CMake\bin\cmake.exe" -E copy_if_different D:/zzshare/CefBridge3/cef3/Debug/libcef.dll D:/zzshare/CefBridge3/cef3/cefsimple/Debug/libcef.dll
+"C:\Program Files (x86)\CMake\bin\cmake.exe" -E copy_if_different C:/WImageTest/CefBridge/cef3/Debug/libcef.dll C:/WImageTest/CefBridge/cef3/cefsimple/Debug/libcef.dll
 if %errorlevel% neq 0 goto :cmEnd
 :cmEnd
 endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
@@ -130,7 +129,7 @@ exit /b %1
 :cmDone
 if %errorlevel% neq 0 goto :VCEnd
 setlocal
-"C:\Program Files\CMake\bin\cmake.exe" -E copy_if_different D:/zzshare/CefBridge3/cef3/Debug/libEGL.dll D:/zzshare/CefBridge3/cef3/cefsimple/Debug/libEGL.dll
+"C:\Program Files (x86)\CMake\bin\cmake.exe" -E copy_if_different C:/WImageTest/CefBridge/cef3/Debug/libEGL.dll C:/WImageTest/CefBridge/cef3/cefsimple/Debug/libEGL.dll
 if %errorlevel% neq 0 goto :cmEnd
 :cmEnd
 endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
@@ -139,7 +138,7 @@ exit /b %1
 :cmDone
 if %errorlevel% neq 0 goto :VCEnd
 setlocal
-"C:\Program Files\CMake\bin\cmake.exe" -E copy_if_different D:/zzshare/CefBridge3/cef3/Debug/libGLESv2.dll D:/zzshare/CefBridge3/cef3/cefsimple/Debug/libGLESv2.dll
+"C:\Program Files (x86)\CMake\bin\cmake.exe" -E copy_if_different C:/WImageTest/CefBridge/cef3/Debug/libGLESv2.dll C:/WImageTest/CefBridge/cef3/cefsimple/Debug/libGLESv2.dll
 if %errorlevel% neq 0 goto :cmEnd
 :cmEnd
 endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
@@ -148,7 +147,7 @@ exit /b %1
 :cmDone
 if %errorlevel% neq 0 goto :VCEnd
 setlocal
-"C:\Program Files\CMake\bin\cmake.exe" -E copy_if_different D:/zzshare/CefBridge3/cef3/Debug/natives_blob.bin D:/zzshare/CefBridge3/cef3/cefsimple/Debug/natives_blob.bin
+"C:\Program Files (x86)\CMake\bin\cmake.exe" -E copy_if_different C:/WImageTest/CefBridge/cef3/Debug/natives_blob.bin C:/WImageTest/CefBridge/cef3/cefsimple/Debug/natives_blob.bin
 if %errorlevel% neq 0 goto :cmEnd
 :cmEnd
 endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
@@ -157,7 +156,7 @@ exit /b %1
 :cmDone
 if %errorlevel% neq 0 goto :VCEnd
 setlocal
-"C:\Program Files\CMake\bin\cmake.exe" -E copy_if_different D:/zzshare/CefBridge3/cef3/Debug/snapshot_blob.bin D:/zzshare/CefBridge3/cef3/cefsimple/Debug/snapshot_blob.bin
+"C:\Program Files (x86)\CMake\bin\cmake.exe" -E copy_if_different C:/WImageTest/CefBridge/cef3/Debug/snapshot_blob.bin C:/WImageTest/CefBridge/cef3/cefsimple/Debug/snapshot_blob.bin
 if %errorlevel% neq 0 goto :cmEnd
 :cmEnd
 endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
@@ -166,7 +165,7 @@ exit /b %1
 :cmDone
 if %errorlevel% neq 0 goto :VCEnd
 setlocal
-"C:\Program Files\CMake\bin\cmake.exe" -E copy_if_different D:/zzshare/CefBridge3/cef3/Debug/wow_helper.exe D:/zzshare/CefBridge3/cef3/cefsimple/Debug/wow_helper.exe
+"C:\Program Files (x86)\CMake\bin\cmake.exe" -E copy_if_different C:/WImageTest/CefBridge/cef3/Debug/wow_helper.exe C:/WImageTest/CefBridge/cef3/cefsimple/Debug/wow_helper.exe
 if %errorlevel% neq 0 goto :cmEnd
 :cmEnd
 endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
@@ -175,7 +174,7 @@ exit /b %1
 :cmDone
 if %errorlevel% neq 0 goto :VCEnd
 setlocal
-"C:\Program Files\CMake\bin\cmake.exe" -E copy_if_different D:/zzshare/CefBridge3/cef3/Resources/cef.pak D:/zzshare/CefBridge3/cef3/cefsimple/Debug/cef.pak
+"C:\Program Files (x86)\CMake\bin\cmake.exe" -E copy_if_different C:/WImageTest/CefBridge/cef3/Resources/cef.pak C:/WImageTest/CefBridge/cef3/cefsimple/Debug/cef.pak
 if %errorlevel% neq 0 goto :cmEnd
 :cmEnd
 endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
@@ -184,7 +183,7 @@ exit /b %1
 :cmDone
 if %errorlevel% neq 0 goto :VCEnd
 setlocal
-"C:\Program Files\CMake\bin\cmake.exe" -E copy_if_different D:/zzshare/CefBridge3/cef3/Resources/cef_100_percent.pak D:/zzshare/CefBridge3/cef3/cefsimple/Debug/cef_100_percent.pak
+"C:\Program Files (x86)\CMake\bin\cmake.exe" -E copy_if_different C:/WImageTest/CefBridge/cef3/Resources/cef_100_percent.pak C:/WImageTest/CefBridge/cef3/cefsimple/Debug/cef_100_percent.pak
 if %errorlevel% neq 0 goto :cmEnd
 :cmEnd
 endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
@@ -193,7 +192,7 @@ exit /b %1
 :cmDone
 if %errorlevel% neq 0 goto :VCEnd
 setlocal
-"C:\Program Files\CMake\bin\cmake.exe" -E copy_if_different D:/zzshare/CefBridge3/cef3/Resources/cef_200_percent.pak D:/zzshare/CefBridge3/cef3/cefsimple/Debug/cef_200_percent.pak
+"C:\Program Files (x86)\CMake\bin\cmake.exe" -E copy_if_different C:/WImageTest/CefBridge/cef3/Resources/cef_200_percent.pak C:/WImageTest/CefBridge/cef3/cefsimple/Debug/cef_200_percent.pak
 if %errorlevel% neq 0 goto :cmEnd
 :cmEnd
 endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
@@ -202,7 +201,7 @@ exit /b %1
 :cmDone
 if %errorlevel% neq 0 goto :VCEnd
 setlocal
-"C:\Program Files\CMake\bin\cmake.exe" -E copy_if_different D:/zzshare/CefBridge3/cef3/Resources/devtools_resources.pak D:/zzshare/CefBridge3/cef3/cefsimple/Debug/devtools_resources.pak
+"C:\Program Files (x86)\CMake\bin\cmake.exe" -E copy_if_different C:/WImageTest/CefBridge/cef3/Resources/devtools_resources.pak C:/WImageTest/CefBridge/cef3/cefsimple/Debug/devtools_resources.pak
 if %errorlevel% neq 0 goto :cmEnd
 :cmEnd
 endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
@@ -211,7 +210,7 @@ exit /b %1
 :cmDone
 if %errorlevel% neq 0 goto :VCEnd
 setlocal
-"C:\Program Files\CMake\bin\cmake.exe" -E copy_if_different D:/zzshare/CefBridge3/cef3/Resources/icudtl.dat D:/zzshare/CefBridge3/cef3/cefsimple/Debug/icudtl.dat
+"C:\Program Files (x86)\CMake\bin\cmake.exe" -E copy_if_different C:/WImageTest/CefBridge/cef3/Resources/icudtl.dat C:/WImageTest/CefBridge/cef3/cefsimple/Debug/icudtl.dat
 if %errorlevel% neq 0 goto :cmEnd
 :cmEnd
 endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
@@ -220,7 +219,7 @@ exit /b %1
 :cmDone
 if %errorlevel% neq 0 goto :VCEnd
 setlocal
-"C:\Program Files\CMake\bin\cmake.exe" -E copy_directory D:/zzshare/CefBridge3/cef3/Resources/locales D:/zzshare/CefBridge3/cef3/cefsimple/Debug/locales
+"C:\Program Files (x86)\CMake\bin\cmake.exe" -E copy_directory C:/WImageTest/CefBridge/cef3/Resources/locales C:/WImageTest/CefBridge/cef3/cefsimple/Debug/locales
 if %errorlevel% neq 0 goto :cmEnd
 :cmEnd
 endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
@@ -234,10 +233,11 @@ if %errorlevel% neq 0 goto :VCEnd</Command>
       <AdditionalLibraryDirectories>%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <IgnoreSpecificDefaultLibraries>%(IgnoreSpecificDefaultLibraries)</IgnoreSpecificDefaultLibraries>
-      <ImportLibrary>D:/zzshare/CefBridge3/cef3/cefsimple/Debug/cefsimple.lib</ImportLibrary>
-      <ProgramDataBaseFile>D:/zzshare/CefBridge3/cef3/cefsimple/Debug/cefsimple.pdb</ProgramDataBaseFile>
+      <ImportLibrary>C:/WImageTest/CefBridge/cef3/cefsimple/Debug/cefsimple.lib</ImportLibrary>
+      <ProgramDataBaseFile>C:/WImageTest/CefBridge/cef3/cefsimple/Debug/cefsimple.pdb</ProgramDataBaseFile>
       <SubSystem>Windows</SubSystem>
-      <Version></Version>
+      <Version>
+      </Version>
     </Link>
     <ProjectReference>
       <LinkLibraryDependencies>false</LinkLibraryDependencies>
@@ -245,7 +245,7 @@ if %errorlevel% neq 0 goto :VCEnd</Command>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <ClCompile>
-      <AdditionalIncludeDirectories>D:\zzshare\CefBridge3\cef3;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>C:\WImageTest\CefBridge\cef3;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <AssemblerListingLocation>Release/</AssemblerListingLocation>
       <CompileAs>CompileAsCpp</CompileAs>
       <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
@@ -267,10 +267,10 @@ if %errorlevel% neq 0 goto :VCEnd</Command>
     </ClCompile>
     <ResourceCompile>
       <PreprocessorDefinitions>NDEBUG;_NDEBUG;__STDC_CONSTANT_MACROS;__STDC_FORMAT_MACROS;WIN32;_WIN32;_WINDOWS;UNICODE;_UNICODE;WINVER=0x0602;_WIN32_WINNT=0x602;NOMINMAX;WIN32_LEAN_AND_MEAN;_HAS_EXCEPTIONS=0;CEF_USE_ATL;CMAKE_INTDIR=\"Release\";%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>D:\zzshare\CefBridge3\cef3;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>C:\WImageTest\CefBridge\cef3;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ResourceCompile>
     <Midl>
-      <AdditionalIncludeDirectories>D:\zzshare\CefBridge3\cef3;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>C:\WImageTest\CefBridge\cef3;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <OutputDirectory>$(IntDir)</OutputDirectory>
       <HeaderFileName>%(Filename).h</HeaderFileName>
       <TypeLibraryName>%(Filename).tlb</TypeLibraryName>
@@ -280,7 +280,7 @@ if %errorlevel% neq 0 goto :VCEnd</Command>
     <PostBuildEvent>
       <Message>Adding manifest...															</Message>
       <Command>setlocal
-mt.exe -nologo -manifest "D:/zzshare/CefBridge3/cef3/cefsimple/cefsimple.exe.manifest" "D:/zzshare/CefBridge3/cef3/cefsimple/compatibility.manifest" -outputresource:"D:/zzshare/CefBridge3/cef3/cefsimple/Release/cefsimple.exe";#1
+mt.exe -nologo -manifest "C:/WImageTest/CefBridge/cef3/cefsimple/cefsimple.exe.manifest" "C:/WImageTest/CefBridge/cef3/cefsimple/compatibility.manifest" -outputresource:"C:/WImageTest/CefBridge/cef3/cefsimple/Release/cefsimple.exe";#1
 if %errorlevel% neq 0 goto :cmEnd
 :cmEnd
 endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
@@ -289,7 +289,7 @@ exit /b %1
 :cmDone
 if %errorlevel% neq 0 goto :VCEnd
 setlocal
-"C:\Program Files\CMake\bin\cmake.exe" -E copy_if_different D:/zzshare/CefBridge3/cef3/Release/d3dcompiler_43.dll D:/zzshare/CefBridge3/cef3/cefsimple/Release/d3dcompiler_43.dll
+"C:\Program Files (x86)\CMake\bin\cmake.exe" -E copy_if_different C:/WImageTest/CefBridge/cef3/Release/d3dcompiler_43.dll C:/WImageTest/CefBridge/cef3/cefsimple/Release/d3dcompiler_43.dll
 if %errorlevel% neq 0 goto :cmEnd
 :cmEnd
 endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
@@ -298,7 +298,7 @@ exit /b %1
 :cmDone
 if %errorlevel% neq 0 goto :VCEnd
 setlocal
-"C:\Program Files\CMake\bin\cmake.exe" -E copy_if_different D:/zzshare/CefBridge3/cef3/Release/d3dcompiler_47.dll D:/zzshare/CefBridge3/cef3/cefsimple/Release/d3dcompiler_47.dll
+"C:\Program Files (x86)\CMake\bin\cmake.exe" -E copy_if_different C:/WImageTest/CefBridge/cef3/Release/d3dcompiler_47.dll C:/WImageTest/CefBridge/cef3/cefsimple/Release/d3dcompiler_47.dll
 if %errorlevel% neq 0 goto :cmEnd
 :cmEnd
 endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
@@ -307,7 +307,7 @@ exit /b %1
 :cmDone
 if %errorlevel% neq 0 goto :VCEnd
 setlocal
-"C:\Program Files\CMake\bin\cmake.exe" -E copy_if_different D:/zzshare/CefBridge3/cef3/Release/ffmpegsumo.dll D:/zzshare/CefBridge3/cef3/cefsimple/Release/ffmpegsumo.dll
+"C:\Program Files (x86)\CMake\bin\cmake.exe" -E copy_if_different C:/WImageTest/CefBridge/cef3/Release/ffmpegsumo.dll C:/WImageTest/CefBridge/cef3/cefsimple/Release/ffmpegsumo.dll
 if %errorlevel% neq 0 goto :cmEnd
 :cmEnd
 endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
@@ -316,7 +316,7 @@ exit /b %1
 :cmDone
 if %errorlevel% neq 0 goto :VCEnd
 setlocal
-"C:\Program Files\CMake\bin\cmake.exe" -E copy_if_different D:/zzshare/CefBridge3/cef3/Release/libcef.dll D:/zzshare/CefBridge3/cef3/cefsimple/Release/libcef.dll
+"C:\Program Files (x86)\CMake\bin\cmake.exe" -E copy_if_different C:/WImageTest/CefBridge/cef3/Release/libcef.dll C:/WImageTest/CefBridge/cef3/cefsimple/Release/libcef.dll
 if %errorlevel% neq 0 goto :cmEnd
 :cmEnd
 endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
@@ -325,7 +325,7 @@ exit /b %1
 :cmDone
 if %errorlevel% neq 0 goto :VCEnd
 setlocal
-"C:\Program Files\CMake\bin\cmake.exe" -E copy_if_different D:/zzshare/CefBridge3/cef3/Release/libEGL.dll D:/zzshare/CefBridge3/cef3/cefsimple/Release/libEGL.dll
+"C:\Program Files (x86)\CMake\bin\cmake.exe" -E copy_if_different C:/WImageTest/CefBridge/cef3/Release/libEGL.dll C:/WImageTest/CefBridge/cef3/cefsimple/Release/libEGL.dll
 if %errorlevel% neq 0 goto :cmEnd
 :cmEnd
 endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
@@ -334,7 +334,7 @@ exit /b %1
 :cmDone
 if %errorlevel% neq 0 goto :VCEnd
 setlocal
-"C:\Program Files\CMake\bin\cmake.exe" -E copy_if_different D:/zzshare/CefBridge3/cef3/Release/libGLESv2.dll D:/zzshare/CefBridge3/cef3/cefsimple/Release/libGLESv2.dll
+"C:\Program Files (x86)\CMake\bin\cmake.exe" -E copy_if_different C:/WImageTest/CefBridge/cef3/Release/libGLESv2.dll C:/WImageTest/CefBridge/cef3/cefsimple/Release/libGLESv2.dll
 if %errorlevel% neq 0 goto :cmEnd
 :cmEnd
 endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
@@ -343,7 +343,7 @@ exit /b %1
 :cmDone
 if %errorlevel% neq 0 goto :VCEnd
 setlocal
-"C:\Program Files\CMake\bin\cmake.exe" -E copy_if_different D:/zzshare/CefBridge3/cef3/Release/natives_blob.bin D:/zzshare/CefBridge3/cef3/cefsimple/Release/natives_blob.bin
+"C:\Program Files (x86)\CMake\bin\cmake.exe" -E copy_if_different C:/WImageTest/CefBridge/cef3/Release/natives_blob.bin C:/WImageTest/CefBridge/cef3/cefsimple/Release/natives_blob.bin
 if %errorlevel% neq 0 goto :cmEnd
 :cmEnd
 endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
@@ -352,7 +352,7 @@ exit /b %1
 :cmDone
 if %errorlevel% neq 0 goto :VCEnd
 setlocal
-"C:\Program Files\CMake\bin\cmake.exe" -E copy_if_different D:/zzshare/CefBridge3/cef3/Release/snapshot_blob.bin D:/zzshare/CefBridge3/cef3/cefsimple/Release/snapshot_blob.bin
+"C:\Program Files (x86)\CMake\bin\cmake.exe" -E copy_if_different C:/WImageTest/CefBridge/cef3/Release/snapshot_blob.bin C:/WImageTest/CefBridge/cef3/cefsimple/Release/snapshot_blob.bin
 if %errorlevel% neq 0 goto :cmEnd
 :cmEnd
 endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
@@ -361,7 +361,7 @@ exit /b %1
 :cmDone
 if %errorlevel% neq 0 goto :VCEnd
 setlocal
-"C:\Program Files\CMake\bin\cmake.exe" -E copy_if_different D:/zzshare/CefBridge3/cef3/Release/wow_helper.exe D:/zzshare/CefBridge3/cef3/cefsimple/Release/wow_helper.exe
+"C:\Program Files (x86)\CMake\bin\cmake.exe" -E copy_if_different C:/WImageTest/CefBridge/cef3/Release/wow_helper.exe C:/WImageTest/CefBridge/cef3/cefsimple/Release/wow_helper.exe
 if %errorlevel% neq 0 goto :cmEnd
 :cmEnd
 endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
@@ -370,7 +370,7 @@ exit /b %1
 :cmDone
 if %errorlevel% neq 0 goto :VCEnd
 setlocal
-"C:\Program Files\CMake\bin\cmake.exe" -E copy_if_different D:/zzshare/CefBridge3/cef3/Resources/cef.pak D:/zzshare/CefBridge3/cef3/cefsimple/Release/cef.pak
+"C:\Program Files (x86)\CMake\bin\cmake.exe" -E copy_if_different C:/WImageTest/CefBridge/cef3/Resources/cef.pak C:/WImageTest/CefBridge/cef3/cefsimple/Release/cef.pak
 if %errorlevel% neq 0 goto :cmEnd
 :cmEnd
 endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
@@ -379,7 +379,7 @@ exit /b %1
 :cmDone
 if %errorlevel% neq 0 goto :VCEnd
 setlocal
-"C:\Program Files\CMake\bin\cmake.exe" -E copy_if_different D:/zzshare/CefBridge3/cef3/Resources/cef_100_percent.pak D:/zzshare/CefBridge3/cef3/cefsimple/Release/cef_100_percent.pak
+"C:\Program Files (x86)\CMake\bin\cmake.exe" -E copy_if_different C:/WImageTest/CefBridge/cef3/Resources/cef_100_percent.pak C:/WImageTest/CefBridge/cef3/cefsimple/Release/cef_100_percent.pak
 if %errorlevel% neq 0 goto :cmEnd
 :cmEnd
 endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
@@ -388,7 +388,7 @@ exit /b %1
 :cmDone
 if %errorlevel% neq 0 goto :VCEnd
 setlocal
-"C:\Program Files\CMake\bin\cmake.exe" -E copy_if_different D:/zzshare/CefBridge3/cef3/Resources/cef_200_percent.pak D:/zzshare/CefBridge3/cef3/cefsimple/Release/cef_200_percent.pak
+"C:\Program Files (x86)\CMake\bin\cmake.exe" -E copy_if_different C:/WImageTest/CefBridge/cef3/Resources/cef_200_percent.pak C:/WImageTest/CefBridge/cef3/cefsimple/Release/cef_200_percent.pak
 if %errorlevel% neq 0 goto :cmEnd
 :cmEnd
 endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
@@ -397,7 +397,7 @@ exit /b %1
 :cmDone
 if %errorlevel% neq 0 goto :VCEnd
 setlocal
-"C:\Program Files\CMake\bin\cmake.exe" -E copy_if_different D:/zzshare/CefBridge3/cef3/Resources/devtools_resources.pak D:/zzshare/CefBridge3/cef3/cefsimple/Release/devtools_resources.pak
+"C:\Program Files (x86)\CMake\bin\cmake.exe" -E copy_if_different C:/WImageTest/CefBridge/cef3/Resources/devtools_resources.pak C:/WImageTest/CefBridge/cef3/cefsimple/Release/devtools_resources.pak
 if %errorlevel% neq 0 goto :cmEnd
 :cmEnd
 endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
@@ -406,7 +406,7 @@ exit /b %1
 :cmDone
 if %errorlevel% neq 0 goto :VCEnd
 setlocal
-"C:\Program Files\CMake\bin\cmake.exe" -E copy_if_different D:/zzshare/CefBridge3/cef3/Resources/icudtl.dat D:/zzshare/CefBridge3/cef3/cefsimple/Release/icudtl.dat
+"C:\Program Files (x86)\CMake\bin\cmake.exe" -E copy_if_different C:/WImageTest/CefBridge/cef3/Resources/icudtl.dat C:/WImageTest/CefBridge/cef3/cefsimple/Release/icudtl.dat
 if %errorlevel% neq 0 goto :cmEnd
 :cmEnd
 endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
@@ -415,7 +415,7 @@ exit /b %1
 :cmDone
 if %errorlevel% neq 0 goto :VCEnd
 setlocal
-"C:\Program Files\CMake\bin\cmake.exe" -E copy_directory D:/zzshare/CefBridge3/cef3/Resources/locales D:/zzshare/CefBridge3/cef3/cefsimple/Release/locales
+"C:\Program Files (x86)\CMake\bin\cmake.exe" -E copy_directory C:/WImageTest/CefBridge/cef3/Resources/locales C:/WImageTest/CefBridge/cef3/cefsimple/Release/locales
 if %errorlevel% neq 0 goto :cmEnd
 :cmEnd
 endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
@@ -429,10 +429,11 @@ if %errorlevel% neq 0 goto :VCEnd</Command>
       <AdditionalLibraryDirectories>%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <GenerateDebugInformation>false</GenerateDebugInformation>
       <IgnoreSpecificDefaultLibraries>%(IgnoreSpecificDefaultLibraries)</IgnoreSpecificDefaultLibraries>
-      <ImportLibrary>D:/zzshare/CefBridge3/cef3/cefsimple/Release/cefsimple.lib</ImportLibrary>
-      <ProgramDataBaseFile>D:/zzshare/CefBridge3/cef3/cefsimple/Release/cefsimple.pdb</ProgramDataBaseFile>
+      <ImportLibrary>C:/WImageTest/CefBridge/cef3/cefsimple/Release/cefsimple.lib</ImportLibrary>
+      <ProgramDataBaseFile>C:/WImageTest/CefBridge/cef3/cefsimple/Release/cefsimple.pdb</ProgramDataBaseFile>
       <SubSystem>Windows</SubSystem>
-      <Version></Version>
+      <Version>
+      </Version>
     </Link>
     <ProjectReference>
       <LinkLibraryDependencies>false</LinkLibraryDependencies>
@@ -440,9 +441,9 @@ if %errorlevel% neq 0 goto :VCEnd</Command>
   </ItemDefinitionGroup>
   <ItemGroup>
     <CustomBuild Include="CMakeLists.txt">
-      <Message Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Building Custom Rule D:/zzshare/CefBridge3/cef3/cefsimple/CMakeLists.txt</Message>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Building Custom Rule C:/WImageTest/CefBridge/cef3/cefsimple/CMakeLists.txt</Message>
       <Command Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">setlocal
-"C:\Program Files\CMake\bin\cmake.exe" -HD:/zzshare/CefBridge3/cef3 -BD:/zzshare/CefBridge3/cef3 --check-stamp-file D:\zzshare\CefBridge3\cef3\cefsimple\CMakeFiles\generate.stamp
+"C:\Program Files (x86)\CMake\bin\cmake.exe" -HC:/WImageTest/CefBridge/cef3 -BC:/WImageTest/CefBridge/cef3 --check-stamp-file C:\WImageTest\CefBridge\cef3\cefsimple\CMakeFiles\generate.stamp
 if %errorlevel% neq 0 goto :cmEnd
 :cmEnd
 endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
@@ -450,11 +451,11 @@ endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
 exit /b %1
 :cmDone
 if %errorlevel% neq 0 goto :VCEnd</Command>
-      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">D:/zzshare/CefBridge3/cef3/cefsimple/CMakeLists.txt;D:\zzshare\CefBridge3\cef3\cefsimple\CMakeLists.txt;D:\zzshare\CefBridge3\cef3\cefsimple\CMakeLists.txt;%(AdditionalInputs)</AdditionalInputs>
-      <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">D:\zzshare\CefBridge3\cef3\cefsimple\CMakeFiles\generate.stamp</Outputs>
-      <Message Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Building Custom Rule D:/zzshare/CefBridge3/cef3/cefsimple/CMakeLists.txt</Message>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">C:/WImageTest/CefBridge/cef3/cefsimple/CMakeLists.txt;C:\WImageTest\CefBridge\cef3\cefsimple\CMakeLists.txt;C:\WImageTest\CefBridge\cef3\cefsimple\CMakeLists.txt;%(AdditionalInputs)</AdditionalInputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">C:\WImageTest\CefBridge\cef3\cefsimple\CMakeFiles\generate.stamp</Outputs>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Building Custom Rule C:/WImageTest/CefBridge/cef3/cefsimple/CMakeLists.txt</Message>
       <Command Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">setlocal
-"C:\Program Files\CMake\bin\cmake.exe" -HD:/zzshare/CefBridge3/cef3 -BD:/zzshare/CefBridge3/cef3 --check-stamp-file D:\zzshare\CefBridge3\cef3\cefsimple\CMakeFiles\generate.stamp
+"C:\Program Files (x86)\CMake\bin\cmake.exe" -HC:/WImageTest/CefBridge/cef3 -BC:/WImageTest/CefBridge/cef3 --check-stamp-file C:\WImageTest\CefBridge\cef3\cefsimple\CMakeFiles\generate.stamp
 if %errorlevel% neq 0 goto :cmEnd
 :cmEnd
 endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
@@ -462,29 +463,32 @@ endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
 exit /b %1
 :cmDone
 if %errorlevel% neq 0 goto :VCEnd</Command>
-      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">D:/zzshare/CefBridge3/cef3/cefsimple/CMakeLists.txt;D:\zzshare\CefBridge3\cef3\cefsimple\CMakeLists.txt;D:\zzshare\CefBridge3\cef3\cefsimple\CMakeLists.txt;%(AdditionalInputs)</AdditionalInputs>
-      <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">D:\zzshare\CefBridge3\cef3\cefsimple\CMakeFiles\generate.stamp</Outputs>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">C:/WImageTest/CefBridge/cef3/cefsimple/CMakeLists.txt;C:\WImageTest\CefBridge\cef3\cefsimple\CMakeLists.txt;C:\WImageTest\CefBridge\cef3\cefsimple\CMakeLists.txt;%(AdditionalInputs)</AdditionalInputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">C:\WImageTest\CefBridge\cef3\cefsimple\CMakeFiles\generate.stamp</Outputs>
     </CustomBuild>
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="ExportFuncs.h" />
+    <ClInclude Include="mycef.h" />
     <ClInclude Include="simple_app.h" />
     <ClInclude Include="simple_handler.h" />
     <ClInclude Include="resource.h" />
-    <ClCompile Include="simple_app.cc"  />
-    <ClCompile Include="simple_handler.cc"  />
-    <ResourceCompile Include="cefsimple.rc"  />
-    <ClCompile Include="cefsimple_win.cc"  />
-    <ClCompile Include="simple_handler_win.cc"  />
+    <ClCompile Include="cefsimple_win.cc" />
+    <ClCompile Include="ExportFuncs.cc" />
+    <ClCompile Include="simple_app.cc" />
+    <ClCompile Include="simple_handler.cc" />
+    <ResourceCompile Include="cefsimple.rc" />
+    <ClCompile Include="simple_handler_win.cc" />
     <None Include="cefsimple.exe.manifest" />
     <None Include="res\cefsimple.ico" />
     <None Include="res\small.ico" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="D:/zzshare/CefBridge3/cef3/ZERO_CHECK.vcxproj">
-      <Project>7463E885-D99D-485D-8439-A2E72EAB08D8</Project>
+    <ProjectReference Include="C:/WImageTest/CefBridge/cef3/ZERO_CHECK.vcxproj">
+      <Project>D4BB63EF-B24F-4EF3-A128-06CAFC5516AC</Project>
     </ProjectReference>
-    <ProjectReference Include="D:/zzshare/CefBridge3/cef3/libcef_dll/libcef_dll_wrapper.vcxproj">
-      <Project>C0175262-F043-4C07-AB40-1FA7432BD1F0</Project>
+    <ProjectReference Include="C:/WImageTest/CefBridge/cef3/libcef_dll/libcef_dll_wrapper.vcxproj">
+      <Project>ADFAC6FB-9C5C-4D5D-9338-D98665D5DFCA</Project>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

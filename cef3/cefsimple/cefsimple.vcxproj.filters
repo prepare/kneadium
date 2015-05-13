@@ -1,4 +1,4 @@
-﻿<?xml version="1.0" encoding="UTF-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
     <ClCompile Include="simple_app.cc">
@@ -7,10 +7,13 @@
     <ClCompile Include="simple_handler.cc">
       <Filter>cefsimple</Filter>
     </ClCompile>
-    <ClCompile Include="cefsimple_win.cc">
+    <ClCompile Include="simple_handler_win.cc">
       <Filter>cefsimple</Filter>
     </ClCompile>
-    <ClCompile Include="simple_handler_win.cc">
+    <ClCompile Include="ExportFuncs.cc">
+      <Filter>cefsimple</Filter>
+    </ClCompile>
+    <ClCompile Include="cefsimple_win.cc">
       <Filter>cefsimple</Filter>
     </ClCompile>
   </ItemGroup>
@@ -22,6 +25,12 @@
       <Filter>cefsimple</Filter>
     </ClInclude>
     <ClInclude Include="resource.h">
+      <Filter>cefsimple</Filter>
+    </ClInclude>
+    <ClInclude Include="mycef.h">
+      <Filter>cefsimple</Filter>
+    </ClInclude>
+    <ClInclude Include="ExportFuncs.h">
       <Filter>cefsimple</Filter>
     </ClInclude>
   </ItemGroup>
@@ -45,11 +54,11 @@
     </ResourceCompile>
   </ItemGroup>
   <ItemGroup>
-    <Filter Include="cefsimple\res">
-      <UniqueIdentifier>{1B8028BE-13E9-42D2-9612-596396E4157C}</UniqueIdentifier>
-    </Filter>
     <Filter Include="cefsimple">
-      <UniqueIdentifier>{7BC1B4C4-8253-45DC-B9A6-19376F865C13}</UniqueIdentifier>
+      <UniqueIdentifier>{8E0F5588-9AE4-4025-984A-339C4EFBEF27}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="cefsimple\res">
+      <UniqueIdentifier>{0E5C4DEC-1031-43BE-98B1-D537739A6D51}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>

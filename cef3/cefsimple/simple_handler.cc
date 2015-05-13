@@ -109,3 +109,10 @@ void SimpleHandler::CloseAllBrowsers(bool force_close) {
   for (; it != browser_list_.end(); ++it)
     (*it)->GetHost()->CloseBrowser(force_close);
 }
+
+void SimpleHandler::SetMainHwnd(HWND hwnd)
+{
+	  CEF_REQUIRE_UI_THREAD();
+	  this->mainHwnd = hwnd;
+}
+
