@@ -145,3 +145,13 @@ void MyCefDoMessageLoopWork()
 {		
 	CefDoMessageLoopWork();
 }
+//10.
+void MyCefCloseHandler(SimpleHandler* clientHandler)
+{
+	clientHandler->CloseAllBrowsers(false);
+}
+//11.
+void MyCefShutDown()
+{
+	CefShutdown();
+}

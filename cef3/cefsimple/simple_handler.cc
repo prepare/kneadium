@@ -22,6 +22,9 @@ SimpleHandler::SimpleHandler()
     : is_closing_(false) {
   DCHECK(!g_instance);
   g_instance = this;
+  //my extension 
+  this->mainHwnd = NULL;
+  this->use_surfaceHwnd = false;
 }
 
 SimpleHandler::~SimpleHandler() {
@@ -70,7 +73,11 @@ void SimpleHandler::OnBeforeClose(CefRefPtr<CefBrowser> browser) {
 
   if (browser_list_.empty()) {
     // All browser windows have closed. Quit the application message loop.
-    CefQuitMessageLoop();
+	  
+	  //my extension
+	  if(!this->use_surfaceHwnd){//***
+		CefQuitMessageLoop();
+	  }
   }
 }
 
@@ -110,9 +117,12 @@ void SimpleHandler::CloseAllBrowsers(bool force_close) {
     (*it)->GetHost()->CloseBrowser(force_close);
 }
 
+
+//my extension 
 void SimpleHandler::SetMainHwnd(HWND hwnd)
 {
 	  CEF_REQUIRE_UI_THREAD();
 	  this->mainHwnd = hwnd;
+	  this->use_surfaceHwnd = true;
 }
 

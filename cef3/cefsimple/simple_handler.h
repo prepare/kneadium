@@ -60,7 +60,10 @@ class SimpleHandler : public CefClient,
   BrowserList browser_list_;
 
   bool is_closing_;
+  
+  //my extension
   HWND mainHwnd;
+  bool use_surfaceHwnd;
 
   // Include the default reference counting implementation.
   IMPLEMENT_REFCOUNTING(SimpleHandler);
