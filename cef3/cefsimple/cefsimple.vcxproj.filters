@@ -1,0 +1,55 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <ClCompile Include="simple_app.cc">
+      <Filter>cefsimple</Filter>
+    </ClCompile>
+    <ClCompile Include="simple_handler.cc">
+      <Filter>cefsimple</Filter>
+    </ClCompile>
+    <ClCompile Include="cefsimple_win.cc">
+      <Filter>cefsimple</Filter>
+    </ClCompile>
+    <ClCompile Include="simple_handler_win.cc">
+      <Filter>cefsimple</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="simple_app.h">
+      <Filter>cefsimple</Filter>
+    </ClInclude>
+    <ClInclude Include="simple_handler.h">
+      <Filter>cefsimple</Filter>
+    </ClInclude>
+    <ClInclude Include="resource.h">
+      <Filter>cefsimple</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <CustomBuild Include="CMakeLists.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="cefsimple.exe.manifest">
+      <Filter>cefsimple</Filter>
+    </None>
+    <None Include="res\cefsimple.ico">
+      <Filter>cefsimple\res</Filter>
+    </None>
+    <None Include="res\small.ico">
+      <Filter>cefsimple\res</Filter>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="cefsimple.rc">
+      <Filter>cefsimple</Filter>
+    </ResourceCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <Filter Include="cefsimple\res">
+      <UniqueIdentifier>{1B8028BE-13E9-42D2-9612-596396E4157C}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="cefsimple">
+      <UniqueIdentifier>{7BC1B4C4-8253-45DC-B9A6-19376F865C13}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+</Project>
