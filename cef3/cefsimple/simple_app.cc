@@ -18,6 +18,7 @@ SimpleApp::SimpleApp() {
 void SimpleApp::OnContextInitialized() {
   CEF_REQUIRE_UI_THREAD();
 
+  
 //  // Information used when creating the native window.
 //  CefWindowInfo window_info;
 //

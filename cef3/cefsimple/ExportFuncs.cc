@@ -1,5 +1,7 @@
 #include "ExportFuncs.h"   
 #include "mycef.h"
+ 
+ 
 
 delTraceBack notifyListener= NULL;
 
@@ -109,9 +111,8 @@ int MyCefSetupWindowsEnd(SimpleHandler* clientHandler,HWND surfaceHwnd,int x,int
   r.right = x+w;
   r.bottom  = y +h;
 
-  
-  window_info.SetAsChild(surfaceHwnd,r);
-
+   window_info.SetAsChild(surfaceHwnd,r);
+  //window_info.SetAsWindowless(surfaceHwnd,true);
 
   // SimpleHandler implements browser-level callbacks.
   CefRefPtr<SimpleHandler> handler(clientHandler);
@@ -137,7 +138,7 @@ int MyCefSetupWindowsEnd(SimpleHandler* clientHandler,HWND surfaceHwnd,int x,int
   }
   else{
 	  return 0;
-  } 
+  }  
 }
 
 //9.
@@ -145,13 +146,10 @@ void MyCefDoMessageLoopWork()
 {		
 	CefDoMessageLoopWork();
 }
+ 
 //10.
-void MyCefCloseHandler(SimpleHandler* clientHandler)
-{
-	clientHandler->CloseAllBrowsers(false);
-}
-//11.
 void MyCefShutDown()
 {
 	CefShutdown();
 }
+ 

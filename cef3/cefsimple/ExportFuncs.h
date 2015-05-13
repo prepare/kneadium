@@ -23,8 +23,9 @@ extern "C"{
 	MY_DLL_EXPORT int MyCefSetupWindowsEnd(SimpleHandler* clientHandler,HWND surfaceHwnd,int x,int y,int w,int h);
 	//9.
 	MY_DLL_EXPORT void MyCefDoMessageLoopWork(); 
+	 
 	//10.
-	MY_DLL_EXPORT void MyCefCloseHandler(SimpleHandler* clientHandler);
-	//11. 
 	MY_DLL_EXPORT void MyCefShutDown();
+	  
+ 
 }

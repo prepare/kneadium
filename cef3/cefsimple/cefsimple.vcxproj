@@ -44,7 +44,6 @@
     <OutDir Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">C:\WImageTest\CefBridge\cef3\cefsimple\Release\</OutDir>
     <IntDir Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">cefsimple.dir\Release\</IntDir>
     <TargetName Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">cefsimple</TargetName>
-    <TargetExt Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">.exe</TargetExt>
     <LinkIncremental Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</LinkIncremental>
     <GenerateManifest Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">false</GenerateManifest>
   </PropertyGroup>
@@ -249,7 +248,7 @@ if %errorlevel% neq 0 goto :VCEnd</Command>
       <AssemblerListingLocation>Release/</AssemblerListingLocation>
       <CompileAs>CompileAsCpp</CompileAs>
       <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
-      <DisableSpecificWarnings>4100;4127;4244;4512;4701;4702;4996</DisableSpecificWarnings>
+      <DisableSpecificWarnings>4100;4127;4244;4512;4701;4702;4996;4481</DisableSpecificWarnings>
       <ExceptionHandling>
       </ExceptionHandling>
       <FunctionLevelLinking>true</FunctionLevelLinking>
