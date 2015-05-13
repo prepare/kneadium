@@ -7,16 +7,26 @@
  
 
 extern "C"{  	 
-
+	//1.
 	MY_DLL_EXPORT int MyCefGetVersion(); 
+	//2.
 	MY_DLL_EXPORT int RegisterManagedCallBack(void* callback,int callBackKind); 
-	MY_DLL_EXPORT client::ClientApp* MyCefCreateClientApp();
-	MY_DLL_EXPORT client::MainContextImpl* MyCefInit(HINSTANCE hInstance,client::ClientApp* app);
+	//3. 
+	MY_DLL_EXPORT client::ClientApp* MyCefCreateClientApp();	
+	//4.
 	MY_DLL_EXPORT void MyCefClientAppSetManagedCallback(client::ClientApp* clientApp,managed_callback myMxCallback);
-	MY_DLL_EXPORT void MyCefDoMessageLoopWork(); 
-
-	MY_DLL_EXPORT client::ClientHandler* MyCefCreateClientHandler(client::MainContextImpl* mainContext,
+	//5.
+	MY_DLL_EXPORT client::MainContextImpl* MyCefInit(HINSTANCE hInstance,client::ClientApp* app);
+	//6,7,8.
+	MY_DLL_EXPORT client::ClientHandler* MyCefCreateClientHandler(
+		    client::MainContextImpl* mainContext,
 			HWND parentWindowHandler,
             int x, int y, int w, int h);
+	//9.
+	MY_DLL_EXPORT void MyCefDoMessageLoopWork(); 
+	 
+	//10.
+	MY_DLL_EXPORT void MyCefShutDown(); 
+	
  
 }

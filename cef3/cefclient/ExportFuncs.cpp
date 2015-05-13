@@ -19,7 +19,7 @@ delTraceBack notifyListener= NULL;
 //1.
 int MyCefGetVersion()
 {	
-	 return 1003;
+	 return 1004;
 }
 //2.
 int RegisterManagedCallBack(void* funcPtr,int callbackKind)
@@ -59,23 +59,20 @@ client::ClientApp* MyCefCreateClientApp()
      app = new client::ClientAppOther();
    return app;
 }
-//4.
+//4. 
+void MyCefClientAppSetManagedCallback(client::ClientApp* clientApp,managed_callback myMxCallback)
+{
+	clientApp->myMxCallback = myMxCallback;
+}
+//5.
 client::MainContextImpl* MyCefInit(HINSTANCE hInstance,client::ClientApp* app)
 {
 	CefRefPtr<client::ClientApp> myApp = app;   
 	return DllInitMain(hInstance,myApp);
 } 
-//5. 
-void MyCefClientAppSetManagedCallback(client::ClientApp* clientApp,managed_callback myMxCallback)
-{
-	clientApp->myMxCallback = myMxCallback;
-}
-//6.
-void MyCefDoMessageLoopWork()
-{		
-	CefDoMessageLoopWork();
-}
-//7.
+
+
+//6,7,8
 client::ClientHandler* MyCefCreateClientHandler(client::MainContextImpl* mainContext,
 	HWND parentWindowHandler,
     int x, int y, int w, int h)
@@ -86,4 +83,12 @@ client::ClientHandler* MyCefCreateClientHandler(client::MainContextImpl* mainCon
 		rect, std::string()); 
 	return NULL;
 }
-	
+//9.
+void MyCefDoMessageLoopWork()
+{		
+	CefDoMessageLoopWork();
+}
+//10.
+void MyCefShutDown(){
+	CefShutdown();
+}

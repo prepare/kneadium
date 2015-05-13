@@ -1,8 +1,8 @@
-# Install script for directory: D:/zzshare/CefBridge3/cef3/cefclient
+# Install script for directory: C:/WImageTest/CefBridge/cef3/cefclient
 
 # Set the install prefix
 if(NOT DEFINED CMAKE_INSTALL_PREFIX)
-  set(CMAKE_INSTALL_PREFIX "C:/Program Files/cef")
+  set(CMAKE_INSTALL_PREFIX "C:/Program Files (x86)/cef")
 endif()
 string(REGEX REPLACE "/$" "" CMAKE_INSTALL_PREFIX "${CMAKE_INSTALL_PREFIX}")
 
