@@ -22,11 +22,8 @@ extern "C"{
 	//6.
 	MY_DLL_EXPORT client::ClientHandler* MyCefCreateClientHandler();
 
-	//7.
-	MY_DLL_EXPORT int MyCefSetupWindowsBegin(client::ClientHandler* clientHandler,HWND surfaceHwnd);
-	//8.
-	MY_DLL_EXPORT int MyCefSetupWindowsEnd(client::ClientHandler* clientHandler,HWND surfaceHwnd,int x,int y,int w,int h);
-	
+	MY_DLL_EXPORT int MyCefSetupBrowserHwnd(client::ClientHandler* clientHandler,HWND surfaceHwnd,int x,int y,int w,int h);
+
 	//9.
 	MY_DLL_EXPORT void MyCefDoMessageLoopWork(); 
 	 

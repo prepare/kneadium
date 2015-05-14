@@ -22,8 +22,7 @@ SimpleHandler::SimpleHandler()
     : is_closing_(false) {
   DCHECK(!g_instance);
   g_instance = this;
-  //my extension 
-  this->mainHwnd = NULL;
+  
   this->use_surfaceHwnd = false;
 }
 
@@ -119,10 +118,9 @@ void SimpleHandler::CloseAllBrowsers(bool force_close) {
 
 
 //my extension 
-void SimpleHandler::SetMainHwnd(HWND hwnd)
+void SimpleHandler::UseExternalSurfaceHwnd()
 {
-	  CEF_REQUIRE_UI_THREAD();
-	  this->mainHwnd = hwnd;
+	  CEF_REQUIRE_UI_THREAD(); 
 	  this->use_surfaceHwnd = true;
 }
 

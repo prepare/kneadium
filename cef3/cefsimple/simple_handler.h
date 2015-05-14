@@ -53,7 +53,7 @@ class SimpleHandler : public CefClient,
   bool IsClosing() const { return is_closing_; }
 
   //my extension
-  void SetMainHwnd(HWND surfaceHwnd);
+  void  UseExternalSurfaceHwnd();
  private:
   // List of existing browser windows. Only accessed on the CEF UI thread.
   typedef std::list<CefRefPtr<CefBrowser> > BrowserList;
@@ -61,8 +61,7 @@ class SimpleHandler : public CefClient,
 
   bool is_closing_;
   
-  //my extension
-  HWND mainHwnd;
+ 
   bool use_surfaceHwnd;
 
   // Include the default reference counting implementation.

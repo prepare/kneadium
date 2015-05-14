@@ -20,11 +20,10 @@
 
  
 delTraceBack notifyListener= NULL;
-client::MainContextImpl* mainContext;
-scoped_refptr<client::RootWindow> root_window ;
+client::MainContextImpl* mainContext; 
 client::BrowserWindowStdWin* stdWin;
 client::MainMessageLoop* message_loop;
- client::ClientHandlerStd* hh ;
+client::ClientHandlerStd* hh ;
 //1.
 int MyCefGetVersion()
 {	
@@ -69,8 +68,7 @@ client::ClientApp* MyCefCreateClientApp()
 
     // Create the main message loop object.
   message_loop = new client::MainMessageLoopStd();
-  //message_loop.reset(new client::MainMessageLoopStd);
-
+  //message_loop.reset(new client::MainMessageLoopStd); 
  /* if (settings.multi_threaded_message_loop)
     message_loop.reset(new MainMessageLoopMultithreadedWin);
   else
@@ -94,38 +92,17 @@ client::ClientHandler* MyCefCreateClientHandler()
 {	
 	const CefRect r(0,0,400,400);
 	 	
-	  CefBrowserSettings settings;
-	  client::MainContext::Get()->PopulateBrowserSettings(&settings);
+	CefBrowserSettings settings;
+	client::MainContext::Get()->PopulateBrowserSettings(&settings);
 
-	  auto rootWindowWin= new client::RootWindowWin();
-	  //root_window = client::RootWindow::Create();
-	  auto bwWindow= new client::BrowserWindowStdWin(rootWindowWin,"about:blank");
-
-	  //hh = new client::ClientHandlerStd((client::ClientHandler::Delegate*)root_window.get(),"about:blank");
-	  hh = new client::ClientHandlerStd(bwWindow,"about:blank");
-
-	  //stdWin = new client::BrowserWindowStdWin((client::BrowserWindow::Delegate*)root_window.get(),"about:blank");
-	  
-	 // client::ClientHandler* c1 = (client::ClientHandler*)stdWin;
-	 // /*  root_window->Init(this,managedSurfaceHwnd,bounds,settings,
-		//  url.empty() ? MainContext::Get()->GetMainURL() : url);
-     //    */
-	 //  
-	 //
-	 // if(c1){
-	 // }
-	 // 
-	 return hh;
-	 
+	auto rootWindowWin= new client::RootWindowWin(); 
+	auto bwWindow= new client::BrowserWindowStdWin(rootWindowWin,"");  
+	hh = new client::ClientHandlerStd(bwWindow,""); 
+	return hh; 
 }
+
 //7.
-int MyCefSetupWindowsBegin(client::ClientHandler* clientHandler,HWND surfaceHwnd)
-{	
-	 
-	return 1;
-}
-//8.
-int MyCefSetupWindowsEnd(client::ClientHandler* clientHandler,HWND surfaceHwnd,int x,int y,int w,int h)
+int MyCefSetupBrowserHwnd(client::ClientHandler* clientHandler,HWND surfaceHwnd,int x,int y,int w,int h)
 { 
   // Information used when creating the native window.
   CefWindowInfo window_info;
@@ -172,12 +149,12 @@ int MyCefSetupWindowsEnd(client::ClientHandler* clientHandler,HWND surfaceHwnd,i
 	  return 0;
   }  
 }
-//9.
+//8.
 void MyCefDoMessageLoopWork()
 {		
 	CefDoMessageLoopWork();
 }
-//10.
+//9.
 void MyCefShutDown(){
 	CefShutdown();
 }

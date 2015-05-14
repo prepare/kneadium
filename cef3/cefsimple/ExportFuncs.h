@@ -17,14 +17,11 @@ extern "C"{
 	MY_DLL_EXPORT void MyCefClientAppSetManagedCallback(SimpleApp* clientApp,managed_callback myMxCallback);
 	//6.
 	MY_DLL_EXPORT SimpleHandler* MyCefCreateClientHandler();
-	//7.
-	MY_DLL_EXPORT int MyCefSetupWindowsBegin(SimpleHandler* clientHandler,HWND surfaceHwnd);
+	//7
+	MY_DLL_EXPORT int MyCefSetupBrowserHwnd(SimpleHandler* clientHandler,HWND surfaceHwnd,int x,int y,int w,int h);
 	//8.
-	MY_DLL_EXPORT int MyCefSetupWindowsEnd(SimpleHandler* clientHandler,HWND surfaceHwnd,int x,int y,int w,int h);
+	MY_DLL_EXPORT void MyCefDoMessageLoopWork(); 	 
 	//9.
-	MY_DLL_EXPORT void MyCefDoMessageLoopWork(); 
-	 
-	//10.
 	MY_DLL_EXPORT void MyCefShutDown();
 	  
  

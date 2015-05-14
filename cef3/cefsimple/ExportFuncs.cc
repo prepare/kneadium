@@ -8,7 +8,7 @@ delTraceBack notifyListener= NULL;
 //1.
 int MyCefGetVersion()
 {	
-	 return 1004;
+	 return 2357;
 }
 //2.
 int RegisterManagedCallBack(void* funcPtr,int callbackKind)
@@ -83,15 +83,9 @@ void MyCefClientAppSetManagedCallback(SimpleApp* clientApp,managed_callback myMx
 SimpleHandler* MyCefCreateClientHandler()
 {
 	return new SimpleHandler();
-}
+} 
 //7.
-int MyCefSetupWindowsBegin(SimpleHandler* clientHandler,HWND surfaceHwnd)
-{	
-	clientHandler->SetMainHwnd(surfaceHwnd);
-	return 1;
-}
-//8.
-int MyCefSetupWindowsEnd(SimpleHandler* clientHandler,HWND surfaceHwnd,int x,int y,int w,int h)
+int MyCefSetupBrowserHwnd(SimpleHandler* clientHandler,HWND surfaceHwnd,int x,int y,int w,int h)
 {
 	 
 
@@ -141,13 +135,13 @@ int MyCefSetupWindowsEnd(SimpleHandler* clientHandler,HWND surfaceHwnd,int x,int
   }  
 }
 
-//9.
+//8.
 void MyCefDoMessageLoopWork()
 {		
 	CefDoMessageLoopWork();
 }
  
-//10.
+//9.
 void MyCefShutDown()
 {
 	CefShutdown();
