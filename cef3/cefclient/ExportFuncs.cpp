@@ -9,6 +9,7 @@
 #include "cefclient/browser/main_context_impl.h"
 #include "cefclient/browser/main_message_loop_multithreaded_win.h"
 #include "cefclient/browser/main_message_loop_std.h"
+#include "cefclient/browser/root_window_win.h"
 #include "cefclient/browser/root_window_manager.h"
 #include "cefclient/browser/test_runner.h"
 #include "cefclient/common/client_app_other.h"
@@ -17,13 +18,13 @@
 #include "cefclient/browser/browser_window_std_win.h"
 #include "cefclient/browser/main_context.h" 
 
-
-
+ 
 delTraceBack notifyListener= NULL;
 client::MainContextImpl* mainContext;
 scoped_refptr<client::RootWindow> root_window ;
 client::BrowserWindowStdWin* stdWin;
-
+client::MainMessageLoop* message_loop;
+ client::ClientHandlerStd* hh ;
 //1.
 int MyCefGetVersion()
 {	
@@ -66,7 +67,14 @@ client::ClientApp* MyCefCreateClientApp()
    else if (process_type == client::ClientApp::OtherProcess)
      app = new client::ClientAppOther();
 
-   
+    // Create the main message loop object.
+  message_loop = new client::MainMessageLoopStd();
+  //message_loop.reset(new client::MainMessageLoopStd);
+
+ /* if (settings.multi_threaded_message_loop)
+    message_loop.reset(new MainMessageLoopMultithreadedWin);
+  else
+    message_loop.reset(new MainMessageLoopStd);*/
    return app;
 }
 //4. 
@@ -89,9 +97,12 @@ client::ClientHandler* MyCefCreateClientHandler()
 	  CefBrowserSettings settings;
 	  client::MainContext::Get()->PopulateBrowserSettings(&settings);
 
-	  root_window = client::RootWindow::Create(); 
-	  //client::ClientHandler* c1 = new client::BrowserWindowStdWin((client::BrowserWindow::Delegate*)root_window.get(),"about:blank");
-	  client::ClientHandlerStd* hh = new client::ClientHandlerStd((client::ClientHandler::Delegate*)root_window.get(),"about:blank");
+	  auto rootWindowWin= new client::RootWindowWin();
+	  root_window = client::RootWindow::Create();
+	  auto bwWindow= new client::BrowserWindowStdWin(rootWindowWin,"about:blank");
+
+	  //hh = new client::ClientHandlerStd((client::ClientHandler::Delegate*)root_window.get(),"about:blank");
+	  hh = new client::ClientHandlerStd(bwWindow,"about:blank");
 
 	  //stdWin = new client::BrowserWindowStdWin((client::BrowserWindow::Delegate*)root_window.get(),"about:blank");
 	  

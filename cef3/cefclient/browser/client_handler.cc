@@ -216,15 +216,15 @@ void ClientHandler::OnAddressChange(CefRefPtr<CefBrowser> browser,
   CEF_REQUIRE_UI_THREAD();
 
   // Only update the address for the main (top-level) frame.
-  if (frame->IsMain())
-    NotifyAddress(url);
+  //if (frame->IsMain())
+    //NotifyAddress(url);
 }
 
 void ClientHandler::OnTitleChange(CefRefPtr<CefBrowser> browser,
                                   const CefString& title) {
   CEF_REQUIRE_UI_THREAD();
 
-  NotifyTitle(title);
+ // NotifyTitle(title);
 }
 
 bool ClientHandler::OnConsoleMessage(CefRefPtr<CefBrowser> browser,
@@ -390,7 +390,7 @@ void ClientHandler::OnBeforeClose(CefRefPtr<CefBrowser> browser) {
     message_router_ = NULL;
   }
 
-  NotifyBrowserClosed(browser);
+  //NotifyBrowserClosed(browser);
 }
 
 void ClientHandler::OnLoadingStateChange(CefRefPtr<CefBrowser> browser,
@@ -672,8 +672,9 @@ void ClientHandler::NotifyLoadingState(bool isLoading,
     return;
   }
 
-  if (delegate_)
-    delegate_->OnSetLoadingState(isLoading, canGoBack, canGoForward);
+  if (delegate_!= NULL){
+     delegate_->OnSetLoadingState(isLoading, canGoBack, canGoForward);
+  }
 }
 
 void ClientHandler::BuildTestMenu(CefRefPtr<CefMenuModel> model) {
