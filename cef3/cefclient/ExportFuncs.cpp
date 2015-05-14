@@ -98,7 +98,7 @@ client::ClientHandler* MyCefCreateClientHandler()
 	  client::MainContext::Get()->PopulateBrowserSettings(&settings);
 
 	  auto rootWindowWin= new client::RootWindowWin();
-	  root_window = client::RootWindow::Create();
+	  //root_window = client::RootWindow::Create();
 	  auto bwWindow= new client::BrowserWindowStdWin(rootWindowWin,"about:blank");
 
 	  //hh = new client::ClientHandlerStd((client::ClientHandler::Delegate*)root_window.get(),"about:blank");
