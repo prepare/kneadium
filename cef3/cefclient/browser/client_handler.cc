@@ -346,21 +346,21 @@ void ClientHandler::OnAfterCreated(CefRefPtr<CefBrowser> browser) {
 
   browser_count_++;
 
-  //if (!message_router_) {
-  //  // Create the browser-side router for query handling.
-  //  CefMessageRouterConfig config;
-  //  message_router_ = CefMessageRouterBrowserSide::Create(config);
+  if (!message_router_) {
+    // Create the browser-side router for query handling.
+    CefMessageRouterConfig config;
+    message_router_ = CefMessageRouterBrowserSide::Create(config);
 
-  //  // Register handlers with the router.
-  //  test_runner::CreateMessageHandlers(message_handler_set_);
-  //  MessageHandlerSet::const_iterator it = message_handler_set_.begin();
-  //  for (; it != message_handler_set_.end(); ++it)
-  //    message_router_->AddHandler(*(it), false);
-  //}
+    // Register handlers with the router.
+    test_runner::CreateMessageHandlers(message_handler_set_);
+    MessageHandlerSet::const_iterator it = message_handler_set_.begin();
+    for (; it != message_handler_set_.end(); ++it)
+      message_router_->AddHandler(*(it), false);
+  }
 
-  //// Disable mouse cursor change if requested via the command-line flag.
-  //if (mouse_cursor_change_disabled_)
-  //  browser->GetHost()->SetMouseCursorChangeDisabled(true);
+  // Disable mouse cursor change if requested via the command-line flag.
+  if (mouse_cursor_change_disabled_)
+    browser->GetHost()->SetMouseCursorChangeDisabled(true);
 
   //NotifyBrowserCreated(browser);
 }
@@ -399,7 +399,7 @@ void ClientHandler::OnLoadingStateChange(CefRefPtr<CefBrowser> browser,
                                          bool canGoForward) {
   CEF_REQUIRE_UI_THREAD();
 
-  //NotifyLoadingState(isLoading, canGoBack, canGoForward);
+  NotifyLoadingState(isLoading, canGoBack, canGoForward);
 }
 
 void ClientHandler::OnLoadError(CefRefPtr<CefBrowser> browser,
