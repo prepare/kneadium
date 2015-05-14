@@ -92,7 +92,7 @@ void RootWindowWin::Init(RootWindow::Delegate* delegate,
   start_rect_.right = bounds.x + bounds.width;
   start_rect_.bottom = bounds.y + bounds.height;
 
-  CreateBrowserWindow(NULL,with_osr, url);
+  CreateBrowserWindow(with_osr, url);
 
   initialized_ = true;
 
@@ -118,7 +118,7 @@ void RootWindowWin::Init(RootWindow::Delegate* delegate,
   start_rect_.right = bounds.x + bounds.width;
   start_rect_.bottom = bounds.y + bounds.height;
 
-  CreateBrowserWindow(managedSurfaceHwnd, false, url);
+  CreateBrowserWindow(false, url);
 
   initialized_ = true;
 
@@ -155,7 +155,7 @@ void RootWindowWin::InitAsPopup(RootWindow::Delegate* delegate,
   if (popupFeatures.heightSet)
     start_rect_.bottom = start_rect_.top + popupFeatures.height;
 
-  CreateBrowserWindow(NULL,with_osr, std::string());
+  CreateBrowserWindow( with_osr, std::string());
 
   initialized_ = true;
 
@@ -231,16 +231,10 @@ ClientWindowHandle RootWindowWin::GetWindowHandle() const {
   return hwnd_;
 }
 
-void RootWindowWin::CreateBrowserWindow(
-	HWND managedSurfaceHwnd,
+void RootWindowWin::CreateBrowserWindow( 
 	bool with_osr,
     const std::string& startup_url) {
-  if(managedSurfaceHwnd)
-  {	
-	  auto brwWin = new BrowserWindowStdWin(this, startup_url); 
-	  browser_window_.reset(brwWin);
-  }
-  else{ 
+  
 	  if (with_osr) {
 		OsrRenderer::Settings settings;
 		MainContext::Get()->PopulateOsrSettings(&settings);
@@ -248,7 +242,7 @@ void RootWindowWin::CreateBrowserWindow(
 	  } else {
 		browser_window_.reset(new BrowserWindowStdWin(this, startup_url));
 	  }
-  }
+   
 }
 
 void RootWindowWin::CreateRootWindow(const CefBrowserSettings& settings) {

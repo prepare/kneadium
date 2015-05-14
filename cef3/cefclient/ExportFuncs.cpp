@@ -12,10 +12,17 @@
 #include "cefclient/browser/root_window_manager.h"
 #include "cefclient/browser/test_runner.h"
 #include "cefclient/common/client_app_other.h"
-#include "cefclient/renderer/client_app_renderer.h"
+#include "cefclient/renderer/client_app_renderer.h" 
+#include "cefclient/browser/browser_window.h"
+#include "cefclient/browser/browser_window_std_win.h"
+#include "cefclient/browser/main_context.h" 
+
+
 
 delTraceBack notifyListener= NULL;
 client::MainContextImpl* mainContext;
+scoped_refptr<client::RootWindow> root_window ;
+client::BrowserWindowStdWin* stdWin;
 
 //1.
 int MyCefGetVersion()
@@ -77,10 +84,28 @@ int MyCefInit(HINSTANCE hInstance,client::ClientApp* app)
 //6, 
 client::ClientHandler* MyCefCreateClientHandler()
 {	
+	const CefRect r(0,0,400,400);
+	 	
+	  CefBrowserSettings settings;
+	  client::MainContext::Get()->PopulateBrowserSettings(&settings);
+
+	  root_window = client::RootWindow::Create(); 
+	  //client::ClientHandler* c1 = new client::BrowserWindowStdWin((client::BrowserWindow::Delegate*)root_window.get(),"about:blank");
+	  client::ClientHandlerStd* hh = new client::ClientHandlerStd((client::ClientHandler::Delegate*)root_window.get(),"about:blank");
+
+	  //stdWin = new client::BrowserWindowStdWin((client::BrowserWindow::Delegate*)root_window.get(),"about:blank");
 	  
-	const CefRect r(0,0,500,400);
-	auto rootWin= mainContext->GetRootWindowManager()->CreateRootWindow(false,false,r,"about:blank"); 
-	return NULL; 
+	 // client::ClientHandler* c1 = (client::ClientHandler*)stdWin;
+	 // /*  root_window->Init(this,managedSurfaceHwnd,bounds,settings,
+		//  url.empty() ? MainContext::Get()->GetMainURL() : url);
+     //    */
+	 //  
+	 //
+	 // if(c1){
+	 // }
+	 // 
+	 return hh;
+	 
 }
 //7.
 int MyCefSetupWindowsBegin(client::ClientHandler* clientHandler,HWND surfaceHwnd)
@@ -107,7 +132,7 @@ int MyCefSetupWindowsEnd(client::ClientHandler* clientHandler,HWND surfaceHwnd,i
   r.right = x+w;
   r.bottom  = y +h;
 
-   window_info.SetAsChild(surfaceHwnd,r);
+  window_info.SetAsChild(surfaceHwnd,r);
   //window_info.SetAsWindowless(surfaceHwnd,true);
 
   // SimpleHandler implements browser-level callbacks.
@@ -127,8 +152,8 @@ int MyCefSetupWindowsEnd(client::ClientHandler* clientHandler,HWND surfaceHwnd,i
     url = "http://www.google.com";
 
   // Create the first browser window.
-  bool result= CefBrowserHost::CreateBrowser(window_info, handler.get(), url,
-                                browser_settings, NULL);
+  //bool result= CefBrowserHost::CreateBrowser(window_info, handler.get(), url,                                browser_settings, NULL);
+  bool result= CefBrowserHost::CreateBrowser(window_info, clientHandler, url,  browser_settings, NULL);
   if(result){
 	  return 1;
   }
