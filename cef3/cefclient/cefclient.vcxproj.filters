@@ -133,6 +133,15 @@
     <ClCompile Include="ExportFuncs.cpp">
       <Filter>cefclient</Filter>
     </ClCompile>
+    <ClCompile Include="..\cefsimple\simple_app.cc">
+      <Filter>cefclient\simple</Filter>
+    </ClCompile>
+    <ClCompile Include="..\cefsimple\simple_handler_win.cc">
+      <Filter>cefclient\simple</Filter>
+    </ClCompile>
+    <ClCompile Include="..\cefsimple\simple_handler.cc">
+      <Filter>cefclient\simple</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="browser\binding_test.h">
@@ -264,6 +273,12 @@
     <ClInclude Include="mycef.h">
       <Filter>cefclient</Filter>
     </ClInclude>
+    <ClInclude Include="..\cefsimple\simple_app.h">
+      <Filter>cefclient\simple</Filter>
+    </ClInclude>
+    <ClInclude Include="..\cefsimple\simple_handler.h">
+      <Filter>cefclient\simple</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <CustomBuild Include="CMakeLists.txt" />
@@ -340,6 +355,9 @@
     </Filter>
     <Filter Include="cefclient\resources">
       <UniqueIdentifier>{23651070-4331-4420-B2D5-7C1B396843E1}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="cefclient\simple">
+      <UniqueIdentifier>{ec3d5ee3-1709-4b96-b1cd-dbd1e93c63fc}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>

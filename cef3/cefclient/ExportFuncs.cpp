@@ -15,6 +15,7 @@
 #include "cefclient/renderer/client_app_renderer.h"
 
 delTraceBack notifyListener= NULL;
+client::MainContextImpl* mainContext;
 
 //1.
 int MyCefGetVersion()
@@ -57,6 +58,8 @@ client::ClientApp* MyCefCreateClientApp()
      app = new client::ClientAppRenderer();
    else if (process_type == client::ClientApp::OtherProcess)
      app = new client::ClientAppOther();
+
+   
    return app;
 }
 //4. 
@@ -65,23 +68,73 @@ void MyCefClientAppSetManagedCallback(client::ClientApp* clientApp,managed_callb
 	clientApp->myMxCallback = myMxCallback;
 }
 //5.
-client::MainContextImpl* MyCefInit(HINSTANCE hInstance,client::ClientApp* app)
+int MyCefInit(HINSTANCE hInstance,client::ClientApp* app)
 {
 	CefRefPtr<client::ClientApp> myApp = app;   
-	return DllInitMain(hInstance,myApp);
-} 
-
-
-//6,7,8
-client::ClientHandler* MyCefCreateClientHandler(client::MainContextImpl* mainContext,
-	HWND parentWindowHandler,
-    int x, int y, int w, int h)
+	mainContext= DllInitMain(hInstance,myApp);
+	return -1;
+}  
+//6, 
+client::ClientHandler* MyCefCreateClientHandler()
+{	
+	  
+	const CefRect r(0,0,500,400);
+	auto rootWin= mainContext->GetRootWindowManager()->CreateRootWindow(false,false,r,"about:blank"); 
+	return NULL; 
+}
+//7.
+int MyCefSetupWindowsBegin(client::ClientHandler* clientHandler,HWND surfaceHwnd)
+{	
+	 
+	return 1;
+}
+//8.
+int MyCefSetupWindowsEnd(client::ClientHandler* clientHandler,HWND surfaceHwnd,int x,int y,int w,int h)
 { 
-	const CefRect rect(x,y,w,h);	 
-	mainContext->GetRootWindowManager()->RegisterManagedSurfaceWindow(
-		parentWindowHandler,
-		rect, std::string()); 
-	return NULL;
+  // Information used when creating the native window.
+  CefWindowInfo window_info;
+
+//#if defined(OS_WIN)
+//  // On Windows we need to specify certain flags that will be passed to
+//  // CreateWindowEx().
+//  window_info.SetAsPopup(NULL, "cefsimple");
+//  
+//#endif
+
+  RECT r;
+  r.left = x;
+  r.top = y;
+  r.right = x+w;
+  r.bottom  = y +h;
+
+   window_info.SetAsChild(surfaceHwnd,r);
+  //window_info.SetAsWindowless(surfaceHwnd,true);
+
+  // SimpleHandler implements browser-level callbacks.
+  CefRefPtr<client::ClientHandler> handler(clientHandler);
+
+  // Specify CEF browser settings here.
+  CefBrowserSettings browser_settings;
+
+  std::string url;
+
+  // Check if a "--url=" value was provided via the command-line. If so, use
+  // that instead of the default URL.
+  CefRefPtr<CefCommandLine> command_line =
+      CefCommandLine::GetGlobalCommandLine();
+  url = command_line->GetSwitchValue("url");
+  if (url.empty())
+    url = "http://www.google.com";
+
+  // Create the first browser window.
+  bool result= CefBrowserHost::CreateBrowser(window_info, handler.get(), url,
+                                browser_settings, NULL);
+  if(result){
+	  return 1;
+  }
+  else{
+	  return 0;
+  }  
 }
 //9.
 void MyCefDoMessageLoopWork()

@@ -468,6 +468,8 @@ if %errorlevel% neq 0 goto :VCEnd</Command>
     </CustomBuild>
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="..\cefsimple\simple_app.h" />
+    <ClInclude Include="..\cefsimple\simple_handler.h" />
     <ClInclude Include="browser\binding_test.h" />
     <ClInclude Include="browser\browser_window.h" />
     <ClInclude Include="browser\bytes_write_handler.h" />
@@ -511,6 +513,9 @@ if %errorlevel% neq 0 goto :VCEnd</Command>
     <ClInclude Include="browser\root_window_win.h" />
     <ClInclude Include="browser\temp_window_win.h" />
     <ClInclude Include="browser\util_win.h" />
+    <ClCompile Include="..\cefsimple\simple_app.cc" />
+    <ClCompile Include="..\cefsimple\simple_handler.cc" />
+    <ClCompile Include="..\cefsimple\simple_handler_win.cc" />
     <ClCompile Include="browser\binding_test.cc" />
     <ClCompile Include="browser\browser_window.cc" />
     <ClCompile Include="browser\bytes_write_handler.cc" />
