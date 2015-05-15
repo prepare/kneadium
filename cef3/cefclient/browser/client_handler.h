@@ -14,6 +14,9 @@
 #include "include/wrapper/cef_message_router.h"
 #include "cefclient/browser/client_types.h"
 
+//my extension
+#include "cefclient/mycef.h"
+
 #if defined(OS_LINUX)
 #include "cefclient/browser/dialog_handler_gtk.h"
 #endif
@@ -241,6 +244,11 @@ class ClientHandler : public CefClient,
   // Returns true if this handler uses off-screen rendering.
   bool is_osr() const { return is_osr_; }
 
+
+  void MyCefSetManagedCallBack(managed_callback m);
+
+
+
  private:
   // Create a new popup window using the specified information. |is_devtools|
   // will be true if the window will be used for DevTools. Return true to
@@ -318,6 +326,10 @@ class ClientHandler : public CefClient,
 
   // Set of Handlers registered with the message router.
   MessageHandlerSet message_handler_set_;
+
+
+  managed_callback mcallback_;
+
 
   DISALLOW_COPY_AND_ASSIGN(ClientHandler);
 };

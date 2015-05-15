@@ -20,10 +20,12 @@
 
  
 delTraceBack notifyListener= NULL;
-client::MainContextImpl* mainContext; 
-client::BrowserWindowStdWin* stdWin;
+client::MainContextImpl* mainContext;  
 client::MainMessageLoop* message_loop;
-client::ClientHandlerStd* hh ;
+client::RootWindowWin* rootWindow;
+managed_callback myMxCallback_;
+
+
 //1.
 int MyCefGetVersion()
 {	
@@ -78,35 +80,43 @@ client::ClientApp* MyCefCreateClientApp()
 //4. 
 void MyCefClientAppSetManagedCallback(client::ClientApp* clientApp,managed_callback myMxCallback)
 {
-	clientApp->myMxCallback = myMxCallback;
+	myMxCallback_ = myMxCallback;
 }
 //5.
 int MyCefInit(HINSTANCE hInstance,client::ClientApp* app)
 {
 	CefRefPtr<client::ClientApp> myApp = app;   
-	mainContext= DllInitMain(hInstance,myApp);
+	mainContext= DllInitMain(hInstance,myApp); 
 	return -1;
 }  
 //6, 
 client::ClientHandler* MyCefCreateClientHandler()
 {	
-	const CefRect r(0,0,400,400);
-	 	
+	/*const CefRect r(0,0,400,400); 
 	CefBrowserSettings settings;
 	client::MainContext::Get()->PopulateBrowserSettings(&settings);
+    */
+	/*auto rr1= mainContext->GetRootWindowManager()->CreateRootWindow(false,false,r,"");*/	
+	if(!rootWindow){
+		//create root window handler?
+		rootWindow= new client::RootWindowWin(); 
+	} 
 
-	auto rootWindowWin= new client::RootWindowWin(); 
-	auto bwWindow= new client::BrowserWindowStdWin(rootWindowWin,"");  
-	hh = new client::ClientHandlerStd(bwWindow,""); 
-	return hh; 
+	//1. create browser window handler
+	auto bwWindow= new client::BrowserWindowStdWin(rootWindow,"");  
+	//2. browser event handler
+	auto hh = new client::ClientHandlerStd(bwWindow,"");
+	hh->MyCefSetManagedCallBack(myMxCallback_); 
+
+	return hh;  
 }
 
 //7.
 int MyCefSetupBrowserHwnd(client::ClientHandler* clientHandler,HWND surfaceHwnd,int x,int y,int w,int h)
-{ 
-  // Information used when creating the native window.
-  CefWindowInfo window_info;
+{   
 
+  // Information used when creating the native window.
+  CefWindowInfo window_info; 
 //#if defined(OS_WIN)
 //  // On Windows we need to specify certain flags that will be passed to
 //  // CreateWindowEx().

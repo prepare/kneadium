@@ -7,6 +7,8 @@
  
 
 extern "C"{  	 
+	 
+
 	//1.
 	MY_DLL_EXPORT int MyCefGetVersion(); 
 	//2.
@@ -21,14 +23,13 @@ extern "C"{
 	
 	//6.
 	MY_DLL_EXPORT client::ClientHandler* MyCefCreateClientHandler();
-
+	//7.
 	MY_DLL_EXPORT int MyCefSetupBrowserHwnd(client::ClientHandler* clientHandler,HWND surfaceHwnd,int x,int y,int w,int h);
 
-	//9.
+	//8.
 	MY_DLL_EXPORT void MyCefDoMessageLoopWork(); 
 	 
-	//10.
-	MY_DLL_EXPORT void MyCefShutDown(); 
-	
+	//9.
+	MY_DLL_EXPORT void MyCefShutDown();  
  
 }

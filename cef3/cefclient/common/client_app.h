@@ -16,8 +16,7 @@ namespace client {
 // Base class for customizing process-type-based behavior.
 class ClientApp : public CefApp {
  public:
-   managed_callback myMxCallback;  
-
+    
   ClientApp();
 
   enum ProcessType {
