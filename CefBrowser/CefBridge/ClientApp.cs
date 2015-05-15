@@ -9,10 +9,14 @@ namespace LayoutFarm.CefBridge
 {
     public class CefClientApp
     {
-        IntPtr clientAppPtr = IntPtr.Zero;
+        IntPtr clientAppPtr;
+        internal static IntPtr contextImplPtr;
+        static bool contextImplInit;
+
         bool isHandleCreated;
         bool isInitWithProcessHandle;
         AgentManagedCallback mxCallback;
+        object sync_ = new object();
 
         public CefClientApp()
         {
@@ -23,8 +27,12 @@ namespace LayoutFarm.CefBridge
             if (!isInitWithProcessHandle)
             {
                 isInitWithProcessHandle = true;
-                Cef3Binder.MyCefInit(System.Diagnostics.Process.GetCurrentProcess().Handle, this.GetHandle());
-                
+                if (!contextImplInit)
+                {
+                    this.clientAppPtr = this.GetHandle();
+                    int initResult = Cef3Binder.MyCefInit(processHandle, clientAppPtr); 
+                    contextImplInit = true;
+                }
             }
         }
         void MxCallBack(int id, IntPtr argsPtr)
@@ -33,17 +41,20 @@ namespace LayoutFarm.CefBridge
         }
         IntPtr GetHandle()
         {
-            if (!this.isHandleCreated)
+            lock (sync_)
             {
-                this.clientAppPtr = Cef3Binder.MyCefCreateClientApp();
-                this.isHandleCreated = true;
+                if (!this.isHandleCreated)
+                {
+                    this.isHandleCreated = true; 
 
-                //register managed callback ***
-                this.mxCallback = new AgentManagedCallback(MxCallBack);
-                Cef3Binder.MyCefClientAppSetManagedCallback(this.clientAppPtr, this.mxCallback);
-
+                    this.clientAppPtr = Cef3Binder.MyCefCreateClientApp(); 
+                    //register managed callback ***
+                    this.mxCallback = new AgentManagedCallback(MxCallBack);
+                    Cef3Binder.MyCefClientAppSetManagedCallback(this.clientAppPtr, this.mxCallback); 
+                }
+                return this.clientAppPtr;
             }
-            return this.clientAppPtr;
+         
         }
 
 

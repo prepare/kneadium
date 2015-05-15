@@ -14,59 +14,48 @@ namespace LayoutFarm.CefBridge
     public class CefBrowserAgent
     {
 
-
-        IntPtr cefBrowerAgent;
+        internal static bool WindowIsCreated;
+        IntPtr cefClientHandler;
         IntPtr parentWindowHandler;
         AgentManagedCallback managedCallback;
 
         internal CefBrowserAgent(IntPtr parentWindowHandler,
             int x, int y, int w, int h)
         {
-            this.parentWindowHandler = parentWindowHandler;
+            this.parentWindowHandler = parentWindowHandler; 
             //create cef browser view handler  
-            this.cefBrowerAgent = Cef3Binder.MyCefCreateClientHandler();
-            Cef3Binder.SetupCefWindow(cefBrowerAgent, parentWindowHandler, x, y, w, h);
-
-            managedCallback = new AgentManagedCallback(this.OnUnmanagedPartCallBack);
-            Cef3Binder.AgentRegisterManagedCallback(this.cefBrowerAgent, managedCallback);
-
-        }
-
+            this.cefClientHandler = Cef3Binder.MyCefCreateClientHandler(); 
+            Cef3Binder.MyCefSetupBrowserHwnd(cefClientHandler, parentWindowHandler, x, y, w, h); 
+        } 
         internal IntPtr Handle
         {
-            get { return this.cefBrowerAgent; }
-        }
-        internal void CloseView()
-        {
-           
-            Cef3Binder.MyCefCloseHandler(this.cefBrowerAgent);
-        }
-
+            get { return this.cefClientHandler; }
+        } 
         public void NavigateTo(string url)
         {
-            Cef3Binder.NavigateTo(this.cefBrowerAgent, url);
+            Cef3Binder.NavigateTo(this.cefClientHandler, url);
         }
         public void ExecJavascript(string src, string scriptUrl)
         {
-            Cef3Binder.ExecJavascript(this.cefBrowerAgent, src, scriptUrl);
+            Cef3Binder.ExecJavascript(this.cefClientHandler, src, scriptUrl);
         }
         public void PostData(string url, byte[] data, int len)
         {
-            Cef3Binder.PostData(this.cefBrowerAgent, url, data, len);
+            Cef3Binder.PostData(this.cefClientHandler, url, data, len);
         }
 
         public void GetText(CefStringCallback strCallback)
         {
             //keep alive callback
             keepAliveCallBack.Add(strCallback);
-            Cef3Binder.DomGetTextWalk(this.cefBrowerAgent, strCallback);
+            Cef3Binder.DomGetTextWalk(this.cefClientHandler, strCallback);
         }
 
         public void GetSource(CefStringCallback strCallback)
         {
             //keep alive callback
             keepAliveCallBack.Add(strCallback);
-            Cef3Binder.DomGetSourceWalk(this.cefBrowerAgent, strCallback);
+            Cef3Binder.DomGetSourceWalk(this.cefClientHandler, strCallback);
 
         }
 
