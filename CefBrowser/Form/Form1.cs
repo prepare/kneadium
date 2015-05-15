@@ -5,6 +5,7 @@ using System.Drawing;
 
 using System.Text;
 using System.Windows.Forms;
+using System.Net;
 
 namespace CefBridgeTest
 {
@@ -12,21 +13,80 @@ namespace CefBridgeTest
     {
 
         Timer tt = new Timer();
+
+        Timer tt2 = new Timer();
+
+        bool startClosing;
+        bool readyToClose;
+        object sync_ = new object();
+        object sync_2 = new object();
         public Form1()
         {
             InitializeComponent();
             tt.Tick += new EventHandler(tt_Tick);
+            this.FormClosing += new FormClosingEventHandler(Form1_FormClosing);
 
-            //=======================
+            this.tt2.Interval = 200;
+            this.tt2.Tick += new EventHandler(tt2_Tick);
+
         }
-        protected override void OnClosing(CancelEventArgs e)
+        void tt2_Tick(object sender, EventArgs e)
         {
-            tt.Enabled = false;
-
-
-            this.cefWebBrowser1.PrepareNativeClose();
-            base.OnClosing(e);
+            //check if we should closing?    
+            CheckClosing();
         }
+        void CheckClosing()
+        {
+            if (LayoutFarm.CefBridge.CefClientApp.readyToClose)
+            {
+                tt2.Enabled = false;
+                this.Close();                
+            }
+
+        }
+        void Form1_FormClosing(object sender, FormClosingEventArgs e)
+        {
+
+            if (!startClosing)
+            {
+                var wb = this.cefWebBrowser1;
+                if (wb != null)
+                {
+                    this.Controls.Remove(wb);
+                    wb.Dispose();
+                    this.cefWebBrowser1 = wb = null;
+                }
+
+                tt2.Enabled = true;
+                startClosing = true;
+                e.Cancel = true;
+            }
+            else
+            {
+                if (!LayoutFarm.CefBridge.CefClientApp.readyToClose)
+                {
+                    e.Cancel = true;
+                }
+            }
+            //stop and close all browser then close form
+            //lock (sync_)
+            //{
+            //    if (!this.readyToClose)
+            //    {
+            //        if (!startClosing)
+            //        {
+            //            //start closing
+            //            startClosing = true;
+            //            tt2.Enabled = true;
+            //        }
+            //        e.Cancel = true;
+            //    }
+            //}
+
+        }
+        delegate void SimpleDel();
+        int n = 0;
+
         protected override void OnLoad(EventArgs e)
         {
             //tt.Enabled = true;
@@ -70,7 +130,10 @@ namespace CefBridgeTest
 
         private void button7_Click(object sender, EventArgs e)
         {
-            this.cefWebBrowser1.NavigateTo("http://localhost/html5/mycanvas.html");
+
+            this.cefWebBrowser1.Focus();
+            //this.cefWebBrowser1.NavigateTo("http://10.0.2.71");
+            this.cefWebBrowser1.NavigateTo("http://localhost");
         }
 
         private void button1_Click(object sender, EventArgs e)
@@ -87,9 +150,61 @@ namespace CefBridgeTest
 
             cefWebBrowser1.Agent.PostData(
                 "http://tests/request",
-                dataBuffer, 
+                dataBuffer,
                 dataBuffer.Length);
 
+        }
+
+        private void button3_Click(object sender, EventArgs e)
+        {
+
+            cefWebBrowser1.Agent.GetText(
+                (id, str) =>
+                {
+                    Console.WriteLine(str);
+                });
+
+        }
+
+        private void button4_Click(object sender, EventArgs e)
+        {
+            cefWebBrowser1.Agent.GetSource(
+                (id, str) =>
+                {
+                    Console.WriteLine(str);
+                });
+        }
+
+        private void button5_Click(object sender, EventArgs e)
+        {
+
+
+
+
+
+
+        }
+
+        private void Form1_Load(object sender, EventArgs e)
+        {
+
+        }
+
+        private void button6_Click(object sender, EventArgs e)
+        {
+            var wb = this.cefWebBrowser1;
+            if (wb != null)
+            {
+                this.Controls.Remove(wb);
+                wb.Dispose();
+                this.cefWebBrowser1 = wb = null;
+            }
+        }
+
+        private void button8_Click(object sender, EventArgs e)
+        {
+            WebClient wb = new WebClient();
+            string content = wb.DownloadString("http://www.google.com");
         }
 
     }
