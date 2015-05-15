@@ -1,4 +1,4 @@
-// Copyright (c) 2013 The Chromium Embedded Framework Authors. All rights
+// Copyright (c) 2015 The Chromium Embedded Framework Authors. All rights
 // reserved. Use of this source code is governed by a BSD-style license that
 // can be found in the LICENSE file.
 //
@@ -29,7 +29,6 @@ class CefRequestCToCpp
  public:
   explicit CefRequestCToCpp(cef_request_t* str)
       : CefCToCpp<CefRequestCToCpp, CefRequest, cef_request_t>(str) {}
-  virtual ~CefRequestCToCpp() {}
 
   // CefRequest methods
   virtual bool IsReadOnly() OVERRIDE;
@@ -47,6 +46,9 @@ class CefRequestCToCpp
   virtual void SetFlags(int flags) OVERRIDE;
   virtual CefString GetFirstPartyForCookies() OVERRIDE;
   virtual void SetFirstPartyForCookies(const CefString& url) OVERRIDE;
+  virtual ResourceType GetResourceType() OVERRIDE;
+  virtual TransitionType GetTransitionType() OVERRIDE;
+  virtual uint64 GetIdentifier() OVERRIDE;
 };
 
 #endif  // USING_CEF_SHARED

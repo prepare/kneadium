@@ -1,4 +1,4 @@
-// Copyright (c) 2013 The Chromium Embedded Framework Authors. All rights
+// Copyright (c) 2015 The Chromium Embedded Framework Authors. All rights
 // reserved. Use of this source code is governed by a BSD-style license that
 // can be found in the LICENSE file.
 //
@@ -18,6 +18,7 @@
 #pragma message("Warning: "__FILE__" may be accessed wrapper-side only")
 #else  // USING_CEF_SHARED
 
+#include <vector>
 #include "include/cef_context_menu_handler.h"
 #include "include/capi/cef_context_menu_handler_capi.h"
 #include "libcef_dll/ctocpp/ctocpp.h"
@@ -31,7 +32,6 @@ class CefContextMenuParamsCToCpp
   explicit CefContextMenuParamsCToCpp(cef_context_menu_params_t* str)
       : CefCToCpp<CefContextMenuParamsCToCpp, CefContextMenuParams,
           cef_context_menu_params_t>(str) {}
-  virtual ~CefContextMenuParamsCToCpp() {}
 
   // CefContextMenuParams methods
   virtual int GetXCoord() OVERRIDE;
@@ -40,15 +40,18 @@ class CefContextMenuParamsCToCpp
   virtual CefString GetLinkUrl() OVERRIDE;
   virtual CefString GetUnfilteredLinkUrl() OVERRIDE;
   virtual CefString GetSourceUrl() OVERRIDE;
-  virtual bool IsImageBlocked() OVERRIDE;
+  virtual bool HasImageContents() OVERRIDE;
   virtual CefString GetPageUrl() OVERRIDE;
   virtual CefString GetFrameUrl() OVERRIDE;
   virtual CefString GetFrameCharset() OVERRIDE;
   virtual MediaType GetMediaType() OVERRIDE;
   virtual MediaStateFlags GetMediaStateFlags() OVERRIDE;
   virtual CefString GetSelectionText() OVERRIDE;
+  virtual CefString GetMisspelledWord() OVERRIDE;
+  virtual bool GetDictionarySuggestions(
+      std::vector<CefString>& suggestions) OVERRIDE;
   virtual bool IsEditable() OVERRIDE;
-  virtual bool IsSpeechInputEnabled() OVERRIDE;
+  virtual bool IsSpellCheckEnabled() OVERRIDE;
   virtual EditStateFlags GetEditStateFlags() OVERRIDE;
 };
 

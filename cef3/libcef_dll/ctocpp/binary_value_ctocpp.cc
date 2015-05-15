@@ -1,4 +1,4 @@
-// Copyright (c) 2013 The Chromium Embedded Framework Authors. All rights
+// Copyright (c) 2015 The Chromium Embedded Framework Authors. All rights
 // reserved. Use of this source code is governed by a BSD-style license that
 // can be found in the LICENSE file.
 //
@@ -62,6 +62,44 @@ bool CefBinaryValueCToCpp::IsOwned() {
   return _retval?true:false;
 }
 
+bool CefBinaryValueCToCpp::IsSame(CefRefPtr<CefBinaryValue> that) {
+  if (CEF_MEMBER_MISSING(struct_, is_same))
+    return false;
+
+  // AUTO-GENERATED CONTENT - DELETE THIS COMMENT BEFORE MODIFYING
+
+  // Verify param: that; type: refptr_same
+  DCHECK(that.get());
+  if (!that.get())
+    return false;
+
+  // Execute
+  int _retval = struct_->is_same(struct_,
+      CefBinaryValueCToCpp::Unwrap(that));
+
+  // Return type: bool
+  return _retval?true:false;
+}
+
+bool CefBinaryValueCToCpp::IsEqual(CefRefPtr<CefBinaryValue> that) {
+  if (CEF_MEMBER_MISSING(struct_, is_equal))
+    return false;
+
+  // AUTO-GENERATED CONTENT - DELETE THIS COMMENT BEFORE MODIFYING
+
+  // Verify param: that; type: refptr_same
+  DCHECK(that.get());
+  if (!that.get())
+    return false;
+
+  // Execute
+  int _retval = struct_->is_equal(struct_,
+      CefBinaryValueCToCpp::Unwrap(that));
+
+  // Return type: bool
+  return _retval?true:false;
+}
+
 CefRefPtr<CefBinaryValue> CefBinaryValueCToCpp::Copy() {
   if (CEF_MEMBER_MISSING(struct_, copy))
     return NULL;
@@ -112,7 +150,7 @@ size_t CefBinaryValueCToCpp::GetData(void* buffer, size_t buffer_size,
 
 
 #ifndef NDEBUG
-template<> long CefCToCpp<CefBinaryValueCToCpp, CefBinaryValue,
+template<> base::AtomicRefCount CefCToCpp<CefBinaryValueCToCpp, CefBinaryValue,
     cef_binary_value_t>::DebugObjCt = 0;
 #endif
 

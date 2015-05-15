@@ -1,13 +1,15 @@
 Chromium Embedded Framework (CEF) Standard Binary Distribution for Windows
 -------------------------------------------------------------------------------
 
-Date:             August 23, 2013
+Date:             April 28, 2015
 
-CEF Version:      3.1547.1412
-CEF URL:          http://chromiumembedded.googlecode.com/svn/branches/1547/cef3@1412
+CEF Version:      3.2357.1267.g75b5dd4
+CEF URL:          https://bitbucket.org/chromiumembedded/cef.git
+                  @75b5dd4d813270502e51f90aa92d04cc9c37cf65
 
-Chromium Verison: 29.0.1547.59
-Chromium URL:     http://src.chromium.org/svn/branches/1547/src@218527
+Chromium Verison: 43.0.2357.18
+Chromium URL:     https://chromium.googlesource.com/chromium/src.git
+                  @a1db43cf8b6e63e2c71ce6cc2ffb44f5ef6b1746
 
 This distribution contains all components necessary to build and distribute an
 application using CEF on the Windows platform. Please see the LICENSING
@@ -18,7 +20,12 @@ CONTENTS
 --------
 
 cefclient   Contains the cefclient sample application configured to build
-            using the files in this distribution.
+            using the files in this distribution. This application demonstrates
+            a wide range of CEF functionalities.
+
+cefsimple   Contains the cefsimple sample application configured to build
+            using the files in this distribution. This application demonstrates
+            the minimal functionality required to create a browser window.
 
 Debug       Contains libcef.dll, libcef.lib and other components required to
             build and run the debug version of CEF-based applications. By
@@ -44,22 +51,13 @@ Resources   Contains resources required by libcef.dll. By default these files
 USAGE
 -----
 
-Visual Studio 2012 and Visual Studio 2010:
-  Open the cefclient2010.sln solution in Visual Studio and build.
-
-Visual Studio 2008:
-  Open the cefclient2008.sln solution in Visual Studio and build.
-
-Visual Studio 2005:
-  1. Open the cefclient.vcproj and libcef_dll_wrapper.vcproj files in a text
-     editor. Change Version="9.00" to Version="8.00".
-  2. Open the cefclient2005.sln file in a text editor. Change "Version 9.00" to
-     "Version 8.00".
-  3. Open the cefclient2005.sln solution in Visual Studio and build.
+Building using CMake:
+  CMake can be used to generate project files in many different formats. See
+  usage instructions at the top of the CMakeLists.txt file.
 
 Please visit the CEF Website for additional usage information.
 
-http://code.google.com/p/chromiumembedded
+https://bitbucket.org/chromiumembedded/cef/
 
 
 REDISTRIBUTION
@@ -76,7 +74,7 @@ Required components:
     libcef.dll
 
 * Unicode support
-    icudt.dll
+    icudtl.dat
 
 Optional components:
 
@@ -91,6 +89,8 @@ Optional components:
 
 * Other resources
     cef.pak
+    cef_100_percent.pak
+    cef_200_percent.pak
     devtools_resources.pak
   Note: Contains WebKit image and inspector resources. Pack file loading can be
   disabled completely using CefSettings.pack_loading_disabled. The resources
@@ -102,11 +102,16 @@ Optional components:
 
 * Angle and Direct3D support
     d3dcompiler_43.dll (required for Windows XP)
-    d3dcompiler_46.dll (required for Windows Vista and newer)
+    d3dcompiler_47.dll (required for Windows Vista and newer)
     libEGL.dll
     libGLESv2.dll
   Note: Without these components HTML5 accelerated content like 2D canvas, 3D
   CSS and WebGL will not function.
+
+* Windows Vista 64-bit sandbox support (32-bit distributions only)
+    wow_helper.exe
+  Note: Without this component the 32-bit build of CEF will not run on 64-bit
+  Vista machines with the sandbox enabled.
 
 
 LICENSING

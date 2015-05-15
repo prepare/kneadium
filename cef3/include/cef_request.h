@@ -53,6 +53,8 @@ class CefPostDataElement;
 class CefRequest : public virtual CefBase {
  public:
   typedef std::multimap<CefString, CefString> HeaderMap;
+  typedef cef_resource_type_t ResourceType;
+  typedef cef_transition_type_t TransitionType;
 
   ///
   // Create a new CefRequest object.
@@ -151,6 +153,29 @@ class CefRequest : public virtual CefBase {
   ///
   /*--cef()--*/
   virtual void SetFirstPartyForCookies(const CefString& url) =0;
+
+  ///
+  // Get the resource type for this request. Only available in the browser
+  // process.
+  ///
+  /*--cef(default_retval=RT_SUB_RESOURCE)--*/
+  virtual ResourceType GetResourceType() =0;
+
+  ///
+  // Get the transition type for this request. Only available in the browser
+  // process and only applies to requests that represent a main frame or
+  // sub-frame navigation.
+  ///
+  /*--cef(default_retval=TT_EXPLICIT)--*/
+  virtual TransitionType GetTransitionType() =0;
+
+  ///
+  // Returns the globally unique identifier for this request or 0 if not
+  // specified. Can be used by CefRequestHandler implementations in the browser
+  // process to track a single request across multiple callbacks.
+  ///
+  /*--cef()--*/
+  virtual uint64 GetIdentifier() =0;
 };
 
 

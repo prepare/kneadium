@@ -36,8 +36,11 @@
             this.button4 = new System.Windows.Forms.Button();
             this.button5 = new System.Windows.Forms.Button();
             this.cefWebBrowser1 = new LayoutFarm.CefBridge.CefWebBrowser();
+<<<<<<< HEAD
             this.button6 = new System.Windows.Forms.Button();
             this.button8 = new System.Windows.Forms.Button();
+=======
+>>>>>>> origin/mod1
             this.SuspendLayout();
             // 
             // button7
@@ -109,6 +112,7 @@
             this.cefWebBrowser1.TabIndex = 6;
             this.cefWebBrowser1.Text = "cefWebBrowser1";
             // 
+<<<<<<< HEAD
             // button6
             // 
             this.button6.Location = new System.Drawing.Point(12, 270);
@@ -129,13 +133,18 @@
             this.button8.UseVisualStyleBackColor = true;
             this.button8.Click += new System.EventHandler(this.button8_Click);
             // 
+=======
+>>>>>>> origin/mod1
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1009, 621);
+<<<<<<< HEAD
             this.Controls.Add(this.button8);
             this.Controls.Add(this.button6);
+=======
+>>>>>>> origin/mod1
             this.Controls.Add(this.button5);
             this.Controls.Add(this.button4);
             this.Controls.Add(this.button3);
@@ -145,7 +154,10 @@
             this.Controls.Add(this.cefWebBrowser1);
             this.Name = "Form1";
             this.Text = "Form1";
+<<<<<<< HEAD
             this.Load += new System.EventHandler(this.Form1_Load);
+=======
+>>>>>>> origin/mod1
             this.ResumeLayout(false);
 
         }
@@ -159,8 +171,11 @@
         private System.Windows.Forms.Button button3;
         private System.Windows.Forms.Button button4;
         private System.Windows.Forms.Button button5;
+<<<<<<< HEAD
         private System.Windows.Forms.Button button6;
         private System.Windows.Forms.Button button8;
+=======
+>>>>>>> origin/mod1
     }
 }
 

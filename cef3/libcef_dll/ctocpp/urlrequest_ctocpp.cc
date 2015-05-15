@@ -1,4 +1,4 @@
-// Copyright (c) 2013 The Chromium Embedded Framework Authors. All rights
+// Copyright (c) 2015 The Chromium Embedded Framework Authors. All rights
 // reserved. Use of this source code is governed by a BSD-style license that
 // can be found in the LICENSE file.
 //
@@ -12,6 +12,7 @@
 
 #include "libcef_dll/cpptoc/urlrequest_client_cpptoc.h"
 #include "libcef_dll/ctocpp/request_ctocpp.h"
+#include "libcef_dll/ctocpp/request_context_ctocpp.h"
 #include "libcef_dll/ctocpp/response_ctocpp.h"
 #include "libcef_dll/ctocpp/urlrequest_ctocpp.h"
 
@@ -19,7 +20,8 @@
 // STATIC METHODS - Body may be edited by hand.
 
 CefRefPtr<CefURLRequest> CefURLRequest::Create(CefRefPtr<CefRequest> request,
-    CefRefPtr<CefURLRequestClient> client) {
+    CefRefPtr<CefURLRequestClient> client,
+    CefRefPtr<CefRequestContext> request_context) {
   // AUTO-GENERATED CONTENT - DELETE THIS COMMENT BEFORE MODIFYING
 
   // Verify param: request; type: refptr_same
@@ -30,11 +32,13 @@ CefRefPtr<CefURLRequest> CefURLRequest::Create(CefRefPtr<CefRequest> request,
   DCHECK(client.get());
   if (!client.get())
     return NULL;
+  // Unverified params: request_context
 
   // Execute
   cef_urlrequest_t* _retval = cef_urlrequest_create(
       CefRequestCToCpp::Unwrap(request),
-      CefURLRequestClientCppToC::Wrap(client));
+      CefURLRequestClientCppToC::Wrap(client),
+      CefRequestContextCToCpp::Unwrap(request_context));
 
   // Return type: refptr_same
   return CefURLRequestCToCpp::Wrap(_retval);
@@ -120,7 +124,7 @@ void CefURLRequestCToCpp::Cancel() {
 
 
 #ifndef NDEBUG
-template<> long CefCToCpp<CefURLRequestCToCpp, CefURLRequest,
+template<> base::AtomicRefCount CefCToCpp<CefURLRequestCToCpp, CefURLRequest,
     cef_urlrequest_t>::DebugObjCt = 0;
 #endif
 

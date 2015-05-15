@@ -1,4 +1,4 @@
-// Copyright (c) 2013 The Chromium Embedded Framework Authors. All rights
+// Copyright (c) 2015 The Chromium Embedded Framework Authors. All rights
 // reserved. Use of this source code is governed by a BSD-style license that
 // can be found in the LICENSE file.
 //
@@ -31,11 +31,12 @@ class CefBinaryValueCToCpp
   explicit CefBinaryValueCToCpp(cef_binary_value_t* str)
       : CefCToCpp<CefBinaryValueCToCpp, CefBinaryValue, cef_binary_value_t>(
           str) {}
-  virtual ~CefBinaryValueCToCpp() {}
 
   // CefBinaryValue methods
   virtual bool IsValid() OVERRIDE;
   virtual bool IsOwned() OVERRIDE;
+  virtual bool IsSame(CefRefPtr<CefBinaryValue> that) OVERRIDE;
+  virtual bool IsEqual(CefRefPtr<CefBinaryValue> that) OVERRIDE;
   virtual CefRefPtr<CefBinaryValue> Copy() OVERRIDE;
   virtual size_t GetSize() OVERRIDE;
   virtual size_t GetData(void* buffer, size_t buffer_size,

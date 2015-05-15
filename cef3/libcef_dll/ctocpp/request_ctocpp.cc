@@ -1,4 +1,4 @@
-// Copyright (c) 2013 The Chromium Embedded Framework Authors. All rights
+// Copyright (c) 2015 The Chromium Embedded Framework Authors. All rights
 // reserved. Use of this source code is governed by a BSD-style license that
 // can be found in the LICENSE file.
 //
@@ -269,9 +269,48 @@ void CefRequestCToCpp::SetFirstPartyForCookies(const CefString& url) {
       url.GetStruct());
 }
 
+CefRequest::ResourceType CefRequestCToCpp::GetResourceType() {
+  if (CEF_MEMBER_MISSING(struct_, get_resource_type))
+    return RT_SUB_RESOURCE;
+
+  // AUTO-GENERATED CONTENT - DELETE THIS COMMENT BEFORE MODIFYING
+
+  // Execute
+  cef_resource_type_t _retval = struct_->get_resource_type(struct_);
+
+  // Return type: simple
+  return _retval;
+}
+
+CefRequest::TransitionType CefRequestCToCpp::GetTransitionType() {
+  if (CEF_MEMBER_MISSING(struct_, get_transition_type))
+    return TT_EXPLICIT;
+
+  // AUTO-GENERATED CONTENT - DELETE THIS COMMENT BEFORE MODIFYING
+
+  // Execute
+  cef_transition_type_t _retval = struct_->get_transition_type(struct_);
+
+  // Return type: simple
+  return _retval;
+}
+
+uint64 CefRequestCToCpp::GetIdentifier() {
+  if (CEF_MEMBER_MISSING(struct_, get_identifier))
+    return 0;
+
+  // AUTO-GENERATED CONTENT - DELETE THIS COMMENT BEFORE MODIFYING
+
+  // Execute
+  uint64 _retval = struct_->get_identifier(struct_);
+
+  // Return type: simple
+  return _retval;
+}
+
 
 #ifndef NDEBUG
-template<> long CefCToCpp<CefRequestCToCpp, CefRequest,
+template<> base::AtomicRefCount CefCToCpp<CefRequestCToCpp, CefRequest,
     cef_request_t>::DebugObjCt = 0;
 #endif
 

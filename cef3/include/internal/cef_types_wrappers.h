@@ -134,6 +134,47 @@ class CefStructBase : public traits::struct_type {
 };
 
 
+struct CefPointTraits {
+  typedef cef_point_t struct_type;
+
+  static inline void init(struct_type* s) {}
+  static inline void clear(struct_type* s) {}
+
+  static inline void set(const struct_type* src, struct_type* target,
+      bool copy) {
+    *target = *src;
+  }
+};
+
+///
+// Class representing a point.
+///
+class CefPoint : public CefStructBase<CefPointTraits> {
+ public:
+  typedef CefStructBase<CefPointTraits> parent;
+
+  CefPoint() : parent() {}
+  CefPoint(const cef_point_t& r) : parent(r) {}  // NOLINT(runtime/explicit)
+  CefPoint(const CefPoint& r) : parent(r) {}  // NOLINT(runtime/explicit)
+  CefPoint(int x, int y) : parent() {
+    Set(x, y);
+  }
+
+  bool IsEmpty() const { return x <= 0 && y <= 0; }
+  void Set(int x, int y) {
+    this->x = x, this->y = y;
+  }
+};
+
+inline bool operator==(const CefPoint& a, const CefPoint& b) {
+  return a.x == b.x && a.y == b.y;
+}
+
+inline bool operator!=(const CefPoint& a, const CefPoint& b) {
+  return !(a == b);
+}
+
+
 struct CefRectTraits {
   typedef cef_rect_t struct_type;
 
@@ -174,6 +215,48 @@ inline bool operator!=(const CefRect& a, const CefRect& b) {
   return !(a == b);
 }
 
+
+struct CefSizeTraits {
+  typedef cef_size_t struct_type;
+
+  static inline void init(struct_type* s) {}
+  static inline void clear(struct_type* s) {}
+
+  static inline void set(const struct_type* src, struct_type* target,
+      bool copy) {
+    *target = *src;
+  }
+};
+
+///
+// Class representing a size.
+///
+class CefSize : public CefStructBase<CefSizeTraits> {
+ public:
+  typedef CefStructBase<CefSizeTraits> parent;
+
+  CefSize() : parent() {}
+  CefSize(const cef_size_t& r) : parent(r) {}  // NOLINT(runtime/explicit)
+  CefSize(const CefSize& r) : parent(r) {}  // NOLINT(runtime/explicit)
+  CefSize(int width, int height) : parent() {
+    Set(width, height);
+  }
+
+  bool IsEmpty() const { return width <= 0 || height <= 0; }
+  void Set(int width, int height) {
+    this->width = width, this->height = height;
+  }
+};
+
+inline bool operator==(const CefSize& a, const CefSize& b) {
+  return a.width == b.width && a.height == b.height;
+}
+
+inline bool operator!=(const CefSize& a, const CefSize& b) {
+  return !(a == b);
+}
+
+
 struct CefScreenInfoTraits {
   typedef cef_screen_info_t struct_type;
 
@@ -193,8 +276,8 @@ struct CefScreenInfoTraits {
 };
 
 ///
-// Class representing the virtual screen information for use when window rendering
-// is disabled.
+// Class representing the virtual screen information for use when window
+// rendering is disabled.
 ///
 class CefScreenInfo : public CefStructBase<CefScreenInfoTraits> {
  public:
@@ -228,6 +311,7 @@ class CefScreenInfo : public CefStructBase<CefScreenInfoTraits> {
   }
 };
 
+
 struct CefKeyEventTraits {
   typedef cef_key_event_t struct_type;
 
@@ -253,6 +337,7 @@ struct CefKeyEventTraits {
 ///
 typedef CefStructBase<CefKeyEventTraits> CefKeyEvent;
 
+
 struct CefMouseEventTraits {
   typedef cef_mouse_event_t struct_type;
 
@@ -272,6 +357,7 @@ struct CefMouseEventTraits {
 // Class representing a mouse event.
 ///
 typedef CefStructBase<CefMouseEventTraits> CefMouseEvent;
+
 
 struct CefPopupFeaturesTraits {
   typedef cef_popup_features_t struct_type;
@@ -332,6 +418,7 @@ struct CefSettingsTraits {
   static inline void clear(struct_type* s) {
     cef_string_clear(&s->browser_subprocess_path);
     cef_string_clear(&s->cache_path);
+    cef_string_clear(&s->user_data_path);
     cef_string_clear(&s->user_agent);
     cef_string_clear(&s->product_version);
     cef_string_clear(&s->locale);
@@ -339,19 +426,24 @@ struct CefSettingsTraits {
     cef_string_clear(&s->javascript_flags);
     cef_string_clear(&s->resources_dir_path);
     cef_string_clear(&s->locales_dir_path);
+    cef_string_clear(&s->accept_language_list);
   }
 
   static inline void set(const struct_type* src, struct_type* target,
       bool copy) {
     target->single_process = src->single_process;
+    target->no_sandbox = src->no_sandbox;
     cef_string_set(src->browser_subprocess_path.str,
         src->browser_subprocess_path.length,
         &target->browser_subprocess_path, copy);
     target->multi_threaded_message_loop = src->multi_threaded_message_loop;
+    target->windowless_rendering_enabled = src->windowless_rendering_enabled;
     target->command_line_args_disabled = src->command_line_args_disabled;
 
     cef_string_set(src->cache_path.str, src->cache_path.length,
         &target->cache_path, copy);
+    cef_string_set(src->user_data_path.str, src->user_data_path.length,
+        &target->user_data_path, copy);
     target->persist_session_cookies = src->persist_session_cookies;
 
     cef_string_set(src->user_agent.str, src->user_agent.length,
@@ -363,7 +455,6 @@ struct CefSettingsTraits {
     cef_string_set(src->log_file.str, src->log_file.length, &target->log_file,
         copy);
     target->log_severity = src->log_severity;
-    target->release_dcheck_enabled = src->release_dcheck_enabled;
     cef_string_set(src->javascript_flags.str, src->javascript_flags.length,
         &target->javascript_flags, copy);
 
@@ -376,6 +467,10 @@ struct CefSettingsTraits {
     target->uncaught_exception_stack_size = src->uncaught_exception_stack_size;
     target->context_safety_implementation = src->context_safety_implementation;
     target->ignore_certificate_errors = src->ignore_certificate_errors;
+    target->background_color = src->background_color;
+
+    cef_string_set(src->accept_language_list.str,
+        src->accept_language_list.length, &target->accept_language_list, copy);
   }
 };
 
@@ -383,6 +478,36 @@ struct CefSettingsTraits {
 // Class representing initialization settings.
 ///
 typedef CefStructBase<CefSettingsTraits> CefSettings;
+
+
+struct CefRequestContextSettingsTraits {
+  typedef cef_request_context_settings_t struct_type;
+
+  static inline void init(struct_type* s) {
+    s->size = sizeof(struct_type);
+  }
+
+  static inline void clear(struct_type* s) {
+    cef_string_clear(&s->cache_path);
+    cef_string_clear(&s->accept_language_list);
+  }
+
+  static inline void set(const struct_type* src, struct_type* target,
+      bool copy) {
+    cef_string_set(src->cache_path.str, src->cache_path.length,
+        &target->cache_path, copy);
+    target->persist_session_cookies = src->persist_session_cookies;
+    target->ignore_certificate_errors = src->ignore_certificate_errors;
+    cef_string_set(src->accept_language_list.str,
+        src->accept_language_list.length, &target->accept_language_list, copy);
+  }
+};
+
+///
+// Class representing request context initialization settings.
+///
+typedef CefStructBase<CefRequestContextSettingsTraits>
+    CefRequestContextSettings;
 
 
 struct CefBrowserSettingsTraits {
@@ -400,11 +525,13 @@ struct CefBrowserSettingsTraits {
     cef_string_clear(&s->cursive_font_family);
     cef_string_clear(&s->fantasy_font_family);
     cef_string_clear(&s->default_encoding);
-    cef_string_clear(&s->user_style_sheet_location);
+    cef_string_clear(&s->accept_language_list);
   }
 
   static inline void set(const struct_type* src, struct_type* target,
       bool copy) {
+    target->windowless_frame_rate = src->windowless_frame_rate;
+
     cef_string_set(src->standard_font_family.str,
         src->standard_font_family.length, &target->standard_font_family, copy);
     cef_string_set(src->fixed_font_family.str, src->fixed_font_family.length,
@@ -427,10 +554,6 @@ struct CefBrowserSettingsTraits {
     cef_string_set(src->default_encoding.str, src->default_encoding.length,
         &target->default_encoding, copy);
 
-    cef_string_set(src->user_style_sheet_location.str,
-        src->user_style_sheet_location.length,
-        &target->user_style_sheet_location, copy);
-
     target->remote_fonts = src->remote_fonts;
     target->javascript = src->javascript;
     target->javascript_open_windows = src->javascript_open_windows;
@@ -449,12 +572,15 @@ struct CefBrowserSettingsTraits {
         src->image_shrink_standalone_to_fit;
     target->text_area_resize = src->text_area_resize;
     target->tab_to_links = src->tab_to_links;
-    target->author_and_user_styles = src->author_and_user_styles;
     target->local_storage = src->local_storage;
     target->databases= src->databases;
     target->application_cache = src->application_cache;
     target->webgl = src->webgl;
-    target->accelerated_compositing = src->accelerated_compositing;
+
+    target->background_color = src->background_color;
+
+    cef_string_set(src->accept_language_list.str,
+        src->accept_language_list.length, &target->accept_language_list, copy);
   }
 };
 
@@ -476,6 +602,7 @@ struct CefURLPartsTraits {
     cef_string_clear(&s->password);
     cef_string_clear(&s->host);
     cef_string_clear(&s->port);
+    cef_string_clear(&s->origin);
     cef_string_clear(&s->path);
     cef_string_clear(&s->query);
   }
@@ -490,6 +617,7 @@ struct CefURLPartsTraits {
         copy);
     cef_string_set(src->host.str, src->host.length, &target->host, copy);
     cef_string_set(src->port.str, src->port.length, &target->port, copy);
+    cef_string_set(src->origin.str, src->origin.length, &target->origin, copy);
     cef_string_set(src->path.str, src->path.length, &target->path, copy);
     cef_string_set(src->query.str, src->query.length, &target->query, copy);
   }
@@ -625,5 +753,69 @@ struct CefGeopositionTraits {
 // Class representing a geoposition.
 ///
 typedef CefStructBase<CefGeopositionTraits> CefGeoposition;
+
+
+struct CefPageRangeTraits {
+  typedef cef_page_range_t struct_type;
+
+  static inline void init(struct_type* s) {}
+  static inline void clear(struct_type* s) {}
+
+  static inline void set(const struct_type* src, struct_type* target,
+      bool copy) {
+    *target = *src;
+  }
+};
+
+///
+// Class representing a print job page range.
+///
+class CefPageRange : public CefStructBase<CefPageRangeTraits> {
+ public:
+  typedef CefStructBase<CefPageRangeTraits> parent;
+
+  CefPageRange() : parent() {}
+  CefPageRange(const cef_page_range_t& r)  // NOLINT(runtime/explicit)
+      : parent(r) {}
+  CefPageRange(const CefPageRange& r)  // NOLINT(runtime/explicit)
+      : parent(r) {} 
+  CefPageRange(int from, int to) : parent() {
+    Set(from, to);
+  }
+
+  void Set(int from, int to) {
+    this->from = from, this->to = to;
+  }
+};
+
+inline bool operator==(const CefPageRange& a, const CefPageRange& b) {
+  return a.from == b.from && a.to == b.to;
+}
+
+inline bool operator!=(const CefPageRange& a, const CefPageRange& b) {
+  return !(a == b);
+}
+
+
+struct CefCursorInfoTraits {
+  typedef cef_cursor_info_t struct_type;
+
+  static inline void init(struct_type* s) {}
+
+  static inline void clear(struct_type* s) {}
+
+  static inline void set(const struct_type* src, struct_type* target,
+      bool copy) {
+    target->hotspot = src->hotspot;
+    target->image_scale_factor = src->image_scale_factor;
+    target->buffer = src->buffer;
+    target->size = src->size;
+  }
+};
+
+///
+// Class representing cursor information.
+///
+typedef CefStructBase<CefCursorInfoTraits> CefCursorInfo;
 
 #endif  // CEF_INCLUDE_INTERNAL_CEF_TYPES_WRAPPERS_H_

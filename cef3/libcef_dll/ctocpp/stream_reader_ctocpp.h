@@ -1,4 +1,4 @@
-// Copyright (c) 2013 The Chromium Embedded Framework Authors. All rights
+// Copyright (c) 2015 The Chromium Embedded Framework Authors. All rights
 // reserved. Use of this source code is governed by a BSD-style license that
 // can be found in the LICENSE file.
 //
@@ -31,13 +31,13 @@ class CefStreamReaderCToCpp
   explicit CefStreamReaderCToCpp(cef_stream_reader_t* str)
       : CefCToCpp<CefStreamReaderCToCpp, CefStreamReader, cef_stream_reader_t>(
           str) {}
-  virtual ~CefStreamReaderCToCpp() {}
 
   // CefStreamReader methods
   virtual size_t Read(void* ptr, size_t size, size_t n) OVERRIDE;
   virtual int Seek(int64 offset, int whence) OVERRIDE;
   virtual int64 Tell() OVERRIDE;
   virtual int Eof() OVERRIDE;
+  virtual bool MayBlock() OVERRIDE;
 };
 
 #endif  // USING_CEF_SHARED
