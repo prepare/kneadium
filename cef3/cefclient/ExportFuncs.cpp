@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 #include "CommonModule.h"
 #include "ExportFuncs.h"  
 //--------------------------------
@@ -11,6 +12,32 @@ int MyCefGetVersion()
 	 return 1001;
 }
 //-----------------------------------------------------------
+=======
+#include "ExportFuncs.h"   
+#include "mycef.h"
+//static 
+
+#include "include/base/cef_scoped_ptr.h"
+#include "include/cef_command_line.h"
+#include "include/cef_sandbox_win.h"
+#include "cefclient/browser/client_app_browser.h"
+#include "cefclient/browser/main_context_impl.h"
+#include "cefclient/browser/main_message_loop_multithreaded_win.h"
+#include "cefclient/browser/main_message_loop_std.h"
+#include "cefclient/browser/root_window_manager.h"
+#include "cefclient/browser/test_runner.h"
+#include "cefclient/common/client_app_other.h"
+#include "cefclient/renderer/client_app_renderer.h"
+
+delTraceBack notifyListener= NULL;
+
+//1.
+int MyCefGetVersion()
+{	
+	 return 1003;
+}
+//2.
+>>>>>>> origin/3.2357.1267
 int RegisterManagedCallBack(void* funcPtr,int callbackKind)
 {	
 	switch(callbackKind)
@@ -31,6 +58,7 @@ int RegisterManagedCallBack(void* funcPtr,int callbackKind)
 	} 
 	return 1;
 }
+<<<<<<< HEAD
 //-----------------------------------------------------------
 void ManagedNotify(int id,const wchar_t* info)
 {
@@ -389,3 +417,50 @@ void MyCef_CefRegisterSchemeHandlerFactory(
 		startURL,
 		clientSchemeHandlerFactoryObject);
 }
+=======
+//3.
+client::ClientApp* MyCefCreateClientApp()
+{	
+	// Parse command-line arguments.
+   CefRefPtr<CefCommandLine> command_line = CefCommandLine::CreateCommandLine();
+   command_line->InitFromString(::GetCommandLineW());
+	//create browser process first?
+   client::ClientApp* app= NULL;
+   client::ClientApp::ProcessType process_type = client::ClientApp::GetProcessType(command_line);
+   if (process_type == client::ClientApp::BrowserProcess)
+     app = new client::ClientAppBrowser();
+   else if (process_type == client::ClientApp::RendererProcess)
+     app = new client::ClientAppRenderer();
+   else if (process_type == client::ClientApp::OtherProcess)
+     app = new client::ClientAppOther();
+   return app;
+}
+//4.
+client::MainContextImpl* MyCefInit(HINSTANCE hInstance,client::ClientApp* app)
+{
+	CefRefPtr<client::ClientApp> myApp = app;   
+	return DllInitMain(hInstance,myApp);
+} 
+//5. 
+void MyCefClientAppSetManagedCallback(client::ClientApp* clientApp,managed_callback myMxCallback)
+{
+	clientApp->myMxCallback = myMxCallback;
+}
+//6.
+void MyCefDoMessageLoopWork()
+{		
+	CefDoMessageLoopWork();
+}
+//7.
+client::ClientHandler* MyCefCreateClientHandler(client::MainContextImpl* mainContext,
+	HWND parentWindowHandler,
+    int x, int y, int w, int h)
+{ 
+	const CefRect rect(x,y,w,h);	 
+	mainContext->GetRootWindowManager()->RegisterManagedSurfaceWindow(
+		parentWindowHandler,
+		rect, std::string()); 
+	return NULL;
+}
+	
+>>>>>>> origin/3.2357.1267
