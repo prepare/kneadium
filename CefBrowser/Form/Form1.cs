@@ -33,38 +33,41 @@ namespace CefBridgeTest
         void tt2_Tick(object sender, EventArgs e)
         {
             //check if we should closing?    
-            CheckClosing(); 
+            CheckClosing();
         }
         void CheckClosing()
         {
-            if (!readyToClose)
-            {  
-                lock (sync_2)
-                {
-                    var wb = this.cefWebBrowser1;
-                    if (wb != null)
-                    {
-                        this.Controls.Remove(wb);
-                        wb.Dispose();
-                        this.cefWebBrowser1 = wb = null;
-                        this.Update();                        
-                    }
-                    readyToClose = true;
-                    //this.Text = "closing...";
-                    //Application.DoEvents();
-                    
-                } 
-            }
-            else
+            if (LayoutFarm.CefBridge.CefClientApp.readyToClose)
             {
                 tt2.Enabled = false;
-                this.Close();
+                this.Close();                
             }
 
         }
         void Form1_FormClosing(object sender, FormClosingEventArgs e)
         {
-            // 
+
+            if (!startClosing)
+            {
+                var wb = this.cefWebBrowser1;
+                if (wb != null)
+                {
+                    this.Controls.Remove(wb);
+                    wb.Dispose();
+                    this.cefWebBrowser1 = wb = null;
+                }
+
+                tt2.Enabled = true;
+                startClosing = true;
+                e.Cancel = true;
+            }
+            else
+            {
+                if (!LayoutFarm.CefBridge.CefClientApp.readyToClose)
+                {
+                    e.Cancel = true;
+                }
+            }
             //stop and close all browser then close form
             //lock (sync_)
             //{
@@ -201,7 +204,7 @@ namespace CefBridgeTest
         private void button8_Click(object sender, EventArgs e)
         {
             WebClient wb = new WebClient();
-            string content= wb.DownloadString("http://www.google.com");
+            string content = wb.DownloadString("http://www.google.com");
         }
 
     }
