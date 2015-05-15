@@ -33,7 +33,9 @@ int RegisterManagedCallBack(void* funcPtr,int callbackKind)
 }
 //3.
 SimpleApp* MyCefCreateClientApp(){
-	return new SimpleApp();
+	auto app = new SimpleApp();
+	app->extmode = true;
+	return app;	 
 }
 //4. 
 int MyCefInit(HINSTANCE hInstance,SimpleApp* app1)

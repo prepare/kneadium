@@ -12,7 +12,10 @@ class SimpleApp : public CefApp,
                   public CefBrowserProcessHandler {
  public: 
 	 
+  //my ext
   managed_callback myMxCallback;
+  bool extmode;
+
   SimpleApp();
 
   // CefApp methods:
