@@ -5,10 +5,7 @@ using System.Drawing;
 
 using System.Text;
 using System.Windows.Forms;
-<<<<<<< HEAD
 using System.Net;
-=======
->>>>>>> origin/mod1
 
 namespace CefBridgeTest
 {
@@ -16,7 +13,6 @@ namespace CefBridgeTest
     {
 
         Timer tt = new Timer();
-<<<<<<< HEAD
 
         Timer tt2 = new Timer();
 
@@ -24,13 +20,10 @@ namespace CefBridgeTest
         bool readyToClose;
         object sync_ = new object();
         object sync_2 = new object();
-=======
->>>>>>> origin/mod1
         public Form1()
         {
             InitializeComponent();
             tt.Tick += new EventHandler(tt_Tick);
-<<<<<<< HEAD
             this.FormClosing += new FormClosingEventHandler(Form1_FormClosing);
 
             this.tt2.Interval = 200;
@@ -94,28 +87,6 @@ namespace CefBridgeTest
         delegate void SimpleDel();
         int n = 0;
 
-=======
-
-            //=======================
-        }
-        delegate void SimpleDel();
-        bool isCloseFirst = false;
-        protected override void OnClosing(CancelEventArgs e)
-        {
-            tt.Enabled = false;
-            if (!isCloseFirst)
-            {
-                this.cefWebBrowser1.PrepareNativeClose();
-                
-                e.Cancel = true;
-                isCloseFirst = true;
-            }
-            else
-            {
-                base.OnClosing(e);
-            } 
-        }
->>>>>>> origin/mod1
         protected override void OnLoad(EventArgs e)
         {
             //tt.Enabled = true;
@@ -159,11 +130,7 @@ namespace CefBridgeTest
 
         private void button7_Click(object sender, EventArgs e)
         {
-<<<<<<< HEAD
 
-=======
-            
->>>>>>> origin/mod1
             this.cefWebBrowser1.Focus();
             //this.cefWebBrowser1.NavigateTo("http://10.0.2.71");
             this.cefWebBrowser1.NavigateTo("http://localhost");
@@ -218,7 +185,6 @@ namespace CefBridgeTest
 
         }
 
-<<<<<<< HEAD
         private void Form1_Load(object sender, EventArgs e)
         {
 
@@ -241,8 +207,6 @@ namespace CefBridgeTest
             string content = wb.DownloadString("http://www.google.com");
         }
 
-=======
->>>>>>> origin/mod1
     }
 
 }

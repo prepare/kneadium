@@ -12,18 +12,12 @@ namespace LayoutFarm.CefBridge
         IntPtr clientAppPtr;
         internal static IntPtr contextImplPtr;
         static bool contextImplInit;
-<<<<<<< HEAD
         internal static bool readyToClose;
-=======
->>>>>>> origin/mod1
 
         bool isHandleCreated;
         bool isInitWithProcessHandle;
         AgentManagedCallback mxCallback;
-<<<<<<< HEAD
         object sync_ = new object();
-=======
->>>>>>> origin/mod1
 
         public CefClientApp()
         {
@@ -36,17 +30,12 @@ namespace LayoutFarm.CefBridge
                 isInitWithProcessHandle = true;
                 if (!contextImplInit)
                 {
-<<<<<<< HEAD
                     this.clientAppPtr = this.GetHandle();
                     int initResult = Cef3Binder.MyCefInit(processHandle, clientAppPtr);
-=======
-                    contextImplPtr = Cef3Binder.MyCefInit(processHandle, this.GetHandle());
->>>>>>> origin/mod1
                     contextImplInit = true;
                 }
             }
         }
-<<<<<<< HEAD
 
 
 
@@ -80,27 +69,6 @@ namespace LayoutFarm.CefBridge
                 return this.clientAppPtr;
             }
 
-=======
-        void MxCallBack(int id, IntPtr argsPtr)
-        {
-
-        }
-        IntPtr GetHandle()
-        {
-            if (!this.isHandleCreated)
-            {
-
-
-                this.clientAppPtr = Cef3Binder.MyCefCreateClientApp(contextImplPtr);
-                this.isHandleCreated = true;
-
-                //register managed callback ***
-                this.mxCallback = new AgentManagedCallback(MxCallBack);
-                Cef3Binder.MyCefClientAppSetManagedCallback(this.clientAppPtr, this.mxCallback);
-
-            }
-            return this.clientAppPtr;
->>>>>>> origin/mod1
         }
 
 
