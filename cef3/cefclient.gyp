@@ -43,7 +43,10 @@
       'sources': [
         '<@(includes_common)',
         '<@(includes_wrapper)',
+<<<<<<< HEAD
         '<@(cefclient_sources_common)',
+=======
+>>>>>>> origin/s01_t1
       ],
       'mac_bundle_resources': [
         '<@(cefclient_bundle_resources_mac)',
@@ -52,17 +55,28 @@
         # TODO(mark): Come up with a fancier way to do this (mac_info_plist?)
         # that automatically sets the correct INFOPLIST_FILE setting and adds
         # the file to a source group.
+<<<<<<< HEAD
         'cefclient/mac/Info.plist',
       ],
       'xcode_settings': {
         'INFOPLIST_FILE': 'cefclient/mac/Info.plist',
+=======
+        'cefclient/resources/mac/Info.plist',
+      ],
+      'xcode_settings': {
+        'INFOPLIST_FILE': 'cefclient/resources/mac/Info.plist',
+>>>>>>> origin/s01_t1
         # Target build path.
         'SYMROOT': 'xcodebuild',
       },
       'conditions': [
         ['OS=="win"', {
           'variables': {
+<<<<<<< HEAD
             'win_exe_compatibility_manifest': 'cefclient/compatibility.manifest',
+=======
+            'win_exe_compatibility_manifest': 'cefclient/resources/win/compatibility.manifest',
+>>>>>>> origin/s01_t1
           },
           'actions': [
             {
@@ -104,6 +118,22 @@
                 '$(OutDir)',
               ],
             },
+<<<<<<< HEAD
+=======
+            {
+              'action_name': 'copy_bin_files',
+              'msvs_cygwin_shell': 0,
+              'inputs': [],
+              'outputs': [
+                '<(PRODUCT_DIR)/copy_bin_files.stamp',
+              ],
+              'action': [
+                'xcopy /efy',
+                '$(ConfigurationName)\*.bin',
+                '$(OutDir)',
+              ],
+            },
+>>>>>>> origin/s01_t1
           ],
           'msvs_settings': {
             'VCLinkerTool': {
@@ -112,7 +142,11 @@
             },
             'VCManifestTool': {
               'AdditionalManifestFiles': [
+<<<<<<< HEAD
                 'cefclient/cefclient.exe.manifest',
+=======
+                'cefclient/resources/win/cefclient.exe.manifest',
+>>>>>>> origin/s01_t1
               ],
             },
           },
@@ -238,7 +272,12 @@
                 '$(BUILDTYPE)/chrome-sandbox',
                 '$(BUILDTYPE)/libcef.so',
                 '$(BUILDTYPE)/libffmpegsumo.so',
+<<<<<<< HEAD
                 '$(BUILDTYPE)/libpdf.so',
+=======
+                '$(BUILDTYPE)/natives_blob.bin',
+                '$(BUILDTYPE)/snapshot_blob.bin',
+>>>>>>> origin/s01_t1
               ],
             },
           ],
@@ -342,6 +381,22 @@
                 '$(OutDir)',
               ],
             },
+<<<<<<< HEAD
+=======
+            {
+              'action_name': 'copy_bin_files',
+              'msvs_cygwin_shell': 0,
+              'inputs': [],
+              'outputs': [
+                '<(PRODUCT_DIR)/copy_bin_files.stamp',
+              ],
+              'action': [
+                'xcopy /efy',
+                '$(ConfigurationName)\*.bin',
+                '$(OutDir)',
+              ],
+            },
+>>>>>>> origin/s01_t1
           ],
           'msvs_settings': {
             'VCLinkerTool': {
@@ -467,7 +522,12 @@
                 '$(BUILDTYPE)/chrome-sandbox',
                 '$(BUILDTYPE)/libcef.so',
                 '$(BUILDTYPE)/libffmpegsumo.so',
+<<<<<<< HEAD
                 '$(BUILDTYPE)/libpdf.so',
+=======
+                '$(BUILDTYPE)/natives_blob.bin',
+                '$(BUILDTYPE)/snapshot_blob.bin',
+>>>>>>> origin/s01_t1
               ],
             },
           ],
@@ -564,7 +624,11 @@
           # be necessary to list helper-Info.plist once, not the three times it
           # is listed here.
           'mac_bundle_resources!': [
+<<<<<<< HEAD
             'cefclient/mac/helper-Info.plist',
+=======
+            'cefclient/resources/mac/helper-Info.plist',
+>>>>>>> origin/s01_t1
           ],
           # TODO(mark): For now, don't put any resources into this app.  Its
           # resources directory will be a symbolic link to the browser app's
@@ -573,7 +637,11 @@
             ['exclude', '.*'],
           ],
           'xcode_settings': {
+<<<<<<< HEAD
             'INFOPLIST_FILE': 'cefclient/mac/helper-Info.plist',
+=======
+            'INFOPLIST_FILE': 'cefclient/resources/mac/helper-Info.plist',
+>>>>>>> origin/s01_t1
           },
           'postbuilds': [
             {

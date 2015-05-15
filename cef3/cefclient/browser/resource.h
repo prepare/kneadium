@@ -24,14 +24,19 @@
 #define IDC_NAV_STOP                    203
 #define ID_QUIT                         32500
 #define ID_FIND                         32501
+<<<<<<< HEAD:cef3/cefclient/browser/resource.h
 <<<<<<< HEAD:cef3/cefclient/resource.h
 =======
 #define ID_TESTS_FIRST                  32700
 >>>>>>> origin/3.2357.1267:cef3/cefclient/browser/resource.h
+=======
+#define ID_TESTS_FIRST                  32700
+>>>>>>> origin/s01_t1:cef3/cefclient/browser/resource.h
 #define ID_TESTS_GETSOURCE              32700
 #define ID_TESTS_GETTEXT                32701
 #define ID_TESTS_OTHER_TESTS            32702
 #define ID_TESTS_PLUGIN_INFO            32703
+<<<<<<< HEAD:cef3/cefclient/browser/resource.h
 <<<<<<< HEAD:cef3/cefclient/resource.h
 #define ID_TESTS_POPUP                  32704
 #define ID_TESTS_PRINT                  32705
@@ -42,6 +47,8 @@
 #define ID_TESTS_ZOOM_OUT               32710
 #define ID_TESTS_ZOOM_RESET             32711
 =======
+=======
+>>>>>>> origin/s01_t1:cef3/cefclient/browser/resource.h
 #define ID_TESTS_WINDOW_NEW             32704
 #define ID_TESTS_WINDOW_POPUP           32705
 #define ID_TESTS_PRINT                  32706
@@ -52,7 +59,10 @@
 #define ID_TESTS_ZOOM_OUT               32711
 #define ID_TESTS_ZOOM_RESET             32712
 #define ID_TESTS_LAST                   32712
+<<<<<<< HEAD:cef3/cefclient/browser/resource.h
 >>>>>>> origin/3.2357.1267:cef3/cefclient/browser/resource.h
+=======
+>>>>>>> origin/s01_t1:cef3/cefclient/browser/resource.h
 #define IDC_STATIC                      -1
 #define IDS_BINDING                     1000
 #define IDS_DIALOGS                     1001
@@ -62,6 +72,7 @@
 #define IDS_OSRTEST                     1005
 #define IDS_OTHER_TESTS                 1006
 #define IDS_PERFORMANCE                 1007
+<<<<<<< HEAD:cef3/cefclient/browser/resource.h
 <<<<<<< HEAD:cef3/cefclient/resource.h
 #define IDS_TRANSPARENCY                1008
 #define IDS_WINDOW                      1009
@@ -71,12 +82,17 @@
 // Avoid files associated with MacOS
 #define _X86_
 =======
+=======
+>>>>>>> origin/s01_t1:cef3/cefclient/browser/resource.h
 #define IDS_PERFORMANCE2                1008
 #define IDS_TRANSPARENCY                1009
 #define IDS_URLREQUEST                  1010
 #define IDS_WINDOW                      1011
 #define IDS_XMLHTTPREQUEST              1012
+<<<<<<< HEAD:cef3/cefclient/browser/resource.h
 >>>>>>> origin/3.2357.1267:cef3/cefclient/browser/resource.h
+=======
+>>>>>>> origin/s01_t1:cef3/cefclient/browser/resource.h
 
 // Next default values for new objects
 // 

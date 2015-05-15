@@ -7,6 +7,7 @@
 #
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 # cefclient sources.
 set(CEFCLIENT_SRCS
   binding_test.cpp
@@ -172,6 +173,8 @@ set(CEFCLIENT_RESOURCES_SRCS
   ${CEFCLIENT_RESOURCES_MAC_ENGLISH_LPROJ_SRCS}
   ${CEFCLIENT_RESOURCES_RES_SRCS}
 =======
+=======
+>>>>>>> origin/s01_t1
 # cefclient browser sources.
 set(CEFCLIENT_BROWSER_BROWSER_SRCS
   browser/binding_test.cc
@@ -407,7 +410,10 @@ set(CEFCLIENT_RESOURCES_SRCS
   ${CEFCLIENT_RESOURCES_RESOURCES_SRCS}
   ${CEFCLIENT_RESOURCES_RESOURCES_MAC_SRCS}
   ${CEFCLIENT_RESOURCES_RESOURCES_MAC_ENGLISH_LPROJ_SRCS}
+<<<<<<< HEAD
 >>>>>>> origin/3.2357.1267
+=======
+>>>>>>> origin/s01_t1
   )
 
 
@@ -434,7 +440,10 @@ SET_CEF_TARGET_OUT_DIR()
 
 if(OS_LINUX)
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
+=======
+>>>>>>> origin/s01_t1
   # All sources required by the "cefclient" target. Generates an executable that
   # is used for all processes.
   set(CEFCLIENT_SRCS
@@ -445,7 +454,10 @@ if(OS_LINUX)
     ${CEFCLIENT_LINUX_SRCS}
     )
 
+<<<<<<< HEAD
 >>>>>>> origin/3.2357.1267
+=======
+>>>>>>> origin/s01_t1
   # Find required libraries and update compiler/linker variables.
   FIND_LINUX_LIBRARIES("gmodule-2.0 gtk+-2.0 gthread-2.0 gtk+-unix-print-2.0 gtkglext-1.0")
 
@@ -467,10 +479,14 @@ if(OS_LINUX)
   COPY_FILES("${CEF_TARGET}" "${CEFCLIENT_RESOURCES_SRCS}" "${CMAKE_CURRENT_SOURCE_DIR}" "${CEF_TARGET_OUT_DIR}")
   # Rename the "res" directory to "files".
 <<<<<<< HEAD
+<<<<<<< HEAD
   RENAME_DIRECTORY("${CEF_TARGET}" "${CEF_TARGET_OUT_DIR}/res" "${CEF_TARGET_OUT_DIR}/files")
 =======
   RENAME_DIRECTORY("${CEF_TARGET}" "${CEF_TARGET_OUT_DIR}/resources" "${CEF_TARGET_OUT_DIR}/files")
 >>>>>>> origin/3.2357.1267
+=======
+  RENAME_DIRECTORY("${CEF_TARGET}" "${CEF_TARGET_OUT_DIR}/resources" "${CEF_TARGET_OUT_DIR}/files")
+>>>>>>> origin/s01_t1
 
   # Set SUID permissions on the chrome-sandbox target.
   SET_LINUX_SUID_PERMISSIONS("${CEF_TARGET}" "${CEF_TARGET_OUT_DIR}/chrome-sandbox")
@@ -483,7 +499,10 @@ endif()
 
 if(OS_MACOSX)
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
+=======
+>>>>>>> origin/s01_t1
   # All sources required by the "cefclient" target. Generates an app bundle that
   # is used only for the browser process.
   set(CEFCLIENT_SRCS
@@ -501,7 +520,10 @@ if(OS_MACOSX)
     ${CEFCLIENT_MACOSX_HELPER_SRCS}
     )
 
+<<<<<<< HEAD
 >>>>>>> origin/3.2357.1267
+=======
+>>>>>>> origin/s01_t1
   # Output paths for the app bundles.
   set(CEF_APP "${CEF_TARGET_OUT_DIR}/${CEF_TARGET}.app")
   set(CEF_HELPER_APP "${CEF_TARGET_OUT_DIR}/${CEF_HELPER_TARGET}.app")
@@ -515,10 +537,14 @@ if(OS_MACOSX)
   target_link_libraries(${CEF_HELPER_TARGET} libcef_lib libcef_dll_wrapper ${CEF_STANDARD_LIBS})
   set_target_properties(${CEF_HELPER_TARGET} PROPERTIES
 <<<<<<< HEAD
+<<<<<<< HEAD
     MACOSX_BUNDLE_INFO_PLIST ${CMAKE_CURRENT_SOURCE_DIR}/mac/helper-Info.plist
 =======
     MACOSX_BUNDLE_INFO_PLIST ${CMAKE_CURRENT_SOURCE_DIR}/resources/mac/helper-Info.plist
 >>>>>>> origin/3.2357.1267
+=======
+    MACOSX_BUNDLE_INFO_PLIST ${CMAKE_CURRENT_SOURCE_DIR}/resources/mac/helper-Info.plist
+>>>>>>> origin/s01_t1
     )
 
   # Fix the framework link in the helper executable.
@@ -531,10 +557,14 @@ if(OS_MACOSX)
   set_target_properties(${CEF_TARGET} PROPERTIES
     RESOURCE "${CEFCLIENT_RESOURCES_SRCS}"
 <<<<<<< HEAD
+<<<<<<< HEAD
     MACOSX_BUNDLE_INFO_PLIST ${CMAKE_CURRENT_SOURCE_DIR}/mac/Info.plist
 =======
     MACOSX_BUNDLE_INFO_PLIST ${CMAKE_CURRENT_SOURCE_DIR}/resources/mac/Info.plist
 >>>>>>> origin/3.2357.1267
+=======
+    MACOSX_BUNDLE_INFO_PLIST ${CMAKE_CURRENT_SOURCE_DIR}/resources/mac/Info.plist
+>>>>>>> origin/s01_t1
     )
 
   # Copy files into the main app bundle.
@@ -562,10 +592,14 @@ if(OS_MACOSX)
     # Manually process and copy over resource files.
     # The Xcode generator handles this via the set_target_properties RESOURCE directive.
 <<<<<<< HEAD
+<<<<<<< HEAD
     set(PREFIXES "mac/" "res/")  # Remove these prefixes from input file paths.
 =======
     set(PREFIXES "resources/mac/" "resources/")  # Remove these prefixes from input file paths.
 >>>>>>> origin/3.2357.1267
+=======
+    set(PREFIXES "resources/mac/" "resources/")  # Remove these prefixes from input file paths.
+>>>>>>> origin/s01_t1
     COPY_MACOSX_RESOURCES("${CEFCLIENT_RESOURCES_SRCS}" "${PREFIXES}" "${CEF_TARGET}" "${CMAKE_CURRENT_SOURCE_DIR}" "${CEF_APP}")
   endif()
 endif()
@@ -577,7 +611,10 @@ endif()
 
 if(OS_WINDOWS)
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
+=======
+>>>>>>> origin/s01_t1
   # All sources required by the "cefclient" target. Generates an executable that
   # is used for all processes.
   set(CEFCLIENT_SRCS
@@ -588,7 +625,10 @@ if(OS_WINDOWS)
     ${CEFCLIENT_WINDOWS_SRCS}
     )
 
+<<<<<<< HEAD
 >>>>>>> origin/3.2357.1267
+=======
+>>>>>>> origin/s01_t1
   # Executable target.
   add_executable(${CEF_TARGET} WIN32 ${CEFCLIENT_SRCS})
   add_dependencies(${CEF_TARGET} libcef_dll_wrapper)
@@ -602,10 +642,14 @@ if(OS_WINDOWS)
 
   # Add the custom manifest files to the executable.
 <<<<<<< HEAD
+<<<<<<< HEAD
   ADD_WINDOWS_MANIFEST("${CEF_TARGET}")
 =======
   ADD_WINDOWS_MANIFEST("${CMAKE_CURRENT_SOURCE_DIR}/resources/win" "${CEF_TARGET}")
 >>>>>>> origin/3.2357.1267
+=======
+  ADD_WINDOWS_MANIFEST("${CMAKE_CURRENT_SOURCE_DIR}/resources/win" "${CEF_TARGET}")
+>>>>>>> origin/s01_t1
 
   # Copy CEF binary and resource files to the target output directory.
   COPY_FILES("${CEF_TARGET}" "${CEF_BINARY_FILES}" "${CEF_BINARY_DIR}" "${CEF_TARGET_OUT_DIR}")

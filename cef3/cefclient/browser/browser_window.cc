@@ -40,7 +40,12 @@ void BrowserWindow::OnBrowserClosing(CefRefPtr<CefBrowser> browser) {
 }
 
 void BrowserWindow::OnBrowserClosed(CefRefPtr<CefBrowser> browser) {
+<<<<<<< HEAD
   REQUIRE_MAIN_THREAD();
+=======
+  REQUIRE_MAIN_THREAD(); 
+
+>>>>>>> origin/s01_t1
   DCHECK_EQ(browser->GetIdentifier(), browser_->GetIdentifier());
   browser_ = NULL;
 

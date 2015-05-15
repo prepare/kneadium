@@ -45,6 +45,7 @@ scoped_refptr<RootWindow> RootWindowManager::CreateRootWindow(
   OnRootWindowCreated(root_window);
 
   return root_window;
+<<<<<<< HEAD
 }
 //-------------------------------------------------------------
 //my extension
@@ -74,6 +75,9 @@ scoped_refptr<RootWindow> RootWindowManager::RegisterManagedSurfaceWindow(
 
 
 
+=======
+}  
+>>>>>>> origin/s01_t1
 //-------------------------------------------------------------
 
 

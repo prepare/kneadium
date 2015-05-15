@@ -56,7 +56,11 @@ class RootWindowWin : public RootWindow,
   ClientWindowHandle GetWindowHandle() const OVERRIDE;
 
  private:
+<<<<<<< HEAD
   void CreateBrowserWindow(HWND managedSurfaceHwnd, bool with_osr, const std::string& startup_url);
+=======
+  void CreateBrowserWindow(bool with_osr, const std::string& startup_url);
+>>>>>>> origin/s01_t1
   void CreateRootWindow(const CefBrowserSettings& settings);
 
   // Register the root window class.

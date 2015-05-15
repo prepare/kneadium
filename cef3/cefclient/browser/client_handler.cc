@@ -113,7 +113,13 @@ ClientHandler::ClientHandler(Delegate* delegate,
     browser_count_(0),
     console_log_file_(MainContext::Get()->GetConsoleLogPath()),
     first_console_message_(true),
+<<<<<<< HEAD
     focus_on_editable_field_(false) {
+=======
+    focus_on_editable_field_(false),
+    mcallback_(NULL) {
+
+>>>>>>> origin/s01_t1
   DCHECK(!console_log_file_.empty());
 
 #if defined(OS_LINUX)
@@ -635,6 +641,14 @@ void ClientHandler::NotifyBrowserClosed(CefRefPtr<CefBrowser> browser) {
 
   if (delegate_)
     delegate_->OnBrowserClosed(browser);
+<<<<<<< HEAD
+=======
+  
+  if(this->mcallback_){
+	  this->mcallback_(100,NULL);
+  }
+
+>>>>>>> origin/s01_t1
 }
 
 void ClientHandler::NotifyAddress(const CefString& url) {
@@ -672,8 +686,14 @@ void ClientHandler::NotifyLoadingState(bool isLoading,
     return;
   }
 
+<<<<<<< HEAD
   if (delegate_)
     delegate_->OnSetLoadingState(isLoading, canGoBack, canGoForward);
+=======
+  if (delegate_){
+     delegate_->OnSetLoadingState(isLoading, canGoBack, canGoForward);
+  }
+>>>>>>> origin/s01_t1
 }
 
 void ClientHandler::BuildTestMenu(CefRefPtr<CefMenuModel> model) {
@@ -713,4 +733,12 @@ bool ClientHandler::ExecuteTestMenu(int command_id) {
   return false;
 }
 
+<<<<<<< HEAD
+=======
+
+void ClientHandler::MyCefSetManagedCallBack(managed_callback m){
+	this->mcallback_ = m;
+}
+
+>>>>>>> origin/s01_t1
 }  // namespace client

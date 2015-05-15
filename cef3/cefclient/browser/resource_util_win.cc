@@ -2,6 +2,7 @@
 // reserved. Use of this source code is governed by a BSD-style license that
 // can be found in the LICENSE file.
 
+<<<<<<< HEAD:cef3/cefclient/browser/resource_util_win.cc
 <<<<<<< HEAD:cef3/cefclient/resource_util_win.cpp
 #include "cefclient/resource_util.h"
 #include "include/base/cef_logging.h"
@@ -18,6 +19,16 @@
 
 namespace client {
 >>>>>>> origin/3.2357.1267:cef3/cefclient/browser/resource_util_win.cc
+=======
+#include "cefclient/browser/resource_util.h"
+
+#include "include/base/cef_logging.h"
+#include "include/cef_stream.h"
+#include "include/wrapper/cef_byte_read_handler.h"
+#include "cefclient/browser/resource.h"
+
+namespace client {
+>>>>>>> origin/s01_t1:cef3/cefclient/browser/resource_util_win.cc
 
 namespace {
 
