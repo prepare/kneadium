@@ -11,27 +11,44 @@
 #include "include/cef_browser.h"
 #include "include/cef_command_line.h"
 #include "include/cef_frame.h"
-#include "include/cef_runnable.h"
 #include "include/cef_web_plugin.h"
+#include "include/wrapper/cef_helpers.h"
 #include "cefclient/client_handler.h"
 #include "cefclient/client_switches.h"
 #include "cefclient/string_util.h"
-#include "cefclient/util.h"
 
  
+<<<<<<< HEAD
 CefRefPtr<CefCommandLine> g_command_line; 
 
 
+=======
+
+namespace {
+
+CefRefPtr<CefCommandLine> g_command_line;
+int g_offscreen_state = 0;
+
+}  // namespace
+
+>>>>>>> origin/retro1
 CefRefPtr<CefBrowser> AppGetBrowser(CefRefPtr<ClientHandler> g_handler2) {
   if (!g_handler2.get())
     return NULL;
   return g_handler2->GetBrowser();
 }
 
+<<<<<<< HEAD
 CefWindowHandle AppGetMainHwnd(CefRefPtr<ClientHandler> g_handler2) {
   if (!g_handler2.get())
     return NULL;
   return g_handler2->GetMainHwnd();
+=======
+ClientWindowHandle AppGetMainWindowHandle(CefRefPtr<ClientHandler> g_handler2) {
+  if (!g_handler2.get())
+    return kNullWindowHandle;
+  return g_handler2->GetMainWindowHandle();
+>>>>>>> origin/retro1
 }
 
 void AppInitCommandLine(int argc, const char* const* argv) {
@@ -50,7 +67,7 @@ CefRefPtr<CefCommandLine> AppGetCommandLine() {
 
 // Returns the application settings based on command line arguments.
 void AppGetSettings(CefSettings& settings) {
-  ASSERT(g_command_line.get());
+  DCHECK(g_command_line.get());
   if (!g_command_line.get())
     return;
 
@@ -64,17 +81,31 @@ void AppGetSettings(CefSettings& settings) {
   CefString(&settings.cache_path) =
       g_command_line->GetSwitchValue(cefclient::kCachePath);
 
-  // Specify a port to enable DevTools if one isn't already specified.
-  if (!g_command_line->HasSwitch("remote-debugging-port"))
-    settings.remote_debugging_port = 8088;
+  if (g_command_line->HasSwitch(cefclient::kOffScreenRenderingEnabled))
+    settings.windowless_rendering_enabled = true;
+}
+
+void AppGetBrowserSettings(CefBrowserSettings& settings) {
+  DCHECK(g_command_line.get());
+  if (!g_command_line.get())
+    return;
+
+  if (g_command_line->HasSwitch(cefclient::kOffScreenFrameRate)) {
+    settings.windowless_frame_rate = atoi(g_command_line->
+        GetSwitchValue(cefclient::kOffScreenFrameRate).ToString().c_str());
+  }
 }
 
 bool AppIsOffScreenRenderingEnabled() {
-  ASSERT(g_command_line.get());
-  if (!g_command_line.get())
-    return false;
+  if (g_offscreen_state == 0) {
+    // Store the value so it isn't queried multiple times.
+    DCHECK(g_command_line.get());
+    g_offscreen_state =
+        g_command_line->HasSwitch(cefclient::kOffScreenRenderingEnabled) ?
+            1 : 2;
+  }
 
-  return g_command_line->HasSwitch(cefclient::kOffScreenRenderingEnabled);
+  return (g_offscreen_state == 1);
 }
 
 void RunGetSourceTest(CefRefPtr<CefBrowser> browser) {
@@ -85,7 +116,8 @@ void RunGetSourceTest(CefRefPtr<CefBrowser> browser) {
       std::string source = StringReplace(string, "<", "&lt;");
       source = StringReplace(source, ">", "&gt;");
       std::stringstream ss;
-      ss << "<html><body>Source:<pre>" << source << "</pre></body></html>";
+      ss << "<html><body bgcolor=\"white\">Source:<pre>" << source <<
+            "</pre></body></html>";
       browser_->GetMainFrame()->LoadString(ss.str(), "http://tests/getsource");
     }
    private:
@@ -105,7 +137,8 @@ void RunGetTextTest(CefRefPtr<CefBrowser> browser) {
       std::string text = StringReplace(string, "<", "&lt;");
       text = StringReplace(text, ">", "&gt;");
       std::stringstream ss;
-      ss << "<html><body>Text:<pre>" << text << "</pre></body></html>";
+      ss << "<html><body bgcolor=\"white\">Text:<pre>" << text <<
+            "</pre></body></html>";
       browser_->GetMainFrame()->LoadString(ss.str(), "http://tests/gettext");
     }
    private:
@@ -153,7 +186,8 @@ void RunPluginInfoTest(CefRefPtr<CefBrowser> browser) {
    public:
     explicit Visitor(CefRefPtr<CefBrowser> browser)
         : browser_(browser) {
-      html_ = "<html><head><title>Plugin Info Test</title></head><body>"
+      html_ = "<html><head><title>Plugin Info Test</title></head>"
+              "<body bgcolor=\"white\">"
               "\n<b>Installed plugins:</b>";
     }
     ~Visitor() {

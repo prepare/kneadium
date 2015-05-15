@@ -12,95 +12,16 @@
 #include "include/cef_process_message.h"
 #include "include/cef_task.h"
 #include "include/cef_v8.h"
-#include "util.h"  // NOLINT(build/include)
+#include "include/wrapper/cef_helpers.h"
 
-namespace {
-
-// Forward declarations.
-void SetList(CefRefPtr<CefV8Value> source, CefRefPtr<CefListValue> target);
-void SetList(CefRefPtr<CefListValue> source, CefRefPtr<CefV8Value> target);
-
-// Transfer a V8 value to a List index.
-void SetListValue(CefRefPtr<CefListValue> list, int index,
-                  CefRefPtr<CefV8Value> value) {
-  if (value->IsArray()) {
-    CefRefPtr<CefListValue> new_list = CefListValue::Create();
-    SetList(value, new_list);
-    list->SetList(index, new_list);
-  } else if (value->IsString()) {
-    list->SetString(index, value->GetStringValue());
-  } else if (value->IsBool()) {
-    list->SetBool(index, value->GetBoolValue());
-  } else if (value->IsInt()) {
-    list->SetInt(index, value->GetIntValue());
-  } else if (value->IsDouble()) {
-    list->SetDouble(index, value->GetDoubleValue());
-  }
+ClientApp::ClientApp() {
+	myMxCallback= NULL;
 }
 
-// Transfer a V8 array to a List.
-void SetList(CefRefPtr<CefV8Value> source, CefRefPtr<CefListValue> target) {
-  ASSERT(source->IsArray());
+void ClientApp::OnRegisterCustomSchemes(
+    CefRefPtr<CefSchemeRegistrar> registrar) {
 
-  int arg_length = source->GetArrayLength();
-  if (arg_length == 0)
-    return;
-
-  // Start with null types in all spaces.
-  target->SetSize(arg_length);
-
-  for (int i = 0; i < arg_length; ++i)
-    SetListValue(target, i, source->GetValue(i));
-}
-
-// Transfer a List value to a V8 array index.
-void SetListValue(CefRefPtr<CefV8Value> list, int index,
-                  CefRefPtr<CefListValue> value) {
-  CefRefPtr<CefV8Value> new_value;
-
-  CefValueType type = value->GetType(index);
-  switch (type) {
-    case VTYPE_LIST: {
-      CefRefPtr<CefListValue> list = value->GetList(index);
-      new_value = CefV8Value::CreateArray(static_cast<int>(list->GetSize()));
-      SetList(list, new_value);
-      } break;
-    case VTYPE_BOOL:
-      new_value = CefV8Value::CreateBool(value->GetBool(index));
-      break;
-    case VTYPE_DOUBLE:
-      new_value = CefV8Value::CreateDouble(value->GetDouble(index));
-      break;
-    case VTYPE_INT:
-      new_value = CefV8Value::CreateInt(value->GetInt(index));
-      break;
-    case VTYPE_STRING:
-      new_value = CefV8Value::CreateString(value->GetString(index));
-      break;
-    default:
-      break;
-  }
-
-  if (new_value.get()) {
-    list->SetValue(index, new_value);
-  } else {
-    list->SetValue(index, CefV8Value::CreateNull());
-  }
-}
-
-// Transfer a List to a V8 array.
-void SetList(CefRefPtr<CefListValue> source, CefRefPtr<CefV8Value> target) {
-  ASSERT(target->IsArray());
-
-  int arg_length = static_cast<int>(source->GetSize());
-  if (arg_length == 0)
-    return;
-
-  for (int i = 0; i < arg_length; ++i)
-    SetListValue(target, i, source);
-}
-
-
+<<<<<<< HEAD
 // Handles the native implementation for the client_app extension.
 class ClientAppExtensionHandler : public CefV8Handler {
  public:
@@ -180,43 +101,41 @@ ClientApp::ClientApp() {
   myMxCallback= NULL;
   CreateBrowserDelegates(browser_delegates_);
   CreateRenderDelegates(render_delegates_);
+=======
+>>>>>>> origin/retro1
 
   // Default schemes that support cookies.
   cookieable_schemes_.push_back("http");
-  cookieable_schemes_.push_back("https");
-}
+  cookieable_schemes_.push_back("https"); 
 
-void ClientApp::SetMessageCallback(const std::string& message_name,
-                                 int browser_id,
-                                 CefRefPtr<CefV8Context> context,
-                                 CefRefPtr<CefV8Value> function) {
-  ASSERT(CefCurrentlyOn(TID_RENDERER));
-
-  callback_map_.insert(
-      std::make_pair(std::make_pair(message_name, browser_id),
-                     std::make_pair(context, function)));
-}
-
-bool ClientApp::RemoveMessageCallback(const std::string& message_name,
-                                    int browser_id) {
-  ASSERT(CefCurrentlyOn(TID_RENDERER));
-
-  CallbackMap::iterator it =
-      callback_map_.find(std::make_pair(message_name, browser_id));
-  if (it != callback_map_.end()) {
-    callback_map_.erase(it);
-    return true;
+  if(this->myMxCallback)
+  {  
+		//send to
+		myMxCallback(0,NULL);
+  }
+  else
+  {	 
+	   RegisterCustomSchemes(registrar, cookieable_schemes_);
+		////others...
+		//scheme_test::RegisterCustomSchemes(registrar, cookiable_schemes);
   }
 
-  return false;
 }
 
+<<<<<<< HEAD
 void ClientApp::OnContextInitialized() 
 {
+=======
+void ClientApp::OnContextInitialized() {
+  CreateBrowserDelegates(browser_delegates_);
+
+>>>>>>> origin/retro1
   // Register cookieable schemes with the global cookie manager.
   CefRefPtr<CefCookieManager> manager = CefCookieManager::GetGlobalManager();
-  ASSERT(manager.get());
+  DCHECK(manager.get());
   manager->SetSupportedSchemes(cookieable_schemes_);
+
+  print_handler_ = CreatePrintHandler();
 
   BrowserDelegateSet::iterator it = browser_delegates_.begin();
   for (; it != browser_delegates_.end(); ++it)
@@ -240,11 +159,14 @@ void ClientApp::OnRenderProcessThreadCreated(
 }
 
 void ClientApp::OnRenderThreadCreated(CefRefPtr<CefListValue> extra_info) {
+  CreateRenderDelegates(render_delegates_);
+
   RenderDelegateSet::iterator it = render_delegates_.begin();
   for (; it != render_delegates_.end(); ++it)
     (*it)->OnRenderThreadCreated(this, extra_info);
 }
 
+<<<<<<< HEAD
 void ClientApp::OnWebKitInitialized()
 {   
 	if(this->myMxCallback)
@@ -275,6 +197,9 @@ void ClientApp::OnWebKitInitialized()
   CefRegisterExtension("v8/app", app_code,
       new ClientAppExtensionHandler(this));
 
+=======
+void ClientApp::OnWebKitInitialized() {
+>>>>>>> origin/retro1
   RenderDelegateSet::iterator it = render_delegates_.begin();
   for (; it != render_delegates_.end(); ++it)
     (*it)->OnWebKitInitialized(this);
@@ -292,6 +217,15 @@ void ClientApp::OnBrowserDestroyed(CefRefPtr<CefBrowser> browser)
   RenderDelegateSet::iterator it = render_delegates_.begin();
   for (; it != render_delegates_.end(); ++it)
     (*it)->OnBrowserDestroyed(this, browser);
+}
+
+CefRefPtr<CefLoadHandler> ClientApp::GetLoadHandler() {
+  CefRefPtr<CefLoadHandler> load_handler;
+  RenderDelegateSet::iterator it = render_delegates_.begin();
+  for (; it != render_delegates_.end() && !load_handler.get(); ++it)
+    load_handler = (*it)->GetLoadHandler(this);
+
+  return load_handler;
 }
 
 bool ClientApp::OnBeforeNavigation(CefRefPtr<CefBrowser> browser,
@@ -327,18 +261,6 @@ void ClientApp::OnContextReleased(CefRefPtr<CefBrowser> browser,
   RenderDelegateSet::iterator it = render_delegates_.begin();
   for (; it != render_delegates_.end(); ++it)
     (*it)->OnContextReleased(this, browser, frame, context);
-
-  // Remove any JavaScript callbacks registered for the context that has been
-  // released.
-  if (!callback_map_.empty()) {
-    CallbackMap::iterator it = callback_map_.begin();
-    for (; it != callback_map_.end();) {
-      if (it->second.first->IsSame(context))
-        callback_map_.erase(it++);
-      else
-        ++it;
-    }
-  }
 }
 
 void ClientApp::OnUncaughtException(CefRefPtr<CefBrowser> browser,
@@ -366,57 +288,21 @@ void ClientApp::OnFocusedNodeChanged(CefRefPtr<CefBrowser> browser,
 bool ClientApp::OnProcessMessageReceived(
     CefRefPtr<CefBrowser> browser,
     CefProcessId source_process,
+<<<<<<< HEAD
     CefRefPtr<CefProcessMessage> message) 
 {
   ASSERT(source_process == PID_BROWSER);
+=======
+    CefRefPtr<CefProcessMessage> message) {
+  DCHECK_EQ(source_process, PID_BROWSER);
+
+>>>>>>> origin/retro1
   bool handled = false;
 
   RenderDelegateSet::iterator it = render_delegates_.begin();
   for (; it != render_delegates_.end() && !handled; ++it) {
     handled = (*it)->OnProcessMessageReceived(this, browser, source_process,
                                               message);
-  }
-
-  if (handled)
-    return true;
-
-  // Execute the registered JavaScript callback if any.
-  if (!callback_map_.empty()) {
-    CefString message_name = message->GetName();
-    CallbackMap::const_iterator it = callback_map_.find(
-        std::make_pair(message_name.ToString(),
-                       browser->GetIdentifier()));
-    if (it != callback_map_.end()) {
-      // Keep a local reference to the objects. The callback may remove itself
-      // from the callback map.
-      CefRefPtr<CefV8Context> context = it->second.first;
-      CefRefPtr<CefV8Value> callback = it->second.second;
-
-      // Enter the context.
-      context->Enter();
-
-      CefV8ValueList arguments;
-
-      // First argument is the message name.
-      arguments.push_back(CefV8Value::CreateString(message_name));
-
-      // Second argument is the list of message arguments.
-      CefRefPtr<CefListValue> list = message->GetArgumentList();
-      CefRefPtr<CefV8Value> args =
-          CefV8Value::CreateArray(static_cast<int>(list->GetSize()));
-      SetList(list, args);
-      arguments.push_back(args);
-
-      // Execute the callback.
-      CefRefPtr<CefV8Value> retval = callback->ExecuteFunction(NULL, arguments);
-      if (retval.get()) {
-        if (retval->IsBool())
-          handled = retval->GetBoolValue();
-      }
-
-      // Exit the context.
-      context->Exit();
-    }
   }
 
   return handled;

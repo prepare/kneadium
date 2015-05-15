@@ -8,9 +8,15 @@
 
 #include <string>
 #include "include/cef_base.h"
+<<<<<<< HEAD
 #include "cefclient/client_app.h" 
 #include "mycef.h"
 
+=======
+#include "cefclient/client_app.h"
+#include "cefclient/client_handler.h"
+#include "mycef.h"
+>>>>>>> origin/retro1
 class CefApp;
 class CefBrowser;
 class CefCommandLine;
@@ -20,7 +26,11 @@ class ClientHandler;
 CefRefPtr<CefBrowser> AppGetBrowser(CefRefPtr<ClientHandler> g_handler2);
 
 // Returns the main application window handle.
+<<<<<<< HEAD
 CefWindowHandle AppGetMainHwnd(CefRefPtr<ClientHandler> g_handler2);
+=======
+ClientWindowHandle AppGetMainWindowHandle(CefRefPtr<ClientHandler> g_handler2);
+>>>>>>> origin/retro1
 
 // Returns the application working directory.
 std::string AppGetWorkingDirectory();
@@ -33,6 +43,7 @@ CefRefPtr<CefCommandLine> AppGetCommandLine();
 
 // Returns the application settings based on command line arguments.
 void AppGetSettings(CefSettings& settings);
+void AppGetBrowserSettings(CefBrowserSettings& settings);
 
 // Returns true if off-screen rendering is enabled via the command line
 // argument.

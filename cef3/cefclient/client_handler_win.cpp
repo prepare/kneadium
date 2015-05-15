@@ -11,6 +11,7 @@
 #include "include/cef_frame.h"
 #include "cefclient/resource.h"
 
+<<<<<<< HEAD
 //my extension
 #include "ExportFuncs.h"
 
@@ -36,11 +37,24 @@ void ClientHandler::OnAddressChange(CefRefPtr<CefBrowser> browser,
 		//// Set the edit window text
 		//SetWindowText(m_EditHwnd, std::wstring(url).c_str());
 	 // }
+=======
+
+
+void ClientHandler::OnAddressChange(CefRefPtr<CefBrowser> browser,
+                                    CefRefPtr<CefFrame> frame,
+                                    const CefString& url) {
+  CEF_REQUIRE_UI_THREAD();
+
+  //if (GetBrowserId() == browser->GetIdentifier() && frame->IsMain()) {
+  //  // Set the edit window text
+  //  SetWindowText(edit_handle_, std::wstring(url).c_str());
+>>>>>>> origin/retro1
   //}
 }
 
 void ClientHandler::OnTitleChange(CefRefPtr<CefBrowser> browser,
                                   const CefString& title) {
+<<<<<<< HEAD
   REQUIRE_UI_THREAD();
   
   if(HasManagedNotify())
@@ -54,6 +68,13 @@ void ClientHandler::OnTitleChange(CefRefPtr<CefBrowser> browser,
   //// Set the frame window title bar
   //CefWindowHandle hwnd = browser->GetHost()->GetWindowHandle();
   //if (m_BrowserId == browser->GetIdentifier())   {
+=======
+  CEF_REQUIRE_UI_THREAD();
+
+  //// Set the frame window title bar
+  //CefWindowHandle hwnd = browser->GetHost()->GetWindowHandle();
+  //if (GetBrowserId() == browser->GetIdentifier()) {
+>>>>>>> origin/retro1
   //  // The frame window will be the parent of the browser window
   //  hwnd = GetParent(hwnd);
   //}
@@ -62,6 +83,7 @@ void ClientHandler::OnTitleChange(CefRefPtr<CefBrowser> browser,
 
 void ClientHandler::SendNotification(NotificationType type) {
   
+<<<<<<< HEAD
   if(HasManagedNotify())
   {	  
 	  switch (type) {
@@ -86,6 +108,9 @@ void ClientHandler::SendNotification(NotificationType type) {
 	  
   }
  /* UINT id;
+=======
+  UINT id;
+>>>>>>> origin/retro1
   switch (type) {
   case NOTIFY_CONSOLE_MESSAGE:
     id = ID_WARN_CONSOLEMESSAGE;
@@ -99,6 +124,7 @@ void ClientHandler::SendNotification(NotificationType type) {
   default:
     return;
   }
+<<<<<<< HEAD
   PostMessage(m_MainHwnd, WM_COMMAND, id, 0);*/
 }
 
@@ -117,6 +143,27 @@ void ClientHandler::SetNavState(bool canGoBack, bool canGoForward) {
   //ASSERT(m_BackHwnd != NULL && m_ForwardHwnd != NULL);
   //EnableWindow(m_BackHwnd, canGoBack);
   //EnableWindow(m_ForwardHwnd, canGoForward);
+=======
+  PostMessage(main_handle_, WM_COMMAND, id, 0);
+
+
+}
+
+void ClientHandler::SetLoading(bool isLoading) {
+  /*DCHECK(edit_handle_ != NULL && reload_handle_ != NULL &&
+         stop_handle_ != NULL);*/
+  DCHECK(edit_handle_ != NULL);
+
+  EnableWindow(edit_handle_, TRUE);
+  EnableWindow(reload_handle_, !isLoading);
+  EnableWindow(stop_handle_, isLoading);
+}
+
+void ClientHandler::SetNavState(bool canGoBack, bool canGoForward) {
+  /*DCHECK(back_handle_ != NULL && forward_handle_ != NULL);
+  EnableWindow(back_handle_, canGoBack);
+  EnableWindow(forward_handle_, canGoForward);*/
+>>>>>>> origin/retro1
 }
 
 std::string ClientHandler::GetDownloadPath(const std::string& file_name) {

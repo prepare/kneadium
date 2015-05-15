@@ -3,10 +3,10 @@
 // can be found in the LICENSE file.
 
 #include "cefclient/resource_util.h"
+#include "include/base/cef_logging.h"
 #include "include/cef_stream.h"
 #include "include/wrapper/cef_byte_read_handler.h"
 #include "cefclient/resource.h"
-#include "cefclient/util.h"
 
 namespace {
 
@@ -35,7 +35,6 @@ int GetResourceId(const char* resource_name) {
   } resource_map[] = {
     {"binding.html", IDS_BINDING},
     {"dialogs.html", IDS_DIALOGS},
-    {"domaccess.html", IDS_DOMACCESS},
     {"localstorage.html", IDS_LOCALSTORAGE},
     {"logo.png", IDS_LOGO},
     {"osr_test.html", IDS_OSRTEST},
@@ -70,7 +69,7 @@ bool LoadBinaryResource(const char* resource_name, std::string& resource_data) {
     return true;
   }
 
-  ASSERT(FALSE);  // The resource should be found.
+  NOTREACHED();  // The resource should be found.
   return false;
 }
 
@@ -87,6 +86,6 @@ CefRefPtr<CefStreamReader> GetBinaryResourceReader(const char* resource_name) {
         new CefByteReadHandler(pBytes, dwSize, NULL));
   }
 
-  ASSERT(FALSE);  // The resource should be found.
+  NOTREACHED();  // The resource should be found.
   return NULL;
 }

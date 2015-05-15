@@ -13,9 +13,10 @@ namespace cefclient {
 extern const char kMultiThreadedMessageLoop[];
 extern const char kCachePath[];
 extern const char kUrl[];
-extern const char kExternalDevTools[];
 extern const char kOffScreenRenderingEnabled[];
+extern const char kOffScreenFrameRate[];
 extern const char kTransparentPaintingEnabled[];
+extern const char kShowUpdateRect[];
 extern const char kMouseCursorChangeDisabled[];
 
 }  // namespace cefclient

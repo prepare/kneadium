@@ -6,18 +6,46 @@
 
 #include <windowsx.h>
 
-#include "include/cef_runnable.h"
+#include "include/base/cef_bind.h"
+#include "include/wrapper/cef_closure_task.h"
 #include "cefclient/resource.h"
-#include "cefclient/util.h"
+
+namespace {
+
+class ScopedGLContext {
+ public:
+  ScopedGLContext(HDC hdc, HGLRC hglrc, bool swap_buffers)
+    : hdc_(hdc),
+      swap_buffers_(swap_buffers) {
+    BOOL result = wglMakeCurrent(hdc, hglrc);
+    DCHECK(result);
+  }
+  ~ScopedGLContext() {
+    BOOL result = wglMakeCurrent(NULL, NULL);
+    DCHECK(result);
+    if (swap_buffers_) {
+      result = SwapBuffers(hdc_);
+      DCHECK(result);
+    }
+  }
+
+ private:
+  const HDC hdc_;
+  const bool swap_buffers_;
+};
+
+}  // namespace
 
 // static
-CefRefPtr<OSRWindow> OSRWindow::Create(OSRBrowserProvider* browser_provider,
-    bool transparent) {
-  ASSERT(browser_provider);
+CefRefPtr<OSRWindow> OSRWindow::Create(
+    OSRBrowserProvider* browser_provider,
+    bool transparent,
+    bool show_update_rect) {
+  DCHECK(browser_provider);
   if (!browser_provider)
     return NULL;
 
-  return new OSRWindow(browser_provider, transparent);
+  return new OSRWindow(browser_provider, transparent, show_update_rect);
 }
 
 // static
@@ -28,7 +56,7 @@ CefRefPtr<OSRWindow> OSRWindow::From(
 
 bool OSRWindow::CreateWidget(HWND hWndParent, const RECT& rect,
                              HINSTANCE hInst, LPCTSTR className) {
-  ASSERT(hWnd_ == NULL && hDC_ == NULL && hRC_ == NULL);
+  DCHECK(hWnd_ == NULL && hDC_ == NULL && hRC_ == NULL);
 
   RegisterOSRClass(hInst, className);
   hWnd_ = ::CreateWindow(className, 0,
@@ -44,6 +72,12 @@ bool OSRWindow::CreateWidget(HWND hWndParent, const RECT& rect,
   // Reference released in OnDestroyed().
   AddRef();
 
+#if defined(CEF_USE_ATL)
+  drop_target_ = DropTargetWin::Create(this, hWnd_);
+  HRESULT register_res = RegisterDragDrop(hWnd_, drop_target_);
+  DCHECK_EQ(register_res, S_OK);
+#endif
+
   return true;
 }
 
@@ -53,7 +87,13 @@ void OSRWindow::DestroyWidget() {
 }
 
 void OSRWindow::OnBeforeClose(CefRefPtr<CefBrowser> browser) {
+#if defined(CEF_USE_ATL)
+  RevokeDragDrop(hWnd_);
+  drop_target_ = NULL;
+#endif
+
   DisableGL();
+  ::DestroyWindow(hWnd_);
 }
 
 bool OSRWindow::GetRootScreenRect(CefRefPtr<CefBrowser> browser,
@@ -100,9 +140,8 @@ bool OSRWindow::GetScreenPoint(CefRefPtr<CefBrowser> browser,
 void OSRWindow::OnPopupShow(CefRefPtr<CefBrowser> browser,
                             bool show) {
   if (!show) {
-    CefRect dirty_rect = renderer_.popup_rect();
     renderer_.ClearPopupRects();
-    browser->GetHost()->Invalidate(dirty_rect, PET_VIEW);
+    browser->GetHost()->Invalidate(PET_VIEW);
   }
   renderer_.OnPopupShow(browser, show);
 }
@@ -124,22 +163,22 @@ void OSRWindow::OnPaint(CefRefPtr<CefBrowser> browser,
   if (!hDC_)
     EnableGL();
 
-  wglMakeCurrent(hDC_, hRC_);
-  renderer_.OnPaint(browser, type, dirtyRects, buffer, width, height);
-  if (type == PET_VIEW && !renderer_.popup_rect().IsEmpty()) {
-    painting_popup_ = true;
-    CefRect client_popup_rect(0, 0,
-                              renderer_.popup_rect().width,
-                              renderer_.popup_rect().height);
-    browser->GetHost()->Invalidate(client_popup_rect, PET_POPUP);
-    painting_popup_ = false;
+  {
+    ScopedGLContext scoped_gl_context(hDC_, hRC_, true);
+    renderer_.OnPaint(browser, type, dirtyRects, buffer, width, height);
+    if (type == PET_VIEW && !renderer_.popup_rect().IsEmpty()) {
+      painting_popup_ = true;
+      browser->GetHost()->Invalidate(PET_POPUP);
+      painting_popup_ = false;
+    }
+    renderer_.Render();
   }
-  renderer_.Render();
-  SwapBuffers(hDC_);
 }
 
 void OSRWindow::OnCursorChange(CefRefPtr<CefBrowser> browser,
-                               CefCursorHandle cursor) {
+                               CefCursorHandle cursor,
+                               CursorType type,
+                               const CefCursorInfo& custom_cursor_info) {
   if (!::IsWindow(hWnd_))
     return;
 
@@ -149,9 +188,39 @@ void OSRWindow::OnCursorChange(CefRefPtr<CefBrowser> browser,
   SetCursor(cursor);
 }
 
+bool OSRWindow::StartDragging(CefRefPtr<CefBrowser> browser,
+                               CefRefPtr<CefDragData> drag_data,
+                               CefRenderHandler::DragOperationsMask allowed_ops,
+                               int x, int y) {
+#if defined(CEF_USE_ATL)
+  if (!drop_target_)
+    return false;
+  current_drag_op_ = DRAG_OPERATION_NONE;
+  CefBrowserHost::DragOperationsMask result =
+      drop_target_->StartDragging(browser, drag_data, allowed_ops, x, y);
+  current_drag_op_ = DRAG_OPERATION_NONE;
+  POINT pt = {};
+  GetCursorPos(&pt);
+  ScreenToClient(hWnd_, &pt);
+  browser->GetHost()->DragSourceEndedAt(pt.x, pt.y, result);
+  browser->GetHost()->DragSourceSystemDragEnded();
+  return true;
+#else
+  // Cancel the drag. The dragging implementation requires ATL support.
+  return false;
+#endif
+}
+
+void OSRWindow::UpdateDragCursor(CefRefPtr<CefBrowser> browser,
+                                 CefRenderHandler::DragOperation operation) {
+#if defined(CEF_USE_ATL)
+  current_drag_op_ = operation;
+#endif
+}
+
 void OSRWindow::Invalidate() {
   if (!CefCurrentlyOn(TID_UI)) {
-    CefPostTask(TID_UI, NewCefRunnableMethod(this, &OSRWindow::Invalidate));
+    CefPostTask(TID_UI, base::Bind(&OSRWindow::Invalidate, this));
     return;
   }
 
@@ -163,18 +232,66 @@ void OSRWindow::Invalidate() {
 
   // Render at 30fps.
   static const int kRenderDelay = 1000 / 30;
-  CefPostDelayedTask(TID_UI, NewCefRunnableMethod(this, &OSRWindow::Render),
+  CefPostDelayedTask(TID_UI, base::Bind(&OSRWindow::Render, this),
                      kRenderDelay);
 }
 
-OSRWindow::OSRWindow(OSRBrowserProvider* browser_provider, bool transparent)
-    : renderer_(transparent),
+void OSRWindow::WasHidden(bool hidden) {
+  if (hidden == hidden_)
+    return;
+  CefRefPtr<CefBrowser> browser = browser_provider_->GetBrowser();
+  if (!browser)
+    return;
+  browser->GetHost()->WasHidden(hidden);
+  hidden_ = hidden;
+}
+
+#if defined(CEF_USE_ATL)
+
+CefBrowserHost::DragOperationsMask
+    OSRWindow::OnDragEnter(CefRefPtr<CefDragData> drag_data,
+                           CefMouseEvent ev,
+                           CefBrowserHost::DragOperationsMask effect) {
+  browser_provider_->GetBrowser()->GetHost()->DragTargetDragEnter(
+      drag_data, ev, effect);
+  browser_provider_->GetBrowser()->GetHost()->DragTargetDragOver(ev, effect);
+  return current_drag_op_;
+}
+
+CefBrowserHost::DragOperationsMask OSRWindow::OnDragOver(CefMouseEvent ev,
+                              CefBrowserHost::DragOperationsMask effect) {
+  browser_provider_->GetBrowser()->GetHost()->DragTargetDragOver(ev, effect);
+  return current_drag_op_;
+}
+
+void OSRWindow::OnDragLeave() {
+  browser_provider_->GetBrowser()->GetHost()->DragTargetDragLeave();
+}
+
+CefBrowserHost::DragOperationsMask
+    OSRWindow::OnDrop(CefMouseEvent ev,
+                      CefBrowserHost::DragOperationsMask effect) {
+  browser_provider_->GetBrowser()->GetHost()->DragTargetDragOver(ev, effect);
+  browser_provider_->GetBrowser()->GetHost()->DragTargetDrop(ev);
+  return current_drag_op_;
+}
+
+#endif  // defined(CEF_USE_ATL)
+
+OSRWindow::OSRWindow(OSRBrowserProvider* browser_provider,
+                     bool transparent,
+                     bool show_update_rect)
+    : renderer_(transparent, show_update_rect),
       browser_provider_(browser_provider),
       hWnd_(NULL),
       hDC_(NULL),
       hRC_(NULL),
+#if defined(CEF_USE_ATL)
+      current_drag_op_(DRAG_OPERATION_NONE),
+#endif
       painting_popup_(false),
-      render_task_pending_(false) {
+      render_task_pending_(false),
+      hidden_(false) {
 }
 
 OSRWindow::~OSRWindow() {
@@ -182,20 +299,19 @@ OSRWindow::~OSRWindow() {
 }
 
 void OSRWindow::Render() {
-  ASSERT(CefCurrentlyOn(TID_UI));
+  CEF_REQUIRE_UI_THREAD();
   if (render_task_pending_)
     render_task_pending_ = false;
 
   if (!hDC_)
     EnableGL();
 
-  wglMakeCurrent(hDC_, hRC_);
+  ScopedGLContext scoped_gl_context(hDC_, hRC_, true);
   renderer_.Render();
-  SwapBuffers(hDC_);
 }
 
 void OSRWindow::EnableGL() {
-  ASSERT(CefCurrentlyOn(TID_UI));
+  CEF_REQUIRE_UI_THREAD();
 
   PIXELFORMATDESCRIPTOR pfd;
   int format;
@@ -217,22 +333,26 @@ void OSRWindow::EnableGL() {
 
   // Create and enable the render context.
   hRC_ = wglCreateContext(hDC_);
-  wglMakeCurrent(hDC_, hRC_);
 
+  ScopedGLContext scoped_gl_context(hDC_, hRC_, false);
   renderer_.Initialize();
 }
 
 void OSRWindow::DisableGL() {
-  ASSERT(CefCurrentlyOn(TID_UI));
+  CEF_REQUIRE_UI_THREAD();
 
   if (!hDC_)
     return;
 
-  renderer_.Cleanup();
+  {
+    ScopedGLContext scoped_gl_context(hDC_, hRC_, false);
+    renderer_.Cleanup();
+  }
 
   if (IsWindow(hWnd_)) {
-    wglMakeCurrent(NULL, NULL);
-    wglDeleteContext(hRC_);
+    // wglDeleteContext will make the context not current before deleting it.
+    BOOL result = wglDeleteContext(hRC_);
+    DCHECK(result);
     ReleaseDC(hWnd_, hDC_);
   }
 
@@ -563,9 +683,14 @@ LRESULT CALLBACK OSRWindow::WndProc(HWND hWnd, UINT message,
       mouseTracking = false;
     }
     if (browser.get()) {
+      // Determine the cursor position in screen coordinates.
+      POINT p;
+      ::GetCursorPos(&p);
+      ::ScreenToClient(hWnd, &p);
+
       CefMouseEvent mouse_event;
-      mouse_event.x = 0;
-      mouse_event.y = 0;
+      mouse_event.x = p.x;
+      mouse_event.y = p.y;
       mouse_event.modifiers = GetCefMouseModifiers(wParam);
       browser->SendMouseMoveEvent(mouse_event, true);
     }
@@ -642,12 +767,8 @@ LRESULT CALLBACK OSRWindow::WndProc(HWND hWnd, UINT message,
     BeginPaint(hWnd, &ps);
     rc = ps.rcPaint;
     EndPaint(hWnd, &ps);
-    if (browser.get()) {
-      browser->Invalidate(CefRect(rc.left,
-                                  rc.top,
-                                  rc.right - rc.left,
-                                  rc.bottom - rc.top), PET_VIEW);
-    }
+    if (browser.get())
+      browser->Invalidate(PET_VIEW);
     return 0;
   }
 

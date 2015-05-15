@@ -4,9 +4,12 @@
 
 #include "cefclient/client_app.h"
 #include "cefclient/client_renderer.h"
-#include "cefclient/dom_test.h"
 #include "cefclient/performance_test.h"
 #include "cefclient/scheme_test.h"
+
+#if defined(OS_LINUX)
+#include "cefclient/print_handler_gtk.h"
+#endif
 
 // static
 void ClientApp::CreateBrowserDelegates(BrowserDelegateSet& delegates)
@@ -17,7 +20,6 @@ void ClientApp::CreateBrowserDelegates(BrowserDelegateSet& delegates)
 void ClientApp::CreateRenderDelegates(RenderDelegateSet& delegates) 
 {	
   client_renderer::CreateRenderDelegates(delegates);
-  dom_test::CreateRenderDelegates(delegates);
   performance_test::CreateRenderDelegates(delegates);
   //register custom render delegate 
 
@@ -26,6 +28,7 @@ void ClientApp::CreateRenderDelegates(RenderDelegateSet& delegates)
 // static
 void ClientApp::RegisterCustomSchemes(
     CefRefPtr<CefSchemeRegistrar> registrar,
+<<<<<<< HEAD
     std::vector<CefString>& cookiable_schemes)
 {
 	if(this->myMxCallback)
@@ -38,4 +41,20 @@ void ClientApp::RegisterCustomSchemes(
 		//others...
 		scheme_test::RegisterCustomSchemes(registrar, cookiable_schemes);
 	}
+=======
+    std::vector<CefString>& cookiable_schemes) {
+	
+	 
+  scheme_test::RegisterCustomSchemes(registrar, cookiable_schemes);
+>>>>>>> origin/retro1
 }
+
+// static
+CefRefPtr<CefPrintHandler> ClientApp::CreatePrintHandler() {
+#if defined(OS_LINUX)
+  return new ClientPrintHandlerGtk();
+#else
+  return NULL;
+#endif
+}
+

@@ -18,9 +18,13 @@ class ClientApp : public CefApp,
                   public CefBrowserProcessHandler,
                   public CefRenderProcessHandler {
  public:
+<<<<<<< HEAD
 
   managed_callback myMxCallback; 
 
+=======
+  managed_callback myMxCallback; 
+>>>>>>> origin/retro1
   // Interface for browser delegates. All BrowserDelegates must be returned via
   // CreateBrowserDelegates. Do not perform work in the BrowserDelegate
   // constructor. See CefBrowserProcessHandler for documentation.
@@ -54,6 +58,10 @@ class ClientApp : public CefApp,
 
     virtual void OnBrowserDestroyed(CefRefPtr<ClientApp> app,
                                     CefRefPtr<CefBrowser> browser) {}
+
+    virtual CefRefPtr<CefLoadHandler> GetLoadHandler(CefRefPtr<ClientApp> app) {
+      return NULL;
+    }
 
     virtual bool OnBeforeNavigation(CefRefPtr<ClientApp> app,
                                     CefRefPtr<CefBrowser> browser,
@@ -103,22 +111,6 @@ class ClientApp : public CefApp,
 
   ClientApp();
 
-  // Set a JavaScript callback for the specified |message_name| and |browser_id|
-  // combination. Will automatically be removed when the associated context is
-  // released. Callbacks can also be set in JavaScript using the
-  // app.setMessageCallback function.
-  void SetMessageCallback(const std::string& message_name,
-                          int browser_id,
-                          CefRefPtr<CefV8Context> context,
-                          CefRefPtr<CefV8Value> function);
-
-  // Removes the JavaScript callback for the specified |message_name| and
-  // |browser_id| combination. Returns true if a callback was removed. Callbacks
-  // can also be removed in JavaScript using the app.removeMessageCallback
-  // function.
-  bool RemoveMessageCallback(const std::string& message_name,
-                             int browser_id);
-
  private:
   // Creates all of the BrowserDelegate objects. Implemented in
   // client_app_delegates.
@@ -133,12 +125,19 @@ class ClientApp : public CefApp,
   void RegisterCustomSchemes(CefRefPtr<CefSchemeRegistrar> registrar,
                                     std::vector<CefString>& cookiable_schemes);
 
+  // Create the Linux print handler. Implemented in client_app_delegates.
+  static CefRefPtr<CefPrintHandler> CreatePrintHandler();
+
   // CefApp methods.
   virtual void OnRegisterCustomSchemes(
+<<<<<<< HEAD
       CefRefPtr<CefSchemeRegistrar> registrar) OVERRIDE
   {
     RegisterCustomSchemes(registrar, cookieable_schemes_);
   }
+=======
+      CefRefPtr<CefSchemeRegistrar> registrar) OVERRIDE;
+>>>>>>> origin/retro1
   virtual CefRefPtr<CefBrowserProcessHandler> GetBrowserProcessHandler()
       OVERRIDE { return this; }
   virtual CefRefPtr<CefRenderProcessHandler> GetRenderProcessHandler()
@@ -150,6 +149,9 @@ class ClientApp : public CefApp,
       CefRefPtr<CefCommandLine> command_line) OVERRIDE;
   virtual void OnRenderProcessThreadCreated(CefRefPtr<CefListValue> extra_info)
                                             OVERRIDE;
+  virtual CefRefPtr<CefPrintHandler> GetPrintHandler() OVERRIDE {
+    return print_handler_;
+  }
 
   // CefRenderProcessHandler methods.
   virtual void OnRenderThreadCreated(CefRefPtr<CefListValue> extra_info)
@@ -157,6 +159,7 @@ class ClientApp : public CefApp,
   virtual void OnWebKitInitialized() OVERRIDE;
   virtual void OnBrowserCreated(CefRefPtr<CefBrowser> browser) OVERRIDE;
   virtual void OnBrowserDestroyed(CefRefPtr<CefBrowser> browser) OVERRIDE;
+  virtual CefRefPtr<CefLoadHandler> GetLoadHandler() OVERRIDE;
   virtual bool OnBeforeNavigation(CefRefPtr<CefBrowser> browser,
                                   CefRefPtr<CefFrame> frame,
                                   CefRefPtr<CefRequest> request,
@@ -182,20 +185,17 @@ class ClientApp : public CefApp,
       CefProcessId source_process,
       CefRefPtr<CefProcessMessage> message) OVERRIDE;
 
-  // Map of message callbacks.
-  typedef std::map<std::pair<std::string, int>,
-                   std::pair<CefRefPtr<CefV8Context>, CefRefPtr<CefV8Value> > >
-                   CallbackMap;
-  CallbackMap callback_map_;
-
-  // Set of supported BrowserDelegates.
+  // Set of supported BrowserDelegates. Only used in the browser process.
   BrowserDelegateSet browser_delegates_;
 
-  // Set of supported RenderDelegates.
+  // Set of supported RenderDelegates. Only used in the renderer process.
   RenderDelegateSet render_delegates_;
 
-  // Schemes that will be registered with the global cookie manager.
+  // Schemes that will be registered with the global cookie manager. Used in
+  // both the browser and renderer process.
   std::vector<CefString> cookieable_schemes_;
+
+  CefRefPtr<CefPrintHandler> print_handler_;
 
   IMPLEMENT_REFCOUNTING(ClientApp);
 };
