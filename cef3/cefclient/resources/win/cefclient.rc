@@ -29,22 +29,6 @@ LANGUAGE LANG_ENGLISH, SUBLANG_ENGLISH_US
 // Binary
 //
 
-<<<<<<< HEAD:cef3/cefclient/resources/win/cefclient.rc
-<<<<<<< HEAD:cef3/cefclient/cefclient.rc
-IDS_BINDING BINARY "res\\binding.html"
-IDS_DIALOGS BINARY "res\\dialogs.html"
-IDS_LOCALSTORAGE BINARY "res\\localstorage.html"
-IDS_LOGO BINARY "res\\logo.png"
-IDS_OSRTEST BINARY "res\\osr_test.html"
-IDS_OTHER_TESTS BINARY "res\\other_tests.html"
-IDS_PERFORMANCE BINARY "res\\performance.html"
-IDS_PERFORMANCE2 BINARY "res\\performance2.html"
-IDS_TRANSPARENCY BINARY "res\\transparency.html"
-IDS_WINDOW BINARY "res\\window.html"
-IDS_XMLHTTPREQUEST BINARY "res\\xmlhttprequest.html"
-=======
-=======
->>>>>>> origin/s01_t1:cef3/cefclient/resources/win/cefclient.rc
 IDS_BINDING BINARY "..\\binding.html"
 IDS_DIALOGS BINARY "..\\dialogs.html"
 IDS_LOCALSTORAGE BINARY "..\\localstorage.html"
@@ -57,10 +41,6 @@ IDS_TRANSPARENCY BINARY "..\\transparency.html"
 IDS_URLREQUEST BINARY "..\\urlrequest.html"
 IDS_WINDOW BINARY "..\\window.html"
 IDS_XMLHTTPREQUEST BINARY "..\\xmlhttprequest.html"
-<<<<<<< HEAD:cef3/cefclient/resources/win/cefclient.rc
->>>>>>> origin/3.2357.1267:cef3/cefclient/resources/win/cefclient.rc
-=======
->>>>>>> origin/s01_t1:cef3/cefclient/resources/win/cefclient.rc
 
 /////////////////////////////////////////////////////////////////////////////
 //

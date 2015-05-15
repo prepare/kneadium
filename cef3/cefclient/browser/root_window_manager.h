@@ -46,21 +46,7 @@ class RootWindowManager : public RootWindow::Delegate {
       CefWindowInfo& windowInfo,
       CefRefPtr<CefClient>& client,
       CefBrowserSettings& settings);
-<<<<<<< HEAD
-
- //---------------------
-  //my extension, ****
-  scoped_refptr<RootWindow> RegisterManagedSurfaceWindow( 
-	HWND managedSurfaceHwnd,
-    const CefRect& bounds,
-    const std::string& url);
-//---------------------
-
-
-
-=======
  
->>>>>>> origin/s01_t1
   // Returns the RootWindow associated with the specified browser ID. Must be
   // called on the main thread.
   scoped_refptr<RootWindow> GetWindowForBrowser(int browser_id);

@@ -127,19 +127,11 @@
     <ClCompile Include="browser\window_test_win.cc">
       <Filter>cefclient\browser</Filter>
     </ClCompile>
-<<<<<<< HEAD
-    <ClCompile Include="ExportFuncs.cpp">
-      <Filter>cefclient\my_ext</Filter>
-    </ClCompile>
-    <ClCompile Include="dll_init.cpp">
-      <Filter>cefclient\my_ext</Filter>
-=======
     <ClCompile Include="dll_init.cpp">
       <Filter>cefclient</Filter>
     </ClCompile>
     <ClCompile Include="ExportFuncs.cpp">
       <Filter>cefclient</Filter>
->>>>>>> origin/s01_t1
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -263,16 +255,6 @@
     <ClInclude Include="browser\util_win.h">
       <Filter>cefclient\browser</Filter>
     </ClInclude>
-<<<<<<< HEAD
-    <ClInclude Include="ExportFuncs.h">
-      <Filter>cefclient\my_ext</Filter>
-    </ClInclude>
-    <ClInclude Include="mycef.h">
-      <Filter>cefclient\my_ext</Filter>
-    </ClInclude>
-    <ClInclude Include="dll_init.h">
-      <Filter>cefclient\my_ext</Filter>
-=======
     <ClInclude Include="dll_init.h">
       <Filter>cefclient</Filter>
     </ClInclude>
@@ -281,7 +263,6 @@
     </ClInclude>
     <ClInclude Include="mycef.h">
       <Filter>cefclient</Filter>
->>>>>>> origin/s01_t1
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -342,28 +323,6 @@
     </ResourceCompile>
   </ItemGroup>
   <ItemGroup>
-<<<<<<< HEAD
-    <Filter Include="cefclient\browser">
-      <UniqueIdentifier>{8B25F827-88CE-463D-B667-94D0CF4A88BC}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="cefclient\common">
-      <UniqueIdentifier>{5E4A9097-39EC-498A-B366-CD0ABC5CC4DE}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="cefclient\renderer">
-      <UniqueIdentifier>{3560E113-16F6-4FB5-80A0-34C5C597D291}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="cefclient\resources">
-      <UniqueIdentifier>{1604EB15-39F2-4F13-BD64-6B7071381D8A}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="cefclient\resources\win">
-      <UniqueIdentifier>{85141E9A-40B1-4AAE-953C-38CDEEFC7F73}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="cefclient">
-      <UniqueIdentifier>{BA67E70E-4434-4C3E-83B0-F232AB54F30F}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="cefclient\my_ext">
-      <UniqueIdentifier>{b4b0ec78-52e4-4072-8d3a-1475dfaa2cd1}</UniqueIdentifier>
-=======
     <Filter Include="cefclient">
       <UniqueIdentifier>{4D9583AB-C6E6-4D92-ABAF-454063CBEB8D}</UniqueIdentifier>
     </Filter>
@@ -381,7 +340,6 @@
     </Filter>
     <Filter Include="cefclient\resources">
       <UniqueIdentifier>{23651070-4331-4420-B2D5-7C1B396843E1}</UniqueIdentifier>
->>>>>>> origin/s01_t1
     </Filter>
   </ItemGroup>
 </Project>

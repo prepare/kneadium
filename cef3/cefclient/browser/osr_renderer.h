@@ -13,14 +13,6 @@ namespace client {
 
 class OsrRenderer {
  public:
-<<<<<<< HEAD:cef3/cefclient/browser/osr_renderer.h
-<<<<<<< HEAD:cef3/cefclient/osrenderer.h
-  ClientOSRenderer(bool transparent,
-                   bool show_update_rect);
-  virtual ~ClientOSRenderer();
-=======
-=======
->>>>>>> origin/s01_t1:cef3/cefclient/browser/osr_renderer.h
   struct Settings {
     Settings();
 
@@ -36,10 +28,6 @@ class OsrRenderer {
 
   explicit OsrRenderer(const Settings& settings);
   ~OsrRenderer();
-<<<<<<< HEAD:cef3/cefclient/browser/osr_renderer.h
->>>>>>> origin/3.2357.1267:cef3/cefclient/browser/osr_renderer.h
-=======
->>>>>>> origin/s01_t1:cef3/cefclient/browser/osr_renderer.h
 
   // Initialize the OpenGL environment.
   void Initialize();
@@ -78,16 +66,7 @@ class OsrRenderer {
   void ClearPopupRects();
 
  private:
-<<<<<<< HEAD:cef3/cefclient/browser/osr_renderer.h
-<<<<<<< HEAD:cef3/cefclient/osrenderer.h
-  const bool transparent_;
-  const bool show_update_rect_;
-=======
   const Settings settings_;
->>>>>>> origin/3.2357.1267:cef3/cefclient/browser/osr_renderer.h
-=======
-  const Settings settings_;
->>>>>>> origin/s01_t1:cef3/cefclient/browser/osr_renderer.h
   bool initialized_;
   unsigned int texture_id_;
   int view_width_;
@@ -97,16 +76,8 @@ class OsrRenderer {
   float spin_x_;
   float spin_y_;
   CefRect update_rect_;
-<<<<<<< HEAD:cef3/cefclient/browser/osr_renderer.h
-<<<<<<< HEAD:cef3/cefclient/osrenderer.h
-=======
 
   DISALLOW_COPY_AND_ASSIGN(OsrRenderer);
->>>>>>> origin/3.2357.1267:cef3/cefclient/browser/osr_renderer.h
-=======
-
-  DISALLOW_COPY_AND_ASSIGN(OsrRenderer);
->>>>>>> origin/s01_t1:cef3/cefclient/browser/osr_renderer.h
 };
 
 }  // namespace client
