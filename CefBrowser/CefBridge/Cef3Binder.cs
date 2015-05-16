@@ -251,6 +251,7 @@ namespace LayoutFarm.CefBridge
         //---------------------------------------------------
         //Cef
         //---------------------------------------------------
+        //part 1: 
 
         //1.
         [DllImport(CEF_CLIENT_DLL)]
@@ -281,6 +282,7 @@ namespace LayoutFarm.CefBridge
         public static extern int MyCefShutDown();     
         ////--------------------------------------------------- 
 
+        //part 2:
         [DllImport(CEF_CLIENT_DLL, CharSet = CharSet.Unicode)]
         public static extern unsafe void NavigateTo(IntPtr clientHandler, string urlAddress);
 

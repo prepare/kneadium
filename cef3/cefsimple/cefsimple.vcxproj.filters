@@ -7,13 +7,13 @@
     <ClCompile Include="simple_handler.cc">
       <Filter>cefsimple</Filter>
     </ClCompile>
+    <ClCompile Include="cefsimple_win.cc">
+      <Filter>cefsimple</Filter>
+    </ClCompile>
     <ClCompile Include="simple_handler_win.cc">
       <Filter>cefsimple</Filter>
     </ClCompile>
     <ClCompile Include="ExportFuncs.cc">
-      <Filter>cefsimple</Filter>
-    </ClCompile>
-    <ClCompile Include="cefsimple_win.cc">
       <Filter>cefsimple</Filter>
     </ClCompile>
   </ItemGroup>
@@ -25,9 +25,6 @@
       <Filter>cefsimple</Filter>
     </ClInclude>
     <ClInclude Include="resource.h">
-      <Filter>cefsimple</Filter>
-    </ClInclude>
-    <ClInclude Include="mycef.h">
       <Filter>cefsimple</Filter>
     </ClInclude>
     <ClInclude Include="ExportFuncs.h">

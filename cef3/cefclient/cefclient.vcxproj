@@ -55,7 +55,7 @@
       <BasicRuntimeChecks>EnableFastChecks</BasicRuntimeChecks>
       <CompileAs>CompileAsCpp</CompileAs>
       <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
-      <DisableSpecificWarnings>4100;4127;4244;4512;4701;4702;4996;4481;4510;4610</DisableSpecificWarnings>
+      <DisableSpecificWarnings>4100;4127;4244;4512;4701;4702;4996;4481;4510;4610;</DisableSpecificWarnings>
       <ExceptionHandling>
       </ExceptionHandling>
       <FunctionLevelLinking>true</FunctionLevelLinking>

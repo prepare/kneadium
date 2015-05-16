@@ -168,3 +168,5 @@ void MyCefDoMessageLoopWork()
 void MyCefShutDown(){
 	CefShutdown();
 }
+
+//---------------------------------------------------------------------------
