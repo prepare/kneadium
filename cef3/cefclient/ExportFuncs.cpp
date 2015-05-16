@@ -23,8 +23,9 @@ delTraceBack notifyListener= NULL;
 client::MainContextImpl* mainContext;  
 client::MainMessageLoop* message_loop;
 client::RootWindowWin* rootWindow;
-managed_callback myMxCallback_;
+client::BrowserWindowStdWin* bwWindow;
 
+managed_callback myMxCallback_;
 
 //1.
 int MyCefGetVersion()
@@ -103,7 +104,9 @@ client::ClientHandler* MyCefCreateClientHandler()
 	} 
 
 	//1. create browser window handler
-	auto bwWindow= new client::BrowserWindowStdWin(rootWindow,"");  
+	//TODO: review here again, don't store at this module!
+	bwWindow= new client::BrowserWindowStdWin(rootWindow,"");   
+	
 	//2. browser event handler
 	auto hh = new client::ClientHandlerStd(bwWindow,"");
 	hh->MyCefSetManagedCallBack(myMxCallback_); 
@@ -170,3 +173,41 @@ void MyCefShutDown(){
 }
 
 //---------------------------------------------------------------------------
+//part2:
+
+//1. 
+void NavigateTo(client::ClientHandler* clientHandler, const wchar_t* url){
+		 
+	bwWindow->GetBrowser()->GetMainFrame()->LoadURL(url);
+}
+//2.
+void ExecJavascript(client::ClientHandler* clientHandler, const wchar_t* jscode,const wchar_t* script_url){
+	
+	bwWindow->GetBrowser()->GetMainFrame()->ExecuteJavaScript(jscode,script_url,0);
+}
+//3. 
+void PostData(client::ClientHandler* clientHandler, const wchar_t* url,const wchar_t* rawDataToPost,size_t rawDataLength){
+	
+	//create request
+	CefRefPtr<CefRequest> request(CefRequest::Create());
+	request->SetURL(url);
+	
+	//Add post data to request, the correct method and content-type header willbe set by CEF
+
+	CefRefPtr<CefPostDataElement> postDataElement(CefPostDataElement::Create());
+	postDataElement->SetToBytes(rawDataLength,rawDataToPost);
+	CefRefPtr<CefPostData> postData(CefPostData::Create());
+	postData->AddElement(postDataElement);
+	request->SetPostData(postData);
+
+	//add custom header
+	CefRequest::HeaderMap headerMap;
+	headerMap.insert(
+		std::make_pair("X-My-Header","My Header Value"));
+	request->SetHeaderMap(headerMap);
+
+	//load request
+	bwWindow->GetBrowser()->GetMainFrame()->LoadRequest(request);
+
+
+}

@@ -42,7 +42,7 @@
             // 
             // button7
             // 
-            this.button7.Location = new System.Drawing.Point(12, 12);
+            this.button7.Location = new System.Drawing.Point(12, 55);
             this.button7.Name = "button7";
             this.button7.Size = new System.Drawing.Size(132, 37);
             this.button7.TabIndex = 8;
@@ -52,7 +52,7 @@
             // 
             // button1
             // 
-            this.button1.Location = new System.Drawing.Point(12, 55);
+            this.button1.Location = new System.Drawing.Point(12, 98);
             this.button1.Name = "button1";
             this.button1.Size = new System.Drawing.Size(132, 37);
             this.button1.TabIndex = 9;
@@ -62,7 +62,7 @@
             // 
             // button2
             // 
-            this.button2.Location = new System.Drawing.Point(12, 98);
+            this.button2.Location = new System.Drawing.Point(12, 141);
             this.button2.Name = "button2";
             this.button2.Size = new System.Drawing.Size(132, 37);
             this.button2.TabIndex = 10;
@@ -72,7 +72,7 @@
             // 
             // button3
             // 
-            this.button3.Location = new System.Drawing.Point(12, 141);
+            this.button3.Location = new System.Drawing.Point(12, 184);
             this.button3.Name = "button3";
             this.button3.Size = new System.Drawing.Size(132, 37);
             this.button3.TabIndex = 11;
@@ -82,7 +82,7 @@
             // 
             // button4
             // 
-            this.button4.Location = new System.Drawing.Point(12, 184);
+            this.button4.Location = new System.Drawing.Point(12, 227);
             this.button4.Name = "button4";
             this.button4.Size = new System.Drawing.Size(132, 37);
             this.button4.TabIndex = 12;
@@ -92,7 +92,7 @@
             // 
             // button5
             // 
-            this.button5.Location = new System.Drawing.Point(12, 227);
+            this.button5.Location = new System.Drawing.Point(12, 270);
             this.button5.Name = "button5";
             this.button5.Size = new System.Drawing.Size(132, 37);
             this.button5.TabIndex = 13;
@@ -102,8 +102,8 @@
             // 
             // cefWebBrowser1
             // 
-            this.cefWebBrowser1.BackColor = System.Drawing.SystemColors.ButtonShadow;
-            this.cefWebBrowser1.Location = new System.Drawing.Point(162, 12);
+            this.cefWebBrowser1.BackColor = System.Drawing.Color.White;
+            this.cefWebBrowser1.Location = new System.Drawing.Point(150, 66);
             this.cefWebBrowser1.Name = "cefWebBrowser1";
             this.cefWebBrowser1.Size = new System.Drawing.Size(802, 459);
             this.cefWebBrowser1.TabIndex = 6;
@@ -111,7 +111,7 @@
             // 
             // button6
             // 
-            this.button6.Location = new System.Drawing.Point(12, 270);
+            this.button6.Location = new System.Drawing.Point(12, 313);
             this.button6.Name = "button6";
             this.button6.Size = new System.Drawing.Size(132, 37);
             this.button6.TabIndex = 14;

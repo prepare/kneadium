@@ -28,6 +28,9 @@ namespace CefBridgeTest
 
             this.tt2.Interval = 200;
             this.tt2.Tick += new EventHandler(tt2_Tick);
+            
+
+
 
         }
         void tt2_Tick(object sender, EventArgs e)
@@ -131,16 +134,20 @@ namespace CefBridgeTest
         private void button7_Click(object sender, EventArgs e)
         {
 
-            this.cefWebBrowser1.Focus();
-            //this.cefWebBrowser1.NavigateTo("http://10.0.2.71");
-            this.cefWebBrowser1.NavigateTo("http://localhost");
+            this.cefWebBrowser1.Focus();             
+            //this.cefWebBrowser1.NavigateTo("http://localhost");
+            //this.cefWebBrowser1.NavigateTo("https://html5test.com");
+            //this.cefWebBrowser1.NavigateTo("https://www.youtube.com");
+             
+            
         }
 
         private void button1_Click(object sender, EventArgs e)
         {
+            //cefWebBrowser1.Agent.ExecJavascript(
+            //    "window.open('https://html5test.com');", "about:blank");
             cefWebBrowser1.Agent.ExecJavascript(
-                "window.open('http://localhost/html5/mycanvas.html');", "about:blank");
-
+                "alert('test!');", "about:blank");
         }
 
         private void button2_Click(object sender, EventArgs e)
@@ -192,13 +199,14 @@ namespace CefBridgeTest
 
         private void button6_Click(object sender, EventArgs e)
         {
-            var wb = this.cefWebBrowser1;
-            if (wb != null)
-            {
-                this.Controls.Remove(wb);
-                wb.Dispose();
-                this.cefWebBrowser1 = wb = null;
-            }
+            //remove and destroy browser window
+            //var wb = this.cefWebBrowser1;
+            //if (wb != null)
+            //{
+            //    this.Controls.Remove(wb);
+            //    wb.Dispose();
+            //    this.cefWebBrowser1 = wb = null;
+            //}
         }
 
         private void button8_Click(object sender, EventArgs e)
