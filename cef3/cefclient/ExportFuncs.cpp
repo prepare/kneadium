@@ -175,9 +175,13 @@ void MyCefShutDown(){
 //---------------------------------------------------------------------------
 //part2:
 
+//1. 
 void NavigateTo(client::ClientHandler* clientHandler, const wchar_t* url){
-
-	CefString url2(url); 
-	bwWindow->GetBrowser()->GetMainFrame()->LoadURL(url2);
-
+		 
+	bwWindow->GetBrowser()->GetMainFrame()->LoadURL(url);
+}
+//2.
+void ExecJavascript(client::ClientHandler* clientHandler, const wchar_t* jscode,const wchar_t* script_url){
+	
+	bwWindow->GetBrowser()->GetMainFrame()->ExecuteJavaScript(jscode,script_url,0);
 }
