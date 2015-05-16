@@ -185,3 +185,29 @@ void ExecJavascript(client::ClientHandler* clientHandler, const wchar_t* jscode,
 	
 	bwWindow->GetBrowser()->GetMainFrame()->ExecuteJavaScript(jscode,script_url,0);
 }
+//3. 
+void PostData(client::ClientHandler* clientHandler, const wchar_t* url,const wchar_t* rawDataToPost,size_t rawDataLength){
+	
+	//create request
+	CefRefPtr<CefRequest> request(CefRequest::Create());
+	request->SetURL(url);
+	
+	//Add post data to request, the correct method and content-type header willbe set by CEF
+
+	CefRefPtr<CefPostDataElement> postDataElement(CefPostDataElement::Create());
+	postDataElement->SetToBytes(rawDataLength,rawDataToPost);
+	CefRefPtr<CefPostData> postData(CefPostData::Create());
+	postData->AddElement(postDataElement);
+	request->SetPostData(postData);
+
+	//add custom header
+	CefRequest::HeaderMap headerMap;
+	headerMap.insert(
+		std::make_pair("X-My-Header","My Header Value"));
+	request->SetHeaderMap(headerMap);
+
+	//load request
+	bwWindow->GetBrowser()->GetMainFrame()->LoadRequest(request);
+
+
+}

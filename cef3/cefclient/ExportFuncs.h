@@ -41,6 +41,9 @@ extern "C"{
 	MY_DLL_EXPORT void NavigateTo(client::ClientHandler* clientHandler, const wchar_t* url);
 	//2. 
 	MY_DLL_EXPORT void ExecJavascript(client::ClientHandler* clientHandler, const wchar_t* jscode,const wchar_t* script_url);
+	//3.
+	MY_DLL_EXPORT void PostData(client::ClientHandler* clientHandler, const wchar_t* url,const wchar_t* rawDataToPost,size_t rawDataLength);
+
 
 
 }
