@@ -138,17 +138,16 @@ namespace CefBridgeTest
             //this.cefWebBrowser1.NavigateTo("http://localhost");
             //this.cefWebBrowser1.NavigateTo("https://html5test.com");
             //this.cefWebBrowser1.NavigateTo("https://www.youtube.com");
-            //this.cefWebBrowser1.NavigateTo("http://ace.c9.io/build/kitchen-sink.html");
-            this.cefWebBrowser1.NavigateTo("http://codemirror.net/index.html");
-
+             
             
         }
 
         private void button1_Click(object sender, EventArgs e)
         {
+            //cefWebBrowser1.Agent.ExecJavascript(
+            //    "window.open('https://html5test.com');", "about:blank");
             cefWebBrowser1.Agent.ExecJavascript(
-                "window.open('http://localhost/html5/mycanvas.html');", "about:blank");
-
+                "alert('test!');", "about:blank");
         }
 
         private void button2_Click(object sender, EventArgs e)
