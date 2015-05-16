@@ -8,6 +8,7 @@
 
 extern "C"{  	 
 	 
+	//part 1
 
 	//1.
 	MY_DLL_EXPORT int MyCefGetVersion(); 
@@ -31,5 +32,8 @@ extern "C"{
 	 
 	//9.
 	MY_DLL_EXPORT void MyCefShutDown();  
- 
+
+	//--------------------
+	//part 2
+	MY_DLL_EXPORT void NavigateTo(client::ClientHandler* clientHandler, const wchar_t* url);
 }

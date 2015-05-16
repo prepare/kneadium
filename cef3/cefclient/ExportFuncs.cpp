@@ -23,8 +23,9 @@ delTraceBack notifyListener= NULL;
 client::MainContextImpl* mainContext;  
 client::MainMessageLoop* message_loop;
 client::RootWindowWin* rootWindow;
-managed_callback myMxCallback_;
+client::BrowserWindowStdWin* bwWindow;
 
+managed_callback myMxCallback_;
 
 //1.
 int MyCefGetVersion()
@@ -103,7 +104,9 @@ client::ClientHandler* MyCefCreateClientHandler()
 	} 
 
 	//1. create browser window handler
-	auto bwWindow= new client::BrowserWindowStdWin(rootWindow,"");  
+	//TODO: review here again, don't store at this module!
+	bwWindow= new client::BrowserWindowStdWin(rootWindow,"");   
+	
 	//2. browser event handler
 	auto hh = new client::ClientHandlerStd(bwWindow,"");
 	hh->MyCefSetManagedCallBack(myMxCallback_); 
@@ -167,4 +170,14 @@ void MyCefDoMessageLoopWork()
 //9.
 void MyCefShutDown(){
 	CefShutdown();
+}
+
+//---------------------------------------------------------------------------
+//part2:
+
+void NavigateTo(client::ClientHandler* clientHandler, const wchar_t* url){
+
+	CefString url2(url); 
+	bwWindow->GetBrowser()->GetMainFrame()->LoadURL(url2);
+
 }

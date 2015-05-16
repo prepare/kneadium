@@ -14,37 +14,23 @@ namespace LayoutFarm.CefBridge
     public class CefBrowserAgent
     {
 
-
+        internal static bool WindowIsCreated;
         IntPtr cefClientHandler;
         IntPtr parentWindowHandler;
         AgentManagedCallback managedCallback;
 
-        internal CefBrowserAgent(IntPtr context, IntPtr parentWindowHandler,
+        internal CefBrowserAgent(IntPtr parentWindowHandler,
             int x, int y, int w, int h)
         {
-            this.parentWindowHandler = parentWindowHandler;
-            
+            this.parentWindowHandler = parentWindowHandler; 
             //create cef browser view handler  
-
-            this.cefClientHandler = Cef3Binder.MyCefCreateClientHandler(context, parentWindowHandler, x, y, w, h);
-            //Cef3Binder.SetupCefWindow(cefClientHandler, parentWindowHandler, x, y, w, h);
-
-
-            managedCallback = new AgentManagedCallback(this.OnUnmanagedPartCallBack);
-            Cef3Binder.AgentRegisterManagedCallback(this.cefClientHandler, managedCallback);
-
-        }
-
+            this.cefClientHandler = Cef3Binder.MyCefCreateClientHandler(); 
+            Cef3Binder.MyCefSetupBrowserHwnd(cefClientHandler, parentWindowHandler, x, y, w, h); 
+        } 
         internal IntPtr Handle
         {
             get { return this.cefClientHandler; }
-        }
-        internal void CloseView()
-        {
-
-            Cef3Binder.MyCefCloseHandler(this.cefClientHandler);
-        }
-
+        } 
         public void NavigateTo(string url)
         {
             Cef3Binder.NavigateTo(this.cefClientHandler, url);

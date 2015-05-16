@@ -12,10 +12,12 @@ namespace LayoutFarm.CefBridge
         IntPtr clientAppPtr;
         internal static IntPtr contextImplPtr;
         static bool contextImplInit;
+        internal static bool readyToClose;
 
         bool isHandleCreated;
         bool isInitWithProcessHandle;
         AgentManagedCallback mxCallback;
+        object sync_ = new object();
 
         public CefClientApp()
         {
@@ -28,30 +30,45 @@ namespace LayoutFarm.CefBridge
                 isInitWithProcessHandle = true;
                 if (!contextImplInit)
                 {
-                    contextImplPtr = Cef3Binder.MyCefInit(processHandle, this.GetHandle());
+                    this.clientAppPtr = this.GetHandle();
+                    int initResult = Cef3Binder.MyCefInit(processHandle, clientAppPtr);
                     contextImplInit = true;
                 }
             }
         }
+
+
+
         void MxCallBack(int id, IntPtr argsPtr)
         {
+            switch (id)
+            {
+                case 100:
+                    {
+                        //test only
+                        readyToClose = true;
 
+                    } break;
+            }
         }
+
+
         IntPtr GetHandle()
         {
-            if (!this.isHandleCreated)
+            lock (sync_)
             {
+                if (!this.isHandleCreated)
+                {
+                    this.isHandleCreated = true;
 
-
-                this.clientAppPtr = Cef3Binder.MyCefCreateClientApp(contextImplPtr);
-                this.isHandleCreated = true;
-
-                //register managed callback ***
-                this.mxCallback = new AgentManagedCallback(MxCallBack);
-                Cef3Binder.MyCefClientAppSetManagedCallback(this.clientAppPtr, this.mxCallback);
-
+                    this.clientAppPtr = Cef3Binder.MyCefCreateClientApp();
+                    //register managed callback ***
+                    this.mxCallback = new AgentManagedCallback(MxCallBack);
+                    Cef3Binder.MyCefClientAppSetManagedCallback(this.clientAppPtr, this.mxCallback);
+                }
+                return this.clientAppPtr;
             }
-            return this.clientAppPtr;
+
         }
 
 
