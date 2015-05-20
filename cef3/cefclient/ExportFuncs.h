@@ -46,7 +46,16 @@ extern "C"{
 	
 	//--------------------
 	//part 2
-	
+	//1.
+	MY_DLL_EXPORT  void NativeMetSetResult(MethodArgs* args, int retIndex, jsvalue* value);
+	//2.
+	MY_DLL_EXPORT jsvalue MyCefNativeMetGetArgs(MethodArgs* args,int argIndex);
+	//3.
+	MY_DLL_EXPORT void MyCefDisposePtr(void* ptr);
+
+
+	//part3:
+	//--------------------
 	//1.
 	MY_DLL_EXPORT void NavigateTo(MyBrowser* myBw, const wchar_t* url);
 	//2. 
@@ -54,10 +63,7 @@ extern "C"{
 	//3.
 	MY_DLL_EXPORT void PostData(MyBrowser* myBw, const wchar_t* url,const wchar_t* rawDataToPost,size_t rawDataLength);
 
-	MY_DLL_EXPORT void MyCefDisposePtr(void* ptr);
 	//----------------------------
-	//4
-	MY_DLL_EXPORT  void NativeMetSetResult(MethodArgs* args, int retIndex, jsvalue* value);
-	MY_DLL_EXPORT jsvalue MyCefNativeMetGetArgs(MethodArgs* args,int argIndex);
+	
 
 }

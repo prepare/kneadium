@@ -93,10 +93,7 @@ class RootWindow :
 					HWND managedSurfaceHwnd,
                     const CefRect& bounds,
                      CefBrowserSettings& settings,
-                    const std::string& url) =0;
-
-  virtual void SetExternalHwnd(HWND managedSurfaceHwnd)=0;
-  bool useExternalHwnd;
+                    const std::string& url) =0; 
 
   enum ShowMode {
     ShowNormal,

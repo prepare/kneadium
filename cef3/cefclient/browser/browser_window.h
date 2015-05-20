@@ -84,10 +84,13 @@ class BrowserWindow : public ClientHandler::Delegate {
   // Returns true if the browser is closing.
   bool IsClosing() const;
 
-  //my extension
- 
+  //my extension 
+#ifdef MYCEF_DEBUG
   int dbug_id;
+#endif  
   ClientHandler* GetClientHandler();
+
+
  protected:
   // Allow deletion via scoped_ptr only.
   friend struct base::DefaultDeleter<BrowserWindow>;

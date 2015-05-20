@@ -9,14 +9,20 @@
 
 namespace client {
 
+
+#ifdef MYCEF_DEBUG
 int dbugTotalId=0; //static
+#endif
 
 BrowserWindow::BrowserWindow(Delegate* delegate)
     : delegate_(delegate),
       is_closing_(false) {
   DCHECK(delegate_);
 
+#ifdef MYCEF_DEBUG
   this->dbug_id = dbugTotalId++;
+#endif
+
 
 }
 

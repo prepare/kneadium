@@ -178,8 +178,56 @@ void MyCefShutDown(){
 	CefShutdown();
 }
 
+//part 2:
+//1. 
+ void NativeMetSetResult(MethodArgs* args, int retIndex, jsvalue* value)
+ {	 
+	 switch(retIndex){
+		 case 0:
+			args->result0 = *(value);
+			break;
+		 case 1:
+			 args->result1 = *(value);
+			 break;
+		 case 2:
+			 args->result2 = *(value);
+			 break;
+		 case 3:
+			 args->result3 = *(value);
+			 break;
+		 case 4:
+			 args->result4 = *(value);
+			 break;  
+
+	 }
+ }
+ //2.
+ jsvalue MyCefNativeMetGetArgs(MethodArgs* args,int argIndex) 
+ {
+	 switch(argIndex)
+	 {
+		case 0: return args->arg0;
+		case 1: return args->arg1;
+		case 2: return args->arg2;
+		case 3: return args->arg3;
+		case 4: return args->arg4;
+		default: 
+			{
+				jsvalue v;
+				v.type = JSVALUE_TYPE_EMPTY;
+				v.length =0;
+				return v;
+			} 
+	 } 
+ }
+ //3.
+ void MyCefDisposePtr(void* ptr){
+	 delete ptr;
+ }
+
+
 //---------------------------------------------------------------------------
-//part2:
+//part3:
 
 //1. 
 void NavigateTo(MyBrowser* myBw, const wchar_t* url){
@@ -216,31 +264,4 @@ void PostData(MyBrowser* myBw, const wchar_t* url,const wchar_t* rawDataToPost,s
 	 myBw->bwWindow->GetBrowser()->GetMainFrame()->LoadRequest(request); 
 
 }
-//4.
- void NativeMetSetResult(MethodArgs* args, int retIndex, jsvalue* value)
- {	 
-	 args->result0 = *(value);
- }
-
- jsvalue MyCefNativeMetGetArgs(MethodArgs* args,int argIndex) 
- {
-	 switch(argIndex)
-	 {
-		case 0: return args->arg0;
-		case 1: return args->arg1;
-		case 2: return args->arg2;
-		case 3: return args->arg3;
-		case 4: return args->arg4;
-		default: 
-			{
-				jsvalue v;
-				v.type = JSVALUE_TYPE_EMPTY;
-				v.length =0;
-				return v;
-			} 
-	 } 
- }
  
- void MyCefDisposePtr(void* ptr){
-	 delete ptr;
- }
