@@ -339,8 +339,17 @@ bool ClientHandler::OnBeforePopup(
   CEF_REQUIRE_IO_THREAD();
 
   // Return true to cancel the popup window.
-  return !CreatePopupWindow(browser, false, popupFeatures, windowInfo, client,
+  if(this->mcallback_){
+	  //create popup window
+	  //with specific url
+	  this->mcallback_(104,NULL);
+	  return true;
+  }
+  else{
+	  
+	  return !CreatePopupWindow(browser, false, popupFeatures, windowInfo, client,
                             settings);
+  }   
 }
 
 void ClientHandler::OnAfterCreated(CefRefPtr<CefBrowser> browser) {
@@ -610,7 +619,11 @@ void ClientHandler::NotifyBrowserCreated(CefRefPtr<CefBrowser> browser) {
         base::Bind(&ClientHandler::NotifyBrowserCreated, this, browser));
     return;
   }
-
+   
+  if(this->mcallback_){
+	  this->mcallback_(101,NULL);
+  }
+  
   if (delegate_)
     delegate_->OnBrowserCreated(browser);
 }

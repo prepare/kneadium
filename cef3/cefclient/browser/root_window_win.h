@@ -47,6 +47,12 @@ class RootWindowWin : public RootWindow,
                     const CefRect& bounds,
                     const CefBrowserSettings& settings,
                     const std::string& url) OVERRIDE;
+  void Init3(RootWindow::Delegate* delegate, 
+					HWND managedSurfaceHwnd,
+                    const CefRect& bounds,
+                     CefBrowserSettings& settings,
+                    const std::string& url) OVERRIDE;
+  void SetExternalHwnd(HWND managedSurfaceHwnd) OVERRIDE;
 
   void Show(ShowMode mode) OVERRIDE;
   void Hide() OVERRIDE;

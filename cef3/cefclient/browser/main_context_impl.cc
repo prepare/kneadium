@@ -107,8 +107,7 @@ bool MainContextImpl::Initialize(const CefMainArgs& args,
   root_window_manager_.reset(
       new RootWindowManager(terminate_when_all_windows_closed_));
 
-  initialized_ = true;
-
+  initialized_ = true; 
   return true;
 }
 

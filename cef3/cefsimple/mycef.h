@@ -105,7 +105,7 @@ struct jsvalue
 
 jsvalue ConvToJsValue(std::wstring str);
 
-class MethodArgs
+struct MethodArgs
 {
 public:
 	MethodArgs();

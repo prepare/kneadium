@@ -21,9 +21,8 @@
  
 delTraceBack notifyListener= NULL;
 client::MainContextImpl* mainContext;  
-client::MainMessageLoop* message_loop;
-client::RootWindowWin* rootWindow;
-client::BrowserWindowStdWin* bwWindow;
+client::MainMessageLoop* message_loop; 
+ 
 
 managed_callback myMxCallback_;
 
@@ -88,34 +87,39 @@ int MyCefInit(HINSTANCE hInstance,client::ClientApp* app)
 {
 	CefRefPtr<client::ClientApp> myApp = app;   
 	mainContext= DllInitMain(hInstance,myApp); 
+	//set managed callback to
+	mainContext->myMxCallback_ = myMxCallback_;
 	return -1;
 }  
 //6, 
-client::ClientHandler* MyCefCreateClientHandler()
+MyBrowser* MyCefCreateClientHandler()
 {	
 	/*const CefRect r(0,0,400,400); 
 	CefBrowserSettings settings;
 	client::MainContext::Get()->PopulateBrowserSettings(&settings);
     */
 	/*auto rr1= mainContext->GetRootWindowManager()->CreateRootWindow(false,false,r,"");*/	
-	if(!rootWindow){
-		//create root window handler?
-		rootWindow= new client::RootWindowWin(); 
-	} 
-
+	 
+    //create root window handler?
+	auto myBw= new MyBrowser();
+	auto rootWindow= new client::RootWindowWin();  
+	myBw->rootWin = rootWindow;
+	
 	//1. create browser window handler
 	//TODO: review here again, don't store at this module!
-	bwWindow= new client::BrowserWindowStdWin(rootWindow,"");   
-	
+	auto bwWindow= new client::BrowserWindowStdWin(rootWindow,"");   
+	myBw->bwWindow = bwWindow;
+
+
 	//2. browser event handler
-	auto hh = new client::ClientHandlerStd(bwWindow,"");
+	auto hh = bwWindow->GetClientHandler();//  new client::ClientHandlerStd(bwWindow,"");
 	hh->MyCefSetManagedCallBack(myMxCallback_); 
 
-	return hh;  
+	return myBw;
 }
 
 //7.
-int MyCefSetupBrowserHwnd(client::ClientHandler* clientHandler,HWND surfaceHwnd,int x,int y,int w,int h)
+int MyCefSetupBrowserHwnd(MyBrowser* myBw,HWND surfaceHwnd,int x,int y,int w,int h)
 {   
 
   // Information used when creating the native window.
@@ -137,6 +141,8 @@ int MyCefSetupBrowserHwnd(client::ClientHandler* clientHandler,HWND surfaceHwnd,
   //window_info.SetAsWindowless(surfaceHwnd,true);
 
   // SimpleHandler implements browser-level callbacks.
+  
+  auto clientHandler = myBw->bwWindow->GetClientHandler(); 
   CefRefPtr<client::ClientHandler> handler(clientHandler);
 
   // Specify CEF browser settings here.
@@ -176,17 +182,17 @@ void MyCefShutDown(){
 //part2:
 
 //1. 
-void NavigateTo(client::ClientHandler* clientHandler, const wchar_t* url){
+void NavigateTo(MyBrowser* myBw, const wchar_t* url){
 		 
-	bwWindow->GetBrowser()->GetMainFrame()->LoadURL(url);
+	 myBw->bwWindow->GetBrowser()->GetMainFrame()->LoadURL(url); 
 }
 //2.
-void ExecJavascript(client::ClientHandler* clientHandler, const wchar_t* jscode,const wchar_t* script_url){
+void ExecJavascript(MyBrowser* myBw, const wchar_t* jscode,const wchar_t* script_url){
 	
-	bwWindow->GetBrowser()->GetMainFrame()->ExecuteJavaScript(jscode,script_url,0);
+	 myBw->bwWindow->GetBrowser()->GetMainFrame()->ExecuteJavaScript(jscode,script_url,0);
 }
 //3. 
-void PostData(client::ClientHandler* clientHandler, const wchar_t* url,const wchar_t* rawDataToPost,size_t rawDataLength){
+void PostData(MyBrowser* myBw, const wchar_t* url,const wchar_t* rawDataToPost,size_t rawDataLength){
 	
 	//create request
 	CefRefPtr<CefRequest> request(CefRequest::Create());
@@ -207,7 +213,11 @@ void PostData(client::ClientHandler* clientHandler, const wchar_t* url,const wch
 	request->SetHeaderMap(headerMap);
 
 	//load request
-	bwWindow->GetBrowser()->GetMainFrame()->LoadRequest(request);
-
+	 myBw->bwWindow->GetBrowser()->GetMainFrame()->LoadRequest(request); 
 
 }
+//4.
+ void NativeMetSetResult(MethodArgs* nativeMetPtr, int retIndex, jsvalue* value)
+ {	 
+	 nativeMetPtr->result0 = *(value);
+ }

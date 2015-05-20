@@ -84,6 +84,10 @@ class BrowserWindow : public ClientHandler::Delegate {
   // Returns true if the browser is closing.
   bool IsClosing() const;
 
+  //my extension
+ 
+  int dbug_id;
+  ClientHandler* GetClientHandler();
  protected:
   // Allow deletion via scoped_ptr only.
   friend struct base::DefaultDeleter<BrowserWindow>;
@@ -102,11 +106,13 @@ class BrowserWindow : public ClientHandler::Delegate {
                          bool canGoBack,
                          bool canGoForward) OVERRIDE;
 
+  
+
   Delegate* delegate_;
   CefRefPtr<CefBrowser> browser_;
   CefRefPtr<ClientHandler> client_handler_;
   bool is_closing_;
-
+   
  private:
   DISALLOW_COPY_AND_ASSIGN(BrowserWindow);
 };

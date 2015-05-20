@@ -37,6 +37,9 @@ class BrowserWindowStdWin : public BrowserWindow {
   void SetFocus(bool focus) OVERRIDE;
   ClientWindowHandle GetWindowHandle() const OVERRIDE;
 
+
+  
+
  private:
   DISALLOW_COPY_AND_ASSIGN(BrowserWindowStdWin);
 };
