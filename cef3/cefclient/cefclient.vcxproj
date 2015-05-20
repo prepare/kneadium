@@ -66,7 +66,7 @@
       <RuntimeTypeInfo>false</RuntimeTypeInfo>
       <TreatWarningAsError>true</TreatWarningAsError>
       <WarningLevel>Level4</WarningLevel>
-      <PreprocessorDefinitions>__STDC_CONSTANT_MACROS;__STDC_FORMAT_MACROS;WIN32;_WIN32;_WINDOWS;UNICODE;_UNICODE;WINVER=0x0602;_WIN32_WINNT=0x602;NOMINMAX;WIN32_LEAN_AND_MEAN;_HAS_EXCEPTIONS=0;CEF_USE_ATL;CMAKE_INTDIR="Debug";%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>__STDC_CONSTANT_MACROS;__STDC_FORMAT_MACROS;WIN32;_WIN32;_WINDOWS;UNICODE;_UNICODE;WINVER=0x0602;_WIN32_WINNT=0x602;NOMINMAX;WIN32_LEAN_AND_MEAN;_HAS_EXCEPTIONS=0;CEF_USE_ATL;CMAKE_INTDIR="Debug";%(PreprocessorDefinitions);MYCEF_DEBUG;</PreprocessorDefinitions>
       <ObjectFileName>$(IntDir)</ObjectFileName>
     </ClCompile>
     <ResourceCompile>
@@ -538,6 +538,7 @@ if %errorlevel% neq 0 goto :VCEnd</Command>
     <ClCompile Include="common\scheme_test_common.cc" />
     <ClCompile Include="dll_init.cpp" />
     <ClCompile Include="ExportFuncs.cpp" />
+    <ClCompile Include="mycef.cc" />
     <ClCompile Include="renderer\client_app_delegates_renderer.cc" />
     <ClCompile Include="renderer\client_app_renderer.cc" />
     <ClCompile Include="renderer\client_renderer.cc" />

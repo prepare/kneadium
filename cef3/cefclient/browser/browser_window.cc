@@ -9,10 +9,21 @@
 
 namespace client {
 
+
+#ifdef MYCEF_DEBUG
+int dbugTotalId=0; //static
+#endif
+
 BrowserWindow::BrowserWindow(Delegate* delegate)
     : delegate_(delegate),
       is_closing_(false) {
   DCHECK(delegate_);
+
+#ifdef MYCEF_DEBUG
+  this->dbug_id = dbugTotalId++;
+#endif
+
+
 }
 
 CefRefPtr<CefBrowser> BrowserWindow::GetBrowser() const {
@@ -67,6 +78,10 @@ void BrowserWindow::OnSetLoadingState(bool isLoading,
                                       bool canGoForward) {
   REQUIRE_MAIN_THREAD();
   delegate_->OnSetLoadingState(isLoading, canGoBack, canGoForward);
+}
+
+client::ClientHandler* BrowserWindow::GetClientHandler(){
+	return this->client_handler_;
 }
 
 }  // namespace client

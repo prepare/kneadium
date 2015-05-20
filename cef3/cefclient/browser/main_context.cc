@@ -16,13 +16,14 @@ MainContext* g_main_context = NULL;
 
 // static
 MainContext* MainContext::Get() {
-  DCHECK(g_main_context);
+  DCHECK(g_main_context); 
   return g_main_context;
 }
 
 MainContext::MainContext() {
   DCHECK(!g_main_context);
   g_main_context = this;
+  myMxCallback_=NULL;
 
 }
 

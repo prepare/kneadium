@@ -1,5 +1,0 @@
-C:/WImageTest/CefBridge/cef3/cefclient/CMakeFiles/cefclient.dir
-C:/WImageTest/CefBridge/cef3/CMakeFiles/ALL_BUILD.dir
-C:/WImageTest/CefBridge/cef3/cefsimple/CMakeFiles/cefsimple.dir
-C:/WImageTest/CefBridge/cef3/CMakeFiles/ZERO_CHECK.dir
-C:/WImageTest/CefBridge/cef3/libcef_dll/CMakeFiles/libcef_dll_wrapper.dir

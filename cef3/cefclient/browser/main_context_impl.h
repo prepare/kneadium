@@ -13,6 +13,7 @@
 #include "cefclient/browser/main_context.h"
 #include "cefclient/browser/root_window_manager.h"
 
+
 namespace client {
 
 // Used to store global context in the browser process.
@@ -42,6 +43,9 @@ class MainContextImpl : public MainContext {
   // Shut down CEF and associated context state. This method must be called on
   // the same thread that created this object.
   void Shutdown();
+
+
+  
 
  private:
   // Allow deletion via scoped_ptr only.

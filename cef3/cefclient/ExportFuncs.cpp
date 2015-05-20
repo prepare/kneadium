@@ -21,9 +21,8 @@
  
 delTraceBack notifyListener= NULL;
 client::MainContextImpl* mainContext;  
-client::MainMessageLoop* message_loop;
-client::RootWindowWin* rootWindow;
-client::BrowserWindowStdWin* bwWindow;
+client::MainMessageLoop* message_loop; 
+ 
 
 managed_callback myMxCallback_;
 
@@ -88,34 +87,39 @@ int MyCefInit(HINSTANCE hInstance,client::ClientApp* app)
 {
 	CefRefPtr<client::ClientApp> myApp = app;   
 	mainContext= DllInitMain(hInstance,myApp); 
+	//set managed callback to
+	mainContext->myMxCallback_ = myMxCallback_;
 	return -1;
 }  
 //6, 
-client::ClientHandler* MyCefCreateClientHandler()
+MyBrowser* MyCefCreateClientHandler()
 {	
 	/*const CefRect r(0,0,400,400); 
 	CefBrowserSettings settings;
 	client::MainContext::Get()->PopulateBrowserSettings(&settings);
     */
 	/*auto rr1= mainContext->GetRootWindowManager()->CreateRootWindow(false,false,r,"");*/	
-	if(!rootWindow){
-		//create root window handler?
-		rootWindow= new client::RootWindowWin(); 
-	} 
-
+	 
+    //create root window handler?
+	auto myBw= new MyBrowser();
+	auto rootWindow= new client::RootWindowWin();  
+	myBw->rootWin = rootWindow;
+	
 	//1. create browser window handler
 	//TODO: review here again, don't store at this module!
-	bwWindow= new client::BrowserWindowStdWin(rootWindow,"");   
-	
+	auto bwWindow= new client::BrowserWindowStdWin(rootWindow,"");   
+	myBw->bwWindow = bwWindow;
+
+
 	//2. browser event handler
-	auto hh = new client::ClientHandlerStd(bwWindow,"");
+	auto hh = bwWindow->GetClientHandler();//  new client::ClientHandlerStd(bwWindow,"");
 	hh->MyCefSetManagedCallBack(myMxCallback_); 
 
-	return hh;  
+	return myBw;
 }
 
 //7.
-int MyCefSetupBrowserHwnd(client::ClientHandler* clientHandler,HWND surfaceHwnd,int x,int y,int w,int h)
+int MyCefSetupBrowserHwnd(MyBrowser* myBw,HWND surfaceHwnd,int x,int y,int w,int h,const wchar_t* url)
 {   
 
   // Information used when creating the native window.
@@ -137,20 +141,22 @@ int MyCefSetupBrowserHwnd(client::ClientHandler* clientHandler,HWND surfaceHwnd,
   //window_info.SetAsWindowless(surfaceHwnd,true);
 
   // SimpleHandler implements browser-level callbacks.
+  
+  auto clientHandler = myBw->bwWindow->GetClientHandler(); 
   CefRefPtr<client::ClientHandler> handler(clientHandler);
 
   // Specify CEF browser settings here.
   CefBrowserSettings browser_settings;
 
-  std::string url;
+  //std::string url;
 
   // Check if a "--url=" value was provided via the command-line. If so, use
   // that instead of the default URL.
-  CefRefPtr<CefCommandLine> command_line =
+  /*CefRefPtr<CefCommandLine> command_line =
       CefCommandLine::GetGlobalCommandLine();
   url = command_line->GetSwitchValue("url");
   if (url.empty())
-    url = "http://www.google.com";
+    url = "https://cefbuilds.com";*/
 
   // Create the first browser window.
   //bool result= CefBrowserHost::CreateBrowser(window_info, handler.get(), url,                                browser_settings, NULL);
@@ -172,21 +178,69 @@ void MyCefShutDown(){
 	CefShutdown();
 }
 
+//part 2:
+//1. 
+ void NativeMetSetResult(MethodArgs* args, int retIndex, jsvalue* value)
+ {	 
+	 switch(retIndex){
+		 case 0:
+			args->result0 = *(value);
+			break;
+		 case 1:
+			 args->result1 = *(value);
+			 break;
+		 case 2:
+			 args->result2 = *(value);
+			 break;
+		 case 3:
+			 args->result3 = *(value);
+			 break;
+		 case 4:
+			 args->result4 = *(value);
+			 break;  
+
+	 }
+ }
+ //2.
+ jsvalue MyCefNativeMetGetArgs(MethodArgs* args,int argIndex) 
+ {
+	 switch(argIndex)
+	 {
+		case 0: return args->arg0;
+		case 1: return args->arg1;
+		case 2: return args->arg2;
+		case 3: return args->arg3;
+		case 4: return args->arg4;
+		default: 
+			{
+				jsvalue v;
+				v.type = JSVALUE_TYPE_EMPTY;
+				v.length =0;
+				return v;
+			} 
+	 } 
+ }
+ //3.
+ void MyCefDisposePtr(void* ptr){
+	 delete ptr;
+ }
+
+
 //---------------------------------------------------------------------------
-//part2:
+//part3:
 
 //1. 
-void NavigateTo(client::ClientHandler* clientHandler, const wchar_t* url){
+void NavigateTo(MyBrowser* myBw, const wchar_t* url){
 		 
-	bwWindow->GetBrowser()->GetMainFrame()->LoadURL(url);
+	 myBw->bwWindow->GetBrowser()->GetMainFrame()->LoadURL(url); 
 }
 //2.
-void ExecJavascript(client::ClientHandler* clientHandler, const wchar_t* jscode,const wchar_t* script_url){
+void ExecJavascript(MyBrowser* myBw, const wchar_t* jscode,const wchar_t* script_url){
 	
-	bwWindow->GetBrowser()->GetMainFrame()->ExecuteJavaScript(jscode,script_url,0);
+	 myBw->bwWindow->GetBrowser()->GetMainFrame()->ExecuteJavaScript(jscode,script_url,0);
 }
 //3. 
-void PostData(client::ClientHandler* clientHandler, const wchar_t* url,const wchar_t* rawDataToPost,size_t rawDataLength){
+void PostData(MyBrowser* myBw, const wchar_t* url,const wchar_t* rawDataToPost,size_t rawDataLength){
 	
 	//create request
 	CefRefPtr<CefRequest> request(CefRequest::Create());
@@ -207,7 +261,7 @@ void PostData(client::ClientHandler* clientHandler, const wchar_t* url,const wch
 	request->SetHeaderMap(headerMap);
 
 	//load request
-	bwWindow->GetBrowser()->GetMainFrame()->LoadRequest(request);
-
+	 myBw->bwWindow->GetBrowser()->GetMainFrame()->LoadRequest(request); 
 
 }
+ 

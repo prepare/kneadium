@@ -133,6 +133,9 @@
     <ClCompile Include="ExportFuncs.cpp">
       <Filter>cefclient</Filter>
     </ClCompile>
+    <ClCompile Include="mycef.cc">
+      <Filter>cefclient</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="browser\binding_test.h">
