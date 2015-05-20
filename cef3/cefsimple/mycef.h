@@ -105,7 +105,7 @@ struct jsvalue
 
 jsvalue ConvToJsValue(std::wstring str);
 
-class MethodArgs
+struct MethodArgs
 {
 public:
 	MethodArgs();
@@ -129,7 +129,7 @@ public:
 
 	int argCount;
 	int resultCount;
-
+	void SetArgAsString(int argIndex,const wchar_t* str);
 	void SetOutputString(int resultIndex, const void* dataBuffer,int len);  
 };
 

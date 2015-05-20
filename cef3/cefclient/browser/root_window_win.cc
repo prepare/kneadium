@@ -63,8 +63,8 @@ RootWindowWin::RootWindowWin()
       find_next_(false),
       find_match_case_last_(false),
       window_destroyed_(false),
-      browser_destroyed_(false) {
-  find_buff_[0] = 0;
+      browser_destroyed_(false){
+  find_buff_[0] = 0; 
 }
 
 RootWindowWin::~RootWindowWin() {
@@ -103,35 +103,7 @@ void RootWindowWin::Init(RootWindow::Delegate* delegate,
     MAIN_POST_CLOSURE(
         base::Bind(&RootWindowWin::CreateRootWindow, this, settings));
   }
-}
-void RootWindowWin::Init(RootWindow::Delegate* delegate,
-                         HWND managedSurfaceHwnd,
-                         const CefRect& bounds,
-                         const CefBrowserSettings& settings,
-                         const std::string& url) {
-  //set browser window
-  delegate_ = delegate;
-  with_controls_ = false;
-
-  start_rect_.left = bounds.x;
-  start_rect_.top = bounds.y;
-  start_rect_.right = bounds.x + bounds.width;
-  start_rect_.bottom = bounds.y + bounds.height;
-
-  CreateBrowserWindow(false, url);
-
-  initialized_ = true;
-
-  //// Create the native root window on the main thread.
-  //if (CURRENTLY_ON_MAIN_THREAD()) {
-  //  CreateRootWindow(settings);
-  //} else {
-  //  MAIN_POST_CLOSURE(
-  //      base::Bind(&RootWindowWin::CreateRootWindow, this, settings));
-  //}
-
-}
-
+} 
 void RootWindowWin::InitAsPopup(RootWindow::Delegate* delegate,
                                 bool with_controls,
                                 bool with_osr,
@@ -243,11 +215,12 @@ void RootWindowWin::CreateBrowserWindow(
 		browser_window_.reset(new BrowserWindowStdWin(this, startup_url));
 	  }
    
-}
+} 
+
 
 void RootWindowWin::CreateRootWindow(const CefBrowserSettings& settings) {
-  REQUIRE_MAIN_THREAD();
-  DCHECK(!hwnd_);
+  REQUIRE_MAIN_THREAD(); 
+  DCHECK(!hwnd_); 
 
   HINSTANCE hInstance = GetModuleHandle(NULL);
 
@@ -271,9 +244,10 @@ void RootWindowWin::CreateRootWindow(const CefBrowserSettings& settings) {
   const DWORD dwStyle = WS_OVERLAPPEDWINDOW | WS_CLIPCHILDREN;
 
   int x, y, width, height;
+  
   if (::IsRectEmpty(&start_rect_)) {
     // Use the default window position/size.
-    x = y = width = height = CW_USEDEFAULT;
+    x = y = width = height = CW_USEDEFAULT; 
   } else {
     // Adjust the window size to account for window frame and controls.
     RECT window_rect = start_rect_;
@@ -288,10 +262,12 @@ void RootWindowWin::CreateRootWindow(const CefBrowserSettings& settings) {
   }
 
   // Create the main window initially hidden.
-  hwnd_ = CreateWindow(window_class.c_str(), window_title.c_str(),
+  
+   hwnd_ = CreateWindow(window_class.c_str(), window_title.c_str(),
                        dwStyle,
                        x, y, width, height,
                        NULL, NULL, hInstance, NULL);
+  
   CHECK(hwnd_);
 
   // Associate |this| with the main window.
@@ -352,8 +328,8 @@ void RootWindowWin::CreateRootWindow(const CefBrowserSettings& settings) {
 
     rect.top += URLBAR_HEIGHT;
   } else {
-    // No controls so also remove the default menu.
-    ::SetMenu(hwnd_, NULL);
+     // No controls so also remove the default menu.	  
+	 ::SetMenu(hwnd_, NULL);	  
   }
 
   if (!is_popup_) {
@@ -364,16 +340,17 @@ void RootWindowWin::CreateRootWindow(const CefBrowserSettings& settings) {
     browser_window_->CreateBrowser(hwnd_, cef_rect, settings,
                                    delegate_->GetRequestContext(this));
   } else {
-    // With popups we already have a browser window. Parent the browser window
-    // to the root window and show it in the correct location.
-    browser_window_->ShowPopup(hwnd_,
-                               rect.left, rect.top,
-                               rect.right - rect.left,
-                               rect.bottom - rect.top);
+  
+	  
+		// With popups we already have a browser window. Parent the browser window
+		// to the root window and show it in the correct location.	     
+		browser_window_->ShowPopup(hwnd_,
+								   rect.left, rect.top,
+								   rect.right - rect.left,
+								   rect.bottom - rect.top);		
   }
-
-  // Show this window.
-  Show(ShowNormal);
+  // Show this window.   
+  Show(ShowNormal);   
 }
 
 // static
@@ -736,8 +713,9 @@ void RootWindowWin::OnBrowserCreated(CefRefPtr<CefBrowser> browser) {
 
   // For popup browsers create the root window once the browser has been
   // created.
-  if (is_popup_)
-    CreateRootWindow(CefBrowserSettings());
+  if (is_popup_){
+	 CreateRootWindow(CefBrowserSettings());
+  }
 }
 
 void RootWindowWin::OnBrowserWindowDestroyed() {
@@ -766,8 +744,9 @@ void RootWindowWin::OnSetAddress(const std::string& url) {
 void RootWindowWin::OnSetTitle(const std::string& title) {
   REQUIRE_MAIN_THREAD();
 
-  if (hwnd_)
-    SetWindowText(hwnd_, CefString(title).ToWString().c_str());
+   
+   SetWindowText(hwnd_, CefString(title).ToWString().c_str());
+   
 }
 
 void RootWindowWin::OnSetLoadingState(bool isLoading,

@@ -336,11 +336,28 @@ bool ClientHandler::OnBeforePopup(
     CefRefPtr<CefClient>& client,
     CefBrowserSettings& settings,
     bool* no_javascript_access) {
-  CEF_REQUIRE_IO_THREAD();
-
+  CEF_REQUIRE_IO_THREAD(); 
   // Return true to cancel the popup window.
-  return !CreatePopupWindow(browser, false, popupFeatures, windowInfo, client,
+  if(this->mcallback_){
+	  //create popup window
+	  //with specific url
+	  //*** on managed side  : please invoke on main process of app ***
+
+	  //call across process, so create on heap 
+	  //don't forget to release it
+	  MethodArgs* metArgs= new MethodArgs(); 
+	  auto str16= target_url.ToString16();
+	  auto cstr= str16.c_str();
+
+	  metArgs->SetArgAsString(0,cstr); 
+	  this->mcallback_(104, metArgs);
+	  return true;
+  }
+  else{
+	  
+	  return !CreatePopupWindow(browser, false, popupFeatures, windowInfo, client,
                             settings);
+  }   
 }
 
 void ClientHandler::OnAfterCreated(CefRefPtr<CefBrowser> browser) {
@@ -610,7 +627,11 @@ void ClientHandler::NotifyBrowserCreated(CefRefPtr<CefBrowser> browser) {
         base::Bind(&ClientHandler::NotifyBrowserCreated, this, browser));
     return;
   }
-
+   
+  if(this->mcallback_){
+	  this->mcallback_(101,NULL);
+  }
+  
   if (delegate_)
     delegate_->OnBrowserCreated(browser);
 }

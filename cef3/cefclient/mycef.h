@@ -108,7 +108,7 @@ jsvalue ConvToJsValue(std::wstring str);
 class MethodArgs
 {
 public:
-	MethodArgs();
+	 
 	int method_id;
 	 
 	struct jsvalue arg0;//this arg for instant method
@@ -129,6 +129,8 @@ public:
 
 	int argCount;
 	int resultCount;
+	
+	void SetArgAsString(int argIndex, const wchar_t* str);
 
 	void SetOutputString(int resultIndex, const void* dataBuffer,int len);  
 };

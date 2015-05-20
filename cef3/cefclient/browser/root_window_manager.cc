@@ -13,6 +13,9 @@
 #include "cefclient/browser/test_runner.h"
 #include "cefclient/common/client_switches.h"
 
+//#include "cefclient/ExportFuncs.h"
+//#include "cefclient/browser/browser_window_std_win.h"
+
 namespace client {
 
 RootWindowManager::RootWindowManager(bool terminate_when_all_windows_closed)
@@ -56,16 +59,18 @@ scoped_refptr<RootWindow> RootWindowManager::CreateRootWindowAsPopup(
     CefWindowInfo& windowInfo,
     CefRefPtr<CefClient>& client,
     CefBrowserSettings& settings) {
-  MainContext::Get()->PopulateBrowserSettings(&settings);
 
-  scoped_refptr<RootWindow> root_window = RootWindow::Create();
+  auto mContext= MainContext::Get();
+  mContext->PopulateBrowserSettings(&settings);
+  scoped_refptr<RootWindow> root_window = RootWindow::Create(); 
+
   root_window->InitAsPopup(this, with_controls, with_osr,
-                           popupFeatures, windowInfo, client, settings);
+					 popupFeatures, windowInfo, client, settings); 
 
   // Store a reference to the root window on the main thread.
   OnRootWindowCreated(root_window);
 
-  return root_window;
+  return root_window;  
 }
 
 scoped_refptr<RootWindow> RootWindowManager::GetWindowForBrowser(
