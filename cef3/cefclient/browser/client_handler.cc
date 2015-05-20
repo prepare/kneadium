@@ -67,7 +67,7 @@ std::string GetTimeString(const CefTime& value) {
       std::setfill('0') << std::setw(2) << value.second;
   return ss.str();
 }
-
+ 
 std::string GetBinaryString(CefRefPtr<CefBinaryValue> value) {
   if (!value.get())
     return "&nbsp;";
@@ -110,12 +110,12 @@ ClientHandler::ClientHandler(Delegate* delegate,
   : is_osr_(is_osr),
     startup_url_(startup_url),
     delegate_(delegate),
-    browser_count_(0),
-    console_log_file_(MainContext::Get()->GetConsoleLogPath()),
+	console_log_file_(MainContext::Get()->GetConsoleLogPath()),
+    browser_count_(0),    
     first_console_message_(true),
     focus_on_editable_field_(false),
     mcallback_(NULL) {
-
+		 
   DCHECK(!console_log_file_.empty());
 
 #if defined(OS_LINUX)
@@ -229,27 +229,63 @@ void ClientHandler::OnTitleChange(CefRefPtr<CefBrowser> browser,
   NotifyTitle(title);
 }
 
+
+void SetJsValue(jsvalue* v, const CefString& cefstr){
+	  auto str16= cefstr.ToString16();
+	  auto cstr= str16.c_str(); 
+	  
+	  v->length =  wcslen(cstr);
+	  v->value.str =  (uint16_t*)cstr;
+	  v->type  = JSVALUE_TYPE_STRING;	   
+}
 bool ClientHandler::OnConsoleMessage(CefRefPtr<CefBrowser> browser,
                                      const CefString& message,
                                      const CefString& source,
                                      int line) {
   CEF_REQUIRE_UI_THREAD();
 
-  FILE* file = fopen(console_log_file_.c_str(), "a");
-  if (file) {
-    std::stringstream ss;
-    ss << "Message: " << message.ToString() << NEWLINE <<
-          "Source: " << source.ToString() << NEWLINE <<
-          "Line: " << line << NEWLINE <<
-          "-----------------------" << NEWLINE;
-    fputs(ss.str().c_str(), file);
-    fclose(file);
+  if(this->mcallback_){
+	  
+	  //get managed stream object
+	  MethodArgs* args= new MethodArgs();
+	 // memset(&args,0,sizeof(MethodArgs));	  
+	  //send info to managed side
+	  	
+	  auto str16= message.ToString16();
+	  auto cstr= str16.c_str(); 
+	  args->SetArgAsString(0,cstr); 
 
-    if (first_console_message_) {
-      test_runner::Alert(
-          browser, "Console messages written to \"" + console_log_file_ + "\"");
-      first_console_message_ = false;
-    }
+
+	  auto str16_1= message.ToString16();
+	  auto cstr_1= str16_1.c_str(); 
+	  args->SetArgAsString(1,cstr_1); 
+
+	  auto str16_2= std::to_wstring((long long)line);
+      auto cstr_2= str16_2.c_str(); 
+      args->SetArgAsString(2,cstr_2);  
+
+      this->mcallback_(106, args);
+	  
+	 
+  }
+  else{
+	  
+	  FILE* file = fopen(console_log_file_.c_str(), "a");
+	  if (file) {
+		std::stringstream ss;
+		ss << "Message: " << message.ToString() << NEWLINE <<
+			  "Source: " << source.ToString() << NEWLINE <<
+			  "Line: " << line << NEWLINE <<
+			  "-----------------------" << NEWLINE;
+		fputs(ss.str().c_str(), file);
+		fclose(file);
+
+		if (first_console_message_) {
+		  test_runner::Alert(
+			  browser, "Console messages written to \"" + console_log_file_ + "\"");
+		  first_console_message_ = false;
+		}
+	  }
   }
 
   return false;

@@ -318,7 +318,7 @@ class ClientHandler : public CefClient,
   int browser_count_;
 
   // Console logging state.
-  const std::string console_log_file_;
+  const  std::string console_log_file_;
   bool first_console_message_;
 
   // True if an editable field currently has focus.

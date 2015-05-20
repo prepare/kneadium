@@ -93,7 +93,7 @@ struct jsvalue
             int64_t     i64;
             double      num;
             void       *ptr;
-            uint16_t   *str; 
+            uint16_t   *str;  
             jsvalue    *arr;
        } value;
         
