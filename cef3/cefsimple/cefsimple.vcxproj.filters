@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
@@ -58,4 +59,66 @@
       <UniqueIdentifier>{0E5C4DEC-1031-43BE-98B1-D537739A6D51}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
+=======
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <ClCompile Include="simple_app.cc">
+      <Filter>cefsimple</Filter>
+    </ClCompile>
+    <ClCompile Include="simple_handler.cc">
+      <Filter>cefsimple</Filter>
+    </ClCompile>
+    <ClCompile Include="cefsimple_win.cc">
+      <Filter>cefsimple</Filter>
+    </ClCompile>
+    <ClCompile Include="simple_handler_win.cc">
+      <Filter>cefsimple</Filter>
+    </ClCompile>
+    <ClCompile Include="ExportFuncs.cc">
+      <Filter>cefsimple</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="simple_app.h">
+      <Filter>cefsimple</Filter>
+    </ClInclude>
+    <ClInclude Include="simple_handler.h">
+      <Filter>cefsimple</Filter>
+    </ClInclude>
+    <ClInclude Include="resource.h">
+      <Filter>cefsimple</Filter>
+    </ClInclude>
+    <ClInclude Include="ExportFuncs.h">
+      <Filter>cefsimple</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <CustomBuild Include="CMakeLists.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="cefsimple.exe.manifest">
+      <Filter>cefsimple</Filter>
+    </None>
+    <None Include="res\cefsimple.ico">
+      <Filter>cefsimple\res</Filter>
+    </None>
+    <None Include="res\small.ico">
+      <Filter>cefsimple\res</Filter>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="cefsimple.rc">
+      <Filter>cefsimple</Filter>
+    </ResourceCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <Filter Include="cefsimple">
+      <UniqueIdentifier>{8E0F5588-9AE4-4025-984A-339C4EFBEF27}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="cefsimple\res">
+      <UniqueIdentifier>{0E5C4DEC-1031-43BE-98B1-D537739A6D51}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+>>>>>>> origin/v_dev
 </Project>
