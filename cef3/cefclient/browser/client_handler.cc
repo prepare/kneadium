@@ -341,7 +341,16 @@ bool ClientHandler::OnBeforePopup(
   if(this->mcallback_){
 	  //create popup window
 	  //with specific url
-	  this->mcallback_(104,NULL);
+	  //*** on managed side  : please invoke on main process of app ***
+
+	  //call across process, so create on heap 
+	  //don't forget to release it
+	  MethodArgs* metArgs= new MethodArgs(); 
+	  auto str16= target_url.ToString16();
+	  auto cstr= str16.c_str();
+
+	  metArgs->SetArgAsString(0,cstr); 
+	  this->mcallback_(104, metArgs);
 	  return true;
   }
   else{

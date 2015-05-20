@@ -119,7 +119,7 @@ MyBrowser* MyCefCreateClientHandler()
 }
 
 //7.
-int MyCefSetupBrowserHwnd(MyBrowser* myBw,HWND surfaceHwnd,int x,int y,int w,int h)
+int MyCefSetupBrowserHwnd(MyBrowser* myBw,HWND surfaceHwnd,int x,int y,int w,int h,const wchar_t* url)
 {   
 
   // Information used when creating the native window.
@@ -148,15 +148,15 @@ int MyCefSetupBrowserHwnd(MyBrowser* myBw,HWND surfaceHwnd,int x,int y,int w,int
   // Specify CEF browser settings here.
   CefBrowserSettings browser_settings;
 
-  std::string url;
+  //std::string url;
 
   // Check if a "--url=" value was provided via the command-line. If so, use
   // that instead of the default URL.
-  CefRefPtr<CefCommandLine> command_line =
+  /*CefRefPtr<CefCommandLine> command_line =
       CefCommandLine::GetGlobalCommandLine();
   url = command_line->GetSwitchValue("url");
   if (url.empty())
-    url = "http://www.google.com";
+    url = "https://cefbuilds.com";*/
 
   // Create the first browser window.
   //bool result= CefBrowserHost::CreateBrowser(window_info, handler.get(), url,                                browser_settings, NULL);
@@ -217,7 +217,30 @@ void PostData(MyBrowser* myBw, const wchar_t* url,const wchar_t* rawDataToPost,s
 
 }
 //4.
- void NativeMetSetResult(MethodArgs* nativeMetPtr, int retIndex, jsvalue* value)
+ void NativeMetSetResult(MethodArgs* args, int retIndex, jsvalue* value)
  {	 
-	 nativeMetPtr->result0 = *(value);
+	 args->result0 = *(value);
+ }
+
+ jsvalue MyCefNativeMetGetArgs(MethodArgs* args,int argIndex) 
+ {
+	 switch(argIndex)
+	 {
+		case 0: return args->arg0;
+		case 1: return args->arg1;
+		case 2: return args->arg2;
+		case 3: return args->arg3;
+		case 4: return args->arg4;
+		default: 
+			{
+				jsvalue v;
+				v.type = JSVALUE_TYPE_EMPTY;
+				v.length =0;
+				return v;
+			} 
+	 } 
+ }
+ 
+ void MyCefDisposePtr(void* ptr){
+	 delete ptr;
  }

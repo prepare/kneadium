@@ -538,6 +538,7 @@ if %errorlevel% neq 0 goto :VCEnd</Command>
     <ClCompile Include="common\scheme_test_common.cc" />
     <ClCompile Include="dll_init.cpp" />
     <ClCompile Include="ExportFuncs.cpp" />
+    <ClCompile Include="mycef.cc" />
     <ClCompile Include="renderer\client_app_delegates_renderer.cc" />
     <ClCompile Include="renderer\client_app_renderer.cc" />
     <ClCompile Include="renderer\client_renderer.cc" />

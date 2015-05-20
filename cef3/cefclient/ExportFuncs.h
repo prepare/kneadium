@@ -35,7 +35,7 @@ extern "C"{
 	//6.
 	MY_DLL_EXPORT MyBrowser* MyCefCreateClientHandler();
 	//7.
-	MY_DLL_EXPORT int MyCefSetupBrowserHwnd(MyBrowser* myBw,HWND surfaceHwnd,int x,int y,int w,int h);
+	MY_DLL_EXPORT int MyCefSetupBrowserHwnd(MyBrowser* myBw,HWND surfaceHwnd,int x,int y,int w,int h,const wchar_t* url);
 
 	//8.
 	MY_DLL_EXPORT void MyCefDoMessageLoopWork(); 
@@ -53,7 +53,11 @@ extern "C"{
 	MY_DLL_EXPORT void ExecJavascript(MyBrowser* myBw, const wchar_t* jscode,const wchar_t* script_url);
 	//3.
 	MY_DLL_EXPORT void PostData(MyBrowser* myBw, const wchar_t* url,const wchar_t* rawDataToPost,size_t rawDataLength);
+
+	MY_DLL_EXPORT void MyCefDisposePtr(void* ptr);
+	//----------------------------
 	//4
-	MY_DLL_EXPORT  void NativeMetSetResult(MethodArgs* nativeMetPtr, int retIndex, jsvalue* value);
+	MY_DLL_EXPORT  void NativeMetSetResult(MethodArgs* args, int retIndex, jsvalue* value);
+	MY_DLL_EXPORT jsvalue MyCefNativeMetGetArgs(MethodArgs* args,int argIndex);
 
 }

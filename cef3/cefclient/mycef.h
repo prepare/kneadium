@@ -129,6 +129,8 @@ public:
 
 	int argCount;
 	int resultCount;
+	
+	void SetArgAsString(int argIndex, const wchar_t* str);
 
 	void SetOutputString(int resultIndex, const void* dataBuffer,int len);  
 };
