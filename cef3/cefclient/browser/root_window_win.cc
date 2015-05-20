@@ -103,61 +103,7 @@ void RootWindowWin::Init(RootWindow::Delegate* delegate,
     MAIN_POST_CLOSURE(
         base::Bind(&RootWindowWin::CreateRootWindow, this, settings));
   }
-}
-void RootWindowWin::Init(RootWindow::Delegate* delegate,
-                         HWND managedSurfaceHwnd,
-                         const CefRect& bounds,
-                         const CefBrowserSettings& settings,
-                         const std::string& url) {
-  //set browser window
-  delegate_ = delegate;
-  with_controls_ = false;
-
-  start_rect_.left = bounds.x;
-  start_rect_.top = bounds.y;
-  start_rect_.right = bounds.x + bounds.width;
-  start_rect_.bottom = bounds.y + bounds.height;
-
-  CreateBrowserWindow(false, url);
-
-  initialized_ = true;
-
-  //// Create the native root window on the main thread.
-  //if (CURRENTLY_ON_MAIN_THREAD()) {
-  //  CreateRootWindow(settings);
-  //} else {
-  //  MAIN_POST_CLOSURE(
-  //      base::Bind(&RootWindowWin::CreateRootWindow, this, settings));
-  //}
-
-}
-void RootWindowWin::Init3(RootWindow::Delegate* delegate,
-                         HWND managedSurfaceHwnd,
-                         const CefRect& bounds,
-                          CefBrowserSettings& settings,
-                         const std::string& url) {
-  //set browser window
-  delegate_ = delegate;
-  with_controls_ = false;
-
-  start_rect_.left = bounds.x;
-  start_rect_.top = bounds.y;
-  start_rect_.right = bounds.x + bounds.width;
-  start_rect_.bottom = bounds.y + bounds.height;
-
-  CreateBrowserWindow(false, url);
-
-  initialized_ = true;
-
-  //// Create the native root window on the main thread.
-  //if (CURRENTLY_ON_MAIN_THREAD()) {
-  //  CreateRootWindow(settings);
-  //} else {
-  //  MAIN_POST_CLOSURE(
-  //      base::Bind(&RootWindowWin::CreateRootWindow, this, settings));
-  //}
-
-}
+} 
 void RootWindowWin::InitAsPopup(RootWindow::Delegate* delegate,
                                 bool with_controls,
                                 bool with_osr,
