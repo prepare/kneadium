@@ -1,4 +1,4 @@
-# Install script for directory: C:/WImageTest/CefBridge/cef3/cefclient
+# Install script for directory: C:/WImageTest/CefBridge/cef_binary_3.2357.1271.g8e0674e_windows32/cefclient
 
 # Set the install prefix
 if(NOT DEFINED CMAKE_INSTALL_PREFIX)

@@ -11,7 +11,7 @@
     </ProjectConfiguration>
   </ItemGroup>
   <PropertyGroup Label="Globals">
-    <ProjectGUID>{ADFAC6FB-9C5C-4D5D-9338-D98665D5DFCA}</ProjectGUID>
+    <ProjectGUID>{7BE93C6F-1AD2-4D1C-AE22-F150F8A751D6}</ProjectGUID>
     <Keyword>Win32Proj</Keyword>
     <Platform>Win32</Platform>
     <ProjectName>libcef_dll_wrapper</ProjectName>
@@ -36,23 +36,23 @@
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup>
     <_ProjectFileVersion>10.0.20506.1</_ProjectFileVersion>
-    <OutDir Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">C:\WImageTest\CefBridge\cef3\libcef_dll\Debug\</OutDir>
+    <OutDir Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">C:\WImageTest\CefBridge\cef_binary_3.2357.1271.g8e0674e_windows32\libcef_dll\Debug\</OutDir>
     <IntDir Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">libcef_dll_wrapper.dir\Debug\</IntDir>
     <TargetName Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">libcef_dll_wrapper</TargetName>
     <TargetExt Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">.lib</TargetExt>
-    <OutDir Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">C:\WImageTest\CefBridge\cef3\libcef_dll\Release\</OutDir>
+    <OutDir Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">C:\WImageTest\CefBridge\cef_binary_3.2357.1271.g8e0674e_windows32\libcef_dll\Release\</OutDir>
     <IntDir Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">libcef_dll_wrapper.dir\Release\</IntDir>
     <TargetName Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">libcef_dll_wrapper</TargetName>
     <TargetExt Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">.lib</TargetExt>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
-      <AdditionalIncludeDirectories>C:\WImageTest\CefBridge\cef3;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>C:\WImageTest\CefBridge\cef_binary_3.2357.1271.g8e0674e_windows32;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <AssemblerListingLocation>Debug/</AssemblerListingLocation>
       <BasicRuntimeChecks>EnableFastChecks</BasicRuntimeChecks>
       <CompileAs>CompileAsCpp</CompileAs>
       <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
-      <DisableSpecificWarnings>4100;4127;4244;4512;4701;4702;4996;4481</DisableSpecificWarnings>
+      <DisableSpecificWarnings>4100;4127;4244;4512;4701;4702;4996;4481;</DisableSpecificWarnings>
       <ExceptionHandling>
       </ExceptionHandling>
       <FunctionLevelLinking>true</FunctionLevelLinking>
@@ -68,10 +68,10 @@
     </ClCompile>
     <ResourceCompile>
       <PreprocessorDefinitions>__STDC_CONSTANT_MACROS;__STDC_FORMAT_MACROS;WIN32;_WIN32;_WINDOWS;UNICODE;_UNICODE;WINVER=0x0602;_WIN32_WINNT=0x602;NOMINMAX;WIN32_LEAN_AND_MEAN;_HAS_EXCEPTIONS=0;CEF_USE_ATL;USING_CEF_SHARED;CMAKE_INTDIR=\"Debug\";%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>C:\WImageTest\CefBridge\cef3;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>C:\WImageTest\CefBridge\cef_binary_3.2357.1271.g8e0674e_windows32;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ResourceCompile>
     <Midl>
-      <AdditionalIncludeDirectories>C:\WImageTest\CefBridge\cef3;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>C:\WImageTest\CefBridge\cef_binary_3.2357.1271.g8e0674e_windows32;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <OutputDirectory>$(IntDir)</OutputDirectory>
       <HeaderFileName>%(Filename).h</HeaderFileName>
       <TypeLibraryName>%(Filename).tlb</TypeLibraryName>
@@ -81,7 +81,7 @@
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <ClCompile>
-      <AdditionalIncludeDirectories>C:\WImageTest\CefBridge\cef3;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>C:\WImageTest\CefBridge\cef_binary_3.2357.1271.g8e0674e_windows32;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <AssemblerListingLocation>Release/</AssemblerListingLocation>
       <CompileAs>CompileAsCpp</CompileAs>
       <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
@@ -103,10 +103,10 @@
     </ClCompile>
     <ResourceCompile>
       <PreprocessorDefinitions>NDEBUG;_NDEBUG;__STDC_CONSTANT_MACROS;__STDC_FORMAT_MACROS;WIN32;_WIN32;_WINDOWS;UNICODE;_UNICODE;WINVER=0x0602;_WIN32_WINNT=0x602;NOMINMAX;WIN32_LEAN_AND_MEAN;_HAS_EXCEPTIONS=0;CEF_USE_ATL;USING_CEF_SHARED;CMAKE_INTDIR=\"Release\";%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>C:\WImageTest\CefBridge\cef3;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>C:\WImageTest\CefBridge\cef_binary_3.2357.1271.g8e0674e_windows32;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ResourceCompile>
     <Midl>
-      <AdditionalIncludeDirectories>C:\WImageTest\CefBridge\cef3;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>C:\WImageTest\CefBridge\cef_binary_3.2357.1271.g8e0674e_windows32;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <OutputDirectory>$(IntDir)</OutputDirectory>
       <HeaderFileName>%(Filename).h</HeaderFileName>
       <TypeLibraryName>%(Filename).tlb</TypeLibraryName>
@@ -116,9 +116,9 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <CustomBuild Include="CMakeLists.txt">
-      <Message Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Building Custom Rule C:/WImageTest/CefBridge/cef3/libcef_dll/CMakeLists.txt</Message>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Building Custom Rule C:/WImageTest/CefBridge/cef_binary_3.2357.1271.g8e0674e_windows32/libcef_dll/CMakeLists.txt</Message>
       <Command Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">setlocal
-"C:\Program Files (x86)\CMake\bin\cmake.exe" -HC:/WImageTest/CefBridge/cef3 -BC:/WImageTest/CefBridge/cef3 --check-stamp-file C:\WImageTest\CefBridge\cef3\libcef_dll\CMakeFiles\generate.stamp
+"C:\Program Files (x86)\CMake\bin\cmake.exe" -HC:/WImageTest/CefBridge/cef_binary_3.2357.1271.g8e0674e_windows32 -BC:/WImageTest/CefBridge/cef_binary_3.2357.1271.g8e0674e_windows32 --check-stamp-file C:\WImageTest\CefBridge\cef_binary_3.2357.1271.g8e0674e_windows32\libcef_dll\CMakeFiles\generate.stamp
 if %errorlevel% neq 0 goto :cmEnd
 :cmEnd
 endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
@@ -126,11 +126,11 @@ endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
 exit /b %1
 :cmDone
 if %errorlevel% neq 0 goto :VCEnd</Command>
-      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">C:/WImageTest/CefBridge/cef3/libcef_dll/CMakeLists.txt;C:\WImageTest\CefBridge\cef3\libcef_dll\CMakeLists.txt;C:\WImageTest\CefBridge\cef3\libcef_dll\CMakeLists.txt;%(AdditionalInputs)</AdditionalInputs>
-      <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">C:\WImageTest\CefBridge\cef3\libcef_dll\CMakeFiles\generate.stamp</Outputs>
-      <Message Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Building Custom Rule C:/WImageTest/CefBridge/cef3/libcef_dll/CMakeLists.txt</Message>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">C:/WImageTest/CefBridge/cef_binary_3.2357.1271.g8e0674e_windows32/libcef_dll/CMakeLists.txt;C:\WImageTest\CefBridge\cef_binary_3.2357.1271.g8e0674e_windows32\libcef_dll\CMakeLists.txt;C:\WImageTest\CefBridge\cef_binary_3.2357.1271.g8e0674e_windows32\libcef_dll\CMakeLists.txt;%(AdditionalInputs)</AdditionalInputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">C:\WImageTest\CefBridge\cef_binary_3.2357.1271.g8e0674e_windows32\libcef_dll\CMakeFiles\generate.stamp</Outputs>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Building Custom Rule C:/WImageTest/CefBridge/cef_binary_3.2357.1271.g8e0674e_windows32/libcef_dll/CMakeLists.txt</Message>
       <Command Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">setlocal
-"C:\Program Files (x86)\CMake\bin\cmake.exe" -HC:/WImageTest/CefBridge/cef3 -BC:/WImageTest/CefBridge/cef3 --check-stamp-file C:\WImageTest\CefBridge\cef3\libcef_dll\CMakeFiles\generate.stamp
+"C:\Program Files (x86)\CMake\bin\cmake.exe" -HC:/WImageTest/CefBridge/cef_binary_3.2357.1271.g8e0674e_windows32 -BC:/WImageTest/CefBridge/cef_binary_3.2357.1271.g8e0674e_windows32 --check-stamp-file C:\WImageTest\CefBridge\cef_binary_3.2357.1271.g8e0674e_windows32\libcef_dll\CMakeFiles\generate.stamp
 if %errorlevel% neq 0 goto :cmEnd
 :cmEnd
 endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
@@ -138,8 +138,8 @@ endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
 exit /b %1
 :cmDone
 if %errorlevel% neq 0 goto :VCEnd</Command>
-      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">C:/WImageTest/CefBridge/cef3/libcef_dll/CMakeLists.txt;C:\WImageTest\CefBridge\cef3\libcef_dll\CMakeLists.txt;C:\WImageTest\CefBridge\cef3\libcef_dll\CMakeLists.txt;%(AdditionalInputs)</AdditionalInputs>
-      <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">C:\WImageTest\CefBridge\cef3\libcef_dll\CMakeFiles\generate.stamp</Outputs>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">C:/WImageTest/CefBridge/cef_binary_3.2357.1271.g8e0674e_windows32/libcef_dll/CMakeLists.txt;C:\WImageTest\CefBridge\cef_binary_3.2357.1271.g8e0674e_windows32\libcef_dll\CMakeLists.txt;C:\WImageTest\CefBridge\cef_binary_3.2357.1271.g8e0674e_windows32\libcef_dll\CMakeLists.txt;%(AdditionalInputs)</AdditionalInputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">C:\WImageTest\CefBridge\cef_binary_3.2357.1271.g8e0674e_windows32\libcef_dll\CMakeFiles\generate.stamp</Outputs>
     </CustomBuild>
   </ItemGroup>
   <ItemGroup>
@@ -520,11 +520,6 @@ if %errorlevel% neq 0 goto :VCEnd</Command>
     <ClCompile Include="wrapper\cef_zip_archive.cc" />
     <ClCompile Include="wrapper\libcef_dll_wrapper.cc" />
     <ClCompile Include="wrapper\libcef_dll_wrapper2.cc" />
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="C:/WImageTest/CefBridge/cef3/ZERO_CHECK.vcxproj">
-      <Project>D4BB63EF-B24F-4EF3-A128-06CAFC5516AC</Project>
-    </ProjectReference>
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
