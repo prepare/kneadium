@@ -51,15 +51,15 @@ namespace LayoutFarm.CefBridge
         }
         public void NavigateTo(string url)
         {
-            Cef3Binder.NavigateTo(this.myCefBrowser, url);
+            Cef3Binder.MyCefBwNavigateTo(this.myCefBrowser, url);
         }
         public void ExecJavascript(string src, string scriptUrl)
         {
-            Cef3Binder.ExecJavascript(this.myCefBrowser, src, scriptUrl);
+            Cef3Binder.MyCefBwExecJavascript(this.myCefBrowser, src, scriptUrl);
         }
         public void PostData(string url, byte[] data, int len)
         {
-            Cef3Binder.PostData(this.myCefBrowser, url, data, len);
+            Cef3Binder.MyCefBwPostData(this.myCefBrowser, url, data, len);
         }
 
         public void GetText(MyCefCallback strCallback)

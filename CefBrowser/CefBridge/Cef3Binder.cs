@@ -280,17 +280,16 @@ namespace LayoutFarm.CefBridge
         //part3:
         //--------------------------------------------------- 
         [DllImport(CEF_CLIENT_DLL, CharSet = CharSet.Unicode)]
-        public static extern unsafe void NavigateTo(IntPtr clientHandler, string urlAddress);
+        public static extern unsafe void MyCefBwNavigateTo(IntPtr myCefBw, string urlAddress);
 
         [DllImport(CEF_CLIENT_DLL, CallingConvention = CallingConvention.Cdecl, CharSet = CharSet.Unicode)]
-        public static extern void ExecJavascript(IntPtr clientHandler, string jssource, string scripturl);
+        public static extern void MyCefBwExecJavascript(IntPtr myCefBw, string jssource, string scripturl);
 
         [DllImport(CEF_CLIENT_DLL, CallingConvention = CallingConvention.Cdecl, CharSet = CharSet.Unicode)]
-        public static extern void PostData(IntPtr clientHandler, string url, byte[] data, int len);
-
+        public static extern void MyCefBwPostData(IntPtr myCefBw, string url, byte[] data, int len);
+     
         [DllImport(CEF_CLIENT_DLL)]
         public static extern void MyCefShowDevTools(IntPtr myCefBw, IntPtr myCefDevTool, IntPtr parentWindow);
-
         [DllImport(CEF_CLIENT_DLL)]
         public static extern void MyCefBwGoBack(IntPtr myCefBw);
         [DllImport(CEF_CLIENT_DLL)]
@@ -301,8 +300,7 @@ namespace LayoutFarm.CefBridge
         public static extern void MyCefBwReload(IntPtr myCefBw);
         //--------------------------------------------------- 
 
-
-        //--------------------------------------------------- 
+         
 
         [DllImport(CEF_CLIENT_DLL, CallingConvention = CallingConvention.Cdecl, CharSet = CharSet.Unicode)]
         public static extern void DomGetTextWalk(IntPtr g_ClientHandler, MyCefCallback strCallBack);
@@ -317,12 +315,7 @@ namespace LayoutFarm.CefBridge
         public static unsafe extern void MyCefCbArgs_SetResultAsBuffer(
             IntPtr callArgsPtr,
             int resultIndex,
-            byte* resultBuffer, int strlen);
-
-
-
-
-
+            byte* resultBuffer, int strlen); 
 
         [DllImport(CEF_CLIENT_DLL, CallingConvention = CallingConvention.Cdecl)]
         internal static unsafe extern void MyCef_CefRegisterSchemeHandlerFactory(

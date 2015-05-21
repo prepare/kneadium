@@ -224,17 +224,17 @@ void MyCefShutDown(){
 //part3:
 
 //1. 
-void NavigateTo(MyBrowser* myBw, const wchar_t* url){
+void MyCefBwNavigateTo(MyBrowser* myBw, const wchar_t* url){
 		 
 	 myBw->bwWindow->GetBrowser()->GetMainFrame()->LoadURL(url); 
 }
 //2.
-void ExecJavascript(MyBrowser* myBw, const wchar_t* jscode,const wchar_t* script_url){
+void MyCefBwExecJavascript(MyBrowser* myBw, const wchar_t* jscode,const wchar_t* script_url){
 	
 	 myBw->bwWindow->GetBrowser()->GetMainFrame()->ExecuteJavaScript(jscode,script_url,0);
 }
 //3. 
-void PostData(MyBrowser* myBw, const wchar_t* url,const wchar_t* rawDataToPost,size_t rawDataLength){
+void MyCefBwPostData(MyBrowser* myBw, const wchar_t* url,const wchar_t* rawDataToPost,size_t rawDataLength){
 	
 	//create request
 	CefRefPtr<CefRequest> request(CefRequest::Create());
