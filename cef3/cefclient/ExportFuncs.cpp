@@ -19,7 +19,7 @@
 #include "cefclient/browser/main_context.h" 
 
  
-delTraceBack notifyListener= NULL;
+ 
 client::MainContextImpl* mainContext;  
 client::MainMessageLoop* message_loop;  //essential for mainloop checking 
 
@@ -31,13 +31,12 @@ int MyCefGetVersion()
 	 return 1004;
 }
 //2.
-int RegisterManagedCallBack(void* funcPtr,int callbackKind)
+int RegisterManagedCallBack(managed_callback mxCallback,int callbackKind)
 {	
 	switch(callbackKind)
 	{
 		case 0:
-			{
-				notifyListener= (delTraceBack)funcPtr;		    
+			{ 
 				return 0;
 			}break;
 		case 1:
@@ -46,6 +45,8 @@ int RegisterManagedCallBack(void* funcPtr,int callbackKind)
 			}break;
 		case 3:
 			{   
+				//set global mxCallback ***
+				myMxCallback_ = mxCallback;
 				return 0;
 			}break;
 	} 
@@ -77,16 +78,16 @@ client::ClientApp* MyCefCreateClientApp()
    return app;
 }
 //4. 
-void MyCefClientAppSetManagedCallback(client::ClientApp* clientApp,managed_callback myMxCallback)
+void MyCefClientAppSetManagedCallback(managed_callback myMxCallback)
 {
-	myMxCallback_ = myMxCallback;
+	
 }
 //5.
 int MyCefInit(HINSTANCE hInstance,client::ClientApp* app)
 {
 	CefRefPtr<client::ClientApp> myApp = app;   
 	mainContext= DllInitMain(hInstance,myApp); 
-	//set managed callback to
+	//set global mx callback to mainContext 
 	mainContext->myMxCallback_ = myMxCallback_;
 	return -1;
 }  

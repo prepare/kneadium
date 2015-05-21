@@ -1,32 +1,32 @@
 #include "ExportFuncs.h"   
 #include "mycef.h"
- 
- 
-
-delTraceBack notifyListener= NULL; 
-
+   
+managed_callback myMxCallback;
 //1.
 int MyCefGetVersion()
 {	
 	 return 2357;
 }
 //2.
-int RegisterManagedCallBack(void* funcPtr,int callbackKind)
+int RegisterManagedCallBack(managed_callback callback,int callbackKind)
 {	
 	switch(callbackKind)
 	{
 		case 0:
 			{
-				notifyListener= (delTraceBack)funcPtr;		    
+			   
 				return 0;
 			}break;
 		case 1:
 			{
 			 
 			}break;
+		case 2:
+			{
+			}break;
 		case 3:
 			{   
-				return 0;
+				myMxCallback = callback;
 			}break;
 	} 
 	return 1;
@@ -34,6 +34,7 @@ int RegisterManagedCallBack(void* funcPtr,int callbackKind)
 //3.
 SimpleApp* MyCefCreateClientApp(){
 	auto app = new SimpleApp();
+	app->myMxCallback = myMxCallback;
 	app->extmode = true;
 	return app;	 
 }
@@ -74,12 +75,7 @@ int MyCefInit(HINSTANCE hInstance,SimpleApp* app1)
   // Initialize CEF.
   CefInitialize(main_args, settings,  app.get(), sandbox_info); 
   return -1;
-}
-//5.
-void MyCefClientAppSetManagedCallback(SimpleApp* clientApp,managed_callback myMxCallback)
-{
-	clientApp->myMxCallback = myMxCallback;
-}
+} 
 	
 //6.
 SimpleHandler* MyCefCreateClientHandler()

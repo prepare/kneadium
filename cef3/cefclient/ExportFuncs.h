@@ -23,7 +23,7 @@ extern "C"{
 	//1.
 	MY_DLL_EXPORT int MyCefGetVersion(); 
 	//2.
-	MY_DLL_EXPORT int RegisterManagedCallBack(void* callback,int callBackKind); 
+	MY_DLL_EXPORT int RegisterManagedCallBack(managed_callback callback,int callBackKind); 
 	//3. 
 	MY_DLL_EXPORT client::ClientApp* MyCefCreateClientApp();	
 	//4.
