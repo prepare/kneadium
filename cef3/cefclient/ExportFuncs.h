@@ -25,12 +25,8 @@ extern "C"{
 	//2.
 	MY_DLL_EXPORT int RegisterManagedCallBack(managed_callback callback,int callBackKind); 
 	//3. 
-	MY_DLL_EXPORT client::ClientApp* MyCefCreateClientApp();	
-	//4.
-	MY_DLL_EXPORT int MyCefInit(HINSTANCE hInstance,client::ClientApp* app);
-	//5.
-	MY_DLL_EXPORT void MyCefClientAppSetManagedCallback(client::ClientApp* clientApp,managed_callback myMxCallback);
-	
+	MY_DLL_EXPORT client::ClientApp* MyCefCreateClientApp(HINSTANCE hInstance);	
+	 
 	
 	//6.
 	MY_DLL_EXPORT MyBrowser* MyCefCreateClientHandler();

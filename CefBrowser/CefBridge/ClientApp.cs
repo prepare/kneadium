@@ -29,11 +29,13 @@ namespace LayoutFarm.CefBridge
                 {
                     isInitWithProcessHandle = true;
 
-                    this.clientAppPtr = Cef3Binder.MyCefCreateClientApp();
-                    int initResult = Cef3Binder.MyCefInit(processHandle, clientAppPtr);
-                    //register managed callback ***
+                    //1. register mx callback
                     this.mxCallback = new MyCefCallback(MxCallBack);
                     Cef3Binder.RegisterManagedCallBack(this.mxCallback, 3);
+
+                    //2. create client app
+                    this.clientAppPtr = Cef3Binder.MyCefCreateClientApp(processHandle); 
+                    //register managed callback ***     
                 }
             }
         }

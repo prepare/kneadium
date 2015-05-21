@@ -53,7 +53,7 @@ int RegisterManagedCallBack(managed_callback mxCallback,int callbackKind)
 	return 1;
 }
 //3.
-client::ClientApp* MyCefCreateClientApp()
+client::ClientApp* MyCefCreateClientApp(HINSTANCE hInstance)
 {	
 	// Parse command-line arguments.
    CefRefPtr<CefCommandLine> command_line = CefCommandLine::CreateCommandLine();
@@ -70,27 +70,21 @@ client::ClientApp* MyCefCreateClientApp()
 
     // Create the main message loop object.
   message_loop = new client::MainMessageLoopStd();
-  //message_loop.reset(new client::MainMessageLoopStd); 
- /* if (settings.multi_threaded_message_loop)
-    message_loop.reset(new MainMessageLoopMultithreadedWin);
+   //message_loop.reset(new client::MainMessageLoopStd); 
+  /* if (settings.multi_threaded_message_loop)
+   message_loop.reset(new MainMessageLoopMultithreadedWin);
   else
-    message_loop.reset(new MainMessageLoopStd);*/
-   return app;
-}
-//4. 
-void MyCefClientAppSetManagedCallback(managed_callback myMxCallback)
-{
-	
-}
-//5.
-int MyCefInit(HINSTANCE hInstance,client::ClientApp* app)
-{
-	CefRefPtr<client::ClientApp> myApp = app;   
-	mainContext= DllInitMain(hInstance,myApp); 
+   message_loop.reset(new MainMessageLoopStd);*/  
+
+  //------------------------------------------------------------------
+  //create main context here
+  mainContext= DllInitMain(hInstance,app); 
 	//set global mx callback to mainContext 
-	mainContext->myMxCallback_ = myMxCallback_;
-	return -1;
-}  
+  mainContext->myMxCallback_ = myMxCallback_;
+  return app;
+
+}
+  
 //6, 
 MyBrowser* MyCefCreateClientHandler()
 {	

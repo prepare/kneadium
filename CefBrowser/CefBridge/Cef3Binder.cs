@@ -252,11 +252,8 @@ namespace LayoutFarm.CefBridge
         public static extern int RegisterManagedCallBack(MyCefCallback funcPtr, int callbackKind);
         //3.
         [DllImport(CEF_CLIENT_DLL)]
-        internal static extern IntPtr MyCefCreateClientApp();
-        //4.
-        [DllImport(CEF_CLIENT_DLL)]
-        public static extern int MyCefInit(IntPtr processHandle, IntPtr clientAppHandle);
-
+        internal static extern IntPtr MyCefCreateClientApp(IntPtr processHandle);
+        
         //6. 
         [DllImport(CEF_CLIENT_DLL)]
         public static extern IntPtr MyCefCreateClientHandler();
