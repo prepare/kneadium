@@ -62,7 +62,8 @@ extern "C"{
 	MY_DLL_EXPORT void ExecJavascript(MyBrowser* myBw, const wchar_t* jscode,const wchar_t* script_url);
 	//3.
 	MY_DLL_EXPORT void PostData(MyBrowser* myBw, const wchar_t* url,const wchar_t* rawDataToPost,size_t rawDataLength);
-
+	//4. 
+	MY_DLL_EXPORT void MyCefShowDevTools(MyBrowser* myBw,MyBrowser* myBwDev,HWND parentHwnd);
 	//----------------------------
 	
 

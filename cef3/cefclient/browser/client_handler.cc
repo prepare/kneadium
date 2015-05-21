@@ -43,7 +43,7 @@ enum client_menu_ids {
   CLIENT_ID_TESTMENU_RADIOITEM3,
 };
 
-// Musr match the value in client_renderer.cc.
+// Must match the value in client_renderer.cc.
 const char kFocusedNodeChangedMessage[] = "ClientRenderer.FocusedNodeChanged";
 
 std::string GetTimeString(const CefTime& value) {
@@ -87,6 +87,7 @@ void LoadErrorPage(CefRefPtr<CefFrame> frame,
                    const std::string& failed_url,
                    cef_errorcode_t error_code,
                    const std::string& other_info) {
+
   std::stringstream ss;
   ss << "<html><head><title>Page failed to load</title></head>"
         "<body bgcolor=\"white\">"
@@ -199,6 +200,7 @@ bool ClientHandler::OnContextMenuCommand(
 
   switch (command_id) {
     case CLIENT_ID_SHOW_DEVTOOLS:
+
       ShowDevTools(browser, CefPoint());
       return true;
     case CLIENT_ID_CLOSE_DEVTOOLS:
@@ -622,14 +624,24 @@ int ClientHandler::GetBrowserCount() const {
 
 void ClientHandler::ShowDevTools(CefRefPtr<CefBrowser> browser,
                                  const CefPoint& inspect_element_at) {
+
+  
   CefWindowInfo windowInfo;
   CefRefPtr<CefClient> client;
   CefBrowserSettings settings;
+  if(this->mcallback_)
+  {
+	  //create dev window
+	  //send cef client 
+	  this->mcallback_(107,NULL);
 
-  if (CreatePopupWindow(browser, true, CefPopupFeatures(), windowInfo, client,
+  }
+  else{
+	if (CreatePopupWindow(browser, true, CefPopupFeatures(), windowInfo, client,
                         settings)) {
-    browser->GetHost()->ShowDevTools(windowInfo, client, settings,
+		browser->GetHost()->ShowDevTools(windowInfo, client, settings,
                                      inspect_element_at);
+	}
   }
 }
 

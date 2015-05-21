@@ -264,4 +264,38 @@ void PostData(MyBrowser* myBw, const wchar_t* url,const wchar_t* rawDataToPost,s
 	 myBw->bwWindow->GetBrowser()->GetMainFrame()->LoadRequest(request); 
 
 }
+//4. 
+void MyCefShowDevTools(MyBrowser* myBw, MyBrowser* myBwDev, HWND parentWindow)
+{
+	
+  
+  CefWindowInfo windowInfo;  
+  windowInfo.parent_window = parentWindow;
+  windowInfo.width = 800;
+  windowInfo.height = 600;
+  windowInfo.x  =0;
+  windowInfo.y  =0;
+
+  RECT r;
+  r.left =0;
+  r.top =0;
+  r.right = 800;
+  r.bottom = 600;
+
+  windowInfo.SetAsChild(parentWindow,r);
+
+  CefRefPtr<CefClient> client(myBwDev->bwWindow->GetClientHandler());
+  CefBrowserSettings settings;
+  CefPoint inspect_element_at;
+   
+  myBw->bwWindow->GetBrowser()->GetHost()->ShowDevTools(
+	  windowInfo,
+	  client,
+	  settings,
+	  inspect_element_at);
+
  
+	//myBw->bwWindow->GetBrowser()->GetHost()->ShowDevTools(
+	//browser->GetHost()->ShowDevTools(windowInfo, client, settings,
+      //                               inspect_element_at);
+}
