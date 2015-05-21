@@ -1139,38 +1139,38 @@
     <CustomBuild Include="CMakeLists.txt" />
   </ItemGroup>
   <ItemGroup>
-    <Filter Include="include\base\internal">
-      <UniqueIdentifier>{A3E5EFE1-14F1-4456-A402-5EAB6B49B75F}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="libcef_dll\base">
-      <UniqueIdentifier>{D420B2C6-3378-42B4-9E82-B781B9AFEB0C}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="libcef_dll\cpptoc">
-      <UniqueIdentifier>{CC47DE82-3ADC-41CC-A909-336C47CA890A}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="libcef_dll\ctocpp">
-      <UniqueIdentifier>{11D146F0-96D4-42F9-9142-C1E812E596FC}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="libcef_dll\wrapper">
-      <UniqueIdentifier>{2B359C5C-45D2-4B72-A0BD-43A10E8103A0}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="include\base">
-      <UniqueIdentifier>{FE099D16-E02A-414F-91DA-335D64AFDF53}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="include\capi">
-      <UniqueIdentifier>{B64596F6-A8D8-4D6D-AD98-9DF0B0F5BDD4}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="include\internal">
-      <UniqueIdentifier>{0D978F43-5FF5-4E03-8072-6437E9FD5886}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="include\wrapper">
-      <UniqueIdentifier>{BA55D421-6592-446A-A250-25496F72FF70}</UniqueIdentifier>
-    </Filter>
     <Filter Include="libcef_dll">
-      <UniqueIdentifier>{83857DEF-509C-4E67-A2BD-05EEBAB0FB8A}</UniqueIdentifier>
+      <UniqueIdentifier>{EA945962-B6FE-4382-A233-BC614D973F26}</UniqueIdentifier>
     </Filter>
     <Filter Include="include">
-      <UniqueIdentifier>{C3FC765C-E19D-49F8-8B4D-B918CA0032FA}</UniqueIdentifier>
+      <UniqueIdentifier>{8CF10034-03E7-4A06-9B07-59D12E7AAB04}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="include\base\internal">
+      <UniqueIdentifier>{AB7623BD-C18E-49D1-BC3E-BADBF8E366CE}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="include\base">
+      <UniqueIdentifier>{1EC5154F-B745-4A38-91B7-D1F34ABB487A}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="include\capi">
+      <UniqueIdentifier>{4BDD012E-72D2-4DF8-A76E-6AAF6A8AD272}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="include\internal">
+      <UniqueIdentifier>{A8C3C779-4BA8-4419-991C-3075C9A2FF9A}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="include\wrapper">
+      <UniqueIdentifier>{1ED5BEDD-D7BD-4B69-BCB8-E1035656010F}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="libcef_dll\base">
+      <UniqueIdentifier>{0A3E05AF-B27D-4881-AF6B-0F0417E22CBC}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="libcef_dll\cpptoc">
+      <UniqueIdentifier>{6C5F67ED-3BD0-45A1-AB0F-6618F9978BFA}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="libcef_dll\ctocpp">
+      <UniqueIdentifier>{3D88FDED-BAD1-46A5-A694-ADE9ED972787}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="libcef_dll\wrapper">
+      <UniqueIdentifier>{0ECFC790-7ED9-4EE4-B3BF-A1A52B669278}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>

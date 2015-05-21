@@ -8,15 +8,14 @@ extern "C"{
 	//1.
 	MY_DLL_EXPORT int MyCefGetVersion(); 
 	//2.
-	MY_DLL_EXPORT int RegisterManagedCallBack(void* callback,int callBackKind);  
+	MY_DLL_EXPORT int RegisterManagedCallBack(managed_callback callback,int callBackKind);  
 	//3.
     MY_DLL_EXPORT SimpleApp* MyCefCreateClientApp();
 	//4.
     MY_DLL_EXPORT int MyCefInit(HINSTANCE hInstance,SimpleApp* app1);
-	//5.
-	MY_DLL_EXPORT void MyCefClientAppSetManagedCallback(SimpleApp* clientApp,managed_callback myMxCallback);
+	//5. 
 	//6.
-	MY_DLL_EXPORT SimpleHandler* MyCefCreateClientHandler();
+	MY_DLL_EXPORT SimpleHandler* MyCefCreateMyWebBrowser();
 	//7
 	MY_DLL_EXPORT int MyCefSetupBrowserHwnd(SimpleHandler* clientHandler,HWND surfaceHwnd,int x,int y,int w,int h);
 	//8.

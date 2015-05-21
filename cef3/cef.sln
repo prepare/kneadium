@@ -1,33 +1,16 @@
 Microsoft Visual Studio Solution File, Format Version 11.00
 # Visual Studio 2010
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "ALL_BUILD", "ALL_BUILD.vcxproj", "{F7DE0A49-166C-4F8A-8733-B6069A964E8E}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "cefclient", "cefclient\cefclient.vcxproj", "{F389D48E-DCAC-49FA-837C-367C0D9FFD89}"
 	ProjectSection(ProjectDependencies) = postProject
-		{D4BB63EF-B24F-4EF3-A128-06CAFC5516AC} = {D4BB63EF-B24F-4EF3-A128-06CAFC5516AC}
-		{FA759D81-7BFF-4EA2-AA12-FF0B835DCBE3} = {FA759D81-7BFF-4EA2-AA12-FF0B835DCBE3}
-		{74F53381-2526-4EBA-9F7E-78EDF9D0D19F} = {74F53381-2526-4EBA-9F7E-78EDF9D0D19F}
-		{ADFAC6FB-9C5C-4D5D-9338-D98665D5DFCA} = {ADFAC6FB-9C5C-4D5D-9338-D98665D5DFCA}
+		{7BE93C6F-1AD2-4D1C-AE22-F150F8A751D6} = {7BE93C6F-1AD2-4D1C-AE22-F150F8A751D6}
 	EndProjectSection
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "ZERO_CHECK", "ZERO_CHECK.vcxproj", "{D4BB63EF-B24F-4EF3-A128-06CAFC5516AC}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "cefsimple", "cefsimple\cefsimple.vcxproj", "{4240E80D-0DC7-4FF9-8CDD-E4134ECB6E0C}"
 	ProjectSection(ProjectDependencies) = postProject
+		{7BE93C6F-1AD2-4D1C-AE22-F150F8A751D6} = {7BE93C6F-1AD2-4D1C-AE22-F150F8A751D6}
 	EndProjectSection
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "cefclient", "cefclient\cefclient.vcxproj", "{FA759D81-7BFF-4EA2-AA12-FF0B835DCBE3}"
-	ProjectSection(ProjectDependencies) = postProject
-		{D4BB63EF-B24F-4EF3-A128-06CAFC5516AC} = {D4BB63EF-B24F-4EF3-A128-06CAFC5516AC}
-		{ADFAC6FB-9C5C-4D5D-9338-D98665D5DFCA} = {ADFAC6FB-9C5C-4D5D-9338-D98665D5DFCA}
-	EndProjectSection
-EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "cefsimple", "cefsimple\cefsimple.vcxproj", "{74F53381-2526-4EBA-9F7E-78EDF9D0D19F}"
-	ProjectSection(ProjectDependencies) = postProject
-		{D4BB63EF-B24F-4EF3-A128-06CAFC5516AC} = {D4BB63EF-B24F-4EF3-A128-06CAFC5516AC}
-		{ADFAC6FB-9C5C-4D5D-9338-D98665D5DFCA} = {ADFAC6FB-9C5C-4D5D-9338-D98665D5DFCA}
-	EndProjectSection
-EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "libcef_dll_wrapper", "libcef_dll\libcef_dll_wrapper.vcxproj", "{ADFAC6FB-9C5C-4D5D-9338-D98665D5DFCA}"
-	ProjectSection(ProjectDependencies) = postProject
-		{D4BB63EF-B24F-4EF3-A128-06CAFC5516AC} = {D4BB63EF-B24F-4EF3-A128-06CAFC5516AC}
-	EndProjectSection
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "libcef_dll_wrapper", "libcef_dll\libcef_dll_wrapper.vcxproj", "{7BE93C6F-1AD2-4D1C-AE22-F150F8A751D6}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -35,27 +18,20 @@ Global
 		Release|Win32 = Release|Win32
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{F7DE0A49-166C-4F8A-8733-B6069A964E8E}.Debug|Win32.ActiveCfg = Debug|Win32
-		{F7DE0A49-166C-4F8A-8733-B6069A964E8E}.Release|Win32.ActiveCfg = Release|Win32
-		{D4BB63EF-B24F-4EF3-A128-06CAFC5516AC}.Debug|Win32.ActiveCfg = Debug|Win32
-		{D4BB63EF-B24F-4EF3-A128-06CAFC5516AC}.Debug|Win32.Build.0 = Debug|Win32
-		{D4BB63EF-B24F-4EF3-A128-06CAFC5516AC}.Release|Win32.ActiveCfg = Release|Win32
-		{D4BB63EF-B24F-4EF3-A128-06CAFC5516AC}.Release|Win32.Build.0 = Release|Win32
-		{FA759D81-7BFF-4EA2-AA12-FF0B835DCBE3}.Debug|Win32.ActiveCfg = Debug|Win32
-		{FA759D81-7BFF-4EA2-AA12-FF0B835DCBE3}.Debug|Win32.Build.0 = Debug|Win32
-		{FA759D81-7BFF-4EA2-AA12-FF0B835DCBE3}.Release|Win32.ActiveCfg = Release|Win32
-		{FA759D81-7BFF-4EA2-AA12-FF0B835DCBE3}.Release|Win32.Build.0 = Release|Win32
-		{74F53381-2526-4EBA-9F7E-78EDF9D0D19F}.Debug|Win32.ActiveCfg = Debug|Win32
-		{74F53381-2526-4EBA-9F7E-78EDF9D0D19F}.Debug|Win32.Build.0 = Debug|Win32
-		{74F53381-2526-4EBA-9F7E-78EDF9D0D19F}.Release|Win32.ActiveCfg = Release|Win32
-		{74F53381-2526-4EBA-9F7E-78EDF9D0D19F}.Release|Win32.Build.0 = Release|Win32
-		{ADFAC6FB-9C5C-4D5D-9338-D98665D5DFCA}.Debug|Win32.ActiveCfg = Debug|Win32
-		{ADFAC6FB-9C5C-4D5D-9338-D98665D5DFCA}.Debug|Win32.Build.0 = Debug|Win32
-		{ADFAC6FB-9C5C-4D5D-9338-D98665D5DFCA}.Release|Win32.ActiveCfg = Release|Win32
-		{ADFAC6FB-9C5C-4D5D-9338-D98665D5DFCA}.Release|Win32.Build.0 = Release|Win32
+		{F389D48E-DCAC-49FA-837C-367C0D9FFD89}.Debug|Win32.ActiveCfg = Debug|Win32
+		{F389D48E-DCAC-49FA-837C-367C0D9FFD89}.Debug|Win32.Build.0 = Debug|Win32
+		{F389D48E-DCAC-49FA-837C-367C0D9FFD89}.Release|Win32.ActiveCfg = Release|Win32
+		{F389D48E-DCAC-49FA-837C-367C0D9FFD89}.Release|Win32.Build.0 = Release|Win32
+		{4240E80D-0DC7-4FF9-8CDD-E4134ECB6E0C}.Debug|Win32.ActiveCfg = Debug|Win32
+		{4240E80D-0DC7-4FF9-8CDD-E4134ECB6E0C}.Debug|Win32.Build.0 = Debug|Win32
+		{4240E80D-0DC7-4FF9-8CDD-E4134ECB6E0C}.Release|Win32.ActiveCfg = Release|Win32
+		{4240E80D-0DC7-4FF9-8CDD-E4134ECB6E0C}.Release|Win32.Build.0 = Release|Win32
+		{7BE93C6F-1AD2-4D1C-AE22-F150F8A751D6}.Debug|Win32.ActiveCfg = Debug|Win32
+		{7BE93C6F-1AD2-4D1C-AE22-F150F8A751D6}.Debug|Win32.Build.0 = Debug|Win32
+		{7BE93C6F-1AD2-4D1C-AE22-F150F8A751D6}.Release|Win32.ActiveCfg = Release|Win32
+		{7BE93C6F-1AD2-4D1C-AE22-F150F8A751D6}.Release|Win32.Build.0 = Release|Win32
 	EndGlobalSection
-	GlobalSection(ExtensibilityGlobals) = postSolution
-	EndGlobalSection
-	GlobalSection(ExtensibilityAddIns) = postSolution
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
 	EndGlobalSection
 EndGlobal

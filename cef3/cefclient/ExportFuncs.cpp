@@ -19,10 +19,9 @@
 #include "cefclient/browser/main_context.h" 
 
  
-delTraceBack notifyListener= NULL;
-client::MainContextImpl* mainContext;  
-client::MainMessageLoop* message_loop; 
  
+client::MainContextImpl* mainContext;  
+client::MainMessageLoop* message_loop;  //essential for mainloop checking 
 
 managed_callback myMxCallback_;
 
@@ -32,13 +31,12 @@ int MyCefGetVersion()
 	 return 1004;
 }
 //2.
-int RegisterManagedCallBack(void* funcPtr,int callbackKind)
+int RegisterManagedCallBack(managed_callback mxCallback,int callbackKind)
 {	
 	switch(callbackKind)
 	{
 		case 0:
-			{
-				notifyListener= (delTraceBack)funcPtr;		    
+			{ 
 				return 0;
 			}break;
 		case 1:
@@ -47,13 +45,15 @@ int RegisterManagedCallBack(void* funcPtr,int callbackKind)
 			}break;
 		case 3:
 			{   
+				//set global mxCallback ***
+				myMxCallback_ = mxCallback;
 				return 0;
 			}break;
 	} 
 	return 1;
 }
 //3.
-client::ClientApp* MyCefCreateClientApp()
+client::ClientApp* MyCefCreateClientApp(HINSTANCE hInstance)
 {	
 	// Parse command-line arguments.
    CefRefPtr<CefCommandLine> command_line = CefCommandLine::CreateCommandLine();
@@ -70,29 +70,23 @@ client::ClientApp* MyCefCreateClientApp()
 
     // Create the main message loop object.
   message_loop = new client::MainMessageLoopStd();
-  //message_loop.reset(new client::MainMessageLoopStd); 
- /* if (settings.multi_threaded_message_loop)
-    message_loop.reset(new MainMessageLoopMultithreadedWin);
+   //message_loop.reset(new client::MainMessageLoopStd); 
+  /* if (settings.multi_threaded_message_loop)
+   message_loop.reset(new MainMessageLoopMultithreadedWin);
   else
-    message_loop.reset(new MainMessageLoopStd);*/
-   return app;
+   message_loop.reset(new MainMessageLoopStd);*/  
+
+  //------------------------------------------------------------------
+  //create main context here
+  mainContext= DllInitMain(hInstance,app); 
+	//set global mx callback to mainContext 
+  mainContext->myMxCallback_ = myMxCallback_;
+  return app;
+
 }
+  
 //4. 
-void MyCefClientAppSetManagedCallback(client::ClientApp* clientApp,managed_callback myMxCallback)
-{
-	myMxCallback_ = myMxCallback;
-}
-//5.
-int MyCefInit(HINSTANCE hInstance,client::ClientApp* app)
-{
-	CefRefPtr<client::ClientApp> myApp = app;   
-	mainContext= DllInitMain(hInstance,myApp); 
-	//set managed callback to
-	mainContext->myMxCallback_ = myMxCallback_;
-	return -1;
-}  
-//6, 
-MyBrowser* MyCefCreateClientHandler()
+MyBrowser* MyCefCreateMyWebBrowser(managed_callback callback)
 {	
 	/*const CefRect r(0,0,400,400); 
 	CefBrowserSettings settings;
@@ -113,12 +107,11 @@ MyBrowser* MyCefCreateClientHandler()
 
 	//2. browser event handler
 	auto hh = bwWindow->GetClientHandler();//  new client::ClientHandlerStd(bwWindow,"");
-	hh->MyCefSetManagedCallBack(myMxCallback_); 
+	hh->MyCefSetManagedCallBack(callback); 
 
 	return myBw;
 }
-
-//7.
+//5.
 int MyCefSetupBrowserHwnd(MyBrowser* myBw,HWND surfaceHwnd,int x,int y,int w,int h,const wchar_t* url)
 {   
 
@@ -168,16 +161,16 @@ int MyCefSetupBrowserHwnd(MyBrowser* myBw,HWND surfaceHwnd,int x,int y,int w,int
 	  return 0;
   }  
 }
-//8.
+//6.
 void MyCefDoMessageLoopWork()
 {		
 	CefDoMessageLoopWork();
 }
-//9.
+//7.
 void MyCefShutDown(){
 	CefShutdown();
-}
-
+} 
+//--------------------------------------------------------------------------------------------------
 //part 2:
 //1. 
  void NativeMetSetResult(MethodArgs* args, int retIndex, jsvalue* value)
@@ -230,17 +223,17 @@ void MyCefShutDown(){
 //part3:
 
 //1. 
-void NavigateTo(MyBrowser* myBw, const wchar_t* url){
+void MyCefBwNavigateTo(MyBrowser* myBw, const wchar_t* url){
 		 
 	 myBw->bwWindow->GetBrowser()->GetMainFrame()->LoadURL(url); 
 }
 //2.
-void ExecJavascript(MyBrowser* myBw, const wchar_t* jscode,const wchar_t* script_url){
+void MyCefBwExecJavascript(MyBrowser* myBw, const wchar_t* jscode,const wchar_t* script_url){
 	
 	 myBw->bwWindow->GetBrowser()->GetMainFrame()->ExecuteJavaScript(jscode,script_url,0);
 }
 //3. 
-void PostData(MyBrowser* myBw, const wchar_t* url,const wchar_t* rawDataToPost,size_t rawDataLength){
+void MyCefBwPostData(MyBrowser* myBw, const wchar_t* url,const wchar_t* rawDataToPost,size_t rawDataLength){
 	
 	//create request
 	CefRefPtr<CefRequest> request(CefRequest::Create());
@@ -264,4 +257,55 @@ void PostData(MyBrowser* myBw, const wchar_t* url,const wchar_t* rawDataToPost,s
 	 myBw->bwWindow->GetBrowser()->GetMainFrame()->LoadRequest(request); 
 
 }
- 
+//4. 
+void MyCefShowDevTools(MyBrowser* myBw, MyBrowser* myBwDev, HWND parentWindow)
+{ 
+  
+	  //TODO : fine tune here
+
+	  CefWindowInfo windowInfo;  
+	  windowInfo.parent_window = parentWindow;
+	  windowInfo.width = 800;
+	  windowInfo.height = 600;
+	  windowInfo.x  =0;
+	  windowInfo.y  =0;
+
+	  RECT r;
+	  r.left =0;
+	  r.top =0;
+	  r.right = 800;
+	  r.bottom = 600;
+
+	  windowInfo.SetAsChild(parentWindow,r);
+
+	  CefRefPtr<CefClient> client(myBwDev->bwWindow->GetClientHandler());
+	  CefBrowserSettings settings;
+	  CefPoint inspect_element_at;
+   
+	  myBw->bwWindow->GetBrowser()->GetHost()->ShowDevTools(
+		  windowInfo,
+		  client,
+		  settings,
+		  inspect_element_at);  
+}
+MY_DLL_EXPORT void MyCefBwGoBack(MyBrowser* myBw){
+	
+	if (CefRefPtr<CefBrowser> browser = myBw->bwWindow->GetBrowser()){
+        browser->GoBack();
+	}
+}
+MY_DLL_EXPORT void MyCefBwGoForward(MyBrowser* myBw){
+	if (CefRefPtr<CefBrowser> browser = myBw->bwWindow->GetBrowser()){
+        browser->GoForward();
+	}
+}
+MY_DLL_EXPORT void MyCefBwStop(MyBrowser* myBw){
+	if (CefRefPtr<CefBrowser> browser = myBw->bwWindow->GetBrowser()){
+       browser->StopLoad();
+	}
+}
+MY_DLL_EXPORT void MyCefBwReload(MyBrowser* myBw){
+	if (CefRefPtr<CefBrowser> browser = myBw->bwWindow->GetBrowser()){
+        browser->Reload();
+	}
+}

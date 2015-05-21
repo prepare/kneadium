@@ -23,28 +23,23 @@ extern "C"{
 	//1.
 	MY_DLL_EXPORT int MyCefGetVersion(); 
 	//2.
-	MY_DLL_EXPORT int RegisterManagedCallBack(void* callback,int callBackKind); 
+	MY_DLL_EXPORT int RegisterManagedCallBack(managed_callback callback,int callBackKind); 
 	//3. 
-	MY_DLL_EXPORT client::ClientApp* MyCefCreateClientApp();	
+	MY_DLL_EXPORT client::ClientApp* MyCefCreateClientApp(HINSTANCE hInstance);	
+	 
+	
 	//4.
-	MY_DLL_EXPORT int MyCefInit(HINSTANCE hInstance,client::ClientApp* app);
+	MY_DLL_EXPORT MyBrowser* MyCefCreateMyWebBrowser(managed_callback callback);
 	//5.
-	MY_DLL_EXPORT void MyCefClientAppSetManagedCallback(client::ClientApp* clientApp,managed_callback myMxCallback);
-	
-	
-	//6.
-	MY_DLL_EXPORT MyBrowser* MyCefCreateClientHandler();
-	//7.
 	MY_DLL_EXPORT int MyCefSetupBrowserHwnd(MyBrowser* myBw,HWND surfaceHwnd,int x,int y,int w,int h,const wchar_t* url);
 
-	//8.
+	//6.
 	MY_DLL_EXPORT void MyCefDoMessageLoopWork(); 
 	 
-	//9.
+	//7.
 	MY_DLL_EXPORT void MyCefShutDown();  
-
-	
-	//--------------------
+    
+ 
 	//part 2
 	//1.
 	MY_DLL_EXPORT  void NativeMetSetResult(MethodArgs* args, int retIndex, jsvalue* value);
@@ -57,13 +52,18 @@ extern "C"{
 	//part3:
 	//--------------------
 	//1.
-	MY_DLL_EXPORT void NavigateTo(MyBrowser* myBw, const wchar_t* url);
+	MY_DLL_EXPORT void MyCefBwNavigateTo(MyBrowser* myBw, const wchar_t* url);
 	//2. 
-	MY_DLL_EXPORT void ExecJavascript(MyBrowser* myBw, const wchar_t* jscode,const wchar_t* script_url);
+	MY_DLL_EXPORT void MyCefBwExecJavascript(MyBrowser* myBw, const wchar_t* jscode,const wchar_t* script_url);
 	//3.
-	MY_DLL_EXPORT void PostData(MyBrowser* myBw, const wchar_t* url,const wchar_t* rawDataToPost,size_t rawDataLength);
-
+	MY_DLL_EXPORT void MyCefBwPostData(MyBrowser* myBw, const wchar_t* url,const wchar_t* rawDataToPost,size_t rawDataLength);
+	//4. 
+	MY_DLL_EXPORT void MyCefShowDevTools(MyBrowser* myBw,MyBrowser* myBwDev,HWND parentHwnd);
 	//----------------------------
-	
+	MY_DLL_EXPORT void MyCefBwGoBack(MyBrowser* myBw);	 
+	MY_DLL_EXPORT void MyCefBwGoForward(MyBrowser* myBw);	 
+    MY_DLL_EXPORT void MyCefBwStop(MyBrowser* myBw);
+	MY_DLL_EXPORT void MyCefBwReload(MyBrowser* myBw); 
+
 
 }

@@ -127,15 +127,9 @@
     <ClCompile Include="browser\window_test_win.cc">
       <Filter>cefclient\browser</Filter>
     </ClCompile>
-    <ClCompile Include="dll_init.cpp">
-      <Filter>cefclient</Filter>
-    </ClCompile>
-    <ClCompile Include="ExportFuncs.cpp">
-      <Filter>cefclient</Filter>
-    </ClCompile>
-    <ClCompile Include="mycef.cc">
-      <Filter>cefclient</Filter>
-    </ClCompile>
+    <ClCompile Include="dll_init.cpp" />
+    <ClCompile Include="ExportFuncs.cpp" />
+    <ClCompile Include="mycef.cc" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="browser\binding_test.h">
@@ -258,15 +252,9 @@
     <ClInclude Include="browser\util_win.h">
       <Filter>cefclient\browser</Filter>
     </ClInclude>
-    <ClInclude Include="dll_init.h">
-      <Filter>cefclient</Filter>
-    </ClInclude>
-    <ClInclude Include="ExportFuncs.h">
-      <Filter>cefclient</Filter>
-    </ClInclude>
-    <ClInclude Include="mycef.h">
-      <Filter>cefclient</Filter>
-    </ClInclude>
+    <ClInclude Include="dll_init.h" />
+    <ClInclude Include="ExportFuncs.h" />
+    <ClInclude Include="mycef.h" />
   </ItemGroup>
   <ItemGroup>
     <CustomBuild Include="CMakeLists.txt" />
@@ -326,23 +314,23 @@
     </ResourceCompile>
   </ItemGroup>
   <ItemGroup>
-    <Filter Include="cefclient\resources\win">
-      <UniqueIdentifier>{AE866477-984F-4E78-8FE9-FFF9F70E3C89}</UniqueIdentifier>
-    </Filter>
     <Filter Include="cefclient">
-      <UniqueIdentifier>{4D9583AB-C6E6-4D92-ABAF-454063CBEB8D}</UniqueIdentifier>
+      <UniqueIdentifier>{084DFF51-6596-4FA6-9CD1-5FB6B754F92F}</UniqueIdentifier>
     </Filter>
     <Filter Include="cefclient\browser">
-      <UniqueIdentifier>{FB715F97-6D9B-4BA8-879E-6BA2E3AF423F}</UniqueIdentifier>
+      <UniqueIdentifier>{974AD93E-7451-4217-9146-1F65756E3AA4}</UniqueIdentifier>
     </Filter>
     <Filter Include="cefclient\common">
-      <UniqueIdentifier>{976D8089-5ED1-469C-8369-02AE15DB20A7}</UniqueIdentifier>
+      <UniqueIdentifier>{7F1FF310-0A32-45DB-AB4C-20A9376EC156}</UniqueIdentifier>
     </Filter>
     <Filter Include="cefclient\renderer">
-      <UniqueIdentifier>{3287CBEB-3877-40DB-BACA-83027B27776A}</UniqueIdentifier>
+      <UniqueIdentifier>{2130A4FA-3CD4-426F-8365-25372564EC2E}</UniqueIdentifier>
     </Filter>
     <Filter Include="cefclient\resources">
-      <UniqueIdentifier>{23651070-4331-4420-B2D5-7C1B396843E1}</UniqueIdentifier>
+      <UniqueIdentifier>{8740A8E1-3544-442C-9A9D-3886A096AC1A}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="cefclient\resources\win">
+      <UniqueIdentifier>{3010E4E1-F339-4E7A-B619-96D8531573FB}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>

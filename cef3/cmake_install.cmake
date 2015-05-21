@@ -1,4 +1,4 @@
-# Install script for directory: C:/WImageTest/CefBridge/cef3
+# Install script for directory: C:/WImageTest/CefBridge/cef_binary_3.2357.1271.g8e0674e_windows32
 
 # Set the install prefix
 if(NOT DEFINED CMAKE_INSTALL_PREFIX)
@@ -29,9 +29,9 @@ endif()
 
 if(NOT CMAKE_INSTALL_LOCAL_ONLY)
   # Include the install script for each subdirectory.
-  include("C:/WImageTest/CefBridge/cef3/libcef_dll/cmake_install.cmake")
-  include("C:/WImageTest/CefBridge/cef3/cefclient/cmake_install.cmake")
-  include("C:/WImageTest/CefBridge/cef3/cefsimple/cmake_install.cmake")
+  include("C:/WImageTest/CefBridge/cef_binary_3.2357.1271.g8e0674e_windows32/libcef_dll/cmake_install.cmake")
+  include("C:/WImageTest/CefBridge/cef_binary_3.2357.1271.g8e0674e_windows32/cefclient/cmake_install.cmake")
+  include("C:/WImageTest/CefBridge/cef_binary_3.2357.1271.g8e0674e_windows32/cefsimple/cmake_install.cmake")
 
 endif()
 
@@ -43,5 +43,5 @@ endif()
 
 string(REPLACE ";" "\n" CMAKE_INSTALL_MANIFEST_CONTENT
        "${CMAKE_INSTALL_MANIFEST_FILES}")
-file(WRITE "C:/WImageTest/CefBridge/cef3/${CMAKE_INSTALL_MANIFEST}"
+file(WRITE "C:/WImageTest/CefBridge/cef_binary_3.2357.1271.g8e0674e_windows32/${CMAKE_INSTALL_MANIFEST}"
      "${CMAKE_INSTALL_MANIFEST_CONTENT}")

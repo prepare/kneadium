@@ -452,8 +452,9 @@ CefRefPtr<CefResourceHandler> GetResourceHandler(
     CefRefPtr<CefBrowser> browser,
     CefRefPtr<CefFrame> frame,
     CefRefPtr<CefRequest> request) {
+
   std::string url = request->GetURL();
-  if (url.find(kTestOrigin) == 0) {
+  if (url.find(kTestOrigin) == 0) { //url start with kTestOrigin
     // Handle URLs in the test origin.
     std::string file_name, mime_type;
     if (ParseTestUrl(url, &file_name, &mime_type)) {

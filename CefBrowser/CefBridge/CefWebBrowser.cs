@@ -17,10 +17,12 @@ namespace LayoutFarm.CefBridge
 
     public sealed class CefWebBrowser : Control
     {
+        MyCefDevWindow agent2;
         bool _handleCreated;
-        CefBrowserAgent cefBrowserView;
-        bool nativeHandleCreated = false;
+        MyCefBrowser cefBrowserView;
+        
 
+        string initUrl = "http://google.com";
         public CefWebBrowser()
         {
             SetStyle(
@@ -47,14 +49,20 @@ namespace LayoutFarm.CefBridge
                 | ControlStyles.Selectable,
                 true);
         }
+        public string InitUrl
+        {
+            get { return this.initUrl; }
+            set { this.initUrl = value; }
+        }
         public void NavigateTo(string url)
         {
             this.cefBrowserView.NavigateTo(url);
         }
-        public CefBrowserAgent Agent
+        public MyCefBrowser Agent
         {
             get { return this.cefBrowserView; }
         }
+        
         protected override void OnHandleCreated(EventArgs e)
         {
             base.OnHandleCreated(e);
@@ -70,31 +78,14 @@ namespace LayoutFarm.CefBridge
                     MessageBox.Show("cef 3 not found");
                 }
                 //--------------------------------
-                this.cefBrowserView = new CefBrowserAgent( 
-                    this.Handle, 0, 0, 800, 500); 
-                nativeHandleCreated = true;
-                CefBrowserAgent.WindowIsCreated = true;
+                this.cefBrowserView = new MyCefBrowser(this, 0, 0, 800, 500, initUrl); 
+                CefClientApp.RegisterCefWbControl(cefBrowserView);
+
+
             }
             _handleCreated = true;
         }
-       
-        protected override void Dispose(bool disposing)
-        {
 
-
-            //if (_browser != null)
-            //{
-            //    //var host = _browser.GetHost();
-            //    //host.CloseBrowser();
-            //    //host.ParentWindowWillClose();
-            //    //host.Dispose();
-            //    //_browser.Dispose();
-            //    //_browser = null;
-            //    //_browserWindowHandle = IntPtr.Zero;
-            //}
-
-            base.Dispose(disposing);
-        }
 
         //internal void BrowserAfterCreated(CefBrowser browser)
         //{
@@ -187,7 +178,6 @@ namespace LayoutFarm.CefBridge
                     );
             }
         }
-
-        //public CefBrowser Browser { get { return _browser; } }
+        
     }
 }

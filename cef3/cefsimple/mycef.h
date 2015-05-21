@@ -134,6 +134,5 @@ public:
 };
 
 typedef void (*delTraceBack)(int oIndex,const wchar_t* methodName);  
-//for visitor
-typedef void (*delTextWalk)(int oIndex,const wchar_t* textContent);
+ 
 typedef void (__stdcall *managed_callback)(int id, void* args);   
