@@ -13,7 +13,6 @@ namespace CefBridgeTest
     {
 
         Timer tt = new Timer();
-
         Timer tt2 = new Timer();
 
         bool startClosing;
@@ -43,33 +42,26 @@ namespace CefBridgeTest
         }
         void CheckClosing()
         {
-            if (LayoutFarm.CefBridge.CefClientApp.readyToClose)
+            if (LayoutFarm.CefBridge.CefClientApp.IsReadyToClose(this))
             {
                 tt2.Enabled = false;
                 this.Close();
             }
-
         }
+
         void Form1_FormClosing(object sender, FormClosingEventArgs e)
         {
 
             if (!startClosing)
             {
-                var wb = this.cefWebBrowser1;
-                if (wb != null)
-                {
-                    this.Controls.Remove(wb);
-                    wb.Dispose();
-                    this.cefWebBrowser1 = wb = null;
-                }
-
+                LayoutFarm.CefBridge.CefClientApp.DisposeCefWbControl(this);
                 tt2.Enabled = true;
                 startClosing = true;
                 e.Cancel = true;
             }
             else
             {
-                if (!LayoutFarm.CefBridge.CefClientApp.readyToClose)
+                if (!LayoutFarm.CefBridge.CefClientApp.IsReadyToClose(this))
                 {
                     e.Cancel = true;
                 }
@@ -90,44 +82,13 @@ namespace CefBridgeTest
             //}
 
         }
-        delegate void SimpleDel();
-        int n = 0;
 
         protected override void OnLoad(EventArgs e)
         {
             //tt.Enabled = true;
             base.OnLoad(e);
 
-
         }
-        public class MyConsole
-        {
-            string myname;
-            public MyConsole(string myname)
-            {
-                this.myname = myname;
-            }
-            public string MyName
-            {
-                get
-                {
-                    return this.myname;
-                }
-                set
-                {
-                    this.myname = value;
-                }
-            }
-            /// <summary>
-            /// expose to javascript
-            /// </summary>
-            /// <param name="str"></param>
-            public void Log(string str)
-            {
-                Console.WriteLine(str);
-            }
-        }
-
 
 
         void tt_Tick(object sender, EventArgs e)
@@ -189,19 +150,11 @@ namespace CefBridgeTest
 
         private void button5_Click(object sender, EventArgs e)
         {
-
-
-
-
-
-
         }
 
         private void Form1_Load(object sender, EventArgs e)
         {
-
         }
-
         private void button6_Click(object sender, EventArgs e)
         {
             //remove and destroy browser window
@@ -216,8 +169,7 @@ namespace CefBridgeTest
 
         private void button8_Click(object sender, EventArgs e)
         {
-            this.cefWebBrowser1.ShowDevTools();
-
+            this.cefWebBrowser1.Agent.ShowDevTools();
         }
 
         private void button9_Click(object sender, EventArgs e)

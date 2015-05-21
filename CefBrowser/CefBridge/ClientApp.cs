@@ -7,18 +7,22 @@ using System.IO;
 
 namespace LayoutFarm.CefBridge
 {
+    public delegate void SimpleDel();
+
     public class CefClientApp
     {
         IntPtr clientAppPtr;
 
-        internal static bool readyToClose;
+
         static bool isInitWithProcessHandle;
         static object sync_ = new object();
+        static object sync_remove = new object();
 
         MyCefCallback mxCallback;
-        System.Windows.Forms.Form tinyForm;
+        static System.Windows.Forms.Form tinyForm;
 
-        delegate void SimpleDel();
+        static Dictionary<System.Windows.Forms.Form, List<MyCefBrowser>> registeredWbControls =
+            new Dictionary<System.Windows.Forms.Form, List<MyCefBrowser>>();
 
         public CefClientApp(IntPtr processHandle)
         {
@@ -34,29 +38,99 @@ namespace LayoutFarm.CefBridge
                     Cef3Binder.RegisterManagedCallBack(this.mxCallback, 3);
 
                     //2. create client app
-                    this.clientAppPtr = Cef3Binder.MyCefCreateClientApp(processHandle); 
+                    this.clientAppPtr = Cef3Binder.MyCefCreateClientApp(processHandle);
                     //register managed callback ***     
                 }
             }
         }
-       
+
         public IntPtr CefReady()
         {
             //make it a hidden form
-            tinyForm = new System.Windows.Forms.Form();
-            tinyForm.Size = new System.Drawing.Size(10, 10);
-            tinyForm.Visible = false;
+            if (tinyForm == null)
+            {
+                tinyForm = new System.Windows.Forms.Form();
+                tinyForm.Size = new System.Drawing.Size(10, 10);
+                tinyForm.Visible = false;
+            }
             return tinyForm.Handle;//force it create handle
         }
+        internal static void RegisterCefWbControl(MyCefBrowser cefWb)
+        {
+            //register this control with parent form
+            var ownerForm = (System.Windows.Forms.Form)cefWb.ParentControl.TopLevelControl;
+            List<MyCefBrowser> foundList;
+            if (!registeredWbControls.TryGetValue(ownerForm, out foundList))
+            {
+                foundList = new List<MyCefBrowser>();
+                registeredWbControls.Add(ownerForm, foundList);
+            }
+            if (!foundList.Contains(cefWb))
+            {
+                foundList.Add(cefWb);
+                cefWb.BrowserDisposed += new EventHandler(cefWb_BrowserDisposed);
+            }
+        }
+        static void cefWb_BrowserDisposed(object sender, EventArgs e)
+        {
+            //when browser is disposed..
+            MyCefBrowser wb = (MyCefBrowser)sender;
+            //remove wb from registerd list
+            List<MyCefBrowser> wblist;
+            if (registeredWbControls.TryGetValue(wb.ParentForm, out wblist))
+            {
+                lock (sync_remove)
+                {
+                    wblist.Remove(wb);
+                    if (wblist.Count == 0)
+                    {
+                        registeredWbControls.Remove(wb.ParentForm);
+                    }
+                }
+            }
+        }
+        internal static void DisposeCefWbControl(System.Windows.Forms.Form ownerForm)
+        {
+            //register this control with parent form 
+            List<MyCefBrowser> foundList;
+            if (registeredWbControls.TryGetValue(ownerForm, out foundList))
+            {
+                //remove wb controls             
+                for (int i = foundList.Count - 1; i >= 0; --i)
+                {
+                    var wb = foundList[i].ParentControl;
+                    var parent = wb.Parent;
+                    parent.Controls.Remove(wb);
+                    wb.Dispose();
+                }
 
-        void MxCallBack(int id, IntPtr argsPtr)
+                registeredWbControls.Remove(ownerForm);
+
+            }
+
+        }
+        internal static bool IsReadyToClose(System.Windows.Forms.Form ownerForm)
+        {
+            //register this control with parent form  
+            lock (sync_remove)
+            {
+                return !registeredWbControls.ContainsKey(ownerForm);
+            }
+
+        }
+        public static void UISafeInvoke(SimpleDel del)
+        {
+            tinyForm.Invoke(del);
+        }
+
+        static void MxCallBack(int id, IntPtr argsPtr)
         {
             switch (id)
             {
                 case 100:
                     {
                         //test only
-                        readyToClose = true;
+
                     } break;
                 case 101:
                     {
@@ -81,7 +155,7 @@ namespace LayoutFarm.CefBridge
                     } break;
                 case 104:
                     {
-                        tinyForm.Invoke(new SimpleDel(
+                        UISafeInvoke(new SimpleDel(
                             () =>
                             {
                                 CefBridgeTest.Form1 newPopupForm = new CefBridgeTest.Form1();
@@ -110,20 +184,12 @@ namespace LayoutFarm.CefBridge
                 case 107:
                     {
                         //show dev tools
-                        tinyForm.Invoke(new SimpleDel(
+                        UISafeInvoke(new SimpleDel(
                             () =>
                             {
                                 CefBridgeTest.Form1 newPopupForm = new CefBridgeTest.Form1();
-
-
-
-
                                 newPopupForm.Show();
-
                             }));
-
-
-
                     } break;
             }
         }

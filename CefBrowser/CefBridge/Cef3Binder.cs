@@ -110,6 +110,7 @@ namespace LayoutFarm.CefBridge
     //const wchar_t* inputDataString,
     //void* outputDataBuffer,size_t outputLen);
 
+   
     static class Cef3Binder
     {
         //-------------------------------------------------
@@ -195,10 +196,9 @@ namespace LayoutFarm.CefBridge
 
             System.Windows.Forms.Application.Idle += (sender, e) =>
             {
-                if (MyCefBrowser.WindowIsCreated)
-                {
+           
                     MyCefDoMessageLoopWork();
-                }
+              
             };
 
             // }
@@ -256,7 +256,8 @@ namespace LayoutFarm.CefBridge
         
         //4. 
         [DllImport(CEF_CLIENT_DLL)]
-        public static extern IntPtr MyCefCreateMyWebBrowser();
+        public static extern IntPtr MyCefCreateMyWebBrowser(MyCefCallback mxcallback);
+    
         //5.
         [DllImport(CEF_CLIENT_DLL, CharSet = CharSet.Unicode)]
         public static extern void MyCefSetupBrowserHwnd(IntPtr myCefBrowser, IntPtr hWndParent, int x, int y, int width, int height, string initUrl);
@@ -266,6 +267,7 @@ namespace LayoutFarm.CefBridge
         //7.
         [DllImport(CEF_CLIENT_DLL)]
         public static extern int MyCefShutDown();
+     
         //--------------------------------------------------- 
 
         //part 2:

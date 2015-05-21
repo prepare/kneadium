@@ -17,15 +17,14 @@ namespace LayoutFarm.CefBridge
 
     public sealed class CefWebBrowser : Control
     {
+        MyCefDevWindow agent2;
         bool _handleCreated;
         MyCefBrowser cefBrowserView;
-        bool nativeHandleCreated = false;
+        
+
         string initUrl = "http://google.com";
         public CefWebBrowser()
         {
-
-
-
             SetStyle(
                 ControlStyles.ContainerControl
                 | ControlStyles.ResizeRedraw
@@ -63,6 +62,7 @@ namespace LayoutFarm.CefBridge
         {
             get { return this.cefBrowserView; }
         }
+        
         protected override void OnHandleCreated(EventArgs e)
         {
             base.OnHandleCreated(e);
@@ -78,32 +78,14 @@ namespace LayoutFarm.CefBridge
                     MessageBox.Show("cef 3 not found");
                 }
                 //--------------------------------
-                this.cefBrowserView = new MyCefBrowser(
-                    this.Handle, 0, 0, 800, 500, initUrl);
-                nativeHandleCreated = true;
-                MyCefBrowser.WindowIsCreated = true;
+                this.cefBrowserView = new MyCefBrowser(this, 0, 0, 800, 500, initUrl); 
+                CefClientApp.RegisterCefWbControl(cefBrowserView);
+
 
             }
             _handleCreated = true;
         }
 
-        protected override void Dispose(bool disposing)
-        {
-
-
-            //if (_browser != null)
-            //{
-            //    //var host = _browser.GetHost();
-            //    //host.CloseBrowser();
-            //    //host.ParentWindowWillClose();
-            //    //host.Dispose();
-            //    //_browser.Dispose();
-            //    //_browser = null;
-            //    //_browserWindowHandle = IntPtr.Zero;
-            //}
-
-            base.Dispose(disposing);
-        }
 
         //internal void BrowserAfterCreated(CefBrowser browser)
         //{
@@ -196,32 +178,6 @@ namespace LayoutFarm.CefBridge
                     );
             }
         }
-        public void ShowDevTools()
-        {
-            Form form = new Form();
-            form.Show();
-            CefBrowserAgent2 agent2 = new CefBrowserAgent2();
-
-            Cef3Binder.MyCefShowDevTools(this.cefBrowserView.NativeMyCefBrowserHandle, agent2.GetMyCefBrowser(), form.Handle);
-        }
-        public void Stop()
-        {
-             
-        }
-        public void GoBackward()
-        {
-
-        }
-        public void GoForward()
-        {
-
-        }
-        public void Reload()
-        {
-
-        }
-
-
-        //public CefBrowser Browser { get { return _browser; } }
+        
     }
 }
