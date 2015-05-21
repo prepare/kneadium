@@ -195,7 +195,7 @@ namespace LayoutFarm.CefBridge
 
             System.Windows.Forms.Application.Idle += (sender, e) =>
             {
-                if (CefBrowserAgent.WindowIsCreated)
+                if (MyCefBrowser.WindowIsCreated)
                 {
                     MyCefDoMessageLoopWork();
                 }

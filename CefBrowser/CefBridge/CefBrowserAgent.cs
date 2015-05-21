@@ -10,11 +10,9 @@ namespace LayoutFarm.CefBridge
 
     public class CefBrowserAgent2
     {
-        internal static bool WindowIsCreated;
-        IntPtr myCefBrowser;
-        IntPtr parentWindowHandler;
-        MyCefCallback managedCallback;
-        string initUrl;
+      
+        IntPtr myCefBrowser; 
+        MyCefCallback managedCallback;        
         internal CefBrowserAgent2()
         {
             //create cef browser view handler  
@@ -28,19 +26,18 @@ namespace LayoutFarm.CefBridge
     }
 
 
-    public class CefBrowserAgent
+    public class MyCefBrowser
     {
 
         internal static bool WindowIsCreated;
-        IntPtr myCefBrowser;
-        IntPtr parentWindowHandler;
+        IntPtr myCefBrowser; 
         MyCefCallback managedCallback;
         string initUrl;
-        internal CefBrowserAgent(IntPtr parentWindowHandler,
+
+        internal MyCefBrowser(IntPtr parentWindowHandler,
             int x, int y, int w, int h, string initUrl)
         {
-            this.initUrl = initUrl;
-            this.parentWindowHandler = parentWindowHandler;
+            this.initUrl = initUrl;             
             //create cef browser view handler  
             this.myCefBrowser = Cef3Binder.MyCefCreateMyWebBrowser();
             Cef3Binder.MyCefSetupBrowserHwnd(myCefBrowser, parentWindowHandler, x, y, w, h, initUrl);

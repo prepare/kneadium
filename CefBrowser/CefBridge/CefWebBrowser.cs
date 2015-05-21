@@ -18,7 +18,7 @@ namespace LayoutFarm.CefBridge
     public sealed class CefWebBrowser : Control
     {
         bool _handleCreated;
-        CefBrowserAgent cefBrowserView;
+        MyCefBrowser cefBrowserView;
         bool nativeHandleCreated = false;
         string initUrl = "http://google.com";
         public CefWebBrowser()
@@ -59,7 +59,7 @@ namespace LayoutFarm.CefBridge
         {
             this.cefBrowserView.NavigateTo(url);
         }
-        public CefBrowserAgent Agent
+        public MyCefBrowser Agent
         {
             get { return this.cefBrowserView; }
         }
@@ -78,10 +78,10 @@ namespace LayoutFarm.CefBridge
                     MessageBox.Show("cef 3 not found");
                 }
                 //--------------------------------
-                this.cefBrowserView = new CefBrowserAgent(
+                this.cefBrowserView = new MyCefBrowser(
                     this.Handle, 0, 0, 800, 500, initUrl);
                 nativeHandleCreated = true;
-                CefBrowserAgent.WindowIsCreated = true;
+                MyCefBrowser.WindowIsCreated = true;
 
             }
             _handleCreated = true;
