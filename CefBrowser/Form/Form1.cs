@@ -28,10 +28,13 @@ namespace CefBridgeTest
 
             this.tt2.Interval = 200;
             this.tt2.Tick += new EventHandler(tt2_Tick);
-            
 
 
-
+        }
+        public string InitUrl
+        {
+            get { return this.cefWebBrowser1.InitUrl; }
+            set { this.cefWebBrowser1.InitUrl = value; }
         }
         void tt2_Tick(object sender, EventArgs e)
         {
@@ -43,7 +46,7 @@ namespace CefBridgeTest
             if (LayoutFarm.CefBridge.CefClientApp.readyToClose)
             {
                 tt2.Enabled = false;
-                this.Close();                
+                this.Close();
             }
 
         }
@@ -94,6 +97,8 @@ namespace CefBridgeTest
         {
             //tt.Enabled = true;
             base.OnLoad(e);
+
+
         }
         public class MyConsole
         {
@@ -134,20 +139,20 @@ namespace CefBridgeTest
         private void button7_Click(object sender, EventArgs e)
         {
 
-            this.cefWebBrowser1.Focus();             
+            this.cefWebBrowser1.Focus();
             //this.cefWebBrowser1.NavigateTo("http://localhost");
             //this.cefWebBrowser1.NavigateTo("https://html5test.com");
             //this.cefWebBrowser1.NavigateTo("https://www.youtube.com");
-             
-            
+
+
         }
 
         private void button1_Click(object sender, EventArgs e)
         {
-            //cefWebBrowser1.Agent.ExecJavascript(
-            //    "window.open('https://html5test.com');", "about:blank");
             cefWebBrowser1.Agent.ExecJavascript(
-                "alert('test!');", "about:blank");
+                 "window.open('https://html5test.com');", "about:blank");
+            //cefWebBrowser1.Agent.ExecJavascript(
+            //    "alert('test!');", "about:blank");
         }
 
         private void button2_Click(object sender, EventArgs e)
@@ -211,8 +216,40 @@ namespace CefBridgeTest
 
         private void button8_Click(object sender, EventArgs e)
         {
-            WebClient wb = new WebClient();
-            string content = wb.DownloadString("http://www.google.com");
+            this.cefWebBrowser1.ShowDevTools();
+
+        }
+
+        private void button9_Click(object sender, EventArgs e)
+        {
+            Form1 anotherForm1 = new Form1();
+            anotherForm1.Show();
+
+        }
+
+        private void button10_Click(object sender, EventArgs e)
+        {
+            //back
+            this.cefWebBrowser1.Agent.GoBack();
+        }
+
+        private void button11_Click(object sender, EventArgs e)
+        {
+            //foward
+            this.cefWebBrowser1.Agent.GoForward();
+        }
+
+        private void button12_Click(object sender, EventArgs e)
+        {
+            //reload
+            this.cefWebBrowser1.Agent.Reload();
+        }
+
+        private void button13_Click(object sender, EventArgs e)
+        {
+
+            //stop
+            this.cefWebBrowser1.Agent.Stop();
         }
 
     }

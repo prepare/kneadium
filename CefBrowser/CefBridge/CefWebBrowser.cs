@@ -20,9 +20,12 @@ namespace LayoutFarm.CefBridge
         bool _handleCreated;
         CefBrowserAgent cefBrowserView;
         bool nativeHandleCreated = false;
-
+        string initUrl = "http://google.com";
         public CefWebBrowser()
         {
+
+
+
             SetStyle(
                 ControlStyles.ContainerControl
                 | ControlStyles.ResizeRedraw
@@ -47,6 +50,11 @@ namespace LayoutFarm.CefBridge
                 | ControlStyles.Selectable,
                 true);
         }
+        public string InitUrl
+        {
+            get { return this.initUrl; }
+            set { this.initUrl = value; }
+        }
         public void NavigateTo(string url)
         {
             this.cefBrowserView.NavigateTo(url);
@@ -70,14 +78,15 @@ namespace LayoutFarm.CefBridge
                     MessageBox.Show("cef 3 not found");
                 }
                 //--------------------------------
-                this.cefBrowserView = new CefBrowserAgent( 
-                    this.Handle, 0, 0, 800, 500); 
+                this.cefBrowserView = new CefBrowserAgent(
+                    this.Handle, 0, 0, 800, 500, initUrl);
                 nativeHandleCreated = true;
                 CefBrowserAgent.WindowIsCreated = true;
+
             }
             _handleCreated = true;
         }
-       
+
         protected override void Dispose(bool disposing)
         {
 
@@ -187,6 +196,31 @@ namespace LayoutFarm.CefBridge
                     );
             }
         }
+        public void ShowDevTools()
+        {
+            Form form = new Form();
+            form.Show();
+            CefBrowserAgent2 agent2 = new CefBrowserAgent2();
+
+            Cef3Binder.MyCefShowDevTools(this.cefBrowserView.NativeMyCefBrowserHandle, agent2.GetMyCefBrowser(), form.Handle);
+        }
+        public void Stop()
+        {
+             
+        }
+        public void GoBackward()
+        {
+
+        }
+        public void GoForward()
+        {
+
+        }
+        public void Reload()
+        {
+
+        }
+
 
         //public CefBrowser Browser { get { return _browser; } }
     }

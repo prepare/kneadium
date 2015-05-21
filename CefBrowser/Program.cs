@@ -21,7 +21,8 @@ namespace CefBridgeTest
             System.Threading.Thread.CurrentThread.CurrentCulture = new System.Globalization.CultureInfo("en-us");
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-
+            //----------------------------------
+            LayoutFarm.CefBridge.Cef3Binder.CefReady();
             Form1 f1 = new Form1();
             ApplicationContext appContext = new ApplicationContext(f1);
             Application.Run(appContext);

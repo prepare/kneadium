@@ -8,58 +8,76 @@ using System.IO;
 namespace LayoutFarm.CefBridge
 {
 
+    public class CefBrowserAgent2
+    {
+        internal static bool WindowIsCreated;
+        IntPtr myCefBrowser;
+        IntPtr parentWindowHandler;
+        MyCefCallback managedCallback;
+        string initUrl;
+        internal CefBrowserAgent2()
+        {
+            //create cef browser view handler  
+            this.myCefBrowser = Cef3Binder.MyCefCreateClientHandler();
+        }
+        public IntPtr GetMyCefBrowser()
+        {
+            return this.myCefBrowser;
+        }
 
+    }
 
 
     public class CefBrowserAgent
     {
 
         internal static bool WindowIsCreated;
-        IntPtr cefClientHandler;
+        IntPtr myCefBrowser;
         IntPtr parentWindowHandler;
-        AgentManagedCallback managedCallback;
-
+        MyCefCallback managedCallback;
+        string initUrl;
         internal CefBrowserAgent(IntPtr parentWindowHandler,
-            int x, int y, int w, int h)
+            int x, int y, int w, int h, string initUrl)
         {
-            this.parentWindowHandler = parentWindowHandler; 
+            this.initUrl = initUrl;
+            this.parentWindowHandler = parentWindowHandler;
             //create cef browser view handler  
-            this.cefClientHandler = Cef3Binder.MyCefCreateClientHandler(); 
-            Cef3Binder.MyCefSetupBrowserHwnd(cefClientHandler, parentWindowHandler, x, y, w, h); 
-        } 
-        internal IntPtr Handle
+            this.myCefBrowser = Cef3Binder.MyCefCreateClientHandler();
+            Cef3Binder.MyCefSetupBrowserHwnd(myCefBrowser, parentWindowHandler, x, y, w, h, initUrl);
+        }
+        internal IntPtr NativeMyCefBrowserHandle
         {
-            get { return this.cefClientHandler; }
-        } 
+            get { return this.myCefBrowser; }
+        }
         public void NavigateTo(string url)
         {
-            Cef3Binder.NavigateTo(this.cefClientHandler, url);
+            Cef3Binder.NavigateTo(this.myCefBrowser, url);
         }
         public void ExecJavascript(string src, string scriptUrl)
         {
-            Cef3Binder.ExecJavascript(this.cefClientHandler, src, scriptUrl);
+            Cef3Binder.ExecJavascript(this.myCefBrowser, src, scriptUrl);
         }
         public void PostData(string url, byte[] data, int len)
         {
-            Cef3Binder.PostData(this.cefClientHandler, url, data, len);
+            Cef3Binder.PostData(this.myCefBrowser, url, data, len);
         }
 
-        public void GetText(CefStringCallback strCallback)
+        public void GetText(MyCefCallback strCallback)
         {
-            //keep alive callback
-            keepAliveCallBack.Add(strCallback);
-            Cef3Binder.DomGetTextWalk(this.cefClientHandler, strCallback);
+            ////keep alive callback
+            //keepAliveCallBack.Add(strCallback);
+            //Cef3Binder.DomGetTextWalk(this.myCefBrowser, strCallback);
         }
 
-        public void GetSource(CefStringCallback strCallback)
+        public void GetSource(MyCefCallback strCallback)
         {
-            //keep alive callback
-            keepAliveCallBack.Add(strCallback);
-            Cef3Binder.DomGetSourceWalk(this.cefClientHandler, strCallback);
+            ////keep alive callback
+            //keepAliveCallBack.Add(strCallback);
+            //Cef3Binder.DomGetSourceWalk(this.myCefBrowser, strCallback);
 
         }
 
-        List<CefStringCallback> keepAliveCallBack = new List<CefStringCallback>();
+        List<MyCefCallback> keepAliveCallBack = new List<MyCefCallback>();
 
         void OnUnmanagedPartCallBack(int id, IntPtr callBackArgs)
         {
@@ -115,6 +133,22 @@ namespace LayoutFarm.CefBridge
             }
         }
 
+        public void Stop()
+        {
+            Cef3Binder.MyCefBwStop(myCefBrowser);
+        }
+        public void GoBack()
+        {
+            Cef3Binder.MyCefBwGoBack(myCefBrowser);
+        }
+        public void GoForward()
+        {
+            Cef3Binder.MyCefBwGoForward(myCefBrowser);
+        }
+        public void Reload()
+        {
+            Cef3Binder.MyCefBwReload(myCefBrowser);
+        }
 
 
         //---------
