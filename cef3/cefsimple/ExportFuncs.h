@@ -15,7 +15,7 @@ extern "C"{
     MY_DLL_EXPORT int MyCefInit(HINSTANCE hInstance,SimpleApp* app1);
 	//5. 
 	//6.
-	MY_DLL_EXPORT SimpleHandler* MyCefCreateClientHandler();
+	MY_DLL_EXPORT SimpleHandler* MyCefCreateMyWebBrowser();
 	//7
 	MY_DLL_EXPORT int MyCefSetupBrowserHwnd(SimpleHandler* clientHandler,HWND surfaceHwnd,int x,int y,int w,int h);
 	//8.

@@ -78,7 +78,7 @@ int MyCefInit(HINSTANCE hInstance,SimpleApp* app1)
 } 
 	
 //6.
-SimpleHandler* MyCefCreateClientHandler()
+SimpleHandler* MyCefCreateMyWebBrowser()
 {
 	return new SimpleHandler();
 } 

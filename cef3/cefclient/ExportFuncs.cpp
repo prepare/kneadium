@@ -86,7 +86,7 @@ client::ClientApp* MyCefCreateClientApp(HINSTANCE hInstance)
 }
   
 //4. 
-MyBrowser* MyCefCreateMyWebBrowser()
+MyBrowser* MyCefCreateMyWebBrowser(managed_callback callback)
 {	
 	/*const CefRect r(0,0,400,400); 
 	CefBrowserSettings settings;
@@ -107,7 +107,7 @@ MyBrowser* MyCefCreateMyWebBrowser()
 
 	//2. browser event handler
 	auto hh = bwWindow->GetClientHandler();//  new client::ClientHandlerStd(bwWindow,"");
-	hh->MyCefSetManagedCallBack(myMxCallback_); 
+	hh->MyCefSetManagedCallBack(callback); 
 
 	return myBw;
 }
@@ -169,8 +169,7 @@ void MyCefDoMessageLoopWork()
 //7.
 void MyCefShutDown(){
 	CefShutdown();
-}
-
+} 
 //--------------------------------------------------------------------------------------------------
 //part 2:
 //1. 

@@ -29,7 +29,7 @@ extern "C"{
 	 
 	
 	//4.
-	MY_DLL_EXPORT MyBrowser* MyCefCreateMyWebBrowser();
+	MY_DLL_EXPORT MyBrowser* MyCefCreateMyWebBrowser(managed_callback callback);
 	//5.
 	MY_DLL_EXPORT int MyCefSetupBrowserHwnd(MyBrowser* myBw,HWND surfaceHwnd,int x,int y,int w,int h,const wchar_t* url);
 
@@ -38,9 +38,8 @@ extern "C"{
 	 
 	//7.
 	MY_DLL_EXPORT void MyCefShutDown();  
-
-	
-	//--------------------
+    
+ 
 	//part 2
 	//1.
 	MY_DLL_EXPORT  void NativeMetSetResult(MethodArgs* args, int retIndex, jsvalue* value);
