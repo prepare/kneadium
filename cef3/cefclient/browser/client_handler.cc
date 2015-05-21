@@ -100,6 +100,7 @@ void LoadErrorPage(CefRefPtr<CefFrame> frame,
     ss << "<br/>" << other_info;
 
   ss << "</body></html>";
+
   frame->LoadURL(test_runner::GetDataURI(ss.str(), "text/html"));
 }
 
@@ -174,19 +175,28 @@ void ClientHandler::OnBeforeContextMenu(
     CefRefPtr<CefMenuModel> model) {
   CEF_REQUIRE_UI_THREAD();
 
-  if ((params->GetTypeFlags() & (CM_TYPEFLAG_PAGE | CM_TYPEFLAG_FRAME)) != 0) {
-    // Add a separator if the menu already has items.
-    if (model->GetCount() > 0)
-      model->AddSeparator();
+  if(this->mcallback_)
+  {
+		//send menu model to managed side
+		this->mcallback_(109,NULL);
+  }
+  else{
 
-    // Add DevTools items to all context menus.
-    model->AddItem(CLIENT_ID_SHOW_DEVTOOLS, "&Show DevTools");
-    model->AddItem(CLIENT_ID_CLOSE_DEVTOOLS, "Close DevTools");
-    model->AddSeparator();
-    model->AddItem(CLIENT_ID_INSPECT_ELEMENT, "Inspect Element");
+	  if ((params->GetTypeFlags() & (CM_TYPEFLAG_PAGE | CM_TYPEFLAG_FRAME)) != 0) { 
+	  
+		  //Add a separator if the menu already has items.    
+	 
+		  if (model->GetCount() > 0)
+			  model->AddSeparator();
 
-    // Test context menu features.
-    BuildTestMenu(model);
+			// Add DevTools items to all context menus.
+			model->AddItem(CLIENT_ID_SHOW_DEVTOOLS, "&Show DevTools");
+			model->AddItem(CLIENT_ID_CLOSE_DEVTOOLS, "Close DevTools");
+			model->AddSeparator();
+			model->AddItem(CLIENT_ID_INSPECT_ELEMENT, "Inspect Element");
+			// Test context menu features.
+			BuildTestMenu(model);   
+	  }
   }
 }
 
@@ -198,20 +208,24 @@ bool ClientHandler::OnContextMenuCommand(
     EventFlags event_flags) {
   CEF_REQUIRE_UI_THREAD();
 
-  switch (command_id) {
-    case CLIENT_ID_SHOW_DEVTOOLS:
-
-      ShowDevTools(browser, CefPoint());
-      return true;
-    case CLIENT_ID_CLOSE_DEVTOOLS:
-      CloseDevTools(browser);
-      return true;
-    case CLIENT_ID_INSPECT_ELEMENT:
-      ShowDevTools(browser, CefPoint(params->GetXCoord(), params->GetYCoord()));
-      return true;
-    default:  // Allow default handling, if any.
-      return ExecuteTestMenu(command_id);
+  if(this->mcallback_){
+	return true;
   }
+  else{
+	  switch (command_id) {
+		case CLIENT_ID_SHOW_DEVTOOLS: 
+		  ShowDevTools(browser, CefPoint());
+		  return true;
+		case CLIENT_ID_CLOSE_DEVTOOLS:
+		  CloseDevTools(browser);
+		  return true;
+		case CLIENT_ID_INSPECT_ELEMENT:
+		  ShowDevTools(browser, CefPoint(params->GetXCoord(), params->GetYCoord()));
+		  return true;
+		default:  // Allow default handling, if any.
+		  return ExecuteTestMenu(command_id);
+	  }
+  } 
 }
 
 void ClientHandler::OnAddressChange(CefRefPtr<CefBrowser> browser,
@@ -231,15 +245,7 @@ void ClientHandler::OnTitleChange(CefRefPtr<CefBrowser> browser,
   NotifyTitle(title);
 }
 
-
-void SetJsValue(jsvalue* v, const CefString& cefstr){
-	  auto str16= cefstr.ToString16();
-	  auto cstr= str16.c_str(); 
-	  
-	  v->length =  wcslen(cstr);
-	  v->value.str =  (uint16_t*)cstr;
-	  v->type  = JSVALUE_TYPE_STRING;	   
-}
+ 
 bool ClientHandler::OnConsoleMessage(CefRefPtr<CefBrowser> browser,
                                      const CefString& message,
                                      const CefString& source,
@@ -302,6 +308,7 @@ void ClientHandler::OnBeforeDownload(
 
   // Continue the download and show the "Save As" dialog.
   callback->Continue(MainContext::Get()->GetDownloadPath(suggested_name), true);
+  
 }
 
 void ClientHandler::OnDownloadUpdated(
@@ -309,6 +316,8 @@ void ClientHandler::OnDownloadUpdated(
     CefRefPtr<CefDownloadItem> download_item,
     CefRefPtr<CefDownloadItemCallback> callback) {
   CEF_REQUIRE_UI_THREAD();
+
+  //when complete
 
   if (download_item->IsComplete()) {
     test_runner::Alert(
@@ -498,6 +507,7 @@ bool ClientHandler::OnOpenURLFromTab(
     const CefString& target_url,
     CefRequestHandler::WindowOpenDisposition target_disposition,
     bool user_gesture) {
+
   if (user_gesture && target_disposition == WOD_NEW_BACKGROUND_TAB) {
     // Handle middle-click and ctrl + left-click by opening the URL in a new
     // browser window.
@@ -631,12 +641,14 @@ void ClientHandler::ShowDevTools(CefRefPtr<CefBrowser> browser,
   CefBrowserSettings settings;
   if(this->mcallback_)
   {
+	  //TODO: send cmd to managed side
 	  //create dev window
 	  //send cef client 
 	  this->mcallback_(107,NULL);
 
   }
   else{
+
 	if (CreatePopupWindow(browser, true, CefPopupFeatures(), windowInfo, client,
                         settings)) {
 		browser->GetHost()->ShowDevTools(windowInfo, client, settings,
@@ -646,7 +658,15 @@ void ClientHandler::ShowDevTools(CefRefPtr<CefBrowser> browser,
 }
 
 void ClientHandler::CloseDevTools(CefRefPtr<CefBrowser> browser) {
-  browser->GetHost()->CloseDevTools();
+
+	if(this->mcallback_){
+		//TODO: send command
+		 this->mcallback_(108,NULL);
+	}
+	else{
+		browser->GetHost()->CloseDevTools();
+	}
+
 }
 
 
@@ -790,7 +810,7 @@ bool ClientHandler::ExecuteTestMenu(int command_id) {
   return false;
 }
 
-
+//my extension ***
 void ClientHandler::MyCefSetManagedCallBack(managed_callback m){
 	this->mcallback_ = m;
 }

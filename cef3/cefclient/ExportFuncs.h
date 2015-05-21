@@ -65,6 +65,10 @@ extern "C"{
 	//4. 
 	MY_DLL_EXPORT void MyCefShowDevTools(MyBrowser* myBw,MyBrowser* myBwDev,HWND parentHwnd);
 	//----------------------------
-	
+	MY_DLL_EXPORT void MyCefBwGoBack(MyBrowser* myBw);	 
+	MY_DLL_EXPORT void MyCefBwGoForward(MyBrowser* myBw);	 
+    MY_DLL_EXPORT void MyCefBwStop(MyBrowser* myBw);
+	MY_DLL_EXPORT void MyCefBwReload(MyBrowser* myBw); 
+
 
 }

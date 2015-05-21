@@ -21,8 +21,7 @@
  
 delTraceBack notifyListener= NULL;
 client::MainContextImpl* mainContext;  
-client::MainMessageLoop* message_loop; 
- 
+client::MainMessageLoop* message_loop;  //essential for mainloop checking 
 
 managed_callback myMxCallback_;
 
@@ -266,36 +265,53 @@ void PostData(MyBrowser* myBw, const wchar_t* url,const wchar_t* rawDataToPost,s
 }
 //4. 
 void MyCefShowDevTools(MyBrowser* myBw, MyBrowser* myBwDev, HWND parentWindow)
-{
-	
+{ 
   
-  CefWindowInfo windowInfo;  
-  windowInfo.parent_window = parentWindow;
-  windowInfo.width = 800;
-  windowInfo.height = 600;
-  windowInfo.x  =0;
-  windowInfo.y  =0;
+	  //TODO : fine tune here
 
-  RECT r;
-  r.left =0;
-  r.top =0;
-  r.right = 800;
-  r.bottom = 600;
+	  CefWindowInfo windowInfo;  
+	  windowInfo.parent_window = parentWindow;
+	  windowInfo.width = 800;
+	  windowInfo.height = 600;
+	  windowInfo.x  =0;
+	  windowInfo.y  =0;
 
-  windowInfo.SetAsChild(parentWindow,r);
+	  RECT r;
+	  r.left =0;
+	  r.top =0;
+	  r.right = 800;
+	  r.bottom = 600;
 
-  CefRefPtr<CefClient> client(myBwDev->bwWindow->GetClientHandler());
-  CefBrowserSettings settings;
-  CefPoint inspect_element_at;
+	  windowInfo.SetAsChild(parentWindow,r);
+
+	  CefRefPtr<CefClient> client(myBwDev->bwWindow->GetClientHandler());
+	  CefBrowserSettings settings;
+	  CefPoint inspect_element_at;
    
-  myBw->bwWindow->GetBrowser()->GetHost()->ShowDevTools(
-	  windowInfo,
-	  client,
-	  settings,
-	  inspect_element_at);
-
- 
-	//myBw->bwWindow->GetBrowser()->GetHost()->ShowDevTools(
-	//browser->GetHost()->ShowDevTools(windowInfo, client, settings,
-      //                               inspect_element_at);
+	  myBw->bwWindow->GetBrowser()->GetHost()->ShowDevTools(
+		  windowInfo,
+		  client,
+		  settings,
+		  inspect_element_at);  
+}
+MY_DLL_EXPORT void MyCefBwGoBack(MyBrowser* myBw){
+	
+	if (CefRefPtr<CefBrowser> browser = myBw->bwWindow->GetBrowser()){
+        browser->GoBack();
+	}
+}
+MY_DLL_EXPORT void MyCefBwGoForward(MyBrowser* myBw){
+	if (CefRefPtr<CefBrowser> browser = myBw->bwWindow->GetBrowser()){
+        browser->GoForward();
+	}
+}
+MY_DLL_EXPORT void MyCefBwStop(MyBrowser* myBw){
+	if (CefRefPtr<CefBrowser> browser = myBw->bwWindow->GetBrowser()){
+       browser->StopLoad();
+	}
+}
+MY_DLL_EXPORT void MyCefBwReload(MyBrowser* myBw){
+	if (CefRefPtr<CefBrowser> browser = myBw->bwWindow->GetBrowser()){
+        browser->Reload();
+	}
 }
