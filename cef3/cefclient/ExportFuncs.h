@@ -28,15 +28,15 @@ extern "C"{
 	MY_DLL_EXPORT client::ClientApp* MyCefCreateClientApp(HINSTANCE hInstance);	
 	 
 	
-	//6.
-	MY_DLL_EXPORT MyBrowser* MyCefCreateClientHandler();
-	//7.
+	//4.
+	MY_DLL_EXPORT MyBrowser* MyCefCreateMyWebBrowser();
+	//5.
 	MY_DLL_EXPORT int MyCefSetupBrowserHwnd(MyBrowser* myBw,HWND surfaceHwnd,int x,int y,int w,int h,const wchar_t* url);
 
-	//8.
+	//6.
 	MY_DLL_EXPORT void MyCefDoMessageLoopWork(); 
 	 
-	//9.
+	//7.
 	MY_DLL_EXPORT void MyCefShutDown();  
 
 	

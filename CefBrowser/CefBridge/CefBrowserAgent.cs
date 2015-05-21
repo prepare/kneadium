@@ -18,7 +18,7 @@ namespace LayoutFarm.CefBridge
         internal CefBrowserAgent2()
         {
             //create cef browser view handler  
-            this.myCefBrowser = Cef3Binder.MyCefCreateClientHandler();
+            this.myCefBrowser = Cef3Binder.MyCefCreateMyWebBrowser();
         }
         public IntPtr GetMyCefBrowser()
         {
@@ -42,7 +42,7 @@ namespace LayoutFarm.CefBridge
             this.initUrl = initUrl;
             this.parentWindowHandler = parentWindowHandler;
             //create cef browser view handler  
-            this.myCefBrowser = Cef3Binder.MyCefCreateClientHandler();
+            this.myCefBrowser = Cef3Binder.MyCefCreateMyWebBrowser();
             Cef3Binder.MyCefSetupBrowserHwnd(myCefBrowser, parentWindowHandler, x, y, w, h, initUrl);
         }
         internal IntPtr NativeMyCefBrowserHandle

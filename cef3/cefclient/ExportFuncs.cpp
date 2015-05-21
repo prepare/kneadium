@@ -85,8 +85,8 @@ client::ClientApp* MyCefCreateClientApp(HINSTANCE hInstance)
 
 }
   
-//6, 
-MyBrowser* MyCefCreateClientHandler()
+//4. 
+MyBrowser* MyCefCreateMyWebBrowser()
 {	
 	/*const CefRect r(0,0,400,400); 
 	CefBrowserSettings settings;
@@ -111,8 +111,7 @@ MyBrowser* MyCefCreateClientHandler()
 
 	return myBw;
 }
-
-//7.
+//5.
 int MyCefSetupBrowserHwnd(MyBrowser* myBw,HWND surfaceHwnd,int x,int y,int w,int h,const wchar_t* url)
 {   
 
@@ -162,16 +161,17 @@ int MyCefSetupBrowserHwnd(MyBrowser* myBw,HWND surfaceHwnd,int x,int y,int w,int
 	  return 0;
   }  
 }
-//8.
+//6.
 void MyCefDoMessageLoopWork()
 {		
 	CefDoMessageLoopWork();
 }
-//9.
+//7.
 void MyCefShutDown(){
 	CefShutdown();
 }
 
+//--------------------------------------------------------------------------------------------------
 //part 2:
 //1. 
  void NativeMetSetResult(MethodArgs* args, int retIndex, jsvalue* value)

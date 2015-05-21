@@ -254,16 +254,16 @@ namespace LayoutFarm.CefBridge
         [DllImport(CEF_CLIENT_DLL)]
         internal static extern IntPtr MyCefCreateClientApp(IntPtr processHandle);
         
-        //6. 
+        //4. 
         [DllImport(CEF_CLIENT_DLL)]
-        public static extern IntPtr MyCefCreateClientHandler();
-        //7.
+        public static extern IntPtr MyCefCreateMyWebBrowser();
+        //5.
         [DllImport(CEF_CLIENT_DLL, CharSet = CharSet.Unicode)]
-        public static extern void MyCefSetupBrowserHwnd(IntPtr clientHandler, IntPtr hWndParent, int x, int y, int width, int height, string initUrl);
-        //8.
+        public static extern void MyCefSetupBrowserHwnd(IntPtr myCefBrowser, IntPtr hWndParent, int x, int y, int width, int height, string initUrl);
+        //6.
         [DllImport(CEF_CLIENT_DLL)]
         public static extern void MyCefDoMessageLoopWork();
-        //9.
+        //7.
         [DllImport(CEF_CLIENT_DLL)]
         public static extern int MyCefShutDown();
         //--------------------------------------------------- 
