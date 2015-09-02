@@ -31,9 +31,6 @@ void BrowserWindowStdWin::CreateBrowser(
                                 settings, request_context);
 }
 
-
-
-
 void BrowserWindowStdWin::GetPopupConfig(CefWindowHandle temp_handle,
                                          CefWindowInfo& windowInfo,
                                          CefRefPtr<CefClient>& client,

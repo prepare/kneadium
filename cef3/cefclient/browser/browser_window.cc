@@ -9,21 +9,17 @@
 
 namespace client {
 
-
-#ifdef MYCEF_DEBUG
-int dbugTotalId=0; //static
-#endif
-
 BrowserWindow::BrowserWindow(Delegate* delegate)
     : delegate_(delegate),
       is_closing_(false) {
   DCHECK(delegate_);
+}
 
-#ifdef MYCEF_DEBUG
-  this->dbug_id = dbugTotalId++;
-#endif
+void BrowserWindow::SetDeviceScaleFactor(float device_scale_factor) {
+}
 
-
+float BrowserWindow::GetDeviceScaleFactor() const {
+  return 1.0f;
 }
 
 CefRefPtr<CefBrowser> BrowserWindow::GetBrowser() const {
@@ -51,8 +47,7 @@ void BrowserWindow::OnBrowserClosing(CefRefPtr<CefBrowser> browser) {
 }
 
 void BrowserWindow::OnBrowserClosed(CefRefPtr<CefBrowser> browser) {
-  REQUIRE_MAIN_THREAD(); 
-
+  REQUIRE_MAIN_THREAD();
   DCHECK_EQ(browser->GetIdentifier(), browser_->GetIdentifier());
   browser_ = NULL;
 
@@ -73,6 +68,11 @@ void BrowserWindow::OnSetTitle(const std::string& title) {
   delegate_->OnSetTitle(title);
 }
 
+void BrowserWindow::OnSetFullscreen(bool fullscreen) {
+  REQUIRE_MAIN_THREAD();
+  delegate_->OnSetFullscreen(fullscreen);
+}
+
 void BrowserWindow::OnSetLoadingState(bool isLoading,
                                       bool canGoBack,
                                       bool canGoForward) {
@@ -80,7 +80,14 @@ void BrowserWindow::OnSetLoadingState(bool isLoading,
   delegate_->OnSetLoadingState(isLoading, canGoBack, canGoForward);
 }
 
-client::ClientHandler* BrowserWindow::GetClientHandler(){
+void BrowserWindow::OnSetDraggableRegions(
+      const std::vector<CefDraggableRegion>& regions) {
+  REQUIRE_MAIN_THREAD();
+  delegate_->OnSetDraggableRegions(regions);
+}
+
+//my extension
+client::ClientHandler* BrowserWindow::GetClientHandler() {
 	return this->client_handler_;
 }
 

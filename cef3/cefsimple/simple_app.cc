@@ -12,17 +12,11 @@
 #include "include/wrapper/cef_helpers.h"
 
 SimpleApp::SimpleApp() {
-	 this->myMxCallback = NULL;
-	 this->extmode = false;
 }
 
 void SimpleApp::OnContextInitialized() {
   CEF_REQUIRE_UI_THREAD();
 
-  if(!this->extmode){
-	 
-	  //eg. normal dll mode
-	 
   // Information used when creating the native window.
   CefWindowInfo window_info;
 
@@ -51,6 +45,4 @@ void SimpleApp::OnContextInitialized() {
   // Create the first browser window.
   CefBrowserHost::CreateBrowser(window_info, handler.get(), url,
                                 browser_settings, NULL);
-
-  }
 }

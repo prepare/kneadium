@@ -34,10 +34,18 @@ class BrowserWindow : public ClientHandler::Delegate {
     // Set the window title.
     virtual void OnSetTitle(const std::string& title) = 0;
 
+    // Set fullscreen mode.
+    virtual void OnSetFullscreen(bool fullscreen) = 0;
+
     // Set the loading state.
     virtual void OnSetLoadingState(bool isLoading,
                                    bool canGoBack,
                                    bool canGoForward) = 0;
+
+    // Set the draggable regions.
+    virtual void OnSetDraggableRegions(
+        const std::vector<CefDraggableRegion>& regions) = 0; 
+
 
    protected:
     virtual ~Delegate() {}
@@ -75,6 +83,14 @@ class BrowserWindow : public ClientHandler::Delegate {
   // Set focus to the window.
   virtual void SetFocus(bool focus) = 0;
 
+  // Set the device scale factor. Only used in combination with off-screen
+  // rendering.
+  virtual void SetDeviceScaleFactor(float device_scale_factor);
+
+  // Returns the device scale factor. Only used in combination with off-screen
+  // rendering.
+  virtual float GetDeviceScaleFactor() const;
+
   // Returns the window handle.
   virtual ClientWindowHandle GetWindowHandle() const = 0;
 
@@ -84,12 +100,13 @@ class BrowserWindow : public ClientHandler::Delegate {
   // Returns true if the browser is closing.
   bool IsClosing() const;
 
+
   //my extension 
-#ifdef MYCEF_DEBUG
+#ifdef MYCEF_DEBUG//my extension 
   int dbug_id;
 #endif  
-  ClientHandler* GetClientHandler();
-
+  //my extension 
+  ClientHandler* GetClientHandler();//my extension 
 
  protected:
   // Allow deletion via scoped_ptr only.
@@ -105,17 +122,18 @@ class BrowserWindow : public ClientHandler::Delegate {
   void OnBrowserClosed(CefRefPtr<CefBrowser> browser) OVERRIDE;
   void OnSetAddress(const std::string& url) OVERRIDE;
   void OnSetTitle(const std::string& title) OVERRIDE;
+  void OnSetFullscreen(bool fullscreen) OVERRIDE;
   void OnSetLoadingState(bool isLoading,
                          bool canGoBack,
                          bool canGoForward) OVERRIDE;
-
-  
+  void OnSetDraggableRegions(
+      const std::vector<CefDraggableRegion>& regions) OVERRIDE;
 
   Delegate* delegate_;
   CefRefPtr<CefBrowser> browser_;
   CefRefPtr<ClientHandler> client_handler_;
   bool is_closing_;
-   
+
  private:
   DISALLOW_COPY_AND_ASSIGN(BrowserWindow);
 };

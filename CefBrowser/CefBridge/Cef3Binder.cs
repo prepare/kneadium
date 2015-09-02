@@ -110,7 +110,7 @@ namespace LayoutFarm.CefBridge
     //const wchar_t* inputDataString,
     //void* outputDataBuffer,size_t outputLen);
 
-   
+
     static class Cef3Binder
     {
         //-------------------------------------------------
@@ -120,8 +120,9 @@ namespace LayoutFarm.CefBridge
 #if DEBUG
         //static string libPath = @"..\\..\\..\\cef3\\cefclient\Debug\";
         //static string libPath = @"..\\..\\..\\cef3\\cefsimple\Debug\";
-        static string libPath = @"..\\..\\..\\cef3\\cefclient\Debug\";
+        //static string libPath = @"..\\..\\..\\cef3\\cefclient\Debug\";
         //static string libPath = @"..\\..\\..\\cef3\\cefsimple\Release\"; 
+        static string libPath = @"D:\projects\CefBridge\cef3_output\cefclient\Debug\"; 
         const string CEF_CLIENT_DLL = "cefclient.dll";
         //const string CEF_CLIENT_DLL = "cefsimple.dll";
 #else
@@ -131,7 +132,7 @@ namespace LayoutFarm.CefBridge
 
         static MyCefCallback managedListener;
         static MyCefCallback managedListener3;
-        
+
         static bool _loadCef3Success = false;
         static CefClientApp clientApp;
         static CustomSchemeAgent customScheme;
@@ -171,12 +172,12 @@ namespace LayoutFarm.CefBridge
             //1. 
             managedListener = new MyCefCallback(Cef3callBack_ForMangedCallBack02);
             //2. 
-            
+
             //3. unmanaged side can call back to this managed part
             int regResult = RegisterManagedCallBack(managedListener, 0);
             //-----------------------------------------------------------
             //again ... another managed
-            managedListener3 = new MyCefCallback(Cef3callBack_ForMangedCallBack03); 
+            managedListener3 = new MyCefCallback(Cef3callBack_ForMangedCallBack03);
             regResult = RegisterManagedCallBack(managedListener3, 1);
             //-----------------------------------------------------------
             //init cef 
@@ -196,9 +197,9 @@ namespace LayoutFarm.CefBridge
 
             System.Windows.Forms.Application.Idle += (sender, e) =>
             {
-           
-                    MyCefDoMessageLoopWork();
-              
+
+                MyCefDoMessageLoopWork();
+
             };
 
             // }
@@ -253,11 +254,11 @@ namespace LayoutFarm.CefBridge
         //3.
         [DllImport(CEF_CLIENT_DLL)]
         internal static extern IntPtr MyCefCreateClientApp(IntPtr processHandle);
-        
+
         //4. 
         [DllImport(CEF_CLIENT_DLL)]
         public static extern IntPtr MyCefCreateMyWebBrowser(MyCefCallback mxcallback);
-    
+
         //5.
         [DllImport(CEF_CLIENT_DLL, CharSet = CharSet.Unicode)]
         public static extern void MyCefSetupBrowserHwnd(IntPtr myCefBrowser, IntPtr hWndParent, int x, int y, int width, int height, string initUrl);
@@ -267,7 +268,7 @@ namespace LayoutFarm.CefBridge
         //7.
         [DllImport(CEF_CLIENT_DLL)]
         public static extern int MyCefShutDown();
-     
+
         //--------------------------------------------------- 
 
         //part 2:
@@ -289,7 +290,7 @@ namespace LayoutFarm.CefBridge
 
         [DllImport(CEF_CLIENT_DLL, CallingConvention = CallingConvention.Cdecl, CharSet = CharSet.Unicode)]
         public static extern void MyCefBwPostData(IntPtr myCefBw, string url, byte[] data, int len);
-     
+
         [DllImport(CEF_CLIENT_DLL)]
         public static extern void MyCefShowDevTools(IntPtr myCefBw, IntPtr myCefDevTool, IntPtr parentWindow);
         [DllImport(CEF_CLIENT_DLL)]
@@ -302,7 +303,7 @@ namespace LayoutFarm.CefBridge
         public static extern void MyCefBwReload(IntPtr myCefBw);
         //--------------------------------------------------- 
 
-         
+
 
         [DllImport(CEF_CLIENT_DLL, CallingConvention = CallingConvention.Cdecl, CharSet = CharSet.Unicode)]
         public static extern void DomGetTextWalk(IntPtr g_ClientHandler, MyCefCallback strCallBack);
@@ -317,7 +318,7 @@ namespace LayoutFarm.CefBridge
         public static unsafe extern void MyCefCbArgs_SetResultAsBuffer(
             IntPtr callArgsPtr,
             int resultIndex,
-            byte* resultBuffer, int strlen); 
+            byte* resultBuffer, int strlen);
 
         [DllImport(CEF_CLIENT_DLL, CallingConvention = CallingConvention.Cdecl)]
         internal static unsafe extern void MyCef_CefRegisterSchemeHandlerFactory(
