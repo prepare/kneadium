@@ -11,7 +11,7 @@
     </ProjectConfiguration>
   </ItemGroup>
   <PropertyGroup Label="Globals">
-    <ProjectGUID>{B4A30DD7-D034-42A4-ACAD-38391B47CB54}</ProjectGUID>
+    <ProjectGUID>{56CF0BE1-1435-40EF-B529-85FE18BF4BF1}</ProjectGUID>
     <Keyword>Win32Proj</Keyword>
     <Platform>Win32</Platform>
     <ProjectName>libcef_dll_wrapper</ProjectName>
@@ -532,7 +532,7 @@ if %errorlevel% neq 0 goto :VCEnd</Command>
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="D:/projects/CefBridge/cef3_output/ZERO_CHECK.vcxproj">
-      <Project>59F80639-09E7-4DAE-8679-CD90268783FB</Project>
+      <Project>7B5744DE-2CA6-4568-8FDA-28B5C9E93BBB</Project>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

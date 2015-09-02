@@ -405,6 +405,7 @@ if(OS_WINDOWS)
   # All sources required by the "cefclient" target. Generates an executable that
   # is used for all processes.
   set(CEFCLIENT_SRCS
+    ${CEFCLIENT_MYCEF_MYCEF_SRCS}
     ${CEFCLIENT_BROWSER_SRCS}
     ${CEFCLIENT_COMMON_SRCS}
     ${CEFCLIENT_RENDERER_SRCS}

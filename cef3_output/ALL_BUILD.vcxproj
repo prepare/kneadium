@@ -11,7 +11,7 @@
     </ProjectConfiguration>
   </ItemGroup>
   <PropertyGroup Label="Globals">
-    <ProjectGUID>{4E462F9D-18F9-4AC8-ABA6-A1EAA5C36C1E}</ProjectGUID>
+    <ProjectGUID>{2A30F5D1-A99C-4F1C-A239-4918C100B060}</ProjectGUID>
     <Keyword>Win32Proj</Keyword>
     <Platform>Win32</Platform>
     <ProjectName>ALL_BUILD</ProjectName>
@@ -95,16 +95,16 @@ if %errorlevel% neq 0 goto :VCEnd</Command>
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="D:/projects/CefBridge/cef3_output/ZERO_CHECK.vcxproj">
-      <Project>59F80639-09E7-4DAE-8679-CD90268783FB</Project>
+      <Project>7B5744DE-2CA6-4568-8FDA-28B5C9E93BBB</Project>
     </ProjectReference>
     <ProjectReference Include="D:/projects/CefBridge/cef3_output/cefclient/cefclient.vcxproj">
-      <Project>3B8E4F9F-4E93-46F5-B811-9E60B00BF5DA</Project>
+      <Project>8005911E-E745-4703-B1CF-03C785D91D2A</Project>
     </ProjectReference>
     <ProjectReference Include="D:/projects/CefBridge/cef3_output/cefsimple/cefsimple.vcxproj">
-      <Project>3636F220-C7BD-4578-B662-92A0AB752442</Project>
+      <Project>498C54DC-2AF9-455F-97DD-9F43033D5434</Project>
     </ProjectReference>
     <ProjectReference Include="D:/projects/CefBridge/cef3_output/libcef_dll/libcef_dll_wrapper.vcxproj">
-      <Project>B4A30DD7-D034-42A4-ACAD-38391B47CB54</Project>
+      <Project>56CF0BE1-1435-40EF-B529-85FE18BF4BF1</Project>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

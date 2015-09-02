@@ -45,11 +45,11 @@
     </ResourceCompile>
   </ItemGroup>
   <ItemGroup>
-    <Filter Include="cefsimple">
-      <UniqueIdentifier>{96AB3D8E-B18B-4515-90C3-8EE3F48B29D3}</UniqueIdentifier>
-    </Filter>
     <Filter Include="cefsimple\res">
-      <UniqueIdentifier>{B68769BA-C0A9-4227-995D-269B1BC415CE}</UniqueIdentifier>
+      <UniqueIdentifier>{AC64A1E0-146D-41D9-859A-A14928C2EEAE}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="cefsimple">
+      <UniqueIdentifier>{89ACB724-C2E0-49FD-82A8-2DF3B24D0BD8}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>
