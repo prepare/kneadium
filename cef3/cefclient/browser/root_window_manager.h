@@ -12,7 +12,6 @@
 #include "include/cef_command_line.h"
 #include "cefclient/browser/root_window.h"
 #include "cefclient/browser/temp_window.h"
-#include "cefclient/mycef.h"
 
 namespace client {
 
@@ -47,7 +46,7 @@ class RootWindowManager : public RootWindow::Delegate {
       CefWindowInfo& windowInfo,
       CefRefPtr<CefClient>& client,
       CefBrowserSettings& settings);
- 
+
   // Returns the RootWindow associated with the specified browser ID. Must be
   // called on the main thread.
   scoped_refptr<RootWindow> GetWindowForBrowser(int browser_id);
@@ -55,8 +54,6 @@ class RootWindowManager : public RootWindow::Delegate {
   // Close all existing windows. If |force| is true onunload handlers will not
   // be executed.
   void CloseAllWindows(bool force);
-
-   
 
  private:
   // Allow deletion via scoped_ptr only.

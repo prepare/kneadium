@@ -22,8 +22,6 @@ SimpleHandler::SimpleHandler()
     : is_closing_(false) {
   DCHECK(!g_instance);
   g_instance = this;
-  
-  this->use_surfaceHwnd = false;
 }
 
 SimpleHandler::~SimpleHandler() {
@@ -72,11 +70,7 @@ void SimpleHandler::OnBeforeClose(CefRefPtr<CefBrowser> browser) {
 
   if (browser_list_.empty()) {
     // All browser windows have closed. Quit the application message loop.
-	 
-	  //my extension
-	  if(!this->use_surfaceHwnd){//***
-		 CefQuitMessageLoop();
-	  }
+    CefQuitMessageLoop();
   }
 }
 
@@ -104,7 +98,8 @@ void SimpleHandler::CloseAllBrowsers(bool force_close) {
   if (!CefCurrentlyOn(TID_UI)) {
     // Execute on the UI thread.
     CefPostTask(TID_UI,
-        base::Bind(&SimpleHandler::CloseAllBrowsers, this, force_close)); 
+        base::Bind(&SimpleHandler::CloseAllBrowsers, this, force_close));
+    return;
   }
 
   if (browser_list_.empty())
@@ -113,14 +108,4 @@ void SimpleHandler::CloseAllBrowsers(bool force_close) {
   BrowserList::const_iterator it = browser_list_.begin();
   for (; it != browser_list_.end(); ++it)
     (*it)->GetHost()->CloseBrowser(force_close);
-   
 }
-
-
-//my extension 
-void SimpleHandler::UseExternalSurfaceHwnd()
-{
-	  CEF_REQUIRE_UI_THREAD(); 
-	  this->use_surfaceHwnd = true;
-}
-

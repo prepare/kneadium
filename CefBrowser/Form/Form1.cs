@@ -85,7 +85,7 @@ namespace CefBridgeTest
 
         protected override void OnLoad(EventArgs e)
         {
-            //tt.Enabled = true;
+//            tt.Enabled = true;
             base.OnLoad(e);
 
         }
@@ -101,7 +101,7 @@ namespace CefBridgeTest
         {
 
             this.cefWebBrowser1.Focus();
-            //this.cefWebBrowser1.NavigateTo("http://localhost");
+            this.cefWebBrowser1.NavigateTo("http://localhost");
             //this.cefWebBrowser1.NavigateTo("https://html5test.com");
             //this.cefWebBrowser1.NavigateTo("https://www.youtube.com");
 
