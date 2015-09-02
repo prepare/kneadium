@@ -44,7 +44,8 @@ class BrowserWindow : public ClientHandler::Delegate {
 
     // Set the draggable regions.
     virtual void OnSetDraggableRegions(
-        const std::vector<CefDraggableRegion>& regions) = 0;
+        const std::vector<CefDraggableRegion>& regions) = 0; 
+
 
    protected:
     virtual ~Delegate() {}
@@ -98,6 +99,14 @@ class BrowserWindow : public ClientHandler::Delegate {
 
   // Returns true if the browser is closing.
   bool IsClosing() const;
+
+
+  //my extension 
+#ifdef MYCEF_DEBUG//my extension 
+  int dbug_id;
+#endif  
+  //my extension 
+  ClientHandler* GetClientHandler();//my extension 
 
  protected:
   // Allow deletion via scoped_ptr only.

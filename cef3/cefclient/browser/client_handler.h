@@ -15,6 +15,10 @@
 #include "include/wrapper/cef_resource_manager.h"
 #include "cefclient/browser/client_types.h"
 
+
+//my extension
+#include "cefclient/mycef.h"
+
 #if defined(OS_LINUX)
 #include "cefclient/browser/dialog_handler_gtk.h"
 #endif
@@ -259,6 +263,12 @@ class ClientHandler : public CefClient,
 
   // Returns true if this handler uses off-screen rendering.
   bool is_osr() const { return is_osr_; }
+
+  //my extension
+  managed_callback mcallback_;//my extension
+  //my extension
+  void MyCefSetManagedCallBack(managed_callback m);
+
 
  private:
   // Create a new popup window using the specified information. |is_devtools|

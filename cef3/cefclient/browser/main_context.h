@@ -12,6 +12,7 @@
 #include "include/internal/cef_types_wrappers.h"
 #include "cefclient/browser/osr_renderer.h"
 
+#include "cefclient/mycef.h" //my extension
 namespace client {
 
 class RootWindowManager;
@@ -45,6 +46,9 @@ class MainContext {
 
   // Returns the object used to create/manage RootWindow instances.
   virtual RootWindowManager* GetRootWindowManager() = 0;
+
+  //my extension --for callback to managed side
+  managed_callback myMxCallback_;
 
  protected:
   MainContext();
