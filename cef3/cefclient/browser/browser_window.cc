@@ -86,4 +86,9 @@ void BrowserWindow::OnSetDraggableRegions(
   delegate_->OnSetDraggableRegions(regions);
 }
 
+//my extension
+client::ClientHandler* BrowserWindow::GetClientHandler() {
+	return this->client_handler_;
+}
+
 }  // namespace client
