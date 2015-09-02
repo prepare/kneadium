@@ -12,10 +12,8 @@
 #include "include/cef_client.h"
 #include "include/wrapper/cef_helpers.h"
 #include "include/wrapper/cef_message_router.h"
+#include "include/wrapper/cef_resource_manager.h"
 #include "cefclient/browser/client_types.h"
-
-//my extension
-#include "cefclient/mycef.h"
 
 #if defined(OS_LINUX)
 #include "cefclient/browser/dialog_handler_gtk.h"
@@ -55,10 +53,17 @@ class ClientHandler : public CefClient,
     // Set the window title.
     virtual void OnSetTitle(const std::string& title) = 0;
 
+    // Set fullscreen mode.
+    virtual void OnSetFullscreen(bool fullscreen) = 0;
+
     // Set the loading state.
     virtual void OnSetLoadingState(bool isLoading,
                                    bool canGoBack,
                                    bool canGoForward) = 0;
+
+    // Set the draggable regions.
+    virtual void OnSetDraggableRegions(
+        const std::vector<CefDraggableRegion>& regions) = 0;
 
    protected:
     virtual ~Delegate() {}
@@ -134,6 +139,8 @@ class ClientHandler : public CefClient,
                        const CefString& url) OVERRIDE;
   void OnTitleChange(CefRefPtr<CefBrowser> browser,
                      const CefString& title) OVERRIDE;
+  void OnFullscreenModeChange(CefRefPtr<CefBrowser> browser,
+                              bool fullscreen) OVERRIDE;
   bool OnConsoleMessage(CefRefPtr<CefBrowser> browser,
                         const CefString& message,
                         const CefString& source,
@@ -154,6 +161,10 @@ class ClientHandler : public CefClient,
   bool OnDragEnter(CefRefPtr<CefBrowser> browser,
                    CefRefPtr<CefDragData> dragData,
                    CefDragHandler::DragOperationsMask mask) OVERRIDE;
+
+  void OnDraggableRegionsChanged(
+      CefRefPtr<CefBrowser> browser,
+      const std::vector<CefDraggableRegion>& regions) OVERRIDE;
 
   // CefGeolocationHandler methods
   bool OnRequestGeolocationPermission(
@@ -207,6 +218,11 @@ class ClientHandler : public CefClient,
       const CefString& target_url,
       CefRequestHandler::WindowOpenDisposition target_disposition,
       bool user_gesture) OVERRIDE;
+  cef_return_value_t OnBeforeResourceLoad(
+      CefRefPtr<CefBrowser> browser,
+      CefRefPtr<CefFrame> frame,
+      CefRefPtr<CefRequest> request,
+      CefRefPtr<CefRequestCallback> callback) OVERRIDE;
   CefRefPtr<CefResourceHandler> GetResourceHandler(
       CefRefPtr<CefBrowser> browser,
       CefRefPtr<CefFrame> frame,
@@ -244,11 +260,6 @@ class ClientHandler : public CefClient,
   // Returns true if this handler uses off-screen rendering.
   bool is_osr() const { return is_osr_; }
 
-
-  void MyCefSetManagedCallBack(managed_callback m);
-
-
-
  private:
   // Create a new popup window using the specified information. |is_devtools|
   // will be true if the window will be used for DevTools. Return true to
@@ -268,9 +279,12 @@ class ClientHandler : public CefClient,
   void NotifyBrowserClosed(CefRefPtr<CefBrowser> browser);
   void NotifyAddress(const CefString& url);
   void NotifyTitle(const CefString& title);
+  void NotifyFullscreen(bool fullscreen);
   void NotifyLoadingState(bool isLoading,
                           bool canGoBack,
                           bool canGoForward);
+  void NotifyDraggableRegions(
+      const std::vector<CefDraggableRegion>& regions);
 
   // Test context menu creation.
   void BuildTestMenu(CefRefPtr<CefMenuModel> model);
@@ -296,7 +310,10 @@ class ClientHandler : public CefClient,
   // Handles the browser side of query routing. The renderer side is handled
   // in client_renderer.cc.
   CefRefPtr<CefMessageRouterBrowserSide> message_router_;
-  
+
+  // Manages the registration and delivery of resources.
+  CefRefPtr<CefResourceManager> resource_manager_;
+
   // MAIN THREAD MEMBERS
   // The following members will only be accessed on the main thread. This will
   // be the same as the CEF UI thread except when using multi-threaded message
@@ -318,7 +335,7 @@ class ClientHandler : public CefClient,
   int browser_count_;
 
   // Console logging state.
-  const  std::string console_log_file_;
+  const std::string console_log_file_;
   bool first_console_message_;
 
   // True if an editable field currently has focus.
@@ -326,10 +343,6 @@ class ClientHandler : public CefClient,
 
   // Set of Handlers registered with the message router.
   MessageHandlerSet message_handler_set_;
-
-
-  managed_callback mcallback_;
-
 
   DISALLOW_COPY_AND_ASSIGN(ClientHandler);
 };

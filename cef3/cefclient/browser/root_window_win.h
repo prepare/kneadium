@@ -41,16 +41,17 @@ class RootWindowWin : public RootWindow,
                    CefWindowInfo& windowInfo,
                    CefRefPtr<CefClient>& client,
                    CefBrowserSettings& settings) OVERRIDE;
-	
   void Show(ShowMode mode) OVERRIDE;
   void Hide() OVERRIDE;
   void SetBounds(int x, int y, size_t width, size_t height) OVERRIDE;
   void Close(bool force) OVERRIDE;
+  void SetDeviceScaleFactor(float device_scale_factor) OVERRIDE;
+  float GetDeviceScaleFactor() const OVERRIDE;
   CefRefPtr<CefBrowser> GetBrowser() const OVERRIDE;
   ClientWindowHandle GetWindowHandle() const OVERRIDE;
 
  private:
-  void CreateBrowserWindow(bool with_osr, const std::string& startup_url);
+  void CreateBrowserWindow(const std::string& startup_url);
   void CreateRootWindow(const CefBrowserSettings& settings);
 
   // Register the root window class.
@@ -88,9 +89,12 @@ class RootWindowWin : public RootWindow,
   void OnBrowserWindowDestroyed() OVERRIDE;
   void OnSetAddress(const std::string& url) OVERRIDE;
   void OnSetTitle(const std::string& title) OVERRIDE;
+  void OnSetFullscreen(bool fullscreen) OVERRIDE;
   void OnSetLoadingState(bool isLoading,
                          bool canGoBack,
                          bool canGoForward) OVERRIDE;
+  void OnSetDraggableRegions(
+      const std::vector<CefDraggableRegion>& regions) OVERRIDE;
 
   void NotifyDestroyedIfDone();
 
@@ -98,6 +102,7 @@ class RootWindowWin : public RootWindow,
   // Members set during initialization.
   RootWindow::Delegate* delegate_;
   bool with_controls_;
+  bool with_osr_;
   bool is_popup_;
   RECT start_rect_;
   scoped_ptr<BrowserWindow> browser_window_;
@@ -105,6 +110,12 @@ class RootWindowWin : public RootWindow,
 
   // Main window.
   HWND hwnd_;
+
+  // Draggable region.
+  HRGN draggable_region_;
+
+  // Font for buttons and text fields.
+  HFONT font_;
 
   // Buttons.
   HWND back_hwnd_;
@@ -115,7 +126,7 @@ class RootWindowWin : public RootWindow,
   // URL text field.
   HWND edit_hwnd_;
   WNDPROC edit_wndproc_old_;
-  
+
   // Find dialog.
   HWND find_hwnd_;
   UINT find_message_id_;

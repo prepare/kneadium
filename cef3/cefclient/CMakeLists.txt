@@ -17,7 +17,6 @@ source_group(cefclient\\\\mycef FILES ${CEFCLIENT_MYCEF_MYCEF_SRCS})
 set(CEFCLIENT_MYCEF_SRCS
   ${CEFCLIENT_MYCEF_MYCEF_SRCS}
   )
-
 # cefclient browser sources.
 set(CEFCLIENT_BROWSER_BROWSER_SRCS
   browser/binding_test.cc
@@ -38,6 +37,8 @@ set(CEFCLIENT_BROWSER_BROWSER_SRCS
   browser/client_types.h
   browser/dialog_test.cc
   browser/dialog_test.h
+  browser/geometry_util.cc
+  browser/geometry_util.h
   browser/main_context.cc
   browser/main_context.h
   browser/main_context_impl.cc
@@ -84,7 +85,6 @@ set(CEFCLIENT_COMMON_COMMON_SRCS
   common/scheme_test_common.h
   )
 source_group(cefclient\\\\common FILES ${CEFCLIENT_COMMON_COMMON_SRCS})
-
 
 set(CEFCLIENT_COMMON_SRCS
   ${CEFCLIENT_COMMON_COMMON_SRCS}
@@ -227,6 +227,8 @@ set(CEFCLIENT_RESOURCES_RESOURCES_SRCS
   resources/logo.png
   resources/osr_test.html
   resources/other_tests.html
+  resources/pdf.html
+  resources/pdf.pdf
   resources/performance.html
   resources/performance2.html
   resources/transparency.html
@@ -282,7 +284,6 @@ if(OS_LINUX)
   # All sources required by the "cefclient" target. Generates an executable that
   # is used for all processes.
   set(CEFCLIENT_SRCS
-	${CEFCLIENT_MYCEF_SRCS}
     ${CEFCLIENT_BROWSER_SRCS}
     ${CEFCLIENT_COMMON_SRCS}
     ${CEFCLIENT_RENDERER_SRCS}
@@ -325,7 +326,6 @@ if(OS_MACOSX)
   # All sources required by the "cefclient" target. Generates an app bundle that
   # is used only for the browser process.
   set(CEFCLIENT_SRCS
-    ${CEFCLIENT_MYCEF_SRCS}
     ${CEFCLIENT_BROWSER_SRCS}
     ${CEFCLIENT_COMMON_SRCS}
     ${CEFCLIENT_RESOURCES_SRCS}
@@ -405,7 +405,6 @@ if(OS_WINDOWS)
   # All sources required by the "cefclient" target. Generates an executable that
   # is used for all processes.
   set(CEFCLIENT_SRCS
-    ${CEFCLIENT_MYCEF_SRCS}
     ${CEFCLIENT_BROWSER_SRCS}
     ${CEFCLIENT_COMMON_SRCS}
     ${CEFCLIENT_RENDERER_SRCS}
@@ -417,8 +416,7 @@ if(OS_WINDOWS)
   add_executable(${CEF_TARGET} WIN32 ${CEFCLIENT_SRCS})
   add_dependencies(${CEF_TARGET} libcef_dll_wrapper)
   target_link_libraries(${CEF_TARGET} libcef_lib libcef_dll_wrapper ${CEF_STANDARD_LIBS} "glu32.lib" "opengl32.lib")
-  
-  
+
   if(USE_SANDBOX)
     # Logical target used to link the cef_sandbox library.
     ADD_LOGICAL_TARGET("cef_sandbox_lib" "${CEF_SANDBOX_LIB_DEBUG}" "${CEF_SANDBOX_LIB_RELEASE}")

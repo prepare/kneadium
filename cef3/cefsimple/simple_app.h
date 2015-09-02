@@ -6,16 +6,10 @@
 #define CEF_TESTS_CEFSIMPLE_SIMPLE_APP_H_
 
 #include "include/cef_app.h"
-#include "mycef.h"
 
 class SimpleApp : public CefApp,
                   public CefBrowserProcessHandler {
- public: 
-	 
-  //my ext
-  managed_callback myMxCallback;
-  bool extmode;
-
+ public:
   SimpleApp();
 
   // CefApp methods:

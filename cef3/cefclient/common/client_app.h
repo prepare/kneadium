@@ -9,14 +9,12 @@
 #include <vector>
 
 #include "include/cef_app.h"
-#include "../mycef.h"
 
 namespace client {
 
 // Base class for customizing process-type-based behavior.
 class ClientApp : public CefApp {
  public:
-    
   ClientApp();
 
   enum ProcessType {
