@@ -8,7 +8,8 @@ using System.IO;
 namespace LayoutFarm.CefBridge
 {
 
-    [UnmanagedFunctionPointer(CallingConvention.StdCall)]
+    //[UnmanagedFunctionPointer(CallingConvention.StdCall)]
+    [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
     public delegate void MyCefCallback(int id, IntPtr args);
 
     struct MyTxString
@@ -126,8 +127,9 @@ namespace LayoutFarm.CefBridge
         const string CEF_CLIENT_DLL = "cefclient.dll";
         //const string CEF_CLIENT_DLL = "cefsimple.dll";
 #else
-        
-        static string libPath = @"..\\..\\..\\cef3\out\Release\";
+
+        static string libPath = @"D:\projects\CefBridge\cef3_output\cefclient\Release\";
+        const string CEF_CLIENT_DLL = "cefclient.dll";
 #endif
 
         static MyCefCallback managedListener;
@@ -146,13 +148,13 @@ namespace LayoutFarm.CefBridge
         {
             clientApp.CefReady();
         }
-        public static void LoadCef3()
+        public static bool LoadCef3()
         {
             //follow these steps
             // 1. libcef
             if (!LoadLibCef())
             {
-                return;
+                return false;
             }
             //2. cef client
             string lib = libPath + CEF_CLIENT_DLL;  //; "cefclient.dll";
@@ -162,10 +164,11 @@ namespace LayoutFarm.CefBridge
             hModule = nativeModule;
             if (nativeModule == IntPtr.Zero)
             {
-                return;
+                return false;
             }
             _loadCef3Success = true;
             //check version
+
 
             int myCefVersion = MyCefGetVersion();
             //-----------------------------------------------------------
@@ -177,6 +180,8 @@ namespace LayoutFarm.CefBridge
             int regResult = RegisterManagedCallBack(managedListener, 0);
             //-----------------------------------------------------------
             //again ... another managed
+         
+
             managedListener3 = new MyCefCallback(Cef3callBack_ForMangedCallBack03);
             regResult = RegisterManagedCallBack(managedListener3, 1);
             //-----------------------------------------------------------
@@ -205,6 +210,7 @@ namespace LayoutFarm.CefBridge
             // }
 
             Console.WriteLine(regResult);
+            return true;
         }
         static bool LoadLibCef()
         {
@@ -216,8 +222,10 @@ namespace LayoutFarm.CefBridge
             //}
             if (!File.Exists(libPath + "libcef.dll"))
             {
+
                 return false;
             }
+
             IntPtr libCefModuleHandler;
             {
                 //string lib = libPath + "icudt.dll";
@@ -226,8 +234,13 @@ namespace LayoutFarm.CefBridge
             }
             {
                 string lib = libPath + "libcef.dll";
+                Console.WriteLine(lib);
                 libCefModuleHandler = NativeMethods.LoadLibrary(lib);
+
+                Console.WriteLine(libCefModuleHandler);
                 lastErr = NativeMethods.GetLastError();
+
+                Console.WriteLine(lastErr);
             }
 
             return lastErr == 0;
