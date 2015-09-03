@@ -14,9 +14,14 @@ namespace CefBridgeTest
         [STAThread]
         static void Main()
         {
+     
 
             //load cef before OLE init (eg init winform)
-            LayoutFarm.CefBridge.Cef3Binder.LoadCef3();
+            if (!LayoutFarm.CefBridge.Cef3Binder.LoadCef3())
+            {
+                return;
+            }
+        
             //----------------------------------
             System.Threading.Thread.CurrentThread.CurrentCulture = new System.Globalization.CultureInfo("en-us");
             Application.EnableVisualStyles();
@@ -32,8 +37,6 @@ namespace CefBridgeTest
 
             GC.Collect(GC.MaxGeneration, GCCollectionMode.Forced);
             GC.WaitForPendingFinalizers();
-
-
             //---------------------------------- 
         }
 

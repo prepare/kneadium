@@ -341,6 +341,9 @@
     <Filter Include="cefclient\resources\win">
       <UniqueIdentifier>{70205340-A840-46A5-8EE4-1647F26C3E76}</UniqueIdentifier>
     </Filter>
+    <Filter Include="cefclient">
+      <UniqueIdentifier>{3F655BF0-81ED-4704-AF46-DA56E1157367}</UniqueIdentifier>
+    </Filter>
     <Filter Include="cefclient\mycef">
       <UniqueIdentifier>{E0C1AA59-517A-475E-AA1F-E11AD7043563}</UniqueIdentifier>
     </Filter>
@@ -355,9 +358,6 @@
     </Filter>
     <Filter Include="cefclient\resources">
       <UniqueIdentifier>{204F87AE-BB57-4400-B882-7687032F9131}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="cefclient">
-      <UniqueIdentifier>{3F655BF0-81ED-4704-AF46-DA56E1157367}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>
