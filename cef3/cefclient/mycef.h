@@ -135,4 +135,5 @@ public:
 	void SetOutputString(int resultIndex, const void* dataBuffer,int len);  
 };
  
-typedef void (__stdcall *managed_callback)(int id, void* args);   
+//typedef void (__stdcall *managed_callback)(int id, void* args);   
+typedef void(__cdecl *managed_callback)(int id, void* args);
