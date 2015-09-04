@@ -66,6 +66,7 @@ namespace LayoutFarm.CefBridge
 
         internal System.Windows.Forms.Control ParentControl { get { return this.parentControl; } }
         internal System.Windows.Forms.Form ParentForm { get { return this.topForm; } }
+
         void MxCallBack(int id, IntPtr argsPtr)
         {
             switch (id)
@@ -150,10 +151,17 @@ namespace LayoutFarm.CefBridge
                     break;
                 case 201:
                     {
-                        //js msg route
+                        //js msg route: call from js to UI browser 
+                        //via window.cef()
                         NativeCallArgs args = new NativeCallArgs(argsPtr);
                         JsBindingCallBack(args);
-
+                    }
+                    break;
+                case 202:
+                    {
+                        //
+                        NativeCallArgs args = new NativeCallArgs(argsPtr);
+                        RenderProcessOnContextCreated(args);
                     }
                     break;
             }
@@ -161,8 +169,19 @@ namespace LayoutFarm.CefBridge
 
         void JsBindingCallBack(NativeCallArgs args)
         {
+            //handle call from js to browser process
+            //via window.cef()
             string msg = args.GetArgAsString(0);
             args.SetOutput(0, "true");
+        }
+
+        void RenderProcessOnContextCreated(NativeCallArgs args)
+        {
+            //in render process ***
+            //we can register external methods  for window object here.
+            System.Windows.Forms.MessageBox.Show("renderer process: OnContextCreate");
+
+
 
         }
         public void NavigateTo(string url)

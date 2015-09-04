@@ -21,6 +21,7 @@ const char kZygoteProcess[] = "zygote";
 
 
 ClientApp::ClientApp() {
+
 }
 
 // static

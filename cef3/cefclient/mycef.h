@@ -131,6 +131,7 @@ public:
 	int resultCount;
 	
 	void SetArgAsString(int argIndex, const wchar_t* str);
+	void SetArgAsNativeObject(int argIndex, void* nativeObject);
 
 	void SetOutputString(int resultIndex, const void* dataBuffer,int len);  
 };

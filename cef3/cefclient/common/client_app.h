@@ -28,7 +28,7 @@ class ClientApp : public CefApp {
   // Determine the process type based on command-line arguments.
   static ProcessType GetProcessType(CefRefPtr<CefCommandLine> command_line);
   //my extension
-  managed_callback myMxCallback_;
+  managed_callback myMxCallback_ = NULL;
 
  protected:
   // Schemes that will be registered with the global cookie manager.

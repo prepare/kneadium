@@ -61,7 +61,7 @@ int RunMain(HINSTANCE hInstance, int nCmdShow) {
   else if (process_type == ClientApp::RendererProcess)
   {
 	  //native cef ui
-	  MessageBox(0, L"ClientApp::RenderProcess Start", L"ClientApp::RenderProcess Start", 0);
+	 // MessageBox(0, L"ClientApp::RenderProcess Start", L"ClientApp::RenderProcess Start", 0);
 	  app = new ClientAppRenderer();
   }
   else if (process_type == ClientApp::OtherProcess)

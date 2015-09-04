@@ -32,11 +32,11 @@ class ClientRenderDelegate : public ClientAppRenderer::Delegate {
     // Create the renderer-side router for query handling.
 
     //show msgbox if we want to break a debugger in render process
-	MessageBox(NULL, L"OnWebKitInitialized", L"OnWebKitInitialized", 0);
- 
-
+	//MessageBox(NULL, L"OnWebKitInitialized", L"OnWebKitInitialized", 0);
+	
     CefMessageRouterConfig config;
-    message_router_ = CefMessageRouterRendererSide::Create(config);
+    message_router_ = CefMessageRouterRendererSide::Create(config); 
+
   }
 
   virtual void OnContextCreated(CefRefPtr<ClientAppRenderer> app,

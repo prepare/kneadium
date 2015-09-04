@@ -192,7 +192,7 @@ namespace LayoutFarm.CefBridge
                         stbuilder.Append(str + " ");
                     }
 
-                    System.Windows.Forms.MessageBox.Show(stbuilder.ToString(), DateTime.Now.ToString());
+                    //System.Windows.Forms.MessageBox.Show(stbuilder.ToString(), DateTime.Now.ToString());
                     //set break point after alert if we want to stop debugger                            
                 }
 
@@ -302,18 +302,18 @@ namespace LayoutFarm.CefBridge
         [DllImport(CEF_CLIENT_DLL)]
         public static extern int MyCefGetVersion();
         //2.
-        [DllImport(CEF_CLIENT_DLL)]
+        [DllImport(CEF_CLIENT_DLL, CallingConvention = CallingConvention.Cdecl)]
         public static extern int RegisterManagedCallBack(MyCefCallback funcPtr, int callbackKind);
         //3.
-        [DllImport(CEF_CLIENT_DLL)]
+        [DllImport(CEF_CLIENT_DLL, CallingConvention = CallingConvention.Cdecl)]
         internal static extern IntPtr MyCefCreateClientApp(IntPtr processHandle);
 
         //4. 
-        [DllImport(CEF_CLIENT_DLL)]
+        [DllImport(CEF_CLIENT_DLL, CallingConvention = CallingConvention.Cdecl)]
         public static extern IntPtr MyCefCreateMyWebBrowser(MyCefCallback mxcallback);
 
         //5.
-        [DllImport(CEF_CLIENT_DLL, CharSet = CharSet.Unicode)]
+        [DllImport(CEF_CLIENT_DLL, CallingConvention = CallingConvention.Cdecl, CharSet = CharSet.Unicode)]
         public static extern void MyCefSetupBrowserHwnd(IntPtr myCefBrowser, IntPtr hWndParent, int x, int y, int width, int height, string initUrl);
         //6.
         [DllImport(CEF_CLIENT_DLL)]
@@ -325,7 +325,7 @@ namespace LayoutFarm.CefBridge
         //--------------------------------------------------- 
 
         //part 2:
-        [DllImport(CEF_CLIENT_DLL)]
+        [DllImport(CEF_CLIENT_DLL, CallingConvention = CallingConvention.Cdecl)]
         public static extern void NativeMetSetResult(IntPtr nativeMetPtr, int retIndex, IntPtr ptr);
         [DllImport(CEF_CLIENT_DLL, CallingConvention = CallingConvention.Cdecl)]
         internal static extern JsValue MyCefNativeMetGetArgs(IntPtr cbArgPtr, int index);
@@ -335,7 +335,7 @@ namespace LayoutFarm.CefBridge
 
         //part3:
         //--------------------------------------------------- 
-        [DllImport(CEF_CLIENT_DLL, CharSet = CharSet.Unicode)]
+        [DllImport(CEF_CLIENT_DLL, CallingConvention = CallingConvention.Cdecl, CharSet = CharSet.Unicode)]
         public static extern unsafe void MyCefBwNavigateTo(IntPtr myCefBw, string urlAddress);
 
         [DllImport(CEF_CLIENT_DLL, CallingConvention = CallingConvention.Cdecl, CharSet = CharSet.Unicode)]
@@ -344,15 +344,15 @@ namespace LayoutFarm.CefBridge
         [DllImport(CEF_CLIENT_DLL, CallingConvention = CallingConvention.Cdecl, CharSet = CharSet.Unicode)]
         public static extern void MyCefBwPostData(IntPtr myCefBw, string url, byte[] data, int len);
 
-        [DllImport(CEF_CLIENT_DLL)]
+        [DllImport(CEF_CLIENT_DLL, CallingConvention = CallingConvention.Cdecl)]
         public static extern void MyCefShowDevTools(IntPtr myCefBw, IntPtr myCefDevTool, IntPtr parentWindow);
-        [DllImport(CEF_CLIENT_DLL)]
+        [DllImport(CEF_CLIENT_DLL, CallingConvention = CallingConvention.Cdecl)]
         public static extern void MyCefBwGoBack(IntPtr myCefBw);
-        [DllImport(CEF_CLIENT_DLL)]
+        [DllImport(CEF_CLIENT_DLL, CallingConvention = CallingConvention.Cdecl)]
         public static extern void MyCefBwGoForward(IntPtr myCefBw);
-        [DllImport(CEF_CLIENT_DLL)]
+        [DllImport(CEF_CLIENT_DLL, CallingConvention = CallingConvention.Cdecl)]
         public static extern void MyCefBwStop(IntPtr myCefBw);
-        [DllImport(CEF_CLIENT_DLL)]
+        [DllImport(CEF_CLIENT_DLL, CallingConvention = CallingConvention.Cdecl)]
         public static extern void MyCefBwReload(IntPtr myCefBw);
         //--------------------------------------------------- 
 
