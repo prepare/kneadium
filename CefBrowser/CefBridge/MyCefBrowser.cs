@@ -30,7 +30,8 @@ namespace LayoutFarm.CefBridge
             {
                 case 100:
                     {
-                    }break;
+                    }
+                    break;
             }
 
         }
@@ -62,7 +63,7 @@ namespace LayoutFarm.CefBridge
 
             Cef3Binder.MyCefSetupBrowserHwnd(myCefBrowser, parentControl.Handle, x, y, w, h, initUrl);
         }
-        
+
         internal System.Windows.Forms.Control ParentControl { get { return this.parentControl; } }
         internal System.Windows.Forms.Form ParentForm { get { return this.topForm; } }
         void MxCallBack(int id, IntPtr argsPtr)
@@ -81,12 +82,14 @@ namespace LayoutFarm.CefBridge
                         {
                             this.BrowserDisposed(this, EventArgs.Empty);
                         }
-                    } break;
+                    }
+                    break;
                 case 101:
                     {
 
 
-                    } break;
+                    }
+                    break;
                 case 103:
                     {
                         //create pop up window and send window handle to cef 
@@ -102,7 +105,8 @@ namespace LayoutFarm.CefBridge
                             args.SetResult(handle);
                         }
 
-                    } break;
+                    }
+                    break;
                 case 104:
                     {
                         CefClientApp.UISafeInvoke(
@@ -118,7 +122,8 @@ namespace LayoutFarm.CefBridge
                                 args.Dispose();
                             }));
 
-                    } break;
+                    }
+                    break;
                 case 106:
                     {
                         //console.log ...
@@ -129,7 +134,8 @@ namespace LayoutFarm.CefBridge
                         string location = args.GetArgAsString(2);
                         Console.WriteLine(msg);
 
-                    } break;
+                    }
+                    break;
                 case 107:
                     {
                         //show dev tools
@@ -140,9 +146,24 @@ namespace LayoutFarm.CefBridge
                                 newPopupForm.Show();
                             }));
 
+                    }
+                    break;
+                case 201:
+                    {
+                        //js msg route
+                        NativeCallArgs args = new NativeCallArgs(argsPtr);
+                        JsBindingCallBack(args);
 
-                    } break;
+                    }
+                    break;
             }
+        }
+
+        void JsBindingCallBack(NativeCallArgs args)
+        {
+            string msg = args.GetArgAsString(0);
+            args.SetOutput(0, "true");
+
         }
         public void NavigateTo(string url)
         {
@@ -183,11 +204,13 @@ namespace LayoutFarm.CefBridge
                     {
                         GetResourceHandler(new ResourceRequestArg(
                             new NativeCallArgs(callBackArgs)));
-                    } break;
+                    }
+                    break;
                 case MethodName.MET_TCALLBACK:
                     {
                         //Console.WriteLine("TCALLBACK");
-                    } break;
+                    }
+                    break;
             }
         }
         protected virtual void GetResourceHandler(ResourceRequestArg req)

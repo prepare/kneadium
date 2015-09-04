@@ -424,10 +424,26 @@ namespace client {
 			message_router_ = CefMessageRouterBrowserSide::Create(config);
 
 			// Register handlers with the router.
-			test_runner::CreateMessageHandlers(message_handler_set_);
-			MessageHandlerSet::const_iterator it = message_handler_set_.begin();
-			for (; it != message_handler_set_.end(); ++it)
-				message_router_->AddHandler(*(it), false);
+			if (this->mcallback_)
+			{
+		 
+
+				MyCefJsHandler* myCefJsHandler = new MyCefJsHandler();
+				message_handler_set_.insert(myCefJsHandler);
+				myCefJsHandler->mcallback_ = this->mcallback_;
+			 
+				MessageHandlerSet::const_iterator it = message_handler_set_.begin();
+				for (; it != message_handler_set_.end(); ++it)
+					message_router_->AddHandler(*(it), false);
+			}
+			else
+			{
+				test_runner::CreateMessageHandlers(message_handler_set_);
+				MessageHandlerSet::const_iterator it = message_handler_set_.begin();
+				for (; it != message_handler_set_.end(); ++it)
+					message_router_->AddHandler(*(it), false);
+
+			}
 		}
 
 		// Disable mouse cursor change if requested via the command-line flag.
@@ -847,4 +863,11 @@ namespace client {
 	void ClientHandler::MyCefSetManagedCallBack(managed_callback m) {
 		this->mcallback_ = m;
 	}
-}  // namespace client
+
+
+
+
+
+
+}
+
