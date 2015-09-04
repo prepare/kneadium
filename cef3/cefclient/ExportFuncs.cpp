@@ -28,7 +28,7 @@ managed_callback myMxCallback_;
 //1.
 int MyCefGetVersion()
 {	
-	 return 1004;
+	 return 1005;
 }
 //2.
 int RegisterManagedCallBack(managed_callback mxCallback,int callbackKind)
@@ -61,9 +61,10 @@ client::ClientApp* MyCefCreateClientApp(HINSTANCE hInstance)
 	//create browser process first?
    client::ClientApp* app= NULL;
    client::ClientApp::ProcessType process_type = client::ClientApp::GetProcessType(command_line);
+
    if (process_type == client::ClientApp::BrowserProcess)
    {
-	   app = new client::ClientAppBrowser();
+	   app = new client::ClientAppBrowser(); 
    }
    else if (process_type == client::ClientApp::RendererProcess)
    {
@@ -82,14 +83,14 @@ client::ClientApp* MyCefCreateClientApp(HINSTANCE hInstance)
    message_loop.reset(new MainMessageLoopMultithreadedWin);
   else
    message_loop.reset(new MainMessageLoopStd);*/  
-
-  //------------------------------------------------------------------
+   //------------------------------------------------------------------
   //create main context here
   mainContext= DllInitMain(hInstance,app); 
 	//set global mx callback to mainContext 
   mainContext->myMxCallback_ = myMxCallback_;
-  return app;
+  app->myMxCallback_ = myMxCallback_;
 
+  return app;
 }
   
 //4. 

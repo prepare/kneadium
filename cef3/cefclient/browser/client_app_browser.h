@@ -9,6 +9,7 @@
 #include <set>
 
 #include "cefclient/common/client_app.h"
+#include "cefclient/mycef.h"
 
 namespace client {
 
@@ -35,6 +36,8 @@ class ClientAppBrowser : public ClientApp,
   typedef std::set<CefRefPtr<Delegate> > DelegateSet;
 
   ClientAppBrowser();
+
+  
 
  private:
   // Creates all of the Delegate objects. Implemented by cefclient in
