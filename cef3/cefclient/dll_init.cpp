@@ -41,12 +41,18 @@ int RunMain(HINSTANCE hInstance, int nCmdShow) {
   CefRefPtr<CefApp> app;
   ClientApp::ProcessType process_type = ClientApp::GetProcessType(command_line);
   if (process_type == ClientApp::BrowserProcess)
-    app = new ClientAppBrowser();
+  {
+	  app = new ClientAppBrowser();
+  }
   else if (process_type == ClientApp::RendererProcess)
-    app = new ClientAppRenderer();
+  {
+	  MessageBox(0, L"RendererProcess INIT", L"RendererProcess INI", 0);
+	  app = new ClientAppRenderer();
+  }
   else if (process_type == ClientApp::OtherProcess)
-    app = new ClientAppOther();
-
+  {
+	  app = new ClientAppOther();
+  }
   // Execute the secondary process, if any.
   int exit_code = CefExecuteProcess(main_args, app, sandbox_info);
   if (exit_code >= 0)
@@ -117,14 +123,17 @@ client::MainContextImpl* InitDllApp(HINSTANCE hInstance, CefRefPtr<CefApp> app) 
 
   //// Create a ClientApp of the correct type.
   //CefRefPtr<CefApp> app;
-  //ClientApp::ProcessType process_type = ClientApp::GetProcessType(command_line);
-  //if (process_type == ClientApp::BrowserProcess)
-  //  app = new ClientAppBrowser();
-  //else if (process_type == ClientApp::RendererProcess)
-  //  app = new ClientAppRenderer();
-  //else if (process_type == ClientApp::OtherProcess)
-  //  app = new ClientAppOther();
-
+  ClientApp::ProcessType process_type = ClientApp::GetProcessType(command_line);
+  if (process_type == ClientApp::BrowserProcess)
+  {
+  }
+  else if (process_type == ClientApp::RendererProcess)
+  {
+	  MessageBox(0, L"RendererProcess INIT", L"RendererProcess INI", 0);
+  }
+  else if (process_type == ClientApp::OtherProcess)
+  {
+  }
   // Execute the secondary process, if any.
   int exit_code = CefExecuteProcess(main_args, app, sandbox_info);
   if (exit_code >= 0)

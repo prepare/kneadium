@@ -68,6 +68,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="CefBridge\CefStartArgs.cs" />
     <Compile Include="CefBridge\MyCefBrowser.cs" />
     <Compile Include="CefBridge\ClientApp.cs" />
     <Compile Include="CefBridge\CustomSchemeAgent.cs" />

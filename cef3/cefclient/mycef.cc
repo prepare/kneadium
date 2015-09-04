@@ -5,7 +5,7 @@
 #include "include/wrapper/cef_message_router.h"
 #include "include/wrapper/cef_resource_manager.h"
 #include "mycef.h"
-
+ 
 void MethodArgs::SetArgAsString(int argIndex, const wchar_t* str)
 {
 	switch (argIndex) {

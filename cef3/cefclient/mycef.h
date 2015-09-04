@@ -73,7 +73,7 @@ typedef unsigned __int64 uint64_t;
 #define JSVALUE_TYPE_JSTYPEDEF      18 //my extension
 #define JSVALUE_TYPE_INTEGER64      19 //my extension
  
-
+ 
 
 extern "C"{
 

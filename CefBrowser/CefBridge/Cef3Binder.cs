@@ -123,7 +123,7 @@ namespace LayoutFarm.CefBridge
         //static string libPath = @"..\\..\\..\\cef3\\cefsimple\Debug\";
         //static string libPath = @"..\\..\\..\\cef3\\cefclient\Debug\";
         //static string libPath = @"..\\..\\..\\cef3\\cefsimple\Release\"; 
-        static string libPath = @"D:\projects\CefBridge\cef3_output\cefclient\Debug\"; 
+        static string libPath = @"D:\projects\CefBridge\cef3_output\cefclient\Debug\";
         const string CEF_CLIENT_DLL = "cefclient.dll";
         //const string CEF_CLIENT_DLL = "cefsimple.dll";
 #else
@@ -148,7 +148,11 @@ namespace LayoutFarm.CefBridge
         {
             clientApp.CefReady();
         }
-        public static bool LoadCef3()
+
+        //static int dbugTotalId = 0;
+        //static object lock1 = new object();
+
+        public static bool LoadCef3(string[] startArgs)
         {
             //follow these steps
             // 1. libcef
@@ -167,27 +171,63 @@ namespace LayoutFarm.CefBridge
                 return false;
             }
             _loadCef3Success = true;
+
+            //-----------------------------------------------------------
+            //check start up process to see if what is this process
+            //browser process
+            //render process
+
+            if (startArgs.Length > 0)
+            {
+
+
+                CefStartArgs cefStartArg = CefStartArgs.Parse(startArgs);
+#if DEBUG
+
+                if (cefStartArg.IsValidCefArgs && cefStartArg.ProcessType == "renderer")
+                {
+                    StringBuilder stbuilder = new StringBuilder();
+                    foreach (var str in startArgs)
+                    {
+                        stbuilder.Append(str + " ");
+                    }
+
+                    System.Windows.Forms.MessageBox.Show(stbuilder.ToString(), DateTime.Now.ToString());
+                    //set break point after alert if we want to stop debugger                            
+                }
+
+#endif
+
+            }
+
+            //-----------------------------------------------------------
+
             //check version
-
-
+            //1.
             int myCefVersion = MyCefGetVersion();
             //-----------------------------------------------------------
-            //1. 
-            managedListener = new MyCefCallback(Cef3callBack_ForMangedCallBack02);
             //2. 
+            managedListener = new MyCefCallback(Cef3callBack_ForMangedCallBack02);
+
 
             //3. unmanaged side can call back to this managed part
             int regResult = RegisterManagedCallBack(managedListener, 0);
             //-----------------------------------------------------------
-            //again ... another managed
-         
+            //again ... another managed 
+            //int i = 0;
+            //lock (lock1)
+            //{
+            //    i = dbugTotalId++;
+            //}
+
 
             managedListener3 = new MyCefCallback(Cef3callBack_ForMangedCallBack03);
             regResult = RegisterManagedCallBack(managedListener3, 1);
             //-----------------------------------------------------------
-            //init cef 
-
+            //init cef            
             clientApp = new CefClientApp(System.Diagnostics.Process.GetCurrentProcess().Handle);
+
+
             //set some scheme here  
 
             //-----------------------------------------------------------
@@ -469,4 +509,8 @@ namespace LayoutFarm.CefBridge
         /// <remarks>SWP_SHOWWINDOW</remarks>
         ShowWindow = 0x0040,
     }
+
+
+
+
 }

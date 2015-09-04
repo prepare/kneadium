@@ -62,12 +62,19 @@ client::ClientApp* MyCefCreateClientApp(HINSTANCE hInstance)
    client::ClientApp* app= NULL;
    client::ClientApp::ProcessType process_type = client::ClientApp::GetProcessType(command_line);
    if (process_type == client::ClientApp::BrowserProcess)
-     app = new client::ClientAppBrowser();
+   {
+	   app = new client::ClientAppBrowser();
+   }
    else if (process_type == client::ClientApp::RendererProcess)
-     app = new client::ClientAppRenderer();
-   else if (process_type == client::ClientApp::OtherProcess)
-     app = new client::ClientAppOther();
+   {
+	   MessageBox(0, L"RendererProcess msg", L"RendererProcess MSG", 0);
+	   app = new client::ClientAppRenderer();
 
+   }
+   else if (process_type == client::ClientApp::OtherProcess)
+   {
+	   app = new client::ClientAppOther();
+   }
     // Create the main message loop object.
   message_loop = new client::MainMessageLoopStd();
    //message_loop.reset(new client::MainMessageLoopStd); 

@@ -11,9 +11,7 @@ namespace LayoutFarm.CefBridge
 
     public class CefClientApp
     {
-        IntPtr clientAppPtr;
-
-
+        IntPtr clientAppPtr; 
         static bool isInitWithProcessHandle;
         static object sync_ = new object();
         static object sync_remove = new object();
@@ -36,7 +34,7 @@ namespace LayoutFarm.CefBridge
                     //1. register mx callback
                     this.mxCallback = new MyCefCallback(MxCallBack);
                     Cef3Binder.RegisterManagedCallBack(this.mxCallback, 3);
-
+         
                     //2. create client app
                     this.clientAppPtr = Cef3Binder.MyCefCreateClientApp(processHandle);
                     //register managed callback ***     
