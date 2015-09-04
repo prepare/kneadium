@@ -114,6 +114,8 @@ namespace LayoutFarm.CefBridge
 
     static class Cef3Binder
     {
+
+        internal static bool s_IsRendererProcess;
         //-------------------------------------------------
         static bool isLoad;
         static IntPtr hModule;
@@ -132,8 +134,8 @@ namespace LayoutFarm.CefBridge
         const string CEF_CLIENT_DLL = "cefclient.dll";
 #endif
 
-        static MyCefCallback managedListener;
-        static MyCefCallback managedListener3;
+        static MyCefCallback managedListener0;
+        static MyCefCallback managedListener1;
 
         static bool _loadCef3Success = false;
         static CefClientApp clientApp;
@@ -191,7 +193,7 @@ namespace LayoutFarm.CefBridge
                     {
                         stbuilder.Append(str + " ");
                     }
-
+                    s_IsRendererProcess = true;
                     //System.Windows.Forms.MessageBox.Show(stbuilder.ToString(), DateTime.Now.ToString());
                     //set break point after alert if we want to stop debugger                            
                 }
@@ -207,11 +209,11 @@ namespace LayoutFarm.CefBridge
             int myCefVersion = MyCefGetVersion();
             //-----------------------------------------------------------
             //2. 
-            managedListener = new MyCefCallback(Cef3callBack_ForMangedCallBack02);
+            managedListener0 = new MyCefCallback(Cef3callBack_ForMangedCallBack02);
 
 
             //3. unmanaged side can call back to this managed part
-            int regResult = RegisterManagedCallBack(managedListener, 0);
+            int regResult = RegisterManagedCallBack(managedListener0, 0);
             //-----------------------------------------------------------
             //again ... another managed 
             //int i = 0;
@@ -221,15 +223,13 @@ namespace LayoutFarm.CefBridge
             //}
 
 
-            managedListener3 = new MyCefCallback(Cef3callBack_ForMangedCallBack03);
-            regResult = RegisterManagedCallBack(managedListener3, 1);
+            managedListener1 = new MyCefCallback(Cef3callBack_ForMangedCallBack03);
+            regResult = RegisterManagedCallBack(managedListener1, 1);
             //-----------------------------------------------------------
             //init cef            
             clientApp = new CefClientApp(System.Diagnostics.Process.GetCurrentProcess().Handle);
 
-
-            //set some scheme here  
-
+            //set some scheme here   
             //-----------------------------------------------------------
             //test***
             //register custom scheme 
@@ -274,23 +274,24 @@ namespace LayoutFarm.CefBridge
             }
             {
                 string lib = libPath + "libcef.dll";
-                Console.WriteLine(lib);
+                //Console.WriteLine(lib);
                 libCefModuleHandler = NativeMethods.LoadLibrary(lib);
 
-                Console.WriteLine(libCefModuleHandler);
+                //Console.WriteLine(libCefModuleHandler);
                 lastErr = NativeMethods.GetLastError();
 
-                Console.WriteLine(lastErr);
+                //Console.WriteLine(lastErr);
             }
 
             return lastErr == 0;
         }
         static void Cef3callBack_ForMangedCallBack02(int oindex, IntPtr args)
         {
-
+             
         }
         static void Cef3callBack_ForMangedCallBack03(int oindex, IntPtr args)
         {
+           
 
         }
         //---------------------------------------------------
@@ -405,6 +406,8 @@ namespace LayoutFarm.CefBridge
         public static extern uint SetErrorMode(int uMode);
         [DllImport("Kernel32.dll")]
         public static extern uint GetLastError();
+        //-----------------------------------------------
+
     }
 
     [Flags]

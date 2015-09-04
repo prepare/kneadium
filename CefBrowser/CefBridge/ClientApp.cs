@@ -11,7 +11,7 @@ namespace LayoutFarm.CefBridge
 
     public class CefClientApp
     {
-        IntPtr clientAppPtr; 
+        IntPtr clientAppPtr;
         static bool isInitWithProcessHandle;
         static object sync_ = new object();
         static object sync_remove = new object();
@@ -24,6 +24,24 @@ namespace LayoutFarm.CefBridge
 
         public CefClientApp(IntPtr processHandle)
         {
+
+#if DEBUG
+            //dev note: multiprocess debuging: renderer process debugger 
+            //if you want to break in the renderer process
+            //1. set break point after, MessageBox.Show();
+            //2. call pop up message box
+            //3. then, use Visual studio to find what process that own the pop up
+            // ( Debug-> Attach To Process -> select process the own the pop up
+            //4. select process id that is renderer process
+            //5. push ok button on the pop msgbox , then debugger will break on the 
+            //  break point after popup
+            if (Cef3Binder.s_IsRendererProcess)
+            {
+                System.Windows.Forms.MessageBox.Show("Renderer", "Renderer");
+
+            }
+#endif
+
             lock (sync_)
             {
                 //init once
@@ -34,7 +52,7 @@ namespace LayoutFarm.CefBridge
                     //1. register mx callback
                     this.mxCallback = new MyCefCallback(MxCallBack);
                     Cef3Binder.RegisterManagedCallBack(this.mxCallback, 3);
-         
+
                     //2. create client app
                     this.clientAppPtr = Cef3Binder.MyCefCreateClientApp(processHandle);
                     //register managed callback ***     
@@ -121,7 +139,12 @@ namespace LayoutFarm.CefBridge
             tinyForm.Invoke(del);
         }
 
-        static void MxCallBack(int id, IntPtr argsPtr)
+        void RenderProcessOnContextCreated(NativeCallArgs args)
+        {
+
+
+        }
+        void MxCallBack(int id, IntPtr argsPtr)
         {
             switch (id)
             {
@@ -129,10 +152,12 @@ namespace LayoutFarm.CefBridge
                     {
                         //test only
 
-                    } break;
+                    }
+                    break;
                 case 101:
                     {
-                    } break;
+                    }
+                    break;
                 case 103:
                     {
                         //create pop up window and send window handle to cef
@@ -150,7 +175,8 @@ namespace LayoutFarm.CefBridge
 
                         }
 
-                    } break;
+                    }
+                    break;
                 case 104:
                     {
                         UISafeInvoke(new SimpleDel(
@@ -167,7 +193,8 @@ namespace LayoutFarm.CefBridge
                                 args.Dispose();
                             }));
 
-                    } break;
+                    }
+                    break;
                 case 106:
                     {
                         //console.log ...
@@ -178,7 +205,8 @@ namespace LayoutFarm.CefBridge
                         string location = args.GetArgAsString(2);
                         Console.WriteLine(msg);
 
-                    } break;
+                    }
+                    break;
                 case 107:
                     {
                         //show dev tools
@@ -188,14 +216,21 @@ namespace LayoutFarm.CefBridge
                                 CefBridgeTest.Form1 newPopupForm = new CefBridgeTest.Form1();
                                 newPopupForm.Show();
                             }));
-                    } break;
+                    }
+                    break;
+                case 202:
+                    {
+                        //client app callback
+                        //eg. from RenderClientApp
+                        //in render process ***
+                        //we can register external methods  for window object here.
+                        //NativeMethods.MessageBox(IntPtr.Zero, id.ToString(), "NN2", 0);
+                        NativeCallArgs args = new NativeCallArgs(argsPtr);
+                        RenderProcessOnContextCreated(args);
+                    }
+                    break;
             }
         }
-
-
-
-
-
     }
 
 }

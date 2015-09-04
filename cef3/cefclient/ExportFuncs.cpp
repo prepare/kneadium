@@ -61,19 +61,22 @@ client::ClientApp* MyCefCreateClientApp(HINSTANCE hInstance)
 	//create browser process first?
 	client::ClientApp* app = NULL;
 	client::ClientApp::ProcessType process_type = client::ClientApp::GetProcessType(command_line);
-
+	 
 	if (process_type == client::ClientApp::BrowserProcess)
 	{
 		app = new client::ClientAppBrowser();
+		app->myMxCallback_ = myMxCallback_;
 	}
 	else if (process_type == client::ClientApp::RendererProcess)
 	{
 		//MessageBox(0, L"RendererProcess msg", L"RendererProcess MSG", 0);
 		app = new client::ClientAppRenderer();
+		app->myMxCallback_ = myMxCallback_;
 	}
 	else if (process_type == client::ClientApp::OtherProcess)
 	{
 		app = new client::ClientAppOther();
+		app->myMxCallback_ = myMxCallback_;
 	}
 	// Create the main message loop object.
 	message_loop = new client::MainMessageLoopStd();
@@ -87,9 +90,7 @@ client::ClientApp* MyCefCreateClientApp(HINSTANCE hInstance)
 	mainContext = DllInitMain(hInstance, app);
 	//set global mx callback to mainContext 
 	mainContext->myMxCallback_ = myMxCallback_;
-	if (app) {
-		app->myMxCallback_ = myMxCallback_;
-	}
+	 
 	return app;
 }
 

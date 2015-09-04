@@ -151,20 +151,15 @@ namespace LayoutFarm.CefBridge
                     break;
                 case 201:
                     {
+                        //NativeMethods.MessageBox(IntPtr.Zero, id.ToString(), "NN1", 0);
                         //js msg route: call from js to UI browser 
                         //via window.cef()
                         NativeCallArgs args = new NativeCallArgs(argsPtr);
                         JsBindingCallBack(args);
                     }
                     break;
-                case 202:
-                    {
-                        //
-                        NativeCallArgs args = new NativeCallArgs(argsPtr);
-                        RenderProcessOnContextCreated(args);
-                    }
-                    break;
             }
+
         }
 
         void JsBindingCallBack(NativeCallArgs args)
@@ -174,16 +169,7 @@ namespace LayoutFarm.CefBridge
             string msg = args.GetArgAsString(0);
             args.SetOutput(0, "true");
         }
-
-        void RenderProcessOnContextCreated(NativeCallArgs args)
-        {
-            //in render process ***
-            //we can register external methods  for window object here.
-            System.Windows.Forms.MessageBox.Show("renderer process: OnContextCreate");
-
-
-
-        }
+        
         public void NavigateTo(string url)
         {
             Cef3Binder.MyCefBwNavigateTo(this.myCefBrowser, url);

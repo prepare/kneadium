@@ -145,40 +145,21 @@ namespace client {
 					CefRefPtr<CefV8Context> context) OVERRIDE {
 
 					//MessageBox(0, L"context-created:app", L"context-created:app", 0);
-				  
+
 
 					if (app->myMxCallback_)
 					{
 						//expose all to managed side
-						//browser,frame and context ?
-
+						//browser,frame and context ?  
 						MethodArgs* metArgs = new MethodArgs();
 						metArgs->SetArgAsNativeObject(0, app.get());
 						metArgs->SetArgAsNativeObject(1, browser.get());
 						metArgs->SetArgAsNativeObject(2, context.get());
-
 						app->myMxCallback_(202, metArgs);
-
-
-
-						CefRefPtr<CefV8Value> object = context->GetGlobal();
-						CefRefPtr<CefV8Handler> handler = new V8Handler();
-
-						// Bind test functions.
-						object->SetValue(kGetPerfTests,
-							CefV8Value::CreateFunction(kGetPerfTests, handler),
-							V8_PROPERTY_ATTRIBUTE_READONLY);
-						object->SetValue(kRunPerfTest,
-							CefV8Value::CreateFunction(kRunPerfTest, handler),
-							V8_PROPERTY_ATTRIBUTE_READONLY);
-						object->SetValue(kPerfTestReturnValue,
-							CefV8Value::CreateFunction(kPerfTestReturnValue, handler),
-							V8_PROPERTY_ATTRIBUTE_READONLY);
-
 					}
 					else {
 
-
+						//MessageBox(0, L"context-created:mx callback is not set", L"context-created:mx callback is not set", 0);
 						//single handler for 3 external methods
 
 						CefRefPtr<CefV8Value> object = context->GetGlobal();
