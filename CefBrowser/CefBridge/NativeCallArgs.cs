@@ -20,6 +20,11 @@ namespace LayoutFarm.CefBridge
             var v = Cef3Binder.MyCefNativeMetGetArgs(argPtr, index);
             return Marshal.PtrToStringUni(v.Ptr);
         }
+        public IntPtr GetArgAsNativePtr(int index)
+        {
+            var v = Cef3Binder.MyCefNativeMetGetArgs(argPtr, index);
+            return v.Ptr;
+        }
         public void SetOutput(int index, string str)
         {
             //interchange with utf16
@@ -71,7 +76,7 @@ namespace LayoutFarm.CefBridge
                 JsValue jsvalue = new JsValue();
                 jsvalue.Ptr = nativePtr;
                 Cef3Binder.NativeMetSetResult(this.argPtr, 0, (IntPtr)(&jsvalue));
-                
+
             }
         }
     }

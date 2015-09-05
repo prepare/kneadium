@@ -132,16 +132,28 @@ namespace LayoutFarm.CefBridge
             {
                 return !registeredWbControls.ContainsKey(ownerForm);
             }
-
         }
         public static void UISafeInvoke(SimpleDel del)
         {
             tinyForm.Invoke(del);
         }
-
         void RenderProcessOnContextCreated(NativeCallArgs args)
         {
 
+            var clientRenderApp = new NativeRendererApp(args.GetArgAsNativePtr(0));
+            var browser = new NativeBrowser(args.GetArgAsNativePtr(1));
+            var context = new NativeJsContext(args.GetArgAsNativePtr(2));
+
+
+            CefV8Value cefV8Global = context.GetGlobal();
+            Cef3FuncHandler funcHandler = Cef3FuncHandler.CreateFuncHandler(Test001);
+            Cef3Func func = Cef3Func.CreateFunc("test001", funcHandler);
+            cefV8Global.Set("test001", func);
+
+
+        }
+        void Test001(int id, IntPtr argsPtr)
+        {
 
         }
         void MxCallBack(int id, IntPtr argsPtr)

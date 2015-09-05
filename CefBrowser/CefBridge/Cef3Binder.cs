@@ -287,11 +287,11 @@ namespace LayoutFarm.CefBridge
         }
         static void Cef3callBack_ForMangedCallBack02(int oindex, IntPtr args)
         {
-             
+
         }
         static void Cef3callBack_ForMangedCallBack03(int oindex, IntPtr args)
         {
-           
+
 
         }
         //---------------------------------------------------
@@ -383,8 +383,28 @@ namespace LayoutFarm.CefBridge
 
         [DllImport(CEF_CLIENT_DLL, CallingConvention = CallingConvention.Cdecl)]
         internal static extern void DisposeTxString(MyTxString myTxString);
+        //-------------------------------------------------------------------------------------
 
+
+        //part 4
+        [DllImport(CEF_CLIENT_DLL, CallingConvention = CallingConvention.Cdecl)]
+        internal static extern IntPtr MyCefJsGetGlobal(IntPtr jsContext);
+
+        [DllImport(CEF_CLIENT_DLL, CallingConvention = CallingConvention.Cdecl)]
+        internal static extern IntPtr MyCefJs_New_V8Handler(MyCefCallback managedCallback);
+
+
+        [DllImport(CEF_CLIENT_DLL, CallingConvention = CallingConvention.Cdecl, CharSet = CharSet.Unicode)]
+        internal static extern void MyCefJs_CefV8Value_SetValue_ByString(IntPtr target, string key, IntPtr value, int setAttr);
+
+
+        [DllImport(CEF_CLIENT_DLL, CallingConvention = CallingConvention.Cdecl)]
+        internal static extern void MyCefJs_CefV8Value_SetValue_ByIndex(IntPtr target, int index, IntPtr value);
+
+        [DllImport(CEF_CLIENT_DLL, CallingConvention = CallingConvention.Cdecl, CharSet = CharSet.Unicode)]
+        internal static extern IntPtr MyCefJs_CreateFunction(string name, IntPtr handler);
     }
+
 
     internal static class NativeMethods
     {

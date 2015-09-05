@@ -65,8 +65,13 @@ extern "C" {
 	MY_DLL_EXPORT void MyCefBwStop(MyBrowser* myBw);
 	MY_DLL_EXPORT void MyCefBwReload(MyBrowser* myBw);
 
+
 	//----------------------------
 	//part4: javascript context
-
-
+	MY_DLL_EXPORT CefV8Value* MyCefJsGetGlobal(CefV8Context* cefV8Context);
+	MY_DLL_EXPORT CefV8Handler* MyCefJs_New_V8Handler(managed_callback callback);
+	MY_DLL_EXPORT void MyCefJs_CefV8Value_SetValue_ByString(CefV8Value* target, const wchar_t* key, CefV8Value* value, int setAttribute);
+	MY_DLL_EXPORT void MyCefJs_CefV8Value_SetValue_ByIndex(CefV8Value* target, int index, CefV8Value* value);
+	MY_DLL_EXPORT CefV8Value* MyCefJs_CreateFunction(const wchar_t* name, CefV8Handler* handler);
+	
 }
