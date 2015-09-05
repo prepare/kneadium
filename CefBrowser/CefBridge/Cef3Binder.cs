@@ -12,25 +12,7 @@ namespace LayoutFarm.CefBridge
     [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
     public delegate void MyCefCallback(int id, IntPtr args);
 
-    struct MyTxString
-    {
-        public int Len;
-        public IntPtr data;
-        public string GetString()
-        {
-            unsafe
-            {
-                return new string((char*)data, 0, Len);
-            }
-        }
-        public void Dispose()
-        {
-            Cef3Binder.DisposeTxString(this);
-            //clear unmanaged memory
-            this.data = IntPtr.Zero;
-            this.Len = 0;
-        }
-    }
+  
     [StructLayout(LayoutKind.Explicit)]
     struct JsValue
     {
@@ -386,11 +368,7 @@ namespace LayoutFarm.CefBridge
            string startURL,
            IntPtr clientSchemeHandlerFactoryObject);
 
-
-        [DllImport(CEF_CLIENT_DLL, CallingConvention = CallingConvention.Cdecl)]
-        internal static extern void DisposeTxString(MyTxString myTxString);
-        //-------------------------------------------------------------------------------------
-
+ 
 
         //part 4
         [DllImport(CEF_CLIENT_DLL, CallingConvention = CallingConvention.Cdecl)]
