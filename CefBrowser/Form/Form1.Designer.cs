@@ -138,7 +138,7 @@
             // cefWebBrowser1
             // 
             this.cefWebBrowser1.BackColor = System.Drawing.Color.White;
-            this.cefWebBrowser1.InitUrl = "http://google.com";
+            this.cefWebBrowser1.InitUrl = "http://localhost";
             this.cefWebBrowser1.Location = new System.Drawing.Point(150, 66);
             this.cefWebBrowser1.Name = "cefWebBrowser1";
             this.cefWebBrowser1.Size = new System.Drawing.Size(802, 459);

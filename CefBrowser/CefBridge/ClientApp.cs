@@ -149,11 +149,11 @@ namespace LayoutFarm.CefBridge
             Cef3FuncHandler funcHandler = Cef3FuncHandler.CreateFuncHandler(Test001);
             Cef3Func func = Cef3Func.CreateFunc("test001", funcHandler);
             cefV8Global.Set("test001", func);
-
-
         }
         void Test001(int id, IntPtr argsPtr)
         {
+            var nativeCallArgs = new NativeCallArgs(argsPtr);
+            nativeCallArgs.SetOutput(0, "hello from managed side !");
 
         }
         void MxCallBack(int id, IntPtr argsPtr)

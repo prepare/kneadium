@@ -327,7 +327,7 @@ namespace LayoutFarm.CefBridge
 
         //part 2:
         [DllImport(CEF_CLIENT_DLL, CallingConvention = CallingConvention.Cdecl)]
-        public static extern void NativeMetSetResult(IntPtr nativeMetPtr, int retIndex, IntPtr ptr);
+        public static extern void MyCefMetArgs_SetResultAsJsValue(IntPtr nativeMetPtr, int retIndex, IntPtr ptr);
         [DllImport(CEF_CLIENT_DLL, CallingConvention = CallingConvention.Cdecl)]
         internal static extern JsValue MyCefNativeMetGetArgs(IntPtr cbArgPtr, int index);
 
@@ -367,6 +367,12 @@ namespace LayoutFarm.CefBridge
 
 
 
+
+        [DllImport(CEF_CLIENT_DLL, CallingConvention = CallingConvention.Cdecl, CharSet = CharSet.Unicode)]
+        public static unsafe extern void MyCefMetArgs_SetResultAsString(
+            IntPtr callArgsPtr,
+            int resultIndex,
+            string str, int strlen);
 
         [DllImport(CEF_CLIENT_DLL, CallingConvention = CallingConvention.Cdecl)]
         public static unsafe extern void MyCefCbArgs_SetResultAsBuffer(

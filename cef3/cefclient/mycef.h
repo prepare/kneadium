@@ -92,9 +92,10 @@ struct jsvalue
             int32_t     i32;
             int64_t     i64;
             double      num;
-            void       *ptr;
-            uint16_t   *str;  
-            jsvalue    *arr;
+            const  void    *ptr;
+            const uint16_t *str;
+			const wchar_t *str2;
+            const jsvalue  *arr;
        } value;
         
        int32_t         type;
@@ -131,9 +132,12 @@ public:
 	int resultCount;
 	
 	void SetArgAsString(int argIndex, const wchar_t* str);
-	void SetArgAsNativeObject(int argIndex, void* nativeObject);
-
+	void SetArgAsNativeObject(int argIndex,const void* nativeObject);
 	void SetOutputString(int resultIndex, const void* dataBuffer,int len);  
+
+	//----------------------------------------------------------------------
+	std::wstring ReadOutputAsString(int resultIndex);
+
 };
  
 //typedef void (__stdcall *managed_callback)(int id, void* args);   

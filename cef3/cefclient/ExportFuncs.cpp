@@ -182,7 +182,32 @@ void MyCefShutDown() {
 //--------------------------------------------------------------------------------------------------
 //part 2:
 //1. 
-void NativeMetSetResult(MethodArgs* args, int retIndex, jsvalue* value)
+
+
+jsvalue MyCefNativeMetGetArgs(MethodArgs* args, int argIndex)
+{
+	switch (argIndex)
+	{
+	case 0: return args->arg0;
+	case 1: return args->arg1;
+	case 2: return args->arg2;
+	case 3: return args->arg3;
+	case 4: return args->arg4;
+	default:
+	{
+		jsvalue v;
+		v.type = JSVALUE_TYPE_EMPTY;
+		v.length = 0;
+		return v;
+	}
+	}
+}
+//2.
+void MyCefDisposePtr(void* ptr) {
+	delete ptr;
+}
+//3.
+void MyCefMetArgs_SetResultAsJsValue(MethodArgs* args, int retIndex, jsvalue* value)
 {
 	switch (retIndex) {
 	case 0:
@@ -203,28 +228,43 @@ void NativeMetSetResult(MethodArgs* args, int retIndex, jsvalue* value)
 
 	}
 }
-//2.
-jsvalue MyCefNativeMetGetArgs(MethodArgs* args, int argIndex)
-{
+//4.
+void MyCefMetArgs_SetResultAsString(MethodArgs* args, int argIndex, const wchar_t* buffer, int len) {
+
 	switch (argIndex)
 	{
-	case 0: return args->arg0;
-	case 1: return args->arg1;
-	case 2: return args->arg2;
-	case 3: return args->arg3;
-	case 4: return args->arg4;
-	default:
-	{
-		jsvalue v;
-		v.type = JSVALUE_TYPE_EMPTY;
-		v.length = 0;
-		return v;
+	case 0: {
+
+		args->arg0.type = JSVALUE_TYPE_STRING;
+		args->arg0.length = len;
+		args->arg0.value.str2 = buffer;
+	}break;
+	case 1: {
+
+		args->arg1.type = JSVALUE_TYPE_STRING;
+		args->arg1.length = len;
+		args->arg1.value.str2 = buffer;
+	}break;
+	case 2: {
+
+		args->arg2.type = JSVALUE_TYPE_STRING;
+		args->arg2.length = len;
+		args->arg2.value.str2 = buffer;
+	}break;
+	case 3: {
+
+		args->arg3.type = JSVALUE_TYPE_STRING;
+		args->arg3.length = len;
+		args->arg3.value.str2 = buffer;
+	}break;
+	case 4: {
+
+		args->arg4.type = JSVALUE_TYPE_STRING;
+		args->arg4.length = len;
+		args->arg4.value.str2 = buffer;
+	}break;
 	}
-	}
-}
-//3.
-void MyCefDisposePtr(void* ptr) {
-	delete ptr;
+
 }
 
 
@@ -346,7 +386,14 @@ MY_DLL_EXPORT CefV8Handler* MyCefJs_New_V8Handler(managed_callback callback) {
 		{
 			if (callback) {
 
-
+				MethodArgs* metArgs = new MethodArgs();
+				metArgs->SetArgAsNativeObject(0, object);
+				metArgs->SetArgAsNativeObject(1, &arguments);
+				//-------------------------------------------
+				callback(301, metArgs);
+				//check result
+				retval = CefV8Value::CreateString(metArgs->ReadOutputAsString(0));
+				//retval = CefV8Value::CreateString("Hello, world!");
 			}
 			return true;
 		}
