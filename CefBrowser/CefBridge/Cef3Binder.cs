@@ -12,25 +12,7 @@ namespace LayoutFarm.CefBridge
     [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
     public delegate void MyCefCallback(int id, IntPtr args);
 
-    struct MyTxString
-    {
-        public int Len;
-        public IntPtr data;
-        public string GetString()
-        {
-            unsafe
-            {
-                return new string((char*)data, 0, Len);
-            }
-        }
-        public void Dispose()
-        {
-            Cef3Binder.DisposeTxString(this);
-            //clear unmanaged memory
-            this.data = IntPtr.Zero;
-            this.Len = 0;
-        }
-    }
+  
     [StructLayout(LayoutKind.Explicit)]
     struct JsValue
     {
@@ -287,11 +269,11 @@ namespace LayoutFarm.CefBridge
         }
         static void Cef3callBack_ForMangedCallBack02(int oindex, IntPtr args)
         {
-             
+
         }
         static void Cef3callBack_ForMangedCallBack03(int oindex, IntPtr args)
         {
-           
+
 
         }
         //---------------------------------------------------
@@ -327,7 +309,7 @@ namespace LayoutFarm.CefBridge
 
         //part 2:
         [DllImport(CEF_CLIENT_DLL, CallingConvention = CallingConvention.Cdecl)]
-        public static extern void NativeMetSetResult(IntPtr nativeMetPtr, int retIndex, IntPtr ptr);
+        public static extern void MyCefMetArgs_SetResultAsJsValue(IntPtr nativeMetPtr, int retIndex, IntPtr ptr);
         [DllImport(CEF_CLIENT_DLL, CallingConvention = CallingConvention.Cdecl)]
         internal static extern JsValue MyCefNativeMetGetArgs(IntPtr cbArgPtr, int index);
 
@@ -368,6 +350,12 @@ namespace LayoutFarm.CefBridge
 
 
 
+        [DllImport(CEF_CLIENT_DLL, CallingConvention = CallingConvention.Cdecl, CharSet = CharSet.Unicode)]
+        public static unsafe extern void MyCefMetArgs_SetResultAsString(
+            IntPtr callArgsPtr,
+            int resultIndex,
+            string str, int strlen);
+
         [DllImport(CEF_CLIENT_DLL, CallingConvention = CallingConvention.Cdecl)]
         public static unsafe extern void MyCefCbArgs_SetResultAsBuffer(
             IntPtr callArgsPtr,
@@ -380,11 +368,27 @@ namespace LayoutFarm.CefBridge
            string startURL,
            IntPtr clientSchemeHandlerFactoryObject);
 
+ 
+
+        //part 4
+        [DllImport(CEF_CLIENT_DLL, CallingConvention = CallingConvention.Cdecl)]
+        internal static extern IntPtr MyCefJsGetGlobal(IntPtr jsContext);
 
         [DllImport(CEF_CLIENT_DLL, CallingConvention = CallingConvention.Cdecl)]
-        internal static extern void DisposeTxString(MyTxString myTxString);
+        internal static extern IntPtr MyCefJs_New_V8Handler(MyCefCallback managedCallback);
 
+
+        [DllImport(CEF_CLIENT_DLL, CallingConvention = CallingConvention.Cdecl, CharSet = CharSet.Unicode)]
+        internal static extern void MyCefJs_CefV8Value_SetValue_ByString(IntPtr target, string key, IntPtr value, int setAttr);
+
+
+        [DllImport(CEF_CLIENT_DLL, CallingConvention = CallingConvention.Cdecl)]
+        internal static extern void MyCefJs_CefV8Value_SetValue_ByIndex(IntPtr target, int index, IntPtr value);
+
+        [DllImport(CEF_CLIENT_DLL, CallingConvention = CallingConvention.Cdecl, CharSet = CharSet.Unicode)]
+        internal static extern IntPtr MyCefJs_CreateFunction(string name, IntPtr handler);
     }
+
 
     internal static class NativeMethods
     {

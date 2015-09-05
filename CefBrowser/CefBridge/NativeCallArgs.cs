@@ -20,20 +20,27 @@ namespace LayoutFarm.CefBridge
             var v = Cef3Binder.MyCefNativeMetGetArgs(argPtr, index);
             return Marshal.PtrToStringUni(v.Ptr);
         }
+        public IntPtr GetArgAsNativePtr(int index)
+        {
+            var v = Cef3Binder.MyCefNativeMetGetArgs(argPtr, index);
+            return v.Ptr;
+        }
         public void SetOutput(int index, string str)
         {
             //interchange with utf16
-            byte[] buffer = Encoding.Unicode.GetBytes(str.ToCharArray());
-            unsafe
-            {
-                fixed (byte* b = &buffer[0])
-                {
-                    Cef3Binder.MyCefCbArgs_SetResultAsBuffer(this.argPtr,
-                        index,
-                        b,
-                        buffer.Length);
-                }
-            }
+            //byte[] buffer = Encoding.Unicode.GetBytes(str.ToCharArray());
+            //unsafe
+            //{
+            //    fixed (byte* b = &buffer[0])
+            //    {
+            //        Cef3Binder.MyCefCbArgs_SetResultAsBuffer(this.argPtr,
+            //            index,
+            //            b,
+            //            buffer.Length);
+            //    }
+            //}
+            Cef3Binder.MyCefMetArgs_SetResultAsString(this.argPtr, index, str, str.Length);
+
         }
         public void SetOutput(int index, byte[] buffer)
         {
@@ -70,8 +77,8 @@ namespace LayoutFarm.CefBridge
             {
                 JsValue jsvalue = new JsValue();
                 jsvalue.Ptr = nativePtr;
-                Cef3Binder.NativeMetSetResult(this.argPtr, 0, (IntPtr)(&jsvalue));
-                
+                Cef3Binder.MyCefMetArgs_SetResultAsJsValue(this.argPtr, 0, (IntPtr)(&jsvalue));
+
             }
         }
     }

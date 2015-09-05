@@ -61,7 +61,7 @@ client::ClientApp* MyCefCreateClientApp(HINSTANCE hInstance)
 	//create browser process first?
 	client::ClientApp* app = NULL;
 	client::ClientApp::ProcessType process_type = client::ClientApp::GetProcessType(command_line);
-	 
+
 	if (process_type == client::ClientApp::BrowserProcess)
 	{
 		app = new client::ClientAppBrowser();
@@ -90,7 +90,7 @@ client::ClientApp* MyCefCreateClientApp(HINSTANCE hInstance)
 	mainContext = DllInitMain(hInstance, app);
 	//set global mx callback to mainContext 
 	mainContext->myMxCallback_ = myMxCallback_;
-	 
+
 	return app;
 }
 
@@ -182,7 +182,32 @@ void MyCefShutDown() {
 //--------------------------------------------------------------------------------------------------
 //part 2:
 //1. 
-void NativeMetSetResult(MethodArgs* args, int retIndex, jsvalue* value)
+
+
+jsvalue MyCefNativeMetGetArgs(MethodArgs* args, int argIndex)
+{
+	switch (argIndex)
+	{
+	case 0: return args->arg0;
+	case 1: return args->arg1;
+	case 2: return args->arg2;
+	case 3: return args->arg3;
+	case 4: return args->arg4;
+	default:
+	{
+		jsvalue v;
+		v.type = JSVALUE_TYPE_EMPTY;
+		v.length = 0;
+		return v;
+	}
+	}
+}
+//2.
+void MyCefDisposePtr(void* ptr) {
+	delete ptr;
+}
+//3.
+void MyCefMetArgs_SetResultAsJsValue(MethodArgs* args, int retIndex, jsvalue* value)
 {
 	switch (retIndex) {
 	case 0:
@@ -203,28 +228,43 @@ void NativeMetSetResult(MethodArgs* args, int retIndex, jsvalue* value)
 
 	}
 }
-//2.
-jsvalue MyCefNativeMetGetArgs(MethodArgs* args, int argIndex)
-{
+//4.
+void MyCefMetArgs_SetResultAsString(MethodArgs* args, int argIndex, const wchar_t* buffer, int len) {
+
 	switch (argIndex)
 	{
-	case 0: return args->arg0;
-	case 1: return args->arg1;
-	case 2: return args->arg2;
-	case 3: return args->arg3;
-	case 4: return args->arg4;
-	default:
-	{
-		jsvalue v;
-		v.type = JSVALUE_TYPE_EMPTY;
-		v.length = 0;
-		return v;
+	case 0: {
+
+		args->arg0.type = JSVALUE_TYPE_STRING;
+		args->arg0.length = len;
+		args->arg0.value.str2 = buffer;
+	}break;
+	case 1: {
+
+		args->arg1.type = JSVALUE_TYPE_STRING;
+		args->arg1.length = len;
+		args->arg1.value.str2 = buffer;
+	}break;
+	case 2: {
+
+		args->arg2.type = JSVALUE_TYPE_STRING;
+		args->arg2.length = len;
+		args->arg2.value.str2 = buffer;
+	}break;
+	case 3: {
+
+		args->arg3.type = JSVALUE_TYPE_STRING;
+		args->arg3.length = len;
+		args->arg3.value.str2 = buffer;
+	}break;
+	case 4: {
+
+		args->arg4.type = JSVALUE_TYPE_STRING;
+		args->arg4.length = len;
+		args->arg4.value.str2 = buffer;
+	}break;
 	}
-	}
-}
-//3.
-void MyCefDisposePtr(void* ptr) {
-	delete ptr;
+
 }
 
 
@@ -323,3 +363,63 @@ MY_DLL_EXPORT void MyCefBwReload(MyBrowser* myBw) {
 //---------------------------------------------------------------------------
 //part4: javascript context
 
+MY_DLL_EXPORT CefV8Value* MyCefJsGetGlobal(CefV8Context* cefV8Context) {
+
+	auto globalObject = cefV8Context->GetGlobal();
+	globalObject->AddRef();
+	return globalObject.get();
+}
+MY_DLL_EXPORT CefV8Handler* MyCefJs_New_V8Handler(managed_callback callback) {
+
+	//-----------------------------------------------
+	class V8Handler : public CefV8Handler {
+	public:
+		managed_callback callback = NULL;
+		V8Handler(managed_callback callback) {
+			this->callback = callback;
+		}
+		virtual bool Execute(const CefString& name,
+			CefRefPtr<CefV8Value> object,
+			const CefV8ValueList& arguments,
+			CefRefPtr<CefV8Value>& retval,
+			CefString& exception)
+		{
+			if (callback) {
+
+				MethodArgs* metArgs = new MethodArgs();
+				metArgs->SetArgAsNativeObject(0, object);
+				metArgs->SetArgAsNativeObject(1, &arguments);
+				//-------------------------------------------
+				callback(301, metArgs);
+				//check result
+				retval = CefV8Value::CreateString(metArgs->ReadOutputAsString(0));
+				//retval = CefV8Value::CreateString("Hello, world!");
+			}
+			return true;
+		}
+	private:
+		IMPLEMENT_REFCOUNTING(V8Handler);
+	};
+	//-----------------------------------------------
+
+	return new V8Handler(callback);
+}
+
+MY_DLL_EXPORT void MyCefJs_CefV8Value_SetValue_ByString(CefV8Value* target, const wchar_t* key, CefV8Value* value, int setAttribute)
+{
+	CefString cefstr(key);
+	CefRefPtr<CefV8Value> nvalue = value;
+	target->SetValue(cefstr, nvalue, (cef_v8_propertyattribute_t)setAttribute);
+}
+MY_DLL_EXPORT void MyCefJs_CefV8Value_SetValue_ByIndex(CefV8Value* target, int index, CefV8Value* value)
+{
+	target->SetValue(index, value);
+}
+MY_DLL_EXPORT CefV8Value* MyCefJs_CreateFunction(const wchar_t* name, CefV8Handler* handler)
+{
+	auto cefFunc = CefV8Value::CreateFunction(name, handler);
+	//since cefFunc is reference counting variable,
+	//so before we send it out of this lib, we must add reference counting ***
+	cefFunc->AddRef();
+	return cefFunc.get();
+}

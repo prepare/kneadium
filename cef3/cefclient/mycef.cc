@@ -41,7 +41,7 @@ void MethodArgs::SetArgAsString(int argIndex, const wchar_t* str)
 	}break;
 	}
 }
-void MethodArgs::SetArgAsNativeObject(int argIndex, void* nativeObject)
+void MethodArgs::SetArgAsNativeObject(int argIndex, const void* nativeObject)
 {
 	switch (argIndex) {
 	case 0:
@@ -77,3 +77,17 @@ void MethodArgs::SetArgAsNativeObject(int argIndex, void* nativeObject)
 	}
 }
 
+std::wstring MethodArgs::ReadOutputAsString(int resultIndex)
+{
+	switch (resultIndex) {
+	case 0:
+	{
+		if (this->arg0.type == JSVALUE_TYPE_STRING) {
+
+			std::wstring str1 = std::wstring(this->arg0.value.str2);
+			return str1;
+		} 
+	}break;
+	}
+	return L"";
+}
