@@ -140,9 +140,14 @@ namespace LayoutFarm.CefBridge
         {
 
         }
-        public void AddResourceProvider()
+        public void AddResourceProvider(ResourceProvider resProvider)
         {
 
+
         }
+    }
+    class ResourceProvider
+    {
+
     }
 }

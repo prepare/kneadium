@@ -361,7 +361,7 @@ namespace LayoutFarm.CefBridge
         public static unsafe extern void MyCefMetArgs_SetResultAsByteBuffer(
             IntPtr callArgsPtr,
             int resultIndex,
-            byte* str, int len);
+            IntPtr str, int len);
 
 
         [DllImport(CEF_CLIENT_DLL, CallingConvention = CallingConvention.Cdecl)]

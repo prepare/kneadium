@@ -156,7 +156,6 @@ namespace LayoutFarm.CefBridge
 
                         var args = new NativeCallArgs(argsPtr);
                         var resourceMx = new NativeResourceMx(args.GetArgAsNativePtr(0));
-
                         AddResourceProvider(resourceMx);
                     }
                     break;
@@ -175,6 +174,25 @@ namespace LayoutFarm.CefBridge
                             //return url-in ascii form 
                             var utf8Buffer = Encoding.ASCII.GetBytes("http://localhost/index2.html");
                             args.SetOutput(1, utf8Buffer);
+                        }
+                    }
+                    break;
+                case 145:
+                    {
+                        //request for binary resource
+                        var args = new NativeCallArgs(argsPtr);
+                        string url = args.GetArgAsString(0);
+                        if (url == "http://localhost/hello_img")
+                        {
+                            //load sample image and the send to client
+                            byte[] img = File.ReadAllBytes("prepare.jpg");
+                            int imgLen = img.Length;
+                            IntPtr unmanagedPtr = Marshal.AllocHGlobal(imgLen);
+                            Marshal.Copy(img, 0, unmanagedPtr, imgLen);
+
+                            args.SetOutput(0, 1);
+                            args.UnsafeSetOutput(1, unmanagedPtr, imgLen);
+                            args.SetOutputAsAsciiString(2, "image/jpeg");
                         }
                     }
                     break;
@@ -200,6 +218,8 @@ namespace LayoutFarm.CefBridge
         }
         void AddResourceProvider(NativeResourceMx resourceMx)
         {
+            var resProvider = new ResourceProvider();
+            resourceMx.AddResourceProvider(resProvider);
 
 
         }

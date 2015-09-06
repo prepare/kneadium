@@ -894,11 +894,12 @@ namespace client {
 
 		//get filter function ptr from managed side
 		args.SetArgAsNativeObject(0, resource_manager_);
+		
 		m(140, &args);
 
-		client::test_runner::SetupResourceManager2(resource_manager_, m);
-
-
+		//1. add url filter
+		//2. add resource provider
+		client::test_runner::SetupResourceManager2(resource_manager_, m); 
 
 	}
 

@@ -56,18 +56,6 @@ namespace LayoutFarm.CefBridge
         }
         public void SetOutput(int index, string str)
         {
-            //interchange with utf16
-            //byte[] buffer = Encoding.Unicode.GetBytes(str.ToCharArray());
-            //unsafe
-            //{
-            //    fixed (byte* b = &buffer[0])
-            //    {
-            //        Cef3Binder.MyCefCbArgs_SetResultAsBuffer(this.argPtr,
-            //            index,
-            //            b,
-            //            buffer.Length);
-            //    }
-            //}
             Cef3Binder.MyCefMetArgs_SetResultAsString(this._argPtr, index, str, str.Length);
         }
         public void SetOutput(int index, int value)
@@ -83,13 +71,24 @@ namespace LayoutFarm.CefBridge
                 {
                     Cef3Binder.MyCefMetArgs_SetResultAsByteBuffer(this._argPtr,
                         index,
-                        b,
+                        new IntPtr(b),
                         buffer.Length);
                 }
             }
         }
+        public void SetOutputAsAsciiString(int index, string str)
+        {
+            SetOutput(index, Encoding.ASCII.GetBytes(str.ToCharArray()));
+        }
+        public unsafe void UnsafeSetOutput(int index, IntPtr unmangedMemPtr, int len)
+        {
 
-
+            Cef3Binder.MyCefMetArgs_SetResultAsByteBuffer(this._argPtr,
+                index,
+                unmangedMemPtr,
+                len);
+        }
+       
         public void Dispose()
         {
             Cef3Binder.MyCefDisposePtr(this._argPtr);
