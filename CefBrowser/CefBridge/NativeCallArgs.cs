@@ -69,7 +69,10 @@ namespace LayoutFarm.CefBridge
             //    }
             //}
             Cef3Binder.MyCefMetArgs_SetResultAsString(this._argPtr, index, str, str.Length);
-
+        }
+        public void SetOutput(int index, int value)
+        {
+            Cef3Binder.MyCefMetArgs_SetResultAsInt32(this._argPtr, index, value);
         }
         public void SetOutput(int index, byte[] buffer)
         {
@@ -78,7 +81,7 @@ namespace LayoutFarm.CefBridge
             {
                 fixed (byte* b = &buffer[0])
                 {
-                    Cef3Binder.MyCefCbArgs_SetResultAsBuffer(this._argPtr,
+                    Cef3Binder.MyCefMetArgs_SetResultAsByteBuffer(this._argPtr,
                         index,
                         b,
                         buffer.Length);

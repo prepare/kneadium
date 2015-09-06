@@ -235,38 +235,105 @@ void MyCefMetArgs_SetResultAsString(MethodArgs* args, int argIndex, const wchar_
 	{
 	case 0: {
 
-		args->arg0.type = JSVALUE_TYPE_STRING;
-		args->arg0.length = len;
-		args->arg0.value.str2 = buffer;
+		args->result0.type = JSVALUE_TYPE_STRING;
+		args->result0.length = len;
+		args->result0.value.str2 = buffer;
 	}break;
 	case 1: {
 
-		args->arg1.type = JSVALUE_TYPE_STRING;
-		args->arg1.length = len;
-		args->arg1.value.str2 = buffer;
+		args->result1.type = JSVALUE_TYPE_STRING;
+		args->result1.length = len;
+		args->result1.value.str2 = buffer;
 	}break;
 	case 2: {
 
-		args->arg2.type = JSVALUE_TYPE_STRING;
-		args->arg2.length = len;
-		args->arg2.value.str2 = buffer;
+		args->result2.type = JSVALUE_TYPE_STRING;
+		args->result2.length = len;
+		args->result2.value.str2 = buffer;
 	}break;
 	case 3: {
 
-		args->arg3.type = JSVALUE_TYPE_STRING;
-		args->arg3.length = len;
-		args->arg3.value.str2 = buffer;
+		args->result3.type = JSVALUE_TYPE_STRING;
+		args->result3.length = len;
+		args->result3.value.str2 = buffer;
 	}break;
 	case 4: {
 
-		args->arg4.type = JSVALUE_TYPE_STRING;
-		args->arg4.length = len;
-		args->arg4.value.str2 = buffer;
+		args->result4.type = JSVALUE_TYPE_STRING;
+		args->result4.length = len;
+		args->result4.value.str2 = buffer;
+	}break;
+	}
+}
+//4.
+void MyCefMetArgs_SetResultAsByteBuffer(MethodArgs* args, int argIndex, const char* byteBuffer, int len) {
+
+	switch (argIndex)
+	{
+	case 0: {
+
+		args->result0.type = JSVALUE_TYPE_BUFFER;
+		args->result0.length = len;
+		args->result0.value.byteBuffer = byteBuffer;
+	}break;
+	case 1: {
+
+		args->result1.type = JSVALUE_TYPE_BUFFER;
+		args->result1.length = len;
+		args->result1.value.byteBuffer = byteBuffer;
+	}break;
+	case 2: {
+
+		args->result2.type = JSVALUE_TYPE_BUFFER;
+		args->result2.length = len;
+		args->result2.value.byteBuffer = byteBuffer;
+	}break;
+	case 3: {
+
+		args->result3.type = JSVALUE_TYPE_BUFFER;
+		args->result3.length = len;
+		args->result3.value.byteBuffer = byteBuffer;
+	}break;
+	case 4: {
+
+		args->result4.type = JSVALUE_TYPE_BUFFER;
+		args->result4.length = len;
+		args->result4.value.byteBuffer = byteBuffer;
+	}break;
+	}
+}
+void MyCefMetArgs_SetResultAsInt32(MethodArgs* args, int argIndex, int value)
+{
+	switch (argIndex)
+	{
+	case 0: {
+
+		args->result0.type = JSVALUE_TYPE_INTEGER;
+		args->result0.value.i32 = (int32_t)value;
+	}break;
+	case 1: {
+
+		args->result1.type = JSVALUE_TYPE_INTEGER;
+		args->result1.value.i32 = (int32_t)value;
+	}break;
+	case 2: {
+
+		args->result2.type = JSVALUE_TYPE_INTEGER;
+		args->result2.value.i32 = (int32_t)value;
+	}break;
+	case 3: {
+
+		args->result3.type = JSVALUE_TYPE_INTEGER;
+		args->result3.value.i32 = (int32_t)value;
+	}break;
+	case 4: {
+
+		args->result4.type = JSVALUE_TYPE_INTEGER;
+		args->result4.value.i32 = (int32_t)value;
 	}break;
 	}
 
 }
-
 
 //---------------------------------------------------------------------------
 //part3:
@@ -428,7 +495,7 @@ MY_DLL_EXPORT void MyCefFrame_GetUrl(CefFrame* frame, wchar_t* outputBuffer, int
 {
 
 	CefString str = frame->GetURL();
-	int str_len= (int)str.length();
+	int str_len = (int)str.length();
 	*actualLength = str_len;
 	wcscpy_s(outputBuffer, outputBufferLen, str.c_str());
 

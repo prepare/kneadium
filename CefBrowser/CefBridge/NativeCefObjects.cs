@@ -134,4 +134,15 @@ namespace LayoutFarm.CefBridge
 
         }
     }
+    class NativeResourceMx : Cef3RefCountingValue
+    {
+        public NativeResourceMx(IntPtr ptr) : base(ptr)
+        {
+
+        }
+        public void AddResourceProvider()
+        {
+
+        }
+    }
 }

@@ -64,7 +64,7 @@ typedef unsigned __int64 uint64_t;
 #define JSVALUE_TYPE_BOOLEAN         2
 #define JSVALUE_TYPE_INTEGER         3
 #define JSVALUE_TYPE_NUMBER          4
-#define JSVALUE_TYPE_STRING          5
+#define JSVALUE_TYPE_STRING          5 //unicode string
 #define JSVALUE_TYPE_DATE            6
 #define JSVALUE_TYPE_INDEX           7
 #define JSVALUE_TYPE_ARRAY          10
@@ -78,7 +78,7 @@ typedef unsigned __int64 uint64_t;
 
 #define JSVALUE_TYPE_JSTYPEDEF      18 //my extension
 #define JSVALUE_TYPE_INTEGER64      19 //my extension
-
+#define JSVALUE_TYPE_BUFFER  20 //my extension
 
 
 extern "C" {
@@ -98,7 +98,8 @@ extern "C" {
 			int32_t     i32;
 			int64_t     i64;
 			double      num;
-			const  void    *ptr;
+			const void    *ptr;
+			const char    *byteBuffer;
 			const uint16_t *str;
 			const wchar_t *str2;
 			const jsvalue  *arr;

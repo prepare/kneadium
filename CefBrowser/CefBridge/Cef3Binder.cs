@@ -358,10 +358,18 @@ namespace LayoutFarm.CefBridge
             string str, int strlen);
 
         [DllImport(CEF_CLIENT_DLL, CallingConvention = CallingConvention.Cdecl)]
-        public static unsafe extern void MyCefCbArgs_SetResultAsBuffer(
+        public static unsafe extern void MyCefMetArgs_SetResultAsByteBuffer(
             IntPtr callArgsPtr,
             int resultIndex,
-            byte* resultBuffer, int strlen);
+            byte* str, int len);
+
+
+        [DllImport(CEF_CLIENT_DLL, CallingConvention = CallingConvention.Cdecl)]
+        public static extern void MyCefMetArgs_SetResultAsInt32(
+           IntPtr callArgsPtr,
+           int resultIndex,
+           int value);
+
 
         [DllImport(CEF_CLIENT_DLL, CallingConvention = CallingConvention.Cdecl)]
         internal static unsafe extern void MyCef_CefRegisterSchemeHandlerFactory(

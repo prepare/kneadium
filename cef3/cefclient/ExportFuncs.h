@@ -47,10 +47,12 @@ extern "C" {
 	MY_DLL_EXPORT void MyCefDisposePtr(void* ptr);
 
 	//3.
-	MY_DLL_EXPORT  void MyCefMetArgs_SetResultAsJsValue(MethodArgs* args, int retIndex, jsvalue* value);
+	MY_DLL_EXPORT void MyCefMetArgs_SetResultAsJsValue(MethodArgs* args, int retIndex, jsvalue* value);
 	//4.  
 	MY_DLL_EXPORT void MyCefMetArgs_SetResultAsString(MethodArgs* args, int argIndex, const wchar_t* buffer, int len);
 
+	MY_DLL_EXPORT void MyCefMetArgs_SetResultAsInt32(MethodArgs* args, int argIndex, int value);
+	MY_DLL_EXPORT void MyCefMetArgs_SetResultAsByteBuffer(MethodArgs* args, int argIndex,const char* byteBuffer, int len);
 
 	//part3:
 	//--------------------

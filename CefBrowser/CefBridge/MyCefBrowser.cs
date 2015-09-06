@@ -149,35 +149,60 @@ namespace LayoutFarm.CefBridge
 
                     }
                     break;
-                case 201:
+
+                case 140:
+                    //setup resource mx
                     {
-                        //NativeMethods.MessageBox(IntPtr.Zero, id.ToString(), "NN1", 0);
-                        //js msg route: call from js to UI browser 
-                        //via window.cef()
-                        NativeCallArgs args = new NativeCallArgs(argsPtr);
-                        JsBindingCallBack(args);
+
+                        var args = new NativeCallArgs(argsPtr);
+                        var resourceMx = new NativeResourceMx(args.GetArgAsNativePtr(0));
+
+                        AddResourceProvider(resourceMx);
                     }
                     break;
+
+                case 142:
+                    {
+
+                        //filter url name
+                        var args = new NativeCallArgs(argsPtr);
+                        string reqUrl = args.GetArgAsString(0);
+                        if (reqUrl.StartsWith("http://localhost/index2"))
+                        {
+                            //eg. how to fix request url
+
+                            args.SetOutput(0, 1);
+                            //return url-in ascii form 
+                            var utf8Buffer = Encoding.ASCII.GetBytes("http://localhost/index2.html");
+                            args.SetOutput(1, utf8Buffer);
+                        }
+                    }
+                    break;
+                //------------------------------
+                //eg. from cefQuery --> 
                 case 205:
                     {
-                        NativeCallArgs args = new NativeCallArgs(argsPtr);
+                        var args = new NativeCallArgs(argsPtr);
                         QueryRequestArgs reqArgs = QueryRequestArgs.CreateRequest(args.GetArgAsNativePtr(0));
-                        string frameUrl = reqArgs.GetFrameUrl();
-
+                        HandleCefQueryRequest(reqArgs);
                     }
                     break;
             }
 
         }
 
-        void JsBindingCallBack(NativeCallArgs args)
+        void HandleCefQueryRequest(QueryRequestArgs reqArgs)
         {
-            //handle call from js to browser process
-            //via window.cef()
-            string msg = args.GetArgAsString(0);
-            args.SetOutput(0, "true");
-        }
+            //this is in a browser process
+            //eg.
+            string frameUrl = reqArgs.GetFrameUrl();
 
+        }
+        void AddResourceProvider(NativeResourceMx resourceMx)
+        {
+
+
+        }
         public void NavigateTo(string url)
         {
             Cef3Binder.MyCefBwNavigateTo(this.myCefBrowser, url);
