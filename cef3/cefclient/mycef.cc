@@ -86,8 +86,19 @@ std::wstring MethodArgs::ReadOutputAsString(int resultIndex)
 
 			std::wstring str1 = std::wstring(this->arg0.value.str2);
 			return str1;
-		} 
+		}
 	}break;
 	}
 	return L"";
+}
+
+QueryRequestArgs::QueryRequestArgs() {
+
+ 
+	this->browser = nullptr;
+	this->frame = nullptr;
+	this->query_id = 0;
+	this->request = "";
+	this->persistent = false;
+	this->callback = nullptr;
 }

@@ -7,22 +7,51 @@ using System.IO;
 
 namespace LayoutFarm.CefBridge
 {
+
+    [StructLayout(LayoutKind.Sequential)]
+    class QueryRequestArgs
+    {
+        //see class  QueryRequestArgs in mycef.h
+
+        IntPtr _browser_ptr;
+        IntPtr _frame_ptr;
+        long _query_id;
+        IntPtr _request;
+        bool _presistent;
+
+        internal static QueryRequestArgs CreateRequest(IntPtr nativeIntPtr)
+        {
+            var req = new QueryRequestArgs();
+            Marshal.PtrToStructure(nativeIntPtr, req);
+            return req;
+        }
+
+        public string GetFrameUrl()
+        {
+            var fr = new NativeFrame(_frame_ptr);
+            return fr.GetUrl();
+        }
+
+
+    }
+
+
     struct NativeCallArgs
     {
-        IntPtr argPtr;
+        IntPtr _argPtr;
 
         public NativeCallArgs(IntPtr argPtr)
         {
-            this.argPtr = argPtr;
+            this._argPtr = argPtr;
         }
         public string GetArgAsString(int index)
         {
-            var v = Cef3Binder.MyCefNativeMetGetArgs(argPtr, index);
+            var v = Cef3Binder.MyCefNativeMetGetArgs(_argPtr, index);
             return Marshal.PtrToStringUni(v.Ptr);
         }
         public IntPtr GetArgAsNativePtr(int index)
         {
-            var v = Cef3Binder.MyCefNativeMetGetArgs(argPtr, index);
+            var v = Cef3Binder.MyCefNativeMetGetArgs(_argPtr, index);
             return v.Ptr;
         }
         public void SetOutput(int index, string str)
@@ -39,7 +68,7 @@ namespace LayoutFarm.CefBridge
             //            buffer.Length);
             //    }
             //}
-            Cef3Binder.MyCefMetArgs_SetResultAsString(this.argPtr, index, str, str.Length);
+            Cef3Binder.MyCefMetArgs_SetResultAsString(this._argPtr, index, str, str.Length);
 
         }
         public void SetOutput(int index, byte[] buffer)
@@ -49,7 +78,7 @@ namespace LayoutFarm.CefBridge
             {
                 fixed (byte* b = &buffer[0])
                 {
-                    Cef3Binder.MyCefCbArgs_SetResultAsBuffer(this.argPtr,
+                    Cef3Binder.MyCefCbArgs_SetResultAsBuffer(this._argPtr,
                         index,
                         b,
                         buffer.Length);
@@ -60,7 +89,7 @@ namespace LayoutFarm.CefBridge
 
         public void Dispose()
         {
-            Cef3Binder.MyCefDisposePtr(this.argPtr);
+            Cef3Binder.MyCefDisposePtr(this._argPtr);
         }
     }
     struct NativeCallArgs2

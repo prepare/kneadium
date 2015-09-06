@@ -356,7 +356,7 @@ namespace client {
 
 		DISALLOW_COPY_AND_ASSIGN(ClientHandler);
 	};
-	 
+
 
 	//----------
 
@@ -365,7 +365,7 @@ namespace client {
 	public:
 
 		managed_callback mcallback_;//my extension
-		MyCefJsHandler() {} 
+		MyCefJsHandler() {}
 
 		virtual bool OnQuery(CefRefPtr<CefBrowser> browser,
 			CefRefPtr<CefFrame> frame,
@@ -375,21 +375,41 @@ namespace client {
 			CefRefPtr<Callback> callback) OVERRIDE {
 			CEF_REQUIRE_UI_THREAD();
 
-		 
+
 			//const std::string& request_str = request;
 			if (this->mcallback_)
 			{
-				MethodArgs args; 
-				memset(&args, 0, sizeof(MethodArgs)); 
-				auto str16 = request.ToString16();
-				auto cstr = str16.c_str();
-				args.SetArgAsString(0, cstr); 
-				this->mcallback_(201, &args);
+
+				QueryRequestArgs queryReq;
+				memset(&queryReq, 0, sizeof(QueryRequestArgs));
+				queryReq.browser = browser.get();
+				queryReq.frame = frame.get();
+				queryReq.query_id = query_id;
+				queryReq.request = request;
+				queryReq.persistent = persistent;
+				queryReq.callback = callback.get();
+
+				MethodArgs args;
+				memset(&args, 0, sizeof(MethodArgs));
+				args.SetArgAsNativeObject(0, &queryReq);
+
+				 
+
+				this->mcallback_(205, &args);
+
+
+				////send all to managed world
+				//args.SetArgAsNativeObject(0, browser.get());
+				//args.SetArgAsNativeObject(1, frame.get()); 
+				//auto str16 = request.ToString16();
+				//auto cstr = str16.c_str();
+				//args.SetArgAsString(2, cstr);//string
+
 				/*if (args.result1.type == JSVALUE_TYPE_BOOLEAN)
-				{ 
+				{
 				}*/
 				return true;
-			}  
+			}
 			return false;
 		}//OnQuery
 	}; //class MyCefJsHandler

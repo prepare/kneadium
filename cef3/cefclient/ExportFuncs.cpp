@@ -423,3 +423,13 @@ MY_DLL_EXPORT CefV8Value* MyCefJs_CreateFunction(const wchar_t* name, CefV8Handl
 	cefFunc->AddRef();
 	return cefFunc.get();
 }
+
+MY_DLL_EXPORT void MyCefFrame_GetUrl(CefFrame* frame, wchar_t* outputBuffer, int outputBufferLen, int* actualLength)
+{
+
+	CefString str = frame->GetURL();
+	int str_len= (int)str.length();
+	*actualLength = str_len;
+	wcscpy_s(outputBuffer, outputBufferLen, str.c_str());
+
+}

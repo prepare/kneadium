@@ -427,13 +427,12 @@ namespace client {
 
 			// Register handlers with the router.
 			if (this->mcallback_)
-			{
-		 
-
+			{	 
+				//1. msg handler
 				MyCefJsHandler* myCefJsHandler = new MyCefJsHandler();
 				message_handler_set_.insert(myCefJsHandler);
 				myCefJsHandler->mcallback_ = this->mcallback_;
-			 
+			    
 				MessageHandlerSet::const_iterator it = message_handler_set_.begin();
 				for (; it != message_handler_set_.end(); ++it)
 					message_router_->AddHandler(*(it), false);

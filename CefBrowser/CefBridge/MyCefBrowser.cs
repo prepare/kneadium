@@ -158,6 +158,14 @@ namespace LayoutFarm.CefBridge
                         JsBindingCallBack(args);
                     }
                     break;
+                case 205:
+                    {
+                        NativeCallArgs args = new NativeCallArgs(argsPtr);
+                        QueryRequestArgs reqArgs = QueryRequestArgs.CreateRequest(args.GetArgAsNativePtr(0));
+                        string frameUrl = reqArgs.GetFrameUrl();
+
+                    }
+                    break;
             }
 
         }
@@ -169,7 +177,7 @@ namespace LayoutFarm.CefBridge
             string msg = args.GetArgAsString(0);
             args.SetOutput(0, "true");
         }
-        
+
         public void NavigateTo(string url)
         {
             Cef3Binder.MyCefBwNavigateTo(this.myCefBrowser, url);

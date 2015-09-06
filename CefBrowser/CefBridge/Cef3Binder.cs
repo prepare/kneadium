@@ -12,7 +12,7 @@ namespace LayoutFarm.CefBridge
     [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
     public delegate void MyCefCallback(int id, IntPtr args);
 
-  
+
     [StructLayout(LayoutKind.Explicit)]
     struct JsValue
     {
@@ -337,6 +337,7 @@ namespace LayoutFarm.CefBridge
         public static extern void MyCefBwStop(IntPtr myCefBw);
         [DllImport(CEF_CLIENT_DLL, CallingConvention = CallingConvention.Cdecl)]
         public static extern void MyCefBwReload(IntPtr myCefBw);
+
         //--------------------------------------------------- 
 
 
@@ -368,7 +369,7 @@ namespace LayoutFarm.CefBridge
            string startURL,
            IntPtr clientSchemeHandlerFactoryObject);
 
- 
+
 
         //part 4
         [DllImport(CEF_CLIENT_DLL, CallingConvention = CallingConvention.Cdecl)]
@@ -387,6 +388,10 @@ namespace LayoutFarm.CefBridge
 
         [DllImport(CEF_CLIENT_DLL, CallingConvention = CallingConvention.Cdecl, CharSet = CharSet.Unicode)]
         internal static extern IntPtr MyCefJs_CreateFunction(string name, IntPtr handler);
+
+
+        [DllImport(CEF_CLIENT_DLL, CallingConvention = CallingConvention.Cdecl)]
+        public static extern unsafe void MyCefFrame_GetUrl(IntPtr myCefFrame, char* outputBuffer, int outputBufferLen, ref int actualLength);
     }
 
 
