@@ -20,9 +20,10 @@ namespace LayoutFarm.CefBridge
         MyCefDevWindow agent2;
         bool _handleCreated;
         MyCefBrowser cefBrowserView;
-        
 
-        string initUrl = "http://google.com";
+
+        //string initUrl = "http://google.com";
+        string initUrl = "http://localhost";
         public CefWebBrowser()
         {
             SetStyle(

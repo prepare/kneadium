@@ -21,6 +21,24 @@
 #include "cefclient/browser/test_runner.h"
 #include "cefclient/common/client_switches.h"
 
+
+//#include "include/base/cef_bind.h"
+//#include "include/cef_parser.h"
+//#include "include/cef_task.h"
+//#include "include/cef_trace.h"
+//#include "include/cef_web_plugin.h"
+//#include "include/wrapper/cef_closure_task.h"
+//#include "include/wrapper/cef_stream_resource_handler.h"
+//#include "cefclient/browser/binding_test.h"
+//#include "cefclient/browser/dialog_test.h"
+//#include "cefclient/browser/main_context.h"
+#include "cefclient/browser/resource.h"
+//#include "cefclient/browser/resource_util.h"
+//#include "cefclient/browser/root_window_manager.h"
+//#include "cefclient/browser/scheme_test.h"
+//#include "cefclient/browser/urlrequest_test.h"
+//#include "cefclient/browser/window_test.h"
+
 namespace client {
 
 #if defined(OS_WIN)
@@ -352,7 +370,10 @@ namespace client {
 		CEF_REQUIRE_UI_THREAD();
 
 		// Allow geolocation access from all websites.
-		callback->Continue(true);
+		//callback->Continue(true);
+
+		//myextension -> here i disable all :)
+		callback->Continue(false);
 		return true;
 	}
 
@@ -403,6 +424,8 @@ namespace client {
 
 			metArgs->SetArgAsString(0, cstr);
 			this->mcallback_(104, metArgs);
+
+
 			return true;
 		}
 		else {
@@ -424,10 +447,25 @@ namespace client {
 			message_router_ = CefMessageRouterBrowserSide::Create(config);
 
 			// Register handlers with the router.
-			test_runner::CreateMessageHandlers(message_handler_set_);
-			MessageHandlerSet::const_iterator it = message_handler_set_.begin();
-			for (; it != message_handler_set_.end(); ++it)
-				message_router_->AddHandler(*(it), false);
+			if (this->mcallback_)
+			{
+				//1. msg handler
+				MyCefJsHandler* myCefJsHandler = new MyCefJsHandler();
+				message_handler_set_.insert(myCefJsHandler);
+				myCefJsHandler->mcallback_ = this->mcallback_;
+
+				MessageHandlerSet::const_iterator it = message_handler_set_.begin();
+				for (; it != message_handler_set_.end(); ++it)
+					message_router_->AddHandler(*(it), false);
+			}
+			else
+			{
+				test_runner::CreateMessageHandlers(message_handler_set_);
+				MessageHandlerSet::const_iterator it = message_handler_set_.begin();
+				for (; it != message_handler_set_.end(); ++it)
+					message_router_->AddHandler(*(it), false);
+
+			}
 		}
 
 		// Disable mouse cursor change if requested via the command-line flag.
@@ -843,8 +881,27 @@ namespace client {
 		return false;
 	}
 
+
+
 	//my extension ***
 	void ClientHandler::MyCefSetManagedCallBack(managed_callback m) {
+
 		this->mcallback_ = m;
+		//add resource mx handler
+
+		MethodArgs args;
+		memset(&args, 0, sizeof(MethodArgs));
+
+		//get filter function ptr from managed side
+		args.SetArgAsNativeObject(0, resource_manager_);
+		
+		m(140, &args);
+
+		//1. add url filter
+		//2. add resource provider
+		client::test_runner::SetupResourceManager2(resource_manager_, m); 
+
 	}
-}  // namespace client
+
+}
+

@@ -19,169 +19,182 @@
 #endif
 
 namespace client {
-namespace init_main{
+	namespace init_main {
 
-int RunMain(HINSTANCE hInstance, int nCmdShow) {
-  CefMainArgs main_args(hInstance);
+		int RunMain(HINSTANCE hInstance, int nCmdShow) {
+			CefMainArgs main_args(hInstance);
 
-  void* sandbox_info = NULL;
-
-#if defined(CEF_USE_SANDBOX)
-  // Manage the life span of the sandbox information object. This is necessary
-  // for sandbox support on Windows. See cef_sandbox_win.h for complete details.
-  CefScopedSandboxInfo scoped_sandbox;
-  sandbox_info = scoped_sandbox.sandbox_info();
-#endif
-
-  // Parse command-line arguments.
-  CefRefPtr<CefCommandLine> command_line = CefCommandLine::CreateCommandLine();
-  command_line->InitFromString(::GetCommandLineW());
-
-  // Create a ClientApp of the correct type.
-  CefRefPtr<CefApp> app;
-  ClientApp::ProcessType process_type = ClientApp::GetProcessType(command_line);
-  if (process_type == ClientApp::BrowserProcess)
-    app = new ClientAppBrowser();
-  else if (process_type == ClientApp::RendererProcess)
-    app = new ClientAppRenderer();
-  else if (process_type == ClientApp::OtherProcess)
-    app = new ClientAppOther();
-
-  // Execute the secondary process, if any.
-  int exit_code = CefExecuteProcess(main_args, app, sandbox_info);
-  if (exit_code >= 0)
-    return exit_code;
-
-  // Create the main context object.
-  scoped_ptr<MainContextImpl> context(new MainContextImpl(command_line, true));
-
-  CefSettings settings;
-
-#if !defined(CEF_USE_SANDBOX)
-  settings.no_sandbox = true;
-#endif
-
-  // Populate the settings based on command line arguments.
-  context->PopulateSettings(&settings);
-
-  // Create the main message loop object.
-  scoped_ptr<MainMessageLoop> message_loop;
-  if (settings.multi_threaded_message_loop)
-    message_loop.reset(new MainMessageLoopMultithreadedWin);
-  else
-    message_loop.reset(new MainMessageLoopStd);
-
-  // Initialize CEF.
-  context->Initialize(main_args, settings, app, sandbox_info);
-
-  // Register scheme handlers.
-  test_runner::RegisterSchemeHandlers();
-
-  // Create the first window.
-  context->GetRootWindowManager()->CreateRootWindow(
-      true,             // Show controls.
-      settings.windowless_rendering_enabled ? true : false,
-      CefRect(),        // Use default system size.
-      std::string());   // Use default URL.
-
-  // Run the message loop. This will block until Quit() is called by the
-  // RootWindowManager after all windows have been destroyed.
-  int result = message_loop->Run();
-
-  // Shut down CEF.
-  context->Shutdown();
-
-  // Release objects in reverse order of creation.
-  message_loop.reset();
-  context.reset();
-
-  return result;
-}
-
-
-client::MainContextImpl* InitDllApp(HINSTANCE hInstance, CefRefPtr<CefApp> app) {
-  CefMainArgs main_args(hInstance);
-
-  void* sandbox_info = NULL;
+			void* sandbox_info = NULL;
 
 #if defined(CEF_USE_SANDBOX)
-  // Manage the life span of the sandbox information object. This is necessary
-  // for sandbox support on Windows. See cef_sandbox_win.h for complete details.
-  CefScopedSandboxInfo scoped_sandbox;
-  sandbox_info = scoped_sandbox.sandbox_info();
+			// Manage the life span of the sandbox information object. This is necessary
+			// for sandbox support on Windows. See cef_sandbox_win.h for complete details.
+			CefScopedSandboxInfo scoped_sandbox;
+			sandbox_info = scoped_sandbox.sandbox_info();
 #endif
 
-  // Parse command-line arguments.
-  CefRefPtr<CefCommandLine> command_line = CefCommandLine::CreateCommandLine();
-  command_line->InitFromString(::GetCommandLineW());
+			// Parse command-line arguments.
+			CefRefPtr<CefCommandLine> command_line = CefCommandLine::CreateCommandLine();
+			command_line->InitFromString(::GetCommandLineW());
 
-  //// Create a ClientApp of the correct type.
-  //CefRefPtr<CefApp> app;
-  //ClientApp::ProcessType process_type = ClientApp::GetProcessType(command_line);
-  //if (process_type == ClientApp::BrowserProcess)
-  //  app = new ClientAppBrowser();
-  //else if (process_type == ClientApp::RendererProcess)
-  //  app = new ClientAppRenderer();
-  //else if (process_type == ClientApp::OtherProcess)
-  //  app = new ClientAppOther();
+			// Create a ClientApp of the correct type.
+			CefRefPtr<CefApp> app;
+			ClientApp::ProcessType process_type = ClientApp::GetProcessType(command_line);
+			if (process_type == ClientApp::BrowserProcess)
+			{
+				app = new ClientAppBrowser();
+			}
+			else if (process_type == ClientApp::RendererProcess)
+			{
+				//MessageBox(0, L"RendererProcess INIT", L"RendererProcess INI", 0);
+				app = new ClientAppRenderer();
+			}
+			else if (process_type == ClientApp::OtherProcess)
+			{
+				app = new ClientAppOther();
+			}
+			// Execute the secondary process, if any.
+			int exit_code = CefExecuteProcess(main_args, app, sandbox_info);
+			if (exit_code >= 0)
+				return exit_code;
 
-  // Execute the secondary process, if any.
-  int exit_code = CefExecuteProcess(main_args, app, sandbox_info);
-  if (exit_code >= 0)
-    return NULL;
-  
-  //-------------------------------------------------------------------------------------
-  // Create the main context object.
-  //scoped_ptr<MainContextImpl> context(new MainContextImpl(command_line, true));
-  auto mainContext= new MainContextImpl(command_line, true);
-  CefSettings settings;
+			// Create the main context object.
+			scoped_ptr<MainContextImpl> context(new MainContextImpl(command_line, true));
+
+			CefSettings settings;
 
 #if !defined(CEF_USE_SANDBOX)
-  settings.no_sandbox = true;
+			settings.no_sandbox = true;
 #endif
 
-  // Populate the settings based on command line arguments.
-  mainContext->PopulateSettings(&settings);
+			// Populate the settings based on command line arguments.
+			context->PopulateSettings(&settings);
 
-  // Create the main message loop object.
-  /*scoped_ptr<MainMessageLoop> message_loop;
-  if (settings.multi_threaded_message_loop)
-    message_loop.reset(new MainMessageLoopMultithreadedWin);
-  else
-    message_loop.reset(new MainMessageLoopStd);
-*/
-  // Initialize CEF.
-  mainContext->Initialize(main_args, settings, app, sandbox_info);
+			// Create the main message loop object.
+			scoped_ptr<MainMessageLoop> message_loop;
+			if (settings.multi_threaded_message_loop)
+				message_loop.reset(new MainMessageLoopMultithreadedWin);
+			else
+				message_loop.reset(new MainMessageLoopStd);
 
-  // Register scheme handlers.
-  test_runner::RegisterSchemeHandlers();
+			// Initialize CEF.
+			context->Initialize(main_args, settings, app, sandbox_info);
 
-  // Create the first window.
-  //context->GetRootWindowManager()->CreateRootWindow(
-  //    true,             // Show controls.
-  //    settings.windowless_rendering_enabled ? true : false,
-  //    CefRect(),        // Use default system size.
-  //    std::string());   // Use default URL.
+			// Register scheme handlers.
+			test_runner::RegisterSchemeHandlers();
 
-  //// Run the message loop. This will block until Quit() is called by the
-  //// RootWindowManager after all windows have been destroyed.
-  //int result = message_loop->Run();
+			// Create the first window.
+			context->GetRootWindowManager()->CreateRootWindow(
+				true,             // Show controls.
+				settings.windowless_rendering_enabled ? true : false,
+				CefRect(),        // Use default system size.
+				std::string());   // Use default URL.
 
-  //// Shut down CEF.
-  //context->Shutdown();
+			// Run the message loop. This will block until Quit() is called by the
+			// RootWindowManager after all windows have been destroyed.
+			int result = message_loop->Run();
 
-  //// Release objects in reverse order of creation.
-  //message_loop.reset();
-  //context.reset();
+			// Shut down CEF.
+			context->Shutdown();
 
-  //return result;
-  return mainContext;
-}
+			// Release objects in reverse order of creation.
+			message_loop.reset();
+			context.reset();
 
-}  // namespace init_main
+			return result;
+		}
+
+
+		client::MainContextImpl* InitDllApp(HINSTANCE hInstance, CefRefPtr<CefApp> app) {
+			CefMainArgs main_args(hInstance);
+
+			void* sandbox_info = NULL;
+
+#if defined(CEF_USE_SANDBOX)
+			// Manage the life span of the sandbox information object. This is necessary
+			// for sandbox support on Windows. See cef_sandbox_win.h for complete details.
+			CefScopedSandboxInfo scoped_sandbox;
+			sandbox_info = scoped_sandbox.sandbox_info();
+#endif
+
+			// Parse command-line arguments.
+			CefRefPtr<CefCommandLine> command_line = CefCommandLine::CreateCommandLine();
+			command_line->InitFromString(::GetCommandLineW());
+
+			//// Create a ClientApp of the correct type.
+			//CefRefPtr<CefApp> app;
+			/*ClientApp::ProcessType process_type = ClientApp::GetProcessType(command_line);
+			if (process_type == ClientApp::BrowserProcess)
+			{
+			}
+			else if (process_type == ClientApp::RendererProcess)
+			{
+				MessageBox(0, L"RendererProcess INIT", L"RendererProcess INI", 0);
+			}
+			else if (process_type == ClientApp::OtherProcess)
+			{
+			}*/
+			// Execute the secondary process, if any.
+			int exit_code = CefExecuteProcess(main_args, app, sandbox_info);
+			if (exit_code >= 0)
+			{
+				return NULL;
+			}
+
+
+
+			//-------------------------------------------------------------------------------------
+			// Create the main context object.
+			//scoped_ptr<MainContextImpl> context(new MainContextImpl(command_line, true));
+			auto mainContext = new MainContextImpl(command_line, true);
+			CefSettings settings;
+
+#if !defined(CEF_USE_SANDBOX)
+			settings.no_sandbox = true;
+#endif
+
+			// Populate the settings based on command line arguments.
+			mainContext->PopulateSettings(&settings);
+
+			// Create the main message loop object.
+			/*scoped_ptr<MainMessageLoop> message_loop;
+			if (settings.multi_threaded_message_loop)
+			  message_loop.reset(new MainMessageLoopMultithreadedWin);
+			else
+			  message_loop.reset(new MainMessageLoopStd);
+		  */
+		  // Initialize CEF.
+			mainContext->Initialize(main_args, settings, app, sandbox_info);
+
+			// Register scheme handlers.
+			test_runner::RegisterSchemeHandlers();
+
+			// Create the first window.
+			//context->GetRootWindowManager()->CreateRootWindow(
+			//    true,             // Show controls.
+			//    settings.windowless_rendering_enabled ? true : false,
+			//    CefRect(),        // Use default system size.
+			//    std::string());   // Use default URL.
+
+			//// Run the message loop. This will block until Quit() is called by the
+			//// RootWindowManager after all windows have been destroyed.
+			//int result = message_loop->Run();
+
+			//// Shut down CEF.
+			//context->Shutdown();
+
+			//// Release objects in reverse order of creation.
+			//message_loop.reset();
+			//context.reset();
+
+			//return result;
+			return mainContext;
+		}
+
+	}  // namespace init_main
 }  // namespace client
- 
+
 client::MainContextImpl* DllInitMain(HINSTANCE hInstance, CefRefPtr<CefApp> app)
-{	
-	return client::init_main::InitDllApp(hInstance,app);
+{
+	return client::init_main::InitDllApp(hInstance, app);
 }

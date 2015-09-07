@@ -68,11 +68,13 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="CefBridge\CefStartArgs.cs" />
+    <Compile Include="CefBridge\MessageHandler.cs" />
     <Compile Include="CefBridge\MyCefBrowser.cs" />
     <Compile Include="CefBridge\ClientApp.cs" />
     <Compile Include="CefBridge\CustomSchemeAgent.cs" />
     <Compile Include="CefBridge\NativeCallArgs.cs" />
-    <Compile Include="CefBridge\RenderDelegateSet.cs" />
+    <Compile Include="CefBridge\NativeCefObjects.cs" />
     <Compile Include="Form\Form1.cs">
       <SubType>Form</SubType>
     </Compile>

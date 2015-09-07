@@ -12,12 +12,12 @@ namespace CefBridgeTest
         /// The main entry point for the application.
         /// </summary>
         [STAThread]
-        static void Main()
+        static void Main(string[] args)
         {
      
 
             //load cef before OLE init (eg init winform)
-            if (!LayoutFarm.CefBridge.Cef3Binder.LoadCef3())
+            if (!LayoutFarm.CefBridge.Cef3Binder.LoadCef3(args))
             {
                 return;
             }
