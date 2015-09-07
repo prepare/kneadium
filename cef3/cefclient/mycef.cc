@@ -76,18 +76,94 @@ void MethodArgs::SetArgAsNativeObject(int argIndex, const void* nativeObject)
 	}break;
 	}
 }
+void MethodArgs::SetArgType(int argIndex, int type)
+{
+	switch (argIndex) {
+	case 0:
+		this->arg0.type = type;
+		break;
+	case 1:
+		this->arg1.type = type;
+		break;
+	case 2:
+		this->arg2.type = type;
+		break;
+	case 3:
+		this->arg3.type = type;
+		break;
+	case 4:
+		this->arg4.type = type;
+		break;
+	}
+}
+
 
 std::wstring MethodArgs::ReadOutputAsString(int resultIndex)
 {
 	switch (resultIndex) {
 	case 0:
 	{
-		if (this->arg0.type == JSVALUE_TYPE_STRING) {
-
-			std::wstring str1 = std::wstring(this->arg0.value.str2);
-			return str1;
-		} 
+		switch (this->result0.type)
+		{
+		case JSVALUE_TYPE_STRING:
+			//unicode string
+			return std::wstring(this->result0.value.str2);
+		case JSVALUE_TYPE_BUFFER:
+		{
+			std::string str1 = "";
+			str1.append((const char*) this->result0.value.byteBuffer, (size_t)result0.length);
+			CefString cefStr(str1);
+			return cefStr.c_str();
+		}
+		}
 	}break;
+	case 1:
+	{
+		switch (this->result1.type)
+		{
+		case JSVALUE_TYPE_STRING:
+			//unicode string
+			return std::wstring(this->result1.value.str2);
+		case JSVALUE_TYPE_BUFFER:
+		{
+			std::string str1 = "";
+			str1.append((const char*) this->result1.value.byteBuffer, (size_t)result1.length);
+			CefString cefStr(str1);
+			return cefStr.c_str();
+		}
+		}
+	}break;
+	case 2:
+	{
+		switch (this->result2.type)
+		{
+		case JSVALUE_TYPE_STRING:
+			//unicode string
+			return std::wstring(this->result2.value.str2);
+		case JSVALUE_TYPE_BUFFER:
+		{
+			std::string str1 = "";
+			str1.append((const char*) this->result2.value.byteBuffer, (size_t)result2.length);
+			CefString cefStr(str1);
+			return cefStr.c_str();
+		}
+		}
+	}break;
+
+
+
 	}
+	//default
 	return L"";
+}
+
+QueryRequestArgs::QueryRequestArgs() {
+
+
+	this->browser = nullptr;
+	this->frame = nullptr;
+	this->query_id = 0;
+	this->request = "";
+	this->persistent = false;
+	this->callback = nullptr;
 }

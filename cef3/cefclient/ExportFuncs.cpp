@@ -23,7 +23,7 @@
 client::MainContextImpl* mainContext;
 client::MainMessageLoop* message_loop;  //essential for mainloop checking 
 
-managed_callback myMxCallback_;
+managed_callback myMxCallback_ = NULL;
 
 //1.
 int MyCefGetVersion()
@@ -179,6 +179,61 @@ void MyCefDoMessageLoopWork()
 void MyCefShutDown() {
 	CefShutdown();
 }
+
+void MyCefDomGetTextWalk(MyBrowser* myBw, managed_callback strCallBack)
+{
+	//---------------------
+	class Visitor : public CefStringVisitor {
+	public:
+		managed_callback mcallback = NULL;
+		explicit Visitor(CefRefPtr<CefBrowser> browser) : browser_(browser) {}
+		virtual void Visit(const CefString& string) OVERRIDE {
+
+			MethodArgs metArgs;
+			memset(&metArgs, 0, sizeof(MethodArgs));
+			metArgs.SetArgAsNativeObject(0, &string);
+			metArgs.SetArgType(0, JSVALUE_TYPE_NATIVE_CEFSTRING);
+			this->mcallback(302, &metArgs);
+		}
+	private:
+		CefRefPtr<CefBrowser> browser_;
+		IMPLEMENT_REFCOUNTING(Visitor);
+	};
+
+	//---------------------
+	//delegate/lambda pattern
+	auto bw = myBw->bwWindow->GetBrowser();
+	auto bwVisitor = new Visitor(bw);
+	bwVisitor->mcallback = strCallBack;
+	bw->GetMainFrame()->GetText(bwVisitor);
+}
+void MyCefDomGetSourceWalk(MyBrowser* myBw, managed_callback strCallBack)
+{
+	//---------------------
+	class Visitor : public CefStringVisitor {
+	public:
+		managed_callback mcallback = NULL;
+		explicit Visitor(CefRefPtr<CefBrowser> browser) : browser_(browser) {}
+		virtual void Visit(const CefString& string) OVERRIDE {
+
+			MethodArgs metArgs;
+			memset(&metArgs, 0, sizeof(MethodArgs));
+			metArgs.SetArgAsNativeObject(0, &string);
+			metArgs.SetArgType(0, JSVALUE_TYPE_NATIVE_CEFSTRING);
+			this->mcallback(302, &metArgs);
+		}
+	private:
+		CefRefPtr<CefBrowser> browser_;
+		IMPLEMENT_REFCOUNTING(Visitor);
+	};
+
+	//---------------------
+	//delegate/lambda pattern
+	auto bw = myBw->bwWindow->GetBrowser();
+	auto bwVisitor = new Visitor(bw);
+	bwVisitor->mcallback = strCallBack;
+	bw->GetMainFrame()->GetSource(bwVisitor);
+}
 //--------------------------------------------------------------------------------------------------
 //part 2:
 //1. 
@@ -235,38 +290,105 @@ void MyCefMetArgs_SetResultAsString(MethodArgs* args, int argIndex, const wchar_
 	{
 	case 0: {
 
-		args->arg0.type = JSVALUE_TYPE_STRING;
-		args->arg0.length = len;
-		args->arg0.value.str2 = buffer;
+		args->result0.type = JSVALUE_TYPE_STRING;
+		args->result0.length = len;
+		args->result0.value.str2 = buffer;
 	}break;
 	case 1: {
 
-		args->arg1.type = JSVALUE_TYPE_STRING;
-		args->arg1.length = len;
-		args->arg1.value.str2 = buffer;
+		args->result1.type = JSVALUE_TYPE_STRING;
+		args->result1.length = len;
+		args->result1.value.str2 = buffer;
 	}break;
 	case 2: {
 
-		args->arg2.type = JSVALUE_TYPE_STRING;
-		args->arg2.length = len;
-		args->arg2.value.str2 = buffer;
+		args->result2.type = JSVALUE_TYPE_STRING;
+		args->result2.length = len;
+		args->result2.value.str2 = buffer;
 	}break;
 	case 3: {
 
-		args->arg3.type = JSVALUE_TYPE_STRING;
-		args->arg3.length = len;
-		args->arg3.value.str2 = buffer;
+		args->result3.type = JSVALUE_TYPE_STRING;
+		args->result3.length = len;
+		args->result3.value.str2 = buffer;
 	}break;
 	case 4: {
 
-		args->arg4.type = JSVALUE_TYPE_STRING;
-		args->arg4.length = len;
-		args->arg4.value.str2 = buffer;
+		args->result4.type = JSVALUE_TYPE_STRING;
+		args->result4.length = len;
+		args->result4.value.str2 = buffer;
+	}break;
+	}
+}
+//4.
+void MyCefMetArgs_SetResultAsByteBuffer(MethodArgs* args, int argIndex, const char* byteBuffer, int len) {
+
+	switch (argIndex)
+	{
+	case 0: {
+
+		args->result0.type = JSVALUE_TYPE_BUFFER;
+		args->result0.length = len;
+		args->result0.value.byteBuffer = byteBuffer;
+	}break;
+	case 1: {
+
+		args->result1.type = JSVALUE_TYPE_BUFFER;
+		args->result1.length = len;
+		args->result1.value.byteBuffer = byteBuffer;
+	}break;
+	case 2: {
+
+		args->result2.type = JSVALUE_TYPE_BUFFER;
+		args->result2.length = len;
+		args->result2.value.byteBuffer = byteBuffer;
+	}break;
+	case 3: {
+
+		args->result3.type = JSVALUE_TYPE_BUFFER;
+		args->result3.length = len;
+		args->result3.value.byteBuffer = byteBuffer;
+	}break;
+	case 4: {
+
+		args->result4.type = JSVALUE_TYPE_BUFFER;
+		args->result4.length = len;
+		args->result4.value.byteBuffer = byteBuffer;
+	}break;
+	}
+}
+void MyCefMetArgs_SetResultAsInt32(MethodArgs* args, int argIndex, int value)
+{
+	switch (argIndex)
+	{
+	case 0: {
+
+		args->result0.type = JSVALUE_TYPE_INTEGER;
+		args->result0.value.i32 = (int32_t)value;
+	}break;
+	case 1: {
+
+		args->result1.type = JSVALUE_TYPE_INTEGER;
+		args->result1.value.i32 = (int32_t)value;
+	}break;
+	case 2: {
+
+		args->result2.type = JSVALUE_TYPE_INTEGER;
+		args->result2.value.i32 = (int32_t)value;
+	}break;
+	case 3: {
+
+		args->result3.type = JSVALUE_TYPE_INTEGER;
+		args->result3.value.i32 = (int32_t)value;
+	}break;
+	case 4: {
+
+		args->result4.type = JSVALUE_TYPE_INTEGER;
+		args->result4.value.i32 = (int32_t)value;
 	}break;
 	}
 
 }
-
 
 //---------------------------------------------------------------------------
 //part3:
@@ -423,3 +545,19 @@ MY_DLL_EXPORT CefV8Value* MyCefJs_CreateFunction(const wchar_t* name, CefV8Handl
 	cefFunc->AddRef();
 	return cefFunc.get();
 }
+
+MY_DLL_EXPORT void MyCefFrame_GetUrl(CefFrame* frame, wchar_t* outputBuffer, int outputBufferLen, int* actualLength)
+{
+	CefString str = frame->GetURL();
+	int str_len = (int)str.length();
+	*actualLength = str_len;
+	wcscpy_s(outputBuffer, outputBufferLen, str.c_str());
+}
+
+MY_DLL_EXPORT void MyCefString_Read(CefString* cefStr, wchar_t* outputBuffer, int outputBufferLen, int* actualLength)
+{
+	int str_len = (int)cefStr->length();
+	*actualLength = str_len;
+	wcscpy_s(outputBuffer, outputBufferLen, cefStr->c_str());
+}
+

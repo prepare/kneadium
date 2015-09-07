@@ -8,6 +8,7 @@
 
 #include <set>
 #include <string>
+#include <sstream>
 
 #include "include/cef_client.h"
 #include "include/wrapper/cef_helpers.h"
@@ -15,6 +16,24 @@
 #include "include/wrapper/cef_resource_manager.h"
 #include "cefclient/browser/client_types.h"
 
+
+
+#include "include/base/cef_bind.h"
+//#include "include/cef_parser.h"
+//#include "include/cef_task.h"
+//#include "include/cef_trace.h"
+//#include "include/cef_web_plugin.h"
+//#include "include/wrapper/cef_closure_task.h"
+//#include "include/wrapper/cef_stream_resource_handler.h"
+//#include "cefclient/browser/binding_test.h"
+//#include "cefclient/browser/dialog_test.h"
+//#include "cefclient/browser/main_context.h"
+#include "cefclient/browser/resource.h"
+#include "cefclient/browser/resource_util.h"
+//#include "cefclient/browser/root_window_manager.h"
+//#include "cefclient/browser/scheme_test.h"
+//#include "cefclient/browser/urlrequest_test.h"
+//#include "cefclient/browser/window_test.h"
 
 //my extension
 #include "cefclient/mycef.h"
@@ -264,8 +283,7 @@ namespace client {
 		// Returns true if this handler uses off-screen rendering.
 		bool is_osr() const { return is_osr_; }
 
-		//my extension
-		managed_callback mcallback_;//my extension
+	
 		//my extension
 		void MyCefSetManagedCallBack(managed_callback m);
 
@@ -353,19 +371,24 @@ namespace client {
 
 		// Set of Handlers registered with the message router.
 		MessageHandlerSet message_handler_set_;
+		
+		//my extension
+		managed_callback mcallback_;//my extension
 
+		std::string RequestUrlFilter(const std::string& url);
 		DISALLOW_COPY_AND_ASSIGN(ClientHandler);
 	};
-	 
+
 
 	//----------
 
 	// Handle messages in the browser process.
+	// via cefQuery
 	class MyCefJsHandler : public CefMessageRouterBrowserSide::Handler {
 	public:
 
 		managed_callback mcallback_;//my extension
-		MyCefJsHandler() {} 
+		MyCefJsHandler() {}
 
 		virtual bool OnQuery(CefRefPtr<CefBrowser> browser,
 			CefRefPtr<CefFrame> frame,
@@ -375,21 +398,26 @@ namespace client {
 			CefRefPtr<Callback> callback) OVERRIDE {
 			CEF_REQUIRE_UI_THREAD();
 
-		 
+
 			//const std::string& request_str = request;
 			if (this->mcallback_)
 			{
-				MethodArgs args; 
-				memset(&args, 0, sizeof(MethodArgs)); 
-				auto str16 = request.ToString16();
-				auto cstr = str16.c_str();
-				args.SetArgAsString(0, cstr); 
-				this->mcallback_(201, &args);
-				/*if (args.result1.type == JSVALUE_TYPE_BOOLEAN)
-				{ 
-				}*/
+
+				QueryRequestArgs queryReq;
+				memset(&queryReq, 0, sizeof(QueryRequestArgs));
+				queryReq.browser = browser.get();
+				queryReq.frame = frame.get();
+				queryReq.query_id = query_id;
+				queryReq.request = request;
+				queryReq.persistent = persistent;
+				queryReq.callback = callback.get();
+
+				MethodArgs args;
+				memset(&args, 0, sizeof(MethodArgs));
+				args.SetArgAsNativeObject(0, &queryReq); 
+				this->mcallback_(205, &args); 
 				return true;
-			}  
+			}
 			return false;
 		}//OnQuery
 	}; //class MyCefJsHandler

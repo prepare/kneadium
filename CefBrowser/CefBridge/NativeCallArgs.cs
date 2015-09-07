@@ -7,40 +7,86 @@ using System.IO;
 
 namespace LayoutFarm.CefBridge
 {
+
+    [StructLayout(LayoutKind.Sequential)]
+    class QueryRequestArgs
+    {
+        //see class  QueryRequestArgs in mycef.h
+
+        IntPtr _browser_ptr;
+        IntPtr _frame_ptr;
+        long _query_id;
+        IntPtr _request;
+        bool _presistent;
+
+        internal static QueryRequestArgs CreateRequest(IntPtr nativeIntPtr)
+        {
+            var req = new QueryRequestArgs();
+            Marshal.PtrToStructure(nativeIntPtr, req);
+            return req;
+        }
+
+        public string GetFrameUrl()
+        {
+            var fr = new NativeFrame(_frame_ptr);
+            return fr.GetUrl();
+        }
+
+
+    }
+
+
     struct NativeCallArgs
     {
-        IntPtr argPtr;
+        IntPtr _argPtr;
 
         public NativeCallArgs(IntPtr argPtr)
         {
-            this.argPtr = argPtr;
+            _argPtr = argPtr;
         }
+
+        const int BUFF_LEN = 512;
         public string GetArgAsString(int index)
         {
-            var v = Cef3Binder.MyCefNativeMetGetArgs(argPtr, index);
-            return Marshal.PtrToStringUni(v.Ptr);
+            JsValue v = Cef3Binder.MyCefNativeMetGetArgs(_argPtr, index);
+            if ((int)v.Type == 30)
+            {
+                //native cef
+
+                var charBuff = new char[BUFF_LEN];
+                int acutalLen = 0;
+                unsafe
+                {
+                    fixed (char* buffHead = &charBuff[0])
+                    {
+
+                        Cef3Binder.MyCefString_Read(v.Ptr, buffHead, BUFF_LEN, ref acutalLen);
+                        if (acutalLen > BUFF_LEN)
+                        {
+                            //read more
+                        }
+                        return new string(buffHead, 0, acutalLen);
+                    }
+                }
+            }
+            else
+            {
+                return Marshal.PtrToStringUni(v.Ptr);
+            }
         }
         public IntPtr GetArgAsNativePtr(int index)
         {
-            var v = Cef3Binder.MyCefNativeMetGetArgs(argPtr, index);
+            JsValue v = Cef3Binder.MyCefNativeMetGetArgs(_argPtr, index);
             return v.Ptr;
+
         }
         public void SetOutput(int index, string str)
         {
-            //interchange with utf16
-            //byte[] buffer = Encoding.Unicode.GetBytes(str.ToCharArray());
-            //unsafe
-            //{
-            //    fixed (byte* b = &buffer[0])
-            //    {
-            //        Cef3Binder.MyCefCbArgs_SetResultAsBuffer(this.argPtr,
-            //            index,
-            //            b,
-            //            buffer.Length);
-            //    }
-            //}
-            Cef3Binder.MyCefMetArgs_SetResultAsString(this.argPtr, index, str, str.Length);
-
+            Cef3Binder.MyCefMetArgs_SetResultAsString(this._argPtr, index, str, str.Length);
+        }
+        public void SetOutput(int index, int value)
+        {
+            Cef3Binder.MyCefMetArgs_SetResultAsInt32(this._argPtr, index, value);
         }
         public void SetOutput(int index, byte[] buffer)
         {
@@ -49,18 +95,29 @@ namespace LayoutFarm.CefBridge
             {
                 fixed (byte* b = &buffer[0])
                 {
-                    Cef3Binder.MyCefCbArgs_SetResultAsBuffer(this.argPtr,
+                    Cef3Binder.MyCefMetArgs_SetResultAsByteBuffer(this._argPtr,
                         index,
-                        b,
+                        new IntPtr(b),
                         buffer.Length);
                 }
             }
         }
+        public void SetOutputAsAsciiString(int index, string str)
+        {
+            SetOutput(index, Encoding.ASCII.GetBytes(str.ToCharArray()));
+        }
+        public unsafe void UnsafeSetOutput(int index, IntPtr unmangedMemPtr, int len)
+        {
 
+            Cef3Binder.MyCefMetArgs_SetResultAsByteBuffer(this._argPtr,
+                index,
+                unmangedMemPtr,
+                len);
+        }
 
         public void Dispose()
         {
-            Cef3Binder.MyCefDisposePtr(this.argPtr);
+            Cef3Binder.MyCefDisposePtr(this._argPtr);
         }
     }
     struct NativeCallArgs2
@@ -83,24 +140,4 @@ namespace LayoutFarm.CefBridge
         }
     }
 
-
-    //[StructLayout(LayoutKind.Sequential)]
-    //struct NativeMethodCallArgs
-    //{
-
-    //    public int method_id;
-    //    public JsValue arg1;
-    //    public JsValue arg2;
-    //    public JsValue arg3;
-    //    public JsValue arg4;
-
-    //    public JsValue result0;
-    //    public JsValue result1;
-    //    public JsValue result2;
-    //    public JsValue result3;
-    //    public JsValue result4;
-    //    public int resultKind;
-    //    public int argCount;
-    //    public int resultCount;
-    //}
 }

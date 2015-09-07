@@ -99,18 +99,55 @@ namespace LayoutFarm.CefBridge
 
     class NativeBrowser : Cef3RefCountingValue
     {
-
         public NativeBrowser(IntPtr ptr) : base(ptr)
         {
 
         }
 
+
+    }
+    class NativeFrame : Cef3RefCountingValue
+    {
+        public NativeFrame(IntPtr ptr) : base(ptr)
+        {
+
+        }
+        public string GetUrl()
+        {
+
+            unsafe
+            {
+                char[] buffer = new char[255];
+                int actualLength = 0;
+                fixed (char* buffer_head = &buffer[0])
+                {
+                    Cef3Binder.MyCefFrame_GetUrl(Ptr, buffer_head, 255, ref actualLength);
+                    return new string(buffer_head);
+                }
+            }
+        }
     }
     class NativeRendererApp : Cef3RefCountingValue
-    {   
+    {
         public NativeRendererApp(IntPtr ptr) : base(ptr)
         {
 
         }
+    }
+    class NativeResourceMx : Cef3RefCountingValue
+    {
+        public NativeResourceMx(IntPtr ptr) : base(ptr)
+        {
+
+        }
+        public void AddResourceProvider(ResourceProvider resProvider)
+        {
+
+
+        }
+    }
+    class ResourceProvider
+    {
+
     }
 }
