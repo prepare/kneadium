@@ -27,6 +27,12 @@
 
 #include <string>
 
+#include "include/cef_client.h"
+#include "include/wrapper/cef_helpers.h"
+#include "include/wrapper/cef_message_router.h"
+#include "include/wrapper/cef_resource_manager.h"
+#include "cefclient/browser/client_types.h"
+
 #pragma once
 #if defined(_WIN32) && !defined(__MINGW32__)
 
@@ -58,7 +64,7 @@ typedef unsigned __int64 uint64_t;
 #define JSVALUE_TYPE_BOOLEAN         2
 #define JSVALUE_TYPE_INTEGER         3
 #define JSVALUE_TYPE_NUMBER          4
-#define JSVALUE_TYPE_STRING          5
+#define JSVALUE_TYPE_STRING          5 //unicode string
 #define JSVALUE_TYPE_DATE            6
 #define JSVALUE_TYPE_INDEX           7
 #define JSVALUE_TYPE_ARRAY          10
@@ -72,56 +78,61 @@ typedef unsigned __int64 uint64_t;
 
 #define JSVALUE_TYPE_JSTYPEDEF      18 //my extension
 #define JSVALUE_TYPE_INTEGER64      19 //my extension
- 
+#define JSVALUE_TYPE_BUFFER         20 //my extension
+
+#define JSVALUE_TYPE_NATIVE_CEFSTRING 30  //my extension
 
 
-extern "C"{
+extern "C" {
 
 
-struct jsvalue
-{	
-	   //-------------
-	   //from vroomjs
-	   //-------------
+	struct jsvalue
+	{
+		//-------------
+		//from vroomjs
+		//-------------
 
-       // 8 bytes is the maximum CLR alignment; by putting the union first and a
-       // int64_t inside it we make (almost) sure the offset of 'type' will always
-       // be 8 and the total size 16. We add a check to JsContext_new anyway. 
-       union 
-       {
-            int32_t     i32;
-            int64_t     i64;
-            double      num;
-            void       *ptr;
-            uint16_t   *str;  
-            jsvalue    *arr;
-       } value;
-        
-       int32_t         type;
-       int32_t         length; // Also used as slot index on the CLR side.
-};
- 
+		// 8 bytes is the maximum CLR alignment; by putting the union first and a
+		// int64_t inside it we make (almost) sure the offset of 'type' will always
+		// be 8 and the total size 16. We add a check to JsContext_new anyway. 
+		union
+		{
+			int32_t     i32;
+			int64_t     i64;
+			double      num;
+			const void    *ptr;
+			const char    *byteBuffer;
+			const uint16_t *str;
+			const wchar_t *str2;
+			const jsvalue  *arr;
+		} value;
+
+		int32_t         type;
+		int32_t         length; // Also used as slot index on the CLR side.
+	};
+
 }
 
 jsvalue ConvToJsValue(std::wstring str);
 
+
 class MethodArgs
 {
 public:
-	 
+
 	int method_id;
-	 
+
 	struct jsvalue arg0;//this arg for instant method
 	struct jsvalue arg1;
 	struct jsvalue arg2;
 	struct jsvalue arg3;
 	struct jsvalue arg4;
 
-    struct jsvalue result0;//this arg for instant method
+	struct jsvalue result0;//this arg for instant method
 	struct jsvalue result1;
 	struct jsvalue result2;
-	struct jsvalue result3; 
-	struct jsvalue result4; 
+	struct jsvalue result3;
+	struct jsvalue result4;
 
 	//void* outputBuffer;	 
 	//int outputLen;
@@ -129,10 +140,33 @@ public:
 
 	int argCount;
 	int resultCount;
-	
-	void SetArgAsString(int argIndex, const wchar_t* str);
 
-	void SetOutputString(int resultIndex, const void* dataBuffer,int len);  
+	void SetArgAsString(int argIndex, const wchar_t* str);
+	void SetArgAsNativeObject(int argIndex, const void* nativeObject);
+	void SetOutputString(int resultIndex, const void* dataBuffer, int len);
+	void SetArgType(int argIndex, int type);
+
+	//----------------------------------------------------------------------
+	std::wstring ReadOutputAsString(int resultIndex);
+
 };
- 
-typedef void (__stdcall *managed_callback)(int id, void* args);   
+
+class QueryRequestArgs
+{
+
+public:
+
+	CefBrowser* browser;
+	CefFrame* frame;
+	int64 query_id;
+	CefString request;
+	bool persistent;
+	CefMessageRouterBrowserSide::Callback* callback;
+	QueryRequestArgs();
+
+};
+
+
+
+//typedef void (__stdcall *managed_callback)(int id, void* args);   
+typedef void(__cdecl *managed_callback)(int id, void* args);
