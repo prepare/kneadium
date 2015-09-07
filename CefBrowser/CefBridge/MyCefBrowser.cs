@@ -211,8 +211,7 @@ namespace LayoutFarm.CefBridge
 
         void HandleCefQueryRequest(QueryRequestArgs reqArgs)
         {
-            //this is in a browser process
-            //eg.
+            //filter url  before get actual resource
             string frameUrl = reqArgs.GetFrameUrl();
 
         }
@@ -236,78 +235,98 @@ namespace LayoutFarm.CefBridge
             Cef3Binder.MyCefBwPostData(this.myCefBrowser, url, data, len);
         }
 
-        public void GetText(MyCefCallback strCallback)
-        {
-            ////keep alive callback
-            //keepAliveCallBack.Add(strCallback);
-            //Cef3Binder.DomGetTextWalk(this.myCefBrowser, strCallback);
-        }
 
-        public void GetSource(MyCefCallback strCallback)
-        {
-            ////keep alive callback
-            //keepAliveCallBack.Add(strCallback);
-            //Cef3Binder.DomGetSourceWalk(this.myCefBrowser, strCallback);
-
-        }
 
         List<MyCefCallback> keepAliveCallBack = new List<MyCefCallback>();
-
-        void OnUnmanagedPartCallBack(int id, IntPtr callBackArgs)
+        public void GetText(Action<string> strCallback)
         {
-
-            switch ((MethodName)id)
+            //keep alive callback
+            InternalGetText((id, nativePtr) =>
             {
-                case MethodName.MET_GetResourceHandler:
-                    {
-                        GetResourceHandler(new ResourceRequestArg(
-                            new NativeCallArgs(callBackArgs)));
-                    }
-                    break;
-                case MethodName.MET_TCALLBACK:
-                    {
-                        //Console.WriteLine("TCALLBACK");
-                    }
-                    break;
-            }
+                var args = new NativeCallArgs(nativePtr);
+                string str = args.GetArgAsString(0);
+                strCallback(str);
+            });
+            //Cef3Binder.MyCefDomGetTextWalk(this.myCefBrowser, strCallback);
         }
-        protected virtual void GetResourceHandler(ResourceRequestArg req)
+        public void GetSource(Action<string> strCallback)
         {
-            //sample here
-            string requestURL = req.RequestUrl;
-            //test change content here 
-            if (requestURL.StartsWith("http://www.google.com"))
+            //keep alive callback
+            InternalGetSource((id, nativePtr) =>
             {
-                req.SetResponseData("text/html", @"<http><body>Hello!</body></http>");
-            }
+
+
+            });
+            //Cef3Binder.MyCefDomGetSourceWalk(this.myCefBrowser, strCallback);
+        }
+        void InternalGetSource(MyCefCallback strCallback)
+        {
+            //keep alive callback
+            keepAliveCallBack.Add(strCallback);
+            Cef3Binder.MyCefDomGetSourceWalk(this.myCefBrowser, strCallback);
+        }
+        void InternalGetText(MyCefCallback strCallback)
+        {
+            //keep alive callback
+            keepAliveCallBack.Add(strCallback);
+            Cef3Binder.MyCefDomGetTextWalk(this.myCefBrowser, strCallback);
         }
 
-        public class ResourceRequestArg
-        {
-            NativeCallArgs nativeArgs;
-            internal ResourceRequestArg(NativeCallArgs nativeArgs)
-            {
-                this.nativeArgs = nativeArgs;
-            }
-            public string RequestUrl
-            {
-                get
-                {
-                    return this.nativeArgs.GetArgAsString(0);
-                }
-            }
-            public void SetResponseData(string mime, string str)
-            {
-                nativeArgs.SetOutput(0, mime);
-                var utf8Buffer = Encoding.UTF8.GetBytes(str.ToCharArray());
-                nativeArgs.SetOutput(1, utf8Buffer);
-            }
-            public void SetResponseData(string mime, byte[] dataBuffer)
-            {
-                nativeArgs.SetOutput(0, mime);
-                nativeArgs.SetOutput(1, dataBuffer);
-            }
-        }
+        //void OnUnmanagedPartCallBack(int id, IntPtr callBackArgs)
+        //{
+
+        //    switch ((MethodName)id)
+        //    {
+        //        case MethodName.MET_GetResourceHandler:
+        //            {
+        //                GetResourceHandler(new ResourceRequestArg(
+        //                    new NativeCallArgs(callBackArgs)));
+        //            }
+        //            break;
+        //        case MethodName.MET_TCALLBACK:
+        //            {
+        //                //Console.WriteLine("TCALLBACK");
+        //            }
+        //            break;
+        //    }
+        //}
+        //protected virtual void GetResourceHandler(ResourceRequestArg req)
+        //{
+        //    //sample here
+        //    string requestURL = req.RequestUrl;
+        //    //test change content here 
+        //    if (requestURL.StartsWith("http://www.google.com"))
+        //    {
+        //        req.SetResponseData("text/html", @"<http><body>Hello!</body></http>");
+        //    }
+        //}
+
+        //public class ResourceRequestArg
+        //{
+        //    NativeCallArgs nativeArgs;
+        //    internal ResourceRequestArg(NativeCallArgs nativeArgs)
+        //    {
+        //        this.nativeArgs = nativeArgs;
+        //    }
+        //    public string RequestUrl
+        //    {
+        //        get
+        //        {
+        //            return this.nativeArgs.GetArgAsString(0);
+        //        }
+        //    }
+        //    public void SetResponseData(string mime, string str)
+        //    {
+        //        nativeArgs.SetOutput(0, mime);
+        //        var utf8Buffer = Encoding.UTF8.GetBytes(str.ToCharArray());
+        //        nativeArgs.SetOutput(1, utf8Buffer);
+        //    }
+        //    public void SetResponseData(string mime, byte[] dataBuffer)
+        //    {
+        //        nativeArgs.SetOutput(0, mime);
+        //        nativeArgs.SetOutput(1, dataBuffer);
+        //    }
+        //}
 
         public void Stop()
         {

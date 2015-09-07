@@ -32,13 +32,11 @@ extern "C" {
 	MY_DLL_EXPORT MyBrowser* MyCefCreateMyWebBrowser(managed_callback callback);
 	//5.
 	MY_DLL_EXPORT int MyCefSetupBrowserHwnd(MyBrowser* myBw, HWND surfaceHwnd, int x, int y, int w, int h, const wchar_t* url);
-
 	//6.
 	MY_DLL_EXPORT void MyCefDoMessageLoopWork();
-
 	//7.
 	MY_DLL_EXPORT void MyCefShutDown();
-
+	MY_DLL_EXPORT void MyCefDomGetTextWalk(MyBrowser* myBw, managed_callback strCallBack);
 
 	//part 2
 	//1.	 
@@ -52,7 +50,7 @@ extern "C" {
 	MY_DLL_EXPORT void MyCefMetArgs_SetResultAsString(MethodArgs* args, int argIndex, const wchar_t* buffer, int len);
 
 	MY_DLL_EXPORT void MyCefMetArgs_SetResultAsInt32(MethodArgs* args, int argIndex, int value);
-	MY_DLL_EXPORT void MyCefMetArgs_SetResultAsByteBuffer(MethodArgs* args, int argIndex,const char* byteBuffer, int len);
+	MY_DLL_EXPORT void MyCefMetArgs_SetResultAsByteBuffer(MethodArgs* args, int argIndex, const char* byteBuffer, int len);
 
 	//part3:
 	//--------------------
@@ -82,4 +80,9 @@ extern "C" {
 
 
 	MY_DLL_EXPORT void MyCefFrame_GetUrl(CefFrame* frame, wchar_t* outputBuffer, int outputBufferLen, int* actualLength);
+	MY_DLL_EXPORT void MyCefString_Read(CefString* cefStr, wchar_t* outputBuffer, int outputBufferLen, int* actualLength);
+
+
+	
+
 }

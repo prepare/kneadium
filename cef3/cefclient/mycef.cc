@@ -76,6 +76,27 @@ void MethodArgs::SetArgAsNativeObject(int argIndex, const void* nativeObject)
 	}break;
 	}
 }
+void MethodArgs::SetArgType(int argIndex, int type)
+{
+	switch (argIndex) {
+	case 0:
+		this->arg0.type = type;
+		break;
+	case 1:
+		this->arg1.type = type;
+		break;
+	case 2:
+		this->arg2.type = type;
+		break;
+	case 3:
+		this->arg3.type = type;
+		break;
+	case 4:
+		this->arg4.type = type;
+		break;
+	}
+}
+
 
 std::wstring MethodArgs::ReadOutputAsString(int resultIndex)
 {

@@ -78,7 +78,9 @@ typedef unsigned __int64 uint64_t;
 
 #define JSVALUE_TYPE_JSTYPEDEF      18 //my extension
 #define JSVALUE_TYPE_INTEGER64      19 //my extension
-#define JSVALUE_TYPE_BUFFER  20 //my extension
+#define JSVALUE_TYPE_BUFFER         20 //my extension
+
+#define JSVALUE_TYPE_NATIVE_CEFSTRING 30  //my extension
 
 
 extern "C" {
@@ -142,6 +144,7 @@ public:
 	void SetArgAsString(int argIndex, const wchar_t* str);
 	void SetArgAsNativeObject(int argIndex, const void* nativeObject);
 	void SetOutputString(int resultIndex, const void* dataBuffer, int len);
+	void SetArgType(int argIndex, int type);
 
 	//----------------------------------------------------------------------
 	std::wstring ReadOutputAsString(int resultIndex);

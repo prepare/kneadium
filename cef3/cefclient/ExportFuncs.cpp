@@ -23,7 +23,7 @@
 client::MainContextImpl* mainContext;
 client::MainMessageLoop* message_loop;  //essential for mainloop checking 
 
-managed_callback myMxCallback_;
+managed_callback myMxCallback_ = NULL;
 
 //1.
 int MyCefGetVersion()
@@ -178,6 +178,34 @@ void MyCefDoMessageLoopWork()
 //7.
 void MyCefShutDown() {
 	CefShutdown();
+}
+
+void MyCefDomGetTextWalk(MyBrowser* myBw, managed_callback strCallBack)
+{
+	//---------------------
+	class Visitor : public CefStringVisitor {
+	public:
+		managed_callback mcallback = NULL;
+		explicit Visitor(CefRefPtr<CefBrowser> browser) : browser_(browser) {}
+		virtual void Visit(const CefString& string) OVERRIDE {
+
+			MethodArgs metArgs;
+			memset(&metArgs, 0, sizeof(MethodArgs));
+			metArgs.SetArgAsNativeObject(0, &string);
+			metArgs.SetArgType(0, JSVALUE_TYPE_NATIVE_CEFSTRING);
+			this->mcallback(302, &metArgs);
+		}
+	private:
+		CefRefPtr<CefBrowser> browser_;
+		IMPLEMENT_REFCOUNTING(Visitor);
+	};
+
+	//---------------------
+	//delegate/lambda pattern
+	auto bw = myBw->bwWindow->GetBrowser();
+	auto bwVisitor = new Visitor(bw);
+	bwVisitor->mcallback = strCallBack;
+	bw->GetMainFrame()->GetSource(bwVisitor);
 }
 //--------------------------------------------------------------------------------------------------
 //part 2:
@@ -493,10 +521,16 @@ MY_DLL_EXPORT CefV8Value* MyCefJs_CreateFunction(const wchar_t* name, CefV8Handl
 
 MY_DLL_EXPORT void MyCefFrame_GetUrl(CefFrame* frame, wchar_t* outputBuffer, int outputBufferLen, int* actualLength)
 {
-
 	CefString str = frame->GetURL();
 	int str_len = (int)str.length();
 	*actualLength = str_len;
 	wcscpy_s(outputBuffer, outputBufferLen, str.c_str());
-
 }
+
+MY_DLL_EXPORT void MyCefString_Read(CefString* cefStr, wchar_t* outputBuffer, int outputBufferLen, int* actualLength)
+{
+	int str_len = (int)cefStr->length();
+	*actualLength = str_len; 
+	wcscpy_s(outputBuffer, outputBufferLen, cefStr->c_str());
+}
+

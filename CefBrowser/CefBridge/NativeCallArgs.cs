@@ -42,17 +42,43 @@ namespace LayoutFarm.CefBridge
 
         public NativeCallArgs(IntPtr argPtr)
         {
-            this._argPtr = argPtr;
+            _argPtr = argPtr;
         }
+
+        const int BUFF_LEN = 512;
         public string GetArgAsString(int index)
         {
-            var v = Cef3Binder.MyCefNativeMetGetArgs(_argPtr, index);
-            return Marshal.PtrToStringUni(v.Ptr);
+            JsValue v = Cef3Binder.MyCefNativeMetGetArgs(_argPtr, index);
+            if ((int)v.Type == 30)
+            {
+                //native cef
+
+                var charBuff = new char[BUFF_LEN];
+                int acutalLen = 0;
+                unsafe
+                {
+                    fixed (char* buffHead = &charBuff[0])
+                    {
+
+                        Cef3Binder.MyCefString_Read(v.Ptr, buffHead, BUFF_LEN, ref acutalLen);
+                        if (acutalLen > BUFF_LEN)
+                        {
+                            //read more
+                        }
+                        return new string(buffHead, 0, acutalLen);
+                    }
+                }
+            }
+            else
+            {
+                return Marshal.PtrToStringUni(v.Ptr);
+            }
         }
         public IntPtr GetArgAsNativePtr(int index)
         {
-            var v = Cef3Binder.MyCefNativeMetGetArgs(_argPtr, index);
+            JsValue v = Cef3Binder.MyCefNativeMetGetArgs(_argPtr, index);
             return v.Ptr;
+
         }
         public void SetOutput(int index, string str)
         {
@@ -88,7 +114,7 @@ namespace LayoutFarm.CefBridge
                 unmangedMemPtr,
                 len);
         }
-       
+
         public void Dispose()
         {
             Cef3Binder.MyCefDisposePtr(this._argPtr);
@@ -114,24 +140,4 @@ namespace LayoutFarm.CefBridge
         }
     }
 
-
-    //[StructLayout(LayoutKind.Sequential)]
-    //struct NativeMethodCallArgs
-    //{
-
-    //    public int method_id;
-    //    public JsValue arg1;
-    //    public JsValue arg2;
-    //    public JsValue arg3;
-    //    public JsValue arg4;
-
-    //    public JsValue result0;
-    //    public JsValue result1;
-    //    public JsValue result2;
-    //    public JsValue result3;
-    //    public JsValue result4;
-    //    public int resultKind;
-    //    public int argCount;
-    //    public int resultCount;
-    //}
 }

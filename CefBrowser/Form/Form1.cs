@@ -85,7 +85,7 @@ namespace CefBridgeTest
 
         protected override void OnLoad(EventArgs e)
         {
-//            tt.Enabled = true;
+            //            tt.Enabled = true;
             base.OnLoad(e);
 
         }
@@ -132,7 +132,7 @@ namespace CefBridgeTest
         {
 
             cefWebBrowser1.Agent.GetText(
-                (id, str) =>
+                str =>
                 {
                     Console.WriteLine(str);
                 });
@@ -142,7 +142,7 @@ namespace CefBridgeTest
         private void button4_Click(object sender, EventArgs e)
         {
             cefWebBrowser1.Agent.GetSource(
-                (id, str) =>
+                str =>
                 {
                     Console.WriteLine(str);
                 });
