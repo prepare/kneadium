@@ -37,7 +37,7 @@ extern "C" {
 	//7.
 	MY_DLL_EXPORT void MyCefShutDown();
 	MY_DLL_EXPORT void MyCefDomGetTextWalk(MyBrowser* myBw, managed_callback strCallBack);
-
+	MY_DLL_EXPORT void MyCefDomGetSourceWalk(MyBrowser* myBw, managed_callback strCallBack);
 	//part 2
 	//1.	 
 	MY_DLL_EXPORT jsvalue MyCefNativeMetGetArgs(MethodArgs* args, int argIndex);

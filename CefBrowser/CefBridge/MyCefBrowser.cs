@@ -244,8 +244,8 @@ namespace LayoutFarm.CefBridge
             InternalGetText((id, nativePtr) =>
             {
                 var args = new NativeCallArgs(nativePtr);
-                string str = args.GetArgAsString(0);
-                strCallback(str);
+                strCallback(args.GetArgAsString(0));
+
             });
             //Cef3Binder.MyCefDomGetTextWalk(this.myCefBrowser, strCallback);
         }
@@ -254,10 +254,10 @@ namespace LayoutFarm.CefBridge
             //keep alive callback
             InternalGetSource((id, nativePtr) =>
             {
-
-
+                var args = new NativeCallArgs(nativePtr);
+                strCallback(args.GetArgAsString(0));
             });
-            //Cef3Binder.MyCefDomGetSourceWalk(this.myCefBrowser, strCallback);
+
         }
         void InternalGetSource(MyCefCallback strCallback)
         {

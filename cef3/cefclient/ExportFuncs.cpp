@@ -205,6 +205,33 @@ void MyCefDomGetTextWalk(MyBrowser* myBw, managed_callback strCallBack)
 	auto bw = myBw->bwWindow->GetBrowser();
 	auto bwVisitor = new Visitor(bw);
 	bwVisitor->mcallback = strCallBack;
+	bw->GetMainFrame()->GetText(bwVisitor);
+}
+void MyCefDomGetSourceWalk(MyBrowser* myBw, managed_callback strCallBack)
+{
+	//---------------------
+	class Visitor : public CefStringVisitor {
+	public:
+		managed_callback mcallback = NULL;
+		explicit Visitor(CefRefPtr<CefBrowser> browser) : browser_(browser) {}
+		virtual void Visit(const CefString& string) OVERRIDE {
+
+			MethodArgs metArgs;
+			memset(&metArgs, 0, sizeof(MethodArgs));
+			metArgs.SetArgAsNativeObject(0, &string);
+			metArgs.SetArgType(0, JSVALUE_TYPE_NATIVE_CEFSTRING);
+			this->mcallback(302, &metArgs);
+		}
+	private:
+		CefRefPtr<CefBrowser> browser_;
+		IMPLEMENT_REFCOUNTING(Visitor);
+	};
+
+	//---------------------
+	//delegate/lambda pattern
+	auto bw = myBw->bwWindow->GetBrowser();
+	auto bwVisitor = new Visitor(bw);
+	bwVisitor->mcallback = strCallBack;
 	bw->GetMainFrame()->GetSource(bwVisitor);
 }
 //--------------------------------------------------------------------------------------------------
@@ -530,7 +557,7 @@ MY_DLL_EXPORT void MyCefFrame_GetUrl(CefFrame* frame, wchar_t* outputBuffer, int
 MY_DLL_EXPORT void MyCefString_Read(CefString* cefStr, wchar_t* outputBuffer, int outputBufferLen, int* actualLength)
 {
 	int str_len = (int)cefStr->length();
-	*actualLength = str_len; 
+	*actualLength = str_len;
 	wcscpy_s(outputBuffer, outputBufferLen, cefStr->c_str());
 }
 
