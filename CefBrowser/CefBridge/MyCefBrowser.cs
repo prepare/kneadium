@@ -182,7 +182,7 @@ namespace LayoutFarm.CefBridge
                         //request for binary resource
                         var args = new NativeCallArgs(argsPtr);
                         string url = args.GetArgAsString(0);
-                        if (url == "http://localhost/hello_img")
+                        if (url == "http://localhost/hello_img" && File.Exists("prepare.jpg"))
                         {
                             //load sample image and the send to client
                             byte[] img = File.ReadAllBytes("prepare.jpg");
