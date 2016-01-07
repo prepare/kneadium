@@ -147,8 +147,10 @@ namespace client {
 			// Create the main context object.
 			//scoped_ptr<MainContextImpl> context(new MainContextImpl(command_line, true));
 			auto mainContext = new MainContextImpl(command_line, true);
+			//setting 
 			CefSettings settings;
-
+			settings.log_severity = (cef_log_severity_t)99;//disable log
+            //-------------------------------------------------------------------------------------
 #if !defined(CEF_USE_SANDBOX)
 			settings.no_sandbox = true;
 #endif
