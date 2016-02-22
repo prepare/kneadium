@@ -706,6 +706,34 @@ namespace client {
 
 
 
+		
+		void SetupResourceManager(CefRefPtr<CefResourceManager> resource_manager) {
+			const std::string& test_origin = kTestOrigin;
+
+			// Add the URL filter.
+			resource_manager->SetUrlFilter(base::Bind(RequestUrlFilter));
+
+			// Add provider for resource dumps.
+			resource_manager->AddProvider(
+				new RequestDumpResourceProvider(test_origin + "request.html"),
+				0, std::string());
+
+			// Add provider for bundled resource files.
+#if defined(OS_WIN)
+  // Read resources from the binary.
+			resource_manager->AddProvider(CreateBinaryResourceProvider(test_origin),
+				100, std::string());
+#elif defined(OS_POSIX)
+  // Read resources from a directory on disk.
+			std::string resource_dir;
+			if (GetResourceDir(resource_dir)) {
+				resource_manager->AddDirectoryProvider(test_origin, resource_dir,
+					100, std::string());
+			}
+#endif
+		}
+	
+		
 		void SetupResourceManager2(CefRefPtr<CefResourceManager> resource_manager, managed_callback mcallback) {
 
 			// Provider of binary resources.
@@ -730,8 +758,6 @@ namespace client {
 						CefString cefStr(url);
 						metArgs.SetArgAsString(0, cefStr.c_str());
 						metArgs.SetArgAsNativeObject(1, request);
-
-
 
 						//get data from managed side
 						mcallback(145, &metArgs); //get resource 
@@ -804,36 +830,10 @@ namespace client {
 
 			// Add provider for bundled resource files.
 #if defined(OS_WIN)
-		/*	resource_manager->AddProvider(CreateBinaryResourceProvider(test_origin),
-				100, std::string());*/
+			/*	resource_manager->AddProvider(CreateBinaryResourceProvider(test_origin),
+			100, std::string());*/
 #elif defined(OS_POSIX)
-	// Read resources from a directory on disk.
-			std::string resource_dir;
-			if (GetResourceDir(resource_dir)) {
-				resource_manager->AddDirectoryProvider(test_origin, resource_dir,
-					100, std::string());
-			}
-#endif
-		}
-
-		void SetupResourceManager(CefRefPtr<CefResourceManager> resource_manager) {
-			const std::string& test_origin = kTestOrigin;
-
-			// Add the URL filter.
-			resource_manager->SetUrlFilter(base::Bind(RequestUrlFilter));
-
-			// Add provider for resource dumps.
-			resource_manager->AddProvider(
-				new RequestDumpResourceProvider(test_origin + "request.html"),
-				0, std::string());
-
-			// Add provider for bundled resource files.
-#if defined(OS_WIN)
-  // Read resources from the binary.
-			resource_manager->AddProvider(CreateBinaryResourceProvider(test_origin),
-				100, std::string());
-#elif defined(OS_POSIX)
-  // Read resources from a directory on disk.
+			// Read resources from a directory on disk.
 			std::string resource_dir;
 			if (GetResourceDir(resource_dir)) {
 				resource_manager->AddDirectoryProvider(test_origin, resource_dir,

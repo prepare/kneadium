@@ -281,19 +281,14 @@ namespace client {
 
 			auto str16 = message.ToString16();
 			auto cstr = str16.c_str();
-			args->SetArgAsString(0, cstr);
-
-
+			args->SetArgAsString(0, cstr); 
 			auto str16_1 = message.ToString16();
 			auto cstr_1 = str16_1.c_str();
-			args->SetArgAsString(1, cstr_1);
-
+			args->SetArgAsString(1, cstr_1); 
 			auto str16_2 = std::to_wstring((long long)line);
 			auto cstr_2 = str16_2.c_str();
-			args->SetArgAsString(2, cstr_2);
-
-			this->mcallback_(106, args);
-
+			args->SetArgAsString(2, cstr_2); 
+			this->mcallback_(106, args); 
 
 		}
 		else {

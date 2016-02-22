@@ -53,21 +53,15 @@ int RunMain(HINSTANCE hInstance, int nCmdShow) {
   // Create a ClientApp of the correct type.
   CefRefPtr<CefApp> app;
   ClientApp::ProcessType process_type = ClientApp::GetProcessType(command_line);
-  if (process_type == ClientApp::BrowserProcess)
-  {
-
-	  app = new ClientAppBrowser();
-  }
-  else if (process_type == ClientApp::RendererProcess)
-  {
+  if (process_type == ClientApp::BrowserProcess) 
+	  app = new ClientAppBrowser(); 
+  else if (process_type == ClientApp::RendererProcess) 
 	  //native cef ui
-	 // MessageBox(0, L"ClientApp::RenderProcess Start", L"ClientApp::RenderProcess Start", 0);
-	  app = new ClientAppRenderer();
-  }
-  else if (process_type == ClientApp::OtherProcess)
-  {
+	  //MessageBox(0, L"ClientApp::RenderProcess Start", L"ClientApp::RenderProcess Start", 0);
+	  app = new ClientAppRenderer(); 
+  else if (process_type == ClientApp::OtherProcess) 
 	  app = new ClientAppOther();
-  }
+  
 
   // Execute the secondary process, if any.
   int exit_code = CefExecuteProcess(main_args, app, sandbox_info);

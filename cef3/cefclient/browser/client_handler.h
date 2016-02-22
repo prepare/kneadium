@@ -14,26 +14,7 @@
 #include "include/wrapper/cef_helpers.h"
 #include "include/wrapper/cef_message_router.h"
 #include "include/wrapper/cef_resource_manager.h"
-#include "cefclient/browser/client_types.h"
-
-
-
-#include "include/base/cef_bind.h"
-//#include "include/cef_parser.h"
-//#include "include/cef_task.h"
-//#include "include/cef_trace.h"
-//#include "include/cef_web_plugin.h"
-//#include "include/wrapper/cef_closure_task.h"
-//#include "include/wrapper/cef_stream_resource_handler.h"
-//#include "cefclient/browser/binding_test.h"
-//#include "cefclient/browser/dialog_test.h"
-//#include "cefclient/browser/main_context.h"
-#include "cefclient/browser/resource.h"
-#include "cefclient/browser/resource_util.h"
-//#include "cefclient/browser/root_window_manager.h"
-//#include "cefclient/browser/scheme_test.h"
-//#include "cefclient/browser/urlrequest_test.h"
-//#include "cefclient/browser/window_test.h"
+#include "cefclient/browser/client_types.h" 
 
 //my extension
 #include "cefclient/mycef.h"
@@ -375,7 +356,8 @@ namespace client {
 		//my extension
 		managed_callback mcallback_;//my extension
 
-		std::string RequestUrlFilter(const std::string& url);
+		std::string RequestUrlFilter(const std::string& url);//my extension
+
 		DISALLOW_COPY_AND_ASSIGN(ClientHandler);
 	};
 

@@ -9,7 +9,7 @@
 #include <set>
 
 #include "cefclient/common/client_app.h"
-#include "cefclient/mycef.h"
+ 
 
 namespace client {
 

@@ -9,8 +9,6 @@
 #include <set>
 
 #include "cefclient/common/client_app.h"
-#include "cefclient/mycef.h"
-
 namespace client {
 
 	// Client app implementation for the renderer process.
