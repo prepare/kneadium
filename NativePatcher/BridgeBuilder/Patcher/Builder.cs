@@ -26,7 +26,33 @@ namespace BridgeBuilder
             var patch = new PatchFile(filename);
             patch.RootDir = RootDir;
             return patch;
+        }
 
+        void Do_CMake_txt()
+        {
+
+            var patch = new PatchFile("CMakeLists.txt");
+            patch.RootDir = RootDir;
+            patch.FindPos("# Source files.")
+                .Append(@"set(CEFCLIENT_MYCEF_MYCEF_SRCS
+  dll_init.cpp
+  dll_init.h
+  ExportFuncs.cpp
+  ExportFuncs.h
+  mycef.cc
+  mycef.h
+  )
+source_group(cefclient\\\\mycef FILES ${CEFCLIENT_MYCEF_MYCEF_SRCS})
+set(CEFCLIENT_MYCEF_SRCS
+  ${CEFCLIENT_MYCEF_MYCEF_SRCS}
+  )");
+
+            patch.FindPos("# Windows configuration.")
+                .FindNext("if(OS_WINDOWS)")
+                .FindNext("set(CEFCLIENT_SRCS")
+                .Append("${CEFCLIENT_MYCEF_MYCEF_SRCS}");
+
+            patch.PatchContent();
         }
         void Do_ClientApp_h()
         {
@@ -565,7 +591,7 @@ namespace BridgeBuilder
             Do_MainContext_h();
             Do_TestRunnner_cc();
             Do_TestRunner_h();
-
+            Do_CMake_txt();
 
         }
 
