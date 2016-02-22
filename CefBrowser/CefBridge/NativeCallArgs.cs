@@ -15,8 +15,8 @@ namespace LayoutFarm.CefBridge
 
         IntPtr _browser_ptr;
         IntPtr _frame_ptr;
+        IntPtr _requestCefStringHolder; //native ptr to CefString
         long _query_id;
-        IntPtr _request;
         bool _presistent;
 
         internal static QueryRequestArgs CreateRequest(IntPtr nativeIntPtr)
@@ -31,7 +31,27 @@ namespace LayoutFarm.CefBridge
             var fr = new NativeFrame(_frame_ptr);
             return fr.GetUrl();
         }
+        public long GetQueryId()
+        {
+            return _query_id;
+        }
+        public string GetRequest()
+        {
+            //get request from native string
 
+            int acutalLen = 0;
+            unsafe
+            {
+                int BUFF_LEN = 256;
+                char* buffHead = stackalloc char[BUFF_LEN];
+                Cef3Binder.MyCefStringHolder_Read(_requestCefStringHolder, buffHead, BUFF_LEN, ref acutalLen);
+                if (acutalLen > BUFF_LEN)
+                {
+                    //read more
+                }
+                return new string(buffHead, 0, acutalLen);
+            }
+        }
 
     }
 
