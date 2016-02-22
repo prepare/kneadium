@@ -396,8 +396,7 @@ namespace client {
 			const CefString& request,
 			bool persistent,
 			CefRefPtr<Callback> callback) OVERRIDE {
-			CEF_REQUIRE_UI_THREAD();
-
+			CEF_REQUIRE_UI_THREAD(); 
 
 			//const std::string& request_str = request;
 			if (this->mcallback_)
@@ -407,8 +406,14 @@ namespace client {
 				memset(&queryReq, 0, sizeof(QueryRequestArgs));
 				queryReq.browser = browser.get();
 				queryReq.frame = frame.get();
+
 				queryReq.query_id = query_id;
-				queryReq.request = request;
+				
+			 
+				//queryReq.request = &request;
+				MyCefStringHolder mystr;
+				mystr.value = request;
+				queryReq.request = &mystr;
 				queryReq.persistent = persistent;
 				queryReq.callback = callback.get();
 
@@ -416,8 +421,11 @@ namespace client {
 				memset(&args, 0, sizeof(MethodArgs));
 				args.SetArgAsNativeObject(0, &queryReq); 
 				this->mcallback_(205, &args); 
+
+
 				return true;
 			}
+
 			return false;
 		}//OnQuery
 	}; //class MyCefJsHandler

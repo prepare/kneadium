@@ -81,7 +81,7 @@ extern "C" {
 
 	MY_DLL_EXPORT void MyCefFrame_GetUrl(CefFrame* frame, wchar_t* outputBuffer, int outputBufferLen, int* actualLength);
 	MY_DLL_EXPORT void MyCefString_Read(CefString* cefStr, wchar_t* outputBuffer, int outputBufferLen, int* actualLength);
-
+	MY_DLL_EXPORT void MyCefStringHolder_Read(MyCefStringHolder* mycefstr, wchar_t* outputBuffer, int outputBufferLen, int* actualLength);
 
 	
 
