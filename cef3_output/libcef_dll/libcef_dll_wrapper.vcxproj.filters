@@ -1184,38 +1184,38 @@
     <CustomBuild Include="D:\projects\CefBridge\cef3\libcef_dll\CMakeLists.txt" />
   </ItemGroup>
   <ItemGroup>
-    <Filter Include="include\base">
-      <UniqueIdentifier>{88C8CFE6-A79B-4DA6-9114-242FF014AA04}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="include\capi">
-      <UniqueIdentifier>{7CFBF8CF-BBA2-4779-8E5A-FB3FDA503F98}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="include\internal">
-      <UniqueIdentifier>{BABB6C7D-8D16-4F2F-94C8-5EDBCC25B130}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="include\wrapper">
-      <UniqueIdentifier>{E9CC5691-7EFB-41DE-84F6-4AC86D34A372}</UniqueIdentifier>
-    </Filter>
     <Filter Include="libcef_dll">
-      <UniqueIdentifier>{1C71D279-C6CC-4825-A561-6F48529AFC33}</UniqueIdentifier>
+      <UniqueIdentifier>{EED9816C-02FF-4C95-992C-BC9F94BB178B}</UniqueIdentifier>
     </Filter>
     <Filter Include="include">
-      <UniqueIdentifier>{9B530F6A-0B3B-4BFD-A969-FAA68F5039BE}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="include\base\internal">
-      <UniqueIdentifier>{265A960C-07CD-4CBF-AEBB-097528A317BA}</UniqueIdentifier>
+      <UniqueIdentifier>{B574D4B8-1CCE-46A5-8822-74EB058F6E9D}</UniqueIdentifier>
     </Filter>
     <Filter Include="libcef_dll\base">
-      <UniqueIdentifier>{72DC39D5-0251-4C5E-8D7B-5CAF2F959702}</UniqueIdentifier>
+      <UniqueIdentifier>{C30519FC-F802-46A3-B798-F1590ECFF1DA}</UniqueIdentifier>
     </Filter>
     <Filter Include="libcef_dll\cpptoc">
-      <UniqueIdentifier>{ECC5B64A-4ADC-4FB8-8331-99F9870D4C63}</UniqueIdentifier>
+      <UniqueIdentifier>{C6DAF95B-76FB-422B-B722-D20C7E86A844}</UniqueIdentifier>
     </Filter>
     <Filter Include="libcef_dll\ctocpp">
-      <UniqueIdentifier>{C555AF70-81EE-41A3-8C11-F2B5AF675601}</UniqueIdentifier>
+      <UniqueIdentifier>{7BF47A4C-530A-4BE3-A646-DD64DC251214}</UniqueIdentifier>
     </Filter>
     <Filter Include="libcef_dll\wrapper">
-      <UniqueIdentifier>{2CEAE33E-93EE-4967-927E-5EC5FC011A7C}</UniqueIdentifier>
+      <UniqueIdentifier>{A1438D3C-6C51-4236-9AEA-B277AB4986B0}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="include\base\internal">
+      <UniqueIdentifier>{89A12F1F-78C1-44CA-AD1F-3A7CCAA9E692}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="include\base">
+      <UniqueIdentifier>{16EB7CF2-A5F6-4807-B1D5-B598F738CCD7}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="include\capi">
+      <UniqueIdentifier>{C348171C-A605-4CB7-918E-51C3C46EAD38}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="include\internal">
+      <UniqueIdentifier>{C9130440-02B1-40E2-9E98-BB2A1128DE36}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="include\wrapper">
+      <UniqueIdentifier>{75400A74-6811-4C43-9B2D-5994F677E74F}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>

@@ -1,4 +1,4 @@
-//# PATCH
+//###_ORIGINAL d:\projects\CefBridge\cef3\cefclient\renderer/performance_test.cc
 // Copyright (c) 2012 The Chromium Embedded Framework Authors. All rights
 // reserved. Use of this source code is governed by a BSD-style license that
 // can be found in the LICENSE file.
@@ -135,7 +135,9 @@ class RenderDelegate : public ClientAppRenderer::Delegate {
   virtual void OnContextCreated(CefRefPtr<ClientAppRenderer> app,
                                 CefRefPtr<CefBrowser> browser,
                                 CefRefPtr<CefFrame> frame,
+//###_START 0
                                 CefRefPtr<CefV8Context> context) OVERRIDE {
+//###_APPEND_START 0
 if (app->myMxCallback_)
 					{
 						//expose all to managed side
@@ -165,6 +167,8 @@ if (app->myMxCallback_)
 							CefV8Value::CreateFunction(kPerfTestReturnValue, handler),
 							V8_PROPERTY_ATTRIBUTE_READONLY);
 					}
+//###_APPEND_STOP
+//###_SKIP_UNTIL_AND_ACCEPT 0
   }
 
  private:

@@ -1,4 +1,4 @@
-//# PATCH
+//###_ORIGINAL d:\projects\CefBridge\cef3\cefclient\browser/client_handler.cc
 // Copyright (c) 2013 The Chromium Embedded Framework Authors. All rights
 // reserved. Use of this source code is governed by a BSD-style license that
 // can be found in the LICENSE file.
@@ -202,7 +202,9 @@ void ClientHandler::OnBeforeContextMenu(
     CefRefPtr<CefMenuModel> model) {
   CEF_REQUIRE_UI_THREAD();
 
+//###_START 0
   if ((params->GetTypeFlags() & (CM_TYPEFLAG_PAGE | CM_TYPEFLAG_FRAME)) != 0) {
+//###_APPEND_START 0
 if (this->mcallback_)
 		{
 			//send menu model to managed side
@@ -222,6 +224,7 @@ if (this->mcallback_)
 			// Test context menu features.
 			BuildTestMenu(model);
 		}
+//###_APPEND_STOP
     // Add a separator if the menu already has items.
     if (model->GetCount() > 0)
       model->AddSeparator();
@@ -237,13 +240,16 @@ if (this->mcallback_)
   }
 }
 
+//###_START 1
 bool ClientHandler::OnContextMenuCommand(
     CefRefPtr<CefBrowser> browser,
     CefRefPtr<CefFrame> frame,
     CefRefPtr<CefContextMenuParams> params,
     int command_id,
     EventFlags event_flags) {
+//###_FIND_NEXT_LANDMARK 1
   CEF_REQUIRE_UI_THREAD();
+//###_APPEND_START 1
 if (this->mcallback_) {
 			return true;
 		}
@@ -262,6 +268,8 @@ if (this->mcallback_) {
 				return ExecuteTestMenu(command_id);
 			}
 		}
+//###_APPEND_STOP
+//###_SKIP_UNTIL_PASS 1 }
 }
 
 void ClientHandler::OnAddressChange(CefRefPtr<CefBrowser> browser,
@@ -288,11 +296,14 @@ void ClientHandler::OnFullscreenModeChange(CefRefPtr<CefBrowser> browser,
   NotifyFullscreen(fullscreen);
 }
 
+//###_START 2
 bool ClientHandler::OnConsoleMessage(CefRefPtr<CefBrowser> browser,
                                      const CefString& message,
                                      const CefString& source,
                                      int line) {
+//###_FIND_NEXT_LANDMARK 2
   CEF_REQUIRE_UI_THREAD();
+//###_APPEND_START 2
 if (this->mcallback_) {
 
 			//get managed stream object
@@ -330,6 +341,8 @@ if (this->mcallback_) {
 				}
 			}
 		}
+//###_APPEND_STOP
+//###_SKIP_UNTIL_AND_ACCEPT 2
   return false;
 }
 
@@ -385,8 +398,12 @@ bool ClientHandler::OnRequestGeolocationPermission(
       CefRefPtr<CefGeolocationCallback> callback) {
   CEF_REQUIRE_UI_THREAD();
 
+//###_START 3
   // Allow geolocation access from all websites.
+//###_APPEND_START 3
 callback->Continue(false);
+//###_APPEND_STOP
+//###_SKIP_UNTIL_AND_ACCEPT 3
   return true;
 }
 
@@ -410,6 +427,7 @@ bool ClientHandler::OnPreKeyEvent(CefRefPtr<CefBrowser> browser,
   return false;
 }
 
+//###_START 4
 bool ClientHandler::OnBeforePopup(
     CefRefPtr<CefBrowser> browser,
     CefRefPtr<CefFrame> frame,
@@ -422,7 +440,9 @@ bool ClientHandler::OnBeforePopup(
     CefRefPtr<CefClient>& client,
     CefBrowserSettings& settings,
     bool* no_javascript_access) {
+//###_FIND_NEXT_LANDMARK 4
   CEF_REQUIRE_IO_THREAD();
+//###_APPEND_START 4
 if (this->mcallback_) {
 			//create popup window
 			//with specific url
@@ -446,8 +466,11 @@ if (this->mcallback_) {
 			return !CreatePopupWindow(browser, false, popupFeatures, windowInfo, client,
 				settings);
 		}
+//###_APPEND_STOP
+//###_SKIP_UNTIL_AND_ACCEPT 4
 }
 
+//###_START 5
 void ClientHandler::OnAfterCreated(CefRefPtr<CefBrowser> browser) {
   CEF_REQUIRE_UI_THREAD();
 
@@ -456,7 +479,9 @@ void ClientHandler::OnAfterCreated(CefRefPtr<CefBrowser> browser) {
   if (!message_router_) {
     // Create the browser-side router for query handling.
     CefMessageRouterConfig config;
+//###_FIND_NEXT_LANDMARK 5
     message_router_ = CefMessageRouterBrowserSide::Create(config);
+//###_APPEND_START 5
 // Register handlers with the router.
 			if (this->mcallback_)
 			{
@@ -477,6 +502,8 @@ void ClientHandler::OnAfterCreated(CefRefPtr<CefBrowser> browser) {
 					message_router_->AddHandler(*(it), false);
 
 			}
+//###_APPEND_STOP
+//###_SKIP_UNTIL_AND_ACCEPT 5
   }
 
   // Disable mouse cursor change if requested via the command-line flag.
@@ -725,11 +752,14 @@ int ClientHandler::GetBrowserCount() const {
   return browser_count_;
 }
 
+//###_START 6
 void ClientHandler::ShowDevTools(CefRefPtr<CefBrowser> browser,
                                  const CefPoint& inspect_element_at) {
   CefWindowInfo windowInfo;
   CefRefPtr<CefClient> client;
+//###_FIND_NEXT_LANDMARK 6
   CefBrowserSettings settings;
+//###_APPEND_START 6
 if (this->mcallback_)
 		{
 			//TODO: send cmd to managed side
@@ -745,9 +775,13 @@ if (this->mcallback_)
 					inspect_element_at);
 			}
 		  }
+//###_APPEND_STOP
+//###_SKIP_UNTIL_PASS 6 }
 }
 
+//###_START 7
 void ClientHandler::CloseDevTools(CefRefPtr<CefBrowser> browser) {
+//###_APPEND_START 7
 if (this->mcallback_) {
 			//TODO: send command
 			this->mcallback_(108, NULL);
@@ -755,6 +789,8 @@ if (this->mcallback_) {
 		else {
 			browser->GetHost()->CloseDevTools();
 		}
+//###_APPEND_STOP
+//###_SKIP_UNTIL_AND_ACCEPT 7
 }
 
 
@@ -776,16 +812,21 @@ bool ClientHandler::CreatePopupWindow(
 }
 
 
+//###_START 8
 void ClientHandler::NotifyBrowserCreated(CefRefPtr<CefBrowser> browser) {
   if (!CURRENTLY_ON_MAIN_THREAD()) {
     // Execute this method on the main thread.
+//###_FIND_NEXT_LANDMARK 8
     MAIN_POST_CLOSURE(
         base::Bind(&ClientHandler::NotifyBrowserCreated, this, browser));
     return;
+//###_FIND_NEXT_LANDMARK 8
   }
+//###_APPEND_START 8
 if (this->mcallback_) {
 			            this->mcallback_(101, NULL);
 		         }
+//###_APPEND_STOP
 
   if (delegate_)
     delegate_->OnBrowserCreated(browser);
@@ -803,6 +844,7 @@ void ClientHandler::NotifyBrowserClosing(CefRefPtr<CefBrowser> browser) {
     delegate_->OnBrowserClosing(browser);
 }
 
+//###_START 9
 void ClientHandler::NotifyBrowserClosed(CefRefPtr<CefBrowser> browser) {
   if (!CURRENTLY_ON_MAIN_THREAD()) {
     // Execute this method on the main thread.
@@ -812,10 +854,13 @@ void ClientHandler::NotifyBrowserClosed(CefRefPtr<CefBrowser> browser) {
   }
 
   if (delegate_)
+//###_FIND_NEXT_LANDMARK 9
     delegate_->OnBrowserClosed(browser);
+//###_APPEND_START 9
 if (this->mcallback_) {
 			this->mcallback_(100, NULL);
 		        }
+//###_APPEND_STOP
 }
 
 void ClientHandler::NotifyAddress(const CefString& url) {
@@ -903,6 +948,7 @@ void ClientHandler::BuildTestMenu(CefRefPtr<CefMenuModel> model) {
       CLIENT_ID_TESTMENU_RADIOITEM1 + test_menu_state_.radio_item, true);
 }
 
+//###_START 10
 bool ClientHandler::ExecuteTestMenu(int command_id) {
   if (command_id == CLIENT_ID_TESTMENU_CHECKITEM) {
     // Toggle the check item.
@@ -915,9 +961,13 @@ bool ClientHandler::ExecuteTestMenu(int command_id) {
     return true;
   }
 
+//###_FIND_NEXT_LANDMARK 10
   // Allow default handling to proceed.
+//###_FIND_NEXT_LANDMARK 10
   return false;
+//###_FIND_NEXT_LANDMARK 10
 }
+//###_APPEND_START 10
 //my extension ***
 	void ClientHandler::MyCefSetManagedCallBack(managed_callback m) {
 
@@ -936,5 +986,6 @@ bool ClientHandler::ExecuteTestMenu(int command_id) {
 		//2. add resource provider
 		client::test_runner::SetupResourceManager2(resource_manager_, m); 
 	}
+//###_APPEND_STOP
 
 }  // namespace client

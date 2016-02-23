@@ -1,4 +1,4 @@
-//# PATCH
+//###_ORIGINAL d:\projects\CefBridge\cef3\cefclient\browser/test_runner.cc
 // Copyright (c) 2015 The Chromium Embedded Framework Authors. All rights
 // reserved. Use of this source code is governed by a BSD-style license that
 // can be found in the LICENSE file.
@@ -24,12 +24,18 @@
 #include "cefclient/browser/root_window_manager.h"
 #include "cefclient/browser/scheme_test.h"
 #include "cefclient/browser/urlrequest_test.h"
+//###_START 0
 #include "cefclient/browser/window_test.h"
+//###_APPEND_START 0
 #include "include/wrapper/cef_byte_read_handler.h"
+//###_APPEND_STOP
 
 namespace client {
+//###_START 1
 namespace test_runner {
+//###_APPEND_START 1
 managed_callback mcallback_ = NULL;
+//###_APPEND_STOP
 
 namespace {
 
@@ -424,6 +430,7 @@ void RunOtherTests(CefRefPtr<CefBrowser> browser) {
 }
 
 // Provider that dumps the request contents.
+//###_START 2
 class RequestDumpResourceProvider : public CefResourceManager::Provider {
  public:
   explicit RequestDumpResourceProvider(const std::string& url)
@@ -455,8 +462,11 @@ class RequestDumpResourceProvider : public CefResourceManager::Provider {
  private:
   std::string url_;
 
+//###_FIND_NEXT_LANDMARK 2
   DISALLOW_COPY_AND_ASSIGN(RequestDumpResourceProvider);
+//###_FIND_NEXT_LANDMARK 2
 };
+//###_APPEND_START 2
 std::string RequestUrlFilter2(const std::string& url) {
 
 				if (client::test_runner::mcallback_)
@@ -485,6 +495,7 @@ std::string RequestUrlFilter2(const std::string& url) {
 				}
 				return url; 
 			}
+//###_APPEND_STOP
 
 // Add a file extension to |url| if none is currently specified.
 std::string RequestUrlFilter(const std::string& url) {
@@ -695,6 +706,7 @@ std::string GetErrorString(cef_errorcode_t code) {
   }
 }
 
+//###_START 3
 void SetupResourceManager(CefRefPtr<CefResourceManager> resource_manager) {
   if (!CefCurrentlyOn(TID_IO)) {
     // Execute on the browser IO thread.
@@ -724,8 +736,11 @@ void SetupResourceManager(CefRefPtr<CefResourceManager> resource_manager) {
     resource_manager->AddDirectoryProvider(test_origin, resource_dir,
                                            100, std::string());
   }
+//###_FIND_NEXT_LANDMARK 3
 #endif
+//###_FIND_NEXT_LANDMARK 3
 }
+//###_APPEND_START 3
 void SetupResourceManager2(CefRefPtr<CefResourceManager> resource_manager, managed_callback mcallback) {
 
 			// Provider of binary resources.
@@ -833,6 +848,7 @@ void SetupResourceManager2(CefRefPtr<CefResourceManager> resource_manager, manag
 			}
 #endif
 		}
+//###_APPEND_STOP
 
 void Alert(CefRefPtr<CefBrowser> browser, const std::string& message) {
   // Escape special characters in the message.

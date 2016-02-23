@@ -1,4 +1,4 @@
-//# PATCH
+//###_ORIGINAL d:\projects\CefBridge\cef3\cefclient\browser/main_context.h
 // Copyright (c) 2015 The Chromium Embedded Framework Authors. All rights
 // reserved. Use of this source code is governed by a BSD-style license that
 // can be found in the LICENSE file.
@@ -11,8 +11,11 @@
 
 #include "include/base/cef_ref_counted.h"
 #include "include/internal/cef_types_wrappers.h"
+//###_START 0
 #include "cefclient/browser/osr_renderer.h"
+//###_APPEND_START 0
 #include "cefclient/myext/mycef.h" //my extension
+//###_APPEND_STOP
 
 namespace client {
 
@@ -46,9 +49,12 @@ class MainContext {
   virtual void PopulateOsrSettings(OsrRenderer::Settings* settings) = 0;
 
   // Returns the object used to create/manage RootWindow instances.
+//###_START 1
   virtual RootWindowManager* GetRootWindowManager() = 0;
+//###_APPEND_START 1
 //my extension --for callback to managed side
                 managed_callback myMxCallback_;
+//###_APPEND_STOP
 
  protected:
   MainContext();

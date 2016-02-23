@@ -1,4 +1,4 @@
-//# PATCH
+//###_ORIGINAL d:\projects\CefBridge\cef3\cefclient\renderer/client_renderer.cc
 // Copyright (c) 2012 The Chromium Embedded Framework Authors. All rights
 // reserved. Use of this source code is governed by a BSD-style license that
 // can be found in the LICENSE file.
@@ -27,9 +27,14 @@ class ClientRenderDelegate : public ClientAppRenderer::Delegate {
   }
 
   virtual void OnWebKitInitialized(CefRefPtr<ClientAppRenderer> app) OVERRIDE {
+//###_START 0
     // Create the renderer-side router for query handling.
+//###_APPEND_START 0
 //show msgbox if we want to break a debugger in render process
+//###_APPEND_STOP
+//###_APPEND_START 0
 //MessageBox(NULL, L"OnWebKitInitialized", L"OnWebKitInitialized", 0);
+//###_APPEND_STOP
     CefMessageRouterConfig config;
     message_router_ = CefMessageRouterRendererSide::Create(config);
   }

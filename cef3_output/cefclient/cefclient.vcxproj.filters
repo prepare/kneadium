@@ -357,25 +357,25 @@
   </ItemGroup>
   <ItemGroup>
     <Filter Include="cefclient\myext">
-      <UniqueIdentifier>{5683BDAC-DE39-4ECD-838A-ABD1C1C17B55}</UniqueIdentifier>
+      <UniqueIdentifier>{9BC59144-6E6E-45F4-BF72-55FF447F84E4}</UniqueIdentifier>
     </Filter>
     <Filter Include="cefclient\browser">
-      <UniqueIdentifier>{32B7162D-018A-4D4B-9866-80E08DE31296}</UniqueIdentifier>
+      <UniqueIdentifier>{AE806406-EEFB-4E37-9C74-89E8217A0D41}</UniqueIdentifier>
     </Filter>
     <Filter Include="cefclient\common">
-      <UniqueIdentifier>{A81963E0-91DA-40CC-8D58-13CBACCAB7A0}</UniqueIdentifier>
+      <UniqueIdentifier>{292C3CBF-AA19-4385-8222-E6FAB0413F6F}</UniqueIdentifier>
     </Filter>
     <Filter Include="cefclient\renderer">
-      <UniqueIdentifier>{6A33E3AE-029B-43B5-877A-858905C18C68}</UniqueIdentifier>
+      <UniqueIdentifier>{E73C7AF8-6776-46F7-8D84-47A9CD8C56D7}</UniqueIdentifier>
     </Filter>
     <Filter Include="cefclient\resources">
-      <UniqueIdentifier>{A1074059-50F0-4CFF-84C2-CC8A61A793DB}</UniqueIdentifier>
+      <UniqueIdentifier>{651C3F2B-4882-437B-8AE0-94E1E478B8CE}</UniqueIdentifier>
     </Filter>
     <Filter Include="cefclient">
-      <UniqueIdentifier>{F2152F57-6B2D-4E63-8E29-82DC9B4B8F23}</UniqueIdentifier>
+      <UniqueIdentifier>{AA9C711E-2F6A-4A0B-8BCE-1A28340756F0}</UniqueIdentifier>
     </Filter>
     <Filter Include="cefclient\resources\win">
-      <UniqueIdentifier>{7426172D-8E34-42EE-8F6F-9491D8DC05FB}</UniqueIdentifier>
+      <UniqueIdentifier>{8686D57D-7F6B-4E26-B235-4F0D558DF255}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>

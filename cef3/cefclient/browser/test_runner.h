@@ -1,4 +1,4 @@
-//# PATCH
+//###_ORIGINAL d:\projects\CefBridge\cef3\cefclient\browser/test_runner.h
 // Copyright (c) 2015 The Chromium Embedded Framework Authors. All rights
 // reserved. Use of this source code is governed by a BSD-style license that
 // can be found in the LICENSE file.
@@ -13,8 +13,11 @@
 #include "include/cef_browser.h"
 #include "include/cef_request.h"
 #include "include/wrapper/cef_message_router.h"
+//###_START 0
 #include "include/wrapper/cef_resource_manager.h"
+//###_APPEND_START 0
 #include "cefclient/myext/mycef.h"
+//###_APPEND_STOP
 
 namespace client {
 namespace test_runner {
@@ -33,8 +36,11 @@ std::string GetDataURI(const std::string& data,
 std::string GetErrorString(cef_errorcode_t code);
 
 // Set up the resource manager for tests.
+//###_START 1
 void SetupResourceManager(CefRefPtr<CefResourceManager> resource_manager);
+//###_APPEND_START 1
 void SetupResourceManager2(CefRefPtr<CefResourceManager> resource_manager, managed_callback mcallback);
+//###_APPEND_STOP
 
 // Show a JS alert message.
 void Alert(CefRefPtr<CefBrowser> browser, const std::string& message);

@@ -1,4 +1,4 @@
-//# PATCH
+//###_ORIGINAL d:\projects\CefBridge\cef3\cefclient\browser/client_handler.h
 // Copyright (c) 2011 The Chromium Embedded Framework Authors. All rights
 // reserved. Use of this source code is governed by a BSD-style license that
 // can be found in the LICENSE file.
@@ -14,9 +14,14 @@
 #include "include/wrapper/cef_helpers.h"
 #include "include/wrapper/cef_message_router.h"
 #include "include/wrapper/cef_resource_manager.h"
+//###_START 0
 #include "cefclient/browser/client_types.h"
+//###_APPEND_START 0
 //my extension
+//###_APPEND_STOP
+//###_APPEND_START 0
 #include "cefclient/myext/mycef.h"
+//###_APPEND_STOP
 
 #if defined(OS_LINUX)
 #include "cefclient/browser/dialog_handler_gtk.h"
@@ -266,9 +271,12 @@ class ClientHandler : public CefClient,
   std::string startup_url() const { return startup_url_; }
 
   // Returns true if this handler uses off-screen rendering.
+//###_START 1
   bool is_osr() const { return is_osr_; }
+//###_APPEND_START 1
 //my extension
 		void MyCefSetManagedCallBack(managed_callback m);
+//###_APPEND_STOP
 
  private:
   // Create a new popup window using the specified information. |is_devtools|
@@ -351,14 +359,22 @@ class ClientHandler : public CefClient,
   // True if an editable field currently has focus.
   bool focus_on_editable_field_;
 
+//###_START 2
   // Set of Handlers registered with the message router.
+//###_FOLLOW_BY 2
   MessageHandlerSet message_handler_set_;
+//###_APPEND_START 2
 //my extension
                 		managed_callback mcallback_;//my extension
+//###_APPEND_STOP
+//###_APPEND_START 2
 std::string RequestUrlFilter(const std::string& url);//my extension
+//###_APPEND_STOP
 
   DISALLOW_COPY_AND_ASSIGN(ClientHandler);
+//###_FIND_NEXT_LANDMARK 2
 };
+//###_APPEND_START 2
 //----------
 
 	// Handle messages in the browser process.
@@ -408,6 +424,7 @@ std::string RequestUrlFilter(const std::string& url);//my extension
 			return false;
 		}//OnQuery
 	}; //class MyCefJsHandler
+//###_APPEND_STOP
 
 }  // namespace client
 
