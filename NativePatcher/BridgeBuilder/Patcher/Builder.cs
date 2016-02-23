@@ -35,14 +35,14 @@ namespace BridgeBuilder
             patch.RootDir = RootDir;
             patch.FindPos("# Source files.")
                 .Append(@"set(CEFCLIENT_MYCEF_MYCEF_SRCS
-  dll_init.cpp
-  dll_init.h
-  ExportFuncs.cpp
-  ExportFuncs.h
-  mycef.cc
-  mycef.h
+  myext/dll_init.cpp
+  myext/dll_init.h
+  myext/ExportFuncs.cpp
+  myext/ExportFuncs.h
+  myext/mycef.cc
+  myext/mycef.h
   )
-source_group(cefclient\\\\mycef FILES ${CEFCLIENT_MYCEF_MYCEF_SRCS})
+source_group(cefclient\\\\myext FILES ${CEFCLIENT_MYCEF_MYCEF_SRCS})
 set(CEFCLIENT_MYCEF_SRCS
   ${CEFCLIENT_MYCEF_MYCEF_SRCS}
   )");
@@ -59,7 +59,7 @@ set(CEFCLIENT_MYCEF_SRCS
 
             var patch = CreatePathFile("common/client_app.h");
             patch.FindPos("#include \"include/cef_app.h\"")
-                      .Append("#include \"cefclient/mycef.h\"");
+                      .Append("#include \"cefclient/myext/mycef.h\"");
 
             patch.FindPos("static ProcessType GetProcessType(")
                       .Append("managed_callback myMxCallback_ = NULL;//myextension");
@@ -365,7 +365,7 @@ set(CEFCLIENT_MYCEF_SRCS
             var patchFile = CreatePathFile("browser/client_handler.h");
             patchFile.FindPos("#include \"cefclient/browser/client_types.h\"")
                 .Append("//my extension")
-                .Append("#include \"cefclient/mycef.h\"");
+                .Append("#include \"cefclient/myext/mycef.h\"");
             patchFile.FindPos("bool is_osr() const { return is_osr_; }")
                 .Append(@"//my extension
 		void MyCefSetManagedCallBack(managed_callback m);");
@@ -437,7 +437,7 @@ set(CEFCLIENT_MYCEF_SRCS
         {
             var patchFile = CreatePathFile("browser/main_context.h");
             patchFile.FindPos("#include \"cefclient/browser/osr_renderer.h\"")
-                .Append("#include \"cefclient/mycef.h\" //my extension");
+                .Append("#include \"cefclient/myext/mycef.h\" //my extension");
 
             patchFile.FindPos("virtual RootWindowManager* GetRootWindowManager() = 0;")
                 .Append(@"  //my extension --for callback to managed side
@@ -572,12 +572,37 @@ set(CEFCLIENT_MYCEF_SRCS
             var patchFile = CreatePathFile("browser/test_runner.h");
 
             patchFile.FindPos("#include \"include/wrapper/cef_resource_manager.h\"")
-                .Append("#include \"cefclient/mycef.h\"");
+                .Append("#include \"cefclient/myext/mycef.h\"");
             patchFile.FindPos("void SetupResourceManager(CefRefPtr<CefResourceManager> resource_manager);")
                 .Append("void SetupResourceManager2(CefRefPtr<CefResourceManager> resource_manager, managed_callback mcallback);");
 
             //===================================
             patchFile.PatchContent();
+        }
+
+        void CopyExtensionSources()
+        {   
+            //temp remove
+            //string extensionSourceDir = this.RootDir;
+            //string extensionTargetDir = this.RootDir;
+            ////check extension source dir
+            //if (!Directory.Exists(extensionSourceDir))
+            //{
+            //    throw new NotSupportedException("no extension src dir");
+            //}
+            //if (!Directory.Exists(extensionSourceDir))
+            //{
+            //    throw new NotSupportedException("no extension target dir");
+            //}
+            ////------------------------------------------------------------
+
+            //if (extensionSourceDir == extensionTargetDir)
+            //{
+            //    throw new NotSupportedException("not copy to the same dir");
+            //}
+            ////-------------------------------------------------------------
+            ////backup src dir 
+
         }
         public void DoChanged()
         {
@@ -592,7 +617,10 @@ set(CEFCLIENT_MYCEF_SRCS
             Do_TestRunnner_cc();
             Do_TestRunner_h();
             Do_CMake_txt();
+            //-----------------
+            CopyExtensionSources();
 
+            //-----------------
         }
 
     }

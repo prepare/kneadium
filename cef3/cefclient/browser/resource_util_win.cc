@@ -10,7 +10,7 @@
 #include "include/wrapper/cef_stream_resource_handler.h"
 #include "cefclient/browser/resource.h"
 
-#include "cefclient/mycef.h"
+#include "cefclient/myext/mycef.h"
 
 namespace client {
 

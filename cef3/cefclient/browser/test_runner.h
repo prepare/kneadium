@@ -14,7 +14,7 @@
 #include "include/cef_request.h"
 #include "include/wrapper/cef_message_router.h"
 #include "include/wrapper/cef_resource_manager.h"
-#include "cefclient/mycef.h"
+#include "cefclient/myext/mycef.h"
 
 namespace client {
 	namespace test_runner {

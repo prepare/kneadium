@@ -17,7 +17,7 @@
 #include "cefclient/browser/client_types.h" 
 
 //my extension
-#include "cefclient/mycef.h"
+#include "cefclient/myext/mycef.h"
 
 #if defined(OS_LINUX)
 #include "cefclient/browser/dialog_handler_gtk.h"

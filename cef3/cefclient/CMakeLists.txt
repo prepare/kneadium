@@ -6,14 +6,14 @@
 # Source files.
 #
 set(CEFCLIENT_MYCEF_MYCEF_SRCS
-  dll_init.cpp
-  dll_init.h
-  ExportFuncs.cpp
-  ExportFuncs.h
-  mycef.cc
-  mycef.h
+  myext/dll_init.cpp
+  myext/dll_init.h
+  myext/ExportFuncs.cpp
+  myext/ExportFuncs.h
+  myext/mycef.cc
+  myext/mycef.h
   )
-source_group(cefclient\\\\mycef FILES ${CEFCLIENT_MYCEF_MYCEF_SRCS})
+source_group(cefclient\\\\myext FILES ${CEFCLIENT_MYCEF_MYCEF_SRCS})
 set(CEFCLIENT_MYCEF_SRCS
   ${CEFCLIENT_MYCEF_MYCEF_SRCS}
   )

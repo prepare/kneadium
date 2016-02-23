@@ -14,7 +14,6 @@ namespace BridgeBuilder
         AppendString,
         FollowBy,
         SkipUntil
-
     }
 
     class PatchCommand
@@ -60,6 +59,20 @@ namespace BridgeBuilder
             patchTasks.Add(srcPos);
             return srcPos;
         }
+
+        public bool CheckIfFileWasPatched(SourceFile sourceFile, out string patchCode)
+        {
+
+            if (Path.GetFileName(sourceFile.Filename) == "CMakeLists.txt")
+            {
+                patchCode = "# PATCH";
+            }
+            else
+            {
+                patchCode = "//# PATCH";
+            }
+            return sourceFile.GetLine(0) == patchCode;
+        }
         public void PatchContent()
         {
             //1. check if file is exist
@@ -68,10 +81,22 @@ namespace BridgeBuilder
             {
                 throw new NotSupportedException("file not found!");
             }
-            SourceFile input = new SourceFile(fullFileName);
-            input.ReadAllLines();
 
-            SourceFile output = new SourceFile(fullFileName + ".output");
+            SourceFile input = new SourceFile(fullFileName, false);
+            input.ReadAllLines();
+            SourceFile output = new SourceFile(fullFileName, true);
+
+
+            string patchCode;
+            if (CheckIfFileWasPatched(input, out patchCode))
+            {
+                throw new NotSupportedException("not patch again in this file");
+            }
+            else
+            {
+                output.AddLine(patchCode); 
+            }
+            //-----------------------------------------------------------------
             int j = patchTasks.Count;
             for (int i = 0; i < j; ++i)
             {
@@ -85,20 +110,27 @@ namespace BridgeBuilder
                 input.CurrentLine++;
             }
 
+            output.Save();
         }
     }
 
     class SourceFile
     {
         List<string> lines = new List<string>();
-        public SourceFile(string filename)
+        public SourceFile(string filename, bool isOutput)
         {
             this.Filename = filename;
+            this.IsOutput = isOutput;
         }
         public string Filename
         {
             get;
-            set;
+            private set;
+        }
+        public bool IsOutput
+        {
+            get;
+            private set;
         }
         public void ReadAllLines()
         {
@@ -122,6 +154,28 @@ namespace BridgeBuilder
         {
             get { return lines.Count; }
         }
+        public void Save(string filename = null)
+        {
+            if (string.IsNullOrEmpty(filename))
+            {
+                filename = this.Filename;
+            }
+            //save ot original filename
+            using (FileStream fs = new FileStream(filename, FileMode.Create))
+            {
+                StreamWriter writer = new StreamWriter(fs);
+                int j = lines.Count;
+                for (int i = 0; i < j; ++i)
+                {
+                    writer.WriteLine(lines[i]);
+                }
+                writer.Flush();
+                writer.Close();
+                fs.Close();
+            }
+
+        }
+
     }
 
     class PatchTask
@@ -280,7 +334,7 @@ namespace BridgeBuilder
                     case PatchCommandKind.FollowBy:
                         {
                             //just 1 line must match
-                           
+
                             string nextLine = input.GetLine(input.CurrentLine);
                             input.CurrentLine++;
 

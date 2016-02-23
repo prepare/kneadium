@@ -12,7 +12,7 @@
 #include "include/internal/cef_types_wrappers.h"
 #include "cefclient/browser/osr_renderer.h"
 
-#include "cefclient/mycef.h" //my extension
+#include "cefclient/myext/mycef.h"
 namespace client {
 
 class RootWindowManager;

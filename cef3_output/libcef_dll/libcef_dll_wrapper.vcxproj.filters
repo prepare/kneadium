@@ -1157,6 +1157,12 @@
     <Filter Include="include\base\internal">
       <UniqueIdentifier>{BCAC94C7-87E2-4796-9A40-1E6EA3C2F806}</UniqueIdentifier>
     </Filter>
+    <Filter Include="libcef_dll">
+      <UniqueIdentifier>{0C6F4C56-3003-450B-8A7A-8649211F2CF1}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="include">
+      <UniqueIdentifier>{DC43F011-AC9F-473E-BDFA-4008674D22C4}</UniqueIdentifier>
+    </Filter>
     <Filter Include="libcef_dll\base">
       <UniqueIdentifier>{E07FEE98-8789-4462-9638-2CB2CA3BB79B}</UniqueIdentifier>
     </Filter>
@@ -1168,12 +1174,6 @@
     </Filter>
     <Filter Include="libcef_dll\wrapper">
       <UniqueIdentifier>{456B6555-FC0F-4E8A-A19C-5FE23847044C}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="libcef_dll">
-      <UniqueIdentifier>{0C6F4C56-3003-450B-8A7A-8649211F2CF1}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="include">
-      <UniqueIdentifier>{DC43F011-AC9F-473E-BDFA-4008674D22C4}</UniqueIdentifier>
     </Filter>
     <Filter Include="include\base">
       <UniqueIdentifier>{3ADFCFBB-D78E-4EDD-9AD3-E5B2952B308F}</UniqueIdentifier>
