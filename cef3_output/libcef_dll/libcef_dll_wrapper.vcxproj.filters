@@ -1184,6 +1184,9 @@
     <CustomBuild Include="D:\projects\CefBridge\cef3\libcef_dll\CMakeLists.txt" />
   </ItemGroup>
   <ItemGroup>
+    <Filter Include="include\base\internal">
+      <UniqueIdentifier>{89A12F1F-78C1-44CA-AD1F-3A7CCAA9E692}</UniqueIdentifier>
+    </Filter>
     <Filter Include="libcef_dll">
       <UniqueIdentifier>{EED9816C-02FF-4C95-992C-BC9F94BB178B}</UniqueIdentifier>
     </Filter>
@@ -1201,9 +1204,6 @@
     </Filter>
     <Filter Include="libcef_dll\wrapper">
       <UniqueIdentifier>{A1438D3C-6C51-4236-9AEA-B277AB4986B0}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="include\base\internal">
-      <UniqueIdentifier>{89A12F1F-78C1-44CA-AD1F-3A7CCAA9E692}</UniqueIdentifier>
     </Filter>
     <Filter Include="include\base">
       <UniqueIdentifier>{16EB7CF2-A5F6-4807-B1D5-B598F738CCD7}</UniqueIdentifier>
