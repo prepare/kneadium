@@ -1,22 +1,24 @@
+# PATCH
 # Copyright (c) 2014 The Chromium Embedded Framework Authors. All rights
 # reserved. Use of this source code is governed by a BSD-style license that
 # can be found in the LICENSE file.
 
 #
 # Source files.
-#
 set(CEFCLIENT_MYCEF_MYCEF_SRCS
-  dll_init.cpp
-  dll_init.h
-  ExportFuncs.cpp
-  ExportFuncs.h
-  mycef.cc
-  mycef.h
+  myext/dll_init.cpp
+  myext/dll_init.h
+  myext/ExportFuncs.cpp
+  myext/ExportFuncs.h
+  myext/mycef.cc
+  myext/mycef.h
   )
-source_group(cefclient\\\\mycef FILES ${CEFCLIENT_MYCEF_MYCEF_SRCS})
+source_group(cefclient\\\\myext FILES ${CEFCLIENT_MYCEF_MYCEF_SRCS})
 set(CEFCLIENT_MYCEF_SRCS
   ${CEFCLIENT_MYCEF_MYCEF_SRCS}
   )
+#
+
 # cefclient browser sources.
 set(CEFCLIENT_BROWSER_BROWSER_SRCS
   browser/binding_test.cc
@@ -50,8 +52,12 @@ set(CEFCLIENT_BROWSER_BROWSER_SRCS
   browser/osr_dragdrop_events.h
   browser/osr_renderer.cc
   browser/osr_renderer.h
+  browser/preferences_test.cc
+  browser/preferences_test.h
   browser/resource.h
   browser/resource_util.h
+  browser/response_filter_test.cc
+  browser/response_filter_test.h
   browser/root_window.cc
   browser/root_window.h
   browser/root_window_manager.cc
@@ -231,6 +237,8 @@ set(CEFCLIENT_RESOURCES_RESOURCES_SRCS
   resources/pdf.pdf
   resources/performance.html
   resources/performance2.html
+  resources/preferences.html
+  resources/response_filter.html
   resources/transparency.html
   resources/urlrequest.html
   resources/window.html
@@ -385,9 +393,6 @@ if(OS_MACOSX)
   # Fix the framework link in the main executable.
   FIX_MACOSX_MAIN_FRAMEWORK_LINK(${CEF_TARGET} ${CEF_APP})
 
-  # Make the other helper app bundles.
-  MAKE_MACOSX_HELPERS(${CEF_TARGET} ${CEF_APP})
-
   if(NOT ${CMAKE_GENERATOR} STREQUAL "Xcode")
     # Manually process and copy over resource files.
     # The Xcode generator handles this via the set_target_properties RESOURCE directive.
@@ -405,7 +410,7 @@ if(OS_WINDOWS)
   # All sources required by the "cefclient" target. Generates an executable that
   # is used for all processes.
   set(CEFCLIENT_SRCS
-    ${CEFCLIENT_MYCEF_MYCEF_SRCS}
+${CEFCLIENT_MYCEF_MYCEF_SRCS}
     ${CEFCLIENT_BROWSER_SRCS}
     ${CEFCLIENT_COMMON_SRCS}
     ${CEFCLIENT_RENDERER_SRCS}

@@ -163,7 +163,7 @@ QueryRequestArgs::QueryRequestArgs() {
 	this->browser = nullptr;
 	this->frame = nullptr;
 	this->query_id = 0;
-	this->request = "";
+	this->request = nullptr;
 	this->persistent = false;
 	this->callback = nullptr;
 }

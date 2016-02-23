@@ -1,3 +1,4 @@
+//# PATCH
 // Copyright (c) 2012 The Chromium Embedded Framework Authors. All rights
 // reserved. Use of this source code is governed by a BSD-style license that
 // can be found in the LICENSE file.
@@ -7,12 +8,9 @@
 #include <sstream>
 #include <string>
 
-
 #include "include/cef_dom.h"
 #include "include/wrapper/cef_helpers.h"
 #include "include/wrapper/cef_message_router.h"
-
- 
 
 namespace client {
 namespace renderer {
@@ -30,13 +28,10 @@ class ClientRenderDelegate : public ClientAppRenderer::Delegate {
 
   virtual void OnWebKitInitialized(CefRefPtr<ClientAppRenderer> app) OVERRIDE {
     // Create the renderer-side router for query handling.
-
-    //show msgbox if we want to break a debugger in render process
-	//MessageBox(NULL, L"OnWebKitInitialized", L"OnWebKitInitialized", 0);
-	
+//show msgbox if we want to break a debugger in render process
+//MessageBox(NULL, L"OnWebKitInitialized", L"OnWebKitInitialized", 0);
     CefMessageRouterConfig config;
-    message_router_ = CefMessageRouterRendererSide::Create(config); 
-
+    message_router_ = CefMessageRouterRendererSide::Create(config);
   }
 
   virtual void OnContextCreated(CefRefPtr<ClientAppRenderer> app,

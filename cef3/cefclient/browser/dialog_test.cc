@@ -9,7 +9,6 @@
 #include "include/cef_browser.h"
 #include "include/wrapper/cef_helpers.h"
 
- 
 namespace client {
 namespace dialog_test {
 
@@ -114,7 +113,6 @@ class Handler : public CefMessageRouterBrowserSide::Handler {
 
     // Only handle messages from the test URL.
     const std::string& url = frame->GetURL();
-	//if 
     if (url.find(kTestUrl) != 0)
       return false;
 

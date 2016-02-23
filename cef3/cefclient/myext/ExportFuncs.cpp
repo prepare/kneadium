@@ -563,3 +563,10 @@ MY_DLL_EXPORT void MyCefString_Read(CefString* cefStr, wchar_t* outputBuffer, in
 	wcscpy_s(outputBuffer, outputBufferLen, cefStr->c_str());
 }
 
+MY_DLL_EXPORT void MyCefStringHolder_Read(MyCefStringHolder* mycefStr, wchar_t* outputBuffer, int outputBufferLen, int* actualLength)
+{	
+	CefString* cefStr = &mycefStr->value;
+	int str_len = (int)cefStr->length();
+	*actualLength = str_len;
+	wcscpy_s(outputBuffer, outputBufferLen, cefStr->c_str());
+}

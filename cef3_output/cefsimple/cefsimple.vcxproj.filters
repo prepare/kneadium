@@ -46,10 +46,10 @@
   </ItemGroup>
   <ItemGroup>
     <Filter Include="cefsimple">
-      <UniqueIdentifier>{89ACB724-C2E0-49FD-82A8-2DF3B24D0BD8}</UniqueIdentifier>
+      <UniqueIdentifier>{AEFB39BD-9318-4E2C-8402-E40B16C828E0}</UniqueIdentifier>
     </Filter>
     <Filter Include="cefsimple\res">
-      <UniqueIdentifier>{AC64A1E0-146D-41D9-859A-A14928C2EEAE}</UniqueIdentifier>
+      <UniqueIdentifier>{C2408DB0-5169-43A0-B13F-EDB829589EBE}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>

@@ -1,14 +1,14 @@
 ﻿<?xml version="1.0" encoding="UTF-8"?>
 <Project ToolsVersion="14.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
-    <ClCompile Include="D:\projects\CefBridge\cef3\cefclient\dll_init.cpp">
-      <Filter>cefclient\mycef</Filter>
+    <ClCompile Include="D:\projects\CefBridge\cef3\cefclient\myext\dll_init.cpp">
+      <Filter>cefclient\myext</Filter>
     </ClCompile>
-    <ClCompile Include="D:\projects\CefBridge\cef3\cefclient\ExportFuncs.cpp">
-      <Filter>cefclient\mycef</Filter>
+    <ClCompile Include="D:\projects\CefBridge\cef3\cefclient\myext\ExportFuncs.cpp">
+      <Filter>cefclient\myext</Filter>
     </ClCompile>
-    <ClCompile Include="D:\projects\CefBridge\cef3\cefclient\mycef.cc">
-      <Filter>cefclient\mycef</Filter>
+    <ClCompile Include="D:\projects\CefBridge\cef3\cefclient\myext\mycef.cc">
+      <Filter>cefclient\myext</Filter>
     </ClCompile>
     <ClCompile Include="D:\projects\CefBridge\cef3\cefclient\browser\binding_test.cc">
       <Filter>cefclient\browser</Filter>
@@ -53,6 +53,12 @@
       <Filter>cefclient\browser</Filter>
     </ClCompile>
     <ClCompile Include="D:\projects\CefBridge\cef3\cefclient\browser\osr_renderer.cc">
+      <Filter>cefclient\browser</Filter>
+    </ClCompile>
+    <ClCompile Include="D:\projects\CefBridge\cef3\cefclient\browser\preferences_test.cc">
+      <Filter>cefclient\browser</Filter>
+    </ClCompile>
+    <ClCompile Include="D:\projects\CefBridge\cef3\cefclient\browser\response_filter_test.cc">
       <Filter>cefclient\browser</Filter>
     </ClCompile>
     <ClCompile Include="D:\projects\CefBridge\cef3\cefclient\browser\root_window.cc">
@@ -141,14 +147,14 @@
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="D:\projects\CefBridge\cef3\cefclient\dll_init.h">
-      <Filter>cefclient\mycef</Filter>
+    <ClInclude Include="D:\projects\CefBridge\cef3\cefclient\myext\dll_init.h">
+      <Filter>cefclient\myext</Filter>
     </ClInclude>
-    <ClInclude Include="D:\projects\CefBridge\cef3\cefclient\ExportFuncs.h">
-      <Filter>cefclient\mycef</Filter>
+    <ClInclude Include="D:\projects\CefBridge\cef3\cefclient\myext\ExportFuncs.h">
+      <Filter>cefclient\myext</Filter>
     </ClInclude>
-    <ClInclude Include="D:\projects\CefBridge\cef3\cefclient\mycef.h">
-      <Filter>cefclient\mycef</Filter>
+    <ClInclude Include="D:\projects\CefBridge\cef3\cefclient\myext\mycef.h">
+      <Filter>cefclient\myext</Filter>
     </ClInclude>
     <ClInclude Include="D:\projects\CefBridge\cef3\cefclient\browser\binding_test.h">
       <Filter>cefclient\browser</Filter>
@@ -198,10 +204,16 @@
     <ClInclude Include="D:\projects\CefBridge\cef3\cefclient\browser\osr_renderer.h">
       <Filter>cefclient\browser</Filter>
     </ClInclude>
+    <ClInclude Include="D:\projects\CefBridge\cef3\cefclient\browser\preferences_test.h">
+      <Filter>cefclient\browser</Filter>
+    </ClInclude>
     <ClInclude Include="D:\projects\CefBridge\cef3\cefclient\browser\resource.h">
       <Filter>cefclient\browser</Filter>
     </ClInclude>
     <ClInclude Include="D:\projects\CefBridge\cef3\cefclient\browser\resource_util.h">
+      <Filter>cefclient\browser</Filter>
+    </ClInclude>
+    <ClInclude Include="D:\projects\CefBridge\cef3\cefclient\browser\response_filter_test.h">
       <Filter>cefclient\browser</Filter>
     </ClInclude>
     <ClInclude Include="D:\projects\CefBridge\cef3\cefclient\browser\root_window.h">
@@ -310,6 +322,12 @@
     <None Include="D:\projects\CefBridge\cef3\cefclient\resources\performance2.html">
       <Filter>cefclient\resources</Filter>
     </None>
+    <None Include="D:\projects\CefBridge\cef3\cefclient\resources\preferences.html">
+      <Filter>cefclient\resources</Filter>
+    </None>
+    <None Include="D:\projects\CefBridge\cef3\cefclient\resources\response_filter.html">
+      <Filter>cefclient\resources</Filter>
+    </None>
     <None Include="D:\projects\CefBridge\cef3\cefclient\resources\transparency.html">
       <Filter>cefclient\resources</Filter>
     </None>
@@ -338,26 +356,26 @@
     </ResourceCompile>
   </ItemGroup>
   <ItemGroup>
-    <Filter Include="cefclient\resources\win">
-      <UniqueIdentifier>{70205340-A840-46A5-8EE4-1647F26C3E76}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="cefclient">
-      <UniqueIdentifier>{3F655BF0-81ED-4704-AF46-DA56E1157367}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="cefclient\mycef">
-      <UniqueIdentifier>{E0C1AA59-517A-475E-AA1F-E11AD7043563}</UniqueIdentifier>
+    <Filter Include="cefclient\myext">
+      <UniqueIdentifier>{5683BDAC-DE39-4ECD-838A-ABD1C1C17B55}</UniqueIdentifier>
     </Filter>
     <Filter Include="cefclient\browser">
-      <UniqueIdentifier>{E9ACD922-628B-48C1-82CE-BCE22EB698CC}</UniqueIdentifier>
+      <UniqueIdentifier>{32B7162D-018A-4D4B-9866-80E08DE31296}</UniqueIdentifier>
     </Filter>
     <Filter Include="cefclient\common">
-      <UniqueIdentifier>{A6BCCAFA-7467-49C6-BE1F-B0AD567EDC87}</UniqueIdentifier>
+      <UniqueIdentifier>{A81963E0-91DA-40CC-8D58-13CBACCAB7A0}</UniqueIdentifier>
     </Filter>
     <Filter Include="cefclient\renderer">
-      <UniqueIdentifier>{1BD097A7-868A-4E00-8882-DCE859B7493D}</UniqueIdentifier>
+      <UniqueIdentifier>{6A33E3AE-029B-43B5-877A-858905C18C68}</UniqueIdentifier>
     </Filter>
     <Filter Include="cefclient\resources">
-      <UniqueIdentifier>{204F87AE-BB57-4400-B882-7687032F9131}</UniqueIdentifier>
+      <UniqueIdentifier>{A1074059-50F0-4CFF-84C2-CC8A61A793DB}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="cefclient">
+      <UniqueIdentifier>{F2152F57-6B2D-4E63-8E29-82DC9B4B8F23}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="cefclient\resources\win">
+      <UniqueIdentifier>{7426172D-8E34-42EE-8F6F-9491D8DC05FB}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>

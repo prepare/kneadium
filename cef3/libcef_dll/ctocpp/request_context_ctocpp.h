@@ -1,4 +1,4 @@
-// Copyright (c) 2015 The Chromium Embedded Framework Authors. All rights
+// Copyright (c) 2016 The Chromium Embedded Framework Authors. All rights
 // reserved. Use of this source code is governed by a BSD-style license that
 // can be found in the LICENSE file.
 //
@@ -44,6 +44,14 @@ class CefRequestContextCToCpp
       const CefString& domain_name,
       CefRefPtr<CefSchemeHandlerFactory> factory) OVERRIDE;
   bool ClearSchemeHandlerFactories() OVERRIDE;
+  void PurgePluginListCache(bool reload_pages) OVERRIDE;
+  bool HasPreference(const CefString& name) OVERRIDE;
+  CefRefPtr<CefValue> GetPreference(const CefString& name) OVERRIDE;
+  CefRefPtr<CefDictionaryValue> GetAllPreferences(
+      bool include_defaults) OVERRIDE;
+  bool CanSetPreference(const CefString& name) OVERRIDE;
+  bool SetPreference(const CefString& name, CefRefPtr<CefValue> value,
+      CefString& error) OVERRIDE;
 };
 
 #endif  // USING_CEF_SHARED
