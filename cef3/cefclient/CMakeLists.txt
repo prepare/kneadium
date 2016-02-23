@@ -1,10 +1,11 @@
-# PATCH
+# PATCH  d:\projects\CefBridge\cef3\cefclient\CMakeLists.txt
 # Copyright (c) 2014 The Chromium Embedded Framework Authors. All rights
 # reserved. Use of this source code is governed by a BSD-style license that
 # can be found in the LICENSE file.
 
 #
 # Source files.
+# //###_APPEND_START 0
 set(CEFCLIENT_MYCEF_MYCEF_SRCS
   myext/dll_init.cpp
   myext/dll_init.h
@@ -17,6 +18,7 @@ source_group(cefclient\\\\myext FILES ${CEFCLIENT_MYCEF_MYCEF_SRCS})
 set(CEFCLIENT_MYCEF_SRCS
   ${CEFCLIENT_MYCEF_MYCEF_SRCS}
   )
+# //###_APPEND_STOP
 #
 
 # cefclient browser sources.
@@ -406,11 +408,15 @@ endif()
 # Windows configuration.
 #
 
+# //###_FIND_NEXT_LANDMARK 1
 if(OS_WINDOWS)
   # All sources required by the "cefclient" target. Generates an executable that
   # is used for all processes.
+# //###_FIND_NEXT_LANDMARK 1
   set(CEFCLIENT_SRCS
+# //###_APPEND_START 1
 ${CEFCLIENT_MYCEF_MYCEF_SRCS}
+# //###_APPEND_STOP
     ${CEFCLIENT_BROWSER_SRCS}
     ${CEFCLIENT_COMMON_SRCS}
     ${CEFCLIENT_RENDERER_SRCS}

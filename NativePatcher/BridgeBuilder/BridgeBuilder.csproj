@@ -34,14 +34,13 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
-    <Reference Include="System.Data" />
-    <Reference Include="System.Deployment" />
     <Reference Include="System.Drawing" />
     <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Patcher\Builder.cs" />
+    <Compile Include="Patcher\ManualPatcher.cs" />
+    <Compile Include="Patcher\PatchBuilder.cs" />
     <Compile Include="Patcher\Patchs.cs" />
     <Compile Include="Form1.cs">
       <SubType>Form</SubType>

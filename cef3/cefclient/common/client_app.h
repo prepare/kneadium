@@ -1,4 +1,4 @@
-//# PATCH
+//###_ORIGINAL d:\projects\CefBridge\cef3\cefclient\common/client_app.h
 // Copyright (c) 2013 The Chromium Embedded Framework Authors. All rights
 // reserved. Use of this source code is governed by a BSD-style license that
 // can be found in the LICENSE file.
@@ -9,8 +9,11 @@
 
 #include <vector>
 
+//###_START 0
 #include "include/cef_app.h"
+//###_APPEND_START 0
 #include "cefclient/myext/mycef.h"
+//###_APPEND_STOP
 
 namespace client {
 
@@ -27,8 +30,11 @@ class ClientApp : public CefApp {
   };
 
   // Determine the process type based on command-line arguments.
+//###_START 1
   static ProcessType GetProcessType(CefRefPtr<CefCommandLine> command_line);
+//###_APPEND_START 1
 managed_callback myMxCallback_ = NULL;//myextension
+//###_APPEND_STOP
 
  protected:
   // Schemes that will be registered with the global cookie manager.
