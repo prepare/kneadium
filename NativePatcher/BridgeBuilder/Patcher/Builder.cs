@@ -20,6 +20,24 @@ namespace BridgeBuilder
             get;
             set;
         }
+        public void DoChanged()
+        {
+            //-----------------
+            CopyExtensionSources();
+            //-----------------
+            Do_ClientApp_h();
+            Do_ClientRenderer_cc();
+            Do_PerformanceTest_cc();
+            Do_BrowserWindow_cc();
+            Do_BrowserWindow_h();
+            Do_Client_Handler_cc();
+            Do_Client_Handler_h();
+            Do_MainContext_h();
+            Do_TestRunnner_cc();
+            Do_TestRunner_h();
+            Do_CMake_txt();
+
+        }
         PatchFile CreatePathFile(string filename)
         {
 
@@ -109,8 +127,7 @@ set(CEFCLIENT_MYCEF_SRCS
 							CefV8Value::CreateFunction(kPerfTestReturnValue, handler),
 							V8_PROPERTY_ATTRIBUTE_READONLY);
 					}")
-                      .SkipUntil("}")
-                      .Append("}");
+                      .SkipUntilAndAccept("}");
             //--------------------------------------------------------
             patch.PatchContent();
         }
@@ -186,7 +203,7 @@ set(CEFCLIENT_MYCEF_SRCS
 			default:  // Allow default handling, if any.
 				return ExecuteTestMenu(command_id);
 			}
-		}").SkipUntil("}");
+		}").SkipUntilPass("}");
             //--------------------------------------------------------
             patchFile.FindPos("bool ClientHandler::OnConsoleMessage(CefRefPtr<CefBrowser> browser,")
                 .FindNext("CEF_REQUIRE_UI_THREAD")
@@ -222,19 +239,19 @@ set(CEFCLIENT_MYCEF_SRCS
 
 				if (first_console_message_) {
 					test_runner::Alert(
-						browser, ""Console messages written to \"" + console_log_file_ + ""\"");
+						browser, ""Console messages written to "" + console_log_file_ );
 					first_console_message_ = false;
 				}
 			}
 		}")
-          .SkipUntil("return false")
-          .Append("return false");
+         .SkipUntilAndAccept("return false;");
+
 
             //-------------------------------------------------
             patchFile.FindPos(" // Allow geolocation access from all websites.")
                 .Append("callback->Continue(false);")
-                .SkipUntil("return true;")
-                .Append("return true");
+                .SkipUntilAndAccept("return true;");
+
 
             //-------------------------------------------------
             patchFile.FindPos("bool ClientHandler::OnBeforePopup(")
@@ -263,7 +280,7 @@ set(CEFCLIENT_MYCEF_SRCS
 			return !CreatePopupWindow(browser, false, popupFeatures, windowInfo, client,
 				settings);
 		}")
-          .SkipUntil("}").Append("}");
+          .SkipUntilAndAccept("}");
             //-------------------------------------------------
             patchFile.FindPos("void ClientHandler::OnAfterCreated(CefRefPtr<CefBrowser> browser)")
                 .FindNext(" message_router_ = CefMessageRouterBrowserSide::Create(config);")
@@ -286,7 +303,7 @@ set(CEFCLIENT_MYCEF_SRCS
 				for (; it != message_handler_set_.end(); ++it)
 					message_router_->AddHandler(*(it), false);
 
-			}").SkipUntil("}").Append("}");
+			}").SkipUntilAndAccept("}");
             //--------------------------------------------------------
             patchFile.FindPos("void ClientHandler::ShowDevTools(CefRefPtr<CefBrowser> browser,")
                 .FindNext(" CefBrowserSettings settings;")
@@ -304,7 +321,7 @@ set(CEFCLIENT_MYCEF_SRCS
 				browser->GetHost()->ShowDevTools(windowInfo, client, settings,
 					inspect_element_at);
 			}
-		  }").SkipUntil("}");
+		  }").SkipUntilPass("}");
             //-------------------------------------------------
             patchFile.FindPos("void ClientHandler::CloseDevTools(CefRefPtr<CefBrowser> browser) {")
                 .Append(@"if (this->mcallback_) {
@@ -313,7 +330,7 @@ set(CEFCLIENT_MYCEF_SRCS
 		}
 		else {
 			browser->GetHost()->CloseDevTools();
-		}").SkipUntil("}").Append("}");
+		}").SkipUntilAndAccept("}");
             //-------------------------------------------------
             patchFile.FindPos("void ClientHandler::NotifyBrowserCreated(CefRefPtr<CefBrowser> ")
                 .FindNext(" MAIN_POST_CLOSURE(")
@@ -451,6 +468,46 @@ set(CEFCLIENT_MYCEF_SRCS
             var patchFile = CreatePathFile("browser/test_runner.cc");
             patchFile.FindPos("#include \"cefclient/browser/window_test.h\"")
                 .Append("#include \"include/wrapper/cef_byte_read_handler.h\"");
+
+            patchFile.FindPos("namespace test_runner {")
+                .Append("managed_callback mcallback_ = NULL;");
+
+            patchFile.FindPos("class RequestDumpResourceProvider ")
+                .FindNext("DISALLOW_COPY_AND_ASSIGN(RequestDumpResourceProvider);")
+                .FindNext("};")
+                .Append(@"	std::string RequestUrlFilter2(const std::string& url) {
+
+				if (client::test_runner::mcallback_)
+				{
+					MethodArgs metArgs;
+					memset(&metArgs, 0, sizeof(MethodArgs));
+
+					//-----------------------------------------
+					CefString cef_str(url);
+					metArgs.SetArgAsString(0, cef_str.c_str());
+
+					client::test_runner::mcallback_(142, &metArgs);
+
+					if (metArgs.result0.value.i32 == 0) {
+						//no change
+						return url;
+					}
+					else {
+						//changed
+						//
+						std::string s1("""");
+						s1.append((const char*)metArgs.result1.value.ptr, metArgs.result1.length);
+						return s1;
+					}
+
+				}
+				return url; 
+			}");
+
+
+
+
+
             patchFile.FindPos("void SetupResourceManager(CefRefPtr<CefResourceManager> resource_manager) {")
                 .FindNext("#endif")
                 .FindNext("}")
@@ -581,47 +638,40 @@ set(CEFCLIENT_MYCEF_SRCS
         }
 
         void CopyExtensionSources()
-        {   
-            //temp remove
-            //string extensionSourceDir = this.RootDir;
-            //string extensionTargetDir = this.RootDir;
-            ////check extension source dir
-            //if (!Directory.Exists(extensionSourceDir))
-            //{
-            //    throw new NotSupportedException("no extension src dir");
-            //}
-            //if (!Directory.Exists(extensionSourceDir))
-            //{
-            //    throw new NotSupportedException("no extension target dir");
-            //}
-            ////------------------------------------------------------------
-
-            //if (extensionSourceDir == extensionTargetDir)
-            //{
-            //    throw new NotSupportedException("not copy to the same dir");
-            //}
-            ////-------------------------------------------------------------
-            ////backup src dir 
-
-        }
-        public void DoChanged()
         {
-            Do_ClientApp_h();
-            Do_ClientRenderer_cc();
-            Do_PerformanceTest_cc();
-            Do_BrowserWindow_cc();
-            Do_BrowserWindow_h();
-            Do_Client_Handler_cc();
-            Do_Client_Handler_h();
-            Do_MainContext_h();
-            Do_TestRunnner_cc();
-            Do_TestRunner_h();
-            Do_CMake_txt();
-            //-----------------
-            CopyExtensionSources();
 
-            //-----------------
+
+            string extensionSourceDir = @"..\..\Patcher_ExtCode\myext";
+            string extensionTargetDir = this.RootDir + "\\myext";
+
+            if (extensionSourceDir == extensionTargetDir)
+            {
+                throw new NotSupportedException("not copy to the same dir");
+            }
+
+
+            //check extension source dir
+            if (!Directory.Exists(extensionSourceDir))
+            {
+                throw new NotSupportedException("no extension src dir");
+            }
+            if (Directory.Exists(extensionTargetDir))
+            {
+                throw new NotSupportedException("target dir already exists");
+            }
+            //-------------------------------------------------------------
+            //create ext dir
+            Directory.CreateDirectory(extensionTargetDir);
+            //copy 
+            string[] files = Directory.GetFiles(extensionSourceDir);
+            for (int i = files.Length - 1; i >= 0; --i)
+            {
+                File.Copy(files[i],
+                    extensionTargetDir + "\\" + Path.GetFileName(files[i]));
+            }
+            //------------------------------------------------------------- 
         }
+
 
     }
 }

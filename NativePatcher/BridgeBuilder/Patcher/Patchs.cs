@@ -13,7 +13,8 @@ namespace BridgeBuilder
         FindNextLandMark,
         AppendString,
         FollowBy,
-        SkipUntil
+        SkipUntilPass,
+        SkipUntilAndAccept
     }
 
     class PatchCommand
@@ -94,7 +95,7 @@ namespace BridgeBuilder
             }
             else
             {
-                output.AddLine(patchCode); 
+                output.AddLine(patchCode);
             }
             //-----------------------------------------------------------------
             int j = patchTasks.Count;
@@ -222,13 +223,28 @@ namespace BridgeBuilder
             commands.Add(cmd);
             return this;
         }
-        public PatchTask SkipUntil(string text)
+        /// <summary>
+        /// not include pass line
+        /// </summary>
+        /// <param name="text"></param>
+        /// <returns></returns>
+        public PatchTask SkipUntilPass(string text)
         {
-            var cmd = new PatchCommand(PatchCommandKind.SkipUntil, text);
+            var cmd = new PatchCommand(PatchCommandKind.SkipUntilPass, text);
             commands.Add(cmd);
             return this;
         }
-
+        /// <summary>
+        /// include met line
+        /// </summary>
+        /// <param name="text"></param>
+        /// <returns></returns>
+        public PatchTask SkipUntilAndAccept(string text)
+        {
+            var cmd = new PatchCommand(PatchCommandKind.SkipUntilAndAccept, text);
+            commands.Add(cmd);
+            return this;
+        }
         public override string ToString()
         {
             return "find " + LandMark + " then do ..." + commands.Count.ToString();
@@ -348,7 +364,7 @@ namespace BridgeBuilder
                                 throw new NotSupportedException();
                             }
                         } break;
-                    case PatchCommandKind.SkipUntil:
+                    case PatchCommandKind.SkipUntilPass:
                         {
                             curLine = input.CurrentLine;
                             bool foundNextLandMark = false;
@@ -375,10 +391,34 @@ namespace BridgeBuilder
                             {
                                 throw new NotSupportedException("next land mark not found");
                             }
+                        } break;
+                    case PatchCommandKind.SkipUntilAndAccept:
+                        {
+                            curLine = input.CurrentLine;
+                            bool foundNextLandMark = false;
+                            for (int i = curLine; i < lineCount; ++i)
+                            {
+                                string line = input.GetLine(i);
+                                input.CurrentLine++;
 
+                                if (line.TrimStart().StartsWith(cmd.String))
+                                {
+                                    //found land mark
+                                    foundNextLandMark = true;
+                                    //accept this line
+                                    output.AddLine(line);
+                                    break;
+                                }
+                                else
+                                {
+                                    //skip
+                                }
+                            }
 
-
-
+                            if (!foundNextLandMark)
+                            {
+                                throw new NotSupportedException("next land mark not found");
+                            }
                         } break;
                     default:
                         throw new NotSupportedException();
