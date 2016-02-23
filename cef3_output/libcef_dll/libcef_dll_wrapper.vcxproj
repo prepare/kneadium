@@ -11,7 +11,7 @@
     </ProjectConfiguration>
   </ItemGroup>
   <PropertyGroup Label="Globals">
-    <ProjectGUID>{56CF0BE1-1435-40EF-B529-85FE18BF4BF1}</ProjectGUID>
+    <ProjectGUID>{AE8D89C2-7B72-4718-853A-0565AB07EF89}</ProjectGUID>
     <Keyword>Win32Proj</Keyword>
     <Platform>Win32</Platform>
     <ProjectName>libcef_dll_wrapper</ProjectName>
@@ -182,6 +182,7 @@ if %errorlevel% neq 0 goto :VCEnd</Command>
     <ClInclude Include="D:\projects\CefBridge\cef3\libcef_dll\cpptoc\request_handler_cpptoc.h" />
     <ClInclude Include="D:\projects\CefBridge\cef3\libcef_dll\cpptoc\resource_bundle_handler_cpptoc.h" />
     <ClInclude Include="D:\projects\CefBridge\cef3\libcef_dll\cpptoc\resource_handler_cpptoc.h" />
+    <ClInclude Include="D:\projects\CefBridge\cef3\libcef_dll\cpptoc\response_filter_cpptoc.h" />
     <ClInclude Include="D:\projects\CefBridge\cef3\libcef_dll\cpptoc\run_file_dialog_callback_cpptoc.h" />
     <ClInclude Include="D:\projects\CefBridge\cef3\libcef_dll\cpptoc\scheme_handler_factory_cpptoc.h" />
     <ClInclude Include="D:\projects\CefBridge\cef3\libcef_dll\cpptoc\set_cookie_callback_cpptoc.h" />
@@ -225,7 +226,9 @@ if %errorlevel% neq 0 goto :VCEnd</Command>
     <ClInclude Include="D:\projects\CefBridge\cef3\libcef_dll\ctocpp\request_callback_ctocpp.h" />
     <ClInclude Include="D:\projects\CefBridge\cef3\libcef_dll\ctocpp\request_context_ctocpp.h" />
     <ClInclude Include="D:\projects\CefBridge\cef3\libcef_dll\ctocpp\request_ctocpp.h" />
+    <ClInclude Include="D:\projects\CefBridge\cef3\libcef_dll\ctocpp\resource_bundle_ctocpp.h" />
     <ClInclude Include="D:\projects\CefBridge\cef3\libcef_dll\ctocpp\response_ctocpp.h" />
+    <ClInclude Include="D:\projects\CefBridge\cef3\libcef_dll\ctocpp\run_context_menu_callback_ctocpp.h" />
     <ClInclude Include="D:\projects\CefBridge\cef3\libcef_dll\ctocpp\scheme_registrar_ctocpp.h" />
     <ClInclude Include="D:\projects\CefBridge\cef3\libcef_dll\ctocpp\sslcert_principal_ctocpp.h" />
     <ClInclude Include="D:\projects\CefBridge\cef3\libcef_dll\ctocpp\sslinfo_ctocpp.h" />
@@ -285,9 +288,11 @@ if %errorlevel% neq 0 goto :VCEnd</Command>
     <ClInclude Include="D:\projects\CefBridge\cef3\include\cef_request_context.h" />
     <ClInclude Include="D:\projects\CefBridge\cef3\include\cef_request_context_handler.h" />
     <ClInclude Include="D:\projects\CefBridge\cef3\include\cef_request_handler.h" />
+    <ClInclude Include="D:\projects\CefBridge\cef3\include\cef_resource_bundle.h" />
     <ClInclude Include="D:\projects\CefBridge\cef3\include\cef_resource_bundle_handler.h" />
     <ClInclude Include="D:\projects\CefBridge\cef3\include\cef_resource_handler.h" />
     <ClInclude Include="D:\projects\CefBridge\cef3\include\cef_response.h" />
+    <ClInclude Include="D:\projects\CefBridge\cef3\include\cef_response_filter.h" />
     <ClInclude Include="D:\projects\CefBridge\cef3\include\cef_runnable.h" />
     <ClInclude Include="D:\projects\CefBridge\cef3\include\cef_scheme.h" />
     <ClInclude Include="D:\projects\CefBridge\cef3\include\cef_ssl_info.h" />
@@ -376,9 +381,11 @@ if %errorlevel% neq 0 goto :VCEnd</Command>
     <ClInclude Include="D:\projects\CefBridge\cef3\include\capi\cef_request_context_capi.h" />
     <ClInclude Include="D:\projects\CefBridge\cef3\include\capi\cef_request_context_handler_capi.h" />
     <ClInclude Include="D:\projects\CefBridge\cef3\include\capi\cef_request_handler_capi.h" />
+    <ClInclude Include="D:\projects\CefBridge\cef3\include\capi\cef_resource_bundle_capi.h" />
     <ClInclude Include="D:\projects\CefBridge\cef3\include\capi\cef_resource_bundle_handler_capi.h" />
     <ClInclude Include="D:\projects\CefBridge\cef3\include\capi\cef_resource_handler_capi.h" />
     <ClInclude Include="D:\projects\CefBridge\cef3\include\capi\cef_response_capi.h" />
+    <ClInclude Include="D:\projects\CefBridge\cef3\include\capi\cef_response_filter_capi.h" />
     <ClInclude Include="D:\projects\CefBridge\cef3\include\capi\cef_scheme_capi.h" />
     <ClInclude Include="D:\projects\CefBridge\cef3\include\capi\cef_ssl_info_capi.h" />
     <ClInclude Include="D:\projects\CefBridge\cef3\include\capi\cef_stream_capi.h" />
@@ -461,6 +468,7 @@ if %errorlevel% neq 0 goto :VCEnd</Command>
     <ClCompile Include="D:\projects\CefBridge\cef3\libcef_dll\cpptoc\request_handler_cpptoc.cc"  />
     <ClCompile Include="D:\projects\CefBridge\cef3\libcef_dll\cpptoc\resource_bundle_handler_cpptoc.cc"  />
     <ClCompile Include="D:\projects\CefBridge\cef3\libcef_dll\cpptoc\resource_handler_cpptoc.cc"  />
+    <ClCompile Include="D:\projects\CefBridge\cef3\libcef_dll\cpptoc\response_filter_cpptoc.cc"  />
     <ClCompile Include="D:\projects\CefBridge\cef3\libcef_dll\cpptoc\run_file_dialog_callback_cpptoc.cc"  />
     <ClCompile Include="D:\projects\CefBridge\cef3\libcef_dll\cpptoc\scheme_handler_factory_cpptoc.cc"  />
     <ClCompile Include="D:\projects\CefBridge\cef3\libcef_dll\cpptoc\set_cookie_callback_cpptoc.cc"  />
@@ -503,7 +511,9 @@ if %errorlevel% neq 0 goto :VCEnd</Command>
     <ClCompile Include="D:\projects\CefBridge\cef3\libcef_dll\ctocpp\request_callback_ctocpp.cc"  />
     <ClCompile Include="D:\projects\CefBridge\cef3\libcef_dll\ctocpp\request_context_ctocpp.cc"  />
     <ClCompile Include="D:\projects\CefBridge\cef3\libcef_dll\ctocpp\request_ctocpp.cc"  />
+    <ClCompile Include="D:\projects\CefBridge\cef3\libcef_dll\ctocpp\resource_bundle_ctocpp.cc"  />
     <ClCompile Include="D:\projects\CefBridge\cef3\libcef_dll\ctocpp\response_ctocpp.cc"  />
+    <ClCompile Include="D:\projects\CefBridge\cef3\libcef_dll\ctocpp\run_context_menu_callback_ctocpp.cc"  />
     <ClCompile Include="D:\projects\CefBridge\cef3\libcef_dll\ctocpp\scheme_registrar_ctocpp.cc"  />
     <ClCompile Include="D:\projects\CefBridge\cef3\libcef_dll\ctocpp\sslcert_principal_ctocpp.cc"  />
     <ClCompile Include="D:\projects\CefBridge\cef3\libcef_dll\ctocpp\sslinfo_ctocpp.cc"  />
@@ -532,7 +542,7 @@ if %errorlevel% neq 0 goto :VCEnd</Command>
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="D:/projects/CefBridge/cef3_output/ZERO_CHECK.vcxproj">
-      <Project>7B5744DE-2CA6-4568-8FDA-28B5C9E93BBB</Project>
+      <Project>C6F3158D-D101-4171-851F-E13E19A2AE4F</Project>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

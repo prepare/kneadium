@@ -1,3 +1,4 @@
+//# PATCH
 // Copyright (c) 2015 The Chromium Embedded Framework Authors. All rights
 // reserved. Use of this source code is governed by a BSD-style license that
 // can be found in the LICENSE file.
@@ -48,8 +49,10 @@ void BrowserWindow::OnBrowserClosing(CefRefPtr<CefBrowser> browser) {
 
 void BrowserWindow::OnBrowserClosed(CefRefPtr<CefBrowser> browser) {
   REQUIRE_MAIN_THREAD();
-  DCHECK_EQ(browser->GetIdentifier(), browser_->GetIdentifier());
-  browser_ = NULL;
+  if (browser_.get()) {
+    DCHECK_EQ(browser->GetIdentifier(), browser_->GetIdentifier());
+    browser_ = NULL;
+  }
 
   client_handler_->DetachDelegate();
   client_handler_ = NULL;
@@ -85,10 +88,9 @@ void BrowserWindow::OnSetDraggableRegions(
   REQUIRE_MAIN_THREAD();
   delegate_->OnSetDraggableRegions(regions);
 }
-
 //my extension
-client::ClientHandler* BrowserWindow::GetClientHandler() {
-	return this->client_handler_;
-}
+                        client::ClientHandler* BrowserWindow::GetClientHandler() {
+	                        return this->client_handler_;
+                        }
 
 }  // namespace client

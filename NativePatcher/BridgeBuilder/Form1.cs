@@ -18,7 +18,7 @@ namespace BridgeBuilder
         private void cmdBuild1_Click(object sender, EventArgs e)
         {
 
-            string srcRootDir = @"D:\projects\cef_binary_3.2526.1366\cefclient";
+            string srcRootDir = @"D:\projects\CefBridge\cef3\cefclient"; //2526.1366
             Builder builder = new Builder(srcRootDir);
             builder.DoChanged();
 

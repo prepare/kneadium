@@ -1,3 +1,4 @@
+//# PATCH
 // Copyright (c) 2015 The Chromium Embedded Framework Authors. All rights
 // reserved. Use of this source code is governed by a BSD-style license that
 // can be found in the LICENSE file.
@@ -11,8 +12,8 @@
 #include "include/base/cef_ref_counted.h"
 #include "include/internal/cef_types_wrappers.h"
 #include "cefclient/browser/osr_renderer.h"
+#include "cefclient/myext/mycef.h" //my extension
 
-#include "cefclient/myext/mycef.h"
 namespace client {
 
 class RootWindowManager;
@@ -46,9 +47,8 @@ class MainContext {
 
   // Returns the object used to create/manage RootWindow instances.
   virtual RootWindowManager* GetRootWindowManager() = 0;
-
-  //my extension --for callback to managed side
-  managed_callback myMxCallback_;
+//my extension --for callback to managed side
+                managed_callback myMxCallback_;
 
  protected:
   MainContext();
