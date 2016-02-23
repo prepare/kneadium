@@ -1,4 +1,4 @@
-//# PATCH
+//###_ORIGINAL d:\projects\CefBridge\cef3\cefclient\browser/browser_window.h
 // Copyright (c) 2015 The Chromium Embedded Framework Authors. All rights
 // reserved. Use of this source code is governed by a BSD-style license that
 // can be found in the LICENSE file.
@@ -97,14 +97,18 @@ class BrowserWindow : public ClientHandler::Delegate {
   // Returns the browser owned by the window.
   CefRefPtr<CefBrowser> GetBrowser() const;
 
+//###_START 0
   // Returns true if the browser is closing.
+//###_FOLLOW_BY 0
   bool IsClosing() const;
+//###_APPEND_START 0
 //my extension 
 #ifdef MYCEF_DEBUG//my extension 
   int dbug_id;
 #endif  
   //my extension 
   ClientHandler* GetClientHandler();//my extension
+//###_APPEND_STOP
 
  protected:
   // Allow deletion via scoped_ptr only.

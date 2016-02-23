@@ -8,10 +8,10 @@ using System.IO;
 namespace BridgeBuilder
 {
 
-    class Builder
+    class ManualPatcher
     {
 
-        public Builder(string rootdir)
+        public ManualPatcher(string rootdir)
         {
             this.RootDir = rootdir;
         }
@@ -22,9 +22,7 @@ namespace BridgeBuilder
         }
         public void DoChanged()
         {
-            //-----------------
-            CopyExtensionSources();
-            //-----------------
+
             Do_ClientApp_h();
             Do_ClientRenderer_cc();
             Do_PerformanceTest_cc();
@@ -40,18 +38,15 @@ namespace BridgeBuilder
         }
         PatchFile CreatePathFile(string filename)
         {
-
-            var patch = new PatchFile(filename);
-            patch.RootDir = RootDir;
-            return patch;
+            return new PatchFile(RootDir + "\\" + filename);
         }
 
-        void Do_CMake_txt()
+        public void Do_CMake_txt()
         {
 
-            var patch = new PatchFile("CMakeLists.txt");
-            patch.RootDir = RootDir;
-            patch.FindPos("# Source files.")
+            var patch = new PatchFile(RootDir + "\\" + "CMakeLists.txt");
+            
+            patch.NewTask("# Source files.")
                 .Append(@"set(CEFCLIENT_MYCEF_MYCEF_SRCS
   myext/dll_init.cpp
   myext/dll_init.h
@@ -65,7 +60,7 @@ set(CEFCLIENT_MYCEF_SRCS
   ${CEFCLIENT_MYCEF_MYCEF_SRCS}
   )");
 
-            patch.FindPos("# Windows configuration.")
+            patch.NewTask("# Windows configuration.")
                 .FindNext("if(OS_WINDOWS)")
                 .FindNext("set(CEFCLIENT_SRCS")
                 .Append("${CEFCLIENT_MYCEF_MYCEF_SRCS}");
@@ -76,10 +71,10 @@ set(CEFCLIENT_MYCEF_SRCS
         {
 
             var patch = CreatePathFile("common/client_app.h");
-            patch.FindPos("#include \"include/cef_app.h\"")
+            patch.NewTask("#include \"include/cef_app.h\"")
                       .Append("#include \"cefclient/myext/mycef.h\"");
 
-            patch.FindPos("static ProcessType GetProcessType(")
+            patch.NewTask("static ProcessType GetProcessType(")
                       .Append("managed_callback myMxCallback_ = NULL;//myextension");
 
             patch.PatchContent();
@@ -88,7 +83,7 @@ set(CEFCLIENT_MYCEF_SRCS
         {
 
             var patch = CreatePathFile("renderer/client_renderer.cc");
-            patch.FindPos("// Create the renderer-side router for query handling.")
+            patch.NewTask("// Create the renderer-side router for query handling.")
                 .Append("//show msgbox if we want to break a debugger in render process")
                 .Append("//MessageBox(NULL, L\"OnWebKitInitialized\", L\"OnWebKitInitialized\", 0);");
             patch.PatchContent();
@@ -96,7 +91,7 @@ set(CEFCLIENT_MYCEF_SRCS
         void Do_PerformanceTest_cc()
         {
             var patch = CreatePathFile("renderer/performance_test.cc");
-            patch.FindPos("CefRefPtr<CefV8Context> context) OVERRIDE {")
+            patch.NewTask("CefRefPtr<CefV8Context> context) OVERRIDE {")
                 .Append(
                 @"if (app->myMxCallback_)
 					{
@@ -135,7 +130,7 @@ set(CEFCLIENT_MYCEF_SRCS
         {
 
             var patchFile = CreatePathFile("browser/browser_window.cc");
-            patchFile.FindPos("  delegate_->OnSetDraggableRegions(regions);")
+            patchFile.NewTask("  delegate_->OnSetDraggableRegions(regions);")
                 .FollowBy("}")
                 .Append(@"//my extension
                         client::ClientHandler* BrowserWindow::GetClientHandler() {
@@ -146,7 +141,7 @@ set(CEFCLIENT_MYCEF_SRCS
         void Do_BrowserWindow_h()
         {
             var patchFile = CreatePathFile("browser/browser_window.h");
-            patchFile.FindPos(" // Returns true if the browser is closing.")
+            patchFile.NewTask(" // Returns true if the browser is closing.")
                       .FollowBy("bool IsClosing() const;")
                       .Append(@"  //my extension 
 #ifdef MYCEF_DEBUG//my extension 
@@ -161,7 +156,7 @@ set(CEFCLIENT_MYCEF_SRCS
         void Do_Client_Handler_cc()
         {
             var patchFile = CreatePathFile("browser/client_handler.cc");
-            patchFile.FindPos(" if ((params->GetTypeFlags() & (CM_TYPEFLAG_PAGE | CM_TYPEFLAG_FRAME)) != 0) {")
+            patchFile.NewTask(" if ((params->GetTypeFlags() & (CM_TYPEFLAG_PAGE | CM_TYPEFLAG_FRAME)) != 0) {")
                 .Append(@"if (this->mcallback_)
 		{
 			//send menu model to managed side
@@ -182,7 +177,7 @@ set(CEFCLIENT_MYCEF_SRCS
 			BuildTestMenu(model);
 		}");
             //--------------------------------------------------------
-            patchFile.FindPos("bool ClientHandler::OnContextMenuCommand(")
+            patchFile.NewTask("bool ClientHandler::OnContextMenuCommand(")
                 .FindNext("CEF_REQUIRE_UI_THREAD")
                 .Append(
                 @"
@@ -205,7 +200,7 @@ set(CEFCLIENT_MYCEF_SRCS
 			}
 		}").SkipUntilPass("}");
             //--------------------------------------------------------
-            patchFile.FindPos("bool ClientHandler::OnConsoleMessage(CefRefPtr<CefBrowser> browser,")
+            patchFile.NewTask("bool ClientHandler::OnConsoleMessage(CefRefPtr<CefBrowser> browser,")
                 .FindNext("CEF_REQUIRE_UI_THREAD")
                 .Append(@"if (this->mcallback_) {
 
@@ -248,13 +243,13 @@ set(CEFCLIENT_MYCEF_SRCS
 
 
             //-------------------------------------------------
-            patchFile.FindPos(" // Allow geolocation access from all websites.")
+            patchFile.NewTask(" // Allow geolocation access from all websites.")
                 .Append("callback->Continue(false);")
                 .SkipUntilAndAccept("return true;");
 
 
             //-------------------------------------------------
-            patchFile.FindPos("bool ClientHandler::OnBeforePopup(")
+            patchFile.NewTask("bool ClientHandler::OnBeforePopup(")
                 .FindNext("CEF_REQUIRE_IO_THREAD")
                 .Append(@"
 		if (this->mcallback_) {
@@ -282,7 +277,7 @@ set(CEFCLIENT_MYCEF_SRCS
 		}")
           .SkipUntilAndAccept("}");
             //-------------------------------------------------
-            patchFile.FindPos("void ClientHandler::OnAfterCreated(CefRefPtr<CefBrowser> browser)")
+            patchFile.NewTask("void ClientHandler::OnAfterCreated(CefRefPtr<CefBrowser> browser)")
                 .FindNext(" message_router_ = CefMessageRouterBrowserSide::Create(config);")
                 .Append(@"// Register handlers with the router.
 			if (this->mcallback_)
@@ -305,7 +300,7 @@ set(CEFCLIENT_MYCEF_SRCS
 
 			}").SkipUntilAndAccept("}");
             //--------------------------------------------------------
-            patchFile.FindPos("void ClientHandler::ShowDevTools(CefRefPtr<CefBrowser> browser,")
+            patchFile.NewTask("void ClientHandler::ShowDevTools(CefRefPtr<CefBrowser> browser,")
                 .FindNext(" CefBrowserSettings settings;")
                 .Append(@"if (this->mcallback_)
 		{
@@ -323,7 +318,7 @@ set(CEFCLIENT_MYCEF_SRCS
 			}
 		  }").SkipUntilPass("}");
             //-------------------------------------------------
-            patchFile.FindPos("void ClientHandler::CloseDevTools(CefRefPtr<CefBrowser> browser) {")
+            patchFile.NewTask("void ClientHandler::CloseDevTools(CefRefPtr<CefBrowser> browser) {")
                 .Append(@"if (this->mcallback_) {
 			//TODO: send command
 			this->mcallback_(108, NULL);
@@ -332,7 +327,7 @@ set(CEFCLIENT_MYCEF_SRCS
 			browser->GetHost()->CloseDevTools();
 		}").SkipUntilAndAccept("}");
             //-------------------------------------------------
-            patchFile.FindPos("void ClientHandler::NotifyBrowserCreated(CefRefPtr<CefBrowser> ")
+            patchFile.NewTask("void ClientHandler::NotifyBrowserCreated(CefRefPtr<CefBrowser> ")
                 .FindNext(" MAIN_POST_CLOSURE(")
                 .FindNext("}")
                 .Append(@"if (this->mcallback_) {
@@ -340,13 +335,13 @@ set(CEFCLIENT_MYCEF_SRCS
 		         }");
 
             //-------------------------------------------------
-            patchFile.FindPos("void ClientHandler::NotifyBrowserClosed(CefRefPtr<CefBrowser>")
+            patchFile.NewTask("void ClientHandler::NotifyBrowserClosed(CefRefPtr<CefBrowser>")
                 .FindNext("delegate_->OnBrowserClosed(browser);")
                 .Append(@"if (this->mcallback_) {
 			this->mcallback_(100, NULL);
 		        }");
             //-------------------------------------------------
-            patchFile.FindPos("bool ClientHandler::ExecuteTestMenu(int command_id) {")
+            patchFile.NewTask("bool ClientHandler::ExecuteTestMenu(int command_id) {")
                 .FindNext("	// Allow default handling to proceed.")
                 .FindNext("return false;")
                 .FindNext("}")
@@ -380,14 +375,14 @@ set(CEFCLIENT_MYCEF_SRCS
         {
 
             var patchFile = CreatePathFile("browser/client_handler.h");
-            patchFile.FindPos("#include \"cefclient/browser/client_types.h\"")
+            patchFile.NewTask("#include \"cefclient/browser/client_types.h\"")
                 .Append("//my extension")
                 .Append("#include \"cefclient/myext/mycef.h\"");
-            patchFile.FindPos("bool is_osr() const { return is_osr_; }")
+            patchFile.NewTask("bool is_osr() const { return is_osr_; }")
                 .Append(@"//my extension
 		void MyCefSetManagedCallBack(managed_callback m);");
 
-            patchFile.FindPos("// Set of Handlers registered with the message router.")
+            patchFile.NewTask("// Set of Handlers registered with the message router.")
                     .FollowBy("MessageHandlerSet message_handler_set_;")
                     .Append(@"	//my extension
                 		managed_callback mcallback_;//my extension
@@ -453,10 +448,10 @@ set(CEFCLIENT_MYCEF_SRCS
         void Do_MainContext_h()
         {
             var patchFile = CreatePathFile("browser/main_context.h");
-            patchFile.FindPos("#include \"cefclient/browser/osr_renderer.h\"")
+            patchFile.NewTask("#include \"cefclient/browser/osr_renderer.h\"")
                 .Append("#include \"cefclient/myext/mycef.h\" //my extension");
 
-            patchFile.FindPos("virtual RootWindowManager* GetRootWindowManager() = 0;")
+            patchFile.NewTask("virtual RootWindowManager* GetRootWindowManager() = 0;")
                 .Append(@"  //my extension --for callback to managed side
                 managed_callback myMxCallback_;");
 
@@ -466,13 +461,13 @@ set(CEFCLIENT_MYCEF_SRCS
         void Do_TestRunnner_cc()
         {
             var patchFile = CreatePathFile("browser/test_runner.cc");
-            patchFile.FindPos("#include \"cefclient/browser/window_test.h\"")
+            patchFile.NewTask("#include \"cefclient/browser/window_test.h\"")
                 .Append("#include \"include/wrapper/cef_byte_read_handler.h\"");
 
-            patchFile.FindPos("namespace test_runner {")
+            patchFile.NewTask("namespace test_runner {")
                 .Append("managed_callback mcallback_ = NULL;");
 
-            patchFile.FindPos("class RequestDumpResourceProvider ")
+            patchFile.NewTask("class RequestDumpResourceProvider ")
                 .FindNext("DISALLOW_COPY_AND_ASSIGN(RequestDumpResourceProvider);")
                 .FindNext("};")
                 .Append(@"	std::string RequestUrlFilter2(const std::string& url) {
@@ -508,7 +503,7 @@ set(CEFCLIENT_MYCEF_SRCS
 
 
 
-            patchFile.FindPos("void SetupResourceManager(CefRefPtr<CefResourceManager> resource_manager) {")
+            patchFile.NewTask("void SetupResourceManager(CefRefPtr<CefResourceManager> resource_manager) {")
                 .FindNext("#endif")
                 .FindNext("}")
                 .Append(@"void SetupResourceManager2(CefRefPtr<CefResourceManager> resource_manager, managed_callback mcallback) {
@@ -628,16 +623,16 @@ set(CEFCLIENT_MYCEF_SRCS
         {
             var patchFile = CreatePathFile("browser/test_runner.h");
 
-            patchFile.FindPos("#include \"include/wrapper/cef_resource_manager.h\"")
+            patchFile.NewTask("#include \"include/wrapper/cef_resource_manager.h\"")
                 .Append("#include \"cefclient/myext/mycef.h\"");
-            patchFile.FindPos("void SetupResourceManager(CefRefPtr<CefResourceManager> resource_manager);")
+            patchFile.NewTask("void SetupResourceManager(CefRefPtr<CefResourceManager> resource_manager);")
                 .Append("void SetupResourceManager2(CefRefPtr<CefResourceManager> resource_manager, managed_callback mcallback);");
 
             //===================================
             patchFile.PatchContent();
         }
 
-        void CopyExtensionSources()
+        public void CopyExtensionSources()
         {
 
 

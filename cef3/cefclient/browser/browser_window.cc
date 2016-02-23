@@ -1,4 +1,4 @@
-//# PATCH
+//###_ORIGINAL d:\projects\CefBridge\cef3\cefclient\browser/browser_window.cc
 // Copyright (c) 2015 The Chromium Embedded Framework Authors. All rights
 // reserved. Use of this source code is governed by a BSD-style license that
 // can be found in the LICENSE file.
@@ -86,11 +86,15 @@ void BrowserWindow::OnSetLoadingState(bool isLoading,
 void BrowserWindow::OnSetDraggableRegions(
       const std::vector<CefDraggableRegion>& regions) {
   REQUIRE_MAIN_THREAD();
+//###_START 0
   delegate_->OnSetDraggableRegions(regions);
+//###_FOLLOW_BY 0
 }
+//###_APPEND_START 0
 //my extension
                         client::ClientHandler* BrowserWindow::GetClientHandler() {
 	                        return this->client_handler_;
                         }
+//###_APPEND_STOP
 
 }  // namespace client
