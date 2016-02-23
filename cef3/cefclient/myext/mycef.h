@@ -151,15 +151,21 @@ public:
 
 };
 
+class MyCefStringHolder
+{
+public:
+	CefString value;
+};
+
 class QueryRequestArgs
 {
 
 public:
 
 	CefBrowser* browser;
-	CefFrame* frame;
-	int64 query_id;
-	CefString request;
+	CefFrame* frame; 
+	MyCefStringHolder* request;
+	int64 query_id; 
 	bool persistent;
 	CefMessageRouterBrowserSide::Callback* callback;
 	QueryRequestArgs();

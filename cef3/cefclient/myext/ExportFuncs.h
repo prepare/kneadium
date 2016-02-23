@@ -1,8 +1,8 @@
 #include "dll_init.h"
-#include "common/client_app.h" 
-#include "browser/client_handler.h"
-#include "browser/client_handler_std.h"
-#include "browser/root_window_win.h"
+#include "../common/client_app.h" 
+#include "../browser/client_handler.h"
+#include "../browser/client_handler_std.h"
+#include "../browser/root_window_win.h"
 #include "mycef.h"
 #define MY_DLL_EXPORT __declspec(dllexport)  
 
@@ -81,7 +81,7 @@ extern "C" {
 
 	MY_DLL_EXPORT void MyCefFrame_GetUrl(CefFrame* frame, wchar_t* outputBuffer, int outputBufferLen, int* actualLength);
 	MY_DLL_EXPORT void MyCefString_Read(CefString* cefStr, wchar_t* outputBuffer, int outputBufferLen, int* actualLength);
-
+	MY_DLL_EXPORT void MyCefStringHolder_Read(MyCefStringHolder* mycefstr, wchar_t* outputBuffer, int outputBufferLen, int* actualLength);
 
 	
 

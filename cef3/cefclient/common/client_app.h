@@ -1,3 +1,4 @@
+//# PATCH
 // Copyright (c) 2013 The Chromium Embedded Framework Authors. All rights
 // reserved. Use of this source code is governed by a BSD-style license that
 // can be found in the LICENSE file.
@@ -9,7 +10,7 @@
 #include <vector>
 
 #include "include/cef_app.h"
-#include "cefclient/mycef.h"
+#include "cefclient/myext/mycef.h"
 
 namespace client {
 
@@ -27,8 +28,7 @@ class ClientApp : public CefApp {
 
   // Determine the process type based on command-line arguments.
   static ProcessType GetProcessType(CefRefPtr<CefCommandLine> command_line);
-  //my extension
-  managed_callback myMxCallback_ = NULL;
+managed_callback myMxCallback_ = NULL;//myextension
 
  protected:
   // Schemes that will be registered with the global cookie manager.

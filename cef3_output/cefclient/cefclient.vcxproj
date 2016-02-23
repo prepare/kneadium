@@ -11,7 +11,7 @@
     </ProjectConfiguration>
   </ItemGroup>
   <PropertyGroup Label="Globals">
-    <ProjectGUID>{8005911E-E745-4703-B1CF-03C785D91D2A}</ProjectGUID>
+    <ProjectGUID>{99237D39-FD76-4884-968A-C8D3836C59EC}</ProjectGUID>
     <Keyword>Win32Proj</Keyword>
     <Platform>Win32</Platform>
     <ProjectName>cefclient</ProjectName>
@@ -25,7 +25,7 @@
     <PlatformToolset>v140</PlatformToolset>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
-    <ConfigurationType>DynamicLibrary</ConfigurationType>
+    <ConfigurationType>Application</ConfigurationType>
     <UseOfMfc>false</UseOfMfc>
     <CharacterSet>Unicode</CharacterSet>
     <PlatformToolset>v140</PlatformToolset>
@@ -48,7 +48,7 @@
     <OutDir Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">D:\projects\CefBridge\cef3_output\cefclient\Release\</OutDir>
     <IntDir Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">cefclient.dir\Release\</IntDir>
     <TargetName Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">cefclient</TargetName>
-    <TargetExt Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">.dll</TargetExt>
+    <TargetExt Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">.exe</TargetExt>
     <LinkIncremental Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</LinkIncremental>
     <GenerateManifest Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">false</GenerateManifest>
   </PropertyGroup>
@@ -474,9 +474,9 @@ if %errorlevel% neq 0 goto :VCEnd</Command>
     </CustomBuild>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="D:\projects\CefBridge\cef3\cefclient\dll_init.h" />
-    <ClInclude Include="D:\projects\CefBridge\cef3\cefclient\ExportFuncs.h" />
-    <ClInclude Include="D:\projects\CefBridge\cef3\cefclient\mycef.h" />
+    <ClInclude Include="D:\projects\CefBridge\cef3\cefclient\myext\dll_init.h" />
+    <ClInclude Include="D:\projects\CefBridge\cef3\cefclient\myext\ExportFuncs.h" />
+    <ClInclude Include="D:\projects\CefBridge\cef3\cefclient\myext\mycef.h" />
     <ClInclude Include="D:\projects\CefBridge\cef3\cefclient\browser\binding_test.h" />
     <ClInclude Include="D:\projects\CefBridge\cef3\cefclient\browser\browser_window.h" />
     <ClInclude Include="D:\projects\CefBridge\cef3\cefclient\browser\bytes_write_handler.h" />
@@ -493,8 +493,10 @@ if %errorlevel% neq 0 goto :VCEnd</Command>
     <ClInclude Include="D:\projects\CefBridge\cef3\cefclient\browser\main_message_loop_std.h" />
     <ClInclude Include="D:\projects\CefBridge\cef3\cefclient\browser\osr_dragdrop_events.h" />
     <ClInclude Include="D:\projects\CefBridge\cef3\cefclient\browser\osr_renderer.h" />
+    <ClInclude Include="D:\projects\CefBridge\cef3\cefclient\browser\preferences_test.h" />
     <ClInclude Include="D:\projects\CefBridge\cef3\cefclient\browser\resource.h" />
     <ClInclude Include="D:\projects\CefBridge\cef3\cefclient\browser\resource_util.h" />
+    <ClInclude Include="D:\projects\CefBridge\cef3\cefclient\browser\response_filter_test.h" />
     <ClInclude Include="D:\projects\CefBridge\cef3\cefclient\browser\root_window.h" />
     <ClInclude Include="D:\projects\CefBridge\cef3\cefclient\browser\root_window_manager.h" />
     <ClInclude Include="D:\projects\CefBridge\cef3\cefclient\browser\scheme_test.h" />
@@ -518,9 +520,9 @@ if %errorlevel% neq 0 goto :VCEnd</Command>
     <ClInclude Include="D:\projects\CefBridge\cef3\cefclient\browser\root_window_win.h" />
     <ClInclude Include="D:\projects\CefBridge\cef3\cefclient\browser\temp_window_win.h" />
     <ClInclude Include="D:\projects\CefBridge\cef3\cefclient\browser\util_win.h" />
-    <ClCompile Include="D:\projects\CefBridge\cef3\cefclient\dll_init.cpp" />
-    <ClCompile Include="D:\projects\CefBridge\cef3\cefclient\ExportFuncs.cpp" />
-    <ClCompile Include="D:\projects\CefBridge\cef3\cefclient\mycef.cc" />
+    <ClCompile Include="D:\projects\CefBridge\cef3\cefclient\myext\dll_init.cpp" />
+    <ClCompile Include="D:\projects\CefBridge\cef3\cefclient\myext\ExportFuncs.cpp" />
+    <ClCompile Include="D:\projects\CefBridge\cef3\cefclient\myext\mycef.cc" />
     <ClCompile Include="D:\projects\CefBridge\cef3\cefclient\browser\binding_test.cc" />
     <ClCompile Include="D:\projects\CefBridge\cef3\cefclient\browser\browser_window.cc" />
     <ClCompile Include="D:\projects\CefBridge\cef3\cefclient\browser\bytes_write_handler.cc" />
@@ -536,6 +538,8 @@ if %errorlevel% neq 0 goto :VCEnd</Command>
     <ClCompile Include="D:\projects\CefBridge\cef3\cefclient\browser\main_message_loop.cc" />
     <ClCompile Include="D:\projects\CefBridge\cef3\cefclient\browser\main_message_loop_std.cc" />
     <ClCompile Include="D:\projects\CefBridge\cef3\cefclient\browser\osr_renderer.cc" />
+    <ClCompile Include="D:\projects\CefBridge\cef3\cefclient\browser\preferences_test.cc" />
+    <ClCompile Include="D:\projects\CefBridge\cef3\cefclient\browser\response_filter_test.cc" />
     <ClCompile Include="D:\projects\CefBridge\cef3\cefclient\browser\root_window.cc" />
     <ClCompile Include="D:\projects\CefBridge\cef3\cefclient\browser\root_window_manager.cc" />
     <ClCompile Include="D:\projects\CefBridge\cef3\cefclient\browser\scheme_test.cc" />
@@ -575,6 +579,8 @@ if %errorlevel% neq 0 goto :VCEnd</Command>
     <None Include="D:\projects\CefBridge\cef3\cefclient\resources\pdf.pdf" />
     <None Include="D:\projects\CefBridge\cef3\cefclient\resources\performance.html" />
     <None Include="D:\projects\CefBridge\cef3\cefclient\resources\performance2.html" />
+    <None Include="D:\projects\CefBridge\cef3\cefclient\resources\preferences.html" />
+    <None Include="D:\projects\CefBridge\cef3\cefclient\resources\response_filter.html" />
     <None Include="D:\projects\CefBridge\cef3\cefclient\resources\transparency.html" />
     <None Include="D:\projects\CefBridge\cef3\cefclient\resources\urlrequest.html" />
     <None Include="D:\projects\CefBridge\cef3\cefclient\resources\window.html" />
@@ -585,10 +591,10 @@ if %errorlevel% neq 0 goto :VCEnd</Command>
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="D:/projects/CefBridge/cef3_output/ZERO_CHECK.vcxproj">
-      <Project>7B5744DE-2CA6-4568-8FDA-28B5C9E93BBB</Project>
+      <Project>C6F3158D-D101-4171-851F-E13E19A2AE4F</Project>
     </ProjectReference>
     <ProjectReference Include="D:/projects/CefBridge/cef3_output/libcef_dll/libcef_dll_wrapper.vcxproj">
-      <Project>56CF0BE1-1435-40EF-B529-85FE18BF4BF1</Project>
+      <Project>AE8D89C2-7B72-4718-853A-0565AB07EF89</Project>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

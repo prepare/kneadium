@@ -35,8 +35,7 @@ class BrowserWindowStdWin : public BrowserWindow {
   void Hide() OVERRIDE;
   void SetBounds(int x, int y, size_t width, size_t height) OVERRIDE;
   void SetFocus(bool focus) OVERRIDE;
-  
-  ClientWindowHandle GetWindowHandle() const OVERRIDE;//my extension
+  ClientWindowHandle GetWindowHandle() const OVERRIDE;
 
  private:
   DISALLOW_COPY_AND_ASSIGN(BrowserWindowStdWin);

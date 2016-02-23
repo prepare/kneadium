@@ -162,24 +162,25 @@ namespace LayoutFarm.CefBridge
             //render process
 
             if (startArgs.Length > 0)
-            {
-
+            {    
 
                 CefStartArgs cefStartArg = CefStartArgs.Parse(startArgs);
 #if DEBUG
 
-                if (cefStartArg.IsValidCefArgs && cefStartArg.ProcessType == "renderer")
+                if (cefStartArg.IsValidCefArgs)
                 {
-                    StringBuilder stbuilder = new StringBuilder();
-                    foreach (var str in startArgs)
-                    {
-                        stbuilder.Append(str + " ");
-                    }
-                    s_IsRendererProcess = true;
-                    //System.Windows.Forms.MessageBox.Show(stbuilder.ToString(), DateTime.Now.ToString());
+                    //if (cefStartArg.ProcessType == "renderer")
+                    //{
+                    //    StringBuilder stbuilder = new StringBuilder();
+                    //    foreach (var str in startArgs)
+                    //    {
+                    //        stbuilder.Append(str + " ");
+                    //    }
+                    //    s_IsRendererProcess = true;
+                    //    System.Windows.Forms.MessageBox.Show(stbuilder.ToString(), DateTime.Now.ToString());
+                    //}
                     //set break point after alert if we want to stop debugger                            
                 }
-
 #endif
 
             }
@@ -192,9 +193,8 @@ namespace LayoutFarm.CefBridge
             //-----------------------------------------------------------
             //2. 
             managedListener0 = new MyCefCallback(Cef3callBack_ForMangedCallBack02);
-
-
             //3. unmanaged side can call back to this managed part
+
             int regResult = RegisterManagedCallBack(managedListener0, 0);
             //-----------------------------------------------------------
             //again ... another managed 
@@ -230,8 +230,9 @@ namespace LayoutFarm.CefBridge
             };
 
             // }
-
+#if DEBUG
             Console.WriteLine(regResult);
+#endif
             return true;
         }
         static bool LoadLibCef()
@@ -403,6 +404,9 @@ namespace LayoutFarm.CefBridge
 
         [DllImport(CEF_CLIENT_DLL, CallingConvention = CallingConvention.Cdecl)]
         public static extern unsafe void MyCefString_Read(IntPtr cefStr, char* outputBuffer, int outputBufferLen, ref int actualLength);
+        [DllImport(CEF_CLIENT_DLL, CallingConvention = CallingConvention.Cdecl)]
+        public static extern unsafe void MyCefStringHolder_Read(IntPtr mycefStrHolder, char* outputBuffer, int outputBufferLen, ref int actualLength);
+
     }
 
 
