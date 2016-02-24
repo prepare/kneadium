@@ -482,6 +482,11 @@ MY_DLL_EXPORT void MyCefBwReload(MyBrowser* myBw) {
 		browser->Reload();
 	}
 }
+MY_DLL_EXPORT void MyCefBwReloadIgnoreCache(MyBrowser* myBw) {
+	if (CefRefPtr<CefBrowser> browser = myBw->bwWindow->GetBrowser()) {
+		browser->ReloadIgnoreCache();
+	}
+}
 
 
 //---------------------------------------------------------------------------

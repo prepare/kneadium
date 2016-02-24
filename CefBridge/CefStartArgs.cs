@@ -1,7 +1,7 @@
 ﻿//2015 MIT, WinterDev 
 namespace LayoutFarm.CefBridge
 {
-    class CefStartArgs
+    public class CefStartArgs
     {
         public bool IsValidCefArgs { get; set; }
         public string ProcessType { get; set; }
@@ -26,7 +26,7 @@ namespace LayoutFarm.CefBridge
                             case "--type":
                                 {
                                     cefStartArgs.IsValidCefArgs = true;
-                                    cefStartArgs.ProcessType = split1[1]; 
+                                    cefStartArgs.ProcessType = split1[1];
                                     //in this version we stop here
                                     //ignore other ...
                                     //this not correct 

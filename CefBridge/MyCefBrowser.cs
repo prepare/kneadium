@@ -8,64 +8,39 @@ using System.IO;
 namespace LayoutFarm.CefBridge
 {
 
-    public class MyCefDevWindow
-    {
 
-        IntPtr myCefBrowser;
-        MyCefCallback managedCallback;
-        internal MyCefDevWindow()
-        {
-            //create cef browser view handler  
-            this.managedCallback = new MyCefCallback(this.MxCallBack);
-            this.myCefBrowser = Cef3Binder.MyCefCreateMyWebBrowser(managedCallback);
-
-        }
-        public IntPtr GetMyCefBrowser()
-        {
-            return this.myCefBrowser;
-        }
-        void MxCallBack(int id, IntPtr argsPtr)
-        {
-            switch (id)
-            {
-                case 100:
-                    {
-                    }
-                    break;
-            }
-
-        }
-    }
 
 
     public class MyCefBrowser
     {
 
-        internal event EventHandler BrowserDisposed;
+        public event EventHandler BrowserDisposed;
         IntPtr myCefBrowser;
         MyCefCallback managedCallback;
         string initUrl;
-        System.Windows.Forms.Control parentControl;
-        System.Windows.Forms.Form topForm;
-        System.Windows.Forms.Form devForm;
+        IWindowControl parentControl;
+        IWindowForm topForm;
+        IWindowForm devForm;
         MyCefDevWindow cefDevWindow;
 
-        internal MyCefBrowser(System.Windows.Forms.Control parentControl,
+        public MyCefBrowser(IWindowControl parentControl,
             int x, int y, int w, int h, string initUrl)
         {
             this.initUrl = initUrl;
             //create cef browser view handler  
             this.parentControl = parentControl;
-            this.topForm = (System.Windows.Forms.Form)parentControl.TopLevelControl;
+
+
+            this.topForm = (IWindowForm)parentControl.GetTopLevelControl();
 
             this.managedCallback = new MyCefCallback(this.MxCallBack);
             this.myCefBrowser = Cef3Binder.MyCefCreateMyWebBrowser(managedCallback);
 
-            Cef3Binder.MyCefSetupBrowserHwnd(myCefBrowser, parentControl.Handle, x, y, w, h, initUrl);
+            Cef3Binder.MyCefSetupBrowserHwnd(myCefBrowser, parentControl.GetHandle(), x, y, w, h, initUrl);
         }
 
-        internal System.Windows.Forms.Control ParentControl { get { return this.parentControl; } }
-        internal System.Windows.Forms.Form ParentForm { get { return this.topForm; } }
+        public IWindowControl ParentControl { get { return this.parentControl; } }
+        public IWindowForm ParentForm { get { return this.topForm; } }
 
         void MxCallBack(int id, IntPtr argsPtr)
         {
@@ -76,7 +51,7 @@ namespace LayoutFarm.CefBridge
                         if (this.devForm != null)
                         {
                             this.devForm.Close();
-                            this.devForm.Dispose();
+                            ((IDisposable)this.devForm).Dispose();
                             this.devForm = null;
                         }
                         if (this.BrowserDisposed != null)
@@ -94,12 +69,12 @@ namespace LayoutFarm.CefBridge
                 case 103:
                     {
                         //create pop up window and send window handle to cef 
-                        System.Windows.Forms.Form popupWin = new System.Windows.Forms.Form();
-                        popupWin.Width = 600;
-                        popupWin.Height = 450;
-                        popupWin.Show();
+                        //create new window form
 
-                        IntPtr handle = popupWin.Handle;
+                        IWindowForm popupWin = Cef3Binder.CreateBlankForm(600, 450);
+                        popupWin.Show();
+                        IntPtr handle = popupWin.GetHandle();
+
                         if (argsPtr != IntPtr.Zero)
                         {
                             NativeCallArgs2 args = new NativeCallArgs2(argsPtr);
@@ -110,18 +85,19 @@ namespace LayoutFarm.CefBridge
                     break;
                 case 104:
                     {
-                        CefClientApp.UISafeInvoke(
-                            new SimpleDel(
+                        Cef3Binder.SafeUIInvoke(
                             () =>
                             {
-                                CefBridgeTest.Form1 newPopupForm = new CefBridgeTest.Form1();
+
+
 
                                 NativeCallArgs args = new NativeCallArgs(argsPtr);
                                 string url = args.GetArgAsString(0);
-                                newPopupForm.InitUrl = url;
-                                newPopupForm.Show();
+
+                                IWindowForm form = Cef3Binder.CreateNewBrowserWindow(800, 600, url);
+                                form.Show();
                                 args.Dispose();
-                            }));
+                            });
 
                     }
                     break;
@@ -140,12 +116,12 @@ namespace LayoutFarm.CefBridge
                 case 107:
                     {
                         //show dev tools
-                        CefClientApp.UISafeInvoke(new SimpleDel(
-                            () =>
-                            {
-                                CefBridgeTest.Form1 newPopupForm = new CefBridgeTest.Form1();
-                                newPopupForm.Show();
-                            }));
+                        Cef3Binder.SafeUIInvoke(() =>
+                        {
+
+                            IWindowForm newPopupForm = Cef3Binder.CreateNewBrowserWindow(800, 600, "about:blank");
+                            newPopupForm.Show();
+                        });
 
                     }
                     break;
@@ -202,21 +178,24 @@ namespace LayoutFarm.CefBridge
                     {
                         var args = new NativeCallArgs(argsPtr);
                         QueryRequestArgs reqArgs = QueryRequestArgs.CreateRequest(args.GetArgAsNativePtr(0));
-                        HandleCefQueryRequest(reqArgs);
+                        HandleCefQueryRequest(args, reqArgs);
+
                     }
                     break;
             }
 
         }
 
-        void HandleCefQueryRequest(QueryRequestArgs reqArgs)
+        void HandleCefQueryRequest(NativeCallArgs nativeArgs, QueryRequestArgs reqArgs)
         {
+
             //filter url  before get actual resource
             string frameUrl = reqArgs.GetFrameUrl();
             string getRequest = reqArgs.GetRequest();
-            
+            string result = "hello!";
 
-
+            byte[] resultBuffer = Encoding.UTF8.GetBytes(result);
+            nativeArgs.SetOutput(0, resultBuffer);
 
         }
         void AddResourceProvider(NativeResourceMx resourceMx)
@@ -357,10 +336,11 @@ namespace LayoutFarm.CefBridge
             if (cefDevWindow == null)
             {
                 cefDevWindow = new MyCefDevWindow();
-                devForm = new System.Windows.Forms.Form();
+                IWindowForm devForm = Cef3Binder.CreateBlankForm(800, 600);
+                devForm.Text = "Developer Tool";
                 devForm.Show();
 
-                Cef3Binder.MyCefShowDevTools(this.myCefBrowser, cefDevWindow.GetMyCefBrowser(), devForm.Handle);
+                Cef3Binder.MyCefShowDevTools(this.myCefBrowser, cefDevWindow.GetMyCefBrowser(), devForm.GetHandle());
             }
         }
         //---------

@@ -67,6 +67,7 @@ extern "C" {
 	MY_DLL_EXPORT void MyCefBwGoForward(MyBrowser* myBw);
 	MY_DLL_EXPORT void MyCefBwStop(MyBrowser* myBw);
 	MY_DLL_EXPORT void MyCefBwReload(MyBrowser* myBw);
+	MY_DLL_EXPORT void MyCefBwReloadIgnoreCache(MyBrowser* myBw);
 
 
 	//----------------------------

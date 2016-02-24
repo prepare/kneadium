@@ -13,17 +13,19 @@ namespace CefBridgeTest
     {
 
         Timer tt2 = new Timer();
-
-        bool startClosing;
-        bool readyToClose;
+        bool startClosing; 
         object sync_ = new object();
         object sync_2 = new object();
+
+        LayoutFarm.CefBridge.MyWindowForm nativeWindow;
+
         public Form1()
         {
+            nativeWindow = new LayoutFarm.CefBridge.MyWindowForm(this); 
+
             InitializeComponent();
 
             this.FormClosing += new FormClosingEventHandler(Form1_FormClosing);
-
             this.tt2.Interval = 200;
             this.tt2.Tick += new EventHandler(tt2_Tick);
 
@@ -41,7 +43,7 @@ namespace CefBridgeTest
         }
         void CheckClosing()
         {
-            if (LayoutFarm.CefBridge.CefClientApp.IsReadyToClose(this))
+            if (LayoutFarm.CefBridge.CefClientAppX.IsReadyToClose(nativeWindow))
             {
                 tt2.Enabled = false;
                 this.Close();
@@ -53,14 +55,14 @@ namespace CefBridgeTest
 
             if (!startClosing)
             {
-                LayoutFarm.CefBridge.CefClientApp.DisposeCefWbControl(this);
+                LayoutFarm.CefBridge.CefClientAppX.DisposeCefWbControl(nativeWindow);
                 tt2.Enabled = true;
                 startClosing = true;
                 e.Cancel = true;
             }
             else
             {
-                if (!LayoutFarm.CefBridge.CefClientApp.IsReadyToClose(this))
+                if (!LayoutFarm.CefBridge.CefClientAppX.IsReadyToClose(nativeWindow))
                 {
                     e.Cancel = true;
                 }

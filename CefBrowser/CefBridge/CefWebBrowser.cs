@@ -21,7 +21,7 @@ namespace LayoutFarm.CefBridge
         //bool _handleCreated;
         MyCefBrowser cefBrowserView;
 
-
+        IWindowControl nativeWindowControl;
         //string initUrl = "http://google.com";
         string initUrl = "http://localhost";
         public CefWebBrowser()
@@ -49,6 +49,8 @@ namespace LayoutFarm.CefBridge
                 | ControlStyles.AllPaintingInWmPaint
                 | ControlStyles.Selectable,
                 true);
+
+            nativeWindowControl = new MyWindowControl(this);
         }
         public string InitUrl
         {
@@ -79,9 +81,8 @@ namespace LayoutFarm.CefBridge
                     MessageBox.Show("cef 3 not found");
                 }
                 //--------------------------------
-                this.cefBrowserView = new MyCefBrowser(this, 0, 0, 800, 500, initUrl); 
-                CefClientApp.RegisterCefWbControl(cefBrowserView);
-
+                this.cefBrowserView = new MyCefBrowser(nativeWindowControl, 0, 0, 800, 500, initUrl); 
+                CefClientAppX.RegisterCefWbControl(cefBrowserView); 
 
             }
            // _handleCreated = true;
@@ -169,16 +170,16 @@ namespace LayoutFarm.CefBridge
         //    }
         //}
 
-        private static void ResizeWindow(IntPtr handle, int width, int height)
-        {
-            if (handle != IntPtr.Zero)
-            {
-                NativeMethods.SetWindowPos(handle, IntPtr.Zero,
-                    0, 0, width, height,
-                    SetWindowPosFlags.NoMove | SetWindowPosFlags.NoZOrder
-                    );
-            }
-        }
+        //private static void ResizeWindow(IntPtr handle, int width, int height)
+        //{
+        //    if (handle != IntPtr.Zero)
+        //    {
+        //        NativeMethods.SetWindowPos(handle, IntPtr.Zero,
+        //            0, 0, width, height,
+        //            SetWindowPosFlags.NoMove | SetWindowPosFlags.NoZOrder
+        //            );
+        //    }
+        //}
         
     }
 }

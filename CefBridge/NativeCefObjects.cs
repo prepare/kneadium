@@ -1,15 +1,9 @@
-﻿//2015 MIT, WinterDev
+﻿//2015-2016 MIT, WinterDev
 using System;
-using System.Collections.Generic;
-using System.Text;
-using System.Runtime.InteropServices;
-using System.IO;
-
 namespace LayoutFarm.CefBridge
 {
 
-
-    enum CefV8PropertyAttribute
+    public enum CefV8PropertyAttribute
     {
         //from cef_types.h
         //cef_v8_propertyattribute_t
@@ -19,7 +13,7 @@ namespace LayoutFarm.CefBridge
         V8_PROPERTY_ATTRIBUTE_DONTDELETE = 1 << 2   // Not configurable
     }
 
-    abstract class Cef3RefCountingValue : IDisposable
+    public abstract class Cef3RefCountingValue : IDisposable
     {
         readonly IntPtr _ptr;
         public Cef3RefCountingValue(IntPtr ptr)
@@ -36,7 +30,7 @@ namespace LayoutFarm.CefBridge
         }
     }
 
-    class Cef3FuncHandler : Cef3RefCountingValue
+    public class Cef3FuncHandler : Cef3RefCountingValue
     {
 
         private Cef3FuncHandler(IntPtr ptr) : base(ptr)
@@ -50,7 +44,7 @@ namespace LayoutFarm.CefBridge
 
     }
 
-    class Cef3Func : Cef3RefCountingValue
+    public class Cef3Func : Cef3RefCountingValue
     {
 
         private Cef3Func(IntPtr ptr) : base(ptr)
@@ -65,7 +59,7 @@ namespace LayoutFarm.CefBridge
 
     }
 
-    class NativeJsContext : Cef3RefCountingValue
+    public class NativeJsContext : Cef3RefCountingValue
     {
         public NativeJsContext(IntPtr ptr)
             : base(ptr)
@@ -82,7 +76,7 @@ namespace LayoutFarm.CefBridge
         }
     }
 
-    class CefV8Value : Cef3RefCountingValue
+    public class CefV8Value : Cef3RefCountingValue
     {
 
         public CefV8Value(IntPtr ptr) : base(ptr)
@@ -97,7 +91,7 @@ namespace LayoutFarm.CefBridge
     }
 
 
-    class NativeBrowser : Cef3RefCountingValue
+    public class NativeBrowser : Cef3RefCountingValue
     {
         public NativeBrowser(IntPtr ptr) : base(ptr)
         {
@@ -106,7 +100,7 @@ namespace LayoutFarm.CefBridge
 
 
     }
-    class NativeFrame : Cef3RefCountingValue
+    public class NativeFrame : Cef3RefCountingValue
     {
         public NativeFrame(IntPtr ptr) : base(ptr)
         {
@@ -127,14 +121,14 @@ namespace LayoutFarm.CefBridge
             }
         }
     }
-    class NativeRendererApp : Cef3RefCountingValue
+    public class NativeRendererApp : Cef3RefCountingValue
     {
         public NativeRendererApp(IntPtr ptr) : base(ptr)
         {
 
         }
     }
-    class NativeResourceMx : Cef3RefCountingValue
+    public class NativeResourceMx : Cef3RefCountingValue
     {
         public NativeResourceMx(IntPtr ptr) : base(ptr)
         {
@@ -146,7 +140,7 @@ namespace LayoutFarm.CefBridge
 
         }
     }
-    class ResourceProvider
+    public class ResourceProvider
     {
 
     }
