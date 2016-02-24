@@ -1,8 +1,6 @@
-﻿//2015 BSD, WinterDev
-
+﻿//2015-2016, BSD, WinterDev
 // Copyright © 2010-2014 The CefSharp Authors. All rights reserved. 
 // Use of this source code is governed by a BSD-style license that can be found in the LICENSE file.
-
 
 using System;
 using System.Collections.Generic;
@@ -17,8 +15,7 @@ namespace LayoutFarm.CefBridge
 
     public sealed class CefWebBrowser : Control
     {
-        //MyCefDevWindow agent2;
-        //bool _handleCreated;
+
         MyCefBrowser cefBrowserView;
 
         IWindowControl nativeWindowControl;
@@ -65,7 +62,7 @@ namespace LayoutFarm.CefBridge
         {
             get { return this.cefBrowserView; }
         }
-        
+
         protected override void OnHandleCreated(EventArgs e)
         {
             base.OnHandleCreated(e);
@@ -81,11 +78,11 @@ namespace LayoutFarm.CefBridge
                     MessageBox.Show("cef 3 not found");
                 }
                 //--------------------------------
-                this.cefBrowserView = new MyCefBrowser(nativeWindowControl, 0, 0, 800, 500, initUrl); 
-                CefClientAppX.RegisterCefWbControl(cefBrowserView); 
+                this.cefBrowserView = new MyCefBrowser(nativeWindowControl, 0, 0, 800, 500, initUrl);
+                CefClientAppX.RegisterCefWbControl(cefBrowserView);
 
             }
-           // _handleCreated = true;
+            // _handleCreated = true;
         }
 
 
@@ -180,6 +177,6 @@ namespace LayoutFarm.CefBridge
         //            );
         //    }
         //}
-        
+
     }
 }

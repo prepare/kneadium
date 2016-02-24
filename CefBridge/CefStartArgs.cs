@@ -3,11 +3,11 @@ namespace LayoutFarm.CefBridge
 {
     public class CefStartArgs
     {
-        public bool IsValidCefArgs { get; set; }
-        public string ProcessType { get; set; }
+        public bool IsValidCefArgs { get; private set; }
+        public string ProcessType { get; private set; }
 
         private CefStartArgs() { }
-        public static CefStartArgs Parse(string[] startupArgs)
+        internal static CefStartArgs Parse(string[] startupArgs)
         {
             var cefStartArgs = new CefStartArgs();
 

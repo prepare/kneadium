@@ -1,6 +1,5 @@
-﻿using System;
-using System.Runtime.InteropServices;
-
+﻿//2016, MIT, WinterDev
+using System; 
 namespace LayoutFarm.CefBridge
 {
     class MyWindowControl : IWindowControl

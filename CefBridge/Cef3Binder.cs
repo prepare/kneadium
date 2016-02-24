@@ -118,7 +118,7 @@ namespace LayoutFarm.CefBridge
 
         static Cef3InitEssential cefInitEssential;
         //-------------------------------------------------
-         
+
         static IntPtr hModule;
         //------------------------------------------------- 
 #if DEBUG
@@ -430,7 +430,7 @@ namespace LayoutFarm.CefBridge
     }
 
 
-    internal static class NativeMethods
+    static class NativeMethods
     {
 
         //-----------------------------------------------
