@@ -338,7 +338,8 @@ namespace LayoutFarm.CefBridge
         public static extern void MyCefBwStop(IntPtr myCefBw);
         [DllImport(CEF_CLIENT_DLL, CallingConvention = CallingConvention.Cdecl)]
         public static extern void MyCefBwReload(IntPtr myCefBw);
-
+        [DllImport(CEF_CLIENT_DLL, CallingConvention = CallingConvention.Cdecl)]
+        public static extern void MyCefBwReloadIgnoreCache(IntPtr myCefBw);
         //--------------------------------------------------- 
 
 

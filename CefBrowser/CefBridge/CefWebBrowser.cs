@@ -17,8 +17,8 @@ namespace LayoutFarm.CefBridge
 
     public sealed class CefWebBrowser : Control
     {
-        MyCefDevWindow agent2;
-        bool _handleCreated;
+        //MyCefDevWindow agent2;
+        //bool _handleCreated;
         MyCefBrowser cefBrowserView;
 
 
@@ -84,7 +84,7 @@ namespace LayoutFarm.CefBridge
 
 
             }
-            _handleCreated = true;
+           // _handleCreated = true;
         }
 
 

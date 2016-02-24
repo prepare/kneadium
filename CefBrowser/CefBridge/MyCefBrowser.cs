@@ -214,6 +214,10 @@ namespace LayoutFarm.CefBridge
             //filter url  before get actual resource
             string frameUrl = reqArgs.GetFrameUrl();
             string getRequest = reqArgs.GetRequest();
+            
+
+
+
         }
         void AddResourceProvider(NativeResourceMx resourceMx)
         {
@@ -344,7 +348,10 @@ namespace LayoutFarm.CefBridge
         {
             Cef3Binder.MyCefBwReload(myCefBrowser);
         }
-
+        public void ReloadIgnoreCache()
+        {
+            Cef3Binder.MyCefBwReloadIgnoreCache(myCefBrowser);
+        }
         public void ShowDevTools()
         {
             if (cefDevWindow == null)

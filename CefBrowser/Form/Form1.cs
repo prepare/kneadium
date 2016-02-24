@@ -12,7 +12,6 @@ namespace CefBridgeTest
     public partial class Form1 : Form
     {
 
-        Timer tt = new Timer();
         Timer tt2 = new Timer();
 
         bool startClosing;
@@ -22,7 +21,7 @@ namespace CefBridgeTest
         public Form1()
         {
             InitializeComponent();
-            tt.Tick += new EventHandler(tt_Tick);
+
             this.FormClosing += new FormClosingEventHandler(Form1_FormClosing);
 
             this.tt2.Interval = 200;
@@ -91,17 +90,17 @@ namespace CefBridgeTest
         }
 
 
-        void tt_Tick(object sender, EventArgs e)
-        {
-            LayoutFarm.CefBridge.Cef3Binder.MyCefDoMessageLoopWork();
-            LayoutFarm.CefBridge.Cef3Binder.MyCefDoMessageLoopWork();
-        }
+        //void tt_Tick(object sender, EventArgs e)
+        //{
+        //    LayoutFarm.CefBridge.Cef3Binder.MyCefDoMessageLoopWork();
+        //    LayoutFarm.CefBridge.Cef3Binder.MyCefDoMessageLoopWork();
+        //}
 
         private void button7_Click(object sender, EventArgs e)
         {
 
             this.cefWebBrowser1.Focus();
-            this.cefWebBrowser1.NavigateTo("http://localhost");
+            this.cefWebBrowser1.NavigateTo("http://localhost:8080");
             //this.cefWebBrowser1.NavigateTo("https://html5test.com");
             //this.cefWebBrowser1.NavigateTo("https://www.youtube.com");
 
@@ -203,6 +202,10 @@ namespace CefBridgeTest
             this.cefWebBrowser1.Agent.Stop();
         }
 
+        private void cmdReloadIgnoreCache_Click(object sender, EventArgs e)
+        {
+            this.cefWebBrowser1.Agent.ReloadIgnoreCache();
+        }
     }
 
 }
