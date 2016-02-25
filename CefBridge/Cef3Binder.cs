@@ -128,8 +128,15 @@ namespace LayoutFarm.CefBridge
         /// </summary>
         public bool Init()
         {
-            return Cef3Binder.LoadCef3(this);
+            bool loadResult = Cef3Binder.LoadCef3(this);
+            if (!loadResult)
+            {
+                return false;
+            } 
+
+            return true;
         }
+       
         protected static void DoMessageLoopWork()
         {
             Cef3Binder.MyCefDoMessageLoopWork();
@@ -245,8 +252,8 @@ namespace LayoutFarm.CefBridge
             regResult = RegisterManagedCallBack(managedListener1, 1);
             //-----------------------------------------------------------
             //init cef            
-            // clientApp = cefInitEssential.CreateClientApp(); // System.Diagnostics.Process.GetCurrentProcess().Handle);
-            clientApp = new CefClientApp(System.Diagnostics.Process.GetCurrentProcess().Handle);
+            clientApp = cefInitEssential.CreateClientApp(); // System.Diagnostics.Process.GetCurrentProcess().Handle);
+            //clientApp = new CefClientApp(System.Diagnostics.Process.GetCurrentProcess().Handle);
             //set some scheme here   
             //-----------------------------------------------------------
             //test***

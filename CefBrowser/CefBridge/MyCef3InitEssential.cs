@@ -15,7 +15,10 @@ namespace CefBridgeTest
 
         static string libPath = @"D:\projects\CefBridge\cef3_output\cefclient\Debug";
 
-        public MyCef3InitEssential(string[] startArgs)
+
+        static MyCef3InitEssential initEssential;
+
+        private MyCef3InitEssential(string[] startArgs)
             : base(startArgs)
         {
 
@@ -26,8 +29,9 @@ namespace CefBridgeTest
         }
         public override string GetCefClientFileName()
         {
-            return libPath + "\\cefclient.dll";            
+            return libPath + "\\cefclient.dll";
         }
+
         public override IWindowForm CreateNewWindow(int width, int height)
         {
             Form form1 = new Form();
@@ -75,15 +79,18 @@ namespace CefBridgeTest
 
 
 
-
-
-
-
             return clientApp;
         }
 
         public override IntPtr SetupPreRun()
         {
+
+            //----------------------------------
+            //2. as usual in WindowForm
+            System.Threading.Thread.CurrentThread.CurrentCulture = new System.Globalization.CultureInfo("en-us");
+            Application.EnableVisualStyles();
+            Application.SetCompatibleTextRenderingDefault(false);
+
             //-------------------------------------------------
             if (tinyForm == null)
             {
@@ -107,5 +114,26 @@ namespace CefBridgeTest
             GC.WaitForPendingFinalizers();
         }
 
+
+        public static bool LoadAndInitCef3(string[] args)
+        {
+            initEssential = new MyCef3InitEssential(args);
+            if (!initEssential.Init())
+            {
+                return false;
+            }
+            //2. set WindowForm
+            initEssential.SetupPreRun();
+
+
+            return true;
+        }
+        public static void ShutDownCef3()
+        {
+            //----------------------------------
+            //4. 
+            initEssential.Shutdown();
+            //---------------------------------- 
+        }
     }
 }

@@ -18,34 +18,29 @@ namespace CefBridgeTest
         static void Main(string[] args)
         {
 
-            //load cef before OLE init (eg init winform) ***
-            var initEssential = new MyCef3InitEssential(args);
-            if (!initEssential.Init())
+            //1. load cef before OLE init (eg init winform) ***
+            //see more detail ...  MyCef3InitEssential
+            if (!MyCef3InitEssential.LoadAndInitCef3(args))
             {
                 return;
             }
-            //----------------------------------
-            System.Threading.Thread.CurrentThread.CurrentCulture = new System.Globalization.CultureInfo("en-us");
-            Application.EnableVisualStyles();
-            Application.SetCompatibleTextRenderingDefault(false);
-            //----------------------------------
-            
-            initEssential.SetupPreRun(); 
-            //----------------------------------
+
+            //---------------------------------
+            //2. as usual in WindowForm
             Form1 f1 = new Form1();
             ApplicationContext appContext = new ApplicationContext(f1);
             Application.Run(appContext);
-            //----------------------------------
-            initEssential.Shutdown();          
-            //---------------------------------- 
+            //---------------------------------
+            //3. shutdown cef3
+            MyCef3InitEssential.ShutDownCef3();
         }
-    
-      
+
+
 
     }
 
 
- 
+
 
 
 }
