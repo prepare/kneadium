@@ -13,7 +13,7 @@ namespace LayoutFarm.CefBridge
     }
     public interface IWindowForm : IWindowControl
     {
-        void Close();        
+        void Close();
         string Text { get; set; }
     }
 

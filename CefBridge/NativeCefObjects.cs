@@ -1,5 +1,6 @@
 ﻿//2015-2016 MIT, WinterDev
 using System;
+using System.Runtime.InteropServices;
 namespace LayoutFarm.CefBridge
 {
 
@@ -90,7 +91,81 @@ namespace LayoutFarm.CefBridge
 
     }
 
+    [StructLayout(LayoutKind.Explicit)]
+    public struct JsValue
+    {
+        [FieldOffset(0)]
+        public int I32;
+        [FieldOffset(0)]
+        public long I64;
+        [FieldOffset(0)]
+        public double Num;
+        /// <summary>
+        /// ptr from native side
+        /// </summary>
+        [FieldOffset(0)]
+        public IntPtr Ptr;
 
+        /// <summary>
+        /// offset(8)See JsValueType, marshaled as integer. 
+        /// </summary>
+        [FieldOffset(8)]
+        public JsValueType Type;
+
+        /// <summary>
+        /// offset(12) Length of array or string 
+        /// </summary>
+        [FieldOffset(12)]
+        public int Length;
+        /// <summary>
+        /// offset(12) managed object keepalive index. 
+        /// </summary>
+        [FieldOffset(12)]
+        public int Index;
+        public static JsValue Null
+        {
+            get { return new JsValue() { Type = JsValueType.Null }; }
+        }
+
+        public static JsValue Empty
+        {
+            get { return new JsValue() { Type = JsValueType.Empty }; }
+        }
+
+        public static JsValue Error(int slot)
+        {
+            return new JsValue { Type = JsValueType.ManagedError, Index = slot };
+        }
+
+        public override string ToString()
+        {
+            return string.Format("[JsValue({0})]", Type);
+        }
+    }
+    public enum JsValueType
+    {
+        UnknownError = -1,
+        Empty = 0,
+        Null = 1,
+        Boolean = 2,
+        Integer = 3,
+        Number = 4,
+        String = 5,
+        Date = 6,
+        Index = 7,
+        Array = 10,
+        StringError = 11,
+        Managed = 12,
+        ManagedError = 13,
+        Wrapped = 14,
+        Dictionary = 15,
+        Error = 16,
+        Function = 17,
+
+        //---------------
+        //my extension
+        JsTypeWrap = 18
+    }
     public class NativeBrowser : Cef3RefCountingValue
     {
         public NativeBrowser(IntPtr ptr) : base(ptr)

@@ -75,11 +75,52 @@ namespace LayoutFarm.CefBridge
     class MyWindowForm : MyWindowControl, IWindowForm
     {
         Form form;
+        Timer tmClosingCheck;
+        bool startClosing;
+
         public MyWindowForm(Form form)
             : base(form)
         {
             this.form = form;
+
+            //not enable when start
+            //tmClosingCheck will start when form is closing
+            tmClosingCheck = new Timer();
+            tmClosingCheck.Interval = 200;
+            tmClosingCheck.Tick += TmClosingCheck_Tick;
+            form.FormClosing += Form_FormClosing;
         }
+
+        private void TmClosingCheck_Tick(object sender, EventArgs e)
+        {
+            if (MyCefBrowser.IsReadyToClose(this))
+            {
+                tmClosingCheck.Enabled = false;
+                form.Close();
+            }
+        }
+
+        private void Form_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            //essential
+            //monitor form closing
+            if (!startClosing)
+            {
+                MyCefBrowser.DisposeCefWbControl(this);
+                tmClosingCheck.Enabled = true;
+                startClosing = true;
+                e.Cancel = true;
+            }
+            else
+            {
+                if (!MyCefBrowser.IsReadyToClose(this))
+                {
+                    e.Cancel = true;
+                }
+            }
+
+        }
+
         void IWindowForm.Close()
         {
             this.form.Close();

@@ -14,86 +14,6 @@ namespace LayoutFarm.CefBridge
     public delegate void MyCefCallback(int id, IntPtr args);
 
 
-    [StructLayout(LayoutKind.Explicit)]
-    public struct JsValue
-    {
-        [FieldOffset(0)]
-        public int I32;
-        [FieldOffset(0)]
-        public long I64;
-        [FieldOffset(0)]
-        public double Num;
-        /// <summary>
-        /// ptr from native side
-        /// </summary>
-        [FieldOffset(0)]
-        public IntPtr Ptr;
-
-        /// <summary>
-        /// offset(8)See JsValueType, marshaled as integer. 
-        /// </summary>
-        [FieldOffset(8)]
-        public JsValueType Type;
-
-        /// <summary>
-        /// offset(12) Length of array or string 
-        /// </summary>
-        [FieldOffset(12)]
-        public int Length;
-        /// <summary>
-        /// offset(12) managed object keepalive index. 
-        /// </summary>
-        [FieldOffset(12)]
-        public int Index;
-        public static JsValue Null
-        {
-            get { return new JsValue() { Type = JsValueType.Null }; }
-        }
-
-        public static JsValue Empty
-        {
-            get { return new JsValue() { Type = JsValueType.Empty }; }
-        }
-
-        public static JsValue Error(int slot)
-        {
-            return new JsValue { Type = JsValueType.ManagedError, Index = slot };
-        }
-
-        public override string ToString()
-        {
-            return string.Format("[JsValue({0})]", Type);
-        }
-    }
-    public enum JsValueType
-    {
-        UnknownError = -1,
-        Empty = 0,
-        Null = 1,
-        Boolean = 2,
-        Integer = 3,
-        Number = 4,
-        String = 5,
-        Date = 6,
-        Index = 7,
-        Array = 10,
-        StringError = 11,
-        Managed = 12,
-        ManagedError = 13,
-        Wrapped = 14,
-        Dictionary = 15,
-        Error = 16,
-        Function = 17,
-
-        //---------------
-        //my extension
-        JsTypeWrap = 18
-    }
-    //typedef void (*managed_callback)(int id,
-    //const wchar_t* methodName,
-    //const wchar_t* inputDataString,
-    //void* outputDataBuffer,size_t outputLen);
-
 
     public abstract class Cef3InitEssential
     {
@@ -132,11 +52,11 @@ namespace LayoutFarm.CefBridge
             if (!loadResult)
             {
                 return false;
-            } 
+            }
 
             return true;
         }
-       
+
         protected static void DoMessageLoopWork()
         {
             Cef3Binder.MyCefDoMessageLoopWork();
@@ -156,27 +76,18 @@ namespace LayoutFarm.CefBridge
     static class Cef3Binder
     {
 
-        static Cef3InitEssential cefInitEssential;
-        //static IntPtr hModule;
-        //------------------------------------------------- 
+        static Cef3InitEssential cefInitEssential; 
         const string CEF_CLIENT_DLL = "cefclient.dll";
 #if DEBUG
         public static bool s_dbugIsRendererProcess;
-
 #endif
 
         static MyCefCallback managedListener0;
         static MyCefCallback managedListener1;
 
-        static bool _loadCef3Success = false;
+
         static CefClientApp clientApp;
         static CustomSchemeAgent customScheme;
-
-        ////-------------------------------------------------
-        //public static bool IsLoadCef3Success()
-        //{
-        //    return _loadCef3Success;
-        //}
 
         public static IWindowForm CreateBlankForm(int width, int height)
         {
@@ -190,8 +101,6 @@ namespace LayoutFarm.CefBridge
         {
             cefInitEssential.SaveUIInvoke(del);
         }
-        //static int dbugTotalId = 0;
-        //static object lock1 = new object();
 
         public static bool LoadCef3(Cef3InitEssential cefInitEssential)
         {
@@ -213,7 +122,6 @@ namespace LayoutFarm.CefBridge
             {
                 return false;
             }
-            _loadCef3Success = true;
 
 
 #if DEBUG
@@ -236,47 +144,26 @@ namespace LayoutFarm.CefBridge
             int myCefVersion = MyCefGetVersion();
             //-----------------------------------------------------------
             //2. 
-            managedListener0 = new MyCefCallback(Cef3callBack_ForMangedCallBack02);
+            managedListener0 = new MyCefCallback(Cef3callBack_ForMangedCallBack0);
             //3. unmanaged side can call back to this managed part
 
             int regResult = RegisterManagedCallBack(managedListener0, 0);
             //-----------------------------------------------------------
             //again ... another managed 
-            //int i = 0;
-            //lock (lock1)
-            //{
-            //    i = dbugTotalId++;
-            //}
 
-            managedListener1 = new MyCefCallback(Cef3callBack_ForMangedCallBack03);
+
+            managedListener1 = new MyCefCallback(Cef3callBack_ForMangedCallBack2);
             regResult = RegisterManagedCallBack(managedListener1, 1);
             //-----------------------------------------------------------
             //init cef            
             clientApp = cefInitEssential.CreateClientApp(); // System.Diagnostics.Process.GetCurrentProcess().Handle);
-            //clientApp = new CefClientApp(System.Diagnostics.Process.GetCurrentProcess().Handle);
-            //set some scheme here   
-            //-----------------------------------------------------------
-            //test***
-            //register custom scheme 
-            //-----------------------------------------------------------
 
-            // if (!MyCefUseMultiMessageLoop())
-            //{
-            //cefInitEssential.SetCefMessageBump((s, e) =>
-            //{
-            //    MyCefDoMessageLoopWork();
-            //});
-            //System.Windows.Forms.Application.Idle += (sender, e) =>
-            //{ 
-            //    MyCefDoMessageLoopWork(); 
-            //};
-
-            // }
 #if DEBUG
             Console.WriteLine(regResult);
 #endif
             return true;
         }
+
         static bool LoadLibCef(Cef3InitEssential initEssential)
         {
 
@@ -311,15 +198,17 @@ namespace LayoutFarm.CefBridge
             //Console.WriteLine(lastErr);
 
         }
-        static void Cef3callBack_ForMangedCallBack02(int oindex, IntPtr args)
+        static void Cef3callBack_ForMangedCallBack0(int oindex, IntPtr args)
         {
 
         }
-        static void Cef3callBack_ForMangedCallBack03(int oindex, IntPtr args)
+        static void Cef3callBack_ForMangedCallBack2(int oindex, IntPtr args)
         {
 
 
         }
+       
+        
         //---------------------------------------------------
         //Cef
         //---------------------------------------------------

@@ -7,108 +7,28 @@ using System.Drawing;
 //2015-2016 MIT, WinterDev
 
 using System.Text;
-using System.Windows.Forms; 
+using System.Windows.Forms;
 
 namespace CefBridgeTest
 {
     public partial class Form1 : Form
     {
 
-        Timer tt2 = new Timer();
-        bool startClosing; 
-        object sync_ = new object();
-        object sync_2 = new object();
 
         LayoutFarm.CefBridge.MyWindowForm nativeWindow;
-
         public Form1()
         {
-            nativeWindow = new LayoutFarm.CefBridge.MyWindowForm(this); 
 
             InitializeComponent();
-
-            this.FormClosing += new FormClosingEventHandler(Form1_FormClosing);
-            this.tt2.Interval = 200;
-            this.tt2.Tick += new EventHandler(tt2_Tick);
-
-
+            nativeWindow = new LayoutFarm.CefBridge.MyWindowForm(this);
         }
-        //public string InitUrl
-        //{
-        //    get { return this.cefWebBrowser1.InitUrl; }
-        //    set { this.cefWebBrowser1.InitUrl = value; }
-        //}
-        void tt2_Tick(object sender, EventArgs e)
-        {
-            //check if we should closing?    
-            CheckClosing();
-        }
-        void CheckClosing()
-        {
-            if (LayoutFarm.CefBridge.CefClientApp.IsReadyToClose(nativeWindow))
-            {
-                tt2.Enabled = false;
-                this.Close();
-            }
-        }
-
-        void Form1_FormClosing(object sender, FormClosingEventArgs e)
-        {
-
-            if (!startClosing)
-            {
-                LayoutFarm.CefBridge.CefClientApp.DisposeCefWbControl(nativeWindow);
-                tt2.Enabled = true;
-                startClosing = true;
-                e.Cancel = true;
-            }
-            else
-            {
-                if (!LayoutFarm.CefBridge.CefClientApp.IsReadyToClose(nativeWindow))
-                {
-                    e.Cancel = true;
-                }
-            }
-            //stop and close all browser then close form
-            //lock (sync_)
-            //{
-            //    if (!this.readyToClose)
-            //    {
-            //        if (!startClosing)
-            //        {
-            //            //start closing
-            //            startClosing = true;
-            //            tt2.Enabled = true;
-            //        }
-            //        e.Cancel = true;
-            //    }
-            //}
-
-        }
-
-        protected override void OnLoad(EventArgs e)
-        {
-            //            tt.Enabled = true;
-            base.OnLoad(e);
-
-        }
-
-
-        //void tt_Tick(object sender, EventArgs e)
-        //{
-        //    LayoutFarm.CefBridge.Cef3Binder.MyCefDoMessageLoopWork();
-        //    LayoutFarm.CefBridge.Cef3Binder.MyCefDoMessageLoopWork();
-        //}
-
         private void button7_Click(object sender, EventArgs e)
         {
 
             this.cefWebBrowser1.Focus();
             this.cefWebBrowser1.NavigateTo("http://localhost:8080");
             //this.cefWebBrowser1.NavigateTo("https://html5test.com");
-            //this.cefWebBrowser1.NavigateTo("https://www.youtube.com");
-
-
+            //this.cefWebBrowser1.NavigateTo("https://www.youtube.com"); 
         }
 
         private void button1_Click(object sender, EventArgs e)

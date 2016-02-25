@@ -1,10 +1,5 @@
 ﻿//2015-2016 MIT, WinterDev
-using System;
-using System.Collections.Generic;
-using System.Text;
-using System.Runtime.InteropServices;
-using System.IO;
-
+using System; 
 namespace LayoutFarm.CefBridge
 {
     public struct CefSchemeRegistrar

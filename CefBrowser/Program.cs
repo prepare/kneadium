@@ -1,9 +1,6 @@
 ﻿//2015-2016 MIT, WinterDev
 using System;
-using System.Collections.Generic;
 using System.Windows.Forms;
-using System.Runtime.InteropServices;
-using LayoutFarm.CefBridge;
 
 namespace CefBridgeTest
 {

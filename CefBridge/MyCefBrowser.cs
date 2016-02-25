@@ -4,12 +4,10 @@ using System.Collections.Generic;
 using System.Text;
 using System.Runtime.InteropServices;
 using System.IO;
- 
+
 
 namespace LayoutFarm.CefBridge
 {
-
-
 
 
     public class MyCefBrowser
@@ -23,6 +21,11 @@ namespace LayoutFarm.CefBridge
         IWindowForm topForm;
         IWindowForm devForm;
         MyCefDevWindow cefDevWindow;
+
+
+        static Dictionary<IntPtr, List<MyCefBrowser>> registeredWbControls =
+                    new Dictionary<IntPtr, List<MyCefBrowser>>();
+
 
         public MyCefBrowser(IWindowControl parentControl,
             int x, int y, int w, int h, string initUrl)
@@ -41,7 +44,7 @@ namespace LayoutFarm.CefBridge
 
 
             //register mycef browser
-            CefClientApp.RegisterCefWbControl(this);
+            RegisterCefWbControl(this);
         }
 
         public IWindowControl ParentControl { get { return this.parentControl; } }
@@ -93,11 +96,11 @@ namespace LayoutFarm.CefBridge
                         Cef3Binder.SafeUIInvoke(
                             () =>
                             {
-                                 
+
 
                                 NativeCallArgs args = new NativeCallArgs(argsPtr);
-                                string url = args.GetArgAsString(0); 
-                                IWindowForm form = Cef3Binder.CreateNewBrowserWindow(800, 600 );                                 
+                                string url = args.GetArgAsString(0);
+                                IWindowForm form = Cef3Binder.CreateNewBrowserWindow(800, 600);
                                 form.Show();
                                 //and navigate to a specific url
                                 //TODO: review here
@@ -346,7 +349,9 @@ namespace LayoutFarm.CefBridge
                 devForm.Text = "Developer Tool";
                 devForm.Show();
 
-                Cef3Binder.MyCefShowDevTools(this.myCefBrowser, cefDevWindow.GetMyCefBrowser(), devForm.GetHandle());
+                Cef3Binder.MyCefShowDevTools(this.myCefBrowser,
+                    cefDevWindow.GetMyCefBrowser(),
+                    devForm.GetHandle());
             }
         }
         //---------
@@ -356,6 +361,77 @@ namespace LayoutFarm.CefBridge
             MET_GetResourceHandler = 2,
             MET_TCALLBACK = 3
         }
+
+        //------------------------------
+
+        static readonly object sync_remove = new object();
+        internal static void RegisterCefWbControl(MyCefBrowser cefWb)
+        {
+            //register this control with parent form
+            var ownerForm = (IWindowForm)cefWb.ParentControl.GetTopLevelControl();
+            List<MyCefBrowser> foundList;
+            IntPtr winHandle = ownerForm.GetHandle();
+            if (!registeredWbControls.TryGetValue(winHandle, out foundList))
+            {
+                foundList = new List<MyCefBrowser>();
+                registeredWbControls.Add(winHandle, foundList);
+            }
+            if (!foundList.Contains(cefWb))
+            {
+                foundList.Add(cefWb);
+                cefWb.BrowserDisposed += new EventHandler(cefWb_BrowserDisposed);
+            }
+        }
+        static void cefWb_BrowserDisposed(object sender, EventArgs e)
+        {
+            //when browser is disposed..
+            MyCefBrowser wb = (MyCefBrowser)sender;
+            //remove wb from registerd list
+            List<MyCefBrowser> wblist;
+            IntPtr winHandle = wb.ParentForm.GetHandle();
+            if (registeredWbControls.TryGetValue(winHandle, out wblist))
+            {
+                lock (sync_remove)
+                {
+                    wblist.Remove(wb);
+                    if (wblist.Count == 0)
+                    {
+                        registeredWbControls.Remove(winHandle);
+                    }
+                }
+            }
+        }
+        public static void DisposeCefWbControl(IWindowForm ownerForm)
+        {
+            //register this control with parent form 
+            List<MyCefBrowser> foundList;
+            IntPtr winHandle = ownerForm.GetHandle();
+            if (registeredWbControls.TryGetValue(winHandle, out foundList))
+            {
+                //remove wb controls             
+                for (int i = foundList.Count - 1; i >= 0; --i)
+                {
+                    var wb = foundList[i].ParentControl;
+                    var parent = wb.GetParent();
+                    parent.RemoveChild(wb);
+                    wb.Dispose();
+                }
+
+                registeredWbControls.Remove(winHandle);
+
+            }
+
+        }
+        public static bool IsReadyToClose(IWindowForm ownerForm)
+        {
+            //register this control with parent form  
+            lock (sync_remove)
+            {
+                return !registeredWbControls.ContainsKey(ownerForm.GetHandle());
+            }
+        }
+
+
     }
 
 

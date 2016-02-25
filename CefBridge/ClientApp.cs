@@ -1,7 +1,7 @@
 ﻿//2015-2016 MIT, WinterDev
 using System;
 using System.Collections.Generic;
- 
+
 namespace LayoutFarm.CefBridge
 {
 
@@ -9,14 +9,13 @@ namespace LayoutFarm.CefBridge
     public class CefClientApp
     {
         IntPtr clientAppPtr;
+
         static bool isInitWithProcessHandle;
-        static object sync_ = new object();
-        static object sync_remove = new object();
+        static readonly object sync_ = new object();
 
         MyCefCallback mxCallback;
 
-        static Dictionary<IntPtr, List<MyCefBrowser>> registeredWbControls =
-            new Dictionary<IntPtr, List<MyCefBrowser>>();
+
 
         public CefClientApp(IntPtr processHandle)
         {
@@ -50,77 +49,12 @@ namespace LayoutFarm.CefBridge
 
                     //2. create client app
                     this.clientAppPtr = Cef3Binder.MyCefCreateClientApp(processHandle);
-                    //register managed callback ***     
+
                 }
             }
         }
 
 
-        internal static void RegisterCefWbControl(MyCefBrowser cefWb)
-        {
-            //register this control with parent form
-            var ownerForm = (IWindowForm)cefWb.ParentControl.GetTopLevelControl();
-            List<MyCefBrowser> foundList;
-            IntPtr winHandle = ownerForm.GetHandle();
-            if (!registeredWbControls.TryGetValue(winHandle, out foundList))
-            {
-                foundList = new List<MyCefBrowser>();
-                registeredWbControls.Add(winHandle, foundList);
-            }
-            if (!foundList.Contains(cefWb))
-            {
-                foundList.Add(cefWb);
-                cefWb.BrowserDisposed += new EventHandler(cefWb_BrowserDisposed);
-            }
-        }
-        static void cefWb_BrowserDisposed(object sender, EventArgs e)
-        {
-            //when browser is disposed..
-            MyCefBrowser wb = (MyCefBrowser)sender;
-            //remove wb from registerd list
-            List<MyCefBrowser> wblist;
-            IntPtr winHandle = wb.ParentForm.GetHandle();
-            if (registeredWbControls.TryGetValue(winHandle, out wblist))
-            {
-                lock (sync_remove)
-                {
-                    wblist.Remove(wb);
-                    if (wblist.Count == 0)
-                    {
-                        registeredWbControls.Remove(winHandle);
-                    }
-                }
-            }
-        }
-        public static void DisposeCefWbControl(IWindowForm ownerForm)
-        {
-            //register this control with parent form 
-            List<MyCefBrowser> foundList;
-            IntPtr winHandle = ownerForm.GetHandle();
-            if (registeredWbControls.TryGetValue(winHandle, out foundList))
-            {
-                //remove wb controls             
-                for (int i = foundList.Count - 1; i >= 0; --i)
-                {
-                    var wb = foundList[i].ParentControl;
-                    var parent = wb.GetParent();
-                    parent.RemoveChild(wb);
-                    wb.Dispose();
-                }
-
-                registeredWbControls.Remove(winHandle);
-
-            }
-
-        }
-        public static bool IsReadyToClose(IWindowForm ownerForm)
-        {
-            //register this control with parent form  
-            lock (sync_remove)
-            {
-                return !registeredWbControls.ContainsKey(ownerForm.GetHandle());
-            }
-        }
 
         void RenderProcessOnContextCreated(NativeCallArgs args)
         {
