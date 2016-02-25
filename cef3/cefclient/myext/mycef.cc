@@ -96,7 +96,39 @@ void MethodArgs::SetArgType(int argIndex, int type)
 		break;
 	}
 }
+int MethodArgs::ReadOutputAsInt32(int resultIndex) {
+	switch (resultIndex) {
+	case 0:
+	{
+		switch (this->result0.type)
+		{
+		case JSVALUE_TYPE_INTEGER:
+			//unicode string
+			return this->result0.value.i32; 
+		}
+	}break;
+	case 1:
+	{
+		switch (this->result0.type)
+		{
+		case JSVALUE_TYPE_INTEGER:
+			//unicode string
+			return this->result1.value.i32;
+		}
+	}break;
+	case 2:
+	{
+		switch (this->result0.type)
+		{
+		case JSVALUE_TYPE_INTEGER:
+			//unicode string
+			return this->result2.value.i32;
+		}
+	}break;
 
+	}
+	return 0;//else
+}
 
 std::wstring MethodArgs::ReadOutputAsString(int resultIndex)
 {
@@ -149,8 +181,6 @@ std::wstring MethodArgs::ReadOutputAsString(int resultIndex)
 		}
 		}
 	}break;
-
-
 
 	}
 	//default

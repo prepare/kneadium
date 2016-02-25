@@ -276,6 +276,7 @@ namespace client {
 		//###_APPEND_START 1
 		//my extension
 		void MyCefSetManagedCallBack(managed_callback m);
+		void MyCefEnableKeyIntercept(int enable);
 		//###_APPEND_STOP
 
 	private:
@@ -366,6 +367,7 @@ namespace client {
 		//###_APPEND_START 2
 		//my extension
 		managed_callback mcallback_;//my extension
+		int enableKeyIntercept;
 //###_APPEND_STOP
 //###_APPEND_START 2
 		std::string RequestUrlFilter(const std::string& url);//my extension

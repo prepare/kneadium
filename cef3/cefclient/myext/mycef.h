@@ -148,6 +148,7 @@ public:
 
 	//----------------------------------------------------------------------
 	std::wstring ReadOutputAsString(int resultIndex);
+	int ReadOutputAsInt32(int resultIndex);
 
 };
 

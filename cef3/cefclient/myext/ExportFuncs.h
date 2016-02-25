@@ -26,7 +26,8 @@ extern "C" {
 	MY_DLL_EXPORT int RegisterManagedCallBack(managed_callback callback, int callBackKind);
 	//3. 
 	MY_DLL_EXPORT client::ClientApp* MyCefCreateClientApp(HINSTANCE hInstance);
-
+	//3.1 
+	MY_DLL_EXPORT void MyCefEnableKeyIntercept(MyBrowser* myBw,int enable);
 
 	//4.
 	MY_DLL_EXPORT MyBrowser* MyCefCreateMyWebBrowser(managed_callback callback);
@@ -83,7 +84,11 @@ extern "C" {
 	MY_DLL_EXPORT void MyCefFrame_GetUrl(CefFrame* frame, wchar_t* outputBuffer, int outputBufferLen, int* actualLength);
 	MY_DLL_EXPORT void MyCefString_Read(CefString* cefStr, wchar_t* outputBuffer, int outputBufferLen, int* actualLength);
 	MY_DLL_EXPORT void MyCefStringHolder_Read(MyCefStringHolder* mycefstr, wchar_t* outputBuffer, int outputBufferLen, int* actualLength);
-
+	
+	
+	
+	//------------------------------
+	//part 5 : UI Proc Ext
 	
 
 }

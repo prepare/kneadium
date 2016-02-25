@@ -96,6 +96,12 @@ client::ClientApp* MyCefCreateClientApp(HINSTANCE hInstance)
 	return app;
 }
 
+//3.1 
+MY_DLL_EXPORT void MyCefEnableKeyIntercept(MyBrowser* myBw, int enable){
+	auto clientHandle= myBw->bwWindow->GetClientHandler();
+	clientHandle->MyCefEnableKeyIntercept(enable);
+}
+
 //4. 
 MyBrowser* MyCefCreateMyWebBrowser(managed_callback callback)
 {

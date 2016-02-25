@@ -41,7 +41,7 @@ namespace LayoutFarm.CefBridge
             this.myCefBrowser = Cef3Binder.MyCefCreateMyWebBrowser(managedCallback);
 
             Cef3Binder.MyCefSetupBrowserHwnd(myCefBrowser, parentControl.GetHandle(), x, y, w, h, initUrl);
-
+            Cef3Binder.MyCefEnableKeyIntercept(myCefBrowser, 1);
 
             //register mycef browser
             RegisterCefWbControl(this);
@@ -182,6 +182,29 @@ namespace LayoutFarm.CefBridge
                             browserProcessListener.OnCefQuery(args, reqArgs);
                         }
 
+                    }
+                    break;
+                //------------------------------
+                case 501: //on PreKey
+                    {
+                        Console.WriteLine("on pre key");
+                    }
+                    break;
+                //------------------------------
+                case 502:
+                    {
+                        //title changed
+                        var args = new NativeCallArgs(argsPtr);
+                        string newtitle = args.GetArgAsString(0);
+                        Console.WriteLine("title changed:" + newtitle);
+                    }
+                    break;
+                case 503:
+                    {
+                        //address changed
+                        var args = new NativeCallArgs(argsPtr);
+                        string newtitle = args.GetArgAsString(0);
+                        Console.WriteLine("address changed:" + newtitle);
                     }
                     break;
             }

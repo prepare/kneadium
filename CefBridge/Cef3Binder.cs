@@ -15,7 +15,7 @@ namespace LayoutFarm.CefBridge
 
 
 
-  
+
     static class Cef3Binder
     {
 
@@ -77,7 +77,7 @@ namespace LayoutFarm.CefBridge
             if (startArgs.Length > 0)
             {
                 CefStartArgs cefStartArg = CefStartArgs.Parse(startArgs);
-                Cef3InitEssential.IsInRenderProcess = (cefStartArg.ProcessType == "renderer"); 
+                Cef3InitEssential.IsInRenderProcess = (cefStartArg.ProcessType == "renderer");
                 cefInitEssential.AfterProcessLoaded(cefStartArg);
             }
 
@@ -167,6 +167,11 @@ namespace LayoutFarm.CefBridge
         //3.
         [DllImport(CEF_CLIENT_DLL, CallingConvention = CallingConvention.Cdecl)]
         public static extern IntPtr MyCefCreateClientApp(IntPtr processHandle);
+
+        //3.1
+        [DllImport(CEF_CLIENT_DLL, CallingConvention = CallingConvention.Cdecl)]
+        public static extern void MyCefEnableKeyIntercept(IntPtr myCefBrowser, int enable);
+        
 
         //4. 
         [DllImport(CEF_CLIENT_DLL, CallingConvention = CallingConvention.Cdecl)]
