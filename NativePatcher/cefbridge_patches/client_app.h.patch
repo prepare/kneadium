@@ -1,4 +1,4 @@
-//###_ORIGINAL D:\projects\cef_binary_3.2526.1366\cefclient\common/client_app.h
+//###_ORIGINAL d:\projects\CefBridge\cef3\cefclient\common/client_app.h
 //###_START 0
 #include "include/cef_app.h"
 //###_APPEND_START 0
@@ -7,5 +7,5 @@
 //###_START 1
 static ProcessType GetProcessType(CefRefPtr<CefCommandLine> command_line);
 //###_APPEND_START 1
-managed_callback myMxCallback_ = NULL;//myextension
+managed_callback myMxCallback_ ;//myextension
 //###_APPEND_STOP

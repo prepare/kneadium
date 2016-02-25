@@ -33,7 +33,7 @@ class ClientApp : public CefApp {
 //###_START 1
   static ProcessType GetProcessType(CefRefPtr<CefCommandLine> command_line);
 //###_APPEND_START 1
-managed_callback myMxCallback_ = NULL;//myextension
+managed_callback myMxCallback_ ;//myextension
 //###_APPEND_STOP
 
  protected:

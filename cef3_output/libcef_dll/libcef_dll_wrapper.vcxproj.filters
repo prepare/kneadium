@@ -1,1221 +1,1221 @@
 ﻿<?xml version="1.0" encoding="UTF-8"?>
-<Project ToolsVersion="14.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
-    <ClCompile Include="D:\projects\CefBridge\cef3\libcef_dll\transfer_util.cc">
+    <ClCompile Include="..\..\cef3\libcef_dll\transfer_util.cc">
       <Filter>libcef_dll</Filter>
     </ClCompile>
-    <ClCompile Include="D:\projects\CefBridge\cef3\libcef_dll\base\cef_atomicops_x86_gcc.cc">
+    <ClCompile Include="..\..\cef3\libcef_dll\base\cef_atomicops_x86_gcc.cc">
       <Filter>libcef_dll\base</Filter>
     </ClCompile>
-    <ClCompile Include="D:\projects\CefBridge\cef3\libcef_dll\base\cef_bind_helpers.cc">
+    <ClCompile Include="..\..\cef3\libcef_dll\base\cef_bind_helpers.cc">
       <Filter>libcef_dll\base</Filter>
     </ClCompile>
-    <ClCompile Include="D:\projects\CefBridge\cef3\libcef_dll\base\cef_callback_helpers.cc">
+    <ClCompile Include="..\..\cef3\libcef_dll\base\cef_callback_helpers.cc">
       <Filter>libcef_dll\base</Filter>
     </ClCompile>
-    <ClCompile Include="D:\projects\CefBridge\cef3\libcef_dll\base\cef_callback_internal.cc">
+    <ClCompile Include="..\..\cef3\libcef_dll\base\cef_callback_internal.cc">
       <Filter>libcef_dll\base</Filter>
     </ClCompile>
-    <ClCompile Include="D:\projects\CefBridge\cef3\libcef_dll\base\cef_lock.cc">
+    <ClCompile Include="..\..\cef3\libcef_dll\base\cef_lock.cc">
       <Filter>libcef_dll\base</Filter>
     </ClCompile>
-    <ClCompile Include="D:\projects\CefBridge\cef3\libcef_dll\base\cef_lock_impl.cc">
+    <ClCompile Include="..\..\cef3\libcef_dll\base\cef_lock_impl.cc">
       <Filter>libcef_dll\base</Filter>
     </ClCompile>
-    <ClCompile Include="D:\projects\CefBridge\cef3\libcef_dll\base\cef_logging.cc">
+    <ClCompile Include="..\..\cef3\libcef_dll\base\cef_logging.cc">
       <Filter>libcef_dll\base</Filter>
     </ClCompile>
-    <ClCompile Include="D:\projects\CefBridge\cef3\libcef_dll\base\cef_ref_counted.cc">
+    <ClCompile Include="..\..\cef3\libcef_dll\base\cef_ref_counted.cc">
       <Filter>libcef_dll\base</Filter>
     </ClCompile>
-    <ClCompile Include="D:\projects\CefBridge\cef3\libcef_dll\base\cef_string16.cc">
+    <ClCompile Include="..\..\cef3\libcef_dll\base\cef_string16.cc">
       <Filter>libcef_dll\base</Filter>
     </ClCompile>
-    <ClCompile Include="D:\projects\CefBridge\cef3\libcef_dll\base\cef_thread_checker_impl.cc">
+    <ClCompile Include="..\..\cef3\libcef_dll\base\cef_thread_checker_impl.cc">
       <Filter>libcef_dll\base</Filter>
     </ClCompile>
-    <ClCompile Include="D:\projects\CefBridge\cef3\libcef_dll\base\cef_thread_collision_warner.cc">
+    <ClCompile Include="..\..\cef3\libcef_dll\base\cef_thread_collision_warner.cc">
       <Filter>libcef_dll\base</Filter>
     </ClCompile>
-    <ClCompile Include="D:\projects\CefBridge\cef3\libcef_dll\base\cef_weak_ptr.cc">
+    <ClCompile Include="..\..\cef3\libcef_dll\base\cef_weak_ptr.cc">
       <Filter>libcef_dll\base</Filter>
     </ClCompile>
-    <ClCompile Include="D:\projects\CefBridge\cef3\libcef_dll\cpptoc\app_cpptoc.cc">
+    <ClCompile Include="..\..\cef3\libcef_dll\cpptoc\app_cpptoc.cc">
       <Filter>libcef_dll\cpptoc</Filter>
     </ClCompile>
-    <ClCompile Include="D:\projects\CefBridge\cef3\libcef_dll\cpptoc\base_cpptoc.cc">
+    <ClCompile Include="..\..\cef3\libcef_dll\cpptoc\base_cpptoc.cc">
       <Filter>libcef_dll\cpptoc</Filter>
     </ClCompile>
-    <ClCompile Include="D:\projects\CefBridge\cef3\libcef_dll\cpptoc\browser_process_handler_cpptoc.cc">
+    <ClCompile Include="..\..\cef3\libcef_dll\cpptoc\browser_process_handler_cpptoc.cc">
       <Filter>libcef_dll\cpptoc</Filter>
     </ClCompile>
-    <ClCompile Include="D:\projects\CefBridge\cef3\libcef_dll\cpptoc\client_cpptoc.cc">
+    <ClCompile Include="..\..\cef3\libcef_dll\cpptoc\client_cpptoc.cc">
       <Filter>libcef_dll\cpptoc</Filter>
     </ClCompile>
-    <ClCompile Include="D:\projects\CefBridge\cef3\libcef_dll\cpptoc\completion_callback_cpptoc.cc">
+    <ClCompile Include="..\..\cef3\libcef_dll\cpptoc\completion_callback_cpptoc.cc">
       <Filter>libcef_dll\cpptoc</Filter>
     </ClCompile>
-    <ClCompile Include="D:\projects\CefBridge\cef3\libcef_dll\cpptoc\context_menu_handler_cpptoc.cc">
+    <ClCompile Include="..\..\cef3\libcef_dll\cpptoc\context_menu_handler_cpptoc.cc">
       <Filter>libcef_dll\cpptoc</Filter>
     </ClCompile>
-    <ClCompile Include="D:\projects\CefBridge\cef3\libcef_dll\cpptoc\cookie_visitor_cpptoc.cc">
+    <ClCompile Include="..\..\cef3\libcef_dll\cpptoc\cookie_visitor_cpptoc.cc">
       <Filter>libcef_dll\cpptoc</Filter>
     </ClCompile>
-    <ClCompile Include="D:\projects\CefBridge\cef3\libcef_dll\cpptoc\delete_cookies_callback_cpptoc.cc">
+    <ClCompile Include="..\..\cef3\libcef_dll\cpptoc\delete_cookies_callback_cpptoc.cc">
       <Filter>libcef_dll\cpptoc</Filter>
     </ClCompile>
-    <ClCompile Include="D:\projects\CefBridge\cef3\libcef_dll\cpptoc\dialog_handler_cpptoc.cc">
+    <ClCompile Include="..\..\cef3\libcef_dll\cpptoc\dialog_handler_cpptoc.cc">
       <Filter>libcef_dll\cpptoc</Filter>
     </ClCompile>
-    <ClCompile Include="D:\projects\CefBridge\cef3\libcef_dll\cpptoc\display_handler_cpptoc.cc">
+    <ClCompile Include="..\..\cef3\libcef_dll\cpptoc\display_handler_cpptoc.cc">
       <Filter>libcef_dll\cpptoc</Filter>
     </ClCompile>
-    <ClCompile Include="D:\projects\CefBridge\cef3\libcef_dll\cpptoc\domvisitor_cpptoc.cc">
+    <ClCompile Include="..\..\cef3\libcef_dll\cpptoc\domvisitor_cpptoc.cc">
       <Filter>libcef_dll\cpptoc</Filter>
     </ClCompile>
-    <ClCompile Include="D:\projects\CefBridge\cef3\libcef_dll\cpptoc\download_handler_cpptoc.cc">
+    <ClCompile Include="..\..\cef3\libcef_dll\cpptoc\download_handler_cpptoc.cc">
       <Filter>libcef_dll\cpptoc</Filter>
     </ClCompile>
-    <ClCompile Include="D:\projects\CefBridge\cef3\libcef_dll\cpptoc\drag_handler_cpptoc.cc">
+    <ClCompile Include="..\..\cef3\libcef_dll\cpptoc\drag_handler_cpptoc.cc">
       <Filter>libcef_dll\cpptoc</Filter>
     </ClCompile>
-    <ClCompile Include="D:\projects\CefBridge\cef3\libcef_dll\cpptoc\end_tracing_callback_cpptoc.cc">
+    <ClCompile Include="..\..\cef3\libcef_dll\cpptoc\end_tracing_callback_cpptoc.cc">
       <Filter>libcef_dll\cpptoc</Filter>
     </ClCompile>
-    <ClCompile Include="D:\projects\CefBridge\cef3\libcef_dll\cpptoc\find_handler_cpptoc.cc">
+    <ClCompile Include="..\..\cef3\libcef_dll\cpptoc\find_handler_cpptoc.cc">
       <Filter>libcef_dll\cpptoc</Filter>
     </ClCompile>
-    <ClCompile Include="D:\projects\CefBridge\cef3\libcef_dll\cpptoc\focus_handler_cpptoc.cc">
+    <ClCompile Include="..\..\cef3\libcef_dll\cpptoc\focus_handler_cpptoc.cc">
       <Filter>libcef_dll\cpptoc</Filter>
     </ClCompile>
-    <ClCompile Include="D:\projects\CefBridge\cef3\libcef_dll\cpptoc\geolocation_handler_cpptoc.cc">
+    <ClCompile Include="..\..\cef3\libcef_dll\cpptoc\geolocation_handler_cpptoc.cc">
       <Filter>libcef_dll\cpptoc</Filter>
     </ClCompile>
-    <ClCompile Include="D:\projects\CefBridge\cef3\libcef_dll\cpptoc\get_geolocation_callback_cpptoc.cc">
+    <ClCompile Include="..\..\cef3\libcef_dll\cpptoc\get_geolocation_callback_cpptoc.cc">
       <Filter>libcef_dll\cpptoc</Filter>
     </ClCompile>
-    <ClCompile Include="D:\projects\CefBridge\cef3\libcef_dll\cpptoc\jsdialog_handler_cpptoc.cc">
+    <ClCompile Include="..\..\cef3\libcef_dll\cpptoc\jsdialog_handler_cpptoc.cc">
       <Filter>libcef_dll\cpptoc</Filter>
     </ClCompile>
-    <ClCompile Include="D:\projects\CefBridge\cef3\libcef_dll\cpptoc\keyboard_handler_cpptoc.cc">
+    <ClCompile Include="..\..\cef3\libcef_dll\cpptoc\keyboard_handler_cpptoc.cc">
       <Filter>libcef_dll\cpptoc</Filter>
     </ClCompile>
-    <ClCompile Include="D:\projects\CefBridge\cef3\libcef_dll\cpptoc\life_span_handler_cpptoc.cc">
+    <ClCompile Include="..\..\cef3\libcef_dll\cpptoc\life_span_handler_cpptoc.cc">
       <Filter>libcef_dll\cpptoc</Filter>
     </ClCompile>
-    <ClCompile Include="D:\projects\CefBridge\cef3\libcef_dll\cpptoc\load_handler_cpptoc.cc">
+    <ClCompile Include="..\..\cef3\libcef_dll\cpptoc\load_handler_cpptoc.cc">
       <Filter>libcef_dll\cpptoc</Filter>
     </ClCompile>
-    <ClCompile Include="D:\projects\CefBridge\cef3\libcef_dll\cpptoc\navigation_entry_visitor_cpptoc.cc">
+    <ClCompile Include="..\..\cef3\libcef_dll\cpptoc\navigation_entry_visitor_cpptoc.cc">
       <Filter>libcef_dll\cpptoc</Filter>
     </ClCompile>
-    <ClCompile Include="D:\projects\CefBridge\cef3\libcef_dll\cpptoc\pdf_print_callback_cpptoc.cc">
+    <ClCompile Include="..\..\cef3\libcef_dll\cpptoc\pdf_print_callback_cpptoc.cc">
       <Filter>libcef_dll\cpptoc</Filter>
     </ClCompile>
-    <ClCompile Include="D:\projects\CefBridge\cef3\libcef_dll\cpptoc\print_handler_cpptoc.cc">
+    <ClCompile Include="..\..\cef3\libcef_dll\cpptoc\print_handler_cpptoc.cc">
       <Filter>libcef_dll\cpptoc</Filter>
     </ClCompile>
-    <ClCompile Include="D:\projects\CefBridge\cef3\libcef_dll\cpptoc\read_handler_cpptoc.cc">
+    <ClCompile Include="..\..\cef3\libcef_dll\cpptoc\read_handler_cpptoc.cc">
       <Filter>libcef_dll\cpptoc</Filter>
     </ClCompile>
-    <ClCompile Include="D:\projects\CefBridge\cef3\libcef_dll\cpptoc\render_handler_cpptoc.cc">
+    <ClCompile Include="..\..\cef3\libcef_dll\cpptoc\render_handler_cpptoc.cc">
       <Filter>libcef_dll\cpptoc</Filter>
     </ClCompile>
-    <ClCompile Include="D:\projects\CefBridge\cef3\libcef_dll\cpptoc\render_process_handler_cpptoc.cc">
+    <ClCompile Include="..\..\cef3\libcef_dll\cpptoc\render_process_handler_cpptoc.cc">
       <Filter>libcef_dll\cpptoc</Filter>
     </ClCompile>
-    <ClCompile Include="D:\projects\CefBridge\cef3\libcef_dll\cpptoc\request_context_handler_cpptoc.cc">
+    <ClCompile Include="..\..\cef3\libcef_dll\cpptoc\request_context_handler_cpptoc.cc">
       <Filter>libcef_dll\cpptoc</Filter>
     </ClCompile>
-    <ClCompile Include="D:\projects\CefBridge\cef3\libcef_dll\cpptoc\request_handler_cpptoc.cc">
+    <ClCompile Include="..\..\cef3\libcef_dll\cpptoc\request_handler_cpptoc.cc">
       <Filter>libcef_dll\cpptoc</Filter>
     </ClCompile>
-    <ClCompile Include="D:\projects\CefBridge\cef3\libcef_dll\cpptoc\resource_bundle_handler_cpptoc.cc">
+    <ClCompile Include="..\..\cef3\libcef_dll\cpptoc\resource_bundle_handler_cpptoc.cc">
       <Filter>libcef_dll\cpptoc</Filter>
     </ClCompile>
-    <ClCompile Include="D:\projects\CefBridge\cef3\libcef_dll\cpptoc\resource_handler_cpptoc.cc">
+    <ClCompile Include="..\..\cef3\libcef_dll\cpptoc\resource_handler_cpptoc.cc">
       <Filter>libcef_dll\cpptoc</Filter>
     </ClCompile>
-    <ClCompile Include="D:\projects\CefBridge\cef3\libcef_dll\cpptoc\response_filter_cpptoc.cc">
+    <ClCompile Include="..\..\cef3\libcef_dll\cpptoc\response_filter_cpptoc.cc">
       <Filter>libcef_dll\cpptoc</Filter>
     </ClCompile>
-    <ClCompile Include="D:\projects\CefBridge\cef3\libcef_dll\cpptoc\run_file_dialog_callback_cpptoc.cc">
+    <ClCompile Include="..\..\cef3\libcef_dll\cpptoc\run_file_dialog_callback_cpptoc.cc">
       <Filter>libcef_dll\cpptoc</Filter>
     </ClCompile>
-    <ClCompile Include="D:\projects\CefBridge\cef3\libcef_dll\cpptoc\scheme_handler_factory_cpptoc.cc">
+    <ClCompile Include="..\..\cef3\libcef_dll\cpptoc\scheme_handler_factory_cpptoc.cc">
       <Filter>libcef_dll\cpptoc</Filter>
     </ClCompile>
-    <ClCompile Include="D:\projects\CefBridge\cef3\libcef_dll\cpptoc\set_cookie_callback_cpptoc.cc">
+    <ClCompile Include="..\..\cef3\libcef_dll\cpptoc\set_cookie_callback_cpptoc.cc">
       <Filter>libcef_dll\cpptoc</Filter>
     </ClCompile>
-    <ClCompile Include="D:\projects\CefBridge\cef3\libcef_dll\cpptoc\string_visitor_cpptoc.cc">
+    <ClCompile Include="..\..\cef3\libcef_dll\cpptoc\string_visitor_cpptoc.cc">
       <Filter>libcef_dll\cpptoc</Filter>
     </ClCompile>
-    <ClCompile Include="D:\projects\CefBridge\cef3\libcef_dll\cpptoc\task_cpptoc.cc">
+    <ClCompile Include="..\..\cef3\libcef_dll\cpptoc\task_cpptoc.cc">
       <Filter>libcef_dll\cpptoc</Filter>
     </ClCompile>
-    <ClCompile Include="D:\projects\CefBridge\cef3\libcef_dll\cpptoc\urlrequest_client_cpptoc.cc">
+    <ClCompile Include="..\..\cef3\libcef_dll\cpptoc\urlrequest_client_cpptoc.cc">
       <Filter>libcef_dll\cpptoc</Filter>
     </ClCompile>
-    <ClCompile Include="D:\projects\CefBridge\cef3\libcef_dll\cpptoc\v8accessor_cpptoc.cc">
+    <ClCompile Include="..\..\cef3\libcef_dll\cpptoc\v8accessor_cpptoc.cc">
       <Filter>libcef_dll\cpptoc</Filter>
     </ClCompile>
-    <ClCompile Include="D:\projects\CefBridge\cef3\libcef_dll\cpptoc\v8handler_cpptoc.cc">
+    <ClCompile Include="..\..\cef3\libcef_dll\cpptoc\v8handler_cpptoc.cc">
       <Filter>libcef_dll\cpptoc</Filter>
     </ClCompile>
-    <ClCompile Include="D:\projects\CefBridge\cef3\libcef_dll\cpptoc\web_plugin_info_visitor_cpptoc.cc">
+    <ClCompile Include="..\..\cef3\libcef_dll\cpptoc\web_plugin_info_visitor_cpptoc.cc">
       <Filter>libcef_dll\cpptoc</Filter>
     </ClCompile>
-    <ClCompile Include="D:\projects\CefBridge\cef3\libcef_dll\cpptoc\web_plugin_unstable_callback_cpptoc.cc">
+    <ClCompile Include="..\..\cef3\libcef_dll\cpptoc\web_plugin_unstable_callback_cpptoc.cc">
       <Filter>libcef_dll\cpptoc</Filter>
     </ClCompile>
-    <ClCompile Include="D:\projects\CefBridge\cef3\libcef_dll\cpptoc\write_handler_cpptoc.cc">
+    <ClCompile Include="..\..\cef3\libcef_dll\cpptoc\write_handler_cpptoc.cc">
       <Filter>libcef_dll\cpptoc</Filter>
     </ClCompile>
-    <ClCompile Include="D:\projects\CefBridge\cef3\libcef_dll\ctocpp\auth_callback_ctocpp.cc">
+    <ClCompile Include="..\..\cef3\libcef_dll\ctocpp\auth_callback_ctocpp.cc">
       <Filter>libcef_dll\ctocpp</Filter>
     </ClCompile>
-    <ClCompile Include="D:\projects\CefBridge\cef3\libcef_dll\ctocpp\before_download_callback_ctocpp.cc">
+    <ClCompile Include="..\..\cef3\libcef_dll\ctocpp\before_download_callback_ctocpp.cc">
       <Filter>libcef_dll\ctocpp</Filter>
     </ClCompile>
-    <ClCompile Include="D:\projects\CefBridge\cef3\libcef_dll\ctocpp\binary_value_ctocpp.cc">
+    <ClCompile Include="..\..\cef3\libcef_dll\ctocpp\binary_value_ctocpp.cc">
       <Filter>libcef_dll\ctocpp</Filter>
     </ClCompile>
-    <ClCompile Include="D:\projects\CefBridge\cef3\libcef_dll\ctocpp\browser_ctocpp.cc">
+    <ClCompile Include="..\..\cef3\libcef_dll\ctocpp\browser_ctocpp.cc">
       <Filter>libcef_dll\ctocpp</Filter>
     </ClCompile>
-    <ClCompile Include="D:\projects\CefBridge\cef3\libcef_dll\ctocpp\browser_host_ctocpp.cc">
+    <ClCompile Include="..\..\cef3\libcef_dll\ctocpp\browser_host_ctocpp.cc">
       <Filter>libcef_dll\ctocpp</Filter>
     </ClCompile>
-    <ClCompile Include="D:\projects\CefBridge\cef3\libcef_dll\ctocpp\callback_ctocpp.cc">
+    <ClCompile Include="..\..\cef3\libcef_dll\ctocpp\callback_ctocpp.cc">
       <Filter>libcef_dll\ctocpp</Filter>
     </ClCompile>
-    <ClCompile Include="D:\projects\CefBridge\cef3\libcef_dll\ctocpp\command_line_ctocpp.cc">
+    <ClCompile Include="..\..\cef3\libcef_dll\ctocpp\command_line_ctocpp.cc">
       <Filter>libcef_dll\ctocpp</Filter>
     </ClCompile>
-    <ClCompile Include="D:\projects\CefBridge\cef3\libcef_dll\ctocpp\context_menu_params_ctocpp.cc">
+    <ClCompile Include="..\..\cef3\libcef_dll\ctocpp\context_menu_params_ctocpp.cc">
       <Filter>libcef_dll\ctocpp</Filter>
     </ClCompile>
-    <ClCompile Include="D:\projects\CefBridge\cef3\libcef_dll\ctocpp\cookie_manager_ctocpp.cc">
+    <ClCompile Include="..\..\cef3\libcef_dll\ctocpp\cookie_manager_ctocpp.cc">
       <Filter>libcef_dll\ctocpp</Filter>
     </ClCompile>
-    <ClCompile Include="D:\projects\CefBridge\cef3\libcef_dll\ctocpp\dictionary_value_ctocpp.cc">
+    <ClCompile Include="..\..\cef3\libcef_dll\ctocpp\dictionary_value_ctocpp.cc">
       <Filter>libcef_dll\ctocpp</Filter>
     </ClCompile>
-    <ClCompile Include="D:\projects\CefBridge\cef3\libcef_dll\ctocpp\domdocument_ctocpp.cc">
+    <ClCompile Include="..\..\cef3\libcef_dll\ctocpp\domdocument_ctocpp.cc">
       <Filter>libcef_dll\ctocpp</Filter>
     </ClCompile>
-    <ClCompile Include="D:\projects\CefBridge\cef3\libcef_dll\ctocpp\domnode_ctocpp.cc">
+    <ClCompile Include="..\..\cef3\libcef_dll\ctocpp\domnode_ctocpp.cc">
       <Filter>libcef_dll\ctocpp</Filter>
     </ClCompile>
-    <ClCompile Include="D:\projects\CefBridge\cef3\libcef_dll\ctocpp\download_item_callback_ctocpp.cc">
+    <ClCompile Include="..\..\cef3\libcef_dll\ctocpp\download_item_callback_ctocpp.cc">
       <Filter>libcef_dll\ctocpp</Filter>
     </ClCompile>
-    <ClCompile Include="D:\projects\CefBridge\cef3\libcef_dll\ctocpp\download_item_ctocpp.cc">
+    <ClCompile Include="..\..\cef3\libcef_dll\ctocpp\download_item_ctocpp.cc">
       <Filter>libcef_dll\ctocpp</Filter>
     </ClCompile>
-    <ClCompile Include="D:\projects\CefBridge\cef3\libcef_dll\ctocpp\drag_data_ctocpp.cc">
+    <ClCompile Include="..\..\cef3\libcef_dll\ctocpp\drag_data_ctocpp.cc">
       <Filter>libcef_dll\ctocpp</Filter>
     </ClCompile>
-    <ClCompile Include="D:\projects\CefBridge\cef3\libcef_dll\ctocpp\file_dialog_callback_ctocpp.cc">
+    <ClCompile Include="..\..\cef3\libcef_dll\ctocpp\file_dialog_callback_ctocpp.cc">
       <Filter>libcef_dll\ctocpp</Filter>
     </ClCompile>
-    <ClCompile Include="D:\projects\CefBridge\cef3\libcef_dll\ctocpp\frame_ctocpp.cc">
+    <ClCompile Include="..\..\cef3\libcef_dll\ctocpp\frame_ctocpp.cc">
       <Filter>libcef_dll\ctocpp</Filter>
     </ClCompile>
-    <ClCompile Include="D:\projects\CefBridge\cef3\libcef_dll\ctocpp\geolocation_callback_ctocpp.cc">
+    <ClCompile Include="..\..\cef3\libcef_dll\ctocpp\geolocation_callback_ctocpp.cc">
       <Filter>libcef_dll\ctocpp</Filter>
     </ClCompile>
-    <ClCompile Include="D:\projects\CefBridge\cef3\libcef_dll\ctocpp\jsdialog_callback_ctocpp.cc">
+    <ClCompile Include="..\..\cef3\libcef_dll\ctocpp\jsdialog_callback_ctocpp.cc">
       <Filter>libcef_dll\ctocpp</Filter>
     </ClCompile>
-    <ClCompile Include="D:\projects\CefBridge\cef3\libcef_dll\ctocpp\list_value_ctocpp.cc">
+    <ClCompile Include="..\..\cef3\libcef_dll\ctocpp\list_value_ctocpp.cc">
       <Filter>libcef_dll\ctocpp</Filter>
     </ClCompile>
-    <ClCompile Include="D:\projects\CefBridge\cef3\libcef_dll\ctocpp\menu_model_ctocpp.cc">
+    <ClCompile Include="..\..\cef3\libcef_dll\ctocpp\menu_model_ctocpp.cc">
       <Filter>libcef_dll\ctocpp</Filter>
     </ClCompile>
-    <ClCompile Include="D:\projects\CefBridge\cef3\libcef_dll\ctocpp\navigation_entry_ctocpp.cc">
+    <ClCompile Include="..\..\cef3\libcef_dll\ctocpp\navigation_entry_ctocpp.cc">
       <Filter>libcef_dll\ctocpp</Filter>
     </ClCompile>
-    <ClCompile Include="D:\projects\CefBridge\cef3\libcef_dll\ctocpp\post_data_ctocpp.cc">
+    <ClCompile Include="..\..\cef3\libcef_dll\ctocpp\post_data_ctocpp.cc">
       <Filter>libcef_dll\ctocpp</Filter>
     </ClCompile>
-    <ClCompile Include="D:\projects\CefBridge\cef3\libcef_dll\ctocpp\post_data_element_ctocpp.cc">
+    <ClCompile Include="..\..\cef3\libcef_dll\ctocpp\post_data_element_ctocpp.cc">
       <Filter>libcef_dll\ctocpp</Filter>
     </ClCompile>
-    <ClCompile Include="D:\projects\CefBridge\cef3\libcef_dll\ctocpp\print_dialog_callback_ctocpp.cc">
+    <ClCompile Include="..\..\cef3\libcef_dll\ctocpp\print_dialog_callback_ctocpp.cc">
       <Filter>libcef_dll\ctocpp</Filter>
     </ClCompile>
-    <ClCompile Include="D:\projects\CefBridge\cef3\libcef_dll\ctocpp\print_job_callback_ctocpp.cc">
+    <ClCompile Include="..\..\cef3\libcef_dll\ctocpp\print_job_callback_ctocpp.cc">
       <Filter>libcef_dll\ctocpp</Filter>
     </ClCompile>
-    <ClCompile Include="D:\projects\CefBridge\cef3\libcef_dll\ctocpp\print_settings_ctocpp.cc">
+    <ClCompile Include="..\..\cef3\libcef_dll\ctocpp\print_settings_ctocpp.cc">
       <Filter>libcef_dll\ctocpp</Filter>
     </ClCompile>
-    <ClCompile Include="D:\projects\CefBridge\cef3\libcef_dll\ctocpp\process_message_ctocpp.cc">
+    <ClCompile Include="..\..\cef3\libcef_dll\ctocpp\process_message_ctocpp.cc">
       <Filter>libcef_dll\ctocpp</Filter>
     </ClCompile>
-    <ClCompile Include="D:\projects\CefBridge\cef3\libcef_dll\ctocpp\request_callback_ctocpp.cc">
+    <ClCompile Include="..\..\cef3\libcef_dll\ctocpp\request_callback_ctocpp.cc">
       <Filter>libcef_dll\ctocpp</Filter>
     </ClCompile>
-    <ClCompile Include="D:\projects\CefBridge\cef3\libcef_dll\ctocpp\request_context_ctocpp.cc">
+    <ClCompile Include="..\..\cef3\libcef_dll\ctocpp\request_context_ctocpp.cc">
       <Filter>libcef_dll\ctocpp</Filter>
     </ClCompile>
-    <ClCompile Include="D:\projects\CefBridge\cef3\libcef_dll\ctocpp\request_ctocpp.cc">
+    <ClCompile Include="..\..\cef3\libcef_dll\ctocpp\request_ctocpp.cc">
       <Filter>libcef_dll\ctocpp</Filter>
     </ClCompile>
-    <ClCompile Include="D:\projects\CefBridge\cef3\libcef_dll\ctocpp\resource_bundle_ctocpp.cc">
+    <ClCompile Include="..\..\cef3\libcef_dll\ctocpp\resource_bundle_ctocpp.cc">
       <Filter>libcef_dll\ctocpp</Filter>
     </ClCompile>
-    <ClCompile Include="D:\projects\CefBridge\cef3\libcef_dll\ctocpp\response_ctocpp.cc">
+    <ClCompile Include="..\..\cef3\libcef_dll\ctocpp\response_ctocpp.cc">
       <Filter>libcef_dll\ctocpp</Filter>
     </ClCompile>
-    <ClCompile Include="D:\projects\CefBridge\cef3\libcef_dll\ctocpp\run_context_menu_callback_ctocpp.cc">
+    <ClCompile Include="..\..\cef3\libcef_dll\ctocpp\run_context_menu_callback_ctocpp.cc">
       <Filter>libcef_dll\ctocpp</Filter>
     </ClCompile>
-    <ClCompile Include="D:\projects\CefBridge\cef3\libcef_dll\ctocpp\scheme_registrar_ctocpp.cc">
+    <ClCompile Include="..\..\cef3\libcef_dll\ctocpp\scheme_registrar_ctocpp.cc">
       <Filter>libcef_dll\ctocpp</Filter>
     </ClCompile>
-    <ClCompile Include="D:\projects\CefBridge\cef3\libcef_dll\ctocpp\sslcert_principal_ctocpp.cc">
+    <ClCompile Include="..\..\cef3\libcef_dll\ctocpp\sslcert_principal_ctocpp.cc">
       <Filter>libcef_dll\ctocpp</Filter>
     </ClCompile>
-    <ClCompile Include="D:\projects\CefBridge\cef3\libcef_dll\ctocpp\sslinfo_ctocpp.cc">
+    <ClCompile Include="..\..\cef3\libcef_dll\ctocpp\sslinfo_ctocpp.cc">
       <Filter>libcef_dll\ctocpp</Filter>
     </ClCompile>
-    <ClCompile Include="D:\projects\CefBridge\cef3\libcef_dll\ctocpp\stream_reader_ctocpp.cc">
+    <ClCompile Include="..\..\cef3\libcef_dll\ctocpp\stream_reader_ctocpp.cc">
       <Filter>libcef_dll\ctocpp</Filter>
     </ClCompile>
-    <ClCompile Include="D:\projects\CefBridge\cef3\libcef_dll\ctocpp\stream_writer_ctocpp.cc">
+    <ClCompile Include="..\..\cef3\libcef_dll\ctocpp\stream_writer_ctocpp.cc">
       <Filter>libcef_dll\ctocpp</Filter>
     </ClCompile>
-    <ClCompile Include="D:\projects\CefBridge\cef3\libcef_dll\ctocpp\task_runner_ctocpp.cc">
+    <ClCompile Include="..\..\cef3\libcef_dll\ctocpp\task_runner_ctocpp.cc">
       <Filter>libcef_dll\ctocpp</Filter>
     </ClCompile>
-    <ClCompile Include="D:\projects\CefBridge\cef3\libcef_dll\ctocpp\urlrequest_ctocpp.cc">
+    <ClCompile Include="..\..\cef3\libcef_dll\ctocpp\urlrequest_ctocpp.cc">
       <Filter>libcef_dll\ctocpp</Filter>
     </ClCompile>
-    <ClCompile Include="D:\projects\CefBridge\cef3\libcef_dll\ctocpp\v8context_ctocpp.cc">
+    <ClCompile Include="..\..\cef3\libcef_dll\ctocpp\v8context_ctocpp.cc">
       <Filter>libcef_dll\ctocpp</Filter>
     </ClCompile>
-    <ClCompile Include="D:\projects\CefBridge\cef3\libcef_dll\ctocpp\v8exception_ctocpp.cc">
+    <ClCompile Include="..\..\cef3\libcef_dll\ctocpp\v8exception_ctocpp.cc">
       <Filter>libcef_dll\ctocpp</Filter>
     </ClCompile>
-    <ClCompile Include="D:\projects\CefBridge\cef3\libcef_dll\ctocpp\v8stack_frame_ctocpp.cc">
+    <ClCompile Include="..\..\cef3\libcef_dll\ctocpp\v8stack_frame_ctocpp.cc">
       <Filter>libcef_dll\ctocpp</Filter>
     </ClCompile>
-    <ClCompile Include="D:\projects\CefBridge\cef3\libcef_dll\ctocpp\v8stack_trace_ctocpp.cc">
+    <ClCompile Include="..\..\cef3\libcef_dll\ctocpp\v8stack_trace_ctocpp.cc">
       <Filter>libcef_dll\ctocpp</Filter>
     </ClCompile>
-    <ClCompile Include="D:\projects\CefBridge\cef3\libcef_dll\ctocpp\v8value_ctocpp.cc">
+    <ClCompile Include="..\..\cef3\libcef_dll\ctocpp\v8value_ctocpp.cc">
       <Filter>libcef_dll\ctocpp</Filter>
     </ClCompile>
-    <ClCompile Include="D:\projects\CefBridge\cef3\libcef_dll\ctocpp\value_ctocpp.cc">
+    <ClCompile Include="..\..\cef3\libcef_dll\ctocpp\value_ctocpp.cc">
       <Filter>libcef_dll\ctocpp</Filter>
     </ClCompile>
-    <ClCompile Include="D:\projects\CefBridge\cef3\libcef_dll\ctocpp\web_plugin_info_ctocpp.cc">
+    <ClCompile Include="..\..\cef3\libcef_dll\ctocpp\web_plugin_info_ctocpp.cc">
       <Filter>libcef_dll\ctocpp</Filter>
     </ClCompile>
-    <ClCompile Include="D:\projects\CefBridge\cef3\libcef_dll\ctocpp\xml_reader_ctocpp.cc">
+    <ClCompile Include="..\..\cef3\libcef_dll\ctocpp\xml_reader_ctocpp.cc">
       <Filter>libcef_dll\ctocpp</Filter>
     </ClCompile>
-    <ClCompile Include="D:\projects\CefBridge\cef3\libcef_dll\ctocpp\zip_reader_ctocpp.cc">
+    <ClCompile Include="..\..\cef3\libcef_dll\ctocpp\zip_reader_ctocpp.cc">
       <Filter>libcef_dll\ctocpp</Filter>
     </ClCompile>
-    <ClCompile Include="D:\projects\CefBridge\cef3\libcef_dll\wrapper\cef_byte_read_handler.cc">
+    <ClCompile Include="..\..\cef3\libcef_dll\wrapper\cef_byte_read_handler.cc">
       <Filter>libcef_dll\wrapper</Filter>
     </ClCompile>
-    <ClCompile Include="D:\projects\CefBridge\cef3\libcef_dll\wrapper\cef_closure_task.cc">
+    <ClCompile Include="..\..\cef3\libcef_dll\wrapper\cef_closure_task.cc">
       <Filter>libcef_dll\wrapper</Filter>
     </ClCompile>
-    <ClCompile Include="D:\projects\CefBridge\cef3\libcef_dll\wrapper\cef_message_router.cc">
+    <ClCompile Include="..\..\cef3\libcef_dll\wrapper\cef_message_router.cc">
       <Filter>libcef_dll\wrapper</Filter>
     </ClCompile>
-    <ClCompile Include="D:\projects\CefBridge\cef3\libcef_dll\wrapper\cef_resource_manager.cc">
+    <ClCompile Include="..\..\cef3\libcef_dll\wrapper\cef_resource_manager.cc">
       <Filter>libcef_dll\wrapper</Filter>
     </ClCompile>
-    <ClCompile Include="D:\projects\CefBridge\cef3\libcef_dll\wrapper\cef_stream_resource_handler.cc">
+    <ClCompile Include="..\..\cef3\libcef_dll\wrapper\cef_stream_resource_handler.cc">
       <Filter>libcef_dll\wrapper</Filter>
     </ClCompile>
-    <ClCompile Include="D:\projects\CefBridge\cef3\libcef_dll\wrapper\cef_xml_object.cc">
+    <ClCompile Include="..\..\cef3\libcef_dll\wrapper\cef_xml_object.cc">
       <Filter>libcef_dll\wrapper</Filter>
     </ClCompile>
-    <ClCompile Include="D:\projects\CefBridge\cef3\libcef_dll\wrapper\cef_zip_archive.cc">
+    <ClCompile Include="..\..\cef3\libcef_dll\wrapper\cef_zip_archive.cc">
       <Filter>libcef_dll\wrapper</Filter>
     </ClCompile>
-    <ClCompile Include="D:\projects\CefBridge\cef3\libcef_dll\wrapper\libcef_dll_wrapper.cc">
+    <ClCompile Include="..\..\cef3\libcef_dll\wrapper\libcef_dll_wrapper.cc">
       <Filter>libcef_dll\wrapper</Filter>
     </ClCompile>
-    <ClCompile Include="D:\projects\CefBridge\cef3\libcef_dll\wrapper\libcef_dll_wrapper2.cc">
+    <ClCompile Include="..\..\cef3\libcef_dll\wrapper\libcef_dll_wrapper2.cc">
       <Filter>libcef_dll\wrapper</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="D:\projects\CefBridge\cef3\libcef_dll\transfer_util.h">
+    <ClInclude Include="..\..\cef3\libcef_dll\transfer_util.h">
       <Filter>libcef_dll</Filter>
     </ClInclude>
-    <ClInclude Include="D:\projects\CefBridge\cef3\libcef_dll\wrapper_types.h">
+    <ClInclude Include="..\..\cef3\libcef_dll\wrapper_types.h">
       <Filter>libcef_dll</Filter>
     </ClInclude>
-    <ClInclude Include="D:\projects\CefBridge\cef3\libcef_dll\cpptoc\app_cpptoc.h">
+    <ClInclude Include="..\..\cef3\libcef_dll\cpptoc\app_cpptoc.h">
       <Filter>libcef_dll\cpptoc</Filter>
     </ClInclude>
-    <ClInclude Include="D:\projects\CefBridge\cef3\libcef_dll\cpptoc\base_cpptoc.h">
+    <ClInclude Include="..\..\cef3\libcef_dll\cpptoc\base_cpptoc.h">
       <Filter>libcef_dll\cpptoc</Filter>
     </ClInclude>
-    <ClInclude Include="D:\projects\CefBridge\cef3\libcef_dll\cpptoc\browser_process_handler_cpptoc.h">
+    <ClInclude Include="..\..\cef3\libcef_dll\cpptoc\browser_process_handler_cpptoc.h">
       <Filter>libcef_dll\cpptoc</Filter>
     </ClInclude>
-    <ClInclude Include="D:\projects\CefBridge\cef3\libcef_dll\cpptoc\client_cpptoc.h">
+    <ClInclude Include="..\..\cef3\libcef_dll\cpptoc\client_cpptoc.h">
       <Filter>libcef_dll\cpptoc</Filter>
     </ClInclude>
-    <ClInclude Include="D:\projects\CefBridge\cef3\libcef_dll\cpptoc\completion_callback_cpptoc.h">
+    <ClInclude Include="..\..\cef3\libcef_dll\cpptoc\completion_callback_cpptoc.h">
       <Filter>libcef_dll\cpptoc</Filter>
     </ClInclude>
-    <ClInclude Include="D:\projects\CefBridge\cef3\libcef_dll\cpptoc\context_menu_handler_cpptoc.h">
+    <ClInclude Include="..\..\cef3\libcef_dll\cpptoc\context_menu_handler_cpptoc.h">
       <Filter>libcef_dll\cpptoc</Filter>
     </ClInclude>
-    <ClInclude Include="D:\projects\CefBridge\cef3\libcef_dll\cpptoc\cookie_visitor_cpptoc.h">
+    <ClInclude Include="..\..\cef3\libcef_dll\cpptoc\cookie_visitor_cpptoc.h">
       <Filter>libcef_dll\cpptoc</Filter>
     </ClInclude>
-    <ClInclude Include="D:\projects\CefBridge\cef3\libcef_dll\cpptoc\cpptoc.h">
+    <ClInclude Include="..\..\cef3\libcef_dll\cpptoc\cpptoc.h">
       <Filter>libcef_dll\cpptoc</Filter>
     </ClInclude>
-    <ClInclude Include="D:\projects\CefBridge\cef3\libcef_dll\cpptoc\delete_cookies_callback_cpptoc.h">
+    <ClInclude Include="..\..\cef3\libcef_dll\cpptoc\delete_cookies_callback_cpptoc.h">
       <Filter>libcef_dll\cpptoc</Filter>
     </ClInclude>
-    <ClInclude Include="D:\projects\CefBridge\cef3\libcef_dll\cpptoc\dialog_handler_cpptoc.h">
+    <ClInclude Include="..\..\cef3\libcef_dll\cpptoc\dialog_handler_cpptoc.h">
       <Filter>libcef_dll\cpptoc</Filter>
     </ClInclude>
-    <ClInclude Include="D:\projects\CefBridge\cef3\libcef_dll\cpptoc\display_handler_cpptoc.h">
+    <ClInclude Include="..\..\cef3\libcef_dll\cpptoc\display_handler_cpptoc.h">
       <Filter>libcef_dll\cpptoc</Filter>
     </ClInclude>
-    <ClInclude Include="D:\projects\CefBridge\cef3\libcef_dll\cpptoc\domvisitor_cpptoc.h">
+    <ClInclude Include="..\..\cef3\libcef_dll\cpptoc\domvisitor_cpptoc.h">
       <Filter>libcef_dll\cpptoc</Filter>
     </ClInclude>
-    <ClInclude Include="D:\projects\CefBridge\cef3\libcef_dll\cpptoc\download_handler_cpptoc.h">
+    <ClInclude Include="..\..\cef3\libcef_dll\cpptoc\download_handler_cpptoc.h">
       <Filter>libcef_dll\cpptoc</Filter>
     </ClInclude>
-    <ClInclude Include="D:\projects\CefBridge\cef3\libcef_dll\cpptoc\drag_handler_cpptoc.h">
+    <ClInclude Include="..\..\cef3\libcef_dll\cpptoc\drag_handler_cpptoc.h">
       <Filter>libcef_dll\cpptoc</Filter>
     </ClInclude>
-    <ClInclude Include="D:\projects\CefBridge\cef3\libcef_dll\cpptoc\end_tracing_callback_cpptoc.h">
+    <ClInclude Include="..\..\cef3\libcef_dll\cpptoc\end_tracing_callback_cpptoc.h">
       <Filter>libcef_dll\cpptoc</Filter>
     </ClInclude>
-    <ClInclude Include="D:\projects\CefBridge\cef3\libcef_dll\cpptoc\find_handler_cpptoc.h">
+    <ClInclude Include="..\..\cef3\libcef_dll\cpptoc\find_handler_cpptoc.h">
       <Filter>libcef_dll\cpptoc</Filter>
     </ClInclude>
-    <ClInclude Include="D:\projects\CefBridge\cef3\libcef_dll\cpptoc\focus_handler_cpptoc.h">
+    <ClInclude Include="..\..\cef3\libcef_dll\cpptoc\focus_handler_cpptoc.h">
       <Filter>libcef_dll\cpptoc</Filter>
     </ClInclude>
-    <ClInclude Include="D:\projects\CefBridge\cef3\libcef_dll\cpptoc\geolocation_handler_cpptoc.h">
+    <ClInclude Include="..\..\cef3\libcef_dll\cpptoc\geolocation_handler_cpptoc.h">
       <Filter>libcef_dll\cpptoc</Filter>
     </ClInclude>
-    <ClInclude Include="D:\projects\CefBridge\cef3\libcef_dll\cpptoc\get_geolocation_callback_cpptoc.h">
+    <ClInclude Include="..\..\cef3\libcef_dll\cpptoc\get_geolocation_callback_cpptoc.h">
       <Filter>libcef_dll\cpptoc</Filter>
     </ClInclude>
-    <ClInclude Include="D:\projects\CefBridge\cef3\libcef_dll\cpptoc\jsdialog_handler_cpptoc.h">
+    <ClInclude Include="..\..\cef3\libcef_dll\cpptoc\jsdialog_handler_cpptoc.h">
       <Filter>libcef_dll\cpptoc</Filter>
     </ClInclude>
-    <ClInclude Include="D:\projects\CefBridge\cef3\libcef_dll\cpptoc\keyboard_handler_cpptoc.h">
+    <ClInclude Include="..\..\cef3\libcef_dll\cpptoc\keyboard_handler_cpptoc.h">
       <Filter>libcef_dll\cpptoc</Filter>
     </ClInclude>
-    <ClInclude Include="D:\projects\CefBridge\cef3\libcef_dll\cpptoc\life_span_handler_cpptoc.h">
+    <ClInclude Include="..\..\cef3\libcef_dll\cpptoc\life_span_handler_cpptoc.h">
       <Filter>libcef_dll\cpptoc</Filter>
     </ClInclude>
-    <ClInclude Include="D:\projects\CefBridge\cef3\libcef_dll\cpptoc\load_handler_cpptoc.h">
+    <ClInclude Include="..\..\cef3\libcef_dll\cpptoc\load_handler_cpptoc.h">
       <Filter>libcef_dll\cpptoc</Filter>
     </ClInclude>
-    <ClInclude Include="D:\projects\CefBridge\cef3\libcef_dll\cpptoc\navigation_entry_visitor_cpptoc.h">
+    <ClInclude Include="..\..\cef3\libcef_dll\cpptoc\navigation_entry_visitor_cpptoc.h">
       <Filter>libcef_dll\cpptoc</Filter>
     </ClInclude>
-    <ClInclude Include="D:\projects\CefBridge\cef3\libcef_dll\cpptoc\pdf_print_callback_cpptoc.h">
+    <ClInclude Include="..\..\cef3\libcef_dll\cpptoc\pdf_print_callback_cpptoc.h">
       <Filter>libcef_dll\cpptoc</Filter>
     </ClInclude>
-    <ClInclude Include="D:\projects\CefBridge\cef3\libcef_dll\cpptoc\print_handler_cpptoc.h">
+    <ClInclude Include="..\..\cef3\libcef_dll\cpptoc\print_handler_cpptoc.h">
       <Filter>libcef_dll\cpptoc</Filter>
     </ClInclude>
-    <ClInclude Include="D:\projects\CefBridge\cef3\libcef_dll\cpptoc\read_handler_cpptoc.h">
+    <ClInclude Include="..\..\cef3\libcef_dll\cpptoc\read_handler_cpptoc.h">
       <Filter>libcef_dll\cpptoc</Filter>
     </ClInclude>
-    <ClInclude Include="D:\projects\CefBridge\cef3\libcef_dll\cpptoc\render_handler_cpptoc.h">
+    <ClInclude Include="..\..\cef3\libcef_dll\cpptoc\render_handler_cpptoc.h">
       <Filter>libcef_dll\cpptoc</Filter>
     </ClInclude>
-    <ClInclude Include="D:\projects\CefBridge\cef3\libcef_dll\cpptoc\render_process_handler_cpptoc.h">
+    <ClInclude Include="..\..\cef3\libcef_dll\cpptoc\render_process_handler_cpptoc.h">
       <Filter>libcef_dll\cpptoc</Filter>
     </ClInclude>
-    <ClInclude Include="D:\projects\CefBridge\cef3\libcef_dll\cpptoc\request_context_handler_cpptoc.h">
+    <ClInclude Include="..\..\cef3\libcef_dll\cpptoc\request_context_handler_cpptoc.h">
       <Filter>libcef_dll\cpptoc</Filter>
     </ClInclude>
-    <ClInclude Include="D:\projects\CefBridge\cef3\libcef_dll\cpptoc\request_handler_cpptoc.h">
+    <ClInclude Include="..\..\cef3\libcef_dll\cpptoc\request_handler_cpptoc.h">
       <Filter>libcef_dll\cpptoc</Filter>
     </ClInclude>
-    <ClInclude Include="D:\projects\CefBridge\cef3\libcef_dll\cpptoc\resource_bundle_handler_cpptoc.h">
+    <ClInclude Include="..\..\cef3\libcef_dll\cpptoc\resource_bundle_handler_cpptoc.h">
       <Filter>libcef_dll\cpptoc</Filter>
     </ClInclude>
-    <ClInclude Include="D:\projects\CefBridge\cef3\libcef_dll\cpptoc\resource_handler_cpptoc.h">
+    <ClInclude Include="..\..\cef3\libcef_dll\cpptoc\resource_handler_cpptoc.h">
       <Filter>libcef_dll\cpptoc</Filter>
     </ClInclude>
-    <ClInclude Include="D:\projects\CefBridge\cef3\libcef_dll\cpptoc\response_filter_cpptoc.h">
+    <ClInclude Include="..\..\cef3\libcef_dll\cpptoc\response_filter_cpptoc.h">
       <Filter>libcef_dll\cpptoc</Filter>
     </ClInclude>
-    <ClInclude Include="D:\projects\CefBridge\cef3\libcef_dll\cpptoc\run_file_dialog_callback_cpptoc.h">
+    <ClInclude Include="..\..\cef3\libcef_dll\cpptoc\run_file_dialog_callback_cpptoc.h">
       <Filter>libcef_dll\cpptoc</Filter>
     </ClInclude>
-    <ClInclude Include="D:\projects\CefBridge\cef3\libcef_dll\cpptoc\scheme_handler_factory_cpptoc.h">
+    <ClInclude Include="..\..\cef3\libcef_dll\cpptoc\scheme_handler_factory_cpptoc.h">
       <Filter>libcef_dll\cpptoc</Filter>
     </ClInclude>
-    <ClInclude Include="D:\projects\CefBridge\cef3\libcef_dll\cpptoc\set_cookie_callback_cpptoc.h">
+    <ClInclude Include="..\..\cef3\libcef_dll\cpptoc\set_cookie_callback_cpptoc.h">
       <Filter>libcef_dll\cpptoc</Filter>
     </ClInclude>
-    <ClInclude Include="D:\projects\CefBridge\cef3\libcef_dll\cpptoc\string_visitor_cpptoc.h">
+    <ClInclude Include="..\..\cef3\libcef_dll\cpptoc\string_visitor_cpptoc.h">
       <Filter>libcef_dll\cpptoc</Filter>
     </ClInclude>
-    <ClInclude Include="D:\projects\CefBridge\cef3\libcef_dll\cpptoc\task_cpptoc.h">
+    <ClInclude Include="..\..\cef3\libcef_dll\cpptoc\task_cpptoc.h">
       <Filter>libcef_dll\cpptoc</Filter>
     </ClInclude>
-    <ClInclude Include="D:\projects\CefBridge\cef3\libcef_dll\cpptoc\urlrequest_client_cpptoc.h">
+    <ClInclude Include="..\..\cef3\libcef_dll\cpptoc\urlrequest_client_cpptoc.h">
       <Filter>libcef_dll\cpptoc</Filter>
     </ClInclude>
-    <ClInclude Include="D:\projects\CefBridge\cef3\libcef_dll\cpptoc\v8accessor_cpptoc.h">
+    <ClInclude Include="..\..\cef3\libcef_dll\cpptoc\v8accessor_cpptoc.h">
       <Filter>libcef_dll\cpptoc</Filter>
     </ClInclude>
-    <ClInclude Include="D:\projects\CefBridge\cef3\libcef_dll\cpptoc\v8handler_cpptoc.h">
+    <ClInclude Include="..\..\cef3\libcef_dll\cpptoc\v8handler_cpptoc.h">
       <Filter>libcef_dll\cpptoc</Filter>
     </ClInclude>
-    <ClInclude Include="D:\projects\CefBridge\cef3\libcef_dll\cpptoc\web_plugin_info_visitor_cpptoc.h">
+    <ClInclude Include="..\..\cef3\libcef_dll\cpptoc\web_plugin_info_visitor_cpptoc.h">
       <Filter>libcef_dll\cpptoc</Filter>
     </ClInclude>
-    <ClInclude Include="D:\projects\CefBridge\cef3\libcef_dll\cpptoc\web_plugin_unstable_callback_cpptoc.h">
+    <ClInclude Include="..\..\cef3\libcef_dll\cpptoc\web_plugin_unstable_callback_cpptoc.h">
       <Filter>libcef_dll\cpptoc</Filter>
     </ClInclude>
-    <ClInclude Include="D:\projects\CefBridge\cef3\libcef_dll\cpptoc\write_handler_cpptoc.h">
+    <ClInclude Include="..\..\cef3\libcef_dll\cpptoc\write_handler_cpptoc.h">
       <Filter>libcef_dll\cpptoc</Filter>
     </ClInclude>
-    <ClInclude Include="D:\projects\CefBridge\cef3\libcef_dll\ctocpp\auth_callback_ctocpp.h">
+    <ClInclude Include="..\..\cef3\libcef_dll\ctocpp\auth_callback_ctocpp.h">
       <Filter>libcef_dll\ctocpp</Filter>
     </ClInclude>
-    <ClInclude Include="D:\projects\CefBridge\cef3\libcef_dll\ctocpp\before_download_callback_ctocpp.h">
+    <ClInclude Include="..\..\cef3\libcef_dll\ctocpp\before_download_callback_ctocpp.h">
       <Filter>libcef_dll\ctocpp</Filter>
     </ClInclude>
-    <ClInclude Include="D:\projects\CefBridge\cef3\libcef_dll\ctocpp\binary_value_ctocpp.h">
+    <ClInclude Include="..\..\cef3\libcef_dll\ctocpp\binary_value_ctocpp.h">
       <Filter>libcef_dll\ctocpp</Filter>
     </ClInclude>
-    <ClInclude Include="D:\projects\CefBridge\cef3\libcef_dll\ctocpp\browser_ctocpp.h">
+    <ClInclude Include="..\..\cef3\libcef_dll\ctocpp\browser_ctocpp.h">
       <Filter>libcef_dll\ctocpp</Filter>
     </ClInclude>
-    <ClInclude Include="D:\projects\CefBridge\cef3\libcef_dll\ctocpp\browser_host_ctocpp.h">
+    <ClInclude Include="..\..\cef3\libcef_dll\ctocpp\browser_host_ctocpp.h">
       <Filter>libcef_dll\ctocpp</Filter>
     </ClInclude>
-    <ClInclude Include="D:\projects\CefBridge\cef3\libcef_dll\ctocpp\callback_ctocpp.h">
+    <ClInclude Include="..\..\cef3\libcef_dll\ctocpp\callback_ctocpp.h">
       <Filter>libcef_dll\ctocpp</Filter>
     </ClInclude>
-    <ClInclude Include="D:\projects\CefBridge\cef3\libcef_dll\ctocpp\command_line_ctocpp.h">
+    <ClInclude Include="..\..\cef3\libcef_dll\ctocpp\command_line_ctocpp.h">
       <Filter>libcef_dll\ctocpp</Filter>
     </ClInclude>
-    <ClInclude Include="D:\projects\CefBridge\cef3\libcef_dll\ctocpp\context_menu_params_ctocpp.h">
+    <ClInclude Include="..\..\cef3\libcef_dll\ctocpp\context_menu_params_ctocpp.h">
       <Filter>libcef_dll\ctocpp</Filter>
     </ClInclude>
-    <ClInclude Include="D:\projects\CefBridge\cef3\libcef_dll\ctocpp\cookie_manager_ctocpp.h">
+    <ClInclude Include="..\..\cef3\libcef_dll\ctocpp\cookie_manager_ctocpp.h">
       <Filter>libcef_dll\ctocpp</Filter>
     </ClInclude>
-    <ClInclude Include="D:\projects\CefBridge\cef3\libcef_dll\ctocpp\ctocpp.h">
+    <ClInclude Include="..\..\cef3\libcef_dll\ctocpp\ctocpp.h">
       <Filter>libcef_dll\ctocpp</Filter>
     </ClInclude>
-    <ClInclude Include="D:\projects\CefBridge\cef3\libcef_dll\ctocpp\dictionary_value_ctocpp.h">
+    <ClInclude Include="..\..\cef3\libcef_dll\ctocpp\dictionary_value_ctocpp.h">
       <Filter>libcef_dll\ctocpp</Filter>
     </ClInclude>
-    <ClInclude Include="D:\projects\CefBridge\cef3\libcef_dll\ctocpp\domdocument_ctocpp.h">
+    <ClInclude Include="..\..\cef3\libcef_dll\ctocpp\domdocument_ctocpp.h">
       <Filter>libcef_dll\ctocpp</Filter>
     </ClInclude>
-    <ClInclude Include="D:\projects\CefBridge\cef3\libcef_dll\ctocpp\domnode_ctocpp.h">
+    <ClInclude Include="..\..\cef3\libcef_dll\ctocpp\domnode_ctocpp.h">
       <Filter>libcef_dll\ctocpp</Filter>
     </ClInclude>
-    <ClInclude Include="D:\projects\CefBridge\cef3\libcef_dll\ctocpp\download_item_callback_ctocpp.h">
+    <ClInclude Include="..\..\cef3\libcef_dll\ctocpp\download_item_callback_ctocpp.h">
       <Filter>libcef_dll\ctocpp</Filter>
     </ClInclude>
-    <ClInclude Include="D:\projects\CefBridge\cef3\libcef_dll\ctocpp\download_item_ctocpp.h">
+    <ClInclude Include="..\..\cef3\libcef_dll\ctocpp\download_item_ctocpp.h">
       <Filter>libcef_dll\ctocpp</Filter>
     </ClInclude>
-    <ClInclude Include="D:\projects\CefBridge\cef3\libcef_dll\ctocpp\drag_data_ctocpp.h">
+    <ClInclude Include="..\..\cef3\libcef_dll\ctocpp\drag_data_ctocpp.h">
       <Filter>libcef_dll\ctocpp</Filter>
     </ClInclude>
-    <ClInclude Include="D:\projects\CefBridge\cef3\libcef_dll\ctocpp\file_dialog_callback_ctocpp.h">
+    <ClInclude Include="..\..\cef3\libcef_dll\ctocpp\file_dialog_callback_ctocpp.h">
       <Filter>libcef_dll\ctocpp</Filter>
     </ClInclude>
-    <ClInclude Include="D:\projects\CefBridge\cef3\libcef_dll\ctocpp\frame_ctocpp.h">
+    <ClInclude Include="..\..\cef3\libcef_dll\ctocpp\frame_ctocpp.h">
       <Filter>libcef_dll\ctocpp</Filter>
     </ClInclude>
-    <ClInclude Include="D:\projects\CefBridge\cef3\libcef_dll\ctocpp\geolocation_callback_ctocpp.h">
+    <ClInclude Include="..\..\cef3\libcef_dll\ctocpp\geolocation_callback_ctocpp.h">
       <Filter>libcef_dll\ctocpp</Filter>
     </ClInclude>
-    <ClInclude Include="D:\projects\CefBridge\cef3\libcef_dll\ctocpp\jsdialog_callback_ctocpp.h">
+    <ClInclude Include="..\..\cef3\libcef_dll\ctocpp\jsdialog_callback_ctocpp.h">
       <Filter>libcef_dll\ctocpp</Filter>
     </ClInclude>
-    <ClInclude Include="D:\projects\CefBridge\cef3\libcef_dll\ctocpp\list_value_ctocpp.h">
+    <ClInclude Include="..\..\cef3\libcef_dll\ctocpp\list_value_ctocpp.h">
       <Filter>libcef_dll\ctocpp</Filter>
     </ClInclude>
-    <ClInclude Include="D:\projects\CefBridge\cef3\libcef_dll\ctocpp\menu_model_ctocpp.h">
+    <ClInclude Include="..\..\cef3\libcef_dll\ctocpp\menu_model_ctocpp.h">
       <Filter>libcef_dll\ctocpp</Filter>
     </ClInclude>
-    <ClInclude Include="D:\projects\CefBridge\cef3\libcef_dll\ctocpp\navigation_entry_ctocpp.h">
+    <ClInclude Include="..\..\cef3\libcef_dll\ctocpp\navigation_entry_ctocpp.h">
       <Filter>libcef_dll\ctocpp</Filter>
     </ClInclude>
-    <ClInclude Include="D:\projects\CefBridge\cef3\libcef_dll\ctocpp\post_data_ctocpp.h">
+    <ClInclude Include="..\..\cef3\libcef_dll\ctocpp\post_data_ctocpp.h">
       <Filter>libcef_dll\ctocpp</Filter>
     </ClInclude>
-    <ClInclude Include="D:\projects\CefBridge\cef3\libcef_dll\ctocpp\post_data_element_ctocpp.h">
+    <ClInclude Include="..\..\cef3\libcef_dll\ctocpp\post_data_element_ctocpp.h">
       <Filter>libcef_dll\ctocpp</Filter>
     </ClInclude>
-    <ClInclude Include="D:\projects\CefBridge\cef3\libcef_dll\ctocpp\print_dialog_callback_ctocpp.h">
+    <ClInclude Include="..\..\cef3\libcef_dll\ctocpp\print_dialog_callback_ctocpp.h">
       <Filter>libcef_dll\ctocpp</Filter>
     </ClInclude>
-    <ClInclude Include="D:\projects\CefBridge\cef3\libcef_dll\ctocpp\print_job_callback_ctocpp.h">
+    <ClInclude Include="..\..\cef3\libcef_dll\ctocpp\print_job_callback_ctocpp.h">
       <Filter>libcef_dll\ctocpp</Filter>
     </ClInclude>
-    <ClInclude Include="D:\projects\CefBridge\cef3\libcef_dll\ctocpp\print_settings_ctocpp.h">
+    <ClInclude Include="..\..\cef3\libcef_dll\ctocpp\print_settings_ctocpp.h">
       <Filter>libcef_dll\ctocpp</Filter>
     </ClInclude>
-    <ClInclude Include="D:\projects\CefBridge\cef3\libcef_dll\ctocpp\process_message_ctocpp.h">
+    <ClInclude Include="..\..\cef3\libcef_dll\ctocpp\process_message_ctocpp.h">
       <Filter>libcef_dll\ctocpp</Filter>
     </ClInclude>
-    <ClInclude Include="D:\projects\CefBridge\cef3\libcef_dll\ctocpp\request_callback_ctocpp.h">
+    <ClInclude Include="..\..\cef3\libcef_dll\ctocpp\request_callback_ctocpp.h">
       <Filter>libcef_dll\ctocpp</Filter>
     </ClInclude>
-    <ClInclude Include="D:\projects\CefBridge\cef3\libcef_dll\ctocpp\request_context_ctocpp.h">
+    <ClInclude Include="..\..\cef3\libcef_dll\ctocpp\request_context_ctocpp.h">
       <Filter>libcef_dll\ctocpp</Filter>
     </ClInclude>
-    <ClInclude Include="D:\projects\CefBridge\cef3\libcef_dll\ctocpp\request_ctocpp.h">
+    <ClInclude Include="..\..\cef3\libcef_dll\ctocpp\request_ctocpp.h">
       <Filter>libcef_dll\ctocpp</Filter>
     </ClInclude>
-    <ClInclude Include="D:\projects\CefBridge\cef3\libcef_dll\ctocpp\resource_bundle_ctocpp.h">
+    <ClInclude Include="..\..\cef3\libcef_dll\ctocpp\resource_bundle_ctocpp.h">
       <Filter>libcef_dll\ctocpp</Filter>
     </ClInclude>
-    <ClInclude Include="D:\projects\CefBridge\cef3\libcef_dll\ctocpp\response_ctocpp.h">
+    <ClInclude Include="..\..\cef3\libcef_dll\ctocpp\response_ctocpp.h">
       <Filter>libcef_dll\ctocpp</Filter>
     </ClInclude>
-    <ClInclude Include="D:\projects\CefBridge\cef3\libcef_dll\ctocpp\run_context_menu_callback_ctocpp.h">
+    <ClInclude Include="..\..\cef3\libcef_dll\ctocpp\run_context_menu_callback_ctocpp.h">
       <Filter>libcef_dll\ctocpp</Filter>
     </ClInclude>
-    <ClInclude Include="D:\projects\CefBridge\cef3\libcef_dll\ctocpp\scheme_registrar_ctocpp.h">
+    <ClInclude Include="..\..\cef3\libcef_dll\ctocpp\scheme_registrar_ctocpp.h">
       <Filter>libcef_dll\ctocpp</Filter>
     </ClInclude>
-    <ClInclude Include="D:\projects\CefBridge\cef3\libcef_dll\ctocpp\sslcert_principal_ctocpp.h">
+    <ClInclude Include="..\..\cef3\libcef_dll\ctocpp\sslcert_principal_ctocpp.h">
       <Filter>libcef_dll\ctocpp</Filter>
     </ClInclude>
-    <ClInclude Include="D:\projects\CefBridge\cef3\libcef_dll\ctocpp\sslinfo_ctocpp.h">
+    <ClInclude Include="..\..\cef3\libcef_dll\ctocpp\sslinfo_ctocpp.h">
       <Filter>libcef_dll\ctocpp</Filter>
     </ClInclude>
-    <ClInclude Include="D:\projects\CefBridge\cef3\libcef_dll\ctocpp\stream_reader_ctocpp.h">
+    <ClInclude Include="..\..\cef3\libcef_dll\ctocpp\stream_reader_ctocpp.h">
       <Filter>libcef_dll\ctocpp</Filter>
     </ClInclude>
-    <ClInclude Include="D:\projects\CefBridge\cef3\libcef_dll\ctocpp\stream_writer_ctocpp.h">
+    <ClInclude Include="..\..\cef3\libcef_dll\ctocpp\stream_writer_ctocpp.h">
       <Filter>libcef_dll\ctocpp</Filter>
     </ClInclude>
-    <ClInclude Include="D:\projects\CefBridge\cef3\libcef_dll\ctocpp\task_runner_ctocpp.h">
+    <ClInclude Include="..\..\cef3\libcef_dll\ctocpp\task_runner_ctocpp.h">
       <Filter>libcef_dll\ctocpp</Filter>
     </ClInclude>
-    <ClInclude Include="D:\projects\CefBridge\cef3\libcef_dll\ctocpp\urlrequest_ctocpp.h">
+    <ClInclude Include="..\..\cef3\libcef_dll\ctocpp\urlrequest_ctocpp.h">
       <Filter>libcef_dll\ctocpp</Filter>
     </ClInclude>
-    <ClInclude Include="D:\projects\CefBridge\cef3\libcef_dll\ctocpp\v8context_ctocpp.h">
+    <ClInclude Include="..\..\cef3\libcef_dll\ctocpp\v8context_ctocpp.h">
       <Filter>libcef_dll\ctocpp</Filter>
     </ClInclude>
-    <ClInclude Include="D:\projects\CefBridge\cef3\libcef_dll\ctocpp\v8exception_ctocpp.h">
+    <ClInclude Include="..\..\cef3\libcef_dll\ctocpp\v8exception_ctocpp.h">
       <Filter>libcef_dll\ctocpp</Filter>
     </ClInclude>
-    <ClInclude Include="D:\projects\CefBridge\cef3\libcef_dll\ctocpp\v8stack_frame_ctocpp.h">
+    <ClInclude Include="..\..\cef3\libcef_dll\ctocpp\v8stack_frame_ctocpp.h">
       <Filter>libcef_dll\ctocpp</Filter>
     </ClInclude>
-    <ClInclude Include="D:\projects\CefBridge\cef3\libcef_dll\ctocpp\v8stack_trace_ctocpp.h">
+    <ClInclude Include="..\..\cef3\libcef_dll\ctocpp\v8stack_trace_ctocpp.h">
       <Filter>libcef_dll\ctocpp</Filter>
     </ClInclude>
-    <ClInclude Include="D:\projects\CefBridge\cef3\libcef_dll\ctocpp\v8value_ctocpp.h">
+    <ClInclude Include="..\..\cef3\libcef_dll\ctocpp\v8value_ctocpp.h">
       <Filter>libcef_dll\ctocpp</Filter>
     </ClInclude>
-    <ClInclude Include="D:\projects\CefBridge\cef3\libcef_dll\ctocpp\value_ctocpp.h">
+    <ClInclude Include="..\..\cef3\libcef_dll\ctocpp\value_ctocpp.h">
       <Filter>libcef_dll\ctocpp</Filter>
     </ClInclude>
-    <ClInclude Include="D:\projects\CefBridge\cef3\libcef_dll\ctocpp\web_plugin_info_ctocpp.h">
+    <ClInclude Include="..\..\cef3\libcef_dll\ctocpp\web_plugin_info_ctocpp.h">
       <Filter>libcef_dll\ctocpp</Filter>
     </ClInclude>
-    <ClInclude Include="D:\projects\CefBridge\cef3\libcef_dll\ctocpp\xml_reader_ctocpp.h">
+    <ClInclude Include="..\..\cef3\libcef_dll\ctocpp\xml_reader_ctocpp.h">
       <Filter>libcef_dll\ctocpp</Filter>
     </ClInclude>
-    <ClInclude Include="D:\projects\CefBridge\cef3\libcef_dll\ctocpp\zip_reader_ctocpp.h">
+    <ClInclude Include="..\..\cef3\libcef_dll\ctocpp\zip_reader_ctocpp.h">
       <Filter>libcef_dll\ctocpp</Filter>
     </ClInclude>
-    <ClInclude Include="D:\projects\CefBridge\cef3\include\cef_app.h">
+    <ClInclude Include="..\..\cef3\include\cef_app.h">
       <Filter>include</Filter>
     </ClInclude>
-    <ClInclude Include="D:\projects\CefBridge\cef3\include\cef_auth_callback.h">
+    <ClInclude Include="..\..\cef3\include\cef_auth_callback.h">
       <Filter>include</Filter>
     </ClInclude>
-    <ClInclude Include="D:\projects\CefBridge\cef3\include\cef_base.h">
+    <ClInclude Include="..\..\cef3\include\cef_base.h">
       <Filter>include</Filter>
     </ClInclude>
-    <ClInclude Include="D:\projects\CefBridge\cef3\include\cef_browser.h">
+    <ClInclude Include="..\..\cef3\include\cef_browser.h">
       <Filter>include</Filter>
     </ClInclude>
-    <ClInclude Include="D:\projects\CefBridge\cef3\include\cef_browser_process_handler.h">
+    <ClInclude Include="..\..\cef3\include\cef_browser_process_handler.h">
       <Filter>include</Filter>
     </ClInclude>
-    <ClInclude Include="D:\projects\CefBridge\cef3\include\cef_callback.h">
+    <ClInclude Include="..\..\cef3\include\cef_callback.h">
       <Filter>include</Filter>
     </ClInclude>
-    <ClInclude Include="D:\projects\CefBridge\cef3\include\cef_client.h">
+    <ClInclude Include="..\..\cef3\include\cef_client.h">
       <Filter>include</Filter>
     </ClInclude>
-    <ClInclude Include="D:\projects\CefBridge\cef3\include\cef_command_line.h">
+    <ClInclude Include="..\..\cef3\include\cef_command_line.h">
       <Filter>include</Filter>
     </ClInclude>
-    <ClInclude Include="D:\projects\CefBridge\cef3\include\cef_context_menu_handler.h">
+    <ClInclude Include="..\..\cef3\include\cef_context_menu_handler.h">
       <Filter>include</Filter>
     </ClInclude>
-    <ClInclude Include="D:\projects\CefBridge\cef3\include\cef_cookie.h">
+    <ClInclude Include="..\..\cef3\include\cef_cookie.h">
       <Filter>include</Filter>
     </ClInclude>
-    <ClInclude Include="D:\projects\CefBridge\cef3\include\cef_dialog_handler.h">
+    <ClInclude Include="..\..\cef3\include\cef_dialog_handler.h">
       <Filter>include</Filter>
     </ClInclude>
-    <ClInclude Include="D:\projects\CefBridge\cef3\include\cef_display_handler.h">
+    <ClInclude Include="..\..\cef3\include\cef_display_handler.h">
       <Filter>include</Filter>
     </ClInclude>
-    <ClInclude Include="D:\projects\CefBridge\cef3\include\cef_dom.h">
+    <ClInclude Include="..\..\cef3\include\cef_dom.h">
       <Filter>include</Filter>
     </ClInclude>
-    <ClInclude Include="D:\projects\CefBridge\cef3\include\cef_download_handler.h">
+    <ClInclude Include="..\..\cef3\include\cef_download_handler.h">
       <Filter>include</Filter>
     </ClInclude>
-    <ClInclude Include="D:\projects\CefBridge\cef3\include\cef_download_item.h">
+    <ClInclude Include="..\..\cef3\include\cef_download_item.h">
       <Filter>include</Filter>
     </ClInclude>
-    <ClInclude Include="D:\projects\CefBridge\cef3\include\cef_drag_data.h">
+    <ClInclude Include="..\..\cef3\include\cef_drag_data.h">
       <Filter>include</Filter>
     </ClInclude>
-    <ClInclude Include="D:\projects\CefBridge\cef3\include\cef_drag_handler.h">
+    <ClInclude Include="..\..\cef3\include\cef_drag_handler.h">
       <Filter>include</Filter>
     </ClInclude>
-    <ClInclude Include="D:\projects\CefBridge\cef3\include\cef_find_handler.h">
+    <ClInclude Include="..\..\cef3\include\cef_find_handler.h">
       <Filter>include</Filter>
     </ClInclude>
-    <ClInclude Include="D:\projects\CefBridge\cef3\include\cef_focus_handler.h">
+    <ClInclude Include="..\..\cef3\include\cef_focus_handler.h">
       <Filter>include</Filter>
     </ClInclude>
-    <ClInclude Include="D:\projects\CefBridge\cef3\include\cef_frame.h">
+    <ClInclude Include="..\..\cef3\include\cef_frame.h">
       <Filter>include</Filter>
     </ClInclude>
-    <ClInclude Include="D:\projects\CefBridge\cef3\include\cef_geolocation.h">
+    <ClInclude Include="..\..\cef3\include\cef_geolocation.h">
       <Filter>include</Filter>
     </ClInclude>
-    <ClInclude Include="D:\projects\CefBridge\cef3\include\cef_geolocation_handler.h">
+    <ClInclude Include="..\..\cef3\include\cef_geolocation_handler.h">
       <Filter>include</Filter>
     </ClInclude>
-    <ClInclude Include="D:\projects\CefBridge\cef3\include\cef_jsdialog_handler.h">
+    <ClInclude Include="..\..\cef3\include\cef_jsdialog_handler.h">
       <Filter>include</Filter>
     </ClInclude>
-    <ClInclude Include="D:\projects\CefBridge\cef3\include\cef_keyboard_handler.h">
+    <ClInclude Include="..\..\cef3\include\cef_keyboard_handler.h">
       <Filter>include</Filter>
     </ClInclude>
-    <ClInclude Include="D:\projects\CefBridge\cef3\include\cef_life_span_handler.h">
+    <ClInclude Include="..\..\cef3\include\cef_life_span_handler.h">
       <Filter>include</Filter>
     </ClInclude>
-    <ClInclude Include="D:\projects\CefBridge\cef3\include\cef_load_handler.h">
+    <ClInclude Include="..\..\cef3\include\cef_load_handler.h">
       <Filter>include</Filter>
     </ClInclude>
-    <ClInclude Include="D:\projects\CefBridge\cef3\include\cef_menu_model.h">
+    <ClInclude Include="..\..\cef3\include\cef_menu_model.h">
       <Filter>include</Filter>
     </ClInclude>
-    <ClInclude Include="D:\projects\CefBridge\cef3\include\cef_navigation_entry.h">
+    <ClInclude Include="..\..\cef3\include\cef_navigation_entry.h">
       <Filter>include</Filter>
     </ClInclude>
-    <ClInclude Include="D:\projects\CefBridge\cef3\include\cef_origin_whitelist.h">
+    <ClInclude Include="..\..\cef3\include\cef_origin_whitelist.h">
       <Filter>include</Filter>
     </ClInclude>
-    <ClInclude Include="D:\projects\CefBridge\cef3\include\cef_pack_resources.h">
+    <ClInclude Include="..\..\cef3\include\cef_pack_resources.h">
       <Filter>include</Filter>
     </ClInclude>
-    <ClInclude Include="D:\projects\CefBridge\cef3\include\cef_pack_strings.h">
+    <ClInclude Include="..\..\cef3\include\cef_pack_strings.h">
       <Filter>include</Filter>
     </ClInclude>
-    <ClInclude Include="D:\projects\CefBridge\cef3\include\cef_parser.h">
+    <ClInclude Include="..\..\cef3\include\cef_parser.h">
       <Filter>include</Filter>
     </ClInclude>
-    <ClInclude Include="D:\projects\CefBridge\cef3\include\cef_path_util.h">
+    <ClInclude Include="..\..\cef3\include\cef_path_util.h">
       <Filter>include</Filter>
     </ClInclude>
-    <ClInclude Include="D:\projects\CefBridge\cef3\include\cef_print_handler.h">
+    <ClInclude Include="..\..\cef3\include\cef_print_handler.h">
       <Filter>include</Filter>
     </ClInclude>
-    <ClInclude Include="D:\projects\CefBridge\cef3\include\cef_print_settings.h">
+    <ClInclude Include="..\..\cef3\include\cef_print_settings.h">
       <Filter>include</Filter>
     </ClInclude>
-    <ClInclude Include="D:\projects\CefBridge\cef3\include\cef_process_message.h">
+    <ClInclude Include="..\..\cef3\include\cef_process_message.h">
       <Filter>include</Filter>
     </ClInclude>
-    <ClInclude Include="D:\projects\CefBridge\cef3\include\cef_process_util.h">
+    <ClInclude Include="..\..\cef3\include\cef_process_util.h">
       <Filter>include</Filter>
     </ClInclude>
-    <ClInclude Include="D:\projects\CefBridge\cef3\include\cef_render_handler.h">
+    <ClInclude Include="..\..\cef3\include\cef_render_handler.h">
       <Filter>include</Filter>
     </ClInclude>
-    <ClInclude Include="D:\projects\CefBridge\cef3\include\cef_render_process_handler.h">
+    <ClInclude Include="..\..\cef3\include\cef_render_process_handler.h">
       <Filter>include</Filter>
     </ClInclude>
-    <ClInclude Include="D:\projects\CefBridge\cef3\include\cef_request.h">
+    <ClInclude Include="..\..\cef3\include\cef_request.h">
       <Filter>include</Filter>
     </ClInclude>
-    <ClInclude Include="D:\projects\CefBridge\cef3\include\cef_request_context.h">
+    <ClInclude Include="..\..\cef3\include\cef_request_context.h">
       <Filter>include</Filter>
     </ClInclude>
-    <ClInclude Include="D:\projects\CefBridge\cef3\include\cef_request_context_handler.h">
+    <ClInclude Include="..\..\cef3\include\cef_request_context_handler.h">
       <Filter>include</Filter>
     </ClInclude>
-    <ClInclude Include="D:\projects\CefBridge\cef3\include\cef_request_handler.h">
+    <ClInclude Include="..\..\cef3\include\cef_request_handler.h">
       <Filter>include</Filter>
     </ClInclude>
-    <ClInclude Include="D:\projects\CefBridge\cef3\include\cef_resource_bundle.h">
+    <ClInclude Include="..\..\cef3\include\cef_resource_bundle.h">
       <Filter>include</Filter>
     </ClInclude>
-    <ClInclude Include="D:\projects\CefBridge\cef3\include\cef_resource_bundle_handler.h">
+    <ClInclude Include="..\..\cef3\include\cef_resource_bundle_handler.h">
       <Filter>include</Filter>
     </ClInclude>
-    <ClInclude Include="D:\projects\CefBridge\cef3\include\cef_resource_handler.h">
+    <ClInclude Include="..\..\cef3\include\cef_resource_handler.h">
       <Filter>include</Filter>
     </ClInclude>
-    <ClInclude Include="D:\projects\CefBridge\cef3\include\cef_response.h">
+    <ClInclude Include="..\..\cef3\include\cef_response.h">
       <Filter>include</Filter>
     </ClInclude>
-    <ClInclude Include="D:\projects\CefBridge\cef3\include\cef_response_filter.h">
+    <ClInclude Include="..\..\cef3\include\cef_response_filter.h">
       <Filter>include</Filter>
     </ClInclude>
-    <ClInclude Include="D:\projects\CefBridge\cef3\include\cef_runnable.h">
+    <ClInclude Include="..\..\cef3\include\cef_runnable.h">
       <Filter>include</Filter>
     </ClInclude>
-    <ClInclude Include="D:\projects\CefBridge\cef3\include\cef_scheme.h">
+    <ClInclude Include="..\..\cef3\include\cef_scheme.h">
       <Filter>include</Filter>
     </ClInclude>
-    <ClInclude Include="D:\projects\CefBridge\cef3\include\cef_ssl_info.h">
+    <ClInclude Include="..\..\cef3\include\cef_ssl_info.h">
       <Filter>include</Filter>
     </ClInclude>
-    <ClInclude Include="D:\projects\CefBridge\cef3\include\cef_stream.h">
+    <ClInclude Include="..\..\cef3\include\cef_stream.h">
       <Filter>include</Filter>
     </ClInclude>
-    <ClInclude Include="D:\projects\CefBridge\cef3\include\cef_string_visitor.h">
+    <ClInclude Include="..\..\cef3\include\cef_string_visitor.h">
       <Filter>include</Filter>
     </ClInclude>
-    <ClInclude Include="D:\projects\CefBridge\cef3\include\cef_task.h">
+    <ClInclude Include="..\..\cef3\include\cef_task.h">
       <Filter>include</Filter>
     </ClInclude>
-    <ClInclude Include="D:\projects\CefBridge\cef3\include\cef_trace.h">
+    <ClInclude Include="..\..\cef3\include\cef_trace.h">
       <Filter>include</Filter>
     </ClInclude>
-    <ClInclude Include="D:\projects\CefBridge\cef3\include\cef_urlrequest.h">
+    <ClInclude Include="..\..\cef3\include\cef_urlrequest.h">
       <Filter>include</Filter>
     </ClInclude>
-    <ClInclude Include="D:\projects\CefBridge\cef3\include\cef_v8.h">
+    <ClInclude Include="..\..\cef3\include\cef_v8.h">
       <Filter>include</Filter>
     </ClInclude>
-    <ClInclude Include="D:\projects\CefBridge\cef3\include\cef_values.h">
+    <ClInclude Include="..\..\cef3\include\cef_values.h">
       <Filter>include</Filter>
     </ClInclude>
-    <ClInclude Include="D:\projects\CefBridge\cef3\include\cef_version.h">
+    <ClInclude Include="..\..\cef3\include\cef_version.h">
       <Filter>include</Filter>
     </ClInclude>
-    <ClInclude Include="D:\projects\CefBridge\cef3\include\cef_web_plugin.h">
+    <ClInclude Include="..\..\cef3\include\cef_web_plugin.h">
       <Filter>include</Filter>
     </ClInclude>
-    <ClInclude Include="D:\projects\CefBridge\cef3\include\cef_xml_reader.h">
+    <ClInclude Include="..\..\cef3\include\cef_xml_reader.h">
       <Filter>include</Filter>
     </ClInclude>
-    <ClInclude Include="D:\projects\CefBridge\cef3\include\cef_zip_reader.h">
+    <ClInclude Include="..\..\cef3\include\cef_zip_reader.h">
       <Filter>include</Filter>
     </ClInclude>
-    <ClInclude Include="D:\projects\CefBridge\cef3\include\cef_sandbox_win.h">
+    <ClInclude Include="..\..\cef3\include\cef_sandbox_win.h">
       <Filter>include</Filter>
     </ClInclude>
-    <ClInclude Include="D:\projects\CefBridge\cef3\include\base\cef_atomic_ref_count.h">
+    <ClInclude Include="..\..\cef3\include\base\cef_atomic_ref_count.h">
       <Filter>include\base</Filter>
     </ClInclude>
-    <ClInclude Include="D:\projects\CefBridge\cef3\include\base\cef_atomicops.h">
+    <ClInclude Include="..\..\cef3\include\base\cef_atomicops.h">
       <Filter>include\base</Filter>
     </ClInclude>
-    <ClInclude Include="D:\projects\CefBridge\cef3\include\base\cef_basictypes.h">
+    <ClInclude Include="..\..\cef3\include\base\cef_basictypes.h">
       <Filter>include\base</Filter>
     </ClInclude>
-    <ClInclude Include="D:\projects\CefBridge\cef3\include\base\cef_bind.h">
+    <ClInclude Include="..\..\cef3\include\base\cef_bind.h">
       <Filter>include\base</Filter>
     </ClInclude>
-    <ClInclude Include="D:\projects\CefBridge\cef3\include\base\cef_bind_helpers.h">
+    <ClInclude Include="..\..\cef3\include\base\cef_bind_helpers.h">
       <Filter>include\base</Filter>
     </ClInclude>
-    <ClInclude Include="D:\projects\CefBridge\cef3\include\base\cef_build.h">
+    <ClInclude Include="..\..\cef3\include\base\cef_build.h">
       <Filter>include\base</Filter>
     </ClInclude>
-    <ClInclude Include="D:\projects\CefBridge\cef3\include\base\cef_callback.h">
+    <ClInclude Include="..\..\cef3\include\base\cef_callback.h">
       <Filter>include\base</Filter>
     </ClInclude>
-    <ClInclude Include="D:\projects\CefBridge\cef3\include\base\cef_callback_forward.h">
+    <ClInclude Include="..\..\cef3\include\base\cef_callback_forward.h">
       <Filter>include\base</Filter>
     </ClInclude>
-    <ClInclude Include="D:\projects\CefBridge\cef3\include\base\cef_callback_helpers.h">
+    <ClInclude Include="..\..\cef3\include\base\cef_callback_helpers.h">
       <Filter>include\base</Filter>
     </ClInclude>
-    <ClInclude Include="D:\projects\CefBridge\cef3\include\base\cef_callback_list.h">
+    <ClInclude Include="..\..\cef3\include\base\cef_callback_list.h">
       <Filter>include\base</Filter>
     </ClInclude>
-    <ClInclude Include="D:\projects\CefBridge\cef3\include\base\cef_cancelable_callback.h">
+    <ClInclude Include="..\..\cef3\include\base\cef_cancelable_callback.h">
       <Filter>include\base</Filter>
     </ClInclude>
-    <ClInclude Include="D:\projects\CefBridge\cef3\include\base\cef_lock.h">
+    <ClInclude Include="..\..\cef3\include\base\cef_lock.h">
       <Filter>include\base</Filter>
     </ClInclude>
-    <ClInclude Include="D:\projects\CefBridge\cef3\include\base\cef_logging.h">
+    <ClInclude Include="..\..\cef3\include\base\cef_logging.h">
       <Filter>include\base</Filter>
     </ClInclude>
-    <ClInclude Include="D:\projects\CefBridge\cef3\include\base\cef_macros.h">
+    <ClInclude Include="..\..\cef3\include\base\cef_macros.h">
       <Filter>include\base</Filter>
     </ClInclude>
-    <ClInclude Include="D:\projects\CefBridge\cef3\include\base\cef_move.h">
+    <ClInclude Include="..\..\cef3\include\base\cef_move.h">
       <Filter>include\base</Filter>
     </ClInclude>
-    <ClInclude Include="D:\projects\CefBridge\cef3\include\base\cef_platform_thread.h">
+    <ClInclude Include="..\..\cef3\include\base\cef_platform_thread.h">
       <Filter>include\base</Filter>
     </ClInclude>
-    <ClInclude Include="D:\projects\CefBridge\cef3\include\base\cef_ref_counted.h">
+    <ClInclude Include="..\..\cef3\include\base\cef_ref_counted.h">
       <Filter>include\base</Filter>
     </ClInclude>
-    <ClInclude Include="D:\projects\CefBridge\cef3\include\base\cef_scoped_ptr.h">
+    <ClInclude Include="..\..\cef3\include\base\cef_scoped_ptr.h">
       <Filter>include\base</Filter>
     </ClInclude>
-    <ClInclude Include="D:\projects\CefBridge\cef3\include\base\cef_string16.h">
+    <ClInclude Include="..\..\cef3\include\base\cef_string16.h">
       <Filter>include\base</Filter>
     </ClInclude>
-    <ClInclude Include="D:\projects\CefBridge\cef3\include\base\cef_template_util.h">
+    <ClInclude Include="..\..\cef3\include\base\cef_template_util.h">
       <Filter>include\base</Filter>
     </ClInclude>
-    <ClInclude Include="D:\projects\CefBridge\cef3\include\base\cef_thread_checker.h">
+    <ClInclude Include="..\..\cef3\include\base\cef_thread_checker.h">
       <Filter>include\base</Filter>
     </ClInclude>
-    <ClInclude Include="D:\projects\CefBridge\cef3\include\base\cef_thread_collision_warner.h">
+    <ClInclude Include="..\..\cef3\include\base\cef_thread_collision_warner.h">
       <Filter>include\base</Filter>
     </ClInclude>
-    <ClInclude Include="D:\projects\CefBridge\cef3\include\base\cef_trace_event.h">
+    <ClInclude Include="..\..\cef3\include\base\cef_trace_event.h">
       <Filter>include\base</Filter>
     </ClInclude>
-    <ClInclude Include="D:\projects\CefBridge\cef3\include\base\cef_tuple.h">
+    <ClInclude Include="..\..\cef3\include\base\cef_tuple.h">
       <Filter>include\base</Filter>
     </ClInclude>
-    <ClInclude Include="D:\projects\CefBridge\cef3\include\base\cef_weak_ptr.h">
+    <ClInclude Include="..\..\cef3\include\base\cef_weak_ptr.h">
       <Filter>include\base</Filter>
     </ClInclude>
-    <ClInclude Include="D:\projects\CefBridge\cef3\include\base\internal\cef_bind_internal.h">
+    <ClInclude Include="..\..\cef3\include\base\internal\cef_bind_internal.h">
       <Filter>include\base\internal</Filter>
     </ClInclude>
-    <ClInclude Include="D:\projects\CefBridge\cef3\include\base\internal\cef_callback_internal.h">
+    <ClInclude Include="..\..\cef3\include\base\internal\cef_callback_internal.h">
       <Filter>include\base\internal</Filter>
     </ClInclude>
-    <ClInclude Include="D:\projects\CefBridge\cef3\include\base\internal\cef_lock_impl.h">
+    <ClInclude Include="..\..\cef3\include\base\internal\cef_lock_impl.h">
       <Filter>include\base\internal</Filter>
     </ClInclude>
-    <ClInclude Include="D:\projects\CefBridge\cef3\include\base\internal\cef_raw_scoped_refptr_mismatch_checker.h">
+    <ClInclude Include="..\..\cef3\include\base\internal\cef_raw_scoped_refptr_mismatch_checker.h">
       <Filter>include\base\internal</Filter>
     </ClInclude>
-    <ClInclude Include="D:\projects\CefBridge\cef3\include\base\internal\cef_thread_checker_impl.h">
+    <ClInclude Include="..\..\cef3\include\base\internal\cef_thread_checker_impl.h">
       <Filter>include\base\internal</Filter>
     </ClInclude>
-    <ClInclude Include="D:\projects\CefBridge\cef3\include\base\internal\cef_atomicops_x86_msvc.h">
+    <ClInclude Include="..\..\cef3\include\base\internal\cef_atomicops_x86_msvc.h">
       <Filter>include\base\internal</Filter>
     </ClInclude>
-    <ClInclude Include="D:\projects\CefBridge\cef3\include\base\internal\cef_bind_internal_win.h">
+    <ClInclude Include="..\..\cef3\include\base\internal\cef_bind_internal_win.h">
       <Filter>include\base\internal</Filter>
     </ClInclude>
-    <ClInclude Include="D:\projects\CefBridge\cef3\include\capi\cef_app_capi.h">
+    <ClInclude Include="..\..\cef3\include\capi\cef_app_capi.h">
       <Filter>include\capi</Filter>
     </ClInclude>
-    <ClInclude Include="D:\projects\CefBridge\cef3\include\capi\cef_auth_callback_capi.h">
+    <ClInclude Include="..\..\cef3\include\capi\cef_auth_callback_capi.h">
       <Filter>include\capi</Filter>
     </ClInclude>
-    <ClInclude Include="D:\projects\CefBridge\cef3\include\capi\cef_base_capi.h">
+    <ClInclude Include="..\..\cef3\include\capi\cef_base_capi.h">
       <Filter>include\capi</Filter>
     </ClInclude>
-    <ClInclude Include="D:\projects\CefBridge\cef3\include\capi\cef_browser_capi.h">
+    <ClInclude Include="..\..\cef3\include\capi\cef_browser_capi.h">
       <Filter>include\capi</Filter>
     </ClInclude>
-    <ClInclude Include="D:\projects\CefBridge\cef3\include\capi\cef_browser_process_handler_capi.h">
+    <ClInclude Include="..\..\cef3\include\capi\cef_browser_process_handler_capi.h">
       <Filter>include\capi</Filter>
     </ClInclude>
-    <ClInclude Include="D:\projects\CefBridge\cef3\include\capi\cef_callback_capi.h">
+    <ClInclude Include="..\..\cef3\include\capi\cef_callback_capi.h">
       <Filter>include\capi</Filter>
     </ClInclude>
-    <ClInclude Include="D:\projects\CefBridge\cef3\include\capi\cef_client_capi.h">
+    <ClInclude Include="..\..\cef3\include\capi\cef_client_capi.h">
       <Filter>include\capi</Filter>
     </ClInclude>
-    <ClInclude Include="D:\projects\CefBridge\cef3\include\capi\cef_command_line_capi.h">
+    <ClInclude Include="..\..\cef3\include\capi\cef_command_line_capi.h">
       <Filter>include\capi</Filter>
     </ClInclude>
-    <ClInclude Include="D:\projects\CefBridge\cef3\include\capi\cef_context_menu_handler_capi.h">
+    <ClInclude Include="..\..\cef3\include\capi\cef_context_menu_handler_capi.h">
       <Filter>include\capi</Filter>
     </ClInclude>
-    <ClInclude Include="D:\projects\CefBridge\cef3\include\capi\cef_cookie_capi.h">
+    <ClInclude Include="..\..\cef3\include\capi\cef_cookie_capi.h">
       <Filter>include\capi</Filter>
     </ClInclude>
-    <ClInclude Include="D:\projects\CefBridge\cef3\include\capi\cef_dialog_handler_capi.h">
+    <ClInclude Include="..\..\cef3\include\capi\cef_dialog_handler_capi.h">
       <Filter>include\capi</Filter>
     </ClInclude>
-    <ClInclude Include="D:\projects\CefBridge\cef3\include\capi\cef_display_handler_capi.h">
+    <ClInclude Include="..\..\cef3\include\capi\cef_display_handler_capi.h">
       <Filter>include\capi</Filter>
     </ClInclude>
-    <ClInclude Include="D:\projects\CefBridge\cef3\include\capi\cef_dom_capi.h">
+    <ClInclude Include="..\..\cef3\include\capi\cef_dom_capi.h">
       <Filter>include\capi</Filter>
     </ClInclude>
-    <ClInclude Include="D:\projects\CefBridge\cef3\include\capi\cef_download_handler_capi.h">
+    <ClInclude Include="..\..\cef3\include\capi\cef_download_handler_capi.h">
       <Filter>include\capi</Filter>
     </ClInclude>
-    <ClInclude Include="D:\projects\CefBridge\cef3\include\capi\cef_download_item_capi.h">
+    <ClInclude Include="..\..\cef3\include\capi\cef_download_item_capi.h">
       <Filter>include\capi</Filter>
     </ClInclude>
-    <ClInclude Include="D:\projects\CefBridge\cef3\include\capi\cef_drag_data_capi.h">
+    <ClInclude Include="..\..\cef3\include\capi\cef_drag_data_capi.h">
       <Filter>include\capi</Filter>
     </ClInclude>
-    <ClInclude Include="D:\projects\CefBridge\cef3\include\capi\cef_drag_handler_capi.h">
+    <ClInclude Include="..\..\cef3\include\capi\cef_drag_handler_capi.h">
       <Filter>include\capi</Filter>
     </ClInclude>
-    <ClInclude Include="D:\projects\CefBridge\cef3\include\capi\cef_find_handler_capi.h">
+    <ClInclude Include="..\..\cef3\include\capi\cef_find_handler_capi.h">
       <Filter>include\capi</Filter>
     </ClInclude>
-    <ClInclude Include="D:\projects\CefBridge\cef3\include\capi\cef_focus_handler_capi.h">
+    <ClInclude Include="..\..\cef3\include\capi\cef_focus_handler_capi.h">
       <Filter>include\capi</Filter>
     </ClInclude>
-    <ClInclude Include="D:\projects\CefBridge\cef3\include\capi\cef_frame_capi.h">
+    <ClInclude Include="..\..\cef3\include\capi\cef_frame_capi.h">
       <Filter>include\capi</Filter>
     </ClInclude>
-    <ClInclude Include="D:\projects\CefBridge\cef3\include\capi\cef_geolocation_capi.h">
+    <ClInclude Include="..\..\cef3\include\capi\cef_geolocation_capi.h">
       <Filter>include\capi</Filter>
     </ClInclude>
-    <ClInclude Include="D:\projects\CefBridge\cef3\include\capi\cef_geolocation_handler_capi.h">
+    <ClInclude Include="..\..\cef3\include\capi\cef_geolocation_handler_capi.h">
       <Filter>include\capi</Filter>
     </ClInclude>
-    <ClInclude Include="D:\projects\CefBridge\cef3\include\capi\cef_jsdialog_handler_capi.h">
+    <ClInclude Include="..\..\cef3\include\capi\cef_jsdialog_handler_capi.h">
       <Filter>include\capi</Filter>
     </ClInclude>
-    <ClInclude Include="D:\projects\CefBridge\cef3\include\capi\cef_keyboard_handler_capi.h">
+    <ClInclude Include="..\..\cef3\include\capi\cef_keyboard_handler_capi.h">
       <Filter>include\capi</Filter>
     </ClInclude>
-    <ClInclude Include="D:\projects\CefBridge\cef3\include\capi\cef_life_span_handler_capi.h">
+    <ClInclude Include="..\..\cef3\include\capi\cef_life_span_handler_capi.h">
       <Filter>include\capi</Filter>
     </ClInclude>
-    <ClInclude Include="D:\projects\CefBridge\cef3\include\capi\cef_load_handler_capi.h">
+    <ClInclude Include="..\..\cef3\include\capi\cef_load_handler_capi.h">
       <Filter>include\capi</Filter>
     </ClInclude>
-    <ClInclude Include="D:\projects\CefBridge\cef3\include\capi\cef_menu_model_capi.h">
+    <ClInclude Include="..\..\cef3\include\capi\cef_menu_model_capi.h">
       <Filter>include\capi</Filter>
     </ClInclude>
-    <ClInclude Include="D:\projects\CefBridge\cef3\include\capi\cef_navigation_entry_capi.h">
+    <ClInclude Include="..\..\cef3\include\capi\cef_navigation_entry_capi.h">
       <Filter>include\capi</Filter>
     </ClInclude>
-    <ClInclude Include="D:\projects\CefBridge\cef3\include\capi\cef_origin_whitelist_capi.h">
+    <ClInclude Include="..\..\cef3\include\capi\cef_origin_whitelist_capi.h">
       <Filter>include\capi</Filter>
     </ClInclude>
-    <ClInclude Include="D:\projects\CefBridge\cef3\include\capi\cef_parser_capi.h">
+    <ClInclude Include="..\..\cef3\include\capi\cef_parser_capi.h">
       <Filter>include\capi</Filter>
     </ClInclude>
-    <ClInclude Include="D:\projects\CefBridge\cef3\include\capi\cef_path_util_capi.h">
+    <ClInclude Include="..\..\cef3\include\capi\cef_path_util_capi.h">
       <Filter>include\capi</Filter>
     </ClInclude>
-    <ClInclude Include="D:\projects\CefBridge\cef3\include\capi\cef_print_handler_capi.h">
+    <ClInclude Include="..\..\cef3\include\capi\cef_print_handler_capi.h">
       <Filter>include\capi</Filter>
     </ClInclude>
-    <ClInclude Include="D:\projects\CefBridge\cef3\include\capi\cef_print_settings_capi.h">
+    <ClInclude Include="..\..\cef3\include\capi\cef_print_settings_capi.h">
       <Filter>include\capi</Filter>
     </ClInclude>
-    <ClInclude Include="D:\projects\CefBridge\cef3\include\capi\cef_process_message_capi.h">
+    <ClInclude Include="..\..\cef3\include\capi\cef_process_message_capi.h">
       <Filter>include\capi</Filter>
     </ClInclude>
-    <ClInclude Include="D:\projects\CefBridge\cef3\include\capi\cef_process_util_capi.h">
+    <ClInclude Include="..\..\cef3\include\capi\cef_process_util_capi.h">
       <Filter>include\capi</Filter>
     </ClInclude>
-    <ClInclude Include="D:\projects\CefBridge\cef3\include\capi\cef_render_handler_capi.h">
+    <ClInclude Include="..\..\cef3\include\capi\cef_render_handler_capi.h">
       <Filter>include\capi</Filter>
     </ClInclude>
-    <ClInclude Include="D:\projects\CefBridge\cef3\include\capi\cef_render_process_handler_capi.h">
+    <ClInclude Include="..\..\cef3\include\capi\cef_render_process_handler_capi.h">
       <Filter>include\capi</Filter>
     </ClInclude>
-    <ClInclude Include="D:\projects\CefBridge\cef3\include\capi\cef_request_capi.h">
+    <ClInclude Include="..\..\cef3\include\capi\cef_request_capi.h">
       <Filter>include\capi</Filter>
     </ClInclude>
-    <ClInclude Include="D:\projects\CefBridge\cef3\include\capi\cef_request_context_capi.h">
+    <ClInclude Include="..\..\cef3\include\capi\cef_request_context_capi.h">
       <Filter>include\capi</Filter>
     </ClInclude>
-    <ClInclude Include="D:\projects\CefBridge\cef3\include\capi\cef_request_context_handler_capi.h">
+    <ClInclude Include="..\..\cef3\include\capi\cef_request_context_handler_capi.h">
       <Filter>include\capi</Filter>
     </ClInclude>
-    <ClInclude Include="D:\projects\CefBridge\cef3\include\capi\cef_request_handler_capi.h">
+    <ClInclude Include="..\..\cef3\include\capi\cef_request_handler_capi.h">
       <Filter>include\capi</Filter>
     </ClInclude>
-    <ClInclude Include="D:\projects\CefBridge\cef3\include\capi\cef_resource_bundle_capi.h">
+    <ClInclude Include="..\..\cef3\include\capi\cef_resource_bundle_capi.h">
       <Filter>include\capi</Filter>
     </ClInclude>
-    <ClInclude Include="D:\projects\CefBridge\cef3\include\capi\cef_resource_bundle_handler_capi.h">
+    <ClInclude Include="..\..\cef3\include\capi\cef_resource_bundle_handler_capi.h">
       <Filter>include\capi</Filter>
     </ClInclude>
-    <ClInclude Include="D:\projects\CefBridge\cef3\include\capi\cef_resource_handler_capi.h">
+    <ClInclude Include="..\..\cef3\include\capi\cef_resource_handler_capi.h">
       <Filter>include\capi</Filter>
     </ClInclude>
-    <ClInclude Include="D:\projects\CefBridge\cef3\include\capi\cef_response_capi.h">
+    <ClInclude Include="..\..\cef3\include\capi\cef_response_capi.h">
       <Filter>include\capi</Filter>
     </ClInclude>
-    <ClInclude Include="D:\projects\CefBridge\cef3\include\capi\cef_response_filter_capi.h">
+    <ClInclude Include="..\..\cef3\include\capi\cef_response_filter_capi.h">
       <Filter>include\capi</Filter>
     </ClInclude>
-    <ClInclude Include="D:\projects\CefBridge\cef3\include\capi\cef_scheme_capi.h">
+    <ClInclude Include="..\..\cef3\include\capi\cef_scheme_capi.h">
       <Filter>include\capi</Filter>
     </ClInclude>
-    <ClInclude Include="D:\projects\CefBridge\cef3\include\capi\cef_ssl_info_capi.h">
+    <ClInclude Include="..\..\cef3\include\capi\cef_ssl_info_capi.h">
       <Filter>include\capi</Filter>
     </ClInclude>
-    <ClInclude Include="D:\projects\CefBridge\cef3\include\capi\cef_stream_capi.h">
+    <ClInclude Include="..\..\cef3\include\capi\cef_stream_capi.h">
       <Filter>include\capi</Filter>
     </ClInclude>
-    <ClInclude Include="D:\projects\CefBridge\cef3\include\capi\cef_string_visitor_capi.h">
+    <ClInclude Include="..\..\cef3\include\capi\cef_string_visitor_capi.h">
       <Filter>include\capi</Filter>
     </ClInclude>
-    <ClInclude Include="D:\projects\CefBridge\cef3\include\capi\cef_task_capi.h">
+    <ClInclude Include="..\..\cef3\include\capi\cef_task_capi.h">
       <Filter>include\capi</Filter>
     </ClInclude>
-    <ClInclude Include="D:\projects\CefBridge\cef3\include\capi\cef_trace_capi.h">
+    <ClInclude Include="..\..\cef3\include\capi\cef_trace_capi.h">
       <Filter>include\capi</Filter>
     </ClInclude>
-    <ClInclude Include="D:\projects\CefBridge\cef3\include\capi\cef_urlrequest_capi.h">
+    <ClInclude Include="..\..\cef3\include\capi\cef_urlrequest_capi.h">
       <Filter>include\capi</Filter>
     </ClInclude>
-    <ClInclude Include="D:\projects\CefBridge\cef3\include\capi\cef_v8_capi.h">
+    <ClInclude Include="..\..\cef3\include\capi\cef_v8_capi.h">
       <Filter>include\capi</Filter>
     </ClInclude>
-    <ClInclude Include="D:\projects\CefBridge\cef3\include\capi\cef_values_capi.h">
+    <ClInclude Include="..\..\cef3\include\capi\cef_values_capi.h">
       <Filter>include\capi</Filter>
     </ClInclude>
-    <ClInclude Include="D:\projects\CefBridge\cef3\include\capi\cef_web_plugin_capi.h">
+    <ClInclude Include="..\..\cef3\include\capi\cef_web_plugin_capi.h">
       <Filter>include\capi</Filter>
     </ClInclude>
-    <ClInclude Include="D:\projects\CefBridge\cef3\include\capi\cef_xml_reader_capi.h">
+    <ClInclude Include="..\..\cef3\include\capi\cef_xml_reader_capi.h">
       <Filter>include\capi</Filter>
     </ClInclude>
-    <ClInclude Include="D:\projects\CefBridge\cef3\include\capi\cef_zip_reader_capi.h">
+    <ClInclude Include="..\..\cef3\include\capi\cef_zip_reader_capi.h">
       <Filter>include\capi</Filter>
     </ClInclude>
-    <ClInclude Include="D:\projects\CefBridge\cef3\include\internal\cef_export.h">
+    <ClInclude Include="..\..\cef3\include\internal\cef_export.h">
       <Filter>include\internal</Filter>
     </ClInclude>
-    <ClInclude Include="D:\projects\CefBridge\cef3\include\internal\cef_logging_internal.h">
+    <ClInclude Include="..\..\cef3\include\internal\cef_logging_internal.h">
       <Filter>include\internal</Filter>
     </ClInclude>
-    <ClInclude Include="D:\projects\CefBridge\cef3\include\internal\cef_ptr.h">
+    <ClInclude Include="..\..\cef3\include\internal\cef_ptr.h">
       <Filter>include\internal</Filter>
     </ClInclude>
-    <ClInclude Include="D:\projects\CefBridge\cef3\include\internal\cef_string.h">
+    <ClInclude Include="..\..\cef3\include\internal\cef_string.h">
       <Filter>include\internal</Filter>
     </ClInclude>
-    <ClInclude Include="D:\projects\CefBridge\cef3\include\internal\cef_string_list.h">
+    <ClInclude Include="..\..\cef3\include\internal\cef_string_list.h">
       <Filter>include\internal</Filter>
     </ClInclude>
-    <ClInclude Include="D:\projects\CefBridge\cef3\include\internal\cef_string_map.h">
+    <ClInclude Include="..\..\cef3\include\internal\cef_string_map.h">
       <Filter>include\internal</Filter>
     </ClInclude>
-    <ClInclude Include="D:\projects\CefBridge\cef3\include\internal\cef_string_multimap.h">
+    <ClInclude Include="..\..\cef3\include\internal\cef_string_multimap.h">
       <Filter>include\internal</Filter>
     </ClInclude>
-    <ClInclude Include="D:\projects\CefBridge\cef3\include\internal\cef_string_types.h">
+    <ClInclude Include="..\..\cef3\include\internal\cef_string_types.h">
       <Filter>include\internal</Filter>
     </ClInclude>
-    <ClInclude Include="D:\projects\CefBridge\cef3\include\internal\cef_string_wrappers.h">
+    <ClInclude Include="..\..\cef3\include\internal\cef_string_wrappers.h">
       <Filter>include\internal</Filter>
     </ClInclude>
-    <ClInclude Include="D:\projects\CefBridge\cef3\include\internal\cef_thread_internal.h">
+    <ClInclude Include="..\..\cef3\include\internal\cef_thread_internal.h">
       <Filter>include\internal</Filter>
     </ClInclude>
-    <ClInclude Include="D:\projects\CefBridge\cef3\include\internal\cef_time.h">
+    <ClInclude Include="..\..\cef3\include\internal\cef_time.h">
       <Filter>include\internal</Filter>
     </ClInclude>
-    <ClInclude Include="D:\projects\CefBridge\cef3\include\internal\cef_trace_event_internal.h">
+    <ClInclude Include="..\..\cef3\include\internal\cef_trace_event_internal.h">
       <Filter>include\internal</Filter>
     </ClInclude>
-    <ClInclude Include="D:\projects\CefBridge\cef3\include\internal\cef_types.h">
+    <ClInclude Include="..\..\cef3\include\internal\cef_types.h">
       <Filter>include\internal</Filter>
     </ClInclude>
-    <ClInclude Include="D:\projects\CefBridge\cef3\include\internal\cef_types_wrappers.h">
+    <ClInclude Include="..\..\cef3\include\internal\cef_types_wrappers.h">
       <Filter>include\internal</Filter>
     </ClInclude>
-    <ClInclude Include="D:\projects\CefBridge\cef3\include\internal\cef_types_win.h">
+    <ClInclude Include="..\..\cef3\include\internal\cef_types_win.h">
       <Filter>include\internal</Filter>
     </ClInclude>
-    <ClInclude Include="D:\projects\CefBridge\cef3\include\internal\cef_win.h">
+    <ClInclude Include="..\..\cef3\include\internal\cef_win.h">
       <Filter>include\internal</Filter>
     </ClInclude>
-    <ClInclude Include="D:\projects\CefBridge\cef3\include\wrapper\cef_byte_read_handler.h">
+    <ClInclude Include="..\..\cef3\include\wrapper\cef_byte_read_handler.h">
       <Filter>include\wrapper</Filter>
     </ClInclude>
-    <ClInclude Include="D:\projects\CefBridge\cef3\include\wrapper\cef_closure_task.h">
+    <ClInclude Include="..\..\cef3\include\wrapper\cef_closure_task.h">
       <Filter>include\wrapper</Filter>
     </ClInclude>
-    <ClInclude Include="D:\projects\CefBridge\cef3\include\wrapper\cef_helpers.h">
+    <ClInclude Include="..\..\cef3\include\wrapper\cef_helpers.h">
       <Filter>include\wrapper</Filter>
     </ClInclude>
-    <ClInclude Include="D:\projects\CefBridge\cef3\include\wrapper\cef_message_router.h">
+    <ClInclude Include="..\..\cef3\include\wrapper\cef_message_router.h">
       <Filter>include\wrapper</Filter>
     </ClInclude>
-    <ClInclude Include="D:\projects\CefBridge\cef3\include\wrapper\cef_resource_manager.h">
+    <ClInclude Include="..\..\cef3\include\wrapper\cef_resource_manager.h">
       <Filter>include\wrapper</Filter>
     </ClInclude>
-    <ClInclude Include="D:\projects\CefBridge\cef3\include\wrapper\cef_stream_resource_handler.h">
+    <ClInclude Include="..\..\cef3\include\wrapper\cef_stream_resource_handler.h">
       <Filter>include\wrapper</Filter>
     </ClInclude>
-    <ClInclude Include="D:\projects\CefBridge\cef3\include\wrapper\cef_xml_object.h">
+    <ClInclude Include="..\..\cef3\include\wrapper\cef_xml_object.h">
       <Filter>include\wrapper</Filter>
     </ClInclude>
-    <ClInclude Include="D:\projects\CefBridge\cef3\include\wrapper\cef_zip_archive.h">
+    <ClInclude Include="..\..\cef3\include\wrapper\cef_zip_archive.h">
       <Filter>include\wrapper</Filter>
     </ClInclude>
-    <ClInclude Include="D:\projects\CefBridge\cef3\libcef_dll\wrapper\cef_browser_info_map.h">
+    <ClInclude Include="..\..\cef3\libcef_dll\wrapper\cef_browser_info_map.h">
       <Filter>libcef_dll\wrapper</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <CustomBuild Include="D:\projects\CefBridge\cef3\libcef_dll\CMakeLists.txt" />
+    <CustomBuild Include="..\..\cef3\libcef_dll\CMakeLists.txt" />
   </ItemGroup>
   <ItemGroup>
-    <Filter Include="include\base\internal">
-      <UniqueIdentifier>{89A12F1F-78C1-44CA-AD1F-3A7CCAA9E692}</UniqueIdentifier>
-    </Filter>
     <Filter Include="libcef_dll">
-      <UniqueIdentifier>{EED9816C-02FF-4C95-992C-BC9F94BB178B}</UniqueIdentifier>
+      <UniqueIdentifier>{59BFA203-0114-4EBF-B246-086EF530B5C2}</UniqueIdentifier>
     </Filter>
     <Filter Include="include">
-      <UniqueIdentifier>{B574D4B8-1CCE-46A5-8822-74EB058F6E9D}</UniqueIdentifier>
+      <UniqueIdentifier>{5C537991-7434-47CB-B31F-A79725D081FE}</UniqueIdentifier>
     </Filter>
     <Filter Include="libcef_dll\base">
-      <UniqueIdentifier>{C30519FC-F802-46A3-B798-F1590ECFF1DA}</UniqueIdentifier>
+      <UniqueIdentifier>{CDD21AC7-BB99-4CD3-8011-4013FBBAA36C}</UniqueIdentifier>
     </Filter>
     <Filter Include="libcef_dll\cpptoc">
-      <UniqueIdentifier>{C6DAF95B-76FB-422B-B722-D20C7E86A844}</UniqueIdentifier>
+      <UniqueIdentifier>{E2EA7EEC-7BE2-405A-BEE0-F114B452FCB5}</UniqueIdentifier>
     </Filter>
     <Filter Include="libcef_dll\ctocpp">
-      <UniqueIdentifier>{7BF47A4C-530A-4BE3-A646-DD64DC251214}</UniqueIdentifier>
+      <UniqueIdentifier>{8056541F-1FF9-440A-A7F5-2EC7C5037D65}</UniqueIdentifier>
     </Filter>
     <Filter Include="libcef_dll\wrapper">
-      <UniqueIdentifier>{A1438D3C-6C51-4236-9AEA-B277AB4986B0}</UniqueIdentifier>
+      <UniqueIdentifier>{A368E0F5-D301-436F-BFAF-D167243FA65C}</UniqueIdentifier>
     </Filter>
     <Filter Include="include\base">
-      <UniqueIdentifier>{16EB7CF2-A5F6-4807-B1D5-B598F738CCD7}</UniqueIdentifier>
+      <UniqueIdentifier>{9B7ABA03-CFEA-4ED8-9C70-5DD442C14F2F}</UniqueIdentifier>
     </Filter>
     <Filter Include="include\capi">
-      <UniqueIdentifier>{C348171C-A605-4CB7-918E-51C3C46EAD38}</UniqueIdentifier>
+      <UniqueIdentifier>{E8EEBBCD-6BCE-4AA7-B70D-AA74D6E2B936}</UniqueIdentifier>
     </Filter>
     <Filter Include="include\internal">
-      <UniqueIdentifier>{C9130440-02B1-40E2-9E98-BB2A1128DE36}</UniqueIdentifier>
+      <UniqueIdentifier>{AC0E4A16-1456-4B96-A08B-3859C096C2C4}</UniqueIdentifier>
     </Filter>
     <Filter Include="include\wrapper">
-      <UniqueIdentifier>{75400A74-6811-4C43-9B2D-5994F677E74F}</UniqueIdentifier>
+      <UniqueIdentifier>{7667CCAF-1DE1-4941-B026-1A787EAFA457}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="include\base\internal">
+      <UniqueIdentifier>{51495776-97C6-47C0-97D8-FE6578408DB8}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>

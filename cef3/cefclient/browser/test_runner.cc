@@ -747,10 +747,13 @@ void SetupResourceManager2(CefRefPtr<CefResourceManager> resource_manager, manag
 			class BinaryResourceProvider : public CefResourceManager::Provider {
 			public:
 
-				managed_callback mcallback = NULL;
+				managed_callback mcallback;
 				explicit BinaryResourceProvider(const std::string& url_path)
 					: url_path_(url_path) {
+					
+					mcallback= NULL;
 					DCHECK(!url_path.empty());
+
 				}
 
 				bool OnRequest(scoped_refptr<CefResourceManager::Request> request) OVERRIDE {

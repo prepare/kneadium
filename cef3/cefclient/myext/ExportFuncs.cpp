@@ -187,8 +187,10 @@ void MyCefDomGetTextWalk(MyBrowser* myBw, managed_callback strCallBack)
 	//---------------------
 	class Visitor : public CefStringVisitor {
 	public:
-		managed_callback mcallback = NULL;
-		explicit Visitor(CefRefPtr<CefBrowser> browser) : browser_(browser) {}
+		managed_callback mcallback;
+		explicit Visitor(CefRefPtr<CefBrowser> browser) : browser_(browser) {  
+			mcallback= NULL;
+		}
 		virtual void Visit(const CefString& string) OVERRIDE {
 
 			MethodArgs metArgs;
@@ -214,8 +216,10 @@ void MyCefDomGetSourceWalk(MyBrowser* myBw, managed_callback strCallBack)
 	//---------------------
 	class Visitor : public CefStringVisitor {
 	public:
-		managed_callback mcallback = NULL;
-		explicit Visitor(CefRefPtr<CefBrowser> browser) : browser_(browser) {}
+		managed_callback mcallback;
+		explicit Visitor(CefRefPtr<CefBrowser> browser) : browser_(browser) {
+				 mcallback= NULL;
+		}
 		virtual void Visit(const CefString& string) OVERRIDE {
 
 			MethodArgs metArgs;
@@ -503,7 +507,7 @@ MY_DLL_EXPORT CefV8Handler* MyCefJs_New_V8Handler(managed_callback callback) {
 	//-----------------------------------------------
 	class V8Handler : public CefV8Handler {
 	public:
-		managed_callback callback = NULL;
+		managed_callback callback;
 		V8Handler(managed_callback callback) {
 			this->callback = callback;
 		}

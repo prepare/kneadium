@@ -1,3 +1,4 @@
+//###_ORIGINAL d:\projects\CefBridge\cef3\cefclient\common/client_app.cc
 // Copyright (c) 2013 The Chromium Embedded Framework Authors. All rights
 // reserved. Use of this source code is governed by a BSD-style license that
 // can be found in the LICENSE file.
@@ -19,8 +20,11 @@ const char kZygoteProcess[] = "zygote";
 
 }  // namespace
 
-
+//###_START 0
 ClientApp::ClientApp() {
+//###_APPEND_START 0
+	myMxCallback_= NULL;
+//###_APPEND_STOP 0
 }
 
 // static

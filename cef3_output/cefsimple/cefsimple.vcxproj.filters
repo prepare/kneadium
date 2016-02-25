@@ -1,55 +1,55 @@
 ﻿<?xml version="1.0" encoding="UTF-8"?>
-<Project ToolsVersion="14.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
-    <ClCompile Include="D:\projects\CefBridge\cef3\cefsimple\simple_app.cc">
+    <ClCompile Include="..\..\cef3\cefsimple\simple_app.cc">
       <Filter>cefsimple</Filter>
     </ClCompile>
-    <ClCompile Include="D:\projects\CefBridge\cef3\cefsimple\simple_handler.cc">
+    <ClCompile Include="..\..\cef3\cefsimple\simple_handler.cc">
       <Filter>cefsimple</Filter>
     </ClCompile>
-    <ClCompile Include="D:\projects\CefBridge\cef3\cefsimple\cefsimple_win.cc">
+    <ClCompile Include="..\..\cef3\cefsimple\cefsimple_win.cc">
       <Filter>cefsimple</Filter>
     </ClCompile>
-    <ClCompile Include="D:\projects\CefBridge\cef3\cefsimple\simple_handler_win.cc">
+    <ClCompile Include="..\..\cef3\cefsimple\simple_handler_win.cc">
       <Filter>cefsimple</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="D:\projects\CefBridge\cef3\cefsimple\simple_app.h">
+    <ClInclude Include="..\..\cef3\cefsimple\simple_app.h">
       <Filter>cefsimple</Filter>
     </ClInclude>
-    <ClInclude Include="D:\projects\CefBridge\cef3\cefsimple\simple_handler.h">
+    <ClInclude Include="..\..\cef3\cefsimple\simple_handler.h">
       <Filter>cefsimple</Filter>
     </ClInclude>
-    <ClInclude Include="D:\projects\CefBridge\cef3\cefsimple\resource.h">
+    <ClInclude Include="..\..\cef3\cefsimple\resource.h">
       <Filter>cefsimple</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <CustomBuild Include="D:\projects\CefBridge\cef3\cefsimple\CMakeLists.txt" />
+    <CustomBuild Include="..\..\cef3\cefsimple\CMakeLists.txt" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="D:\projects\CefBridge\cef3\cefsimple\cefsimple.exe.manifest">
+    <None Include="..\..\cef3\cefsimple\cefsimple.exe.manifest">
       <Filter>cefsimple</Filter>
     </None>
-    <None Include="D:\projects\CefBridge\cef3\cefsimple\res\cefsimple.ico">
+    <None Include="..\..\cef3\cefsimple\res\cefsimple.ico">
       <Filter>cefsimple\res</Filter>
     </None>
-    <None Include="D:\projects\CefBridge\cef3\cefsimple\res\small.ico">
+    <None Include="..\..\cef3\cefsimple\res\small.ico">
       <Filter>cefsimple\res</Filter>
     </None>
   </ItemGroup>
   <ItemGroup>
-    <ResourceCompile Include="D:\projects\CefBridge\cef3\cefsimple\cefsimple.rc">
+    <ResourceCompile Include="..\..\cef3\cefsimple\cefsimple.rc">
       <Filter>cefsimple</Filter>
     </ResourceCompile>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="cefsimple">
-      <UniqueIdentifier>{94F31747-492E-496A-8CC7-0A8EAFE8B33A}</UniqueIdentifier>
+      <UniqueIdentifier>{E06114C1-7B9C-426D-B14D-0996094AF505}</UniqueIdentifier>
     </Filter>
     <Filter Include="cefsimple\res">
-      <UniqueIdentifier>{90583A69-ABE4-4D8A-8B92-EE0B2D39D707}</UniqueIdentifier>
+      <UniqueIdentifier>{C22E9EB6-4791-41EF-81A2-06D312A89515}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>

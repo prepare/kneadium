@@ -1,13 +1,13 @@
 ﻿<?xml version="1.0" encoding="UTF-8"?>
-<Project ToolsVersion="14.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
-    <CustomBuild Include="D:\projects\CefBridge\cef3_output\CMakeFiles\e8a71097d6db1433257bee62cf447f4e\generate.stamp.rule">
+    <CustomBuild Include="CMakeFiles\e8a71097d6db1433257bee62cf447f4e\generate.stamp.rule">
       <Filter>CMake Rules</Filter>
     </CustomBuild>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="CMake Rules">
-      <UniqueIdentifier>{260F15AD-6834-4DA1-BFB3-24A5A672F32E}</UniqueIdentifier>
+      <UniqueIdentifier>{C9EDE1FA-88A3-4820-860C-02D83D930698}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>

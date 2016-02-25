@@ -1,5 +1,5 @@
-﻿<?xml version="1.0" encoding="UTF-8"?>
-<Project DefaultTargets="Build" ToolsVersion="14.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup Label="ProjectConfigurations">
     <ProjectConfiguration Include="Debug|Win32">
       <Configuration>Debug</Configuration>
@@ -11,7 +11,7 @@
     </ProjectConfiguration>
   </ItemGroup>
   <PropertyGroup Label="Globals">
-    <ProjectGUID>{0CD2EEDD-1A11-49BF-9551-9ABFCAD64A2D}</ProjectGUID>
+    <ProjectGUID>{52291214-7AB1-4E3F-84FB-999759DDB9FF}</ProjectGUID>
     <Keyword>Win32Proj</Keyword>
     <Platform>Win32</Platform>
     <ProjectName>cefsimple</ProjectName>
@@ -21,13 +21,11 @@
     <ConfigurationType>Application</ConfigurationType>
     <UseOfMfc>false</UseOfMfc>
     <CharacterSet>Unicode</CharacterSet>
-    <PlatformToolset>v140</PlatformToolset>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
     <ConfigurationType>Application</ConfigurationType>
     <UseOfMfc>false</UseOfMfc>
     <CharacterSet>Unicode</CharacterSet>
-    <PlatformToolset>v140</PlatformToolset>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
   <ImportGroup Label="ExtensionSettings">
@@ -36,21 +34,21 @@
     <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
   </ImportGroup>
   <PropertyGroup Label="UserMacros" />
-    <PropertyGroup>
-      <_ProjectFileVersion>10.0.20506.1</_ProjectFileVersion>
-      <OutDir Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">D:\projects\CefBridge\cef3_output\cefsimple\Debug\</OutDir>
-      <IntDir Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">cefsimple.dir\Debug\</IntDir>
-      <TargetName Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">cefsimple</TargetName>
-      <TargetExt Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">.exe</TargetExt>
-      <LinkIncremental Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</LinkIncremental>
-      <GenerateManifest Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">false</GenerateManifest>
-      <OutDir Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">D:\projects\CefBridge\cef3_output\cefsimple\Release\</OutDir>
-      <IntDir Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">cefsimple.dir\Release\</IntDir>
-      <TargetName Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">cefsimple</TargetName>
-      <TargetExt Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">.exe</TargetExt>
-      <LinkIncremental Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</LinkIncremental>
-      <GenerateManifest Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">false</GenerateManifest>
-    </PropertyGroup>
+  <PropertyGroup>
+    <_ProjectFileVersion>10.0.20506.1</_ProjectFileVersion>
+    <OutDir Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">D:\projects\CefBridge\cef3_output\cefsimple\Debug\</OutDir>
+    <IntDir Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">cefsimple.dir\Debug\</IntDir>
+    <TargetName Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">cefsimple</TargetName>
+    <TargetExt Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">.exe</TargetExt>
+    <LinkIncremental Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</LinkIncremental>
+    <GenerateManifest Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">false</GenerateManifest>
+    <OutDir Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">D:\projects\CefBridge\cef3_output\cefsimple\Release\</OutDir>
+    <IntDir Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">cefsimple.dir\Release\</IntDir>
+    <TargetName Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">cefsimple</TargetName>
+    <TargetExt Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">.exe</TargetExt>
+    <LinkIncremental Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</LinkIncremental>
+    <GenerateManifest Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">false</GenerateManifest>
+  </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
       <AdditionalIncludeDirectories>D:\projects\CefBridge\cef3;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
@@ -58,7 +56,7 @@
       <BasicRuntimeChecks>EnableFastChecks</BasicRuntimeChecks>
       <CompileAs>CompileAsCpp</CompileAs>
       <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
-      <DisableSpecificWarnings>4100;4127;4244;4512;4701;4702;4996</DisableSpecificWarnings>
+      <DisableSpecificWarnings>4100;4127;4244;4512;4701;4702;4996;4481;4510;4610;</DisableSpecificWarnings>
       <ExceptionHandling>
       </ExceptionHandling>
       <FunctionLevelLinking>true</FunctionLevelLinking>
@@ -239,7 +237,8 @@ if %errorlevel% neq 0 goto :VCEnd</Command>
       <ImportLibrary>D:/projects/CefBridge/cef3_output/cefsimple/Debug/cefsimple.lib</ImportLibrary>
       <ProgramDataBaseFile>D:/projects/CefBridge/cef3_output/cefsimple/Debug/cefsimple.pdb</ProgramDataBaseFile>
       <SubSystem>Windows</SubSystem>
-      <Version></Version>
+      <Version>
+      </Version>
     </Link>
     <ProjectReference>
       <LinkLibraryDependencies>false</LinkLibraryDependencies>
@@ -434,14 +433,15 @@ if %errorlevel% neq 0 goto :VCEnd</Command>
       <ImportLibrary>D:/projects/CefBridge/cef3_output/cefsimple/Release/cefsimple.lib</ImportLibrary>
       <ProgramDataBaseFile>D:/projects/CefBridge/cef3_output/cefsimple/Release/cefsimple.pdb</ProgramDataBaseFile>
       <SubSystem>Windows</SubSystem>
-      <Version></Version>
+      <Version>
+      </Version>
     </Link>
     <ProjectReference>
       <LinkLibraryDependencies>false</LinkLibraryDependencies>
     </ProjectReference>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <CustomBuild Include="D:\projects\CefBridge\cef3\cefsimple\CMakeLists.txt">
+    <CustomBuild Include="..\..\cef3\cefsimple\CMakeLists.txt">
       <Message Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Building Custom Rule D:/projects/CefBridge/cef3/cefsimple/CMakeLists.txt</Message>
       <Command Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">setlocal
 "C:\Program Files (x86)\CMake\bin\cmake.exe" -HD:/projects/CefBridge/cef3 -BD:/projects/CefBridge/cef3_output --check-stamp-file D:\projects\CefBridge\cef3_output\cefsimple\CMakeFiles\generate.stamp
@@ -454,7 +454,6 @@ exit /b %1
 if %errorlevel% neq 0 goto :VCEnd</Command>
       <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">D:/projects/CefBridge/cef3/cefsimple/CMakeLists.txt;D:\projects\CefBridge\cef3\cefsimple\CMakeLists.txt;D:\projects\CefBridge\cef3\cefsimple\CMakeLists.txt;%(AdditionalInputs)</AdditionalInputs>
       <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">D:\projects\CefBridge\cef3_output\cefsimple\CMakeFiles\generate.stamp</Outputs>
-      <LinkObjects Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">false</LinkObjects>
       <Message Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Building Custom Rule D:/projects/CefBridge/cef3/cefsimple/CMakeLists.txt</Message>
       <Command Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">setlocal
 "C:\Program Files (x86)\CMake\bin\cmake.exe" -HD:/projects/CefBridge/cef3 -BD:/projects/CefBridge/cef3_output --check-stamp-file D:\projects\CefBridge\cef3_output\cefsimple\CMakeFiles\generate.stamp
@@ -467,28 +466,27 @@ exit /b %1
 if %errorlevel% neq 0 goto :VCEnd</Command>
       <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">D:/projects/CefBridge/cef3/cefsimple/CMakeLists.txt;D:\projects\CefBridge\cef3\cefsimple\CMakeLists.txt;D:\projects\CefBridge\cef3\cefsimple\CMakeLists.txt;%(AdditionalInputs)</AdditionalInputs>
       <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">D:\projects\CefBridge\cef3_output\cefsimple\CMakeFiles\generate.stamp</Outputs>
-      <LinkObjects Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">false</LinkObjects>
     </CustomBuild>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="D:\projects\CefBridge\cef3\cefsimple\simple_app.h" />
-    <ClInclude Include="D:\projects\CefBridge\cef3\cefsimple\simple_handler.h" />
-    <ClInclude Include="D:\projects\CefBridge\cef3\cefsimple\resource.h" />
-    <ClCompile Include="D:\projects\CefBridge\cef3\cefsimple\simple_app.cc"  />
-    <ClCompile Include="D:\projects\CefBridge\cef3\cefsimple\simple_handler.cc"  />
-    <ResourceCompile Include="D:\projects\CefBridge\cef3\cefsimple\cefsimple.rc"  />
-    <ClCompile Include="D:\projects\CefBridge\cef3\cefsimple\cefsimple_win.cc"  />
-    <ClCompile Include="D:\projects\CefBridge\cef3\cefsimple\simple_handler_win.cc"  />
-    <None Include="D:\projects\CefBridge\cef3\cefsimple\cefsimple.exe.manifest" />
-    <None Include="D:\projects\CefBridge\cef3\cefsimple\res\cefsimple.ico" />
-    <None Include="D:\projects\CefBridge\cef3\cefsimple\res\small.ico" />
+    <ClInclude Include="..\..\cef3\cefsimple\simple_app.h" />
+    <ClInclude Include="..\..\cef3\cefsimple\simple_handler.h" />
+    <ClInclude Include="..\..\cef3\cefsimple\resource.h" />
+    <ClCompile Include="..\..\cef3\cefsimple\simple_app.cc" />
+    <ClCompile Include="..\..\cef3\cefsimple\simple_handler.cc" />
+    <ResourceCompile Include="..\..\cef3\cefsimple\cefsimple.rc" />
+    <ClCompile Include="..\..\cef3\cefsimple\cefsimple_win.cc" />
+    <ClCompile Include="..\..\cef3\cefsimple\simple_handler_win.cc" />
+    <None Include="..\..\cef3\cefsimple\cefsimple.exe.manifest" />
+    <None Include="..\..\cef3\cefsimple\res\cefsimple.ico" />
+    <None Include="..\..\cef3\cefsimple\res\small.ico" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="D:/projects/CefBridge/cef3_output/ZERO_CHECK.vcxproj">
-      <Project>23292707-C899-44D6-BF9B-4F8403916E9D</Project>
+      <Project>6BF89105-710A-432D-A988-0E4885963820</Project>
     </ProjectReference>
     <ProjectReference Include="D:/projects/CefBridge/cef3_output/libcef_dll/libcef_dll_wrapper.vcxproj">
-      <Project>5E5CFB51-1732-4202-8B6B-5FB62DEED3C1</Project>
+      <Project>345BFB10-C141-4199-AFDD-F56037CC73F4</Project>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
