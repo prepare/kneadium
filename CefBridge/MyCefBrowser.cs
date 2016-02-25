@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Text;
 using System.Runtime.InteropServices;
 using System.IO;
+ 
 
 namespace LayoutFarm.CefBridge
 {
@@ -37,6 +38,10 @@ namespace LayoutFarm.CefBridge
             this.myCefBrowser = Cef3Binder.MyCefCreateMyWebBrowser(managedCallback);
 
             Cef3Binder.MyCefSetupBrowserHwnd(myCefBrowser, parentControl.GetHandle(), x, y, w, h, initUrl);
+
+
+            //register mycef browser
+            CefClientApp.RegisterCefWbControl(this);
         }
 
         public IWindowControl ParentControl { get { return this.parentControl; } }
@@ -88,14 +93,15 @@ namespace LayoutFarm.CefBridge
                         Cef3Binder.SafeUIInvoke(
                             () =>
                             {
-
-
+                                 
 
                                 NativeCallArgs args = new NativeCallArgs(argsPtr);
-                                string url = args.GetArgAsString(0);
-
-                                IWindowForm form = Cef3Binder.CreateNewBrowserWindow(800, 600, url);
+                                string url = args.GetArgAsString(0); 
+                                IWindowForm form = Cef3Binder.CreateNewBrowserWindow(800, 600 );                                 
                                 form.Show();
+                                //and navigate to a specific url
+                                //TODO: review here
+
                                 args.Dispose();
                             });
 
@@ -119,7 +125,7 @@ namespace LayoutFarm.CefBridge
                         Cef3Binder.SafeUIInvoke(() =>
                         {
 
-                            IWindowForm newPopupForm = Cef3Binder.CreateNewBrowserWindow(800, 600, "about:blank");
+                            IWindowForm newPopupForm = Cef3Binder.CreateNewBrowserWindow(800, 600);
                             newPopupForm.Show();
                         });
 

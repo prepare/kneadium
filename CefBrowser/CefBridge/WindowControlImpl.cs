@@ -1,16 +1,19 @@
 ﻿//2016, MIT, WinterDev
-using System; 
+using System;
+using System.Windows.Forms;
+
 namespace LayoutFarm.CefBridge
 {
     class MyWindowControl : IWindowControl
     {
-        System.Windows.Forms.Control control;
+        Control control;
         MyWindowControl topLevelWindowControl;
         MyWindowControl parentControl;
 
         public MyWindowControl(System.Windows.Forms.Control control)
         {
             this.control = control;
+
         }
         IntPtr IWindowControl.GetHandle()
         {
@@ -68,10 +71,11 @@ namespace LayoutFarm.CefBridge
             this.control.Controls.Remove(child1.control);
         }
     }
+
     class MyWindowForm : MyWindowControl, IWindowForm
     {
-        System.Windows.Forms.Form form;
-        public MyWindowForm(System.Windows.Forms.Form form)
+        Form form;
+        public MyWindowForm(Form form)
             : base(form)
         {
             this.form = form;

@@ -1,4 +1,4 @@
-﻿//2015 MIT, WinterDev
+﻿//2015-2016 MIT, WinterDev
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -98,42 +98,64 @@ namespace LayoutFarm.CefBridge
     public abstract class Cef3InitEssential
     {
 
-        public readonly string[] startArgs;
+        internal readonly string[] startArgs;
         public Cef3InitEssential(string[] startArgs)
         {
             this.startArgs = startArgs;
         }
-        public abstract void AfterProcessLoad(CefStartArgs args);
+        public abstract void AfterProcessLoaded(CefStartArgs args);
         public abstract CefClientApp CreateClientApp();
         public abstract IWindowForm CreateNewWindow(int width, int height);
-        public abstract IWindowForm CreateNewBrowserWindow(int width, int height, string initURL);
+        public abstract IWindowForm CreateNewBrowserWindow(int width, int height);
         public abstract void SaveUIInvoke(SimpleDel simpleDel);
-        public abstract IntPtr CefReady();
+
+        public void Shutdown()
+        {
+            OnBeforeShutdown();
+            Cef3Binder.MyCefShutDown();
+            OnAfterShutdown();
+        }
+        protected virtual void OnBeforeShutdown()
+        {
+
+        }
+        protected virtual void OnAfterShutdown()
+        {
+        }
+        public abstract IntPtr SetupPreRun();
+        /// <summary>
+        /// load and init cef library
+        /// </summary>
+        public bool Init()
+        {
+            return Cef3Binder.LoadCef3(this);
+        }
+        protected static void DoMessageLoopWork()
+        {
+            Cef3Binder.MyCefDoMessageLoopWork();
+        }
+
+        List<string> logMessages = new List<string>();
+        public void AddLogMessage(string msg)
+        {
+            logMessages.Add(msg);
+        }
+        public abstract string GetLibCefFileName();
+        public abstract string GetCefClientFileName();
 
     }
 
 
-    public static class Cef3Binder
+    static class Cef3Binder
     {
 
         static Cef3InitEssential cefInitEssential;
-        //-------------------------------------------------
-
-        static IntPtr hModule;
+        //static IntPtr hModule;
         //------------------------------------------------- 
+        const string CEF_CLIENT_DLL = "cefclient.dll";
 #if DEBUG
         public static bool s_dbugIsRendererProcess;
-        //static string libPath = @"..\\..\\..\\cef3\\cefclient\Debug\";
-        //static string libPath = @"..\\..\\..\\cef3\\cefsimple\Debug\";
-        //static string libPath = @"..\\..\\..\\cef3\\cefclient\Debug\";
-        //static string libPath = @"..\\..\\..\\cef3\\cefsimple\Release\"; 
-        static string libPath = @"D:\projects\CefBridge\cef3_output\cefclient\Debug\";
-        const string CEF_CLIENT_DLL = "cefclient.dll";
-        //const string CEF_CLIENT_DLL = "cefsimple.dll";
-#else
 
-        static string libPath = @"D:\projects\CefBridge\cef3_output\cefclient\Release\";
-        const string CEF_CLIENT_DLL = "cefclient.dll";
 #endif
 
         static MyCefCallback managedListener0;
@@ -143,22 +165,19 @@ namespace LayoutFarm.CefBridge
         static CefClientApp clientApp;
         static CustomSchemeAgent customScheme;
 
-        //-------------------------------------------------
-        public static bool IsLoadCef3Success()
-        {
-            return _loadCef3Success;
-        }
-        public static void CefReady()
-        {
-            cefInitEssential.CefReady();
-        }
+        ////-------------------------------------------------
+        //public static bool IsLoadCef3Success()
+        //{
+        //    return _loadCef3Success;
+        //}
+
         public static IWindowForm CreateBlankForm(int width, int height)
         {
             return cefInitEssential.CreateNewWindow(width, height);
         }
-        public static IWindowForm CreateNewBrowserWindow(int width, int height, string initURL)
+        public static IWindowForm CreateNewBrowserWindow(int width, int height)
         {
-            return cefInitEssential.CreateNewBrowserWindow(width, height, initURL);
+            return cefInitEssential.CreateNewBrowserWindow(width, height);
         }
         public static void SafeUIInvoke(SimpleDel del)
         {
@@ -173,22 +192,24 @@ namespace LayoutFarm.CefBridge
 
             //follow these steps
             // 1. libcef
-            if (!LoadLibCef())
+            if (!LoadLibCef(cefInitEssential))
             {
                 return false;
             }
             //2. cef client
-            string lib = libPath + CEF_CLIENT_DLL;  //; "cefclient.dll";
+            string lib = cefInitEssential.GetCefClientFileName();
             IntPtr nativeModule = NativeMethods.LoadLibrary(lib);
             uint lastErr = NativeMethods.GetLastError();
             //------------------------------------------------
-            hModule = nativeModule;
+            // hModule = nativeModule;
             if (nativeModule == IntPtr.Zero)
             {
                 return false;
             }
             _loadCef3Success = true;
 
+
+#if DEBUG
             //-----------------------------------------------------------
             //check start up process to see if what is this process
             //browser process
@@ -197,14 +218,10 @@ namespace LayoutFarm.CefBridge
             string[] startArgs = cefInitEssential.startArgs;
             if (startArgs.Length > 0)
             {
-
                 CefStartArgs cefStartArg = CefStartArgs.Parse(startArgs);
-#if DEBUG   
-                cefInitEssential.AfterProcessLoad(cefStartArg);
-#endif
-
+                cefInitEssential.AfterProcessLoaded(cefStartArg);
             }
-
+#endif
             //-----------------------------------------------------------
 
             //check version
@@ -224,13 +241,12 @@ namespace LayoutFarm.CefBridge
             //    i = dbugTotalId++;
             //}
 
-
             managedListener1 = new MyCefCallback(Cef3callBack_ForMangedCallBack03);
             regResult = RegisterManagedCallBack(managedListener1, 1);
             //-----------------------------------------------------------
             //init cef            
-            clientApp = cefInitEssential.CreateClientApp(); // System.Diagnostics.Process.GetCurrentProcess().Handle);
-
+            // clientApp = cefInitEssential.CreateClientApp(); // System.Diagnostics.Process.GetCurrentProcess().Handle);
+            clientApp = new CefClientApp(System.Diagnostics.Process.GetCurrentProcess().Handle);
             //set some scheme here   
             //-----------------------------------------------------------
             //test***
@@ -254,17 +270,14 @@ namespace LayoutFarm.CefBridge
 #endif
             return true;
         }
-        static bool LoadLibCef()
+        static bool LoadLibCef(Cef3InitEssential initEssential)
         {
-            uint lastErr = 0;
 
-            //if (!File.Exists(libPath + "icudt.dll"))
-            //{
-            //    return false;
-            //}
-            if (!File.Exists(libPath + "libcef.dll"))
+
+            string lib = initEssential.GetLibCefFileName();
+            if (!File.Exists(lib))
             {
-
+                initEssential.AddLogMessage("not found " + lib);
                 return false;
             }
 
@@ -274,18 +287,22 @@ namespace LayoutFarm.CefBridge
                 //libCefModuleHandler = NativeMethods.LoadLibrary(lib);
                 //lastErr = NativeMethods.GetLastError();
             }
+
+            //Console.WriteLine(lib);
+            libCefModuleHandler = NativeMethods.LoadLibrary(lib);
+            //Console.WriteLine(libCefModuleHandler);
+            uint lastErr = NativeMethods.GetLastError();
+            if (lastErr != 0)
             {
-                string lib = libPath + "libcef.dll";
-                //Console.WriteLine(lib);
-                libCefModuleHandler = NativeMethods.LoadLibrary(lib);
-
-                //Console.WriteLine(libCefModuleHandler);
-                lastErr = NativeMethods.GetLastError();
-
-                //Console.WriteLine(lastErr);
+                initEssential.AddLogMessage("load err code" + lastErr);
+                return false;
             }
+            else
+            {
+                return true;
+            }
+            //Console.WriteLine(lastErr);
 
-            return lastErr == 0;
         }
         static void Cef3callBack_ForMangedCallBack02(int oindex, IntPtr args)
         {

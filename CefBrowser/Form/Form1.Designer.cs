@@ -38,7 +38,7 @@
             this.button6 = new System.Windows.Forms.Button();
             this.button8 = new System.Windows.Forms.Button();
             this.button9 = new System.Windows.Forms.Button();
-            this.cefWebBrowser1 = new LayoutFarm.CefBridge.CefWebBrowser();
+            this.cefWebBrowser1 = new LayoutFarm.CefBridge.CefWebBrowserControl();
             this.button10 = new System.Windows.Forms.Button();
             this.button11 = new System.Windows.Forms.Button();
             this.button12 = new System.Windows.Forms.Button();
@@ -225,7 +225,7 @@
 
         #endregion
 
-        private LayoutFarm.CefBridge.CefWebBrowser cefWebBrowser1;
+        private LayoutFarm.CefBridge.CefWebBrowserControl cefWebBrowser1;
         private System.Windows.Forms.Button button7;
         private System.Windows.Forms.Button button1;
         private System.Windows.Forms.Button button2;

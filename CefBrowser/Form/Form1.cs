@@ -31,11 +31,11 @@ namespace CefBridgeTest
 
 
         }
-        public string InitUrl
-        {
-            get { return this.cefWebBrowser1.InitUrl; }
-            set { this.cefWebBrowser1.InitUrl = value; }
-        }
+        //public string InitUrl
+        //{
+        //    get { return this.cefWebBrowser1.InitUrl; }
+        //    set { this.cefWebBrowser1.InitUrl = value; }
+        //}
         void tt2_Tick(object sender, EventArgs e)
         {
             //check if we should closing?    
@@ -43,7 +43,7 @@ namespace CefBridgeTest
         }
         void CheckClosing()
         {
-            if (LayoutFarm.CefBridge.CefClientAppX.IsReadyToClose(nativeWindow))
+            if (LayoutFarm.CefBridge.CefClientApp.IsReadyToClose(nativeWindow))
             {
                 tt2.Enabled = false;
                 this.Close();
@@ -55,14 +55,14 @@ namespace CefBridgeTest
 
             if (!startClosing)
             {
-                LayoutFarm.CefBridge.CefClientAppX.DisposeCefWbControl(nativeWindow);
+                LayoutFarm.CefBridge.CefClientApp.DisposeCefWbControl(nativeWindow);
                 tt2.Enabled = true;
                 startClosing = true;
                 e.Cancel = true;
             }
             else
             {
-                if (!LayoutFarm.CefBridge.CefClientAppX.IsReadyToClose(nativeWindow))
+                if (!LayoutFarm.CefBridge.CefClientApp.IsReadyToClose(nativeWindow))
                 {
                     e.Cancel = true;
                 }

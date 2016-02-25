@@ -1,12 +1,12 @@
 ﻿//2015 MIT, WinterDev
 using System;
 using System.Collections.Generic;
-
+ 
 namespace LayoutFarm.CefBridge
 {
 
 
-    public class CefClientAppX : CefClientApp
+    public class CefClientApp
     {
         IntPtr clientAppPtr;
         static bool isInitWithProcessHandle;
@@ -18,7 +18,7 @@ namespace LayoutFarm.CefBridge
         static Dictionary<IntPtr, List<MyCefBrowser>> registeredWbControls =
             new Dictionary<IntPtr, List<MyCefBrowser>>();
 
-        public CefClientAppX(IntPtr processHandle)
+        public CefClientApp(IntPtr processHandle)
         {
 
 #if DEBUG
@@ -56,7 +56,7 @@ namespace LayoutFarm.CefBridge
         }
 
 
-        public static void RegisterCefWbControl(MyCefBrowser cefWb)
+        internal static void RegisterCefWbControl(MyCefBrowser cefWb)
         {
             //register this control with parent form
             var ownerForm = (IWindowForm)cefWb.ParentControl.GetTopLevelControl();
@@ -188,7 +188,7 @@ namespace LayoutFarm.CefBridge
                         {
                             NativeCallArgs args = new NativeCallArgs(argsPtr);
                             string url = args.GetArgAsString(0);
-                            IWindowForm popupWin = Cef3Binder.CreateNewBrowserWindow(600, 450, url);
+                            IWindowForm popupWin = Cef3Binder.CreateNewBrowserWindow(600, 450);
                             popupWin.Show();
                             args.Dispose();
                         });
@@ -212,7 +212,7 @@ namespace LayoutFarm.CefBridge
                         //show dev tools
                         Cef3Binder.SafeUIInvoke(() =>
                         {
-                            IWindowForm newPopupForm = Cef3Binder.CreateNewBrowserWindow(800, 600, "");
+                            IWindowForm newPopupForm = Cef3Binder.CreateNewBrowserWindow(800, 600);
                             newPopupForm.Show();
                         });
 

@@ -33,7 +33,6 @@
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="Cef3Binder.cs" />
-    <Compile Include="CefClientAppBase.cs" />
     <Compile Include="CefStartArgs.cs" />
     <Compile Include="ClientApp.cs" />
     <Compile Include="CustomSchemeAgent.cs" />
@@ -43,6 +42,9 @@
     <Compile Include="NativeCefObjects.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="WindowWrapper.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Reference Include="System" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

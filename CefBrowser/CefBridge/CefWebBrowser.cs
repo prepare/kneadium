@@ -13,15 +13,14 @@ using System.Windows.Forms;
 namespace LayoutFarm.CefBridge
 {
 
-    public sealed class CefWebBrowser : Control
+    public sealed class CefWebBrowserControl : Control
     {
 
-        MyCefBrowser cefBrowserView;
-
-        IWindowControl nativeWindowControl;
-        //string initUrl = "http://google.com";
+        MyCefBrowser cefBrowser;
+        IWindowControl thisWindowControl;
         string initUrl = "http://localhost";
-        public CefWebBrowser()
+
+        public CefWebBrowserControl()
         {
             SetStyle(
                 ControlStyles.ContainerControl
@@ -47,7 +46,7 @@ namespace LayoutFarm.CefBridge
                 | ControlStyles.Selectable,
                 true);
 
-            nativeWindowControl = new MyWindowControl(this);
+            thisWindowControl = new MyWindowControl(this);
         }
         public string InitUrl
         {
@@ -56,33 +55,25 @@ namespace LayoutFarm.CefBridge
         }
         public void NavigateTo(string url)
         {
-            this.cefBrowserView.NavigateTo(url);
+            this.cefBrowser.NavigateTo(url);
         }
         public MyCefBrowser Agent
         {
-            get { return this.cefBrowserView; }
+            get { return this.cefBrowser; }
         }
 
         protected override void OnHandleCreated(EventArgs e)
         {
-            base.OnHandleCreated(e);
-
+            base.OnHandleCreated(e); 
             if (DesignMode)
             {
                 //if (!_handleCreated) Paint += PaintInDesignMode;
             }
             else
-            {
-                if (!LayoutFarm.CefBridge.Cef3Binder.IsLoadCef3Success())
-                {
-                    MessageBox.Show("cef 3 not found");
-                }
-                //--------------------------------
-                this.cefBrowserView = new MyCefBrowser(nativeWindowControl, 0, 0, 800, 500, initUrl);
-                CefClientAppX.RegisterCefWbControl(cefBrowserView);
-
+            { 
+                //create cef browser when handle is created
+                this.cefBrowser = new MyCefBrowser(thisWindowControl, 0, 0, 800, 500, initUrl); 
             }
-            // _handleCreated = true;
         }
 
 
