@@ -122,9 +122,8 @@ namespace CefBridgeTest
             {
                 return false;
             }
-            //2. set WindowForm
-            initEssential.SetupPreRun();
-
+          
+            initEssential.SetupPreRun(); 
 
             return true;
         }

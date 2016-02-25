@@ -1,4 +1,4 @@
-﻿//2015 MIT, WinterDev
+﻿//2015-2016 MIT, WinterDev
 using System;
 using System.Collections.Generic;
  
@@ -21,7 +21,7 @@ namespace LayoutFarm.CefBridge
         public CefClientApp(IntPtr processHandle)
         {
 
-#if DEBUG
+#if DEBUG   
             //dev note: multiprocess debuging: renderer process debugger 
             //if you want to break in the renderer process
             //1. set break point after, MessageBox.Show();
