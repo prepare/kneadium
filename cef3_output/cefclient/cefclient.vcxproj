@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<Project DefaultTargets="Build" ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+<Project DefaultTargets="Build" ToolsVersion="14.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup Label="ProjectConfigurations">
     <ProjectConfiguration Include="Debug|Win32">
       <Configuration>Debug</Configuration>
@@ -11,21 +11,23 @@
     </ProjectConfiguration>
   </ItemGroup>
   <PropertyGroup Label="Globals">
-    <ProjectGUID>{0A9AC623-C6DF-4582-A128-93A0EBBC3878}</ProjectGUID>
+    <ProjectGUID>{99237D39-FD76-4884-968A-C8D3836C59EC}</ProjectGUID>
     <Keyword>Win32Proj</Keyword>
     <Platform>Win32</Platform>
     <ProjectName>cefclient</ProjectName>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
-    <ConfigurationType>DynamicLibrary</ConfigurationType>
+    <ConfigurationType>Application</ConfigurationType>
     <UseOfMfc>false</UseOfMfc>
     <CharacterSet>Unicode</CharacterSet>
+    <PlatformToolset>v140</PlatformToolset>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
     <ConfigurationType>Application</ConfigurationType>
     <UseOfMfc>false</UseOfMfc>
     <CharacterSet>Unicode</CharacterSet>
+    <PlatformToolset>v140</PlatformToolset>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
   <ImportGroup Label="ExtensionSettings">
@@ -39,7 +41,7 @@
     <OutDir Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">D:\projects\CefBridge\cef3_output\cefclient\Debug\</OutDir>
     <IntDir Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">cefclient.dir\Debug\</IntDir>
     <TargetName Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">cefclient</TargetName>
-    <TargetExt Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">.dll</TargetExt>
+    <TargetExt Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">.exe</TargetExt>
     <LinkIncremental Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</LinkIncremental>
     <GenerateManifest Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">false</GenerateManifest>
     <OutDir Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">D:\projects\CefBridge\cef3_output\cefclient\Release\</OutDir>
@@ -56,7 +58,7 @@
       <BasicRuntimeChecks>EnableFastChecks</BasicRuntimeChecks>
       <CompileAs>CompileAsCpp</CompileAs>
       <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
-      <DisableSpecificWarnings>4100;4127;4244;4512;4701;4702;4996;4481;4510;4610;</DisableSpecificWarnings>
+      <DisableSpecificWarnings>4100;4127;4244;4512;4701;4702;4996</DisableSpecificWarnings>
       <ExceptionHandling>
       </ExceptionHandling>
       <FunctionLevelLinking>true</FunctionLevelLinking>
@@ -441,7 +443,7 @@ if %errorlevel% neq 0 goto :VCEnd</Command>
     </ProjectReference>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <CustomBuild Include="..\..\cef3\cefclient\CMakeLists.txt">
+    <CustomBuild Include="D:\projects\CefBridge\cef3\cefclient\CMakeLists.txt">
       <Message Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Building Custom Rule D:/projects/CefBridge/cef3/cefclient/CMakeLists.txt</Message>
       <Command Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">setlocal
 "C:\Program Files (x86)\CMake\bin\cmake.exe" -HD:/projects/CefBridge/cef3 -BD:/projects/CefBridge/cef3_output --check-stamp-file D:\projects\CefBridge\cef3_output\cefclient\CMakeFiles\generate.stamp
@@ -454,6 +456,7 @@ exit /b %1
 if %errorlevel% neq 0 goto :VCEnd</Command>
       <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">D:/projects/CefBridge/cef3/cefclient/CMakeLists.txt;D:\projects\CefBridge\cef3\cefclient\CMakeLists.txt;D:\projects\CefBridge\cef3\cefclient\CMakeLists.txt;%(AdditionalInputs)</AdditionalInputs>
       <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">D:\projects\CefBridge\cef3_output\cefclient\CMakeFiles\generate.stamp</Outputs>
+      <LinkObjects Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">false</LinkObjects>
       <Message Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Building Custom Rule D:/projects/CefBridge/cef3/cefclient/CMakeLists.txt</Message>
       <Command Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">setlocal
 "C:\Program Files (x86)\CMake\bin\cmake.exe" -HD:/projects/CefBridge/cef3 -BD:/projects/CefBridge/cef3_output --check-stamp-file D:\projects\CefBridge\cef3_output\cefclient\CMakeFiles\generate.stamp
@@ -466,130 +469,131 @@ exit /b %1
 if %errorlevel% neq 0 goto :VCEnd</Command>
       <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">D:/projects/CefBridge/cef3/cefclient/CMakeLists.txt;D:\projects\CefBridge\cef3\cefclient\CMakeLists.txt;D:\projects\CefBridge\cef3\cefclient\CMakeLists.txt;%(AdditionalInputs)</AdditionalInputs>
       <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">D:\projects\CefBridge\cef3_output\cefclient\CMakeFiles\generate.stamp</Outputs>
+      <LinkObjects Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">false</LinkObjects>
     </CustomBuild>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="..\..\cef3\cefclient\myext\dll_init.h" />
-    <ClInclude Include="..\..\cef3\cefclient\myext\ExportFuncs.h" />
-    <ClInclude Include="..\..\cef3\cefclient\myext\mycef.h" />
-    <ClInclude Include="..\..\cef3\cefclient\browser\binding_test.h" />
-    <ClInclude Include="..\..\cef3\cefclient\browser\browser_window.h" />
-    <ClInclude Include="..\..\cef3\cefclient\browser\bytes_write_handler.h" />
-    <ClInclude Include="..\..\cef3\cefclient\browser\client_app_browser.h" />
-    <ClInclude Include="..\..\cef3\cefclient\browser\client_handler.h" />
-    <ClInclude Include="..\..\cef3\cefclient\browser\client_handler_osr.h" />
-    <ClInclude Include="..\..\cef3\cefclient\browser\client_handler_std.h" />
-    <ClInclude Include="..\..\cef3\cefclient\browser\client_types.h" />
-    <ClInclude Include="..\..\cef3\cefclient\browser\dialog_test.h" />
-    <ClInclude Include="..\..\cef3\cefclient\browser\geometry_util.h" />
-    <ClInclude Include="..\..\cef3\cefclient\browser\main_context.h" />
-    <ClInclude Include="..\..\cef3\cefclient\browser\main_context_impl.h" />
-    <ClInclude Include="..\..\cef3\cefclient\browser\main_message_loop.h" />
-    <ClInclude Include="..\..\cef3\cefclient\browser\main_message_loop_std.h" />
-    <ClInclude Include="..\..\cef3\cefclient\browser\osr_dragdrop_events.h" />
-    <ClInclude Include="..\..\cef3\cefclient\browser\osr_renderer.h" />
-    <ClInclude Include="..\..\cef3\cefclient\browser\preferences_test.h" />
-    <ClInclude Include="..\..\cef3\cefclient\browser\resource.h" />
-    <ClInclude Include="..\..\cef3\cefclient\browser\resource_util.h" />
-    <ClInclude Include="..\..\cef3\cefclient\browser\response_filter_test.h" />
-    <ClInclude Include="..\..\cef3\cefclient\browser\root_window.h" />
-    <ClInclude Include="..\..\cef3\cefclient\browser\root_window_manager.h" />
-    <ClInclude Include="..\..\cef3\cefclient\browser\scheme_test.h" />
-    <ClInclude Include="..\..\cef3\cefclient\browser\temp_window.h" />
-    <ClInclude Include="..\..\cef3\cefclient\browser\test_runner.h" />
-    <ClInclude Include="..\..\cef3\cefclient\browser\urlrequest_test.h" />
-    <ClInclude Include="..\..\cef3\cefclient\browser\window_test.h" />
-    <ClInclude Include="..\..\cef3\cefclient\common\client_app.h" />
-    <ClInclude Include="..\..\cef3\cefclient\common\client_app_other.h" />
-    <ClInclude Include="..\..\cef3\cefclient\common\client_switches.h" />
-    <ClInclude Include="..\..\cef3\cefclient\common\scheme_test_common.h" />
-    <ClInclude Include="..\..\cef3\cefclient\renderer\client_app_renderer.h" />
-    <ClInclude Include="..\..\cef3\cefclient\renderer\client_renderer.h" />
-    <ClInclude Include="..\..\cef3\cefclient\renderer\performance_test.h" />
-    <ClInclude Include="..\..\cef3\cefclient\renderer\performance_test_setup.h" />
-    <ClInclude Include="..\..\cef3\cefclient\browser\browser_window_osr_win.h" />
-    <ClInclude Include="..\..\cef3\cefclient\browser\browser_window_std_win.h" />
-    <ClInclude Include="..\..\cef3\cefclient\browser\main_message_loop_multithreaded_win.h" />
-    <ClInclude Include="..\..\cef3\cefclient\browser\osr_dragdrop_win.h" />
-    <ClInclude Include="..\..\cef3\cefclient\browser\osr_window_win.h" />
-    <ClInclude Include="..\..\cef3\cefclient\browser\root_window_win.h" />
-    <ClInclude Include="..\..\cef3\cefclient\browser\temp_window_win.h" />
-    <ClInclude Include="..\..\cef3\cefclient\browser\util_win.h" />
-    <ClCompile Include="..\..\cef3\cefclient\myext\dll_init.cpp" />
-    <ClCompile Include="..\..\cef3\cefclient\myext\ExportFuncs.cpp" />
-    <ClCompile Include="..\..\cef3\cefclient\myext\mycef.cc" />
-    <ClCompile Include="..\..\cef3\cefclient\browser\binding_test.cc" />
-    <ClCompile Include="..\..\cef3\cefclient\browser\browser_window.cc" />
-    <ClCompile Include="..\..\cef3\cefclient\browser\bytes_write_handler.cc" />
-    <ClCompile Include="..\..\cef3\cefclient\browser\client_app_browser.cc" />
-    <ClCompile Include="..\..\cef3\cefclient\browser\client_app_delegates_browser.cc" />
-    <ClCompile Include="..\..\cef3\cefclient\browser\client_handler.cc" />
-    <ClCompile Include="..\..\cef3\cefclient\browser\client_handler_osr.cc" />
-    <ClCompile Include="..\..\cef3\cefclient\browser\client_handler_std.cc" />
-    <ClCompile Include="..\..\cef3\cefclient\browser\dialog_test.cc" />
-    <ClCompile Include="..\..\cef3\cefclient\browser\geometry_util.cc" />
-    <ClCompile Include="..\..\cef3\cefclient\browser\main_context.cc" />
-    <ClCompile Include="..\..\cef3\cefclient\browser\main_context_impl.cc" />
-    <ClCompile Include="..\..\cef3\cefclient\browser\main_message_loop.cc" />
-    <ClCompile Include="..\..\cef3\cefclient\browser\main_message_loop_std.cc" />
-    <ClCompile Include="..\..\cef3\cefclient\browser\osr_renderer.cc" />
-    <ClCompile Include="..\..\cef3\cefclient\browser\preferences_test.cc" />
-    <ClCompile Include="..\..\cef3\cefclient\browser\response_filter_test.cc" />
-    <ClCompile Include="..\..\cef3\cefclient\browser\root_window.cc" />
-    <ClCompile Include="..\..\cef3\cefclient\browser\root_window_manager.cc" />
-    <ClCompile Include="..\..\cef3\cefclient\browser\scheme_test.cc" />
-    <ClCompile Include="..\..\cef3\cefclient\browser\test_runner.cc" />
-    <ClCompile Include="..\..\cef3\cefclient\browser\urlrequest_test.cc" />
-    <ClCompile Include="..\..\cef3\cefclient\browser\window_test.cc" />
-    <ClCompile Include="..\..\cef3\cefclient\common\client_app.cc" />
-    <ClCompile Include="..\..\cef3\cefclient\common\client_app_delegates_common.cc" />
-    <ClCompile Include="..\..\cef3\cefclient\common\client_app_other.cc" />
-    <ClCompile Include="..\..\cef3\cefclient\common\client_switches.cc" />
-    <ClCompile Include="..\..\cef3\cefclient\common\scheme_test_common.cc" />
-    <ClCompile Include="..\..\cef3\cefclient\renderer\client_app_delegates_renderer.cc" />
-    <ClCompile Include="..\..\cef3\cefclient\renderer\client_app_renderer.cc" />
-    <ClCompile Include="..\..\cef3\cefclient\renderer\client_renderer.cc" />
-    <ClCompile Include="..\..\cef3\cefclient\renderer\performance_test.cc" />
-    <ClCompile Include="..\..\cef3\cefclient\renderer\performance_test_tests.cc" />
-    <ClCompile Include="..\..\cef3\cefclient\cefclient_win.cc" />
-    <ClCompile Include="..\..\cef3\cefclient\browser\browser_window_osr_win.cc" />
-    <ClCompile Include="..\..\cef3\cefclient\browser\browser_window_std_win.cc" />
-    <ClCompile Include="..\..\cef3\cefclient\browser\main_context_impl_win.cc" />
-    <ClCompile Include="..\..\cef3\cefclient\browser\main_message_loop_multithreaded_win.cc" />
-    <ClCompile Include="..\..\cef3\cefclient\browser\osr_dragdrop_win.cc" />
-    <ClCompile Include="..\..\cef3\cefclient\browser\osr_window_win.cc" />
-    <ClCompile Include="..\..\cef3\cefclient\browser\resource_util_win.cc" />
-    <ClCompile Include="..\..\cef3\cefclient\browser\root_window_win.cc" />
-    <ClCompile Include="..\..\cef3\cefclient\browser\temp_window_win.cc" />
-    <ClCompile Include="..\..\cef3\cefclient\browser\util_win.cc" />
-    <ClCompile Include="..\..\cef3\cefclient\browser\window_test_win.cc" />
-    <ResourceCompile Include="..\..\cef3\cefclient\resources\win\cefclient.rc" />
-    <None Include="..\..\cef3\cefclient\resources\binding.html" />
-    <None Include="..\..\cef3\cefclient\resources\dialogs.html" />
-    <None Include="..\..\cef3\cefclient\resources\localstorage.html" />
-    <Image Include="..\..\cef3\cefclient\resources\logo.png" />
-    <None Include="..\..\cef3\cefclient\resources\osr_test.html" />
-    <None Include="..\..\cef3\cefclient\resources\other_tests.html" />
-    <None Include="..\..\cef3\cefclient\resources\pdf.html" />
-    <None Include="..\..\cef3\cefclient\resources\pdf.pdf" />
-    <None Include="..\..\cef3\cefclient\resources\performance.html" />
-    <None Include="..\..\cef3\cefclient\resources\performance2.html" />
-    <None Include="..\..\cef3\cefclient\resources\preferences.html" />
-    <None Include="..\..\cef3\cefclient\resources\response_filter.html" />
-    <None Include="..\..\cef3\cefclient\resources\transparency.html" />
-    <None Include="..\..\cef3\cefclient\resources\urlrequest.html" />
-    <None Include="..\..\cef3\cefclient\resources\window.html" />
-    <None Include="..\..\cef3\cefclient\resources\xmlhttprequest.html" />
-    <None Include="..\..\cef3\cefclient\resources\win\cefclient.exe.manifest" />
-    <None Include="..\..\cef3\cefclient\resources\win\cefclient.ico" />
-    <None Include="..\..\cef3\cefclient\resources\win\small.ico" />
+    <ClInclude Include="D:\projects\CefBridge\cef3\cefclient\myext\dll_init.h" />
+    <ClInclude Include="D:\projects\CefBridge\cef3\cefclient\myext\ExportFuncs.h" />
+    <ClInclude Include="D:\projects\CefBridge\cef3\cefclient\myext\mycef.h" />
+    <ClInclude Include="D:\projects\CefBridge\cef3\cefclient\browser\binding_test.h" />
+    <ClInclude Include="D:\projects\CefBridge\cef3\cefclient\browser\browser_window.h" />
+    <ClInclude Include="D:\projects\CefBridge\cef3\cefclient\browser\bytes_write_handler.h" />
+    <ClInclude Include="D:\projects\CefBridge\cef3\cefclient\browser\client_app_browser.h" />
+    <ClInclude Include="D:\projects\CefBridge\cef3\cefclient\browser\client_handler.h" />
+    <ClInclude Include="D:\projects\CefBridge\cef3\cefclient\browser\client_handler_osr.h" />
+    <ClInclude Include="D:\projects\CefBridge\cef3\cefclient\browser\client_handler_std.h" />
+    <ClInclude Include="D:\projects\CefBridge\cef3\cefclient\browser\client_types.h" />
+    <ClInclude Include="D:\projects\CefBridge\cef3\cefclient\browser\dialog_test.h" />
+    <ClInclude Include="D:\projects\CefBridge\cef3\cefclient\browser\geometry_util.h" />
+    <ClInclude Include="D:\projects\CefBridge\cef3\cefclient\browser\main_context.h" />
+    <ClInclude Include="D:\projects\CefBridge\cef3\cefclient\browser\main_context_impl.h" />
+    <ClInclude Include="D:\projects\CefBridge\cef3\cefclient\browser\main_message_loop.h" />
+    <ClInclude Include="D:\projects\CefBridge\cef3\cefclient\browser\main_message_loop_std.h" />
+    <ClInclude Include="D:\projects\CefBridge\cef3\cefclient\browser\osr_dragdrop_events.h" />
+    <ClInclude Include="D:\projects\CefBridge\cef3\cefclient\browser\osr_renderer.h" />
+    <ClInclude Include="D:\projects\CefBridge\cef3\cefclient\browser\preferences_test.h" />
+    <ClInclude Include="D:\projects\CefBridge\cef3\cefclient\browser\resource.h" />
+    <ClInclude Include="D:\projects\CefBridge\cef3\cefclient\browser\resource_util.h" />
+    <ClInclude Include="D:\projects\CefBridge\cef3\cefclient\browser\response_filter_test.h" />
+    <ClInclude Include="D:\projects\CefBridge\cef3\cefclient\browser\root_window.h" />
+    <ClInclude Include="D:\projects\CefBridge\cef3\cefclient\browser\root_window_manager.h" />
+    <ClInclude Include="D:\projects\CefBridge\cef3\cefclient\browser\scheme_test.h" />
+    <ClInclude Include="D:\projects\CefBridge\cef3\cefclient\browser\temp_window.h" />
+    <ClInclude Include="D:\projects\CefBridge\cef3\cefclient\browser\test_runner.h" />
+    <ClInclude Include="D:\projects\CefBridge\cef3\cefclient\browser\urlrequest_test.h" />
+    <ClInclude Include="D:\projects\CefBridge\cef3\cefclient\browser\window_test.h" />
+    <ClInclude Include="D:\projects\CefBridge\cef3\cefclient\common\client_app.h" />
+    <ClInclude Include="D:\projects\CefBridge\cef3\cefclient\common\client_app_other.h" />
+    <ClInclude Include="D:\projects\CefBridge\cef3\cefclient\common\client_switches.h" />
+    <ClInclude Include="D:\projects\CefBridge\cef3\cefclient\common\scheme_test_common.h" />
+    <ClInclude Include="D:\projects\CefBridge\cef3\cefclient\renderer\client_app_renderer.h" />
+    <ClInclude Include="D:\projects\CefBridge\cef3\cefclient\renderer\client_renderer.h" />
+    <ClInclude Include="D:\projects\CefBridge\cef3\cefclient\renderer\performance_test.h" />
+    <ClInclude Include="D:\projects\CefBridge\cef3\cefclient\renderer\performance_test_setup.h" />
+    <ClInclude Include="D:\projects\CefBridge\cef3\cefclient\browser\browser_window_osr_win.h" />
+    <ClInclude Include="D:\projects\CefBridge\cef3\cefclient\browser\browser_window_std_win.h" />
+    <ClInclude Include="D:\projects\CefBridge\cef3\cefclient\browser\main_message_loop_multithreaded_win.h" />
+    <ClInclude Include="D:\projects\CefBridge\cef3\cefclient\browser\osr_dragdrop_win.h" />
+    <ClInclude Include="D:\projects\CefBridge\cef3\cefclient\browser\osr_window_win.h" />
+    <ClInclude Include="D:\projects\CefBridge\cef3\cefclient\browser\root_window_win.h" />
+    <ClInclude Include="D:\projects\CefBridge\cef3\cefclient\browser\temp_window_win.h" />
+    <ClInclude Include="D:\projects\CefBridge\cef3\cefclient\browser\util_win.h" />
+    <ClCompile Include="D:\projects\CefBridge\cef3\cefclient\myext\dll_init.cpp" />
+    <ClCompile Include="D:\projects\CefBridge\cef3\cefclient\myext\ExportFuncs.cpp" />
+    <ClCompile Include="D:\projects\CefBridge\cef3\cefclient\myext\mycef.cc" />
+    <ClCompile Include="D:\projects\CefBridge\cef3\cefclient\browser\binding_test.cc" />
+    <ClCompile Include="D:\projects\CefBridge\cef3\cefclient\browser\browser_window.cc" />
+    <ClCompile Include="D:\projects\CefBridge\cef3\cefclient\browser\bytes_write_handler.cc" />
+    <ClCompile Include="D:\projects\CefBridge\cef3\cefclient\browser\client_app_browser.cc" />
+    <ClCompile Include="D:\projects\CefBridge\cef3\cefclient\browser\client_app_delegates_browser.cc" />
+    <ClCompile Include="D:\projects\CefBridge\cef3\cefclient\browser\client_handler.cc" />
+    <ClCompile Include="D:\projects\CefBridge\cef3\cefclient\browser\client_handler_osr.cc" />
+    <ClCompile Include="D:\projects\CefBridge\cef3\cefclient\browser\client_handler_std.cc" />
+    <ClCompile Include="D:\projects\CefBridge\cef3\cefclient\browser\dialog_test.cc" />
+    <ClCompile Include="D:\projects\CefBridge\cef3\cefclient\browser\geometry_util.cc" />
+    <ClCompile Include="D:\projects\CefBridge\cef3\cefclient\browser\main_context.cc" />
+    <ClCompile Include="D:\projects\CefBridge\cef3\cefclient\browser\main_context_impl.cc" />
+    <ClCompile Include="D:\projects\CefBridge\cef3\cefclient\browser\main_message_loop.cc" />
+    <ClCompile Include="D:\projects\CefBridge\cef3\cefclient\browser\main_message_loop_std.cc" />
+    <ClCompile Include="D:\projects\CefBridge\cef3\cefclient\browser\osr_renderer.cc" />
+    <ClCompile Include="D:\projects\CefBridge\cef3\cefclient\browser\preferences_test.cc" />
+    <ClCompile Include="D:\projects\CefBridge\cef3\cefclient\browser\response_filter_test.cc" />
+    <ClCompile Include="D:\projects\CefBridge\cef3\cefclient\browser\root_window.cc" />
+    <ClCompile Include="D:\projects\CefBridge\cef3\cefclient\browser\root_window_manager.cc" />
+    <ClCompile Include="D:\projects\CefBridge\cef3\cefclient\browser\scheme_test.cc" />
+    <ClCompile Include="D:\projects\CefBridge\cef3\cefclient\browser\test_runner.cc" />
+    <ClCompile Include="D:\projects\CefBridge\cef3\cefclient\browser\urlrequest_test.cc" />
+    <ClCompile Include="D:\projects\CefBridge\cef3\cefclient\browser\window_test.cc" />
+    <ClCompile Include="D:\projects\CefBridge\cef3\cefclient\common\client_app.cc" />
+    <ClCompile Include="D:\projects\CefBridge\cef3\cefclient\common\client_app_delegates_common.cc" />
+    <ClCompile Include="D:\projects\CefBridge\cef3\cefclient\common\client_app_other.cc" />
+    <ClCompile Include="D:\projects\CefBridge\cef3\cefclient\common\client_switches.cc" />
+    <ClCompile Include="D:\projects\CefBridge\cef3\cefclient\common\scheme_test_common.cc" />
+    <ClCompile Include="D:\projects\CefBridge\cef3\cefclient\renderer\client_app_delegates_renderer.cc" />
+    <ClCompile Include="D:\projects\CefBridge\cef3\cefclient\renderer\client_app_renderer.cc" />
+    <ClCompile Include="D:\projects\CefBridge\cef3\cefclient\renderer\client_renderer.cc" />
+    <ClCompile Include="D:\projects\CefBridge\cef3\cefclient\renderer\performance_test.cc" />
+    <ClCompile Include="D:\projects\CefBridge\cef3\cefclient\renderer\performance_test_tests.cc" />
+    <ClCompile Include="D:\projects\CefBridge\cef3\cefclient\cefclient_win.cc" />
+    <ClCompile Include="D:\projects\CefBridge\cef3\cefclient\browser\browser_window_osr_win.cc" />
+    <ClCompile Include="D:\projects\CefBridge\cef3\cefclient\browser\browser_window_std_win.cc" />
+    <ClCompile Include="D:\projects\CefBridge\cef3\cefclient\browser\main_context_impl_win.cc" />
+    <ClCompile Include="D:\projects\CefBridge\cef3\cefclient\browser\main_message_loop_multithreaded_win.cc" />
+    <ClCompile Include="D:\projects\CefBridge\cef3\cefclient\browser\osr_dragdrop_win.cc" />
+    <ClCompile Include="D:\projects\CefBridge\cef3\cefclient\browser\osr_window_win.cc" />
+    <ClCompile Include="D:\projects\CefBridge\cef3\cefclient\browser\resource_util_win.cc" />
+    <ClCompile Include="D:\projects\CefBridge\cef3\cefclient\browser\root_window_win.cc" />
+    <ClCompile Include="D:\projects\CefBridge\cef3\cefclient\browser\temp_window_win.cc" />
+    <ClCompile Include="D:\projects\CefBridge\cef3\cefclient\browser\util_win.cc" />
+    <ClCompile Include="D:\projects\CefBridge\cef3\cefclient\browser\window_test_win.cc" />
+    <ResourceCompile Include="D:\projects\CefBridge\cef3\cefclient\resources\win\cefclient.rc" />
+    <None Include="D:\projects\CefBridge\cef3\cefclient\resources\binding.html" />
+    <None Include="D:\projects\CefBridge\cef3\cefclient\resources\dialogs.html" />
+    <None Include="D:\projects\CefBridge\cef3\cefclient\resources\localstorage.html" />
+    <Image Include="D:\projects\CefBridge\cef3\cefclient\resources\logo.png" />
+    <None Include="D:\projects\CefBridge\cef3\cefclient\resources\osr_test.html" />
+    <None Include="D:\projects\CefBridge\cef3\cefclient\resources\other_tests.html" />
+    <None Include="D:\projects\CefBridge\cef3\cefclient\resources\pdf.html" />
+    <None Include="D:\projects\CefBridge\cef3\cefclient\resources\pdf.pdf" />
+    <None Include="D:\projects\CefBridge\cef3\cefclient\resources\performance.html" />
+    <None Include="D:\projects\CefBridge\cef3\cefclient\resources\performance2.html" />
+    <None Include="D:\projects\CefBridge\cef3\cefclient\resources\preferences.html" />
+    <None Include="D:\projects\CefBridge\cef3\cefclient\resources\response_filter.html" />
+    <None Include="D:\projects\CefBridge\cef3\cefclient\resources\transparency.html" />
+    <None Include="D:\projects\CefBridge\cef3\cefclient\resources\urlrequest.html" />
+    <None Include="D:\projects\CefBridge\cef3\cefclient\resources\window.html" />
+    <None Include="D:\projects\CefBridge\cef3\cefclient\resources\xmlhttprequest.html" />
+    <None Include="D:\projects\CefBridge\cef3\cefclient\resources\win\cefclient.exe.manifest" />
+    <None Include="D:\projects\CefBridge\cef3\cefclient\resources\win\cefclient.ico" />
+    <None Include="D:\projects\CefBridge\cef3\cefclient\resources\win\small.ico" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="D:/projects/CefBridge/cef3_output/ZERO_CHECK.vcxproj">
-      <Project>6BF89105-710A-432D-A988-0E4885963820</Project>
+      <Project>04E74E85-5866-4D3B-AA97-DE60C6C02BDD</Project>
     </ProjectReference>
     <ProjectReference Include="D:/projects/CefBridge/cef3_output/libcef_dll/libcef_dll_wrapper.vcxproj">
-      <Project>345BFB10-C141-4199-AFDD-F56037CC73F4</Project>
+      <Project>C310C020-BD40-4220-A4AF-02CF585374A2</Project>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

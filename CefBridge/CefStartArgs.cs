@@ -7,6 +7,15 @@ namespace LayoutFarm.CefBridge
         public string ProcessType { get; private set; }
 
         private CefStartArgs() { }
+#if DEBUG
+        public bool dbugIsInRenderProcess
+        {
+            get
+            {
+                return Cef3Binder.s_dbugIsRendererProcess;
+            }
+        }
+#endif    
         internal static CefStartArgs Parse(string[] startupArgs)
         {
             var cefStartArgs = new CefStartArgs();
