@@ -33,6 +33,7 @@
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="Cef3Binder.cs" />
+    <Compile Include="Cef3InitEssential.cs" />
     <Compile Include="CefStartArgs.cs" />
     <Compile Include="ClientApp.cs" />
     <Compile Include="CustomSchemeAgent.cs" />

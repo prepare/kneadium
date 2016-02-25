@@ -118,10 +118,10 @@ namespace LayoutFarm.CefBridge
         {
 
 #if DEBUG
-            if (Cef3Binder.s_dbugIsRendererProcess)
-            {
-                System.Diagnostics.Debugger.Break();
-            }
+            //if (Cef3Binder.s_dbugIsRendererProcess)
+            //{
+            //    System.Diagnostics.Debugger.Break();
+            //}
 #endif
             var nativeCallArgs = new NativeCallArgs(argsPtr);
             nativeCallArgs.SetOutput(0, "hello from managed side !");
