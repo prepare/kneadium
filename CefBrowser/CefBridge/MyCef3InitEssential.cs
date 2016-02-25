@@ -76,9 +76,7 @@ namespace CefBridgeTest
         {
 
             CefClientApp clientApp = new CefClientApp(System.Diagnostics.Process.GetCurrentProcess().Handle);
-
-
-
+            clientApp.RenderProcessListener = new MyCefRenderListener();
             return clientApp;
         }
 
@@ -90,8 +88,9 @@ namespace CefBridgeTest
             System.Threading.Thread.CurrentThread.CurrentCulture = new System.Globalization.CultureInfo("en-us");
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-
             //-------------------------------------------------
+
+
             if (tinyForm == null)
             {
                 tinyForm = new System.Windows.Forms.Form();

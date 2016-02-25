@@ -21,7 +21,7 @@ namespace LayoutFarm.CefBridge
         IWindowForm topForm;
         IWindowForm devForm;
         MyCefDevWindow cefDevWindow;
-
+        MyCefBrowserListener browserProcessListener;
 
         static Dictionary<IntPtr, List<MyCefBrowser>> registeredWbControls =
                     new Dictionary<IntPtr, List<MyCefBrowser>>();
@@ -45,6 +45,11 @@ namespace LayoutFarm.CefBridge
 
             //register mycef browser
             RegisterCefWbControl(this);
+        }
+        public MyCefBrowserListener Listener
+        {
+            get { return browserProcessListener; }
+            set { browserProcessListener = value; }
         }
 
         public IWindowControl ParentControl { get { return this.parentControl; } }
@@ -93,20 +98,17 @@ namespace LayoutFarm.CefBridge
                     break;
                 case 104:
                     {
-                        Cef3Binder.SafeUIInvoke(
-                            () =>
-                            {
+                        Cef3Binder.SafeUIInvoke(() =>
+                        {
+                            NativeCallArgs args = new NativeCallArgs(argsPtr);
+                            string url = args.GetArgAsString(0);
+                            IWindowForm form = Cef3Binder.CreateNewBrowserWindow(800, 600);
+                            form.Show();
+                            //and navigate to a specific url
+                            //TODO: review here
 
-
-                                NativeCallArgs args = new NativeCallArgs(argsPtr);
-                                string url = args.GetArgAsString(0);
-                                IWindowForm form = Cef3Binder.CreateNewBrowserWindow(800, 600);
-                                form.Show();
-                                //and navigate to a specific url
-                                //TODO: review here
-
-                                args.Dispose();
-                            });
+                            args.Dispose();
+                        });
 
                     }
                     break;
@@ -114,11 +116,11 @@ namespace LayoutFarm.CefBridge
                     {
                         //console.log ...
 
-                        NativeCallArgs args = new NativeCallArgs(argsPtr);
-                        string msg = args.GetArgAsString(0);
-                        string src = args.GetArgAsString(1);
-                        string location = args.GetArgAsString(2);
-                        Console.WriteLine(msg);
+                        if (browserProcessListener != null)
+                        {
+                            NativeCallArgs args = new NativeCallArgs(argsPtr);
+                            browserProcessListener.OnConsoleLog(args);
+                        }
 
                     }
                     break;
@@ -127,7 +129,6 @@ namespace LayoutFarm.CefBridge
                         //show dev tools
                         Cef3Binder.SafeUIInvoke(() =>
                         {
-
                             IWindowForm newPopupForm = Cef3Binder.CreateNewBrowserWindow(800, 600);
                             newPopupForm.Show();
                         });
@@ -136,12 +137,15 @@ namespace LayoutFarm.CefBridge
                     break;
 
                 case 140:
-                    //setup resource mx
                     {
+                        //setup resource mx
+                        if (browserProcessListener != null)
+                        {
 
-                        var args = new NativeCallArgs(argsPtr);
-                        var resourceMx = new NativeResourceMx(args.GetArgAsNativePtr(0));
-                        AddResourceProvider(resourceMx);
+                            var args = new NativeCallArgs(argsPtr);
+                            var resourceMx = new NativeResourceMx(args.GetArgAsNativePtr(0));
+                            browserProcessListener.OnAddResourceMx(resourceMx);
+                        }
                     }
                     break;
 
@@ -149,35 +153,21 @@ namespace LayoutFarm.CefBridge
                     {
 
                         //filter url name
-                        var args = new NativeCallArgs(argsPtr);
-                        string reqUrl = args.GetArgAsString(0);
-                        if (reqUrl.StartsWith("http://localhost/index2"))
+                        if (browserProcessListener != null)
                         {
-                            //eg. how to fix request url
-
-                            args.SetOutput(0, 1);
-                            //return url-in ascii form 
-                            var utf8Buffer = Encoding.ASCII.GetBytes("http://localhost/index2.html");
-                            args.SetOutput(1, utf8Buffer);
+                            var args = new NativeCallArgs(argsPtr);
+                            browserProcessListener.OnFilterUrl(args);
                         }
+
                     }
                     break;
                 case 145:
                     {
                         //request for binary resource
-                        var args = new NativeCallArgs(argsPtr);
-                        string url = args.GetArgAsString(0);
-                        if (url == "http://localhost/hello_img" && File.Exists("prepare.jpg"))
+                        if (browserProcessListener != null)
                         {
-                            //load sample image and the send to client
-                            byte[] img = File.ReadAllBytes("prepare.jpg");
-                            int imgLen = img.Length;
-                            IntPtr unmanagedPtr = Marshal.AllocHGlobal(imgLen);
-                            Marshal.Copy(img, 0, unmanagedPtr, imgLen);
-
-                            args.SetOutput(0, 1);
-                            args.UnsafeSetOutput(1, unmanagedPtr, imgLen);
-                            args.SetOutputAsAsciiString(2, "image/jpeg");
+                            var args = new NativeCallArgs(argsPtr);
+                            browserProcessListener.OnRequestForBinaryResource(args);
                         }
                     }
                     break;
@@ -185,9 +175,12 @@ namespace LayoutFarm.CefBridge
                 //eg. from cefQuery --> 
                 case 205:
                     {
-                        var args = new NativeCallArgs(argsPtr);
-                        QueryRequestArgs reqArgs = QueryRequestArgs.CreateRequest(args.GetArgAsNativePtr(0));
-                        HandleCefQueryRequest(args, reqArgs);
+                        if (browserProcessListener != null)
+                        {
+                            var args = new NativeCallArgs(argsPtr);
+                            QueryRequestArgs reqArgs = QueryRequestArgs.CreateRequest(args.GetArgAsNativePtr(0));
+                            browserProcessListener.OnCefQuery(args, reqArgs);
+                        }
 
                     }
                     break;
@@ -195,25 +188,8 @@ namespace LayoutFarm.CefBridge
 
         }
 
-        void HandleCefQueryRequest(NativeCallArgs nativeArgs, QueryRequestArgs reqArgs)
-        {
-
-            //filter url  before get actual resource
-            string frameUrl = reqArgs.GetFrameUrl();
-            string getRequest = reqArgs.GetRequest();
-            string result = "hello!";
-
-            byte[] resultBuffer = Encoding.UTF8.GetBytes(result);
-            nativeArgs.SetOutput(0, resultBuffer);
-
-        }
-        void AddResourceProvider(NativeResourceMx resourceMx)
-        {
-            var resProvider = new ResourceProvider();
-            resourceMx.AddResourceProvider(resProvider);
 
 
-        }
         public void NavigateTo(string url)
         {
             Cef3Binder.MyCefBwNavigateTo(this.myCefBrowser, url);
@@ -264,62 +240,6 @@ namespace LayoutFarm.CefBridge
             Cef3Binder.MyCefDomGetTextWalk(this.myCefBrowser, strCallback);
         }
 
-        //void OnUnmanagedPartCallBack(int id, IntPtr callBackArgs)
-        //{
-
-        //    switch ((MethodName)id)
-        //    {
-        //        case MethodName.MET_GetResourceHandler:
-        //            {
-        //                GetResourceHandler(new ResourceRequestArg(
-        //                    new NativeCallArgs(callBackArgs)));
-        //            }
-        //            break;
-        //        case MethodName.MET_TCALLBACK:
-        //            {
-        //                //Console.WriteLine("TCALLBACK");
-        //            }
-        //            break;
-        //    }
-        //}
-        //protected virtual void GetResourceHandler(ResourceRequestArg req)
-        //{
-        //    //sample here
-        //    string requestURL = req.RequestUrl;
-        //    //test change content here 
-        //    if (requestURL.StartsWith("http://www.google.com"))
-        //    {
-        //        req.SetResponseData("text/html", @"<http><body>Hello!</body></http>");
-        //    }
-        //}
-
-        //public class ResourceRequestArg
-        //{
-        //    NativeCallArgs nativeArgs;
-        //    internal ResourceRequestArg(NativeCallArgs nativeArgs)
-        //    {
-        //        this.nativeArgs = nativeArgs;
-        //    }
-        //    public string RequestUrl
-        //    {
-        //        get
-        //        {
-        //            return this.nativeArgs.GetArgAsString(0);
-        //        }
-        //    }
-        //    public void SetResponseData(string mime, string str)
-        //    {
-        //        nativeArgs.SetOutput(0, mime);
-        //        var utf8Buffer = Encoding.UTF8.GetBytes(str.ToCharArray());
-        //        nativeArgs.SetOutput(1, utf8Buffer);
-        //    }
-        //    public void SetResponseData(string mime, byte[] dataBuffer)
-        //    {
-        //        nativeArgs.SetOutput(0, mime);
-        //        nativeArgs.SetOutput(1, dataBuffer);
-        //    }
-        //}
-
         public void Stop()
         {
             Cef3Binder.MyCefBwStop(myCefBrowser);
@@ -354,18 +274,9 @@ namespace LayoutFarm.CefBridge
                     devForm.GetHandle());
             }
         }
-        //---------
-        //map with unmanaged part
-        enum MethodName
-        {
-            MET_GetResourceHandler = 2,
-            MET_TCALLBACK = 3
-        }
-
-        //------------------------------
 
         static readonly object sync_remove = new object();
-        internal static void RegisterCefWbControl(MyCefBrowser cefWb)
+        static void RegisterCefWbControl(MyCefBrowser cefWb)
         {
             //register this control with parent form
             var ownerForm = (IWindowForm)cefWb.ParentControl.GetTopLevelControl();
@@ -431,6 +342,62 @@ namespace LayoutFarm.CefBridge
             }
         }
 
+
+        //void OnUnmanagedPartCallBack(int id, IntPtr callBackArgs)
+        //{
+
+        //    switch ((MethodName)id)
+        //    {
+        //        case MethodName.MET_GetResourceHandler:
+        //            {
+        //                GetResourceHandler(new ResourceRequestArg(
+        //                    new NativeCallArgs(callBackArgs)));
+        //            }
+        //            break;
+        //        case MethodName.MET_TCALLBACK:
+        //            {
+        //                //Console.WriteLine("TCALLBACK");
+        //            }
+        //            break;
+        //    }
+        //}
+        //protected virtual void GetResourceHandler(ResourceRequestArg req)
+        //{
+        //    //sample here
+        //    string requestURL = req.RequestUrl;
+        //    //test change content here 
+        //    if (requestURL.StartsWith("http://www.google.com"))
+        //    {
+        //        req.SetResponseData("text/html", @"<http><body>Hello!</body></http>");
+        //    }
+        //}
+
+        //public class ResourceRequestArg
+        //{
+        //    NativeCallArgs nativeArgs;
+        //    internal ResourceRequestArg(NativeCallArgs nativeArgs)
+        //    {
+        //        this.nativeArgs = nativeArgs;
+        //    }
+        //    public string RequestUrl
+        //    {
+        //        get
+        //        {
+        //            return this.nativeArgs.GetArgAsString(0);
+        //        }
+        //    }
+        //    public void SetResponseData(string mime, string str)
+        //    {
+        //        nativeArgs.SetOutput(0, mime);
+        //        var utf8Buffer = Encoding.UTF8.GetBytes(str.ToCharArray());
+        //        nativeArgs.SetOutput(1, utf8Buffer);
+        //    }
+        //    public void SetResponseData(string mime, byte[] dataBuffer)
+        //    {
+        //        nativeArgs.SetOutput(0, mime);
+        //        nativeArgs.SetOutput(1, dataBuffer);
+        //    }
+        //}
 
     }
 

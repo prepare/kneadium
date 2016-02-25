@@ -19,6 +19,7 @@ namespace LayoutFarm.CefBridge
         MyCefBrowser cefBrowser;
         IWindowControl thisWindowControl;
         string initUrl = "http://localhost";
+        MyCefBrowserListener cefBrowserListener;
 
         public CefWebBrowserControl()
         {
@@ -53,6 +54,7 @@ namespace LayoutFarm.CefBridge
             get { return this.initUrl; }
             set { this.initUrl = value; }
         }
+
         public void NavigateTo(string url)
         {
             this.cefBrowser.NavigateTo(url);
@@ -64,18 +66,29 @@ namespace LayoutFarm.CefBridge
 
         protected override void OnHandleCreated(EventArgs e)
         {
-            base.OnHandleCreated(e); 
-            if (DesignMode)
+            base.OnHandleCreated(e);
+            if (!DesignMode)
             {
-                //if (!_handleCreated) Paint += PaintInDesignMode;
-            }
-            else
-            { 
                 //create cef browser when handle is created
-                this.cefBrowser = new MyCefBrowser(thisWindowControl, 0, 0, 800, 500, initUrl); 
+                this.cefBrowser = new MyCefBrowser(thisWindowControl, 0, 0, 800, 500, initUrl);
+                if (cefBrowserListener != null)
+                {
+                    cefBrowser.Listener = cefBrowserListener;
+                }
             }
         }
-
+        public MyCefBrowserListener CefBrowserListener
+        {
+            get { return cefBrowserListener; }
+            set
+            {
+                cefBrowserListener = value;
+                if (cefBrowser != null)
+                {
+                    cefBrowser.Listener = value;
+                }
+            }
+        }
 
         //internal void BrowserAfterCreated(CefBrowser browser)
         //{
@@ -84,17 +97,17 @@ namespace LayoutFarm.CefBridge
         //    //ResizeWindow(_browserWindowHandle, Width, Height);
         //}
 
-        internal void OnTitleChanged(string title)
-        {
-            Title = title;
+        //internal void OnTitleChanged(string title)
+        //{
+        //    Title = title;
 
-            var handler = TitleChanged;
-            if (handler != null) handler(this, EventArgs.Empty);
-        }
+        //    var handler = TitleChanged;
+        //    if (handler != null) handler(this, EventArgs.Empty);
+        //}
 
-        public string Title { get; private set; }
+        //public string Title { get; private set; }
 
-        public event EventHandler TitleChanged;
+        //public event EventHandler TitleChanged;
 
         //internal void OnAddressChanged(string address)
         //{
@@ -104,9 +117,9 @@ namespace LayoutFarm.CefBridge
         //    if (handler != null) handler(this, EventArgs.Empty);
         //}
 
-        public string Address { get; private set; }
+        //public string Address { get; private set; }
 
-        public event EventHandler AddressChanged;
+        //public event EventHandler AddressChanged;
 
         //internal void OnStatusMessage(string value)
         //{
@@ -122,16 +135,16 @@ namespace LayoutFarm.CefBridge
         //    base.OnPaint(e);
         //    e.Graphics.DrawRectangle(Pens.Red, new Rectangle(0, 0, 20, 20));
         //}
-        protected override void OnResize(EventArgs e)
-        {
-            base.OnResize(e);
+        //protected override void OnResize(EventArgs e)
+        //{
+        //    base.OnResize(e);
 
-            //var form = TopLevelControl as Form;
-            //if (form != null && form.WindowState != FormWindowState.Minimized)
-            //{
-            //    ResizeWindow(_browserWindowHandle, Width, Height);
-            //}
-        }
+        //    //var form = TopLevelControl as Form;
+        //    //if (form != null && form.WindowState != FormWindowState.Minimized)
+        //    //{
+        //    //    ResizeWindow(_browserWindowHandle, Width, Height);
+        //    //}
+        //}
 
         //private void PaintInDesignMode(object sender, PaintEventArgs e)
         //{

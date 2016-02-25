@@ -1,6 +1,5 @@
 ﻿//2015-2016 MIT, WinterDev
 using System;
-using System.Collections.Generic;
 
 namespace LayoutFarm.CefBridge
 {
@@ -14,6 +13,7 @@ namespace LayoutFarm.CefBridge
         static readonly object sync_ = new object();
 
         MyCefCallback mxCallback;
+        MyCefRenderListener renderProcessListener;
 
 
 
@@ -55,34 +55,13 @@ namespace LayoutFarm.CefBridge
         }
 
 
-
-        void RenderProcessOnContextCreated(NativeCallArgs args)
+        public MyCefRenderListener RenderProcessListener
         {
-
-            //test function on render process
-
-            var clientRenderApp = new NativeRendererApp(args.GetArgAsNativePtr(0));
-            var browser = new NativeBrowser(args.GetArgAsNativePtr(1));
-            var context = new NativeJsContext(args.GetArgAsNativePtr(2));
-
-
-            CefV8Value cefV8Global = context.GetGlobal();
-            Cef3FuncHandler funcHandler = Cef3FuncHandler.CreateFuncHandler(Test001);
-            Cef3Func func = Cef3Func.CreateFunc("test001", funcHandler);
-            cefV8Global.Set("test001", func);
-        }
-        void Test001(int id, IntPtr argsPtr)
-        {
-
-#if DEBUG
-            if (Cef3Binder.s_dbugIsRendererProcess)
+            get { return renderProcessListener; }
+            set
             {
-                System.Diagnostics.Debugger.Break();
+                renderProcessListener = value;
             }
-#endif
-            var nativeCallArgs = new NativeCallArgs(argsPtr);
-            nativeCallArgs.SetOutput(0, "hello from managed side !");
-
         }
         void MxCallBack(int id, IntPtr argsPtr)
         {
@@ -132,13 +111,11 @@ namespace LayoutFarm.CefBridge
                 case 106:
                     {
                         //console.log ...
-
-                        NativeCallArgs args = new NativeCallArgs(argsPtr);
-                        string msg = args.GetArgAsString(0);
-                        string src = args.GetArgAsString(1);
-                        string location = args.GetArgAsString(2);
-                        Console.WriteLine(msg);
-
+                        if (renderProcessListener != null)
+                        {
+                            NativeCallArgs args = new NativeCallArgs(argsPtr);
+                            renderProcessListener.OnConsoleLog(args);
+                        }
                     }
                     break;
                 case 107:
@@ -160,16 +137,13 @@ namespace LayoutFarm.CefBridge
                         //we can register external methods  for window object here.
                         //NativeMethods.MessageBox(IntPtr.Zero, id.ToString(), "NN2", 0);
 
-#if DEBUG
-                        //if you want to stop on RenderProcess
-                        if (Cef3Binder.s_dbugIsRendererProcess)
+                        if (renderProcessListener != null)
                         {
-                            System.Diagnostics.Debugger.Break();
+                            NativeCallArgs args = new NativeCallArgs(argsPtr);
+                            renderProcessListener.OnCreateContext(args);
                         }
-#endif
 
-                        NativeCallArgs args = new NativeCallArgs(argsPtr);
-                        RenderProcessOnContextCreated(args);
+
                     }
                     break;
             }

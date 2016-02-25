@@ -18,10 +18,17 @@ namespace CefBridgeTest
         LayoutFarm.CefBridge.MyWindowForm nativeWindow;
         public Form1()
         {
-
             InitializeComponent();
             nativeWindow = new LayoutFarm.CefBridge.MyWindowForm(this);
+
+            this.Load += Form1_Load1;
         }
+
+        private void Form1_Load1(object sender, EventArgs e)
+        {
+            this.cefWebBrowser1.Agent.Listener = new LayoutFarm.CefBridge.MyCefBrowserListener();
+        }
+
         private void button7_Click(object sender, EventArgs e)
         {
 
