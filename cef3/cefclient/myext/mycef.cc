@@ -41,6 +41,41 @@ void MethodArgs::SetArgAsString(int argIndex, const wchar_t* str)
 	}break;
 	}
 }
+void MethodArgs::SetArgAsInt32(int argIndex,const int32_t value)
+{
+	switch (argIndex) {
+	case 0:
+	{
+		this->arg0.type = JSVALUE_TYPE_INTEGER;
+		this->arg0.length = sizeof(int32_t);
+		this->arg0.value.i32 = value;
+	}break;
+	case 1:
+	{
+		this->arg1.type = JSVALUE_TYPE_INTEGER;
+		this->arg1.length = sizeof(int32_t);
+		this->arg1.value.i32 = value;
+	}break;
+	case 2:
+	{
+		this->arg2.type = JSVALUE_TYPE_INTEGER;
+		this->arg2.length = sizeof(int32_t);
+		this->arg2.value.i32 = value;
+	}break;
+	case 3:
+	{
+		this->arg3.type = JSVALUE_TYPE_INTEGER;
+		this->arg3.length = sizeof(int32_t);
+		this->arg3.value.i32 = value;
+	}break;
+	case 4:
+	{
+		this->arg4.type = JSVALUE_TYPE_STRING;
+		this->arg4.length = sizeof(int32_t);
+		this->arg4.value.i32 = value;
+	}break;
+	}
+}
 void MethodArgs::SetArgAsNativeObject(int argIndex, const void* nativeObject)
 {
 	switch (argIndex) {
@@ -104,7 +139,7 @@ int MethodArgs::ReadOutputAsInt32(int resultIndex) {
 		{
 		case JSVALUE_TYPE_INTEGER:
 			//unicode string
-			return this->result0.value.i32; 
+			return this->result0.value.i32;
 		}
 	}break;
 	case 1:

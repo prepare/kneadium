@@ -64,7 +64,7 @@ namespace LayoutFarm.CefBridge
             if (nativeModule == IntPtr.Zero)
             {
                 return false;
-            } 
+            }
             //-----------------------------------------------------------
             //check start up process to see if what is this process
             //browser process
@@ -74,7 +74,7 @@ namespace LayoutFarm.CefBridge
             if (startArgs.Length > 0)
             {
                 CefStartArgs cefStartArg = CefStartArgs.Parse(startArgs);
-                Cef3InitEssential.IsInRenderProcess = (cefStartArg.IsValidCefArgs && cefStartArg.ProcessType == "renderer");                
+                Cef3InitEssential.IsInRenderProcess = (cefStartArg.IsValidCefArgs && cefStartArg.ProcessType == "renderer");
                 cefInitEssential.AfterProcessLoaded(cefStartArg);
             }
 
@@ -168,7 +168,7 @@ namespace LayoutFarm.CefBridge
         //3.1
         [DllImport(CEF_CLIENT_DLL, CallingConvention = CallingConvention.Cdecl)]
         public static extern void MyCefEnableKeyIntercept(IntPtr myCefBrowser, int enable);
-        
+
 
         //4. 
         [DllImport(CEF_CLIENT_DLL, CallingConvention = CallingConvention.Cdecl)]
@@ -259,7 +259,7 @@ namespace LayoutFarm.CefBridge
 
 
 
-        //part 4
+        //part 4 js binding
         [DllImport(CEF_CLIENT_DLL, CallingConvention = CallingConvention.Cdecl)]
         internal static extern IntPtr MyCefJsGetGlobal(IntPtr jsContext);
 
@@ -285,6 +285,11 @@ namespace LayoutFarm.CefBridge
         public static extern unsafe void MyCefString_Read(IntPtr cefStr, char* outputBuffer, int outputBufferLen, ref int actualLength);
         [DllImport(CEF_CLIENT_DLL, CallingConvention = CallingConvention.Cdecl)]
         public static extern unsafe void MyCefStringHolder_Read(IntPtr mycefStrHolder, char* outputBuffer, int outputBufferLen, ref int actualLength);
+
+        [DllImport(CEF_CLIENT_DLL, CallingConvention = CallingConvention.Cdecl)]
+        public static extern int MyCefJs_MetReadArgAsInt32(IntPtr jsArgs, int index);
+        [DllImport(CEF_CLIENT_DLL, CallingConvention = CallingConvention.Cdecl)]
+        public static extern unsafe void MyCefJs_MetReadArgAsString(IntPtr jsArgs, int index, char* outputBuffer, int outputBufferLen, ref int actualLength);
 
     }
 

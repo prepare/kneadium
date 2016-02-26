@@ -2,7 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Text;
-using System.Runtime.InteropServices; 
+using System.Runtime.InteropServices;
 
 namespace LayoutFarm.CefBridge
 {
@@ -97,11 +97,16 @@ namespace LayoutFarm.CefBridge
                 return Marshal.PtrToStringUni(v.Ptr);
             }
         }
+        public int GetArgAsInt32(int index)
+        {
+            JsValue v = Cef3Binder.MyCefNativeMetGetArgs(_argPtr, index);
+
+            return v.I32;
+        }
         public IntPtr GetArgAsNativePtr(int index)
         {
             JsValue v = Cef3Binder.MyCefNativeMetGetArgs(_argPtr, index);
             return v.Ptr;
-
         }
         public void SetOutput(int index, string str)
         {
@@ -158,9 +163,32 @@ namespace LayoutFarm.CefBridge
                 JsValue jsvalue = new JsValue();
                 jsvalue.Ptr = nativePtr;
                 Cef3Binder.MyCefMetArgs_SetResultAsJsValue(this.argPtr, 0, (IntPtr)(&jsvalue));
-
             }
         }
     }
+    public struct JsMetArgs
+    {
+        IntPtr argPtr;
+        public JsMetArgs(IntPtr argPtr)
+        {
+            this.argPtr = argPtr;
+        }
+        public string ReadArgAsString(int index)
+        {
 
+            //Cef3Binder.MyCefJs_MetReadArgAsString(this.argPtr,index,)
+            int acutalLen = 0;
+            unsafe
+            {
+                int BUFF_LEN = 256;
+                char* buffHead = stackalloc char[BUFF_LEN];
+                Cef3Binder.MyCefJs_MetReadArgAsString(argPtr,index, buffHead, BUFF_LEN, ref acutalLen);
+                if (acutalLen > BUFF_LEN)
+                {
+                    //read more
+                }
+                return new string(buffHead, 0, acutalLen);
+            }
+        }
+    }
 }

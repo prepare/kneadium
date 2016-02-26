@@ -97,8 +97,8 @@ client::ClientApp* MyCefCreateClientApp(HINSTANCE hInstance)
 }
 
 //3.1 
-MY_DLL_EXPORT void MyCefEnableKeyIntercept(MyBrowser* myBw, int enable){
-	auto clientHandle= myBw->bwWindow->GetClientHandler();
+MY_DLL_EXPORT void MyCefEnableKeyIntercept(MyBrowser* myBw, int enable) {
+	auto clientHandle = myBw->bwWindow->GetClientHandler();
 	clientHandle->MyCefEnableKeyIntercept(enable);
 }
 
@@ -194,8 +194,8 @@ void MyCefDomGetTextWalk(MyBrowser* myBw, managed_callback strCallBack)
 	class Visitor : public CefStringVisitor {
 	public:
 		managed_callback mcallback;
-		explicit Visitor(CefRefPtr<CefBrowser> browser) : browser_(browser) {  
-			mcallback= NULL;
+		explicit Visitor(CefRefPtr<CefBrowser> browser) : browser_(browser) {
+			mcallback = NULL;
 		}
 		virtual void Visit(const CefString& string) OVERRIDE {
 
@@ -224,7 +224,7 @@ void MyCefDomGetSourceWalk(MyBrowser* myBw, managed_callback strCallBack)
 	public:
 		managed_callback mcallback;
 		explicit Visitor(CefRefPtr<CefBrowser> browser) : browser_(browser) {
-				 mcallback= NULL;
+			mcallback = NULL;
 		}
 		virtual void Visit(const CefString& string) OVERRIDE {
 
@@ -525,9 +525,12 @@ MY_DLL_EXPORT CefV8Handler* MyCefJs_New_V8Handler(managed_callback callback) {
 		{
 			if (callback) {
 
+				 
 				MethodArgs* metArgs = new MethodArgs();
 				metArgs->SetArgAsNativeObject(0, object);
 				metArgs->SetArgAsNativeObject(1, &arguments);
+
+				metArgs->SetArgAsInt32(2, arguments.size());
 				//-------------------------------------------
 				callback(301, metArgs);
 				//check result
@@ -579,9 +582,21 @@ MY_DLL_EXPORT void MyCefString_Read(CefString* cefStr, wchar_t* outputBuffer, in
 }
 
 MY_DLL_EXPORT void MyCefStringHolder_Read(MyCefStringHolder* mycefStr, wchar_t* outputBuffer, int outputBufferLen, int* actualLength)
-{	
+{
 	CefString* cefStr = &mycefStr->value;
 	int str_len = (int)cefStr->length();
 	*actualLength = str_len;
 	wcscpy_s(outputBuffer, outputBufferLen, cefStr->c_str());
+}
+
+MY_DLL_EXPORT void MyCefJs_MetReadArgAsString(const CefV8ValueList* jsArgs, int index, wchar_t* outputBuffer, int outputBufferLen, int* actualLength)
+{
+	auto value = jsArgs->at(index);
+	CefString cefStr = value->GetStringValue();
+	*actualLength = cefStr.length();
+	wcscpy_s(outputBuffer, outputBufferLen, cefStr.c_str());
+}
+MY_DLL_EXPORT int MyCefJs_MetReadArgAsInt32(const CefV8ValueList* jsArgs, int index) {
+	auto value = jsArgs->at(index);
+	return value->GetIntValue();
 }
