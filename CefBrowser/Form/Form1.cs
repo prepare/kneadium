@@ -26,14 +26,17 @@ namespace CefBridgeTest
 
         private void Form1_Load1(object sender, EventArgs e)
         {
-            this.cefWebBrowser1.Agent.Listener = new LayoutFarm.CefBridge.MyCefBrowserListener();
+            this.cefWebBrowser1.Agent.Listener = new LayoutFarm.CefBridge.MyCefUIProcessListener();
         }
 
         private void button7_Click(object sender, EventArgs e)
         {
 
             this.cefWebBrowser1.Focus();
-            this.cefWebBrowser1.NavigateTo("http://localhost:8080");
+            //this.cefWebBrowser1.NavigateTo("http://localhost:8080");
+            this.cefWebBrowser1.NavigateTo("http://tests/binding");
+
+
             //this.cefWebBrowser1.NavigateTo("https://html5test.com");
             //this.cefWebBrowser1.NavigateTo("https://www.youtube.com"); 
         }

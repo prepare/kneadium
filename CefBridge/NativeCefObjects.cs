@@ -170,10 +170,7 @@ namespace LayoutFarm.CefBridge
     {
         public NativeBrowser(IntPtr ptr) : base(ptr)
         {
-
         }
-
-
     }
     public class NativeFrame : Cef3RefCountingValue
     {

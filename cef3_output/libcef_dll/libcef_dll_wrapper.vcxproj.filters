@@ -1184,20 +1184,14 @@
     <CustomBuild Include="D:\projects\CefBridge\cef3\libcef_dll\CMakeLists.txt" />
   </ItemGroup>
   <ItemGroup>
-    <Filter Include="include\base">
-      <UniqueIdentifier>{27BB7EE9-0F49-4438-B356-CCAE47932C4D}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="include\capi">
-      <UniqueIdentifier>{78EFA36D-414F-49F2-A761-1FC2CB8C5208}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="include\internal">
-      <UniqueIdentifier>{ABBD9F41-A542-4315-A3C8-6EDBED5132F2}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="include\wrapper">
-      <UniqueIdentifier>{8B479674-260D-45C7-AEB5-B7295C86714A}</UniqueIdentifier>
-    </Filter>
     <Filter Include="include\base\internal">
       <UniqueIdentifier>{64545249-B961-44FB-8C0B-EAE8C8190631}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="libcef_dll">
+      <UniqueIdentifier>{3FD8B1C9-4F29-41D0-B26E-D3C98D0B1330}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="include">
+      <UniqueIdentifier>{D93E4F5A-6F84-4B98-A5BF-8DAB2F3AAF79}</UniqueIdentifier>
     </Filter>
     <Filter Include="libcef_dll\base">
       <UniqueIdentifier>{1884ECAB-9758-4533-B432-A78B56A3349F}</UniqueIdentifier>
@@ -1211,11 +1205,17 @@
     <Filter Include="libcef_dll\wrapper">
       <UniqueIdentifier>{E7DFB26E-BE2A-45DF-A4C1-A2FE7941AC52}</UniqueIdentifier>
     </Filter>
-    <Filter Include="libcef_dll">
-      <UniqueIdentifier>{3FD8B1C9-4F29-41D0-B26E-D3C98D0B1330}</UniqueIdentifier>
+    <Filter Include="include\base">
+      <UniqueIdentifier>{27BB7EE9-0F49-4438-B356-CCAE47932C4D}</UniqueIdentifier>
     </Filter>
-    <Filter Include="include">
-      <UniqueIdentifier>{D93E4F5A-6F84-4B98-A5BF-8DAB2F3AAF79}</UniqueIdentifier>
+    <Filter Include="include\capi">
+      <UniqueIdentifier>{78EFA36D-414F-49F2-A761-1FC2CB8C5208}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="include\internal">
+      <UniqueIdentifier>{ABBD9F41-A542-4315-A3C8-6EDBED5132F2}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="include\wrapper">
+      <UniqueIdentifier>{8B479674-260D-45C7-AEB5-B7295C86714A}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>

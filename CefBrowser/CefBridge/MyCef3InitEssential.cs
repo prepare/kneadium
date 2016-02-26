@@ -1,5 +1,6 @@
 ﻿//2016, MIT, WinterDev
 using System;
+using System.Text;
 using System.Windows.Forms;
 using LayoutFarm.CefBridge;
 
@@ -52,20 +53,32 @@ namespace CefBridgeTest
         }
         public override void AfterProcessLoaded(CefStartArgs cefStartArg)
         {
+            //if (Cef3InitEssential.IsInRenderProcess)
+            //{
+            //    System.Diagnostics.Debugger.Launch();
+            //}
+
 #if DEBUG
+            //if(Cef3InitEssential.IsInRenderProcess)
+            //{
+            //    Console.WriteLine("this is renderer process");
+            //    System.Diagnostics.Debugger.Launch();
+            //}
             //if (cefStartArg.IsValidCefArgs)
             //{
             //    if (cefStartArg.ProcessType == "renderer")
             //    {
-            //        StringBuilder stbuilder = new StringBuilder();
-            //        foreach (var str in startArgs)
-            //        {
-            //            stbuilder.Append(str + " ");
-            //        }
-            //        s_dbugIsRendererProcess = true;
-            //        System.Windows.Forms.MessageBox.Show(stbuilder.ToString(), DateTime.Now.ToString());
+            //        //StringBuilder stbuilder = new StringBuilder();
+            //        //stbuilder.Append("rrrr");
+            //        //foreach (var str in startArgs)
+            //        //{
+            //        //    stbuilder.Append(str + " ");
+            //        //}
+            //        //s_dbugIsRendererProcess = true;
+            //        //System.Windows.Forms.MessageBox.Show(stbuilder.ToString(), DateTime.Now.ToString());
             //        //request debugger in render process
-            //        System.Diagnostics.Debugger.Break();
+            //        Console.WriteLine("this is renderer process");
+            //        System.Diagnostics.Debugger.Launch();
 
             //    }
             //    //set break point after alert if we want to stop debugger                            
@@ -75,8 +88,11 @@ namespace CefBridgeTest
         public override CefClientApp CreateClientApp()
         {
 
-            CefClientApp clientApp = new CefClientApp(System.Diagnostics.Process.GetCurrentProcess().Handle);
-            clientApp.RenderProcessListener = new MyCefRenderListener();
+            var renderProcListener = new MyCefRenderProcessListener();
+            var clientApp = new CefClientApp(
+                System.Diagnostics.Process.GetCurrentProcess().Handle,
+                renderProcListener);
+
             return clientApp;
         }
 
@@ -121,8 +137,8 @@ namespace CefBridgeTest
             {
                 return false;
             }
-          
-            initEssential.SetupPreRun(); 
+
+            initEssential.SetupPreRun();
 
             return true;
         }

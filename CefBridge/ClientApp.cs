@@ -13,12 +13,14 @@ namespace LayoutFarm.CefBridge
         static readonly object sync_ = new object();
 
         MyCefCallback mxCallback;
-        MyCefRenderListener renderProcessListener;
+        MyCefRenderProcessListener renderProcessListener;
 
 
 
-        public CefClientApp(IntPtr processHandle)
+        public CefClientApp(IntPtr processHandle, MyCefRenderProcessListener renderProcessListener)
         {
+
+            this.renderProcessListener = renderProcessListener;
 
 #if DEBUG   
             //dev note: multiprocess debuging: renderer process debugger 
@@ -54,15 +56,7 @@ namespace LayoutFarm.CefBridge
             }
         }
 
-
-        public MyCefRenderListener RenderProcessListener
-        {
-            get { return renderProcessListener; }
-            set
-            {
-                renderProcessListener = value;
-            }
-        }
+ 
         void MxCallBack(int id, IntPtr argsPtr)
         {
             switch (id)
@@ -140,7 +134,12 @@ namespace LayoutFarm.CefBridge
                         if (renderProcessListener != null)
                         {
                             NativeCallArgs args = new NativeCallArgs(argsPtr);
-                            renderProcessListener.OnCreateContext(args);
+                            MyCefContextArgs cefContextArgs = new MyCefContextArgs(args);
+                            //var clientRenderApp = new NativeRendererApp(args.GetArgAsNativePtr(0));
+                            //var browser = new NativeBrowser(args.GetArgAsNativePtr(1));
+                            //var context = new NativeJsContext(args.GetArgAsNativePtr(2));
+
+                            renderProcessListener.OnContextCreated(cefContextArgs);
                         }
 
 

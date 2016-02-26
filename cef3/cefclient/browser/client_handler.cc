@@ -115,6 +115,7 @@ namespace client {
 			const std::string& failed_url,
 			cef_errorcode_t error_code,
 			const std::string& other_info) {
+
 			std::stringstream ss;
 			ss << "<html><head><title>Page failed to load</title></head>"
 				"<body bgcolor=\"white\">"
@@ -128,6 +129,9 @@ namespace client {
 
 			ss << "</body></html>";
 			frame->LoadURL(test_runner::GetDataURI(ss.str(), "text/html"));
+
+
+
 		}
 
 	}  // namespace
@@ -146,6 +150,7 @@ namespace client {
 		//###_FIND_NEXT_LANDMARK 0
 		DCHECK(!console_log_file_.empty());
 		//###_APPEND_START 0
+		this->mcallback_ = NULL;
 		this->enableKeyIntercept = 0;//init
 	  //###_APPEND_STOP
 #if defined(OS_LINUX)

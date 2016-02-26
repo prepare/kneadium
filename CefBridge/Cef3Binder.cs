@@ -64,10 +64,7 @@ namespace LayoutFarm.CefBridge
             if (nativeModule == IntPtr.Zero)
             {
                 return false;
-            }
-
-
-
+            } 
             //-----------------------------------------------------------
             //check start up process to see if what is this process
             //browser process
@@ -77,7 +74,7 @@ namespace LayoutFarm.CefBridge
             if (startArgs.Length > 0)
             {
                 CefStartArgs cefStartArg = CefStartArgs.Parse(startArgs);
-                Cef3InitEssential.IsInRenderProcess = (cefStartArg.ProcessType == "renderer");
+                Cef3InitEssential.IsInRenderProcess = (cefStartArg.IsValidCefArgs && cefStartArg.ProcessType == "renderer");                
                 cefInitEssential.AfterProcessLoaded(cefStartArg);
             }
 

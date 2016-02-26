@@ -12,7 +12,7 @@ namespace LayoutFarm.CefBridge
     /// <summary>
     /// listener for browser process
     /// </summary>
-    public class MyCefBrowserListener
+    public class MyCefUIProcessListener
     {
         public virtual void OnFilterUrl(NativeCallArgs args)
         {
@@ -60,7 +60,6 @@ namespace LayoutFarm.CefBridge
             byte[] resultBuffer = Encoding.UTF8.GetBytes(result);
             args.SetOutput(0, resultBuffer);
 
-
         }
         public virtual void OnConsoleLog(NativeCallArgs args)
         {
@@ -75,44 +74,28 @@ namespace LayoutFarm.CefBridge
     /// <summary>
     /// listener for render process
     /// </summary>
-    public class MyCefRenderListener
+    public class MyCefRenderProcessListener
     {
-        public virtual void OnCreateContext(NativeCallArgs args)
-        {
-#if DEBUG
-            //if you want to stop on RenderProcess
-            //if (Cef3Binder.s_dbugIsRendererProcess)
-            //{
-            //    System.Diagnostics.Debugger.Break();
-            //}
-#endif
-
-
-            RenderProcessOnContextCreated(args);
-        }
-        public virtual void OnConsoleLog(NativeCallArgs args)
-        {
-            string msg = args.GetArgAsString(0);
-            string src = args.GetArgAsString(1);
-            string location = args.GetArgAsString(2);
-            Console.WriteLine(msg);
-
-        }
-        void RenderProcessOnContextCreated(NativeCallArgs args)
+        public virtual void OnContextCreated(MyCefContextArgs args)
         {
             //sample !!!
-            //test function on render process
+            //call window.test001() from js 
 
-            var clientRenderApp = new NativeRendererApp(args.GetArgAsNativePtr(0));
-            var browser = new NativeBrowser(args.GetArgAsNativePtr(1));
-            var context = new NativeJsContext(args.GetArgAsNativePtr(2));
-
-
-            CefV8Value cefV8Global = context.GetGlobal();
+            CefV8Value cefV8Global = args.context.GetGlobal();
             Cef3FuncHandler funcHandler = Cef3FuncHandler.CreateFuncHandler(Test001);
             Cef3Func func = Cef3Func.CreateFunc("test001", funcHandler);
             cefV8Global.Set("test001", func);
         }
+
+        public virtual void OnConsoleLog(NativeCallArgs args)
+        {
+            //console msg in render process
+            string msg = args.GetArgAsString(0);
+            string src = args.GetArgAsString(1);
+            string location = args.GetArgAsString(2);
+            Console.WriteLine(msg);
+        }
+         
 
         void Test001(int id, IntPtr argsPtr)
         {
@@ -129,6 +112,19 @@ namespace LayoutFarm.CefBridge
         }
     }
 
+    public class MyCefContextArgs
+    {
+        public readonly NativeRendererApp clientRenderApp;
+        public readonly NativeBrowser browser;
+        public readonly NativeJsContext context;
+
+        public MyCefContextArgs(NativeCallArgs args)
+        {
+            clientRenderApp = new NativeRendererApp(args.GetArgAsNativePtr(0));
+            browser = new NativeBrowser(args.GetArgAsNativePtr(1));
+            context = new NativeJsContext(args.GetArgAsNativePtr(2));
+        }
+    }
 
 
 }
