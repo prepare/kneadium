@@ -52,7 +52,7 @@
             this.button7.Name = "button7";
             this.button7.Size = new System.Drawing.Size(132, 37);
             this.button7.TabIndex = 8;
-            this.button7.Text = "Navigate";
+            this.button7.Text = "Navigate 2";
             this.button7.UseVisualStyleBackColor = true;
             this.button7.Click += new System.EventHandler(this.button7_Click);
             // 
@@ -139,6 +139,7 @@
             // cefWebBrowser1
             // 
             this.cefWebBrowser1.BackColor = System.Drawing.Color.White;
+            this.cefWebBrowser1.CefBrowserListener = null;
             this.cefWebBrowser1.InitUrl = "http://localhost";
             this.cefWebBrowser1.Location = new System.Drawing.Point(150, 66);
             this.cefWebBrowser1.Name = "cefWebBrowser1";

@@ -144,8 +144,10 @@ if (app->myMxCallback_)
 						//browser,frame and context ?  
 						MethodArgs* metArgs = new MethodArgs();
 						metArgs->SetArgAsNativeObject(0, app.get());
-						metArgs->SetArgAsNativeObject(1, browser.get());
-						metArgs->SetArgAsNativeObject(2, context.get());
+						metArgs->SetArgAsNativeObject(1, browser.get());						
+						metArgs->SetArgAsNativeObject(2, frame.get());
+						metArgs->SetArgAsNativeObject(3, context.get());
+
 						app->myMxCallback_(202, metArgs);
 					}
 					else {

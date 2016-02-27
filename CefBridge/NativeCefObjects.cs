@@ -25,7 +25,7 @@ namespace LayoutFarm.CefBridge
         {
             //TODO: release pointer back
         }
-        internal IntPtr Ptr
+        public IntPtr Ptr
         {
             get { return _ptr; }
         }
@@ -48,7 +48,7 @@ namespace LayoutFarm.CefBridge
     public class Cef3Func : Cef3RefCountingValue
     {
 
-        private Cef3Func(IntPtr ptr) : base(ptr)
+        public Cef3Func(IntPtr ptr) : base(ptr)
         {
 
         }
@@ -57,7 +57,11 @@ namespace LayoutFarm.CefBridge
             IntPtr func = Cef3Binder.MyCefJs_CreateFunction(name, funcHandler.Ptr);
             return new Cef3Func(func);
         }
-
+        public CefV8Value ExecFunction(NativeJsContext context, string argAsJsonString)
+        {
+            CefV8Value value = new CefV8Value(Cef3Binder.MyCefJs_ExecJsFunctionWithContext(this.Ptr, context.Ptr, argAsJsonString));
+            return value;
+        }
     }
 
     public class NativeJsContext : Cef3RefCountingValue
@@ -75,6 +79,10 @@ namespace LayoutFarm.CefBridge
         {
             return new CefV8Value(Cef3Binder.MyCefJsGetGlobal(this.Ptr));
         }
+        public static NativeJsContext GetCurrentContext()
+        {
+            return new NativeJsContext(Cef3Binder.MyCefJsGetCurrentContext());
+        }
     }
 
     public class CefV8Value : Cef3RefCountingValue
@@ -87,6 +95,10 @@ namespace LayoutFarm.CefBridge
         public void Set(string key, Cef3Func cef3Func)
         {
             Cef3Binder.MyCefJs_CefV8Value_SetValue_ByString(this.Ptr, key, cef3Func.Ptr, (int)CefV8PropertyAttribute.V8_PROPERTY_ATTRIBUTE_READONLY);
+        }
+        public bool IsFunc()
+        {
+            return Cef3Binder.MyCefJs_CefV8Value_IsFunc(this.Ptr);
         }
 
     }
@@ -170,6 +182,10 @@ namespace LayoutFarm.CefBridge
     {
         public NativeBrowser(IntPtr ptr) : base(ptr)
         {
+        }
+        public void ExecJavascript(string src, string url)
+        {
+
         }
     }
     public class NativeFrame : Cef3RefCountingValue

@@ -261,6 +261,9 @@ namespace LayoutFarm.CefBridge
 
         //part 4 js binding
         [DllImport(CEF_CLIENT_DLL, CallingConvention = CallingConvention.Cdecl)]
+        internal static extern IntPtr MyCefJsGetCurrentContext();
+
+        [DllImport(CEF_CLIENT_DLL, CallingConvention = CallingConvention.Cdecl)]
         internal static extern IntPtr MyCefJsGetGlobal(IntPtr jsContext);
 
         [DllImport(CEF_CLIENT_DLL, CallingConvention = CallingConvention.Cdecl)]
@@ -270,6 +273,8 @@ namespace LayoutFarm.CefBridge
         [DllImport(CEF_CLIENT_DLL, CallingConvention = CallingConvention.Cdecl, CharSet = CharSet.Unicode)]
         internal static extern void MyCefJs_CefV8Value_SetValue_ByString(IntPtr target, string key, IntPtr value, int setAttr);
 
+        [DllImport(CEF_CLIENT_DLL, CallingConvention = CallingConvention.Cdecl, CharSet = CharSet.Unicode)]
+        internal static extern bool MyCefJs_CefV8Value_IsFunc(IntPtr target);
 
         [DllImport(CEF_CLIENT_DLL, CallingConvention = CallingConvention.Cdecl)]
         internal static extern void MyCefJs_CefV8Value_SetValue_ByIndex(IntPtr target, int index, IntPtr value);
@@ -277,6 +282,8 @@ namespace LayoutFarm.CefBridge
         [DllImport(CEF_CLIENT_DLL, CallingConvention = CallingConvention.Cdecl, CharSet = CharSet.Unicode)]
         internal static extern IntPtr MyCefJs_CreateFunction(string name, IntPtr handler);
 
+        [DllImport(CEF_CLIENT_DLL, CallingConvention = CallingConvention.Cdecl, CharSet = CharSet.Unicode)]
+        internal static extern IntPtr MyCefJs_ExecJsFunctionWithContext(IntPtr cefJsFunc, IntPtr context, string argAsJsonString);
 
         [DllImport(CEF_CLIENT_DLL, CallingConvention = CallingConvention.Cdecl)]
         public static extern unsafe void MyCefFrame_GetUrl(IntPtr myCefFrame, char* outputBuffer, int outputBufferLen, ref int actualLength);
@@ -290,7 +297,10 @@ namespace LayoutFarm.CefBridge
         public static extern int MyCefJs_MetReadArgAsInt32(IntPtr jsArgs, int index);
         [DllImport(CEF_CLIENT_DLL, CallingConvention = CallingConvention.Cdecl)]
         public static extern unsafe void MyCefJs_MetReadArgAsString(IntPtr jsArgs, int index, char* outputBuffer, int outputBufferLen, ref int actualLength);
-
+        [DllImport(CEF_CLIENT_DLL, CallingConvention = CallingConvention.Cdecl)]
+        public static extern unsafe IntPtr MyCefJs_MetReadArgAsCefV8Value(IntPtr jsArgs, int index);
+        [DllImport(CEF_CLIENT_DLL, CallingConvention = CallingConvention.Cdecl)]
+        public static extern unsafe IntPtr MyCefJs_MetReadArgAsV8FuncHandle(IntPtr jsArgs, int index);
     }
 
 

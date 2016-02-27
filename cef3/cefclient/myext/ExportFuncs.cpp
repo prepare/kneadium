@@ -501,7 +501,11 @@ MY_DLL_EXPORT void MyCefBwReloadIgnoreCache(MyBrowser* myBw) {
 
 //---------------------------------------------------------------------------
 //part4: javascript context
-
+MY_DLL_EXPORT CefV8Context* MyCefJsGetCurrentContext() {
+	auto currentContext= CefV8Context::GetCurrentContext();
+	currentContext->AddRef();
+	return currentContext.get();
+}
 MY_DLL_EXPORT CefV8Value* MyCefJsGetGlobal(CefV8Context* cefV8Context) {
 
 	auto globalObject = cefV8Context->GetGlobal();
@@ -525,7 +529,7 @@ MY_DLL_EXPORT CefV8Handler* MyCefJs_New_V8Handler(managed_callback callback) {
 		{
 			if (callback) {
 
-				 
+
 				MethodArgs* metArgs = new MethodArgs();
 				metArgs->SetArgAsNativeObject(0, object);
 				metArgs->SetArgAsNativeObject(1, &arguments);
@@ -546,7 +550,10 @@ MY_DLL_EXPORT CefV8Handler* MyCefJs_New_V8Handler(managed_callback callback) {
 
 	return new V8Handler(callback);
 }
-
+MY_DLL_EXPORT bool MyCefJs_CefV8Value_IsFunc(CefV8Value* target)
+{
+	return target->IsFunction();
+}
 MY_DLL_EXPORT void MyCefJs_CefV8Value_SetValue_ByString(CefV8Value* target, const wchar_t* key, CefV8Value* value, int setAttribute)
 {
 	CefString cefstr(key);
@@ -564,6 +571,21 @@ MY_DLL_EXPORT CefV8Value* MyCefJs_CreateFunction(const wchar_t* name, CefV8Handl
 	//so before we send it out of this lib, we must add reference counting ***
 	cefFunc->AddRef();
 	return cefFunc.get();
+}
+
+MY_DLL_EXPORT CefV8Value* MyCefJs_ExecJsFunctionWithContext(CefV8Value* cefJsFunc, CefV8Context* context, const wchar_t* argAsJsonString)
+{
+	CefV8ValueList args;
+	CefRefPtr<CefV8Value> retval;
+	CefRefPtr<CefV8Exception> exception;
+	
+	//MessageBox(NULL, L"AA", L"AAA", 0);
+
+	args.push_back(CefV8Value::CreateString(argAsJsonString));
+
+	auto result = cefJsFunc->ExecuteFunctionWithContext(context, NULL, args);
+	result->AddRef();
+	return result.get();
 }
 
 MY_DLL_EXPORT void MyCefFrame_GetUrl(CefFrame* frame, wchar_t* outputBuffer, int outputBufferLen, int* actualLength)
@@ -599,4 +621,14 @@ MY_DLL_EXPORT void MyCefJs_MetReadArgAsString(const CefV8ValueList* jsArgs, int 
 MY_DLL_EXPORT int MyCefJs_MetReadArgAsInt32(const CefV8ValueList* jsArgs, int index) {
 	auto value = jsArgs->at(index);
 	return value->GetIntValue();
+}
+MY_DLL_EXPORT CefV8Value* MyCefJs_MetReadArgAsCefV8Value(const CefV8ValueList* jsArgs, int index) {
+	auto value = jsArgs->at(index);
+	value->AddRef();
+	return value;
+}
+MY_DLL_EXPORT CefV8Handler* MyCefJs_MetReadArgAsV8FuncHandle(const CefV8ValueList* jsArgs, int index) {
+	auto value = jsArgs->at(index);
+	value->AddRef();
+	return value->GetFunctionHandler();
 }

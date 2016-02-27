@@ -182,13 +182,31 @@ namespace LayoutFarm.CefBridge
             {
                 int BUFF_LEN = 256;
                 char* buffHead = stackalloc char[BUFF_LEN];
-                Cef3Binder.MyCefJs_MetReadArgAsString(argPtr,index, buffHead, BUFF_LEN, ref acutalLen);
+                Cef3Binder.MyCefJs_MetReadArgAsString(argPtr, index, buffHead, BUFF_LEN, ref acutalLen);
                 if (acutalLen > BUFF_LEN)
                 {
                     //read more
                 }
                 return new string(buffHead, 0, acutalLen);
             }
+        }
+        public Cef3Func ReadArgsFuncHandler(int index)
+        {
+            CefV8Value func = new CefV8Value(Cef3Binder.MyCefJs_MetReadArgAsCefV8Value(argPtr, index));
+
+            //CefV8Value cefv8 = new CefV8Value(Cef3Binder.MyCefJs_MetReadArgAsCefV8Value(argPtr, index));
+            //if (cefv8.IsFunc())
+            //{
+
+            //}
+            //else
+            //{
+
+            //}
+
+
+            // return new Cef3Func(nativeFunc);
+            return new Cef3Func(func.Ptr);
         }
     }
 }

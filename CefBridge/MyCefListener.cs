@@ -116,13 +116,15 @@ namespace LayoutFarm.CefBridge
     {
         public readonly NativeRendererApp clientRenderApp;
         public readonly NativeBrowser browser;
+        public readonly NativeFrame nativeFrame;
         public readonly NativeJsContext context;
 
         public MyCefContextArgs(NativeCallArgs args)
         {
             clientRenderApp = new NativeRendererApp(args.GetArgAsNativePtr(0));
             browser = new NativeBrowser(args.GetArgAsNativePtr(1));
-            context = new NativeJsContext(args.GetArgAsNativePtr(2));
+            nativeFrame = new NativeFrame(args.GetArgAsNativePtr(2));
+            context = new NativeJsContext(args.GetArgAsNativePtr(3));
         }
     }
 

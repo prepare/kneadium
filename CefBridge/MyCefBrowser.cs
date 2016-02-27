@@ -16,7 +16,8 @@ namespace LayoutFarm.CefBridge
         public event EventHandler BrowserDisposed;
         IntPtr myCefBrowser;
         MyCefCallback managedCallback;
-        string initUrl;
+        
+        string currentUrl;
         IWindowControl parentControl;
         IWindowForm topForm;
         IWindowForm devForm;
@@ -30,7 +31,7 @@ namespace LayoutFarm.CefBridge
         public MyCefBrowser(IWindowControl parentControl,
             int x, int y, int w, int h, string initUrl)
         {
-            this.initUrl = initUrl;
+            this.currentUrl = initUrl;
             //create cef browser view handler  
             this.parentControl = parentControl;
 
@@ -213,8 +214,14 @@ namespace LayoutFarm.CefBridge
 
 
 
+        public string CurrentUrl
+        {
+            get { return this.currentUrl; }
+        }
+
         public void NavigateTo(string url)
         {
+            currentUrl = url;
             Cef3Binder.MyCefBwNavigateTo(this.myCefBrowser, url);
         }
         public void ExecJavascript(string src, string scriptUrl)
