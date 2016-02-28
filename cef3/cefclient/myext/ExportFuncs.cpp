@@ -413,7 +413,11 @@ void MyCefBwNavigateTo(MyBrowser* myBw, const wchar_t* url) {
 //2.
 void MyCefBwExecJavascript(MyBrowser* myBw, const wchar_t* jscode, const wchar_t* script_url) {
 
+
 	myBw->bwWindow->GetBrowser()->GetMainFrame()->ExecuteJavaScript(jscode, script_url, 0);
+}
+void MyCefBwExecJavascript2(CefBrowser* nativeWb, const wchar_t* jscode, const wchar_t* script_url) {
+	nativeWb->GetMainFrame()->ExecuteJavaScript(jscode, script_url, 0);
 }
 //3. 
 void MyCefBwPostData(MyBrowser* myBw, const wchar_t* url, const wchar_t* rawDataToPost, size_t rawDataLength) {
@@ -502,9 +506,36 @@ MY_DLL_EXPORT void MyCefBwReloadIgnoreCache(MyBrowser* myBw) {
 //---------------------------------------------------------------------------
 //part4: javascript context
 MY_DLL_EXPORT CefV8Context* MyCefJsGetCurrentContext() {
-	auto currentContext= CefV8Context::GetCurrentContext();
+	auto currentContext = CefV8Context::GetCurrentContext();
 	currentContext->AddRef();
 	return currentContext.get();
+}
+MY_DLL_EXPORT  CefV8Context* MyCefJs_GetEnteredContext() {
+	auto enteredContext = CefV8Context::GetEnteredContext();
+	enteredContext->AddRef();
+	return enteredContext.get();
+}
+MY_DLL_EXPORT  CefV8Context* MyCefJs_ContextEnter() {
+	auto enteredContext = CefV8Context::GetEnteredContext();
+	enteredContext->AddRef();
+	return enteredContext.get();
+}
+MY_DLL_EXPORT MyCefStringHolder* MyCefCreateCefString(const wchar_t*  str) {
+	MyCefStringHolder* str_h = new MyCefStringHolder();
+
+	auto cefStr = CefV8Value::CreateString(str);
+	str_h->any = cefStr;
+
+	return str_h;
+}
+
+
+MY_DLL_EXPORT  CefV8Context* MyCefJsFrameContext(CefFrame* wbFrame) {
+
+	auto ctx = wbFrame->GetV8Context();
+	ctx->AddRef();
+	return ctx.get();
+
 }
 MY_DLL_EXPORT CefV8Value* MyCefJsGetGlobal(CefV8Context* cefV8Context) {
 
@@ -512,13 +543,25 @@ MY_DLL_EXPORT CefV8Value* MyCefJsGetGlobal(CefV8Context* cefV8Context) {
 	globalObject->AddRef();
 	return globalObject.get();
 }
+MY_DLL_EXPORT CefV8Context* MyCefJs_EnterContext(CefV8Context* cefV8Context) {
+	cefV8Context->Enter();
+	auto context = cefV8Context->GetCurrentContext();
+	context->AddRef();
+	return context.get();
+}
+MY_DLL_EXPORT void MyCefJs_ExitContext(CefV8Context* cefV8Context) {
+	cefV8Context->Exit();
+}
+
+
+
 MY_DLL_EXPORT CefV8Handler* MyCefJs_New_V8Handler(managed_callback callback) {
 
 	//-----------------------------------------------
-	class V8Handler : public CefV8Handler {
+	class MyV8ManagedHandler : public CefV8Handler {
 	public:
 		managed_callback callback;
-		V8Handler(managed_callback callback) {
+		MyV8ManagedHandler(managed_callback callback) {
 			this->callback = callback;
 		}
 		virtual bool Execute(const CefString& name,
@@ -529,11 +572,9 @@ MY_DLL_EXPORT CefV8Handler* MyCefJs_New_V8Handler(managed_callback callback) {
 		{
 			if (callback) {
 
-
 				MethodArgs* metArgs = new MethodArgs();
 				metArgs->SetArgAsNativeObject(0, object);
 				metArgs->SetArgAsNativeObject(1, &arguments);
-
 				metArgs->SetArgAsInt32(2, arguments.size());
 				//-------------------------------------------
 				callback(301, metArgs);
@@ -544,11 +585,30 @@ MY_DLL_EXPORT CefV8Handler* MyCefJs_New_V8Handler(managed_callback callback) {
 			return true;
 		}
 	private:
-		IMPLEMENT_REFCOUNTING(V8Handler);
+		IMPLEMENT_REFCOUNTING(MyV8ManagedHandler);
 	};
-	//-----------------------------------------------
+	//----------------------------------------------- 
+	return new MyV8ManagedHandler(callback);
+}
 
-	return new V8Handler(callback);
+void HereOnRenderer(managed_callback callback)
+{
+	//callback to 
+	/*auto  currentContext = CefV8Context::GetCurrentContext();
+	MethodArgs* metArgs = new MethodArgs(); 
+	CefV8Context* cc = currentContext.get();
+	metArgs->SetArgAsNativeObject(0, cc);
+*/
+	
+	MethodArgs* metArgs = new MethodArgs();
+	//-------------------------------------------
+	callback(303, metArgs);
+	//check result
+	//retval = CefV8Value::CreateString(metArgs->ReadOutputAsString(0));
+}
+
+MY_DLL_EXPORT void MyCefJsNotifyRenderer(managed_callback callback) {
+	CefPostTask(TID_RENDERER, base::Bind(&HereOnRenderer, callback));
 }
 MY_DLL_EXPORT bool MyCefJs_CefV8Value_IsFunc(CefV8Value* target)
 {
@@ -578,8 +638,6 @@ MY_DLL_EXPORT CefV8Value* MyCefJs_ExecJsFunctionWithContext(CefV8Value* cefJsFun
 	CefV8ValueList args;
 	CefRefPtr<CefV8Value> retval;
 	CefRefPtr<CefV8Exception> exception;
-	
-	//MessageBox(NULL, L"AA", L"AAA", 0);
 
 	args.push_back(CefV8Value::CreateString(argAsJsonString));
 
@@ -590,6 +648,7 @@ MY_DLL_EXPORT CefV8Value* MyCefJs_ExecJsFunctionWithContext(CefV8Value* cefJsFun
 
 MY_DLL_EXPORT void MyCefFrame_GetUrl(CefFrame* frame, wchar_t* outputBuffer, int outputBufferLen, int* actualLength)
 {
+
 	CefString str = frame->GetURL();
 	int str_len = (int)str.length();
 	*actualLength = str_len;

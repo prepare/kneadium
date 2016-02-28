@@ -56,7 +56,7 @@ namespace LayoutFarm.CefBridge
             }
         }
 
- 
+
         void MxCallBack(int id, IntPtr argsPtr)
         {
             switch (id)
@@ -141,8 +141,20 @@ namespace LayoutFarm.CefBridge
 
                             renderProcessListener.OnContextCreated(cefContextArgs);
                         }
+                    }
+                    break;
+                case 203:
+                    {
+                        if (renderProcessListener != null)
+                        {
+                            NativeCallArgs args = new NativeCallArgs(argsPtr);
+                            MyCefContextArgs cefContextArgs = new MyCefContextArgs(args);
+                            //var clientRenderApp = new NativeRendererApp(args.GetArgAsNativePtr(0));
+                            //var browser = new NativeBrowser(args.GetArgAsNativePtr(1));
+                            //var context = new NativeJsContext(args.GetArgAsNativePtr(2));
 
-
+                            renderProcessListener.OnContextReleased(cefContextArgs);
+                        }
                     }
                     break;
             }

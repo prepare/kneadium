@@ -86,7 +86,9 @@ namespace LayoutFarm.CefBridge
             Cef3Func func = Cef3Func.CreateFunc("test001", funcHandler);
             cefV8Global.Set("test001", func);
         }
-
+        public virtual void OnContextReleased(MyCefContextArgs args)
+        {
+        }
         public virtual void OnConsoleLog(NativeCallArgs args)
         {
             //console msg in render process
@@ -95,7 +97,7 @@ namespace LayoutFarm.CefBridge
             string location = args.GetArgAsString(2);
             Console.WriteLine(msg);
         }
-         
+
 
         void Test001(int id, IntPtr argsPtr)
         {
@@ -120,7 +122,8 @@ namespace LayoutFarm.CefBridge
         public readonly NativeJsContext context;
 
         public MyCefContextArgs(NativeCallArgs args)
-        {
+        {   
+            
             clientRenderApp = new NativeRendererApp(args.GetArgAsNativePtr(0));
             browser = new NativeBrowser(args.GetArgAsNativePtr(1));
             nativeFrame = new NativeFrame(args.GetArgAsNativePtr(2));

@@ -59,6 +59,8 @@ extern "C" {
 	MY_DLL_EXPORT void MyCefBwNavigateTo(MyBrowser* myBw, const wchar_t* url);
 	//2. 
 	MY_DLL_EXPORT void MyCefBwExecJavascript(MyBrowser* myBw, const wchar_t* jscode, const wchar_t* script_url);
+
+	MY_DLL_EXPORT void MyCefBwExecJavascript2(CefBrowser* nativeWb, const wchar_t* jscode, const wchar_t* script_url);
 	//3.
 	MY_DLL_EXPORT void MyCefBwPostData(MyBrowser* myBw, const wchar_t* url, const wchar_t* rawDataToPost, size_t rawDataLength);
 	//4. 
@@ -74,7 +76,18 @@ extern "C" {
 	//----------------------------
 	//part4: javascript context
 	MY_DLL_EXPORT CefV8Context* MyCefJsGetCurrentContext();
+	MY_DLL_EXPORT CefV8Context* MyCefJs_GetEnteredContext();
+	MY_DLL_EXPORT void MyCefJsNotifyRenderer(managed_callback callback);
+
+	MY_DLL_EXPORT CefV8Context* MyCefJsFrameContext(CefFrame* wbFrame);
+
 	MY_DLL_EXPORT CefV8Value* MyCefJsGetGlobal(CefV8Context* cefV8Context);
+	
+	
+
+	MY_DLL_EXPORT CefV8Context* MyCefJs_EnterContext(CefV8Context* cefV8Context);
+	MY_DLL_EXPORT void MyCefJs_ExitContext(CefV8Context* cefV8Context);
+
 	MY_DLL_EXPORT CefV8Handler* MyCefJs_New_V8Handler(managed_callback callback);
 	MY_DLL_EXPORT void MyCefJs_CefV8Value_SetValue_ByString(CefV8Value* target, const wchar_t* key, CefV8Value* value, int setAttribute);
 	MY_DLL_EXPORT void MyCefJs_CefV8Value_SetValue_ByIndex(CefV8Value* target, int index, CefV8Value* value);
@@ -95,6 +108,8 @@ extern "C" {
 	MY_DLL_EXPORT int MyCefJs_MetReadArgAsInt32(const CefV8ValueList* jsArgs, int index);
 	MY_DLL_EXPORT CefV8Value* MyCefJs_MetReadArgAsCefV8Value(const CefV8ValueList* jsArgs, int index);
 	MY_DLL_EXPORT CefV8Handler* MyCefJs_MetReadArgAsV8FuncHandle(const CefV8ValueList* jsArgs, int index);
+
+	MY_DLL_EXPORT MyCefStringHolder* MyCefCreateCefString(const wchar_t*  str);
 	//------------------------------
 	//part 5 : UI Proc Ext
 	

@@ -47,7 +47,7 @@ namespace LayoutFarm.CefBridge
 
     public class Cef3Func : Cef3RefCountingValue
     {
-
+        public NativeJsContext creationContext;
         public Cef3Func(IntPtr ptr) : base(ptr)
         {
 
@@ -59,8 +59,18 @@ namespace LayoutFarm.CefBridge
         }
         public CefV8Value ExecFunction(NativeJsContext context, string argAsJsonString)
         {
-            CefV8Value value = new CefV8Value(Cef3Binder.MyCefJs_ExecJsFunctionWithContext(this.Ptr, context.Ptr, argAsJsonString));
-            return value;
+            unsafe
+            {
+                char[] chars = argAsJsonString.ToCharArray();
+                fixed (char* first = &chars[0])
+                {
+                    CefV8Value value = new CefV8Value(Cef3Binder.MyCefJs_ExecJsFunctionWithContext(this.Ptr, context.Ptr, first));
+                    return value;
+
+                }
+
+            }
+
         }
     }
 
@@ -83,6 +93,20 @@ namespace LayoutFarm.CefBridge
         {
             return new NativeJsContext(Cef3Binder.MyCefJsGetCurrentContext());
         }
+        public static NativeJsContext GetEnteredContext()
+        {
+            return new NativeJsContext(Cef3Binder.MyCefJs_GetEnteredContext());
+        }
+        
+        public void EnterContext(IntPtr framePtr)
+        {
+            Cef3Binder.MyCefJs_EnterContext(this.Ptr);
+        }
+        public void ExitContext()
+        {
+            Cef3Binder.MyCefJs_ExitContext(this.Ptr);
+        }
+
     }
 
     public class CefV8Value : Cef3RefCountingValue
@@ -185,13 +209,18 @@ namespace LayoutFarm.CefBridge
         }
         public void ExecJavascript(string src, string url)
         {
-
+            Cef3Binder.MyCefBwExecJavascript2(this.Ptr, src, url);
         }
     }
     public class NativeFrame : Cef3RefCountingValue
     {
         public NativeFrame(IntPtr ptr) : base(ptr)
         {
+
+        }
+        public NativeJsContext GetFrameContext()
+        {
+            return new NativeJsContext(Cef3Binder.MyCefJsFrameContext(this.Ptr));
 
         }
         public string GetUrl()

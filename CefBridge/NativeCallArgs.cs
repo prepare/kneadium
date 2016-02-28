@@ -192,20 +192,7 @@ namespace LayoutFarm.CefBridge
         }
         public Cef3Func ReadArgsFuncHandler(int index)
         {
-            CefV8Value func = new CefV8Value(Cef3Binder.MyCefJs_MetReadArgAsCefV8Value(argPtr, index));
-
-            //CefV8Value cefv8 = new CefV8Value(Cef3Binder.MyCefJs_MetReadArgAsCefV8Value(argPtr, index));
-            //if (cefv8.IsFunc())
-            //{
-
-            //}
-            //else
-            //{
-
-            //}
-
-
-            // return new Cef3Func(nativeFunc);
+            CefV8Value func = new CefV8Value(Cef3Binder.MyCefJs_MetReadArgAsCefV8Value(argPtr, index)); 
             return new Cef3Func(func.Ptr);
         }
     }

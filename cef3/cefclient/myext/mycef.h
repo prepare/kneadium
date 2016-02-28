@@ -158,6 +158,7 @@ class MyCefStringHolder
 {
 public:
 	CefString value;
+	void* any;
 };
 
 class QueryRequestArgs
