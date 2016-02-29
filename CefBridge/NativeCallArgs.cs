@@ -123,16 +123,12 @@ namespace LayoutFarm.CefBridge
                        index,
                        str,
                        str.Length);
-            //unsafe
-            //{
-            //    fixed (byte* b = &buffer[0])
-            //    {
-            //        Cef3Binder.MyCefMetArgs_SetInputAsString(this._argPtr,
-            //            index,
-            //            new IntPtr(b),
-            //            buffer.Length);
-            //    }
-            //}
+        }
+        public void SetInput(int index, int value)
+        {
+            //input args
+            Cef3Binder.MyCefMetArgs_SetInputAsInt32(this._argPtr,
+                       index, value);
         }
         public void SetOutput(int index, byte[] buffer)
         {

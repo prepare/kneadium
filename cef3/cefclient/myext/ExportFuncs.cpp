@@ -369,6 +369,43 @@ void MyCefMetArgs_SetInputAsString(MethodArgs* args, int argIndex, const wchar_t
 	}break;
 	}
 }
+void MyCefMetArgs_SetInputAsInt32(MethodArgs* args, int argIndex, int32_t value) {
+
+	//input
+	switch (argIndex)
+	{
+	case 0: {
+
+		args->arg0.type = JSVALUE_TYPE_INTEGER;
+		args->arg0.length = sizeof(int32_t);
+		args->arg0.value.i32 = value;
+	}break;
+	case 1: {
+
+		args->arg1.type = JSVALUE_TYPE_INTEGER;
+		args->arg1.length = sizeof(int32_t);
+		args->arg1.value.i32 = value;
+	}break;
+	case 2: {
+
+		args->arg2.type = JSVALUE_TYPE_INTEGER;
+		args->arg2.length = sizeof(int32_t);
+		args->arg2.value.i32 = value;
+	}break;
+	case 3: {
+
+		args->arg3.type = JSVALUE_TYPE_INTEGER;
+		args->arg3.length = sizeof(int32_t);
+		args->arg3.value.i32 = value;
+	}break;
+	case 4: {
+
+		args->arg4.type = JSVALUE_TYPE_INTEGER;
+		args->arg4.length = sizeof(int32_t);
+		args->arg4.value.i32 = value;
+	}break;
+	}
+}
 //4.
 void MyCefMetArgs_SetResultAsByteBuffer(MethodArgs* args, int argIndex, const char* byteBuffer, int len) {
 
@@ -683,6 +720,8 @@ MY_DLL_EXPORT CefV8Value* MyCefJs_ExecJsFunctionWithContext(CefV8Value* cefJsFun
 	args.push_back(CefV8Value::CreateString(argAsJsonString));
 
 	auto result = cefJsFunc->ExecuteFunctionWithContext(context, NULL, args);
+	auto str = result->GetStringValue();
+
 	result->AddRef();
 	return result.get();
 }
@@ -709,6 +748,13 @@ MY_DLL_EXPORT void MyCefStringHolder_Read(MyCefStringHolder* mycefStr, wchar_t* 
 	int str_len = (int)cefStr->length();
 	*actualLength = str_len;
 	wcscpy_s(outputBuffer, outputBufferLen, cefStr->c_str());
+}
+MY_DLL_EXPORT void MyCefJs_CefV8Value_ReadAsString(CefV8Value* target, wchar_t* outputBuffer, int outputBufferLen, int* actualLength)
+{
+	CefString str = target->GetStringValue();
+	int str_len = (int)str.length();
+	*actualLength = str_len;
+	wcscpy_s(outputBuffer, outputBufferLen, str.c_str());
 }
 
 MY_DLL_EXPORT void MyCefJs_MetReadArgAsString(const CefV8ValueList* jsArgs, int index, wchar_t* outputBuffer, int outputBufferLen, int* actualLength)

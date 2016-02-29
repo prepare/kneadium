@@ -97,8 +97,8 @@ namespace LayoutFarm.CefBridge
         {
             return new NativeJsContext(Cef3Binder.MyCefJs_GetEnteredContext());
         }
-        
-        public void EnterContext(IntPtr framePtr)
+
+        public void EnterContext()
         {
             Cef3Binder.MyCefJs_EnterContext(this.Ptr);
         }
@@ -124,7 +124,26 @@ namespace LayoutFarm.CefBridge
         {
             return Cef3Binder.MyCefJs_CefV8Value_IsFunc(this.Ptr);
         }
+        public string ReadValueAsString()
+        {
+            const int BUFF_LEN = 512;
+            var charBuff = new char[BUFF_LEN];
+            int acutalLen = 0;
+            unsafe
+            {
+                fixed (char* buffHead = &charBuff[0])
+                {
 
+                    Cef3Binder.MyCefJs_CefV8Value_ReadAsString(this.Ptr, buffHead, BUFF_LEN, ref acutalLen);
+                    if (acutalLen > BUFF_LEN)
+                    {
+                        //read more
+                    }
+                    return new string(buffHead, 0, acutalLen);
+                }
+            }
+           
+        }
     }
 
     [StructLayout(LayoutKind.Explicit)]

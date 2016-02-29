@@ -240,6 +240,12 @@ namespace LayoutFarm.CefBridge
            IntPtr callArgsPtr,
            int resultIndex,
            string str, int strlen);
+        [DllImport(CEF_CLIENT_DLL, CallingConvention = CallingConvention.Cdecl, CharSet = CharSet.Unicode)]
+        public static unsafe extern void MyCefMetArgs_SetInputAsInt32(
+            IntPtr callArgsPtr,
+            int resultIndex,
+            int value);
+
 
         [DllImport(CEF_CLIENT_DLL, CallingConvention = CallingConvention.Cdecl, CharSet = CharSet.Unicode)]
         public static unsafe extern void MyCefMetArgs_SetResultAsString(
@@ -298,6 +304,7 @@ namespace LayoutFarm.CefBridge
         [DllImport(CEF_CLIENT_DLL, CallingConvention = CallingConvention.Cdecl, CharSet = CharSet.Unicode)]
         internal static extern void MyCefJs_CefV8Value_SetValue_ByString(IntPtr target, string key, IntPtr value, int setAttr);
 
+
         [DllImport(CEF_CLIENT_DLL, CallingConvention = CallingConvention.Cdecl, CharSet = CharSet.Unicode)]
         internal static extern bool MyCefJs_CefV8Value_IsFunc(IntPtr target);
 
@@ -320,7 +327,8 @@ namespace LayoutFarm.CefBridge
         public static extern unsafe void MyCefString_Read(IntPtr cefStr, char* outputBuffer, int outputBufferLen, ref int actualLength);
         [DllImport(CEF_CLIENT_DLL, CallingConvention = CallingConvention.Cdecl)]
         public static extern unsafe void MyCefStringHolder_Read(IntPtr mycefStrHolder, char* outputBuffer, int outputBufferLen, ref int actualLength);
-
+        [DllImport(CEF_CLIENT_DLL, CallingConvention = CallingConvention.Cdecl, CharSet = CharSet.Unicode)]
+        public static extern unsafe void MyCefJs_CefV8Value_ReadAsString(IntPtr cefV8Value, char* outputBuffer, int outputBufferLen, ref int actualLength);
         [DllImport(CEF_CLIENT_DLL, CallingConvention = CallingConvention.Cdecl)]
         public static extern int MyCefJs_MetReadArgAsInt32(IntPtr jsArgs, int index);
         [DllImport(CEF_CLIENT_DLL, CallingConvention = CallingConvention.Cdecl)]
@@ -354,7 +362,7 @@ namespace LayoutFarm.CefBridge
             return Cef3Binder.MyCefCreateCefString(a);
         }
 
-        public static void NotifyRenderer(MyCefCallback callback, NativeCallArgs pars)
+        public static void NotifyRendererAsync(MyCefCallback callback, NativeCallArgs pars)
         {
             Cef3Binder.MyCefJsNotifyRenderer(callback, pars._argPtr);
         }

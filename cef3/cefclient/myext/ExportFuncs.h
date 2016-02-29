@@ -55,7 +55,7 @@ extern "C" {
 
 
 	MY_DLL_EXPORT void MyCefMetArgs_SetInputAsString(MethodArgs* args, int argIndex, const wchar_t* buffer, int len);
-
+	MY_DLL_EXPORT void MyCefMetArgs_SetInputAsInt32(MethodArgs* args, int argIndex, int32_t value);
 
 
 	//part3:
@@ -106,6 +106,7 @@ extern "C" {
 
 	MY_DLL_EXPORT void MyCefFrame_GetUrl(CefFrame* frame, wchar_t* outputBuffer, int outputBufferLen, int* actualLength);
 	MY_DLL_EXPORT void MyCefString_Read(CefString* cefStr, wchar_t* outputBuffer, int outputBufferLen, int* actualLength);
+	MY_DLL_EXPORT void MyCefJs_CefV8Value_ReadAsString(CefV8Value* target, wchar_t* outputBuffer, int outputBufferLen, int* actualLength);
 	MY_DLL_EXPORT void MyCefStringHolder_Read(MyCefStringHolder* mycefstr, wchar_t* outputBuffer, int outputBufferLen, int* actualLength);
 	
 
