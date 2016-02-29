@@ -97,9 +97,9 @@ extern "C" {
 	MY_DLL_EXPORT CefV8Handler* MyCefJs_New_V8Handler(managed_callback callback);
 	MY_DLL_EXPORT void MyCefJs_CefV8Value_SetValue_ByString(CefV8Value* target, const wchar_t* key, CefV8Value* value, int setAttribute);
 	MY_DLL_EXPORT void MyCefJs_CefV8Value_SetValue_ByIndex(CefV8Value* target, int index, CefV8Value* value);
-	MY_DLL_EXPORT bool MyCefJs_CefV8Value_IsFunc(CefV8Value* target);
-	MY_DLL_EXPORT CefV8Value* MyCefJs_CefV8Value_GetValue_AsFunc(CefV8Value* target);
-
+	MY_DLL_EXPORT bool MyCefJs_CefV8Value_IsFunc(CefV8Value* target); 
+	MY_DLL_EXPORT bool MyCefJs_CefRegisterExtension(const wchar_t* extensionName,const wchar_t* extensionCode);
+	 
 	MY_DLL_EXPORT CefV8Value* MyCefJs_CreateFunction(const wchar_t* name, CefV8Handler* handler);
 	MY_DLL_EXPORT CefV8Value* MyCefJs_ExecJsFunctionWithContext(CefV8Value* cefJsFunc, CefV8Context* context, const wchar_t* argAsJsonString);
 	 
