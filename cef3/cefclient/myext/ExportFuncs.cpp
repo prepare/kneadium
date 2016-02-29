@@ -332,6 +332,43 @@ void MyCefMetArgs_SetResultAsString(MethodArgs* args, int argIndex, const wchar_
 	}break;
 	}
 }
+void MyCefMetArgs_SetInputAsString(MethodArgs* args, int argIndex, const wchar_t* buffer, int len) {
+
+	//input
+	switch (argIndex)
+	{
+	case 0: {
+
+		args->arg0.type = JSVALUE_TYPE_STRING;
+		args->arg0.length = len;
+		args->arg0.value.str2 = buffer;
+	}break;
+	case 1: {
+
+		args->arg1.type = JSVALUE_TYPE_STRING;
+		args->arg1.length = len;
+		args->arg1.value.str2 = buffer;
+	}break;
+	case 2: {
+
+		args->arg2.type = JSVALUE_TYPE_STRING;
+		args->arg2.length = len;
+		args->arg2.value.str2 = buffer;
+	}break;
+	case 3: {
+
+		args->arg3.type = JSVALUE_TYPE_STRING;
+		args->arg3.length = len;
+		args->arg3.value.str2 = buffer;
+	}break;
+	case 4: {
+
+		args->arg4.type = JSVALUE_TYPE_STRING;
+		args->arg4.length = len;
+		args->arg4.value.str2 = buffer;
+	}break;
+	}
+}
 //4.
 void MyCefMetArgs_SetResultAsByteBuffer(MethodArgs* args, int argIndex, const char* byteBuffer, int len) {
 
@@ -591,24 +628,28 @@ MY_DLL_EXPORT CefV8Handler* MyCefJs_New_V8Handler(managed_callback callback) {
 	return new MyV8ManagedHandler(callback);
 }
 
-void HereOnRenderer(managed_callback callback)
+void HereOnRenderer(const managed_callback callback, MethodArgs* args)
 {
 	//callback to 
 	/*auto  currentContext = CefV8Context::GetCurrentContext();
-	MethodArgs* metArgs = new MethodArgs(); 
+	MethodArgs* metArgs = new MethodArgs();
 	CefV8Context* cc = currentContext.get();
 	metArgs->SetArgAsNativeObject(0, cc);
-*/
-	
-	MethodArgs* metArgs = new MethodArgs();
+	*/
 	//-------------------------------------------
-	callback(303, metArgs);
+	callback(303, args);
+
 	//check result
 	//retval = CefV8Value::CreateString(metArgs->ReadOutputAsString(0));
 }
-
-MY_DLL_EXPORT void MyCefJsNotifyRenderer(managed_callback callback) {
-	CefPostTask(TID_RENDERER, base::Bind(&HereOnRenderer, callback));
+MY_DLL_EXPORT MethodArgs* CreateMethodArgs() {
+	return new MethodArgs();
+}
+MY_DLL_EXPORT void DisposeMethodArgs(MethodArgs* args) {
+	delete args;
+}
+MY_DLL_EXPORT void MyCefJsNotifyRenderer(const managed_callback callback, MethodArgs* args) {
+	CefPostTask(TID_RENDERER, base::Bind(&HereOnRenderer, callback, args));
 }
 MY_DLL_EXPORT bool MyCefJs_CefV8Value_IsFunc(CefV8Value* target)
 {

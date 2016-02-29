@@ -53,6 +53,11 @@ extern "C" {
 	MY_DLL_EXPORT void MyCefMetArgs_SetResultAsInt32(MethodArgs* args, int argIndex, int value);
 	MY_DLL_EXPORT void MyCefMetArgs_SetResultAsByteBuffer(MethodArgs* args, int argIndex, const char* byteBuffer, int len);
 
+
+	MY_DLL_EXPORT void MyCefMetArgs_SetInputAsString(MethodArgs* args, int argIndex, const wchar_t* buffer, int len);
+
+
+
 	//part3:
 	//--------------------
 	//1.
@@ -77,13 +82,14 @@ extern "C" {
 	//part4: javascript context
 	MY_DLL_EXPORT CefV8Context* MyCefJsGetCurrentContext();
 	MY_DLL_EXPORT CefV8Context* MyCefJs_GetEnteredContext();
-	MY_DLL_EXPORT void MyCefJsNotifyRenderer(managed_callback callback);
+	MY_DLL_EXPORT void MyCefJsNotifyRenderer(managed_callback callback, MethodArgs* args);
 
 	MY_DLL_EXPORT CefV8Context* MyCefJsFrameContext(CefFrame* wbFrame);
 
 	MY_DLL_EXPORT CefV8Value* MyCefJsGetGlobal(CefV8Context* cefV8Context);
 	
-	
+	MY_DLL_EXPORT MethodArgs* CreateMethodArgs();
+	MY_DLL_EXPORT void DisposeMethodArgs(MethodArgs* args);
 
 	MY_DLL_EXPORT CefV8Context* MyCefJs_EnterContext(CefV8Context* cefV8Context);
 	MY_DLL_EXPORT void MyCefJs_ExitContext(CefV8Context* cefV8Context);

@@ -61,7 +61,7 @@ namespace LayoutFarm.CefBridge
 
     public struct NativeCallArgs
     {
-        IntPtr _argPtr;
+        internal readonly IntPtr _argPtr;
 
         public NativeCallArgs(IntPtr argPtr)
         {
@@ -116,8 +116,27 @@ namespace LayoutFarm.CefBridge
         {
             Cef3Binder.MyCefMetArgs_SetResultAsInt32(this._argPtr, index, value);
         }
+        public void SetInput(int index, string str)
+        {
+            //input args
+            Cef3Binder.MyCefMetArgs_SetInputAsString(this._argPtr,
+                       index,
+                       str,
+                       str.Length);
+            //unsafe
+            //{
+            //    fixed (byte* b = &buffer[0])
+            //    {
+            //        Cef3Binder.MyCefMetArgs_SetInputAsString(this._argPtr,
+            //            index,
+            //            new IntPtr(b),
+            //            buffer.Length);
+            //    }
+            //}
+        }
         public void SetOutput(int index, byte[] buffer)
         {
+            //output
 
             unsafe
             {
@@ -192,7 +211,7 @@ namespace LayoutFarm.CefBridge
         }
         public Cef3Func ReadArgsFuncHandler(int index)
         {
-            CefV8Value func = new CefV8Value(Cef3Binder.MyCefJs_MetReadArgAsCefV8Value(argPtr, index)); 
+            CefV8Value func = new CefV8Value(Cef3Binder.MyCefJs_MetReadArgAsCefV8Value(argPtr, index));
             return new Cef3Func(func.Ptr);
         }
     }

@@ -235,6 +235,11 @@ namespace LayoutFarm.CefBridge
 
 
 
+        [DllImport(CEF_CLIENT_DLL, CallingConvention = CallingConvention.Cdecl, CharSet = CharSet.Unicode)]
+        public static unsafe extern void MyCefMetArgs_SetInputAsString(
+           IntPtr callArgsPtr,
+           int resultIndex,
+           string str, int strlen);
 
         [DllImport(CEF_CLIENT_DLL, CallingConvention = CallingConvention.Cdecl, CharSet = CharSet.Unicode)]
         public static unsafe extern void MyCefMetArgs_SetResultAsString(
@@ -269,7 +274,7 @@ namespace LayoutFarm.CefBridge
         internal static extern IntPtr MyCefJsGetCurrentContext();
 
         [DllImport(CEF_CLIENT_DLL, CallingConvention = CallingConvention.Cdecl)]
-        internal static extern void MyCefJsNotifyRenderer(MyCefCallback handler);
+        internal static extern void MyCefJsNotifyRenderer(MyCefCallback handler, IntPtr pars);
 
         [DllImport(CEF_CLIENT_DLL, CallingConvention = CallingConvention.Cdecl)]
         internal static extern IntPtr MyCefJs_GetEnteredContext();
@@ -327,20 +332,31 @@ namespace LayoutFarm.CefBridge
         [DllImport(CEF_CLIENT_DLL, CallingConvention = CallingConvention.Cdecl)]
         public static extern unsafe IntPtr MyCefJs_MetReadArgAsV8FuncHandle(IntPtr jsArgs, int index);
 
-
-
+        [DllImport(CEF_CLIENT_DLL, CallingConvention = CallingConvention.Cdecl)]
+        public static extern IntPtr CreateMethodArgs();
+        [DllImport(CEF_CLIENT_DLL, CallingConvention = CallingConvention.Cdecl)]
+        public static extern void DisposeMethodArgs(IntPtr methodArgs);
 
     }
 
     public static class CefBinder2
     {
+        public static NativeCallArgs NewNativeCallArgs()
+        {
+            return new NativeCallArgs(Cef3Binder.CreateMethodArgs());
+        }
+        public static void DisposeNativeCallArgs(NativeCallArgs nativeCallArgs)
+        {
+            Cef3Binder.DisposeMethodArgs(nativeCallArgs._argPtr);
+        }
         public static IntPtr CefCreateString(string a)
         {
             return Cef3Binder.MyCefCreateCefString(a);
         }
-        public static void NotifyRenderer(MyCefCallback callback)
+
+        public static void NotifyRenderer(MyCefCallback callback, NativeCallArgs pars)
         {
-            Cef3Binder.MyCefJsNotifyRenderer(callback);
+            Cef3Binder.MyCefJsNotifyRenderer(callback, pars._argPtr);
         }
     }
 
