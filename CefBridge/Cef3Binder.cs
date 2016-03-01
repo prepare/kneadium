@@ -320,6 +320,9 @@ namespace LayoutFarm.CefBridge
         [DllImport(CEF_CLIENT_DLL, CallingConvention = CallingConvention.Cdecl, CharSet = CharSet.Unicode)]
         internal static unsafe extern IntPtr MyCefJs_ExecJsFunctionWithContext(IntPtr cefJsFunc, IntPtr context, char* argAsJsonString);
 
+        [DllImport(CEF_CLIENT_DLL, CallingConvention = CallingConvention.Cdecl, CharSet = CharSet.Unicode)]
+        internal static extern bool MyCefJs_CefRegisterExtension(string extensionName, string extensionCode);
+
         [DllImport(CEF_CLIENT_DLL, CallingConvention = CallingConvention.Cdecl)]
         public static extern unsafe void MyCefFrame_GetUrl(IntPtr myCefFrame, char* outputBuffer, int outputBufferLen, ref int actualLength);
 
@@ -349,6 +352,10 @@ namespace LayoutFarm.CefBridge
 
     public static class CefBinder2
     {
+        public static bool RegisterCefExtension(string extensionName, string extensionCode)
+        {
+            return Cef3Binder.MyCefJs_CefRegisterExtension(extensionName, extensionCode);
+        }
         public static NativeCallArgs NewNativeCallArgs()
         {
             return new NativeCallArgs(Cef3Binder.CreateMethodArgs());

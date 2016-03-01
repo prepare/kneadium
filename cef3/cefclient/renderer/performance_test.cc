@@ -136,6 +136,18 @@ namespace client {
 				RenderDelegate() {
 				}
 
+				//###_START 1
+				virtual void OnWebKitInitialized(CefRefPtr<ClientAppRenderer> app) {
+
+					//###_APPEND_START 1
+					//MessageBox(NULL, L"OnWebKitInitialized1", L"OnWebKitInitialized1", 0);
+					if (app->myMxCallback_) {
+						MethodArgs* metArgs = new MethodArgs();
+						metArgs->SetArgAsNativeObject(0, app.get());
+						app->myMxCallback_(205, metArgs);
+					}
+					//###_APPEND_STOP
+				}
 				virtual void OnContextCreated(CefRefPtr<ClientAppRenderer> app,
 					CefRefPtr<CefBrowser> browser,
 					CefRefPtr<CefFrame> frame,
@@ -179,11 +191,14 @@ namespace client {
 				}
 
 
-
+				//###_START 2
 				virtual void OnContextReleased(CefRefPtr<ClientAppRenderer> app,
 					CefRefPtr<CefBrowser> browser,
 					CefRefPtr<CefFrame> frame,
+					//###_FIND_NEXT_LANDMARK 2
 					CefRefPtr<CefV8Context> context) {
+					
+					//###_APPEND_START 0
 					if (app->myMxCallback_)
 					{
 						//expose all to managed side
@@ -193,11 +208,12 @@ namespace client {
 						metArgs->SetArgAsNativeObject(1, browser.get());
 						metArgs->SetArgAsNativeObject(2, frame.get());
 
-					
+
 						metArgs->SetArgAsNativeObject(3, context.get());
 
 						app->myMxCallback_(203, metArgs);
 					}
+					//###_APPEND_STOP
 
 				}
 			private:

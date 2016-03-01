@@ -76,6 +76,9 @@ namespace LayoutFarm.CefBridge
     /// </summary>
     public class MyCefRenderProcessListener
     {
+        public virtual void OnWebKitInitialized(NativeCallArgs nativeCallArgs)
+        {
+        }
         public virtual void OnContextCreated(MyCefContextArgs args)
         {
             //sample !!!
@@ -86,6 +89,7 @@ namespace LayoutFarm.CefBridge
             Cef3Func func = Cef3Func.CreateFunc("test001", funcHandler);
             cefV8Global.Set("test001", func);
         }
+       
         public virtual void OnContextReleased(MyCefContextArgs args)
         {
         }

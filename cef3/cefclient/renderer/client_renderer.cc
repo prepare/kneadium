@@ -13,84 +13,85 @@
 #include "include/wrapper/cef_message_router.h"
 
 namespace client {
-namespace renderer {
+	namespace renderer {
 
-namespace {
+		namespace {
 
-// Must match the value in client_handler.cc.
-const char kFocusedNodeChangedMessage[] = "ClientRenderer.FocusedNodeChanged";
+			// Must match the value in client_handler.cc.
+			const char kFocusedNodeChangedMessage[] = "ClientRenderer.FocusedNodeChanged";
 
-class ClientRenderDelegate : public ClientAppRenderer::Delegate {
- public:
-  ClientRenderDelegate()
-    : last_node_is_editable_(false) {
-  }
+			class ClientRenderDelegate : public ClientAppRenderer::Delegate {
+			public:
+				ClientRenderDelegate()
+					: last_node_is_editable_(false) {
+				}
 
-  virtual void OnWebKitInitialized(CefRefPtr<ClientAppRenderer> app) OVERRIDE {
-//###_START 0
-    // Create the renderer-side router for query handling.
-//###_APPEND_START 0
-//show msgbox if we want to break a debugger in render process
-//###_APPEND_STOP
-//###_APPEND_START 0
-//MessageBox(NULL, L"OnWebKitInitialized", L"OnWebKitInitialized", 0);
-//###_APPEND_STOP
-    CefMessageRouterConfig config;
-    message_router_ = CefMessageRouterRendererSide::Create(config);
-  }
+				virtual void OnWebKitInitialized(CefRefPtr<ClientAppRenderer> app) OVERRIDE {
+					//###_START 0
+						// Create the renderer-side router for query handling.
+					//###_APPEND_START 0
+					//show msgbox if we want to break a debugger in render process
+					//###_APPEND_STOP
+					//###_APPEND_START 0
+					//MessageBox(NULL, L"OnWebKitInitialized", L"OnWebKitInitialized", 0);
+					//###_APPEND_STOP
 
-  virtual void OnContextCreated(CefRefPtr<ClientAppRenderer> app,
-                                CefRefPtr<CefBrowser> browser,
-                                CefRefPtr<CefFrame> frame,
-                                CefRefPtr<CefV8Context> context) OVERRIDE {
-    message_router_->OnContextCreated(browser,  frame, context);
-  }
+					CefMessageRouterConfig config;
+					message_router_ = CefMessageRouterRendererSide::Create(config);
+				}
 
-  virtual void OnContextReleased(CefRefPtr<ClientAppRenderer> app,
-                                 CefRefPtr<CefBrowser> browser,
-                                 CefRefPtr<CefFrame> frame,
-                                 CefRefPtr<CefV8Context> context) OVERRIDE {
-    message_router_->OnContextReleased(browser,  frame, context);
-  }
+				virtual void OnContextCreated(CefRefPtr<ClientAppRenderer> app,
+					CefRefPtr<CefBrowser> browser,
+					CefRefPtr<CefFrame> frame,
+					CefRefPtr<CefV8Context> context) OVERRIDE {
+					message_router_->OnContextCreated(browser, frame, context);
+				}
 
-  virtual void OnFocusedNodeChanged(CefRefPtr<ClientAppRenderer> app,
-                                    CefRefPtr<CefBrowser> browser,
-                                    CefRefPtr<CefFrame> frame,
-                                    CefRefPtr<CefDOMNode> node) OVERRIDE {
-    bool is_editable = (node.get() && node->IsEditable());
-    if (is_editable != last_node_is_editable_) {
-      // Notify the browser of the change in focused element type.
-      last_node_is_editable_ = is_editable;
-      CefRefPtr<CefProcessMessage> message =
-          CefProcessMessage::Create(kFocusedNodeChangedMessage);
-      message->GetArgumentList()->SetBool(0, is_editable);
-      browser->SendProcessMessage(PID_BROWSER, message);
-    }
-  }
+				virtual void OnContextReleased(CefRefPtr<ClientAppRenderer> app,
+					CefRefPtr<CefBrowser> browser,
+					CefRefPtr<CefFrame> frame,
+					CefRefPtr<CefV8Context> context) OVERRIDE {
+					message_router_->OnContextReleased(browser, frame, context);
+				}
 
-  virtual bool OnProcessMessageReceived(
-      CefRefPtr<ClientAppRenderer> app,
-      CefRefPtr<CefBrowser> browser,
-      CefProcessId source_process,
-      CefRefPtr<CefProcessMessage> message) OVERRIDE {
-    return message_router_->OnProcessMessageReceived(
-        browser, source_process, message);
-  }
+				virtual void OnFocusedNodeChanged(CefRefPtr<ClientAppRenderer> app,
+					CefRefPtr<CefBrowser> browser,
+					CefRefPtr<CefFrame> frame,
+					CefRefPtr<CefDOMNode> node) OVERRIDE {
+					bool is_editable = (node.get() && node->IsEditable());
+					if (is_editable != last_node_is_editable_) {
+						// Notify the browser of the change in focused element type.
+						last_node_is_editable_ = is_editable;
+						CefRefPtr<CefProcessMessage> message =
+							CefProcessMessage::Create(kFocusedNodeChangedMessage);
+						message->GetArgumentList()->SetBool(0, is_editable);
+						browser->SendProcessMessage(PID_BROWSER, message);
+					}
+				}
 
- private:
-  bool last_node_is_editable_;
+				virtual bool OnProcessMessageReceived(
+					CefRefPtr<ClientAppRenderer> app,
+					CefRefPtr<CefBrowser> browser,
+					CefProcessId source_process,
+					CefRefPtr<CefProcessMessage> message) OVERRIDE {
+					return message_router_->OnProcessMessageReceived(
+						browser, source_process, message);
+				}
 
-  // Handles the renderer side of query routing.
-  CefRefPtr<CefMessageRouterRendererSide> message_router_;
+			private:
+				bool last_node_is_editable_;
 
-  IMPLEMENT_REFCOUNTING(ClientRenderDelegate);
-};
+				// Handles the renderer side of query routing.
+				CefRefPtr<CefMessageRouterRendererSide> message_router_;
 
-}  // namespace
+				IMPLEMENT_REFCOUNTING(ClientRenderDelegate);
+			};
 
-void CreateDelegates(ClientAppRenderer::DelegateSet& delegates) {
-  delegates.insert(new ClientRenderDelegate);
-}
+		}  // namespace
 
-}  // namespace renderer
+		void CreateDelegates(ClientAppRenderer::DelegateSet& delegates) {
+			delegates.insert(new ClientRenderDelegate);
+		}
+
+	}  // namespace renderer
 }  // namespace client

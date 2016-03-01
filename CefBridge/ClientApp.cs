@@ -152,11 +152,20 @@ namespace LayoutFarm.CefBridge
                             //var clientRenderApp = new NativeRendererApp(args.GetArgAsNativePtr(0));
                             //var browser = new NativeBrowser(args.GetArgAsNativePtr(1));
                             //var context = new NativeJsContext(args.GetArgAsNativePtr(2));
-
                             renderProcessListener.OnContextReleased(cefContextArgs);
                         }
                     }
                     break;
+                case 205:
+                    {
+                        if (renderProcessListener != null)
+                        {
+                            NativeCallArgs args = new NativeCallArgs(argsPtr);  
+                            renderProcessListener.OnWebKitInitialized(args);
+                        }
+
+
+                    } break; 
             }
         }
     }
