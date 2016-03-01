@@ -627,8 +627,33 @@ MY_DLL_EXPORT void MyCefJs_ExitContext(CefV8Context* cefV8Context) {
 	cefV8Context->Exit();
 }
 
+bool MyCefJs_CefRegisterExtension(const wchar_t* extensionName, const wchar_t* extensionCode) {
 
 
+	//-----------------------------------------------
+	class MyV8ManagedHandler : public CefV8Handler {
+	public:
+		 
+		MyV8ManagedHandler() { 
+		}
+		virtual bool Execute(const CefString& name,
+			CefRefPtr<CefV8Value> object,
+			const CefV8ValueList& arguments,
+			CefRefPtr<CefV8Value>& retval,
+			CefString& exception)
+		{
+			 
+			return true;
+		}
+	private:
+		IMPLEMENT_REFCOUNTING(MyV8ManagedHandler);
+	};
+	//----------------------------------------------- 
+	CefString name = extensionName;
+	CefString code = extensionCode;
+	CefRefPtr<CefV8Handler> handler = new MyV8ManagedHandler();
+	return CefRegisterExtension(name, code, handler);
+}
 MY_DLL_EXPORT CefV8Handler* MyCefJs_New_V8Handler(managed_callback callback) {
 
 	//-----------------------------------------------
