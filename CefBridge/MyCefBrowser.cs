@@ -75,9 +75,7 @@ namespace LayoutFarm.CefBridge
                     }
                     break;
                 case 101:
-                    {
-
-
+                    { 
                     }
                     break;
                 case 103:
@@ -87,14 +85,12 @@ namespace LayoutFarm.CefBridge
 
                         IWindowForm popupWin = Cef3Binder.CreateBlankForm(600, 450);
                         popupWin.Show();
-                        IntPtr handle = popupWin.GetHandle();
-
+                        IntPtr handle = popupWin.GetHandle(); 
                         if (argsPtr != IntPtr.Zero)
                         {
                             NativeCallArgs2 args = new NativeCallArgs2(argsPtr);
                             args.SetResult(handle);
-                        }
-
+                        } 
                     }
                     break;
                 case 104:
@@ -188,7 +184,7 @@ namespace LayoutFarm.CefBridge
                 //------------------------------
                 case 501: //on PreKey
                     {
-                        Console.WriteLine("on pre key");
+                       // Console.WriteLine("on pre key");
                     }
                     break;
                 //------------------------------
@@ -197,7 +193,7 @@ namespace LayoutFarm.CefBridge
                         //title changed
                         var args = new NativeCallArgs(argsPtr);
                         string newtitle = args.GetArgAsString(0);
-                        Console.WriteLine("title changed:" + newtitle);
+                       // Console.WriteLine("title changed:" + newtitle);
                     }
                     break;
                 case 503:
@@ -205,7 +201,7 @@ namespace LayoutFarm.CefBridge
                         //address changed
                         var args = new NativeCallArgs(argsPtr);
                         string newtitle = args.GetArgAsString(0);
-                        Console.WriteLine("address changed:" + newtitle);
+                       // Console.WriteLine("address changed:" + newtitle);
                     }
                     break;
             }

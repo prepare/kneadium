@@ -1,5 +1,6 @@
 ﻿//2015-2016 MIT, WinterDev
 using System;
+using System.Collections.Generic;
 using System.Runtime.InteropServices;
 namespace LayoutFarm.CefBridge
 {
@@ -36,13 +37,16 @@ namespace LayoutFarm.CefBridge
 
         private Cef3FuncHandler(IntPtr ptr) : base(ptr)
         {
+
         }
 
         public static Cef3FuncHandler CreateFuncHandler(MyCefCallback cefCallback)
         {
+            //store in cbs, prevent collected by GC
+            cbs.Add(cefCallback);
             return new Cef3FuncHandler(Cef3Binder.MyCefJs_New_V8Handler(cefCallback));
         }
-
+        static List<MyCefCallback> cbs = new List<MyCefCallback>();
     }
 
     public class Cef3Func : Cef3RefCountingValue
@@ -142,7 +146,7 @@ namespace LayoutFarm.CefBridge
                     return new string(buffHead, 0, acutalLen);
                 }
             }
-           
+
         }
     }
 
