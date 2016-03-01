@@ -74,22 +74,16 @@ namespace LayoutFarm.CefBridge
     /// <summary>
     /// listener for render process
     /// </summary>
-    public class MyCefRenderProcessListener
+    public abstract class MyCefRenderProcessListener
     {
         public virtual void OnWebKitInitialized(NativeCallArgs nativeCallArgs)
         {
         }
         public virtual void OnContextCreated(MyCefContextArgs args)
         {
-            //sample !!!
-            //call window.test001() from js 
-
-            CefV8Value cefV8Global = args.context.GetGlobal();
-            Cef3FuncHandler funcHandler = Cef3FuncHandler.CreateFuncHandler(Test001);
-            Cef3Func func = Cef3Func.CreateFunc("test001", funcHandler);
-            cefV8Global.Set("test001", func);
+           
         }
-       
+
         public virtual void OnContextReleased(MyCefContextArgs args)
         {
         }
@@ -103,19 +97,6 @@ namespace LayoutFarm.CefBridge
         }
 
 
-        void Test001(int id, IntPtr argsPtr)
-        {
-
-#if DEBUG
-            //if (Cef3Binder.s_dbugIsRendererProcess)
-            //{
-            //    System.Diagnostics.Debugger.Break();
-            //}
-#endif
-            var nativeCallArgs = new NativeCallArgs(argsPtr);
-            nativeCallArgs.SetOutput(0, "hello from managed side !");
-
-        }
     }
 
     public class MyCefContextArgs
@@ -126,8 +107,8 @@ namespace LayoutFarm.CefBridge
         public readonly NativeJsContext context;
 
         public MyCefContextArgs(NativeCallArgs args)
-        {   
-            
+        {
+
             clientRenderApp = new NativeRendererApp(args.GetArgAsNativePtr(0));
             browser = new NativeBrowser(args.GetArgAsNativePtr(1));
             nativeFrame = new NativeFrame(args.GetArgAsNativePtr(2));

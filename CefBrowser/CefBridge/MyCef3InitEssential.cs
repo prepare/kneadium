@@ -88,7 +88,7 @@ namespace CefBridgeTest
         public override CefClientApp CreateClientApp()
         {
 
-            var renderProcListener = new MyCefRenderProcessListener();
+            var renderProcListener = new CefRendererProcessListener();
             var clientApp = new CefClientApp(
                 System.Diagnostics.Process.GetCurrentProcess().Handle,
                 renderProcListener);
@@ -148,6 +148,35 @@ namespace CefBridgeTest
             //4. 
             initEssential.Shutdown();
             //---------------------------------- 
+        }
+    }
+
+
+    class CefRendererProcessListener : MyCefRenderProcessListener
+    {
+
+        public override void OnContextCreated(MyCefContextArgs args)
+        {
+            //sample !!!
+            //call window.test001() from js 
+            CefV8Value cefV8Global = args.context.GetGlobal();
+            Cef3FuncHandler funcHandler = Cef3FuncHandler.CreateFuncHandler(Test001);
+            Cef3Func func = Cef3Func.CreateFunc("test001", funcHandler);
+            cefV8Global.Set("test001", func);
+        }
+
+        void Test001(int id, IntPtr argsPtr)
+        {
+
+#if DEBUG
+            //if (Cef3Binder.s_dbugIsRendererProcess)
+            //{
+            //    System.Diagnostics.Debugger.Break();
+            //}
+#endif
+            var nativeCallArgs = new NativeCallArgs(argsPtr);
+            nativeCallArgs.SetOutput(0, "hello from managed side !");
+
         }
     }
 }
