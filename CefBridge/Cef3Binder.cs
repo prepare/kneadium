@@ -369,9 +369,9 @@ namespace LayoutFarm.CefBridge
             return Cef3Binder.MyCefCreateCefString(a);
         }
 
-        public static void NotifyRendererAsync(MyCefCallback callback, NativeCallArgs pars)
+        public static void NotifyRendererAsync(MyCefCallback callback)
         {
-            Cef3Binder.MyCefJsNotifyRenderer(callback, pars._argPtr);
+            Cef3Binder.MyCefJsNotifyRenderer(callback, IntPtr.Zero);
         }
     }
 

@@ -51,7 +51,7 @@ namespace LayoutFarm.CefBridge
 
     public class Cef3Func : Cef3RefCountingValue
     {
-        public NativeJsContext creationContext;
+
         public Cef3Func(IntPtr ptr) : base(ptr)
         {
 
@@ -70,11 +70,19 @@ namespace LayoutFarm.CefBridge
                 {
                     CefV8Value value = new CefV8Value(Cef3Binder.MyCefJs_ExecJsFunctionWithContext(this.Ptr, context.Ptr, first));
                     return value;
-
                 }
-
             }
-
+        }
+        public CefV8Value ExecFunction(NativeJsContext context, char[] argAsJsonChars)
+        {
+            unsafe
+            {                  
+                fixed (char* first = &argAsJsonChars[0])
+                {
+                    CefV8Value value = new CefV8Value(Cef3Binder.MyCefJs_ExecJsFunctionWithContext(this.Ptr, context.Ptr, first));
+                    return value;
+                }
+            }
         }
     }
 
