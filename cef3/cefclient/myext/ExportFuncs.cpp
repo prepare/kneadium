@@ -633,8 +633,8 @@ bool MyCefJs_CefRegisterExtension(const wchar_t* extensionName, const wchar_t* e
 	//-----------------------------------------------
 	class MyV8ManagedHandler : public CefV8Handler {
 	public:
-		 
-		MyV8ManagedHandler() { 
+
+		MyV8ManagedHandler() {
 		}
 		virtual bool Execute(const CefString& name,
 			CefRefPtr<CefV8Value> object,
@@ -642,7 +642,7 @@ bool MyCefJs_CefRegisterExtension(const wchar_t* extensionName, const wchar_t* e
 			CefRefPtr<CefV8Value>& retval,
 			CefString& exception)
 		{
-			 
+
 			return true;
 		}
 	private:
@@ -698,7 +698,8 @@ void HereOnRenderer(const managed_callback callback, MethodArgs* args)
 	CefV8Context* cc = currentContext.get();
 	metArgs->SetArgAsNativeObject(0, cc);
 	*/
-	//-------------------------------------------
+	//------------------------------------------- 	CefDevBrowser.exe!LayoutFarm.CefBridge.MyCefRendererProcessListenerExt.NotifyBack(int id, System.IntPtr argsPtr) Line 138	C#
+
 	callback(303, args);
 
 	//check result
@@ -745,10 +746,13 @@ MY_DLL_EXPORT CefV8Value* MyCefJs_ExecJsFunctionWithContext(CefV8Value* cefJsFun
 	args.push_back(CefV8Value::CreateString(argAsJsonString));
 
 	auto result = cefJsFunc->ExecuteFunctionWithContext(context, NULL, args);
-	auto str = result->GetStringValue();
-
-	result->AddRef();
-	return result.get();
+	if (!result) {
+		return NULL;
+	}
+	else {
+		result->AddRef();
+		return result.get();
+	}
 }
 
 MY_DLL_EXPORT void MyCefFrame_GetUrl(CefFrame* frame, wchar_t* outputBuffer, int outputBufferLen, int* actualLength)

@@ -76,7 +76,7 @@ namespace LayoutFarm.CefBridge
         public CefV8Value ExecFunction(NativeJsContext context, char[] argAsJsonChars)
         {
             unsafe
-            {                  
+            {
                 fixed (char* first = &argAsJsonChars[0])
                 {
                     CefV8Value value = new CefV8Value(Cef3Binder.MyCefJs_ExecJsFunctionWithContext(this.Ptr, context.Ptr, first));
@@ -126,7 +126,10 @@ namespace LayoutFarm.CefBridge
 
         public CefV8Value(IntPtr ptr) : base(ptr)
         {
+            if (ptr == IntPtr.Zero)
+            {
 
+            }
         }
         public void Set(string key, Cef3Func cef3Func)
         {
