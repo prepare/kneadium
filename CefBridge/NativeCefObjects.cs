@@ -143,17 +143,19 @@ namespace LayoutFarm.CefBridge
         {
             const int BUFF_LEN = 512;
 
+            char[] charBuff = new char[BUFF_LEN];
             unsafe
             {
-                char* charBuff = stackalloc char[BUFF_LEN];
-                int acutalLen = 0;
-                Cef3Binder.MyCefJs_CefV8Value_ReadAsString(this.Ptr, charBuff, BUFF_LEN, ref acutalLen);
-                if (acutalLen > BUFF_LEN)
+                fixed (char* head = &charBuff[0])
                 {
-                    //read more
+                    int actualLen = 0;
+                    Cef3Binder.MyCefJs_CefV8Value_ReadAsString(this.Ptr, head, BUFF_LEN, ref actualLen);
+                    if (actualLen > BUFF_LEN)
+                    {
+                        //read more
+                    }
+                    return new string(charBuff, 0, actualLen);
                 }
-                return new string(charBuff, 0, acutalLen);
-
             }
 
         }
