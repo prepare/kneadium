@@ -22,7 +22,7 @@ TestResults
 *.sln.docstates
 
 # Build results
-
+cef3_output/
 [Dd]ebug/
 [Rr]elease/
 x64/
