@@ -211,7 +211,10 @@ namespace BridgeBuilder
         /// <returns></returns>
         public static PatchFile BuildPatchFile(string filename)
         {
+            if (filename == "d:\\projects\\CefBridge\\cef3\\cefclient\\browser\\client_handler.cc")
+            {
 
+            }
             //create patch command for specific filename
             PatchFile patchFile = new PatchFile(filename);
             SourceFile sourceFile = new SourceFile(filename, false);
@@ -232,7 +235,7 @@ namespace BridgeBuilder
 
             for (; i < j; ++i)
             {
-
+               
                 line = sourceFile.GetLine(i).TrimStart();
 
                 if (line.StartsWith("//###_"))
@@ -296,7 +299,7 @@ namespace BridgeBuilder
                                                 collectAppendStBuilder.AppendLine(line);
                                                 //read next line
                                                 i++;
-                                                line = sourceFile.GetLine(i);
+                                                line = sourceFile.GetLine(i).TrimStart();
                                             }
                                         }
                                     } while (true);
@@ -525,7 +528,7 @@ namespace BridgeBuilder
 
         void AddControlLine(SourceFile outputFile, PatchCommand cmd)
         {
-        
+
             PatchWriter.WriteCommand(outputFile, cmd, false);
         }
 

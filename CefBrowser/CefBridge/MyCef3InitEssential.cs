@@ -13,9 +13,11 @@ namespace CefBridgeTest
     class MyCef3InitEssential : LayoutFarm.CefBridge.Cef3InitEssential
     {
         static Form tinyForm;
-
+#if DEBUG
         static string libPath = @"D:\projects\CefBridge\cef3_output\cefclient\Debug";
-
+#else
+        static string libPath = @"D:\projects\CefBridge\cef3_output\cefclient\Release";
+#endif
 
         static MyCef3InitEssential initEssential;
 
@@ -137,7 +139,6 @@ namespace CefBridgeTest
             {
                 return false;
             }
-
             initEssential.SetupPreRun();
 
             return true;
