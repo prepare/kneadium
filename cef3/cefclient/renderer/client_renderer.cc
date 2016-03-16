@@ -1,4 +1,4 @@
-//###_ORIGINAL d:\projects\CefBridge\cef3\cefclient\renderer/client_renderer.cc
+//###_ORIGINAL D:\projects\cef_binary_3.2623.1395\cefclient\renderer//client_renderer.cc
 // Copyright (c) 2012 The Chromium Embedded Framework Authors. All rights
 // reserved. Use of this source code is governed by a BSD-style license that
 // can be found in the LICENSE file.
@@ -13,85 +13,84 @@
 #include "include/wrapper/cef_message_router.h"
 
 namespace client {
-	namespace renderer {
+namespace renderer {
 
-		namespace {
+namespace {
 
-			// Must match the value in client_handler.cc.
-			const char kFocusedNodeChangedMessage[] = "ClientRenderer.FocusedNodeChanged";
+// Must match the value in client_handler.cc.
+const char kFocusedNodeChangedMessage[] = "ClientRenderer.FocusedNodeChanged";
 
-			class ClientRenderDelegate : public ClientAppRenderer::Delegate {
-			public:
-				ClientRenderDelegate()
-					: last_node_is_editable_(false) {
-				}
+class ClientRenderDelegate : public ClientAppRenderer::Delegate {
+ public:
+  ClientRenderDelegate()
+    : last_node_is_editable_(false) {
+  }
 
-				virtual void OnWebKitInitialized(CefRefPtr<ClientAppRenderer> app) OVERRIDE {
-					//###_START 0
-						// Create the renderer-side router for query handling.
-					//###_APPEND_START 0
-					//show msgbox if we want to break a debugger in render process
-					//###_APPEND_STOP
-					//###_APPEND_START 0
-					//MessageBox(NULL, L"OnWebKitInitialized", L"OnWebKitInitialized", 0);
-					//###_APPEND_STOP
+  virtual void OnWebKitInitialized(CefRefPtr<ClientAppRenderer> app) OVERRIDE {
+//###_START 0
+    // Create the renderer-side router for query handling.
+//###_APPEND_START 0
+//show msgbox if we want to break a debugger in render process
+//###_APPEND_STOP
+//###_APPEND_START 0
+//MessageBox(NULL, L"OnWebKitInitialized", L"OnWebKitInitialized", 0);
+//###_APPEND_STOP
+    CefMessageRouterConfig config;
+    message_router_ = CefMessageRouterRendererSide::Create(config);
+  }
 
-					CefMessageRouterConfig config;
-					message_router_ = CefMessageRouterRendererSide::Create(config);
-				}
+  virtual void OnContextCreated(CefRefPtr<ClientAppRenderer> app,
+                                CefRefPtr<CefBrowser> browser,
+                                CefRefPtr<CefFrame> frame,
+                                CefRefPtr<CefV8Context> context) OVERRIDE {
+    message_router_->OnContextCreated(browser,  frame, context);
+  }
 
-				virtual void OnContextCreated(CefRefPtr<ClientAppRenderer> app,
-					CefRefPtr<CefBrowser> browser,
-					CefRefPtr<CefFrame> frame,
-					CefRefPtr<CefV8Context> context) OVERRIDE {
-					message_router_->OnContextCreated(browser, frame, context);
-				}
+  virtual void OnContextReleased(CefRefPtr<ClientAppRenderer> app,
+                                 CefRefPtr<CefBrowser> browser,
+                                 CefRefPtr<CefFrame> frame,
+                                 CefRefPtr<CefV8Context> context) OVERRIDE {
+    message_router_->OnContextReleased(browser,  frame, context);
+  }
 
-				virtual void OnContextReleased(CefRefPtr<ClientAppRenderer> app,
-					CefRefPtr<CefBrowser> browser,
-					CefRefPtr<CefFrame> frame,
-					CefRefPtr<CefV8Context> context) OVERRIDE {
-					message_router_->OnContextReleased(browser, frame, context);
-				}
+  virtual void OnFocusedNodeChanged(CefRefPtr<ClientAppRenderer> app,
+                                    CefRefPtr<CefBrowser> browser,
+                                    CefRefPtr<CefFrame> frame,
+                                    CefRefPtr<CefDOMNode> node) OVERRIDE {
+    bool is_editable = (node.get() && node->IsEditable());
+    if (is_editable != last_node_is_editable_) {
+      // Notify the browser of the change in focused element type.
+      last_node_is_editable_ = is_editable;
+      CefRefPtr<CefProcessMessage> message =
+          CefProcessMessage::Create(kFocusedNodeChangedMessage);
+      message->GetArgumentList()->SetBool(0, is_editable);
+      browser->SendProcessMessage(PID_BROWSER, message);
+    }
+  }
 
-				virtual void OnFocusedNodeChanged(CefRefPtr<ClientAppRenderer> app,
-					CefRefPtr<CefBrowser> browser,
-					CefRefPtr<CefFrame> frame,
-					CefRefPtr<CefDOMNode> node) OVERRIDE {
-					bool is_editable = (node.get() && node->IsEditable());
-					if (is_editable != last_node_is_editable_) {
-						// Notify the browser of the change in focused element type.
-						last_node_is_editable_ = is_editable;
-						CefRefPtr<CefProcessMessage> message =
-							CefProcessMessage::Create(kFocusedNodeChangedMessage);
-						message->GetArgumentList()->SetBool(0, is_editable);
-						browser->SendProcessMessage(PID_BROWSER, message);
-					}
-				}
+  virtual bool OnProcessMessageReceived(
+      CefRefPtr<ClientAppRenderer> app,
+      CefRefPtr<CefBrowser> browser,
+      CefProcessId source_process,
+      CefRefPtr<CefProcessMessage> message) OVERRIDE {
+    return message_router_->OnProcessMessageReceived(
+        browser, source_process, message);
+  }
 
-				virtual bool OnProcessMessageReceived(
-					CefRefPtr<ClientAppRenderer> app,
-					CefRefPtr<CefBrowser> browser,
-					CefProcessId source_process,
-					CefRefPtr<CefProcessMessage> message) OVERRIDE {
-					return message_router_->OnProcessMessageReceived(
-						browser, source_process, message);
-				}
+ private:
+  bool last_node_is_editable_;
 
-			private:
-				bool last_node_is_editable_;
+  // Handles the renderer side of query routing.
+  CefRefPtr<CefMessageRouterRendererSide> message_router_;
 
-				// Handles the renderer side of query routing.
-				CefRefPtr<CefMessageRouterRendererSide> message_router_;
+  IMPLEMENT_REFCOUNTING(ClientRenderDelegate);
+};
 
-				IMPLEMENT_REFCOUNTING(ClientRenderDelegate);
-			};
+}  // namespace
 
-		}  // namespace
+void CreateDelegates(ClientAppRenderer::DelegateSet& delegates) {
+  delegates.insert(new ClientRenderDelegate);
+}
 
-		void CreateDelegates(ClientAppRenderer::DelegateSet& delegates) {
-			delegates.insert(new ClientRenderDelegate);
-		}
-
-	}  // namespace renderer
+}  // namespace renderer
 }  // namespace client

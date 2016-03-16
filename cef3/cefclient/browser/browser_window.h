@@ -1,4 +1,4 @@
-//###_ORIGINAL d:\projects\CefBridge\cef3\cefclient\browser/browser_window.h
+//###_ORIGINAL D:\projects\cef_binary_3.2623.1395\cefclient\browser//browser_window.h
 // Copyright (c) 2015 The Chromium Embedded Framework Authors. All rights
 // reserved. Use of this source code is governed by a BSD-style license that
 // can be found in the LICENSE file.
@@ -104,10 +104,10 @@ class BrowserWindow : public ClientHandler::Delegate {
 //###_APPEND_START 0
 //my extension 
 #ifdef MYCEF_DEBUG//my extension 
-  int dbug_id;
+int dbug_id;
 #endif  
-  //my extension 
-  ClientHandler* GetClientHandler();//my extension
+//my extension 
+ClientHandler* GetClientHandler();//my extension
 //###_APPEND_STOP
 
  protected:
