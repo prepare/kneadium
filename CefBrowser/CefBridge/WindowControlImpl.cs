@@ -17,7 +17,7 @@ namespace LayoutFarm.CefBridge
         }
         IntPtr IWindowControl.GetHandle()
         {
-            return this.control.Handle;
+            return control.Handle;
         }
 
         void IWindowControl.Show()
@@ -82,30 +82,36 @@ namespace LayoutFarm.CefBridge
             : base(form)
         {
             this.form = form;
-
             //not enable when start
             //tmClosingCheck will start when form is closing
             tmClosingCheck = new Timer();
             tmClosingCheck.Interval = 200;
             tmClosingCheck.Tick += TmClosingCheck_Tick;
-            form.FormClosing += Form_FormClosing;
-        }
 
+            form.FormClosing += Form_FormClosing;
+            form.FormClosed += Form_FormClosed;
+        }
+        private void Form_FormClosed(object sender, FormClosedEventArgs e)
+        {
+            //form has closed
+        }
         private void TmClosingCheck_Tick(object sender, EventArgs e)
         {
-            if (MyCefBrowser.IsReadyToClose(this))
+            if (MyCefBrowser.IsReadyToClose(formHandle))
             {
                 tmClosingCheck.Enabled = false;
                 form.Close();
             }
         }
 
+        IntPtr formHandle;
         private void Form_FormClosing(object sender, FormClosingEventArgs e)
         {
             //essential
             //monitor form closing
             if (!startClosing)
             {
+                formHandle = form.Handle;
                 MyCefBrowser.DisposeCefWbControl(this);
                 tmClosingCheck.Enabled = true;
                 startClosing = true;
@@ -113,7 +119,7 @@ namespace LayoutFarm.CefBridge
             }
             else
             {
-                if (!MyCefBrowser.IsReadyToClose(this))
+                if (!MyCefBrowser.IsReadyToClose(formHandle))
                 {
                     e.Cancel = true;
                 }
