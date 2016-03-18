@@ -343,8 +343,8 @@ namespace LayoutFarm.CefBridge
         [DllImport(CEF_CLIENT_DLL, CallingConvention = CallingConvention.Cdecl)]
         public static extern unsafe IntPtr MyCefJs_MetReadArgAsV8FuncHandle(IntPtr jsArgs, int index);
 
-        [DllImport(CEF_CLIENT_DLL, CallingConvention = CallingConvention.Cdecl)]
-        public static extern IntPtr CreateMethodArgs();
+        //[DllImport(CEF_CLIENT_DLL, CallingConvention = CallingConvention.Cdecl)]
+        //public static extern IntPtr CreateMethodArgs();
         [DllImport(CEF_CLIENT_DLL, CallingConvention = CallingConvention.Cdecl)]
         public static extern void DisposeMethodArgs(IntPtr methodArgs);
 
@@ -356,10 +356,10 @@ namespace LayoutFarm.CefBridge
         {
             return Cef3Binder.MyCefJs_CefRegisterExtension(extensionName, extensionCode);
         }
-        public static NativeCallArgs NewNativeCallArgs()
-        {
-            return new NativeCallArgs(Cef3Binder.CreateMethodArgs());
-        }
+        //public static NativeCallArgs NewNativeCallArgs()
+        //{
+        //    return new NativeCallArgs(Cef3Binder.CreateMethodArgs());
+        //}
         public static void DisposeNativeCallArgs(NativeCallArgs nativeCallArgs)
         {
             Cef3Binder.DisposeMethodArgs(nativeCallArgs._argPtr);

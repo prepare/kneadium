@@ -38,12 +38,13 @@
             this.button6 = new System.Windows.Forms.Button();
             this.button8 = new System.Windows.Forms.Button();
             this.button9 = new System.Windows.Forms.Button();
-            this.cefWebBrowser1 = new LayoutFarm.CefBridge.CefWebBrowserControl();
             this.button10 = new System.Windows.Forms.Button();
             this.button11 = new System.Windows.Forms.Button();
             this.button12 = new System.Windows.Forms.Button();
             this.button13 = new System.Windows.Forms.Button();
             this.cmdReloadIgnoreCache = new System.Windows.Forms.Button();
+            this.cefWebBrowser1 = new LayoutFarm.CefBridge.CefWebBrowserControl();
+            this.button14 = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // button7
@@ -52,13 +53,13 @@
             this.button7.Name = "button7";
             this.button7.Size = new System.Drawing.Size(132, 37);
             this.button7.TabIndex = 8;
-            this.button7.Text = "Navigate 2";
+            this.button7.Text = "Html5 Test";
             this.button7.UseVisualStyleBackColor = true;
             this.button7.Click += new System.EventHandler(this.button7_Click);
             // 
             // button1
             // 
-            this.button1.Location = new System.Drawing.Point(12, 98);
+            this.button1.Location = new System.Drawing.Point(12, 151);
             this.button1.Name = "button1";
             this.button1.Size = new System.Drawing.Size(132, 37);
             this.button1.TabIndex = 9;
@@ -68,7 +69,7 @@
             // 
             // button2
             // 
-            this.button2.Location = new System.Drawing.Point(12, 141);
+            this.button2.Location = new System.Drawing.Point(12, 194);
             this.button2.Name = "button2";
             this.button2.Size = new System.Drawing.Size(132, 37);
             this.button2.TabIndex = 10;
@@ -78,7 +79,7 @@
             // 
             // button3
             // 
-            this.button3.Location = new System.Drawing.Point(12, 184);
+            this.button3.Location = new System.Drawing.Point(12, 237);
             this.button3.Name = "button3";
             this.button3.Size = new System.Drawing.Size(132, 37);
             this.button3.TabIndex = 11;
@@ -88,7 +89,7 @@
             // 
             // button4
             // 
-            this.button4.Location = new System.Drawing.Point(12, 227);
+            this.button4.Location = new System.Drawing.Point(12, 280);
             this.button4.Name = "button4";
             this.button4.Size = new System.Drawing.Size(132, 37);
             this.button4.TabIndex = 12;
@@ -98,7 +99,7 @@
             // 
             // button5
             // 
-            this.button5.Location = new System.Drawing.Point(12, 270);
+            this.button5.Location = new System.Drawing.Point(12, 323);
             this.button5.Name = "button5";
             this.button5.Size = new System.Drawing.Size(132, 37);
             this.button5.TabIndex = 13;
@@ -108,7 +109,7 @@
             // 
             // button6
             // 
-            this.button6.Location = new System.Drawing.Point(12, 313);
+            this.button6.Location = new System.Drawing.Point(12, 366);
             this.button6.Name = "button6";
             this.button6.Size = new System.Drawing.Size(132, 37);
             this.button6.TabIndex = 14;
@@ -132,20 +133,9 @@
             this.button9.Name = "button9";
             this.button9.Size = new System.Drawing.Size(132, 37);
             this.button9.TabIndex = 16;
-            this.button9.Text = "Navigate";
+            this.button9.Text = "NewBwWindow";
             this.button9.UseVisualStyleBackColor = true;
             this.button9.Click += new System.EventHandler(this.button9_Click);
-            // 
-            // cefWebBrowser1
-            // 
-            this.cefWebBrowser1.BackColor = System.Drawing.Color.White;
-            this.cefWebBrowser1.CefBrowserListener = null;
-            this.cefWebBrowser1.InitUrl = "http://localhost";
-            this.cefWebBrowser1.Location = new System.Drawing.Point(150, 66);
-            this.cefWebBrowser1.Name = "cefWebBrowser1";
-            this.cefWebBrowser1.Size = new System.Drawing.Size(802, 459);
-            this.cefWebBrowser1.TabIndex = 6;
-            this.cefWebBrowser1.Text = "cefWebBrowser1";
             // 
             // button10
             // 
@@ -197,11 +187,33 @@
             this.cmdReloadIgnoreCache.UseVisualStyleBackColor = true;
             this.cmdReloadIgnoreCache.Click += new System.EventHandler(this.cmdReloadIgnoreCache_Click);
             // 
+            // cefWebBrowser1
+            // 
+            this.cefWebBrowser1.BackColor = System.Drawing.Color.White;
+            this.cefWebBrowser1.CefBrowserListener = null;
+            this.cefWebBrowser1.InitUrl = "http://localhost";
+            this.cefWebBrowser1.Location = new System.Drawing.Point(150, 66);
+            this.cefWebBrowser1.Name = "cefWebBrowser1";
+            this.cefWebBrowser1.Size = new System.Drawing.Size(802, 459);
+            this.cefWebBrowser1.TabIndex = 6;
+            this.cefWebBrowser1.Text = "cefWebBrowser1";
+            // 
+            // button14
+            // 
+            this.button14.Location = new System.Drawing.Point(12, 98);
+            this.button14.Name = "button14";
+            this.button14.Size = new System.Drawing.Size(132, 37);
+            this.button14.TabIndex = 22;
+            this.button14.Text = "YouTube";
+            this.button14.UseVisualStyleBackColor = true;
+            this.button14.Click += new System.EventHandler(this.button14_Click);
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1009, 621);
+            this.Controls.Add(this.button14);
             this.Controls.Add(this.cmdReloadIgnoreCache);
             this.Controls.Add(this.button13);
             this.Controls.Add(this.button12);
@@ -241,6 +253,7 @@
         private System.Windows.Forms.Button button12;
         private System.Windows.Forms.Button button13;
         private System.Windows.Forms.Button cmdReloadIgnoreCache;
+        private System.Windows.Forms.Button button14;
     }
 }
 

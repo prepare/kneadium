@@ -595,7 +595,7 @@ MY_DLL_EXPORT  CefV8Context* MyCefJs_ContextEnter() {
 	return enteredContext.get();
 }
 MY_DLL_EXPORT MyCefStringHolder* MyCefCreateCefString(const wchar_t*  str) {
-	MyCefStringHolder* str_h = new MyCefStringHolder(); 
+	MyCefStringHolder* str_h = new MyCefStringHolder();
 	auto cefStr = CefV8Value::CreateString(str);
 	str_h->any = cefStr;
 
@@ -679,6 +679,7 @@ MY_DLL_EXPORT CefV8Handler* MyCefJs_New_V8Handler(managed_callback callback) {
 				//check result
 				retval = CefV8Value::CreateString(metArgs->ReadOutputAsString(0));
 				//retval = CefV8Value::CreateString("Hello, world!");
+				delete metArgs;
 			}
 			return true;
 		}
@@ -691,22 +692,11 @@ MY_DLL_EXPORT CefV8Handler* MyCefJs_New_V8Handler(managed_callback callback) {
 
 void HereOnRenderer(const managed_callback callback, MethodArgs* args)
 {
-	//callback to 
-	/*auto  currentContext = CefV8Context::GetCurrentContext();
-	MethodArgs* metArgs = new MethodArgs();
-	CefV8Context* cc = currentContext.get();
-	metArgs->SetArgAsNativeObject(0, cc);
-	*/
-	//------------------------------------------- 	CefDevBrowser.exe!LayoutFarm.CefBridge.MyCefRendererProcessListenerExt.NotifyBack(int id, System.IntPtr argsPtr) Line 138	C#
-
 	callback(303, args);
-
-	//check result
-	//retval = CefV8Value::CreateString(metArgs->ReadOutputAsString(0));
 }
-MY_DLL_EXPORT MethodArgs* CreateMethodArgs() {
-	return new MethodArgs();
-}
+//MY_DLL_EXPORT MethodArgs* CreateMethodArgs() {
+//	return new MethodArgs();
+//}
 MY_DLL_EXPORT void DisposeMethodArgs(MethodArgs* args) {
 	delete args;
 }

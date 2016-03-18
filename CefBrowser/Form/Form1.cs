@@ -19,25 +19,22 @@ namespace CefBridgeTest
         public Form1()
         {
             InitializeComponent();
-            nativeWindow = new LayoutFarm.CefBridge.MyWindowForm(this); 
+            nativeWindow = new LayoutFarm.CefBridge.MyWindowForm(this);
         }
         private void Form1_Load(object sender, EventArgs e)
         {
             this.cefWebBrowser1.Agent.Listener = new LayoutFarm.CefBridge.MyCefUIProcessListener();
-
         }
-         
 
+        public void Navigate(string url)
+        {
+            this.cefWebBrowser1.NavigateTo(url);
+        }
         private void button7_Click(object sender, EventArgs e)
         {
 
-            this.cefWebBrowser1.Focus();
-            //this.cefWebBrowser1.NavigateTo("http://localhost:8080");
-            this.cefWebBrowser1.NavigateTo("http://localhost");
-
-
-            //this.cefWebBrowser1.NavigateTo("https://html5test.com");
-            //this.cefWebBrowser1.NavigateTo("https://www.youtube.com"); 
+            this.cefWebBrowser1.Focus(); 
+            this.cefWebBrowser1.NavigateTo("https://html5test.com"); 
         }
 
         private void button1_Click(object sender, EventArgs e)
@@ -83,7 +80,7 @@ namespace CefBridgeTest
         private void button5_Click(object sender, EventArgs e)
         {
         }
-      
+
         private void button6_Click(object sender, EventArgs e)
         {
             //remove and destroy browser window
@@ -103,9 +100,10 @@ namespace CefBridgeTest
 
         private void button9_Click(object sender, EventArgs e)
         {
+
             Form1 anotherForm1 = new Form1();
             anotherForm1.Show();
-
+            //anotherForm1.Navigate("http://localhost");
         }
 
         private void button10_Click(object sender, EventArgs e)
@@ -136,6 +134,12 @@ namespace CefBridgeTest
         private void cmdReloadIgnoreCache_Click(object sender, EventArgs e)
         {
             this.cefWebBrowser1.Agent.ReloadIgnoreCache();
+        }
+
+        private void button14_Click(object sender, EventArgs e)
+        {
+            this.cefWebBrowser1.Focus();
+            this.cefWebBrowser1.NavigateTo("http://www.youtube.com");
         }
     }
 

@@ -90,13 +90,12 @@ namespace LayoutFarm.CefBridge
                     break;
                 case 104:
                     {
+                        NativeCallArgs args = new NativeCallArgs(argsPtr);
+                        string url = args.GetArgAsString(0);
                         Cef3Binder.SafeUIInvoke(() =>
-                        {
-                            NativeCallArgs args = new NativeCallArgs(argsPtr);
-                            string url = args.GetArgAsString(0);
+                        { 
                             IWindowForm popupWin = Cef3Binder.CreateNewBrowserWindow(600, 450);
-                            popupWin.Show();
-                            args.Dispose();
+                            popupWin.Show(); 
                         });
 
                     }

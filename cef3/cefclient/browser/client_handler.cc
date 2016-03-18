@@ -478,10 +478,9 @@ namespace client {
 			MethodArgs* metArgs = new MethodArgs();
 			auto str16 = target_url.ToString16();
 			auto cstr = str16.c_str();
-
 			metArgs->SetArgAsString(0, cstr);
 			this->mcallback_(104, metArgs);
-
+			//since client 
 			delete metArgs;
 
 			return true;
@@ -602,36 +601,21 @@ namespace client {
 			//send cef client
 			MethodArgs* args = new MethodArgs();
 			// memset(&args,0,sizeof(MethodArgs));	  
-			//send info to managed side
-
+			//send info to managed side 
 			args->SetArgAsNativeObject(0, browser.get());
 			args->SetArgAsNativeObject(1, frame.get());
-			args->SetArgAsInt32(2, errorCode);
-
+			args->SetArgAsInt32(2, errorCode); 
 			auto str16 = errorText.ToString16();
 			auto cstr = str16.c_str();
 			args->SetArgAsString(3, cstr);
 
 			auto str16_1 = failedUrl.ToString16();
 			auto cstr_1 = str16_1.c_str();
-			args->SetArgAsString(4, cstr_1);
-
-
-			/*MyCefStringHolder* str_h = new MyCefStringHolder();
-			auto cefStr = CefV8Value::CreateString(str);
-			str_h->any = cefStr;*/
-			/*MethodArgs* metArgs = new MethodArgs();
-			metArgs->SetArgAsNativeObject(0, app.get());
-			metArgs->SetArgAsNativeObject(1, browser.get());
-			metArgs->SetArgAsNativeObject(2, frame.get());
-			context->AddRef();
-			metArgs->SetArgAsNativeObject(3, context.get());
-			app->myMxCallback_(202, metArgs);*/
-			/*args->SetArgAsInt32(2, errorCode); */ 
+			args->SetArgAsString(4, cstr_1); 
 			//------------------------
 			this->mcallback_(108, args);
 			//------------------------
-			delete args;
+			delete args; 
 			//load page error
 
 			LoadErrorPage(frame, failedUrl, errorCode, errorText);

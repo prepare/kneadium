@@ -96,16 +96,16 @@ namespace LayoutFarm.CefBridge
                     break;
                 case 104:
                     {
+                        
+                        NativeCallArgs args = new NativeCallArgs(argsPtr);
+                        //open new form with specific url
+                        string url = args.GetArgAsString(0); 
+
                         Cef3Binder.SafeUIInvoke(() =>
                         {
-                            NativeCallArgs args = new NativeCallArgs(argsPtr);
-                            string url = args.GetArgAsString(0);
                             IWindowForm form = Cef3Binder.CreateNewBrowserWindow(800, 600);
                             form.Show();
-                            //and navigate to a specific url
-                            //TODO: review here
-
-                            args.Dispose();
+                            //and navigate to a specific url 
                         });
 
                     }
