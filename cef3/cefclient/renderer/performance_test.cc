@@ -10,7 +10,7 @@
 
 #include "include/wrapper/cef_stream_resource_handler.h"
 #include "cefclient/renderer/performance_test_setup.h"
-
+#include "cefclient/myext/mycef_msg_const.h"
 namespace client {
 	namespace performance_test {
 
@@ -144,8 +144,7 @@ namespace client {
 						MethodArgs  metArgs;
 						memset(&metArgs, 0, sizeof(MethodArgs));
 						metArgs.SetArgAsNativeObject(0, app.get());
-						app->myMxCallback_(205, &metArgs);
-					 
+						app->myMxCallback_(MYCEF_MSG_OnWebKitInitialized, &metArgs);
 					}
 				}
 				virtual void OnContextReleased(CefRefPtr<ClientAppRenderer> app,
@@ -160,10 +159,10 @@ namespace client {
 						memset(&metArgs, 0, sizeof(MethodArgs));
 						metArgs.SetArgAsNativeObject(0, app.get());
 						metArgs.SetArgAsNativeObject(1, browser.get());
-						metArgs.SetArgAsNativeObject(2, frame.get()); 
-						metArgs.SetArgAsNativeObject(3, context.get()); 
+						metArgs.SetArgAsNativeObject(2, frame.get());
+						metArgs.SetArgAsNativeObject(3, context.get());
 
-						app->myMxCallback_(203, &metArgs);						 
+						app->myMxCallback_(MYCEF_MSG_JsOnContextReleased, &metArgs);
 					}
 				}
 				//###_APPEND_STOP
@@ -185,8 +184,8 @@ namespace client {
 						metArgs.SetArgAsNativeObject(2, frame.get());
 						context->AddRef();
 						metArgs.SetArgAsNativeObject(3, context.get());
-						app->myMxCallback_(202, &metArgs);
-						 
+						app->myMxCallback_(MYCEF_MSG_JsOnContextCreated, &metArgs);
+
 					}
 					else {
 

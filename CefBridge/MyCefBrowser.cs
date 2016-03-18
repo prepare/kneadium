@@ -59,9 +59,13 @@ namespace LayoutFarm.CefBridge
 
         void MxCallBack(int id, IntPtr argsPtr)
         {
-            switch (id)
+            switch ((MyCefMsg)id)
             {
-                case 100:
+                case MyCefMsg.MYCEF_MSG_NotifyBrowserCreated:
+                    {
+                    }
+                    break;
+                case MyCefMsg.MYCEF_MSG_NotifyBrowserClosed:
                     {
                         if (this.devForm != null)
                         {
@@ -75,32 +79,27 @@ namespace LayoutFarm.CefBridge
                         }
                     }
                     break;
-                case 101:
-                    {
-                    }
-                    break;
-                case 103:
-                    {
-                        //create pop up window and send window handle to cef 
-                        //create new window form
+                //case 103:
+                //    {
+                //        //create pop up window and send window handle to cef 
+                //        //create new window form
 
-                        IWindowForm popupWin = Cef3Binder.CreateBlankForm(600, 450);
-                        popupWin.Show();
-                        IntPtr handle = popupWin.GetHandle();
-                        if (argsPtr != IntPtr.Zero)
-                        {
-                            NativeCallArgs2 args = new NativeCallArgs2(argsPtr);
-                            args.SetResult(handle);
-                        }
-                    }
-                    break;
-                case 104:
+                //        IWindowForm popupWin = Cef3Binder.CreateBlankForm(600, 450);
+                //        popupWin.Show();
+                //        IntPtr handle = popupWin.GetHandle();
+                //        if (argsPtr != IntPtr.Zero)
+                //        {
+                //            NativeCallArgs2 args = new NativeCallArgs2(argsPtr);
+                //            args.SetResult(handle);
+                //        }
+                //    }
+                //    break;
+                case MyCefMsg.MYCEF_MSG_OnBeforePopup:
                     {
-                        
+
                         NativeCallArgs args = new NativeCallArgs(argsPtr);
                         //open new form with specific url
-                        string url = args.GetArgAsString(0); 
-
+                        string url = args.GetArgAsString(0);
                         Cef3Binder.SafeUIInvoke(() =>
                         {
                             IWindowForm form = Cef3Binder.CreateNewBrowserWindow(800, 600);
@@ -110,7 +109,7 @@ namespace LayoutFarm.CefBridge
 
                     }
                     break;
-                case 106:
+                case MyCefMsg.MYCEF_MSG_OnConsoleMessage:
                     {
                         //console.log ...
 
@@ -122,7 +121,7 @@ namespace LayoutFarm.CefBridge
 
                     }
                     break;
-                case 107:
+                case MyCefMsg.MYCEF_MSG_ShowDevTools:
                     {
                         //show dev tools
                         Cef3Binder.SafeUIInvoke(() =>
@@ -133,7 +132,7 @@ namespace LayoutFarm.CefBridge
 
                     }
                     break;
-                case 108:
+                case MyCefMsg.MYCEF_MSG_OnLoadError:
                     {
                         //load page error
                         //ui process
@@ -148,20 +147,18 @@ namespace LayoutFarm.CefBridge
                         LoadErrorPage(cefBrowser, cefFrame, errorCode, errorText, failedUrl);
                     }
                     break;
-                case 140:
+                case MyCefMsg.MYCEF_MSG_SetResourceManager:
                     {
                         //setup resource mx
                         if (browserProcessListener != null)
                         {
-
                             var args = new NativeCallArgs(argsPtr);
                             var resourceMx = new NativeResourceMx(args.GetArgAsNativePtr(0));
                             browserProcessListener.OnAddResourceMx(resourceMx);
                         }
                     }
                     break;
-
-                case 142:
+                case MyCefMsg.MYCEF_MSG_RequestUrlFilter:
                     {
 
                         //filter url name
@@ -170,10 +167,9 @@ namespace LayoutFarm.CefBridge
                             var args = new NativeCallArgs(argsPtr);
                             browserProcessListener.OnFilterUrl(args);
                         }
-
                     }
                     break;
-                case 145:
+                case MyCefMsg.MYCEF_MSG_RequestBinaryResource:
                     {
                         //request for binary resource
                         if (browserProcessListener != null)
@@ -185,7 +181,7 @@ namespace LayoutFarm.CefBridge
                     break;
                 //------------------------------
                 //eg. from cefQuery --> 
-                case 205:
+                case MyCefMsg.MYCEF_MSG_JsOnQuery:
                     {
                         if (browserProcessListener != null)
                         {
@@ -197,13 +193,13 @@ namespace LayoutFarm.CefBridge
                     }
                     break;
                 //------------------------------
-                case 501: //on PreKey
+                case MyCefMsg.MYCEF_MSG_OnPreKeyEvent: //on PreKey
                     {
                         // Console.WriteLine("on pre key");
                     }
                     break;
                 //------------------------------
-                case 502:
+                case MyCefMsg.MYCEF_MSG_NotifyTitle:
                     {
                         //title changed
                         var args = new NativeCallArgs(argsPtr);
@@ -211,7 +207,7 @@ namespace LayoutFarm.CefBridge
                         // Console.WriteLine("title changed:" + newtitle);
                     }
                     break;
-                case 503:
+                case MyCefMsg.MYCEF_MSG_NotifyAddress:
                     {
                         //address changed
                         var args = new NativeCallArgs(argsPtr);

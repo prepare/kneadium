@@ -13,7 +13,50 @@ namespace LayoutFarm.CefBridge
     [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
     public delegate void MyCefCallback(int id, IntPtr args);
 
+    public enum MyCefMsg
+    {
+        MYCEF_MSG_UNKNOWN = 0,
+        MYCEF_MSG_NotifyBrowserClosed = 100,
+        MYCEF_MSG_NotifyBrowserCreated = 101,
+        MYCEF_MSG_OnBeforePopup = 104,
+        MYCEF_MSG_OnConsoleMessage = 106,
+        MYCEF_MSG_ShowDevTools = 107,
+        MYCEF_MSG_CloseDevTools = 108,
+        MYCEF_MSG_OnBeforeContextMenu = 109,
 
+        MYCEF_MSG_OnLoadError = 119,
+        MYCEF_MSG_SetResourceManager = 140,
+        MYCEF_MSG_RequestUrlFilter = 142,
+        MYCEF_MSG_RequestBinaryResource= 145,
+
+        MYCEF_MSG_OnWebKitInitialized = 200,
+        MYCEF_MSG_JsOnContextCreated = 202,
+        MYCEF_MSG_JsOnContextReleased = 203,
+        MYCEF_MSG_JsOnQuery = 205,
+
+        MYCEF_MSG_NotifyAddress = 503,
+        MYCEF_MSG_NotifyTitle = 502,
+        MYCEF_MSG_OnPreKeyEvent = 501,
+
+    }
+    //const int MYCEF_MSG_NotifyBrowserClosed = 100;
+    //const int MYCEF_MSG_NotifyBrowserCreated = 101;
+    //const int MYCEF_MSG_OnBeforePopup = 104;
+    //const int MYCEF_MSG_OnConsoleMessage = 106;
+    //const int MYCEF_MSG_ShowDevTools = 107;
+    //const int MYCEF_MSG_CloseDevTools = 108;
+    //const int MYCEF_MSG_OnBeforeContextMenu = 109;
+
+    //const int MYCEF_MSG_OnLoadError = 119;
+
+    //const int MYCEF_MSG_OnWebKitInitialized = 200;
+    //const int MYCEF_MSG_JsOnContextCreated = 202;
+    //const int MYCEF_MSG_JsOnContextReleased = 203;
+
+    //const int MYCEF_MSG_JsOnQuery = 205;
+    //const int MYCEF_MSG_NotifyAddress = 503;
+    //const int MYCEF_MSG_NotifyTitle = 502;
+    //const int MYCEF_MSG_OnPreKeyEvent = 501;
 
 
     static class Cef3Binder

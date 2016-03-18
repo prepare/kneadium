@@ -22,6 +22,9 @@
 #include "cefclient/browser/test_runner.h"
 #include "cefclient/common/client_switches.h"
 
+#include "cefclient/myext/mycef_msg_const.h"
+
+
 namespace client {
 
 #if defined(OS_WIN)
@@ -215,7 +218,7 @@ namespace client {
 			if (this->mcallback_)
 			{
 				//send menu model to managed side
-				this->mcallback_(109, NULL);
+				this->mcallback_(MYCEF_MSG_OnBeforeContextMenu, NULL);
 			}
 			else if ((params->GetTypeFlags() & (CM_TYPEFLAG_PAGE | CM_TYPEFLAG_FRAME)) != 0) {
 				// Add a separator if the menu already has items.
@@ -325,7 +328,7 @@ namespace client {
 			auto str16_2 = std::to_wstring((long long)line);
 			auto cstr_2 = str16_2.c_str();
 			args.SetArgAsString(2, cstr_2);
-			this->mcallback_(106, &args);
+			this->mcallback_(MYCEF_MSG_OnConsoleMessage, &args);
 		}
 		else {
 			FILE* file = fopen(console_log_file_.c_str(), "a");
@@ -426,8 +429,8 @@ namespace client {
 				MethodArgs  metArgs;
 				memset(&metArgs, 0, sizeof(MethodArgs));
 				metArgs.SetArgAsNativeObject(0, &event);
-				this->mcallback_(501, &metArgs); //tmp
-				int result = metArgs.ReadOutputAsInt32(0); 
+				this->mcallback_(MYCEF_MSG_OnPreKeyEvent, &metArgs); //tmp
+				int result = metArgs.ReadOutputAsInt32(0);
 				return result != 0;
 			}
 		}
@@ -477,7 +480,7 @@ namespace client {
 			auto str16 = target_url.ToString16();
 			auto cstr = str16.c_str();
 			metArgs.SetArgAsString(0, cstr);
-			this->mcallback_(104, &metArgs);
+			this->mcallback_(MYCEF_MSG_OnBeforePopup, &metArgs);
 
 			return true;
 		}
@@ -596,7 +599,7 @@ namespace client {
 			//create dev window
 			//send cef client
 			MethodArgs  args;
-		    memset(&args,0,sizeof(MethodArgs));	  
+			memset(&args, 0, sizeof(MethodArgs));
 			//send info to managed side 
 			args.SetArgAsNativeObject(0, browser.get());
 			args.SetArgAsNativeObject(1, frame.get());
@@ -609,7 +612,7 @@ namespace client {
 			auto cstr_1 = str16_1.c_str();
 			args.SetArgAsString(4, cstr_1);
 			//------------------------
-			this->mcallback_(108, &args);
+			this->mcallback_(MYCEF_MSG_OnLoadError, &args);
 			//------------------------			 
 			//load page error
 
@@ -830,7 +833,7 @@ namespace client {
 			//TODO: send cmd to managed side
 			//create dev window
 			//send cef client 
-			this->mcallback_(107, NULL);
+			this->mcallback_(MYCEF_MSG_ShowDevTools, NULL);
 		}
 		else {
 			if (CreatePopupWindow(browser, true, CefPopupFeatures(), windowInfo, client,
@@ -848,7 +851,7 @@ namespace client {
 		//###_APPEND_START 7
 		if (this->mcallback_) {
 			//TODO: send command
-			this->mcallback_(108, NULL);
+			this->mcallback_(MYCEF_MSG_CloseDevTools, NULL);
 		}
 		else {
 			browser->GetHost()->CloseDevTools();
@@ -888,7 +891,7 @@ namespace client {
 		}
 		//###_APPEND_START 8
 		if (this->mcallback_) {
-			this->mcallback_(101, NULL);
+			this->mcallback_(MYCEF_MSG_NotifyBrowserCreated, NULL);
 		}
 		//###_APPEND_STOP
 
@@ -922,7 +925,7 @@ namespace client {
 			delegate_->OnBrowserClosed(browser);
 		//###_APPEND_START 9
 		if (this->mcallback_) {
-			this->mcallback_(100, NULL);
+			this->mcallback_(MYCEF_MSG_NotifyBrowserClosed, NULL);
 		}
 		//###_APPEND_STOP
 	}
@@ -945,8 +948,8 @@ namespace client {
 			auto str16 = url.ToString16();
 			auto cstr = str16.c_str();
 			metArgs.SetArgAsString(0, cstr);
-			this->mcallback_(503, &metArgs);
-			 
+			this->mcallback_(MYCEF_MSG_NotifyAddress, &metArgs);
+
 		}
 		else {
 			if (delegate_)
@@ -971,12 +974,12 @@ namespace client {
 
 			//alloc on heap , don't forget to delete
 			MethodArgs  metArgs;
-			memset(&metArgs,0,sizeof(MethodArgs));
+			memset(&metArgs, 0, sizeof(MethodArgs));
 			auto str16 = title.ToString16();
 			auto cstr = str16.c_str();
 			metArgs.SetArgAsString(0, cstr);
-			this->mcallback_(502, &metArgs);
-		 
+			this->mcallback_(MYCEF_MSG_NotifyTitle, &metArgs);
+
 		}
 		else {
 			if (delegate_)
@@ -1075,12 +1078,10 @@ namespace client {
 		//add resource mx handler
 
 		MethodArgs args;
-		memset(&args, 0, sizeof(MethodArgs));
-
+		memset(&args, 0, sizeof(MethodArgs)); 
 		//get filter function ptr from managed side
 		args.SetArgAsNativeObject(0, resource_manager_);
-
-		m(140, &args);
+		m(MYCEF_MSG_SetResourceManager, &args);
 
 		//1. add url filter
 		//2. add resource provider

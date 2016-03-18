@@ -54,53 +54,44 @@ namespace LayoutFarm.CefBridge
                 }
             }
         }
-
-
         void MxCallBack(int id, IntPtr argsPtr)
         {
-            switch (id)
+            switch ((MyCefMsg)id)
             {
-                case 100:
-                    {
-                        //test only
-
-                    }
-                    break;
-                case 101:
-                    {
-                    }
-                    break;
-                case 103:
-                    {
-                        //create pop up window and send window handle to cef
-
-
-                        IWindowForm popupWin = Cef3Binder.CreateBlankForm(600, 450);
-                        popupWin.Show();
-
-                        IntPtr handle = popupWin.GetHandle();
-                        if (argsPtr != IntPtr.Zero)
-                        {
-                            NativeCallArgs2 args = new NativeCallArgs2(argsPtr);
-                            args.SetResult(handle);
-
-                        }
-
-                    }
-                    break;
-                case 104:
+                //case 100:
+                //    {
+                //        //test only 
+                //    }
+                //    break;
+                //case 101:
+                //    {
+                //    }
+                //    break;
+                //case 103:
+                //    {
+                //        //create pop up window and send window handle to cef 
+                //        IWindowForm popupWin = Cef3Binder.CreateBlankForm(600, 450);
+                //        popupWin.Show();
+                //        IntPtr handle = popupWin.GetHandle();
+                //        if (argsPtr != IntPtr.Zero)
+                //        {
+                //            NativeCallArgs2 args = new NativeCallArgs2(argsPtr);
+                //            args.SetResult(handle);
+                //        } 
+                //    }
+                //    break;
+                case MyCefMsg.MYCEF_MSG_OnBeforePopup:
                     {
                         NativeCallArgs args = new NativeCallArgs(argsPtr);
                         string url = args.GetArgAsString(0);
                         Cef3Binder.SafeUIInvoke(() =>
-                        { 
+                        {
                             IWindowForm popupWin = Cef3Binder.CreateNewBrowserWindow(600, 450);
-                            popupWin.Show(); 
+                            popupWin.Show();
                         });
-
                     }
                     break;
-                case 106:
+                case MyCefMsg.MYCEF_MSG_OnConsoleMessage:
                     {
                         //console.log ...
                         if (renderProcessListener != null)
@@ -110,7 +101,7 @@ namespace LayoutFarm.CefBridge
                         }
                     }
                     break;
-                case 107:
+                case MyCefMsg.MYCEF_MSG_ShowDevTools:
                     {
                         //show dev tools
                         Cef3Binder.SafeUIInvoke(() =>
@@ -120,7 +111,7 @@ namespace LayoutFarm.CefBridge
                         });
                     }
                     break;
-                case 202:
+                case MyCefMsg.MYCEF_MSG_JsOnContextCreated:
                     {
                         //client app callback
                         //eg. from RenderClientApp
@@ -140,7 +131,7 @@ namespace LayoutFarm.CefBridge
                         }
                     }
                     break;
-                case 203:
+                case MyCefMsg.MYCEF_MSG_JsOnContextReleased:
                     {
                         if (renderProcessListener != null)
                         {
@@ -153,7 +144,7 @@ namespace LayoutFarm.CefBridge
                         }
                     }
                     break;
-                case 205:
+                case MyCefMsg.MYCEF_MSG_OnWebKitInitialized:
                     {
                         if (renderProcessListener != null)
                         {
