@@ -36,13 +36,15 @@ extern "C" {
 	//6.
 	MY_DLL_EXPORT void MyCefDoMessageLoopWork();
 	//7.
+	MY_DLL_EXPORT void MyCefSetBrowserSize(MyBrowser* myBw, int w, int h); 
+
 	MY_DLL_EXPORT void MyCefShutDown();
 	MY_DLL_EXPORT void MyCefDomGetTextWalk(MyBrowser* myBw, managed_callback strCallBack);
 	MY_DLL_EXPORT void MyCefDomGetSourceWalk(MyBrowser* myBw, managed_callback strCallBack);
 	//part 2
 	//1.	 
 	MY_DLL_EXPORT jsvalue MyCefNativeMetGetArgs(MethodArgs* args, int argIndex);
- 
+
 
 	//3.
 	MY_DLL_EXPORT void MyCefMetArgs_SetResultAsJsValue(MethodArgs* args, int retIndex, jsvalue* value);

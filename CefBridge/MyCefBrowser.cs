@@ -50,6 +50,7 @@ namespace LayoutFarm.CefBridge
             //register mycef browser
             RegisterCefWbControl(this);
         }
+       
         public MyCefUIProcessListener Listener
         {
             get { return browserProcessListener; }
@@ -72,7 +73,7 @@ namespace LayoutFarm.CefBridge
                 case MyCefMsg.MYCEF_MSG_NotifyBrowserCreated:
                     {
                         IsBrowserCreated = true;
-                         
+
                     }
                     break;
                 case MyCefMsg.MYCEF_MSG_NotifyBrowserClosed:
@@ -226,14 +227,9 @@ namespace LayoutFarm.CefBridge
                     }
                     break;
             }
-
         }
-
-
         void LoadErrorPage(IntPtr cefBw, IntPtr cefFrame, int errorCode, string errorText, string failedUrl)
         {
-
-
             //ss << "<html><head><title>Page failed to load</title></head>" 
             //    "<body bgcolor=\"white\">" 
             //    "<h3>Page failed to load.</h3>" 
@@ -264,6 +260,10 @@ namespace LayoutFarm.CefBridge
         public void PostData(string url, byte[] data, int len)
         {
             Cef3Binder.MyCefBwPostData(this.myCefBrowser, url, data, len);
+        }
+        public void SetSize(int w, int h)
+        {
+            Cef3Binder.MyCefSetBrowserSize(this.myCefBrowser, w, h);
         }
         List<MyCefCallback> keepAliveCallBack = new List<MyCefCallback>();
         public void GetText(Action<string> strCallback)

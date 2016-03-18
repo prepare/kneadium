@@ -171,6 +171,7 @@ int MyCefSetupBrowserHwnd(MyBrowser* myBw, HWND surfaceHwnd, int x, int y, int w
 
 	  // Create the first browser window.
 	  //bool result= CefBrowserHost::CreateBrowser(window_info, handler.get(), url,                                browser_settings, NULL);
+
 	bool result = CefBrowserHost::CreateBrowser(window_info, clientHandler, url, browser_settings, NULL);
 	if (result) {
 		return 1;
@@ -188,6 +189,13 @@ void MyCefDoMessageLoopWork()
 void MyCefShutDown() {
 	CefShutdown();
 }
+
+//8.
+void MyCefSetBrowserSize(MyBrowser* myBw, int w, int h) {
+	//auto windowHandle = myBw->bwWindow->GetWindowHandle();
+	myBw->bwWindow->SetBounds(0, 0, w, h); 
+}
+
 
 void MyCefDomGetTextWalk(MyBrowser* myBw, managed_callback strCallBack)
 {
@@ -270,7 +278,7 @@ jsvalue MyCefNativeMetGetArgs(MethodArgs* args, int argIndex)
 	}
 	}
 }
-	
+
 //3.
 void MyCefMetArgs_SetResultAsJsValue(MethodArgs* args, int retIndex, jsvalue* value)
 {
@@ -677,7 +685,7 @@ MY_DLL_EXPORT CefV8Handler* MyCefJs_New_V8Handler(managed_callback callback) {
 				//check result
 				retval = CefV8Value::CreateString(metArgs.ReadOutputAsString(0));
 				//retval = CefV8Value::CreateString("Hello, world!");
-				 
+
 			}
 			return true;
 		}

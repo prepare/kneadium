@@ -19,7 +19,6 @@ namespace LayoutFarm.CefBridge
         MyCefBrowser cefBrowser;
         IWindowControl thisWindowControl;
         MyCefUIProcessListener cefBrowserListener;
-
         public CefWebBrowserControl()
         {
             SetStyle(
@@ -57,7 +56,14 @@ namespace LayoutFarm.CefBridge
         {
             get { return this.cefBrowser; }
         }
-
+        protected override void OnSizeChanged(EventArgs e)
+        {
+            base.OnSizeChanged(e);
+            if (cefBrowser != null)
+            {
+                cefBrowser.SetSize(this.Width, this.Height);
+            }
+        }
         protected override void OnHandleCreated(EventArgs e)
         {
             base.OnHandleCreated(e);

@@ -27,7 +27,7 @@ namespace LayoutFarm.CefBridge
         MYCEF_MSG_OnLoadError = 119,
         MYCEF_MSG_SetResourceManager = 140,
         MYCEF_MSG_RequestUrlFilter = 142,
-        MYCEF_MSG_RequestBinaryResource= 145,
+        MYCEF_MSG_RequestBinaryResource = 145,
 
         MYCEF_MSG_OnWebKitInitialized = 200,
         MYCEF_MSG_JsOnContextCreated = 202,
@@ -249,11 +249,14 @@ namespace LayoutFarm.CefBridge
         [DllImport(CEF_CLIENT_DLL, CallingConvention = CallingConvention.Cdecl, CharSet = CharSet.Unicode)]
         public static extern void MyCefBwExecJavascript2(IntPtr nativeWb, string jssource, string scripturl);
 
+        [DllImport(CEF_CLIENT_DLL, CallingConvention = CallingConvention.Cdecl, CharSet = CharSet.Unicode)]
+        public static extern void MyCefSetBrowserSize(IntPtr myCefBw, int w, int h);
+        //--------------------------------------------------- 
+
 
 
         [DllImport(CEF_CLIENT_DLL, CallingConvention = CallingConvention.Cdecl, CharSet = CharSet.Unicode)]
         public static extern void MyCefBwPostData(IntPtr myCefBw, string url, byte[] data, int len);
-
         [DllImport(CEF_CLIENT_DLL, CallingConvention = CallingConvention.Cdecl)]
         public static extern void MyCefShowDevTools(IntPtr myCefBw, IntPtr myCefDevTool, IntPtr parentWindow);
         [DllImport(CEF_CLIENT_DLL, CallingConvention = CallingConvention.Cdecl)]
