@@ -151,8 +151,6 @@ namespace LayoutFarm.CefBridge
                             NativeCallArgs args = new NativeCallArgs(argsPtr);
                             renderProcessListener.OnWebKitInitialized(args);
                         }
-
-
                     }
                     break;
             }

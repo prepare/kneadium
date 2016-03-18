@@ -17,7 +17,7 @@ namespace LayoutFarm.CefBridge
         IntPtr myCefBrowser;
         MyCefCallback managedCallback;
 
-        string currentUrl;
+        string currentUrl = "about:blank";
         IWindowControl parentControl;
         IWindowForm topForm;
         IWindowForm devForm;
@@ -26,6 +26,7 @@ namespace LayoutFarm.CefBridge
 
         static Dictionary<IntPtr, List<MyCefBrowser>> registeredWbControls =
                     new Dictionary<IntPtr, List<MyCefBrowser>>();
+
 
 
         public MyCefBrowser(IWindowControl parentControl,
@@ -40,6 +41,7 @@ namespace LayoutFarm.CefBridge
 
             //ui process ***
             this.managedCallback = new MyCefCallback(this.MxCallBack);
+            //for specific browser 
             this.myCefBrowser = Cef3Binder.MyCefCreateMyWebBrowser(managedCallback);
 
             Cef3Binder.MyCefSetupBrowserHwnd(myCefBrowser, parentControl.GetHandle(), x, y, w, h, initUrl);
@@ -57,12 +59,20 @@ namespace LayoutFarm.CefBridge
         public IWindowControl ParentControl { get { return this.parentControl; } }
         public IWindowForm ParentForm { get { return this.topForm; } }
 
+        public bool IsBrowserCreated
+        {
+            get;
+            private set;
+        }
+
         void MxCallBack(int id, IntPtr argsPtr)
         {
             switch ((MyCefMsg)id)
             {
                 case MyCefMsg.MYCEF_MSG_NotifyBrowserCreated:
                     {
+                        IsBrowserCreated = true;
+                         
                     }
                     break;
                 case MyCefMsg.MYCEF_MSG_NotifyBrowserClosed:
@@ -219,6 +229,7 @@ namespace LayoutFarm.CefBridge
 
         }
 
+
         void LoadErrorPage(IntPtr cefBw, IntPtr cefFrame, int errorCode, string errorText, string failedUrl)
         {
 
@@ -234,16 +245,17 @@ namespace LayoutFarm.CefBridge
             //ss << "</body></html>";
             //frame->LoadURL(test_runner::GetDataURI(ss.str(), "text/html"));
         }
-
         public string CurrentUrl
         {
             get { return this.currentUrl; }
         }
-
         public void NavigateTo(string url)
         {
             currentUrl = url;
-            Cef3Binder.MyCefBwNavigateTo(this.myCefBrowser, url);
+            if (IsBrowserCreated)
+            {
+                Cef3Binder.MyCefBwNavigateTo(this.myCefBrowser, url);
+            }
         }
         public void ExecJavascript(string src, string scriptUrl)
         {

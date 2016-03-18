@@ -33,8 +33,8 @@ namespace CefBridgeTest
         private void button7_Click(object sender, EventArgs e)
         {
 
-            this.cefWebBrowser1.Focus(); 
-            this.cefWebBrowser1.NavigateTo("https://html5test.com"); 
+            this.cefWebBrowser1.Focus();
+            this.cefWebBrowser1.NavigateTo("https://html5test.com");
         }
 
         private void button1_Click(object sender, EventArgs e)
@@ -77,7 +77,7 @@ namespace CefBridgeTest
                 });
         }
 
-       
+
 
         private void button8_Click(object sender, EventArgs e)
         {
@@ -86,10 +86,9 @@ namespace CefBridgeTest
 
         private void button9_Click(object sender, EventArgs e)
         {
-
             Form1 anotherForm1 = new Form1();
             anotherForm1.Show();
-            //anotherForm1.Navigate("http://localhost");
+            anotherForm1.Navigate("http://localhost");
         }
 
         private void button10_Click(object sender, EventArgs e)

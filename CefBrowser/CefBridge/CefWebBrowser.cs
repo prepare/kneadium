@@ -18,7 +18,6 @@ namespace LayoutFarm.CefBridge
 
         MyCefBrowser cefBrowser;
         IWindowControl thisWindowControl;
-        string initUrl = "about:blank";
         MyCefUIProcessListener cefBrowserListener;
 
         public CefWebBrowserControl()
@@ -49,11 +48,6 @@ namespace LayoutFarm.CefBridge
 
             thisWindowControl = new MyWindowControl(this);
         }
-        public string InitUrl
-        {
-            get { return this.initUrl; }
-            set { this.initUrl = value; }
-        }
 
         public void NavigateTo(string url)
         {
@@ -70,12 +64,24 @@ namespace LayoutFarm.CefBridge
             if (!DesignMode)
             {
                 //create cef browser when handle is created
-                this.cefBrowser = new MyCefBrowser(thisWindowControl, 0, 0, 800, 500, initUrl);
+                this.cefBrowser = new MyCefBrowser(thisWindowControl, 0, 0, 800, 500, "about:blank");
+
                 if (cefBrowserListener != null)
                 {
                     cefBrowser.Listener = cefBrowserListener;
                 }
             }
+        }
+        private void CefBrowser_BrowserCreated(object sender, EventArgs e)
+        {
+            if (string.IsNullOrEmpty(cefBrowser.CurrentUrl))
+            {
+                cefBrowser.NavigateTo(cefBrowser.CurrentUrl);
+            }
+        }
+        public void SetInitUrl(string initUrl)
+        {
+
         }
         public MyCefUIProcessListener CefBrowserListener
         {
