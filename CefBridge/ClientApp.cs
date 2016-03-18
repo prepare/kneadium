@@ -51,7 +51,6 @@ namespace LayoutFarm.CefBridge
 
                     //2. create client app
                     this.clientAppPtr = Cef3Binder.MyCefCreateClientApp(processHandle);
-
                 }
             }
         }
@@ -120,7 +119,6 @@ namespace LayoutFarm.CefBridge
                             IWindowForm newPopupForm = Cef3Binder.CreateNewBrowserWindow(800, 600);
                             newPopupForm.Show();
                         });
-
                     }
                     break;
                 case 202:
@@ -160,12 +158,13 @@ namespace LayoutFarm.CefBridge
                     {
                         if (renderProcessListener != null)
                         {
-                            NativeCallArgs args = new NativeCallArgs(argsPtr);  
+                            NativeCallArgs args = new NativeCallArgs(argsPtr);
                             renderProcessListener.OnWebKitInitialized(args);
                         }
 
 
-                    } break; 
+                    }
+                    break;
             }
         }
     }

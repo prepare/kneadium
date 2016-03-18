@@ -18,7 +18,7 @@ namespace LayoutFarm.CefBridge
 
         MyCefBrowser cefBrowser;
         IWindowControl thisWindowControl;
-        string initUrl = "http://localhost";
+        string initUrl = "about:blank";
         MyCefUIProcessListener cefBrowserListener;
 
         public CefWebBrowserControl()

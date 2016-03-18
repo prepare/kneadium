@@ -38,6 +38,7 @@ namespace LayoutFarm.CefBridge
 
             this.topForm = (IWindowForm)parentControl.GetTopLevelControl();
 
+            //ui process ***
             this.managedCallback = new MyCefCallback(this.MxCallBack);
             this.myCefBrowser = Cef3Binder.MyCefCreateMyWebBrowser(managedCallback);
 
@@ -132,7 +133,21 @@ namespace LayoutFarm.CefBridge
 
                     }
                     break;
-
+                case 108:
+                    {
+                        //load page error
+                        //ui process
+                        var args = new NativeCallArgs(argsPtr);
+                        IntPtr cefBrowser = args.GetArgAsNativePtr(0);
+                        IntPtr cefFrame = args.GetArgAsNativePtr(1);
+                        int errorCode = args.GetArgAsInt32(2);//error code
+                        string errorText = args.GetArgAsString(3);//errorText
+                        string failedUrl = args.GetArgAsString(4); //failedUrl
+                        //---------------------------                        
+                        //load error page
+                        LoadErrorPage(cefBrowser, cefFrame, errorCode, errorText, failedUrl);
+                    }
+                    break;
                 case 140:
                     {
                         //setup resource mx
@@ -208,7 +223,21 @@ namespace LayoutFarm.CefBridge
 
         }
 
+        void LoadErrorPage(IntPtr cefBw, IntPtr cefFrame, int errorCode, string errorText, string failedUrl)
+        {
 
+
+            //ss << "<html><head><title>Page failed to load</title></head>" 
+            //    "<body bgcolor=\"white\">" 
+            //    "<h3>Page failed to load.</h3>" 
+            //    "URL: <a href=\"" << failed_url << "\">" << failed_url << "</a>" 
+            //    "<br/>Error: " << test_runner::GetErrorString(error_code) <<
+            //    " (" << error_code << ")"; 
+            //if (!other_info.empty())
+            //    ss << "<br/>" << other_info;
+            //ss << "</body></html>";
+            //frame->LoadURL(test_runner::GetDataURI(ss.str(), "text/html"));
+        }
 
         public string CurrentUrl
         {
@@ -228,9 +257,6 @@ namespace LayoutFarm.CefBridge
         {
             Cef3Binder.MyCefBwPostData(this.myCefBrowser, url, data, len);
         }
-
-
-
         List<MyCefCallback> keepAliveCallBack = new List<MyCefCallback>();
         public void GetText(Action<string> strCallback)
         {

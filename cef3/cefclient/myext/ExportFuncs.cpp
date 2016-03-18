@@ -5,6 +5,7 @@
 #include "include/base/cef_scoped_ptr.h"
 #include "include/cef_command_line.h"
 #include "include/cef_sandbox_win.h"
+#include "include/cef_origin_whitelist.h"
 #include "cefclient/browser/client_app_browser.h"
 #include "cefclient/browser/main_context_impl.h"
 #include "cefclient/browser/main_message_loop_multithreaded_win.h"
@@ -487,7 +488,6 @@ void MyCefBwNavigateTo(MyBrowser* myBw, const wchar_t* url) {
 //2.
 void MyCefBwExecJavascript(MyBrowser* myBw, const wchar_t* jscode, const wchar_t* script_url) {
 
-
 	myBw->bwWindow->GetBrowser()->GetMainFrame()->ExecuteJavaScript(jscode, script_url, 0);
 }
 void MyCefBwExecJavascript2(CefBrowser* nativeWb, const wchar_t* jscode, const wchar_t* script_url) {
@@ -595,8 +595,7 @@ MY_DLL_EXPORT  CefV8Context* MyCefJs_ContextEnter() {
 	return enteredContext.get();
 }
 MY_DLL_EXPORT MyCefStringHolder* MyCefCreateCefString(const wchar_t*  str) {
-	MyCefStringHolder* str_h = new MyCefStringHolder();
-
+	MyCefStringHolder* str_h = new MyCefStringHolder(); 
 	auto cefStr = CefV8Value::CreateString(str);
 	str_h->any = cefStr;
 
@@ -807,3 +806,26 @@ MY_DLL_EXPORT CefV8Handler* MyCefJs_MetReadArgAsV8FuncHandle(const CefV8ValueLis
 	value->AddRef();
 	return value->GetFunctionHandler();
 }
+
+//---------------------------------------
+//part 6
+//---------------------------------------
+MY_DLL_EXPORT bool MyCefAddCrossOriginWhitelistEntry(
+	const wchar_t*  sourceOrigin,
+	const wchar_t*  targetProtocol,
+	const wchar_t*  targetDomain,
+	bool allow_target_subdomains
+	)
+{
+	return CefAddCrossOriginWhitelistEntry(sourceOrigin, targetProtocol, targetDomain, allow_target_subdomains);
+}
+MY_DLL_EXPORT bool MyCefRemoveCrossOriginWhitelistEntry(
+	const wchar_t*  sourceOrigin,
+	const wchar_t*  targetProtocol,
+	const wchar_t*  targetDomain,
+	bool allow_target_subdomains
+	)
+{
+	return CefAddCrossOriginWhitelistEntry(sourceOrigin, targetProtocol, targetDomain, allow_target_subdomains);
+}
+//---------------------------------------

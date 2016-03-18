@@ -19,22 +19,21 @@ namespace CefBridgeTest
         public Form1()
         {
             InitializeComponent();
-            nativeWindow = new LayoutFarm.CefBridge.MyWindowForm(this);
-
-            this.Load += Form1_Load1;
+            nativeWindow = new LayoutFarm.CefBridge.MyWindowForm(this); 
         }
-
-        private void Form1_Load1(object sender, EventArgs e)
+        private void Form1_Load(object sender, EventArgs e)
         {
             this.cefWebBrowser1.Agent.Listener = new LayoutFarm.CefBridge.MyCefUIProcessListener();
+
         }
+         
 
         private void button7_Click(object sender, EventArgs e)
         {
 
             this.cefWebBrowser1.Focus();
             //this.cefWebBrowser1.NavigateTo("http://localhost:8080");
-            this.cefWebBrowser1.NavigateTo("http://tests/binding");
+            this.cefWebBrowser1.NavigateTo("http://localhost");
 
 
             //this.cefWebBrowser1.NavigateTo("https://html5test.com");
@@ -84,9 +83,7 @@ namespace CefBridgeTest
         private void button5_Click(object sender, EventArgs e)
         {
         }
-        private void Form1_Load(object sender, EventArgs e)
-        {
-        }
+      
         private void button6_Click(object sender, EventArgs e)
         {
             //remove and destroy browser window
