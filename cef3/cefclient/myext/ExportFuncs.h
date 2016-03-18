@@ -42,8 +42,7 @@ extern "C" {
 	//part 2
 	//1.	 
 	MY_DLL_EXPORT jsvalue MyCefNativeMetGetArgs(MethodArgs* args, int argIndex);
-	//2.
-	MY_DLL_EXPORT void MyCefDisposePtr(void* ptr);
+ 
 
 	//3.
 	MY_DLL_EXPORT void MyCefMetArgs_SetResultAsJsValue(MethodArgs* args, int retIndex, jsvalue* value);

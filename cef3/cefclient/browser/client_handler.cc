@@ -314,22 +314,18 @@ namespace client {
 		if (this->mcallback_) {
 
 			//get managed stream object
-			MethodArgs* args = new MethodArgs();
-			// memset(&args,0,sizeof(MethodArgs));	  
-			//send info to managed side
+			MethodArgs args;
+			memset(&args, 0, sizeof(MethodArgs));
 			auto str16 = message.ToString16();
 			auto cstr = str16.c_str();
-			args->SetArgAsString(0, cstr);
+			args.SetArgAsString(0, cstr);
 			auto str16_1 = message.ToString16();
 			auto cstr_1 = str16_1.c_str();
-			args->SetArgAsString(1, cstr_1);
+			args.SetArgAsString(1, cstr_1);
 			auto str16_2 = std::to_wstring((long long)line);
 			auto cstr_2 = str16_2.c_str();
-			args->SetArgAsString(2, cstr_2);
-			this->mcallback_(106, args);
-			//------------------------
-			//not use args
-			delete args;
+			args.SetArgAsString(2, cstr_2);
+			this->mcallback_(106, &args);
 		}
 		else {
 			FILE* file = fopen(console_log_file_.c_str(), "a");
@@ -427,15 +423,16 @@ namespace client {
 			if (!event.focus_on_editable_field) {
 				//call across process, so create on heap 
 				//don't forget to release it
-				MethodArgs* metArgs = new MethodArgs();
-				metArgs->SetArgAsNativeObject(0, &event);
-				this->mcallback_(501, metArgs); //tmp
-				int result = metArgs->ReadOutputAsInt32(0);
-				delete metArgs;
+				MethodArgs  metArgs;
+				memset(&metArgs, 0, sizeof(MethodArgs));
+				metArgs.SetArgAsNativeObject(0, &event);
+				this->mcallback_(501, &metArgs); //tmp
+				int result = metArgs.ReadOutputAsInt32(0); 
 				return result != 0;
 			}
 		}
 		else {
+
 			if (!event.focus_on_editable_field && event.windows_key_code == 0x20) {
 				// Special handling for the space character when an input element does not
 				// have focus. Handling the event in OnPreKeyEvent() keeps the event from
@@ -473,15 +470,14 @@ namespace client {
 			//with specific url
 			//*** on managed side  : please invoke on main process of app ***
 
-			//call across process, so create on heap 
 			//don't forget to release it
-			MethodArgs* metArgs = new MethodArgs();
+
+			MethodArgs metArgs;
+			memset(&metArgs, 0, sizeof(MethodArgs));
 			auto str16 = target_url.ToString16();
 			auto cstr = str16.c_str();
-			metArgs->SetArgAsString(0, cstr);
-			this->mcallback_(104, metArgs);
-			//since client 
-			delete metArgs;
+			metArgs.SetArgAsString(0, cstr);
+			this->mcallback_(104, &metArgs);
 
 			return true;
 		}
@@ -599,23 +595,22 @@ namespace client {
 			//TODO: send cmd to managed side
 			//create dev window
 			//send cef client
-			MethodArgs* args = new MethodArgs();
-			// memset(&args,0,sizeof(MethodArgs));	  
+			MethodArgs  args;
+		    memset(&args,0,sizeof(MethodArgs));	  
 			//send info to managed side 
-			args->SetArgAsNativeObject(0, browser.get());
-			args->SetArgAsNativeObject(1, frame.get());
-			args->SetArgAsInt32(2, errorCode); 
+			args.SetArgAsNativeObject(0, browser.get());
+			args.SetArgAsNativeObject(1, frame.get());
+			args.SetArgAsInt32(2, errorCode);
 			auto str16 = errorText.ToString16();
 			auto cstr = str16.c_str();
-			args->SetArgAsString(3, cstr);
+			args.SetArgAsString(3, cstr);
 
 			auto str16_1 = failedUrl.ToString16();
 			auto cstr_1 = str16_1.c_str();
-			args->SetArgAsString(4, cstr_1); 
+			args.SetArgAsString(4, cstr_1);
 			//------------------------
-			this->mcallback_(108, args);
-			//------------------------
-			delete args; 
+			this->mcallback_(108, &args);
+			//------------------------			 
 			//load page error
 
 			LoadErrorPage(frame, failedUrl, errorCode, errorText);
@@ -944,12 +939,14 @@ namespace client {
 		}
 		//###_APPEND_START 11
 		if (this->mcallback_ != NULL) {
-			MethodArgs* metArgs = new MethodArgs();
+
+			MethodArgs  metArgs;
+			memset(&metArgs, 0, sizeof(MethodArgs));
 			auto str16 = url.ToString16();
 			auto cstr = str16.c_str();
-			metArgs->SetArgAsString(0, cstr);
-			this->mcallback_(503, metArgs);
-			delete metArgs;
+			metArgs.SetArgAsString(0, cstr);
+			this->mcallback_(503, &metArgs);
+			 
 		}
 		else {
 			if (delegate_)
@@ -973,12 +970,13 @@ namespace client {
 		if (this->mcallback_ != NULL) {
 
 			//alloc on heap , don't forget to delete
-			MethodArgs* metArgs = new MethodArgs();
+			MethodArgs  metArgs;
+			memset(&metArgs,0,sizeof(MethodArgs));
 			auto str16 = title.ToString16();
 			auto cstr = str16.c_str();
-			metArgs->SetArgAsString(0, cstr);
-			this->mcallback_(502, metArgs);
-			delete metArgs;
+			metArgs.SetArgAsString(0, cstr);
+			this->mcallback_(502, &metArgs);
+		 
 		}
 		else {
 			if (delegate_)

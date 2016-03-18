@@ -141,10 +141,11 @@ namespace client {
 				//###_APPEND_START 7
 				virtual void OnWebKitInitialized(CefRefPtr<ClientAppRenderer> app) {
 					if (app->myMxCallback_) {
-						MethodArgs* metArgs = new MethodArgs();
-						metArgs->SetArgAsNativeObject(0, app.get());
-						app->myMxCallback_(205, metArgs);
-						delete metArgs;
+						MethodArgs  metArgs;
+						memset(&metArgs, 0, sizeof(MethodArgs));
+						metArgs.SetArgAsNativeObject(0, app.get());
+						app->myMxCallback_(205, &metArgs);
+					 
 					}
 				}
 				virtual void OnContextReleased(CefRefPtr<ClientAppRenderer> app,
@@ -155,14 +156,14 @@ namespace client {
 					{
 						//expose all to managed side
 						//browser,frame and context ?  
-						MethodArgs* metArgs = new MethodArgs();
-						metArgs->SetArgAsNativeObject(0, app.get());
-						metArgs->SetArgAsNativeObject(1, browser.get());
-						metArgs->SetArgAsNativeObject(2, frame.get()); 
-						metArgs->SetArgAsNativeObject(3, context.get()); 
+						MethodArgs metArgs;
+						memset(&metArgs, 0, sizeof(MethodArgs));
+						metArgs.SetArgAsNativeObject(0, app.get());
+						metArgs.SetArgAsNativeObject(1, browser.get());
+						metArgs.SetArgAsNativeObject(2, frame.get()); 
+						metArgs.SetArgAsNativeObject(3, context.get()); 
 
-						app->myMxCallback_(203, metArgs);
-						delete metArgs;
+						app->myMxCallback_(203, &metArgs);						 
 					}
 				}
 				//###_APPEND_STOP
@@ -177,14 +178,15 @@ namespace client {
 					{
 						//expose all to managed side
 						//browser,frame and context ?  
-						MethodArgs* metArgs = new MethodArgs();
-						metArgs->SetArgAsNativeObject(0, app.get());
-						metArgs->SetArgAsNativeObject(1, browser.get());
-						metArgs->SetArgAsNativeObject(2, frame.get());
+						MethodArgs metArgs;
+						memset(&metArgs, 0, sizeof(MethodArgs));
+						metArgs.SetArgAsNativeObject(0, app.get());
+						metArgs.SetArgAsNativeObject(1, browser.get());
+						metArgs.SetArgAsNativeObject(2, frame.get());
 						context->AddRef();
-						metArgs->SetArgAsNativeObject(3, context.get());
-						app->myMxCallback_(202, metArgs);
-						delete metArgs; 
+						metArgs.SetArgAsNativeObject(3, context.get());
+						app->myMxCallback_(202, &metArgs);
+						 
 					}
 					else {
 

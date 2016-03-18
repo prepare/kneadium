@@ -270,10 +270,7 @@ jsvalue MyCefNativeMetGetArgs(MethodArgs* args, int argIndex)
 	}
 	}
 }
-//2.
-void MyCefDisposePtr(void* ptr) {
-	delete ptr;
-}
+	
 //3.
 void MyCefMetArgs_SetResultAsJsValue(MethodArgs* args, int retIndex, jsvalue* value)
 {
@@ -670,16 +667,17 @@ MY_DLL_EXPORT CefV8Handler* MyCefJs_New_V8Handler(managed_callback callback) {
 		{
 			if (callback) {
 
-				MethodArgs* metArgs = new MethodArgs();
-				metArgs->SetArgAsNativeObject(0, object);
-				metArgs->SetArgAsNativeObject(1, &arguments);
-				metArgs->SetArgAsInt32(2, arguments.size());
+				MethodArgs metArgs;
+				memset(&metArgs, 0, sizeof(MethodArgs));
+				metArgs.SetArgAsNativeObject(0, object);
+				metArgs.SetArgAsNativeObject(1, &arguments);
+				metArgs.SetArgAsInt32(2, arguments.size());
 				//-------------------------------------------
-				callback(301, metArgs);
+				callback(301, &metArgs);
 				//check result
-				retval = CefV8Value::CreateString(metArgs->ReadOutputAsString(0));
+				retval = CefV8Value::CreateString(metArgs.ReadOutputAsString(0));
 				//retval = CefV8Value::CreateString("Hello, world!");
-				delete metArgs;
+				 
 			}
 			return true;
 		}

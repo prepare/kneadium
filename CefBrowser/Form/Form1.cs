@@ -77,21 +77,7 @@ namespace CefBridgeTest
                 });
         }
 
-        private void button5_Click(object sender, EventArgs e)
-        {
-        }
-
-        private void button6_Click(object sender, EventArgs e)
-        {
-            //remove and destroy browser window
-            //var wb = this.cefWebBrowser1;
-            //if (wb != null)
-            //{
-            //    this.Controls.Remove(wb);
-            //    wb.Dispose();
-            //    this.cefWebBrowser1 = wb = null;
-            //}
-        }
+       
 
         private void button8_Click(object sender, EventArgs e)
         {

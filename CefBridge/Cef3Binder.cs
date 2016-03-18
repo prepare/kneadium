@@ -192,8 +192,8 @@ namespace LayoutFarm.CefBridge
         [DllImport(CEF_CLIENT_DLL, CallingConvention = CallingConvention.Cdecl)]
         internal static extern JsValue MyCefNativeMetGetArgs(IntPtr cbArgPtr, int index);
 
-        [DllImport(CEF_CLIENT_DLL, CallingConvention = CallingConvention.Cdecl)]
-        internal static extern void MyCefDisposePtr(IntPtr ptr);
+        //[DllImport(CEF_CLIENT_DLL, CallingConvention = CallingConvention.Cdecl)]
+        //internal static extern void MyCefDisposePtr(IntPtr ptr);
 
         //part3:
         //--------------------------------------------------- 
