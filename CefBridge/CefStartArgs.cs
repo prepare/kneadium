@@ -8,7 +8,7 @@ namespace LayoutFarm.CefBridge
 
         private CefStartArgs() { }
   
-        internal static CefStartArgs Parse(string[] startupArgs)
+        public static CefStartArgs Parse(string[] startupArgs)
         {
             var cefStartArgs = new CefStartArgs();
 
