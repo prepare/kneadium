@@ -143,11 +143,14 @@ public:
 
 	void SetArgAsString(int argIndex, const wchar_t* str);
 	void SetArgAsNativeObject(int argIndex, const void* nativeObject);
+	void SetArgAsInt32(int argIndex,const int32_t value);
+
 	void SetOutputString(int resultIndex, const void* dataBuffer, int len);
 	void SetArgType(int argIndex, int type);
 
 	//----------------------------------------------------------------------
 	std::wstring ReadOutputAsString(int resultIndex);
+	int ReadOutputAsInt32(int resultIndex);
 
 };
 
@@ -155,6 +158,7 @@ class MyCefStringHolder
 {
 public:
 	CefString value;
+	void* any;
 };
 
 class QueryRequestArgs

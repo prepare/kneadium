@@ -1,50 +1,43 @@
-﻿//2015 MIT, WinterDev
+﻿//2015-2016 MIT, WinterDev
 using System;
-using System.Collections.Generic;
 using System.Windows.Forms;
-using System.Runtime.InteropServices;
 
 namespace CefBridgeTest
 {
     static class Program
     {
+
+
         /// <summary>
         /// The main entry point for the application.
         /// </summary>
         [STAThread]
         static void Main(string[] args)
         {
-     
 
-            //load cef before OLE init (eg init winform)
-            if (!LayoutFarm.CefBridge.Cef3Binder.LoadCef3(args))
+            //1. load cef before OLE init (eg init winform) ***
+            //see more detail ...  MyCef3InitEssential
+            if (!MyCef3InitEssential.LoadAndInitCef3(args))
             {
                 return;
             }
-        
-            //----------------------------------
-            System.Threading.Thread.CurrentThread.CurrentCulture = new System.Globalization.CultureInfo("en-us");
-            Application.EnableVisualStyles();
-            Application.SetCompatibleTextRenderingDefault(false);
-            //----------------------------------
-            LayoutFarm.CefBridge.Cef3Binder.CefReady();
+            
+            //---------------------------------
+            //2. as usual in WindowForm
             Form1 f1 = new Form1();
             ApplicationContext appContext = new ApplicationContext(f1);
             Application.Run(appContext);
-            //  Application.ApplicationExit += new EventHandler(Application_ApplicationExit);
-            //----------------------------------
-            LayoutFarm.CefBridge.Cef3Binder.MyCefShutDown();
-
-            GC.Collect(GC.MaxGeneration, GCCollectionMode.Forced);
-            GC.WaitForPendingFinalizers();
-            //---------------------------------- 
+            //---------------------------------
+            //3. shutdown cef3
+            MyCef3InitEssential.ShutDownCef3();
         }
 
-        static void Application_ApplicationExit(object sender, EventArgs e)
-        {
 
-        }
+
     }
+
+
+
 
 
 }
