@@ -81,8 +81,6 @@ typedef unsigned __int64 uint64_t;
 #define JSVALUE_TYPE_BUFFER         20 //my extension
 
 #define JSVALUE_TYPE_NATIVE_CEFSTRING 30  //my extension
-//-----------------------------------------------------------------------
- 
 
 
 extern "C" {
