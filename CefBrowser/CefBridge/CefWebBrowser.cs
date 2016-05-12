@@ -1,8 +1,6 @@
-﻿//2015 BSD, WinterDev
-
+﻿//2015-2016, BSD, WinterDev
 // Copyright © 2010-2014 The CefSharp Authors. All rights reserved. 
 // Use of this source code is governed by a BSD-style license that can be found in the LICENSE file.
-
 
 using System;
 using System.Collections.Generic;
@@ -15,16 +13,13 @@ using System.Windows.Forms;
 namespace LayoutFarm.CefBridge
 {
 
-    public sealed class CefWebBrowser : Control
+    public sealed class CefWebBrowserControl : Control
     {
-        MyCefDevWindow agent2;
-        bool _handleCreated;
-        MyCefBrowser cefBrowserView;
 
-
-        //string initUrl = "http://google.com";
-        string initUrl = "http://localhost";
-        public CefWebBrowser()
+        MyCefBrowser cefBrowser;
+        IWindowControl thisWindowControl;
+        MyCefUIProcessListener cefBrowserListener;
+        public CefWebBrowserControl()
         {
             SetStyle(
                 ControlStyles.ContainerControl
@@ -49,44 +44,63 @@ namespace LayoutFarm.CefBridge
                 | ControlStyles.AllPaintingInWmPaint
                 | ControlStyles.Selectable,
                 true);
+
+            thisWindowControl = new MyWindowControl(this);
         }
-        public string InitUrl
-        {
-            get { return this.initUrl; }
-            set { this.initUrl = value; }
-        }
+
         public void NavigateTo(string url)
         {
-            this.cefBrowserView.NavigateTo(url);
+            this.cefBrowser.NavigateTo(url);
         }
         public MyCefBrowser Agent
         {
-            get { return this.cefBrowserView; }
+            get { return this.cefBrowser; }
         }
-        
+        protected override void OnSizeChanged(EventArgs e)
+        {
+            base.OnSizeChanged(e);
+            if (cefBrowser != null)
+            {
+                cefBrowser.SetSize(this.Width, this.Height);
+            }
+        }
         protected override void OnHandleCreated(EventArgs e)
         {
             base.OnHandleCreated(e);
+            if (!DesignMode)
+            {
+                //create cef browser when handle is created
+                this.cefBrowser = new MyCefBrowser(thisWindowControl, 0, 0, 800, 500, "about:blank");
 
-            if (DesignMode)
-            {
-                //if (!_handleCreated) Paint += PaintInDesignMode;
-            }
-            else
-            {
-                if (!LayoutFarm.CefBridge.Cef3Binder.IsLoadCef3Success())
+                if (cefBrowserListener != null)
                 {
-                    MessageBox.Show("cef 3 not found");
+                    cefBrowser.Listener = cefBrowserListener;
                 }
-                //--------------------------------
-                this.cefBrowserView = new MyCefBrowser(this, 0, 0, 800, 500, initUrl); 
-                CefClientApp.RegisterCefWbControl(cefBrowserView);
-
-
             }
-            _handleCreated = true;
         }
+        private void CefBrowser_BrowserCreated(object sender, EventArgs e)
+        {
+            if (string.IsNullOrEmpty(cefBrowser.CurrentUrl))
+            {
+                cefBrowser.NavigateTo(cefBrowser.CurrentUrl);
+            }
+        }
+        public void SetInitUrl(string initUrl)
+        {
 
+        }
+        public MyCefUIProcessListener CefBrowserListener
+        {
+            get { return cefBrowserListener; }
+            set
+            {
+                cefBrowserListener = value;
+                if (cefBrowser != null)
+                {
+                    cefBrowser.Listener = value;
+                }
+            }
+        }
 
         //internal void BrowserAfterCreated(CefBrowser browser)
         //{
@@ -95,17 +109,17 @@ namespace LayoutFarm.CefBridge
         //    //ResizeWindow(_browserWindowHandle, Width, Height);
         //}
 
-        internal void OnTitleChanged(string title)
-        {
-            Title = title;
+        //internal void OnTitleChanged(string title)
+        //{
+        //    Title = title;
 
-            var handler = TitleChanged;
-            if (handler != null) handler(this, EventArgs.Empty);
-        }
+        //    var handler = TitleChanged;
+        //    if (handler != null) handler(this, EventArgs.Empty);
+        //}
 
-        public string Title { get; private set; }
+        //public string Title { get; private set; }
 
-        public event EventHandler TitleChanged;
+        //public event EventHandler TitleChanged;
 
         //internal void OnAddressChanged(string address)
         //{
@@ -115,9 +129,9 @@ namespace LayoutFarm.CefBridge
         //    if (handler != null) handler(this, EventArgs.Empty);
         //}
 
-        public string Address { get; private set; }
+        //public string Address { get; private set; }
 
-        public event EventHandler AddressChanged;
+        //public event EventHandler AddressChanged;
 
         //internal void OnStatusMessage(string value)
         //{
@@ -133,16 +147,16 @@ namespace LayoutFarm.CefBridge
         //    base.OnPaint(e);
         //    e.Graphics.DrawRectangle(Pens.Red, new Rectangle(0, 0, 20, 20));
         //}
-        protected override void OnResize(EventArgs e)
-        {
-            base.OnResize(e);
+        //protected override void OnResize(EventArgs e)
+        //{
+        //    base.OnResize(e);
 
-            //var form = TopLevelControl as Form;
-            //if (form != null && form.WindowState != FormWindowState.Minimized)
-            //{
-            //    ResizeWindow(_browserWindowHandle, Width, Height);
-            //}
-        }
+        //    //var form = TopLevelControl as Form;
+        //    //if (form != null && form.WindowState != FormWindowState.Minimized)
+        //    //{
+        //    //    ResizeWindow(_browserWindowHandle, Width, Height);
+        //    //}
+        //}
 
         //private void PaintInDesignMode(object sender, PaintEventArgs e)
         //{
@@ -169,16 +183,16 @@ namespace LayoutFarm.CefBridge
         //    }
         //}
 
-        private static void ResizeWindow(IntPtr handle, int width, int height)
-        {
-            if (handle != IntPtr.Zero)
-            {
-                NativeMethods.SetWindowPos(handle, IntPtr.Zero,
-                    0, 0, width, height,
-                    SetWindowPosFlags.NoMove | SetWindowPosFlags.NoZOrder
-                    );
-            }
-        }
-        
+        //private static void ResizeWindow(IntPtr handle, int width, int height)
+        //{
+        //    if (handle != IntPtr.Zero)
+        //    {
+        //        NativeMethods.SetWindowPos(handle, IntPtr.Zero,
+        //            0, 0, width, height,
+        //            SetWindowPosFlags.NoMove | SetWindowPosFlags.NoZOrder
+        //            );
+        //    }
+        //}
+
     }
 }

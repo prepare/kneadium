@@ -1,0 +1,6 @@
+//###_ORIGINAL d:\projects\CefBridge\cef3\cefclient\common/client_app.cc
+//###_START 0
+ClientApp::ClientApp() {
+//###_APPEND_START 0
+myMxCallback_= NULL;
+//###_APPEND_STOP

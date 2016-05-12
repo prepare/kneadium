@@ -1,4 +1,4 @@
-//###_ORIGINAL d:\projects\CefBridge\cef3\cefclient\browser/client_handler.h
+//###_ORIGINAL D:\projects\cef_binary_3.2623.1399\cefclient\browser//client_handler.h
 // Copyright (c) 2011 The Chromium Embedded Framework Authors. All rights
 // reserved. Use of this source code is governed by a BSD-style license that
 // can be found in the LICENSE file.
@@ -275,7 +275,8 @@ class ClientHandler : public CefClient,
   bool is_osr() const { return is_osr_; }
 //###_APPEND_START 1
 //my extension
-		void MyCefSetManagedCallBack(managed_callback m);
+void MyCefSetManagedCallBack(managed_callback m);
+void MyCefEnableKeyIntercept(int enable);
 //###_APPEND_STOP
 
  private:
@@ -365,7 +366,8 @@ class ClientHandler : public CefClient,
   MessageHandlerSet message_handler_set_;
 //###_APPEND_START 2
 //my extension
-                		managed_callback mcallback_;//my extension
+managed_callback mcallback_;//my extension
+int enableKeyIntercept;
 //###_APPEND_STOP
 //###_APPEND_START 2
 std::string RequestUrlFilter(const std::string& url);//my extension
@@ -377,53 +379,58 @@ std::string RequestUrlFilter(const std::string& url);//my extension
 //###_APPEND_START 2
 //----------
 
-	// Handle messages in the browser process.
-	// via cefQuery
-	class MyCefJsHandler : public CefMessageRouterBrowserSide::Handler {
-	public:
-
-		managed_callback mcallback_;//my extension
-		MyCefJsHandler() {}
-
-		virtual bool OnQuery(CefRefPtr<CefBrowser> browser,
-			CefRefPtr<CefFrame> frame,
-			int64 query_id,
-			const CefString& request,
-			bool persistent,
-			CefRefPtr<Callback> callback) OVERRIDE {
-			CEF_REQUIRE_UI_THREAD(); 
-
-			//const std::string& request_str = request;
-			if (this->mcallback_)
-			{
-
-				QueryRequestArgs queryReq;
-				memset(&queryReq, 0, sizeof(QueryRequestArgs));
-				queryReq.browser = browser.get();
-				queryReq.frame = frame.get();
-
-				queryReq.query_id = query_id;
-				
-			 
-				//queryReq.request = &request;
-				MyCefStringHolder mystr;
-				mystr.value = request;
-				queryReq.request = &mystr;
-				queryReq.persistent = persistent;
-				queryReq.callback = callback.get();
-
-				MethodArgs args;
-				memset(&args, 0, sizeof(MethodArgs));
-				args.SetArgAsNativeObject(0, &queryReq); 
-				this->mcallback_(205, &args); 
 
 
-				return true;
-			}
 
-			return false;
-		}//OnQuery
-	}; //class MyCefJsHandler
+// Handle messages in the browser process.
+// via cefQuery
+class MyCefJsHandler : public CefMessageRouterBrowserSide::Handler {
+public:
+
+managed_callback mcallback_;//my extension
+MyCefJsHandler() {}
+
+virtual bool OnQuery(CefRefPtr<CefBrowser> browser,
+CefRefPtr<CefFrame> frame,
+int64 query_id,
+const CefString& request,
+bool persistent,
+CefRefPtr<Callback> callback) OVERRIDE {
+CEF_REQUIRE_UI_THREAD();
+
+//const std::string& request_str = request;
+if (this->mcallback_)
+{
+
+
+QueryRequestArgs queryReq;
+memset(&queryReq, 0, sizeof(QueryRequestArgs));
+queryReq.browser = browser.get();
+queryReq.frame = frame.get();
+queryReq.query_id = query_id;
+
+//queryReq.request = &request;
+MyCefStringHolder mystr;
+mystr.value = request;
+queryReq.request = &mystr;
+queryReq.persistent = persistent;
+queryReq.callback = callback.get();
+
+MethodArgs args;
+memset(&args, 0, sizeof(MethodArgs));
+args.SetArgAsNativeObject(0, &queryReq);
+this->mcallback_(205, &args);
+
+//auto result = args.ReadOutputAsString(0);
+CefString cefstr = args.ReadOutputAsString(0);
+callback->Success(cefstr);
+
+return true;
+}
+
+return false;
+}//OnQuery
+}; //class MyCefJsHandler
 //###_APPEND_STOP
 
 }  // namespace client

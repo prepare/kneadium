@@ -1,4 +1,4 @@
-# PATCH  d:\projects\CefBridge\cef3\cefclient\CMakeLists.txt
+# PATCH  D:\projects\cef_binary_3.2623.1399\cefclient\CMakeLists.txt
 # Copyright (c) 2014 The Chromium Embedded Framework Authors. All rights
 # reserved. Use of this source code is governed by a BSD-style license that
 # can be found in the LICENSE file.

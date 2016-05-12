@@ -1,4 +1,4 @@
-//###_ORIGINAL d:\projects\CefBridge\cef3\cefclient\browser/browser_window.cc
+//###_ORIGINAL D:\projects\cef_binary_3.2623.1399\cefclient\browser//browser_window.cc
 // Copyright (c) 2015 The Chromium Embedded Framework Authors. All rights
 // reserved. Use of this source code is governed by a BSD-style license that
 // can be found in the LICENSE file.
@@ -92,9 +92,9 @@ void BrowserWindow::OnSetDraggableRegions(
 }
 //###_APPEND_START 0
 //my extension
-                        client::ClientHandler* BrowserWindow::GetClientHandler() {
-	                        return this->client_handler_;
-                        }
+client::ClientHandler* BrowserWindow::GetClientHandler() {
+return this->client_handler_;
+}
 //###_APPEND_STOP
 
 }  // namespace client
