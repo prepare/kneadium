@@ -5,7 +5,6 @@
 #include "include/base/cef_scoped_ptr.h"
 #include "include/cef_command_line.h"
 #include "include/cef_sandbox_win.h"
-#include "include/cef_origin_whitelist.h"
 #include "cefclient/browser/client_app_browser.h"
 #include "cefclient/browser/main_context_impl.h"
 #include "cefclient/browser/main_message_loop_multithreaded_win.h"
@@ -171,7 +170,6 @@ int MyCefSetupBrowserHwnd(MyBrowser* myBw, HWND surfaceHwnd, int x, int y, int w
 
 	  // Create the first browser window.
 	  //bool result= CefBrowserHost::CreateBrowser(window_info, handler.get(), url,                                browser_settings, NULL);
-
 	bool result = CefBrowserHost::CreateBrowser(window_info, clientHandler, url, browser_settings, NULL);
 	if (result) {
 		return 1;
@@ -189,13 +187,6 @@ void MyCefDoMessageLoopWork()
 void MyCefShutDown() {
 	CefShutdown();
 }
-
-//8.
-void MyCefSetBrowserSize(MyBrowser* myBw, int w, int h) {
-	//auto windowHandle = myBw->bwWindow->GetWindowHandle();
-	myBw->bwWindow->SetBounds(0, 0, w, h); 
-}
-
 
 void MyCefDomGetTextWalk(MyBrowser* myBw, managed_callback strCallBack)
 {
@@ -278,7 +269,10 @@ jsvalue MyCefNativeMetGetArgs(MethodArgs* args, int argIndex)
 	}
 	}
 }
-
+//2.
+void MyCefDisposePtr(void* ptr) {
+	delete ptr;
+}
 //3.
 void MyCefMetArgs_SetResultAsJsValue(MethodArgs* args, int retIndex, jsvalue* value)
 {
@@ -493,6 +487,7 @@ void MyCefBwNavigateTo(MyBrowser* myBw, const wchar_t* url) {
 //2.
 void MyCefBwExecJavascript(MyBrowser* myBw, const wchar_t* jscode, const wchar_t* script_url) {
 
+
 	myBw->bwWindow->GetBrowser()->GetMainFrame()->ExecuteJavaScript(jscode, script_url, 0);
 }
 void MyCefBwExecJavascript2(CefBrowser* nativeWb, const wchar_t* jscode, const wchar_t* script_url) {
@@ -601,6 +596,7 @@ MY_DLL_EXPORT  CefV8Context* MyCefJs_ContextEnter() {
 }
 MY_DLL_EXPORT MyCefStringHolder* MyCefCreateCefString(const wchar_t*  str) {
 	MyCefStringHolder* str_h = new MyCefStringHolder();
+
 	auto cefStr = CefV8Value::CreateString(str);
 	str_h->any = cefStr;
 
@@ -675,17 +671,15 @@ MY_DLL_EXPORT CefV8Handler* MyCefJs_New_V8Handler(managed_callback callback) {
 		{
 			if (callback) {
 
-				MethodArgs metArgs;
-				memset(&metArgs, 0, sizeof(MethodArgs));
-				metArgs.SetArgAsNativeObject(0, object);
-				metArgs.SetArgAsNativeObject(1, &arguments);
-				metArgs.SetArgAsInt32(2, arguments.size());
+				MethodArgs* metArgs = new MethodArgs();
+				metArgs->SetArgAsNativeObject(0, object);
+				metArgs->SetArgAsNativeObject(1, &arguments);
+				metArgs->SetArgAsInt32(2, arguments.size());
 				//-------------------------------------------
-				callback(301, &metArgs);
+				callback(301, metArgs);
 				//check result
-				retval = CefV8Value::CreateString(metArgs.ReadOutputAsString(0));
+				retval = CefV8Value::CreateString(metArgs->ReadOutputAsString(0));
 				//retval = CefV8Value::CreateString("Hello, world!");
-
 			}
 			return true;
 		}
@@ -698,11 +692,22 @@ MY_DLL_EXPORT CefV8Handler* MyCefJs_New_V8Handler(managed_callback callback) {
 
 void HereOnRenderer(const managed_callback callback, MethodArgs* args)
 {
+	//callback to 
+	/*auto  currentContext = CefV8Context::GetCurrentContext();
+	MethodArgs* metArgs = new MethodArgs();
+	CefV8Context* cc = currentContext.get();
+	metArgs->SetArgAsNativeObject(0, cc);
+	*/
+	//------------------------------------------- 	CefDevBrowser.exe!LayoutFarm.CefBridge.MyCefRendererProcessListenerExt.NotifyBack(int id, System.IntPtr argsPtr) Line 138	C#
+
 	callback(303, args);
+
+	//check result
+	//retval = CefV8Value::CreateString(metArgs->ReadOutputAsString(0));
 }
-//MY_DLL_EXPORT MethodArgs* CreateMethodArgs() {
-//	return new MethodArgs();
-//}
+MY_DLL_EXPORT MethodArgs* CreateMethodArgs() {
+	return new MethodArgs();
+}
 MY_DLL_EXPORT void DisposeMethodArgs(MethodArgs* args) {
 	delete args;
 }
@@ -802,26 +807,3 @@ MY_DLL_EXPORT CefV8Handler* MyCefJs_MetReadArgAsV8FuncHandle(const CefV8ValueLis
 	value->AddRef();
 	return value->GetFunctionHandler();
 }
-
-//---------------------------------------
-//part 6
-//---------------------------------------
-MY_DLL_EXPORT bool MyCefAddCrossOriginWhitelistEntry(
-	const wchar_t*  sourceOrigin,
-	const wchar_t*  targetProtocol,
-	const wchar_t*  targetDomain,
-	bool allow_target_subdomains
-	)
-{
-	return CefAddCrossOriginWhitelistEntry(sourceOrigin, targetProtocol, targetDomain, allow_target_subdomains);
-}
-MY_DLL_EXPORT bool MyCefRemoveCrossOriginWhitelistEntry(
-	const wchar_t*  sourceOrigin,
-	const wchar_t*  targetProtocol,
-	const wchar_t*  targetDomain,
-	bool allow_target_subdomains
-	)
-{
-	return CefAddCrossOriginWhitelistEntry(sourceOrigin, targetProtocol, targetDomain, allow_target_subdomains);
-}
-//---------------------------------------
