@@ -94,20 +94,11 @@ namespace LayoutFarm.CefBridge
 
             //follow these steps
             // 1. libcef
-            if (!LoadLibCef(cefInitEssential))
+            if (!LoadNativeLibs(cefInitEssential))
             {
                 return false;
             }
-            //2. cef client
-            string lib = cefInitEssential.GetCefClientFileName();
-            IntPtr nativeModule = NativeMethods.LoadLibrary(lib);
-            uint lastErr = NativeMethods.GetLastError();
-            //------------------------------------------------
-            // hModule = nativeModule;
-            if (nativeModule == IntPtr.Zero)
-            {
-                return false;
-            }
+
             //-----------------------------------------------------------
             //check start up process to see if what is this process
             //browser process
@@ -121,16 +112,14 @@ namespace LayoutFarm.CefBridge
                 cefInitEssential.AfterProcessLoaded(cefStartArg);
             }
 
-            //-----------------------------------------------------------
-
+            //----------------------------------------------------------- 
             //check version
             //1.
             int myCefVersion = MyCefGetVersion();
             //-----------------------------------------------------------
             //2. 
             managedListener0 = new MyCefCallback(Cef3callBack_ForMangedCallBack0);
-            //3. unmanaged side can call back to this managed part
-
+            //3. unmanaged side can call back to this managed part 
             int regResult = RegisterManagedCallBack(managedListener0, 0);
             //-----------------------------------------------------------
             //again ... another managed 
@@ -148,10 +137,11 @@ namespace LayoutFarm.CefBridge
             return true;
         }
 
-        static bool LoadLibCef(Cef3InitEssential initEssential)
+        static bool LoadNativeLibs(Cef3InitEssential initEssential)
         {
 
 
+            //1. lib cef
             string lib = initEssential.GetLibCefFileName();
             if (!File.Exists(lib))
             {
@@ -159,15 +149,14 @@ namespace LayoutFarm.CefBridge
                 return false;
             }
 
-            IntPtr libCefModuleHandler;
-            {
-                //string lib = libPath + "icudt.dll";
-                //libCefModuleHandler = NativeMethods.LoadLibrary(lib);
-                //lastErr = NativeMethods.GetLastError();
-            }
-
+            //IntPtr libCefModuleHandler;
+            //{
+            //    //string lib = libPath + "icudt.dll";
+            //    //libCefModuleHandler = NativeMethods.LoadLibrary(lib);
+            //    //lastErr = NativeMethods.GetLastError();
+            //}
             //Console.WriteLine(lib);
-            libCefModuleHandler = NativeMethods.LoadLibrary(lib);
+            IntPtr libCefModuleHandler = NativeMethods.LoadLibrary(lib);
             //Console.WriteLine(libCefModuleHandler);
             uint lastErr = NativeMethods.GetLastError();
             if (lastErr != 0)
@@ -175,11 +164,24 @@ namespace LayoutFarm.CefBridge
                 initEssential.AddLogMessage("load err code" + lastErr);
                 return false;
             }
-            else
+
+
+            //------------------------------------------------------------------
+            //2. cef client
+            lib = cefInitEssential.GetCefClientFileName();
+            if (!File.Exists(lib))
             {
-                return true;
+                initEssential.AddLogMessage("not found " + lib);
+                return false;
             }
-            //Console.WriteLine(lastErr);
+            IntPtr nativeModule = NativeMethods.LoadLibrary(lib);
+            lastErr = NativeMethods.GetLastError();
+            //------------------------------------------------
+            if (nativeModule == IntPtr.Zero)
+            {
+                return false;
+            }
+            return true;
 
         }
         static void Cef3callBack_ForMangedCallBack0(int oindex, IntPtr args)

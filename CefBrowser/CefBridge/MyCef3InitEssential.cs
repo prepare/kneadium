@@ -13,17 +13,27 @@ namespace CefBridgeTest
     class MyCef3InitEssential : LayoutFarm.CefBridge.Cef3InitEssential
     {
         static Form tinyForm;
-#if DEBUG
-        static string libPath = @"D:\projects\CefBridge\cef3_output\cefclient\Debug";
-#else
-        static string libPath = @"D:\projects\CefBridge\cef3_output\cefclient\Release";
-#endif
-
         static MyCef3InitEssential initEssential;
+        string libPath;
 
         private MyCef3InitEssential(string[] startArgs)
             : base(startArgs)
         {
+
+            //must check proper location of libcef, cefclient dir 
+#if DEBUG
+            libPath = @"D:\projects\CefBridge\cef3_output\cefclient\Debug";
+#else
+            libPath = @"D:\projects\CefBridge\cef3_output\cefclient\Release";
+#endif
+
+            //set proper dir here
+            //depend on what you want
+            //1. nearest local dir
+            //2. common dir  
+            //string currrentExecPath = System.IO.Path.GetDirectoryName(Application.ExecutablePath);
+            //string commonAppDir = System.IO.Path.GetDirectoryName(Application.CommonAppDataPath);//skip version
+
 
         }
         public override string GetLibCefFileName()
