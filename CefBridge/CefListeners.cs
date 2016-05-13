@@ -74,16 +74,14 @@ namespace LayoutFarm.CefBridge
     /// <summary>
     /// listener for render process
     /// </summary>
-    public abstract class MyCefRenderProcessListener
+    public abstract class CefRenderProcessListener
     {
         public virtual void OnWebKitInitialized(NativeCallArgs nativeCallArgs)
         {
         }
         public virtual void OnContextCreated(MyCefContextArgs args)
-        {
-           
-        }
-
+        { 
+        } 
         public virtual void OnContextReleased(MyCefContextArgs args)
         {
         }

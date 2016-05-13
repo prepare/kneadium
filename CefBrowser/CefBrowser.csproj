@@ -68,6 +68,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="CefBridge\MyCef3InitEssential.cs" />
+    <Compile Include="CefBridge\MyCefRenderProcessListener.cs" />
     <Compile Include="CefBridge\WindowControlImpl.cs" />
     <Compile Include="Form\Form1.cs">
       <SubType>Form</SubType>
