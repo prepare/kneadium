@@ -21,6 +21,13 @@ namespace CefBridgeTest
         private void Form1_Load(object sender, EventArgs e)
         {
             this.cefWebBrowser1.Agent.Listener = new LayoutFarm.CefBridge.MyCefUIProcessListener();
+            this.splitContainer1.SplitterMoved += SplitContainer1_SplitterMoved;
+        }
+
+        private void SplitContainer1_SplitterMoved(object sender, SplitterEventArgs e)
+        {
+            cefWebBrowser1.Agent.SetSize(splitContainer1.Panel2.Width, splitContainer1.Panel2.Height);
+
         }
 
         public void Navigate(string url)
