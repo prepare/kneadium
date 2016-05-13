@@ -168,7 +168,7 @@
             // cefWebBrowser1
             // 
             this.cefWebBrowser1.BackColor = System.Drawing.Color.White;
-            this.cefWebBrowser1.CefBrowserListener = null; 
+            this.cefWebBrowser1.CefBrowserListener = null;
             this.cefWebBrowser1.Location = new System.Drawing.Point(150, 66);
             this.cefWebBrowser1.Name = "cefWebBrowser1";
             this.cefWebBrowser1.Size = new System.Drawing.Size(802, 459);
@@ -189,7 +189,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1009, 621);
+            this.ClientSize = new System.Drawing.Size(1084, 762);
             this.Controls.Add(this.button14);
             this.Controls.Add(this.cmdReloadIgnoreCache);
             this.Controls.Add(this.button13);

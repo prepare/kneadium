@@ -40,7 +40,7 @@
     <Compile Include="ClientApp.cs" />
     <Compile Include="CustomSchemeAgent.cs" />
     <Compile Include="MyCefBrowser.cs" />
-    <Compile Include="MyCefListener.cs" />
+    <Compile Include="CefListeners.cs" />
     <Compile Include="MyCefDevWindow.cs" />
     <Compile Include="NativeCallArgs.cs" />
     <Compile Include="NativeCefObjects.cs" />
