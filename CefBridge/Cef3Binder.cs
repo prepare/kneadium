@@ -131,23 +131,19 @@ namespace LayoutFarm.CefBridge
             //init cef            
             clientApp = cefInitEssential.CreateClientApp(); // System.Diagnostics.Process.GetCurrentProcess().Handle);
 
-#if DEBUG
-            Console.WriteLine(regResult);
-#endif
+
             return true;
         }
 
         static bool LoadNativeLibs(Cef3InitEssential initEssential)
-        {
-
-
+        {   
             //1. lib cef
             string lib = initEssential.GetLibCefFileName();
-            if (!File.Exists(lib))
-            {
-                initEssential.AddLogMessage("not found " + lib);
-                return false;
-            }
+            //if (!File.Exists(lib))
+            //{
+            //    initEssential.AddLogMessage("not found " + lib);
+            //    return false;
+            //}
 
             //IntPtr libCefModuleHandler;
             //{
@@ -169,11 +165,11 @@ namespace LayoutFarm.CefBridge
             //------------------------------------------------------------------
             //2. cef client
             lib = cefInitEssential.GetCefClientFileName();
-            if (!File.Exists(lib))
-            {
-                initEssential.AddLogMessage("not found " + lib);
-                return false;
-            }
+            //if (!File.Exists(lib))
+            //{
+            //    initEssential.AddLogMessage("not found " + lib);
+            //    return false;
+            //}
             IntPtr nativeModule = NativeMethods.LoadLibrary(lib);
             lastErr = NativeMethods.GetLastError();
             //------------------------------------------------

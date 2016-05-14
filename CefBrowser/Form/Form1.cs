@@ -20,7 +20,7 @@ namespace CefBridgeTest
         }
         private void Form1_Load(object sender, EventArgs e)
         {
-            this.cefWebBrowser1.Agent.Listener = new LayoutFarm.CefBridge.MyCefUIProcessListener();
+            this.cefWebBrowser1.Agent.Listener = new MyCefUIProcessListener();
             this.splitContainer1.SplitterMoved += SplitContainer1_SplitterMoved;
         }
 

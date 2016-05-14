@@ -22,7 +22,7 @@ namespace LayoutFarm.CefBridge
         IWindowForm topForm;
         IWindowForm devForm;
         MyCefDevWindow cefDevWindow;
-        MyCefUIProcessListener browserProcessListener;
+        CefUIProcessListener browserProcessListener;
 
         static Dictionary<IntPtr, List<MyCefBrowser>> registeredWbControls =
                     new Dictionary<IntPtr, List<MyCefBrowser>>();
@@ -51,7 +51,7 @@ namespace LayoutFarm.CefBridge
             RegisterCefWbControl(this);
         }
        
-        public MyCefUIProcessListener Listener
+        public CefUIProcessListener Listener
         {
             get { return browserProcessListener; }
             set { browserProcessListener = value; }

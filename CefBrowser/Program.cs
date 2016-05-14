@@ -30,14 +30,6 @@ namespace CefBridgeTest
             //---------------------------------
             //3. shutdown cef3
             MyCef3InitEssential.ShutDownCef3();
-        }
-
-
-
-    }
-
-
-
-
-
+        } 
+    } 
 }
