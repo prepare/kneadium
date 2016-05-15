@@ -70,13 +70,12 @@ namespace LayoutFarm.CefBridge
         {
             switch ((MyCefMsg)id)
             {
-                case MyCefMsg.MYCEF_MSG_NotifyBrowserCreated:
+                case MyCefMsg.CEF_MSG_ClientHandler_NotifyBrowserCreated:
                     {
                         IsBrowserCreated = true;
-
                     }
                     break;
-                case MyCefMsg.MYCEF_MSG_NotifyBrowserClosed:
+                case MyCefMsg.CEF_MSG_ClientHandler_NotifyBrowserClosed:
                     {
                         if (this.devForm != null)
                         {
@@ -105,7 +104,7 @@ namespace LayoutFarm.CefBridge
                 //        }
                 //    }
                 //    break;
-                case MyCefMsg.MYCEF_MSG_OnBeforePopup:
+                case MyCefMsg.CEF_MSG_ClientHandler_OnBeforePopup:
                     {
 
                         NativeCallArgs args = new NativeCallArgs(argsPtr);
@@ -120,7 +119,7 @@ namespace LayoutFarm.CefBridge
 
                     }
                     break;
-                case MyCefMsg.MYCEF_MSG_OnConsoleMessage:
+                case MyCefMsg.CEF_MSG_ClientHandler_OnConsoleMessage:
                     {
                         //console.log ...
 
@@ -132,7 +131,7 @@ namespace LayoutFarm.CefBridge
 
                     }
                     break;
-                case MyCefMsg.MYCEF_MSG_ShowDevTools:
+                case MyCefMsg.CEF_MSG_ClientHandler_ShowDevTools:
                     {
                         //show dev tools
                         Cef3Binder.SafeUIInvoke(() =>
@@ -143,7 +142,7 @@ namespace LayoutFarm.CefBridge
 
                     }
                     break;
-                case MyCefMsg.MYCEF_MSG_OnLoadError:
+                case MyCefMsg.CEF_MSG_ClientHandler_OnLoadError:
                     {
                         //load page error
                         //ui process
@@ -158,7 +157,7 @@ namespace LayoutFarm.CefBridge
                         LoadErrorPage(cefBrowser, cefFrame, errorCode, errorText, failedUrl);
                     }
                     break;
-                case MyCefMsg.MYCEF_MSG_SetResourceManager:
+                case MyCefMsg.CEF_MSG_ClientHandler_SetResourceManager:
                     {
                         //setup resource mx
                         if (browserProcessListener != null)
@@ -169,7 +168,7 @@ namespace LayoutFarm.CefBridge
                         }
                     }
                     break;
-                case MyCefMsg.MYCEF_MSG_RequestUrlFilter:
+                case MyCefMsg.CEF_MSG_RequestUrlFilter2:
                     {
 
                         //filter url name
@@ -180,7 +179,7 @@ namespace LayoutFarm.CefBridge
                         }
                     }
                     break;
-                case MyCefMsg.MYCEF_MSG_RequestBinaryResource:
+                case MyCefMsg.CEF_MSG_BinaryResouceProvider_OnRequest:
                     {
                         //request for binary resource
                         if (browserProcessListener != null)
@@ -192,7 +191,7 @@ namespace LayoutFarm.CefBridge
                     break;
                 //------------------------------
                 //eg. from cefQuery --> 
-                case MyCefMsg.MYCEF_MSG_JsOnQuery:
+                case MyCefMsg.CEF_MSG_OnQuery:
                     {
                         if (browserProcessListener != null)
                         {
@@ -204,13 +203,13 @@ namespace LayoutFarm.CefBridge
                     }
                     break;
                 //------------------------------
-                case MyCefMsg.MYCEF_MSG_OnPreKeyEvent: //on PreKey
+                case MyCefMsg.CEF_MSG_ClientHandler_OnPreKeyEvent: //on PreKey
                     {
                         // Console.WriteLine("on pre key");
                     }
                     break;
                 //------------------------------
-                case MyCefMsg.MYCEF_MSG_NotifyTitle:
+                case MyCefMsg.CEF_MSG_ClientHandler_NotifyTitle:
                     {
                         //title changed
                         var args = new NativeCallArgs(argsPtr);
@@ -218,7 +217,7 @@ namespace LayoutFarm.CefBridge
                         // Console.WriteLine("title changed:" + newtitle);
                     }
                     break;
-                case MyCefMsg.MYCEF_MSG_NotifyAddress:
+                case MyCefMsg.CEF_MSG_ClientHandler_NotifyAddress:
                     {
                         //address changed
                         var args = new NativeCallArgs(argsPtr);
