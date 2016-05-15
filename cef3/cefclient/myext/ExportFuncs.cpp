@@ -673,7 +673,7 @@ MY_DLL_EXPORT CefV8Handler* MyCefJs_New_V8Handler(managed_callback callback) {
 				metArgs.SetArgAsNativeObject(1, &arguments);
 				metArgs.SetArgAsInt32(2, arguments.size());
 				//-------------------------------------------
-				callback(301, &metArgs);
+				callback(CEF_MSG_MyV8ManagedHandler_Execute, &metArgs);
 				//check result
 				retval = CefV8Value::CreateString(metArgs.ReadOutputAsString(0));
 				//retval = CefV8Value::CreateString("Hello, world!");
@@ -690,7 +690,7 @@ MY_DLL_EXPORT CefV8Handler* MyCefJs_New_V8Handler(managed_callback callback) {
 
 void HereOnRenderer(const managed_callback callback, MethodArgs* args)
 {
-	callback(303, args);
+	callback(CEF_MSG_HereOnRenderer, args);
 }
 //MY_DLL_EXPORT MethodArgs* CreateMethodArgs() {
 //	return new MethodArgs();

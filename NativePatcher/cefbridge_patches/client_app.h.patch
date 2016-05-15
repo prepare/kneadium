@@ -1,7 +1,8 @@
-//###_ORIGINAL d:\projects\CefBridge\cef3\cefclient\common/client_app.h
+//###_ORIGINAL D:\projects\cef_binary_3.2623.1399\cefclient\common//client_app.h
 //###_START 0
 #include "include/cef_app.h"
 //###_APPEND_START 0
+#include "cefclient/myext/mycef_msg_const.h"
 #include "cefclient/myext/mycef.h"
 //###_APPEND_STOP
 //###_START 1

@@ -45,7 +45,7 @@ namespace BridgeBuilder
         {
 
             var patch = new PatchFile(RootDir + "\\" + "CMakeLists.txt");
-            
+
             patch.NewTask("# Source files.")
                 .Append(@"set(CEFCLIENT_MYCEF_MYCEF_SRCS
   myext/dll_init.cpp
@@ -666,7 +666,6 @@ set(CEFCLIENT_MYCEF_SRCS
             }
             //------------------------------------------------------------- 
         }
-
-
+        
     }
 }

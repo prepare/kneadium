@@ -58,29 +58,7 @@ namespace LayoutFarm.CefBridge
         {
             switch ((MyCefMsg)id)
             {
-                //case 100:
-                //    {
-                //        //test only 
-                //    }
-                //    break;
-                //case 101:
-                //    {
-                //    }
-                //    break;
-                //case 103:
-                //    {
-                //        //create pop up window and send window handle to cef 
-                //        IWindowForm popupWin = Cef3Binder.CreateBlankForm(600, 450);
-                //        popupWin.Show();
-                //        IntPtr handle = popupWin.GetHandle();
-                //        if (argsPtr != IntPtr.Zero)
-                //        {
-                //            NativeCallArgs2 args = new NativeCallArgs2(argsPtr);
-                //            args.SetResult(handle);
-                //        } 
-                //    }
-                //    break;
-                case MyCefMsg.MYCEF_MSG_OnBeforePopup:
+                case MyCefMsg.CEF_MSG_ClientHandler_OnBeforePopup:
                     {
                         NativeCallArgs args = new NativeCallArgs(argsPtr);
                         string url = args.GetArgAsString(0);
@@ -91,7 +69,7 @@ namespace LayoutFarm.CefBridge
                         });
                     }
                     break;
-                case MyCefMsg.MYCEF_MSG_OnConsoleMessage:
+                case MyCefMsg.CEF_MSG_ClientHandler_OnConsoleMessage:
                     {
                         //console.log ...
                         if (renderProcessListener != null)
@@ -101,7 +79,7 @@ namespace LayoutFarm.CefBridge
                         }
                     }
                     break;
-                case MyCefMsg.MYCEF_MSG_ShowDevTools:
+                case MyCefMsg.CEF_MSG_ClientHandler_ShowDevTools:
                     {
                         //show dev tools
                         Cef3Binder.SafeUIInvoke(() =>
@@ -111,7 +89,7 @@ namespace LayoutFarm.CefBridge
                         });
                     }
                     break;
-                case MyCefMsg.MYCEF_MSG_JsOnContextCreated:
+                case MyCefMsg.CEF_MSG_RenderDelegate_OnContextCreated:
                     {
                         //client app callback
                         //eg. from RenderClientApp
@@ -131,7 +109,7 @@ namespace LayoutFarm.CefBridge
                         }
                     }
                     break;
-                case MyCefMsg.MYCEF_MSG_JsOnContextReleased:
+                case MyCefMsg.CEF_MSG_RenderDelegate_OnContextReleased:
                     {
                         if (renderProcessListener != null)
                         {
@@ -144,8 +122,9 @@ namespace LayoutFarm.CefBridge
                         }
                     }
                     break;
-                case MyCefMsg.MYCEF_MSG_OnWebKitInitialized:
+                case MyCefMsg.CEF_MSG_RenderDelegate_OnWebKitInitialized:
                     {
+
                         if (renderProcessListener != null)
                         {
                             NativeCallArgs args = new NativeCallArgs(argsPtr);

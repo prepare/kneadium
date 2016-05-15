@@ -113,7 +113,7 @@ extern "C" {
 
 }
 
-jsvalue ConvToJsValue(std::wstring str);
+
 
 
 class MethodArgs
@@ -143,7 +143,7 @@ public:
 
 	void SetArgAsString(int argIndex, const wchar_t* str);
 	void SetArgAsNativeObject(int argIndex, const void* nativeObject);
-	void SetArgAsInt32(int argIndex,const int32_t value);
+	void SetArgAsInt32(int argIndex, const int32_t value);
 
 	void SetOutputString(int resultIndex, const void* dataBuffer, int len);
 	void SetArgType(int argIndex, int type);
@@ -167,9 +167,9 @@ class QueryRequestArgs
 public:
 
 	CefBrowser* browser;
-	CefFrame* frame; 
+	CefFrame* frame;
 	MyCefStringHolder* request;
-	int64 query_id; 
+	int64 query_id;
 	bool persistent;
 	CefMessageRouterBrowserSide::Callback* callback;
 	QueryRequestArgs();
@@ -177,6 +177,6 @@ public:
 };
 
 
-
 //typedef void (__stdcall *managed_callback)(int id, void* args);   
 typedef void(__cdecl *managed_callback)(int id, void* args);
+

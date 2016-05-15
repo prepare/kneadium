@@ -38,6 +38,8 @@ namespace CefBridgeTest
                 //load sample image and the send to client
                 byte[] img = File.ReadAllBytes("prepare.jpg");
                 int imgLen = img.Length;
+
+                //TODO: review here, who will destroy this mem
                 IntPtr unmanagedPtr = Marshal.AllocHGlobal(imgLen);
                 Marshal.Copy(img, 0, unmanagedPtr, imgLen);
 
@@ -45,7 +47,13 @@ namespace CefBridgeTest
                 args.UnsafeSetOutput(1, unmanagedPtr, imgLen);
                 args.SetOutputAsAsciiString(2, "image/jpeg");
             }
-
+            else
+            {
+                //intercept any request
+                //args.SetOutput(0, 1);
+                //args.SetOutputAsAsciiString(1, "OKOK!!!!");
+                //args.SetOutputAsAsciiString(2, "text/plain");
+            }
         }
         public override void OnCefQuery(NativeCallArgs args, QueryRequestArgs reqArgs)
         {

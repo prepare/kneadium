@@ -13,50 +13,64 @@ namespace LayoutFarm.CefBridge
     [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
     public delegate void MyCefCallback(int id, IntPtr args);
 
+    //----------------------------------------------------------------------
+    //cef msg constant
+    //----------------------------------------------------------------------
+
+    //const int CEF_MSG_ClientHandler_NotifyBrowserClosed = 100;
+    //const int CEF_MSG_ClientHandler_NotifyBrowserCreated = 101;
+    //const int CEF_MSG_ClientHandler_OnBeforePopup = 104;
+    //const int CEF_MSG_ClientHandler_OnConsoleMessage = 106;
+    //const int CEF_MSG_ClientHandler_ShowDevTools = 107;
+    //const int CEF_MSG_ClientHandler_CloseDevTools = 108;
+    //const int CEF_MSG_ClientHandler_OnBeforeContextMenu = 109;
+
+    //const int CEF_MSG_ClientHandler_OnLoadError = 119;
+    //const int CEF_MSG_ClientHandler_SetResourceManager = 140;
+    //const int CEF_MSG_RequestUrlFilter2 = 142;
+    //const int CEF_MSG_BinaryResouceProvider_OnRequest = 145;
+
+    //const int CEF_MSG_RenderDelegate_OnWebKitInitialized = 201;
+    //const int CEF_MSG_RenderDelegate_OnContextCreated = 202;
+    //const int CEF_MSG_RenderDelegate_OnContextReleased = 203;
+    //const int CEF_MSG_OnQuery = 205;
+
+    //const int CEF_MSG_MyV8ManagedHandler_Execute = 301;
+    //const int CEF_MSG_HereOnRenderer = 303;
+
+    //const int CEF_MSG_ClientHandler_OnPreKeyEvent = 501;
+    //const int CEF_MSG_ClientHandler_NotifyTitle = 502;
+    //const int CEF_MSG_ClientHandler_NotifyAddress = 503;
+
     public enum MyCefMsg
     {
+
         MYCEF_MSG_UNKNOWN = 0,
-        MYCEF_MSG_NotifyBrowserClosed = 100,
-        MYCEF_MSG_NotifyBrowserCreated = 101,
-        MYCEF_MSG_OnBeforePopup = 104,
-        MYCEF_MSG_OnConsoleMessage = 106,
-        MYCEF_MSG_ShowDevTools = 107,
-        MYCEF_MSG_CloseDevTools = 108,
-        MYCEF_MSG_OnBeforeContextMenu = 109,
+        CEF_MSG_ClientHandler_NotifyBrowserClosed = 100,
+        CEF_MSG_ClientHandler_NotifyBrowserCreated = 101,
+        CEF_MSG_ClientHandler_OnBeforePopup = 104,
+        CEF_MSG_ClientHandler_OnConsoleMessage = 106,
+        CEF_MSG_ClientHandler_ShowDevTools = 107,
+        CEF_MSG_ClientHandler_CloseDevTools = 108,
+        CEF_MSG_ClientHandler_OnBeforeContextMenu = 109,
 
-        MYCEF_MSG_OnLoadError = 119,
-        MYCEF_MSG_SetResourceManager = 140,
-        MYCEF_MSG_RequestUrlFilter = 142,
-        MYCEF_MSG_RequestBinaryResource = 145,
+        CEF_MSG_ClientHandler_OnLoadError = 119,
+        CEF_MSG_ClientHandler_SetResourceManager = 140,
+        CEF_MSG_RequestUrlFilter2 = 142,
+        CEF_MSG_BinaryResouceProvider_OnRequest = 145,
 
-        MYCEF_MSG_OnWebKitInitialized = 200,
-        MYCEF_MSG_JsOnContextCreated = 202,
-        MYCEF_MSG_JsOnContextReleased = 203,
-        MYCEF_MSG_JsOnQuery = 205,
+       
+        CEF_MSG_RenderDelegate_OnWebKitInitialized = 201,
+        CEF_MSG_RenderDelegate_OnContextCreated = 202,
+        CEF_MSG_RenderDelegate_OnContextReleased = 203,
+        CEF_MSG_OnQuery = 205,
 
-        MYCEF_MSG_NotifyAddress = 503,
-        MYCEF_MSG_NotifyTitle = 502,
-        MYCEF_MSG_OnPreKeyEvent = 501,
+
+        CEF_MSG_ClientHandler_OnPreKeyEvent = 501,
+        CEF_MSG_ClientHandler_NotifyTitle = 502,
+        CEF_MSG_ClientHandler_NotifyAddress = 503,
 
     }
-    //const int MYCEF_MSG_NotifyBrowserClosed = 100;
-    //const int MYCEF_MSG_NotifyBrowserCreated = 101;
-    //const int MYCEF_MSG_OnBeforePopup = 104;
-    //const int MYCEF_MSG_OnConsoleMessage = 106;
-    //const int MYCEF_MSG_ShowDevTools = 107;
-    //const int MYCEF_MSG_CloseDevTools = 108;
-    //const int MYCEF_MSG_OnBeforeContextMenu = 109;
-
-    //const int MYCEF_MSG_OnLoadError = 119;
-
-    //const int MYCEF_MSG_OnWebKitInitialized = 200;
-    //const int MYCEF_MSG_JsOnContextCreated = 202;
-    //const int MYCEF_MSG_JsOnContextReleased = 203;
-
-    //const int MYCEF_MSG_JsOnQuery = 205;
-    //const int MYCEF_MSG_NotifyAddress = 503;
-    //const int MYCEF_MSG_NotifyTitle = 502;
-    //const int MYCEF_MSG_OnPreKeyEvent = 501;
 
 
     static class Cef3Binder
@@ -233,8 +247,6 @@ namespace LayoutFarm.CefBridge
         [DllImport(CEF_CLIENT_DLL, CallingConvention = CallingConvention.Cdecl)]
         internal static extern JsValue MyCefNativeMetGetArgs(IntPtr cbArgPtr, int index);
 
-        //[DllImport(CEF_CLIENT_DLL, CallingConvention = CallingConvention.Cdecl)]
-        //internal static extern void MyCefDisposePtr(IntPtr ptr);
 
         //part3:
         //--------------------------------------------------- 
