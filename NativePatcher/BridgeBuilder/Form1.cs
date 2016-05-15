@@ -39,9 +39,34 @@ namespace BridgeBuilder
             PatchBuilder builder2 = new PatchBuilder(srcRootDir);
             builder2.LoadPatchesFromFolder(saveFolder);
 
+            //----------
+            //copy extension code          
+            CopyFileInFolder(saveFolder,
+                @"D:\projects\CefBridge\NativePatcher\cefbridge_patches"
+               );
+
+            CopyFileInFolder(@"D:\projects\CefBridge\cef3\cefclient\myext",
+                 @"D:\projects\CefBridge\NativePatcher\BridgeBuilder\Patcher_ExtCode\myext");
 
         }
 
+        static void CopyFileInFolder(string srcFolder, string targetFolder)
+        {
+            //not recursive
+            if (srcFolder == targetFolder)
+            {
+                throw new NotSupportedException();
+            }
+
+            string[] srcFiles = System.IO.Directory.GetFiles(srcFolder);
+            foreach (var f in srcFiles)
+            {
+                System.IO.File.Copy(f,
+                    targetFolder + "\\" + System.IO.Path.GetFileName(f), true);
+            }
+
+
+        }
         private void cmdLoadPatchAndDoPatch_Click(object sender, EventArgs e)
         {
             //string srcRootDir = @"D:\projects\cef_binary_3.2526.1366" + "\\cefclient"; //2526.1366
@@ -78,5 +103,6 @@ namespace BridgeBuilder
             manualPatcher.Do_CMake_txt();
 
         }
+
     }
 }
