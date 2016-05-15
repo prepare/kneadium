@@ -29,31 +29,23 @@ managed_callback myMxCallback_ = NULL;
 //1.
 int MyCefGetVersion()
 {
-	return 1005;
+	return 1007;
 }
 //2.
 int RegisterManagedCallBack(managed_callback mxCallback, int callbackKind)
 {
+
 	switch (callbackKind)
-	{
-	case 0:
-	{
-		return 0;
-	}break;
-	case 1:
-	{
-
-	}break;
-	case 3:
-	{
-		//set global mxCallback ***
-		myMxCallback_ = mxCallback;
-		return 0;
-	}break;
+	{  
+		case 3:
+		{
+			//set global mxCallback ***
+			myMxCallback_ = mxCallback;
+			return 0;
+		}
 	}
-	return 1;
+	return 1; //default
 }
-
 
 //3.
 client::ClientApp* MyCefCreateClientApp(HINSTANCE hInstance)

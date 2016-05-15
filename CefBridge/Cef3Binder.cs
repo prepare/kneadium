@@ -68,8 +68,8 @@ namespace LayoutFarm.CefBridge
         public static bool s_dbugIsRendererProcess;
 #endif
 
-        static MyCefCallback managedListener0;
-        static MyCefCallback managedListener1;
+        //static MyCefCallback managedListener0;
+        //static MyCefCallback managedListener1;
 
 
         static CefClientApp clientApp;
@@ -118,15 +118,15 @@ namespace LayoutFarm.CefBridge
             int myCefVersion = MyCefGetVersion();
             //-----------------------------------------------------------
             //2. 
-            managedListener0 = new MyCefCallback(Cef3callBack_ForMangedCallBack0);
+            //managedListener0 = new MyCefCallback(Cef3callBack_ForMangedCallBack0);
             //3. unmanaged side can call back to this managed part 
-            int regResult = RegisterManagedCallBack(managedListener0, 0);
+            //int regResult = RegisterManagedCallBack(managedListener0, 0);
             //-----------------------------------------------------------
             //again ... another managed 
 
 
-            managedListener1 = new MyCefCallback(Cef3callBack_ForMangedCallBack2);
-            regResult = RegisterManagedCallBack(managedListener1, 1);
+            //managedListener1 = new MyCefCallback(Cef3callBack_ForMangedCallBack2);
+            //regResult = RegisterManagedCallBack(managedListener1, 1);
             //-----------------------------------------------------------
             //init cef            
             clientApp = cefInitEssential.CreateClientApp(); // System.Diagnostics.Process.GetCurrentProcess().Handle);
@@ -136,7 +136,7 @@ namespace LayoutFarm.CefBridge
         }
 
         static bool LoadNativeLibs(Cef3InitEssential initEssential)
-        {   
+        {
             //1. lib cef
             string lib = initEssential.GetLibCefFileName();
             //if (!File.Exists(lib))
@@ -180,15 +180,15 @@ namespace LayoutFarm.CefBridge
             return true;
 
         }
-        static void Cef3callBack_ForMangedCallBack0(int oindex, IntPtr args)
-        {
+        //static void Cef3callBack_ForMangedCallBack0(int oindex, IntPtr args)
+        //{
 
-        }
-        static void Cef3callBack_ForMangedCallBack2(int oindex, IntPtr args)
-        {
+        //}
+        //static void Cef3callBack_ForMangedCallBack2(int oindex, IntPtr args)
+        //{
 
 
-        }
+        //}
 
 
         //---------------------------------------------------
@@ -422,14 +422,15 @@ namespace LayoutFarm.CefBridge
     static class NativeMethods
     {
 
+        //TODO: review here, check for other platforms
         //-----------------------------------------------
         //this is Windows Specific class ***
         [DllImport("Kernel32.dll")]
         public static extern IntPtr LoadLibrary(string libraryName);
         [DllImport("Kernel32.dll")]
         public static extern bool FreeLibrary(IntPtr hModule);
-        [DllImport("Kernel32.dll")]
-        public static extern IntPtr GetProcAddress(IntPtr hModule, string procName);
+        //[DllImport("Kernel32.dll")]
+        //public static extern IntPtr GetProcAddress(IntPtr hModule, string procName);
         [DllImport("Kernel32.dll")]
         public static extern uint SetErrorMode(int uMode);
         [DllImport("Kernel32.dll")]
