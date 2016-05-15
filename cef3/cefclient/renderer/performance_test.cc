@@ -137,9 +137,10 @@ class RenderDelegate : public ClientAppRenderer::Delegate {
 //###_APPEND_START 7
 virtual void OnWebKitInitialized(CefRefPtr<ClientAppRenderer> app) { 
 if (app->myMxCallback_) {
-MethodArgs* metArgs = new MethodArgs();
-metArgs->SetArgAsNativeObject(0, app.get());
-app->myMxCallback_(205, metArgs);
+MethodArgs metArgs;
+memset(&metArgs, 0, sizeof(MethodArgs));
+metArgs.SetArgAsNativeObject(0, app.get());
+app->myMxCallback_(CEF_MSG_RenderDelegate_OnWebKitInitialized, &metArgs); 
 } 
 }
 virtual void OnContextReleased(CefRefPtr<ClientAppRenderer> app,
@@ -150,37 +151,41 @@ if (app->myMxCallback_)
 {
 //expose all to managed side
 //browser,frame and context ?  
-MethodArgs* metArgs = new MethodArgs();
-metArgs->SetArgAsNativeObject(0, app.get());
-metArgs->SetArgAsNativeObject(1, browser.get());
-metArgs->SetArgAsNativeObject(2, frame.get());
+MethodArgs metArgs;
+memset(&metArgs, 0, sizeof(MethodArgs));
 
+metArgs.SetArgAsNativeObject(0, app.get());
+metArgs.SetArgAsNativeObject(1, browser.get());
+metArgs.SetArgAsNativeObject(2, frame.get()); 
+metArgs.SetArgAsNativeObject(3, context.get());
 
-metArgs->SetArgAsNativeObject(3, context.get());
-
-app->myMxCallback_(203, metArgs);
+app->myMxCallback_(CEF_MSG_RenderDelegate_OnContextReleased, &metArgs);
+ 
 }
 }
 //###_APPEND_STOP
 
+//###_START 0
   virtual void OnContextCreated(CefRefPtr<ClientAppRenderer> app,
                                 CefRefPtr<CefBrowser> browser,
                                 CefRefPtr<CefFrame> frame,
-//###_START 0
+//###_FIND_NEXT_LANDMARK 0
                                 CefRefPtr<CefV8Context> context) OVERRIDE {
 //###_APPEND_START 0
 if (app->myMxCallback_)
 {
 //expose all to managed side
 //browser,frame and context ?  
-MethodArgs* metArgs = new MethodArgs();
-metArgs->SetArgAsNativeObject(0, app.get());
-metArgs->SetArgAsNativeObject(1, browser.get());
-metArgs->SetArgAsNativeObject(2, frame.get());
+MethodArgs metArgs;
+memset(&metArgs, 0, sizeof(MethodArgs));
+metArgs.SetArgAsNativeObject(0, app.get());
+metArgs.SetArgAsNativeObject(1, browser.get());
+metArgs.SetArgAsNativeObject(2, frame.get());
 context->AddRef();
-metArgs->SetArgAsNativeObject(3, context.get());
+metArgs.SetArgAsNativeObject(3, context.get());
 
-app->myMxCallback_(202, metArgs);
+app->myMxCallback_(CEF_MSG_RenderDelegate_OnContextCreated, &metArgs);
+ 
 }
 else {
 

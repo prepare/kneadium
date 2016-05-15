@@ -59,8 +59,18 @@ namespace LayoutFarm.CefBridge
         {
             logMessages.Add(msg);
         }
+        /// <summary>
+        /// libcef.dll (original)
+        /// </summary>
+        /// <returns></returns>         
         public abstract string GetLibCefFileName();
+        /// <summary>
+        /// cefclient.dll (wrapper)
+        /// </summary>
+        /// <returns></returns>
         public abstract string GetCefClientFileName();
+
+       
 
         public static bool IsInRenderProcess
         {

@@ -1,11 +1,8 @@
-﻿//2016, MIT , WinterDev
+﻿//2015-2016 MIT, WinterDev
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
-using System.Drawing;
-
-//2015-2016 MIT, WinterDev
-
+using System.Drawing; 
 using System.Text;
 using System.Windows.Forms;
 
@@ -23,7 +20,14 @@ namespace CefBridgeTest
         }
         private void Form1_Load(object sender, EventArgs e)
         {
-            this.cefWebBrowser1.Agent.Listener = new LayoutFarm.CefBridge.MyCefUIProcessListener();
+            this.cefWebBrowser1.Agent.Listener = new MyCefUIProcessListener();
+            this.splitContainer1.SplitterMoved += SplitContainer1_SplitterMoved;
+        }
+
+        private void SplitContainer1_SplitterMoved(object sender, SplitterEventArgs e)
+        {
+            cefWebBrowser1.Agent.SetSize(splitContainer1.Panel2.Width, splitContainer1.Panel2.Height);
+
         }
 
         public void Navigate(string url)
@@ -125,6 +129,12 @@ namespace CefBridgeTest
         {
             this.cefWebBrowser1.Focus();
             this.cefWebBrowser1.NavigateTo("http://www.youtube.com");
+        }
+
+        private void button5_Click(object sender, EventArgs e)
+        {
+            this.cefWebBrowser1.Focus();
+            this.cefWebBrowser1.NavigateTo("http://localhost/index.html");
         }
     }
 

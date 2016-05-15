@@ -211,10 +211,10 @@ namespace BridgeBuilder
         /// <returns></returns>
         public static PatchFile BuildPatchFile(string filename)
         {
-            if (filename == "d:\\projects\\CefBridge\\cef3\\cefclient\\browser\\client_handler.cc")
-            {
+            //if (filename == "d:\\projects\\CefBridge\\cef3\\cefclient\\browser\\client_handler.cc")
+            //{
 
-            }
+            //}
             //create patch command for specific filename
             PatchFile patchFile = new PatchFile(filename);
             SourceFile sourceFile = new SourceFile(filename, false);

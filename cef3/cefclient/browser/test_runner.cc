@@ -28,6 +28,7 @@
 #include "cefclient/browser/window_test.h"
 //###_APPEND_START 0
 #include "include/wrapper/cef_byte_read_handler.h"
+#include "cefclient/myext/mycef_msg_const.h"
 //###_APPEND_STOP
 
 namespace client {
@@ -478,7 +479,7 @@ memset(&metArgs, 0, sizeof(MethodArgs));
 CefString cef_str(url);
 metArgs.SetArgAsString(0, cef_str.c_str());
 
-client::test_runner::mcallback_(142, &metArgs);
+client::test_runner::mcallback_(CEF_MSG_RequestUrlFilter2, &metArgs);
 
 if (metArgs.result0.value.i32 == 0) {
 //no change
@@ -770,7 +771,7 @@ metArgs.SetArgAsString(0, cefStr.c_str());
 metArgs.SetArgAsNativeObject(1, request);
 
 //get data from managed side
-mcallback(145, &metArgs); //get resource 
+mcallback(CEF_MSG_BinaryResouceProvider_OnRequest, &metArgs); //get resource 
 
 if (metArgs.result0.value.i32 == 0) {
 return false; //not handle by this handler

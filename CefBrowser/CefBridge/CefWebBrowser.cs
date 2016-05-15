@@ -18,7 +18,7 @@ namespace LayoutFarm.CefBridge
 
         MyCefBrowser cefBrowser;
         IWindowControl thisWindowControl;
-        MyCefUIProcessListener cefBrowserListener;
+        CefUIProcessListener cefBrowserListener;
         public CefWebBrowserControl()
         {
             SetStyle(
@@ -89,7 +89,7 @@ namespace LayoutFarm.CefBridge
         {
 
         }
-        public MyCefUIProcessListener CefBrowserListener
+        public CefUIProcessListener CefBrowserListener
         {
             get { return cefBrowserListener; }
             set

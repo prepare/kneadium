@@ -13,17 +13,27 @@ namespace CefBridgeTest
     class MyCef3InitEssential : LayoutFarm.CefBridge.Cef3InitEssential
     {
         static Form tinyForm;
-#if DEBUG
-        static string libPath = @"D:\projects\CefBridge\cef3_output\cefclient\Debug";
-#else
-        static string libPath = @"D:\projects\CefBridge\cef3_output\cefclient\Release";
-#endif
-
         static MyCef3InitEssential initEssential;
+        string libPath;
 
         private MyCef3InitEssential(string[] startArgs)
             : base(startArgs)
         {
+
+            //must check proper location of libcef, cefclient dir 
+#if DEBUG
+            libPath = @"D:\projects\CefBridge\cef3_output\cefclient\Debug";
+#else
+            libPath = @"D:\projects\CefBridge\cef3_output\cefclient\Release";
+#endif
+
+            //set proper dir here
+            //depend on what you want
+            //1. nearest local dir
+            //2. common dir  
+            //string currrentExecPath = System.IO.Path.GetDirectoryName(Application.ExecutablePath);
+            //string commonAppDir = System.IO.Path.GetDirectoryName(Application.CommonAppDataPath);//skip version
+
 
         }
         public override string GetLibCefFileName()
@@ -90,7 +100,7 @@ namespace CefBridgeTest
         public override CefClientApp CreateClientApp()
         {
 
-            var renderProcListener = new CefRendererProcessListener();
+            var renderProcListener = new MyCefRendererProcessListener();
             var clientApp = new CefClientApp(
                 System.Diagnostics.Process.GetCurrentProcess().Handle,
                 renderProcListener);
@@ -153,31 +163,5 @@ namespace CefBridgeTest
     }
 
 
-    class CefRendererProcessListener : MyCefRenderProcessListener
-    {
-
-        public override void OnContextCreated(MyCefContextArgs args)
-        {
-            //sample !!!
-            //call window.test001() from js 
-            CefV8Value cefV8Global = args.context.GetGlobal();
-            Cef3FuncHandler funcHandler = Cef3FuncHandler.CreateFuncHandler(Test001);
-            Cef3Func func = Cef3Func.CreateFunc("test001", funcHandler);
-            cefV8Global.Set("test001", func);
-        }
-
-        void Test001(int id, IntPtr argsPtr)
-        {
-
-#if DEBUG
-            //if (Cef3Binder.s_dbugIsRendererProcess)
-            //{
-            //    System.Diagnostics.Debugger.Break();
-            //}
-#endif
-            var nativeCallArgs = new NativeCallArgs(argsPtr);
-            nativeCallArgs.SetOutput(0, "hello from managed side !");
-
-        }
-    }
+   
 }

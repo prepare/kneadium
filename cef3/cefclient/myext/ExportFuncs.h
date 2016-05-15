@@ -27,7 +27,7 @@ extern "C" {
 	//3. 
 	MY_DLL_EXPORT client::ClientApp* MyCefCreateClientApp(HINSTANCE hInstance);
 	//3.1 
-	MY_DLL_EXPORT void MyCefEnableKeyIntercept(MyBrowser* myBw,int enable);
+	MY_DLL_EXPORT void MyCefEnableKeyIntercept(MyBrowser* myBw, int enable);
 
 	//4.
 	MY_DLL_EXPORT MyBrowser* MyCefCreateMyWebBrowser(managed_callback callback);
@@ -36,14 +36,15 @@ extern "C" {
 	//6.
 	MY_DLL_EXPORT void MyCefDoMessageLoopWork();
 	//7.
+	MY_DLL_EXPORT void MyCefSetBrowserSize(MyBrowser* myBw, int w, int h);
+
 	MY_DLL_EXPORT void MyCefShutDown();
 	MY_DLL_EXPORT void MyCefDomGetTextWalk(MyBrowser* myBw, managed_callback strCallBack);
 	MY_DLL_EXPORT void MyCefDomGetSourceWalk(MyBrowser* myBw, managed_callback strCallBack);
 	//part 2
 	//1.	 
 	MY_DLL_EXPORT jsvalue MyCefNativeMetGetArgs(MethodArgs* args, int argIndex);
-	//2.
-	MY_DLL_EXPORT void MyCefDisposePtr(void* ptr);
+
 
 	//3.
 	MY_DLL_EXPORT void MyCefMetArgs_SetResultAsJsValue(MethodArgs* args, int retIndex, jsvalue* value);
@@ -87,8 +88,8 @@ extern "C" {
 	MY_DLL_EXPORT CefV8Context* MyCefJsFrameContext(CefFrame* wbFrame);
 
 	MY_DLL_EXPORT CefV8Value* MyCefJsGetGlobal(CefV8Context* cefV8Context);
-	
-	MY_DLL_EXPORT MethodArgs* CreateMethodArgs();
+
+	/*MY_DLL_EXPORT MethodArgs* CreateMethodArgs();*/
 	MY_DLL_EXPORT void DisposeMethodArgs(MethodArgs* args);
 
 	MY_DLL_EXPORT CefV8Context* MyCefJs_EnterContext(CefV8Context* cefV8Context);
@@ -97,21 +98,21 @@ extern "C" {
 	MY_DLL_EXPORT CefV8Handler* MyCefJs_New_V8Handler(managed_callback callback);
 	MY_DLL_EXPORT void MyCefJs_CefV8Value_SetValue_ByString(CefV8Value* target, const wchar_t* key, CefV8Value* value, int setAttribute);
 	MY_DLL_EXPORT void MyCefJs_CefV8Value_SetValue_ByIndex(CefV8Value* target, int index, CefV8Value* value);
-	MY_DLL_EXPORT bool MyCefJs_CefV8Value_IsFunc(CefV8Value* target); 
-	MY_DLL_EXPORT bool MyCefJs_CefRegisterExtension(const wchar_t* extensionName,const wchar_t* extensionCode);
-	 
+	MY_DLL_EXPORT bool MyCefJs_CefV8Value_IsFunc(CefV8Value* target);
+	MY_DLL_EXPORT bool MyCefJs_CefRegisterExtension(const wchar_t* extensionName, const wchar_t* extensionCode);
+
 	MY_DLL_EXPORT CefV8Value* MyCefJs_CreateFunction(const wchar_t* name, CefV8Handler* handler);
 	MY_DLL_EXPORT CefV8Value* MyCefJs_ExecJsFunctionWithContext(CefV8Value* cefJsFunc, CefV8Context* context, const wchar_t* argAsJsonString);
-	 
+
 
 	MY_DLL_EXPORT void MyCefFrame_GetUrl(CefFrame* frame, wchar_t* outputBuffer, int outputBufferLen, int* actualLength);
 	MY_DLL_EXPORT void MyCefString_Read(CefString* cefStr, wchar_t* outputBuffer, int outputBufferLen, int* actualLength);
 	MY_DLL_EXPORT void MyCefJs_CefV8Value_ReadAsString(CefV8Value* target, wchar_t* outputBuffer, int outputBufferLen, int* actualLength);
 	MY_DLL_EXPORT void MyCefStringHolder_Read(MyCefStringHolder* mycefstr, wchar_t* outputBuffer, int outputBufferLen, int* actualLength);
-	
 
-	 
-	MY_DLL_EXPORT void MyCefJs_MetReadArgAsString(const CefV8ValueList* jsArgs, int index, wchar_t* outputBuffer, int outputBufferLen,int* actualLength);
+
+
+	MY_DLL_EXPORT void MyCefJs_MetReadArgAsString(const CefV8ValueList* jsArgs, int index, wchar_t* outputBuffer, int outputBufferLen, int* actualLength);
 	MY_DLL_EXPORT int MyCefJs_MetReadArgAsInt32(const CefV8ValueList* jsArgs, int index);
 	MY_DLL_EXPORT CefV8Value* MyCefJs_MetReadArgAsCefV8Value(const CefV8ValueList* jsArgs, int index);
 	MY_DLL_EXPORT CefV8Handler* MyCefJs_MetReadArgAsV8FuncHandle(const CefV8ValueList* jsArgs, int index);
@@ -119,6 +120,21 @@ extern "C" {
 	MY_DLL_EXPORT MyCefStringHolder* MyCefCreateCefString(const wchar_t*  str);
 	//------------------------------
 	//part 5 : UI Proc Ext
-	
+	//----------------------------
+
+
+	//part 6
+	MY_DLL_EXPORT bool MyCefAddCrossOriginWhitelistEntry(
+		const wchar_t*  sourceOrigin,
+		const wchar_t*  targetProtocol,
+		const wchar_t*  targetDomain,
+		bool allow_target_subdomains
+	);
+	MY_DLL_EXPORT bool MyCefRemoveCrossOriginWhitelistEntry(
+		const wchar_t*  sourceOrigin,
+		const wchar_t*  targetProtocol,
+		const wchar_t*  targetDomain,
+		bool allow_target_subdomains
+	);
 
 }

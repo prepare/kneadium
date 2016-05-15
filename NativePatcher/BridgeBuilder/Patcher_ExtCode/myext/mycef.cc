@@ -70,7 +70,7 @@ void MethodArgs::SetArgAsInt32(int argIndex,const int32_t value)
 	}break;
 	case 4:
 	{
-		this->arg4.type = JSVALUE_TYPE_STRING;
+		this->arg4.type = JSVALUE_TYPE_INTEGER;
 		this->arg4.length = sizeof(int32_t);
 		this->arg4.value.i32 = value;
 	}break;

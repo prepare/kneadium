@@ -1,4 +1,4 @@
-//###_ORIGINAL d:\projects\CefBridge\cef3\cefclient\browser/main_context.h
+//###_ORIGINAL D:\projects\cef_binary_3.2623.1399\cefclient\browser//main_context.h
 //###_START 0
 #include "cefclient/browser/osr_renderer.h"
 //###_APPEND_START 0
@@ -8,5 +8,5 @@
 virtual RootWindowManager* GetRootWindowManager() = 0;
 //###_APPEND_START 1
 //my extension --for callback to managed side
-                managed_callback myMxCallback_;
+managed_callback myMxCallback_;
 //###_APPEND_STOP

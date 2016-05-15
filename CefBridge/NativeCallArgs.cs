@@ -145,9 +145,16 @@ namespace LayoutFarm.CefBridge
                 }
             }
         }
+
+        static Encoding asciiEncoding = null;
         public void SetOutputAsAsciiString(int index, string str)
         {
-            SetOutput(index, Encoding.ASCII.GetBytes(str.ToCharArray()));
+            if (asciiEncoding == null)
+            {
+                asciiEncoding = Encoding.GetEncoding("ASCII");
+            }
+
+            SetOutput(index, asciiEncoding.GetBytes(str.ToCharArray()));
         }
         public unsafe void UnsafeSetOutput(int index, IntPtr unmangedMemPtr, int len)
         {

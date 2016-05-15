@@ -13,50 +13,64 @@ namespace LayoutFarm.CefBridge
     [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
     public delegate void MyCefCallback(int id, IntPtr args);
 
+    //----------------------------------------------------------------------
+    //cef msg constant
+    //----------------------------------------------------------------------
+
+    //const int CEF_MSG_ClientHandler_NotifyBrowserClosed = 100;
+    //const int CEF_MSG_ClientHandler_NotifyBrowserCreated = 101;
+    //const int CEF_MSG_ClientHandler_OnBeforePopup = 104;
+    //const int CEF_MSG_ClientHandler_OnConsoleMessage = 106;
+    //const int CEF_MSG_ClientHandler_ShowDevTools = 107;
+    //const int CEF_MSG_ClientHandler_CloseDevTools = 108;
+    //const int CEF_MSG_ClientHandler_OnBeforeContextMenu = 109;
+
+    //const int CEF_MSG_ClientHandler_OnLoadError = 119;
+    //const int CEF_MSG_ClientHandler_SetResourceManager = 140;
+    //const int CEF_MSG_RequestUrlFilter2 = 142;
+    //const int CEF_MSG_BinaryResouceProvider_OnRequest = 145;
+
+    //const int CEF_MSG_RenderDelegate_OnWebKitInitialized = 201;
+    //const int CEF_MSG_RenderDelegate_OnContextCreated = 202;
+    //const int CEF_MSG_RenderDelegate_OnContextReleased = 203;
+    //const int CEF_MSG_OnQuery = 205;
+
+    //const int CEF_MSG_MyV8ManagedHandler_Execute = 301;
+    //const int CEF_MSG_HereOnRenderer = 303;
+
+    //const int CEF_MSG_ClientHandler_OnPreKeyEvent = 501;
+    //const int CEF_MSG_ClientHandler_NotifyTitle = 502;
+    //const int CEF_MSG_ClientHandler_NotifyAddress = 503;
+
     public enum MyCefMsg
     {
+
         MYCEF_MSG_UNKNOWN = 0,
-        MYCEF_MSG_NotifyBrowserClosed = 100,
-        MYCEF_MSG_NotifyBrowserCreated = 101,
-        MYCEF_MSG_OnBeforePopup = 104,
-        MYCEF_MSG_OnConsoleMessage = 106,
-        MYCEF_MSG_ShowDevTools = 107,
-        MYCEF_MSG_CloseDevTools = 108,
-        MYCEF_MSG_OnBeforeContextMenu = 109,
+        CEF_MSG_ClientHandler_NotifyBrowserClosed = 100,
+        CEF_MSG_ClientHandler_NotifyBrowserCreated = 101,
+        CEF_MSG_ClientHandler_OnBeforePopup = 104,
+        CEF_MSG_ClientHandler_OnConsoleMessage = 106,
+        CEF_MSG_ClientHandler_ShowDevTools = 107,
+        CEF_MSG_ClientHandler_CloseDevTools = 108,
+        CEF_MSG_ClientHandler_OnBeforeContextMenu = 109,
 
-        MYCEF_MSG_OnLoadError = 119,
-        MYCEF_MSG_SetResourceManager = 140,
-        MYCEF_MSG_RequestUrlFilter = 142,
-        MYCEF_MSG_RequestBinaryResource = 145,
+        CEF_MSG_ClientHandler_OnLoadError = 119,
+        CEF_MSG_ClientHandler_SetResourceManager = 140,
+        CEF_MSG_RequestUrlFilter2 = 142,
+        CEF_MSG_BinaryResouceProvider_OnRequest = 145,
 
-        MYCEF_MSG_OnWebKitInitialized = 200,
-        MYCEF_MSG_JsOnContextCreated = 202,
-        MYCEF_MSG_JsOnContextReleased = 203,
-        MYCEF_MSG_JsOnQuery = 205,
+       
+        CEF_MSG_RenderDelegate_OnWebKitInitialized = 201,
+        CEF_MSG_RenderDelegate_OnContextCreated = 202,
+        CEF_MSG_RenderDelegate_OnContextReleased = 203,
+        CEF_MSG_OnQuery = 205,
 
-        MYCEF_MSG_NotifyAddress = 503,
-        MYCEF_MSG_NotifyTitle = 502,
-        MYCEF_MSG_OnPreKeyEvent = 501,
+
+        CEF_MSG_ClientHandler_OnPreKeyEvent = 501,
+        CEF_MSG_ClientHandler_NotifyTitle = 502,
+        CEF_MSG_ClientHandler_NotifyAddress = 503,
 
     }
-    //const int MYCEF_MSG_NotifyBrowserClosed = 100;
-    //const int MYCEF_MSG_NotifyBrowserCreated = 101;
-    //const int MYCEF_MSG_OnBeforePopup = 104;
-    //const int MYCEF_MSG_OnConsoleMessage = 106;
-    //const int MYCEF_MSG_ShowDevTools = 107;
-    //const int MYCEF_MSG_CloseDevTools = 108;
-    //const int MYCEF_MSG_OnBeforeContextMenu = 109;
-
-    //const int MYCEF_MSG_OnLoadError = 119;
-
-    //const int MYCEF_MSG_OnWebKitInitialized = 200;
-    //const int MYCEF_MSG_JsOnContextCreated = 202;
-    //const int MYCEF_MSG_JsOnContextReleased = 203;
-
-    //const int MYCEF_MSG_JsOnQuery = 205;
-    //const int MYCEF_MSG_NotifyAddress = 503;
-    //const int MYCEF_MSG_NotifyTitle = 502;
-    //const int MYCEF_MSG_OnPreKeyEvent = 501;
 
 
     static class Cef3Binder
@@ -68,8 +82,8 @@ namespace LayoutFarm.CefBridge
         public static bool s_dbugIsRendererProcess;
 #endif
 
-        static MyCefCallback managedListener0;
-        static MyCefCallback managedListener1;
+        //static MyCefCallback managedListener0;
+        //static MyCefCallback managedListener1;
 
 
         static CefClientApp clientApp;
@@ -94,20 +108,11 @@ namespace LayoutFarm.CefBridge
 
             //follow these steps
             // 1. libcef
-            if (!LoadLibCef(cefInitEssential))
+            if (!LoadNativeLibs(cefInitEssential))
             {
                 return false;
             }
-            //2. cef client
-            string lib = cefInitEssential.GetCefClientFileName();
-            IntPtr nativeModule = NativeMethods.LoadLibrary(lib);
-            uint lastErr = NativeMethods.GetLastError();
-            //------------------------------------------------
-            // hModule = nativeModule;
-            if (nativeModule == IntPtr.Zero)
-            {
-                return false;
-            }
+
             //-----------------------------------------------------------
             //check start up process to see if what is this process
             //browser process
@@ -121,53 +126,47 @@ namespace LayoutFarm.CefBridge
                 cefInitEssential.AfterProcessLoaded(cefStartArg);
             }
 
-            //-----------------------------------------------------------
-
+            //----------------------------------------------------------- 
             //check version
             //1.
             int myCefVersion = MyCefGetVersion();
             //-----------------------------------------------------------
             //2. 
-            managedListener0 = new MyCefCallback(Cef3callBack_ForMangedCallBack0);
-            //3. unmanaged side can call back to this managed part
-
-            int regResult = RegisterManagedCallBack(managedListener0, 0);
+            //managedListener0 = new MyCefCallback(Cef3callBack_ForMangedCallBack0);
+            //3. unmanaged side can call back to this managed part 
+            //int regResult = RegisterManagedCallBack(managedListener0, 0);
             //-----------------------------------------------------------
             //again ... another managed 
 
 
-            managedListener1 = new MyCefCallback(Cef3callBack_ForMangedCallBack2);
-            regResult = RegisterManagedCallBack(managedListener1, 1);
+            //managedListener1 = new MyCefCallback(Cef3callBack_ForMangedCallBack2);
+            //regResult = RegisterManagedCallBack(managedListener1, 1);
             //-----------------------------------------------------------
             //init cef            
             clientApp = cefInitEssential.CreateClientApp(); // System.Diagnostics.Process.GetCurrentProcess().Handle);
 
-#if DEBUG
-            Console.WriteLine(regResult);
-#endif
+
             return true;
         }
 
-        static bool LoadLibCef(Cef3InitEssential initEssential)
+        static bool LoadNativeLibs(Cef3InitEssential initEssential)
         {
-
-
+            //1. lib cef
             string lib = initEssential.GetLibCefFileName();
-            if (!File.Exists(lib))
-            {
-                initEssential.AddLogMessage("not found " + lib);
-                return false;
-            }
+            //if (!File.Exists(lib))
+            //{
+            //    initEssential.AddLogMessage("not found " + lib);
+            //    return false;
+            //}
 
-            IntPtr libCefModuleHandler;
-            {
-                //string lib = libPath + "icudt.dll";
-                //libCefModuleHandler = NativeMethods.LoadLibrary(lib);
-                //lastErr = NativeMethods.GetLastError();
-            }
-
+            //IntPtr libCefModuleHandler;
+            //{
+            //    //string lib = libPath + "icudt.dll";
+            //    //libCefModuleHandler = NativeMethods.LoadLibrary(lib);
+            //    //lastErr = NativeMethods.GetLastError();
+            //}
             //Console.WriteLine(lib);
-            libCefModuleHandler = NativeMethods.LoadLibrary(lib);
+            IntPtr libCefModuleHandler = NativeMethods.LoadLibrary(lib);
             //Console.WriteLine(libCefModuleHandler);
             uint lastErr = NativeMethods.GetLastError();
             if (lastErr != 0)
@@ -175,22 +174,35 @@ namespace LayoutFarm.CefBridge
                 initEssential.AddLogMessage("load err code" + lastErr);
                 return false;
             }
-            else
+
+
+            //------------------------------------------------------------------
+            //2. cef client
+            lib = cefInitEssential.GetCefClientFileName();
+            //if (!File.Exists(lib))
+            //{
+            //    initEssential.AddLogMessage("not found " + lib);
+            //    return false;
+            //}
+            IntPtr nativeModule = NativeMethods.LoadLibrary(lib);
+            lastErr = NativeMethods.GetLastError();
+            //------------------------------------------------
+            if (nativeModule == IntPtr.Zero)
             {
-                return true;
+                return false;
             }
-            //Console.WriteLine(lastErr);
+            return true;
 
         }
-        static void Cef3callBack_ForMangedCallBack0(int oindex, IntPtr args)
-        {
+        //static void Cef3callBack_ForMangedCallBack0(int oindex, IntPtr args)
+        //{
 
-        }
-        static void Cef3callBack_ForMangedCallBack2(int oindex, IntPtr args)
-        {
+        //}
+        //static void Cef3callBack_ForMangedCallBack2(int oindex, IntPtr args)
+        //{
 
 
-        }
+        //}
 
 
         //---------------------------------------------------
@@ -235,8 +247,6 @@ namespace LayoutFarm.CefBridge
         [DllImport(CEF_CLIENT_DLL, CallingConvention = CallingConvention.Cdecl)]
         internal static extern JsValue MyCefNativeMetGetArgs(IntPtr cbArgPtr, int index);
 
-        //[DllImport(CEF_CLIENT_DLL, CallingConvention = CallingConvention.Cdecl)]
-        //internal static extern void MyCefDisposePtr(IntPtr ptr);
 
         //part3:
         //--------------------------------------------------- 
@@ -424,14 +434,15 @@ namespace LayoutFarm.CefBridge
     static class NativeMethods
     {
 
+        //TODO: review here, check for other platforms
         //-----------------------------------------------
         //this is Windows Specific class ***
         [DllImport("Kernel32.dll")]
         public static extern IntPtr LoadLibrary(string libraryName);
         [DllImport("Kernel32.dll")]
         public static extern bool FreeLibrary(IntPtr hModule);
-        [DllImport("Kernel32.dll")]
-        public static extern IntPtr GetProcAddress(IntPtr hModule, string procName);
+        //[DllImport("Kernel32.dll")]
+        //public static extern IntPtr GetProcAddress(IntPtr hModule, string procName);
         [DllImport("Kernel32.dll")]
         public static extern uint SetErrorMode(int uMode);
         [DllImport("Kernel32.dll")]

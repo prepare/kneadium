@@ -13,11 +13,11 @@ namespace LayoutFarm.CefBridge
         static readonly object sync_ = new object();
 
         MyCefCallback mxCallback;
-        MyCefRenderProcessListener renderProcessListener;
+        CefRenderProcessListener renderProcessListener;
 
 
 
-        public CefClientApp(IntPtr processHandle, MyCefRenderProcessListener renderProcessListener)
+        public CefClientApp(IntPtr processHandle, CefRenderProcessListener renderProcessListener)
         {
 
             this.renderProcessListener = renderProcessListener;
@@ -58,29 +58,7 @@ namespace LayoutFarm.CefBridge
         {
             switch ((MyCefMsg)id)
             {
-                //case 100:
-                //    {
-                //        //test only 
-                //    }
-                //    break;
-                //case 101:
-                //    {
-                //    }
-                //    break;
-                //case 103:
-                //    {
-                //        //create pop up window and send window handle to cef 
-                //        IWindowForm popupWin = Cef3Binder.CreateBlankForm(600, 450);
-                //        popupWin.Show();
-                //        IntPtr handle = popupWin.GetHandle();
-                //        if (argsPtr != IntPtr.Zero)
-                //        {
-                //            NativeCallArgs2 args = new NativeCallArgs2(argsPtr);
-                //            args.SetResult(handle);
-                //        } 
-                //    }
-                //    break;
-                case MyCefMsg.MYCEF_MSG_OnBeforePopup:
+                case MyCefMsg.CEF_MSG_ClientHandler_OnBeforePopup:
                     {
                         NativeCallArgs args = new NativeCallArgs(argsPtr);
                         string url = args.GetArgAsString(0);
@@ -90,18 +68,8 @@ namespace LayoutFarm.CefBridge
                             popupWin.Show();
                         });
                     }
-                    break;
-                case MyCefMsg.MYCEF_MSG_OnConsoleMessage:
-                    {
-                        //console.log ...
-                        if (renderProcessListener != null)
-                        {
-                            NativeCallArgs args = new NativeCallArgs(argsPtr);
-                            renderProcessListener.OnConsoleLog(args);
-                        }
-                    }
-                    break;
-                case MyCefMsg.MYCEF_MSG_ShowDevTools:
+                    break; 
+                case MyCefMsg.CEF_MSG_ClientHandler_ShowDevTools:
                     {
                         //show dev tools
                         Cef3Binder.SafeUIInvoke(() =>
@@ -111,7 +79,7 @@ namespace LayoutFarm.CefBridge
                         });
                     }
                     break;
-                case MyCefMsg.MYCEF_MSG_JsOnContextCreated:
+                case MyCefMsg.CEF_MSG_RenderDelegate_OnContextCreated:
                     {
                         //client app callback
                         //eg. from RenderClientApp
@@ -131,7 +99,7 @@ namespace LayoutFarm.CefBridge
                         }
                     }
                     break;
-                case MyCefMsg.MYCEF_MSG_JsOnContextReleased:
+                case MyCefMsg.CEF_MSG_RenderDelegate_OnContextReleased:
                     {
                         if (renderProcessListener != null)
                         {
@@ -144,8 +112,9 @@ namespace LayoutFarm.CefBridge
                         }
                     }
                     break;
-                case MyCefMsg.MYCEF_MSG_OnWebKitInitialized:
+                case MyCefMsg.CEF_MSG_RenderDelegate_OnWebKitInitialized:
                     {
+
                         if (renderProcessListener != null)
                         {
                             NativeCallArgs args = new NativeCallArgs(argsPtr);

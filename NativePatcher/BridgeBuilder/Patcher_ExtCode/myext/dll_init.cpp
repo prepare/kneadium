@@ -47,7 +47,7 @@ namespace client {
 			else if (process_type == ClientApp::RendererProcess)
 			{
 				//if you want to break in render process before attach
-				//MessageBox(0, L"RendererProcess INIT", L"RendererProcess INI", 0);
+			//	MessageBox(0, L"RendererProcess INIT", L"RendererProcess INI", 0);
 				app = new ClientAppRenderer();
 			}
 			else if (process_type == ClientApp::OtherProcess)

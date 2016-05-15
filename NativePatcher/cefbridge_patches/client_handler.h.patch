@@ -1,4 +1,4 @@
-//###_ORIGINAL d:\projects\CefBridge\cef3\cefclient\browser/client_handler.h
+//###_ORIGINAL D:\projects\cef_binary_3.2623.1399\cefclient\browser//client_handler.h
 //###_START 0
 #include "cefclient/browser/client_types.h"
 //###_APPEND_START 0
@@ -6,163 +6,82 @@
 //###_APPEND_STOP
 //###_APPEND_START 0
 #include "cefclient/myext/mycef.h"
+#include "cefclient/myext/mycef_msg_const.h"
 //###_APPEND_STOP
 //###_START 1
 bool is_osr() const { return is_osr_; }
 //###_APPEND_START 1
 //my extension
-		void MyCefSetManagedCallBack(managed_callback m);
-		//###_APPEND_STOP
-
-	private:
-		// Create a new popup window using the specified information. |is_devtools|
-		// will be true if the window will be used for DevTools. Return true to
-		// proceed with popup browser creation or false to cancel the popup browser.
-		// May be called on any thead.
-		bool CreatePopupWindow(
-			CefRefPtr<CefBrowser> browser,
-			bool is_devtools,
-			const CefPopupFeatures& popupFeatures,
-			CefWindowInfo& windowInfo,
-			CefRefPtr<CefClient>& client,
-			CefBrowserSettings& settings);
-
-		// Execute Delegate notifications on the main thread.
-		void NotifyBrowserCreated(CefRefPtr<CefBrowser> browser);
-		void NotifyBrowserClosing(CefRefPtr<CefBrowser> browser);
-		void NotifyBrowserClosed(CefRefPtr<CefBrowser> browser);
-		void NotifyAddress(const CefString& url);
-		void NotifyTitle(const CefString& title);
-		void NotifyFullscreen(bool fullscreen);
-		void NotifyLoadingState(bool isLoading,
-			bool canGoBack,
-			bool canGoForward);
-		void NotifyDraggableRegions(
-			const std::vector<CefDraggableRegion>& regions);
-
-		// Test context menu creation.
-		void BuildTestMenu(CefRefPtr<CefMenuModel> model);
-		bool ExecuteTestMenu(int command_id);
-
-		// THREAD SAFE MEMBERS
-		// The following members may be accessed from any thread.
-
-		// True if this handler uses off-screen rendering.
-		const bool is_osr_;
-
-		// The startup URL.
-		const std::string startup_url_;
-
-		// True if mouse cursor change is disabled.
-		bool mouse_cursor_change_disabled_;
-
-#if defined(OS_LINUX)
-		// Custom dialog handler for GTK.
-		CefRefPtr<ClientDialogHandlerGtk> dialog_handler_;
-#endif
-
-		// Handles the browser side of query routing. The renderer side is handled
-		// in client_renderer.cc.
-		CefRefPtr<CefMessageRouterBrowserSide> message_router_;
-
-		// Manages the registration and delivery of resources.
-		CefRefPtr<CefResourceManager> resource_manager_;
-
-		// MAIN THREAD MEMBERS
-		// The following members will only be accessed on the main thread. This will
-		// be the same as the CEF UI thread except when using multi-threaded message
-		// loop mode on Windows.
-
-		Delegate* delegate_;
-
-		// UI THREAD MEMBERS
-		// The following members will only be accessed on the CEF UI thread.
-
-		// Track state information for the text context menu.
-		struct TestMenuState {
-			TestMenuState() : check_item(true), radio_item(0) {}
-			bool check_item;
-			int radio_item;
-		} test_menu_state_;
-
-		// The current number of browsers using this handler.
-		int browser_count_;
-
-		// Console logging state.
-		const std::string console_log_file_;
-		bool first_console_message_;
-
-		// True if an editable field currently has focus.
-		bool focus_on_editable_field_;
-
-		//###_START 2
-		  // Set of Handlers registered with the message router.
-		//###_FOLLOW_BY 2
-		MessageHandlerSet message_handler_set_;
-		//###_APPEND_START 2
-		//my extension
-		managed_callback mcallback_;//my extension
+void MyCefSetManagedCallBack(managed_callback m);
+void MyCefEnableKeyIntercept(int enable);
 //###_APPEND_STOP
-//###_APPEND_START 1
+//###_START 2
+// Set of Handlers registered with the message router.
+//###_FOLLOW_BY 2
+MessageHandlerSet message_handler_set_;
+//###_APPEND_START 2
+//my extension
+managed_callback mcallback_;//my extension
+int enableKeyIntercept;
+//###_APPEND_STOP
+//###_APPEND_START 2
 std::string RequestUrlFilter(const std::string& url);//my extension
-		//###_APPEND_STOP
-
-		DISALLOW_COPY_AND_ASSIGN(ClientHandler);
-		//###_FIND_NEXT_LANDMARK 2
-	};
-	//###_APPEND_START 2
-	//----------
-	
-	
+//###_APPEND_STOP
+//###_FIND_NEXT_LANDMARK 2
+};
+//###_APPEND_START 2
+//----------
 
 
-		// Handle messages in the browser process.
-		// via cefQuery
-	class MyCefJsHandler : public CefMessageRouterBrowserSide::Handler {
-	public:
-
-		managed_callback mcallback_;//my extension
-		MyCefJsHandler() {}
-
-		virtual bool OnQuery(CefRefPtr<CefBrowser> browser,
-			CefRefPtr<CefFrame> frame,
-			int64 query_id,
-			const CefString& request,
-			bool persistent,
-			CefRefPtr<Callback> callback) OVERRIDE {
-			CEF_REQUIRE_UI_THREAD();
-
-			//const std::string& request_str = request;
-			if (this->mcallback_)
-			{
 
 
-				QueryRequestArgs queryReq;
-				memset(&queryReq, 0, sizeof(QueryRequestArgs));
-				queryReq.browser = browser.get();
-				queryReq.frame = frame.get();
-				queryReq.query_id = query_id;
+// Handle messages in the browser process.
+// via cefQuery
+class MyCefJsHandler : public CefMessageRouterBrowserSide::Handler {
+public:
 
-				//queryReq.request = &request;
-				MyCefStringHolder mystr;
-				mystr.value = request;
-				queryReq.request = &mystr;
-				queryReq.persistent = persistent;
-				queryReq.callback = callback.get();
+managed_callback mcallback_;//my extension
+MyCefJsHandler() {}
 
-				MethodArgs args;
-				memset(&args, 0, sizeof(MethodArgs));
-				args.SetArgAsNativeObject(0, &queryReq);
-				this->mcallback_(205, &args);
-				 
-				//auto result = args.ReadOutputAsString(0);
-				CefString cefstr = args.ReadOutputAsString(0);
-				callback->Success(cefstr);
+virtual bool OnQuery(CefRefPtr<CefBrowser> browser,
+CefRefPtr<CefFrame> frame,
+int64 query_id,
+const CefString& request,
+bool persistent,
+CefRefPtr<Callback> callback) OVERRIDE {
+CEF_REQUIRE_UI_THREAD();
 
-				return true;
-			}
+//const std::string& request_str = request;
+if (this->mcallback_)
+{
 
-			return false;
-		}//OnQuery
-	}; //class MyCefJsHandler
+
+QueryRequestArgs queryReq;
+memset(&queryReq, 0, sizeof(QueryRequestArgs));
+queryReq.browser = browser.get();
+queryReq.frame = frame.get();
+queryReq.query_id = query_id;
+
+//queryReq.request = &request;
+MyCefStringHolder mystr;
+mystr.value = request;
+queryReq.request = &mystr;
+queryReq.persistent = persistent;
+queryReq.callback = callback.get();
+
+MethodArgs args;
+memset(&args, 0, sizeof(MethodArgs));
+args.SetArgAsNativeObject(0, &queryReq);
+this->mcallback_(CEF_MSG_OnQuery, &args);
+
+//auto result = args.ReadOutputAsString(0);
+CefString cefstr = args.ReadOutputAsString(0);
+callback->Success(cefstr);
+
+return true;
+}
+
+return false;
+}//OnQuery
+}; //class MyCefJsHandler
 //###_APPEND_STOP
