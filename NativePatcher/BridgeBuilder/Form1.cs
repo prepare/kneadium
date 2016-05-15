@@ -17,15 +17,16 @@ namespace BridgeBuilder
         private void cmdBuild1_Click(object sender, EventArgs e)
         {
 
-            string srcRootDir = @"D:\projects\cef_binary_3.2526.1366" + "\\cefclient"; //2526.1366
-            ManualPatcher manualPatcher = new ManualPatcher(srcRootDir);
-            manualPatcher.DoChanged();
-            manualPatcher.CopyExtensionSources();
+            //string srcRootDir = @"D:\projects\cef_binary_3.2526.1366" + "\\cefclient"; //2526.1366
+            //ManualPatcher manualPatcher = new ManualPatcher(srcRootDir);
+            //manualPatcher.DoChanged();
+            //manualPatcher.CopyExtensionSources();
         }
 
         private void cmdMakePatchFiles_Click(object sender, EventArgs e)
         {
             //string srcRootDir = @"D:\projects\cef_binary_3.2526.1366" + "\\cefclient"; //2526.1366
+            //string srcRootDir = "d:\\projects\\CefBridge\\cef3\\cefclient";
             string srcRootDir = "d:\\projects\\CefBridge\\cef3\\cefclient";
             PatchBuilder builder = new PatchBuilder(srcRootDir);
             builder.MakePatch();
