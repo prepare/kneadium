@@ -692,9 +692,7 @@ void HereOnRenderer(const managed_callback callback, MethodArgs* args)
 {
 	callback(CEF_MSG_HereOnRenderer, args);
 }
-//MY_DLL_EXPORT MethodArgs* CreateMethodArgs() {
-//	return new MethodArgs();
-//}
+ 
 MY_DLL_EXPORT void DisposeMethodArgs(MethodArgs* args) {
 	delete args;
 }
