@@ -309,26 +309,22 @@ bool ClientHandler::OnConsoleMessage(CefRefPtr<CefBrowser> browser,
                                      int line) {
 //###_FIND_NEXT_LANDMARK 2
   CEF_REQUIRE_UI_THREAD();
-//###_APPEND_START 2
+//###_APPEND_START 2 
+
 if (this->mcallback_) {
-
-//get managed stream object
-MethodArgs* args = new MethodArgs();
-// memset(&args,0,sizeof(MethodArgs));	  
-//send info to managed side
-
-auto str16 = message.ToString16();
-auto cstr = str16.c_str();
-args->SetArgAsString(0, cstr);
-auto str16_1 = message.ToString16();
-auto cstr_1 = str16_1.c_str();
-args->SetArgAsString(1, cstr_1);
-auto str16_2 = std::to_wstring((long long)line);
-auto cstr_2 = str16_2.c_str();
-args->SetArgAsString(2, cstr_2);
-this->mcallback_(CEF_MSG_ClientHandler_OnConsoleMessage, args);
-
-delete args;
+	 
+	MethodArgs args;
+	memset(&args, 0, sizeof(MethodArgs));
+	auto str16 = message.ToString16();
+	auto cstr = str16.c_str();
+	args.SetArgAsString(0, cstr);
+	auto str16_1 = message.ToString16();
+	auto cstr_1 = str16_1.c_str();
+	args.SetArgAsString(1, cstr_1);
+	auto str16_2 = std::to_wstring((long long)line);
+	auto cstr_2 = str16_2.c_str();
+	args.SetArgAsString(2, cstr_2);
+	this->mcallback_(CEF_MSG_ClientHandler_OnConsoleMessage,&args); 
 }
 else {
 FILE* file = fopen(console_log_file_.c_str(), "a");
