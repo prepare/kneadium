@@ -21,6 +21,7 @@
 //###_APPEND_STOP
 //###_APPEND_START 0
 #include "cefclient/myext/mycef.h"
+#include "cefclient/myext/mycef_msg_const.h"
 //###_APPEND_STOP
 
 #if defined(OS_LINUX)
@@ -419,7 +420,7 @@ queryReq.callback = callback.get();
 MethodArgs args;
 memset(&args, 0, sizeof(MethodArgs));
 args.SetArgAsNativeObject(0, &queryReq);
-this->mcallback_(205, &args);
+this->mcallback_(CEF_MSG_OnQuery, &args);
 
 //auto result = args.ReadOutputAsString(0);
 CefString cefstr = args.ReadOutputAsString(0);
