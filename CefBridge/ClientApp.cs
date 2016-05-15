@@ -68,17 +68,7 @@ namespace LayoutFarm.CefBridge
                             popupWin.Show();
                         });
                     }
-                    break;
-                case MyCefMsg.CEF_MSG_ClientHandler_OnConsoleMessage:
-                    {
-                        //console.log ...
-                        if (renderProcessListener != null)
-                        {
-                            NativeCallArgs args = new NativeCallArgs(argsPtr);
-                            renderProcessListener.OnConsoleLog(args);
-                        }
-                    }
-                    break;
+                    break; 
                 case MyCefMsg.CEF_MSG_ClientHandler_ShowDevTools:
                     {
                         //show dev tools

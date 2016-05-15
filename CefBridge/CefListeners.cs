@@ -23,7 +23,7 @@ namespace LayoutFarm.CefBridge
         public virtual void OnWebKitInitialized(NativeCallArgs nativeCallArgs) { }
         public virtual void OnContextCreated(MyCefContextArgs args) { }
         public virtual void OnContextReleased(MyCefContextArgs args) { }
-        public virtual void OnConsoleLog(NativeCallArgs args) { }
+        
     }
 
     public class MyCefContextArgs

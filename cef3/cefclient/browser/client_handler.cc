@@ -309,26 +309,22 @@ bool ClientHandler::OnConsoleMessage(CefRefPtr<CefBrowser> browser,
                                      int line) {
 //###_FIND_NEXT_LANDMARK 2
   CEF_REQUIRE_UI_THREAD();
-//###_APPEND_START 2
+//###_APPEND_START 2 
+
 if (this->mcallback_) {
-
-//get managed stream object
-MethodArgs* args = new MethodArgs();
-// memset(&args,0,sizeof(MethodArgs));	  
-//send info to managed side
-
-auto str16 = message.ToString16();
-auto cstr = str16.c_str();
-args->SetArgAsString(0, cstr);
-auto str16_1 = message.ToString16();
-auto cstr_1 = str16_1.c_str();
-args->SetArgAsString(1, cstr_1);
-auto str16_2 = std::to_wstring((long long)line);
-auto cstr_2 = str16_2.c_str();
-args->SetArgAsString(2, cstr_2);
-this->mcallback_(CEF_MSG_ClientHandler_OnConsoleMessage, args);
-
-delete args;
+	 
+	MethodArgs args;
+	memset(&args, 0, sizeof(MethodArgs));
+	auto str16 = message.ToString16();
+	auto cstr = str16.c_str();
+	args.SetArgAsString(0, cstr);
+	auto str16_1 = message.ToString16();
+	auto cstr_1 = str16_1.c_str();
+	args.SetArgAsString(1, cstr_1);
+	auto str16_2 = std::to_wstring((long long)line);
+	auto cstr_2 = str16_2.c_str();
+	args.SetArgAsString(2, cstr_2);
+	this->mcallback_(CEF_MSG_ClientHandler_OnConsoleMessage,&args); 
 }
 else {
 FILE* file = fopen(console_log_file_.c_str(), "a");
@@ -424,13 +420,12 @@ bool ClientHandler::OnPreKeyEvent(CefRefPtr<CefBrowser> browser,
 //###_APPEND_START 7
 if (this->mcallback_ && this->enableKeyIntercept != 0) {
 if (!event.focus_on_editable_field) {
-//call across process, so create on heap 
-//don't forget to release it
-MethodArgs* metArgs = new MethodArgs();
-metArgs->SetArgAsNativeObject(0, &event);
-this->mcallback_(CEF_MSG_ClientHandler_OnPreKeyEvent, metArgs); //tmp
-int result = metArgs->ReadOutputAsInt32(0);
-delete metArgs;
+MethodArgs metArgs;
+memset(&metArgs, 0, sizeof(MethodArgs));
+metArgs.SetArgAsNativeObject(0, &event);
+this->mcallback_(CEF_MSG_ClientHandler_OnPreKeyEvent, &metArgs); //tmp
+int result = metArgs.ReadOutputAsInt32(0);
+ 
 return result != 0;
 }
 }
@@ -474,14 +469,15 @@ if (this->mcallback_) {
 
 //call across process, so create on heap 
 //don't forget to release it
-MethodArgs* metArgs = new MethodArgs();
+MethodArgs metArgs;
+memset(&metArgs, 0, sizeof(MethodArgs));
+
 auto str16 = target_url.ToString16();
 auto cstr = str16.c_str();
 
-metArgs->SetArgAsString(0, cstr);
-this->mcallback_(CEF_MSG_ClientHandler_OnBeforePopup, metArgs);
+metArgs.SetArgAsString(0, cstr);
+this->mcallback_(CEF_MSG_ClientHandler_OnBeforePopup, &metArgs);
 
-delete metArgs;
 
 return true;
 }
@@ -941,12 +937,13 @@ void ClientHandler::NotifyAddress(const CefString& url) {
   }
 //###_APPEND_START 11
 if (this->mcallback_ != NULL) {
-MethodArgs* metArgs = new MethodArgs();
+MethodArgs metArgs;
+memset(&metArgs, 0, sizeof(MethodArgs));
 auto str16 = url.ToString16();
 auto cstr = str16.c_str();
-metArgs->SetArgAsString(0, cstr);
-this->mcallback_(CEF_MSG_ClientHandler_NotifyAddress, metArgs);
-delete metArgs;
+metArgs.SetArgAsString(0, cstr);
+this->mcallback_(CEF_MSG_ClientHandler_NotifyAddress, &metArgs);
+ 
 }
 else {
 if (delegate_)
@@ -970,12 +967,13 @@ void ClientHandler::NotifyTitle(const CefString& title) {
 if (this->mcallback_ != NULL) {
 
 //alloc on heap , don't forget to delete
-MethodArgs* metArgs = new MethodArgs();
+MethodArgs metArgs;
+memset(&metArgs, 0, sizeof(MethodArgs));
 auto str16 = title.ToString16();
 auto cstr = str16.c_str();
-metArgs->SetArgAsString(0, cstr);
-this->mcallback_(CEF_MSG_ClientHandler_NotifyTitle, metArgs);
-delete metArgs;
+metArgs.SetArgAsString(0, cstr);
+this->mcallback_(CEF_MSG_ClientHandler_NotifyTitle, &metArgs);
+ 
 }
 else {
 if (delegate_)

@@ -134,7 +134,7 @@ namespace CefBridgeTest
         private void button5_Click(object sender, EventArgs e)
         {
             this.cefWebBrowser1.Focus();
-            this.cefWebBrowser1.NavigateTo("https://www.google.com");
+            this.cefWebBrowser1.NavigateTo("http://localhost/index.html");
         }
     }
 
