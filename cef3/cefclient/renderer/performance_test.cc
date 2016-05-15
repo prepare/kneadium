@@ -140,6 +140,7 @@ if (app->myMxCallback_) {
 MethodArgs* metArgs = new MethodArgs();
 metArgs->SetArgAsNativeObject(0, app.get());
 app->myMxCallback_(205, metArgs);
+delete metArgs;
 } 
 }
 virtual void OnContextReleased(CefRefPtr<ClientAppRenderer> app,
@@ -159,6 +160,7 @@ metArgs->SetArgAsNativeObject(2, frame.get());
 metArgs->SetArgAsNativeObject(3, context.get());
 
 app->myMxCallback_(203, metArgs);
+delete metArgs;
 }
 }
 //###_APPEND_STOP
@@ -181,6 +183,7 @@ context->AddRef();
 metArgs->SetArgAsNativeObject(3, context.get());
 
 app->myMxCallback_(202, metArgs);
+delete metArgs;
 }
 else {
 
