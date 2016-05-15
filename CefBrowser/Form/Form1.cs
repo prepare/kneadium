@@ -20,7 +20,7 @@ namespace CefBridgeTest
         }
         private void Form1_Load(object sender, EventArgs e)
         {
-            this.cefWebBrowser1.Agent.Listener = new LayoutFarm.CefBridge.MyCefUIProcessListener();
+            this.cefWebBrowser1.Agent.Listener = new MyCefUIProcessListener();
             this.splitContainer1.SplitterMoved += SplitContainer1_SplitterMoved;
         }
 
@@ -129,6 +129,12 @@ namespace CefBridgeTest
         {
             this.cefWebBrowser1.Focus();
             this.cefWebBrowser1.NavigateTo("http://www.youtube.com");
+        }
+
+        private void button5_Click(object sender, EventArgs e)
+        {
+            this.cefWebBrowser1.Focus();
+            this.cefWebBrowser1.NavigateTo("https://www.google.com");
         }
     }
 

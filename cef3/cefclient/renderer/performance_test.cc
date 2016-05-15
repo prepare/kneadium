@@ -139,7 +139,8 @@ virtual void OnWebKitInitialized(CefRefPtr<ClientAppRenderer> app) {
 if (app->myMxCallback_) {
 MethodArgs* metArgs = new MethodArgs();
 metArgs->SetArgAsNativeObject(0, app.get());
-app->myMxCallback_(205, metArgs);
+app->myMxCallback_(CEF_MSG_RenderDelegate_OnWebKitInitialized, metArgs);
+delete metArgs;
 } 
 }
 virtual void OnContextReleased(CefRefPtr<ClientAppRenderer> app,
@@ -158,15 +159,17 @@ metArgs->SetArgAsNativeObject(2, frame.get());
 
 metArgs->SetArgAsNativeObject(3, context.get());
 
-app->myMxCallback_(203, metArgs);
+app->myMxCallback_(CEF_MSG_RenderDelegate_OnContextReleased, metArgs);
+delete metArgs;
 }
 }
 //###_APPEND_STOP
 
+//###_START 0
   virtual void OnContextCreated(CefRefPtr<ClientAppRenderer> app,
                                 CefRefPtr<CefBrowser> browser,
                                 CefRefPtr<CefFrame> frame,
-//###_START 0
+//###_FIND_NEXT_LANDMARK 0
                                 CefRefPtr<CefV8Context> context) OVERRIDE {
 //###_APPEND_START 0
 if (app->myMxCallback_)
@@ -180,7 +183,8 @@ metArgs->SetArgAsNativeObject(2, frame.get());
 context->AddRef();
 metArgs->SetArgAsNativeObject(3, context.get());
 
-app->myMxCallback_(202, metArgs);
+app->myMxCallback_(CEF_MSG_RenderDelegate_OnContextCreated, metArgs);
+delete metArgs;
 }
 else {
 

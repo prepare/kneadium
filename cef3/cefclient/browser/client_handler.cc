@@ -214,7 +214,7 @@ void ClientHandler::OnBeforeContextMenu(
 if (this->mcallback_)
 {
 //send menu model to managed side
-this->mcallback_(109, NULL);
+this->mcallback_(CEF_MSG_ClientHandler_OnBeforeContextMenu, NULL);
 }
 else if ((params->GetTypeFlags() & (CM_TYPEFLAG_PAGE | CM_TYPEFLAG_FRAME)) != 0) {
 // Add a separator if the menu already has items.
@@ -326,8 +326,9 @@ args->SetArgAsString(1, cstr_1);
 auto str16_2 = std::to_wstring((long long)line);
 auto cstr_2 = str16_2.c_str();
 args->SetArgAsString(2, cstr_2);
-this->mcallback_(106, args);
+this->mcallback_(CEF_MSG_ClientHandler_OnConsoleMessage, args);
 
+delete args;
 }
 else {
 FILE* file = fopen(console_log_file_.c_str(), "a");
@@ -427,7 +428,7 @@ if (!event.focus_on_editable_field) {
 //don't forget to release it
 MethodArgs* metArgs = new MethodArgs();
 metArgs->SetArgAsNativeObject(0, &event);
-this->mcallback_(501, metArgs); //tmp
+this->mcallback_(CEF_MSG_ClientHandler_OnPreKeyEvent, metArgs); //tmp
 int result = metArgs->ReadOutputAsInt32(0);
 delete metArgs;
 return result != 0;
@@ -478,7 +479,7 @@ auto str16 = target_url.ToString16();
 auto cstr = str16.c_str();
 
 metArgs->SetArgAsString(0, cstr);
-this->mcallback_(104, metArgs);
+this->mcallback_(CEF_MSG_ClientHandler_OnBeforePopup, metArgs);
 
 delete metArgs;
 
@@ -574,6 +575,7 @@ void ClientHandler::OnLoadingStateChange(CefRefPtr<CefBrowser> browser,
   NotifyLoadingState(isLoading, canGoBack, canGoForward);
 }
 
+//###_START 6
 void ClientHandler::OnLoadError(CefRefPtr<CefBrowser> browser,
                                 CefRefPtr<CefFrame> frame,
                                 ErrorCode errorCode,
@@ -585,16 +587,57 @@ void ClientHandler::OnLoadError(CefRefPtr<CefBrowser> browser,
   if (errorCode == ERR_ABORTED)
     return;
 
+  //###_FIND_NEXT_LANDMARK 6
   // Don't display an error for external protocols that we allow the OS to
+  //###_FIND_NEXT_LANDMARK 6
   // handle. See OnProtocolExecution().
-  if (errorCode == ERR_UNKNOWN_URL_SCHEME) {
-    std::string urlStr = frame->GetURL();
-    if (urlStr.find("spotify:") == 0)
-      return;
+  //###_APPEND_START 6   
+
+  if (this->mcallback_)
+  {
+	  //TODO: send cmd to managed side
+	  //create dev window
+	  //send cef client
+	  MethodArgs  args;
+	  memset(&args, 0, sizeof(MethodArgs));
+	  //send info to managed side 
+	  args.SetArgAsNativeObject(0, browser.get());
+	  args.SetArgAsNativeObject(1, frame.get());
+	  args.SetArgAsInt32(2, errorCode);
+	  auto str16 = errorText.ToString16();
+	  auto cstr = str16.c_str();
+	  args.SetArgAsString(3, cstr);
+
+	  auto str16_1 = failedUrl.ToString16();
+	  auto cstr_1 = str16_1.c_str();
+	  args.SetArgAsString(4, cstr_1);
+	  //------------------------
+	  this->mcallback_(CEF_MSG_ClientHandler_OnLoadError, &args);
+	  //------------------------			 
+	  //load page error
+
+	  LoadErrorPage(frame, failedUrl, errorCode, errorText);
+  }
+  else
+  {
+	  if (errorCode == ERR_UNKNOWN_URL_SCHEME) {
+		  std::string urlStr = frame->GetURL();
+		  if (urlStr.find("spotify:") == 0)
+			  return;
+	  }
+	  // Load the error page. 
+	  LoadErrorPage(frame, failedUrl, errorCode, errorText);
   }
 
-  // Load the error page.
-  LoadErrorPage(frame, failedUrl, errorCode, errorText);
+  //###_APPEND_STOP 
+  //###_SKIP_UNTIL_PASS 6 }
+  //if (errorCode == ERR_UNKNOWN_URL_SCHEME) {
+  //	std::string urlStr = frame->GetURL();
+  //	if (urlStr.find("spotify:") == 0)
+  //		return;
+  //}
+  //// Load the error page. 
+  //LoadErrorPage(frame, failedUrl, errorCode, errorText); 
 }
 
 bool ClientHandler::OnBeforeBrowse(CefRefPtr<CefBrowser> browser,
@@ -789,7 +832,7 @@ if (this->mcallback_)
 //TODO: send cmd to managed side
 //create dev window
 //send cef client 
-this->mcallback_(107, NULL);
+this->mcallback_(CEF_MSG_ClientHandler_ShowDevTools, NULL);
 }
 else {
 if (CreatePopupWindow(browser, true, CefPopupFeatures(), windowInfo, client,
@@ -807,7 +850,7 @@ void ClientHandler::CloseDevTools(CefRefPtr<CefBrowser> browser) {
 //###_APPEND_START 7
 if (this->mcallback_) {
 //TODO: send command
-this->mcallback_(108, NULL);
+this->mcallback_(CEF_MSG_ClientHandler_CloseDevTools, NULL);
 }
 else {
 browser->GetHost()->CloseDevTools();
@@ -847,7 +890,7 @@ void ClientHandler::NotifyBrowserCreated(CefRefPtr<CefBrowser> browser) {
   }
 //###_APPEND_START 8
 if (this->mcallback_) {
-this->mcallback_(101, NULL);
+this->mcallback_(CEF_MSG_ClientHandler_NotifyBrowserCreated, NULL);
 }
 //###_APPEND_STOP
 
@@ -881,7 +924,7 @@ void ClientHandler::NotifyBrowserClosed(CefRefPtr<CefBrowser> browser) {
     delegate_->OnBrowserClosed(browser);
 //###_APPEND_START 9
 if (this->mcallback_) {
-this->mcallback_(100, NULL);
+this->mcallback_(CEF_MSG_ClientHandler_NotifyBrowserClosed, NULL);
 }
 //###_APPEND_STOP
 }
@@ -902,7 +945,7 @@ MethodArgs* metArgs = new MethodArgs();
 auto str16 = url.ToString16();
 auto cstr = str16.c_str();
 metArgs->SetArgAsString(0, cstr);
-this->mcallback_(503, metArgs);
+this->mcallback_(CEF_MSG_ClientHandler_NotifyAddress, metArgs);
 delete metArgs;
 }
 else {
@@ -931,7 +974,7 @@ MethodArgs* metArgs = new MethodArgs();
 auto str16 = title.ToString16();
 auto cstr = str16.c_str();
 metArgs->SetArgAsString(0, cstr);
-this->mcallback_(502, metArgs);
+this->mcallback_(CEF_MSG_ClientHandler_NotifyTitle, metArgs);
 delete metArgs;
 }
 else {
@@ -1035,7 +1078,7 @@ memset(&args, 0, sizeof(MethodArgs));
 //get filter function ptr from managed side
 args.SetArgAsNativeObject(0, resource_manager_);
 
-m(140, &args);
+m(CEF_MSG_ClientHandler_SetResourceManager, &args);
 
 //1. add url filter
 //2. add resource provider
