@@ -1,15 +1,15 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 14
-VisualStudioVersion = 14.0.24720.0
+VisualStudioVersion = 14.0.25123.0
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CefBrowser", "CefBrowser.csproj", "{ECB77D05-7BF7-4B8C-892A-59254A968863}"
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "cefclient", "..\cef3_output\cefclient\cefclient.vcxproj", "{99237D39-FD76-4884-968A-C8D3836C59EC}"
-EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "libcef_dll_wrapper", "..\cef3_output\libcef_dll\libcef_dll_wrapper.vcxproj", "{AE8D89C2-7B72-4718-853A-0565AB07EF89}"
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CefBridge", "..\CefBridge\CefBridge.csproj", "{92688DA6-2690-485B-96B6-C99B8C4490EC}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Portable", "Portable", "{59D89320-9171-4845-AA61-3F6BE944443D}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CefBridge", "..\CefBridgePortable\CefBridge\CefBridge.csproj", "{4EEE5556-3FA1-4269-9A4C-2CF01E55B7CB}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -33,26 +33,6 @@ Global
 		{ECB77D05-7BF7-4B8C-892A-59254A968863}.Release|Mixed Platforms.Build.0 = Release|Any CPU
 		{ECB77D05-7BF7-4B8C-892A-59254A968863}.Release|x86.ActiveCfg = Release|Any CPU
 		{ECB77D05-7BF7-4B8C-892A-59254A968863}.Release|x86.Build.0 = Release|Any CPU
-		{99237D39-FD76-4884-968A-C8D3836C59EC}.Debug|Any CPU.ActiveCfg = Debug|Win32
-		{99237D39-FD76-4884-968A-C8D3836C59EC}.Debug|Mixed Platforms.ActiveCfg = Debug|Win32
-		{99237D39-FD76-4884-968A-C8D3836C59EC}.Debug|Mixed Platforms.Build.0 = Debug|Win32
-		{99237D39-FD76-4884-968A-C8D3836C59EC}.Debug|x86.ActiveCfg = Debug|Win32
-		{99237D39-FD76-4884-968A-C8D3836C59EC}.Debug|x86.Build.0 = Debug|Win32
-		{99237D39-FD76-4884-968A-C8D3836C59EC}.Release|Any CPU.ActiveCfg = Release|Win32
-		{99237D39-FD76-4884-968A-C8D3836C59EC}.Release|Mixed Platforms.ActiveCfg = Release|Win32
-		{99237D39-FD76-4884-968A-C8D3836C59EC}.Release|Mixed Platforms.Build.0 = Release|Win32
-		{99237D39-FD76-4884-968A-C8D3836C59EC}.Release|x86.ActiveCfg = Release|Win32
-		{99237D39-FD76-4884-968A-C8D3836C59EC}.Release|x86.Build.0 = Release|Win32
-		{AE8D89C2-7B72-4718-853A-0565AB07EF89}.Debug|Any CPU.ActiveCfg = Debug|Win32
-		{AE8D89C2-7B72-4718-853A-0565AB07EF89}.Debug|Mixed Platforms.ActiveCfg = Debug|Win32
-		{AE8D89C2-7B72-4718-853A-0565AB07EF89}.Debug|Mixed Platforms.Build.0 = Debug|Win32
-		{AE8D89C2-7B72-4718-853A-0565AB07EF89}.Debug|x86.ActiveCfg = Debug|Win32
-		{AE8D89C2-7B72-4718-853A-0565AB07EF89}.Debug|x86.Build.0 = Debug|Win32
-		{AE8D89C2-7B72-4718-853A-0565AB07EF89}.Release|Any CPU.ActiveCfg = Release|Win32
-		{AE8D89C2-7B72-4718-853A-0565AB07EF89}.Release|Mixed Platforms.ActiveCfg = Release|Win32
-		{AE8D89C2-7B72-4718-853A-0565AB07EF89}.Release|Mixed Platforms.Build.0 = Release|Win32
-		{AE8D89C2-7B72-4718-853A-0565AB07EF89}.Release|x86.ActiveCfg = Release|Win32
-		{AE8D89C2-7B72-4718-853A-0565AB07EF89}.Release|x86.Build.0 = Release|Win32
 		{92688DA6-2690-485B-96B6-C99B8C4490EC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{92688DA6-2690-485B-96B6-C99B8C4490EC}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{92688DA6-2690-485B-96B6-C99B8C4490EC}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
@@ -65,8 +45,23 @@ Global
 		{92688DA6-2690-485B-96B6-C99B8C4490EC}.Release|Mixed Platforms.Build.0 = Release|Any CPU
 		{92688DA6-2690-485B-96B6-C99B8C4490EC}.Release|x86.ActiveCfg = Release|Any CPU
 		{92688DA6-2690-485B-96B6-C99B8C4490EC}.Release|x86.Build.0 = Release|Any CPU
+		{4EEE5556-3FA1-4269-9A4C-2CF01E55B7CB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4EEE5556-3FA1-4269-9A4C-2CF01E55B7CB}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4EEE5556-3FA1-4269-9A4C-2CF01E55B7CB}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
+		{4EEE5556-3FA1-4269-9A4C-2CF01E55B7CB}.Debug|Mixed Platforms.Build.0 = Debug|Any CPU
+		{4EEE5556-3FA1-4269-9A4C-2CF01E55B7CB}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{4EEE5556-3FA1-4269-9A4C-2CF01E55B7CB}.Debug|x86.Build.0 = Debug|Any CPU
+		{4EEE5556-3FA1-4269-9A4C-2CF01E55B7CB}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4EEE5556-3FA1-4269-9A4C-2CF01E55B7CB}.Release|Any CPU.Build.0 = Release|Any CPU
+		{4EEE5556-3FA1-4269-9A4C-2CF01E55B7CB}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
+		{4EEE5556-3FA1-4269-9A4C-2CF01E55B7CB}.Release|Mixed Platforms.Build.0 = Release|Any CPU
+		{4EEE5556-3FA1-4269-9A4C-2CF01E55B7CB}.Release|x86.ActiveCfg = Release|Any CPU
+		{4EEE5556-3FA1-4269-9A4C-2CF01E55B7CB}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{4EEE5556-3FA1-4269-9A4C-2CF01E55B7CB} = {59D89320-9171-4845-AA61-3F6BE944443D}
 	EndGlobalSection
 EndGlobal
