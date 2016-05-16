@@ -50,7 +50,7 @@ namespace LayoutFarm.CefBridge
             //register mycef browser
             RegisterCefWbControl(this);
         }
-       
+
         public CefUIProcessListener Listener
         {
             get { return browserProcessListener; }
@@ -89,21 +89,11 @@ namespace LayoutFarm.CefBridge
                         }
                     }
                     break;
-                //case 103:
-                //    {
-                //        //create pop up window and send window handle to cef 
-                //        //create new window form
+                case MyCefMsg.CEF_MSG_ClientHandler_OnBeforeContextMenu:
+                    {
 
-                //        IWindowForm popupWin = Cef3Binder.CreateBlankForm(600, 450);
-                //        popupWin.Show();
-                //        IntPtr handle = popupWin.GetHandle();
-                //        if (argsPtr != IntPtr.Zero)
-                //        {
-                //            NativeCallArgs2 args = new NativeCallArgs2(argsPtr);
-                //            args.SetResult(handle);
-                //        }
-                //    }
-                //    break;
+                    }
+                    break;
                 case MyCefMsg.CEF_MSG_ClientHandler_OnBeforePopup:
                     {
 

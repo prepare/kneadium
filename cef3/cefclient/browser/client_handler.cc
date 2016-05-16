@@ -201,25 +201,28 @@ bool ClientHandler::OnProcessMessageReceived(
   return false;
 }
 
+//###_START 0
 void ClientHandler::OnBeforeContextMenu(
     CefRefPtr<CefBrowser> browser,
     CefRefPtr<CefFrame> frame,
     CefRefPtr<CefContextMenuParams> params,
     CefRefPtr<CefMenuModel> model) {
-  CEF_REQUIRE_UI_THREAD();
 
-//###_START 0
+  CEF_REQUIRE_UI_THREAD();
+//###_FIND_NEXT_LANDMARK 0
   if ((params->GetTypeFlags() & (CM_TYPEFLAG_PAGE | CM_TYPEFLAG_FRAME)) != 0) {
 //###_APPEND_START 0
 if (this->mcallback_)
 {
-//send menu model to managed side
-this->mcallback_(CEF_MSG_ClientHandler_OnBeforeContextMenu, NULL);
+	//send menu model to managed side
+	model->Clear();
+	this->mcallback_(CEF_MSG_ClientHandler_OnBeforeContextMenu, NULL);
 }
 else if ((params->GetTypeFlags() & (CM_TYPEFLAG_PAGE | CM_TYPEFLAG_FRAME)) != 0) {
 // Add a separator if the menu already has items.
-if (model->GetCount() > 0)
-model->AddSeparator();
+	if (model->GetCount() > 0) {
+		model->AddSeparator();
+	}
 
 // Add DevTools items to all context menus.
 model->AddItem(CLIENT_ID_SHOW_DEVTOOLS, "&Show DevTools");
@@ -231,18 +234,7 @@ model->AddItem(CLIENT_ID_INSPECT_ELEMENT, "Inspect Element");
 BuildTestMenu(model);
 }
 //###_APPEND_STOP
-    // Add a separator if the menu already has items.
-    if (model->GetCount() > 0)
-      model->AddSeparator();
-
-    // Add DevTools items to all context menus.
-    model->AddItem(CLIENT_ID_SHOW_DEVTOOLS, "&Show DevTools");
-    model->AddItem(CLIENT_ID_CLOSE_DEVTOOLS, "Close DevTools");
-    model->AddSeparator();
-    model->AddItem(CLIENT_ID_INSPECT_ELEMENT, "Inspect Element");
-
-    // Test context menu features.
-    BuildTestMenu(model);
+//###_SKIP_UNTIL_PASS 0 }     
   }
 }
 
