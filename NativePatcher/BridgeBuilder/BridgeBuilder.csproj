@@ -41,6 +41,7 @@
   <ItemGroup>
     <Compile Include="ApiModel\CefApiCodeDom.cs" />
     <Compile Include="ApiModel\DirtyParser.cs" />
+    <Compile Include="ApiModel\ApiBuild.cs" />
     <Compile Include="Patcher\ManualPatcher.cs" />
     <Compile Include="Patcher\PatchBuilder.cs" />
     <Compile Include="Patcher\Patchs.cs" />
