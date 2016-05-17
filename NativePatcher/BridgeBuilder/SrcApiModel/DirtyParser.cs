@@ -13,6 +13,8 @@ namespace BridgeBuilder
     enum TokenKind : byte
     {
         Id,
+        LiteralNumber,
+        LiteralString,
         Operator,
         Punc,
         Keyword,
@@ -48,11 +50,17 @@ namespace BridgeBuilder
                             }
                             else if (char.IsNumber(c))
                             {
+                                LexNumber(charBuffer, j, ref i);
                             }
                             else if (char.IsWhiteSpace(c))
                             {
                                 //whitespace
                                 //skip
+                            }
+                            else if (c == '"')
+                            {
+                                //string literal
+                                LexStrignLiteral(charBuffer, j, ref i);
                             }
                             else
                             {
@@ -266,7 +274,63 @@ namespace BridgeBuilder
                 tklist.Add(new Token() { Content = stbuilder.ToString(), TokenKind = TokenKind.Id });
             }
         }
+        void LexNumber(char[] charBuffer, int charCount, ref int currentIndex)
+        {
+            StringBuilder stbuilder = new StringBuilder();
+            char c = charBuffer[currentIndex];
+            stbuilder.Append(c);
+            for (int i = currentIndex + 1; i < charCount; ++i)
+            {
+                c = charBuffer[i];
+                if (char.IsNumber(c))
+                {
+                    stbuilder.Append(c);
+                    currentIndex = i;
+                }
+                else
+                {
+                    //stop
+                    //here
+                    break;
+                }
+            }
 
+            if (stbuilder.Length > 0)
+            {
+                tklist.Add(new Token() { Content = stbuilder.ToString(), TokenKind = TokenKind.LiteralNumber });
+            }
+        }
+        void LexStrignLiteral(char[] charBuffer, int charCount, ref int currentIndex)
+        {
+            StringBuilder stbuilder = new StringBuilder();
+            char c = charBuffer[currentIndex];
+            stbuilder.Append(c);
+            for (int i = currentIndex + 1; i < charCount; ++i)
+            {
+                c = charBuffer[i];
+                if (c == '"')
+                {
+                    currentIndex = i;
+                    stbuilder.Append(c);
+                    break;
+                }
+                else if (c == '\\')
+                {
+                    //escape
+                    throw new NotSupportedException();
+                }
+                else
+                {
+                    stbuilder.Append(c);
+                }
+            }
+
+            if (stbuilder.Length > 0)
+            {
+                tklist.Add(new Token() { Content = stbuilder.ToString(), TokenKind = TokenKind.LiteralString });
+            }
+
+        }
     }
     class Token
     {
@@ -278,7 +342,10 @@ namespace BridgeBuilder
         }
     }
 
-    class HeaderFileParser
+    /// <summary>
+    /// for cef-3 api only
+    /// </summary>
+    class Cef3HeaderFileParser
     {
         List<string> allLines = new List<string>();
         List<Token> tokenList = new List<Token>();
@@ -286,7 +353,10 @@ namespace BridgeBuilder
         int currentTokenIndex;
         List<CodeTypeDeclaration> typeList;
         CodeCompilationUnit cu = new CodeCompilationUnit();
-        public HeaderFileParser()
+#if DEBUG
+        string dbugCurrentFilename = null;
+#endif
+        public Cef3HeaderFileParser()
         {
             typeList = cu.Members;
 
@@ -297,6 +367,9 @@ namespace BridgeBuilder
         }
         public void Parse(string filename)
         {
+#if DEBUG
+            this.dbugCurrentFilename = Path.GetFileName(filename);
+#endif
             cu.Filename = filename;
             using (FileStream fs = new FileStream(filename, FileMode.Open))
             using (StreamReader r = new StreamReader(fs))
@@ -314,6 +387,57 @@ namespace BridgeBuilder
             ParseFileContent();
         }
 
+        void ReadUntilEscapeFromBlock()
+        {
+            int openBraceCount = 0;
+            int tkcount = tokenList.Count;
+            for (int n = currentTokenIndex + 1; n < tkcount; ++n)
+            {
+                Token nextTk = tokenList[n];
+                if (nextTk.TokenKind == TokenKind.Punc)
+                {
+                    if (nextTk.Content == "}")
+                    {
+                        //found , just stop here
+                        if (openBraceCount == 0)
+                        {
+                            currentTokenIndex = n;
+                            break;
+                        }
+
+                    }
+                    else if (nextTk.Content == "{")
+                    {
+                        openBraceCount++;
+                        continue;
+                    }
+
+                }
+                else
+                {
+                    continue;
+                }
+            }
+
+        }
+        void ReadUntilEscapeFromInlineComment()
+        {
+            int tkcount = tokenList.Count;
+            for (int n = currentTokenIndex + 1; n < tkcount; ++n)
+            {
+                Token nextTk = tokenList[n];
+                if (nextTk.TokenKind == TokenKind.Comment)
+                {
+                    //found , just stop here
+                    currentTokenIndex = n;
+                    break;
+                }
+                else
+                {
+                    continue;
+                }
+            }
+        }
         void ParseFileContent()
         {
             LineLexer lineLexer = new LineLexer();
@@ -353,6 +477,14 @@ namespace BridgeBuilder
             int tkcount = tokenList.Count;
 
             //-------------------------------------------------------
+#if DEBUG
+            //if (dbugCurrentFilename == "cef_browser.h")
+            //{
+            //}
+#endif
+            CodeTypeDeclaration globalTypeDecl = new CodeTypeDeclaration();
+            globalTypeDecl.IsGlobalCompilationUnitType = true;
+            this.typeList.Add(globalTypeDecl);
 
             for (currentTokenIndex = 0; currentTokenIndex < tkcount; ++currentTokenIndex)
             {
@@ -363,7 +495,16 @@ namespace BridgeBuilder
                     case TokenKind.Whitespace:
                     case TokenKind.PreprocessingDirective://this version we just skip preprocessing directive                        
                         continue;
+                    case TokenKind.Comment:
+                        //skip until find next comment
+                        //TODO: review here 
+                        //not correct
+                        currentTokenIndex++;
+                        ReadUntilEscapeFromInlineComment();
+                        continue;//go read next again                         
                 }
+
+
                 switch (tk.TokenKind)
                 {
                     case TokenKind.Id:
@@ -384,9 +525,35 @@ namespace BridgeBuilder
                                             throw new NotSupportedException();
                                         }
                                     } break;
+                                case "typedef":
+                                    {
+                                        //parse typedef 
+                                        ParseCTypeDef(globalTypeDecl);
+                                    } break;
+                                case "template":
+                                    {
+                                    } break;
+                                case "extern":
+                                    {
+                                        if (ExpectLiteralString("\"C\""))
+                                        {
+                                            if (ExpectPunc("{"))
+                                            {
+                                                ReadUntilEscapeFromBlock();
+                                            }
+                                            else
+                                            {
+                                                throw new NotSupportedException();
+                                            }
+                                        }
+
+                                    } break;
                                 default:
                                     {
-                                        throw new NotSupportedException();
+                                        //may be global func
+                                        //should be method
+                                        this.currentTokenIndex--;
+                                        ParseClassMember(globalTypeDecl);
                                     } break;
                             }
 
@@ -399,7 +566,7 @@ namespace BridgeBuilder
 
                         } break;
                 }
-                break;
+
             }
             //-------------------------------------------------------
         }
@@ -408,109 +575,139 @@ namespace BridgeBuilder
             //read next and 
             int i = currentTokenIndex + 1;
             Token tk = tokenList[i];
+            switch (tk.TokenKind)
+            {
+                case TokenKind.LineComment:
+                case TokenKind.PreprocessingDirective:
+                    currentTokenIndex++;
+                    return ExpectId();
+                case TokenKind.Comment:
+                    currentTokenIndex++;
+                    ReadUntilEscapeFromInlineComment();
+                    return ExpectId();
+                case TokenKind.Id:
+                    currentTokenIndex = i;
+                    return tk.Content;
+                default:
+                    return null;
+            }
+        }
 
-            if (tk.TokenKind == TokenKind.LineComment || tk.TokenKind == TokenKind.PreprocessingDirective)
+        bool ExpectToken(TokenKind k, string value)
+        {
+            int i = currentTokenIndex + 1;
+            Token tk = tokenList[i];
+            switch (tk.TokenKind)
             {
-                currentTokenIndex++;
-                return ExpectId();
+                case TokenKind.LineComment:
+                case TokenKind.PreprocessingDirective:
+                    currentTokenIndex++;
+                    return ExpectToken(k, value);
+                case TokenKind.Id:
+                    if (tk.Content == value)
+                    {
+                        currentTokenIndex++;
+                        return true;
+                    }
+                    else
+                    {
+                        return false;
+                    }
+                case TokenKind.Comment:
+                    //found open comment
+                    currentTokenIndex++;
+                    ReadUntilEscapeFromInlineComment();
+                    return ExpectToken(k, value);
+                default:
+                    if (tk.TokenKind == k && tk.Content == value)
+                    {
+                        currentTokenIndex++;
+                        return true;
+                    }
+                    else
+                    {
+                        return false;
+                    }
             }
-            if (tk.TokenKind == TokenKind.Id)
-            {
-                currentTokenIndex = i;
-                return tk.Content;
-            }
-            return null;
         }
         bool ExpectId(string id)
         {
+            return ExpectToken(TokenKind.Id, id);
+        }
+        bool ExpectLiteralString(string id)
+        {
+            return ExpectToken(TokenKind.LiteralString, id);
+        }
+        bool ExpectLiternalNumber(string value)
+        {
             //read next and 
-            int i = currentTokenIndex + 1;
-            Token tk = tokenList[i];
-            if (tk.TokenKind == TokenKind.LineComment || tk.TokenKind == TokenKind.PreprocessingDirective)
-            {
-                currentTokenIndex++;
-                return ExpectId(id);
-            }
-            if (tk.TokenKind == TokenKind.Id && tk.Content == id)
-            {
-                currentTokenIndex++;
-                return true;
-            }
-            return false;
+            return ExpectToken(TokenKind.LiteralNumber, value);
         }
         bool ExpectPunc(string expectedPunc)
         {
             //read next and 
             int i = currentTokenIndex + 1;
+            if (i >= tokenList.Count)
+            {
+                return false;
+            }
+
             Token tk = tokenList[i];
-            if (tk.TokenKind == TokenKind.LineComment || tk.TokenKind == TokenKind.PreprocessingDirective)
+            switch (tk.TokenKind)
             {
-                currentTokenIndex++;
-                return ExpectPunc(expectedPunc);
+                case TokenKind.LineComment:
+                case TokenKind.PreprocessingDirective:
+                    currentTokenIndex++;
+                    return ExpectPunc(expectedPunc);
+                case TokenKind.Comment:
+                    currentTokenIndex++;
+                    ReadUntilEscapeFromInlineComment();
+                    return ExpectPunc(expectedPunc);
+                case TokenKind.Punc:
+                    if (tk.Content == expectedPunc)
+                    {
+                        currentTokenIndex = i;
+                        return true;
+                    }
+                    return false;
             }
-
-            if (tk.TokenKind == TokenKind.Punc)
-            {
-                if (tk.Content == expectedPunc)
-                {
-                    currentTokenIndex = i;
-                    return true;
-                }
-
-                return false;
-            }
-            else
-            {
-                return false;
-            }
-        }
-        bool ExpectPuncSet(string p1, string p2)
-        {
-            return ExpectPunc(p1) && ExpectPunc(p2);
+            return false;
 
         }
+
         bool ExpectPuncSeq(string p1, string p2, string p3)
         {
             return ExpectPunc(p1) && ExpectPunc(p2) && ExpectPunc(p3);
         }
-
+        bool ExpectPuncSeq(string p1, string p2)
+        {
+            return ExpectPunc(p1) && ExpectPunc(p2);
+        }
         CodeTypeDeclaration ParseClassDeclaration()
         {
             //class name
             var codeTypeDecl = new CodeTypeDeclaration();
             codeTypeDecl.Name = ExpectId();
+            if (ExpectPunc(";"))
+            {
+                //forward decl
+                codeTypeDecl.IsForwardDecl = true;
+                return codeTypeDecl;
+            }
+
             if (ExpectPunc(":"))
             {
                 //expected base class list
                 //base modifier
-                bool publicBase = ExpectId("public");
-
+                codeTypeDecl.BaseIsPublic = ExpectId("public");
+                codeTypeDecl.BaseIsVirtual = ExpectId("virtual");
                 codeTypeDecl.BaseTypes.Add(ExpectType());
-                //-----------------------------------------------------
-                if (ExpectPunc("{"))
-                {
+            }
+            //-----------------------------------------------------
+            if (ExpectPunc("{"))
+            {
 
-                    if (!ExpectId("public"))
-                    {
-                        throw new NotSupportedException();
-                        //should be public
-                    }
-                    if (!(ExpectPunc(":")))
-                    {
-                        throw new NotSupportedException();
-                    }
-                    //-----------------------------------------------------
-                    //ctor
-                    string ctorFuncName = ExpectId(); ExpectPuncSeq("(", ")", ";");
-                    //-----------------------------------------------------
-                    while (ParseClassMember(codeTypeDecl)) ;
-
-                }
-                else
-                {
-                    throw new NotSupportedException();
-                }
-
+                while (ParseClassMember(codeTypeDecl)) ;
             }
             else
             {
@@ -518,38 +715,125 @@ namespace BridgeBuilder
             }
             return codeTypeDecl;
         }
-
+        bool ParseCTypeDef(CodeTypeDeclaration codeTypeDecl)
+        {
+            var from = ExpectType();
+            string to = ExpectId();
+            if (!ExpectPunc(";"))
+            {
+                throw new NotSupportedException();
+            }
+            codeTypeDecl.Members.Add(new CodeCTypeDef(from, to));
+            return !ExpectPunc("}");
+        }
+#if DEBUG
+        static int dbugCount = 0;
+#endif
         bool ParseClassMember(CodeTypeDeclaration codeTypeDecl)
         {
+#if DEBUG
+            dbugCount++;
+#endif
+
             //member modifiers
             //this version must be public 
-            //parse each member
-            CodeMethodDeclaration met = new CodeMethodDeclaration();
-            codeTypeDecl.Members.Add(met);
-            met.ReturnType = ExpectType();
-            met.Name = ExpectId();
+            //parse each member 
+            if (ExpectId("public") && ExpectPunc(":"))
+            {
+            }
+            else if (ExpectId("private") && ExpectPunc(":"))
+            {
+            }
+            else if (ExpectId("protected") && ExpectPunc(":"))
+            {
+            }
+            //---------------------------
+            if (ExpectId("typedef"))
+            {
+                //type def
+                return ParseCTypeDef(codeTypeDecl);
+            }
 
+            //---------------------------
+            bool isDestructor = ExpectPunc("~");
+            //modifier
+            bool isStatic = ExpectId("static");
+            bool isVirtual = ExpectId("virtual");
+            CodeTypeReference retType = ExpectType();
+            string name = ExpectId();
+
+
+            //-----------------------------------
             if (ExpectPunc("("))
             {
+                //this is method
+
+                CodeMethodDeclaration met = new CodeMethodDeclaration();
+                codeTypeDecl.Members.Add(met);
+                met.IsStatic = isStatic;
+                met.IsVirtual = isVirtual;
+
+                if (retType.ToString() == codeTypeDecl.Name &&
+                    name == null)
+                {
+                    //this is ctor or dtor
+                    met.ReturnType = null;
+                    met.Name = codeTypeDecl.Name;
+                    met.MethodKind = (isDestructor) ? MethodKind.Dtor : MethodKind.Ctor;
+                }
+                else
+                {
+                    met.Name = name;
+                    met.ReturnType = retType;
+                }
+                //-----------------------------------------------------
+
+
                 //parse func parameters    
-
-                //if (met.dbugId == 437)
-                //{
-
-                //}
                 while (ParseParameter(met)) ;
 
-                if (ExpectId("OVERRIDE"))
-                {
-                    met.IsOverrided = true;
-                }
+                met.IsOverrided = ExpectId("OVERRIDE");
+                met.IsConst = ExpectId("const");
 
                 if (ExpectPunc(";"))
                 {
                     //end this 
-                    //start new member         
+                    //start new member  
                     return !ExpectPunc("}");
                 }
+
+                if (ExpectPunc("{"))
+                {
+                    //this version we not parse method body
+                    ReadUntilEscapeFromBlock();
+                    return !ExpectPunc("}");
+                }
+                else if (ExpectPunc("="))
+                {
+
+                    if (!ExpectLiternalNumber("0"))
+                    {
+                        throw new NotSupportedException();
+                    }
+                    // no method body
+                    if (!ExpectPunc(";"))
+                    {
+                        throw new NotSupportedException();
+                    }
+                    return !ExpectPunc("}");
+                }
+                else
+                {
+                    return !ExpectPunc("}");
+                }
+            }
+            else if (ExpectPunc(";"))
+            {
+                //this is code field decl
+                CodeFieldDeclaration field = new CodeFieldDeclaration();
+                codeTypeDecl.Members.Add(field);
+                field.Name = name;
+                field.IsStatic = isStatic;
             }
             else
             {
@@ -652,8 +936,13 @@ namespace BridgeBuilder
 
             var metPar = new CodeMethodParameter();
             metPar.IsConstParType = ExpectModifier("const") != null;
+            if (ExpectId("struct"))
+            {
+
+
+            }
             metPar.ParameterType = ExpectType();
-            //modifier
+
             if (ExpectId("const"))
             {
                 metPar.IsConstParVariable = true;
@@ -662,6 +951,7 @@ namespace BridgeBuilder
                     metPar.IsConstParPointer = true;
                 }
             }
+
             metPar.ParameterName = ExpectId();
             codeMethod.Parameters.Add(metPar);
             //after parameter
@@ -680,5 +970,5 @@ namespace BridgeBuilder
         }
 
     }
-   
+
 }

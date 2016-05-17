@@ -9,27 +9,44 @@ namespace BridgeBuilder
     class ApiBuilder
     {
 
-        public void Build(string apiFolder)
+        static bool IsExcludeFile(string thisfileName, string[] excludeFileNames)
+        {
+            for (int i = excludeFileNames.Length - 1; i >= 0; --i)
+            {
+                if (excludeFileNames[i] == thisfileName)
+                {
+                    return true;
+                }
+            }
+            return false;
+        }
+        public void Build(string[] apiFolders, string[] exludeFileNames)
         {
             List<string> onlyHeaders = new List<string>();
-            string[] files = Directory.GetFiles(apiFolder);
-            foreach (var filename in files)
+            foreach (var folderName in apiFolders)
             {
-                if (filename.EndsWith(".h"))
+                string[] files = Directory.GetFiles(folderName);
+                foreach (var filename in files)
                 {
-                    if (Path.GetFileName(filename) == "ctocpp.h")
+                    if (filename.EndsWith(".h"))
                     {
-                        //skip this
-                        continue;
+                        if (IsExcludeFile(Path.GetFileName(filename), exludeFileNames))
+                        {
+                            //skip this
+                            continue;
+                        }
+                        onlyHeaders.Add(filename);
                     }
-                    onlyHeaders.Add(filename);
                 }
             }
 
             List<CodeCompilationUnit> compilationUnits = new List<CodeCompilationUnit>();
             foreach (var filename in onlyHeaders)
             {
-                var headerParser = new HeaderFileParser();
+                var headerParser = new Cef3HeaderFileParser();
+#if DEBUG
+                 
+#endif
                 headerParser.Parse(filename);
                 compilationUnits.Add(headerParser.Result);
             }

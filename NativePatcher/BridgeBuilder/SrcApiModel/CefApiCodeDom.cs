@@ -9,7 +9,23 @@ namespace BridgeBuilder
     //still very dirty parser!
     //this version is designed for cef3 only
 
-    class CodeTypeDeclaration
+    class CodeCTypeDef : CodeMemberDeclaration
+    {
+        public CodeCTypeDef(CodeTypeReference from, string name)
+        {
+            this.From = from;
+            this.Name = name;
+        }
+        public CodeTypeReference From { get; set; }
+        public string Name { get; set; }
+        public override CodeMemberKind MemberKind { get { return CodeMemberKind.TypeDef; } }
+        public override string ToString()
+        {
+            return "typedef " + From + " " + this.Name + ";";
+        }
+
+    }
+    class CodeTypeDeclaration : CodeMemberDeclaration
     {
         public CodeTypeDeclaration()
         {
@@ -17,14 +33,29 @@ namespace BridgeBuilder
             this.Members = new List<CodeMemberDeclaration>();
         }
         public string Name { get; set; }
-        public string BaseModifer { get; set; }
+        public bool BaseIsPublic { get; set; }
+        public bool BaseIsVirtual { get; set; }
+        public bool IsGlobalCompilationUnitType { get; set; }
         public List<CodeTypeReference> BaseTypes { get; set; }
         public List<CodeMemberDeclaration> Members { get; set; }
-
+        public override CodeMemberKind MemberKind { get { return CodeMemberKind.Type; } }
+        public bool IsForwardDecl { get; set; }
         public override string ToString()
         {
-            return this.Name;
+            if(IsGlobalCompilationUnitType)
+            {
+                return "!global";
+            }
+            if (IsForwardDecl)
+            {
+                return this.Name + ";";
+            }
+            else
+            {
+                return this.Name;
+            }
         }
+
     }
     class CodeCompilationUnit
     {
@@ -34,6 +65,10 @@ namespace BridgeBuilder
         }
         public string Filename { get; set; }
         public List<CodeTypeDeclaration> Members { get; set; }
+        public override string ToString()
+        {
+            return this.Filename;
+        }
     }
     class CodeTypeReference
     {
@@ -128,23 +163,45 @@ namespace BridgeBuilder
     }
     abstract class CodeMemberDeclaration
     {
-
-    }
-
-
-
-    class CodeMethodDeclaration : CodeMemberDeclaration
-    {
-
 #if DEBUG
         static int dbugTotalId;
         public readonly int dbugId = dbugTotalId++;
 #endif
+        public abstract CodeMemberKind MemberKind { get; }
+    }
+
+    enum CodeMemberKind
+    {
+        Type,
+        TypeDef,
+        Field,
+        Method
+    }
+    enum MethodKind
+    {
+        Normal,
+        Ctor,
+        Dtor
+    }
+    class CodeFieldDeclaration : CodeMemberDeclaration
+    {
+        public CodeFieldDeclaration()
+        {
+        }
+        public string Name { get; set; }
+        public bool IsStatic { get; set; }
+        public override CodeMemberKind MemberKind { get { return CodeMemberKind.Field; } }
+        public CodeTypeReference FieldType { get; set; }
+        public override string ToString()
+        {
+            return FieldType.ToString() + " " + Name + ";";
+        }
+    }
+
+    class CodeMethodDeclaration : CodeMemberDeclaration
+    {
         public CodeMethodDeclaration()
         {
-#if DEBUG
-
-#endif
             this.Parameters = new List<CodeMethodParameter>();
         }
         public string Name { get; set; }
@@ -152,9 +209,28 @@ namespace BridgeBuilder
         public CodeTypeReference ReturnType { get; set; }
         public bool IsOverrided { get; set; }
         public bool IsVirtual { get; set; }
+        public bool IsStatic { get; set; }
+        public bool IsConst { get; set; }
+        public MethodKind MethodKind { get; set; }
+
+        public override CodeMemberKind MemberKind { get { return CodeMemberKind.Method; } }
         public override string ToString()
         {
             StringBuilder stbuilder = new StringBuilder();
+            switch (MethodKind)
+            {
+                case BridgeBuilder.MethodKind.Ctor:
+                    //do nothing
+                    break;
+                case BridgeBuilder.MethodKind.Dtor:
+                    stbuilder.Append('~');
+                    break;
+                default:
+                    stbuilder.Append(ReturnType.ToString());
+                    stbuilder.Append(' ');
+                    break;
+            }
+
             stbuilder.Append(Name);
             stbuilder.Append('(');
 
