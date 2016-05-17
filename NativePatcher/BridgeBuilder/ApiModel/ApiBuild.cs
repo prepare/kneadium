@@ -33,8 +33,13 @@ namespace BridgeBuilder
                 headerParser.Parse(filename);
                 compilationUnits.Add(headerParser.Result);
             }
+
+
+            //---------------
+            //build c/c++ side
+
+            //---------------
+            //build managed side
         }
-
-
     }
 }
