@@ -39,9 +39,9 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="ApiModel\CefApiCodeDom.cs" />
-    <Compile Include="ApiModel\DirtyParser.cs" />
-    <Compile Include="ApiModel\ApiBuild.cs" />
+    <Compile Include="SrcApiModel\CefApiCodeDom.cs" />
+    <Compile Include="SrcApiModel\DirtyParser.cs" />
+    <Compile Include="SrcApiModel\ApiBuild.cs" />
     <Compile Include="Patcher\ManualPatcher.cs" />
     <Compile Include="Patcher\PatchBuilder.cs" />
     <Compile Include="Patcher\Patchs.cs" />
@@ -75,7 +75,9 @@
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Folder Include="TargetApiModel\" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
