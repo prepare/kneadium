@@ -104,5 +104,13 @@ namespace BridgeBuilder
 
         }
 
+        private void button1_Click(object sender, EventArgs e)
+        {
+            ApiBuilder apiBuilder = new ApiBuilder();
+            apiBuilder.Build(@"D:\projects\CefBridge\cef3\libcef_dll\ctocpp");
+
+
+        }
+
     }
 }
