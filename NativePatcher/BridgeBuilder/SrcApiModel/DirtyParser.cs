@@ -513,11 +513,15 @@ namespace BridgeBuilder
                             switch (tk.Content)
                             {
                                 case "class":
+                                case "struct":
                                     {
                                         //parse class
-                                        CodeTypeDeclaration typeDecl = ParseClassDeclaration();
+                                        CodeTypeDeclaration typeDecl = ParseTypeDeclaration();
+                                        typeDecl.Kind = (tk.Content == "class") ? TypeKind.Class : TypeKind.Struct;
+
                                         if (typeDecl != null)
                                         {
+
                                             typeList.Add(typeDecl);
                                         }
                                         else
@@ -525,6 +529,7 @@ namespace BridgeBuilder
                                             throw new NotSupportedException();
                                         }
                                     } break;
+
                                 case "typedef":
                                     {
                                         //parse typedef 
@@ -532,6 +537,8 @@ namespace BridgeBuilder
                                     } break;
                                 case "template":
                                     {
+                                        //skip template
+
                                     } break;
                                 case "extern":
                                     {
@@ -553,7 +560,7 @@ namespace BridgeBuilder
                                         //may be global func
                                         //should be method
                                         this.currentTokenIndex--;
-                                        ParseClassMember(globalTypeDecl);
+                                        ParseTypeMember(globalTypeDecl);
                                     } break;
                             }
 
@@ -683,7 +690,7 @@ namespace BridgeBuilder
         {
             return ExpectPunc(p1) && ExpectPunc(p2);
         }
-        CodeTypeDeclaration ParseClassDeclaration()
+        CodeTypeDeclaration ParseTypeDeclaration()
         {
             //class name
             var codeTypeDecl = new CodeTypeDeclaration();
@@ -706,8 +713,11 @@ namespace BridgeBuilder
             //-----------------------------------------------------
             if (ExpectPunc("{"))
             {
-
-                while (ParseClassMember(codeTypeDecl)) ;
+                while (ParseTypeMember(codeTypeDecl)) ;
+                if (ExpectPunc(";"))
+                {
+                    //ok
+                }
             }
             else
             {
@@ -729,8 +739,9 @@ namespace BridgeBuilder
 #if DEBUG
         static int dbugCount = 0;
 #endif
-        bool ParseClassMember(CodeTypeDeclaration codeTypeDecl)
+        bool ParseTypeMember(CodeTypeDeclaration codeTypeDecl)
         {
+
 #if DEBUG
             dbugCount++;
 #endif
@@ -754,14 +765,61 @@ namespace BridgeBuilder
                 return ParseCTypeDef(codeTypeDecl);
             }
 
+            if (ExpectId("friend"))
+            {
+                //expected friend class decl
+                bool isStruct = false;
+                if (ExpectId("class"))
+                {
+                    isStruct = false;
+                }
+                else if (ExpectId("struct"))
+                {
+                    isStruct = true;
+                }
+                else
+                {
+                    throw new NotSupportedException();
+                }
+                //--------------------------------------------
+                CodeTypeReference friendClassDecl = ExpectType();
+
+                if (!ExpectPunc(";"))
+                {
+                    throw new NotSupportedException();
+                }
+                return !ExpectPunc("}");
+
+            }
+
             //---------------------------
-            bool isDestructor = ExpectPunc("~");
+            if (ExpectId("class"))
+            {
+                //sub class
+                CodeTypeDeclaration subClass = ParseTypeDeclaration();
+                subClass.Kind = TypeKind.Class;
+                codeTypeDecl.Members.Add(subClass);
+                return !ExpectPunc("}");
+            }
+            else if (ExpectId("struct"))
+            {
+                CodeTypeDeclaration subClass = ParseTypeDeclaration();
+                subClass.Kind = TypeKind.Struct;
+                codeTypeDecl.Members.Add(subClass);
+                return !ExpectPunc("}");
+            }
+
             //modifier
             bool isStatic = ExpectId("static");
             bool isVirtual = ExpectId("virtual");
-            CodeTypeReference retType = ExpectType();
-            string name = ExpectId();
+            bool isConst = ExpectId("const");
+            bool isExplicit = ExpectId("explicit");
+            bool isMutable = ExpectId("mutable");
 
+            bool isDestructor = ExpectPunc("~");
+            CodeTypeReference retType = ExpectType();
+
+            string name = ExpectId();
 
             //-----------------------------------
             if (ExpectPunc("("))
@@ -833,31 +891,18 @@ namespace BridgeBuilder
                 CodeFieldDeclaration field = new CodeFieldDeclaration();
                 codeTypeDecl.Members.Add(field);
                 field.Name = name;
+                field.FieldType = retType;
                 field.IsStatic = isStatic;
+                field.IsConst = isConst;
+                return !ExpectPunc("}");
             }
             else
             {
                 throw new NotSupportedException();
             }
-            return false;
+
         }
-        string ExpectModifier(string mod)
-        {
-            Token tk = tokenList[currentTokenIndex + 1];
-            switch (tk.TokenKind)
-            {
-                case TokenKind.LineComment:
-                    return ExpectModifier(mod);
-                case TokenKind.Id:
-                    if (tk.Content == mod)
-                    {
-                        currentTokenIndex++;
-                        return tk.Content;
-                    }
-                    break;
-            }
-            return null;
-        }
+
         CodeTypeReference ExpectType()
         {
             string typeName = ExpectId();
@@ -889,6 +934,30 @@ namespace BridgeBuilder
                     {
                         //end
                     }
+                    else if (ExpectPunc("("))
+                    {
+                        var funcTypeReference = new CodeFunctionPointerTypeRefernce();
+                        funcTypeReference.ReturnType = typeParameter;
+                    //callback ?  
+                    AGAIN2:
+                        CodeMethodParameter par = new CodeMethodParameter();
+                        par.IsConstParType = ExpectId("const");
+                        par.ParameterType = ExpectType();
+                        funcTypeReference.Parameters.Add(par);
+                        if (ExpectPunc(","))
+                        {
+                            goto AGAIN2;
+                        }
+                        else if (ExpectPunc(")"))
+                        {
+                            //finish
+                        }
+                        type1 = funcTypeReference;
+                        if (!ExpectPunc(">"))
+                        {
+                            throw new NotSupportedException();
+                        }
+                    }
                     else
                     {
                         throw new NotSupportedException();
@@ -901,6 +970,17 @@ namespace BridgeBuilder
                 }
                 else
                 {
+                    if (typeName == "unsigned")
+                    {
+                        //this need another id
+                        string unsignedType = ExpectId();
+                        if (unsignedType == null)
+                        {
+                            throw new NotSupportedException();
+                        }
+                        typeName = "unsigned " + unsignedType;
+
+                    }
                     type1 = new CodeTypeReference(typeName);
                 }
             //------------------
@@ -935,11 +1015,9 @@ namespace BridgeBuilder
             }
 
             var metPar = new CodeMethodParameter();
-            metPar.IsConstParType = ExpectModifier("const") != null;
+            metPar.IsConstParType = ExpectId("const") != null;
             if (ExpectId("struct"))
             {
-
-
             }
             metPar.ParameterType = ExpectType();
 
@@ -962,6 +1040,13 @@ namespace BridgeBuilder
             else if (ExpectPunc(")"))
             {
                 return false;
+            }
+            else if (ExpectPunc("["))
+            {
+                //eg.   CefScopedArgArray(int argc, char* argv[]) {
+
+                throw new NotSupportedException();
+
             }
             else
             {

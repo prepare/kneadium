@@ -25,6 +25,11 @@ namespace BridgeBuilder
         }
 
     }
+    enum TypeKind
+    {
+        Class,
+        Struct
+    }
     class CodeTypeDeclaration : CodeMemberDeclaration
     {
         public CodeTypeDeclaration()
@@ -32,6 +37,7 @@ namespace BridgeBuilder
             this.BaseTypes = new List<CodeTypeReference>();
             this.Members = new List<CodeMemberDeclaration>();
         }
+        public TypeKind Kind { get; set; }
         public string Name { get; set; }
         public bool BaseIsPublic { get; set; }
         public bool BaseIsVirtual { get; set; }
@@ -42,18 +48,29 @@ namespace BridgeBuilder
         public bool IsForwardDecl { get; set; }
         public override string ToString()
         {
-            if(IsGlobalCompilationUnitType)
+            if (IsGlobalCompilationUnitType)
             {
                 return "!global";
             }
-            if (IsForwardDecl)
+
+            StringBuilder stbuilder = new StringBuilder();
+            switch (this.Kind)
             {
-                return this.Name + ";";
+                case TypeKind.Class:
+                    stbuilder.Append("class ");
+                    break;
+                case TypeKind.Struct:
+                    stbuilder.Append("struct ");
+                    break;
+                default:
+                    throw new NotSupportedException();
             }
-            else
+            stbuilder.Append(Name);
+            if (this.IsForwardDecl)
             {
-                return this.Name;
+                stbuilder.Append(';');
             }
+            return stbuilder.ToString();
         }
 
     }
@@ -87,6 +104,34 @@ namespace BridgeBuilder
         public override string ToString()
         {
             return this.Name;
+        }
+    }
+    class CodeFunctionPointerTypeRefernce : CodeTypeReference
+    {
+        public CodeFunctionPointerTypeRefernce()
+        {
+            this.Parameters = new List<CodeMethodParameter>();
+        }
+        public CodeTypeReference ReturnType { get; set; }
+        public List<CodeMethodParameter> Parameters { get; set; }
+        public override string ToString()
+        {
+
+            var stbuilder = new StringBuilder();
+            stbuilder.Append(ReturnType.ToString());
+            int j = Parameters.Count;
+            stbuilder.Append('(');
+            for (int i = 0; i < j; ++i)
+            {
+                if (i > 0)
+                {
+                    stbuilder.Append(',');
+                }
+                stbuilder.Append(Parameters[i]);
+            }
+            stbuilder.Append(')');
+
+            return stbuilder.ToString();
         }
     }
     class CodeQualifiedType : CodeTypeReference
@@ -190,6 +235,7 @@ namespace BridgeBuilder
         }
         public string Name { get; set; }
         public bool IsStatic { get; set; }
+        public bool IsConst { get; set; }
         public override CodeMemberKind MemberKind { get { return CodeMemberKind.Field; } }
         public CodeTypeReference FieldType { get; set; }
         public override string ToString()
@@ -295,8 +341,11 @@ namespace BridgeBuilder
                     stbuild.Append("*");
                 }
             }
-            stbuild.Append(" ");
-            stbuild.Append(this.ParameterName);
+            if (ParameterName != null)
+            {
+                stbuild.Append(" ");
+                stbuild.Append(this.ParameterName);
+            }
             return stbuild.ToString();
 
         }

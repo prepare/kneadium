@@ -111,10 +111,12 @@ namespace BridgeBuilder
             string[] excludeFileNames = new string[]{
                 "ctocpp.h",
                 "cef_base.h",
-                "cef_runnable.h"
+                "cef_runnable.h",
+                "cef_helpers.h"
             };
 
             apiBuilder.Build(new string[] {
+                @"D:\projects\CefBridge\cef3\include\wrapper",
                 @"D:\projects\CefBridge\cef3\include",
                 @"D:\projects\CefBridge\cef3\libcef_dll\ctocpp" },
                 excludeFileNames);
