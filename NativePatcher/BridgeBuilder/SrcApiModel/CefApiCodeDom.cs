@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Windows.Forms;
 using System.IO;
 using System.Text;
+
 namespace BridgeBuilder
 {
     //still very dirty parser!
@@ -36,6 +37,7 @@ namespace BridgeBuilder
         {
             this.BaseTypes = new List<CodeTypeReference>();
             this.Members = new List<CodeMemberDeclaration>();
+            this.SpecialImplMacroMembers = new List<CodeMemberDeclaration>();
         }
         public TypeKind Kind { get; set; }
         public string Name { get; set; }
@@ -72,7 +74,11 @@ namespace BridgeBuilder
             }
             return stbuilder.ToString();
         }
+        public List<CodeMemberDeclaration> SpecialImplMacroMembers { get; set; }
 
+        //-------------
+        //semantic 
+        public TypeSymbol ResolvedType { get; set; }
     }
     class CodeCompilationUnit
     {
@@ -87,15 +93,25 @@ namespace BridgeBuilder
             return this.Filename;
         }
     }
-    class CodeTypeReference
+
+    enum CodeTypeReferenceKind
     {
+        Simple,
+        FuncPointer,
+        QualifiedName,
+        TypeTemplate,
+        Pointer,
+        ByRef,
+
+    }
+    abstract class CodeTypeReference
+    {
+        public CodeTypeReference() { }
         public CodeTypeReference(string typename)
         {
             this.Name = typename;
         }
-        protected CodeTypeReference()
-        {
-        }
+
         public string Name
         {
             get;
@@ -105,7 +121,20 @@ namespace BridgeBuilder
         {
             return this.Name;
         }
+        public abstract CodeTypeReferenceKind Kind { get; }
+        //-------------
+        //semantic 
+        public TypeSymbol ResolvedType { get; set; }
     }
+    class CodeSimpleTypeReference : CodeTypeReference
+    {
+        public CodeSimpleTypeReference(string typename)
+            : base(typename)
+        {
+        }
+        public override CodeTypeReferenceKind Kind { get { return CodeTypeReferenceKind.Simple; } }
+    }
+
     class CodeFunctionPointerTypeRefernce : CodeTypeReference
     {
         public CodeFunctionPointerTypeRefernce()
@@ -114,6 +143,7 @@ namespace BridgeBuilder
         }
         public CodeTypeReference ReturnType { get; set; }
         public List<CodeMethodParameter> Parameters { get; set; }
+        public override CodeTypeReferenceKind Kind { get { return CodeTypeReferenceKind.FuncPointer; } }
         public override string ToString()
         {
 
@@ -134,33 +164,36 @@ namespace BridgeBuilder
             return stbuilder.ToString();
         }
     }
-    class CodeQualifiedType : CodeTypeReference
+    class CodeQualifiedNameType : CodeTypeReference
     {
 
-        public CodeQualifiedType(string leftPartName, CodeTypeReference rightPart)
+        public CodeQualifiedNameType(string leftPartName, CodeTypeReference rightPart)
             : base(leftPartName)
         {
             this.RightPart = rightPart;
         }
         public CodeTypeReference RightPart { get; set; }
+        public override CodeTypeReferenceKind Kind { get { return CodeTypeReferenceKind.QualifiedName; } }
         public override string ToString()
         {
             return base.Name + "::" + RightPart.ToString();
         }
     }
-    class CodeTypeTemplateType : CodeTypeReference
+    class CodeTypeTemplateTypeReference : CodeTypeReference
     {
         //similar to C# generic
         List<CodeTypeReference> templateItems = new List<CodeTypeReference>();
-        public CodeTypeTemplateType(string typename)
+        public CodeTypeTemplateTypeReference(string typename)
             : base(typename)
         {
 
         }
+        public List<CodeTypeReference> Items { get { return templateItems; } }
         public void AddTemplateItem(CodeTypeReference item)
         {
             templateItems.Add(item);
         }
+        public override CodeTypeReferenceKind Kind { get { return CodeTypeReferenceKind.TypeTemplate; } }
         public override string ToString()
         {
             StringBuilder stbuilder = new StringBuilder();
@@ -188,6 +221,7 @@ namespace BridgeBuilder
             this.elementType = elementType;
         }
         public CodeTypeReference ElementType { get { return this.elementType; } }
+        public override CodeTypeReferenceKind Kind { get { return CodeTypeReferenceKind.Pointer; } }
         public override string ToString()
         {
             return elementType.ToString() + "*";
@@ -201,6 +235,7 @@ namespace BridgeBuilder
             this.elementType = elementType;
         }
         public CodeTypeReference ElementType { get { return this.elementType; } }
+        public override CodeTypeReferenceKind Kind { get { return CodeTypeReferenceKind.ByRef; } }
         public override string ToString()
         {
             return elementType.ToString() + "&";

@@ -39,6 +39,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="SrcApiModel\CefTypeCollection.cs" />
     <Compile Include="SrcApiModel\CefApiCodeDom.cs" />
     <Compile Include="SrcApiModel\DirtyParser.cs" />
     <Compile Include="SrcApiModel\ApiBuild.cs" />
@@ -53,6 +54,7 @@
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="SrcApiModel\SymbolDefinition.cs" />
     <EmbeddedResource Include="Form1.resx">
       <DependentUpon>Form1.cs</DependentUpon>
     </EmbeddedResource>

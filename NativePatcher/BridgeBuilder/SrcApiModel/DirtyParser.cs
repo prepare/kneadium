@@ -827,7 +827,6 @@ namespace BridgeBuilder
                 //this is method
 
                 CodeMethodDeclaration met = new CodeMethodDeclaration();
-                codeTypeDecl.Members.Add(met);
                 met.IsStatic = isStatic;
                 met.IsVirtual = isVirtual;
 
@@ -845,21 +844,28 @@ namespace BridgeBuilder
                     met.ReturnType = retType;
                 }
                 //-----------------------------------------------------
-
-
                 //parse func parameters    
                 while (ParseParameter(met)) ;
 
                 met.IsOverrided = ExpectId("OVERRIDE");
                 met.IsConst = ExpectId("const");
 
+                //cef3:
+                //exclude some method like structure, eg. macro
+                if (met.Name == null && IsAllUpperLetter(met.ReturnType.Name))
+                {
+                    codeTypeDecl.SpecialImplMacroMembers.Add(met);
+                }
+                else
+                {
+                    codeTypeDecl.Members.Add(met);
+                }
                 if (ExpectPunc(";"))
                 {
                     //end this 
                     //start new member  
                     return !ExpectPunc("}");
                 }
-
                 if (ExpectPunc("{"))
                 {
                     //this version we not parse method body
@@ -884,6 +890,8 @@ namespace BridgeBuilder
                 {
                     return !ExpectPunc("}");
                 }
+
+
             }
             else if (ExpectPunc(";"))
             {
@@ -902,7 +910,19 @@ namespace BridgeBuilder
             }
 
         }
+        static bool IsAllUpperLetter(string name)
+        {
 
+            for (int i = name.Length - 1; i >= 0; --i)
+            {
+                char c = name[i];
+                if (!((c >= 'A' && c <= 'Z') || c == '_'))
+                {
+                    return false;
+                }
+            }
+            return true;
+        }
         CodeTypeReference ExpectType()
         {
             string typeName = ExpectId();
@@ -912,7 +932,7 @@ namespace BridgeBuilder
                 //check next token is <
                 if (ExpectPunc("<"))
                 {
-                    CodeTypeTemplateType typeTemplate = new CodeTypeTemplateType(typeName);
+                    CodeTypeTemplateTypeReference typeTemplate = new CodeTypeTemplateTypeReference(typeName);
                     type1 = typeTemplate;
                 //parse each item 
                 AGAIN:
@@ -966,7 +986,7 @@ namespace BridgeBuilder
                 else if (ExpectPunc("::"))
                 {
                     CodeTypeReference rightPart = ExpectType();
-                    return new CodeQualifiedType(typeName, rightPart);
+                    return new CodeQualifiedNameType(typeName, rightPart);
                 }
                 else
                 {
@@ -981,7 +1001,7 @@ namespace BridgeBuilder
                         typeName = "unsigned " + unsignedType;
 
                     }
-                    type1 = new CodeTypeReference(typeName);
+                    type1 = new CodeSimpleTypeReference(typeName);
                 }
             //------------------
 
