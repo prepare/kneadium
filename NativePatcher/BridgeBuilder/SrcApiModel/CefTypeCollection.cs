@@ -78,6 +78,38 @@ namespace BridgeBuilder
             }
             ResolveBaseTypes();
             ResolveBaseTypeMembers();
+
+            //-----------------------
+            //do class classification
+            List<CodeTypeDeclaration> callBackClasses = new List<CodeTypeDeclaration>();
+            List<CodeTypeDeclaration> handlerClasses = new List<CodeTypeDeclaration>();
+            List<CodeTypeDeclaration> cppImplClasses = new List<CodeTypeDeclaration>();
+            List<CodeTypeDeclaration> otherClasses = new List<CodeTypeDeclaration>();
+            
+            foreach (CodeTypeDeclaration t in typeDics.Values)
+            {
+                string name = t.Name;
+                if (name.EndsWith("Callback"))
+                {
+                    callBackClasses.Add(t);
+                }
+                else if (name.EndsWith("Handler"))
+                {
+                    handlerClasses.Add(t);
+                }
+                else if (name.EndsWith("CToCpp"))
+                {
+                    cppImplClasses.Add(t);
+                }
+                else
+                {
+                    otherClasses.Add(t); 
+                }
+            }
+            //-----------------------
+            //
+
+
         }
         void ResolveBaseTypes()
         {
