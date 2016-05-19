@@ -3,6 +3,7 @@ using System;
 using System.Text;
 using System.Windows.Forms;
 using LayoutFarm.CefBridge;
+using System.Collections.Generic;
 
 
 namespace CefBridgeTest
@@ -36,6 +37,12 @@ namespace CefBridgeTest
             //string commonAppDir = System.IO.Path.GetDirectoryName(Application.CommonAppDataPath);//skip version
 
 
+        }
+
+        List<string> logMessages = new List<string>();
+        public override void AddLogMessage(string msg)
+        {
+            logMessages.Add(msg);
         }
         public override string GetLibCefFileName()
         {
@@ -164,5 +171,5 @@ namespace CefBridgeTest
     }
 
 
-   
+
 }

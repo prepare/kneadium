@@ -40,25 +40,15 @@ namespace LayoutFarm.CefBridge
         /// </summary>
         public bool Init()
         {
-            bool loadResult = Cef3Binder.LoadCef3(this);
-            if (!loadResult)
-            {
-                return false;
-            }
-
-            return true;
+            return Cef3Binder.LoadCef3(this);
         }
 
         protected static void DoMessageLoopWork()
         {
             Cef3Binder.MyCefDoMessageLoopWork();
         }
-
-        List<string> logMessages = new List<string>();
-        public void AddLogMessage(string msg)
-        {
-            logMessages.Add(msg);
-        }
+        public abstract void AddLogMessage(string msg);
+         
         /// <summary>
         /// libcef.dll (original)
         /// </summary>
@@ -70,7 +60,7 @@ namespace LayoutFarm.CefBridge
         /// <returns></returns>
         public abstract string GetCefClientFileName();
 
-       
+
 
         public static bool IsInRenderProcess
         {
