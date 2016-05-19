@@ -85,7 +85,7 @@ namespace BridgeBuilder
             List<CodeTypeDeclaration> handlerClasses = new List<CodeTypeDeclaration>();
             List<CodeTypeDeclaration> cppImplClasses = new List<CodeTypeDeclaration>();
             List<CodeTypeDeclaration> otherClasses = new List<CodeTypeDeclaration>();
-            
+
             foreach (CodeTypeDeclaration t in typeDics.Values)
             {
                 string name = t.Name;
@@ -103,14 +103,57 @@ namespace BridgeBuilder
                 }
                 else
                 {
-                    otherClasses.Add(t); 
+                    otherClasses.Add(t);
                 }
             }
             //-----------------------
-            //
+            //for analysis
+            Dictionary<TypeSymbol, TypeHeirarchyNode> hierarchy = new Dictionary<TypeSymbol, TypeHeirarchyNode>();
+            foreach (CodeTypeDeclaration t in typeDics.Values)
+            {
+                TypeSymbol resolvedType = t.ResolvedType;
+                if (t.BaseTypes.Count == 0)
+                {
+                    //
+                }
+                else
+                {
+                    TypeSymbol baseType = t.BaseTypes[0].ResolvedType;
+                    TypeHeirarchyNode found;
+                    if (!hierarchy.TryGetValue(baseType, out found))
+                    {
+                        found = new TypeHeirarchyNode(baseType);
+                        hierarchy.Add(baseType, found);
+                    }
 
+                    if (found.Type != resolvedType)
+                    {
+                        found.AddTypeSymbol(resolvedType);
+                    }
+                }
+            }
 
         }
+
+        class TypeHeirarchyNode
+        {
+
+            List<TypeSymbol> children = new List<TypeSymbol>();
+            public TypeHeirarchyNode(TypeSymbol type)
+            {
+                this.Type = type;
+            }
+            public TypeSymbol Type { get; private set; }
+            public void AddTypeSymbol(TypeSymbol c)
+            {
+                if (c == Type)
+                {
+                    throw new Exception("cyclic!");
+                }
+                children.Add(c);
+            }
+        }
+
         void ResolveBaseTypes()
         {
             //-----------------------

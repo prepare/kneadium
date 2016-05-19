@@ -120,8 +120,6 @@ namespace BridgeBuilder
                 @"D:\projects\CefBridge\cef3\include",
                 @"D:\projects\CefBridge\cef3\libcef_dll\ctocpp" },
                 excludeFileNames);
-
-
         }
 
     }
