@@ -11,8 +11,21 @@ namespace BridgeBuilder
     {
 
     }
+    enum TypeSymbolKind
+    {
+        Simple,
+        Container,
+    }
 
-    class TypeSymbol : Symbol
+    enum ContainerTypeKind
+    {
+        Vec,
+        ScopePtr,
+        CefRefPtr,
+        Pointer,
+        ByRef,
+    }
+    abstract class TypeSymbol : Symbol
     {
 
         public TypeSymbol(string name)
@@ -20,50 +33,51 @@ namespace BridgeBuilder
             this.Name = name;
         }
         public string Name { get; set; }
+        public abstract TypeSymbolKind TypeSymbolKind { get; }
         public CodeTypeDeclaration CreatedByTypeDeclaration { get; set; }
         public override string ToString()
         {
             return Name;
         }
     }
+    class SimpleType : TypeSymbol
+    {
+        public SimpleType(string name)
+            : base(name)
+        {
+        }
+        public override TypeSymbolKind TypeSymbolKind { get { return TypeSymbolKind.Simple; } }
 
-    class ByRefTypeSymbol : TypeSymbol
+    }
+    class ContainerTypeSymbol : TypeSymbol
     {
-        public ByRefTypeSymbol(TypeSymbol elementType)
-            : base(elementType.Name + "&")
+        public ContainerTypeSymbol(TypeSymbol elementType, ContainerTypeKind kind)
+            : base(elementType.Name)
         {
-#if DEBUG
-            if (this == elementType)
-            {
-                throw new Exception("cyclic-ref!");
-            }
-#endif
             this.ElementType = elementType;
+            this.Kind = kind;
+        }
+        public ContainerTypeKind Kind
+        {
+            get;
+            set;
         }
         public TypeSymbol ElementType { get; set; }
+        public override TypeSymbolKind TypeSymbolKind { get { return TypeSymbolKind.Container; } }
         public override string ToString()
         {
-            return ElementType.ToString() + "&";
-        }
-    }
-    class PointerTypeSymbol : TypeSymbol
-    {
-        public PointerTypeSymbol(TypeSymbol elementType)
-            : base(elementType.Name + "*")
-        {
-#if DEBUG
-            if (this == elementType)
+            switch (Kind)
             {
-                throw new Exception("cyclic-ref!");
+                case ContainerTypeKind.Vec: return "vec<" + ElementType.ToString() + ">";
+                case ContainerTypeKind.ScopePtr: return "scoped_ptr<" + ElementType.ToString() + ">";
+                case ContainerTypeKind.CefRefPtr: return "refptr<" + ElementType.ToString() + ">";
+                case ContainerTypeKind.Pointer: return ElementType.ToString() + "*";
+                case ContainerTypeKind.ByRef: return ElementType.ToString() + "&";
+                default:
+                    throw new NotSupportedException();
             }
-#endif
-            this.ElementType = elementType;
-        }
-        public TypeSymbol ElementType { get; set; }
-        public override string ToString()
-        {
-            return ElementType.ToString() + "*";
         }
     }
+
 
 }

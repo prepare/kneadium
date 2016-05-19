@@ -15,6 +15,9 @@ namespace BridgeBuilder
 
         //semantic
         Dictionary<string, TypeSymbol> typeSymbols = new Dictionary<string, TypeSymbol>();
+        Dictionary<string, TypeSymbol> baseCCppTypeSymbols = new Dictionary<string, TypeSymbol>();
+        Dictionary<string, TypeSymbol> unknownTypes = new Dictionary<string, TypeSymbol>();
+
         void Reset()
         {
             typeDics.Clear();
@@ -26,18 +29,19 @@ namespace BridgeBuilder
             //--------------------------
             //prebuild types & manual added types
             TypeSymbol[] prebuiltTypes = new TypeSymbol[]{
-                new TypeSymbol("CefBase"),
-                new TypeSymbol("size_t"),
-                new TypeSymbol("void"),
-                new TypeSymbol("int"),
-                new TypeSymbol("int64"),
-                new TypeSymbol("int32"),
-                new TypeSymbol("bool"),
-                new TypeSymbol("string"),
+                new SimpleType  ("CefBase"),
+                new SimpleType("size_t"),
+                new SimpleType("void"),
+                new SimpleType("int"),
+                new SimpleType("int64"),
+                new SimpleType("int32"),
+                new SimpleType("bool"),
+                new SimpleType("string"),
                 //TODO: review
                 //temp add here, to be review again
-                new TypeSymbol("CefProcessId"), //typedef cef_process_id_t CefProcessId;
-                new TypeSymbol("Handler")
+                new SimpleType("CefProcessId"), //typedef cef_process_id_t CefProcessId;
+                new SimpleType("Handler")
+           
             };
 
             foreach (TypeSymbol typeSymbol in prebuiltTypes)
@@ -64,7 +68,7 @@ namespace BridgeBuilder
                         }
                         typeDics.Add(typeDecl.Name, typeDecl);
                         //-----------------------
-                        TypeSymbol typeSymbol = new TypeSymbol(typeDecl.Name);
+                        TypeSymbol typeSymbol = new SimpleType(typeDecl.Name);
                         typeSymbol.CreatedByTypeDeclaration = typeDecl;
                         typeDecl.ResolvedType = typeSymbol;
                         typeSymbols.Add(typeSymbol.Name, typeSymbol);
@@ -136,6 +140,15 @@ namespace BridgeBuilder
                     }
                 }
             }
+        }
+        void RegisterBaseCCppTypeSymbol(CodeTypeReference baseCCppTypeSymbol)
+        {
+            //replace if exists
+            if (!baseCCppTypeSymbols.ContainsKey(baseCCppTypeSymbol.Name))
+            {
+                baseCCppTypeSymbols.Add(baseCCppTypeSymbol.Name, new SimpleType(baseCCppTypeSymbol.Name));
+            }
+
 
         }
         TypeSymbol ResolveType(CodeTypeReference typeRef)
@@ -154,17 +167,13 @@ namespace BridgeBuilder
                         switch (qnameType.Name)
                         {
                             //resolve wellknown type template   
-                            case "base":
-                                {
-                                    TypeSymbol t = ResolveType(qnameType.RightPart);
-                                    return t;
-                                }
-                            case "std":
-                                {
+                            case "base": return ResolveType(qnameType.RightPart);
+                            case "std": return ResolveType(qnameType.RightPart);
 
-                                    TypeSymbol t = ResolveType(qnameType.RightPart);
-                                    return t;
-                                }
+                            //eg. nest or ns type
+
+                            case "CefXmlReader":
+                            case "ProviderEntryList": return ResolveType(qnameType.RightPart);
                             default:
                                 throw new NotSupportedException();
                         }
@@ -176,18 +185,13 @@ namespace BridgeBuilder
                         string templateName = typeTemplate.Name;
                         switch (typeTemplate.Name)
                         {
-                            case "CefRefPtr":
-                                {
-                                    if (typeTemplate.Items.Count == 1)
-                                    {
-                                        return ResolveType(typeTemplate.Items[0]);
-                                    }
-                                    throw new NotSupportedException();
-                                }
+
                             case "CefCToCpp":
                                 {
                                     if (typeTemplate.Items.Count == 3)
                                     {
+                                        //auto add native c/c++ type
+                                        RegisterBaseCCppTypeSymbol(typeTemplate.Items[2]);
                                         return ResolveType(typeTemplate.Items[1]);
                                     }
                                     else
@@ -210,6 +214,36 @@ namespace BridgeBuilder
                                             throw new NotSupportedException();
                                     }
                                 }
+                            case "CefRefPtr":
+                                {
+                                    if (typeTemplate.Items.Count == 1)
+                                    {
+                                        return new ContainerTypeSymbol(ResolveType(typeTemplate.Items[0]), ContainerTypeKind.CefRefPtr);
+                                    }
+                                    throw new NotSupportedException();
+                                }
+                            case "scoped_ptr":
+                                {
+                                    if (typeTemplate.Items.Count == 1)
+                                    {
+                                        return new ContainerTypeSymbol(ResolveType(typeTemplate.Items[0]), ContainerTypeKind.ScopePtr);
+                                    }
+                                    else
+                                    {
+                                        throw new NotSupportedException();
+                                    }
+                                }
+                            case "vector":
+                                {
+                                    if (typeTemplate.Items.Count == 1)
+                                    {
+                                        return new ContainerTypeSymbol(ResolveType(typeTemplate.Items[0]), ContainerTypeKind.Vec);
+                                    }
+                                    else
+                                    {
+                                        throw new NotSupportedException();
+                                    }
+                                }
                             default:
                                 throw new NotSupportedException();
                         }
@@ -219,13 +253,13 @@ namespace BridgeBuilder
                     {
                         var pointerType = (CodePointerTypeReference)typeRef;
                         TypeSymbol elementType = ResolveType(pointerType.ElementType);
-                        return new PointerTypeSymbol(elementType);
+                        return new ContainerTypeSymbol(elementType, ContainerTypeKind.Pointer);
                     } break;
                 case CodeTypeReferenceKind.ByRef:
                     {
                         var byRefType = (CodeByRefTypeReference)typeRef;
                         TypeSymbol elementType = ResolveType(byRefType.ElementType);
-                        return new PointerTypeSymbol(elementType);
+                        return new ContainerTypeSymbol(elementType, ContainerTypeKind.ByRef);
 
                     } break;
                 default:
@@ -249,10 +283,29 @@ namespace BridgeBuilder
                 {
                     return foundSymbol;
                 }
-                //try get type from pre-built type symbol
+                if (baseCCppTypeSymbols.TryGetValue(typename, out foundSymbol))
+                {
+                    return foundSymbol;
+                }
 
-                //handle not found type
-                throw new NotSupportedException();
+                //this is convention 
+                if (typename.StartsWith("cef_") && IsAllLowerLetter(typename))
+                {
+                    //assume this is base c/cpp type
+                    foundSymbol = new SimpleType(typename);
+                    baseCCppTypeSymbols.Add(
+                        typename,
+                        foundSymbol);
+                    return foundSymbol;
+                }
+
+                if (!unknownTypes.TryGetValue(typename, out foundSymbol))
+                {
+                    foundSymbol = new SimpleType(typename);
+                    unknownTypes.Add(typename, foundSymbol);
+                    return foundSymbol;
+                }
+                return foundSymbol;
             }
 
         }
@@ -260,6 +313,20 @@ namespace BridgeBuilder
         {
             return typeDics.TryGetValue(typeName, out found);
         }
+        static bool IsAllLowerLetter(string name)
+        {
+
+            for (int i = name.Length - 1; i >= 0; --i)
+            {
+                char c = name[i];
+                if (!((c >= 'a' && c <= 'z') || c == '_'))
+                {
+                    return false;
+                }
+            }
+            return true;
+        }
+
     }
 
 }
