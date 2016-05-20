@@ -110,6 +110,7 @@ namespace BridgeBuilder
             }
             return false;
         }
+
         string GetCsPartTypeName(TypeSymbol t)
         {
 
@@ -117,17 +118,18 @@ namespace BridgeBuilder
             {
                 case TypeSymbolKind.Simple:
                     {
-                        return t.Name;
+                        return ((SimpleType)t).Name;
                     }
-                case TypeSymbolKind.Container:
+                case TypeSymbolKind.ReferenceOrPointer:
                     {
-                        var containerTypeSymbol = (ContainerTypeSymbol)t;
+                        var containerTypeSymbol = (ReferenceOrPointerTypeSymbol)t;
                         switch (containerTypeSymbol.Kind)
                         {
                             default:
                                 throw new NotSupportedException();
                             case ContainerTypeKind.ByRef:
-                                if (!IsPrimitiveType(containerTypeSymbol.ElementType))
+                                TypeSymbol content = containerTypeSymbol.ElementType;
+                                if (!IsPrimitiveType(content))
                                 {
                                     return GetCsPartTypeName(containerTypeSymbol.ElementType);
                                 }
@@ -167,18 +169,7 @@ namespace BridgeBuilder
                                 {
                                 }
                                 break;
-                            case ContainerTypeKind.Vec:
-                               
-                                if (!IsPrimitiveType(containerTypeSymbol.ElementType))
-                                {
-                                    //array?
-                                    return GetCsPartTypeName(containerTypeSymbol.ElementType) + "[]";
-                                }
-                                else
-                                {
-                                    return GetCsPartTypeName(containerTypeSymbol.ElementType) + "[]";
-                                } 
-                                 
+
                         }
 
                     }
@@ -187,12 +178,30 @@ namespace BridgeBuilder
             }
             throw new NotSupportedException();
         }
+        void GenMethodParameter(CodeMemberDeclaration metDecl, CodeMethodParameter par, StringBuilder stbuilder)
+        {
+            if (par.IsConstPar)
+            {
+
+            }
+            stbuilder.Append(GetCsPartTypeName(par.ParameterType.ResolvedType));
+        }
         void GenMethod(CodeMethodDeclaration metDecl, StringBuilder codeDeclTypeBuilder)
         {
             StringBuilder stbuilder = new StringBuilder();
+
             stbuilder.Append(GetCsPartTypeName(metDecl.ReturnType.ResolvedType));
 
             stbuilder.Append(' ');
+
+#if DEBUG
+            if (metDecl.Name == "GetFrame")
+            {
+
+            }
+#endif
+
+
             stbuilder.Append(metDecl.Name);
 
             int j = metDecl.Parameters.Count;
@@ -205,7 +214,8 @@ namespace BridgeBuilder
                 }
 
                 var par = metDecl.Parameters[i];
-                stbuilder.Append(GetCsPartTypeName(par.ParameterType.ResolvedType));
+                GenMethodParameter(metDecl, par, stbuilder);
+
                 stbuilder.Append(' ');
                 stbuilder.Append(par.ParameterName);
             }
@@ -226,9 +236,12 @@ namespace BridgeBuilder
             {
                 default:
                     throw new NotSupportedException();
-                case TypeSymbolKind.Container:
+                case TypeSymbolKind.Vec:
+
+                    throw new NotFiniteNumberException();
+                case TypeSymbolKind.ReferenceOrPointer:
                     {
-                        var containerTypeSymbol = (ContainerTypeSymbol)retType;
+                        var containerTypeSymbol = (ReferenceOrPointerTypeSymbol)retType;
                         switch (containerTypeSymbol.Kind)
                         {
                             case ContainerTypeKind.ByRef:
@@ -240,14 +253,14 @@ namespace BridgeBuilder
                                 break;
                             case ContainerTypeKind.ScopePtr:
                                 break;
-                            case ContainerTypeKind.Vec:
-                                break;
                         }
                         nativeMethodName = "mycef_ref";
                     }
                     break;
                 case TypeSymbolKind.Simple:
-                    switch (retType.Name)
+
+                    var retSimpleType = (SimpleType)retType;
+                    switch (retSimpleType.Name)
                     {
                         case "bool":
                             {

@@ -961,7 +961,7 @@ namespace BridgeBuilder
                     //callback ?  
                     AGAIN2:
                         CodeMethodParameter par = new CodeMethodParameter();
-                        par.IsConstParType = ExpectId("const");
+                        par.IsConstPar = ExpectId("const");
                         par.ParameterType = ExpectType();
                         funcTypeReference.Parameters.Add(par);
                         if (ExpectPunc(","))
@@ -1035,20 +1035,21 @@ namespace BridgeBuilder
             }
 
             var metPar = new CodeMethodParameter();
-            metPar.IsConstParType = ExpectId("const") != null;
+            metPar.IsConstPar = ExpectId("const") != null;
             if (ExpectId("struct"))
             {
             }
             metPar.ParameterType = ExpectType();
-
+            //--------------------------------
             if (ExpectId("const"))
             {
-                metPar.IsConstParVariable = true;
+                metPar.IsConstParName = true;
                 if (ExpectPunc("*"))
                 {
-                    metPar.IsConstParPointer = true;
+                    metPar.IsConstPointerParName = true;
                 }
             }
+            //--------------------------------
 
             metPar.ParameterName = ExpectId();
             codeMethod.Parameters.Add(metPar);
