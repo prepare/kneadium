@@ -11,10 +11,10 @@ namespace BridgeBuilder
     abstract class DotNetResolvedTypeBase
     {
 
+        public bool IsPrimitiveType { get; set; }
     }
     class DotNetResolvedSimpleType : DotNetResolvedTypeBase
     {
-
         public DotNetResolvedSimpleType(SimpleType simpleType)
         {
             this.SimpleType = simpleType;
@@ -73,43 +73,23 @@ namespace BridgeBuilder
         {
             pars.Add(par);
         }
-        public MethodReturnParameterTxInfo ReturnPlan
+        public MethodParameterTxInfo ReturnPlan
         {
             get;
             set;
         }
 
     }
-    class MethodReturnParameterTxInfo
-    {
-
-        DotNetResolvedTypeBase resolvedBaseSimpleType;
-        public MethodReturnParameterTxInfo(CodeTypeReference retType)
-        {
-            this.SrcReturnTypeReference = retType;
-        }
-        public CodeTypeReference SrcReturnTypeReference { get; set; }
-        public bool IsVoid { get; set; }
-
-        public DotNetResolvedTypeBase ResolvedBaseSimpleType { get; set; }
-        public int MarkAsReferenceCount { get; set; }
-
-        public override string ToString()
-        {
-            return ResolvedBaseSimpleType.ToString();
-        }
-    }
+   
     class MethodParameterTxInfo
     {
-        public MethodParameterTxInfo(CodeMethodParameter p)
+        public MethodParameterTxInfo(string name)
         {
-            this.Parameter = p;
-            this.Name = p.ParameterName;
+            this.Name = name;
         }
+        public bool IsMethodReturnParameter { get; set; }
         public string Name { get; set; }
-        public CodeMethodParameter Parameter { get; set; }
         public bool IsVoid { get; set; }
-
         public DotNetResolvedTypeBase DotnetResolvedType { get; set; }
         public int MarkAsReferenceCount { get; set; }
         public override string ToString()
@@ -153,8 +133,8 @@ namespace BridgeBuilder
             //make return type plan
 
             //1. return
-            MethodReturnParameterTxInfo retTxInfo = new MethodReturnParameterTxInfo(metDecl.ReturnType);
-            AddMethodReturnTypeTxInfo(retTxInfo, metDecl.ReturnType.ResolvedType);
+            MethodParameterTxInfo retTxInfo = new MethodParameterTxInfo(null) { IsMethodReturnParameter = true };             
+            AddMethodParameterTypeTxInfo(retTxInfo, metDecl.ReturnType.ResolvedType);
             metTx.ReturnPlan = retTxInfo;
 
             //2. parameters
@@ -162,7 +142,8 @@ namespace BridgeBuilder
             for (int i = 0; i < j; ++i)
             {
                 CodeMethodParameter metPar = metDecl.Parameters[i];
-                MethodParameterTxInfo parTxInfo = new MethodParameterTxInfo(metPar);
+                MethodParameterTxInfo parTxInfo = new MethodParameterTxInfo(metPar.ParameterName);
+
                 AddMethodParameterTypeTxInfo(parTxInfo, metPar.ParameterType.ResolvedType);
                 metTx.AddMethodParameterTx(parTxInfo);
                 if (!metPar.IsConstPar)
@@ -174,95 +155,9 @@ namespace BridgeBuilder
 
             return metTx;
         }
-        void AddMethodReturnTypeTxInfo(MethodReturnParameterTxInfo retPlan, TypeSymbol retType)
-        {
-
-            //2. type to return in cs side 
-            switch (retType.TypeSymbolKind)
-            {
-                case TypeSymbolKind.Simple:
-                    {
-                        SimpleType simpleType = (SimpleType)retType;
-                        if (IsPrimitiveType(simpleType.Name))
-                        {
-                            if (simpleType.Name == "void")
-                            {
-                                retPlan.IsVoid = true;
-                            }
-                            else
-                            {
-                                //
-                            }
-                            retPlan.ResolvedBaseSimpleType = new DotNetResolvedSimpleType(simpleType);
-                        }
-                        else
-                        {
-                            //eg ret by reference 
-                            //create wrapper for that type
-                            retPlan.ResolvedBaseSimpleType = new DotNetResolvedSimpleType(simpleType);
-                        }
-                    } break;
-                case TypeSymbolKind.Vec:
-                    {
-                        throw new NotSupportedException();
-                    }
-                    break;
-                case TypeSymbolKind.ReferenceOrPointer:
-                    {
-                        var refOrPointer = (ReferenceOrPointerTypeSymbol)retType;
-                        //check element inside
-                        switch (refOrPointer.Kind)
-                        {
-                            case ContainerTypeKind.ByRef:
-                                throw new NotSupportedException();
-                                break;
-                            case ContainerTypeKind.CefRefPtr:
-                                {
-                                    AddMethodReturnTypeTxInfo(retPlan, refOrPointer.ElementType);
-                                    if (IsPrimitiveType(retPlan.ResolvedBaseSimpleType.ToString()))
-                                    {
-                                        throw new NotSupportedException();
-                                    }
-                                    else
-                                    {
-                                        //return reference of unmanaged heap object                                        
-                                        //then just pass 
-                                        if (retPlan.MarkAsReferenceCount == 0)
-                                        {
-                                            retPlan.MarkAsReferenceCount++;
-                                        }
-                                        else
-                                        {
-                                            throw new NotSupportedException();
-                                        }
-                                    }
-
-                                } break;
-                            case ContainerTypeKind.Pointer:
-                                throw new NotSupportedException();
-                                break;
-                            case ContainerTypeKind.ScopePtr:
-                                throw new NotSupportedException();
-                                break;
-                            default:
-                                throw new NotSupportedException();
-                                break;
-
-                        }
-
-                    }
-                    break;
-                default:
-                    throw new NotSupportedException();
-            }
-
-
-        }
-
+  
         void AddMethodParameterTypeTxInfo(MethodParameterTxInfo parPlan, TypeSymbol resolvedParType)
         {
-
-
             switch (resolvedParType.TypeSymbolKind)
             {
                 case TypeSymbolKind.Simple:
@@ -278,12 +173,12 @@ namespace BridgeBuilder
                             {
                                 //
                             }
-                            parPlan.DotnetResolvedType = new DotNetResolvedSimpleType(simpleType);
+                            parPlan.DotnetResolvedType = new DotNetResolvedSimpleType(simpleType) { IsPrimitiveType = true };
                         }
                         else
                         {
                             //eg ret by reference 
-                            //create wrapper for that type
+                            //create wrapper for this type
                             parPlan.DotnetResolvedType = new DotNetResolvedSimpleType(simpleType);
                         }
                     } break;

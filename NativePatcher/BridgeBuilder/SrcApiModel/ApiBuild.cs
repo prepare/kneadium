@@ -87,7 +87,7 @@ namespace BridgeBuilder
                 GenMethod(met, stbuilder);
                 stbuilder.Append("\r\n");
             }
- 
+
             stbuilder.Append("}");
         }
 
@@ -108,12 +108,12 @@ namespace BridgeBuilder
             return false;
         }
 
-       
+
         void GenMethod(MethodTxInfo metTx, StringBuilder codeDeclTypeBuilder)
         {
             StringBuilder stbuilder = new StringBuilder();
             //1. return type
-            MethodReturnParameterTxInfo retType = metTx.ReturnPlan;
+            MethodParameterTxInfo retType = metTx.ReturnPlan;
             stbuilder.Append(retType.ToString());
             stbuilder.Append(' ');
             //2. name
@@ -145,6 +145,8 @@ namespace BridgeBuilder
                 stbuilder.Append("   ");
             }
 
+            //select proper native cef method             
+
             //native method name
             stbuilder.Append("cef_call(1,1,this.nativePtr");
             for (int i = 0; i < j; ++i)
@@ -161,6 +163,6 @@ namespace BridgeBuilder
 
             codeDeclTypeBuilder.Append(stbuilder.ToString());
         }
-      
+
     }
 }
