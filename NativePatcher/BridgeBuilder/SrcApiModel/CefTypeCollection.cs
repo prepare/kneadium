@@ -29,22 +29,30 @@ namespace BridgeBuilder
             //--------------------------
             //prebuild types & manual added types
             TypeSymbol[] prebuiltTypes = new TypeSymbol[]{
-                new SimpleType  ("CefBase"),
-                new SimpleType("size_t"),
+                
+                
                 new SimpleType("void"),
-                new SimpleType("int"),
-                new SimpleType("int64"),
-                new SimpleType("int32"),
                 new SimpleType("bool"),
-                new SimpleType("string"),
+                new SimpleType("char"),
+                new SimpleType("int"),
+                new SimpleType("int32"),new SimpleType("uint32"),
+                new SimpleType("int64"),new SimpleType("uint64"),                
+                new SimpleType("double"),
+                new SimpleType("size_t"),
+                
+                new SimpleType("string"),      
+                new SimpleType("CefString"),
+                new SimpleType("CefBase"),
                 //TODO: review
                 //temp add here, to be review again
                 new SimpleType("CefProcessId"), //typedef cef_process_id_t CefProcessId;
+                new SimpleType("CefThreadId"), //typedef cef_thread_id_t CefThreadId;
+                new SimpleType("CefBrowserSettings"),// typedef CefStructBase<CefBrowserSettingsTraits> CefBrowserSettings;
                 new SimpleType("Handler")
-           
+                
             };
 
-            foreach (TypeSymbol typeSymbol in prebuiltTypes)
+            foreach (SimpleType typeSymbol in prebuiltTypes)
             {
                 typeSymbols.Add(typeSymbol.Name, typeSymbol);
             }
@@ -68,7 +76,7 @@ namespace BridgeBuilder
                         }
                         typeDics.Add(typeDecl.Name, typeDecl);
                         //-----------------------
-                        TypeSymbol typeSymbol = new SimpleType(typeDecl.Name);
+                        SimpleType typeSymbol = new SimpleType(typeDecl.Name);
                         typeSymbol.CreatedByTypeDeclaration = typeDecl;
                         typeDecl.ResolvedType = typeSymbol;
                         typeSymbols.Add(typeSymbol.Name, typeSymbol);
@@ -293,7 +301,7 @@ namespace BridgeBuilder
                                 {
                                     if (typeTemplate.Items.Count == 1)
                                     {
-                                        return new ContainerTypeSymbol(ResolveType(typeTemplate.Items[0]), ContainerTypeKind.CefRefPtr);
+                                        return new ReferenceOrPointerTypeSymbol(ResolveType(typeTemplate.Items[0]), ContainerTypeKind.CefRefPtr);
                                     }
                                     throw new NotSupportedException();
                                 }
@@ -301,7 +309,7 @@ namespace BridgeBuilder
                                 {
                                     if (typeTemplate.Items.Count == 1)
                                     {
-                                        return new ContainerTypeSymbol(ResolveType(typeTemplate.Items[0]), ContainerTypeKind.ScopePtr);
+                                        return new ReferenceOrPointerTypeSymbol(ResolveType(typeTemplate.Items[0]), ContainerTypeKind.ScopePtr);
                                     }
                                     else
                                     {
@@ -312,7 +320,7 @@ namespace BridgeBuilder
                                 {
                                     if (typeTemplate.Items.Count == 1)
                                     {
-                                        return new ContainerTypeSymbol(ResolveType(typeTemplate.Items[0]), ContainerTypeKind.Vec);
+                                        return new VecTypeSymbol(ResolveType(typeTemplate.Items[0]));
                                     }
                                     else
                                     {
@@ -328,13 +336,13 @@ namespace BridgeBuilder
                     {
                         var pointerType = (CodePointerTypeReference)typeRef;
                         TypeSymbol elementType = ResolveType(pointerType.ElementType);
-                        return new ContainerTypeSymbol(elementType, ContainerTypeKind.Pointer);
+                        return new ReferenceOrPointerTypeSymbol(elementType, ContainerTypeKind.Pointer);
                     } break;
                 case CodeTypeReferenceKind.ByRef:
                     {
                         var byRefType = (CodeByRefTypeReference)typeRef;
                         TypeSymbol elementType = ResolveType(byRefType.ElementType);
-                        return new ContainerTypeSymbol(elementType, ContainerTypeKind.ByRef);
+                        return new ReferenceOrPointerTypeSymbol(elementType, ContainerTypeKind.ByRef);
 
                     } break;
                 default:
