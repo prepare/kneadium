@@ -345,17 +345,17 @@ namespace BridgeBuilder
         /// <summary>
         /// const modifier
         /// </summary>
-        public bool IsConstParType
+        public bool IsConstPar
         {
             get;
             set;
         }
-        public bool IsConstParVariable
+        public bool IsConstParName
         {
             get;
             set;
         }
-        public bool IsConstParPointer
+        public bool IsConstPointerParName
         {
             get;
             set;
@@ -363,15 +363,15 @@ namespace BridgeBuilder
         public override string ToString()
         {
             StringBuilder stbuild = new StringBuilder();
-            if (IsConstParType)
+            if (IsConstPar)
             {
                 stbuild.Append("const ");
             }
             stbuild.Append(this.ParameterType.ToString());
-            if (this.IsConstParVariable)
+            if (this.IsConstParName)
             {
                 stbuild.Append(" const");
-                if (IsConstParPointer)
+                if (IsConstPointerParName)
                 {
                     stbuild.Append("*");
                 }
