@@ -14,12 +14,13 @@ namespace BridgeBuilder
     enum TypeSymbolKind
     {
         Simple,
-        Container,
+        ReferenceOrPointer,
+        Vec
     }
 
     enum ContainerTypeKind
     {
-        Vec,
+
         ScopePtr,
         CefRefPtr,
         Pointer,
@@ -27,32 +28,38 @@ namespace BridgeBuilder
     }
     abstract class TypeSymbol : Symbol
     {
+ 
 
-        public TypeSymbol(string name)
-        {
-            this.Name = name;
-        }
-        public string Name { get; set; }
         public abstract TypeSymbolKind TypeSymbolKind { get; }
         public CodeTypeDeclaration CreatedByTypeDeclaration { get; set; }
-        public override string ToString()
-        {
-            return Name;
-        }
+
     }
     class SimpleType : TypeSymbol
     {
         public SimpleType(string name)
-            : base(name)
         {
+            this.Name = name;
         }
         public override TypeSymbolKind TypeSymbolKind { get { return TypeSymbolKind.Simple; } }
-
+        public string Name { get; set; }
     }
-    class ContainerTypeSymbol : TypeSymbol
+
+    class VecTypeSymbol : TypeSymbol
     {
-        public ContainerTypeSymbol(TypeSymbol elementType, ContainerTypeKind kind)
-            : base(elementType.Name)
+        public VecTypeSymbol(TypeSymbol elementType)
+        {
+            this.ElementType = elementType;
+        }
+        public override TypeSymbolKind TypeSymbolKind { get { return TypeSymbolKind.Vec; } }
+        public TypeSymbol ElementType { get; set; }
+        public override string ToString()
+        {
+            return "vec<" + ElementType + ">";
+        }
+    }
+    class ReferenceOrPointerTypeSymbol : TypeSymbol
+    {
+        public ReferenceOrPointerTypeSymbol(TypeSymbol elementType, ContainerTypeKind kind) 
         {
             this.ElementType = elementType;
             this.Kind = kind;
@@ -63,12 +70,12 @@ namespace BridgeBuilder
             set;
         }
         public TypeSymbol ElementType { get; set; }
-        public override TypeSymbolKind TypeSymbolKind { get { return TypeSymbolKind.Container; } }
+        public override TypeSymbolKind TypeSymbolKind { get { return TypeSymbolKind.ReferenceOrPointer; } }
         public override string ToString()
         {
             switch (Kind)
             {
-                case ContainerTypeKind.Vec: return "vec<" + ElementType.ToString() + ">";
+
                 case ContainerTypeKind.ScopePtr: return "scoped_ptr<" + ElementType.ToString() + ">";
                 case ContainerTypeKind.CefRefPtr: return "refptr<" + ElementType.ToString() + ">";
                 case ContainerTypeKind.Pointer: return ElementType.ToString() + "*";
