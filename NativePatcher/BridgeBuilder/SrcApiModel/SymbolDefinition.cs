@@ -15,7 +15,7 @@ namespace BridgeBuilder
     {
         Simple,
         ReferenceOrPointer,
-        Vec
+        Vec 
     }
 
     enum ContainerTypeKind
@@ -28,8 +28,6 @@ namespace BridgeBuilder
     }
     abstract class TypeSymbol : Symbol
     {
- 
-
         public abstract TypeSymbolKind TypeSymbolKind { get; }
         public CodeTypeDeclaration CreatedByTypeDeclaration { get; set; }
 
@@ -42,8 +40,15 @@ namespace BridgeBuilder
         }
         public override TypeSymbolKind TypeSymbolKind { get { return TypeSymbolKind.Simple; } }
         public string Name { get; set; }
+        public override string ToString()
+        {
+            return Name;
+        }
     }
 
+    
+
+   
     class VecTypeSymbol : TypeSymbol
     {
         public VecTypeSymbol(TypeSymbol elementType)
@@ -59,7 +64,7 @@ namespace BridgeBuilder
     }
     class ReferenceOrPointerTypeSymbol : TypeSymbol
     {
-        public ReferenceOrPointerTypeSymbol(TypeSymbol elementType, ContainerTypeKind kind) 
+        public ReferenceOrPointerTypeSymbol(TypeSymbol elementType, ContainerTypeKind kind)
         {
             this.ElementType = elementType;
             this.Kind = kind;

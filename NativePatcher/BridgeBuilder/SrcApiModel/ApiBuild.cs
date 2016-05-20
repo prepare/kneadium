@@ -54,12 +54,16 @@ namespace BridgeBuilder
 
             cefTypeCollection.CollectAllTypeDefinitions(compilationUnits);
 
+            TypeTranformPlanner typeTxPlanner = new TypeTranformPlanner(cefTypeCollection);
 
             StringBuilder stbuilder = new StringBuilder();
             CodeTypeDeclaration found;
             if (cefTypeCollection.TryGetTypeDeclaration("CefBrowser", out found))
             {
-                GenerateCsPart(found, stbuilder);
+                //1. make transform plan
+                TypeTxInfo txInfo = typeTxPlanner.MakeTransformPlan(found);
+                //2. generate
+                GenerateCsPart(txInfo, stbuilder);
             }
             File.WriteAllText("d:\\WImageTest\\cs_output.cs", stbuilder.ToString());
             //---------------
@@ -68,29 +72,22 @@ namespace BridgeBuilder
             //build managed side
         }
 
-        void GenerateCsPart(CodeTypeDeclaration typedecl, StringBuilder stbuilder)
+
+        void GenerateCsPart(TypeTxInfo typeTxInfo, StringBuilder stbuilder)
         {
+
+            CodeTypeDeclaration typedecl = typeTxInfo.TypeDecl;
             stbuilder.Append("class ");
             stbuilder.Append(typedecl.Name);
             stbuilder.Append("{\r\n");
             stbuilder.Append("   IntPtr nativePtr;\r\n");
 
-            foreach (CodeMemberDeclaration mb in typedecl.Members)
+            foreach (MethodTxInfo met in typeTxInfo.methods)
             {
-                if (mb.MemberKind == CodeMemberKind.Method)
-                {
-                    CodeMethodDeclaration metDecl = (CodeMethodDeclaration)mb;
-                    if (metDecl.MethodKind == MethodKind.Normal)
-                    {
-                        GenMethod(metDecl, stbuilder);
-                        stbuilder.Append("\r\n");
-                    }
-                }
-                else
-                {
-
-                }
+                GenMethod(met, stbuilder);
+                stbuilder.Append("\r\n");
             }
+ 
             stbuilder.Append("}");
         }
 
@@ -111,100 +108,18 @@ namespace BridgeBuilder
             return false;
         }
 
-        string GetCsPartTypeName(TypeSymbol t)
-        {
-
-            switch (t.TypeSymbolKind)
-            {
-                case TypeSymbolKind.Simple:
-                    {
-                        return ((SimpleType)t).Name;
-                    }
-                case TypeSymbolKind.ReferenceOrPointer:
-                    {
-                        var containerTypeSymbol = (ReferenceOrPointerTypeSymbol)t;
-                        switch (containerTypeSymbol.Kind)
-                        {
-                            default:
-                                throw new NotSupportedException();
-                            case ContainerTypeKind.ByRef:
-                                TypeSymbol content = containerTypeSymbol.ElementType;
-                                if (!IsPrimitiveType(content))
-                                {
-                                    return GetCsPartTypeName(containerTypeSymbol.ElementType);
-                                }
-                                else
-                                {
-                                }
-                                break;
-                                throw new NotSupportedException();
-                            case ContainerTypeKind.CefRefPtr:
-
-                                if (!IsPrimitiveType(containerTypeSymbol.ElementType))
-                                {
-                                    return GetCsPartTypeName(containerTypeSymbol.ElementType);
-                                }
-                                else
-                                {
-                                }
-                                break;
-                                throw new NotSupportedException();
-                            case ContainerTypeKind.Pointer:
-                                throw new NotSupportedException();
-                                if (!IsPrimitiveType(containerTypeSymbol.ElementType))
-                                {
-
-                                }
-                                else
-                                {
-                                }
-                                break;
-                            case ContainerTypeKind.ScopePtr:
-                                throw new NotSupportedException();
-                                if (!IsPrimitiveType(containerTypeSymbol.ElementType))
-                                {
-
-                                }
-                                else
-                                {
-                                }
-                                break;
-
-                        }
-
-                    }
-                    break;
-                default: throw new NotSupportedException();
-            }
-            throw new NotSupportedException();
-        }
-        void GenMethodParameter(CodeMemberDeclaration metDecl, CodeMethodParameter par, StringBuilder stbuilder)
-        {
-            if (par.IsConstPar)
-            {
-
-            }
-            stbuilder.Append(GetCsPartTypeName(par.ParameterType.ResolvedType));
-        }
-        void GenMethod(CodeMethodDeclaration metDecl, StringBuilder codeDeclTypeBuilder)
+       
+        void GenMethod(MethodTxInfo metTx, StringBuilder codeDeclTypeBuilder)
         {
             StringBuilder stbuilder = new StringBuilder();
-
-            stbuilder.Append(GetCsPartTypeName(metDecl.ReturnType.ResolvedType));
-
+            //1. return type
+            MethodReturnParameterTxInfo retType = metTx.ReturnPlan;
+            stbuilder.Append(retType.ToString());
             stbuilder.Append(' ');
-
-#if DEBUG
-            if (metDecl.Name == "GetFrame")
-            {
-
-            }
-#endif
-
-
-            stbuilder.Append(metDecl.Name);
-
-            int j = metDecl.Parameters.Count;
+            //2. name
+            stbuilder.Append(metTx.Name);
+            //3.
+            int j = metTx.pars.Count;
             stbuilder.Append('(');
             for (int i = 0; i < j; ++i)
             {
@@ -213,114 +128,39 @@ namespace BridgeBuilder
                     stbuilder.Append(',');
                 }
 
-                var par = metDecl.Parameters[i];
-                GenMethodParameter(metDecl, par, stbuilder);
-
+                MethodParameterTxInfo par = metTx.pars[i];
+                stbuilder.Append(par.DotnetResolvedType.ToString());
                 stbuilder.Append(' ');
-                stbuilder.Append(par.ParameterName);
+                stbuilder.Append(par.Name);
             }
-            stbuilder.Append(')');
-            stbuilder.Append('{');
-            stbuilder.Append("\r\n");
-            //body of C# side
-            //just call api ***
-            if (j > 1)
+            stbuilder.Append("){\r\n");
+
+            //body
+            if (!retType.IsVoid)
             {
-
-            }
-
-            string nativeMethodName = null;
-            bool isVoid = false;
-            TypeSymbol retType = metDecl.ReturnType.ResolvedType;
-            switch (retType.TypeSymbolKind)
-            {
-                default:
-                    throw new NotSupportedException();
-                case TypeSymbolKind.Vec:
-
-                    throw new NotFiniteNumberException();
-                case TypeSymbolKind.ReferenceOrPointer:
-                    {
-                        var containerTypeSymbol = (ReferenceOrPointerTypeSymbol)retType;
-                        switch (containerTypeSymbol.Kind)
-                        {
-                            case ContainerTypeKind.ByRef:
-                                break;
-                            case ContainerTypeKind.CefRefPtr:
-
-                                break;
-                            case ContainerTypeKind.Pointer:
-                                break;
-                            case ContainerTypeKind.ScopePtr:
-                                break;
-                        }
-                        nativeMethodName = "mycef_ref";
-                    }
-                    break;
-                case TypeSymbolKind.Simple:
-
-                    var retSimpleType = (SimpleType)retType;
-                    switch (retSimpleType.Name)
-                    {
-                        case "bool":
-                            {
-                                nativeMethodName = "mycef_bool";
-                            } break;
-                        case "int":
-                            {
-                                nativeMethodName = "mycef_int";
-                            } break;
-                        case "void":
-                            {
-                                //no return type
-                                isVoid = true;
-                                nativeMethodName = "mycef_void";
-                            } break;
-                        case "size_t":
-                            {
-                                nativeMethodName = "mycef_sizet";//platform specific
-                            } break;
-                        default:
-                            {
-
-                            } break;
-                    }
-                    break;
-            }
-
-            if (!isVoid)
-            {
-                stbuilder.Append("    return ");
+                stbuilder.Append("   return ");
             }
             else
             {
-                stbuilder.Append("    ");
+                stbuilder.Append("   ");
             }
 
-            if (nativeMethodName == null)
-            {
-                throw new NotSupportedException();
-            }
-
-
-            stbuilder.Append(nativeMethodName + "(11,11,this.nativePtr");
-
-
+            //native method name
+            stbuilder.Append("cef_call(1,1,this.nativePtr");
             for (int i = 0; i < j; ++i)
             {
                 stbuilder.Append(',');
-                //prepare parameter for native side
-
-                CodeMethodParameter pp = metDecl.Parameters[i];
-                stbuilder.Append(pp.ParameterName);
-
+                //prepare parameter for native side 
+                MethodParameterTxInfo par = metTx.pars[i];
+                stbuilder.Append(par.Name);
             }
             stbuilder.Append(");\r\n");
 
-            //---------------------------
-            stbuilder.Append('}');
+
+            stbuilder.Append("}\r\n");
+
             codeDeclTypeBuilder.Append(stbuilder.ToString());
         }
-
+      
     }
 }

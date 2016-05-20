@@ -41,6 +41,7 @@
   <ItemGroup>
     <Compile Include="SrcApiModel\CefTypeCollection.cs" />
     <Compile Include="SrcApiModel\CefApiCodeDom.cs" />
+    <Compile Include="SrcApiModel\CodeTxPlanner.cs" />
     <Compile Include="SrcApiModel\DirtyParser.cs" />
     <Compile Include="SrcApiModel\ApiBuild.cs" />
     <Compile Include="Patcher\ManualPatcher.cs" />

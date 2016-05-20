@@ -328,6 +328,8 @@ namespace BridgeBuilder
             stbuilder.Append(')');
             return stbuilder.ToString();
         }
+
+
     }
 
     class CodeMethodParameter
