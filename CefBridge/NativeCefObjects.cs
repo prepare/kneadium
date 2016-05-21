@@ -1,10 +1,10 @@
 ﻿//2015-2016 MIT, WinterDev
+
 using System;
 using System.Collections.Generic;
 using System.Runtime.InteropServices;
 namespace LayoutFarm.CefBridge
 {
-
     public enum CefV8PropertyAttribute
     {
         //from cef_types.h
@@ -34,10 +34,8 @@ namespace LayoutFarm.CefBridge
 
     public class Cef3FuncHandler : Cef3RefCountingValue
     {
-
         private Cef3FuncHandler(IntPtr ptr) : base(ptr)
         {
-
         }
 
         public static Cef3FuncHandler CreateFuncHandler(MyCefCallback cefCallback)
@@ -51,10 +49,8 @@ namespace LayoutFarm.CefBridge
 
     public class Cef3Func : Cef3RefCountingValue
     {
-
         public Cef3Func(IntPtr ptr) : base(ptr)
         {
-
         }
         public static Cef3Func CreateFunc(string name, Cef3FuncHandler funcHandler)
         {
@@ -91,7 +87,6 @@ namespace LayoutFarm.CefBridge
         public NativeJsContext(IntPtr ptr)
             : base(ptr)
         {
-
         }
         /// <summary>
         /// get global object
@@ -118,17 +113,14 @@ namespace LayoutFarm.CefBridge
         {
             Cef3Binder.MyCefJs_ExitContext(this.Ptr);
         }
-
     }
 
     public class CefV8Value : Cef3RefCountingValue
     {
-
         public CefV8Value(IntPtr ptr) : base(ptr)
         {
             if (ptr == IntPtr.Zero)
             {
-
             }
         }
         public void Set(string key, Cef3Func cef3Func)
@@ -142,7 +134,6 @@ namespace LayoutFarm.CefBridge
         public string ReadValueAsString()
         {
             const int BUFF_LEN = 512;
-
             char[] charBuff = new char[BUFF_LEN];
             unsafe
             {
@@ -157,7 +148,6 @@ namespace LayoutFarm.CefBridge
                     return new string(charBuff, 0, actualLen);
                 }
             }
-
         }
     }
 
@@ -175,13 +165,11 @@ namespace LayoutFarm.CefBridge
         /// </summary>
         [FieldOffset(0)]
         public IntPtr Ptr;
-
         /// <summary>
         /// offset(8)See JsValueType, marshaled as integer. 
         /// </summary>
         [FieldOffset(8)]
         public JsValueType Type;
-
         /// <summary>
         /// offset(12) Length of array or string 
         /// </summary>
@@ -231,7 +219,6 @@ namespace LayoutFarm.CefBridge
         Dictionary = 15,
         Error = 16,
         Function = 17,
-
         //---------------
         //my extension
         JsTypeWrap = 18
@@ -250,16 +237,13 @@ namespace LayoutFarm.CefBridge
     {
         public NativeFrame(IntPtr ptr) : base(ptr)
         {
-
         }
         public NativeJsContext GetFrameContext()
         {
             return new NativeJsContext(Cef3Binder.MyCefJsFrameContext(this.Ptr));
-
         }
         public string GetUrl()
         {
-
             unsafe
             {
                 char[] buffer = new char[255];
@@ -276,23 +260,18 @@ namespace LayoutFarm.CefBridge
     {
         public NativeRendererApp(IntPtr ptr) : base(ptr)
         {
-
         }
     }
     public class NativeResourceMx : Cef3RefCountingValue
     {
         public NativeResourceMx(IntPtr ptr) : base(ptr)
         {
-
         }
         public void AddResourceProvider(ResourceProvider resProvider)
         {
-
-
         }
     }
     public class ResourceProvider
     {
-
     }
 }

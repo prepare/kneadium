@@ -1,27 +1,18 @@
 ﻿//2015-2016 MIT, WinterDev
-using System;
 
+using System;
 namespace LayoutFarm.CefBridge
 {
-
-
     public class CefClientApp
     {
         IntPtr clientAppPtr;
-
         static bool isInitWithProcessHandle;
         static readonly object sync_ = new object();
-
         MyCefCallback mxCallback;
         CefRenderProcessListener renderProcessListener;
-
-
-
         public CefClientApp(IntPtr processHandle, CefRenderProcessListener renderProcessListener)
         {
-
             this.renderProcessListener = renderProcessListener;
-
 #if DEBUG   
             //dev note: multiprocess debuging: renderer process debugger 
             //if you want to break in the renderer process
@@ -44,11 +35,9 @@ namespace LayoutFarm.CefBridge
                 if (!isInitWithProcessHandle)
                 {
                     isInitWithProcessHandle = true;
-
                     //1. register mx callback
                     this.mxCallback = new MyCefCallback(MxCallBack);
                     Cef3Binder.RegisterManagedCallBack(this.mxCallback, 3);
-
                     //2. create client app
                     this.clientAppPtr = Cef3Binder.MyCefCreateClientApp(processHandle);
                 }
@@ -68,7 +57,7 @@ namespace LayoutFarm.CefBridge
                             popupWin.Show();
                         });
                     }
-                    break; 
+                    break;
                 case MyCefMsg.CEF_MSG_ClientHandler_ShowDevTools:
                     {
                         //show dev tools
@@ -114,7 +103,6 @@ namespace LayoutFarm.CefBridge
                     break;
                 case MyCefMsg.CEF_MSG_RenderDelegate_OnWebKitInitialized:
                     {
-
                         if (renderProcessListener != null)
                         {
                             NativeCallArgs args = new NativeCallArgs(argsPtr);
@@ -125,5 +113,4 @@ namespace LayoutFarm.CefBridge
             }
         }
     }
-
 }

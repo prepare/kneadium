@@ -1,7 +1,7 @@
 ﻿//2016, MIT, WinterDev
+
 using System;
 using System.Windows.Forms;
-
 namespace LayoutFarm.CefBridge
 {
     class MyWindowControl : IWindowControl
@@ -9,11 +9,9 @@ namespace LayoutFarm.CefBridge
         Control control;
         MyWindowControl topLevelWindowControl;
         MyWindowControl parentControl;
-
         public MyWindowControl(System.Windows.Forms.Control control)
         {
             this.control = control;
-
         }
         IntPtr IWindowControl.GetHandle()
         {
@@ -36,7 +34,6 @@ namespace LayoutFarm.CefBridge
         {
             //TODO: review here again
             System.Windows.Forms.Control realTopLevelWindowControl = control.TopLevelControl;
-
             if (topLevelWindowControl == null ||
                 topLevelWindowControl.control != realTopLevelWindowControl)
             {
@@ -77,7 +74,6 @@ namespace LayoutFarm.CefBridge
         Form form;
         Timer tmClosingCheck;
         bool startClosing;
-
         public MyWindowForm(Form form)
             : base(form)
         {
@@ -87,7 +83,6 @@ namespace LayoutFarm.CefBridge
             tmClosingCheck = new Timer();
             tmClosingCheck.Interval = 200;
             tmClosingCheck.Tick += TmClosingCheck_Tick;
-
             form.FormClosing += Form_FormClosing;
             form.FormClosed += Form_FormClosed;
         }
@@ -124,7 +119,6 @@ namespace LayoutFarm.CefBridge
                     e.Cancel = true;
                 }
             }
-
         }
 
         void IWindowForm.Close()
@@ -140,6 +134,4 @@ namespace LayoutFarm.CefBridge
             }
         }
     }
-
-
 }
