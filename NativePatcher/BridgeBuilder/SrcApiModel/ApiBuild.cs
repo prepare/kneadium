@@ -145,10 +145,23 @@ namespace BridgeBuilder
                 stbuilder.Append("   ");
             }
 
-            //select proper native cef method             
-
+            //select proper native cef method    
+            string nativeMethodName = null;
+            if (retType.DotnetResolvedType.IsPrimitiveType)
+            {
+                var dnSimpleType = (DotNetResolvedSimpleType)retType.DotnetResolvedType;
+                nativeMethodName = "cefcall_" + dnSimpleType.Name;
+            }
+            else
+            {
+                nativeMethodName = "cefcall_ptr";
+            }
+            if (nativeMethodName == null)
+            {
+                throw new NotSupportedException();
+            }
             //native method name
-            stbuilder.Append("cef_call(1,1,this.nativePtr");
+            stbuilder.Append(nativeMethodName + "(1,1,this.nativePtr");
             for (int i = 0; i < j; ++i)
             {
                 stbuilder.Append(',');

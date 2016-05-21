@@ -18,11 +18,13 @@ namespace BridgeBuilder
         public DotNetResolvedSimpleType(SimpleType simpleType)
         {
             this.SimpleType = simpleType;
+            this.Name = simpleType.Name;
         }
+        public string Name { get; set; }
         public SimpleType SimpleType { get; set; }
         public override string ToString()
         {
-            return SimpleType.ToString();
+            return this.Name;
         }
     }
     class DotNetResolvedArrayType : DotNetResolvedTypeBase
@@ -80,7 +82,7 @@ namespace BridgeBuilder
         }
 
     }
-   
+
     class MethodParameterTxInfo
     {
         public MethodParameterTxInfo(string name)
@@ -133,7 +135,7 @@ namespace BridgeBuilder
             //make return type plan
 
             //1. return
-            MethodParameterTxInfo retTxInfo = new MethodParameterTxInfo(null) { IsMethodReturnParameter = true };             
+            MethodParameterTxInfo retTxInfo = new MethodParameterTxInfo(null) { IsMethodReturnParameter = true };
             AddMethodParameterTypeTxInfo(retTxInfo, metDecl.ReturnType.ResolvedType);
             metTx.ReturnPlan = retTxInfo;
 
@@ -155,7 +157,7 @@ namespace BridgeBuilder
 
             return metTx;
         }
-  
+
         void AddMethodParameterTypeTxInfo(MethodParameterTxInfo parPlan, TypeSymbol resolvedParType)
         {
             switch (resolvedParType.TypeSymbolKind)
