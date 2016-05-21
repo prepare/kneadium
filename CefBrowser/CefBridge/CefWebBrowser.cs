@@ -8,16 +8,12 @@ using System.ComponentModel;
 using System.Drawing;
 using System.Drawing.Drawing2D;
 using System.Windows.Forms;
-
-
 namespace LayoutFarm.CefBridge
 {
-
     public sealed class CefWebBrowserControl : Control
     {
-
         MyCefBrowser cefBrowser;
-        IWindowControl thisWindowControl; 
+        IWindowControl thisWindowControl;
         public CefWebBrowserControl()
         {
             SetStyle(
@@ -37,13 +33,11 @@ namespace LayoutFarm.CefBridge
                 | ControlStyles.UseTextForAccessibility
                 | ControlStyles.Opaque,
                 false);
-
             SetStyle(
                 ControlStyles.UserPaint
                 | ControlStyles.AllPaintingInWmPaint
                 | ControlStyles.Selectable,
                 true);
-
             thisWindowControl = new MyWindowControl(this);
         }
 
@@ -69,8 +63,8 @@ namespace LayoutFarm.CefBridge
             if (!DesignMode)
             {
                 //create cef browser when handle is created
-                
-                this.cefBrowser = new MyCefBrowser(thisWindowControl, 0, 0, 800, 500, "about:blank"); 
+
+                this.cefBrowser = new MyCefBrowser(thisWindowControl, 0, 0, 800, 500, "about:blank");
             }
         }
         private void CefBrowser_BrowserCreated(object sender, EventArgs e)
@@ -82,9 +76,8 @@ namespace LayoutFarm.CefBridge
         }
         public void SetInitUrl(string initUrl)
         {
-
         }
-        
+
         //internal void BrowserAfterCreated(CefBrowser browser)
         //{
         //    //_browser = browser;
@@ -176,6 +169,5 @@ namespace LayoutFarm.CefBridge
         //            );
         //    }
         //}
-
     }
 }

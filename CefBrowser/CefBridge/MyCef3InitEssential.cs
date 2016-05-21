@@ -1,10 +1,10 @@
 ﻿//2016, MIT, WinterDev
+
 using System;
 using System.Text;
 using System.Windows.Forms;
 using LayoutFarm.CefBridge;
 using System.Collections.Generic;
-
 namespace CefBridgeTest
 {
     /// <summary>
@@ -15,12 +15,9 @@ namespace CefBridgeTest
         static Form tinyForm;
         static MyCef3InitEssential initEssential;
         string libPath;
-
         private MyCef3InitEssential(string[] startArgs)
             : base(startArgs)
         {
-
-
         }
         public override bool Init()
         {
@@ -110,18 +107,15 @@ namespace CefBridgeTest
         }
         public override CefClientApp CreateClientApp()
         {
-
             var renderProcListener = new MyCefRendererProcessListener();
             var clientApp = new CefClientApp(
                 System.Diagnostics.Process.GetCurrentProcess().Handle,
                 renderProcListener);
-
             return clientApp;
         }
 
         public override IntPtr SetupPreRun()
         {
-
             //----------------------------------
             //2. as usual in WindowForm
             System.Threading.Thread.CurrentThread.CurrentCulture = new System.Globalization.CultureInfo("en-us");
@@ -137,13 +131,11 @@ namespace CefBridgeTest
                 tinyForm.Visible = false;
             }
             IntPtr handle = tinyForm.Handle;//force it create handle**** 
-
             //Cef3's message pump
             System.Windows.Forms.Application.Idle += (sender, e) =>
             {
                 DoMessageLoopWork();
             };
-
             return handle;
         }
         protected override void OnAfterShutdown()
@@ -161,7 +153,6 @@ namespace CefBridgeTest
                 return false;
             }
             initEssential.SetupPreRun();
-
             return true;
         }
         public static void ShutDownCef3()
@@ -172,7 +163,4 @@ namespace CefBridgeTest
             //---------------------------------- 
         }
     }
-
-
-
 }
