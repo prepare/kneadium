@@ -38,7 +38,7 @@ namespace LayoutFarm.CefBridge
         /// <summary>
         /// load and init cef library
         /// </summary>
-        public bool Init()
+        public virtual bool Init()
         {
             return Cef3Binder.LoadCef3(this);
         }
@@ -48,7 +48,7 @@ namespace LayoutFarm.CefBridge
             Cef3Binder.MyCefDoMessageLoopWork();
         }
         public abstract void AddLogMessage(string msg);
-         
+
         /// <summary>
         /// libcef.dll (original)
         /// </summary>

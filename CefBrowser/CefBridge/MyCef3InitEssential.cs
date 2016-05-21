@@ -21,6 +21,9 @@ namespace CefBridgeTest
             : base(startArgs)
         {
 
+        }
+        public override bool Init()
+        {
             //must check proper location of libcef, cefclient dir 
 #if DEBUG
             libPath = @"D:\projects\CefBridge\cef3_output\cefclient\Debug";
@@ -37,6 +40,7 @@ namespace CefBridgeTest
             //string commonAppDir = System.IO.Path.GetDirectoryName(Application.CommonAppDataPath);//skip version
 
 
+            return base.Init();
         }
 
         List<string> logMessages = new List<string>();
