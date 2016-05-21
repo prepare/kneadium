@@ -31,7 +31,6 @@ namespace LayoutFarm.CefBridge
                                     //in this version we stop here
                                     //ignore other ...
                                     //this not correct 
-
                                     i = j + 1;
                                 }
                                 break;

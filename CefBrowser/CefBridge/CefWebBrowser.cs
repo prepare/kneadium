@@ -17,8 +17,7 @@ namespace LayoutFarm.CefBridge
     {
 
         MyCefBrowser cefBrowser;
-        IWindowControl thisWindowControl;
-        CefUIProcessListener cefBrowserListener;
+        IWindowControl thisWindowControl; 
         public CefWebBrowserControl()
         {
             SetStyle(
@@ -70,12 +69,8 @@ namespace LayoutFarm.CefBridge
             if (!DesignMode)
             {
                 //create cef browser when handle is created
-                this.cefBrowser = new MyCefBrowser(thisWindowControl, 0, 0, 800, 500, "about:blank");
-
-                if (cefBrowserListener != null)
-                {
-                    cefBrowser.Listener = cefBrowserListener;
-                }
+                
+                this.cefBrowser = new MyCefBrowser(thisWindowControl, 0, 0, 800, 500, "about:blank"); 
             }
         }
         private void CefBrowser_BrowserCreated(object sender, EventArgs e)
@@ -89,19 +84,7 @@ namespace LayoutFarm.CefBridge
         {
 
         }
-        public CefUIProcessListener CefBrowserListener
-        {
-            get { return cefBrowserListener; }
-            set
-            {
-                cefBrowserListener = value;
-                if (cefBrowser != null)
-                {
-                    cefBrowser.Listener = value;
-                }
-            }
-        }
-
+        
         //internal void BrowserAfterCreated(CefBrowser browser)
         //{
         //    //_browser = browser;

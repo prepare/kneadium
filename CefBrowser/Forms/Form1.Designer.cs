@@ -193,8 +193,7 @@
             // 
             // cefWebBrowser1
             // 
-            this.cefWebBrowser1.BackColor = System.Drawing.Color.White;
-            this.cefWebBrowser1.CefBrowserListener = null;
+            this.cefWebBrowser1.BackColor = System.Drawing.Color.White; 
             this.cefWebBrowser1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.cefWebBrowser1.Location = new System.Drawing.Point(0, 0);
             this.cefWebBrowser1.Name = "cefWebBrowser1";
