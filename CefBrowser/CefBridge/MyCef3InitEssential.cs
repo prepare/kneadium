@@ -3,7 +3,7 @@ using System;
 using System.Text;
 using System.Windows.Forms;
 using LayoutFarm.CefBridge;
-
+using System.Collections.Generic;
 
 namespace CefBridgeTest
 {
@@ -20,6 +20,10 @@ namespace CefBridgeTest
             : base(startArgs)
         {
 
+
+        }
+        public override bool Init()
+        {
             //must check proper location of libcef, cefclient dir 
 #if DEBUG
             libPath = @"D:\projects\CefBridge\cef3_output\cefclient\Debug";
@@ -35,8 +39,14 @@ namespace CefBridgeTest
             //string currrentExecPath = System.IO.Path.GetDirectoryName(Application.ExecutablePath);
             //string commonAppDir = System.IO.Path.GetDirectoryName(Application.CommonAppDataPath);//skip version
 
-
+            return base.Init();
         }
+        List<string> logMessages = new List<string>();
+        public override void AddLogMessage(string msg)
+        {
+            logMessages.Add(msg);
+        }
+
         public override string GetLibCefFileName()
         {
             return libPath + "\\libcef.dll";
@@ -164,5 +174,5 @@ namespace CefBridgeTest
     }
 
 
-   
+
 }
