@@ -1,5 +1,6 @@
 ﻿//2015-2016 MIT, WinterDev
-using System; 
+
+using System;
 namespace LayoutFarm.CefBridge
 {
     public struct CefSchemeRegistrar
@@ -12,12 +13,12 @@ namespace LayoutFarm.CefBridge
         public void AddCustomScheme(
             string scheme_name,
             bool is_standard,
-            bool is_local, 
+            bool is_local,
             bool is_display_isolated)
         {
             //call to native 
 
-        } 
+        }
     }
 
     public class CustomSchemeAgent
@@ -40,9 +41,7 @@ namespace LayoutFarm.CefBridge
         IntPtr ptr;
         internal CefSchemeHandler()
         {
-
         }
-
     }
 
     public class CefSchemeFactory
@@ -50,9 +49,7 @@ namespace LayoutFarm.CefBridge
         IntPtr nativeSchemeFactory;
         internal CefSchemeFactory()
         {
-
         }
-
     }
 
     public struct CefRequest
@@ -61,7 +58,6 @@ namespace LayoutFarm.CefBridge
         internal CefRequest(IntPtr cefReqPtr)
         {
             this.cefReqPtr = cefReqPtr;
-
         }
         public string Url
         {
@@ -73,5 +69,4 @@ namespace LayoutFarm.CefBridge
             }
         }
     }
-
 }

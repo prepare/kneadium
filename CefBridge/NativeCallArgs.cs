@@ -1,12 +1,11 @@
 ﻿//2015-2016 MIT, WinterDev
+
 using System;
 using System.Collections.Generic;
 using System.Text;
 using System.Runtime.InteropServices;
-
 namespace LayoutFarm.CefBridge
 {
-
     [StructLayout(LayoutKind.Sequential)]
     public class QueryRequestArgs
     {
@@ -15,10 +14,8 @@ namespace LayoutFarm.CefBridge
         IntPtr _browser_ptr;
         IntPtr _frame_ptr;
         IntPtr _requestCefStringHolder; //native ptr to CefString
-
         long _query_id;
         bool _presistent;
-
         private QueryRequestArgs()
         {
         }
@@ -62,7 +59,6 @@ namespace LayoutFarm.CefBridge
     public struct NativeCallArgs
     {
         internal readonly IntPtr _argPtr;
-
         public NativeCallArgs(IntPtr argPtr)
         {
             _argPtr = argPtr;
@@ -82,7 +78,6 @@ namespace LayoutFarm.CefBridge
                 {
                     fixed (char* buffHead = &charBuff[0])
                     {
-
                         Cef3Binder.MyCefString_Read(v.Ptr, buffHead, BUFF_LEN, ref acutalLen);
                         if (acutalLen > BUFF_LEN)
                         {
@@ -100,7 +95,6 @@ namespace LayoutFarm.CefBridge
         public int GetArgAsInt32(int index)
         {
             JsValue v = Cef3Binder.MyCefNativeMetGetArgs(_argPtr, index);
-
             return v.I32;
         }
         public IntPtr GetArgAsNativePtr(int index)
@@ -158,7 +152,6 @@ namespace LayoutFarm.CefBridge
         }
         public unsafe void UnsafeSetOutput(int index, IntPtr unmangedMemPtr, int len)
         {
-
             Cef3Binder.MyCefMetArgs_SetResultAsByteBuffer(this._argPtr,
                 index,
                 unmangedMemPtr,
@@ -197,7 +190,6 @@ namespace LayoutFarm.CefBridge
         }
         public string ReadArgAsString(int index)
         {
-
             //Cef3Binder.MyCefJs_MetReadArgAsString(this.argPtr,index,)
             int acutalLen = 0;
             unsafe

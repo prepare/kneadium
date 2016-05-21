@@ -1,52 +1,38 @@
 ﻿//2015-2016 MIT, WinterDev
+
 using System;
 using System.Collections.Generic;
 using System.Text;
 using System.Runtime.InteropServices;
 using System.IO;
-
-
 namespace LayoutFarm.CefBridge
 {
-
-
     public class MyCefBrowser
     {
-
         public event EventHandler BrowserDisposed;
         IntPtr myCefBrowser;
         MyCefCallback managedCallback;
-
         string currentUrl = "about:blank";
         IWindowControl parentControl;
         IWindowForm topForm;
         IWindowForm devForm;
         MyCefDevWindow cefDevWindow;
         CefUIProcessListener browserProcessListener;
-
         static Dictionary<IntPtr, List<MyCefBrowser>> registeredWbControls =
                     new Dictionary<IntPtr, List<MyCefBrowser>>();
-
-
-
         public MyCefBrowser(IWindowControl parentControl,
             int x, int y, int w, int h, string initUrl)
         {
             this.currentUrl = initUrl;
             //create cef browser view handler  
             this.parentControl = parentControl;
-
-
             this.topForm = (IWindowForm)parentControl.GetTopLevelControl();
-
             //ui process ***
             this.managedCallback = new MyCefCallback(this.MxCallBack);
             //for specific browser 
             this.myCefBrowser = Cef3Binder.MyCefCreateMyWebBrowser(managedCallback);
-
             Cef3Binder.MyCefSetupBrowserHwnd(myCefBrowser, parentControl.GetHandle(), x, y, w, h, initUrl);
             Cef3Binder.MyCefEnableKeyIntercept(myCefBrowser, 1);
-
             //register mycef browser
             RegisterCefWbControl(this);
         }
@@ -91,12 +77,10 @@ namespace LayoutFarm.CefBridge
                     break;
                 case MyCefMsg.CEF_MSG_ClientHandler_OnBeforeContextMenu:
                     {
-
                     }
                     break;
                 case MyCefMsg.CEF_MSG_ClientHandler_OnBeforePopup:
                     {
-
                         NativeCallArgs args = new NativeCallArgs(argsPtr);
                         //open new form with specific url
                         string url = args.GetArgAsString(0);
@@ -106,7 +90,6 @@ namespace LayoutFarm.CefBridge
                             form.Show();
                             //and navigate to a specific url 
                         });
-
                     }
                     break;
                 case MyCefMsg.CEF_MSG_ClientHandler_OnConsoleMessage:
@@ -118,7 +101,6 @@ namespace LayoutFarm.CefBridge
                             NativeCallArgs args = new NativeCallArgs(argsPtr);
                             browserProcessListener.OnConsoleLog(args);
                         }
-
                     }
                     break;
                 case MyCefMsg.CEF_MSG_ClientHandler_ShowDevTools:
@@ -129,7 +111,6 @@ namespace LayoutFarm.CefBridge
                             IWindowForm newPopupForm = Cef3Binder.CreateNewBrowserWindow(800, 600);
                             newPopupForm.Show();
                         });
-
                     }
                     break;
                 case MyCefMsg.CEF_MSG_ClientHandler_OnLoadError:
@@ -160,7 +141,6 @@ namespace LayoutFarm.CefBridge
                     break;
                 case MyCefMsg.CEF_MSG_RequestUrlFilter2:
                     {
-
                         //filter url name
                         if (browserProcessListener != null)
                         {
@@ -189,7 +169,6 @@ namespace LayoutFarm.CefBridge
                             QueryRequestArgs reqArgs = QueryRequestArgs.CreateRequest(args.GetArgAsNativePtr(0));
                             browserProcessListener.OnCefQuery(args, reqArgs);
                         }
-
                     }
                     break;
                 //------------------------------
@@ -262,7 +241,6 @@ namespace LayoutFarm.CefBridge
             {
                 var args = new NativeCallArgs(nativePtr);
                 strCallback(args.GetArgAsString(0));
-
             });
             //Cef3Binder.MyCefDomGetTextWalk(this.myCefBrowser, strCallback);
         }
@@ -274,7 +252,6 @@ namespace LayoutFarm.CefBridge
                 var args = new NativeCallArgs(nativePtr);
                 strCallback(args.GetArgAsString(0));
             });
-
         }
         void InternalGetSource(MyCefCallback strCallback)
         {
@@ -317,7 +294,6 @@ namespace LayoutFarm.CefBridge
                 IWindowForm devForm = Cef3Binder.CreateBlankForm(800, 600);
                 devForm.Text = "Developer Tool";
                 devForm.Show();
-
                 Cef3Binder.MyCefShowDevTools(this.myCefBrowser,
                     cefDevWindow.GetMyCefBrowser(),
                     devForm.GetHandle());
@@ -378,9 +354,7 @@ namespace LayoutFarm.CefBridge
                 }
 
                 registeredWbControls.Remove(winHandle);
-
             }
-
         }
         public static bool IsReadyToClose(IntPtr nativeHandle)
         {
@@ -390,7 +364,6 @@ namespace LayoutFarm.CefBridge
                 return !registeredWbControls.ContainsKey(nativeHandle);
             }
         }
-
 
         //void OnUnmanagedPartCallBack(int id, IntPtr callBackArgs)
         //{
@@ -447,7 +420,5 @@ namespace LayoutFarm.CefBridge
         //        nativeArgs.SetOutput(1, dataBuffer);
         //    }
         //}
-
-        
-    } 
+    }
 }
