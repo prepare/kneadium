@@ -40,7 +40,14 @@ namespace LayoutFarm.CefBridge
                 true);
             thisWindowControl = new MyWindowControl(this);
         }
-
+        protected override void OnPreviewKeyDown(PreviewKeyDownEventArgs e)
+        {
+            base.OnPreviewKeyDown(e);
+            if (e.KeyCode == Keys.Up || e.KeyCode == Keys.Down || e.KeyCode == Keys.Left || e.KeyCode == Keys.Right)
+            {
+                e.IsInputKey = true;
+            }
+        }
         public void NavigateTo(string url)
         {
             this.cefBrowser.NavigateTo(url);
