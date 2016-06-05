@@ -113,16 +113,18 @@ bool ClientHandler::OnPreKeyEvent(CefRefPtr<CefBrowser> browser,
 //###_FIND_NEXT_LANDMARK 7
 CEF_REQUIRE_UI_THREAD();
 //###_APPEND_START 7
-if (this->mcallback_ && this->enableKeyIntercept != 0) {
-if (!event.focus_on_editable_field) {
+if (this->mcallback_) { 
+
+if (this->enableKeyIntercept != 0)
+{
 MethodArgs metArgs;
 memset(&metArgs, 0, sizeof(MethodArgs));
 metArgs.SetArgAsNativeObject(0, &event);
 this->mcallback_(CEF_MSG_ClientHandler_OnPreKeyEvent, &metArgs); //tmp
-int result = metArgs.ReadOutputAsInt32(0);
-
+int result = metArgs.ReadOutputAsInt32(0); 
 return result != 0;
 }
+return false;  
 }
 else {
 if (!event.focus_on_editable_field && event.windows_key_code == 0x20) {
