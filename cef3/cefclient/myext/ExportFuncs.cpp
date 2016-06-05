@@ -266,8 +266,9 @@ void MyCefSetInitSettings(CefSettings* cefSetting, int keyName, const wchar_t* v
 	case CEF_SETTINGS_UserDirPath:
 		CefString(&cefSetting->user_data_path) = value;
 		break;
+	
 	case CEF_SETTINGS_LocalDirPath:
-		CefString(&cefSetting->locales_dir_path) = value;
+		CefString(&cefSetting->locales_dir_path) = value; 
 		break;
 	case CEF_SETTINGS_IgnoreCertError:
 		cefSetting->ignore_certificate_errors = std::stoi(value);
@@ -275,6 +276,14 @@ void MyCefSetInitSettings(CefSettings* cefSetting, int keyName, const wchar_t* v
 	case CEF_SETTINGS_RemoteDebuggingPort: 
 		cefSetting->remote_debugging_port = std::stoi(value); 
 		break;
+	case CEF_SETTINGS_LogFile:
+		CefString(&cefSetting->log_file) = value;
+		break;
+	case CEF_SETTINGS_LogSeverity:
+		cefSetting->log_severity = (cef_log_severity_t)std::stoi(value);
+		break;
+
+
 	default:
 		break;
 	}

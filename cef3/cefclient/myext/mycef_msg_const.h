@@ -39,7 +39,12 @@ const int CEF_SETTINGS_BrowserSubProcessPath = 9;
 const int CEF_SETTINGS_CachePath = 10;
 const int CEF_SETTINGS_ResourcesDirPath = 11;
 const int CEF_SETTINGS_UserDirPath = 12;
+
+
 const int CEF_SETTINGS_LocalDirPath = 14;
 
 const int CEF_SETTINGS_IgnoreCertError = 15;
 const int CEF_SETTINGS_RemoteDebuggingPort = 17;
+
+const int CEF_SETTINGS_LogFile = 18;
+const int CEF_SETTINGS_LogSeverity = 19;
