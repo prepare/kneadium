@@ -61,6 +61,7 @@ namespace LayoutFarm.CefBridge
                         IsBrowserCreated = true;
                     }
                     break;
+               
                 case MyCefMsg.CEF_MSG_ClientHandler_NotifyBrowserClosed:
                     {
                         if (this.devForm != null)

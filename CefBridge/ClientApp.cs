@@ -43,6 +43,7 @@ namespace LayoutFarm.CefBridge
                 }
             }
         }
+
         void MxCallBack(int id, IntPtr argsPtr)
         {
             switch ((MyCefMsg)id)
@@ -66,6 +67,11 @@ namespace LayoutFarm.CefBridge
                             IWindowForm newPopupForm = Cef3Binder.CreateNewBrowserWindow(800, 600);
                             newPopupForm.Show();
                         });
+                    }
+                    break;
+                case MyCefMsg.CEF_MSG_CefSettings_Init:
+                    {   
+                        InitCefSettings(new CefSettings(argsPtr)); 
                     }
                     break;
                 case MyCefMsg.CEF_MSG_RenderDelegate_OnContextCreated:
@@ -111,6 +117,13 @@ namespace LayoutFarm.CefBridge
                     }
                     break;
             }
+        }
+         
+        protected void InitCefSettings(CefSettings cefSettings)
+        {
+#if DEBUG
+            cefSettings.SetCachePath("d:\\WImageTest\\cef_cache");
+#endif
         }
     }
 }

@@ -5,7 +5,13 @@
 #include "cefclient/browser/main_context_impl.h"
 
 #include "include/cef_parser.h"
+//###_START 0
 #include "cefclient/common/client_switches.h"
+//###_APPEND_START 0
+#include "cefclient/myext/ExportFuncs.h"
+#include "cefclient/myext/mycef_msg_const.h"
+//###_APPEND_STOP 0
+
 
 namespace client {
 
@@ -67,8 +73,14 @@ void MainContextImpl::PopulateSettings(CefSettings* settings) {
 
   if (command_line_->HasSwitch(switches::kOffScreenRenderingEnabled))
     settings->windowless_rendering_enabled = true;
-
+ //###_START 1
   settings->background_color = background_color_;
+  //###_APPEND_START 1
+  if (this->myMxCallback_) {
+	  this->myMxCallback_(CEF_MSG_CefSettings_Init,settings);
+  }
+  //###_APPEND_STOP 1
+
 }
 
 void MainContextImpl::PopulateBrowserSettings(CefBrowserSettings* settings) {

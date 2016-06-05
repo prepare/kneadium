@@ -54,6 +54,8 @@ namespace LayoutFarm.CefBridge
         CEF_MSG_ClientHandler_SetResourceManager = 140,
         CEF_MSG_RequestUrlFilter2 = 142,
         CEF_MSG_BinaryResouceProvider_OnRequest = 145,
+        CEF_MSG_CefSettings_Init = 150,
+
         CEF_MSG_RenderDelegate_OnWebKitInitialized = 201,
         CEF_MSG_RenderDelegate_OnContextCreated = 202,
         CEF_MSG_RenderDelegate_OnContextReleased = 203,
@@ -63,6 +65,16 @@ namespace LayoutFarm.CefBridge
         CEF_MSG_ClientHandler_NotifyAddress = 503,
     }
 
+    enum CefSettingsKey
+    {
+        CEF_SETTINGS_BrowserSubProcessPath = 9,
+        CEF_SETTINGS_CachePath = 10,
+        CEF_SETTINGS_ResourcesDirPath = 11,
+        CEF_SETTINGS_UserDirPath = 12,
+        CEF_SETTINGS_LocalDirPath = 14,
+        CEF_SETTINGS_IgnoreCertError = 15,
+        CEF_SETTINGS_RemoteDebuggingPort = 17
+    }
 
     static class Cef3Binder
     {
@@ -219,6 +231,11 @@ namespace LayoutFarm.CefBridge
         //7.
         [DllImport(CEF_CLIENT_DLL)]
         public static extern int MyCefShutDown();
+
+
+        //8.
+        [DllImport(CEF_CLIENT_DLL, CallingConvention = CallingConvention.Cdecl, CharSet = CharSet.Unicode)]
+        public static extern void MyCefSetInitSettings(IntPtr cefSetting, int keyName, string value);
         //--------------------------------------------------- 
 
         //part 2:
