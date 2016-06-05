@@ -36,13 +36,13 @@ int RegisterManagedCallBack(managed_callback mxCallback, int callbackKind)
 {
 
 	switch (callbackKind)
-	{  
-		case 3:
-		{
-			//set global mxCallback ***
-			myMxCallback_ = mxCallback;
-			return 0;
-		}
+	{
+	case 3:
+	{
+		//set global mxCallback ***
+		myMxCallback_ = mxCallback;
+		return 0;
+	}
 	}
 	return 1; //default
 }
@@ -80,11 +80,13 @@ client::ClientApp* MyCefCreateClientApp(HINSTANCE hInstance)
 	message_loop.reset(new MainMessageLoopMultithreadedWin);
 	else
 	message_loop.reset(new MainMessageLoopStd);*/
+
 	//------------------------------------------------------------------
 	//create main context here
+	client::init_main::SetManagedCallback(myMxCallback_);
+
 	mainContext = DllInitMain(hInstance, app);
-	//set global mx callback to mainContext 
-	mainContext->myMxCallback_ = myMxCallback_;
+
 
 	return app;
 }
@@ -246,6 +248,45 @@ void MyCefDomGetSourceWalk(MyBrowser* myBw, managed_callback strCallBack)
 	auto bwVisitor = new Visitor(bw);
 	bwVisitor->mcallback = strCallBack;
 	bw->GetMainFrame()->GetSource(bwVisitor);
+}
+
+
+void MyCefSetInitSettings(CefSettings* cefSetting, int keyName, const wchar_t* value) {
+	switch (keyName)
+	{
+	case CEF_SETTINGS_BrowserSubProcessPath:
+		CefString(&cefSetting->browser_subprocess_path) = value;
+		break;
+	case CEF_SETTINGS_CachePath:
+		CefString(&cefSetting->cache_path) = value;
+		break;
+	case CEF_SETTINGS_ResourcesDirPath:
+		CefString(&cefSetting->resources_dir_path) = value;
+		break;
+	case CEF_SETTINGS_UserDirPath:
+		CefString(&cefSetting->user_data_path) = value;
+		break;
+	
+	case CEF_SETTINGS_LocalDirPath:
+		CefString(&cefSetting->locales_dir_path) = value; 
+		break;
+	case CEF_SETTINGS_IgnoreCertError:
+		cefSetting->ignore_certificate_errors = std::stoi(value);
+		break;
+	case CEF_SETTINGS_RemoteDebuggingPort: 
+		cefSetting->remote_debugging_port = std::stoi(value); 
+		break;
+	case CEF_SETTINGS_LogFile:
+		CefString(&cefSetting->log_file) = value;
+		break;
+	case CEF_SETTINGS_LogSeverity:
+		cefSetting->log_severity = (cef_log_severity_t)std::stoi(value);
+		break;
+
+
+	default:
+		break;
+	}
 }
 //--------------------------------------------------------------------------------------------------
 //part 2:
@@ -692,7 +733,7 @@ void HereOnRenderer(const managed_callback callback, MethodArgs* args)
 {
 	callback(CEF_MSG_HereOnRenderer, args);
 }
- 
+
 MY_DLL_EXPORT void DisposeMethodArgs(MethodArgs* args) {
 	delete args;
 }
