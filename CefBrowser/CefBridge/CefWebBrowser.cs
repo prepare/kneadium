@@ -8,17 +8,13 @@ using System.ComponentModel;
 using System.Drawing;
 using System.Drawing.Drawing2D;
 using System.Windows.Forms;
-
-
 namespace LayoutFarm.CefBridge
 {
-
     public sealed class CefWebBrowserControl : Control
     {
-
         MyCefBrowser cefBrowser;
         IWindowControl thisWindowControl;
-        CefUIProcessListener cefBrowserListener;
+        public event EventHandler BrowserReady;
         public CefWebBrowserControl()
         {
             SetStyle(
@@ -38,19 +34,32 @@ namespace LayoutFarm.CefBridge
                 | ControlStyles.UseTextForAccessibility
                 | ControlStyles.Opaque,
                 false);
-
             SetStyle(
                 ControlStyles.UserPaint
                 | ControlStyles.AllPaintingInWmPaint
                 | ControlStyles.Selectable,
                 true);
-
             thisWindowControl = new MyWindowControl(this);
         }
-
+        protected override void OnPreviewKeyDown(PreviewKeyDownEventArgs e)
+        {
+            base.OnPreviewKeyDown(e);
+            switch (e.KeyCode)
+            {
+                case Keys.Up:
+                case Keys.Down:
+                case Keys.Left:
+                case Keys.Right:
+                    e.IsInputKey = true;
+                    break;
+            }
+        }
         public void NavigateTo(string url)
         {
-            this.cefBrowser.NavigateTo(url);
+            if (cefBrowser != null)
+            {
+                this.cefBrowser.NavigateTo(url);
+            }
         }
         public MyCefBrowser Agent
         {
@@ -69,130 +78,37 @@ namespace LayoutFarm.CefBridge
             base.OnHandleCreated(e);
             if (!DesignMode)
             {
-                //create cef browser when handle is created
-                this.cefBrowser = new MyCefBrowser(thisWindowControl, 0, 0, 800, 500, "about:blank");
-
-                if (cefBrowserListener != null)
-                {
-                    cefBrowser.Listener = cefBrowserListener;
-                }
+                InitWebBrowserControl();
             }
         }
-        private void CefBrowser_BrowserCreated(object sender, EventArgs e)
+        void InitWebBrowserControl()
         {
-            if (string.IsNullOrEmpty(cefBrowser.CurrentUrl))
+            //---------
+            //create timer for notify when browser is ready
+            var bwReadyTimer = new Timer();
+            bwReadyTimer.Interval = 50;//ms
+            bwReadyTimer.Tick += (s, e1) =>
             {
-                cefBrowser.NavigateTo(cefBrowser.CurrentUrl);
-            }
-        }
-        public void SetInitUrl(string initUrl)
-        {
-
-        }
-        public CefUIProcessListener CefBrowserListener
-        {
-            get { return cefBrowserListener; }
-            set
-            {
-                cefBrowserListener = value;
-                if (cefBrowser != null)
+                if (this.IsHandleCreated && this.Agent.IsBrowserCreated)
                 {
-                    cefBrowser.Listener = value;
+                    bwReadyTimer.Enabled = false;//stop timer
+                    if (cefBrowser != null)
+                    {
+                        cefBrowser.SetSize(this.Width, this.Height);
+                    }
+
+                    if (BrowserReady != null)
+                    {
+                        BrowserReady(this, EventArgs.Empty);
+                    }
+                    bwReadyTimer.Dispose();
+                    bwReadyTimer = null;
                 }
-            }
+            };
+            bwReadyTimer.Enabled = true;
+            //---------
+            //create cef browser when handle is created 
+            this.cefBrowser = new MyCefBrowser(thisWindowControl, 0, 0, 800, 500, "about:blank");
         }
-
-        //internal void BrowserAfterCreated(CefBrowser browser)
-        //{
-        //    //_browser = browser;
-        //    //_browserWindowHandle = _browser.GetHost().GetWindowHandle();
-        //    //ResizeWindow(_browserWindowHandle, Width, Height);
-        //}
-
-        //internal void OnTitleChanged(string title)
-        //{
-        //    Title = title;
-
-        //    var handler = TitleChanged;
-        //    if (handler != null) handler(this, EventArgs.Empty);
-        //}
-
-        //public string Title { get; private set; }
-
-        //public event EventHandler TitleChanged;
-
-        //internal void OnAddressChanged(string address)
-        //{
-        //    Address = address;
-
-        //    var handler = AddressChanged;
-        //    if (handler != null) handler(this, EventArgs.Empty);
-        //}
-
-        //public string Address { get; private set; }
-
-        //public event EventHandler AddressChanged;
-
-        //internal void OnStatusMessage(string value)
-        //{
-        //    var handler = StatusMessage;
-        //    if (handler != null) handler(this, new StatusMessageEventArgs(value));
-        //}
-
-        //public event EventHandler<StatusMessageEventArgs> StatusMessage;
-
-        //protected override void OnPaint(PaintEventArgs e)
-        //{
-
-        //    base.OnPaint(e);
-        //    e.Graphics.DrawRectangle(Pens.Red, new Rectangle(0, 0, 20, 20));
-        //}
-        //protected override void OnResize(EventArgs e)
-        //{
-        //    base.OnResize(e);
-
-        //    //var form = TopLevelControl as Form;
-        //    //if (form != null && form.WindowState != FormWindowState.Minimized)
-        //    //{
-        //    //    ResizeWindow(_browserWindowHandle, Width, Height);
-        //    //}
-        //}
-
-        //private void PaintInDesignMode(object sender, PaintEventArgs e)
-        //{
-        //    var width = this.Width;
-        //    var height = this.Height;
-        //    if (width > 1 && height > 1)
-        //    {
-        //        var brush = new SolidBrush(this.ForeColor);
-        //        var pen = new Pen(this.ForeColor);
-        //        pen.DashStyle = DashStyle.Dash;
-
-        //        e.Graphics.DrawRectangle(pen, 0, 0, width - 1, height - 1);
-
-        //        var fontHeight = (int)(this.Font.GetHeight(e.Graphics) * 1.25);
-
-        //        var x = 3;
-        //        var y = 3;
-
-        //        e.Graphics.DrawString("CefWebBrowser", Font, brush, x, y + (0 * fontHeight));
-        //        e.Graphics.DrawString(string.Format("StartUrl: {0}", StartUrl), Font, brush, x, y + (1 * fontHeight));
-
-        //        brush.Dispose();
-        //        pen.Dispose();
-        //    }
-        //}
-
-        //private static void ResizeWindow(IntPtr handle, int width, int height)
-        //{
-        //    if (handle != IntPtr.Zero)
-        //    {
-        //        NativeMethods.SetWindowPos(handle, IntPtr.Zero,
-        //            0, 0, width, height,
-        //            SetWindowPosFlags.NoMove | SetWindowPosFlags.NoZOrder
-        //            );
-        //    }
-        //}
-
     }
 }

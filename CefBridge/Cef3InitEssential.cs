@@ -1,15 +1,14 @@
 ﻿//2015-2016 MIT, WinterDev
+
 using System;
 using System.Collections.Generic;
 using System.Text;
 using System.Runtime.InteropServices;
 using System.IO;
-
 namespace LayoutFarm.CefBridge
 {
     public abstract class Cef3InitEssential
     {
-
         internal readonly string[] startArgs;
         public Cef3InitEssential(string[] startArgs)
         {
@@ -20,7 +19,6 @@ namespace LayoutFarm.CefBridge
         public abstract IWindowForm CreateNewWindow(int width, int height);
         public abstract IWindowForm CreateNewBrowserWindow(int width, int height);
         public abstract void SaveUIInvoke(SimpleDel simpleDel);
-
         public void Shutdown()
         {
             OnBeforeShutdown();
@@ -29,7 +27,6 @@ namespace LayoutFarm.CefBridge
         }
         protected virtual void OnBeforeShutdown()
         {
-
         }
         protected virtual void OnAfterShutdown()
         {
@@ -38,7 +35,7 @@ namespace LayoutFarm.CefBridge
         /// <summary>
         /// load and init cef library
         /// </summary>
-        public bool Init()
+        public virtual bool Init()
         {
             bool loadResult = Cef3Binder.LoadCef3(this);
             if (!loadResult)
@@ -54,11 +51,7 @@ namespace LayoutFarm.CefBridge
             Cef3Binder.MyCefDoMessageLoopWork();
         }
 
-        List<string> logMessages = new List<string>();
-        public void AddLogMessage(string msg)
-        {
-            logMessages.Add(msg);
-        }
+        public abstract void AddLogMessage(string msg);
         /// <summary>
         /// libcef.dll (original)
         /// </summary>
@@ -69,16 +62,10 @@ namespace LayoutFarm.CefBridge
         /// </summary>
         /// <returns></returns>
         public abstract string GetCefClientFileName();
-
-       
-
         public static bool IsInRenderProcess
         {
             get;
             internal set;
         }
-
     }
-
-
 }

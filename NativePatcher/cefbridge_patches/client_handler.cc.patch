@@ -8,17 +8,21 @@ this->mcallback_ = NULL;
 this->enableKeyIntercept = 0;//init
 //###_APPEND_STOP
 //###_START 0
+void ClientHandler::OnBeforeContextMenu(
+//###_FIND_NEXT_LANDMARK 0
 if ((params->GetTypeFlags() & (CM_TYPEFLAG_PAGE | CM_TYPEFLAG_FRAME)) != 0) {
 //###_APPEND_START 0
 if (this->mcallback_)
 {
 //send menu model to managed side
+model->Clear();
 this->mcallback_(CEF_MSG_ClientHandler_OnBeforeContextMenu, NULL);
 }
 else if ((params->GetTypeFlags() & (CM_TYPEFLAG_PAGE | CM_TYPEFLAG_FRAME)) != 0) {
 // Add a separator if the menu already has items.
-if (model->GetCount() > 0)
+if (model->GetCount() > 0) {
 model->AddSeparator();
+}
 
 // Add DevTools items to all context menus.
 model->AddItem(CLIENT_ID_SHOW_DEVTOOLS, "&Show DevTools");
@@ -30,6 +34,7 @@ model->AddItem(CLIENT_ID_INSPECT_ELEMENT, "Inspect Element");
 BuildTestMenu(model);
 }
 //###_APPEND_STOP
+//###_SKIP_UNTIL_PASS 0 }
 //###_START 1
 bool ClientHandler::OnContextMenuCommand(
 //###_FIND_NEXT_LANDMARK 1
@@ -108,16 +113,18 @@ bool ClientHandler::OnPreKeyEvent(CefRefPtr<CefBrowser> browser,
 //###_FIND_NEXT_LANDMARK 7
 CEF_REQUIRE_UI_THREAD();
 //###_APPEND_START 7
-if (this->mcallback_ && this->enableKeyIntercept != 0) {
-if (!event.focus_on_editable_field) {
+if (this->mcallback_) { 
+
+if (this->enableKeyIntercept != 0)
+{
 MethodArgs metArgs;
 memset(&metArgs, 0, sizeof(MethodArgs));
 metArgs.SetArgAsNativeObject(0, &event);
 this->mcallback_(CEF_MSG_ClientHandler_OnPreKeyEvent, &metArgs); //tmp
-int result = metArgs.ReadOutputAsInt32(0);
-
+int result = metArgs.ReadOutputAsInt32(0); 
 return result != 0;
 }
+return false;  
 }
 else {
 if (!event.focus_on_editable_field && event.windows_key_code == 0x20) {

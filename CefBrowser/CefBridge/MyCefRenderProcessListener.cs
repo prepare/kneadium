@@ -1,9 +1,9 @@
 ﻿//2016, MIT, WinterDev
+
 using System;
 using System.Text;
 using System.Windows.Forms;
 using LayoutFarm.CefBridge;
-
 namespace CefBridgeTest
 {
     class MyCefRendererProcessListener : CefRenderProcessListener
@@ -22,7 +22,6 @@ namespace CefBridgeTest
                        //"    return myfunc();" +
                        "  };" +
                        "})();";
-
             //test regsiter extension
             CefBinder2.RegisterCefExtension("v8/test", extensionCode);
         }
@@ -35,10 +34,9 @@ namespace CefBridgeTest
             Cef3Func func = Cef3Func.CreateFunc("test001", funcHandler);
             cefV8Global.Set("test001", func);
         }
-         
+
         void Test001(int id, IntPtr argsPtr)
         {
-
 #if DEBUG
             //if (Cef3Binder.s_dbugIsRendererProcess)
             //{
@@ -47,7 +45,6 @@ namespace CefBridgeTest
 #endif
             var nativeCallArgs = new NativeCallArgs(argsPtr);
             nativeCallArgs.SetOutput(0, "hello from managed side !");
-
         }
     }
 }
