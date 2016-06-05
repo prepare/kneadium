@@ -43,9 +43,14 @@ namespace LayoutFarm.CefBridge
         protected override void OnPreviewKeyDown(PreviewKeyDownEventArgs e)
         {
             base.OnPreviewKeyDown(e);
-            if (e.KeyCode == Keys.Up || e.KeyCode == Keys.Down || e.KeyCode == Keys.Left || e.KeyCode == Keys.Right)
+            switch (e.KeyCode)
             {
-                e.IsInputKey = true;
+                case Keys.Up:
+                case Keys.Down:
+                case Keys.Left:
+                case Keys.Right:
+                    e.IsInputKey = true;
+                    break;
             }
         }
         public void NavigateTo(string url)
