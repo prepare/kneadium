@@ -126,6 +126,9 @@ namespace CefBridgeTest
         {
             this.cefWebBrowser1.Focus();
             this.cefWebBrowser1.NavigateTo("http://localhost/index.html");
+
+            this.cefWebBrowser2.Focus();
+            this.cefWebBrowser2.NavigateTo("https://www.google.com");
         }
     }
 }
