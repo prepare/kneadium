@@ -70,9 +70,16 @@ namespace LayoutFarm.CefBridge
                     }
                     break;
                 case MyCefMsg.CEF_MSG_CefSettings_Init:
-                    {   
-                        InitCefSettings(new CefSettings(argsPtr)); 
+                    {
+                        InitCefSettings(new CefSettings(argsPtr));
                     }
+                    break;
+                case MyCefMsg.CEF_MSG_MainContext_GetConsoleLogPath:
+                    {
+
+                        NativeCallArgs nat1 = new NativeCallArgs(argsPtr);
+                        nat1.SetOutputAsAsciiString(0, "d:\\WImageTest\\cef_console.log");
+                    } 
                     break;
                 case MyCefMsg.CEF_MSG_RenderDelegate_OnContextCreated:
                     {
@@ -118,7 +125,7 @@ namespace LayoutFarm.CefBridge
                     break;
             }
         }
-         
+
         protected void InitCefSettings(CefSettings cefSettings)
         {
 #if DEBUG

@@ -63,8 +63,10 @@ namespace LayoutFarm.CefBridge
         CEF_MSG_ClientHandler_SetResourceManager = 140,
         CEF_MSG_RequestUrlFilter2 = 142,
         CEF_MSG_BinaryResouceProvider_OnRequest = 145,
+        //
         CEF_MSG_CefSettings_Init = 150,
-
+        CEF_MSG_MainContext_GetConsoleLogPath =151,
+        //
         CEF_MSG_RenderDelegate_OnWebKitInitialized = 201,
         CEF_MSG_RenderDelegate_OnContextCreated = 202,
         CEF_MSG_RenderDelegate_OnContextReleased = 203,

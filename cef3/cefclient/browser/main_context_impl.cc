@@ -17,9 +17,13 @@ namespace client {
 
 namespace {
 
+//###_START 1
 // The default URL to load in a browser window.
-const char kDefaultUrl[] = "http://www.google.com";
-
+//###_APPEND_START 1
+const char kDefaultUrl[] = "about:blank";
+//const char kDefaultUrl[] = "http://www.google.com";
+//###_APPEND_STOP 1
+//###_SKIP_UNTIL_PASS 1 }  // namespace
 }  // namespace
 
 MainContextImpl::MainContextImpl(CefRefPtr<CefCommandLine> command_line,
@@ -50,8 +54,23 @@ MainContextImpl::~MainContextImpl() {
   DCHECK(!initialized_ || shutdown_);
 }
 
+//###_START 2
 std::string MainContextImpl::GetConsoleLogPath() {
-  return GetAppWorkingDirectory() + "console.log";
+//###_APPEND_START 2
+	if (this->myMxCallback_) {
+		
+		MethodArgs args; 
+		memset(&args, 0, sizeof(MethodArgs));
+		this->myMxCallback_(CEF_MSG_MainContext_GetConsoleLogPath, &args);
+		CefString cefStr(args.ReadOutputAsString(0));
+		return cefStr;
+	}
+	else {
+		return GetAppWorkingDirectory() + "console.log";
+	}
+	
+//###_APPEND_STOP 2
+//###_SKIP_UNTIL_PASS 2 } 
 }
 
 std::string MainContextImpl::GetMainURL() {
