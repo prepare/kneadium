@@ -400,7 +400,7 @@ callback->Continue(false); //I cancel all :)
 //###_APPEND_STOP
 //###_SKIP_UNTIL_AND_ACCEPT 3
   return true;
-}
+} 
 
 //###_START 7
 bool ClientHandler::OnPreKeyEvent(CefRefPtr<CefBrowser> browser,
@@ -410,16 +410,18 @@ bool ClientHandler::OnPreKeyEvent(CefRefPtr<CefBrowser> browser,
 //###_FIND_NEXT_LANDMARK 7
   CEF_REQUIRE_UI_THREAD();
 //###_APPEND_START 7
-if (this->mcallback_ && this->enableKeyIntercept != 0) {
-if (!event.focus_on_editable_field) {
-MethodArgs metArgs;
-memset(&metArgs, 0, sizeof(MethodArgs));
-metArgs.SetArgAsNativeObject(0, &event);
-this->mcallback_(CEF_MSG_ClientHandler_OnPreKeyEvent, &metArgs); //tmp
-int result = metArgs.ReadOutputAsInt32(0);
+if (this->mcallback_) { 
  
-return result != 0;
-}
+	 if (this->enableKeyIntercept != 0)
+	 {
+		MethodArgs metArgs;
+		memset(&metArgs, 0, sizeof(MethodArgs));
+		metArgs.SetArgAsNativeObject(0, &event);
+		this->mcallback_(CEF_MSG_ClientHandler_OnPreKeyEvent, &metArgs); //tmp
+		int result = metArgs.ReadOutputAsInt32(0); 
+		return result != 0;
+	 }
+	 return false;  
 }
 else {
 if (!event.focus_on_editable_field && event.windows_key_code == 0x20) {
