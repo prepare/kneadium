@@ -142,7 +142,7 @@ CefRefPtr<CefRequestContext> RootWindowManager::GetRequestContext(
     RootWindow* root_window) {
   REQUIRE_MAIN_THREAD();
    
-
+  
   if (request_context_per_browser_) {
     // Create a new request context for each browser.
     CefRequestContextSettings settings;

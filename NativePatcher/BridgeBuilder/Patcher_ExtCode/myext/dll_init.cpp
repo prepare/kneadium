@@ -87,7 +87,7 @@ namespace client {
 			// Register scheme handlers.
 			test_runner::RegisterSchemeHandlers();
 
-			// Create the first window.
+
 			context->GetRootWindowManager()->CreateRootWindow(
 				true,             // Show controls.
 				settings.windowless_rendering_enabled ? true : false,
@@ -108,10 +108,10 @@ namespace client {
 			return result;
 		}
 
-		void SetManagedCallback(managed_callback callback){
+		void SetManagedCallback(managed_callback callback) {
 			m_callback = callback;
 		}
-	
+
 		client::MainContextImpl* InitDllApp(HINSTANCE hInstance, CefRefPtr<CefApp> app) {
 			CefMainArgs main_args(hInstance);
 
@@ -122,10 +122,7 @@ namespace client {
 			// for sandbox support on Windows. See cef_sandbox_win.h for complete details.
 			CefScopedSandboxInfo scoped_sandbox;
 			sandbox_info = scoped_sandbox.sandbox_info();
-#endif
-
-		
-
+#endif  
 			//// Create a ClientApp of the correct type.
 			//CefRefPtr<CefApp> app;
 			/*ClientApp::ProcessType process_type = ClientApp::GetProcessType(command_line);
@@ -158,13 +155,13 @@ namespace client {
 			//setting 
 			CefSettings settings;
 			settings.log_severity = (cef_log_severity_t)99;//disable log
-            //-------------------------------------------------------------------------------------
+			//-------------------------------------------------------------------------------------
 #if !defined(CEF_USE_SANDBOX)
 			settings.no_sandbox = true;
 #endif
 			// Populate the settings based on command line arguments.		    
 
-			
+
 			mainContext->PopulateSettings(&settings);
 			//-------------------------------------------------------------------------------------
 
@@ -176,8 +173,8 @@ namespace client {
 			  message_loop.reset(new MainMessageLoopMultithreadedWin);
 			else
 			  message_loop.reset(new MainMessageLoopStd);
-		    */
-		    //Initialize CEF.
+			*/
+			//Initialize CEF.
 			mainContext->Initialize(main_args, settings, app, sandbox_info);
 
 			// Register scheme handlers.

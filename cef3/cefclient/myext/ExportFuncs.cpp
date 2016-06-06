@@ -100,12 +100,7 @@ MY_DLL_EXPORT void MyCefEnableKeyIntercept(MyBrowser* myBw, int enable) {
 //4. 
 MyBrowser* MyCefCreateMyWebBrowser(managed_callback callback)
 {
-	/*const CefRect r(0,0,400,400);
-	CefBrowserSettings settings;
-	client::MainContext::Get()->PopulateBrowserSettings(&settings);
-	*/
-	/*auto rr1= mainContext->GetRootWindowManager()->CreateRootWindow(false,false,r,"");*/
-
+	 
 	//create root window handler?
 	auto myBw = new MyBrowser();
 	auto rootWindow = new client::RootWindowWin();
@@ -115,8 +110,7 @@ MyBrowser* MyCefCreateMyWebBrowser(managed_callback callback)
 	//TODO: review here again, don't store at this module!
 	auto bwWindow = new client::BrowserWindowStdWin(rootWindow, "");
 	myBw->bwWindow = bwWindow;
-
-
+	
 	//2. browser event handler
 	auto hh = bwWindow->GetClientHandler();//  new client::ClientHandlerStd(bwWindow,"");
 	hh->MyCefSetManagedCallBack(callback);
@@ -124,18 +118,11 @@ MyBrowser* MyCefCreateMyWebBrowser(managed_callback callback)
 	return myBw;
 }
 //5.
-int MyCefSetupBrowserHwnd(MyBrowser* myBw, HWND surfaceHwnd, int x, int y, int w, int h, const wchar_t* url)
+int MyCefSetupBrowserHwnd(MyBrowser* myBw, HWND surfaceHwnd, int x, int y, int w, int h, const wchar_t* url, CefRequestContext* cefRefContext)
 {
 
 	// Information used when creating the native window.
-	CefWindowInfo window_info;
-	//#if defined(OS_WIN)
-	//  // On Windows we need to specify certain flags that will be passed to
-	//  // CreateWindowEx().
-	//  window_info.SetAsPopup(NULL, "cefsimple");
-	//  
-	//#endif
-
+	CefWindowInfo window_info; 
 	RECT r;
 	r.left = x;
 	r.top = y;
@@ -152,21 +139,15 @@ int MyCefSetupBrowserHwnd(MyBrowser* myBw, HWND surfaceHwnd, int x, int y, int w
 
 	// Specify CEF browser settings here.
 	CefBrowserSettings browser_settings;
+	//populate browser setting here
+	memset(&browser_settings, 0, sizeof(CefBrowserSettings));
 
-	//std::string url;
-
-	// Check if a "--url=" value was provided via the command-line. If so, use
-	// that instead of the default URL.
-	/*CefRefPtr<CefCommandLine> command_line =
-	CefCommandLine::GetGlobalCommandLine();
-	url = command_line->GetSwitchValue("url");
-	if (url.empty())
-	url = "https://cefbuilds.com";*/
-
-	// Create the first browser window.
-	//bool result= CefBrowserHost::CreateBrowser(window_info, handler.get(), url,                                browser_settings, NULL);
-
-	bool result = CefBrowserHost::CreateBrowser(window_info, clientHandler, url, browser_settings, NULL);
+	bool result = CefBrowserHost::CreateBrowser(window_info,
+		clientHandler, 
+		url,
+		browser_settings, 
+		CefRefPtr<CefRequestContext>(cefRefContext));
+	
 	if (result) {
 		return 1;
 	}
