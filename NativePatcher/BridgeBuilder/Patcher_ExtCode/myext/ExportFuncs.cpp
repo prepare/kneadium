@@ -200,6 +200,7 @@ void MyCefDomGetTextWalk(MyBrowser* myBw, managed_callback strCallBack)
 	auto bwVisitor = new Visitor(bw);
 	bwVisitor->mcallback = strCallBack;
 	bw->GetMainFrame()->GetText(bwVisitor);
+	delete bwVisitor;
 }
 void MyCefDomGetSourceWalk(MyBrowser* myBw, managed_callback strCallBack)
 {
@@ -229,6 +230,7 @@ void MyCefDomGetSourceWalk(MyBrowser* myBw, managed_callback strCallBack)
 	auto bwVisitor = new Visitor(bw);
 	bwVisitor->mcallback = strCallBack;
 	bw->GetMainFrame()->GetSource(bwVisitor);
+	delete bwVisitor;
 }
 
 
