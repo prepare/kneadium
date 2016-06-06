@@ -31,7 +31,7 @@ namespace LayoutFarm.CefBridge
             this.managedCallback = new MyCefCallback(this.MxCallBack);
             //for specific browser 
             this.myCefBrowser = Cef3Binder.MyCefCreateMyWebBrowser(managedCallback);
-            Cef3Binder.MyCefSetupBrowserHwnd(myCefBrowser, parentControl.GetHandle(), x, y, w, h, initUrl);
+            Cef3Binder.MyCefSetupBrowserHwnd(myCefBrowser, parentControl.GetHandle(), x, y, w, h, initUrl, IntPtr.Zero);
             Cef3Binder.MyCefEnableKeyIntercept(myCefBrowser, 1);
             //register mycef browser
             RegisterCefWbControl(this);
@@ -61,6 +61,7 @@ namespace LayoutFarm.CefBridge
                         IsBrowserCreated = true;
                     }
                     break;
+
                 case MyCefMsg.CEF_MSG_ClientHandler_NotifyBrowserClosed:
                     {
                         if (this.devForm != null)
