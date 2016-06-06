@@ -2,7 +2,9 @@
 // reserved. Use of this source code is governed by a BSD-style license that
 // can be found in the LICENSE file.
 
-#include "cefclient/browser/window_test.h"
+#include "cefclient/browser/window_test_runner_win.h"
+
+#include "cefclient/browser/main_message_loop.h"
 
 namespace client {
 namespace window_test {
@@ -25,11 +27,11 @@ void Toggle(HWND root_hwnd, UINT nCmdShow) {
     ::ShowWindow(root_hwnd, nCmdShow);
 }
 
-}  // namespace
-
-void SetPos(CefRefPtr<CefBrowser> browser,
-            int x, int y, int width, int height) {
+void SetPosImpl(CefRefPtr<CefBrowser> browser,
+                int x, int y, int width, int height) {
   HWND root_hwnd = GetRootHwnd(browser);
+  if (!root_hwnd)
+    return;
 
   // Retrieve current window placement information.
   WINDOWPLACEMENT placement;
@@ -49,7 +51,7 @@ void SetPos(CefRefPtr<CefBrowser> browser,
       info.rcWork.right - info.rcWork.left,
       info.rcWork.bottom - info.rcWork.top);
   CefRect window_rect(x, y, width, height);
-  ModifyBounds(display_rect, window_rect);
+  WindowTestRunner::ModifyBounds(display_rect, window_rect);
 
   if (placement.showCmd == SW_MINIMIZE || placement.showCmd == SW_MAXIMIZE) {
     // The window is currently minimized or maximized. Restore it to the desired
@@ -67,16 +69,67 @@ void SetPos(CefRefPtr<CefBrowser> browser,
   }
 }
 
-void Minimize(CefRefPtr<CefBrowser> browser) {
-  Toggle(GetRootHwnd(browser), SW_MINIMIZE);
+void MinimizeImpl(CefRefPtr<CefBrowser> browser) {
+  HWND root_hwnd = GetRootHwnd(browser);
+  if (!root_hwnd)
+    return;
+  Toggle(root_hwnd, SW_MINIMIZE);
 }
 
-void Maximize(CefRefPtr<CefBrowser> browser) {
-  Toggle(GetRootHwnd(browser), SW_MAXIMIZE);
+void MaximizeImpl(CefRefPtr<CefBrowser> browser) {
+  HWND root_hwnd = GetRootHwnd(browser);
+  if (!root_hwnd)
+    return;
+  Toggle(root_hwnd, SW_MAXIMIZE);
 }
 
-void Restore(CefRefPtr<CefBrowser> browser) {
-  ::ShowWindow(GetRootHwnd(browser), SW_RESTORE);
+void RestoreImpl(CefRefPtr<CefBrowser> browser) {
+  HWND root_hwnd = GetRootHwnd(browser);
+  if (!root_hwnd)
+    return;
+  ::ShowWindow(root_hwnd, SW_RESTORE);
+}
+
+}  // namespace
+
+WindowTestRunnerWin::WindowTestRunnerWin() {
+}
+
+void WindowTestRunnerWin::SetPos(CefRefPtr<CefBrowser> browser,
+                                 int x, int y, int width, int height) {
+  if (CURRENTLY_ON_MAIN_THREAD()) {
+    SetPosImpl(browser, x, y, width, height);
+  } else {
+    // Execute on the main application thread.
+    MAIN_POST_CLOSURE(base::Bind(SetPosImpl, browser, x, y, width, height));
+  }
+}
+
+void WindowTestRunnerWin::Minimize(CefRefPtr<CefBrowser> browser) {
+  if (CURRENTLY_ON_MAIN_THREAD()) {
+    MinimizeImpl(browser);
+  } else {
+    // Execute on the main application thread.
+    MAIN_POST_CLOSURE(base::Bind(MinimizeImpl, browser));
+  }
+}
+
+void WindowTestRunnerWin::Maximize(CefRefPtr<CefBrowser> browser) {
+  if (CURRENTLY_ON_MAIN_THREAD()) {
+    MaximizeImpl(browser);
+  } else {
+    // Execute on the main application thread.
+    MAIN_POST_CLOSURE(base::Bind(MaximizeImpl, browser));
+  }
+}
+
+void WindowTestRunnerWin::Restore(CefRefPtr<CefBrowser> browser) {
+  if (CURRENTLY_ON_MAIN_THREAD()) {
+    RestoreImpl(browser);
+  } else {
+    // Execute on the main application thread.
+    MAIN_POST_CLOSURE(base::Bind(RestoreImpl, browser));
+  }
 }
 
 }  // namespace window_test

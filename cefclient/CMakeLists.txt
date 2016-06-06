@@ -42,11 +42,13 @@ set(CEFCLIENT_BROWSER_BROWSER_SRCS
   browser/preferences_test.cc
   browser/preferences_test.h
   browser/resource.h
+  browser/resource_util.cc
   browser/resource_util.h
   browser/response_filter_test.cc
   browser/response_filter_test.h
   browser/root_window.cc
   browser/root_window.h
+  browser/root_window_create.cc
   browser/root_window_manager.cc
   browser/root_window_manager.h
   browser/scheme_test.cc
@@ -58,6 +60,8 @@ set(CEFCLIENT_BROWSER_BROWSER_SRCS
   browser/urlrequest_test.h
   browser/window_test.cc
   browser/window_test.h
+  browser/window_test_runner.cc
+  browser/window_test_runner.h
   )
 source_group(cefclient\\\\browser FILES ${CEFCLIENT_BROWSER_BROWSER_SRCS})
 
@@ -121,9 +125,16 @@ set(CEFCLIENT_LINUX_BROWSER_SRCS
   browser/resource_util_posix.cc
   browser/root_window_gtk.cc
   browser/root_window_gtk.h
+  browser/root_window_views.cc
+  browser/root_window_views.h
   browser/temp_window_x11.cc
   browser/temp_window_x11.h
-  browser/window_test_gtk.cc
+  browser/views_window.cc
+  browser/views_window.h
+  browser/window_test_runner_gtk.cc
+  browser/window_test_runner_gtk.h
+  browser/window_test_runner_views.cc
+  browser/window_test_runner_views.h
   )
 source_group(cefclient\\\\browser FILES ${CEFCLIENT_LINUX_BROWSER_SRCS})
 
@@ -150,7 +161,8 @@ set(CEFCLIENT_MACOSX_BROWSER_SRCS
   browser/root_window_mac.mm
   browser/temp_window_mac.h
   browser/temp_window_mac.mm
-  browser/window_test_mac.mm
+  browser/window_test_runner_mac.h
+  browser/window_test_runner_mac.mm
   )
 source_group(cefclient\\\\browser FILES ${CEFCLIENT_MACOSX_BROWSER_SRCS})
 
@@ -188,13 +200,20 @@ set(CEFCLIENT_WINDOWS_BROWSER_SRCS
   browser/osr_window_win.cc
   browser/osr_window_win.h
   browser/resource_util_win.cc
+  browser/root_window_views.cc
+  browser/root_window_views.h
   browser/root_window_win.cc
   browser/root_window_win.h
   browser/temp_window_win.cc
   browser/temp_window_win.h
   browser/util_win.cc
   browser/util_win.h
-  browser/window_test_win.cc
+  browser/views_window.cc
+  browser/views_window.h
+  browser/window_test_runner_views.cc
+  browser/window_test_runner_views.h
+  browser/window_test_runner_win.cc
+  browser/window_test_runner_win.h
   )
 source_group(cefclient\\\\browser FILES ${CEFCLIENT_WINDOWS_BROWSER_SRCS})
 
@@ -216,8 +235,11 @@ set(CEFCLIENT_WINDOWS_SRCS
 set(CEFCLIENT_RESOURCES_RESOURCES_SRCS
   resources/binding.html
   resources/dialogs.html
+  resources/draggable.html
   resources/localstorage.html
   resources/logo.png
+  resources/menu_icon.1x.png
+  resources/menu_icon.2x.png
   resources/osr_test.html
   resources/other_tests.html
   resources/pdf.html
@@ -229,6 +251,8 @@ set(CEFCLIENT_RESOURCES_RESOURCES_SRCS
   resources/transparency.html
   resources/urlrequest.html
   resources/window.html
+  resources/window_icon.1x.png
+  resources/window_icon.2x.png
   resources/xmlhttprequest.html
   )
 source_group(cefclient\\\\resources FILES ${CEFCLIENT_RESOURCES_RESOURCES_SRCS})
@@ -291,6 +315,7 @@ if(OS_LINUX)
 
   # Executable target.
   add_executable(${CEF_TARGET} ${CEFCLIENT_SRCS})
+  SET_EXECUTABLE_TARGET_PROPERTIES(${CEF_TARGET})
   add_dependencies(${CEF_TARGET} libcef_dll_wrapper)
   target_link_libraries(${CEF_TARGET} libcef_lib libcef_dll_wrapper ${CEF_STANDARD_LIBS})
 
@@ -344,6 +369,7 @@ if(OS_MACOSX)
 
   # Helper executable target.
   add_executable(${CEF_HELPER_TARGET} MACOSX_BUNDLE ${CEFCLIENT_HELPER_SRCS})
+  SET_EXECUTABLE_TARGET_PROPERTIES(${CEF_HELPER_TARGET})
   add_dependencies(${CEF_HELPER_TARGET} libcef_dll_wrapper)
   target_link_libraries(${CEF_HELPER_TARGET} libcef_lib libcef_dll_wrapper ${CEF_STANDARD_LIBS})
   set_target_properties(${CEF_HELPER_TARGET} PROPERTIES
@@ -355,6 +381,7 @@ if(OS_MACOSX)
 
   # Main executable target.
   add_executable(${CEF_TARGET} MACOSX_BUNDLE ${CEFCLIENT_RESOURCES_SRCS} ${CEFCLIENT_SRCS})
+  SET_EXECUTABLE_TARGET_PROPERTIES(${CEF_TARGET})
   add_dependencies(${CEF_TARGET} libcef_dll_wrapper "${CEF_HELPER_TARGET}")
   target_link_libraries(${CEF_TARGET} libcef_lib libcef_dll_wrapper ${CEF_STANDARD_LIBS} "-framework OpenGL")
   set_target_properties(${CEF_TARGET} PROPERTIES
@@ -406,8 +433,9 @@ if(OS_WINDOWS)
 
   # Executable target.
   add_executable(${CEF_TARGET} WIN32 ${CEFCLIENT_SRCS})
+  SET_EXECUTABLE_TARGET_PROPERTIES(${CEF_TARGET})
   add_dependencies(${CEF_TARGET} libcef_dll_wrapper)
-  target_link_libraries(${CEF_TARGET} libcef_lib libcef_dll_wrapper ${CEF_STANDARD_LIBS} "glu32.lib" "opengl32.lib")
+  target_link_libraries(${CEF_TARGET} libcef_lib libcef_dll_wrapper ${CEF_STANDARD_LIBS} glu32.lib opengl32.lib)
 
   if(USE_SANDBOX)
     # Logical target used to link the cef_sandbox library.
