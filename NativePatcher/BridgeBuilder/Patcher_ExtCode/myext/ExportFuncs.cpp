@@ -36,13 +36,13 @@ int RegisterManagedCallBack(managed_callback mxCallback, int callbackKind)
 {
 
 	switch (callbackKind)
-	{  
-		case 3:
-		{
-			//set global mxCallback ***
-			myMxCallback_ = mxCallback;
-			return 0;
-		}
+	{
+	case 3:
+	{
+		//set global mxCallback ***
+		myMxCallback_ = mxCallback;
+		return 0;
+	}
 	}
 	return 1; //default
 }
@@ -80,11 +80,13 @@ client::ClientApp* MyCefCreateClientApp(HINSTANCE hInstance)
 	message_loop.reset(new MainMessageLoopMultithreadedWin);
 	else
 	message_loop.reset(new MainMessageLoopStd);*/
+
 	//------------------------------------------------------------------
 	//create main context here
+	client::init_main::SetManagedCallback(myMxCallback_);
+
 	mainContext = DllInitMain(hInstance, app);
-	//set global mx callback to mainContext 
-	mainContext->myMxCallback_ = myMxCallback_;
+
 
 	return app;
 }
@@ -98,12 +100,7 @@ MY_DLL_EXPORT void MyCefEnableKeyIntercept(MyBrowser* myBw, int enable) {
 //4. 
 MyBrowser* MyCefCreateMyWebBrowser(managed_callback callback)
 {
-	/*const CefRect r(0,0,400,400);
-	CefBrowserSettings settings;
-	client::MainContext::Get()->PopulateBrowserSettings(&settings);
-	*/
-	/*auto rr1= mainContext->GetRootWindowManager()->CreateRootWindow(false,false,r,"");*/
-
+	 
 	//create root window handler?
 	auto myBw = new MyBrowser();
 	auto rootWindow = new client::RootWindowWin();
@@ -113,8 +110,7 @@ MyBrowser* MyCefCreateMyWebBrowser(managed_callback callback)
 	//TODO: review here again, don't store at this module!
 	auto bwWindow = new client::BrowserWindowStdWin(rootWindow, "");
 	myBw->bwWindow = bwWindow;
-
-
+	
 	//2. browser event handler
 	auto hh = bwWindow->GetClientHandler();//  new client::ClientHandlerStd(bwWindow,"");
 	hh->MyCefSetManagedCallBack(callback);
@@ -122,18 +118,11 @@ MyBrowser* MyCefCreateMyWebBrowser(managed_callback callback)
 	return myBw;
 }
 //5.
-int MyCefSetupBrowserHwnd(MyBrowser* myBw, HWND surfaceHwnd, int x, int y, int w, int h, const wchar_t* url)
+int MyCefSetupBrowserHwnd(MyBrowser* myBw, HWND surfaceHwnd, int x, int y, int w, int h, const wchar_t* url, CefRequestContext* cefRefContext)
 {
 
 	// Information used when creating the native window.
-	CefWindowInfo window_info;
-	//#if defined(OS_WIN)
-	//  // On Windows we need to specify certain flags that will be passed to
-	//  // CreateWindowEx().
-	//  window_info.SetAsPopup(NULL, "cefsimple");
-	//  
-	//#endif
-
+	CefWindowInfo window_info; 
 	RECT r;
 	r.left = x;
 	r.top = y;
@@ -150,21 +139,15 @@ int MyCefSetupBrowserHwnd(MyBrowser* myBw, HWND surfaceHwnd, int x, int y, int w
 
 	// Specify CEF browser settings here.
 	CefBrowserSettings browser_settings;
+	//populate browser setting here
+	memset(&browser_settings, 0, sizeof(CefBrowserSettings));
 
-	//std::string url;
-
-	// Check if a "--url=" value was provided via the command-line. If so, use
-	// that instead of the default URL.
-	/*CefRefPtr<CefCommandLine> command_line =
-	CefCommandLine::GetGlobalCommandLine();
-	url = command_line->GetSwitchValue("url");
-	if (url.empty())
-	url = "https://cefbuilds.com";*/
-
-	// Create the first browser window.
-	//bool result= CefBrowserHost::CreateBrowser(window_info, handler.get(), url,                                browser_settings, NULL);
-
-	bool result = CefBrowserHost::CreateBrowser(window_info, clientHandler, url, browser_settings, NULL);
+	bool result = CefBrowserHost::CreateBrowser(window_info,
+		clientHandler, 
+		url,
+		browser_settings, 
+		CefRefPtr<CefRequestContext>(cefRefContext));
+	
 	if (result) {
 		return 1;
 	}
@@ -217,6 +200,7 @@ void MyCefDomGetTextWalk(MyBrowser* myBw, managed_callback strCallBack)
 	auto bwVisitor = new Visitor(bw);
 	bwVisitor->mcallback = strCallBack;
 	bw->GetMainFrame()->GetText(bwVisitor);
+	delete bwVisitor;
 }
 void MyCefDomGetSourceWalk(MyBrowser* myBw, managed_callback strCallBack)
 {
@@ -246,6 +230,46 @@ void MyCefDomGetSourceWalk(MyBrowser* myBw, managed_callback strCallBack)
 	auto bwVisitor = new Visitor(bw);
 	bwVisitor->mcallback = strCallBack;
 	bw->GetMainFrame()->GetSource(bwVisitor);
+	delete bwVisitor;
+}
+
+
+void MyCefSetInitSettings(CefSettings* cefSetting, int keyName, const wchar_t* value) {
+	switch (keyName)
+	{
+	case CEF_SETTINGS_BrowserSubProcessPath:
+		CefString(&cefSetting->browser_subprocess_path) = value;
+		break;
+	case CEF_SETTINGS_CachePath:
+		CefString(&cefSetting->cache_path) = value;
+		break;
+	case CEF_SETTINGS_ResourcesDirPath:
+		CefString(&cefSetting->resources_dir_path) = value;
+		break;
+	case CEF_SETTINGS_UserDirPath:
+		CefString(&cefSetting->user_data_path) = value;
+		break;
+	
+	case CEF_SETTINGS_LocalDirPath:
+		CefString(&cefSetting->locales_dir_path) = value; 
+		break;
+	case CEF_SETTINGS_IgnoreCertError:
+		cefSetting->ignore_certificate_errors = std::stoi(value);
+		break;
+	case CEF_SETTINGS_RemoteDebuggingPort: 
+		cefSetting->remote_debugging_port = std::stoi(value); 
+		break;
+	case CEF_SETTINGS_LogFile:
+		CefString(&cefSetting->log_file) = value;
+		break;
+	case CEF_SETTINGS_LogSeverity:
+		cefSetting->log_severity = (cef_log_severity_t)std::stoi(value);
+		break;
+
+
+	default:
+		break;
+	}
 }
 //--------------------------------------------------------------------------------------------------
 //part 2:
@@ -692,7 +716,7 @@ void HereOnRenderer(const managed_callback callback, MethodArgs* args)
 {
 	callback(CEF_MSG_HereOnRenderer, args);
 }
- 
+
 MY_DLL_EXPORT void DisposeMethodArgs(MethodArgs* args) {
 	delete args;
 }

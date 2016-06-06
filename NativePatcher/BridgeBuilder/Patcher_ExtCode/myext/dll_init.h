@@ -10,5 +10,12 @@
 #include "cefclient/browser/test_runner.h"
 #include "cefclient/common/client_app_other.h"
 #include "cefclient/renderer/client_app_renderer.h"
+#include "mycef.h"
+
+namespace client {
+	namespace init_main {
+		void SetManagedCallback(managed_callback callback);
+	}
+}
 
 client::MainContextImpl* DllInitMain(HINSTANCE hInstance, CefRefPtr<CefApp> app);

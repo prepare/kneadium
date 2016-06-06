@@ -210,4 +210,18 @@ namespace LayoutFarm.CefBridge
             return new Cef3Func(func.Ptr);
         }
     }
+
+    public struct CefSettings
+    {
+        IntPtr nativePtr;
+        internal CefSettings(IntPtr nativePtr)
+        {
+            this.nativePtr = nativePtr;
+        }
+        public void SetCachePath(string value)
+        {
+            Cef3Binder.MyCefSetInitSettings(this.nativePtr, (int)CefSettingsKey.CEF_SETTINGS_CachePath, value);
+        }
+
+    }
 }

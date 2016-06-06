@@ -2,6 +2,7 @@
 #include "../common/client_app.h" 
 #include "../browser/client_handler.h"
 #include "../browser/client_handler_std.h"
+#include "../browser/root_window.h"
 #include "../browser/root_window_win.h"
 #include "mycef.h"
 #define MY_DLL_EXPORT __declspec(dllexport)  
@@ -32,7 +33,7 @@ extern "C" {
 	//4.
 	MY_DLL_EXPORT MyBrowser* MyCefCreateMyWebBrowser(managed_callback callback);
 	//5.
-	MY_DLL_EXPORT int MyCefSetupBrowserHwnd(MyBrowser* myBw, HWND surfaceHwnd, int x, int y, int w, int h, const wchar_t* url);
+	MY_DLL_EXPORT int MyCefSetupBrowserHwnd(MyBrowser* myBw, HWND surfaceHwnd, int x, int y, int w, int h, const wchar_t* url,CefRequestContext* cefRefContext);
 	//6.
 	MY_DLL_EXPORT void MyCefDoMessageLoopWork();
 	//7.
@@ -41,6 +42,10 @@ extern "C" {
 	MY_DLL_EXPORT void MyCefShutDown();
 	MY_DLL_EXPORT void MyCefDomGetTextWalk(MyBrowser* myBw, managed_callback strCallBack);
 	MY_DLL_EXPORT void MyCefDomGetSourceWalk(MyBrowser* myBw, managed_callback strCallBack);
+	//--------------------
+	MY_DLL_EXPORT void MyCefSetInitSettings(CefSettings* cefSetting, int keyName, const wchar_t* value);
+
+	//--------------------
 	//part 2
 	//1.	 
 	MY_DLL_EXPORT jsvalue MyCefNativeMetGetArgs(MethodArgs* args, int argIndex);

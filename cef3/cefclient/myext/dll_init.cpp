@@ -4,7 +4,7 @@
 
 #include <windows.h>
 #include "dll_init.h"
-
+#include "ExportFuncs.h"
 
 // When generating projects with CMake the CEF_USE_SANDBOX value will be defined
 // automatically if using the required compiler version. Pass -DUSE_SANDBOX=OFF
@@ -20,6 +20,9 @@
 
 namespace client {
 	namespace init_main {
+
+		//static
+		managed_callback m_callback;
 
 		int RunMain(HINSTANCE hInstance, int nCmdShow) {
 			CefMainArgs main_args(hInstance);
@@ -84,7 +87,7 @@ namespace client {
 			// Register scheme handlers.
 			test_runner::RegisterSchemeHandlers();
 
-			// Create the first window.
+
 			context->GetRootWindowManager()->CreateRootWindow(
 				true,             // Show controls.
 				settings.windowless_rendering_enabled ? true : false,
@@ -105,6 +108,9 @@ namespace client {
 			return result;
 		}
 
+		void SetManagedCallback(managed_callback callback) {
+			m_callback = callback;
+		}
 
 		client::MainContextImpl* InitDllApp(HINSTANCE hInstance, CefRefPtr<CefApp> app) {
 			CefMainArgs main_args(hInstance);
@@ -116,12 +122,7 @@ namespace client {
 			// for sandbox support on Windows. See cef_sandbox_win.h for complete details.
 			CefScopedSandboxInfo scoped_sandbox;
 			sandbox_info = scoped_sandbox.sandbox_info();
-#endif
-
-			// Parse command-line arguments.
-			CefRefPtr<CefCommandLine> command_line = CefCommandLine::CreateCommandLine();
-			command_line->InitFromString(::GetCommandLineW());
-
+#endif  
 			//// Create a ClientApp of the correct type.
 			//CefRefPtr<CefApp> app;
 			/*ClientApp::ProcessType process_type = ClientApp::GetProcessType(command_line);
@@ -142,31 +143,38 @@ namespace client {
 				return NULL;
 			}
 
-
+			// Parse command-line arguments.
+			CefRefPtr<CefCommandLine> command_line = CefCommandLine::CreateCommandLine();
+			command_line->InitFromString(::GetCommandLineW());
 
 			//-------------------------------------------------------------------------------------
 			// Create the main context object.
 			//scoped_ptr<MainContextImpl> context(new MainContextImpl(command_line, true));
 			auto mainContext = new MainContextImpl(command_line, true);
+			mainContext->myMxCallback_ = m_callback;
 			//setting 
 			CefSettings settings;
 			settings.log_severity = (cef_log_severity_t)99;//disable log
-            //-------------------------------------------------------------------------------------
+			//-------------------------------------------------------------------------------------
 #if !defined(CEF_USE_SANDBOX)
 			settings.no_sandbox = true;
 #endif
+			// Populate the settings based on command line arguments.		    
 
-			// Populate the settings based on command line arguments.
+
 			mainContext->PopulateSettings(&settings);
+			//-------------------------------------------------------------------------------------
 
+
+			//-------------------------------------------------------------------------------------
 			// Create the main message loop object.
 			/*scoped_ptr<MainMessageLoop> message_loop;
 			if (settings.multi_threaded_message_loop)
 			  message_loop.reset(new MainMessageLoopMultithreadedWin);
 			else
 			  message_loop.reset(new MainMessageLoopStd);
-		  */
-		  // Initialize CEF.
+			*/
+			//Initialize CEF.
 			mainContext->Initialize(main_args, settings, app, sandbox_info);
 
 			// Register scheme handlers.
