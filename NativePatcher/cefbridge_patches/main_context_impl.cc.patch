@@ -14,7 +14,10 @@ const char kDefaultUrl[] = "about:blank";
 //###_SKIP_UNTIL_AND_ACCEPT 1
 }  // namespace
 //###_START 3
-//if (command_line_->HasSwitch(switches::kBackgroundColor)) {
+if (main_url_.empty())
+//###_APPEND_START 3
+main_url_ = kDefaultUrl;
+//###_APPEND_STOP
 //###_SKIP_UNTIL_AND_ACCEPT 3
 }
 //###_START 2
