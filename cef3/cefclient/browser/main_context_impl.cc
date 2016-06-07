@@ -45,7 +45,7 @@ MainContextImpl::MainContextImpl(CefRefPtr<CefCommandLine> command_line,
 main_url_ = kDefaultUrl;
 //###_APPEND_STOP
 //###_SKIP_UNTIL_AND_ACCEPT 3
-  }
+  
 
   // Whether windowless (off-screen) rendering will be used.
   use_windowless_rendering_ =
