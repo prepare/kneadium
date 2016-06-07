@@ -23,7 +23,9 @@ namespace CefBridgeTest
         {
             //must check proper location of libcef, cefclient dir 
 #if DEBUG
-            libPath = @"D:\projects\CefBridge\cef3_output\cefclient\Debug";
+            //libPath = @"D:\projects\CefBridge\cef3_output\cefclient\Debug";
+            libPath = @"D:\projects\cef_3.2704output\cefclient\Debug"; //3.2704
+
             //libPath = @"D:\WImageTest\Release2";//test load from other location
 #else
             libPath = @"D:\projects\CefBridge\cef3_output\cefclient\Release";

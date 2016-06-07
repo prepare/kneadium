@@ -66,7 +66,10 @@ namespace BridgeBuilder
             get;
             set;
         }
-
+        public override string ToString()
+        {
+            return this.OriginalFileName;
+        }
 
         public void AddTask(PatchTask task)
         {
@@ -235,7 +238,7 @@ namespace BridgeBuilder
 
             for (; i < j; ++i)
             {
-               
+
                 line = sourceFile.GetLine(i).TrimStart();
 
                 if (line.StartsWith("//###_"))
@@ -267,7 +270,8 @@ namespace BridgeBuilder
                                     //create new task
                                     ptask = new PatchTask(cmd_value, taskId);
                                     patchFile.AddTask(ptask);
-                                } break;
+                                }
+                                break;
                             case PatchCommand.APPPEND_START:
                                 //start collect append string 
                                 //until find append_stop
@@ -306,7 +310,8 @@ namespace BridgeBuilder
                                     //finish command
                                     ptask.Append(collectAppendStBuilder.ToString());
 
-                                } break;
+                                }
+                                break;
                             case PatchCommand.APPPEND_STOP:
 
                                 throw new NotSupportedException();
@@ -334,7 +339,8 @@ namespace BridgeBuilder
                                     }
                                     ptask.FollowBy(cmd_value);
 
-                                } break;
+                                }
+                                break;
                             case PatchCommand.SKIP_UNTIL_AND_ACCEPT:
                                 {
                                     i++;
@@ -607,13 +613,15 @@ namespace BridgeBuilder
                                 throw new NotSupportedException("next land mark not found");
                             }
 
-                        } break;
+                        }
+                        break;
                     case PatchCommandKind.AppendStringStart:
                         {
                             AddControlLine(output, cmd); //***
 
 
-                        } break;
+                        }
+                        break;
                     case PatchCommandKind.FollowBy:
                         {
                             //just 1 line must match
@@ -631,7 +639,8 @@ namespace BridgeBuilder
                             {
                                 throw new NotSupportedException();
                             }
-                        } break;
+                        }
+                        break;
                     case PatchCommandKind.SkipUntilPass:
                         {
                             curLine = input.CurrentLine;
@@ -660,7 +669,8 @@ namespace BridgeBuilder
                             {
                                 throw new NotSupportedException("next land mark not found");
                             }
-                        } break;
+                        }
+                        break;
                     case PatchCommandKind.SkipUntilAndAccept:
                         {
                             curLine = input.CurrentLine;
@@ -689,7 +699,8 @@ namespace BridgeBuilder
                             {
                                 throw new NotSupportedException("next land mark not found");
                             }
-                        } break;
+                        }
+                        break;
                     default:
                         throw new NotSupportedException();
                 }

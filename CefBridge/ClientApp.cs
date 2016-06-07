@@ -59,6 +59,11 @@ namespace LayoutFarm.CefBridge
                         });
                     }
                     break;
+                case MyCefMsg.CEF_MSG_ClientHandler_BeforeDownload:
+                    {
+
+                    }
+                    break;
                 case MyCefMsg.CEF_MSG_ClientHandler_ShowDevTools:
                     {
                         //show dev tools
@@ -79,7 +84,7 @@ namespace LayoutFarm.CefBridge
 
                         NativeCallArgs nat1 = new NativeCallArgs(argsPtr);
                         nat1.SetOutputAsAsciiString(0, "d:\\WImageTest\\cef_console.log");
-                    } 
+                    }
                     break;
                 case MyCefMsg.CEF_MSG_RenderDelegate_OnContextCreated:
                     {

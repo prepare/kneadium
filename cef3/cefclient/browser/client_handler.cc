@@ -234,7 +234,7 @@ model->AddItem(CLIENT_ID_INSPECT_ELEMENT, "Inspect Element");
 BuildTestMenu(model);
 }
 //###_APPEND_STOP
-//###_SKIP_UNTIL_PASS 0 }     
+//###_SKIP_UNTIL_AND_ACCEPT 0 }     
   }
 }
 
@@ -341,29 +341,67 @@ first_console_message_ = false;
   return false;
 }
 
+//###_START 7
 void ClientHandler::OnBeforeDownload(
     CefRefPtr<CefBrowser> browser,
     CefRefPtr<CefDownloadItem> download_item,
     const CefString& suggested_name,
     CefRefPtr<CefBeforeDownloadCallback> callback) {
+//###_FIND_NEXT_LANDMARK 7
   CEF_REQUIRE_UI_THREAD();
 
-  // Continue the download and show the "Save As" dialog.
-  callback->Continue(MainContext::Get()->GetDownloadPath(suggested_name), true);
+//###_APPEND_START 7
+  if (this->mcallback_) {
+	  MethodArgs metArgs;
+	  memset(&metArgs, 0, sizeof(MethodArgs));	  
+	  metArgs.SetArgAsNativeObject(0, browser);
+	  metArgs.SetArgAsNativeObject(1, download_item); 
+	  metArgs.SetArgAsString(2, suggested_name.c_str());
+	  this->mcallback_(CEF_MSG_ClientHandler_BeforeDownload, &metArgs); //tmp
+
+	  auto downloadPath = metArgs.ReadOutputAsString(0);
+	  callback->Continue(downloadPath,false);
+  }
+  else {
+	  // Continue the download and show the "Save As" dialog.
+	  callback->Continue(MainContext::Get()->GetDownloadPath(suggested_name), true);	  
+  }
+//###_APPEND_STOP
+//###_SKIP_UNTIL_AND_ACCEPT 7 }
 }
 
+//###_START 8
 void ClientHandler::OnDownloadUpdated(
     CefRefPtr<CefBrowser> browser,
     CefRefPtr<CefDownloadItem> download_item,
     CefRefPtr<CefDownloadItemCallback> callback) {
-  CEF_REQUIRE_UI_THREAD();
-
-  if (download_item->IsComplete()) {
-    test_runner::Alert(
-        browser,
-        "File \"" + download_item->GetFullPath().ToString() +
-        "\" downloaded successfully.");
+//###_FIND_NEXT_LANDMARK 8
+  CEF_REQUIRE_UI_THREAD();  
+//###_APPEND_START 8
+  if (this->mcallback_) {
+	  
+	  if (download_item->IsComplete()) {
+		  //this version we notify back when complete
+		  MethodArgs metArgs;
+		  memset(&metArgs, 0, sizeof(MethodArgs));
+		  metArgs.SetArgAsNativeObject(0, browser);
+		  metArgs.SetArgAsNativeObject(1, download_item);
+		  auto fullPath = download_item->GetFullPath();
+		  metArgs.SetArgAsString(2, fullPath.c_str());
+		  this->mcallback_(CEF_MSG_ClientHandler_DownloadUpdated, &metArgs); //tmp	  
+	  }
   }
+  else {
+	  if (download_item->IsComplete()) {
+		  test_runner::Alert(
+			  browser,
+			  "File \"" + download_item->GetFullPath().ToString() +
+			  "\" downloaded successfully.");
+	  }
+  }
+//###_APPEND_STOP 8
+//###_SKIP_UNTIL_AND_ACCEPT 8 }
+
 }
 
 bool ClientHandler::OnDragEnter(CefRefPtr<CefBrowser> browser,
