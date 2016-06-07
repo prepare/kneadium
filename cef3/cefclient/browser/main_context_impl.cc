@@ -42,11 +42,13 @@ MainContextImpl::MainContextImpl(CefRefPtr<CefCommandLine> command_line,
   if (main_url_.empty())
     main_url_ = kDefaultUrl;
 
-  if (command_line_->HasSwitch(switches::kBackgroundColor)) {
-    // Parse the background color value.
-    CefParseCSSColor(command_line_->GetSwitchValue(switches::kBackgroundColor),
-                     false, background_color_);
-  }
+  //###_START 3 
+  //if (command_line_->HasSwitch(switches::kBackgroundColor)) {
+  //  // Parse the background color value.
+  //  CefParseCSSColor(command_line_->GetSwitchValue(switches::kBackgroundColor),
+  //                   false, background_color_);
+  //}
+  //###_SKIP_UNTIL_AND_ACCEPT 3 }  
 }
 
 MainContextImpl::~MainContextImpl() {

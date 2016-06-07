@@ -112,13 +112,13 @@ namespace BridgeBuilder
             bool is3_2704 = true;
             if (is3_2704)
             {
-                string extTargetDir = newPathName + "\\myext";
+                string extTargetDir = newPathName + "\\cefclient\\myext";
                 manualPatcher.CopyExtensionSources(extTargetDir);
                 manualPatcher.Do_CMake_txt_3_2704();
             }
             else
             {
-                string extTargetDir = newPathName + "\\cefclient\\myext";
+                string extTargetDir = newPathName + "\\myext";
                 manualPatcher.CopyExtensionSources(extTargetDir);
                 manualPatcher.Do_CMake_txt(); ;
             }

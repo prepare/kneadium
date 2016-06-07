@@ -13,6 +13,10 @@ const char kDefaultUrl[] = "about:blank";
 //###_APPEND_STOP
 //###_SKIP_UNTIL_AND_ACCEPT 1
 }  // namespace
+//###_START 3
+//if (command_line_->HasSwitch(switches::kBackgroundColor)) {
+//###_SKIP_UNTIL_AND_ACCEPT 3
+}
 //###_START 2
 std::string MainContextImpl::GetConsoleLogPath() {
 //###_APPEND_START 2
