@@ -80,6 +80,25 @@ namespace LayoutFarm.CefBridge
                     {
                     }
                     break;
+                case MyCefMsg.CEF_MSG_ClientHandler_BeforeDownload:
+                    {
+                        //handle download path here
+                        NativeCallArgs metArgs = new NativeCallArgs(argsPtr);
+                        string pathName = metArgs.GetArgAsString(2);
+
+                    }
+                    break;
+                case MyCefMsg.CEF_MSG_ClientHandler_DownloadUpdated:
+                    {
+                        //this version we notify back 
+                        //when 
+                        NativeCallArgs metArgs = new NativeCallArgs(argsPtr);
+                        if (browserProcessListener != null)
+                        {   
+                            browserProcessListener.OnDownloadCompleted(metArgs);
+                        } 
+                    }
+                    break;
                 case MyCefMsg.CEF_MSG_ClientHandler_OnBeforePopup:
                     {
                         NativeCallArgs args = new NativeCallArgs(argsPtr);

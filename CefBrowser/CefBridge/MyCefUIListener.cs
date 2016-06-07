@@ -66,5 +66,10 @@ namespace CefBridgeTest
             string location = args.GetArgAsString(2);
             Console.WriteLine(msg);
         }
+        public override void OnDownloadCompleted(NativeCallArgs args)
+        {
+            string downloadFullPath = args.GetArgAsString(2);
+            Console.WriteLine("download complete :" + downloadFullPath);
+        }
     }
 }
