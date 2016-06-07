@@ -23,6 +23,7 @@ TestResults
 
 # Build results
 cef3_output/
+cef3_2704output/
 [Dd]ebug/
 [Rr]elease/
 x64/
