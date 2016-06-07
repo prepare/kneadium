@@ -71,7 +71,8 @@ namespace BridgeBuilder
         {
             //string srcRootDir = @"D:\projects\cef_binary_3.2526.1366" + "\\cefclient"; //2526.1366
             //string srcRootDir = @"D:\projects\cef_binary_3.2623.1395" + "\\cefclient"; //2526.1366
-            string srcRootDir = @"D:\projects\cef_binary_3.2623.1399" + "\\cefclient"; //2526.1366
+            //string srcRootDir = @"D:\projects\cef_binary_3.2623.1399" + "\\cefclient"; //2526.1366
+            string srcRootDir = @"D:\projects\cef_binary_3.2704.1418" + "\\cefclient"; //2526.1366
             string saveFolder = "d:\\WImageTest\\cefbridge_patches";
 
             PatchBuilder builder2 = new PatchBuilder(srcRootDir);
@@ -89,7 +90,7 @@ namespace BridgeBuilder
 
                 string onlyFileName = System.IO.Path.GetFileName(pfile.OriginalFileName);
                 string onlyPath = System.IO.Path.GetDirectoryName(pfile.OriginalFileName);
-                string replaceName = onlyPath.Replace("d:\\projects\\CefBridge\\cef3\\cefclient", newPathName);
+                string replaceName = onlyPath.Replace("D:\\projects\\cef_binary_3.2623.1399\\cefclient", newPathName);
 
 
                 pfile.OriginalFileName = replaceName + "//" + onlyFileName;

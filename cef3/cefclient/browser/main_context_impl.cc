@@ -1,3 +1,4 @@
+//###_ORIGINAL d:\projects\CefBridge\cef3\cefclient\browser//main_context_impl.cc
 // Copyright (c) 2015 The Chromium Embedded Framework Authors. All rights
 // reserved. Use of this source code is governed by a BSD-style license that
 // can be found in the LICENSE file.
@@ -6,7 +7,12 @@
 
 #include "include/cef_parser.h"
 //###_START 0
+//###_START 0
 #include "cefclient/common/client_switches.h"
+//###_APPEND_START 0
+#include "cefclient/myext/ExportFuncs.h"
+#include "cefclient/myext/mycef_msg_const.h"
+//###_APPEND_STOP
 //###_APPEND_START 0
 #include "cefclient/myext/ExportFuncs.h"
 #include "cefclient/myext/mycef_msg_const.h"
@@ -18,13 +24,13 @@ namespace client {
 namespace {
 
 //###_START 1
+//###_START 1
 // The default URL to load in a browser window.
 //###_APPEND_START 1
 const char kDefaultUrl[] = "about:blank";
 //const char kDefaultUrl[] = "http://www.google.com";
-//###_APPEND_STOP 1
+//###_APPEND_STOP
 //###_SKIP_UNTIL_PASS 1 }  // namespace
-}  // namespace
 
 MainContextImpl::MainContextImpl(CefRefPtr<CefCommandLine> command_line,
                                  bool terminate_when_all_windows_closed)
@@ -55,16 +61,22 @@ MainContextImpl::~MainContextImpl() {
 }
 
 //###_START 2
+//###_START 2
 std::string MainContextImpl::GetConsoleLogPath() {
 //###_APPEND_START 2
-	if (this->myMxCallback_) {
-		
-		MethodArgs args; 
-		memset(&args, 0, sizeof(MethodArgs));
-		this->myMxCallback_(CEF_MSG_MainContext_GetConsoleLogPath, &args);
-		CefString cefStr(args.ReadOutputAsString(0));
-		return cefStr;
-	}
+if (this->myMxCallback_) {
+
+MethodArgs args; 
+memset(&args, 0, sizeof(MethodArgs));
+this->myMxCallback_(CEF_MSG_MainContext_GetConsoleLogPath, &args);
+CefString cefStr(args.ReadOutputAsString(0));
+return cefStr;
+}
+else {
+return GetAppWorkingDirectory() + "console.log";
+}
+//###_APPEND_STOP
+//###_SKIP_UNTIL_PASS 2 }
 	else {
 		return GetAppWorkingDirectory() + "console.log";
 	}
@@ -93,7 +105,13 @@ void MainContextImpl::PopulateSettings(CefSettings* settings) {
   if (command_line_->HasSwitch(switches::kOffScreenRenderingEnabled))
     settings->windowless_rendering_enabled = true;
  //###_START 1
+//###_START 1
   settings->background_color = background_color_;
+//###_APPEND_START 1
+if (this->myMxCallback_) {
+this->myMxCallback_(CEF_MSG_CefSettings_Init,settings);
+}
+//###_APPEND_STOP
   //###_APPEND_START 1
   if (this->myMxCallback_) {
 	  this->myMxCallback_(CEF_MSG_CefSettings_Init,settings);
