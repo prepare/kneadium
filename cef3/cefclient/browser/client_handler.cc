@@ -234,7 +234,7 @@ model->AddItem(CLIENT_ID_INSPECT_ELEMENT, "Inspect Element");
 BuildTestMenu(model);
 }
 //###_APPEND_STOP
-//###_SKIP_UNTIL_PASS 0 }     
+//###_SKIP_UNTIL_AND_ACCEPT 0 }     
   }
 }
 
