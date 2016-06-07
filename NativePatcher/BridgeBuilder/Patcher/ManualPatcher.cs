@@ -54,6 +54,7 @@ namespace BridgeBuilder
   myext/ExportFuncs.h
   myext/mycef.cc
   myext/mycef.h
+  myext/mycef_msg_const.h
   )
 source_group(cefclient\\\\myext FILES ${CEFCLIENT_MYCEF_MYCEF_SRCS})
 set(CEFCLIENT_MYCEF_SRCS
