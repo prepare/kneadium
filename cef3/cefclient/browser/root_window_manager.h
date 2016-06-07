@@ -1,4 +1,4 @@
-//###_ORIGINAL d:\projects\CefBridge\cef3\cefclient\browser//root_window_manager.h
+//###_ORIGINAL D:\projects\cef_binary_3.2704.1418\cefclient\browser//root_window_manager.h
 // Copyright (c) 2015 The Chromium Embedded Framework Authors. All rights
 // reserved. Use of this source code is governed by a BSD-style license that
 // can be found in the LICENSE file.
@@ -12,11 +12,11 @@
 #include "include/base/cef_scoped_ptr.h"
 #include "include/cef_command_line.h"
 #include "cefclient/browser/root_window.h"
-//###_START 0 
+//###_START 0
 #include "cefclient/browser/temp_window.h"
-//###_APPEND_START 0 
+//###_APPEND_START 0
 #include "cefclient/myext/mycef.h"
-//###_APPEND_STOP 0
+//###_APPEND_STOP
 
 namespace client {
 
@@ -55,16 +55,16 @@ class RootWindowManager : public RootWindow::Delegate {
   // Returns the RootWindow associated with the specified browser ID. Must be
   // called on the main thread.
   scoped_refptr<RootWindow> GetWindowForBrowser(int browser_id);
-   
-//###_START 1 
+
+//###_START 1
   // Close all existing windows. If |force| is true onunload handlers will not
   // be executed.
-//###_FIND_NEXT_LANDMARK 1 
+//###_FIND_NEXT_LANDMARK 1
   void CloseAllWindows(bool force);
 //###_APPEND_START 1
 //my extension --for callback to managed side
 managed_callback myMxCallback_;
-//###_APPEND_STOP 
+//###_APPEND_STOP
 
  private:
   // Allow deletion via scoped_ptr only.
@@ -77,6 +77,7 @@ managed_callback myMxCallback_;
   // RootWindow::Delegate methods.
   CefRefPtr<CefRequestContext> GetRequestContext(
       RootWindow* root_window) OVERRIDE;
+  CefRefPtr<CefImage> GetDefaultWindowIcon() OVERRIDE;
   void OnTest(RootWindow* root_window, int test_id) OVERRIDE;
   void OnExit(RootWindow* root_window) OVERRIDE;
   void OnRootWindowDestroyed(RootWindow* root_window) OVERRIDE;
@@ -93,6 +94,7 @@ managed_callback myMxCallback_;
   TempWindow temp_window_;
 
   CefRefPtr<CefRequestContext> shared_request_context_;
+  CefRefPtr<CefImage> default_window_icon_;
 
   DISALLOW_COPY_AND_ASSIGN(RootWindowManager);
 };

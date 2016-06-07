@@ -95,6 +95,7 @@ SET_CEF_TARGET_OUT_DIR()
 if(OS_LINUX)
   # Executable target.
   add_executable(${CEF_TARGET} ${CEFSIMPLE_SRCS})
+  SET_EXECUTABLE_TARGET_PROPERTIES(${CEF_TARGET})
   add_dependencies(${CEF_TARGET} libcef_dll_wrapper)
   target_link_libraries(${CEF_TARGET} libcef_lib libcef_dll_wrapper ${CEF_STANDARD_LIBS})
 
@@ -126,6 +127,7 @@ if(OS_MACOSX)
 
   # Helper executable target.
   add_executable(${CEF_HELPER_TARGET} MACOSX_BUNDLE ${CEFSIMPLE_HELPER_SRCS})
+  SET_EXECUTABLE_TARGET_PROPERTIES(${CEF_HELPER_TARGET})
   add_dependencies(${CEF_HELPER_TARGET} libcef_dll_wrapper)
   target_link_libraries(${CEF_HELPER_TARGET} libcef_lib libcef_dll_wrapper ${CEF_STANDARD_LIBS})
   set_target_properties(${CEF_HELPER_TARGET} PROPERTIES
@@ -137,6 +139,7 @@ if(OS_MACOSX)
 
   # Main executable target.
   add_executable(${CEF_TARGET} MACOSX_BUNDLE ${CEFSIMPLE_RESOURCES_SRCS} ${CEFSIMPLE_SRCS})
+  SET_EXECUTABLE_TARGET_PROPERTIES(${CEF_TARGET})
   add_dependencies(${CEF_TARGET} libcef_dll_wrapper "${CEF_HELPER_TARGET}")
   target_link_libraries(${CEF_TARGET} libcef_lib libcef_dll_wrapper ${CEF_STANDARD_LIBS})
   set_target_properties(${CEF_TARGET} PROPERTIES
@@ -179,6 +182,7 @@ if(OS_WINDOWS)
   # Executable target.
   add_executable(${CEF_TARGET} WIN32 ${CEFSIMPLE_SRCS})
   add_dependencies(${CEF_TARGET} libcef_dll_wrapper)
+  SET_EXECUTABLE_TARGET_PROPERTIES(${CEF_TARGET})
   target_link_libraries(${CEF_TARGET} libcef_lib libcef_dll_wrapper ${CEF_STANDARD_LIBS})
 
   if(USE_SANDBOX)
