@@ -12,6 +12,7 @@ namespace LayoutFarm.CefBridge
         public virtual void OnRequestForBinaryResource(NativeCallArgs args) { }
         public virtual void OnCefQuery(NativeCallArgs args, QueryRequestArgs reqArgs) { }
         public virtual void OnConsoleLog(NativeCallArgs args) { }
+        public virtual void OnDownloadCompleted(NativeCallArgs args) { }
     }
 
     /// <summary>
