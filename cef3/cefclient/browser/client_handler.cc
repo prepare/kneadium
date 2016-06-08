@@ -1,4 +1,4 @@
-//###_ORIGINAL D:\projects\cef_binary_3.2623.1399\cefclient\browser//client_handler.cc
+//###_ORIGINAL D:\projects\cef_binary_3.2704.1418\cefclient\browser//client_handler.cc
 // Copyright (c) 2013 The Chromium Embedded Framework Authors. All rights
 // reserved. Use of this source code is governed by a BSD-style license that
 // can be found in the LICENSE file.
@@ -132,12 +132,37 @@ void LoadErrorPage(CefRefPtr<CefFrame> frame,
 
 }  // namespace
 
+
+class ClientDownloadImageCallback : public CefDownloadImageCallback {
+ public:
+  explicit ClientDownloadImageCallback(
+      CefRefPtr<ClientHandler> client_handler)
+      : client_handler_(client_handler) {
+  }
+
+  void OnDownloadImageFinished(
+      const CefString& image_url,
+      int http_status_code,
+      CefRefPtr<CefImage> image) OVERRIDE {
+    if (image)
+      client_handler_->NotifyFavicon(image);
+  }
+
+ private:
+  CefRefPtr<ClientHandler> client_handler_;
+
+  IMPLEMENT_REFCOUNTING(ClientDownloadImageCallback);
+  DISALLOW_COPY_AND_ASSIGN(ClientDownloadImageCallback);
+};
+
+
 //###_START 0
 ClientHandler::ClientHandler(Delegate* delegate,
                              bool is_osr,
                              const std::string& startup_url)
   : is_osr_(is_osr),
     startup_url_(startup_url),
+    download_favicon_images_(false),
     delegate_(delegate),
     browser_count_(0),
     console_log_file_(MainContext::Get()->GetConsoleLogPath()),
@@ -207,22 +232,22 @@ void ClientHandler::OnBeforeContextMenu(
     CefRefPtr<CefFrame> frame,
     CefRefPtr<CefContextMenuParams> params,
     CefRefPtr<CefMenuModel> model) {
-
   CEF_REQUIRE_UI_THREAD();
+
 //###_FIND_NEXT_LANDMARK 0
   if ((params->GetTypeFlags() & (CM_TYPEFLAG_PAGE | CM_TYPEFLAG_FRAME)) != 0) {
 //###_APPEND_START 0
 if (this->mcallback_)
 {
-	//send menu model to managed side
-	model->Clear();
-	this->mcallback_(CEF_MSG_ClientHandler_OnBeforeContextMenu, NULL);
+//send menu model to managed side
+model->Clear();
+this->mcallback_(CEF_MSG_ClientHandler_OnBeforeContextMenu, NULL);
 }
 else if ((params->GetTypeFlags() & (CM_TYPEFLAG_PAGE | CM_TYPEFLAG_FRAME)) != 0) {
 // Add a separator if the menu already has items.
-	if (model->GetCount() > 0) {
-		model->AddSeparator();
-	}
+if (model->GetCount() > 0) {
+model->AddSeparator();
+}
 
 // Add DevTools items to all context menus.
 model->AddItem(CLIENT_ID_SHOW_DEVTOOLS, "&Show DevTools");
@@ -234,7 +259,7 @@ model->AddItem(CLIENT_ID_INSPECT_ELEMENT, "Inspect Element");
 BuildTestMenu(model);
 }
 //###_APPEND_STOP
-//###_SKIP_UNTIL_AND_ACCEPT 0 }     
+//###_SKIP_UNTIL_AND_ACCEPT 0
   }
 }
 
@@ -287,6 +312,17 @@ void ClientHandler::OnTitleChange(CefRefPtr<CefBrowser> browser,
   NotifyTitle(title);
 }
 
+void ClientHandler::OnFaviconURLChange(
+    CefRefPtr<CefBrowser> browser,
+    const std::vector<CefString>& icon_urls) {
+  CEF_REQUIRE_UI_THREAD();
+
+  if (!icon_urls.empty() && download_favicon_images_) {
+    browser->GetHost()->DownloadImage(icon_urls[0], true, 16, false,
+                                      new ClientDownloadImageCallback(this));
+  }
+}
+
 void ClientHandler::OnFullscreenModeChange(CefRefPtr<CefBrowser> browser,
                                            bool fullscreen) {
   CEF_REQUIRE_UI_THREAD();
@@ -301,22 +337,21 @@ bool ClientHandler::OnConsoleMessage(CefRefPtr<CefBrowser> browser,
                                      int line) {
 //###_FIND_NEXT_LANDMARK 2
   CEF_REQUIRE_UI_THREAD();
-//###_APPEND_START 2 
-
+//###_APPEND_START 2
 if (this->mcallback_) {
-	 
-	MethodArgs args;
-	memset(&args, 0, sizeof(MethodArgs));
-	auto str16 = message.ToString16();
-	auto cstr = str16.c_str();
-	args.SetArgAsString(0, cstr);
-	auto str16_1 = message.ToString16();
-	auto cstr_1 = str16_1.c_str();
-	args.SetArgAsString(1, cstr_1);
-	auto str16_2 = std::to_wstring((long long)line);
-	auto cstr_2 = str16_2.c_str();
-	args.SetArgAsString(2, cstr_2);
-	this->mcallback_(CEF_MSG_ClientHandler_OnConsoleMessage,&args); 
+
+MethodArgs args;
+memset(&args, 0, sizeof(MethodArgs));
+auto str16 = message.ToString16();
+auto cstr = str16.c_str();
+args.SetArgAsString(0, cstr);
+auto str16_1 = message.ToString16();
+auto cstr_1 = str16_1.c_str();
+args.SetArgAsString(1, cstr_1);
+auto str16_2 = std::to_wstring((long long)line);
+auto cstr_2 = str16_2.c_str();
+args.SetArgAsString(2, cstr_2);
+this->mcallback_(CEF_MSG_ClientHandler_OnConsoleMessage,&args); 
 }
 else {
 FILE* file = fopen(console_log_file_.c_str(), "a");
@@ -349,25 +384,24 @@ void ClientHandler::OnBeforeDownload(
     CefRefPtr<CefBeforeDownloadCallback> callback) {
 //###_FIND_NEXT_LANDMARK 7
   CEF_REQUIRE_UI_THREAD();
-
 //###_APPEND_START 7
-  if (this->mcallback_) {
-	  MethodArgs metArgs;
-	  memset(&metArgs, 0, sizeof(MethodArgs));	  
-	  metArgs.SetArgAsNativeObject(0, browser);
-	  metArgs.SetArgAsNativeObject(1, download_item); 
-	  metArgs.SetArgAsString(2, suggested_name.c_str());
-	  this->mcallback_(CEF_MSG_ClientHandler_BeforeDownload, &metArgs); //tmp
+if (this->mcallback_) {
+MethodArgs metArgs;
+memset(&metArgs, 0, sizeof(MethodArgs));	  
+metArgs.SetArgAsNativeObject(0, browser);
+metArgs.SetArgAsNativeObject(1, download_item); 
+metArgs.SetArgAsString(2, suggested_name.c_str());
+this->mcallback_(CEF_MSG_ClientHandler_BeforeDownload, &metArgs); //tmp
 
-	  auto downloadPath = metArgs.ReadOutputAsString(0);
-	  callback->Continue(downloadPath,false);
-  }
-  else {
-	  // Continue the download and show the "Save As" dialog.
-	  callback->Continue(MainContext::Get()->GetDownloadPath(suggested_name), true);	  
-  }
+auto downloadPath = metArgs.ReadOutputAsString(0);
+callback->Continue(downloadPath,false);
+}
+else {
+// Continue the download and show the "Save As" dialog.
+callback->Continue(MainContext::Get()->GetDownloadPath(suggested_name), true);	  
+}
 //###_APPEND_STOP
-//###_SKIP_UNTIL_AND_ACCEPT 7 }
+//###_SKIP_UNTIL_AND_ACCEPT 7
 }
 
 //###_START 8
@@ -376,32 +410,38 @@ void ClientHandler::OnDownloadUpdated(
     CefRefPtr<CefDownloadItem> download_item,
     CefRefPtr<CefDownloadItemCallback> callback) {
 //###_FIND_NEXT_LANDMARK 8
-  CEF_REQUIRE_UI_THREAD();  
+  CEF_REQUIRE_UI_THREAD();
 //###_APPEND_START 8
-  if (this->mcallback_) {
-	  
-	  if (download_item->IsComplete()) {
-		  //this version we notify back when complete
-		  MethodArgs metArgs;
-		  memset(&metArgs, 0, sizeof(MethodArgs));
-		  metArgs.SetArgAsNativeObject(0, browser);
-		  metArgs.SetArgAsNativeObject(1, download_item);
-		  auto fullPath = download_item->GetFullPath();
-		  metArgs.SetArgAsString(2, fullPath.c_str());
-		  this->mcallback_(CEF_MSG_ClientHandler_DownloadUpdated, &metArgs); //tmp	  
-	  }
-  }
-  else {
-	  if (download_item->IsComplete()) {
-		  test_runner::Alert(
-			  browser,
-			  "File \"" + download_item->GetFullPath().ToString() +
-			  "\" downloaded successfully.");
-	  }
-  }
-//###_APPEND_STOP 8
-//###_SKIP_UNTIL_AND_ACCEPT 8 }
+if (this->mcallback_) {
 
+if (download_item->IsComplete()) {
+//this version we notify back when complete
+MethodArgs metArgs;
+memset(&metArgs, 0, sizeof(MethodArgs));
+metArgs.SetArgAsNativeObject(0, browser);
+metArgs.SetArgAsNativeObject(1, download_item);
+auto fullPath = download_item->GetFullPath();
+metArgs.SetArgAsString(2, fullPath.c_str());
+this->mcallback_(CEF_MSG_ClientHandler_DownloadUpdated, &metArgs); //tmp	  
+}
+}
+else {
+if (download_item->IsComplete()) {
+test_runner::Alert(
+browser,
+"File \"" + download_item->GetFullPath().ToString() +
+"\" downloaded successfully.");
+}
+}
+//###_APPEND_STOP
+//###_SKIP_UNTIL_AND_ACCEPT 8
+
+  if (download_item->IsComplete()) {
+    test_runner::Alert(
+        browser,
+        "File \"" + download_item->GetFullPath().ToString() +
+        "\" downloaded successfully.");
+  }
 }
 
 bool ClientHandler::OnDragEnter(CefRefPtr<CefBrowser> browser,
@@ -438,7 +478,7 @@ callback->Continue(false); //I cancel all :)
 //###_APPEND_STOP
 //###_SKIP_UNTIL_AND_ACCEPT 3
   return true;
-} 
+}
 
 //###_START 7
 bool ClientHandler::OnPreKeyEvent(CefRefPtr<CefBrowser> browser,
@@ -449,17 +489,17 @@ bool ClientHandler::OnPreKeyEvent(CefRefPtr<CefBrowser> browser,
   CEF_REQUIRE_UI_THREAD();
 //###_APPEND_START 7
 if (this->mcallback_) { 
- 
-	 if (this->enableKeyIntercept != 0)
-	 {
-		MethodArgs metArgs;
-		memset(&metArgs, 0, sizeof(MethodArgs));
-		metArgs.SetArgAsNativeObject(0, &event);
-		this->mcallback_(CEF_MSG_ClientHandler_OnPreKeyEvent, &metArgs); //tmp
-		int result = metArgs.ReadOutputAsInt32(0); 
-		return result != 0;
-	 }
-	 return false;  
+
+if (this->enableKeyIntercept != 0)
+{
+MethodArgs metArgs;
+memset(&metArgs, 0, sizeof(MethodArgs));
+metArgs.SetArgAsNativeObject(0, &event);
+this->mcallback_(CEF_MSG_ClientHandler_OnPreKeyEvent, &metArgs); //tmp
+int result = metArgs.ReadOutputAsInt32(0); 
+return result != 0;
+}
+return false;  
 }
 else {
 if (!event.focus_on_editable_field && event.windows_key_code == 0x20) {
@@ -615,57 +655,51 @@ void ClientHandler::OnLoadError(CefRefPtr<CefBrowser> browser,
   if (errorCode == ERR_ABORTED)
     return;
 
-  //###_FIND_NEXT_LANDMARK 6
+//###_FIND_NEXT_LANDMARK 6
   // Don't display an error for external protocols that we allow the OS to
-  //###_FIND_NEXT_LANDMARK 6
+//###_FIND_NEXT_LANDMARK 6
   // handle. See OnProtocolExecution().
-  //###_APPEND_START 6   
+//###_APPEND_START 6
+if (this->mcallback_)
+{
+//TODO: send cmd to managed side
+//create dev window
+//send cef client
+MethodArgs  args;
+memset(&args, 0, sizeof(MethodArgs));
+//send info to managed side 
+args.SetArgAsNativeObject(0, browser.get());
+args.SetArgAsNativeObject(1, frame.get());
+args.SetArgAsInt32(2, errorCode);
+auto str16 = errorText.ToString16();
+auto cstr = str16.c_str();
+args.SetArgAsString(3, cstr);
 
-  if (this->mcallback_)
-  {
-	  //TODO: send cmd to managed side
-	  //create dev window
-	  //send cef client
-	  MethodArgs  args;
-	  memset(&args, 0, sizeof(MethodArgs));
-	  //send info to managed side 
-	  args.SetArgAsNativeObject(0, browser.get());
-	  args.SetArgAsNativeObject(1, frame.get());
-	  args.SetArgAsInt32(2, errorCode);
-	  auto str16 = errorText.ToString16();
-	  auto cstr = str16.c_str();
-	  args.SetArgAsString(3, cstr);
+auto str16_1 = failedUrl.ToString16();
+auto cstr_1 = str16_1.c_str();
+args.SetArgAsString(4, cstr_1);
+//------------------------
+this->mcallback_(CEF_MSG_ClientHandler_OnLoadError, &args);
+//------------------------			 
+//load page error
 
-	  auto str16_1 = failedUrl.ToString16();
-	  auto cstr_1 = str16_1.c_str();
-	  args.SetArgAsString(4, cstr_1);
-	  //------------------------
-	  this->mcallback_(CEF_MSG_ClientHandler_OnLoadError, &args);
-	  //------------------------			 
-	  //load page error
+LoadErrorPage(frame, failedUrl, errorCode, errorText);
+}
+else
+{
+if (errorCode == ERR_UNKNOWN_URL_SCHEME) {
+std::string urlStr = frame->GetURL();
+if (urlStr.find("spotify:") == 0)
+return;
+}
+// Load the error page. 
+LoadErrorPage(frame, failedUrl, errorCode, errorText);
+}
+//###_APPEND_STOP
+//###_SKIP_UNTIL_PASS 6 }
 
-	  LoadErrorPage(frame, failedUrl, errorCode, errorText);
-  }
-  else
-  {
-	  if (errorCode == ERR_UNKNOWN_URL_SCHEME) {
-		  std::string urlStr = frame->GetURL();
-		  if (urlStr.find("spotify:") == 0)
-			  return;
-	  }
-	  // Load the error page. 
-	  LoadErrorPage(frame, failedUrl, errorCode, errorText);
-  }
-
-  //###_APPEND_STOP 
-  //###_SKIP_UNTIL_PASS 6 }
-  //if (errorCode == ERR_UNKNOWN_URL_SCHEME) {
-  //	std::string urlStr = frame->GetURL();
-  //	if (urlStr.find("spotify:") == 0)
-  //		return;
-  //}
-  //// Load the error page. 
-  //LoadErrorPage(frame, failedUrl, errorCode, errorText); 
+  // Load the error page.
+  LoadErrorPage(frame, failedUrl, errorCode, errorText);
 }
 
 bool ClientHandler::OnBeforeBrowse(CefRefPtr<CefBrowser> browser,
@@ -975,7 +1009,7 @@ auto str16 = url.ToString16();
 auto cstr = str16.c_str();
 metArgs.SetArgAsString(0, cstr);
 this->mcallback_(CEF_MSG_ClientHandler_NotifyAddress, &metArgs);
- 
+
 }
 else {
 if (delegate_)
@@ -1005,7 +1039,7 @@ auto str16 = title.ToString16();
 auto cstr = str16.c_str();
 metArgs.SetArgAsString(0, cstr);
 this->mcallback_(CEF_MSG_ClientHandler_NotifyTitle, &metArgs);
- 
+
 }
 else {
 if (delegate_)
@@ -1013,6 +1047,18 @@ delegate_->OnSetTitle(title);
 }
 //###_APPEND_STOP
 //###_SKIP_UNTIL_AND_ACCEPT 10
+}
+
+void ClientHandler::NotifyFavicon(CefRefPtr<CefImage> image) {
+  if (!CURRENTLY_ON_MAIN_THREAD()) {
+    // Execute this method on the main thread.
+    MAIN_POST_CLOSURE(
+        base::Bind(&ClientHandler::NotifyFavicon, this, image));
+    return;
+  }
+
+  if (delegate_)
+    delegate_->OnSetFavicon(image);
 }
 
 void ClientHandler::NotifyFullscreen(bool fullscreen) {

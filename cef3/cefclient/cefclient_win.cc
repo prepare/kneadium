@@ -14,6 +14,7 @@
 #include "cefclient/browser/root_window_manager.h"
 #include "cefclient/browser/test_runner.h"
 #include "cefclient/common/client_app_other.h"
+#include "cefclient/common/client_switches.h"
 #include "cefclient/renderer/client_app_renderer.h"
 
 // When generating projects with CMake the CEF_USE_SANDBOX value will be defined
@@ -23,7 +24,7 @@
 // #define CEF_USE_SANDBOX 1
 
 #if defined(CEF_USE_SANDBOX)
-// The cef_sandbox.lib static library is currently built with VS2013. It may not
+// The cef_sandbox.lib static library is currently built with VS2015. It may not
 // link successfully with other VS versions.
 #pragma comment(lib, "cef_sandbox.lib")
 #endif
@@ -92,7 +93,7 @@ int RunMain(HINSTANCE hInstance, int nCmdShow) {
 
   // Create the first window.
   context->GetRootWindowManager()->CreateRootWindow(
-      true,             // Show controls.
+      !command_line->HasSwitch(switches::kHideControls),  // Show controls.
       settings.windowless_rendering_enabled ? true : false,
       CefRect(),        // Use default system size.
       std::string());   // Use default URL.

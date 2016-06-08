@@ -1,4 +1,4 @@
-//###_ORIGINAL D:\projects\cef_binary_3.2623.1399\cefclient\browser//client_handler.h
+//###_ORIGINAL D:\projects\cef_binary_3.2704.1418\cefclient\browser//client_handler.h
 // Copyright (c) 2011 The Chromium Embedded Framework Authors. All rights
 // reserved. Use of this source code is governed by a BSD-style license that
 // can be found in the LICENSE file.
@@ -29,6 +29,8 @@
 #endif
 
 namespace client {
+
+class ClientDownloadImageCallback;
 
 // Client handler abstract base class. Provides common functionality shared by
 // all concrete client handler implementations.
@@ -61,6 +63,9 @@ class ClientHandler : public CefClient,
 
     // Set the window title.
     virtual void OnSetTitle(const std::string& title) = 0;
+
+    // Set the Favicon image.
+    virtual void OnSetFavicon(CefRefPtr<CefImage> image) {};
 
     // Set fullscreen mode.
     virtual void OnSetFullscreen(bool fullscreen) = 0;
@@ -148,6 +153,8 @@ class ClientHandler : public CefClient,
                        const CefString& url) OVERRIDE;
   void OnTitleChange(CefRefPtr<CefBrowser> browser,
                      const CefString& title) OVERRIDE;
+  void OnFaviconURLChange(CefRefPtr<CefBrowser> browser,
+                          const std::vector<CefString>& icon_urls) OVERRIDE;
   void OnFullscreenModeChange(CefRefPtr<CefBrowser> browser,
                               bool fullscreen) OVERRIDE;
   bool OnConsoleMessage(CefRefPtr<CefBrowser> browser,
@@ -268,6 +275,9 @@ class ClientHandler : public CefClient,
   // Close the existing DevTools popup window, if any.
   void CloseDevTools(CefRefPtr<CefBrowser> browser);
 
+  // Returns the Delegate.
+  Delegate* delegate() const { return delegate_; }
+
   // Returns the startup URL.
   std::string startup_url() const { return startup_url_; }
 
@@ -280,7 +290,16 @@ void MyCefSetManagedCallBack(managed_callback m);
 void MyCefEnableKeyIntercept(int enable);
 //###_APPEND_STOP
 
+  // Set/get whether the client should download favicon images. Only safe to
+  // call immediately after client creation or on the browser process UI thread.
+  bool download_favicon_images() const { return download_favicon_images_; }
+  void set_download_favicon_images(bool allow) {
+    download_favicon_images_ = allow;
+  }
+
  private:
+  friend class ClientDownloadImageCallback;
+
   // Create a new popup window using the specified information. |is_devtools|
   // will be true if the window will be used for DevTools. Return true to
   // proceed with popup browser creation or false to cancel the popup browser.
@@ -299,6 +318,7 @@ void MyCefEnableKeyIntercept(int enable);
   void NotifyBrowserClosed(CefRefPtr<CefBrowser> browser);
   void NotifyAddress(const CefString& url);
   void NotifyTitle(const CefString& title);
+  void NotifyFavicon(CefRefPtr<CefImage> image);
   void NotifyFullscreen(bool fullscreen);
   void NotifyLoadingState(bool isLoading,
                           bool canGoBack,
@@ -321,6 +341,9 @@ void MyCefEnableKeyIntercept(int enable);
 
   // True if mouse cursor change is disabled.
   bool mouse_cursor_change_disabled_;
+
+  // True if Favicon images should be downloaded.
+  bool download_favicon_images_;
 
 #if defined(OS_LINUX)
   // Custom dialog handler for GTK.
