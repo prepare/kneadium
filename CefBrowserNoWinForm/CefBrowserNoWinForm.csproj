@@ -39,6 +39,7 @@
     <Reference Include="System" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="CefForNativeWindow.cs" />
     <Compile Include="CefWebBrowser.cs" />
     <Compile Include="MyCef3InitEssential.cs" />
     <Compile Include="MyCefRenderProcessListener.cs" />

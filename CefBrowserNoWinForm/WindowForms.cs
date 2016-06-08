@@ -31,6 +31,14 @@ namespace System.Windows.Forms
     public class PreviewKeyEventArgs : EventArgs { }
     public class Form : Control
     {
+        public Form()
+        {
+            CreateNativeCefWindowHandle();
+        }
+        void CreateNativeCefWindowHandle()
+        {
+
+        }
         public void Invoke(SimpleAction ac) { }
         public void Close() { }
 
