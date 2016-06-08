@@ -13,8 +13,10 @@ namespace System.Windows.Forms
         public static void EnableVisualStyles() { }
         public static void SetCompatibleTextRenderingDefault(bool value) { }
         public static event EventHandler Idle;
-
+        public static void Run(Form form) { }
     }
+
+
 
     public delegate void SimpleAction();
 
@@ -70,7 +72,7 @@ namespace System.Windows.Forms
         }
         public ControlCollection Controls
         {
-            get;set;
+            get; set;
         }
         public int Width { get; set; }
         public int Height { get; set; }

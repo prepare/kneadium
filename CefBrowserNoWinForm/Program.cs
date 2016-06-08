@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
+using System.Windows.Forms;
 
 namespace CefBridgeTest
 {
@@ -26,6 +27,9 @@ namespace CefBridgeTest
             //ApplicationContext appContext = new ApplicationContext(f1);
             //Application.Run(appContext);
             //---------------------------------
+
+            Form f1 = new Form();
+            Application.Run(f1);
             //3. shutdown cef3
             MyCef3InitEssential.ShutDownCef3();
         }
