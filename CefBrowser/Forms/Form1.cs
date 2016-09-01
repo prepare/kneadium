@@ -35,9 +35,12 @@ namespace CefBridgeTest
         {
             this.cefWebBrowser1.Focus();
             //this.cefWebBrowser1.NavigateTo("https://html5test.com");
-            this.cefWebBrowser1.NavigateTo("https://localhost:8000");
+            //this.cefWebBrowser1.NavigateTo("https://localhost:8000");
+            //this.cefWebBrowser1.NavigateTo("http://localhost/LiborMasekThesis.pdf");
+            this.cefWebBrowser1.NavigateTo("http://localhost/pdfjs/web/viewer.html");
 
-        } 
+
+        }
         private void button1_Click(object sender, EventArgs e)
         {
             cefWebBrowser1.Agent.ExecJavascript(

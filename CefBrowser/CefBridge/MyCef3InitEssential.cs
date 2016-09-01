@@ -28,7 +28,7 @@ namespace CefBridgeTest
             //libPath = @"D:\projects\CefBridge\cef3_2704output\cefclient\Debug";
 
             libPath = @"D:\projects\cef_binary_3.2785.1466output\cefclient\Debug";
-             
+
             //libPath = @"D:\WImageTest\Release2";//test load from other location
 #else
             libPath = @"D:\projects\CefBridge\cef3_output\cefclient\Release";
@@ -126,9 +126,7 @@ namespace CefBridgeTest
             System.Threading.Thread.CurrentThread.CurrentCulture = new System.Globalization.CultureInfo("en-us");
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            //-------------------------------------------------
-
-
+            //------------------------------------------------- 
             if (tinyForm == null)
             {
                 tinyForm = new System.Windows.Forms.Form();
@@ -136,8 +134,9 @@ namespace CefBridgeTest
                 tinyForm.Visible = false;
             }
             IntPtr handle = tinyForm.Handle;//force it create handle**** 
-            //Cef3's message pump
-            System.Windows.Forms.Application.Idle += (sender, e) =>
+            //Cef3's message pump ***
+
+            Application.Idle += (sender, e) =>
             {
                 DoMessageLoopWork();
             };

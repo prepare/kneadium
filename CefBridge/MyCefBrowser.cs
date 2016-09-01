@@ -367,6 +367,7 @@ namespace LayoutFarm.CefBridge
         public static void DisposeCefWbControl(IWindowForm ownerForm)
         {
             //register this control with parent form 
+            Cef3InitEssential.StopCefMessageLoop();
             List<MyCefBrowser> foundList;
             IntPtr winHandle = ownerForm.GetHandle();
             if (registeredWbControls.TryGetValue(winHandle, out foundList))
@@ -374,12 +375,15 @@ namespace LayoutFarm.CefBridge
                 //remove wb controls             
                 for (int i = foundList.Count - 1; i >= 0; --i)
                 {
-                    var wb = foundList[i].ParentControl;
+                    IWindowControl wb = foundList[i].ParentControl;
+                    if (wb is IWindowForm)
+                    {
+
+                    }
                     var parent = wb.GetParent();
                     parent.RemoveChild(wb);
                     wb.Dispose();
                 }
-
                 registeredWbControls.Remove(winHandle);
             }
         }

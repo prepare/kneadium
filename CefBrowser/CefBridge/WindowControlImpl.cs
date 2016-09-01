@@ -9,26 +9,37 @@ namespace LayoutFarm.CefBridge
         Control control;
         MyWindowControl topLevelWindowControl;
         MyWindowControl parentControl;
-        public MyWindowControl(System.Windows.Forms.Control control)
+        bool markedAsDisposed;
+        public MyWindowControl(Control control)
         {
             this.control = control;
         }
+
         IntPtr IWindowControl.GetHandle()
         {
+            //sometime control was disposed
+            if (markedAsDisposed)
+            {
+                return IntPtr.Zero;
+            }
             return control.Handle;
+        }
+        void IWindowControl.MarkAsDisposed()
+        {
+            markedAsDisposed = true;
         }
 
         void IWindowControl.Show()
         {
             control.Show();
         }
-        public void Dispose()
+        void IDisposable.Dispose()
         {
-            if (control != null)
-            {
-                control.Dispose();
-                control = null;
-            }
+            //if (control != null)
+            //{
+            //    control.Dispose();
+            //    control = null;
+            //}
         }
         IWindowControl IWindowControl.GetTopLevelControl()
         {
@@ -67,6 +78,8 @@ namespace LayoutFarm.CefBridge
             var child1 = (MyWindowControl)child;
             this.control.Controls.Remove(child1.control);
         }
+
+
     }
 
     class MyWindowForm : MyWindowControl, IWindowForm
@@ -89,6 +102,7 @@ namespace LayoutFarm.CefBridge
         private void Form_FormClosed(object sender, FormClosedEventArgs e)
         {
             //form has closed
+            ((IWindowForm)this).MarkAsDisposed();
         }
         private void TmClosingCheck_Tick(object sender, EventArgs e)
         {
@@ -100,25 +114,25 @@ namespace LayoutFarm.CefBridge
         }
 
         IntPtr formHandle;
+        object closingLock = new object();
         private void Form_FormClosing(object sender, FormClosingEventArgs e)
         {
             //essential
-            //monitor form closing
-            if (!startClosing)
+            //monitor form closing 
+            bool closing = false;
+            lock (closingLock)
             {
+                closing = startClosing;
+            }
+            if (!closing)
+            {
+                startClosing = closing = true;
+                e.Cancel = true;
                 formHandle = form.Handle;
                 MyCefBrowser.DisposeCefWbControl(this);
                 tmClosingCheck.Enabled = true;
-                startClosing = true;
-                e.Cancel = true;
             }
-            else
-            {
-                if (!MyCefBrowser.IsReadyToClose(formHandle))
-                {
-                    e.Cancel = true;
-                }
-            }
+
         }
 
         void IWindowForm.Close()
