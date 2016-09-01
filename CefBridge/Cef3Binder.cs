@@ -62,13 +62,15 @@ namespace LayoutFarm.CefBridge
         CEF_MSG_ClientHandler_BeforeDownload = 110,
         CEF_MSG_ClientHandler_DownloadUpdated = 111,
         CEF_MSG_ClientHandler_OnLoadError = 119,
+        CEF_MSG_ClientHandler_OnCertError = 120,
+
         CEF_MSG_ClientHandler_SetResourceManager = 140,
         CEF_MSG_RequestUrlFilter2 = 142,
         CEF_MSG_BinaryResouceProvider_OnRequest = 145,
-        
+
         //
         CEF_MSG_CefSettings_Init = 150,
-        CEF_MSG_MainContext_GetConsoleLogPath =151,
+        CEF_MSG_MainContext_GetConsoleLogPath = 151,
         //
         CEF_MSG_RenderDelegate_OnWebKitInitialized = 201,
         CEF_MSG_RenderDelegate_OnContextCreated = 202,
@@ -181,15 +183,26 @@ namespace LayoutFarm.CefBridge
             //    //lastErr = NativeMethods.GetLastError();
             //}
             //Console.WriteLine(lib);
+            int tryLoadCount = 0;
+            TRY_AGAIN:
+            uint lastErr = 0;
             IntPtr libCefModuleHandler = NativeMethods.LoadLibrary(lib);
             //Console.WriteLine(libCefModuleHandler);
-            uint lastErr = NativeMethods.GetLastError();
-            if (lastErr != 0)
+            if (libCefModuleHandler == IntPtr.Zero)
             {
-                initEssential.AddLogMessage("load err code" + lastErr);
-                return false;
+                lastErr = NativeMethods.GetLastError();
+                if (lastErr != 0)
+                {
+                    if (lastErr == 2 & tryLoadCount < 3)
+                    {
+                        System.Threading.Thread.Sleep(100);
+                        tryLoadCount++;
+                        goto TRY_AGAIN;
+                    }
+                    initEssential.AddLogMessage("load err code" + lastErr);
+                    return false;
+                }
             }
-
 
             //------------------------------------------------------------------
             //2. cef client
@@ -241,7 +254,7 @@ namespace LayoutFarm.CefBridge
         public static extern IntPtr MyCefCreateMyWebBrowser(MyCefCallback mxcallback);
         //5.
         [DllImport(CEF_CLIENT_DLL, CallingConvention = CallingConvention.Cdecl, CharSet = CharSet.Unicode)]
-        public static extern void MyCefSetupBrowserHwnd(IntPtr myCefBrowser, IntPtr hWndParent, int x, int y, int width, int height, string initUrl,IntPtr requestContext);
+        public static extern void MyCefSetupBrowserHwnd(IntPtr myCefBrowser, IntPtr hWndParent, int x, int y, int width, int height, string initUrl, IntPtr requestContext);
         //6.
         [DllImport(CEF_CLIENT_DLL)]
         public static extern void MyCefDoMessageLoopWork();

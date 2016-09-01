@@ -34,9 +34,10 @@ namespace CefBridgeTest
         private void button7_Click(object sender, EventArgs e)
         {
             this.cefWebBrowser1.Focus();
-            this.cefWebBrowser1.NavigateTo("https://html5test.com");
-        }
+            //this.cefWebBrowser1.NavigateTo("https://html5test.com");
+            this.cefWebBrowser1.NavigateTo("https://localhost:8000");
 
+        } 
         private void button1_Click(object sender, EventArgs e)
         {
             cefWebBrowser1.Agent.ExecJavascript(

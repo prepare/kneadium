@@ -94,9 +94,9 @@ namespace LayoutFarm.CefBridge
                         //when 
                         NativeCallArgs metArgs = new NativeCallArgs(argsPtr);
                         if (browserProcessListener != null)
-                        {   
+                        {
                             browserProcessListener.OnDownloadCompleted(metArgs);
-                        } 
+                        }
                     }
                     break;
                 case MyCefMsg.CEF_MSG_ClientHandler_OnBeforePopup:
@@ -146,6 +146,13 @@ namespace LayoutFarm.CefBridge
                         //---------------------------                        
                         //load error page
                         LoadErrorPage(cefBrowser, cefFrame, errorCode, errorText, failedUrl);
+                    }
+                    break;
+                case MyCefMsg.CEF_MSG_ClientHandler_OnCertError:
+                    {
+                        var args = new NativeCallArgs(argsPtr);
+                        string certErrMsg = args.GetArgAsString(0);
+                        args.SetOutput(0, 1);//true
                     }
                     break;
                 case MyCefMsg.CEF_MSG_ClientHandler_SetResourceManager:
