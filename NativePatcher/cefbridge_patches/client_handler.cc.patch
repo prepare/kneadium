@@ -299,6 +299,30 @@ LoadErrorPage(frame, failedUrl, errorCode, errorText);
 }
 //###_APPEND_STOP
 //###_SKIP_UNTIL_PASS 6 }
+//###_START 10
+void ClientHandler::OnProtocolExecution(CefRefPtr<CefBrowser> browser,
+//###_FIND_NEXT_LANDMARK 10
+CEF_REQUIRE_UI_THREAD();
+//###_APPEND_START 10
+if (this->mcallback_)
+{
+MethodArgs args;
+memset(&args, 0, sizeof(MethodArgs));			  
+CefString cefStr1 = url;
+args.SetArgAsString(0, cefStr1.c_str());
+this->mcallback_(CEF_MSG_ClientHandler_ExecCustomProtocol, &args);
+//then what to do next
+allow_os_execution = (args.result0.value.i32 == 1); 
+}
+else {
+std::string urlStr = url;
+// Allow OS execution of Spotify URIs.
+if (urlStr.find("spotify:") == 0)
+allow_os_execution = true;
+}
+//###_APPEND_STOP
+//###_SKIP_UNTIL_AND_ACCEPT 10
+}
 //###_START 9
 bool ClientHandler::OnCertificateError(
 //###_FIND_NEXT_LANDMARK 9
@@ -381,6 +405,15 @@ MAIN_POST_CLOSURE(
 //###_APPEND_START 8
 if (this->mcallback_) {
 this->mcallback_(CEF_MSG_ClientHandler_NotifyBrowserCreated, NULL);
+}
+//###_APPEND_STOP
+//###_START 8
+void ClientHandler::NotifyBrowserClosing(CefRefPtr<CefBrowser> browser) {
+//###_FIND_NEXT_LANDMARK 8
+delegate_->OnBrowserClosing(browser);
+//###_APPEND_START 8
+if (this->mcallback_) {
+this->mcallback_(CEF_MSG_ClientHandler_NotifyBrowserClosing, NULL);
 }
 //###_APPEND_STOP
 //###_START 9
