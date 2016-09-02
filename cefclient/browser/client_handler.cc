@@ -356,9 +356,12 @@ bool ClientHandler::OnDragEnter(CefRefPtr<CefBrowser> browser,
                                 CefDragHandler::DragOperationsMask mask) {
   CEF_REQUIRE_UI_THREAD();
 
-  // Forbid dragging of link URLs.
-  if (mask & DRAG_OPERATION_LINK)
+  // Forbid dragging of URLs and files.
+  if ((mask & DRAG_OPERATION_LINK) && !dragData->IsFragment()) {
+    test_runner::Alert(
+        browser, "cefclient blocks dragging of URLs and files");
     return true;
+  }
 
   return false;
 }
@@ -687,14 +690,33 @@ int ClientHandler::GetBrowserCount() const {
 
 void ClientHandler::ShowDevTools(CefRefPtr<CefBrowser> browser,
                                  const CefPoint& inspect_element_at) {
+  if (!CefCurrentlyOn(TID_UI)) {
+    // Execute this method on the UI thread.
+    CefPostTask(TID_UI, base::Bind(&ClientHandler::ShowDevTools, this, browser,
+                                   inspect_element_at));
+    return;
+  }
+
   CefWindowInfo windowInfo;
   CefRefPtr<CefClient> client;
   CefBrowserSettings settings;
 
-  if (CreatePopupWindow(browser, true, CefPopupFeatures(), windowInfo, client,
-                        settings)) {
-    browser->GetHost()->ShowDevTools(windowInfo, client, settings,
-                                     inspect_element_at);
+  CefRefPtr<CefBrowserHost> host = browser->GetHost();
+
+  // Test if the DevTools browser already exists.
+  bool has_devtools = host->HasDevTools();
+  if (!has_devtools) {
+    // Create a new RootWindow for the DevTools browser that will be created
+    // by ShowDevTools().
+    has_devtools = CreatePopupWindow(browser, true, CefPopupFeatures(),
+                                     windowInfo, client, settings);
+  }
+
+  if (has_devtools) {
+    // Create the DevTools browser if it doesn't already exist.
+    // Otherwise, focus the existing DevTools browser and inspect the element
+    // at |inspect_element_at| if non-empty.
+    host->ShowDevTools(windowInfo, client, settings, inspect_element_at);
   }
 }
 
