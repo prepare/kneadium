@@ -52,8 +52,12 @@ namespace LayoutFarm.CefBridge
     public enum MyCefMsg
     {
         MYCEF_MSG_UNKNOWN = 0,
-        CEF_MSG_ClientHandler_NotifyBrowserClosed = 100,
-        CEF_MSG_ClientHandler_NotifyBrowserCreated = 101,
+
+        CEF_MSG_ClientHandler_NotifyBrowserClosing = 100,
+        CEF_MSG_ClientHandler_NotifyBrowserClosed = 101,
+        CEF_MSG_ClientHandler_NotifyBrowserCreated = 102,
+
+
         CEF_MSG_ClientHandler_OnBeforePopup = 104,
         CEF_MSG_ClientHandler_OnConsoleMessage = 106,
         CEF_MSG_ClientHandler_ShowDevTools = 107,
@@ -142,9 +146,13 @@ namespace LayoutFarm.CefBridge
             {
                 CefStartArgs cefStartArg = CefStartArgs.Parse(startArgs);
                 Cef3InitEssential.IsInRenderProcess = (cefStartArg.IsValidCefArgs && cefStartArg.ProcessType == "renderer");
+                Cef3InitEssential.IsInMainProcess = (cefStartArg.IsValidCefArgs && cefStartArg.ProcessType == "");
                 cefInitEssential.AfterProcessLoaded(cefStartArg);
             }
-
+            else
+            {
+                Cef3InitEssential.IsInMainProcess = true;
+            }
             //----------------------------------------------------------- 
             //check version
             //1.
@@ -161,7 +169,8 @@ namespace LayoutFarm.CefBridge
             //managedListener1 = new MyCefCallback(Cef3callBack_ForMangedCallBack2);
             //regResult = RegisterManagedCallBack(managedListener1, 1);
             //-----------------------------------------------------------
-            //init cef            
+            //init cef  
+
             clientApp = cefInitEssential.CreateClientApp(); // System.Diagnostics.Process.GetCurrentProcess().Handle);
             return true;
         }
@@ -195,7 +204,8 @@ namespace LayoutFarm.CefBridge
                 {
                     if (lastErr == 2 & tryLoadCount < 3)
                     {
-                        System.Threading.Thread.Sleep(100);
+                        //if not finish
+                        //System.Threading.Thread.Sleep(100);
                         tryLoadCount++;
                         goto TRY_AGAIN;
                     }
@@ -258,12 +268,13 @@ namespace LayoutFarm.CefBridge
         //6.
         [DllImport(CEF_CLIENT_DLL)]
         public static extern void MyCefDoMessageLoopWork();
-        //7.
+        [DllImport(CEF_CLIENT_DLL)]
+        public static extern void MyCefQuitMessageLoop();
         [DllImport(CEF_CLIENT_DLL)]
         public static extern int MyCefShutDown();
 
 
-        //8.
+
         [DllImport(CEF_CLIENT_DLL, CallingConvention = CallingConvention.Cdecl, CharSet = CharSet.Unicode)]
         public static extern void MyCefSetInitSettings(IntPtr cefSetting, int keyName, string value);
         //--------------------------------------------------- 

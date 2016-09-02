@@ -17,10 +17,7 @@ namespace LayoutFarm.CefBridge
         public abstract IWindowForm CreateNewWindow(int width, int height);
         public abstract IWindowForm CreateNewBrowserWindow(int width, int height);
         public abstract void SaveUIInvoke(SimpleDel simpleDel);
-        public static void StopCefMessageLoop()
-        {
-            shutdownRequest = true;
-        }
+       
         public void Shutdown()
         {
             OnBeforeShutdown();
@@ -56,7 +53,7 @@ namespace LayoutFarm.CefBridge
                 Cef3Binder.MyCefDoMessageLoopWork();
             }
         }
-
+        
         public abstract void AddLogMessage(string msg);
         /// <summary>
         /// libcef.dll (original)
@@ -72,6 +69,12 @@ namespace LayoutFarm.CefBridge
         {
             get;
             internal set;
+        }
+        public static bool IsInMainProcess
+        {
+            get;
+            internal set;
+        
         }
     }
 }
