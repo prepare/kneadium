@@ -1,14 +1,11 @@
 ﻿//2015-2016 MIT, WinterDev
 
 using System;
-using System.Collections.Generic;
-using System.Text;
 using System.Runtime.InteropServices;
-using System.IO;
 namespace LayoutFarm.CefBridge
 {
     public delegate void SimpleDel();
-    //[UnmanagedFunctionPointer(CallingConvention.StdCall)]
+
     [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
     public delegate void MyCefCallback(int id, IntPtr args);
     //----------------------------------------------------------------------
@@ -409,10 +406,6 @@ namespace LayoutFarm.CefBridge
         {
             return Cef3Binder.MyCefJs_CefRegisterExtension(extensionName, extensionCode);
         }
-        //public static NativeCallArgs NewNativeCallArgs()
-        //{
-        //    return new NativeCallArgs(Cef3Binder.CreateMethodArgs());
-        //}
         public static void DisposeNativeCallArgs(NativeCallArgs nativeCallArgs)
         {
             Cef3Binder.DisposeMethodArgs(nativeCallArgs._argPtr);
