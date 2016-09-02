@@ -10,10 +10,11 @@ namespace LayoutFarm.CefBridge
         void Show();
         IWindowControl GetParent();
         void RemoveChild(IWindowControl child);
+        void MarkAsDisposed();
     }
     public interface IWindowForm : IWindowControl
     {
-        void Close();
+        void Close(); 
         string Text { get; set; }
     }
 }

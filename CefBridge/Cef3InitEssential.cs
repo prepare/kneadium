@@ -1,15 +1,13 @@
 ﻿//2015-2016 MIT, WinterDev
 
 using System;
-using System.Collections.Generic;
-using System.Text;
-using System.Runtime.InteropServices;
-using System.IO;
 namespace LayoutFarm.CefBridge
 {
     public abstract class Cef3InitEssential
     {
         internal readonly string[] startArgs;
+
+
         public Cef3InitEssential(string[] startArgs)
         {
             this.startArgs = startArgs;
@@ -19,6 +17,7 @@ namespace LayoutFarm.CefBridge
         public abstract IWindowForm CreateNewWindow(int width, int height);
         public abstract IWindowForm CreateNewBrowserWindow(int width, int height);
         public abstract void SaveUIInvoke(SimpleDel simpleDel);
+
         public void Shutdown()
         {
             OnBeforeShutdown();
@@ -31,7 +30,7 @@ namespace LayoutFarm.CefBridge
         protected virtual void OnAfterShutdown()
         {
         }
-        public abstract IntPtr SetupPreRun();
+        public abstract void SetupPreRun();
         /// <summary>
         /// load and init cef library
         /// </summary>
@@ -47,8 +46,8 @@ namespace LayoutFarm.CefBridge
         }
 
         protected static void DoMessageLoopWork()
-        {
-            Cef3Binder.MyCefDoMessageLoopWork();
+        { 
+            Cef3Binder.MyCefDoMessageLoopWork(); 
         }
 
         public abstract void AddLogMessage(string msg);
@@ -66,6 +65,12 @@ namespace LayoutFarm.CefBridge
         {
             get;
             internal set;
+        }
+        public static bool IsInMainProcess
+        {
+            get;
+            internal set;
+
         }
     }
 }

@@ -39,7 +39,7 @@ namespace LayoutFarm.CefBridge
                 | ControlStyles.AllPaintingInWmPaint
                 | ControlStyles.Selectable,
                 true);
-            thisWindowControl = new MyWindowControl(this);
+            thisWindowControl = MyWindowControl.TryGetWindowControlOrRegisterIfNotExists(this);
         }
         protected override void OnPreviewKeyDown(PreviewKeyDownEventArgs e)
         {

@@ -13,6 +13,7 @@ namespace LayoutFarm.CefBridge
         public virtual void OnCefQuery(NativeCallArgs args, QueryRequestArgs reqArgs) { }
         public virtual void OnConsoleLog(NativeCallArgs args) { }
         public virtual void OnDownloadCompleted(NativeCallArgs args) { }
+        public virtual void OnExecProtocol(NativeCallArgs args) { }
     }
 
     /// <summary>

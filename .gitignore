@@ -49,3 +49,5 @@ x64/
 *.opensdf
 *.ipch
 .builds
+*.VC.db
+*.VC.opendb
