@@ -158,6 +158,20 @@ namespace LayoutFarm.CefBridge
                         args.SetOutput(0, 1);//true
                     }
                     break;
+                case MyCefMsg.CEF_MSG_ClientHandler_ExecCustomProtocol:
+                    {
+                        //disable all protocol
+                        var args = new NativeCallArgs(argsPtr);
+                        if (browserProcessListener != null)
+                        {
+                            browserProcessListener.OnExecProtocol(args);
+                        }
+                        else
+                        {
+                            args.SetOutput(0, 0);//disable all protocol
+                        }
+                    }
+                    break;
                 case MyCefMsg.CEF_MSG_ClientHandler_SetResourceManager:
                     {
                         //setup resource mx
@@ -382,7 +396,7 @@ namespace LayoutFarm.CefBridge
             {
                 lock (sync_remove)
                 {
-                    wblist.Remove(wb); 
+                    wblist.Remove(wb);
                 }
             }
         }

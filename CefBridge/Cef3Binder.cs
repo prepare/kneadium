@@ -64,6 +64,7 @@ namespace LayoutFarm.CefBridge
         CEF_MSG_ClientHandler_DownloadUpdated = 111,
         CEF_MSG_ClientHandler_OnLoadError = 119,
         CEF_MSG_ClientHandler_OnCertError = 120,
+        CEF_MSG_ClientHandler_ExecCustomProtocol = 121,
 
         CEF_MSG_ClientHandler_SetResourceManager = 140,
         CEF_MSG_RequestUrlFilter2 = 142,
