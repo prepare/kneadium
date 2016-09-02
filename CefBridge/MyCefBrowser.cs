@@ -18,8 +18,7 @@ namespace LayoutFarm.CefBridge
         IWindowForm devForm;
         MyCefDevWindow cefDevWindow;
         CefUIProcessListener browserProcessListener;
-        static Dictionary<IntPtr, List<MyCefBrowser>> registeredWbControls =
-                    new Dictionary<IntPtr, List<MyCefBrowser>>();
+
         public MyCefBrowser(IWindowControl parentControl,
             int x, int y, int w, int h, string initUrl)
         {
@@ -61,7 +60,11 @@ namespace LayoutFarm.CefBridge
                         IsBrowserCreated = true;
                     }
                     break;
+                case MyCefMsg.CEF_MSG_ClientHandler_NotifyBrowserClosing:
+                    {
 
+                    }
+                    break;
                 case MyCefMsg.CEF_MSG_ClientHandler_NotifyBrowserClosed:
                     {
                         if (this.devForm != null)
@@ -327,68 +330,73 @@ namespace LayoutFarm.CefBridge
             }
         }
 
+        static Dictionary<IWindowForm, List<MyCefBrowser>> registerTopWindowForms =
+                   new Dictionary<IWindowForm, List<MyCefBrowser>>();
         static readonly object sync_remove = new object();
         static void RegisterCefWbControl(MyCefBrowser cefWb)
         {
-            //register this control with parent form
+            // get top level of this cef browser control
+
             var ownerForm = (IWindowForm)cefWb.ParentControl.GetTopLevelControl();
             List<MyCefBrowser> foundList;
-            IntPtr winHandle = ownerForm.GetHandle();
-            if (!registeredWbControls.TryGetValue(winHandle, out foundList))
+            if (!registerTopWindowForms.TryGetValue(ownerForm, out foundList))
             {
                 foundList = new List<MyCefBrowser>();
-                registeredWbControls.Add(winHandle, foundList);
+                registerTopWindowForms.Add(ownerForm, foundList);
             }
             if (!foundList.Contains(cefWb))
             {
                 foundList.Add(cefWb);
-                cefWb.BrowserDisposed += new EventHandler(cefWb_BrowserDisposed);
+                cefWb.BrowserDisposed += new EventHandler(cefBrowserControl_Disposed);
             }
         }
-        static void cefWb_BrowserDisposed(object sender, EventArgs e)
+
+        public static void DisposeAllChildWebBrowserControls(IWindowForm ownerForm)
         {
-            //when browser is disposed..
+
+            //dispose all web browser (child) windows inside this window form             
+            List<MyCefBrowser> foundList;
+            if (registerTopWindowForms.TryGetValue(ownerForm, out foundList))
+            {
+                //remove webbrowser controls             
+                for (int i = foundList.Count - 1; i >= 0; --i)
+                {
+                    IWindowControl wb = foundList[i].ParentControl;
+                    var parent = wb.GetParent();
+                    parent.RemoveChild(wb);
+                    //this Dispose() will terminate cef_life_time_handle *** 
+                    //after native side dispose the wb control
+                    //it will raise event BrowserDisposed
+                    wb.Dispose();
+                }
+                registerTopWindowForms.Remove(ownerForm);
+            }
+        }
+        static void cefBrowserControl_Disposed(object sender, EventArgs e)
+        {
+            //web browser control is dispose
             MyCefBrowser wb = (MyCefBrowser)sender;
-            //remove wb from registerd list
             List<MyCefBrowser> wblist;
-            IntPtr winHandle = wb.ParentForm.GetHandle();
-            if (registeredWbControls.TryGetValue(winHandle, out wblist))
+            IWindowForm winHandle = wb.ParentForm;
+            if (registerTopWindowForms.TryGetValue(winHandle, out wblist))
             {
                 lock (sync_remove)
                 {
-                    wblist.Remove(wb);
-                    if (wblist.Count == 0)
-                    {
-                        registeredWbControls.Remove(winHandle);
-                    }
+                    wblist.Remove(wb); 
                 }
             }
         }
-        public static void DisposeCefWbControl(IWindowForm ownerForm)
-        {
-            //register this control with parent form 
-            Cef3InitEssential.StopCefMessageLoop();
-            List<MyCefBrowser> foundList;
-            IntPtr winHandle = ownerForm.GetHandle();
-            if (registeredWbControls.TryGetValue(winHandle, out foundList))
-            {
-                //remove wb controls             
-                for (int i = foundList.Count - 1; i >= 0; --i)
-                {
-                    IWindowControl wb = foundList[i].ParentControl;                 
-                    var parent = wb.GetParent();
-                    parent.RemoveChild(wb);
-                    wb.Dispose();
-                }
-                registeredWbControls.Remove(winHandle);
-            }
-        }
-        public static bool IsReadyToClose(IntPtr nativeHandle)
+        public static bool IsReadyToClose(IWindowForm winFormControl)
         {
             //register this control with parent form  
             lock (sync_remove)
             {
-                return !registeredWbControls.ContainsKey(nativeHandle);
+                List<MyCefBrowser> cefBrowserList;
+                if (registerTopWindowForms.TryGetValue(winFormControl, out cefBrowserList))
+                {
+                    return cefBrowserList.Count == 0;
+                }
+                return true;
             }
         }
 

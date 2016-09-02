@@ -10,11 +10,13 @@ namespace CefBridgeTest
     /// <summary>
     /// Cef3 init essential for WindowForm
     /// </summary>
-    class MyCef3InitEssential : LayoutFarm.CefBridge.Cef3InitEssential
+    class MyCef3InitEssential : Cef3InitEssential
     {
-        static Form tinyForm;
+
         static MyCef3InitEssential initEssential;
         string libPath;
+
+
         private MyCef3InitEssential(string[] startArgs)
             : base(startArgs)
         {
@@ -62,18 +64,19 @@ namespace CefBridgeTest
             Form form1 = new Form();
             form1.Width = width;
             form1.Height = height;
-            return new MyWindowForm(form1);
+            return MyWindowForm.TryGetWindowControlOrRegisterIfNotExists(form1);
         }
         public override void SaveUIInvoke(SimpleDel simpleDel)
         {
-            tinyForm.Invoke(simpleDel);
+            WinFormCefMsgLoopPump.SafeUIInvoke(simpleDel);
+
         }
         public override IWindowForm CreateNewBrowserWindow(int width, int height)
         {
             Form1 form1 = new Form1();
             form1.Width = width;
             form1.Height = height;
-            return new MyWindowForm(form1);
+            return MyWindowForm.TryGetWindowControlOrRegisterIfNotExists(form1);
         }
         public override void AfterProcessLoaded(CefStartArgs cefStartArg)
         {
@@ -118,7 +121,7 @@ namespace CefBridgeTest
             return clientApp;
         }
 
-        public override IntPtr SetupPreRun()
+        public override void SetupPreRun()
         {
             //----------------------------------
             //2. as usual in WindowForm
@@ -126,27 +129,13 @@ namespace CefBridgeTest
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
             //------------------------------------------------- 
-            if (tinyForm == null)
-            {
-                tinyForm = new System.Windows.Forms.Form();
-                tinyForm.Size = new System.Drawing.Size(10, 10);
-                tinyForm.Visible = false;
-            }
-            IntPtr handle = tinyForm.Handle;//force it create handle**** 
-            //Cef3's message pump ***
-
-            Application.Idle += (sender, e) =>
-            {
-                DoMessageLoopWork();
-            };
-            return handle;
+            WinFormCefMsgLoopPump.Start();
         }
         protected override void OnAfterShutdown()
         {
             GC.Collect(GC.MaxGeneration, GCCollectionMode.Forced);
             GC.WaitForPendingFinalizers();
         }
-
 
         public static bool LoadAndInitCef3(string[] args)
         {
@@ -160,10 +149,64 @@ namespace CefBridgeTest
         }
         public static void ShutDownCef3()
         {
+
             //----------------------------------
             //4. 
             initEssential.Shutdown();
             //---------------------------------- 
         }
+        internal static void CefDoMessageLoopWork()
+        {
+            DoMessageLoopWork();
+        }
     }
+
+    static class WinFormCefMsgLoopPump
+    {
+
+        static Timer loopTimer = new Timer();
+        static Form tinyForm;
+        static IntPtr tinyFormHandle;
+        public static void Start()
+        {
+            if (tinyForm == null)
+            {
+                tinyForm = new System.Windows.Forms.Form();
+                tinyForm.Size = new System.Drawing.Size(10, 10);
+                tinyForm.Visible = false;
+            }
+            //force it create handle****  
+            tinyFormHandle = tinyForm.Handle;
+
+            //Cef3's message pump ***
+            //---------------------------
+            //this is CefMsgLoopPump implementation
+            //it should not too fast or too slow to call  
+            bool appIsIdel = true;
+            loopTimer.Interval = 30;//30fps
+            loopTimer.Tick += (s, e) =>
+            {
+                if (appIsIdel)
+                {
+                    for (int i = 10; i >= 0; --i)
+                    {
+                        MyCef3InitEssential.CefDoMessageLoopWork();
+                    }
+                    appIsIdel = false;
+                }
+            };
+
+            Application.Idle += (s, e) =>
+            {
+                appIsIdel = true;
+            };
+
+            loopTimer.Enabled = true;
+        }
+        public static void SafeUIInvoke(SimpleDel simpleDel)
+        {
+            tinyForm.Invoke(simpleDel);
+        }
+    }
+
 }

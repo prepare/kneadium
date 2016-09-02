@@ -18,15 +18,43 @@ namespace CefBridgeTest
             {
                 return;
             }
+            //------------------------------------------
+            //1. if this is main UI process
+            //the code go here, and we just start
+            //winform app as usual
+            //2. if this is other process
+            //mean this process is finish and will terminate soon.
+            //so we do noting, just exit!
+            //(***please note that 
+            //*** we call ShutDownCef3 only in main thread ***)
 
-            //---------------------------------
-            //2. as usual in WindowForm
+            if (!MyCef3InitEssential.IsInMainProcess)
+            {
+                for (int i = 10; i >= 0; --i)
+                {
+                    MyCef3InitEssential.CefDoMessageLoopWork();
+                    System.Threading.Thread.Sleep(50);
+                }
+                return;
+            }
+
+            //------------------------------------------
+            /////////////////////////////////////////////
+            //this code is run only in main process
+            //------------------------------------------
             Form1 f1 = new Form1();
             ApplicationContext appContext = new ApplicationContext(f1);
             Application.Run(appContext);
-            //---------------------------------
-            //3. shutdown cef3
+
+            for (int i = 10; i >= 0; --i)
+            {
+                MyCef3InitEssential.CefDoMessageLoopWork();
+                System.Threading.Thread.Sleep(50);
+            }
+
             MyCef3InitEssential.ShutDownCef3();
+            //(***please note that 
+            //*** we call ShutDownCef3 only in main thread ***)
         }
     }
 }
