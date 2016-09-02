@@ -326,8 +326,6 @@ set(LIBCEF_INCLUDE_SRCS
   ../include/cef_menu_model_delegate.h
   ../include/cef_navigation_entry.h
   ../include/cef_origin_whitelist.h
-  ../include/cef_pack_resources.h
-  ../include/cef_pack_strings.h
   ../include/cef_parser.h
   ../include/cef_path_util.h
   ../include/cef_print_handler.h

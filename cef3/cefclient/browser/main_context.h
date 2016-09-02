@@ -1,4 +1,4 @@
-//###_ORIGINAL D:\projects\cef_binary_3.2704.1418\cefclient\browser//main_context.h
+//###_ORIGINAL D:\projects\cef_binary_3.2785.1466\cefclient\browser//main_context.h
 // Copyright (c) 2015 The Chromium Embedded Framework Authors. All rights
 // reserved. Use of this source code is governed by a BSD-style license that
 // can be found in the LICENSE file.
@@ -59,7 +59,7 @@ class MainContext {
   virtual RootWindowManager* GetRootWindowManager() = 0;
 //###_APPEND_START 1
 //my extension --for callback to managed side
-managed_callback myMxCallback_;
+managed_callback myMxCallback_=NULL;
 //###_APPEND_STOP
 
  protected:
