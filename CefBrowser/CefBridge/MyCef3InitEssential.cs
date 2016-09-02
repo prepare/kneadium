@@ -147,6 +147,14 @@ namespace CefBridgeTest
             initEssential.SetupPreRun();
             return true;
         }
+        public static void ClearRemainingCefMsg()
+        {
+            for (int i = 10; i >= 0; --i)
+            {
+                CefDoMessageLoopWork();               
+                System.Threading.Thread.Sleep(50);
+            }
+        }
         public static void ShutDownCef3()
         {
 
