@@ -375,11 +375,7 @@ namespace LayoutFarm.CefBridge
                 //remove wb controls             
                 for (int i = foundList.Count - 1; i >= 0; --i)
                 {
-                    IWindowControl wb = foundList[i].ParentControl;
-                    if (wb is IWindowForm)
-                    {
-
-                    }
+                    IWindowControl wb = foundList[i].ParentControl;                 
                     var parent = wb.GetParent();
                     parent.RemoveChild(wb);
                     wb.Dispose();
