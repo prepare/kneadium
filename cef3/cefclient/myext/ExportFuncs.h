@@ -36,6 +36,7 @@ extern "C" {
 	MY_DLL_EXPORT int MyCefSetupBrowserHwnd(MyBrowser* myBw, HWND surfaceHwnd, int x, int y, int w, int h, const wchar_t* url,CefRequestContext* cefRefContext);
 	//6.
 	MY_DLL_EXPORT void MyCefDoMessageLoopWork();
+	MY_DLL_EXPORT void MyCefQuitMessageLoop();
 	//7.
 	MY_DLL_EXPORT void MyCefSetBrowserSize(MyBrowser* myBw, int w, int h);
 
@@ -94,7 +95,7 @@ extern "C" {
 
 	MY_DLL_EXPORT CefV8Value* MyCefJsGetGlobal(CefV8Context* cefV8Context);
 
-	/*MY_DLL_EXPORT MethodArgs* CreateMethodArgs();*/
+	 
 	MY_DLL_EXPORT void DisposeMethodArgs(MethodArgs* args);
 
 	MY_DLL_EXPORT CefV8Context* MyCefJs_EnterContext(CefV8Context* cefV8Context);
