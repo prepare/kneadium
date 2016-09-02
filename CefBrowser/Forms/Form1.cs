@@ -14,7 +14,7 @@ namespace CefBridgeTest
         public Form1()
         {
             InitializeComponent();
-            nativeWindow = new LayoutFarm.CefBridge.MyWindowForm(this);
+            nativeWindow = LayoutFarm.CefBridge.MyWindowForm.TryGetWindowControlOrRegisterIfNotExists(this);
         }
         private void Form1_Load(object sender, EventArgs e)
         {
@@ -34,9 +34,13 @@ namespace CefBridgeTest
         private void button7_Click(object sender, EventArgs e)
         {
             this.cefWebBrowser1.Focus();
-            this.cefWebBrowser1.NavigateTo("https://html5test.com");
-        }
+            //this.cefWebBrowser1.NavigateTo("https://html5test.com");
+            //this.cefWebBrowser1.NavigateTo("https://localhost:8000");
+            //this.cefWebBrowser1.NavigateTo("http://localhost/LiborMasekThesis.pdf");
+            this.cefWebBrowser1.NavigateTo("http://localhost/pdfjs/web/viewer.html");
+            //this.cefWebBrowser1.NavigateTo("http://localhost/pdfjs/web/compressed.tracemonkey-pldi-09.pdf");
 
+        }
         private void button1_Click(object sender, EventArgs e)
         {
             cefWebBrowser1.Agent.ExecJavascript(
@@ -127,8 +131,22 @@ namespace CefBridgeTest
             this.cefWebBrowser1.Focus();
             this.cefWebBrowser1.NavigateTo("http://localhost/index2.html");
 
-            this.cefWebBrowser2.Focus();
-            this.cefWebBrowser2.NavigateTo("https://www.google.com");
+            //this.cefWebBrowser2.Focus();
+            //this.cefWebBrowser2.NavigateTo("https://www.google.com");
+        }
+
+        private void button6_Click(object sender, EventArgs e)
+        {
+            {
+                var p = cefWebBrowser1.Parent;
+                p.Controls.Remove(cefWebBrowser1);
+                cefWebBrowser1.Dispose();
+            }
+            //{
+            //    var p = cefWebBrowserControl1.Parent;
+            //    p.Controls.Remove(p);
+            //    p.Dispose();
+            //}
         }
     }
 }
