@@ -30,6 +30,11 @@ namespace CefBridgeTest
 
             if (!MyCef3InitEssential.IsInMainProcess)
             {
+                for (int i = 10; i >= 0; --i)
+                {
+                    MyCef3InitEssential.CefDoMessageLoopWork();
+                    System.Threading.Thread.Sleep(50);
+                }
                 return;
             }
 
@@ -40,6 +45,13 @@ namespace CefBridgeTest
             Form1 f1 = new Form1();
             ApplicationContext appContext = new ApplicationContext(f1);
             Application.Run(appContext);
+
+            for (int i = 10; i >= 0; --i)
+            {
+                MyCef3InitEssential.CefDoMessageLoopWork();
+                System.Threading.Thread.Sleep(50);
+            }
+
             MyCef3InitEssential.ShutDownCef3();
             //(***please note that 
             //*** we call ShutDownCef3 only in main thread ***)
