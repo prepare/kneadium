@@ -32,7 +32,7 @@ namespace CefBridgeTest
 
             //libPath = @"D:\WImageTest\Release2";//test load from other location
 #else
-            libPath = @"D:\projects\CefBridge\cef3_output\cefclient\Release";
+            libPath = @"D:\projects\cef_binary_3.2785.1466output\cefclient\Debug";
 #endif
 
             //set proper dir here

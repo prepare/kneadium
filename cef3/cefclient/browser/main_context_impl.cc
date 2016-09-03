@@ -1,4 +1,4 @@
-//###_ORIGINAL D:\projects\cef_binary_3.2704.1418\cefclient\browser//main_context_impl.cc
+//###_ORIGINAL D:\projects\cef_binary_3.2785.1466\cefclient\browser//main_context_impl.cc
 // Copyright (c) 2015 The Chromium Embedded Framework Authors. All rights
 // reserved. Use of this source code is governed by a BSD-style license that
 // can be found in the LICENSE file.
@@ -40,12 +40,12 @@ MainContextImpl::MainContextImpl(CefRefPtr<CefCommandLine> command_line,
   if (command_line_->HasSwitch(switches::kUrl))
     main_url_ = command_line_->GetSwitchValue(switches::kUrl);
 //###_START 3
-  if (main_url_.empty())
+  if (main_url_.empty()){
 //###_APPEND_START 3
 main_url_ = kDefaultUrl;
 //###_APPEND_STOP
 //###_SKIP_UNTIL_AND_ACCEPT 3
-  
+  }
 
   // Whether windowless (off-screen) rendering will be used.
   use_windowless_rendering_ =
@@ -114,6 +114,12 @@ void MainContextImpl::PopulateSettings(CefSettings* settings) {
   settings->multi_threaded_message_loop =
       command_line_->HasSwitch(switches::kMultiThreadedMessageLoop);
 #endif
+
+  if (!settings->multi_threaded_message_loop) {
+     settings->external_message_pump =
+        command_line_->HasSwitch(switches::kExternalMessagePump); 
+	 // settings->external_message_pump = 1;
+  }
 
   CefString(&settings->cache_path) =
       command_line_->GetSwitchValue(switches::kCachePath);

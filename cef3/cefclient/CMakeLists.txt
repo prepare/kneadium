@@ -1,4 +1,4 @@
-# PATCH  D:\projects\cef_binary_3.2704.1418\cefclient\CMakeLists.txt
+# PATCH  D:\projects\cef_binary_3.2785.1466\cefclient\CMakeLists.txt
 # Copyright (c) 2014 The Chromium Embedded Framework Authors. All rights
 # reserved. Use of this source code is governed by a BSD-style license that
 # can be found in the LICENSE file.
@@ -50,6 +50,8 @@ set(CEFCLIENT_BROWSER_BROWSER_SRCS
   browser/main_context_impl.h
   browser/main_message_loop.cc
   browser/main_message_loop.h
+  browser/main_message_loop_external_pump.cc
+  browser/main_message_loop_external_pump.h
   browser/main_message_loop_std.cc
   browser/main_message_loop_std.h
   browser/osr_dragdrop_events.h
@@ -135,6 +137,7 @@ set(CEFCLIENT_LINUX_BROWSER_SRCS
   browser/dialog_handler_gtk.cc
   browser/dialog_handler_gtk.h
   browser/main_context_impl_posix.cc
+  browser/main_message_loop_external_pump_linux.cc
   browser/print_handler_gtk.cc
   browser/print_handler_gtk.h
   browser/resource_util_linux.cc
@@ -171,6 +174,7 @@ set(CEFCLIENT_MACOSX_BROWSER_SRCS
   browser/browser_window_std_mac.h
   browser/browser_window_std_mac.mm
   browser/main_context_impl_posix.cc
+  browser/main_message_loop_external_pump_mac.mm
   browser/resource_util_mac.mm
   browser/resource_util_posix.cc
   browser/root_window_mac.h
@@ -209,6 +213,7 @@ set(CEFCLIENT_WINDOWS_BROWSER_SRCS
   browser/browser_window_std_win.cc
   browser/browser_window_std_win.h
   browser/main_context_impl_win.cc
+  browser/main_message_loop_external_pump_win.cc
   browser/main_message_loop_multithreaded_win.cc
   browser/main_message_loop_multithreaded_win.h
   browser/osr_dragdrop_win.cc
@@ -465,7 +470,7 @@ ${CEFCLIENT_MYCEF_MYCEF_SRCS}
   endif()
 
   # Add the custom manifest files to the executable.
-  ADD_WINDOWS_MANIFEST("${CMAKE_CURRENT_SOURCE_DIR}/resources/win" "${CEF_TARGET}")
+  ADD_WINDOWS_MANIFEST("${CMAKE_CURRENT_SOURCE_DIR}/resources/win" "${CEF_TARGET}" "exe")
 
   # Copy CEF binary and resource files to the target output directory.
   COPY_FILES("${CEF_TARGET}" "${CEF_BINARY_FILES}" "${CEF_BINARY_DIR}" "${CEF_TARGET_OUT_DIR}")
