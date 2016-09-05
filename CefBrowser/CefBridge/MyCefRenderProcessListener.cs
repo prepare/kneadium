@@ -3,8 +3,8 @@
 using System;
 using System.Text;
 using System.Windows.Forms;
-using LayoutFarm.CefBridge;
-namespace CefBridgeTest
+ 
+namespace LayoutFarm.CefBridge
 {
     class MyCefRendererProcessListener : CefRenderProcessListener
     {

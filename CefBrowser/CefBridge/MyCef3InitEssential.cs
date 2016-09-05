@@ -5,35 +5,49 @@ using System.Text;
 using System.Windows.Forms;
 using LayoutFarm.CefBridge;
 using System.Collections.Generic;
-namespace CefBridgeTest
+namespace LayoutFarm.CefBridge
 {
     /// <summary>
     /// Cef3 init essential for WindowForm
     /// </summary>
-    class MyCef3InitEssential : Cef3InitEssential
+    public class MyCef3InitEssential : Cef3InitEssential
     {
 
         static MyCef3InitEssential initEssential;
-        string libPath;
-
-
+        static string libPath;
         private MyCef3InitEssential(string[] startArgs)
             : base(startArgs)
         {
         }
-        public override bool Init()
+        public static void SetLibPath(string libPath)
+        {
+            MyCef3InitEssential.libPath = libPath;
+        }
+        public static string GetLibPath()
+        {
+            return libPath;
+        }
+        public override bool Init(string libpath = null)
         {
             //must check proper location of libcef, cefclient dir 
+            if (libpath == null)
+            {
 #if DEBUG
-            //libPath = @"D:\projects\CefBridge\cef3_output\cefclient\Debug";
-            //libPath = @"D:\projects\cef_3.2704output\cefclient\Debug"; //3.2704
-            //libPath = @"D:\projects\CefBridge\cef3_2704output\cefclient\Debug"; 
-            libPath = @"D:\projects\cef_binary_3.2785.1466output\cefclient\Debug";
+                //libPath = @"D:\projects\CefBridge\cef3_output\cefclient\Debug";
+                //libPath = @"D:\projects\cef_3.2704output\cefclient\Debug"; //3.2704
+                //libPath = @"D:\projects\CefBridge\cef3_2704output\cefclient\Debug"; 
+                libPath = @"D:\projects\cef_binary_3.2785.1466output\cefclient\Debug";
 
-            //libPath = @"D:\WImageTest\Release2";//test load from other location
+                //libPath = @"D:\WImageTest\Release2";//test load from other location
 #else
-            libPath = @"D:\projects\cef_binary_3.2785.1466output\cefclient\Debug";
+                 libPath = @"D:\projects\cef_binary_3.2785.1466output\cefclient\Release";
 #endif
+            }
+            else
+            {
+                MyCef3InitEssential.libPath = libpath;
+            }
+
 
             //set proper dir here
             //depend on what you want
@@ -49,6 +63,7 @@ namespace CefBridgeTest
         {
             logMessages.Add(msg);
         }
+
 
         public override string GetLibCefFileName()
         {
@@ -69,7 +84,6 @@ namespace CefBridgeTest
         public override void SaveUIInvoke(SimpleDel simpleDel)
         {
             WinFormCefMsgLoopPump.SafeUIInvoke(simpleDel);
-
         }
         public override IWindowForm CreateNewBrowserWindow(int width, int height)
         {
@@ -147,11 +161,12 @@ namespace CefBridgeTest
             initEssential.SetupPreRun();
             return true;
         }
+
         public static void ClearRemainingCefMsg()
         {
             for (int i = 10; i >= 0; --i)
             {
-                CefDoMessageLoopWork();               
+                CefDoMessageLoopWork();
                 System.Threading.Thread.Sleep(50);
             }
         }

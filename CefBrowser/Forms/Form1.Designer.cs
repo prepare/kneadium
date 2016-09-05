@@ -1,4 +1,4 @@
-﻿namespace CefBridgeTest
+﻿namespace LayoutFarm.CefBridge
 {
     partial class Form1
     {

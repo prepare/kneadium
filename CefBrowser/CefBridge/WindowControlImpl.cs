@@ -51,7 +51,7 @@ namespace LayoutFarm.CefBridge
                 topLevelWindowControl.control != realTopLevelWindowControl)
             {
                 return topLevelWindowControl = (realTopLevelWindowControl is Form) ?
-                         MyWindowForm.TryGetWindowControlOrRegisterIfNotExists((Form)realTopLevelWindowControl) :
+                        (MyWindowControl)MyWindowForm.TryGetWindowControlOrRegisterIfNotExists((Form)realTopLevelWindowControl) :
                          MyWindowControl.TryGetWindowControlOrRegisterIfNotExists(realTopLevelWindowControl);
             }
 
@@ -163,7 +163,7 @@ namespace LayoutFarm.CefBridge
             }
         }
         static Dictionary<Form, MyWindowForm> registerControls = new Dictionary<Form, MyWindowForm>();
-        public static MyWindowForm TryGetWindowControlOrRegisterIfNotExists(Form form)
+        public static IWindowForm TryGetWindowControlOrRegisterIfNotExists(Form form)
         {
             MyWindowForm myWinForm;
             if (!registerControls.TryGetValue(form, out myWinForm))
