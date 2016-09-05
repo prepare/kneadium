@@ -14,19 +14,17 @@ namespace LayoutFarm.CefBridge
         public Form1()
         {
             InitializeComponent();
-            nativeWindow = LayoutFarm.CefBridge.MyWindowForm.TryGetWindowControlOrRegisterIfNotExists(this);
+            nativeWindow = LayoutFarm.CefBridge.MyWindowForm.TryGetWindowFormOrRegisterIfNotExists(this);
         }
         private void Form1_Load(object sender, EventArgs e)
         {
             this.cefWebBrowser1.Agent.Listener = new MyCefUIProcessListener();
             this.splitContainer1.SplitterMoved += SplitContainer1_SplitterMoved;
         }
-
         private void SplitContainer1_SplitterMoved(object sender, SplitterEventArgs e)
         {
             cefWebBrowser1.Agent.SetSize(splitContainer1.Panel2.Width, splitContainer1.Panel2.Height);
         }
-
         public void Navigate(string url)
         {
             this.cefWebBrowser1.NavigateTo(url);
@@ -34,10 +32,10 @@ namespace LayoutFarm.CefBridge
         private void button7_Click(object sender, EventArgs e)
         {
             this.cefWebBrowser1.Focus();
-            //this.cefWebBrowser1.NavigateTo("https://html5test.com");
+            this.cefWebBrowser1.NavigateTo("https://html5test.com");
             //this.cefWebBrowser1.NavigateTo("https://localhost:8000");
             //this.cefWebBrowser1.NavigateTo("http://localhost/LiborMasekThesis.pdf");
-            this.cefWebBrowser1.NavigateTo("http://localhost/pdfjs/web/viewer.html");
+            //this.cefWebBrowser1.NavigateTo("http://localhost/pdfjs/web/viewer.html");
             //this.cefWebBrowser1.NavigateTo("http://localhost/pdfjs/web/compressed.tracemonkey-pldi-09.pdf");
 
         }
