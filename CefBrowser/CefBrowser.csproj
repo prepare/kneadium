@@ -74,6 +74,7 @@
     <Compile Include="CefBridge\MyCefRenderProcessListener.cs" />
     <Compile Include="CefBridge\MyCefUIListener.cs" />
     <Compile Include="CefBridge\WindowControlImpl.cs" />
+    <Compile Include="CefBridge\WinFormsMsgLoopPump.cs" />
     <Compile Include="Forms\Form1.cs">
       <SubType>Form</SubType>
     </Compile>
