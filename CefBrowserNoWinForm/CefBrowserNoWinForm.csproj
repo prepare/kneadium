@@ -39,18 +39,24 @@
     <Reference Include="System" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="..\CefBrowser\CefBridge\MyCef3InitEssential.cs">
+      <Link>MyCef3InitEssential.cs</Link>
+    </Compile>
+    <Compile Include="..\CefBrowser\CefBridge\MyCefRenderProcessListener.cs">
+      <Link>MyCefRenderProcessListener.cs</Link>
+    </Compile>
+    <Compile Include="..\CefBrowser\CefBridge\MyCefUIListener.cs">
+      <Link>MyCefUIListener.cs</Link>
+    </Compile>
+    <Compile Include="..\CefBrowser\CefBridge\WindowControlImpl.cs">
+      <Link>WindowControlImpl.cs</Link>
+    </Compile>
     <Compile Include="CefForNativeWindow.cs" />
     <Compile Include="CefWebBrowser.cs" />
-    <Compile Include="MyCef3InitEssential.cs" />
-    <Compile Include="MyCefRenderProcessListener.cs" />
-    <Compile Include="MyCefUIListener.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="WindowControlImpl.cs" />
     <Compile Include="WindowForms.cs" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="App.config" />
+    <Compile Include="WinFormsMsgLoopPump.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\CefBridge\CefBridge.csproj">

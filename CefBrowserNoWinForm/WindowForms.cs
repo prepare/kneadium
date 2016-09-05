@@ -14,6 +14,7 @@ namespace System.Windows.Forms
         public static void SetCompatibleTextRenderingDefault(bool value) { }
         public static event EventHandler Idle;
         public static void Run(Form form) { }
+        public static void Run(ApplicationContext appContext) { }
     }
 
 
@@ -29,6 +30,16 @@ namespace System.Windows.Forms
     }
     public class FormClosedEventArgs : EventArgs { }
     public class PreviewKeyEventArgs : EventArgs { }
+    public class ApplicationContext
+    {
+        Form mainForm;
+        public ApplicationContext() { }
+        public ApplicationContext(Form mainForm)
+        {
+            this.mainForm = mainForm;
+        }
+
+    }
     public class Form : Control
     {
         public Form()
@@ -39,7 +50,7 @@ namespace System.Windows.Forms
         {
 
         }
-        public void Invoke(SimpleAction ac) { }
+        public void Invoke(Delegate ac) { }
         public void Close() { }
 
 

@@ -1,11 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
+﻿//2015-2016 MIT, WinterDev
+
+using System;
 using System.Windows.Forms;
-
-namespace CefBridgeTest
+namespace LayoutFarm.CefBridge
 {
-
     static class Program
     {
         /// <summary>
@@ -20,19 +18,36 @@ namespace CefBridgeTest
             {
                 return;
             }
+            //------------------------------------------
+            //1. if this is main UI process
+            //the code go here, and we just start
+            //winform app as usual
+            //2. if this is other process
+            //mean this process is finish and will terminate soon.
+            //so we do noting, just exit!
+            //(***please note that 
+            //*** we call ShutDownCef3 only in main thread ***)
 
-            ////---------------------------------
-            ////2. as usual in WindowForm
-            //Form1 f1 = new Form1();
-            //ApplicationContext appContext = new ApplicationContext(f1);
-            //Application.Run(appContext);
-            //---------------------------------
+            if (!MyCef3InitEssential.IsInMainProcess)
+            {
+                MyCef3InitEssential.ClearRemainingCefMsg();
+                return;
+            }
 
+            //------------------------------------------
+            /////////////////////////////////////////////
+            //this code is run only in main process
+            //------------------------------------------
             Form f1 = new Form();
+            ApplicationContext appContext = new ApplicationContext(f1);
             Application.Run(f1);
-            //3. shutdown cef3
+
+            /////////////////////////////////////////////
+            MyCef3InitEssential.ClearRemainingCefMsg();
             MyCef3InitEssential.ShutDownCef3();
+            //(***please note that 
+            //*** we call ShutDownCef3 only in main thread ***)
         }
     }
-
+   
 }
