@@ -1,4 +1,4 @@
-//###_ORIGINAL D:\projects\cef_binary_3.2623.1399\cefclient\browser//client_handler.cc
+//###_ORIGINAL D:\projects\cef_binary_3.2785.1466\cefclient\browser//client_handler.cc
 //###_START 0
 ClientHandler::ClientHandler(Delegate* delegate,
 //###_FIND_NEXT_LANDMARK 0
@@ -79,7 +79,7 @@ args.SetArgAsString(1, cstr_1);
 auto str16_2 = std::to_wstring((long long)line);
 auto cstr_2 = str16_2.c_str();
 args.SetArgAsString(2, cstr_2);
-this->mcallback_(CEF_MSG_ClientHandler_OnConsoleMessage,&args); 
+this->mcallback_(CEF_MSG_ClientHandler_OnConsoleMessage, &args);
 }
 else {
 FILE* file = fopen(console_log_file_.c_str(), "a");
@@ -109,18 +109,18 @@ CEF_REQUIRE_UI_THREAD();
 //###_APPEND_START 7
 if (this->mcallback_) {
 MethodArgs metArgs;
-memset(&metArgs, 0, sizeof(MethodArgs));	  
+memset(&metArgs, 0, sizeof(MethodArgs));
 metArgs.SetArgAsNativeObject(0, browser);
-metArgs.SetArgAsNativeObject(1, download_item); 
+metArgs.SetArgAsNativeObject(1, download_item);
 metArgs.SetArgAsString(2, suggested_name.c_str());
 this->mcallback_(CEF_MSG_ClientHandler_BeforeDownload, &metArgs); //tmp
 
 auto downloadPath = metArgs.ReadOutputAsString(0);
-callback->Continue(downloadPath,false);
+callback->Continue(downloadPath, false);
 }
 else {
 // Continue the download and show the "Save As" dialog.
-callback->Continue(MainContext::Get()->GetDownloadPath(suggested_name), true);	  
+callback->Continue(MainContext::Get()->GetDownloadPath(suggested_name), true);
 }
 //###_APPEND_STOP
 //###_SKIP_UNTIL_AND_ACCEPT 7
@@ -166,7 +166,7 @@ bool ClientHandler::OnPreKeyEvent(CefRefPtr<CefBrowser> browser,
 //###_FIND_NEXT_LANDMARK 7
 CEF_REQUIRE_UI_THREAD();
 //###_APPEND_START 7
-if (this->mcallback_) { 
+if (this->mcallback_) {
 
 if (this->enableKeyIntercept != 0)
 {
@@ -174,10 +174,10 @@ MethodArgs metArgs;
 memset(&metArgs, 0, sizeof(MethodArgs));
 metArgs.SetArgAsNativeObject(0, &event);
 this->mcallback_(CEF_MSG_ClientHandler_OnPreKeyEvent, &metArgs); //tmp
-int result = metArgs.ReadOutputAsInt32(0); 
+int result = metArgs.ReadOutputAsInt32(0);
 return result != 0;
 }
-return false;  
+return false;
 }
 else {
 if (!event.focus_on_editable_field && event.windows_key_code == 0x20) {
@@ -299,6 +299,69 @@ LoadErrorPage(frame, failedUrl, errorCode, errorText);
 }
 //###_APPEND_STOP
 //###_SKIP_UNTIL_PASS 6 }
+//###_START 10
+void ClientHandler::OnProtocolExecution(CefRefPtr<CefBrowser> browser,
+//###_FIND_NEXT_LANDMARK 10
+CEF_REQUIRE_UI_THREAD();
+//###_APPEND_START 10
+if (this->mcallback_)
+{
+MethodArgs args;
+memset(&args, 0, sizeof(MethodArgs));			  
+CefString cefStr1 = url;
+args.SetArgAsString(0, cefStr1.c_str());
+this->mcallback_(CEF_MSG_ClientHandler_ExecCustomProtocol, &args);
+//then what to do next
+allow_os_execution = (args.result0.value.i32 == 1); 
+}
+else {
+std::string urlStr = url;
+// Allow OS execution of Spotify URIs.
+if (urlStr.find("spotify:") == 0)
+allow_os_execution = true;
+}
+//###_APPEND_STOP
+//###_SKIP_UNTIL_AND_ACCEPT 10
+}
+//###_START 9
+bool ClientHandler::OnCertificateError(
+//###_FIND_NEXT_LANDMARK 9
+ss << "</table> * Displayed value is base64 encoded.";
+//###_APPEND_START 9
+if (this->mcallback_)
+{
+//TODO: send cmd to managed side
+//check if we should continue or not
+MethodArgs args;
+memset(&args, 0, sizeof(MethodArgs));
+
+auto str16 = ss.str();
+const char* cstr = str16.c_str();
+CefString cefStr1 = cstr;
+args.SetArgAsString(0, cefStr1.c_str());
+this->mcallback_(CEF_MSG_ClientHandler_OnCertError, &args);
+//then what to do next
+if (args.result0.value.i32 == 1) {
+//true
+callback->Continue(true);
+return true;
+}
+else {
+//false
+// Load the error page.
+LoadErrorPage(browser->GetMainFrame(), request_url, cert_error, ss.str());
+return false;  // Cancel the request.
+}
+}
+else {
+
+// Load the error page.
+LoadErrorPage(browser->GetMainFrame(), request_url, cert_error, ss.str());
+return false;  // Cancel the request.
+}
+//###_APPEND_STOP
+//###_SKIP_UNTIL_AND_ACCEPT 9
+}
 //###_START 6
 void ClientHandler::ShowDevTools(CefRefPtr<CefBrowser> browser,
 //###_FIND_NEXT_LANDMARK 6
@@ -342,6 +405,15 @@ MAIN_POST_CLOSURE(
 //###_APPEND_START 8
 if (this->mcallback_) {
 this->mcallback_(CEF_MSG_ClientHandler_NotifyBrowserCreated, NULL);
+}
+//###_APPEND_STOP
+//###_START 8
+void ClientHandler::NotifyBrowserClosing(CefRefPtr<CefBrowser> browser) {
+//###_FIND_NEXT_LANDMARK 8
+delegate_->OnBrowserClosing(browser);
+//###_APPEND_START 8
+if (this->mcallback_) {
+this->mcallback_(CEF_MSG_ClientHandler_NotifyBrowserClosing, NULL);
 }
 //###_APPEND_STOP
 //###_START 9

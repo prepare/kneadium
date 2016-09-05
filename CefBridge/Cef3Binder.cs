@@ -1,14 +1,11 @@
 ﻿//2015-2016 MIT, WinterDev
 
 using System;
-using System.Collections.Generic;
-using System.Text;
 using System.Runtime.InteropServices;
-using System.IO;
 namespace LayoutFarm.CefBridge
 {
     public delegate void SimpleDel();
-    //[UnmanagedFunctionPointer(CallingConvention.StdCall)]
+
     [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
     public delegate void MyCefCallback(int id, IntPtr args);
     //----------------------------------------------------------------------
@@ -52,8 +49,12 @@ namespace LayoutFarm.CefBridge
     public enum MyCefMsg
     {
         MYCEF_MSG_UNKNOWN = 0,
-        CEF_MSG_ClientHandler_NotifyBrowserClosed = 100,
-        CEF_MSG_ClientHandler_NotifyBrowserCreated = 101,
+
+        CEF_MSG_ClientHandler_NotifyBrowserClosing = 100,
+        CEF_MSG_ClientHandler_NotifyBrowserClosed = 101,
+        CEF_MSG_ClientHandler_NotifyBrowserCreated = 102,
+
+
         CEF_MSG_ClientHandler_OnBeforePopup = 104,
         CEF_MSG_ClientHandler_OnConsoleMessage = 106,
         CEF_MSG_ClientHandler_ShowDevTools = 107,
@@ -62,13 +63,16 @@ namespace LayoutFarm.CefBridge
         CEF_MSG_ClientHandler_BeforeDownload = 110,
         CEF_MSG_ClientHandler_DownloadUpdated = 111,
         CEF_MSG_ClientHandler_OnLoadError = 119,
+        CEF_MSG_ClientHandler_OnCertError = 120,
+        CEF_MSG_ClientHandler_ExecCustomProtocol = 121,
+
         CEF_MSG_ClientHandler_SetResourceManager = 140,
         CEF_MSG_RequestUrlFilter2 = 142,
         CEF_MSG_BinaryResouceProvider_OnRequest = 145,
-        
+
         //
         CEF_MSG_CefSettings_Init = 150,
-        CEF_MSG_MainContext_GetConsoleLogPath =151,
+        CEF_MSG_MainContext_GetConsoleLogPath = 151,
         //
         CEF_MSG_RenderDelegate_OnWebKitInitialized = 201,
         CEF_MSG_RenderDelegate_OnContextCreated = 202,
@@ -140,9 +144,13 @@ namespace LayoutFarm.CefBridge
             {
                 CefStartArgs cefStartArg = CefStartArgs.Parse(startArgs);
                 Cef3InitEssential.IsInRenderProcess = (cefStartArg.IsValidCefArgs && cefStartArg.ProcessType == "renderer");
+                Cef3InitEssential.IsInMainProcess = (cefStartArg.IsValidCefArgs && cefStartArg.ProcessType == "");
                 cefInitEssential.AfterProcessLoaded(cefStartArg);
             }
-
+            else
+            {
+                Cef3InitEssential.IsInMainProcess = true;
+            }
             //----------------------------------------------------------- 
             //check version
             //1.
@@ -159,7 +167,8 @@ namespace LayoutFarm.CefBridge
             //managedListener1 = new MyCefCallback(Cef3callBack_ForMangedCallBack2);
             //regResult = RegisterManagedCallBack(managedListener1, 1);
             //-----------------------------------------------------------
-            //init cef            
+            //init cef  
+
             clientApp = cefInitEssential.CreateClientApp(); // System.Diagnostics.Process.GetCurrentProcess().Handle);
             return true;
         }
@@ -181,15 +190,27 @@ namespace LayoutFarm.CefBridge
             //    //lastErr = NativeMethods.GetLastError();
             //}
             //Console.WriteLine(lib);
+            int tryLoadCount = 0;
+            TRY_AGAIN:
+            uint lastErr = 0;
             IntPtr libCefModuleHandler = NativeMethods.LoadLibrary(lib);
             //Console.WriteLine(libCefModuleHandler);
-            uint lastErr = NativeMethods.GetLastError();
-            if (lastErr != 0)
+            if (libCefModuleHandler == IntPtr.Zero)
             {
-                initEssential.AddLogMessage("load err code" + lastErr);
-                return false;
+                lastErr = NativeMethods.GetLastError();
+                if (lastErr != 0)
+                {
+                    if (lastErr == 2 & tryLoadCount < 3)
+                    {
+                        //if not finish
+                        //System.Threading.Thread.Sleep(100);
+                        tryLoadCount++;
+                        goto TRY_AGAIN;
+                    }
+                    initEssential.AddLogMessage("load err code" + lastErr);
+                    return false;
+                }
             }
-
 
             //------------------------------------------------------------------
             //2. cef client
@@ -241,16 +262,17 @@ namespace LayoutFarm.CefBridge
         public static extern IntPtr MyCefCreateMyWebBrowser(MyCefCallback mxcallback);
         //5.
         [DllImport(CEF_CLIENT_DLL, CallingConvention = CallingConvention.Cdecl, CharSet = CharSet.Unicode)]
-        public static extern void MyCefSetupBrowserHwnd(IntPtr myCefBrowser, IntPtr hWndParent, int x, int y, int width, int height, string initUrl,IntPtr requestContext);
+        public static extern void MyCefSetupBrowserHwnd(IntPtr myCefBrowser, IntPtr hWndParent, int x, int y, int width, int height, string initUrl, IntPtr requestContext);
         //6.
         [DllImport(CEF_CLIENT_DLL)]
         public static extern void MyCefDoMessageLoopWork();
-        //7.
+        [DllImport(CEF_CLIENT_DLL)]
+        public static extern void MyCefQuitMessageLoop();
         [DllImport(CEF_CLIENT_DLL)]
         public static extern int MyCefShutDown();
 
 
-        //8.
+
         [DllImport(CEF_CLIENT_DLL, CallingConvention = CallingConvention.Cdecl, CharSet = CharSet.Unicode)]
         public static extern void MyCefSetInitSettings(IntPtr cefSetting, int keyName, string value);
         //--------------------------------------------------- 
@@ -385,10 +407,6 @@ namespace LayoutFarm.CefBridge
         {
             return Cef3Binder.MyCefJs_CefRegisterExtension(extensionName, extensionCode);
         }
-        //public static NativeCallArgs NewNativeCallArgs()
-        //{
-        //    return new NativeCallArgs(Cef3Binder.CreateMethodArgs());
-        //}
         public static void DisposeNativeCallArgs(NativeCallArgs nativeCallArgs)
         {
             Cef3Binder.DisposeMethodArgs(nativeCallArgs._argPtr);

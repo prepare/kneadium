@@ -3,8 +3,10 @@
 //cef msg constant
 //----------------------------------------------------------------------
 
-const int CEF_MSG_ClientHandler_NotifyBrowserClosed = 100;
-const int CEF_MSG_ClientHandler_NotifyBrowserCreated = 101;
+
+const int CEF_MSG_ClientHandler_NotifyBrowserClosing = 100;
+const int CEF_MSG_ClientHandler_NotifyBrowserClosed = 101;
+const int CEF_MSG_ClientHandler_NotifyBrowserCreated = 102;
 const int CEF_MSG_ClientHandler_OnBeforePopup = 104;
 const int CEF_MSG_ClientHandler_OnConsoleMessage = 106;
 const int CEF_MSG_ClientHandler_ShowDevTools = 107;
@@ -14,6 +16,9 @@ const int CEF_MSG_ClientHandler_BeforeDownload = 110;
 const int CEF_MSG_ClientHandler_DownloadUpdated = 111;
 
 const int CEF_MSG_ClientHandler_OnLoadError = 119;
+const int CEF_MSG_ClientHandler_OnCertError = 120;
+const int CEF_MSG_ClientHandler_ExecCustomProtocol = 121;
+
 const int CEF_MSG_ClientHandler_SetResourceManager = 140;
 const int CEF_MSG_RequestUrlFilter2 = 142;
 const int CEF_MSG_BinaryResouceProvider_OnRequest = 145;

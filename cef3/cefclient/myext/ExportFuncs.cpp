@@ -3,6 +3,7 @@
 //static 
 
 #include "include/base/cef_scoped_ptr.h"
+#include "include/base/cef_macros.h"
 #include "include/cef_command_line.h"
 #include "include/cef_sandbox_win.h"
 #include "include/cef_origin_whitelist.h"
@@ -10,6 +11,9 @@
 #include "cefclient/browser/main_context_impl.h"
 #include "cefclient/browser/main_message_loop_multithreaded_win.h"
 #include "cefclient/browser/main_message_loop_std.h"
+#include "cefclient/browser/main_message_loop_external_pump.h"  
+
+
 #include "cefclient/browser/root_window_win.h"
 #include "cefclient/browser/root_window_manager.h"
 #include "cefclient/browser/test_runner.h"
@@ -21,15 +25,17 @@
 
 
 
+
 client::MainContextImpl* mainContext;
-client::MainMessageLoop* message_loop;  //essential for mainloop checking 
+client::MainMessageLoop* message_loop;
+//scoped_ptr<client::MainMessageLoop> message_loop;
 
 managed_callback myMxCallback_ = NULL;
 
 //1.
 int MyCefGetVersion()
 {
-	return 1011;
+	return 1021;
 }
 //2.
 int RegisterManagedCallBack(managed_callback mxCallback, int callbackKind)
@@ -73,20 +79,19 @@ client::ClientApp* MyCefCreateClientApp(HINSTANCE hInstance)
 		app = new client::ClientAppOther();
 		app->myMxCallback_ = myMxCallback_;
 	}
-	// Create the main message loop object.
-	message_loop = new client::MainMessageLoopStd();
-	//message_loop.reset(new client::MainMessageLoopStd); 
-	/* if (settings.multi_threaded_message_loop)
-	message_loop.reset(new MainMessageLoopMultithreadedWin);
-	else
-	message_loop.reset(new MainMessageLoopStd);*/
 
+	//------------------------------------------------------------------
+	// Create the main message loop object.***
+	//version < 3.2708
+	//message_loop = new client::MainMessageLoopStd();
+	//version >= 3.2708 
+	//global main msg loop is set inside the ctor
+	message_loop = new client::MainMessageLoopStd();
+	//message_loop = client::MainMessageLoopExternalPump::Create();
 	//------------------------------------------------------------------
 	//create main context here
 	client::init_main::SetManagedCallback(myMxCallback_);
-
 	mainContext = DllInitMain(hInstance, app);
-
 
 	return app;
 }
@@ -100,7 +105,7 @@ MY_DLL_EXPORT void MyCefEnableKeyIntercept(MyBrowser* myBw, int enable) {
 //4. 
 MyBrowser* MyCefCreateMyWebBrowser(managed_callback callback)
 {
-	 
+
 	//create root window handler?
 	auto myBw = new MyBrowser();
 	auto rootWindow = new client::RootWindowWin();
@@ -110,7 +115,7 @@ MyBrowser* MyCefCreateMyWebBrowser(managed_callback callback)
 	//TODO: review here again, don't store at this module!
 	auto bwWindow = new client::BrowserWindowStdWin(rootWindow, "");
 	myBw->bwWindow = bwWindow;
-	
+
 	//2. browser event handler
 	auto hh = bwWindow->GetClientHandler();//  new client::ClientHandlerStd(bwWindow,"");
 	hh->MyCefSetManagedCallBack(callback);
@@ -122,7 +127,7 @@ int MyCefSetupBrowserHwnd(MyBrowser* myBw, HWND surfaceHwnd, int x, int y, int w
 {
 
 	// Information used when creating the native window.
-	CefWindowInfo window_info; 
+	CefWindowInfo window_info;
 	RECT r;
 	r.left = x;
 	r.top = y;
@@ -143,11 +148,11 @@ int MyCefSetupBrowserHwnd(MyBrowser* myBw, HWND surfaceHwnd, int x, int y, int w
 	memset(&browser_settings, 0, sizeof(CefBrowserSettings));
 
 	bool result = CefBrowserHost::CreateBrowser(window_info,
-		clientHandler, 
+		clientHandler,
 		url,
-		browser_settings, 
+		browser_settings,
 		CefRefPtr<CefRequestContext>(cefRefContext));
-	
+
 	if (result) {
 		return 1;
 	}
@@ -161,11 +166,15 @@ void MyCefDoMessageLoopWork()
 	CefDoMessageLoopWork();
 }
 //7.
+void MyCefQuitMessageLoop() {
+	CefQuitMessageLoop();
+}
+//8.
 void MyCefShutDown() {
 	CefShutdown();
 }
 
-//8.
+//9.
 void MyCefSetBrowserSize(MyBrowser* myBw, int w, int h) {
 	//auto windowHandle = myBw->bwWindow->GetWindowHandle();
 	myBw->bwWindow->SetBounds(0, 0, w, h);
@@ -249,15 +258,15 @@ void MyCefSetInitSettings(CefSettings* cefSetting, int keyName, const wchar_t* v
 	case CEF_SETTINGS_UserDirPath:
 		CefString(&cefSetting->user_data_path) = value;
 		break;
-	
+
 	case CEF_SETTINGS_LocalDirPath:
-		CefString(&cefSetting->locales_dir_path) = value; 
+		CefString(&cefSetting->locales_dir_path) = value;
 		break;
 	case CEF_SETTINGS_IgnoreCertError:
 		cefSetting->ignore_certificate_errors = std::stoi(value);
 		break;
-	case CEF_SETTINGS_RemoteDebuggingPort: 
-		cefSetting->remote_debugging_port = std::stoi(value); 
+	case CEF_SETTINGS_RemoteDebuggingPort:
+		cefSetting->remote_debugging_port = std::stoi(value);
 		break;
 	case CEF_SETTINGS_LogFile:
 		CefString(&cefSetting->log_file) = value;
