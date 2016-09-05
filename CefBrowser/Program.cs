@@ -2,7 +2,7 @@
 
 using System;
 using System.Windows.Forms;
-namespace CefBridgeTest
+namespace LayoutFarm.CefBridge
 {
     static class Program
     {
