@@ -12,7 +12,7 @@
     </ReleaseVersion>
     <SynchReleaseVersion>False</SynchReleaseVersion>
     <Description>A minimalistic gaming library for C# based on OpenTK.</Description>
-    <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v2.0</TargetFrameworkVersion>
     <AssemblyName>Pencil.Gaming</AssemblyName>
     <TargetFrameworkProfile />
   </PropertyGroup>
@@ -88,9 +88,6 @@
   <ItemGroup>
     <Reference Include="System" />
     <Reference Include="System.Drawing" />
-    <Reference Include="NVorbis">
-      <HintPath>NVorbis.dll</HintPath>
-    </Reference>
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
@@ -102,8 +99,6 @@
     <Compile Include="Math\Vector2.cs" />
     <Compile Include="Math\Vector3.cs" />
     <Compile Include="Graphics\Color4.cs" />
-    <Compile Include="Audio\Alc32.cs" />
-    <Compile Include="Audio\Alc64.cs" />
     <Compile Include="Math\Matrix.cs" />
     <Compile Include="Graphics\GlEnums.cs" />
     <Compile Include="Graphics\AssetLoadException.cs" />
@@ -113,7 +108,6 @@
     <Compile Include="Glfw\Glfw3Delegates.cs" />
     <Compile Include="Glfw\Glfw3DelegateTypes.cs" />
     <Compile Include="Glfw\Glfw3Structs.cs" />
-    <Compile Include="Audio\AlcManager.cs" />
     <Compile Include="Scripting\Lua64.cs" />
     <Compile Include="Scripting\LuaDelegateTypes.cs" />
     <Compile Include="Scripting\LuaStructs.cs" />
@@ -127,8 +121,6 @@
     <Compile Include="Scripting\LuaLDelegates.cs" />
     <Compile Include="Scripting\LuaL.cs" />
     <Compile Include="Scripting\LuaLMacroFunctions.cs" />
-    <Compile Include="Audio\Sound.cs" />
-    <Compile Include="Audio\Listener.cs" />
     <Compile Include="Glfw\Glfw3KeyboardState.cs" />
     <Compile Include="Glfw\Glfw3MouseState.cs" />
     <Compile Include="Math\Vector3i.cs" />
@@ -137,12 +129,6 @@
     <Compile Include="Math\Vector4.cs" />
     <Compile Include="Math\Rectanglei.cs" />
     <Compile Include="Math\Rectangle.cs" />
-    <Compile Include="Audio\ALUtils.cs" />
-    <Compile Include="Audio\AL.cs" />
-    <Compile Include="Audio\ALDelegates.cs" />
-    <Compile Include="Audio\AL32.cs" />
-    <Compile Include="Audio\AL64.cs" />
-    <Compile Include="Audio\ALEnums.cs" />
     <Compile Include="Graphics\GLHelper.cs" />
     <Compile Include="Graphics\GLUtils.cs" />
     <Compile Include="Graphics\GLLoadException.cs" />

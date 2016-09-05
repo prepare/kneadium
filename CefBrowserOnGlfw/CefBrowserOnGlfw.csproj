@@ -10,7 +10,7 @@
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>CefBrowserOnGlfw</RootNamespace>
     <AssemblyName>CefBrowserOnGlfw</AssemblyName>
-    <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v2.0</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <TargetFrameworkProfile />
   </PropertyGroup>
@@ -43,7 +43,6 @@
     <Compile Include="CefBridge\MyCef3InitEssential.cs" />
     <Compile Include="CefBridge\MyCefRenderProcessListener.cs" />
     <Compile Include="CefBridge\MyCefUIListener.cs" />
-    <Compile Include="NoWinForms\CefForNativeWindow.cs" />
     <Compile Include="NoWinForms\CefWebBrowser.cs" />
     <Compile Include="NoWinForms\WindowForms.cs" />
     <Compile Include="NoWinForms\WinFormsMsgLoopPump.cs" />
