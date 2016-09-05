@@ -6,11 +6,11 @@ using System.ComponentModel;
 using System.Drawing;
 using System.Text;
 using System.Windows.Forms;
-namespace CefBridgeTest
+namespace LayoutFarm.CefBridge
 {
     public partial class Form1 : Form
     {
-        LayoutFarm.CefBridge.MyWindowForm nativeWindow;
+        LayoutFarm.CefBridge.IWindowForm nativeWindow;
         public Form1()
         {
             InitializeComponent();

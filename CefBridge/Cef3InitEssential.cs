@@ -6,8 +6,6 @@ namespace LayoutFarm.CefBridge
     public abstract class Cef3InitEssential
     {
         internal readonly string[] startArgs;
-
-
         public Cef3InitEssential(string[] startArgs)
         {
             this.startArgs = startArgs;
@@ -34,7 +32,7 @@ namespace LayoutFarm.CefBridge
         /// <summary>
         /// load and init cef library
         /// </summary>
-        public virtual bool Init()
+        public virtual bool Init(string libpath = null)
         {
             bool loadResult = Cef3Binder.LoadCef3(this);
             if (!loadResult)
@@ -46,8 +44,8 @@ namespace LayoutFarm.CefBridge
         }
 
         protected static void DoMessageLoopWork()
-        { 
-            Cef3Binder.MyCefDoMessageLoopWork(); 
+        {
+            Cef3Binder.MyCefDoMessageLoopWork();
         }
 
         public abstract void AddLogMessage(string msg);
@@ -61,6 +59,8 @@ namespace LayoutFarm.CefBridge
         /// </summary>
         /// <returns></returns>
         public abstract string GetCefClientFileName();
+
+
         public static bool IsInRenderProcess
         {
             get;

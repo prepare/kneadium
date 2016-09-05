@@ -6,7 +6,7 @@ using System.Windows.Forms;
 using LayoutFarm.CefBridge;
 using System.IO;
 using System.Runtime.InteropServices;
-namespace CefBridgeTest
+namespace LayoutFarm.CefBridge
 {
     class MyCefUIProcessListener : CefUIProcessListener
     {
