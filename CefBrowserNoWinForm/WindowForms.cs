@@ -2,10 +2,6 @@
 using System;
 using System.Windows.Forms;
 using System.Collections.Generic;
-namespace System.Windows
-{
-    class dummy { }
-}
 namespace System.Windows.Forms
 {
     public static class Application
@@ -52,8 +48,6 @@ namespace System.Windows.Forms
         }
         public void Invoke(Delegate ac) { }
         public void Close() { }
-
-
         public event EventHandler<FormClosingEventArgs> FormClosing;
         public event EventHandler<FormClosedEventArgs> FormClosed;
     }
