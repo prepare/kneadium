@@ -60,6 +60,9 @@
     <Prefer32Bit>true</Prefer32Bit>
     <PlatformTarget>x86</PlatformTarget>
   </PropertyGroup>
+  <PropertyGroup>
+    <StartupObject />
+  </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
     <Reference Include="System.Drawing" />
@@ -71,6 +74,7 @@
     <Compile Include="CefBridge\MyCefRenderProcessListener.cs" />
     <Compile Include="CefBridge\MyCefUIListener.cs" />
     <Compile Include="CefBridge\WindowControlImpl.cs" />
+    <Compile Include="CefBridge\WinFormsMsgLoopPump.cs" />
     <Compile Include="Forms\Form1.cs">
       <SubType>Form</SubType>
     </Compile>
