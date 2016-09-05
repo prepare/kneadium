@@ -79,7 +79,7 @@ namespace LayoutFarm.CefBridge
             Form form1 = new Form();
             form1.Width = width;
             form1.Height = height;
-            return MyWindowForm.TryGetWindowControlOrRegisterIfNotExists(form1);
+            return MyWindowForm.TryGetWindowFormOrRegisterIfNotExists(form1);
         }
         public override void SaveUIInvoke(SimpleDel simpleDel)
         {
@@ -90,7 +90,7 @@ namespace LayoutFarm.CefBridge
             Form form1 = new Form();
             form1.Width = width;
             form1.Height = height;
-            return MyWindowForm.TryGetWindowControlOrRegisterIfNotExists(form1);
+            return MyWindowForm.TryGetWindowFormOrRegisterIfNotExists(form1);
         }
         public override void AfterProcessLoaded(CefStartArgs cefStartArg)
         {

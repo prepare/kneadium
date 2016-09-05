@@ -81,7 +81,7 @@ namespace LayoutFarm.CefBridge
         {
             if (control is Form)
             {
-                return MyWindowForm.TryGetWindowControlOrRegisterIfNotExists(control);
+                return (MyWindowControl)MyWindowForm.TryGetWindowFormOrRegisterIfNotExists((Form)control);
             }
             MyWindowControl myWinControl;
             if (!registerControls.TryGetValue(control, out myWinControl))
@@ -163,7 +163,7 @@ namespace LayoutFarm.CefBridge
             }
         }
         static Dictionary<Form, MyWindowForm> registerControls = new Dictionary<Form, MyWindowForm>();
-        public static IWindowForm TryGetWindowControlOrRegisterIfNotExists(Form form)
+        public static IWindowForm TryGetWindowFormOrRegisterIfNotExists(Form form)
         {
             MyWindowForm myWinForm;
             if (!registerControls.TryGetValue(form, out myWinForm))

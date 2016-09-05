@@ -14,7 +14,7 @@ namespace LayoutFarm.CefBridge
         public Form1()
         {
             InitializeComponent();
-            nativeWindow = LayoutFarm.CefBridge.MyWindowForm.TryGetWindowControlOrRegisterIfNotExists(this);
+            nativeWindow = LayoutFarm.CefBridge.MyWindowForm.TryGetWindowFormOrRegisterIfNotExists(this);
         }
         private void Form1_Load(object sender, EventArgs e)
         {

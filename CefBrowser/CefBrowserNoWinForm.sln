@@ -1,11 +1,9 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 2010
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CefBrowserNoWinForm", "CefBrowserNoWinForm.csproj", "{1A4FB7B1-0544-4B14-8953-9C1D05487C84}"
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CefBridge", "..\CefBridge\CefBridge.csproj", "{92688DA6-2690-485B-96B6-C99B8C4490EC}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CefBrowser", "..\CefBrowser\CefBrowser.csproj", "{ECB77D05-7BF7-4B8C-892A-59254A968863}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CefBrowser", "CefBrowser.csproj", "{ECB77D05-7BF7-4B8C-892A-59254A968863}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CefBrowserOnGlfw", "..\CefBrowserOnGlfw\CefBrowserOnGlfw.csproj", "{66B2CC90-5D7F-4706-9955-4A76F314AD32}"
 EndProject
@@ -33,36 +31,6 @@ Global
 		Release|x86 = Release|x86
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{1A4FB7B1-0544-4B14-8953-9C1D05487C84}.Compatibility-GLFW2|Any CPU.ActiveCfg = Release|Any CPU
-		{1A4FB7B1-0544-4B14-8953-9C1D05487C84}.Compatibility-GLFW2|Any CPU.Build.0 = Release|Any CPU
-		{1A4FB7B1-0544-4B14-8953-9C1D05487C84}.Compatibility-GLFW2|Mixed Platforms.ActiveCfg = Release|Any CPU
-		{1A4FB7B1-0544-4B14-8953-9C1D05487C84}.Compatibility-GLFW2|Mixed Platforms.Build.0 = Release|Any CPU
-		{1A4FB7B1-0544-4B14-8953-9C1D05487C84}.Compatibility-GLFW2|x86.ActiveCfg = Release|Any CPU
-		{1A4FB7B1-0544-4B14-8953-9C1D05487C84}.Compatibility-GLFW3|Any CPU.ActiveCfg = Release|Any CPU
-		{1A4FB7B1-0544-4B14-8953-9C1D05487C84}.Compatibility-GLFW3|Any CPU.Build.0 = Release|Any CPU
-		{1A4FB7B1-0544-4B14-8953-9C1D05487C84}.Compatibility-GLFW3|Mixed Platforms.ActiveCfg = Release|Any CPU
-		{1A4FB7B1-0544-4B14-8953-9C1D05487C84}.Compatibility-GLFW3|Mixed Platforms.Build.0 = Release|Any CPU
-		{1A4FB7B1-0544-4B14-8953-9C1D05487C84}.Compatibility-GLFW3|x86.ActiveCfg = Release|Any CPU
-		{1A4FB7B1-0544-4B14-8953-9C1D05487C84}.Core-GLFW2|Any CPU.ActiveCfg = Release|Any CPU
-		{1A4FB7B1-0544-4B14-8953-9C1D05487C84}.Core-GLFW2|Any CPU.Build.0 = Release|Any CPU
-		{1A4FB7B1-0544-4B14-8953-9C1D05487C84}.Core-GLFW2|Mixed Platforms.ActiveCfg = Release|Any CPU
-		{1A4FB7B1-0544-4B14-8953-9C1D05487C84}.Core-GLFW2|Mixed Platforms.Build.0 = Release|Any CPU
-		{1A4FB7B1-0544-4B14-8953-9C1D05487C84}.Core-GLFW2|x86.ActiveCfg = Release|Any CPU
-		{1A4FB7B1-0544-4B14-8953-9C1D05487C84}.Core-GLFW3|Any CPU.ActiveCfg = Release|Any CPU
-		{1A4FB7B1-0544-4B14-8953-9C1D05487C84}.Core-GLFW3|Any CPU.Build.0 = Release|Any CPU
-		{1A4FB7B1-0544-4B14-8953-9C1D05487C84}.Core-GLFW3|Mixed Platforms.ActiveCfg = Release|Any CPU
-		{1A4FB7B1-0544-4B14-8953-9C1D05487C84}.Core-GLFW3|Mixed Platforms.Build.0 = Release|Any CPU
-		{1A4FB7B1-0544-4B14-8953-9C1D05487C84}.Core-GLFW3|x86.ActiveCfg = Release|Any CPU
-		{1A4FB7B1-0544-4B14-8953-9C1D05487C84}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{1A4FB7B1-0544-4B14-8953-9C1D05487C84}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{1A4FB7B1-0544-4B14-8953-9C1D05487C84}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
-		{1A4FB7B1-0544-4B14-8953-9C1D05487C84}.Debug|Mixed Platforms.Build.0 = Debug|Any CPU
-		{1A4FB7B1-0544-4B14-8953-9C1D05487C84}.Debug|x86.ActiveCfg = Debug|Any CPU
-		{1A4FB7B1-0544-4B14-8953-9C1D05487C84}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{1A4FB7B1-0544-4B14-8953-9C1D05487C84}.Release|Any CPU.Build.0 = Release|Any CPU
-		{1A4FB7B1-0544-4B14-8953-9C1D05487C84}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
-		{1A4FB7B1-0544-4B14-8953-9C1D05487C84}.Release|Mixed Platforms.Build.0 = Release|Any CPU
-		{1A4FB7B1-0544-4B14-8953-9C1D05487C84}.Release|x86.ActiveCfg = Release|Any CPU
 		{92688DA6-2690-485B-96B6-C99B8C4490EC}.Compatibility-GLFW2|Any CPU.ActiveCfg = Release|Any CPU
 		{92688DA6-2690-485B-96B6-C99B8C4490EC}.Compatibility-GLFW2|Any CPU.Build.0 = Release|Any CPU
 		{92688DA6-2690-485B-96B6-C99B8C4490EC}.Compatibility-GLFW2|Mixed Platforms.ActiveCfg = Release|Any CPU
