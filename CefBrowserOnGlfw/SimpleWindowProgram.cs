@@ -48,8 +48,12 @@ namespace TestGlfw
             //------------------------------------------            
 
             GlfwMonitorPtr monitor = new GlfwMonitorPtr();
-            GlfwWindowPtr winPtr = new GlfwWindowPtr();
-            GlfwWindowPtr glWindow = Glfw.CreateWindow(800, 600, "Native CefBrowser", monitor, winPtr);
+            GlfwWindowPtr glWindow = Glfw.CreateWindow(
+                800,
+                600,
+                "Native CefBrowser",
+                monitor,
+                GlfwWindowPtr.Null);
 
             ////--------------- 
             Form f1 = Form.CreateFromNativeWindowHwnd(Glfw.GetNativeWindowHandle(glWindow));
@@ -57,13 +61,14 @@ namespace TestGlfw
             f1.Height = 600;
             Glfw.SetWindowSizeCallback(glWindow, (GlfwWindowPtr wnd, int width, int height) =>
             {
-                cefBrowser.SetSize(width, height);
+                //change window size here
             });
             AddWbControlToMainWindow(f1);
             while (!Glfw.WindowShouldClose(glWindow))
             {
                 MyCef3InitEssential.CefDoMessageLoopWork();
-                Glfw.PollEvents();
+                //Glfw.PollEvents();
+                Glfw.WaitEvents();
             }
 
             Glfw.DestroyWindow(glWindow);
@@ -75,12 +80,16 @@ namespace TestGlfw
         }
         static void AddWbControlToMainWindow(Form formMain)
         {
-            //SetWindowText(mainHwnd, "OKOK..."); 
+            //this test:    we create 2 web browsers
+
             cefBrowser = new MyCefBrowser(
                 MyWindowControl.TryGetWindowControlOrRegisterIfNotExists(formMain),
-                  0, 0, formMain.Width, formMain.Height, "about:blank");
-
+                  0, 0, formMain.Width / 2, formMain.Height, "about:blank");
+            cefBrowser2 = new MyCefBrowser(
+                MyWindowControl.TryGetWindowControlOrRegisterIfNotExists(formMain),
+                  formMain.Width / 2, 0, formMain.Width / 2, formMain.Height, "about:blank");
         }
         static MyCefBrowser cefBrowser;
+        static MyCefBrowser cefBrowser2;
     }
 }
