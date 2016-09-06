@@ -9,9 +9,7 @@ namespace TestGlfw
 {
     class SimpleWindowProgram
     {
-        //[System.Runtime.InteropServices.DllImport("user32")]
-        //static extern bool SetWindowText(IntPtr hwnd, string title);
-
+         
         public static void Start(string[] args)
         {
             if (!Glfw.Init())
@@ -51,7 +49,7 @@ namespace TestGlfw
             GlfwWindowPtr glWindow = Glfw.CreateWindow(
                 800,
                 600,
-                "Native CefBrowser",
+                "Native CefBrowser, Press any key to start browse the web",
                 monitor,
                 GlfwWindowPtr.Null);
 
