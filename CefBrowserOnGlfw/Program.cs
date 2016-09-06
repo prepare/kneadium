@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
-using Pencil.Gaming;
-using Pencil.Gaming.Graphics;
+using Pencil.Gaming; 
 
 namespace TestGlfw
 {

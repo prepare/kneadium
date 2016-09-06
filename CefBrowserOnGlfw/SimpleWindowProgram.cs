@@ -1,15 +1,13 @@
 ﻿using System;
 using System.Windows.Forms;
-
 using Pencil.Gaming;
-using Pencil.Gaming.Graphics;
 using LayoutFarm.CefBridge;
 
 namespace TestGlfw
 {
     class SimpleWindowProgram
     {
-         
+
         public static void Start(string[] args)
         {
             if (!Glfw.Init())
@@ -54,7 +52,7 @@ namespace TestGlfw
                 GlfwWindowPtr.Null);
 
             ////--------------- 
-            Form f1 = Form.CreateFromNativeWindowHwnd(Glfw.GetNativeWindowHandle(glWindow));
+            Form f1 = Form.CreateFromNativeWindowHwnd(Glfw.GetNativePlatformWinHwnd(glWindow));
             f1.Width = 800;
             f1.Height = 600;
             Glfw.SetWindowSizeCallback(glWindow, (GlfwWindowPtr wnd, int width, int height) =>
