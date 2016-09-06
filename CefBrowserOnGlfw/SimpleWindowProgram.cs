@@ -1,7 +1,7 @@
 ﻿using System;
-using System.Windows.Forms;
 using Pencil.Gaming;
 using LayoutFarm.CefBridge;
+using PixelFarm.Forms;
 
 namespace TestGlfw
 {
@@ -42,32 +42,24 @@ namespace TestGlfw
             /////////////////////////////////////////////
             //this code is run only in main process
             //------------------------------------------            
-
-            GlfwMonitorPtr monitor = new GlfwMonitorPtr();
-            GlfwWindowPtr glWindow = Glfw.CreateWindow(
-                800,
-                600,
-                "Native CefBrowser, Press any key to start browse the web",
-                monitor,
-                GlfwWindowPtr.Null);
-
+            GlFwForm glfwForm = GlfwApp.CreateGlfwForm(800, 600, "Native CefBrowser, Press any key to start browse the web");
             ////--------------- 
-            Form f1 = Form.CreateFromNativeWindowHwnd(Glfw.GetNativePlatformWinHwnd(glWindow));
-            f1.Width = 800;
-            f1.Height = 600;
-            Glfw.SetWindowSizeCallback(glWindow, (GlfwWindowPtr wnd, int width, int height) =>
-            {
-                //change window size here
-            });
+            Form f1 = Form.CreateFromNativeWindowHwnd(glfwForm.Handle);
+            f1.Width = glfwForm.Width;
+            f1.Height = glfwForm.Height;
+
+            //Glfw.SetWindowSizeCallback(glWindow, (GlfwWindowPtr wnd, int width, int height) =>
+            //{
+            //    //change window size here
+            //});
             AddWbControlToMainWindow(f1);
-            while (!Glfw.WindowShouldClose(glWindow))
+
+            while (!GlfwApp.ShouldClose())
             {
                 MyCef3InitEssential.CefDoMessageLoopWork();
                 Glfw.PollEvents();
-                //Glfw.WaitEvents();
             }
 
-            Glfw.DestroyWindow(glWindow);
             /////////////////////////////////////////////
             MyCef3InitEssential.ClearRemainingCefMsg();
             MyCef3InitEssential.ShutDownCef3();
