@@ -67,8 +67,8 @@ namespace TestGlfw
             while (!Glfw.WindowShouldClose(glWindow))
             {
                 MyCef3InitEssential.CefDoMessageLoopWork();
-                //Glfw.PollEvents();
-                Glfw.WaitEvents();
+                Glfw.PollEvents();
+                //Glfw.WaitEvents();
             }
 
             Glfw.DestroyWindow(glWindow);
