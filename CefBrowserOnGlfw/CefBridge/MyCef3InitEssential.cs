@@ -2,9 +2,10 @@
 
 using System;
 using System.Text;
-using System.Windows.Forms;
+using PixelFarm.Forms;
 using LayoutFarm.CefBridge;
 using System.Collections.Generic;
+
 namespace LayoutFarm.CefBridge
 {
     /// <summary>
@@ -83,7 +84,9 @@ namespace LayoutFarm.CefBridge
         }
         public override void SaveUIInvoke(SimpleDel simpleDel)
         {
-            WinFormCefMsgLoopPump.SafeUIInvoke(simpleDel);
+            //invoke on ui thread**** 
+            //TODO: review here
+            //WinFormCefMsgLoopPump.SafeUIInvoke(simpleDel);
         }
         public override IWindowForm CreateNewBrowserWindow(int width, int height)
         {
@@ -143,7 +146,8 @@ namespace LayoutFarm.CefBridge
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
             //------------------------------------------------- 
-            WinFormCefMsgLoopPump.Start();
+            //TODO: review here
+            //WinFormCefMsgLoopPump.Start();
         }
         protected override void OnAfterShutdown()
         {

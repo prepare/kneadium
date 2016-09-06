@@ -1,16 +1,12 @@
 ﻿using System;
-using System.Windows.Forms;
-
 using Pencil.Gaming;
-using Pencil.Gaming.Graphics;
 using LayoutFarm.CefBridge;
+using PixelFarm.Forms;
 
 namespace TestGlfw
 {
     class SimpleWindowProgram
     {
-        //[System.Runtime.InteropServices.DllImport("user32")]
-        //static extern bool SetWindowText(IntPtr hwnd, string title);
 
         public static void Start(string[] args)
         {
@@ -46,27 +42,24 @@ namespace TestGlfw
             /////////////////////////////////////////////
             //this code is run only in main process
             //------------------------------------------            
-
-            GlfwMonitorPtr monitor = new GlfwMonitorPtr();
-            GlfwWindowPtr winPtr = new GlfwWindowPtr();
-            GlfwWindowPtr glWindow = Glfw.CreateWindow(800, 600, "Native CefBrowser", monitor, winPtr);
-
+            GlFwForm glfwForm = GlfwApp.CreateGlfwForm(800, 600, "Native CefBrowser, Press any key to start browse the web");
             ////--------------- 
-            Form f1 = Form.CreateFromNativeWindowHwnd(Glfw.GetNativeWindowHandle(glWindow));
-            f1.Width = 800;
-            f1.Height = 600;
-            Glfw.SetWindowSizeCallback(glWindow, (GlfwWindowPtr wnd, int width, int height) =>
-            {
-                cefBrowser.SetSize(width, height);
-            });
+            Form f1 = Form.CreateFromNativeWindowHwnd(glfwForm.Handle);
+            f1.Width = glfwForm.Width;
+            f1.Height = glfwForm.Height;
+
+            //Glfw.SetWindowSizeCallback(glWindow, (GlfwWindowPtr wnd, int width, int height) =>
+            //{
+            //    //change window size here
+            //});
             AddWbControlToMainWindow(f1);
-            while (!Glfw.WindowShouldClose(glWindow))
+
+            while (!GlfwApp.ShouldClose())
             {
                 MyCef3InitEssential.CefDoMessageLoopWork();
                 Glfw.PollEvents();
             }
 
-            Glfw.DestroyWindow(glWindow);
             /////////////////////////////////////////////
             MyCef3InitEssential.ClearRemainingCefMsg();
             MyCef3InitEssential.ShutDownCef3();
@@ -75,12 +68,16 @@ namespace TestGlfw
         }
         static void AddWbControlToMainWindow(Form formMain)
         {
-            //SetWindowText(mainHwnd, "OKOK..."); 
+            //this test:    we create 2 web browsers
+
             cefBrowser = new MyCefBrowser(
                 MyWindowControl.TryGetWindowControlOrRegisterIfNotExists(formMain),
-                  0, 0, formMain.Width, formMain.Height, "about:blank");
-
+                  0, 0, formMain.Width / 2, formMain.Height, "about:blank");
+            cefBrowser2 = new MyCefBrowser(
+                MyWindowControl.TryGetWindowControlOrRegisterIfNotExists(formMain),
+                  formMain.Width / 2, 0, formMain.Width / 2, formMain.Height, "about:blank");
         }
         static MyCefBrowser cefBrowser;
+        static MyCefBrowser cefBrowser2;
     }
 }
