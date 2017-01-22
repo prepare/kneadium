@@ -1,12 +1,12 @@
-//###_ORIGINAL D:\projects\cef_binary_3.2785.1466\tests\cefclient\browser//client_handler.h
+//###_ORIGINAL D:\projects\cef_binary_3.2883.1548\\tests\cefclient\browser//client_handler.h
 //###_START 0
 #include "tests/cefclient/browser/client_types.h"
 //###_APPEND_START 0
 //my extension
 //###_APPEND_STOP
 //###_APPEND_START 0
-#include "cefclient/myext/mycef.h"
-#include "cefclient/myext/mycef_msg_const.h"
+#include "tests/cefclient/myext/mycef.h"
+#include "tests/cefclient/myext/mycef_msg_const.h"
 //###_APPEND_STOP
 //###_START 1
 bool is_osr() const { return is_osr_; }
