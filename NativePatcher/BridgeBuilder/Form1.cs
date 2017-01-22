@@ -73,8 +73,9 @@ namespace BridgeBuilder
             //string srcRootDir = @"D:\projects\cef_binary_3.2526.1366" + "\\cefclient"; //2526.1366
             //string srcRootDir = @"D:\projects\cef_binary_3.2623.1395" + "\\cefclient"; //2526.1366
             //string srcRootDir = @"D:\projects\cef_binary_3.2623.1399" + "\\cefclient"; //2526.1366
-            //string srcRootDir = @"D:\projects\cef_binary_3.2704.1418"; //2526.1366
-            string srcRootDir = @"D:\projects\cef_binary_3.2785.1466"; //2526.1366
+            //string srcRootDir = @"D:\projects\cef_binary_3.2704.1418"; 
+            //string srcRootDir = @"D:\projects\cef_binary_3.2785.1466";  
+            string srcRootDir = @"D:\projects\cef_binary_3.2883.1548\\tests"; 
             string saveFolder = "d:\\WImageTest\\cefbridge_patches";
 
             PatchBuilder builder2 = new PatchBuilder(srcRootDir);
@@ -93,11 +94,14 @@ namespace BridgeBuilder
                 string onlyFileName = System.IO.Path.GetFileName(pfile.OriginalFileName);
                 string onlyPath = System.IO.Path.GetDirectoryName(pfile.OriginalFileName);
 
-                int indexOfCefClient = onlyPath.IndexOf("\\cefclient\\");
-
+                int indexOfCefClient = onlyPath.IndexOf("\\cefclient\\"); 
                 if (indexOfCefClient < 0)
                 {
-                    throw new NotSupportedException();
+                    indexOfCefClient = onlyPath.IndexOf("\\shared\\");
+                    if (indexOfCefClient < 0)
+                    {
+                        throw new NotSupportedException();
+                    }
                 }
                 string rightSide = onlyPath.Substring(indexOfCefClient);
                 //string replaceName = onlyPath.Replace("D:\\projects\\cef_binary_3.2623.1399\\cefclient", newPathName);
