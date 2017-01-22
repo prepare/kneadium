@@ -1,0 +1,12 @@
+//###_ORIGINAL D:\projects\cef_binary_3.2785.1466\tests\cefclient\browser//main_context.h
+//###_START 0
+#include "tests/cefclient/browser/osr_renderer.h"
+//###_APPEND_START 0
+#include "cefclient/myext/mycef.h" //my extension
+//###_APPEND_STOP
+//###_START 1
+virtual RootWindowManager* GetRootWindowManager() = 0;
+//###_APPEND_START 1
+//my extension --for callback to managed side
+managed_callback myMxCallback_=NULL;
+//###_APPEND_STOP
