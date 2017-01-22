@@ -1,4 +1,4 @@
-// Copyright (c) 2016 The Chromium Embedded Framework Authors. All rights
+// Copyright (c) 2017 The Chromium Embedded Framework Authors. All rights
 // reserved. Use of this source code is governed by a BSD-style license that
 // can be found in the LICENSE file.
 //
@@ -457,20 +457,6 @@ void CefTextfieldCToCpp::SetPlaceholderTextColor(cef_color_t color) {
   // Execute
   _struct->set_placeholder_text_color(_struct,
       color);
-}
-
-cef_color_t CefTextfieldCToCpp::GetPlaceholderTextColor() {
-  cef_textfield_t* _struct = GetStruct();
-  if (CEF_MEMBER_MISSING(_struct, get_placeholder_text_color))
-    return 0;
-
-  // AUTO-GENERATED CONTENT - DELETE THIS COMMENT BEFORE MODIFYING
-
-  // Execute
-  cef_color_t _retval = _struct->get_placeholder_text_color(_struct);
-
-  // Return type: simple
-  return _retval;
 }
 
 void CefTextfieldCToCpp::SetAccessibleName(const CefString& name) {
@@ -1154,7 +1140,7 @@ template<> cef_textfield_t* CefCToCpp<CefTextfieldCToCpp, CefTextfield,
   return NULL;
 }
 
-#ifndef NDEBUG
+#if DCHECK_IS_ON()
 template<> base::AtomicRefCount CefCToCpp<CefTextfieldCToCpp, CefTextfield,
     cef_textfield_t>::DebugObjCt = 0;
 #endif

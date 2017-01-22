@@ -1,4 +1,4 @@
-// Copyright (c) 2016 The Chromium Embedded Framework Authors. All rights
+// Copyright (c) 2017 The Chromium Embedded Framework Authors. All rights
 // reserved. Use of this source code is governed by a BSD-style license that
 // can be found in the LICENSE file.
 //
@@ -899,7 +899,7 @@ template<> cef_panel_t* CefCToCpp<CefPanelCToCpp, CefPanel,
   return NULL;
 }
 
-#ifndef NDEBUG
+#if DCHECK_IS_ON()
 template<> base::AtomicRefCount CefCToCpp<CefPanelCToCpp, CefPanel,
     cef_panel_t>::DebugObjCt = 0;
 #endif
