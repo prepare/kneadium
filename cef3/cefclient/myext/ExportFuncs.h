@@ -143,4 +143,16 @@ extern "C" {
 		bool allow_target_subdomains
 	);
 
+
+	/////////////////////////////////////////////////////////////////////
+	//cef for native WinForms
+	/////////////////////////////////////////////////////////////////////
+
+	MY_DLL_EXPORT bool MyCefRemoveCrossOriginWhitelistEntry(
+		const wchar_t*  sourceOrigin,
+		const wchar_t*  targetProtocol,
+		const wchar_t*  targetDomain,
+		bool allow_target_subdomains
+	);
+
 }

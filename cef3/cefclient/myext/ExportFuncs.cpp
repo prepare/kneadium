@@ -56,6 +56,9 @@ int RegisterManagedCallBack(managed_callback mxCallback, int callbackKind)
 //3.
 client::ClientApp* MyCefCreateClientApp(HINSTANCE hInstance)
 {
+	// Enable High-DPI support on Windows 7 or newer.
+	CefEnableHighDPISupport();
+
 	// Parse command-line arguments.
 	CefRefPtr<CefCommandLine> command_line = CefCommandLine::CreateCommandLine();
 	command_line->InitFromString(::GetCommandLineW());
@@ -95,6 +98,7 @@ client::ClientApp* MyCefCreateClientApp(HINSTANCE hInstance)
 
 	return app;
 }
+
 
 //3.1 
 MY_DLL_EXPORT void MyCefEnableKeyIntercept(MyBrowser* myBw, int enable) {
@@ -847,4 +851,11 @@ MY_DLL_EXPORT bool MyCefRemoveCrossOriginWhitelistEntry(
 {
 	return CefAddCrossOriginWhitelistEntry(sourceOrigin, targetProtocol, targetDomain, allow_target_subdomains);
 }
-//---------------------------------------
+
+ 
+
+ 
+/////////////////////////////////////////////////////////////////////
+//cef for native WinForms
+/////////////////////////////////////////////////////////////////////
+  
