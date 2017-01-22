@@ -1,5 +1,5 @@
-#include "dll_init.h"
-#include "../common/client_app.h" 
+#include "dll_init.h" 
+#include "../../shared/common/client_app.h"
 #include "../browser/client_handler.h"
 #include "../browser/client_handler_std.h"
 #include "../browser/root_window.h"

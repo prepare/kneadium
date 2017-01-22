@@ -1,9 +1,9 @@
-//###_ORIGINAL D:\projects\cef_binary_3.2785.1466\cefclient\browser//main_context_impl.cc
+//###_ORIGINAL D:\projects\cef_binary_3.2883.1548\\tests\cefclient\browser//main_context_impl.cc
 //###_START 0
-#include "cefclient/common/client_switches.h"
+#include "tests/shared/common/client_switches.h"
 //###_APPEND_START 0
-#include "cefclient/myext/ExportFuncs.h"
-#include "cefclient/myext/mycef_msg_const.h"
+#include "tests/cefclient/myext/ExportFuncs.h"
+#include "tests/cefclient/myext/mycef_msg_const.h"
 //###_APPEND_STOP
 //###_START 1
 // The default URL to load in a browser window.
@@ -14,18 +14,16 @@ const char kDefaultUrl[] = "about:blank";
 //###_SKIP_UNTIL_AND_ACCEPT 1
 }  // namespace
 //###_START 3
-if (main_url_.empty()){
+if (main_url_.empty())
 //###_APPEND_START 3
 main_url_ = kDefaultUrl;
 //###_APPEND_STOP
-//###_SKIP_UNTIL_AND_ACCEPT 3
-}
 //###_START 2
 std::string MainContextImpl::GetConsoleLogPath() {
 //###_APPEND_START 2
 if (this->myMxCallback_) {
 
-MethodArgs args; 
+MethodArgs args;
 memset(&args, 0, sizeof(MethodArgs));
 this->myMxCallback_(CEF_MSG_MainContext_GetConsoleLogPath, &args);
 CefString cefStr(args.ReadOutputAsString(0));
@@ -41,6 +39,6 @@ return GetAppWorkingDirectory() + "console.log";
 settings->background_color = background_color_;
 //###_APPEND_START 1
 if (this->myMxCallback_) {
-this->myMxCallback_(CEF_MSG_CefSettings_Init,settings);
+this->myMxCallback_(CEF_MSG_CefSettings_Init, settings);
 }
 //###_APPEND_STOP

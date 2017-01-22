@@ -1,8 +1,8 @@
-//###_ORIGINAL D:\projects\cef_binary_3.2785.1466\cefclient\browser//test_runner.h
+//###_ORIGINAL D:\projects\cef_binary_3.2883.1548\\tests\cefclient\browser//test_runner.h
 //###_START 0
 #include "include/wrapper/cef_resource_manager.h"
 //###_APPEND_START 0
-#include "cefclient/myext/mycef.h"
+#include "tests/cefclient/myext/mycef.h"
 //###_APPEND_STOP
 //###_START 1
 void SetupResourceManager(CefRefPtr<CefResourceManager> resource_manager);
