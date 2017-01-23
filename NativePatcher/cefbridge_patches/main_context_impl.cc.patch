@@ -16,8 +16,12 @@ const char kDefaultUrl[] = "about:blank";
 //###_START 3
 if (main_url_.empty())
 //###_APPEND_START 3
+{
 main_url_ = kDefaultUrl;
+}
 //###_APPEND_STOP
+//###_SKIP_UNTIL_AND_ACCEPT 3
+use_windowless_rendering_ =
 //###_START 2
 std::string MainContextImpl::GetConsoleLogPath() {
 //###_APPEND_START 2

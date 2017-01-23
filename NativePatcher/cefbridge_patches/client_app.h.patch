@@ -2,8 +2,8 @@
 //###_START 0
 #include "include/cef_app.h"
 //###_APPEND_START 0
-#include "cefclient/myext/mycef_msg_const.h"
-#include "cefclient/myext/mycef.h"
+#include "tests/cefclient/myext/mycef_msg_const.h"
+#include "tests/cefclient/myext/mycef.h"
 //###_APPEND_STOP
 //###_START 1
 static ProcessType GetProcessType(CefRefPtr<CefCommandLine> command_line);

@@ -31,11 +31,9 @@ model->AddSeparator();
 model->AddItem(CLIENT_ID_INSPECT_ELEMENT, "Inspect Element");
 
 // Test context menu features.
-BuildTestMenu(model);
-}
 //###_APPEND_STOP
 //###_SKIP_UNTIL_AND_ACCEPT 0
-}
+BuildTestMenu(model);
 //###_START 1
 bool ClientHandler::OnContextMenuCommand(
 //###_FIND_NEXT_LANDMARK 1
@@ -357,7 +355,7 @@ GetCertificateInformation(cert, ssl_info->GetCertStatus()));
 }
 //###_APPEND_STOP
 //###_SKIP_UNTIL_AND_ACCEPT 9
-return false;
+return false;  // Cancel the request.
 //###_START 6
 void ClientHandler::ShowDevTools(CefRefPtr<CefBrowser> browser,
 //###_FIND_NEXT_LANDMARK 6
