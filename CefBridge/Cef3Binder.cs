@@ -175,6 +175,10 @@ namespace LayoutFarm.CefBridge
 
         static bool LoadNativeLibs(Cef3InitEssential initEssential)
         {
+
+            //in version 3.2885.1548 (chrome 55+)
+            NativeMethods.LoadLibrary(cefInitEssential.GetLibChromeElfFileName());
+
             //1. lib cef
             string lib = initEssential.GetLibCefFileName();
             //if (!File.Exists(lib))
