@@ -1,4 +1,4 @@
-// Copyright (c) 2016 The Chromium Embedded Framework Authors. All rights
+// Copyright (c) 2017 The Chromium Embedded Framework Authors. All rights
 // reserved. Use of this source code is governed by a BSD-style license that
 // can be found in the LICENSE file.
 //
@@ -18,6 +18,7 @@
 #include "libcef_dll/ctocpp/browser_ctocpp.h"
 #include "libcef_dll/ctocpp/browser_host_ctocpp.h"
 #include "libcef_dll/ctocpp/drag_data_ctocpp.h"
+#include "libcef_dll/ctocpp/navigation_entry_ctocpp.h"
 #include "libcef_dll/ctocpp/request_context_ctocpp.h"
 #include "libcef_dll/transfer_util.h"
 
@@ -666,44 +667,81 @@ void CefBrowserHostCToCpp::SetWindowlessFrameRate(int frame_rate) {
       frame_rate);
 }
 
-CefTextInputContext CefBrowserHostCToCpp::GetNSTextInputContext() {
+void CefBrowserHostCToCpp::ImeSetComposition(const CefString& text,
+    const std::vector<CefCompositionUnderline>& underlines,
+    const CefRange& replacement_range, const CefRange& selection_range) {
   cef_browser_host_t* _struct = GetStruct();
-  if (CEF_MEMBER_MISSING(_struct, get_nstext_input_context))
-    return NULL;
+  if (CEF_MEMBER_MISSING(_struct, ime_set_composition))
+    return;
 
   // AUTO-GENERATED CONTENT - DELETE THIS COMMENT BEFORE MODIFYING
 
-  // Execute
-  cef_text_input_context_t _retval = _struct->get_nstext_input_context(_struct);
+  // Unverified params: text, underlines
 
-  // Return type: simple
-  return _retval;
+  // Translate param: underlines; type: simple_vec_byref_const
+  const size_t underlinesCount = underlines.size();
+  cef_composition_underline_t* underlinesList = NULL;
+  if (underlinesCount > 0) {
+    underlinesList = new cef_composition_underline_t[underlinesCount];
+    DCHECK(underlinesList);
+    if (underlinesList) {
+      for (size_t i = 0; i < underlinesCount; ++i) {
+        underlinesList[i] = underlines[i];
+      }
+    }
+  }
+
+  // Execute
+  _struct->ime_set_composition(_struct,
+      text.GetStruct(),
+      underlinesCount,
+      underlinesList,
+      &replacement_range,
+      &selection_range);
+
+  // Restore param:underlines; type: simple_vec_byref_const
+  if (underlinesList)
+    delete [] underlinesList;
 }
 
-void CefBrowserHostCToCpp::HandleKeyEventBeforeTextInputClient(
-    CefEventHandle keyEvent) {
+void CefBrowserHostCToCpp::ImeCommitText(const CefString& text,
+    const CefRange& replacement_range, int relative_cursor_pos) {
   cef_browser_host_t* _struct = GetStruct();
-  if (CEF_MEMBER_MISSING(_struct, handle_key_event_before_text_input_client))
+  if (CEF_MEMBER_MISSING(_struct, ime_commit_text))
+    return;
+
+  // AUTO-GENERATED CONTENT - DELETE THIS COMMENT BEFORE MODIFYING
+
+  // Unverified params: text
+
+  // Execute
+  _struct->ime_commit_text(_struct,
+      text.GetStruct(),
+      &replacement_range,
+      relative_cursor_pos);
+}
+
+void CefBrowserHostCToCpp::ImeFinishComposingText(bool keep_selection) {
+  cef_browser_host_t* _struct = GetStruct();
+  if (CEF_MEMBER_MISSING(_struct, ime_finish_composing_text))
     return;
 
   // AUTO-GENERATED CONTENT - DELETE THIS COMMENT BEFORE MODIFYING
 
   // Execute
-  _struct->handle_key_event_before_text_input_client(_struct,
-      keyEvent);
+  _struct->ime_finish_composing_text(_struct,
+      keep_selection);
 }
 
-void CefBrowserHostCToCpp::HandleKeyEventAfterTextInputClient(
-    CefEventHandle keyEvent) {
+void CefBrowserHostCToCpp::ImeCancelComposition() {
   cef_browser_host_t* _struct = GetStruct();
-  if (CEF_MEMBER_MISSING(_struct, handle_key_event_after_text_input_client))
+  if (CEF_MEMBER_MISSING(_struct, ime_cancel_composition))
     return;
 
   // AUTO-GENERATED CONTENT - DELETE THIS COMMENT BEFORE MODIFYING
 
   // Execute
-  _struct->handle_key_event_after_text_input_client(_struct,
-      keyEvent);
+  _struct->ime_cancel_composition(_struct);
 }
 
 void CefBrowserHostCToCpp::DragTargetDragEnter(CefRefPtr<CefDragData> drag_data,
@@ -789,6 +827,22 @@ void CefBrowserHostCToCpp::DragSourceSystemDragEnded() {
   _struct->drag_source_system_drag_ended(_struct);
 }
 
+CefRefPtr<CefNavigationEntry> CefBrowserHostCToCpp::GetVisibleNavigationEntry(
+    ) {
+  cef_browser_host_t* _struct = GetStruct();
+  if (CEF_MEMBER_MISSING(_struct, get_visible_navigation_entry))
+    return NULL;
+
+  // AUTO-GENERATED CONTENT - DELETE THIS COMMENT BEFORE MODIFYING
+
+  // Execute
+  cef_navigation_entry_t* _retval = _struct->get_visible_navigation_entry(
+      _struct);
+
+  // Return type: refptr_same
+  return CefNavigationEntryCToCpp::Wrap(_retval);
+}
+
 
 // CONSTRUCTOR - Do not edit by hand.
 
@@ -802,7 +856,7 @@ template<> cef_browser_host_t* CefCToCpp<CefBrowserHostCToCpp, CefBrowserHost,
   return NULL;
 }
 
-#ifndef NDEBUG
+#if DCHECK_IS_ON()
 template<> base::AtomicRefCount CefCToCpp<CefBrowserHostCToCpp, CefBrowserHost,
     cef_browser_host_t>::DebugObjCt = 0;
 #endif
