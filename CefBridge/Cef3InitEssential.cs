@@ -54,6 +54,8 @@ namespace LayoutFarm.CefBridge
         /// </summary>
         /// <returns></returns>         
         public abstract string GetLibCefFileName();
+        public abstract string GetLibChromeElfFileName();
+
         /// <summary>
         /// cefclient.dll (wrapper)
         /// </summary>

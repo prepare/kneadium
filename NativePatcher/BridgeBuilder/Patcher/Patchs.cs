@@ -571,6 +571,7 @@ namespace BridgeBuilder
 
             if (!foundLandMark)
             {
+                return;
                 throw new NotSupportedException();
             }
             //------------------------------------------------------------

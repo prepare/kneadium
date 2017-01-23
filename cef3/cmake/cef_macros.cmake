@@ -96,10 +96,12 @@ macro(SET_CEF_TARGET_OUT_DIR)
 endmacro()
 
 # Copy a list of files from one directory to another. Relative files paths are maintained.
+# The path component of the source |file_list| will be removed.
 macro(COPY_FILES target file_list source_dir target_dir)
   foreach(FILENAME ${file_list})
     set(source_file ${source_dir}/${FILENAME})
-    set(target_file ${target_dir}/${FILENAME})
+    get_filename_component(target_name ${FILENAME} NAME)
+    set(target_file ${target_dir}/${target_name})
     if(IS_DIRECTORY ${source_file})
       add_custom_command(
         TARGET ${target}
@@ -116,19 +118,6 @@ macro(COPY_FILES target file_list source_dir target_dir)
         )
     endif()
   endforeach()
-endmacro()
-
-# Rename a directory replacing the target if it already exists.
-macro(RENAME_DIRECTORY target source_dir target_dir)
-  add_custom_command(
-    TARGET ${target}
-    POST_BUILD
-    # Remove the target directory if it already exists.
-    COMMAND ${CMAKE_COMMAND} -E remove_directory "${target_dir}"
-    # Rename the source directory to target directory.
-    COMMAND ${CMAKE_COMMAND} -E rename "${source_dir}" "${target_dir}"
-    VERBATIM
-    )
 endmacro()
 
 
@@ -185,26 +174,20 @@ endif(OS_LINUX)
 
 if(OS_MACOSX)
 
-# Fix the framework link in the helper executable.
-macro(FIX_MACOSX_HELPER_FRAMEWORK_LINK target app_path)
-  add_custom_command(TARGET ${target}
-    POST_BUILD
-    COMMAND install_name_tool -change "@executable_path/Chromium Embedded Framework"
-            "@executable_path/../../../../Frameworks/Chromium Embedded Framework.framework/Chromium Embedded Framework"
-            "${app_path}/Contents/MacOS/${target}"
-    VERBATIM
-    )
+# Fix the framework rpath in the helper executable.
+macro(FIX_MACOSX_HELPER_FRAMEWORK_RPATH target)
+  # The helper is in $app_name.app/Contents/Frameworks/$app_name Helper.app/Contents/MacOS/
+  # so set rpath up to Contents/ so that the loader can find Frameworks/.
+  set_target_properties(${target} PROPERTIES INSTALL_RPATH "@executable_path/../../../..")
+  set_target_properties(${target} PROPERTIES BUILD_WITH_INSTALL_RPATH TRUE)
 endmacro()
 
-# Fix the framework link in the main executable.
-macro(FIX_MACOSX_MAIN_FRAMEWORK_LINK target app_path)
-  add_custom_command(TARGET ${target}
-    POST_BUILD
-    COMMAND install_name_tool -change "@executable_path/Chromium Embedded Framework"
-            "@executable_path/../Frameworks/Chromium Embedded Framework.framework/Chromium Embedded Framework"
-            "${app_path}/Contents/MacOS/${target}"
-    VERBATIM
-    )
+# Fix the framework rpath in the main executable.
+macro(FIX_MACOSX_MAIN_FRAMEWORK_RPATH target)
+  # The main app is at $app_name.app/Contents/MacOS/$app_name
+  # so set rpath up to Contents/ so that the loader can find Frameworks/.
+  set_target_properties(${target} PROPERTIES INSTALL_RPATH "@executable_path/..")
+  set_target_properties(${target} PROPERTIES BUILD_WITH_INSTALL_RPATH TRUE)
 endmacro()
 
 # Manually process and copy over resource files.

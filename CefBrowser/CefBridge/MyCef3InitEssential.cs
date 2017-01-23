@@ -27,6 +27,7 @@ namespace LayoutFarm.CefBridge
         {
             return libPath;
         }
+      
         public override bool Init(string libpath = null)
         {
             //must check proper location of libcef, cefclient dir 
@@ -36,12 +37,14 @@ namespace LayoutFarm.CefBridge
                 //libPath = @"D:\projects\CefBridge\cef3_output\cefclient\Debug";
                 //libPath = @"D:\projects\cef_3.2704output\cefclient\Debug"; //3.2704
                 //libPath = @"D:\projects\CefBridge\cef3_2704output\cefclient\Debug"; 
-                libPath = @"D:\projects\cef_binary_3.2785.1466output\cefclient\Debug";
-
+                //libPath = @"D:\projects\cef_binary_3.2785.1466output\cefclient\Debug";
+                //libPath = @"D:\projects\cef_binary_3.2883.1548output\tests\cefclient\Debug";
                 //libPath = @"D:\WImageTest\Release2";//test load from other location
 #else
-                 libPath = @"D:\projects\cef_binary_3.2785.1466output\cefclient\Release";
+                libPath = @"D:\projects\cef_binary_3.2785.1466output\cefclient\Release";
+                libPath = @"D:\projects\cef_binary_3.2883.1548output\tests\cefclient\Release";
 #endif
+                libPath = @"D:\projects\cef_binary_3.2883.1548output\tests\cefclient\Release";
             }
             else
             {
@@ -73,7 +76,10 @@ namespace LayoutFarm.CefBridge
         {
             return libPath + "\\cefclient.dll";
         }
-
+        public override string GetLibChromeElfFileName()
+        {
+            return libPath + "\\chrome_elf.dll";
+        }
         public override IWindowForm CreateNewWindow(int width, int height)
         {
             Form form1 = new Form();

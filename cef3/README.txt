@@ -1,15 +1,15 @@
 Chromium Embedded Framework (CEF) Standard Binary Distribution for Windows
 -------------------------------------------------------------------------------
 
-Date:             August 26, 2016
+Date:             January 18, 2017
 
-CEF Version:      3.2785.1466.g80e473e
+CEF Version:      3.2883.1548.gd6fc4a4
 CEF URL:          https://bitbucket.org/chromiumembedded/cef.git
-                  @80e473edf24ce9c40dd4a626747a3169930ea10f
+                  @d6fc4a4c16b5309bb4f8bc76fc1bf2a02a364432
 
-Chromium Verison: 53.0.2785.70
+Chromium Verison: 55.0.2883.87
 Chromium URL:     https://chromium.googlesource.com/chromium/src.git
-                  @c51f88339d13dc9ecfb472f87afbf051bb56047a
+                  @12203fa1bfc7f10c98bcbceaa11161fd1d1c17f8
 
 This distribution contains all components necessary to build and distribute an
 application using CEF on the Windows platform. Please see the LICENSING
@@ -18,14 +18,6 @@ section of this document for licensing terms and conditions.
 
 CONTENTS
 --------
-
-cefclient   Contains the cefclient sample application configured to build
-            using the files in this distribution. This application demonstrates
-            a wide range of CEF functionalities.
-
-cefsimple   Contains the cefsimple sample application configured to build
-            using the files in this distribution. This application demonstrates
-            the minimal functionality required to create a browser window.
 
 cmake       Contains CMake configuration files shared by all targets.
 
@@ -47,6 +39,23 @@ Release     Contains libcef.dll, libcef.lib and other components required to
 Resources   Contains resources required by libcef.dll. By default these files
             should be placed in the same directory as libcef.dll and will be
             copied there as part of the build process.
+
+tests/      Directory of tests that demonstrate CEF usage.
+
+  cefclient Contains the cefclient sample application configured to build
+            using the files in this distribution. This application demonstrates
+            a wide range of CEF functionalities.
+
+  cefsimple Contains the cefsimple sample application configured to build
+            using the files in this distribution. This application demonstrates
+            the minimal functionality required to create a browser window.
+
+  ceftests  Contains unit tests that exercise the CEF APIs.
+
+  gtest     Contains the Google C++ Testing Framework used by the ceftests
+            target.
+
+  shared    Contains source code shared by the cefclient and ceftests targets.
 
 
 USAGE
@@ -72,6 +81,9 @@ The following components are required. CEF will not function without them.
 
 * CEF core library.
   * libcef.dll
+
+* Crash reporting library.
+  * chrome_elf.dll
 
 * Unicode support data.
   * icudtl.dat
@@ -125,6 +137,11 @@ run but any related functionality may become broken or disabled.
   * libGLESv2.dll
   Without these files HTML5 accelerated content like 2D canvas, 3D CSS and WebGL
   will not function.
+
+* Widevine CDM support.
+  * widevinecdmadapter.dll
+    Without this file playback of Widevine projected content will not function.
+    See the CefRegisterWidevineCdm() function in cef_web_plugin.h for usage.
 
 
 LICENSING
