@@ -122,29 +122,29 @@ namespace LayoutFarm.CefBridge
             {
                 //if not set to 0
                 //images not render to native cef win                 
-                return;
-                //if (n > 100) return;
-                ////----------------------
+                //return;
+                if (n > 100) return;
+                //----------------------
 
-                //IntPtr rawBitBuffer = args.GetArgAsNativePtr(0);
-                //int width = args.GetArgAsInt32(1);
-                //int height = args.GetArgAsInt32(2);
+                IntPtr rawBitBuffer = args.GetArgAsNativePtr(0);
+                int width = args.GetArgAsInt32(1);
+                int height = args.GetArgAsInt32(2);
 
-                //unsafe
-                //{
-                //    using (Bitmap bmp = new Bitmap(width, height))
-                //    {
+                unsafe
+                {
+                    using (Bitmap bmp = new Bitmap(width, height))
+                    {
 
-                //        var bmpdata = bmp.LockBits(
-                //            new Rectangle(0, 0, width, height),
-                //            System.Drawing.Imaging.ImageLockMode.ReadWrite,
-                //            System.Drawing.Imaging.PixelFormat.Format32bppRgb);
-                //        CopyMemory(bmpdata.Scan0, rawBitBuffer, width * height * 4);
-                //        bmp.UnlockBits(bmpdata);
-                //        bmp.Save("d:\\WImageTest\\snap02" + (n++) + ".jpg");
+                        var bmpdata = bmp.LockBits(
+                            new Rectangle(0, 0, width, height),
+                            System.Drawing.Imaging.ImageLockMode.ReadWrite,
+                            System.Drawing.Imaging.PixelFormat.Format32bppRgb);
+                        CopyMemory(bmpdata.Scan0, rawBitBuffer, width * height * 4);
+                        bmp.UnlockBits(bmpdata);
+                        bmp.Save("d:\\WImageTest\\snap02" + (n++) + ".jpg");
 
-                //    }
-                //}
+                    }
+                }
             }
 
             [System.Runtime.InteropServices.DllImport("kernel32.dll")]
