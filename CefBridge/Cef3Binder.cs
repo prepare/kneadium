@@ -104,12 +104,8 @@ namespace LayoutFarm.CefBridge
         const string CEF_CLIENT_DLL = "cefclient.dll";
 #if DEBUG
         public static bool s_dbugIsRendererProcess;
-#endif
-
-        //static MyCefCallback managedListener0;
-        //static MyCefCallback managedListener1;
-
-
+#endif 
+      
         static CefClientApp clientApp;
         static CustomSchemeAgent customScheme;
         public static IWindowForm CreateBlankForm(int width, int height)
@@ -234,17 +230,7 @@ namespace LayoutFarm.CefBridge
             }
             return true;
         }
-        //static void Cef3callBack_ForMangedCallBack0(int oindex, IntPtr args)
-        //{
-
-        //}
-        //static void Cef3callBack_ForMangedCallBack2(int oindex, IntPtr args)
-        //{
-
-
-        //}
-
-
+       
         //---------------------------------------------------
         //Cef
         //---------------------------------------------------
@@ -274,7 +260,12 @@ namespace LayoutFarm.CefBridge
         //5. OSR
         [DllImport(CEF_CLIENT_DLL, CallingConvention = CallingConvention.Cdecl, CharSet = CharSet.Unicode)]
         public static extern void MyCefSetupBrowserHwndOSR(IntPtr myCefBrowser, IntPtr hWndParent, int x, int y, int width, int height, string initUrl, IntPtr requestContext);
+
         //6.
+        [DllImport(CEF_CLIENT_DLL, CallingConvention = CallingConvention.Cdecl, CharSet = CharSet.Unicode)]
+        public static extern void MyCefCloseMyWebBrowser(IntPtr myCefBrowser);
+
+        //7.
         [DllImport(CEF_CLIENT_DLL)]
         public static extern void MyCefDoMessageLoopWork();
         [DllImport(CEF_CLIENT_DLL)]

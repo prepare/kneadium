@@ -111,6 +111,7 @@ namespace LayoutFarm.CefBridge
             //create cef browser when handle is created 
             MyCefOsrListener osrListener = new MyCefOsrListener();
             this.cefBrowser = new MyCefBrowser(thisWindowControl, 0, 0, 800, 500, "about:blank", true) { OsrListener = osrListener };
+            //this.cefBrowser = new MyCefBrowser(thisWindowControl, 0, 0, 800, 500, "about:blank", false);
         }
 
         class MyCefOsrListener : CefOsrListener

@@ -131,7 +131,7 @@ MyBrowser* MyCefCreateMyWebBrowserOSR(managed_callback callback, HWND freeFormHw
 	client::OsrRenderer::Settings settings;
 	client::MainContext::Get()->PopulateOsrSettings(&settings);
 	auto bwWindow = new client::BrowserWindowOsrWin(rootWindow, "", settings);
-	 
+
 	//SetUserDataPtr()
 	myBw->bwWindow = bwWindow;
 
@@ -181,8 +181,8 @@ int MyCefSetupBrowserHwnd(MyBrowser* myBw, HWND surfaceHwnd, int x, int y, int w
 int MyCefSetupBrowserHwndOSR(MyBrowser* myBw, HWND surfaceHwnd, int x, int y, int w, int h, const wchar_t* url, CefRequestContext* cefRefContext)
 {
 
-	 
-	CefRect cef_rect(x, y, w, h); 
+	////--off-screen-rendering-enabled 
+	CefRect cef_rect(x, y, w, h);
 	CefBrowserSettings browser_settings;
 	//populate browser setting here
 	memset(&browser_settings, 0, sizeof(CefBrowserSettings));
@@ -190,54 +190,24 @@ int MyCefSetupBrowserHwndOSR(MyBrowser* myBw, HWND surfaceHwnd, int x, int y, in
 	client::BrowserWindowOsrWin* windowosr = (client::BrowserWindowOsrWin*)myBw->bwWindow;
 	windowosr->CreateBrowser(surfaceHwnd, cef_rect, browser_settings, cefRefContext);
 	//----------------------------------
-	return 1;
-	////--off-screen-rendering-enabled
-	//// Information used when creating the native window.
-	//CefWindowInfo window_info;
-	//RECT r;
-	//r.left = x;
-
-	//r.top = y;
-	//r.right = x + w;
-	//r.bottom = y + h;
-
-	////window_info.SetAsChild(surfaceHwnd, r);
-	//window_info.SetAsWindowless(surfaceHwnd, true);
-
-	//auto clientHandler = myBw->bwWindow->GetClientHandler();
-	//CefRefPtr<client::ClientHandler> handler(clientHandler);
-
-	//CefBrowserSettings settings;
-	//memset(&settings, 0, sizeof(CefBrowserSettings));
-	//client::MainContext::Get()->PopulateBrowserSettings(&settings);
-
-	//bool result = CefBrowserHost::CreateBrowser(window_info,
-	//	clientHandler,
-	//	url,
-	//	settings,
-	//	CefRefPtr<CefRequestContext>(cefRefContext));
-
-	//if (result) {
-	//	return 1;
-	//}
-	//else {
-	//	return 0;
-	//}
+	return 1; 
+}
+//6
+void MyCefCloseMyWebBrowser(MyBrowser* myBw) {
+	myBw->bwWindow->ClientClose();
 }
 
-
-
-//6.
+//7.
 void MyCefDoMessageLoopWork()
 {
 	CefDoMessageLoopWork();
 }
-//7.
+//8.
 void MyCefShutDown() {
 	CefShutdown();
 }
 
-//8.
+//9.
 void MyCefSetBrowserSize(MyBrowser* myBw, int w, int h) {
 	//auto windowHandle = myBw->bwWindow->GetWindowHandle();
 	myBw->bwWindow->SetBounds(0, 0, w, h);
