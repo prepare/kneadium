@@ -37,7 +37,7 @@ void OsrWindowWin::DisableGL() {
 CEF_REQUIRE_UI_THREAD();
 //###_APPEND_START 2
 if (this->closing1_) {
-
+//review here again
 if (IsWindow(hwnd_)) {
 // wglDeleteContext will make the context not current before deleting it.
 BOOL result = wglDeleteContext(hrc_);
