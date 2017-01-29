@@ -18,9 +18,12 @@ namespace LayoutFarm.CefBridge
         IWindowForm devForm;
         MyCefDevWindow cefDevWindow;
         CefUIProcessListener browserProcessListener;
+        CefOsrListener cefOsrListener;
+        List<MyCefCallback> keepAliveCallBack = new List<MyCefCallback>();
+        //----
 
         public MyCefBrowser(IWindowControl parentControl,
-            int x, int y, int w, int h, string initUrl)
+            int x, int y, int w, int h, string initUrl, bool isOsr)
         {
             this.currentUrl = initUrl;
             //create cef browser view handler  
@@ -28,14 +31,28 @@ namespace LayoutFarm.CefBridge
             this.topForm = (IWindowForm)parentControl.GetTopLevelControl();
             //ui process ***
             this.managedCallback = new MyCefCallback(this.MxCallBack);
-            //for specific browser 
-            this.myCefBrowser = Cef3Binder.MyCefCreateMyWebBrowser(managedCallback);
-            Cef3Binder.MyCefSetupBrowserHwnd(myCefBrowser, parentControl.GetHandle(), x, y, w, h, initUrl, IntPtr.Zero);
+            //for specific browser
+
+            if (isOsr)
+            {
+                this.myCefBrowser = Cef3Binder.MyCefCreateMyWebBrowserOSR(managedCallback);
+                Cef3Binder.MyCefSetupBrowserHwndOSR(myCefBrowser, parentControl.GetHandle(), x, y, w, h, initUrl, IntPtr.Zero);
+            }
+            else
+            {
+                this.myCefBrowser = Cef3Binder.MyCefCreateMyWebBrowser(managedCallback);
+                Cef3Binder.MyCefSetupBrowserHwnd(myCefBrowser, parentControl.GetHandle(), x, y, w, h, initUrl, IntPtr.Zero);
+            }
+
             Cef3Binder.MyCefEnableKeyIntercept(myCefBrowser, 1);
             //register mycef browser
             RegisterCefWbControl(this);
         }
-
+        public CefOsrListener OsrListener
+        {
+            get { return cefOsrListener; }
+            set { cefOsrListener = value; }
+        }
         public CefUIProcessListener Listener
         {
             get { return browserProcessListener; }
@@ -58,7 +75,7 @@ namespace LayoutFarm.CefBridge
                 case MyCefMsg.CEF_MSG_ClientHandler_NotifyBrowserCreated:
                     {
                         IsBrowserCreated = true;
-                        
+
                     }
                     break;
                 case MyCefMsg.CEF_MSG_ClientHandler_NotifyBrowserClosing:
@@ -66,6 +83,7 @@ namespace LayoutFarm.CefBridge
 
                     }
                     break;
+
                 case MyCefMsg.CEF_MSG_ClientHandler_NotifyBrowserClosed:
                     {
                         if (this.devForm != null)
@@ -240,6 +258,18 @@ namespace LayoutFarm.CefBridge
                         // Console.WriteLine("address changed:" + newtitle);
                     }
                     break;
+                //------------------------------
+                case MyCefMsg.CEF_MSG_OSR_Render:
+                    {
+                        //receive rendere msg
+                        var args = new NativeCallArgs(argsPtr);
+                        //copy bits buffer and store to files  
+                        if (cefOsrListener != null)
+                        {
+                            cefOsrListener.OnRender(args);
+                        }
+
+                    } break;
             }
         }
         void LoadErrorPage(IntPtr cefBw, IntPtr cefFrame, int errorCode, string errorText, string failedUrl)
@@ -279,7 +309,7 @@ namespace LayoutFarm.CefBridge
         {
             Cef3Binder.MyCefSetBrowserSize(this.myCefBrowser, w, h);
         }
-        List<MyCefCallback> keepAliveCallBack = new List<MyCefCallback>();
+
         public void GetText(Action<string> strCallback)
         {
             //keep alive callback
@@ -415,6 +445,7 @@ namespace LayoutFarm.CefBridge
                 return true;
             }
         }
+
 
         //void OnUnmanagedPartCallBack(int id, IntPtr callBackArgs)
         //{

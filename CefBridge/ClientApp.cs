@@ -13,7 +13,7 @@ namespace LayoutFarm.CefBridge
         public CefClientApp(IntPtr processHandle, CefRenderProcessListener renderProcessListener)
         {
             this.renderProcessListener = renderProcessListener;
-#if DEBUG   
+#if DEBUG
             //dev note: multiprocess debuging: renderer process debugger 
             //if you want to break in the renderer process
             //1. set break point after, MessageBox.Show();
@@ -86,6 +86,11 @@ namespace LayoutFarm.CefBridge
                         nat1.SetOutputAsAsciiString(0, "d:\\WImageTest\\cef_console.log");
                     }
                     break;
+                case MyCefMsg.CEF_MSG_OSR_Render:
+                    {
+                        //not visit here?
+
+                    } break;
                 case MyCefMsg.CEF_MSG_RenderDelegate_OnContextCreated:
                     {
                         //client app callback

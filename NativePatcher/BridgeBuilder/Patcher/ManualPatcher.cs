@@ -33,7 +33,7 @@ namespace BridgeBuilder
             Do_MainContext_h();
             Do_TestRunnner_cc();
             Do_TestRunner_h();
-            Do_CMake_txt();
+            Do_CMake_txt_old();
 
         }
         PatchFile CreatePathFile(string filename)
@@ -41,7 +41,7 @@ namespace BridgeBuilder
             return new PatchFile(RootDir + "\\" + filename);
         }
 
-        public void Do_CMake_txt()
+        public void Do_CMake_txt_old()
         {
 
             var patch = new PatchFile(RootDir + "\\" + "CMakeLists.txt");
@@ -68,7 +68,7 @@ set(CEFCLIENT_MYCEF_SRCS
 
             patch.PatchContent();
         }
-        public void Do_CMake_txt_3_2704()
+        public void Do_CMake_txt_New_3_2704_up()
         {
 
             var patch = new PatchFile(RootDir + "\\cefclient\\" + "CMakeLists.txt");

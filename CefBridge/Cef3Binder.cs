@@ -73,6 +73,7 @@ namespace LayoutFarm.CefBridge
         //
         CEF_MSG_CefSettings_Init = 150,
         CEF_MSG_MainContext_GetConsoleLogPath = 151,
+        CEF_MSG_OSR_Render = 155,
         //
         CEF_MSG_RenderDelegate_OnWebKitInitialized = 201,
         CEF_MSG_RenderDelegate_OnContextCreated = 202,
@@ -195,7 +196,7 @@ namespace LayoutFarm.CefBridge
             //}
             //Console.WriteLine(lib);
             int tryLoadCount = 0;
-            TRY_AGAIN:
+        TRY_AGAIN:
             uint lastErr = 0;
             IntPtr libCefModuleHandler = NativeMethods.LoadLibrary(lib);
             //Console.WriteLine(libCefModuleHandler);
@@ -264,9 +265,15 @@ namespace LayoutFarm.CefBridge
         //4. 
         [DllImport(CEF_CLIENT_DLL, CallingConvention = CallingConvention.Cdecl)]
         public static extern IntPtr MyCefCreateMyWebBrowser(MyCefCallback mxcallback);
+        //4. OSR
+        [DllImport(CEF_CLIENT_DLL, CallingConvention = CallingConvention.Cdecl)]
+        public static extern IntPtr MyCefCreateMyWebBrowserOSR(MyCefCallback mxcallback);
         //5.
         [DllImport(CEF_CLIENT_DLL, CallingConvention = CallingConvention.Cdecl, CharSet = CharSet.Unicode)]
         public static extern void MyCefSetupBrowserHwnd(IntPtr myCefBrowser, IntPtr hWndParent, int x, int y, int width, int height, string initUrl, IntPtr requestContext);
+        //5. OSR
+        [DllImport(CEF_CLIENT_DLL, CallingConvention = CallingConvention.Cdecl, CharSet = CharSet.Unicode)]
+        public static extern void MyCefSetupBrowserHwndOSR(IntPtr myCefBrowser, IntPtr hWndParent, int x, int y, int width, int height, string initUrl, IntPtr requestContext);
         //6.
         [DllImport(CEF_CLIENT_DLL)]
         public static extern void MyCefDoMessageLoopWork();

@@ -1,4 +1,4 @@
-//###_ORIGINAL D:\projects\cef_binary_3.2883.1548\\tests\cefclient\browser//client_handler.h
+//###_ORIGINAL D:\projects\cef_binary_3.2883.1553\\tests\cefclient\browser//client_handler.h
 //###_START 0
 #include "tests/cefclient/browser/client_types.h"
 //###_APPEND_START 0
@@ -12,6 +12,7 @@
 bool is_osr() const { return is_osr_; }
 //###_APPEND_START 1
 //my extension
+managed_callback mcallback_;//my extension
 void MyCefSetManagedCallBack(managed_callback m);
 void MyCefEnableKeyIntercept(int enable);
 //###_APPEND_STOP
@@ -20,8 +21,7 @@ void MyCefEnableKeyIntercept(int enable);
 //###_FOLLOW_BY 2
 MessageHandlerSet message_handler_set_;
 //###_APPEND_START 2
-//my extension
-managed_callback mcallback_;//my extension
+//my extension 
 int enableKeyIntercept;
 //###_APPEND_STOP
 //###_APPEND_START 2
