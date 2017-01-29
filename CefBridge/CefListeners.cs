@@ -16,6 +16,10 @@ namespace LayoutFarm.CefBridge
         public virtual void OnExecProtocol(NativeCallArgs args) { }
     }
 
+    public abstract class CefOsrListener
+    {
+        public virtual void OnRender(NativeCallArgs args) { }
+    }
     /// <summary>
     /// listener for render process
     /// </summary>
