@@ -106,9 +106,48 @@ namespace LayoutFarm.CefBridge
                 }
             };
             bwReadyTimer.Enabled = true;
+
             //---------
             //create cef browser when handle is created 
-            this.cefBrowser = new MyCefBrowser(thisWindowControl, 0, 0, 800, 500, "about:blank");
+            MyCefOsrListener osrListener = new MyCefOsrListener();
+            this.cefBrowser = new MyCefBrowser(thisWindowControl, 0, 0, 800, 500, "about:blank", true) { OsrListener = osrListener };
+        }
+
+        class MyCefOsrListener : CefOsrListener
+        {
+            //test output
+            int n = 0;
+            public override void OnRender(NativeCallArgs args)
+            {
+                //if not set to 0
+                //images not render to native cef win                 
+                return;
+                //if (n > 100) return;
+                ////----------------------
+
+                //IntPtr rawBitBuffer = args.GetArgAsNativePtr(0);
+                //int width = args.GetArgAsInt32(1);
+                //int height = args.GetArgAsInt32(2);
+
+                //unsafe
+                //{
+                //    using (Bitmap bmp = new Bitmap(width, height))
+                //    {
+
+                //        var bmpdata = bmp.LockBits(
+                //            new Rectangle(0, 0, width, height),
+                //            System.Drawing.Imaging.ImageLockMode.ReadWrite,
+                //            System.Drawing.Imaging.PixelFormat.Format32bppRgb);
+                //        CopyMemory(bmpdata.Scan0, rawBitBuffer, width * height * 4);
+                //        bmp.UnlockBits(bmpdata);
+                //        bmp.Save("d:\\WImageTest\\snap02" + (n++) + ".jpg");
+
+                //    }
+                //}
+            }
+
+            [System.Runtime.InteropServices.DllImport("kernel32.dll")]
+            static extern void CopyMemory(IntPtr dest, IntPtr src, int count);
         }
     }
 }

@@ -35,33 +35,34 @@
             // 
             // cmdBuild1
             // 
-            this.cmdBuild1.Location = new System.Drawing.Point(36, 42);
+            this.cmdBuild1.Location = new System.Drawing.Point(503, 39);
             this.cmdBuild1.Name = "cmdBuild1";
             this.cmdBuild1.Size = new System.Drawing.Size(162, 40);
             this.cmdBuild1.TabIndex = 0;
             this.cmdBuild1.Text = "ManualPatchFiles";
             this.cmdBuild1.UseVisualStyleBackColor = true;
+            this.cmdBuild1.Visible = false;
             this.cmdBuild1.Click += new System.EventHandler(this.cmdBuild1_Click);
             // 
             // cmdMakePatchFiles
             // 
-            this.cmdMakePatchFiles.Location = new System.Drawing.Point(36, 97);
+            this.cmdMakePatchFiles.Location = new System.Drawing.Point(232, 39);
             this.cmdMakePatchFiles.Name = "cmdMakePatchFiles";
-            this.cmdMakePatchFiles.Size = new System.Drawing.Size(162, 40);
+            this.cmdMakePatchFiles.Size = new System.Drawing.Size(201, 40);
             this.cmdMakePatchFiles.TabIndex = 1;
-            this.cmdMakePatchFiles.Text = "Make Patchs";
+            this.cmdMakePatchFiles.Text = "Create New Patches from Source";
             this.cmdMakePatchFiles.UseVisualStyleBackColor = true;
-            this.cmdMakePatchFiles.Click += new System.EventHandler(this.cmdMakePatchFiles_Click);
+            this.cmdMakePatchFiles.Click += new System.EventHandler(this.cmdCreatePatchFiles_Click);
             // 
             // cmdLoadPatchAndDoPatch
             // 
-            this.cmdLoadPatchAndDoPatch.Location = new System.Drawing.Point(36, 154);
+            this.cmdLoadPatchAndDoPatch.Location = new System.Drawing.Point(36, 39);
             this.cmdLoadPatchAndDoPatch.Name = "cmdLoadPatchAndDoPatch";
             this.cmdLoadPatchAndDoPatch.Size = new System.Drawing.Size(162, 40);
             this.cmdLoadPatchAndDoPatch.TabIndex = 2;
-            this.cmdLoadPatchAndDoPatch.Text = "LoadPatch and DoPatch";
+            this.cmdLoadPatchAndDoPatch.Text = "LoadPatch and Apply Patch";
             this.cmdLoadPatchAndDoPatch.UseVisualStyleBackColor = true;
-            this.cmdLoadPatchAndDoPatch.Click += new System.EventHandler(this.cmdLoadPatchAndDoPatch_Click);
+            this.cmdLoadPatchAndDoPatch.Click += new System.EventHandler(this.cmdLoadPatchAndApplyPatch_Click);
             // 
             // Form1
             // 
