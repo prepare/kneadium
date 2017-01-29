@@ -115,9 +115,14 @@ namespace LayoutFarm.CefBridge
 
         class MyCefOsrListener : CefOsrListener
         {
+            //test output
             int n = 0;
             public override void OnRender(NativeCallArgs args)
             {
+                //if not set to 0
+                //images not render to native cef win
+                args.SetOutput(0, 1);
+                return;
                 if (n > 100) return;
                 //----------------------
 
