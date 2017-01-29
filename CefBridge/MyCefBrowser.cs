@@ -32,8 +32,7 @@ namespace LayoutFarm.CefBridge
             //ui process ***
             this.managedCallback = new MyCefCallback(this.MxCallBack);
             //for specific browser
-
-            if (isOsr)
+            if (this.IsOsr = isOsr)
             {
                 this.myCefBrowser = Cef3Binder.MyCefCreateMyWebBrowserOSR(managedCallback);
                 Cef3Binder.MyCefSetupBrowserHwndOSR(myCefBrowser, parentControl.GetHandle(), x, y, w, h, initUrl, IntPtr.Zero);
@@ -47,6 +46,11 @@ namespace LayoutFarm.CefBridge
             Cef3Binder.MyCefEnableKeyIntercept(myCefBrowser, 1);
             //register mycef browser
             RegisterCefWbControl(this);
+        }
+        public bool IsOsr
+        {
+            get;
+            private set;
         }
         public CefOsrListener OsrListener
         {
@@ -376,6 +380,11 @@ namespace LayoutFarm.CefBridge
             }
         }
 
+        internal void NotifyCloseBw()
+        {
+            Cef3Binder.MyCefCloseMyWebBrowser(myCefBrowser);
+        }
+
         static Dictionary<IWindowForm, List<MyCefBrowser>> registerTopWindowForms =
                    new Dictionary<IWindowForm, List<MyCefBrowser>>();
         static readonly object sync_remove = new object();
@@ -407,13 +416,19 @@ namespace LayoutFarm.CefBridge
                 //remove webbrowser controls             
                 for (int i = foundList.Count - 1; i >= 0; --i)
                 {
-                    IWindowControl wb = foundList[i].ParentControl;
+                    MyCefBrowser mycefBw = foundList[i];
+                    IWindowControl wb = mycefBw.ParentControl;
+                    //---------------------------------------
                     var parent = wb.GetParent();
+
                     parent.RemoveChild(wb);
+                    mycefBw.NotifyCloseBw();
                     //this Dispose() will terminate cef_life_time_handle *** 
                     //after native side dispose the wb control
                     //it will raise event BrowserDisposed
                     wb.Dispose();
+                    
+                    //---------------------------------------
                 }
                 registerTopWindowForms.Remove(ownerForm);
             }
@@ -432,13 +447,13 @@ namespace LayoutFarm.CefBridge
                 }
             }
         }
-        public static bool IsReadyToClose(IWindowForm winFormControl)
+        public static bool IsReadyToClose(IWindowForm winForm)
         {
-            //register this control with parent form  
+            //ready-to-close winform 
             lock (sync_remove)
             {
                 List<MyCefBrowser> cefBrowserList;
-                if (registerTopWindowForms.TryGetValue(winFormControl, out cefBrowserList))
+                if (registerTopWindowForms.TryGetValue(winForm, out cefBrowserList))
                 {
                     return cefBrowserList.Count == 0;
                 }
