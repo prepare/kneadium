@@ -45,7 +45,7 @@ namespace LayoutFarm.CefBridge
                 //libPath = @"D:\projects\cef_binary_3.2785.1466output\cefclient\Release";
                 //libPath = @"D:\projects\cef_binary_3.2883.1548output\tests\cefclient\Release";
                 libPath = @"D:\projects\cef_binary_3.2883.1548output\tests\cefclient\Release";
-                
+                libPath = @"D:\projects\cef_binary_3.2883.1553output\tests\cefclient\Release";
 #endif
                 //libPath = @"D:\projects\cef_binary_3.2883.1553output\tests\cefclient\Release";
 
