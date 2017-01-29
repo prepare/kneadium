@@ -1,4 +1,4 @@
-//###_ORIGINAL D:\projects\cef_binary_3.2883.1548\\tests\cefclient\browser//client_handler.cc
+//###_ORIGINAL D:\projects\cef_binary_3.2883.1553\\tests\cefclient\browser//client_handler.cc
 //###_START 0
 ClientHandler::ClientHandler(Delegate* delegate,
 //###_FIND_NEXT_LANDMARK 0
@@ -10,30 +10,18 @@ this->enableKeyIntercept = 0;//init
 //###_START 0
 void ClientHandler::OnBeforeContextMenu(
 //###_FIND_NEXT_LANDMARK 0
-if ((params->GetTypeFlags() & (CM_TYPEFLAG_PAGE | CM_TYPEFLAG_FRAME)) != 0) {
+CefRefPtr<CefMenuModel> model) {
+//###_FIND_NEXT_LANDMARK 0
+CEF_REQUIRE_UI_THREAD();
 //###_APPEND_START 0
 if (this->mcallback_)
 {
 //send menu model to managed side
 model->Clear();
 this->mcallback_(CEF_MSG_ClientHandler_OnBeforeContextMenu, NULL);
+return;
 }
-else if ((params->GetTypeFlags() & (CM_TYPEFLAG_PAGE | CM_TYPEFLAG_FRAME)) != 0) {
-// Add a separator if the menu already has items.
-if (model->GetCount() > 0) {
-model->AddSeparator();
-}
-
-// Add DevTools items to all context menus.
-model->AddItem(CLIENT_ID_SHOW_DEVTOOLS, "&Show DevTools");
-model->AddItem(CLIENT_ID_CLOSE_DEVTOOLS, "Close DevTools");
-model->AddSeparator();
-model->AddItem(CLIENT_ID_INSPECT_ELEMENT, "Inspect Element");
-
-// Test context menu features.
 //###_APPEND_STOP
-//###_SKIP_UNTIL_AND_ACCEPT 0
-BuildTestMenu(model);
 //###_START 1
 bool ClientHandler::OnContextMenuCommand(
 //###_FIND_NEXT_LANDMARK 1
@@ -367,16 +355,9 @@ if (this->mcallback_)
 //create dev window
 //send cef client 
 this->mcallback_(CEF_MSG_ClientHandler_ShowDevTools, NULL);
-}
-else {
-if (CreatePopupWindow(browser, true, CefPopupFeatures(), windowInfo, client,
-settings)) {
-browser->GetHost()->ShowDevTools(windowInfo, client, settings,
-inspect_element_at);
-}
+return;
 }
 //###_APPEND_STOP
-//###_SKIP_UNTIL_PASS 6 }
 //###_START 7
 void ClientHandler::CloseDevTools(CefRefPtr<CefBrowser> browser) {
 //###_APPEND_START 7
