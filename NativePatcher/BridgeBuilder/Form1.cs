@@ -51,8 +51,8 @@ namespace BridgeBuilder
             CopyFileInFolder(saveFolder,
                 @"D:\projects\CefBridge\NativePatcher\cefbridge_patches"
                );
-
-            CopyFileInFolder(@"D:\projects\CefBridge\cef3\tests\cefclient\myext",
+            //copy ext from actual src 
+            CopyFileInFolder(srcRootDir + "\\myext",
                  @"D:\projects\CefBridge\NativePatcher\BridgeBuilder\Patcher_ExtCode\myext");
 
         }
