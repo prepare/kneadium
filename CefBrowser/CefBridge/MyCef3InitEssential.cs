@@ -40,11 +40,13 @@ namespace LayoutFarm.CefBridge
                 //libPath = @"D:\projects\cef_binary_3.2785.1466output\cefclient\Debug";
                 //libPath = @"D:\projects\cef_binary_3.2883.1548output\tests\cefclient\Debug";
                 //libPath = @"D:\WImageTest\Release2";//test load from other location
+                libPath = @"D:\projects\cef_binary_3.2883.1548output\tests\cefclient\Debug";
 #else
-                libPath = @"D:\projects\cef_binary_3.2785.1466output\cefclient\Release";
+                //libPath = @"D:\projects\cef_binary_3.2785.1466output\cefclient\Release";
+                //libPath = @"D:\projects\cef_binary_3.2883.1548output\tests\cefclient\Release";
                 libPath = @"D:\projects\cef_binary_3.2883.1548output\tests\cefclient\Release";
 #endif
-                libPath = @"D:\projects\cef_binary_3.2883.1548output\tests\cefclient\Release";
+
             }
             else
             {
