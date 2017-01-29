@@ -30,17 +30,21 @@ namespace BridgeBuilder
             //string srcRootDir = "d:\\projects\\CefBridge\\cef3\\cefclient";
 
             //1. analyze modified source files, in source folder
-            string srcRootDir = @"D:\projects\cef_binary_3.2883.1548\tests\cefclient";
-            PatchBuilder builder = new PatchBuilder(srcRootDir);
+            //string srcRootDir = @"D:\projects\cef_binary_3.2883.1548\tests\cefclient";
+            string srcRootDir = @"D:\projects\cef_binary_3.2883.1553\tests\cefclient";
+            PatchBuilder builder = new PatchBuilder(new string[]{
+                srcRootDir,
+                @"D:\projects\cef_binary_3.2883.1553\tests\shared"
+            });
             builder.MakePatch();
 
             //2. save patch to...
             string saveFolder = "d:\\WImageTest\\cefbridge_patches";
             builder.Save(saveFolder);
 
-            //3. test load those patches
-            PatchBuilder builder2 = new PatchBuilder(srcRootDir);
-            builder2.LoadPatchesFromFolder(saveFolder);
+            ////3. test load those patches
+            //PatchBuilder builder2 = new PatchBuilder(srcRootDir);
+            //builder2.LoadPatchesFromFolder(saveFolder);
 
             //----------
             //copy extension code          
@@ -78,14 +82,18 @@ namespace BridgeBuilder
             //string srcRootDir = @"D:\projects\cef_binary_3.2704.1418"; 
             //string srcRootDir = @"D:\projects\cef_binary_3.2785.1466";  
             //string srcRootDir = @"D:\projects\cef_binary_3.2883.1548\\tests"; 
-            string srcRootDir = @"D:\projects\cef_binary_3.2883.1553\\tests"; 
+            string srcRootDir = @"D:\projects\cef_binary_3.2883.1553\\tests";
             string saveFolder = "d:\\WImageTest\\cefbridge_patches";
 
-            PatchBuilder builder2 = new PatchBuilder(srcRootDir);
+            PatchBuilder builder2 = new PatchBuilder(new string[]{
+                srcRootDir,
+                @"D:\projects\cef_binary_3.2883.1553\\shared"
+            });
             builder2.LoadPatchesFromFolder(saveFolder);
 
             List<PatchFile> pfiles = builder2.GetAllPatchFiles();
             //string oldPathName = srcRootDir;
+
             string newPathName = srcRootDir;// "d:\\projects\\CefBridge\\cef3\\cefclient";
 
             for (int i = pfiles.Count - 1; i >= 0; --i)
@@ -97,7 +105,7 @@ namespace BridgeBuilder
                 string onlyFileName = System.IO.Path.GetFileName(pfile.OriginalFileName);
                 string onlyPath = System.IO.Path.GetDirectoryName(pfile.OriginalFileName);
 
-                int indexOfCefClient = onlyPath.IndexOf("\\cefclient\\"); 
+                int indexOfCefClient = onlyPath.IndexOf("\\cefclient\\");
                 if (indexOfCefClient < 0)
                 {
                     indexOfCefClient = onlyPath.IndexOf("\\shared\\");
@@ -118,19 +126,23 @@ namespace BridgeBuilder
 
             ManualPatcher manualPatcher = new ManualPatcher(newPathName);
 
-            bool is3_2704 = true;
-            if (is3_2704)
-            {
-                string extTargetDir = newPathName + "\\cefclient\\myext";
-                manualPatcher.CopyExtensionSources(extTargetDir);
-                manualPatcher.Do_CMake_txt_3_2704();
-            }
-            else
-            {
-                string extTargetDir = newPathName + "\\myext";
-                manualPatcher.CopyExtensionSources(extTargetDir);
-                manualPatcher.Do_CMake_txt(); ;
-            }
+            string extTargetDir = newPathName + "\\cefclient\\myext";
+            manualPatcher.CopyExtensionSources(extTargetDir);
+            manualPatcher.Do_CMake_txt_New_3_2704_up();
+
+            //bool is3_2704 = true;
+            //if (is3_2704)
+            //{
+            //    string extTargetDir = newPathName + "\\cefclient\\myext";
+            //    manualPatcher.CopyExtensionSources(extTargetDir);
+            //    manualPatcher.Do_CMake_txt_New_3_2704_up();
+            //}
+            //else
+            //{
+            //    string extTargetDir = newPathName + "\\myext";
+            //    manualPatcher.CopyExtensionSources(extTargetDir);
+            //    manualPatcher.Do_CMake_txt_old(); ;
+            //}
 
         }
 
