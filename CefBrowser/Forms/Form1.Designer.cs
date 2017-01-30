@@ -46,8 +46,6 @@
             this.button5 = new System.Windows.Forms.Button();
             this.button6 = new System.Windows.Forms.Button();
             this.cefWebBrowser1 = new LayoutFarm.CefBridge.CefWebBrowserControl();
-            this.cefWebBrowserControl1 = new LayoutFarm.CefBridge.CefWebBrowserControl();
-            this.splitContainer1.Panel1.SuspendLayout();
             this.splitContainer1.Panel2.SuspendLayout();
             this.splitContainer1.SuspendLayout();
             this.SuspendLayout();
@@ -187,10 +185,6 @@
             this.splitContainer1.Location = new System.Drawing.Point(150, 66);
             this.splitContainer1.Name = "splitContainer1";
             // 
-            // splitContainer1.Panel1
-            // 
-            this.splitContainer1.Panel1.Controls.Add(this.cefWebBrowserControl1);
-            // 
             // splitContainer1.Panel2
             // 
             this.splitContainer1.Panel2.Controls.Add(this.cefWebBrowser1);
@@ -228,16 +222,6 @@
             this.cefWebBrowser1.TabIndex = 7;
             this.cefWebBrowser1.Text = "cefWebBrowser1";
             // 
-            // cefWebBrowserControl1
-            // 
-            this.cefWebBrowserControl1.BackColor = System.Drawing.Color.White;
-            this.cefWebBrowserControl1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.cefWebBrowserControl1.Location = new System.Drawing.Point(0, 0);
-            this.cefWebBrowserControl1.Name = "cefWebBrowserControl1";
-            this.cefWebBrowserControl1.Size = new System.Drawing.Size(661, 668);
-            this.cefWebBrowserControl1.TabIndex = 8;
-            this.cefWebBrowserControl1.Text = "cefWebBrowserControl1";
-            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -262,7 +246,6 @@
             this.Name = "Form1";
             this.Text = "Form1";
             this.Load += new System.EventHandler(this.Form1_Load);
-            this.splitContainer1.Panel1.ResumeLayout(false);
             this.splitContainer1.Panel2.ResumeLayout(false);
             this.splitContainer1.ResumeLayout(false);
             this.ResumeLayout(false);
@@ -287,7 +270,6 @@
         private LayoutFarm.CefBridge.CefWebBrowserControl cefWebBrowser1;
         private System.Windows.Forms.Button button5;
         private System.Windows.Forms.Button button6;
-        private LayoutFarm.CefBridge.CefWebBrowserControl cefWebBrowserControl1;
         //  private LayoutFarm.CefBridge.CefWebBrowserControl cefWebBrowser2;
     }
 }
