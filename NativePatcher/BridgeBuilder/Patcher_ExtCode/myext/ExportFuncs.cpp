@@ -190,7 +190,7 @@ int MyCefSetupBrowserHwndOSR(MyBrowser* myBw, HWND surfaceHwnd, int x, int y, in
 	client::BrowserWindowOsrWin* windowosr = (client::BrowserWindowOsrWin*)myBw->bwWindow;
 	windowosr->CreateBrowser(surfaceHwnd, cef_rect, browser_settings, cefRefContext);
 	//----------------------------------
-	return 1; 
+	return 1;
 }
 //6
 void MyCefCloseMyWebBrowser(MyBrowser* myBw) {
@@ -204,7 +204,11 @@ void MyCefDoMessageLoopWork()
 }
 //8.
 void MyCefShutDown() {
-	CefShutdown();
+
+	// Shut down CEF.
+	mainContext->Shutdown();
+	// Release objects in reverse order of creation. 
+	/*CefShutdown();*/
 }
 
 //9.

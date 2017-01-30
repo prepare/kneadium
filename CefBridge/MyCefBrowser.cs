@@ -382,6 +382,7 @@ namespace LayoutFarm.CefBridge
 
         internal void NotifyCloseBw()
         {
+            this.Stop();
             Cef3Binder.MyCefCloseMyWebBrowser(myCefBrowser);
         }
 
@@ -418,16 +419,16 @@ namespace LayoutFarm.CefBridge
                 {
                     MyCefBrowser mycefBw = foundList[i];
                     IWindowControl wb = mycefBw.ParentControl;
+                    mycefBw.NotifyCloseBw();
                     //---------------------------------------
                     var parent = wb.GetParent();
-
                     parent.RemoveChild(wb);
-                    mycefBw.NotifyCloseBw();
+
                     //this Dispose() will terminate cef_life_time_handle *** 
                     //after native side dispose the wb control
                     //it will raise event BrowserDisposed
                     wb.Dispose();
-                    
+
                     //---------------------------------------
                 }
                 registerTopWindowForms.Remove(ownerForm);

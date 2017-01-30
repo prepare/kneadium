@@ -1,7 +1,8 @@
-//###_ORIGINAL D:\projects\cef_binary_3.2883.1553\tests\cefclient\browser\osr_window_win.h
+//###_ORIGINAL D:\projects\cef_binary_3.2883.1553\\tests\cefclient\browser//osr_window_win.h
 //###_START 0
 void SetDeviceScaleFactor(float device_scale_factor);
 //###_APPEND_START 0
 bool border_visible_; 
 bool closing1_;
+void MyCefPrepareClose();
 //###_APPEND_STOP
