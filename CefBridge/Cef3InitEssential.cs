@@ -19,7 +19,7 @@ namespace LayoutFarm.CefBridge
         public void Shutdown()
         {
             OnBeforeShutdown();
-            Cef3Binder.MyCefShutDown();
+            Cef3Binder.MyCefShutDown(); 
             OnAfterShutdown();
         }
         protected virtual void OnBeforeShutdown()

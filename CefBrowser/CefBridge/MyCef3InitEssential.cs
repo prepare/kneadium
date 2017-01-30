@@ -40,14 +40,14 @@ namespace LayoutFarm.CefBridge
                 //libPath = @"D:\projects\cef_binary_3.2785.1466output\cefclient\Debug";
                 //libPath = @"D:\projects\cef_binary_3.2883.1548output\tests\cefclient\Debug";
                 //libPath = @"D:\WImageTest\Release2";//test load from other location
-                //libPath = @"D:\projects\cef_binary_3.2883.1553output\tests\cefclient\Debug";
+                libPath = @"D:\projects\cef_binary_3.2883.1553output\tests\cefclient\Debug";
 #else
                 //libPath = @"D:\projects\cef_binary_3.2785.1466output\cefclient\Release";
                 //libPath = @"D:\projects\cef_binary_3.2883.1548output\tests\cefclient\Release";
                 libPath = @"D:\projects\cef_binary_3.2883.1548output\tests\cefclient\Release";
                 libPath = @"D:\projects\cef_binary_3.2883.1553output\tests\cefclient\Release";
 #endif
-                 libPath = @"D:\projects\cef_binary_3.2883.1553output\tests\cefclient\Release";
+                libPath = @"D:\projects\cef_binary_3.2883.1553output\tests\cefclient\Release";
 
             }
             else
@@ -174,19 +174,19 @@ namespace LayoutFarm.CefBridge
 
         public static void ClearRemainingCefMsg()
         {
-            for (int i = 10; i >= 0; --i)
+            for (int i = 100; i >= 0; --i)
             {
                 CefDoMessageLoopWork();
-                System.Threading.Thread.Sleep(50);
+                System.Threading.Thread.Sleep(10);
             }
         }
         public static void ShutDownCef3()
         {
-
             //----------------------------------
             //4. 
             initEssential.Shutdown();
             //---------------------------------- 
+
         }
         internal static void CefDoMessageLoopWork()
         {

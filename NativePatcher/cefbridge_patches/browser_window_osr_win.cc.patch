@@ -8,8 +8,8 @@ client_handler_ = new ClientHandlerOsr(this, osr_window_.get(), startup_url);
 //###_APPEND_START 1
 void BrowserWindowOsrWin::ClientClose() const {
 REQUIRE_MAIN_THREAD(); 
-if (osr_window_) {
-osr_window_->closing1_ = true;  
+if (osr_window_) { 
+osr_window_->MyCefPrepareClose();
 }
 }
 //###_APPEND_STOP

@@ -5,6 +5,7 @@ OsrWindowWin::OsrWindowWin(Delegate* delegate,
 last_click_time_(0),
 //###_APPEND_START 0
 //my extension
+closing1_(false),
 border_visible_(false),
 //###_APPEND_STOP
 //###_START 0
@@ -31,24 +32,18 @@ parent_hwnd, 0, hInst, 0);
 //###_APPEND_STOP
 //###_SKIP_UNTIL_AND_ACCEPT 0
 CHECK(hwnd_);
-//###_START 2
+//###_START 1
 void OsrWindowWin::DisableGL() {
-//###_FIND_NEXT_LANDMARK 2
-CEF_REQUIRE_UI_THREAD();
-//###_APPEND_START 2
-if (this->closing1_) {
-//review here again
+//###_FIND_NEXT_LANDMARK 1
 if (IsWindow(hwnd_)) {
-// wglDeleteContext will make the context not current before deleting it.
-BOOL result = wglDeleteContext(hrc_);
-ALLOW_UNUSED_LOCAL(result);
-DCHECK(result);
-ReleaseDC(hwnd_, hdc_);
-}
-
-hdc_ = NULL;
+//###_FIND_NEXT_LANDMARK 1
 hrc_ = NULL;
-return;
+//###_FIND_NEXT_LANDMARK 1
+}
+//###_APPEND_START 1
+void OsrWindowWin::MyCefPrepareClose() {
+this->closing1_ = true;
+this->DisableGL(); 
 }
 //###_APPEND_STOP
 //###_START 1

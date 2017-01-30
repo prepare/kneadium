@@ -118,11 +118,13 @@ namespace LayoutFarm.CefBridge
         {
             //test output
             int n = 0;
+            
             public override void OnRender(NativeCallArgs args)
             {
                 //if not set to 0
                 //images not render to native cef win                 
-                //return;
+                
+                return;
                 if (n > 100) return;
                 //----------------------
 
