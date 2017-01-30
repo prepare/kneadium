@@ -10,4 +10,5 @@ int dbug_id;
 #endif  
 //my extension 
 ClientHandler* GetClientHandler();//my extension
+virtual void ClientClose() const = 0;//my extension
 //###_APPEND_STOP
