@@ -127,10 +127,10 @@ namespace LayoutFarm.CefBridge
         private void button5_Click(object sender, EventArgs e)
         {
             this.cefWebBrowser1.Focus();
-            this.cefWebBrowser1.NavigateTo("http://localhost/index2.html");
+            //this.cefWebBrowser1.NavigateTo("http://localhost/index2.html");
 
             //this.cefWebBrowser2.Focus();
-            //this.cefWebBrowser2.NavigateTo("https://www.google.com");
+            this.cefWebBrowser1.NavigateTo("https://www.google.com");
         }
 
         private void button6_Click(object sender, EventArgs e)
