@@ -1422,9 +1422,10 @@ void CreateURLRequestRendererTests(ClientAppRenderer::DelegateSet& delegates) {
 // Entry point for registering custom schemes.
 // Called from client_app_delegates.cc.
 void RegisterURLRequestCustomSchemes(
-      CefRefPtr<CefSchemeRegistrar> registrar,
+      CefRawPtr<CefSchemeRegistrar> registrar,
       std::vector<CefString>& cookiable_schemes) {
-  registrar->AddCustomScheme(kRequestScheme, true, false, false);
+  registrar->AddCustomScheme(kRequestScheme, true, false, false, false, true,
+                             false);
   cookiable_schemes.push_back(kRequestScheme);
 }
 

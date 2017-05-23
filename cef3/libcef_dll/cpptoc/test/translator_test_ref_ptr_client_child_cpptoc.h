@@ -10,8 +10,8 @@
 // for more information.
 //
 
-#ifndef CEF_LIBCEF_DLL_CPPTOC_TEST_TRANSLATOR_TEST_HANDLER_CHILD_CPPTOC_H_
-#define CEF_LIBCEF_DLL_CPPTOC_TEST_TRANSLATOR_TEST_HANDLER_CHILD_CPPTOC_H_
+#ifndef CEF_LIBCEF_DLL_CPPTOC_TEST_TRANSLATOR_TEST_REF_PTR_CLIENT_CHILD_CPPTOC_H_
+#define CEF_LIBCEF_DLL_CPPTOC_TEST_TRANSLATOR_TEST_REF_PTR_CLIENT_CHILD_CPPTOC_H_
 #pragma once
 
 #if !defined(WRAPPING_CEF_SHARED)
@@ -20,15 +20,16 @@
 
 #include "include/test/cef_translator_test.h"
 #include "include/capi/test/cef_translator_test_capi.h"
-#include "libcef_dll/cpptoc/cpptoc.h"
+#include "libcef_dll/cpptoc/cpptoc_ref_counted.h"
 
 // Wrap a C++ class with a C structure.
 // This class may be instantiated and accessed wrapper-side only.
-class CefTranslatorTestHandlerChildCppToC
-    : public CefCppToC<CefTranslatorTestHandlerChildCppToC,
-        CefTranslatorTestHandlerChild, cef_translator_test_handler_child_t> {
+class CefTranslatorTestRefPtrClientChildCppToC
+    : public CefCppToCRefCounted<CefTranslatorTestRefPtrClientChildCppToC,
+        CefTranslatorTestRefPtrClientChild,
+        cef_translator_test_ref_ptr_client_child_t> {
  public:
-  CefTranslatorTestHandlerChildCppToC();
+  CefTranslatorTestRefPtrClientChildCppToC();
 };
 
-#endif  // CEF_LIBCEF_DLL_CPPTOC_TEST_TRANSLATOR_TEST_HANDLER_CHILD_CPPTOC_H_
+#endif  // CEF_LIBCEF_DLL_CPPTOC_TEST_TRANSLATOR_TEST_REF_PTR_CLIENT_CHILD_CPPTOC_H_

@@ -28,12 +28,12 @@
 #include "include/capi/views/cef_layout_capi.h"
 #include "include/views/cef_window.h"
 #include "include/capi/views/cef_window_capi.h"
-#include "libcef_dll/ctocpp/ctocpp.h"
+#include "libcef_dll/ctocpp/ctocpp_ref_counted.h"
 
 // Wrap a C structure with a C++ class.
 // This class may be instantiated and accessed wrapper-side only.
 class CefPanelCToCpp
-    : public CefCToCpp<CefPanelCToCpp, CefPanel, cef_panel_t> {
+    : public CefCToCppRefCounted<CefPanelCToCpp, CefPanel, cef_panel_t> {
  public:
   CefPanelCToCpp();
 
@@ -67,6 +67,8 @@ class CefPanelCToCpp
   CefRefPtr<CefWindow> GetWindow() OVERRIDE;
   int GetID() OVERRIDE;
   void SetID(int id) OVERRIDE;
+  int GetGroupID() OVERRIDE;
+  void SetGroupID(int group_id) OVERRIDE;
   CefRefPtr<CefView> GetParentView() OVERRIDE;
   CefRefPtr<CefView> GetViewForID(int id) OVERRIDE;
   void SetBounds(const CefRect& bounds) OVERRIDE;

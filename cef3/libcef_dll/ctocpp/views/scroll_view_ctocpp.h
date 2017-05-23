@@ -20,12 +20,13 @@
 
 #include "include/views/cef_scroll_view.h"
 #include "include/capi/views/cef_scroll_view_capi.h"
-#include "libcef_dll/ctocpp/ctocpp.h"
+#include "libcef_dll/ctocpp/ctocpp_ref_counted.h"
 
 // Wrap a C structure with a C++ class.
 // This class may be instantiated and accessed wrapper-side only.
 class CefScrollViewCToCpp
-    : public CefCToCpp<CefScrollViewCToCpp, CefScrollView, cef_scroll_view_t> {
+    : public CefCToCppRefCounted<CefScrollViewCToCpp, CefScrollView,
+        cef_scroll_view_t> {
  public:
   CefScrollViewCToCpp();
 
@@ -53,6 +54,8 @@ class CefScrollViewCToCpp
   CefRefPtr<CefWindow> GetWindow() OVERRIDE;
   int GetID() OVERRIDE;
   void SetID(int id) OVERRIDE;
+  int GetGroupID() OVERRIDE;
+  void SetGroupID(int group_id) OVERRIDE;
   CefRefPtr<CefView> GetParentView() OVERRIDE;
   CefRefPtr<CefView> GetViewForID(int id) OVERRIDE;
   void SetBounds(const CefRect& bounds) OVERRIDE;

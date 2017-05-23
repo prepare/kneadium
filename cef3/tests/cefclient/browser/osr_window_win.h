@@ -1,3 +1,4 @@
+//###_ORIGINAL D:\projects\cef_binary_3.3029.1619\tests\cefclient\browser//osr_window_win.h
 // Copyright (c) 2015 The Chromium Embedded Framework Authors. All rights
 // reserved. Use of this source code is governed by a BSD-style license that
 // can be found in the LICENSE file.
@@ -59,7 +60,12 @@ class OsrWindowWin :
   void Hide();
   void SetBounds(int x, int y, size_t width, size_t height);
   void SetFocus();
+//###_START 0
   void SetDeviceScaleFactor(float device_scale_factor);
+//###_APPEND_START 0
+bool border_visible_; 
+bool closing1_;
+//###_APPEND_STOP
 
  private:
   // Only allow deletion via scoped_refptr.

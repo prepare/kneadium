@@ -1,3 +1,4 @@
+//###_ORIGINAL D:\projects\cef_binary_3.3029.1619\tests\cefclient\browser//browser_window_std_win.cc
 // Copyright (c) 2015 The Chromium Embedded Framework Authors. All rights
 // reserved. Use of this source code is governed by a BSD-style license that
 // can be found in the LICENSE file.
@@ -9,11 +10,19 @@
 
 namespace client {
 
+//###_START 1
 BrowserWindowStdWin::BrowserWindowStdWin(Delegate* delegate,
                                          const std::string& startup_url)
     : BrowserWindow(delegate) {
+//###_FIND_NEXT_LANDMARK 1
   client_handler_ = new ClientHandlerStd(this, startup_url);
+//###_FIND_NEXT_LANDMARK 1
 }
+//###_APPEND_START 1
+void BrowserWindowStdWin::ClientClose() const {
+
+}
+//###_APPEND_STOP
 
 void BrowserWindowStdWin::CreateBrowser(
     ClientWindowHandle parent_handle,
