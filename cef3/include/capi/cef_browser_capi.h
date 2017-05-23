@@ -63,7 +63,7 @@ typedef struct _cef_browser_t {
   ///
   // Base structure.
   ///
-  cef_base_t base;
+  cef_base_ref_counted_t base;
 
   ///
   // Returns the browser host object. This function can only be called in the
@@ -193,7 +193,7 @@ typedef struct _cef_run_file_dialog_callback_t {
   ///
   // Base structure.
   ///
-  cef_base_t base;
+  cef_base_ref_counted_t base;
 
   ///
   // Called asynchronously after the file dialog is dismissed.
@@ -216,7 +216,7 @@ typedef struct _cef_navigation_entry_visitor_t {
   ///
   // Base structure.
   ///
-  cef_base_t base;
+  cef_base_ref_counted_t base;
 
   ///
   // Method that will be executed. Do not keep a reference to |entry| outside of
@@ -239,7 +239,7 @@ typedef struct _cef_pdf_print_callback_t {
   ///
   // Base structure.
   ///
-  cef_base_t base;
+  cef_base_ref_counted_t base;
 
   ///
   // Method that will be executed when the PDF printing has completed. |path| is
@@ -260,7 +260,7 @@ typedef struct _cef_download_image_callback_t {
   ///
   // Base structure.
   ///
-  cef_base_t base;
+  cef_base_ref_counted_t base;
 
   ///
   // Method that will be executed when the image download has completed.
@@ -285,7 +285,7 @@ typedef struct _cef_browser_host_t {
   ///
   // Base structure.
   ///
-  cef_base_t base;
+  cef_base_ref_counted_t base;
 
   ///
   // Returns the hosted browser object.
@@ -430,12 +430,15 @@ typedef struct _cef_browser_host_t {
       struct _cef_pdf_print_callback_t* callback);
 
   ///
-  // Search for |searchText|. |identifier| can be used to have multiple searches
-  // running simultaniously. |forward| indicates whether to search forward or
-  // backward within the page. |matchCase| indicates whether the search should
-  // be case-sensitive. |findNext| indicates whether this is the first request
-  // or a follow-up. The cef_find_handler_t instance, if any, returned via
-  // cef_client_t::GetFindHandler will be called to report find results.
+  // Search for |searchText|. |identifier| must be a unique ID and these IDs
+  // must strictly increase so that newer requests always have greater IDs than
+  // older requests. If |identifier| is zero or less than the previous ID value
+  // then it will be automatically assigned a new valid ID. |forward| indicates
+  // whether to search forward or backward within the page. |matchCase|
+  // indicates whether the search should be case-sensitive. |findNext| indicates
+  // whether this is the first request or a follow-up. The cef_find_handler_t
+  // instance, if any, returned via cef_client_t::GetFindHandler will be called
+  // to report find results.
   ///
   void (CEF_CALLBACK *find)(struct _cef_browser_host_t* self, int identifier,
       const cef_string_t* searchText, int forward, int matchCase,

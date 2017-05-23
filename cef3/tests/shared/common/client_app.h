@@ -1,4 +1,4 @@
-//###_ORIGINAL D:\projects\cef_binary_3.2883.1548\\tests\shared\common//client_app.h
+//###_ORIGINAL D:\projects\cef_binary_3.3029.1619\tests\shared\common//client_app.h
 // Copyright (c) 2013 The Chromium Embedded Framework Authors. All rights
 // reserved. Use of this source code is governed by a BSD-style license that
 // can be found in the LICENSE file.
@@ -44,12 +44,12 @@ managed_callback myMxCallback_ ;//myextension
  private:
   // Registers custom schemes. Implemented by cefclient in
   // client_app_delegates_common.cc
-  static void RegisterCustomSchemes(CefRefPtr<CefSchemeRegistrar> registrar,
+  static void RegisterCustomSchemes(CefRawPtr<CefSchemeRegistrar> registrar,
                                     std::vector<CefString>& cookiable_schemes);
 
   // CefApp methods.
   void OnRegisterCustomSchemes(
-      CefRefPtr<CefSchemeRegistrar> registrar) OVERRIDE;
+      CefRawPtr<CefSchemeRegistrar> registrar) OVERRIDE;
 
   DISALLOW_COPY_AND_ASSIGN(ClientApp);
 };

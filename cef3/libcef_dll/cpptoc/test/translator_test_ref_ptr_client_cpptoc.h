@@ -10,8 +10,8 @@
 // for more information.
 //
 
-#ifndef CEF_LIBCEF_DLL_CTOCPP_TEST_TRANSLATOR_TEST_OBJECT_CHILD_CTOCPP_H_
-#define CEF_LIBCEF_DLL_CTOCPP_TEST_TRANSLATOR_TEST_OBJECT_CHILD_CTOCPP_H_
+#ifndef CEF_LIBCEF_DLL_CPPTOC_TEST_TRANSLATOR_TEST_REF_PTR_CLIENT_CPPTOC_H_
+#define CEF_LIBCEF_DLL_CPPTOC_TEST_TRANSLATOR_TEST_REF_PTR_CLIENT_CPPTOC_H_
 #pragma once
 
 #if !defined(WRAPPING_CEF_SHARED)
@@ -20,23 +20,15 @@
 
 #include "include/test/cef_translator_test.h"
 #include "include/capi/test/cef_translator_test_capi.h"
-#include "libcef_dll/ctocpp/ctocpp.h"
+#include "libcef_dll/cpptoc/cpptoc_ref_counted.h"
 
-// Wrap a C structure with a C++ class.
+// Wrap a C++ class with a C structure.
 // This class may be instantiated and accessed wrapper-side only.
-class CefTranslatorTestObjectChildCToCpp
-    : public CefCToCpp<CefTranslatorTestObjectChildCToCpp,
-        CefTranslatorTestObjectChild, cef_translator_test_object_child_t> {
+class CefTranslatorTestRefPtrClientCppToC
+    : public CefCppToCRefCounted<CefTranslatorTestRefPtrClientCppToC,
+        CefTranslatorTestRefPtrClient, cef_translator_test_ref_ptr_client_t> {
  public:
-  CefTranslatorTestObjectChildCToCpp();
-
-  // CefTranslatorTestObjectChild methods.
-  int GetOtherValue() OVERRIDE;
-  void SetOtherValue(int value) OVERRIDE;
-
-  // CefTranslatorTestObject methods.
-  int GetValue() OVERRIDE;
-  void SetValue(int value) OVERRIDE;
+  CefTranslatorTestRefPtrClientCppToC();
 };
 
-#endif  // CEF_LIBCEF_DLL_CTOCPP_TEST_TRANSLATOR_TEST_OBJECT_CHILD_CTOCPP_H_
+#endif  // CEF_LIBCEF_DLL_CPPTOC_TEST_TRANSLATOR_TEST_REF_PTR_CLIENT_CPPTOC_H_

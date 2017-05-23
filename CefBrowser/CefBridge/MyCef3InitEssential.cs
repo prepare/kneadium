@@ -52,7 +52,7 @@ namespace LayoutFarm.CefBridge
                 libPath = @"D:\projects\cef_binary_3.3029.1619_build\tests\cefclient\Release";
 
 #endif
-
+                libPath = @"D:\projects\cef_binary_3.3029.1619_build\tests\cefclient\Release";
             }
             else
             {

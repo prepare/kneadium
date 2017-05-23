@@ -229,6 +229,32 @@ void CefViewCToCpp::SetID(int id) {
       id);
 }
 
+int CefViewCToCpp::GetGroupID() {
+  cef_view_t* _struct = GetStruct();
+  if (CEF_MEMBER_MISSING(_struct, get_group_id))
+    return 0;
+
+  // AUTO-GENERATED CONTENT - DELETE THIS COMMENT BEFORE MODIFYING
+
+  // Execute
+  int _retval = _struct->get_group_id(_struct);
+
+  // Return type: simple
+  return _retval;
+}
+
+void CefViewCToCpp::SetGroupID(int group_id) {
+  cef_view_t* _struct = GetStruct();
+  if (CEF_MEMBER_MISSING(_struct, set_group_id))
+    return;
+
+  // AUTO-GENERATED CONTENT - DELETE THIS COMMENT BEFORE MODIFYING
+
+  // Execute
+  _struct->set_group_id(_struct,
+      group_id);
+}
+
 CefRefPtr<CefView> CefViewCToCpp::GetParentView() {
   cef_view_t* _struct = GetStruct();
   if (CEF_MEMBER_MISSING(_struct, get_parent_view))
@@ -682,7 +708,7 @@ bool CefViewCToCpp::ConvertPointFromView(CefRefPtr<CefView> view,
 CefViewCToCpp::CefViewCToCpp() {
 }
 
-template<> cef_view_t* CefCToCpp<CefViewCToCpp, CefView,
+template<> cef_view_t* CefCToCppRefCounted<CefViewCToCpp, CefView,
     cef_view_t>::UnwrapDerived(CefWrapperType type, CefView* c) {
   if (type == WT_BROWSER_VIEW) {
     return reinterpret_cast<cef_view_t*>(CefBrowserViewCToCpp::Unwrap(
@@ -721,9 +747,9 @@ template<> cef_view_t* CefCToCpp<CefViewCToCpp, CefView,
 }
 
 #if DCHECK_IS_ON()
-template<> base::AtomicRefCount CefCToCpp<CefViewCToCpp, CefView,
+template<> base::AtomicRefCount CefCToCppRefCounted<CefViewCToCpp, CefView,
     cef_view_t>::DebugObjCt = 0;
 #endif
 
-template<> CefWrapperType CefCToCpp<CefViewCToCpp, CefView,
+template<> CefWrapperType CefCToCppRefCounted<CefViewCToCpp, CefView,
     cef_view_t>::kWrapperType = WT_VIEW;

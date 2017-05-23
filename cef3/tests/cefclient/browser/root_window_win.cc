@@ -1,3 +1,4 @@
+//###_ORIGINAL D:\projects\cef_binary_3.3029.1619\tests\cefclient\browser//root_window_win.cc
 // Copyright (c) 2015 The Chromium Embedded Framework Authors. All rights
 // reserved. Use of this source code is governed by a BSD-style license that
 // can be found in the LICENSE file.
@@ -517,6 +518,7 @@ LRESULT CALLBACK RootWindowWin::FindWndProc(HWND hWnd, UINT message,
 }
 
 // static
+//###_START 1
 LRESULT CALLBACK RootWindowWin::RootWndProc(HWND hWnd, UINT message,
                                             WPARAM wParam, LPARAM lParam) {
   REQUIRE_MAIN_THREAD();
@@ -598,11 +600,16 @@ LRESULT CALLBACK RootWindowWin::RootWndProc(HWND hWnd, UINT message,
       return hit;
     }
 
+//###_FIND_NEXT_LANDMARK 1
     case WM_NCDESTROY:
       // Clear the reference to |self|.
+//###_FIND_NEXT_LANDMARK 1
       SetUserDataPtr(hWnd, NULL);
-      self->hwnd_ = NULL;
-      self->OnDestroyed();
+//###_APPEND_START 1
+//self->hwnd_ = NULL;
+self->OnDestroyed();
+//###_APPEND_STOP
+//###_SKIP_UNTIL_AND_ACCEPT 1
       return 0;
   }
 

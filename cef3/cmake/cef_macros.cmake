@@ -19,7 +19,7 @@ macro(PRINT_CEF_CONFIG)
   message(STATUS "Platform:                     ${CMAKE_SYSTEM_NAME}")
   message(STATUS "Project architecture:         ${PROJECT_ARCH}")
 
-  if(${CMAKE_GENERATOR} STREQUAL "Ninja" OR ${CMAKE_GENERATOR} STREQUAL "Unix Makefiles")
+  if(GEN_NINJA OR GEN_MAKEFILES)
     message(STATUS "Build type:                   ${CMAKE_BUILD_TYPE}")
   endif()
 
@@ -81,8 +81,7 @@ endmacro()
 
 # Determine the target output directory based on platform and generator.
 macro(SET_CEF_TARGET_OUT_DIR)
-  if(${CMAKE_GENERATOR} STREQUAL "Ninja" OR
-     ${CMAKE_GENERATOR} STREQUAL "Unix Makefiles")
+  if(GEN_NINJA OR GEN_MAKEFILES)
     # By default Ninja and Make builds don't create a subdirectory named after
     # the configuration.
     set(CEF_TARGET_OUT_DIR "${CMAKE_CURRENT_BINARY_DIR}/${CMAKE_BUILD_TYPE}")
@@ -276,17 +275,17 @@ endmacro()
 # SET_EXECUTABLE_TARGET_PROPERTIES() instead of calling this macro directly.
 macro(SET_COMMON_TARGET_PROPERTIES target)
   # Compile flags.
-  target_compile_options(${target} PUBLIC ${CEF_COMPILER_FLAGS} ${CEF_CXX_COMPILER_FLAGS})
-  target_compile_options(${target} PUBLIC $<$<CONFIG:Debug>:${CEF_COMPILER_FLAGS_DEBUG} ${CEF_CXX_COMPILER_FLAGS_DEBUG}>)
-  target_compile_options(${target} PUBLIC $<$<CONFIG:Release>:${CEF_COMPILER_FLAGS_RELEASE} ${CEF_CXX_COMPILER_FLAGS_RELEASE}>)
+  target_compile_options(${target} PRIVATE ${CEF_COMPILER_FLAGS} ${CEF_CXX_COMPILER_FLAGS})
+  target_compile_options(${target} PRIVATE $<$<CONFIG:Debug>:${CEF_COMPILER_FLAGS_DEBUG} ${CEF_CXX_COMPILER_FLAGS_DEBUG}>)
+  target_compile_options(${target} PRIVATE $<$<CONFIG:Release>:${CEF_COMPILER_FLAGS_RELEASE} ${CEF_CXX_COMPILER_FLAGS_RELEASE}>)
 
   # Compile definitions.
-  target_compile_definitions(${target} PUBLIC ${CEF_COMPILER_DEFINES})
-  target_compile_definitions(${target} PUBLIC $<$<CONFIG:Debug>:${CEF_COMPILER_DEFINES_DEBUG}>)
-  target_compile_definitions(${target} PUBLIC $<$<CONFIG:Release>:${CEF_COMPILER_DEFINES_RELEASE}>)
+  target_compile_definitions(${target} PRIVATE ${CEF_COMPILER_DEFINES})
+  target_compile_definitions(${target} PRIVATE $<$<CONFIG:Debug>:${CEF_COMPILER_DEFINES_DEBUG}>)
+  target_compile_definitions(${target} PRIVATE $<$<CONFIG:Release>:${CEF_COMPILER_DEFINES_RELEASE}>)
 
   # Include directories.
-  target_include_directories(${target} PUBLIC ${CEF_INCLUDE_PATH})
+  target_include_directories(${target} PRIVATE ${CEF_INCLUDE_PATH})
 
   # Linker flags.
   if(CEF_LINKER_FLAGS)

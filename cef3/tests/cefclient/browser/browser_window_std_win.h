@@ -1,3 +1,4 @@
+//###_ORIGINAL D:\projects\cef_binary_3.3029.1619\tests\cefclient\browser//browser_window_std_win.h
 // Copyright (c) 2015 The Chromium Embedded Framework Authors. All rights
 // reserved. Use of this source code is governed by a BSD-style license that
 // can be found in the LICENSE file.
@@ -35,7 +36,11 @@ class BrowserWindowStdWin : public BrowserWindow {
   void Hide() OVERRIDE;
   void SetBounds(int x, int y, size_t width, size_t height) OVERRIDE;
   void SetFocus(bool focus) OVERRIDE;
+//###_START 1
   ClientWindowHandle GetWindowHandle() const OVERRIDE;
+//###_APPEND_START 1
+void ClientClose() const OVERRIDE;
+//###_APPEND_STOP
 
  private:
   DISALLOW_COPY_AND_ASSIGN(BrowserWindowStdWin);

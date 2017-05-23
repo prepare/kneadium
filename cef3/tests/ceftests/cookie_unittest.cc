@@ -1336,8 +1336,8 @@ TEST(CookieTest, GetCookieManagerCustom) {
 // Entry point for registering custom schemes.
 // Called from client_app_delegates.cc.
 void RegisterCookieCustomSchemes(
-      CefRefPtr<CefSchemeRegistrar> registrar,
+      CefRawPtr<CefSchemeRegistrar> registrar,
       std::vector<CefString>& cookiable_schemes) {
   // Used by GetCookieManagerCustom test.
-  registrar->AddCustomScheme("ccustom", true, false, false);
+  registrar->AddCustomScheme("ccustom", true, false, false, false, true, false);
 }

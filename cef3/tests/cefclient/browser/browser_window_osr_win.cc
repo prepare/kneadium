@@ -1,3 +1,4 @@
+//###_ORIGINAL D:\projects\cef_binary_3.3029.1619\tests\cefclient\browser//browser_window_osr_win.cc
 // Copyright (c) 2015 The Chromium Embedded Framework Authors. All rights
 // reserved. Use of this source code is governed by a BSD-style license that
 // can be found in the LICENSE file.
@@ -9,6 +10,7 @@
 
 namespace client {
 
+//###_START 1
 BrowserWindowOsrWin::BrowserWindowOsrWin(BrowserWindow::Delegate* delegate,
                                          const std::string& startup_url,
                                          const OsrRenderer::Settings& settings)
@@ -17,18 +19,37 @@ BrowserWindowOsrWin::BrowserWindowOsrWin(BrowserWindow::Delegate* delegate,
       osr_hwnd_(NULL),
       device_scale_factor_(client::GetDeviceScaleFactor()) {
   osr_window_ = new OsrWindowWin(this, settings);
+//###_FIND_NEXT_LANDMARK 1
   client_handler_ = new ClientHandlerOsr(this, osr_window_.get(), startup_url);
+//###_FIND_NEXT_LANDMARK 1
 }
+//###_APPEND_START 1
+void BrowserWindowOsrWin::ClientClose() const {
+REQUIRE_MAIN_THREAD(); 
+if (osr_window_) {
+osr_window_->closing1_ = true;  
+}
+}
+//###_APPEND_STOP
 
+//###_START 0
 void BrowserWindowOsrWin::CreateBrowser(
     ClientWindowHandle parent_handle,
     const CefRect& rect,
     const CefBrowserSettings& settings,
     CefRefPtr<CefRequestContext> request_context) {
+//###_FIND_NEXT_LANDMARK 0
   REQUIRE_MAIN_THREAD();
 
   // Create the new browser and native window on the UI thread.
+//###_FIND_NEXT_LANDMARK 0
   RECT wnd_rect = {rect.x, rect.y, rect.x + rect.width, rect.y + rect.height};
+//###_APPEND_START 0
+//my extension
+if (this->client_handler_->mcallback_) {
+osr_window_->border_visible_ = false;			 
+}
+//###_APPEND_STOP
   osr_window_->CreateBrowser(parent_handle, wnd_rect, client_handler_, settings,
                              request_context, client_handler_->startup_url());
 }
