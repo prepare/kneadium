@@ -58,7 +58,7 @@ class CefClient;
 // this class may only be called on the main thread.
 ///
 /*--cef(source=library)--*/
-class CefBrowser : public virtual CefBase {
+class CefBrowser : public virtual CefBaseRefCounted {
  public:
   ///
   // Returns the browser host object. This method can only be called in the
@@ -197,7 +197,7 @@ class CefBrowser : public virtual CefBase {
 // class will be called on the browser process UI thread.
 ///
 /*--cef(source=client)--*/
-class CefRunFileDialogCallback : public virtual CefBase {
+class CefRunFileDialogCallback : public virtual CefBaseRefCounted {
  public:
   ///
   // Called asynchronously after the file dialog is dismissed.
@@ -218,7 +218,7 @@ class CefRunFileDialogCallback : public virtual CefBase {
 // this class will be called on the browser process UI thread.
 ///
 /*--cef(source=client)--*/
-class CefNavigationEntryVisitor : public virtual CefBase {
+class CefNavigationEntryVisitor : public virtual CefBaseRefCounted {
  public:
   ///
   // Method that will be executed. Do not keep a reference to |entry| outside of
@@ -240,7 +240,7 @@ class CefNavigationEntryVisitor : public virtual CefBase {
 // will be called on the browser process UI thread.
 ///
 /*--cef(source=client)--*/
-class CefPdfPrintCallback : public virtual CefBase {
+class CefPdfPrintCallback : public virtual CefBaseRefCounted {
  public:
   ///
   // Method that will be executed when the PDF printing has completed. |path|
@@ -257,7 +257,7 @@ class CefPdfPrintCallback : public virtual CefBase {
 // class will be called on the browser process UI thread.
 ///
 /*--cef(source=client)--*/
-class CefDownloadImageCallback : public virtual CefBase {
+class CefDownloadImageCallback : public virtual CefBaseRefCounted {
  public:
   ///
   // Method that will be executed when the image download has completed.
@@ -280,7 +280,7 @@ class CefDownloadImageCallback : public virtual CefBase {
 // comments.
 ///
 /*--cef(source=library)--*/
-class CefBrowserHost : public virtual CefBase {
+class CefBrowserHost : public virtual CefBaseRefCounted {
  public:
   typedef cef_drag_operations_mask_t DragOperationsMask;
   typedef cef_file_dialog_mode_t FileDialogMode;
@@ -472,12 +472,15 @@ class CefBrowserHost : public virtual CefBase {
                           CefRefPtr<CefPdfPrintCallback> callback) =0;
 
   ///
-  // Search for |searchText|. |identifier| can be used to have multiple searches
-  // running simultaniously. |forward| indicates whether to search forward or
-  // backward within the page. |matchCase| indicates whether the search should
-  // be case-sensitive. |findNext| indicates whether this is the first request
-  // or a follow-up. The CefFindHandler instance, if any, returned via
-  // CefClient::GetFindHandler will be called to report find results.
+  // Search for |searchText|. |identifier| must be a unique ID and these IDs
+  // must strictly increase so that newer requests always have greater IDs than
+  // older requests. If |identifier| is zero or less than the previous ID value
+  // then it will be automatically assigned a new valid ID. |forward| indicates
+  // whether to search forward or backward within the page. |matchCase|
+  // indicates whether the search should be case-sensitive. |findNext| indicates
+  // whether this is the first request or a follow-up. The CefFindHandler
+  // instance, if any, returned via CefClient::GetFindHandler will be called to
+  // report find results.
   ///
   /*--cef()--*/
   virtual void Find(int identifier, const CefString& searchText,

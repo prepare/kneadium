@@ -1,4 +1,4 @@
-//###_ORIGINAL D:\projects\cef_binary_3.2883.1548\\tests\cefclient\browser//client_handler.h
+//###_ORIGINAL D:\projects\cef_binary_3.3029.1619\tests\cefclient\browser//client_handler.h
 // Copyright (c) 2011 The Chromium Embedded Framework Authors. All rights
 // reserved. Use of this source code is governed by a BSD-style license that
 // can be found in the LICENSE file.
@@ -39,6 +39,7 @@ class ClientHandler : public CefClient,
                       public CefDisplayHandler,
                       public CefDownloadHandler,
                       public CefDragHandler,
+                      public CefFocusHandler,
                       public CefGeolocationHandler,
                       public CefKeyboardHandler,
                       public CefLifeSpanHandler,
@@ -46,7 +47,8 @@ class ClientHandler : public CefClient,
                       public CefRequestHandler {
  public:
   // Implement this interface to receive notification of ClientHandler
-  // events. The methods of this class will be called on the main thread.
+  // events. The methods of this class will be called on the main thread unless
+  // otherwise indicated.
   class Delegate {
    public:
     // Called when the browser is created.
@@ -79,6 +81,12 @@ class ClientHandler : public CefClient,
     virtual void OnSetDraggableRegions(
         const std::vector<CefDraggableRegion>& regions) = 0;
 
+    // Set focus to the next/previous control.
+    virtual void OnTakeFocus(bool next) {}
+
+    // Called on the UI thread before a context menu is displayed.
+    virtual void OnBeforeContextMenu(CefRefPtr<CefMenuModel> model) {}
+
    protected:
     virtual ~Delegate() {}
   };
@@ -106,6 +114,9 @@ class ClientHandler : public CefClient,
     return this;
   }
   CefRefPtr<CefDragHandler> GetDragHandler() OVERRIDE {
+    return this;
+  }
+  CefRefPtr<CefFocusHandler> GetFocusHandler() OVERRIDE {
     return this;
   }
   CefRefPtr<CefGeolocationHandler> GetGeolocationHandler() OVERRIDE {
@@ -177,10 +188,12 @@ class ClientHandler : public CefClient,
   bool OnDragEnter(CefRefPtr<CefBrowser> browser,
                    CefRefPtr<CefDragData> dragData,
                    CefDragHandler::DragOperationsMask mask) OVERRIDE;
-
   void OnDraggableRegionsChanged(
       CefRefPtr<CefBrowser> browser,
       const std::vector<CefDraggableRegion>& regions) OVERRIDE;
+
+  // CefFocusHandler methods
+  void OnTakeFocus(CefRefPtr<CefBrowser> browser, bool next) OVERRIDE;
 
   // CefGeolocationHandler methods
   bool OnRequestGeolocationPermission(
@@ -299,6 +312,7 @@ class ClientHandler : public CefClient,
   bool is_osr() const { return is_osr_; }
 //###_APPEND_START 1
 //my extension
+managed_callback mcallback_;//my extension
 void MyCefSetManagedCallBack(managed_callback m);
 void MyCefEnableKeyIntercept(int enable);
 //###_APPEND_STOP
@@ -338,6 +352,7 @@ void MyCefEnableKeyIntercept(int enable);
                           bool canGoForward);
   void NotifyDraggableRegions(
       const std::vector<CefDraggableRegion>& regions);
+  void NotifyTakeFocus(bool next);
 
   // Test context menu creation.
   void BuildTestMenu(CefRefPtr<CefMenuModel> model);
@@ -402,8 +417,7 @@ void MyCefEnableKeyIntercept(int enable);
 //###_FOLLOW_BY 2
   MessageHandlerSet message_handler_set_;
 //###_APPEND_START 2
-//my extension
-managed_callback mcallback_;//my extension
+//my extension 
 int enableKeyIntercept;
 //###_APPEND_STOP
 //###_APPEND_START 2

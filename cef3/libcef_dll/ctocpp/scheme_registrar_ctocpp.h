@@ -20,19 +20,20 @@
 
 #include "include/cef_scheme.h"
 #include "include/capi/cef_scheme_capi.h"
-#include "libcef_dll/ctocpp/ctocpp.h"
+#include "libcef_dll/ctocpp/ctocpp_scoped.h"
 
 // Wrap a C structure with a C++ class.
 // This class may be instantiated and accessed wrapper-side only.
 class CefSchemeRegistrarCToCpp
-    : public CefCToCpp<CefSchemeRegistrarCToCpp, CefSchemeRegistrar,
+    : public CefCToCppScoped<CefSchemeRegistrarCToCpp, CefSchemeRegistrar,
         cef_scheme_registrar_t> {
  public:
   CefSchemeRegistrarCToCpp();
 
   // CefSchemeRegistrar methods.
   bool AddCustomScheme(const CefString& scheme_name, bool is_standard,
-      bool is_local, bool is_display_isolated) OVERRIDE;
+      bool is_local, bool is_display_isolated, bool is_secure,
+      bool is_cors_enabled, bool is_csp_bypassing) OVERRIDE;
 };
 
 #endif  // CEF_LIBCEF_DLL_CTOCPP_SCHEME_REGISTRAR_CTOCPP_H_

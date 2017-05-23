@@ -37,9 +37,14 @@ if(NOT DEFINED PROJECT_ARCH)
   endif()
 endif()
 
+if(${CMAKE_GENERATOR} STREQUAL "Ninja")
+  set(GEN_NINJA 1)
+elseif(${CMAKE_GENERATOR} STREQUAL "Unix Makefiles")
+  set(GEN_MAKEFILES 1)
+endif()
+
 # Determine the build type.
-if(NOT CMAKE_BUILD_TYPE AND
-   (${CMAKE_GENERATOR} STREQUAL "Ninja" OR ${CMAKE_GENERATOR} STREQUAL "Unix Makefiles"))
+if(NOT CMAKE_BUILD_TYPE AND (GEN_NINJA OR GEN_MAKEFILES))
   # CMAKE_BUILD_TYPE should be specified when using Ninja or Unix Makefiles.
   set(CMAKE_BUILD_TYPE Release)
   message(WARNING "No CMAKE_BUILD_TYPE value selected, using ${CMAKE_BUILD_TYPE}")
@@ -215,7 +220,7 @@ endif()
 
 if(OS_MACOSX)
   # Platform-specific compiler/linker flags.
-  # See also Xcode target properties in macros.cmake.
+  # See also Xcode target properties in cef_macros.cmake.
   set(CEF_LIBTYPE SHARED)
   list(APPEND CEF_COMPILER_FLAGS
     -fno-strict-aliasing            # Avoid assumptions regarding non-aliasing of objects of different types
@@ -259,6 +264,15 @@ if(OS_MACOSX)
     -Wl,-dead_strip                 # Strip dead code
     )
 
+  include(CheckCXXCompilerFlag)
+
+  CHECK_CXX_COMPILER_FLAG(-Wno-undefined-var-template COMPILER_SUPPORTS_NO_UNDEFINED_VAR_TEMPLATE)
+  if(COMPILER_SUPPORTS_NO_UNDEFINED_VAR_TEMPLATE)
+    list(APPEND CEF_CXX_COMPILER_FLAGS
+      -Wno-undefined-var-template   # Don't warn about potentially uninstantiated static members
+      )
+  endif()
+
   # Standard libraries.
   set(CEF_STANDARD_LIBS
     -lpthread
@@ -268,7 +282,7 @@ if(OS_MACOSX)
 
   # Find the newest available base SDK.
   execute_process(COMMAND xcode-select --print-path OUTPUT_VARIABLE XCODE_PATH OUTPUT_STRIP_TRAILING_WHITESPACE)
-  foreach(OS_VERSION 10.10 10.9 10.8 10.7)
+  foreach(OS_VERSION 10.11 10.10 10.9)
     set(SDK "${XCODE_PATH}/Platforms/MacOSX.platform/Developer/SDKs/MacOSX${OS_VERSION}.sdk")
     if(NOT "${CMAKE_OSX_SYSROOT}" AND EXISTS "${SDK}" AND IS_DIRECTORY "${SDK}")
       set(CMAKE_OSX_SYSROOT ${SDK})
@@ -276,7 +290,7 @@ if(OS_MACOSX)
   endforeach()
 
   # Target SDK.
-  set(CEF_TARGET_SDK               "10.7")
+  set(CEF_TARGET_SDK               "10.9")
   list(APPEND CEF_COMPILER_FLAGS
     -mmacosx-version-min=${CEF_TARGET_SDK}
   )
@@ -305,6 +319,14 @@ endif()
 #
 
 if(OS_WINDOWS)
+  if (GEN_NINJA)
+    # When using the Ninja generator clear the CMake defaults to avoid excessive
+    # console warnings (see issue #2120).
+    set(CMAKE_CXX_FLAGS "")
+    set(CMAKE_CXX_FLAGS_DEBUG "")
+    set(CMAKE_CXX_FLAGS_RELEASE "")
+  endif()
+
   # Configure use of the sandbox.
   option(USE_SANDBOX "Enable or disable use of the sandbox." ON)
   if(USE_SANDBOX AND NOT MSVC_VERSION EQUAL 1900)
@@ -350,8 +372,13 @@ if(OS_WINDOWS)
     # defaults here.
     set(CMAKE_CXX_FLAGS_DEBUG "")
 
+    # These flags are required to successfully link and run applications using
+    # the sandbox library.
     list(APPEND CEF_COMPILER_FLAGS_DEBUG
       /MT           # Multithreaded release runtime
+      /O2           # Maximize speed optimization
+      /Zc:inline    # Remove unreferenced functions or data
+      /Oy-          # Disable frame-pointer omission
       )
   else()
     list(APPEND CEF_COMPILER_FLAGS_DEBUG
@@ -376,7 +403,7 @@ if(OS_WINDOWS)
   list(APPEND CEF_COMPILER_DEFINES
     WIN32 _WIN32 _WINDOWS             # Windows platform
     UNICODE _UNICODE                  # Unicode build
-    WINVER=0x0602 _WIN32_WINNT=0x602  # Targeting Windows 8
+    WINVER=0x0601 _WIN32_WINNT=0x601  # Targeting Windows 7
     NOMINMAX                          # Use the standard's templated min/max
     WIN32_LEAN_AND_MEAN               # Exclude less common API declarations
     _HAS_EXCEPTIONS=0                 # Disable exceptions
@@ -454,10 +481,19 @@ if(OS_WINDOWS)
   # Configure use of ATL.
   option(USE_ATL "Enable or disable use of ATL." ON)
   if(USE_ATL)
+    # Locate the VC directory. The cl.exe path returned by CMAKE_CXX_COMPILER
+    # may be at different directory depths depending on the toolchain version
+    # (e.g. "VC/bin/cl.exe", "VC/bin/amd64_x86/cl.exe", etc).
+    get_filename_component(VC_DIR ${CMAKE_CXX_COMPILER} DIRECTORY)
+    get_filename_component(VC_DIR_NAME ${VC_DIR} NAME)
+    while(NOT ${VC_DIR_NAME} STREQUAL "VC")
+      get_filename_component(VC_DIR ${VC_DIR} DIRECTORY)
+      get_filename_component(VC_DIR_NAME ${VC_DIR} NAME)
+    endwhile()
+
     # Determine if the Visual Studio install supports ATL.
-    get_filename_component(VC_BIN_DIR ${CMAKE_CXX_COMPILER} DIRECTORY)
-    get_filename_component(VC_DIR ${VC_BIN_DIR} DIRECTORY)
     if(NOT IS_DIRECTORY "${VC_DIR}/atlmfc")
+      message(WARNING "ATL is not supported by your VC installation.")
       set(USE_ATL OFF)
     endif()
   endif()

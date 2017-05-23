@@ -1,3 +1,4 @@
+//###_ORIGINAL D:\projects\cef_binary_3.3029.1619\tests\cefclient\browser//osr_window_win.cc
 // Copyright (c) 2015 The Chromium Embedded Framework Authors. All rights
 // reserved. Use of this source code is governed by a BSD-style license that
 // can be found in the LICENSE file.
@@ -49,6 +50,7 @@ class ScopedGLContext {
 }  // namespace
 
 
+//###_START 0
 OsrWindowWin::OsrWindowWin(Delegate* delegate,
                            const OsrRenderer::Settings& settings)
     : delegate_(delegate),
@@ -68,7 +70,12 @@ OsrWindowWin::OsrWindowWin(Delegate* delegate,
       last_click_y_(0),
       last_click_button_(MBT_LEFT),
       last_click_count_(0),
+//###_FIND_NEXT_LANDMARK 0
       last_click_time_(0),
+//###_APPEND_START 0
+//my extension
+border_visible_(false),
+//###_APPEND_STOP
       last_mouse_down_on_view_(false) {
   DCHECK(delegate_);
 }
@@ -219,6 +226,7 @@ void OsrWindowWin::SetDeviceScaleFactor(float device_scale_factor) {
   }
 }
 
+//###_START 0
 void OsrWindowWin::Create(HWND parent_hwnd, const RECT& rect) {
   CEF_REQUIRE_UI_THREAD();
   DCHECK(!hwnd_ && !hdc_ && !hrc_);
@@ -233,14 +241,28 @@ void OsrWindowWin::Create(HWND parent_hwnd, const RECT& rect) {
           CefColorGetG(background_color),
           CefColorGetB(background_color)));
 
+//###_FIND_NEXT_LANDMARK 0
   RegisterOsrClass(hInst, background_brush);
 
+//###_FIND_NEXT_LANDMARK 0
   // Create the native window with a border so it's easier to visually identify
+//###_FIND_NEXT_LANDMARK 0
   // OSR windows.
-  hwnd_ = ::CreateWindow(kWndClass, 0,
-      WS_BORDER | WS_CHILD | WS_CLIPCHILDREN | WS_CLIPSIBLINGS | WS_VISIBLE,
-      rect.left, rect.top, rect.right - rect.left, rect.bottom - rect.top,
-      parent_hwnd, 0, hInst, 0);
+//###_APPEND_START 0
+if (this->border_visible_) {
+hwnd_ = ::CreateWindow(kWndClass, 0,
+WS_BORDER | WS_CHILD | WS_CLIPCHILDREN | WS_CLIPSIBLINGS | WS_VISIBLE,
+rect.left, rect.top, rect.right - rect.left, rect.bottom - rect.top,
+parent_hwnd, 0, hInst, 0);
+}
+else {
+hwnd_ = ::CreateWindow(kWndClass, 0,
+WS_CHILD | WS_CLIPCHILDREN | WS_CLIPSIBLINGS | WS_VISIBLE,
+rect.left, rect.top, rect.right - rect.left, rect.bottom - rect.top,
+parent_hwnd, 0, hInst, 0);
+}
+//###_APPEND_STOP
+//###_SKIP_UNTIL_AND_ACCEPT 0
   CHECK(hwnd_);
 
   client_rect_ = rect;
@@ -307,8 +329,26 @@ void OsrWindowWin::EnableGL() {
   renderer_.Initialize();
 }
 
+//###_START 2
 void OsrWindowWin::DisableGL() {
+//###_FIND_NEXT_LANDMARK 2
   CEF_REQUIRE_UI_THREAD();
+//###_APPEND_START 2
+if (this->closing1_) {
+//review here again
+if (IsWindow(hwnd_)) {
+// wglDeleteContext will make the context not current before deleting it.
+BOOL result = wglDeleteContext(hrc_);
+ALLOW_UNUSED_LOCAL(result);
+DCHECK(result);
+ReleaseDC(hwnd_, hdc_);
+}
+
+hdc_ = NULL;
+hrc_ = NULL;
+return;
+}
+//###_APPEND_STOP
 
   if (!hdc_)
     return;
@@ -462,6 +502,7 @@ void OsrWindowWin::OnIMECancelCompositionEvent() {
 }
 
 // static
+//###_START 1
 LRESULT CALLBACK OsrWindowWin::OsrWndProc(HWND hWnd, UINT message,
                                           WPARAM wParam, LPARAM lParam) {
   CEF_REQUIRE_UI_THREAD();
@@ -531,10 +572,15 @@ LRESULT CALLBACK OsrWindowWin::OsrWndProc(HWND hWnd, UINT message,
       // Don't erase the background.
       return 0;
 
+//###_FIND_NEXT_LANDMARK 1
     case WM_NCDESTROY:
       // Clear the reference to |self|.
+//###_FIND_NEXT_LANDMARK 1
       SetUserDataPtr(hWnd, NULL);
-      self->hwnd_ = NULL;
+//###_APPEND_START 1
+//self->hwnd_ = NULL;
+//###_APPEND_STOP
+//###_SKIP_UNTIL_AND_ACCEPT 1
       break;
   }
 
@@ -913,13 +959,19 @@ void OsrWindowWin::OnPopupSize(CefRefPtr<CefBrowser> browser,
   renderer_.OnPopupSize(browser, LogicalToDevice(rect, device_scale_factor_));
 }
 
+//###_START 0
 void OsrWindowWin::OnPaint(CefRefPtr<CefBrowser> browser,
                            CefRenderHandler::PaintElementType type,
                            const CefRenderHandler::RectList& dirtyRects,
                            const void* buffer,
                            int width,
                            int height) {
+//###_FIND_NEXT_LANDMARK 0
   CEF_REQUIRE_UI_THREAD();
+//###_APPEND_START 0
+if (this->closing1_)
+return;
+//###_APPEND_STOP
 
   if (painting_popup_) {
     renderer_.OnPaint(browser, type, dirtyRects, buffer, width, height);

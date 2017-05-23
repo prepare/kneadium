@@ -4,6 +4,7 @@
 #include "../browser/client_handler_std.h"
 #include "../browser/root_window.h"
 #include "../browser/root_window_win.h"
+#include "../browser/browser_window_osr_win.h"
 #include "mycef.h"
 #define MY_DLL_EXPORT __declspec(dllexport)  
 
@@ -15,7 +16,7 @@ extern "C" {
 	{
 	public:
 		client::RootWindowWin* rootWin;
-		client::BrowserWindow* bwWindow;
+		client::BrowserWindow* bwWindow; 
 	};
 
 
@@ -32,11 +33,18 @@ extern "C" {
 
 	//4.
 	MY_DLL_EXPORT MyBrowser* MyCefCreateMyWebBrowser(managed_callback callback);
+	//4. OSR
+	MY_DLL_EXPORT MyBrowser* MyCefCreateMyWebBrowserOSR(managed_callback callback, HWND freeFormHwnd);
+
 	//5.
 	MY_DLL_EXPORT int MyCefSetupBrowserHwnd(MyBrowser* myBw, HWND surfaceHwnd, int x, int y, int w, int h, const wchar_t* url,CefRequestContext* cefRefContext);
-	//6.
-	MY_DLL_EXPORT void MyCefDoMessageLoopWork();
+	//5. OSR
+	MY_DLL_EXPORT int MyCefSetupBrowserHwndOSR(MyBrowser* myBw, HWND surfaceHwnd, int x, int y, int w, int h, const wchar_t* url, CefRequestContext* cefRefContext);
+	//6
+	MY_DLL_EXPORT void MyCefCloseMyWebBrowser(MyBrowser* myBw);
 	//7.
+	MY_DLL_EXPORT void MyCefDoMessageLoopWork();
+	//8.
 	MY_DLL_EXPORT void MyCefSetBrowserSize(MyBrowser* myBw, int w, int h);
 
 	MY_DLL_EXPORT void MyCefShutDown();

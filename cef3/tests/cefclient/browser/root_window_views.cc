@@ -329,6 +329,24 @@ void RootWindowViews::OnSetDraggableRegions(
     window_->SetDraggableRegions(regions);
 }
 
+void RootWindowViews::OnTakeFocus(bool next) {
+  if (!CefCurrentlyOn(TID_UI)) {
+    // Execute this method on the UI thread.
+    CefPostTask(TID_UI,
+        base::Bind(&RootWindowViews::OnTakeFocus, this, next));
+    return;
+  }
+
+  if (window_)
+    window_->TakeFocus(next);
+}
+
+void RootWindowViews::OnBeforeContextMenu(CefRefPtr<CefMenuModel> model) {
+  CEF_REQUIRE_UI_THREAD();
+  if (window_)
+    window_->OnBeforeContextMenu(model);
+}
+
 void RootWindowViews::CreateClientHandler(const std::string& url) {
   DCHECK(!client_handler_);
 

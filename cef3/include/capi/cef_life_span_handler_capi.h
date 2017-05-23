@@ -56,7 +56,7 @@ typedef struct _cef_life_span_handler_t {
   ///
   // Base structure.
   ///
-  cef_base_t base;
+  cef_base_ref_counted_t base;
 
   ///
   // Called on the IO thread before a new popup browser is created. The
@@ -76,7 +76,9 @@ typedef struct _cef_life_span_handler_t {
   // is set to false (0) the new browser will not be scriptable and may not be
   // hosted in the same renderer process as the source browser. Any
   // modifications to |windowInfo| will be ignored if the parent browser is
-  // wrapped in a cef_browser_view_t.
+  // wrapped in a cef_browser_view_t. Popup browser creation will be canceled if
+  // the parent browser is destroyed before the popup browser creation completes
+  // (indicated by a call to OnAfterCreated for the popup browser).
   ///
   int (CEF_CALLBACK *on_before_popup)(struct _cef_life_span_handler_t* self,
       struct _cef_browser_t* browser, struct _cef_frame_t* frame,

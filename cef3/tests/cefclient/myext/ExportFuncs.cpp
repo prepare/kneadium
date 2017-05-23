@@ -19,7 +19,7 @@
 #include "tests/cefclient/browser/browser_window_std_win.h"
 #include "tests/cefclient/browser/main_context.h" 
 
-
+#include "tests/cefclient/browser/osr_window_win.h"
 
 client::MainContextImpl* mainContext;
 client::MainMessageLoop* message_loop;  //essential for mainloop checking 
@@ -29,7 +29,7 @@ managed_callback myMxCallback_ = NULL;
 //1.
 int MyCefGetVersion()
 {
-	return 1011;
+	return 303029;
 }
 //2.
 int RegisterManagedCallBack(managed_callback mxCallback, int callbackKind)
@@ -100,7 +100,7 @@ MY_DLL_EXPORT void MyCefEnableKeyIntercept(MyBrowser* myBw, int enable) {
 //4. 
 MyBrowser* MyCefCreateMyWebBrowser(managed_callback callback)
 {
-	 
+
 	//create root window handler?
 	auto myBw = new MyBrowser();
 	auto rootWindow = new client::RootWindowWin();
@@ -110,30 +110,51 @@ MyBrowser* MyCefCreateMyWebBrowser(managed_callback callback)
 	//TODO: review here again, don't store at this module!
 	auto bwWindow = new client::BrowserWindowStdWin(rootWindow, "");
 	myBw->bwWindow = bwWindow;
-	
-	//2. browser event handler
-	auto hh = bwWindow->GetClientHandler();//  new client::ClientHandlerStd(bwWindow,"");
-	hh->MyCefSetManagedCallBack(callback);
 
+	//2. browser event handler
+	auto hh = bwWindow->GetClientHandler();
+	hh->MyCefSetManagedCallBack(callback);
 	return myBw;
 }
+
+//4.OSR
+MyBrowser* MyCefCreateMyWebBrowserOSR(managed_callback callback, HWND freeFormHwnd)
+{
+
+	//create root window handler?
+	auto myBw = new MyBrowser();
+	auto rootWindow = new client::RootWindowWin();
+	myBw->rootWin = rootWindow;
+
+	//1. create browser window handler
+	//TODO: review here again, don't store at this module!
+	client::OsrRenderer::Settings settings;
+	client::MainContext::Get()->PopulateOsrSettings(&settings);
+	auto bwWindow = new client::BrowserWindowOsrWin(rootWindow, "", settings);
+
+	//SetUserDataPtr()
+	myBw->bwWindow = bwWindow;
+
+	//2. browser event handler
+	auto hh = bwWindow->GetClientHandler();
+	hh->MyCefSetManagedCallBack(callback);
+	return myBw;
+}
+
 //5.
 int MyCefSetupBrowserHwnd(MyBrowser* myBw, HWND surfaceHwnd, int x, int y, int w, int h, const wchar_t* url, CefRequestContext* cefRefContext)
 {
-
-	// Information used when creating the native window.
-	CefWindowInfo window_info; 
 	RECT r;
 	r.left = x;
 	r.top = y;
 	r.right = x + w;
 	r.bottom = y + h;
 
+
+	//// Information used when creating the native window.
+	CefWindowInfo window_info;
 	window_info.SetAsChild(surfaceHwnd, r);
-	//window_info.SetAsWindowless(surfaceHwnd,true);
-
-	// SimpleHandler implements browser-level callbacks.
-
+	// SimpleHandler implements browser-level callbacks. 
 	auto clientHandler = myBw->bwWindow->GetClientHandler();
 	CefRefPtr<client::ClientHandler> handler(clientHandler);
 
@@ -143,11 +164,11 @@ int MyCefSetupBrowserHwnd(MyBrowser* myBw, HWND surfaceHwnd, int x, int y, int w
 	memset(&browser_settings, 0, sizeof(CefBrowserSettings));
 
 	bool result = CefBrowserHost::CreateBrowser(window_info,
-		clientHandler, 
+		clientHandler,
 		url,
-		browser_settings, 
+		browser_settings,
 		CefRefPtr<CefRequestContext>(cefRefContext));
-	
+
 	if (result) {
 		return 1;
 	}
@@ -155,17 +176,42 @@ int MyCefSetupBrowserHwnd(MyBrowser* myBw, HWND surfaceHwnd, int x, int y, int w
 		return 0;
 	}
 }
-//6.
+
+//5. OSR
+int MyCefSetupBrowserHwndOSR(MyBrowser* myBw, HWND surfaceHwnd, int x, int y, int w, int h, const wchar_t* url, CefRequestContext* cefRefContext)
+{
+
+	////--off-screen-rendering-enabled 
+	CefRect cef_rect(x, y, w, h);
+	CefBrowserSettings browser_settings;
+	//populate browser setting here
+	memset(&browser_settings, 0, sizeof(CefBrowserSettings));
+	client::MainContext::Get()->PopulateBrowserSettings(&browser_settings);
+	client::BrowserWindowOsrWin* windowosr = (client::BrowserWindowOsrWin*)myBw->bwWindow;
+	windowosr->CreateBrowser(surfaceHwnd, cef_rect, browser_settings, cefRefContext);
+	//----------------------------------
+	return 1;
+}
+//6
+void MyCefCloseMyWebBrowser(MyBrowser* myBw) {
+	myBw->bwWindow->ClientClose();
+}
+
+//7.
 void MyCefDoMessageLoopWork()
 {
 	CefDoMessageLoopWork();
 }
-//7.
+//8.
 void MyCefShutDown() {
-	CefShutdown();
+
+	// Shut down CEF.
+	mainContext->Shutdown();
+	// Release objects in reverse order of creation. 
+	/*CefShutdown();*/
 }
 
-//8.
+//9.
 void MyCefSetBrowserSize(MyBrowser* myBw, int w, int h) {
 	//auto windowHandle = myBw->bwWindow->GetWindowHandle();
 	myBw->bwWindow->SetBounds(0, 0, w, h);
@@ -249,15 +295,15 @@ void MyCefSetInitSettings(CefSettings* cefSetting, int keyName, const wchar_t* v
 	case CEF_SETTINGS_UserDirPath:
 		CefString(&cefSetting->user_data_path) = value;
 		break;
-	
+
 	case CEF_SETTINGS_LocalDirPath:
-		CefString(&cefSetting->locales_dir_path) = value; 
+		CefString(&cefSetting->locales_dir_path) = value;
 		break;
 	case CEF_SETTINGS_IgnoreCertError:
 		cefSetting->ignore_certificate_errors = std::stoi(value);
 		break;
-	case CEF_SETTINGS_RemoteDebuggingPort: 
-		cefSetting->remote_debugging_port = std::stoi(value); 
+	case CEF_SETTINGS_RemoteDebuggingPort:
+		cefSetting->remote_debugging_port = std::stoi(value);
 		break;
 	case CEF_SETTINGS_LogFile:
 		CefString(&cefSetting->log_file) = value;
