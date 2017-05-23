@@ -82,12 +82,14 @@ namespace BridgeBuilder
             //string srcRootDir = @"D:\projects\cef_binary_3.2704.1418"; 
             //string srcRootDir = @"D:\projects\cef_binary_3.2785.1466";  
             //string srcRootDir = @"D:\projects\cef_binary_3.2883.1548\\tests"; 
-            string srcRootDir = @"D:\projects\cef_binary_3.2883.1553\\tests";
+            //string srcRootDir = @"D:\projects\cef_binary_3.2883.1553\\tests";
+            string srcRootDir = @"D:\projects\cef_binary_3.3029.1619\tests";
             string saveFolder = "d:\\WImageTest\\cefbridge_patches";
 
             PatchBuilder builder2 = new PatchBuilder(new string[]{
                 srcRootDir,
-                @"D:\projects\cef_binary_3.2883.1553\\shared"
+                //@"D:\projects\cef_binary_3.2883.1553\\shared"
+                @"D:\projects\cef_binary_3.3029.1619\shared"
             });
             builder2.LoadPatchesFromFolder(saveFolder);
 
