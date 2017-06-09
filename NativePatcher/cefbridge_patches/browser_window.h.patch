@@ -12,3 +12,10 @@ int dbug_id;
 ClientHandler* GetClientHandler();//my extension
 virtual void ClientClose() const = 0;//my extension
 //###_APPEND_STOP
+//###_START 1
+CefRefPtr<CefBrowser> browser_;
+//###_FOLLOW_BY 1
+CefRefPtr<ClientHandler> client_handler_;
+//###_APPEND_START 1
+bool is_closing_;
+//###_APPEND_STOP
