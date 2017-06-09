@@ -1,4 +1,4 @@
-//###_ORIGINAL D:\projects\cef_binary_3.2883.1553\\tests\cefclient\browser//browser_window.h
+//###_ORIGINAL D:\projects\cef_binary_3.3071.1634\tests\cefclient\browser//browser_window.h
 //###_START 0
 // Returns true if the browser is closing.
 //###_FOLLOW_BY 0
@@ -11,11 +11,4 @@ int dbug_id;
 //my extension 
 ClientHandler* GetClientHandler();//my extension
 virtual void ClientClose() const = 0;//my extension
-//###_APPEND_STOP
-//###_START 1
-CefRefPtr<CefBrowser> browser_;
-//###_FOLLOW_BY 1
-CefRefPtr<ClientHandler> client_handler_;
-//###_APPEND_START 1
-bool is_closing_;
 //###_APPEND_STOP

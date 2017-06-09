@@ -1,4 +1,4 @@
-//###_ORIGINAL D:\projects\cef_binary_3.2883.1553\tests\cefclient\browser\osr_window_win.cc
+//###_ORIGINAL D:\projects\cef_binary_3.3071.1634\tests\cefclient\browser//osr_window_win.cc
 //###_START 0
 OsrWindowWin::OsrWindowWin(Delegate* delegate,
 //###_FIND_NEXT_LANDMARK 0
@@ -50,23 +50,4 @@ hdc_ = NULL;
 hrc_ = NULL;
 return;
 }
-//###_APPEND_STOP
-//###_START 1
-LRESULT CALLBACK OsrWindowWin::OsrWndProc(HWND hWnd, UINT message,
-//###_FIND_NEXT_LANDMARK 1
-case WM_NCDESTROY:
-//###_FIND_NEXT_LANDMARK 1
-SetUserDataPtr(hWnd, NULL);
-//###_APPEND_START 1
-//self->hwnd_ = NULL;
-//###_APPEND_STOP
-//###_SKIP_UNTIL_AND_ACCEPT 1
-break;
-//###_START 0
-void OsrWindowWin::OnPaint(CefRefPtr<CefBrowser> browser,
-//###_FIND_NEXT_LANDMARK 0
-CEF_REQUIRE_UI_THREAD();
-//###_APPEND_START 0
-if (this->closing1_)
-return;
 //###_APPEND_STOP
