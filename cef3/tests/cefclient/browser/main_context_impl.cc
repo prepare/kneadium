@@ -74,10 +74,14 @@ main_url_ = kDefaultUrl;
   }
 #endif  // defined(OS_WIN) || defined(OS_LINUX)
 
+  //###_START 4  
   if (command_line_->HasSwitch(switches::kBackgroundColor)) {
+	//###_APPEND_START 4
     // Parse the background color value.
     /*background_color_ =
         ParseColor(command_line_->GetSwitchValue(switches::kBackgroundColor));*/
+	//###_APPEND_STOP
+	//###_SKIP_UNTIL_AND_ACCEPT 4
   }
 
   if (background_color_ == 0 && !use_views_) {

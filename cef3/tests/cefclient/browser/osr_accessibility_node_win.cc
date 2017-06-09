@@ -678,8 +678,15 @@ CefNativeAccessible* OsrAXNode::GetNativeAccessibleObject(OsrAXNode* parent) {
 
 namespace client {
 
+//###_START 1
 void OsrAXNode::Destroy() {}
 
+//###_FIND_NEXT_LANDMARK 1
+CefNativeAccessible* OsrAXNode::GetNativeAccessibleObject(OsrAXNode* parent) {
+  return NULL;
+//###_FIND_NEXT_LANDMARK 1
+}
+//###_APPEND_START 1
 void OsrAXNode::NotifyAccessibilityEvent(std::string event_type) const {
 	if (event_type == "focus") {
 		// Notify Screen Reader of focus change
@@ -687,10 +694,7 @@ void OsrAXNode::NotifyAccessibilityEvent(std::string event_type) const {
 			node_id_);
 	}
 }
-
-CefNativeAccessible* OsrAXNode::GetNativeAccessibleObject(OsrAXNode* parent) {
-  return NULL;
-}
+//###_APPEND_STOP 1
 
 }  // namespace client
 

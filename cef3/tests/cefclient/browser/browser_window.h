@@ -135,15 +135,10 @@ virtual void ClientClose() const = 0;//my extension
   void OnSetDraggableRegions(
       const std::vector<CefDraggableRegion>& regions) OVERRIDE;
 
-  Delegate* delegate_;
-//###_START 1
-  CefRefPtr<CefBrowser> browser_;
-//###_FOLLOW_BY 1
-  CefRefPtr<ClientHandler> client_handler_;
-//###_APPEND_START 1
-bool is_closing_;
-//###_APPEND_STOP
-  //bool is_closing_;
+  Delegate* delegate_; 
+  CefRefPtr<CefBrowser> browser_; 
+  CefRefPtr<ClientHandler> client_handler_; 
+  bool is_closing_; 
 
  private:
   DISALLOW_COPY_AND_ASSIGN(BrowserWindow);
