@@ -273,7 +273,8 @@ namespace LayoutFarm.CefBridge
                             cefOsrListener.OnRender(args);
                         }
 
-                    } break;
+                    }
+                    break;
             }
         }
         void LoadErrorPage(IntPtr cefBw, IntPtr cefFrame, int errorCode, string errorText, string failedUrl)
@@ -436,17 +437,26 @@ namespace LayoutFarm.CefBridge
         }
         static void cefBrowserControl_Disposed(object sender, EventArgs e)
         {
-            //web browser control is dispose
-            MyCefBrowser wb = (MyCefBrowser)sender;
-            List<MyCefBrowser> wblist;
-            IWindowForm winHandle = wb.ParentForm;
-            if (registerTopWindowForms.TryGetValue(winHandle, out wblist))
+            //web browser control is disposed 
+            //TODO: review here 
+            MyCefBrowser wb = sender as MyCefBrowser;
+            if (wb != null)
             {
-                lock (sync_remove)
+                IWindowForm winHandle = wb.ParentForm;
+                List<MyCefBrowser> wblist;
+                if (registerTopWindowForms.TryGetValue(winHandle, out wblist))
                 {
-                    wblist.Remove(wb);
+                    lock (sync_remove)
+                    {
+                        wblist.Remove(wb);
+                    }
                 }
             }
+            else
+            {
+                throw new NotSupportedException();
+            }
+
         }
         public static bool IsReadyToClose(IWindowForm winForm)
         {
