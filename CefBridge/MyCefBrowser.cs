@@ -1,10 +1,7 @@
 ﻿//2015-2016 MIT, WinterDev
 
 using System;
-using System.Collections.Generic;
-using System.Text;
-using System.Runtime.InteropServices;
-using System.IO;
+using System.Collections.Generic; 
 namespace LayoutFarm.CefBridge
 {
     public class MyCefBrowser

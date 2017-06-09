@@ -1,10 +1,7 @@
 ﻿//2016, MIT, WinterDev
 
-using System;
-using System.Text;
-using System.Windows.Forms;
-using LayoutFarm.CefBridge;
-using System.Collections.Generic;
+using System; 
+using System.Windows.Forms; 
 namespace LayoutFarm.CefBridge
 {
     static class WinFormCefMsgLoopPump

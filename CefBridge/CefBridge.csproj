@@ -45,7 +45,7 @@
     <Compile Include="NativeCallArgs.cs" />
     <Compile Include="NativeCefObjects.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="ReferencePath.cs" />
+    <Compile Include="ReferencePaths.cs" />
     <Compile Include="WindowWrapper.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
