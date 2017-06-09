@@ -29,7 +29,7 @@ managed_callback myMxCallback_ = NULL;
 //1.
 int MyCefGetVersion()
 {
-	return 303029;
+	return 1011;
 }
 //2.
 int RegisterManagedCallBack(managed_callback mxCallback, int callbackKind)

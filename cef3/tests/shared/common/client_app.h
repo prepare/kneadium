@@ -1,4 +1,4 @@
-//###_ORIGINAL D:\projects\cef_binary_3.3029.1619\tests\shared\common//client_app.h
+//###_ORIGINAL D:\projects\cef_binary_3.3071.1634\tests\shared\common//client_app.h
 // Copyright (c) 2013 The Chromium Embedded Framework Authors. All rights
 // reserved. Use of this source code is governed by a BSD-style license that
 // can be found in the LICENSE file.
@@ -34,7 +34,7 @@ class ClientApp : public CefApp {
 //###_START 1
   static ProcessType GetProcessType(CefRefPtr<CefCommandLine> command_line);
 //###_APPEND_START 1
-managed_callback myMxCallback_ ;//myextension
+managed_callback myMxCallback_=NULL ;//myextension
 //###_APPEND_STOP
 
  protected:

@@ -1,4 +1,4 @@
-//###_ORIGINAL D:\projects\cef_binary_3.3029.1619\tests\cefclient\browser//test_runner.h
+//###_ORIGINAL D:\projects\cef_binary_3.3071.1634\tests\cefclient\browser//test_runner.h
 // Copyright (c) 2015 The Chromium Embedded Framework Authors. All rights
 // reserved. Use of this source code is governed by a BSD-style license that
 // can be found in the LICENSE file.
@@ -29,8 +29,7 @@ void RunTest(CefRefPtr<CefBrowser> browser, int id);
 std::string DumpRequestContents(CefRefPtr<CefRequest> request);
 
 // Returns a data: URI with the specified contents.
-std::string GetDataURI(const std::string& data,
-                       const std::string& mime_type);
+std::string GetDataURI(const std::string& data, const std::string& mime_type);
 
 // Returns the string representation of the specified error code.
 std::string GetErrorString(cef_errorcode_t code);

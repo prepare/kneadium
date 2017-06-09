@@ -1,4 +1,4 @@
-//###_ORIGINAL D:\projects\cef_binary_3.3029.1619\tests\cefclient\browser//browser_window.h
+//###_ORIGINAL D:\projects\cef_binary_3.3071.1634\tests\cefclient\browser//browser_window.h
 // Copyright (c) 2015 The Chromium Embedded Framework Authors. All rights
 // reserved. Use of this source code is governed by a BSD-style license that
 // can be found in the LICENSE file.
@@ -69,7 +69,10 @@ class BrowserWindow : public ClientHandler::Delegate {
 
   // Show the popup window with correct parent and bounds in parent coordinates.
   virtual void ShowPopup(ClientWindowHandle parent_handle,
-                         int x, int y, size_t width, size_t height) = 0;
+                         int x,
+                         int y,
+                         size_t width,
+                         size_t height) = 0;
 
   // Show the window.
   virtual void Show() = 0;
@@ -133,9 +136,14 @@ virtual void ClientClose() const = 0;//my extension
       const std::vector<CefDraggableRegion>& regions) OVERRIDE;
 
   Delegate* delegate_;
+//###_START 1
   CefRefPtr<CefBrowser> browser_;
+//###_FOLLOW_BY 1
   CefRefPtr<ClientHandler> client_handler_;
-  bool is_closing_;
+//###_APPEND_START 1
+bool is_closing_;
+//###_APPEND_STOP
+  //bool is_closing_;
 
  private:
   DISALLOW_COPY_AND_ASSIGN(BrowserWindow);

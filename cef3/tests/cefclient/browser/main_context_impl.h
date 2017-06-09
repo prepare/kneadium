@@ -53,9 +53,7 @@ class MainContextImpl : public MainContext {
 
   // Returns true if the context is in a valid state (initialized and not yet
   // shut down).
-  bool InValidState() const {
-    return initialized_ && !shutdown_;
-  }
+  bool InValidState() const { return initialized_ && !shutdown_; }
 
   CefRefPtr<CefCommandLine> command_line_;
   const bool terminate_when_all_windows_closed_;
@@ -68,6 +66,7 @@ class MainContextImpl : public MainContext {
 
   std::string main_url_;
   cef_color_t background_color_;
+  cef_color_t browser_background_color_;
   bool use_windowless_rendering_;
   bool use_views_;
 

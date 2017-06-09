@@ -1,4 +1,4 @@
-//###_ORIGINAL D:\projects\cef_binary_3.3029.1619\tests\cefclient\browser//main_context_impl.cc
+//###_ORIGINAL D:\projects\cef_binary_3.3071.1634\tests\cefclient\browser//main_context_impl.cc
 // Copyright (c) 2015 The Chromium Embedded Framework Authors. All rights
 // reserved. Use of this source code is governed by a BSD-style license that
 // can be found in the LICENSE file.
@@ -34,6 +34,7 @@ MainContextImpl::MainContextImpl(CefRefPtr<CefCommandLine> command_line,
       initialized_(false),
       shutdown_(false),
       background_color_(0),
+      browser_background_color_(0),
       use_views_(false) {
   DCHECK(command_line_.get());
 
@@ -51,13 +52,18 @@ main_url_ = kDefaultUrl;
   use_windowless_rendering_ =
       command_line_->HasSwitch(switches::kOffScreenRenderingEnabled);
 
+  // Whether transparent painting is used with windowless rendering.
+  const bool use_transparent_painting =
+      use_windowless_rendering_ &&
+      command_line_->HasSwitch(switches::kTransparentPaintingEnabled);
+
 #if defined(OS_WIN) || defined(OS_LINUX)
   // Whether the Views framework will be used.
   use_views_ = command_line_->HasSwitch(switches::kUseViews);
 
   if (use_windowless_rendering_ && use_views_) {
-    LOG(ERROR) <<
-        "Windowless rendering is not supported by the Views framework.";
+    LOG(ERROR)
+        << "Windowless rendering is not supported by the Views framework.";
     use_views_ = false;
   }
 
@@ -68,15 +74,20 @@ main_url_ = kDefaultUrl;
   }
 #endif  // defined(OS_WIN) || defined(OS_LINUX)
 
-  //if (command_line_->HasSwitch(switches::kBackgroundColor)) {
-  //  // Parse the background color value.
-  //  background_color_ =
-  //      ParseColor(command_line_->GetSwitchValue(switches::kBackgroundColor));
-  //}
+  if (command_line_->HasSwitch(switches::kBackgroundColor)) {
+    // Parse the background color value.
+    /*background_color_ =
+        ParseColor(command_line_->GetSwitchValue(switches::kBackgroundColor));*/
+  }
 
-  if (!use_views_ && background_color_ == 0) {
-    // Set an explicit background color when not using Views.
+  if (background_color_ == 0 && !use_views_) {
+    // Set an explicit background color.
     background_color_ = CefColorSetARGB(255, 255, 255, 255);
+  }
+
+  // |browser_background_color_| should remain 0 to enable transparent painting.
+  if (!use_transparent_painting) {
+    browser_background_color_ = background_color_;
   }
 
   const std::string& cdm_path =
@@ -147,30 +158,28 @@ void MainContextImpl::PopulateSettings(CefSettings* settings) {
   if (use_windowless_rendering_)
     settings->windowless_rendering_enabled = true;
 
-  if (background_color_ != 0)
-//###_START 1
-    settings->background_color = background_color_;
-//###_APPEND_START 1
-if (this->myMxCallback_) {
-this->myMxCallback_(CEF_MSG_CefSettings_Init, settings);
-}
-//###_APPEND_STOP
+  if (browser_background_color_ != 0)
+    settings->background_color = browser_background_color_;
 }
 
 void MainContextImpl::PopulateBrowserSettings(CefBrowserSettings* settings) {
   if (command_line_->HasSwitch(switches::kOffScreenFrameRate)) {
-    settings->windowless_frame_rate = atoi(command_line_->
-        GetSwitchValue(switches::kOffScreenFrameRate).ToString().c_str());
+    settings->windowless_frame_rate =
+        atoi(command_line_->GetSwitchValue(switches::kOffScreenFrameRate)
+                 .ToString()
+                 .c_str());
   }
+
+  if (browser_background_color_ != 0)
+    settings->background_color = browser_background_color_;
 }
 
 void MainContextImpl::PopulateOsrSettings(OsrRenderer::Settings* settings) {
-  settings->transparent =
-      command_line_->HasSwitch(switches::kTransparentPaintingEnabled);
   settings->show_update_rect =
       command_line_->HasSwitch(switches::kShowUpdateRect);
-  if (background_color_ != 0)
-    settings->background_color = background_color_;
+
+  if (browser_background_color_ != 0)
+    settings->background_color = browser_background_color_;
 }
 
 RootWindowManager* MainContextImpl::GetRootWindowManager() {

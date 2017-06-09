@@ -82,9 +82,10 @@ int RunMain(HINSTANCE hInstance, int nCmdShow) {
   // Create the main message loop object.
   scoped_ptr<MainMessageLoop> message_loop;
   if (settings.multi_threaded_message_loop)
-    message_loop.reset(new MainMessageLoopMultithreadedWin);
-  else if (settings.external_message_pump)
-    message_loop = MainMessageLoopExternalPump::Create();
+	  message_loop.reset(new MainMessageLoopMultithreadedWin);
+  //else if (settings.external_message_pump)
+	  //message_loop = MainMessageLoopExternalPump::Create();
+	  //message_loop = nullptr;
   else
     message_loop.reset(new MainMessageLoopStd);
 
@@ -98,8 +99,8 @@ int RunMain(HINSTANCE hInstance, int nCmdShow) {
   context->GetRootWindowManager()->CreateRootWindow(
       !command_line->HasSwitch(switches::kHideControls),  // Show controls.
       settings.windowless_rendering_enabled ? true : false,
-      CefRect(),        // Use default system size.
-      std::string());   // Use default URL.
+      CefRect(),       // Use default system size.
+      std::string());  // Use default URL.
 
   // Run the message loop. This will block until Quit() is called by the
   // RootWindowManager after all windows have been destroyed.
@@ -118,12 +119,11 @@ int RunMain(HINSTANCE hInstance, int nCmdShow) {
 }  // namespace
 }  // namespace client
 
-
 // Program entry point function.
 int APIENTRY wWinMain(HINSTANCE hInstance,
                       HINSTANCE hPrevInstance,
-                      LPTSTR    lpCmdLine,
-                      int       nCmdShow) {
+                      LPTSTR lpCmdLine,
+                      int nCmdShow) {
   UNREFERENCED_PARAMETER(hPrevInstance);
   UNREFERENCED_PARAMETER(lpCmdLine);
   return client::RunMain(hInstance, nCmdShow);

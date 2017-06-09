@@ -8,6 +8,7 @@
 
 # ceftests sources.
 set(CEFTESTS_SRCS
+  accessibility_unittest.cc
   browser_info_map_unittest.cc
   client_app_delegates.cc
   command_line_unittest.cc

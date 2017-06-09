@@ -1,4 +1,4 @@
-//###_ORIGINAL D:\projects\cef_binary_3.3029.1619\tests\cefclient\browser//client_handler.h
+//###_ORIGINAL D:\projects\cef_binary_3.3071.1634\tests\cefclient\browser//client_handler.h
 // Copyright (c) 2011 The Chromium Embedded Framework Authors. All rights
 // reserved. Use of this source code is governed by a BSD-style license that
 // can be found in the LICENSE file.
@@ -67,7 +67,7 @@ class ClientHandler : public CefClient,
     virtual void OnSetTitle(const std::string& title) = 0;
 
     // Set the Favicon image.
-    virtual void OnSetFavicon(CefRefPtr<CefImage> image) {};
+    virtual void OnSetFavicon(CefRefPtr<CefImage> image){};
 
     // Set fullscreen mode.
     virtual void OnSetFullscreen(bool fullscreen) = 0;
@@ -107,33 +107,17 @@ class ClientHandler : public CefClient,
   CefRefPtr<CefContextMenuHandler> GetContextMenuHandler() OVERRIDE {
     return this;
   }
-  CefRefPtr<CefDisplayHandler> GetDisplayHandler() OVERRIDE {
-    return this;
-  }
-  CefRefPtr<CefDownloadHandler> GetDownloadHandler() OVERRIDE {
-    return this;
-  }
-  CefRefPtr<CefDragHandler> GetDragHandler() OVERRIDE {
-    return this;
-  }
-  CefRefPtr<CefFocusHandler> GetFocusHandler() OVERRIDE {
-    return this;
-  }
+  CefRefPtr<CefDisplayHandler> GetDisplayHandler() OVERRIDE { return this; }
+  CefRefPtr<CefDownloadHandler> GetDownloadHandler() OVERRIDE { return this; }
+  CefRefPtr<CefDragHandler> GetDragHandler() OVERRIDE { return this; }
+  CefRefPtr<CefFocusHandler> GetFocusHandler() OVERRIDE { return this; }
   CefRefPtr<CefGeolocationHandler> GetGeolocationHandler() OVERRIDE {
     return this;
   }
-  CefRefPtr<CefKeyboardHandler> GetKeyboardHandler() OVERRIDE {
-    return this;
-  }
-  CefRefPtr<CefLifeSpanHandler> GetLifeSpanHandler() OVERRIDE {
-    return this;
-  }
-  CefRefPtr<CefLoadHandler> GetLoadHandler() OVERRIDE {
-    return this;
-  }
-  CefRefPtr<CefRequestHandler> GetRequestHandler() OVERRIDE {
-    return this;
-  }
+  CefRefPtr<CefKeyboardHandler> GetKeyboardHandler() OVERRIDE { return this; }
+  CefRefPtr<CefLifeSpanHandler> GetLifeSpanHandler() OVERRIDE { return this; }
+  CefRefPtr<CefLoadHandler> GetLoadHandler() OVERRIDE { return this; }
+  CefRefPtr<CefRequestHandler> GetRequestHandler() OVERRIDE { return this; }
   bool OnProcessMessageReceived(CefRefPtr<CefBrowser> browser,
                                 CefProcessId source_process,
                                 CefRefPtr<CefProcessMessage> message) OVERRIDE;
@@ -174,15 +158,13 @@ class ClientHandler : public CefClient,
                         int line) OVERRIDE;
 
   // CefDownloadHandler methods
-  void OnBeforeDownload(
-      CefRefPtr<CefBrowser> browser,
-      CefRefPtr<CefDownloadItem> download_item,
-      const CefString& suggested_name,
-      CefRefPtr<CefBeforeDownloadCallback> callback) OVERRIDE;
-  void OnDownloadUpdated(
-      CefRefPtr<CefBrowser> browser,
-      CefRefPtr<CefDownloadItem> download_item,
-      CefRefPtr<CefDownloadItemCallback> callback) OVERRIDE;
+  void OnBeforeDownload(CefRefPtr<CefBrowser> browser,
+                        CefRefPtr<CefDownloadItem> download_item,
+                        const CefString& suggested_name,
+                        CefRefPtr<CefBeforeDownloadCallback> callback) OVERRIDE;
+  void OnDownloadUpdated(CefRefPtr<CefBrowser> browser,
+                         CefRefPtr<CefDownloadItem> download_item,
+                         CefRefPtr<CefDownloadItemCallback> callback) OVERRIDE;
 
   // CefDragHandler methods
   bool OnDragEnter(CefRefPtr<CefBrowser> browser,
@@ -268,12 +250,11 @@ class ClientHandler : public CefClient,
   void OnProtocolExecution(CefRefPtr<CefBrowser> browser,
                            const CefString& url,
                            bool& allow_os_execution) OVERRIDE;
-  bool OnCertificateError(
-      CefRefPtr<CefBrowser> browser,
-      ErrorCode cert_error,
-      const CefString& request_url,
-      CefRefPtr<CefSSLInfo> ssl_info,
-      CefRefPtr<CefRequestCallback> callback) OVERRIDE;
+  bool OnCertificateError(CefRefPtr<CefBrowser> browser,
+                          ErrorCode cert_error,
+                          const CefString& request_url,
+                          CefRefPtr<CefSSLInfo> ssl_info,
+                          CefRefPtr<CefRequestCallback> callback) OVERRIDE;
   bool OnSelectClientCertificate(
       CefRefPtr<CefBrowser> browser,
       bool isProxy,
@@ -331,13 +312,12 @@ void MyCefEnableKeyIntercept(int enable);
   // will be true if the window will be used for DevTools. Return true to
   // proceed with popup browser creation or false to cancel the popup browser.
   // May be called on any thead.
-  bool CreatePopupWindow(
-      CefRefPtr<CefBrowser> browser,
-      bool is_devtools,
-      const CefPopupFeatures& popupFeatures,
-      CefWindowInfo& windowInfo,
-      CefRefPtr<CefClient>& client,
-      CefBrowserSettings& settings);
+  bool CreatePopupWindow(CefRefPtr<CefBrowser> browser,
+                         bool is_devtools,
+                         const CefPopupFeatures& popupFeatures,
+                         CefWindowInfo& windowInfo,
+                         CefRefPtr<CefClient>& client,
+                         CefBrowserSettings& settings);
 
   // Execute Delegate notifications on the main thread.
   void NotifyBrowserCreated(CefRefPtr<CefBrowser> browser);
@@ -347,11 +327,8 @@ void MyCefEnableKeyIntercept(int enable);
   void NotifyTitle(const CefString& title);
   void NotifyFavicon(CefRefPtr<CefImage> image);
   void NotifyFullscreen(bool fullscreen);
-  void NotifyLoadingState(bool isLoading,
-                          bool canGoBack,
-                          bool canGoForward);
-  void NotifyDraggableRegions(
-      const std::vector<CefDraggableRegion>& regions);
+  void NotifyLoadingState(bool isLoading, bool canGoBack, bool canGoForward);
+  void NotifyDraggableRegions(const std::vector<CefDraggableRegion>& regions);
   void NotifyTakeFocus(bool next);
 
   // Test context menu creation.

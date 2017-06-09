@@ -1,4 +1,4 @@
-//###_ORIGINAL D:\projects\cef_binary_3.3029.1619\tests\cefclient\browser//browser_window_osr_win.cc
+//###_ORIGINAL D:\projects\cef_binary_3.3071.1634\tests\cefclient\browser//browser_window_osr_win.cc
 // Copyright (c) 2015 The Chromium Embedded Framework Authors. All rights
 // reserved. Use of this source code is governed by a BSD-style license that
 // can be found in the LICENSE file.
@@ -15,7 +15,6 @@ BrowserWindowOsrWin::BrowserWindowOsrWin(BrowserWindow::Delegate* delegate,
                                          const std::string& startup_url,
                                          const OsrRenderer::Settings& settings)
     : BrowserWindow(delegate),
-      transparent_(settings.transparent),
       osr_hwnd_(NULL),
       device_scale_factor_(client::GetDeviceScaleFactor()) {
   osr_window_ = new OsrWindowWin(this, settings);
@@ -59,12 +58,15 @@ void BrowserWindowOsrWin::GetPopupConfig(CefWindowHandle temp_handle,
                                          CefRefPtr<CefClient>& client,
                                          CefBrowserSettings& settings) {
   // Note: This method may be called on any thread.
-  windowInfo.SetAsWindowless(temp_handle, transparent_);
+  windowInfo.SetAsWindowless(temp_handle);
   client = client_handler_;
 }
 
 void BrowserWindowOsrWin::ShowPopup(ClientWindowHandle parent_handle,
-                                    int x, int y, size_t width, size_t height) {
+                                    int x,
+                                    int y,
+                                    size_t width,
+                                    size_t height) {
   REQUIRE_MAIN_THREAD();
   if (osr_window_)
     osr_window_->ShowPopup(parent_handle, x, y, width, height);
