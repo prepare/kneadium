@@ -13,6 +13,7 @@ namespace client {
 // Client handler implementation for windowless browsers. There will only ever
 // be one browser per handler instance.
 class ClientHandlerOsr : public ClientHandler,
+                         public CefAccessibilityHandler,
                          public CefRenderHandler {
  public:
   // Implement this interface to receive notification of ClientHandlerOsr
@@ -26,8 +27,7 @@ class ClientHandlerOsr : public ClientHandler,
     // These methods match the CefRenderHandler interface.
     virtual bool GetRootScreenRect(CefRefPtr<CefBrowser> browser,
                                    CefRect& rect) = 0;
-    virtual bool GetViewRect(CefRefPtr<CefBrowser> browser,
-                             CefRect& rect) = 0;
+    virtual bool GetViewRect(CefRefPtr<CefBrowser> browser, CefRect& rect) = 0;
     virtual bool GetScreenPoint(CefRefPtr<CefBrowser> browser,
                                 int viewX,
                                 int viewY,
@@ -44,15 +44,15 @@ class ClientHandlerOsr : public ClientHandler,
                          const void* buffer,
                          int width,
                          int height) = 0;
-    virtual void OnCursorChange(
-        CefRefPtr<CefBrowser> browser,
-        CefCursorHandle cursor,
-        CefRenderHandler::CursorType type,
-        const CefCursorInfo& custom_cursor_info) = 0;
+    virtual void OnCursorChange(CefRefPtr<CefBrowser> browser,
+                                CefCursorHandle cursor,
+                                CefRenderHandler::CursorType type,
+                                const CefCursorInfo& custom_cursor_info) = 0;
     virtual bool StartDragging(CefRefPtr<CefBrowser> browser,
                                CefRefPtr<CefDragData> drag_data,
                                CefRenderHandler::DragOperationsMask allowed_ops,
-                               int x, int y) = 0;
+                               int x,
+                               int y) = 0;
     virtual void UpdateDragCursor(
         CefRefPtr<CefBrowser> browser,
         CefRenderHandler::DragOperation operation) = 0;
@@ -60,6 +60,8 @@ class ClientHandlerOsr : public ClientHandler,
         CefRefPtr<CefBrowser> browser,
         const CefRange& selection_range,
         const CefRenderHandler::RectList& character_bounds) = 0;
+
+    virtual void UpdateAccessibilityTree(CefRefPtr<CefValue> value) = 0;
 
    protected:
     virtual ~OsrDelegate() {}
@@ -74,7 +76,8 @@ class ClientHandlerOsr : public ClientHandler,
   void DetachOsrDelegate();
 
   // CefClient methods.
-  CefRefPtr<CefRenderHandler> GetRenderHandler() OVERRIDE {
+  CefRefPtr<CefRenderHandler> GetRenderHandler() OVERRIDE { return this; }
+  CefRefPtr<CefAccessibilityHandler> GetAccessibilityHandler() OVERRIDE {
     return this;
   }
 
@@ -83,10 +86,8 @@ class ClientHandlerOsr : public ClientHandler,
   void OnBeforeClose(CefRefPtr<CefBrowser> browser) OVERRIDE;
 
   // CefRenderHandler methods.
-  bool GetRootScreenRect(CefRefPtr<CefBrowser> browser,
-                         CefRect& rect) OVERRIDE;
-  bool GetViewRect(CefRefPtr<CefBrowser> browser,
-                   CefRect& rect) OVERRIDE;
+  bool GetRootScreenRect(CefRefPtr<CefBrowser> browser, CefRect& rect) OVERRIDE;
+  bool GetViewRect(CefRefPtr<CefBrowser> browser, CefRect& rect) OVERRIDE;
   bool GetScreenPoint(CefRefPtr<CefBrowser> browser,
                       int viewX,
                       int viewY,
@@ -95,8 +96,7 @@ class ClientHandlerOsr : public ClientHandler,
   bool GetScreenInfo(CefRefPtr<CefBrowser> browser,
                      CefScreenInfo& screen_info) OVERRIDE;
   void OnPopupShow(CefRefPtr<CefBrowser> browser, bool show) OVERRIDE;
-  void OnPopupSize(CefRefPtr<CefBrowser> browser,
-                   const CefRect& rect) OVERRIDE;
+  void OnPopupSize(CefRefPtr<CefBrowser> browser, const CefRect& rect) OVERRIDE;
   void OnPaint(CefRefPtr<CefBrowser> browser,
                CefRenderHandler::PaintElementType type,
                const CefRenderHandler::RectList& dirtyRects,
@@ -110,13 +110,18 @@ class ClientHandlerOsr : public ClientHandler,
   bool StartDragging(CefRefPtr<CefBrowser> browser,
                      CefRefPtr<CefDragData> drag_data,
                      CefRenderHandler::DragOperationsMask allowed_ops,
-                     int x, int y) OVERRIDE;
+                     int x,
+                     int y) OVERRIDE;
   void UpdateDragCursor(CefRefPtr<CefBrowser> browser,
                         CefRenderHandler::DragOperation operation) OVERRIDE;
   void OnImeCompositionRangeChanged(
       CefRefPtr<CefBrowser> browser,
       const CefRange& selection_range,
       const CefRenderHandler::RectList& character_bounds) OVERRIDE;
+
+  // CefAccessibilityHandler methods.
+  void OnAccessibilityTreeChange(CefRefPtr<CefValue> value) OVERRIDE;
+  void OnAccessibilityLocationChange(CefRefPtr<CefValue> value) OVERRIDE {}
 
  private:
   // Only accessed on the UI thread.

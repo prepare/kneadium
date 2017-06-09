@@ -1,4 +1,4 @@
-//###_ORIGINAL D:\projects\cef_binary_3.3029.1619\tests\cefclient\browser//browser_window_std_win.h
+//###_ORIGINAL D:\projects\cef_binary_3.3071.1634\tests\cefclient\browser//browser_window_std_win.h
 // Copyright (c) 2015 The Chromium Embedded Framework Authors. All rights
 // reserved. Use of this source code is governed by a BSD-style license that
 // can be found in the LICENSE file.
@@ -18,8 +18,7 @@ class BrowserWindowStdWin : public BrowserWindow {
  public:
   // Constructor may be called on any thread.
   // |delegate| must outlive this object.
-  BrowserWindowStdWin(Delegate* delegate,
-                      const std::string& startup_url);
+  BrowserWindowStdWin(Delegate* delegate, const std::string& startup_url);
 
   // BrowserWindow methods.
   void CreateBrowser(ClientWindowHandle parent_handle,
@@ -31,7 +30,10 @@ class BrowserWindowStdWin : public BrowserWindow {
                       CefRefPtr<CefClient>& client,
                       CefBrowserSettings& settings) OVERRIDE;
   void ShowPopup(ClientWindowHandle parent_handle,
-                 int x, int y, size_t width, size_t height) OVERRIDE;
+                 int x,
+                 int y,
+                 size_t width,
+                 size_t height) OVERRIDE;
   void Show() OVERRIDE;
   void Hide() OVERRIDE;
   void SetBounds(int x, int y, size_t width, size_t height) OVERRIDE;

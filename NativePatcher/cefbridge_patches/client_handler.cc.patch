@@ -1,4 +1,4 @@
-//###_ORIGINAL D:\projects\cef_binary_3.2883.1553\\tests\cefclient\browser//client_handler.cc
+//###_ORIGINAL D:\projects\cef_binary_3.3071.1634\tests\cefclient\browser//client_handler.cc
 //###_START 0
 ClientHandler::ClientHandler(Delegate* delegate,
 //###_FIND_NEXT_LANDMARK 0
@@ -8,7 +8,7 @@ this->mcallback_ = NULL;
 this->enableKeyIntercept = 0;//init
 //###_APPEND_STOP
 //###_START 0
-void ClientHandler::OnBeforeContextMenu(
+void ClientHandler::OnBeforeContextMenu(CefRefPtr<CefBrowser> browser,
 //###_FIND_NEXT_LANDMARK 0
 CefRefPtr<CefMenuModel> model) {
 //###_FIND_NEXT_LANDMARK 0
@@ -23,7 +23,7 @@ return;
 }
 //###_APPEND_STOP
 //###_START 1
-bool ClientHandler::OnContextMenuCommand(
+bool ClientHandler::OnContextMenuCommand(CefRefPtr<CefBrowser> browser,
 //###_FIND_NEXT_LANDMARK 1
 CEF_REQUIRE_UI_THREAD();
 //###_APPEND_START 1
@@ -310,7 +310,7 @@ allow_os_execution = true;
 //###_SKIP_UNTIL_AND_ACCEPT 10
 }
 //###_START 9
-bool ClientHandler::OnCertificateError(
+bool ClientHandler::OnCertificateError(CefRefPtr<CefBrowser> browser,
 //###_FIND_NEXT_LANDMARK 9
 CEF_REQUIRE_UI_THREAD();
 //###_APPEND_START 9

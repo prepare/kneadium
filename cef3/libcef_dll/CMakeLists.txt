@@ -42,6 +42,8 @@ set(LIBCEF_BASE_SRCS
 source_group(libcef_dll\\\\base FILES ${LIBCEF_BASE_SRCS})
 
 set(LIBCEF_CPPTOC_SRCS
+  cpptoc/accessibility_handler_cpptoc.cc
+  cpptoc/accessibility_handler_cpptoc.h
   cpptoc/app_cpptoc.cc
   cpptoc/app_cpptoc.h
   cpptoc/base_ref_counted_cpptoc.cc
@@ -344,6 +346,7 @@ set(LIBCEF_CTOCPP_VIEWS_SRCS
 source_group(libcef_dll\\\\ctocpp\\\\views FILES ${LIBCEF_CTOCPP_VIEWS_SRCS})
 
 set(LIBCEF_INCLUDE_SRCS
+  ../include/cef_accessibility_handler.h
   ../include/cef_app.h
   ../include/cef_auth_callback.h
   ../include/cef_base.h
@@ -474,6 +477,7 @@ LIBCEF_APPEND_PLATFORM_SOURCES(LIBCEF_INCLUDE_BASE_INTERNAL_SRCS)
 source_group(include\\\\base\\\\internal FILES ${LIBCEF_INCLUDE_BASE_INTERNAL_SRCS})
 
 set(LIBCEF_INCLUDE_CAPI_SRCS
+  ../include/capi/cef_accessibility_handler_capi.h
   ../include/capi/cef_app_capi.h
   ../include/capi/cef_auth_callback_capi.h
   ../include/capi/cef_base_capi.h

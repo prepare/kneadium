@@ -14,15 +14,10 @@ namespace client {
 class OsrRenderer {
  public:
   struct Settings {
-    Settings();
-
-    // If true use transparent rendering.
-    bool transparent;
-
     // If true draw a border around update rectangles.
     bool show_update_rect;
 
-    // Background color.
+    // Background color. Enables transparency if the alpha component is 0.
     cef_color_t background_color;
   };
 
@@ -39,22 +34,19 @@ class OsrRenderer {
   void Render();
 
   // Forwarded from CefRenderHandler callbacks.
-  void OnPopupShow(CefRefPtr<CefBrowser> browser,
-                   bool show);
+  void OnPopupShow(CefRefPtr<CefBrowser> browser, bool show);
   // |rect| must be in pixel coordinates.
-  void OnPopupSize(CefRefPtr<CefBrowser> browser,
-                   const CefRect& rect);
+  void OnPopupSize(CefRefPtr<CefBrowser> browser, const CefRect& rect);
   void OnPaint(CefRefPtr<CefBrowser> browser,
                CefRenderHandler::PaintElementType type,
                const CefRenderHandler::RectList& dirtyRects,
-               const void* buffer, int width, int height);
+               const void* buffer,
+               int width,
+               int height);
 
   // Apply spin.
   void SetSpin(float spinX, float spinY);
   void IncrementSpin(float spinDX, float spinDY);
-
-  bool IsTransparent() const { return settings_.transparent; }
-  cef_color_t GetBackgroundColor() const { return settings_.background_color; }
 
   int GetViewWidth() const { return view_width_; }
   int GetViewHeight() const { return view_height_; }
@@ -66,6 +58,10 @@ class OsrRenderer {
   void ClearPopupRects();
 
  private:
+  inline bool IsTransparent() const {
+    return CefColorGetA(settings_.background_color) == 0;
+  };
+
   const Settings settings_;
   bool initialized_;
   unsigned int texture_id_;
@@ -83,4 +79,3 @@ class OsrRenderer {
 }  // namespace client
 
 #endif  // CEF_TESTS_CEFCLIENT_BROWSER_OSR_RENDERER_H_
-
