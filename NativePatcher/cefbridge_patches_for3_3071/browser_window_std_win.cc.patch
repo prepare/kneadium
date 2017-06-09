@@ -1,0 +1,12 @@
+//###_ORIGINAL D:\projects\cef_binary_3.3071.1634\tests\cefclient\browser//browser_window_std_win.cc
+//###_START 1
+BrowserWindowStdWin::BrowserWindowStdWin(Delegate* delegate,
+//###_FIND_NEXT_LANDMARK 1
+client_handler_ = new ClientHandlerStd(this, startup_url);
+//###_FIND_NEXT_LANDMARK 1
+}
+//###_APPEND_START 1
+void BrowserWindowStdWin::ClientClose() const {
+
+}
+//###_APPEND_STOP

@@ -1,4 +1,4 @@
-//###_ORIGINAL D:\projects\cef_binary_3.3029.1619\tests\cefclient\browser//test_runner.cc
+//###_ORIGINAL D:\projects\cef_binary_3.3071.1634\tests\cefclient\browser//test_runner.cc
 // Copyright (c) 2015 The Chromium Embedded Framework Authors. All rights
 // reserved. Use of this source code is governed by a BSD-style license that
 // can be found in the LICENSE file.
@@ -44,7 +44,8 @@ namespace {
 const char kTestOrigin[] = "http://tests/";
 
 // Replace all instances of |from| with |to| in |str|.
-std::string StringReplace(const std::string& str, const std::string& from,
+std::string StringReplace(const std::string& str,
+                          const std::string& from,
                           const std::string& to) {
   std::string result = str;
   std::string::size_type pos = 0;
@@ -68,10 +69,11 @@ void RunGetSourceTest(CefRefPtr<CefBrowser> browser) {
       std::string source = StringReplace(string, "<", "&lt;");
       source = StringReplace(source, ">", "&gt;");
       std::stringstream ss;
-      ss << "<html><body bgcolor=\"white\">Source:<pre>" << source <<
-            "</pre></body></html>";
+      ss << "<html><body bgcolor=\"white\">Source:<pre>" << source
+         << "</pre></body></html>";
       browser_->GetMainFrame()->LoadString(ss.str(), "http://tests/getsource");
     }
+
    private:
     CefRefPtr<CefBrowser> browser_;
     IMPLEMENT_REFCOUNTING(Visitor);
@@ -88,10 +90,11 @@ void RunGetTextTest(CefRefPtr<CefBrowser> browser) {
       std::string text = StringReplace(string, "<", "&lt;");
       text = StringReplace(text, ">", "&gt;");
       std::stringstream ss;
-      ss << "<html><body bgcolor=\"white\">Text:<pre>" << text <<
-            "</pre></body></html>";
+      ss << "<html><body bgcolor=\"white\">Text:<pre>" << text
+         << "</pre></body></html>";
       browser_->GetMainFrame()->LoadString(ss.str(), "http://tests/gettext");
     }
+
    private:
     CefRefPtr<CefBrowser> browser_;
     IMPLEMENT_REFCOUNTING(Visitor);
@@ -118,8 +121,7 @@ void RunRequestTest(CefRefPtr<CefBrowser> browser) {
 
   // Add a custom header
   CefRequest::HeaderMap headerMap;
-  headerMap.insert(
-      std::make_pair("X-My-Header", "My Header Value"));
+  headerMap.insert(std::make_pair("X-My-Header", "My Header Value"));
   request->SetHeaderMap(headerMap);
 
   // Load the request
@@ -128,10 +130,10 @@ void RunRequestTest(CefRefPtr<CefBrowser> browser) {
 
 void RunNewWindowTest(CefRefPtr<CefBrowser> browser) {
   MainContext::Get()->GetRootWindowManager()->CreateRootWindow(
-      true,             // Show controls.
+      true,  // Show controls.
       browser->GetHost()->IsWindowRenderingDisabled(),
-      CefRect(),        // Use default system size.
-      std::string());   // Use default URL.
+      CefRect(),       // Use default system size.
+      std::string());  // Use default URL.
 }
 
 void RunPopupWindowTest(CefRefPtr<CefBrowser> browser) {
@@ -142,11 +144,11 @@ void RunPopupWindowTest(CefRefPtr<CefBrowser> browser) {
 void RunPluginInfoTest(CefRefPtr<CefBrowser> browser) {
   class Visitor : public CefWebPluginInfoVisitor {
    public:
-    explicit Visitor(CefRefPtr<CefBrowser> browser)
-        : browser_(browser) {
-      html_ = "<html><head><title>Plugin Info Test</title></head>"
-              "<body bgcolor=\"white\">"
-              "\n<b>Installed plugins:</b>";
+    explicit Visitor(CefRefPtr<CefBrowser> browser) : browser_(browser) {
+      html_ =
+          "<html><head><title>Plugin Info Test</title></head>"
+          "<body bgcolor=\"white\">"
+          "\n<b>Installed plugins:</b>";
     }
     ~Visitor() {
       html_ += "\n</body></html>";
@@ -155,12 +157,13 @@ void RunPluginInfoTest(CefRefPtr<CefBrowser> browser) {
       browser_->GetMainFrame()->LoadString(html_, "http://tests/plugin_info");
     }
 
-    virtual bool Visit(CefRefPtr<CefWebPluginInfo> info, int count, int total)
-        OVERRIDE {
-      html_ +=  "\n<br/><br/>Name: " + info->GetName().ToString() +
-                "\n<br/>Description: " + info->GetDescription().ToString() +
-                "\n<br/>Version: " + info->GetVersion().ToString() +
-                "\n<br/>Path: " + info->GetPath().ToString();
+    virtual bool Visit(CefRefPtr<CefWebPluginInfo> info,
+                       int count,
+                       int total) OVERRIDE {
+      html_ += "\n<br/><br/>Name: " + info->GetName().ToString() +
+               "\n<br/>Description: " + info->GetDescription().ToString() +
+               "\n<br/>Version: " + info->GetVersion().ToString() +
+               "\n<br/>Path: " + info->GetPath().ToString();
       return true;
     }
 
@@ -180,8 +183,7 @@ void ModifyZoom(CefRefPtr<CefBrowser> browser, double delta) {
     return;
   }
 
-  browser->GetHost()->SetZoomLevel(
-      browser->GetHost()->GetZoomLevel() + delta);
+  browser->GetHost()->SetZoomLevel(browser->GetHost()->GetZoomLevel() + delta);
 }
 
 const char kPrompt[] = "Prompt.";
@@ -244,8 +246,8 @@ class PromptHandler : public CefMessageRouterBrowserSide::Handler {
   }
 
   static void SetDSFOnMainThread(CefRefPtr<CefBrowser> browser, float dsf) {
-    RootWindow::GetForBrowser(browser->GetIdentifier())->
-        SetDeviceScaleFactor(dsf);
+    RootWindow::GetForBrowser(browser->GetIdentifier())
+        ->SetDeviceScaleFactor(dsf);
   }
 };
 
@@ -257,9 +259,9 @@ void Prompt(CefRefPtr<CefBrowser> browser,
   // 1. Show a prompt() dialog via JavaScript.
   // 2. Pass the result to window.cefQuery().
   // 3. Handle the result in PromptHandler::OnQuery.
-  const std::string& code =
-      "window.cefQuery({'request': '" + std::string(kPrompt) + type +
-      ":' + prompt('" + label + "', '" + default_value + "')});";
+  const std::string& code = "window.cefQuery({'request': '" +
+                            std::string(kPrompt) + type + ":' + prompt('" +
+                            label + "', '" + default_value + "')});";
   browser->GetMainFrame()->ExecuteJavaScript(
       code, browser->GetMainFrame()->GetURL(), 0);
 }
@@ -287,8 +289,8 @@ void PromptDSF(CefRefPtr<CefBrowser> browser) {
 
   // Format the default value string.
   std::stringstream ss;
-  ss << RootWindow::GetForBrowser(browser->GetIdentifier())->
-            GetDeviceScaleFactor();
+  ss << RootWindow::GetForBrowser(browser->GetIdentifier())
+            ->GetDeviceScaleFactor();
 
   Prompt(browser, kPromptDSF, "Enter Device Scale Factor", ss.str());
 }
@@ -310,11 +312,9 @@ void EndTracing(CefRefPtr<CefBrowser> browser) {
     return;
   }
 
-  class Client : public CefEndTracingCallback,
-                 public CefRunFileDialogCallback {
+  class Client : public CefEndTracingCallback, public CefRunFileDialogCallback {
    public:
-    explicit Client(CefRefPtr<CefBrowser> browser)
-        : browser_(browser) {
+    explicit Client(CefRefPtr<CefBrowser> browser) : browser_(browser) {
       RunDialog();
     }
 
@@ -326,12 +326,12 @@ void EndTracing(CefRefPtr<CefBrowser> browser) {
 
       // Results in a call to OnFileDialogDismissed.
       browser_->GetHost()->RunFileDialog(
-          static_cast<cef_file_dialog_mode_t>(
-              FILE_DIALOG_SAVE | FILE_DIALOG_OVERWRITEPROMPT_FLAG),
+          static_cast<cef_file_dialog_mode_t>(FILE_DIALOG_SAVE |
+                                              FILE_DIALOG_OVERWRITEPROMPT_FLAG),
           CefString(),  // title
           path,
           std::vector<CefString>(),  // accept_filters
-          0,  // selected_accept_filter
+          0,                         // selected_accept_filter
           this);
     }
 
@@ -347,8 +347,7 @@ void EndTracing(CefRefPtr<CefBrowser> browser) {
       }
     }
 
-    void OnEndTracingComplete(
-        const CefString& tracing_file) OVERRIDE {
+    void OnEndTracingComplete(const CefString& tracing_file) OVERRIDE {
       Alert(browser_,
             "File \"" + tracing_file.ToString() + "\" saved successfully.");
     }
@@ -369,11 +368,9 @@ void PrintToPDF(CefRefPtr<CefBrowser> browser) {
     return;
   }
 
-  class Client : public CefPdfPrintCallback,
-                 public CefRunFileDialogCallback {
+  class Client : public CefPdfPrintCallback, public CefRunFileDialogCallback {
    public:
-    explicit Client(CefRefPtr<CefBrowser> browser)
-        : browser_(browser) {
+    explicit Client(CefRefPtr<CefBrowser> browser) : browser_(browser) {
       RunDialog();
     }
 
@@ -388,11 +385,10 @@ void PrintToPDF(CefRefPtr<CefBrowser> browser) {
 
       // Results in a call to OnFileDialogDismissed.
       browser_->GetHost()->RunFileDialog(
-          static_cast<cef_file_dialog_mode_t>(
-              FILE_DIALOG_SAVE | FILE_DIALOG_OVERWRITEPROMPT_FLAG),
+          static_cast<cef_file_dialog_mode_t>(FILE_DIALOG_SAVE |
+                                              FILE_DIALOG_OVERWRITEPROMPT_FLAG),
           CefString(),  // title
-          path,
-          accept_filters,
+          path, accept_filters,
           0,  // selected_accept_filter
           this);
     }
@@ -414,8 +410,8 @@ void PrintToPDF(CefRefPtr<CefBrowser> browser) {
     }
 
     void OnPdfPrintFinished(const CefString& path, bool ok) OVERRIDE {
-      Alert(browser_, "File \"" + path.ToString() +"\" " +
-          (ok ? "saved successfully." : "failed to save."));
+      Alert(browser_, "File \"" + path.ToString() + "\" " +
+                          (ok ? "saved successfully." : "failed to save."));
     }
 
    private:
@@ -435,8 +431,7 @@ void RunOtherTests(CefRefPtr<CefBrowser> browser) {
 //###_START 2
 class RequestDumpResourceProvider : public CefResourceManager::Provider {
  public:
-  explicit RequestDumpResourceProvider(const std::string& url)
-    : url_(url) {
+  explicit RequestDumpResourceProvider(const std::string& url) : url_(url) {
     DCHECK(!url.empty());
   }
 
@@ -450,12 +445,10 @@ class RequestDumpResourceProvider : public CefResourceManager::Provider {
     }
 
     const std::string& dump = DumpRequestContents(request->request());
-    std::string str = "<html><body bgcolor=\"white\"><pre>" + dump +
-                      "</pre></body></html>";
-    CefRefPtr<CefStreamReader> stream =
-        CefStreamReader::CreateForData(
-            static_cast<void*>(const_cast<char*>(str.c_str())),
-            str.size());
+    std::string str =
+        "<html><body bgcolor=\"white\"><pre>" + dump + "</pre></body></html>";
+    CefRefPtr<CefStreamReader> stream = CefStreamReader::CreateForData(
+        static_cast<void*>(const_cast<char*>(str.c_str())), str.size());
     DCHECK(stream.get());
     request->Continue(new CefStreamResourceHandler("text/html", stream));
     return true;
@@ -543,7 +536,7 @@ void RunTest(CefRefPtr<CefBrowser> browser, int id) {
 
   switch (id) {
     case ID_TESTS_GETSOURCE:
-       RunGetSourceTest(browser);
+      RunGetSourceTest(browser);
       break;
     case ID_TESTS_GETTEXT:
       RunGetTextTest(browser);
@@ -605,8 +598,8 @@ std::string DumpRequestContents(CefRefPtr<CefRequest> request) {
     ss << "\nHeaders:";
     CefRequest::HeaderMap::const_iterator it = headerMap.begin();
     for (; it != headerMap.end(); ++it) {
-      ss << "\n\t" << std::string((*it).first) << ": " <<
-          std::string((*it).second);
+      ss << "\n\t" << std::string((*it).first) << ": "
+         << std::string((*it).second);
     }
   }
 
@@ -631,7 +624,7 @@ std::string DumpRequestContents(CefRefPtr<CefRequest> request) {
             char* bytes = new char[size];
             element->GetBytes(size, bytes);
             ss << std::string(bytes, size);
-            delete [] bytes;
+            delete[] bytes;
           }
         } else if (element->GetType() == PDE_TYPE_FILE) {
           ss << "\n\tFile: " << std::string(element->GetFile());
@@ -643,15 +636,17 @@ std::string DumpRequestContents(CefRefPtr<CefRequest> request) {
   return ss.str();
 }
 
-std::string GetDataURI(const std::string& data,
-                       const std::string& mime_type) {
+std::string GetDataURI(const std::string& data, const std::string& mime_type) {
   return "data:" + mime_type + ";base64," +
-      CefURIEncode(CefBase64Encode(data.data(), data.size()), false).ToString();
+         CefURIEncode(CefBase64Encode(data.data(), data.size()), false)
+             .ToString();
 }
 
 std::string GetErrorString(cef_errorcode_t code) {
-  // Case condition that returns |code| as a string.
-  #define CASE(code) case code: return #code
+// Case condition that returns |code| as a string.
+#define CASE(code) \
+  case code:       \
+    return #code
 
   switch (code) {
     CASE(ERR_NONE);
@@ -723,20 +718,20 @@ void SetupResourceManager(CefRefPtr<CefResourceManager> resource_manager) {
 
   // Add provider for resource dumps.
   resource_manager->AddProvider(
-      new RequestDumpResourceProvider(test_origin + "request.html"),
-      0, std::string());
+      new RequestDumpResourceProvider(test_origin + "request.html"), 0,
+      std::string());
 
-  // Add provider for bundled resource files.
+// Add provider for bundled resource files.
 #if defined(OS_WIN)
   // Read resources from the binary.
-  resource_manager->AddProvider(CreateBinaryResourceProvider(test_origin),
-                                100, std::string());
+  resource_manager->AddProvider(CreateBinaryResourceProvider(test_origin), 100,
+                                std::string());
 #elif defined(OS_POSIX)
   // Read resources from a directory on disk.
   std::string resource_dir;
   if (GetResourceDir(resource_dir)) {
-    resource_manager->AddDirectoryProvider(test_origin, resource_dir,
-                                           100, std::string());
+    resource_manager->AddDirectoryProvider(test_origin, resource_dir, 100,
+                                           std::string());
   }
 //###_FIND_NEXT_LANDMARK 3
 #endif

@@ -1,4 +1,4 @@
-# PATCH  D:\projects\cef_binary_3.3029.1619\tests\cefclient\CMakeLists.txt
+# PATCH  D:\projects\cef_binary_3.3071.1634\tests\cefclient\CMakeLists.txt
 # Copyright (c) 2014 The Chromium Embedded Framework Authors. All rights
 # reserved. Use of this source code is governed by a BSD-style license that
 # can be found in the LICENSE file.
@@ -203,6 +203,11 @@ set(CEFCLIENT_MACOSX_BROWSER_SRCS
   browser/browser_window_std_mac.h
   browser/browser_window_std_mac.mm
   browser/main_context_impl_posix.cc
+  browser/osr_accessibility_helper.cc
+  browser/osr_accessibility_helper.h
+  browser/osr_accessibility_node.cc
+  browser/osr_accessibility_node.h
+  browser/osr_accessibility_node_mac.mm
   browser/root_window_mac.h
   browser/root_window_mac.mm
   browser/temp_window_mac.h
@@ -251,6 +256,11 @@ set(CEFCLIENT_WINDOWS_BROWSER_SRCS
   browser/main_context_impl_win.cc
   browser/main_message_loop_multithreaded_win.cc
   browser/main_message_loop_multithreaded_win.h
+  browser/osr_accessibility_helper.cc
+  browser/osr_accessibility_helper.h
+  browser/osr_accessibility_node.cc
+  browser/osr_accessibility_node.h
+  browser/osr_accessibility_node_win.cc
   browser/osr_dragdrop_win.cc
   browser/osr_dragdrop_win.h
   browser/osr_ime_handler_win.cc

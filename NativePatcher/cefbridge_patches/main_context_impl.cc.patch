@@ -1,4 +1,4 @@
-//###_ORIGINAL D:\projects\cef_binary_3.2883.1553\\tests\cefclient\browser//main_context_impl.cc
+//###_ORIGINAL D:\projects\cef_binary_3.3071.1634\tests\cefclient\browser//main_context_impl.cc
 //###_START 0
 #include "tests/shared/common/client_switches.h"
 //###_APPEND_START 0
@@ -22,6 +22,15 @@ main_url_ = kDefaultUrl;
 //###_APPEND_STOP
 //###_SKIP_UNTIL_AND_ACCEPT 3
 use_windowless_rendering_ =
+//###_START 4
+if (command_line_->HasSwitch(switches::kBackgroundColor)) {
+//###_APPEND_START 4
+// Parse the background color value.
+/*background_color_ =
+ParseColor(command_line_->GetSwitchValue(switches::kBackgroundColor));*/
+//###_APPEND_STOP
+//###_SKIP_UNTIL_AND_ACCEPT 4
+}
 //###_START 2
 std::string MainContextImpl::GetConsoleLogPath() {
 //###_APPEND_START 2
@@ -39,10 +48,3 @@ return GetAppWorkingDirectory() + "console.log";
 //###_APPEND_STOP
 //###_SKIP_UNTIL_AND_ACCEPT 2
 }
-//###_START 1
-settings->background_color = background_color_;
-//###_APPEND_START 1
-if (this->myMxCallback_) {
-this->myMxCallback_(CEF_MSG_CefSettings_Init, settings);
-}
-//###_APPEND_STOP

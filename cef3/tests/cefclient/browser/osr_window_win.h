@@ -1,4 +1,4 @@
-//###_ORIGINAL D:\projects\cef_binary_3.3029.1619\tests\cefclient\browser//osr_window_win.h
+//###_ORIGINAL D:\projects\cef_binary_3.3071.1634\tests\cefclient\browser//osr_window_win.h
 // Copyright (c) 2015 The Chromium Embedded Framework Authors. All rights
 // reserved. Use of this source code is governed by a BSD-style license that
 // can be found in the LICENSE file.
@@ -12,21 +12,24 @@
 #include "include/wrapper/cef_closure_task.h"
 #include "include/wrapper/cef_helpers.h"
 #include "tests/cefclient/browser/client_handler_osr.h"
+#include "tests/cefclient/browser/osr_accessibility_node.h"
 #include "tests/cefclient/browser/osr_dragdrop_win.h"
 #include "tests/cefclient/browser/osr_renderer.h"
 
 namespace client {
 
+class OsrAccessibilityHelper;
 class OsrImeHandlerWin;
 
 // Represents the native parent window for an off-screen browser. This object
 // must live on the CEF UI thread in order to handle CefRenderHandler callbacks.
 // The methods of this class are thread-safe unless otherwise indicated.
-class OsrWindowWin :
-    public base::RefCountedThreadSafe<OsrWindowWin, CefDeleteOnUIThread>,
-    public ClientHandlerOsr::OsrDelegate
- #if defined(CEF_USE_ATL)
-    , public OsrDragEvents
+class OsrWindowWin
+    : public base::RefCountedThreadSafe<OsrWindowWin, CefDeleteOnUIThread>,
+      public ClientHandlerOsr::OsrDelegate
+#if defined(CEF_USE_ATL)
+      ,
+      public OsrDragEvents
 #endif
 {
  public:
@@ -42,8 +45,7 @@ class OsrWindowWin :
   };
 
   // |delegate| must outlive this object.
-  OsrWindowWin(Delegate* delegate,
-               const OsrRenderer::Settings& settings);
+  OsrWindowWin(Delegate* delegate, const OsrRenderer::Settings& settings);
 
   // Create a new browser and native window.
   void CreateBrowser(HWND parent_hwnd,
@@ -52,7 +54,7 @@ class OsrWindowWin :
                      const CefBrowserSettings& settings,
                      CefRefPtr<CefRequestContext> request_context,
                      const std::string& startup_url);
-  
+
   // Show the popup window with correct parent and bounds in parent coordinates.
   void ShowPopup(HWND parent_hwnd, int x, int y, size_t width, size_t height);
 
@@ -88,9 +90,10 @@ bool closing1_;
 
   void NotifyNativeWindowCreated(HWND hwnd);
 
-  static void RegisterOsrClass(HINSTANCE hInstance,
-                               HBRUSH background_brush);
-  static LRESULT CALLBACK OsrWndProc(HWND hWnd, UINT message, WPARAM wParam,
+  static void RegisterOsrClass(HINSTANCE hInstance, HBRUSH background_brush);
+  static LRESULT CALLBACK OsrWndProc(HWND hWnd,
+                                     UINT message,
+                                     WPARAM wParam,
                                      LPARAM lParam);
 
   // WndProc message handlers.
@@ -116,10 +119,8 @@ bool closing1_;
   // ClientHandlerOsr::OsrDelegate methods.
   void OnAfterCreated(CefRefPtr<CefBrowser> browser) OVERRIDE;
   void OnBeforeClose(CefRefPtr<CefBrowser> browser) OVERRIDE;
-  bool GetRootScreenRect(CefRefPtr<CefBrowser> browser,
-                         CefRect& rect) OVERRIDE;
-  bool GetViewRect(CefRefPtr<CefBrowser> browser,
-                   CefRect& rect) OVERRIDE;
+  bool GetRootScreenRect(CefRefPtr<CefBrowser> browser, CefRect& rect) OVERRIDE;
+  bool GetViewRect(CefRefPtr<CefBrowser> browser, CefRect& rect) OVERRIDE;
   bool GetScreenPoint(CefRefPtr<CefBrowser> browser,
                       int viewX,
                       int viewY,
@@ -128,8 +129,7 @@ bool closing1_;
   bool GetScreenInfo(CefRefPtr<CefBrowser> browser,
                      CefScreenInfo& screen_info) OVERRIDE;
   void OnPopupShow(CefRefPtr<CefBrowser> browser, bool show) OVERRIDE;
-  void OnPopupSize(CefRefPtr<CefBrowser> browser,
-                   const CefRect& rect) OVERRIDE;
+  void OnPopupSize(CefRefPtr<CefBrowser> browser, const CefRect& rect) OVERRIDE;
   void OnPaint(CefRefPtr<CefBrowser> browser,
                CefRenderHandler::PaintElementType type,
                const CefRenderHandler::RectList& dirtyRects,
@@ -143,7 +143,8 @@ bool closing1_;
   bool StartDragging(CefRefPtr<CefBrowser> browser,
                      CefRefPtr<CefDragData> drag_data,
                      CefRenderHandler::DragOperationsMask allowed_ops,
-                     int x, int y) OVERRIDE;
+                     int x,
+                     int y) OVERRIDE;
   void UpdateDragCursor(CefRefPtr<CefBrowser> browser,
                         CefRenderHandler::DragOperation operation) OVERRIDE;
   void OnImeCompositionRangeChanged(
@@ -151,16 +152,20 @@ bool closing1_;
       const CefRange& selection_range,
       const CefRenderHandler::RectList& character_bounds) OVERRIDE;
 
+  void UpdateAccessibilityTree(CefRefPtr<CefValue> value);
+
 #if defined(CEF_USE_ATL)
   // OsrDragEvents methods.
   CefBrowserHost::DragOperationsMask OnDragEnter(
       CefRefPtr<CefDragData> drag_data,
       CefMouseEvent ev,
       CefBrowserHost::DragOperationsMask effect) OVERRIDE;
-  CefBrowserHost::DragOperationsMask OnDragOver(CefMouseEvent ev,
+  CefBrowserHost::DragOperationsMask OnDragOver(
+      CefMouseEvent ev,
       CefBrowserHost::DragOperationsMask effect) OVERRIDE;
   void OnDragLeave() OVERRIDE;
-  CefBrowserHost::DragOperationsMask OnDrop(CefMouseEvent ev,
+  CefBrowserHost::DragOperationsMask OnDrop(
+      CefMouseEvent ev,
       CefBrowserHost::DragOperationsMask effect) OVERRIDE;
 #endif  // defined(CEF_USE_ATL)
 
@@ -184,6 +189,11 @@ bool closing1_;
 #if defined(CEF_USE_ATL)
   CComPtr<DropTargetWin> drop_target_;
   CefRenderHandler::DragOperation current_drag_op_;
+
+  // Class that abstracts the accessibility information received from the
+  // renderer.
+  scoped_ptr<OsrAccessibilityHelper> accessibility_handler_;
+  IAccessible* accessibility_root_;
 #endif
 
   bool painting_popup_;

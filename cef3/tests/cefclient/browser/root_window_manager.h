@@ -1,4 +1,4 @@
-//###_ORIGINAL D:\projects\cef_binary_3.3029.1619\tests\cefclient\browser//root_window_manager.h
+//###_ORIGINAL D:\projects\cef_binary_3.3071.1634\tests\cefclient\browser//root_window_manager.h
 // Copyright (c) 2015 The Chromium Embedded Framework Authors. All rights
 // reserved. Use of this source code is governed by a BSD-style license that
 // can be found in the LICENSE file.
@@ -33,11 +33,10 @@ class RootWindowManager : public RootWindow::Delegate {
   // If |with_osr| is true the window will use off-screen rendering.
   // If |bounds| is empty the default window size and location will be used.
   // This method can be called from anywhere to create a new top-level window.
-  scoped_refptr<RootWindow> CreateRootWindow(
-      bool with_controls,
-      bool with_osr,
-      const CefRect& bounds,
-      const std::string& url);
+  scoped_refptr<RootWindow> CreateRootWindow(bool with_controls,
+                                             bool with_osr,
+                                             const CefRect& bounds,
+                                             const std::string& url);
 
   // Create a new native popup window.
   // If |with_controls| is true the window will show controls.
@@ -87,7 +86,7 @@ managed_callback myMxCallback_;
   bool request_context_shared_cache_;
 
   // Existing root windows. Only accessed on the main thread.
-  typedef std::set<scoped_refptr<RootWindow> > RootWindowSet;
+  typedef std::set<scoped_refptr<RootWindow>> RootWindowSet;
   RootWindowSet root_windows_;
 
   // Singleton window used as the temporary parent for popup browsers.

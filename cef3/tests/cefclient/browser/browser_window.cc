@@ -1,4 +1,4 @@
-//###_ORIGINAL D:\projects\cef_binary_3.3029.1619\tests\cefclient\browser//browser_window.cc
+//###_ORIGINAL D:\projects\cef_binary_3.3071.1634\tests\cefclient\browser//browser_window.cc
 // Copyright (c) 2015 The Chromium Embedded Framework Authors. All rights
 // reserved. Use of this source code is governed by a BSD-style license that
 // can be found in the LICENSE file.
@@ -11,13 +11,11 @@
 namespace client {
 
 BrowserWindow::BrowserWindow(Delegate* delegate)
-    : delegate_(delegate),
-      is_closing_(false) {
+    : delegate_(delegate), is_closing_(false) {
   DCHECK(delegate_);
 }
 
-void BrowserWindow::SetDeviceScaleFactor(float device_scale_factor) {
-}
+void BrowserWindow::SetDeviceScaleFactor(float device_scale_factor) {}
 
 float BrowserWindow::GetDeviceScaleFactor() const {
   return 1.0f;
@@ -84,7 +82,7 @@ void BrowserWindow::OnSetLoadingState(bool isLoading,
 }
 
 void BrowserWindow::OnSetDraggableRegions(
-      const std::vector<CefDraggableRegion>& regions) {
+    const std::vector<CefDraggableRegion>& regions) {
   REQUIRE_MAIN_THREAD();
 //###_START 0
   delegate_->OnSetDraggableRegions(regions);
