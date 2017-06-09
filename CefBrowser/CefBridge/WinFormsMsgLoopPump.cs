@@ -1,7 +1,7 @@
-﻿//2016, MIT, WinterDev
+﻿//MIT, 2016, WinterDev, brezza92, EngineKit
 
-using System; 
-using System.Windows.Forms; 
+using System;
+using System.Windows.Forms;
 namespace LayoutFarm.CefBridge
 {
     static class WinFormCefMsgLoopPump
@@ -14,7 +14,7 @@ namespace LayoutFarm.CefBridge
         {
             if (tinyForm == null)
             {
-                tinyForm = new System.Windows.Forms.Form();
+                tinyForm = new Form();
                 tinyForm.Size = new System.Drawing.Size(10, 10);
                 tinyForm.Visible = false;
             }
@@ -26,22 +26,30 @@ namespace LayoutFarm.CefBridge
             //this is CefMsgLoopPump implementation
             //it should not too fast or too slow to call  
             bool appIsIdel = true;
+            bool looping1 = false;
             loopTimer.Interval = 30;//30fps
             loopTimer.Tick += (s, e) =>
             {
                 if (appIsIdel)
                 {
+                    looping1 = true;
+                    appIsIdel = false;
                     for (int i = 10; i >= 0; --i)
                     {
                         MyCef3InitEssential.CefDoMessageLoopWork();
+
                     }
-                    appIsIdel = false;
+
+                    looping1 = false;
                 }
             };
 
             Application.Idle += (s, e) =>
             {
-                appIsIdel = true;
+                if (!looping1)
+                {
+                    appIsIdel = true;
+                }
             };
 
             loopTimer.Enabled = true;

@@ -1,7 +1,7 @@
 ﻿//2015-2016 MIT, WinterDev
 
 using System;
-using System.Collections.Generic; 
+using System.Collections.Generic;
 namespace LayoutFarm.CefBridge
 {
     public class MyCefBrowser
@@ -25,7 +25,7 @@ namespace LayoutFarm.CefBridge
             this.currentUrl = initUrl;
             //create cef browser view handler  
             this.parentControl = parentControl;
-            this.topForm = (IWindowForm)parentControl.GetTopLevelControl();
+            this.topForm = parentControl.GetTopLevelControl() as IWindowForm;
             //ui process ***
             this.managedCallback = new MyCefCallback(this.MxCallBack);
             //for specific browser
