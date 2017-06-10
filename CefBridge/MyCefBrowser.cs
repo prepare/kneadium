@@ -1,10 +1,7 @@
-﻿//2015-2016 MIT, WinterDev
+﻿//MIT, 2015-2017, WinterDev
 
 using System;
 using System.Collections.Generic;
-using System.Text;
-using System.Runtime.InteropServices;
-using System.IO;
 namespace LayoutFarm.CefBridge
 {
     public class MyCefBrowser
@@ -28,7 +25,7 @@ namespace LayoutFarm.CefBridge
             this.currentUrl = initUrl;
             //create cef browser view handler  
             this.parentControl = parentControl;
-            this.topForm = (IWindowForm)parentControl.GetTopLevelControl();
+            this.topForm = parentControl.GetTopLevelControl() as IWindowForm;
             //ui process ***
             this.managedCallback = new MyCefCallback(this.MxCallBack);
             //for specific browser
@@ -273,7 +270,8 @@ namespace LayoutFarm.CefBridge
                             cefOsrListener.OnRender(args);
                         }
 
-                    } break;
+                    }
+                    break;
             }
         }
         void LoadErrorPage(IntPtr cefBw, IntPtr cefFrame, int errorCode, string errorText, string failedUrl)
@@ -436,17 +434,26 @@ namespace LayoutFarm.CefBridge
         }
         static void cefBrowserControl_Disposed(object sender, EventArgs e)
         {
-            //web browser control is dispose
-            MyCefBrowser wb = (MyCefBrowser)sender;
-            List<MyCefBrowser> wblist;
-            IWindowForm winHandle = wb.ParentForm;
-            if (registerTopWindowForms.TryGetValue(winHandle, out wblist))
+            //web browser control is disposed 
+            //TODO: review here 
+            MyCefBrowser wb = sender as MyCefBrowser;
+            if (wb != null)
             {
-                lock (sync_remove)
+                IWindowForm winHandle = wb.ParentForm;
+                List<MyCefBrowser> wblist;
+                if (registerTopWindowForms.TryGetValue(winHandle, out wblist))
                 {
-                    wblist.Remove(wb);
+                    lock (sync_remove)
+                    {
+                        wblist.Remove(wb);
+                    }
                 }
             }
+            else
+            {
+                throw new NotSupportedException();
+            }
+
         }
         public static bool IsReadyToClose(IWindowForm winForm)
         {
