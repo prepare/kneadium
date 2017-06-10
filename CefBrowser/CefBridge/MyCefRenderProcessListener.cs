@@ -1,8 +1,6 @@
-﻿//2016, MIT, WinterDev
+﻿//MIT, 2016-2017, WinterDev
 
-using System;
-using System.Text;
-using System.Windows.Forms;
+using System; 
  
 namespace LayoutFarm.CefBridge
 {

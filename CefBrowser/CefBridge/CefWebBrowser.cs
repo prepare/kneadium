@@ -118,13 +118,13 @@ namespace LayoutFarm.CefBridge
         {
             //test output
             int n = 0;
-            
+
             public override void OnRender(NativeCallArgs args)
             {
                 //if not set to 0
                 //images not render to native cef win                 
-                
-                return;
+
+                return; //just return
                 if (n > 100) return;
                 //----------------------
 
@@ -136,15 +136,13 @@ namespace LayoutFarm.CefBridge
                 {
                     using (Bitmap bmp = new Bitmap(width, height))
                     {
-
                         var bmpdata = bmp.LockBits(
                             new Rectangle(0, 0, width, height),
                             System.Drawing.Imaging.ImageLockMode.ReadWrite,
                             System.Drawing.Imaging.PixelFormat.Format32bppRgb);
                         CopyMemory(bmpdata.Scan0, rawBitBuffer, width * height * 4);
                         bmp.UnlockBits(bmpdata);
-                        bmp.Save("d:\\WImageTest\\snap02" + (n++) + ".jpg");
-
+                        bmp.Save(ReferencePaths.SAVE_IMAGE_PATH + (n++) + ".jpg");
                     }
                 }
             }

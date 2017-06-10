@@ -1,4 +1,4 @@
-﻿//2015-2016 MIT, WinterDev
+﻿//MIT, 2015-2017, WinterDev
 
 namespace LayoutFarm.CefBridge
 {
