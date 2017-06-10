@@ -1,4 +1,4 @@
-﻿//2015-2016 MIT, WinterDev
+﻿//MIT, 2015-2017, WinterDev
 
 using System;
 namespace LayoutFarm.CefBridge
@@ -83,14 +83,15 @@ namespace LayoutFarm.CefBridge
                     {
 
                         NativeCallArgs nat1 = new NativeCallArgs(argsPtr);
-                        nat1.SetOutputAsAsciiString(0, "d:\\WImageTest\\cef_console.log");
+                        nat1.SetOutputAsAsciiString(0, ReferencePaths.LOG_PATH);
                     }
                     break;
                 case MyCefMsg.CEF_MSG_OSR_Render:
                     {
                         //not visit here?
 
-                    } break;
+                    }
+                    break;
                 case MyCefMsg.CEF_MSG_RenderDelegate_OnContextCreated:
                     {
                         //client app callback
@@ -138,9 +139,9 @@ namespace LayoutFarm.CefBridge
 
         protected void InitCefSettings(CefSettings cefSettings)
         {
-#if DEBUG
-            cefSettings.SetCachePath("d:\\WImageTest\\cef_cache");
-#endif
+
+            cefSettings.SetSubProcessPath(ReferencePaths.SUB_PROCESS_PATH);
+            cefSettings.SetCachePath(ReferencePaths.CACHE_PATH);
         }
     }
 }

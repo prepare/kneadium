@@ -67,6 +67,9 @@
     <Compile Include="..\..\CefBridge\NativeCefObjects.cs">
       <Link>NativeCefObjects.cs</Link>
     </Compile>
+    <Compile Include="..\..\CefBridge\ReferencePaths.cs">
+      <Link>ReferencePaths.cs</Link>
+    </Compile>
     <Compile Include="..\..\CefBridge\WindowWrapper.cs">
       <Link>WindowWrapper.cs</Link>
     </Compile>

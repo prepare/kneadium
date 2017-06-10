@@ -1,7 +1,8 @@
-﻿//2015-2016 MIT, WinterDev
+﻿//MIT, 2015-2017, WinterDev
 
 using System;
 using System.Windows.Forms;
+
 namespace LayoutFarm.CefBridge
 {
     static class Program
@@ -12,6 +13,13 @@ namespace LayoutFarm.CefBridge
         [STAThread]
         static void Main(string[] args)
         {
+
+#if DEBUG
+            if (System.IO.Directory.Exists(ReferencePaths.OUTPUT_DIR))
+            {
+
+            }
+#endif  
             //1. load cef before OLE init (eg init winform) ***
             //see more detail ...  MyCef3InitEssential
             if (!MyCef3InitEssential.LoadAndInitCef3(args))

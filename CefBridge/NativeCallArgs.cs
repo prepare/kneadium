@@ -1,4 +1,4 @@
-﻿//2015-2016 MIT, WinterDev
+﻿//MIT, 2015-2017, WinterDev
 
 using System;
 using System.Collections.Generic;
@@ -221,6 +221,10 @@ namespace LayoutFarm.CefBridge
         public void SetCachePath(string value)
         {
             Cef3Binder.MyCefSetInitSettings(this.nativePtr, (int)CefSettingsKey.CEF_SETTINGS_CachePath, value);
+        }
+        public void SetSubProcessPath(string value)
+        {
+            Cef3Binder.MyCefSetInitSettings(this.nativePtr, (int)CefSettingsKey.CEF_SETTINGS_BrowserSubProcessPath, value);
         }
 
     }
