@@ -1,9 +1,7 @@
 ﻿//2016, MIT, WinterDev
 
 using System;
-using System.Text;
-using System.Windows.Forms;
-using LayoutFarm.CefBridge;
+using System.Text; 
 using System.IO;
 using System.Runtime.InteropServices;
 namespace LayoutFarm.CefBridge

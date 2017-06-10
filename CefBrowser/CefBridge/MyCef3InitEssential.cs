@@ -2,9 +2,9 @@
 
 using System;
 using System.Text;
-using System.Windows.Forms;
-using LayoutFarm.CefBridge;
+using System.Windows.Forms; 
 using System.Collections.Generic;
+
 namespace LayoutFarm.CefBridge
 {
     /// <summary>
@@ -32,31 +32,9 @@ namespace LayoutFarm.CefBridge
         {
             //must check proper location of libcef, cefclient dir 
             if (libpath == null)
-            {
+            { 
 
-#if DEBUG
-
-                //libPath = @"D:\projects\CefBridge\cef3_output\cefclient\Debug";
-                //libPath = @"D:\projects\cef_3.2704output\cefclient\Debug"; //3.2704
-                //libPath = @"D:\projects\CefBridge\cef3_2704output\cefclient\Debug"; 
-                //libPath = @"D:\projects\cef_binary_3.2785.1466output\cefclient\Debug";
-                //libPath = @"D:\projects\cef_binary_3.2883.1548output\tests\cefclient\Debug";
-                //libPath = @"D:\WImageTest\Release2";//test load from other location
-                //libPath = @"D:\projects\cef_binary_3.2883.1553output\tests\cefclient\Debug";
-                //libPath = @"D:\projects\cef_binary_3.3029.1619_build\tests\cefclient\Debug";
-                libPath = @"D:\projects\cef_binary_3.3071.1634output\tests\cefclient\Debug";
-
-#else
-                //libPath = @"D:\projects\cef_binary_3.2785.1466output\cefclient\Release";
-                //libPath = @"D:\projects\cef_binary_3.2883.1548output\tests\cefclient\Release";
-                libPath = @"D:\projects\cef_binary_3.2883.1548output\tests\cefclient\Release";
-                libPath = @"D:\projects\cef_binary_3.2883.1553output\tests\cefclient\Release";
-                libPath = @"D:\projects\cef_binary_3.3029.1619_build\tests\cefclient\Release";
-
-#endif
-                //libPath = @"D:\projects\cef_binary_3.3029.1619_build\tests\cefclient\Release";
-                libPath = @"D:\projects\cef_binary_3.3071.1634output\tests\cefclient\Release";
-
+                libPath = ReferencePaths.LIB_PATH;
             }
             else
             {

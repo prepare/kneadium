@@ -1,4 +1,4 @@
-﻿//2016, MIT, WinterDev
+﻿//MIT, 2016, WinterDev, brezza92, EngineKit
 
 using System;
 using System.Collections.Generic;
@@ -6,7 +6,7 @@ using System.Windows.Forms;
 namespace LayoutFarm.CefBridge
 {
 
-    class MyWindowControl : IWindowControl
+    public class MyWindowControl : IWindowControl
     {
         Control control;
         MyWindowControl topLevelWindowControl;
@@ -47,6 +47,15 @@ namespace LayoutFarm.CefBridge
         {
             //TODO: review here again
             Control realTopLevelWindowControl = control.TopLevelControl;
+
+            ///MoonTrip version
+            ///for use in extensions custom tool
+            ///Form in ToolWindow is can not top level
+            ///create some fake Form to TopLevelControl
+            if (realTopLevelWindowControl == null)
+            {
+                realTopLevelWindowControl = new Form();
+            }
             if (topLevelWindowControl == null ||
                 topLevelWindowControl.control != realTopLevelWindowControl)
             {
@@ -94,23 +103,22 @@ namespace LayoutFarm.CefBridge
         }
     }
 
-    class MyWindowForm : MyWindowControl, IWindowForm
+    public class MyWindowForm : MyWindowControl, IWindowForm
     {
-        Form form;
+        Form myForm;
         Timer tmClosingCheck;
         bool startClosing;
-        private MyWindowForm(Form form)
+        private MyWindowForm(Form myForm)
         {
-            this.form = form;
-            SetInnerControl(form);
+            this.myForm = myForm;
+            SetInnerControl(myForm);
             //not enable when start
 
             tmClosingCheck = new Timer();
             tmClosingCheck.Interval = 200;
             tmClosingCheck.Tick += TmClosingCheck_Tick;
-
-            form.FormClosing += Form_FormClosing;
-            form.FormClosed += Form_FormClosed;
+            myForm.FormClosing += Form_FormClosing;
+            myForm.FormClosed += Form_FormClosed;
         }
         void Form_FormClosed(object sender, FormClosedEventArgs e)
         {
@@ -122,7 +130,7 @@ namespace LayoutFarm.CefBridge
             if (MyCefBrowser.IsReadyToClose(this))
             {
                 tmClosingCheck.Enabled = false;
-                form.Close();
+                myForm.Close();
                 //we not dispose here
             }
         }
@@ -143,7 +151,7 @@ namespace LayoutFarm.CefBridge
                 //this is 1st time we start close
                 startClosing = closing = true;
                 e.Cancel = true;
-                formHandle = form.Handle;
+                formHandle = myForm.Handle;
                 MyCefBrowser.DisposeAllChildWebBrowserControls(this);
                 tmClosingCheck.Enabled = true;
             }
@@ -152,25 +160,25 @@ namespace LayoutFarm.CefBridge
 
         void IWindowForm.Close()
         {
-            this.form.Close();
+            this.myForm.Close();
         }
         string IWindowForm.Text
         {
-            get { return form.Text; }
+            get { return myForm.Text; }
             set
             {
-                form.Text = value;
+                myForm.Text = value;
             }
         }
         static Dictionary<Form, MyWindowForm> registerControls = new Dictionary<Form, MyWindowForm>();
-        public static IWindowForm TryGetWindowFormOrRegisterIfNotExists(Form form)
+        public static IWindowForm TryGetWindowFormOrRegisterIfNotExists(Form uControl)
         {
             MyWindowForm myWinForm;
-            if (!registerControls.TryGetValue(form, out myWinForm))
+            if (!registerControls.TryGetValue(uControl, out myWinForm))
             {
                 //register new one
-                myWinForm = new MyWindowForm(form);
-                registerControls.Add(form, myWinForm);
+                myWinForm = new MyWindowForm(uControl);
+                registerControls.Add(uControl, myWinForm);
             }
             return myWinForm;
         }
