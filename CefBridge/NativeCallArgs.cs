@@ -224,7 +224,7 @@ namespace LayoutFarm.CefBridge
         }
         public void SetSubProcessPath(string value)
         {
-            Cef3Binder.MyCefSetInitSettings(this.nativePtr, (int)CefSettingsKey.CEF_SETTINGS_BrowserSubProcessPath, value);
+           Cef3Binder.MyCefSetInitSettings(this.nativePtr, (int)CefSettingsKey.CEF_SETTINGS_BrowserSubProcessPath, value);
         }
 
     }
