@@ -147,11 +147,17 @@ bool MainContextImpl::UseWindowlessRendering() {
 
 //###_START 1
 void MainContextImpl::PopulateSettings(CefSettings* settings) {
+//###_APPEND_START 1
+	if (this->myMxCallback_) {
+		this->myMxCallback_(CEF_MSG_CefSettings_Init, settings);
+	}
+//###_APPEND_STOP
+
 #if defined(OS_WIN)
   settings->multi_threaded_message_loop =
       command_line_->HasSwitch(switches::kMultiThreadedMessageLoop);
 #endif
-
+   
   if (!settings->multi_threaded_message_loop) {
     settings->external_message_pump =
         command_line_->HasSwitch(switches::kExternalMessagePump);
@@ -163,15 +169,8 @@ void MainContextImpl::PopulateSettings(CefSettings* settings) {
   if (use_windowless_rendering_)
     settings->windowless_rendering_enabled = true;
 
-  if (browser_background_color_ != 0)
-//###_FIND_NEXT_LANDMARK 1
-    settings->background_color = browser_background_color_;
-//###_APPEND_START 1
-  if (this->myMxCallback_) {
-	  this->myMxCallback_(CEF_MSG_CefSettings_Init, settings);
-  }
-//###_APPEND_STOP
-
+  if (browser_background_color_ != 0) 
+    settings->background_color = browser_background_color_; 
 }
 
 void MainContextImpl::PopulateBrowserSettings(CefBrowserSettings* settings) {
