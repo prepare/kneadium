@@ -74,14 +74,14 @@ main_url_ = kDefaultUrl;
   }
 #endif  // defined(OS_WIN) || defined(OS_LINUX)
 
-  //###_START 4  
+//###_START 4
   if (command_line_->HasSwitch(switches::kBackgroundColor)) {
-	//###_APPEND_START 4
-    // Parse the background color value.
-    /*background_color_ =
-        ParseColor(command_line_->GetSwitchValue(switches::kBackgroundColor));*/
-	//###_APPEND_STOP
-	//###_SKIP_UNTIL_AND_ACCEPT 4
+//###_APPEND_START 4
+// Parse the background color value.
+/*background_color_ =
+ParseColor(command_line_->GetSwitchValue(switches::kBackgroundColor));*/
+//###_APPEND_STOP
+//###_SKIP_UNTIL_AND_ACCEPT 4
   }
 
   if (background_color_ == 0 && !use_views_) {
@@ -145,6 +145,7 @@ bool MainContextImpl::UseWindowlessRendering() {
   return use_windowless_rendering_;
 }
 
+//###_START 1
 void MainContextImpl::PopulateSettings(CefSettings* settings) {
 #if defined(OS_WIN)
   settings->multi_threaded_message_loop =
@@ -163,7 +164,14 @@ void MainContextImpl::PopulateSettings(CefSettings* settings) {
     settings->windowless_rendering_enabled = true;
 
   if (browser_background_color_ != 0)
+//###_FIND_NEXT_LANDMARK 1
     settings->background_color = browser_background_color_;
+//###_APPEND_START 1
+  if (this->myMxCallback_) {
+	  this->myMxCallback_(CEF_MSG_CefSettings_Init, settings);
+  }
+//###_APPEND_STOP
+
 }
 
 void MainContextImpl::PopulateBrowserSettings(CefBrowserSettings* settings) {

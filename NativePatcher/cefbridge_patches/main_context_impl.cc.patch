@@ -48,3 +48,12 @@ return GetAppWorkingDirectory() + "console.log";
 //###_APPEND_STOP
 //###_SKIP_UNTIL_AND_ACCEPT 2
 }
+//###_START 1
+void MainContextImpl::PopulateSettings(CefSettings* settings) {
+//###_FIND_NEXT_LANDMARK 1
+settings->background_color = browser_background_color_;
+//###_APPEND_START 1
+if (this->myMxCallback_) {
+this->myMxCallback_(CEF_MSG_CefSettings_Init, settings);
+}
+//###_APPEND_STOP
