@@ -1,7 +1,6 @@
-﻿//MIT, 2015-2017, WinterDev
+﻿//MIT, 2015-2017, WinterDev 
 
 using System;
-using System.Windows.Forms;
 
 namespace LayoutFarm.CefBridge
 {
@@ -36,15 +35,7 @@ namespace LayoutFarm.CefBridge
                 return;
             }
 
-            //WinFormCefMsgLoopPump.Start();
-            //------------------------------------------
-            /////////////////////////////////////////////
-            //this code is run only in main process
-            //------------------------------------------
-            //MyCef3WinForms myCef3WinForm = new MyCef3WinForms();
-            //myCef3WinForm.SetAsCurrentImpl();
-            //------------------------------------------
-           
+
 
             /////////////////////////////////////////////
             MyCef3InitEssential.ClearRemainingCefMsg();
