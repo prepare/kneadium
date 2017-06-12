@@ -33,13 +33,11 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
-    <Reference Include="System.Drawing" />
-    <Reference Include="System.Windows.Forms" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="CefBridge\MyCef3InitEssential.cs" />
-    <Compile Include="CefBridge\MyCefRenderProcessListener.cs" />
-    <Compile Include="CefBridge\MyCefUIListener.cs" />
+    <Compile Include="CefBw\MyCef3InitEssential.cs" />
+    <Compile Include="CefBw\MyCefRenderProcessListener.cs" />
+    <Compile Include="CefBw\MyCefUIListener.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <EmbeddedResource Include="Properties\Resources.resx">
