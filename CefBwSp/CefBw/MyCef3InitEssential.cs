@@ -1,6 +1,6 @@
 ﻿//MIT, 2016-2017, WinterDev
 
-using System; 
+using System;
 using System.Collections.Generic;
 
 namespace LayoutFarm.CefBridge
@@ -30,7 +30,7 @@ namespace LayoutFarm.CefBridge
         {
             //must check proper location of libcef, cefclient dir 
             if (libpath == null)
-            { 
+            {
 
                 libPath = ReferencePaths.LIB_PATH;
             }
@@ -68,8 +68,8 @@ namespace LayoutFarm.CefBridge
         {
             return libPath + "\\chrome_elf.dll";
         }
-       
-        
+
+
         public override void AfterProcessLoaded(CefStartArgs cefStartArg)
         {
             //if (Cef3InitEssential.IsInRenderProcess)
@@ -121,7 +121,7 @@ namespace LayoutFarm.CefBridge
             //Application.EnableVisualStyles();
             //Application.SetCompatibleTextRenderingDefault(false);
             //------------------------------------------------- 
-            
+
         }
         protected override void OnAfterShutdown()
         {
