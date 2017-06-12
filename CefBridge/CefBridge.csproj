@@ -36,6 +36,7 @@
   <ItemGroup>
     <Compile Include="Cef3Binder.cs" />
     <Compile Include="Cef3InitEssential.cs" />
+    <Compile Include="Cef3WinForms.cs" />
     <Compile Include="CefListeners.cs" />
     <Compile Include="CefStartArgs.cs" />
     <Compile Include="ClientApp.cs" />

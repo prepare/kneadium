@@ -101,24 +101,26 @@ namespace LayoutFarm.CefBridge
     static class Cef3Binder
     {
         static Cef3InitEssential cefInitEssential;
+        
         const string CEF_CLIENT_DLL = "cefclient.dll";
 #if DEBUG
         public static bool s_dbugIsRendererProcess;
-#endif 
-      
+#endif
+
         static CefClientApp clientApp;
         static CustomSchemeAgent customScheme;
+
         public static IWindowForm CreateBlankForm(int width, int height)
-        {
-            return cefInitEssential.CreateNewWindow(width, height);
+        { 
+            return Cef3WinForms.s_currentImpl.CreateNewWindow(width, height);
         }
         public static IWindowForm CreateNewBrowserWindow(int width, int height)
         {
-            return cefInitEssential.CreateNewBrowserWindow(width, height);
+            return Cef3WinForms.s_currentImpl.CreateNewBrowserWindow(width, height);
         }
         public static void SafeUIInvoke(SimpleDel del)
         {
-            cefInitEssential.SaveUIInvoke(del);
+            Cef3WinForms.s_currentImpl.SaveUIInvoke(del);
         }
 
         public static bool LoadCef3(Cef3InitEssential cefInitEssential)
@@ -169,7 +171,7 @@ namespace LayoutFarm.CefBridge
             clientApp = cefInitEssential.CreateClientApp(); // System.Diagnostics.Process.GetCurrentProcess().Handle);
             return true;
         }
-
+         
         static bool LoadNativeLibs(Cef3InitEssential initEssential)
         {
 
@@ -192,7 +194,7 @@ namespace LayoutFarm.CefBridge
             //}
             //Console.WriteLine(lib);
             int tryLoadCount = 0;
-        TRY_AGAIN:
+            TRY_AGAIN:
             uint lastErr = 0;
             IntPtr libCefModuleHandler = NativeMethods.LoadLibrary(lib);
             //Console.WriteLine(libCefModuleHandler);
@@ -230,7 +232,7 @@ namespace LayoutFarm.CefBridge
             }
             return true;
         }
-       
+
         //---------------------------------------------------
         //Cef
         //---------------------------------------------------
