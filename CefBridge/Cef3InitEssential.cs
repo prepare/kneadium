@@ -1,6 +1,6 @@
 ﻿//MIT, 2015-2017, WinterDev
 
-using System;
+ 
 namespace LayoutFarm.CefBridge
 {
     public abstract class Cef3InitEssential
@@ -12,9 +12,8 @@ namespace LayoutFarm.CefBridge
         }
         public abstract void AfterProcessLoaded(CefStartArgs args);
         public abstract CefClientApp CreateClientApp();
-        public abstract IWindowForm CreateNewWindow(int width, int height);
-        public abstract IWindowForm CreateNewBrowserWindow(int width, int height);
-        public abstract void SaveUIInvoke(SimpleDel simpleDel);
+        
+        
 
         public void Shutdown()
         {
@@ -71,8 +70,7 @@ namespace LayoutFarm.CefBridge
         public static bool IsInMainProcess
         {
             get;
-            internal set;
-
+            internal set; 
         }
     }
 }
