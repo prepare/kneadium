@@ -35,9 +35,47 @@
     <Reference Include="System" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="..\CefBridge\Cef3Binder.cs">
+      <Link>CefBridge\Cef3Binder.cs</Link>
+    </Compile>
+    <Compile Include="..\CefBridge\Cef3InitEssential.cs">
+      <Link>CefBridge\Cef3InitEssential.cs</Link>
+    </Compile>
+    <Compile Include="..\CefBridge\Cef3WinForms.cs">
+      <Link>CefBridge\Cef3WinForms.cs</Link>
+    </Compile>
+    <Compile Include="..\CefBridge\CefListeners.cs">
+      <Link>CefBridge\CefListeners.cs</Link>
+    </Compile>
+    <Compile Include="..\CefBridge\CefStartArgs.cs">
+      <Link>CefBridge\CefStartArgs.cs</Link>
+    </Compile>
+    <Compile Include="..\CefBridge\ClientApp.cs">
+      <Link>CefBridge\ClientApp.cs</Link>
+    </Compile>
+    <Compile Include="..\CefBridge\CustomSchemeAgent.cs">
+      <Link>CefBridge\CustomSchemeAgent.cs</Link>
+    </Compile>
+    <Compile Include="..\CefBridge\MyCefBrowser.cs">
+      <Link>CefBridge\MyCefBrowser.cs</Link>
+    </Compile>
+    <Compile Include="..\CefBridge\MyCefDevWindow.cs">
+      <Link>CefBridge\MyCefDevWindow.cs</Link>
+    </Compile>
+    <Compile Include="..\CefBridge\NativeCallArgs.cs">
+      <Link>CefBridge\NativeCallArgs.cs</Link>
+    </Compile>
+    <Compile Include="..\CefBridge\NativeCefObjects.cs">
+      <Link>CefBridge\NativeCefObjects.cs</Link>
+    </Compile>
+    <Compile Include="..\CefBridge\ReferencePaths.cs">
+      <Link>CefBridge\ReferencePaths.cs</Link>
+    </Compile>
+    <Compile Include="..\CefBridge\WindowWrapper.cs">
+      <Link>CefBridge\WindowWrapper.cs</Link>
+    </Compile>
     <Compile Include="CefBw\MyCef3InitEssential.cs" />
     <Compile Include="CefBw\MyCefRenderProcessListener.cs" />
-    <Compile Include="CefBw\MyCefUIListener.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <EmbeddedResource Include="Properties\Resources.resx">
@@ -59,12 +97,6 @@
       <DependentUpon>Settings.settings</DependentUpon>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\CefBridge\CefBridge.csproj">
-      <Project>{92688da6-2690-485b-96b6-c99b8c4490ec}</Project>
-      <Name>CefBridge</Name>
-    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
