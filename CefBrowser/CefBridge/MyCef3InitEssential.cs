@@ -29,14 +29,7 @@ namespace LayoutFarm.CefBridge
         public override bool Init()
         {
             //must check proper location of libcef, cefclient dir  
-            libPath = ReferencePaths.LIB_PATH;
-            //set proper dir here
-            //depend on what you want
-            //1. nearest local dir
-            //2. common dir  
-            //string currrentExecPath = System.IO.Path.GetDirectoryName(Application.ExecutablePath);
-            //string commonAppDir = System.IO.Path.GetDirectoryName(Application.CommonAppDataPath);//skip version
-
+            libPath = ReferencePaths.LIB_PATH; 
             return base.Init();
         }
         List<string> logMessages = new List<string>();
