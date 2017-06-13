@@ -31,7 +31,7 @@ namespace LayoutFarm.CefBridge
         /// <summary>
         /// load and init cef library
         /// </summary>
-        public virtual bool Init(string libpath = null)
+        public virtual bool Init()
         {
             bool loadResult = Cef3Binder.LoadCef3(this);
             if (!loadResult)

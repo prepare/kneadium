@@ -13,7 +13,7 @@ namespace LayoutFarm.CefBridge
         static void Main(string[] args)
         {
             //---------------------
-            //this is designed for not-ui process
+            //this is designed for cef subprocess(eg gpu process, render process)
             //so we not include System.Drawing and System.Windows.Form
             //---------------------
 

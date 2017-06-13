@@ -13,7 +13,13 @@ namespace LayoutFarm.CefBridge
         [STAThread]
         static void Main(string[] args)
         {
-
+            //this is designed for cef UI process.
+            //this process starts before any subprocess.
+            //so before load anything we should check  
+            //  if essential libs are available
+            //------------------------------------------
+            CheckNativeLibs();
+            //------------------------------------------
             //1. load cef before OLE init (eg init winform) ***
             //see more detail ...  MyCef3InitEssential
             if (!MyCef3InitEssential.LoadAndInitCef3(args))
@@ -53,6 +59,12 @@ namespace LayoutFarm.CefBridge
             MyCef3InitEssential.ShutDownCef3();
             //(***please note that 
             //*** we call ShutDownCef3 only in main thread ***)
+        } 
+        static void CheckNativeLibs()
+        {
+
+
+
         }
     }
 }
