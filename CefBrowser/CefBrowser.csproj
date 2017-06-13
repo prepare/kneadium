@@ -71,6 +71,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="CefBridge\MyCef3InitEssential.cs" />
+    <Compile Include="CefBridge\MyCef3WinForms.cs" />
     <Compile Include="CefBridge\MyCefRenderProcessListener.cs" />
     <Compile Include="CefBridge\MyCefUIListener.cs" />
     <Compile Include="CefBridge\WindowControlImpl.cs" />

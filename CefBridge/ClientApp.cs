@@ -139,8 +139,10 @@ namespace LayoutFarm.CefBridge
 
         protected void InitCefSettings(CefSettings cefSettings)
         {
-
-            cefSettings.SetSubProcessPath(ReferencePaths.SUB_PROCESS_PATH);
+            if (ReferencePaths.SUB_PROCESS_PATH != null)
+            {
+                cefSettings.SetSubProcessPath(ReferencePaths.SUB_PROCESS_PATH);
+            }
             cefSettings.SetCachePath(ReferencePaths.CACHE_PATH);
         }
     }
