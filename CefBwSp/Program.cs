@@ -12,6 +12,10 @@ namespace LayoutFarm.CefBridge
         [STAThread]
         static void Main(string[] args)
         {
+            //---------------------
+            //this is designed for not-ui process
+            //so we not include System.Drawing and System.Windows.Form
+            //---------------------
 
             //1. load cef before OLE init (eg init winform) ***
             //see more detail ...  MyCef3InitEssential
