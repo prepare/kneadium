@@ -1,6 +1,6 @@
 ﻿//MIT, 2016-2017, WinterDev
 
-using System; 
+using System;
 using System.Collections.Generic;
 
 namespace LayoutFarm.CefBridge
@@ -26,27 +26,10 @@ namespace LayoutFarm.CefBridge
             return libPath;
         }
 
-        public override bool Init(string libpath = null)
+        public override bool Init()
         {
-            //must check proper location of libcef, cefclient dir 
-            if (libpath == null)
-            { 
-
-                libPath = ReferencePaths.LIB_PATH;
-            }
-            else
-            {
-                MyCef3InitEssential.libPath = libpath;
-            }
-
-
-            //set proper dir here
-            //depend on what you want
-            //1. nearest local dir
-            //2. common dir  
-            //string currrentExecPath = System.IO.Path.GetDirectoryName(Application.ExecutablePath);
-            //string commonAppDir = System.IO.Path.GetDirectoryName(Application.CommonAppDataPath);//skip version
-
+            //must check proper location of libcef, cefclient dir  
+            libPath = ReferencePaths.LIB_PATH; 
             return base.Init();
         }
         List<string> logMessages = new List<string>();
@@ -68,8 +51,8 @@ namespace LayoutFarm.CefBridge
         {
             return libPath + "\\chrome_elf.dll";
         }
-       
-        
+
+
         public override void AfterProcessLoaded(CefStartArgs cefStartArg)
         {
             //if (Cef3InitEssential.IsInRenderProcess)
@@ -118,10 +101,10 @@ namespace LayoutFarm.CefBridge
             //----------------------------------
             //2. as usual in WindowForm
             System.Threading.Thread.CurrentThread.CurrentCulture = new System.Globalization.CultureInfo("en-us");
-            //Application.EnableVisualStyles();
-            //Application.SetCompatibleTextRenderingDefault(false);
+            System.Windows.Forms.Application.EnableVisualStyles();
+            System.Windows.Forms.Application.SetCompatibleTextRenderingDefault(false);
             //------------------------------------------------- 
-            
+
         }
         protected override void OnAfterShutdown()
         {
