@@ -12,6 +12,11 @@ namespace LayoutFarm.CefBridge
         [STAThread]
         static void Main(string[] args)
         {
+            //---------------------
+            //this is designed for cef subprocess(eg gpu process, render process)
+            //so we not include System.Drawing and System.Windows.Form
+            //---------------------
+            ReferencePaths.SUB_PROCESS_PATH = null; //use this same process..
 
             //1. load cef before OLE init (eg init winform) ***
             //see more detail ...  MyCef3InitEssential
@@ -33,10 +38,7 @@ namespace LayoutFarm.CefBridge
             {
                 MyCef3InitEssential.ClearRemainingCefMsg();
                 return;
-            }
-
-
-
+            } 
             /////////////////////////////////////////////
             MyCef3InitEssential.ClearRemainingCefMsg();
             MyCef3InitEssential.ShutDownCef3();
