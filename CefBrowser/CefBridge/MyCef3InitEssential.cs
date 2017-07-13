@@ -13,6 +13,8 @@ namespace LayoutFarm.CefBridge
 
         static MyCef3InitEssential initEssential;
         static string libPath;
+        static bool s_skipPreRun = false;
+
         private MyCef3InitEssential(string[] startArgs)
             : base(startArgs)
         {
@@ -29,7 +31,7 @@ namespace LayoutFarm.CefBridge
         public override bool Init()
         {
             //must check proper location of libcef, cefclient dir  
-            libPath = ReferencePaths.LIB_PATH; 
+            libPath = ReferencePaths.LIB_PATH;
             return base.Init();
         }
         List<string> logMessages = new List<string>();
@@ -98,12 +100,13 @@ namespace LayoutFarm.CefBridge
 
         public override void SetupPreRun()
         {
-            //----------------------------------
-            //2. as usual in WindowForm
-            System.Threading.Thread.CurrentThread.CurrentCulture = new System.Globalization.CultureInfo("en-us");
-            System.Windows.Forms.Application.EnableVisualStyles();
-            System.Windows.Forms.Application.SetCompatibleTextRenderingDefault(false);
-            //------------------------------------------------- 
+
+            if (!s_skipPreRun)
+            {
+                System.Threading.Thread.CurrentThread.CurrentCulture = new System.Globalization.CultureInfo("en-us");
+                System.Windows.Forms.Application.EnableVisualStyles();
+                System.Windows.Forms.Application.SetCompatibleTextRenderingDefault(false);
+            }
 
         }
         protected override void OnAfterShutdown()
@@ -142,6 +145,10 @@ namespace LayoutFarm.CefBridge
         internal static void CefDoMessageLoopWork()
         {
             DoMessageLoopWork();
+        }
+        internal static void SkipPreRun(bool value)
+        {
+            s_skipPreRun = value;
         }
     }
 
