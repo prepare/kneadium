@@ -19,10 +19,7 @@ namespace LayoutFarm.CefBridge
             : base(startArgs)
         {
         }
-        public static void SetLibPath(string libPath)
-        {
-            MyCef3InitEssential.libPath = libPath;
-        }
+    
         public static string GetLibPath()
         {
             return libPath;
