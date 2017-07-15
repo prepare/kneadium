@@ -238,8 +238,8 @@ namespace LayoutFarm.CefBridge
                 //------------------------------
                 case MyCefMsg.CEF_MSG_ClientHandler_OnPreKeyEvent: //on PreKey
                     {
-                        // Console.WriteLine("on pre key");
-                        NavigateTo("https://html5test.com");
+                        //Console.WriteLine("on pre key");
+                        //NavigateTo("https://html5test.com");
                     }
                     break;
                 //------------------------------
