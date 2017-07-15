@@ -26,11 +26,25 @@ namespace TestGlfw
             ReferencePaths.CACHE_PATH = ReferencePaths.OUTPUT_DIR + "/cef_cache"; //dir
             ReferencePaths.SAVE_IMAGE_PATH = ReferencePaths.OUTPUT_DIR + "/snap02"; //dir
 
-             
+
             //reset
             ReferencePaths.LIB_PATH = @"D:\projects/cef_3_3071.1647/win64";//*** 64 bits
             ReferencePaths.SUB_PROCESS_PATH = ReferencePaths.LIB_PATH + "/CefBwSp.exe";
+
+            //----  
+            CreateFolderIfNotExist(ReferencePaths.OUTPUT_DIR);
+            CreateFolderIfNotExist(ReferencePaths.CACHE_PATH);
+            CreateFolderIfNotExist(ReferencePaths.SAVE_IMAGE_PATH);
         }
+        static void CreateFolderIfNotExist(string folderName)
+        {
+            if (!System.IO.Directory.Exists(folderName))
+            {
+                System.IO.Directory.CreateDirectory(folderName);
+            }
+        }
+
+
         public static void Start(string[] args)
         {
             if (!Glfw.Init())
@@ -70,7 +84,7 @@ namespace TestGlfw
             }
 
 
-        
+
 
             //1. load cef before OLE init (eg init winform) ***
             //see more detail ...  MyCef3InitEssential
