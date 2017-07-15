@@ -56,37 +56,7 @@ namespace LayoutFarm.CefBridge
 
         public override void AfterProcessLoaded(CefStartArgs cefStartArg)
         {
-            //if (Cef3InitEssential.IsInRenderProcess)
-            //{
-            //    System.Diagnostics.Debugger.Launch();
-            //}
-
-#if DEBUG
-            //if(Cef3InitEssential.IsInRenderProcess)
-            //{
-            //    Console.WriteLine("this is renderer process");
-            //    System.Diagnostics.Debugger.Launch();
-            //}
-            //if (cefStartArg.IsValidCefArgs)
-            //{
-            //    if (cefStartArg.ProcessType == "renderer")
-            //    {
-            //        //StringBuilder stbuilder = new StringBuilder();
-            //        //stbuilder.Append("rrrr");
-            //        //foreach (var str in startArgs)
-            //        //{
-            //        //    stbuilder.Append(str + " ");
-            //        //}
-            //        //s_dbugIsRendererProcess = true;
-            //        //System.Windows.Forms.MessageBox.Show(stbuilder.ToString(), DateTime.Now.ToString());
-            //        //request debugger in render process
-            //        Console.WriteLine("this is renderer process");
-            //        System.Diagnostics.Debugger.Launch();
-
-            //    }
-            //    //set break point after alert if we want to stop debugger                            
-            //}
-#endif
+            
         }
         public override CefClientApp CreateClientApp()
         {
