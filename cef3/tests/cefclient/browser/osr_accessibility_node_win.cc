@@ -1,4 +1,3 @@
-//###_ORIGINAL D:\projects\cef_binary_3.3071.1634\tests\cefclient\browser//osr_accessibility_node_win.cc
 // Copyright 2017 The Chromium Embedded Framework Authors. Portions copyright
 // 2013 The Chromium Authors. All rights reserved. Use of this source code is
 // governed by a BSD-style license that can be found in the LICENSE file.
@@ -679,23 +678,14 @@ CefNativeAccessible* OsrAXNode::GetNativeAccessibleObject(OsrAXNode* parent) {
 
 namespace client {
 
-//###_START 1
+void OsrAXNode::NotifyAccessibilityEvent(std::string event_type) const {
+}
+
 void OsrAXNode::Destroy() {}
 
-//###_FIND_NEXT_LANDMARK 1
 CefNativeAccessible* OsrAXNode::GetNativeAccessibleObject(OsrAXNode* parent) {
   return NULL;
-//###_FIND_NEXT_LANDMARK 1
 }
-//###_APPEND_START 1
-void OsrAXNode::NotifyAccessibilityEvent(std::string event_type) const {
-if (event_type == "focus") {
-// Notify Screen Reader of focus change
-::NotifyWinEvent(EVENT_OBJECT_FOCUS, GetWindowHandle(), OBJID_CLIENT,
-node_id_);
-}
-}
-//###_APPEND_STOP
 
 }  // namespace client
 

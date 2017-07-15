@@ -26,7 +26,7 @@ namespace TestGlfw
             ReferencePaths.CACHE_PATH = ReferencePaths.OUTPUT_DIR + "/cef_cache"; //dir
             ReferencePaths.SAVE_IMAGE_PATH = ReferencePaths.OUTPUT_DIR + "/snap02"; //dir
 
-             
+
             //reset
             ReferencePaths.LIB_PATH = @"D:\projects/cef_3_3071.1647/win64";//*** 64 bits
             ReferencePaths.SUB_PROCESS_PATH = ReferencePaths.LIB_PATH + "/CefBwSp.exe";
@@ -38,7 +38,6 @@ namespace TestGlfw
                 Console.WriteLine("can't init glfw");
                 return;
             }
-
             //this is designed for cef UI process.
             //this process starts before any subprocess.
             //so before load anything we should check  
@@ -68,9 +67,6 @@ namespace TestGlfw
                 MyCef3InitEssential.ClearRemainingCefMsg();
                 return;
             }
-
-
-        
 
             //1. load cef before OLE init (eg init winform) ***
             //see more detail ...  MyCef3InitEssential

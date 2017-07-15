@@ -8,7 +8,6 @@
 
 # ceftests sources.
 set(CEFTESTS_SRCS
-  accessibility_unittest.cc
   browser_info_map_unittest.cc
   client_app_delegates.cc
   command_line_unittest.cc
@@ -31,6 +30,8 @@ set(CEFTESTS_SRCS
   message_router_unittest.cc
   navigation_unittest.cc
   os_rendering_unittest.cc
+  osr_accessibility_unittest.cc
+  osr_display_unittest.cc
   parser_unittest.cc
   plugin_unittest.cc
   preference_unittest.cc

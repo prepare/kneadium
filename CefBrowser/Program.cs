@@ -17,7 +17,7 @@ namespace LayoutFarm.CefBridge
             //string currrentExecPath = System.IO.Path.GetDirectoryName(Application.ExecutablePath);
             //string commonAppDir = System.IO.Path.GetDirectoryName(Application.CommonAppDataPath);//skip version
             //------  
-            ReferencePaths.LIB_PATH = @"D:\projects/cef_3_3701/Release";
+            ReferencePaths.LIB_PATH = @"D:\projects/cef_3_3071.1647/win64";
             ReferencePaths.SUB_PROCESS_PATH = ReferencePaths.LIB_PATH + "/CefBwSp.exe"; 
             //---------------
             ReferencePaths.OUTPUT_DIR = @"../../../_output";//dir

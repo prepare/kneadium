@@ -1,62 +1,32 @@
-﻿//2016, MIT, WinterDev
+﻿//MIT, 2016-2017, WinterDev
 
 using System;
-using System.Text;
-using PixelFarm.Forms;
-using LayoutFarm.CefBridge;
 using System.Collections.Generic;
 
 namespace LayoutFarm.CefBridge
 {
-    /// <summary>
-    /// Cef3 init essential for WindowForm
-    /// </summary>
+
     public class MyCef3InitEssential : Cef3InitEssential
     {
 
         static MyCef3InitEssential initEssential;
         static string libPath;
+        static bool s_skipPreRun = false;
+
         private MyCef3InitEssential(string[] startArgs)
             : base(startArgs)
         {
         }
-        public static void SetLibPath(string libPath)
-        {
-            MyCef3InitEssential.libPath = libPath;
-        }
+
         public static string GetLibPath()
         {
             return libPath;
         }
-        public override bool Init(string libpath = null)
+
+        public override bool Init()
         {
-            //must check proper location of libcef, cefclient dir 
-            if (libpath == null)
-            {
-#if DEBUG
-                //libPath = @"D:\projects\CefBridge\cef3_output\cefclient\Debug";
-                //libPath = @"D:\projects\cef_3.2704output\cefclient\Debug"; //3.2704
-                //libPath = @"D:\projects\CefBridge\cef3_2704output\cefclient\Debug"; 
-                libPath = @"D:\projects\cef_binary_3.2785.1466output\cefclient\Debug";
-
-                //libPath = @"D:\WImageTest\Release2";//test load from other location
-#else
-                 libPath = @"D:\projects\cef_binary_3.2785.1466output\cefclient\Release";
-#endif
-            }
-            else
-            {
-                MyCef3InitEssential.libPath = libpath;
-            }
-
-
-            //set proper dir here
-            //depend on what you want
-            //1. nearest local dir
-            //2. common dir  
-            //string currrentExecPath = System.IO.Path.GetDirectoryName(Application.ExecutablePath);
-            //string commonAppDir = System.IO.Path.GetDirectoryName(Application.CommonAppDataPath);//skip version
-
+            //must check proper location of libcef, cefclient dir  
+            libPath = ReferencePaths.LIB_PATH;
             return base.Init();
         }
         List<string> logMessages = new List<string>();
@@ -74,27 +44,12 @@ namespace LayoutFarm.CefBridge
         {
             return libPath + "\\cefclient.dll";
         }
+        public override string GetLibChromeElfFileName()
+        {
+            return libPath + "\\chrome_elf.dll";
+        }
 
-        public override IWindowForm CreateNewWindow(int width, int height)
-        {
-            Form form1 = new Form();
-            form1.Width = width;
-            form1.Height = height;
-            return MyWindowForm.TryGetWindowFormOrRegisterIfNotExists(form1);
-        }
-        public override void SaveUIInvoke(SimpleDel simpleDel)
-        {
-            //invoke on ui thread**** 
-            //TODO: review here
-            //WinFormCefMsgLoopPump.SafeUIInvoke(simpleDel);
-        }
-        public override IWindowForm CreateNewBrowserWindow(int width, int height)
-        {
-            Form form1 = new Form();
-            form1.Width = width;
-            form1.Height = height;
-            return MyWindowForm.TryGetWindowFormOrRegisterIfNotExists(form1);
-        }
+
         public override void AfterProcessLoaded(CefStartArgs cefStartArg)
         {
             //if (Cef3InitEssential.IsInRenderProcess)
@@ -131,23 +86,35 @@ namespace LayoutFarm.CefBridge
         }
         public override CefClientApp CreateClientApp()
         {
+
             var renderProcListener = new MyCefRendererProcessListener();
+
+#if NETCOREAPP1_1
+
+            System.Diagnostics.Process proc = System.Diagnostics.Process.GetCurrentProcess();
+            var clientApp = new CefClientApp(
+                proc.SafeHandle.DangerousGetHandle(),
+                renderProcListener);
+            return clientApp;
+#else
             var clientApp = new CefClientApp(
                 System.Diagnostics.Process.GetCurrentProcess().Handle,
                 renderProcListener);
             return clientApp;
+#endif
+
         }
 
         public override void SetupPreRun()
         {
-            //----------------------------------
-            //2. as usual in WindowForm
-            System.Threading.Thread.CurrentThread.CurrentCulture = new System.Globalization.CultureInfo("en-us");
-            Application.EnableVisualStyles();
-            Application.SetCompatibleTextRenderingDefault(false);
-            //------------------------------------------------- 
-            //TODO: review here
-            //WinFormCefMsgLoopPump.Start();
+
+            //if (!s_skipPreRun)
+            //{
+            //    System.Threading.Thread.CurrentThread.CurrentCulture = new System.Globalization.CultureInfo("en-us");
+            //    System.Windows.Forms.Application.EnableVisualStyles();
+            //    System.Windows.Forms.Application.SetCompatibleTextRenderingDefault(false);
+            //}
+
         }
         protected override void OnAfterShutdown()
         {
@@ -168,23 +135,27 @@ namespace LayoutFarm.CefBridge
 
         public static void ClearRemainingCefMsg()
         {
-            for (int i = 10; i >= 0; --i)
+            for (int i = 100; i >= 0; --i)
             {
                 CefDoMessageLoopWork();
-                System.Threading.Thread.Sleep(50);
+                System.Threading.Thread.Sleep(10);
             }
         }
         public static void ShutDownCef3()
         {
-
             //----------------------------------
             //4. 
             initEssential.Shutdown();
             //---------------------------------- 
+
         }
         internal static void CefDoMessageLoopWork()
         {
             DoMessageLoopWork();
+        }
+        internal static void SkipPreRun(bool value)
+        {
+            s_skipPreRun = value;
         }
     }
 
