@@ -1,4 +1,4 @@
-# PATCH  D:\projects\cef_binary_3.3071.1634\tests\cefclient\CMakeLists.txt
+# PATCH  D:\projects\cef_binary_3.3071.1647.win64\tests\cefclient\CMakeLists.txt
 # Copyright (c) 2014 The Chromium Embedded Framework Authors. All rights
 # reserved. Use of this source code is governed by a BSD-style license that
 # can be found in the LICENSE file.
@@ -529,6 +529,11 @@ ${CEFCLIENT_MYCEF_MYCEF_SRCS}
   SET_EXECUTABLE_TARGET_PROPERTIES(${CEF_TARGET})
   add_dependencies(${CEF_TARGET} libcef_dll_wrapper)
   target_link_libraries(${CEF_TARGET} libcef_lib libcef_dll_wrapper ${CEF_STANDARD_LIBS} glu32.lib imm32.lib opengl32.lib)
+
+  if(USE_ATL)
+    # Required by VS2013 to link accessibility API functions.
+    target_link_libraries(${CEF_TARGET} oleacc.lib)
+  endif()
 
   if(USE_SANDBOX)
     # Logical target used to link the cef_sandbox library.
