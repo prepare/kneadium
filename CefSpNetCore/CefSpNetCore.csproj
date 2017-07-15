@@ -1,0 +1,39 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>Exe</OutputType>
+    <TargetFramework>netcoreapp1.1</TargetFramework>
+    <RuntimeIdentifiers>win7-x64;win10-x64;osx.10.11-x64</RuntimeIdentifiers>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
+    <Prefer32Bit>False</Prefer32Bit>
+    <AllowUnsafeBlocks>True</AllowUnsafeBlocks>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
+    <Prefer32Bit>False</Prefer32Bit>
+    <AllowUnsafeBlocks>True</AllowUnsafeBlocks>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Compile Include="..\CefBridge\Cef3Binder.cs" Link="CefBridge\Cef3Binder.cs" />
+    <Compile Include="..\CefBridge\Cef3InitEssential.cs" Link="CefBridge\Cef3InitEssential.cs" />
+    <Compile Include="..\CefBridge\Cef3WinForms.cs" Link="CefBridge\Cef3WinForms.cs" />
+    <Compile Include="..\CefBridge\CefListeners.cs" Link="CefBridge\CefListeners.cs" />
+    <Compile Include="..\CefBridge\CefStartArgs.cs" Link="CefBridge\CefStartArgs.cs" />
+    <Compile Include="..\CefBridge\ClientApp.cs" Link="CefBridge\ClientApp.cs" />
+    <Compile Include="..\CefBridge\CustomSchemeAgent.cs" Link="CefBridge\CustomSchemeAgent.cs" />
+    <Compile Include="..\CefBridge\MyCefBrowser.cs" Link="CefBridge\MyCefBrowser.cs" />
+    <Compile Include="..\CefBridge\MyCefDevWindow.cs" Link="CefBridge\MyCefDevWindow.cs" />
+    <Compile Include="..\CefBridge\NativeCallArgs.cs" Link="CefBridge\NativeCallArgs.cs" />
+    <Compile Include="..\CefBridge\NativeCefObjects.cs" Link="CefBridge\NativeCefObjects.cs" />
+    <Compile Include="..\CefBridge\ReferencePaths.cs" Link="CefBridge\ReferencePaths.cs" />
+    <Compile Include="..\CefBridge\WindowWrapper.cs" Link="CefBridge\WindowWrapper.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="CefBridge\" />
+  </ItemGroup>
+
+</Project>
