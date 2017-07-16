@@ -741,7 +741,7 @@ MY_DLL_EXPORT CefV8Handler* MyCefJs_New_V8Handler(managed_callback callback) {
 				memset(&metArgs, 0, sizeof(MethodArgs));
 				metArgs.SetArgAsNativeObject(0, object);
 				metArgs.SetArgAsNativeObject(1, &arguments);
-				metArgs.SetArgAsInt32(2, arguments.size());
+				metArgs.SetArgAsInt32(2,(int32_t)arguments.size());
 				//-------------------------------------------
 				callback(CEF_MSG_MyV8ManagedHandler_Execute, &metArgs);
 				//check result
@@ -845,7 +845,7 @@ MY_DLL_EXPORT void MyCefJs_MetReadArgAsString(const CefV8ValueList* jsArgs, int 
 {
 	auto value = jsArgs->at(index);
 	CefString cefStr = value->GetStringValue();
-	*actualLength = cefStr.length();
+	*actualLength = (int32_t)cefStr.length();
 	wcscpy_s(outputBuffer, outputBufferLen, cefStr.c_str());
 }
 MY_DLL_EXPORT int MyCefJs_MetReadArgAsInt32(const CefV8ValueList* jsArgs, int index) {

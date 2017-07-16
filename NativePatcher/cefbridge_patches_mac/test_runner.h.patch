@@ -1,4 +1,4 @@
-//###_ORIGINAL D:\projects\cef_binary_3.3071.1647.win64\tests\cefclient\browser//test_runner.h
+//###_ORIGINAL D:\projects\cef_binary_3.3071.1647.macos\tests\cefclient\browser//test_runner.h
 //###_START 0
 #include "include/wrapper/cef_resource_manager.h"
 //###_APPEND_START 0

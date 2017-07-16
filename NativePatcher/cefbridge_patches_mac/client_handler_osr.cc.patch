@@ -1,4 +1,4 @@
-//###_ORIGINAL D:\projects\cef_binary_3.3071.1647.win64\tests\cefclient\browser//client_handler_osr.cc
+//###_ORIGINAL D:\projects\cef_binary_3.3071.1647.macos\tests\cefclient\browser//client_handler_osr.cc
 //###_START 10
 void ClientHandlerOsr::OnPaint(CefRefPtr<CefBrowser> browser,
 //###_FIND_NEXT_LANDMARK 10

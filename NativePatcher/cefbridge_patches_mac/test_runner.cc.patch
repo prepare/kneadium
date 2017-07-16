@@ -1,4 +1,4 @@
-//###_ORIGINAL D:\projects\cef_binary_3.3071.1647.win64\tests\cefclient\browser//test_runner.cc
+//###_ORIGINAL D:\projects\cef_binary_3.3071.1647.macos\tests\cefclient\browser//test_runner.cc
 //###_START 0
 #include "tests/cefclient/browser/window_test.h"
 //###_APPEND_START 0
