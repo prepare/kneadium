@@ -14,15 +14,7 @@ namespace BridgeBuilder
             InitializeComponent();
         }
 
-        private void cmdBuild1_Click(object sender, EventArgs e)
-        {
-
-            //string srcRootDir = @"D:\projects\cef_binary_3.2526.1366" + "\\cefclient"; //2526.1366
-            //ManualPatcher manualPatcher = new ManualPatcher(srcRootDir);
-            //manualPatcher.DoChanged();
-            //manualPatcher.CopyExtensionSources();
-        }
-
+    
         private void cmdCreatePatchFiles_Click(object sender, EventArgs e)
         {
             //string srcRootDir = @"D:\projects\cef_binary_3.2526.1366" + "\\cefclient"; //2526.1366
@@ -34,7 +26,7 @@ namespace BridgeBuilder
             //string srcRootDir = @"D:\projects\cef_binary_3.2883.1553\tests\cefclient";
             //string srcRootDir = @"D:\projects\cef_binary_3.3071.1634\tests\cefclient";
             string srcRootDir = @"D:\projects\cef_binary_3.3071.1647.win64\tests\cefclient";
-            
+
             PatchBuilder builder = new PatchBuilder(new string[]{
                 srcRootDir,
                 @"D:\projects\cef_binary_3.3071.1647.win64\tests\shared"
@@ -157,6 +149,39 @@ namespace BridgeBuilder
             //}
 
         }
+         
+        private void cmdMacBuildPatchesFromSrc_Click(object sender, EventArgs e)
+        {
 
+            string srcRootDir = @"D:\projects\cef_binary_3.3071.1647.macos\tests\cefclient";
+
+            PatchBuilder builder = new PatchBuilder(new string[]{
+                srcRootDir,
+                @"D:\projects\cef_binary_3.3071.1647.macos\tests\shared"
+            });
+            builder.MakePatch();
+
+            //2. save patch to...
+            string saveFolder = "d:\\WImageTest\\cefbridge_patches_mac";
+            builder.Save(saveFolder);
+
+            ////3. test load those patches
+            //PatchBuilder builder2 = new PatchBuilder(srcRootDir);
+            //builder2.LoadPatchesFromFolder(saveFolder);
+
+            //----------
+            //copy extension code          
+            CopyFileInFolder(saveFolder,
+                @"D:\projects\CefBridge\NativePatcher\cefbridge_patches_mac"
+               );
+            //copy ext from actual src 
+            CopyFileInFolder(srcRootDir + "\\myext",
+                 @"D:\projects\CefBridge\NativePatcher\BridgeBuilder\Patcher_ExtCode_mac\myext");
+        }
+
+        private void cmdMacApplyPatches_Click(object sender, EventArgs e)
+        {
+
+        }
     }
 }

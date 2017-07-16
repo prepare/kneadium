@@ -1,0 +1,27 @@
+//###_ORIGINAL D:\projects\cef_binary_3.3071.1647.win64\tests\cefclient\browser//browser_window_osr_win.cc
+//###_START 1
+BrowserWindowOsrWin::BrowserWindowOsrWin(BrowserWindow::Delegate* delegate,
+//###_FIND_NEXT_LANDMARK 1
+client_handler_ = new ClientHandlerOsr(this, osr_window_.get(), startup_url);
+//###_FIND_NEXT_LANDMARK 1
+}
+//###_APPEND_START 1
+void BrowserWindowOsrWin::ClientClose() const {
+REQUIRE_MAIN_THREAD(); 
+if (osr_window_) {
+osr_window_->closing1_ = true;  
+}
+}
+//###_APPEND_STOP
+//###_START 0
+void BrowserWindowOsrWin::CreateBrowser(
+//###_FIND_NEXT_LANDMARK 0
+REQUIRE_MAIN_THREAD();
+//###_FIND_NEXT_LANDMARK 0
+RECT wnd_rect = {rect.x, rect.y, rect.x + rect.width, rect.y + rect.height};
+//###_APPEND_START 0
+//my extension
+if (this->client_handler_->mcallback_) {
+osr_window_->border_visible_ = false;			 
+}
+//###_APPEND_STOP
