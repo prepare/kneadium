@@ -88,12 +88,25 @@ set(CEFCLIENT_MYCEF_SRCS
   ${CEFCLIENT_MYCEF_MYCEF_SRCS}
   )");
 
+            //===================
             patch.NewTask("# Windows configuration.")
                 .FindNext("if(OS_WINDOWS)")
                 .FindNext("set(CEFCLIENT_SRCS")
                 .Append("${CEFCLIENT_MYCEF_MYCEF_SRCS}");
+            //===================
+            patch.NewTask("# Mac OS X configuration.")
+             .FindNext("if(OS_MACOSX)")
+             .FindNext("set(CEFCLIENT_SRCS")
+             .Append("${CEFCLIENT_MYCEF_MYCEF_SRCS}");
+            //===================
+            patch.NewTask("# Linux configuration.")
+             .FindNext("if(OS_MACOSX)")
+             .FindNext("set(CEFCLIENT_SRCS")
+             .Append("${CEFCLIENT_MYCEF_MYCEF_SRCS}");
 
             patch.PatchContent();
+            
+
         }
         void Do_ClientApp_h()
         {
@@ -664,7 +677,7 @@ set(CEFCLIENT_MYCEF_SRCS
         {
 
 
-            string extensionSourceDir = @"..\..\Patcher_ExtCode\myext"; 
+            string extensionSourceDir = @"..\..\Patcher_ExtCode\myext";
 
             if (extensionSourceDir == extensionTargetDir)
             {
@@ -693,6 +706,6 @@ set(CEFCLIENT_MYCEF_SRCS
             }
             //------------------------------------------------------------- 
         }
-        
+
     }
 }
