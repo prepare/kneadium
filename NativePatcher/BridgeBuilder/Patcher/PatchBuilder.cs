@@ -14,7 +14,7 @@ namespace BridgeBuilder
         List<string> filenames = new List<string>();
         List<PatchFile> pfiles = new List<PatchFile>();
         //extension to be patch
-        string[] fileExts = new string[] { ".cpp", ".h", ".cc" };
+        string[] fileExts = new string[] { ".cpp", ".h", ".cc","mm" };
         string[] srcFolders;
         public PatchBuilder(string[] srcFolders)
         {
