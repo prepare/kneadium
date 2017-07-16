@@ -14,17 +14,13 @@ namespace BridgeBuilder
         List<string> filenames = new List<string>();
         List<PatchFile> pfiles = new List<PatchFile>();
         //extension to be patch
-        string[] fileExts = new string[] { ".cpp", ".h", ".cc","mm" };
+        string[] fileExts = new string[] { ".cpp", ".h", ".cc",".mm" };
         string[] srcFolders;
         public PatchBuilder(string[] srcFolders)
         {
             this.srcFolders = srcFolders;
         }
-        //public string RootDir
-        //{
-        //    get;
-        //    set;
-        //}
+      
         public void MakePatch()
         {
             //from root dir
