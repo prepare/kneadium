@@ -166,7 +166,15 @@ namespace BridgeBuilder
                 PatchTask ptask = patchTasks[i];
                 List<PatchCommand> cmds = ptask.GetCommands();
                 //each task begin with start command
-                output.AddLine(PatchCommand.START + " " + ptask.TaskId);
+
+                if (!string.IsNullOrEmpty(ptask.PatchStartCmd))
+                {
+                    output.AddLine(PatchCommand.START + " " + ptask.TaskId + " " + ptask.PatchStartCmd);
+                }
+                else
+                {
+                    output.AddLine(PatchCommand.START + " " + ptask.TaskId);
+                }
                 output.AddLine(ptask.LandMark);
 
                 int cmdCount = cmds.Count;
@@ -257,23 +265,26 @@ namespace BridgeBuilder
                         string cmdline = line.Substring(0, pos0);
                         switch (cmdline)
                         {
-                            case PatchCommand.START:                                
+                            case PatchCommand.START:
                                 {
                                     //start new patch task
                                     //read next line for info 
-
-                                    i++;
+                                    i++; //read next line for land mark
                                     string cmd_value = sourceFile.GetLine(i);
-
                                     //create new task
                                     ptask = new PatchTask(cmd_value, taskId);
+                                    if (additionalInfo == "-X") //special cmd 
+                                    {
+                                        ptask.PatchStartCmd = additionalInfo;
+                                    }
+                                    //
                                     patchFile.AddTask(ptask);
                                 }
                                 break;
-                            case PatchCommand.APPPEND_START:                               
+                            case PatchCommand.APPPEND_START:
                                 {
                                     //start collect append string 
-                                    //until find append_stop
+                                    //until find append_stop 
 
                                     var collectAppendStBuilder = new StringBuilder();
                                     i++;
@@ -448,14 +459,18 @@ namespace BridgeBuilder
 
     class PatchTask
     {
-
-
         List<PatchCommand> commands = new List<PatchCommand>();
         public PatchTask(string landMark, int taskId)
         {
+            //each patch start with landmark
             this.LandMark = landMark.Trim();
             this.TaskId = taskId;
+            PatchStartCmd = "";
         }
+        /// <summary>
+        ///replace original landmark with string
+        /// </summary>
+        public string PatchStartCmd { get; set; }
         public int CommandCount
         {
             get { return commands.Count; }
