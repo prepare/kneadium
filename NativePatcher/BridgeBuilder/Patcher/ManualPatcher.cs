@@ -25,33 +25,7 @@ namespace BridgeBuilder
             return new PatchFile(RootDir + "\\" + filename);
         }
 
-        public void Do_CMake_txt_old()
-        {
-
-            var patch = new PatchFile(RootDir + "\\" + "CMakeLists.txt");
-
-            patch.NewTask("# Source files.")
-                .Append(@"set(CEFCLIENT_MYCEF_MYCEF_SRCS
-  myext/dll_init.cpp
-  myext/dll_init.h
-  myext/ExportFuncs.cpp
-  myext/ExportFuncs.h
-  myext/mycef.cc
-  myext/mycef.h
-  myext/mycef_msg_const.h
-  )
-source_group(cefclient\\\\myext FILES ${CEFCLIENT_MYCEF_MYCEF_SRCS})
-set(CEFCLIENT_MYCEF_SRCS
-  ${CEFCLIENT_MYCEF_MYCEF_SRCS}
-  )");
-
-            patch.NewTask("# Windows configuration.")
-                .FindNext("if(OS_WINDOWS)")
-                .FindNext("set(CEFCLIENT_SRCS")
-                .Append("${CEFCLIENT_MYCEF_MYCEF_SRCS}");
-
-            patch.PatchContent();
-        }
+       
         public void Do_CMake_txt_New_3_2704_up()
         {
 
