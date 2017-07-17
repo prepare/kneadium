@@ -166,7 +166,15 @@ namespace BridgeBuilder
                 PatchTask ptask = patchTasks[i];
                 List<PatchCommand> cmds = ptask.GetCommands();
                 //each task begin with start command
-                output.AddLine(PatchCommand.START + " " + ptask.TaskId);
+
+                if (!string.IsNullOrEmpty(ptask.PatchStartCmd))
+                {
+                    output.AddLine(PatchCommand.START + " " + ptask.TaskId + " " + ptask.PatchStartCmd);
+                }
+                else
+                {
+                    output.AddLine(PatchCommand.START + " " + ptask.TaskId);
+                }
                 output.AddLine(ptask.LandMark);
 
                 int cmdCount = cmds.Count;
@@ -258,21 +266,25 @@ namespace BridgeBuilder
                         switch (cmdline)
                         {
                             case PatchCommand.START:
-                                //start new patch task
-                                //read next line for info 
                                 {
-                                    i++;
+                                    //start new patch task
+                                    //read next line for info 
+                                    i++; //read next line for land mark
                                     string cmd_value = sourceFile.GetLine(i);
-
                                     //create new task
                                     ptask = new PatchTask(cmd_value, taskId);
+                                    if (additionalInfo == "-X") //special cmd 
+                                    {
+                                        ptask.PatchStartCmd = additionalInfo;
+                                    }
+                                    //
                                     patchFile.AddTask(ptask);
                                 }
                                 break;
                             case PatchCommand.APPPEND_START:
-                                //start collect append string 
-                                //until find append_stop
                                 {
+                                    //start collect append string 
+                                    //until find append_stop 
 
                                     var collectAppendStBuilder = new StringBuilder();
                                     i++;
@@ -447,14 +459,18 @@ namespace BridgeBuilder
 
     class PatchTask
     {
-
-
         List<PatchCommand> commands = new List<PatchCommand>();
         public PatchTask(string landMark, int taskId)
         {
+            //each patch start with landmark
             this.LandMark = landMark.Trim();
             this.TaskId = taskId;
+            PatchStartCmd = "";
         }
+        /// <summary>
+        ///replace original landmark with string
+        /// </summary>
+        public string PatchStartCmd { get; set; }
         public int CommandCount
         {
             get { return commands.Count; }
@@ -551,12 +567,25 @@ namespace BridgeBuilder
                     //found land mark
                     foundLandMark = true;
 
+                    string newStartLine = PatchCommand.START + " " + this.TaskId;
+                    if (!string.IsNullOrEmpty(this.PatchStartCmd))
+                    {
+                        newStartLine += " " + this.PatchStartCmd;
+                    }
                     if (!output.IsCMakeFile)
                     {
-                        output.AddLine(PatchCommand.START + " " + this.TaskId);
+                        output.AddLine(newStartLine);
                     }
 
-                    output.AddLine(line);
+                    if (this.PatchStartCmd == "-X")
+                    {
+                        //replace the original line with the land mark
+                        output.AddLine(this.LandMark);
+                    }
+                    else
+                    {
+                        output.AddLine(line);
+                    }
                     break;
                 }
                 else
