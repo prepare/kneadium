@@ -257,10 +257,11 @@ namespace BridgeBuilder
                         string cmdline = line.Substring(0, pos0);
                         switch (cmdline)
                         {
-                            case PatchCommand.START:
-                                //start new patch task
-                                //read next line for info 
+                            case PatchCommand.START:                                
                                 {
+                                    //start new patch task
+                                    //read next line for info 
+
                                     i++;
                                     string cmd_value = sourceFile.GetLine(i);
 
@@ -269,10 +270,10 @@ namespace BridgeBuilder
                                     patchFile.AddTask(ptask);
                                 }
                                 break;
-                            case PatchCommand.APPPEND_START:
-                                //start collect append string 
-                                //until find append_stop
+                            case PatchCommand.APPPEND_START:                               
                                 {
+                                    //start collect append string 
+                                    //until find append_stop
 
                                     var collectAppendStBuilder = new StringBuilder();
                                     i++;
