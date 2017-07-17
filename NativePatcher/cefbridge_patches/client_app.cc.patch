@@ -2,5 +2,6 @@
 //###_START 0 -X
 ClientApp::ClientApp() {
 //###_APPEND_START 0
-myMxCallback_ = NULL;
+myMxCallback_ = NULL;	
+}
 //###_APPEND_STOP

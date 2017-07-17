@@ -567,12 +567,25 @@ namespace BridgeBuilder
                     //found land mark
                     foundLandMark = true;
 
+                    string newStartLine = PatchCommand.START + " " + this.TaskId;
+                    if (!string.IsNullOrEmpty(this.PatchStartCmd))
+                    {
+                        newStartLine += " " + this.PatchStartCmd;
+                    }
                     if (!output.IsCMakeFile)
                     {
-                        output.AddLine(PatchCommand.START + " " + this.TaskId);
+                        output.AddLine(newStartLine);
                     }
 
-                    output.AddLine(line);
+                    if (this.PatchStartCmd == "-X")
+                    {
+                        //replace the original line with the land mark
+                        output.AddLine(this.LandMark);
+                    }
+                    else
+                    {
+                        output.AddLine(line);
+                    }
                     break;
                 }
                 else

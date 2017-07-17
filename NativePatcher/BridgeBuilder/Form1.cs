@@ -83,7 +83,7 @@ namespace BridgeBuilder
             //
             //cef_binary_3.3071.1647
             //string srcRootDir = @"D:\projects\cef_binary_3.3071.1647.win32\tests";
-            string srcRootDir = @"D:\projects\cef_binary_3.3071.1647.win64\tests";
+            string srcRootDir = @"D:\projects\cef_binary_3.3071.1647.win64_1\tests";
             string saveFolder = "d:\\WImageTest\\cefbridge_patches";
 
             PatchBuilder builder2 = new PatchBuilder(new string[]{
@@ -193,8 +193,8 @@ namespace BridgeBuilder
             });
             builder2.LoadPatchesFromFolder(patchSrcFolder);
 
-            List<PatchFile> pfiles = builder2.GetAllPatchFiles(); 
-            string newPathName = srcRootDir; 
+            List<PatchFile> pfiles = builder2.GetAllPatchFiles();
+            string newPathName = srcRootDir;
 
             for (int i = pfiles.Count - 1; i >= 0; --i)
             {
@@ -222,10 +222,10 @@ namespace BridgeBuilder
             }
 
 
-            ManualPatcher manualPatcher = new ManualPatcher(newPathName); 
+            ManualPatcher manualPatcher = new ManualPatcher(newPathName);
             string extTargetDir = newPathName + "\\cefclient\\myext";
             manualPatcher.CopyExtensionSources(extTargetDir);
-            manualPatcher.Do_CMake_txt_New_3_2704_up(); 
+            manualPatcher.Do_CMake_txt_New_3_2704_up();
         }
     }
 }
