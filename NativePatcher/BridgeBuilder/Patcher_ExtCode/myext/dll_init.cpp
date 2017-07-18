@@ -8,7 +8,7 @@
 #include "dll_init.h" 
 #include "include/cef_command_line.h"  
 
- 
+
 
 // When generating projects with CMake the CEF_USE_SANDBOX value will be defined
 // automatically if using the required compiler version. Pass -DUSE_SANDBOX=OFF
@@ -25,6 +25,7 @@
 #endif
 
 namespace client {
+
 	namespace init_main {
 
 		//static
@@ -125,7 +126,7 @@ namespace client {
 			return mainContext;
 		}
 
-	}  // namespace init_main
+	}  // namespace init_main 
 }  // namespace client
 
 client::MainContextImpl* DllInitMain(CefMainArgs& main_args, CefRefPtr<CefApp> app)

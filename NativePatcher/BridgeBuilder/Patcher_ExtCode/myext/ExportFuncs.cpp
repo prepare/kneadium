@@ -68,6 +68,8 @@ int RegisterManagedCallBack(managed_callback mxCallback, int callbackKind)
 	return 1; //default
 }
 
+
+
 //3.
 client::ClientApp* MyCefCreateClientApp(HINSTANCE hInstance)
 {

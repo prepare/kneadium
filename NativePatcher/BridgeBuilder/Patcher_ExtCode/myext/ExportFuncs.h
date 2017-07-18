@@ -6,12 +6,8 @@
 #include "../browser/root_window.h"
 //
  
-#include "mycef.h" //mycef's jsvalue 
-
-
-#define MY_DLL_EXPORT __declspec(dllexport)  
-
-
+#include "mycef.h" //mycef's jsvalue   
+#define MY_DLL_EXPORT __declspec(dllexport)   
 class MyBrowser; //forward decl
 
 extern "C" {
