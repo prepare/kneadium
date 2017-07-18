@@ -1,5 +1,4 @@
-﻿//2016, MIT, WinterDev
-
+﻿//MIT, 2016-2017 ,WinterDev 
 using System;
 using System.Text;
 using System.Collections.Generic;
@@ -25,7 +24,7 @@ namespace BridgeBuilder
             return new PatchFile(RootDir + "\\" + filename);
         }
 
-       
+
         public void Do_CMake_txt_New_3_2704_up()
         {
 
