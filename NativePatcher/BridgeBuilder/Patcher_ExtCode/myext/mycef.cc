@@ -9,31 +9,31 @@ void MethodArgs::SetArgAsString(int argIndex, const wchar_t* str)
 	{
 		this->arg0.type = JSVALUE_TYPE_STRING;
 		this->arg0.i32 = (int32_t)wcslen(str);
-		this->arg0.str = (uint16_t*)str;
+		this->arg0.ptr = str;
 	}break;
 	case 1:
 	{
 		this->arg1.type = JSVALUE_TYPE_STRING;
 		this->arg1.i32 = (int32_t)wcslen(str);
-		this->arg1.str = (uint16_t*)str;
+		this->arg1.ptr = str;
 	}break;
 	case 2:
 	{
 		this->arg2.type = JSVALUE_TYPE_STRING;
 		this->arg2.i32 = (int32_t)wcslen(str);
-		this->arg2.str = (uint16_t*)str;
+		this->arg2.ptr = str;
 	}break;
 	case 3:
 	{
 		this->arg3.type = JSVALUE_TYPE_STRING;
 		this->arg3.i32 = (int32_t)wcslen(str);
-		this->arg3.str = (uint16_t*)str;
+		this->arg3.ptr = str;
 	}break;
 	case 4:
 	{
 		this->arg4.type = JSVALUE_TYPE_STRING;
 		this->arg4.i32 = (int32_t)wcslen(str);
-		this->arg4.str = (uint16_t*)str;
+		this->arg4.ptr = str;
 	}break;
 	}
 }
@@ -162,12 +162,12 @@ const char16* MethodArgs::ReadOutputAsString(int resultIndex)
 			//TODO: review again
 			//unicode string
 			return (char16*)this->result0.ptr;
-			 
+
 		case JSVALUE_TYPE_BUFFER:
 		{
 			//TODO: review again
 			std::string str1 = "";
-			str1.append((const char*) this->result0.byteBuffer, (size_t)result0.i32); 
+			str1.append((const char*) this->result0.byteBuffer, (size_t)result0.i32);
 		}
 		}
 	}break;
@@ -184,7 +184,7 @@ const char16* MethodArgs::ReadOutputAsString(int resultIndex)
 			std::string str1 = "";
 			str1.append((const char*) this->result1.byteBuffer, (size_t)result1.i32);
 			CefString cefStr(str1);
-			return cefStr.c_str();  
+			return cefStr.c_str();
 		}
 		}
 	}break;
@@ -196,11 +196,11 @@ const char16* MethodArgs::ReadOutputAsString(int resultIndex)
 			////unicode string
 			return (char16*)this->result0.ptr;
 		case JSVALUE_TYPE_BUFFER:
-		{  
+		{
 			std::string str1 = "";
 			str1.append((const char*) this->result2.byteBuffer, (size_t)result2.i32);
 			CefString cefStr(str1);
-			return cefStr.c_str();  
+			return cefStr.c_str();
 		}
 		}
 	}break;

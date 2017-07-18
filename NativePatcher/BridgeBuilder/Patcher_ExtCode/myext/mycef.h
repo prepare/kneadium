@@ -95,7 +95,7 @@ extern "C" {
 		const  void*  ptr;
 
 		const char    *byteBuffer;
-		const uint16_t *str;
+		//const uint16_t *str;
 		//const wchar_t *str2;
 
 
