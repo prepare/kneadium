@@ -7,7 +7,13 @@
 //
  
 #include "mycef.h" //mycef's jsvalue   
-#define MY_DLL_EXPORT __declspec(dllexport)   
+
+#ifdef _WIN32 
+#define MY_DLL_EXPORT __declspec(dllexport)
+#else 
+#define MY_DLL_EXPORT
+#endif
+ 
 class MyBrowser; //forward decl
 
 extern "C" {
@@ -48,7 +54,7 @@ extern "C" {
 	//--------------------
 	//part 2
 	//1.	 
-	MY_DLL_EXPORT jsvalue MyCefNativeMetGetArgs(MethodArgs* args, int argIndex);
+	MY_DLL_EXPORT void MyCefNativeMetGetArgs(MethodArgs* args, int argIndex, jsvalue* output);
 
 
 	//3.
@@ -94,7 +100,7 @@ extern "C" {
 
 	MY_DLL_EXPORT CefV8Value* MyCefJsGetGlobal(CefV8Context* cefV8Context);
 
-	/*MY_DLL_EXPORT MethodArgs* CreateMethodArgs();*/
+	 
 	MY_DLL_EXPORT void DisposeMethodArgs(MethodArgs* args);
 
 	MY_DLL_EXPORT CefV8Context* MyCefJs_EnterContext(CefV8Context* cefV8Context);

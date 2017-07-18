@@ -16,13 +16,23 @@ namespace LayoutFarm.CefBridge
             //string currrentExecPath = System.IO.Path.GetDirectoryName(Application.ExecutablePath);
             //string commonAppDir = System.IO.Path.GetDirectoryName(Application.CommonAppDataPath);//skip version
             //------  
-            ReferencePaths.LIB_PATH = @"D:\projects/cef_3_3071.1647/win64";
+            ReferencePaths.LIB_PATH = @"D:\projects\cef_binary_3.3071.1647.win64build\tests\cefclient\Release";
+            //ReferencePaths.LIB_PATH = @"D:\projects\cef_binary_3.3071.1647.win32build\tests\cefclient\Debug";
+
             ReferencePaths.SUB_PROCESS_PATH = ReferencePaths.LIB_PATH + "/CefBwSp.exe";
             //---------------
             ReferencePaths.OUTPUT_DIR = @"../../../_output";//dir
             ReferencePaths.LOG_PATH = ReferencePaths.OUTPUT_DIR + "/cef_console.log"; //file
             ReferencePaths.CACHE_PATH = ReferencePaths.OUTPUT_DIR + "/cef_cache"; //dir
             ReferencePaths.SAVE_IMAGE_PATH = ReferencePaths.OUTPUT_DIR + "/snap02"; //dir
+
+
+            if (!System.IO.Directory.Exists(ReferencePaths.OUTPUT_DIR))
+            {
+                System.IO.Directory.CreateDirectory(ReferencePaths.OUTPUT_DIR);
+            }
+
+
         }
 
         /// <summary>

@@ -8,5 +8,5 @@
 virtual RootWindowManager* GetRootWindowManager() = 0;
 //###_APPEND_START 1
 //my extension --for callback to managed side
-managed_callback myMxCallback_=NULL;
+managed_callback myMxCallback_ = NULL;
 //###_APPEND_STOP
