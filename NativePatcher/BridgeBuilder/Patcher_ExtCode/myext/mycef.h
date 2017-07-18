@@ -26,6 +26,7 @@
 // THE SOFTWARE.
 
 #include <string>
+#include <uchar.h>
 
 #include "include/wrapper/cef_message_router.h" 
 #include "tests/cefclient/browser/client_types.h"
@@ -95,9 +96,9 @@ extern "C" {
 
 		const char    *byteBuffer;
 		const uint16_t *str;
-		const wchar_t *str2;
-		 
-		 
+		//const wchar_t *str2;
+
+
 	};
 
 }
@@ -137,7 +138,7 @@ public:
 	void SetArgType(int argIndex, int type);
 
 	//----------------------------------------------------------------------
-	std::wstring ReadOutputAsString(int resultIndex);
+	const char16* ReadOutputAsString(int resultIndex);
 	int ReadOutputAsInt32(int resultIndex);
 
 };

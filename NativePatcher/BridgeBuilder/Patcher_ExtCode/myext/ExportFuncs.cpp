@@ -396,31 +396,31 @@ void MyCefMetArgs_SetResultAsString(MethodArgs* args, int argIndex, const wchar_
 
 		args->result0.type = JSVALUE_TYPE_STRING;
 		args->result0.i32 = (int32_t)len;
-		args->result0.str2 = buffer;
+		args->result0.ptr = buffer;
 	}break;
 	case 1: {
 
 		args->result1.type = JSVALUE_TYPE_STRING;
 		args->result1.i32 = (int32_t)len;
-		args->result1.str2 = buffer;
+		args->result1.ptr = buffer;
 	}break;
 	case 2: {
 
 		args->result2.type = JSVALUE_TYPE_STRING;
 		args->result2.i32 = (int32_t)len;
-		args->result2.str2 = buffer;
+		args->result2.ptr = buffer;
 	}break;
 	case 3: {
 
 		args->result3.type = JSVALUE_TYPE_STRING;
 		args->result3.i32 = (int32_t)len;
-		args->result3.str2 = buffer;
+		args->result3.ptr = buffer;
 	}break;
 	case 4: {
 
 		args->result4.type = JSVALUE_TYPE_STRING;
 		args->result4.i32 = (int32_t)len;
-		args->result4.str2 = buffer;
+		args->result4.ptr = buffer;
 	}break;
 	}
 }
@@ -433,31 +433,31 @@ void MyCefMetArgs_SetInputAsString(MethodArgs* args, int argIndex, const wchar_t
 
 		args->arg0.type = JSVALUE_TYPE_STRING;
 		args->arg0.i32 = (int32_t)len;
-		args->arg0.str2 = buffer;
+		args->arg0.ptr = buffer;
 	}break;
 	case 1: {
 
 		args->arg1.type = JSVALUE_TYPE_STRING;
 		args->arg1.i32 = (int32_t)len;
-		args->arg1.str2 = buffer;
+		args->arg1.ptr = buffer;
 	}break;
 	case 2: {
 
 		args->arg2.type = JSVALUE_TYPE_STRING;
 		args->arg2.i32 = (int32_t)len;
-		args->arg2.str2 = buffer;
+		args->arg2.ptr = buffer;
 	}break;
 	case 3: {
 
 		args->arg3.type = JSVALUE_TYPE_STRING;
 		args->arg3.i32 = (int32_t)len;
-		args->arg3.str2 = buffer;
+		args->arg3.ptr = buffer;
 	}break;
 	case 4: {
 
 		args->arg4.type = JSVALUE_TYPE_STRING;
 		args->arg4.i32 = (int32_t)len;
-		args->arg4.str2 = buffer;
+		args->arg4.ptr = buffer;
 	}break;
 	}
 }
