@@ -1,51 +1,30 @@
-//MIT, 2015-2017, WinterDev
 #include "ExportFuncs.h"   
-#include "dll_init.h" 
 #include "mycef.h"
-
-
 //static 
 
 #include "include/base/cef_scoped_ptr.h"
 #include "include/cef_command_line.h"
-
+#include "include/cef_sandbox_win.h"
 #include "include/cef_origin_whitelist.h"
 #include "tests/shared/browser/client_app_browser.h"
 #include "tests/cefclient/browser/main_context_impl.h"
-
+#include "tests/cefclient/browser/main_message_loop_multithreaded_win.h"
 #include "tests/shared/browser/main_message_loop_std.h"
-
+#include "tests/cefclient/browser/root_window_win.h"
 #include "tests/cefclient/browser/root_window_manager.h"
 #include "tests/cefclient/browser/test_runner.h"
 #include "tests/shared/common/client_app_other.h"
 #include "tests/shared/renderer/client_app_renderer.h" 
-#include "tests/cefclient/browser/browser_window.h" 
+#include "tests/cefclient/browser/browser_window.h"
+#include "tests/cefclient/browser/browser_window_std_win.h"
 #include "tests/cefclient/browser/main_context.h" 
 
-
-#include "include/cef_sandbox_win.h"
-#include "tests/cefclient/browser/main_message_loop_multithreaded_win.h"
-#include "tests/cefclient/browser/browser_window_std_win.h"
-#include "tests/cefclient/browser/root_window_win.h" //***
-#include "tests/cefclient/browser/osr_window_win.h" //*** 
-#include "../browser/root_window_win.h" //**
-#include "../browser/browser_window_osr_win.h" //**
-
-
+#include "tests/cefclient/browser/osr_window_win.h"
 
 client::MainContextImpl* mainContext;
 client::MainMessageLoop* message_loop;  //essential for mainloop checking 
 
 managed_callback myMxCallback_ = NULL;
-
-
-class MyBrowser
-{
-public:
-	client::RootWindowWin* rootWin;
-	client::BrowserWindow* bwWindow;
-};
-
 
 //1.
 int MyCefGetVersion()
@@ -68,14 +47,9 @@ int RegisterManagedCallBack(managed_callback mxCallback, int callbackKind)
 	return 1; //default
 }
 
-
-
 //3.
 client::ClientApp* MyCefCreateClientApp(HINSTANCE hInstance)
 {
-	//-----
-	//user must call RegisterManagedCallBack() before use this method *** 
-	//-----
 	// Parse command-line arguments.
 	CefRefPtr<CefCommandLine> command_line = CefCommandLine::CreateCommandLine();
 	command_line->InitFromString(::GetCommandLineW());
@@ -111,8 +85,9 @@ client::ClientApp* MyCefCreateClientApp(HINSTANCE hInstance)
 	//create main context here
 	client::init_main::SetManagedCallback(myMxCallback_);
 
-	CefMainArgs main_args(hInstance);
-	mainContext = DllInitMain(main_args, app);
+	mainContext = DllInitMain(hInstance, app);
+
+
 	return app;
 }
 
@@ -143,7 +118,7 @@ MyBrowser* MyCefCreateMyWebBrowser(managed_callback callback)
 }
 
 //4.OSR
-MyBrowser* MyCefCreateMyWebBrowserOSR(managed_callback callback)
+MyBrowser* MyCefCreateMyWebBrowserOSR(managed_callback callback, HWND freeFormHwnd)
 {
 
 	//create root window handler?
@@ -766,7 +741,7 @@ MY_DLL_EXPORT CefV8Handler* MyCefJs_New_V8Handler(managed_callback callback) {
 				memset(&metArgs, 0, sizeof(MethodArgs));
 				metArgs.SetArgAsNativeObject(0, object);
 				metArgs.SetArgAsNativeObject(1, &arguments);
-				metArgs.SetArgAsInt32(2, (int32_t)arguments.size());
+				metArgs.SetArgAsInt32(2,(int32_t)arguments.size());
 				//-------------------------------------------
 				callback(CEF_MSG_MyV8ManagedHandler_Execute, &metArgs);
 				//check result

@@ -10,7 +10,9 @@ namespace LayoutFarm.CefBridge
         static readonly object sync_ = new object();
         MyCefCallback mxCallback;
         CefRenderProcessListener renderProcessListener;
-        public CefClientApp(IntPtr processHandle, CefRenderProcessListener renderProcessListener)
+        public CefClientApp(
+            IntPtr processHandle,
+            CefRenderProcessListener renderProcessListener)
         {
             this.renderProcessListener = renderProcessListener;
 #if DEBUG

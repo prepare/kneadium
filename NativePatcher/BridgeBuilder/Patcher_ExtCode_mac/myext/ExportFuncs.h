@@ -1,19 +1,27 @@
-//MIT, 2015-2017, WinterDev
-
+#include "dll_init.h" 
 #include "../../shared/common/client_app.h"
 #include "../browser/client_handler.h"
 #include "../browser/client_handler_std.h"
 #include "../browser/root_window.h"
-//
- 
-#include "mycef.h" //mycef's jsvalue   
-#define MY_DLL_EXPORT __declspec(dllexport)   
-class MyBrowser; //forward decl
+#include "../browser/root_window_win.h"
+#include "../browser/browser_window_osr_win.h"
+#include "mycef.h"
+#define MY_DLL_EXPORT __declspec(dllexport)  
+
 
 extern "C" {
-	
 
-	//part 1 
+
+	class MyBrowser
+	{
+	public:
+		client::RootWindowWin* rootWin;
+		client::BrowserWindow* bwWindow; 
+	};
+
+
+	//part 1
+
 	//1.
 	MY_DLL_EXPORT int MyCefGetVersion();
 	//2.
@@ -26,7 +34,7 @@ extern "C" {
 	//4.
 	MY_DLL_EXPORT MyBrowser* MyCefCreateMyWebBrowser(managed_callback callback);
 	//4. OSR
-	MY_DLL_EXPORT MyBrowser* MyCefCreateMyWebBrowserOSR(managed_callback callback);
+	MY_DLL_EXPORT MyBrowser* MyCefCreateMyWebBrowserOSR(managed_callback callback, HWND freeFormHwnd);
 
 	//5.
 	MY_DLL_EXPORT int MyCefSetupBrowserHwnd(MyBrowser* myBw, HWND surfaceHwnd, int x, int y, int w, int h, const wchar_t* url,CefRequestContext* cefRefContext);

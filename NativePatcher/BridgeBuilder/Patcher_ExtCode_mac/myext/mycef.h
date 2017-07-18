@@ -1,4 +1,4 @@
-//MIT, 2015-2017, WinterDev
+//MIT 2015, WinterDev
 
 // This file is part of the VroomJs library.
 //
@@ -27,7 +27,10 @@
 
 #include <string>
 
-#include "include/wrapper/cef_message_router.h" 
+#include "include/cef_client.h"
+#include "include/wrapper/cef_helpers.h"
+#include "include/wrapper/cef_message_router.h"
+#include "include/wrapper/cef_resource_manager.h"
 #include "tests/cefclient/browser/client_types.h"
 
 #pragma once
@@ -142,6 +145,7 @@ public:
 	void SetArgAsNativeObject(int argIndex, const void* nativeObject);
 	void SetArgAsInt32(int argIndex, const int32_t value);
 
+	void SetOutputString(int resultIndex, const void* dataBuffer, int len);
 	void SetArgType(int argIndex, int type);
 
 	//----------------------------------------------------------------------
@@ -173,6 +177,6 @@ public:
 };
 
 
+//typedef void (__stdcall *managed_callback)(int id, void* args);   
 typedef void(__cdecl *managed_callback)(int id, void* args);
 
-//---
