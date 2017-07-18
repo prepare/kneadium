@@ -143,7 +143,7 @@ MyBrowser* MyCefCreateMyWebBrowser(managed_callback callback)
 }
 
 //4.OSR
-MyBrowser* MyCefCreateMyWebBrowserOSR(managed_callback callback, HWND freeFormHwnd)
+MyBrowser* MyCefCreateMyWebBrowserOSR(managed_callback callback)
 {
 
 	//create root window handler?
