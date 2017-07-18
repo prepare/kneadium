@@ -10,48 +10,48 @@
 
 namespace client {
 
-namespace {
+	namespace {
 
-const wchar_t kWndClass[] = L"Client_TempWindow";
+		const wchar_t kWndClass[] = L"Client_TempWindow";
 
-// Create the temp window.
-HWND CreateTempWindow() {
-  HINSTANCE hInstance = ::GetModuleHandle(NULL);
+		// Create the temp window.
+		HWND CreateTempWindow() {
+			HINSTANCE hInstance = ::GetModuleHandle(NULL);
 
-  WNDCLASSEX wc = {0};
-  wc.cbSize = sizeof(wc);
-  wc.lpfnWndProc = DefWindowProc;
-  wc.hInstance = hInstance;
-  wc.lpszClassName = kWndClass;
-  RegisterClassEx(&wc);
+			WNDCLASSEX wc = { 0 };
+			wc.cbSize = sizeof(wc);
+			wc.lpfnWndProc = DefWindowProc;
+			wc.hInstance = hInstance;
+			wc.lpszClassName = kWndClass;
+			RegisterClassEx(&wc);
 
-  // Create a 1x1 pixel hidden window.
-  return CreateWindow(kWndClass, 0, WS_OVERLAPPEDWINDOW | WS_CLIPCHILDREN, 0, 0,
-                      1, 1, NULL, NULL, hInstance, NULL);
-}
+			// Create a 1x1 pixel hidden window.
+			return CreateWindow(kWndClass, 0, WS_OVERLAPPEDWINDOW | WS_CLIPCHILDREN, 0, 0,
+				1, 1, NULL, NULL, hInstance, NULL);
+		}
 
-TempWindowWin* g_temp_window = NULL;
+		TempWindowWin* g_temp_window = NULL;
 
-}  // namespace
+	}  // namespace
 
-TempWindowWin::TempWindowWin() : hwnd_(NULL) {
-  DCHECK(!g_temp_window);
-  g_temp_window = this;
+	TempWindowWin::TempWindowWin() : hwnd_(NULL) {
+		DCHECK(!g_temp_window);
+		g_temp_window = this;
 
-  hwnd_ = CreateTempWindow();
-  CHECK(hwnd_);
-}
+		hwnd_ = CreateTempWindow();
+		CHECK(hwnd_);
+	}
 
-TempWindowWin::~TempWindowWin() {
-  g_temp_window = NULL;
-  DCHECK(hwnd_);
-  DestroyWindow(hwnd_);
-}
+	TempWindowWin::~TempWindowWin() {
+		g_temp_window = NULL;
+		DCHECK(hwnd_);
+		DestroyWindow(hwnd_);
+	}
 
-// static
-CefWindowHandle TempWindowWin::GetWindowHandle() {
-  DCHECK(g_temp_window);
-  return g_temp_window->hwnd_;
-}
+	// static
+	CefWindowHandle TempWindowWin::GetWindowHandle() {
+		DCHECK(g_temp_window);
+		return g_temp_window->hwnd_;
+	}
 
 }  // namespace client

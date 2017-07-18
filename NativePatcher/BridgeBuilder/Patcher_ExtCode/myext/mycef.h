@@ -26,6 +26,7 @@
 // THE SOFTWARE.
 
 #include <string>
+#include <uchar.h>
 
 #include "include/wrapper/cef_message_router.h" 
 #include "tests/cefclient/browser/client_types.h"
@@ -47,10 +48,7 @@ typedef unsigned __int64 uint64_t;
 
 #include <stdint.h>
 
-#endif
-
-
-
+#endif 
 
 // jsvalue (JsValue on the CLR side) is a struct that can be easily marshaled
 // by simply blitting its value (being only 16 bytes should be quite fast too).
@@ -78,36 +76,23 @@ typedef unsigned __int64 uint64_t;
 #define JSVALUE_TYPE_BUFFER         20 //my extension
 
 #define JSVALUE_TYPE_NATIVE_CEFSTRING 30  //my extension
+#define JSVALUE_TYPE_MEM_ERROR      50 //my extension
 
 
 extern "C" {
-
-
+	 
 	struct jsvalue
 	{
-		//-------------
-		//from vroomjs
-		//-------------
-
-		// 8 bytes is the maximum CLR alignment; by putting the union first and a
-		// int64_t inside it we make (almost) sure the offset of 'type' will always
-		// be 8 and the total size 16. We add a check to JsContext_new anyway. 
-		union
-		{
-			int32_t     i32;
-			int64_t     i64;
-			double      num;
-			const void    *ptr;
-			const char    *byteBuffer;
-			const uint16_t *str;
-			const wchar_t *str2;
-			const jsvalue  *arr;
-		} value;
-
-		int32_t         type;
-		int32_t         length; // Also used as slot index on the CLR side.
-	};
-
+	    int32_t type; //type and flags
+	                  //this for 32 bits values, also be used as string len, array len  and index to managed slot index
+	    int32_t i32;
+	    // native ptr (may point to native object, native array, native string)
+	    const void* ptr; //uint16_t* or jsvalue**   arr or 
+	               //store float or double
+	    double num;
+	    //store 64 bits value
+	    int64_t i64;
+	}; 
 }
 
 
@@ -145,7 +130,7 @@ public:
 	void SetArgType(int argIndex, int type);
 
 	//----------------------------------------------------------------------
-	std::wstring ReadOutputAsString(int resultIndex);
+	const char16* ReadOutputAsString(int resultIndex);
 	int ReadOutputAsInt32(int resultIndex);
 
 };
