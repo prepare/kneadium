@@ -167,7 +167,7 @@ const char16* MethodArgs::ReadOutputAsString(int resultIndex)
 		{
 			//TODO: review again
 			std::string str1 = "";
-			str1.append((const char*) this->result0.byteBuffer, (size_t)result0.i32);
+			str1.append((const char*) this->result0.ptr, (size_t)result0.i32);
 		}
 		}
 	}break;
@@ -182,7 +182,7 @@ const char16* MethodArgs::ReadOutputAsString(int resultIndex)
 		case JSVALUE_TYPE_BUFFER:
 		{
 			std::string str1 = "";
-			str1.append((const char*) this->result1.byteBuffer, (size_t)result1.i32);
+			str1.append((const char*) this->result1.ptr, (size_t)result1.i32);
 			CefString cefStr(str1);
 			return cefStr.c_str();
 		}
@@ -198,7 +198,7 @@ const char16* MethodArgs::ReadOutputAsString(int resultIndex)
 		case JSVALUE_TYPE_BUFFER:
 		{
 			std::string str1 = "";
-			str1.append((const char*) this->result2.byteBuffer, (size_t)result2.i32);
+			str1.append((const char*) this->result2.ptr, (size_t)result2.i32);
 			CefString cefStr(str1);
 			return cefStr.c_str();
 		}

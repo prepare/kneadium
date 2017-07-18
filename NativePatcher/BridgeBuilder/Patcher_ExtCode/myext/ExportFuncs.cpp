@@ -347,21 +347,25 @@ void MyCefSetInitSettings(CefSettings* cefSetting, int keyName, const wchar_t* v
 //1. 
 
 
-jsvalue MyCefNativeMetGetArgs(MethodArgs* args, int argIndex)
+void MyCefNativeMetGetArgs(MethodArgs* args, int argIndex, jsvalue* output)
 {
 	switch (argIndex)
 	{
-	case 0: return args->arg0;
-	case 1: return args->arg1;
-	case 2: return args->arg2;
-	case 3: return args->arg3;
-	case 4: return args->arg4;
+	case 0:
+		output = &args->arg0;
+		break;
+	case 1:
+		output = &args->arg1;
+		break;
+	case 2:  output = &args->arg2;
+		break;
+	case 3: output = &args->arg3;
+		break;
+	case 4: output = &args->arg4;
+		break;
 	default:
-	{
-		jsvalue v;
-		v.type = JSVALUE_TYPE_EMPTY;		 
-		return v;
-	}
+		output->type = JSVALUE_TYPE_EMPTY;
+		break;
 	}
 }
 
@@ -468,27 +472,27 @@ void MyCefMetArgs_SetInputAsInt32(MethodArgs* args, int argIndex, int32_t value)
 	{
 	case 0: {
 
-		args->arg0.type = JSVALUE_TYPE_INTEGER;		 
+		args->arg0.type = JSVALUE_TYPE_INTEGER;
 		args->arg0.i32 = value;
 	}break;
 	case 1: {
 
-		args->arg1.type = JSVALUE_TYPE_INTEGER;		 
+		args->arg1.type = JSVALUE_TYPE_INTEGER;
 		args->arg1.i32 = value;
 	}break;
 	case 2: {
 
-		args->arg2.type = JSVALUE_TYPE_INTEGER;		 
+		args->arg2.type = JSVALUE_TYPE_INTEGER;
 		args->arg2.i32 = value;
 	}break;
 	case 3: {
 
-		args->arg3.type = JSVALUE_TYPE_INTEGER;		 
+		args->arg3.type = JSVALUE_TYPE_INTEGER;
 		args->arg3.i32 = value;
 	}break;
 	case 4: {
 
-		args->arg4.type = JSVALUE_TYPE_INTEGER;		 
+		args->arg4.type = JSVALUE_TYPE_INTEGER;
 		args->arg4.i32 = value;
 	}break;
 	}
@@ -502,31 +506,31 @@ void MyCefMetArgs_SetResultAsByteBuffer(MethodArgs* args, int argIndex, const ch
 
 		args->result0.type = JSVALUE_TYPE_BUFFER;
 		args->result0.i32 = (int32_t)len;
-		args->result0.byteBuffer = byteBuffer;
+		args->result0.ptr = byteBuffer;
 	}break;
 	case 1: {
 
 		args->result1.type = JSVALUE_TYPE_BUFFER;
 		args->result1.i32 = (int32_t)len;
-		args->result1.byteBuffer = byteBuffer;
+		args->result1.ptr = byteBuffer;
 	}break;
 	case 2: {
 
 		args->result2.type = JSVALUE_TYPE_BUFFER;
 		args->result2.i32 = (int32_t)len;
-		args->result2.byteBuffer = byteBuffer;
+		args->result2.ptr = byteBuffer;
 	}break;
 	case 3: {
 
 		args->result3.type = JSVALUE_TYPE_BUFFER;
 		args->result3.i32 = (int32_t)len;
-		args->result3.byteBuffer = byteBuffer;
+		args->result3.ptr = byteBuffer;
 	}break;
 	case 4: {
 
 		args->result4.type = JSVALUE_TYPE_BUFFER;
 		args->result4.i32 = (int32_t)len;
-		args->result4.byteBuffer = byteBuffer;
+		args->result4.ptr = byteBuffer;
 	}break;
 	}
 }

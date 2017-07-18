@@ -48,10 +48,7 @@ typedef unsigned __int64 uint64_t;
 
 #include <stdint.h>
 
-#endif
-
-
-
+#endif 
 
 // jsvalue (JsValue on the CLR side) is a struct that can be easily marshaled
 // by simply blitting its value (being only 16 bytes should be quite fast too).
@@ -83,24 +80,19 @@ typedef unsigned __int64 uint64_t;
 
 
 extern "C" {
-
-
+	 
 	struct jsvalue
 	{
-		int32_t type;//type and flags
-		//-----
-		int32_t i32;//this for 32 bits values, also be used as string len, array len  and index to managed slot index
-		int64_t i64; //64 bits value
-		double  num;//store float or double
-		const  void*  ptr;
-
-		const char    *byteBuffer;
-		//const uint16_t *str;
-		//const wchar_t *str2;
-
-
-	};
-
+	    int32_t type; //type and flags
+	                  //this for 32 bits values, also be used as string len, array len  and index to managed slot index
+	    int32_t i32;
+	    // native ptr (may point to native object, native array, native string)
+	    const void* ptr; //uint16_t* or jsvalue**   arr or 
+	               //store float or double
+	    double num;
+	    //store 64 bits value
+	    int64_t i64;
+	}; 
 }
 
 

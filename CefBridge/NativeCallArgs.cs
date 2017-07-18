@@ -67,7 +67,8 @@ namespace LayoutFarm.CefBridge
         const int BUFF_LEN = 512;
         public string GetArgAsString(int index)
         {
-            JsValue v = Cef3Binder.MyCefNativeMetGetArgs(_argPtr, index);
+            JsValue v = new JsValue();
+            Cef3Binder.MyCefNativeMetGetArgs(_argPtr, index, ref v);
             if ((int)v.Type == 30)
             {
                 //native cef
@@ -94,12 +95,14 @@ namespace LayoutFarm.CefBridge
         }
         public int GetArgAsInt32(int index)
         {
-            JsValue v = Cef3Binder.MyCefNativeMetGetArgs(_argPtr, index);
+            JsValue v = new JsValue();
+            Cef3Binder.MyCefNativeMetGetArgs(_argPtr, index, ref v);
             return v.I32;
         }
         public IntPtr GetArgAsNativePtr(int index)
         {
-            JsValue v = Cef3Binder.MyCefNativeMetGetArgs(_argPtr, index);
+            JsValue v = new JsValue();
+            Cef3Binder.MyCefNativeMetGetArgs(_argPtr, index, ref v);
             return v.Ptr;
         }
         public void SetOutput(int index, string str)
@@ -224,7 +227,7 @@ namespace LayoutFarm.CefBridge
         }
         public void SetSubProcessPath(string value)
         {
-           Cef3Binder.MyCefSetInitSettings(this.nativePtr, (int)CefSettingsKey.CEF_SETTINGS_BrowserSubProcessPath, value);
+            Cef3Binder.MyCefSetInitSettings(this.nativePtr, (int)CefSettingsKey.CEF_SETTINGS_BrowserSubProcessPath, value);
         }
 
     }

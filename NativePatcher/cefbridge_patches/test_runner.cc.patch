@@ -92,7 +92,7 @@ return false; //not handle by this handler
 //so we need to copy to unmanaged form
 CefRefPtr<CefStreamReader> stream = CefStreamReader::CreateForHandler(
 new CefByteReadHandler(
-(const unsigned char*)metArgs.result1.byteBuffer,
+(const unsigned char*)metArgs.result1.ptr,
 (size_t)metArgs.result1.i32,
 NULL));
 
