@@ -50,6 +50,9 @@ int RegisterManagedCallBack(managed_callback mxCallback, int callbackKind)
 //3.
 client::ClientApp* MyCefCreateClientApp(HINSTANCE hInstance)
 {
+	//-----
+	//user must call RegisterManagedCallBack() before use this method *** 
+	//-----
 	// Parse command-line arguments.
 	CefRefPtr<CefCommandLine> command_line = CefCommandLine::CreateCommandLine();
 	command_line->InitFromString(::GetCommandLineW());
