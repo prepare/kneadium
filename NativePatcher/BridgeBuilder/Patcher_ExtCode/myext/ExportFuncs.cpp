@@ -85,9 +85,8 @@ client::ClientApp* MyCefCreateClientApp(HINSTANCE hInstance)
 	//create main context here
 	client::init_main::SetManagedCallback(myMxCallback_);
 
-	mainContext = DllInitMain(hInstance, app);
-
-
+	CefMainArgs main_args(hInstance);
+	mainContext = DllInitMain(main_args, app);
 	return app;
 }
 
@@ -741,7 +740,7 @@ MY_DLL_EXPORT CefV8Handler* MyCefJs_New_V8Handler(managed_callback callback) {
 				memset(&metArgs, 0, sizeof(MethodArgs));
 				metArgs.SetArgAsNativeObject(0, object);
 				metArgs.SetArgAsNativeObject(1, &arguments);
-				metArgs.SetArgAsInt32(2,(int32_t)arguments.size());
+				metArgs.SetArgAsInt32(2, (int32_t)arguments.size());
 				//-------------------------------------------
 				callback(CEF_MSG_MyV8ManagedHandler_Execute, &metArgs);
 				//check result

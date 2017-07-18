@@ -180,3 +180,5 @@ public:
 //typedef void (__stdcall *managed_callback)(int id, void* args);   
 typedef void(__cdecl *managed_callback)(int id, void* args);
 
+//---
+ 

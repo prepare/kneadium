@@ -1,4 +1,4 @@
-#include <windows.h>
+ 
 #include "include/base/cef_scoped_ptr.h"
 #include "include/cef_command_line.h"
 #include "include/cef_sandbox_win.h"
@@ -18,4 +18,4 @@ namespace client {
 	}
 }
 
-client::MainContextImpl* DllInitMain(HINSTANCE hInstance, CefRefPtr<CefApp> app);
+client::MainContextImpl* DllInitMain(CefMainArgs& main_args, CefRefPtr<CefApp> app);
