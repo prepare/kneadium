@@ -352,8 +352,11 @@ void MyCefNativeMetGetArgs(MethodArgs* args, int argIndex, jsvalue* output)
 	switch (argIndex)
 	{
 	case 0: 
-		output = &args->arg0;
+	{
+		jsvalue v = args->arg0;
+		 
 		break;
+	}
 	case 1: 
 		output = &args->arg1;
 		break;

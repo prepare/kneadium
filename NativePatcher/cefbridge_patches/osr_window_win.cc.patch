@@ -1,4 +1,4 @@
-//###_ORIGINAL D:\projects\cef_binary_3.3071.1647.win64\tests\cefclient\browser//osr_window_win.cc
+//###_ORIGINAL D:\projects\cef_binary_3.3071.1647.win32\tests\cefclient\browser//osr_window_win.cc
 //###_START 0
 OsrWindowWin::OsrWindowWin(Delegate* delegate,
 //###_FIND_NEXT_LANDMARK 0
