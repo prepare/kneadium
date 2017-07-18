@@ -3,21 +3,12 @@
 // Copyright (c) 2015 The Chromium Embedded Framework Authors. All rights
 // reserved. Use of this source code is governed by a BSD-style license that
 // can be found in the LICENSE file.
+
+
+#include "dll_init.h" 
+#include "include/cef_command_line.h"  
+
  
-
-#include "dll_init.h"
-#include "ExportFuncs.h"
-#include "include/cef_sandbox_win.h"
-#include "include/cef_command_line.h"
-
-#include "tests/cefclient/browser/main_message_loop_multithreaded_win.h"
-#include "tests/shared/browser/main_message_loop_std.h"
-#include "tests/cefclient/browser/root_window_manager.h"
-#include "tests/cefclient/browser/test_runner.h"
-#include "tests/shared/common/client_app_other.h"
-#include "tests/shared/renderer/client_app_renderer.h"
-#include "tests/shared/browser/client_app_browser.h"
-#include "mycef.h"
 
 // When generating projects with CMake the CEF_USE_SANDBOX value will be defined
 // automatically if using the required compiler version. Pass -DUSE_SANDBOX=OFF
@@ -28,6 +19,8 @@
 #if defined(CEF_USE_SANDBOX)
 // The cef_sandbox.lib static library is currently built with VS2013. It may not
 // link successfully with other VS versions.
+#include "include/cef_sandbox_win.h"
+
 #pragma comment(lib, "cef_sandbox.lib")
 #endif
 
@@ -108,7 +101,7 @@ namespace client {
 			mainContext->Initialize(main_args, settings, app, sandbox_info);
 
 			// Register scheme handlers.
-			test_runner::RegisterSchemeHandlers();
+			//test_runner::RegisterSchemeHandlers(); //if you don't want to register the scheme handler
 
 			// Create the first window.
 			//context->GetRootWindowManager()->CreateRootWindow(

@@ -5,8 +5,7 @@
 #include "../browser/client_handler_std.h"
 #include "../browser/root_window.h"
 //
-
-
+ 
 #include "mycef.h" //mycef's jsvalue 
 
 
@@ -18,8 +17,7 @@ class MyBrowser; //forward decl
 extern "C" {
 	
 
-	//part 1
-
+	//part 1 
 	//1.
 	MY_DLL_EXPORT int MyCefGetVersion();
 	//2.
