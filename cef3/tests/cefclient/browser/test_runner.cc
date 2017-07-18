@@ -484,7 +484,7 @@ namespace client {
 						//changed
 						//
 						std::string s1("");
-						s1.append((const char*)metArgs.result1.ptr, metArgs.result1.length);
+						s1.append((const char*)metArgs.result1.ptr, metArgs.result1.i32);
 						return s1;
 					}
 
@@ -780,7 +780,10 @@ namespace client {
 						//has resource in managed buffer form
 						//so we need to copy to unmanaged form
 						CefRefPtr<CefStreamReader> stream = CefStreamReader::CreateForHandler(
-							new CefByteReadHandler((const unsigned char*)metArgs.result1.byteBuffer, (size_t)metArgs.result1.length, NULL));
+							new CefByteReadHandler(
+							(const unsigned char*)metArgs.result1.byteBuffer,
+							(size_t)metArgs.result1.i32,
+								NULL));
 
 						CefString cefStr2(metArgs.ReadOutputAsString(2));
 						CefRefPtr<CefResourceHandler> handler = new CefStreamResourceHandler(
