@@ -8,32 +8,32 @@ void MethodArgs::SetArgAsString(int argIndex, const wchar_t* str)
 	case 0:
 	{
 		this->arg0.type = JSVALUE_TYPE_STRING;
-		this->arg0.length = (int32_t)wcslen(str);
-		this->arg0.value.str = (uint16_t*)str;
+		this->arg0.i32 = (int32_t)wcslen(str);
+		this->arg0.str = (uint16_t*)str;
 	}break;
 	case 1:
 	{
 		this->arg1.type = JSVALUE_TYPE_STRING;
-		this->arg1.length = (int32_t) wcslen(str);
-		this->arg1.value.str = (uint16_t*)str;
+		this->arg1.i32 = (int32_t) wcslen(str);
+		this->arg1.str = (uint16_t*)str;
 	}break;
 	case 2:
 	{
 		this->arg2.type = JSVALUE_TYPE_STRING;
-		this->arg2.length = (int32_t)wcslen(str);
-		this->arg2.value.str = (uint16_t*)str;
+		this->arg2.i32 = (int32_t)wcslen(str);
+		this->arg2.str = (uint16_t*)str;
 	}break;
 	case 3:
 	{
 		this->arg3.type = JSVALUE_TYPE_STRING;
-		this->arg3.length = (int32_t)wcslen(str);
-		this->arg3.value.str = (uint16_t*)str;
+		this->arg3.i32 = (int32_t)wcslen(str);
+		this->arg3.str = (uint16_t*)str;
 	}break;
 	case 4:
 	{
 		this->arg4.type = JSVALUE_TYPE_STRING;
-		this->arg4.length = (int32_t)wcslen(str);
-		this->arg4.value.str = (uint16_t*)str;
+		this->arg4.i32 = (int32_t)wcslen(str);
+		this->arg4.str = (uint16_t*)str;
 	}break;
 	}
 }
@@ -42,33 +42,28 @@ void MethodArgs::SetArgAsInt32(int argIndex,const int32_t value)
 	switch (argIndex) {
 	case 0:
 	{
-		this->arg0.type = JSVALUE_TYPE_INTEGER;
-		this->arg0.length = sizeof(int32_t);
-		this->arg0.value.i32 = value;
+		this->arg0.type = JSVALUE_TYPE_INTEGER; 
+		this->arg0.i32 = value;
 	}break;
 	case 1:
 	{
-		this->arg1.type = JSVALUE_TYPE_INTEGER;
-		this->arg1.length = sizeof(int32_t);
-		this->arg1.value.i32 = value;
+		this->arg1.type = JSVALUE_TYPE_INTEGER; 
+		this->arg1.i32 = value;
 	}break;
 	case 2:
 	{
-		this->arg2.type = JSVALUE_TYPE_INTEGER;
-		this->arg2.length = sizeof(int32_t);
-		this->arg2.value.i32 = value;
+		this->arg2.type = JSVALUE_TYPE_INTEGER; 
+		this->arg2.i32 = value;
 	}break;
 	case 3:
 	{
-		this->arg3.type = JSVALUE_TYPE_INTEGER;
-		this->arg3.length = sizeof(int32_t);
-		this->arg3.value.i32 = value;
+		this->arg3.type = JSVALUE_TYPE_INTEGER; 
+		this->arg3.i32 = value;
 	}break;
 	case 4:
 	{
-		this->arg4.type = JSVALUE_TYPE_INTEGER;
-		this->arg4.length = sizeof(int32_t);
-		this->arg4.value.i32 = value;
+		this->arg4.type = JSVALUE_TYPE_INTEGER; 
+		this->arg4.i32 = value;
 	}break;
 	}
 }
@@ -77,33 +72,28 @@ void MethodArgs::SetArgAsNativeObject(int argIndex, const void* nativeObject)
 	switch (argIndex) {
 	case 0:
 	{
-		this->arg0.type = JSVALUE_TYPE_WRAPPED;
-		this->arg0.length = 0;
-		this->arg0.value.ptr = nativeObject;
+		this->arg0.type = JSVALUE_TYPE_WRAPPED; 
+		this->arg0.ptr = nativeObject;
 	}break;
 	case 1:
 	{
-		this->arg1.type = JSVALUE_TYPE_WRAPPED;
-		this->arg1.length = 0;
-		this->arg1.value.ptr = nativeObject;
+		this->arg1.type = JSVALUE_TYPE_WRAPPED; 
+		this->arg1.ptr = nativeObject;
 	}break;
 	case 2:
 	{
-		this->arg2.type = JSVALUE_TYPE_WRAPPED;
-		this->arg2.length = 0;
-		this->arg2.value.ptr = nativeObject;
+		this->arg2.type = JSVALUE_TYPE_WRAPPED; 
+		this->arg2.ptr = nativeObject;
 	}break;
 	case 3:
 	{
-		this->arg3.type = JSVALUE_TYPE_WRAPPED;
-		this->arg3.length = 0;
-		this->arg3.value.ptr = nativeObject;
+		this->arg3.type = JSVALUE_TYPE_WRAPPED; 
+		this->arg3.ptr = nativeObject;
 	}break;
 	case 4:
 	{
-		this->arg4.type = JSVALUE_TYPE_WRAPPED;
-		this->arg4.length = 0;
-		this->arg4.value.ptr = nativeObject;
+		this->arg4.type = JSVALUE_TYPE_WRAPPED; 
+		this->arg4.ptr = nativeObject;
 	}break;
 	}
 }
@@ -135,7 +125,7 @@ int MethodArgs::ReadOutputAsInt32(int resultIndex) {
 		{
 		case JSVALUE_TYPE_INTEGER:
 			//unicode string
-			return this->result0.value.i32;
+			return this->result0.i32;
 		}
 	}break;
 	case 1:
@@ -144,7 +134,7 @@ int MethodArgs::ReadOutputAsInt32(int resultIndex) {
 		{
 		case JSVALUE_TYPE_INTEGER:
 			//unicode string
-			return this->result1.value.i32;
+			return this->result1.i32;
 		}
 	}break;
 	case 2:
@@ -153,7 +143,7 @@ int MethodArgs::ReadOutputAsInt32(int resultIndex) {
 		{
 		case JSVALUE_TYPE_INTEGER:
 			//unicode string
-			return this->result2.value.i32;
+			return this->result2.i32;
 		}
 	}break;
 
@@ -170,11 +160,11 @@ std::wstring MethodArgs::ReadOutputAsString(int resultIndex)
 		{
 		case JSVALUE_TYPE_STRING:
 			//unicode string
-			return std::wstring(this->result0.value.str2);
+			return std::wstring(this->result0.str2);
 		case JSVALUE_TYPE_BUFFER:
 		{
 			std::string str1 = "";
-			str1.append((const char*) this->result0.value.byteBuffer, (size_t)result0.length);
+			str1.append((const char*) this->result0.byteBuffer, (size_t)result0.i32);
 			CefString cefStr(str1);
 			return cefStr.c_str();
 		}
@@ -186,11 +176,11 @@ std::wstring MethodArgs::ReadOutputAsString(int resultIndex)
 		{
 		case JSVALUE_TYPE_STRING:
 			//unicode string
-			return std::wstring(this->result1.value.str2);
+			return std::wstring(this->result1.str2);
 		case JSVALUE_TYPE_BUFFER:
 		{
 			std::string str1 = "";
-			str1.append((const char*) this->result1.value.byteBuffer, (size_t)result1.length);
+			str1.append((const char*) this->result1.byteBuffer, (size_t)result1.i32);
 			CefString cefStr(str1);
 			return cefStr.c_str();
 		}
@@ -202,11 +192,11 @@ std::wstring MethodArgs::ReadOutputAsString(int resultIndex)
 		{
 		case JSVALUE_TYPE_STRING:
 			//unicode string
-			return std::wstring(this->result2.value.str2);
+			return std::wstring(this->result2.str2);
 		case JSVALUE_TYPE_BUFFER:
 		{
 			std::string str1 = "";
-			str1.append((const char*) this->result2.value.byteBuffer, (size_t)result2.length);
+			str1.append((const char*) this->result2.byteBuffer, (size_t)result2.i32);
 			CefString cefStr(str1);
 			return cefStr.c_str();
 		}

@@ -78,6 +78,7 @@ typedef unsigned __int64 uint64_t;
 #define JSVALUE_TYPE_BUFFER         20 //my extension
 
 #define JSVALUE_TYPE_NATIVE_CEFSTRING 30  //my extension
+#define JSVALUE_TYPE_MEM_ERROR      50 //my extension
 
 
 extern "C" {
@@ -85,27 +86,18 @@ extern "C" {
 
 	struct jsvalue
 	{
-		//-------------
-		//from vroomjs
-		//-------------
+		int32_t type;//type and flags
+		//-----
+		int32_t i32;//this for 32 bits values, also be used as string len, array len  and index to managed slot index
+		int64_t i64; //64 bits value
+		double  num;//store float or double
+		const  void*  ptr;
 
-		// 8 bytes is the maximum CLR alignment; by putting the union first and a
-		// int64_t inside it we make (almost) sure the offset of 'type' will always
-		// be 8 and the total size 16. We add a check to JsContext_new anyway. 
-		union
-		{
-			int32_t     i32;
-			int64_t     i64;
-			double      num;
-			const void    *ptr;
-			const char    *byteBuffer;
-			const uint16_t *str;
-			const wchar_t *str2;
-			const jsvalue  *arr;
-		} value;
-
-		int32_t         type;
-		int32_t         length; // Also used as slot index on the CLR side.
+		const char    *byteBuffer;
+		const uint16_t *str;
+		const wchar_t *str2;
+		 
+		 
 	};
 
 }

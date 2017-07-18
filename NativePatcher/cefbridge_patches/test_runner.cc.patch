@@ -30,7 +30,7 @@ metArgs.SetArgAsString(0, cef_str.c_str());
 
 client::test_runner::mcallback_(CEF_MSG_RequestUrlFilter2, &metArgs);
 
-if (metArgs.result0.value.i32 == 0) {
+if (metArgs.result0.i32 == 0) {
 //no change
 return url;
 }
@@ -38,12 +38,12 @@ else {
 //changed
 //
 std::string s1("");
-s1.append((const char*)metArgs.result1.value.ptr, metArgs.result1.length);
+s1.append((const char*)metArgs.result1.ptr, metArgs.result1.i32);
 return s1;
 }
 
 }
-return url; 
+return url;
 }
 //###_APPEND_STOP
 //###_START 3
@@ -63,7 +63,7 @@ managed_callback mcallback;
 explicit BinaryResourceProvider(const std::string& url_path)
 : url_path_(url_path) {
 
-mcallback= NULL;
+mcallback = NULL;
 DCHECK(!url_path.empty());
 
 }
@@ -84,14 +84,17 @@ metArgs.SetArgAsNativeObject(1, request);
 //get data from managed side
 mcallback(CEF_MSG_BinaryResouceProvider_OnRequest, &metArgs); //get resource 
 
-if (metArgs.result0.value.i32 == 0) {
+if (metArgs.result0.i32 == 0) {
 return false; //not handle by this handler
 }
 
 //has resource in managed buffer form
 //so we need to copy to unmanaged form
 CefRefPtr<CefStreamReader> stream = CefStreamReader::CreateForHandler(
-new CefByteReadHandler((const unsigned char*)metArgs.result1.value.byteBuffer, (size_t)metArgs.result1.length, NULL));
+new CefByteReadHandler(
+(const unsigned char*)metArgs.result1.byteBuffer,
+(size_t)metArgs.result1.i32,
+NULL));
 
 CefString cefStr2(metArgs.ReadOutputAsString(2));
 CefRefPtr<CefResourceHandler> handler = new CefStreamResourceHandler(
