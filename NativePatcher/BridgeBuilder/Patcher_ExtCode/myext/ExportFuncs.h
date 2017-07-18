@@ -1,25 +1,22 @@
 //MIT, 2015-2017, WinterDev
-#include "dll_init.h" 
+
 #include "../../shared/common/client_app.h"
 #include "../browser/client_handler.h"
 #include "../browser/client_handler_std.h"
 #include "../browser/root_window.h"
-#include "../browser/root_window_win.h"
-#include "../browser/browser_window_osr_win.h"
-#include "mycef.h"
+//
+
+
+#include "mycef.h" //mycef's jsvalue 
+
+
 #define MY_DLL_EXPORT __declspec(dllexport)  
 
 
+class MyBrowser; //forward decl
+
 extern "C" {
-
-
-	class MyBrowser
-	{
-	public:
-		client::RootWindowWin* rootWin;
-		client::BrowserWindow* bwWindow; 
-	};
-
+	
 
 	//part 1
 

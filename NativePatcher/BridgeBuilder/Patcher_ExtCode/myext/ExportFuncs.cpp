@@ -1,6 +1,9 @@
 //MIT, 2015-2017, WinterDev
 #include "ExportFuncs.h"   
+#include "dll_init.h" 
 #include "mycef.h"
+
+
 //static 
 
 #include "include/base/cef_scoped_ptr.h"
@@ -24,8 +27,9 @@
 #include "tests/cefclient/browser/main_message_loop_multithreaded_win.h"
 #include "tests/cefclient/browser/browser_window_std_win.h"
 #include "tests/cefclient/browser/root_window_win.h" //***
-#include "tests/cefclient/browser/osr_window_win.h" //***
-
+#include "tests/cefclient/browser/osr_window_win.h" //*** 
+#include "../browser/root_window_win.h" //**
+#include "../browser/browser_window_osr_win.h" //**
 
 
 
@@ -33,6 +37,15 @@ client::MainContextImpl* mainContext;
 client::MainMessageLoop* message_loop;  //essential for mainloop checking 
 
 managed_callback myMxCallback_ = NULL;
+
+
+class MyBrowser
+{
+public:
+	client::RootWindowWin* rootWin;
+	client::BrowserWindow* bwWindow;
+};
+
 
 //1.
 int MyCefGetVersion()
