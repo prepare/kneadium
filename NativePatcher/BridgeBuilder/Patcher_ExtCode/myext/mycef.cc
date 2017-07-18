@@ -124,7 +124,6 @@ int MethodArgs::ReadOutputAsInt32(int resultIndex) {
 		switch (this->result0.type)
 		{
 		case JSVALUE_TYPE_INTEGER:
-			//unicode string
 			return this->result0.i32;
 		}
 	}break;
@@ -133,7 +132,7 @@ int MethodArgs::ReadOutputAsInt32(int resultIndex) {
 		switch (this->result0.type)
 		{
 		case JSVALUE_TYPE_INTEGER:
-			//unicode string
+
 			return this->result1.i32;
 		}
 	}break;
@@ -142,7 +141,6 @@ int MethodArgs::ReadOutputAsInt32(int resultIndex) {
 		switch (this->result0.type)
 		{
 		case JSVALUE_TYPE_INTEGER:
-			//unicode string
 			return this->result2.i32;
 		}
 	}break;
@@ -168,6 +166,8 @@ const char16* MethodArgs::ReadOutputAsString(int resultIndex)
 			//TODO: review again
 			std::string str1 = "";
 			str1.append((const char*) this->result0.ptr, (size_t)result0.i32);
+			CefString cefStr(str1);
+			return cefStr.c_str();
 		}
 		}
 	}break;
