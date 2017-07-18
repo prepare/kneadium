@@ -7,7 +7,13 @@
 //
  
 #include "mycef.h" //mycef's jsvalue   
-#define MY_DLL_EXPORT __declspec(dllexport)   
+
+#ifdef _WIN32 
+#define MY_DLL_EXPORT __declspec(dllexport)
+#else 
+#define MY_DLL_EXPORT
+#endif
+ 
 class MyBrowser; //forward decl
 
 extern "C" {
