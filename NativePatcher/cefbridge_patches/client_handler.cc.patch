@@ -298,7 +298,7 @@ CefString cefStr1 = url;
 args.SetArgAsString(0, cefStr1.c_str());
 this->mcallback_(CEF_MSG_ClientHandler_ExecCustomProtocol, &args);
 //then what to do next
-allow_os_execution = (args.result0.value.i32 == 1);
+allow_os_execution = (args.result0.i32 == 1);
 }
 else {
 std::string urlStr = url;
@@ -329,7 +329,7 @@ const char* cstr = str16.c_str();
 CefString cefStr1 = cstr;
 args.SetArgAsString(0, cefStr1.c_str());
 this->mcallback_(CEF_MSG_ClientHandler_OnCertError, &args);
-if (args.result0.value.i32 == 1) {
+if (args.result0.i32 == 1) {
 //true
 callback->Continue(true);
 return true;

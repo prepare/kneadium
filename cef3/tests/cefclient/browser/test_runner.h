@@ -20,46 +20,46 @@
 //###_APPEND_STOP
 
 namespace client {
-namespace test_runner {
+	namespace test_runner {
 
-// Run a test.
-void RunTest(CefRefPtr<CefBrowser> browser, int id);
+		// Run a test.
+		void RunTest(CefRefPtr<CefBrowser> browser, int id);
 
-// Returns the contents of the CefRequest as a string.
-std::string DumpRequestContents(CefRefPtr<CefRequest> request);
+		// Returns the contents of the CefRequest as a string.
+		std::string DumpRequestContents(CefRefPtr<CefRequest> request);
 
-// Returns a data: URI with the specified contents.
-std::string GetDataURI(const std::string& data, const std::string& mime_type);
+		// Returns a data: URI with the specified contents.
+		std::string GetDataURI(const std::string& data, const std::string& mime_type);
 
-// Returns the string representation of the specified error code.
-std::string GetErrorString(cef_errorcode_t code);
+		// Returns the string representation of the specified error code.
+		std::string GetErrorString(cef_errorcode_t code);
 
-// Set up the resource manager for tests.
-//###_START 1
-void SetupResourceManager(CefRefPtr<CefResourceManager> resource_manager);
-//###_APPEND_START 1
-void SetupResourceManager2(CefRefPtr<CefResourceManager> resource_manager, managed_callback mcallback);
-//###_APPEND_STOP
+		// Set up the resource manager for tests.
+		//###_START 1
+		void SetupResourceManager(CefRefPtr<CefResourceManager> resource_manager);
+		//###_APPEND_START 1
+		void SetupResourceManager2(CefRefPtr<CefResourceManager> resource_manager, managed_callback mcallback);
+		//###_APPEND_STOP
 
-// Show a JS alert message.
-void Alert(CefRefPtr<CefBrowser> browser, const std::string& message);
+		// Show a JS alert message.
+		void Alert(CefRefPtr<CefBrowser> browser, const std::string& message);
 
-// Create all CefMessageRouterBrowserSide::Handler objects. They will be
-// deleted when the ClientHandler is destroyed.
-typedef std::set<CefMessageRouterBrowserSide::Handler*> MessageHandlerSet;
-void CreateMessageHandlers(MessageHandlerSet& handlers);
+		// Create all CefMessageRouterBrowserSide::Handler objects. They will be
+		// deleted when the ClientHandler is destroyed.
+		typedef std::set<CefMessageRouterBrowserSide::Handler*> MessageHandlerSet;
+		void CreateMessageHandlers(MessageHandlerSet& handlers);
 
-// Register scheme handlers for tests.
-void RegisterSchemeHandlers();
+		// Register scheme handlers for tests.
+		void RegisterSchemeHandlers();
 
-// Create a resource response filter for tests.
-CefRefPtr<CefResponseFilter> GetResourceResponseFilter(
-    CefRefPtr<CefBrowser> browser,
-    CefRefPtr<CefFrame> frame,
-    CefRefPtr<CefRequest> request,
-    CefRefPtr<CefResponse> response);
+		// Create a resource response filter for tests.
+		CefRefPtr<CefResponseFilter> GetResourceResponseFilter(
+			CefRefPtr<CefBrowser> browser,
+			CefRefPtr<CefFrame> frame,
+			CefRefPtr<CefRequest> request,
+			CefRefPtr<CefResponse> response);
 
-}  // namespace test_runner
+	}  // namespace test_runner
 }  // namespace client
 
 #endif  // CEF_TESTS_CEFCLIENT_BROWSER_TEST_RUNNER_H_
