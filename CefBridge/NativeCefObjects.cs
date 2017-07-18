@@ -151,7 +151,7 @@ namespace LayoutFarm.CefBridge
         }
     }
 
- 
+
     //struct jsvalue
     //{
     //    int32_t type; //type and flags
@@ -199,10 +199,10 @@ namespace LayoutFarm.CefBridge
         /// store 64 bits value
         /// </summary>
         public long I64;// 
-        //--------------------------------
-        
+                        //--------------------------------
+
     }
-  
+
     public enum JsValueType
     {
 
@@ -252,9 +252,9 @@ namespace LayoutFarm.CefBridge
         //my extension
         JsTypeWrap = 18,
         Int64 = 19,
-        Buffer=20,
-        NativeCefString=30,
-        MemError=50,
+        Buffer = 20,
+        NativeCefString = 30,
+        MemError = 50,
 
     }
     public class NativeBrowser : Cef3RefCountingValue
