@@ -8,10 +8,10 @@
 
 namespace client {
 
-// static
-void ClientAppRenderer::CreateDelegates(DelegateSet& delegates) {
-  renderer::CreateDelegates(delegates);
-  performance_test::CreateDelegates(delegates);
-}
+	// static
+	void ClientAppRenderer::CreateDelegates(DelegateSet& delegates) {
+		renderer::CreateDelegates(delegates);
+		performance_test::CreateDelegates(delegates);
+	}
 
 }  // namespace client

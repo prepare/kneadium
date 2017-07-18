@@ -1,4 +1,4 @@
-//MIT 2015, WinterDev
+//MIT, 2015-2017, WinterDev
 
 // This file is part of the VroomJs library.
 //
@@ -27,10 +27,7 @@
 
 #include <string>
 
-#include "include/cef_client.h"
-#include "include/wrapper/cef_helpers.h"
-#include "include/wrapper/cef_message_router.h"
-#include "include/wrapper/cef_resource_manager.h"
+#include "include/wrapper/cef_message_router.h" 
 #include "tests/cefclient/browser/client_types.h"
 
 #pragma once
@@ -81,6 +78,7 @@ typedef unsigned __int64 uint64_t;
 #define JSVALUE_TYPE_BUFFER         20 //my extension
 
 #define JSVALUE_TYPE_NATIVE_CEFSTRING 30  //my extension
+#define JSVALUE_TYPE_MEM_ERROR      50 //my extension
 
 
 extern "C" {
@@ -95,17 +93,17 @@ extern "C" {
 		// 8 bytes is the maximum CLR alignment; by putting the union first and a
 		// int64_t inside it we make (almost) sure the offset of 'type' will always
 		// be 8 and the total size 16. We add a check to JsContext_new anyway. 
-		union
-		{
-			int32_t     i32;
-			int64_t     i64;
-			double      num;
-			const void    *ptr;
-			const char    *byteBuffer;
-			const uint16_t *str;
-			const wchar_t *str2;
-			const jsvalue  *arr;
-		} value;
+
+		//-----
+		int32_t     i32;
+		int64_t     i64;
+		double      num;
+		const void    *ptr;
+		const char    *byteBuffer;
+		const uint16_t *str;
+		const wchar_t *str2;
+		const jsvalue  *arr;
+		//-----
 
 		int32_t         type;
 		int32_t         length; // Also used as slot index on the CLR side.
@@ -145,7 +143,6 @@ public:
 	void SetArgAsNativeObject(int argIndex, const void* nativeObject);
 	void SetArgAsInt32(int argIndex, const int32_t value);
 
-	void SetOutputString(int resultIndex, const void* dataBuffer, int len);
 	void SetArgType(int argIndex, int type);
 
 	//----------------------------------------------------------------------
@@ -177,6 +174,6 @@ public:
 };
 
 
-//typedef void (__stdcall *managed_callback)(int id, void* args);   
 typedef void(__cdecl *managed_callback)(int id, void* args);
 
+//---

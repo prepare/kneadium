@@ -10,51 +10,51 @@
 #include "include/wrapper/cef_helpers.h"
 
 namespace client {
-namespace window_test {
+	namespace window_test {
 
-namespace {
+		namespace {
 
-CefRefPtr<CefWindow> GetWindow(CefRefPtr<CefBrowser> browser) {
-  CEF_REQUIRE_UI_THREAD();
-  DCHECK(browser->GetHost()->HasView());
+			CefRefPtr<CefWindow> GetWindow(CefRefPtr<CefBrowser> browser) {
+				CEF_REQUIRE_UI_THREAD();
+				DCHECK(browser->GetHost()->HasView());
 
-  CefRefPtr<CefBrowserView> browser_view =
-      CefBrowserView::GetForBrowser(browser);
-  DCHECK(browser_view.get());
+				CefRefPtr<CefBrowserView> browser_view =
+					CefBrowserView::GetForBrowser(browser);
+				DCHECK(browser_view.get());
 
-  CefRefPtr<CefWindow> window = browser_view->GetWindow();
-  DCHECK(window.get());
-  return window;
-}
+				CefRefPtr<CefWindow> window = browser_view->GetWindow();
+				DCHECK(window.get());
+				return window;
+			}
 
-}  // namespace
+		}  // namespace
 
-WindowTestRunnerViews::WindowTestRunnerViews() {}
+		WindowTestRunnerViews::WindowTestRunnerViews() {}
 
-void WindowTestRunnerViews::SetPos(CefRefPtr<CefBrowser> browser,
-                                   int x,
-                                   int y,
-                                   int width,
-                                   int height) {
-  CefRefPtr<CefWindow> window = GetWindow(browser);
+		void WindowTestRunnerViews::SetPos(CefRefPtr<CefBrowser> browser,
+			int x,
+			int y,
+			int width,
+			int height) {
+			CefRefPtr<CefWindow> window = GetWindow(browser);
 
-  CefRect window_bounds(x, y, width, height);
-  ModifyBounds(window->GetDisplay()->GetWorkArea(), window_bounds);
+			CefRect window_bounds(x, y, width, height);
+			ModifyBounds(window->GetDisplay()->GetWorkArea(), window_bounds);
 
-  window->SetBounds(window_bounds);
-}
+			window->SetBounds(window_bounds);
+		}
 
-void WindowTestRunnerViews::Minimize(CefRefPtr<CefBrowser> browser) {
-  GetWindow(browser)->Minimize();
-}
+		void WindowTestRunnerViews::Minimize(CefRefPtr<CefBrowser> browser) {
+			GetWindow(browser)->Minimize();
+		}
 
-void WindowTestRunnerViews::Maximize(CefRefPtr<CefBrowser> browser) {
-  GetWindow(browser)->Maximize();
-}
+		void WindowTestRunnerViews::Maximize(CefRefPtr<CefBrowser> browser) {
+			GetWindow(browser)->Maximize();
+		}
 
-void WindowTestRunnerViews::Restore(CefRefPtr<CefBrowser> browser) {
-  GetWindow(browser)->Restore();
-}
+		void WindowTestRunnerViews::Restore(CefRefPtr<CefBrowser> browser) {
+			GetWindow(browser)->Restore();
+		}
 
-}  // namespace window_test
+	}  // namespace window_test
 }  // namespace client
