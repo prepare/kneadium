@@ -1,9 +1,5 @@
-//MIT 2015,EngineKit
-
-#include "include/cef_browser.h"
-#include "include/cef_request.h"
-#include "include/wrapper/cef_message_router.h"
-#include "include/wrapper/cef_resource_manager.h"
+//MIT, 2015-2017, EngineKit, WinterDev
+ 
 #include "mycef.h"
 
 void MethodArgs::SetArgAsString(int argIndex, const wchar_t* str)

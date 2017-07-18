@@ -1,4 +1,4 @@
-//MIT 2015, WinterDev
+//MIT, 2015-2017, WinterDev
 
 // This file is part of the VroomJs library.
 //
@@ -27,10 +27,7 @@
 
 #include <string>
 
-#include "include/cef_client.h"
-#include "include/wrapper/cef_helpers.h"
-#include "include/wrapper/cef_message_router.h"
-#include "include/wrapper/cef_resource_manager.h"
+#include "include/wrapper/cef_message_router.h" 
 #include "tests/cefclient/browser/client_types.h"
 
 #pragma once
@@ -144,7 +141,7 @@ public:
 	void SetArgAsString(int argIndex, const wchar_t* str);
 	void SetArgAsNativeObject(int argIndex, const void* nativeObject);
 	void SetArgAsInt32(int argIndex, const int32_t value);
-	 
+
 	void SetArgType(int argIndex, int type);
 
 	//----------------------------------------------------------------------

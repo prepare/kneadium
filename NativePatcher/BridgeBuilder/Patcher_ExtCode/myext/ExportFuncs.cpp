@@ -1,3 +1,4 @@
+//MIT, 2015-2017, WinterDev
 #include "ExportFuncs.h"   
 #include "mycef.h"
 //static 

@@ -1,4 +1,4 @@
- 
+//MIT, 2015-2017, WinterDev 
 #include "include/base/cef_scoped_ptr.h"
 #include "include/cef_command_line.h"
 #include "include/cef_sandbox_win.h"

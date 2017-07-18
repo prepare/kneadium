@@ -1,3 +1,4 @@
+//MIT, 2015-2017, WinterDev
 #include "dll_init.h" 
 #include "../../shared/common/client_app.h"
 #include "../browser/client_handler.h"
