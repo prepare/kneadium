@@ -30,6 +30,15 @@ namespace BridgeBuilder
         public const string SKIP_UNTIL_AND_ACCEPT = "//###_SKIP_UNTIL_AND_ACCEPT";
         public const string SKIP_UNTIL_PASS = "//###_SKIP_UNTIL_PASS";
 
+        //----------------------
+        //auto-context-recognition
+        public const string BEGIN = "//###_BEGIN";
+        public const string PRE = "//###_PRE"; //pre begin note
+        public const string END = "//###_END";
+        public const string POST = "//###_POST"; //post end bnot
+        //----------------------
+
+
         public readonly PatchCommandKind comandKind;
         public PatchCommand(int taskId, PatchCommandKind comandKind, string str)
         {
@@ -215,6 +224,138 @@ namespace BridgeBuilder
             originalFilename = line.Substring(_ORIGINAL.Length).Trim();
             return true;
         }
+
+        static void CollectPreBeginNote(PatchTask patchTask, SourceFile sourceFile, int currentLineId)
+        {
+            //read content of block
+            //and also find 
+            int beginAtLine = currentLineId;
+            //find end end block 
+
+            int j = sourceFile.LineCount;
+            int i = beginAtLine - 1; //next line
+
+            int count1 = 0;
+            List<string> notes = new List<string>();
+            while (i >= 0 && count1 < 2)
+            {
+                string prevLine = sourceFile.GetLine(i).TrimStart();
+                //parse nextline for a command 
+
+                if (!string.IsNullOrEmpty(prevLine))
+                {
+                    //this should be end context
+                    notes.Add(prevLine);
+                    count1++;
+                }
+                i--;
+            }
+            patchTask.preNotes.AddRange(notes); //PRE
+        }
+
+        static void CollectPostEndNote(PatchTask patchTask, SourceFile sourceFile, int currentLineId)
+        {
+            //read content of block
+            //and also find 
+            int beginAtLine = currentLineId;
+            //find end end block 
+
+            int j = sourceFile.LineCount;
+            int i = beginAtLine + 1; //next line
+
+            int count1 = 0;
+            List<string> notes = new List<string>();
+            while (i < j && count1 < 2)
+            {
+                string nextLine = sourceFile.GetLine(i).TrimStart();
+                //parse nextline for a command 
+
+                if (!string.IsNullOrEmpty(nextLine))
+                {
+                    //this should be end context
+                    notes.Add(nextLine);
+                    count1++;
+                }
+                i++;
+            }
+            patchTask.postNotes.AddRange(notes); //POST
+        }
+        static void ParseAutoContextPatchBlock(PatchTask patchTask, SourceFile sourceFile, ref int currentLineId)
+        {
+            //read content of block
+            //and also find 
+            int beginAtLine = currentLineId;
+            //find end end block
+
+            int i = beginAtLine + 1; //next line
+            int j = sourceFile.LineCount;
+            List<string> contentLines = new List<string>();
+
+            int foundPreNoteCount = 0;
+            int foundPostNoteCount = 0;
+
+            for (; i < j; ++i)
+            {
+
+                string line = sourceFile.GetLine(i).TrimStart(); //***  
+                if (!line.StartsWith("//###_"))
+                {
+                    contentLines.Add(line);
+                }
+                else
+                {
+                    //must be end block ***.
+                    int pos0 = line.IndexOf(' '); //first (must have
+                    string additionalInfo;
+                    int taskId = GetTaskId(line, pos0 + 1, out additionalInfo);
+
+                    string cmdline = line.Substring(0, pos0);
+                    switch (cmdline)
+                    {
+                        default: throw new NotSupportedException();
+                        case PatchCommand.PRE:
+                            {
+                                patchTask.preNotes.Add(additionalInfo);
+                                foundPreNoteCount++;
+                            }
+                            break;
+                        case PatchCommand.POST:
+                            {
+                                patchTask.postNotes.Add(additionalInfo);
+                                foundPostNoteCount++;
+                            }
+                            break;
+                        case PatchCommand.END:
+                            {
+
+                                //------
+                                //find context of begin and end **
+                                //1. begin context 
+                                //2. post context
+                                //find proper land mark 
+                                //read next line 
+                                if (foundPreNoteCount == 0 && foundPostNoteCount == 0)
+                                {
+                                    //find auto context
+                                    CollectPreBeginNote(patchTask, sourceFile, beginAtLine);
+                                    CollectPostEndNote(patchTask, sourceFile, i);
+                                }
+                                else
+                                {
+                                    //use existing  notes
+
+                                }
+                            }
+                            break;
+
+                    }
+                }
+            }
+        }
+
+
+
+
         /// <summary>
         /// create patch file from a patch file in disk
         /// </summary>
@@ -244,7 +385,7 @@ namespace BridgeBuilder
             for (; i < j; ++i)
             {
 
-                line = sourceFile.GetLine(i).TrimStart();
+                line = sourceFile.GetLine(i).TrimStart(); //*** 
 
                 if (line.StartsWith("//###_"))
                 {
@@ -281,11 +422,19 @@ namespace BridgeBuilder
                                     patchFile.AddTask(ptask);
                                 }
                                 break;
+                            case PatchCommand.BEGIN:
+                                {
+                                    //begin block ***
+                                    //create new patch block
+                                    ptask = new PatchTask("", taskId);//we will set land mark later
+                                    ParseAutoContextPatchBlock(ptask, sourceFile, ref i);
+                                    //parse auto context patch block
+                                }
+                                break;
                             case PatchCommand.APPPEND_START:
                                 {
                                     //start collect append string 
                                     //until find append_stop 
-
                                     var collectAppendStBuilder = new StringBuilder();
                                     i++;
                                     string cmd_value = sourceFile.GetLine(i);
@@ -452,14 +601,14 @@ namespace BridgeBuilder
                 writer.Close();
                 fs.Close();
             }
-
         }
-
     }
 
     class PatchTask
     {
         List<PatchCommand> commands = new List<PatchCommand>();
+        public List<string> preNotes = new List<string>();
+        public List<string> postNotes = new List<string>();
         public PatchTask(string landMark, int taskId)
         {
             //each patch start with landmark
