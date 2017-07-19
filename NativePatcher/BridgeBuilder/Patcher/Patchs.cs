@@ -16,7 +16,13 @@ namespace BridgeBuilder
         AppendStringStop,
         FollowBy,
         SkipUntilPass,
-        SkipUntilAndAccept
+        SkipUntilAndAccept,
+
+        //
+        Pre,
+        Post,
+        InsertBlockContent,
+        EndBlock,
     }
 
     class PatchCommand
@@ -29,6 +35,15 @@ namespace BridgeBuilder
         public const string FOLLOW_BY = "//###_FOLLOW_BY";
         public const string SKIP_UNTIL_AND_ACCEPT = "//###_SKIP_UNTIL_AND_ACCEPT";
         public const string SKIP_UNTIL_PASS = "//###_SKIP_UNTIL_PASS";
+
+        //----------------------
+        //auto-context-recognition
+        public const string BEGIN = "//###_BEGIN";
+        public const string PRE = "//###_PRE"; //pre begin note
+        public const string END = "//###_END";
+        public const string POST = "//###_POST"; //post end bnot
+        //----------------------
+
 
         public readonly PatchCommandKind comandKind;
         public PatchCommand(int taskId, PatchCommandKind comandKind, string str)
@@ -135,7 +150,7 @@ namespace BridgeBuilder
 
             output.Save();
         }
-        public int Count
+        public int TaskCount
         {
             get { return patchTasks.Count; }
         }
@@ -167,41 +182,89 @@ namespace BridgeBuilder
                 List<PatchCommand> cmds = ptask.GetCommands();
                 //each task begin with start command
 
-                if (!string.IsNullOrEmpty(ptask.PatchStartCmd))
+                if (ptask.IsPatchBlock)
                 {
-                    output.AddLine(PatchCommand.START + " " + ptask.TaskId + " " + ptask.PatchStartCmd);
+                    //this is patch block
+                    output.AddLine(PatchCommand.BEGIN + " 0");
+                    //pre-notes/ post-notes
+                    int noteCount = ptask.preNotes.Count;
+                    for (int m = 0; m < noteCount; ++m)
+                    {
+                        //write each line of pre note
+                        output.AddLine(PatchCommand.PRE);
+                        output.AddLine(ptask.preNotes[m]);
+                    }
+                    //--------- 
+                    int contentLineCount = ptask.ContentLines.Count;
+                    for (int m = 0; m < contentLineCount; ++m)
+                    {
+                        output.AddLine(ptask.ContentLines[m]);
+                    }
+
+                    //---------
+                    noteCount = ptask.postNotes.Count;
+                    for (int m = 0; m < noteCount; ++m)
+                    {
+                        //write each line of post note
+                        output.AddLine(PatchCommand.POST);
+                        output.AddLine(ptask.postNotes[m]);
+                    }
+                    output.AddLine(PatchCommand.END + " 0");
                 }
                 else
                 {
-                    output.AddLine(PatchCommand.START + " " + ptask.TaskId);
-                }
-                output.AddLine(ptask.LandMark);
-
-                int cmdCount = cmds.Count;
-                for (int n = 0; n < cmdCount; ++n)
-                {
-                    PatchWriter.WriteCommand(output, cmds[n], true);
+                    if (!string.IsNullOrEmpty(ptask.PatchStartCmd))
+                    {
+                        output.AddLine(PatchCommand.START + " " + ptask.TaskId + " " + ptask.PatchStartCmd);
+                    }
+                    else
+                    {
+                        output.AddLine(PatchCommand.START + " " + ptask.TaskId);
+                    }
+                    output.AddLine(ptask.LandMark);
+                    int cmdCount = cmds.Count;
+                    for (int n = 0; n < cmdCount; ++n)
+                    {
+                        PatchWriter.WriteCommand(output, cmds[n], true);
+                    }
                 }
             }
             output.Save();
         }
         const string _ORIGINAL = "//###_ORIGINAL";
-        static int GetTaskId(string line, int startPos, out string additionalInfo)
+       
+        static void ParseCommand(string line,
+           out string command,
+           out int taskId,
+           out string additionalInfo)
         {
-            int nextSpace = line.IndexOf(' ', startPos);
-            if (nextSpace < 0)
+            int startPos = line.IndexOf(' ', 0);
+            if (startPos < 0)
             {
-                string id = line.Substring(startPos).Trim();
+                //found firstspace
+                command = line;
+                taskId = -1;
                 additionalInfo = null;
-                return int.Parse(id);
             }
             else
             {
-                string sub1 = line.Substring(startPos, nextSpace - startPos).Trim();
-                additionalInfo = line.Substring(nextSpace).Trim();
-
-                return int.Parse(sub1.Trim());
+                //not f
+                command = line.Substring(0, startPos);
+                int nextSpace = line.IndexOf(' ', startPos + 1);
+                if (nextSpace < 0)
+                {
+                    string id = line.Substring(startPos).Trim();
+                    additionalInfo = null;
+                    taskId = int.Parse(id);
+                }
+                else
+                {
+                    string sub1 = line.Substring(startPos, nextSpace - startPos).Trim();
+                    additionalInfo = line.Substring(nextSpace).Trim();
+                    taskId = int.Parse(sub1.Trim());
+                }
             }
+
         }
 
         static bool GetOriginalFilename(string line, out string originalFilename)
@@ -215,6 +278,144 @@ namespace BridgeBuilder
             originalFilename = line.Substring(_ORIGINAL.Length).Trim();
             return true;
         }
+
+        static void CollectPreBeginNote(PatchTask patchTask, SourceFile sourceFile, int currentLineId)
+        {
+            //read content of block
+            //and also find 
+            int beginAtLine = currentLineId;
+            //find end end block 
+
+            int j = sourceFile.LineCount;
+            int i = beginAtLine - 1; //next line
+
+            int count1 = 0;
+            List<string> notes = new List<string>();
+            while (i >= 0 && count1 < 2)
+            {
+                string prevLine = sourceFile.GetLine(i).TrimStart();
+                //parse nextline for a command 
+
+                if (!string.IsNullOrEmpty(prevLine))
+                {
+                    //this should be end context
+                    notes.Insert(0, prevLine);
+                    count1++;
+                }
+                i--;
+            }
+            patchTask.preNotes.AddRange(notes); //PRE
+        }
+        static void CollectPostEndNote(PatchTask patchTask, SourceFile sourceFile, int currentLineId)
+        {
+            //read content of block
+            //and also find 
+            int beginAtLine = currentLineId;
+            //find end end block 
+
+            int j = sourceFile.LineCount;
+            int i = beginAtLine + 1; //next line
+
+            int count1 = 0;
+            List<string> notes = new List<string>();
+            while (i < j && count1 < 2)
+            {
+                string nextLine = sourceFile.GetLine(i).TrimStart();
+                //parse nextline for a command 
+
+                if (!string.IsNullOrEmpty(nextLine))
+                {
+                    //this should be end context
+                    notes.Add(nextLine);
+                    count1++;
+                }
+                i++;
+            }
+            patchTask.postNotes.AddRange(notes); //POST
+        }
+        static void ParseAutoContextPatchBlock(PatchTask patchTask, SourceFile sourceFile, ref int currentLineId)
+        {
+            //read content of block
+            //and also find 
+            int beginAtLine = currentLineId;
+            //find end end block
+
+            int i = beginAtLine + 1; //next line
+            int j = sourceFile.LineCount;
+
+            List<string> contentLines = new List<string>();
+
+            int foundPreNoteCount = 0;
+            int foundPostNoteCount = 0;
+
+            for (; i < j; ++i)
+            {
+
+                string line = sourceFile.GetLine(i).TrimStart(); //***  
+                if (!line.StartsWith("//###_"))
+                {
+                    contentLines.Add(line);
+                }
+                else
+                {
+                    //must be end block ***.
+                    string cmdline;
+                    int taskId;
+                    string additionalInfo;
+                    ParseCommand(line, out cmdline, out taskId, out additionalInfo);
+
+                    switch (cmdline)
+                    {
+                        default: throw new NotSupportedException();
+                        case PatchCommand.PRE:
+                            {
+
+                                i++;
+                                //read next line for PRE data
+                                patchTask.preNotes.Add(sourceFile.GetLine(i));
+                                foundPreNoteCount++;
+                            }
+                            break;
+                        case PatchCommand.POST:
+                            {
+                                i++;
+                                patchTask.postNotes.Add(sourceFile.GetLine(i));
+                                foundPostNoteCount++;
+                            }
+                            break;
+                        case PatchCommand.END:
+                            {
+
+                                //------
+                                //find context of begin and end **
+                                //1. begin context 
+                                //2. post context
+                                //find proper land mark 
+                                //read next line 
+                                if (foundPreNoteCount == 0 && foundPostNoteCount == 0)
+                                {
+                                    //find auto context
+                                    CollectPreBeginNote(patchTask, sourceFile, beginAtLine);
+                                    CollectPostEndNote(patchTask, sourceFile, i);
+                                }
+                                else
+                                {
+                                    //use existing  notes
+
+                                }
+                                patchTask.ContentLines = contentLines;
+                                currentLineId = i;
+                                return;
+                            }
+                    }
+                }
+            }
+            currentLineId = i;
+        }
+
+
+
+
         /// <summary>
         /// create patch file from a patch file in disk
         /// </summary>
@@ -244,145 +445,153 @@ namespace BridgeBuilder
             for (; i < j; ++i)
             {
 
-                line = sourceFile.GetLine(i).TrimStart();
+                line = sourceFile.GetLine(i).TrimStart(); //*** 
 
                 if (line.StartsWith("//###_"))
                 {
 
                     //what is the comamnd
-                    int pos0 = line.IndexOf(' '); //first (must have
 
-                    if (pos0 < 0)
+                    string cmdline;
+                    int taskId;
+                    string additionalInfo;
+                    ParseCommand(line, out cmdline, out taskId, out additionalInfo);
+                    switch (cmdline)
                     {
-                        throw new NotSupportedException("pos 0");
-                    }
-                    else
-                    {
-                        string additionalInfo;
-                        int taskId = GetTaskId(line, pos0 + 1, out additionalInfo);
-
-
-                        string cmdline = line.Substring(0, pos0);
-                        switch (cmdline)
-                        {
-                            case PatchCommand.START:
+                        case PatchCommand.START:
+                            {
+                                //start new patch task
+                                //read next line for info 
+                                i++; //read next line for land mark
+                                string cmd_value = sourceFile.GetLine(i);
+                                //create new task
+                                ptask = new PatchTask(cmd_value, taskId);
+                                if (additionalInfo == "-X") //special cmd 
                                 {
-                                    //start new patch task
-                                    //read next line for info 
-                                    i++; //read next line for land mark
-                                    string cmd_value = sourceFile.GetLine(i);
-                                    //create new task
-                                    ptask = new PatchTask(cmd_value, taskId);
-                                    if (additionalInfo == "-X") //special cmd 
-                                    {
-                                        ptask.PatchStartCmd = additionalInfo;
-                                    }
-                                    //
-                                    patchFile.AddTask(ptask);
+                                    ptask.PatchStartCmd = additionalInfo;
                                 }
-                                break;
-                            case PatchCommand.APPPEND_START:
+                                //
+                                patchFile.AddTask(ptask);
+                            }
+                            break;
+                        case PatchCommand.BEGIN:
+                            {
+                                //begin block ***
+                                //create new patch block
+                                ptask = new PatchTask("", taskId);//we will set land mark later
+                                ptask.IsPatchBlock = true;
+                                patchFile.AddTask(ptask);
+                                ParseAutoContextPatchBlock(ptask, sourceFile, ref i);
+                                //parse auto context patch block
+                            }
+                            break;
+                        case PatchCommand.APPPEND_START:
+                            {
+                                //start collect append string 
+                                //until find append_stop 
+                                var collectAppendStBuilder = new StringBuilder();
+                                i++;
+                                string cmd_value = sourceFile.GetLine(i);
+
+                                line = cmd_value.TrimStart();
+                                //eval
+                                do
                                 {
-                                    //start collect append string 
-                                    //until find append_stop 
-
-                                    var collectAppendStBuilder = new StringBuilder();
-                                    i++;
-                                    string cmd_value = sourceFile.GetLine(i);
-
-                                    line = cmd_value.TrimStart();
-                                    //eval
-                                    do
+                                    if (line.StartsWith(PatchCommand.APPPEND_STOP))
                                     {
-                                        if (line.StartsWith(PatchCommand.APPPEND_STOP))
+                                        //stop here
+                                        break;
+                                    }
+                                    else
+                                    {
+                                        if (line.StartsWith("//###_"))
                                         {
-                                            //stop here
-                                            break;
+                                            //other command
+                                            throw new NotSupportedException();
                                         }
                                         else
                                         {
-                                            if (line.StartsWith("//###_"))
-                                            {
-                                                //other command
-                                                throw new NotSupportedException();
-                                            }
-                                            else
-                                            {
-                                                //collect this line
-                                                collectAppendStBuilder.AppendLine(line);
-                                                //read next line
-                                                i++;
-                                                line = sourceFile.GetLine(i).TrimStart();
-                                            }
+                                            //collect this line
+                                            collectAppendStBuilder.AppendLine(line);
+                                            //read next line
+                                            i++;
+                                            line = sourceFile.GetLine(i).TrimStart();
                                         }
-                                    } while (true);
-                                    //finish command
-                                    ptask.Append(collectAppendStBuilder.ToString());
-
-                                }
-                                break;
-                            case PatchCommand.APPPEND_STOP:
-
-                                throw new NotSupportedException();
-                            case PatchCommand.FIND_NEXT_LANDMARK:
-                                {
-                                    i++;
-                                    string cmd_value = sourceFile.GetLine(i);
-
-                                    if (taskId != ptask.TaskId)
-                                    {
-                                        throw new NotSupportedException();
                                     }
-                                    ptask.FindNext(cmd_value);
-                                }
-                                break;
-                            case PatchCommand.FOLLOW_BY:
+                                } while (true);
+                                //finish command
+                                ptask.Append(collectAppendStBuilder.ToString());
+
+                            }
+                            break;
+                        case PatchCommand.APPPEND_STOP:
+
+                            throw new NotSupportedException();
+                        case PatchCommand.FIND_NEXT_LANDMARK:
+                            {
+                                i++;
+                                string cmd_value = sourceFile.GetLine(i);
+
+                                if (taskId != ptask.TaskId)
                                 {
-                                    i++;
-                                    string cmd_value = sourceFile.GetLine(i);
-
-
-                                    if (taskId != ptask.TaskId)
-                                    {
-                                        throw new NotSupportedException();
-                                    }
-                                    ptask.FollowBy(cmd_value);
-
+                                    throw new NotSupportedException();
                                 }
-                                break;
-                            case PatchCommand.SKIP_UNTIL_AND_ACCEPT:
+                                ptask.FindNext(cmd_value);
+                            }
+                            break;
+                        case PatchCommand.FOLLOW_BY:
+                            {
+                                i++;
+                                string cmd_value = sourceFile.GetLine(i);
+
+
+                                if (taskId != ptask.TaskId)
                                 {
-                                    i++;
-                                    string cmd_value = sourceFile.GetLine(i);
-
-
-                                    if (taskId != ptask.TaskId)
-                                    {
-                                        throw new NotSupportedException();
-                                    }
-                                    ptask.SkipUntilAndAccept(cmd_value);
+                                    throw new NotSupportedException();
                                 }
-                                break;
-                            case PatchCommand.SKIP_UNTIL_PASS:
+                                ptask.FollowBy(cmd_value);
+
+                            }
+                            break;
+                        case PatchCommand.SKIP_UNTIL_AND_ACCEPT:
+                            {
+                                i++;
+                                string cmd_value = sourceFile.GetLine(i);
+
+
+                                if (taskId != ptask.TaskId)
                                 {
-                                    //has 2 parameters
-                                    if (additionalInfo == null)
-                                    {
-                                        throw new NotSupportedException();
-                                    }
-                                    //
-                                    ptask.SkipUntilPass(additionalInfo);
+                                    throw new NotSupportedException();
                                 }
-                                break;
-                            default:
-                                throw new NotSupportedException();
-                        }
+                                ptask.SkipUntilAndAccept(cmd_value);
+                            }
+                            break;
+                        case PatchCommand.SKIP_UNTIL_PASS:
+                            {
+                                //has 2 parameters
+                                if (additionalInfo == null)
+                                {
+                                    throw new NotSupportedException();
+                                }
+                                //
+                                ptask.SkipUntilPass(additionalInfo);
+                            }
+                            break;
+                        default:
+                            throw new NotSupportedException();
                     }
 
                 }
             }
 
-            return (ptask != null && ptask.CommandCount > 0) ? patchFile : null;
+            if (patchFile.TaskCount > 0)
+            {
+                return patchFile;
+            }
+            else
+            {
+                return (ptask != null && ptask.CommandCount > 0) ? patchFile : null;
+            }
 
         }
     }
@@ -452,14 +661,21 @@ namespace BridgeBuilder
                 writer.Close();
                 fs.Close();
             }
-
         }
-
     }
+
+
 
     class PatchTask
     {
         List<PatchCommand> commands = new List<PatchCommand>();
+
+        //-----------------------------------------
+        public List<string> preNotes = new List<string>();
+        public List<string> postNotes = new List<string>();
+        public List<string> ContentLines { get; set; }
+        //-----------------------------------------
+
         public PatchTask(string landMark, int taskId)
         {
             //each patch start with landmark
@@ -467,6 +683,10 @@ namespace BridgeBuilder
             this.TaskId = taskId;
             PatchStartCmd = "";
         }
+
+        public bool IsPatchBlock { get; set; }
+
+
         /// <summary>
         ///replace original landmark with string
         /// </summary>
@@ -551,42 +771,172 @@ namespace BridgeBuilder
             PatchWriter.WriteCommand(outputFile, cmd, false);
         }
 
+
+        public void PatchBlockFile(SourceFile input, SourceFile output)
+        {
+
+            int n = preNotes.Count;
+
+
+            for (int i = 0; i < n; ++i)
+            {
+                //pre
+                commands.Add(new PatchCommand(-1, PatchCommandKind.Pre, preNotes[i]));
+            }
+            if (n > 0)
+            {
+                this.LandMark = preNotes[0];
+            }
+
+            n = postNotes.Count;
+
+            StringBuilder stbuilder = new StringBuilder();
+
+            foreach (string line in ContentLines)
+            {
+                stbuilder.AppendLine(line);
+            }
+
+            commands.Add(new PatchCommand(-1, PatchCommandKind.InsertBlockContent, stbuilder.ToString()));
+
+            for (int i = 0; i < n; ++i)
+            {
+                //pre
+                commands.Add(new PatchCommand(-1, PatchCommandKind.Post, postNotes[i]));
+            }
+
+            commands.Add(new PatchCommand(-1, PatchCommandKind.EndBlock, ""));
+
+
+
+        }
         public void PatchFile(SourceFile input, SourceFile output)
         {
+            if (this.IsPatchBlock)
+            {
+                //convert to commands 
+                PatchBlockFile(input, output);
+            }
+            //
+
+
+
             //find start position of this task
             int curLine = input.CurrentLine;
             int lineCount = input.LineCount;
             bool foundLandMark = false;
-            for (int i = curLine; i < lineCount; ++i)
+            for (int cur_line_id = curLine; cur_line_id < lineCount; ++cur_line_id)
             {
-                string line = input.GetLine(i);
+                string line = input.GetLine(cur_line_id);
                 input.CurrentLine++;
 
                 if (line.TrimStart().StartsWith(this.LandMark))
                 {
                     //found land mark
                     foundLandMark = true;
+                    if (!this.IsPatchBlock)
+                    {
+                        string newStartLine = PatchCommand.START + " " + this.TaskId;
+                        if (!string.IsNullOrEmpty(this.PatchStartCmd))
+                        {
+                            newStartLine += " " + this.PatchStartCmd;
+                        }
+                        if (!output.IsCMakeFile)
+                        {
+                            output.AddLine(newStartLine);
+                        }
 
-                    string newStartLine = PatchCommand.START + " " + this.TaskId;
-                    if (!string.IsNullOrEmpty(this.PatchStartCmd))
-                    {
-                        newStartLine += " " + this.PatchStartCmd;
-                    }
-                    if (!output.IsCMakeFile)
-                    {
-                        output.AddLine(newStartLine);
-                    }
-
-                    if (this.PatchStartCmd == "-X")
-                    {
-                        //replace the original line with the land mark
-                        output.AddLine(this.LandMark);
+                        if (this.PatchStartCmd == "-X")
+                        {
+                            //replace the original line with the land mark
+                            output.AddLine(this.LandMark);
+                        }
+                        else
+                        {
+                            output.AddLine(line);
+                        }
+                        break;
                     }
                     else
                     {
-                        output.AddLine(line);
-                    }
-                    break;
+
+                        //find context environment
+                        int cmdCount = commands.Count;
+                        List<string> tempContents = new List<string>();
+                        //
+                        int enter_line_id = cur_line_id;
+
+                        for (int c = 0; c < cmdCount; ++c)
+                        {
+                            PatchCommand cmd = commands[c];
+                            //find start position 
+                            switch (cmd.comandKind)
+                            {
+                                case PatchCommandKind.Pre:
+                                    {
+                                        for (; cur_line_id < lineCount; ++cur_line_id)
+                                        {
+                                            line = input.GetLine(cur_line_id).TrimStart();
+                                            tempContents.Add(line);
+                                            if (line.StartsWith(cmd.String))
+                                            {
+                                                //accept
+                                                cur_line_id++;
+                                                break;
+                                            }
+                                            else
+                                            {
+
+                                            }
+                                        }
+                                    }
+                                    break;
+                                case PatchCommandKind.Post:
+                                    {
+                                        //post
+                                        for (; cur_line_id < lineCount; ++cur_line_id)
+                                        {
+                                            line = input.GetLine(cur_line_id).TrimStart();
+                                            tempContents.Add(line);
+                                            if (line.StartsWith(cmd.String))
+                                            {
+                                                //accept
+                                                cur_line_id++;
+                                                break;
+                                            }
+                                            else
+                                            {
+
+                                            }
+                                        }
+                                    }
+                                    break;
+                                case PatchCommandKind.EndBlock:
+                                    {
+                                        //check and confirm the end block
+                                        //found all critirias
+                                        //.....
+                                        //confirm
+                                        int q = tempContents.Count;
+                                        for (int p = 0; p < q; ++p)
+                                        {
+                                            output.AddLine(tempContents[p]);
+                                        }
+                                    }
+                                    break;
+                                case PatchCommandKind.InsertBlockContent:
+                                    {
+                                        tempContents.Add(PatchCommand.BEGIN);
+                                        tempContents.Add(cmd.String);
+                                        tempContents.Add(PatchCommand.END);
+                                    }
+                                    break;
+                            }
+                        }
+                        //must found all find next land mark 
+                        //---------------- 
+                        return; 
+                    } 
                 }
                 else
                 {

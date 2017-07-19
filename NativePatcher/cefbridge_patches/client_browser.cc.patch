@@ -1,0 +1,12 @@
+//###_ORIGINAL D:\projects\cef_binary_3.3071.1647.win64\tests\cefclient\browser\client_browser.cc
+//###_BEGIN 0
+//###_PRE
+#include "include/cef_file_util.h"
+//###_PRE
+#include "tests/shared/common/client_switches.h"
+// hello!
+//###_POST
+namespace client {
+//###_POST
+namespace browser {
+//###_END 0
