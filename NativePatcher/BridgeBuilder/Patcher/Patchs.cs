@@ -144,7 +144,7 @@ namespace BridgeBuilder
 
             output.Save();
         }
-        public int Count
+        public int TaskCount
         {
             get { return patchTasks.Count; }
         }
@@ -176,20 +176,51 @@ namespace BridgeBuilder
                 List<PatchCommand> cmds = ptask.GetCommands();
                 //each task begin with start command
 
-                if (!string.IsNullOrEmpty(ptask.PatchStartCmd))
+                if (ptask.IsPatchBlock)
                 {
-                    output.AddLine(PatchCommand.START + " " + ptask.TaskId + " " + ptask.PatchStartCmd);
+                    //this is patch block
+                    output.AddLine(PatchCommand.BEGIN + " 0");
+                    //pre-notes/ post-notes
+                    int noteCount = ptask.preNotes.Count;
+                    for (int m = 0; m < noteCount; ++m)
+                    {
+                        //write each line of pre note
+                        output.AddLine(PatchCommand.PRE);
+                        output.AddLine(ptask.preNotes[m]);
+                    }
+                    //--------- 
+                    int contentLineCount = ptask.ContentLines.Count;
+                    for (int m = 0; m < contentLineCount; ++m)
+                    {
+                        output.AddLine(ptask.ContentLines[m]);
+                    }
+
+                    //---------
+                    noteCount = ptask.postNotes.Count;
+                    for (int m = 0; m < noteCount; ++m)
+                    {
+                        //write each line of post note
+                        output.AddLine(PatchCommand.POST);
+                        output.AddLine(ptask.postNotes[m]);
+                    }
+                    output.AddLine(PatchCommand.END + " 0");
                 }
                 else
                 {
-                    output.AddLine(PatchCommand.START + " " + ptask.TaskId);
-                }
-                output.AddLine(ptask.LandMark);
-
-                int cmdCount = cmds.Count;
-                for (int n = 0; n < cmdCount; ++n)
-                {
-                    PatchWriter.WriteCommand(output, cmds[n], true);
+                    if (!string.IsNullOrEmpty(ptask.PatchStartCmd))
+                    {
+                        output.AddLine(PatchCommand.START + " " + ptask.TaskId + " " + ptask.PatchStartCmd);
+                    }
+                    else
+                    {
+                        output.AddLine(PatchCommand.START + " " + ptask.TaskId);
+                    }
+                    output.AddLine(ptask.LandMark);
+                    int cmdCount = cmds.Count;
+                    for (int n = 0; n < cmdCount; ++n)
+                    {
+                        PatchWriter.WriteCommand(output, cmds[n], true);
+                    }
                 }
             }
             output.Save();
@@ -252,7 +283,6 @@ namespace BridgeBuilder
             }
             patchTask.preNotes.AddRange(notes); //PRE
         }
-
         static void CollectPostEndNote(PatchTask patchTask, SourceFile sourceFile, int currentLineId)
         {
             //read content of block
@@ -289,6 +319,7 @@ namespace BridgeBuilder
 
             int i = beginAtLine + 1; //next line
             int j = sourceFile.LineCount;
+
             List<string> contentLines = new List<string>();
 
             int foundPreNoteCount = 0;
@@ -345,12 +376,14 @@ namespace BridgeBuilder
                                     //use existing  notes
 
                                 }
+                                patchTask.ContentLines = contentLines;
+                                currentLineId = i;
+                                return;
                             }
-                            break;
-
                     }
                 }
             }
+            currentLineId = i;
         }
 
 
@@ -427,6 +460,8 @@ namespace BridgeBuilder
                                     //begin block ***
                                     //create new patch block
                                     ptask = new PatchTask("", taskId);//we will set land mark later
+                                    ptask.IsPatchBlock = true;
+                                    patchFile.AddTask(ptask);
                                     ParseAutoContextPatchBlock(ptask, sourceFile, ref i);
                                     //parse auto context patch block
                                 }
@@ -527,11 +562,17 @@ namespace BridgeBuilder
                                 throw new NotSupportedException();
                         }
                     }
-
                 }
             }
 
-            return (ptask != null && ptask.CommandCount > 0) ? patchFile : null;
+            if (patchFile.TaskCount > 0)
+            {
+                return patchFile;
+            }
+            else
+            {
+                return (ptask != null && ptask.CommandCount > 0) ? patchFile : null;
+            }
 
         }
     }
@@ -604,11 +645,18 @@ namespace BridgeBuilder
         }
     }
 
+
+
     class PatchTask
     {
         List<PatchCommand> commands = new List<PatchCommand>();
+
+        //-----------------------------------------
         public List<string> preNotes = new List<string>();
         public List<string> postNotes = new List<string>();
+        public List<string> ContentLines { get; set; }
+        //-----------------------------------------
+
         public PatchTask(string landMark, int taskId)
         {
             //each patch start with landmark
@@ -616,6 +664,10 @@ namespace BridgeBuilder
             this.TaskId = taskId;
             PatchStartCmd = "";
         }
+
+        public bool IsPatchBlock { get; set; }
+
+
         /// <summary>
         ///replace original landmark with string
         /// </summary>
