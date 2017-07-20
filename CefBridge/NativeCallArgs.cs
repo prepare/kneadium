@@ -74,17 +74,17 @@ namespace LayoutFarm.CefBridge
                 //native cef
 
                 var charBuff = new char[BUFF_LEN];
-                int acutalLen = 0;
+                int actualLen = 0;
                 unsafe
                 {
                     fixed (char* buffHead = &charBuff[0])
                     {
-                        Cef3Binder.MyCefString_Read(v.Ptr, buffHead, BUFF_LEN, ref acutalLen);
-                        if (acutalLen > BUFF_LEN)
+                        Cef3Binder.MyCefString_Read(v.Ptr, buffHead, BUFF_LEN, ref actualLen);
+                        if (actualLen > BUFF_LEN)
                         {
                             //read more
                         }
-                        return new string(buffHead, 0, acutalLen);
+                        return new string(buffHead, 0, actualLen);
                     }
                 }
             }

@@ -39,6 +39,8 @@ namespace BridgeBuilder
   myext/ExportFuncs.h
   myext/mycef.cc
   myext/mycef.h
+  myext/MyCefJs.cpp
+  myext/MyCefJs.h
   myext/mycef_msg_const.h
   myext/MyCef_Win.cpp
   )
