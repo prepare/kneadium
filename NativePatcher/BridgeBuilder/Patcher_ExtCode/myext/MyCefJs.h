@@ -3,7 +3,7 @@
 extern "C" {
 
 	 	 
-	MY_DLL_EXPORT void MyCefNativeMetGetArgs(MethodArgs* args, int argIndex, jsvalue* output);
+	MY_DLL_EXPORT void MyCefMetArgs_GetArgs(MethodArgs* args, int argIndex, jsvalue* output);
 	 
 	MY_DLL_EXPORT void MyCefMetArgs_SetResultAsJsValue(MethodArgs* args, int retIndex, jsvalue* value);
 	 

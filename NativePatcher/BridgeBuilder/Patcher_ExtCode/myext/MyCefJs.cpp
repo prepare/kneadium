@@ -2,7 +2,7 @@
 #include "mycef.h"
 #include "MyCefJs.h"
 
-void MyCefNativeMetGetArgs(MethodArgs* args, int argIndex, jsvalue* output)
+void MyCefMetArgs_GetArgs(MethodArgs* args, int argIndex, jsvalue* output)
 {
 	switch (argIndex)
 	{
