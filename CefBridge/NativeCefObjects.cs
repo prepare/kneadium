@@ -280,6 +280,7 @@ namespace LayoutFarm.CefBridge
         {
             unsafe
             {
+                //get url, in this version max size =255?
                 char[] buffer = new char[255];
                 int actualLength = 0;
                 fixed (char* buffer_head = &buffer[0])
