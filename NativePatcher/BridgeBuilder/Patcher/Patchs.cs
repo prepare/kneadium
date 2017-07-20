@@ -232,7 +232,7 @@ namespace BridgeBuilder
             output.Save();
         }
         const string _ORIGINAL = "//###_ORIGINAL";
-       
+
         static void ParseCommand(string line,
            out string command,
            out int taskId,
@@ -298,12 +298,18 @@ namespace BridgeBuilder
 
                 if (!string.IsNullOrEmpty(prevLine))
                 {
+                    if (prevLine.StartsWith("//###_"))
+                    {
+                        //stop
+                        break;
+                    }
                     //this should be end context
                     notes.Insert(0, prevLine);
                     count1++;
                 }
                 i--;
             }
+
             patchTask.preNotes.AddRange(notes); //PRE
         }
         static void CollectPostEndNote(PatchTask patchTask, SourceFile sourceFile, int currentLineId)
@@ -935,8 +941,8 @@ namespace BridgeBuilder
                         }
                         //must found all find next land mark 
                         //---------------- 
-                        return; 
-                    } 
+                        return;
+                    }
                 }
                 else
                 {
