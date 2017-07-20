@@ -4,38 +4,20 @@
 #include "mycef.h"
 
 
-//static 
-
-#include "include/base/cef_scoped_ptr.h"
-#include "include/cef_command_line.h"
-
-#include "include/cef_origin_whitelist.h"
-#include "tests/shared/browser/client_app_browser.h"
-#include "tests/cefclient/browser/main_context_impl.h"
-
-#include "tests/shared/browser/main_message_loop_std.h"
-
-#include "tests/cefclient/browser/root_window_manager.h"
-#include "tests/cefclient/browser/test_runner.h"
+#include "include/cef_origin_whitelist.h" //add original whitelist
+#include "tests/shared/browser/client_app_browser.h"  
+#include "tests/shared/browser/main_message_loop_std.h" 
 #include "tests/shared/common/client_app_other.h"
-#include "tests/shared/renderer/client_app_renderer.h" 
-#include "tests/cefclient/browser/browser_window.h" 
-#include "tests/cefclient/browser/main_context.h" 
+#include "tests/shared/renderer/client_app_renderer.h"  
 
-
-#include "include/cef_sandbox_win.h"
-#include "tests/cefclient/browser/main_message_loop_multithreaded_win.h"
-#include "tests/cefclient/browser/browser_window_std_win.h"
-#include "tests/cefclient/browser/root_window_win.h" //***
-#include "tests/cefclient/browser/osr_window_win.h" //*** 
 #include "../browser/root_window_win.h" //**
 #include "../browser/browser_window_osr_win.h" //**
+#include "tests/cefclient/browser/browser_window_std_win.h" 
 
 
 
 client::MainContextImpl* mainContext;
 client::MainMessageLoop* message_loop;  //essential for mainloop checking 
-
 managed_callback myMxCallback_ = NULL;
 
 
@@ -45,7 +27,6 @@ public:
 	client::RootWindowWin* rootWin;
 	client::BrowserWindow* bwWindow;
 };
-
 
 //1.
 int MyCefGetVersion()
@@ -67,12 +48,11 @@ int RegisterManagedCallBack(managed_callback mxCallback, int callbackKind)
 	}
 	return 1; //default
 }
-
-
-
 //3.
-client::ClientApp* MyCefCreateClientApp(HINSTANCE hInstance)
+void* MyCefCreateClientApp(HINSTANCE hInstance)
 {
+	//return client::ClientApp
+	///
 	//-----
 	//user must call RegisterManagedCallBack() before use this method *** 
 	//-----
@@ -115,6 +95,9 @@ client::ClientApp* MyCefCreateClientApp(HINSTANCE hInstance)
 	mainContext = DllInitMain(main_args, app);
 	return app;
 }
+
+//------------------------------------------------------------------------
+
 
 //3.1 
 MY_DLL_EXPORT void MyCefEnableKeyIntercept(MyBrowser* myBw, int enable) {
@@ -235,10 +218,10 @@ void MyCefShutDown() {
 	// Release objects in reverse order of creation. 
 	/*CefShutdown();*/
 }
-
+//--------------------------------------------------------------------------------------------
 //9.
 void MyCefSetBrowserSize(MyBrowser* myBw, int w, int h) {
-	//auto windowHandle = myBw->bwWindow->GetWindowHandle();
+
 	myBw->bwWindow->SetBounds(0, 0, w, h);
 }
 
@@ -336,249 +319,12 @@ void MyCefSetInitSettings(CefSettings* cefSetting, int keyName, const wchar_t* v
 	case CEF_SETTINGS_LogSeverity:
 		cefSetting->log_severity = (cef_log_severity_t)std::stoi(value);
 		break;
-
-
 	default:
 		break;
 	}
 }
-//--------------------------------------------------------------------------------------------------
-//part 2:
-//1. 
 
-
-void MyCefNativeMetGetArgs(MethodArgs* args, int argIndex, jsvalue* output)
-{
-	switch (argIndex)
-	{
-	case 0:
-	{
-		*output = args->arg0; 
-		break;
-	}
-	case 1:
-	{
-		*output = args->arg1; 
-		break;
-	}
-	case 2: {
-		*output = args->arg2; 
-		break;
-	}
-	case 3: {
-		*output = args->arg3; 
-		break;
-	}
-	case 4: {
-		*output = args->arg4; 
-		break;
-	}
-	default:
-		output->type = JSVALUE_TYPE_EMPTY;
-		break;
-	}
-}
-
-//3.
-void MyCefMetArgs_SetResultAsJsValue(MethodArgs* args, int retIndex, jsvalue* value)
-{
-	switch (retIndex) {
-	case 0:
-		args->result0 = *(value);
-		break;
-	case 1:
-		args->result1 = *(value);
-		break;
-	case 2:
-		args->result2 = *(value);
-		break;
-	case 3:
-		args->result3 = *(value);
-		break;
-	case 4:
-		args->result4 = *(value);
-		break; 
-	}
-}
-//4.
-void MyCefMetArgs_SetResultAsString(MethodArgs* args, int argIndex, const wchar_t* buffer, int len) {
-
-	switch (argIndex)
-	{
-	case 0: {
-
-		args->result0.type = JSVALUE_TYPE_STRING;
-		args->result0.i32 = (int32_t)len;
-		args->result0.ptr = buffer;
-	}break;
-	case 1: {
-
-		args->result1.type = JSVALUE_TYPE_STRING;
-		args->result1.i32 = (int32_t)len;
-		args->result1.ptr = buffer;
-	}break;
-	case 2: {
-
-		args->result2.type = JSVALUE_TYPE_STRING;
-		args->result2.i32 = (int32_t)len;
-		args->result2.ptr = buffer;
-	}break;
-	case 3: {
-
-		args->result3.type = JSVALUE_TYPE_STRING;
-		args->result3.i32 = (int32_t)len;
-		args->result3.ptr = buffer;
-	}break;
-	case 4: {
-
-		args->result4.type = JSVALUE_TYPE_STRING;
-		args->result4.i32 = (int32_t)len;
-		args->result4.ptr = buffer;
-	}break;
-	}
-}
-void MyCefMetArgs_SetInputAsString(MethodArgs* args, int argIndex, const wchar_t* buffer, int len) {
-
-	//input
-	switch (argIndex)
-	{
-	case 0: {
-
-		args->arg0.type = JSVALUE_TYPE_STRING;
-		args->arg0.i32 = (int32_t)len;
-		args->arg0.ptr = buffer;
-	}break;
-	case 1: {
-
-		args->arg1.type = JSVALUE_TYPE_STRING;
-		args->arg1.i32 = (int32_t)len;
-		args->arg1.ptr = buffer;
-	}break;
-	case 2: {
-
-		args->arg2.type = JSVALUE_TYPE_STRING;
-		args->arg2.i32 = (int32_t)len;
-		args->arg2.ptr = buffer;
-	}break;
-	case 3: {
-
-		args->arg3.type = JSVALUE_TYPE_STRING;
-		args->arg3.i32 = (int32_t)len;
-		args->arg3.ptr = buffer;
-	}break;
-	case 4: {
-
-		args->arg4.type = JSVALUE_TYPE_STRING;
-		args->arg4.i32 = (int32_t)len;
-		args->arg4.ptr = buffer;
-	}break;
-	}
-}
-void MyCefMetArgs_SetInputAsInt32(MethodArgs* args, int argIndex, int32_t value) {
-
-	//input
-	switch (argIndex)
-	{
-	case 0: {
-
-		args->arg0.type = JSVALUE_TYPE_INTEGER;
-		args->arg0.i32 = value;
-	}break;
-	case 1: {
-
-		args->arg1.type = JSVALUE_TYPE_INTEGER;
-		args->arg1.i32 = value;
-	}break;
-	case 2: {
-
-		args->arg2.type = JSVALUE_TYPE_INTEGER;
-		args->arg2.i32 = value;
-	}break;
-	case 3: {
-
-		args->arg3.type = JSVALUE_TYPE_INTEGER;
-		args->arg3.i32 = value;
-	}break;
-	case 4: {
-
-		args->arg4.type = JSVALUE_TYPE_INTEGER;
-		args->arg4.i32 = value;
-	}break;
-	}
-}
-//4.
-void MyCefMetArgs_SetResultAsByteBuffer(MethodArgs* args, int argIndex, const char* byteBuffer, int len) {
-
-	switch (argIndex)
-	{
-	case 0: {
-
-		args->result0.type = JSVALUE_TYPE_BUFFER;
-		args->result0.i32 = (int32_t)len;
-		args->result0.ptr = byteBuffer;
-	}break;
-	case 1: {
-
-		args->result1.type = JSVALUE_TYPE_BUFFER;
-		args->result1.i32 = (int32_t)len;
-		args->result1.ptr = byteBuffer;
-	}break;
-	case 2: {
-
-		args->result2.type = JSVALUE_TYPE_BUFFER;
-		args->result2.i32 = (int32_t)len;
-		args->result2.ptr = byteBuffer;
-	}break;
-	case 3: {
-
-		args->result3.type = JSVALUE_TYPE_BUFFER;
-		args->result3.i32 = (int32_t)len;
-		args->result3.ptr = byteBuffer;
-	}break;
-	case 4: {
-
-		args->result4.type = JSVALUE_TYPE_BUFFER;
-		args->result4.i32 = (int32_t)len;
-		args->result4.ptr = byteBuffer;
-	}break;
-	}
-}
-void MyCefMetArgs_SetResultAsInt32(MethodArgs* args, int argIndex, int value)
-{
-	switch (argIndex)
-	{
-	case 0: {
-
-		args->result0.type = JSVALUE_TYPE_INTEGER;
-		args->result0.i32 = (int32_t)value;
-	}break;
-	case 1: {
-
-		args->result1.type = JSVALUE_TYPE_INTEGER;
-		args->result1.i32 = (int32_t)value;
-	}break;
-	case 2: {
-
-		args->result2.type = JSVALUE_TYPE_INTEGER;
-		args->result2.i32 = (int32_t)value;
-	}break;
-	case 3: {
-
-		args->result3.type = JSVALUE_TYPE_INTEGER;
-		args->result3.i32 = (int32_t)value;
-	}break;
-	case 4: {
-
-		args->result4.type = JSVALUE_TYPE_INTEGER;
-		args->result4.i32 = (int32_t)value;
-	}break;
-	}
-
-}
-
-//---------------------------------------------------------------------------
-//part3:
-
+//part3: 
 //1. 
 void MyCefBwNavigateTo(MyBrowser* myBw, const wchar_t* url) {
 
@@ -674,59 +420,7 @@ MY_DLL_EXPORT void MyCefBwReloadIgnoreCache(MyBrowser* myBw) {
 		browser->ReloadIgnoreCache();
 	}
 }
-
-
-//---------------------------------------------------------------------------
-//part4: javascript context
-MY_DLL_EXPORT CefV8Context* MyCefJsGetCurrentContext() {
-	auto currentContext = CefV8Context::GetCurrentContext();
-	currentContext->AddRef();
-	return currentContext.get();
-}
-MY_DLL_EXPORT  CefV8Context* MyCefJs_GetEnteredContext() {
-	auto enteredContext = CefV8Context::GetEnteredContext();
-	enteredContext->AddRef();
-	return enteredContext.get();
-}
-MY_DLL_EXPORT  CefV8Context* MyCefJs_ContextEnter() {
-	auto enteredContext = CefV8Context::GetEnteredContext();
-	enteredContext->AddRef();
-	return enteredContext.get();
-}
-MY_DLL_EXPORT MyCefStringHolder* MyCefCreateCefString(const wchar_t*  str) {
-	MyCefStringHolder* str_h = new MyCefStringHolder();
-	auto cefStr = CefV8Value::CreateString(str);
-	str_h->any = cefStr;
-
-	return str_h;
-}
-
-
-MY_DLL_EXPORT  CefV8Context* MyCefJsFrameContext(CefFrame* wbFrame) {
-
-	auto ctx = wbFrame->GetV8Context();
-	ctx->AddRef();
-	return ctx.get();
-
-}
-MY_DLL_EXPORT CefV8Value* MyCefJsGetGlobal(CefV8Context* cefV8Context) {
-
-	auto globalObject = cefV8Context->GetGlobal();
-	globalObject->AddRef();
-	return globalObject.get();
-}
-MY_DLL_EXPORT CefV8Context* MyCefJs_EnterContext(CefV8Context* cefV8Context) {
-	cefV8Context->Enter();
-	auto context = cefV8Context->GetCurrentContext();
-	context->AddRef();
-	return context.get();
-}
-MY_DLL_EXPORT void MyCefJs_ExitContext(CefV8Context* cefV8Context) {
-	cefV8Context->Exit();
-}
-
 bool MyCefJs_CefRegisterExtension(const wchar_t* extensionName, const wchar_t* extensionCode) {
-
 
 	//-----------------------------------------------
 	class MyV8ManagedHandler : public CefV8Handler {
@@ -740,7 +434,6 @@ bool MyCefJs_CefRegisterExtension(const wchar_t* extensionName, const wchar_t* e
 			CefRefPtr<CefV8Value>& retval,
 			CefString& exception)
 		{
-
 			return true;
 		}
 	private:
@@ -752,152 +445,20 @@ bool MyCefJs_CefRegisterExtension(const wchar_t* extensionName, const wchar_t* e
 	CefRefPtr<CefV8Handler> handler = new MyV8ManagedHandler();
 	return CefRegisterExtension(name, code, handler);
 }
-MY_DLL_EXPORT CefV8Handler* MyCefJs_New_V8Handler(managed_callback callback) {
 
-	//-----------------------------------------------
-	class MyV8ManagedHandler : public CefV8Handler {
-	public:
-		managed_callback callback;
-		MyV8ManagedHandler(managed_callback callback) {
-			this->callback = callback;
-		}
-		virtual bool Execute(const CefString& name,
-			CefRefPtr<CefV8Value> object,
-			const CefV8ValueList& arguments,
-			CefRefPtr<CefV8Value>& retval,
-			CefString& exception)
-		{
-			if (callback) {
-
-				MethodArgs metArgs;
-				memset(&metArgs, 0, sizeof(MethodArgs));
-				metArgs.SetArgAsNativeObject(0, object);
-				metArgs.SetArgAsNativeObject(1, &arguments);
-				metArgs.SetArgAsInt32(2, (int32_t)arguments.size());
-				//-------------------------------------------
-				callback(CEF_MSG_MyV8ManagedHandler_Execute, &metArgs);
-				//check result
-				retval = CefV8Value::CreateString(metArgs.ReadOutputAsString(0));
-				//retval = CefV8Value::CreateString("Hello, world!");
-
-			}
-			return true;
-		}
-	private:
-		IMPLEMENT_REFCOUNTING(MyV8ManagedHandler);
-	};
-	//----------------------------------------------- 
-	return new MyV8ManagedHandler(callback);
-}
 
 void HereOnRenderer(const managed_callback callback, MethodArgs* args)
 {
 	callback(CEF_MSG_HereOnRenderer, args);
 }
 
-MY_DLL_EXPORT void DisposeMethodArgs(MethodArgs* args) {
-	delete args;
-}
+
 MY_DLL_EXPORT void MyCefJsNotifyRenderer(const managed_callback callback, MethodArgs* args) {
 	CefPostTask(TID_RENDERER, base::Bind(&HereOnRenderer, callback, args));
 }
-MY_DLL_EXPORT bool MyCefJs_CefV8Value_IsFunc(CefV8Value* target)
-{
-	return target->IsFunction();
-}
-MY_DLL_EXPORT void MyCefJs_CefV8Value_SetValue_ByString(CefV8Value* target, const wchar_t* key, CefV8Value* value, int setAttribute)
-{
-	CefString cefstr(key);
-	CefRefPtr<CefV8Value> nvalue = value;
-	target->SetValue(cefstr, nvalue, (cef_v8_propertyattribute_t)setAttribute);
-}
-MY_DLL_EXPORT void MyCefJs_CefV8Value_SetValue_ByIndex(CefV8Value* target, int index, CefV8Value* value)
-{
-	target->SetValue(index, value);
-}
-MY_DLL_EXPORT CefV8Value* MyCefJs_CreateFunction(const wchar_t* name, CefV8Handler* handler)
-{
-	auto cefFunc = CefV8Value::CreateFunction(name, handler);
-	//since cefFunc is reference counting variable,
-	//so before we send it out of this lib, we must add reference counting ***
-	cefFunc->AddRef();
-	return cefFunc.get();
-}
 
-MY_DLL_EXPORT CefV8Value* MyCefJs_ExecJsFunctionWithContext(CefV8Value* cefJsFunc, CefV8Context* context, const wchar_t* argAsJsonString)
-{
-	CefV8ValueList args;
-	CefRefPtr<CefV8Value> retval;
-	CefRefPtr<CefV8Exception> exception;
 
-	args.push_back(CefV8Value::CreateString(argAsJsonString));
 
-	auto result = cefJsFunc->ExecuteFunctionWithContext(context, NULL, args);
-	if (!result) {
-		return NULL;
-	}
-	else {
-		result->AddRef();
-		return result.get();
-	}
-}
-
-MY_DLL_EXPORT void MyCefFrame_GetUrl(CefFrame* frame, wchar_t* outputBuffer, int outputBufferLen, int* actualLength)
-{
-
-	CefString str = frame->GetURL();
-	int str_len = (int)str.length();
-	*actualLength = str_len;
-	wcscpy_s(outputBuffer, outputBufferLen, str.c_str());
-}
-
-MY_DLL_EXPORT void MyCefString_Read(CefString* cefStr, wchar_t* outputBuffer, int outputBufferLen, int* actualLength)
-{
-	int str_len = (int)cefStr->length();
-	*actualLength = str_len;
-	wcscpy_s(outputBuffer, outputBufferLen, cefStr->c_str());
-}
-
-MY_DLL_EXPORT void MyCefStringHolder_Read(MyCefStringHolder* mycefStr, wchar_t* outputBuffer, int outputBufferLen, int* actualLength)
-{
-	CefString* cefStr = &mycefStr->value;
-	int str_len = (int)cefStr->length();
-	*actualLength = str_len;
-	wcscpy_s(outputBuffer, outputBufferLen, cefStr->c_str());
-}
-MY_DLL_EXPORT void MyCefJs_CefV8Value_ReadAsString(CefV8Value* target, wchar_t* outputBuffer, int outputBufferLen, int* actualLength)
-{
-	CefString str = target->GetStringValue();
-	int str_len = (int)str.length();
-	*actualLength = str_len;
-	wcscpy_s(outputBuffer, outputBufferLen, str.c_str());
-}
-
-MY_DLL_EXPORT void MyCefJs_MetReadArgAsString(const CefV8ValueList* jsArgs, int index, wchar_t* outputBuffer, int outputBufferLen, int* actualLength)
-{
-	auto value = jsArgs->at(index);
-	CefString cefStr = value->GetStringValue();
-	*actualLength = (int32_t)cefStr.length();
-	wcscpy_s(outputBuffer, outputBufferLen, cefStr.c_str());
-}
-MY_DLL_EXPORT int MyCefJs_MetReadArgAsInt32(const CefV8ValueList* jsArgs, int index) {
-	auto value = jsArgs->at(index);
-	return value->GetIntValue();
-}
-MY_DLL_EXPORT CefV8Value* MyCefJs_MetReadArgAsCefV8Value(const CefV8ValueList* jsArgs, int index) {
-	auto value = jsArgs->at(index);
-	value->AddRef();
-	return value;
-}
-MY_DLL_EXPORT CefV8Handler* MyCefJs_MetReadArgAsV8FuncHandle(const CefV8ValueList* jsArgs, int index) {
-	auto value = jsArgs->at(index);
-	value->AddRef();
-	return value->GetFunctionHandler();
-}
-
-//---------------------------------------
-//part 6
-//---------------------------------------
 MY_DLL_EXPORT bool MyCefAddCrossOriginWhitelistEntry(
 	const wchar_t*  sourceOrigin,
 	const wchar_t*  targetProtocol,
@@ -916,4 +477,5 @@ MY_DLL_EXPORT bool MyCefRemoveCrossOriginWhitelistEntry(
 {
 	return CefAddCrossOriginWhitelistEntry(sourceOrigin, targetProtocol, targetDomain, allow_target_subdomains);
 }
-//---------------------------------------
+
+

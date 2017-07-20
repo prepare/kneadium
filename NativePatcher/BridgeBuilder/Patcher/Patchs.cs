@@ -328,8 +328,8 @@ namespace BridgeBuilder
             {
                 string nextLine = sourceFile.GetLine(i).TrimStart();
                 //parse nextline for a command 
-
-                if (!string.IsNullOrEmpty(nextLine))
+                if (!string.IsNullOrEmpty(nextLine) &&
+                    !nextLine.StartsWith("//###_"))
                 {
                     //this should be end context
                     notes.Add(nextLine);

@@ -50,6 +50,12 @@ typedef unsigned __int64 uint64_t;
 
 #endif 
 
+#ifdef _WIN32 
+#define MY_DLL_EXPORT __declspec(dllexport)
+#else 
+#define MY_DLL_EXPORT
+#endif
+
 // jsvalue (JsValue on the CLR side) is a struct that can be easily marshaled
 // by simply blitting its value (being only 16 bytes should be quite fast too).
 
@@ -156,6 +162,7 @@ public:
 	QueryRequestArgs();
 
 };
+
 
 
 typedef void(__cdecl *managed_callback)(int id, void* args);
