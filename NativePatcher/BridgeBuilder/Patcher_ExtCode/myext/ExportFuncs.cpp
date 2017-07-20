@@ -48,14 +48,20 @@ int RegisterManagedCallBack(managed_callback mxCallback, int callbackKind)
 	}
 	return 1; //default
 }
+
+
+
 //3.
 void* MyCefCreateClientApp(HINSTANCE hInstance)
 {
+	//this similar to client::RunMain()
+	//
 	//return client::ClientApp
 	///
 	//-----
 	//user must call RegisterManagedCallBack() before use this method *** 
 	//-----
+
 	// Parse command-line arguments.
 	CefRefPtr<CefCommandLine> command_line = CefCommandLine::CreateCommandLine();
 	command_line->InitFromString(::GetCommandLineW());
@@ -88,22 +94,18 @@ void* MyCefCreateClientApp(HINSTANCE hInstance)
 	message_loop.reset(new MainMessageLoopStd);*/
 
 	//------------------------------------------------------------------
-	//create main context here
+	//set managed callback***
 	client::init_main::SetManagedCallback(myMxCallback_);
 
 	CefMainArgs main_args(hInstance);
 	mainContext = DllInitMain(main_args, app);
 	return app;
 }
+ 
 
-//------------------------------------------------------------------------
 
 
-//3.1 
-MY_DLL_EXPORT void MyCefEnableKeyIntercept(MyBrowser* myBw, int enable) {
-	auto clientHandle = myBw->bwWindow->GetClientHandler();
-	clientHandle->MyCefEnableKeyIntercept(enable);
-}
+
 
 //4. 
 MyBrowser* MyCefCreateMyWebBrowser(managed_callback callback)
@@ -204,6 +206,14 @@ int MyCefSetupBrowserHwndOSR(MyBrowser* myBw, HWND surfaceHwnd, int x, int y, in
 void MyCefCloseMyWebBrowser(MyBrowser* myBw) {
 	myBw->bwWindow->ClientClose();
 }
+
+
+
+MY_DLL_EXPORT void MyCefEnableKeyIntercept(MyBrowser* myBw, int enable) {
+	auto clientHandle = myBw->bwWindow->GetClientHandler();
+	clientHandle->MyCefEnableKeyIntercept(enable);
+}
+
 
 //7.
 void MyCefDoMessageLoopWork()
@@ -375,7 +385,7 @@ void MyCefShowDevTools(MyBrowser* myBw, MyBrowser* myBwDev, HWND parentWindow)
 	windowInfo.height = 600;
 	windowInfo.x = 0;
 	windowInfo.y = 0;
-	
+
 	RECT r;
 	r.left = 0;
 	r.top = 0;
@@ -486,5 +496,4 @@ MY_DLL_EXPORT bool MyCefRemoveCrossOriginWhitelistEntry(
 {
 	return CefAddCrossOriginWhitelistEntry(sourceOrigin, targetProtocol, targetDomain, allow_target_subdomains);
 }
-
 

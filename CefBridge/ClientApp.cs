@@ -38,9 +38,8 @@ namespace LayoutFarm.CefBridge
                 if (!isInitWithProcessHandle)
                 {
                     isInitWithProcessHandle = true;
-                    //1. register mx callback
-                    this.mxCallback = new MyCefCallback(MxCallBack);
-                    Cef3Binder.RegisterManagedCallBack(this.mxCallback, 3);
+                    //1. register mx callback 
+                    Cef3Binder.RegisterManagedCallBack(this.mxCallback = new MyCefCallback(MxCallBack), 3);
                     //2. create client app
                     this.clientAppPtr = Cef3Binder.MyCefCreateClientApp(processHandle);
                 }
@@ -104,7 +103,7 @@ namespace LayoutFarm.CefBridge
                         //NativeMethods.MessageBox(IntPtr.Zero, id.ToString(), "NN2", 0);
 
                         if (renderProcessListener != null)
-                        {   
+                        {
                             renderProcessListener.OnContextCreated(
                                 new MyCefContextArgs(new NativeCallArgs(argsPtr)));
                         }

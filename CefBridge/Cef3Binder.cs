@@ -114,7 +114,7 @@ namespace LayoutFarm.CefBridge
 #endif
 
         static CefClientApp clientApp;
-        static CustomSchemeAgent customScheme;
+
 
         public static IWindowForm CreateBlankForm(int width, int height)
         {
@@ -174,7 +174,7 @@ namespace LayoutFarm.CefBridge
             //-----------------------------------------------------------
             //init cef  
 
-            clientApp = cefInitEssential.CreateClientApp(); // System.Diagnostics.Process.GetCurrentProcess().Handle);
+            clientApp = cefInitEssential.CreateClientApp();
             return true;
         }
 
@@ -241,9 +241,8 @@ namespace LayoutFarm.CefBridge
         //3.
         [DllImport(CEF_CLIENT_DLL, CallingConvention = CallingConvention.Cdecl)]
         public static extern IntPtr MyCefCreateClientApp(IntPtr processHandle);
-        //3.1
-        [DllImport(CEF_CLIENT_DLL, CallingConvention = CallingConvention.Cdecl)]
-        public static extern void MyCefEnableKeyIntercept(IntPtr myCefBrowser, int enable);
+         
+    
         //4. 
         [DllImport(CEF_CLIENT_DLL, CallingConvention = CallingConvention.Cdecl)]
         public static extern IntPtr MyCefCreateMyWebBrowser(MyCefCallback mxcallback);
@@ -260,6 +259,10 @@ namespace LayoutFarm.CefBridge
         //6.
         [DllImport(CEF_CLIENT_DLL, CallingConvention = CallingConvention.Cdecl, CharSet = CharSet.Unicode)]
         public static extern void MyCefCloseMyWebBrowser(IntPtr myCefBrowser);
+
+
+        [DllImport(CEF_CLIENT_DLL, CallingConvention = CallingConvention.Cdecl)]
+        public static extern void MyCefEnableKeyIntercept(IntPtr myCefBrowser, int enable);
 
         //7.
         [DllImport(CEF_CLIENT_DLL)]
@@ -361,6 +364,7 @@ namespace LayoutFarm.CefBridge
         internal static extern IntPtr MyCefJs_EnterContext(IntPtr cefV8Context);
         [DllImport(CEF_CLIENT_DLL, CallingConvention = CallingConvention.Cdecl)]
         internal static extern void MyCefJs_ExitContext(IntPtr cefV8Context);
+        //
         [DllImport(CEF_CLIENT_DLL, CallingConvention = CallingConvention.Cdecl)]
         internal static extern IntPtr MyCefJs_New_V8Handler(MyCefCallback managedCallback);
         [DllImport(CEF_CLIENT_DLL, CallingConvention = CallingConvention.Cdecl, CharSet = CharSet.Unicode)]

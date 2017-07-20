@@ -125,7 +125,11 @@ namespace LayoutFarm.CefBridge
         }
         public void Set(string key, Cef3Func cef3Func)
         {
-            Cef3Binder.MyCefJs_CefV8Value_SetValue_ByString(this.Ptr, key, cef3Func.Ptr, (int)CefV8PropertyAttribute.V8_PROPERTY_ATTRIBUTE_READONLY);
+            Cef3Binder.MyCefJs_CefV8Value_SetValue_ByString(
+                this.Ptr,
+                key,
+                cef3Func.Ptr,
+                (int)CefV8PropertyAttribute.V8_PROPERTY_ATTRIBUTE_READONLY);
         }
         public bool IsFunc()
         {
