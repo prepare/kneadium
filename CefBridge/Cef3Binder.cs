@@ -63,6 +63,7 @@ namespace LayoutFarm.CefBridge
         CEF_MSG_ClientHandler_BeforeDownload = 110,
         CEF_MSG_ClientHandler_DownloadUpdated = 111,
         CEF_MSG_ClientHandler_OnLoadError = 119,
+        //
         CEF_MSG_ClientHandler_OnCertError = 120,
         CEF_MSG_ClientHandler_ExecCustomProtocol = 121,
 
@@ -79,6 +80,11 @@ namespace LayoutFarm.CefBridge
         CEF_MSG_RenderDelegate_OnContextCreated = 202,
         CEF_MSG_RenderDelegate_OnContextReleased = 203,
         CEF_MSG_OnQuery = 205,
+        //
+        CEF_MSG_MyCefDomGetTextWalk_Visit = 302,
+        CEF_MSG_MyV8ManagedHandler_Execute = 301,
+        CEF_MSG_HereOnRenderer = 303,
+
         CEF_MSG_ClientHandler_OnPreKeyEvent = 501,
         CEF_MSG_ClientHandler_NotifyTitle = 502,
         CEF_MSG_ClientHandler_NotifyAddress = 503,
