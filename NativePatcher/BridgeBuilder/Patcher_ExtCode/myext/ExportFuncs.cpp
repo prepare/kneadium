@@ -21,10 +21,40 @@ client::MainMessageLoop* message_loop;  //essential for mainloop checking
 managed_callback myMxCallback_ = NULL;
 
 
+
+class MyCefRootWindow :public client::BrowserWindow::Delegate {
+
+public: 
+	void OnBrowserCreated(CefRefPtr<CefBrowser> browser) OVERRIDE {
+
+	}
+	void OnBrowserWindowDestroyed() OVERRIDE {
+
+	}
+	void OnSetAddress(const std::string& url) OVERRIDE {
+
+	}
+	void OnSetTitle(const std::string& title) OVERRIDE {
+	}
+	void OnSetFullscreen(bool fullscreen) OVERRIDE {
+
+	}
+	void OnSetLoadingState(bool isLoading,
+		bool canGoBack,
+		bool canGoForward) OVERRIDE {
+
+	}
+	void OnSetDraggableRegions(
+		const std::vector<CefDraggableRegion>& regions) OVERRIDE { 
+	}
+};
+
+
 class MyBrowser
 {
 public:
-	client::RootWindowWin* rootWin;
+	//client::RootWindowWin* rootWin;
+	MyCefRootWindow* rootWin;
 	client::BrowserWindow* bwWindow;
 };
 
@@ -107,20 +137,21 @@ void* MyCefCreateClientApp(HINSTANCE hInstance)
 
 
 
+
+
 //4. 
 MyBrowser* MyCefCreateMyWebBrowser(managed_callback callback)
 {
 
 	//create root window handler?
 	auto myBw = new MyBrowser();
-	auto rootWindow = new client::RootWindowWin();
+	auto rootWindow = new MyCefRootWindow();// new client::RootWindowWin();
 	myBw->rootWin = rootWindow;
 
 	//1. create browser window handler
 	//TODO: review here again, don't store at this module!
 	auto bwWindow = new client::BrowserWindowStdWin(rootWindow, "");
 	myBw->bwWindow = bwWindow;
-
 	//2. browser event handler
 	auto hh = bwWindow->GetClientHandler();
 	hh->MyCefSetManagedCallBack(callback);
@@ -133,7 +164,7 @@ MyBrowser* MyCefCreateMyWebBrowserOSR(managed_callback callback)
 
 	//create root window handler?
 	auto myBw = new MyBrowser();
-	auto rootWindow = new client::RootWindowWin();
+	auto rootWindow = new MyCefRootWindow(); // new client::RootWindowWin();
 	myBw->rootWin = rootWindow;
 
 	//1. create browser window handler
@@ -235,66 +266,42 @@ void MyCefSetBrowserSize(MyBrowser* myBw, int w, int h) {
 	myBw->bwWindow->SetBounds(0, 0, w, h);
 }
 
+//---------------------
+class MyCefStringVisitor : public CefStringVisitor {
+public:
+	managed_callback mcallback;
+	explicit MyCefStringVisitor(CefRefPtr<CefBrowser> browser) : browser_(browser) {
+		mcallback = NULL;
+	}
+	virtual void Visit(const CefString& string) OVERRIDE {
+
+		MethodArgs metArgs;
+		memset(&metArgs, 0, sizeof(MethodArgs));
+		metArgs.SetArgAsNativeObject(0, &string);
+		metArgs.SetArgType(0, JSVALUE_TYPE_NATIVE_CEFSTRING);
+		this->mcallback(CEF_MSG_MyCefDomGetTextWalk_Visit, &metArgs);
+	}
+private:
+	CefRefPtr<CefBrowser> browser_;
+	IMPLEMENT_REFCOUNTING(MyCefStringVisitor);
+};
 
 void MyCefDomGetTextWalk(MyBrowser* myBw, managed_callback strCallBack)
 {
-	//---------------------
-	class Visitor : public CefStringVisitor {
-	public:
-		managed_callback mcallback;
-		explicit Visitor(CefRefPtr<CefBrowser> browser) : browser_(browser) {
-			mcallback = NULL;
-		}
-		virtual void Visit(const CefString& string) OVERRIDE {
-
-			MethodArgs metArgs;
-			memset(&metArgs, 0, sizeof(MethodArgs));
-			metArgs.SetArgAsNativeObject(0, &string);
-			metArgs.SetArgType(0, JSVALUE_TYPE_NATIVE_CEFSTRING);
-			this->mcallback(302, &metArgs);
-		}
-	private:
-		CefRefPtr<CefBrowser> browser_;
-		IMPLEMENT_REFCOUNTING(Visitor);
-	};
-
-	//---------------------
-	//delegate/lambda pattern
 	auto bw = myBw->bwWindow->GetBrowser();
-	auto bwVisitor = new Visitor(bw);
+	auto bwVisitor = new MyCefStringVisitor(bw);
 	bwVisitor->mcallback = strCallBack;
 	bw->GetMainFrame()->GetText(bwVisitor);
-	delete bwVisitor;
+	//this is not blocking method, so=> need to create visitor on heap
+
 }
 void MyCefDomGetSourceWalk(MyBrowser* myBw, managed_callback strCallBack)
 {
-	//---------------------
-	class Visitor : public CefStringVisitor {
-	public:
-		managed_callback mcallback;
-		explicit Visitor(CefRefPtr<CefBrowser> browser) : browser_(browser) {
-			mcallback = NULL;
-		}
-		virtual void Visit(const CefString& string) OVERRIDE {
-
-			MethodArgs metArgs;
-			memset(&metArgs, 0, sizeof(MethodArgs));
-			metArgs.SetArgAsNativeObject(0, &string);
-			metArgs.SetArgType(0, JSVALUE_TYPE_NATIVE_CEFSTRING);
-			this->mcallback(302, &metArgs);
-		}
-	private:
-		CefRefPtr<CefBrowser> browser_;
-		IMPLEMENT_REFCOUNTING(Visitor);
-	};
-
-	//---------------------
-	//delegate/lambda pattern
 	auto bw = myBw->bwWindow->GetBrowser();
-	auto bwVisitor = new Visitor(bw);
+	auto bwVisitor = new MyCefStringVisitor(bw);
 	bwVisitor->mcallback = strCallBack;
 	bw->GetMainFrame()->GetSource(bwVisitor);
-	delete bwVisitor;
+	//this is not blocking method, so=> need to create visitor on heap
 }
 
 
