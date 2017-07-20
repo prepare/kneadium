@@ -239,7 +239,7 @@ queryReq.browser = browser.get();
 queryReq.frame = frame.get();
 queryReq.query_id = query_id;
 
-//queryReq.request = &request;
+
 MyCefStringHolder mystr;
 mystr.value = request;
 queryReq.request = &mystr;
@@ -256,14 +256,14 @@ CefString cefstr = args.ReadOutputAsString(0);
 callback->Success(cefstr);
 
 return true;
-} 
+}
 return false;
 }
 };
 //###_POST
-void ClientHandler::OnAfterCreated(CefRefPtr<CefBrowser> browser) {
+//###_START 5
 //###_POST
-CEF_REQUIRE_UI_THREAD();
+void ClientHandler::OnAfterCreated(CefRefPtr<CefBrowser> browser) {
 //###_END 0
 //###_START 5
 void ClientHandler::OnAfterCreated(CefRefPtr<CefBrowser> browser) {

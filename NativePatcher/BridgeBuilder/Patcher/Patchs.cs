@@ -18,11 +18,11 @@ namespace BridgeBuilder
         SkipUntilPass,
         SkipUntilAndAccept,
 
-        //
-        Pre,
-        Post,
-        InsertBlockContent,
-        EndBlock,
+        ////
+        //Pre,
+        //Post,
+        //InsertBlockContent,
+        //EndBlock,
     }
 
     class PatchCommand
@@ -133,20 +133,60 @@ namespace BridgeBuilder
             }
 
             output.IsCMakeFile = input.IsCMakeFile;
-            //-----------------------------------------------------------------
-            //can't patch again
+            //-----------------------------------------------------------------            
+            //other patch that is not block-patch
             int j = patchTasks.Count;
             for (int i = 0; i < j; ++i)
             {
-                patchTasks[i].PatchFile(input, output);
-            }
+                PatchTask ptask = patchTasks[i];
+                if (!ptask.IsPatchBlock)
+                {
+                    ptask.PatchFile(input, output);
+                }
+                else
+                {
+                    ptask.PatchBlockSouldStartAt = output.LineCount;
+                }
 
+            }
             int linecount = input.LineCount;
             for (int i = input.CurrentLine; i < linecount; ++i)
             {
                 output.AddLine(input.GetLine(i));
                 input.CurrentLine++;
             }
+            //-----------------------------------------------------------------
+
+            //only block-patch
+            for (int i = 0; i < j; ++i)
+            {
+                PatchTask ptask = patchTasks[i];
+                if (ptask.IsPatchBlock)
+                {
+                    int newLineCount = ptask.PatchBlockFile(output);
+                    if (newLineCount == 1)
+                    {
+                        for (int n = i + 1; n < j; ++n)
+                        {
+                            //adjust new offset
+                            PatchTask p2 = patchTasks[n];
+                            if (p2.IsPatchBlock)
+                            {
+                                p2.PatchBlockSouldStartAt += 1;
+                            }
+                        }
+                    }
+                    else
+                    {
+                        throw new NotSupportedException();
+                    }
+                }
+            }
+
+
+
+
+
 
             output.Save();
         }
@@ -328,8 +368,7 @@ namespace BridgeBuilder
             {
                 string nextLine = sourceFile.GetLine(i).TrimStart();
                 //parse nextline for a command 
-                if (!string.IsNullOrEmpty(nextLine) &&
-                    !nextLine.StartsWith("//###_"))
+                if (!string.IsNullOrEmpty(nextLine))
                 {
                     //this should be end context
                     notes.Add(nextLine);
@@ -550,7 +589,6 @@ namespace BridgeBuilder
                                 i++;
                                 string cmd_value = sourceFile.GetLine(i);
 
-
                                 if (taskId != ptask.TaskId)
                                 {
                                     throw new NotSupportedException();
@@ -563,7 +601,6 @@ namespace BridgeBuilder
                             {
                                 i++;
                                 string cmd_value = sourceFile.GetLine(i);
-
 
                                 if (taskId != ptask.TaskId)
                                 {
@@ -639,7 +676,10 @@ namespace BridgeBuilder
         {
             lines.Add(str);
         }
-
+        public void InserString(int index, string str)
+        {
+            lines.Insert(index, str);
+        }
         public string GetLine(int index)
         {
             return lines[index];
@@ -773,65 +813,115 @@ namespace BridgeBuilder
 
         void AddControlLine(SourceFile outputFile, PatchCommand cmd)
         {
-
             PatchWriter.WriteCommand(outputFile, cmd, false);
+        }
+        public int PatchBlockSouldStartAt
+        {
+            get;
+            set;
         }
 
 
-        public void PatchBlockFile(SourceFile input, SourceFile output)
+        static int FindLineStartWith(SourceFile file, int startAt, string startWithStr)
+        {
+            int lineCount = file.LineCount;
+            for (int i = startAt; i < lineCount; ++i)
+            {
+                string line = file.GetLine(i).TrimStart();
+                if (line.StartsWith(startWithStr))
+                {
+                    //found
+                    return i;
+                }
+            }
+            return -1; //not found
+        }
+
+        public int PatchBlockFile(SourceFile output)
         {
 
+            int outputLineCount = output.LineCount;
             int n = preNotes.Count;
 
-
-            for (int i = 0; i < n; ++i)
+            int shouldStartPatchAt = PatchBlockSouldStartAt - 5;
+            if (shouldStartPatchAt < 0)
             {
-                //pre
-                commands.Add(new PatchCommand(-1, PatchCommandKind.Pre, preNotes[i]));
-            }
-            if (n > 0)
-            {
-                this.LandMark = preNotes[0];
+                shouldStartPatchAt = PatchBlockSouldStartAt;
             }
 
+            //meet all criteria(s)
+            for (int p = 0; p < n; ++p)
+            {
+                string note = preNotes[p];
+                int foundAt = FindLineStartWith(output, shouldStartPatchAt, note);
+                if (foundAt < 0)
+                {
+                    throw new NotSupportedException();
+                }
+                else
+                {
+                    //found
+                    shouldStartPatchAt = foundAt + 1;
+                }
+            }
+            //--------
+            //post 
+            int shouldInsertAt = shouldStartPatchAt;
             n = postNotes.Count;
 
+            for (int p = 0; p < n; ++p)
+            {
+                string note = postNotes[p];
+                int foundAt = FindLineStartWith(output, shouldStartPatchAt, note);
+                if (foundAt < 0)
+                {
+                    throw new NotSupportedException();
+                }
+                else
+                {
+                    //found 
+                    if (p == 0)
+                    {
+                        shouldInsertAt = foundAt;
+                    }
+                    shouldStartPatchAt = foundAt + 1;
+                }
+            }
+
+            //--------
+            //match all criteria
+            //then we insert a block
+
             StringBuilder stbuilder = new StringBuilder();
-
-            foreach (string line in ContentLines)
+            stbuilder.AppendLine(PatchCommand.BEGIN);
+            foreach (string s in this.ContentLines)
             {
-                stbuilder.AppendLine(line);
+                stbuilder.AppendLine(s);
             }
-
-            commands.Add(new PatchCommand(-1, PatchCommandKind.InsertBlockContent, stbuilder.ToString()));
-
-            for (int i = 0; i < n; ++i)
-            {
-                //pre
-                commands.Add(new PatchCommand(-1, PatchCommandKind.Post, postNotes[i]));
-            }
-
-            commands.Add(new PatchCommand(-1, PatchCommandKind.EndBlock, ""));
-
-
+            stbuilder.AppendLine(PatchCommand.END);
+            output.InserString(shouldInsertAt, stbuilder.ToString());
+            return 1;
 
         }
         public void PatchFile(SourceFile input, SourceFile output)
         {
+            //------------------------------------------------------------
             if (this.IsPatchBlock)
             {
-                //convert to commands 
-                PatchBlockFile(input, output);
+                throw new NotSupportedException();
             }
-            //
-
+            //------------------------------------------------------------
 
 
             //find start position of this task
             int curLine = input.CurrentLine;
             int lineCount = input.LineCount;
             bool foundLandMark = false;
-            for (int cur_line_id = curLine; cur_line_id < lineCount; ++cur_line_id)
+            int cur_line_id = curLine;
+
+
+
+            for (; cur_line_id < lineCount; ++cur_line_id)
             {
                 string line = input.GetLine(cur_line_id);
                 input.CurrentLine++;
@@ -840,109 +930,28 @@ namespace BridgeBuilder
                 {
                     //found land mark
                     foundLandMark = true;
-                    if (!this.IsPatchBlock)
-                    {
-                        string newStartLine = PatchCommand.START + " " + this.TaskId;
-                        if (!string.IsNullOrEmpty(this.PatchStartCmd))
-                        {
-                            newStartLine += " " + this.PatchStartCmd;
-                        }
-                        if (!output.IsCMakeFile)
-                        {
-                            output.AddLine(newStartLine);
-                        }
 
-                        if (this.PatchStartCmd == "-X")
-                        {
-                            //replace the original line with the land mark
-                            output.AddLine(this.LandMark);
-                        }
-                        else
-                        {
-                            output.AddLine(line);
-                        }
-                        break;
+                    string newStartLine = PatchCommand.START + " " + this.TaskId;
+                    if (!string.IsNullOrEmpty(this.PatchStartCmd))
+                    {
+                        newStartLine += " " + this.PatchStartCmd;
+                    }
+                    if (!output.IsCMakeFile)
+                    {
+                        output.AddLine(newStartLine);
+                    }
+
+                    if (this.PatchStartCmd == "-X")
+                    {
+                        //replace the original line with the land mark
+                        output.AddLine(this.LandMark);
                     }
                     else
                     {
-
-                        //find context environment
-                        int cmdCount = commands.Count;
-                        List<string> tempContents = new List<string>();
-                        //
-                        int enter_line_id = cur_line_id;
-
-                        for (int c = 0; c < cmdCount; ++c)
-                        {
-                            PatchCommand cmd = commands[c];
-                            //find start position 
-                            switch (cmd.comandKind)
-                            {
-                                case PatchCommandKind.Pre:
-                                    {
-                                        for (; cur_line_id < lineCount; ++cur_line_id)
-                                        {
-                                            line = input.GetLine(cur_line_id).TrimStart();
-                                            tempContents.Add(line);
-                                            if (line.StartsWith(cmd.String))
-                                            {
-                                                //accept
-                                                cur_line_id++;
-                                                break;
-                                            }
-                                            else
-                                            {
-
-                                            }
-                                        }
-                                    }
-                                    break;
-                                case PatchCommandKind.Post:
-                                    {
-                                        //post
-                                        for (; cur_line_id < lineCount; ++cur_line_id)
-                                        {
-                                            line = input.GetLine(cur_line_id).TrimStart();
-                                            tempContents.Add(line);
-                                            if (line.StartsWith(cmd.String))
-                                            {
-                                                //accept
-                                                cur_line_id++;
-                                                break;
-                                            }
-                                            else
-                                            {
-
-                                            }
-                                        }
-                                    }
-                                    break;
-                                case PatchCommandKind.EndBlock:
-                                    {
-                                        //check and confirm the end block
-                                        //found all critirias
-                                        //.....
-                                        //confirm
-                                        int q = tempContents.Count;
-                                        for (int p = 0; p < q; ++p)
-                                        {
-                                            output.AddLine(tempContents[p]);
-                                        }
-                                    }
-                                    break;
-                                case PatchCommandKind.InsertBlockContent:
-                                    {
-                                        tempContents.Add(PatchCommand.BEGIN);
-                                        tempContents.Add(cmd.String);
-                                        tempContents.Add(PatchCommand.END);
-                                    }
-                                    break;
-                            }
-                        }
-                        //must found all find next land mark 
-                        //---------------- 
-                        return;
+                        output.AddLine(line);
                     }
+                    break;
+
                 }
                 else
                 {
