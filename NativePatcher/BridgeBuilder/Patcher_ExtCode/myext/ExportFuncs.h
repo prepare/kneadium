@@ -43,6 +43,10 @@ extern "C" {
 	MY_DLL_EXPORT void MyCefFrame_GetUrl(CefFrame* frame, wchar_t* outputBuffer, int outputBufferLen, int* actualLength);
 	 
 	//----------------------------
+
+
+
+	//----------------------------
 	MY_DLL_EXPORT bool MyCefAddCrossOriginWhitelistEntry(
 		const wchar_t*  sourceOrigin,
 		const wchar_t*  targetProtocol,
