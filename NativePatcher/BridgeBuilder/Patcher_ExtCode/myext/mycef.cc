@@ -3,10 +3,7 @@
 #include "mycef.h"
 #include "mycef_msg_const.h"
 
-//----------------
-MY_DLL_EXPORT void DisposeMethodArgs(MethodArgs* args) {
-	delete args;
-}
+ 
 MY_DLL_EXPORT void MyCefString_Read(CefString* cefStr, wchar_t* outputBuffer, int outputBufferLen, int* actualLength)
 {
 	int str_len = (int)cefStr->length();
@@ -626,14 +623,5 @@ MY_DLL_EXPORT CefV8Value* MyCefJs_ExecJsFunctionWithContext(CefV8Value* cefJsFun
 		return result.get();
 	}
 }
-MY_DLL_EXPORT void MyCefFrame_GetUrl(CefFrame* frame, wchar_t* outputBuffer, int outputBufferLen, int* actualLength)
-{
-
-	CefString str = frame->GetURL();
-	int str_len = (int)str.length();
-	*actualLength = str_len;
-	wcscpy_s(outputBuffer, outputBufferLen, str.c_str());
-}
-
 
 

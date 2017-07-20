@@ -88,9 +88,7 @@ extern "C" {
 
 	MY_DLL_EXPORT CefV8Value* MyCefJsGetGlobal(CefV8Context* cefV8Context);
 
-
-	MY_DLL_EXPORT void DisposeMethodArgs(MethodArgs* args);
-
+	 
 	MY_DLL_EXPORT CefV8Context* MyCefJs_EnterContext(CefV8Context* cefV8Context);
 	MY_DLL_EXPORT void MyCefJs_ExitContext(CefV8Context* cefV8Context);
 

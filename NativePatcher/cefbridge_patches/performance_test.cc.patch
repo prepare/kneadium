@@ -1,11 +1,9 @@
 //###_ORIGINAL D:\projects\cef_binary_3.3071.1647.win64\tests\cefclient\renderer//performance_test.cc
-//###_START 7
-class RenderDelegate : public ClientAppRenderer::Delegate {
-//###_FIND_NEXT_LANDMARK 7
-RenderDelegate() {}
-//###_FIND_NEXT_LANDMARK 7
+//###_BEGIN 0
+//###_PRE
+V8_PROPERTY_ATTRIBUTE_READONLY);
+//###_PRE
 }
-//###_APPEND_START 7
 virtual void OnWebKitInitialized(CefRefPtr<ClientAppRenderer> app) {
 if (app->myMxCallback_) {
 MethodArgs metArgs;
@@ -34,4 +32,8 @@ app->myMxCallback_(CEF_MSG_RenderDelegate_OnContextReleased, &metArgs);
 
 }
 }
-//###_APPEND_STOP
+//###_POST
+private:
+//###_POST
+IMPLEMENT_REFCOUNTING(RenderDelegate);
+//###_END 0

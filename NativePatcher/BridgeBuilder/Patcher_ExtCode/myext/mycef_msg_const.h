@@ -34,9 +34,7 @@ const int CEF_MSG_RenderDelegate_OnWebKitInitialized = 201;
 const int CEF_MSG_RenderDelegate_OnContextCreated = 202;
 const int CEF_MSG_RenderDelegate_OnContextReleased = 203;
 const int CEF_MSG_OnQuery = 205;
-
-
-
+ 
 
 const int CEF_MSG_MyV8ManagedHandler_Execute = 301;
 const int CEF_MSG_MyCefDomGetTextWalk_Visit = 302;

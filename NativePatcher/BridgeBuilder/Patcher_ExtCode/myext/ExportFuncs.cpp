@@ -375,7 +375,7 @@ void MyCefShowDevTools(MyBrowser* myBw, MyBrowser* myBwDev, HWND parentWindow)
 	windowInfo.height = 600;
 	windowInfo.x = 0;
 	windowInfo.y = 0;
-
+	
 	RECT r;
 	r.left = 0;
 	r.top = 0;
@@ -444,6 +444,15 @@ bool MyCefJs_CefRegisterExtension(const wchar_t* extensionName, const wchar_t* e
 	CefString code = extensionCode;
 	CefRefPtr<CefV8Handler> handler = new MyV8ManagedHandler();
 	return CefRegisterExtension(name, code, handler);
+}
+
+MY_DLL_EXPORT void MyCefFrame_GetUrl(CefFrame* frame, wchar_t* outputBuffer, int outputBufferLen, int* actualLength)
+{
+
+	CefString str = frame->GetURL();
+	int str_len = (int)str.length();
+	*actualLength = str_len;
+	wcscpy_s(outputBuffer, outputBufferLen, str.c_str());
 }
 
 
