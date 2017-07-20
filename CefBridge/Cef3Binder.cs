@@ -289,8 +289,7 @@ namespace LayoutFarm.CefBridge
         public static extern unsafe void MyCefBwNavigateTo(IntPtr myCefBw, string urlAddress);
         [DllImport(CEF_CLIENT_DLL, CallingConvention = CallingConvention.Cdecl, CharSet = CharSet.Unicode)]
         public static extern void MyCefBwExecJavascript(IntPtr myCefBw, string jssource, string scripturl);
-        [DllImport(CEF_CLIENT_DLL, CallingConvention = CallingConvention.Cdecl, CharSet = CharSet.Unicode)]
-        public static extern void MyCefBwExecJavascript2(IntPtr nativeWb, string jssource, string scripturl);
+       
         [DllImport(CEF_CLIENT_DLL, CallingConvention = CallingConvention.Cdecl, CharSet = CharSet.Unicode)]
         public static extern void MyCefSetBrowserSize(IntPtr myCefBw, int w, int h);
         //--------------------------------------------------- 
@@ -357,7 +356,7 @@ namespace LayoutFarm.CefBridge
         [DllImport(CEF_CLIENT_DLL, CallingConvention = CallingConvention.Cdecl)]
         internal static extern IntPtr MyCefJs_GetEnteredContext();
         [DllImport(CEF_CLIENT_DLL, CallingConvention = CallingConvention.Cdecl)]
-        internal static extern IntPtr MyCefJsFrameContext(IntPtr nativeFrame);
+        internal static extern IntPtr MyCefFrame_GetContext(IntPtr nativeFrame);
         [DllImport(CEF_CLIENT_DLL, CallingConvention = CallingConvention.Cdecl)]
         internal static extern IntPtr MyCefJsGetGlobal(IntPtr jsContext);
         [DllImport(CEF_CLIENT_DLL, CallingConvention = CallingConvention.Cdecl)]

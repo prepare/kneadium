@@ -101,7 +101,7 @@ void* MyCefCreateClientApp(HINSTANCE hInstance)
 	mainContext = DllInitMain(main_args, app);
 	return app;
 }
- 
+
 
 
 
@@ -209,7 +209,7 @@ void MyCefCloseMyWebBrowser(MyBrowser* myBw) {
 
 
 
-MY_DLL_EXPORT void MyCefEnableKeyIntercept(MyBrowser* myBw, int enable) {
+void MyCefEnableKeyIntercept(MyBrowser* myBw, int enable) {
 	auto clientHandle = myBw->bwWindow->GetClientHandler();
 	clientHandle->MyCefEnableKeyIntercept(enable);
 }
@@ -345,9 +345,7 @@ void MyCefBwExecJavascript(MyBrowser* myBw, const wchar_t* jscode, const wchar_t
 
 	myBw->bwWindow->GetBrowser()->GetMainFrame()->ExecuteJavaScript(jscode, script_url, 0);
 }
-void MyCefBwExecJavascript2(CefBrowser* nativeWb, const wchar_t* jscode, const wchar_t* script_url) {
-	nativeWb->GetMainFrame()->ExecuteJavaScript(jscode, script_url, 0);
-}
+
 //3. 
 void MyCefBwPostData(MyBrowser* myBw, const wchar_t* url, const wchar_t* rawDataToPost, size_t rawDataLength) {
 
@@ -404,59 +402,35 @@ void MyCefShowDevTools(MyBrowser* myBw, MyBrowser* myBwDev, HWND parentWindow)
 		settings,
 		inspect_element_at);
 }
-MY_DLL_EXPORT void MyCefBwGoBack(MyBrowser* myBw) {
+void MyCefBwGoBack(MyBrowser* myBw) {
 
 	if (CefRefPtr<CefBrowser> browser = myBw->bwWindow->GetBrowser()) {
 		browser->GoBack();
 	}
 }
-MY_DLL_EXPORT void MyCefBwGoForward(MyBrowser* myBw) {
+void MyCefBwGoForward(MyBrowser* myBw) {
 	if (CefRefPtr<CefBrowser> browser = myBw->bwWindow->GetBrowser()) {
 		browser->GoForward();
 	}
 }
-MY_DLL_EXPORT void MyCefBwStop(MyBrowser* myBw) {
+void MyCefBwStop(MyBrowser* myBw) {
 	if (CefRefPtr<CefBrowser> browser = myBw->bwWindow->GetBrowser()) {
 		browser->StopLoad();
 	}
 }
-MY_DLL_EXPORT void MyCefBwReload(MyBrowser* myBw) {
+void MyCefBwReload(MyBrowser* myBw) {
 	if (CefRefPtr<CefBrowser> browser = myBw->bwWindow->GetBrowser()) {
 		browser->Reload();
 	}
 }
-MY_DLL_EXPORT void MyCefBwReloadIgnoreCache(MyBrowser* myBw) {
+void MyCefBwReloadIgnoreCache(MyBrowser* myBw) {
 	if (CefRefPtr<CefBrowser> browser = myBw->bwWindow->GetBrowser()) {
 		browser->ReloadIgnoreCache();
 	}
 }
-bool MyCefJs_CefRegisterExtension(const wchar_t* extensionName, const wchar_t* extensionCode) {
 
-	//-----------------------------------------------
-	class MyV8ManagedHandler : public CefV8Handler {
-	public:
 
-		MyV8ManagedHandler() {
-		}
-		virtual bool Execute(const CefString& name,
-			CefRefPtr<CefV8Value> object,
-			const CefV8ValueList& arguments,
-			CefRefPtr<CefV8Value>& retval,
-			CefString& exception)
-		{
-			return true;
-		}
-	private:
-		IMPLEMENT_REFCOUNTING(MyV8ManagedHandler);
-	};
-	//----------------------------------------------- 
-	CefString name = extensionName;
-	CefString code = extensionCode;
-	CefRefPtr<CefV8Handler> handler = new MyV8ManagedHandler();
-	return CefRegisterExtension(name, code, handler);
-}
-
-MY_DLL_EXPORT void MyCefFrame_GetUrl(CefFrame* frame, wchar_t* outputBuffer, int outputBufferLen, int* actualLength)
+void MyCefFrame_GetUrl(CefFrame* frame, wchar_t* outputBuffer, int outputBufferLen, int* actualLength)
 {
 
 	CefString str = frame->GetURL();
@@ -472,13 +446,13 @@ void HereOnRenderer(const managed_callback callback, MethodArgs* args)
 }
 
 
-MY_DLL_EXPORT void MyCefJsNotifyRenderer(const managed_callback callback, MethodArgs* args) {
+void MyCefJsNotifyRenderer(const managed_callback callback, MethodArgs* args) {
 	CefPostTask(TID_RENDERER, base::Bind(&HereOnRenderer, callback, args));
 }
 
 
 
-MY_DLL_EXPORT bool MyCefAddCrossOriginWhitelistEntry(
+bool MyCefAddCrossOriginWhitelistEntry(
 	const wchar_t*  sourceOrigin,
 	const wchar_t*  targetProtocol,
 	const wchar_t*  targetDomain,
@@ -487,7 +461,7 @@ MY_DLL_EXPORT bool MyCefAddCrossOriginWhitelistEntry(
 {
 	return CefAddCrossOriginWhitelistEntry(sourceOrigin, targetProtocol, targetDomain, allow_target_subdomains);
 }
-MY_DLL_EXPORT bool MyCefRemoveCrossOriginWhitelistEntry(
+bool MyCefRemoveCrossOriginWhitelistEntry(
 	const wchar_t*  sourceOrigin,
 	const wchar_t*  targetProtocol,
 	const wchar_t*  targetDomain,

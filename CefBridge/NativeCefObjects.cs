@@ -268,7 +268,7 @@ namespace LayoutFarm.CefBridge
         }
         public void ExecJavascript(string src, string url)
         {
-            Cef3Binder.MyCefBwExecJavascript2(this.Ptr, src, url);
+            throw new NotSupportedException();
         }
     }
     public class NativeFrame : Cef3RefCountingValue
@@ -278,7 +278,7 @@ namespace LayoutFarm.CefBridge
         }
         public NativeJsContext GetFrameContext()
         {
-            return new NativeJsContext(Cef3Binder.MyCefJsFrameContext(this.Ptr));
+            return new NativeJsContext(Cef3Binder.MyCefFrame_GetContext(this.Ptr));
         }
         public string GetUrl()
         {
