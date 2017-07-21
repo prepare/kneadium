@@ -26,6 +26,7 @@ namespace LayoutFarm.CefBridge
             ReferencePaths.CACHE_PATH = ReferencePaths.OUTPUT_DIR + "/cef_cache"; //dir
             ReferencePaths.SAVE_IMAGE_PATH = ReferencePaths.OUTPUT_DIR + "/snap02"; //dir
 
+            //---------------
 
             if (!System.IO.Directory.Exists(ReferencePaths.OUTPUT_DIR))
             {

@@ -1,11 +1,15 @@
 //###_ORIGINAL D:\projects\cef_binary_3.3071.1647.win32\tests\cefclient\browser//browser_window.cc
-//###_START 0
-delegate_->OnSetDraggableRegions(regions);
-//###_FOLLOW_BY 0
+//###_BEGIN 0
+//###_PRE
+delegate_->OnSetLoadingState(isLoading, canGoBack, canGoForward);
+//###_PRE
 }
-//###_APPEND_START 0
 //my extension
 client::ClientHandler* BrowserWindow::GetClientHandler() {
 return this->client_handler_;
 }
-//###_APPEND_STOP
+//###_POST
+void BrowserWindow::OnSetDraggableRegions(
+//###_POST
+const std::vector<CefDraggableRegion>& regions) {
+//###_END 0

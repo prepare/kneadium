@@ -1,0 +1,24 @@
+//###_ORIGINAL D:\projects\cef_binary_3.3071.1647.win32\tests\cefclient\browser\root_window_create.cc
+//###_BEGIN 0
+//###_PRE
+#endif
+//###_PRE
+}
+#include "tests/cefclient/myext/mycef_buildconfig.h"
+#if BUILD_TEST_ROOT_WINDOW
+//###_POST
+#if defined(OS_WIN)  
+//###_POST
+return new RootWindowWin();  
+//###_END 0
+//###_BEGIN 0
+//###_PRE
+return new RootWindowMac();
+//###_PRE
+#endif 
+#endif //BUILD_TEST_ROOT_WINDOW
+//###_POST
+return NULL;
+//###_POST
+}
+//###_END 0

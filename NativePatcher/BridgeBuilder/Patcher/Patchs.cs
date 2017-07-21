@@ -403,7 +403,8 @@ namespace BridgeBuilder
                 }
                 else
                 {
-                    //must be end block ***.
+                    line = line.TrimEnd();
+
                     string cmdline;
                     int taskId;
                     string additionalInfo;
@@ -496,7 +497,7 @@ namespace BridgeBuilder
                 {
 
                     //what is the comamnd
-
+                    line = line.TrimEnd();
                     string cmdline;
                     int taskId;
                     string additionalInfo;
