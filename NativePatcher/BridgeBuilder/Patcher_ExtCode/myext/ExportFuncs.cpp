@@ -6,13 +6,16 @@
 
 #include "include/cef_origin_whitelist.h" //add original whitelist
 #include "tests/shared/browser/client_app_browser.h"  
-#include "tests/shared/browser/main_message_loop_std.h" 
 #include "tests/shared/common/client_app_other.h"
 #include "tests/shared/renderer/client_app_renderer.h"  
 
+//
+#include "tests/shared/browser/main_message_loop_std.h" 
+//
 #include "../browser/root_window_win.h" //**
 #include "../browser/browser_window_osr_win.h" //**
 #include "tests/cefclient/browser/browser_window_std_win.h" 
+
 
 
 
@@ -24,7 +27,9 @@ managed_callback myMxCallback_ = NULL;
 
 class MyCefRootWindow :public client::BrowserWindow::Delegate {
 
-public: 
+	//this class is used in this module only
+	//
+public:
 	void OnBrowserCreated(CefRefPtr<CefBrowser> browser) OVERRIDE {
 
 	}
@@ -34,7 +39,8 @@ public:
 	void OnSetAddress(const std::string& url) OVERRIDE {
 
 	}
-	void OnSetTitle(const std::string& title) OVERRIDE {
+	void OnSetTitle(const std::string& title) OVERRIDE
+	{
 	}
 	void OnSetFullscreen(bool fullscreen) OVERRIDE {
 
@@ -45,7 +51,7 @@ public:
 
 	}
 	void OnSetDraggableRegions(
-		const std::vector<CefDraggableRegion>& regions) OVERRIDE { 
+		const std::vector<CefDraggableRegion>& regions) OVERRIDE {
 	}
 };
 
@@ -53,7 +59,6 @@ public:
 class MyBrowser
 {
 public:
-	//client::RootWindowWin* rootWin;
 	MyCefRootWindow* rootWin;
 	client::BrowserWindow* bwWindow;
 };
@@ -78,9 +83,6 @@ int RegisterManagedCallBack(managed_callback mxCallback, int callbackKind)
 	}
 	return 1; //default
 }
-
-
-
 //3.
 void* MyCefCreateClientApp(HINSTANCE hInstance)
 {
@@ -132,53 +134,80 @@ void* MyCefCreateClientApp(HINSTANCE hInstance)
 	return app;
 }
 
+void MyCefSetInitSettings(CefSettings* cefSetting, int keyName, const wchar_t* value) {
+	switch (keyName)
+	{
+	case CEF_SETTINGS_BrowserSubProcessPath:
+		CefString(&cefSetting->browser_subprocess_path) = value;
+		break;
+	case CEF_SETTINGS_CachePath:
+		CefString(&cefSetting->cache_path) = value;
+		break;
+	case CEF_SETTINGS_ResourcesDirPath:
+		CefString(&cefSetting->resources_dir_path) = value;
+		break;
+	case CEF_SETTINGS_UserDirPath:
+		CefString(&cefSetting->user_data_path) = value;
+		break;
 
-
-
-
-
-
+	case CEF_SETTINGS_LocalDirPath:
+		CefString(&cefSetting->locales_dir_path) = value;
+		break;
+	case CEF_SETTINGS_IgnoreCertError:
+		cefSetting->ignore_certificate_errors = std::stoi(value);
+		break;
+	case CEF_SETTINGS_RemoteDebuggingPort:
+		cefSetting->remote_debugging_port = std::stoi(value);
+		break;
+	case CEF_SETTINGS_LogFile:
+		CefString(&cefSetting->log_file) = value;
+		break;
+	case CEF_SETTINGS_LogSeverity:
+		cefSetting->log_severity = (cef_log_severity_t)std::stoi(value);
+		break;
+	default:
+		break;
+	}
+}
 
 //4. 
 MyBrowser* MyCefCreateMyWebBrowser(managed_callback callback)
 {
-
-	//create root window handler?
 	auto myBw = new MyBrowser();
-	auto rootWindow = new MyCefRootWindow();// new client::RootWindowWin();
+
+	auto rootWindow = new MyCefRootWindow();//new client::RootWindowWin();
 	myBw->rootWin = rootWindow;
 
 	//1. create browser window handler
 	//TODO: review here again, don't store at this module!
 	auto bwWindow = new client::BrowserWindowStdWin(rootWindow, "");
 	myBw->bwWindow = bwWindow;
-	//2. browser event handler
-	auto hh = bwWindow->GetClientHandler();
-	hh->MyCefSetManagedCallBack(callback);
+
+	//2. browser event handler	 
+	auto clientHandler = bwWindow->GetClientHandler();
+	clientHandler->MyCefSetManagedCallBack(callback);
 	return myBw;
 }
 
 //4.OSR
 MyBrowser* MyCefCreateMyWebBrowserOSR(managed_callback callback)
 {
-
-	//create root window handler?
 	auto myBw = new MyBrowser();
-	auto rootWindow = new MyCefRootWindow(); // new client::RootWindowWin();
+	auto rootWindow = new MyCefRootWindow(); //new client::RootWindowWin();
 	myBw->rootWin = rootWindow;
+
+
+	client::OsrRenderer::Settings settings;
+	client::MainContext::Get()->PopulateOsrSettings(&settings);
 
 	//1. create browser window handler
 	//TODO: review here again, don't store at this module!
-	client::OsrRenderer::Settings settings;
-	client::MainContext::Get()->PopulateOsrSettings(&settings);
 	auto bwWindow = new client::BrowserWindowOsrWin(rootWindow, "", settings);
-
-	//SetUserDataPtr()
 	myBw->bwWindow = bwWindow;
 
 	//2. browser event handler
-	auto hh = bwWindow->GetClientHandler();
-	hh->MyCefSetManagedCallBack(callback);
+	auto clientHandler = bwWindow->GetClientHandler();
+	clientHandler->MyCefSetManagedCallBack(callback);
 	return myBw;
 }
 
@@ -210,12 +239,7 @@ int MyCefSetupBrowserHwnd(MyBrowser* myBw, HWND surfaceHwnd, int x, int y, int w
 		browser_settings,
 		CefRefPtr<CefRequestContext>(cefRefContext));
 
-	if (result) {
-		return 1;
-	}
-	else {
-		return 0;
-	}
+	return (result) ? 1 : 0;
 }
 
 //5. OSR
@@ -305,41 +329,6 @@ void MyCefDomGetSourceWalk(MyBrowser* myBw, managed_callback strCallBack)
 }
 
 
-void MyCefSetInitSettings(CefSettings* cefSetting, int keyName, const wchar_t* value) {
-	switch (keyName)
-	{
-	case CEF_SETTINGS_BrowserSubProcessPath:
-		CefString(&cefSetting->browser_subprocess_path) = value;
-		break;
-	case CEF_SETTINGS_CachePath:
-		CefString(&cefSetting->cache_path) = value;
-		break;
-	case CEF_SETTINGS_ResourcesDirPath:
-		CefString(&cefSetting->resources_dir_path) = value;
-		break;
-	case CEF_SETTINGS_UserDirPath:
-		CefString(&cefSetting->user_data_path) = value;
-		break;
-
-	case CEF_SETTINGS_LocalDirPath:
-		CefString(&cefSetting->locales_dir_path) = value;
-		break;
-	case CEF_SETTINGS_IgnoreCertError:
-		cefSetting->ignore_certificate_errors = std::stoi(value);
-		break;
-	case CEF_SETTINGS_RemoteDebuggingPort:
-		cefSetting->remote_debugging_port = std::stoi(value);
-		break;
-	case CEF_SETTINGS_LogFile:
-		CefString(&cefSetting->log_file) = value;
-		break;
-	case CEF_SETTINGS_LogSeverity:
-		cefSetting->log_severity = (cef_log_severity_t)std::stoi(value);
-		break;
-	default:
-		break;
-	}
-}
 
 //part3: 
 //1. 

@@ -97,7 +97,7 @@ namespace client {
 			*/
 			//Initialize CEF.
 			mainContext->Initialize(main_args, settings, app, sandbox_info);
-
+		
 			
 			 
 			// Register scheme handlers.
