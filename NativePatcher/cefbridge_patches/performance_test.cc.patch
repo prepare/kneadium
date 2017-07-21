@@ -12,14 +12,14 @@
 //###_END 0
 //###_BEGIN 0
 //###_PRE
-const int kDefaultIterations = 10000;
+namespace client {
 //###_PRE
-#endif
+namespace performance_test {
 #if BUILD_TEST
 //###_POST
-namespace {
+// Use more interations for a Release build.
 //###_POST
-const char kGetPerfTests[] = "GetPerfTests";
+#if DCHECK_IS_ON()
 //###_END 0
 //###_BEGIN 0
 //###_PRE

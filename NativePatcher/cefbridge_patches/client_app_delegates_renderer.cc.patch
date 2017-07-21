@@ -1,0 +1,34 @@
+//###_ORIGINAL D:\projects\cef_binary_3.3071.1647.win32\tests\cefclient\renderer\client_app_delegates_renderer.cc
+//###_BEGIN 0
+//###_PRE
+#include "tests/cefclient/renderer/performance_test.h"
+//###_PRE
+#include "tests/shared/renderer/client_app_renderer.h"
+#include "tests/cefclient/myext/mycef_buildconfig.h"
+//###_POST
+namespace client {
+//###_POST
+// static
+//###_END 0
+//###_BEGIN 0
+//###_PRE
+// static
+//###_PRE
+void ClientAppRenderer::CreateDelegates(DelegateSet& delegates) {
+#if BUILD_TEST
+//###_POST
+renderer::CreateDelegates(delegates);
+//###_POST
+performance_test::CreateDelegates(delegates);
+//###_END 0
+//###_BEGIN 0
+//###_PRE
+renderer::CreateDelegates(delegates);
+//###_PRE
+performance_test::CreateDelegates(delegates);
+#endif //BUILD_TEST
+//###_POST
+}
+//###_POST
+}  // namespace client
+//###_END 0
