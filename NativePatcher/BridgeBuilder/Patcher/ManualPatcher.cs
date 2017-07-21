@@ -43,6 +43,7 @@ namespace BridgeBuilder
   myext/MyCefJs.h
   myext/mycef_msg_const.h
   myext/MyCef_Win.cpp
+  myext/mycef_buildconfig.h
   )
 source_group(cefclient\\\\myext FILES ${CEFCLIENT_MYCEF_MYCEF_SRCS})
 set(CEFCLIENT_MYCEF_SRCS
