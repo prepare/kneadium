@@ -45,15 +45,17 @@ return GetAppWorkingDirectory() + "console.log";
 //###_APPEND_STOP
 //###_SKIP_UNTIL_AND_ACCEPT 2
 }
-//###_START 3
-void MainContextImpl::PopulateSettings(CefSettings* settings) {
-//###_FIND_NEXT_LANDMARK 3
-CefString(&settings->cache_path) =
-//###_FIND_NEXT_LANDMARK 3
+//###_BEGIN 0
+//###_PRE
+CefString(&settings->cache_path) = 
+//###_PRE
 command_line_->GetSwitchValue(switches::kCachePath);
-//###_APPEND_START 3
 if (this->myMxCallback_) {
 //send direct setting? 
 this->myMxCallback_(CEF_MSG_CefSettings_Init, settings);
 }
-//###_APPEND_STOP
+//###_POST
+if (use_windowless_rendering_)
+//###_POST
+settings->windowless_rendering_enabled = true;
+//###_END 0
