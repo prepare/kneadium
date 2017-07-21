@@ -1,6 +1,12 @@
 //###_ORIGINAL D:\projects\cef_binary_3.3071.1647.win32\tests\cefclient\browser//browser_window_std_win.h
-//###_START 1
+//###_BEGIN 0
+//###_PRE
+void SetFocus(bool focus) OVERRIDE;
+//###_PRE
 ClientWindowHandle GetWindowHandle() const OVERRIDE;
-//###_APPEND_START 1
 void ClientClose() const OVERRIDE;
-//###_APPEND_STOP
+//###_POST
+private:
+//###_POST
+DISALLOW_COPY_AND_ASSIGN(BrowserWindowStdWin);
+//###_END 0
