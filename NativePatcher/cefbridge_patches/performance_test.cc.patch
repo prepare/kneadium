@@ -1,6 +1,28 @@
 //###_ORIGINAL D:\projects\cef_binary_3.3071.1647.win32\tests\cefclient\renderer//performance_test.cc
 //###_BEGIN 0
 //###_PRE
+#include <algorithm>
+//###_PRE
+#include <string>
+#include "tests/cefclient/myext/mycef_buildconfig.h"
+//###_POST
+#include "include/base/cef_logging.h"
+//###_POST
+#include "include/wrapper/cef_stream_resource_handler.h"
+//###_END 0
+//###_BEGIN 0
+//###_PRE
+const int kDefaultIterations = 10000;
+//###_PRE
+#endif
+#if BUILD_TEST
+//###_POST
+namespace {
+//###_POST
+const char kGetPerfTests[] = "GetPerfTests";
+//###_END 0
+//###_BEGIN 0
+//###_PRE
 V8_PROPERTY_ATTRIBUTE_READONLY);
 //###_PRE
 }
@@ -36,4 +58,19 @@ app->myMxCallback_(CEF_MSG_RenderDelegate_OnContextReleased, &metArgs);
 private:
 //###_POST
 IMPLEMENT_REFCOUNTING(RenderDelegate);
+//###_END 0
+//###_BEGIN 0
+//###_PRE
+delegates.insert(new RenderDelegate);
+//###_PRE
+}
+#else
+void CreateDelegates(ClientAppRenderer::DelegateSet& delegates) {
+
+}
+#endif //BUILD_TEST
+//###_POST
+}  // namespace performance_test
+//###_POST
+}  // namespace client
 //###_END 0

@@ -167,4 +167,9 @@ public:
 
 typedef void(__cdecl *managed_callback)(int id, void* args);
 
-//---
+ 
+namespace mycefmx {
+	managed_callback GetManagedCallback();
+	void SetManagedCallback(managed_callback callback);
+
+}

@@ -126,9 +126,8 @@ void* MyCefCreateClientApp(HINSTANCE hInstance)
 	message_loop.reset(new MainMessageLoopStd);*/
 
 	//------------------------------------------------------------------
-	//set managed callback***
-	client::init_main::SetManagedCallback(myMxCallback_);
-
+	//set managed callback*** 
+	mycefmx::SetManagedCallback(myMxCallback_);
 	CefMainArgs main_args(hInstance);
 	mainContext = DllInitMain(main_args, app);
 	return app;

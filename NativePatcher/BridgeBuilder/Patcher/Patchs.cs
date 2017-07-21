@@ -294,7 +294,7 @@ namespace BridgeBuilder
                 if (nextSpace < 0)
                 {
                     string id = line.Substring(startPos).Trim();
-                    additionalInfo = null;
+                    additionalInfo = null; 
                     taskId = int.Parse(id);
                 }
                 else
