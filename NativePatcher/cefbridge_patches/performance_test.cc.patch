@@ -1,20 +1,10 @@
 //###_ORIGINAL D:\projects\cef_binary_3.3071.1647.win32\tests\cefclient\renderer//performance_test.cc
 //###_BEGIN 0
 //###_PRE
-#include <algorithm>
-//###_PRE
-#include <string>
-#include "tests/cefclient/myext/mycef_buildconfig.h"
-//###_POST
-#include "include/base/cef_logging.h"
-//###_POST
-#include "include/wrapper/cef_stream_resource_handler.h"
-//###_END 0
-//###_BEGIN 0
-//###_PRE
 namespace client {
 //###_PRE
 namespace performance_test {
+#include "tests/cefclient/myext/mycef_buildconfig.h"
 #if BUILD_TEST
 //###_POST
 // Use more interations for a Release build.
