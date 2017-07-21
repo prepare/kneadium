@@ -125,7 +125,11 @@ namespace LayoutFarm.CefBridge
         }
         public void Set(string key, Cef3Func cef3Func)
         {
-            Cef3Binder.MyCefJs_CefV8Value_SetValue_ByString(this.Ptr, key, cef3Func.Ptr, (int)CefV8PropertyAttribute.V8_PROPERTY_ATTRIBUTE_READONLY);
+            Cef3Binder.MyCefJs_CefV8Value_SetValue_ByString(
+                this.Ptr,
+                key,
+                cef3Func.Ptr,
+                (int)CefV8PropertyAttribute.V8_PROPERTY_ATTRIBUTE_READONLY);
         }
         public bool IsFunc()
         {
@@ -264,7 +268,7 @@ namespace LayoutFarm.CefBridge
         }
         public void ExecJavascript(string src, string url)
         {
-            Cef3Binder.MyCefBwExecJavascript2(this.Ptr, src, url);
+            throw new NotSupportedException();
         }
     }
     public class NativeFrame : Cef3RefCountingValue
@@ -274,12 +278,13 @@ namespace LayoutFarm.CefBridge
         }
         public NativeJsContext GetFrameContext()
         {
-            return new NativeJsContext(Cef3Binder.MyCefJsFrameContext(this.Ptr));
+            return new NativeJsContext(Cef3Binder.MyCefFrame_GetContext(this.Ptr));
         }
         public string GetUrl()
         {
             unsafe
             {
+                //get url, in this version max size =255?
                 char[] buffer = new char[255];
                 int actualLength = 0;
                 fixed (char* buffer_head = &buffer[0])

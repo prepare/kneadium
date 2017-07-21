@@ -1,9 +1,14 @@
-//###_ORIGINAL D:\projects\cef_binary_3.3071.1647.win64\tests\cefclient\renderer//client_renderer.cc
-//###_START 0
-// Create the renderer-side router for query handling.
-//###_APPEND_START 0
-//show msgbox if we want to break a debugger in render process
-//###_APPEND_STOP
-//###_APPEND_START 0
+//###_ORIGINAL D:\projects\cef_binary_3.3071.1647.win32\tests\cefclient\renderer//client_renderer.cc
+//###_BEGIN 0
+//###_PRE
+}
+//###_PRE
+void OnWebKitInitialized(CefRefPtr<ClientAppRenderer> app) OVERRIDE {
+// Create the renderer-side router for query handling. 
+//show msgbox if we want to break a debugger in render process 
 //MessageBox(NULL, L"OnWebKitInitialized", L"OnWebKitInitialized", 0);
-//###_APPEND_STOP
+//###_POST
+CefMessageRouterConfig config;
+//###_POST
+message_router_ = CefMessageRouterRendererSide::Create(config);
+//###_END 0

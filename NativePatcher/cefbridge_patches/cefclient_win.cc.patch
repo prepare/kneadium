@@ -1,0 +1,20 @@
+//###_ORIGINAL D:\projects\cef_binary_3.3071.1647.win32\tests\cefclient\cefclient_win.cc
+//###_BEGIN 0
+//###_PRE
+// can be found in the LICENSE file.
+//###_PRE
+#include <windows.h>
+#include "tests/cefclient/myext/mycef_buildconfig.h"
+#if BUILD_TEST_ROOT_WINDOW
+//###_POST
+#include "include/base/cef_scoped_ptr.h"
+//###_POST
+#include "include/cef_command_line.h"
+//###_END 0
+//###_BEGIN 0
+//###_PRE
+return client::RunMain(hInstance, nCmdShow);
+//###_PRE
+}
+#endif //BUILD_TEST
+//###_END 0

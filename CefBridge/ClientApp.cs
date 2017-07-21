@@ -10,6 +10,7 @@ namespace LayoutFarm.CefBridge
         static readonly object sync_ = new object();
         MyCefCallback mxCallback;
         CefRenderProcessListener renderProcessListener;
+
         public CefClientApp(
             IntPtr processHandle,
             CefRenderProcessListener renderProcessListener)
@@ -37,9 +38,8 @@ namespace LayoutFarm.CefBridge
                 if (!isInitWithProcessHandle)
                 {
                     isInitWithProcessHandle = true;
-                    //1. register mx callback
-                    this.mxCallback = new MyCefCallback(MxCallBack);
-                    Cef3Binder.RegisterManagedCallBack(this.mxCallback, 3);
+                    //1. register mx callback 
+                    Cef3Binder.RegisterManagedCallBack(this.mxCallback = new MyCefCallback(MxCallBack), 3);
                     //2. create client app
                     this.clientAppPtr = Cef3Binder.MyCefCreateClientApp(processHandle);
                 }
@@ -104,13 +104,8 @@ namespace LayoutFarm.CefBridge
 
                         if (renderProcessListener != null)
                         {
-                            NativeCallArgs args = new NativeCallArgs(argsPtr);
-                            MyCefContextArgs cefContextArgs = new MyCefContextArgs(args);
-                            //var clientRenderApp = new NativeRendererApp(args.GetArgAsNativePtr(0));
-                            //var browser = new NativeBrowser(args.GetArgAsNativePtr(1));
-                            //var context = new NativeJsContext(args.GetArgAsNativePtr(2));
-
-                            renderProcessListener.OnContextCreated(cefContextArgs);
+                            renderProcessListener.OnContextCreated(
+                                new MyCefContextArgs(new NativeCallArgs(argsPtr)));
                         }
                     }
                     break;
@@ -118,12 +113,8 @@ namespace LayoutFarm.CefBridge
                     {
                         if (renderProcessListener != null)
                         {
-                            NativeCallArgs args = new NativeCallArgs(argsPtr);
-                            MyCefContextArgs cefContextArgs = new MyCefContextArgs(args);
-                            //var clientRenderApp = new NativeRendererApp(args.GetArgAsNativePtr(0));
-                            //var browser = new NativeBrowser(args.GetArgAsNativePtr(1));
-                            //var context = new NativeJsContext(args.GetArgAsNativePtr(2));
-                            renderProcessListener.OnContextReleased(cefContextArgs);
+                            renderProcessListener.OnContextReleased(
+                                new MyCefContextArgs(new NativeCallArgs(argsPtr)));
                         }
                     }
                     break;

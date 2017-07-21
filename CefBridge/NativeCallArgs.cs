@@ -68,23 +68,23 @@ namespace LayoutFarm.CefBridge
         public string GetArgAsString(int index)
         {
             JsValue v = new JsValue();
-            Cef3Binder.MyCefNativeMetGetArgs(_argPtr, index, out v);
+            Cef3Binder.MyCefMetArgs_GetArgs(_argPtr, index, out v);
             if ((int)v.Type == 30)
             {
                 //native cef
 
                 var charBuff = new char[BUFF_LEN];
-                int acutalLen = 0;
+                int actualLen = 0;
                 unsafe
                 {
                     fixed (char* buffHead = &charBuff[0])
                     {
-                        Cef3Binder.MyCefString_Read(v.Ptr, buffHead, BUFF_LEN, ref acutalLen);
-                        if (acutalLen > BUFF_LEN)
+                        Cef3Binder.MyCefString_Read(v.Ptr, buffHead, BUFF_LEN, ref actualLen);
+                        if (actualLen > BUFF_LEN)
                         {
                             //read more
                         }
-                        return new string(buffHead, 0, acutalLen);
+                        return new string(buffHead, 0, actualLen);
                     }
                 }
             }
@@ -96,13 +96,13 @@ namespace LayoutFarm.CefBridge
         public int GetArgAsInt32(int index)
         {
             JsValue v = new JsValue();
-            Cef3Binder.MyCefNativeMetGetArgs(_argPtr, index, out v);
+            Cef3Binder.MyCefMetArgs_GetArgs(_argPtr, index, out v);
             return v.I32;
         }
         public IntPtr GetArgAsNativePtr(int index)
         {
             JsValue v = new JsValue();
-            Cef3Binder.MyCefNativeMetGetArgs(_argPtr, index, out v);
+            Cef3Binder.MyCefMetArgs_GetArgs(_argPtr, index, out v);
             return v.Ptr;
         }
         public void SetOutput(int index, string str)
