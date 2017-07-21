@@ -1,15 +1,27 @@
 //###_ORIGINAL D:\projects\cef_binary_3.3071.1647.win32\tests\cefclient\browser//test_runner.cc
-//###_START 0
+//###_BEGIN 0
+//###_PRE
+#include "tests/cefclient/browser/urlrequest_test.h" 
+//###_PRE
 #include "tests/cefclient/browser/window_test.h"
-//###_APPEND_START 0
 #include "include/wrapper/cef_byte_read_handler.h"
 #include "tests/cefclient/myext/mycef_msg_const.h"
-//###_APPEND_STOP
-//###_START 1
+//###_POST
+#include "tests/shared/browser/resource_util.h"
+//###_POST
+namespace client {
+//###_END 0
+//###_BEGIN 0
+//###_PRE
+namespace client {
+//###_PRE
 namespace test_runner {
-//###_APPEND_START 1
 managed_callback mcallback_ = NULL;
-//###_APPEND_STOP
+//###_POST
+namespace {
+//###_POST
+const char kTestOrigin[] = "http://tests/";
+//###_END 0
 //###_START 2
 class RequestDumpResourceProvider : public CefResourceManager::Provider {
 //###_FIND_NEXT_LANDMARK 2
