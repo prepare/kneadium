@@ -241,8 +241,8 @@ namespace LayoutFarm.CefBridge
         //3.
         [DllImport(CEF_CLIENT_DLL, CallingConvention = CallingConvention.Cdecl)]
         public static extern IntPtr MyCefCreateClientApp(IntPtr processHandle);
-         
-    
+
+
         //4. 
         [DllImport(CEF_CLIENT_DLL, CallingConvention = CallingConvention.Cdecl)]
         public static extern IntPtr MyCefCreateMyWebBrowser(MyCefCallback mxcallback);
@@ -289,7 +289,7 @@ namespace LayoutFarm.CefBridge
         public static extern unsafe void MyCefBwNavigateTo(IntPtr myCefBw, string urlAddress);
         [DllImport(CEF_CLIENT_DLL, CallingConvention = CallingConvention.Cdecl, CharSet = CharSet.Unicode)]
         public static extern void MyCefBwExecJavascript(IntPtr myCefBw, string jssource, string scripturl);
-       
+
         [DllImport(CEF_CLIENT_DLL, CallingConvention = CallingConvention.Cdecl, CharSet = CharSet.Unicode)]
         public static extern void MyCefSetBrowserSize(IntPtr myCefBw, int w, int h);
         //--------------------------------------------------- 
@@ -311,7 +311,8 @@ namespace LayoutFarm.CefBridge
         [DllImport(CEF_CLIENT_DLL, CallingConvention = CallingConvention.Cdecl)]
         public static extern void MyCefBwReloadIgnoreCache(IntPtr myCefBw);
         //--------------------------------------------------- 
-
+        [DllImport(CEF_CLIENT_DLL, CallingConvention = CallingConvention.Cdecl, CharSet = CharSet.Unicode)]
+        public static extern void MyCefPrintToPdf(IntPtr myCefBw, string filename);
 
 
         [DllImport(CEF_CLIENT_DLL, CallingConvention = CallingConvention.Cdecl)]

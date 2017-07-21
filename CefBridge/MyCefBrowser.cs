@@ -377,7 +377,10 @@ namespace LayoutFarm.CefBridge
                     devForm.GetHandle());
             }
         }
-
+        public void PrintToPdf(string filename)
+        {
+            Cef3Binder.MyCefPrintToPdf(this.myCefBrowser, filename);
+        }
         internal void NotifyCloseBw()
         {
             this.Stop();

@@ -41,7 +41,8 @@ extern "C" {
 	MY_DLL_EXPORT void MyCefBwReload(MyBrowser* myBw);
 	MY_DLL_EXPORT void MyCefBwReloadIgnoreCache(MyBrowser* myBw);
 	MY_DLL_EXPORT void MyCefFrame_GetUrl(CefFrame* frame, wchar_t* outputBuffer, int outputBufferLen, int* actualLength);
-	 
+	//----------------------------
+	MY_DLL_EXPORT void MyCefPrintToPdf(MyBrowser* myBw,wchar_t* filename);
 	//----------------------------
 
 

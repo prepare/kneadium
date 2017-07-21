@@ -423,7 +423,30 @@ void MyCefBwReloadIgnoreCache(MyBrowser* myBw) {
 		browser->ReloadIgnoreCache();
 	}
 }
+ 
+void MyCefPrintToPdf(MyBrowser* myBw, wchar_t* filename) {
 
+	//
+	class MyPdfCallback : public CefPdfPrintCallback {
+		void OnPdfPrintFinished(const CefString& path, bool ok) OVERRIDE
+		{			 
+		}
+		IMPLEMENT_REFCOUNTING(MyPdfCallback);
+	};
+
+	if (CefRefPtr<CefBrowser> browser = myBw->bwWindow->GetBrowser()) {
+		CefPdfPrintSettings settings;
+
+		// Show the URL in the footer.
+		settings.header_footer_enabled = true;
+		CefString(&settings.header_footer_url) =
+			browser->GetMainFrame()->GetURL();
+
+		// Print to the selected PDF file.
+		auto myPdfCallback = new MyPdfCallback();
+		browser->GetHost()->PrintToPDF(filename, settings, myPdfCallback);
+	}
+}
 
 void MyCefFrame_GetUrl(CefFrame* frame, wchar_t* outputBuffer, int outputBufferLen, int* actualLength)
 {

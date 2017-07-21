@@ -146,5 +146,10 @@ namespace LayoutFarm.CefBridge
             //    p.Dispose();
             //}
         }
+
+        private void button15_Click(object sender, EventArgs e)
+        {
+            this.cefWebBrowser1.Agent.PrintToPdf("d:\\WImageTest\\testpdf.pdf");
+        }
     }
 }
