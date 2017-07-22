@@ -12,7 +12,7 @@ namespace LayoutFarm.CefBridge
     //cef msg constant
     //----------------------------------------------------------------------
 
-    public enum LogServerify
+    public enum LogServerity
     {
         ///
         // Default logging (currently INFO logging).
@@ -90,7 +90,7 @@ namespace LayoutFarm.CefBridge
         CEF_MSG_ClientHandler_NotifyAddress = 503,
     }
 
-    enum CefSettingsKey
+    public enum CefSettingsKey
     {
         CEF_SETTINGS_BrowserSubProcessPath = 9,
         CEF_SETTINGS_CachePath = 10,
@@ -275,7 +275,7 @@ namespace LayoutFarm.CefBridge
 
 
         [DllImport(CEF_CLIENT_DLL, CallingConvention = CallingConvention.Cdecl, CharSet = CharSet.Unicode)]
-        public static extern void MyCefSetInitSettings(IntPtr cefSetting, int keyName, string value);
+        public static extern void MyCefSetInitSettings(IntPtr cefSetting, CefSettingsKey keyName, string value);
         //--------------------------------------------------- 
 
         //part 2:
