@@ -227,5 +227,16 @@ namespace BridgeBuilder
             manualPatcher.CopyExtensionSources(extTargetDir);
             manualPatcher.Do_CMake_txt();
         }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            string srcFile = @"D:\projects\cef_binary_3.3071.1647.win32\include\cef_browser.h";
+            SourceFile sourceFile = new SourceFile(srcFile, false);
+            sourceFile.ReadAllLines();
+            //
+            CefApiBuilder.CefHeaderParser headerParser = new CefApiBuilder.CefHeaderParser();
+            headerParser.Parse(sourceFile);
+
+        }
     }
 }
