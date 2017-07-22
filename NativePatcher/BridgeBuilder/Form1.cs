@@ -231,9 +231,9 @@ namespace BridgeBuilder
         private void button1_Click(object sender, EventArgs e)
         {
             string srcFile = @"D:\projects\cef_binary_3.3071.1647.win32\include\cef_browser.h";
-             
+
             //
-            CefApiBuilder.CefHeaderParser headerParser = new CefApiBuilder.CefHeaderParser();
+            Cef3HeaderFileParser headerParser = new Cef3HeaderFileParser();
             headerParser.Parse(srcFile);
 
         }

@@ -44,7 +44,6 @@
     <Compile Include="ApiParser\CefTypeCollection.cs" />
     <Compile Include="ApiParser\CodeTxPlanner.cs" />
     <Compile Include="ApiParser\DirtyParser.cs" />
-    <Compile Include="ApiParser\SimpleCefHeaderParser.cs" />
     <Compile Include="ApiParser\SymbolDefinition.cs" />
     <Compile Include="Patcher\ManualPatcher.cs" />
     <Compile Include="Patcher\PatchBuilder.cs" />
