@@ -44,8 +44,8 @@ extern "C" {
 	//----------------------------
 	MY_DLL_EXPORT void MyCefPrintToPdf(MyBrowser* myBw,wchar_t* filename);
 	//----------------------------
-
-
+	MY_DLL_EXPORT CefFrame* MyCefBwGetMainFrame(MyBrowser* myBw);
+	MY_DLL_EXPORT void MyCefFrameGetSource(CefFrame* cefFrame, managed_callback strCallBack);
 
 	//----------------------------
 	MY_DLL_EXPORT bool MyCefAddCrossOriginWhitelistEntry(

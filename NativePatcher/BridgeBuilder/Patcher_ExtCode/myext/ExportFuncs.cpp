@@ -63,6 +63,8 @@ public:
 	client::BrowserWindow* bwWindow;
 };
 
+
+
 //1.
 int MyCefGetVersion()
 {
@@ -83,12 +85,12 @@ int RegisterManagedCallBack(managed_callback mxCallback, int callbackKind)
 	}
 	return 1; //default
 }
-//3.
+//------------------------------------------
 void* MyCefCreateClientApp(HINSTANCE hInstance)
 {
 	//this similar to client::RunMain()
 	//
-	//return client::ClientApp
+	//this func returns client::ClientApp
 	///
 	//-----
 	//user must call RegisterManagedCallBack() before use this method *** 
@@ -169,7 +171,21 @@ void MyCefSetInitSettings(CefSettings* cefSetting, int keyName, const wchar_t* v
 	}
 }
 
-//4. 
+void MyCefDoMessageLoopWork()
+{
+	CefDoMessageLoopWork();
+}
+void MyCefShutDown() {
+
+	// Shut down CEF.
+	mainContext->Shutdown();
+	// Release objects in reverse order of creation. 
+	/*CefShutdown();*/
+}
+
+//--------------------------------------
+//browser instance...
+//--------------------------------------
 MyBrowser* MyCefCreateMyWebBrowser(managed_callback callback)
 {
 	auto myBw = new MyBrowser();
@@ -185,13 +201,15 @@ MyBrowser* MyCefCreateMyWebBrowser(managed_callback callback)
 	//2. browser event handler	 
 	auto clientHandler = bwWindow->GetClientHandler();
 	clientHandler->MyCefSetManagedCallBack(callback);
+
 	return myBw;
 }
 
-//4.OSR
+
 MyBrowser* MyCefCreateMyWebBrowserOSR(managed_callback callback)
 {
 	auto myBw = new MyBrowser();
+
 	auto rootWindow = new MyCefRootWindow(); //new client::RootWindowWin();
 	myBw->rootWin = rootWindow;
 
@@ -210,7 +228,7 @@ MyBrowser* MyCefCreateMyWebBrowserOSR(managed_callback callback)
 	return myBw;
 }
 
-//5.
+
 int MyCefSetupBrowserHwnd(MyBrowser* myBw, HWND surfaceHwnd, int x, int y, int w, int h, const wchar_t* url, CefRequestContext* cefRefContext)
 {
 	RECT r;
@@ -241,7 +259,7 @@ int MyCefSetupBrowserHwnd(MyBrowser* myBw, HWND surfaceHwnd, int x, int y, int w
 	return (result) ? 1 : 0;
 }
 
-//5. OSR
+
 int MyCefSetupBrowserHwndOSR(MyBrowser* myBw, HWND surfaceHwnd, int x, int y, int w, int h, const wchar_t* url, CefRequestContext* cefRefContext)
 {
 
@@ -256,7 +274,8 @@ int MyCefSetupBrowserHwndOSR(MyBrowser* myBw, HWND surfaceHwnd, int x, int y, in
 	//----------------------------------
 	return 1;
 }
-//6
+
+
 void MyCefCloseMyWebBrowser(MyBrowser* myBw) {
 	myBw->bwWindow->ClientClose();
 }
@@ -269,21 +288,6 @@ void MyCefEnableKeyIntercept(MyBrowser* myBw, int enable) {
 }
 
 
-//7.
-void MyCefDoMessageLoopWork()
-{
-	CefDoMessageLoopWork();
-}
-//8.
-void MyCefShutDown() {
-
-	// Shut down CEF.
-	mainContext->Shutdown();
-	// Release objects in reverse order of creation. 
-	/*CefShutdown();*/
-}
-//--------------------------------------------------------------------------------------------
-//9.
 void MyCefSetBrowserSize(MyBrowser* myBw, int w, int h) {
 
 	myBw->bwWindow->SetBounds(0, 0, w, h);
@@ -326,6 +330,18 @@ void MyCefDomGetSourceWalk(MyBrowser* myBw, managed_callback strCallBack)
 	bw->GetMainFrame()->GetSource(bwVisitor);
 	//this is not blocking method, so=> need to create visitor on heap
 }
+CefFrame* MyCefBwGetMainFrame(MyBrowser *myBw) {
+
+	auto cefFrame = myBw->bwWindow->GetBrowser()->GetMainFrame();
+	cefFrame->AddRef();//*** before send to external framework
+	return cefFrame;
+}
+void MyCefFrameGetSource(CefFrame* cefFrame, managed_callback strCallBack) {
+
+	auto bwVisitor = new MyCefStringVisitor(cefFrame->GetBrowser());
+	bwVisitor->mcallback = strCallBack;
+	cefFrame->GetSource(bwVisitor);
+}
 
 
 
@@ -348,7 +364,7 @@ void MyCefBwPostData(MyBrowser* myBw, const wchar_t* url, const wchar_t* rawData
 	CefRefPtr<CefRequest> request(CefRequest::Create());
 	request->SetURL(url);
 
-	//Add post data to request, the correct method and content-type header willbe set by CEF
+	//Add post data to request, the correct method and content-type header will be set by CEF
 
 	CefRefPtr<CefPostDataElement> postDataElement(CefPostDataElement::Create());
 	postDataElement->SetToBytes(rawDataLength, rawDataToPost);
@@ -356,7 +372,7 @@ void MyCefBwPostData(MyBrowser* myBw, const wchar_t* url, const wchar_t* rawData
 	postData->AddElement(postDataElement);
 	request->SetPostData(postData);
 
-	//add custom header
+	//add custom header (for test)
 	CefRequest::HeaderMap headerMap;
 	headerMap.insert(
 		std::make_pair("X-My-Header", "My Header Value"));
@@ -400,11 +416,14 @@ void MyCefShowDevTools(MyBrowser* myBw, MyBrowser* myBwDev, HWND parentWindow)
 void MyCefBwGoBack(MyBrowser* myBw) {
 
 	if (CefRefPtr<CefBrowser> browser = myBw->bwWindow->GetBrowser()) {
+		
 		browser->GoBack();
 	}
 }
 void MyCefBwGoForward(MyBrowser* myBw) {
 	if (CefRefPtr<CefBrowser> browser = myBw->bwWindow->GetBrowser()) {
+		 
+		
 		browser->GoForward();
 	}
 }
@@ -423,13 +442,14 @@ void MyCefBwReloadIgnoreCache(MyBrowser* myBw) {
 		browser->ReloadIgnoreCache();
 	}
 }
- 
+
 void MyCefPrintToPdf(MyBrowser* myBw, wchar_t* filename) {
 
 	//
 	class MyPdfCallback : public CefPdfPrintCallback {
 		void OnPdfPrintFinished(const CefString& path, bool ok) OVERRIDE
-		{			 
+		{
+
 		}
 		IMPLEMENT_REFCOUNTING(MyPdfCallback);
 	};
