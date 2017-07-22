@@ -1,7 +1,6 @@
-﻿//2016, MIT, WinterDev
+﻿//MIT, 2016-2017 ,WinterDev
 using System;
-using System.Collections.Generic;
-using System.Windows.Forms;
+using System.Collections.Generic; 
 using System.IO;
 using System.Text;
 namespace BridgeBuilder

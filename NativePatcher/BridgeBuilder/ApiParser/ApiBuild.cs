@@ -1,4 +1,4 @@
-﻿//2016, MIT, WinterDev
+﻿//MIT, 2016-2017 ,WinterDev
 using System;
 using System.Collections.Generic;
 using System.Windows.Forms;
@@ -20,7 +20,7 @@ namespace BridgeBuilder
             }
             return false;
         }
-        public void Build(string[] apiFolders, string[] exludeFileNames)
+        public void Build(string[] apiFolders, string[] excludeFileNames)
         {
             List<string> onlyHeaders = new List<string>();
             foreach (var folderName in apiFolders)
@@ -30,7 +30,7 @@ namespace BridgeBuilder
                 {
                     if (filename.EndsWith(".h"))
                     {
-                        if (IsExcludeFile(Path.GetFileName(filename), exludeFileNames))
+                        if (IsExcludeFile(Path.GetFileName(filename), excludeFileNames))
                         {
                             //skip this
                             continue;
@@ -54,7 +54,7 @@ namespace BridgeBuilder
 
             cefTypeCollection.CollectAllTypeDefinitions(compilationUnits);
 
-            TypeTranformPlanner typeTxPlanner = new TypeTranformPlanner(cefTypeCollection);
+            TypeTranformPlanner typeTxPlanner = new TypeTranformPlanner();
 
             StringBuilder stbuilder = new StringBuilder();
             CodeTypeDeclaration found;

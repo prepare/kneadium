@@ -1,8 +1,6 @@
-﻿//2016, MIT, WinterDev
+﻿//MIT, 2016-2017 ,WinterDev
 using System;
 using System.Collections.Generic;
-using System.Windows.Forms;
-using System.IO;
 using System.Text;
 
 namespace BridgeBuilder
@@ -15,7 +13,7 @@ namespace BridgeBuilder
     {
         Simple,
         ReferenceOrPointer,
-        Vec 
+        Vec
     }
 
     enum ContainerTypeKind
@@ -46,9 +44,9 @@ namespace BridgeBuilder
         }
     }
 
-    
 
-   
+
+
     class VecTypeSymbol : TypeSymbol
     {
         public VecTypeSymbol(TypeSymbol elementType)

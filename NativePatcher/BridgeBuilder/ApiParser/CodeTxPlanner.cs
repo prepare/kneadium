@@ -1,7 +1,6 @@
-﻿//2016, MIT, WinterDev
+﻿//MIT, 2016-2017 ,WinterDev
 using System;
-using System.Collections.Generic;
-using System.Windows.Forms;
+using System.Collections.Generic; 
 using System.IO;
 using System.Text;
 
@@ -59,6 +58,12 @@ namespace BridgeBuilder
         {
             methods.Add(met);
         }
+#if DEBUG
+        public override string ToString()
+        {
+            return TypeDecl.ToString();
+        }
+#endif
     }
 
     class MethodTxInfo
@@ -80,7 +85,12 @@ namespace BridgeBuilder
             get;
             set;
         }
-
+#if DEBUG
+        public override string ToString()
+        {
+            return metDecl.ToString();
+        }
+#endif
     }
 
     class MethodParameterTxInfo
@@ -101,12 +111,11 @@ namespace BridgeBuilder
     }
 
     class TypeTranformPlanner
-    {
-        CefTypeCollection typeCollection;
-        public TypeTranformPlanner(CefTypeCollection typeCollection)
-        {
-            this.typeCollection = typeCollection;
+    { 
+        public TypeTranformPlanner()
+        { 
         }
+        public CefTypeCollection CefTypeCollection { get; set; }
         public TypeTxInfo MakeTransformPlan(CodeTypeDeclaration typedecl)
         {
             TypeTxInfo typeTxInfo = new TypeTxInfo(typedecl);

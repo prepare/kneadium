@@ -235,6 +235,27 @@ namespace BridgeBuilder
             //
             Cef3HeaderFileParser headerParser = new Cef3HeaderFileParser();
             headerParser.Parse(srcFile);
+            CodeCompilationUnit cu = headerParser.Result;
+
+            //
+            List<CodeCompilationUnit> culist = new List<CodeCompilationUnit>();
+            culist.Add(cu);
+            CefTypeCollection cefTypeCollection = new CefTypeCollection();
+            cefTypeCollection.CollectAllTypeDefinitions(culist);
+            //-----------
+
+            TypeTranformPlanner txPlanner = new TypeTranformPlanner();
+            txPlanner.CefTypeCollection = cefTypeCollection;
+            //
+            int j = cu.Members.Count;
+            for (int i = 0; i < j; ++i)
+            {
+                CodeTypeDeclaration typedecl = cu.Members[i];
+                TypeTxInfo typeTxPlan = txPlanner.MakeTransformPlan(typedecl);
+
+
+            }
+
 
         }
     }

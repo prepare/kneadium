@@ -1,9 +1,6 @@
-﻿//2016, MIT, WinterDev
+﻿//MIT, 2016-2017 ,WinterDev
 using System;
 using System.Collections.Generic;
-using System.Windows.Forms;
-using System.IO;
-using System.Text;
 namespace BridgeBuilder
 {
     class CefTypeCollection
@@ -29,18 +26,18 @@ namespace BridgeBuilder
             //--------------------------
             //prebuild types & manual added types
             TypeSymbol[] prebuiltTypes = new TypeSymbol[]{
-                
-                
+
+
                 new SimpleType("void"),
                 new SimpleType("bool"),
                 new SimpleType("char"),
                 new SimpleType("int"),
                 new SimpleType("int32"),new SimpleType("uint32"),
-                new SimpleType("int64"),new SimpleType("uint64"),                
+                new SimpleType("int64"),new SimpleType("uint64"),
                 new SimpleType("double"),
                 new SimpleType("size_t"),
-                
-                new SimpleType("string"),      
+
+                new SimpleType("string"),
                 new SimpleType("CefString"),
                 new SimpleType("CefBase"),
                 //TODO: review
@@ -49,7 +46,7 @@ namespace BridgeBuilder
                 new SimpleType("CefThreadId"), //typedef cef_thread_id_t CefThreadId;
                 new SimpleType("CefBrowserSettings"),// typedef CefStructBase<CefBrowserSettingsTraits> CefBrowserSettings;
                 new SimpleType("Handler")
-                
+
             };
 
             foreach (SimpleType typeSymbol in prebuiltTypes)
@@ -260,7 +257,8 @@ namespace BridgeBuilder
                             default:
                                 throw new NotSupportedException();
                         }
-                    } break;
+                    }
+                    break;
                 case CodeTypeReferenceKind.TypeTemplate:
                     {
                         //resolve wellknown type template   
@@ -331,24 +329,28 @@ namespace BridgeBuilder
                                 throw new NotSupportedException();
                         }
 
-                    } break;
+                    }
+                    break;
                 case CodeTypeReferenceKind.Pointer:
                     {
                         var pointerType = (CodePointerTypeReference)typeRef;
                         TypeSymbol elementType = ResolveType(pointerType.ElementType);
                         return new ReferenceOrPointerTypeSymbol(elementType, ContainerTypeKind.Pointer);
-                    } break;
+                    }
+                    break;
                 case CodeTypeReferenceKind.ByRef:
                     {
                         var byRefType = (CodeByRefTypeReference)typeRef;
                         TypeSymbol elementType = ResolveType(byRefType.ElementType);
                         return new ReferenceOrPointerTypeSymbol(elementType, ContainerTypeKind.ByRef);
 
-                    } break;
+                    }
+                    break;
                 default:
                     {
                         throw new NotSupportedException();
-                    } break;
+                    }
+                    break;
             }
             return null;
         }
