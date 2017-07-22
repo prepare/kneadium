@@ -151,5 +151,15 @@ namespace LayoutFarm.CefBridge
         {
             this.cefWebBrowser1.Agent.PrintToPdf("d:\\WImageTest\\testpdf.pdf");
         }
+
+        private void button16_Click(object sender, EventArgs e)
+        {
+            this.cefWebBrowser1.Agent.GetSource2((str) =>
+            {
+
+
+
+            });
+        }
     }
 }

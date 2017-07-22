@@ -47,6 +47,7 @@
             this.button5 = new System.Windows.Forms.Button();
             this.button6 = new System.Windows.Forms.Button();
             this.button15 = new System.Windows.Forms.Button();
+            this.button16 = new System.Windows.Forms.Button();
             this.splitContainer1.Panel2.SuspendLayout();
             this.splitContainer1.SuspendLayout();
             this.SuspendLayout();
@@ -93,7 +94,7 @@
             // 
             // button4
             // 
-            this.button4.Location = new System.Drawing.Point(12, 323);
+            this.button4.Location = new System.Drawing.Point(12, 410);
             this.button4.Name = "button4";
             this.button4.Size = new System.Drawing.Size(132, 37);
             this.button4.TabIndex = 12;
@@ -103,7 +104,7 @@
             // 
             // button8
             // 
-            this.button8.Location = new System.Drawing.Point(12, 376);
+            this.button8.Location = new System.Drawing.Point(12, 463);
             this.button8.Name = "button8";
             this.button8.Size = new System.Drawing.Size(132, 37);
             this.button8.TabIndex = 15;
@@ -225,7 +226,7 @@
             // 
             // button15
             // 
-            this.button15.Location = new System.Drawing.Point(12, 419);
+            this.button15.Location = new System.Drawing.Point(12, 506);
             this.button15.Name = "button15";
             this.button15.Size = new System.Drawing.Size(132, 37);
             this.button15.TabIndex = 26;
@@ -233,11 +234,22 @@
             this.button15.UseVisualStyleBackColor = true;
             this.button15.Click += new System.EventHandler(this.button15_Click);
             // 
+            // button16
+            // 
+            this.button16.Location = new System.Drawing.Point(12, 367);
+            this.button16.Name = "button16";
+            this.button16.Size = new System.Drawing.Size(132, 37);
+            this.button16.TabIndex = 27;
+            this.button16.Text = "GetSource2";
+            this.button16.UseVisualStyleBackColor = true;
+            this.button16.Click += new System.EventHandler(this.button16_Click);
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1565, 762);
+            this.Controls.Add(this.button16);
             this.Controls.Add(this.button15);
             this.Controls.Add(this.button6);
             this.Controls.Add(this.button5);
@@ -283,6 +295,7 @@
         private System.Windows.Forms.Button button5;
         private System.Windows.Forms.Button button6;
         private System.Windows.Forms.Button button15;
+        private System.Windows.Forms.Button button16;
         //  private LayoutFarm.CefBridge.CefWebBrowserControl cefWebBrowser2;
     }
 }

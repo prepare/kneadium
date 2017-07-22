@@ -331,6 +331,23 @@ namespace LayoutFarm.CefBridge
                 strCallback(args.GetArgAsString(0));
             });
         }
+        public void GetSource2(Action<string> strCallback)
+        {
+            //keep alive callback
+            InternalGetSource2((id, nativePtr) =>
+            {
+                var args = new NativeCallArgs(nativePtr);
+                strCallback(args.GetArgAsString(0));
+            });
+        }
+        void InternalGetSource2(MyCefCallback strCallback)
+        {
+            //keep alive callback
+            keepAliveCallBack.Add(strCallback);
+            IntPtr cefFrame = Cef3Binder.MyCefBwGetMainFrame(this.myCefBrowser);
+            Cef3Binder.MyCefFrameGetSource(cefFrame, strCallback);
+
+        }
         void InternalGetSource(MyCefCallback strCallback)
         {
             //keep alive callback
