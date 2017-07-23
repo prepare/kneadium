@@ -1,8 +1,5 @@
 ﻿//MIT, 2016-2017 ,WinterDev
-using System;
-using System.Collections.Generic;
-using System.Text;
-
+using System; 
 namespace BridgeBuilder
 {
     abstract class Symbol

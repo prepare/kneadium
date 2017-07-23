@@ -1,7 +1,6 @@
 ﻿//MIT, 2016-2017 ,WinterDev
 using System;
 using System.Collections.Generic;
-using System.Windows.Forms;
 using System.IO;
 using System.Text;
 namespace BridgeBuilder
@@ -63,7 +62,7 @@ namespace BridgeBuilder
                 //1. make transform plan
                 TypeTxInfo txInfo = typeTxPlanner.MakeTransformPlan(found);
                 //2. generate
-                GenerateCsPart(txInfo, stbuilder);
+                GenerateCsType(txInfo, stbuilder);
             }
             File.WriteAllText("d:\\WImageTest\\cs_output.cs", stbuilder.ToString());
             //---------------
@@ -73,7 +72,7 @@ namespace BridgeBuilder
         }
 
 
-        void GenerateCsPart(TypeTxInfo typeTxInfo, StringBuilder stbuilder)
+        public void GenerateCsType(TypeTxInfo typeTxInfo, StringBuilder stbuilder)
         {
 
             CodeTypeDeclaration typedecl = typeTxInfo.TypeDecl;
@@ -84,32 +83,190 @@ namespace BridgeBuilder
 
             foreach (MethodTxInfo met in typeTxInfo.methods)
             {
-                GenMethod(met, stbuilder);
+                GenCsMethod(met, stbuilder);
                 stbuilder.Append("\r\n");
             }
 
             stbuilder.Append("}");
         }
-
-        bool IsPrimitiveType(TypeSymbol t)
+        public void GenerateCppPart(TypeTxInfo typeTxInfo, StringBuilder stbuilder)
         {
-            var ss = t as SimpleType;
-            if (ss != null)
+
+            Dictionary<MethodTxInfo, StringBuilder> results = new Dictionary<MethodTxInfo, StringBuilder>();
+
+            foreach (MethodTxInfo met in typeTxInfo.methods)
             {
-                switch (ss.Name)
-                {
-                    case "void":
-                    case "int":
-                    case "bool":
-                    case "int64":
-                        return true;
-                }
+                StringBuilder metStBuilder = new StringBuilder();
+                GenerateCppPart(met, metStBuilder);
+                results.Add(met, metStBuilder);
             }
-            return false;
+
+            //build switch table
+
+            int caseNum = 0;
+
+            int count = results.Count;
+            stbuilder.AppendLine("switch(methodName){");
+            foreach (var kp in results)
+            {
+
+                stbuilder.AppendLine("case " + caseNum + ":{");
+                stbuilder.AppendLine(kp.Value.ToString());
+                stbuilder.AppendLine("} break;");
+                caseNum++;
+            }
+            stbuilder.AppendLine("}");
+
+        }
+        public void GenerateCppPart(MethodTxInfo met, StringBuilder stbuilder)
+        {
+
+
+            MethodParameterTxInfo ret = met.ReturnPlan;
+            //----
+            List<MethodParameterTxInfo> pars = met.pars;
+            int parCount = pars.Count;
+            if (parCount > 2)
+            {
+                throw new NotSupportedException();
+            }
+            StringBuilder arglistBuilder = new StringBuilder();
+            for (int i = 0; i < parCount; ++i)
+            {
+                //get pars from parameter
+                if (i > 0)
+                {
+                    arglistBuilder.Append(',');
+                }
+
+                MethodParameterTxInfo par = pars[i];
+
+                if (par.DotnetResolvedType is DotNetResolvedSimpleType)
+                {
+                    DotNetResolvedSimpleType simpleType = (DotNetResolvedSimpleType)par.DotnetResolvedType;
+                    if (simpleType.IsPrimitiveType)
+                    {
+                        arglistBuilder.Append("v" + (i + 1));
+                        switch (simpleType.Name)
+                        {
+                            case "bool":
+                                arglistBuilder.AppendLine("->i32");
+                                break;
+                            case "int":
+                                arglistBuilder.AppendLine("->i32");
+                                break;
+                            case "int64":
+                                arglistBuilder.AppendLine("->i64");
+                                break;
+                            default:
+                                throw new NotSupportedException();
+                        }
+                    }
+                    else
+                    {
+                        arglistBuilder.Append("(" + simpleType.Name + "*)");
+                        arglistBuilder.Append("v" + (i + 1));
+                        arglistBuilder.AppendLine("->ptr");
+                    }
+                }
+                else if (par.DotnetResolvedType is DotNetList)
+                {
+                    //std::vector
+                    DotNetList simpleType = (DotNetList)par.DotnetResolvedType;
+                    arglistBuilder.Append("(std::vector<" + ((DotNetResolvedSimpleType)simpleType.ElementType).Name + ">)");
+                    arglistBuilder.Append("v" + (i + 1));
+                    arglistBuilder.AppendLine("->ptr");
+                }
+                else
+                {
+
+                }
+
+            }
+
+            //----
+            if (ret.IsVoid)
+            {
+                //call ba
+                stbuilder.Append("bw->" + met.Name + "(");
+                stbuilder.Append(arglistBuilder.ToString());
+                stbuilder.Append(");\r\n");
+                stbuilder.Append("ret->type = JSVALUE_TYPE_EMPTY;");
+
+            }
+            else
+            {
+                //has some ret type
+                DotNetResolvedTypeBase retType = ret.DotnetResolvedType;
+                if (retType is DotNetResolvedSimpleType)
+                {
+                    DotNetResolvedSimpleType simpleType = (DotNetResolvedSimpleType)retType;
+                    if (simpleType.IsPrimitiveType)
+                    {
+                        //---------------------------------
+                        //native object
+                        stbuilder.Append("auto ret_result=");
+                        stbuilder.Append("bw->" + met.Name + "(");
+                        stbuilder.Append(arglistBuilder.ToString());
+                        stbuilder.Append(");\r\n");
+                        //---------------------------------
+
+                        switch (simpleType.Name)
+                        {
+                            case "bool":
+                                stbuilder.AppendLine("ret->type = JSVALUE_TYPE_BOOLEAN;");
+                                stbuilder.AppendLine("ret->i32 = ret_result?1:0;");
+                                break;
+                            case "int":
+                                stbuilder.AppendLine("ret->type = JSVALUE_TYPE_INTEGER64;");
+                                stbuilder.AppendLine("ret->i64 = ret_result;");
+                                break;
+                            default:
+                                throw new NotSupportedException();
+                        }
+
+
+                    }
+                    else
+                    {
+                        //native object
+                        stbuilder.Append("auto ret_result=");
+                        stbuilder.Append("bw->" + met.Name + "(");
+                        stbuilder.Append(arglistBuilder.ToString());
+                        stbuilder.Append(");\r\n");
+                        //
+                        stbuilder.AppendLine("ret->type = JSVALUE_TYPE_WRAPPED;");
+                        stbuilder.AppendLine("ret->ptr = ret_result;");
+                    }
+                }
+                else
+                {
+
+                }
+
+            }
+
         }
 
+        //bool IsPrimitiveType(TypeSymbol t)
+        //{
+        //    var ss = t as SimpleType;
+        //    if (ss != null)
+        //    {
+        //        switch (ss.Name)
+        //        {
+        //            case "void":
+        //            case "int":
+        //            case "bool":
+        //            case "int64":
+        //                return true;
+        //        }
+        //    }
+        //    return false;
+        //}
 
-        void GenMethod(MethodTxInfo metTx, StringBuilder codeDeclTypeBuilder)
+
+        public void GenCsMethod(MethodTxInfo metTx, StringBuilder codeDeclTypeBuilder)
         {
             StringBuilder stbuilder = new StringBuilder();
             //1. return type
@@ -135,6 +292,11 @@ namespace BridgeBuilder
             }
             stbuilder.Append("){\r\n");
 
+            //-------
+
+
+
+            //-------
             //body
             if (!retType.IsVoid)
             {

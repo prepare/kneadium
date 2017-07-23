@@ -375,7 +375,90 @@ namespace LayoutFarm.CefBridge
         }
         public void Reload()
         {
-            Cef3Binder.MyCefBwReload(myCefBrowser);
+
+
+            JsValue ret;
+            JsValue a0 = new JsValue();
+            JsValue a1 = new JsValue();
+            Cef3Binder.MyCefBwCall2(myCefBrowser, 2, out ret, ref a0, ref a1);
+
+            //----------- 
+            Cef3Binder.MyCefBwCall2(myCefBrowser, 4, out ret, ref a0, ref a1);
+            int frameCount = ret.I32;
+
+            ////-----------
+            ////get CefBrowser
+            //Cef3Binder.MyCefBwCall2(myCefBrowser, 5, out ret, ref a0, ref a1);
+            //IntPtr cefBw = ret.Ptr;
+
+            //a0.Ptr = cefBw;
+            //a0.Type = JsValueType.Wrapped;
+            //Cef3Binder.MyCefBwCall2(myCefBrowser, 6, out ret, ref a0, ref a1);
+            ////-----------
+            //create native list 
+            Cef3Binder.MyCefBwCall2(myCefBrowser, 8, out ret, ref a0, ref a1);
+            IntPtr nativelist = ret.Ptr;
+            //get framename
+            a0.Ptr = nativelist;
+            //
+            Cef3Binder.MyCefBwCall2(myCefBrowser, 7, out ret, ref a0, ref a1);
+
+            //get list
+            unsafe
+            {
+                int len = ret.I32;
+                JsValue* unsafe_arr = (JsValue*)ret.Ptr;
+                JsValue[] arr = new JsValue[len];
+                for (int i = 0; i < len; ++i)
+                {
+                    arr[i] = unsafe_arr[i];
+                }
+                //delete array result 
+                Cef3Binder.MyCefDeletePtrArray(unsafe_arr);
+            }
+            //------------------
+
+
+            //list count
+            a0.Ptr = nativelist;
+            a0.Type = JsValueType.Wrapped;
+            Cef3Binder.MyCefBwCall2(myCefBrowser, 9, out ret, ref a0, ref a1);
+            //list count
+            int list_count = ret.I32;
+            //delete native ptr
+            Cef3Binder.MyCefDeletePtr(nativelist);
+            //
+            //list count
+            a0.Ptr = nativelist;
+            a0.Type = JsValueType.Wrapped;
+            Cef3Binder.MyCefBwCall2(myCefBrowser, 10, out ret, ref a0, ref a1);
+            //get list
+            unsafe
+            {
+                int len = ret.I32;
+                JsValue* unsafe_arr = (JsValue*)ret.Ptr;
+                JsValue[] arr = new JsValue[len];
+                for (int i = 0; i < len; ++i)
+                {
+                    arr[i] = unsafe_arr[i];
+                }
+                //delete array result 
+                Cef3Binder.MyCefDeletePtrArray(unsafe_arr);
+            } 
+
+            Cef3Binder.MyCefBwCall2(myCefBrowser, 21, out ret, ref a0, ref a1);
+
+            unsafe
+            {
+                int len = ret.I32 + 1; //+1 for null terminated string
+                char* buff = stackalloc char[len];
+                int actualLen = 0; 
+                Cef3Binder.MyCefStringHolder_Read(ret.Ptr, buff, len, ref actualLen);
+                string value = new string(buff);
+                Cef3Binder.MyCefDeletePtr(ret.Ptr);
+            }
+
+            //------------------
         }
         public void ReloadIgnoreCache()
         {

@@ -1,6 +1,6 @@
 ﻿//MIT, 2016-2017 ,WinterDev
 using System;
-using System.Collections.Generic; 
+using System.Collections.Generic;
 using System.IO;
 using System.Text;
 
@@ -37,9 +37,20 @@ namespace BridgeBuilder
         {
             return ElementType + "[]";
         }
+    }
+    class DotNetList : DotNetResolvedTypeBase
+    {
+        public DotNetList(DotNetResolvedTypeBase elementType)
+        {
+            ElementType = elementType;
+        }
+        public DotNetResolvedTypeBase ElementType { get; set; }
+        public override string ToString()
+        {
+            return "list<" + ElementType + ">";
+        }
 
     }
-
 
     class TypeTxInfo
     {
@@ -85,6 +96,8 @@ namespace BridgeBuilder
             get;
             set;
         }
+
+
 #if DEBUG
         public override string ToString()
         {
@@ -111,9 +124,9 @@ namespace BridgeBuilder
     }
 
     class TypeTranformPlanner
-    { 
+    {
         public TypeTranformPlanner()
-        { 
+        {
         }
         public CefTypeCollection CefTypeCollection { get; set; }
         public TypeTxInfo MakeTransformPlan(CodeTypeDeclaration typedecl)
@@ -192,13 +205,14 @@ namespace BridgeBuilder
                             //create wrapper for this type
                             parPlan.DotnetResolvedType = new DotNetResolvedSimpleType(simpleType);
                         }
-                    } break;
+                    }
+                    break;
                 case TypeSymbolKind.Vec:
                     {
                         var vec = (VecTypeSymbol)resolvedParType;
                         AddMethodParameterTypeTxInfo(parPlan, vec.ElementType);
                         //make it array
-                        parPlan.DotnetResolvedType = new DotNetResolvedArrayType(
+                        parPlan.DotnetResolvedType = new DotNetList(
                             parPlan.DotnetResolvedType);
 
                     }
@@ -230,7 +244,8 @@ namespace BridgeBuilder
                                         }
                                     }
 
-                                } break;
+                                }
+                                break;
                             case ContainerTypeKind.CefRefPtr:
                                 {
                                     AddMethodParameterTypeTxInfo(parPlan, refOrPointer.ElementType);
@@ -253,7 +268,8 @@ namespace BridgeBuilder
                                         }
                                     }
 
-                                } break;
+                                }
+                                break;
                             case ContainerTypeKind.Pointer:
                                 throw new NotSupportedException();
                                 break;

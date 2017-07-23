@@ -203,6 +203,7 @@ namespace LayoutFarm.CefBridge
         /// store 64 bits value
         /// </summary>
         public long I64;// 
+
                         //--------------------------------
 
     }

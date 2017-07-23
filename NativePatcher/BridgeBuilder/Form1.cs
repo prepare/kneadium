@@ -246,16 +246,25 @@ namespace BridgeBuilder
 
             TypeTranformPlanner txPlanner = new TypeTranformPlanner();
             txPlanner.CefTypeCollection = cefTypeCollection;
-            //
+
+            ApiBuilder apiBuilder = new ApiBuilder();
+
             int j = cu.Members.Count;
             for (int i = 0; i < j; ++i)
             {
                 CodeTypeDeclaration typedecl = cu.Members[i];
+                if (typedecl.Name != "CefBrowser")
+                {
+                    continue;
+                }
+                StringBuilder stbuilder = new StringBuilder();
                 TypeTxInfo typeTxPlan = txPlanner.MakeTransformPlan(typedecl);
+                apiBuilder.GenerateCsType(typeTxPlan, stbuilder);
+                StringBuilder cppPart = new StringBuilder();
+                apiBuilder.GenerateCppPart(typeTxPlan, cppPart);
 
 
             }
-
 
         }
     }
