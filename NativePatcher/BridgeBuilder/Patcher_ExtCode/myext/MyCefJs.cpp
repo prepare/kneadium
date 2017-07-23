@@ -397,7 +397,9 @@ void MyCefStringHolder_Read(MyCefStringHolder* mycefStr, wchar_t* outputBuffer, 
 	CefString* cefStr = &mycefStr->value;
 	int str_len = (int)cefStr->length();
 	*actualLength = str_len;
-	wcscpy_s(outputBuffer, outputBufferLen, cefStr->c_str());
+	auto cef_str = cefStr->c_str();
+
+	wcscpy_s(outputBuffer, outputBufferLen, cef_str);
 }
 
 //-----------

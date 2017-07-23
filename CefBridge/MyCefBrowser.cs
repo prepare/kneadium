@@ -456,6 +456,8 @@ namespace LayoutFarm.CefBridge
                 Cef3Binder.MyCefStringHolder_Read(ret.Ptr, buff, len, ref actualLen);
                 string value = new string(buff);
                 Cef3Binder.MyCefDeletePtr(ret.Ptr);
+                
+
             }
 
             //------------------

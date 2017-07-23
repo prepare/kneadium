@@ -416,14 +416,14 @@ void MyCefShowDevTools(MyBrowser* myBw, MyBrowser* myBwDev, HWND parentWindow)
 void MyCefBwGoBack(MyBrowser* myBw) {
 
 	if (CefRefPtr<CefBrowser> browser = myBw->bwWindow->GetBrowser()) {
-		
+
 		browser->GoBack();
 	}
 }
 void MyCefBwGoForward(MyBrowser* myBw) {
 	if (CefRefPtr<CefBrowser> browser = myBw->bwWindow->GetBrowser()) {
-		 
-		
+
+
 		browser->GoForward();
 	}
 }
@@ -508,4 +508,129 @@ bool MyCefRemoveCrossOriginWhitelistEntry(
 {
 	return CefAddCrossOriginWhitelistEntry(sourceOrigin, targetProtocol, targetDomain, allow_target_subdomains);
 }
+
+void MyCefDeletePtr(void* ptr) {
+	delete ptr;
+}
+void MyCefDeletePtrArray(jsvalue* ptr) {
+	delete[] ptr;
+}
+void MyCefDeleteContent(jsvalue* ptr) {
+	switch (ptr->type)
+	{
+	case JSVALUE_TYPE_BUFFER:
+	case JSVALUE_TYPE_ARRAY:
+		delete[] ptr->ptr;
+		break;
+	case JSVALUE_TYPE_NATIVE_CEFHOLDER_STRING:
+		delete ptr->ptr;
+		break;
+	default:
+		break;
+	}
+
+}
+void MyCefBwCall0(MyBrowser* myBw, int methodName, jsvalue* ret) {
+	MyCefBwCall2(myBw, methodName, ret, nullptr, nullptr);
+}
+void MyCefBwCall1(MyBrowser* myBw, int methodName, jsvalue* ret, jsvalue* v1) {
+	MyCefBwCall2(myBw, methodName, ret, v1, nullptr);
+}
+void MyCefBwCall2(MyBrowser* myBw, int methodName, jsvalue* ret, jsvalue* v1, jsvalue* v2) {
+
+	auto bw = myBw->bwWindow->GetBrowser();
+	//
+	switch (methodName) {
+	case 1: {
+		bw->GoBack();
+		ret->type = JSVALUE_TYPE_EMPTY;
+	}	break;
+	case 2: {
+		bw->Reload();
+		ret->type = JSVALUE_TYPE_EMPTY;
+	}	break;
+	case 3: {
+		bw->ReloadIgnoreCache();
+		ret->type = JSVALUE_TYPE_EMPTY;
+	}	break;
+	case 4: {
+		auto frameCount = bw->GetFrameCount();
+		ret->type = JSVALUE_TYPE_INTEGER;
+		ret->i32 = (int32_t)frameCount;
+	} break;
+	case 5: {
+		ret->type = JSVALUE_TYPE_WRAPPED;
+		ret->ptr = bw;
+	}break;
+	case 6: {
+		ret->i32 = bw->IsSame((CefBrowser*)v1->ptr) ? 1 : 0;
+		ret->type = JSVALUE_TYPE_BOOLEAN;
+	} break;
+	case 7: {
+
+		/*	std::vector<CefString>* cefStringList = (std::vector<CefString>*)v1->ptr;
+			bw->GetFrameNames(*cefStringList);*/
+
+		std::vector<CefString> cefStringList;
+		bw->GetFrameNames(cefStringList);
+		//convert data to user list
+		auto sizeCount = cefStringList.size();
+		//transfer databack 
+		jsvalue* arr = new jsvalue[sizeCount];
+		for (size_t i = 0; i < sizeCount; ++i) {
+
+			CefString cefStr = cefStringList[i];
+			arr[i].ptr = cefStr.c_str();
+			arr[i].type = JSVALUE_TYPE_STRING;
+		}
+		ret->i32 = sizeCount;
+		ret->ptr = arr;
+		ret->type = JSVALUE_TYPE_ARRAY;
+
+	}break;
+	case 8: {
+		//export 
+		std::vector<CefString>* cefStringList = new std::vector<CefString>();
+		ret->type = JSVALUE_TYPE_WRAPPED;
+		ret->ptr = cefStringList;
+	}break;
+	case 9: {
+		//get string list
+		std::vector<CefString>* cefStringList = (std::vector<CefString>*)v1->ptr;
+		ret->type = JSVALUE_TYPE_INTEGER;
+		ret->i32 = cefStringList->size();
+
+	}break;
+	case 10: {
+		//get int list
+		std::vector<int64> int64list;
+		bw->GetFrameIdentifiers(int64list);
+		auto sizeCount = int64list.size();
+		//transfer databack 
+		jsvalue* arr = new jsvalue[sizeCount];
+		for (size_t i = 0; i < sizeCount; ++i) {
+			arr[i].i64 = int64list[i];
+			arr[i].type = JSVALUE_TYPE_INTEGER64;
+		}
+		ret->i32 = sizeCount;
+		ret->ptr = arr;
+		ret->type = JSVALUE_TYPE_ARRAY;
+	}break;
+	case 21: {
+		//get string
+		CefString cefStr = bw->GetMainFrame()->GetURL();
+		ret->type = JSVALUE_TYPE_NATIVE_CEFHOLDER_STRING; 
+
+		MyCefStringHolder* myCefStringHolder = new MyCefStringHolder();
+		myCefStringHolder->value = cefStr;
+		ret->ptr = myCefStringHolder;
+		ret->i32 = cefStr.length(); 	
+
+	}break;
+	
+
+		//
+	}
+}
+
 

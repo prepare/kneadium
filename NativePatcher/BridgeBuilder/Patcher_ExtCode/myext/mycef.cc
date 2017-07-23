@@ -100,6 +100,104 @@ void MethodArgs::SetArgAsNativeObject(int argIndex, const void* nativeObject)
 	}break;
 	}
 }
+
+
+void MethodArgs::SetOutputAsNativeObject(int argIndex, const void* nativeObject)
+{
+	switch (argIndex) {
+	case 0:
+	{
+		this->result0.type = JSVALUE_TYPE_WRAPPED;
+		this->result0.ptr = nativeObject;
+	}break;
+	case 1:
+	{
+		this->result1.type = JSVALUE_TYPE_WRAPPED;
+		this->result1.ptr = nativeObject;
+	}break;
+	case 2:
+	{
+		this->result2.type = JSVALUE_TYPE_WRAPPED;
+		this->result2.ptr = nativeObject;
+	}break;
+	case 3:
+	{
+		this->result3.type = JSVALUE_TYPE_WRAPPED;
+		this->result3.ptr = nativeObject;
+	}break;
+	case 4:
+	{
+		this->result4.type = JSVALUE_TYPE_WRAPPED;
+		this->result4.ptr = nativeObject;
+	}break;
+	}
+}
+void MethodArgs::SetOutputAsInt32(int argIndex, const int32_t value)
+{
+	switch (argIndex) {
+	case 0:
+	{
+		this->result0.type = JSVALUE_TYPE_INTEGER;
+		this->result0.i32 = value;
+	}break;
+	case 1:
+	{
+		this->result1.type = JSVALUE_TYPE_INTEGER;
+		this->result1.i32 = value;
+	}break;
+	case 2:
+	{
+		this->result2.type = JSVALUE_TYPE_INTEGER;
+		this->result2.i32 = value;
+	}break;
+	case 3:
+	{
+		this->result3.type = JSVALUE_TYPE_INTEGER;
+		this->result3.i32 = value;
+	}break;
+	case 4:
+	{
+		this->result4.type = JSVALUE_TYPE_INTEGER;
+		this->result4.i32 = value;
+	}break;
+	}
+}
+void MethodArgs::SetOutputAsString(int argIndex, const wchar_t* str)
+{
+	switch (argIndex) {
+	case 0:
+	{
+		this->result0.type = JSVALUE_TYPE_STRING;
+		this->result0.i32 = (int32_t)wcslen(str);
+		this->result0.ptr = str;
+	}break;
+	case 1:
+	{
+		this->result1.type = JSVALUE_TYPE_STRING;
+		this->result1.i32 = (int32_t)wcslen(str);
+		this->result1.ptr = str;
+	}break;
+	case 2:
+	{
+		this->result2.type = JSVALUE_TYPE_STRING;
+		this->result2.i32 = (int32_t)wcslen(str);
+		this->result2.ptr = str;
+	}break;
+	case 3:
+	{
+		this->result3.type = JSVALUE_TYPE_STRING;
+		this->result3.i32 = (int32_t)wcslen(str);
+		this->result3.ptr = str;
+	}break;
+	case 4:
+	{
+		this->result4.type = JSVALUE_TYPE_STRING;
+		this->result4.i32 = (int32_t)wcslen(str);
+		this->result4.ptr = str;
+	}break;
+	}
+}
+
 void MethodArgs::SetArgType(int argIndex, int type)
 {
 	switch (argIndex) {
@@ -151,6 +249,13 @@ int MethodArgs::ReadOutputAsInt32(int resultIndex) {
 	}
 	return 0;//else
 }
+
+
+
+
+
+
+
 
 const char16* MethodArgs::ReadOutputAsString(int resultIndex)
 {
