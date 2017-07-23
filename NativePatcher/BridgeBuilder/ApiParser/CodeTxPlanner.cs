@@ -228,7 +228,7 @@ namespace BridgeBuilder
                                     AddMethodParameterTypeTxInfo(parPlan, refOrPointer.ElementType);
                                     if (IsPrimitiveType(parPlan.DotnetResolvedType))
                                     {
-                                        throw new NotSupportedException();
+                                        parPlan.MarkAsReferenceCount++;
                                     }
                                     else
                                     {
