@@ -396,18 +396,19 @@ namespace LayoutFarm.CefBridge
             //Cef3Binder.MyCefBwCall2(myCefBrowser, 6, out ret, ref a0, ref a1);
             ////-----------
             //create native list 
-            Cef3Binder.MyCefBwCall2(myCefBrowser, 8, out ret, ref a0, ref a1);
-            IntPtr nativelist = ret.Ptr;
-            //get framename
-            a0.Ptr = nativelist;
+            //Cef3Binder.MyCefBwCall2(myCefBrowser, 8, out ret, ref a0, ref a1);
+            
+            ////get framename
+            //a0.Ptr = nativelist;
             //
             Cef3Binder.MyCefBwCall2(myCefBrowser, 7, out ret, ref a0, ref a1);
+            IntPtr nativelist = a0.Ptr;
 
             //get list
             unsafe
             {
                 int len = ret.I32;
-                JsValue* unsafe_arr = (JsValue*)ret.Ptr;
+                JsValue* unsafe_arr = (JsValue*)a0.Ptr;
                 JsValue[] arr = new JsValue[len];
                 for (int i = 0; i < len; ++i)
                 {
@@ -426,17 +427,18 @@ namespace LayoutFarm.CefBridge
             //list count
             int list_count = ret.I32;
             //delete native ptr
-            Cef3Binder.MyCefDeletePtr(nativelist);
+            //Cef3Binder.MyCefDeletePtr(nativelist);
             //
             //list count
             a0.Ptr = nativelist;
             a0.Type = JsValueType.Wrapped;
+            //GetFrameIdentifiers
             Cef3Binder.MyCefBwCall2(myCefBrowser, 10, out ret, ref a0, ref a1);
             //get list
             unsafe
             {
-                int len = ret.I32;
-                JsValue* unsafe_arr = (JsValue*)ret.Ptr;
+                int len = a0.I32;
+                JsValue* unsafe_arr = (JsValue*)a0.Ptr;
                 JsValue[] arr = new JsValue[len];
                 for (int i = 0; i < len; ++i)
                 {
@@ -455,9 +457,7 @@ namespace LayoutFarm.CefBridge
                 int actualLen = 0; 
                 Cef3Binder.MyCefStringHolder_Read(ret.Ptr, buff, len, ref actualLen);
                 string value = new string(buff);
-                Cef3Binder.MyCefDeletePtr(ret.Ptr);
-                
-
+                Cef3Binder.MyCefDeletePtr(ret.Ptr); 
             }
 
             //------------------
