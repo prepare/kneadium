@@ -3,7 +3,7 @@
 #include "dll_init.h" 
 #include "mycef.h"
 
-
+#include "include/cef_parser.h"
 #include "include/cef_origin_whitelist.h" //add original whitelist
 #include "tests/shared/browser/client_app_browser.h"  
 #include "tests/shared/common/client_app_other.h"
@@ -443,7 +443,7 @@ void MyCefBwReloadIgnoreCache(MyBrowser* myBw) {
 	}
 }
 
-void MyCefPrintToPdf(MyBrowser* myBw, wchar_t* filename) {
+void MyCefPrintToPdf(MyBrowser* myBw, CefPdfPrintSettings* setting, wchar_t* filename) {
 
 	//
 	class MyPdfCallback : public CefPdfPrintCallback {
@@ -455,19 +455,90 @@ void MyCefPrintToPdf(MyBrowser* myBw, wchar_t* filename) {
 	};
 
 	if (CefRefPtr<CefBrowser> browser = myBw->bwWindow->GetBrowser()) {
-		CefPdfPrintSettings settings;
+
+
+		CefPdfPrintSettings pdfSetting;
+		if (setting) {
+			pdfSetting = *setting;
+		}
+		else {
+			//true
+			pdfSetting.header_footer_enabled = true;
+		}
+
+		/*CefPdfPrintSettings settings;*/
 
 		// Show the URL in the footer.
-		settings.header_footer_enabled = true;
-		CefString(&settings.header_footer_url) =
-			browser->GetMainFrame()->GetURL();
+		//settings.header_footer_enabled = true;
+
+		//CefString(&settings.header_footer_url) =
+		//	browser->GetMainFrame()->GetURL();
 
 		// Print to the selected PDF file.
 		auto myPdfCallback = new MyPdfCallback();
-		browser->GetHost()->PrintToPDF(filename, settings, myPdfCallback);
+		browser->GetHost()->PrintToPDF(filename, pdfSetting, myPdfCallback);
 	}
 }
+CefPdfPrintSettings* MyCefCreatePdfPrintSetting(wchar_t* pdfjsonConfig) {
+	CefString cefStr = pdfjsonConfig;
+	CefRefPtr<CefValue> value = CefParseJSON(cefStr, JSON_PARSER_RFC);
+	//
+	if (value.get() && value->GetType() == VTYPE_DICTIONARY) {
+		CefRefPtr<CefDictionaryValue> dict = value->GetDictionary();
+		//
+		CefPdfPrintSettings* setting = new CefPdfPrintSettings();
 
+		CefDictionaryValue* dict_value = dict.get();
+		if (dict_value->HasKey("header_footer_enabled")) {
+			setting->header_footer_enabled = dict_value->GetBool("header_footer_enabled");
+		}
+		if (dict_value->HasKey("header_footer_url")) {
+			CefString(&setting->header_footer_url) = dict_value->GetString("header_footer_url");
+		}
+		if (dict_value->HasKey("header_footer_title")) {
+			CefString(&setting->header_footer_title) = dict_value->GetString("header_footer_title");
+		}
+		if (dict_value->HasKey("page_width")) {
+			setting->page_width = dict_value->GetInt("page_width");
+		}
+		if (dict_value->HasKey("page_height")) {
+			setting->page_height = dict_value->GetInt("page_height");
+		}
+		if (dict_value->HasKey("scale_factor")) {
+			setting->scale_factor = dict_value->GetInt("scale_factor");
+		}
+		if (dict_value->HasKey("margin_top")) {
+			setting->margin_top = dict_value->GetDouble("margin_top");
+		}
+		if (dict_value->HasKey("margin_right")) {
+			setting->margin_right = dict_value->GetDouble("margin_right");
+		}
+		if (dict_value->HasKey("margin_bottom")) {
+			setting->margin_bottom = dict_value->GetDouble("margin_bottom");
+		}
+		if (dict_value->HasKey("margin_left")) {
+			setting->margin_left = dict_value->GetDouble("margin_left");
+		}
+		if (dict_value->HasKey("margin_type")) {
+			setting->margin_type = (cef_pdf_print_margin_type_t)dict_value->GetInt("margin_type");
+		}
+		if (dict_value->HasKey("header_footer_enabled")) {
+			setting->header_footer_enabled = dict_value->GetInt("header_footer_enabled");
+		}
+		if (dict_value->HasKey("selection_only")) {
+			setting->selection_only = dict_value->GetInt("selection_only");
+		}
+		if (dict_value->HasKey("landscape")) {
+			setting->landscape = dict_value->GetInt("landscape");
+		}
+		if (dict_value->HasKey("backgrounds_enabled")) {
+			setting->backgrounds_enabled = dict_value->GetInt("backgrounds_enabled");
+		}
+
+		return setting;
+	}
+	return NULL;
+}
 void MyCefFrame_GetUrl(CefFrame* frame, wchar_t* outputBuffer, int outputBufferLen, int* actualLength)
 {
 
@@ -531,7 +602,7 @@ void MyCefDeleteContent(jsvalue* ptr) {
 }
 //----------------
 void CopyStringListToResult(jsvalue* ret, std::vector<CefString>& lst) {
-	 
+
 	//convert data to user list
 	auto sizeCount = lst.size();
 	//transfer databack 
@@ -547,7 +618,7 @@ void CopyStringListToResult(jsvalue* ret, std::vector<CefString>& lst) {
 	ret->type = JSVALUE_TYPE_ARRAY;
 }
 void CopyInt64ListToResult(jsvalue* ret, std::vector<int64>& int64list) {
-	 
+
 	auto sizeCount = int64list.size();
 	//transfer databack 
 	jsvalue* arr = new jsvalue[sizeCount];
