@@ -8,7 +8,7 @@
 #include "tests/shared/browser/client_app_browser.h"  
 #include "tests/shared/common/client_app_other.h"
 #include "tests/shared/renderer/client_app_renderer.h"  
-
+#include "include/cef_zip_reader.h"
 //
 #include "tests/shared/browser/main_message_loop_std.h" 
 //
@@ -444,7 +444,8 @@ void MyCefBwReloadIgnoreCache(MyBrowser* myBw) {
 }
 
 void MyCefPrintToPdf(MyBrowser* myBw, CefPdfPrintSettings* setting, wchar_t* filename, managed_callback callback) {
-
+ 
+	  
 	//
 	class MyPdfCallback : public CefPdfPrintCallback {	 
 	public:
@@ -455,6 +456,7 @@ void MyCefPrintToPdf(MyBrowser* myBw, CefPdfPrintSettings* setting, wchar_t* fil
 				//callback
 				MethodArgs metArgs;
 				metArgs.SetArgAsInt32(0, ok ? 1 : 0);
+				metArgs.SetArgAsString(1, path.c_str());
 				m_callback(0, &metArgs);
 			}
 		}
@@ -637,6 +639,8 @@ void MyCefBwCall1(MyBrowser* myBw, int methodName, jsvalue* ret, jsvalue* v1) {
 	MyCefBwCall2(myBw, methodName, ret, v1, nullptr);
 }
 void MyCefBwCall2(MyBrowser* myBw, int methodName, jsvalue* ret, jsvalue* v1, jsvalue* v2) {
+
+	
 
 	auto bw = myBw->bwWindow->GetBrowser();
 	//
