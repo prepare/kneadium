@@ -638,6 +638,22 @@ void MyCefBwCall0(MyBrowser* myBw, int methodName, jsvalue* ret) {
 void MyCefBwCall1(MyBrowser* myBw, int methodName, jsvalue* ret, jsvalue* v1) {
 	MyCefBwCall2(myBw, methodName, ret, v1, nullptr);
 }
+//----------------
+
+
+
+
+const int CefBw_GoBack = 1;
+const int CefBw_Reload = 2;
+const int CefBw_ReloadIgnoreCache = 3;
+const int CefBw_GetFrameCount = 4;
+const int CefBw_IsSame = 6;
+const int CefBw_GetFrameNames = 7; 
+const int CefBw_GetFrameIdentifiers = 10;
+const int CefBw_GetMainFrame_GetURL = 21;
+
+
+//----------------
 void MyCefBwCall2(MyBrowser* myBw, int methodName, jsvalue* ret, jsvalue* v1, jsvalue* v2) {
 
 	
@@ -645,19 +661,19 @@ void MyCefBwCall2(MyBrowser* myBw, int methodName, jsvalue* ret, jsvalue* v1, js
 	auto bw = myBw->bwWindow->GetBrowser();
 	//
 	switch (methodName) {
-	case 1: {
+	case CefBw_GoBack: {
 		bw->GoBack();
 		ret->type = JSVALUE_TYPE_EMPTY;
 	}	break;
-	case 2: {
+	case CefBw_Reload: {
 		bw->Reload();
 		ret->type = JSVALUE_TYPE_EMPTY;
 	}	break;
-	case 3: {
+	case CefBw_ReloadIgnoreCache: {
 		bw->ReloadIgnoreCache();
 		ret->type = JSVALUE_TYPE_EMPTY;
 	}	break;
-	case 4: {
+	case CefBw_GetFrameCount: {
 		auto frameCount = bw->GetFrameCount();
 		ret->type = JSVALUE_TYPE_INTEGER;
 		ret->i32 = (int32_t)frameCount;
@@ -666,23 +682,17 @@ void MyCefBwCall2(MyBrowser* myBw, int methodName, jsvalue* ret, jsvalue* v1, js
 		ret->type = JSVALUE_TYPE_WRAPPED;
 		ret->ptr = bw;
 	}break;
-	case 6: {
+	case CefBw_IsSame: {
 		ret->i32 = bw->IsSame((CefBrowser*)v1->ptr) ? 1 : 0;
 		ret->type = JSVALUE_TYPE_BOOLEAN;
 	} break;
-	case 7: {
+	case CefBw_GetFrameNames: {
 		std::vector<CefString> cefStringList;
 		bw->GetFrameNames(cefStringList);
 		CopyStringListToResult(v1, cefStringList);
 
 		ret->type = JSVALUE_TYPE_EMPTY;
-	}break;
-		//case 8: {
-		//	//export 
-		//	std::vector<CefString>* cefStringList = new std::vector<CefString>();
-		//	ret->type = JSVALUE_TYPE_WRAPPED;
-		//	ret->ptr = cefStringList;
-		//}break;
+	}break; 
 	case 9: {
 		//get string list
 		std::vector<CefString>* cefStringList = (std::vector<CefString>*)v1->ptr;
@@ -690,7 +700,7 @@ void MyCefBwCall2(MyBrowser* myBw, int methodName, jsvalue* ret, jsvalue* v1, js
 		ret->i32 = cefStringList->size();
 
 	}break;
-	case 10: {
+	case CefBw_GetFrameIdentifiers: {
 		//get int list
 		std::vector<int64> int64list;
 		bw->GetFrameIdentifiers(int64list);
@@ -707,8 +717,8 @@ void MyCefBwCall2(MyBrowser* myBw, int methodName, jsvalue* ret, jsvalue* v1, js
 		//ret->ptr = arr;
 		//ret->type = JSVALUE_TYPE_ARRAY;
 	}break;
-	case 21: {
-		//get string
+	case CefBw_GetMainFrame_GetURL: { 
+		 
 		CefString cefStr = bw->GetMainFrame()->GetURL();
 		ret->type = JSVALUE_TYPE_NATIVE_CEFHOLDER_STRING;
 

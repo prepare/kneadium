@@ -105,7 +105,9 @@ namespace LayoutFarm.CefBridge
         CEF_SETTINGS_LogSeverity = 19,
     }
 
-    static class Cef3Binder
+
+     
+    static partial class Cef3Binder
     {
         static Cef3InitEssential cefInitEssential;
 
@@ -258,7 +260,7 @@ namespace LayoutFarm.CefBridge
         public static extern void MyCefSetupBrowserHwndOSR(IntPtr myCefBrowser, IntPtr hWndParent, int x, int y, int width, int height, string initUrl, IntPtr requestContext);
 
 
-        [DllImport(CEF_CLIENT_DLL, CallingConvention = CallingConvention.Cdecl, CharSet = CharSet.Unicode)]
+        [DllImport(CEF_CLIENT_DLL, CallingConvention = CallingConvention.Cdecl)]
         public static extern void MyCefCloseMyWebBrowser(IntPtr myCefBrowser);
 
 
@@ -308,12 +310,10 @@ namespace LayoutFarm.CefBridge
         public static extern void MyCefDeletePtr(IntPtr nativePtr);
         [DllImport(CEF_CLIENT_DLL, CallingConvention = CallingConvention.Cdecl)]
         public static extern unsafe void MyCefDeletePtrArray(JsValue* nativePtr);
-        
+
 
         //
-        [DllImport(CEF_CLIENT_DLL, CallingConvention = CallingConvention.Cdecl)]
-        public static extern void MyCefBwCall2(IntPtr myCefBw, int methodName, out JsValue ret, ref JsValue arg1, ref JsValue arg2);
-
+      
         [DllImport(CEF_CLIENT_DLL, CallingConvention = CallingConvention.Cdecl, CharSet = CharSet.Unicode)]
         public static extern IntPtr MyCefCreatePdfPrintSetting(string pdfJsonConfig);
         //--------------------------------------------------- 
@@ -341,7 +341,7 @@ namespace LayoutFarm.CefBridge
 
 
 
-      
+
         [DllImport(CEF_CLIENT_DLL, CallingConvention = CallingConvention.Cdecl)]
         public static extern void MyCefDomGetTextWalk(IntPtr myCefBw, MyCefCallback strCallBack);
         [DllImport(CEF_CLIENT_DLL, CallingConvention = CallingConvention.Cdecl)]
