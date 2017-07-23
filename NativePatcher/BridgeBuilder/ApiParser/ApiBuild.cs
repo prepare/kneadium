@@ -128,7 +128,8 @@ namespace BridgeBuilder
             int parCount = pars.Count;
             if (parCount > 2)
             {
-                throw new NotSupportedException();
+                //throw new NotSupportedException();
+                return;
             }
             StringBuilder arglistBuilder = new StringBuilder();
             for (int i = 0; i < parCount; ++i)

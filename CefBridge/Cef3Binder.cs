@@ -312,6 +312,13 @@ namespace LayoutFarm.CefBridge
         [DllImport(CEF_CLIENT_DLL, CallingConvention = CallingConvention.Cdecl)]
         public static extern void MyCefBwCall2(IntPtr myCefBw, int methodName, out JsValue ret, ref JsValue arg1, ref JsValue arg2);
 
+        [DllImport(CEF_CLIENT_DLL, CallingConvention = CallingConvention.Cdecl, CharSet = CharSet.Unicode)]
+        public static extern IntPtr MyCefCreatePdfPrintSetting(string pdfJsonConfig);
+        //--------------------------------------------------- 
+        [DllImport(CEF_CLIENT_DLL, CallingConvention = CallingConvention.Cdecl, CharSet = CharSet.Unicode)]
+        public static extern void MyCefPrintToPdf(IntPtr myCefBw, IntPtr setting, string filename);
+
+
 
         [DllImport(CEF_CLIENT_DLL, CallingConvention = CallingConvention.Cdecl)]
         public static extern void MyCefBwGoBack(IntPtr myCefBw);
@@ -332,11 +339,7 @@ namespace LayoutFarm.CefBridge
 
 
 
-        //--------------------------------------------------- 
-        [DllImport(CEF_CLIENT_DLL, CallingConvention = CallingConvention.Cdecl, CharSet = CharSet.Unicode)]
-        public static extern void MyCefPrintToPdf(IntPtr myCefBw, string filename);
-
-
+      
         [DllImport(CEF_CLIENT_DLL, CallingConvention = CallingConvention.Cdecl)]
         public static extern void MyCefDomGetTextWalk(IntPtr myCefBw, MyCefCallback strCallBack);
         [DllImport(CEF_CLIENT_DLL, CallingConvention = CallingConvention.Cdecl)]

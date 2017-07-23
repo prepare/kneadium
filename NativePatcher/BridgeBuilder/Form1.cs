@@ -253,8 +253,15 @@ namespace BridgeBuilder
             for (int i = 0; i < j; ++i)
             {
                 CodeTypeDeclaration typedecl = cu.Members[i];
-                
-                
+                if (typedecl.Name == null)
+                {
+                    continue;
+                }
+                if (typedecl.Name.Contains("Callback"))
+                {
+                    continue;
+                }
+
                 StringBuilder stbuilder = new StringBuilder();
                 TypeTxInfo typeTxPlan = txPlanner.MakeTransformPlan(typedecl);
                 apiBuilder.GenerateCsType(typeTxPlan, stbuilder);

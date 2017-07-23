@@ -397,7 +397,7 @@ namespace LayoutFarm.CefBridge
             ////-----------
             //create native list 
             //Cef3Binder.MyCefBwCall2(myCefBrowser, 8, out ret, ref a0, ref a1);
-            
+
             ////get framename
             //a0.Ptr = nativelist;
             //
@@ -446,7 +446,7 @@ namespace LayoutFarm.CefBridge
                 }
                 //delete array result 
                 Cef3Binder.MyCefDeletePtrArray(unsafe_arr);
-            } 
+            }
 
             Cef3Binder.MyCefBwCall2(myCefBrowser, 21, out ret, ref a0, ref a1);
 
@@ -454,11 +454,14 @@ namespace LayoutFarm.CefBridge
             {
                 int len = ret.I32 + 1; //+1 for null terminated string
                 char* buff = stackalloc char[len];
-                int actualLen = 0; 
+                int actualLen = 0;
                 Cef3Binder.MyCefStringHolder_Read(ret.Ptr, buff, len, ref actualLen);
                 string value = new string(buff);
-                Cef3Binder.MyCefDeletePtr(ret.Ptr); 
+                Cef3Binder.MyCefDeletePtr(ret.Ptr);
             }
+
+
+            IntPtr pdfSetting = Cef3Binder.MyCefCreatePdfPrintSetting("{\"header_footer_enabled\":true}");
 
             //------------------
         }
@@ -481,7 +484,12 @@ namespace LayoutFarm.CefBridge
         }
         public void PrintToPdf(string filename)
         {
-            Cef3Binder.MyCefPrintToPdf(this.myCefBrowser, filename);
+            Cef3Binder.MyCefPrintToPdf(this.myCefBrowser, IntPtr.Zero, filename);
+        }
+        public void PrintToPdf(string pdfConfig, string filename)
+        {
+            IntPtr nativePdfConfig = Cef3Binder.MyCefCreatePdfPrintSetting(pdfConfig);
+            Cef3Binder.MyCefPrintToPdf(this.myCefBrowser, nativePdfConfig, filename);
         }
         internal void NotifyCloseBw()
         {
