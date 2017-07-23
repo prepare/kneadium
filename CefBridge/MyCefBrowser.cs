@@ -317,6 +317,7 @@ namespace LayoutFarm.CefBridge
             //keep alive callback
             InternalGetText((id, nativePtr) =>
             {
+
                 var args = new NativeCallArgs(nativePtr);
                 strCallback(args.GetArgAsString(0));
             });
@@ -491,8 +492,10 @@ namespace LayoutFarm.CefBridge
             MyCefCallback cb = null;
             cb = new MyCefCallback((id, args) =>
             {
-                 //remove after finish
-                 tmpCallbacks.Remove(cb);
+                //remove after finish
+                var metArg = new NativeCallArgs(args);
+                int isOK = metArg.GetArgAsInt32(0);
+                tmpCallbacks.Remove(cb);
             });
             tmpCallbacks.Add(cb);
             //
@@ -506,6 +509,8 @@ namespace LayoutFarm.CefBridge
             cb = new MyCefCallback((id, args) =>
             {
                 //remove after finish
+                var metArg = new NativeCallArgs(args);
+                int isOK = metArg.GetArgAsInt32(0);
                 tmpCallbacks.Remove(cb);
             });
             tmpCallbacks.Add(cb);

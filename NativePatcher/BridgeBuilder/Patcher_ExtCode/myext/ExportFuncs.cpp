@@ -453,7 +453,9 @@ void MyCefPrintToPdf(MyBrowser* myBw, CefPdfPrintSettings* setting, wchar_t* fil
 		{
 			if (m_callback) {
 				//callback
-				m_callback(0, nullptr);
+				MethodArgs metArgs;
+				metArgs.SetArgAsInt32(0, ok ? 1 : 0);
+				m_callback(0, &metArgs);
 			}
 		}
 		IMPLEMENT_REFCOUNTING(MyPdfCallback);
