@@ -443,39 +443,35 @@ void MyCefBwReloadIgnoreCache(MyBrowser* myBw) {
 	}
 }
 
-void MyCefPrintToPdf(MyBrowser* myBw, CefPdfPrintSettings* setting, wchar_t* filename) {
+void MyCefPrintToPdf(MyBrowser* myBw, CefPdfPrintSettings* setting, wchar_t* filename, managed_callback callback) {
 
 	//
-	class MyPdfCallback : public CefPdfPrintCallback {
+	class MyPdfCallback : public CefPdfPrintCallback {	 
+	public:
+		managed_callback m_callback;		
 		void OnPdfPrintFinished(const CefString& path, bool ok) OVERRIDE
 		{
-
+			if (m_callback) {
+				//callback
+				m_callback(0, nullptr);
+			}
 		}
 		IMPLEMENT_REFCOUNTING(MyPdfCallback);
 	};
 
-	if (CefRefPtr<CefBrowser> browser = myBw->bwWindow->GetBrowser()) {
-
-
+	if (CefRefPtr<CefBrowser> browser = myBw->bwWindow->GetBrowser()) { 
+		
 		CefPdfPrintSettings pdfSetting;
 		if (setting) {
 			pdfSetting = *setting;
 		}
 		else {
-			//true
+			//set default
 			pdfSetting.header_footer_enabled = true;
-		}
-
-		/*CefPdfPrintSettings settings;*/
-
-		// Show the URL in the footer.
-		//settings.header_footer_enabled = true;
-
-		//CefString(&settings.header_footer_url) =
-		//	browser->GetMainFrame()->GetURL();
-
+		} 
 		// Print to the selected PDF file.
 		auto myPdfCallback = new MyPdfCallback();
+		myPdfCallback->m_callback = callback;
 		browser->GetHost()->PrintToPDF(filename, pdfSetting, myPdfCallback);
 	}
 }

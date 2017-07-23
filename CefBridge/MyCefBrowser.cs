@@ -482,14 +482,35 @@ namespace LayoutFarm.CefBridge
                     devForm.GetHandle());
             }
         }
+
+
+        List<MyCefCallback> tmpCallbacks = new List<MyCefCallback>();
+
         public void PrintToPdf(string filename)
         {
-            Cef3Binder.MyCefPrintToPdf(this.myCefBrowser, IntPtr.Zero, filename);
+            MyCefCallback cb = null;
+            cb = new MyCefCallback((id, args) =>
+            {
+                 //remove after finish
+                 tmpCallbacks.Remove(cb);
+            });
+            tmpCallbacks.Add(cb);
+            //
+            Cef3Binder.MyCefPrintToPdf(this.myCefBrowser, IntPtr.Zero, filename, cb);
+
         }
         public void PrintToPdf(string pdfConfig, string filename)
         {
             IntPtr nativePdfConfig = Cef3Binder.MyCefCreatePdfPrintSetting(pdfConfig);
-            Cef3Binder.MyCefPrintToPdf(this.myCefBrowser, nativePdfConfig, filename);
+            MyCefCallback cb = null;
+            cb = new MyCefCallback((id, args) =>
+            {
+                //remove after finish
+                tmpCallbacks.Remove(cb);
+            });
+            tmpCallbacks.Add(cb);
+            //
+            Cef3Binder.MyCefPrintToPdf(this.myCefBrowser, nativePdfConfig, filename, cb);
         }
         internal void NotifyCloseBw()
         {

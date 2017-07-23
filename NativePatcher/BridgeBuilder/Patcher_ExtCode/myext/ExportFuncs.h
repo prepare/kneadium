@@ -50,7 +50,7 @@ extern "C" {
 	//----------------------------
 	MY_DLL_EXPORT CefPdfPrintSettings* MyCefCreatePdfPrintSetting(wchar_t* pdfjsonConfig);
 	//----------------------------
-	MY_DLL_EXPORT void MyCefPrintToPdf(MyBrowser* myBw, CefPdfPrintSettings* setting,wchar_t* filename);
+	MY_DLL_EXPORT void MyCefPrintToPdf(MyBrowser* myBw, CefPdfPrintSettings* setting,wchar_t* filename,managed_callback callback);
 	//----------------------------
 	MY_DLL_EXPORT CefFrame* MyCefBwGetMainFrame(MyBrowser* myBw);
 	MY_DLL_EXPORT void MyCefFrameGetSource(CefFrame* cefFrame, managed_callback strCallBack);
