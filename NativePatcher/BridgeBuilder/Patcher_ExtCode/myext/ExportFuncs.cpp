@@ -276,23 +276,6 @@ int MyCefSetupBrowserHwndOSR(MyBrowser* myBw, HWND surfaceHwnd, int x, int y, in
 }
 
 
-void MyCefCloseMyWebBrowser(MyBrowser* myBw) {
-	myBw->bwWindow->ClientClose();
-}
-
-
-
-void MyCefEnableKeyIntercept(MyBrowser* myBw, int enable) {
-	auto clientHandle = myBw->bwWindow->GetClientHandler();
-	clientHandle->MyCefEnableKeyIntercept(enable);
-}
-
-
-void MyCefSetBrowserSize(MyBrowser* myBw, int w, int h) {
-
-	myBw->bwWindow->SetBounds(0, 0, w, h);
-}
-
 //---------------------
 class MyCefStringVisitor : public CefStringVisitor {
 public:
@@ -343,45 +326,6 @@ void MyCefFrameGetSource(CefFrame* cefFrame, managed_callback strCallBack) {
 	cefFrame->GetSource(bwVisitor);
 }
 
-
-
-//part3: 
-//1. 
-void MyCefBwNavigateTo(MyBrowser* myBw, const wchar_t* url) {
-
-	myBw->bwWindow->GetBrowser()->GetMainFrame()->LoadURL(url);
-}
-//2.
-void MyCefBwExecJavascript(MyBrowser* myBw, const wchar_t* jscode, const wchar_t* script_url) {
-
-	myBw->bwWindow->GetBrowser()->GetMainFrame()->ExecuteJavaScript(jscode, script_url, 0);
-}
-
-//3. 
-void MyCefBwPostData(MyBrowser* myBw, const wchar_t* url, const wchar_t* rawDataToPost, size_t rawDataLength) {
-
-	//create request
-	CefRefPtr<CefRequest> request(CefRequest::Create());
-	request->SetURL(url);
-
-	//Add post data to request, the correct method and content-type header will be set by CEF
-
-	CefRefPtr<CefPostDataElement> postDataElement(CefPostDataElement::Create());
-	postDataElement->SetToBytes(rawDataLength, rawDataToPost);
-	CefRefPtr<CefPostData> postData(CefPostData::Create());
-	postData->AddElement(postDataElement);
-	request->SetPostData(postData);
-
-	//add custom header (for test)
-	CefRequest::HeaderMap headerMap;
-	headerMap.insert(
-		std::make_pair("X-My-Header", "My Header Value"));
-	request->SetHeaderMap(headerMap);
-
-	//load request
-	myBw->bwWindow->GetBrowser()->GetMainFrame()->LoadRequest(request);
-
-}
 //4. 
 void MyCefShowDevTools(MyBrowser* myBw, MyBrowser* myBwDev, HWND parentWindow)
 {
@@ -413,35 +357,7 @@ void MyCefShowDevTools(MyBrowser* myBw, MyBrowser* myBwDev, HWND parentWindow)
 		settings,
 		inspect_element_at);
 }
-void MyCefBwGoBack(MyBrowser* myBw) {
 
-	if (CefRefPtr<CefBrowser> browser = myBw->bwWindow->GetBrowser()) {
-
-		browser->GoBack();
-	}
-}
-void MyCefBwGoForward(MyBrowser* myBw) {
-	if (CefRefPtr<CefBrowser> browser = myBw->bwWindow->GetBrowser()) {
-
-
-		browser->GoForward();
-	}
-}
-void MyCefBwStop(MyBrowser* myBw) {
-	if (CefRefPtr<CefBrowser> browser = myBw->bwWindow->GetBrowser()) {
-		browser->StopLoad();
-	}
-}
-void MyCefBwReload(MyBrowser* myBw) {
-	if (CefRefPtr<CefBrowser> browser = myBw->bwWindow->GetBrowser()) {
-		browser->Reload();
-	}
-}
-void MyCefBwReloadIgnoreCache(MyBrowser* myBw) {
-	if (CefRefPtr<CefBrowser> browser = myBw->bwWindow->GetBrowser()) {
-		browser->ReloadIgnoreCache();
-	}
-}
 
 void MyCefPrintToPdf(MyBrowser* myBw, CefPdfPrintSettings* setting, wchar_t* filename, managed_callback callback) {
 
@@ -586,20 +502,7 @@ void MyCefDeletePtr(void* ptr) {
 void MyCefDeletePtrArray(jsvalue* ptr) {
 	delete[] ptr;
 }
-void MyCefDeleteContent(jsvalue* ptr) {
-	switch (ptr->type)
-	{
-	case JSVALUE_TYPE_BUFFER:
-	case JSVALUE_TYPE_ARRAY:
-		delete[] ptr->ptr;
-		break;
-	case JSVALUE_TYPE_NATIVE_CEFHOLDER_STRING:
-		delete ptr->ptr;
-		break;
-	default:
-		break;
-	}
-}
+ 
 //----------------
 void CopyStringListToResult(jsvalue* ret, std::vector<CefString>& lst) {
 
@@ -660,6 +563,9 @@ const int CefBw_GoForward = 23;
 const int CefBw_GetMainFrame_LoadURL = 24;
 const int CefBw_SetSize = 25;
 const int CefBw_ExecJs = 26;
+const int CefBw_PostData = 27;
+const int CefBw_CloseBw = 28;
+
 //----------------
 void MyCefBwCall2(MyBrowser* myBw, int methodName, jsvalue* ret, jsvalue* v1, jsvalue* v2) {
 
@@ -745,10 +651,43 @@ void MyCefBwCall2(MyBrowser* myBw, int methodName, jsvalue* ret, jsvalue* v1, js
 	}break;
 	case CefBw_ExecJs: {
 		MyCefStringHolder* jscode = (MyCefStringHolder*)v1->ptr;
-		MyCefStringHolder* script_url = (MyCefStringHolder*)v2->ptr;		 
+		MyCefStringHolder* script_url = (MyCefStringHolder*)v2->ptr;
 		myBw->bwWindow->GetBrowser()->GetMainFrame()->ExecuteJavaScript(jscode->value, script_url->value, 0);
 	}break;
-		//
+	case CefBw_PostData: {
+		//create request
+		CefRefPtr<CefRequest> request(CefRequest::Create());
+		MyCefStringHolder* url = (MyCefStringHolder*)v1->ptr;
+		request->SetURL(url->value);
+		//Add post data to request, the correct method and content-type header will be set by CEF 
+		CefRefPtr<CefPostDataElement> postDataElement(CefPostDataElement::Create());
+
+		//------
+		//copy data from mana
+		//------
+		char* buffer1 = new char[v2->i32];
+		memcpy(buffer1, v2->ptr, v2->i32);
+		postDataElement->SetToBytes(v2->i32, buffer1);
+		//------
+
+		CefRefPtr<CefPostData> postData(CefPostData::Create());
+		postData->AddElement(postDataElement);
+		request->SetPostData(postData);
+
+		//add custom header (for test)
+		CefRequest::HeaderMap headerMap;
+		headerMap.insert(
+			std::make_pair("X-My-Header", "My Header Value"));
+		request->SetHeaderMap(headerMap);
+
+		//load request
+		myBw->bwWindow->GetBrowser()->GetMainFrame()->LoadRequest(request);
+
+		delete buffer1;
+	}break;
+	case CefBw_CloseBw: {
+		myBw->bwWindow->ClientClose();
+	}break;
 	}
 }
 
