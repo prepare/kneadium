@@ -45,10 +45,20 @@ namespace LayoutFarm.CefBridge
 
             MyCefBwCall2(myCefBw, (int)methodName, out ret, ref arg1, ref arg2);
         }
+
+        [DllImport(CEF_CLIENT_DLL, CallingConvention = CallingConvention.Cdecl)]
+        public static extern MyCefCallback MyCefJsValueGetManagedCallback(ref JsValue v);
+        [DllImport(CEF_CLIENT_DLL, CallingConvention = CallingConvention.Cdecl)]
+        public static extern void MyCefJsValueSetManagedCallback(ref JsValue v, MyCefCallback cb);
+     
+
+
         [DllImport(CEF_CLIENT_DLL, CallingConvention = CallingConvention.Cdecl)]
         public static extern void MyCefBwCall2(IntPtr myCefBw, int methodName, out JsValue ret, ref JsValue arg1, ref JsValue arg2);
 
         [DllImport(CEF_CLIENT_DLL, CallingConvention = CallingConvention.Cdecl)]
         public static extern void MyCefFrameCall2(IntPtr myCefBw, int methodName, out JsValue ret, ref JsValue arg1, ref JsValue arg2);
+    
+
     }
 }

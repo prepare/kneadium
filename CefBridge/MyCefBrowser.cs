@@ -398,8 +398,17 @@ namespace LayoutFarm.CefBridge
             //keep alive callback
             keepAliveCallBack.Add(strCallback);
             IntPtr cefFrame = Cef3Binder.MyCefBwGetMainFrame(this.myCefBrowser);
-            Cef3Binder.MyCefFrameGetSource(cefFrame, strCallback);
 
+            JsValue a1 = new JsValue();
+            Cef3Binder.MyCefJsValueSetManagedCallback(ref a1, strCallback);
+
+            JsValue a2 = new JsValue();
+            JsValue ret;
+
+            Cef3Binder.MyCefFrameCall2(cefFrame,
+                (int)CefFrameCallMsg.CefFrame_GetSource, out ret, ref a1, ref a2);
+
+            //----------
         }
         void InternalGetSource(MyCefCallback strCallback)
         {

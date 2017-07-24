@@ -337,10 +337,7 @@ namespace LayoutFarm.CefBridge
 
         [DllImport(CEF_CLIENT_DLL, CallingConvention = CallingConvention.Cdecl)]
         public static extern IntPtr MyCefBwGetMainFrame(IntPtr myBw);
-        //
-        [DllImport(CEF_CLIENT_DLL, CallingConvention = CallingConvention.Cdecl)]
-        public static extern void MyCefFrameGetSource(IntPtr frame, MyCefCallback strCallBack);
-
+       
 
 
 
