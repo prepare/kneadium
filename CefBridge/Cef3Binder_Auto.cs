@@ -24,6 +24,7 @@ namespace LayoutFarm.CefBridge
         CefBw_SetSize = 25,
         CefBw_ExecJs = 26,
         CefBw_PostData = 27,
+        CefBw_CloseBw= 28,
 
     }
     static partial class Cef3Binder

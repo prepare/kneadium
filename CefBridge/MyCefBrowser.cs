@@ -597,7 +597,11 @@ namespace LayoutFarm.CefBridge
         internal void NotifyCloseBw()
         {
             this.Stop();
-            Cef3Binder.MyCefCloseMyWebBrowser(myCefBrowser);
+            //
+            JsValue ret;
+            JsValue a0 = new JsValue();
+            JsValue a1 = new JsValue();
+            Cef3Binder.MyCefBwCall2(this.myCefBrowser, (int)CefBwCallMsg.CefBw_CloseBw, out ret, ref a0, ref a1);
         }
 
         static Dictionary<IWindowForm, List<MyCefBrowser>> registerTopWindowForms =
