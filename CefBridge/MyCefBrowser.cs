@@ -40,7 +40,9 @@ namespace LayoutFarm.CefBridge
                 Cef3Binder.MyCefSetupBrowserHwnd(myCefBrowser, parentControl.GetHandle(), x, y, w, h, initUrl, IntPtr.Zero);
             }
 
-            Cef3Binder.MyCefEnableKeyIntercept(myCefBrowser, 1);
+
+            Cef3Binder.MyCefBwCall(this.myCefBrowser, CefBwCallMsg.CefBw_MyCef_EnableKeyIntercept, 1);
+
             //register mycef browser
             RegisterCefWbControl(this);
         }
@@ -276,6 +278,8 @@ namespace LayoutFarm.CefBridge
         }
         void LoadErrorPage(IntPtr cefBw, IntPtr cefFrame, int errorCode, string errorText, string failedUrl)
         {
+
+
             //ss << "<html><head><title>Page failed to load</title></head>" 
             //    "<body bgcolor=\"white\">" 
             //    "<h3>Page failed to load.</h3>" 
@@ -296,12 +300,35 @@ namespace LayoutFarm.CefBridge
             currentUrl = url;
             if (IsBrowserCreated)
             {
-                Cef3Binder.MyCefBwNavigateTo(this.myCefBrowser, url);
+                JsValue a0 = new JsValue();
+                JsValue a1 = new JsValue();
+                JsValue ret;
+                //
+                var cefStr = NativeMyCefStringHolder.CreateHolder(url);
+                a0.Ptr = cefStr.nativePtr;
+                Cef3Binder.MyCefBwCall2(myCefBrowser, (int)CefBwCallMsg.CefBw_GetMainFrame_LoadURL, out ret, ref a0, ref a1);
+                cefStr.Dispose();
+
             }
         }
         public void ExecJavascript(string src, string scriptUrl)
         {
-            Cef3Binder.MyCefBwExecJavascript(this.myCefBrowser, src, scriptUrl);
+            JsValue a0 = new JsValue();
+            JsValue a1 = new JsValue();
+            JsValue ret;
+
+
+            var v_url = NativeMyCefStringHolder.CreateHolder(scriptUrl);
+            var v_src = NativeMyCefStringHolder.CreateHolder(src);
+
+            a0.Ptr = v_src.nativePtr;
+            a1.Ptr = v_url.nativePtr;
+
+            Cef3Binder.MyCefBwCall2(this.myCefBrowser, (int)CefBwCallMsg.CefBw_ExecJs, out ret, ref a0, ref a1);
+
+            v_url.Dispose();
+            v_src.Dispose();
+
         }
         public void PostData(string url, byte[] data, int len)
         {
@@ -309,7 +336,12 @@ namespace LayoutFarm.CefBridge
         }
         public void SetSize(int w, int h)
         {
-            Cef3Binder.MyCefSetBrowserSize(this.myCefBrowser, w, h);
+            JsValue a0 = new JsValue();
+            a0.I32 = w;
+            JsValue a1 = new JsValue();
+            a1.I32 = h;
+            JsValue ret;
+            Cef3Binder.MyCefBwCall2(myCefBrowser, (int)CefBwCallMsg.CefBw_IsSame, out ret, ref a0, ref a1);
         }
 
         public void GetText(Action<string> strCallback)
@@ -364,17 +396,45 @@ namespace LayoutFarm.CefBridge
 
         public void Stop()
         {
-            Cef3Binder.MyCefBwStop(myCefBrowser);
+            JsValue v1 = new JsValue();
+            JsValue v2 = new JsValue();
+            JsValue ret;
+
+            Cef3Binder.MyCefBwCall2(myCefBrowser, (int)CefBwCallMsg.CefBw_StopLoad, out ret, ref v1, ref v2);
         }
         public void GoBack()
         {
-            Cef3Binder.MyCefBwGoBack(myCefBrowser);
+            JsValue v1 = new JsValue();
+            JsValue v2 = new JsValue();
+            JsValue ret;
+
+            Cef3Binder.MyCefBwCall2(myCefBrowser, (int)CefBwCallMsg.CefBw_GoBack, out ret, ref v1, ref v2);
         }
         public void GoForward()
         {
-            Cef3Binder.MyCefBwGoForward(myCefBrowser);
+            JsValue v1 = new JsValue();
+            JsValue v2 = new JsValue();
+            JsValue ret;
+
+            Cef3Binder.MyCefBwCall2(myCefBrowser, (int)CefBwCallMsg.CefBw_GoForward, out ret, ref v1, ref v2);
         }
         public void Reload()
+        {
+            JsValue v1 = new JsValue();
+            JsValue v2 = new JsValue();
+            JsValue ret;
+
+            Cef3Binder.MyCefBwCall2(myCefBrowser, (int)CefBwCallMsg.CefBw_Reload, out ret, ref v1, ref v2);
+        }
+        public void ReloadIgnoreCache()
+        {
+            JsValue v1 = new JsValue();
+            JsValue v2 = new JsValue();
+            JsValue ret;
+
+            Cef3Binder.MyCefBwCall2(myCefBrowser, (int)CefBwCallMsg.CefBw_ReloadIgnoreCache, out ret, ref v1, ref v2);
+        }
+        public void dbugTest()
         {
 
 
@@ -466,10 +526,7 @@ namespace LayoutFarm.CefBridge
 
             //------------------
         }
-        public void ReloadIgnoreCache()
-        {
-            Cef3Binder.MyCefBwReloadIgnoreCache(myCefBrowser);
-        }
+
         public void ShowDevTools()
         {
             if (cefDevWindow == null)
