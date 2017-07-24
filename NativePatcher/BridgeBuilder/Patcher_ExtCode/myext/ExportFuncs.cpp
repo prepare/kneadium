@@ -535,16 +535,7 @@ void CopyInt64ListToResult(jsvalue* ret, std::vector<int64>& int64list) {
 }
 //----------------
 
-void MyCefBwCall0(MyBrowser* myBw, int methodName, jsvalue* ret) {
-	MyCefBwCall2(myBw, methodName, ret, nullptr, nullptr);
-}
-void MyCefBwCall1(MyBrowser* myBw, int methodName, jsvalue* ret, jsvalue* v1) {
-	MyCefBwCall2(myBw, methodName, ret, v1, nullptr);
-}
-//----------------
-
-
-
+  
 
 const int CefBw_GoBack = 1;
 const int CefBw_Reload = 2;
@@ -568,8 +559,9 @@ const int CefBw_CloseBw = 28;
 
 //----------------
 void MyCefBwCall2(MyBrowser* myBw, int methodName, jsvalue* ret, jsvalue* v1, jsvalue* v2) {
-
+	
 	auto bw = myBw->bwWindow->GetBrowser();
+	 
 	ret->type = JSVALUE_TYPE_EMPTY;
 
 	switch (methodName) {
