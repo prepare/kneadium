@@ -1,15 +1,15 @@
 //###_ORIGINAL D:\projects\cef_binary_3.3071.1647.win32\tests\cefclient\browser\views_window.cc
 //###_BEGIN 0
 //###_PRE
-#define VK_MENU 0x12  // ALT key.
+#include "tests/cefclient/browser/views_window.h"
 //###_PRE
-#endif
+#include <algorithm>
 #include "tests/cefclient/myext/mycef_buildconfig.h"
 #if BUILD_TEST_ROOT_WINDOW
 //###_POST
-namespace client {
+#include "include/base/cef_bind.h"
 //###_POST
-namespace {
+#include "include/base/cef_build.h"
 //###_END 0
 //###_BEGIN 0
 //###_PRE

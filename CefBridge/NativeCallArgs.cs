@@ -159,12 +159,7 @@ namespace LayoutFarm.CefBridge
                 index,
                 unmangedMemPtr,
                 len);
-        }
-
-        //public void Dispose()
-        //{
-        //    Cef3Binder.MyCefDisposePtr(this._argPtr);
-        //}
+        } 
     }
     public struct NativeCallArgs2
     {
@@ -221,14 +216,41 @@ namespace LayoutFarm.CefBridge
         {
             this.nativePtr = nativePtr;
         }
-        public void SetCachePath(string value)
-        {
-            Cef3Binder.MyCefSetInitSettings(this.nativePtr, (int)CefSettingsKey.CEF_SETTINGS_CachePath, value);
-        }
         public void SetSubProcessPath(string value)
         {
-            Cef3Binder.MyCefSetInitSettings(this.nativePtr, (int)CefSettingsKey.CEF_SETTINGS_BrowserSubProcessPath, value);
+            Cef3Binder.MyCefSetInitSettings(this.nativePtr,
+                CefSettingsKey.CEF_SETTINGS_BrowserSubProcessPath, value);
         }
-
+        public void SetCachePath(string value)
+        {
+            Cef3Binder.MyCefSetInitSettings(this.nativePtr,
+                CefSettingsKey.CEF_SETTINGS_CachePath, value);
+        }
+        public void SetUserDirPath(string value)
+        {
+            Cef3Binder.MyCefSetInitSettings(this.nativePtr,
+                CefSettingsKey.CEF_SETTINGS_UserDirPath, value);
+        }
+        public void SetLocalDirPath(string value)
+        {
+            Cef3Binder.MyCefSetInitSettings(this.nativePtr,
+                CefSettingsKey.CEF_SETTINGS_LocalDirPath, value);
+        }
+        public void IgnoreCertErrror(bool value)
+        {
+            Cef3Binder.MyCefSetInitSettings(this.nativePtr,
+                CefSettingsKey.CEF_SETTINGS_IgnoreCertError, value ? "1" : "0");
+        }
+        public void SetRemoteDebuggingPort(int portNo)
+        {
+            Cef3Binder.MyCefSetInitSettings(this.nativePtr,
+                CefSettingsKey.CEF_SETTINGS_RemoteDebuggingPort, portNo.ToString());
+        }
+        public void SetLogSeverity(LogServerity logSeverity)
+        {
+            int severity = (int)logSeverity;
+            Cef3Binder.MyCefSetInitSettings(this.nativePtr,
+               CefSettingsKey.CEF_SETTINGS_RemoteDebuggingPort, severity.ToString());
+        }
     }
 }

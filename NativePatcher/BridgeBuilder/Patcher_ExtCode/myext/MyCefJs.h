@@ -4,8 +4,8 @@ extern "C" {
 
 	
 	
-	MY_DLL_EXPORT void MyCefMetArgs_GetArgs(MethodArgs* args, int argIndex, jsvalue* output);
-
+	MY_DLL_EXPORT void MyCefMetArgs_GetArgs(MethodArgs* args, int argIndex, jsvalue* output); 
+	 
 	MY_DLL_EXPORT void MyCefMetArgs_SetResultAsJsValue(MethodArgs* args, int retIndex, jsvalue* value); 
 	MY_DLL_EXPORT void MyCefMetArgs_SetResultAsString(MethodArgs* args, int argIndex, const wchar_t* buffer, int len); 
 	MY_DLL_EXPORT void MyCefMetArgs_SetResultAsInt32(MethodArgs* args, int argIndex, int value);

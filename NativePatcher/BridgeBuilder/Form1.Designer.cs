@@ -32,6 +32,7 @@
             this.cmdLoadPatchAndDoPatch = new System.Windows.Forms.Button();
             this.cmdMacApplyPatches = new System.Windows.Forms.Button();
             this.cmdMacBuildPatchesFromSrc = new System.Windows.Forms.Button();
+            this.button1 = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // cmdMakePatchFiles
@@ -74,11 +75,22 @@
             this.cmdMacBuildPatchesFromSrc.UseVisualStyleBackColor = true;
             this.cmdMacBuildPatchesFromSrc.Click += new System.EventHandler(this.cmdMacBuildPatchesFromSrc_Click);
             // 
+            // button1
+            // 
+            this.button1.Location = new System.Drawing.Point(36, 459);
+            this.button1.Name = "button1";
+            this.button1.Size = new System.Drawing.Size(282, 40);
+            this.button1.TabIndex = 5;
+            this.button1.Text = "TestApiBuilder";
+            this.button1.UseVisualStyleBackColor = true;
+            this.button1.Click += new System.EventHandler(this.button1_Click);
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(773, 326);
+            this.ClientSize = new System.Drawing.Size(769, 682);
+            this.Controls.Add(this.button1);
             this.Controls.Add(this.cmdMacApplyPatches);
             this.Controls.Add(this.cmdMacBuildPatchesFromSrc);
             this.Controls.Add(this.cmdLoadPatchAndDoPatch);
@@ -94,6 +106,7 @@
         private System.Windows.Forms.Button cmdLoadPatchAndDoPatch;
         private System.Windows.Forms.Button cmdMacApplyPatches;
         private System.Windows.Forms.Button cmdMacBuildPatchesFromSrc;
+        private System.Windows.Forms.Button button1;
     }
 }
 
