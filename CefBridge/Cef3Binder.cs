@@ -123,6 +123,21 @@ namespace LayoutFarm.CefBridge
         {
             return new NativeMyCefStringHolder(Cef3Binder.MyCefCreateCefString(str));
         }
+        public string ReadString(int len)
+        {
+            int buff_len = len + 1;
+
+            char[] buffer = new char[buff_len];
+            unsafe
+            {
+                fixed (char* h = &buffer[0])
+                {
+                    int actualLen = 0;
+                    Cef3Binder.MyCefStringHolder_Read(this.nativePtr, h, buff_len, ref actualLen);
+                }
+            }
+            return new string(buffer);
+        }
     }
     static partial class Cef3Binder
     {
@@ -276,7 +291,7 @@ namespace LayoutFarm.CefBridge
         [DllImport(CEF_CLIENT_DLL, CallingConvention = CallingConvention.Cdecl, CharSet = CharSet.Unicode)]
         public static extern void MyCefSetupBrowserHwndOSR(IntPtr myCefBrowser, IntPtr hWndParent, int x, int y, int width, int height, string initUrl, IntPtr requestContext);
 
-         
+
 
 
         [DllImport(CEF_CLIENT_DLL)]
@@ -300,7 +315,7 @@ namespace LayoutFarm.CefBridge
         [DllImport(CEF_CLIENT_DLL, CallingConvention = CallingConvention.Cdecl)]
         internal static extern void MyCefMetArgs_GetResult(IntPtr metArgPtr, int index, out JsValue outputValue);
 
-         
+
 
         [DllImport(CEF_CLIENT_DLL, CallingConvention = CallingConvention.Cdecl)]
         public static extern void MyCefShowDevTools(IntPtr myCefBw, IntPtr myCefDevTool, IntPtr parentWindow);
@@ -401,8 +416,7 @@ namespace LayoutFarm.CefBridge
         internal static unsafe extern IntPtr MyCefJs_ExecJsFunctionWithContext(IntPtr cefJsFunc, IntPtr context, char* argAsJsonString);
         [DllImport(CEF_CLIENT_DLL, CallingConvention = CallingConvention.Cdecl, CharSet = CharSet.Unicode)]
         internal static extern bool MyCefJs_CefRegisterExtension(string extensionName, string extensionCode);
-        [DllImport(CEF_CLIENT_DLL, CallingConvention = CallingConvention.Cdecl)]
-        public static extern unsafe void MyCefFrame_GetUrl(IntPtr myCefFrame, char* outputBuffer, int outputBufferLen, ref int actualLength);
+
         [DllImport(CEF_CLIENT_DLL, CallingConvention = CallingConvention.Cdecl)]
         public static extern unsafe void MyCefString_Read(IntPtr cefStr, char* outputBuffer, int outputBufferLen, ref int actualLength);
         [DllImport(CEF_CLIENT_DLL, CallingConvention = CallingConvention.Cdecl)]

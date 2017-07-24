@@ -24,8 +24,12 @@ namespace LayoutFarm.CefBridge
         CefBw_SetSize = 25,
         CefBw_ExecJs = 26,
         CefBw_PostData = 27,
-        CefBw_CloseBw= 28,
-
+        CefBw_CloseBw = 28,
+    }
+    public enum CefFrameCallMsg
+    {
+        CefFrame_GetSource = 1,
+        CefFrame_GetUrl = 2,
     }
     static partial class Cef3Binder
     {
@@ -43,5 +47,8 @@ namespace LayoutFarm.CefBridge
         }
         [DllImport(CEF_CLIENT_DLL, CallingConvention = CallingConvention.Cdecl)]
         public static extern void MyCefBwCall2(IntPtr myCefBw, int methodName, out JsValue ret, ref JsValue arg1, ref JsValue arg2);
+
+        [DllImport(CEF_CLIENT_DLL, CallingConvention = CallingConvention.Cdecl)]
+        public static extern void MyCefFrameCall2(IntPtr myCefBw, int methodName, out JsValue ret, ref JsValue arg1, ref JsValue arg2);
     }
 }

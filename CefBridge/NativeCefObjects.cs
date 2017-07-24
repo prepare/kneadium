@@ -204,7 +204,7 @@ namespace LayoutFarm.CefBridge
         /// </summary>
         public long I64;// 
 
-                        //--------------------------------
+        //--------------------------------
 
     }
 
@@ -285,14 +285,22 @@ namespace LayoutFarm.CefBridge
         {
             unsafe
             {
+                JsValue ret;
+                JsValue arg1 = new JsValue();
+                JsValue arg2 = new JsValue();
+                Cef3Binder.MyCefFrameCall2(this.Ptr, (int)CefFrameCallMsg.CefFrame_GetUrl, out ret, ref arg1, ref arg2);
+                NativeMyCefStringHolder ret_str = new NativeMyCefStringHolder(ret.Ptr);
+                string url = ret_str.ReadString(ret.I32);
+                ret_str.Dispose(); 
+                return url;
                 //get url, in this version max size =255?
-                char[] buffer = new char[255];
-                int actualLength = 0;
-                fixed (char* buffer_head = &buffer[0])
-                {
-                    Cef3Binder.MyCefFrame_GetUrl(Ptr, buffer_head, 255, ref actualLength);
-                    return new string(buffer_head);
-                }
+                //char[] buffer = new char[255];
+                //int actualLength = 0;
+                //fixed (char* buffer_head = &buffer[0])
+                //{
+                //    Cef3Binder.MyCefFrame_GetUrl(Ptr, buffer_head, 255, ref actualLength);
+                //    return new string(buffer_head);
+                //}
             }
         }
     }

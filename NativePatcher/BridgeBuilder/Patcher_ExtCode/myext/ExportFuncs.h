@@ -40,7 +40,7 @@ extern "C" {
 
 	//----------------------------
 	MY_DLL_EXPORT CefFrame* MyCefBwGetMainFrame(MyBrowser* myBw);
-	MY_DLL_EXPORT void MyCefFrame_GetUrl(CefFrame* frame, wchar_t* outputBuffer, int outputBufferLen, int* actualLength);
+	 
 	MY_DLL_EXPORT void MyCefFrameGetSource(CefFrame* cefFrame, managed_callback strCallBack);
 	
 	//----------------------------
@@ -66,6 +66,9 @@ extern "C" {
 	);
 
 	 
+	//
 	MY_DLL_EXPORT void MyCefBwCall2(MyBrowser* myBw, int methodName, jsvalue* ret, jsvalue* v1, jsvalue* v2);
+	//
+	MY_DLL_EXPORT void MyCefFrameCall2(CefFrame* cefFrame, int methodName, jsvalue* ret, jsvalue* v1, jsvalue* v2);
 
 }

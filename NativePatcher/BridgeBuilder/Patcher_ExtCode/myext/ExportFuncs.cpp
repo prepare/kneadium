@@ -560,8 +560,7 @@ const int CefBw_CloseBw = 28;
 //----------------
 void MyCefBwCall2(MyBrowser* myBw, int methodName, jsvalue* ret, jsvalue* v1, jsvalue* v2) {
 	
-	auto bw = myBw->bwWindow->GetBrowser();
-	 
+	auto bw = myBw->bwWindow->GetBrowser(); 
 	ret->type = JSVALUE_TYPE_EMPTY;
 
 	switch (methodName) {
@@ -681,6 +680,26 @@ void MyCefBwCall2(MyBrowser* myBw, int methodName, jsvalue* ret, jsvalue* v1, js
 		myBw->bwWindow->ClientClose();
 	}break;
 	}
+} 
+
+const int CefFrame_GetSource = 1;
+const int CefFrame_GetUrl = 2;
+//
+void MyCefFrameCall2(CefFrame* cefFrame, int methodName, jsvalue* ret, jsvalue* v1, jsvalue* v2) {
+	ret->type = JSVALUE_TYPE_EMPTY;
+	switch (methodName) {
+	case CefFrame_GetSource:
+	{
+
+	}break;
+	case CefFrame_GetUrl:
+	{	
+		MyCefStringHolder* str = new MyCefStringHolder();
+		str->value = cefFrame->GetURL();
+		ret->type = JSVALUE_TYPE_NATIVE_CEFHOLDER_STRING;
+		ret->ptr = str;
+		ret->i32 = str->value.length();
+		 
+	}break;
+	}
 }
-
-
