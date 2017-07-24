@@ -246,9 +246,8 @@ CefV8Context* MyCefJs_GetEnteredContext() {
 }
 
 MyCefStringHolder* MyCefCreateCefString(const wchar_t*  str) {
-	MyCefStringHolder* str_h = new MyCefStringHolder();
-	auto cefStr = CefV8Value::CreateString(str);
-	str_h->any = cefStr;
+	MyCefStringHolder* str_h = new MyCefStringHolder(); 
+	str_h->value = str;
 
 	return str_h;
 }

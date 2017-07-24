@@ -444,12 +444,12 @@ void MyCefBwReloadIgnoreCache(MyBrowser* myBw) {
 }
 
 void MyCefPrintToPdf(MyBrowser* myBw, CefPdfPrintSettings* setting, wchar_t* filename, managed_callback callback) {
- 
-	  
+
+
 	//
-	class MyPdfCallback : public CefPdfPrintCallback {	 
+	class MyPdfCallback : public CefPdfPrintCallback {
 	public:
-		managed_callback m_callback;		
+		managed_callback m_callback;
 		void OnPdfPrintFinished(const CefString& path, bool ok) OVERRIDE
 		{
 			if (m_callback) {
@@ -463,8 +463,8 @@ void MyCefPrintToPdf(MyBrowser* myBw, CefPdfPrintSettings* setting, wchar_t* fil
 		IMPLEMENT_REFCOUNTING(MyPdfCallback);
 	};
 
-	if (CefRefPtr<CefBrowser> browser = myBw->bwWindow->GetBrowser()) { 
-		
+	if (CefRefPtr<CefBrowser> browser = myBw->bwWindow->GetBrowser()) {
+
 		CefPdfPrintSettings pdfSetting;
 		if (setting) {
 			pdfSetting = *setting;
@@ -472,7 +472,7 @@ void MyCefPrintToPdf(MyBrowser* myBw, CefPdfPrintSettings* setting, wchar_t* fil
 		else {
 			//set default
 			pdfSetting.header_footer_enabled = true;
-		} 
+		}
 		// Print to the selected PDF file.
 		auto myPdfCallback = new MyPdfCallback();
 		myPdfCallback->m_callback = callback;
@@ -647,37 +647,53 @@ const int CefBw_GoBack = 1;
 const int CefBw_Reload = 2;
 const int CefBw_ReloadIgnoreCache = 3;
 const int CefBw_GetFrameCount = 4;
+
 const int CefBw_IsSame = 6;
-const int CefBw_GetFrameNames = 7; 
+const int CefBw_GetFrameNames = 7;
+
 const int CefBw_GetFrameIdentifiers = 10;
+const int CefBw_MyCef_EnableKeyIntercept = 11;
+
 const int CefBw_GetMainFrame_GetURL = 21;
-
-
+const int CefBw_StopLoad = 22;
+const int CefBw_GoForward = 23;
+const int CefBw_GetMainFrame_LoadURL = 24;
+const int CefBw_SetSize = 25;
+const int CefBw_ExecJs = 26;
 //----------------
 void MyCefBwCall2(MyBrowser* myBw, int methodName, jsvalue* ret, jsvalue* v1, jsvalue* v2) {
 
-	
-
 	auto bw = myBw->bwWindow->GetBrowser();
-	//
+	ret->type = JSVALUE_TYPE_EMPTY;
+
 	switch (methodName) {
 	case CefBw_GoBack: {
 		bw->GoBack();
-		ret->type = JSVALUE_TYPE_EMPTY;
 	}	break;
 	case CefBw_Reload: {
 		bw->Reload();
-		ret->type = JSVALUE_TYPE_EMPTY;
+	}	break;
+	case CefBw_StopLoad: {
+		bw->StopLoad();
 	}	break;
 	case CefBw_ReloadIgnoreCache: {
 		bw->ReloadIgnoreCache();
-		ret->type = JSVALUE_TYPE_EMPTY;
 	}	break;
 	case CefBw_GetFrameCount: {
 		auto frameCount = bw->GetFrameCount();
 		ret->type = JSVALUE_TYPE_INTEGER;
 		ret->i32 = (int32_t)frameCount;
 	} break;
+	case CefBw_MyCef_EnableKeyIntercept: {
+		auto clientHandle = myBw->bwWindow->GetClientHandler();
+		clientHandle->MyCefEnableKeyIntercept(v1->i32);
+	}break;
+	case CefBw_GetMainFrame_LoadURL: {
+
+		MyCefStringHolder* strHolder = (MyCefStringHolder*)v1->ptr;
+		bw->GetMainFrame()->LoadURL(strHolder->value);
+
+	}break;
 	case 5: {
 		ret->type = JSVALUE_TYPE_WRAPPED;
 		ret->ptr = bw;
@@ -690,22 +706,18 @@ void MyCefBwCall2(MyBrowser* myBw, int methodName, jsvalue* ret, jsvalue* v1, js
 		std::vector<CefString> cefStringList;
 		bw->GetFrameNames(cefStringList);
 		CopyStringListToResult(v1, cefStringList);
-
-		ret->type = JSVALUE_TYPE_EMPTY;
-	}break; 
+	}break;
 	case 9: {
 		//get string list
 		std::vector<CefString>* cefStringList = (std::vector<CefString>*)v1->ptr;
 		ret->type = JSVALUE_TYPE_INTEGER;
 		ret->i32 = cefStringList->size();
-
 	}break;
 	case CefBw_GetFrameIdentifiers: {
 		//get int list
 		std::vector<int64> int64list;
 		bw->GetFrameIdentifiers(int64list);
 		CopyInt64ListToResult(v1, int64list);
-		ret->type = JSVALUE_TYPE_EMPTY;
 		//auto sizeCount = int64list.size();
 		////transfer databack 
 		//jsvalue* arr = new jsvalue[sizeCount];
@@ -717,8 +729,8 @@ void MyCefBwCall2(MyBrowser* myBw, int methodName, jsvalue* ret, jsvalue* v1, js
 		//ret->ptr = arr;
 		//ret->type = JSVALUE_TYPE_ARRAY;
 	}break;
-	case CefBw_GetMainFrame_GetURL: { 
-		 
+	case CefBw_GetMainFrame_GetURL: {
+
 		CefString cefStr = bw->GetMainFrame()->GetURL();
 		ret->type = JSVALUE_TYPE_NATIVE_CEFHOLDER_STRING;
 
@@ -727,6 +739,14 @@ void MyCefBwCall2(MyBrowser* myBw, int methodName, jsvalue* ret, jsvalue* v1, js
 		ret->ptr = myCefStringHolder;
 		ret->i32 = cefStr.length();
 
+	}break;
+	case CefBw_SetSize: {
+		myBw->bwWindow->SetBounds(0, 0, v1->i32, v2->i32);
+	}break;
+	case CefBw_ExecJs: {
+		MyCefStringHolder* jscode = (MyCefStringHolder*)v1->ptr;
+		MyCefStringHolder* script_url = (MyCefStringHolder*)v2->ptr;		 
+		myBw->bwWindow->GetBrowser()->GetMainFrame()->ExecuteJavaScript(jscode->value, script_url->value, 0);
 	}break;
 		//
 	}
