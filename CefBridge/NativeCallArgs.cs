@@ -1,12 +1,11 @@
-﻿//2015-2016 MIT, WinterDev
+﻿//MIT, 2015-2017, WinterDev
+
 using System;
 using System.Collections.Generic;
 using System.Text;
 using System.Runtime.InteropServices;
-
 namespace LayoutFarm.CefBridge
 {
-
     [StructLayout(LayoutKind.Sequential)]
     public class QueryRequestArgs
     {
@@ -15,10 +14,8 @@ namespace LayoutFarm.CefBridge
         IntPtr _browser_ptr;
         IntPtr _frame_ptr;
         IntPtr _requestCefStringHolder; //native ptr to CefString
-
         long _query_id;
         bool _presistent;
-
         private QueryRequestArgs()
         {
         }
@@ -62,7 +59,6 @@ namespace LayoutFarm.CefBridge
     public struct NativeCallArgs
     {
         internal readonly IntPtr _argPtr;
-
         public NativeCallArgs(IntPtr argPtr)
         {
             _argPtr = argPtr;
@@ -71,24 +67,24 @@ namespace LayoutFarm.CefBridge
         const int BUFF_LEN = 512;
         public string GetArgAsString(int index)
         {
-            JsValue v = Cef3Binder.MyCefNativeMetGetArgs(_argPtr, index);
+            JsValue v = new JsValue();
+            Cef3Binder.MyCefMetArgs_GetArgs(_argPtr, index, out v);
             if ((int)v.Type == 30)
             {
                 //native cef
 
                 var charBuff = new char[BUFF_LEN];
-                int acutalLen = 0;
+                int actualLen = 0;
                 unsafe
                 {
                     fixed (char* buffHead = &charBuff[0])
                     {
-
-                        Cef3Binder.MyCefString_Read(v.Ptr, buffHead, BUFF_LEN, ref acutalLen);
-                        if (acutalLen > BUFF_LEN)
+                        Cef3Binder.MyCefString_Read(v.Ptr, buffHead, BUFF_LEN, ref actualLen);
+                        if (actualLen > BUFF_LEN)
                         {
                             //read more
                         }
-                        return new string(buffHead, 0, acutalLen);
+                        return new string(buffHead, 0, actualLen);
                     }
                 }
             }
@@ -99,13 +95,14 @@ namespace LayoutFarm.CefBridge
         }
         public int GetArgAsInt32(int index)
         {
-            JsValue v = Cef3Binder.MyCefNativeMetGetArgs(_argPtr, index);
-
+            JsValue v = new JsValue();
+            Cef3Binder.MyCefMetArgs_GetArgs(_argPtr, index, out v);
             return v.I32;
         }
         public IntPtr GetArgAsNativePtr(int index)
         {
-            JsValue v = Cef3Binder.MyCefNativeMetGetArgs(_argPtr, index);
+            JsValue v = new JsValue();
+            Cef3Binder.MyCefMetArgs_GetArgs(_argPtr, index, out v);
             return v.Ptr;
         }
         public void SetOutput(int index, string str)
@@ -158,17 +155,11 @@ namespace LayoutFarm.CefBridge
         }
         public unsafe void UnsafeSetOutput(int index, IntPtr unmangedMemPtr, int len)
         {
-
             Cef3Binder.MyCefMetArgs_SetResultAsByteBuffer(this._argPtr,
                 index,
                 unmangedMemPtr,
                 len);
-        }
-
-        //public void Dispose()
-        //{
-        //    Cef3Binder.MyCefDisposePtr(this._argPtr);
-        //}
+        } 
     }
     public struct NativeCallArgs2
     {
@@ -197,7 +188,6 @@ namespace LayoutFarm.CefBridge
         }
         public string ReadArgAsString(int index)
         {
-
             //Cef3Binder.MyCefJs_MetReadArgAsString(this.argPtr,index,)
             int acutalLen = 0;
             unsafe
@@ -216,6 +206,51 @@ namespace LayoutFarm.CefBridge
         {
             CefV8Value func = new CefV8Value(Cef3Binder.MyCefJs_MetReadArgAsCefV8Value(argPtr, index));
             return new Cef3Func(func.Ptr);
+        }
+    }
+
+    public struct CefSettings
+    {
+        IntPtr nativePtr;
+        internal CefSettings(IntPtr nativePtr)
+        {
+            this.nativePtr = nativePtr;
+        }
+        public void SetSubProcessPath(string value)
+        {
+            Cef3Binder.MyCefSetInitSettings(this.nativePtr,
+                CefSettingsKey.CEF_SETTINGS_BrowserSubProcessPath, value);
+        }
+        public void SetCachePath(string value)
+        {
+            Cef3Binder.MyCefSetInitSettings(this.nativePtr,
+                CefSettingsKey.CEF_SETTINGS_CachePath, value);
+        }
+        public void SetUserDirPath(string value)
+        {
+            Cef3Binder.MyCefSetInitSettings(this.nativePtr,
+                CefSettingsKey.CEF_SETTINGS_UserDirPath, value);
+        }
+        public void SetLocalDirPath(string value)
+        {
+            Cef3Binder.MyCefSetInitSettings(this.nativePtr,
+                CefSettingsKey.CEF_SETTINGS_LocalDirPath, value);
+        }
+        public void IgnoreCertErrror(bool value)
+        {
+            Cef3Binder.MyCefSetInitSettings(this.nativePtr,
+                CefSettingsKey.CEF_SETTINGS_IgnoreCertError, value ? "1" : "0");
+        }
+        public void SetRemoteDebuggingPort(int portNo)
+        {
+            Cef3Binder.MyCefSetInitSettings(this.nativePtr,
+                CefSettingsKey.CEF_SETTINGS_RemoteDebuggingPort, portNo.ToString());
+        }
+        public void SetLogSeverity(LogServerity logSeverity)
+        {
+            int severity = (int)logSeverity;
+            Cef3Binder.MyCefSetInitSettings(this.nativePtr,
+               CefSettingsKey.CEF_SETTINGS_RemoteDebuggingPort, severity.ToString());
         }
     }
 }

@@ -1,4 +1,5 @@
-﻿//2015-2016 MIT, WinterDev
+﻿//MIT, 2015-2017, WinterDev
+
 namespace LayoutFarm.CefBridge
 {
     public class CefStartArgs
@@ -7,11 +8,10 @@ namespace LayoutFarm.CefBridge
         public string ProcessType { get; private set; }
 
         private CefStartArgs() { }
-  
+
         public static CefStartArgs Parse(string[] startupArgs)
         {
             var cefStartArgs = new CefStartArgs();
-
             int j = startupArgs.Length;
             for (int i = 0; i < j; ++i)
             {
@@ -31,7 +31,6 @@ namespace LayoutFarm.CefBridge
                                     //in this version we stop here
                                     //ignore other ...
                                     //this not correct 
-
                                     i = j + 1;
                                 }
                                 break;

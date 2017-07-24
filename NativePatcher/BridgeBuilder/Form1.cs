@@ -14,38 +14,40 @@ namespace BridgeBuilder
             InitializeComponent();
         }
 
-        private void cmdBuild1_Click(object sender, EventArgs e)
-        {
 
-            //string srcRootDir = @"D:\projects\cef_binary_3.2526.1366" + "\\cefclient"; //2526.1366
-            //ManualPatcher manualPatcher = new ManualPatcher(srcRootDir);
-            //manualPatcher.DoChanged();
-            //manualPatcher.CopyExtensionSources();
-        }
-
-        private void cmdMakePatchFiles_Click(object sender, EventArgs e)
+        private void cmdCreatePatchFiles_Click(object sender, EventArgs e)
         {
             //string srcRootDir = @"D:\projects\cef_binary_3.2526.1366" + "\\cefclient"; //2526.1366
             //string srcRootDir = "d:\\projects\\CefBridge\\cef3\\cefclient";
-            string srcRootDir = "d:\\projects\\CefBridge\\cef3\\cefclient";
-            PatchBuilder builder = new PatchBuilder(srcRootDir);
+            //string srcRootDir = "d:\\projects\\CefBridge\\cef3\\cefclient";
+
+            //1. analyze modified source files, in source folder
+            //string srcRootDir = @"D:\projects\cef_binary_3.2883.1548\tests\cefclient";
+            //string srcRootDir = @"D:\projects\cef_binary_3.2883.1553\tests\cefclient";
+            //string srcRootDir = @"D:\projects\cef_binary_3.3071.1634\tests\cefclient";
+            string srcRootDir = @"D:\projects\cef_binary_3.3071.1647.win32\tests\cefclient";
+
+            PatchBuilder builder = new PatchBuilder(new string[]{
+                srcRootDir,
+                @"D:\projects\cef_binary_3.3071.1647.win32\tests\shared"
+            });
             builder.MakePatch();
 
-
+            //2. save patch to...
             string saveFolder = "d:\\WImageTest\\cefbridge_patches";
             builder.Save(saveFolder);
 
-            //assign root foler
-            PatchBuilder builder2 = new PatchBuilder(srcRootDir);
-            builder2.LoadPatchesFromFolder(saveFolder);
+            ////3. test load those patches
+            //PatchBuilder builder2 = new PatchBuilder(srcRootDir);
+            //builder2.LoadPatchesFromFolder(saveFolder);
 
             //----------
             //copy extension code          
             CopyFileInFolder(saveFolder,
                 @"D:\projects\CefBridge\NativePatcher\cefbridge_patches"
                );
-
-            CopyFileInFolder(@"D:\projects\CefBridge\cef3\cefclient\myext",
+            //copy ext from actual src 
+            CopyFileInFolder(srcRootDir + "\\myext",
                  @"D:\projects\CefBridge\NativePatcher\BridgeBuilder\Patcher_ExtCode\myext");
 
         }
@@ -67,18 +69,35 @@ namespace BridgeBuilder
 
 
         }
-        private void cmdLoadPatchAndDoPatch_Click(object sender, EventArgs e)
+        private void cmdLoadPatchAndApplyPatch_Click(object sender, EventArgs e)
         {
             //string srcRootDir = @"D:\projects\cef_binary_3.2526.1366" + "\\cefclient"; //2526.1366
             //string srcRootDir = @"D:\projects\cef_binary_3.2623.1395" + "\\cefclient"; //2526.1366
-            string srcRootDir = @"D:\projects\cef_binary_3.2623.1399" + "\\cefclient"; //2526.1366
+            //string srcRootDir = @"D:\projects\cef_binary_3.2623.1399" + "\\cefclient"; //2526.1366
+            //string srcRootDir = @"D:\projects\cef_binary_3.2704.1418"; 
+            //string srcRootDir = @"D:\projects\cef_binary_3.2785.1466";  
+            //string srcRootDir = @"D:\projects\cef_binary_3.2883.1548\\tests"; 
+            //string srcRootDir = @"D:\projects\cef_binary_3.2883.1553\\tests";
+            //string srcRootDir = @"D:\projects\cef_binary_3.3029.1619\tests";
+            //string srcRootDir = @"D:\projects\cef_binary_3.3071.1634\tests";
+            //
+            //cef_binary_3.3071.1647
+            //string srcRootDir = @"D:\projects\cef_binary_3.3071.1647.win32\tests";
+            string srcRootDir = @"D:\projects\cef_binary_3.3071.1647.win32\tests";
             string saveFolder = "d:\\WImageTest\\cefbridge_patches";
 
-            PatchBuilder builder2 = new PatchBuilder(srcRootDir);
+            PatchBuilder builder2 = new PatchBuilder(new string[]{
+                srcRootDir,
+                //@"D:\projects\cef_binary_3.2883.1553\\shared"
+                //@"D:\projects\cef_binary_3.3029.1619\shared"
+                //@"D:\projects\cef_binary_3.3071.1647.win32\shared"
+               // @"D:\projects\cef_binary_3.3071.1647.win64\tests\shared"
+            });
             builder2.LoadPatchesFromFolder(saveFolder);
 
             List<PatchFile> pfiles = builder2.GetAllPatchFiles();
             //string oldPathName = srcRootDir;
+
             string newPathName = srcRootDir;// "d:\\projects\\CefBridge\\cef3\\cefclient";
 
             for (int i = pfiles.Count - 1; i >= 0; --i)
@@ -89,38 +108,170 @@ namespace BridgeBuilder
 
                 string onlyFileName = System.IO.Path.GetFileName(pfile.OriginalFileName);
                 string onlyPath = System.IO.Path.GetDirectoryName(pfile.OriginalFileName);
-                string replaceName = onlyPath.Replace("d:\\projects\\CefBridge\\cef3\\cefclient", newPathName);
+
+                int indexOfCefClient = onlyPath.IndexOf("\\cefclient\\");
+                if (indexOfCefClient < 0)
+                {
+                    indexOfCefClient = onlyPath.IndexOf("\\shared\\");
+                    if (indexOfCefClient < 0)
+                    {
+                        throw new NotSupportedException();
+                    }
+                }
+                string rightSide = onlyPath.Substring(indexOfCefClient);
+                //string replaceName = onlyPath.Replace("D:\\projects\\cef_binary_3.2623.1399\\cefclient", newPathName);
+                string replaceName = newPathName + rightSide;
 
 
                 pfile.OriginalFileName = replaceName + "//" + onlyFileName;
-
                 pfile.PatchContent();
             }
 
 
             ManualPatcher manualPatcher = new ManualPatcher(newPathName);
-            manualPatcher.CopyExtensionSources();
+
+            string extTargetDir = newPathName + "\\cefclient\\myext";
+            manualPatcher.CopyExtensionSources(extTargetDir);
             manualPatcher.Do_CMake_txt();
 
+            //bool is3_2704 = true;
+            //if (is3_2704)
+            //{
+            //    string extTargetDir = newPathName + "\\cefclient\\myext";
+            //    manualPatcher.CopyExtensionSources(extTargetDir);
+            //    manualPatcher.Do_CMake_txt_New_3_2704_up();
+            //}
+            //else
+            //{
+            //    string extTargetDir = newPathName + "\\myext";
+            //    manualPatcher.CopyExtensionSources(extTargetDir);
+            //    manualPatcher.Do_CMake_txt_old(); ;
+            //}
+
+        }
+
+        private void cmdMacBuildPatchesFromSrc_Click(object sender, EventArgs e)
+        {
+
+            string srcRootDir = @"D:\projects\cef_binary_3.3071.1647.macos\tests\cefclient";
+
+            PatchBuilder builder = new PatchBuilder(new string[]{
+                srcRootDir,
+                @"D:\projects\cef_binary_3.3071.1647.macos\tests\shared"
+            });
+            builder.MakePatch();
+
+            //2. save patch to...
+            string saveFolder = "d:\\WImageTest\\cefbridge_patches_mac";
+            builder.Save(saveFolder);
+
+            ////3. test load those patches
+            //PatchBuilder builder2 = new PatchBuilder(srcRootDir);
+            //builder2.LoadPatchesFromFolder(saveFolder);
+
+            //----------
+            //copy extension code          
+            CopyFileInFolder(saveFolder,
+                @"D:\projects\CefBridge\NativePatcher\cefbridge_patches_mac"
+               );
+            //copy ext from actual src 
+            CopyFileInFolder(srcRootDir + "\\myext",
+                 @"D:\projects\CefBridge\NativePatcher\BridgeBuilder\Patcher_ExtCode_mac\myext");
+        }
+
+        private void cmdMacApplyPatches_Click(object sender, EventArgs e)
+        {
+
+
+            //cef_binary_3.3071.1647
+            //string srcRootDir = @"D:\projects\cef_binary_3.3071.1647.win32\tests";
+            string srcRootDir = @"D:\projects\cef_binary_3.3071.1647.macos\tests";
+            string patchSrcFolder = "d:\\WImageTest\\cefbridge_patches_mac";
+
+            PatchBuilder builder2 = new PatchBuilder(new string[]{
+                srcRootDir,
+            });
+            builder2.LoadPatchesFromFolder(patchSrcFolder);
+
+            List<PatchFile> pfiles = builder2.GetAllPatchFiles();
+            string newPathName = srcRootDir;
+
+            for (int i = pfiles.Count - 1; i >= 0; --i)
+            {
+                //can change original filename before patch
+
+                PatchFile pfile = pfiles[i];
+
+                string onlyFileName = System.IO.Path.GetFileName(pfile.OriginalFileName);
+                string onlyPath = System.IO.Path.GetDirectoryName(pfile.OriginalFileName);
+
+                int indexOfCefClient = onlyPath.IndexOf("\\cefclient\\");
+                if (indexOfCefClient < 0)
+                {
+                    indexOfCefClient = onlyPath.IndexOf("\\shared\\");
+                    if (indexOfCefClient < 0)
+                    {
+                        throw new NotSupportedException();
+                    }
+                }
+                string rightSide = onlyPath.Substring(indexOfCefClient);
+                //string replaceName = onlyPath.Replace("D:\\projects\\cef_binary_3.2623.1399\\cefclient", newPathName);
+                string replaceName = newPathName + rightSide;
+                pfile.OriginalFileName = replaceName + "//" + onlyFileName;
+                pfile.PatchContent();
+            }
+
+
+            ManualPatcher manualPatcher = new ManualPatcher(newPathName);
+            string extTargetDir = newPathName + "\\cefclient\\myext";
+            manualPatcher.CopyExtensionSources(extTargetDir);
+            manualPatcher.Do_CMake_txt();
         }
 
         private void button1_Click(object sender, EventArgs e)
         {
+            //string srcFile = @"D:\projects\cef_binary_3.3071.1647.win32\include\cef_browser.h";
+            string srcFile = @"D:\projects\cef_binary_3.3071.1647.win32\include\cef_request_handler.h";
+
+            //
+            Cef3HeaderFileParser headerParser = new Cef3HeaderFileParser();
+            headerParser.Parse(srcFile);
+            CodeCompilationUnit cu = headerParser.Result;
+
+            //
+            List<CodeCompilationUnit> culist = new List<CodeCompilationUnit>();
+            culist.Add(cu);
+            CefTypeCollection cefTypeCollection = new CefTypeCollection();
+            cefTypeCollection.CollectAllTypeDefinitions(culist);
+            //-----------
+
+            TypeTranformPlanner txPlanner = new TypeTranformPlanner();
+            txPlanner.CefTypeCollection = cefTypeCollection;
+
             ApiBuilder apiBuilder = new ApiBuilder();
 
-            string[] excludeFileNames = new string[]{
-                "ctocpp.h",
-                "cef_base.h",
-                "cef_runnable.h",
-                "cef_helpers.h"
-            };
+            int j = cu.Members.Count;
+            for (int i = 0; i < j; ++i)
+            {
+                CodeTypeDeclaration typedecl = cu.Members[i];
+                if (typedecl.Name == null)
+                {
+                    continue;
+                }
+                if (typedecl.Name.Contains("Callback"))
+                {
+                    continue;
+                }
 
-            apiBuilder.Build(new string[] {
-                @"D:\projects\CefBridge\cef3\include\wrapper",
-                @"D:\projects\CefBridge\cef3\include",
-                @"D:\projects\CefBridge\cef3\libcef_dll\ctocpp" },
-                excludeFileNames);
+                StringBuilder stbuilder = new StringBuilder();
+                TypeTxInfo typeTxPlan = txPlanner.MakeTransformPlan(typedecl);
+                apiBuilder.GenerateCsType(typeTxPlan, stbuilder);
+                StringBuilder cppPart = new StringBuilder();
+                apiBuilder.GenerateCppPart(typeTxPlan, cppPart);
+
+
+            }
+
         }
-
     }
 }

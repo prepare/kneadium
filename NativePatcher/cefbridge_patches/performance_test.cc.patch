@@ -1,18 +1,28 @@
-//###_ORIGINAL D:\projects\cef_binary_3.2623.1399\cefclient\renderer//performance_test.cc
-//###_START 7
-class RenderDelegate : public ClientAppRenderer::Delegate {
-//###_FIND_NEXT_LANDMARK 7
-RenderDelegate() {
-//###_FIND_NEXT_LANDMARK 7
+//###_ORIGINAL D:\projects\cef_binary_3.3071.1647.win32\tests\cefclient\renderer//performance_test.cc
+//###_BEGIN 0
+//###_PRE
+namespace client {
+//###_PRE
+namespace performance_test {
+#include "tests/cefclient/myext/mycef_buildconfig.h"
+#if BUILD_TEST
+//###_POST
+// Use more interations for a Release build.
+//###_POST
+#if DCHECK_IS_ON()
+//###_END 0
+//###_BEGIN 0
+//###_PRE
+V8_PROPERTY_ATTRIBUTE_READONLY);
+//###_PRE
 }
-//###_APPEND_START 7
-virtual void OnWebKitInitialized(CefRefPtr<ClientAppRenderer> app) { 
+virtual void OnWebKitInitialized(CefRefPtr<ClientAppRenderer> app) {
 if (app->myMxCallback_) {
 MethodArgs metArgs;
 memset(&metArgs, 0, sizeof(MethodArgs));
 metArgs.SetArgAsNativeObject(0, app.get());
-app->myMxCallback_(CEF_MSG_RenderDelegate_OnWebKitInitialized, &metArgs); 
-} 
+app->myMxCallback_(CEF_MSG_RenderDelegate_OnWebKitInitialized, &metArgs);
+}
 }
 virtual void OnContextReleased(CefRefPtr<ClientAppRenderer> app,
 CefRefPtr<CefBrowser> browser,
@@ -27,53 +37,30 @@ memset(&metArgs, 0, sizeof(MethodArgs));
 
 metArgs.SetArgAsNativeObject(0, app.get());
 metArgs.SetArgAsNativeObject(1, browser.get());
-metArgs.SetArgAsNativeObject(2, frame.get()); 
+metArgs.SetArgAsNativeObject(2, frame.get());
 metArgs.SetArgAsNativeObject(3, context.get());
 
 app->myMxCallback_(CEF_MSG_RenderDelegate_OnContextReleased, &metArgs);
 
 }
 }
-//###_APPEND_STOP
-//###_START 0
-virtual void OnContextCreated(CefRefPtr<ClientAppRenderer> app,
-//###_FIND_NEXT_LANDMARK 0
-CefRefPtr<CefV8Context> context) OVERRIDE {
-//###_APPEND_START 0
-if (app->myMxCallback_)
-{
-//expose all to managed side
-//browser,frame and context ?  
-MethodArgs metArgs;
-memset(&metArgs, 0, sizeof(MethodArgs));
-metArgs.SetArgAsNativeObject(0, app.get());
-metArgs.SetArgAsNativeObject(1, browser.get());
-metArgs.SetArgAsNativeObject(2, frame.get());
-context->AddRef();
-metArgs.SetArgAsNativeObject(3, context.get());
-
-app->myMxCallback_(CEF_MSG_RenderDelegate_OnContextCreated, &metArgs);
+//###_POST
+private:
+//###_POST
+IMPLEMENT_REFCOUNTING(RenderDelegate);
+//###_END 0
+//###_BEGIN 0
+//###_PRE
+delegates.insert(new RenderDelegate);
+//###_PRE
+}
+#else
+void CreateDelegates(ClientAppRenderer::DelegateSet& delegates) {
 
 }
-else {
-
-//MessageBox(0, L"context-created:mx callback is not set", L"context-created:mx callback is not set", 0);
-//single handler for 3 external methods
-
-CefRefPtr<CefV8Value> object = context->GetGlobal();
-CefRefPtr<CefV8Handler> handler = new V8Handler();
-
-// Bind test functions.
-object->SetValue(kGetPerfTests,
-CefV8Value::CreateFunction(kGetPerfTests, handler),
-V8_PROPERTY_ATTRIBUTE_READONLY);
-object->SetValue(kRunPerfTest,
-CefV8Value::CreateFunction(kRunPerfTest, handler),
-V8_PROPERTY_ATTRIBUTE_READONLY);
-object->SetValue(kPerfTestReturnValue,
-CefV8Value::CreateFunction(kPerfTestReturnValue, handler),
-V8_PROPERTY_ATTRIBUTE_READONLY);
-}
-//###_APPEND_STOP
-//###_SKIP_UNTIL_AND_ACCEPT 0
-}
+#endif //BUILD_TEST
+//###_POST
+}  // namespace performance_test
+//###_POST
+}  // namespace client
+//###_END 0

@@ -1,4 +1,4 @@
-﻿//2016, MIT, WinterDev
+﻿//MIT, 2016-2017 ,WinterDev
 
 using System;
 using System.Text;
@@ -14,25 +14,23 @@ namespace BridgeBuilder
         List<string> filenames = new List<string>();
         List<PatchFile> pfiles = new List<PatchFile>();
         //extension to be patch
-        string[] fileExts = new string[] { ".cpp", ".h", ".cc" };
-
-
-        public PatchBuilder(string rootdir)
+        string[] fileExts = new string[] { ".cpp", ".h", ".cc",".mm" };
+        string[] srcFolders;
+        public PatchBuilder(string[] srcFolders)
         {
-            this.RootDir = rootdir;
+            this.srcFolders = srcFolders;
         }
-        public string RootDir
-        {
-            get;
-            set;
-        }
+      
         public void MakePatch()
         {
             //from root dir
             //just find line with specific values
             pfiles.Clear();
             filenames.Clear();
-            CollectFilesRecursive(this.RootDir);
+            foreach (string srcFolder in this.srcFolders)
+            {
+                CollectFilesRecursive(srcFolder);
+            }            
             //--------------------------------------
             for (int i = filenames.Count - 1; i >= 0; --i)
             {

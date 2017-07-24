@@ -1,0 +1,49 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>Exe</OutputType>
+    <TargetFramework>netcoreapp1.1</TargetFramework>
+    <RuntimeIdentifiers>win7-x64;win10-x64;osx.10.11-x64</RuntimeIdentifiers>
+  </PropertyGroup>
+   
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <AllowUnsafeBlocks>True</AllowUnsafeBlocks>
+    <Prefer32Bit>True</Prefer32Bit>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
+    <AllowUnsafeBlocks>True</AllowUnsafeBlocks>
+  </PropertyGroup>
+ 
+    
+  <ItemGroup>
+    <Compile Include="..\CefBridge\Cef3Binder.cs" Link="Cef\Cef3Binder.cs" />
+    <Compile Include="..\CefBridge\Cef3InitEssential.cs" Link="Cef\Cef3InitEssential.cs" />
+    <Compile Include="..\CefBridge\Cef3WinForms.cs" Link="Cef\Cef3WinForms.cs" />
+    <Compile Include="..\CefBridge\CefListeners.cs" Link="Cef\CefListeners.cs" />
+    <Compile Include="..\CefBridge\CefStartArgs.cs" Link="Cef\CefStartArgs.cs" />
+    <Compile Include="..\CefBridge\ClientApp.cs" Link="Cef\ClientApp.cs" />
+    <Compile Include="..\CefBridge\CustomSchemeAgent.cs" Link="Cef\CustomSchemeAgent.cs" />
+    <Compile Include="..\CefBridge\MyCefBrowser.cs" Link="Cef\MyCefBrowser.cs" />
+    <Compile Include="..\CefBridge\MyCefDevWindow.cs" Link="Cef\MyCefDevWindow.cs" />
+    <Compile Include="..\CefBridge\NativeCallArgs.cs" Link="Cef\NativeCallArgs.cs" />
+    <Compile Include="..\CefBridge\NativeCefObjects.cs" Link="Cef\NativeCefObjects.cs" />
+    <Compile Include="..\CefBridge\ReferencePaths.cs" Link="Cef\ReferencePaths.cs" />
+    <Compile Include="..\CefBridge\WindowWrapper.cs" Link="Cef\WindowWrapper.cs" />
+    <Compile Include="..\CefBrowserOnGlfw\CefBridge\MyCef3InitEssential.cs" Link="CefBridge\MyCef3InitEssential.cs" />
+    <Compile Include="..\CefBrowserOnGlfw\CefBridge\WindowControlImpl.cs" Link="CefBridge\WindowControlImpl.cs" />
+    <Compile Include="..\CefBrowser\CefBridge\MyCefRenderProcessListener.cs" Link="CefBridge\MyCefRenderProcessListener.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Cef\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\PixelFarm-dev\a_mini\projects\PixelFarm\PixelFarm.MiniOpenTK.NetCore\PixelFarm.MiniOpenTK.NetCore.csproj" />
+    <ProjectReference Include="..\..\PixelFarm-dev\a_mini\projects\PixelFarm\PixelFarm.NativeWindows.NetCore\PixelFarm.NativeWindows.NetCore.csproj" />
+  </ItemGroup>
+
+
+</Project>

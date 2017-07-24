@@ -1,6 +1,7 @@
-//###_ORIGINAL D:\projects\cef_binary_3.2623.1399\cefclient\common//client_app.cc
-//###_START 0
+//###_ORIGINAL D:\projects\cef_binary_3.3071.1647.win32\tests\shared\common//client_app.cc
+//###_START 0 -X
 ClientApp::ClientApp() {
 //###_APPEND_START 0
-myMxCallback_= NULL;
+myMxCallback_ = NULL;
+}
 //###_APPEND_STOP

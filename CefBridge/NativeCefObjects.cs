@@ -1,10 +1,10 @@
-﻿//2015-2016 MIT, WinterDev
+﻿//MIT, 2015-2017, WinterDev
+
 using System;
 using System.Collections.Generic;
 using System.Runtime.InteropServices;
 namespace LayoutFarm.CefBridge
 {
-
     public enum CefV8PropertyAttribute
     {
         //from cef_types.h
@@ -34,10 +34,8 @@ namespace LayoutFarm.CefBridge
 
     public class Cef3FuncHandler : Cef3RefCountingValue
     {
-
         private Cef3FuncHandler(IntPtr ptr) : base(ptr)
         {
-
         }
 
         public static Cef3FuncHandler CreateFuncHandler(MyCefCallback cefCallback)
@@ -51,10 +49,8 @@ namespace LayoutFarm.CefBridge
 
     public class Cef3Func : Cef3RefCountingValue
     {
-
         public Cef3Func(IntPtr ptr) : base(ptr)
         {
-
         }
         public static Cef3Func CreateFunc(string name, Cef3FuncHandler funcHandler)
         {
@@ -91,7 +87,6 @@ namespace LayoutFarm.CefBridge
         public NativeJsContext(IntPtr ptr)
             : base(ptr)
         {
-
         }
         /// <summary>
         /// get global object
@@ -118,22 +113,23 @@ namespace LayoutFarm.CefBridge
         {
             Cef3Binder.MyCefJs_ExitContext(this.Ptr);
         }
-
     }
 
     public class CefV8Value : Cef3RefCountingValue
     {
-
         public CefV8Value(IntPtr ptr) : base(ptr)
         {
             if (ptr == IntPtr.Zero)
             {
-
             }
         }
         public void Set(string key, Cef3Func cef3Func)
         {
-            Cef3Binder.MyCefJs_CefV8Value_SetValue_ByString(this.Ptr, key, cef3Func.Ptr, (int)CefV8PropertyAttribute.V8_PROPERTY_ATTRIBUTE_READONLY);
+            Cef3Binder.MyCefJs_CefV8Value_SetValue_ByString(
+                this.Ptr,
+                key,
+                cef3Func.Ptr,
+                (int)CefV8PropertyAttribute.V8_PROPERTY_ATTRIBUTE_READONLY);
         }
         public bool IsFunc()
         {
@@ -142,7 +138,6 @@ namespace LayoutFarm.CefBridge
         public string ReadValueAsString()
         {
             const int BUFF_LEN = 512;
-
             char[] charBuff = new char[BUFF_LEN];
             unsafe
             {
@@ -157,63 +152,90 @@ namespace LayoutFarm.CefBridge
                     return new string(charBuff, 0, actualLen);
                 }
             }
-
         }
     }
 
-    [StructLayout(LayoutKind.Explicit)]
-    public struct JsValue
+
+    //struct jsvalue
+    //{
+    //    int32_t type; //type and flags
+    //                  //this for 32 bits values, also be used as string len, array len  and index to managed slot index
+    //    int32_t i32;
+    //    // native ptr (may point to native object, native array, native string)
+    //    void* ptr; //uint16_t* or jsvalue**   arr or 
+    //               //store float or double
+    //    double num;
+    //    //store 64 bits value
+    //    int64_t i64;
+    //};
+
+    //---------------------------------------
+    //2017-06-04
+    //1. for internal inter-op only -> always be private
+    //for inter-op with native lib, .net core on macOS x64 dose not support explicit layout
+    //so we need sequential layout
+    //2. this is a quite large object, and is designed to be used on stack,
+    //pass by reference to native side
+    //---------------------------------------
+    /// <summary>
+    /// for internal inter-op only -> always be private,used on stack,pass by reference
+    /// </summary>
+    [StructLayout(LayoutKind.Sequential)]
+    struct JsValue
     {
-        [FieldOffset(0)]
-        public int I32;
-        [FieldOffset(0)]
-        public long I64;
-        [FieldOffset(0)]
-        public double Num;
         /// <summary>
-        /// ptr from native side
+        /// type and flags
         /// </summary>
-        [FieldOffset(0)]
-        public IntPtr Ptr;
-
-        /// <summary>
-        /// offset(8)See JsValueType, marshaled as integer. 
-        /// </summary>
-        [FieldOffset(8)]
         public JsValueType Type;
-
         /// <summary>
-        /// offset(12) Length of array or string 
+        /// this for 32 bits values, also be used as string len, array len  and index to managed slot index
         /// </summary>
-        [FieldOffset(12)]
-        public int Length;
+        public int I32;//
         /// <summary>
-        /// offset(12) managed object keepalive index. 
+        /// native ptr (may point to native object, native array, native string)
         /// </summary>
-        [FieldOffset(12)]
-        public int Index;
-        public static JsValue Null
-        {
-            get { return new JsValue() { Type = JsValueType.Null }; }
-        }
+        public IntPtr Ptr;
+        /// <summary>
+        /// store float or double
+        /// </summary>
+        public double Num;// 
+        /// <summary>
+        /// store 64 bits value
+        /// </summary>
+        public long I64;// 
 
-        public static JsValue Empty
-        {
-            get { return new JsValue() { Type = JsValueType.Empty }; }
-        }
+                        //--------------------------------
 
-        public static JsValue Error(int slot)
-        {
-            return new JsValue { Type = JsValueType.ManagedError, Index = slot };
-        }
-
-        public override string ToString()
-        {
-            return string.Format("[JsValue({0})]", Type);
-        }
     }
+
     public enum JsValueType
     {
+
+        //#define JSVALUE_TYPE_UNKNOWN_ERROR  -1
+        //#define JSVALUE_TYPE_EMPTY			 0
+        //#define JSVALUE_TYPE_NULL            1
+        //#define JSVALUE_TYPE_BOOLEAN         2
+        //#define JSVALUE_TYPE_INTEGER         3
+        //#define JSVALUE_TYPE_NUMBER          4
+        //#define JSVALUE_TYPE_STRING          5 //unicode string
+        //#define JSVALUE_TYPE_DATE            6
+        //#define JSVALUE_TYPE_INDEX           7
+        //#define JSVALUE_TYPE_ARRAY          10
+        //#define JSVALUE_TYPE_STRING_ERROR   11
+        //#define JSVALUE_TYPE_MANAGED        12
+        //#define JSVALUE_TYPE_MANAGED_ERROR  13
+        //#define JSVALUE_TYPE_WRAPPED        14
+        //#define JSVALUE_TYPE_DICT           15
+        //#define JSVALUE_TYPE_ERROR          16
+        //#define JSVALUE_TYPE_FUNCTION       17
+
+        //#define JSVALUE_TYPE_JSTYPEDEF      18 //my extension
+        //#define JSVALUE_TYPE_INTEGER64      19 //my extension
+        //#define JSVALUE_TYPE_BUFFER         20 //my extension
+
+        //#define JSVALUE_TYPE_NATIVE_CEFSTRING 30  //my extension
+        //#define JSVALUE_TYPE_MEM_ERROR      50 //my extension
+
         UnknownError = -1,
         Empty = 0,
         Null = 1,
@@ -231,10 +253,14 @@ namespace LayoutFarm.CefBridge
         Dictionary = 15,
         Error = 16,
         Function = 17,
-
         //---------------
         //my extension
-        JsTypeWrap = 18
+        JsTypeWrap = 18,
+        Int64 = 19,
+        Buffer = 20,
+        NativeCefString = 30,
+        MemError = 50,
+
     }
     public class NativeBrowser : Cef3RefCountingValue
     {
@@ -243,25 +269,23 @@ namespace LayoutFarm.CefBridge
         }
         public void ExecJavascript(string src, string url)
         {
-            Cef3Binder.MyCefBwExecJavascript2(this.Ptr, src, url);
+            throw new NotSupportedException();
         }
     }
     public class NativeFrame : Cef3RefCountingValue
     {
         public NativeFrame(IntPtr ptr) : base(ptr)
         {
-
         }
         public NativeJsContext GetFrameContext()
         {
-            return new NativeJsContext(Cef3Binder.MyCefJsFrameContext(this.Ptr));
-
+            return new NativeJsContext(Cef3Binder.MyCefFrame_GetContext(this.Ptr));
         }
         public string GetUrl()
         {
-
             unsafe
             {
+                //get url, in this version max size =255?
                 char[] buffer = new char[255];
                 int actualLength = 0;
                 fixed (char* buffer_head = &buffer[0])
@@ -276,23 +300,18 @@ namespace LayoutFarm.CefBridge
     {
         public NativeRendererApp(IntPtr ptr) : base(ptr)
         {
-
         }
     }
     public class NativeResourceMx : Cef3RefCountingValue
     {
         public NativeResourceMx(IntPtr ptr) : base(ptr)
         {
-
         }
         public void AddResourceProvider(ResourceProvider resProvider)
         {
-
-
         }
     }
     public class ResourceProvider
     {
-
     }
 }

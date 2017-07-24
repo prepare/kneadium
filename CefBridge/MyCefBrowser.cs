@@ -1,56 +1,61 @@
-﻿//2015-2016 MIT, WinterDev
+﻿//MIT, 2015-2017, WinterDev
+
 using System;
 using System.Collections.Generic;
-using System.Text;
-using System.Runtime.InteropServices;
-using System.IO;
-
-
 namespace LayoutFarm.CefBridge
 {
-
-
     public class MyCefBrowser
     {
-
         public event EventHandler BrowserDisposed;
         IntPtr myCefBrowser;
         MyCefCallback managedCallback;
-
         string currentUrl = "about:blank";
         IWindowControl parentControl;
         IWindowForm topForm;
         IWindowForm devForm;
         MyCefDevWindow cefDevWindow;
         CefUIProcessListener browserProcessListener;
-
-        static Dictionary<IntPtr, List<MyCefBrowser>> registeredWbControls =
-                    new Dictionary<IntPtr, List<MyCefBrowser>>();
-
-
+        CefOsrListener cefOsrListener;
+        List<MyCefCallback> keepAliveCallBack = new List<MyCefCallback>();
+        //----
 
         public MyCefBrowser(IWindowControl parentControl,
-            int x, int y, int w, int h, string initUrl)
+            int x, int y, int w, int h, string initUrl, bool isOsr)
         {
             this.currentUrl = initUrl;
             //create cef browser view handler  
             this.parentControl = parentControl;
-
-
-            this.topForm = (IWindowForm)parentControl.GetTopLevelControl();
-
+            this.topForm = parentControl.GetTopLevelControl() as IWindowForm;
             //ui process ***
             this.managedCallback = new MyCefCallback(this.MxCallBack);
-            //for specific browser 
-            this.myCefBrowser = Cef3Binder.MyCefCreateMyWebBrowser(managedCallback);
+            //for specific browser
+            if (this.IsOsr = isOsr)
+            {
+                this.myCefBrowser = Cef3Binder.MyCefCreateMyWebBrowserOSR(managedCallback);
+                Cef3Binder.MyCefSetupBrowserHwndOSR(myCefBrowser, parentControl.GetHandle(), x, y, w, h, initUrl, IntPtr.Zero);
+            }
+            else
+            {
+                this.myCefBrowser = Cef3Binder.MyCefCreateMyWebBrowser(managedCallback);
+                Cef3Binder.MyCefSetupBrowserHwnd(myCefBrowser, parentControl.GetHandle(), x, y, w, h, initUrl, IntPtr.Zero);
+            }
 
-            Cef3Binder.MyCefSetupBrowserHwnd(myCefBrowser, parentControl.GetHandle(), x, y, w, h, initUrl);
-            Cef3Binder.MyCefEnableKeyIntercept(myCefBrowser, 1);
+
+            Cef3Binder.MyCefBwCall(this.myCefBrowser, CefBwCallMsg.CefBw_MyCef_EnableKeyIntercept, 1);
 
             //register mycef browser
             RegisterCefWbControl(this);
         }
-
+        public bool IsOsr
+        {
+            get;
+            private set;
+        }
+        public CefOsrListener OsrListener
+        {
+            get { return cefOsrListener; }
+            set { cefOsrListener = value; }
+        }
         public CefUIProcessListener Listener
         {
             get { return browserProcessListener; }
@@ -73,8 +78,15 @@ namespace LayoutFarm.CefBridge
                 case MyCefMsg.CEF_MSG_ClientHandler_NotifyBrowserCreated:
                     {
                         IsBrowserCreated = true;
+
                     }
                     break;
+                case MyCefMsg.CEF_MSG_ClientHandler_NotifyBrowserClosing:
+                    {
+
+                    }
+                    break;
+
                 case MyCefMsg.CEF_MSG_ClientHandler_NotifyBrowserClosed:
                     {
                         if (this.devForm != null)
@@ -91,12 +103,29 @@ namespace LayoutFarm.CefBridge
                     break;
                 case MyCefMsg.CEF_MSG_ClientHandler_OnBeforeContextMenu:
                     {
+                    }
+                    break;
+                case MyCefMsg.CEF_MSG_ClientHandler_BeforeDownload:
+                    {
+                        //handle download path here
+                        NativeCallArgs metArgs = new NativeCallArgs(argsPtr);
+                        string pathName = metArgs.GetArgAsString(2);
 
+                    }
+                    break;
+                case MyCefMsg.CEF_MSG_ClientHandler_DownloadUpdated:
+                    {
+                        //this version we notify back 
+                        //when 
+                        NativeCallArgs metArgs = new NativeCallArgs(argsPtr);
+                        if (browserProcessListener != null)
+                        {
+                            browserProcessListener.OnDownloadCompleted(metArgs);
+                        }
                     }
                     break;
                 case MyCefMsg.CEF_MSG_ClientHandler_OnBeforePopup:
                     {
-
                         NativeCallArgs args = new NativeCallArgs(argsPtr);
                         //open new form with specific url
                         string url = args.GetArgAsString(0);
@@ -106,7 +135,6 @@ namespace LayoutFarm.CefBridge
                             form.Show();
                             //and navigate to a specific url 
                         });
-
                     }
                     break;
                 case MyCefMsg.CEF_MSG_ClientHandler_OnConsoleMessage:
@@ -118,7 +146,6 @@ namespace LayoutFarm.CefBridge
                             NativeCallArgs args = new NativeCallArgs(argsPtr);
                             browserProcessListener.OnConsoleLog(args);
                         }
-
                     }
                     break;
                 case MyCefMsg.CEF_MSG_ClientHandler_ShowDevTools:
@@ -129,7 +156,6 @@ namespace LayoutFarm.CefBridge
                             IWindowForm newPopupForm = Cef3Binder.CreateNewBrowserWindow(800, 600);
                             newPopupForm.Show();
                         });
-
                     }
                     break;
                 case MyCefMsg.CEF_MSG_ClientHandler_OnLoadError:
@@ -147,6 +173,27 @@ namespace LayoutFarm.CefBridge
                         LoadErrorPage(cefBrowser, cefFrame, errorCode, errorText, failedUrl);
                     }
                     break;
+                case MyCefMsg.CEF_MSG_ClientHandler_OnCertError:
+                    {
+                        var args = new NativeCallArgs(argsPtr);
+                        string certErrMsg = args.GetArgAsString(0);
+                        args.SetOutput(0, 1);//true
+                    }
+                    break;
+                case MyCefMsg.CEF_MSG_ClientHandler_ExecCustomProtocol:
+                    {
+                        //disable all protocol
+                        var args = new NativeCallArgs(argsPtr);
+                        if (browserProcessListener != null)
+                        {
+                            browserProcessListener.OnExecProtocol(args);
+                        }
+                        else
+                        {
+                            args.SetOutput(0, 0);//disable all protocol
+                        }
+                    }
+                    break;
                 case MyCefMsg.CEF_MSG_ClientHandler_SetResourceManager:
                     {
                         //setup resource mx
@@ -160,7 +207,6 @@ namespace LayoutFarm.CefBridge
                     break;
                 case MyCefMsg.CEF_MSG_RequestUrlFilter2:
                     {
-
                         //filter url name
                         if (browserProcessListener != null)
                         {
@@ -189,13 +235,13 @@ namespace LayoutFarm.CefBridge
                             QueryRequestArgs reqArgs = QueryRequestArgs.CreateRequest(args.GetArgAsNativePtr(0));
                             browserProcessListener.OnCefQuery(args, reqArgs);
                         }
-
                     }
                     break;
                 //------------------------------
                 case MyCefMsg.CEF_MSG_ClientHandler_OnPreKeyEvent: //on PreKey
                     {
-                        // Console.WriteLine("on pre key");
+                        //Console.WriteLine("on pre key");
+                        //NavigateTo("https://html5test.com");
                     }
                     break;
                 //------------------------------
@@ -215,10 +261,25 @@ namespace LayoutFarm.CefBridge
                         // Console.WriteLine("address changed:" + newtitle);
                     }
                     break;
+                //------------------------------
+                case MyCefMsg.CEF_MSG_OSR_Render:
+                    {
+                        //receive rendere msg
+                        var args = new NativeCallArgs(argsPtr);
+                        //copy bits buffer and store to files  
+                        if (cefOsrListener != null)
+                        {
+                            cefOsrListener.OnRender(args);
+                        }
+
+                    }
+                    break;
             }
         }
         void LoadErrorPage(IntPtr cefBw, IntPtr cefFrame, int errorCode, string errorText, string failedUrl)
         {
+
+
             //ss << "<html><head><title>Page failed to load</title></head>" 
             //    "<body bgcolor=\"white\">" 
             //    "<h3>Page failed to load.</h3>" 
@@ -239,12 +300,35 @@ namespace LayoutFarm.CefBridge
             currentUrl = url;
             if (IsBrowserCreated)
             {
-                Cef3Binder.MyCefBwNavigateTo(this.myCefBrowser, url);
+                JsValue a0 = new JsValue();
+                JsValue a1 = new JsValue();
+                JsValue ret;
+                //
+                var cefStr = NativeMyCefStringHolder.CreateHolder(url);
+                a0.Ptr = cefStr.nativePtr;
+                Cef3Binder.MyCefBwCall2(myCefBrowser, (int)CefBwCallMsg.CefBw_GetMainFrame_LoadURL, out ret, ref a0, ref a1);
+                cefStr.Dispose();
+
             }
         }
         public void ExecJavascript(string src, string scriptUrl)
         {
-            Cef3Binder.MyCefBwExecJavascript(this.myCefBrowser, src, scriptUrl);
+            JsValue a0 = new JsValue();
+            JsValue a1 = new JsValue();
+            JsValue ret;
+
+
+            var v_url = NativeMyCefStringHolder.CreateHolder(scriptUrl);
+            var v_src = NativeMyCefStringHolder.CreateHolder(src);
+
+            a0.Ptr = v_src.nativePtr;
+            a1.Ptr = v_url.nativePtr;
+
+            Cef3Binder.MyCefBwCall2(this.myCefBrowser, (int)CefBwCallMsg.CefBw_ExecJs, out ret, ref a0, ref a1);
+
+            v_url.Dispose();
+            v_src.Dispose();
+
         }
         public void PostData(string url, byte[] data, int len)
         {
@@ -252,17 +336,22 @@ namespace LayoutFarm.CefBridge
         }
         public void SetSize(int w, int h)
         {
-            Cef3Binder.MyCefSetBrowserSize(this.myCefBrowser, w, h);
+            JsValue a0 = new JsValue();
+            a0.I32 = w;
+            JsValue a1 = new JsValue();
+            a1.I32 = h;
+            JsValue ret;
+            Cef3Binder.MyCefBwCall2(myCefBrowser, (int)CefBwCallMsg.CefBw_IsSame, out ret, ref a0, ref a1);
         }
-        List<MyCefCallback> keepAliveCallBack = new List<MyCefCallback>();
+
         public void GetText(Action<string> strCallback)
         {
             //keep alive callback
             InternalGetText((id, nativePtr) =>
             {
+
                 var args = new NativeCallArgs(nativePtr);
                 strCallback(args.GetArgAsString(0));
-
             });
             //Cef3Binder.MyCefDomGetTextWalk(this.myCefBrowser, strCallback);
         }
@@ -274,6 +363,22 @@ namespace LayoutFarm.CefBridge
                 var args = new NativeCallArgs(nativePtr);
                 strCallback(args.GetArgAsString(0));
             });
+        }
+        public void GetSource2(Action<string> strCallback)
+        {
+            //keep alive callback
+            InternalGetSource2((id, nativePtr) =>
+            {
+                var args = new NativeCallArgs(nativePtr);
+                strCallback(args.GetArgAsString(0));
+            });
+        }
+        void InternalGetSource2(MyCefCallback strCallback)
+        {
+            //keep alive callback
+            keepAliveCallBack.Add(strCallback);
+            IntPtr cefFrame = Cef3Binder.MyCefBwGetMainFrame(this.myCefBrowser);
+            Cef3Binder.MyCefFrameGetSource(cefFrame, strCallback);
 
         }
         void InternalGetSource(MyCefCallback strCallback)
@@ -291,24 +396,137 @@ namespace LayoutFarm.CefBridge
 
         public void Stop()
         {
-            Cef3Binder.MyCefBwStop(myCefBrowser);
+            JsValue v1 = new JsValue();
+            JsValue v2 = new JsValue();
+            JsValue ret;
+
+            Cef3Binder.MyCefBwCall2(myCefBrowser, (int)CefBwCallMsg.CefBw_StopLoad, out ret, ref v1, ref v2);
         }
         public void GoBack()
         {
-            Cef3Binder.MyCefBwGoBack(myCefBrowser);
+            JsValue v1 = new JsValue();
+            JsValue v2 = new JsValue();
+            JsValue ret;
+
+            Cef3Binder.MyCefBwCall2(myCefBrowser, (int)CefBwCallMsg.CefBw_GoBack, out ret, ref v1, ref v2);
         }
         public void GoForward()
         {
-            Cef3Binder.MyCefBwGoForward(myCefBrowser);
+            JsValue v1 = new JsValue();
+            JsValue v2 = new JsValue();
+            JsValue ret;
+
+            Cef3Binder.MyCefBwCall2(myCefBrowser, (int)CefBwCallMsg.CefBw_GoForward, out ret, ref v1, ref v2);
         }
         public void Reload()
         {
-            Cef3Binder.MyCefBwReload(myCefBrowser);
+            JsValue v1 = new JsValue();
+            JsValue v2 = new JsValue();
+            JsValue ret;
+
+            Cef3Binder.MyCefBwCall2(myCefBrowser, (int)CefBwCallMsg.CefBw_Reload, out ret, ref v1, ref v2);
         }
         public void ReloadIgnoreCache()
         {
-            Cef3Binder.MyCefBwReloadIgnoreCache(myCefBrowser);
+            JsValue v1 = new JsValue();
+            JsValue v2 = new JsValue();
+            JsValue ret;
+
+            Cef3Binder.MyCefBwCall2(myCefBrowser, (int)CefBwCallMsg.CefBw_ReloadIgnoreCache, out ret, ref v1, ref v2);
         }
+        public void dbugTest()
+        {
+
+
+            JsValue ret;
+            JsValue a0 = new JsValue();
+            JsValue a1 = new JsValue();
+            Cef3Binder.MyCefBwCall2(myCefBrowser, 2, out ret, ref a0, ref a1);
+
+            //----------- 
+            Cef3Binder.MyCefBwCall2(myCefBrowser, 4, out ret, ref a0, ref a1);
+            int frameCount = ret.I32;
+
+            ////-----------
+            ////get CefBrowser
+            //Cef3Binder.MyCefBwCall2(myCefBrowser, 5, out ret, ref a0, ref a1);
+            //IntPtr cefBw = ret.Ptr;
+
+            //a0.Ptr = cefBw;
+            //a0.Type = JsValueType.Wrapped;
+            //Cef3Binder.MyCefBwCall2(myCefBrowser, 6, out ret, ref a0, ref a1);
+            ////-----------
+            //create native list 
+            //Cef3Binder.MyCefBwCall2(myCefBrowser, 8, out ret, ref a0, ref a1);
+
+            ////get framename
+            //a0.Ptr = nativelist;
+            //
+            Cef3Binder.MyCefBwCall2(myCefBrowser, 7, out ret, ref a0, ref a1);
+            IntPtr nativelist = a0.Ptr;
+
+            //get list
+            unsafe
+            {
+                int len = ret.I32;
+                JsValue* unsafe_arr = (JsValue*)a0.Ptr;
+                JsValue[] arr = new JsValue[len];
+                for (int i = 0; i < len; ++i)
+                {
+                    arr[i] = unsafe_arr[i];
+                }
+                //delete array result 
+                Cef3Binder.MyCefDeletePtrArray(unsafe_arr);
+            }
+            //------------------
+
+
+            //list count
+            a0.Ptr = nativelist;
+            a0.Type = JsValueType.Wrapped;
+            Cef3Binder.MyCefBwCall2(myCefBrowser, 9, out ret, ref a0, ref a1);
+            //list count
+            int list_count = ret.I32;
+            //delete native ptr
+            //Cef3Binder.MyCefDeletePtr(nativelist);
+            //
+            //list count
+            a0.Ptr = nativelist;
+            a0.Type = JsValueType.Wrapped;
+            //GetFrameIdentifiers
+            Cef3Binder.MyCefBwCall2(myCefBrowser, 10, out ret, ref a0, ref a1);
+            //get list
+            unsafe
+            {
+                int len = a0.I32;
+                JsValue* unsafe_arr = (JsValue*)a0.Ptr;
+                JsValue[] arr = new JsValue[len];
+                for (int i = 0; i < len; ++i)
+                {
+                    arr[i] = unsafe_arr[i];
+                }
+                //delete array result 
+                Cef3Binder.MyCefDeletePtrArray(unsafe_arr);
+            }
+
+            Cef3Binder.MyCefBwCall2(myCefBrowser, 21, out ret, ref a0, ref a1);
+
+            unsafe
+            {
+                int len = ret.I32 + 1; //+1 for null terminated string
+                char* buff = stackalloc char[len];
+                int actualLen = 0;
+                Cef3Binder.MyCefStringHolder_Read(ret.Ptr, buff, len, ref actualLen);
+                string value = new string(buff);
+                Cef3Binder.MyCefDeletePtr(ret.Ptr);
+            }
+
+
+            IntPtr pdfSetting = Cef3Binder.MyCefCreatePdfPrintSetting("{\"header_footer_enabled\":true}");
+
+            //------------------
+        }
+
         public void ShowDevTools()
         {
             if (cefDevWindow == null)
@@ -317,77 +535,133 @@ namespace LayoutFarm.CefBridge
                 IWindowForm devForm = Cef3Binder.CreateBlankForm(800, 600);
                 devForm.Text = "Developer Tool";
                 devForm.Show();
-
                 Cef3Binder.MyCefShowDevTools(this.myCefBrowser,
                     cefDevWindow.GetMyCefBrowser(),
                     devForm.GetHandle());
             }
         }
 
+
+        List<MyCefCallback> tmpCallbacks = new List<MyCefCallback>();
+
+        public void PrintToPdf(string filename)
+        {
+            MyCefCallback cb = null;
+            cb = new MyCefCallback((id, args) =>
+            {
+                //remove after finish
+                var metArg = new NativeCallArgs(args);
+                int isOK = metArg.GetArgAsInt32(0);
+                tmpCallbacks.Remove(cb);
+            });
+            tmpCallbacks.Add(cb);
+            //
+            Cef3Binder.MyCefPrintToPdf(this.myCefBrowser, IntPtr.Zero, filename, cb);
+
+        }
+        public void PrintToPdf(string pdfConfig, string filename)
+        {
+            IntPtr nativePdfConfig = Cef3Binder.MyCefCreatePdfPrintSetting(pdfConfig);
+            MyCefCallback cb = null;
+            cb = new MyCefCallback((id, args) =>
+            {
+                //remove after finish
+                var metArg = new NativeCallArgs(args);
+                int isOK = metArg.GetArgAsInt32(0);
+                tmpCallbacks.Remove(cb);
+            });
+            tmpCallbacks.Add(cb);
+            //
+            Cef3Binder.MyCefPrintToPdf(this.myCefBrowser, nativePdfConfig, filename, cb);
+        }
+        internal void NotifyCloseBw()
+        {
+            this.Stop();
+            Cef3Binder.MyCefCloseMyWebBrowser(myCefBrowser);
+        }
+
+        static Dictionary<IWindowForm, List<MyCefBrowser>> registerTopWindowForms =
+                   new Dictionary<IWindowForm, List<MyCefBrowser>>();
         static readonly object sync_remove = new object();
         static void RegisterCefWbControl(MyCefBrowser cefWb)
         {
-            //register this control with parent form
+            // get top level of this cef browser control
+
             var ownerForm = (IWindowForm)cefWb.ParentControl.GetTopLevelControl();
             List<MyCefBrowser> foundList;
-            IntPtr winHandle = ownerForm.GetHandle();
-            if (!registeredWbControls.TryGetValue(winHandle, out foundList))
+            if (!registerTopWindowForms.TryGetValue(ownerForm, out foundList))
             {
                 foundList = new List<MyCefBrowser>();
-                registeredWbControls.Add(winHandle, foundList);
+                registerTopWindowForms.Add(ownerForm, foundList);
             }
             if (!foundList.Contains(cefWb))
             {
                 foundList.Add(cefWb);
-                cefWb.BrowserDisposed += new EventHandler(cefWb_BrowserDisposed);
+                cefWb.BrowserDisposed += new EventHandler(cefBrowserControl_Disposed);
             }
         }
-        static void cefWb_BrowserDisposed(object sender, EventArgs e)
+
+        public static void DisposeAllChildWebBrowserControls(IWindowForm ownerForm)
         {
-            //when browser is disposed..
-            MyCefBrowser wb = (MyCefBrowser)sender;
-            //remove wb from registerd list
-            List<MyCefBrowser> wblist;
-            IntPtr winHandle = wb.ParentForm.GetHandle();
-            if (registeredWbControls.TryGetValue(winHandle, out wblist))
+
+            //dispose all web browser (child) windows inside this window form             
+            List<MyCefBrowser> foundList;
+            if (registerTopWindowForms.TryGetValue(ownerForm, out foundList))
             {
-                lock (sync_remove)
+                //remove webbrowser controls             
+                for (int i = foundList.Count - 1; i >= 0; --i)
                 {
-                    wblist.Remove(wb);
-                    if (wblist.Count == 0)
+                    MyCefBrowser mycefBw = foundList[i];
+                    IWindowControl wb = mycefBw.ParentControl;
+                    mycefBw.NotifyCloseBw();
+                    //---------------------------------------
+                    var parent = wb.GetParent();
+                    parent.RemoveChild(wb);
+
+                    //this Dispose() will terminate cef_life_time_handle *** 
+                    //after native side dispose the wb control
+                    //it will raise event BrowserDisposed
+                    wb.Dispose();
+
+                    //---------------------------------------
+                }
+                registerTopWindowForms.Remove(ownerForm);
+            }
+        }
+        static void cefBrowserControl_Disposed(object sender, EventArgs e)
+        {
+            //web browser control is disposed 
+            //TODO: review here 
+            MyCefBrowser wb = sender as MyCefBrowser;
+            if (wb != null)
+            {
+                IWindowForm winHandle = wb.ParentForm;
+                List<MyCefBrowser> wblist;
+                if (registerTopWindowForms.TryGetValue(winHandle, out wblist))
+                {
+                    lock (sync_remove)
                     {
-                        registeredWbControls.Remove(winHandle);
+                        wblist.Remove(wb);
                     }
                 }
             }
-        }
-        public static void DisposeCefWbControl(IWindowForm ownerForm)
-        {
-            //register this control with parent form 
-            List<MyCefBrowser> foundList;
-            IntPtr winHandle = ownerForm.GetHandle();
-            if (registeredWbControls.TryGetValue(winHandle, out foundList))
+            else
             {
-                //remove wb controls             
-                for (int i = foundList.Count - 1; i >= 0; --i)
-                {
-                    var wb = foundList[i].ParentControl;
-                    var parent = wb.GetParent();
-                    parent.RemoveChild(wb);
-                    wb.Dispose();
-                }
-
-                registeredWbControls.Remove(winHandle);
-
+                throw new NotSupportedException();
             }
 
         }
-        public static bool IsReadyToClose(IntPtr nativeHandle)
+        public static bool IsReadyToClose(IWindowForm winForm)
         {
-            //register this control with parent form  
+            //ready-to-close winform 
             lock (sync_remove)
             {
-                return !registeredWbControls.ContainsKey(nativeHandle);
+                List<MyCefBrowser> cefBrowserList;
+                if (registerTopWindowForms.TryGetValue(winForm, out cefBrowserList))
+                {
+                    return cefBrowserList.Count == 0;
+                }
+                return true;
             }
         }
 
@@ -447,11 +721,5 @@ namespace LayoutFarm.CefBridge
         //        nativeArgs.SetOutput(1, dataBuffer);
         //    }
         //}
-
     }
-
-
-
-
-
 }

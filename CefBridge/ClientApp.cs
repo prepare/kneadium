@@ -1,28 +1,22 @@
-﻿//2015-2016 MIT, WinterDev
-using System;
+﻿//MIT, 2015-2017, WinterDev
 
+using System;
 namespace LayoutFarm.CefBridge
 {
-
-
     public class CefClientApp
     {
         IntPtr clientAppPtr;
-
         static bool isInitWithProcessHandle;
         static readonly object sync_ = new object();
-
         MyCefCallback mxCallback;
         CefRenderProcessListener renderProcessListener;
 
-
-
-        public CefClientApp(IntPtr processHandle, CefRenderProcessListener renderProcessListener)
+        public CefClientApp(
+            IntPtr processHandle,
+            CefRenderProcessListener renderProcessListener)
         {
-
             this.renderProcessListener = renderProcessListener;
-
-#if DEBUG   
+#if DEBUG
             //dev note: multiprocess debuging: renderer process debugger 
             //if you want to break in the renderer process
             //1. set break point after, MessageBox.Show();
@@ -44,16 +38,14 @@ namespace LayoutFarm.CefBridge
                 if (!isInitWithProcessHandle)
                 {
                     isInitWithProcessHandle = true;
-
-                    //1. register mx callback
-                    this.mxCallback = new MyCefCallback(MxCallBack);
-                    Cef3Binder.RegisterManagedCallBack(this.mxCallback, 3);
-
+                    //1. register mx callback 
+                    Cef3Binder.RegisterManagedCallBack(this.mxCallback = new MyCefCallback(MxCallBack), 3);
                     //2. create client app
                     this.clientAppPtr = Cef3Binder.MyCefCreateClientApp(processHandle);
                 }
             }
         }
+
         void MxCallBack(int id, IntPtr argsPtr)
         {
             switch ((MyCefMsg)id)
@@ -68,7 +60,12 @@ namespace LayoutFarm.CefBridge
                             popupWin.Show();
                         });
                     }
-                    break; 
+                    break;
+                case MyCefMsg.CEF_MSG_ClientHandler_BeforeDownload:
+                    {
+
+                    }
+                    break;
                 case MyCefMsg.CEF_MSG_ClientHandler_ShowDevTools:
                     {
                         //show dev tools
@@ -77,6 +74,24 @@ namespace LayoutFarm.CefBridge
                             IWindowForm newPopupForm = Cef3Binder.CreateNewBrowserWindow(800, 600);
                             newPopupForm.Show();
                         });
+                    }
+                    break;
+                case MyCefMsg.CEF_MSG_CefSettings_Init:
+                    {
+                        InitCefSettings(new CefSettings(argsPtr));
+                    }
+                    break;
+                case MyCefMsg.CEF_MSG_MainContext_GetConsoleLogPath:
+                    {
+
+                        NativeCallArgs nat1 = new NativeCallArgs(argsPtr);
+                        nat1.SetOutputAsAsciiString(0, ReferencePaths.LOG_PATH);
+                    }
+                    break;
+                case MyCefMsg.CEF_MSG_OSR_Render:
+                    {
+                        //not visit here?
+
                     }
                     break;
                 case MyCefMsg.CEF_MSG_RenderDelegate_OnContextCreated:
@@ -89,13 +104,8 @@ namespace LayoutFarm.CefBridge
 
                         if (renderProcessListener != null)
                         {
-                            NativeCallArgs args = new NativeCallArgs(argsPtr);
-                            MyCefContextArgs cefContextArgs = new MyCefContextArgs(args);
-                            //var clientRenderApp = new NativeRendererApp(args.GetArgAsNativePtr(0));
-                            //var browser = new NativeBrowser(args.GetArgAsNativePtr(1));
-                            //var context = new NativeJsContext(args.GetArgAsNativePtr(2));
-
-                            renderProcessListener.OnContextCreated(cefContextArgs);
+                            renderProcessListener.OnContextCreated(
+                                new MyCefContextArgs(new NativeCallArgs(argsPtr)));
                         }
                     }
                     break;
@@ -103,18 +113,13 @@ namespace LayoutFarm.CefBridge
                     {
                         if (renderProcessListener != null)
                         {
-                            NativeCallArgs args = new NativeCallArgs(argsPtr);
-                            MyCefContextArgs cefContextArgs = new MyCefContextArgs(args);
-                            //var clientRenderApp = new NativeRendererApp(args.GetArgAsNativePtr(0));
-                            //var browser = new NativeBrowser(args.GetArgAsNativePtr(1));
-                            //var context = new NativeJsContext(args.GetArgAsNativePtr(2));
-                            renderProcessListener.OnContextReleased(cefContextArgs);
+                            renderProcessListener.OnContextReleased(
+                                new MyCefContextArgs(new NativeCallArgs(argsPtr)));
                         }
                     }
                     break;
                 case MyCefMsg.CEF_MSG_RenderDelegate_OnWebKitInitialized:
                     {
-
                         if (renderProcessListener != null)
                         {
                             NativeCallArgs args = new NativeCallArgs(argsPtr);
@@ -124,6 +129,14 @@ namespace LayoutFarm.CefBridge
                     break;
             }
         }
-    }
 
+        protected void InitCefSettings(CefSettings cefSettings)
+        {
+            if (ReferencePaths.SUB_PROCESS_PATH != null)
+            {
+                cefSettings.SetSubProcessPath(ReferencePaths.SUB_PROCESS_PATH);
+            }
+            cefSettings.SetCachePath(ReferencePaths.CACHE_PATH);
+        }
+    }
 }

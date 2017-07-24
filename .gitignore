@@ -9,7 +9,7 @@ test-results/
 # Build Folders (you can keep bin if you'd like, to store dlls and pdbs)
 [Bb]in/
 [Oo]bj/
-
+_output
 # mstest test results
 TestResults
 
@@ -23,6 +23,7 @@ TestResults
 
 # Build results
 cef3_output/
+cef3_2704output/
 [Dd]ebug/
 [Rr]elease/
 x64/
@@ -48,3 +49,5 @@ x64/
 *.opensdf
 *.ipch
 .builds
+*.VC.db
+*.VC.opendb
