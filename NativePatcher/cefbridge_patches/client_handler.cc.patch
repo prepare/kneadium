@@ -1,4 +1,15 @@
-//###_ORIGINAL D:\projects\cef_binary_3.3071.1647.win64\tests\cefclient\browser//client_handler.cc
+//###_ORIGINAL D:\projects\cef_binary_3.3071.1647.win32\tests\cefclient\browser//client_handler.cc
+//###_BEGIN 0
+//###_PRE
+#include <sstream>
+//###_PRE
+#include <string>
+#include "tests/cefclient/myext/mycef_buildconfig.h" 
+//###_POST
+#include "include/base/cef_bind.h"
+//###_POST
+#include "include/cef_browser.h"
+//###_END 0
 //###_START 0
 ClientHandler::ClientHandler(Delegate* delegate,
 //###_FIND_NEXT_LANDMARK 0
@@ -139,7 +150,7 @@ browser,
 }
 //###_APPEND_STOP
 //###_SKIP_UNTIL_AND_ACCEPT 8
-
+}
 //###_START 3
 // Allow geolocation access from all websites.
 //###_APPEND_START 3
@@ -213,6 +224,58 @@ settings);
 //###_APPEND_STOP
 //###_SKIP_UNTIL_AND_ACCEPT 4
 }
+//###_BEGIN 0
+//###_PRE
+}
+class MyCefJsHandler : public CefMessageRouterBrowserSide::Handler {
+public:
+
+managed_callback mcallback_;//my extension
+MyCefJsHandler() {}
+
+virtual bool OnQuery(CefRefPtr<CefBrowser> browser,
+CefRefPtr<CefFrame> frame,
+int64 query_id,
+const CefString& request,
+bool persistent,
+CefRefPtr<Callback> callback) OVERRIDE {
+CEF_REQUIRE_UI_THREAD();
+
+//const std::string& request_str = request;
+if (this->mcallback_)
+{
+QueryRequestArgs queryReq;
+memset(&queryReq, 0, sizeof(QueryRequestArgs));
+queryReq.browser = browser.get();
+queryReq.frame = frame.get();
+queryReq.query_id = query_id;
+
+
+MyCefStringHolder mystr;
+mystr.value = request;
+queryReq.request = &mystr;
+queryReq.persistent = persistent;
+queryReq.callback = callback.get();
+
+MethodArgs args;
+memset(&args, 0, sizeof(MethodArgs));
+args.SetArgAsNativeObject(0, &queryReq);
+this->mcallback_(CEF_MSG_OnQuery, &args);
+
+//auto result = args.ReadOutputAsString(0);
+CefString cefstr = args.ReadOutputAsString(0);
+callback->Success(cefstr);
+
+return true;
+}
+return false;
+}
+};
+//###_POST
+//###_START 5
+//###_POST
+void ClientHandler::OnAfterCreated(CefRefPtr<CefBrowser> browser) {
+//###_END 0
 //###_START 5
 void ClientHandler::OnAfterCreated(CefRefPtr<CefBrowser> browser) {
 //###_FIND_NEXT_LANDMARK 5

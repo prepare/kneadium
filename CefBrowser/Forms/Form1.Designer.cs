@@ -43,16 +43,18 @@
             this.cmdReloadIgnoreCache = new System.Windows.Forms.Button();
             this.button14 = new System.Windows.Forms.Button();
             this.splitContainer1 = new System.Windows.Forms.SplitContainer();
+            this.cefWebBrowser1 = new LayoutFarm.CefBridge.CefWebBrowserControl();
             this.button5 = new System.Windows.Forms.Button();
             this.button6 = new System.Windows.Forms.Button();
-            this.cefWebBrowser1 = new LayoutFarm.CefBridge.CefWebBrowserControl();
+            this.button15 = new System.Windows.Forms.Button();
+            this.button16 = new System.Windows.Forms.Button();
             this.splitContainer1.Panel2.SuspendLayout();
             this.splitContainer1.SuspendLayout();
             this.SuspendLayout();
             // 
             // button7
             // 
-            this.button7.Location = new System.Drawing.Point(12, 55);
+            this.button7.Location = new System.Drawing.Point(12, 66);
             this.button7.Name = "button7";
             this.button7.Size = new System.Drawing.Size(132, 37);
             this.button7.TabIndex = 8;
@@ -62,7 +64,7 @@
             // 
             // button1
             // 
-            this.button1.Location = new System.Drawing.Point(12, 219);
+            this.button1.Location = new System.Drawing.Point(12, 194);
             this.button1.Name = "button1";
             this.button1.Size = new System.Drawing.Size(132, 37);
             this.button1.TabIndex = 9;
@@ -72,7 +74,7 @@
             // 
             // button2
             // 
-            this.button2.Location = new System.Drawing.Point(12, 262);
+            this.button2.Location = new System.Drawing.Point(12, 237);
             this.button2.Name = "button2";
             this.button2.Size = new System.Drawing.Size(132, 37);
             this.button2.TabIndex = 10;
@@ -82,7 +84,7 @@
             // 
             // button3
             // 
-            this.button3.Location = new System.Drawing.Point(12, 305);
+            this.button3.Location = new System.Drawing.Point(12, 280);
             this.button3.Name = "button3";
             this.button3.Size = new System.Drawing.Size(132, 37);
             this.button3.TabIndex = 11;
@@ -92,7 +94,7 @@
             // 
             // button4
             // 
-            this.button4.Location = new System.Drawing.Point(12, 348);
+            this.button4.Location = new System.Drawing.Point(12, 410);
             this.button4.Name = "button4";
             this.button4.Size = new System.Drawing.Size(132, 37);
             this.button4.TabIndex = 12;
@@ -102,7 +104,7 @@
             // 
             // button8
             // 
-            this.button8.Location = new System.Drawing.Point(12, 488);
+            this.button8.Location = new System.Drawing.Point(12, 463);
             this.button8.Name = "button8";
             this.button8.Size = new System.Drawing.Size(132, 37);
             this.button8.TabIndex = 15;
@@ -112,7 +114,7 @@
             // 
             // button9
             // 
-            this.button9.Location = new System.Drawing.Point(12, 12);
+            this.button9.Location = new System.Drawing.Point(12, 23);
             this.button9.Name = "button9";
             this.button9.Size = new System.Drawing.Size(132, 37);
             this.button9.TabIndex = 16;
@@ -172,7 +174,7 @@
             // 
             // button14
             // 
-            this.button14.Location = new System.Drawing.Point(12, 98);
+            this.button14.Location = new System.Drawing.Point(12, 109);
             this.button14.Name = "button14";
             this.button14.Size = new System.Drawing.Size(132, 37);
             this.button14.TabIndex = 22;
@@ -192,9 +194,19 @@
             this.splitContainer1.SplitterDistance = 661;
             this.splitContainer1.TabIndex = 23;
             // 
+            // cefWebBrowser1
+            // 
+            this.cefWebBrowser1.BackColor = System.Drawing.Color.White;
+            this.cefWebBrowser1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.cefWebBrowser1.Location = new System.Drawing.Point(0, 0);
+            this.cefWebBrowser1.Name = "cefWebBrowser1";
+            this.cefWebBrowser1.Size = new System.Drawing.Size(738, 668);
+            this.cefWebBrowser1.TabIndex = 7;
+            this.cefWebBrowser1.Text = "cefWebBrowser1";
+            // 
             // button5
             // 
-            this.button5.Location = new System.Drawing.Point(12, 141);
+            this.button5.Location = new System.Drawing.Point(12, 152);
             this.button5.Name = "button5";
             this.button5.Size = new System.Drawing.Size(132, 37);
             this.button5.TabIndex = 24;
@@ -212,21 +224,33 @@
             this.button6.UseVisualStyleBackColor = true;
             this.button6.Click += new System.EventHandler(this.button6_Click);
             // 
-            // cefWebBrowser1
+            // button15
             // 
-            this.cefWebBrowser1.BackColor = System.Drawing.Color.White;
-            this.cefWebBrowser1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.cefWebBrowser1.Location = new System.Drawing.Point(0, 0);
-            this.cefWebBrowser1.Name = "cefWebBrowser1";
-            this.cefWebBrowser1.Size = new System.Drawing.Size(738, 668);
-            this.cefWebBrowser1.TabIndex = 7;
-            this.cefWebBrowser1.Text = "cefWebBrowser1";
+            this.button15.Location = new System.Drawing.Point(12, 506);
+            this.button15.Name = "button15";
+            this.button15.Size = new System.Drawing.Size(132, 37);
+            this.button15.TabIndex = 26;
+            this.button15.Text = "PrintToPdf";
+            this.button15.UseVisualStyleBackColor = true;
+            this.button15.Click += new System.EventHandler(this.button15_Click);
+            // 
+            // button16
+            // 
+            this.button16.Location = new System.Drawing.Point(12, 367);
+            this.button16.Name = "button16";
+            this.button16.Size = new System.Drawing.Size(132, 37);
+            this.button16.TabIndex = 27;
+            this.button16.Text = "GetSource2";
+            this.button16.UseVisualStyleBackColor = true;
+            this.button16.Click += new System.EventHandler(this.button16_Click);
             // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1565, 762);
+            this.Controls.Add(this.button16);
+            this.Controls.Add(this.button15);
             this.Controls.Add(this.button6);
             this.Controls.Add(this.button5);
             this.Controls.Add(this.splitContainer1);
@@ -270,6 +294,8 @@
         private LayoutFarm.CefBridge.CefWebBrowserControl cefWebBrowser1;
         private System.Windows.Forms.Button button5;
         private System.Windows.Forms.Button button6;
+        private System.Windows.Forms.Button button15;
+        private System.Windows.Forms.Button button16;
         //  private LayoutFarm.CefBridge.CefWebBrowserControl cefWebBrowser2;
     }
 }

@@ -25,11 +25,11 @@ namespace BridgeBuilder
             //string srcRootDir = @"D:\projects\cef_binary_3.2883.1548\tests\cefclient";
             //string srcRootDir = @"D:\projects\cef_binary_3.2883.1553\tests\cefclient";
             //string srcRootDir = @"D:\projects\cef_binary_3.3071.1634\tests\cefclient";
-            string srcRootDir = @"D:\projects\cef_binary_3.3071.1647.win64\tests\cefclient";
+            string srcRootDir = @"D:\projects\cef_binary_3.3071.1647.win32\tests\cefclient";
 
             PatchBuilder builder = new PatchBuilder(new string[]{
                 srcRootDir,
-                @"D:\projects\cef_binary_3.3071.1647.win64\tests\shared"
+                @"D:\projects\cef_binary_3.3071.1647.win32\tests\shared"
             });
             builder.MakePatch();
 
@@ -132,7 +132,7 @@ namespace BridgeBuilder
 
             string extTargetDir = newPathName + "\\cefclient\\myext";
             manualPatcher.CopyExtensionSources(extTargetDir);
-            manualPatcher.Do_CMake_txt_New_3_2704_up();
+            manualPatcher.Do_CMake_txt();
 
             //bool is3_2704 = true;
             //if (is3_2704)
@@ -225,7 +225,53 @@ namespace BridgeBuilder
             ManualPatcher manualPatcher = new ManualPatcher(newPathName);
             string extTargetDir = newPathName + "\\cefclient\\myext";
             manualPatcher.CopyExtensionSources(extTargetDir);
-            manualPatcher.Do_CMake_txt_New_3_2704_up();
+            manualPatcher.Do_CMake_txt();
+        }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            //string srcFile = @"D:\projects\cef_binary_3.3071.1647.win32\include\cef_browser.h";
+            string srcFile = @"D:\projects\cef_binary_3.3071.1647.win32\include\cef_request_handler.h";
+
+            //
+            Cef3HeaderFileParser headerParser = new Cef3HeaderFileParser();
+            headerParser.Parse(srcFile);
+            CodeCompilationUnit cu = headerParser.Result;
+
+            //
+            List<CodeCompilationUnit> culist = new List<CodeCompilationUnit>();
+            culist.Add(cu);
+            CefTypeCollection cefTypeCollection = new CefTypeCollection();
+            cefTypeCollection.CollectAllTypeDefinitions(culist);
+            //-----------
+
+            TypeTranformPlanner txPlanner = new TypeTranformPlanner();
+            txPlanner.CefTypeCollection = cefTypeCollection;
+
+            ApiBuilder apiBuilder = new ApiBuilder();
+
+            int j = cu.Members.Count;
+            for (int i = 0; i < j; ++i)
+            {
+                CodeTypeDeclaration typedecl = cu.Members[i];
+                if (typedecl.Name == null)
+                {
+                    continue;
+                }
+                if (typedecl.Name.Contains("Callback"))
+                {
+                    continue;
+                }
+
+                StringBuilder stbuilder = new StringBuilder();
+                TypeTxInfo typeTxPlan = txPlanner.MakeTransformPlan(typedecl);
+                apiBuilder.GenerateCsType(typeTxPlan, stbuilder);
+                StringBuilder cppPart = new StringBuilder();
+                apiBuilder.GenerateCppPart(typeTxPlan, cppPart);
+
+
+            }
+
         }
     }
 }

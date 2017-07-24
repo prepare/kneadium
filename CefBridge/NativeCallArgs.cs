@@ -68,23 +68,23 @@ namespace LayoutFarm.CefBridge
         public string GetArgAsString(int index)
         {
             JsValue v = new JsValue();
-            Cef3Binder.MyCefNativeMetGetArgs(_argPtr, index, out v);
+            Cef3Binder.MyCefMetArgs_GetArgs(_argPtr, index, out v);
             if ((int)v.Type == 30)
             {
                 //native cef
 
                 var charBuff = new char[BUFF_LEN];
-                int acutalLen = 0;
+                int actualLen = 0;
                 unsafe
                 {
                     fixed (char* buffHead = &charBuff[0])
                     {
-                        Cef3Binder.MyCefString_Read(v.Ptr, buffHead, BUFF_LEN, ref acutalLen);
-                        if (acutalLen > BUFF_LEN)
+                        Cef3Binder.MyCefString_Read(v.Ptr, buffHead, BUFF_LEN, ref actualLen);
+                        if (actualLen > BUFF_LEN)
                         {
                             //read more
                         }
-                        return new string(buffHead, 0, acutalLen);
+                        return new string(buffHead, 0, actualLen);
                     }
                 }
             }
@@ -96,13 +96,13 @@ namespace LayoutFarm.CefBridge
         public int GetArgAsInt32(int index)
         {
             JsValue v = new JsValue();
-            Cef3Binder.MyCefNativeMetGetArgs(_argPtr, index, out v);
+            Cef3Binder.MyCefMetArgs_GetArgs(_argPtr, index, out v);
             return v.I32;
         }
         public IntPtr GetArgAsNativePtr(int index)
         {
             JsValue v = new JsValue();
-            Cef3Binder.MyCefNativeMetGetArgs(_argPtr, index, out v);
+            Cef3Binder.MyCefMetArgs_GetArgs(_argPtr, index, out v);
             return v.Ptr;
         }
         public void SetOutput(int index, string str)
@@ -159,12 +159,7 @@ namespace LayoutFarm.CefBridge
                 index,
                 unmangedMemPtr,
                 len);
-        }
-
-        //public void Dispose()
-        //{
-        //    Cef3Binder.MyCefDisposePtr(this._argPtr);
-        //}
+        } 
     }
     public struct NativeCallArgs2
     {
@@ -221,14 +216,41 @@ namespace LayoutFarm.CefBridge
         {
             this.nativePtr = nativePtr;
         }
-        public void SetCachePath(string value)
-        {
-            Cef3Binder.MyCefSetInitSettings(this.nativePtr, (int)CefSettingsKey.CEF_SETTINGS_CachePath, value);
-        }
         public void SetSubProcessPath(string value)
         {
-            Cef3Binder.MyCefSetInitSettings(this.nativePtr, (int)CefSettingsKey.CEF_SETTINGS_BrowserSubProcessPath, value);
+            Cef3Binder.MyCefSetInitSettings(this.nativePtr,
+                CefSettingsKey.CEF_SETTINGS_BrowserSubProcessPath, value);
         }
-
+        public void SetCachePath(string value)
+        {
+            Cef3Binder.MyCefSetInitSettings(this.nativePtr,
+                CefSettingsKey.CEF_SETTINGS_CachePath, value);
+        }
+        public void SetUserDirPath(string value)
+        {
+            Cef3Binder.MyCefSetInitSettings(this.nativePtr,
+                CefSettingsKey.CEF_SETTINGS_UserDirPath, value);
+        }
+        public void SetLocalDirPath(string value)
+        {
+            Cef3Binder.MyCefSetInitSettings(this.nativePtr,
+                CefSettingsKey.CEF_SETTINGS_LocalDirPath, value);
+        }
+        public void IgnoreCertErrror(bool value)
+        {
+            Cef3Binder.MyCefSetInitSettings(this.nativePtr,
+                CefSettingsKey.CEF_SETTINGS_IgnoreCertError, value ? "1" : "0");
+        }
+        public void SetRemoteDebuggingPort(int portNo)
+        {
+            Cef3Binder.MyCefSetInitSettings(this.nativePtr,
+                CefSettingsKey.CEF_SETTINGS_RemoteDebuggingPort, portNo.ToString());
+        }
+        public void SetLogSeverity(LogServerity logSeverity)
+        {
+            int severity = (int)logSeverity;
+            Cef3Binder.MyCefSetInitSettings(this.nativePtr,
+               CefSettingsKey.CEF_SETTINGS_RemoteDebuggingPort, severity.ToString());
+        }
     }
 }

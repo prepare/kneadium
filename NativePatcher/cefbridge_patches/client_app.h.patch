@@ -1,12 +1,24 @@
-//###_ORIGINAL D:\projects\cef_binary_3.3071.1647.win64\tests\shared\common//client_app.h
-//###_START 0
+//###_ORIGINAL D:\projects\cef_binary_3.3071.1647.win32\tests\shared\common//client_app.h
+//###_BEGIN 0
+//###_PRE
+#include <vector> 
+//###_PRE
 #include "include/cef_app.h"
-//###_APPEND_START 0
 #include "tests/cefclient/myext/mycef_msg_const.h"
 #include "tests/cefclient/myext/mycef.h"
-//###_APPEND_STOP
-//###_START 1
+//###_POST
+namespace client {
+//###_POST
+// Base class for customizing process-type-based behavior.
+//###_END 0
+//###_BEGIN 0
+//###_PRE
+// Determine the process type based on command-line arguments.
+//###_PRE
 static ProcessType GetProcessType(CefRefPtr<CefCommandLine> command_line);
-//###_APPEND_START 1
 managed_callback myMxCallback_;//myextension
-//###_APPEND_STOP
+//###_POST
+protected:
+//###_POST
+// Schemes that will be registered with the global cookie manager.
+//###_END 0

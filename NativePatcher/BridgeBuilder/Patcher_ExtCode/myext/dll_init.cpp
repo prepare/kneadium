@@ -7,7 +7,7 @@
 
 #include "dll_init.h" 
 #include "include/cef_command_line.h"  
-
+#include "mycef.h"
 
 
 // When generating projects with CMake the CEF_USE_SANDBOX value will be defined
@@ -26,16 +26,9 @@
 
 namespace client {
 
-	namespace init_main {
-
-		//static
-		managed_callback m_callback;
-
-
-		void SetManagedCallback(managed_callback callback) {
-			m_callback = callback;
-		}
-
+	namespace init_main { 
+		 
+	 
 		client::MainContextImpl* InitDllApp(CefMainArgs& main_args, CefRefPtr<CefApp> app) {
 
 
@@ -75,7 +68,7 @@ namespace client {
 			// Create the main context object.
 			//scoped_ptr<MainContextImpl> context(new MainContextImpl(command_line, true));
 			auto mainContext = new MainContextImpl(command_line, true);
-			mainContext->myMxCallback_ = m_callback;
+			mainContext->myMxCallback_ = mycefmx::GetManagedCallback();
 			//setting 
 			CefSettings settings;
 			settings.log_severity = (cef_log_severity_t)99;//disable log
@@ -86,10 +79,7 @@ namespace client {
 			// Populate the settings based on command line arguments.		    
 
 
-			mainContext->PopulateSettings(&settings);
-			//-------------------------------------------------------------------------------------
-
-
+			mainContext->PopulateSettings(&settings); 
 			//-------------------------------------------------------------------------------------
 			// Create the main message loop object.
 			/*scoped_ptr<MainMessageLoop> message_loop;
@@ -100,7 +90,9 @@ namespace client {
 			*/
 			//Initialize CEF.
 			mainContext->Initialize(main_args, settings, app, sandbox_info);
-
+		
+			
+			 
 			// Register scheme handlers.
 			//test_runner::RegisterSchemeHandlers(); //if you don't want to register the scheme handler
 
