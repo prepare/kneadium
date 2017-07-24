@@ -159,12 +159,7 @@ namespace LayoutFarm.CefBridge
                 index,
                 unmangedMemPtr,
                 len);
-        }
-
-        //public void Dispose()
-        //{
-        //    Cef3Binder.MyCefDisposePtr(this._argPtr);
-        //}
+        } 
     }
     public struct NativeCallArgs2
     {

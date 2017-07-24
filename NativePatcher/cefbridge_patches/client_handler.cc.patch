@@ -1,4 +1,15 @@
 //###_ORIGINAL D:\projects\cef_binary_3.3071.1647.win32\tests\cefclient\browser//client_handler.cc
+//###_BEGIN 0
+//###_PRE
+#include <sstream>
+//###_PRE
+#include <string>
+#include "tests/cefclient/myext/mycef_buildconfig.h" 
+//###_POST
+#include "include/base/cef_bind.h"
+//###_POST
+#include "include/cef_browser.h"
+//###_END 0
 //###_START 0
 ClientHandler::ClientHandler(Delegate* delegate,
 //###_FIND_NEXT_LANDMARK 0
@@ -139,7 +150,7 @@ browser,
 }
 //###_APPEND_STOP
 //###_SKIP_UNTIL_AND_ACCEPT 8
-
+}
 //###_START 3
 // Allow geolocation access from all websites.
 //###_APPEND_START 3

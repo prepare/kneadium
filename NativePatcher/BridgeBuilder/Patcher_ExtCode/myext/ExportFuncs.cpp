@@ -3,12 +3,12 @@
 #include "dll_init.h" 
 #include "mycef.h"
 
-
+#include "include/cef_parser.h"
 #include "include/cef_origin_whitelist.h" //add original whitelist
 #include "tests/shared/browser/client_app_browser.h"  
 #include "tests/shared/common/client_app_other.h"
 #include "tests/shared/renderer/client_app_renderer.h"  
-
+#include "include/cef_zip_reader.h"
 //
 #include "tests/shared/browser/main_message_loop_std.h" 
 //
@@ -63,6 +63,8 @@ public:
 	client::BrowserWindow* bwWindow;
 };
 
+
+
 //1.
 int MyCefGetVersion()
 {
@@ -83,12 +85,12 @@ int RegisterManagedCallBack(managed_callback mxCallback, int callbackKind)
 	}
 	return 1; //default
 }
-//3.
+//------------------------------------------
 void* MyCefCreateClientApp(HINSTANCE hInstance)
 {
 	//this similar to client::RunMain()
 	//
-	//return client::ClientApp
+	//this func returns client::ClientApp
 	///
 	//-----
 	//user must call RegisterManagedCallBack() before use this method *** 
@@ -169,7 +171,21 @@ void MyCefSetInitSettings(CefSettings* cefSetting, int keyName, const wchar_t* v
 	}
 }
 
-//4. 
+void MyCefDoMessageLoopWork()
+{
+	CefDoMessageLoopWork();
+}
+void MyCefShutDown() {
+
+	// Shut down CEF.
+	mainContext->Shutdown();
+	// Release objects in reverse order of creation. 
+	/*CefShutdown();*/
+}
+
+//--------------------------------------
+//browser instance...
+//--------------------------------------
 MyBrowser* MyCefCreateMyWebBrowser(managed_callback callback)
 {
 	auto myBw = new MyBrowser();
@@ -185,13 +201,15 @@ MyBrowser* MyCefCreateMyWebBrowser(managed_callback callback)
 	//2. browser event handler	 
 	auto clientHandler = bwWindow->GetClientHandler();
 	clientHandler->MyCefSetManagedCallBack(callback);
+
 	return myBw;
 }
 
-//4.OSR
+
 MyBrowser* MyCefCreateMyWebBrowserOSR(managed_callback callback)
 {
 	auto myBw = new MyBrowser();
+
 	auto rootWindow = new MyCefRootWindow(); //new client::RootWindowWin();
 	myBw->rootWin = rootWindow;
 
@@ -210,7 +228,7 @@ MyBrowser* MyCefCreateMyWebBrowserOSR(managed_callback callback)
 	return myBw;
 }
 
-//5.
+
 int MyCefSetupBrowserHwnd(MyBrowser* myBw, HWND surfaceHwnd, int x, int y, int w, int h, const wchar_t* url, CefRequestContext* cefRefContext)
 {
 	RECT r;
@@ -241,7 +259,7 @@ int MyCefSetupBrowserHwnd(MyBrowser* myBw, HWND surfaceHwnd, int x, int y, int w
 	return (result) ? 1 : 0;
 }
 
-//5. OSR
+
 int MyCefSetupBrowserHwndOSR(MyBrowser* myBw, HWND surfaceHwnd, int x, int y, int w, int h, const wchar_t* url, CefRequestContext* cefRefContext)
 {
 
@@ -256,7 +274,8 @@ int MyCefSetupBrowserHwndOSR(MyBrowser* myBw, HWND surfaceHwnd, int x, int y, in
 	//----------------------------------
 	return 1;
 }
-//6
+
+
 void MyCefCloseMyWebBrowser(MyBrowser* myBw) {
 	myBw->bwWindow->ClientClose();
 }
@@ -269,21 +288,6 @@ void MyCefEnableKeyIntercept(MyBrowser* myBw, int enable) {
 }
 
 
-//7.
-void MyCefDoMessageLoopWork()
-{
-	CefDoMessageLoopWork();
-}
-//8.
-void MyCefShutDown() {
-
-	// Shut down CEF.
-	mainContext->Shutdown();
-	// Release objects in reverse order of creation. 
-	/*CefShutdown();*/
-}
-//--------------------------------------------------------------------------------------------
-//9.
 void MyCefSetBrowserSize(MyBrowser* myBw, int w, int h) {
 
 	myBw->bwWindow->SetBounds(0, 0, w, h);
@@ -326,6 +330,18 @@ void MyCefDomGetSourceWalk(MyBrowser* myBw, managed_callback strCallBack)
 	bw->GetMainFrame()->GetSource(bwVisitor);
 	//this is not blocking method, so=> need to create visitor on heap
 }
+CefFrame* MyCefBwGetMainFrame(MyBrowser *myBw) {
+
+	auto cefFrame = myBw->bwWindow->GetBrowser()->GetMainFrame();
+	cefFrame->AddRef();//*** before send to external framework
+	return cefFrame;
+}
+void MyCefFrameGetSource(CefFrame* cefFrame, managed_callback strCallBack) {
+
+	auto bwVisitor = new MyCefStringVisitor(cefFrame->GetBrowser());
+	bwVisitor->mcallback = strCallBack;
+	cefFrame->GetSource(bwVisitor);
+}
 
 
 
@@ -348,7 +364,7 @@ void MyCefBwPostData(MyBrowser* myBw, const wchar_t* url, const wchar_t* rawData
 	CefRefPtr<CefRequest> request(CefRequest::Create());
 	request->SetURL(url);
 
-	//Add post data to request, the correct method and content-type header willbe set by CEF
+	//Add post data to request, the correct method and content-type header will be set by CEF
 
 	CefRefPtr<CefPostDataElement> postDataElement(CefPostDataElement::Create());
 	postDataElement->SetToBytes(rawDataLength, rawDataToPost);
@@ -356,7 +372,7 @@ void MyCefBwPostData(MyBrowser* myBw, const wchar_t* url, const wchar_t* rawData
 	postData->AddElement(postDataElement);
 	request->SetPostData(postData);
 
-	//add custom header
+	//add custom header (for test)
 	CefRequest::HeaderMap headerMap;
 	headerMap.insert(
 		std::make_pair("X-My-Header", "My Header Value"));
@@ -400,11 +416,14 @@ void MyCefShowDevTools(MyBrowser* myBw, MyBrowser* myBwDev, HWND parentWindow)
 void MyCefBwGoBack(MyBrowser* myBw) {
 
 	if (CefRefPtr<CefBrowser> browser = myBw->bwWindow->GetBrowser()) {
+
 		browser->GoBack();
 	}
 }
 void MyCefBwGoForward(MyBrowser* myBw) {
 	if (CefRefPtr<CefBrowser> browser = myBw->bwWindow->GetBrowser()) {
+
+
 		browser->GoForward();
 	}
 }
@@ -423,31 +442,103 @@ void MyCefBwReloadIgnoreCache(MyBrowser* myBw) {
 		browser->ReloadIgnoreCache();
 	}
 }
- 
-void MyCefPrintToPdf(MyBrowser* myBw, wchar_t* filename) {
+
+void MyCefPrintToPdf(MyBrowser* myBw, CefPdfPrintSettings* setting, wchar_t* filename, managed_callback callback) {
+
 
 	//
 	class MyPdfCallback : public CefPdfPrintCallback {
+	public:
+		managed_callback m_callback;
 		void OnPdfPrintFinished(const CefString& path, bool ok) OVERRIDE
-		{			 
+		{
+			if (m_callback) {
+				//callback
+				MethodArgs metArgs;
+				metArgs.SetArgAsInt32(0, ok ? 1 : 0);
+				metArgs.SetArgAsString(1, path.c_str());
+				m_callback(0, &metArgs);
+			}
 		}
 		IMPLEMENT_REFCOUNTING(MyPdfCallback);
 	};
 
 	if (CefRefPtr<CefBrowser> browser = myBw->bwWindow->GetBrowser()) {
-		CefPdfPrintSettings settings;
 
-		// Show the URL in the footer.
-		settings.header_footer_enabled = true;
-		CefString(&settings.header_footer_url) =
-			browser->GetMainFrame()->GetURL();
-
+		CefPdfPrintSettings pdfSetting;
+		if (setting) {
+			pdfSetting = *setting;
+		}
+		else {
+			//set default
+			pdfSetting.header_footer_enabled = true;
+		}
 		// Print to the selected PDF file.
 		auto myPdfCallback = new MyPdfCallback();
-		browser->GetHost()->PrintToPDF(filename, settings, myPdfCallback);
+		myPdfCallback->m_callback = callback;
+		browser->GetHost()->PrintToPDF(filename, pdfSetting, myPdfCallback);
 	}
 }
+CefPdfPrintSettings* MyCefCreatePdfPrintSetting(wchar_t* pdfjsonConfig) {
+	CefString cefStr = pdfjsonConfig;
+	CefRefPtr<CefValue> value = CefParseJSON(cefStr, JSON_PARSER_RFC);
+	//
+	if (value.get() && value->GetType() == VTYPE_DICTIONARY) {
+		CefRefPtr<CefDictionaryValue> dict = value->GetDictionary();
+		//
+		CefPdfPrintSettings* setting = new CefPdfPrintSettings();
 
+		CefDictionaryValue* dict_value = dict.get();
+		if (dict_value->HasKey("header_footer_enabled")) {
+			setting->header_footer_enabled = dict_value->GetBool("header_footer_enabled");
+		}
+		if (dict_value->HasKey("header_footer_url")) {
+			CefString(&setting->header_footer_url) = dict_value->GetString("header_footer_url");
+		}
+		if (dict_value->HasKey("header_footer_title")) {
+			CefString(&setting->header_footer_title) = dict_value->GetString("header_footer_title");
+		}
+		if (dict_value->HasKey("page_width")) {
+			setting->page_width = dict_value->GetInt("page_width");
+		}
+		if (dict_value->HasKey("page_height")) {
+			setting->page_height = dict_value->GetInt("page_height");
+		}
+		if (dict_value->HasKey("scale_factor")) {
+			setting->scale_factor = dict_value->GetInt("scale_factor");
+		}
+		if (dict_value->HasKey("margin_top")) {
+			setting->margin_top = dict_value->GetDouble("margin_top");
+		}
+		if (dict_value->HasKey("margin_right")) {
+			setting->margin_right = dict_value->GetDouble("margin_right");
+		}
+		if (dict_value->HasKey("margin_bottom")) {
+			setting->margin_bottom = dict_value->GetDouble("margin_bottom");
+		}
+		if (dict_value->HasKey("margin_left")) {
+			setting->margin_left = dict_value->GetDouble("margin_left");
+		}
+		if (dict_value->HasKey("margin_type")) {
+			setting->margin_type = (cef_pdf_print_margin_type_t)dict_value->GetInt("margin_type");
+		}
+		if (dict_value->HasKey("header_footer_enabled")) {
+			setting->header_footer_enabled = dict_value->GetInt("header_footer_enabled");
+		}
+		if (dict_value->HasKey("selection_only")) {
+			setting->selection_only = dict_value->GetInt("selection_only");
+		}
+		if (dict_value->HasKey("landscape")) {
+			setting->landscape = dict_value->GetInt("landscape");
+		}
+		if (dict_value->HasKey("backgrounds_enabled")) {
+			setting->backgrounds_enabled = dict_value->GetInt("backgrounds_enabled");
+		}
+
+		return setting;
+	}
+	return NULL;
+}
 void MyCefFrame_GetUrl(CefFrame* frame, wchar_t* outputBuffer, int outputBufferLen, int* actualLength)
 {
 
@@ -488,4 +579,177 @@ bool MyCefRemoveCrossOriginWhitelistEntry(
 {
 	return CefAddCrossOriginWhitelistEntry(sourceOrigin, targetProtocol, targetDomain, allow_target_subdomains);
 }
+
+void MyCefDeletePtr(void* ptr) {
+	delete ptr;
+}
+void MyCefDeletePtrArray(jsvalue* ptr) {
+	delete[] ptr;
+}
+void MyCefDeleteContent(jsvalue* ptr) {
+	switch (ptr->type)
+	{
+	case JSVALUE_TYPE_BUFFER:
+	case JSVALUE_TYPE_ARRAY:
+		delete[] ptr->ptr;
+		break;
+	case JSVALUE_TYPE_NATIVE_CEFHOLDER_STRING:
+		delete ptr->ptr;
+		break;
+	default:
+		break;
+	}
+}
+//----------------
+void CopyStringListToResult(jsvalue* ret, std::vector<CefString>& lst) {
+
+	//convert data to user list
+	auto sizeCount = lst.size();
+	//transfer databack 
+	jsvalue* arr = new jsvalue[sizeCount];
+	for (size_t i = 0; i < sizeCount; ++i) {
+
+		CefString cefStr = lst[i];
+		arr[i].ptr = cefStr.c_str();
+		arr[i].type = JSVALUE_TYPE_STRING;
+	}
+	ret->i32 = sizeCount;
+	ret->ptr = arr;
+	ret->type = JSVALUE_TYPE_ARRAY;
+}
+void CopyInt64ListToResult(jsvalue* ret, std::vector<int64>& int64list) {
+
+	auto sizeCount = int64list.size();
+	//transfer databack 
+	jsvalue* arr = new jsvalue[sizeCount];
+	for (size_t i = 0; i < sizeCount; ++i) {
+		arr[i].i64 = int64list[i];
+		arr[i].type = JSVALUE_TYPE_INTEGER64;
+	}
+	ret->i32 = sizeCount;
+	ret->ptr = arr;
+	ret->type = JSVALUE_TYPE_ARRAY;
+}
+//----------------
+
+void MyCefBwCall0(MyBrowser* myBw, int methodName, jsvalue* ret) {
+	MyCefBwCall2(myBw, methodName, ret, nullptr, nullptr);
+}
+void MyCefBwCall1(MyBrowser* myBw, int methodName, jsvalue* ret, jsvalue* v1) {
+	MyCefBwCall2(myBw, methodName, ret, v1, nullptr);
+}
+//----------------
+
+
+
+
+const int CefBw_GoBack = 1;
+const int CefBw_Reload = 2;
+const int CefBw_ReloadIgnoreCache = 3;
+const int CefBw_GetFrameCount = 4;
+
+const int CefBw_IsSame = 6;
+const int CefBw_GetFrameNames = 7;
+
+const int CefBw_GetFrameIdentifiers = 10;
+const int CefBw_MyCef_EnableKeyIntercept = 11;
+
+const int CefBw_GetMainFrame_GetURL = 21;
+const int CefBw_StopLoad = 22;
+const int CefBw_GoForward = 23;
+const int CefBw_GetMainFrame_LoadURL = 24;
+const int CefBw_SetSize = 25;
+const int CefBw_ExecJs = 26;
+//----------------
+void MyCefBwCall2(MyBrowser* myBw, int methodName, jsvalue* ret, jsvalue* v1, jsvalue* v2) {
+
+	auto bw = myBw->bwWindow->GetBrowser();
+	ret->type = JSVALUE_TYPE_EMPTY;
+
+	switch (methodName) {
+	case CefBw_GoBack: {
+		bw->GoBack();
+	}	break;
+	case CefBw_Reload: {
+		bw->Reload();
+	}	break;
+	case CefBw_StopLoad: {
+		bw->StopLoad();
+	}	break;
+	case CefBw_ReloadIgnoreCache: {
+		bw->ReloadIgnoreCache();
+	}	break;
+	case CefBw_GetFrameCount: {
+		auto frameCount = bw->GetFrameCount();
+		ret->type = JSVALUE_TYPE_INTEGER;
+		ret->i32 = (int32_t)frameCount;
+	} break;
+	case CefBw_MyCef_EnableKeyIntercept: {
+		auto clientHandle = myBw->bwWindow->GetClientHandler();
+		clientHandle->MyCefEnableKeyIntercept(v1->i32);
+	}break;
+	case CefBw_GetMainFrame_LoadURL: {
+
+		MyCefStringHolder* strHolder = (MyCefStringHolder*)v1->ptr;
+		bw->GetMainFrame()->LoadURL(strHolder->value);
+
+	}break;
+	case 5: {
+		ret->type = JSVALUE_TYPE_WRAPPED;
+		ret->ptr = bw;
+	}break;
+	case CefBw_IsSame: {
+		ret->i32 = bw->IsSame((CefBrowser*)v1->ptr) ? 1 : 0;
+		ret->type = JSVALUE_TYPE_BOOLEAN;
+	} break;
+	case CefBw_GetFrameNames: {
+		std::vector<CefString> cefStringList;
+		bw->GetFrameNames(cefStringList);
+		CopyStringListToResult(v1, cefStringList);
+	}break;
+	case 9: {
+		//get string list
+		std::vector<CefString>* cefStringList = (std::vector<CefString>*)v1->ptr;
+		ret->type = JSVALUE_TYPE_INTEGER;
+		ret->i32 = cefStringList->size();
+	}break;
+	case CefBw_GetFrameIdentifiers: {
+		//get int list
+		std::vector<int64> int64list;
+		bw->GetFrameIdentifiers(int64list);
+		CopyInt64ListToResult(v1, int64list);
+		//auto sizeCount = int64list.size();
+		////transfer databack 
+		//jsvalue* arr = new jsvalue[sizeCount];
+		//for (size_t i = 0; i < sizeCount; ++i) {
+		//	arr[i].i64 = int64list[i];
+		//	arr[i].type = JSVALUE_TYPE_INTEGER64;
+		//}
+		//ret->i32 = sizeCount;
+		//ret->ptr = arr;
+		//ret->type = JSVALUE_TYPE_ARRAY;
+	}break;
+	case CefBw_GetMainFrame_GetURL: {
+
+		CefString cefStr = bw->GetMainFrame()->GetURL();
+		ret->type = JSVALUE_TYPE_NATIVE_CEFHOLDER_STRING;
+
+		MyCefStringHolder* myCefStringHolder = new MyCefStringHolder();
+		myCefStringHolder->value = cefStr;
+		ret->ptr = myCefStringHolder;
+		ret->i32 = cefStr.length();
+
+	}break;
+	case CefBw_SetSize: {
+		myBw->bwWindow->SetBounds(0, 0, v1->i32, v2->i32);
+	}break;
+	case CefBw_ExecJs: {
+		MyCefStringHolder* jscode = (MyCefStringHolder*)v1->ptr;
+		MyCefStringHolder* script_url = (MyCefStringHolder*)v2->ptr;		 
+		myBw->bwWindow->GetBrowser()->GetMainFrame()->ExecuteJavaScript(jscode->value, script_url->value, 0);
+	}break;
+		//
+	}
+}
+
 

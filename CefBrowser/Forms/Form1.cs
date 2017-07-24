@@ -149,7 +149,9 @@ namespace LayoutFarm.CefBridge
 
         private void button15_Click(object sender, EventArgs e)
         {
-            this.cefWebBrowser1.Agent.PrintToPdf("d:\\WImageTest\\testpdf.pdf");
+            //this.cefWebBrowser1.Agent.PrintToPdf("d:\\WImageTest\\testpdf.pdf");
+            string pdfConfig = "{\"header_footer_enabled\":true,\"header_footer_url\":\"hello001\",\"landscape\":1}";
+            this.cefWebBrowser1.Agent.PrintToPdf(pdfConfig, "d:\\WImageTest\\testpdf.pdf");
         }
 
         private void button16_Click(object sender, EventArgs e)

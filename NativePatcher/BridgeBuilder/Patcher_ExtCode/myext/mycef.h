@@ -82,6 +82,7 @@ typedef unsigned __int64 uint64_t;
 #define JSVALUE_TYPE_BUFFER         20 //my extension
 
 #define JSVALUE_TYPE_NATIVE_CEFSTRING 30  //my extension
+#define JSVALUE_TYPE_NATIVE_CEFHOLDER_STRING 31//my extension
 #define JSVALUE_TYPE_MEM_ERROR      50 //my extension
 
 
@@ -98,7 +99,19 @@ extern "C" {
 	    double num;
 	    //store 64 bits value
 	    int64_t i64;
-	}; 
+	};
+	//struct jsvalue_ret
+	//{
+	//	int32_t type; //type and flags
+	//				  //this for 32 bits values, also be used as string len, array len  and index to managed slot index
+	//	int32_t i32;
+	//	// native ptr (may point to native object, native array, native string)
+	//	void* ptr; //uint16_t* or jsvalue**   arr or 
+	//					 //store float or double
+	//	double num;
+	//	//store 64 bits value
+	//	int64_t i64;
+	//};
 }
 
 
@@ -132,10 +145,14 @@ public:
 	void SetArgAsString(int argIndex, const wchar_t* str);
 	void SetArgAsNativeObject(int argIndex, const void* nativeObject);
 	void SetArgAsInt32(int argIndex, const int32_t value);
-
 	void SetArgType(int argIndex, int type);
 
 	//----------------------------------------------------------------------
+	void SetOutputAsNativeObject(int retIndex, const void* nativeObject);
+	void SetOutputAsInt32(int retIndex, const int32_t value);
+	void SetOutputAsString(int retIndex, const wchar_t* str);
+	//----------------------------------------------------------------------
+
 	const char16* ReadOutputAsString(int resultIndex);
 	int ReadOutputAsInt32(int resultIndex);
 
@@ -145,7 +162,7 @@ class MyCefStringHolder
 {
 public:
 	CefString value;
-	void* any;
+	//void* any;
 };
 
 class QueryRequestArgs

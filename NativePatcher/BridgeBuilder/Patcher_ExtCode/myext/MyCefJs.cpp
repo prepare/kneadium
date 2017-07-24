@@ -246,9 +246,8 @@ CefV8Context* MyCefJs_GetEnteredContext() {
 }
 
 MyCefStringHolder* MyCefCreateCefString(const wchar_t*  str) {
-	MyCefStringHolder* str_h = new MyCefStringHolder();
-	auto cefStr = CefV8Value::CreateString(str);
-	str_h->any = cefStr;
+	MyCefStringHolder* str_h = new MyCefStringHolder(); 
+	str_h->value = str;
 
 	return str_h;
 }
@@ -397,7 +396,9 @@ void MyCefStringHolder_Read(MyCefStringHolder* mycefStr, wchar_t* outputBuffer, 
 	CefString* cefStr = &mycefStr->value;
 	int str_len = (int)cefStr->length();
 	*actualLength = str_len;
-	wcscpy_s(outputBuffer, outputBufferLen, cefStr->c_str());
+	auto cef_str = cefStr->c_str();
+
+	wcscpy_s(outputBuffer, outputBufferLen, cef_str);
 }
 
 //-----------
