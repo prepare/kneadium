@@ -332,7 +332,27 @@ namespace LayoutFarm.CefBridge
         }
         public void PostData(string url, byte[] data, int len)
         {
-            Cef3Binder.MyCefBwPostData(this.myCefBrowser, url, data, len);
+            JsValue a0 = new JsValue();
+            JsValue a1 = new JsValue();
+            JsValue ret;
+
+            var v_url = NativeMyCefStringHolder.CreateHolder(url);
+            a0.Ptr = v_url.nativePtr;
+            //
+            unsafe
+            {
+
+                fixed (byte* buffer = &data[0])
+                {
+                    a1.Ptr = new IntPtr(buffer);
+                    a1.I32 = data.Length;
+
+                    Cef3Binder.MyCefBwCall2(this.myCefBrowser, (int)CefBwCallMsg.CefBw_PostData, out ret, ref a0, ref a1);
+                }
+            }
+
+
+            v_url.Dispose();
         }
         public void SetSize(int w, int h)
         {
@@ -341,7 +361,7 @@ namespace LayoutFarm.CefBridge
             JsValue a1 = new JsValue();
             a1.I32 = h;
             JsValue ret;
-            Cef3Binder.MyCefBwCall2(myCefBrowser, (int)CefBwCallMsg.CefBw_IsSame, out ret, ref a0, ref a1);
+            Cef3Binder.MyCefBwCall2(myCefBrowser, (int)CefBwCallMsg.CefBw_SetSize, out ret, ref a0, ref a1);
         }
 
         public void GetText(Action<string> strCallback)

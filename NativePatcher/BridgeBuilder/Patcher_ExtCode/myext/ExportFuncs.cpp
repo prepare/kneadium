@@ -660,6 +660,8 @@ const int CefBw_GoForward = 23;
 const int CefBw_GetMainFrame_LoadURL = 24;
 const int CefBw_SetSize = 25;
 const int CefBw_ExecJs = 26;
+const int CefBw_PostData = 27;
+
 //----------------
 void MyCefBwCall2(MyBrowser* myBw, int methodName, jsvalue* ret, jsvalue* v1, jsvalue* v2) {
 
@@ -748,7 +750,38 @@ void MyCefBwCall2(MyBrowser* myBw, int methodName, jsvalue* ret, jsvalue* v1, js
 		MyCefStringHolder* script_url = (MyCefStringHolder*)v2->ptr;		 
 		myBw->bwWindow->GetBrowser()->GetMainFrame()->ExecuteJavaScript(jscode->value, script_url->value, 0);
 	}break;
-		//
+	case CefBw_PostData: {
+		//create request
+		CefRefPtr<CefRequest> request(CefRequest::Create());
+		MyCefStringHolder* url = (MyCefStringHolder*)v1->ptr;
+		request->SetURL(url->value); 
+		//Add post data to request, the correct method and content-type header will be set by CEF 
+		CefRefPtr<CefPostDataElement> postDataElement(CefPostDataElement::Create());
+		
+		//------
+		//copy data from mana
+		//------
+		char* buffer1 = new char[v2->i32];
+		memcpy(buffer1, v2->ptr, v2->i32);
+		postDataElement->SetToBytes(v2->i32, buffer1);
+		//------
+
+		CefRefPtr<CefPostData> postData(CefPostData::Create());
+		postData->AddElement(postDataElement);
+		request->SetPostData(postData);
+
+		//add custom header (for test)
+		CefRequest::HeaderMap headerMap;
+		headerMap.insert(
+			std::make_pair("X-My-Header", "My Header Value"));
+		request->SetHeaderMap(headerMap);
+
+		//load request
+		myBw->bwWindow->GetBrowser()->GetMainFrame()->LoadRequest(request); 
+
+		delete buffer1;
+
+	}break;
 	}
 }
 
