@@ -39,14 +39,17 @@ extern "C" {
 	 
 
 	//----------------------------
+	MY_DLL_EXPORT CefFrame* MyCefBwGetMainFrame(MyBrowser* myBw);
 	MY_DLL_EXPORT void MyCefFrame_GetUrl(CefFrame* frame, wchar_t* outputBuffer, int outputBufferLen, int* actualLength);
+	MY_DLL_EXPORT void MyCefFrameGetSource(CefFrame* cefFrame, managed_callback strCallBack);
+	
 	//----------------------------
 	MY_DLL_EXPORT CefPdfPrintSettings* MyCefCreatePdfPrintSetting(wchar_t* pdfjsonConfig);
 	//----------------------------
 	MY_DLL_EXPORT void MyCefPrintToPdf(MyBrowser* myBw, CefPdfPrintSettings* setting,wchar_t* filename,managed_callback callback);
 	//----------------------------
-	MY_DLL_EXPORT CefFrame* MyCefBwGetMainFrame(MyBrowser* myBw);
-	MY_DLL_EXPORT void MyCefFrameGetSource(CefFrame* cefFrame, managed_callback strCallBack);
+	
+	
 	
 	//----------------------------
 	MY_DLL_EXPORT bool MyCefAddCrossOriginWhitelistEntry(
@@ -62,10 +65,7 @@ extern "C" {
 		bool allow_target_subdomains
 	);
 
-
-	//-------------------------------------------------------------------
-	MY_DLL_EXPORT void MyCefBwCall0(MyBrowser* myBw, int methodName, jsvalue* ret);
-	MY_DLL_EXPORT void MyCefBwCall1(MyBrowser* myBw, int methodName, jsvalue* ret, jsvalue* v1);
+	 
 	MY_DLL_EXPORT void MyCefBwCall2(MyBrowser* myBw, int methodName, jsvalue* ret, jsvalue* v1, jsvalue* v2);
 
 }
