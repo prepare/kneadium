@@ -319,12 +319,7 @@ CefFrame* MyCefBwGetMainFrame(MyBrowser *myBw) {
 	cefFrame->AddRef();//*** before send to external framework
 	return cefFrame;
 }
-void MyCefFrameGetSource(CefFrame* cefFrame, managed_callback strCallBack) {
-
-	auto bwVisitor = new MyCefStringVisitor(cefFrame->GetBrowser());
-	bwVisitor->mcallback = strCallBack;
-	cefFrame->GetSource(bwVisitor);
-}
+ 
 
 //4. 
 void MyCefShowDevTools(MyBrowser* myBw, MyBrowser* myBwDev, HWND parentWindow)
@@ -455,15 +450,7 @@ CefPdfPrintSettings* MyCefCreatePdfPrintSetting(wchar_t* pdfjsonConfig) {
 	}
 	return NULL;
 }
-void MyCefFrame_GetUrl(CefFrame* frame, wchar_t* outputBuffer, int outputBufferLen, int* actualLength)
-{
-
-	CefString str = frame->GetURL();
-	int str_len = (int)str.length();
-	*actualLength = str_len;
-	wcscpy_s(outputBuffer, outputBufferLen, str.c_str());
-}
-
+ 
 
 void HereOnRenderer(const managed_callback callback, MethodArgs* args)
 {
@@ -535,7 +522,19 @@ void CopyInt64ListToResult(jsvalue* ret, std::vector<int64>& int64list) {
 }
 //----------------
 
-  
+managed_callback MyCefJsValueGetManagedCallback(jsvalue* v) {
+	if (v->type == JSVALUE_TYPE_MANAGED_CB) {
+		return (managed_callback)v->ptr;
+	}
+	else {
+		return nullptr;
+	}
+}
+void MyCefJsValueSetManagedCallback(jsvalue* v, managed_callback cb) {
+	v->type = JSVALUE_TYPE_MANAGED_CB;
+	v->ptr = cb;
+}
+
 
 const int CefBw_GoBack = 1;
 const int CefBw_Reload = 2;
@@ -687,9 +686,12 @@ const int CefFrame_GetUrl = 2;
 //
 void MyCefFrameCall2(CefFrame* cefFrame, int methodName, jsvalue* ret, jsvalue* v1, jsvalue* v2) {
 	ret->type = JSVALUE_TYPE_EMPTY;
-	switch (methodName) {
+	switch (methodName) { 
 	case CefFrame_GetSource:
-	{
+	{ 
+		auto bwVisitor = new MyCefStringVisitor(cefFrame->GetBrowser());
+		bwVisitor->mcallback = MyCefJsValueGetManagedCallback(v1);
+		cefFrame->GetSource(bwVisitor);
 
 	}break;
 	case CefFrame_GetUrl:
@@ -701,5 +703,16 @@ void MyCefFrameCall2(CefFrame* cefFrame, int methodName, jsvalue* ret, jsvalue* 
 		ret->i32 = str->value.length();
 		 
 	}break;
+	}
+}
+void MyCefFrameCall2_Cb(CefFrame* cefFrame, int methodName, jsvalue* ret, jsvalue* v1, jsvalue* v2, managed_callback cb) {
+	ret->type = JSVALUE_TYPE_EMPTY;
+	switch (methodName) {
+	case CefFrame_GetSource:
+	{ 
+		auto bwVisitor = new MyCefStringVisitor(cefFrame->GetBrowser());
+		bwVisitor->mcallback = cb;
+		cefFrame->GetSource(bwVisitor); 
+	}break;	 
 	}
 }
