@@ -100,19 +100,12 @@ extern "C" {
 	    double num;
 	    //store 64 bits value
 	    int64_t i64;
-	};
- 
-}
-
-
-
+	}; 
+} 
 
 class MethodArgs
 {
-public:
-
-	int method_id;
-
+public: 
 	struct jsvalue arg0;//this arg for instant method
 	struct jsvalue arg1;
 	struct jsvalue arg2;
@@ -124,13 +117,12 @@ public:
 	struct jsvalue result2;
 	struct jsvalue result3;
 	struct jsvalue result4;
+		 
+	int16_t resultKind;
+	int16_t argCount;
+	int16_t resultCount;
 
-	//void* outputBuffer;	 
-	//int outputLen;
-	int resultKind;
 
-	int argCount;
-	int resultCount;
 
 	void SetArgAsString(int argIndex, const wchar_t* str);
 	void SetArgAsNativeObject(int argIndex, const void* nativeObject);

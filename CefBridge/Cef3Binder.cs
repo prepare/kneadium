@@ -106,6 +106,64 @@ namespace LayoutFarm.CefBridge
     }
 
 
+    public struct MyCefFrame
+    {
+        internal IntPtr ptr;
+        internal MyCefFrame(IntPtr ptr)
+        {
+            this.ptr = ptr;
+        }
+
+
+
+        public void GetSource(MyCefCallback cb2)
+        {
+            JsValue a1 = new JsValue();
+            JsValue a2 = new JsValue();
+            JsValue ret;
+            Cef3Binder.MyCefJsValueSetManagedCallback(ref a1, cb2);
+            Cef3Binder.MyCefFrameCall2(this.ptr,
+                (int)CefFrameCallMsg.CefFrame_GetSource, out ret, ref a1, ref a2);
+        }
+        public void Release()
+        {
+            JsValue a1 = new JsValue();
+            JsValue a2 = new JsValue();
+            JsValue ret;
+            Cef3Binder.MyCefFrameCall2(this.ptr, (int)
+                CefFrameCallMsg.CefFrame_Release, out ret, ref a1, ref a2);
+        }
+    }
+
+    public struct MyCefBw
+    {
+        internal IntPtr ptr;
+        internal MyCefBw(IntPtr ptr)
+        {
+            this.ptr = ptr;
+        }
+        public MyCefFrame GetMainFrame()
+        {
+            JsValue ret;
+            JsValue a1 = new JsValue();
+            JsValue a2 = new JsValue();
+
+            Cef3Binder.MyCefBwCall2(ptr,
+                (int)CefBwCallMsg.CefBw_GetMainFrame,
+                out ret, ref a1, ref a2);
+            return new MyCefFrame(ret.Ptr);
+
+        }
+
+
+    }
+
+
+
+
+
+
+
     public struct NativeMyCefStringHolder
     {
         internal IntPtr nativePtr;
@@ -335,10 +393,6 @@ namespace LayoutFarm.CefBridge
         public static extern void MyCefPrintToPdf(IntPtr myCefBw, IntPtr setting, string filename, MyCefCallback callback);
 
 
-        [DllImport(CEF_CLIENT_DLL, CallingConvention = CallingConvention.Cdecl)]
-        public static extern IntPtr MyCefBwGetMainFrame(IntPtr myBw);
-       
-
 
 
         [DllImport(CEF_CLIENT_DLL, CallingConvention = CallingConvention.Cdecl)]
@@ -415,7 +469,7 @@ namespace LayoutFarm.CefBridge
         internal static extern bool MyCefJs_CefRegisterExtension(string extensionName, string extensionCode);
 
         [DllImport(CEF_CLIENT_DLL, CallingConvention = CallingConvention.Cdecl)]
-        public static extern unsafe void MyCefString_Read(IntPtr cefStr, char* outputBuffer, int outputBufferLen, ref int actualLength);
+        public static extern unsafe void MyCefString_Read(IntPtr cefStr, char* outputBuffer, int outputBufferLen, out int actualLength);
         [DllImport(CEF_CLIENT_DLL, CallingConvention = CallingConvention.Cdecl)]
         public static extern unsafe void MyCefStringHolder_Read(IntPtr mycefStrHolder, char* outputBuffer, int outputBufferLen, ref int actualLength);
         [DllImport(CEF_CLIENT_DLL, CallingConvention = CallingConvention.Cdecl, CharSet = CharSet.Unicode)]

@@ -25,9 +25,11 @@ namespace LayoutFarm.CefBridge
         CefBw_ExecJs = 26,
         CefBw_PostData = 27,
         CefBw_CloseBw = 28,
+        CefBw_GetMainFrame = 29,
     }
     public enum CefFrameCallMsg
     {
+        CefFrame_Release=0,
         CefFrame_GetSource = 1,
         CefFrame_GetUrl = 2,
     }
@@ -50,7 +52,7 @@ namespace LayoutFarm.CefBridge
         public static extern MyCefCallback MyCefJsValueGetManagedCallback(ref JsValue v);
         [DllImport(CEF_CLIENT_DLL, CallingConvention = CallingConvention.Cdecl)]
         public static extern void MyCefJsValueSetManagedCallback(ref JsValue v, MyCefCallback cb);
-     
+
 
 
         [DllImport(CEF_CLIENT_DLL, CallingConvention = CallingConvention.Cdecl)]
@@ -58,7 +60,7 @@ namespace LayoutFarm.CefBridge
 
         [DllImport(CEF_CLIENT_DLL, CallingConvention = CallingConvention.Cdecl)]
         public static extern void MyCefFrameCall2(IntPtr myCefBw, int methodName, out JsValue ret, ref JsValue arg1, ref JsValue arg2);
-    
+
 
     }
 }

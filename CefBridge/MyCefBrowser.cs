@@ -369,7 +369,6 @@ namespace LayoutFarm.CefBridge
             //keep alive callback
             InternalGetText((id, nativePtr) =>
             {
-
                 var args = new NativeCallArgs(nativePtr);
                 strCallback(args.GetArgAsString(0));
             });
@@ -393,22 +392,28 @@ namespace LayoutFarm.CefBridge
                 strCallback(args.GetArgAsString(0));
             });
         }
+
+
         void InternalGetSource2(MyCefCallback strCallback)
         {
-            //keep alive callback
-            keepAliveCallBack.Add(strCallback);
-            IntPtr cefFrame = Cef3Binder.MyCefBwGetMainFrame(this.myCefBrowser);
+            MyCefBw myCefBw = new MyCefBw(this.myCefBrowser);
 
-            JsValue a1 = new JsValue();
-            Cef3Binder.MyCefJsValueSetManagedCallback(ref a1, strCallback);
+            MyCefFrame myframe = myCefBw.GetMainFrame();
+            //JsValue ret;
+            //JsValue a1 = new JsValue();
+            //JsValue a2 = new JsValue();
+            //Cef3Binder.MyCefBwCall2(myCefBrowser,
+            //    (int)CefBwCallMsg.CefBw_GetMainFrame,
+            //    out ret, ref a1, ref a2);
+            //MyCefFrame myframe = new MyCefFrame(ret.Ptr);
 
-            JsValue a2 = new JsValue();
-            JsValue ret;
+            myframe.GetSource(strCallback);
+            myframe.Release();
 
-            Cef3Binder.MyCefFrameCall2(cefFrame,
-                (int)CefFrameCallMsg.CefFrame_GetSource, out ret, ref a1, ref a2);
-
-            //----------
+            //myCefBw.ContextMainFrame(myframe =>
+            //{
+            //    myframe.GetSource(strCallback);
+            //});
         }
         void InternalGetSource(MyCefCallback strCallback)
         {

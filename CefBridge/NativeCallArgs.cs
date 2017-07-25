@@ -71,21 +71,17 @@ namespace LayoutFarm.CefBridge
             Cef3Binder.MyCefMetArgs_GetArgs(_argPtr, index, out v);
             if ((int)v.Type == 30)
             {
-                //native cef
-
-                var charBuff = new char[BUFF_LEN];
-                int actualLen = 0;
+                //native cef 
                 unsafe
                 {
-                    fixed (char* buffHead = &charBuff[0])
+                    char* charBuff = stackalloc char[BUFF_LEN];
+                    int actualLen;
+                    Cef3Binder.MyCefString_Read(v.Ptr, charBuff, BUFF_LEN, out actualLen);
+                    if (actualLen > BUFF_LEN)
                     {
-                        Cef3Binder.MyCefString_Read(v.Ptr, buffHead, BUFF_LEN, ref actualLen);
-                        if (actualLen > BUFF_LEN)
-                        {
-                            //read more
-                        }
-                        return new string(buffHead, 0, actualLen);
+                        //read more
                     }
+                    return new string(charBuff, 0, actualLen);
                 }
             }
             else
@@ -159,7 +155,7 @@ namespace LayoutFarm.CefBridge
                 index,
                 unmangedMemPtr,
                 len);
-        } 
+        }
     }
     public struct NativeCallArgs2
     {

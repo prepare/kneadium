@@ -1,4 +1,7 @@
 //MIT, 2015-2017, WinterDev
+
+
+
 #include "ExportFuncs.h"   
 #include "dll_init.h" 
 #include "mycef.h"
@@ -9,6 +12,7 @@
 #include "tests/shared/common/client_app_other.h"
 #include "tests/shared/renderer/client_app_renderer.h"  
 #include "include/cef_zip_reader.h"
+
 //
 #include "tests/shared/browser/main_message_loop_std.h" 
 //
@@ -285,11 +289,13 @@ public:
 	}
 	virtual void Visit(const CefString& string) OVERRIDE {
 
-		MethodArgs metArgs;
-		memset(&metArgs, 0, sizeof(MethodArgs));
-		metArgs.SetArgAsNativeObject(0, &string);
-		metArgs.SetArgType(0, JSVALUE_TYPE_NATIVE_CEFSTRING);
-		this->mcallback(CEF_MSG_MyCefDomGetTextWalk_Visit, &metArgs);
+		if (mcallback) {
+			MethodArgs metArgs;
+			memset(&metArgs, 0, sizeof(MethodArgs));
+			metArgs.SetArgAsNativeObject(0, &string);
+			metArgs.SetArgType(0, JSVALUE_TYPE_NATIVE_CEFSTRING);
+			this->mcallback(CEF_MSG_MyCefDomGetTextWalk_Visit, &metArgs);
+		}
 	}
 private:
 	CefRefPtr<CefBrowser> browser_;
@@ -313,13 +319,8 @@ void MyCefDomGetSourceWalk(MyBrowser* myBw, managed_callback strCallBack)
 	bw->GetMainFrame()->GetSource(bwVisitor);
 	//this is not blocking method, so=> need to create visitor on heap
 }
-CefFrame* MyCefBwGetMainFrame(MyBrowser *myBw) {
-
-	auto cefFrame = myBw->bwWindow->GetBrowser()->GetMainFrame();
-	cefFrame->AddRef();//*** before send to external framework
-	return cefFrame;
-}
  
+
 
 //4. 
 void MyCefShowDevTools(MyBrowser* myBw, MyBrowser* myBwDev, HWND parentWindow)
@@ -450,7 +451,7 @@ CefPdfPrintSettings* MyCefCreatePdfPrintSetting(wchar_t* pdfjsonConfig) {
 	}
 	return NULL;
 }
- 
+
 
 void HereOnRenderer(const managed_callback callback, MethodArgs* args)
 {
@@ -489,7 +490,7 @@ void MyCefDeletePtr(void* ptr) {
 void MyCefDeletePtrArray(jsvalue* ptr) {
 	delete[] ptr;
 }
- 
+
 //----------------
 void CopyStringListToResult(jsvalue* ret, std::vector<CefString>& lst) {
 
@@ -555,11 +556,12 @@ const int CefBw_SetSize = 25;
 const int CefBw_ExecJs = 26;
 const int CefBw_PostData = 27;
 const int CefBw_CloseBw = 28;
+const int CefBw_GetMainFrame = 29;
 
 //----------------
 void MyCefBwCall2(MyBrowser* myBw, int methodName, jsvalue* ret, jsvalue* v1, jsvalue* v2) {
-	
-	auto bw = myBw->bwWindow->GetBrowser(); 
+
+	auto bw = myBw->bwWindow->GetBrowser();
 	ret->type = JSVALUE_TYPE_EMPTY;
 
 	switch (methodName) {
@@ -678,41 +680,45 @@ void MyCefBwCall2(MyBrowser* myBw, int methodName, jsvalue* ret, jsvalue* v1, js
 	case CefBw_CloseBw: {
 		myBw->bwWindow->ClientClose();
 	}break;
+	case CefBw_GetMainFrame: {
+		//***
+		cef_frame_t* cef_frame = CefFrameCToCpp::Unwrap(myBw->bwWindow->GetBrowser()->GetMainFrame());
+		ret->ptr = cef_frame;
+		ret->type = JSVALUE_TYPE_WRAPPED;
+		//***
+	}break;
 	}
-} 
+}
 
+const int CefFrame_Relase = 0;
 const int CefFrame_GetSource = 1;
 const int CefFrame_GetUrl = 2;
 //
-void MyCefFrameCall2(CefFrame* cefFrame, int methodName, jsvalue* ret, jsvalue* v1, jsvalue* v2) {
-	ret->type = JSVALUE_TYPE_EMPTY;
-	switch (methodName) { 
-	case CefFrame_GetSource:
-	{ 
-		auto bwVisitor = new MyCefStringVisitor(cefFrame->GetBrowser());
-		bwVisitor->mcallback = MyCefJsValueGetManagedCallback(v1);
-		cefFrame->GetSource(bwVisitor);
 
+void MyCefFrameCall2(cef_frame_t* cefFrame, int methodName, jsvalue* ret, jsvalue* v1, jsvalue* v2) {
+
+	auto cefFrame1 = CefFrameCToCpp::Wrap(cefFrame);
+	ret->type = JSVALUE_TYPE_EMPTY;
+	switch (methodName) {
+	case CefFrame_Relase: {
+		//just wrap, no unwrap
+	}break;
+	case CefFrame_GetSource:
+	{
+		auto bwVisitor = new MyCefStringVisitor(cefFrame1->GetBrowser());
+		bwVisitor->mcallback = MyCefJsValueGetManagedCallback(v1);
+		cefFrame1->GetSource(bwVisitor);
+		CefFrameCToCpp::Unwrap(cefFrame1); //unwrap before return back 
 	}break;
 	case CefFrame_GetUrl:
-	{	
+	{
 		MyCefStringHolder* str = new MyCefStringHolder();
-		str->value = cefFrame->GetURL();
+		str->value = cefFrame1->GetURL();
 		ret->type = JSVALUE_TYPE_NATIVE_CEFHOLDER_STRING;
 		ret->ptr = str;
 		ret->i32 = str->value.length();
-		 
+		CefFrameCToCpp::Unwrap(cefFrame1); //unwrap before return back 
 	}break;
 	}
 }
-void MyCefFrameCall2_Cb(CefFrame* cefFrame, int methodName, jsvalue* ret, jsvalue* v1, jsvalue* v2, managed_callback cb) {
-	ret->type = JSVALUE_TYPE_EMPTY;
-	switch (methodName) {
-	case CefFrame_GetSource:
-	{ 
-		auto bwVisitor = new MyCefStringVisitor(cefFrame->GetBrowser());
-		bwVisitor->mcallback = cb;
-		cefFrame->GetSource(bwVisitor); 
-	}break;	 
-	}
-}
+
