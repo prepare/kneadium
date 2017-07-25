@@ -170,9 +170,22 @@ namespace BridgeBuilder
                     }
                     else
                     {
-                        arglistBuilder.Append("(" + simpleType.Name + "*)");
-                        arglistBuilder.Append("v" + (i + 1));
-                        arglistBuilder.AppendLine("->ptr");
+                        if (simpleType.Name == "CefString")
+                        {
+                            //get data inside MyCefStringHolder*
+                            arglistBuilder.Append("((MyCefStringHolder*)");
+                            arglistBuilder.Append("v" + (i + 1) + "->ptr");
+                            arglistBuilder.AppendLine(")->value");
+                        }
+                        else
+                        {
+                            //eg. cefFrame1->GetSource(CefStringVisitorCppToC::Unwrap((cef_string_visitor_t*)v1->ptr));
+
+                            arglistBuilder.Append(simpleType.Name + "CppToC::Unwrap((cef_string_visitor_t*)");
+                            arglistBuilder.Append("v" + (i + 1));
+                            arglistBuilder.AppendLine("->ptr)");
+                        }
+
                     }
                 }
                 else if (par.DotnetResolvedType is DotNetList)
@@ -228,23 +241,43 @@ namespace BridgeBuilder
                                 stbuilder.AppendLine("ret->type = JSVALUE_TYPE_INTEGER64;");
                                 stbuilder.AppendLine("ret->i64 = ret_result;");
                                 break;
+
                             default:
                                 throw new NotSupportedException();
                         }
-
-
                     }
                     else
                     {
+                        //---------------------------------
                         //native object
                         stbuilder.Append("auto ret_result=");
                         stbuilder.Append("bw->" + met.Name + "(");
                         stbuilder.Append(arglistBuilder.ToString());
                         stbuilder.Append(");\r\n");
-                        //
-                        stbuilder.AppendLine("ret->type = JSVALUE_TYPE_WRAPPED;");
-                        stbuilder.AppendLine("ret->ptr = ret_result;");
+                        //---------------------------------
+
+                        if (simpleType.Name == "CefString")
+                        {
+                            //create string holder
+                            stbuilder.AppendLine("MyCefStringHolder* str = new MyCefStringHolder();");
+                            stbuilder.AppendLine("str->value=ret_result;");
+                            //
+                            stbuilder.AppendLine("ret->i32=ret_result.length();");
+                            stbuilder.AppendLine("ret->ptr=str;");
+                            stbuilder.AppendLine("ret->type=JSVALUE_TYPE_NATIVE_CEFHOLDER_STRING;");
+
+                        }
+                        else
+                        {
+                            //native object
+                            //select and unwrapp or wrap the result
+
+                            //
+                            stbuilder.AppendLine("ret->type = JSVALUE_TYPE_WRAPPED;");
+                            stbuilder.AppendLine("ret->ptr =" + simpleType + "CToCpp::Unwrap(ret_result);");
+                        }
                     }
+                    stbuilder.AppendLine("CefFrameCToCpp::Unwrap(" + "bw" + ");");
                 }
                 else
                 {

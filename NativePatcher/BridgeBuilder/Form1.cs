@@ -1,4 +1,5 @@
-﻿using System;
+﻿//MIT, 2016-2017 ,WinterDev
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Drawing;
@@ -268,10 +269,66 @@ namespace BridgeBuilder
                 apiBuilder.GenerateCsType(typeTxPlan, stbuilder);
                 StringBuilder cppPart = new StringBuilder();
                 apiBuilder.GenerateCppPart(typeTxPlan, cppPart);
+            }
+        }
 
 
+        static Dictionary<string, bool> CreateSkipFiles(string[] filenames)
+        {
+            Dictionary<string, bool> dic = new Dictionary<string, bool>();
+            foreach (string s in filenames)
+            {
+                dic.Add(s, true);
+            }
+            return dic;
+        }
+
+        private void button2_Click(object sender, EventArgs e)
+        {
+            //cpp-to-c wrapper and c-to-cpp wrapper
+            //ParseWrapper(@"D:\projects\cef_binary_3.3071.1647.win32\libcef_dll\ctocpp\frame_ctocpp.h");
+
+            //c to cpp 
+            {
+                string[] onlyHeaderFiles = System.IO.Directory.GetFiles(@"D:\projects\cef_binary_3.3071.1647.win32\libcef_dll\ctocpp", "*.h");
+                Dictionary<string, bool> skipFiles = CreateSkipFiles(new[] {
+                "ctocpp_ref_counted.h" ,"ctocpp_scoped.h"});
+
+                int j = onlyHeaderFiles.Length;
+                for (int i = 0; i < j; ++i)
+                {
+                    if (skipFiles.ContainsKey(System.IO.Path.GetFileName(onlyHeaderFiles[i])))
+                    {
+                        continue;
+                    }
+                    ParseWrapper(onlyHeaderFiles[i]);
+                }
+            }
+            //cpp to c
+            {
+                string[] onlyHeaderFiles = System.IO.Directory.GetFiles(@"D:\projects\cef_binary_3.3071.1647.win32\libcef_dll\cpptoc", "*.h");
+                Dictionary<string, bool> skipFiles = CreateSkipFiles(new[] {
+                "cpptoc_ref_counted.h","cpptoc_scoped.h"});
+
+                int j = onlyHeaderFiles.Length;
+                for (int i = 0; i < j; ++i)
+                {
+                    if (skipFiles.ContainsKey(System.IO.Path.GetFileName(onlyHeaderFiles[i])))
+                    {
+                        continue;
+                    }
+                    ParseWrapper(onlyHeaderFiles[i]);
+                }
             }
 
+        }
+        void ParseWrapper(string srcFile)
+        {
+            //string srcFile = @"D:\projects\cef_binary_3.3071.1647.win32\libcef_dll\ctocpp\frame_ctocpp.h";
+            //
+            Cef3HeaderFileParser headerParser = new Cef3HeaderFileParser();
+            headerParser.Parse(srcFile);
+            CodeCompilationUnit cu = headerParser.Result;
         }
     }
 }
