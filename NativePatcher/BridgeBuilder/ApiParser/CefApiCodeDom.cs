@@ -74,9 +74,13 @@ namespace BridgeBuilder
         }
         public List<CodeMemberDeclaration> SpecialImplMacroMembers { get; set; }
 
+        
+
+
         //-------------
         //semantic 
         public TypeSymbol ResolvedType { get; set; }
+
     }
     class CodeCompilationUnit
     {
@@ -246,6 +250,7 @@ namespace BridgeBuilder
         public readonly int dbugId = dbugTotalId++;
 #endif
         public abstract CodeMemberKind MemberKind { get; }
+        public CodeCompilationUnit OriginalCompilationUnit { get; set; }
     }
 
     enum CodeMemberKind

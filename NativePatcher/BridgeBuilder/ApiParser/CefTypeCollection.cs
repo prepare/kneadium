@@ -14,7 +14,7 @@ namespace BridgeBuilder
         Dictionary<string, TypeSymbol> typeSymbols = new Dictionary<string, TypeSymbol>();
         Dictionary<string, TypeSymbol> baseCToCppTypeSymbols = new Dictionary<string, TypeSymbol>();
         Dictionary<string, TypeSymbol> unknownTypes = new Dictionary<string, TypeSymbol>();
-
+        List<CodeCompilationUnit> compilationUnits;
         void Reset()
         {
             typeDics.Clear();
@@ -60,6 +60,7 @@ namespace BridgeBuilder
 
             Reset();
             //-----------------------
+            this.compilationUnits = compilationUnits;
             //1. collect
             foreach (CodeCompilationUnit cu in compilationUnits)
             {
@@ -88,7 +89,8 @@ namespace BridgeBuilder
             //do class classification
             List<CodeTypeDeclaration> callBackClasses = new List<CodeTypeDeclaration>();
             List<CodeTypeDeclaration> handlerClasses = new List<CodeTypeDeclaration>();
-            List<CodeTypeDeclaration> cppImplClasses = new List<CodeTypeDeclaration>();
+            List<CodeTypeDeclaration> cToCppClasses = new List<CodeTypeDeclaration>();
+            List<CodeTypeDeclaration> cppToCClasses = new List<CodeTypeDeclaration>();
             List<CodeTypeDeclaration> otherClasses = new List<CodeTypeDeclaration>();
 
             foreach (CodeTypeDeclaration t in typeDics.Values)
@@ -104,7 +106,11 @@ namespace BridgeBuilder
                 }
                 else if (name.EndsWith("CToCpp"))
                 {
-                    cppImplClasses.Add(t);
+                    cToCppClasses.Add(t);
+                }
+                else if (name.EndsWith("CppToC"))
+                {
+                    cppToCClasses.Add(t);
                 }
                 else
                 {
@@ -282,10 +288,10 @@ namespace BridgeBuilder
                                     else
                                     {
                                         throw new NotSupportedException();
-                                    } 
+                                    }
                                 }
-                            case "CefCToCppScoped": 
-                            case "CefCToCppRefCounted": 
+                            case "CefCToCppScoped":
+                            case "CefCToCppRefCounted":
                             case "CefCToCpp":
                                 {
                                     //c to cpp
@@ -345,7 +351,7 @@ namespace BridgeBuilder
                                         throw new NotSupportedException();
                                     }
                                 }
-                            
+
                         }
 
                     }
