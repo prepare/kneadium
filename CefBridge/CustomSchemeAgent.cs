@@ -38,26 +38,28 @@ namespace LayoutFarm.CefBridge
 
     public class CefSchemeHandler
     {
-        IntPtr ptr;
-        internal CefSchemeHandler()
+        internal IntPtr nativePtr;
+        internal CefSchemeHandler(IntPtr nativePtr)
         {
+            this.nativePtr = nativePtr;
         }
     }
 
     public class CefSchemeFactory
     {
-        IntPtr nativeSchemeFactory;
-        internal CefSchemeFactory()
+        internal IntPtr nativePtr;
+        internal CefSchemeFactory(IntPtr cefReqPtr)
         {
+            this.nativePtr = cefReqPtr;
         }
     }
 
     public struct CefRequest
     {
-        IntPtr cefReqPtr;
+        internal  IntPtr nativePtr;
         internal CefRequest(IntPtr cefReqPtr)
         {
-            this.cefReqPtr = cefReqPtr;
+            this.nativePtr = cefReqPtr;
         }
         public string Url
         {
