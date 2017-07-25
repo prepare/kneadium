@@ -288,6 +288,8 @@ namespace BridgeBuilder
             //cpp-to-c wrapper and c-to-cpp wrapper
             //ParseWrapper(@"D:\projects\cef_binary_3.3071.1647.win32\libcef_dll\ctocpp\frame_ctocpp.h");
 
+            List<CodeCompilationUnit> totalCuList = new List<CodeCompilationUnit>();
+            List<CodeCompilationUnit> ctocpp_culist = new List<CodeCompilationUnit>();
             //c to cpp 
             {
                 string[] onlyHeaderFiles = System.IO.Directory.GetFiles(@"D:\projects\cef_binary_3.3071.1647.win32\libcef_dll\ctocpp", "*.h");
@@ -301,9 +303,12 @@ namespace BridgeBuilder
                     {
                         continue;
                     }
-                    ParseWrapper(onlyHeaderFiles[i]);
+                    CodeCompilationUnit cu = ParseWrapper(onlyHeaderFiles[i]);
+                    ctocpp_culist.Add(cu);
+                    totalCuList.Add(cu);
                 }
             }
+            List<CodeCompilationUnit> cpptoc_culist = new List<CodeCompilationUnit>();
             //cpp to c
             {
                 string[] onlyHeaderFiles = System.IO.Directory.GetFiles(@"D:\projects\cef_binary_3.3071.1647.win32\libcef_dll\cpptoc", "*.h");
@@ -317,18 +322,24 @@ namespace BridgeBuilder
                     {
                         continue;
                     }
-                    ParseWrapper(onlyHeaderFiles[i]);
+                    CodeCompilationUnit cu = ParseWrapper(onlyHeaderFiles[i]);
+                    cpptoc_culist.Add(cu);
+                    totalCuList.Add(cu);
                 }
             }
+            //
+            CefTypeCollection cefTypeCollection = new CefTypeCollection();
+            cefTypeCollection.CollectAllTypeDefinitions(totalCuList);
+
 
         }
-        void ParseWrapper(string srcFile)
+        CodeCompilationUnit ParseWrapper(string srcFile)
         {
             //string srcFile = @"D:\projects\cef_binary_3.3071.1647.win32\libcef_dll\ctocpp\frame_ctocpp.h";
             //
             Cef3HeaderFileParser headerParser = new Cef3HeaderFileParser();
             headerParser.Parse(srcFile);
-            CodeCompilationUnit cu = headerParser.Result;
+            return headerParser.Result;
         }
     }
 }

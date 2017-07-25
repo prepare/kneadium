@@ -12,7 +12,7 @@ namespace BridgeBuilder
 
         //semantic
         Dictionary<string, TypeSymbol> typeSymbols = new Dictionary<string, TypeSymbol>();
-        Dictionary<string, TypeSymbol> baseCCppTypeSymbols = new Dictionary<string, TypeSymbol>();
+        Dictionary<string, TypeSymbol> baseCToCppTypeSymbols = new Dictionary<string, TypeSymbol>();
         Dictionary<string, TypeSymbol> unknownTypes = new Dictionary<string, TypeSymbol>();
 
         void Reset()
@@ -221,12 +221,12 @@ namespace BridgeBuilder
                 }
             }
         }
-        void RegisterBaseCCppTypeSymbol(CodeTypeReference baseCCppTypeSymbol)
+        void RegisterBaseCToCppTypeSymbol(CodeTypeReference baseCCppTypeSymbol)
         {
             //replace if exists
-            if (!baseCCppTypeSymbols.ContainsKey(baseCCppTypeSymbol.Name))
+            if (!baseCToCppTypeSymbols.ContainsKey(baseCCppTypeSymbol.Name))
             {
-                baseCCppTypeSymbols.Add(baseCCppTypeSymbol.Name, new SimpleType(baseCCppTypeSymbol.Name));
+                baseCToCppTypeSymbols.Add(baseCCppTypeSymbol.Name, new SimpleType(baseCCppTypeSymbol.Name));
             }
 
 
@@ -266,13 +266,33 @@ namespace BridgeBuilder
                         string templateName = typeTemplate.Name;
                         switch (typeTemplate.Name)
                         {
+                            default:
+                                throw new NotSupportedException();
 
-                            case "CefCToCpp":
+                            case "CefCppToCScoped":
+                            case "CefCppToCRefCounted":
                                 {
+                                    //cpp to c
                                     if (typeTemplate.Items.Count == 3)
                                     {
                                         //auto add native c/c++ type
-                                        RegisterBaseCCppTypeSymbol(typeTemplate.Items[2]);
+                                        RegisterBaseCToCppTypeSymbol(typeTemplate.Items[2]);
+                                        return ResolveType(typeTemplate.Items[1]);
+                                    }
+                                    else
+                                    {
+                                        throw new NotSupportedException();
+                                    } 
+                                }
+                            case "CefCToCppScoped": 
+                            case "CefCToCppRefCounted": 
+                            case "CefCToCpp":
+                                {
+                                    //c to cpp
+                                    if (typeTemplate.Items.Count == 3)
+                                    {
+                                        //auto add native c/c++ type
+                                        RegisterBaseCToCppTypeSymbol(typeTemplate.Items[2]);
                                         return ResolveType(typeTemplate.Items[1]);
                                     }
                                     else
@@ -325,8 +345,7 @@ namespace BridgeBuilder
                                         throw new NotSupportedException();
                                     }
                                 }
-                            default:
-                                throw new NotSupportedException();
+                            
                         }
 
                     }
@@ -368,7 +387,7 @@ namespace BridgeBuilder
                 {
                     return foundSymbol;
                 }
-                if (baseCCppTypeSymbols.TryGetValue(typename, out foundSymbol))
+                if (baseCToCppTypeSymbols.TryGetValue(typename, out foundSymbol))
                 {
                     return foundSymbol;
                 }
@@ -378,7 +397,7 @@ namespace BridgeBuilder
                 {
                     //assume this is base c/cpp type
                     foundSymbol = new SimpleType(typename);
-                    baseCCppTypeSymbols.Add(
+                    baseCToCppTypeSymbols.Add(
                         typename,
                         foundSymbol);
                     return foundSymbol;
