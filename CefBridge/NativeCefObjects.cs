@@ -290,7 +290,7 @@ namespace LayoutFarm.CefBridge
                 JsValue ret;
                 JsValue arg1 = new JsValue();
                 JsValue arg2 = new JsValue();
-                Cef3Binder.MyCefFrameCall2(this.Ptr, (int)CefFrameCallMsg.CefFrame_GetUrl, out ret, ref arg1, ref arg2);
+                Cef3Binder.MyCefFrameCall2(this.Ptr, (int)CefFrameCallMsg.CefFrame_GetURL, out ret, ref arg1, ref arg2);
                 NativeMyCefStringHolder ret_str = new NativeMyCefStringHolder(ret.Ptr);
                 string url = ret_str.ReadString(ret.I32);
                 ret_str.Dispose();
