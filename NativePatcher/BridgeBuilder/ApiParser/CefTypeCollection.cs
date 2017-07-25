@@ -119,7 +119,7 @@ namespace BridgeBuilder
             }
             //-----------------------
             //for analysis
-            Dictionary<TypeSymbol, TypeHeirarchyNode> hierarchy = new Dictionary<TypeSymbol, TypeHeirarchyNode>();
+            Dictionary<TypeSymbol, TypeHierarchyNode> hierarchy = new Dictionary<TypeSymbol, TypeHierarchyNode>();
             foreach (CodeTypeDeclaration t in typeDics.Values)
             {
                 TypeSymbol resolvedType = t.ResolvedType;
@@ -130,10 +130,10 @@ namespace BridgeBuilder
                 else
                 {
                     TypeSymbol baseType = t.BaseTypes[0].ResolvedType;
-                    TypeHeirarchyNode found;
+                    TypeHierarchyNode found;
                     if (!hierarchy.TryGetValue(baseType, out found))
                     {
-                        found = new TypeHeirarchyNode(baseType);
+                        found = new TypeHierarchyNode(baseType);
                         hierarchy.Add(baseType, found);
                     }
 
@@ -146,11 +146,11 @@ namespace BridgeBuilder
 
         }
 
-        class TypeHeirarchyNode
+        class TypeHierarchyNode
         {
 
             List<TypeSymbol> children = new List<TypeSymbol>();
-            public TypeHeirarchyNode(TypeSymbol type)
+            public TypeHierarchyNode(TypeSymbol type)
             {
                 this.Type = type;
             }
