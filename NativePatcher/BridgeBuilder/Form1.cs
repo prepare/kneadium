@@ -288,11 +288,28 @@ namespace BridgeBuilder
             //cpp-to-c wrapper and c-to-cpp wrapper
             //ParseWrapper(@"D:\projects\cef_binary_3.3071.1647.win32\libcef_dll\ctocpp\frame_ctocpp.h");
 
+            string cefDir = @"D:\projects\cef_binary_3.3071.1647.win32";
             List<CodeCompilationUnit> totalCuList = new List<CodeCompilationUnit>();
-            List<CodeCompilationUnit> ctocpp_culist = new List<CodeCompilationUnit>();
+            {
+                //include folder
+                string[] onlyHeaderFiles = System.IO.Directory.GetFiles(cefDir + @"\include\", "*.h");
+                Dictionary<string, bool> skipFiles = CreateSkipFiles(new[] {
+                "cef_base.h"});
+
+                int j = onlyHeaderFiles.Length;
+                for (int i = 0; i < j; ++i)
+                {
+                    if (skipFiles.ContainsKey(System.IO.Path.GetFileName(onlyHeaderFiles[i])))
+                    {
+                        continue;
+                    }
+                    CodeCompilationUnit cu = ParseWrapper(onlyHeaderFiles[i]);
+                    totalCuList.Add(cu);
+                }
+            }
             //c to cpp 
             {
-                string[] onlyHeaderFiles = System.IO.Directory.GetFiles(@"D:\projects\cef_binary_3.3071.1647.win32\libcef_dll\ctocpp", "*.h");
+                string[] onlyHeaderFiles = System.IO.Directory.GetFiles(cefDir + @"\libcef_dll\ctocpp", "*.h");
                 Dictionary<string, bool> skipFiles = CreateSkipFiles(new[] {
                 "ctocpp_ref_counted.h" ,"ctocpp_scoped.h"});
 
@@ -304,14 +321,13 @@ namespace BridgeBuilder
                         continue;
                     }
                     CodeCompilationUnit cu = ParseWrapper(onlyHeaderFiles[i]);
-                    ctocpp_culist.Add(cu);
                     totalCuList.Add(cu);
                 }
             }
-            List<CodeCompilationUnit> cpptoc_culist = new List<CodeCompilationUnit>();
+
             //cpp to c
             {
-                string[] onlyHeaderFiles = System.IO.Directory.GetFiles(@"D:\projects\cef_binary_3.3071.1647.win32\libcef_dll\cpptoc", "*.h");
+                string[] onlyHeaderFiles = System.IO.Directory.GetFiles(cefDir + @"\libcef_dll\cpptoc", "*.h");
                 Dictionary<string, bool> skipFiles = CreateSkipFiles(new[] {
                 "cpptoc_ref_counted.h","cpptoc_scoped.h"});
 
@@ -323,7 +339,6 @@ namespace BridgeBuilder
                         continue;
                     }
                     CodeCompilationUnit cu = ParseWrapper(onlyHeaderFiles[i]);
-                    cpptoc_culist.Add(cu);
                     totalCuList.Add(cu);
                 }
             }

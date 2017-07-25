@@ -273,7 +273,7 @@ namespace BridgeBuilder
                         switch (typeTemplate.Name)
                         {
                             default:
-                                throw new NotSupportedException();
+                               throw new NotSupportedException();
 
                             case "CefCppToCScoped":
                             case "CefCppToCRefCounted":
@@ -322,6 +322,14 @@ namespace BridgeBuilder
                                     }
                                 }
                             case "CefRefPtr":
+                                {
+                                    if (typeTemplate.Items.Count == 1)
+                                    {
+                                        return new ReferenceOrPointerTypeSymbol(ResolveType(typeTemplate.Items[0]), ContainerTypeKind.CefRefPtr);
+                                    }
+                                    throw new NotSupportedException();
+                                }
+                            case "CefRawPtr":
                                 {
                                     if (typeTemplate.Items.Count == 1)
                                     {
