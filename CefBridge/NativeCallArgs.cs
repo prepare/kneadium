@@ -40,17 +40,17 @@ namespace LayoutFarm.CefBridge
         {
             //get request from native string
 
-            int acutalLen = 0;
+            int actualLen = 0;
             unsafe
             {
                 int BUFF_LEN = 256;
                 char* buffHead = stackalloc char[BUFF_LEN];
-                Cef3Binder.MyCefStringHolder_Read(_requestCefStringHolder, buffHead, BUFF_LEN, ref acutalLen);
-                if (acutalLen > BUFF_LEN)
+                Cef3Binder.MyCefStringHolder_Read(_requestCefStringHolder, buffHead, BUFF_LEN, out actualLen);
+                if (actualLen > BUFF_LEN)
                 {
                     //read more
                 }
-                return new string(buffHead, 0, acutalLen);
+                return new string(buffHead, 0, actualLen);
             }
         }
     }
@@ -190,7 +190,7 @@ namespace LayoutFarm.CefBridge
             {
                 int BUFF_LEN = 256;
                 char* buffHead = stackalloc char[BUFF_LEN];
-                Cef3Binder.MyCefJs_MetReadArgAsString(argPtr, index, buffHead, BUFF_LEN, ref acutalLen);
+                Cef3Binder.MyCefJs_MetReadArgAsString(argPtr, index, buffHead, BUFF_LEN, out acutalLen);
                 if (acutalLen > BUFF_LEN)
                 {
                     //read more

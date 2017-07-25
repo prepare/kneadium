@@ -397,8 +397,18 @@ namespace LayoutFarm.CefBridge
         void InternalGetSource2(MyCefCallback strCallback)
         {
             MyCefBw myCefBw = new MyCefBw(this.myCefBrowser);
+            MyCefStringVisitor visitor = myCefBw.NewStringVisitor((id, ptr) =>
+            {
+                NativeCallArgs args = new NativeCallArgs(ptr);
+                var text = args.GetArgAsString(0);
+            });
 
+
+            //
             MyCefFrame myframe = myCefBw.GetMainFrame();
+            myframe.GetText(visitor);
+            //
+
             //JsValue ret;
             //JsValue a1 = new JsValue();
             //JsValue a2 = new JsValue();
@@ -409,6 +419,8 @@ namespace LayoutFarm.CefBridge
 
             myframe.GetSource(strCallback);
             myframe.Release();
+
+
 
             //myCefBw.ContextMainFrame(myframe =>
             //{
@@ -550,7 +562,7 @@ namespace LayoutFarm.CefBridge
                 int len = ret.I32 + 1; //+1 for null terminated string
                 char* buff = stackalloc char[len];
                 int actualLen = 0;
-                Cef3Binder.MyCefStringHolder_Read(ret.Ptr, buff, len, ref actualLen);
+                Cef3Binder.MyCefStringHolder_Read(ret.Ptr, buff, len, out actualLen);
                 string value = new string(buff);
                 Cef3Binder.MyCefDeletePtr(ret.Ptr);
             }

@@ -144,7 +144,7 @@ namespace LayoutFarm.CefBridge
                 fixed (char* head = &charBuff[0])
                 {
                     int actualLen = 0;
-                    Cef3Binder.MyCefJs_CefV8Value_ReadAsString(this.Ptr, head, BUFF_LEN, ref actualLen);
+                    Cef3Binder.MyCefJs_CefV8Value_ReadAsString(this.Ptr, head, BUFF_LEN, out actualLen);
                     if (actualLen > BUFF_LEN)
                     {
                         //read more
