@@ -316,12 +316,9 @@ namespace BridgeBuilder
                         switch (qnameType.LeftPart)
                         {
                             //resolve wellknown type template   
-                            case "base": return ResolveType(qnameType.RightPart);
-                            case "std": return ResolveType(qnameType.RightPart);
-
-                            //eg. nest or ns type 
-                            case "CefXmlReader":
-                            case "ProviderEntryList": return ResolveType(qnameType.RightPart);
+                          
+                            case "std":
+                                return ResolveType(qnameType.RightPart); 
                             default:
                                 {
                                     if (_currentResolvingType != null &&
