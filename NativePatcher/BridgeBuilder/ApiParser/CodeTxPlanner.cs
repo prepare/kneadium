@@ -136,6 +136,7 @@ namespace BridgeBuilder
     {
         CodeTypeDeclaration typedecl; //current type decl
         TypeTxInfo typeTxInfo; //current type tx         
+        TypeSymbol otherSearchScopeTypeSymbol;
 
         public TypeTranformPlanner()
         {
@@ -146,8 +147,44 @@ namespace BridgeBuilder
         {
             this.typedecl = typedecl;
             this.typeTxInfo = new TypeTxInfo(typedecl);
+            this.otherSearchScopeTypeSymbol = null;//reset
 
-            //
+
+            List<CodeTypeReference> baseTypes = typedecl.BaseTypes;
+            //set up baseType
+            if (baseTypes != null)
+            {
+                if (baseTypes.Count > 1)
+                {
+                    throw new NotSupportedException();
+                }
+                CodeTypeReference baseTypeOfThisType = baseTypes[0];
+                TypeSymbol baseTypeSymbol = baseTypeOfThisType.ResolvedType;
+                switch (baseTypeSymbol.TypeSymbolKind)
+                {
+                    case TypeSymbolKind.Template:
+                        {
+                            //we focus on this type
+                            TemplateType3 t3 = (TemplateType3)baseTypeSymbol;
+                            //in this version we have only TemplateType3
+                            switch (t3.Name)
+                            {
+                                default: throw new NotSupportedException();
+                                case "CefCToCppScoped":
+                                case "CefCToCppRefCounted":
+                                    {
+                                        otherSearchScopeTypeSymbol = t3.Item1;
+                                    }
+                                    break;
+
+
+                            }
+                        }
+                        break;
+                }
+
+            }
+
             foreach (CodeMemberDeclaration mb in typedecl.Members)
             {
                 if (mb.MemberKind == CodeMemberKind.Method)
@@ -204,7 +241,23 @@ namespace BridgeBuilder
                                 TypeSymbol c_type;
                                 if (!CefTypeCollection.baseCToCppTypeSymbols.TryGetValue(simpleType.Name, out c_type))
                                 {
+                                    if (!CefTypeCollection.typeSymbols.ContainsKey(simpleType.Name))
+                                    {
+                                        //this may be nested type
+                                        if (this.otherSearchScopeTypeSymbol != null)
+                                        {
+                                            string searchName = otherSearchScopeTypeSymbol.ToString() + "." + simpleType.Name;
+                                            if (!CefTypeCollection.typeSymbols.ContainsKey(searchName))
+                                            {
 
+                                            }
+                                        }
+                                        else
+                                        {
+                                            //where to find more?
+                                        }
+
+                                    }
                                 }
                             }
                         }
@@ -233,14 +286,10 @@ namespace BridgeBuilder
                                             ss == "void*")
                                         {
                                         }
-                                        else if (ss == "vec<CefString>" || ss == "vec<int64>")
-                                        {
-
-                                        }
                                         else if (ss.StartsWith("vec"))
                                         {
 
-                                        }
+                                        } 
                                         else if (!ss.StartsWith("Cef"))
                                         {
                                             TypeSymbol c_type;
