@@ -169,9 +169,7 @@ namespace BridgeBuilder
         {
             this.typedecl = typedecl;
             this.typeTxInfo = new TypeTxInfo(typedecl);
-            this.otherSearchScopeTypeSymbol = null;//reset
-
-
+            this.otherSearchScopeTypeSymbol = null;//reset 
             List<CodeTypeReference> baseTypes = typedecl.BaseTypes;
             //set up baseType
             if (baseTypes != null)
@@ -180,37 +178,39 @@ namespace BridgeBuilder
                 {
                     throw new NotSupportedException();
                 }
-                CodeTypeReference baseTypeOfThisType = baseTypes[0];
-                TypeSymbol baseTypeSymbol = baseTypeOfThisType.ResolvedType;
-                switch (baseTypeSymbol.TypeSymbolKind)
+                else if (baseTypes.Count == 1)
                 {
-                    case TypeSymbolKind.Template:
-                        {
-                            //we focus on this type
-                            TemplateTypeSymbol3 t3 = (TemplateTypeSymbol3)baseTypeSymbol;
-                            //in this version we have only TemplateType3
-                            switch (t3.Name)
+                    CodeTypeReference baseTypeOfThisType = baseTypes[0];
+                    TypeSymbol baseTypeSymbol = baseTypeOfThisType.ResolvedType;
+                    switch (baseTypeSymbol.TypeSymbolKind)
+                    {
+                        case TypeSymbolKind.Template:
                             {
-                                default: throw new NotSupportedException();
+                                //we focus on this type
+                                TemplateTypeSymbol3 t3 = (TemplateTypeSymbol3)baseTypeSymbol;
+                                //in this version we have only TemplateType3
+                                switch (t3.Name)
+                                {
+                                    default: throw new NotSupportedException();
 
-                                //c-to-cpp
-                                case "CefCToCppScoped":
-                                case "CefCToCppRefCounted":
-                                    otherSearchScopeTypeSymbol = t3.Item1;
-                                    break;
-                                //----------------------------
-                                //cpp-to-c
-                                case "CefCppToCScoped":
-                                    otherSearchScopeTypeSymbol = t3.Item1;
-                                    break;
-                                case "CefCppToCRefCounted":
-                                    otherSearchScopeTypeSymbol = t3.Item1;
-                                    break;
+                                    //c-to-cpp
+                                    case "CefCToCppScoped":
+                                    case "CefCToCppRefCounted":
+                                        otherSearchScopeTypeSymbol = t3.Item1;
+                                        break;
+                                    //----------------------------
+                                    //cpp-to-c
+                                    case "CefCppToCScoped":
+                                        otherSearchScopeTypeSymbol = t3.Item1;
+                                        break;
+                                    case "CefCppToCRefCounted":
+                                        otherSearchScopeTypeSymbol = t3.Item1;
+                                        break;
+                                }
                             }
-                        }
-                        break;
+                            break;
+                    }
                 }
-
             }
 
             foreach (CodeMemberDeclaration mb in typedecl.Members)

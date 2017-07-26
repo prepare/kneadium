@@ -72,10 +72,6 @@ namespace BridgeBuilder
                 //TODO: review
                 //temp add here, to be review again
                 new SimpleTypeSymbol("Handler"),
-                new SimpleTypeSymbol("CefRect"),
-                new SimpleTypeSymbol("CefSize"),
-                new SimpleTypeSymbol("CefPoint"),
-                new SimpleTypeSymbol("CefTime"),
                 new CTypeDefTypeSymbol("CefProcessId", new CodeSimpleTypeReference("cef_process_id_t")), //typedef cef_process_id_t CefProcessId;
                 new CTypeDefTypeSymbol("CefThreadId", new CodeSimpleTypeReference("cef_thread_id_t")), //typedef cef_thread_id_t CefThreadId; 
                 new CTypeDefTypeSymbol("CefWindowHandle",new CodeSimpleTypeReference("cef_window_handle_t")),
@@ -123,11 +119,24 @@ namespace BridgeBuilder
                         }
                         typeDics.Add(typeDecl.Name, typeDecl);
                         //-----------------------
+
                         SimpleTypeSymbol typeSymbol = new SimpleTypeSymbol(typeDecl.Name);
                         typeSymbol.CreatedByTypeDeclaration = typeDecl;
                         typeDecl.ResolvedType = typeSymbol;
-                        typeSymbols.Add(typeSymbol.Name, typeSymbol);
-                        //-----------------------
+                        //
+
+                        TypeSymbol existingTypeSymbol;
+                        if (typeSymbols.TryGetValue(typeSymbol.Name, out existingTypeSymbol))
+                        {
+                            //have existing value
+
+                        }
+                        else
+                        {
+                            typeSymbols.Add(typeSymbol.Name, typeSymbol);
+                        }
+
+
 
                         //and sub types
                         foreach (CodeMemberDeclaration subType in typeDecl.Members)
@@ -214,12 +223,15 @@ namespace BridgeBuilder
         }
 
 
+        CodeTypeDeclaration _currentResolvingType = null;
         void ResolveBaseTypes()
         {
+
             //-----------------------
             //2. resolve allbase type
             foreach (CodeTypeDeclaration typedecl in typeDics.Values)
             {
+                _currentResolvingType = typedecl;
                 //resolve base type
                 List<CodeTypeReference> baseTypes = typedecl.BaseTypes;
                 if (baseTypes.Count == 0)
@@ -236,6 +248,7 @@ namespace BridgeBuilder
                 }
             }
             //----------------------- 
+            _currentResolvingType = null; //reset
         }
         void ResolveBaseTypeMembers()
         {
@@ -287,6 +300,7 @@ namespace BridgeBuilder
             }
             return cToCppTypeReference.ResolvedType = found;
         }
+
         TypeSymbol ResolveType(CodeTypeReference typeRef)
         {
             //recursive
@@ -300,18 +314,32 @@ namespace BridgeBuilder
                 case CodeTypeReferenceKind.QualifiedName:
                     {
                         var qnameType = (CodeQualifiedNameType)typeRef;
-                        switch (qnameType.Name)
+                        switch (qnameType.LeftPart)
                         {
                             //resolve wellknown type template   
                             case "base": return ResolveType(qnameType.RightPart);
                             case "std": return ResolveType(qnameType.RightPart);
 
-                            //eg. nest or ns type
-
+                            //eg. nest or ns type 
                             case "CefXmlReader":
                             case "ProviderEntryList": return ResolveType(qnameType.RightPart);
                             default:
-                                throw new NotSupportedException();
+                                {
+                                    if (_currentResolvingType != null &&
+                                        _currentResolvingType.TemplateNotation != null)
+                                    {
+                                        //search ns from template notation
+                                        if (qnameType.LeftPart ==
+                                            _currentResolvingType.TemplateNotation.templatePar.ParameterName)
+                                        {
+                                            //TODO: resolve template type parameter
+                                            TemplateParameterTypeSymbol templatePar = new TemplateParameterTypeSymbol(qnameType.LeftPart, qnameType.RightPart.ToString());
+                                            return templatePar;
+                                        }
+                                    }
+                                    throw new NotSupportedException();
+                                }
+
                         }
                     }
                 case CodeTypeReferenceKind.TypeTemplate:
@@ -323,6 +351,12 @@ namespace BridgeBuilder
                         {
                             default:
                                 throw new NotSupportedException();
+                            case "CefStructBase":
+                                {
+                                    TemplateTypeSymbol1 t1 = new TemplateTypeSymbol1(typeTemplate.Name);
+                                    t1.Item0 = ResolveType(typeTemplate.Items[0]);
+                                    return t1;
+                                }
                             case "CefCppToCScoped":
                             case "CefCppToCRefCounted":
                                 {

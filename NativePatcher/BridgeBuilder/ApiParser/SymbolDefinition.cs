@@ -17,6 +17,7 @@ namespace BridgeBuilder
         ReferenceOrPointer,
         Vec,
         Template,
+        TemplateParameter,
         TypeDef,
     }
 
@@ -158,6 +159,23 @@ namespace BridgeBuilder
         public abstract int ItemCount { get; }
     }
 
+    class TemplateTypeSymbol1 : TemplateTypeSymbol
+    {
+        public TemplateTypeSymbol1(string name)
+            : base(name)
+        {
+            this.Name = name;
+        }
+        public override int ItemCount
+        {
+            get { return 1; }
+        }
+        public TypeSymbol Item0 { get; set; }
+        public override string ToString()
+        {
+            return Name + "<" + Item0 + ">";
+        }
+    }
     class TemplateTypeSymbol3 : TemplateTypeSymbol
     {
         public TemplateTypeSymbol3(string name)
@@ -174,7 +192,19 @@ namespace BridgeBuilder
         public TypeSymbol Item2 { get; set; }
         public override string ToString()
         {
-            return Name + "<" + Item1 + "," + Item2 + ">";
+            return Name + "<TODO!Imp," + Item1 + "," + Item2 + ">";
         }
+    }
+
+    class TemplateParameterTypeSymbol : TypeSymbol
+    {
+        public TemplateParameterTypeSymbol(string templateParName, string newName)
+        {
+            this.TemplateParameterName = templateParName;
+            this.NewName = newName;
+        }
+        public override TypeSymbolKind TypeSymbolKind { get { return TypeSymbolKind.TemplateParameter; } }
+        public string NewName { get; set; }
+        public string TemplateParameterName { get; set; }
     }
 }

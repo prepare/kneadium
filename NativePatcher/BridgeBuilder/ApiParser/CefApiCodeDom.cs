@@ -1,6 +1,6 @@
 ﻿//MIT, 2016-2017 ,WinterDev
 using System;
-using System.Collections.Generic; 
+using System.Collections.Generic;
 using System.Text;
 
 namespace BridgeBuilder
@@ -29,6 +29,33 @@ namespace BridgeBuilder
         Class,
         Struct
     }
+
+    class CodeTypeTemplateNotation
+    {
+        //this version support 1 parameter
+        public CodeTemplateParameter templatePar;
+
+        public override string ToString()
+        {
+            return "template<" + templatePar.ToString() + ">";
+        }
+    }
+    class CodeTemplateParameter
+    {
+        public string ParameterName { get; set; }
+        public string ParameterKind { get; set; }
+
+        public override string ToString()
+        {
+            return ParameterKind + " " + ParameterName;
+        }
+
+        public CodeTypeReference TemplateDetailFrom { get; set; }
+        public string ReAssignToTypeName { get; set; }
+    }
+
+
+
     class CodeTypeDeclaration : CodeMemberDeclaration
     {
         public CodeTypeDeclaration()
@@ -37,11 +64,13 @@ namespace BridgeBuilder
             this.Members = new List<CodeMemberDeclaration>();
             this.SpecialImplMacroMembers = new List<CodeMemberDeclaration>();
         }
+
         public TypeKind Kind { get; set; }
         public string Name { get; set; }
         public bool BaseIsPublic { get; set; }
         public bool BaseIsVirtual { get; set; }
         public bool IsGlobalCompilationUnitType { get; set; }
+        public CodeTypeTemplateNotation TemplateNotation { get; set; }
         public List<CodeTypeReference> BaseTypes { get; set; }
         public List<CodeMemberDeclaration> Members { get; set; }
         public override CodeMemberKind MemberKind { get { return CodeMemberKind.Type; } }
@@ -54,6 +83,13 @@ namespace BridgeBuilder
             }
 
             StringBuilder stbuilder = new StringBuilder();
+
+            if (TemplateNotation != null)
+            {
+                //template class
+                stbuilder.Append(TemplateNotation.ToString());
+            }
+
             switch (this.Kind)
             {
                 case TypeKind.Class:
@@ -74,7 +110,7 @@ namespace BridgeBuilder
         }
         public List<CodeMemberDeclaration> SpecialImplMacroMembers { get; set; }
 
-        
+
 
 
         //-------------
@@ -170,15 +206,17 @@ namespace BridgeBuilder
     {
 
         public CodeQualifiedNameType(string leftPartName, CodeTypeReference rightPart)
-            : base(leftPartName)
+            : base(rightPart.ToString())
         {
+            this.LeftPart = leftPartName;
             this.RightPart = rightPart;
         }
+        public string LeftPart { get; set; }
         public CodeTypeReference RightPart { get; set; }
         public override CodeTypeReferenceKind Kind { get { return CodeTypeReferenceKind.QualifiedName; } }
         public override string ToString()
         {
-            return base.Name + "::" + RightPart.ToString();
+            return LeftPart + "::" + RightPart.ToString();
         }
     }
     class CodeTypeTemplateTypeReference : CodeTypeReference
@@ -248,7 +286,12 @@ namespace BridgeBuilder
 #if DEBUG
         static int dbugTotalId;
         public readonly int dbugId = dbugTotalId++;
+        public CodeMemberDeclaration()
+        {
+
+        }
 #endif
+
         public abstract CodeMemberKind MemberKind { get; }
         public CodeCompilationUnit OriginalCompilationUnit { get; set; }
     }
@@ -281,6 +324,19 @@ namespace BridgeBuilder
             return FieldType.ToString() + " " + Name + ";";
         }
     }
+
+
+    class CodeCtorInitilizer
+    {
+        public List<CodeCtorInitField> initFields = new List<CodeCtorInitField>();
+    }
+
+    class CodeCtorInitField
+    {
+        public string FieldName;
+        public string InitValue;
+    }
+
 
     class CodeMethodDeclaration : CodeMemberDeclaration
     {
@@ -331,8 +387,10 @@ namespace BridgeBuilder
             stbuilder.Append(')');
             return stbuilder.ToString();
         }
-
-
+        //
+        public CodeCtorInitilizer CtorInit { get; set; }
+        public bool IsOperatorMethod { get; set; }
+        public bool IsInline { get; set; }
     }
 
     class CodeMethodParameter
