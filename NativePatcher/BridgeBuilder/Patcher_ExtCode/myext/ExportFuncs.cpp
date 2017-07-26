@@ -19,7 +19,10 @@
 #include "../browser/root_window_win.h" //**
 #include "../browser/browser_window_osr_win.h" //**
 #include "tests/cefclient/browser/browser_window_std_win.h" 
-
+#include "libcef_dll/ctocpp/browser_ctocpp.h"
+#include "libcef_dll/ctocpp/v8context_ctocpp.h"
+//
+ 
 
 
 
@@ -319,7 +322,7 @@ void MyCefDomGetSourceWalk(MyBrowser* myBw, managed_callback strCallBack)
 	bw->GetMainFrame()->GetSource(bwVisitor);
 	//this is not blocking method, so=> need to create visitor on heap
 }
- 
+
 
 
 //4. 
@@ -557,8 +560,9 @@ const int CefBw_ExecJs = 26;
 const int CefBw_PostData = 27;
 const int CefBw_CloseBw = 28;
 const int CefBw_GetMainFrame = 29;
-
+const int CefBw_NewStringVisitor = 30;
 //----------------
+
 void MyCefBwCall2(MyBrowser* myBw, int methodName, jsvalue* ret, jsvalue* v1, jsvalue* v2) {
 
 	auto bw = myBw->bwWindow->GetBrowser();
@@ -586,12 +590,7 @@ void MyCefBwCall2(MyBrowser* myBw, int methodName, jsvalue* ret, jsvalue* v1, js
 		auto clientHandle = myBw->bwWindow->GetClientHandler();
 		clientHandle->MyCefEnableKeyIntercept(v1->i32);
 	}break;
-	case CefBw_GetMainFrame_LoadURL: {
 
-		MyCefStringHolder* strHolder = (MyCefStringHolder*)v1->ptr;
-		bw->GetMainFrame()->LoadURL(strHolder->value);
-
-	}break;
 	case 5: {
 		ret->type = JSVALUE_TYPE_WRAPPED;
 		ret->ptr = bw;
@@ -627,11 +626,24 @@ void MyCefBwCall2(MyBrowser* myBw, int methodName, jsvalue* ret, jsvalue* v1, js
 		//ret->ptr = arr;
 		//ret->type = JSVALUE_TYPE_ARRAY;
 	}break;
+	case CefBw_CloseBw: {
+		myBw->bwWindow->ClientClose();
+	}break;
+	case CefBw_GetMainFrame: {
+		//***
+		cef_frame_t* cef_frame = CefFrameCToCpp::Unwrap(myBw->bwWindow->GetBrowser()->GetMainFrame());
+		ret->ptr = cef_frame;
+		ret->type = JSVALUE_TYPE_WRAPPED;
+		//***
+	}break;
+	case CefBw_GetMainFrame_LoadURL: {
+		MyCefStringHolder* strHolder = (MyCefStringHolder*)v1->ptr;
+		bw->GetMainFrame()->LoadURL(strHolder->value);
+	}break;
 	case CefBw_GetMainFrame_GetURL: {
 
 		CefString cefStr = bw->GetMainFrame()->GetURL();
 		ret->type = JSVALUE_TYPE_NATIVE_CEFHOLDER_STRING;
-
 		MyCefStringHolder* myCefStringHolder = new MyCefStringHolder();
 		myCefStringHolder->value = cefStr;
 		ret->ptr = myCefStringHolder;
@@ -654,9 +666,7 @@ void MyCefBwCall2(MyBrowser* myBw, int methodName, jsvalue* ret, jsvalue* v1, js
 		//Add post data to request, the correct method and content-type header will be set by CEF 
 		CefRefPtr<CefPostDataElement> postDataElement(CefPostDataElement::Create());
 
-		//------
-		//copy data from mana
-		//------
+
 		char* buffer1 = new char[v2->i32];
 		memcpy(buffer1, v2->ptr, v2->i32);
 		postDataElement->SetToBytes(v2->i32, buffer1);
@@ -677,22 +687,47 @@ void MyCefBwCall2(MyBrowser* myBw, int methodName, jsvalue* ret, jsvalue* v1, js
 
 		delete buffer1;
 	}break;
-	case CefBw_CloseBw: {
-		myBw->bwWindow->ClientClose();
-	}break;
-	case CefBw_GetMainFrame: {
-		//***
-		cef_frame_t* cef_frame = CefFrameCToCpp::Unwrap(myBw->bwWindow->GetBrowser()->GetMainFrame());
-		ret->ptr = cef_frame;
+	case CefBw_NewStringVisitor: {
+
+		auto stringVisitor = new MyCefStringVisitor(myBw->bwWindow->GetBrowser());
+		stringVisitor->mcallback = MyCefJsValueGetManagedCallback(v1);
 		ret->type = JSVALUE_TYPE_WRAPPED;
-		//***
+		ret->ptr = CefStringVisitorCppToC::Wrap(stringVisitor);
+
 	}break;
 	}
 }
 
 const int CefFrame_Relase = 0;
-const int CefFrame_GetSource = 1;
-const int CefFrame_GetUrl = 2;
+
+const int CefFrame_IsValid = 1;
+const int CefFrame_Undo = 2;
+const int CefFrame_Redo = 3;
+const int CefFrame_Cut = 4;
+const int CefFrame_Copy = 5;
+const int CefFrame_Paste = 6;
+const int CefFrame_Delete = 7;
+const int CefFrame_SelectAll = 8;
+const int CefFrame_ViewSource = 9;
+
+const int CefFrame_GetSource = 10;
+const int CefFrame_GetSource_Ext = 30;
+
+const int CefFrame_GetUrl = 11;
+const int CefFrame_GetText = 12;
+const int CefFrame_LoadRequest = 13;
+const int CefFrame_LoadUrl = 14;
+const int CefFrame_LoadString = 15;
+const int CefFrame_ExecuteJavaScript = 16;
+const int CefFrame_IsMain = 17;
+const int CefFrame_IsFocused = 18;
+const int CefFrame_GetName = 19;
+const int CefFrame_GetIdentifer = 20;
+const int CefFrame_GetParent = 21;
+const int CefFrame_GetBrowser = 22;
+const int CefFrame_GetV8Context = 23;
+const int CefFrame_VisitDOM = 24;
+
 //
 
 void MyCefFrameCall2(cef_frame_t* cefFrame, int methodName, jsvalue* ret, jsvalue* v1, jsvalue* v2) {
@@ -703,8 +738,20 @@ void MyCefFrameCall2(cef_frame_t* cefFrame, int methodName, jsvalue* ret, jsvalu
 	case CefFrame_Relase: {
 		//just wrap, no unwrap
 	}break;
+	case CefFrame_IsValid: {
+		//return boolean value
+		ret->i32 = cefFrame1->IsValid() ? 1 : 0;
+		ret->type = JSVALUE_TYPE_BOOLEAN;
+		CefFrameCToCpp::Unwrap(cefFrame1); //unwrap before return back 
+	}break;
 	case CefFrame_GetSource:
 	{
+		cefFrame1->GetSource(CefStringVisitorCppToC::Unwrap((cef_string_visitor_t*)v1->ptr));
+		CefFrameCToCpp::Unwrap(cefFrame1); //unwrap before return back 
+	}break;
+	case CefFrame_GetSource_Ext:
+	{
+		//void GetSource(CefRefPtr<CefStringVisitor> visitor) OVERRIDE;
 		auto bwVisitor = new MyCefStringVisitor(cefFrame1->GetBrowser());
 		bwVisitor->mcallback = MyCefJsValueGetManagedCallback(v1);
 		cefFrame1->GetSource(bwVisitor);
@@ -714,11 +761,56 @@ void MyCefFrameCall2(cef_frame_t* cefFrame, int methodName, jsvalue* ret, jsvalu
 	{
 		MyCefStringHolder* str = new MyCefStringHolder();
 		str->value = cefFrame1->GetURL();
+		//
 		ret->type = JSVALUE_TYPE_NATIVE_CEFHOLDER_STRING;
 		ret->ptr = str;
 		ret->i32 = str->value.length();
 		CefFrameCToCpp::Unwrap(cefFrame1); //unwrap before return back 
 	}break;
+	case CefFrame_GetText: {
+		cefFrame1->GetSource(CefStringVisitorCppToC::Unwrap((cef_string_visitor_t*)v1->ptr));
+		CefFrameCToCpp::Unwrap(cefFrame1); //unwrap before return back  
+	}break;
+	case CefFrame_LoadUrl: {
+
+		MyCefStringHolder* holder = (MyCefStringHolder*)v1->ptr;
+		cefFrame1->LoadURL(holder->value);
+		CefFrameCToCpp::Unwrap(cefFrame1); //unwrap before return back 
+	}break;
+	case CefFrame_LoadString: {
+
+		MyCefStringHolder* holder1 = (MyCefStringHolder*)v1->ptr;
+		MyCefStringHolder* holder2 = (MyCefStringHolder*)v2->ptr;
+		cefFrame1->LoadStringW(holder1->value, holder2->value);
+		CefFrameCToCpp::Unwrap(cefFrame1); //unwrap before return back 
+	}break;
+	case CefFrame_GetParent: {
+		auto ret_result = cefFrame1->GetParent();
+		ret->type = JSVALUE_TYPE_WRAPPED;
+		ret->ptr = CefFrameCToCpp::Unwrap(ret_result);
+		CefFrameCToCpp::Unwrap(cefFrame1);
+	}break;		
+	case CefFrame_GetBrowser: {
+		auto ret_result = cefFrame1->GetBrowser();
+		ret->type = JSVALUE_TYPE_WRAPPED;
+		ret->ptr = CefBrowserCToCpp::Unwrap(ret_result);
+		CefFrameCToCpp::Unwrap(cefFrame1);
+	}break;
+	case CefFrame_GetV8Context: {
+		auto ret_result = cefFrame1->GetV8Context();
+		ret->type = JSVALUE_TYPE_WRAPPED;
+		ret->ptr = CefV8ContextCToCpp::Unwrap(ret_result);
+		CefFrameCToCpp::Unwrap(cefFrame1);
+	}break;
 	}
 }
 
+const int TypeName_StringVisitor = 1;
+
+void MyCefRelease(void* ptr, int typeName) {
+	switch (typeName) {
+	case TypeName_StringVisitor: {
+		CefStringVisitorCppToC::Unwrap((cef_string_visitor_t*)ptr);
+	}break;
+	}
+}

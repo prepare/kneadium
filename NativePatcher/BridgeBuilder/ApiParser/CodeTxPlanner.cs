@@ -1,7 +1,7 @@
 ﻿//MIT, 2016-2017 ,WinterDev
 using System;
 using System.Collections.Generic;
- 
+
 using System.Text;
 
 namespace BridgeBuilder
@@ -121,17 +121,78 @@ namespace BridgeBuilder
         {
             return DotnetResolvedType.ToString();
         }
+        public TxParameterDirection Direction { get; set; }
+    }
+
+    enum TxParameterDirection
+    {
+        Return,
+        In,
+        Out,
+        InOut
     }
 
     class TypeTranformPlanner
     {
+        CodeTypeDeclaration typedecl; //current type decl
+        TypeTxInfo typeTxInfo; //current type tx         
+        TypeSymbol otherSearchScopeTypeSymbol;
+
         public TypeTranformPlanner()
         {
         }
         public CefTypeCollection CefTypeCollection { get; set; }
+
         public TypeTxInfo MakeTransformPlan(CodeTypeDeclaration typedecl)
         {
-            TypeTxInfo typeTxInfo = new TypeTxInfo(typedecl);
+            this.typedecl = typedecl;
+            this.typeTxInfo = new TypeTxInfo(typedecl);
+            this.otherSearchScopeTypeSymbol = null;//reset
+
+
+            List<CodeTypeReference> baseTypes = typedecl.BaseTypes;
+            //set up baseType
+            if (baseTypes != null)
+            {
+                if (baseTypes.Count > 1)
+                {
+                    throw new NotSupportedException();
+                }
+                CodeTypeReference baseTypeOfThisType = baseTypes[0];
+                TypeSymbol baseTypeSymbol = baseTypeOfThisType.ResolvedType;
+                switch (baseTypeSymbol.TypeSymbolKind)
+                {
+                    case TypeSymbolKind.Template:
+                        {
+                            //we focus on this type
+                            TemplateType3 t3 = (TemplateType3)baseTypeSymbol;
+                            //in this version we have only TemplateType3
+                            switch (t3.Name)
+                            {
+                                default: throw new NotSupportedException();
+
+                                //c-to-cpp
+                                case "CefCToCppScoped":
+                                case "CefCToCppRefCounted":
+                                    otherSearchScopeTypeSymbol = t3.Item1;
+                                    break;
+
+                                //----------------------------
+                                //cpp-to-c
+                                case "CefCppToCScoped":
+                                    otherSearchScopeTypeSymbol = t3.Item1;
+                                    break;
+                                case "CefCppToCRefCounted":
+                                    otherSearchScopeTypeSymbol = t3.Item1;
+                                    break;
+
+                            }
+                        }
+                        break;
+                }
+
+            }
+
             foreach (CodeMemberDeclaration mb in typedecl.Members)
             {
                 if (mb.MemberKind == CodeMemberKind.Method)
@@ -146,11 +207,132 @@ namespace BridgeBuilder
                         }
                         typeTxInfo.AddMethod(metTx);
                     }
+                    else
+                    {
+
+                    }
                 }
             }
             return typeTxInfo;
         }
+        void AddParameterWrappingInfo(MethodParameterTxInfo parTxInfo, TypeSymbol parTypeSymbol)
+        {
 
+            switch (parTypeSymbol.TypeSymbolKind)
+            {
+                case TypeSymbolKind.TypeDef:
+                    //check back to its original typedef
+
+                    break;
+                case TypeSymbolKind.Simple:
+                    {
+                        SimpleType simpleType = (SimpleType)parTypeSymbol;
+                        if (!IsPrimitiveType(simpleType))
+                        {
+                            TypeSymbol c_type;
+                            if (!CefTypeCollection.baseCToCppTypeSymbols.TryGetValue(simpleType.Name, out c_type))
+                            {
+                                if (!CefTypeCollection.typeSymbols.ContainsKey(simpleType.Name))
+                                {
+                                    //this may be nested type
+                                    if (this.otherSearchScopeTypeSymbol != null)
+                                    {
+                                        string searchName = otherSearchScopeTypeSymbol.ToString() + "." + simpleType.Name;
+                                        if (!CefTypeCollection.typeSymbols.ContainsKey(searchName))
+                                        {
+
+                                        }
+                                    }
+                                    else
+                                    {
+                                        //where to find more?
+                                    }
+
+                                }
+                            }
+                        }
+                    }
+                    break;
+                case TypeSymbolKind.ReferenceOrPointer:
+                    {
+                        ReferenceOrPointerTypeSymbol refOfPointer = (ReferenceOrPointerTypeSymbol)parTypeSymbol;
+                        switch (refOfPointer.Kind)
+                        {
+                            default: throw new NotSupportedException();//should not visit here
+                            case ContainerTypeKind.ByRef:
+                                {
+                                    //eg. CefPoint& 
+                                    //check element type
+                                    TypeSymbol elemType = refOfPointer.ElementType;
+                                    switch (elemType.TypeSymbolKind)
+                                    {
+                                        default:
+                                            //should not visit here
+                                            throw new NotSupportedException();
+                                        case TypeSymbolKind.Simple:
+                                            //reference to simple type
+
+                                            break;
+                                        case TypeSymbolKind.Vec:
+                                            //ref to vec
+                                            break;
+                                        case TypeSymbolKind.ReferenceOrPointer:
+                                            ReferenceOrPointerTypeSymbol refOfPointerElem = (ReferenceOrPointerTypeSymbol)elemType;
+                                            if (refOfPointerElem.Kind == ContainerTypeKind.Pointer)
+                                            {
+
+                                            }
+                                            else if (refOfPointerElem.Kind == ContainerTypeKind.CefRefPtr)
+                                            {
+
+                                            }
+                                            else
+                                            {
+                                                throw new NotSupportedException();
+                                            }
+                                            break;
+                                    }
+                                }
+                                break;
+                            case ContainerTypeKind.CefRefPtr:
+                                {
+                                    string ss = refOfPointer.ElementType.ToString();
+                                    if (ss == "CefString")
+                                    {
+                                    }
+                                    else if (ss == "vec<CefString>")
+                                    {
+
+                                    }
+                                    else if (!ss.StartsWith("Cef"))
+                                    {
+
+                                    }
+                                }
+                                break;
+                            case ContainerTypeKind.Pointer:
+                                {
+                                    string ss = parTypeSymbol.ToString();
+                                    if (ss == "void*" || ss == "char*")
+                                    {
+
+                                    }
+                                    else
+                                    {
+
+                                    }
+
+                                }
+                                break;
+                        }
+                    }
+                    break;
+                default:
+                    throw new NotSupportedException();
+
+            }
+
+        }
         MethodTxInfo MakeMethodPlan(CodeMethodDeclaration metDecl)
         {
             MethodTxInfo metTx = new MethodTxInfo(metDecl);
@@ -158,7 +340,11 @@ namespace BridgeBuilder
 
             //1. return
             MethodParameterTxInfo retTxInfo = new MethodParameterTxInfo(null) { IsMethodReturnParameter = true };
+            retTxInfo.Direction = TxParameterDirection.Return;
+
             AddMethodParameterTypeTxInfo(retTxInfo, metDecl.ReturnType.ResolvedType);
+            AddParameterWrappingInfo(retTxInfo, metDecl.ReturnType.ResolvedType);
+
             metTx.ReturnPlan = retTxInfo;
 
             //2. parameters
@@ -167,8 +353,14 @@ namespace BridgeBuilder
             {
                 CodeMethodParameter metPar = metDecl.Parameters[i];
                 MethodParameterTxInfo parTxInfo = new MethodParameterTxInfo(metPar.ParameterName);
+                parTxInfo.Direction = TxParameterDirection.In;
+                //TODO: review Out,InOut direction 
 
-                AddMethodParameterTypeTxInfo(parTxInfo, metPar.ParameterType.ResolvedType);
+                TypeSymbol parTypeSymbol = metPar.ParameterType.ResolvedType;
+                AddMethodParameterTypeTxInfo(parTxInfo, parTypeSymbol);
+                //check wrapping c-to-cpp / cpp-to-c
+                AddParameterWrappingInfo(parTxInfo, parTypeSymbol);
+
                 metTx.AddMethodParameterTx(parTxInfo);
                 if (!metPar.IsConstPar)
                 {
@@ -176,7 +368,6 @@ namespace BridgeBuilder
                     //if not, this should gen out or ref parameter
                 }
             }
-
             return metTx;
         }
 
@@ -184,6 +375,14 @@ namespace BridgeBuilder
         {
             switch (resolvedParType.TypeSymbolKind)
             {
+                default:
+                    throw new NotSupportedException();
+                case TypeSymbolKind.TypeDef:
+                    {
+
+
+                    }
+                    break;
                 case TypeSymbolKind.Simple:
                     {
                         SimpleType simpleType = (SimpleType)resolvedParType;
@@ -240,7 +439,7 @@ namespace BridgeBuilder
                                         }
                                         else
                                         {
-                                            throw new NotSupportedException();
+                                            //throw new NotSupportedException();
                                         }
                                     }
 
@@ -264,26 +463,43 @@ namespace BridgeBuilder
                                         }
                                         else
                                         {
-                                            throw new NotSupportedException();
+                                            //throw new NotSupportedException();
                                         }
                                     }
 
                                 }
                                 break;
                             case ContainerTypeKind.Pointer:
-                                throw new NotSupportedException();
+                                {
+
+                                    string elemType = refOrPointer.ElementType.ToString();
+                                    switch (elemType)
+                                    {
+                                        default:
+                                            throw new NotSupportedException();
+                                        case "char": //char*
+                                            {
+
+                                            }
+                                            break;
+                                        case "void": //void*
+                                            {
+
+                                            }
+                                            break;
+                                    }
+                                }
                                 break;
                             case ContainerTypeKind.ScopePtr:
                                 throw new NotSupportedException();
-                                break;
+
                             default:
                                 throw new NotSupportedException();
-                                break;
+
                         }
                     }
                     break;
-                default:
-                    throw new NotSupportedException();
+
             }
         }
 
@@ -299,6 +515,9 @@ namespace BridgeBuilder
                 case "uint32":
                 case "int64":
                 case "uint64":
+                case "size_t":
+                case "double":
+                case "float":
                     return true;
 
             }
