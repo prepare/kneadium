@@ -17,6 +17,7 @@ namespace BridgeBuilder
         ReferenceOrPointer,
         Vec,
         Template,
+        TemplateParameter,
         TypeDef,
     }
 
@@ -29,11 +30,22 @@ namespace BridgeBuilder
     }
     abstract class TypeSymbol : Symbol
     {
+#if DEBUG
+        public readonly int dbugId = dbugTotalId++;
+        static int dbugTotalId;
+        public TypeSymbol()
+        {
+            if (dbugId == 768)
+            {
+
+            }
+        }
+#endif
         public abstract TypeSymbolKind TypeSymbolKind { get; }
     }
-    class SimpleType : TypeSymbol
+    class SimpleTypeSymbol : TypeSymbol
     {
-        public SimpleType(string name)
+        public SimpleTypeSymbol(string name)
         {
             this.Name = name;
         }
@@ -65,7 +77,7 @@ namespace BridgeBuilder
         CefString,
         //
         size_t,
-        
+
     }
 
 
@@ -84,7 +96,7 @@ namespace BridgeBuilder
         {
             return Name;
         }
-        public SimpleType ParentType
+        public SimpleTypeSymbol ParentType
         {
             get;
             set;
@@ -136,9 +148,9 @@ namespace BridgeBuilder
 
 
 
-    abstract class TemplateType : TypeSymbol
+    abstract class TemplateTypeSymbol : TypeSymbol
     {
-        public TemplateType(string name)
+        public TemplateTypeSymbol(string name)
         {
             this.Name = name;
         }
@@ -147,9 +159,26 @@ namespace BridgeBuilder
         public abstract int ItemCount { get; }
     }
 
-    class TemplateType3 : TemplateType
+    class TemplateTypeSymbol1 : TemplateTypeSymbol
     {
-        public TemplateType3(string name)
+        public TemplateTypeSymbol1(string name)
+            : base(name)
+        {
+            this.Name = name;
+        }
+        public override int ItemCount
+        {
+            get { return 1; }
+        }
+        public TypeSymbol Item0 { get; set; }
+        public override string ToString()
+        {
+            return Name + "<" + Item0 + ">";
+        }
+    }
+    class TemplateTypeSymbol3 : TemplateTypeSymbol
+    {
+        public TemplateTypeSymbol3(string name)
             : base(name)
         {
             this.Name = name;
@@ -163,7 +192,19 @@ namespace BridgeBuilder
         public TypeSymbol Item2 { get; set; }
         public override string ToString()
         {
-            return Name + "<" + Item1 + "," + Item2 + ">";
+            return Name + "<TODO!Imp," + Item1 + "," + Item2 + ">";
         }
+    }
+
+    class TemplateParameterTypeSymbol : TypeSymbol
+    {
+        public TemplateParameterTypeSymbol(string templateParName, string newName)
+        {
+            this.TemplateParameterName = templateParName;
+            this.NewName = newName;
+        }
+        public override TypeSymbolKind TypeSymbolKind { get { return TypeSymbolKind.TemplateParameter; } }
+        public string NewName { get; set; }
+        public string TemplateParameterName { get; set; }
     }
 }

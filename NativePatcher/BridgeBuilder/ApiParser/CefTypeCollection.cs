@@ -53,29 +53,25 @@ namespace BridgeBuilder
 
                 //-----------------------------------------
 
-                new SimpleType("void"){PrimitiveTypeKind = PrimitiveTypeKind.Void },
-                new SimpleType("bool"){PrimitiveTypeKind = PrimitiveTypeKind.Bool },
-                new SimpleType("char"){PrimitiveTypeKind = PrimitiveTypeKind.Char },
-                new SimpleType("int"){PrimitiveTypeKind = PrimitiveTypeKind.Int32 },//TODO: review here
-                new SimpleType("int32"){PrimitiveTypeKind = PrimitiveTypeKind.Int32 },
-                new SimpleType("uint32"){PrimitiveTypeKind = PrimitiveTypeKind.UInt32 },
-                new SimpleType("int64"){PrimitiveTypeKind = PrimitiveTypeKind.Int64 },
-                new SimpleType("uint64"){PrimitiveTypeKind = PrimitiveTypeKind.UInt64 },
-                new SimpleType("double"){PrimitiveTypeKind = PrimitiveTypeKind.Double },
-                new SimpleType("float"){PrimitiveTypeKind = PrimitiveTypeKind.Float },
-                new SimpleType("size_t"){PrimitiveTypeKind = PrimitiveTypeKind.size_t },
+                new SimpleTypeSymbol("void"){PrimitiveTypeKind = PrimitiveTypeKind.Void },
+                new SimpleTypeSymbol("bool"){PrimitiveTypeKind = PrimitiveTypeKind.Bool },
+                new SimpleTypeSymbol("char"){PrimitiveTypeKind = PrimitiveTypeKind.Char },
+                new SimpleTypeSymbol("int"){PrimitiveTypeKind = PrimitiveTypeKind.Int32 },//TODO: review here
+                new SimpleTypeSymbol("int32"){PrimitiveTypeKind = PrimitiveTypeKind.Int32 },
+                new SimpleTypeSymbol("uint32"){PrimitiveTypeKind = PrimitiveTypeKind.UInt32 },
+                new SimpleTypeSymbol("int64"){PrimitiveTypeKind = PrimitiveTypeKind.Int64 },
+                new SimpleTypeSymbol("uint64"){PrimitiveTypeKind = PrimitiveTypeKind.UInt64 },
+                new SimpleTypeSymbol("double"){PrimitiveTypeKind = PrimitiveTypeKind.Double },
+                new SimpleTypeSymbol("float"){PrimitiveTypeKind = PrimitiveTypeKind.Float },
+                new SimpleTypeSymbol("size_t"){PrimitiveTypeKind = PrimitiveTypeKind.size_t },
 
-                new SimpleType("string"){PrimitiveTypeKind = PrimitiveTypeKind.String },
-                new SimpleType("CefString"){PrimitiveTypeKind = PrimitiveTypeKind.CefString },
-                new SimpleType("CefBase"),
+                new SimpleTypeSymbol("string"){PrimitiveTypeKind = PrimitiveTypeKind.String },
+                new SimpleTypeSymbol("CefString"){PrimitiveTypeKind = PrimitiveTypeKind.CefString },
+                new SimpleTypeSymbol("CefBase"),
                 
                 //TODO: review
                 //temp add here, to be review again
-                new SimpleType("Handler"),
-                new SimpleType("CefRect"),
-                new SimpleType("CefSize"),
-                new SimpleType("CefPoint"),
-                new SimpleType("CefTime"),
+                new SimpleTypeSymbol("Handler"),
                 new CTypeDefTypeSymbol("CefProcessId", new CodeSimpleTypeReference("cef_process_id_t")), //typedef cef_process_id_t CefProcessId;
                 new CTypeDefTypeSymbol("CefThreadId", new CodeSimpleTypeReference("cef_thread_id_t")), //typedef cef_thread_id_t CefThreadId; 
                 new CTypeDefTypeSymbol("CefWindowHandle",new CodeSimpleTypeReference("cef_window_handle_t")),
@@ -88,7 +84,7 @@ namespace BridgeBuilder
                 {
                     default: throw new NotSupportedException();
                     case TypeSymbolKind.Simple:
-                        typeSymbols.Add(((SimpleType)typeSymbol).Name, typeSymbol);
+                        typeSymbols.Add(((SimpleTypeSymbol)typeSymbol).Name, typeSymbol);
                         break;
                     case TypeSymbolKind.TypeDef:
                         typeSymbols.Add(((CTypeDefTypeSymbol)typeSymbol).Name, typeSymbol);
@@ -123,11 +119,24 @@ namespace BridgeBuilder
                         }
                         typeDics.Add(typeDecl.Name, typeDecl);
                         //-----------------------
-                        SimpleType typeSymbol = new SimpleType(typeDecl.Name);
+
+                        SimpleTypeSymbol typeSymbol = new SimpleTypeSymbol(typeDecl.Name);
                         typeSymbol.CreatedByTypeDeclaration = typeDecl;
                         typeDecl.ResolvedType = typeSymbol;
-                        typeSymbols.Add(typeSymbol.Name, typeSymbol);
-                        //-----------------------
+                        //
+
+                        TypeSymbol existingTypeSymbol;
+                        if (typeSymbols.TryGetValue(typeSymbol.Name, out existingTypeSymbol))
+                        {
+                            //have existing value
+
+                        }
+                        else
+                        {
+                            typeSymbols.Add(typeSymbol.Name, typeSymbol);
+                        }
+
+
 
                         //and sub types
                         foreach (CodeMemberDeclaration subType in typeDecl.Members)
@@ -214,12 +223,15 @@ namespace BridgeBuilder
         }
 
 
+        CodeTypeDeclaration _currentResolvingType = null;
         void ResolveBaseTypes()
         {
+
             //-----------------------
             //2. resolve allbase type
             foreach (CodeTypeDeclaration typedecl in typeDics.Values)
             {
+                _currentResolvingType = typedecl;
                 //resolve base type
                 List<CodeTypeReference> baseTypes = typedecl.BaseTypes;
                 if (baseTypes.Count == 0)
@@ -236,6 +248,7 @@ namespace BridgeBuilder
                 }
             }
             //----------------------- 
+            _currentResolvingType = null; //reset
         }
         void ResolveBaseTypeMembers()
         {
@@ -251,7 +264,7 @@ namespace BridgeBuilder
                             {
                                 //resolve return type and type parameter
                                 metDecl.ReturnType.ResolvedType = ResolveType(metDecl.ReturnType);
-                                foreach (var p in metDecl.Parameters)
+                                foreach (CodeMethodParameter p in metDecl.Parameters)
                                 {
                                     p.ParameterType.ResolvedType = ResolveType(p.ParameterType);
                                 }
@@ -282,11 +295,12 @@ namespace BridgeBuilder
             if (!baseCToCppTypeSymbols.TryGetValue(cToCppTypeReference.Name, out found))
             {
                 //if not found then create the new simple type
-                found = new SimpleType(cToCppTypeReference.Name);
+                found = new SimpleTypeSymbol(cToCppTypeReference.Name);
                 baseCToCppTypeSymbols.Add(cToCppTypeReference.Name, found);
             }
             return cToCppTypeReference.ResolvedType = found;
         }
+
         TypeSymbol ResolveType(CodeTypeReference typeRef)
         {
             //recursive
@@ -300,18 +314,32 @@ namespace BridgeBuilder
                 case CodeTypeReferenceKind.QualifiedName:
                     {
                         var qnameType = (CodeQualifiedNameType)typeRef;
-                        switch (qnameType.Name)
+                        switch (qnameType.LeftPart)
                         {
                             //resolve wellknown type template   
                             case "base": return ResolveType(qnameType.RightPart);
                             case "std": return ResolveType(qnameType.RightPart);
 
-                            //eg. nest or ns type
-
+                            //eg. nest or ns type 
                             case "CefXmlReader":
                             case "ProviderEntryList": return ResolveType(qnameType.RightPart);
                             default:
-                                throw new NotSupportedException();
+                                {
+                                    if (_currentResolvingType != null &&
+                                        _currentResolvingType.TemplateNotation != null)
+                                    {
+                                        //search ns from template notation
+                                        if (qnameType.LeftPart ==
+                                            _currentResolvingType.TemplateNotation.templatePar.ParameterName)
+                                        {
+                                            //TODO: resolve template type parameter
+                                            TemplateParameterTypeSymbol templatePar = new TemplateParameterTypeSymbol(qnameType.LeftPart, qnameType.RightPart.ToString());
+                                            return templatePar;
+                                        }
+                                    }
+                                    throw new NotSupportedException();
+                                }
+
                         }
                     }
                 case CodeTypeReferenceKind.TypeTemplate:
@@ -323,6 +351,12 @@ namespace BridgeBuilder
                         {
                             default:
                                 throw new NotSupportedException();
+                            case "CefStructBase":
+                                {
+                                    TemplateTypeSymbol1 t1 = new TemplateTypeSymbol1(typeTemplate.Name);
+                                    t1.Item0 = ResolveType(typeTemplate.Items[0]);
+                                    return t1;
+                                }
                             case "CefCppToCScoped":
                             case "CefCppToCRefCounted":
                                 {
@@ -332,7 +366,7 @@ namespace BridgeBuilder
                                         //auto add native c/c++ type
 
                                         //
-                                        TemplateType3 t3 = new TemplateType3(typeTemplate.Name);
+                                        TemplateTypeSymbol3 t3 = new TemplateTypeSymbol3(typeTemplate.Name);
                                         t3.Item1 = ResolveType(typeTemplate.Items[1]);
                                         t3.Item2 = RegisterBaseCToCppTypeSymbol(typeTemplate.Items[2]);
                                         return t3;
@@ -350,7 +384,7 @@ namespace BridgeBuilder
                                     if (typeTemplate.Items.Count == 3)
                                     {
                                         //auto add native c/c++ type
-                                        TemplateType3 t3 = new TemplateType3(typeTemplate.Name);
+                                        TemplateTypeSymbol3 t3 = new TemplateTypeSymbol3(typeTemplate.Name);
                                         t3.Item1 = ResolveType(typeTemplate.Items[1]);
                                         t3.Item2 = RegisterBaseCToCppTypeSymbol(typeTemplate.Items[2]);
                                         return t3;
@@ -459,7 +493,7 @@ namespace BridgeBuilder
                 if (typename.StartsWith("cef_") && IsAllLowerLetter(typename))
                 {
                     //assume this is base c/cpp type
-                    foundSymbol = new SimpleType(typename);
+                    foundSymbol = new SimpleTypeSymbol(typename);
                     baseCToCppTypeSymbols.Add(
                         typename,
                         foundSymbol);
@@ -468,7 +502,7 @@ namespace BridgeBuilder
 
                 if (!unknownTypes.TryGetValue(typename, out foundSymbol))
                 {
-                    foundSymbol = new SimpleType(typename);
+                    foundSymbol = new SimpleTypeSymbol(typename);
                     unknownTypes.Add(typename, foundSymbol);
                     return foundSymbol;
                 }

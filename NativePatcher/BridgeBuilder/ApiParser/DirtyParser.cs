@@ -419,7 +419,10 @@ namespace BridgeBuilder
                             currentTokenIndex = n;
                             break;
                         }
-
+                        else
+                        {
+                            openBraceCount--;
+                        }
                     }
                     else if (nextTk.Content == "{")
                     {
@@ -453,6 +456,9 @@ namespace BridgeBuilder
                 }
             }
         }
+
+        CodeTypeTemplateNotation templateNotation = null;
+
         void ParseFileContent()
         {
             LineLexer lineLexer = new LineLexer();
@@ -501,6 +507,8 @@ namespace BridgeBuilder
             globalTypeDecl.IsGlobalCompilationUnitType = true;
             this.typeList.Add(globalTypeDecl);
 
+
+
             for (currentTokenIndex = 0; currentTokenIndex < tkcount; ++currentTokenIndex)
             {
                 Token tk = tokenList[currentTokenIndex];
@@ -534,6 +542,8 @@ namespace BridgeBuilder
                                         CodeTypeDeclaration typeDecl = ParseTypeDeclaration();
                                         typeDecl.Kind = (tk.Content == "class") ? TypeKind.Class : TypeKind.Struct;
 
+                                        templateNotation = null;
+
                                         if (typeDecl != null)
                                         {
 
@@ -555,6 +565,7 @@ namespace BridgeBuilder
                                 case "template":
                                     {
                                         //skip template
+                                        this.templateNotation = ParseTemplateNotation();
 
                                     }
                                     break;
@@ -673,6 +684,24 @@ namespace BridgeBuilder
             //read next and 
             return ExpectToken(TokenKind.LiteralNumber, value);
         }
+        Token ExpectPunc()
+        {
+            int i = currentTokenIndex + 1;
+            if (i >= tokenList.Count)
+            {
+                return null;
+            }
+            Token tk = tokenList[i];
+            switch (tk.TokenKind)
+            {
+                default:
+                    return null;
+                case TokenKind.Punc:
+                    currentTokenIndex = i;
+                    return tk;
+            }
+            //
+        }
         bool ExpectPunc(string expectedPunc)
         {
             //read next and 
@@ -702,7 +731,6 @@ namespace BridgeBuilder
                     return false;
             }
             return false;
-
         }
 
         bool ExpectPuncSeq(string p1, string p2, string p3)
@@ -717,7 +745,16 @@ namespace BridgeBuilder
         {
             //class name
             var codeTypeDecl = new CodeTypeDeclaration();
+            if (this.templateNotation != null)
+            {
+                codeTypeDecl.TemplateNotation = this.templateNotation;
+                this.templateNotation = null;//reset
+            }
+
             codeTypeDecl.Name = ExpectId();
+
+
+
             if (ExpectPunc(";"))
             {
                 //forward decl
@@ -748,10 +785,62 @@ namespace BridgeBuilder
             }
             return codeTypeDecl;
         }
+        CodeTypeTemplateNotation ParseTemplateNotation()
+        {
+            if (!ExpectPunc("<"))
+            {
+                throw new NotSupportedException();
+            }
+            if (!ExpectId("class"))
+            {
+                //class
+            }
+            string id_name = ExpectId();
+            //this version supports 1 template parameter
+            if (!ExpectPunc(">"))
+            {
+                throw new NotSupportedException();
+            }
+
+            CodeTypeTemplateNotation typeTemplateNotation = new CodeTypeTemplateNotation();
+            CodeTemplateParameter templatePar = new CodeTemplateParameter();
+            templatePar.ParameterKind = "class";
+            templatePar.ParameterName = id_name;
+            //
+            typeTemplateNotation.templatePar = templatePar;
+            //
+            return typeTemplateNotation;
+        }
         bool ParseCTypeDef(CodeTypeDeclaration codeTypeDecl)
         {
-            var from = ExpectType();
-            string to = ExpectId();
+            CodeTypeReference from = ExpectType();
+            string to = "";
+            if (codeTypeDecl.TemplateNotation != null)
+            {
+                if (from.Name == "typename")
+                {
+
+                    //template <class traits>
+                    //class CefStructBase : public traits::struct_type {
+                    // public:
+                    //  typedef typename traits::struct_type struct_type;
+
+
+                    CodeTemplateParameter par = codeTypeDecl.TemplateNotation.templatePar;
+
+                    //assign to template parameter 
+                    par.TemplateDetailFrom = ExpectType();
+                    par.ReAssignToTypeName = ExpectId();
+                    //for template
+                    if (!ExpectPunc(";"))
+                    {
+                        throw new NotSupportedException();
+                    }
+
+                    return true;
+                }
+            }
+            to = ExpectId();
             if (!ExpectPunc(";"))
             {
                 throw new NotSupportedException();
@@ -762,11 +851,63 @@ namespace BridgeBuilder
 #if DEBUG
         static int dbugCount = 0;
 #endif
+
+        void ParseCtorInitializer(CodeMethodDeclaration metDecl)
+        {
+            string ctor_init_id = ExpectId();
+            if (!ExpectPunc("("))
+            {
+                throw new NotSupportedException();
+            }
+            //value
+            if (ExpectPunc(")"))
+            {
+                CodeCtorInitilizer ctorInit = new CodeCtorInitilizer();
+                ctorInit.initFields.Add(
+                    new CodeCtorInitField()
+                    {
+                        FieldName = ctor_init_id
+                    });
+                metDecl.CtorInit = ctorInit;
+                return;
+            }
+            //
+            string exprValue = ExpectId();
+            if (exprValue != null)
+            {
+                //
+                //null expression
+                CodeCtorInitilizer ctorInit = new CodeCtorInitilizer();
+                ctorInit.initFields.Add(
+                    new CodeCtorInitField()
+                    {
+                        FieldName = ctor_init_id,
+                        InitValue = exprValue
+                    });
+                metDecl.CtorInit = ctorInit;
+            }
+            else
+            {
+                //this version=> not support
+                throw new NotSupportedException();
+            }
+
+
+            if (!ExpectPunc(")"))
+            {
+                throw new NotSupportedException();
+            }
+        }
+
         bool ParseTypeMember(CodeTypeDeclaration codeTypeDecl)
         {
 
 #if DEBUG
             dbugCount++;
+            if (dbugCount >= 145)
+            {
+
+            }
 #endif
 
             //member modifiers
@@ -833,17 +974,47 @@ namespace BridgeBuilder
             }
 
             //modifier
+            bool isOperatorMethod = false;
             bool isStatic = ExpectId("static");
             bool isVirtual = ExpectId("virtual");
             bool isConst = ExpectId("const");
             bool isExplicit = ExpectId("explicit");
             bool isMutable = ExpectId("mutable");
-
+            bool isInline = ExpectId("inline");
             bool isDestructor = ExpectPunc("~");
             CodeTypeReference retType = ExpectType();
 
+
             string name = ExpectId();
 
+            if (name == "operator")
+            {
+                //operator method
+                isOperatorMethod = true;
+                Token punc = null;
+                if ((punc = ExpectPunc()) != null)
+                {
+                    name = punc.Content;
+                }
+            }
+            else if (name == "long")
+            {
+                //long long return type
+                //so go next method
+
+                if (retType.Name == "long")
+                {
+                    //this version I switch this to in64
+                    retType = new CodeSimpleTypeReference("int64");
+                    name = ExpectId();
+
+                }
+                else
+                {
+                    throw new NotSupportedException();
+                }
+
+            }
             //-----------------------------------
             if (ExpectPunc("("))
             {
@@ -852,7 +1023,8 @@ namespace BridgeBuilder
                 CodeMethodDeclaration met = new CodeMethodDeclaration();
                 met.IsStatic = isStatic;
                 met.IsVirtual = isVirtual;
-
+                met.IsInline = isInline;
+                //
                 if (retType.ToString() == codeTypeDecl.Name &&
                     name == null)
                 {
@@ -863,6 +1035,7 @@ namespace BridgeBuilder
                 }
                 else
                 {
+                    met.IsOperatorMethod = isOperatorMethod;
                     met.Name = name;
                     met.ReturnType = retType;
                 }
@@ -872,6 +1045,7 @@ namespace BridgeBuilder
 
                 met.IsOverrided = ExpectId("OVERRIDE");
                 met.IsConst = ExpectId("const");
+
 
                 //cef3:
                 //exclude some method like structure, eg. macro
@@ -889,6 +1063,16 @@ namespace BridgeBuilder
                     //start new member  
                     return !ExpectPunc("}");
                 }
+
+                //---------------- 
+                if (met.MethodKind == MethodKind.Ctor && ExpectPunc(":"))
+                {
+                    //ctor_initializer ...
+                    //this version only 1 
+                    ParseCtorInitializer(met);
+                }
+                //----------------
+
                 if (ExpectPunc("{"))
                 {
                     //this version we not parse method body
@@ -913,7 +1097,6 @@ namespace BridgeBuilder
                 {
                     return !ExpectPunc("}");
                 }
-
 
             }
             else if (ExpectPunc(";"))
@@ -1058,7 +1241,7 @@ namespace BridgeBuilder
             }
 
             var metPar = new CodeMethodParameter();
-            metPar.IsConstPar = ExpectId("const") != null;
+            metPar.IsConstPar = ExpectId("const");
             if (ExpectId("struct"))
             {
             }

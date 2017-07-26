@@ -13,14 +13,14 @@ namespace BridgeBuilder
     }
     class DotNetResolvedSimpleType : DotNetResolvedTypeBase
     {
-        public DotNetResolvedSimpleType(SimpleType simpleType)
+        public DotNetResolvedSimpleType(SimpleTypeSymbol simpleType)
         {
             this.SimpleType = simpleType;
             this.Name = simpleType.Name;
             this.IsPrimitiveType = simpleType.PrimitiveTypeKind != PrimitiveTypeKind.NotPrimitiveType;
         }
         public string Name { get; set; }
-        public SimpleType SimpleType { get; set; }
+        public SimpleTypeSymbol SimpleType { get; set; }
         public override string ToString()
         {
             return this.Name;
@@ -169,9 +169,7 @@ namespace BridgeBuilder
         {
             this.typedecl = typedecl;
             this.typeTxInfo = new TypeTxInfo(typedecl);
-            this.otherSearchScopeTypeSymbol = null;//reset
-
-
+            this.otherSearchScopeTypeSymbol = null;//reset 
             List<CodeTypeReference> baseTypes = typedecl.BaseTypes;
             //set up baseType
             if (baseTypes != null)
@@ -180,37 +178,39 @@ namespace BridgeBuilder
                 {
                     throw new NotSupportedException();
                 }
-                CodeTypeReference baseTypeOfThisType = baseTypes[0];
-                TypeSymbol baseTypeSymbol = baseTypeOfThisType.ResolvedType;
-                switch (baseTypeSymbol.TypeSymbolKind)
+                else if (baseTypes.Count == 1)
                 {
-                    case TypeSymbolKind.Template:
-                        {
-                            //we focus on this type
-                            TemplateType3 t3 = (TemplateType3)baseTypeSymbol;
-                            //in this version we have only TemplateType3
-                            switch (t3.Name)
+                    CodeTypeReference baseTypeOfThisType = baseTypes[0];
+                    TypeSymbol baseTypeSymbol = baseTypeOfThisType.ResolvedType;
+                    switch (baseTypeSymbol.TypeSymbolKind)
+                    {
+                        case TypeSymbolKind.Template:
                             {
-                                default: throw new NotSupportedException();
+                                //we focus on this type
+                                TemplateTypeSymbol3 t3 = (TemplateTypeSymbol3)baseTypeSymbol;
+                                //in this version we have only TemplateType3
+                                switch (t3.Name)
+                                {
+                                    default: throw new NotSupportedException();
 
-                                //c-to-cpp
-                                case "CefCToCppScoped":
-                                case "CefCToCppRefCounted":
-                                    otherSearchScopeTypeSymbol = t3.Item1;
-                                    break;
-                                //----------------------------
-                                //cpp-to-c
-                                case "CefCppToCScoped":
-                                    otherSearchScopeTypeSymbol = t3.Item1;
-                                    break;
-                                case "CefCppToCRefCounted":
-                                    otherSearchScopeTypeSymbol = t3.Item1;
-                                    break;
+                                    //c-to-cpp
+                                    case "CefCToCppScoped":
+                                    case "CefCToCppRefCounted":
+                                        otherSearchScopeTypeSymbol = t3.Item1;
+                                        break;
+                                    //----------------------------
+                                    //cpp-to-c
+                                    case "CefCppToCScoped":
+                                        otherSearchScopeTypeSymbol = t3.Item1;
+                                        break;
+                                    case "CefCppToCRefCounted":
+                                        otherSearchScopeTypeSymbol = t3.Item1;
+                                        break;
+                                }
                             }
-                        }
-                        break;
+                            break;
+                    }
                 }
-
             }
 
             foreach (CodeMemberDeclaration mb in typedecl.Members)
@@ -245,7 +245,7 @@ namespace BridgeBuilder
                     break;
                 case TypeSymbolKind.Simple:
                     {
-                        SimpleType simpleType = (SimpleType)parTypeSymbol;
+                        SimpleTypeSymbol simpleType = (SimpleTypeSymbol)parTypeSymbol;
                         if (simpleType.PrimitiveTypeKind == PrimitiveTypeKind.NotPrimitiveType)
                         {
                             TypeSymbol c_type;
@@ -406,18 +406,86 @@ namespace BridgeBuilder
                     throw new NotSupportedException();
                 case TypeSymbolKind.TypeDef:
                     {
+                        CTypeDefTypeSymbol typedefTypeSymbol = (CTypeDefTypeSymbol)resolvedParType;
+
                     }
                     break;
                 case TypeSymbolKind.Simple:
                     {
-                        SimpleType simpleType = (SimpleType)resolvedParType;
+                        SimpleTypeSymbol simpleType = (SimpleTypeSymbol)resolvedParType;
                         parPlan.DotnetResolvedType = new DotNetResolvedSimpleType(simpleType);
+                        switch (parPlan.Direction)
+                        {
+                            default: throw new NotSupportedException();
+                            case TxParameterDirection.In:
+                                {
+                                    //input parameter
+                                    switch (simpleType.PrimitiveTypeKind)
+                                    {
+                                        case PrimitiveTypeKind.CefString:
+                                            break;
+                                        case PrimitiveTypeKind.Void:
+                                            break;
+                                        case PrimitiveTypeKind.NotPrimitiveType:
+                                            {
+                                                CodeTypeDeclaration decl = simpleType.CreatedByTypeDeclaration;
+                                                if (decl != null)
+                                                {
+
+                                                }
+
+                                            }
+                                            break;
+                                        default:
+                                            {
+                                                //other primitive type
+                                            }
+                                            break;
+                                    }
+                                }
+                                break;
+                            case TxParameterDirection.Return:
+                                {
+                                    //check if we return 
+                                    //some 
+                                    if (simpleType.PrimitiveTypeKind == PrimitiveTypeKind.NotPrimitiveType)
+                                    {
+                                        //not primitive
+
+                                    }
+                                    else
+                                    {
+
+                                    }
+                                }
+                                break;
+                        }
+
                     }
                     break;
                 case TypeSymbolKind.Vec:
                     {
                         var vec = (VecTypeSymbol)resolvedParType;
-                        AddMethodParameterTypeTxInfo(parPlan, vec.ElementType);
+                        //vector of ...
+                        switch (parPlan.Direction)
+                        {
+                            default: throw new NotSupportedException();
+                            case TxParameterDirection.Return:
+                                {
+
+                                }
+                                break;
+                            case TxParameterDirection.In:
+                                {
+
+                                }
+                                break;
+                            case TxParameterDirection.Out:
+                                {
+
+                                }
+                                break;
+                        }
                         //make it array
                         parPlan.DotnetResolvedType = new DotNetList(parPlan.DotnetResolvedType);
                     }
@@ -430,12 +498,69 @@ namespace BridgeBuilder
                         {
                             case ContainerTypeKind.ByRef:
                                 {
-                                    AddMethodParameterTypeTxInfo(parPlan, refOrPointer.ElementType);
+
+                                    if (refOrPointer.ElementType is SimpleTypeSymbol)
+                                    {
+                                        SimpleTypeSymbol elem = (SimpleTypeSymbol)refOrPointer.ElementType;
+                                        if (elem.PrimitiveTypeKind == PrimitiveTypeKind.NotPrimitiveType)
+                                        {
+
+                                        }
+                                        else
+                                        {
+
+                                        }
+
+                                    }
+                                    else if (refOrPointer.ElementType is VecTypeSymbol)
+                                    {
+
+                                    }
+                                    else
+                                    {
+
+                                    }
+
                                 }
                                 break;
                             case ContainerTypeKind.CefRefPtr:
                                 {
-                                    AddMethodParameterTypeTxInfo(parPlan, refOrPointer.ElementType);
+                                    if (refOrPointer.ElementType is SimpleTypeSymbol)
+                                    {
+                                        SimpleTypeSymbol elem = (SimpleTypeSymbol)refOrPointer.ElementType;
+                                        if (elem.PrimitiveTypeKind == PrimitiveTypeKind.NotPrimitiveType)
+                                        {
+                                            //check how to send this through the bridge
+                                            //by check its base type
+                                            CodeTypeDeclaration createdTypeDecl = elem.CreatedByTypeDeclaration;
+                                            if (createdTypeDecl.BaseTypes == null)
+                                            {
+
+                                            }
+                                            else
+                                            {
+                                                CodeTypeReference baseTypeRef = createdTypeDecl.BaseTypes[0];
+                                                switch (baseTypeRef.Name)
+                                                {
+                                                    case "CefBaseRefCounted":
+                                                        break;
+                                                    default:
+                                                        break;
+                                                }
+                                            }
+
+                                        }
+                                        else
+                                        {
+
+                                        }
+
+                                    }
+                                    else
+                                    {
+
+                                    }
+
                                 }
                                 break;
                             case ContainerTypeKind.Pointer:
@@ -461,15 +586,13 @@ namespace BridgeBuilder
                                 break;
                             case ContainerTypeKind.ScopePtr:
                                 throw new NotSupportedException();
-
                             default:
                                 throw new NotSupportedException();
-
                         }
                     }
                     break;
 
             }
-        } 
+        }
     }
 }
