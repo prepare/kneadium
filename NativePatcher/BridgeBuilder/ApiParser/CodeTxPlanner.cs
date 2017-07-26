@@ -187,26 +187,36 @@ namespace BridgeBuilder
                         case TypeSymbolKind.Template:
                             {
                                 //we focus on this type
-                                TemplateTypeSymbol3 t3 = (TemplateTypeSymbol3)baseTypeSymbol;
-                                //in this version we have only TemplateType3
-                                switch (t3.Name)
+                                TemplateTypeSymbol t_base = (TemplateTypeSymbol)baseTypeSymbol;
+                                switch (t_base.ItemCount)
                                 {
-                                    default: throw new NotSupportedException();
+                                    default:
+                                        throw new NotSupportedException();
+                                    case 3:
+                                        {
+                                            TemplateTypeSymbol3 t3 = (TemplateTypeSymbol3)baseTypeSymbol;
+                                            switch (t3.Name)
+                                            {
+                                                default: throw new NotSupportedException();
 
-                                    //c-to-cpp
-                                    case "CefCToCppScoped":
-                                    case "CefCToCppRefCounted":
-                                        otherSearchScopeTypeSymbol = t3.Item1;
-                                        break;
-                                    //----------------------------
-                                    //cpp-to-c
-                                    case "CefCppToCScoped":
-                                        otherSearchScopeTypeSymbol = t3.Item1;
-                                        break;
-                                    case "CefCppToCRefCounted":
-                                        otherSearchScopeTypeSymbol = t3.Item1;
+                                                //c-to-cpp
+                                                case "CefCToCppScoped":
+                                                case "CefCToCppRefCounted":
+                                                    otherSearchScopeTypeSymbol = t3.Item1;
+                                                    break;
+                                                //----------------------------
+                                                //cpp-to-c
+                                                case "CefCppToCScoped":
+                                                    otherSearchScopeTypeSymbol = t3.Item1;
+                                                    break;
+                                                case "CefCppToCRefCounted":
+                                                    otherSearchScopeTypeSymbol = t3.Item1;
+                                                    break;
+                                            }
+                                        }
                                         break;
                                 }
+
                             }
                             break;
                     }
@@ -389,11 +399,7 @@ namespace BridgeBuilder
                 AddParameterWrappingInfo(parTxInfo, parTypeSymbol);
 
                 metTx.AddMethodParameterTx(parTxInfo);
-                if (!metPar.IsConstPar)
-                {
-                    //TODO: review this
-                    //if not, this should gen out or ref parameter
-                }
+ 
             }
             return metTx;
         }

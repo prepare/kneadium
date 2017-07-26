@@ -128,7 +128,7 @@ namespace BridgeBuilder
                         if (typeSymbols.TryGetValue(typeSymbol.Name, out existingTypeSymbol))
                         {
                             //have existing value
-
+                            throw new NotSupportedException();
                         }
                         else
                         {
