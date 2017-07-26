@@ -30,8 +30,6 @@ namespace BridgeBuilder
     abstract class TypeSymbol : Symbol
     {
         public abstract TypeSymbolKind TypeSymbolKind { get; }
-
-
     }
     class SimpleType : TypeSymbol
     {
@@ -47,7 +45,30 @@ namespace BridgeBuilder
         }
         public List<TypeSymbol> NestedTypeSymbols { get; set; }
         public CodeTypeDeclaration CreatedByTypeDeclaration { get; set; }
+
+        public PrimitiveTypeKind PrimitiveTypeKind { get; set; }
     }
+    public enum PrimitiveTypeKind
+    {
+        NotPrimitiveType,
+        Void,
+        Int32,
+        Int64,
+        UInt32,
+        UInt64,
+        Double,
+        Float,
+        Char,
+        Bool,
+        IntPtr, //native pointer
+        String,
+        CefString,
+        //
+        size_t,
+        
+    }
+
+
     class CTypeDefTypeSymbol : TypeSymbol
     {
         public CTypeDefTypeSymbol(string name, CodeTypeReference originalTypeDecl)

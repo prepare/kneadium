@@ -53,20 +53,20 @@ namespace BridgeBuilder
 
                 //-----------------------------------------
 
-                new SimpleType("void"),
-                new SimpleType("bool"),
-                new SimpleType("char"),
-                new SimpleType("int"),
-                new SimpleType("int32"),
-                new SimpleType("uint32"),
-                new SimpleType("int64"),
-                new SimpleType("uint64"),
-                new SimpleType("double"),
-                new SimpleType("float"),
-                new SimpleType("size_t"),
+                new SimpleType("void"){PrimitiveTypeKind = PrimitiveTypeKind.Void },
+                new SimpleType("bool"){PrimitiveTypeKind = PrimitiveTypeKind.Bool },
+                new SimpleType("char"){PrimitiveTypeKind = PrimitiveTypeKind.Char },
+                new SimpleType("int"){PrimitiveTypeKind = PrimitiveTypeKind.Int32 },//TODO: review here
+                new SimpleType("int32"){PrimitiveTypeKind = PrimitiveTypeKind.Int32 },
+                new SimpleType("uint32"){PrimitiveTypeKind = PrimitiveTypeKind.UInt32 },
+                new SimpleType("int64"){PrimitiveTypeKind = PrimitiveTypeKind.Int64 },
+                new SimpleType("uint64"){PrimitiveTypeKind = PrimitiveTypeKind.UInt64 },
+                new SimpleType("double"){PrimitiveTypeKind = PrimitiveTypeKind.Double },
+                new SimpleType("float"){PrimitiveTypeKind = PrimitiveTypeKind.Float },
+                new SimpleType("size_t"){PrimitiveTypeKind = PrimitiveTypeKind.size_t },
 
-                new SimpleType("string"),
-                new SimpleType("CefString"),
+                new SimpleType("string"){PrimitiveTypeKind = PrimitiveTypeKind.String },
+                new SimpleType("CefString"){PrimitiveTypeKind = PrimitiveTypeKind.CefString },
                 new SimpleType("CefBase"),
                 
                 //TODO: review

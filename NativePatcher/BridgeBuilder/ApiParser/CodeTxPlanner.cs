@@ -9,7 +9,6 @@ namespace BridgeBuilder
     //about: code transformation 
     abstract class DotNetResolvedTypeBase
     {
-
         public bool IsPrimitiveType { get; set; }
     }
     class DotNetResolvedSimpleType : DotNetResolvedTypeBase
@@ -18,6 +17,7 @@ namespace BridgeBuilder
         {
             this.SimpleType = simpleType;
             this.Name = simpleType.Name;
+            this.IsPrimitiveType = simpleType.PrimitiveTypeKind != PrimitiveTypeKind.NotPrimitiveType;
         }
         public string Name { get; set; }
         public SimpleType SimpleType { get; set; }
@@ -108,15 +108,37 @@ namespace BridgeBuilder
 
     class MethodParameterTxInfo
     {
+        DotNetResolvedTypeBase dnResolvedType;
         public MethodParameterTxInfo(string name)
         {
             this.Name = name;
         }
         public bool IsMethodReturnParameter { get; set; }
         public string Name { get; set; }
-        public bool IsVoid { get; set; }
-        public DotNetResolvedTypeBase DotnetResolvedType { get; set; }
-        public int MarkAsReferenceCount { get; set; }
+        public bool IsVoid
+        {
+            get;
+            private set;
+        }
+        public DotNetResolvedTypeBase DotnetResolvedType
+        {
+            get { return dnResolvedType; }
+            set
+            {
+                dnResolvedType = value;
+                DotNetResolvedSimpleType asSimpleType = value as DotNetResolvedSimpleType;
+                if (asSimpleType != null)
+                {
+                    IsVoid = asSimpleType.SimpleType.PrimitiveTypeKind == PrimitiveTypeKind.Void;
+                }
+                else
+                {
+                    IsVoid = false;
+                }
+            }
+
+        }
+
         public override string ToString()
         {
             return DotnetResolvedType.ToString();
@@ -176,7 +198,6 @@ namespace BridgeBuilder
                                 case "CefCToCppRefCounted":
                                     otherSearchScopeTypeSymbol = t3.Item1;
                                     break;
-
                                 //----------------------------
                                 //cpp-to-c
                                 case "CefCppToCScoped":
@@ -185,7 +206,6 @@ namespace BridgeBuilder
                                 case "CefCppToCRefCounted":
                                     otherSearchScopeTypeSymbol = t3.Item1;
                                     break;
-
                             }
                         }
                         break;
@@ -221,15 +241,15 @@ namespace BridgeBuilder
             switch (parTypeSymbol.TypeSymbolKind)
             {
                 case TypeSymbolKind.TypeDef:
-                    //check back to its original typedef
-
+                    //check back to its original typedef                    
                     break;
                 case TypeSymbolKind.Simple:
                     {
                         SimpleType simpleType = (SimpleType)parTypeSymbol;
-                        if (!IsPrimitiveType(simpleType))
+                        if (simpleType.PrimitiveTypeKind == PrimitiveTypeKind.NotPrimitiveType)
                         {
                             TypeSymbol c_type;
+
                             if (!CefTypeCollection.baseCToCppTypeSymbols.TryGetValue(simpleType.Name, out c_type))
                             {
                                 if (!CefTypeCollection.typeSymbols.ContainsKey(simpleType.Name))
@@ -250,8 +270,15 @@ namespace BridgeBuilder
 
                                 }
                             }
+                            else
+                            {
+
+                            }
                         }
                     }
+
+
+
                     break;
                 case TypeSymbolKind.ReferenceOrPointer:
                     {
@@ -379,31 +406,12 @@ namespace BridgeBuilder
                     throw new NotSupportedException();
                 case TypeSymbolKind.TypeDef:
                     {
-
-
                     }
                     break;
                 case TypeSymbolKind.Simple:
                     {
                         SimpleType simpleType = (SimpleType)resolvedParType;
-                        if (IsPrimitiveType(simpleType))
-                        {
-                            if (simpleType.Name == "void")
-                            {
-                                parPlan.IsVoid = true;
-                            }
-                            else
-                            {
-                                //
-                            }
-                            parPlan.DotnetResolvedType = new DotNetResolvedSimpleType(simpleType) { IsPrimitiveType = true };
-                        }
-                        else
-                        {
-                            //eg ret by reference 
-                            //create wrapper for this type
-                            parPlan.DotnetResolvedType = new DotNetResolvedSimpleType(simpleType);
-                        }
+                        parPlan.DotnetResolvedType = new DotNetResolvedSimpleType(simpleType);
                     }
                     break;
                 case TypeSymbolKind.Vec:
@@ -411,9 +419,7 @@ namespace BridgeBuilder
                         var vec = (VecTypeSymbol)resolvedParType;
                         AddMethodParameterTypeTxInfo(parPlan, vec.ElementType);
                         //make it array
-                        parPlan.DotnetResolvedType = new DotNetList(
-                            parPlan.DotnetResolvedType);
-
+                        parPlan.DotnetResolvedType = new DotNetList(parPlan.DotnetResolvedType);
                     }
                     break;
                 case TypeSymbolKind.ReferenceOrPointer:
@@ -425,48 +431,11 @@ namespace BridgeBuilder
                             case ContainerTypeKind.ByRef:
                                 {
                                     AddMethodParameterTypeTxInfo(parPlan, refOrPointer.ElementType);
-                                    if (IsPrimitiveType(parPlan.DotnetResolvedType))
-                                    {
-                                        parPlan.MarkAsReferenceCount++;
-                                    }
-                                    else
-                                    {
-                                        //return reference of unmanaged heap object                                        
-                                        //then just pass 
-                                        if (parPlan.MarkAsReferenceCount == 0)
-                                        {
-                                            parPlan.MarkAsReferenceCount++;
-                                        }
-                                        else
-                                        {
-                                            //throw new NotSupportedException();
-                                        }
-                                    }
-
                                 }
                                 break;
                             case ContainerTypeKind.CefRefPtr:
                                 {
                                     AddMethodParameterTypeTxInfo(parPlan, refOrPointer.ElementType);
-
-                                    if (IsPrimitiveType(parPlan.DotnetResolvedType))
-                                    {
-                                        throw new NotSupportedException();
-                                    }
-                                    else
-                                    {
-                                        //return reference of unmanaged heap object                                        
-                                        //then just pass 
-                                        if (parPlan.MarkAsReferenceCount == 0)
-                                        {
-                                            parPlan.MarkAsReferenceCount++;
-                                        }
-                                        else
-                                        {
-                                            //throw new NotSupportedException();
-                                        }
-                                    }
-
                                 }
                                 break;
                             case ContainerTypeKind.Pointer:
@@ -501,41 +470,6 @@ namespace BridgeBuilder
                     break;
 
             }
-        }
-
-        static bool IsPrimitiveType(string typename)
-        {
-            switch (typename)
-            {
-                case "void":
-                case "bool":
-                case "char":
-                case "int":
-                case "int32":
-                case "uint32":
-                case "int64":
-                case "uint64":
-                case "size_t":
-                case "double":
-                case "float":
-                    return true;
-
-            }
-            return false;
-        }
-
-        static bool IsPrimitiveType(SimpleType ss)
-        {
-            return IsPrimitiveType(ss.Name);
-        }
-        static bool IsPrimitiveType(DotNetResolvedTypeBase dnResolvedType)
-        {
-            var asSimpleType = dnResolvedType as DotNetResolvedSimpleType;
-            if (asSimpleType != null)
-            {
-                return IsPrimitiveType(asSimpleType.SimpleType);
-            }
-            return false;
-        }
+        } 
     }
 }
