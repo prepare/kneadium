@@ -6,6 +6,8 @@ namespace BridgeBuilder
     class CefTypeCollection
     {
         internal Dictionary<string, CodeTypeDeclaration> typeDics = new Dictionary<string, CodeTypeDeclaration>();
+        internal Dictionary<string, TypeSymbol> subTypeDefs = new Dictionary<string, TypeSymbol>();
+
         internal List<CodeTypeDeclaration> cefBaseTypes = new List<CodeTypeDeclaration>();
         internal List<CodeTypeDeclaration> cefImplTypes = new List<CodeTypeDeclaration>();
         internal List<CodeTypeDeclaration> otherTypes = new List<CodeTypeDeclaration>();
@@ -14,9 +16,7 @@ namespace BridgeBuilder
         internal Dictionary<string, TypeSymbol> typeSymbols = new Dictionary<string, TypeSymbol>();
         internal Dictionary<string, TypeSymbol> baseCToCppTypeSymbols = new Dictionary<string, TypeSymbol>();
         internal Dictionary<string, TypeSymbol> unknownTypes = new Dictionary<string, TypeSymbol>();
-        //-----------
-
-
+        //----------- 
 
         //------------
         //classification
@@ -103,11 +103,35 @@ namespace BridgeBuilder
                         typeDecl.ResolvedType = typeSymbol;
                         typeSymbols.Add(typeSymbol.Name, typeSymbol);
                         //-----------------------
+
+                        //and sub types
+                        foreach (CodeMemberDeclaration subType in typeDecl.Members)
+                        {
+                            if (subType.MemberKind == CodeMemberKind.TypeDef)
+                            {
+                                CodeCTypeDef ctypeDef = (CodeCTypeDef)subType;
+                                CTypeDefTypeSymbol ctypedefTypeSymbol = new CTypeDefTypeSymbol(ctypeDef.Name);
+                                ctypedefTypeSymbol.CreatedTypeCTypeDef = ctypeDef;
+                                ctypedefTypeSymbol.CreatedByTypeDeclaration = typeDecl;
+                                ctypedefTypeSymbol.ParentType = typeSymbol;
+
+                                //---
+                                typeSymbols.Add(typeSymbol.Name + "." + ctypeDef.Name, ctypedefTypeSymbol);
+
+                                List<TypeSymbol> nestedTypes = typeSymbol.NestedTypeSymbols;
+                                if (nestedTypes == null)
+                                {
+                                    typeSymbol.NestedTypeSymbols = nestedTypes = new List<TypeSymbol>();
+                                }
+                                nestedTypes.Add(ctypedefTypeSymbol);
+                            }
+                        }
+
                     }
                 }
             }
             ResolveBaseTypes();
-             
+
             ResolveBaseTypeMembers();
 
             //-----------------------
@@ -162,8 +186,7 @@ namespace BridgeBuilder
                     }
                 }
             }
-            //-----------------------
-
+            //----------------------- 
         }
 
 
@@ -189,7 +212,7 @@ namespace BridgeBuilder
                 }
             }
             //----------------------- 
-        } 
+        }
         void ResolveBaseTypeMembers()
         {
             foreach (CodeTypeDeclaration typedecl in typeDics.Values)

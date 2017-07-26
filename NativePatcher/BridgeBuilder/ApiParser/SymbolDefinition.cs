@@ -1,5 +1,7 @@
 ﻿//MIT, 2016-2017 ,WinterDev
 using System;
+using System.Collections.Generic;
+
 namespace BridgeBuilder
 {
     abstract class Symbol
@@ -14,12 +16,12 @@ namespace BridgeBuilder
         Simple,
         ReferenceOrPointer,
         Vec,
-        Template
+        Template,
+        TypeDef,
     }
 
     enum ContainerTypeKind
     {
-
         ScopePtr,
         CefRefPtr,
         Pointer,
@@ -43,8 +45,28 @@ namespace BridgeBuilder
         {
             return Name;
         }
-    }
+        public List<TypeSymbol> NestedTypeSymbols { get; set; }
 
+    }
+    class CTypeDefTypeSymbol : TypeSymbol
+    {
+        public CTypeDefTypeSymbol(string name)
+        {
+            this.Name = name;
+        }
+        public string Name { get; set; }
+        public CodeCTypeDef CreatedTypeCTypeDef { get; set; }
+        public override TypeSymbolKind TypeSymbolKind { get { return TypeSymbolKind.TypeDef; } }
+        public override string ToString()
+        {
+            return Name;
+        }
+        public SimpleType ParentType
+        {
+            get;
+            set;
+        }
+    }
 
 
     class VecTypeSymbol : TypeSymbol
