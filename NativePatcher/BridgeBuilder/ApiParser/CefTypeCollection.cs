@@ -69,8 +69,7 @@ namespace BridgeBuilder
                 new SimpleTypeSymbol("CefString"){PrimitiveTypeKind = PrimitiveTypeKind.CefString },
                 new SimpleTypeSymbol("CefBase"),
                 
-                //TODO: review
-                //temp add here, to be review again
+                //TODO: review             
                 new SimpleTypeSymbol("Handler"),
                 new CTypeDefTypeSymbol("CefProcessId", new CodeSimpleTypeReference("cef_process_id_t")), //typedef cef_process_id_t CefProcessId;
                 new CTypeDefTypeSymbol("CefThreadId", new CodeSimpleTypeReference("cef_thread_id_t")), //typedef cef_thread_id_t CefThreadId; 
