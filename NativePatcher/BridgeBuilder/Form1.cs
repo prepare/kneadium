@@ -351,10 +351,14 @@ namespace BridgeBuilder
 
             foreach (CodeTypeDeclaration typedecl in cefTypeCollection.cToCppClasses)
             {
+                TypeTxInfo typeTxPlan = txPlanner.MakeTransformPlan(typedecl); 
+            }
+            foreach (CodeTypeDeclaration typedecl in cefTypeCollection.cppToCClasses)
+            {
+                //eg. handlers and callbacks 
                 TypeTxInfo typeTxPlan = txPlanner.MakeTransformPlan(typedecl);
 
             }
-
         }
         CodeCompilationUnit ParseWrapper(string srcFile)
         {

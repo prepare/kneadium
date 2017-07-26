@@ -30,7 +30,7 @@ namespace BridgeBuilder
     abstract class TypeSymbol : Symbol
     {
         public abstract TypeSymbolKind TypeSymbolKind { get; }
-        public CodeTypeDeclaration CreatedByTypeDeclaration { get; set; }
+
 
     }
     class SimpleType : TypeSymbol
@@ -46,15 +46,17 @@ namespace BridgeBuilder
             return Name;
         }
         public List<TypeSymbol> NestedTypeSymbols { get; set; }
-
+        public CodeTypeDeclaration CreatedByTypeDeclaration { get; set; }
     }
     class CTypeDefTypeSymbol : TypeSymbol
     {
-        public CTypeDefTypeSymbol(string name)
+        public CTypeDefTypeSymbol(string name, CodeTypeReference originalTypeDecl)
         {
             this.Name = name;
+            this.OriginalTypeDecl = originalTypeDecl;
         }
         public string Name { get; set; }
+        public CodeTypeReference OriginalTypeDecl { get; set; }
         public CodeCTypeDef CreatedTypeCTypeDef { get; set; }
         public override TypeSymbolKind TypeSymbolKind { get { return TypeSymbolKind.TypeDef; } }
         public override string ToString()

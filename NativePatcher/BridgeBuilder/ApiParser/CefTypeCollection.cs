@@ -51,31 +51,50 @@ namespace BridgeBuilder
             //prebuild types & manual added types
             TypeSymbol[] prebuiltTypes = new TypeSymbol[]{
 
+                //-----------------------------------------
 
                 new SimpleType("void"),
                 new SimpleType("bool"),
                 new SimpleType("char"),
                 new SimpleType("int"),
-                new SimpleType("int32"),new SimpleType("uint32"),
-                new SimpleType("int64"),new SimpleType("uint64"),
+                new SimpleType("int32"),
+                new SimpleType("uint32"),
+                new SimpleType("int64"),
+                new SimpleType("uint64"),
                 new SimpleType("double"),
+                new SimpleType("float"),
                 new SimpleType("size_t"),
 
                 new SimpleType("string"),
                 new SimpleType("CefString"),
                 new SimpleType("CefBase"),
+                
                 //TODO: review
                 //temp add here, to be review again
-                new SimpleType("CefProcessId"), //typedef cef_process_id_t CefProcessId;
-                new SimpleType("CefThreadId"), //typedef cef_thread_id_t CefThreadId;
-                new SimpleType("CefBrowserSettings"),// typedef CefStructBase<CefBrowserSettingsTraits> CefBrowserSettings;
-                new SimpleType("Handler")
-
+                new SimpleType("Handler"),
+                new SimpleType("CefRect"),
+                new SimpleType("CefSize"),
+                new SimpleType("CefPoint"),
+                new SimpleType("CefTime"),
+                new CTypeDefTypeSymbol("CefProcessId", new CodeSimpleTypeReference("cef_process_id_t")), //typedef cef_process_id_t CefProcessId;
+                new CTypeDefTypeSymbol("CefThreadId", new CodeSimpleTypeReference("cef_thread_id_t")), //typedef cef_thread_id_t CefThreadId; 
+                new CTypeDefTypeSymbol("CefWindowHandle",new CodeSimpleTypeReference("cef_window_handle_t")),
+                new CTypeDefTypeSymbol("CefValueType" ,new CodeSimpleTypeReference("cef_value_type_t")), // 
             };
 
-            foreach (SimpleType typeSymbol in prebuiltTypes)
+            foreach (TypeSymbol typeSymbol in prebuiltTypes)
             {
-                typeSymbols.Add(typeSymbol.Name, typeSymbol);
+                switch (typeSymbol.TypeSymbolKind)
+                {
+                    default: throw new NotSupportedException();
+                    case TypeSymbolKind.Simple:
+                        typeSymbols.Add(((SimpleType)typeSymbol).Name, typeSymbol);
+                        break;
+                    case TypeSymbolKind.TypeDef:
+                        typeSymbols.Add(((CTypeDefTypeSymbol)typeSymbol).Name, typeSymbol);
+                        break;
+                }
+
             }
             //--------------------------
         }
@@ -90,6 +109,12 @@ namespace BridgeBuilder
             {
                 foreach (CodeTypeDeclaration typeDecl in cu.Members)
                 {
+                    if (typeDecl.IsGlobalCompilationUnitType && typeDecl.Name == null)
+                    {
+                        //this is global type
+                        typeDecl.Name = "global!" + System.IO.Path.GetFileName(cu.Filename);
+
+                    }
                     if (!typeDecl.IsForwardDecl && typeDecl.Name != null)
                     {
                         if (typeDics.ContainsKey(typeDecl.Name))
@@ -110,9 +135,8 @@ namespace BridgeBuilder
                             if (subType.MemberKind == CodeMemberKind.TypeDef)
                             {
                                 CodeCTypeDef ctypeDef = (CodeCTypeDef)subType;
-                                CTypeDefTypeSymbol ctypedefTypeSymbol = new CTypeDefTypeSymbol(ctypeDef.Name);
+                                CTypeDefTypeSymbol ctypedefTypeSymbol = new CTypeDefTypeSymbol(ctypeDef.Name, ctypeDef.From);
                                 ctypedefTypeSymbol.CreatedTypeCTypeDef = ctypeDef;
-                                ctypedefTypeSymbol.CreatedByTypeDeclaration = typeDecl;
                                 ctypedefTypeSymbol.ParentType = typeSymbol;
 
                                 //---

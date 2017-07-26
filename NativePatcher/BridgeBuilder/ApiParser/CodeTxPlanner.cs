@@ -215,13 +215,15 @@ namespace BridgeBuilder
             }
             return typeTxInfo;
         }
-
-
         void AddParameterWrappingInfo(MethodParameterTxInfo parTxInfo, TypeSymbol parTypeSymbol)
         {
 
             switch (parTypeSymbol.TypeSymbolKind)
             {
+                case TypeSymbolKind.TypeDef:
+                    //check back to its original typedef
+
+                    break;
                 case TypeSymbolKind.Simple:
                     {
                         SimpleType simpleType = (SimpleType)parTypeSymbol;
@@ -250,7 +252,7 @@ namespace BridgeBuilder
                             }
                         }
                     }
-                    break; 
+                    break;
                 case TypeSymbolKind.ReferenceOrPointer:
                     {
                         ReferenceOrPointerTypeSymbol refOfPointer = (ReferenceOrPointerTypeSymbol)parTypeSymbol;
@@ -321,7 +323,7 @@ namespace BridgeBuilder
                                     }
 
                                 }
-                                break; 
+                                break;
                         }
                     }
                     break;
@@ -366,7 +368,6 @@ namespace BridgeBuilder
                     //if not, this should gen out or ref parameter
                 }
             }
-
             return metTx;
         }
 
@@ -376,7 +377,12 @@ namespace BridgeBuilder
             {
                 default:
                     throw new NotSupportedException();
+                case TypeSymbolKind.TypeDef:
+                    {
 
+
+                    }
+                    break;
                 case TypeSymbolKind.Simple:
                     {
                         SimpleType simpleType = (SimpleType)resolvedParType;
