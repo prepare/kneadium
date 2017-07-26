@@ -270,6 +270,10 @@ namespace BridgeBuilder
                                         string searchName = otherSearchScopeTypeSymbol.ToString() + "." + simpleType.Name;
                                         if (!CefTypeCollection.typeSymbols.ContainsKey(searchName))
                                         {
+                                            if (!CefTypeCollection.typeDics.ContainsKey(simpleType.Name))
+                                            {
+
+                                            }
 
                                         }
                                     }
@@ -399,7 +403,7 @@ namespace BridgeBuilder
                 AddParameterWrappingInfo(parTxInfo, parTypeSymbol);
 
                 metTx.AddMethodParameterTx(parTxInfo);
- 
+
             }
             return metTx;
         }
@@ -457,7 +461,10 @@ namespace BridgeBuilder
                                     if (simpleType.PrimitiveTypeKind == PrimitiveTypeKind.NotPrimitiveType)
                                     {
                                         //not primitive
+                                        if (simpleType.CreatedByTypeDeclaration != null)
+                                        {
 
+                                        }
                                     }
                                     else
                                     {
@@ -522,6 +529,10 @@ namespace BridgeBuilder
                                     {
 
                                     }
+                                    else if (refOrPointer.ElementType is ReferenceOrPointerTypeSymbol)
+                                    {
+                                        //set as out parameter?
+                                    }
                                     else
                                     {
 
@@ -539,11 +550,7 @@ namespace BridgeBuilder
                                             //check how to send this through the bridge
                                             //by check its base type
                                             CodeTypeDeclaration createdTypeDecl = elem.CreatedByTypeDeclaration;
-                                            if (createdTypeDecl.BaseTypes == null)
-                                            {
-
-                                            }
-                                            else
+                                            if (createdTypeDecl != null && createdTypeDecl.BaseTypes != null)
                                             {
                                                 CodeTypeReference baseTypeRef = createdTypeDecl.BaseTypes[0];
                                                 switch (baseTypeRef.Name)
@@ -553,6 +560,10 @@ namespace BridgeBuilder
                                                     default:
                                                         break;
                                                 }
+                                            }
+                                            else
+                                            {
+                                              
                                             }
 
                                         }

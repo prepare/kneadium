@@ -291,6 +291,14 @@ namespace BridgeBuilder
             string cefDir = @"D:\projects\cef_binary_3.3071.1647.win32";
             List<CodeCompilationUnit> totalCuList = new List<CodeCompilationUnit>();
             {
+
+                //internal
+
+                totalCuList.Add(ParseWrapper(cefDir + @"\include\internal\cef_types_wrappers.h"));
+
+
+            }
+            {
                 //include folder
                 string[] onlyHeaderFiles = System.IO.Directory.GetFiles(cefDir + @"\include\", "*.h");
                 Dictionary<string, bool> skipFiles = CreateSkipFiles(new[] {
@@ -351,7 +359,7 @@ namespace BridgeBuilder
 
             foreach (CodeTypeDeclaration typedecl in cefTypeCollection.cToCppClasses)
             {
-                TypeTxInfo typeTxPlan = txPlanner.MakeTransformPlan(typedecl); 
+                TypeTxInfo typeTxPlan = txPlanner.MakeTransformPlan(typedecl);
             }
             foreach (CodeTypeDeclaration typedecl in cefTypeCollection.cppToCClasses)
             {
