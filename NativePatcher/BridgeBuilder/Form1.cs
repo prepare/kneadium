@@ -343,9 +343,17 @@ namespace BridgeBuilder
                 }
             }
             //
+            ApiBuilder apiBuilder = new ApiBuilder();
             CefTypeCollection cefTypeCollection = new CefTypeCollection();
             cefTypeCollection.CollectAllTypeDefinitions(totalCuList);
+            TypeTranformPlanner txPlanner = new TypeTranformPlanner();
+            txPlanner.CefTypeCollection = cefTypeCollection;
 
+            foreach (CodeTypeDeclaration typedecl in cefTypeCollection.cToCppClasses)
+            {
+                TypeTxInfo typeTxPlan = txPlanner.MakeTransformPlan(typedecl);
+
+            }
 
         }
         CodeCompilationUnit ParseWrapper(string srcFile)

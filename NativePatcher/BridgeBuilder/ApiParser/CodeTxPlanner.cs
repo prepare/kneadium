@@ -1,7 +1,7 @@
 ﻿//MIT, 2016-2017 ,WinterDev
 using System;
 using System.Collections.Generic;
- 
+
 using System.Text;
 
 namespace BridgeBuilder
@@ -132,6 +132,12 @@ namespace BridgeBuilder
         public TypeTxInfo MakeTransformPlan(CodeTypeDeclaration typedecl)
         {
             TypeTxInfo typeTxInfo = new TypeTxInfo(typedecl);
+            //analyze base type
+            foreach (CodeTypeReference baseType in typedecl.BaseTypes)
+            {
+
+            }
+
             foreach (CodeMemberDeclaration mb in typedecl.Members)
             {
                 if (mb.MemberKind == CodeMemberKind.Method)
@@ -145,6 +151,10 @@ namespace BridgeBuilder
                             throw new NotSupportedException();
                         }
                         typeTxInfo.AddMethod(metTx);
+                    }
+                    else
+                    {
+
                     }
                 }
             }

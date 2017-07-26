@@ -14,6 +14,8 @@ namespace BridgeBuilder
         internal Dictionary<string, TypeSymbol> typeSymbols = new Dictionary<string, TypeSymbol>();
         internal Dictionary<string, TypeSymbol> baseCToCppTypeSymbols = new Dictionary<string, TypeSymbol>();
         internal Dictionary<string, TypeSymbol> unknownTypes = new Dictionary<string, TypeSymbol>();
+        //-----------
+
 
 
         //------------
@@ -105,6 +107,7 @@ namespace BridgeBuilder
                 }
             }
             ResolveBaseTypes();
+             
             ResolveBaseTypeMembers();
 
             //-----------------------
@@ -163,7 +166,7 @@ namespace BridgeBuilder
 
         }
 
-    
+
         void ResolveBaseTypes()
         {
             //-----------------------
@@ -186,8 +189,7 @@ namespace BridgeBuilder
                 }
             }
             //----------------------- 
-        }
-
+        } 
         void ResolveBaseTypeMembers()
         {
             foreach (CodeTypeDeclaration typedecl in typeDics.Values)
@@ -226,15 +228,17 @@ namespace BridgeBuilder
                 }
             }
         }
-        void RegisterBaseCToCppTypeSymbol(CodeTypeReference baseCCppTypeSymbol)
+        TypeSymbol RegisterBaseCToCppTypeSymbol(CodeTypeReference cToCppTypeReference)
         {
-            //replace if exists
-            if (!baseCToCppTypeSymbols.ContainsKey(baseCCppTypeSymbol.Name))
+
+            TypeSymbol found;
+            if (!baseCToCppTypeSymbols.TryGetValue(cToCppTypeReference.Name, out found))
             {
-                baseCToCppTypeSymbols.Add(baseCCppTypeSymbol.Name, new SimpleType(baseCCppTypeSymbol.Name));
+                //if not found then create the new simple type
+                found = new SimpleType(cToCppTypeReference.Name);
+                baseCToCppTypeSymbols.Add(cToCppTypeReference.Name, found);
             }
-
-
+            return cToCppTypeReference.ResolvedType = found;
         }
         TypeSymbol ResolveType(CodeTypeReference typeRef)
         {
@@ -272,7 +276,6 @@ namespace BridgeBuilder
                         {
                             default:
                                 throw new NotSupportedException();
-
                             case "CefCppToCScoped":
                             case "CefCppToCRefCounted":
                                 {
@@ -280,8 +283,12 @@ namespace BridgeBuilder
                                     if (typeTemplate.Items.Count == 3)
                                     {
                                         //auto add native c/c++ type
-                                        RegisterBaseCToCppTypeSymbol(typeTemplate.Items[2]);
-                                        return ResolveType(typeTemplate.Items[1]);
+
+                                        //
+                                        TemplateType3 t3 = new TemplateType3(typeTemplate.Name);
+                                        t3.Item1 = ResolveType(typeTemplate.Items[1]);
+                                        t3.Item2 = RegisterBaseCToCppTypeSymbol(typeTemplate.Items[2]);
+                                        return t3;
                                     }
                                     else
                                     {
@@ -296,8 +303,11 @@ namespace BridgeBuilder
                                     if (typeTemplate.Items.Count == 3)
                                     {
                                         //auto add native c/c++ type
-                                        RegisterBaseCToCppTypeSymbol(typeTemplate.Items[2]);
-                                        return ResolveType(typeTemplate.Items[1]);
+                                        TemplateType3 t3 = new TemplateType3(typeTemplate.Name);
+                                        t3.Item1 = ResolveType(typeTemplate.Items[1]);
+                                        t3.Item2 = RegisterBaseCToCppTypeSymbol(typeTemplate.Items[2]);
+                                        return t3;
+
                                     }
                                     else
                                     {
@@ -439,7 +449,7 @@ namespace BridgeBuilder
 
     }
     class TypeHierarchyNode
-    { 
+    {
         List<TypeSymbol> children = new List<TypeSymbol>();
         public TypeHierarchyNode(TypeSymbol type)
         {

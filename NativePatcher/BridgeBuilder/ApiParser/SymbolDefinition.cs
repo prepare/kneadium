@@ -1,16 +1,20 @@
 ﻿//MIT, 2016-2017 ,WinterDev
-using System; 
+using System;
 namespace BridgeBuilder
 {
     abstract class Symbol
     {
-
+        /// <summary>
+        /// general purpose note
+        /// </summary>
+        public string CompilerNote { get; set; }
     }
     enum TypeSymbolKind
     {
         Simple,
         ReferenceOrPointer,
-        Vec
+        Vec,
+        Template
     }
 
     enum ContainerTypeKind
@@ -40,7 +44,6 @@ namespace BridgeBuilder
             return Name;
         }
     }
-
 
 
 
@@ -87,4 +90,35 @@ namespace BridgeBuilder
     }
 
 
+
+    abstract class TemplateType : TypeSymbol
+    {
+        public TemplateType(string name)
+        {
+            this.Name = name;
+        }
+        public override TypeSymbolKind TypeSymbolKind { get { return TypeSymbolKind.Template; } }
+        public string Name { get; set; }
+        public abstract int ItemCount { get; }
+    }
+
+    class TemplateType3 : TemplateType
+    {
+        public TemplateType3(string name)
+            : base(name)
+        {
+            this.Name = name;
+        }
+        public override int ItemCount
+        {
+            get { return 3; }
+        }
+        public TypeSymbol Item0 { get; set; }
+        public TypeSymbol Item1 { get; set; }
+        public TypeSymbol Item2 { get; set; }
+        public override string ToString()
+        {
+            return Name + "<" + Item1 + "," + Item2 + ">";
+        }
+    }
 }
