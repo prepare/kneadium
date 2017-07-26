@@ -14,7 +14,20 @@ namespace BridgeBuilder
         Dictionary<string, TypeSymbol> typeSymbols = new Dictionary<string, TypeSymbol>();
         Dictionary<string, TypeSymbol> baseCToCppTypeSymbols = new Dictionary<string, TypeSymbol>();
         Dictionary<string, TypeSymbol> unknownTypes = new Dictionary<string, TypeSymbol>();
+
+
+        //------------
+        //classification
+        List<CodeTypeDeclaration> callBackClasses = new List<CodeTypeDeclaration>();
+        List<CodeTypeDeclaration> handlerClasses = new List<CodeTypeDeclaration>();
+        List<CodeTypeDeclaration> cToCppClasses = new List<CodeTypeDeclaration>();
+        List<CodeTypeDeclaration> cppToCClasses = new List<CodeTypeDeclaration>();
+        List<CodeTypeDeclaration> otherClasses = new List<CodeTypeDeclaration>();
+        //------------
+
         List<CodeCompilationUnit> compilationUnits;
+        Dictionary<TypeSymbol, TypeHierarchyNode> hierarchy;
+
         void Reset()
         {
             typeDics.Clear();
@@ -24,6 +37,15 @@ namespace BridgeBuilder
             typeSymbols.Clear();
 
             //--------------------------
+            callBackClasses.Clear();
+            handlerClasses.Clear();
+            cToCppClasses.Clear();
+            cppToCClasses.Clear();
+            otherClasses.Clear();
+
+            //--------------------------
+            hierarchy = new Dictionary<TypeSymbol, TypeHierarchyNode>();
+
             //prebuild types & manual added types
             TypeSymbol[] prebuiltTypes = new TypeSymbol[]{
 
@@ -86,13 +108,7 @@ namespace BridgeBuilder
             ResolveBaseTypeMembers();
 
             //-----------------------
-            //do class classification
-            List<CodeTypeDeclaration> callBackClasses = new List<CodeTypeDeclaration>();
-            List<CodeTypeDeclaration> handlerClasses = new List<CodeTypeDeclaration>();
-            List<CodeTypeDeclaration> cToCppClasses = new List<CodeTypeDeclaration>();
-            List<CodeTypeDeclaration> cppToCClasses = new List<CodeTypeDeclaration>();
-            List<CodeTypeDeclaration> otherClasses = new List<CodeTypeDeclaration>();
-
+            //do class classification 
             foreach (CodeTypeDeclaration t in typeDics.Values)
             {
                 string name = t.Name;
@@ -119,7 +135,7 @@ namespace BridgeBuilder
             }
             //-----------------------
             //for analysis
-            Dictionary<TypeSymbol, TypeHierarchyNode> hierarchy = new Dictionary<TypeSymbol, TypeHierarchyNode>();
+           
             foreach (CodeTypeDeclaration t in typeDics.Values)
             {
                 TypeSymbol resolvedType = t.ResolvedType;
@@ -273,7 +289,7 @@ namespace BridgeBuilder
                         switch (typeTemplate.Name)
                         {
                             default:
-                               throw new NotSupportedException();
+                                throw new NotSupportedException();
 
                             case "CefCppToCScoped":
                             case "CefCppToCRefCounted":
