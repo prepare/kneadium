@@ -170,13 +170,21 @@ namespace BridgeBuilder
                             switch (t3.Name)
                             {
                                 default: throw new NotSupportedException();
+
+                                //c-to-cpp
                                 case "CefCToCppScoped":
                                 case "CefCToCppRefCounted":
-                                    {
-                                        otherSearchScopeTypeSymbol = t3.Item1;
-                                    }
+                                    otherSearchScopeTypeSymbol = t3.Item1;
                                     break;
 
+                                //----------------------------
+                                //cpp-to-c
+                                case "CefCppToCScoped":
+                                    otherSearchScopeTypeSymbol = t3.Item1;
+                                    break;
+                                case "CefCppToCRefCounted":
+                                    otherSearchScopeTypeSymbol = t3.Item1;
+                                    break;
 
                             }
                         }
@@ -208,6 +216,121 @@ namespace BridgeBuilder
             return typeTxInfo;
         }
 
+
+        void AddParameterWrappingInfo(MethodParameterTxInfo parTxInfo, TypeSymbol parTypeSymbol)
+        {
+
+            switch (parTypeSymbol.TypeSymbolKind)
+            {
+                case TypeSymbolKind.Simple:
+                    {
+                        SimpleType simpleType = (SimpleType)parTypeSymbol;
+                        if (!IsPrimitiveType(simpleType))
+                        {
+                            TypeSymbol c_type;
+                            if (!CefTypeCollection.baseCToCppTypeSymbols.TryGetValue(simpleType.Name, out c_type))
+                            {
+                                if (!CefTypeCollection.typeSymbols.ContainsKey(simpleType.Name))
+                                {
+                                    //this may be nested type
+                                    if (this.otherSearchScopeTypeSymbol != null)
+                                    {
+                                        string searchName = otherSearchScopeTypeSymbol.ToString() + "." + simpleType.Name;
+                                        if (!CefTypeCollection.typeSymbols.ContainsKey(searchName))
+                                        {
+
+                                        }
+                                    }
+                                    else
+                                    {
+                                        //where to find more?
+                                    }
+
+                                }
+                            }
+                        }
+                    }
+                    break; 
+                case TypeSymbolKind.ReferenceOrPointer:
+                    {
+                        ReferenceOrPointerTypeSymbol refOfPointer = (ReferenceOrPointerTypeSymbol)parTypeSymbol;
+                        switch (refOfPointer.Kind)
+                        {
+                            default: throw new NotSupportedException();//should not visit here
+                            case ContainerTypeKind.ByRef:
+                                {
+                                    //eg. CefPoint& 
+                                    //check element type
+                                    TypeSymbol elemType = refOfPointer.ElementType;
+                                    switch (elemType.TypeSymbolKind)
+                                    {
+                                        default:
+                                            //should not visit here
+                                            throw new NotSupportedException();
+                                        case TypeSymbolKind.Simple:
+                                            //reference to simple type
+
+                                            break;
+                                        case TypeSymbolKind.Vec:
+                                            //ref to vec
+                                            break;
+                                        case TypeSymbolKind.ReferenceOrPointer:
+                                            ReferenceOrPointerTypeSymbol refOfPointerElem = (ReferenceOrPointerTypeSymbol)elemType;
+                                            if (refOfPointerElem.Kind == ContainerTypeKind.Pointer)
+                                            {
+
+                                            }
+                                            else if (refOfPointerElem.Kind == ContainerTypeKind.CefRefPtr)
+                                            {
+
+                                            }
+                                            else
+                                            {
+                                                throw new NotSupportedException();
+                                            }
+                                            break;
+                                    }
+                                }
+                                break;
+                            case ContainerTypeKind.CefRefPtr:
+                                {
+                                    string ss = refOfPointer.ElementType.ToString();
+                                    if (ss == "CefString")
+                                    {
+                                    }
+                                    else if (ss == "vec<CefString>")
+                                    {
+
+                                    }
+                                    else if (!ss.StartsWith("Cef"))
+                                    {
+
+                                    }
+                                }
+                                break;
+                            case ContainerTypeKind.Pointer:
+                                {
+                                    string ss = parTypeSymbol.ToString();
+                                    if (ss == "void*" || ss == "char*")
+                                    {
+
+                                    }
+                                    else
+                                    {
+
+                                    }
+
+                                }
+                                break; 
+                        }
+                    }
+                    break;
+                default:
+                    throw new NotSupportedException();
+
+            }
+
+        }
         MethodTxInfo MakeMethodPlan(CodeMethodDeclaration metDecl)
         {
             MethodTxInfo metTx = new MethodTxInfo(metDecl);
@@ -218,6 +341,8 @@ namespace BridgeBuilder
             retTxInfo.Direction = TxParameterDirection.Return;
 
             AddMethodParameterTypeTxInfo(retTxInfo, metDecl.ReturnType.ResolvedType);
+            AddParameterWrappingInfo(retTxInfo, metDecl.ReturnType.ResolvedType);
+
             metTx.ReturnPlan = retTxInfo;
 
             //2. parameters
@@ -228,139 +353,11 @@ namespace BridgeBuilder
                 MethodParameterTxInfo parTxInfo = new MethodParameterTxInfo(metPar.ParameterName);
                 parTxInfo.Direction = TxParameterDirection.In;
                 //TODO: review Out,InOut direction 
+
                 TypeSymbol parTypeSymbol = metPar.ParameterType.ResolvedType;
                 AddMethodParameterTypeTxInfo(parTxInfo, parTypeSymbol);
                 //check wrapping c-to-cpp / cpp-to-c
-                switch (parTypeSymbol.TypeSymbolKind)
-                {
-                    case TypeSymbolKind.Simple:
-                        {
-                            SimpleType simpleType = (SimpleType)parTypeSymbol;
-                            if (!IsPrimitiveType(simpleType))
-                            {
-                                TypeSymbol c_type;
-                                if (!CefTypeCollection.baseCToCppTypeSymbols.TryGetValue(simpleType.Name, out c_type))
-                                {
-                                    if (!CefTypeCollection.typeSymbols.ContainsKey(simpleType.Name))
-                                    {
-                                        //this may be nested type
-                                        if (this.otherSearchScopeTypeSymbol != null)
-                                        {
-                                            string searchName = otherSearchScopeTypeSymbol.ToString() + "." + simpleType.Name;
-                                            if (!CefTypeCollection.typeSymbols.ContainsKey(searchName))
-                                            {
-
-                                            }
-                                        }
-                                        else
-                                        {
-                                            //where to find more?
-                                        }
-
-                                    }
-                                }
-                            }
-                        }
-                        break;
-                    case TypeSymbolKind.Template:
-                        {
-
-                        }
-                        break;
-                    case TypeSymbolKind.ReferenceOrPointer:
-                        {
-                            ReferenceOrPointerTypeSymbol refOfPointer = (ReferenceOrPointerTypeSymbol)parTypeSymbol;
-                            switch (refOfPointer.Kind)
-                            {
-                                default: throw new NotSupportedException();
-                                case ContainerTypeKind.ByRef:
-                                    {
-                                        //eg. CefPoint&
-
-                                        string ss = refOfPointer.ElementType.ToString();
-
-                                        if (ss == "CefString" || ss == "SwitchMap" ||
-                                            ss == "ArgumentList" || ss == "KeyList" ||
-                                            ss == "AttributeMap" || ss == "float" || ss == "int" || ss == "bool" ||
-                                            ss == "ElementVector" || ss == "PageRangeList" ||
-                                            ss == "void*")
-                                        {
-                                        }
-                                        else if (ss.StartsWith("vec"))
-                                        {
-
-                                        } 
-                                        else if (!ss.StartsWith("Cef"))
-                                        {
-                                            TypeSymbol c_type;
-                                            if (!CefTypeCollection.baseCToCppTypeSymbols.TryGetValue(ss, out c_type))
-                                            {
-                                                if (refOfPointer.ElementType.TypeSymbolKind != TypeSymbolKind.Simple)
-                                                {
-                                                }
-
-                                            }
-                                        }
-                                    }
-                                    break;
-                                case ContainerTypeKind.CefRefPtr:
-                                    {
-                                        string ss = refOfPointer.ElementType.ToString();
-                                        if (ss == "CefString")
-                                        {
-                                        }
-                                        else if (ss == "vec<CefString>")
-                                        {
-
-                                        }
-                                        else if (!ss.StartsWith("Cef"))
-                                        {
-
-                                        }
-
-
-                                    }
-                                    break;
-                                case ContainerTypeKind.ScopePtr:
-                                    break;
-                                case ContainerTypeKind.Pointer:
-                                    {
-                                        string ss = parTypeSymbol.ToString();
-                                        if (ss == "void*" || ss == "char*")
-                                        {
-
-                                        }
-                                        else
-                                        {
-
-                                        }
-
-                                    }
-                                    break;
-
-                            }
-                            //string ss = parTypeSymbol.ToString();
-                            //if (ss == "CefString&" ||
-                            //    ss == "refptr<CefBinaryValue>" ||
-                            //    ss == "void*" ||
-                            //    ss == "char*" ||
-                            //    ss == "vec<int64>&" ||
-                            //    ss == "vec<int64>&"
-                            //    )
-                            //{
-
-                            //}
-                            //else
-                            //{
-
-                            //}
-                        }
-                        break;
-                    default:
-                        throw new NotSupportedException();
-
-                }
-
+                AddParameterWrappingInfo(parTxInfo, parTypeSymbol);
 
                 metTx.AddMethodParameterTx(parTxInfo);
                 if (!metPar.IsConstPar)
