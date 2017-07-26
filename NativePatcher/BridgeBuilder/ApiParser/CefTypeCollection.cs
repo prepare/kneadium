@@ -5,28 +5,28 @@ namespace BridgeBuilder
 {
     class CefTypeCollection
     {
-        Dictionary<string, CodeTypeDeclaration> typeDics = new Dictionary<string, CodeTypeDeclaration>();
-        List<CodeTypeDeclaration> cefBaseTypes = new List<CodeTypeDeclaration>();
-        List<CodeTypeDeclaration> cefImplTypes = new List<CodeTypeDeclaration>();
-        List<CodeTypeDeclaration> otherTypes = new List<CodeTypeDeclaration>();
+        internal Dictionary<string, CodeTypeDeclaration> typeDics = new Dictionary<string, CodeTypeDeclaration>();
+        internal List<CodeTypeDeclaration> cefBaseTypes = new List<CodeTypeDeclaration>();
+        internal List<CodeTypeDeclaration> cefImplTypes = new List<CodeTypeDeclaration>();
+        internal List<CodeTypeDeclaration> otherTypes = new List<CodeTypeDeclaration>();
 
         //semantic
-        Dictionary<string, TypeSymbol> typeSymbols = new Dictionary<string, TypeSymbol>();
-        Dictionary<string, TypeSymbol> baseCToCppTypeSymbols = new Dictionary<string, TypeSymbol>();
-        Dictionary<string, TypeSymbol> unknownTypes = new Dictionary<string, TypeSymbol>();
+        internal Dictionary<string, TypeSymbol> typeSymbols = new Dictionary<string, TypeSymbol>();
+        internal Dictionary<string, TypeSymbol> baseCToCppTypeSymbols = new Dictionary<string, TypeSymbol>();
+        internal Dictionary<string, TypeSymbol> unknownTypes = new Dictionary<string, TypeSymbol>();
 
 
         //------------
         //classification
-        List<CodeTypeDeclaration> callBackClasses = new List<CodeTypeDeclaration>();
-        List<CodeTypeDeclaration> handlerClasses = new List<CodeTypeDeclaration>();
-        List<CodeTypeDeclaration> cToCppClasses = new List<CodeTypeDeclaration>();
-        List<CodeTypeDeclaration> cppToCClasses = new List<CodeTypeDeclaration>();
-        List<CodeTypeDeclaration> otherClasses = new List<CodeTypeDeclaration>();
+        internal List<CodeTypeDeclaration> callBackClasses = new List<CodeTypeDeclaration>();
+        internal List<CodeTypeDeclaration> handlerClasses = new List<CodeTypeDeclaration>();
+        internal List<CodeTypeDeclaration> cToCppClasses = new List<CodeTypeDeclaration>();
+        internal List<CodeTypeDeclaration> cppToCClasses = new List<CodeTypeDeclaration>();
+        internal List<CodeTypeDeclaration> otherClasses = new List<CodeTypeDeclaration>();
         //------------
 
-        List<CodeCompilationUnit> compilationUnits;
-        Dictionary<TypeSymbol, TypeHierarchyNode> hierarchy;
+        internal List<CodeCompilationUnit> compilationUnits;
+        internal Dictionary<TypeSymbol, TypeHierarchyNode> hierarchy;
 
         void Reset()
         {
@@ -135,7 +135,7 @@ namespace BridgeBuilder
             }
             //-----------------------
             //for analysis
-           
+
             foreach (CodeTypeDeclaration t in typeDics.Values)
             {
                 TypeSymbol resolvedType = t.ResolvedType;
@@ -159,28 +159,11 @@ namespace BridgeBuilder
                     }
                 }
             }
+            //-----------------------
 
         }
 
-        class TypeHierarchyNode
-        {
-
-            List<TypeSymbol> children = new List<TypeSymbol>();
-            public TypeHierarchyNode(TypeSymbol type)
-            {
-                this.Type = type;
-            }
-            public TypeSymbol Type { get; private set; }
-            public void AddTypeSymbol(TypeSymbol c)
-            {
-                if (c == Type)
-                {
-                    throw new Exception("cyclic!");
-                }
-                children.Add(c);
-            }
-        }
-
+    
         void ResolveBaseTypes()
         {
             //-----------------------
@@ -280,7 +263,6 @@ namespace BridgeBuilder
                                 throw new NotSupportedException();
                         }
                     }
-                    break;
                 case CodeTypeReferenceKind.TypeTemplate:
                     {
                         //resolve wellknown type template   
@@ -379,29 +361,23 @@ namespace BridgeBuilder
                         }
 
                     }
-                    break;
                 case CodeTypeReferenceKind.Pointer:
                     {
                         var pointerType = (CodePointerTypeReference)typeRef;
                         TypeSymbol elementType = ResolveType(pointerType.ElementType);
                         return new ReferenceOrPointerTypeSymbol(elementType, ContainerTypeKind.Pointer);
                     }
-                    break;
                 case CodeTypeReferenceKind.ByRef:
                     {
                         var byRefType = (CodeByRefTypeReference)typeRef;
                         TypeSymbol elementType = ResolveType(byRefType.ElementType);
                         return new ReferenceOrPointerTypeSymbol(elementType, ContainerTypeKind.ByRef);
-
                     }
-                    break;
                 default:
                     {
                         throw new NotSupportedException();
                     }
-                    break;
             }
-            return null;
         }
         TypeSymbol ResolveType(string typename)
         {
@@ -461,6 +437,23 @@ namespace BridgeBuilder
             return true;
         }
 
+    }
+    class TypeHierarchyNode
+    { 
+        List<TypeSymbol> children = new List<TypeSymbol>();
+        public TypeHierarchyNode(TypeSymbol type)
+        {
+            this.Type = type;
+        }
+        public TypeSymbol Type { get; private set; }
+        public void AddTypeSymbol(TypeSymbol c)
+        {
+            if (c == Type)
+            {
+                throw new Exception("cyclic!");
+            }
+            children.Add(c);
+        }
     }
 
 }
