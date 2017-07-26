@@ -211,7 +211,7 @@ namespace BridgeBuilder
                             }
                             else
                             {
-                                //this version, we skip 
+                                //this version, we skip other method kind
                             }
                             break;
                         case CodeMemberKind.Type:
