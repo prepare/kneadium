@@ -164,7 +164,7 @@ namespace BridgeBuilder
             }
             ResolveBaseTypes();
 
-            ResolveBaseTypeMembers();
+            ResolveTypeMembers();
 
             //-----------------------
             //do class classification 
@@ -249,7 +249,7 @@ namespace BridgeBuilder
             //----------------------- 
             _currentResolvingType = null; //reset
         }
-        void ResolveBaseTypeMembers()
+        void ResolveTypeMembers()
         {
             foreach (CodeTypeDeclaration typedecl in typeDics.Values)
             {
