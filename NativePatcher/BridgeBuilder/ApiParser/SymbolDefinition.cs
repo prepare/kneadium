@@ -29,11 +29,22 @@ namespace BridgeBuilder
     }
     abstract class TypeSymbol : Symbol
     {
+#if DEBUG
+        public readonly int dbugId = dbugTotalId++;
+        static int dbugTotalId;
+        public TypeSymbol()
+        {
+            if (dbugId == 768)
+            {
+
+            }
+        }
+#endif
         public abstract TypeSymbolKind TypeSymbolKind { get; }
     }
-    class SimpleType : TypeSymbol
+    class SimpleTypeSymbol : TypeSymbol
     {
-        public SimpleType(string name)
+        public SimpleTypeSymbol(string name)
         {
             this.Name = name;
         }
@@ -65,7 +76,7 @@ namespace BridgeBuilder
         CefString,
         //
         size_t,
-        
+
     }
 
 
@@ -84,7 +95,7 @@ namespace BridgeBuilder
         {
             return Name;
         }
-        public SimpleType ParentType
+        public SimpleTypeSymbol ParentType
         {
             get;
             set;
@@ -136,9 +147,9 @@ namespace BridgeBuilder
 
 
 
-    abstract class TemplateType : TypeSymbol
+    abstract class TemplateTypeSymbol : TypeSymbol
     {
-        public TemplateType(string name)
+        public TemplateTypeSymbol(string name)
         {
             this.Name = name;
         }
@@ -147,9 +158,9 @@ namespace BridgeBuilder
         public abstract int ItemCount { get; }
     }
 
-    class TemplateType3 : TemplateType
+    class TemplateTypeSymbol3 : TemplateTypeSymbol
     {
-        public TemplateType3(string name)
+        public TemplateTypeSymbol3(string name)
             : base(name)
         {
             this.Name = name;
