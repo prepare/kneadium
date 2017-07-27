@@ -352,13 +352,13 @@ namespace BridgeBuilder
         List<string> allLines = new List<string>();
         List<Token> tokenList = new List<Token>();
         int lineNo = -1;
-        int currentTokenIndex; 
+        int currentTokenIndex;
         CodeCompilationUnit cu;
 #if DEBUG
         string dbugCurrentFilename = null;
 #endif
         public Cef3HeaderFileParser()
-        { 
+        {
         }
         public CodeCompilationUnit Result
         {
@@ -386,7 +386,7 @@ namespace BridgeBuilder
             //------------
             ParseFileContent();
             //------------ 
-            
+
         }
 
         void ReadUntilEscapeFromBlock()
@@ -446,6 +446,19 @@ namespace BridgeBuilder
 
         CodeTypeTemplateNotation templateNotation = null;
 
+        string ParseIncludeFile(Token includePreprocessingDirective)
+        {
+            string line = includePreprocessingDirective.Content;
+            string[] parts = line.Split(' ');
+            if (parts.Length == 2 && parts[0] == "#include")
+            {
+                return parts[1];
+            }
+            else
+            {
+                throw new NotSupportedException();
+            }
+        }
         void ParseFileContent()
         {
             LineLexer lineLexer = new LineLexer();
@@ -491,8 +504,7 @@ namespace BridgeBuilder
             //}
 #endif
 
-            CodeTypeDeclaration globalTypeDecl = cu.GlobalTypeDecl; 
-            
+            CodeTypeDeclaration globalTypeDecl = cu.GlobalTypeDecl;
             for (currentTokenIndex = 0; currentTokenIndex < tkcount; ++currentTokenIndex)
             {
                 Token tk = tokenList[currentTokenIndex];
@@ -500,7 +512,16 @@ namespace BridgeBuilder
                 {
                     case TokenKind.LineComment:
                     case TokenKind.Whitespace:
-                    case TokenKind.PreprocessingDirective://this version we just skip preprocessing directive                        
+                        break;
+                    case TokenKind.PreprocessingDirective:
+                        {
+                            //this version we just skip some pre-processing
+
+                            if (tk.Content.StartsWith("#include"))
+                            {
+                                cu.AddIncludeFile(ParseIncludeFile(tk));
+                            }
+                        }
                         continue;
                     case TokenKind.Comment:
                         //skip until find next comment
@@ -529,7 +550,7 @@ namespace BridgeBuilder
                                         templateNotation = null;
 
                                         if (typeDecl != null)
-                                        { 
+                                        {
                                             cu.AddTypeDeclaration(typeDecl);
                                         }
                                         else

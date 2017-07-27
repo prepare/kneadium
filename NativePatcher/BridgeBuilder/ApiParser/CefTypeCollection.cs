@@ -26,8 +26,10 @@ namespace BridgeBuilder
         internal List<CodeTypeDeclaration> otherClasses = new List<CodeTypeDeclaration>();
         //------------
 
-        internal List<CodeCompilationUnit> compilationUnits;
+        List<CodeCompilationUnit> compilationUnits;
         internal Dictionary<TypeSymbol, TypeHierarchyNode> hierarchy;
+
+
 
         void Reset()
         {
@@ -98,15 +100,28 @@ namespace BridgeBuilder
             }
             //--------------------------
         }
-         
 
+        public string RootFolder { get; set; }
         public void SetTypeSystem(List<CodeCompilationUnit> compilationUnits)
         {
 
             Reset();
             //-----------------------
             this.compilationUnits = compilationUnits;
+            //-----------------------
+            //resolve cu's file path
 
+            foreach (CodeCompilationUnit cu in compilationUnits)
+            {
+                //check absolute path for include file                  
+                foreach (IncludeFileDirective includeDirective in cu._includeFiles)
+                {
+                     
+                } 
+            }
+
+
+            //-----------------------
             //1. collect
             foreach (CodeCompilationUnit cu in compilationUnits)
             {
@@ -189,7 +204,7 @@ namespace BridgeBuilder
                 {
                     //skip this global type
                     return;
-                } 
+                }
             }
 
             if (!typeDecl.IsForwardDecl && typeDecl.Name != null)
@@ -542,12 +557,15 @@ namespace BridgeBuilder
                     }
                 }
                 //3. search global type of current compilation unit( cu)
+                CodeCompilationUnit cu = _currentResolvingType.OriginalCompilationUnit;
+                if (cu.GlobalTypeDecl.MemberCount > 0)
+                {
+                    //
+                }
+                else
+                {
 
-                CodeCompilationUnit cu = _currentResolvingType.OriginalCompilationUnit; 
-
-
-
-
+                }
             }
             //-------
 

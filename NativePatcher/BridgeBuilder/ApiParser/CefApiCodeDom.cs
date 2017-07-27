@@ -210,17 +210,23 @@ namespace BridgeBuilder
             }
             return foundCount;
         }
-
-
+    }
+    class IncludeFileDirective
+    {
+        public string ResolvedAbsoluteFilePath { get; set; }
+        public string IncludeFile { get; set; }
     }
     class CodeCompilationUnit
     {
         List<CodeTypeDeclaration> _members;
         CodeTypeDeclaration _globalTypeDecl;
+        internal List<IncludeFileDirective> _includeFiles = new List<IncludeFileDirective>();
+
         public CodeCompilationUnit(string cuName)
         {
             _members = new List<CodeTypeDeclaration>();
             _globalTypeDecl = new CodeTypeDeclaration() { IsGlobalCompilationUnitType = true };
+            _globalTypeDecl.OriginalCompilationUnit = this;
             _globalTypeDecl.Name = "global!" + cuName;
         }
 
@@ -243,6 +249,10 @@ namespace BridgeBuilder
         public CodeTypeDeclaration GetTypeDeclaration(int index)
         {
             return _members[index];
+        }
+        public void AddIncludeFile(string includeFile)
+        {
+            _includeFiles.Add(new IncludeFileDirective() { IncludeFile = includeFile });
         }
 
     }
