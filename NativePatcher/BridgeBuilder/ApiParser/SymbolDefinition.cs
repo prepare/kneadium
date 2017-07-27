@@ -47,6 +47,12 @@ namespace BridgeBuilder
     {
         public SimpleTypeSymbol(string name)
         {
+#if DEBUG
+            if (name == "FileDialogMode")
+            {
+
+            }
+#endif
             this.Name = name;
         }
         public override TypeSymbolKind TypeSymbolKind { get { return TypeSymbolKind.Simple; } }
@@ -198,10 +204,12 @@ namespace BridgeBuilder
 
     class TemplateParameterTypeSymbol : TypeSymbol
     {
-        public TemplateParameterTypeSymbol(string templateParName, string newName)
+        CodeTemplateParameter templatePar;
+        public TemplateParameterTypeSymbol(CodeTemplateParameter templatePar)
         {
-            this.TemplateParameterName = templateParName;
-            this.NewName = newName;
+            this.templatePar = templatePar;
+            this.TemplateParameterName = templatePar.ParameterName;
+            this.NewName = templatePar.ParameterKind;
         }
         public override TypeSymbolKind TypeSymbolKind { get { return TypeSymbolKind.TemplateParameter; } }
         public string NewName { get; set; }

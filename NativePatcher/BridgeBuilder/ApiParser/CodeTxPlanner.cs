@@ -223,25 +223,22 @@ namespace BridgeBuilder
                 }
             }
 
-            foreach (CodeMemberDeclaration mb in typedecl.Members)
-            {
-                if (mb.MemberKind == CodeMemberKind.Method)
+            foreach (CodeMethodDeclaration metDecl in typedecl.GetMethodIter())
+            {   
+                if (metDecl.MethodKind == MethodKind.Normal)
                 {
-                    CodeMethodDeclaration metDecl = (CodeMethodDeclaration)mb;
-                    if (metDecl.MethodKind == MethodKind.Normal)
+                    MethodTxInfo metTx = MakeMethodPlan(metDecl);
+                    if (metTx == null)
                     {
-                        MethodTxInfo metTx = MakeMethodPlan(metDecl);
-                        if (metTx == null)
-                        {
-                            throw new NotSupportedException();
-                        }
-                        typeTxInfo.AddMethod(metTx);
+                        throw new NotSupportedException();
                     }
-                    else
-                    {
-
-                    }
+                    typeTxInfo.AddMethod(metTx);
                 }
+                else
+                {
+
+                }
+
             }
             return typeTxInfo;
         }
@@ -258,36 +255,28 @@ namespace BridgeBuilder
                         SimpleTypeSymbol simpleType = (SimpleTypeSymbol)parTypeSymbol;
                         if (simpleType.PrimitiveTypeKind == PrimitiveTypeKind.NotPrimitiveType)
                         {
-                            TypeSymbol c_type;
-
-                            if (!CefTypeCollection.baseCToCppTypeSymbols.TryGetValue(simpleType.Name, out c_type))
+                            if (!CefTypeCollection.typeSymbols.ContainsKey(simpleType.Name))
                             {
-                                if (!CefTypeCollection.typeSymbols.ContainsKey(simpleType.Name))
+                                //this may be nested type
+                                if (this.otherSearchScopeTypeSymbol != null)
                                 {
-                                    //this may be nested type
-                                    if (this.otherSearchScopeTypeSymbol != null)
+                                    string searchName = otherSearchScopeTypeSymbol.ToString() + "." + simpleType.Name;
+                                    if (!CefTypeCollection.typeSymbols.ContainsKey(searchName))
                                     {
-                                        string searchName = otherSearchScopeTypeSymbol.ToString() + "." + simpleType.Name;
-                                        if (!CefTypeCollection.typeSymbols.ContainsKey(searchName))
+                                        if (!CefTypeCollection.typeDics.ContainsKey(simpleType.Name))
                                         {
-                                            if (!CefTypeCollection.typeDics.ContainsKey(simpleType.Name))
-                                            {
-
-                                            }
 
                                         }
-                                    }
-                                    else
-                                    {
-                                        //where to find more?
-                                    }
 
+                                    }
                                 }
-                            }
-                            else
-                            {
+                                else
+                                {
+                                    //where to find more?
+                                }
 
                             }
+
                         }
                     }
 
@@ -563,7 +552,7 @@ namespace BridgeBuilder
                                             }
                                             else
                                             {
-                                              
+
                                             }
 
                                         }

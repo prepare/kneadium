@@ -352,16 +352,13 @@ namespace BridgeBuilder
         List<string> allLines = new List<string>();
         List<Token> tokenList = new List<Token>();
         int lineNo = -1;
-        int currentTokenIndex;
-        List<CodeTypeDeclaration> typeList;
-        CodeCompilationUnit cu = new CodeCompilationUnit();
+        int currentTokenIndex; 
+        CodeCompilationUnit cu;
 #if DEBUG
         string dbugCurrentFilename = null;
 #endif
         public Cef3HeaderFileParser()
-        {
-            typeList = cu.Members;
-
+        { 
         }
         public CodeCompilationUnit Result
         {
@@ -372,6 +369,7 @@ namespace BridgeBuilder
 #if DEBUG
             this.dbugCurrentFilename = Path.GetFileName(filename);
 #endif
+            cu = new CodeCompilationUnit(Path.GetFileNameWithoutExtension(filename));
             cu.Filename = filename;
             using (FileStream fs = new FileStream(filename, FileMode.Open))
             using (StreamReader r = new StreamReader(fs))
@@ -387,19 +385,8 @@ namespace BridgeBuilder
             //start parse line by line
             //------------
             ParseFileContent();
-            //------------
-
-
-            //add (optional) compilation unit info
-            foreach (CodeTypeDeclaration typedecl in typeList)
-            {
-                typedecl.OriginalCompilationUnit = cu;
-                foreach (CodeMemberDeclaration mb in typedecl.Members)
-                {
-                    mb.OriginalCompilationUnit = cu;
-                }
-            }
-
+            //------------ 
+            
         }
 
         void ReadUntilEscapeFromBlock()
@@ -503,12 +490,9 @@ namespace BridgeBuilder
             //{
             //}
 #endif
-            CodeTypeDeclaration globalTypeDecl = new CodeTypeDeclaration();
-            globalTypeDecl.IsGlobalCompilationUnitType = true;
-            this.typeList.Add(globalTypeDecl);
 
-
-
+            CodeTypeDeclaration globalTypeDecl = cu.GlobalTypeDecl; 
+            
             for (currentTokenIndex = 0; currentTokenIndex < tkcount; ++currentTokenIndex)
             {
                 Token tk = tokenList[currentTokenIndex];
@@ -545,9 +529,8 @@ namespace BridgeBuilder
                                         templateNotation = null;
 
                                         if (typeDecl != null)
-                                        {
-
-                                            typeList.Add(typeDecl);
+                                        { 
+                                            cu.AddTypeDeclaration(typeDecl);
                                         }
                                         else
                                         {
@@ -823,9 +806,7 @@ namespace BridgeBuilder
                     //template <class traits>
                     //class CefStructBase : public traits::struct_type {
                     // public:
-                    //  typedef typename traits::struct_type struct_type;
-
-
+                    //  typedef typename traits::struct_type struct_type; 
                     CodeTemplateParameter par = codeTypeDecl.TemplateNotation.templatePar;
 
                     //assign to template parameter 
@@ -845,7 +826,7 @@ namespace BridgeBuilder
             {
                 throw new NotSupportedException();
             }
-            codeTypeDecl.Members.Add(new CodeCTypeDef(from, to));
+            codeTypeDecl.AddMember(new CodeCTypeDef(from, to));
             return !ExpectPunc("}");
         }
 #if DEBUG
@@ -962,14 +943,14 @@ namespace BridgeBuilder
                 //sub class
                 CodeTypeDeclaration subClass = ParseTypeDeclaration();
                 subClass.Kind = TypeKind.Class;
-                codeTypeDecl.Members.Add(subClass);
+                codeTypeDecl.AddMember(subClass);
                 return !ExpectPunc("}");
             }
             else if (ExpectId("struct"))
             {
                 CodeTypeDeclaration subClass = ParseTypeDeclaration();
                 subClass.Kind = TypeKind.Struct;
-                codeTypeDecl.Members.Add(subClass);
+                codeTypeDecl.AddMember(subClass);
                 return !ExpectPunc("}");
             }
 
@@ -1051,11 +1032,11 @@ namespace BridgeBuilder
                 //exclude some method like structure, eg. macro
                 if (met.Name == null && IsAllUpperLetter(met.ReturnType.Name))
                 {
-                    codeTypeDecl.SpecialImplMacroMembers.Add(met);
+                    codeTypeDecl.AddMacro(met);
                 }
                 else
                 {
-                    codeTypeDecl.Members.Add(met);
+                    codeTypeDecl.AddMember(met);
                 }
                 if (ExpectPunc(";"))
                 {
@@ -1103,7 +1084,7 @@ namespace BridgeBuilder
             {
                 //this is code field decl
                 CodeFieldDeclaration field = new CodeFieldDeclaration();
-                codeTypeDecl.Members.Add(field);
+                codeTypeDecl.AddMember(field);
                 field.Name = name;
                 field.FieldType = retType;
                 field.IsStatic = isStatic;

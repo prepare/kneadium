@@ -243,7 +243,7 @@ namespace BridgeBuilder
             List<CodeCompilationUnit> culist = new List<CodeCompilationUnit>();
             culist.Add(cu);
             CefTypeCollection cefTypeCollection = new CefTypeCollection();
-            cefTypeCollection.CollectAllTypeDefinitions(culist);
+            cefTypeCollection.SetTypeSystem(culist);
             //-----------
 
             TypeTranformPlanner txPlanner = new TypeTranformPlanner();
@@ -251,10 +251,16 @@ namespace BridgeBuilder
 
             ApiBuilder apiBuilder = new ApiBuilder();
 
-            int j = cu.Members.Count;
+            CodeTypeDeclaration globalType = cu.GlobalTypeDecl;
+            if (globalType.MemberCount > 0)
+            {
+                //TODO: review global type
+            }
+            //
+            int j = cu.TypeCount;
             for (int i = 0; i < j; ++i)
             {
-                CodeTypeDeclaration typedecl = cu.Members[i];
+                CodeTypeDeclaration typedecl = cu.GetTypeDeclaration(i);
                 if (typedecl.Name == null)
                 {
                     continue;
@@ -292,10 +298,9 @@ namespace BridgeBuilder
             List<CodeCompilationUnit> totalCuList = new List<CodeCompilationUnit>();
             {
 
-                //internal
-
+                //include/internal
                 totalCuList.Add(ParseWrapper(cefDir + @"\include\internal\cef_types_wrappers.h"));
-
+                totalCuList.Add(ParseWrapper(cefDir + @"\include\internal\cef_win.h")); //for windows
 
             }
             {
@@ -353,7 +358,7 @@ namespace BridgeBuilder
             //
             ApiBuilder apiBuilder = new ApiBuilder();
             CefTypeCollection cefTypeCollection = new CefTypeCollection();
-            cefTypeCollection.CollectAllTypeDefinitions(totalCuList);
+            cefTypeCollection.SetTypeSystem(totalCuList);
             TypeTranformPlanner txPlanner = new TypeTranformPlanner();
             txPlanner.CefTypeCollection = cefTypeCollection;
 

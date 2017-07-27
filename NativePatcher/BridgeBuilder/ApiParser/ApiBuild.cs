@@ -51,7 +51,7 @@ namespace BridgeBuilder
             }
 
 
-            cefTypeCollection.CollectAllTypeDefinitions(compilationUnits);
+            cefTypeCollection.SetTypeSystem(compilationUnits);
 
             TypeTranformPlanner typeTxPlanner = new TypeTranformPlanner();
 

@@ -14,12 +14,11 @@ namespace BridgeBuilder
 
         //semantic
         internal Dictionary<string, TypeSymbol> typeSymbols = new Dictionary<string, TypeSymbol>();
-        internal Dictionary<string, TypeSymbol> baseCToCppTypeSymbols = new Dictionary<string, TypeSymbol>();
-        internal Dictionary<string, TypeSymbol> unknownTypes = new Dictionary<string, TypeSymbol>();
-        //----------- 
+
+
 
         //------------
-        //classification
+        //classification (after all type symbols are created)
         internal List<CodeTypeDeclaration> callBackClasses = new List<CodeTypeDeclaration>();
         internal List<CodeTypeDeclaration> handlerClasses = new List<CodeTypeDeclaration>();
         internal List<CodeTypeDeclaration> cToCppClasses = new List<CodeTypeDeclaration>();
@@ -68,13 +67,19 @@ namespace BridgeBuilder
                 new SimpleTypeSymbol("string"){PrimitiveTypeKind = PrimitiveTypeKind.String },
                 new SimpleTypeSymbol("CefString"){PrimitiveTypeKind = PrimitiveTypeKind.CefString },
                 new SimpleTypeSymbol("CefBase"),
-                
+                new SimpleTypeSymbol("CefBaseRefCounted"),
+                new SimpleTypeSymbol("CefBaseScoped"),
+
+
+
                 //TODO: review             
                 new SimpleTypeSymbol("Handler"),
                 new CTypeDefTypeSymbol("CefProcessId", new CodeSimpleTypeReference("cef_process_id_t")), //typedef cef_process_id_t CefProcessId;
                 new CTypeDefTypeSymbol("CefThreadId", new CodeSimpleTypeReference("cef_thread_id_t")), //typedef cef_thread_id_t CefThreadId; 
                 new CTypeDefTypeSymbol("CefWindowHandle",new CodeSimpleTypeReference("cef_window_handle_t")),
                 new CTypeDefTypeSymbol("CefValueType" ,new CodeSimpleTypeReference("cef_value_type_t")), // 
+                //
+                
             };
 
             foreach (TypeSymbol typeSymbol in prebuiltTypes)
@@ -93,77 +98,27 @@ namespace BridgeBuilder
             }
             //--------------------------
         }
-        public void CollectAllTypeDefinitions(List<CodeCompilationUnit> compilationUnits)
+         
+
+        public void SetTypeSystem(List<CodeCompilationUnit> compilationUnits)
         {
 
             Reset();
             //-----------------------
             this.compilationUnits = compilationUnits;
+
             //1. collect
             foreach (CodeCompilationUnit cu in compilationUnits)
             {
-                foreach (CodeTypeDeclaration typeDecl in cu.Members)
+                //
+                RegisterTypeDeclaration(cu.GlobalTypeDecl);
+                int typeCount = cu.TypeCount;
+                for (int i = 0; i < typeCount; ++i)
                 {
-                    if (typeDecl.IsGlobalCompilationUnitType && typeDecl.Name == null)
-                    {
-                        //this is global type
-                        typeDecl.Name = "global!" + System.IO.Path.GetFileName(cu.Filename);
-
-                    }
-                    if (!typeDecl.IsForwardDecl && typeDecl.Name != null)
-                    {
-                        if (typeDics.ContainsKey(typeDecl.Name))
-                        {
-                            throw new Exception("duplicated key " + typeDecl.Name);
-                        }
-                        typeDics.Add(typeDecl.Name, typeDecl);
-                        //-----------------------
-
-                        SimpleTypeSymbol typeSymbol = new SimpleTypeSymbol(typeDecl.Name);
-                        typeSymbol.CreatedByTypeDeclaration = typeDecl;
-                        typeDecl.ResolvedType = typeSymbol;
-                        //
-
-                        TypeSymbol existingTypeSymbol;
-                        if (typeSymbols.TryGetValue(typeSymbol.Name, out existingTypeSymbol))
-                        {
-                            //have existing value
-                            throw new NotSupportedException();
-                        }
-                        else
-                        {
-                            typeSymbols.Add(typeSymbol.Name, typeSymbol);
-                        }
-
-
-
-                        //and sub types
-                        foreach (CodeMemberDeclaration subType in typeDecl.Members)
-                        {
-                            if (subType.MemberKind == CodeMemberKind.TypeDef)
-                            {
-                                CodeCTypeDef ctypeDef = (CodeCTypeDef)subType;
-                                CTypeDefTypeSymbol ctypedefTypeSymbol = new CTypeDefTypeSymbol(ctypeDef.Name, ctypeDef.From);
-                                ctypedefTypeSymbol.CreatedTypeCTypeDef = ctypeDef;
-                                ctypedefTypeSymbol.ParentType = typeSymbol;
-
-                                //---
-                                typeSymbols.Add(typeSymbol.Name + "." + ctypeDef.Name, ctypedefTypeSymbol);
-
-                                List<TypeSymbol> nestedTypes = typeSymbol.NestedTypeSymbols;
-                                if (nestedTypes == null)
-                                {
-                                    typeSymbol.NestedTypeSymbols = nestedTypes = new List<TypeSymbol>();
-                                }
-                                nestedTypes.Add(ctypedefTypeSymbol);
-                            }
-                        }
-
-                    }
+                    RegisterTypeDeclaration(cu.GetTypeDeclaration(i));
                 }
             }
             ResolveBaseTypes();
-
             ResolveTypeMembers();
 
             //-----------------------
@@ -222,7 +177,78 @@ namespace BridgeBuilder
         }
 
 
+        void RegisterTypeDeclaration(CodeTypeDeclaration typeDecl)
+        {
+            //1. collect
+
+
+            if (typeDecl.IsGlobalCompilationUnitType)
+            {
+                //this is global type                        
+                if (typeDecl.MemberCount == 0)
+                {
+                    //skip this global type
+                    return;
+                } 
+            }
+
+            if (!typeDecl.IsForwardDecl && typeDecl.Name != null)
+            {
+                if (typeDics.ContainsKey(typeDecl.Name))
+                {
+                    throw new Exception("duplicated key " + typeDecl.Name);
+                }
+                typeDics.Add(typeDecl.Name, typeDecl);
+                //-----------------------
+
+                SimpleTypeSymbol typeSymbol = new SimpleTypeSymbol(typeDecl.Name);
+                typeSymbol.CreatedByTypeDeclaration = typeDecl;
+                typeDecl.ResolvedType = typeSymbol;
+                //
+
+                TypeSymbol existingTypeSymbol;
+                if (typeSymbols.TryGetValue(typeSymbol.Name, out existingTypeSymbol))
+                {
+                    //have existing value
+                    throw new NotSupportedException();
+                }
+                else
+                {
+                    typeSymbols.Add(typeSymbol.Name, typeSymbol);
+                }
+                //and sub types
+                foreach (CodeMemberDeclaration subType in typeDecl.GetSubTypeIter())
+                {
+                    if (subType.MemberKind == CodeMemberKind.TypeDef)
+                    {
+
+                        CodeCTypeDef ctypeDef = (CodeCTypeDef)subType;
+                        //
+
+                        CTypeDefTypeSymbol ctypedefTypeSymbol = new CTypeDefTypeSymbol(ctypeDef.Name, ctypeDef.From);
+                        ctypedefTypeSymbol.CreatedTypeCTypeDef = ctypeDef;
+                        ctypedefTypeSymbol.ParentType = typeSymbol;
+
+                        //---
+                        typeSymbols.Add(typeSymbol.Name + "." + ctypeDef.Name, ctypedefTypeSymbol);
+
+                        List<TypeSymbol> nestedTypes = typeSymbol.NestedTypeSymbols;
+                        if (nestedTypes == null)
+                        {
+                            typeSymbol.NestedTypeSymbols = nestedTypes = new List<TypeSymbol>();
+                        }
+                        nestedTypes.Add(ctypedefTypeSymbol);
+                    }
+                }
+            }
+
+        }
+
+
         CodeTypeDeclaration _currentResolvingType = null;
+
+
+
         void ResolveBaseTypes()
         {
 
@@ -242,6 +268,13 @@ namespace BridgeBuilder
                 {
                     foreach (CodeTypeReference baseType in baseTypes)
                     {
+
+                        //if (baseType.Name != "CefBaseRefCounted" &&
+                        //    baseType.Name != "struct_type" &&
+                        //    baseType.Name != "CefStructBase")
+                        //{
+
+                        //}
                         baseType.ResolvedType = ResolveType(baseType);
                     }
                 }
@@ -253,49 +286,44 @@ namespace BridgeBuilder
         {
             foreach (CodeTypeDeclaration typedecl in typeDics.Values)
             {
-                foreach (CodeMemberDeclaration mbDecl in typedecl.Members)
+                _currentResolvingType = typedecl;
+
+                foreach (CodeMethodDeclaration metDecl in typedecl.GetMethodIter())
                 {
-                    switch (mbDecl.MemberKind)
+                    if (metDecl.MethodKind == MethodKind.Normal)
                     {
-                        case CodeMemberKind.Method:
-                            CodeMethodDeclaration metDecl = (CodeMethodDeclaration)mbDecl;
-                            if (metDecl.MethodKind == MethodKind.Normal)
-                            {
-                                //resolve return type and type parameter
-                                metDecl.ReturnType.ResolvedType = ResolveType(metDecl.ReturnType);
-                                foreach (CodeMethodParameter p in metDecl.Parameters)
-                                {
-                                    p.ParameterType.ResolvedType = ResolveType(p.ParameterType);
-                                }
-                            }
-                            else
-                            {
-                                //this version, we skip other method kind
-                            }
-                            break;
-                        case CodeMemberKind.Type:
-                            //sub type
-                            break;
-                        case CodeMemberKind.TypeDef:
-                            break;
-                        case CodeMemberKind.Field:
-                            //skip ?
-                            break;
-                        default:
-                            throw new NotSupportedException();
+                        //resolve return type and type parameter
+                        metDecl.ReturnType.ResolvedType = ResolveType(metDecl.ReturnType);
+                        foreach (CodeMethodParameter p in metDecl.Parameters)
+                        {
+                            p.ParameterType.ResolvedType = ResolveType(p.ParameterType);
+                        }
                     }
+                    else
+                    {
+                        //this version, we skip other method kind
+                    }
+                    break;
                 }
             }
+            _currentResolvingType = null;
         }
         TypeSymbol RegisterBaseCToCppTypeSymbol(CodeTypeReference cToCppTypeReference)
         {
 
+#if DEBUG
+            if (!IsAllLowerLetter(cToCppTypeReference.Name))
+            {
+                //cef-name convention
+                throw new NotSupportedException();
+            }
+#endif
             TypeSymbol found;
-            if (!baseCToCppTypeSymbols.TryGetValue(cToCppTypeReference.Name, out found))
+            if (!typeSymbols.TryGetValue(cToCppTypeReference.Name, out found))
             {
                 //if not found then create the new simple type
                 found = new SimpleTypeSymbol(cToCppTypeReference.Name);
-                baseCToCppTypeSymbols.Add(cToCppTypeReference.Name, found);
+                typeSymbols.Add(cToCppTypeReference.Name, found);
             }
             return cToCppTypeReference.ResolvedType = found;
         }
@@ -316,9 +344,9 @@ namespace BridgeBuilder
                         switch (qnameType.LeftPart)
                         {
                             //resolve wellknown type template   
-                          
+
                             case "std":
-                                return ResolveType(qnameType.RightPart); 
+                                return ResolveType(qnameType.RightPart);
                             default:
                                 {
                                     if (_currentResolvingType != null &&
@@ -329,7 +357,7 @@ namespace BridgeBuilder
                                             _currentResolvingType.TemplateNotation.templatePar.ParameterName)
                                         {
                                             //TODO: resolve template type parameter
-                                            TemplateParameterTypeSymbol templatePar = new TemplateParameterTypeSymbol(qnameType.LeftPart, qnameType.RightPart.ToString());
+                                            TemplateParameterTypeSymbol templatePar = new TemplateParameterTypeSymbol(_currentResolvingType.TemplateNotation.templatePar);
                                             return templatePar;
                                         }
                                     }
@@ -359,9 +387,7 @@ namespace BridgeBuilder
                                     //cpp to c
                                     if (typeTemplate.Items.Count == 3)
                                     {
-                                        //auto add native c/c++ type
-
-                                        //
+                                        //auto add native c/c++ type 
                                         TemplateTypeSymbol3 t3 = new TemplateTypeSymbol3(typeTemplate.Name);
                                         t3.Item1 = ResolveType(typeTemplate.Items[1]);
                                         t3.Item2 = RegisterBaseCToCppTypeSymbol(typeTemplate.Items[2]);
@@ -466,44 +492,87 @@ namespace BridgeBuilder
                     }
             }
         }
+
         TypeSymbol ResolveType(string typename)
         {
-            CodeTypeDeclaration baseTypeFound;
-            if (typeDics.TryGetValue(typename, out baseTypeFound))
+            //-------
+            if (_currentResolvingType != null)
             {
-                return baseTypeFound.ResolvedType;
+                //1. 
+                if (_currentResolvingType.IsTemplateTypeDefinition)
+                {
+                    //** this version, our template notation has only 1 type parameter
+                    //TODO: review template notation that has more than 1 type parameters.
+                    //
+                    //check if this is the template type parameter
+                    if (typename == _currentResolvingType.TemplateNotation.templatePar.ReAssignToTypeName)
+                    {//found
+                        return new TemplateParameterTypeSymbol(_currentResolvingType.TemplateNotation.templatePar);
+                    }
+                }
+                //2.
+                //search nest type
+                //TODO: review here -> use field                
+                if (_currentResolvingType.HasSubType)
+                {
+                    List<CodeMemberDeclaration> tempResults = new List<CodeMemberDeclaration>();
+                    int foundCount;
+                    if ((foundCount = _currentResolvingType.FindSubType(typename, tempResults)) > 0)
+                    {
+                        for (int i = 0; i < foundCount; ++i)
+                        {
+                            CodeMemberDeclaration subtype = tempResults[i];
+                            switch (subtype.MemberKind)
+                            {
+                                default: throw new NotSupportedException();
+                                case CodeMemberKind.TypeDef:
+                                    {
+                                        CodeCTypeDef ctypedef = (CodeCTypeDef)subtype;
+                                        TypeSymbol resolveFromType = ResolveType(ctypedef.From);
+                                        if (resolveFromType != null)
+                                        {
+                                            //found
+                                            return resolveFromType;
+                                        }
+                                    }
+                                    break;
+                            }
+
+                        }
+                    }
+                }
+                //3. search global type of current compilation unit( cu)
+
+                CodeCompilationUnit cu = _currentResolvingType.OriginalCompilationUnit; 
+
+
+
+
             }
-            else
+            //-------
+
+
+            //-------
+            TypeSymbol foundSymbol;
+            if (typeSymbols.TryGetValue(typename, out foundSymbol))
             {
-                TypeSymbol foundSymbol;
-                if (typeSymbols.TryGetValue(typename, out foundSymbol))
-                {
-                    return foundSymbol;
-                }
-                if (baseCToCppTypeSymbols.TryGetValue(typename, out foundSymbol))
-                {
-                    return foundSymbol;
-                }
-
-                //this is convention 
-                if (typename.StartsWith("cef_") && IsAllLowerLetter(typename))
-                {
-                    //assume this is base c/cpp type
-                    foundSymbol = new SimpleTypeSymbol(typename);
-                    baseCToCppTypeSymbols.Add(
-                        typename,
-                        foundSymbol);
-                    return foundSymbol;
-                }
-
-                if (!unknownTypes.TryGetValue(typename, out foundSymbol))
-                {
-                    foundSymbol = new SimpleTypeSymbol(typename);
-                    unknownTypes.Add(typename, foundSymbol);
-                    return foundSymbol;
-                }
                 return foundSymbol;
             }
+
+            //this is convention 
+            if (typename.StartsWith("cef_") && IsAllLowerLetter(typename))
+            {
+                //assume this is base c/cpp type
+                foundSymbol = new SimpleTypeSymbol(typename);
+                typeSymbols.Add(
+                    typename,
+                    foundSymbol);
+                return foundSymbol;
+            }
+
+            //not found
+            return foundSymbol;
+
 
         }
         public bool TryGetTypeDeclaration(string typeName, out CodeTypeDeclaration found)
@@ -516,7 +585,7 @@ namespace BridgeBuilder
             for (int i = name.Length - 1; i >= 0; --i)
             {
                 char c = name[i];
-                if (!((c >= 'a' && c <= 'z') || c == '_'))
+                if (!((c >= 'a' && c <= 'z') || c == '_' || char.IsNumber(c)))
                 {
                     return false;
                 }
