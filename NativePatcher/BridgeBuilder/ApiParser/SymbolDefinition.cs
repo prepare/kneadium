@@ -46,13 +46,7 @@ namespace BridgeBuilder
     class SimpleTypeSymbol : TypeSymbol
     {
         public SimpleTypeSymbol(string name)
-        {
-#if DEBUG
-            if (name == "FileDialogMode")
-            {
-
-            }
-#endif
+        {   
             this.Name = name;
         }
         public override TypeSymbolKind TypeSymbolKind { get { return TypeSymbolKind.Simple; } }
@@ -180,6 +174,24 @@ namespace BridgeBuilder
         public override string ToString()
         {
             return Name + "<" + Item0 + ">";
+        }
+    }
+    class TemplateTypeSymbol2 : TemplateTypeSymbol
+    {
+        public TemplateTypeSymbol2(string name)
+            : base(name)
+        {
+            this.Name = name;
+        }
+        public override int ItemCount
+        {
+            get { return 2; }
+        }
+        public TypeSymbol Item0 { get; set; }
+        public TypeSymbol Item1 { get; set; }
+        public override string ToString()
+        {
+            return Name + "<" + Item0 + "," + Item1 + ">";
         }
     }
     class TemplateTypeSymbol3 : TemplateTypeSymbol
