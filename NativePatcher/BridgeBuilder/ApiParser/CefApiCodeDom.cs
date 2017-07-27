@@ -296,12 +296,29 @@ namespace BridgeBuilder
     }
     abstract class CodeTypeReference
     {
-        public CodeTypeReference() { }
+#if DEBUG
+        public readonly int dbugId = dbugTotalId++;
+        static int dbugTotalId;
+#endif
+        public CodeTypeReference()
+        {
+#if DEBUG
+            dbugCheckId();
+#endif
+        }
         public CodeTypeReference(string typename)
         {
+#if DEBUG
+            dbugCheckId();
+#endif
             this.Name = typename;
         }
-
+#if DEBUG
+        void dbugCheckId()
+        {
+             
+        }
+#endif
         public string Name
         {
             get;

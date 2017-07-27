@@ -499,7 +499,7 @@ namespace BridgeBuilder
 
             //-------------------------------------------------------
 #if DEBUG
-         
+
 #endif
 
             CodeTypeDeclaration globalTypeDecl = cu.GlobalTypeDecl;
@@ -567,7 +567,7 @@ namespace BridgeBuilder
                                 case "template":
                                     {
                                         //skip template
-                                        this.templateNotation = ParseTemplateNotation(); 
+                                        this.templateNotation = ParseTemplateNotation();
                                     }
                                     break;
                                 case "extern":
@@ -753,8 +753,7 @@ namespace BridgeBuilder
             }
 
             codeTypeDecl.Name = ExpectId();
-
-
+         
 
             if (ExpectPunc(";"))
             {
@@ -903,10 +902,7 @@ namespace BridgeBuilder
 
 #if DEBUG
             dbugCount++;
-            if (dbugCount >= 145)
-            {
-
-            }
+          
 #endif
 
             //member modifiers
@@ -1024,8 +1020,7 @@ namespace BridgeBuilder
                 met.IsVirtual = isVirtual;
                 met.IsInline = isInline;
                 //
-                if (retType.ToString() == codeTypeDecl.Name &&
-                    name == null)
+                if (retType.ToString() == codeTypeDecl.Name && name == null)
                 {
                     //this is ctor or dtor
                     met.ReturnType = null;
@@ -1044,7 +1039,7 @@ namespace BridgeBuilder
 
                 met.IsOverrided = ExpectId("OVERRIDE");
                 met.IsConst = ExpectId("const");
-
+       
 
                 //cef3:
                 //exclude some method like structure, eg. macro

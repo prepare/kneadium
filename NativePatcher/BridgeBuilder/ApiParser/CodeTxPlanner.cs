@@ -224,7 +224,7 @@ namespace BridgeBuilder
             }
 
             foreach (CodeMethodDeclaration metDecl in typedecl.GetMethodIter())
-            {   
+            {
                 if (metDecl.MethodKind == MethodKind.Normal)
                 {
                     MethodTxInfo metTx = MakeMethodPlan(metDecl);
@@ -521,6 +521,10 @@ namespace BridgeBuilder
                                     else if (refOrPointer.ElementType is ReferenceOrPointerTypeSymbol)
                                     {
                                         //set as out parameter?
+                                    }
+                                    else if (refOrPointer.ElementType is CTypeDefTypeSymbol)
+                                    {
+
                                     }
                                     else
                                     {
