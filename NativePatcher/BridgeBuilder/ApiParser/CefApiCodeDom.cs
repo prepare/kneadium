@@ -211,10 +211,37 @@ namespace BridgeBuilder
             return foundCount;
         }
     }
+
     class IncludeFileDirective
     {
+        public IncludeFileDirective(string includeFile)
+        {
+            IncludeFile = includeFile;
+            //check first char of include file
+            // #include "filename" or
+            // #include <filename>
+
+            char firstChar = includeFile[0];
+            if (firstChar == '<')
+            {
+                SystemFolder = true;
+            }
+            else if (firstChar == '"')
+            {
+                SystemFolder = false;
+            }
+            else
+            {
+                throw new NotSupportedException();
+            }
+        }
+        public bool SystemFolder { get; set; }
+        public string IncludeFile { get; private set; }
         public string ResolvedAbsoluteFilePath { get; set; }
-        public string IncludeFile { get; set; }
+        public override string ToString()
+        {
+            return "#include " + IncludeFile;
+        }
     }
     class CodeCompilationUnit
     {
@@ -252,7 +279,7 @@ namespace BridgeBuilder
         }
         public void AddIncludeFile(string includeFile)
         {
-            _includeFiles.Add(new IncludeFileDirective() { IncludeFile = includeFile });
+            _includeFiles.Add(new IncludeFileDirective(includeFile));
         }
 
     }

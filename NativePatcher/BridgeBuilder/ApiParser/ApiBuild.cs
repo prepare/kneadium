@@ -42,10 +42,7 @@ namespace BridgeBuilder
             List<CodeCompilationUnit> compilationUnits = new List<CodeCompilationUnit>();
             foreach (var filename in onlyHeaders)
             {
-                var headerParser = new Cef3HeaderFileParser();
-#if DEBUG
-
-#endif
+                var headerParser = new Cef3HeaderFileParser(); 
                 headerParser.Parse(filename);
                 compilationUnits.Add(headerParser.Result);
             }

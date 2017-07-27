@@ -27,6 +27,8 @@ namespace BridgeBuilder
         //------------
 
         List<CodeCompilationUnit> compilationUnits;
+        Dictionary<string, CodeCompilationUnit> _compilationUnitDics = new Dictionary<string, CodeCompilationUnit>();
+
         internal Dictionary<TypeSymbol, TypeHierarchyNode> hierarchy;
 
 
@@ -46,6 +48,8 @@ namespace BridgeBuilder
             cppToCClasses.Clear();
             otherClasses.Clear();
 
+            //--------------------------
+            _compilationUnitDics.Clear();
             //--------------------------
             hierarchy = new Dictionary<TypeSymbol, TypeHierarchyNode>();
 
@@ -116,8 +120,23 @@ namespace BridgeBuilder
                 //check absolute path for include file                  
                 foreach (IncludeFileDirective includeDirective in cu._includeFiles)
                 {
-                     
-                } 
+                    //remove " from begin and end of the original IncludeFile 
+                    if (includeDirective.SystemFolder)
+                    {
+                        continue;
+                    }
+                    // 
+                    string include_file = includeDirective.IncludeFile.Substring(1, includeDirective.IncludeFile.Length - 2);
+                    includeDirective.ResolvedAbsoluteFilePath = RootFolder + "\\" + include_file;
+                    //check 
+                    if (!System.IO.File.Exists(includeDirective.ResolvedAbsoluteFilePath))
+                    {
+                        //file not found
+                        throw new NotSupportedException();
+                    }
+                }
+                //
+                _compilationUnitDics.Add(cu.Filename, cu);
             }
 
 

@@ -357,8 +357,11 @@ namespace BridgeBuilder
             }
             //
             ApiBuilder apiBuilder = new ApiBuilder();
+            //
             CefTypeCollection cefTypeCollection = new CefTypeCollection();
+            cefTypeCollection.RootFolder = cefDir;
             cefTypeCollection.SetTypeSystem(totalCuList);
+            //
             TypeTranformPlanner txPlanner = new TypeTranformPlanner();
             txPlanner.CefTypeCollection = cefTypeCollection;
 
