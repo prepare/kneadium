@@ -75,17 +75,10 @@ namespace BridgeBuilder
                 new SimpleTypeSymbol("CefBase"),
                 new SimpleTypeSymbol("CefBaseRefCounted"),
                 new SimpleTypeSymbol("CefBaseScoped"),
-
-
-
+                 
                 //TODO: review             
                 new SimpleTypeSymbol("Handler"),
-                new CTypeDefTypeSymbol("CefProcessId", new CodeSimpleTypeReference("cef_process_id_t")), //typedef cef_process_id_t CefProcessId;
-                new CTypeDefTypeSymbol("CefThreadId", new CodeSimpleTypeReference("cef_thread_id_t")), //typedef cef_thread_id_t CefThreadId; 
                 new CTypeDefTypeSymbol("CefWindowHandle",new CodeSimpleTypeReference("cef_window_handle_t")),
-                new CTypeDefTypeSymbol("CefValueType" ,new CodeSimpleTypeReference("cef_value_type_t")), // 
-                //
-                
             };
 
             foreach (TypeSymbol typeSymbol in prebuiltTypes)
@@ -146,6 +139,27 @@ namespace BridgeBuilder
             {
                 //
                 RegisterTypeDeclaration(cu.GlobalTypeDecl);
+                //extract type from global typedecl
+                foreach (CodeMemberDeclaration subType in cu.GlobalTypeDecl.GetSubTypeIter())
+                {
+                    if (subType.MemberKind == CodeMemberKind.TypeDef)
+                    {
+                        CodeCTypeDef ctypeDef = (CodeCTypeDef)subType;
+                        // 
+                        CTypeDefTypeSymbol ctypedefTypeSymbol = new CTypeDefTypeSymbol(ctypeDef.Name, ctypeDef.From);
+                        ctypedefTypeSymbol.CreatedTypeCTypeDef = ctypeDef;
+                        //---
+
+                        TypeSymbol existing;
+                        if (typeSymbols.TryGetValue(ctypeDef.Name, out existing))
+                        {
+                            throw new NotSupportedException();
+                        }
+
+                        typeSymbols.Add(ctypeDef.Name, ctypedefTypeSymbol);
+                    }
+                }
+
                 int typeCount = cu.TypeCount;
                 for (int i = 0; i < typeCount; ++i)
                 {
@@ -250,30 +264,36 @@ namespace BridgeBuilder
                 {
                     typeSymbols.Add(typeSymbol.Name, typeSymbol);
                 }
+                //
                 //and sub types
-                foreach (CodeMemberDeclaration subType in typeDecl.GetSubTypeIter())
+                if (!typeDecl.IsGlobalCompilationUnitType)
                 {
-                    if (subType.MemberKind == CodeMemberKind.TypeDef)
+                    foreach (CodeMemberDeclaration subType in typeDecl.GetSubTypeIter())
                     {
-
-                        CodeCTypeDef ctypeDef = (CodeCTypeDef)subType;
-                        //
-
-                        CTypeDefTypeSymbol ctypedefTypeSymbol = new CTypeDefTypeSymbol(ctypeDef.Name, ctypeDef.From);
-                        ctypedefTypeSymbol.CreatedTypeCTypeDef = ctypeDef;
-                        ctypedefTypeSymbol.ParentType = typeSymbol;
-
-                        //---
-                        typeSymbols.Add(typeSymbol.Name + "." + ctypeDef.Name, ctypedefTypeSymbol);
-
-                        List<TypeSymbol> nestedTypes = typeSymbol.NestedTypeSymbols;
-                        if (nestedTypes == null)
+                        if (subType.MemberKind == CodeMemberKind.TypeDef)
                         {
-                            typeSymbol.NestedTypeSymbols = nestedTypes = new List<TypeSymbol>();
+
+                            CodeCTypeDef ctypeDef = (CodeCTypeDef)subType;
+                            //
+
+                            CTypeDefTypeSymbol ctypedefTypeSymbol = new CTypeDefTypeSymbol(ctypeDef.Name, ctypeDef.From);
+                            ctypedefTypeSymbol.CreatedTypeCTypeDef = ctypeDef;
+                            ctypedefTypeSymbol.ParentType = typeSymbol;
+
+                            //---
+                            typeSymbols.Add(typeSymbol.Name + "." + ctypeDef.Name, ctypedefTypeSymbol);
+
+                            List<TypeSymbol> nestedTypes = typeSymbol.NestedTypeSymbols;
+                            if (nestedTypes == null)
+                            {
+                                typeSymbol.NestedTypeSymbols = nestedTypes = new List<TypeSymbol>();
+                            }
+                            nestedTypes.Add(ctypedefTypeSymbol);
                         }
-                        nestedTypes.Add(ctypedefTypeSymbol);
                     }
+
                 }
+
             }
 
         }
@@ -575,16 +595,16 @@ namespace BridgeBuilder
                         }
                     }
                 }
-                //3. search global type of current compilation unit( cu)
-                CodeCompilationUnit cu = _currentResolvingType.OriginalCompilationUnit;
-                if (cu.GlobalTypeDecl.MemberCount > 0)
-                {
-                    //
-                }
-                else
-                {
+                ////3. search global type of current compilation unit( cu)
+                //CodeCompilationUnit cu = _currentResolvingType.OriginalCompilationUnit;
+                //if (cu.GlobalTypeDecl.MemberCount > 0)
+                //{
+                //    //
+                //}
+                //else
+                //{
 
-                }
+                //}
             }
             //-------
 
@@ -609,8 +629,6 @@ namespace BridgeBuilder
 
             //not found
             return foundSymbol;
-
-
         }
         public bool TryGetTypeDeclaration(string typeName, out CodeTypeDeclaration found)
         {

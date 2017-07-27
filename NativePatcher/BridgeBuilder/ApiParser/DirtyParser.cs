@@ -499,9 +499,7 @@ namespace BridgeBuilder
 
             //-------------------------------------------------------
 #if DEBUG
-            //if (dbugCurrentFilename == "cef_browser.h")
-            //{
-            //}
+         
 #endif
 
             CodeTypeDeclaration globalTypeDecl = cu.GlobalTypeDecl;
@@ -569,8 +567,7 @@ namespace BridgeBuilder
                                 case "template":
                                     {
                                         //skip template
-                                        this.templateNotation = ParseTemplateNotation();
-
+                                        this.templateNotation = ParseTemplateNotation(); 
                                     }
                                     break;
                                 case "extern":
