@@ -42,15 +42,7 @@ namespace BridgeBuilder
         }
 #endif
         public abstract TypeSymbolKind TypeSymbolKind { get; }
-
-        /// <summary>
-        /// base type
-        /// </summary>
-        public TypeSymbol BaseType { get; set; }
-        /// <summary>
-        /// for some template
-        /// </summary>
-        public TypeSymbol BasedOnTypeSymbol { get; set; }
+         
     }
     class SimpleTypeSymbol : TypeSymbol
     {

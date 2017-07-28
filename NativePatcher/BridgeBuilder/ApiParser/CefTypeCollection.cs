@@ -3,18 +3,29 @@ using System;
 using System.Collections.Generic;
 namespace BridgeBuilder
 {
-
+    enum ResolvingContextKind
+    {
+        Base,
+        MethodParReturnType,
+        MethodPar
+    }
     struct CefResolvingContext
     {
         public readonly CefTypeCollection _typeCollection;
         public readonly CodeTypeDeclaration _currentResolvingType;
-        public CefResolvingContext(CefTypeCollection typeCollection, CodeTypeDeclaration currentResolvingType)
+        public readonly ResolvingContextKind contextKind;
+        public CefResolvingContext(CefTypeCollection typeCollection, CodeTypeDeclaration currentResolvingType, ResolvingContextKind contextKind)
         {
             this._typeCollection = typeCollection;
+            this.contextKind = contextKind;
             this._currentResolvingType = currentResolvingType;
         }
         public TypeSymbol ResolveType(CodeTypeReference typeRef)
         {
+            if (typeRef.ResolvedType != null)
+            {
+                return typeRef.ResolvedType;
+            }
             //recursive
             switch (typeRef.Kind)
             {
@@ -64,8 +75,9 @@ namespace BridgeBuilder
                             case "CefStructBase":
                                 {
 
+                                    TypeSymbol resolve1 = ResolveType(typeTemplate.Items[0]);
                                     TemplateTypeSymbol1 t1 = new TemplateTypeSymbol1(typeTemplate.Name);
-                                    t1.Item0 = ResolveType(typeTemplate.Items[0]);
+                                    t1.Item0 = resolve1;
                                     return t1;
                                 }
                             case "multimap":
@@ -191,7 +203,6 @@ namespace BridgeBuilder
         TypeSymbol ResolveType(string typename)
         {
 
-
             if (_currentResolvingType != null)
             {
                 //1. 
@@ -206,6 +217,8 @@ namespace BridgeBuilder
                         return new TemplateParameterTypeSymbol(_currentResolvingType.TemplateNotation.templatePar);
                     }
                 }
+
+
                 //2.
                 //search nest type
                 //TODO: review here -> use field                
@@ -237,124 +250,27 @@ namespace BridgeBuilder
                         }
                     }
                 }
-                ////3. search global type of current compilation unit( cu)
-                //CodeCompilationUnit cu = _currentResolvingType.OriginalCompilationUnit;
-                //if (cu.GlobalTypeDecl.MemberCount > 0)
-                //{
-                //    //
-                //}
-                //else
-                //{
-
-                //}
             }
+
+
+            TypeSymbol foundSymbol = null;
             //-------
             if (_currentResolvingType.BaseTypes != null)
             {
                 //check if we need to search in other scopes
                 int baseCount = _currentResolvingType.BaseTypes.Count;
                 //we get only 1 base count
-                CodeTypeReference firstBase = _currentResolvingType.BaseTypes[0];
-                if (firstBase is CodeTypeTemplateTypeReference)
+                if (baseCount > 0)
                 {
-                    CodeTypeTemplateTypeReference templateTypeRef = (CodeTypeTemplateTypeReference)firstBase;
-
-                    switch (templateTypeRef.Items.Count)
+                    if ((foundSymbol = SearchFromFirstBase(_currentResolvingType.BaseTypes[0] as CodeTypeTemplateTypeReference, typename)) != null)
                     {
-                        case 1:
-                            {
-                                if (templateTypeRef.Name == "CefStructBase")
-                                {
-                                    TemplateTypeSymbol1 t1 = new TemplateTypeSymbol1(templateTypeRef.Name);
-                                    TypeSymbol foundSymbol1;
-                                    if (this._typeCollection.typeSymbols.TryGetValue(typename, out foundSymbol1))
-                                    {
-                                        t1.Item0 = foundSymbol1;
-                                        return t1;
-                                    }
-                                }
-                                throw new NotSupportedException();
-                            }
-                        case 2:
-                            throw new NotSupportedException();
-                        case 3:
-                            {
-                                //we accept only known template name
-
-                                switch (firstBase.Name)
-                                {
-                                    default:
-                                        break;
-                                    case "CefCToCppRefCounted":
-                                        {
-
-
-
-
-                                        }
-                                        break;
-                                    case "CefCToCppScoped":
-                                        {
-                                            //c-to-cpp
-                                            //search in another scope item2
-                                            TemplateTypeSymbol3 t3 = (TemplateTypeSymbol3)templateTypeRef.ResolvedType;
-                                            TypeSymbol t1 = t3.Item1;
-                                            //
-                                            switch (t1.TypeSymbolKind)
-                                            {
-                                                case TypeSymbolKind.Simple:
-                                                    {
-                                                        SimpleTypeSymbol s = (SimpleTypeSymbol)t1;
-                                                        //check nested type
-
-                                                        if (s.NestedTypeSymbols != null)
-                                                        {
-                                                            int nestedTypeCount = s.NestedTypeSymbols.Count;
-                                                            for (int n = 0; n < nestedTypeCount; ++n)
-                                                            {
-                                                                TypeSymbol nestedType = s.NestedTypeSymbols[n];
-                                                                switch (nestedType.TypeSymbolKind)
-                                                                {
-                                                                    case TypeSymbolKind.Simple:
-                                                                        {
-
-                                                                        }
-                                                                        break;
-                                                                    case TypeSymbolKind.TypeDef:
-                                                                        {
-                                                                            CTypeDefTypeSymbol cTypeDef = (CTypeDefTypeSymbol)nestedType;
-                                                                            if (cTypeDef.Name == typename)
-                                                                            {
-                                                                                //found
-                                                                                return cTypeDef;
-                                                                            }
-                                                                        }
-                                                                        break;
-                                                                    default:
-                                                                        break;
-                                                                }
-                                                            }
-                                                        }
-                                                    }
-                                                    break;
-                                                default:
-                                                    break;
-                                            }
-
-                                        }
-                                        break;
-                                }
-                            }
-                            break;
-
+                        return foundSymbol;
                     }
                 }
-
-
             }
 
             //-------
-            TypeSymbol foundSymbol;
+
             if (this._typeCollection.typeSymbols.TryGetValue(typename, out foundSymbol))
             {
                 return foundSymbol;
@@ -385,6 +301,105 @@ namespace BridgeBuilder
                 }
             }
             return true;
+        }
+
+        TypeSymbol SearchFromFirstBase(CodeTypeTemplateTypeReference firstBase, string typename)
+        {
+            if (firstBase == null)
+            {
+                return null;
+            }
+
+            CodeTypeTemplateTypeReference templateTypeRef = (CodeTypeTemplateTypeReference)firstBase;
+            //-----------
+            //first base is not resolve 
+            switch (templateTypeRef.Items.Count)
+            {
+                case 3:
+                    {
+                        //we accept only known template name
+
+                        switch (firstBase.Name)
+                        {
+                            default:
+
+
+                                break;
+                            case "CefCppToCScoped":
+                            case "CefCppToCRefCounted":
+                                //
+                            case "CefCToCppRefCounted":
+                            case "CefCToCppScoped":
+                                {
+                                    //c-to-cpp
+                                    //search in another scope item2 
+                                    CodeTypeReference typeRef1 = templateTypeRef.Items[1];
+                                    if (typeRef1.Name == typename)
+                                    {
+                                        TypeSymbol foundSymbol1;
+                                        if (this._typeCollection.typeSymbols.TryGetValue(typename, out foundSymbol1))
+                                        {
+                                            return foundSymbol1;
+                                        }
+                                    }
+                                    else
+                                    {
+
+                                    }
+
+                                    TemplateTypeSymbol3 t3 = (TemplateTypeSymbol3)templateTypeRef.ResolvedType;
+                                    TypeSymbol t1 = t3.Item1;
+                                    //
+                                    switch (t1.TypeSymbolKind)
+                                    {
+                                        default:
+                                            break;
+                                        case TypeSymbolKind.Simple:
+                                            {
+                                                SimpleTypeSymbol s = (SimpleTypeSymbol)t1;
+                                                //check nested type
+
+                                                if (s.NestedTypeSymbols != null)
+                                                {
+                                                    int nestedTypeCount = s.NestedTypeSymbols.Count;
+                                                    for (int n = 0; n < nestedTypeCount; ++n)
+                                                    {
+                                                        TypeSymbol nestedType = s.NestedTypeSymbols[n];
+                                                        switch (nestedType.TypeSymbolKind)
+                                                        {
+                                                            case TypeSymbolKind.Simple:
+                                                                {
+
+                                                                }
+                                                                break;
+                                                            case TypeSymbolKind.TypeDef:
+                                                                {
+                                                                    CTypeDefTypeSymbol cTypeDef = (CTypeDefTypeSymbol)nestedType;
+                                                                    if (cTypeDef.Name == typename)
+                                                                    {
+                                                                        //found
+                                                                        return cTypeDef;
+                                                                    }
+                                                                }
+                                                                break;
+                                                            default:
+                                                                break;
+                                                        }
+                                                    }
+                                                }
+                                            }
+                                            break;
+
+                                    }
+
+                                }
+                                break;
+                        }
+                    }
+                    break;
+
+            }
+            return null;
         }
     }
 
@@ -692,7 +707,6 @@ namespace BridgeBuilder
             //2. resolve allbase type
             foreach (CodeTypeDeclaration typedecl in typeDics.Values)
             {
-
                 //resolve base type
                 List<CodeTypeReference> baseTypes = typedecl.BaseTypes;
                 if (baseTypes.Count == 0)
@@ -703,11 +717,18 @@ namespace BridgeBuilder
                 {
                     foreach (CodeTypeReference baseType in baseTypes)
                     {
-                        CefResolvingContext resolvingContext = new CefResolvingContext(this, typedecl);
+                        CefResolvingContext resolvingContext = new CefResolvingContext(this, typedecl, ResolvingContextKind.Base);
                         baseType.ResolvedType = resolvingContext.ResolveType(baseType);
+                        if (baseType.ResolvedType == null)
+                        {
+                            throw new NotSupportedException();
+                        }
                     }
                 }
             }
+            //--------
+            //Cef- find tune detail of base type
+
 
         }
         void ResolveTypeMembers()
@@ -716,10 +737,7 @@ namespace BridgeBuilder
             {
                 foreach (CodeMethodDeclaration metDecl in typedecl.GetMethodIter())
                 {
-                    if (metDecl.dbugId == 1517)
-                    {
 
-                    }
                     switch (metDecl.MethodKind)
                     {
                         default: throw new NotSupportedException();
@@ -728,7 +746,7 @@ namespace BridgeBuilder
                             {
                                 foreach (CodeMethodParameter p in metDecl.Parameters)
                                 {
-                                    CefResolvingContext resolvingContext = new CefResolvingContext(this, typedecl);
+                                    CefResolvingContext resolvingContext = new CefResolvingContext(this, typedecl, ResolvingContextKind.MethodParReturnType);
                                     //
                                     p.ParameterType.ResolvedType = resolvingContext.ResolveType(p.ParameterType);
                                 }
@@ -738,7 +756,7 @@ namespace BridgeBuilder
                             {
                                 //resolve return type and type parameter 
                                 {
-                                    CefResolvingContext resolvingContext = new CefResolvingContext(this, typedecl);
+                                    CefResolvingContext resolvingContext = new CefResolvingContext(this, typedecl, ResolvingContextKind.MethodParReturnType);
                                     //
                                     metDecl.ReturnType.ResolvedType = resolvingContext.ResolveType(metDecl.ReturnType);
                                 }
@@ -746,7 +764,7 @@ namespace BridgeBuilder
 
                                 foreach (CodeMethodParameter p in metDecl.Parameters)
                                 {
-                                    CefResolvingContext resolvingContext = new CefResolvingContext(this, typedecl);
+                                    CefResolvingContext resolvingContext = new CefResolvingContext(this, typedecl, ResolvingContextKind.MethodPar);
                                     //
                                     p.ParameterType.ResolvedType = resolvingContext.ResolveType(p.ParameterType);
                                 }
