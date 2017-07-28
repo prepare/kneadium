@@ -600,14 +600,17 @@ namespace BridgeBuilder
 
             //-----------------------
             ResolveBaseTypes();
+            ResolveTypeMembers();
+            //-----------------------
+
             AddMoreTypeInfo();
             //
             var cefTypeBridgeTxPlanner = new CefTypeBridgeTransformPlanner();
             cefTypeBridgeTxPlanner.AssignTypeBrigeInfo(this.typeSymbols);
             //
             this.Planner = cefTypeBridgeTxPlanner;
-            //-----------------------
-            ResolveTypeMembers();
+            
+           
 
             //-----------------------
             //do class classification 

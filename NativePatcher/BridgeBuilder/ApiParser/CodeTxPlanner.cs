@@ -228,10 +228,19 @@ namespace BridgeBuilder
                 switch (resolvedParType.TypeSymbolKind)
                 {
                     default:
-                        break;
+                        //other type should be resolved before,
+                        //so, should not visit here
+                        throw new NotSupportedException();
                     case TypeSymbolKind.ReferenceOrPointer:
                         {
+                            ReferenceOrPointerTypeSymbol refOrPointer = (ReferenceOrPointerTypeSymbol)resolvedParType;
+                            TypeSymbol elemType = refOrPointer.ElementType;
+                            //create pointer or reference bridge for existing bridge
+                            if (elemType.BridgeInfo == null)
+                            {
+                                TypeBridgeInfo elementTypeBridge = CefTypeCollection.Planner.SelectProperTypeBridge(elemType);
 
+                            }
 
                         }
                         break;
@@ -461,8 +470,13 @@ namespace BridgeBuilder
         }
 
 
-        TypeBridgeInfo SelectProperTypeBridge(TypeSymbol t)
+        public TypeBridgeInfo SelectProperTypeBridge(TypeSymbol t)
         {
+            if (t.BridgeInfo != null)
+            {
+                return t.BridgeInfo;
+            }
+            //
             //assign bridge info
             //for return, in and out
             switch (t.TypeSymbolKind)
@@ -470,6 +484,11 @@ namespace BridgeBuilder
                 default:
                     throw new NotSupportedException();
                 case TypeSymbolKind.Vec:
+                    {
+                        var typeBridge = new TypeBridgeInfo(t, CefTypeKind.JSVALUE_TYPE_NUMBER);
+                        return typeBridge;
+                    }
+                case TypeSymbolKind.ReferenceOrPointer:
                     {
                         var typeBridge = new TypeBridgeInfo(t, CefTypeKind.JSVALUE_TYPE_NUMBER);
                         return typeBridge;
