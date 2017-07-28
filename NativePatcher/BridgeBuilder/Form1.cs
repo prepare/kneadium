@@ -251,7 +251,8 @@ namespace BridgeBuilder
             TypeTranformPlanner txPlanner = new TypeTranformPlanner();
             txPlanner.CefTypeCollection = cefTypeCollection;
 
-            ApiBuilder apiBuilder = new ApiBuilder();
+            ApiBuilderCsPart apiBuilderCs = new ApiBuilderCsPart();
+            ApiBuilderCppPart apiBuilderCpp = new ApiBuilderCppPart();
 
             CodeTypeDeclaration globalType = cu.GlobalTypeDecl;
             if (globalType.MemberCount > 0)
@@ -274,9 +275,10 @@ namespace BridgeBuilder
 
                 StringBuilder stbuilder = new StringBuilder();
                 TypeTxInfo typeTxPlan = txPlanner.MakeTransformPlan(typedecl);
-                apiBuilder.GenerateCsType(typeTxPlan, stbuilder);
+                apiBuilderCs.GenerateCsType(typeTxPlan, stbuilder);
+                //
                 StringBuilder cppPart = new StringBuilder();
-                apiBuilder.GenerateCppPart(typeTxPlan, cppPart);
+                apiBuilderCpp.GenerateCppPart(typeTxPlan, cppPart);
             }
         }
 
@@ -358,7 +360,7 @@ namespace BridgeBuilder
                 }
             }
             //
-            ApiBuilder apiBuilder = new ApiBuilder();
+            ApiBuilderCsPart apiBuilder = new ApiBuilderCsPart();
             //
             CefTypeCollection cefTypeCollection = new CefTypeCollection();
             cefTypeCollection.RootFolder = cefDir;
@@ -368,9 +370,14 @@ namespace BridgeBuilder
             TypeTranformPlanner txPlanner = new TypeTranformPlanner();
             txPlanner.CefTypeCollection = cefTypeCollection;
 
+
+
             foreach (CodeTypeDeclaration typedecl in cefTypeCollection.cToCppClasses)
             {
                 TypeTxInfo typeTxPlan = txPlanner.MakeTransformPlan(typedecl);
+                //
+                StringBuilder stbuilder = new StringBuilder();
+                apiBuilder.GenerateCsType(typeTxPlan, stbuilder);
             }
             foreach (CodeTypeDeclaration typedecl in cefTypeCollection.cppToCClasses)
             {
