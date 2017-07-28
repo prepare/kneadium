@@ -687,12 +687,8 @@ namespace BridgeBuilder
 
         }
 
-
-
         void ResolveBaseTypes()
         {
-
-            //-----------------------
             //2. resolve allbase type
             foreach (CodeTypeDeclaration typedecl in typeDics.Values)
             {
@@ -718,8 +714,6 @@ namespace BridgeBuilder
         {
             foreach (CodeTypeDeclaration typedecl in typeDics.Values)
             {
-
-
                 foreach (CodeMethodDeclaration metDecl in typedecl.GetMethodIter())
                 {
                     if (metDecl.dbugId == 1517)
