@@ -5,70 +5,10 @@ using System.IO;
 using System.Text;
 namespace BridgeBuilder
 {
-    class ApiBuilder
+    class ApiBuilderCsPart
     {
         CefTypeCollection cefTypeCollection = new CefTypeCollection();
-        static bool IsExcludeFile(string thisfileName, string[] excludeFileNames)
-        {
-            for (int i = excludeFileNames.Length - 1; i >= 0; --i)
-            {
-                if (excludeFileNames[i] == thisfileName)
-                {
-                    return true;
-                }
-            }
-            return false;
-        }
-        public void Build(string[] apiFolders, string[] excludeFileNames)
-        {
-            List<string> onlyHeaders = new List<string>();
-            foreach (var folderName in apiFolders)
-            {
-                string[] files = Directory.GetFiles(folderName);
-                foreach (var filename in files)
-                {
-                    if (filename.EndsWith(".h"))
-                    {
-                        if (IsExcludeFile(Path.GetFileName(filename), excludeFileNames))
-                        {
-                            //skip this
-                            continue;
-                        }
-                        onlyHeaders.Add(filename);
-                    }
-                }
-            }
-
-            List<CodeCompilationUnit> compilationUnits = new List<CodeCompilationUnit>();
-            foreach (var filename in onlyHeaders)
-            {
-                var headerParser = new Cef3HeaderFileParser(); 
-                headerParser.Parse(filename);
-                compilationUnits.Add(headerParser.Result);
-            }
-
-
-            cefTypeCollection.SetTypeSystem(compilationUnits);
-
-            TypeTranformPlanner typeTxPlanner = new TypeTranformPlanner();
-
-            StringBuilder stbuilder = new StringBuilder();
-            CodeTypeDeclaration found;
-            if (cefTypeCollection.TryGetTypeDeclaration("CefBrowser", out found))
-            {
-                //1. make transform plan
-                TypeTxInfo txInfo = typeTxPlanner.MakeTransformPlan(found);
-                //2. generate
-                GenerateCsType(txInfo, stbuilder);
-            }
-            File.WriteAllText("d:\\WImageTest\\cs_output.cs", stbuilder.ToString());
-            //---------------
-            //build c/c++ side
-            //---------------
-            //build managed side
-        }
-
-
+          
         public void GenerateCsType(TypeTxInfo typeTxInfo, StringBuilder stbuilder)
         {
 
@@ -91,6 +31,170 @@ namespace BridgeBuilder
 
             stbuilder.Append("}");
         }
+      
+
+        string GetTypeName(MethodParameterTxInfo methodParInfo)
+        {
+            string typeName = methodParInfo.ToString();
+            switch (typeName)
+            {
+                case "CefString":
+                    {
+                        return "string";
+                    }
+                case "int64":
+                    {
+                        return "long";
+                    }
+                default:
+                    return typeName;
+            }
+        }
+        public void GenCsMethod(MethodTxInfo metTx, StringBuilder codeDeclTypeBuilder)
+        {
+            StringBuilder stbuilder = new StringBuilder();
+            stbuilder.Append("public ");
+            //1. return type 
+            MethodParameterTxInfo retType = metTx.ReturnPlan;
+            stbuilder.Append(GetTypeName(retType));
+            //
+            stbuilder.Append(' ');
+            //2. name
+            stbuilder.Append(metTx.Name);
+            //3.
+            int argCount = metTx.pars.Count;
+            stbuilder.Append('(');
+            if (argCount > 5)
+            {
+                throw new NotSupportedException();
+            }
+            for (int i = 0; i < argCount; ++i)
+            {
+                if (i > 0)
+                {
+                    stbuilder.Append(',');
+                }
+
+                MethodParameterTxInfo par = metTx.pars[i];
+                stbuilder.Append(GetTypeName(par));
+                stbuilder.Append(' ');
+                stbuilder.Append(par.Name);
+            }
+            stbuilder.Append("){\r\n");
+            stbuilder.AppendLine();
+            stbuilder.AppendLine("//autogen!");
+
+            //body
+            //prepare calling parameters
+            stbuilder.AppendLine(@"
+            JsValue a1 = new JsValue();
+            JsValue a2 = new JsValue();
+            JsValue ret;");
+
+            for (int i = 0; i < argCount; ++i)
+            {
+                string assignTo = "a" + (i + 1);
+
+
+                MethodParameterTxInfo par = metTx.pars[i];
+                string parResolvedType = par.DotnetResolvedType.ToString();
+                switch (parResolvedType)
+                {
+                    default:
+                        {
+                            if (parResolvedType.StartsWith("Cef"))
+                            {
+                                //native reference type
+                                stbuilder.AppendLine(assignTo + ".Type=JsValueType.Wrapped;");
+                                stbuilder.AppendLine(assignTo + ".Ptr=" + par.Name + ".nativePtr;");
+                            }
+                            else
+                            {
+                                throw new NotSupportedException();
+                            }
+
+                        }
+                        break;
+                    case "int":
+                        {
+                            //use as int32 
+                            stbuilder.AppendLine(assignTo + ".Type=JsValueType.Integer;");
+                            stbuilder.AppendLine(assignTo + ".I32=" + par.Name + ";");
+                        }
+                        break;
+                    case "CefString":
+                        {
+                            //eg. Cef3Binder.MyCefCreateNativeStringHolder(ref a1, strValue);
+                            stbuilder.AppendLine("Cef3Binder.MyCefCreateNativeStringHolder(ref " +
+                                assignTo + "," + par.Name + ");");
+                        }
+                        break;
+                }
+
+            }
+
+
+            //assign parameter value
+            stbuilder.Append("Cef3Binder.MyCefFrameCall2(");
+            stbuilder.Append("this.nativePtr,\r\n" +
+                "(int)CefFrameCallMsg.CefFrame_" + metTx.Name
+                + ",out ret,ref a1,ref a2");
+            stbuilder.AppendLine(");");
+            //
+            if (!retType.IsVoid)
+            {
+                //if not void
+                DotNetResolvedSimpleType simpleType = retType.DotnetResolvedType as DotNetResolvedSimpleType;
+                if (simpleType != null)
+                {
+                    //this is simple type
+                    string retName = simpleType.SimpleType.Name;
+                    switch (retName)
+                    {
+                        default:
+                            {
+                                if (retName.StartsWith("Cef"))
+                                {
+                                    stbuilder.AppendLine("return new " + retName + "(ret.Ptr);");
+                                }
+                                else
+                                {
+
+                                }
+                            }
+                            break;
+                        case "int64":
+                            {
+                                stbuilder.AppendLine("return ret.I64;");
+                            }
+                            break;
+                        case "CefString":
+                            {
+                                //return cef string
+                                stbuilder.AppendLine("return Cef3Binder.MyCefJsReadString(ref ret);");
+                            }
+                            break;
+                        case "bool":
+                            {
+                                stbuilder.AppendLine("return ret.I32 !=0;");
+                            }
+                            break;
+                    }
+                }
+                else
+                {
+                    throw new NotSupportedException();
+                }
+
+            }
+            stbuilder.Append("}\r\n");
+
+            codeDeclTypeBuilder.Append(stbuilder.ToString());
+        }
+
+    }
+    class ApiBuilderCppPart
+    {
         public void GenerateCppPart(TypeTxInfo typeTxInfo, StringBuilder stbuilder)
         {
 
@@ -281,212 +385,6 @@ namespace BridgeBuilder
 
                 }
             }
-        }
-
-        //bool IsPrimitiveType(TypeSymbol t)
-        //{
-        //    var ss = t as SimpleType;
-        //    if (ss != null)
-        //    {
-        //        switch (ss.Name)
-        //        {
-        //            case "void":
-        //            case "int":
-        //            case "bool":
-        //            case "int64":
-        //                return true;
-        //        }
-        //    }
-        //    return false;
-        //}
-
-        //#define JSVALUE_TYPE_UNKNOWN_ERROR  -1
-        //#define JSVALUE_TYPE_EMPTY			 0
-        //#define JSVALUE_TYPE_NULL            1
-        //#define JSVALUE_TYPE_BOOLEAN         2
-        //#define JSVALUE_TYPE_INTEGER         3
-        //#define JSVALUE_TYPE_NUMBER          4
-        //#define JSVALUE_TYPE_STRING          5 //unicode string
-        //#define JSVALUE_TYPE_DATE            6
-        //#define JSVALUE_TYPE_INDEX           7
-        //#define JSVALUE_TYPE_ARRAY          10
-        //#define JSVALUE_TYPE_STRING_ERROR   11
-        //#define JSVALUE_TYPE_MANAGED        12
-        //#define JSVALUE_TYPE_MANAGED_ERROR  13
-        //#define JSVALUE_TYPE_WRAPPED        14
-        //#define JSVALUE_TYPE_DICT           15
-        //#define JSVALUE_TYPE_ERROR          16
-        //#define JSVALUE_TYPE_FUNCTION       17
-
-        //#define JSVALUE_TYPE_JSTYPEDEF      18 //my extension
-        //#define JSVALUE_TYPE_INTEGER64      19 //my extension
-        //#define JSVALUE_TYPE_BUFFER         20 //my extension
-
-        //#define JSVALUE_TYPE_NATIVE_CEFSTRING 30  //my extension
-        //#define JSVALUE_TYPE_NATIVE_CEFHOLDER_STRING 31//my extension
-        //#define JSVALUE_TYPE_MANAGED_CB 32
-        //#define JSVALUE_TYPE_MEM_ERROR      50 //my extension
-
-
-
-        string GetTypeName(MethodParameterTxInfo methodParInfo)
-        {
-            string typeName = methodParInfo.ToString();
-            switch (typeName)
-            {
-                case "CefString":
-                    {
-                        return "string";
-                    }
-                case "int64":
-                    {
-                        return "long";
-                    }
-                default:
-                    return typeName;
-            }
-
-        }
-        public void GenCsMethod(MethodTxInfo metTx, StringBuilder codeDeclTypeBuilder)
-        {
-            StringBuilder stbuilder = new StringBuilder();
-            stbuilder.Append("public ");
-            //1. return type 
-            MethodParameterTxInfo retType = metTx.ReturnPlan;
-            stbuilder.Append(GetTypeName(retType));
-            //
-            stbuilder.Append(' ');
-            //2. name
-            stbuilder.Append(metTx.Name);
-            //3.
-            int argCount = metTx.pars.Count;
-            stbuilder.Append('(');
-            if (argCount > 5)
-            {
-                throw new NotSupportedException();
-            }
-            for (int i = 0; i < argCount; ++i)
-            {
-                if (i > 0)
-                {
-                    stbuilder.Append(',');
-                }
-
-                MethodParameterTxInfo par = metTx.pars[i];
-                stbuilder.Append(GetTypeName(par));
-                stbuilder.Append(' ');
-                stbuilder.Append(par.Name);
-            }
-            stbuilder.Append("){\r\n");
-            stbuilder.AppendLine();
-            stbuilder.AppendLine("//autogen!");
-
-            //body
-            //prepare calling parameters
-            stbuilder.AppendLine(@"
-            JsValue a1 = new JsValue();
-            JsValue a2 = new JsValue();
-            JsValue ret;");
-
-            for (int i = 0; i < argCount; ++i)
-            {
-                string assignTo = "a" + (i + 1);
-
-
-                MethodParameterTxInfo par = metTx.pars[i];
-                string parResolvedType = par.DotnetResolvedType.ToString();
-                switch (parResolvedType)
-                {
-                    default:
-                        {
-                            if (parResolvedType.StartsWith("Cef"))
-                            {
-                                //native reference type
-                                stbuilder.AppendLine(assignTo + ".Type=JsValueType.Wrapped;");
-                                stbuilder.AppendLine(assignTo + ".Ptr=" + par.Name + ".nativePtr;");
-                            }
-                            else
-                            {
-                                throw new NotSupportedException();
-                            }
-
-                        }
-                        break;
-                    case "int":
-                        {
-                            //use as int32 
-                            stbuilder.AppendLine(assignTo + ".Type=JsValueType.Integer;");
-                            stbuilder.AppendLine(assignTo + ".I32=" + par.Name + ";");
-                        }
-                        break;
-                    case "CefString":
-                        {
-                            //eg. Cef3Binder.MyCefCreateNativeStringHolder(ref a1, strValue);
-                            stbuilder.AppendLine("Cef3Binder.MyCefCreateNativeStringHolder(ref " +
-                                assignTo + "," + par.Name + ");");
-                        }
-                        break;
-                }
-
-            }
-
-
-            //assign parameter value
-            stbuilder.Append("Cef3Binder.MyCefFrameCall2(");
-            stbuilder.Append("this.nativePtr,\r\n" +
-                "(int)CefFrameCallMsg.CefFrame_" + metTx.Name
-                + ",out ret,ref a1,ref a2");
-            stbuilder.AppendLine(");");
-            //
-            if (!retType.IsVoid)
-            {
-                //if not void
-                DotNetResolvedSimpleType simpleType = retType.DotnetResolvedType as DotNetResolvedSimpleType;
-                if (simpleType != null)
-                {
-                    //this is simple type
-                    string retName = simpleType.SimpleType.Name;
-                    switch (retName)
-                    {
-                        default:
-                            {
-                                if (retName.StartsWith("Cef"))
-                                {
-                                    stbuilder.AppendLine("return new " + retName + "(ret.Ptr);");
-                                }
-                                else
-                                {
-
-                                }
-                            }
-                            break;
-                        case "int64":
-                            {
-                                stbuilder.AppendLine("return ret.I64;");
-                            }
-                            break;
-                        case "CefString":
-                            {
-                                //return cef string
-                                stbuilder.AppendLine("return Cef3Binder.MyCefJsReadString(ref ret);");
-                            }
-                            break;
-                        case "bool":
-                            {
-                                stbuilder.AppendLine("return ret.I32 !=0;");
-                            }
-                            break;
-                    }
-                }
-                else
-                {
-                    throw new NotSupportedException();
-                }
-
-            }
-            stbuilder.Append("}\r\n");
-
-            codeDeclTypeBuilder.Append(stbuilder.ToString());
         }
 
     }

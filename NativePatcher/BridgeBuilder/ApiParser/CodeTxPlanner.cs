@@ -157,9 +157,7 @@ namespace BridgeBuilder
     class TypeTranformPlanner
     {
         CodeTypeDeclaration typedecl; //current type decl
-        TypeTxInfo typeTxInfo; //current type tx         
-        TypeSymbol otherSearchScopeTypeSymbol;
-
+        TypeTxInfo typeTxInfo; //current type tx          
         public TypeTranformPlanner()
         {
         }
@@ -169,59 +167,6 @@ namespace BridgeBuilder
         {
             this.typedecl = typedecl;
             this.typeTxInfo = new TypeTxInfo(typedecl);
-            this.otherSearchScopeTypeSymbol = null;//reset 
-            List<CodeTypeReference> baseTypes = typedecl.BaseTypes;
-            //set up baseType
-            if (baseTypes != null)
-            {
-                if (baseTypes.Count > 1)
-                {
-                    throw new NotSupportedException();
-                }
-                else if (baseTypes.Count == 1)
-                {
-                    CodeTypeReference baseTypeOfThisType = baseTypes[0];
-                    TypeSymbol baseTypeSymbol = baseTypeOfThisType.ResolvedType;
-                    switch (baseTypeSymbol.TypeSymbolKind)
-                    {
-                        case TypeSymbolKind.Template:
-                            {
-                                //we focus on this type
-                                TemplateTypeSymbol t_base = (TemplateTypeSymbol)baseTypeSymbol;
-                                switch (t_base.ItemCount)
-                                {
-                                    default:
-                                        throw new NotSupportedException();
-                                    case 3:
-                                        {
-                                            TemplateTypeSymbol3 t3 = (TemplateTypeSymbol3)baseTypeSymbol;
-                                            switch (t3.Name)
-                                            {
-                                                default: throw new NotSupportedException();
-
-                                                //c-to-cpp
-                                                case "CefCToCppScoped":
-                                                case "CefCToCppRefCounted":
-                                                    otherSearchScopeTypeSymbol = t3.Item1;
-                                                    break;
-                                                //----------------------------
-                                                //cpp-to-c
-                                                case "CefCppToCScoped":
-                                                    otherSearchScopeTypeSymbol = t3.Item1;
-                                                    break;
-                                                case "CefCppToCRefCounted":
-                                                    otherSearchScopeTypeSymbol = t3.Item1;
-                                                    break;
-                                            }
-                                        }
-                                        break;
-                                }
-
-                            }
-                            break;
-                    }
-                }
-            }
 
             foreach (CodeMethodDeclaration metDecl in typedecl.GetMethodIter())
             {
@@ -242,133 +187,7 @@ namespace BridgeBuilder
             }
             return typeTxInfo;
         }
-        void AddParameterWrappingInfo(MethodParameterTxInfo parTxInfo, TypeSymbol parTypeSymbol)
-        {
 
-            switch (parTypeSymbol.TypeSymbolKind)
-            {
-                case TypeSymbolKind.TypeDef:
-                    //check back to its original typedef                    
-                    break;
-                case TypeSymbolKind.Simple:
-                    {
-                        SimpleTypeSymbol simpleType = (SimpleTypeSymbol)parTypeSymbol;
-                        if (simpleType.PrimitiveTypeKind == PrimitiveTypeKind.NotPrimitiveType)
-                        {
-                            //if (!CefTypeCollection.typeSymbols.ContainsKey(simpleType.Name))
-                            //{
-                            //    //this may be nested type
-                            //    if (this.otherSearchScopeTypeSymbol != null)
-                            //    {
-                            //        string searchName = otherSearchScopeTypeSymbol.ToString() + "." + simpleType.Name;
-                            //        if (!CefTypeCollection.typeSymbols.ContainsKey(searchName))
-                            //        {
-                            //            if (!CefTypeCollection.typeDics.ContainsKey(simpleType.Name))
-                            //            {
-
-                            //            }
-
-                            //        }
-                            //    }
-                            //    else
-                            //    {
-                            //        //where to find more?
-                            //    }
-
-                            //}
-
-                        }
-                    }
-
-
-
-                    break;
-                case TypeSymbolKind.ReferenceOrPointer:
-                    {
-                        ReferenceOrPointerTypeSymbol refOfPointer = (ReferenceOrPointerTypeSymbol)parTypeSymbol;
-                        switch (refOfPointer.Kind)
-                        {
-                            default: throw new NotSupportedException();//should not visit here
-                            case ContainerTypeKind.ByRef:
-                                {
-                                    //eg. CefPoint& 
-                                    //check element type
-                                    TypeSymbol elemType = refOfPointer.ElementType;
-                                    switch (elemType.TypeSymbolKind)
-                                    {
-                                        default:
-                                            //should not visit here
-                                            throw new NotSupportedException();
-                                        case TypeSymbolKind.TypeDef:
-                                            {
-
-                                            }
-
-                                            break;
-                                        case TypeSymbolKind.Simple:
-                                            //reference to simple type
-
-                                            break;
-                                        case TypeSymbolKind.Vec:
-                                            //ref to vec
-                                            break;
-                                        case TypeSymbolKind.ReferenceOrPointer:
-                                            ReferenceOrPointerTypeSymbol refOfPointerElem = (ReferenceOrPointerTypeSymbol)elemType;
-                                            if (refOfPointerElem.Kind == ContainerTypeKind.Pointer)
-                                            {
-
-                                            }
-                                            else if (refOfPointerElem.Kind == ContainerTypeKind.CefRefPtr)
-                                            {
-
-                                            }
-                                            else
-                                            {
-                                                throw new NotSupportedException();
-                                            }
-                                            break;
-                                    }
-                                }
-                                break;
-                            case ContainerTypeKind.CefRefPtr:
-                                {
-                                    string ss = refOfPointer.ElementType.ToString();
-                                    if (ss == "CefString")
-                                    {
-                                    }
-                                    else if (ss == "vec<CefString>")
-                                    {
-
-                                    }
-                                    else if (!ss.StartsWith("Cef"))
-                                    {
-
-                                    }
-                                }
-                                break;
-                            case ContainerTypeKind.Pointer:
-                                {
-                                    string ss = parTypeSymbol.ToString();
-                                    if (ss == "void*" || ss == "char*")
-                                    {
-
-                                    }
-                                    else
-                                    {
-
-                                    }
-
-                                }
-                                break;
-                        }
-                    }
-                    break;
-                default:
-                    throw new NotSupportedException();
-
-            }
-
-        }
         MethodTxInfo MakeMethodPlan(CodeMethodDeclaration metDecl)
         {
             MethodTxInfo metTx = new MethodTxInfo(metDecl);
@@ -379,8 +198,6 @@ namespace BridgeBuilder
             retTxInfo.Direction = TxParameterDirection.Return;
 
             AddMethodParameterTypeTxInfo(retTxInfo, metDecl.ReturnType.ResolvedType);
-            AddParameterWrappingInfo(retTxInfo, metDecl.ReturnType.ResolvedType);
-
             metTx.ReturnPlan = retTxInfo;
 
             //2. parameters
@@ -394,8 +211,6 @@ namespace BridgeBuilder
 
                 TypeSymbol parTypeSymbol = metPar.ParameterType.ResolvedType;
                 AddMethodParameterTypeTxInfo(parTxInfo, parTypeSymbol);
-                //check wrapping c-to-cpp / cpp-to-c
-                AddParameterWrappingInfo(parTxInfo, parTypeSymbol);
 
                 metTx.AddMethodParameterTx(parTxInfo);
 
@@ -405,225 +220,31 @@ namespace BridgeBuilder
 
         void AddMethodParameterTypeTxInfo(MethodParameterTxInfo parPlan, TypeSymbol resolvedParType)
         {
-            switch (resolvedParType.TypeSymbolKind)
+            TypeBridgeInfo bridgeInfo = resolvedParType.BridgeInfo;
+            if (bridgeInfo == null)
             {
-                default:
-                    throw new NotSupportedException();
-                case TypeSymbolKind.TypeDef:
-                    {
-                        CTypeDefTypeSymbol typedefTypeSymbol = (CTypeDefTypeSymbol)resolvedParType;
-
-                    }
-                    break;
-                case TypeSymbolKind.Simple:
-                    {
-                        SimpleTypeSymbol simpleType = (SimpleTypeSymbol)resolvedParType;
-                        parPlan.DotnetResolvedType = new DotNetResolvedSimpleType(simpleType);
-                        switch (parPlan.Direction)
+                switch (resolvedParType.TypeSymbolKind)
+                {
+                    default:
+                        //other type should be resolved before,
+                        //so, should not visit here
+                        throw new NotSupportedException();
+                    case TypeSymbolKind.ReferenceOrPointer:
                         {
-                            default: throw new NotSupportedException();
-                            case TxParameterDirection.In:
-                                {
-                                    //input parameter
-                                    switch (simpleType.PrimitiveTypeKind)
-                                    {
-                                        case PrimitiveTypeKind.CefString:
-                                            break;
-                                        case PrimitiveTypeKind.Void:
-                                            break;
-                                        case PrimitiveTypeKind.NotPrimitiveType:
-                                            {
-                                                CodeTypeDeclaration decl = simpleType.CreatedByTypeDeclaration;
-                                                if (decl != null)
-                                                {
+                            ReferenceOrPointerTypeSymbol refOrPointer = (ReferenceOrPointerTypeSymbol)resolvedParType;
+                            TypeSymbol elemType = refOrPointer.ElementType;
+                            //create pointer or reference bridge for existing bridge
+                            TypeBridgeInfo bridgeToElem = elemType.BridgeInfo;
+                            if (bridgeToElem == null)
+                            {
+                                //no bridge 
+                                elemType.BridgeInfo = bridgeToElem = CefTypeCollection.Planner.SelectProperTypeBridge(elemType);
+                            }
+                            resolvedParType.BridgeInfo = bridgeToElem.GetReferenceOrPointerBridge(refOrPointer);
 
-                                                }
-
-                                            }
-                                            break;
-                                        default:
-                                            {
-                                                //other primitive type
-                                            }
-                                            break;
-                                    }
-                                }
-                                break;
-                            case TxParameterDirection.Return:
-                                {
-                                    //check if we return 
-                                    //some 
-                                    if (simpleType.PrimitiveTypeKind == PrimitiveTypeKind.NotPrimitiveType)
-                                    {
-                                        //not primitive
-                                        if (simpleType.CreatedByTypeDeclaration != null)
-                                        {
-
-                                        }
-                                    }
-                                    else
-                                    {
-
-                                    }
-                                }
-                                break;
                         }
-
-                    }
-                    break;
-                case TypeSymbolKind.Vec:
-                    {
-                        var vec = (VecTypeSymbol)resolvedParType;
-                        //vector of ...
-                        switch (parPlan.Direction)
-                        {
-                            default: throw new NotSupportedException();
-                            case TxParameterDirection.Return:
-                                {
-
-                                }
-                                break;
-                            case TxParameterDirection.In:
-                                {
-
-                                }
-                                break;
-                            case TxParameterDirection.Out:
-                                {
-
-                                }
-                                break;
-                        }
-                        //make it array
-                        parPlan.DotnetResolvedType = new DotNetList(parPlan.DotnetResolvedType);
-                    }
-                    break;
-                case TypeSymbolKind.ReferenceOrPointer:
-                    {
-                        var refOrPointer = (ReferenceOrPointerTypeSymbol)resolvedParType;
-                        //check element inside
-                        switch (refOrPointer.Kind)
-                        {
-                            case ContainerTypeKind.ByRef:
-                                {
-                                    switch (refOrPointer.ElementType.TypeSymbolKind)
-                                    {
-                                        default:
-                                            break;
-                                        case TypeSymbolKind.Simple:
-                                            {
-                                                SimpleTypeSymbol elem = (SimpleTypeSymbol)refOrPointer.ElementType;
-                                                if (elem.PrimitiveTypeKind == PrimitiveTypeKind.NotPrimitiveType)
-                                                {
-
-                                                }
-                                                else
-                                                {
-
-                                                }
-                                            }
-                                            break;
-                                        case TypeSymbolKind.Vec:
-                                            break;
-                                        case TypeSymbolKind.ReferenceOrPointer:
-                                            break;
-                                        case TypeSymbolKind.TypeDef:
-                                            {
-                                                CTypeDefTypeSymbol ctypedef = (CTypeDefTypeSymbol)refOrPointer.ElementType;
-                                                TypeSymbol referToType = ctypedef.ReferToTypeSymbol;
-                                                switch (referToType.TypeSymbolKind)
-                                                {
-                                                    default:
-                                                        throw new NotSupportedException();
-                                                    case TypeSymbolKind.Template:
-                                                        {
-                                                            TemplateTypeSymbol tt = (TemplateTypeSymbol)referToType;
-                                                            switch (tt.Name)
-                                                            {
-                                                                default:
-                                                                    break;
-                                                                case "CefStructBase":
-                                                                    //act as struct
-                                                                    break;
-                                                            }
-                                                        }
-                                                        break;
-                                                }
-
-                                            }
-                                            break;
-                                    }
-                                }
-                                break;
-                            case ContainerTypeKind.CefRefPtr:
-                                {
-                                    if (refOrPointer.ElementType is SimpleTypeSymbol)
-                                    {
-                                        SimpleTypeSymbol elem = (SimpleTypeSymbol)refOrPointer.ElementType;
-                                        if (elem.PrimitiveTypeKind == PrimitiveTypeKind.NotPrimitiveType)
-                                        {
-                                            //check how to send this through the bridge
-                                            //by check its base type
-                                            CodeTypeDeclaration createdTypeDecl = elem.CreatedByTypeDeclaration;
-                                            if (createdTypeDecl != null && createdTypeDecl.BaseTypes != null)
-                                            {
-                                                CodeTypeReference baseTypeRef = createdTypeDecl.BaseTypes[0];
-                                                switch (baseTypeRef.Name)
-                                                {
-                                                    case "CefBaseRefCounted":
-                                                        break;
-                                                    default:
-                                                        break;
-                                                }
-                                            }
-                                            else
-                                            {
-
-                                            }
-
-                                        }
-                                        else
-                                        {
-
-                                        }
-
-                                    }
-                                    else
-                                    {
-
-                                    }
-
-                                }
-                                break;
-                            case ContainerTypeKind.Pointer:
-                                {
-
-                                    string elemType = refOrPointer.ElementType.ToString();
-                                    switch (elemType)
-                                    {
-                                        default:
-                                            throw new NotSupportedException();
-                                        case "char": //char*
-                                            {
-
-                                            }
-                                            break;
-                                        case "void": //void*
-                                            {
-
-                                            }
-                                            break;
-                                    }
-                                }
-                                break;
-                            case ContainerTypeKind.ScopePtr:
-                                throw new NotSupportedException();
-                            default:
-                                throw new NotSupportedException();
-                        }
-                    }
-                    break;
-
+                        break;
+                }
             }
         }
     }
@@ -697,6 +318,10 @@ namespace BridgeBuilder
         public readonly BridgeForOutArg OutArg;
         public readonly BridgeForReturn Return;
 
+        TypeBridgeInfo _pointerBridge;
+        TypeBridgeInfo _referenceBridge;
+        TypeBridgeInfo _cefRefPtrBridge;
+        TypeBridgeInfo _scopePtrBridge;
 
         public TypeBridgeInfo(TypeSymbol owner, CefTypeKind cefTypeKind)
         {
@@ -737,8 +362,62 @@ namespace BridgeBuilder
         {
             return "bridge:" + owner.ToString();
         }
-        //
+        //---
         public TypeBridgeInfo BridgeToBase { get; set; }
+
+        public TypeBridgeInfo GetReferenceOrPointerBridge(ReferenceOrPointerTypeSymbol refOrPointer)
+        {
+            switch (refOrPointer.Kind)
+            {
+                default:
+                    throw new NotSupportedException();
+                case ContainerTypeKind.ByRef:
+                    return GetReferenceBridge(refOrPointer);
+                case ContainerTypeKind.Pointer:
+                    return GetPointerBridge(refOrPointer);
+                case ContainerTypeKind.CefRefPtr:
+                    return GetCefRefPtrBridge(refOrPointer);
+                case ContainerTypeKind.ScopePtr:
+                    return GetScopePtrBridge(refOrPointer);
+            }
+        }
+        TypeBridgeInfo GetPointerBridge(ReferenceOrPointerTypeSymbol refOrPointerTypeSymbol)
+        {
+            if (_pointerBridge == null)
+            {
+                //create new one  
+                _pointerBridge = new TypeBridgeInfo(refOrPointerTypeSymbol, CefTypeKind.JSVALUE_TYPE_WRAPPED); 
+            }
+            return _pointerBridge;
+        }
+
+        TypeBridgeInfo GetReferenceBridge(ReferenceOrPointerTypeSymbol refOrPointerTypeSymbol)
+        {
+            if (_referenceBridge == null)
+            {
+                //create new one
+                _referenceBridge = new TypeBridgeInfo(refOrPointerTypeSymbol, CefTypeKind.JSVALUE_TYPE_WRAPPED);
+            }
+            return _referenceBridge;
+        }
+        TypeBridgeInfo GetCefRefPtrBridge(ReferenceOrPointerTypeSymbol refOrPointerTypeSymbol)
+        {
+            if (_cefRefPtrBridge == null)
+            {
+                //create new one
+                _cefRefPtrBridge = new TypeBridgeInfo(refOrPointerTypeSymbol, CefTypeKind.JSVALUE_TYPE_WRAPPED);
+            }
+            return _cefRefPtrBridge;
+        }
+        TypeBridgeInfo GetScopePtrBridge(ReferenceOrPointerTypeSymbol refOrPointerTypeSymbol)
+        {
+            if (_scopePtrBridge == null)
+            {
+                //create new one
+                _scopePtrBridge = new TypeBridgeInfo(refOrPointerTypeSymbol, CefTypeKind.JSVALUE_TYPE_WRAPPED);
+            }
+            return _scopePtrBridge;
+        }
     }
     class BridgeForInArg
     {
@@ -849,8 +528,13 @@ namespace BridgeBuilder
         }
 
 
-        TypeBridgeInfo SelectProperTypeBridge(TypeSymbol t)
+        public TypeBridgeInfo SelectProperTypeBridge(TypeSymbol t)
         {
+            if (t.BridgeInfo != null)
+            {
+                return t.BridgeInfo;
+            }
+            //
             //assign bridge info
             //for return, in and out
             switch (t.TypeSymbolKind)
@@ -858,6 +542,11 @@ namespace BridgeBuilder
                 default:
                     throw new NotSupportedException();
                 case TypeSymbolKind.Vec:
+                    {
+                        var typeBridge = new TypeBridgeInfo(t, CefTypeKind.JSVALUE_TYPE_NUMBER);
+                        return typeBridge;
+                    }
+                case TypeSymbolKind.ReferenceOrPointer:
                     {
                         var typeBridge = new TypeBridgeInfo(t, CefTypeKind.JSVALUE_TYPE_NUMBER);
                         return typeBridge;
