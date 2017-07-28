@@ -243,6 +243,8 @@ namespace BridgeBuilder
             List<CodeCompilationUnit> culist = new List<CodeCompilationUnit>();
             culist.Add(cu);
             CefTypeCollection cefTypeCollection = new CefTypeCollection();
+            cefTypeCollection.RootFolder = @"D:\projects\cef_binary_3.3071.1647.win32";
+
             cefTypeCollection.SetTypeSystem(culist);
             //-----------
 
