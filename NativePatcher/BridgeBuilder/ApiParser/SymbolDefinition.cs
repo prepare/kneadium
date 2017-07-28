@@ -35,12 +35,34 @@ namespace BridgeBuilder
         static int dbugTotalId;
         public TypeSymbol()
         {
-       
+
         }
 #endif
         public abstract TypeSymbolKind TypeSymbolKind { get; }
-        public TypeSymbol BaseType { get; set; }
+        public TypeBridgeInfo BridgeInfo { get; set; }
     }
+
+
+    class TypeBridgeInfo
+    {
+        public BridgeForInArg InArg;
+        public BridgeForOutArg OutArg;
+        public BridgeForReturn Return;
+    }
+    class BridgeForInArg
+    {
+
+    }
+    class BridgeForOutArg
+    {
+
+    }
+    class BridgeForReturn
+    {
+
+    } 
+
+
     class SimpleTypeSymbol : TypeSymbol
     {
         public SimpleTypeSymbol(string name)
@@ -57,6 +79,8 @@ namespace BridgeBuilder
         public CodeTypeDeclaration CreatedByTypeDeclaration { get; set; }
 
         public PrimitiveTypeKind PrimitiveTypeKind { get; set; }
+        public TypeSymbol BaseType { get; set; }
+        public TypeBridgeInfo BrigdeInfo { get; set; }
     }
     public enum PrimitiveTypeKind
     {
@@ -99,6 +123,7 @@ namespace BridgeBuilder
             get;
             set;
         }
+        public TypeSymbol ReferToTypeSymbol { get; set; }
     }
 
 
