@@ -688,9 +688,9 @@ namespace BridgeBuilder
 
     class TypeBridgeInfo
     {
-        TypeSymbol owner;
-        public CefSlotName slotName;
-        public CefTypeKind cefTypeKind;
+        readonly TypeSymbol owner;
+        public readonly CefSlotName slotName;
+        public readonly CefTypeKind cefTypeKind;
 
         //
         public readonly BridgeForInArg InArg;
@@ -727,7 +727,10 @@ namespace BridgeBuilder
             this.OutArg = new BridgeForOutArg();
             this.Return = new BridgeForReturn();
         }
-
+        public override string ToString()
+        {
+            return "bridge:" + owner.ToString();
+        }
 
     }
     class BridgeForInArg
@@ -776,8 +779,18 @@ namespace BridgeBuilder
         Dictionary<string, TypeSymbol> typeSymbols;
         TypeBridgeInfo SelectTypeBridgeForNonPrimitiveSimpleType(SimpleTypeSymbol simpleType)
         {
+            //app-specific
+            switch (simpleType.Name)
+            {
+                default:
+                    return null;
+                case "time_t":
+                    {
+                        var typeBridge = new TypeBridgeInfo(simpleType, CefTypeKind.JSVALUE_TYPE_INTEGER64);
+                        return typeBridge;
+                    }
 
-            return null;
+            } 
         }
         TypeBridgeInfo SelectProperTypeBridge(TypeSymbol t)
         {
