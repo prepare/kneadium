@@ -407,7 +407,7 @@ namespace BridgeBuilder
 
     class CefTypeCollection
     {
-        internal Dictionary<string, CodeTypeDeclaration> typeDics = new Dictionary<string, CodeTypeDeclaration>();
+        internal Dictionary<string, CodeTypeDeclaration> typedeclDic = new Dictionary<string, CodeTypeDeclaration>();
         internal Dictionary<string, TypeSymbol> subTypeDefs = new Dictionary<string, TypeSymbol>();
 
         internal List<CodeTypeDeclaration> cefBaseTypes = new List<CodeTypeDeclaration>();
@@ -442,7 +442,7 @@ namespace BridgeBuilder
         void Reset()
         {
             _freeze = false;
-            typeDics.Clear();
+            typedeclDic.Clear();
             cefBaseTypes.Clear();
             cefImplTypes.Clear();
             otherTypes.Clear();
@@ -600,15 +600,16 @@ namespace BridgeBuilder
             //-----------------------
             ResolveBaseTypes();
             AddMoreTypeInfo();
-
+            //
             var cefTypeBridgeTxPlanner = new CefTypeBridgeTransformPlanner();
             cefTypeBridgeTxPlanner.AssignTypeBrigeInfo(this.typeSymbols);
-
+            
+            //-----------------------
             ResolveTypeMembers();
 
             //-----------------------
             //do class classification 
-            foreach (CodeTypeDeclaration t in typeDics.Values)
+            foreach (CodeTypeDeclaration t in typedeclDic.Values)
             {
                 string name = t.Name;
                 if (name.EndsWith("Callback"))
@@ -635,7 +636,7 @@ namespace BridgeBuilder
             //-----------------------
             //for analysis
 
-            foreach (CodeTypeDeclaration t in typeDics.Values)
+            foreach (CodeTypeDeclaration t in typedeclDic.Values)
             {
                 TypeSymbol resolvedType = t.ResolvedType;
                 if (t.BaseTypes.Count == 0)
@@ -678,11 +679,11 @@ namespace BridgeBuilder
 
             if (!typeDecl.IsForwardDecl && typeDecl.Name != null)
             {
-                if (typeDics.ContainsKey(typeDecl.Name))
+                if (typedeclDic.ContainsKey(typeDecl.Name))
                 {
                     throw new Exception("duplicated key " + typeDecl.Name);
                 }
-                typeDics.Add(typeDecl.Name, typeDecl);
+                typedeclDic.Add(typeDecl.Name, typeDecl);
                 //-----------------------
 
                 SimpleTypeSymbol typeSymbol = new SimpleTypeSymbol(typeDecl.Name);
@@ -736,7 +737,7 @@ namespace BridgeBuilder
         void ResolveBaseTypes()
         {
             //2. resolve allbase type
-            foreach (CodeTypeDeclaration typedecl in typeDics.Values)
+            foreach (CodeTypeDeclaration typedecl in typedeclDic.Values)
             {
                 //resolve base type
                 List<CodeTypeReference> baseTypes = typedecl.BaseTypes;
@@ -821,7 +822,7 @@ namespace BridgeBuilder
 
         void ResolveTypeMembers()
         {
-            foreach (CodeTypeDeclaration typedecl in typeDics.Values)
+            foreach (CodeTypeDeclaration typedecl in typedeclDic.Values)
             {
                 foreach (CodeMethodDeclaration metDecl in typedecl.GetMethodIter())
                 {
@@ -887,7 +888,7 @@ namespace BridgeBuilder
 
         public bool TryGetTypeDeclaration(string typeName, out CodeTypeDeclaration found)
         {
-            return typeDics.TryGetValue(typeName, out found);
+            return typedeclDic.TryGetValue(typeName, out found);
         }
 
     }

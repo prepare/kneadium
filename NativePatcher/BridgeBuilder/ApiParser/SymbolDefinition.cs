@@ -42,26 +42,7 @@ namespace BridgeBuilder
         public TypeBridgeInfo BridgeInfo { get; set; }
     }
 
-
-    class TypeBridgeInfo
-    {
-        public BridgeForInArg InArg;
-        public BridgeForOutArg OutArg;
-        public BridgeForReturn Return;
-    }
-    class BridgeForInArg
-    {
-
-    }
-    class BridgeForOutArg
-    {
-
-    }
-    class BridgeForReturn
-    {
-
-    } 
-
+    
 
     class SimpleTypeSymbol : TypeSymbol
     {
@@ -79,8 +60,7 @@ namespace BridgeBuilder
         public CodeTypeDeclaration CreatedByTypeDeclaration { get; set; }
 
         public PrimitiveTypeKind PrimitiveTypeKind { get; set; }
-        public TypeSymbol BaseType { get; set; }
-        public TypeBridgeInfo BrigdeInfo { get; set; }
+        public TypeSymbol BaseType { get; set; } 
     }
     public enum PrimitiveTypeKind
     {

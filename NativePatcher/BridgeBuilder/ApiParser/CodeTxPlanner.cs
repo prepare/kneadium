@@ -628,11 +628,158 @@ namespace BridgeBuilder
         }
     }
 
+    enum CefTypeKind
+    {
 
+        //#define JSVALUE_TYPE_UNKNOWN_ERROR  -1
+        //#define JSVALUE_TYPE_EMPTY			 0
+        //#define JSVALUE_TYPE_NULL            1
+        //#define JSVALUE_TYPE_BOOLEAN         2
+        //#define JSVALUE_TYPE_INTEGER         3
+        //#define JSVALUE_TYPE_NUMBER          4
+        //#define JSVALUE_TYPE_STRING          5 //unicode string
+        //#define JSVALUE_TYPE_DATE            6
+        //#define JSVALUE_TYPE_INDEX           7
+        //#define JSVALUE_TYPE_ARRAY          10
+        //#define JSVALUE_TYPE_STRING_ERROR   11
+        //#define JSVALUE_TYPE_MANAGED        12
+        //#define JSVALUE_TYPE_MANAGED_ERROR  13
+        //#define JSVALUE_TYPE_WRAPPED        14
+        //#define JSVALUE_TYPE_DICT           15
+        //#define JSVALUE_TYPE_ERROR          16
+        //#define JSVALUE_TYPE_FUNCTION       17
+
+        //#define JSVALUE_TYPE_JSTYPEDEF      18 //my extension
+        //#define JSVALUE_TYPE_INTEGER64      19 //my extension
+        //#define JSVALUE_TYPE_BUFFER         20 //my extension
+
+        //#define JSVALUE_TYPE_NATIVE_CEFSTRING 30  //my extension
+        //#define JSVALUE_TYPE_NATIVE_CEFHOLDER_STRING 31//my extension
+        //#define JSVALUE_TYPE_MANAGED_CB 32
+        //#define JSVALUE_TYPE_MEM_ERROR      50 //my extension
+
+
+        JSVALUE_TYPE_UNKNOWN_ERROR = -1,
+        JSVALUE_TYPE_EMPTY = 0,
+        JSVALUE_TYPE_NULL = 1,
+        JSVALUE_TYPE_BOOLEAN = 2,
+        JSVALUE_TYPE_INTEGER = 3,
+        JSVALUE_TYPE_NUMBER = 4,
+        JSVALUE_TYPE_STRING = 5, //unicode string
+        JSVALUE_TYPE_DATE = 6,
+        JSVALUE_TYPE_INDEX = 7,
+        JSVALUE_TYPE_ARRAY = 10,
+        JSVALUE_TYPE_STRING_ERROR = 11,
+        JSVALUE_TYPE_MANAGED = 12,
+        JSVALUE_TYPE_MANAGED_ERROR = 13,
+        JSVALUE_TYPE_WRAPPED = 14,
+        JSVALUE_TYPE_DICT = 15,
+        JSVALUE_TYPE_ERROR = 16,
+        JSVALUE_TYPE_FUNCTION = 17,
+        JSVALUE_TYPE_JSTYPEDEF = 18,//my extension
+        JSVALUE_TYPE_INTEGER64 = 19, //my extension
+        JSVALUE_TYPE_BUFFER = 20,//my extension 
+        JSVALUE_TYPE_NATIVE_CEFSTRING = 30, //my extension
+        JSVALUE_TYPE_NATIVE_CEFHOLDER_STRING = 31,//my extension
+        JSVALUE_TYPE_MANAGED_CB = 32,
+        JSVALUE_TYPE_MEM_ERROR = 50, //my extension
+    }
+
+
+    class TypeBridgeInfo
+    {
+        TypeSymbol owner;
+        public CefSlotName slotName;
+        public CefTypeKind cefTypeKind;
+
+        //
+        public readonly BridgeForInArg InArg;
+        public readonly BridgeForOutArg OutArg;
+        public readonly BridgeForReturn Return;
+
+
+        public TypeBridgeInfo(TypeSymbol owner, CefTypeKind cefTypeKind)
+        {
+            this.owner = owner;
+            this.cefTypeKind = cefTypeKind;
+            switch (cefTypeKind)
+            {
+                default: throw new NotSupportedException();
+                case CefTypeKind.JSVALUE_TYPE_INTEGER64:
+                    slotName = CefSlotName.i64;
+                    break;
+                case CefTypeKind.JSVALUE_TYPE_EMPTY:
+                    slotName = CefSlotName.UNKNOWN;
+                    break;
+                case CefTypeKind.JSVALUE_TYPE_BOOLEAN:
+                case CefTypeKind.JSVALUE_TYPE_INTEGER: //TODO: review int32
+                    slotName = CefSlotName.i32; //sign 32 bits
+                    break;
+                case CefTypeKind.JSVALUE_TYPE_NATIVE_CEFHOLDER_STRING:
+                case CefTypeKind.JSVALUE_TYPE_NATIVE_CEFSTRING:
+                    slotName = CefSlotName.ptr;
+                    break;
+                case CefTypeKind.JSVALUE_TYPE_NUMBER:
+                    slotName = CefSlotName.num;
+                    break;
+            }
+            this.InArg = new BridgeForInArg();
+            this.OutArg = new BridgeForOutArg();
+            this.Return = new BridgeForReturn();
+        }
+
+
+    }
+    class BridgeForInArg
+    {
+        public CefTypeKind TxKind;
+
+    }
+    class BridgeForOutArg
+    {
+        public CefTypeKind TxKind;
+    }
+    class BridgeForReturn
+    {
+        public CefTypeKind TxKind;
+    }
+
+    enum CefSlotName
+    {
+        UNKNOWN,
+        //
+        type,
+        i32,
+        ptr,
+        num,
+        i64
+    }
 
     class CefTypeBridgeTransformPlanner
     {
+
+        //extern "C" { 
+        //	struct jsvalue
+        //        {
+        //            int32_t type; //type and flags
+        //                          //this for 32 bits values, also be used as string len, array len  and index to managed slot index
+        //            int32_t i32;
+        //            // native ptr (may point to native object, native array, native string)
+        //            const void* ptr; //uint16_t* or jsvalue**   arr or 
+        //                             //store float or double
+        //            double num;
+        //            //store 64 bits value
+        //            int64_t i64;
+        //        };
+        //    }
+
         Dictionary<string, TypeSymbol> typeSymbols;
+        void AssignTypeBridgeForNonPrimitiveSimpleType(SimpleTypeSymbol simpleType)
+        {
+
+
+        }
+      
         public void AssignTypeBrigeInfo(Dictionary<string, TypeSymbol> typeSymbols)
         {
             this.typeSymbols = typeSymbols;
@@ -649,34 +796,89 @@ namespace BridgeBuilder
                             SimpleTypeSymbol simpleType = (SimpleTypeSymbol)t;
                             switch (simpleType.PrimitiveTypeKind)
                             {
+                                default:
+                                    throw new NotSupportedException();
                                 case PrimitiveTypeKind.NotPrimitiveType:
-                                    {
-
-                                    }
+                                    AssignTypeBridgeForNonPrimitiveSimpleType(simpleType);
                                     break;
                                 case PrimitiveTypeKind.Float:
+                                    {
+                                        var typeBridge = new TypeBridgeInfo(t, CefTypeKind.JSVALUE_TYPE_NUMBER);
+                                        simpleType.BridgeInfo = typeBridge;
+                                    }
                                     break;
                                 case PrimitiveTypeKind.Double:
+                                    {
+                                        var typeBridge = new TypeBridgeInfo(t, CefTypeKind.JSVALUE_TYPE_NUMBER);
+                                        simpleType.BridgeInfo = typeBridge;
+                                    }
                                     break;
-                            }
-                            if (simpleType.PrimitiveTypeKind == PrimitiveTypeKind.NotPrimitiveType)
-                            {
-                                //resolve base type
-                                TypeSymbol baseType = simpleType.BaseType;
-                                if (baseType != null)
-                                {
-
-                                }
-                                else
-                                {
-
-                                }
-                            }
-                            else
-                            {
-                                //primitive
-
-
+                                case PrimitiveTypeKind.Bool:
+                                    {
+                                        var typeBridge = new TypeBridgeInfo(t, CefTypeKind.JSVALUE_TYPE_BOOLEAN);
+                                        simpleType.BridgeInfo = typeBridge;
+                                    }
+                                    break;
+                                case PrimitiveTypeKind.Char:
+                                    {
+                                        var typeBridge = new TypeBridgeInfo(t, CefTypeKind.JSVALUE_TYPE_INTEGER);
+                                        simpleType.BridgeInfo = typeBridge;
+                                    }
+                                    break;
+                                case PrimitiveTypeKind.Int32:
+                                    {
+                                        var typeBridge = new TypeBridgeInfo(t, CefTypeKind.JSVALUE_TYPE_INTEGER);
+                                        simpleType.BridgeInfo = typeBridge;
+                                    }
+                                    break;
+                                case PrimitiveTypeKind.Int64:
+                                    {
+                                        var typeBridge = new TypeBridgeInfo(t, CefTypeKind.JSVALUE_TYPE_INTEGER64);
+                                        simpleType.BridgeInfo = typeBridge;
+                                    }
+                                    break;
+                                case PrimitiveTypeKind.UInt32:
+                                    {
+                                        var typeBridge = new TypeBridgeInfo(t, CefTypeKind.JSVALUE_TYPE_INTEGER);
+                                        simpleType.BridgeInfo = typeBridge;
+                                    }
+                                    break;
+                                case PrimitiveTypeKind.Void:
+                                    {
+                                        var typeBridge = new TypeBridgeInfo(t, CefTypeKind.JSVALUE_TYPE_EMPTY);
+                                        simpleType.BridgeInfo = typeBridge;
+                                    }
+                                    break;
+                                case PrimitiveTypeKind.IntPtr:
+                                    {
+                                        var typeBridge = new TypeBridgeInfo(t, CefTypeKind.JSVALUE_TYPE_INTEGER64);
+                                        simpleType.BridgeInfo = typeBridge;
+                                    }
+                                    break;
+                                case PrimitiveTypeKind.UInt64:
+                                    {
+                                        var typeBridge = new TypeBridgeInfo(t, CefTypeKind.JSVALUE_TYPE_INTEGER64);
+                                        simpleType.BridgeInfo = typeBridge;
+                                    }
+                                    break;
+                                case PrimitiveTypeKind.size_t:
+                                    {
+                                        var typeBridge = new TypeBridgeInfo(t, CefTypeKind.JSVALUE_TYPE_INTEGER64);
+                                        simpleType.BridgeInfo = typeBridge;
+                                    }
+                                    break;
+                                case PrimitiveTypeKind.String:
+                                    {
+                                        var typeBridge = new TypeBridgeInfo(t, CefTypeKind.JSVALUE_TYPE_NATIVE_CEFHOLDER_STRING);
+                                        simpleType.BridgeInfo = typeBridge;
+                                    }
+                                    break;
+                                case PrimitiveTypeKind.CefString:
+                                    {
+                                        var typeBridge = new TypeBridgeInfo(t, CefTypeKind.JSVALUE_TYPE_NATIVE_CEFHOLDER_STRING);
+                                        simpleType.BridgeInfo = typeBridge;
+                                    }
+                                    break;
                             }
                         }
                         break;
@@ -684,7 +886,7 @@ namespace BridgeBuilder
                         {
                             CTypeDefTypeSymbol typedefSymbol = (CTypeDefTypeSymbol)t;
                             TypeSymbol referToType = typedefSymbol.ReferToTypeSymbol;
-
+                            
                         }
                         break;
 
