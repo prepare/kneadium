@@ -299,6 +299,12 @@ namespace BridgeBuilder
                                         default:
                                             //should not visit here
                                             throw new NotSupportedException();
+                                        case TypeSymbolKind.TypeDef:
+                                            {
+
+                                            }
+
+                                            break;
                                         case TypeSymbolKind.Simple:
                                             //reference to simple type
 
@@ -500,37 +506,53 @@ namespace BridgeBuilder
                         {
                             case ContainerTypeKind.ByRef:
                                 {
-
-                                    if (refOrPointer.ElementType is SimpleTypeSymbol)
+                                    switch (refOrPointer.ElementType.TypeSymbolKind)
                                     {
-                                        SimpleTypeSymbol elem = (SimpleTypeSymbol)refOrPointer.ElementType;
-                                        if (elem.PrimitiveTypeKind == PrimitiveTypeKind.NotPrimitiveType)
-                                        {
+                                        default:
+                                            break;
+                                        case TypeSymbolKind.Simple:
+                                            {
+                                                SimpleTypeSymbol elem = (SimpleTypeSymbol)refOrPointer.ElementType;
+                                                if (elem.PrimitiveTypeKind == PrimitiveTypeKind.NotPrimitiveType)
+                                                {
 
-                                        }
-                                        else
-                                        {
+                                                }
+                                                else
+                                                {
 
-                                        }
+                                                }
+                                            }
+                                            break;
+                                        case TypeSymbolKind.Vec:
+                                            break;
+                                        case TypeSymbolKind.ReferenceOrPointer:
+                                            break;
+                                        case TypeSymbolKind.TypeDef:
+                                            {
+                                                CTypeDefTypeSymbol ctypedef = (CTypeDefTypeSymbol)refOrPointer.ElementType;
+                                                TypeSymbol referToType = ctypedef.ReferToTypeSymbol;
+                                                switch (referToType.TypeSymbolKind)
+                                                {
+                                                    default:
+                                                        throw new NotSupportedException();
+                                                    case TypeSymbolKind.Template:
+                                                        {
+                                                            TemplateTypeSymbol tt = (TemplateTypeSymbol)referToType;
+                                                            switch (tt.Name)
+                                                            {
+                                                                default:
+                                                                    break;
+                                                                case "CefStructBase":
+                                                                    //act as struct
+                                                                    break;
+                                                            }
+                                                        }
+                                                        break;
+                                                }
 
+                                            }
+                                            break;
                                     }
-                                    else if (refOrPointer.ElementType is VecTypeSymbol)
-                                    {
-
-                                    }
-                                    else if (refOrPointer.ElementType is ReferenceOrPointerTypeSymbol)
-                                    {
-                                        //set as out parameter?
-                                    }
-                                    else if (refOrPointer.ElementType is CTypeDefTypeSymbol)
-                                    {
-
-                                    }
-                                    else
-                                    {
-
-                                    }
-
                                 }
                                 break;
                             case ContainerTypeKind.CefRefPtr:
@@ -604,5 +626,73 @@ namespace BridgeBuilder
 
             }
         }
+    }
+
+
+
+    class CefTypeBridgeTransformPlanner
+    {
+        Dictionary<string, TypeSymbol> typeSymbols;
+        public void AssignTypeBrigeInfo(Dictionary<string, TypeSymbol> typeSymbols)
+        {
+            this.typeSymbols = typeSymbols;
+            foreach (TypeSymbol t in typeSymbols.Values)
+            {
+                //assign bridge info
+                //for return, in and out
+                switch (t.TypeSymbolKind)
+                {
+                    default:
+                        throw new NotSupportedException();
+                    case TypeSymbolKind.Simple:
+                        {
+                            SimpleTypeSymbol simpleType = (SimpleTypeSymbol)t;
+                            switch (simpleType.PrimitiveTypeKind)
+                            {
+                                case PrimitiveTypeKind.NotPrimitiveType:
+                                    {
+
+                                    }
+                                    break;
+                                case PrimitiveTypeKind.Float:
+                                    break;
+                                case PrimitiveTypeKind.Double:
+                                    break;
+                            }
+                            if (simpleType.PrimitiveTypeKind == PrimitiveTypeKind.NotPrimitiveType)
+                            {
+                                //resolve base type
+                                TypeSymbol baseType = simpleType.BaseType;
+                                if (baseType != null)
+                                {
+
+                                }
+                                else
+                                {
+
+                                }
+                            }
+                            else
+                            {
+                                //primitive
+
+
+                            }
+                        }
+                        break;
+                    case TypeSymbolKind.TypeDef:
+                        {
+                            CTypeDefTypeSymbol typedefSymbol = (CTypeDefTypeSymbol)t;
+                            TypeSymbol referToType = typedefSymbol.ReferToTypeSymbol;
+
+                        }
+                        break;
+
+                }
+
+            }
+        }
+
+
     }
 }

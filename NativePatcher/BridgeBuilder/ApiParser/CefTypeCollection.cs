@@ -596,8 +596,13 @@ namespace BridgeBuilder
                     RegisterTypeDeclaration(cu.GetTypeDeclaration(i));
                 }
             }
+
+            //-----------------------
             ResolveBaseTypes();
-            RecheckBaseTypeAgain();
+            AddMoreTypeInfo();
+
+            var cefTypeBridgeTxPlanner = new CefTypeBridgeTransformPlanner();
+            cefTypeBridgeTxPlanner.AssignTypeBrigeInfo(this.typeSymbols);
 
             ResolveTypeMembers();
 
@@ -753,9 +758,8 @@ namespace BridgeBuilder
                 }
             }
         }
-        void RecheckBaseTypeAgain()
+        void AddMoreTypeInfo()
         {
-
 
             //--------
             //copy all
@@ -780,6 +784,20 @@ namespace BridgeBuilder
                             SimpleTypeSymbol simpleType = (SimpleTypeSymbol)t;
                             if (simpleType.PrimitiveTypeKind == PrimitiveTypeKind.NotPrimitiveType)
                             {
+                                //resolve base type
+                                CodeTypeDeclaration typedecl = simpleType.CreatedByTypeDeclaration;
+                                if (typedecl != null && typedecl.BaseTypes != null && typedecl.BaseTypes.Count > 0)
+                                {
+                                    CefResolvingContext ctx = new CefResolvingContext(this, null, ResolvingContextKind.Base);
+                                    simpleType.BaseType = ctx.ResolveType(typedecl.BaseTypes[0]);
+                                }
+                                else
+                                {
+
+                                }
+                            }
+                            else
+                            {
 
                             }
                         }
@@ -787,17 +805,20 @@ namespace BridgeBuilder
                     case TypeSymbolKind.TypeDef:
                         {
                             CTypeDefTypeSymbol typedefSymbol = (CTypeDefTypeSymbol)t;
-
                             CefResolvingContext ctx = new CefResolvingContext(this, null, ResolvingContextKind.Base);
-                            TypeSymbol orgTypeDecl = ctx.ResolveType(typedefSymbol.OriginalTypeDecl);
+                            typedefSymbol.ReferToTypeSymbol = ctx.ResolveType(typedefSymbol.OriginalTypeDecl);
                         }
                         break;
 
                 }
             }
+            //-------
+            //assign bridge information 
+            //-------
             //swap
             this.typeSymbols = tempSymbols;
         }
+
         void ResolveTypeMembers()
         {
             foreach (CodeTypeDeclaration typedecl in typeDics.Values)
