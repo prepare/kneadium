@@ -3,9 +3,411 @@ using System;
 using System.Collections.Generic;
 namespace BridgeBuilder
 {
+    enum ResolvingContextKind
+    {
+        Base,
+        MethodParReturnType,
+        MethodPar
+    }
+    struct CefResolvingContext
+    {
+        public readonly CefTypeCollection _typeCollection;
+        public readonly CodeTypeDeclaration _currentResolvingType;
+        public readonly ResolvingContextKind contextKind;
+        public CefResolvingContext(CefTypeCollection typeCollection, CodeTypeDeclaration currentResolvingType, ResolvingContextKind contextKind)
+        {
+            this._typeCollection = typeCollection;
+            this.contextKind = contextKind;
+            this._currentResolvingType = currentResolvingType;
+        }
+        public TypeSymbol ResolveType(CodeTypeReference typeRef)
+        {
+            if (typeRef.ResolvedType != null)
+            {
+                return typeRef.ResolvedType;
+            }
+            //recursive
+            switch (typeRef.Kind)
+            {
+                case CodeTypeReferenceKind.Simple:
+                    {
+                        var simpleBase = (CodeSimpleTypeReference)typeRef;
+                        return typeRef.ResolvedType = ResolveType(simpleBase.Name);
+                    }
+                case CodeTypeReferenceKind.QualifiedName:
+                    {
+                        var qnameType = (CodeQualifiedNameType)typeRef;
+                        switch (qnameType.LeftPart)
+                        {
+                            //resolve wellknown type template   
+
+                            case "std":
+                                return ResolveType(qnameType.RightPart);
+                            default:
+                                {
+                                    if (_currentResolvingType != null &&
+                                        _currentResolvingType.TemplateNotation != null)
+                                    {
+                                        //search ns from template notation
+                                        if (qnameType.LeftPart ==
+                                            _currentResolvingType.TemplateNotation.templatePar.ParameterName)
+                                        {
+                                            //TODO: resolve template type parameter
+                                            return (typeRef.ResolvedType = new TemplateParameterTypeSymbol(_currentResolvingType.TemplateNotation.templatePar));
+                                        }
+                                    }
+                                    throw new NotSupportedException();
+                                }
+
+                        }
+                    }
+                case CodeTypeReferenceKind.TypeTemplate:
+                    {
+                        //resolve wellknown type template   
+                        var typeTemplate = (CodeTypeTemplateTypeReference)typeRef;
+                        string templateName = typeTemplate.Name;
+                        //this version => just switch by name first
+                        //TODO: switch by num of template item
+                        switch (typeTemplate.Name)
+                        {
+                            default:
+                                throw new NotSupportedException();
+                            case "CefStructBase":
+                                {
+
+                                    TypeSymbol resolve1 = ResolveType(typeTemplate.Items[0]);
+                                    TemplateTypeSymbol1 t1 = new TemplateTypeSymbol1(typeTemplate.Name);
+                                    t1.Item0 = resolve1;
+                                    return typeRef.ResolvedType = t1;
+                                }
+                            case "multimap":
+                            case "map":
+                                {
+                                    TemplateTypeSymbol2 t2 = new TemplateTypeSymbol2(typeTemplate.Name);
+                                    t2.Item0 = ResolveType(typeTemplate.Items[0]);
+                                    t2.Item1 = ResolveType(typeTemplate.Items[1]);
+                                    return typeRef.ResolvedType = t2;
+                                }
+                            case "CefCppToCScoped":
+                            case "CefCppToCRefCounted":
+                                {
+                                    //cpp to c
+                                    if (typeTemplate.Items.Count == 3)
+                                    {
+                                        //auto add native c/c++ type 
+                                        TemplateTypeSymbol3 t3 = new TemplateTypeSymbol3(typeTemplate.Name);
+                                        t3.Item1 = ResolveType(typeTemplate.Items[1]);
+                                        t3.Item2 = this._typeCollection.RegisterBaseCToCppTypeSymbol(typeTemplate.Items[2]);
+                                        return typeRef.ResolvedType = t3;
+                                    }
+                                    else
+                                    {
+                                        throw new NotSupportedException();
+                                    }
+                                }
+                            case "CefCToCppScoped":
+                            case "CefCToCppRefCounted":
+                            case "CefCToCpp":
+                                {
+                                    //c to cpp
+                                    if (typeTemplate.Items.Count == 3)
+                                    {
+                                        //auto add native c/c++ type
+                                        TemplateTypeSymbol3 t3 = new TemplateTypeSymbol3(typeTemplate.Name);
+                                        t3.Item1 = ResolveType(typeTemplate.Items[1]);
+                                        t3.Item2 = this._typeCollection.RegisterBaseCToCppTypeSymbol(typeTemplate.Items[2]);
+                                        return typeRef.ResolvedType = t3;
+
+                                    }
+                                    else
+                                    {
+                                        throw new NotSupportedException();
+                                    }
+                                }
+                            case "RefCountedThreadSafe":
+                                {
+                                    switch (typeTemplate.Items.Count)
+                                    {
+                                        case 1:
+                                            return typeRef.ResolvedType = ResolveType(typeTemplate.Items[0]);
+                                        case 2:
+                                            // from cef c api , 
+                                            //template <class T, typename Traits = DefaultRefCountedThreadSafeTraits<T> >
+                                            return typeRef.ResolvedType = ResolveType(typeTemplate.Items[0]);
+
+                                        default:
+                                            throw new NotSupportedException();
+                                    }
+                                }
+                            case "CefRefPtr":
+                                {
+                                    if (typeTemplate.Items.Count == 1)
+                                    {
+                                        return typeRef.ResolvedType = new ReferenceOrPointerTypeSymbol(ResolveType(typeTemplate.Items[0]), ContainerTypeKind.CefRefPtr);
+                                    }
+                                    throw new NotSupportedException();
+                                }
+                            case "CefRawPtr":
+                                {
+                                    if (typeTemplate.Items.Count == 1)
+                                    {
+                                        return typeRef.ResolvedType = new ReferenceOrPointerTypeSymbol(ResolveType(typeTemplate.Items[0]), ContainerTypeKind.CefRefPtr);
+                                    }
+                                    throw new NotSupportedException();
+                                }
+                            case "scoped_ptr":
+                                {
+                                    if (typeTemplate.Items.Count == 1)
+                                    {
+                                        return typeRef.ResolvedType = new ReferenceOrPointerTypeSymbol(ResolveType(typeTemplate.Items[0]), ContainerTypeKind.ScopePtr);
+                                    }
+                                    else
+                                    {
+                                        throw new NotSupportedException();
+                                    }
+                                }
+                            case "vector":
+                                {
+                                    if (typeTemplate.Items.Count == 1)
+                                    {
+                                        return typeRef.ResolvedType = new VecTypeSymbol(ResolveType(typeTemplate.Items[0]));
+                                    }
+                                    else
+                                    {
+                                        throw new NotSupportedException();
+                                    }
+                                }
+
+                        }
+
+                    }
+                case CodeTypeReferenceKind.Pointer:
+                    {
+                        var pointerType = (CodePointerTypeReference)typeRef;
+                        TypeSymbol elementType = ResolveType(pointerType.ElementType);
+                        return typeRef.ResolvedType = new ReferenceOrPointerTypeSymbol(elementType, ContainerTypeKind.Pointer);
+                    }
+                case CodeTypeReferenceKind.ByRef:
+                    {
+                        var byRefType = (CodeByRefTypeReference)typeRef;
+                        TypeSymbol elementType = ResolveType(byRefType.ElementType);
+                        return typeRef.ResolvedType = new ReferenceOrPointerTypeSymbol(elementType, ContainerTypeKind.ByRef);
+                    }
+                default:
+                    {
+                        throw new NotSupportedException();
+                    }
+            }
+        }
+
+        TypeSymbol ResolveType(string typename)
+        {
+            TypeSymbol foundSymbol = null;
+            if (_currentResolvingType != null)
+            {
+                //1. 
+                if (_currentResolvingType.IsTemplateTypeDefinition)
+                {
+                    //** this version, our template notation has only 1 type parameter
+                    //TODO: review template notation that has more than 1 type parameters.
+                    //
+                    //check if this is the template type parameter
+                    if (typename == _currentResolvingType.TemplateNotation.templatePar.ReAssignToTypeName)
+                    {   //found
+                        return new TemplateParameterTypeSymbol(_currentResolvingType.TemplateNotation.templatePar);
+                    }
+                }
+
+
+                //2.
+                //search nest type
+                //TODO: review here -> use field                
+                if (_currentResolvingType.HasSubType)
+                {
+                    List<CodeMemberDeclaration> tempResults = new List<CodeMemberDeclaration>();
+                    int foundCount;
+                    if ((foundCount = _currentResolvingType.FindSubType(typename, tempResults)) > 0)
+                    {
+                        for (int i = 0; i < foundCount; ++i)
+                        {
+                            CodeMemberDeclaration subtype = tempResults[i];
+                            switch (subtype.MemberKind)
+                            {
+                                default: throw new NotSupportedException();
+                                case CodeMemberKind.TypeDef:
+                                    {
+                                        CodeCTypeDef ctypedef = (CodeCTypeDef)subtype;
+                                        TypeSymbol resolveFromType = ResolveType(ctypedef.From);
+                                        if (resolveFromType != null)
+                                        {
+                                            //found
+                                            return resolveFromType;
+                                        }
+                                    }
+                                    break;
+                            }
+
+                        }
+                    }
+                }
+                //3 
+                if (_currentResolvingType.BaseTypes != null)
+                {
+                    //check if we need to search in other scopes
+                    int baseCount = _currentResolvingType.BaseTypes.Count;
+                    //we get only 1 base count
+                    if (baseCount > 0)
+                    {
+                        if ((foundSymbol = SearchFromFirstBase(_currentResolvingType.BaseTypes[0] as CodeTypeTemplateTypeReference, typename)) != null)
+                        {
+                            return foundSymbol;
+                        }
+                    }
+                }
+            }
+
+
+
+            //-------
+
+            if (this._typeCollection.TryGetType(typename, out foundSymbol))
+            {
+                return foundSymbol;
+            }
+
+            //this is convention 
+            if (typename.StartsWith("cef_") && IsAllLowerLetter(typename))
+            {
+                //assume this is base c/cpp type
+                foundSymbol = new SimpleTypeSymbol(typename);
+                this._typeCollection.RegisterType(
+                    typename,
+                    foundSymbol);
+                return foundSymbol;
+            }
+
+            //not found
+            return foundSymbol;
+        }
+        internal static bool IsAllLowerLetter(string name)
+        {
+            for (int i = name.Length - 1; i >= 0; --i)
+            {
+                char c = name[i];
+                if (!((c >= 'a' && c <= 'z') || c == '_' || char.IsNumber(c)))
+                {
+                    return false;
+                }
+            }
+            return true;
+        }
+
+
+
+
+        TypeSymbol SearchFromFirstBase(CodeTypeTemplateTypeReference firstBase, string typename)
+        {
+            if (firstBase == null)
+            {
+                return null;
+            }
+
+            CodeTypeTemplateTypeReference templateTypeRef = (CodeTypeTemplateTypeReference)firstBase;
+            //-----------
+            //first base is not resolve 
+            switch (templateTypeRef.Items.Count)
+            {
+                case 3:
+                    {
+                        //we accept only known template name
+
+                        switch (firstBase.Name)
+                        {
+                            default:
+
+
+                                break;
+                            case "CefCppToCScoped":
+                            case "CefCppToCRefCounted":
+                            //
+                            case "CefCToCppRefCounted":
+                            case "CefCToCppScoped":
+                                {
+                                    //c-to-cpp
+                                    //search in another scope item2 
+                                    CodeTypeReference typeRef1 = templateTypeRef.Items[1];
+                                    if (typeRef1.Name == typename)
+                                    {
+                                        TypeSymbol foundSymbol1;
+                                        if (this._typeCollection.TryGetType(typename, out foundSymbol1))
+                                        {
+                                            return foundSymbol1;
+                                        }
+                                    }
+                                    else
+                                    {
+
+                                    }
+
+                                    TemplateTypeSymbol3 t3 = (TemplateTypeSymbol3)templateTypeRef.ResolvedType;
+                                    TypeSymbol t1 = t3.Item1;
+                                    //
+                                    switch (t1.TypeSymbolKind)
+                                    {
+                                        default:
+                                            break;
+                                        case TypeSymbolKind.Simple:
+                                            {
+                                                SimpleTypeSymbol s = (SimpleTypeSymbol)t1;
+                                                //check nested type
+
+                                                if (s.NestedTypeSymbols != null)
+                                                {
+                                                    int nestedTypeCount = s.NestedTypeSymbols.Count;
+                                                    for (int n = 0; n < nestedTypeCount; ++n)
+                                                    {
+                                                        TypeSymbol nestedType = s.NestedTypeSymbols[n];
+                                                        switch (nestedType.TypeSymbolKind)
+                                                        {
+                                                            case TypeSymbolKind.Simple:
+                                                                {
+
+                                                                }
+                                                                break;
+                                                            case TypeSymbolKind.TypeDef:
+                                                                {
+                                                                    CTypeDefTypeSymbol cTypeDef = (CTypeDefTypeSymbol)nestedType;
+                                                                    if (cTypeDef.Name == typename)
+                                                                    {
+                                                                        //found
+                                                                        return cTypeDef;
+                                                                    }
+                                                                }
+                                                                break;
+                                                            default:
+                                                                break;
+                                                        }
+                                                    }
+                                                }
+                                            }
+                                            break;
+
+                                    }
+
+                                }
+                                break;
+                        }
+                    }
+                    break;
+
+            }
+            return null;
+        }
+    }
+
     class CefTypeCollection
     {
-        internal Dictionary<string, CodeTypeDeclaration> typeDics = new Dictionary<string, CodeTypeDeclaration>();
+        internal Dictionary<string, CodeTypeDeclaration> typedeclDic = new Dictionary<string, CodeTypeDeclaration>();
         internal Dictionary<string, TypeSymbol> subTypeDefs = new Dictionary<string, TypeSymbol>();
 
         internal List<CodeTypeDeclaration> cefBaseTypes = new List<CodeTypeDeclaration>();
@@ -13,13 +415,12 @@ namespace BridgeBuilder
         internal List<CodeTypeDeclaration> otherTypes = new List<CodeTypeDeclaration>();
 
         //semantic
-        internal Dictionary<string, TypeSymbol> typeSymbols = new Dictionary<string, TypeSymbol>();
-        internal Dictionary<string, TypeSymbol> baseCToCppTypeSymbols = new Dictionary<string, TypeSymbol>();
-        internal Dictionary<string, TypeSymbol> unknownTypes = new Dictionary<string, TypeSymbol>();
-        //----------- 
+        Dictionary<string, TypeSymbol> typeSymbols = new Dictionary<string, TypeSymbol>();
+
+
 
         //------------
-        //classification
+        //classification (after all type symbols are created)
         internal List<CodeTypeDeclaration> callBackClasses = new List<CodeTypeDeclaration>();
         internal List<CodeTypeDeclaration> handlerClasses = new List<CodeTypeDeclaration>();
         internal List<CodeTypeDeclaration> cToCppClasses = new List<CodeTypeDeclaration>();
@@ -27,12 +428,21 @@ namespace BridgeBuilder
         internal List<CodeTypeDeclaration> otherClasses = new List<CodeTypeDeclaration>();
         //------------
 
-        internal List<CodeCompilationUnit> compilationUnits;
+        List<CodeCompilationUnit> compilationUnits;
+        Dictionary<string, CodeCompilationUnit> _compilationUnitDics = new Dictionary<string, CodeCompilationUnit>();
+
         internal Dictionary<TypeSymbol, TypeHierarchyNode> hierarchy;
+
+        bool _freeze;
+        internal void Freeze()
+        {
+            _freeze = true;
+        }
 
         void Reset()
         {
-            typeDics.Clear();
+            _freeze = false;
+            typedeclDic.Clear();
             cefBaseTypes.Clear();
             cefImplTypes.Clear();
             otherTypes.Clear();
@@ -45,6 +455,8 @@ namespace BridgeBuilder
             cppToCClasses.Clear();
             otherClasses.Clear();
 
+            //--------------------------
+            _compilationUnitDics.Clear();
             //--------------------------
             hierarchy = new Dictionary<TypeSymbol, TypeHierarchyNode>();
 
@@ -64,17 +476,21 @@ namespace BridgeBuilder
                 new SimpleTypeSymbol("double"){PrimitiveTypeKind = PrimitiveTypeKind.Double },
                 new SimpleTypeSymbol("float"){PrimitiveTypeKind = PrimitiveTypeKind.Float },
                 new SimpleTypeSymbol("size_t"){PrimitiveTypeKind = PrimitiveTypeKind.size_t },
-
+                //
                 new SimpleTypeSymbol("string"){PrimitiveTypeKind = PrimitiveTypeKind.String },
                 new SimpleTypeSymbol("CefString"){PrimitiveTypeKind = PrimitiveTypeKind.CefString },
+                //
+                new SimpleTypeSymbol("time_t"),
                 new SimpleTypeSymbol("CefBase"),
-                
-                //TODO: review             
+                new SimpleTypeSymbol("CefBaseRefCounted"),
+                new SimpleTypeSymbol("CefBaseScoped"),
+                new SimpleTypeSymbol("HINSTANCE"),
+                //TODO: review              
                 new SimpleTypeSymbol("Handler"),
-                new CTypeDefTypeSymbol("CefProcessId", new CodeSimpleTypeReference("cef_process_id_t")), //typedef cef_process_id_t CefProcessId;
-                new CTypeDefTypeSymbol("CefThreadId", new CodeSimpleTypeReference("cef_thread_id_t")), //typedef cef_thread_id_t CefThreadId; 
+                new SimpleTypeSymbol("RECT"),
                 new CTypeDefTypeSymbol("CefWindowHandle",new CodeSimpleTypeReference("cef_window_handle_t")),
-                new CTypeDefTypeSymbol("CefValueType" ,new CodeSimpleTypeReference("cef_value_type_t")), // 
+                new CTypeDefTypeSymbol("CefCursorHandle",new CodeSimpleTypeReference("cef_cursor_handle_t")),
+                new CTypeDefTypeSymbol("CefEventHandle",new CodeSimpleTypeReference("cef_event_handle_t")),
             };
 
             foreach (TypeSymbol typeSymbol in prebuiltTypes)
@@ -83,92 +499,117 @@ namespace BridgeBuilder
                 {
                     default: throw new NotSupportedException();
                     case TypeSymbolKind.Simple:
-                        typeSymbols.Add(((SimpleTypeSymbol)typeSymbol).Name, typeSymbol);
+                        RegisterType(((SimpleTypeSymbol)typeSymbol).Name, typeSymbol);
                         break;
                     case TypeSymbolKind.TypeDef:
-                        typeSymbols.Add(((CTypeDefTypeSymbol)typeSymbol).Name, typeSymbol);
+                        RegisterType(((CTypeDefTypeSymbol)typeSymbol).Name, typeSymbol);
                         break;
                 }
 
             }
             //--------------------------
         }
-        public void CollectAllTypeDefinitions(List<CodeCompilationUnit> compilationUnits)
+        public void RegisterType(string typeName, TypeSymbol tt)
+        {
+            if (_freeze)
+            {
+                if (!(typeName.StartsWith("cef_") && CefResolvingContext.IsAllLowerLetter(typeName)))
+                {
+                    Console.WriteLine(typeName);
+                }
+                else
+                {
+                    //for cef only!
+
+                }
+            }
+            typeSymbols.Add(typeName, tt);
+        }
+        public bool TryGetType(string typeName, out TypeSymbol tt)
+        {
+            return this.typeSymbols.TryGetValue(typeName, out tt);
+        }
+        public string RootFolder { get; set; }
+        public void SetTypeSystem(List<CodeCompilationUnit> compilationUnits)
         {
 
             Reset();
             //-----------------------
             this.compilationUnits = compilationUnits;
+            //-----------------------
+            //resolve cu's file path
+
+            foreach (CodeCompilationUnit cu in compilationUnits)
+            {
+                //check absolute path for include file                  
+                foreach (IncludeFileDirective includeDirective in cu._includeFiles)
+                {
+                    //remove " from begin and end of the original IncludeFile 
+                    if (includeDirective.SystemFolder)
+                    {
+                        continue;
+                    }
+                    // 
+                    string include_file = includeDirective.IncludeFile.Substring(1, includeDirective.IncludeFile.Length - 2);
+                    includeDirective.ResolvedAbsoluteFilePath = RootFolder + "\\" + include_file;
+                    //check 
+                    if (!System.IO.File.Exists(includeDirective.ResolvedAbsoluteFilePath))
+                    {
+                        //file not found
+                        throw new NotSupportedException();
+                    }
+                }
+                //
+                _compilationUnitDics.Add(cu.Filename, cu);
+            }
+
+
+            //-----------------------
             //1. collect
             foreach (CodeCompilationUnit cu in compilationUnits)
             {
-                foreach (CodeTypeDeclaration typeDecl in cu.Members)
+                //
+                RegisterTypeDeclaration(cu.GlobalTypeDecl);
+                //extract type from global typedecl
+                foreach (CodeMemberDeclaration subType in cu.GlobalTypeDecl.GetSubTypeIter())
                 {
-                    if (typeDecl.IsGlobalCompilationUnitType && typeDecl.Name == null)
+                    if (subType.MemberKind == CodeMemberKind.TypeDef)
                     {
-                        //this is global type
-                        typeDecl.Name = "global!" + System.IO.Path.GetFileName(cu.Filename);
+                        CodeCTypeDef ctypeDef = (CodeCTypeDef)subType;
+                        // 
+                        CTypeDefTypeSymbol ctypedefTypeSymbol = new CTypeDefTypeSymbol(ctypeDef.Name, ctypeDef.From);
+                        ctypedefTypeSymbol.CreatedTypeCTypeDef = ctypeDef;
+                        //---
 
-                    }
-                    if (!typeDecl.IsForwardDecl && typeDecl.Name != null)
-                    {
-                        if (typeDics.ContainsKey(typeDecl.Name))
+                        TypeSymbol existing;
+                        if (TryGetType(ctypeDef.Name, out existing))
                         {
-                            throw new Exception("duplicated key " + typeDecl.Name);
-                        }
-                        typeDics.Add(typeDecl.Name, typeDecl);
-                        //-----------------------
-
-                        SimpleTypeSymbol typeSymbol = new SimpleTypeSymbol(typeDecl.Name);
-                        typeSymbol.CreatedByTypeDeclaration = typeDecl;
-                        typeDecl.ResolvedType = typeSymbol;
-                        //
-
-                        TypeSymbol existingTypeSymbol;
-                        if (typeSymbols.TryGetValue(typeSymbol.Name, out existingTypeSymbol))
-                        {
-                            //have existing value
                             throw new NotSupportedException();
                         }
-                        else
-                        {
-                            typeSymbols.Add(typeSymbol.Name, typeSymbol);
-                        }
-
-
-
-                        //and sub types
-                        foreach (CodeMemberDeclaration subType in typeDecl.Members)
-                        {
-                            if (subType.MemberKind == CodeMemberKind.TypeDef)
-                            {
-                                CodeCTypeDef ctypeDef = (CodeCTypeDef)subType;
-                                CTypeDefTypeSymbol ctypedefTypeSymbol = new CTypeDefTypeSymbol(ctypeDef.Name, ctypeDef.From);
-                                ctypedefTypeSymbol.CreatedTypeCTypeDef = ctypeDef;
-                                ctypedefTypeSymbol.ParentType = typeSymbol;
-
-                                //---
-                                typeSymbols.Add(typeSymbol.Name + "." + ctypeDef.Name, ctypedefTypeSymbol);
-
-                                List<TypeSymbol> nestedTypes = typeSymbol.NestedTypeSymbols;
-                                if (nestedTypes == null)
-                                {
-                                    typeSymbol.NestedTypeSymbols = nestedTypes = new List<TypeSymbol>();
-                                }
-                                nestedTypes.Add(ctypedefTypeSymbol);
-                            }
-                        }
-
+                        RegisterType(ctypeDef.Name, ctypedefTypeSymbol);
                     }
                 }
-            }
-            ResolveBaseTypes();
 
+                int typeCount = cu.TypeCount;
+                for (int i = 0; i < typeCount; ++i)
+                {
+                    RegisterTypeDeclaration(cu.GetTypeDeclaration(i));
+                }
+            }
+
+            //-----------------------
+            ResolveBaseTypes();
+            AddMoreTypeInfo();
+            //
+            var cefTypeBridgeTxPlanner = new CefTypeBridgeTransformPlanner();
+            cefTypeBridgeTxPlanner.AssignTypeBrigeInfo(this.typeSymbols);
+            
+            //-----------------------
             ResolveTypeMembers();
 
             //-----------------------
             //do class classification 
-            foreach (CodeTypeDeclaration t in typeDics.Values)
+            foreach (CodeTypeDeclaration t in typedeclDic.Values)
             {
                 string name = t.Name;
                 if (name.EndsWith("Callback"))
@@ -195,7 +636,7 @@ namespace BridgeBuilder
             //-----------------------
             //for analysis
 
-            foreach (CodeTypeDeclaration t in typeDics.Values)
+            foreach (CodeTypeDeclaration t in typedeclDic.Values)
             {
                 TypeSymbol resolvedType = t.ResolvedType;
                 if (t.BaseTypes.Count == 0)
@@ -222,306 +663,232 @@ namespace BridgeBuilder
         }
 
 
-        CodeTypeDeclaration _currentResolvingType = null;
+        void RegisterTypeDeclaration(CodeTypeDeclaration typeDecl)
+        {
+            //1. collect
+
+            if (typeDecl.IsGlobalCompilationUnitType)
+            {
+                //this is global type                        
+                if (typeDecl.MemberCount == 0)
+                {
+                    //skip this global type
+                    return;
+                }
+            }
+
+            if (!typeDecl.IsForwardDecl && typeDecl.Name != null)
+            {
+                if (typedeclDic.ContainsKey(typeDecl.Name))
+                {
+                    throw new Exception("duplicated key " + typeDecl.Name);
+                }
+                typedeclDic.Add(typeDecl.Name, typeDecl);
+                //-----------------------
+
+                SimpleTypeSymbol typeSymbol = new SimpleTypeSymbol(typeDecl.Name);
+                typeSymbol.CreatedByTypeDeclaration = typeDecl;
+                typeDecl.ResolvedType = typeSymbol;
+                //
+
+                TypeSymbol existingTypeSymbol;
+                if (TryGetType(typeSymbol.Name, out existingTypeSymbol))
+                {
+                    //have existing value
+                    throw new NotSupportedException();
+                }
+                else
+                {
+                    RegisterType(typeSymbol.Name, typeSymbol);
+                }
+                //
+                //and sub types
+                if (!typeDecl.IsGlobalCompilationUnitType)
+                {
+                    foreach (CodeMemberDeclaration subType in typeDecl.GetSubTypeIter())
+                    {
+                        if (subType.MemberKind == CodeMemberKind.TypeDef)
+                        {
+
+                            CodeCTypeDef ctypeDef = (CodeCTypeDef)subType;
+                            //
+
+                            CTypeDefTypeSymbol ctypedefTypeSymbol = new CTypeDefTypeSymbol(ctypeDef.Name, ctypeDef.From);
+                            ctypedefTypeSymbol.CreatedTypeCTypeDef = ctypeDef;
+                            ctypedefTypeSymbol.ParentType = typeSymbol;
+
+                            //---                             
+                            RegisterType(typeSymbol.Name + "." + ctypeDef.Name, ctypedefTypeSymbol);
+                            List<TypeSymbol> nestedTypes = typeSymbol.NestedTypeSymbols;
+                            if (nestedTypes == null)
+                            {
+                                typeSymbol.NestedTypeSymbols = nestedTypes = new List<TypeSymbol>();
+                            }
+                            nestedTypes.Add(ctypedefTypeSymbol);
+                        }
+                    }
+
+                }
+
+            }
+
+        }
+
         void ResolveBaseTypes()
         {
-
-            //-----------------------
             //2. resolve allbase type
-            foreach (CodeTypeDeclaration typedecl in typeDics.Values)
+            foreach (CodeTypeDeclaration typedecl in typedeclDic.Values)
             {
-                _currentResolvingType = typedecl;
                 //resolve base type
                 List<CodeTypeReference> baseTypes = typedecl.BaseTypes;
                 if (baseTypes.Count == 0)
                 {
-                    //eg. struct
-
+                    //eg. struct 
                 }
                 else
                 {
                     foreach (CodeTypeReference baseType in baseTypes)
                     {
-                        baseType.ResolvedType = ResolveType(baseType);
+                        CefResolvingContext resolvingContext = new CefResolvingContext(this, typedecl, ResolvingContextKind.Base);
+                        baseType.ResolvedType = resolvingContext.ResolveType(baseType);
+                        if (baseType.ResolvedType == null)
+                        {
+                            throw new NotSupportedException();
+                        }
                     }
                 }
             }
-            //----------------------- 
-            _currentResolvingType = null; //reset
         }
-        void ResolveTypeMembers()
+        void AddMoreTypeInfo()
         {
-            foreach (CodeTypeDeclaration typedecl in typeDics.Values)
+
+            //--------
+            //copy all
+            Freeze();
+            //
+            Dictionary<string, TypeSymbol> tempSymbols = new Dictionary<string, TypeSymbol>();
+            int typeCount = typeSymbols.Count;
+            foreach (var kp in typeSymbols)
             {
-                foreach (CodeMemberDeclaration mbDecl in typedecl.Members)
+                tempSymbols.Add(kp.Key, kp.Value);
+            }
+
+            //Cef- find tune detail of base type
+            foreach (TypeSymbol t in tempSymbols.Values)
+            {
+                switch (t.TypeSymbolKind)
                 {
-                    switch (mbDecl.MemberKind)
-                    {
-                        case CodeMemberKind.Method:
-                            CodeMethodDeclaration metDecl = (CodeMethodDeclaration)mbDecl;
-                            if (metDecl.MethodKind == MethodKind.Normal)
+                    default:
+                        throw new NotSupportedException();
+                    case TypeSymbolKind.Simple:
+                        {
+                            SimpleTypeSymbol simpleType = (SimpleTypeSymbol)t;
+                            if (simpleType.PrimitiveTypeKind == PrimitiveTypeKind.NotPrimitiveType)
                             {
-                                //resolve return type and type parameter
-                                metDecl.ReturnType.ResolvedType = ResolveType(metDecl.ReturnType);
-                                foreach (CodeMethodParameter p in metDecl.Parameters)
+                                //resolve base type
+                                CodeTypeDeclaration typedecl = simpleType.CreatedByTypeDeclaration;
+                                if (typedecl != null && typedecl.BaseTypes != null && typedecl.BaseTypes.Count > 0)
                                 {
-                                    p.ParameterType.ResolvedType = ResolveType(p.ParameterType);
+                                    CefResolvingContext ctx = new CefResolvingContext(this, null, ResolvingContextKind.Base);
+                                    simpleType.BaseType = ctx.ResolveType(typedecl.BaseTypes[0]);
+                                }
+                                else
+                                {
+
                                 }
                             }
                             else
                             {
-                                //this version, we skip other method kind
+
                             }
-                            break;
-                        case CodeMemberKind.Type:
-                            //sub type
-                            break;
-                        case CodeMemberKind.TypeDef:
-                            break;
-                        case CodeMemberKind.Field:
-                            //skip ?
-                            break;
-                        default:
-                            throw new NotSupportedException();
-                    }
+                        }
+                        break;
+                    case TypeSymbolKind.TypeDef:
+                        {
+                            CTypeDefTypeSymbol typedefSymbol = (CTypeDefTypeSymbol)t;
+                            CefResolvingContext ctx = new CefResolvingContext(this, null, ResolvingContextKind.Base);
+                            typedefSymbol.ReferToTypeSymbol = ctx.ResolveType(typedefSymbol.OriginalTypeDecl);
+                        }
+                        break;
+
                 }
             }
+            //-------
+            //assign bridge information 
+            //-------
+            //swap
+            this.typeSymbols = tempSymbols;
         }
-        TypeSymbol RegisterBaseCToCppTypeSymbol(CodeTypeReference cToCppTypeReference)
+
+        void ResolveTypeMembers()
+        {
+            foreach (CodeTypeDeclaration typedecl in typedeclDic.Values)
+            {
+                foreach (CodeMethodDeclaration metDecl in typedecl.GetMethodIter())
+                {
+
+                    switch (metDecl.MethodKind)
+                    {
+                        default: throw new NotSupportedException();
+                        case MethodKind.Ctor:
+                        case MethodKind.Dtor:
+                            {
+                                foreach (CodeMethodParameter p in metDecl.Parameters)
+                                {
+                                    CefResolvingContext resolvingContext = new CefResolvingContext(this, typedecl, ResolvingContextKind.MethodParReturnType);
+                                    //
+                                    p.ParameterType.ResolvedType = resolvingContext.ResolveType(p.ParameterType);
+                                }
+                            }
+                            break;
+                        case MethodKind.Normal:
+                            {
+                                //resolve return type and type parameter 
+                                {
+                                    CefResolvingContext resolvingContext = new CefResolvingContext(this, typedecl, ResolvingContextKind.MethodParReturnType);
+                                    //
+                                    metDecl.ReturnType.ResolvedType = resolvingContext.ResolveType(metDecl.ReturnType);
+                                }
+
+
+                                foreach (CodeMethodParameter p in metDecl.Parameters)
+                                {
+                                    CefResolvingContext resolvingContext = new CefResolvingContext(this, typedecl, ResolvingContextKind.MethodPar);
+                                    //
+                                    p.ParameterType.ResolvedType = resolvingContext.ResolveType(p.ParameterType);
+                                }
+                            }
+                            break;
+                    }
+
+                }
+            }
+
+        }
+        internal TypeSymbol RegisterBaseCToCppTypeSymbol(CodeTypeReference cToCppTypeReference)
         {
 
+#if DEBUG
+            if (!CefResolvingContext.IsAllLowerLetter(cToCppTypeReference.Name))
+            {
+                //cef-name convention
+                throw new NotSupportedException();
+            }
+#endif
             TypeSymbol found;
-            if (!baseCToCppTypeSymbols.TryGetValue(cToCppTypeReference.Name, out found))
+            if (!typeSymbols.TryGetValue(cToCppTypeReference.Name, out found))
             {
                 //if not found then create the new simple type
                 found = new SimpleTypeSymbol(cToCppTypeReference.Name);
-                baseCToCppTypeSymbols.Add(cToCppTypeReference.Name, found);
+                RegisterType(cToCppTypeReference.Name, found);
             }
             return cToCppTypeReference.ResolvedType = found;
         }
 
-        TypeSymbol ResolveType(CodeTypeReference typeRef)
-        {
-            //recursive
-            switch (typeRef.Kind)
-            {
-                case CodeTypeReferenceKind.Simple:
-                    {
-                        var simpleBase = (CodeSimpleTypeReference)typeRef;
-                        return ResolveType(simpleBase.Name);
-                    }
-                case CodeTypeReferenceKind.QualifiedName:
-                    {
-                        var qnameType = (CodeQualifiedNameType)typeRef;
-                        switch (qnameType.LeftPart)
-                        {
-                            //resolve wellknown type template   
-                          
-                            case "std":
-                                return ResolveType(qnameType.RightPart); 
-                            default:
-                                {
-                                    if (_currentResolvingType != null &&
-                                        _currentResolvingType.TemplateNotation != null)
-                                    {
-                                        //search ns from template notation
-                                        if (qnameType.LeftPart ==
-                                            _currentResolvingType.TemplateNotation.templatePar.ParameterName)
-                                        {
-                                            //TODO: resolve template type parameter
-                                            TemplateParameterTypeSymbol templatePar = new TemplateParameterTypeSymbol(qnameType.LeftPart, qnameType.RightPart.ToString());
-                                            return templatePar;
-                                        }
-                                    }
-                                    throw new NotSupportedException();
-                                }
 
-                        }
-                    }
-                case CodeTypeReferenceKind.TypeTemplate:
-                    {
-                        //resolve wellknown type template   
-                        var typeTemplate = (CodeTypeTemplateTypeReference)typeRef;
-                        string templateName = typeTemplate.Name;
-                        switch (typeTemplate.Name)
-                        {
-                            default:
-                                throw new NotSupportedException();
-                            case "CefStructBase":
-                                {
-                                    TemplateTypeSymbol1 t1 = new TemplateTypeSymbol1(typeTemplate.Name);
-                                    t1.Item0 = ResolveType(typeTemplate.Items[0]);
-                                    return t1;
-                                }
-                            case "CefCppToCScoped":
-                            case "CefCppToCRefCounted":
-                                {
-                                    //cpp to c
-                                    if (typeTemplate.Items.Count == 3)
-                                    {
-                                        //auto add native c/c++ type
-
-                                        //
-                                        TemplateTypeSymbol3 t3 = new TemplateTypeSymbol3(typeTemplate.Name);
-                                        t3.Item1 = ResolveType(typeTemplate.Items[1]);
-                                        t3.Item2 = RegisterBaseCToCppTypeSymbol(typeTemplate.Items[2]);
-                                        return t3;
-                                    }
-                                    else
-                                    {
-                                        throw new NotSupportedException();
-                                    }
-                                }
-                            case "CefCToCppScoped":
-                            case "CefCToCppRefCounted":
-                            case "CefCToCpp":
-                                {
-                                    //c to cpp
-                                    if (typeTemplate.Items.Count == 3)
-                                    {
-                                        //auto add native c/c++ type
-                                        TemplateTypeSymbol3 t3 = new TemplateTypeSymbol3(typeTemplate.Name);
-                                        t3.Item1 = ResolveType(typeTemplate.Items[1]);
-                                        t3.Item2 = RegisterBaseCToCppTypeSymbol(typeTemplate.Items[2]);
-                                        return t3;
-
-                                    }
-                                    else
-                                    {
-                                        throw new NotSupportedException();
-                                    }
-                                }
-                            case "RefCountedThreadSafe":
-                                {
-                                    switch (typeTemplate.Items.Count)
-                                    {
-                                        case 1:
-                                            return ResolveType(typeTemplate.Items[0]);
-                                        case 2:
-                                            // from cef c api , 
-                                            //template <class T, typename Traits = DefaultRefCountedThreadSafeTraits<T> >
-                                            return ResolveType(typeTemplate.Items[0]);
-
-                                        default:
-                                            throw new NotSupportedException();
-                                    }
-                                }
-                            case "CefRefPtr":
-                                {
-                                    if (typeTemplate.Items.Count == 1)
-                                    {
-                                        return new ReferenceOrPointerTypeSymbol(ResolveType(typeTemplate.Items[0]), ContainerTypeKind.CefRefPtr);
-                                    }
-                                    throw new NotSupportedException();
-                                }
-                            case "CefRawPtr":
-                                {
-                                    if (typeTemplate.Items.Count == 1)
-                                    {
-                                        return new ReferenceOrPointerTypeSymbol(ResolveType(typeTemplate.Items[0]), ContainerTypeKind.CefRefPtr);
-                                    }
-                                    throw new NotSupportedException();
-                                }
-                            case "scoped_ptr":
-                                {
-                                    if (typeTemplate.Items.Count == 1)
-                                    {
-                                        return new ReferenceOrPointerTypeSymbol(ResolveType(typeTemplate.Items[0]), ContainerTypeKind.ScopePtr);
-                                    }
-                                    else
-                                    {
-                                        throw new NotSupportedException();
-                                    }
-                                }
-                            case "vector":
-                                {
-                                    if (typeTemplate.Items.Count == 1)
-                                    {
-                                        return new VecTypeSymbol(ResolveType(typeTemplate.Items[0]));
-                                    }
-                                    else
-                                    {
-                                        throw new NotSupportedException();
-                                    }
-                                }
-
-                        }
-
-                    }
-                case CodeTypeReferenceKind.Pointer:
-                    {
-                        var pointerType = (CodePointerTypeReference)typeRef;
-                        TypeSymbol elementType = ResolveType(pointerType.ElementType);
-                        return new ReferenceOrPointerTypeSymbol(elementType, ContainerTypeKind.Pointer);
-                    }
-                case CodeTypeReferenceKind.ByRef:
-                    {
-                        var byRefType = (CodeByRefTypeReference)typeRef;
-                        TypeSymbol elementType = ResolveType(byRefType.ElementType);
-                        return new ReferenceOrPointerTypeSymbol(elementType, ContainerTypeKind.ByRef);
-                    }
-                default:
-                    {
-                        throw new NotSupportedException();
-                    }
-            }
-        }
-        TypeSymbol ResolveType(string typename)
-        {
-            CodeTypeDeclaration baseTypeFound;
-            if (typeDics.TryGetValue(typename, out baseTypeFound))
-            {
-                return baseTypeFound.ResolvedType;
-            }
-            else
-            {
-                TypeSymbol foundSymbol;
-                if (typeSymbols.TryGetValue(typename, out foundSymbol))
-                {
-                    return foundSymbol;
-                }
-                if (baseCToCppTypeSymbols.TryGetValue(typename, out foundSymbol))
-                {
-                    return foundSymbol;
-                }
-
-                //this is convention 
-                if (typename.StartsWith("cef_") && IsAllLowerLetter(typename))
-                {
-                    //assume this is base c/cpp type
-                    foundSymbol = new SimpleTypeSymbol(typename);
-                    baseCToCppTypeSymbols.Add(
-                        typename,
-                        foundSymbol);
-                    return foundSymbol;
-                }
-
-                if (!unknownTypes.TryGetValue(typename, out foundSymbol))
-                {
-                    foundSymbol = new SimpleTypeSymbol(typename);
-                    unknownTypes.Add(typename, foundSymbol);
-                    return foundSymbol;
-                }
-                return foundSymbol;
-            }
-
-        }
         public bool TryGetTypeDeclaration(string typeName, out CodeTypeDeclaration found)
         {
-            return typeDics.TryGetValue(typeName, out found);
-        }
-        static bool IsAllLowerLetter(string name)
-        {
-
-            for (int i = name.Length - 1; i >= 0; --i)
-            {
-                char c = name[i];
-                if (!((c >= 'a' && c <= 'z') || c == '_'))
-                {
-                    return false;
-                }
-            }
-            return true;
+            return typedeclDic.TryGetValue(typeName, out found);
         }
 
     }

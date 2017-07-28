@@ -35,14 +35,15 @@ namespace BridgeBuilder
         static int dbugTotalId;
         public TypeSymbol()
         {
-            if (dbugId == 768)
-            {
 
-            }
         }
 #endif
         public abstract TypeSymbolKind TypeSymbolKind { get; }
+        public TypeBridgeInfo BridgeInfo { get; set; }
     }
+
+
+
     class SimpleTypeSymbol : TypeSymbol
     {
         public SimpleTypeSymbol(string name)
@@ -59,6 +60,18 @@ namespace BridgeBuilder
         public CodeTypeDeclaration CreatedByTypeDeclaration { get; set; }
 
         public PrimitiveTypeKind PrimitiveTypeKind { get; set; }
+        public TypeSymbol BaseType { get; set; }
+        internal bool IsGlobalCompilationUnitTypeDefinition
+        {
+            get
+            {
+                if (CreatedByTypeDeclaration != null)
+                {
+                    return CreatedByTypeDeclaration.IsGlobalCompilationUnitType;
+                }
+                return false;
+            }
+        }
     }
     public enum PrimitiveTypeKind
     {
@@ -101,6 +114,7 @@ namespace BridgeBuilder
             get;
             set;
         }
+        public TypeSymbol ReferToTypeSymbol { get; set; }
     }
 
 
@@ -176,6 +190,24 @@ namespace BridgeBuilder
             return Name + "<" + Item0 + ">";
         }
     }
+    class TemplateTypeSymbol2 : TemplateTypeSymbol
+    {
+        public TemplateTypeSymbol2(string name)
+            : base(name)
+        {
+            this.Name = name;
+        }
+        public override int ItemCount
+        {
+            get { return 2; }
+        }
+        public TypeSymbol Item0 { get; set; }
+        public TypeSymbol Item1 { get; set; }
+        public override string ToString()
+        {
+            return Name + "<" + Item0 + "," + Item1 + ">";
+        }
+    }
     class TemplateTypeSymbol3 : TemplateTypeSymbol
     {
         public TemplateTypeSymbol3(string name)
@@ -198,10 +230,12 @@ namespace BridgeBuilder
 
     class TemplateParameterTypeSymbol : TypeSymbol
     {
-        public TemplateParameterTypeSymbol(string templateParName, string newName)
+        CodeTemplateParameter templatePar;
+        public TemplateParameterTypeSymbol(CodeTemplateParameter templatePar)
         {
-            this.TemplateParameterName = templateParName;
-            this.NewName = newName;
+            this.templatePar = templatePar;
+            this.TemplateParameterName = templatePar.ParameterName;
+            this.NewName = templatePar.ParameterKind;
         }
         public override TypeSymbolKind TypeSymbolKind { get { return TypeSymbolKind.TemplateParameter; } }
         public string NewName { get; set; }

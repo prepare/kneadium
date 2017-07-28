@@ -5,7 +5,7 @@ using System.Text;
 
 namespace BridgeBuilder
 {
-    //still very dirty parser!
+
     //this version is designed for cef3 only
 
     class CodeCTypeDef : CodeMemberDeclaration
@@ -16,7 +16,6 @@ namespace BridgeBuilder
             this.Name = name;
         }
         public CodeTypeReference From { get; set; }
-        public string Name { get; set; }
         public override CodeMemberKind MemberKind { get { return CodeMemberKind.TypeDef; } }
         public override string ToString()
         {
@@ -58,21 +57,83 @@ namespace BridgeBuilder
 
     class CodeTypeDeclaration : CodeMemberDeclaration
     {
+
+        List<CodeMemberDeclaration> _specialImplMacroMembers;
+        List<CodeMemberDeclaration> _members;
+
+        List<CodeMemberDeclaration> _subTypeDecls;
         public CodeTypeDeclaration()
         {
             this.BaseTypes = new List<CodeTypeReference>();
-            this.Members = new List<CodeMemberDeclaration>();
-            this.SpecialImplMacroMembers = new List<CodeMemberDeclaration>();
+            _members = new List<CodeMemberDeclaration>();
         }
-
         public TypeKind Kind { get; set; }
-        public string Name { get; set; }
+
         public bool BaseIsPublic { get; set; }
         public bool BaseIsVirtual { get; set; }
         public bool IsGlobalCompilationUnitType { get; set; }
         public CodeTypeTemplateNotation TemplateNotation { get; set; }
         public List<CodeTypeReference> BaseTypes { get; set; }
-        public List<CodeMemberDeclaration> Members { get; set; }
+        public void AddMember(CodeMemberDeclaration mb)
+        {
+            _members.Add(mb);
+            //
+            mb.OriginalCompilationUnit = this.OriginalCompilationUnit;
+            //
+            switch (mb.MemberKind)
+            {
+                case CodeMemberKind.Type:
+                case CodeMemberKind.TypeDef:
+                    {
+                        if (_subTypeDecls == null)
+                        {
+                            _subTypeDecls = new List<CodeMemberDeclaration>();
+                        }
+                        _subTypeDecls.Add(mb);
+                    }
+                    break;
+            }
+        }
+        public int MemberCount
+        {
+            get
+            {
+                return _members.Count;
+            }
+        }
+
+
+        public IEnumerable<CodeMemberDeclaration> GetSubTypeIter()
+        {
+            int j = _members.Count;
+            for (int i = 0; i < j; ++i)
+            {
+                CodeMemberDeclaration mb = _members[i];
+                switch (mb.MemberKind)
+                {
+                    case CodeMemberKind.Type:
+                    case CodeMemberKind.TypeDef:
+                        yield return mb;
+                        break;
+                }
+            }
+        }
+        public IEnumerable<CodeMethodDeclaration> GetMethodIter()
+        {
+            int j = _members.Count;
+            for (int i = 0; i < j; ++i)
+            {
+                CodeMemberDeclaration mb = _members[i];
+                switch (mb.MemberKind)
+                {
+                    case CodeMemberKind.Method:
+                        yield return (CodeMethodDeclaration)mb;
+                        break;
+                }
+            }
+        }
+
+
         public override CodeMemberKind MemberKind { get { return CodeMemberKind.Type; } }
         public bool IsForwardDecl { get; set; }
         public override string ToString()
@@ -108,28 +169,119 @@ namespace BridgeBuilder
             }
             return stbuilder.ToString();
         }
-        public List<CodeMemberDeclaration> SpecialImplMacroMembers { get; set; }
+        public void AddMacro(CodeMemberDeclaration macroDecl)
+        {
+            if (_specialImplMacroMembers == null)
+            {
+                _specialImplMacroMembers = new List<CodeMemberDeclaration>();
+            }
+            _specialImplMacroMembers.Add(macroDecl);
+        }
 
-
-
+        public bool HasSubType
+        {
+            get { return _subTypeDecls != null; }
+        }
 
         //-------------
         //semantic 
         public TypeSymbol ResolvedType { get; set; }
+        public bool IsTemplateTypeDefinition
+        {
+            get
+            {
+                return TemplateNotation != null;
+            }
+        }
+        public int FindSubType(string name, List<CodeMemberDeclaration> results)
+        {
+            int foundCount = 0;
+            if (_subTypeDecls == null) return 0;
+            //
+            int j = _subTypeDecls.Count;
+            for (int i = 0; i < j; ++i)
+            {
+                CodeMemberDeclaration mb = _subTypeDecls[i];
+                if (mb.Name == name)
+                {
+                    foundCount++;
+                    results.Add(mb);
+                }
+            }
+            return foundCount;
+        }
+    }
 
+    class IncludeFileDirective
+    {
+        public IncludeFileDirective(string includeFile)
+        {
+            IncludeFile = includeFile;
+            //check first char of include file
+            // #include "filename" or
+            // #include <filename>
+
+            char firstChar = includeFile[0];
+            if (firstChar == '<')
+            {
+                SystemFolder = true;
+            }
+            else if (firstChar == '"')
+            {
+                SystemFolder = false;
+            }
+            else
+            {
+                throw new NotSupportedException();
+            }
+        }
+        public bool SystemFolder { get; set; }
+        public string IncludeFile { get; private set; }
+        public string ResolvedAbsoluteFilePath { get; set; }
+        public override string ToString()
+        {
+            return "#include " + IncludeFile;
+        }
     }
     class CodeCompilationUnit
     {
-        public CodeCompilationUnit()
+        List<CodeTypeDeclaration> _members;
+        CodeTypeDeclaration _globalTypeDecl;
+        internal List<IncludeFileDirective> _includeFiles = new List<IncludeFileDirective>();
+
+        public CodeCompilationUnit(string cuName)
         {
-            this.Members = new List<CodeTypeDeclaration>();
+            _members = new List<CodeTypeDeclaration>();
+            _globalTypeDecl = new CodeTypeDeclaration() { IsGlobalCompilationUnitType = true };
+            _globalTypeDecl.OriginalCompilationUnit = this;
+            _globalTypeDecl.Name = "global!" + cuName;
         }
+
         public string Filename { get; set; }
-        public List<CodeTypeDeclaration> Members { get; set; }
-        public override string ToString()
+
+        public void AddTypeDeclaration(CodeTypeDeclaration typedecl)
         {
-            return this.Filename;
+            typedecl.OriginalCompilationUnit = this;
+            _members.Add(typedecl);
+
         }
+        public CodeTypeDeclaration GlobalTypeDecl
+        {
+            get { return _globalTypeDecl; }
+        }
+        public int TypeCount
+        {
+            get { return _members.Count; }
+        }
+        public CodeTypeDeclaration GetTypeDeclaration(int index)
+        {
+            return _members[index];
+        }
+        public void AddIncludeFile(string includeFile)
+        {
+            _includeFiles.Add(new IncludeFileDirective(includeFile));
+        }
+
     }
 
     enum CodeTypeReferenceKind
@@ -144,12 +296,32 @@ namespace BridgeBuilder
     }
     abstract class CodeTypeReference
     {
-        public CodeTypeReference() { }
+#if DEBUG
+        public readonly int dbugId = dbugTotalId++;
+        static int dbugTotalId;
+#endif
+        public CodeTypeReference()
+        {
+#if DEBUG
+            dbugCheckId();
+#endif
+        }
         public CodeTypeReference(string typename)
         {
+#if DEBUG
+            dbugCheckId();
+#endif
             this.Name = typename;
         }
+#if DEBUG
+        void dbugCheckId()
+        {
+            //if (this.dbugId == 3721)
+            //{
 
+            //}
+        }
+#endif
         public string Name
         {
             get;
@@ -291,13 +463,14 @@ namespace BridgeBuilder
 
         }
 #endif
-
+        public string Name { get; set; }
         public abstract CodeMemberKind MemberKind { get; }
         public CodeCompilationUnit OriginalCompilationUnit { get; set; }
     }
 
     enum CodeMemberKind
     {
+        Unknown,
         Type,
         TypeDef,
         Field,
@@ -314,7 +487,7 @@ namespace BridgeBuilder
         public CodeFieldDeclaration()
         {
         }
-        public string Name { get; set; }
+
         public bool IsStatic { get; set; }
         public bool IsConst { get; set; }
         public override CodeMemberKind MemberKind { get { return CodeMemberKind.Field; } }
@@ -344,7 +517,7 @@ namespace BridgeBuilder
         {
             this.Parameters = new List<CodeMethodParameter>();
         }
-        public string Name { get; set; }
+
         public List<CodeMethodParameter> Parameters { get; set; }
         public CodeTypeReference ReturnType { get; set; }
         public bool IsOverrided { get; set; }
