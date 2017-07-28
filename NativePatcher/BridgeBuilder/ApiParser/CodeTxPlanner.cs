@@ -234,30 +234,13 @@ namespace BridgeBuilder
                             ReferenceOrPointerTypeSymbol refOrPointer = (ReferenceOrPointerTypeSymbol)resolvedParType;
                             TypeSymbol elemType = refOrPointer.ElementType;
                             //create pointer or reference bridge for existing bridge
-
                             TypeBridgeInfo bridgeToElem = elemType.BridgeInfo;
                             if (bridgeToElem == null)
                             {
                                 //no bridge 
                                 elemType.BridgeInfo = bridgeToElem = CefTypeCollection.Planner.SelectProperTypeBridge(elemType);
                             }
-                            switch (refOrPointer.Kind)
-                            {
-                                default:
-                                    throw new NotSupportedException();
-                                case ContainerTypeKind.ByRef:
-                                    resolvedParType.BridgeInfo = bridgeToElem.GetReferenceBridge(refOrPointer);
-                                    break;
-                                case ContainerTypeKind.Pointer:
-                                    resolvedParType.BridgeInfo = bridgeToElem.GetPointerBridge(refOrPointer);
-                                    break;
-                                case ContainerTypeKind.CefRefPtr:
-                                    resolvedParType.BridgeInfo = bridgeToElem.GetCefRefPtrBridge(refOrPointer);
-                                    break;
-                                case ContainerTypeKind.ScopePtr:
-                                    resolvedParType.BridgeInfo = bridgeToElem.GetScopePtrBridge(refOrPointer);
-                                    break;
-                            }
+                            resolvedParType.BridgeInfo = bridgeToElem.GetReferenceOrPointerBridge(refOrPointer);
 
                         }
                         break;
@@ -382,26 +365,42 @@ namespace BridgeBuilder
         //---
         public TypeBridgeInfo BridgeToBase { get; set; }
 
-        public TypeBridgeInfo GetPointerBridge(ReferenceOrPointerTypeSymbol refOrPointerTypeSymbol)
+        public TypeBridgeInfo GetReferenceOrPointerBridge(ReferenceOrPointerTypeSymbol refOrPointer)
+        {
+            switch (refOrPointer.Kind)
+            {
+                default:
+                    throw new NotSupportedException();
+                case ContainerTypeKind.ByRef:
+                    return GetReferenceBridge(refOrPointer);
+                case ContainerTypeKind.Pointer:
+                    return GetPointerBridge(refOrPointer);
+                case ContainerTypeKind.CefRefPtr:
+                    return GetCefRefPtrBridge(refOrPointer);
+                case ContainerTypeKind.ScopePtr:
+                    return GetScopePtrBridge(refOrPointer);
+            }
+        }
+        TypeBridgeInfo GetPointerBridge(ReferenceOrPointerTypeSymbol refOrPointerTypeSymbol)
         {
             if (_pointerBridge == null)
             {
-                //create new one 
-                _pointerBridge = new TypeBridgeInfo(refOrPointerTypeSymbol, CefTypeKind.JSVALUE_TYPE_WRAPPED);
-
+                //create new one  
+                _pointerBridge = new TypeBridgeInfo(refOrPointerTypeSymbol, CefTypeKind.JSVALUE_TYPE_WRAPPED); 
             }
             return _pointerBridge;
         }
-        public TypeBridgeInfo GetReferenceBridge(ReferenceOrPointerTypeSymbol refOrPointerTypeSymbol)
+
+        TypeBridgeInfo GetReferenceBridge(ReferenceOrPointerTypeSymbol refOrPointerTypeSymbol)
         {
             if (_referenceBridge == null)
             {
                 //create new one
-                _referenceBridge = new TypeBridgeInfo(refOrPointerTypeSymbol, CefTypeKind.JSVALUE_TYPE_WRAPPED); 
+                _referenceBridge = new TypeBridgeInfo(refOrPointerTypeSymbol, CefTypeKind.JSVALUE_TYPE_WRAPPED);
             }
             return _referenceBridge;
         }
-        public TypeBridgeInfo GetCefRefPtrBridge(ReferenceOrPointerTypeSymbol refOrPointerTypeSymbol)
+        TypeBridgeInfo GetCefRefPtrBridge(ReferenceOrPointerTypeSymbol refOrPointerTypeSymbol)
         {
             if (_cefRefPtrBridge == null)
             {
@@ -410,7 +409,7 @@ namespace BridgeBuilder
             }
             return _cefRefPtrBridge;
         }
-        public TypeBridgeInfo GetScopePtrBridge(ReferenceOrPointerTypeSymbol refOrPointerTypeSymbol)
+        TypeBridgeInfo GetScopePtrBridge(ReferenceOrPointerTypeSymbol refOrPointerTypeSymbol)
         {
             if (_scopePtrBridge == null)
             {
