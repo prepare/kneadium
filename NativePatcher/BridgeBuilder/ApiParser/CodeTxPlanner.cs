@@ -705,6 +705,12 @@ namespace BridgeBuilder
             switch (cefTypeKind)
             {
                 default: throw new NotSupportedException();
+                case CefTypeKind.JSVALUE_TYPE_ERROR:
+                    slotName = CefSlotName.UNKNOWN;
+                    break;
+                case CefTypeKind.JSVALUE_TYPE_WRAPPED:
+                    slotName = CefSlotName.ptr;
+                    break;
                 case CefTypeKind.JSVALUE_TYPE_INTEGER64:
                     slotName = CefSlotName.i64;
                     break;
@@ -783,15 +789,44 @@ namespace BridgeBuilder
             switch (simpleType.Name)
             {
                 default:
+                    {
+                        if (simpleType.Name.StartsWith("cef_") && CefResolvingContext.IsAllLowerLetter(simpleType.Name))
+                        {
+                            //this is native cef?
+                            var typeBridge = new TypeBridgeInfo(simpleType, CefTypeKind.JSVALUE_TYPE_WRAPPED);
+                            return typeBridge;
+                        }
+                        else
+                        {
+
+                        }
+
+                    }
                     return null;
+                case "RECT":
+                    {
+                        var typeBridge = new TypeBridgeInfo(simpleType, CefTypeKind.JSVALUE_TYPE_WRAPPED);
+                        return typeBridge;
+                    }
+                case "Handler":
+                case "CefBase":
+                case "CefBaseRefCounted":
+                case "CefBaseScoped":
+                    {
+                        var typeBridge = new TypeBridgeInfo(simpleType, CefTypeKind.JSVALUE_TYPE_ERROR);
+                        return typeBridge;
+                    }
+                case "HINSTANCE":
                 case "time_t":
                     {
                         var typeBridge = new TypeBridgeInfo(simpleType, CefTypeKind.JSVALUE_TYPE_INTEGER64);
                         return typeBridge;
                     }
 
-            } 
+            }
         }
+
+
         TypeBridgeInfo SelectProperTypeBridge(TypeSymbol t)
         {
             //assign bridge info
@@ -800,6 +835,20 @@ namespace BridgeBuilder
             {
                 default:
                     throw new NotSupportedException();
+                case TypeSymbolKind.Template:
+                    {
+                        TemplateTypeSymbol templateType = (TemplateTypeSymbol)t;
+                        switch (templateType.ItemCount)
+                        {
+                            default: throw new NotSupportedException();
+                            case 1:
+                                return SelectProperTypeBridge((TemplateTypeSymbol1)templateType);
+                            case 2:
+                                return SelectProperTypeBridge((TemplateTypeSymbol2)templateType);
+                            case 3:
+                                return SelectProperTypeBridge((TemplateTypeSymbol3)templateType);
+                        } 
+                    }
                 case TypeSymbolKind.Simple:
                     {
                         SimpleTypeSymbol simpleType = (SimpleTypeSymbol)t;
@@ -877,24 +926,41 @@ namespace BridgeBuilder
                                 }
                         }
                     }
-                    break;
                 case TypeSymbolKind.TypeDef:
                     {
                         CTypeDefTypeSymbol typedefSymbol = (CTypeDefTypeSymbol)t;
                         TypeBridgeInfo typeBridge = SelectProperTypeBridge(typedefSymbol.ReferToTypeSymbol);
-
-
                         return typeBridge;
                     }
             }
 
 
         }
+
+        TypeBridgeInfo SelectProperTypeBridge(TemplateTypeSymbol3 t3)
+        {
+            return null;
+        }
+        TypeBridgeInfo SelectProperTypeBridge(TemplateTypeSymbol2 t2)
+        {
+            return null;
+        }
+        TypeBridgeInfo SelectProperTypeBridge(TemplateTypeSymbol1 t1)
+        {
+            return null;
+        }
+
         public void AssignTypeBrigeInfo(Dictionary<string, TypeSymbol> typeSymbols)
         {
             this.typeSymbols = typeSymbols;
             foreach (TypeSymbol t in typeSymbols.Values)
             {
+                if ((t is SimpleTypeSymbol) &&
+                    ((SimpleTypeSymbol)t).IsGlobalCompilationUnitTypeDefinition)
+                {
+                    continue;
+                }
+                //
                 TypeBridgeInfo bridgeInfo = SelectProperTypeBridge(t);
                 if (bridgeInfo == null)
                 {

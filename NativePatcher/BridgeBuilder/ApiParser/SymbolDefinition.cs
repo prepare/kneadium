@@ -42,7 +42,7 @@ namespace BridgeBuilder
         public TypeBridgeInfo BridgeInfo { get; set; }
     }
 
-    
+
 
     class SimpleTypeSymbol : TypeSymbol
     {
@@ -60,7 +60,18 @@ namespace BridgeBuilder
         public CodeTypeDeclaration CreatedByTypeDeclaration { get; set; }
 
         public PrimitiveTypeKind PrimitiveTypeKind { get; set; }
-        public TypeSymbol BaseType { get; set; } 
+        public TypeSymbol BaseType { get; set; }
+        internal bool IsGlobalCompilationUnitTypeDefinition
+        {
+            get
+            {
+                if (CreatedByTypeDeclaration != null)
+                {
+                    return CreatedByTypeDeclaration.IsGlobalCompilationUnitType;
+                }
+                return false;
+            }
+        }
     }
     public enum PrimitiveTypeKind
     {
