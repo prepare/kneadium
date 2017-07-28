@@ -737,7 +737,8 @@ namespace BridgeBuilder
         {
             return "bridge:" + owner.ToString();
         }
-
+        //
+        public TypeBridgeInfo BridgeToBase { get; set; }
     }
     class BridgeForInArg
     {
@@ -796,6 +797,26 @@ namespace BridgeBuilder
                             var typeBridge = new TypeBridgeInfo(simpleType, CefTypeKind.JSVALUE_TYPE_WRAPPED);
                             return typeBridge;
                         }
+                        else if (simpleType.Name.StartsWith("Cef"))
+                        {
+                            if (simpleType.Name.EndsWith("Traits"))
+                            {
+                                var typeBridge = new TypeBridgeInfo(simpleType, CefTypeKind.JSVALUE_TYPE_WRAPPED);
+                                return typeBridge;
+                            }
+                            else
+                            {
+                                //some cef type
+                                //check by its base
+
+                                var typeBridge = new TypeBridgeInfo(simpleType, CefTypeKind.JSVALUE_TYPE_WRAPPED);
+                                if (simpleType.BaseType != null)
+                                {
+                                    typeBridge.BridgeToBase = SelectProperTypeBridge(simpleType.BaseType);
+                                }
+                                return typeBridge;
+                            }
+                        }
                         else
                         {
 
@@ -812,6 +833,7 @@ namespace BridgeBuilder
                 case "CefBase":
                 case "CefBaseRefCounted":
                 case "CefBaseScoped":
+                case "CefStructBase":
                     {
                         var typeBridge = new TypeBridgeInfo(simpleType, CefTypeKind.JSVALUE_TYPE_ERROR);
                         return typeBridge;
@@ -835,6 +857,11 @@ namespace BridgeBuilder
             {
                 default:
                     throw new NotSupportedException();
+                case TypeSymbolKind.Vec:
+                    {
+                        var typeBridge = new TypeBridgeInfo(t, CefTypeKind.JSVALUE_TYPE_NUMBER);
+                        return typeBridge;
+                    }
                 case TypeSymbolKind.Template:
                     {
                         TemplateTypeSymbol templateType = (TemplateTypeSymbol)t;
@@ -847,7 +874,7 @@ namespace BridgeBuilder
                                 return SelectProperTypeBridge((TemplateTypeSymbol2)templateType);
                             case 3:
                                 return SelectProperTypeBridge((TemplateTypeSymbol3)templateType);
-                        } 
+                        }
                     }
                 case TypeSymbolKind.Simple:
                     {
@@ -933,21 +960,54 @@ namespace BridgeBuilder
                         return typeBridge;
                     }
             }
-
-
         }
 
         TypeBridgeInfo SelectProperTypeBridge(TemplateTypeSymbol3 t3)
         {
-            return null;
+            switch (t3.Name)
+            {
+                default:
+                    throw new NotSupportedException();
+                case "CefCppToCRefCounted":
+                case "CefCppToCScoped":
+                //
+                case "CefCToCppScoped":
+                case "CefCToCppRefCounted":
+                    {
+                        //as struct 
+                        var typeBridge = new TypeBridgeInfo(t3, CefTypeKind.JSVALUE_TYPE_WRAPPED);
+                        return typeBridge;
+                    }
+            }
         }
         TypeBridgeInfo SelectProperTypeBridge(TemplateTypeSymbol2 t2)
         {
-            return null;
+            switch (t2.Name)
+            {
+                default:
+                    throw new NotSupportedException();
+                case "multimap":
+                case "map":
+                    {
+                        //as struct 
+                        var typeBridge = new TypeBridgeInfo(t2, CefTypeKind.JSVALUE_TYPE_WRAPPED);
+                        return typeBridge;
+                    }
+            }
         }
         TypeBridgeInfo SelectProperTypeBridge(TemplateTypeSymbol1 t1)
         {
-            return null;
+            switch (t1.Name)
+            {
+                default:
+                    throw new NotSupportedException();
+                case "CefStructBase":
+                    {
+                        //as struct 
+                        var typeBridge = new TypeBridgeInfo(t1, CefTypeKind.JSVALUE_TYPE_WRAPPED);
+                        return typeBridge;
+                    }
+            }
         }
 
         public void AssignTypeBrigeInfo(Dictionary<string, TypeSymbol> typeSymbols)
