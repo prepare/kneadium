@@ -32,7 +32,7 @@ namespace BridgeBuilder
                 case CodeTypeReferenceKind.Simple:
                     {
                         var simpleBase = (CodeSimpleTypeReference)typeRef;
-                        return ResolveType(simpleBase.Name);
+                        return typeRef.ResolvedType = ResolveType(simpleBase.Name);
                     }
                 case CodeTypeReferenceKind.QualifiedName:
                     {
@@ -53,7 +53,7 @@ namespace BridgeBuilder
                                             _currentResolvingType.TemplateNotation.templatePar.ParameterName)
                                         {
                                             //TODO: resolve template type parameter
-                                            return new TemplateParameterTypeSymbol(_currentResolvingType.TemplateNotation.templatePar);
+                                            return (typeRef.ResolvedType = new TemplateParameterTypeSymbol(_currentResolvingType.TemplateNotation.templatePar));
                                         }
                                     }
                                     throw new NotSupportedException();
@@ -78,7 +78,7 @@ namespace BridgeBuilder
                                     TypeSymbol resolve1 = ResolveType(typeTemplate.Items[0]);
                                     TemplateTypeSymbol1 t1 = new TemplateTypeSymbol1(typeTemplate.Name);
                                     t1.Item0 = resolve1;
-                                    return t1;
+                                    return typeRef.ResolvedType = t1;
                                 }
                             case "multimap":
                             case "map":
@@ -86,7 +86,7 @@ namespace BridgeBuilder
                                     TemplateTypeSymbol2 t2 = new TemplateTypeSymbol2(typeTemplate.Name);
                                     t2.Item0 = ResolveType(typeTemplate.Items[0]);
                                     t2.Item1 = ResolveType(typeTemplate.Items[1]);
-                                    return t2;
+                                    return typeRef.ResolvedType = t2;
                                 }
                             case "CefCppToCScoped":
                             case "CefCppToCRefCounted":
@@ -98,7 +98,7 @@ namespace BridgeBuilder
                                         TemplateTypeSymbol3 t3 = new TemplateTypeSymbol3(typeTemplate.Name);
                                         t3.Item1 = ResolveType(typeTemplate.Items[1]);
                                         t3.Item2 = this._typeCollection.RegisterBaseCToCppTypeSymbol(typeTemplate.Items[2]);
-                                        return t3;
+                                        return typeRef.ResolvedType = t3;
                                     }
                                     else
                                     {
@@ -116,7 +116,7 @@ namespace BridgeBuilder
                                         TemplateTypeSymbol3 t3 = new TemplateTypeSymbol3(typeTemplate.Name);
                                         t3.Item1 = ResolveType(typeTemplate.Items[1]);
                                         t3.Item2 = this._typeCollection.RegisterBaseCToCppTypeSymbol(typeTemplate.Items[2]);
-                                        return t3;
+                                        return typeRef.ResolvedType = t3;
 
                                     }
                                     else
@@ -129,11 +129,11 @@ namespace BridgeBuilder
                                     switch (typeTemplate.Items.Count)
                                     {
                                         case 1:
-                                            return ResolveType(typeTemplate.Items[0]);
+                                            return typeRef.ResolvedType = ResolveType(typeTemplate.Items[0]);
                                         case 2:
                                             // from cef c api , 
                                             //template <class T, typename Traits = DefaultRefCountedThreadSafeTraits<T> >
-                                            return ResolveType(typeTemplate.Items[0]);
+                                            return typeRef.ResolvedType = ResolveType(typeTemplate.Items[0]);
 
                                         default:
                                             throw new NotSupportedException();
@@ -143,7 +143,7 @@ namespace BridgeBuilder
                                 {
                                     if (typeTemplate.Items.Count == 1)
                                     {
-                                        return new ReferenceOrPointerTypeSymbol(ResolveType(typeTemplate.Items[0]), ContainerTypeKind.CefRefPtr);
+                                        return typeRef.ResolvedType = new ReferenceOrPointerTypeSymbol(ResolveType(typeTemplate.Items[0]), ContainerTypeKind.CefRefPtr);
                                     }
                                     throw new NotSupportedException();
                                 }
@@ -151,7 +151,7 @@ namespace BridgeBuilder
                                 {
                                     if (typeTemplate.Items.Count == 1)
                                     {
-                                        return new ReferenceOrPointerTypeSymbol(ResolveType(typeTemplate.Items[0]), ContainerTypeKind.CefRefPtr);
+                                        return typeRef.ResolvedType = new ReferenceOrPointerTypeSymbol(ResolveType(typeTemplate.Items[0]), ContainerTypeKind.CefRefPtr);
                                     }
                                     throw new NotSupportedException();
                                 }
@@ -159,7 +159,7 @@ namespace BridgeBuilder
                                 {
                                     if (typeTemplate.Items.Count == 1)
                                     {
-                                        return new ReferenceOrPointerTypeSymbol(ResolveType(typeTemplate.Items[0]), ContainerTypeKind.ScopePtr);
+                                        return typeRef.ResolvedType = new ReferenceOrPointerTypeSymbol(ResolveType(typeTemplate.Items[0]), ContainerTypeKind.ScopePtr);
                                     }
                                     else
                                     {
@@ -170,7 +170,7 @@ namespace BridgeBuilder
                                 {
                                     if (typeTemplate.Items.Count == 1)
                                     {
-                                        return new VecTypeSymbol(ResolveType(typeTemplate.Items[0]));
+                                        return typeRef.ResolvedType = new VecTypeSymbol(ResolveType(typeTemplate.Items[0]));
                                     }
                                     else
                                     {
@@ -185,13 +185,13 @@ namespace BridgeBuilder
                     {
                         var pointerType = (CodePointerTypeReference)typeRef;
                         TypeSymbol elementType = ResolveType(pointerType.ElementType);
-                        return new ReferenceOrPointerTypeSymbol(elementType, ContainerTypeKind.Pointer);
+                        return typeRef.ResolvedType = new ReferenceOrPointerTypeSymbol(elementType, ContainerTypeKind.Pointer);
                     }
                 case CodeTypeReferenceKind.ByRef:
                     {
                         var byRefType = (CodeByRefTypeReference)typeRef;
                         TypeSymbol elementType = ResolveType(byRefType.ElementType);
-                        return new ReferenceOrPointerTypeSymbol(elementType, ContainerTypeKind.ByRef);
+                        return typeRef.ResolvedType = new ReferenceOrPointerTypeSymbol(elementType, ContainerTypeKind.ByRef);
                     }
                 default:
                     {
@@ -202,7 +202,7 @@ namespace BridgeBuilder
 
         TypeSymbol ResolveType(string typename)
         {
-
+            TypeSymbol foundSymbol = null;
             if (_currentResolvingType != null)
             {
                 //1. 
@@ -250,28 +250,27 @@ namespace BridgeBuilder
                         }
                     }
                 }
-            }
-
-
-            TypeSymbol foundSymbol = null;
-            //-------
-            if (_currentResolvingType.BaseTypes != null)
-            {
-                //check if we need to search in other scopes
-                int baseCount = _currentResolvingType.BaseTypes.Count;
-                //we get only 1 base count
-                if (baseCount > 0)
+                //3 
+                if (_currentResolvingType.BaseTypes != null)
                 {
-                    if ((foundSymbol = SearchFromFirstBase(_currentResolvingType.BaseTypes[0] as CodeTypeTemplateTypeReference, typename)) != null)
+                    //check if we need to search in other scopes
+                    int baseCount = _currentResolvingType.BaseTypes.Count;
+                    //we get only 1 base count
+                    if (baseCount > 0)
                     {
-                        return foundSymbol;
+                        if ((foundSymbol = SearchFromFirstBase(_currentResolvingType.BaseTypes[0] as CodeTypeTemplateTypeReference, typename)) != null)
+                        {
+                            return foundSymbol;
+                        }
                     }
                 }
             }
 
+
+
             //-------
 
-            if (this._typeCollection.typeSymbols.TryGetValue(typename, out foundSymbol))
+            if (this._typeCollection.TryGetType(typename, out foundSymbol))
             {
                 return foundSymbol;
             }
@@ -281,7 +280,7 @@ namespace BridgeBuilder
             {
                 //assume this is base c/cpp type
                 foundSymbol = new SimpleTypeSymbol(typename);
-                this._typeCollection.typeSymbols.Add(
+                this._typeCollection.RegisterType(
                     typename,
                     foundSymbol);
                 return foundSymbol;
@@ -302,6 +301,9 @@ namespace BridgeBuilder
             }
             return true;
         }
+
+
+
 
         TypeSymbol SearchFromFirstBase(CodeTypeTemplateTypeReference firstBase, string typename)
         {
@@ -327,7 +329,7 @@ namespace BridgeBuilder
                                 break;
                             case "CefCppToCScoped":
                             case "CefCppToCRefCounted":
-                                //
+                            //
                             case "CefCToCppRefCounted":
                             case "CefCToCppScoped":
                                 {
@@ -337,7 +339,7 @@ namespace BridgeBuilder
                                     if (typeRef1.Name == typename)
                                     {
                                         TypeSymbol foundSymbol1;
-                                        if (this._typeCollection.typeSymbols.TryGetValue(typename, out foundSymbol1))
+                                        if (this._typeCollection.TryGetType(typename, out foundSymbol1))
                                         {
                                             return foundSymbol1;
                                         }
@@ -413,7 +415,7 @@ namespace BridgeBuilder
         internal List<CodeTypeDeclaration> otherTypes = new List<CodeTypeDeclaration>();
 
         //semantic
-        internal Dictionary<string, TypeSymbol> typeSymbols = new Dictionary<string, TypeSymbol>();
+        Dictionary<string, TypeSymbol> typeSymbols = new Dictionary<string, TypeSymbol>();
 
 
 
@@ -431,10 +433,15 @@ namespace BridgeBuilder
 
         internal Dictionary<TypeSymbol, TypeHierarchyNode> hierarchy;
 
-
+        bool _freeze;
+        internal void Freeze()
+        {
+            _freeze = true;
+        }
 
         void Reset()
         {
+            _freeze = false;
             typeDics.Clear();
             cefBaseTypes.Clear();
             cefImplTypes.Clear();
@@ -492,17 +499,36 @@ namespace BridgeBuilder
                 {
                     default: throw new NotSupportedException();
                     case TypeSymbolKind.Simple:
-                        typeSymbols.Add(((SimpleTypeSymbol)typeSymbol).Name, typeSymbol);
+                        RegisterType(((SimpleTypeSymbol)typeSymbol).Name, typeSymbol);
                         break;
                     case TypeSymbolKind.TypeDef:
-                        typeSymbols.Add(((CTypeDefTypeSymbol)typeSymbol).Name, typeSymbol);
+                        RegisterType(((CTypeDefTypeSymbol)typeSymbol).Name, typeSymbol);
                         break;
                 }
 
             }
             //--------------------------
         }
+        public void RegisterType(string typeName, TypeSymbol tt)
+        {
+            if (_freeze)
+            {
+                if (!(typeName.StartsWith("cef_") && CefResolvingContext.IsAllLowerLetter(typeName)))
+                {
+                    Console.WriteLine(typeName);
+                }
+                else
+                {
+                    //for cef only!
 
+                }
+            }
+            typeSymbols.Add(typeName, tt);
+        }
+        public bool TryGetType(string typeName, out TypeSymbol tt)
+        {
+            return this.typeSymbols.TryGetValue(typeName, out tt);
+        }
         public string RootFolder { get; set; }
         public void SetTypeSystem(List<CodeCompilationUnit> compilationUnits)
         {
@@ -556,12 +582,11 @@ namespace BridgeBuilder
                         //---
 
                         TypeSymbol existing;
-                        if (typeSymbols.TryGetValue(ctypeDef.Name, out existing))
+                        if (TryGetType(ctypeDef.Name, out existing))
                         {
                             throw new NotSupportedException();
                         }
-
-                        typeSymbols.Add(ctypeDef.Name, ctypedefTypeSymbol);
+                        RegisterType(ctypeDef.Name, ctypedefTypeSymbol);
                     }
                 }
 
@@ -572,6 +597,8 @@ namespace BridgeBuilder
                 }
             }
             ResolveBaseTypes();
+            RecheckBaseTypeAgain();
+
             ResolveTypeMembers();
 
             //-----------------------
@@ -659,14 +686,14 @@ namespace BridgeBuilder
                 //
 
                 TypeSymbol existingTypeSymbol;
-                if (typeSymbols.TryGetValue(typeSymbol.Name, out existingTypeSymbol))
+                if (TryGetType(typeSymbol.Name, out existingTypeSymbol))
                 {
                     //have existing value
                     throw new NotSupportedException();
                 }
                 else
                 {
-                    typeSymbols.Add(typeSymbol.Name, typeSymbol);
+                    RegisterType(typeSymbol.Name, typeSymbol);
                 }
                 //
                 //and sub types
@@ -684,9 +711,8 @@ namespace BridgeBuilder
                             ctypedefTypeSymbol.CreatedTypeCTypeDef = ctypeDef;
                             ctypedefTypeSymbol.ParentType = typeSymbol;
 
-                            //---
-                            typeSymbols.Add(typeSymbol.Name + "." + ctypeDef.Name, ctypedefTypeSymbol);
-
+                            //---                             
+                            RegisterType(typeSymbol.Name + "." + ctypeDef.Name, ctypedefTypeSymbol);
                             List<TypeSymbol> nestedTypes = typeSymbol.NestedTypeSymbols;
                             if (nestedTypes == null)
                             {
@@ -726,10 +752,51 @@ namespace BridgeBuilder
                     }
                 }
             }
+        }
+        void RecheckBaseTypeAgain()
+        {
+
+
             //--------
+            //copy all
+            Freeze();
+            //
+            Dictionary<string, TypeSymbol> tempSymbols = new Dictionary<string, TypeSymbol>();
+            int typeCount = typeSymbols.Count;
+            foreach (var kp in typeSymbols)
+            {
+                tempSymbols.Add(kp.Key, kp.Value);
+            }
+
             //Cef- find tune detail of base type
+            foreach (TypeSymbol t in tempSymbols.Values)
+            {
+                switch (t.TypeSymbolKind)
+                {
+                    default:
+                        throw new NotSupportedException();
+                    case TypeSymbolKind.Simple:
+                        {
+                            SimpleTypeSymbol simpleType = (SimpleTypeSymbol)t;
+                            if (simpleType.PrimitiveTypeKind == PrimitiveTypeKind.NotPrimitiveType)
+                            {
 
+                            }
+                        }
+                        break;
+                    case TypeSymbolKind.TypeDef:
+                        {
+                            CTypeDefTypeSymbol typedefSymbol = (CTypeDefTypeSymbol)t;
 
+                            CefResolvingContext ctx = new CefResolvingContext(this, null, ResolvingContextKind.Base);
+                            TypeSymbol orgTypeDecl = ctx.ResolveType(typedefSymbol.OriginalTypeDecl);
+                        }
+                        break;
+
+                }
+            }
+            //swap
+            this.typeSymbols = tempSymbols;
         }
         void ResolveTypeMembers()
         {
@@ -791,7 +858,7 @@ namespace BridgeBuilder
             {
                 //if not found then create the new simple type
                 found = new SimpleTypeSymbol(cToCppTypeReference.Name);
-                typeSymbols.Add(cToCppTypeReference.Name, found);
+                RegisterType(cToCppTypeReference.Name, found);
             }
             return cToCppTypeReference.ResolvedType = found;
         }

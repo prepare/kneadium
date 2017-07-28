@@ -35,14 +35,11 @@ namespace BridgeBuilder
         static int dbugTotalId;
         public TypeSymbol()
         {
-            if (dbugId == 768)
-            {
-
-            }
+       
         }
 #endif
         public abstract TypeSymbolKind TypeSymbolKind { get; }
-         
+        public TypeSymbol BaseType { get; set; }
     }
     class SimpleTypeSymbol : TypeSymbol
     {

@@ -255,27 +255,27 @@ namespace BridgeBuilder
                         SimpleTypeSymbol simpleType = (SimpleTypeSymbol)parTypeSymbol;
                         if (simpleType.PrimitiveTypeKind == PrimitiveTypeKind.NotPrimitiveType)
                         {
-                            if (!CefTypeCollection.typeSymbols.ContainsKey(simpleType.Name))
-                            {
-                                //this may be nested type
-                                if (this.otherSearchScopeTypeSymbol != null)
-                                {
-                                    string searchName = otherSearchScopeTypeSymbol.ToString() + "." + simpleType.Name;
-                                    if (!CefTypeCollection.typeSymbols.ContainsKey(searchName))
-                                    {
-                                        if (!CefTypeCollection.typeDics.ContainsKey(simpleType.Name))
-                                        {
+                            //if (!CefTypeCollection.typeSymbols.ContainsKey(simpleType.Name))
+                            //{
+                            //    //this may be nested type
+                            //    if (this.otherSearchScopeTypeSymbol != null)
+                            //    {
+                            //        string searchName = otherSearchScopeTypeSymbol.ToString() + "." + simpleType.Name;
+                            //        if (!CefTypeCollection.typeSymbols.ContainsKey(searchName))
+                            //        {
+                            //            if (!CefTypeCollection.typeDics.ContainsKey(simpleType.Name))
+                            //            {
 
-                                        }
+                            //            }
 
-                                    }
-                                }
-                                else
-                                {
-                                    //where to find more?
-                                }
+                            //        }
+                            //    }
+                            //    else
+                            //    {
+                            //        //where to find more?
+                            //    }
 
-                            }
+                            //}
 
                         }
                     }
