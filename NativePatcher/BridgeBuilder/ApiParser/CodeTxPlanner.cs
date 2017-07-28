@@ -187,7 +187,7 @@ namespace BridgeBuilder
             }
             return typeTxInfo;
         }
-       
+
         MethodTxInfo MakeMethodPlan(CodeMethodDeclaration metDecl)
         {
             MethodTxInfo metTx = new MethodTxInfo(metDecl);
@@ -198,7 +198,7 @@ namespace BridgeBuilder
             retTxInfo.Direction = TxParameterDirection.Return;
 
             AddMethodParameterTypeTxInfo(retTxInfo, metDecl.ReturnType.ResolvedType);
-            AddParameterWrappingInfo(retTxInfo, metDecl.ReturnType.ResolvedType);
+
 
             metTx.ReturnPlan = retTxInfo;
 
@@ -213,21 +213,30 @@ namespace BridgeBuilder
 
                 TypeSymbol parTypeSymbol = metPar.ParameterType.ResolvedType;
                 AddMethodParameterTypeTxInfo(parTxInfo, parTypeSymbol);
-                //check wrapping c-to-cpp / cpp-to-c
-                AddParameterWrappingInfo(parTxInfo, parTypeSymbol);
 
                 metTx.AddMethodParameterTx(parTxInfo);
 
             }
             return metTx;
         }
-        void AddParameterWrappingInfo(MethodParameterTxInfo parTxInfo, TypeSymbol parTypeSymbol)
-        {
 
-        }
         void AddMethodParameterTypeTxInfo(MethodParameterTxInfo parPlan, TypeSymbol resolvedParType)
         {
+            TypeBridgeInfo bridgeInfo = resolvedParType.BridgeInfo;
+            if (bridgeInfo == null)
+            {
+                switch (resolvedParType.TypeSymbolKind)
+                {
+                    default:
+                        break;
+                    case TypeSymbolKind.ReferenceOrPointer:
+                        {
 
+
+                        }
+                        break;
+                }
+            }
         }
     }
 

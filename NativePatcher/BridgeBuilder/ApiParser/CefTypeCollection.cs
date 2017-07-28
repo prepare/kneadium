@@ -530,6 +530,7 @@ namespace BridgeBuilder
             return this.typeSymbols.TryGetValue(typeName, out tt);
         }
         public string RootFolder { get; set; }
+        public CefTypeBridgeTransformPlanner Planner { get; set; }
         public void SetTypeSystem(List<CodeCompilationUnit> compilationUnits)
         {
 
@@ -603,7 +604,8 @@ namespace BridgeBuilder
             //
             var cefTypeBridgeTxPlanner = new CefTypeBridgeTransformPlanner();
             cefTypeBridgeTxPlanner.AssignTypeBrigeInfo(this.typeSymbols);
-            
+            //
+            this.Planner = cefTypeBridgeTxPlanner;
             //-----------------------
             ResolveTypeMembers();
 
