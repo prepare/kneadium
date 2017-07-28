@@ -3,11 +3,12 @@ using System;
 using System.Collections.Generic;
 namespace BridgeBuilder
 {
-    struct ResolvingContext
+
+    struct CefResolvingContext
     {
         public readonly CefTypeCollection _typeCollection;
         public readonly CodeTypeDeclaration _currentResolvingType;
-        public ResolvingContext(CefTypeCollection typeCollection, CodeTypeDeclaration currentResolvingType)
+        public CefResolvingContext(CefTypeCollection typeCollection, CodeTypeDeclaration currentResolvingType)
         {
             this._typeCollection = typeCollection;
             this._currentResolvingType = currentResolvingType;
@@ -187,9 +188,10 @@ namespace BridgeBuilder
             }
         }
 
-        public TypeSymbol ResolveType(string typename)
+        TypeSymbol ResolveType(string typename)
         {
-            //-------
+
+
             if (_currentResolvingType != null)
             {
                 //1. 
@@ -383,7 +385,7 @@ namespace BridgeBuilder
                 }
             }
             return true;
-        } 
+        }
     }
 
     class CefTypeCollection
@@ -705,7 +707,7 @@ namespace BridgeBuilder
                 {
                     foreach (CodeTypeReference baseType in baseTypes)
                     {
-                        ResolvingContext resolvingContext = new ResolvingContext(this, typedecl);
+                        CefResolvingContext resolvingContext = new CefResolvingContext(this, typedecl);
                         baseType.ResolvedType = resolvingContext.ResolveType(baseType);
                     }
                 }
@@ -732,7 +734,7 @@ namespace BridgeBuilder
                             {
                                 foreach (CodeMethodParameter p in metDecl.Parameters)
                                 {
-                                    ResolvingContext resolvingContext = new ResolvingContext(this, typedecl);
+                                    CefResolvingContext resolvingContext = new CefResolvingContext(this, typedecl);
                                     //
                                     p.ParameterType.ResolvedType = resolvingContext.ResolveType(p.ParameterType);
                                 }
@@ -742,7 +744,7 @@ namespace BridgeBuilder
                             {
                                 //resolve return type and type parameter 
                                 {
-                                    ResolvingContext resolvingContext = new ResolvingContext(this, typedecl);
+                                    CefResolvingContext resolvingContext = new CefResolvingContext(this, typedecl);
                                     //
                                     metDecl.ReturnType.ResolvedType = resolvingContext.ResolveType(metDecl.ReturnType);
                                 }
@@ -750,7 +752,7 @@ namespace BridgeBuilder
 
                                 foreach (CodeMethodParameter p in metDecl.Parameters)
                                 {
-                                    ResolvingContext resolvingContext = new ResolvingContext(this, typedecl);
+                                    CefResolvingContext resolvingContext = new CefResolvingContext(this, typedecl);
                                     //
                                     p.ParameterType.ResolvedType = resolvingContext.ResolveType(p.ParameterType);
                                 }
@@ -766,7 +768,7 @@ namespace BridgeBuilder
         {
 
 #if DEBUG
-            if (!ResolvingContext.IsAllLowerLetter(cToCppTypeReference.Name))
+            if (!CefResolvingContext.IsAllLowerLetter(cToCppTypeReference.Name))
             {
                 //cef-name convention
                 throw new NotSupportedException();
