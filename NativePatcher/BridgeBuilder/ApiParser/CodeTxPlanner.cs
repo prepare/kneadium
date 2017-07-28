@@ -7,50 +7,50 @@ using System.Text;
 namespace BridgeBuilder
 {
     //about: code transformation 
-    abstract class DotNetResolvedTypeBase
-    {
-        public bool IsPrimitiveType { get; set; }
-    }
-    class DotNetResolvedSimpleType : DotNetResolvedTypeBase
-    {
-        public DotNetResolvedSimpleType(SimpleTypeSymbol simpleType)
-        {
-            this.SimpleType = simpleType;
-            this.Name = simpleType.Name;
-            this.IsPrimitiveType = simpleType.PrimitiveTypeKind != PrimitiveTypeKind.NotPrimitiveType;
-        }
-        public string Name { get; set; }
-        public SimpleTypeSymbol SimpleType { get; set; }
-        public override string ToString()
-        {
-            return this.Name;
-        }
-    }
-    class DotNetResolvedArrayType : DotNetResolvedTypeBase
-    {
-        public DotNetResolvedArrayType(DotNetResolvedTypeBase elementType)
-        {
-            ElementType = elementType;
-        }
-        public DotNetResolvedTypeBase ElementType { get; set; }
-        public override string ToString()
-        {
-            return ElementType + "[]";
-        }
-    }
-    class DotNetList : DotNetResolvedTypeBase
-    {
-        public DotNetList(DotNetResolvedTypeBase elementType)
-        {
-            ElementType = elementType;
-        }
-        public DotNetResolvedTypeBase ElementType { get; set; }
-        public override string ToString()
-        {
-            return "list<" + ElementType + ">";
-        }
+    //abstract class DotNetResolvedTypeBase
+    //{
+    //    public bool IsPrimitiveType { get; set; }
+    //}
+    //class DotNetResolvedSimpleType : DotNetResolvedTypeBase
+    //{
+    //    public DotNetResolvedSimpleType(SimpleTypeSymbol simpleType)
+    //    {
+    //        this.SimpleType = simpleType;
+    //        this.Name = simpleType.Name;
+    //        this.IsPrimitiveType = simpleType.PrimitiveTypeKind != PrimitiveTypeKind.NotPrimitiveType;
+    //    }
+    //    public string Name { get; set; }
+    //    public SimpleTypeSymbol SimpleType { get; set; }
+    //    public override string ToString()
+    //    {
+    //        return this.Name;
+    //    }
+    //}
+    //class DotNetResolvedArrayType : DotNetResolvedTypeBase
+    //{
+    //    public DotNetResolvedArrayType(DotNetResolvedTypeBase elementType)
+    //    {
+    //        ElementType = elementType;
+    //    }
+    //    public DotNetResolvedTypeBase ElementType { get; set; }
+    //    public override string ToString()
+    //    {
+    //        return ElementType + "[]";
+    //    }
+    //}
+    //class DotNetList : DotNetResolvedTypeBase
+    //{
+    //    public DotNetList(DotNetResolvedTypeBase elementType)
+    //    {
+    //        ElementType = elementType;
+    //    }
+    //    public DotNetResolvedTypeBase ElementType { get; set; }
+    //    public override string ToString()
+    //    {
+    //        return "list<" + ElementType + ">";
+    //    }
 
-    }
+    //}
 
     class TypeTxInfo
     {
@@ -108,11 +108,13 @@ namespace BridgeBuilder
 
     class MethodParameterTxInfo
     {
-        DotNetResolvedTypeBase dnResolvedType;
-        public MethodParameterTxInfo(string name)
+
+        public MethodParameterTxInfo(string name, TypeSymbol typeSymbol)
         {
             this.Name = name;
+            this.TypeSymbol = typeSymbol;
         }
+        public TypeSymbol TypeSymbol { get; set; }
         public bool IsMethodReturnParameter { get; set; }
         public string Name { get; set; }
         public bool IsVoid
@@ -120,28 +122,9 @@ namespace BridgeBuilder
             get;
             private set;
         }
-        public DotNetResolvedTypeBase DotnetResolvedType
-        {
-            get { return dnResolvedType; }
-            set
-            {
-                dnResolvedType = value;
-                DotNetResolvedSimpleType asSimpleType = value as DotNetResolvedSimpleType;
-                if (asSimpleType != null)
-                {
-                    IsVoid = asSimpleType.SimpleType.PrimitiveTypeKind == PrimitiveTypeKind.Void;
-                }
-                else
-                {
-                    IsVoid = false;
-                }
-            }
-
-        }
-
         public override string ToString()
         {
-            return DotnetResolvedType.ToString();
+            return "";
         }
         public TxParameterDirection Direction { get; set; }
     }
@@ -194,7 +177,7 @@ namespace BridgeBuilder
             //make return type plan
 
             //1. return
-            MethodParameterTxInfo retTxInfo = new MethodParameterTxInfo(null) { IsMethodReturnParameter = true };
+            MethodParameterTxInfo retTxInfo = new MethodParameterTxInfo(null, metDecl.ReturnType.ResolvedType) { IsMethodReturnParameter = true };
             retTxInfo.Direction = TxParameterDirection.Return;
 
             AddMethodParameterTypeTxInfo(retTxInfo, metDecl.ReturnType.ResolvedType);
@@ -205,7 +188,7 @@ namespace BridgeBuilder
             for (int i = 0; i < j; ++i)
             {
                 CodeMethodParameter metPar = metDecl.Parameters[i];
-                MethodParameterTxInfo parTxInfo = new MethodParameterTxInfo(metPar.ParameterName);
+                MethodParameterTxInfo parTxInfo = new MethodParameterTxInfo(metPar.ParameterName, metPar.ParameterType.ResolvedType);
                 parTxInfo.Direction = TxParameterDirection.In;
                 //TODO: review Out,InOut direction 
 
@@ -386,7 +369,7 @@ namespace BridgeBuilder
             if (_pointerBridge == null)
             {
                 //create new one  
-                _pointerBridge = new TypeBridgeInfo(refOrPointerTypeSymbol, CefTypeKind.JSVALUE_TYPE_WRAPPED); 
+                _pointerBridge = new TypeBridgeInfo(refOrPointerTypeSymbol, CefTypeKind.JSVALUE_TYPE_WRAPPED);
             }
             return _pointerBridge;
         }

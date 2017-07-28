@@ -8,7 +8,7 @@ namespace BridgeBuilder
     class ApiBuilderCsPart
     {
         CefTypeCollection cefTypeCollection = new CefTypeCollection();
-          
+
         public void GenerateCsType(TypeTxInfo typeTxInfo, StringBuilder stbuilder)
         {
 
@@ -31,7 +31,7 @@ namespace BridgeBuilder
 
             stbuilder.Append("}");
         }
-      
+
 
         string GetTypeName(MethodParameterTxInfo methodParInfo)
         {
@@ -95,9 +95,8 @@ namespace BridgeBuilder
             {
                 string assignTo = "a" + (i + 1);
 
-
                 MethodParameterTxInfo par = metTx.pars[i];
-                string parResolvedType = par.DotnetResolvedType.ToString();
+                string parResolvedType = par.TypeSymbol.ToString();
                 switch (parResolvedType)
                 {
                     default:
@@ -129,11 +128,8 @@ namespace BridgeBuilder
                                 assignTo + "," + par.Name + ");");
                         }
                         break;
-                }
-
-            }
-
-
+                } 
+            } 
             //assign parameter value
             stbuilder.Append("Cef3Binder.MyCefFrameCall2(");
             stbuilder.Append("this.nativePtr,\r\n" +
@@ -144,47 +140,47 @@ namespace BridgeBuilder
             if (!retType.IsVoid)
             {
                 //if not void
-                DotNetResolvedSimpleType simpleType = retType.DotnetResolvedType as DotNetResolvedSimpleType;
-                if (simpleType != null)
-                {
-                    //this is simple type
-                    string retName = simpleType.SimpleType.Name;
-                    switch (retName)
-                    {
-                        default:
-                            {
-                                if (retName.StartsWith("Cef"))
-                                {
-                                    stbuilder.AppendLine("return new " + retName + "(ret.Ptr);");
-                                }
-                                else
-                                {
+                //DotNetResolvedSimpleType simpleType = retType.DotnetResolvedType as DotNetResolvedSimpleType;
+                //if (simpleType != null)
+                //{
+                //    //this is simple type
+                //    string retName = simpleType.SimpleType.Name;
+                //    switch (retName)
+                //    {
+                //        default:
+                //            {
+                //                if (retName.StartsWith("Cef"))
+                //                {
+                //                    stbuilder.AppendLine("return new " + retName + "(ret.Ptr);");
+                //                }
+                //                else
+                //                {
 
-                                }
-                            }
-                            break;
-                        case "int64":
-                            {
-                                stbuilder.AppendLine("return ret.I64;");
-                            }
-                            break;
-                        case "CefString":
-                            {
-                                //return cef string
-                                stbuilder.AppendLine("return Cef3Binder.MyCefJsReadString(ref ret);");
-                            }
-                            break;
-                        case "bool":
-                            {
-                                stbuilder.AppendLine("return ret.I32 !=0;");
-                            }
-                            break;
-                    }
-                }
-                else
-                {
-                    throw new NotSupportedException();
-                }
+                //                }
+                //            }
+                //            break;
+                //        case "int64":
+                //            {
+                //                stbuilder.AppendLine("return ret.I64;");
+                //            }
+                //            break;
+                //        case "CefString":
+                //            {
+                //                //return cef string
+                //                stbuilder.AppendLine("return Cef3Binder.MyCefJsReadString(ref ret);");
+                //            }
+                //            break;
+                //        case "bool":
+                //            {
+                //                stbuilder.AppendLine("return ret.I32 !=0;");
+                //            }
+                //            break;
+                //    }
+                //}
+                //else
+                //{
+                //    throw new NotSupportedException();
+                //}
 
             }
             stbuilder.Append("}\r\n");
@@ -245,62 +241,65 @@ namespace BridgeBuilder
                 {
                     arglistBuilder.Append(',');
                 }
-
                 MethodParameterTxInfo par = pars[i];
+                arglistBuilder.Append("v" + (i + 1));
+                arglistBuilder.Append("->");
+                
 
-                if (par.DotnetResolvedType is DotNetResolvedSimpleType)
-                {
-                    DotNetResolvedSimpleType simpleType = (DotNetResolvedSimpleType)par.DotnetResolvedType;
-                    if (simpleType.IsPrimitiveType)
-                    {
-                        arglistBuilder.Append("v" + (i + 1));
-                        switch (simpleType.Name)
-                        {
-                            case "bool":
-                                arglistBuilder.AppendLine("->i32");
-                                break;
-                            case "int":
-                                arglistBuilder.AppendLine("->i32");
-                                break;
-                            case "int64":
-                                arglistBuilder.AppendLine("->i64");
-                                break;
-                            default:
-                                throw new NotSupportedException();
-                        }
-                    }
-                    else
-                    {
-                        if (simpleType.Name == "CefString")
-                        {
-                            //get data inside MyCefStringHolder*
-                            arglistBuilder.Append("((MyCefStringHolder*)");
-                            arglistBuilder.Append("v" + (i + 1) + "->ptr");
-                            arglistBuilder.AppendLine(")->value");
-                        }
-                        else
-                        {
-                            //eg. cefFrame1->GetSource(CefStringVisitorCppToC::Unwrap((cef_string_visitor_t*)v1->ptr));
 
-                            arglistBuilder.Append(simpleType.Name + "CppToC::Unwrap((cef_string_visitor_t*)");
-                            arglistBuilder.Append("v" + (i + 1));
-                            arglistBuilder.AppendLine("->ptr)");
-                        }
+                //if (par.DotnetResolvedType is DotNetResolvedSimpleType)
+                //{
+                //    DotNetResolvedSimpleType simpleType = (DotNetResolvedSimpleType)par.DotnetResolvedType;
+                //    if (simpleType.IsPrimitiveType)
+                //    {
+                //        arglistBuilder.Append("v" + (i + 1));
+                //        switch (simpleType.Name)
+                //        {
+                //            case "bool":
+                //                arglistBuilder.AppendLine("->i32");
+                //                break;
+                //            case "int":
+                //                arglistBuilder.AppendLine("->i32");
+                //                break;
+                //            case "int64":
+                //                arglistBuilder.AppendLine("->i64");
+                //                break;
+                //            default:
+                //                throw new NotSupportedException();
+                //        }
+                //    }
+                //    else
+                //    {
+                //        if (simpleType.Name == "CefString")
+                //        {
+                //            //get data inside MyCefStringHolder*
+                //            arglistBuilder.Append("((MyCefStringHolder*)");
+                //            arglistBuilder.Append("v" + (i + 1) + "->ptr");
+                //            arglistBuilder.AppendLine(")->value");
+                //        }
+                //        else
+                //        {
+                //            //eg. cefFrame1->GetSource(CefStringVisitorCppToC::Unwrap((cef_string_visitor_t*)v1->ptr));
 
-                    }
-                }
-                else if (par.DotnetResolvedType is DotNetList)
-                {
-                    //std::vector
-                    DotNetList simpleType = (DotNetList)par.DotnetResolvedType;
-                    arglistBuilder.Append("(std::vector<" + ((DotNetResolvedSimpleType)simpleType.ElementType).Name + ">)");
-                    arglistBuilder.Append("v" + (i + 1));
-                    arglistBuilder.AppendLine("->ptr");
-                }
-                else
-                {
+                //            arglistBuilder.Append(simpleType.Name + "CppToC::Unwrap((cef_string_visitor_t*)");
+                //            arglistBuilder.Append("v" + (i + 1));
+                //            arglistBuilder.AppendLine("->ptr)");
+                //        }
 
-                }
+                //    }
+                //}
+                //else if (par.DotnetResolvedType is DotNetList)
+                //{
+                //    //std::vector
+                //    DotNetList simpleType = (DotNetList)par.DotnetResolvedType;
+                //    arglistBuilder.Append("(std::vector<" + ((DotNetResolvedSimpleType)simpleType.ElementType).Name + ">)");
+                //    arglistBuilder.Append("v" + (i + 1));
+                //    arglistBuilder.AppendLine("->ptr");
+                //}
+                //else
+                //{
+
+                //}
 
             }
 
@@ -317,73 +316,73 @@ namespace BridgeBuilder
             else
             {
                 //has some ret type
-                DotNetResolvedTypeBase retType = ret.DotnetResolvedType;
-                if (retType is DotNetResolvedSimpleType)
-                {
-                    DotNetResolvedSimpleType simpleType = (DotNetResolvedSimpleType)retType;
-                    if (simpleType.IsPrimitiveType)
-                    {
-                        //---------------------------------
-                        //native object
-                        stbuilder.Append("auto ret_result=");
-                        stbuilder.Append("bw->" + met.Name + "(");
-                        stbuilder.Append(arglistBuilder.ToString());
-                        stbuilder.Append(");\r\n");
-                        //---------------------------------
+                //DotNetResolvedTypeBase retType = ret.DotnetResolvedType;
+                //if (retType is DotNetResolvedSimpleType)
+                //{
+                //    DotNetResolvedSimpleType simpleType = (DotNetResolvedSimpleType)retType;
+                //    if (simpleType.IsPrimitiveType)
+                //    {
+                //        //---------------------------------
+                //        //native object
+                //        stbuilder.Append("auto ret_result=");
+                //        stbuilder.Append("bw->" + met.Name + "(");
+                //        stbuilder.Append(arglistBuilder.ToString());
+                //        stbuilder.Append(");\r\n");
+                //        //---------------------------------
 
-                        switch (simpleType.Name)
-                        {
-                            case "bool":
-                                stbuilder.AppendLine("ret->type = JSVALUE_TYPE_BOOLEAN;");
-                                stbuilder.AppendLine("ret->i32 = ret_result?1:0;");
-                                break;
-                            case "int64":
-                            case "int":
-                                stbuilder.AppendLine("ret->type = JSVALUE_TYPE_INTEGER64;");
-                                stbuilder.AppendLine("ret->i64 = ret_result;");
-                                break;
+                //        switch (simpleType.Name)
+                //        {
+                //            case "bool":
+                //                stbuilder.AppendLine("ret->type = JSVALUE_TYPE_BOOLEAN;");
+                //                stbuilder.AppendLine("ret->i32 = ret_result?1:0;");
+                //                break;
+                //            case "int64":
+                //            case "int":
+                //                stbuilder.AppendLine("ret->type = JSVALUE_TYPE_INTEGER64;");
+                //                stbuilder.AppendLine("ret->i64 = ret_result;");
+                //                break;
 
-                            default:
-                                throw new NotSupportedException();
-                        }
-                    }
-                    else
-                    {
-                        //---------------------------------
-                        //native object
-                        stbuilder.Append("auto ret_result=");
-                        stbuilder.Append("bw->" + met.Name + "(");
-                        stbuilder.Append(arglistBuilder.ToString());
-                        stbuilder.Append(");\r\n");
-                        //---------------------------------
+                //            default:
+                //                throw new NotSupportedException();
+                //        }
+                //    }
+                //    else
+                //    {
+                //        //---------------------------------
+                //        //native object
+                //        stbuilder.Append("auto ret_result=");
+                //        stbuilder.Append("bw->" + met.Name + "(");
+                //        stbuilder.Append(arglistBuilder.ToString());
+                //        stbuilder.Append(");\r\n");
+                //        //---------------------------------
 
-                        if (simpleType.Name == "CefString")
-                        {
-                            //create string holder
-                            stbuilder.AppendLine("MyCefStringHolder* str = new MyCefStringHolder();");
-                            stbuilder.AppendLine("str->value=ret_result;");
-                            //
-                            stbuilder.AppendLine("ret->i32=ret_result.length();");
-                            stbuilder.AppendLine("ret->ptr=str;");
-                            stbuilder.AppendLine("ret->type=JSVALUE_TYPE_NATIVE_CEFHOLDER_STRING;");
+                //        if (simpleType.Name == "CefString")
+                //        {
+                //            //create string holder
+                //            stbuilder.AppendLine("MyCefStringHolder* str = new MyCefStringHolder();");
+                //            stbuilder.AppendLine("str->value=ret_result;");
+                //            //
+                //            stbuilder.AppendLine("ret->i32=ret_result.length();");
+                //            stbuilder.AppendLine("ret->ptr=str;");
+                //            stbuilder.AppendLine("ret->type=JSVALUE_TYPE_NATIVE_CEFHOLDER_STRING;");
 
-                        }
-                        else
-                        {
-                            //native object
-                            //select and unwrapp or wrap the result
+                //        }
+                //        else
+                //        {
+                //            //native object
+                //            //select and unwrapp or wrap the result
 
-                            //
-                            stbuilder.AppendLine("ret->type = JSVALUE_TYPE_WRAPPED;");
-                            stbuilder.AppendLine("ret->ptr =" + simpleType + "CToCpp::Unwrap(ret_result);");
-                        }
-                    }
-                    stbuilder.AppendLine("CefFrameCToCpp::Unwrap(" + "bw" + ");");
-                }
-                else
-                {
+                //            //
+                //            stbuilder.AppendLine("ret->type = JSVALUE_TYPE_WRAPPED;");
+                //            stbuilder.AppendLine("ret->ptr =" + simpleType + "CToCpp::Unwrap(ret_result);");
+                //        }
+                //    }
+                //    stbuilder.AppendLine("CefFrameCToCpp::Unwrap(" + "bw" + ");");
+                //}
+                //else
+                //{
 
-                }
+                //}
             }
         }
 
