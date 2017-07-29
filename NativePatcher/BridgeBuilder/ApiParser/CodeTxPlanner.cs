@@ -287,6 +287,7 @@ namespace BridgeBuilder
         Unknown,
         RefOf,
         RefPtrOf,
+        //
         ScopedPtrOf,
         PtrOf,
         //
@@ -301,6 +302,7 @@ namespace BridgeBuilder
         //
         RefOfCString,
         RefOfVec,
+        RefOfPrimitive,
 
         //
         MultiMap,
@@ -330,6 +332,7 @@ namespace BridgeBuilder
         //
         CefAbstract,
         OtherCppClass,
+        TypeDefToAnother,
     }
 
     class TypeBridgeInfo
@@ -346,6 +349,7 @@ namespace BridgeBuilder
         TypeSymbol typeSymbol;
         TypeBridgeInfo elementTypeBridge;
         TypeBridgeInfo _bridgeToBase;
+        TypeBridgeInfo _referToTypeBridge;
 #if DEBUG
         static int dbugTotalId;
         public readonly int dbugId = dbugTotalId++;
@@ -403,6 +407,13 @@ namespace BridgeBuilder
             SetCefTypeKind(cefTypeKind);
         }
 
+        public TypeBridgeInfo(CTypeDefTypeSymbol t, WellKnownTypeName wellknownTypeName, CefTypeKind cefTypeKind, TypeBridgeInfo referToTypeBridge)
+        {
+            this.typeSymbol = t;
+            this._referToTypeBridge = referToTypeBridge;
+            this.wellknownTypeName = wellknownTypeName;
+            SetCefTypeKind(cefTypeKind);
+        }
         private TypeBridgeInfo(TypeBridgeInfo elementTypeBridge, WellKnownTypeName wellknownTypeName, CefTypeKind cefTypeKind)
         {
             this.elementTypeBridge = elementTypeBridge;
@@ -494,6 +505,10 @@ namespace BridgeBuilder
 
                 switch (this.wellknownTypeName)
                 {
+                    default:
+                        {
+                            return _referenceBridge = new TypeBridgeInfo(this, WellKnownTypeName.RefOf, CefTypeKind.JSVALUE_TYPE_WRAPPED);
+                        }
                     case WellKnownTypeName.CefString:
                         {
                             //CefString&
@@ -506,7 +521,7 @@ namespace BridgeBuilder
                     case WellKnownTypeName.CefStructBase:
                         {
                             return _referenceBridge = new TypeBridgeInfo(this, WellKnownTypeName.RefOf, CefTypeKind.JSVALUE_TYPE_WRAPPED);
-                        } 
+                        }
                     case WellKnownTypeName.CefCpp:
                         {
                             return _referenceBridge = new TypeBridgeInfo(this, WellKnownTypeName.RefOf, CefTypeKind.JSVALUE_TYPE_WRAPPED);
@@ -516,7 +531,18 @@ namespace BridgeBuilder
                         {
                             return _referenceBridge = new TypeBridgeInfo(this, WellKnownTypeName.RefOf, CefTypeKind.JSVALUE_TYPE_WRAPPED);
                         }
-                    default:
+                    case WellKnownTypeName.TypeDefToAnother:
+                        {
+                            return _referenceBridge = new TypeBridgeInfo(this, WellKnownTypeName.RefOf, CefTypeKind.JSVALUE_TYPE_WRAPPED);
+                        }
+                    case WellKnownTypeName.Float:
+                    case WellKnownTypeName.Double:
+                    case WellKnownTypeName.NativeInt:
+                    case WellKnownTypeName.Bool:
+                        {
+                            return _referenceBridge = new TypeBridgeInfo(this, WellKnownTypeName.RefOfPrimitive, CefTypeKind.JSVALUE_TYPE_WRAPPED);
+                        }
+                    case WellKnownTypeName.CefCNative:
                         {
                             return _referenceBridge = new TypeBridgeInfo(this, WellKnownTypeName.RefOf, CefTypeKind.JSVALUE_TYPE_WRAPPED);
                         }
@@ -769,8 +795,10 @@ namespace BridgeBuilder
                 case TypeSymbolKind.TypeDef:
                     {
                         CTypeDefTypeSymbol typedefSymbol = (CTypeDefTypeSymbol)t;
-                        TypeBridgeInfo typeBridge = SelectProperTypeBridge(typedefSymbol.ReferToTypeSymbol);
+                        TypeBridgeInfo referToTypeBridge = AssignTypeBridgeInfo(typedefSymbol.ReferToTypeSymbol);
+                        var typeBridge = new TypeBridgeInfo(typedefSymbol, WellKnownTypeName.TypeDefToAnother, CefTypeKind.JSVALUE_TYPE_WRAPPED, referToTypeBridge);
                         return typeBridge;
+
                     }
             }
         }
@@ -867,12 +895,16 @@ namespace BridgeBuilder
                 AssignTypeBridgeInfo(t);
             }
         }
-        public void AssignTypeBridgeInfo(TypeSymbol t)
+        public TypeBridgeInfo AssignTypeBridgeInfo(TypeSymbol t)
         {
             if ((t is SimpleTypeSymbol) &&
                    ((SimpleTypeSymbol)t).IsGlobalCompilationUnitTypeDefinition)
             {
-                return;
+                return null;
+            }
+            if (t.BridgeInfo != null)
+            {
+                return t.BridgeInfo;
             }
             //
             TypeBridgeInfo bridgeInfo = SelectProperTypeBridge(t);
@@ -881,6 +913,7 @@ namespace BridgeBuilder
 
             }
             t.BridgeInfo = bridgeInfo;
+            return bridgeInfo;
         }
 
 

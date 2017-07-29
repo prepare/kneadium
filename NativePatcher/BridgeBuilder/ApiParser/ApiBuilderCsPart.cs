@@ -34,6 +34,21 @@ namespace BridgeBuilder
             TypeBridgeInfo retTypeBridge = retTypeSymbol.BridgeInfo;
             switch (retTypeBridge.WellKnownTypeName)
             {
+                default:
+
+                    break;
+                case WellKnownTypeName.UInt64:
+                    stbuilder.Append("ulong");
+                    break;
+                case WellKnownTypeName.Int32:
+                    stbuilder.Append("int");
+                    break;
+                case WellKnownTypeName.UInt32:
+                    stbuilder.Append("uint");
+                    break;
+                case WellKnownTypeName.Int64:
+                    stbuilder.Append("long");
+                    break;
                 case WellKnownTypeName.Void:
                     stbuilder.Append("void");
                     break;
@@ -60,11 +75,31 @@ namespace BridgeBuilder
                 case WellKnownTypeName.CefString:
                     stbuilder.Append("string");
                     break;
-                default:
-
-
-
+                case WellKnownTypeName.TypeDefToAnother:
+                    {
+                        CTypeDefTypeSymbol ctypedefSymbol = (CTypeDefTypeSymbol)retTypeSymbol;
+                        TypeSymbol referToType = ctypedefSymbol.ReferToTypeSymbol;
+                        TypeBridgeInfo referToTypeBridge = referToType.BridgeInfo;
+                        switch (referToTypeBridge.WellKnownTypeName)
+                        {
+                            case WellKnownTypeName.CefCNative:
+                                {
+                                    string typename = retTypeSymbol.ToString();
+                                    stbuilder.Append(typename);
+                                }
+                                break;
+                            default:
+                                break;
+                        }
+                    }
                     break;
+                case WellKnownTypeName.CefCpp:
+                    {
+                        string typename = retTypeSymbol.ToString();
+                        stbuilder.Append(typename);
+                    }
+                    break;
+
             }
         }
         void WriteMethodParameterType(StringBuilder stbuilder, TypeSymbol retTypeSymbol)
@@ -72,11 +107,25 @@ namespace BridgeBuilder
             TypeBridgeInfo retTypeBridge = retTypeSymbol.BridgeInfo;
             switch (retTypeBridge.WellKnownTypeName)
             {
+                default:
+
+                    break;
+                case WellKnownTypeName.RefOfPrimitive:
+                    {
+                        //what is that primitive
+                        ReferenceOrPointerTypeSymbol refOrPointer = (ReferenceOrPointerTypeSymbol)retTypeSymbol;
+                        stbuilder.Append("ref ");
+                        WriteMethodParameterType(stbuilder, refOrPointer.ElementType);
+                    }
+                    break;
                 case WellKnownTypeName.Void:
                     stbuilder.Append("void");
                     break;
                 case WellKnownTypeName.Bool:
                     stbuilder.Append("bool");
+                    break;
+                case WellKnownTypeName.Float:
+                    stbuilder.Append("float");
                     break;
                 case WellKnownTypeName.Double:
                     stbuilder.Append("double");
@@ -88,7 +137,6 @@ namespace BridgeBuilder
                     stbuilder.Append("uint");
                     break;
                 case WellKnownTypeName.RefPtrOf:
-                    //of what 
                     {
                         string name = ((ReferenceOrPointerTypeSymbol)retTypeSymbol).ElementType.ToString();
                         switch (name)
@@ -99,6 +147,9 @@ namespace BridgeBuilder
                                 if (name.EndsWith("Callback"))
                                 {
 
+                                }
+                                else if (name.StartsWith("Cef"))
+                                {
                                 }
                                 else
                                 {
@@ -153,7 +204,6 @@ namespace BridgeBuilder
                                 break;
                             default:
                                 break;
-
                         }
                     }
                     break;
@@ -171,10 +221,25 @@ namespace BridgeBuilder
 
                     }
                     break;
-                default:
+                case WellKnownTypeName.TypeDefToAnother:
+                    {
+                        CTypeDefTypeSymbol ctypedefSymbol = (CTypeDefTypeSymbol)retTypeSymbol;
+                        TypeSymbol referToType = ctypedefSymbol.ReferToTypeSymbol;
+                        TypeBridgeInfo referToTypeBridge = referToType.BridgeInfo;
+                        switch (referToTypeBridge.WellKnownTypeName)
+                        {
+                            case WellKnownTypeName.CefCNative:
+                                {
+                                    string typename = retTypeSymbol.ToString();
+                                    stbuilder.Append(typename);
+                                }
+                                break;
+                            default:
+                                break;
+                        }
 
 
-
+                    }
                     break;
             }
         }
@@ -219,7 +284,7 @@ namespace BridgeBuilder
 
 
         }
-        public void GenCsMethod(MethodTxInfo metTx, StringBuilder codeDeclTypeBuilder)
+        void GenCsMethod(MethodTxInfo metTx, StringBuilder codeDeclTypeBuilder)
         {
             StringBuilder stbuilder = new StringBuilder();
             stbuilder.Append("public ");
