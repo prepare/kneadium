@@ -345,7 +345,10 @@ namespace BridgeBuilder
         TypeSymbol typeSymbol;
         TypeBridgeInfo elementTypeBridge;
         TypeBridgeInfo _bridgeToBase;
-
+#if DEBUG
+        static int dbugTotalId;
+        public readonly int dbugId = dbugTotalId++;
+#endif
 
         public TypeBridgeInfo(SimpleTypeSymbol t, WellKnownTypeName wellKnownCefName, CefTypeKind cefTypeKind)
         {
@@ -385,6 +388,10 @@ namespace BridgeBuilder
         //
         void SetCefTypeKind(CefTypeKind cefTypeKind)
         {
+
+#if DEBUG
+
+#endif
             this.cefTypeKind = cefTypeKind;
             switch (cefTypeKind)
             {
