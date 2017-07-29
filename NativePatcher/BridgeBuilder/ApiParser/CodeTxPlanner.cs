@@ -300,7 +300,7 @@ namespace BridgeBuilder
         OtherString,
         //
         RefOfCString,
-
+        RefOfVec,
 
         //
         MultiMap,
@@ -322,6 +322,7 @@ namespace BridgeBuilder
         Float,
 
         size_t,
+        NativeInt,
         //
         CefCNative,
         CefCpp,
@@ -463,15 +464,15 @@ namespace BridgeBuilder
         {
             if (typeSymbol != null)
             {
-                return "bridge : " + this.WellKnownTypeName + typeSymbol.ToString();
+                return "bridge : " + this.WellKnownTypeName + " " + typeSymbol.ToString();
             }
             else if (elementTypeBridge != null)
             {
-                return "bridge : " + this.WellKnownTypeName + elementTypeBridge.ToString();
+                return "bridge : " + this.WellKnownTypeName + " " + elementTypeBridge.ToString();
             }
             else
             {
-                return "bridge : " + this.WellKnownTypeName + "???";
+                return "bridge : " + this.WellKnownTypeName + " ???";
             }
 
         }
@@ -497,6 +498,23 @@ namespace BridgeBuilder
                         {
                             //CefString&
                             return _referenceBridge = new TypeBridgeInfo(this, WellKnownTypeName.RefOfCString, CefTypeKind.JSVALUE_TYPE_WRAPPED);
+                        }
+                    case WellKnownTypeName.Vec:
+                        {
+                            return _referenceBridge = new TypeBridgeInfo(this, WellKnownTypeName.RefOfVec, CefTypeKind.JSVALUE_TYPE_WRAPPED);
+                        }
+                    case WellKnownTypeName.CefStructBase:
+                        {
+                            return _referenceBridge = new TypeBridgeInfo(this, WellKnownTypeName.RefOf, CefTypeKind.JSVALUE_TYPE_WRAPPED);
+                        } 
+                    case WellKnownTypeName.CefCpp:
+                        {
+                            return _referenceBridge = new TypeBridgeInfo(this, WellKnownTypeName.RefOf, CefTypeKind.JSVALUE_TYPE_WRAPPED);
+                        }
+                    case WellKnownTypeName.Map:
+                    case WellKnownTypeName.MultiMap:
+                        {
+                            return _referenceBridge = new TypeBridgeInfo(this, WellKnownTypeName.RefOf, CefTypeKind.JSVALUE_TYPE_WRAPPED);
                         }
                     default:
                         {
@@ -699,6 +717,11 @@ namespace BridgeBuilder
                             case PrimitiveTypeKind.Int32:
                                 {
                                     var typeBridge = new TypeBridgeInfo(simpleType, WellKnownTypeName.Int32, CefTypeKind.JSVALUE_TYPE_INTEGER);
+                                    return typeBridge;
+                                }
+                            case PrimitiveTypeKind.NaitveInt:
+                                {
+                                    var typeBridge = new TypeBridgeInfo(simpleType, WellKnownTypeName.NativeInt, CefTypeKind.JSVALUE_TYPE_INTEGER);
                                     return typeBridge;
                                 }
                             case PrimitiveTypeKind.Int64:

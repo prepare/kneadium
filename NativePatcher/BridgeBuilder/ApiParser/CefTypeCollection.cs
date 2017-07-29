@@ -468,7 +468,7 @@ namespace BridgeBuilder
                 new SimpleTypeSymbol("void"){PrimitiveTypeKind = PrimitiveTypeKind.Void },
                 new SimpleTypeSymbol("bool"){PrimitiveTypeKind = PrimitiveTypeKind.Bool },
                 new SimpleTypeSymbol("char"){PrimitiveTypeKind = PrimitiveTypeKind.Char },
-                new SimpleTypeSymbol("int"){PrimitiveTypeKind = PrimitiveTypeKind.Int32 },//TODO: review here
+                new SimpleTypeSymbol("int"){PrimitiveTypeKind = PrimitiveTypeKind.NaitveInt },//TODO: review here
                 new SimpleTypeSymbol("int32"){PrimitiveTypeKind = PrimitiveTypeKind.Int32 },
                 new SimpleTypeSymbol("uint32"){PrimitiveTypeKind = PrimitiveTypeKind.UInt32 },
                 new SimpleTypeSymbol("int64"){PrimitiveTypeKind = PrimitiveTypeKind.Int64 },
@@ -609,8 +609,8 @@ namespace BridgeBuilder
             cefTypeBridgeTxPlanner.AssignTypeBridgeInfo(this.typeSymbols);
             //
             this.Planner = cefTypeBridgeTxPlanner;
-            
-           
+
+
 
             //-----------------------
             //do class classification 

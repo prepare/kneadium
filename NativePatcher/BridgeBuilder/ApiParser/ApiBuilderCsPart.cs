@@ -40,6 +40,26 @@ namespace BridgeBuilder
                 case WellKnownTypeName.Bool:
                     stbuilder.Append("bool");
                     break;
+                case WellKnownTypeName.Double:
+                    stbuilder.Append("double");
+                    break;
+                case WellKnownTypeName.NativeInt:
+                    stbuilder.Append("long");
+                    break;
+                case WellKnownTypeName.size_t:
+                    //this version size_t is CAST down to int32
+                    stbuilder.Append("int");
+                    break;
+                case WellKnownTypeName.RefPtrOf:
+                    //of what 
+                    stbuilder.Append("IntPtr");
+                    break;
+                case WellKnownTypeName.CefCNative:
+                    stbuilder.Append(retTypeSymbol.ToString());
+                    break;
+                case WellKnownTypeName.CefString:
+                    stbuilder.Append("string");
+                    break;
                 default:
 
 
@@ -58,8 +78,98 @@ namespace BridgeBuilder
                 case WellKnownTypeName.Bool:
                     stbuilder.Append("bool");
                     break;
+                case WellKnownTypeName.Double:
+                    stbuilder.Append("double");
+                    break;
                 case WellKnownTypeName.RefOfCString:
                     stbuilder.Append("string");
+                    break;
+                case WellKnownTypeName.UInt32:
+                    stbuilder.Append("uint");
+                    break;
+                case WellKnownTypeName.RefPtrOf:
+                    //of what 
+                    {
+                        string name = ((ReferenceOrPointerTypeSymbol)retTypeSymbol).ElementType.ToString();
+                        switch (name)
+                        {
+                            case "CefBinaryValue":
+                                break;
+                            default:
+                                if (name.EndsWith("Callback"))
+                                {
+
+                                }
+                                else
+                                {
+
+                                }
+                                break;
+                        }
+                    }
+                    stbuilder.Append("IntPtr");
+                    break;
+                case WellKnownTypeName.RefOf:
+                    {
+                        string name = ((ReferenceOrPointerTypeSymbol)retTypeSymbol).ElementType.ToString();
+                        switch (name)
+                        {
+                            case "CefBinaryValue":
+                                break;
+                            default:
+                                if (name.EndsWith("Callback"))
+                                {
+
+                                }
+                                else
+                                {
+
+                                }
+                                break;
+                        }
+                    }
+                    break;
+                case WellKnownTypeName.PtrOf:
+                    stbuilder.Append("IntPtr");
+                    break;
+                case WellKnownTypeName.size_t:
+                    stbuilder.Append("int");
+                    break;
+                case WellKnownTypeName.NativeInt:
+                    stbuilder.Append("long");//TODO: review here
+                    break;
+                case WellKnownTypeName.Int64:
+                    stbuilder.Append("long");
+                    break;
+                case WellKnownTypeName.RefOfVec:
+                    {
+
+                        VecTypeSymbol elem = (VecTypeSymbol)((ReferenceOrPointerTypeSymbol)retTypeSymbol).ElementType;
+                        string vectorElementTypeName = elem.ElementType.ToString();
+                        switch (vectorElementTypeName)
+                        {
+                            case "int64":
+                                stbuilder.Append("List<long>");
+                                break;
+                            default:
+                                break;
+
+                        }
+                    }
+                    break;
+                case WellKnownTypeName.CefCNative:
+                    {
+                        string typename = retTypeSymbol.ToString();
+                        switch (typename)
+                        {
+                            default:
+                                break;
+                            case "CefProcessId":
+                                stbuilder.Append("long");
+                                break;
+                        }
+
+                    }
                     break;
                 default:
 
@@ -123,7 +233,7 @@ namespace BridgeBuilder
             //3.
             int argCount = metTx.pars.Count;
             stbuilder.Append('(');
-            if (argCount > 5)
+            if (argCount > 7)
             {
                 throw new NotSupportedException();
             }

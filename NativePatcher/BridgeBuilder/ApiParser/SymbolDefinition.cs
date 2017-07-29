@@ -86,6 +86,7 @@ namespace BridgeBuilder
         Char,
         Bool,
         IntPtr, //native pointer
+        NaitveInt,
         String,
         CefString,
         //
