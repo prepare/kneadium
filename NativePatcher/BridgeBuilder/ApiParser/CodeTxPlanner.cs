@@ -214,16 +214,8 @@ namespace BridgeBuilder
                         throw new NotSupportedException();
                     case TypeSymbolKind.ReferenceOrPointer:
                         {
-                            ReferenceOrPointerTypeSymbol refOrPointer = (ReferenceOrPointerTypeSymbol)resolvedParType;
-                            TypeSymbol elemType = refOrPointer.ElementType;
-                            //create pointer or reference bridge for existing bridge
-                            TypeBridgeInfo bridgeToElem = elemType.BridgeInfo;
-                            if (bridgeToElem == null)
-                            {
-                                //no bridge 
-                                elemType.BridgeInfo = bridgeToElem = CefTypeCollection.Planner.SelectProperTypeBridge(elemType);
-                            }
-                            resolvedParType.BridgeInfo = bridgeToElem.GetReferenceOrPointerBridge(refOrPointer);
+
+                            CefTypeCollection.Planner.AssignTypeBridgeInfo((ReferenceOrPointerTypeSymbol)resolvedParType);
 
                         }
                         break;
@@ -290,25 +282,51 @@ namespace BridgeBuilder
     }
 
 
+
+
     class TypeBridgeInfo
     {
-        readonly TypeSymbol owner;
-        public readonly CefSlotName slotName;
-        public readonly CefTypeKind cefTypeKind;
-
-        //
-        public readonly BridgeForInArg InArg;
-        public readonly BridgeForOutArg OutArg;
-        public readonly BridgeForReturn Return;
+        CefSlotName slotName;
+        CefTypeKind cefTypeKind;
 
         TypeBridgeInfo _pointerBridge;
         TypeBridgeInfo _referenceBridge;
         TypeBridgeInfo _cefRefPtrBridge;
         TypeBridgeInfo _scopePtrBridge;
 
-        public TypeBridgeInfo(TypeSymbol owner, CefTypeKind cefTypeKind)
+        TypeSymbol typeSymbol;
+        TypeBridgeInfo elementTypeBridge;
+        TypeBridgeInfo _bridgeToBase;
+        public TypeBridgeInfo(SimpleTypeSymbol t, CefTypeKind cefTypeKind)
         {
-            this.owner = owner;
+            this.typeSymbol = t;
+            SetCefTypeKind(cefTypeKind);
+        }
+        public TypeBridgeInfo(SimpleTypeSymbol t, TypeBridgeInfo bridgeToBase, CefTypeKind cefTypeKind)
+        {
+            this.typeSymbol = t;
+            this._bridgeToBase = bridgeToBase;
+
+            SetCefTypeKind(cefTypeKind);
+        }
+        public TypeBridgeInfo(TemplateTypeSymbol t, CefTypeKind cefTypeKind)
+        {
+            this.typeSymbol = t;
+            SetCefTypeKind(cefTypeKind);
+        }
+        public TypeBridgeInfo(VecTypeSymbol t, CefTypeKind cefTypeKind)
+        {
+            this.typeSymbol = t;
+            SetCefTypeKind(cefTypeKind);
+        }
+
+        private TypeBridgeInfo(TypeBridgeInfo elementTypeBridge, CefTypeKind cefTypeKind)
+        {
+            this.elementTypeBridge = elementTypeBridge;
+            SetCefTypeKind(cefTypeKind);
+        }
+        void SetCefTypeKind(CefTypeKind cefTypeKind)
+        {
             this.cefTypeKind = cefTypeKind;
             switch (cefTypeKind)
             {
@@ -337,83 +355,71 @@ namespace BridgeBuilder
                     slotName = CefSlotName.num;
                     break;
             }
-            this.InArg = new BridgeForInArg();
-            this.OutArg = new BridgeForOutArg();
-            this.Return = new BridgeForReturn();
         }
+        public CefSlotName CefSlotName
+        {
+            get { return slotName; }
+        }
+        public CefTypeKind CefTypeKind
+        {
+            get { return cefTypeKind; }
+        }
+
         public override string ToString()
         {
-            return "bridge:" + owner.ToString();
-        }
-        //---
-        public TypeBridgeInfo BridgeToBase { get; set; }
-
-        public TypeBridgeInfo GetReferenceOrPointerBridge(ReferenceOrPointerTypeSymbol refOrPointer)
-        {
-            switch (refOrPointer.Kind)
+            if (typeSymbol != null)
             {
-                default:
-                    throw new NotSupportedException();
-                case ContainerTypeKind.ByRef:
-                    return GetReferenceBridge(refOrPointer);
-                case ContainerTypeKind.Pointer:
-                    return GetPointerBridge(refOrPointer);
-                case ContainerTypeKind.CefRefPtr:
-                    return GetCefRefPtrBridge(refOrPointer);
-                case ContainerTypeKind.ScopePtr:
-                    return GetScopePtrBridge(refOrPointer);
+                return "bridge : " + typeSymbol.ToString();
             }
+            else if (elementTypeBridge != null)
+            {
+                return "bridge : " + typeSymbol.ToString();
+            }
+            else
+            {
+                return "bridge : ???";
+            }
+
         }
-        TypeBridgeInfo GetPointerBridge(ReferenceOrPointerTypeSymbol refOrPointerTypeSymbol)
+
+        public TypeBridgeInfo GetPointerBridge()
         {
             if (_pointerBridge == null)
             {
                 //create new one  
-                _pointerBridge = new TypeBridgeInfo(refOrPointerTypeSymbol, CefTypeKind.JSVALUE_TYPE_WRAPPED);
+                _pointerBridge = new TypeBridgeInfo(this, CefTypeKind.JSVALUE_TYPE_WRAPPED);
             }
             return _pointerBridge;
         }
 
-        TypeBridgeInfo GetReferenceBridge(ReferenceOrPointerTypeSymbol refOrPointerTypeSymbol)
+        public TypeBridgeInfo GetReferenceBridge()
         {
             if (_referenceBridge == null)
             {
                 //create new one
-                _referenceBridge = new TypeBridgeInfo(refOrPointerTypeSymbol, CefTypeKind.JSVALUE_TYPE_WRAPPED);
+
+                _referenceBridge = new TypeBridgeInfo(this, CefTypeKind.JSVALUE_TYPE_WRAPPED);
             }
             return _referenceBridge;
         }
-        TypeBridgeInfo GetCefRefPtrBridge(ReferenceOrPointerTypeSymbol refOrPointerTypeSymbol)
+        public TypeBridgeInfo GetCefRefPtrBridge()
         {
             if (_cefRefPtrBridge == null)
             {
                 //create new one
-                _cefRefPtrBridge = new TypeBridgeInfo(refOrPointerTypeSymbol, CefTypeKind.JSVALUE_TYPE_WRAPPED);
+                _cefRefPtrBridge = new TypeBridgeInfo(this, CefTypeKind.JSVALUE_TYPE_WRAPPED);
             }
             return _cefRefPtrBridge;
         }
-        TypeBridgeInfo GetScopePtrBridge(ReferenceOrPointerTypeSymbol refOrPointerTypeSymbol)
+        public TypeBridgeInfo GetScopePtrBridge()
         {
             if (_scopePtrBridge == null)
             {
                 //create new one
-                _scopePtrBridge = new TypeBridgeInfo(refOrPointerTypeSymbol, CefTypeKind.JSVALUE_TYPE_WRAPPED);
+                _scopePtrBridge = new TypeBridgeInfo(this, CefTypeKind.JSVALUE_TYPE_WRAPPED);
             }
             return _scopePtrBridge;
         }
-    }
-    class BridgeForInArg
-    {
-        public CefTypeKind TxKind;
-
-    }
-    class BridgeForOutArg
-    {
-        public CefTypeKind TxKind;
-    }
-    class BridgeForReturn
-    {
-        public CefTypeKind TxKind;
     }
 
     enum CefSlotName
@@ -461,31 +467,27 @@ namespace BridgeBuilder
                         }
                         else if (simpleType.Name.StartsWith("Cef"))
                         {
-                            if (simpleType.Name.EndsWith("Traits"))
+                            TypeBridgeInfo bridgeToBase = null;
+                            if (simpleType.BaseType != null)
                             {
-                                var typeBridge = new TypeBridgeInfo(simpleType, CefTypeKind.JSVALUE_TYPE_WRAPPED);
+                                bridgeToBase = SelectProperTypeBridge(simpleType.BaseType);
+                            }
+                            if (bridgeToBase != null)
+                            {
+                                var typeBridge = new TypeBridgeInfo(simpleType, bridgeToBase, CefTypeKind.JSVALUE_TYPE_WRAPPED);
                                 return typeBridge;
                             }
                             else
                             {
-                                //some cef type
-                                //check by its base
-
                                 var typeBridge = new TypeBridgeInfo(simpleType, CefTypeKind.JSVALUE_TYPE_WRAPPED);
-                                if (simpleType.BaseType != null)
-                                {
-                                    typeBridge.BridgeToBase = SelectProperTypeBridge(simpleType.BaseType);
-                                }
                                 return typeBridge;
-                            }
+                            } 
                         }
                         else
                         {
-
-                        }
-
-                    }
-                    return null;
+                            throw new NotSupportedException();
+                        } 
+                    } 
                 case "RECT":
                     {
                         var typeBridge = new TypeBridgeInfo(simpleType, CefTypeKind.JSVALUE_TYPE_WRAPPED);
@@ -511,7 +513,7 @@ namespace BridgeBuilder
         }
 
 
-        public TypeBridgeInfo SelectProperTypeBridge(TypeSymbol t)
+        TypeBridgeInfo SelectProperTypeBridge(TypeSymbol t)
         {
             if (t.BridgeInfo != null)
             {
@@ -526,13 +528,12 @@ namespace BridgeBuilder
                     throw new NotSupportedException();
                 case TypeSymbolKind.Vec:
                     {
-                        var typeBridge = new TypeBridgeInfo(t, CefTypeKind.JSVALUE_TYPE_NUMBER);
+                        var typeBridge = new TypeBridgeInfo((VecTypeSymbol)t, CefTypeKind.JSVALUE_TYPE_NUMBER);
                         return typeBridge;
                     }
                 case TypeSymbolKind.ReferenceOrPointer:
                     {
-                        var typeBridge = new TypeBridgeInfo(t, CefTypeKind.JSVALUE_TYPE_NUMBER);
-                        return typeBridge;
+                        return SelectProperTypeBridge((ReferenceOrPointerTypeSymbol)t);
                     }
                 case TypeSymbolKind.Template:
                     {
@@ -560,67 +561,67 @@ namespace BridgeBuilder
 
                             case PrimitiveTypeKind.Float:
                                 {
-                                    var typeBridge = new TypeBridgeInfo(t, CefTypeKind.JSVALUE_TYPE_NUMBER);
+                                    var typeBridge = new TypeBridgeInfo(simpleType, CefTypeKind.JSVALUE_TYPE_NUMBER);
                                     return typeBridge;
                                 }
                             case PrimitiveTypeKind.Double:
                                 {
-                                    var typeBridge = new TypeBridgeInfo(t, CefTypeKind.JSVALUE_TYPE_NUMBER);
+                                    var typeBridge = new TypeBridgeInfo(simpleType, CefTypeKind.JSVALUE_TYPE_NUMBER);
                                     return typeBridge;
                                 }
                             case PrimitiveTypeKind.Bool:
                                 {
-                                    var typeBridge = new TypeBridgeInfo(t, CefTypeKind.JSVALUE_TYPE_BOOLEAN);
+                                    var typeBridge = new TypeBridgeInfo(simpleType, CefTypeKind.JSVALUE_TYPE_BOOLEAN);
                                     return typeBridge;
                                 }
                             case PrimitiveTypeKind.Char:
                                 {
-                                    var typeBridge = new TypeBridgeInfo(t, CefTypeKind.JSVALUE_TYPE_INTEGER);
+                                    var typeBridge = new TypeBridgeInfo(simpleType, CefTypeKind.JSVALUE_TYPE_INTEGER);
                                     return typeBridge;
                                 }
                             case PrimitiveTypeKind.Int32:
                                 {
-                                    var typeBridge = new TypeBridgeInfo(t, CefTypeKind.JSVALUE_TYPE_INTEGER);
+                                    var typeBridge = new TypeBridgeInfo(simpleType, CefTypeKind.JSVALUE_TYPE_INTEGER);
                                     return typeBridge;
                                 }
                             case PrimitiveTypeKind.Int64:
                                 {
-                                    var typeBridge = new TypeBridgeInfo(t, CefTypeKind.JSVALUE_TYPE_INTEGER64);
+                                    var typeBridge = new TypeBridgeInfo(simpleType, CefTypeKind.JSVALUE_TYPE_INTEGER64);
                                     return typeBridge;
                                 }
                             case PrimitiveTypeKind.UInt32:
                                 {
-                                    var typeBridge = new TypeBridgeInfo(t, CefTypeKind.JSVALUE_TYPE_INTEGER);
+                                    var typeBridge = new TypeBridgeInfo(simpleType, CefTypeKind.JSVALUE_TYPE_INTEGER);
                                     return typeBridge;
                                 }
                             case PrimitiveTypeKind.Void:
                                 {
-                                    var typeBridge = new TypeBridgeInfo(t, CefTypeKind.JSVALUE_TYPE_EMPTY);
+                                    var typeBridge = new TypeBridgeInfo(simpleType, CefTypeKind.JSVALUE_TYPE_EMPTY);
                                     return typeBridge;
                                 }
                             case PrimitiveTypeKind.IntPtr:
                                 {
-                                    var typeBridge = new TypeBridgeInfo(t, CefTypeKind.JSVALUE_TYPE_INTEGER64);
+                                    var typeBridge = new TypeBridgeInfo(simpleType, CefTypeKind.JSVALUE_TYPE_INTEGER64);
                                     return typeBridge;
                                 }
                             case PrimitiveTypeKind.UInt64:
                                 {
-                                    var typeBridge = new TypeBridgeInfo(t, CefTypeKind.JSVALUE_TYPE_INTEGER64);
+                                    var typeBridge = new TypeBridgeInfo(simpleType, CefTypeKind.JSVALUE_TYPE_INTEGER64);
                                     return typeBridge;
                                 }
                             case PrimitiveTypeKind.size_t:
                                 {
-                                    var typeBridge = new TypeBridgeInfo(t, CefTypeKind.JSVALUE_TYPE_INTEGER64);
+                                    var typeBridge = new TypeBridgeInfo(simpleType, CefTypeKind.JSVALUE_TYPE_INTEGER64);
                                     return typeBridge;
                                 }
                             case PrimitiveTypeKind.String:
                                 {
-                                    var typeBridge = new TypeBridgeInfo(t, CefTypeKind.JSVALUE_TYPE_NATIVE_CEFHOLDER_STRING);
+                                    var typeBridge = new TypeBridgeInfo(simpleType, CefTypeKind.JSVALUE_TYPE_NATIVE_CEFHOLDER_STRING);
                                     return typeBridge;
                                 }
                             case PrimitiveTypeKind.CefString:
                                 {
-                                    var typeBridge = new TypeBridgeInfo(t, CefTypeKind.JSVALUE_TYPE_NATIVE_CEFHOLDER_STRING);
+                                    var typeBridge = new TypeBridgeInfo(simpleType, CefTypeKind.JSVALUE_TYPE_NATIVE_CEFHOLDER_STRING);
                                     return typeBridge;
                                 }
                         }
@@ -634,6 +635,39 @@ namespace BridgeBuilder
             }
         }
 
+        TypeBridgeInfo SelectProperTypeBridge(ReferenceOrPointerTypeSymbol refOrPointer)
+        {
+
+            TypeSymbol elemType = refOrPointer.ElementType;
+            //create pointer or reference bridge for existing bridge
+            TypeBridgeInfo bridgeToElem = elemType.BridgeInfo;
+            if (bridgeToElem == null)
+            {
+                //no bridge 
+                elemType.BridgeInfo = bridgeToElem = SelectProperTypeBridge(elemType);
+            }
+
+            TypeBridgeInfo bridge = null;
+            switch (refOrPointer.Kind)
+            {
+                default:
+                    throw new NotSupportedException();
+                case ContainerTypeKind.ByRef:
+                    bridge = bridgeToElem.GetReferenceBridge();
+                    break;
+                case ContainerTypeKind.Pointer:
+                    bridge = bridgeToElem.GetPointerBridge();
+                    break;
+                case ContainerTypeKind.CefRefPtr:
+                    bridge = bridgeToElem.GetCefRefPtrBridge();
+                    break;
+                case ContainerTypeKind.ScopePtr:
+                    bridge = bridgeToElem.GetScopePtrBridge();
+                    break;
+            }
+
+            return bridge;
+        }
         TypeBridgeInfo SelectProperTypeBridge(TemplateTypeSymbol3 t3)
         {
             switch (t3.Name)
@@ -682,24 +716,28 @@ namespace BridgeBuilder
             }
         }
 
-        public void AssignTypeBrigeInfo(Dictionary<string, TypeSymbol> typeSymbols)
+        public void AssignTypeBridgeInfo(Dictionary<string, TypeSymbol> typeSymbols)
         {
             this.typeSymbols = typeSymbols;
             foreach (TypeSymbol t in typeSymbols.Values)
             {
-                if ((t is SimpleTypeSymbol) &&
-                    ((SimpleTypeSymbol)t).IsGlobalCompilationUnitTypeDefinition)
-                {
-                    continue;
-                }
-                //
-                TypeBridgeInfo bridgeInfo = SelectProperTypeBridge(t);
-                if (bridgeInfo == null)
-                {
-
-                }
-                t.BridgeInfo = bridgeInfo;
+                AssignTypeBridgeInfo(t);
             }
+        }
+        public void AssignTypeBridgeInfo(TypeSymbol t)
+        {
+            if ((t is SimpleTypeSymbol) &&
+                   ((SimpleTypeSymbol)t).IsGlobalCompilationUnitTypeDefinition)
+            {
+                return;
+            }
+            //
+            TypeBridgeInfo bridgeInfo = SelectProperTypeBridge(t);
+            if (bridgeInfo == null)
+            {
+
+            }
+            t.BridgeInfo = bridgeInfo;
         }
 
 

@@ -606,7 +606,7 @@ namespace BridgeBuilder
             AddMoreTypeInfo();
             //
             var cefTypeBridgeTxPlanner = new CefTypeBridgeTransformPlanner();
-            cefTypeBridgeTxPlanner.AssignTypeBrigeInfo(this.typeSymbols);
+            cefTypeBridgeTxPlanner.AssignTypeBridgeInfo(this.typeSymbols);
             //
             this.Planner = cefTypeBridgeTxPlanner;
             

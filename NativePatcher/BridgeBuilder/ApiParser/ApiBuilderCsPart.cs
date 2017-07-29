@@ -1,6 +1,6 @@
 ﻿//MIT, 2016-2017 ,WinterDev
 using System;
-using System.Collections.Generic; 
+using System.Collections.Generic;
 using System.Text;
 namespace BridgeBuilder
 {
@@ -27,27 +27,7 @@ namespace BridgeBuilder
                 GenCsMethod(met, stbuilder);
                 stbuilder.Append("\r\n");
             }
-
             stbuilder.Append("}");
-        }
-
-
-        string GetTypeName(MethodParameterTxInfo methodParInfo)
-        {
-            string typeName = methodParInfo.ToString();
-            switch (typeName)
-            {
-                case "CefString":
-                    {
-                        return "string";
-                    }
-                case "int64":
-                    {
-                        return "long";
-                    }
-                default:
-                    return typeName;
-            }
         }
         public void GenCsMethod(MethodTxInfo metTx, StringBuilder codeDeclTypeBuilder)
         {
@@ -55,7 +35,12 @@ namespace BridgeBuilder
             stbuilder.Append("public ");
             //1. return type 
             MethodParameterTxInfo retType = metTx.ReturnPlan;
-            stbuilder.Append(GetTypeName(retType));
+            TypeSymbol retTypeSymbol = retType.TypeSymbol;
+            TypeBridgeInfo retTypeBridge = retTypeSymbol.BridgeInfo;
+
+
+
+           // stbuilder.Append(GetTypeName(retType));
             //
             stbuilder.Append(' ');
             //2. name
@@ -75,7 +60,7 @@ namespace BridgeBuilder
                 }
 
                 MethodParameterTxInfo par = metTx.pars[i];
-                stbuilder.Append(GetTypeName(par));
+               // stbuilder.Append(GetTypeName(par));
                 stbuilder.Append(' ');
                 stbuilder.Append(par.Name);
             }
@@ -129,8 +114,8 @@ namespace BridgeBuilder
                                 assignTo + "," + par.Name + ");");
                         }
                         break;
-                } 
-            } 
+                }
+            }
             //assign parameter value
             stbuilder.Append("Cef3Binder.MyCefFrameCall2(");
             stbuilder.Append("this.nativePtr,\r\n" +
