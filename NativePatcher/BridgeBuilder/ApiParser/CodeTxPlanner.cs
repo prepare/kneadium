@@ -333,7 +333,7 @@ namespace BridgeBuilder
 
     class TypeBridgeInfo
     {
-        WellKnownTypeName wellknownCefName;
+        WellKnownTypeName wellknownTypeName;
         CefSlotName slotName;
         CefTypeKind cefTypeKind;
 
@@ -350,38 +350,62 @@ namespace BridgeBuilder
         public readonly int dbugId = dbugTotalId++;
 #endif
 
-        public TypeBridgeInfo(SimpleTypeSymbol t, WellKnownTypeName wellKnownCefName, CefTypeKind cefTypeKind)
+        public TypeBridgeInfo(SimpleTypeSymbol t, WellKnownTypeName wellknownTypeName, CefTypeKind cefTypeKind)
         {
             this.typeSymbol = t;
-            this.wellknownCefName = wellKnownCefName;
+            this.wellknownTypeName = wellknownTypeName;
             SetCefTypeKind(cefTypeKind);
         }
-        public TypeBridgeInfo(SimpleTypeSymbol t, WellKnownTypeName wellKnownCefName, CefTypeKind cefTypeKind, TypeBridgeInfo bridgeToBase)
+        public TypeBridgeInfo(SimpleTypeSymbol t, WellKnownTypeName wellknownTypeName, CefTypeKind cefTypeKind, TypeBridgeInfo bridgeToBase)
         {
             this.typeSymbol = t;
-            this.wellknownCefName = wellKnownCefName;
+            this.wellknownTypeName = wellknownTypeName;
             this._bridgeToBase = bridgeToBase;
+            SetCefTypeKind(cefTypeKind);
+            //-------
             if (bridgeToBase != null)
             {
-
+                TypeSymbol baseSymbol = bridgeToBase.typeSymbol;
+                switch (baseSymbol.TypeSymbolKind)
+                {
+                    default:
+                        {
+                            switch (bridgeToBase.WellKnownTypeName)
+                            {
+                                default:
+                                    break;
+                                case WellKnownTypeName.CefAbstract:
+                                    break;
+                            }
+                        }
+                        break;
+                    case TypeSymbolKind.Template:
+                        {
+                            TemplateTypeSymbol templateTypeSymbol = (TemplateTypeSymbol)baseSymbol;
+                        }
+                        break;
+                }
             }
 
-            SetCefTypeKind(cefTypeKind);
+
         }
-        public TypeBridgeInfo(TemplateTypeSymbol t, WellKnownTypeName wellKnownCefName, CefTypeKind cefTypeKind)
+        public TypeBridgeInfo(TemplateTypeSymbol t, WellKnownTypeName wellknownTypeName, CefTypeKind cefTypeKind)
         {
             this.typeSymbol = t;
+            this.wellknownTypeName = wellknownTypeName;
             SetCefTypeKind(cefTypeKind);
         }
-        public TypeBridgeInfo(VecTypeSymbol t, WellKnownTypeName wellKnownCefName, CefTypeKind cefTypeKind)
+        public TypeBridgeInfo(VecTypeSymbol t, WellKnownTypeName wellknownTypeName, CefTypeKind cefTypeKind)
         {
             this.typeSymbol = t;
+            this.wellknownTypeName = wellknownTypeName;
             SetCefTypeKind(cefTypeKind);
         }
 
-        private TypeBridgeInfo(TypeBridgeInfo elementTypeBridge, WellKnownTypeName wellKnownCefName, CefTypeKind cefTypeKind)
+        private TypeBridgeInfo(TypeBridgeInfo elementTypeBridge, WellKnownTypeName wellknownTypeName, CefTypeKind cefTypeKind)
         {
             this.elementTypeBridge = elementTypeBridge;
+            this.wellknownTypeName = wellknownTypeName;
             SetCefTypeKind(cefTypeKind);
         }
 
@@ -432,22 +456,22 @@ namespace BridgeBuilder
 
         public WellKnownTypeName WellKnownTypeName
         {
-            get { return wellknownCefName; }
+            get { return wellknownTypeName; }
         }
 
         public override string ToString()
         {
             if (typeSymbol != null)
             {
-                return "bridge : " + typeSymbol.ToString();
+                return "bridge : " + this.WellKnownTypeName + typeSymbol.ToString();
             }
             else if (elementTypeBridge != null)
             {
-                return "bridge : " + typeSymbol.ToString();
+                return "bridge : " + this.WellKnownTypeName + elementTypeBridge.ToString();
             }
             else
             {
-                return "bridge : ???";
+                return "bridge : " + this.WellKnownTypeName + "???";
             }
 
         }
@@ -461,14 +485,13 @@ namespace BridgeBuilder
             }
             return _pointerBridge;
         }
-
         public TypeBridgeInfo GetReferenceBridge()
         {
             if (_referenceBridge == null)
             {
                 //create new one
 
-                switch (this.wellknownCefName)
+                switch (this.wellknownTypeName)
                 {
                     case WellKnownTypeName.CefString:
                         {
@@ -501,6 +524,30 @@ namespace BridgeBuilder
             }
             return _scopePtrBridge;
         }
+
+
+
+
+        //----------------------------------------------
+        public void WriteCsMethodArgDecl()
+        {
+
+        }
+        public void WriteCsMethodReturnDecl()
+        {
+
+        }
+        public void WriteCsGetMethodArg()
+        {
+        }
+        public void WriteCsPutMethodArg()
+        {
+        }
+        public void WriteCsPutMethodReturn()
+        {
+
+        }
+
     }
 
     enum CefSlotName
@@ -631,6 +678,7 @@ namespace BridgeBuilder
                             case PrimitiveTypeKind.Float:
                                 {
                                     var typeBridge = new TypeBridgeInfo(simpleType, WellKnownTypeName.Float, CefTypeKind.JSVALUE_TYPE_NUMBER);
+
                                     return typeBridge;
                                 }
                             case PrimitiveTypeKind.Double:

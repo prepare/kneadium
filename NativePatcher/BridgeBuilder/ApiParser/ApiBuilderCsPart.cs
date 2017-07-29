@@ -30,11 +30,85 @@ namespace BridgeBuilder
             stbuilder.Append("}");
         }
         void WriteMethodReturnType(StringBuilder stbuilder, TypeSymbol retTypeSymbol)
-        {   
-            TypeBridgeInfo retTypeBridge = retTypeSymbol.BridgeInfo; 
-            
-        }
+        {
+            TypeBridgeInfo retTypeBridge = retTypeSymbol.BridgeInfo;
+            switch (retTypeBridge.WellKnownTypeName)
+            {
+                case WellKnownTypeName.Void:
+                    stbuilder.Append("void");
+                    break;
+                case WellKnownTypeName.Bool:
+                    stbuilder.Append("bool");
+                    break;
+                default:
 
+
+
+                    break;
+            }
+        }
+        void WriteMethodParameterType(StringBuilder stbuilder, TypeSymbol retTypeSymbol)
+        {
+            TypeBridgeInfo retTypeBridge = retTypeSymbol.BridgeInfo;
+            switch (retTypeBridge.WellKnownTypeName)
+            {
+                case WellKnownTypeName.Void:
+                    stbuilder.Append("void");
+                    break;
+                case WellKnownTypeName.Bool:
+                    stbuilder.Append("bool");
+                    break;
+                case WellKnownTypeName.RefOfCString:
+                    stbuilder.Append("string");
+                    break;
+                default:
+
+
+
+                    break;
+            }
+        }
+        void WriteArgExtractionCodeStmts(StringBuilder stbuilder, string argName, MethodParameterTxInfo par)
+        {
+            TypeBridgeInfo bridgeInfo = par.TypeSymbol.BridgeInfo;
+
+            //string parResolvedType = par.TypeSymbol.ToString(); 
+            //switch (parResolvedType)
+            //{
+            //    default:
+            //        {
+            //            if (parResolvedType.StartsWith("Cef"))
+            //            {
+            //                //native reference type
+            //                stbuilder.AppendLine(assignTo + ".Type=JsValueType.Wrapped;");
+            //                stbuilder.AppendLine(assignTo + ".Ptr=" + par.Name + ".nativePtr;");
+            //            }
+            //            else
+            //            {
+            //                //throw new NotSupportedException();
+            //            }
+
+            //        }
+            //        break;
+            //    case "int":
+            //        {
+            //            //use as int32 
+            //            stbuilder.AppendLine(assignTo + ".Type=JsValueType.Integer;");
+            //            stbuilder.AppendLine(assignTo + ".I32=" + par.Name + ";");
+            //        }
+            //        break;
+            //    case "CefString":
+            //        {
+            //            //eg. Cef3Binder.MyCefCreateNativeStringHolder(ref a1, strValue);
+            //            stbuilder.AppendLine("Cef3Binder.MyCefCreateNativeStringHolder(ref " +
+            //                assignTo + "," + par.Name + ");");
+            //        }
+            //        break;
+            //}
+
+
+
+        }
         public void GenCsMethod(MethodTxInfo metTx, StringBuilder codeDeclTypeBuilder)
         {
             StringBuilder stbuilder = new StringBuilder();
@@ -61,7 +135,7 @@ namespace BridgeBuilder
                 }
 
                 MethodParameterTxInfo par = metTx.pars[i];
-                // stbuilder.Append(GetTypeName(par));
+                WriteMethodParameterType(stbuilder, par.TypeSymbol);
                 stbuilder.Append(' ');
                 stbuilder.Append(par.Name);
             }
@@ -79,43 +153,8 @@ namespace BridgeBuilder
             for (int i = 0; i < argCount; ++i)
             {
                 string assignTo = "a" + (i + 1);
-
                 MethodParameterTxInfo par = metTx.pars[i];
-                string parResolvedType = par.TypeSymbol.ToString();
-
-
-                switch (parResolvedType)
-                {
-                    default:
-                        {
-                            if (parResolvedType.StartsWith("Cef"))
-                            {
-                                //native reference type
-                                stbuilder.AppendLine(assignTo + ".Type=JsValueType.Wrapped;");
-                                stbuilder.AppendLine(assignTo + ".Ptr=" + par.Name + ".nativePtr;");
-                            }
-                            else
-                            {
-                                throw new NotSupportedException();
-                            }
-
-                        }
-                        break;
-                    case "int":
-                        {
-                            //use as int32 
-                            stbuilder.AppendLine(assignTo + ".Type=JsValueType.Integer;");
-                            stbuilder.AppendLine(assignTo + ".I32=" + par.Name + ";");
-                        }
-                        break;
-                    case "CefString":
-                        {
-                            //eg. Cef3Binder.MyCefCreateNativeStringHolder(ref a1, strValue);
-                            stbuilder.AppendLine("Cef3Binder.MyCefCreateNativeStringHolder(ref " +
-                                assignTo + "," + par.Name + ");");
-                        }
-                        break;
-                }
+                WriteArgExtractionCodeStmts(stbuilder, assignTo, par);
             }
             //assign parameter value
             stbuilder.Append("Cef3Binder.MyCefFrameCall2(");
