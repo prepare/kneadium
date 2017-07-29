@@ -66,8 +66,32 @@ namespace BridgeBuilder
                     stbuilder.Append("int");
                     break;
                 case WellKnownTypeName.RefPtrOf:
-                    //of what 
-                    stbuilder.Append("IntPtr");
+                    {
+                        ReferenceOrPointerTypeSymbol refOrPointer = (ReferenceOrPointerTypeSymbol)retTypeSymbol;
+                        TypeSymbol elemType = refOrPointer.ElementType;
+                        switch (elemType.TypeSymbolKind)
+                        {
+                            default:
+                                //of what 
+                                stbuilder.Append("IntPtr");
+                                break;
+                            case TypeSymbolKind.Simple:
+                                {
+                                    SimpleTypeSymbol simpleElem = (SimpleTypeSymbol)elemType;
+                                    if (simpleElem.PrimitiveTypeKind == PrimitiveTypeKind.NotPrimitiveType)
+                                    {
+                                        stbuilder.Append("IntPtr");
+                                    }
+                                    else
+                                    {
+                                        //other is primitive
+
+                                    }
+                                }
+                                break;
+                        }
+                    }
+                   
                     break;
                 case WellKnownTypeName.CefCNative:
                     stbuilder.Append(retTypeSymbol.ToString());
