@@ -114,7 +114,7 @@ namespace BridgeBuilder
             this.Name = name;
             this.TypeSymbol = typeSymbol;
         }
-        public TypeSymbol TypeSymbol { get; set; }
+        public TypeSymbol TypeSymbol { get; private set; }
         public bool IsMethodReturnParameter { get; set; }
         public string Name { get; set; }
         public bool IsVoid
