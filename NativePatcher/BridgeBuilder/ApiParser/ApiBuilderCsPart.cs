@@ -29,19 +29,20 @@ namespace BridgeBuilder
             }
             stbuilder.Append("}");
         }
+        void WriteMethodReturnType(StringBuilder stbuilder, TypeSymbol retTypeSymbol)
+        {   
+            TypeBridgeInfo retTypeBridge = retTypeSymbol.BridgeInfo; 
+            
+        }
+
         public void GenCsMethod(MethodTxInfo metTx, StringBuilder codeDeclTypeBuilder)
         {
             StringBuilder stbuilder = new StringBuilder();
             stbuilder.Append("public ");
             //1. return type 
             MethodParameterTxInfo retType = metTx.ReturnPlan;
-            TypeSymbol retTypeSymbol = retType.TypeSymbol;
-            TypeBridgeInfo retTypeBridge = retTypeSymbol.BridgeInfo;
+            WriteMethodReturnType(stbuilder, retType.TypeSymbol);
 
-
-
-           // stbuilder.Append(GetTypeName(retType));
-            //
             stbuilder.Append(' ');
             //2. name
             stbuilder.Append(metTx.Name);
@@ -60,7 +61,7 @@ namespace BridgeBuilder
                 }
 
                 MethodParameterTxInfo par = metTx.pars[i];
-               // stbuilder.Append(GetTypeName(par));
+                // stbuilder.Append(GetTypeName(par));
                 stbuilder.Append(' ');
                 stbuilder.Append(par.Name);
             }
