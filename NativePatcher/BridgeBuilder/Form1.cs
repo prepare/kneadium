@@ -233,7 +233,7 @@ namespace BridgeBuilder
         {
             //string srcFile = @"D:\projects\cef_binary_3.3071.1647.win32\include\cef_browser.h";
             //string srcFile = @"D:\projects\cef_binary_3.3071.1647.win32\include\cef_request_handler.h";
-            string srcFile = @"D:\projects\cef_binary_3.3071.1647.win32\include\internal\cef_types_wrappers.h";
+            string srcFile = @"D:\projects\cef_binary_3.3071.1647.win32\include\internal\cef_time.h";
             //
             Cef3HeaderFileParser headerParser = new Cef3HeaderFileParser();
             headerParser.Parse(srcFile);
@@ -374,7 +374,27 @@ namespace BridgeBuilder
 
             //
             TypeTranformPlanner txPlanner = new TypeTranformPlanner();
-            txPlanner.CefTypeCollection = cefTypeCollection; 
+            txPlanner.CefTypeCollection = cefTypeCollection;
+
+
+            foreach (CodeTypeDeclaration typedecl in cefTypeCollection.otherClasses)
+            {
+                if (typedecl.IsGlobalCompilationUnitType) { continue; }
+                //
+                TypeTxInfo typeTxPlan = txPlanner.MakeTransformPlan(typedecl);
+                //
+                {
+                    StringBuilder stbuilder = new StringBuilder();
+                    apiBuilderCsPart.GenerateCsType(typeTxPlan, stbuilder);
+                }
+                //
+                //
+                {
+                    StringBuilder stbuilder = new StringBuilder();
+                    apiBuilderCppPart.GenerateCppPart(typeTxPlan, stbuilder);
+                }
+                //
+            }
             foreach (CodeTypeDeclaration typedecl in cefTypeCollection.cToCppClasses)
             {
                 TypeTxInfo typeTxPlan = txPlanner.MakeTransformPlan(typedecl);
@@ -395,7 +415,18 @@ namespace BridgeBuilder
             {
                 //eg. handlers and callbacks 
                 TypeTxInfo typeTxPlan = txPlanner.MakeTransformPlan(typedecl);
-
+                //
+                {
+                    StringBuilder stbuilder = new StringBuilder();
+                    apiBuilderCsPart.GenerateCsType(typeTxPlan, stbuilder);
+                }
+                //
+                //
+                {
+                    StringBuilder stbuilder = new StringBuilder();
+                    apiBuilderCppPart.GenerateCppPart(typeTxPlan, stbuilder);
+                }
+                //
             }
         }
         CodeCompilationUnit ParseWrapper(string srcFile)

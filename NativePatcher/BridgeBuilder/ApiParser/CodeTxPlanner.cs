@@ -7,6 +7,7 @@ namespace BridgeBuilder
     class TypeTxInfo
     {
         public List<MethodTxInfo> methods = new List<MethodTxInfo>();
+        public List<FieldTxInfo> fields;
         public TypeTxInfo(CodeTypeDeclaration typedecl)
         {
             this.TypeDecl = typedecl;
@@ -20,10 +21,37 @@ namespace BridgeBuilder
         {
             methods.Add(met);
         }
+        public void AddField(FieldTxInfo field)
+        {
+            if (fields == null)
+            {
+                fields = new List<FieldTxInfo>();
+            }
+            //
+            fields.Add(field);
+        }
 #if DEBUG
         public override string ToString()
         {
             return TypeDecl.ToString();
+        }
+#endif
+    }
+
+    class FieldTxInfo
+    {
+        public CodeFieldDeclaration fieldDecl;
+        public FieldTxInfo(CodeFieldDeclaration fieldDecl)
+        {
+            this.fieldDecl = fieldDecl;
+            this.Name = fieldDecl.Name;
+        }
+        public string Name { get; set; }
+
+#if DEBUG
+        public override string ToString()
+        {
+            return fieldDecl.ToString();
         }
 #endif
     }
@@ -104,26 +132,46 @@ namespace BridgeBuilder
             this.typedecl = typedecl;
             this.typeTxInfo = new TypeTxInfo(typedecl);
 
-            foreach (CodeMethodDeclaration metDecl in typedecl.GetMethodIter())
+            if (typedecl.Kind == TypeKind.Enum)
             {
-                if (metDecl.MethodKind == MethodKind.Normal)
+                //enum
+                foreach (CodeFieldDeclaration fieldDecl in typedecl.GetFieldIter())
                 {
-                    MethodTxInfo metTx = MakeMethodPlan(metDecl);
-                    if (metTx == null)
-                    {
-                        throw new NotSupportedException();
-                    }
-                    typeTxInfo.AddMethod(metTx);
+                    FieldTxInfo fieldTx = MakeFieldPlan(fieldDecl);
+                    typeTxInfo.AddField(fieldTx);
                 }
-                else
+            }
+            else
+            {
+                foreach (CodeMethodDeclaration metDecl in typedecl.GetMethodIter())
                 {
+                    if (metDecl.MethodKind == MethodKind.Normal)
+                    {
+                        MethodTxInfo metTx = MakeMethodPlan(metDecl);
+                        if (metTx == null)
+                        {
+                            throw new NotSupportedException();
+                        }
+                        typeTxInfo.AddMethod(metTx);
+                    }
+                    else
+                    {
 
+                    }
                 }
 
             }
+
             return typeTxInfo;
         }
 
+        FieldTxInfo MakeFieldPlan(CodeFieldDeclaration fieldDecl)
+        {
+            FieldTxInfo fieldTx = new FieldTxInfo(fieldDecl);
+
+
+            return fieldTx;
+        }
         MethodTxInfo MakeMethodPlan(CodeMethodDeclaration metDecl)
         {
             MethodTxInfo metTx = new MethodTxInfo(metDecl);
