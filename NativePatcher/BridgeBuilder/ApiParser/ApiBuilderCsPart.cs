@@ -1,6 +1,5 @@
 ﻿//MIT, 2016-2017 ,WinterDev
 using System;
-using System.Collections.Generic;
 using System.Text;
 namespace BridgeBuilder
 {
@@ -29,16 +28,22 @@ namespace BridgeBuilder
             }
             stbuilder.Append("}");
         }
-        void WriteMethodReturnType(StringBuilder stbuilder, TypeSymbol retTypeSymbol)
+        void WriteMethodReturnType(StringBuilder stbuilder, MethodParameterTxInfo par, TypeSymbol retTypeSymbol)
         {
             TypeBridgeInfo retTypeBridge = retTypeSymbol.BridgeInfo;
+
+
             switch (retTypeBridge.WellKnownTypeName)
             {
                 default:
 
                     break;
                 case WellKnownTypeName.UInt64:
+
+
                     stbuilder.Append("ulong");
+
+
                     break;
                 case WellKnownTypeName.Int32:
                     stbuilder.Append("int");
@@ -80,7 +85,7 @@ namespace BridgeBuilder
                                     SimpleTypeSymbol simpleElem = (SimpleTypeSymbol)elemType;
                                     if (simpleElem.PrimitiveTypeKind == PrimitiveTypeKind.NotPrimitiveType)
                                     {
-                                        stbuilder.Append("IntPtr");
+                                        stbuilder.Append(simpleElem.ToString());
                                     }
                                     else
                                     {
@@ -91,7 +96,7 @@ namespace BridgeBuilder
                                 break;
                         }
                     }
-                   
+
                     break;
                 case WellKnownTypeName.CefCNative:
                     stbuilder.Append(retTypeSymbol.ToString());
@@ -126,148 +131,20 @@ namespace BridgeBuilder
 
             }
         }
-        void WriteMethodParameterType(StringBuilder stbuilder, TypeSymbol retTypeSymbol)
+        void WriteMethodParameterType(StringBuilder stbuilder, MethodParameterTxInfo par, TypeSymbol parType)
         {
-            TypeBridgeInfo retTypeBridge = retTypeSymbol.BridgeInfo;
-            switch (retTypeBridge.WellKnownTypeName)
+            TypeBridgeInfo parTypeBridge = parType.BridgeInfo;
+            if (parTypeBridge.DotNetMethodParType == null)
             {
-                default:
 
-                    break;
-                case WellKnownTypeName.RefOfPrimitive:
-                    {
-                        //what is that primitive
-                        ReferenceOrPointerTypeSymbol refOrPointer = (ReferenceOrPointerTypeSymbol)retTypeSymbol;
-                        stbuilder.Append("ref ");
-                        WriteMethodParameterType(stbuilder, refOrPointer.ElementType);
-                    }
-                    break;
-                case WellKnownTypeName.Void:
-                    stbuilder.Append("void");
-                    break;
-                case WellKnownTypeName.Bool:
-                    stbuilder.Append("bool");
-                    break;
-                case WellKnownTypeName.Float:
-                    stbuilder.Append("float");
-                    break;
-                case WellKnownTypeName.Double:
-                    stbuilder.Append("double");
-                    break;
-                case WellKnownTypeName.RefOfCString:
-                    stbuilder.Append("string");
-                    break;
-                case WellKnownTypeName.UInt32:
-                    stbuilder.Append("uint");
-                    break;
-                case WellKnownTypeName.RefPtrOf:
-                    {
-                        string name = ((ReferenceOrPointerTypeSymbol)retTypeSymbol).ElementType.ToString();
-                        switch (name)
-                        {
-                            case "CefBinaryValue":
-                                break;
-                            default:
-                                if (name.EndsWith("Callback"))
-                                {
-
-                                }
-                                else if (name.StartsWith("Cef"))
-                                {
-                                }
-                                else
-                                {
-
-                                }
-                                break;
-                        }
-                    }
-                    stbuilder.Append("IntPtr");
-                    break;
-                case WellKnownTypeName.RefOf:
-                    {
-                        string name = ((ReferenceOrPointerTypeSymbol)retTypeSymbol).ElementType.ToString();
-                        switch (name)
-                        {
-                            case "CefBinaryValue":
-                                break;
-                            default:
-                                if (name.EndsWith("Callback"))
-                                {
-
-                                }
-                                else
-                                {
-
-                                }
-                                break;
-                        }
-                    }
-                    break;
-                case WellKnownTypeName.PtrOf:
-                    stbuilder.Append("IntPtr");
-                    break;
-                case WellKnownTypeName.size_t:
-                    stbuilder.Append("int");
-                    break;
-                case WellKnownTypeName.NativeInt:
-                    stbuilder.Append("long");//TODO: review here
-                    break;
-                case WellKnownTypeName.Int64:
-                    stbuilder.Append("long");
-                    break;
-                case WellKnownTypeName.RefOfVec:
-                    {
-
-                        VecTypeSymbol elem = (VecTypeSymbol)((ReferenceOrPointerTypeSymbol)retTypeSymbol).ElementType;
-                        string vectorElementTypeName = elem.ElementType.ToString();
-                        switch (vectorElementTypeName)
-                        {
-                            case "int64":
-                                stbuilder.Append("List<long>");
-                                break;
-                            default:
-                                break;
-                        }
-                    }
-                    break;
-                case WellKnownTypeName.CefCNative:
-                    {
-                        string typename = retTypeSymbol.ToString();
-                        switch (typename)
-                        {
-                            default:
-                                break;
-                            case "CefProcessId":
-                                stbuilder.Append("long");
-                                break;
-                        }
-
-                    }
-                    break;
-                case WellKnownTypeName.TypeDefToAnother:
-                    {
-                        CTypeDefTypeSymbol ctypedefSymbol = (CTypeDefTypeSymbol)retTypeSymbol;
-                        TypeSymbol referToType = ctypedefSymbol.ReferToTypeSymbol;
-                        TypeBridgeInfo referToTypeBridge = referToType.BridgeInfo;
-                        switch (referToTypeBridge.WellKnownTypeName)
-                        {
-                            case WellKnownTypeName.CefCNative:
-                                {
-                                    string typename = retTypeSymbol.ToString();
-                                    stbuilder.Append(typename);
-                                }
-                                break;
-                            default:
-                                break;
-                        }
-
-
-                    }
-                    break;
             }
+            else
+            {
+                stbuilder.Append(parTypeBridge.DotNetMethodParType);
+            }
+
         }
-        void WriteArgExtractionCodeStmts(StringBuilder stbuilder, string argName, MethodParameterTxInfo par)
+        void WriteArgSetValue(StringBuilder stbuilder, string argName, MethodParameterTxInfo par)
         {
             TypeBridgeInfo bridgeInfo = par.TypeSymbol.BridgeInfo;
 
@@ -313,8 +190,9 @@ namespace BridgeBuilder
             StringBuilder stbuilder = new StringBuilder();
             stbuilder.Append("public ");
             //1. return type 
-            MethodParameterTxInfo retType = metTx.ReturnPlan;
-            WriteMethodReturnType(stbuilder, retType.TypeSymbol);
+
+            MethodParameterTxInfo retTypeTx = metTx.ReturnPlan;
+            WriteMethodReturnType(stbuilder, retTypeTx, retTypeTx.TypeSymbol);
 
             stbuilder.Append(' ');
             //2. name
@@ -334,27 +212,28 @@ namespace BridgeBuilder
                 }
 
                 MethodParameterTxInfo par = metTx.pars[i];
-                WriteMethodParameterType(stbuilder, par.TypeSymbol);
+                WriteMethodParameterType(stbuilder, par, par.TypeSymbol);
                 stbuilder.Append(' ');
                 stbuilder.Append(par.Name);
             }
             stbuilder.Append("){\r\n");
             stbuilder.AppendLine();
-            stbuilder.AppendLine("//autogen!");
+            stbuilder.AppendLine("// autogen! from " + metTx.ToString());
 
-            //body
-            //prepare calling parameters
-            stbuilder.AppendLine(@"
-            JsValue a1 = new JsValue();
-            JsValue a2 = new JsValue();
-            JsValue ret;");
+            //prepare user data from method args
+            //before send it to native side 
 
             for (int i = 0; i < argCount; ++i)
             {
                 string assignTo = "a" + (i + 1);
+                stbuilder.AppendLine("JsValue " + assignTo + "= new JsValue();");
                 MethodParameterTxInfo par = metTx.pars[i];
-                WriteArgExtractionCodeStmts(stbuilder, assignTo, par);
+                WriteArgSetValue(stbuilder, assignTo, par);
             }
+
+            stbuilder.AppendLine("JsValue ret;");
+
+
             //assign parameter value
             stbuilder.Append("Cef3Binder.MyCefFrameCall2(");
             stbuilder.Append("this.nativePtr,\r\n" +
@@ -362,7 +241,7 @@ namespace BridgeBuilder
                 + ",out ret,ref a1,ref a2");
             stbuilder.AppendLine(");");
             //
-            if (!retType.IsVoid)
+            if (!retTypeTx.IsVoid)
             {
                 //if not void
                 //DotNetResolvedSimpleType simpleType = retType.DotnetResolvedType as DotNetResolvedSimpleType;

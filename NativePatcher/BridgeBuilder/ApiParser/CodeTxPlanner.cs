@@ -2,59 +2,10 @@
 using System;
 using System.Collections.Generic;
 
-using System.Text;
-
 namespace BridgeBuilder
 {
-    //about: code transformation 
-    //abstract class DotNetResolvedTypeBase
-    //{
-    //    public bool IsPrimitiveType { get; set; }
-    //}
-    //class DotNetResolvedSimpleType : DotNetResolvedTypeBase
-    //{
-    //    public DotNetResolvedSimpleType(SimpleTypeSymbol simpleType)
-    //    {
-    //        this.SimpleType = simpleType;
-    //        this.Name = simpleType.Name;
-    //        this.IsPrimitiveType = simpleType.PrimitiveTypeKind != PrimitiveTypeKind.NotPrimitiveType;
-    //    }
-    //    public string Name { get; set; }
-    //    public SimpleTypeSymbol SimpleType { get; set; }
-    //    public override string ToString()
-    //    {
-    //        return this.Name;
-    //    }
-    //}
-    //class DotNetResolvedArrayType : DotNetResolvedTypeBase
-    //{
-    //    public DotNetResolvedArrayType(DotNetResolvedTypeBase elementType)
-    //    {
-    //        ElementType = elementType;
-    //    }
-    //    public DotNetResolvedTypeBase ElementType { get; set; }
-    //    public override string ToString()
-    //    {
-    //        return ElementType + "[]";
-    //    }
-    //}
-    //class DotNetList : DotNetResolvedTypeBase
-    //{
-    //    public DotNetList(DotNetResolvedTypeBase elementType)
-    //    {
-    //        ElementType = elementType;
-    //    }
-    //    public DotNetResolvedTypeBase ElementType { get; set; }
-    //    public override string ToString()
-    //    {
-    //        return "list<" + ElementType + ">";
-    //    }
-
-    //}
-
     class TypeTxInfo
     {
-
         public List<MethodTxInfo> methods = new List<MethodTxInfo>();
         public TypeTxInfo(CodeTypeDeclaration typedecl)
         {
@@ -127,6 +78,8 @@ namespace BridgeBuilder
             return "";
         }
         public TxParameterDirection Direction { get; set; }
+
+
     }
 
     enum TxParameterDirection
@@ -214,13 +167,186 @@ namespace BridgeBuilder
                         throw new NotSupportedException();
                     case TypeSymbolKind.ReferenceOrPointer:
                         {
-
-                            CefTypeCollection.Planner.AssignTypeBridgeInfo((ReferenceOrPointerTypeSymbol)resolvedParType);
-
+                            bridgeInfo = CefTypeCollection.Planner.AssignTypeBridgeInfo((ReferenceOrPointerTypeSymbol)resolvedParType);
                         }
                         break;
                 }
             }
+            //-----------------------
+            //assign dotnet side type
+            if (bridgeInfo.DotNetMethodParType != null)
+            {
+                return;
+            }
+            switch (resolvedParType.TypeSymbolKind)
+            {
+                case TypeSymbolKind.ReferenceOrPointer:
+                    {
+
+                        ReferenceOrPointerTypeSymbol refOrPointer = (ReferenceOrPointerTypeSymbol)resolvedParType;
+                        switch (bridgeInfo.WellKnownTypeName)
+                        {
+                            default:
+                                {
+
+                                }
+                                break;
+                            case WellKnownTypeName.PtrOf:
+                                {
+                                    string vectorElementTypeName = refOrPointer.ElementType.ToString();
+                                    switch (vectorElementTypeName)
+                                    {
+                                        default:
+                                            //char* => .net byte[]
+
+                                            break;
+                                        case "char":
+                                            bridgeInfo.DotNetMethodParType = "string";
+                                            return;
+                                        case "void": //void*
+                                            //for .net 
+                                            //1. unsafe void*
+                                            //2. IntPtr
+                                            bridgeInfo.DotNetMethodParType = "IntPtr";
+                                            return;
+
+                                    }
+                                }
+                                break;
+                            case WellKnownTypeName.RefOfVec:
+                                {
+
+                                    VecTypeSymbol elem = (VecTypeSymbol)refOrPointer.ElementType;
+                                    string vectorElementTypeName = elem.ElementType.ToString();
+                                    switch (vectorElementTypeName)
+                                    {
+                                        default:
+                                            break;
+                                        case "int64":
+                                            bridgeInfo.DotNetMethodParType = "List<long>";
+                                            return;
+                                        case "CefString":
+                                            bridgeInfo.DotNetMethodParType = "List<string>";
+                                            return;
+                                        case "CefCompositionUnderline":
+                                            bridgeInfo.DotNetMethodParType = "List<CefCompositionUnderline>";
+                                            return;
+
+                                    }
+                                }
+                                break;
+                            case WellKnownTypeName.RefOfCString:
+                                {
+                                    AddMethodParameterTypeTxInfo(parPlan, refOrPointer.ElementType);
+                                    bridgeInfo.DotNetMethodParType = "string";
+                                    return;
+                                }
+                            case WellKnownTypeName.RefOfPrimitive:
+                                {
+                                    //what is that primitive 
+                                    AddMethodParameterTypeTxInfo(parPlan, refOrPointer.ElementType);
+                                    bridgeInfo.DotNetMethodParType = "ref " + refOrPointer.ElementType.BridgeInfo.DotNetMethodParType;
+                                    return;
+                                }
+                            case WellKnownTypeName.RefPtrOf:
+                                {
+                                    string name = refOrPointer.ElementType.ToString();
+                                    switch (name)
+                                    {
+                                        case "CefBinaryValue":
+                                            break;
+                                        default:
+                                            if (name.EndsWith("Callback"))
+                                            {
+
+                                            }
+                                            else if (name.StartsWith("Cef"))
+                                            {
+                                            }
+                                            else
+                                            {
+
+                                            }
+                                            break;
+                                    }
+                                    bridgeInfo.DotNetMethodParType = "IntPtr";
+                                    return;
+                                }
+                            case WellKnownTypeName.RefOf:
+                                {
+                                    string name = refOrPointer.ElementType.ToString();
+                                    bridgeInfo.DotNetMethodParType = "IntPtr";
+                                    switch (name)
+                                    {
+                                        case "CefBinaryValue":
+                                            break;
+                                        default:
+                                            if (name.EndsWith("Callback"))
+                                            {
+
+                                            }
+                                            else
+                                            {
+
+                                            }
+                                            break;
+                                    }
+                                    return;
+                                }
+                        }
+                    }
+                    break;
+            }
+
+            switch (bridgeInfo.WellKnownTypeName)
+            {
+                default:
+
+                    break;
+
+                case WellKnownTypeName.CefCNative:
+                    {
+                        string typename = resolvedParType.ToString();
+                        switch (typename)
+                        {
+                            default:
+                                {
+                                    if (typename.StartsWith("cef_"))
+                                    {
+                                        //native cef_
+                                        bridgeInfo.DotNetMethodParType = "long";
+                                    }
+                                    else
+                                    {
+                                    }
+                                }
+                                break;
+                            case "CefProcessId":
+                                bridgeInfo.DotNetMethodParType = "long";
+                                break;
+                        }
+                    }
+                    break;
+                case WellKnownTypeName.TypeDefToAnother:
+                    {
+                        CTypeDefTypeSymbol ctypedefSymbol = (CTypeDefTypeSymbol)resolvedParType;
+                        TypeSymbol referToType = ctypedefSymbol.ReferToTypeSymbol;
+                        TypeBridgeInfo referToTypeBridge = referToType.BridgeInfo;
+                        switch (referToTypeBridge.WellKnownTypeName)
+                        {
+                            case WellKnownTypeName.CefCNative:
+                                {
+                                    string typename = resolvedParType.ToString();
+                                    bridgeInfo.DotNetMethodParType = "typename";
+                                }
+                                break;
+                            default:
+                                break;
+                        }
+                    }
+                    break;
+            }
+
         }
     }
 
@@ -570,27 +696,7 @@ namespace BridgeBuilder
         }
 
 
-
-
-        //----------------------------------------------
-        public void WriteCsMethodArgDecl()
-        {
-
-        }
-        public void WriteCsMethodReturnDecl()
-        {
-
-        }
-        public void WriteCsGetMethodArg()
-        {
-        }
-        public void WriteCsPutMethodArg()
-        {
-        }
-        public void WriteCsPutMethodReturn()
-        {
-
-        }
+        internal string DotNetMethodParType { get; set; }
 
     }
 
@@ -631,6 +737,7 @@ namespace BridgeBuilder
             {
                 default:
                     {
+
                         if (simpleType.Name.StartsWith("cef_") && CefResolvingContext.IsAllLowerLetter(simpleType.Name))
                         {
                             //this is native cef?
@@ -644,8 +751,9 @@ namespace BridgeBuilder
                             {
                                 bridgeToBase = SelectProperTypeBridge(simpleType.BaseType);
                             }
-
                             var typeBridge = new TypeBridgeInfo(simpleType, WellKnownTypeName.CefCpp, CefTypeKind.JSVALUE_TYPE_WRAPPED, bridgeToBase);
+                            typeBridge.DotNetMethodParType = simpleType.Name;
+
                             return typeBridge;
                         }
                         else
@@ -722,72 +830,86 @@ namespace BridgeBuilder
                             case PrimitiveTypeKind.Float:
                                 {
                                     var typeBridge = new TypeBridgeInfo(simpleType, WellKnownTypeName.Float, CefTypeKind.JSVALUE_TYPE_NUMBER);
-
+                                    typeBridge.DotNetMethodParType = "float";
                                     return typeBridge;
                                 }
                             case PrimitiveTypeKind.Double:
                                 {
                                     var typeBridge = new TypeBridgeInfo(simpleType, WellKnownTypeName.Double, CefTypeKind.JSVALUE_TYPE_NUMBER);
+                                    typeBridge.DotNetMethodParType = "double";
                                     return typeBridge;
                                 }
                             case PrimitiveTypeKind.Bool:
                                 {
                                     var typeBridge = new TypeBridgeInfo(simpleType, WellKnownTypeName.Bool, CefTypeKind.JSVALUE_TYPE_BOOLEAN);
+                                    typeBridge.DotNetMethodParType = "bool";
                                     return typeBridge;
                                 }
                             case PrimitiveTypeKind.Char:
                                 {
                                     var typeBridge = new TypeBridgeInfo(simpleType, WellKnownTypeName.CChar, CefTypeKind.JSVALUE_TYPE_INTEGER);
+                                    typeBridge.DotNetMethodParType = "byte";
                                     return typeBridge;
                                 }
                             case PrimitiveTypeKind.Int32:
                                 {
                                     var typeBridge = new TypeBridgeInfo(simpleType, WellKnownTypeName.Int32, CefTypeKind.JSVALUE_TYPE_INTEGER);
+                                    typeBridge.DotNetMethodParType = "int";
                                     return typeBridge;
                                 }
                             case PrimitiveTypeKind.NaitveInt:
                                 {
                                     var typeBridge = new TypeBridgeInfo(simpleType, WellKnownTypeName.NativeInt, CefTypeKind.JSVALUE_TYPE_INTEGER);
+                                    typeBridge.DotNetMethodParType = "long";
                                     return typeBridge;
                                 }
                             case PrimitiveTypeKind.Int64:
                                 {
                                     var typeBridge = new TypeBridgeInfo(simpleType, WellKnownTypeName.Int64, CefTypeKind.JSVALUE_TYPE_INTEGER64);
+                                    typeBridge.DotNetMethodParType = "long";
                                     return typeBridge;
                                 }
                             case PrimitiveTypeKind.UInt32:
                                 {
+
                                     var typeBridge = new TypeBridgeInfo(simpleType, WellKnownTypeName.UInt32, CefTypeKind.JSVALUE_TYPE_INTEGER);
+                                    typeBridge.DotNetMethodParType = "uint";
                                     return typeBridge;
                                 }
                             case PrimitiveTypeKind.Void:
                                 {
                                     var typeBridge = new TypeBridgeInfo(simpleType, WellKnownTypeName.Void, CefTypeKind.JSVALUE_TYPE_EMPTY);
+                                    typeBridge.DotNetMethodParType = "void";
                                     return typeBridge;
                                 }
                             case PrimitiveTypeKind.IntPtr:
                                 {
                                     var typeBridge = new TypeBridgeInfo(simpleType, WellKnownTypeName.IntPtr, CefTypeKind.JSVALUE_TYPE_INTEGER64);
+                                    typeBridge.DotNetMethodParType = "IntPtr";
                                     return typeBridge;
                                 }
                             case PrimitiveTypeKind.UInt64:
                                 {
                                     var typeBridge = new TypeBridgeInfo(simpleType, WellKnownTypeName.UInt64, CefTypeKind.JSVALUE_TYPE_INTEGER64);
+                                    typeBridge.DotNetMethodParType = "ulong";
                                     return typeBridge;
                                 }
                             case PrimitiveTypeKind.size_t:
                                 {
                                     var typeBridge = new TypeBridgeInfo(simpleType, WellKnownTypeName.size_t, CefTypeKind.JSVALUE_TYPE_INTEGER64);
+                                    typeBridge.DotNetMethodParType = "int";
                                     return typeBridge;
                                 }
                             case PrimitiveTypeKind.String:
                                 {
                                     var typeBridge = new TypeBridgeInfo(simpleType, WellKnownTypeName.OtherString, CefTypeKind.JSVALUE_TYPE_NATIVE_CEFHOLDER_STRING);
+                                    typeBridge.DotNetMethodParType = "string";
                                     return typeBridge;
                                 }
                             case PrimitiveTypeKind.CefString:
                                 {
                                     var typeBridge = new TypeBridgeInfo(simpleType, WellKnownTypeName.CefString, CefTypeKind.JSVALUE_TYPE_NATIVE_CEFHOLDER_STRING);
+                                    typeBridge.DotNetMethodParType = "string";
                                     return typeBridge;
                                 }
                         }
@@ -797,6 +919,13 @@ namespace BridgeBuilder
                         CTypeDefTypeSymbol typedefSymbol = (CTypeDefTypeSymbol)t;
                         TypeBridgeInfo referToTypeBridge = AssignTypeBridgeInfo(typedefSymbol.ReferToTypeSymbol);
                         var typeBridge = new TypeBridgeInfo(typedefSymbol, WellKnownTypeName.TypeDefToAnother, CefTypeKind.JSVALUE_TYPE_WRAPPED, referToTypeBridge);
+                        //
+
+
+
+
+
+
                         return typeBridge;
 
                     }
