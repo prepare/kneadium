@@ -126,6 +126,9 @@ namespace BridgeBuilder
         public TypeKind Kind { get; set; }
 
         public bool BaseIsPublic { get; set; }
+        /// <summary>
+        /// cpp 
+        /// </summary>
         public bool BaseIsVirtual { get; set; }
         public bool IsGlobalCompilationUnitType { get; set; }
         public CodeTypeTemplateNotation TemplateNotation { get; set; }
@@ -624,6 +627,7 @@ namespace BridgeBuilder
         public bool IsVirtual { get; set; }
         public bool IsStatic { get; set; }
         public bool IsConst { get; set; }
+        public bool IsAbstract { get; set; }
         public MethodKind MethodKind { get; set; }
 
         public override CodeMemberKind MemberKind { get { return CodeMemberKind.Method; } }

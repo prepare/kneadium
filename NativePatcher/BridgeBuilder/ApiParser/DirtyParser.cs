@@ -1355,11 +1355,13 @@ namespace BridgeBuilder
                 }
                 else if (ExpectPunc("="))
                 {
-
                     if (!ExpectLiternalNumber("0"))
-                    {
+                    {   
                         throw new NotSupportedException();
                     }
+                    //
+                    met.IsAbstract = true;
+                    //
                     // no method body
                     if (!ExpectPunc(";"))
                     {
