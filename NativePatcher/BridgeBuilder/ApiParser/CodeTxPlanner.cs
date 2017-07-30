@@ -351,6 +351,11 @@ namespace BridgeBuilder
                                     bridgeInfo.SetCsInterOp(typename, "Set_NativePtr");
                                 }
                                 break;
+                            case WellKnownTypeName.UInt32:
+                                {
+                                    bridgeInfo.SetCsInterOp("uint", "Set_uint");
+                                }
+                                break;
                             default:
                                 break;
                         }
