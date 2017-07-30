@@ -1016,7 +1016,7 @@ namespace BridgeBuilder
                                     return new CodeBinaryOperatorExpression()
                                     {
                                         LeftExpression = new CodeNumberLiteralExpression() { Content = enum_value.ToString() },
-                                        Operator = nextToken1.Content,
+                                        Operator = ">>",
                                         RightExpression = rightExpr
                                     };
                                 }

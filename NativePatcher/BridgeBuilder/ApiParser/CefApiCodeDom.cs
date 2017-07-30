@@ -78,6 +78,10 @@ namespace BridgeBuilder
         {
             get { return CodeExpressionKind.StringLiteral; }
         }
+        public override string ToString()
+        {
+            return Content;
+        }
     }
     class CodeNumberLiteralExpression : CodeExpression
     {
@@ -85,6 +89,10 @@ namespace BridgeBuilder
         public override CodeExpressionKind Kind
         {
             get { return CodeExpressionKind.NumberLiteral; }
+        }
+        public override string ToString()
+        {
+            return Content;
         }
     }
     class CodeBinaryOperatorExpression : CodeExpression
@@ -95,6 +103,10 @@ namespace BridgeBuilder
         public override CodeExpressionKind Kind
         {
             get { return CodeExpressionKind.BinaryOpExpression; }
+        }
+        public override string ToString()
+        {
+            return LeftExpression + " " + Operator + " " + RightExpression;
         }
     }
 
@@ -541,13 +553,29 @@ namespace BridgeBuilder
         public CodeTypeReference FieldType { get; set; }
         public override string ToString()
         {
-            if (InitExpression != null)
+            if (FieldType == null)
             {
-                return FieldType.ToString() + " " + Name + "=" + InitExpression + ";";
+                //enum field ?
+                if (InitExpression != null)
+                {
+                    return Name + "=" + InitExpression;
+                }
+                else
+                {
+                    return Name;
+                }
+
             }
             else
             {
-                return FieldType.ToString() + " " + Name + ";";
+                if (InitExpression != null)
+                {
+                    return FieldType.ToString() + " " + Name + "=" + InitExpression;
+                }
+                else
+                {
+                    return FieldType.ToString() + " " + Name;
+                } 
             }
 
         }

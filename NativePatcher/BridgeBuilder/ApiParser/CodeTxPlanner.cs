@@ -723,7 +723,7 @@ namespace BridgeBuilder
         {
 
         }
-        
+
     }
 
 
@@ -771,8 +771,17 @@ namespace BridgeBuilder
                 default:
                     {
 
-                        if (simpleType.Name.StartsWith("cef_") && CefResolvingContext.IsAllLowerLetter(simpleType.Name))
+
+                        if ((simpleType.Name.StartsWith("cef_") || simpleType.Name.StartsWith("_cef")) &&
+                            CefResolvingContext.IsAllLowerLetter(simpleType.Name))
                         {
+                            //TypeSymbol existingType;
+                            //if (typeSymbols.TryGetValue(simpleType.Name, out existingType))
+                            //{
+
+                            //}
+
+
                             //this is native cef?
                             var typeBridge = new TypeBridgeInfo(simpleType, WellKnownTypeName.CefCNative, CefTypeKind.JSVALUE_TYPE_WRAPPED);
                             return typeBridge;
@@ -950,7 +959,7 @@ namespace BridgeBuilder
                         CTypeDefTypeSymbol typedefSymbol = (CTypeDefTypeSymbol)t;
                         TypeBridgeInfo referToTypeBridge = AssignTypeBridgeInfo(typedefSymbol.ReferToTypeSymbol);
                         var typeBridge = new TypeBridgeInfo(typedefSymbol, WellKnownTypeName.TypeDefToAnother, CefTypeKind.JSVALUE_TYPE_WRAPPED, referToTypeBridge);
-                      
+
                         return typeBridge;
 
                     }

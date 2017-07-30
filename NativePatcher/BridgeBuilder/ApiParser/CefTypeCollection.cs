@@ -578,20 +578,29 @@ namespace BridgeBuilder
                 //extract type from global typedecl
                 foreach (CodeMemberDeclaration subType in cu.GlobalTypeDecl.GetSubTypeIter())
                 {
-                    if (subType.MemberKind == CodeMemberKind.TypeDef)
+                    switch (subType.MemberKind)
                     {
-                        CodeCTypeDef ctypeDef = (CodeCTypeDef)subType;
-                        // 
-                        CTypeDefTypeSymbol ctypedefTypeSymbol = new CTypeDefTypeSymbol(ctypeDef.Name, ctypeDef.From);
-                        ctypedefTypeSymbol.CreatedTypeCTypeDef = ctypeDef;
-                        //---
+                        case CodeMemberKind.TypeDef:
+                            {
+                                CodeCTypeDef ctypeDef = (CodeCTypeDef)subType;
+                                // 
+                                CTypeDefTypeSymbol ctypedefTypeSymbol = new CTypeDefTypeSymbol(ctypeDef.Name, ctypeDef.From);
+                                ctypedefTypeSymbol.CreatedTypeCTypeDef = ctypeDef;
+                                //---
 
-                        TypeSymbol existing;
-                        if (TryGetType(ctypeDef.Name, out existing))
-                        {
-                            throw new NotSupportedException();
-                        }
-                        RegisterType(ctypeDef.Name, ctypedefTypeSymbol);
+                                TypeSymbol existing;
+                                if (TryGetType(ctypeDef.Name, out existing))
+                                {
+                                    throw new NotSupportedException();
+                                }
+                                RegisterType(ctypeDef.Name, ctypedefTypeSymbol);
+                            }
+                            break;
+                        case CodeMemberKind.Type:
+                            {
+                                RegisterTypeDeclaration((CodeTypeDeclaration)subType);
+                            }
+                            break;
                     }
                 }
 
