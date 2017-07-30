@@ -92,6 +92,11 @@ namespace BridgeBuilder
         {
             this.Name = name;
             this.TypeSymbol = typeSymbol;
+            if (typeSymbol is SimpleTypeSymbol)
+            {
+                SimpleTypeSymbol s = (SimpleTypeSymbol)typeSymbol;
+                this.IsVoid = s.PrimitiveTypeKind == PrimitiveTypeKind.Void;
+            }
         }
         public TypeSymbol TypeSymbol { get; private set; }
         public bool IsMethodReturnParameter { get; set; }
@@ -247,7 +252,7 @@ namespace BridgeBuilder
                                         default:
                                             //char* => .net byte[]
 
-                                            break;
+                                            break; 
                                         case "char":
                                             //char*
                                             bridgeInfo.SetCsInterOp("string", "Set_string");
@@ -361,7 +366,29 @@ namespace BridgeBuilder
                 default:
 
                     break;
+                case WellKnownTypeName.OtherCppClass:
+                    {
+                        string typename = resolvedParType.ToString();
+                        switch (typename)
+                        {
+                            default:
+                                {
+                                    if (typename.StartsWith("cef_"))
+                                    {
+                                        //native cef_
 
+                                    }
+                                    else
+                                    {
+                                    }
+                                    bridgeInfo.SetCsInterOp(typename, "Set_NativePtr");
+                                }
+                                break;
+                            case "CefProcessId":
+                                bridgeInfo.SetCsInterOp(typename, "Set_NativePtr");
+                                break;
+                        }
+                    }break;
                 case WellKnownTypeName.CefCNative:
                     {
                         string typename = resolvedParType.ToString();

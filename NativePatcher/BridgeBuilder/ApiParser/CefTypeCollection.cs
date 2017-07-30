@@ -234,7 +234,7 @@ namespace BridgeBuilder
                             switch (subtype.MemberKind)
                             {
                                 default: throw new NotSupportedException();
-                                case CodeMemberKind.Type: 
+                                case CodeMemberKind.Type:
                                     break;
                                 case CodeMemberKind.TypeDef:
                                     {
@@ -625,8 +625,6 @@ namespace BridgeBuilder
             //
             this.Planner = cefTypeBridgeTxPlanner;
 
-
-
             //-----------------------
             //do class classification 
             foreach (CodeTypeDeclaration t in typedeclDic.Values)
@@ -846,6 +844,8 @@ namespace BridgeBuilder
             {
                 foreach (CodeMethodDeclaration metDecl in typedecl.GetMethodIter())
                 {
+                    //this version we resolve only method ***
+
 
                     switch (metDecl.MethodKind)
                     {

@@ -616,7 +616,10 @@ namespace BridgeBuilder
                                         //parse class
                                         Token[] comments = FlushCollectedLineComments();
 
+
+
                                         CodeTypeDeclaration typeDecl = ParseTypeDeclaration();
+
                                         typeDecl.Kind = (tk.Content == "class") ? TypeKind.Class : TypeKind.Struct;
 
                                         templateNotation = null;
@@ -684,7 +687,11 @@ namespace BridgeBuilder
             switch (tk.TokenKind)
             {
                 case TokenKind.LineComment:
+                    this.lineComments.Add(tk);
+                    currentTokenIndex++;
+                    return ExpectId();
                 case TokenKind.PreprocessingDirective:
+
                     currentTokenIndex++;
                     return ExpectId();
                 case TokenKind.Comment:
@@ -840,9 +847,15 @@ namespace BridgeBuilder
         {
             return ExpectPunc(p1) && ExpectPunc(p2);
         }
+
+
+        MemberAccessibility _currentMemberAccessibilityMode;
+
         CodeTypeDeclaration ParseTypeDeclaration()
         {
             //class name
+
+            MemberAccessibility prev_accessibility = this._currentMemberAccessibilityMode; //save
             var codeTypeDecl = new CodeTypeDeclaration();
             if (this.templateNotation != null)
             {
@@ -851,7 +864,6 @@ namespace BridgeBuilder
             }
 
             codeTypeDecl.Name = ExpectId();
-
 
             if (ExpectPunc(";"))
             {
@@ -881,6 +893,9 @@ namespace BridgeBuilder
             {
                 throw new NotSupportedException();
             }
+
+            //------
+            this._currentMemberAccessibilityMode = prev_accessibility; //restore back
             return codeTypeDecl;
         }
         CodeTypeTemplateNotation ParseTemplateNotation()
@@ -942,6 +957,7 @@ namespace BridgeBuilder
                 CodeTypeDeclaration enumDecl = ParseEnumDeclaration();
                 enumDecl.LineComments = comments;
                 string enum_name = ExpectId();
+
                 if (enum_name != null)
                 {
                     enumDecl.Name = enum_name;
@@ -986,7 +1002,7 @@ namespace BridgeBuilder
                 codeTypeDecl.AddMember(
                     new CodeCTypeDef(
                         new CodeSimpleTypeReference(struct_decl.Name), typedef_anotherName)
-                    { LineComments = comments }
+                    { LineComments = comments, MemberAccessibility = this._currentMemberAccessibilityMode }
                 );
                 return true;
             }
@@ -997,7 +1013,8 @@ namespace BridgeBuilder
                 throw new NotSupportedException();
             }
 
-            codeTypeDecl.AddMember(new CodeCTypeDef(from, to) { LineComments = comments });
+            codeTypeDecl.AddMember(new CodeCTypeDef(from, to) { LineComments = comments, MemberAccessibility = this._currentMemberAccessibilityMode });
+
             return !ExpectPunc("}");
         }
         CodeExpression ParseExpression()
@@ -1083,6 +1100,8 @@ namespace BridgeBuilder
             while (loop)
             {
                 string fieldname = ExpectId();
+                Token[] comments2 = FlushCollectedLineComments();
+
                 Token next_tk = ExpectPunc();
                 if (next_tk != null)
                 {
@@ -1102,6 +1121,7 @@ namespace BridgeBuilder
                                 //2. shift expression 
                                 CodeFieldDeclaration field_decl = new CodeFieldDeclaration();
                                 field_decl.Name = fieldname;
+                                field_decl.LineComments = comments2;
                                 field_decl.InitExpression = ParseExpression();
                                 enumDecl.AddMember(field_decl);
                                 fieldname = null;//reset 
@@ -1113,6 +1133,7 @@ namespace BridgeBuilder
                                 if (fieldname != null)
                                 {
                                     CodeFieldDeclaration field_decl = new CodeFieldDeclaration();
+                                    field_decl.LineComments = comments2;
                                     field_decl.Name = fieldname;
                                     enumDecl.AddMember(field_decl);
                                     fieldname = null;//reset
@@ -1183,6 +1204,7 @@ namespace BridgeBuilder
             }
         }
 
+
         bool ParseTypeMember(CodeTypeDeclaration codeTypeDecl)
         {
 
@@ -1196,12 +1218,15 @@ namespace BridgeBuilder
             //parse each member 
             if (ExpectId("public") && ExpectPunc(":"))
             {
+                this._currentMemberAccessibilityMode = MemberAccessibility.Public;
             }
             else if (ExpectId("private") && ExpectPunc(":"))
             {
+                this._currentMemberAccessibilityMode = MemberAccessibility.Private;
             }
             else if (ExpectId("protected") && ExpectPunc(":"))
             {
+                this._currentMemberAccessibilityMode = MemberAccessibility.Protected;
             }
             //---------------------------
             if (ExpectId("typedef"))
@@ -1242,6 +1267,7 @@ namespace BridgeBuilder
             {
                 //sub class
                 CodeTypeDeclaration subClass = ParseTypeDeclaration();
+                subClass.MemberAccessibility = _currentMemberAccessibilityMode;
                 subClass.Kind = TypeKind.Class;
                 codeTypeDecl.AddMember(subClass);
                 return !ExpectPunc("}");
@@ -1249,6 +1275,7 @@ namespace BridgeBuilder
             else if (ExpectId("struct"))
             {
                 CodeTypeDeclaration subClass = ParseTypeDeclaration();
+                subClass.MemberAccessibility = _currentMemberAccessibilityMode;
                 subClass.Kind = TypeKind.Struct;
                 codeTypeDecl.AddMember(subClass);
                 return !ExpectPunc("}");
@@ -1290,6 +1317,7 @@ namespace BridgeBuilder
                 met.IsVirtual = isVirtual;
                 met.IsInline = isInline;
                 met.LineComments = comments;
+                met.MemberAccessibility = this._currentMemberAccessibilityMode;
                 //
                 if (retType.ToString() == codeTypeDecl.Name && name == null)
                 {
@@ -1346,11 +1374,13 @@ namespace BridgeBuilder
                 }
                 else if (ExpectPunc("="))
                 {
-
                     if (!ExpectLiternalNumber("0"))
                     {
                         throw new NotSupportedException();
                     }
+                    //
+                    met.IsAbstract = true;
+                    //
                     // no method body
                     if (!ExpectPunc(";"))
                     {
@@ -1370,6 +1400,7 @@ namespace BridgeBuilder
                 //this is code field decl
                 CodeFieldDeclaration field = new CodeFieldDeclaration();
                 field.LineComments = comments;
+                field.MemberAccessibility = this._currentMemberAccessibilityMode;
                 codeTypeDecl.AddMember(field);
                 field.Name = name;
                 field.FieldType = retType;

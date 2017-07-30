@@ -114,6 +114,7 @@ namespace BridgeBuilder
     {
 
 
+
         List<CodeMemberDeclaration> _specialImplMacroMembers;
         List<CodeMemberDeclaration> _members;
 
@@ -126,6 +127,9 @@ namespace BridgeBuilder
         public TypeKind Kind { get; set; }
 
         public bool BaseIsPublic { get; set; }
+        /// <summary>
+        /// cpp 
+        /// </summary>
         public bool BaseIsVirtual { get; set; }
         public bool IsGlobalCompilationUnitType { get; set; }
         public CodeTypeTemplateNotation TemplateNotation { get; set; }
@@ -526,6 +530,12 @@ namespace BridgeBuilder
         }
     }
 
+    enum MemberAccessibility
+    {
+        Public,
+        Protected,
+        Private
+    }
 
     abstract class CodeMemberDeclaration
     {
@@ -539,6 +549,7 @@ namespace BridgeBuilder
 #endif
         public string Name { get; set; }
         public abstract CodeMemberKind MemberKind { get; }
+        public MemberAccessibility MemberAccessibility { get; set; }
         public CodeCompilationUnit OriginalCompilationUnit { get; set; }
         public Token[] LineComments { get; set; }
     }
@@ -624,6 +635,7 @@ namespace BridgeBuilder
         public bool IsVirtual { get; set; }
         public bool IsStatic { get; set; }
         public bool IsConst { get; set; }
+        public bool IsAbstract { get; set; }
         public MethodKind MethodKind { get; set; }
 
         public override CodeMemberKind MemberKind { get { return CodeMemberKind.Method; } }

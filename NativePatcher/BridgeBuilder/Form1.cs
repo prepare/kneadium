@@ -361,8 +361,6 @@ namespace BridgeBuilder
                 }
             }
 
-
-
             //
             ApiBuilderCsPart apiBuilderCsPart = new ApiBuilderCsPart();
             ApiBuilderCppPart apiBuilderCppPart = new ApiBuilderCppPart();
@@ -380,6 +378,16 @@ namespace BridgeBuilder
             foreach (CodeTypeDeclaration typedecl in cefTypeCollection.otherClasses)
             {
                 if (typedecl.IsGlobalCompilationUnitType) { continue; }
+                if (typedecl.BaseIsVirtual) { continue; }
+                if (typedecl.IsTemplateTypeDefinition) { continue; }
+                if (typedecl.Name.EndsWith("Traits")) { continue; }
+
+
+                if (typedecl.Kind != TypeKind.Enum)
+                {
+
+                }
+                
                 //
                 TypeTxInfo typeTxPlan = txPlanner.MakeTransformPlan(typedecl);
                 //
