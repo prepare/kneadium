@@ -36,7 +36,7 @@ namespace BridgeBuilder
             stbuilder.AppendLine("}");
 
         }
-        public void GenerateCppPart(MethodTxInfo met, StringBuilder stbuilder)
+        void GenerateCppPart(MethodTxInfo met, StringBuilder stbuilder)
         {
 
 

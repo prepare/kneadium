@@ -134,20 +134,64 @@ namespace BridgeBuilder
         void WriteMethodParameterType(StringBuilder stbuilder, MethodParameterTxInfo par, TypeSymbol parType)
         {
             TypeBridgeInfo parTypeBridge = parType.BridgeInfo;
-            if (parTypeBridge.DotNetMethodParType == null)
+            if (parTypeBridge.CsMethodParType == null)
             {
 
             }
             else
             {
-                stbuilder.Append(parTypeBridge.DotNetMethodParType);
+                stbuilder.Append(parTypeBridge.CsMethodParType);
             }
 
         }
         void WriteArgSetValue(StringBuilder stbuilder, string argName, MethodParameterTxInfo par)
         {
+            TypeSymbol parType = par.TypeSymbol;
             TypeBridgeInfo bridgeInfo = par.TypeSymbol.BridgeInfo;
+            if (bridgeInfo.CsAssignMethodName == null)
+            {
+                throw new NotSupportedException();
+            }
+            if (bridgeInfo.CsAssignMethodName == "Set_NativePtr")
+            {
+                stbuilder.AppendLine(bridgeInfo.CsAssignMethodName + "(ref " + argName + "," + par.Name + ".nativePtr)");
+            }
+            else if (bridgeInfo.CsAssignMethodName.StartsWith("Set_ListOf_"))
+            {
+                //need spcial method of create a list for native side
+                //and copy content of that list back from cpp side to .net side
+                stbuilder.AppendLine(bridgeInfo.CsAssignMethodName + "(ref " + argName + "," + par.Name + ".nativePtr)");
+            }
+            else
+            {
+                stbuilder.AppendLine(bridgeInfo.CsAssignMethodName + "(ref " + argName + "," + par.Name + ")");
+            }
 
+
+
+            //switch (parType.TypeSymbolKind)
+            //{
+            //    default:
+            //        {
+
+            //        }
+            //        break;
+            //    case TypeSymbolKind.Simple:
+            //        {
+
+            //        }
+            //        break;
+            //    case TypeSymbolKind.ReferenceOrPointer:
+            //        {
+
+            //        }
+            //        break;
+            //    case TypeSymbolKind.Template:
+            //        {
+
+            //        }
+            //        break; 
+            //}
             //string parResolvedType = par.TypeSymbol.ToString(); 
             //switch (parResolvedType)
             //{
@@ -218,7 +262,7 @@ namespace BridgeBuilder
             }
             stbuilder.Append("){\r\n");
             stbuilder.AppendLine();
-            stbuilder.AppendLine("// autogen! from " + metTx.ToString());
+            stbuilder.AppendLine("// autogen! " + metTx.ToString());
 
             //prepare user data from method args
             //before send it to native side 
