@@ -49,7 +49,18 @@ namespace BridgeBuilder
                             }
                             else if (char.IsNumber(c))
                             {
-                                LexNumber(charBuffer, j, ref i);
+                                LexNumber(charBuffer, '\0', j, ref i);
+                            }
+                            else if (c == '-')
+                            {
+                                //read next
+                                char next_char = charBuffer[i + 1];
+                                if (char.IsNumber(next_char))
+                                {
+                                    //consume 
+                                    i++;
+                                    LexNumber(charBuffer, '-', j, ref i);
+                                }
                             }
                             else if (char.IsWhiteSpace(c))
                             {
@@ -114,6 +125,33 @@ namespace BridgeBuilder
                             if (c1 == '=' || //+=, -=
                                 (c == '+' && c1 == '+') || //++
                                 (c == '-' && c1 == '-')) //--
+                            {
+                                currentIndex += 1;
+                                tklist.Add(
+                                    new Token() { Content = (c.ToString() + c1.ToString()), TokenKind = TokenKind.Punc });
+                            }
+                            else
+                            {
+                                //just single token
+                                tklist.Add(
+                                   new Token() { Content = c.ToString(), TokenKind = TokenKind.Punc });
+                            }
+                        }
+                        else
+                        {
+                            //just single token
+                            tklist.Add(
+                                  new Token() { Content = c.ToString(), TokenKind = TokenKind.Punc });
+                        }
+                    }
+                    break;
+                case '<':
+                    {
+                        if (currentIndex + 1 < charCount)
+                        {
+                            //read next
+                            char c1 = charBuffer[currentIndex + 1];
+                            if (c1 == '<') //<<
                             {
                                 currentIndex += 1;
                                 tklist.Add(
@@ -276,11 +314,18 @@ namespace BridgeBuilder
                 tklist.Add(new Token() { Content = stbuilder.ToString(), TokenKind = TokenKind.Id });
             }
         }
-        void LexNumber(char[] charBuffer, int charCount, ref int currentIndex)
+        void LexNumber(char[] charBuffer, char signChar, int charCount, ref int currentIndex)
         {
             StringBuilder stbuilder = new StringBuilder();
             char c = charBuffer[currentIndex];
+            //
+            if (signChar == '-')
+            {
+                stbuilder.Append('-');
+            }
+            //
             stbuilder.Append(c);
+
             for (int i = currentIndex + 1; i < charCount; ++i)
             {
                 c = charBuffer[i];
@@ -480,7 +525,16 @@ namespace BridgeBuilder
                     }
                     else if (line.StartsWith("#"))
                     {
-                        tokenList.Add(new Token() { Content = line, TokenKind = TokenKind.PreprocessingDirective });
+                        var token = new Token() { Content = line, TokenKind = TokenKind.PreprocessingDirective };
+                        tokenList.Add(token);
+                        while (line.EndsWith("\\"))
+                        {
+                            //concat
+                            //with next line
+                            lineNo++;
+                            line = allLines[lineNo];
+                            token.Content += ("\r\n" + line);
+                        }
                     }
                     else
                     {
@@ -576,7 +630,7 @@ namespace BridgeBuilder
                                         {
                                             if (ExpectPunc("{"))
                                             {
-                                                ReadUntilEscapeFromBlock();
+                                                //ReadUntilEscapeFromBlock();
                                             }
                                             else
                                             {
@@ -661,10 +715,30 @@ namespace BridgeBuilder
                     ReadUntilEscapeFromInlineComment();
                     return ExpectToken(k, value);
                 default:
-                    if (tk.TokenKind == k && tk.Content == value)
+
+                    if (tk.TokenKind == k)
                     {
-                        currentTokenIndex++;
-                        return true;
+                        if (value != null)
+                        {
+                            //test the value too
+                            if (value == tk.Content)
+                            {
+                                //value matched with the content
+                                currentTokenIndex++;
+                                return true;
+                            }
+                            else
+                            {
+                                //same kind but not match with the expect value
+                                return false;
+                            }
+                        }
+                        else
+                        {
+                            //not need test value
+                            currentTokenIndex++;
+                            return true;
+                        }
                     }
                     else
                     {
@@ -684,6 +758,20 @@ namespace BridgeBuilder
         {
             //read next and 
             return ExpectToken(TokenKind.LiteralNumber, value);
+        }
+        bool ExpectLiternalNumber(out Token tk)
+        {
+            //read next and 
+            if (ExpectToken(TokenKind.LiteralNumber, null))
+            {
+                tk = tokenList[currentTokenIndex];
+                return true;
+            }
+            else
+            {
+                tk = null;
+                return false;
+            }
         }
         Token ExpectPunc()
         {
@@ -753,7 +841,7 @@ namespace BridgeBuilder
             }
 
             codeTypeDecl.Name = ExpectId();
-         
+
 
             if (ExpectPunc(";"))
             {
@@ -838,6 +926,58 @@ namespace BridgeBuilder
                     return true;
                 }
             }
+
+            if (from.Name == "enum")
+            {
+                CodeTypeDeclaration enumDecl = ParseEnumDeclaration();
+                string enum_name = ExpectId();
+                if (enum_name != null)
+                {
+                    enumDecl.Name = enum_name;
+                    if (ExpectPunc(";"))
+                    {
+                        codeTypeDecl.AddMember(enumDecl);
+                        return true;
+                    }
+                    else
+                    {
+                        throw new NotSupportedException();
+                    }
+                }
+                else
+                {
+                    throw new NotSupportedException();
+                }
+            }
+            else if (from.Name == "struct")
+            {
+                CodeTypeDeclaration struct_decl = ParseTypeDeclaration();
+                struct_decl.Kind = TypeKind.Struct;
+                codeTypeDecl.AddMember(struct_decl);
+                //
+                string typedef_anotherName = ExpectId();
+                if (typedef_anotherName != null)
+                {
+                    if (ExpectPunc(";"))
+                    {
+
+                    }
+                    else
+                    {
+                        throw new NotSupportedException();
+                    }
+                }
+                else
+                {
+                    throw new NotSupportedException();
+                }
+                //-------
+                codeTypeDecl.AddMember(new CodeCTypeDef(
+                    new CodeSimpleTypeReference(struct_decl.Name),
+                    typedef_anotherName));
+                return true;
+            }
+
             to = ExpectId();
             if (!ExpectPunc(";"))
             {
@@ -845,6 +985,138 @@ namespace BridgeBuilder
             }
             codeTypeDecl.AddMember(new CodeCTypeDef(from, to));
             return !ExpectPunc("}");
+        }
+        CodeExpression ParseExpression()
+        {
+
+            Token enum_value = null;
+            if (ExpectLiternalNumber(out enum_value))
+            {
+                //read next token
+                Token nextToken1 = ExpectPunc();
+                if (nextToken1 != null)
+                {
+                    switch (nextToken1.Content)
+                    {
+                        default:
+                            throw new NotSupportedException();
+                        case ",":
+                        case "}":
+                            //retro back
+                            currentTokenIndex--;
+                            return new CodeNumberLiteralExpression() { Content = enum_value.ToString() };
+                        case ">":
+                            {
+                                Token nextToken2 = ExpectPunc();
+                                if (nextToken2 != null && nextToken2.Content == ">")
+                                {
+                                    //right shift
+                                    //right expr
+                                    CodeExpression rightExpr = ParseExpression();
+                                    return new CodeBinaryOperatorExpression()
+                                    {
+                                        LeftExpression = new CodeNumberLiteralExpression() { Content = enum_value.ToString() },
+                                        Operator = ">>",
+                                        RightExpression = rightExpr
+                                    };
+                                }
+                                else
+                                {
+                                    currentTokenIndex--;
+                                    return new CodeNumberLiteralExpression() { Content = enum_value.ToString() };
+                                }
+                            }
+                            break;
+                        case "<<":
+                            {
+                                //right expr
+                                CodeExpression rightExpr = ParseExpression();
+                                return new CodeBinaryOperatorExpression()
+                                {
+                                    LeftExpression = new CodeNumberLiteralExpression() { Content = enum_value.ToString() },
+                                    Operator = nextToken1.Content,
+                                    RightExpression = rightExpr
+                                };
+                            }
+                    }
+                }
+                else
+                {
+                    return new CodeNumberLiteralExpression() { Content = enum_value.ToString() };
+                }
+            }
+            else
+            {
+                string enum_value_str = ExpectId();
+                //temp only for this version
+                return new CodeStringLiteralExpression() { Content = enum_value_str };
+            }
+        }
+        CodeTypeDeclaration ParseEnumDeclaration()
+        {
+            CodeTypeDeclaration enumDecl = new CodeTypeDeclaration();
+            enumDecl.Name = ""; //start with blank -- this may me set later
+            enumDecl.Kind = TypeKind.Enum;
+            //
+            if (!ExpectPunc("{"))
+            {
+                throw new NotSupportedException();
+            }
+
+            //raad filedname
+            //
+            bool loop = true;
+            while (loop)
+            {
+                string fieldname = ExpectId();
+                Token next_tk = ExpectPunc();
+                if (next_tk != null)
+                {
+                    switch (next_tk.Content)
+                    {
+                        default: throw new NotSupportedException();
+                        case "}":
+                            {
+                                //close this enum
+                                loop = false;
+                            }
+                            break;
+                        case "=":
+                            {
+                                //parse simple expression
+                                //1. literal num
+                                //2. shift expression 
+                                CodeFieldDeclaration field_decl = new CodeFieldDeclaration();
+                                field_decl.Name = fieldname;
+                                field_decl.InitExpression = ParseExpression();
+                                enumDecl.AddMember(field_decl);
+                                fieldname = null;//reset 
+                            }
+                            break;
+                        case ",":
+                            {
+                                //begin next field 
+                                if (fieldname != null)
+                                {
+                                    CodeFieldDeclaration field_decl = new CodeFieldDeclaration();
+                                    field_decl.Name = fieldname;
+                                    enumDecl.AddMember(field_decl);
+                                    fieldname = null;//reset
+                                }
+
+                            }
+                            break;
+                    }
+                }
+                else
+                {
+                    throw new NotSupportedException();
+                }
+
+            }
+
+
+            return enumDecl;
         }
 #if DEBUG
         static int dbugCount = 0;
@@ -902,7 +1174,7 @@ namespace BridgeBuilder
 
 #if DEBUG
             dbugCount++;
-          
+
 #endif
 
             //member modifiers
@@ -970,6 +1242,7 @@ namespace BridgeBuilder
 
             //modifier
             bool isOperatorMethod = false;
+            bool isCefExport = ExpectId("CEF_EXPORT"); //cef specific
             bool isStatic = ExpectId("static");
             bool isVirtual = ExpectId("virtual");
             bool isConst = ExpectId("const");
@@ -977,9 +1250,10 @@ namespace BridgeBuilder
             bool isMutable = ExpectId("mutable");
             bool isInline = ExpectId("inline");
             bool isDestructor = ExpectPunc("~");
+
+
+
             CodeTypeReference retType = ExpectType();
-
-
             string name = ExpectId();
 
             if (name == "operator")
@@ -1039,7 +1313,7 @@ namespace BridgeBuilder
 
                 met.IsOverrided = ExpectId("OVERRIDE");
                 met.IsConst = ExpectId("const");
-       
+
 
                 //cef3:
                 //exclude some method like structure, eg. macro
@@ -1133,6 +1407,7 @@ namespace BridgeBuilder
                 if (ExpectPunc("<"))
                 {
                     CodeTypeTemplateTypeReference typeTemplate = new CodeTypeTemplateTypeReference(typeName);
+
                     type1 = typeTemplate;
                     //parse each item 
                     AGAIN:

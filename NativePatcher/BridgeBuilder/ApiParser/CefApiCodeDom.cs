@@ -26,7 +26,8 @@ namespace BridgeBuilder
     enum TypeKind
     {
         Class,
-        Struct
+        Struct,
+        Enum
     }
 
     class CodeTypeTemplateNotation
@@ -53,10 +54,65 @@ namespace BridgeBuilder
         public string ReAssignToTypeName { get; set; }
     }
 
+    enum CodeExpressionKind
+    {
+        //boolean literal
+        StringLiteral,
+        NumberLiteral,
+        BinaryOpExpression
+    }
 
+    abstract class CodeExpression
+    {
+#if DEBUG
+        public readonly int dbugId = dbugTotal++;
+        static int dbugTotal;
+#endif
+        public abstract CodeExpressionKind Kind { get; }
+    }
+
+    class CodeStringLiteralExpression : CodeExpression
+    {
+        public string Content { get; set; }
+        public override CodeExpressionKind Kind
+        {
+            get { return CodeExpressionKind.StringLiteral; }
+        }
+        public override string ToString()
+        {
+            return Content;
+        }
+    }
+    class CodeNumberLiteralExpression : CodeExpression
+    {
+        public string Content { get; set; }
+        public override CodeExpressionKind Kind
+        {
+            get { return CodeExpressionKind.NumberLiteral; }
+        }
+        public override string ToString()
+        {
+            return Content;
+        }
+    }
+    class CodeBinaryOperatorExpression : CodeExpression
+    {
+        public CodeExpression LeftExpression { get; set; }
+        public CodeExpression RightExpression { get; set; }
+        public string Operator { get; set; }
+        public override CodeExpressionKind Kind
+        {
+            get { return CodeExpressionKind.BinaryOpExpression; }
+        }
+        public override string ToString()
+        {
+            return LeftExpression + " " + Operator + " " + RightExpression;
+        }
+    }
 
     class CodeTypeDeclaration : CodeMemberDeclaration
     {
+
 
         List<CodeMemberDeclaration> _specialImplMacroMembers;
         List<CodeMemberDeclaration> _members;
@@ -158,6 +214,9 @@ namespace BridgeBuilder
                     break;
                 case TypeKind.Struct:
                     stbuilder.Append("struct ");
+                    break;
+                case TypeKind.Enum:
+                    stbuilder.Append("enum ");
                     break;
                 default:
                     throw new NotSupportedException();
@@ -494,8 +553,33 @@ namespace BridgeBuilder
         public CodeTypeReference FieldType { get; set; }
         public override string ToString()
         {
-            return FieldType.ToString() + " " + Name + ";";
+            if (FieldType == null)
+            {
+                //enum field ?
+                if (InitExpression != null)
+                {
+                    return Name + "=" + InitExpression;
+                }
+                else
+                {
+                    return Name;
+                }
+
+            }
+            else
+            {
+                if (InitExpression != null)
+                {
+                    return FieldType.ToString() + " " + Name + "=" + InitExpression;
+                }
+                else
+                {
+                    return FieldType.ToString() + " " + Name;
+                } 
+            }
+
         }
+        public CodeExpression InitExpression { get; set; }
     }
 
 

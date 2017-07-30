@@ -303,6 +303,7 @@ namespace BridgeBuilder
             {
 
                 //include/internal
+                totalCuList.Add(ParseWrapper(cefDir + @"\include\internal\cef_types.h"));
                 totalCuList.Add(ParseWrapper(cefDir + @"\include\internal\cef_types_wrappers.h"));
                 totalCuList.Add(ParseWrapper(cefDir + @"\include\internal\cef_win.h")); //for windows
 
@@ -359,8 +360,13 @@ namespace BridgeBuilder
                     totalCuList.Add(cu);
                 }
             }
+
+
+
             //
-            ApiBuilderCsPart apiBuilder = new ApiBuilderCsPart();
+            ApiBuilderCsPart apiBuilderCsPart = new ApiBuilderCsPart();
+            ApiBuilderCppPart apiBuilderCppPart = new ApiBuilderCppPart();
+
             //
             CefTypeCollection cefTypeCollection = new CefTypeCollection();
             cefTypeCollection.RootFolder = cefDir;
@@ -368,16 +374,22 @@ namespace BridgeBuilder
 
             //
             TypeTranformPlanner txPlanner = new TypeTranformPlanner();
-            txPlanner.CefTypeCollection = cefTypeCollection;
-
-
-
+            txPlanner.CefTypeCollection = cefTypeCollection; 
             foreach (CodeTypeDeclaration typedecl in cefTypeCollection.cToCppClasses)
             {
                 TypeTxInfo typeTxPlan = txPlanner.MakeTransformPlan(typedecl);
                 //
-                StringBuilder stbuilder = new StringBuilder();
-                apiBuilder.GenerateCsType(typeTxPlan, stbuilder);
+                {
+                    StringBuilder stbuilder = new StringBuilder();
+                    apiBuilderCsPart.GenerateCsType(typeTxPlan, stbuilder);
+                }
+                //
+                //
+                {
+                    StringBuilder stbuilder = new StringBuilder();
+                    apiBuilderCppPart.GenerateCppPart(typeTxPlan, stbuilder);
+                }
+                //
             }
             foreach (CodeTypeDeclaration typedecl in cefTypeCollection.cppToCClasses)
             {

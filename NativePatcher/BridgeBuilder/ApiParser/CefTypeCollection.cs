@@ -468,7 +468,7 @@ namespace BridgeBuilder
                 new SimpleTypeSymbol("void"){PrimitiveTypeKind = PrimitiveTypeKind.Void },
                 new SimpleTypeSymbol("bool"){PrimitiveTypeKind = PrimitiveTypeKind.Bool },
                 new SimpleTypeSymbol("char"){PrimitiveTypeKind = PrimitiveTypeKind.Char },
-                new SimpleTypeSymbol("int"){PrimitiveTypeKind = PrimitiveTypeKind.Int32 },//TODO: review here
+                new SimpleTypeSymbol("int"){PrimitiveTypeKind = PrimitiveTypeKind.NaitveInt },//TODO: review here
                 new SimpleTypeSymbol("int32"){PrimitiveTypeKind = PrimitiveTypeKind.Int32 },
                 new SimpleTypeSymbol("uint32"){PrimitiveTypeKind = PrimitiveTypeKind.UInt32 },
                 new SimpleTypeSymbol("int64"){PrimitiveTypeKind = PrimitiveTypeKind.Int64 },
@@ -557,7 +557,11 @@ namespace BridgeBuilder
                     if (!System.IO.File.Exists(includeDirective.ResolvedAbsoluteFilePath))
                     {
                         //file not found
-                        throw new NotSupportedException();
+                        if (!(includeDirective.ResolvedAbsoluteFilePath.EndsWith("mac.h") ||
+                            includeDirective.ResolvedAbsoluteFilePath.EndsWith("linux.h")))
+                        {
+                            throw new NotSupportedException();
+                        }
                     }
                 }
                 //
@@ -574,20 +578,29 @@ namespace BridgeBuilder
                 //extract type from global typedecl
                 foreach (CodeMemberDeclaration subType in cu.GlobalTypeDecl.GetSubTypeIter())
                 {
-                    if (subType.MemberKind == CodeMemberKind.TypeDef)
+                    switch (subType.MemberKind)
                     {
-                        CodeCTypeDef ctypeDef = (CodeCTypeDef)subType;
-                        // 
-                        CTypeDefTypeSymbol ctypedefTypeSymbol = new CTypeDefTypeSymbol(ctypeDef.Name, ctypeDef.From);
-                        ctypedefTypeSymbol.CreatedTypeCTypeDef = ctypeDef;
-                        //---
+                        case CodeMemberKind.TypeDef:
+                            {
+                                CodeCTypeDef ctypeDef = (CodeCTypeDef)subType;
+                                // 
+                                CTypeDefTypeSymbol ctypedefTypeSymbol = new CTypeDefTypeSymbol(ctypeDef.Name, ctypeDef.From);
+                                ctypedefTypeSymbol.CreatedTypeCTypeDef = ctypeDef;
+                                //---
 
-                        TypeSymbol existing;
-                        if (TryGetType(ctypeDef.Name, out existing))
-                        {
-                            throw new NotSupportedException();
-                        }
-                        RegisterType(ctypeDef.Name, ctypedefTypeSymbol);
+                                TypeSymbol existing;
+                                if (TryGetType(ctypeDef.Name, out existing))
+                                {
+                                    throw new NotSupportedException();
+                                }
+                                RegisterType(ctypeDef.Name, ctypedefTypeSymbol);
+                            }
+                            break;
+                        case CodeMemberKind.Type:
+                            {
+                                RegisterTypeDeclaration((CodeTypeDeclaration)subType);
+                            }
+                            break;
                     }
                 }
 
@@ -606,11 +619,11 @@ namespace BridgeBuilder
             AddMoreTypeInfo();
             //
             var cefTypeBridgeTxPlanner = new CefTypeBridgeTransformPlanner();
-            cefTypeBridgeTxPlanner.AssignTypeBrigeInfo(this.typeSymbols);
+            cefTypeBridgeTxPlanner.AssignTypeBridgeInfo(this.typeSymbols);
             //
             this.Planner = cefTypeBridgeTxPlanner;
-            
-           
+
+
 
             //-----------------------
             //do class classification 

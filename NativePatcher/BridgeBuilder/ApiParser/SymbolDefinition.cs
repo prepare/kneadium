@@ -86,6 +86,7 @@ namespace BridgeBuilder
         Char,
         Bool,
         IntPtr, //native pointer
+        NaitveInt,
         String,
         CefString,
         //
@@ -96,6 +97,7 @@ namespace BridgeBuilder
 
     class CTypeDefTypeSymbol : TypeSymbol
     {
+        TypeSymbol _referToTypeSymbol;
         public CTypeDefTypeSymbol(string name, CodeTypeReference originalTypeDecl)
         {
             this.Name = name;
@@ -114,7 +116,18 @@ namespace BridgeBuilder
             get;
             set;
         }
-        public TypeSymbol ReferToTypeSymbol { get; set; }
+        public TypeSymbol ReferToTypeSymbol
+        {
+            get { return _referToTypeSymbol; }
+            set
+            {
+                if (value == null)
+                {
+
+                }
+                _referToTypeSymbol = value;
+            }
+        }
     }
 
 
