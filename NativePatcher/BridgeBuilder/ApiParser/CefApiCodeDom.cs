@@ -512,6 +512,8 @@ namespace BridgeBuilder
             return elementType.ToString() + "&";
         }
     }
+
+
     abstract class CodeMemberDeclaration
     {
 #if DEBUG
@@ -525,6 +527,7 @@ namespace BridgeBuilder
         public string Name { get; set; }
         public abstract CodeMemberKind MemberKind { get; }
         public CodeCompilationUnit OriginalCompilationUnit { get; set; }
+        public Token[] LineComments { get; set; }
     }
 
     enum CodeMemberKind
