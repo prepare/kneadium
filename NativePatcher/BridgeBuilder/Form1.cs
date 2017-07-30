@@ -361,8 +361,6 @@ namespace BridgeBuilder
                 }
             }
 
-
-
             //
             ApiBuilderCsPart apiBuilderCsPart = new ApiBuilderCsPart();
             ApiBuilderCppPart apiBuilderCppPart = new ApiBuilderCppPart();

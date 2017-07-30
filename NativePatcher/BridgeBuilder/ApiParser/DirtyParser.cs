@@ -684,7 +684,11 @@ namespace BridgeBuilder
             switch (tk.TokenKind)
             {
                 case TokenKind.LineComment:
+                    this.lineComments.Add(tk);
+                    currentTokenIndex++;
+                    return ExpectId();
                 case TokenKind.PreprocessingDirective:
+
                     currentTokenIndex++;
                     return ExpectId();
                 case TokenKind.Comment:
@@ -942,6 +946,7 @@ namespace BridgeBuilder
                 CodeTypeDeclaration enumDecl = ParseEnumDeclaration();
                 enumDecl.LineComments = comments;
                 string enum_name = ExpectId();
+
                 if (enum_name != null)
                 {
                     enumDecl.Name = enum_name;
@@ -1083,6 +1088,8 @@ namespace BridgeBuilder
             while (loop)
             {
                 string fieldname = ExpectId();
+                Token[] comments2 = FlushCollectedLineComments();
+
                 Token next_tk = ExpectPunc();
                 if (next_tk != null)
                 {
@@ -1102,6 +1109,7 @@ namespace BridgeBuilder
                                 //2. shift expression 
                                 CodeFieldDeclaration field_decl = new CodeFieldDeclaration();
                                 field_decl.Name = fieldname;
+                                field_decl.LineComments = comments2;
                                 field_decl.InitExpression = ParseExpression();
                                 enumDecl.AddMember(field_decl);
                                 fieldname = null;//reset 
@@ -1113,6 +1121,7 @@ namespace BridgeBuilder
                                 if (fieldname != null)
                                 {
                                     CodeFieldDeclaration field_decl = new CodeFieldDeclaration();
+                                    field_decl.LineComments = comments2;
                                     field_decl.Name = fieldname;
                                     enumDecl.AddMember(field_decl);
                                     fieldname = null;//reset
