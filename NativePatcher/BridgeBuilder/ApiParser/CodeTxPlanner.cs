@@ -950,13 +950,7 @@ namespace BridgeBuilder
                         CTypeDefTypeSymbol typedefSymbol = (CTypeDefTypeSymbol)t;
                         TypeBridgeInfo referToTypeBridge = AssignTypeBridgeInfo(typedefSymbol.ReferToTypeSymbol);
                         var typeBridge = new TypeBridgeInfo(typedefSymbol, WellKnownTypeName.TypeDefToAnother, CefTypeKind.JSVALUE_TYPE_WRAPPED, referToTypeBridge);
-                        //
-
-
-
-
-
-
+                      
                         return typeBridge;
 
                     }

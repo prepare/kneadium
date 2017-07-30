@@ -54,10 +54,53 @@ namespace BridgeBuilder
         public string ReAssignToTypeName { get; set; }
     }
 
+    enum CodeExpressionKind
+    {
+        //boolean literal
+        StringLiteral,
+        NumberLiteral,
+        BinaryOpExpression
+    }
 
+    abstract class CodeExpression
+    {
+#if DEBUG
+        public readonly int dbugId = dbugTotal++;
+        static int dbugTotal;
+#endif
+        public abstract CodeExpressionKind Kind { get; }
+    }
+
+    class CodeStringLiteralExpression : CodeExpression
+    {
+        public string Content { get; set; }
+        public override CodeExpressionKind Kind
+        {
+            get { return CodeExpressionKind.StringLiteral; }
+        }
+    }
+    class CodeNumberLiteralExpression : CodeExpression
+    {
+        public string Content { get; set; }
+        public override CodeExpressionKind Kind
+        {
+            get { return CodeExpressionKind.NumberLiteral; }
+        }
+    }
+    class CodeBinaryOperatorExpression : CodeExpression
+    {
+        public CodeExpression LeftExpression { get; set; }
+        public CodeExpression RightExpression { get; set; }
+        public string Operator { get; set; }
+        public override CodeExpressionKind Kind
+        {
+            get { return CodeExpressionKind.BinaryOpExpression; }
+        }
+    }
 
     class CodeTypeDeclaration : CodeMemberDeclaration
     {
+
 
         List<CodeMemberDeclaration> _specialImplMacroMembers;
         List<CodeMemberDeclaration> _members;
@@ -508,7 +551,7 @@ namespace BridgeBuilder
             }
 
         }
-        public string InitExpression { get; set; }
+        public CodeExpression InitExpression { get; set; }
     }
 
 

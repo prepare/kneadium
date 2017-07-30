@@ -172,34 +172,6 @@ namespace BridgeBuilder
                         }
                     }
                     break;
-                case '>':
-                    {
-                        if (currentIndex + 1 < charCount)
-                        {
-                            //read next
-                            char c1 = charBuffer[currentIndex + 1];
-                            if (c1 == '>') // >>
-                            {
-                                currentIndex += 1;
-                                tklist.Add(
-                                    new Token() { Content = (c.ToString() + c1.ToString()), TokenKind = TokenKind.Punc });
-                            }
-                            else
-                            {
-                                //just single token
-                                tklist.Add(
-                                   new Token() { Content = c.ToString(), TokenKind = TokenKind.Punc });
-                            }
-                        }
-                        else
-                        {
-                            //just single token
-                            tklist.Add(
-                                  new Token() { Content = c.ToString(), TokenKind = TokenKind.Punc });
-                        }
-                    }
-                    break;
-
                 case '=':// ==,  
                 case '!'://!=  
                 case '%':
@@ -975,7 +947,7 @@ namespace BridgeBuilder
                 else
                 {
                     throw new NotSupportedException();
-                } 
+                }
             }
             else if (from.Name == "struct")
             {
@@ -1014,8 +986,72 @@ namespace BridgeBuilder
             codeTypeDecl.AddMember(new CodeCTypeDef(from, to));
             return !ExpectPunc("}");
         }
+        CodeExpression ParseExpression()
+        {
 
-
+            Token enum_value = null;
+            if (ExpectLiternalNumber(out enum_value))
+            {
+                //read next token
+                Token nextToken1 = ExpectPunc();
+                if (nextToken1 != null)
+                {
+                    switch (nextToken1.Content)
+                    {
+                        default:
+                            throw new NotSupportedException();
+                        case ",":
+                        case "}":
+                            //retro back
+                            currentTokenIndex--;
+                            return new CodeNumberLiteralExpression() { Content = enum_value.ToString() };
+                        case ">":
+                            {
+                                Token nextToken2 = ExpectPunc();
+                                if (nextToken2 != null && nextToken2.Content == ">")
+                                {
+                                    //right shift
+                                    //right expr
+                                    CodeExpression rightExpr = ParseExpression();
+                                    return new CodeBinaryOperatorExpression()
+                                    {
+                                        LeftExpression = new CodeNumberLiteralExpression() { Content = enum_value.ToString() },
+                                        Operator = nextToken1.Content,
+                                        RightExpression = rightExpr
+                                    };
+                                }
+                                else
+                                {
+                                    currentTokenIndex--;
+                                    return new CodeNumberLiteralExpression() { Content = enum_value.ToString() };
+                                }
+                            }
+                            break;
+                        case "<<":
+                            {
+                                //right expr
+                                CodeExpression rightExpr = ParseExpression();
+                                return new CodeBinaryOperatorExpression()
+                                {
+                                    LeftExpression = new CodeNumberLiteralExpression() { Content = enum_value.ToString() },
+                                    Operator = nextToken1.Content,
+                                    RightExpression = rightExpr
+                                };
+                            }
+                    }
+                }
+                else
+                {
+                    return new CodeNumberLiteralExpression() { Content = enum_value.ToString() };
+                }
+            }
+            else
+            {
+                string enum_value_str = ExpectId();
+                //temp only for this version
+                return new CodeStringLiteralExpression() { Content = enum_value_str };
+            }
+        }
         CodeTypeDeclaration ParseEnumDeclaration()
         {
             CodeTypeDeclaration enumDecl = new CodeTypeDeclaration();
@@ -1049,33 +1085,12 @@ namespace BridgeBuilder
                             {
                                 //parse simple expression
                                 //1. literal num
-                                //2. shift expression
-
-                                Token enum_value = null;
-                                if (ExpectLiternalNumber(out enum_value))
-                                {
-                                    CodeFieldDeclaration field_decl = new CodeFieldDeclaration();
-                                    field_decl.Name = fieldname;
-                                    field_decl.InitExpression = enum_value.Content;
-                                    enumDecl.AddMember(field_decl);
-                                    fieldname = null;//reset
-                                }
-                                else
-                                {
-                                    string enum_value_str = ExpectId();
-                                    if (enum_value_str != null)
-                                    {
-                                        CodeFieldDeclaration field_decl = new CodeFieldDeclaration();
-                                        field_decl.Name = fieldname;
-                                        field_decl.InitExpression = enum_value_str;
-                                        enumDecl.AddMember(field_decl);
-                                        fieldname = null;//reset
-                                    }
-                                    else
-                                    {
-                                        throw new NotSupportedException();
-                                    }
-                                }
+                                //2. shift expression 
+                                CodeFieldDeclaration field_decl = new CodeFieldDeclaration();
+                                field_decl.Name = fieldname;
+                                field_decl.InitExpression = ParseExpression();
+                                enumDecl.AddMember(field_decl);
+                                fieldname = null;//reset 
                             }
                             break;
                         case ",":
@@ -1161,7 +1176,10 @@ namespace BridgeBuilder
             dbugCount++;
 
 #endif
+            if (cu.Filename == "D:\\projects\\cef_binary_3.3071.1647.win32\\include\\cef_version.h")
+            {
 
+            }
             //member modifiers
             //this version must be public 
             //parse each member 
@@ -1227,6 +1245,7 @@ namespace BridgeBuilder
 
             //modifier
             bool isOperatorMethod = false;
+            bool isCefExport = ExpectId("CEF_EXPORT"); //cef specific
             bool isStatic = ExpectId("static");
             bool isVirtual = ExpectId("virtual");
             bool isConst = ExpectId("const");
@@ -1234,9 +1253,10 @@ namespace BridgeBuilder
             bool isMutable = ExpectId("mutable");
             bool isInline = ExpectId("inline");
             bool isDestructor = ExpectPunc("~");
+
+           
+
             CodeTypeReference retType = ExpectType();
-
-
             string name = ExpectId();
 
             if (name == "operator")
@@ -1390,6 +1410,7 @@ namespace BridgeBuilder
                 if (ExpectPunc("<"))
                 {
                     CodeTypeTemplateTypeReference typeTemplate = new CodeTypeTemplateTypeReference(typeName);
+
                     type1 = typeTemplate;
                     //parse each item 
                     AGAIN:
