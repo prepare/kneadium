@@ -289,7 +289,7 @@ namespace BridgeBuilder
                                     }
                                 }
                                 break;
-                            case WellKnownTypeName.RefOfCString:
+                            case WellKnownTypeName.RefOfCefString:
                                 {
                                     AddMethodParameterTypeTxInfo(parPlan, refOrPointer.ElementType);
                                     bridgeInfo.SetCsInterOp("string", "Set_string");
@@ -517,7 +517,7 @@ namespace BridgeBuilder
         CefString,
         OtherString,
         //
-        RefOfCString,
+        RefOfCefString,
         RefOfVec,
         RefOfPrimitive,
 
@@ -729,7 +729,7 @@ namespace BridgeBuilder
                     case WellKnownTypeName.CefString:
                         {
                             //CefString&
-                            return _referenceBridge = new TypeBridgeInfo(this, WellKnownTypeName.RefOfCString, CefTypeKind.JSVALUE_TYPE_WRAPPED);
+                            return _referenceBridge = new TypeBridgeInfo(this, WellKnownTypeName.RefOfCefString, CefTypeKind.JSVALUE_TYPE_WRAPPED);
                         }
                     case WellKnownTypeName.Vec:
                         {
