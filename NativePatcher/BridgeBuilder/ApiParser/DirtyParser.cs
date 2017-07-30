@@ -1176,10 +1176,7 @@ namespace BridgeBuilder
             dbugCount++;
 
 #endif
-            if (cu.Filename == "D:\\projects\\cef_binary_3.3071.1647.win32\\include\\cef_version.h")
-            {
 
-            }
             //member modifiers
             //this version must be public 
             //parse each member 
@@ -1254,7 +1251,7 @@ namespace BridgeBuilder
             bool isInline = ExpectId("inline");
             bool isDestructor = ExpectPunc("~");
 
-           
+
 
             CodeTypeReference retType = ExpectType();
             string name = ExpectId();
