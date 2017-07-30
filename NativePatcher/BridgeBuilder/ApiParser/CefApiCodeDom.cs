@@ -26,7 +26,8 @@ namespace BridgeBuilder
     enum TypeKind
     {
         Class,
-        Struct
+        Struct,
+        Enum
     }
 
     class CodeTypeTemplateNotation
@@ -158,6 +159,9 @@ namespace BridgeBuilder
                     break;
                 case TypeKind.Struct:
                     stbuilder.Append("struct ");
+                    break;
+                case TypeKind.Enum:
+                    stbuilder.Append("enum ");
                     break;
                 default:
                     throw new NotSupportedException();
@@ -494,8 +498,17 @@ namespace BridgeBuilder
         public CodeTypeReference FieldType { get; set; }
         public override string ToString()
         {
-            return FieldType.ToString() + " " + Name + ";";
+            if (InitExpression != null)
+            {
+                return FieldType.ToString() + " " + Name + "=" + InitExpression + ";";
+            }
+            else
+            {
+                return FieldType.ToString() + " " + Name + ";";
+            }
+
         }
+        public string InitExpression { get; set; }
     }
 
 

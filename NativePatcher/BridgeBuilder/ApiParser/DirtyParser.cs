@@ -585,7 +585,7 @@ namespace BridgeBuilder
                                         {
                                             if (ExpectPunc("{"))
                                             {
-                                                ReadUntilEscapeFromBlock();
+                                                //ReadUntilEscapeFromBlock();
                                             }
                                             else
                                             {
@@ -670,10 +670,30 @@ namespace BridgeBuilder
                     ReadUntilEscapeFromInlineComment();
                     return ExpectToken(k, value);
                 default:
-                    if (tk.TokenKind == k && tk.Content == value)
+
+                    if (tk.TokenKind == k)
                     {
-                        currentTokenIndex++;
-                        return true;
+                        if (value != null)
+                        {
+                            //test the value too
+                            if (value == tk.Content)
+                            {
+                                //value matched with the content
+                                currentTokenIndex++;
+                                return true;
+                            }
+                            else
+                            {
+                                //same kind but not match with the expect value
+                                return false;
+                            }
+                        }
+                        else
+                        {
+                            //not need test value
+                            currentTokenIndex++;
+                            return true;
+                        }
                     }
                     else
                     {
@@ -693,6 +713,20 @@ namespace BridgeBuilder
         {
             //read next and 
             return ExpectToken(TokenKind.LiteralNumber, value);
+        }
+        bool ExpectLiternalNumber(out Token tk)
+        {
+            //read next and 
+            if (ExpectToken(TokenKind.LiteralNumber, null))
+            {
+                tk = tokenList[currentTokenIndex];
+                return true;
+            }
+            else
+            {
+                tk = null;
+                return false;
+            }
         }
         Token ExpectPunc()
         {
@@ -846,11 +880,29 @@ namespace BridgeBuilder
 
                     return true;
                 }
-                else if (from.Name == "enum")
-                {
-
-                }
             }
+
+            if (from.Name == "enum")
+            {
+                CodeTypeDeclaration enumDecl = ParseEnumDeclaration();
+                string enum_name = ExpectId();
+                if (enum_name != null)
+                {
+                    enumDecl.Name = enum_name;
+                    ExpectPunc(";");
+                }
+                else
+                {
+                    throw new NotSupportedException();
+                }
+                codeTypeDecl.AddMember(enumDecl);
+                return true;
+            }
+            else if (from.Name == "struct")
+            {
+
+            }
+
             to = ExpectId();
             if (!ExpectPunc(";"))
             {
@@ -858,6 +910,93 @@ namespace BridgeBuilder
             }
             codeTypeDecl.AddMember(new CodeCTypeDef(from, to));
             return !ExpectPunc("}");
+        }
+        CodeTypeDeclaration ParseEnumDeclaration()
+        {
+            CodeTypeDeclaration enumDecl = new CodeTypeDeclaration();
+            enumDecl.Name = ""; //start with blank -- this may me set later
+            enumDecl.Kind = TypeKind.Enum;
+            //
+            if (!ExpectPunc("{"))
+            {
+                throw new NotSupportedException();
+            }
+
+            //raad filedname
+            //
+            bool loop = true;
+            while (loop)
+            {
+                string fieldname = ExpectId();
+                Token next_tk = ExpectPunc();
+                if (next_tk != null)
+                {
+                    switch (next_tk.Content)
+                    {
+                        default: throw new NotSupportedException();
+                        case "}":
+                            {
+                                //close this enum
+                                loop = false;
+                            }
+                            break;
+                        case "=":
+                            {
+                                Token enum_value = null;
+                                if (ExpectLiternalNumber(out enum_value))
+                                {
+                                    CodeFieldDeclaration field_decl = new CodeFieldDeclaration();
+                                    field_decl.Name = fieldname;
+                                    field_decl.InitExpression = enum_value.Content;
+                                    enumDecl.AddMember(field_decl);
+                                    fieldname = null;//reset
+                                }
+                                else
+                                {
+                                    string enum_value_str = ExpectId();
+                                    if (enum_value_str != null)
+                                    {
+                                        CodeFieldDeclaration field_decl = new CodeFieldDeclaration();
+                                        field_decl.Name = fieldname;
+                                        field_decl.InitExpression = enum_value_str;
+                                        enumDecl.AddMember(field_decl);
+                                        fieldname = null;//reset
+                                    }
+                                    else
+                                    {
+                                        throw new NotSupportedException();
+                                    }
+                                }
+
+                            }
+                            break;
+                        case ",":
+                            {
+                                //begin next field 
+                                if (fieldname != null)
+                                {
+                                    CodeFieldDeclaration field_decl = new CodeFieldDeclaration();
+                                    field_decl.Name = fieldname;
+                                    enumDecl.AddMember(field_decl);
+                                    fieldname = null;//reset
+                                }
+                                else
+                                {
+                                    throw new NotSupportedException();
+                                }
+                            }
+                            break;
+                    }
+                }
+                else
+                {
+                    throw new NotSupportedException();
+                }
+
+            }
+
+
+            return enumDecl;
         }
 #if DEBUG
         static int dbugCount = 0;
