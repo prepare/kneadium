@@ -616,7 +616,10 @@ namespace BridgeBuilder
                                         //parse class
                                         Token[] comments = FlushCollectedLineComments();
 
+
+
                                         CodeTypeDeclaration typeDecl = ParseTypeDeclaration();
+
                                         typeDecl.Kind = (tk.Content == "class") ? TypeKind.Class : TypeKind.Struct;
 
                                         templateNotation = null;
@@ -844,9 +847,15 @@ namespace BridgeBuilder
         {
             return ExpectPunc(p1) && ExpectPunc(p2);
         }
+
+
+        MemberAccessibility _currentMemberAccessibilityMode;
+
         CodeTypeDeclaration ParseTypeDeclaration()
         {
             //class name
+
+            MemberAccessibility prev_accessibility = this._currentMemberAccessibilityMode; //save
             var codeTypeDecl = new CodeTypeDeclaration();
             if (this.templateNotation != null)
             {
@@ -855,7 +864,6 @@ namespace BridgeBuilder
             }
 
             codeTypeDecl.Name = ExpectId();
-
 
             if (ExpectPunc(";"))
             {
@@ -885,6 +893,9 @@ namespace BridgeBuilder
             {
                 throw new NotSupportedException();
             }
+
+            //------
+            this._currentMemberAccessibilityMode = prev_accessibility; //restore back
             return codeTypeDecl;
         }
         CodeTypeTemplateNotation ParseTemplateNotation()
@@ -991,7 +1002,7 @@ namespace BridgeBuilder
                 codeTypeDecl.AddMember(
                     new CodeCTypeDef(
                         new CodeSimpleTypeReference(struct_decl.Name), typedef_anotherName)
-                    { LineComments = comments }
+                    { LineComments = comments, MemberAccessibility = this._currentMemberAccessibilityMode }
                 );
                 return true;
             }
@@ -1002,7 +1013,8 @@ namespace BridgeBuilder
                 throw new NotSupportedException();
             }
 
-            codeTypeDecl.AddMember(new CodeCTypeDef(from, to) { LineComments = comments });
+            codeTypeDecl.AddMember(new CodeCTypeDef(from, to) { LineComments = comments, MemberAccessibility = this._currentMemberAccessibilityMode });
+
             return !ExpectPunc("}");
         }
         CodeExpression ParseExpression()
@@ -1192,6 +1204,7 @@ namespace BridgeBuilder
             }
         }
 
+
         bool ParseTypeMember(CodeTypeDeclaration codeTypeDecl)
         {
 
@@ -1205,12 +1218,15 @@ namespace BridgeBuilder
             //parse each member 
             if (ExpectId("public") && ExpectPunc(":"))
             {
+                this._currentMemberAccessibilityMode = MemberAccessibility.Public;
             }
             else if (ExpectId("private") && ExpectPunc(":"))
             {
+                this._currentMemberAccessibilityMode = MemberAccessibility.Private;
             }
             else if (ExpectId("protected") && ExpectPunc(":"))
             {
+                this._currentMemberAccessibilityMode = MemberAccessibility.Protected;
             }
             //---------------------------
             if (ExpectId("typedef"))
@@ -1251,6 +1267,7 @@ namespace BridgeBuilder
             {
                 //sub class
                 CodeTypeDeclaration subClass = ParseTypeDeclaration();
+                subClass.MemberAccessibility = _currentMemberAccessibilityMode;
                 subClass.Kind = TypeKind.Class;
                 codeTypeDecl.AddMember(subClass);
                 return !ExpectPunc("}");
@@ -1258,6 +1275,7 @@ namespace BridgeBuilder
             else if (ExpectId("struct"))
             {
                 CodeTypeDeclaration subClass = ParseTypeDeclaration();
+                subClass.MemberAccessibility = _currentMemberAccessibilityMode;
                 subClass.Kind = TypeKind.Struct;
                 codeTypeDecl.AddMember(subClass);
                 return !ExpectPunc("}");
@@ -1299,6 +1317,7 @@ namespace BridgeBuilder
                 met.IsVirtual = isVirtual;
                 met.IsInline = isInline;
                 met.LineComments = comments;
+                met.MemberAccessibility = this._currentMemberAccessibilityMode;
                 //
                 if (retType.ToString() == codeTypeDecl.Name && name == null)
                 {
@@ -1356,7 +1375,7 @@ namespace BridgeBuilder
                 else if (ExpectPunc("="))
                 {
                     if (!ExpectLiternalNumber("0"))
-                    {   
+                    {
                         throw new NotSupportedException();
                     }
                     //
@@ -1381,6 +1400,7 @@ namespace BridgeBuilder
                 //this is code field decl
                 CodeFieldDeclaration field = new CodeFieldDeclaration();
                 field.LineComments = comments;
+                field.MemberAccessibility = this._currentMemberAccessibilityMode;
                 codeTypeDecl.AddMember(field);
                 field.Name = name;
                 field.FieldType = retType;

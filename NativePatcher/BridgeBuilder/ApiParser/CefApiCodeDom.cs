@@ -114,6 +114,7 @@ namespace BridgeBuilder
     {
 
 
+
         List<CodeMemberDeclaration> _specialImplMacroMembers;
         List<CodeMemberDeclaration> _members;
 
@@ -529,6 +530,12 @@ namespace BridgeBuilder
         }
     }
 
+    enum MemberAccessibility
+    {
+        Public,
+        Protected,
+        Private
+    }
 
     abstract class CodeMemberDeclaration
     {
@@ -542,6 +549,7 @@ namespace BridgeBuilder
 #endif
         public string Name { get; set; }
         public abstract CodeMemberKind MemberKind { get; }
+        public MemberAccessibility MemberAccessibility { get; set; }
         public CodeCompilationUnit OriginalCompilationUnit { get; set; }
         public Token[] LineComments { get; set; }
     }

@@ -378,6 +378,13 @@ namespace BridgeBuilder
             foreach (CodeTypeDeclaration typedecl in cefTypeCollection.otherClasses)
             {
                 if (typedecl.IsGlobalCompilationUnitType) { continue; }
+                if (typedecl.BaseIsVirtual) { continue; }
+
+                if (typedecl.Kind != TypeKind.Enum)
+                {
+
+                }
+
                 //
                 TypeTxInfo typeTxPlan = txPlanner.MakeTransformPlan(typedecl);
                 //
