@@ -379,12 +379,15 @@ namespace BridgeBuilder
             {
                 if (typedecl.IsGlobalCompilationUnitType) { continue; }
                 if (typedecl.BaseIsVirtual) { continue; }
+                if (typedecl.IsTemplateTypeDefinition) { continue; }
+                if (typedecl.Name.EndsWith("Traits")) { continue; }
+
 
                 if (typedecl.Kind != TypeKind.Enum)
                 {
 
                 }
-
+                
                 //
                 TypeTxInfo typeTxPlan = txPlanner.MakeTransformPlan(typedecl);
                 //
