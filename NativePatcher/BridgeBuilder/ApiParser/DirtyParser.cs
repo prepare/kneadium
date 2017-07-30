@@ -399,6 +399,11 @@ namespace BridgeBuilder
         int lineNo = -1;
         int currentTokenIndex;
         CodeCompilationUnit cu;
+
+
+        List<Token> lineComments = new List<Token>(); //before each type/type members
+        CodeTypeTemplateNotation templateNotation = null;
+
 #if DEBUG
         string dbugCurrentFilename = null;
 #endif
@@ -489,7 +494,6 @@ namespace BridgeBuilder
             }
         }
 
-        CodeTypeTemplateNotation templateNotation = null;
 
         string ParseIncludeFile(Token includePreprocessingDirective)
         {
@@ -503,6 +507,16 @@ namespace BridgeBuilder
             {
                 throw new NotSupportedException();
             }
+        }
+        Token[] FlushCollectedLineComments()
+        {
+            Token[] comments = null;
+            if (lineComments.Count > 0)
+            {
+                comments = lineComments.ToArray();
+                lineComments.Clear();
+            }
+            return comments;
         }
         void ParseFileContent()
         {
@@ -556,19 +570,28 @@ namespace BridgeBuilder
 
 #endif
 
+
             CodeTypeDeclaration globalTypeDecl = cu.GlobalTypeDecl;
             for (currentTokenIndex = 0; currentTokenIndex < tkcount; ++currentTokenIndex)
             {
                 Token tk = tokenList[currentTokenIndex];
                 switch (tk.TokenKind)
                 {
-                    case TokenKind.LineComment:
+                    default:
+                        break;
                     case TokenKind.Whitespace:
+                        break;
+                    case TokenKind.LineComment:
+                        //line comment
+                        lineComments.Add(tk);
+
                         break;
                     case TokenKind.PreprocessingDirective:
                         {
-                            //this version we just skip some pre-processing
 
+                            lineComments.Clear();
+
+                            //this version we just skip some pre-processing 
                             if (tk.Content.StartsWith("#include"))
                             {
                                 cu.AddIncludeFile(ParseIncludeFile(tk));
@@ -581,12 +604,7 @@ namespace BridgeBuilder
                         //not correct
                         currentTokenIndex++;
                         ReadUntilEscapeFromInlineComment();
-                        continue;//go read next again                         
-                }
-
-
-                switch (tk.TokenKind)
-                {
+                        continue;//go read next again  
                     case TokenKind.Id:
                         {
                             //may be keyword or iden
@@ -596,6 +614,8 @@ namespace BridgeBuilder
                                 case "struct":
                                     {
                                         //parse class
+                                        Token[] comments = FlushCollectedLineComments();
+
                                         CodeTypeDeclaration typeDecl = ParseTypeDeclaration();
                                         typeDecl.Kind = (tk.Content == "class") ? TypeKind.Class : TypeKind.Struct;
 
@@ -615,12 +635,13 @@ namespace BridgeBuilder
                                 case "typedef":
                                     {
                                         //parse typedef 
+
                                         ParseCTypeDef(globalTypeDecl);
                                     }
                                     break;
                                 case "template":
                                     {
-                                        //skip template
+                                        //skip template 
                                         this.templateNotation = ParseTemplateNotation();
                                     }
                                     break;
@@ -637,7 +658,6 @@ namespace BridgeBuilder
                                                 throw new NotSupportedException();
                                             }
                                         }
-
                                     }
                                     break;
                                 default:
@@ -649,16 +669,6 @@ namespace BridgeBuilder
                                     }
                                     break;
                             }
-
-                        }
-                        break;
-                    case TokenKind.LineComment:
-                        {
-                        }
-                        break;
-                    default:
-                        {
-
                         }
                         break;
                 }
@@ -901,6 +911,8 @@ namespace BridgeBuilder
         }
         bool ParseCTypeDef(CodeTypeDeclaration codeTypeDecl)
         {
+            Token[] comments = FlushCollectedLineComments();
+
             CodeTypeReference from = ExpectType();
             string to = "";
             if (codeTypeDecl.TemplateNotation != null)
@@ -913,7 +925,6 @@ namespace BridgeBuilder
                     // public:
                     //  typedef typename traits::struct_type struct_type; 
                     CodeTemplateParameter par = codeTypeDecl.TemplateNotation.templatePar;
-
                     //assign to template parameter 
                     par.TemplateDetailFrom = ExpectType();
                     par.ReAssignToTypeName = ExpectId();
@@ -922,7 +933,6 @@ namespace BridgeBuilder
                     {
                         throw new NotSupportedException();
                     }
-
                     return true;
                 }
             }
@@ -930,6 +940,7 @@ namespace BridgeBuilder
             if (from.Name == "enum")
             {
                 CodeTypeDeclaration enumDecl = ParseEnumDeclaration();
+                enumDecl.LineComments = comments;
                 string enum_name = ExpectId();
                 if (enum_name != null)
                 {
@@ -971,10 +982,12 @@ namespace BridgeBuilder
                 {
                     throw new NotSupportedException();
                 }
-                //-------
-                codeTypeDecl.AddMember(new CodeCTypeDef(
-                    new CodeSimpleTypeReference(struct_decl.Name),
-                    typedef_anotherName));
+
+                codeTypeDecl.AddMember(
+                    new CodeCTypeDef(
+                        new CodeSimpleTypeReference(struct_decl.Name), typedef_anotherName)
+                    { LineComments = comments }
+                );
                 return true;
             }
 
@@ -983,7 +996,8 @@ namespace BridgeBuilder
             {
                 throw new NotSupportedException();
             }
-            codeTypeDecl.AddMember(new CodeCTypeDef(from, to));
+
+            codeTypeDecl.AddMember(new CodeCTypeDef(from, to) { LineComments = comments });
             return !ExpectPunc("}");
         }
         CodeExpression ParseExpression()
@@ -1251,8 +1265,6 @@ namespace BridgeBuilder
             bool isInline = ExpectId("inline");
             bool isDestructor = ExpectPunc("~");
 
-
-
             CodeTypeReference retType = ExpectType();
             string name = ExpectId();
 
@@ -1266,33 +1278,18 @@ namespace BridgeBuilder
                     name = punc.Content;
                 }
             }
-            else if (name == "long")
-            {
-                //long long return type
-                //so go next method
 
-                if (retType.Name == "long")
-                {
-                    //this version I switch this to in64
-                    retType = new CodeSimpleTypeReference("int64");
-                    name = ExpectId();
-
-                }
-                else
-                {
-                    throw new NotSupportedException();
-                }
-
-            }
             //-----------------------------------
             if (ExpectPunc("("))
             {
                 //this is method
+                Token[] comments = FlushCollectedLineComments();
 
                 CodeMethodDeclaration met = new CodeMethodDeclaration();
                 met.IsStatic = isStatic;
                 met.IsVirtual = isVirtual;
                 met.IsInline = isInline;
+                met.LineComments = comments;
                 //
                 if (retType.ToString() == codeTypeDecl.Name && name == null)
                 {
@@ -1369,8 +1366,10 @@ namespace BridgeBuilder
             }
             else if (ExpectPunc(";"))
             {
+                Token[] comments = FlushCollectedLineComments();
                 //this is code field decl
                 CodeFieldDeclaration field = new CodeFieldDeclaration();
+                field.LineComments = comments;
                 codeTypeDecl.AddMember(field);
                 field.Name = name;
                 field.FieldType = retType;
@@ -1474,7 +1473,14 @@ namespace BridgeBuilder
                             throw new NotSupportedException();
                         }
                         typeName = "unsigned " + unsignedType;
-
+                    }
+                    else if (typeName == "long")
+                    {
+                        if (ExpectId("long"))
+                        {
+                            //this is long-long
+                            typeName = "int64";
+                        }
                     }
                     type1 = new CodeSimpleTypeReference(typeName);
                 }
