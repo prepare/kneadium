@@ -188,7 +188,20 @@ namespace BridgeBuilder
                 }
             }
         }
-
+        public IEnumerable<CodeFieldDeclaration> GetFieldIter()
+        {
+            int j = _members.Count;
+            for (int i = 0; i < j; ++i)
+            {
+                CodeMemberDeclaration mb = _members[i];
+                switch (mb.MemberKind)
+                {
+                    case CodeMemberKind.Field:
+                        yield return (CodeFieldDeclaration)mb;
+                        break;
+                }
+            }
+        }
 
         public override CodeMemberKind MemberKind { get { return CodeMemberKind.Type; } }
         public bool IsForwardDecl { get; set; }
@@ -512,6 +525,8 @@ namespace BridgeBuilder
             return elementType.ToString() + "&";
         }
     }
+
+
     abstract class CodeMemberDeclaration
     {
 #if DEBUG
@@ -525,6 +540,7 @@ namespace BridgeBuilder
         public string Name { get; set; }
         public abstract CodeMemberKind MemberKind { get; }
         public CodeCompilationUnit OriginalCompilationUnit { get; set; }
+        public Token[] LineComments { get; set; }
     }
 
     enum CodeMemberKind
@@ -575,7 +591,7 @@ namespace BridgeBuilder
                 else
                 {
                     return FieldType.ToString() + " " + Name;
-                } 
+                }
             }
 
         }

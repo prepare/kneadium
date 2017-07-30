@@ -11,22 +11,45 @@ namespace BridgeBuilder
         {
 
             CodeTypeDeclaration typedecl = typeTxInfo.TypeDecl;
-            stbuilder.Append("public partial class ");
-            stbuilder.Append(typedecl.Name);
-            stbuilder.Append("{\r\n");
-            stbuilder.Append(" public  IntPtr nativePtr;\r\n");
-            //-----
-            //ctor
-            stbuilder.AppendLine("internal " + typedecl.Name + "(IntPtr nativePtr){");
-            stbuilder.Append("this.nativePtr= nativePtr;");
-            stbuilder.AppendLine("}");
-            //-----
-            foreach (MethodTxInfo met in typeTxInfo.methods)
+            if (typedecl.Kind == TypeKind.Enum)
             {
-                GenCsMethod(met, stbuilder);
-                stbuilder.Append("\r\n");
+                //enum 
+                stbuilder.Append("public enum ");
+                stbuilder.Append(typedecl.Name);
+                stbuilder.AppendLine("{");
+                //
+                int fieldCount = 0;
+                foreach (FieldTxInfo field in typeTxInfo.fields)
+                {
+                    if (fieldCount > 0)
+                    {
+                        stbuilder.AppendLine(",");
+                    }
+                    GenCsEnumField(field, stbuilder);
+                    fieldCount++;
+                }
+                //
+                stbuilder.AppendLine("}");
             }
-            stbuilder.Append("}");
+            else
+            {
+                stbuilder.Append("public partial class ");
+                stbuilder.Append(typedecl.Name);
+                stbuilder.Append("{\r\n");
+                stbuilder.Append(" public  IntPtr nativePtr;\r\n");
+                //-----
+                //ctor
+                stbuilder.AppendLine("internal " + typedecl.Name + "(IntPtr nativePtr){");
+                stbuilder.Append("this.nativePtr= nativePtr;");
+                stbuilder.AppendLine("}");
+                //-----
+                foreach (MethodTxInfo met in typeTxInfo.methods)
+                {
+                    GenCsMethod(met, stbuilder);
+                    stbuilder.Append("\r\n");
+                }
+                stbuilder.AppendLine("}");
+            }
         }
         void WriteMethodReturnType(StringBuilder stbuilder, MethodParameterTxInfo par, TypeSymbol retTypeSymbol)
         {
@@ -39,11 +62,7 @@ namespace BridgeBuilder
 
                     break;
                 case WellKnownTypeName.UInt64:
-
-
                     stbuilder.Append("ulong");
-
-
                     break;
                 case WellKnownTypeName.Int32:
                     stbuilder.Append("int");
@@ -224,12 +243,20 @@ namespace BridgeBuilder
             //                assignTo + "," + par.Name + ");");
             //        }
             //        break;
-            //}
-
-
+            //} 
+        }
+        void GenCsEnumField(FieldTxInfo fieldTx, StringBuilder codeTypeDeclBuilder)
+        {
+            CodeFieldDeclaration fielddecl = fieldTx.fieldDecl;
+            codeTypeDeclBuilder.Append(fielddecl.Name);
+            if (fielddecl.InitExpression != null)
+            {
+                codeTypeDeclBuilder.Append('=');
+                codeTypeDeclBuilder.Append(fielddecl.InitExpression.ToString());
+            }
 
         }
-        void GenCsMethod(MethodTxInfo metTx, StringBuilder codeDeclTypeBuilder)
+        void GenCsMethod(MethodTxInfo metTx, StringBuilder codeTypeDeclBuilder)
         {
             StringBuilder stbuilder = new StringBuilder();
             stbuilder.Append("public ");
@@ -333,7 +360,7 @@ namespace BridgeBuilder
             }
             stbuilder.Append("}\r\n");
 
-            codeDeclTypeBuilder.Append(stbuilder.ToString());
+            codeTypeDeclBuilder.Append(stbuilder.ToString());
         }
 
     }

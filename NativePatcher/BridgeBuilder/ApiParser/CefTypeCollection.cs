@@ -234,6 +234,8 @@ namespace BridgeBuilder
                             switch (subtype.MemberKind)
                             {
                                 default: throw new NotSupportedException();
+                                case CodeMemberKind.Type: 
+                                    break;
                                 case CodeMemberKind.TypeDef:
                                     {
                                         CodeCTypeDef ctypedef = (CodeCTypeDef)subtype;
