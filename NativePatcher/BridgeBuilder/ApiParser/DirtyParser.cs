@@ -480,7 +480,16 @@ namespace BridgeBuilder
                     }
                     else if (line.StartsWith("#"))
                     {
-                        tokenList.Add(new Token() { Content = line, TokenKind = TokenKind.PreprocessingDirective });
+                        var token = new Token() { Content = line, TokenKind = TokenKind.PreprocessingDirective };
+                        tokenList.Add(token);
+                        while (line.EndsWith("\\"))
+                        {
+                            //concat
+                            //with next line
+                            lineNo++;
+                            line = allLines[lineNo];
+                            token.Content += ("\r\n" + line);
+                        }
                     }
                     else
                     {
@@ -753,7 +762,7 @@ namespace BridgeBuilder
             }
 
             codeTypeDecl.Name = ExpectId();
-         
+
 
             if (ExpectPunc(";"))
             {
@@ -837,6 +846,10 @@ namespace BridgeBuilder
 
                     return true;
                 }
+                else if (from.Name == "enum")
+                {
+
+                }
             }
             to = ExpectId();
             if (!ExpectPunc(";"))
@@ -902,7 +915,7 @@ namespace BridgeBuilder
 
 #if DEBUG
             dbugCount++;
-          
+
 #endif
 
             //member modifiers
@@ -1039,7 +1052,7 @@ namespace BridgeBuilder
 
                 met.IsOverrided = ExpectId("OVERRIDE");
                 met.IsConst = ExpectId("const");
-       
+
 
                 //cef3:
                 //exclude some method like structure, eg. macro

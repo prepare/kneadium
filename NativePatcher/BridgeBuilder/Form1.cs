@@ -303,6 +303,7 @@ namespace BridgeBuilder
             {
 
                 //include/internal
+                totalCuList.Add(ParseWrapper(cefDir + @"\include\internal\cef_types.h"));
                 totalCuList.Add(ParseWrapper(cefDir + @"\include\internal\cef_types_wrappers.h"));
                 totalCuList.Add(ParseWrapper(cefDir + @"\include\internal\cef_win.h")); //for windows
 

@@ -557,7 +557,11 @@ namespace BridgeBuilder
                     if (!System.IO.File.Exists(includeDirective.ResolvedAbsoluteFilePath))
                     {
                         //file not found
-                        throw new NotSupportedException();
+                        if (!(includeDirective.ResolvedAbsoluteFilePath.EndsWith("mac.h") ||
+                            includeDirective.ResolvedAbsoluteFilePath.EndsWith("linux.h")))
+                        {
+                            throw new NotSupportedException();
+                        }
                     }
                 }
                 //
