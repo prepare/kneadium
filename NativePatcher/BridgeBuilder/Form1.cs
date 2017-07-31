@@ -403,9 +403,31 @@ namespace BridgeBuilder
                 }
                 //
             }
+
+            foreach (CodeTypeDeclaration typedecl in cefTypeCollection.handlerClasses)
+            {
+                //create handler as inteface
+                //1 instance may implement more than 1 handler 
+
+                //
+                TypeTxInfo typeTxPlan = txPlanner.MakeTransformPlan(typedecl);
+                //
+                {
+                    StringBuilder stbuilder = new StringBuilder();
+                    apiBuilderCsPart.GenerateCsType(typeTxPlan, stbuilder);
+                }
+                //
+                //
+                {
+                    StringBuilder stbuilder = new StringBuilder();
+                    apiBuilderCppPart.GenerateCppPart(typeTxPlan, stbuilder);
+                }
+                //
+            }
             foreach (CodeTypeDeclaration typedecl in cefTypeCollection.callBackClasses)
-            {   
-                 
+
+            {
+
                 //
                 TypeTxInfo typeTxPlan = txPlanner.MakeTransformPlan(typedecl);
                 //
