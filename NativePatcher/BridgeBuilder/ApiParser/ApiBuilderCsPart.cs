@@ -295,7 +295,7 @@ namespace BridgeBuilder
             //3.
             int argCount = metTx.pars.Count;
             stbuilder.Append('(');
-            if (argCount > 7)
+            if (argCount > 15)
             {
                 throw new NotSupportedException();
             }
