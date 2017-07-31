@@ -252,16 +252,16 @@ namespace BridgeBuilder
                                         default:
                                             //char* => .net byte[]
 
-                                            break; 
+                                            break;
                                         case "char":
                                             //char*
-                                            bridgeInfo.SetCsInterOp("string", "Set_string");
+                                            bridgeInfo.SetCsInterOpPrimitiveType("string");
                                             return;
                                         case "void": //void*
                                             //for .net 
                                             //1. unsafe void*
                                             //2. IntPtr
-                                            bridgeInfo.SetCsInterOp("void*", "Set_unsafe_voidptr");
+                                            bridgeInfo.SetCsInterOp("void*", "Cef3Bind.Set_unsafe_voidptr", "Cef3Bind.Get_unsafe_voidptr");
                                             return;
 
                                     }
@@ -277,13 +277,13 @@ namespace BridgeBuilder
                                         default:
                                             break;
                                         case "int64":
-                                            bridgeInfo.SetCsInterOp("List<long>", "Set_ListOf_Long");
+                                            bridgeInfo.SetCsListInterOp("List<long>", "Set_ListOf_long", "Get_ListOf_long");
                                             return;
                                         case "CefString":
-                                            bridgeInfo.SetCsInterOp("List<string>", "Set_ListOf_String");
+                                            bridgeInfo.SetCsListInterOp("List<string>", "Set_ListOf_string", "Get_ListOf_string");
                                             return;
                                         case "CefCompositionUnderline":
-                                            bridgeInfo.SetCsInterOp("List<CefCompositionUnderline>", "Set_ListOf_CefCompositionUnderline");
+                                            bridgeInfo.SetCsListInterOp("List<CefCompositionUnderline>", "Set_ListOf_CefCompositionUnderline", "Get_ListOf_CefCompositionUnderline");
                                             return;
 
                                     }
@@ -292,7 +292,7 @@ namespace BridgeBuilder
                             case WellKnownTypeName.RefOfCefString:
                                 {
                                     AddMethodParameterTypeTxInfo(parPlan, refOrPointer.ElementType);
-                                    bridgeInfo.SetCsInterOp("string", "Set_string");
+                                    bridgeInfo.SetCsInterOpPrimitiveType("string");
                                     return;
                                 }
                             case WellKnownTypeName.RefOfPrimitive:
@@ -304,7 +304,9 @@ namespace BridgeBuilder
                                     //2. after call native method then copy result back to user data
 
                                     bridgeInfo.SetCsInterOp("ref " + refOrPointer.ElementType.BridgeInfo.CsMethodParType,
-                                               refOrPointer.ElementType.BridgeInfo.CsAssignMethodName);
+                                               refOrPointer.ElementType.BridgeInfo.CsAssignMethodName,
+                                               refOrPointer.ElementType.BridgeInfo.CsGetValueMethodName
+                                               );
 
                                     return;
                                 }
@@ -331,7 +333,7 @@ namespace BridgeBuilder
                                             break;
                                     }
 
-                                    bridgeInfo.SetCsInterOp(name, "Set_NativePtr");
+                                    bridgeInfo.SetCsNativeCppObjectInterOp(name);
                                     return;
                                 }
                             case WellKnownTypeName.RefOf:
@@ -353,7 +355,7 @@ namespace BridgeBuilder
                                             }
                                             break;
                                     }
-                                    bridgeInfo.SetCsInterOp(name, "Set_NativePtr");
+                                    bridgeInfo.SetCsNativeCppObjectInterOp(name);
                                     return;
                                 }
                         }
@@ -381,14 +383,15 @@ namespace BridgeBuilder
                                     else
                                     {
                                     }
-                                    bridgeInfo.SetCsInterOp(typename, "Set_NativePtr");
+                                    bridgeInfo.SetCsNativeCppObjectInterOp(typename);
                                 }
                                 break;
                             case "CefProcessId":
-                                bridgeInfo.SetCsInterOp(typename, "Set_NativePtr");
+                                bridgeInfo.SetCsNativeCppObjectInterOp(typename);
                                 break;
                         }
-                    }break;
+                    }
+                    break;
                 case WellKnownTypeName.CefCNative:
                     {
                         string typename = resolvedParType.ToString();
@@ -404,11 +407,11 @@ namespace BridgeBuilder
                                     else
                                     {
                                     }
-                                    bridgeInfo.SetCsInterOp(typename, "Set_NativePtr");
+                                    bridgeInfo.SetCsNativeCppObjectInterOp(typename);
                                 }
                                 break;
                             case "CefProcessId":
-                                bridgeInfo.SetCsInterOp(typename, "Set_NativePtr");
+                                bridgeInfo.SetCsNativeCppObjectInterOp(typename);
                                 break;
                         }
                     }
@@ -423,12 +426,12 @@ namespace BridgeBuilder
                             case WellKnownTypeName.CefCNative:
                                 {
                                     string typename = resolvedParType.ToString();
-                                    bridgeInfo.SetCsInterOp(typename, "Set_NativePtr");
+                                    bridgeInfo.SetCsNativeCppObjectInterOp(typename);
                                 }
                                 break;
                             case WellKnownTypeName.UInt32:
                                 {
-                                    bridgeInfo.SetCsInterOp("uint", "Set_uint");
+                                    bridgeInfo.SetCsInterOpPrimitiveType("uint");
                                 }
                                 break;
                             default:
@@ -789,15 +792,46 @@ namespace BridgeBuilder
 
         internal string CsMethodParType { get; private set; }
         internal string CsAssignMethodName { get; private set; }
+        internal string CsGetValueMethodName { get; private set; }
         /// <summary>
         /// for cs
         /// </summary>
         /// <param name="dotnetTypeName"></param>
         /// <param name="dotnetAssignArgMethodName"></param>
-        internal void SetCsInterOp(string dotnetTypeName, string dotnetAssignArgMethodName)
+        internal void SetCsNativeCppObjectInterOp(string dotnetTypeName)
         {
             this.CsMethodParType = dotnetTypeName;
-            this.CsAssignMethodName = dotnetAssignArgMethodName;
+            this.CsAssignMethodName = "Cef3Bind.Set_IntPtr";
+            this.CsGetValueMethodName = "Cef3Bind.Get_IntPtr";
+        }
+
+        internal void SetCsListInterOp(string listOf, string setArgMethod, string getArgMethod)
+        {
+            this.CsMethodParType = listOf;
+            this.CsAssignMethodName = "Cef3Bind.Set_IntPtr";
+            this.CsGetValueMethodName = "Cef3Bind.Get_IntPtr";
+        }
+        /// <summary>
+        /// for cs
+        /// </summary>
+        /// <param name="dotnetTypeName"></param>
+        /// <param name="dotnetAssignArgMethodName"></param>
+        internal void SetCsInterOpPrimitiveType(string dotnetTypeName)
+        {
+            this.CsMethodParType = dotnetTypeName;
+            this.CsAssignMethodName = "Cef3Bind.Set_" + dotnetTypeName;
+            this.CsGetValueMethodName = "Cef3Bind.Get_" + dotnetTypeName;
+        }
+        /// <summary>
+        /// for cs
+        /// </summary>
+        /// <param name="dotnetTypeName"></param>
+        /// <param name="dotnetAssignArgMethodName"></param>
+        internal void SetCsInterOp(string dotnetTypeName, string setArgMethod, string getArgMethod)
+        {
+            this.CsMethodParType = dotnetTypeName;
+            this.CsAssignMethodName = setArgMethod;
+            this.CsGetValueMethodName = getArgMethod;
         }
         internal void SetCppInterOp(string cppTypeName, string cppReadDataFromDotNet)
         {
@@ -874,7 +908,7 @@ namespace BridgeBuilder
                                 bridgeToBase = SelectProperTypeBridge(simpleType.BaseType);
                             }
                             var typeBridge = new TypeBridgeInfo(simpleType, WellKnownTypeName.CefCpp, CefTypeKind.JSVALUE_TYPE_WRAPPED, bridgeToBase);
-                            typeBridge.SetCsInterOp(simpleType.Name, "Set_NativePtr");
+                            typeBridge.SetCsNativeCppObjectInterOp(simpleType.Name);
                             return typeBridge;
                         }
                         else
@@ -951,85 +985,87 @@ namespace BridgeBuilder
                             case PrimitiveTypeKind.Float:
                                 {
                                     var typeBridge = new TypeBridgeInfo(simpleType, WellKnownTypeName.Float, CefTypeKind.JSVALUE_TYPE_NUMBER);
-                                    typeBridge.SetCsInterOp("float", "Set_float");
+                                    typeBridge.SetCsInterOpPrimitiveType("float");
                                     return typeBridge;
                                 }
                             case PrimitiveTypeKind.Double:
                                 {
                                     var typeBridge = new TypeBridgeInfo(simpleType, WellKnownTypeName.Double, CefTypeKind.JSVALUE_TYPE_NUMBER);
-                                    typeBridge.SetCsInterOp("double", "Set_double");
+                                    typeBridge.SetCsInterOpPrimitiveType("double");
                                     return typeBridge;
                                 }
                             case PrimitiveTypeKind.Bool:
                                 {
                                     var typeBridge = new TypeBridgeInfo(simpleType, WellKnownTypeName.Bool, CefTypeKind.JSVALUE_TYPE_BOOLEAN);
-                                    typeBridge.SetCsInterOp("bool", "Set_bool");
+                                    typeBridge.SetCsInterOpPrimitiveType("bool");
                                     return typeBridge;
                                 }
                             case PrimitiveTypeKind.Char:
                                 {
                                     var typeBridge = new TypeBridgeInfo(simpleType, WellKnownTypeName.CChar, CefTypeKind.JSVALUE_TYPE_INTEGER);
-                                    typeBridge.SetCsInterOp("byte", "Set_byte");
+                                    typeBridge.SetCsInterOpPrimitiveType("byte");
                                     return typeBridge;
                                 }
                             case PrimitiveTypeKind.Int32:
                                 {
                                     var typeBridge = new TypeBridgeInfo(simpleType, WellKnownTypeName.Int32, CefTypeKind.JSVALUE_TYPE_INTEGER);
-                                    typeBridge.SetCsInterOp("int", "Set_int32");
+                                    typeBridge.SetCsInterOpPrimitiveType("int");
                                     return typeBridge;
                                 }
                             case PrimitiveTypeKind.NaitveInt:
                                 {
                                     var typeBridge = new TypeBridgeInfo(simpleType, WellKnownTypeName.NativeInt, CefTypeKind.JSVALUE_TYPE_INTEGER);
-                                    typeBridge.SetCsInterOp("long", "Set_long");
+                                    typeBridge.SetCsInterOpPrimitiveType("long");
                                     return typeBridge;
                                 }
                             case PrimitiveTypeKind.Int64:
                                 {
                                     var typeBridge = new TypeBridgeInfo(simpleType, WellKnownTypeName.Int64, CefTypeKind.JSVALUE_TYPE_INTEGER64);
-                                    typeBridge.SetCsInterOp("long", "Set_long");
+                                    typeBridge.SetCsInterOpPrimitiveType("long");
                                     return typeBridge;
                                 }
                             case PrimitiveTypeKind.UInt32:
                                 {
                                     var typeBridge = new TypeBridgeInfo(simpleType, WellKnownTypeName.UInt32, CefTypeKind.JSVALUE_TYPE_INTEGER);
-                                    typeBridge.SetCsInterOp("uint", "Set_uint");
+                                    typeBridge.SetCsInterOpPrimitiveType("uint");
                                     return typeBridge;
                                 }
                             case PrimitiveTypeKind.Void:
                                 {
                                     var typeBridge = new TypeBridgeInfo(simpleType, WellKnownTypeName.Void, CefTypeKind.JSVALUE_TYPE_EMPTY);
-                                    typeBridge.SetCsInterOp("void", "Set_void!!!");//should not occour
+                                    typeBridge.SetCsInterOp("void",
+                                                    "!!!",
+                                                     "!!!");//should not occour
                                     return typeBridge;
                                 }
                             case PrimitiveTypeKind.IntPtr:
                                 {
                                     var typeBridge = new TypeBridgeInfo(simpleType, WellKnownTypeName.IntPtr, CefTypeKind.JSVALUE_TYPE_INTEGER64);
-                                    typeBridge.SetCsInterOp("IntPtr", "Set_IntPtr");
+                                    typeBridge.SetCsInterOpPrimitiveType("IntPtr");
                                     return typeBridge;
                                 }
                             case PrimitiveTypeKind.UInt64:
                                 {
                                     var typeBridge = new TypeBridgeInfo(simpleType, WellKnownTypeName.UInt64, CefTypeKind.JSVALUE_TYPE_INTEGER64);
-                                    typeBridge.SetCsInterOp("ulong", "Set_ulong");
+                                    typeBridge.SetCsInterOpPrimitiveType("ulong");
                                     return typeBridge;
                                 }
                             case PrimitiveTypeKind.size_t:
                                 {
                                     var typeBridge = new TypeBridgeInfo(simpleType, WellKnownTypeName.size_t, CefTypeKind.JSVALUE_TYPE_INTEGER64);
-                                    typeBridge.SetCsInterOp("int", "Set_int");
+                                    typeBridge.SetCsInterOpPrimitiveType("int");
                                     return typeBridge;
                                 }
                             case PrimitiveTypeKind.String:
                                 {
                                     var typeBridge = new TypeBridgeInfo(simpleType, WellKnownTypeName.OtherString, CefTypeKind.JSVALUE_TYPE_NATIVE_CEFHOLDER_STRING);
-                                    typeBridge.SetCsInterOp("string", "Set_string");
+                                    typeBridge.SetCsInterOpPrimitiveType("string");
                                     return typeBridge;
                                 }
                             case PrimitiveTypeKind.CefString:
                                 {
                                     var typeBridge = new TypeBridgeInfo(simpleType, WellKnownTypeName.CefString, CefTypeKind.JSVALUE_TYPE_NATIVE_CEFHOLDER_STRING);
-                                    typeBridge.SetCsInterOp("string", "Set_string");
+                                    typeBridge.SetCsInterOpPrimitiveType("string");
                                     return typeBridge;
                                 }
                         }

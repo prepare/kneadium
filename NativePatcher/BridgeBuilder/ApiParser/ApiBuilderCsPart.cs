@@ -6,11 +6,11 @@ namespace BridgeBuilder
     class ApiBuilderCsPart
     {
         CefTypeCollection cefTypeCollection = new CefTypeCollection();
-
+        CodeTypeDeclaration typedecl;
         public void GenerateCsType(TypeTxInfo typeTxInfo, StringBuilder stbuilder)
         {
 
-            CodeTypeDeclaration typedecl = typeTxInfo.TypeDecl;
+            this.typedecl = typeTxInfo.TypeDecl;
             if (typedecl.Kind == TypeKind.Enum)
             {
                 //enum 
@@ -33,7 +33,7 @@ namespace BridgeBuilder
             }
             else
             {
-                stbuilder.Append("public partial class ");
+                stbuilder.Append("public partial struct ");
                 stbuilder.Append(typedecl.Name);
                 stbuilder.Append("{\r\n");
                 stbuilder.Append(" public  IntPtr nativePtr;\r\n");
@@ -66,7 +66,7 @@ namespace BridgeBuilder
                             stbuilder.Append("long");
                         }
                         else
-                        {  
+                        {
                         }
                     }
                     break;
@@ -181,42 +181,75 @@ namespace BridgeBuilder
             }
             if (bridgeInfo.CsAssignMethodName == "Set_NativePtr")
             {
-                stbuilder.AppendLine(bridgeInfo.CsAssignMethodName + "(ref " + argName + "," + par.Name + ".nativePtr)");
+                stbuilder.AppendLine(bridgeInfo.CsAssignMethodName + "(ref " + argName + "," + par.Name + ".nativePtr);");
             }
             else if (bridgeInfo.CsAssignMethodName.StartsWith("Set_ListOf_"))
             {
                 //need spcial method of create a list for native side
                 //and copy content of that list back from cpp side to .net side
-                stbuilder.AppendLine(bridgeInfo.CsAssignMethodName + "(ref " + argName + "," + par.Name + ".nativePtr)");
+                stbuilder.AppendLine(bridgeInfo.CsAssignMethodName + "(ref " + argName + "," + par.Name + ".nativePtr);");
             }
             else
             {
-                stbuilder.AppendLine(bridgeInfo.CsAssignMethodName + "(ref " + argName + "," + par.Name + ")");
+                stbuilder.AppendLine(bridgeInfo.CsAssignMethodName + "(ref " + argName + "," + par.Name + ");");
             }
         }
-        void WriteReturnGetValue(StringBuilder stbuilder, string argName, MethodParameterTxInfo par)
+
+        void WriteReturnGetValue(StringBuilder stbuilder, string ret_result, string retVarName, MethodParameterTxInfo par)
         {
+
             TypeSymbol parType = par.TypeSymbol;
             TypeBridgeInfo bridgeInfo = par.TypeSymbol.BridgeInfo;
             if (bridgeInfo.CsAssignMethodName == null)
             {
                 throw new NotSupportedException();
             }
+            if (bridgeInfo.CsGetValueMethodName == "Get_NativePtr")
+            {
+                stbuilder.AppendLine("var " + ret_result + "= new " + ((SimpleTypeSymbol)parType).Name + "(" + bridgeInfo.CsGetValueMethodName + "(ref " + retVarName + "));");
+            }
+            else if (bridgeInfo.CsGetValueMethodName == "Get_IntPtr")
+            {
+                if (parType is SimpleTypeSymbol)
+                {
+                    stbuilder.AppendLine("var " + ret_result + "= new " + ((SimpleTypeSymbol)parType).Name + "(" + bridgeInfo.CsGetValueMethodName + "(ref " + retVarName + "));");
+                }
+                else if (parType is ReferenceOrPointerTypeSymbol)
+                {
+                    ReferenceOrPointerTypeSymbol refOrPointer = (ReferenceOrPointerTypeSymbol)parType;
+                    stbuilder.AppendLine("var " + ret_result + "= new " + (refOrPointer.ElementType) + "(" + bridgeInfo.CsGetValueMethodName + "(ref " + retVarName + "));");
+                }
+                else if (parType is CTypeDefTypeSymbol)
+                {
+                    CTypeDefTypeSymbol typdefSymbol = (CTypeDefTypeSymbol)parType;
+                    stbuilder.AppendLine("var " + ret_result + "= new " + (typdefSymbol.Name) + "(" + bridgeInfo.CsGetValueMethodName + "(ref " + retVarName + "));");
+                }
+                else
+                {
 
-            //if (bridgeInfo.CsAssignMethodName == "Set_NativePtr")
-            //{
-            //    stbuilder.AppendLine(bridgeInfo.CsAssignMethodName + "(ref " + argName + "," + par.Name + ".nativePtr)");
-            //}
-            //else if (bridgeInfo.CsAssignMethodName.StartsWith("Set_ListOf_"))
-            //{
-            //    //need spcial method of create a list for native side
-            //    //and copy content of that list back from cpp side to .net side
-            //    stbuilder.AppendLine(bridgeInfo.CsAssignMethodName + "(ref " + argName + "," + par.Name + ".nativePtr)");
-            //}
-            //else
-            //{
-            //    stbuilder.AppendLine(bridgeInfo.CsAssignMethodName + "(ref " + argName + "," + par.Name + ")");
-            //}
+                }
+
+
+            }
+            else if (bridgeInfo.CsGetValueMethodName.StartsWith("Get_ListOf_"))
+            {
+                //need spcial method of create a list for native side
+                //and copy content of that list back from cpp side to .net side
+                stbuilder.AppendLine("var " + ret_result + "=" + bridgeInfo.CsGetValueMethodName + "(ref " + retVarName + ");");
+            }
+            else
+            {
+                stbuilder.AppendLine("var " + ret_result + "=" + bridgeInfo.CsGetValueMethodName + "(ref " + retVarName + ");");
+            }
+        }
+        void WriteArgCleanUpCode(StringBuilder stbuilder, string argName, MethodParameterTxInfo par)
+        {
+
+            TypeSymbol parType = par.TypeSymbol;
+            if (parType.BridgeInfo.WellKnownTypeName == WellKnownTypeName.RefOfCefString)
+            {
+                stbuilder.AppendLine("MyCefDeleteCefStringHolder(ref " + argName + ");");
+            }
         }
         void GenCsEnumField(FieldTxInfo fieldTx, StringBuilder codeTypeDeclBuilder)
         {
@@ -263,7 +296,7 @@ namespace BridgeBuilder
             stbuilder.Append("){\r\n");
             stbuilder.AppendLine();
             stbuilder.AppendLine("// autogen! " + metTx.ToString());
-
+            stbuilder.AppendLine();
             //prepare user data from method args
             //before send it to native side 
 
@@ -275,20 +308,38 @@ namespace BridgeBuilder
                 WriteArgSetValue(stbuilder, assignTo, par);
             }
             stbuilder.AppendLine("JsValue ret;");
-
-            //assign parameter value
-            stbuilder.Append("Cef3Binder.MyCefFrameCall2(");
+            //assign parameter value 
+            stbuilder.Append("Cef3Binder.MyCefMet_" + argCount + "(");
             stbuilder.Append("this.nativePtr,\r\n" +
-                "(int)CefFrameCallMsg.CefFrame_" + metTx.Name
-                + ",out ret,ref a1,ref a2");
+                "    CefNativeType." + this.typedecl.Name + ",\r\n" +
+                "    (int)CefNativeType_" + this.typedecl.Name + "." + metTx.Name + ",\r\n" +
+                "    out ret");
+            for (int i = 0; i < argCount; ++i)
+            {
+                stbuilder.Append(",ref " + "a" + (i + 1));
+            }
             stbuilder.AppendLine(");");
-
-            //
+            string ret_result = "ret_result";
             if (!retTypeTx.IsVoid)
             {
-                WriteReturnGetValue(stbuilder, "ret", retTypeTx);
+                //get data and store to local 
+                WriteReturnGetValue(stbuilder, ret_result, "ret", retTypeTx);
             }
-            stbuilder.Append("}\r\n");
+
+            //-------
+            //some clean up code before exit 
+            for (int i = 0; i < argCount; ++i)
+            {
+                string assignTo = "a" + (i + 1);
+                MethodParameterTxInfo par = metTx.pars[i];
+                WriteArgCleanUpCode(stbuilder, assignTo, par);
+            }
+            if (!retTypeTx.IsVoid)
+            {
+                stbuilder.AppendLine("return " + ret_result + ";");
+            }
+            //-------
+            stbuilder.AppendLine("}\r\n");
 
             codeTypeDeclBuilder.Append(stbuilder.ToString());
         }
