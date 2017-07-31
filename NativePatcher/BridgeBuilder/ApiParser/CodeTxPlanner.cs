@@ -12,6 +12,8 @@ namespace BridgeBuilder
         {
             this.TypeDecl = typedecl;
         }
+
+        public CefTypeModel CefTypeModel { get; set; }
         public CodeTypeDeclaration TypeDecl
         {
             get;
@@ -36,6 +38,96 @@ namespace BridgeBuilder
             return TypeDecl.ToString();
         }
 #endif
+    }
+
+    enum CefTypeModel
+    {
+        Unknown,
+
+        /// <summary>
+        /// All scoped framework classes must extend this class.
+        /// </summary>
+        CefBaseScoped,
+        /// <summary>
+        /// All ref-counted framework classes must extend this class.
+        /// </summary>
+        CefBaseRefCounted,
+        // class CefBaseRefCounted
+        //  {
+        //      public:
+        /////
+        //// Called to increment the reference count for the object. Should be called
+        //// for every new copy of a pointer to a given object.
+        /////
+        //      virtual void AddRef() const = 0; 
+        //      ///
+        //      // Called to decrement the reference count for the object. Returns true if
+        //      // the reference count is 0, in which case the object should self-delete.
+        //      ///
+        //      virtual bool Release() const = 0; 
+        //      ///
+        //      // Returns true if the reference count is 1.
+        //      ///
+        //      virtual bool HasOneRef() const = 0;
+
+        //      protected:
+        //virtual ~CefBaseRefCounted() { }
+        //  };
+        //
+
+        /// <summary>
+        /// Template class that provides common functionality for CEF structure wrapping
+        /// </summary>
+        CefStructBase,
+        //template <class traits>
+        //class CefStructBase : public traits::struct_type {
+        // public:
+
+
+        /// <summary>
+        /// Wrap a C++ class with a C structure
+        /// </summary>
+        CefCppToCRefCounted,
+        //
+        // Wrap a C++ class with a C structure.  This is used when the class
+        // implementation exists on this side of the DLL boundary but will have methods
+        // called from the other side of the DLL boundary.
+        // template <class ClassName, class BaseName, class StructName>
+        // class CefCppToCRefCounted : public CefBaseRefCounted {
+
+
+        /// <summary>
+        /// Wrap a C++ class with a C structure
+        /// </summary>
+        CefCppToCScoped,
+        //Wrap a C++ class with a C structure. This is used when the class
+        // implementation exists on this side of the DLL boundary but will have methods
+        // called from the other side of the DLL boundary.
+        //template <class ClassName, class BaseName, class StructName>
+        //class CefCppToCScoped : public CefBaseScoped {
+        // public:
+
+        /// <summary>
+        /// Wrap a C structure with a C++ class
+        /// </summary>
+        CefCToCppScoped,
+        // Wrap a C structure with a C++ class. This is used when the implementation
+        // exists on the other side of the DLL boundary but will have methods called on
+        // this side of the DLL boundary.
+        //template <class ClassName, class BaseName, class StructName>
+        //class CefCToCppScoped : public BaseName {
+        // public:
+
+        /// <summary>
+        /// Wrap a C structure with a C++ class
+        /// </summary>
+        CefCToCppRefCounted
+        // Wrap a C structure with a C++ class. This is used when the implementation
+        // exists on the other side of the DLL boundary but will have methods called on
+        // this side of the DLL boundary.
+        //   template <class ClassName, class BaseName, class StructName>
+        //class CefCToCppRefCounted : public BaseName {
+        // public:
     }
 
     class FieldTxInfo
@@ -148,6 +240,17 @@ namespace BridgeBuilder
                     case TypeSymbolKind.Simple:
                         {
                             SimpleTypeSymbol simpleTypeSymbol = (SimpleTypeSymbol)baseTypeSymbol;
+                            switch (simpleTypeSymbol.Name)
+                            {
+                                default:
+                                    break;
+                                case "CefBaseRefCounted":
+                                    typeTxInfo.CefTypeModel = CefTypeModel.CefBaseRefCounted;
+                                    break;
+                                case "CefBaseScoped":
+                                    typeTxInfo.CefTypeModel = CefTypeModel.CefBaseScoped;
+                                    break;
+                            }
                         }
                         break;
                     case TypeSymbolKind.Template:
@@ -164,10 +267,11 @@ namespace BridgeBuilder
                                             default:
                                                 break;
                                             case "CefStructBase":
+                                                typeTxInfo.CefTypeModel = CefTypeModel.CefStructBase;
                                                 break;
                                         }
                                     }
-                                    break; 
+                                    break;
                                 case 3:
                                     {
                                         string templateName = templateTypeSymbol.Name;
@@ -176,10 +280,16 @@ namespace BridgeBuilder
                                             default:
                                                 break;
                                             case "CefCppToCRefCounted":
+                                                typeTxInfo.CefTypeModel = CefTypeModel.CefCppToCRefCounted;
+                                                break;
                                             case "CefCppToCScoped":
+                                                typeTxInfo.CefTypeModel = CefTypeModel.CefCppToCScoped;
                                                 break;
                                             case "CefCToCppScoped":
+                                                typeTxInfo.CefTypeModel = CefTypeModel.CefCToCppScoped;
+                                                break;
                                             case "CefCToCppRefCounted":
+                                                typeTxInfo.CefTypeModel = CefTypeModel.CefCToCppScoped;
                                                 break;
                                         }
 
@@ -332,7 +442,7 @@ namespace BridgeBuilder
                                         if (ss.IsEnum)
                                         {
                                             bridgeInfo.SetCsInterOpPrimitiveType("int");
-                                            return; 
+                                            return;
                                         }
 
                                     }
@@ -342,7 +452,7 @@ namespace BridgeBuilder
                                         default:
                                             //char* => .net byte[]
                                             {
-                                                 
+
 
                                             }
                                             break;
@@ -354,9 +464,9 @@ namespace BridgeBuilder
                                             bridgeInfo.SetCsInterOpPrimitiveType("string");
                                             return;
                                         case "void": //void*
-                                            //for .net 
-                                            //1. unsafe void*
-                                            //2. IntPtr
+                                                     //for .net 
+                                                     //1. unsafe void*
+                                                     //2. IntPtr
                                             bridgeInfo.SetCsInterOp("void*", "Cef3Bind.Set_unsafe_voidptr", "Cef3Bind.Get_unsafe_voidptr");
                                             return;
 
