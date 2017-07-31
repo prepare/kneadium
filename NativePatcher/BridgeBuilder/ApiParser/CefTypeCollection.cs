@@ -704,8 +704,7 @@ namespace BridgeBuilder
                 typedeclDic.Add(typeDecl.Name, typeDecl);
                 //-----------------------
 
-                SimpleTypeSymbol typeSymbol = new SimpleTypeSymbol(typeDecl.Name);
-                typeSymbol.CreatedByTypeDeclaration = typeDecl;
+                SimpleTypeSymbol typeSymbol = new SimpleTypeSymbol(typeDecl);
                 typeDecl.ResolvedType = typeSymbol;
                 //
 

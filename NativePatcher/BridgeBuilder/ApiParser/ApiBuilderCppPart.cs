@@ -7,15 +7,19 @@ namespace BridgeBuilder
 
     class ApiBuilderCppPart
     {
+        CodeTypeDeclaration _currentCodeTypeDecl;
         public void GenerateCppPart(TypeTxInfo typeTxInfo, StringBuilder stbuilder)
         {
+            _currentCodeTypeDecl = typeTxInfo.TypeDecl;
 
+            //
+            //check this type wrap/unwrap method name
+            //
             Dictionary<MethodTxInfo, StringBuilder> results = new Dictionary<MethodTxInfo, StringBuilder>();
-
             foreach (MethodTxInfo met in typeTxInfo.methods)
             {
                 StringBuilder metStBuilder = new StringBuilder();
-                GenerateCppPart(met, metStBuilder);
+                GenerateCppMethod(met, metStBuilder);
                 results.Add(met, metStBuilder);
             }
 
@@ -36,18 +40,18 @@ namespace BridgeBuilder
             stbuilder.AppendLine("}");
 
         }
-        void GenerateCppPart(MethodTxInfo met, StringBuilder stbuilder)
+        void GenerateCppMethod(MethodTxInfo met, StringBuilder stbuilder)
         {
-
-
+            //----
+            //extract managed args and then call native c++ method
+            //----
             MethodParameterTxInfo ret = met.ReturnPlan;
             //----
             List<MethodParameterTxInfo> pars = met.pars;
             int parCount = pars.Count;
-            if (parCount > 2)
+            if (parCount > 7)
             {
-                //throw new NotSupportedException();
-                return;
+                throw new NotSupportedException();
             }
             StringBuilder arglistBuilder = new StringBuilder();
             for (int i = 0; i < parCount; ++i)
@@ -122,7 +126,7 @@ namespace BridgeBuilder
             //----
             if (ret.IsVoid)
             {
-                //call ba
+                //call, no return result
                 stbuilder.Append("bw->" + met.Name + "(");
                 stbuilder.Append(arglistBuilder.ToString());
                 stbuilder.Append(");\r\n");
@@ -131,74 +135,95 @@ namespace BridgeBuilder
             }
             else
             {
-                //has some ret type
-                //DotNetResolvedTypeBase retType = ret.DotnetResolvedType;
-                //if (retType is DotNetResolvedSimpleType)
-                //{
-                //    DotNetResolvedSimpleType simpleType = (DotNetResolvedSimpleType)retType;
-                //    if (simpleType.IsPrimitiveType)
-                //    {
-                //        //---------------------------------
-                //        //native object
-                //        stbuilder.Append("auto ret_result=");
-                //        stbuilder.Append("bw->" + met.Name + "(");
-                //        stbuilder.Append(arglistBuilder.ToString());
-                //        stbuilder.Append(");\r\n");
-                //        //---------------------------------
+                stbuilder.Append("auto ret_result=");
+                stbuilder.Append("bw->" + met.Name + "(");
+                stbuilder.Append(arglistBuilder.ToString());
+                stbuilder.Append(");\r\n");
 
-                //        switch (simpleType.Name)
-                //        {
-                //            case "bool":
-                //                stbuilder.AppendLine("ret->type = JSVALUE_TYPE_BOOLEAN;");
-                //                stbuilder.AppendLine("ret->i32 = ret_result?1:0;");
-                //                break;
-                //            case "int64":
-                //            case "int":
-                //                stbuilder.AppendLine("ret->type = JSVALUE_TYPE_INTEGER64;");
-                //                stbuilder.AppendLine("ret->i64 = ret_result;");
-                //                break;
+                switch (ret.TypeSymbol.TypeSymbolKind)
+                {
+                    default:
+                        break;
+                    case TypeSymbolKind.ReferenceOrPointer:
+                        {
+                            ReferenceOrPointerTypeSymbol refOrPtr = (ReferenceOrPointerTypeSymbol)ret.TypeSymbol;
+                            switch (refOrPtr.Kind)
+                            {
+                                default:
+                                    {
 
-                //            default:
-                //                throw new NotSupportedException();
-                //        }
-                //    }
-                //    else
-                //    {
-                //        //---------------------------------
-                //        //native object
-                //        stbuilder.Append("auto ret_result=");
-                //        stbuilder.Append("bw->" + met.Name + "(");
-                //        stbuilder.Append(arglistBuilder.ToString());
-                //        stbuilder.Append(");\r\n");
-                //        //---------------------------------
+                                    }
+                                    break;
+                                case ContainerTypeKind.ByRef:
+                                    break;
+                                case ContainerTypeKind.CefRefPtr:
+                                    stbuilder.Append("MyCefSetVoidPtr(ret,ret_result);\r\n");
+                                    break;
+                                case ContainerTypeKind.Pointer:
+                                    {
+                                        if (refOrPtr.ElementType.BridgeInfo.WellKnownTypeName == WellKnownTypeName.Void)
+                                        {
+                                            //void*
+                                            stbuilder.Append("MyCefSetVoidPtr(ret,ret_result);\r\n");
 
-                //        if (simpleType.Name == "CefString")
-                //        {
-                //            //create string holder
-                //            stbuilder.AppendLine("MyCefStringHolder* str = new MyCefStringHolder();");
-                //            stbuilder.AppendLine("str->value=ret_result;");
-                //            //
-                //            stbuilder.AppendLine("ret->i32=ret_result.length();");
-                //            stbuilder.AppendLine("ret->ptr=str;");
-                //            stbuilder.AppendLine("ret->type=JSVALUE_TYPE_NATIVE_CEFHOLDER_STRING;");
+                                        }
+                                        else
+                                        {
 
-                //        }
-                //        else
-                //        {
-                //            //native object
-                //            //select and unwrapp or wrap the result
+                                        }
 
-                //            //
-                //            stbuilder.AppendLine("ret->type = JSVALUE_TYPE_WRAPPED;");
-                //            stbuilder.AppendLine("ret->ptr =" + simpleType + "CToCpp::Unwrap(ret_result);");
-                //        }
-                //    }
-                //    stbuilder.AppendLine("CefFrameCToCpp::Unwrap(" + "bw" + ");");
-                //}
-                //else
-                //{
+                                    }
+                                    break;
+                                case ContainerTypeKind.ScopePtr:
+                                    break;
+                            }
 
-                //}
+                        }
+                        break;
+                    case TypeSymbolKind.Simple:
+                        {
+                            SimpleTypeSymbol simpleType = (SimpleTypeSymbol)ret.TypeSymbol;
+                            switch (simpleType.PrimitiveTypeKind)
+                            {
+                                default:
+                                    break;
+                                case PrimitiveTypeKind.CefString:
+                                    stbuilder.Append("SetCefStringToJsValue(ret,ret_result);\r\n");
+                                    break;
+                                case PrimitiveTypeKind.NaitveInt:
+                                    stbuilder.Append("MyCefSetInt64(ret,ret_result);\r\n");
+                                    break;
+                                case PrimitiveTypeKind.size_t:
+                                    stbuilder.Append("MyCefSetInt32(ret, (int32_t)ret_result);\r\n");
+                                    break;
+                                case PrimitiveTypeKind.Int64:
+                                    stbuilder.Append("MyCefSetInt64(ret,ret_result);\r\n");
+                                    break;
+                                case PrimitiveTypeKind.UInt64:
+                                    stbuilder.Append("MyCefSetUInt64(ret,ret_result);\r\n");
+                                    break; 
+                                case PrimitiveTypeKind.Double:
+                                    stbuilder.Append("MyCefSetDouble(ret,ret_result);\r\n");
+                                    break;
+                                case PrimitiveTypeKind.Float:
+                                    stbuilder.Append("MyCefSetFloat(ret,ret_result);\r\n");
+                                    break;
+                                case PrimitiveTypeKind.Bool:
+                                    stbuilder.Append("MyCefSetBool(ret,ret_result);\r\n");
+                                    break;
+                                case PrimitiveTypeKind.UInt32:
+                                    stbuilder.Append("MyCefSetUInt32(ret,ret_result);\r\n");
+                                    break;
+                                case PrimitiveTypeKind.Int32:
+                                    stbuilder.Append("MyCefSetInt32(ret,ret_result);\r\n");
+                                    break;
+                            }
+                        }
+
+                        break;
+                }
+
+
             }
         }
 

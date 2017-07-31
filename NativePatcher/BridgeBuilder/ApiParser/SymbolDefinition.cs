@@ -46,9 +46,15 @@ namespace BridgeBuilder
 
     class SimpleTypeSymbol : TypeSymbol
     {
+        CodeTypeDeclaration _codeTypeDecl;
         public SimpleTypeSymbol(string name)
         {
             this.Name = name;
+        }
+        public SimpleTypeSymbol(CodeTypeDeclaration codeTypeDecl)
+        {
+            this._codeTypeDecl = codeTypeDecl;
+            this.Name = codeTypeDecl.Name;
         }
         public override TypeSymbolKind TypeSymbolKind { get { return TypeSymbolKind.Simple; } }
         public string Name { get; set; }
@@ -57,7 +63,13 @@ namespace BridgeBuilder
             return Name;
         }
         public List<TypeSymbol> NestedTypeSymbols { get; set; }
-        public CodeTypeDeclaration CreatedByTypeDeclaration { get; set; }
+        public CodeTypeDeclaration CreatedByTypeDeclaration
+        {
+            get
+            {
+                return _codeTypeDecl;
+            }
+        }
 
         public PrimitiveTypeKind PrimitiveTypeKind { get; set; }
         public TypeSymbol BaseType { get; set; }
