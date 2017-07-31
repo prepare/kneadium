@@ -387,7 +387,25 @@ namespace BridgeBuilder
                 {
 
                 }
-                
+
+                //
+                TypeTxInfo typeTxPlan = txPlanner.MakeTransformPlan(typedecl);
+                //
+                {
+                    StringBuilder stbuilder = new StringBuilder();
+                    apiBuilderCsPart.GenerateCsType(typeTxPlan, stbuilder);
+                }
+                //
+                //
+                {
+                    StringBuilder stbuilder = new StringBuilder();
+                    apiBuilderCppPart.GenerateCppPart(typeTxPlan, stbuilder);
+                }
+                //
+            }
+            foreach (CodeTypeDeclaration typedecl in cefTypeCollection.callBackClasses)
+            {   
+                 
                 //
                 TypeTxInfo typeTxPlan = txPlanner.MakeTransformPlan(typedecl);
                 //

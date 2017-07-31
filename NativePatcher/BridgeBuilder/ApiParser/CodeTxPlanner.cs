@@ -67,7 +67,7 @@ namespace BridgeBuilder
         }
         public string Name { get; set; }
         public void AddMethodParameterTx(MethodParameterTxInfo par)
-        {
+        { 
             pars.Add(par);
         }
         public MethodParameterTxInfo ReturnPlan
@@ -76,7 +76,7 @@ namespace BridgeBuilder
             set;
         }
 
-
+        public bool CsLeftMethodBodyBlank { get; set; }
 #if DEBUG
         public override string ToString()
         {
@@ -194,7 +194,10 @@ namespace BridgeBuilder
             for (int i = 0; i < j; ++i)
             {
                 CodeMethodParameter metPar = metDecl.Parameters[i];
+                
+
                 MethodParameterTxInfo parTxInfo = new MethodParameterTxInfo(metPar.ParameterName, metPar.ParameterType.ResolvedType);
+
                 parTxInfo.Direction = TxParameterDirection.In;
                 //TODO: review Out,InOut direction 
 
@@ -583,6 +586,7 @@ namespace BridgeBuilder
         }
         public TypeBridgeInfo(SimpleTypeSymbol t, WellKnownTypeName wellknownTypeName, CefTypeKind cefTypeKind, TypeBridgeInfo bridgeToBase)
         {
+
             this.typeSymbol = t;
             this.wellknownTypeName = wellknownTypeName;
             this._bridgeToBase = bridgeToBase;

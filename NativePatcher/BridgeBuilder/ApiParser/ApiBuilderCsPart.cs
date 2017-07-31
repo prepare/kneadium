@@ -33,7 +33,18 @@ namespace BridgeBuilder
             }
             else
             {
-                stbuilder.Append("public partial struct ");
+                string typeKind = "struct";
+                bool isCallbackClass = false;
+                if (typedecl.Name.EndsWith("Callback"))
+                {
+                    //by our convention ,
+                    //we implement this with class
+                    isCallbackClass = true;
+                    typeKind = "class";
+                }
+
+
+                stbuilder.Append("public partial " + typeKind + " ");
                 stbuilder.Append(typedecl.Name);
                 stbuilder.Append("{\r\n");
                 stbuilder.Append(" public  IntPtr nativePtr;\r\n");
@@ -45,9 +56,17 @@ namespace BridgeBuilder
                 //-----
                 foreach (MethodTxInfo met in typeTxInfo.methods)
                 {
+                    if (isCallbackClass && met.Name.StartsWith("On"))
+                    {
+                        //by convention 
+                        //don't generate internal method body
+                        met.CsLeftMethodBodyBlank = true;
+                    }
                     GenCsMethod(met, stbuilder);
                     stbuilder.Append("\r\n");
                 }
+
+                //-----
                 stbuilder.AppendLine("}");
             }
         }
@@ -260,7 +279,6 @@ namespace BridgeBuilder
                 codeTypeDeclBuilder.Append('=');
                 codeTypeDeclBuilder.Append(fielddecl.InitExpression.ToString());
             }
-
         }
         void GenCsMethod(MethodTxInfo metTx, StringBuilder codeTypeDeclBuilder)
         {
@@ -294,53 +312,62 @@ namespace BridgeBuilder
                 stbuilder.Append(par.Name);
             }
             stbuilder.Append("){\r\n");
-            stbuilder.AppendLine();
+
+            //
             stbuilder.AppendLine("// autogen! " + metTx.ToString());
-            stbuilder.AppendLine();
-            //prepare user data from method args
-            //before send it to native side 
+            //
 
-            for (int i = 0; i < argCount; ++i)
+            //method body
+            if (!metTx.CsLeftMethodBodyBlank)
             {
-                string assignTo = "a" + (i + 1);
-                stbuilder.AppendLine("JsValue " + assignTo + "= new JsValue();");
-                MethodParameterTxInfo par = metTx.pars[i];
-                WriteArgSetValue(stbuilder, assignTo, par);
-            }
-            stbuilder.AppendLine("JsValue ret;");
-            //assign parameter value 
-            stbuilder.Append("Cef3Binder.MyCefMet_" + argCount + "(");
-            stbuilder.Append("this.nativePtr,\r\n" +
-                "    CefNativeType." + this.typedecl.Name + ",\r\n" +
-                "    (int)CefNativeType_" + this.typedecl.Name + "." + metTx.Name + ",\r\n" +
-                "    out ret");
-            for (int i = 0; i < argCount; ++i)
-            {
-                stbuilder.Append(",ref " + "a" + (i + 1));
-            }
-            stbuilder.AppendLine(");");
-            string ret_result = "ret_result";
-            if (!retTypeTx.IsVoid)
-            {
-                //get data and store to local 
-                WriteReturnGetValue(stbuilder, ret_result, "ret", retTypeTx);
+                stbuilder.AppendLine();
+
+                stbuilder.AppendLine();
+                //prepare user data from method args
+                //before send it to native side 
+
+                for (int i = 0; i < argCount; ++i)
+                {
+                    string assignTo = "a" + (i + 1);
+                    stbuilder.AppendLine("JsValue " + assignTo + "= new JsValue();");
+                    MethodParameterTxInfo par = metTx.pars[i];
+                    WriteArgSetValue(stbuilder, assignTo, par);
+                }
+                stbuilder.AppendLine("JsValue ret;");
+                //assign parameter value 
+                stbuilder.Append("Cef3Binder.MyCefMet_" + argCount + "(");
+                stbuilder.Append("this.nativePtr,\r\n" +
+                    "    CefNativeType." + this.typedecl.Name + ",\r\n" +
+                    "    (int)CefNativeType_" + this.typedecl.Name + "." + metTx.Name + ",\r\n" +
+                    "    out ret");
+                for (int i = 0; i < argCount; ++i)
+                {
+                    stbuilder.Append(",ref " + "a" + (i + 1));
+                }
+                stbuilder.AppendLine(");");
+                string ret_result = "ret_result";
+                if (!retTypeTx.IsVoid)
+                {
+                    //get data and store to local 
+                    WriteReturnGetValue(stbuilder, ret_result, "ret", retTypeTx);
+                }
+
+                //-------
+                //some clean up code before exit 
+                for (int i = 0; i < argCount; ++i)
+                {
+                    string assignTo = "a" + (i + 1);
+                    MethodParameterTxInfo par = metTx.pars[i];
+                    WriteArgCleanUpCode(stbuilder, assignTo, par);
+                }
+                if (!retTypeTx.IsVoid)
+                {
+                    stbuilder.AppendLine("return " + ret_result + ";");
+                }
             }
 
-            //-------
-            //some clean up code before exit 
-            for (int i = 0; i < argCount; ++i)
-            {
-                string assignTo = "a" + (i + 1);
-                MethodParameterTxInfo par = metTx.pars[i];
-                WriteArgCleanUpCode(stbuilder, assignTo, par);
-            }
-            if (!retTypeTx.IsVoid)
-            {
-                stbuilder.AppendLine("return " + ret_result + ";");
-            }
-            //-------
+
             stbuilder.AppendLine("}\r\n");
-
             codeTypeDeclBuilder.Append(stbuilder.ToString());
         }
 
