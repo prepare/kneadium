@@ -65,7 +65,6 @@ namespace BridgeBuilder
                     GenCsMethod(met, stbuilder);
                     stbuilder.Append("\r\n");
                 }
-
                 //-----
                 stbuilder.AppendLine("}");
             }
@@ -77,6 +76,17 @@ namespace BridgeBuilder
             {
                 default:
 
+                    break;
+                case WellKnownTypeName.PtrOf:
+                    {
+                        if (retTypeSymbol.ToString() == "void*")
+                        {
+                            stbuilder.Append("IntPtr");
+                        }
+                        else
+                        {
+                        }
+                    }
                     break;
                 case WellKnownTypeName.OtherCppClass:
                     {

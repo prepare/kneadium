@@ -424,8 +424,7 @@ namespace BridgeBuilder
                 }
                 //
             }
-            foreach (CodeTypeDeclaration typedecl in cefTypeCollection.callBackClasses)
-
+            foreach (CodeTypeDeclaration typedecl in cefTypeCollection.callBackClasses) 
             {
 
                 //

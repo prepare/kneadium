@@ -167,12 +167,7 @@ namespace BridgeBuilder
                                                 break;
                                         }
                                     }
-                                    break;
-                                //case 2:
-                                //    {
-
-                                //    }
-                                //break;
+                                    break; 
                                 case 3:
                                     {
                                         string templateName = templateTypeSymbol.Name;
@@ -336,7 +331,7 @@ namespace BridgeBuilder
                                         SimpleTypeSymbol ss = (SimpleTypeSymbol)elemType;
                                         if (ss.IsEnum)
                                         {
-                                            bridgeInfo.SetCsInterOp("bool*", "Cef3Bind.Set_unsafe_voidptr", "Cef3Bind.Get_unsafe_voidptr");
+                                            bridgeInfo.SetCsInterOpPrimitiveType("int");
                                             return; 
                                         }
 
