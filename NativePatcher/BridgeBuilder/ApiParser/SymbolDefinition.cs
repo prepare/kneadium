@@ -40,9 +40,7 @@ namespace BridgeBuilder
 #endif
         public abstract TypeSymbolKind TypeSymbolKind { get; }
         public TypeBridgeInfo BridgeInfo { get; set; }
-    }
-
-
+    } 
 
     class SimpleTypeSymbol : TypeSymbol
     {
@@ -55,6 +53,17 @@ namespace BridgeBuilder
         {
             this._codeTypeDecl = codeTypeDecl;
             this.Name = codeTypeDecl.Name;
+        }
+        public bool IsEnum
+        {
+            get
+            {
+                if (_codeTypeDecl != null)
+                {
+                    return _codeTypeDecl.Kind == TypeKind.Enum;
+                }
+                return false;
+            }
         }
         public override TypeSymbolKind TypeSymbolKind { get { return TypeSymbolKind.Simple; } }
         public string Name { get; set; }
