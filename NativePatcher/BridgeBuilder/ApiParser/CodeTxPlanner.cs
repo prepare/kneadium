@@ -14,6 +14,7 @@ namespace BridgeBuilder
         }
 
         public CefTypeModel CefTypeModel { get; set; }
+        public string CtoCppOriginalCTypeName { get; set; }
         public CodeTypeDeclaration TypeDecl
         {
             get;
@@ -85,49 +86,42 @@ namespace BridgeBuilder
 
 
         /// <summary>
-        /// Wrap a C++ class with a C structure
+        /// Wrap a C++ class with a C structure. This is used when the class
+        /// implementation exists on this side of the DLL boundary but will have methods
+        /// called from the other side of the DLL boundary.
         /// </summary>
-        CefCppToCRefCounted,
-        //
-        // Wrap a C++ class with a C structure.  This is used when the class
-        // implementation exists on this side of the DLL boundary but will have methods
-        // called from the other side of the DLL boundary.
+        CefCppToCRefCounted, 
         // template <class ClassName, class BaseName, class StructName>
         // class CefCppToCRefCounted : public CefBaseRefCounted {
 
 
         /// <summary>
-        /// Wrap a C++ class with a C structure
+        /// Wrap a C++ class with a C structure.This is used when the class
+        /// implementation exists on this side of the DLL boundary but will have methods
+        /// called from the other side of the DLL boundary.
         /// </summary>
-        CefCppToCScoped,
-        //Wrap a C++ class with a C structure. This is used when the class
-        // implementation exists on this side of the DLL boundary but will have methods
-        // called from the other side of the DLL boundary.
+        CefCppToCScoped, 
         //template <class ClassName, class BaseName, class StructName>
-        //class CefCppToCScoped : public CefBaseScoped {
-        // public:
+        //class CefCppToCScoped : public CefBaseScoped { 
 
         /// <summary>
-        /// Wrap a C structure with a C++ class
+        /// Wrap a C structure with a C++ class.  This is used when the implementation
+        /// exists on the other side of the DLL boundary but will have methods called on
+        /// this side of the DLL boundary
         /// </summary>
         CefCToCppScoped,
-        // Wrap a C structure with a C++ class. This is used when the implementation
-        // exists on the other side of the DLL boundary but will have methods called on
-        // this side of the DLL boundary.
         //template <class ClassName, class BaseName, class StructName>
-        //class CefCToCppScoped : public BaseName {
-        // public:
+        //class CefCToCppScoped : public BaseName { 
 
         /// <summary>
-        /// Wrap a C structure with a C++ class
+        /// Wrap a C structure with a C++ class. This is used when the implementation
+        /// exists on the other side of the DLL boundary but will have methods called on
+        /// this side of the DLL boundary.
         /// </summary>
         CefCToCppRefCounted
-        // Wrap a C structure with a C++ class. This is used when the implementation
-        // exists on the other side of the DLL boundary but will have methods called on
-        // this side of the DLL boundary.
-        //   template <class ClassName, class BaseName, class StructName>
-        //class CefCToCppRefCounted : public BaseName {
-        // public:
+        // Wrap a C structure with a C++ class. 
+        //template <class ClassName, class BaseName, class StructName>
+        //class CefCToCppRefCounted : public BaseName { 
     }
 
     class FieldTxInfo
@@ -274,7 +268,8 @@ namespace BridgeBuilder
                                     break;
                                 case 3:
                                     {
-                                        string templateName = templateTypeSymbol.Name;
+                                        TemplateTypeSymbol3 tt3 = (TemplateTypeSymbol3)templateTypeSymbol;
+                                        string templateName = tt3.Name;
                                         switch (templateName)
                                         {
                                             default:
@@ -287,9 +282,12 @@ namespace BridgeBuilder
                                                 break;
                                             case "CefCToCppScoped":
                                                 typeTxInfo.CefTypeModel = CefTypeModel.CefCToCppScoped;
+                                                typeTxInfo.CtoCppOriginalCTypeName = tt3.Item1.ToString();
                                                 break;
                                             case "CefCToCppRefCounted":
                                                 typeTxInfo.CefTypeModel = CefTypeModel.CefCToCppScoped;
+                                                typeTxInfo.CtoCppOriginalCTypeName = tt3.Item2.ToString(); //for unwrap method
+
                                                 break;
                                         }
 
@@ -359,8 +357,6 @@ namespace BridgeBuilder
         FieldTxInfo MakeFieldPlan(CodeFieldDeclaration fieldDecl)
         {
             FieldTxInfo fieldTx = new FieldTxInfo(fieldDecl);
-
-
             return fieldTx;
         }
         MethodTxInfo MakeMethodPlan(CodeMethodDeclaration metDecl)
@@ -393,6 +389,9 @@ namespace BridgeBuilder
                 metTx.AddMethodParameterTx(parTxInfo);
 
             }
+
+
+
             return metTx;
         }
 

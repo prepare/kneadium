@@ -8,8 +8,10 @@ namespace BridgeBuilder
     class ApiBuilderCppPart
     {
         CodeTypeDeclaration _currentCodeTypeDecl;
+        TypeTxInfo _typeTxInfo;
         public void GenerateCppPart(TypeTxInfo typeTxInfo, StringBuilder stbuilder)
         {
+            _typeTxInfo = typeTxInfo;
             _currentCodeTypeDecl = typeTxInfo.TypeDecl;
 
             //
@@ -30,6 +32,9 @@ namespace BridgeBuilder
             int count = results.Count;
             if (count > 0)
             {
+                //-----
+
+                //-----
                 stbuilder.AppendLine("switch(methodName){");
                 foreach (var kp in results)
                 {
@@ -149,87 +154,25 @@ namespace BridgeBuilder
                         break;
                 }
 
-
-                //
-
-
-                //if (par.DotnetResolvedType is DotNetResolvedSimpleType)
-                //{
-                //    DotNetResolvedSimpleType simpleType = (DotNetResolvedSimpleType)par.DotnetResolvedType;
-                //    if (simpleType.IsPrimitiveType)
-                //    {
-                //        arglistBuilder.Append("v" + (i + 1));
-                //        switch (simpleType.Name)
-                //        {
-                //            case "bool":
-                //                arglistBuilder.AppendLine("->i32");
-                //                break;
-                //            case "int":
-                //                arglistBuilder.AppendLine("->i32");
-                //                break;
-                //            case "int64":
-                //                arglistBuilder.AppendLine("->i64");
-                //                break;
-                //            default:
-                //                throw new NotSupportedException();
-                //        }
-                //    }
-                //    else
-                //    {
-                //        if (simpleType.Name == "CefString")
-                //        {
-                //            //get data inside MyCefStringHolder*
-                //            arglistBuilder.Append("((MyCefStringHolder*)");
-                //            arglistBuilder.Append("v" + (i + 1) + "->ptr");
-                //            arglistBuilder.AppendLine(")->value");
-                //        }
-                //        else
-                //        {
-                //            //eg. cefFrame1->GetSource(CefStringVisitorCppToC::Unwrap((cef_string_visitor_t*)v1->ptr));
-
-                //            arglistBuilder.Append(simpleType.Name + "CppToC::Unwrap((cef_string_visitor_t*)");
-                //            arglistBuilder.Append("v" + (i + 1));
-                //            arglistBuilder.AppendLine("->ptr)");
-                //        }
-
-                //    }
-                //}
-                //else if (par.DotnetResolvedType is DotNetList)
-                //{
-                //    //std::vector
-                //    DotNetList simpleType = (DotNetList)par.DotnetResolvedType;
-                //    arglistBuilder.Append("(std::vector<" + ((DotNetResolvedSimpleType)simpleType.ElementType).Name + ">)");
-                //    arglistBuilder.Append("v" + (i + 1));
-                //    arglistBuilder.AppendLine("->ptr");
-                //}
-                //else
-                //{
-
-                //}
-
             }
-
-
-
             //----
             stbuilder.AppendLine("// autogen! " + met.ToString());
             //----
+            string instThis = "me";
             if (ret.IsVoid)
             {
                 //call, no return result
-                stbuilder.Append("bw->" + met.Name + "(");
+                stbuilder.Append(instThis + "->" + met.Name + "(");
                 stbuilder.Append(arglistBuilder.ToString());
                 stbuilder.Append(");\r\n");
                 stbuilder.Append("ret->type = JSVALUE_TYPE_EMPTY;");
-
             }
             else
             {
                 stbuilder.Append("auto ret_result=");
-                stbuilder.Append("bw->" + met.Name + "(");
+                stbuilder.Append(instThis + "->" + met.Name + "(");
                 stbuilder.Append(arglistBuilder.ToString());
                 stbuilder.Append(");\r\n");
-
                 switch (ret.TypeSymbol.TypeSymbolKind)
                 {
                     default:
@@ -267,7 +210,6 @@ namespace BridgeBuilder
                                 case ContainerTypeKind.ScopePtr:
                                     break;
                             }
-
                         }
                         break;
                     case TypeSymbolKind.Simple:
@@ -348,12 +290,31 @@ namespace BridgeBuilder
                                     break;
                             }
                         }
-
                         break;
                 }
-
-
             }
+            //---------
+            switch (_typeTxInfo.CefTypeModel)
+            {
+                default:
+                    break;
+                case CefTypeModel.CefBaseScoped:
+                    break;
+                case CefTypeModel.CefBaseRefCounted:
+                    break;
+                case CefTypeModel.CefStructBase:
+                    break;
+                case CefTypeModel.Unknown:
+                    break;
+                case CefTypeModel.CefCToCppRefCounted:
+
+                    break;
+                case CefTypeModel.CefCToCppScoped:
+                    stbuilder.AppendLine();
+                    stbuilder.AppendLine(this._currentCodeTypeDecl.Name + "::Unwrap(" + instThis + ");");
+                    break;
+            }
+
         }
 
     }
