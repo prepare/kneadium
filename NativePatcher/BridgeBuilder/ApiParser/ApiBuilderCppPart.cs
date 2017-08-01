@@ -13,7 +13,7 @@ namespace BridgeBuilder
         {
             _typeTxInfo = typeTxInfo;
             _currentCodeTypeDecl = typeTxInfo.TypeDecl;
-
+            //--------------------
             switch (typeTxInfo.CefTypeModel)
             {
                 case CefTypeModel.CefCppToCRefCounted:

@@ -373,34 +373,30 @@ namespace BridgeBuilder
             txPlanner.CefTypeCollection = cefTypeCollection;
 
 
-            foreach (CodeTypeDeclaration typedecl in cefTypeCollection.otherClasses)
-            {
-                if (typedecl.IsGlobalCompilationUnitType) { continue; }
-                if (typedecl.BaseIsVirtual) { continue; }
-                if (typedecl.IsTemplateTypeDefinition) { continue; }
-                if (typedecl.Name.EndsWith("Traits")) { continue; }
-
-
-                if (typedecl.Kind != TypeKind.Enum)
-                {
-
-                }
-
-                //
-                TypeTxInfo typeTxPlan = txPlanner.MakeTransformPlan(typedecl);
-                //
-                {
-                    StringBuilder stbuilder = new StringBuilder();
-                    apiBuilderCsPart.GenerateCsType(typeTxPlan, stbuilder);
-                }
-                //
-                //
-                {
-                    StringBuilder stbuilder = new StringBuilder();
-                    apiBuilderCppPart.GenerateCppPart(typeTxPlan, stbuilder);
-                }
-                //
-            }
+            //foreach (CodeTypeDeclaration typedecl in cefTypeCollection.otherClasses)
+            //{
+            //    if (typedecl.IsGlobalCompilationUnitType) { continue; }
+            //    if (typedecl.BaseIsVirtual) { continue; }
+            //    if (typedecl.IsTemplateTypeDefinition) { continue; }
+            //    if (typedecl.Name.EndsWith("Traits")) { continue; } 
+            //    if (typedecl.Kind != TypeKind.Enum)
+            //    { 
+            //    } 
+            //    //
+            //    TypeTxInfo typeTxPlan = txPlanner.MakeTransformPlan(typedecl);
+            //    //
+            //    {
+            //        StringBuilder stbuilder = new StringBuilder();
+            //        apiBuilderCsPart.GenerateCsType(typeTxPlan, stbuilder);
+            //    }
+            //    //
+            //    //
+            //    {
+            //        StringBuilder stbuilder = new StringBuilder();
+            //        apiBuilderCppPart.GenerateCppPart(typeTxPlan, stbuilder);
+            //    }
+            //    //
+            //}
 
             foreach (CodeTypeDeclaration typedecl in cefTypeCollection.handlerClasses)
             {
