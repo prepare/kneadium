@@ -286,6 +286,9 @@ namespace BridgeBuilder
             }
             return foundCount;
         }
+        //
+        //transformation 
+        internal TypeTxInfo TypeTxInfo { get; set; }
     }
 
     class IncludeFileDirective
@@ -676,6 +679,10 @@ namespace BridgeBuilder
         public CodeCtorInitilizer CtorInit { get; set; }
         public bool IsOperatorMethod { get; set; }
         public bool IsInline { get; set; }
+
+        //transformation 
+
+        internal MethodTxInfo methodTxInfo { get; set; }
     }
 
     class CodeMethodParameter
@@ -730,8 +737,10 @@ namespace BridgeBuilder
                 stbuild.Append(this.ParameterName);
             }
             return stbuild.ToString();
-
         }
+
+        //transformation phase
+        internal MethodParameterTxInfo ParameterTxInfo { get; set; }
     }
 
 }

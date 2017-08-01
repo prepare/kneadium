@@ -1,6 +1,7 @@
 ﻿//MIT, 2016-2017 ,WinterDev
 using System;
 using System.Collections.Generic;
+using System.Text;
 
 namespace BridgeBuilder
 {
@@ -212,12 +213,183 @@ namespace BridgeBuilder
     {
         CodeTypeDeclaration typedecl; //current type decl
         TypeTxInfo typeTxInfo; //current type tx          
+        TemplateTypeSymbol3 tt3;
+
         public TypeTranformPlanner()
         {
         }
         public CefTypeCollection CefTypeCollection { get; set; }
 
-        void AddTypeInfoHint()
+        void Generate_CppToC_CefVisitor(SimpleTypeSymbol orgType)
+        {
+            GenerateMethodCallFromCppToCs(orgType);
+        }
+        void Generate_CppToC_CefCallback(SimpleTypeSymbol orgType)
+        {
+            GenerateMethodCallFromCppToCs(orgType);
+        }
+        void Generate_CppToC_CefHandler(SimpleTypeSymbol orgType)
+        {
+            GenerateMethodCallFromCppToCs(orgType);
+
+        }
+
+
+
+        void GenerateMethodCallFromCppToCs(SimpleTypeSymbol orgType)
+        {
+            //...
+            CodeTypeDeclaration codeTypeDecl = orgType.CreatedByTypeDeclaration;
+            if (codeTypeDecl == null)
+            {
+                throw new NotSupportedException();
+            }
+            //this is type plan
+            TypeTxInfo orgTypeTxInfo = codeTypeDecl.TypeTxInfo;
+            //create injected code for managed code
+            foreach (CodeMethodDeclaration met in codeTypeDecl.GetMethodIter())
+            {
+                StringBuilder stbuilder = new StringBuilder();
+                int j = met.Parameters.Count;
+                stbuilder.AppendLine("if(this->mcallback_){");
+                stbuilder.AppendLine("  MethodArgs args;");
+                stbuilder.AppendLine("  memset(&args,0,sizeof(MethodArgs));");
+                if (j > 4)
+                {
+
+                }
+                MethodTxInfo metTx = met.methodTxInfo;
+                for (int i = 0; i < j; ++i)
+                {
+                    //set args->
+                    CodeMethodParameter par = met.Parameters[i];
+                    TypeSymbol parTypeSymbol = par.ParameterType.ResolvedType;
+                    TypeBridgeInfo bridgeInfo = parTypeSymbol.BridgeInfo;
+                    switch (parTypeSymbol.TypeSymbolKind)
+                    {
+                        default:
+                            break;
+                        case TypeSymbolKind.TypeDef:
+                            {
+                                CTypeDefTypeSymbol cTypeDefSymbol = (CTypeDefTypeSymbol)parTypeSymbol;
+                                TypeSymbol referToType = cTypeDefSymbol.ReferToTypeSymbol;
+                                switch (referToType.TypeSymbolKind)
+                                {
+                                    default:
+                                        {
+
+                                        }
+                                        break;
+                                    case TypeSymbolKind.Simple:
+                                        {
+                                            SimpleTypeSymbol ss = (SimpleTypeSymbol)referToType;
+                                            if (ss.PrimitiveTypeKind == PrimitiveTypeKind.NotPrimitiveType)
+                                            {
+                                                stbuilder.AppendLine("args.SetArgAsNativeObject(" + i + "," + par.ParameterName);
+                                            }
+                                            else
+                                            {
+
+                                            }
+                                        }
+                                        break;
+                                }
+
+
+                            }
+                            break;
+                        case TypeSymbolKind.Simple:
+                            {
+                                //simple type 
+                                SimpleTypeSymbol simpleTypeInfo = (SimpleTypeSymbol)parTypeSymbol;
+                                switch (simpleTypeInfo.PrimitiveTypeKind)
+                                {
+                                    default:
+                                        break;
+                                    case PrimitiveTypeKind.Double:
+                                        stbuilder.AppendLine("args.SetArgAsDouble(" + i + "," + par.ParameterName); //cast to int32
+                                        break;
+                                    case PrimitiveTypeKind.size_t:
+                                        stbuilder.AppendLine("args.SetArgAsInt32(" + i + ",(size_t)" + par.ParameterName); //cast to int32
+                                        break;
+                                    case PrimitiveTypeKind.NaitveInt:
+                                        stbuilder.AppendLine("args.SetArgAsInt32(" + i + "," + par.ParameterName);
+                                        break;
+                                    case PrimitiveTypeKind.Bool:
+                                        stbuilder.AppendLine("args.SetArgAsBool(" + i + "," + par.ParameterName);
+                                        break;
+                                    case PrimitiveTypeKind.Int32:
+                                        stbuilder.AppendLine("args.SetArgAsInt32(" + i + "," + par.ParameterName);
+                                        break;
+                                    case PrimitiveTypeKind.Int64:
+                                        stbuilder.AppendLine("args.SetArgAsInt64(" + i + "," + par.ParameterName);
+                                        break;
+                                    case PrimitiveTypeKind.NotPrimitiveType:
+                                        stbuilder.AppendLine("args.SetArgAsNativeObject(" + i + "," + par.ParameterName);
+                                        break;
+
+                                }
+                            }
+                            break;
+                        case TypeSymbolKind.ReferenceOrPointer:
+                            {
+                                ReferenceOrPointerTypeSymbol referenceOrPointer = (ReferenceOrPointerTypeSymbol)parTypeSymbol;
+                                TypeSymbol elemType = referenceOrPointer.ElementType;
+                                switch (elemType.TypeSymbolKind)
+                                {
+                                    default:
+                                        break;
+                                    case TypeSymbolKind.ReferenceOrPointer:
+                                        break;
+                                    case TypeSymbolKind.Simple:
+                                        {
+                                            SimpleTypeSymbol simpleTypeInfo = (SimpleTypeSymbol)elemType;
+                                            switch (simpleTypeInfo.PrimitiveTypeKind)
+                                            {
+                                                default:
+                                                    break;
+                                                case PrimitiveTypeKind.size_t:
+                                                    //ref or pointer to size? 
+                                                    stbuilder.AppendLine("args.SetArgAsInt32(" + i + ",0);");
+                                                   
+                                                    break;
+                                                case PrimitiveTypeKind.Int64:
+                                                case PrimitiveTypeKind.NaitveInt:
+                                                    stbuilder.AppendLine("args.SetArgAsInt64(" + i + ",0);");
+                                                    break;
+                                                case PrimitiveTypeKind.Bool:
+                                                    //reference to some primitive                                                     
+                                                    stbuilder.AppendLine("args.SetArgAsNativeBool(" + i + ",false);");
+                                                    //after call this we need to get data of this arg back to 
+                                                    break;
+                                                case PrimitiveTypeKind.CefString:
+                                                    stbuilder.AppendLine("metArgs.SetArgAsNativeObject(" + i + ",&" + par.ParameterName + ");");
+                                                    stbuilder.AppendLine("metArgs.SetArgType(" + i + ", JSVALUE_TYPE_NATIVE_CEFSTRING);");
+                                                    break;
+
+                                                case PrimitiveTypeKind.Void:
+                                                    //void*
+                                                    stbuilder.AppendLine("args.SetArgAsNativeObject(" + i + "," + par.ParameterName);
+                                                    break;
+                                                //-----------------------
+                                                case PrimitiveTypeKind.NotPrimitiveType:
+                                                    stbuilder.AppendLine("args.SetArgAsNativeObject(" + i + "," + par.ParameterName + ");");
+                                                    break;
+                                            }
+                                        }
+                                        break;
+                                }
+                            }
+                            break;
+                    }
+
+                }
+                stbuilder.AppendLine("}");
+            }
+        }
+
+
+        void AddCppToCTypeInfoHint()
         {
             //this is cef3-speciific convention.
             string typename = this.typedecl.Name;
@@ -228,7 +400,7 @@ namespace BridgeBuilder
                 //2. 
                 //need to create c++ object 
                 //that store func callback pointer to this .net side
-
+                Generate_CppToC_CefCallback(tt3.Item1 as SimpleTypeSymbol);
             }
             else if (typename.Contains("Visitor"))
             {
@@ -236,7 +408,7 @@ namespace BridgeBuilder
                 //1. it is create from .net side 
                 //2. we also create visitor for c++ side                      
                 //   that store func callback pointer to this .net side
-
+                Generate_CppToC_CefVisitor(tt3.Item1 as SimpleTypeSymbol);
             }
             else if (typename.Contains("Handler"))
             {
@@ -244,7 +416,9 @@ namespace BridgeBuilder
                 //handler:
                 //.net side=> create interface that declare member of this handler
                 //this will be called from native side
-                //------------
+                //------------ 
+                //create cpp code for handler                 
+                Generate_CppToC_CefHandler(tt3.Item1 as SimpleTypeSymbol);
             }
             else if (typename.Contains("Base"))
             {
@@ -258,7 +432,11 @@ namespace BridgeBuilder
         public TypeTxInfo MakeTransformPlan(CodeTypeDeclaration typedecl)
         {
             this.typedecl = typedecl;
+            //---------------------------------------------
             this.typeTxInfo = new TypeTxInfo(typedecl);
+            typedecl.TypeTxInfo = this.typeTxInfo;
+            //---------------------------------------------
+            this.tt3 = null; //for hint
 
             if (typedecl.BaseTypes != null && typedecl.BaseTypes.Count == 1)
             {
@@ -305,7 +483,7 @@ namespace BridgeBuilder
                                     break;
                                 case 3:
                                     {
-                                        TemplateTypeSymbol3 tt3 = (TemplateTypeSymbol3)templateTypeSymbol;
+                                        this.tt3 = (TemplateTypeSymbol3)templateTypeSymbol;
                                         string templateName = tt3.Name;
                                         switch (templateName)
                                         {
@@ -358,11 +536,15 @@ namespace BridgeBuilder
 
             }
 
-            if (typeTxInfo.CefTypeModel != CefTypeModel.Unknown)
+            switch (typeTxInfo.CefTypeModel)
             {
-                AddTypeInfoHint();
+                case CefTypeModel.CefCppToCRefCounted:
+                case CefTypeModel.CefCppToCScoped:
+                    {
+                        AddCppToCTypeInfoHint();
+                    }
+                    break;
             }
-
 
             //-----------
             if (typedecl.Kind == TypeKind.Enum)
@@ -420,8 +602,6 @@ namespace BridgeBuilder
             for (int i = 0; i < j; ++i)
             {
                 CodeMethodParameter metPar = metDecl.Parameters[i];
-
-
                 MethodParameterTxInfo parTxInfo = new MethodParameterTxInfo(metPar.ParameterName, metPar.ParameterType.ResolvedType);
 
                 parTxInfo.Direction = TxParameterDirection.In;
@@ -433,9 +613,6 @@ namespace BridgeBuilder
                 metTx.AddMethodParameterTx(parTxInfo);
 
             }
-
-
-
             return metTx;
         }
 
