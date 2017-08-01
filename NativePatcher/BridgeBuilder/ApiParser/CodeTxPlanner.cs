@@ -208,6 +208,168 @@ namespace BridgeBuilder
         InOut
     }
 
+
+    class TypeSymbolWalk
+    {
+        public void Walk(TypeSymbol typeSymbol)
+        {
+            switch (typeSymbol.TypeSymbolKind)
+            {
+                case TypeSymbolKind.Simple:
+                    PreviewVisitSimpleType((SimpleTypeSymbol)typeSymbol);
+                    break;
+                case TypeSymbolKind.Template:
+                    PreviewVisitTypeTemplate((TemplateTypeSymbol)typeSymbol);
+                    break;
+                case TypeSymbolKind.TemplateParameter:
+                    throw new NotSupportedException();
+                case TypeSymbolKind.TypeDef:
+                    PreviewVisitTypeDef((CTypeDefTypeSymbol)typeSymbol);
+                    break;
+                case TypeSymbolKind.Vec:
+                    VisitVectorType((VecTypeSymbol)typeSymbol);
+                    break;
+            }
+        }
+        protected virtual void PreviewVisitTypeTemplate(TemplateTypeSymbol t)
+        {
+            switch (t.ItemCount)
+            {
+                default: throw new NotSupportedException();
+                case 1:
+                    VisitTypeTemplate1((TemplateTypeSymbol1)t);
+                    break;
+                case 2:
+                    VisitTypeTemplate2((TemplateTypeSymbol2)t);
+                    break;
+                case 3:
+                    VisitTypeTemplate3((TemplateTypeSymbol3)t);
+                    break;
+            }
+        }
+        protected virtual void VisitVectorType(VecTypeSymbol t)
+        {
+        }
+        protected virtual void VisitTypeTemplate1(TemplateTypeSymbol1 t1)
+        {
+
+        }
+        protected virtual void VisitTypeTemplate2(TemplateTypeSymbol2 t2)
+        {
+
+        }
+        protected virtual void VisitTypeTemplate3(TemplateTypeSymbol3 t3)
+        {
+
+        }
+        protected virtual void PreviewVisitTypeDef(CTypeDefTypeSymbol t)
+        {
+
+
+        }
+        protected virtual void PreviewVisitSimpleType(SimpleTypeSymbol t)
+        {
+            switch (t.PrimitiveTypeKind)
+            {
+                default:
+                    throw new NotSupportedException();
+                case PrimitiveTypeKind.NotPrimitiveType:
+                    VisitSimpleTypeNonPrimitive(t);
+                    break;
+                case PrimitiveTypeKind.Void:
+                    VisitVoid(t);
+                    break;
+                case PrimitiveTypeKind.Int32:
+                    VisitInt32(t);
+                    break;
+                case PrimitiveTypeKind.UInt32:
+                    VisitUInt32(t);
+                    break;
+                case PrimitiveTypeKind.UInt64:
+                    VisitUInt64(t);
+                    break;
+                case PrimitiveTypeKind.Int64:
+                    VisitInt64(t);
+                    break;
+                case PrimitiveTypeKind.NaitveInt:
+                    VisitNativeInt(t);
+                    break;
+                case PrimitiveTypeKind.IntPtr:
+                    VisitIntPtr(t);
+                    break;
+                case PrimitiveTypeKind.Double:
+                    VisitDouble(t);
+                    break;
+                case PrimitiveTypeKind.Float:
+                    VisitFloat(t);
+                    break;
+                case PrimitiveTypeKind.Char:
+                    VisitChar(t);
+                    break;
+                case PrimitiveTypeKind.Bool:
+                    VisitBool(t);
+                    break;
+                case PrimitiveTypeKind.String:
+                    VisitString(t);
+                    break;
+                case PrimitiveTypeKind.CefString:
+                    VisitCefString(t);
+                    break;
+                case PrimitiveTypeKind.size_t:
+                    Visit_size_t(t);
+                    break;
+            }
+        }
+        protected virtual void VisitVoid(SimpleTypeSymbol t)
+        {
+        }
+        protected virtual void VisitBool(SimpleTypeSymbol t)
+        {
+        }
+        protected virtual void VisitChar(SimpleTypeSymbol t)
+        {
+        }
+        protected virtual void VisitInt32(SimpleTypeSymbol t)
+        {
+        }
+        protected virtual void VisitUInt32(SimpleTypeSymbol t)
+        {
+        }
+        protected virtual void VisitInt64(SimpleTypeSymbol t)
+        {
+        }
+        protected virtual void VisitUInt64(SimpleTypeSymbol t)
+        {
+        }
+        protected virtual void VisitNativeInt(SimpleTypeSymbol t)
+        {
+        }
+        protected virtual void VisitIntPtr(SimpleTypeSymbol t)
+        {
+        }
+        protected virtual void Visit_size_t(SimpleTypeSymbol t)
+        {
+        }
+        protected virtual void VisitDouble(SimpleTypeSymbol t)
+        {
+        }
+        protected virtual void VisitFloat(SimpleTypeSymbol t)
+        {
+        }
+        protected virtual void VisitSimpleTypeNonPrimitive(SimpleTypeSymbol t)
+        {
+        }
+        protected virtual void VisitString(SimpleTypeSymbol t)
+        {
+        }
+        protected virtual void VisitCefString(SimpleTypeSymbol t)
+        {
+        }
+    }
+
+
+
+
     class TypeTranformPlanner
     {
         CodeTypeDeclaration typedecl; //current type decl
