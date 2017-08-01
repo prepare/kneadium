@@ -195,9 +195,7 @@ namespace BridgeBuilder
         {
             return "";
         }
-        public TxParameterDirection Direction { get; set; }
-
-
+        public TxParameterDirection Direction { get; set; } 
     }
 
     enum TxParameterDirection
