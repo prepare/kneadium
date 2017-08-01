@@ -112,9 +112,6 @@ namespace BridgeBuilder
 
     class CodeTypeDeclaration : CodeMemberDeclaration
     {
-
-
-
         List<CodeMemberDeclaration> _specialImplMacroMembers;
         List<CodeMemberDeclaration> _members;
 
@@ -224,6 +221,10 @@ namespace BridgeBuilder
                 stbuilder.Append(TemplateNotation.ToString());
             }
 
+            if (BaseIsVirtual)
+            {
+                stbuilder.Append("[virtual] ");
+            }
             switch (this.Kind)
             {
                 case TypeKind.Class:
