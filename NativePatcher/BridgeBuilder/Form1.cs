@@ -18,7 +18,7 @@ namespace BridgeBuilder
 
         private void cmdCreatePatchFiles_Click(object sender, EventArgs e)
         {
-      
+
 
             //1. analyze modified source files, in source folder
             //string srcRootDir = @"D:\projects\cef_binary_3.2883.1548\tests\cefclient";
@@ -97,7 +97,7 @@ namespace BridgeBuilder
             List<PatchFile> pfiles = builder2.GetAllPatchFiles();
             //string oldPathName = srcRootDir;
 
-            string newPathName = srcRootDir; 
+            string newPathName = srcRootDir;
 
             for (int i = pfiles.Count - 1; i >= 0; --i)
             {
@@ -422,7 +422,7 @@ namespace BridgeBuilder
                 }
                 //
             }
-            foreach (CodeTypeDeclaration typedecl in cefTypeCollection.callBackClasses) 
+            foreach (CodeTypeDeclaration typedecl in cefTypeCollection.callBackClasses)
             {
 
                 //
@@ -442,6 +442,7 @@ namespace BridgeBuilder
             }
             foreach (CodeTypeDeclaration typedecl in cefTypeCollection.cToCppClasses)
             {
+                //[chrome] cpp<-to<-c  <--- ::::: <--- c-interface-to[external - user - lib] ....
                 TypeTxInfo typeTxPlan = txPlanner.MakeTransformPlan(typedecl);
                 //
                 {
@@ -458,8 +459,46 @@ namespace BridgeBuilder
             }
             foreach (CodeTypeDeclaration typedecl in cefTypeCollection.cppToCClasses)
             {
+                //[chrome]  cpp->to->c  ---> ::::: ---> c-interface-to [external-user-lib] ....
                 //eg. handlers and callbacks 
                 TypeTxInfo typeTxPlan = txPlanner.MakeTransformPlan(typedecl);
+                //classify by nameing convention
+                string typename = typedecl.Name;
+                //--------------------------------------
+                if (typename.Contains("Visitor"))
+                {
+
+                    //visitor:
+                    //1. it is create from .net side 
+                    //2. we also create visitor for c++ side                      
+                    //   that store func callback pointer to this .net side
+
+                }
+                else if (typename.Contains("Callback"))
+                {
+                    //callback:
+                    //1. it is create from .net side 
+                    //2. 
+                    //need to create c++ object 
+                    //that store func callback pointer to this .net side
+
+                }
+                else if (typename.Contains("Handler"))
+                {
+                    //------------
+                    //handler:
+                    //.net side=> create interface that declare member of this handler
+                    //this will be called from native side
+                    //------------
+                }
+                else if (typename.Contains("Base"))
+                {
+
+                }
+                else
+                {
+
+                }
                 //
                 {
                     StringBuilder stbuilder = new StringBuilder();
