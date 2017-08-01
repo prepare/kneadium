@@ -419,14 +419,45 @@ namespace BridgeBuilder
         //semantic
         Dictionary<string, TypeSymbol> typeSymbols = new Dictionary<string, TypeSymbol>();
 
-
-
         //------------
-        //classification (after all type symbols are created)
+        //note from cef-3
+        //@prepare,
+        // inside the Chromium lib, it is C++ environment
+        // so: ...
+        //1. If you want to export some object to outside( user lib), then you need to wrap it with C structure and send it out
+        //
+        //  [chrome]  cpp->to->c  ---> ::::: ---> c-interface-to [external-user-lib] ....
+        //
+        //2. If yout receive some object from outside(user lib), it is sent as C  object, then you need to wrap it with C++ structure.                  
+        //
+        //  [chrome]  cpp<-to<-c  <--- ::::: <--- c-interface-to [external-user-lib] ....
+        //
+        //------------
+
+
+        // cpp-to-c :Wrap a C++ class with a C structure. This is used when the class
+        // implementation exists on this side of the DLL boundary but will have methods
+        // called from the other side of the DLL boundary.
+        // 
+
+        // c-to-cpp: Wrap a C structure with a C++ class.  This is used when the implementation
+        // exists on the other side of the DLL boundary but will have methods called on
+        // this side of the DLL boundary  
+
+
+
+        //classification (after all type symbols are created)        
+        /// <summary>
+        ///  [chrome]  cpp->to->c  ---> ::::: ---> c-interface-to [external-user-lib] ....
+        /// </summary>
+        internal List<CodeTypeDeclaration> cppToCClasses = new List<CodeTypeDeclaration>();
+        /// <summary>
+        /// [chrome]  cpp&lt;-to&lt;-c  &lt;--- ::::: &lt;--- c-interface-to [external-user-lib] ....
+        /// </summary>
+        internal List<CodeTypeDeclaration> cToCppClasses = new List<CodeTypeDeclaration>();
+
         internal List<CodeTypeDeclaration> callBackClasses = new List<CodeTypeDeclaration>();
         internal List<CodeTypeDeclaration> handlerClasses = new List<CodeTypeDeclaration>();
-        internal List<CodeTypeDeclaration> cToCppClasses = new List<CodeTypeDeclaration>();
-        internal List<CodeTypeDeclaration> cppToCClasses = new List<CodeTypeDeclaration>();
         internal List<CodeTypeDeclaration> otherClasses = new List<CodeTypeDeclaration>();
         //------------
 
@@ -704,8 +735,7 @@ namespace BridgeBuilder
                 typedeclDic.Add(typeDecl.Name, typeDecl);
                 //-----------------------
 
-                SimpleTypeSymbol typeSymbol = new SimpleTypeSymbol(typeDecl.Name);
-                typeSymbol.CreatedByTypeDeclaration = typeDecl;
+                SimpleTypeSymbol typeSymbol = new SimpleTypeSymbol(typeDecl);
                 typeDecl.ResolvedType = typeSymbol;
                 //
 

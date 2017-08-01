@@ -18,9 +18,7 @@ namespace BridgeBuilder
 
         private void cmdCreatePatchFiles_Click(object sender, EventArgs e)
         {
-            //string srcRootDir = @"D:\projects\cef_binary_3.2526.1366" + "\\cefclient"; //2526.1366
-            //string srcRootDir = "d:\\projects\\CefBridge\\cef3\\cefclient";
-            //string srcRootDir = "d:\\projects\\CefBridge\\cef3\\cefclient";
+
 
             //1. analyze modified source files, in source folder
             //string srcRootDir = @"D:\projects\cef_binary_3.2883.1548\tests\cefclient";
@@ -99,7 +97,7 @@ namespace BridgeBuilder
             List<PatchFile> pfiles = builder2.GetAllPatchFiles();
             //string oldPathName = srcRootDir;
 
-            string newPathName = srcRootDir;// "d:\\projects\\CefBridge\\cef3\\cefclient";
+            string newPathName = srcRootDir;
 
             for (int i = pfiles.Count - 1; i >= 0; --i)
             {
@@ -403,9 +401,30 @@ namespace BridgeBuilder
                 }
                 //
             }
+
+            foreach (CodeTypeDeclaration typedecl in cefTypeCollection.handlerClasses)
+            {
+                //create handler as inteface
+                //1 instance may implement more than 1 handler 
+
+                //
+                TypeTxInfo typeTxPlan = txPlanner.MakeTransformPlan(typedecl);
+                //
+                {
+                    StringBuilder stbuilder = new StringBuilder();
+                    apiBuilderCsPart.GenerateCsType(typeTxPlan, stbuilder);
+                }
+                //
+                //
+                {
+                    StringBuilder stbuilder = new StringBuilder();
+                    apiBuilderCppPart.GenerateCppPart(typeTxPlan, stbuilder);
+                }
+                //
+            }
             foreach (CodeTypeDeclaration typedecl in cefTypeCollection.callBackClasses)
-            {   
-                 
+            {
+
                 //
                 TypeTxInfo typeTxPlan = txPlanner.MakeTransformPlan(typedecl);
                 //
@@ -423,6 +442,7 @@ namespace BridgeBuilder
             }
             foreach (CodeTypeDeclaration typedecl in cefTypeCollection.cToCppClasses)
             {
+                //[chrome] cpp<-to<-c  <--- ::::: <--- c-interface-to[external - user - lib] ....
                 TypeTxInfo typeTxPlan = txPlanner.MakeTransformPlan(typedecl);
                 //
                 {
@@ -439,8 +459,11 @@ namespace BridgeBuilder
             }
             foreach (CodeTypeDeclaration typedecl in cefTypeCollection.cppToCClasses)
             {
+                //[chrome]  cpp->to->c  ---> ::::: ---> c-interface-to [external-user-lib] ....
                 //eg. handlers and callbacks 
                 TypeTxInfo typeTxPlan = txPlanner.MakeTransformPlan(typedecl);
+                //classify by nameing convention
+                string typename = typedecl.Name; 
                 //
                 {
                     StringBuilder stbuilder = new StringBuilder();
