@@ -209,6 +209,10 @@ namespace BridgeBuilder
         InOut
     }
 
+
+
+
+
     class TypeTranformPlanner
     {
         CodeTypeDeclaration typedecl; //current type decl
@@ -231,10 +235,7 @@ namespace BridgeBuilder
         void Generate_CppToC_CefHandler(SimpleTypeSymbol orgType)
         {
             GenerateMethodCallFromCppToCs(orgType);
-
         }
-
-
 
         void GenerateMethodCallFromCppToCs(SimpleTypeSymbol orgType)
         {
@@ -251,14 +252,15 @@ namespace BridgeBuilder
             {
                 StringBuilder stbuilder = new StringBuilder();
                 int j = met.Parameters.Count;
-                stbuilder.AppendLine("if(this->mcallback_){");
-                stbuilder.AppendLine("  MethodArgs args;");
-                stbuilder.AppendLine("  memset(&args,0,sizeof(MethodArgs));");
-                if (j > 4)
-                {
+                //
+                stbuilder.AppendLine("autogen!: " + met.ToString());
 
-                }
+                stbuilder.AppendLine("if(this->mcallback_){");
+                stbuilder.AppendLine("MethodArgs args;");
+                stbuilder.AppendLine("memset(&args,0,sizeof(MethodArgs));");
+
                 MethodTxInfo metTx = met.methodTxInfo;
+
                 for (int i = 0; i < j; ++i)
                 {
                     //set args->
@@ -327,7 +329,6 @@ namespace BridgeBuilder
                                     case PrimitiveTypeKind.NotPrimitiveType:
                                         stbuilder.AppendLine("args.SetArgAsNativeObject(" + i + "," + par.ParameterName);
                                         break;
-
                                 }
                             }
                             break;
@@ -339,7 +340,61 @@ namespace BridgeBuilder
                                 {
                                     default:
                                         break;
+                                    case TypeSymbolKind.Vec:
+                                        {
+
+                                            VecTypeSymbol vec = (VecTypeSymbol)elemType;
+                                            stbuilder.AppendLine("args.SetArgAsNativeObject(" + i + ",&" + par.ParameterName + ");");
+                                        }
+                                        break;
                                     case TypeSymbolKind.ReferenceOrPointer:
+                                        {
+                                            if (referenceOrPointer.Kind == ContainerTypeKind.ByRef)
+                                            {
+                                                //eg. CefRefPtr<CefClient>& 
+                                                stbuilder.AppendLine("args.SetArgAsNativeObject(" + i + ",&" + par.ParameterName + ");");
+                                            }
+                                            else
+                                            {
+
+                                            }
+
+                                        }
+                                        break;
+                                    case TypeSymbolKind.TypeDef:
+                                        {
+                                            //ref of type def
+                                            CTypeDefTypeSymbol cefTypeDef = (CTypeDefTypeSymbol)elemType;
+                                            TypeSymbol referToType = cefTypeDef.ReferToTypeSymbol;
+                                            if (referToType.TypeSymbolKind == TypeSymbolKind.Simple)
+                                            {
+                                                SimpleTypeSymbol ss = (SimpleTypeSymbol)referToType;
+                                                stbuilder.AppendLine("args.SetArgAsNativeObject(" + i + ",&" + par.ParameterName + ");");
+                                            }
+                                            else if (referToType.TypeSymbolKind == TypeSymbolKind.Template)
+                                            {
+
+                                                TemplateTypeSymbol tt = (TemplateTypeSymbol)referToType;
+                                                switch (tt.Name)
+                                                {
+                                                    default:
+                                                        break;
+                                                    case "CefStructBase":
+                                                        stbuilder.AppendLine("args.SetArgAsNativeObject(" + i + ",&" + par.ParameterName + ");");
+                                                        break;
+                                                }
+                                            }
+                                            else if (referToType.TypeSymbolKind == TypeSymbolKind.Vec)
+                                            {
+                                                VecTypeSymbol vec = (VecTypeSymbol)referToType;
+
+                                            }
+                                            else
+                                            {
+
+                                            }
+
+                                        }
                                         break;
                                     case TypeSymbolKind.Simple:
                                         {
@@ -351,7 +406,7 @@ namespace BridgeBuilder
                                                 case PrimitiveTypeKind.size_t:
                                                     //ref or pointer to size? 
                                                     stbuilder.AppendLine("args.SetArgAsInt32(" + i + ",0);");
-                                                   
+
                                                     break;
                                                 case PrimitiveTypeKind.Int64:
                                                 case PrimitiveTypeKind.NaitveInt:
@@ -363,8 +418,8 @@ namespace BridgeBuilder
                                                     //after call this we need to get data of this arg back to 
                                                     break;
                                                 case PrimitiveTypeKind.CefString:
-                                                    stbuilder.AppendLine("metArgs.SetArgAsNativeObject(" + i + ",&" + par.ParameterName + ");");
-                                                    stbuilder.AppendLine("metArgs.SetArgType(" + i + ", JSVALUE_TYPE_NATIVE_CEFSTRING);");
+                                                    stbuilder.AppendLine("args.SetArgAsNativeObject(" + i + ",&" + par.ParameterName + ");");
+                                                    stbuilder.AppendLine("args.SetArgType(" + i + ", JSVALUE_TYPE_NATIVE_CEFSTRING);");
                                                     break;
 
                                                 case PrimitiveTypeKind.Void:
@@ -382,8 +437,110 @@ namespace BridgeBuilder
                             }
                             break;
                     }
+                }
+
+                //-------
+                //call the delegate
+                stbuilder.AppendLine("this->mcallback_(CEF_MSG_" + met.Name + ",&args);");
+
+                //get some var back 
+
+
+
+
+                TypeSymbol returnType = met.ReturnType.ResolvedType;
+                if (returnType == null)
+                {
+                    throw new NotSupportedException();
+                }
+                switch (returnType.TypeSymbolKind)
+                {
+                    default:
+                        throw new NotSupportedException();
+                    case TypeSymbolKind.ReferenceOrPointer:
+                        {
+                            ReferenceOrPointerTypeSymbol refOrPointer = (ReferenceOrPointerTypeSymbol)returnType;
+                            TypeSymbol elemType = refOrPointer.ElementType;
+                            switch (elemType.TypeSymbolKind)
+                            {
+                                default:
+                                    break;
+                                case TypeSymbolKind.Simple:
+                                    {
+                                        SimpleTypeSymbol ss = (SimpleTypeSymbol)elemType;
+                                        if (ss.PrimitiveTypeKind == PrimitiveTypeKind.NotPrimitiveType)
+                                        {
+                                            //
+                                            switch (ss.Name)
+                                            {
+                                                default:
+                                                    break;
+                                                case "CefResponseFilter":
+                                                case "CefCookieManager":
+                                                case "CefLoadHandler":
+                                                case "CefAccessibilityHandler":
+                                                case "CefPrintHandler":
+                                                case "CefResourceHandler":
+                                                    break;
+                                            }
+                                        }
+                                        else
+                                        {
+                                        }
+                                    }
+                                    break;
+                            }
+
+
+                        }
+                        break;
+                    case TypeSymbolKind.Simple:
+                        {
+                            SimpleTypeSymbol simpleType = (SimpleTypeSymbol)returnType;
+                            switch (simpleType.PrimitiveTypeKind)
+                            {
+                                case PrimitiveTypeKind.NotPrimitiveType:
+                                    {
+                                        //data from user 
+                                        //1. 
+                                        switch (simpleType.Name)
+                                        {
+                                            default:
+                                                break;
+                                            case "CefSize":
+                                                break;
+                                        }
+                                    }
+                                    break;
+                                case PrimitiveTypeKind.Void:
+                                    {
+
+                                    }
+                                    break;
+                                case PrimitiveTypeKind.Bool:
+                                    stbuilder.AppendLine("return args.ReadOutputAsInt32(0) !=0");
+                                    break;
+                                case PrimitiveTypeKind.Int32:
+                                    stbuilder.AppendLine("return args.ReadOutputAsInt32(0)");
+                                    break;
+                                case PrimitiveTypeKind.Int64:
+                                    stbuilder.AppendLine("return args.ReadOutputAsInt64(0)");
+                                    break;
+                                case PrimitiveTypeKind.NaitveInt:
+                                    stbuilder.AppendLine("return args.ReadOutputAsInt64(0)");
+                                    break;
+                                case PrimitiveTypeKind.size_t:
+                                    stbuilder.AppendLine("return args.ReadOutputAsUInt32(0)");
+                                    break;
+                                default:
+                                    break;
+                            }
+                        }
+                        break;
 
                 }
+                //clean up
+                //-------
                 stbuilder.AppendLine("}");
             }
         }
@@ -672,7 +829,6 @@ namespace BridgeBuilder
                                         default:
                                             //char* => .net byte[]
                                             {
-
 
                                             }
                                             break;
