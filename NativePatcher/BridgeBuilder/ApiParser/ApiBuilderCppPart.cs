@@ -14,6 +14,17 @@ namespace BridgeBuilder
             _typeTxInfo = typeTxInfo;
             _currentCodeTypeDecl = typeTxInfo.TypeDecl;
 
+            switch (typeTxInfo.CefTypeModel)
+            {
+                case CefTypeModel.CefCppToCRefCounted:
+                case CefTypeModel.CefCppToCScoped:
+                    break;
+                case CefTypeModel.CefCToCppRefCounted:
+                case CefTypeModel.CefCToCppScoped:
+                    break;
+            }
+            
+
             //
             //check this type wrap/unwrap method name
             //

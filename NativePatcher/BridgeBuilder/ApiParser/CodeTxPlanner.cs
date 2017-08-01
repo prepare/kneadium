@@ -14,7 +14,7 @@ namespace BridgeBuilder
         }
 
         public CefTypeModel CefTypeModel { get; set; }
-        public string CtoCppOriginalCTypeName { get; set; }
+        public string PlainCTypeName { get; set; }
         public CodeTypeDeclaration TypeDecl
         {
             get;
@@ -83,7 +83,7 @@ namespace BridgeBuilder
         //template <class traits>
         //class CefStructBase : public traits::struct_type {
         // public:
-         
+
         /// <summary>
         /// Wrap a C++ class with a C structure. This is used when the class
         /// implementation exists on this side of the DLL boundary but will have methods
@@ -217,6 +217,44 @@ namespace BridgeBuilder
         }
         public CefTypeCollection CefTypeCollection { get; set; }
 
+        void AddTypeInfoHint()
+        {
+            //this is cef3-speciific convention.
+            string typename = this.typedecl.Name;
+            if (typename.Contains("Callback"))
+            {
+                //callback:
+                //1. it is create from .net side 
+                //2. 
+                //need to create c++ object 
+                //that store func callback pointer to this .net side
+
+            }
+            else if (typename.Contains("Visitor"))
+            {
+                //visitor:
+                //1. it is create from .net side 
+                //2. we also create visitor for c++ side                      
+                //   that store func callback pointer to this .net side
+
+            }
+            else if (typename.Contains("Handler"))
+            {
+                //------------
+                //handler:
+                //.net side=> create interface that declare member of this handler
+                //this will be called from native side
+                //------------
+            }
+            else if (typename.Contains("Base"))
+            {
+
+            }
+            else
+            {
+
+            }
+        }
         public TypeTxInfo MakeTransformPlan(CodeTypeDeclaration typedecl)
         {
             this.typedecl = typedecl;
@@ -275,17 +313,19 @@ namespace BridgeBuilder
                                                 break;
                                             case "CefCppToCRefCounted":
                                                 typeTxInfo.CefTypeModel = CefTypeModel.CefCppToCRefCounted;
+                                                typeTxInfo.PlainCTypeName = tt3.Item1.ToString();
                                                 break;
                                             case "CefCppToCScoped":
                                                 typeTxInfo.CefTypeModel = CefTypeModel.CefCppToCScoped;
+                                                typeTxInfo.PlainCTypeName = tt3.Item1.ToString();
                                                 break;
                                             case "CefCToCppScoped":
                                                 typeTxInfo.CefTypeModel = CefTypeModel.CefCToCppScoped;
-                                                typeTxInfo.CtoCppOriginalCTypeName = tt3.Item1.ToString();
+                                                typeTxInfo.PlainCTypeName = tt3.Item1.ToString();
                                                 break;
                                             case "CefCToCppRefCounted":
                                                 typeTxInfo.CefTypeModel = CefTypeModel.CefCToCppScoped;
-                                                typeTxInfo.CtoCppOriginalCTypeName = tt3.Item2.ToString(); //for unwrap method
+                                                typeTxInfo.PlainCTypeName = tt3.Item2.ToString(); //for unwrap method
 
                                                 break;
                                         }
@@ -318,8 +358,13 @@ namespace BridgeBuilder
 
             }
 
+            if (typeTxInfo.CefTypeModel != CefTypeModel.Unknown)
+            {
+                AddTypeInfoHint();
+            }
 
 
+            //-----------
             if (typedecl.Kind == TypeKind.Enum)
             {
                 //enum

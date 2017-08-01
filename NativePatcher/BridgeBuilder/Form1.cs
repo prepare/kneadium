@@ -463,42 +463,7 @@ namespace BridgeBuilder
                 //eg. handlers and callbacks 
                 TypeTxInfo typeTxPlan = txPlanner.MakeTransformPlan(typedecl);
                 //classify by nameing convention
-                string typename = typedecl.Name;
-                //--------------------------------------
-                if (typename.Contains("Visitor"))
-                {
-
-                    //visitor:
-                    //1. it is create from .net side 
-                    //2. we also create visitor for c++ side                      
-                    //   that store func callback pointer to this .net side
-
-                }
-                else if (typename.Contains("Callback"))
-                {
-                    //callback:
-                    //1. it is create from .net side 
-                    //2. 
-                    //need to create c++ object 
-                    //that store func callback pointer to this .net side
-
-                }
-                else if (typename.Contains("Handler"))
-                {
-                    //------------
-                    //handler:
-                    //.net side=> create interface that declare member of this handler
-                    //this will be called from native side
-                    //------------
-                }
-                else if (typename.Contains("Base"))
-                {
-
-                }
-                else
-                {
-
-                }
+                string typename = typedecl.Name; 
                 //
                 {
                     StringBuilder stbuilder = new StringBuilder();
