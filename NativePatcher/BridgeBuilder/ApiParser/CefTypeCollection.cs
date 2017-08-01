@@ -430,7 +430,7 @@ namespace BridgeBuilder
         //
         //2. If yout receive some object from outside(user lib), it is sent as C  object, then you need to wrap it with C++ structure.                  
         //
-        // [chrome]   cpp<-to<-c  <--- ::::: <--- c-interface-to [external-user-lib] ....
+        //  [chrome]  cpp<-to<-c  <--- ::::: <--- c-interface-to [external-user-lib] ....
         //
         //------------
 
@@ -447,8 +447,9 @@ namespace BridgeBuilder
 
 
         //classification (after all type symbols are created)        
-        internal List<CodeTypeDeclaration> cToCppClasses = new List<CodeTypeDeclaration>();
-        internal List<CodeTypeDeclaration> cppToCClasses = new List<CodeTypeDeclaration>();
+        internal List<CodeTypeDeclaration> cppToCClasses = new List<CodeTypeDeclaration>(); //1.   [chrome]  cpp->to->c  ---> ::::: ---> c-interface-to [external-user-lib] ....
+        internal List<CodeTypeDeclaration> cToCppClasses = new List<CodeTypeDeclaration>(); //2.   [chrome]  cpp<-to<-c  <--- ::::: <--- c-interface-to [external-user-lib] ....
+
         internal List<CodeTypeDeclaration> callBackClasses = new List<CodeTypeDeclaration>();
         internal List<CodeTypeDeclaration> handlerClasses = new List<CodeTypeDeclaration>();
         internal List<CodeTypeDeclaration> otherClasses = new List<CodeTypeDeclaration>();
