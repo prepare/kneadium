@@ -5,10 +5,14 @@ namespace BridgeBuilder
 {
     class TypeSymbolWalk
     {
+
         public void Walk(TypeSymbol typeSymbol)
         {
+
             switch (typeSymbol.TypeSymbolKind)
             {
+                default:
+                    throw new NotSupportedException();
                 case TypeSymbolKind.Simple:
                     PreviewVisitSimpleType((SimpleTypeSymbol)typeSymbol);
                     break;
@@ -23,7 +27,45 @@ namespace BridgeBuilder
                 case TypeSymbolKind.Vec:
                     VisitVectorType((VecTypeSymbol)typeSymbol);
                     break;
+                case TypeSymbolKind.ReferenceOrPointer:
+                    PreviewVisitReferenceOrPointer((ReferenceOrPointerTypeSymbol)typeSymbol);
+                    break;
             }
+        }
+        protected virtual void PreviewVisitReferenceOrPointer(ReferenceOrPointerTypeSymbol t)
+        {
+            switch (t.Kind)
+            {
+                default: throw new NotSupportedException();
+                case ContainerTypeKind.ByRef: 
+                    VisitByRef(t);
+                    break;
+                case ContainerTypeKind.CefRefPtr: 
+                    VisitByCefRefPtr(t);
+                    break;
+                case ContainerTypeKind.Pointer: 
+                    VisitByPointer(t);
+                    break;
+                case ContainerTypeKind.ScopePtr: 
+                    VisitByScopePtr(t);
+                    break;
+            }
+        }
+        protected virtual void VisitByRef(ReferenceOrPointerTypeSymbol t)
+        {
+
+        }
+        protected virtual void VisitByPointer(ReferenceOrPointerTypeSymbol t)
+        {
+
+        }
+        protected virtual void VisitByCefRefPtr(ReferenceOrPointerTypeSymbol t)
+        {
+
+        }
+        protected virtual void VisitByScopePtr(ReferenceOrPointerTypeSymbol t)
+        {
+
         }
         protected virtual void PreviewVisitTypeTemplate(TemplateTypeSymbol t)
         {

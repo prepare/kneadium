@@ -46,6 +46,7 @@
     <Compile Include="ApiParser\CodeTxPlanner.cs" />
     <Compile Include="ApiParser\DirtyParser.cs" />
     <Compile Include="ApiParser\SymbolDefinition.cs" />
+    <Compile Include="ApiParser\TypeSymbolWalk.cs" />
     <Compile Include="Patcher\ManualPatcher.cs" />
     <Compile Include="Patcher\PatchBuilder.cs" />
     <Compile Include="Patcher\Patchs.cs" />
