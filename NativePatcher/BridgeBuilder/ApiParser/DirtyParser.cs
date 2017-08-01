@@ -614,16 +614,10 @@ namespace BridgeBuilder
                                 case "struct":
                                     {
                                         //parse class
-                                        Token[] comments = FlushCollectedLineComments();
-
-
-
-                                        CodeTypeDeclaration typeDecl = ParseTypeDeclaration();
-
-                                        typeDecl.Kind = (tk.Content == "class") ? TypeKind.Class : TypeKind.Struct;
-
-                                        templateNotation = null;
-
+                                        Token[] comments = FlushCollectedLineComments();  
+                                        CodeTypeDeclaration typeDecl = ParseTypeDeclaration(); 
+                                        typeDecl.Kind = (tk.Content == "class") ? TypeKind.Class : TypeKind.Struct; 
+                                        templateNotation = null; 
                                         if (typeDecl != null)
                                         {
                                             cu.AddTypeDeclaration(typeDecl);

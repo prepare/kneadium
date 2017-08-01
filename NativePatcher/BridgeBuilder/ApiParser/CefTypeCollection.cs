@@ -419,14 +419,21 @@ namespace BridgeBuilder
         //semantic
         Dictionary<string, TypeSymbol> typeSymbols = new Dictionary<string, TypeSymbol>();
 
+        //------------
+        // cpp-to-c :Wrap a C++ class with a C structure. This is used when the class
+        // implementation exists on this side of the DLL boundary but will have methods
+        // called from the other side of the DLL boundary.
 
+        // c-to-cpp: Wrap a C structure with a C++ class.  This is used when the implementation
+        // exists on the other side of the DLL boundary but will have methods called on
+        // this side of the DLL boundary
 
         //------------
-        //classification (after all type symbols are created)
-        internal List<CodeTypeDeclaration> callBackClasses = new List<CodeTypeDeclaration>();
-        internal List<CodeTypeDeclaration> handlerClasses = new List<CodeTypeDeclaration>();
+        //classification (after all type symbols are created)        
         internal List<CodeTypeDeclaration> cToCppClasses = new List<CodeTypeDeclaration>();
         internal List<CodeTypeDeclaration> cppToCClasses = new List<CodeTypeDeclaration>();
+        internal List<CodeTypeDeclaration> callBackClasses = new List<CodeTypeDeclaration>();
+        internal List<CodeTypeDeclaration> handlerClasses = new List<CodeTypeDeclaration>();
         internal List<CodeTypeDeclaration> otherClasses = new List<CodeTypeDeclaration>();
         //------------
 

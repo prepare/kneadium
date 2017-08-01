@@ -18,9 +18,7 @@ namespace BridgeBuilder
 
         private void cmdCreatePatchFiles_Click(object sender, EventArgs e)
         {
-            //string srcRootDir = @"D:\projects\cef_binary_3.2526.1366" + "\\cefclient"; //2526.1366
-            //string srcRootDir = "d:\\projects\\CefBridge\\cef3\\cefclient";
-            //string srcRootDir = "d:\\projects\\CefBridge\\cef3\\cefclient";
+      
 
             //1. analyze modified source files, in source folder
             //string srcRootDir = @"D:\projects\cef_binary_3.2883.1548\tests\cefclient";
@@ -99,7 +97,7 @@ namespace BridgeBuilder
             List<PatchFile> pfiles = builder2.GetAllPatchFiles();
             //string oldPathName = srcRootDir;
 
-            string newPathName = srcRootDir;// "d:\\projects\\CefBridge\\cef3\\cefclient";
+            string newPathName = srcRootDir; 
 
             for (int i = pfiles.Count - 1; i >= 0; --i)
             {

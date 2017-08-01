@@ -83,14 +83,13 @@ namespace BridgeBuilder
         //template <class traits>
         //class CefStructBase : public traits::struct_type {
         // public:
-
-
+         
         /// <summary>
         /// Wrap a C++ class with a C structure. This is used when the class
         /// implementation exists on this side of the DLL boundary but will have methods
         /// called from the other side of the DLL boundary.
         /// </summary>
-        CefCppToCRefCounted, 
+        CefCppToCRefCounted,
         // template <class ClassName, class BaseName, class StructName>
         // class CefCppToCRefCounted : public CefBaseRefCounted {
 
@@ -100,7 +99,7 @@ namespace BridgeBuilder
         /// implementation exists on this side of the DLL boundary but will have methods
         /// called from the other side of the DLL boundary.
         /// </summary>
-        CefCppToCScoped, 
+        CefCppToCScoped,
         //template <class ClassName, class BaseName, class StructName>
         //class CefCppToCScoped : public CefBaseScoped { 
 
