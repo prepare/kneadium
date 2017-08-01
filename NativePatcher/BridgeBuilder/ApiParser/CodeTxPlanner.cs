@@ -274,7 +274,7 @@ namespace BridgeBuilder
                 default:
                     throw new NotSupportedException();
                 case PrimitiveTypeKind.NotPrimitiveType:
-                    VisitSimpleTypeNonPrimitive(t);
+                    PreviewVisitSimpleTypeNonPrimitive(t);
                     break;
                 case PrimitiveTypeKind.Void:
                     VisitVoid(t);
@@ -356,14 +356,68 @@ namespace BridgeBuilder
         protected virtual void VisitFloat(SimpleTypeSymbol t)
         {
         }
-        protected virtual void VisitSimpleTypeNonPrimitive(SimpleTypeSymbol t)
-        {
-        }
+
         protected virtual void VisitString(SimpleTypeSymbol t)
         {
         }
         protected virtual void VisitCefString(SimpleTypeSymbol t)
         {
+        }
+
+        //
+        protected virtual void PreviewVisitSimpleTypeNonPrimitive(SimpleTypeSymbol t)
+        {
+            //check its base
+            TypeSymbol baseType = t.BaseType;
+            if (baseType == null)
+            {
+                VisitSimpleTypeNoBaseType(t);
+            }
+            else
+            {
+                switch (baseType.TypeSymbolKind)
+                {
+                    default:
+                        VisitSimpleTypeOtherBase(t);
+                        break;
+                    case TypeSymbolKind.Template:
+                        {
+                            TemplateTypeSymbol tt = (TemplateTypeSymbol)baseType;
+                            switch (tt.ItemCount)
+                            {
+                                default:
+                                    throw new NotSupportedException();
+                                case 1:
+                                    VisitSimpleTypeBase1(t, (TemplateTypeSymbol1)tt);
+                                    break;
+                                case 2:
+                                    VisitSimpleTypeBase2(t, (TemplateTypeSymbol2)tt);
+                                    break;
+                                case 3:
+                                    VisitSimpleTypeBase3(t, (TemplateTypeSymbol3)tt);
+                                    break;
+                            }
+                        }
+                        break;
+                }
+            }
+        }
+        protected virtual void VisitSimpleTypeNoBaseType(SimpleTypeSymbol t)
+        {
+        }
+        protected virtual void VisitSimpleTypeOtherBase(SimpleTypeSymbol t)
+        {
+
+        }
+        protected virtual void VisitSimpleTypeBase1(SimpleTypeSymbol t, TemplateTypeSymbol1 baseT1)
+        {
+        }
+        protected virtual void VisitSimpleTypeBase2(SimpleTypeSymbol t, TemplateTypeSymbol2 baseT2)
+        {
+        }
+        protected virtual void VisitSimpleTypeBase3(SimpleTypeSymbol t, TemplateTypeSymbol3 baseT3)
+        {
+
         }
     }
 
@@ -570,6 +624,10 @@ namespace BridgeBuilder
             MethodTxInfo metTx = new MethodTxInfo(metDecl);
             //make return type plan
 
+            TypeSymbolWalk typeWalk = new TypeSymbolWalk();
+            //
+            typeWalk.Walk(metDecl.ReturnType.ResolvedType);
+
             //1. return
             MethodParameterTxInfo retTxInfo = new MethodParameterTxInfo(null, metDecl.ReturnType.ResolvedType) { IsMethodReturnParameter = true };
             retTxInfo.Direction = TxParameterDirection.Return;
@@ -585,6 +643,7 @@ namespace BridgeBuilder
 
 
                 MethodParameterTxInfo parTxInfo = new MethodParameterTxInfo(metPar.ParameterName, metPar.ParameterType.ResolvedType);
+                typeWalk.Walk(metPar.ParameterType.ResolvedType);
 
                 parTxInfo.Direction = TxParameterDirection.In;
                 //TODO: review Out,InOut direction 
