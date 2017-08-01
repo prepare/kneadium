@@ -624,9 +624,6 @@ namespace BridgeBuilder
             MethodTxInfo metTx = new MethodTxInfo(metDecl);
             //make return type plan
 
-            TypeSymbolWalk typeWalk = new TypeSymbolWalk();
-            //
-            typeWalk.Walk(metDecl.ReturnType.ResolvedType);
 
             //1. return
             MethodParameterTxInfo retTxInfo = new MethodParameterTxInfo(null, metDecl.ReturnType.ResolvedType) { IsMethodReturnParameter = true };
@@ -640,10 +637,7 @@ namespace BridgeBuilder
             for (int i = 0; i < j; ++i)
             {
                 CodeMethodParameter metPar = metDecl.Parameters[i];
-
-
                 MethodParameterTxInfo parTxInfo = new MethodParameterTxInfo(metPar.ParameterName, metPar.ParameterType.ResolvedType);
-                typeWalk.Walk(metPar.ParameterType.ResolvedType);
 
                 parTxInfo.Direction = TxParameterDirection.In;
                 //TODO: review Out,InOut direction 
