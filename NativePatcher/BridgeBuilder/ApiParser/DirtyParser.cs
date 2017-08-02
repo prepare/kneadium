@@ -1352,7 +1352,7 @@ namespace BridgeBuilder
 
             //-------
             CodeTypeReference retType = ExpectType();
-
+            bool isCallback = ExpectId("CEF_CALLBACK"); //cef specific
             //-------
 
             string name = ExpectId();
