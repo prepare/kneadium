@@ -190,7 +190,7 @@ namespace BridgeBuilder
                 case CodeTypeReferenceKind.ByRef:
                     {
                         var byRefType = (CodeByRefTypeReference)typeRef;
-                        TypeSymbol elementType = ResolveType(byRefType.ElementType);
+                        TypeSymbol elementType = ResolveType(byRefType.ElementType); 
                         return typeRef.ResolvedType = new ReferenceOrPointerTypeSymbol(elementType, ContainerTypeKind.ByRef);
                     }
                 default:
@@ -616,6 +616,8 @@ namespace BridgeBuilder
             }
 
 
+            List<CodeMethodDeclaration> cppMethodList = new List<CodeMethodDeclaration>();
+
             //-----------------------
             //1. collect
             foreach (CodeCompilationUnit cu in compilationUnits)
@@ -623,13 +625,24 @@ namespace BridgeBuilder
                 //
                 RegisterTypeDeclaration(cu.GlobalTypeDecl);
                 //extract type from global typedecl
-                foreach (CodeMemberDeclaration subType in cu.GlobalTypeDecl.GetSubTypeIter())
+                foreach (CodeMemberDeclaration mb in cu.GlobalTypeDecl.GetMemberIter())
                 {
-                    switch (subType.MemberKind)
+                    switch (mb.MemberKind)
                     {
+                        case CodeMemberKind.Method:
+                            {
+                                //check if this method has C++ explicit ower type
+                                CodeMethodDeclaration metDecl = (CodeMethodDeclaration)mb;
+                                if (metDecl.CppExplicitOwnerType != null)
+                                {
+                                    //add this to typedecl later
+                                    cppMethodList.Add(metDecl);
+                                }
+                            }
+                            break;
                         case CodeMemberKind.TypeDef:
                             {
-                                CodeCTypeDef ctypeDef = (CodeCTypeDef)subType;
+                                CodeCTypeDef ctypeDef = (CodeCTypeDef)mb;
                                 // 
                                 CTypeDefTypeSymbol ctypedefTypeSymbol = new CTypeDefTypeSymbol(ctypeDef.Name, ctypeDef.From);
                                 ctypedefTypeSymbol.CreatedTypeCTypeDef = ctypeDef;
@@ -645,7 +658,7 @@ namespace BridgeBuilder
                             break;
                         case CodeMemberKind.Type:
                             {
-                                RegisterTypeDeclaration((CodeTypeDeclaration)subType);
+                                RegisterTypeDeclaration((CodeTypeDeclaration)mb);
                             }
                             break;
                     }
@@ -657,7 +670,12 @@ namespace BridgeBuilder
                     RegisterTypeDeclaration(cu.GetTypeDeclaration(i));
                 }
             }
+            //-----------------------
+            if (cppMethodList.Count > 0)
+            {
+                //find owner and add the implementation
 
+            }
             //-----------------------
             ResolveBaseTypes();
             ResolveTypeMembers();

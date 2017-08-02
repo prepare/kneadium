@@ -771,7 +771,7 @@ namespace BridgeBuilder
                 parTxInfo.Direction = TxParameterDirection.In;
                 //TODO: review Out,InOut direction 
 
-                TypeSymbol parTypeSymbol = metPar.ParameterType.ResolvedType;
+                TypeSymbol parTypeSymbol = metPar.ParameterType.ResolvedType; 
                 AddMethodParameterTypeTxInfo(parTxInfo, parTypeSymbol);
 
                 metTx.AddMethodParameterTx(parTxInfo);
@@ -1225,7 +1225,6 @@ namespace BridgeBuilder
             this.wellknownTypeName = wellknownTypeName;
             SetCefCppSlotKind(cefCppSlotKind);
         }
-
         public TypeBridgeInfo(CTypeDefTypeSymbol t, WellKnownTypeName wellknownTypeName, CefCppSlotKind cefCppSlotKind, TypeBridgeInfo referToTypeBridge)
         {
             this.typeSymbol = t;
@@ -1233,13 +1232,20 @@ namespace BridgeBuilder
             this.wellknownTypeName = wellknownTypeName;
             SetCefCppSlotKind(cefCppSlotKind);
         }
+        public TypeBridgeInfo(TemplateParameterTypeSymbol t, WellKnownTypeName wellknownTypeName, CefCppSlotKind cefCppSlotKind)
+        {
+            //TODO: review here again
+            this.typeSymbol = t;
+            this.wellknownTypeName = wellknownTypeName;
+            SetCefCppSlotKind(cefCppSlotKind);
+        }
+
         private TypeBridgeInfo(TypeBridgeInfo elementTypeBridge, WellKnownTypeName wellknownTypeName, CefCppSlotKind cefCppSlotKind)
         {
             this.elementTypeBridge = elementTypeBridge;
             this.wellknownTypeName = wellknownTypeName;
             SetCefCppSlotKind(cefCppSlotKind);
         }
-
 
         void SetCefCppSlotKind(CefCppSlotKind cefTypeKind)
         {
@@ -1549,6 +1555,11 @@ namespace BridgeBuilder
             {
                 default:
                     throw new NotSupportedException();
+                case TypeSymbolKind.TemplateParameter:
+                    {
+                        var typeBridge = new TypeBridgeInfo((TemplateParameterTypeSymbol)t, WellKnownTypeName.Vec, CefCppSlotKind.JSVALUE_TYPE_NUMBER);
+                        return typeBridge;
+                    }
                 case TypeSymbolKind.Vec:
                     {
                         var typeBridge = new TypeBridgeInfo((VecTypeSymbol)t, WellKnownTypeName.Vec, CefCppSlotKind.JSVALUE_TYPE_NUMBER);
