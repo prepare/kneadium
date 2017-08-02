@@ -528,9 +528,6 @@ namespace BridgeBuilder
                 new SimpleTypeSymbol("CefString"){PrimitiveTypeKind = PrimitiveTypeKind.CefString },
                 //
                 new SimpleTypeSymbol("time_t"),
-                new SimpleTypeSymbol("CefBase"),
-                new SimpleTypeSymbol("CefBaseRefCounted"),
-                new SimpleTypeSymbol("CefBaseScoped"),
                 new SimpleTypeSymbol("HINSTANCE"),
                 //TODO: review              
                 new SimpleTypeSymbol("Handler"),
