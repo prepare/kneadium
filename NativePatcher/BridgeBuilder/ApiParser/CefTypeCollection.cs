@@ -208,8 +208,7 @@ namespace BridgeBuilder
                 //1. 
                 if (_currentResolvingType.IsTemplateTypeDefinition)
                 {
-                    //** this version, our template notation has only 1 type parameter
-                    //TODO: review template notation that has more than 1 type parameters.
+
                     //
                     //check if this is the template type parameter
                     //if (typename == _currentResolvingType.TemplateNotation.templatePar.ReAssignToTypeName)
@@ -218,6 +217,12 @@ namespace BridgeBuilder
                     //}
                     CodeTemplateParameter foundTemplatePar = null;
                     if (_currentResolvingType.TemplateNotation.TryGetTemplateParByReAssignToName(typename, out foundTemplatePar))
+                    {
+                        //TODO: resolve template type parameter
+                        return new TemplateParameterTypeSymbol(foundTemplatePar);
+                    }
+
+                    if (_currentResolvingType.TemplateNotation.TryGetTemplateParByParameterName(typename, out foundTemplatePar))
                     {
                         //TODO: resolve template type parameter
                         return new TemplateParameterTypeSymbol(foundTemplatePar);
@@ -832,13 +837,13 @@ namespace BridgeBuilder
             if (!typeDecl.IsForwardDecl && typeDecl.Name != null)
             {
                 CodeTypeDeclaration existingDecl;
-                if (typedeclDic.TryGetValue(typeDecl.Name, out existingDecl))
+                if (typedeclDic.TryGetValue(typeDecl.FullName, out existingDecl))
                 {
                     //found  
                     throw new Exception("duplicated key " + typeDecl.Name);
                 }
 
-                typedeclDic.Add(typeDecl.Name, typeDecl);
+                typedeclDic.Add(typeDecl.FullName, typeDecl);
                 //-----------------------
 
                 SimpleTypeSymbol typeSymbol = new SimpleTypeSymbol(typeDecl);
@@ -1039,13 +1044,8 @@ namespace BridgeBuilder
                 RegisterType(cToCppTypeReference.Name, found);
             }
             return cToCppTypeReference.ResolvedType = found;
-        }
-
-
-        public bool TryGetTypeDeclaration(string typeName, out CodeTypeDeclaration found)
-        {
-            return typedeclDic.TryGetValue(typeName, out found);
-        }
+        } 
+      
 
     }
     class TypeHierarchyNode
