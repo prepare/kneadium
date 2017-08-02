@@ -250,6 +250,14 @@ namespace BridgeBuilder
                 }
             }
         }
+        public IEnumerable<CodeMemberDeclaration> GetMemberIter()
+        {
+            int j = _members.Count;
+            for (int i = 0; i < j; ++i)
+            {
+                yield return _members[i];
+            }
+        }
         public IEnumerable<CodeMethodDeclaration> GetMethodIter()
         {
             int j = _members.Count;
@@ -474,6 +482,7 @@ namespace BridgeBuilder
         public readonly int dbugId = dbugTotalId++;
         static int dbugTotalId;
 #endif
+        TypeSymbol resolvedType;
         public CodeTypeReference()
         {
 #if DEBUG
@@ -508,7 +517,17 @@ namespace BridgeBuilder
         public abstract CodeTypeReferenceKind Kind { get; }
         //-------------
         //semantic 
-        public TypeSymbol ResolvedType { get; set; }
+        public TypeSymbol ResolvedType
+        {
+            get
+            {
+                return resolvedType;
+            }
+            set
+            {
+                resolvedType = value;
+            }
+        }
     }
     class CodeSimpleTypeReference : CodeTypeReference
     {
@@ -782,7 +801,7 @@ namespace BridgeBuilder
             stbuilder.Append(')');
             return stbuilder.ToString();
         }
- 
+
         ////
         //public CodeCtorInitilizer CtorInit { get; set; }
         //public bool IsOperatorMethod { get; set; }
@@ -791,13 +810,13 @@ namespace BridgeBuilder
         //transformation 
 
         internal MethodTxInfo methodTxInfo { get; set; }
- 
+
 
         public CodeTypeReference CppExplicitOwnerType
         {
             get;
             set;
-        } 
+        }
     }
 
     class CodeMethodParameter
