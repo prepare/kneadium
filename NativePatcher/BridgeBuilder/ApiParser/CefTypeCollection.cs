@@ -37,10 +37,9 @@ namespace BridgeBuilder
                 case CodeTypeReferenceKind.QualifiedName:
                     {
                         var qnameType = (CodeQualifiedNameType)typeRef;
-                        switch (qnameType.LeftPart)
+                        switch (qnameType.LeftPart.ToString())
                         {
-                            //resolve wellknown type template   
-
+                            //resolve wellknown type template    
                             case "std":
                                 return ResolveType(qnameType.RightPart);
                             default:
@@ -49,11 +48,12 @@ namespace BridgeBuilder
                                         _currentResolvingType.TemplateNotation != null)
                                     {
                                         //search ns from template notation
-                                        if (qnameType.LeftPart ==
-                                            _currentResolvingType.TemplateNotation.templatePar.ParameterName)
+
+                                        CodeTemplateParameter foundTemplatePar = null;
+                                        if (_currentResolvingType.TemplateNotation.TryGetTemplateParByParameterName(qnameType.LeftPart.ToString(), out foundTemplatePar))
                                         {
                                             //TODO: resolve template type parameter
-                                            return (typeRef.ResolvedType = new TemplateParameterTypeSymbol(_currentResolvingType.TemplateNotation.templatePar));
+                                            return (typeRef.ResolvedType = new TemplateParameterTypeSymbol(foundTemplatePar));
                                         }
                                     }
                                     throw new NotSupportedException();
@@ -212,9 +212,15 @@ namespace BridgeBuilder
                     //TODO: review template notation that has more than 1 type parameters.
                     //
                     //check if this is the template type parameter
-                    if (typename == _currentResolvingType.TemplateNotation.templatePar.ReAssignToTypeName)
-                    {   //found
-                        return new TemplateParameterTypeSymbol(_currentResolvingType.TemplateNotation.templatePar);
+                    //if (typename == _currentResolvingType.TemplateNotation.templatePar.ReAssignToTypeName)
+                    //{   //found
+                    //    return new TemplateParameterTypeSymbol(_currentResolvingType.TemplateNotation.templatePar);
+                    //}
+                    CodeTemplateParameter foundTemplatePar = null;
+                    if (_currentResolvingType.TemplateNotation.TryGetTemplateParByReAssignToName(typename, out foundTemplatePar))
+                    {
+                        //TODO: resolve template type parameter
+                        return new TemplateParameterTypeSymbol(foundTemplatePar);
                     }
                 }
 
@@ -407,27 +413,64 @@ namespace BridgeBuilder
         }
     }
 
+
+
+
     class CefTypeCollection
     {
         internal Dictionary<string, CodeTypeDeclaration> typedeclDic = new Dictionary<string, CodeTypeDeclaration>();
-        internal Dictionary<string, TypeSymbol> subTypeDefs = new Dictionary<string, TypeSymbol>();
 
-        internal List<CodeTypeDeclaration> cefBaseTypes = new List<CodeTypeDeclaration>();
-        internal List<CodeTypeDeclaration> cefImplTypes = new List<CodeTypeDeclaration>();
-        internal List<CodeTypeDeclaration> otherTypes = new List<CodeTypeDeclaration>();
+
 
         //semantic
         Dictionary<string, TypeSymbol> typeSymbols = new Dictionary<string, TypeSymbol>();
 
+        //------------
+        //note from cef-3
+        //@prepare,
+        // inside the Chromium lib, it is C++ environment
+        // so: ...
+        //1. If you want to export some object to outside( user lib), then you need to wrap it with C structure and send it out
+        //
+        //  [chrome]  cpp->to->c  ---> ::::: ---> c-interface-to [external-user-lib] ....
+        //
+        //2. If yout receive some object from outside(user lib), it is sent as C  object, then you need to wrap it with C++ structure.                  
+        //
+        //  [chrome]  cpp<-to<-c  <--- ::::: <--- c-interface-to [external-user-lib] ....
+        //
+        //------------
 
+
+        // cpp-to-c :Wrap a C++ class with a C structure. This is used when the class
+        // implementation exists on this side of the DLL boundary but will have methods
+        // called from the other side of the DLL boundary.
+        // 
+
+        // c-to-cpp: Wrap a C structure with a C++ class.  This is used when the implementation
+        // exists on the other side of the DLL boundary but will have methods called on
+        // this side of the DLL boundary  
+
+
+
+        //classification (after all type symbols are created)        
+        /// <summary>
+        ///  [chrome]  cpp->to->c  ---> ::::: ---> c-interface-to [external-user-lib] ....
+        /// </summary>
+        internal List<CodeTypeDeclaration> cppToCClasses = new List<CodeTypeDeclaration>();
+        /// <summary>
+        /// [chrome]  cpp&lt;-to&lt;-c  &lt;--- ::::: &lt;--- c-interface-to [external-user-lib] ....
+        /// </summary>
+        internal List<CodeTypeDeclaration> cToCppClasses = new List<CodeTypeDeclaration>();
 
         //------------
-        //classification (after all type symbols are created)
-        internal List<CodeTypeDeclaration> callBackClasses = new List<CodeTypeDeclaration>();
-        internal List<CodeTypeDeclaration> handlerClasses = new List<CodeTypeDeclaration>();
-        internal List<CodeTypeDeclaration> cToCppClasses = new List<CodeTypeDeclaration>();
-        internal List<CodeTypeDeclaration> cppToCClasses = new List<CodeTypeDeclaration>();
-        internal List<CodeTypeDeclaration> otherClasses = new List<CodeTypeDeclaration>();
+        internal List<CodeTypeDeclaration> _v_instanceClasses = new List<CodeTypeDeclaration>();
+        internal List<CodeTypeDeclaration> _v_callBackClasses = new List<CodeTypeDeclaration>();
+        internal List<CodeTypeDeclaration> _v_handlerClasses = new List<CodeTypeDeclaration>();
+        internal List<CodeTypeDeclaration> _enumClasses = new List<CodeTypeDeclaration>();
+        internal List<CodeTypeDeclaration> _plainCStructs = new List<CodeTypeDeclaration>();
+        internal List<CodeTypeDeclaration> _fileModuleClasses = new List<CodeTypeDeclaration>();
+        internal List<CodeTypeDeclaration> _templateClasses = new List<CodeTypeDeclaration>();
+        internal List<CodeTypeDeclaration> _cefBaseTypes = new List<CodeTypeDeclaration>();
         //------------
 
         List<CodeCompilationUnit> compilationUnits;
@@ -445,18 +488,20 @@ namespace BridgeBuilder
         {
             _freeze = false;
             typedeclDic.Clear();
-            cefBaseTypes.Clear();
-            cefImplTypes.Clear();
-            otherTypes.Clear();
             typeSymbols.Clear();
 
             //--------------------------
-            callBackClasses.Clear();
-            handlerClasses.Clear();
+            _v_callBackClasses.Clear();
+            _v_handlerClasses.Clear();
+            _v_instanceClasses.Clear();
+            _cefBaseTypes.Clear();
+            _enumClasses.Clear();
+            _plainCStructs.Clear();
+            _fileModuleClasses.Clear();
+            _templateClasses.Clear();
+
             cToCppClasses.Clear();
             cppToCClasses.Clear();
-            otherClasses.Clear();
-
             //--------------------------
             _compilationUnitDics.Clear();
             //--------------------------
@@ -627,28 +672,102 @@ namespace BridgeBuilder
 
             //-----------------------
             //do class classification 
+
+
             foreach (CodeTypeDeclaration t in typedeclDic.Values)
             {
                 string name = t.Name;
                 if (name.EndsWith("Callback"))
                 {
-                    callBackClasses.Add(t);
+                    _v_callBackClasses.Add(t);
                 }
                 else if (name.EndsWith("Handler"))
                 {
-                    handlerClasses.Add(t);
+                    _v_handlerClasses.Add(t);
                 }
                 else if (name.EndsWith("CToCpp"))
                 {
+                    //implementation
                     cToCppClasses.Add(t);
                 }
                 else if (name.EndsWith("CppToC"))
                 {
+                    //implementation
                     cppToCClasses.Add(t);
                 }
                 else
                 {
-                    otherClasses.Add(t);
+                    switch (t.Kind)
+                    {
+                        default:
+                            {
+                                if (t.IsGlobalCompilationUnitType)
+                                {
+                                    _fileModuleClasses.Add(t);
+                                }
+                                else if (t.IsTemplateTypeDefinition)
+                                {
+                                    _templateClasses.Add(t);
+                                }
+                                else if (t.BaseIsVirtual)
+                                {
+                                    _v_instanceClasses.Add(t);
+                                }
+                                else
+                                {
+                                    if (t.BaseTypes != null && t.BaseTypes.Count > 0)
+                                    {
+                                        CodeTypeReference baseType = t.BaseTypes[0];
+                                        if (baseType.ResolvedType != null)
+                                        {
+                                            switch (baseType.Name)
+                                            {
+                                                default:
+
+                                                    break;
+                                                case "CefStructBase":
+                                                case "CefBaseScoped":
+                                                case "CefBaseRefCounted":
+                                                    _cefBaseTypes.Add(t);
+                                                    break;
+                                            }
+                                        }
+                                    }
+                                    else if (t.Name == "CefScopedSandboxInfo")
+                                    {
+                                        //no base class
+                                    }
+                                    else
+                                    {
+
+                                    }
+                                }
+                            }
+                            break;
+                        case TypeKind.Enum:
+                            if (!CefResolvingContext.IsAllLowerLetter(name))
+                            {
+
+                            }
+                            _enumClasses.Add(t);
+                            break;
+                        case TypeKind.Struct:
+                            if (!CefResolvingContext.IsAllLowerLetter(name))
+                            {
+                                if (name.EndsWith("Traits"))
+                                {
+
+                                }
+                                else
+                                {
+
+                                }
+                            }
+                            _plainCStructs.Add(t);
+                            break;
+
+                    }
+
                 }
             }
             //-----------------------
@@ -704,8 +823,7 @@ namespace BridgeBuilder
                 typedeclDic.Add(typeDecl.Name, typeDecl);
                 //-----------------------
 
-                SimpleTypeSymbol typeSymbol = new SimpleTypeSymbol(typeDecl.Name);
-                typeSymbol.CreatedByTypeDeclaration = typeDecl;
+                SimpleTypeSymbol typeSymbol = new SimpleTypeSymbol(typeDecl);
                 typeDecl.ResolvedType = typeSymbol;
                 //
 
