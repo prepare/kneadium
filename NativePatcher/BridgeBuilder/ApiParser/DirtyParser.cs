@@ -616,7 +616,7 @@ namespace BridgeBuilder
                                     {
                                         //parse class
                                         Token[] comments = FlushCollectedLineComments();
-                                        CodeTypeDeclaration typeDecl = ParseTypeDeclaration();
+                                        CodeTypeDeclaration typeDecl = ParseTypeDeclaration(tk.Content == "class" ? TypeKind.Class : TypeKind.Struct);
                                         typeDecl.Kind = (tk.Content == "class") ? TypeKind.Class : TypeKind.Struct;
                                         templateNotation = null;
                                         if (typeDecl != null)
@@ -846,7 +846,7 @@ namespace BridgeBuilder
 
         MemberAccessibility _currentMemberAccessibilityMode;
 
-        CodeTypeDeclaration ParseTypeDeclaration()
+        CodeTypeDeclaration ParseTypeDeclaration(TypeKind typeKind)
         {
             //class name
 
@@ -875,19 +875,20 @@ namespace BridgeBuilder
                 codeTypeDecl.BaseIsVirtual = ExpectId("virtual");
                 codeTypeDecl.BaseTypes.Add(ExpectType());
             }
+
+            List<string> par_types = null;
             if (ExpectPunc("<"))
             {
                 //C++ template TypeParameter
                 //(analogous to C# generic)
-                //
+                par_types = new List<string>();
+
                 string typeParName = ExpectId();
-                int typeParCount = 0;
+                //int typeParCount = 0;
                 while (typeParName != null)
                 {
 
-                    codeTypeDecl.AddTypeParameter(new CodeTemplateTypeParameter(typeParName));
-                    typeParCount++;
-
+                    par_types.Add(typeParName);
                     if (ExpectPunc(","))
                     {
                         typeParName = ExpectId();
@@ -901,12 +902,21 @@ namespace BridgeBuilder
                         throw new NotSupportedException();
                     }
                 }
-                //rename 
-                codeTypeDecl.Name += "'" + typeParCount;
+
             }
+
             //-----------------------------------------------------
             if (ExpectPunc("{"))
             {
+                if (par_types != null)
+                {
+                    //rename 
+                    int typeParCount = par_types.Count;
+                    for (int i = 0; i < typeParCount; ++i)
+                    {
+                        codeTypeDecl.AddTypeParameter(new CodeTemplateTypeParameter(par_types[i]));
+                    }
+                }
                 while (ParseTypeMember(codeTypeDecl)) ;
                 if (ExpectPunc(";"))
                 {
@@ -915,8 +925,37 @@ namespace BridgeBuilder
             }
             else if (ExpectPunc("::")) //
             {
-                //found on class template + type parameter
-                string templateBase = ExpectId();
+
+                if (typeKind == TypeKind.Struct)
+                {
+                    //this is not base of struct  
+                    string structName = ExpectId();
+                    //change current codeTypeDecl name to parent name
+
+                    if (par_types != null)
+                    {
+                        CodeTypeTemplateTypeReference ss = new CodeTypeTemplateTypeReference(codeTypeDecl.Name);
+                        int count = 0;
+                        foreach (string par_t in par_types)
+                        {
+                            ss.AddTemplateItem(new CodeSimpleTypeReference(par_t));
+                        }
+                        codeTypeDecl.OwnerTypeDecl = ss;
+                    }
+                    else
+                    {
+                        CodeSimpleTypeReference ss = new CodeSimpleTypeReference(codeTypeDecl.Name);
+                        codeTypeDecl.OwnerTypeDecl = ss;
+                    }
+                    codeTypeDecl.Name = structName;
+                }
+                else
+                {
+                    throw new NotSupportedException();
+                }
+
+
+
                 if (ExpectPunc("{"))
                 {
                     while (ParseTypeMember(codeTypeDecl)) ;
@@ -925,7 +964,7 @@ namespace BridgeBuilder
                         //ok
                     }
                 }
-                codeTypeDecl.BaseTypes.Add(new CodeSimpleTypeReference(templateBase));
+
             }
             else
             {
@@ -1040,7 +1079,7 @@ namespace BridgeBuilder
             }
             else if (from.Name == "struct")
             {
-                CodeTypeDeclaration struct_decl = ParseTypeDeclaration();
+                CodeTypeDeclaration struct_decl = ParseTypeDeclaration(TypeKind.Struct);
                 struct_decl.Kind = TypeKind.Struct;
                 codeTypeDecl.AddMember(struct_decl);
                 //
@@ -1240,7 +1279,7 @@ namespace BridgeBuilder
                 return;
             }
             //
-            CodeExpression exprValue = ParseExpression(); 
+            CodeExpression exprValue = ParseExpression();
             if (exprValue != null)
             {
                 //
@@ -1329,7 +1368,7 @@ namespace BridgeBuilder
             if (ExpectId("class"))
             {
                 //sub class
-                CodeTypeDeclaration subClass = ParseTypeDeclaration();
+                CodeTypeDeclaration subClass = ParseTypeDeclaration(TypeKind.Class);
                 subClass.MemberAccessibility = _currentMemberAccessibilityMode;
                 subClass.Kind = TypeKind.Class;
                 codeTypeDecl.AddMember(subClass);
@@ -1337,7 +1376,7 @@ namespace BridgeBuilder
             }
             else if (ExpectId("struct"))
             {
-                CodeTypeDeclaration subClass = ParseTypeDeclaration();
+                CodeTypeDeclaration subClass = ParseTypeDeclaration(TypeKind.Struct);
                 subClass.MemberAccessibility = _currentMemberAccessibilityMode;
                 subClass.Kind = TypeKind.Struct;
                 codeTypeDecl.AddMember(subClass);
@@ -1581,7 +1620,18 @@ namespace BridgeBuilder
                 CodeTypeReference typename = ExpectType();//1. 
                 if (ExpectPunc("::"))
                 {
-                    return new CodeQualifiedNameType(typename, ExpectType());
+                    string typename1 = ExpectId();
+                    if (ExpectPunc("*"))
+                    {
+                        //temp fix
+                        CodeTypeReference type_n = new CodeQualifiedNameType(typename, new CodeSimpleTypeReference(typename1));
+                        return new CodePointerTypeReference(type_n);
+                    }
+                    else
+                    {
+                        return new CodeQualifiedNameType(typename, new CodeSimpleTypeReference(typename1));
+                    }
+
                 }
                 return typename;
             }

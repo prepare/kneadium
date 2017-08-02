@@ -52,7 +52,7 @@ namespace BridgeBuilder
         public SimpleTypeSymbol(CodeTypeDeclaration codeTypeDecl)
         {
             this._codeTypeDecl = codeTypeDecl;
-            this.Name = codeTypeDecl.Name;
+            this.Name = codeTypeDecl.FullName;
         }
         public bool IsEnum
         {

@@ -233,11 +233,11 @@ namespace BridgeBuilder
             //string srcFile = @"D:\projects\cef_binary_3.3071.1647.win32\include\cef_request_handler.h";
             //string srcFile = @"D:\projects\cef_binary_3.3071.1647.win32\include\internal\cef_time.h";
             //
-            //string srcFile = @"D:\projects\cef_binary_3.3071.1647.win32\libcef_dll\ctocpp\ctocpp_ref_counted.h"; //pass,parse only
+            string srcFile = @"D:\projects\cef_binary_3.3071.1647.win32\libcef_dll\ctocpp\ctocpp_ref_counted.h"; //pass,parse only
             //string srcFile = @"D:\projects\cef_binary_3.3071.1647.win32\libcef_dll\ctocpp\ctocpp_scoped.h"; //pass,parse only
             //string srcFile = @"D:\projects\cef_binary_3.3071.1647.win32\libcef_dll\cpptoc\cpptoc_ref_counted.h"; //pass,parse only
             //string srcFile = @"D:\projects\cef_binary_3.3071.1647.win32\libcef_dll\cpptoc\cpptoc_scoped.h"; //pass,parse only
-            string srcFile = @"D:\projects\cef_binary_3.3071.1647.win32\include\cef_base.h"; //pass,parse only
+            //string srcFile = @"D:\projects\cef_binary_3.3071.1647.win32\include\cef_base.h"; //pass,parse only
 
             //
             Cef3HeaderFileParser headerParser = new Cef3HeaderFileParser();
