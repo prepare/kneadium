@@ -190,7 +190,7 @@ namespace BridgeBuilder
                 case CodeTypeReferenceKind.ByRef:
                     {
                         var byRefType = (CodeByRefTypeReference)typeRef;
-                        TypeSymbol elementType = ResolveType(byRefType.ElementType); 
+                        TypeSymbol elementType = ResolveType(byRefType.ElementType);
                         return typeRef.ResolvedType = new ReferenceOrPointerTypeSymbol(elementType, ContainerTypeKind.ByRef);
                     }
                 default:
@@ -834,10 +834,13 @@ namespace BridgeBuilder
 
             if (!typeDecl.IsForwardDecl && typeDecl.Name != null)
             {
-                if (typedeclDic.ContainsKey(typeDecl.Name))
+                CodeTypeDeclaration existingDecl;
+                if (typedeclDic.TryGetValue(typeDecl.Name, out existingDecl))
                 {
+                    //found  
                     throw new Exception("duplicated key " + typeDecl.Name);
                 }
+
                 typedeclDic.Add(typeDecl.Name, typeDecl);
                 //-----------------------
 

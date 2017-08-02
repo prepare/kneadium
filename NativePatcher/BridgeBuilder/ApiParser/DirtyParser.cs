@@ -881,10 +881,13 @@ namespace BridgeBuilder
                 //(analogous to C# generic)
                 //
                 string typeParName = ExpectId();
+                int typeParCount = 0;
                 while (typeParName != null)
                 {
+
                     codeTypeDecl.AddTypeParameter(new CodeTemplateTypeParameter(typeParName));
-                    //
+                    typeParCount++;
+
                     if (ExpectPunc(","))
                     {
                         typeParName = ExpectId();
@@ -898,7 +901,8 @@ namespace BridgeBuilder
                         throw new NotSupportedException();
                     }
                 }
-
+                //rename 
+                codeTypeDecl.Name += "'" + typeParCount;
             }
             //-----------------------------------------------------
             if (ExpectPunc("{"))
