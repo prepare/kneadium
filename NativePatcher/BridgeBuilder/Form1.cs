@@ -384,11 +384,13 @@ namespace BridgeBuilder
                 CefHandlerTxPlan handlerPlan = new CefHandlerTxPlan(typedecl);
                 handlerPlans.Add(handlerPlan);
                 allTxPlans.Add(typedecl.Name, handlerPlan);
+                TypeTxInfo typeTxPlan = txPlanner.MakeTransformPlan(typedecl);
+                typedecl.TxInfo = typeTxPlan;
                 ////create handler as inteface
                 ////1 instance may implement more than 1 handler 
 
                 ////
-                //TypeTxInfo typeTxPlan = txPlanner.MakeTransformPlan(typedecl);
+
                 ////
                 //{
                 //    StringBuilder stbuilder = new StringBuilder();
@@ -409,7 +411,8 @@ namespace BridgeBuilder
                 callbackPlans.Add(callbackPlan);
                 allTxPlans.Add(typedecl.Name, callbackPlan);
                 ////
-                //TypeTxInfo typeTxPlan = txPlanner.MakeTransformPlan(typedecl);
+                TypeTxInfo typeTxPlan = txPlanner.MakeTransformPlan(typedecl);
+                typedecl.TxInfo = typeTxPlan;
                 ////
                 //{
                 //    StringBuilder stbuilder = new StringBuilder();
@@ -428,20 +431,34 @@ namespace BridgeBuilder
                 CefInstanceElementTxPlan instanceClassPlan = new CefInstanceElementTxPlan(typedecl);
                 instanceClassPlans.Add(instanceClassPlan);
                 allTxPlans.Add(typedecl.Name, instanceClassPlan);
+                TypeTxInfo typeTxPlan = txPlanner.MakeTransformPlan(typedecl);
+                typedecl.TxInfo = typeTxPlan;
             }
 
 
+            List<CodeTypeDeclaration> notFoundAbstractClasses = new List<CodeTypeDeclaration>();
+
             foreach (CodeTypeDeclaration typedecl in cefTypeCollection.cToCppClasses)
             {
+                TypeTxInfo typeTxPlan = txPlanner.MakeTransformPlan(typedecl);
+                typedecl.TxInfo = typeTxPlan;
+
                 //cef -specific
                 TemplateTypeSymbol3 baseType0 = (TemplateTypeSymbol3)typedecl.BaseTypes[0].ResolvedType;
                 //add information to our model
                 SimpleTypeSymbol abstractType = (SimpleTypeSymbol)baseType0.Item1;
                 SimpleTypeSymbol underlying_c_type = (SimpleTypeSymbol)baseType0.Item2;
 
+                CefTypeTxPlan found;
+                if (!allTxPlans.TryGetValue(abstractType.Name, out found))
+                {
+                    notFoundAbstractClasses.Add(typedecl);
+                    continue;
+                }
+                found.UnderlyingCType = underlying_c_type;
+                found.ImplTypeDecl = typedecl;
 
-
-
+                abstractType.CefTxPlan = found;
                 ////[chrome] cpp<-to<-c  <--- ::::: <--- c-interface-to[external - user - lib] ....
                 //TypeTxInfo typeTxPlan = txPlanner.MakeTransformPlan(typedecl);
                 ////
@@ -459,12 +476,22 @@ namespace BridgeBuilder
             }
             foreach (CodeTypeDeclaration typedecl in cefTypeCollection.cppToCClasses)
             {
+                TypeTxInfo typeTxPlan = txPlanner.MakeTransformPlan(typedecl);
+                typedecl.TxInfo = typeTxPlan;
                 //cef -specific
                 TemplateTypeSymbol3 baseType0 = (TemplateTypeSymbol3)typedecl.BaseTypes[0].ResolvedType;
                 SimpleTypeSymbol abstractType = (SimpleTypeSymbol)baseType0.Item1;
                 SimpleTypeSymbol underlying_c_type = (SimpleTypeSymbol)baseType0.Item2;
+                CefTypeTxPlan found;
+                if (!allTxPlans.TryGetValue(abstractType.Name, out found))
+                {
+                    notFoundAbstractClasses.Add(typedecl);
+                    continue;
+                }
 
-
+                found.UnderlyingCType = underlying_c_type;
+                found.ImplTypeDecl = typedecl;
+                abstractType.CefTxPlan = found;
 
                 ////[chrome]  cpp->to->c  ---> ::::: ---> c-interface-to [external-user-lib] ....
                 ////eg. handlers and callbacks 
@@ -483,6 +510,23 @@ namespace BridgeBuilder
                 //    apiBuilderCppPart.GenerateCppPart(typeTxPlan, stbuilder);
                 //}
                 ////
+            }
+            //--------
+            //code gen
+            foreach (CefTypeTxPlan tx in handlerPlans)
+            {
+                CodeStringBuilder stbuilder = new CodeStringBuilder();
+                tx.GenerateCppCode(stbuilder);
+            }
+            foreach (CefTypeTxPlan tx in callbackPlans)
+            {
+                CodeStringBuilder stbuilder = new CodeStringBuilder();
+                tx.GenerateCppCode(stbuilder);
+            }
+            foreach (CefTypeTxPlan tx in instanceClassPlans)
+            {
+                CodeStringBuilder stbuilder = new CodeStringBuilder();
+                tx.GenerateCppCode(stbuilder);
             }
         }
         CodeCompilationUnit ParseWrapper(string srcFile)

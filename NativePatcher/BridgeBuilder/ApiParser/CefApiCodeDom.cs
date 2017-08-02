@@ -287,6 +287,9 @@ namespace BridgeBuilder
             }
             return foundCount;
         }
+
+        //----
+        internal TypeTxInfo TxInfo { get; set; }
     }
 
     class IncludeFileDirective
