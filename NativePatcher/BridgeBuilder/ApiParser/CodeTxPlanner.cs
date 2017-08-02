@@ -41,6 +41,14 @@ namespace BridgeBuilder
 #endif
     }
 
+
+    abstract class TypeTxPlan
+    {
+
+    }
+
+
+
     enum CefTypeModel
     {
         Unknown,
@@ -195,7 +203,7 @@ namespace BridgeBuilder
         {
             return "";
         }
-        public TxParameterDirection Direction { get; set; } 
+        public TxParameterDirection Direction { get; set; }
     }
 
     enum TxParameterDirection
@@ -207,7 +215,7 @@ namespace BridgeBuilder
     }
 
 
-    
+
 
 
     class TypeTranformPlanner

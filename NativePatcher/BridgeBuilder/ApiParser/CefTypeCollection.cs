@@ -666,11 +666,13 @@ namespace BridgeBuilder
 
             //-----------------------
             //do class classification 
+          
+
             foreach (CodeTypeDeclaration t in typedeclDic.Values)
             {
                 string name = t.Name;
                 if (name.EndsWith("Callback"))
-                {
+                { 
                     _v_callBackClasses.Add(t);
                 }
                 else if (name.EndsWith("Handler"))

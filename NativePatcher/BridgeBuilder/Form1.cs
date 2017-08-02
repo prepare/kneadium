@@ -371,45 +371,66 @@ namespace BridgeBuilder
             //
             TypeTranformPlanner txPlanner = new TypeTranformPlanner();
             txPlanner.CefTypeCollection = cefTypeCollection;
-             
+
+
+            List<CefHandlerTxPlan> handlerPlans = new List<CefHandlerTxPlan>();
+            List<CefCallbackTxPlan> callbackPlans = new List<CefCallbackTxPlan>();
+            List<CefInstanceElementTxPlan> instanceClassPlans = new List<CefInstanceElementTxPlan>();
+
             foreach (CodeTypeDeclaration typedecl in cefTypeCollection._v_handlerClasses)
             {
-                //create handler as inteface
-                //1 instance may implement more than 1 handler 
 
-                //
-                TypeTxInfo typeTxPlan = txPlanner.MakeTransformPlan(typedecl);
-                //
-                {
-                    StringBuilder stbuilder = new StringBuilder();
-                    apiBuilderCsPart.GenerateCsType(typeTxPlan, stbuilder);
-                }
-                //
-                //
-                {
-                    StringBuilder stbuilder = new StringBuilder();
-                    apiBuilderCppPart.GenerateCppPart(typeTxPlan, stbuilder);
-                }
+                CefHandlerTxPlan handlerPlan = new CefHandlerTxPlan(typedecl);
+                handlerPlans.Add(handlerPlan);
+
+                ////create handler as inteface
+                ////1 instance may implement more than 1 handler 
+
+                ////
+                //TypeTxInfo typeTxPlan = txPlanner.MakeTransformPlan(typedecl);
+                ////
+                //{
+                //    StringBuilder stbuilder = new StringBuilder();
+                //    apiBuilderCsPart.GenerateCsType(typeTxPlan, stbuilder);
+                //}
+                ////
+                ////
+                //{
+                //    StringBuilder stbuilder = new StringBuilder();
+                //    apiBuilderCppPart.GenerateCppPart(typeTxPlan, stbuilder);
+                //}
                 //
             }
             foreach (CodeTypeDeclaration typedecl in cefTypeCollection._v_callBackClasses)
             {
 
-                //
-                TypeTxInfo typeTxPlan = txPlanner.MakeTransformPlan(typedecl);
-                //
-                {
-                    StringBuilder stbuilder = new StringBuilder();
-                    apiBuilderCsPart.GenerateCsType(typeTxPlan, stbuilder);
-                }
-                //
-                //
-                {
-                    StringBuilder stbuilder = new StringBuilder();
-                    apiBuilderCppPart.GenerateCppPart(typeTxPlan, stbuilder);
-                }
+                CefCallbackTxPlan callbackPlan = new CefCallbackTxPlan(typedecl);
+                callbackPlans.Add(callbackPlan);
+                ////
+                //TypeTxInfo typeTxPlan = txPlanner.MakeTransformPlan(typedecl);
+                ////
+                //{
+                //    StringBuilder stbuilder = new StringBuilder();
+                //    apiBuilderCsPart.GenerateCsType(typeTxPlan, stbuilder);
+                //}
+                ////
+                ////
+                //{
+                //    StringBuilder stbuilder = new StringBuilder();
+                //    apiBuilderCppPart.GenerateCppPart(typeTxPlan, stbuilder);
+                //}
                 //
             }
+            foreach (CodeTypeDeclaration typedecl in cefTypeCollection._v_instanceClasses)
+            {
+                CefInstanceElementTxPlan instanceClassPlan = new CefInstanceElementTxPlan(typedecl);
+                instanceClassPlans.Add(instanceClassPlan);
+            }
+
+
+
+
+
             foreach (CodeTypeDeclaration typedecl in cefTypeCollection.cToCppClasses)
             {
                 //[chrome] cpp<-to<-c  <--- ::::: <--- c-interface-to[external - user - lib] ....
@@ -433,7 +454,7 @@ namespace BridgeBuilder
                 //eg. handlers and callbacks 
                 TypeTxInfo typeTxPlan = txPlanner.MakeTransformPlan(typedecl);
                 //classify by nameing convention
-                string typename = typedecl.Name; 
+                string typename = typedecl.Name;
                 //
                 {
                     StringBuilder stbuilder = new StringBuilder();
