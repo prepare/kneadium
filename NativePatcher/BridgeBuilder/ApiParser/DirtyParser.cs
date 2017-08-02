@@ -911,7 +911,7 @@ namespace BridgeBuilder
                 if (par_types != null)
                 {
                     //rename 
-                    int typeParCount = par_types.Count;                    
+                    int typeParCount = par_types.Count;
                     for (int i = 0; i < typeParCount; ++i)
                     {
                         codeTypeDecl.AddTypeParameter(new CodeTemplateTypeParameter(par_types[i]));
@@ -940,14 +940,14 @@ namespace BridgeBuilder
                         {
                             ss.AddTemplateItem(new CodeSimpleTypeReference(par_t));
                         }
-                        codeTypeDecl.OwnerTypeDecl = ss; 
+                        codeTypeDecl.OwnerTypeDecl = ss;
                     }
                     else
                     {
                         CodeSimpleTypeReference ss = new CodeSimpleTypeReference(codeTypeDecl.Name);
-                        codeTypeDecl.OwnerTypeDecl = ss; 
+                        codeTypeDecl.OwnerTypeDecl = ss;
                     }
-                    codeTypeDecl.Name = structName; 
+                    codeTypeDecl.Name = structName;
                 }
                 else
                 {
@@ -1620,7 +1620,18 @@ namespace BridgeBuilder
                 CodeTypeReference typename = ExpectType();//1. 
                 if (ExpectPunc("::"))
                 {
-                    return new CodeQualifiedNameType(typename, ExpectType());
+                    string typename1 = ExpectId();
+                    if (ExpectPunc("*"))
+                    {
+                        //temp fix
+                        CodeTypeReference type_n = new CodeQualifiedNameType(typename, new CodeSimpleTypeReference(typename1));
+                        return new CodePointerTypeReference(type_n);
+                    }
+                    else
+                    {
+                        return new CodeQualifiedNameType(typename, new CodeSimpleTypeReference(typename1));
+                    }
+
                 }
                 return typename;
             }

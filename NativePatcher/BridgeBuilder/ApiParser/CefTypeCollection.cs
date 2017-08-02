@@ -56,6 +56,12 @@ namespace BridgeBuilder
                                             return (typeRef.ResolvedType = new TemplateParameterTypeSymbol(foundTemplatePar));
                                         }
                                     }
+                                    //--
+                                    TypeSymbol found;
+                                    if (_typeCollection.TryGetType(typeRef.ToString(), out found))
+                                    {
+                                        return found;
+                                    }
                                     throw new NotSupportedException();
                                 }
 
@@ -72,6 +78,7 @@ namespace BridgeBuilder
                         {
                             default:
                                 throw new NotSupportedException();
+                            case "CefOwnPtr":
                             case "CefStructBase":
                                 {
 
@@ -1044,8 +1051,8 @@ namespace BridgeBuilder
                 RegisterType(cToCppTypeReference.Name, found);
             }
             return cToCppTypeReference.ResolvedType = found;
-        } 
-      
+        }
+
 
     }
     class TypeHierarchyNode
