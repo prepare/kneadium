@@ -193,6 +193,101 @@ namespace BridgeBuilder
         {
 
         }
+
+        static string GetRawPtrMet(ImplWrapDirection wrapDirection)
+        {
+
+            //c-to-cpp
+            //            template <class ClassName, class BaseName, class StructName>
+            //CefRefPtr<BaseName> CefCToCppRefCounted<ClassName, BaseName, StructName>::Wrap(
+            //    StructName* s)
+            //        {
+            //            if (!s)
+            //                return NULL;
+
+
+            //            template <class ClassName, class BaseName, class StructName>
+            //StructName* CefCToCppRefCounted<ClassName, BaseName, StructName>::Unwrap(
+            //    CefRefPtr<BaseName> c)
+            //        {
+            //            if (!c.get())
+            //                return NULL;
+
+            //------------------------------------
+            //cpp-to-c
+            //            // Wrap a C++ class with a C structure.  This is used when the class
+            //            // implementation exists on this side of the DLL boundary but will have methods
+            //            // called from the other side of the DLL boundary.
+            //            template <class ClassName, class BaseName, class StructName>
+            //class CefCppToCRefCounted : public CefBaseRefCounted {
+            // public:
+            //  // Create a new wrapper instance and associated structure reference for
+            //  // passing an object instance the other side.
+            //  static StructName* Wrap(CefRefPtr<BaseName> c)
+            //        {
+            //            if (!c.get())
+            //                return NULL;
+
+            //            // Wrap our object with the CefCppToCRefCounted class.
+            //            ClassName* wrapper = new ClassName();
+            //            wrapper->wrapper_struct_.object_ = c.get();
+            //            // Add a reference to our wrapper object that will be released once our
+            //            // structure arrives on the other side.
+            //            wrapper->AddRef();
+            //            // Return the structure pointer that can now be passed to the other side.
+            //            return wrapper->GetStruct();
+            //        }
+
+            //        // Retrieve the underlying object instance for a structure reference passed
+            //        // back from the other side.
+            //        static CefRefPtr<BaseName> Unwrap(StructName* s)
+            //        {
+            //            if (!s)
+            //                return NULL;
+
+            //            // Cast our structure to the wrapper structure type.
+            //            WrapperStruct* wrapperStruct = GetWrapperStruct(s);
+
+            //            // If the type does not match this object then we need to unwrap as the
+            //            // derived type.
+            //            if (wrapperStruct->type_ != kWrapperType)
+            //                return UnwrapDerived(wrapperStruct->type_, s);
+
+            //            // Add the underlying object instance to a smart pointer.
+            //            CefRefPtr<BaseName> objectPtr(wrapperStruct->object_);
+            //            // Release the reference to our wrapper object that was added before the
+            //            // structure was passed back to us.
+            //            wrapperStruct->wrapper_->Release();
+            //            // Return the underlying object instance.
+            //            return objectPtr;
+            //        }
+
+
+            switch (wrapDirection)
+            {
+                default:
+                    throw new NotSupportedException();
+                case ImplWrapDirection.CppToC:
+                    return "Wrap";
+                case ImplWrapDirection.CToCpp:
+                    return "Unwrap";
+                    break;
+            }
+        }
+        static string GetSmartPointerMet(ImplWrapDirection wrapDirection)
+        {
+            switch (wrapDirection)
+            {
+                default:
+                    throw new NotSupportedException();
+                case ImplWrapDirection.CppToC:
+                    return "Unwrap";
+                case ImplWrapDirection.CToCpp:
+                    return "Wrap";
+            }
+
+        }
+
         public override void GenerateCppCode(CodeStringBuilder stbuilder)
         {
             //
@@ -223,19 +318,18 @@ namespace BridgeBuilder
             if (implTypeDecl.Name.Contains("CToCpp"))
             {
                 implWrapDirection = ImplWrapDirection.CToCpp;
-                //CefBrowserCToCpp::
-
-                totalTypeMethod.AppendLine("auto me=" + implTypeDecl.Name + "::Wrap(me1);");
             }
             else if (implTypeDecl.Name.Contains("CppToC"))
             {
                 implWrapDirection = ImplWrapDirection.CppToC;
-                totalTypeMethod.AppendLine("auto me=" + implTypeDecl.Name + "::Wrap(me1);");
             }
             else
             {
                 implWrapDirection = ImplWrapDirection.None;
             }
+
+            totalTypeMethod.AppendLine("auto me=" + implTypeDecl.Name + "::" + GetSmartPointerMet(implWrapDirection) + "(me1);");
+
 
 
             //swicth table is a way that this instance'smethod is called
@@ -265,20 +359,9 @@ namespace BridgeBuilder
             }
 
             totalTypeMethod.AppendLine("}"); //end switch table
-            //
-            switch (implWrapDirection)
-            {
-                default: throw new NotSupportedException();
-                case ImplWrapDirection.CppToC:
-                    //unwrap me
-                    totalTypeMethod.AppendLine(implTypeDecl.Name + "::Unwrap(me1);");
-                    break;
-                case ImplWrapDirection.CToCpp:
-                    //unwrap me
-                    totalTypeMethod.AppendLine(implTypeDecl.Name + "::Unwrap(me1);");
-                    break;
-            }
+                                             //
 
+            totalTypeMethod.AppendLine(implTypeDecl.Name + "::" + GetRawPtrMet(implWrapDirection) + "(me1);");
 
             totalTypeMethod.AppendLine("}");
         }
