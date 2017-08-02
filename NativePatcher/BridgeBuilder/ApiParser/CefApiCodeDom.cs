@@ -735,7 +735,7 @@ namespace BridgeBuilder
     class CodeCtorInitField
     {
         public string FieldName;
-        public string InitValue;
+        public CodeExpression InitValue;
     }
 
 
