@@ -54,12 +54,15 @@ namespace BridgeBuilder
                             else if (c == '-')
                             {
                                 //read next
-                                char next_char = charBuffer[i + 1];
-                                if (char.IsNumber(next_char))
+                                if (i < j)
                                 {
-                                    //consume 
-                                    i++;
-                                    LexNumber(charBuffer, '-', j, ref i);
+                                    char next_char = charBuffer[i + 1];
+                                    if (char.IsNumber(next_char))
+                                    {
+                                        //consume 
+                                        i++;
+                                        LexNumber(charBuffer, '-', j, ref i);
+                                    }
                                 }
                             }
                             else if (char.IsWhiteSpace(c))
@@ -614,10 +617,10 @@ namespace BridgeBuilder
                                 case "struct":
                                     {
                                         //parse class
-                                        Token[] comments = FlushCollectedLineComments();  
-                                        CodeTypeDeclaration typeDecl = ParseTypeDeclaration(); 
-                                        typeDecl.Kind = (tk.Content == "class") ? TypeKind.Class : TypeKind.Struct; 
-                                        templateNotation = null; 
+                                        Token[] comments = FlushCollectedLineComments();
+                                        CodeTypeDeclaration typeDecl = ParseTypeDeclaration();
+                                        typeDecl.Kind = (tk.Content == "class") ? TypeKind.Class : TypeKind.Struct;
+                                        templateNotation = null;
                                         if (typeDecl != null)
                                         {
                                             cu.AddTypeDeclaration(typeDecl);

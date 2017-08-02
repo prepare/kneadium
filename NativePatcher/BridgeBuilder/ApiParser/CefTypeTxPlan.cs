@@ -9,8 +9,8 @@ namespace BridgeBuilder
     {
         StringBuilder stbuilder = new StringBuilder();
 #if DEBUG
-        int _dbugLineCount;
-        bool _dbugEnableLineNote;
+        static int _dbugLineCount;
+        bool _dbugEnableLineNote = true;
 #endif
         public void EnterIndentLevel()
         {
@@ -44,14 +44,11 @@ namespace BridgeBuilder
         }
         public void Append(string text)
         {
-#if DEBUG
-            _dbugLineCount++;
-            if (_dbugEnableLineNote)
-            {
-                stbuilder.Append("/*" + _dbugLineCount + "*/");
-            }
-#endif
             stbuilder.Append(text);
+        }
+        public override string ToString()
+        {
+            return stbuilder.ToString();
         }
     }
 
@@ -207,7 +204,7 @@ namespace BridgeBuilder
             _typeTxInfo = implTypeDecl.TxInfo;
             _currentCodeTypeDecl = implTypeDecl;
 
-            StringBuilder totalTypeMethod = new StringBuilder();
+            CodeStringBuilder totalTypeMethod = new CodeStringBuilder();
             //1. generate method decl
             totalTypeMethod.AppendLine("void MyCefMet_" + orgDecl.Name + "(" +
                 this.UnderlyingCType.Name + "* me1,int metName,jsvalue* ret,jsvalue* v1,jsvalue* v2,jsvalue* v3){");
@@ -228,12 +225,12 @@ namespace BridgeBuilder
                 implWrapDirection = ImplWrapDirection.CToCpp;
                 //CefBrowserCToCpp::
 
-                totalTypeMethod.AppendLine("auto me=" + implTypeDecl.Name + "::Wrap(me1)");
+                totalTypeMethod.AppendLine("auto me=" + implTypeDecl.Name + "::Wrap(me1);");
             }
             else if (implTypeDecl.Name.Contains("CppToC"))
             {
                 implWrapDirection = ImplWrapDirection.CppToC;
-                totalTypeMethod.AppendLine("auto me=" + implTypeDecl.Name + "::Wrap(me1)");
+                totalTypeMethod.AppendLine("auto me=" + implTypeDecl.Name + "::Wrap(me1);");
             }
             else
             {
