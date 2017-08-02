@@ -881,10 +881,13 @@ namespace BridgeBuilder
                 //(analogous to C# generic)
                 //
                 string typeParName = ExpectId();
+                int typeParCount = 0;
                 while (typeParName != null)
                 {
+
                     codeTypeDecl.AddTypeParameter(new CodeTemplateTypeParameter(typeParName));
-                    //
+                    typeParCount++;
+
                     if (ExpectPunc(","))
                     {
                         typeParName = ExpectId();
@@ -898,7 +901,8 @@ namespace BridgeBuilder
                         throw new NotSupportedException();
                     }
                 }
-
+                //rename 
+                codeTypeDecl.Name += "'" + typeParCount;
             }
             //-----------------------------------------------------
             if (ExpectPunc("{"))
@@ -1091,6 +1095,7 @@ namespace BridgeBuilder
                             throw new NotSupportedException();
                         case ",":
                         case "}":
+                        case ")":
                             //retro back
                             currentTokenIndex--;
                             return new CodeNumberLiteralExpression() { Content = enum_value.ToString() };
@@ -1235,7 +1240,7 @@ namespace BridgeBuilder
                 return;
             }
             //
-            string exprValue = ExpectId();
+            CodeExpression exprValue = ParseExpression(); 
             if (exprValue != null)
             {
                 //
@@ -1352,7 +1357,7 @@ namespace BridgeBuilder
 
             //-------
             CodeTypeReference retType = ExpectType();
-
+            bool isCallback = ExpectId("CEF_CALLBACK"); //cef specific
             //-------
 
             string name = ExpectId();
@@ -1364,6 +1369,15 @@ namespace BridgeBuilder
                 if ((punc = ExpectPunc()) != null)
                 {
                     name = punc.Content;
+                }
+                else if (ExpectId("delete"))
+                {
+                    //cpp operator
+                    name = "delete";
+                }
+                else
+                {
+                    throw new NotSupportedException();
                 }
             }
             //-----------------------------------
@@ -1412,6 +1426,25 @@ namespace BridgeBuilder
                     cppExplicitOwnerTypeName = templateTypeRefernece;
                     // 
                     name = ExpectId();
+                    if (name == "operator")
+                    {
+                        //operator method
+                        isOperatorMethod = true;
+                        Token punc = null;
+                        if ((punc = ExpectPunc()) != null)
+                        {
+                            name = punc.Content;
+                        }
+                        else if (ExpectId("delete"))
+                        {
+                            //cpp operator
+                            name = "delete";
+                        }
+                        else
+                        {
+                            throw new NotSupportedException();
+                        }
+                    }
                 }
 
             }

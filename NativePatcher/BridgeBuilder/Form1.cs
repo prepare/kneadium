@@ -232,7 +232,13 @@ namespace BridgeBuilder
             //string srcFile = @"D:\projects\cef_binary_3.3071.1647.win32\include\cef_browser.h";
             //string srcFile = @"D:\projects\cef_binary_3.3071.1647.win32\include\cef_request_handler.h";
             //string srcFile = @"D:\projects\cef_binary_3.3071.1647.win32\include\internal\cef_time.h";
-            string srcFile = @"D:\projects\cef_binary_3.3071.1647.win32\libcef_dll\ctocpp\ctocpp_ref_counted.h";
+            //
+            //string srcFile = @"D:\projects\cef_binary_3.3071.1647.win32\libcef_dll\ctocpp\ctocpp_ref_counted.h"; //pass,parse only
+            //string srcFile = @"D:\projects\cef_binary_3.3071.1647.win32\libcef_dll\ctocpp\ctocpp_scoped.h"; //pass,parse only
+            //string srcFile = @"D:\projects\cef_binary_3.3071.1647.win32\libcef_dll\cpptoc\cpptoc_ref_counted.h"; //pass,parse only
+            //string srcFile = @"D:\projects\cef_binary_3.3071.1647.win32\libcef_dll\cpptoc\cpptoc_scoped.h"; //pass,parse only
+            string srcFile = @"D:\projects\cef_binary_3.3071.1647.win32\include\cef_base.h"; //pass,parse only
+
             //
             Cef3HeaderFileParser headerParser = new Cef3HeaderFileParser();
             headerParser.Parse(srcFile);
@@ -310,8 +316,7 @@ namespace BridgeBuilder
             {
                 //include folder
                 string[] onlyHeaderFiles = System.IO.Directory.GetFiles(cefDir + @"\include\", "*.h");
-                Dictionary<string, bool> skipFiles = CreateSkipFiles(new[] {
-                "cef_base.h"});
+                Dictionary<string, bool> skipFiles = CreateSkipFiles(new string[0]);
 
                 int j = onlyHeaderFiles.Length;
                 for (int i = 0; i < j; ++i)
@@ -327,8 +332,7 @@ namespace BridgeBuilder
             //c to cpp 
             {
                 string[] onlyHeaderFiles = System.IO.Directory.GetFiles(cefDir + @"\libcef_dll\ctocpp", "*.h");
-                Dictionary<string, bool> skipFiles = CreateSkipFiles(new[] {
-                "ctocpp_ref_counted.h" ,"ctocpp_scoped.h"});
+                Dictionary<string, bool> skipFiles = CreateSkipFiles(new string[0]);
 
                 int j = onlyHeaderFiles.Length;
                 for (int i = 0; i < j; ++i)
@@ -345,8 +349,7 @@ namespace BridgeBuilder
             //cpp to c
             {
                 string[] onlyHeaderFiles = System.IO.Directory.GetFiles(cefDir + @"\libcef_dll\cpptoc", "*.h");
-                Dictionary<string, bool> skipFiles = CreateSkipFiles(new[] {
-                "cpptoc_ref_counted.h","cpptoc_scoped.h"});
+                Dictionary<string, bool> skipFiles = CreateSkipFiles(new string[0]);
 
                 int j = onlyHeaderFiles.Length;
                 for (int i = 0; i < j; ++i)
