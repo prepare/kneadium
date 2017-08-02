@@ -1095,6 +1095,7 @@ namespace BridgeBuilder
                             throw new NotSupportedException();
                         case ",":
                         case "}":
+                        case ")":
                             //retro back
                             currentTokenIndex--;
                             return new CodeNumberLiteralExpression() { Content = enum_value.ToString() };
@@ -1239,7 +1240,7 @@ namespace BridgeBuilder
                 return;
             }
             //
-            string exprValue = ExpectId();
+            CodeExpression exprValue = ParseExpression(); 
             if (exprValue != null)
             {
                 //
