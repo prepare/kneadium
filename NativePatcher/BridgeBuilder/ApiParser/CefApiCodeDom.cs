@@ -32,12 +32,64 @@ namespace BridgeBuilder
 
     class CodeTypeTemplateNotation
     {
-        //this version support 1 parameter
-        public CodeTemplateParameter templatePar;
-
+        //this version support 1 parameter         
+        public List<CodeTemplateParameter> templatePars = new List<CodeTemplateParameter>();
+        public void AddTemplateParameter(CodeTemplateParameter par)
+        {
+            templatePars.Add(par);
+        }
         public override string ToString()
         {
-            return "template<" + templatePar.ToString() + ">";
+            int j = templatePars.Count;
+
+            StringBuilder stbuilder = new StringBuilder();
+            stbuilder.Append("template<");
+            for (int i = 0; i < j; ++i)
+            {
+                if (i > 0)
+                {
+                    stbuilder.Append(',');
+                }
+                stbuilder.Append(templatePars[i].ToString());
+            }
+            stbuilder.Append(">");
+            return stbuilder.ToString();
+        }
+        public bool TryGetTemplateParByParameterName(string searchName, out CodeTemplateParameter found)
+        {
+            return (found = GetTemplateParByParameterName(searchName)) != null;
+        }
+        public CodeTemplateParameter GetTemplateParByParameterName(string searchName)
+        {
+            int j = templatePars.Count;
+            for (int i = 0; i < j; ++i)
+            {
+                CodeTemplateParameter tp = templatePars[i];
+                if (tp.ParameterName == searchName)
+                {
+                    return tp; //found
+                }
+            }
+            //not found
+            return null;
+        }
+        public bool TryGetTemplateParByReAssignToName(string searchName, out CodeTemplateParameter found)
+        {
+            return (found = GetTemplateParByReAssignToName(searchName)) != null;
+        }
+        public CodeTemplateParameter GetTemplateParByReAssignToName(string searchName)
+        {
+            int j = templatePars.Count;
+            for (int i = 0; i < j; ++i)
+            {
+                CodeTemplateParameter tp = templatePars[i];
+                if (tp.ReAssignToTypeName == searchName)
+                {
+                    return tp; //found
+                }
+            }
+            //not found
+            return null;
         }
     }
     class CodeTemplateParameter
@@ -110,15 +162,23 @@ namespace BridgeBuilder
         }
     }
 
+    class CodeTemplateTypeParameter
+    {
+        public CodeTemplateTypeParameter(string name) { Name = name; }
+        public string Name { get; set; }
+        public override string ToString()
+        {
+            return Name;
+        }
+    }
+
     class CodeTypeDeclaration : CodeMemberDeclaration
     {
-
-
-
         List<CodeMemberDeclaration> _specialImplMacroMembers;
         List<CodeMemberDeclaration> _members;
 
         List<CodeMemberDeclaration> _subTypeDecls;
+        List<CodeTemplateTypeParameter> _typeParameters;
         public CodeTypeDeclaration()
         {
             this.BaseTypes = new List<CodeTypeReference>();
@@ -134,6 +194,18 @@ namespace BridgeBuilder
         public bool IsGlobalCompilationUnitType { get; set; }
         public CodeTypeTemplateNotation TemplateNotation { get; set; }
         public List<CodeTypeReference> BaseTypes { get; set; }
+        public List<CodeTemplateTypeParameter> TypeParameters
+        {
+            get { return _typeParameters; }
+        }
+        public void AddTypeParameter(CodeTemplateTypeParameter tpar)
+        {
+            if (_typeParameters == null)
+            {
+                _typeParameters = new List<CodeTemplateTypeParameter>();
+            }
+            _typeParameters.Add(tpar);
+        }
         public void AddMember(CodeMemberDeclaration mb)
         {
             _members.Add(mb);
@@ -224,6 +296,10 @@ namespace BridgeBuilder
                 stbuilder.Append(TemplateNotation.ToString());
             }
 
+            if (BaseIsVirtual)
+            {
+                stbuilder.Append("[virtual] ");
+            }
             switch (this.Kind)
             {
                 case TypeKind.Class:
@@ -239,6 +315,23 @@ namespace BridgeBuilder
                     throw new NotSupportedException();
             }
             stbuilder.Append(Name);
+
+            if (_typeParameters != null)
+            {
+                int j = _typeParameters.Count;
+                stbuilder.Append("<");
+                for (int i = 0; i < j; ++i)
+                {
+
+                    if (i > 0)
+                    {
+                        stbuilder.Append(',');
+                    }
+                    stbuilder.Append(_typeParameters[i].ToString());
+                }
+                stbuilder.Append(">");
+            }
+
             if (this.IsForwardDecl)
             {
                 stbuilder.Append(';');
@@ -286,9 +379,11 @@ namespace BridgeBuilder
             }
             return foundCount;
         }
+
         //
         //transformation 
         internal TypeTxInfo TypeTxInfo { get; set; }
+
     }
 
     class IncludeFileDirective
@@ -456,13 +551,13 @@ namespace BridgeBuilder
     class CodeQualifiedNameType : CodeTypeReference
     {
 
-        public CodeQualifiedNameType(string leftPartName, CodeTypeReference rightPart)
+        public CodeQualifiedNameType(CodeTypeReference leftPartName, CodeTypeReference rightPart)
             : base(rightPart.ToString())
         {
             this.LeftPart = leftPartName;
             this.RightPart = rightPart;
         }
-        public string LeftPart { get; set; }
+        public CodeTypeReference LeftPart { get; set; }
         public CodeTypeReference RightPart { get; set; }
         public override CodeTypeReferenceKind Kind { get { return CodeTypeReferenceKind.QualifiedName; } }
         public override string ToString()
@@ -640,11 +735,23 @@ namespace BridgeBuilder
         public bool IsConst { get; set; }
         public bool IsAbstract { get; set; }
         public MethodKind MethodKind { get; set; }
-
         public override CodeMemberKind MemberKind { get { return CodeMemberKind.Method; } }
+
+        //
+        public CodeCtorInitilizer CtorInit { get; set; }
+        public bool IsOperatorMethod { get; set; }
+        public bool IsInline { get; set; }
+
+        //
         public override string ToString()
         {
             StringBuilder stbuilder = new StringBuilder();
+
+            if (CppExplicitOwnerType != null)
+            {
+                stbuilder.Append(CppExplicitOwnerType.ToString() + "::");
+            }
+
             switch (MethodKind)
             {
                 case BridgeBuilder.MethodKind.Ctor:
@@ -675,14 +782,22 @@ namespace BridgeBuilder
             stbuilder.Append(')');
             return stbuilder.ToString();
         }
-        //
-        public CodeCtorInitilizer CtorInit { get; set; }
-        public bool IsOperatorMethod { get; set; }
-        public bool IsInline { get; set; }
+ 
+        ////
+        //public CodeCtorInitilizer CtorInit { get; set; }
+        //public bool IsOperatorMethod { get; set; }
+        //public bool IsInline { get; set; }
 
         //transformation 
 
         internal MethodTxInfo methodTxInfo { get; set; }
+ 
+
+        public CodeTypeReference CppExplicitOwnerType
+        {
+            get;
+            set;
+        } 
     }
 
     class CodeMethodParameter

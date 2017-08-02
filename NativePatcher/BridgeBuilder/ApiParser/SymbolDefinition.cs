@@ -93,6 +93,9 @@ namespace BridgeBuilder
                 return false;
             }
         }
+        //
+
+        internal CefTypeTxPlan CefTxPlan { get; set; }
     }
     public enum PrimitiveTypeKind
     {
