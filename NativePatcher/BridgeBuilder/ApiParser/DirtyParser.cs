@@ -1365,6 +1365,15 @@ namespace BridgeBuilder
                 {
                     name = punc.Content;
                 }
+                else if (ExpectId("delete"))
+                {
+                    //cpp operator
+                    name = "delete";
+                }
+                else
+                {
+                    throw new NotSupportedException();
+                }
             }
             //-----------------------------------
 
@@ -1412,6 +1421,25 @@ namespace BridgeBuilder
                     cppExplicitOwnerTypeName = templateTypeRefernece;
                     // 
                     name = ExpectId();
+                    if (name == "operator")
+                    {
+                        //operator method
+                        isOperatorMethod = true;
+                        Token punc = null;
+                        if ((punc = ExpectPunc()) != null)
+                        {
+                            name = punc.Content;
+                        }
+                        else if (ExpectId("delete"))
+                        {
+                            //cpp operator
+                            name = "delete";
+                        }
+                        else
+                        {
+                            throw new NotSupportedException();
+                        }
+                    }
                 }
 
             }
