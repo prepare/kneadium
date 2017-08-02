@@ -41,6 +41,14 @@ namespace BridgeBuilder
 #endif
     }
 
+
+    abstract class TypeTxPlan
+    {
+
+    }
+
+
+
     enum CefTypeModel
     {
         Unknown,
@@ -196,8 +204,6 @@ namespace BridgeBuilder
             return "";
         }
         public TxParameterDirection Direction { get; set; }
-
-
     }
 
     enum TxParameterDirection
@@ -207,6 +213,10 @@ namespace BridgeBuilder
         Out,
         InOut
     }
+
+
+
+
 
     class TypeTranformPlanner
     {
@@ -408,6 +418,7 @@ namespace BridgeBuilder
             MethodTxInfo metTx = new MethodTxInfo(metDecl);
             //make return type plan
 
+
             //1. return
             MethodParameterTxInfo retTxInfo = new MethodParameterTxInfo(null, metDecl.ReturnType.ResolvedType) { IsMethodReturnParameter = true };
             retTxInfo.Direction = TxParameterDirection.Return;
@@ -420,8 +431,6 @@ namespace BridgeBuilder
             for (int i = 0; i < j; ++i)
             {
                 CodeMethodParameter metPar = metDecl.Parameters[i];
-
-
                 MethodParameterTxInfo parTxInfo = new MethodParameterTxInfo(metPar.ParameterName, metPar.ParameterType.ResolvedType);
 
                 parTxInfo.Direction = TxParameterDirection.In;

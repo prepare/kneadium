@@ -4,62 +4,285 @@ using System.Collections.Generic;
 using System.Text;
 namespace BridgeBuilder
 {
-
-    class ApiBuilderCppPart
+    //cef -specfic 
+    class CodeStringBuilder
     {
-        CodeTypeDeclaration _currentCodeTypeDecl;
-        TypeTxInfo _typeTxInfo;
-        public void GenerateCppPart(TypeTxInfo typeTxInfo, StringBuilder stbuilder)
+        StringBuilder stbuilder = new StringBuilder();
+#if DEBUG
+        static int _dbugLineCount;
+        bool _dbugEnableLineNote = true;
+#endif
+        public void EnterIndentLevel()
         {
-            _typeTxInfo = typeTxInfo;
-            _currentCodeTypeDecl = typeTxInfo.TypeDecl;
-            //--------------------
-            switch (typeTxInfo.CefTypeModel)
-            {
-                case CefTypeModel.CefCppToCRefCounted:
-                case CefTypeModel.CefCppToCScoped:
-                    break;
-                case CefTypeModel.CefCToCppRefCounted:
-                case CefTypeModel.CefCToCppScoped:
-                    break;
-            }
-            
-
-            //
-            //check this type wrap/unwrap method name
-            //
-            Dictionary<MethodTxInfo, StringBuilder> results = new Dictionary<MethodTxInfo, StringBuilder>();
-            foreach (MethodTxInfo met in typeTxInfo.methods)
-            {
-                StringBuilder metStBuilder = new StringBuilder();
-                GenerateCppMethod(met, metStBuilder);
-                results.Add(met, metStBuilder);
-            }
-
-            //build switch table
-
-            int caseNum = 0;
-
-            int count = results.Count;
-            if (count > 0)
-            {
-                //-----
-
-                //-----
-                stbuilder.AppendLine("switch(methodName){");
-                foreach (var kp in results)
-                {
-
-                    stbuilder.AppendLine("case " + caseNum + ":{");
-                    stbuilder.AppendLine(kp.Value.ToString());
-                    stbuilder.AppendLine("} break;");
-                    caseNum++;
-                }
-                stbuilder.AppendLine("}");
-            }
 
         }
-        void GenerateCppMethod(MethodTxInfo met, StringBuilder stbuilder)
+        public void ExitIndentLevel()
+        {
+
+        }
+        public void AppendLine(string text)
+        {
+#if DEBUG
+            _dbugLineCount++;
+            if (_dbugEnableLineNote)
+            {
+                stbuilder.Append("/*" + _dbugLineCount + "*/");
+            }
+#endif
+            stbuilder.AppendLine(text);
+        }
+        public void AppendLine()
+        {
+#if DEBUG
+            _dbugLineCount++;
+            if (_dbugEnableLineNote)
+            {
+                stbuilder.Append("/*" + _dbugLineCount + "*/");
+            }
+#endif
+            stbuilder.AppendLine();
+        }
+        public void Append(string text)
+        {
+            stbuilder.Append(text);
+        }
+        public override string ToString()
+        {
+            return stbuilder.ToString();
+        }
+    }
+
+
+    abstract class CefTypeTxPlan : TypeTxPlan
+    {
+        CodeTypeDeclaration _implDecl;
+        public CefTypeTxPlan(CodeTypeDeclaration originalDecl)
+        {
+            this.OriginalDecl = originalDecl;
+        }
+        public SimpleTypeSymbol UnderlyingCType { get; set; }
+        public CodeTypeDeclaration OriginalDecl { get; private set; }
+        public CodeTypeDeclaration ImplTypeDecl
+        {
+            get { return _implDecl; }
+            set
+            {
+                _implDecl = value;
+
+            }
+        }
+        public override string ToString()
+        {
+            if (_implDecl != null)
+            {
+                return OriginalDecl.ToString() + " impl_by " + _implDecl.ToString();
+            }
+            else
+            {
+                return OriginalDecl.ToString();
+            }
+        }
+
+
+        public virtual void GenerateCppCode(CodeStringBuilder stbuilder)
+        {
+
+        }
+        public virtual void GenerateCsCode(CodeStringBuilder stbuilder)
+        {
+
+        }
+    }
+
+    /// <summary>
+    /// tx plan for callback class
+    /// </summary>
+    class CefCallbackTxPlan : CefTypeTxPlan
+    {
+        public CefCallbackTxPlan(CodeTypeDeclaration typedecl)
+            : base(typedecl)
+        {
+            //this is call back
+        }
+        public override void GenerateCppCode(CodeStringBuilder stbuilder)
+        {
+            base.GenerateCppCode(stbuilder);
+        }
+        public override void GenerateCsCode(CodeStringBuilder stbuilder)
+        {
+
+            CodeTypeDeclaration orgDecl = this.OriginalDecl;
+            CodeTypeDeclaration implTypeDecl = this.ImplTypeDecl;
+            if (implTypeDecl == null)
+            {
+                throw new NotSupportedException();
+            }
+
+            if (implTypeDecl.Name.Contains("CToCPP"))
+            {
+
+            }
+            else if (implTypeDecl.Name.Contains("CppToC"))
+            {
+
+            }
+            else
+            {
+
+            }
+        }
+
+    }
+
+    /// <summary>
+    /// tx plan for handler class
+    /// </summary>
+    class CefHandlerTxPlan : CefTypeTxPlan
+    {
+        public CefHandlerTxPlan(CodeTypeDeclaration typedecl)
+            : base(typedecl)
+        {
+
+        }
+        public override void GenerateCppCode(CodeStringBuilder stbuilder)
+        {
+            CodeTypeDeclaration orgDecl = this.OriginalDecl;
+            CodeTypeDeclaration implTypeDecl = this.ImplTypeDecl;
+            if (implTypeDecl == null)
+            {
+                throw new NotSupportedException();
+            }
+
+            if (implTypeDecl.Name.Contains("CToCPP"))
+            {
+
+            }
+            else if (implTypeDecl.Name.Contains("CppToC"))
+            {
+
+            }
+            else
+            {
+
+            }
+        }
+        public override void GenerateCsCode(CodeStringBuilder stbuilder)
+        {
+            base.GenerateCsCode(stbuilder);
+        }
+    }
+
+
+    enum ImplWrapDirection
+    {
+        None,
+        CppToC,
+        CToCpp,
+    }
+
+    /// <summary>
+    /// tx plan for instance element
+    /// </summary>
+    class CefInstanceElementTxPlan : CefTypeTxPlan
+    {
+        TypeTxInfo _typeTxInfo;
+        CodeTypeDeclaration _currentCodeTypeDecl;
+
+        public CefInstanceElementTxPlan(CodeTypeDeclaration typedecl)
+            : base(typedecl)
+        {
+
+        }
+        public override void GenerateCppCode(CodeStringBuilder stbuilder)
+        {
+            //
+            //create switch table for C#-interop
+            //
+            CodeTypeDeclaration orgDecl = this.OriginalDecl;
+            CodeTypeDeclaration implTypeDecl = this.ImplTypeDecl;
+
+            _typeTxInfo = implTypeDecl.TxInfo;
+            _currentCodeTypeDecl = implTypeDecl;
+
+            CodeStringBuilder totalTypeMethod = new CodeStringBuilder();
+            //1. generate method decl
+            totalTypeMethod.AppendLine("void MyCefMet_" + orgDecl.Name + "(" +
+                this.UnderlyingCType.Name + "* me1,int metName,jsvalue* ret,jsvalue* v1,jsvalue* v2,jsvalue* v3){");
+            //2. generate method header
+            //3. generate switch table
+
+
+            if (implTypeDecl == null)
+            {
+                throw new NotSupportedException();
+            }
+
+
+            totalTypeMethod.AppendLine("ret->type = JSVALUE_TYPE_EMPTY;");
+            ImplWrapDirection implWrapDirection = ImplWrapDirection.None;
+            if (implTypeDecl.Name.Contains("CToCpp"))
+            {
+                implWrapDirection = ImplWrapDirection.CToCpp;
+                //CefBrowserCToCpp::
+
+                totalTypeMethod.AppendLine("auto me=" + implTypeDecl.Name + "::Wrap(me1);");
+            }
+            else if (implTypeDecl.Name.Contains("CppToC"))
+            {
+                implWrapDirection = ImplWrapDirection.CppToC;
+                totalTypeMethod.AppendLine("auto me=" + implTypeDecl.Name + "::Wrap(me1);");
+            }
+            else
+            {
+                implWrapDirection = ImplWrapDirection.None;
+            }
+
+
+            //swicth table is a way that this instance'smethod is called
+            //through the bridge
+
+
+
+
+            int j = _typeTxInfo.methods.Count;
+            totalTypeMethod.AppendLine("switch(metName){");
+            totalTypeMethod.AppendLine("case MET_Release:return; //yes, just return");
+
+
+            for (int i = 0; i < j; ++i)
+            {
+                CodeStringBuilder met_stbuilder = new CodeStringBuilder();
+                //create each method,
+                //in our convention we dont generate 
+                MethodTxInfo metTx = _typeTxInfo.methods[i];
+                met_stbuilder.AppendLine("case " + orgDecl.Name + "_" + metTx.Name + ":{");
+
+                GenerateCppMethod(_typeTxInfo.methods[i], met_stbuilder);
+
+                met_stbuilder.AppendLine("} break;");
+
+                totalTypeMethod.Append(met_stbuilder.ToString());
+            }
+
+            totalTypeMethod.AppendLine("}"); //end switch table
+            //
+            switch (implWrapDirection)
+            {
+                default: throw new NotSupportedException();
+                case ImplWrapDirection.CppToC:
+                    //unwrap me
+                    totalTypeMethod.AppendLine(implTypeDecl.Name + "::Unwrap(me1);");
+                    break;
+                case ImplWrapDirection.CToCpp:
+                    //unwrap me
+                    totalTypeMethod.AppendLine(implTypeDecl.Name + "::Unwrap(me1);");
+                    break;
+            }
+
+
+            totalTypeMethod.AppendLine("}");
+        }
+        void GenerateCppMethod(MethodTxInfo met, CodeStringBuilder stbuilder)
         {
             if (met.CsLeftMethodBodyBlank) return;  //temp here
             //---------------------------------------
@@ -167,7 +390,9 @@ namespace BridgeBuilder
 
             }
             //----
-            stbuilder.AppendLine("// autogen! " + met.ToString());
+            stbuilder.AppendLine();
+            stbuilder.AppendLine("// gen! " + met.ToString());
+            stbuilder.AppendLine();
             //----
             string instThis = "me";
             if (ret.IsVoid)
@@ -176,7 +401,7 @@ namespace BridgeBuilder
                 stbuilder.Append(instThis + "->" + met.Name + "(");
                 stbuilder.Append(arglistBuilder.ToString());
                 stbuilder.Append(");\r\n");
-                stbuilder.Append("ret->type = JSVALUE_TYPE_EMPTY;");
+
             }
             else
             {
@@ -201,7 +426,52 @@ namespace BridgeBuilder
                                 case ContainerTypeKind.ByRef:
                                     break;
                                 case ContainerTypeKind.CefRefPtr:
-                                    stbuilder.Append("MyCefSetVoidPtr(ret,ret_result);\r\n");
+                                    //return CefRefPtr => this need unwrap method for raw pointer before send this to client
+                                    {
+                                        TypeSymbol elemType = refOrPtr.ElementType;
+                                        //what type that implement this elem
+                                        if (elemType.TypeSymbolKind == TypeSymbolKind.Simple)
+                                        {
+                                            SimpleTypeSymbol simpleElem = (SimpleTypeSymbol)elemType;
+                                            if (simpleElem.PrimitiveTypeKind == PrimitiveTypeKind.NotPrimitiveType)
+                                            {
+                                                CefTypeTxPlan txPlan = simpleElem.CefTxPlan;
+                                                if (txPlan == null)
+                                                {
+
+                                                }
+                                                //find what type that implement wrap/unwrap
+                                                CodeTypeDeclaration implBy = txPlan.ImplTypeDecl;
+
+                                                //c-to-cpp => from 'raw' pointer to 'smart' pointer
+                                                //cpp-to-c => from 'smart' pointer to 'raw' pointer
+
+                                                if (implBy.Name.Contains("CToCpp"))
+                                                {
+                                                    //so if you want to send this to client lib
+                                                    //you need to GET raw pointer , so =>
+                                                    stbuilder.Append("MyCefSetVoidPtr(ret," + implBy.Name + "::Unwrap" + "(ret_result));\r\n");
+                                                }
+                                                else if (implBy.Name.Contains("CppToC"))
+                                                {
+                                                    stbuilder.Append("MyCefSetVoidPtr(ret," + implBy.Name + "::Wrap" + "(ret_result));\r\n");
+                                                }
+                                                else
+                                                {
+
+                                                }
+
+                                            }
+                                            else
+                                            {
+
+                                            }
+                                        }
+                                        else
+                                        {
+                                            stbuilder.Append("MyCefSetVoidPtr(ret,ret_result);\r\n");
+                                        }
+                                    }
                                     break;
                                 case ContainerTypeKind.Pointer:
                                     {
@@ -304,30 +574,15 @@ namespace BridgeBuilder
                         break;
                 }
             }
-            //---------
-            switch (_typeTxInfo.CefTypeModel)
-            {
-                default:
-                    break;
-                case CefTypeModel.CefBaseScoped:
-                    break;
-                case CefTypeModel.CefBaseRefCounted:
-                    break;
-                case CefTypeModel.CefStructBase:
-                    break;
-                case CefTypeModel.Unknown:
-                    break;
-                case CefTypeModel.CefCToCppRefCounted:
 
-                    break;
-                case CefTypeModel.CefCToCppScoped:
-                    stbuilder.AppendLine();
-                    stbuilder.AppendLine(this._currentCodeTypeDecl.Name + "::Unwrap(" + instThis + ");");
-                    break;
-            }
 
         }
-
+        public override void GenerateCsCode(CodeStringBuilder stbuilder)
+        {
+            //create C# code that call the cefbridge interop method
+            base.GenerateCsCode(stbuilder);
+        }
     }
+
 
 }
