@@ -366,7 +366,7 @@ namespace BridgeBuilder
         {
             get
             {
-                if (OwnerTypeDecl != null)
+                if (OwnerTypeDecl != null && !OwnerTypeDecl.Name.StartsWith("global!"))
                 {
                     return OwnerTypeDecl.ToString() + "::" + this.Name;
                 }
@@ -516,7 +516,7 @@ namespace BridgeBuilder
 #if DEBUG
         void dbugCheckId()
         {
-            
+
         }
 #endif
         public string Name
