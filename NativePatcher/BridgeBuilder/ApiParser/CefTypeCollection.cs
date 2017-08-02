@@ -407,11 +407,14 @@ namespace BridgeBuilder
         }
     }
 
+
+
+
     class CefTypeCollection
     {
         internal Dictionary<string, CodeTypeDeclaration> typedeclDic = new Dictionary<string, CodeTypeDeclaration>();
-        
-        internal List<CodeTypeDeclaration> cefBaseTypes = new List<CodeTypeDeclaration>();
+
+
 
         //semantic
         Dictionary<string, TypeSymbol> typeSymbols = new Dictionary<string, TypeSymbol>();
@@ -453,17 +456,15 @@ namespace BridgeBuilder
         /// </summary>
         internal List<CodeTypeDeclaration> cToCppClasses = new List<CodeTypeDeclaration>();
 
-
+        //------------
         internal List<CodeTypeDeclaration> _v_instanceClasses = new List<CodeTypeDeclaration>();
         internal List<CodeTypeDeclaration> _v_callBackClasses = new List<CodeTypeDeclaration>();
         internal List<CodeTypeDeclaration> _v_handlerClasses = new List<CodeTypeDeclaration>();
-        //
-        internal List<CodeTypeDeclaration> enumClasses = new List<CodeTypeDeclaration>();
-        internal List<CodeTypeDeclaration> plainCStructs = new List<CodeTypeDeclaration>();
-        //
-        internal List<CodeTypeDeclaration> fileModuleClasses = new List<CodeTypeDeclaration>();
-
-        internal List<CodeTypeDeclaration> templateClasses = new List<CodeTypeDeclaration>();
+        internal List<CodeTypeDeclaration> _enumClasses = new List<CodeTypeDeclaration>();
+        internal List<CodeTypeDeclaration> _plainCStructs = new List<CodeTypeDeclaration>();
+        internal List<CodeTypeDeclaration> _fileModuleClasses = new List<CodeTypeDeclaration>();
+        internal List<CodeTypeDeclaration> _templateClasses = new List<CodeTypeDeclaration>();
+        internal List<CodeTypeDeclaration> _cefBaseTypes = new List<CodeTypeDeclaration>();
         //------------
 
         List<CodeCompilationUnit> compilationUnits;
@@ -481,20 +482,20 @@ namespace BridgeBuilder
         {
             _freeze = false;
             typedeclDic.Clear();
-            cefBaseTypes.Clear();
             typeSymbols.Clear();
 
             //--------------------------
             _v_callBackClasses.Clear();
             _v_handlerClasses.Clear();
+            _v_instanceClasses.Clear();
+            _cefBaseTypes.Clear();
+            _enumClasses.Clear();
+            _plainCStructs.Clear();
+            _fileModuleClasses.Clear();
+            _templateClasses.Clear();
+
             cToCppClasses.Clear();
             cppToCClasses.Clear();
-            enumClasses.Clear();
-            plainCStructs.Clear();
-            fileModuleClasses.Clear();
-            _v_instanceClasses.Clear();
-            templateClasses.Clear();
-
             //--------------------------
             _compilationUnitDics.Clear();
             //--------------------------
@@ -678,10 +679,12 @@ namespace BridgeBuilder
                 }
                 else if (name.EndsWith("CToCpp"))
                 {
+                    //implementation
                     cToCppClasses.Add(t);
                 }
                 else if (name.EndsWith("CppToC"))
                 {
+                    //implementation
                     cppToCClasses.Add(t);
                 }
                 else
@@ -692,11 +695,11 @@ namespace BridgeBuilder
                             {
                                 if (t.IsGlobalCompilationUnitType)
                                 {
-                                    fileModuleClasses.Add(t);
+                                    _fileModuleClasses.Add(t);
                                 }
                                 else if (t.IsTemplateTypeDefinition)
                                 {
-                                    templateClasses.Add(t);
+                                    _templateClasses.Add(t);
                                 }
                                 else if (t.BaseIsVirtual)
                                 {
@@ -717,14 +720,14 @@ namespace BridgeBuilder
                                                 case "CefStructBase":
                                                 case "CefBaseScoped":
                                                 case "CefBaseRefCounted":
-                                                    cefBaseTypes.Add(t);
+                                                    _cefBaseTypes.Add(t);
                                                     break;
                                             }
                                         }
                                     }
                                     else if (t.Name == "CefScopedSandboxInfo")
                                     {
-
+                                        //no base class
                                     }
                                     else
                                     {
@@ -738,7 +741,7 @@ namespace BridgeBuilder
                             {
 
                             }
-                            enumClasses.Add(t);
+                            _enumClasses.Add(t);
                             break;
                         case TypeKind.Struct:
                             if (!CefResolvingContext.IsAllLowerLetter(name))
@@ -752,7 +755,7 @@ namespace BridgeBuilder
 
                                 }
                             }
-                            plainCStructs.Add(t);
+                            _plainCStructs.Add(t);
                             break;
 
                     }
