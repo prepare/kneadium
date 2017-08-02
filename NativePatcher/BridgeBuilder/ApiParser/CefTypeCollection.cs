@@ -37,10 +37,9 @@ namespace BridgeBuilder
                 case CodeTypeReferenceKind.QualifiedName:
                     {
                         var qnameType = (CodeQualifiedNameType)typeRef;
-                        switch (qnameType.LeftPart)
+                        switch (qnameType.LeftPart.ToString())
                         {
-                            //resolve wellknown type template   
-
+                            //resolve wellknown type template    
                             case "std":
                                 return ResolveType(qnameType.RightPart);
                             default:
@@ -49,11 +48,12 @@ namespace BridgeBuilder
                                         _currentResolvingType.TemplateNotation != null)
                                     {
                                         //search ns from template notation
-                                        if (qnameType.LeftPart ==
-                                            _currentResolvingType.TemplateNotation.templatePar.ParameterName)
+
+                                        CodeTemplateParameter foundTemplatePar = null;
+                                        if (_currentResolvingType.TemplateNotation.TryGetTemplateParByParameterName(qnameType.LeftPart.ToString(), out foundTemplatePar))
                                         {
                                             //TODO: resolve template type parameter
-                                            return (typeRef.ResolvedType = new TemplateParameterTypeSymbol(_currentResolvingType.TemplateNotation.templatePar));
+                                            return (typeRef.ResolvedType = new TemplateParameterTypeSymbol(foundTemplatePar));
                                         }
                                     }
                                     throw new NotSupportedException();
@@ -212,9 +212,15 @@ namespace BridgeBuilder
                     //TODO: review template notation that has more than 1 type parameters.
                     //
                     //check if this is the template type parameter
-                    if (typename == _currentResolvingType.TemplateNotation.templatePar.ReAssignToTypeName)
-                    {   //found
-                        return new TemplateParameterTypeSymbol(_currentResolvingType.TemplateNotation.templatePar);
+                    //if (typename == _currentResolvingType.TemplateNotation.templatePar.ReAssignToTypeName)
+                    //{   //found
+                    //    return new TemplateParameterTypeSymbol(_currentResolvingType.TemplateNotation.templatePar);
+                    //}
+                    CodeTemplateParameter foundTemplatePar = null;
+                    if (_currentResolvingType.TemplateNotation.TryGetTemplateParByReAssignToName(typename, out foundTemplatePar))
+                    {
+                        //TODO: resolve template type parameter
+                        return new TemplateParameterTypeSymbol(foundTemplatePar);
                     }
                 }
 
@@ -666,13 +672,13 @@ namespace BridgeBuilder
 
             //-----------------------
             //do class classification 
-          
+
 
             foreach (CodeTypeDeclaration t in typedeclDic.Values)
             {
                 string name = t.Name;
                 if (name.EndsWith("Callback"))
-                { 
+                {
                     _v_callBackClasses.Add(t);
                 }
                 else if (name.EndsWith("Handler"))

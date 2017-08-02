@@ -54,7 +54,7 @@ namespace BridgeBuilder
                             else if (c == '-')
                             {
                                 //read next
-                                if (i < j)
+                                if (i < j - 1)
                                 {
                                     char next_char = charBuffer[i + 1];
                                     if (char.IsNumber(next_char))
@@ -402,8 +402,6 @@ namespace BridgeBuilder
         int lineNo = -1;
         int currentTokenIndex;
         CodeCompilationUnit cu;
-
-
         List<Token> lineComments = new List<Token>(); //before each type/type members
         CodeTypeTemplateNotation templateNotation = null;
 
@@ -877,6 +875,31 @@ namespace BridgeBuilder
                 codeTypeDecl.BaseIsVirtual = ExpectId("virtual");
                 codeTypeDecl.BaseTypes.Add(ExpectType());
             }
+            if (ExpectPunc("<"))
+            {
+                //C++ template TypeParameter
+                //(analogous to C# generic)
+                //
+                string typeParName = ExpectId();
+                while (typeParName != null)
+                {
+                    codeTypeDecl.AddTypeParameter(new CodeTemplateTypeParameter(typeParName));
+                    //
+                    if (ExpectPunc(","))
+                    {
+                        typeParName = ExpectId();
+                    }
+                    else if (ExpectPunc(">"))
+                    {
+                        break;
+                    }
+                    else
+                    {
+                        throw new NotSupportedException();
+                    }
+                }
+
+            }
             //-----------------------------------------------------
             if (ExpectPunc("{"))
             {
@@ -885,6 +908,20 @@ namespace BridgeBuilder
                 {
                     //ok
                 }
+            }
+            else if (ExpectPunc("::")) //
+            {
+                //found on class template + type parameter
+                string templateBase = ExpectId();
+                if (ExpectPunc("{"))
+                {
+                    while (ParseTypeMember(codeTypeDecl)) ;
+                    if (ExpectPunc(";"))
+                    {
+                        //ok
+                    }
+                }
+                codeTypeDecl.BaseTypes.Add(new CodeSimpleTypeReference(templateBase));
             }
             else
             {
@@ -895,30 +932,54 @@ namespace BridgeBuilder
             this._currentMemberAccessibilityMode = prev_accessibility; //restore back
             return codeTypeDecl;
         }
-        CodeTypeTemplateNotation ParseTemplateNotation()
+
+        CodeTemplateParameter ParseTemplateParameter()
         {
-            if (!ExpectPunc("<"))
-            {
-                throw new NotSupportedException();
-            }
             if (!ExpectId("class"))
             {
                 //class
             }
             string id_name = ExpectId();
             //this version supports 1 template parameter
-            if (!ExpectPunc(">"))
+            CodeTypeTemplateNotation typeTemplateNotation = new CodeTypeTemplateNotation();
+            var templatePar = new CodeTemplateParameter();
+            templatePar.ParameterKind = "class";
+            templatePar.ParameterName = id_name;
+            return templatePar;
+        }
+        CodeTypeTemplateNotation ParseTemplateNotation()
+        {
+            if (!ExpectPunc("<"))
             {
                 throw new NotSupportedException();
             }
 
             CodeTypeTemplateNotation typeTemplateNotation = new CodeTypeTemplateNotation();
-            CodeTemplateParameter templatePar = new CodeTemplateParameter();
-            templatePar.ParameterKind = "class";
-            templatePar.ParameterName = id_name;
-            //
-            typeTemplateNotation.templatePar = templatePar;
-            //
+
+            CodeTemplateParameter templatePar = ParseTemplateParameter();
+            while (templatePar != null)
+            {
+                typeTemplateNotation.AddTemplateParameter(templatePar);
+                Token tk = ExpectPunc();
+                if (tk == null)
+                {
+                    throw new NotSupportedException();
+                }
+
+                if (tk.Content == ",")
+                {
+                    //parse next template arg 
+                    templatePar = ParseTemplateParameter();
+                }
+                else if (tk.Content == ">")
+                {
+                    break;
+                }
+                else
+                {
+                    throw new NotSupportedException();
+                }
+            }
             return typeTemplateNotation;
         }
         bool ParseCTypeDef(CodeTypeDeclaration codeTypeDecl)
@@ -936,7 +997,7 @@ namespace BridgeBuilder
                     //class CefStructBase : public traits::struct_type {
                     // public:
                     //  typedef typename traits::struct_type struct_type; 
-                    CodeTemplateParameter par = codeTypeDecl.TemplateNotation.templatePar;
+                    CodeTemplateParameter par = codeTypeDecl.TemplateNotation.templatePars[0];//?
                     //assign to template parameter 
                     par.TemplateDetailFrom = ExpectType();
                     par.ReAssignToTypeName = ExpectId();
@@ -1289,9 +1350,12 @@ namespace BridgeBuilder
             bool isInline = ExpectId("inline");
             bool isDestructor = ExpectPunc("~");
 
+            //-------
             CodeTypeReference retType = ExpectType();
-            string name = ExpectId();
 
+            //-------
+
+            string name = ExpectId();
             if (name == "operator")
             {
                 //operator method
@@ -1302,19 +1366,68 @@ namespace BridgeBuilder
                     name = punc.Content;
                 }
             }
+            //-----------------------------------
 
+            List<CodeTypeReference> templateMethodTypePars = null;
+            CodeTypeReference cppExplicitOwnerTypeName = null;
+            if (ExpectPunc("<"))
+            {
+                //cpp template method (similar to C# generic method)
+                templateMethodTypePars = new List<CodeTypeReference>();
+                CodeTypeReference templateType = ExpectType();
+                while (templateType != null)
+                {
+                    templateMethodTypePars.Add(templateType);
+                    Token tk = ExpectPunc();
+                    if (tk == null)
+                    {
+                        throw new NotSupportedException();
+                    }
+                    //
+                    if (tk.Content == ",")
+                    {
+                        //parse next template arg 
+                        templateType = ExpectType();
+                    }
+                    else if (tk.Content == ">")
+                    {
+                        break;
+                    }
+                    else
+                    {
+                        throw new NotSupportedException();
+                    }
+                }
+
+                if (ExpectPunc("::"))
+                {
+                    //previous part is  cpp's method owner type name 
+                    //and 
+                    //this is method name 
+                    CodeTypeTemplateTypeReference templateTypeRefernece = new CodeTypeTemplateTypeReference(name);
+                    foreach (CodeTypeReference typePar in templateMethodTypePars)
+                    {
+                        templateTypeRefernece.AddTemplateItem(typePar);
+                    }
+                    cppExplicitOwnerTypeName = templateTypeRefernece;
+                    // 
+                    name = ExpectId();
+                }
+
+            }
             //-----------------------------------
             if (ExpectPunc("("))
             {
                 //this is method
                 Token[] comments = FlushCollectedLineComments();
-
                 CodeMethodDeclaration met = new CodeMethodDeclaration();
                 met.IsStatic = isStatic;
                 met.IsVirtual = isVirtual;
                 met.IsInline = isInline;
                 met.LineComments = comments;
                 met.MemberAccessibility = this._currentMemberAccessibilityMode;
+                met.CppExplicitOwnerType = cppExplicitOwnerTypeName;
+
                 //
                 if (retType.ToString() == codeTypeDecl.Name && name == null)
                 {
@@ -1427,113 +1540,120 @@ namespace BridgeBuilder
         CodeTypeReference ExpectType()
         {
             string typeName = ExpectId();
-            if (typeName != null)
+            if (typeName == null) throw new NotSupportedException();
+            //-----------------------------------------------------
+            if (typeName == "typename")
             {
-                CodeTypeReference type1 = null;
-                //check next token is <
-                if (ExpectPunc("<"))
+                //this should be return type
+                CodeTypeReference typename = ExpectType();//1. 
+                if (ExpectPunc("::"))
                 {
-                    CodeTypeTemplateTypeReference typeTemplate = new CodeTypeTemplateTypeReference(typeName);
-
-                    type1 = typeTemplate;
-                    //parse each item 
-                    AGAIN:
-                    var typeParameter = ExpectType();
-                    if (typeParameter != null)
-                    {
-                        typeTemplate.AddTemplateItem(typeParameter);
-                    }
-                    else
-                    {
-                        throw new NotSupportedException();
-                    }
-                    //------------------
-                    if (ExpectPunc(","))
-                    {
-                        goto AGAIN;
-                    }
-                    else if (ExpectPunc(">"))
-                    {
-                        //end
-                    }
-                    else if (ExpectPunc("("))
-                    {
-                        var funcTypeReference = new CodeFunctionPointerTypeRefernce();
-                        funcTypeReference.ReturnType = typeParameter;
-                        //callback ?  
-                        AGAIN2:
-                        CodeMethodParameter par = new CodeMethodParameter();
-                        par.IsConstPar = ExpectId("const");
-                        par.ParameterType = ExpectType();
-                        funcTypeReference.Parameters.Add(par);
-                        if (ExpectPunc(","))
-                        {
-                            goto AGAIN2;
-                        }
-                        else if (ExpectPunc(")"))
-                        {
-                            //finish
-                        }
-                        type1 = funcTypeReference;
-                        if (!ExpectPunc(">"))
-                        {
-                            throw new NotSupportedException();
-                        }
-                    }
-                    else
-                    {
-                        throw new NotSupportedException();
-                    }
+                    return new CodeQualifiedNameType(typename, ExpectType());
                 }
-                else if (ExpectPunc("::"))
+                return typename;
+            }
+            //-----------------------------------------------------
+
+            CodeTypeReference type1 = null;
+            //check next token is <
+            if (ExpectPunc("<"))
+            {
+                CodeTypeTemplateTypeReference typeTemplate = new CodeTypeTemplateTypeReference(typeName);
+
+                type1 = typeTemplate;
+                //parse each item 
+                AGAIN:
+                var typeParameter = ExpectType();
+                if (typeParameter != null)
                 {
-                    CodeTypeReference rightPart = ExpectType();
-                    return new CodeQualifiedNameType(typeName, rightPart);
+                    typeTemplate.AddTemplateItem(typeParameter);
                 }
                 else
                 {
-                    if (typeName == "unsigned")
-                    {
-                        //this need another id
-                        string unsignedType = ExpectId();
-                        if (unsignedType == null)
-                        {
-                            throw new NotSupportedException();
-                        }
-                        typeName = "unsigned " + unsignedType;
-                    }
-                    else if (typeName == "long")
-                    {
-                        if (ExpectId("long"))
-                        {
-                            //this is long-long
-                            typeName = "int64";
-                        }
-                    }
-                    type1 = new CodeSimpleTypeReference(typeName);
+                    throw new NotSupportedException();
                 }
                 //------------------
-
-                CHECK_AGAIN:
-                if (ExpectPunc("*"))
+                if (ExpectPunc(","))
                 {
-                    type1 = new CodePointerTypeReference(type1);
-                    goto CHECK_AGAIN;
+                    goto AGAIN;
                 }
-                else if (ExpectPunc("&"))
+                else if (ExpectPunc(">"))
                 {
-                    type1 = new CodeByRefTypeReference(type1);
-                    goto CHECK_AGAIN;
+                    //end
                 }
-
-                //------------------
-                return type1;
-
+                else if (ExpectPunc("("))
+                {
+                    var funcTypeReference = new CodeFunctionPointerTypeRefernce();
+                    funcTypeReference.ReturnType = typeParameter;
+                    //callback ?  
+                    AGAIN2:
+                    CodeMethodParameter par = new CodeMethodParameter();
+                    par.IsConstPar = ExpectId("const");
+                    par.ParameterType = ExpectType();
+                    funcTypeReference.Parameters.Add(par);
+                    if (ExpectPunc(","))
+                    {
+                        goto AGAIN2;
+                    }
+                    else if (ExpectPunc(")"))
+                    {
+                        //finish
+                    }
+                    type1 = funcTypeReference;
+                    if (!ExpectPunc(">"))
+                    {
+                        throw new NotSupportedException();
+                    }
+                }
+                else
+                {
+                    throw new NotSupportedException();
+                }
+            }
+            else if (ExpectPunc("::"))
+            {
+                return new CodeQualifiedNameType(new CodeSimpleTypeReference(typeName), ExpectType());
             }
             else
             {
-                throw new NotSupportedException();
+                if (typeName == "unsigned")
+                {
+                    //this need another id
+                    string unsignedType = ExpectId();
+                    if (unsignedType == null)
+                    {
+                        throw new NotSupportedException();
+                    }
+                    typeName = "unsigned " + unsignedType;
+                }
+                else if (typeName == "long")
+                {
+                    if (ExpectId("long"))
+                    {
+                        //this is long-long
+                        typeName = "int64";
+                    }
+                }
+                type1 = new CodeSimpleTypeReference(typeName);
             }
+            //------------------
+
+            CHECK_AGAIN:
+            if (ExpectPunc("*"))
+            {
+                type1 = new CodePointerTypeReference(type1);
+                goto CHECK_AGAIN;
+            }
+            else if (ExpectPunc("&"))
+            {
+                type1 = new CodeByRefTypeReference(type1);
+                goto CHECK_AGAIN;
+            }
+
+            //------------------
+            return type1;
+
+
 
         }
         bool ParseParameter(CodeMethodDeclaration codeMethod)
