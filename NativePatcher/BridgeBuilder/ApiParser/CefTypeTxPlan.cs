@@ -56,8 +56,7 @@ namespace BridgeBuilder
             : base(typedecl)
         {
 
-        }
-
+        } 
     }
 
     /// <summary>

@@ -373,6 +373,7 @@ namespace BridgeBuilder
             txPlanner.CefTypeCollection = cefTypeCollection;
 
 
+            Dictionary<string, CefTypeTxPlan> allTxPlans = new Dictionary<string, CefTypeTxPlan>();
             List<CefHandlerTxPlan> handlerPlans = new List<CefHandlerTxPlan>();
             List<CefCallbackTxPlan> callbackPlans = new List<CefCallbackTxPlan>();
             List<CefInstanceElementTxPlan> instanceClassPlans = new List<CefInstanceElementTxPlan>();
@@ -382,7 +383,7 @@ namespace BridgeBuilder
 
                 CefHandlerTxPlan handlerPlan = new CefHandlerTxPlan(typedecl);
                 handlerPlans.Add(handlerPlan);
-
+                allTxPlans.Add(typedecl.Name, handlerPlan);
                 ////create handler as inteface
                 ////1 instance may implement more than 1 handler 
 
@@ -406,6 +407,7 @@ namespace BridgeBuilder
 
                 CefCallbackTxPlan callbackPlan = new CefCallbackTxPlan(typedecl);
                 callbackPlans.Add(callbackPlan);
+                allTxPlans.Add(typedecl.Name, callbackPlan);
                 ////
                 //TypeTxInfo typeTxPlan = txPlanner.MakeTransformPlan(typedecl);
                 ////
@@ -425,48 +427,62 @@ namespace BridgeBuilder
             {
                 CefInstanceElementTxPlan instanceClassPlan = new CefInstanceElementTxPlan(typedecl);
                 instanceClassPlans.Add(instanceClassPlan);
+                allTxPlans.Add(typedecl.Name, instanceClassPlan);
             }
-
-
-
 
 
             foreach (CodeTypeDeclaration typedecl in cefTypeCollection.cToCppClasses)
             {
-                //[chrome] cpp<-to<-c  <--- ::::: <--- c-interface-to[external - user - lib] ....
-                TypeTxInfo typeTxPlan = txPlanner.MakeTransformPlan(typedecl);
-                //
-                {
-                    StringBuilder stbuilder = new StringBuilder();
-                    apiBuilderCsPart.GenerateCsType(typeTxPlan, stbuilder);
-                }
-                //
-                //
-                {
-                    StringBuilder stbuilder = new StringBuilder();
-                    apiBuilderCppPart.GenerateCppPart(typeTxPlan, stbuilder);
-                }
-                //
+                //cef -specific
+                TemplateTypeSymbol3 baseType0 = (TemplateTypeSymbol3)typedecl.BaseTypes[0].ResolvedType;
+                //add information to our model
+                SimpleTypeSymbol abstractType = (SimpleTypeSymbol)baseType0.Item1;
+                SimpleTypeSymbol underlying_c_type = (SimpleTypeSymbol)baseType0.Item2;
+
+
+
+
+                ////[chrome] cpp<-to<-c  <--- ::::: <--- c-interface-to[external - user - lib] ....
+                //TypeTxInfo typeTxPlan = txPlanner.MakeTransformPlan(typedecl);
+                ////
+                //{
+                //    StringBuilder stbuilder = new StringBuilder();
+                //    apiBuilderCsPart.GenerateCsType(typeTxPlan, stbuilder);
+                //}
+                ////
+                ////
+                //{
+                //    StringBuilder stbuilder = new StringBuilder();
+                //    apiBuilderCppPart.GenerateCppPart(typeTxPlan, stbuilder);
+                //}
+                ////
             }
             foreach (CodeTypeDeclaration typedecl in cefTypeCollection.cppToCClasses)
             {
-                //[chrome]  cpp->to->c  ---> ::::: ---> c-interface-to [external-user-lib] ....
-                //eg. handlers and callbacks 
-                TypeTxInfo typeTxPlan = txPlanner.MakeTransformPlan(typedecl);
-                //classify by nameing convention
-                string typename = typedecl.Name;
-                //
-                {
-                    StringBuilder stbuilder = new StringBuilder();
-                    apiBuilderCsPart.GenerateCsType(typeTxPlan, stbuilder);
-                }
-                //
-                //
-                {
-                    StringBuilder stbuilder = new StringBuilder();
-                    apiBuilderCppPart.GenerateCppPart(typeTxPlan, stbuilder);
-                }
-                //
+                //cef -specific
+                TemplateTypeSymbol3 baseType0 = (TemplateTypeSymbol3)typedecl.BaseTypes[0].ResolvedType;
+                SimpleTypeSymbol abstractType = (SimpleTypeSymbol)baseType0.Item1;
+                SimpleTypeSymbol underlying_c_type = (SimpleTypeSymbol)baseType0.Item2;
+
+
+
+                ////[chrome]  cpp->to->c  ---> ::::: ---> c-interface-to [external-user-lib] ....
+                ////eg. handlers and callbacks 
+                //TypeTxInfo typeTxPlan = txPlanner.MakeTransformPlan(typedecl);
+                ////classify by nameing convention
+                //string typename = typedecl.Name;
+                ////
+                //{
+                //    StringBuilder stbuilder = new StringBuilder();
+                //    apiBuilderCsPart.GenerateCsType(typeTxPlan, stbuilder);
+                //}
+                ////
+                ////
+                //{
+                //    StringBuilder stbuilder = new StringBuilder();
+                //    apiBuilderCppPart.GenerateCppPart(typeTxPlan, stbuilder);
+                //}
+                ////
             }
         }
         CodeCompilationUnit ParseWrapper(string srcFile)
