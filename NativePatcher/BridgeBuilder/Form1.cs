@@ -332,8 +332,6 @@ namespace BridgeBuilder
             //c to cpp 
             {
                 string[] onlyHeaderFiles = System.IO.Directory.GetFiles(cefDir + @"\libcef_dll\ctocpp", "*.h");
-                //Dictionary<string, bool> skipFiles = CreateSkipFiles(new[] {
-                //"ctocpp_ref_counted.h" ,"ctocpp_scoped.h"});
                 Dictionary<string, bool> skipFiles = CreateSkipFiles(new string[0]);
 
 
@@ -352,8 +350,6 @@ namespace BridgeBuilder
             //cpp to c
             {
                 string[] onlyHeaderFiles = System.IO.Directory.GetFiles(cefDir + @"\libcef_dll\cpptoc", "*.h");
-                //Dictionary<string, bool> skipFiles = CreateSkipFiles(new[] {
-                //"cpptoc_ref_counted.h","cpptoc_scoped.h"});
                 Dictionary<string, bool> skipFiles = CreateSkipFiles(new string[0]);
 
                 int j = onlyHeaderFiles.Length;
