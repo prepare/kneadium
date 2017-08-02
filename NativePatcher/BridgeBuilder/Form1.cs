@@ -371,34 +371,8 @@ namespace BridgeBuilder
             //
             TypeTranformPlanner txPlanner = new TypeTranformPlanner();
             txPlanner.CefTypeCollection = cefTypeCollection;
-
-
-            //foreach (CodeTypeDeclaration typedecl in cefTypeCollection.otherClasses)
-            //{
-            //    if (typedecl.IsGlobalCompilationUnitType) { continue; }
-            //    if (typedecl.BaseIsVirtual) { continue; }
-            //    if (typedecl.IsTemplateTypeDefinition) { continue; }
-            //    if (typedecl.Name.EndsWith("Traits")) { continue; } 
-            //    if (typedecl.Kind != TypeKind.Enum)
-            //    { 
-            //    } 
-            //    //
-            //    TypeTxInfo typeTxPlan = txPlanner.MakeTransformPlan(typedecl);
-            //    //
-            //    {
-            //        StringBuilder stbuilder = new StringBuilder();
-            //        apiBuilderCsPart.GenerateCsType(typeTxPlan, stbuilder);
-            //    }
-            //    //
-            //    //
-            //    {
-            //        StringBuilder stbuilder = new StringBuilder();
-            //        apiBuilderCppPart.GenerateCppPart(typeTxPlan, stbuilder);
-            //    }
-            //    //
-            //}
-
-            foreach (CodeTypeDeclaration typedecl in cefTypeCollection.handlerClasses)
+             
+            foreach (CodeTypeDeclaration typedecl in cefTypeCollection._v_handlerClasses)
             {
                 //create handler as inteface
                 //1 instance may implement more than 1 handler 
@@ -418,7 +392,7 @@ namespace BridgeBuilder
                 }
                 //
             }
-            foreach (CodeTypeDeclaration typedecl in cefTypeCollection.callBackClasses)
+            foreach (CodeTypeDeclaration typedecl in cefTypeCollection._v_callBackClasses)
             {
 
                 //

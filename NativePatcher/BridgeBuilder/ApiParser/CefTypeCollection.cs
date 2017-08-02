@@ -410,9 +410,8 @@ namespace BridgeBuilder
     class CefTypeCollection
     {
         internal Dictionary<string, CodeTypeDeclaration> typedeclDic = new Dictionary<string, CodeTypeDeclaration>();
-        internal Dictionary<string, TypeSymbol> subTypeDefs = new Dictionary<string, TypeSymbol>();
-
-        internal List<CodeTypeDeclaration> cefBaseTypes = new List<CodeTypeDeclaration>(); 
+        
+        internal List<CodeTypeDeclaration> cefBaseTypes = new List<CodeTypeDeclaration>();
 
         //semantic
         Dictionary<string, TypeSymbol> typeSymbols = new Dictionary<string, TypeSymbol>();
@@ -454,12 +453,16 @@ namespace BridgeBuilder
         /// </summary>
         internal List<CodeTypeDeclaration> cToCppClasses = new List<CodeTypeDeclaration>();
 
-        internal List<CodeTypeDeclaration> callBackClasses = new List<CodeTypeDeclaration>();
-        internal List<CodeTypeDeclaration> handlerClasses = new List<CodeTypeDeclaration>();
+
+        internal List<CodeTypeDeclaration> _v_instanceClasses = new List<CodeTypeDeclaration>();
+        internal List<CodeTypeDeclaration> _v_callBackClasses = new List<CodeTypeDeclaration>();
+        internal List<CodeTypeDeclaration> _v_handlerClasses = new List<CodeTypeDeclaration>();
+        //
         internal List<CodeTypeDeclaration> enumClasses = new List<CodeTypeDeclaration>();
         internal List<CodeTypeDeclaration> plainCStructs = new List<CodeTypeDeclaration>();
+        //
         internal List<CodeTypeDeclaration> fileModuleClasses = new List<CodeTypeDeclaration>();
-        internal List<CodeTypeDeclaration> virtualClasses = new List<CodeTypeDeclaration>();
+
         internal List<CodeTypeDeclaration> templateClasses = new List<CodeTypeDeclaration>();
         //------------
 
@@ -478,18 +481,18 @@ namespace BridgeBuilder
         {
             _freeze = false;
             typedeclDic.Clear();
-            cefBaseTypes.Clear(); 
+            cefBaseTypes.Clear();
             typeSymbols.Clear();
 
             //--------------------------
-            callBackClasses.Clear();
-            handlerClasses.Clear();
+            _v_callBackClasses.Clear();
+            _v_handlerClasses.Clear();
             cToCppClasses.Clear();
             cppToCClasses.Clear();
             enumClasses.Clear();
             plainCStructs.Clear();
             fileModuleClasses.Clear();
-            virtualClasses.Clear();
+            _v_instanceClasses.Clear();
             templateClasses.Clear();
 
             //--------------------------
@@ -667,11 +670,11 @@ namespace BridgeBuilder
                 string name = t.Name;
                 if (name.EndsWith("Callback"))
                 {
-                    callBackClasses.Add(t);
+                    _v_callBackClasses.Add(t);
                 }
                 else if (name.EndsWith("Handler"))
                 {
-                    handlerClasses.Add(t);
+                    _v_handlerClasses.Add(t);
                 }
                 else if (name.EndsWith("CToCpp"))
                 {
@@ -697,7 +700,7 @@ namespace BridgeBuilder
                                 }
                                 else if (t.BaseIsVirtual)
                                 {
-                                    virtualClasses.Add(t);
+                                    _v_instanceClasses.Add(t);
                                 }
                                 else
                                 {
