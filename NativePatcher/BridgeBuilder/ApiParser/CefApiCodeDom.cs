@@ -208,7 +208,9 @@ namespace BridgeBuilder
         }
         public void AddMember(CodeMemberDeclaration mb)
         {
+
             _members.Add(mb);
+            mb.OwnerTypeDecl = new CodeSimpleTypeReference(this.Name);
             //
             mb.OriginalCompilationUnit = this.OriginalCompilationUnit;
             //
@@ -360,6 +362,21 @@ namespace BridgeBuilder
             get { return _subTypeDecls != null; }
         }
 
+        public string FullName
+        {
+            get
+            {
+                if (OwnerTypeDecl != null)
+                {
+                    return OwnerTypeDecl.ToString() + "::" + this.Name;
+                }
+                else
+                {
+                    return this.Name;
+                }
+            }
+
+        }
         //-------------
         //semantic 
         public TypeSymbol ResolvedType { get; set; }
@@ -669,6 +686,8 @@ namespace BridgeBuilder
         public MemberAccessibility MemberAccessibility { get; set; }
         public CodeCompilationUnit OriginalCompilationUnit { get; set; }
         public Token[] LineComments { get; set; }
+        public CodeTypeReference OwnerTypeDecl { get; set; }
+
     }
 
     enum CodeMemberKind
