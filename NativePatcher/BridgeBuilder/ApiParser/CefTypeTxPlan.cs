@@ -43,7 +43,7 @@ namespace BridgeBuilder
             {
                 stbuilder.Append("/*" + _dbugLineCount + "*/");
             }
-            if (_dbugLineCount >= 142)
+            if (_dbugLineCount >= 107)
             {
 
             }
@@ -388,6 +388,14 @@ namespace BridgeBuilder
                                     arglistBuilder.Append(argName);
                                 }
                                 break;
+                            case "vec<CefString>":
+                            case "vec<int64>":
+                                {
+
+                                }
+                                break;
+                            case "CefPdfPrintSettings":
+                                break;
                             case "CefString":
                                 {
                                     arglistBuilder.Append("GetStringHolder(" + argName + ")->value");
@@ -403,62 +411,71 @@ namespace BridgeBuilder
                         if (elemtType is SimpleTypeSymbol)
                         {
                             CefTypeTxPlan txplan = ((SimpleTypeSymbol)elemtType).CefTxPlan;
-                            CodeTypeDeclaration implTypeDecl = txplan.ImplTypeDecl;
-                            ImplWrapDirection implWrapDirection = ImplWrapDirection.None;
-                            if (implTypeDecl.Name.Contains("CToCpp"))
+                            if (txplan == null)
                             {
-                                implWrapDirection = ImplWrapDirection.CToCpp;
-                                string met = GetSmartPointerMet(implWrapDirection);
-                                string slotName = bridge.CefCppSlotName.ToString();
+                                if (elemtType.ToString() == "CefBaseRefCounted")
+                                {
 
+                                }
+                                else
+                                {
 
-                                arglistBuilder.Append(implTypeDecl.Name + "::" + met + "(" + "(" + txplan.UnderlyingCType + "*)" + (argName + "->" + slotName) + ")");
-                            }
-                            else if (implTypeDecl.Name.Contains("CppToC"))
-                            {
-                                implWrapDirection = ImplWrapDirection.CppToC;
-                                string met = GetSmartPointerMet(implWrapDirection);
-                                arglistBuilder.Append(implTypeDecl.Name + "::" + met + "(" + argName + ")");
+                                }
                             }
                             else
                             {
-                                implWrapDirection = ImplWrapDirection.None;
-                                string met = GetSmartPointerMet(implWrapDirection);
-                                arglistBuilder.Append(implTypeDecl.Name + "::" + met + "(" + argName + ")");
+                                CodeTypeDeclaration implTypeDecl = txplan.ImplTypeDecl;
+                                ImplWrapDirection implWrapDirection = ImplWrapDirection.None;
+                                if (implTypeDecl.Name.Contains("CToCpp"))
+                                {
+                                    implWrapDirection = ImplWrapDirection.CToCpp;
+                                    string met = GetSmartPointerMet(implWrapDirection);
+                                    string slotName = bridge.CefCppSlotName.ToString();
+
+
+                                    arglistBuilder.Append(implTypeDecl.Name + "::" + met + "(" + "(" + txplan.UnderlyingCType + "*)" + (argName + "->" + slotName) + ")");
+                                }
+                                else if (implTypeDecl.Name.Contains("CppToC"))
+                                {
+                                    implWrapDirection = ImplWrapDirection.CppToC;
+                                    string met = GetSmartPointerMet(implWrapDirection);
+                                    arglistBuilder.Append(implTypeDecl.Name + "::" + met + "(" + argName + ")");
+                                }
+                                else
+                                {
+                                    implWrapDirection = ImplWrapDirection.None;
+                                    string met = GetSmartPointerMet(implWrapDirection);
+                                    arglistBuilder.Append(implTypeDecl.Name + "::" + met + "(" + argName + ")");
+                                }
                             }
                         }
                         else
                         {
 
                         }
-                        //cpp object of cef 'smart' pointer (ref-count) 
-
-                        //string elemTypeName = refOrPtr.ElementType.ToString();
-                        //ImplWrapDirection implWrapDirection = ImplWrapDirection.None;
-                        //if (implTypeDecl.Name.Contains("CToCpp"))
-                        //{
-                        //    implWrapDirection = ImplWrapDirection.CToCpp;
-                        //}
-                        //else if (implTypeDecl.Name.Contains("CppToC"))
-                        //{
-                        //    implWrapDirection = ImplWrapDirection.CppToC;
-                        //}
-                        //else
-                        //{
-                        //    implWrapDirection = ImplWrapDirection.None;
-                        //}
-
-                        //arglistBuilder.Append("(" + elemTypeName + "*)");
-                        //arglistBuilder.Append("v" + (i + 1));
-                        //arglistBuilder.AppendLine("->" + bridge.CefCppSlotName);
                     }
                     break;
                 case ContainerTypeKind.Pointer:
                     {
-                        //string elemTypeName = refOrPtr.ElementType.ToString();
-                        //arglistBuilder.Append("(" + elemTypeName + "*)");
-                        //arglistBuilder.Append("v" + (i + 1));
-                        //arglistBuilder.AppendLine("->" + bridge.CefCppSlotName);
+                        string elemTypeName = refOrPtr.ElementType.ToString();
+                        switch (elemTypeName)
+                        {
+                            default:
+                                break;
+                            case "char":
+                                {
+                                    //char*
+                                }
+                                break;
+                            case "void": //void*
+                                {
+                                    string slotName = bridge.CefCppSlotName.ToString();
+                                    arglistBuilder.Append("(" + elemTypeName + "*)");
+                                    arglistBuilder.Append(argName + "->" + slotName);
+                                }
+                                break;
+                        }
+
                     }
                     break;
                 case ContainerTypeKind.scoped_ptr:
@@ -481,6 +498,141 @@ namespace BridgeBuilder
             {
                 throw new NotSupportedException();
             }
+
+            //----
+            stbuilder.AppendLine();
+            stbuilder.AppendLine("// gen! " + met.ToString());
+            stbuilder.AppendLine();
+
+            //---------------------------
+            for (int i = 0; i < parCount; ++i)
+            {
+                //prepare some method args
+                //get pars from parameter 
+                MethodParameterTxInfo par = pars[i];
+                TypeSymbol typeSymbol = par.TypeSymbol;
+                TypeBridgeInfo bridge = typeSymbol.BridgeInfo;
+
+                switch (typeSymbol.TypeSymbolKind)
+                {
+                    case TypeSymbolKind.ReferenceOrPointer:
+                        {
+                            ReferenceOrPointerTypeSymbol refOrPtr = (ReferenceOrPointerTypeSymbol)typeSymbol;
+                            switch (refOrPtr.Kind)
+                            {
+                                default:
+                                    break;
+                                case ContainerTypeKind.ByRef:
+                                    {
+                                        string elemTypeName = refOrPtr.ElementType.ToString();
+                                        switch (elemTypeName)
+                                        {
+                                            default:
+                                                {
+                                                    //eg. {bool GetDataResource(int resource_id,void*& data,size_t& data_size)}
+                                                }
+                                                break;
+                                            case "CefRefPtr<CefV8Value>":
+                                                {
+                                                    //eg. bool Eval(const CefString& code,const CefString& script_url,int start_line,CefRefPtr<CefV8Value>& retval,CefRefPtr<CefV8Exception>& exception)
+                                                }
+                                                break;
+                                            case "size_t":
+                                                break;
+                                            case "void*":
+                                                {
+                                                    //eg. bool GetDataResource(int resource_id,void*& data,size_t& data_size)
+                                                }
+                                                break;
+                                            case "bool":
+                                                {
+                                                    //eg. bool GetAccelerator(int command_id,int& key_code,bool& shift_pressed,bool& ctrl_pressed,bool& alt_pressed)
+                                                }
+                                                break;
+                                            case "cef_color_t":
+                                                {
+                                                    //eg. bool GetColor(int command_id,cef_menu_color_type_t color_type,cef_color_t& color)
+                                                }
+                                                break;
+                                            case "int":
+                                                {
+                                                    //eg .bool GetRepresentationInfo(float scale_factor,float& actual_scale_factor,int& pixel_width,int& pixel_height)
+                                                }
+                                                break;
+                                            case "float":
+                                                {
+                                                    //eg. bool GetRepresentationInfo(float scale_factor,float& actual_scale_factor,int& pixel_width,int& pixel_height)
+
+                                                }
+                                                break;
+                                            case "vec<CefString>":
+                                                //eg. void GetArgv(std::vector<CefString>& argv)
+                                                //eg. bool GetDictionarySuggestions(std::vector<CefString>& suggestions)
+                                                //eg. void SetSupportedSchemes(const std::vector<CefString>& schemes,CefRefPtr<CefCompletionCallback> callback)
+
+                                                break;
+                                            case "vec<int64>":
+                                                {
+                                                    //eg. void GetFrameIdentifiers(std::vector<int64>& identifiers)
+                                                }
+                                                break;
+                                            case "vec<CefCompositionUnderline>":
+                                                {
+
+                                                }
+                                                break;
+                                            //reference of simple type
+                                            case "ElementVector":
+                                                {
+                                                    //eg. {bool GetColor(int command_id,cef_menu_color_type_t color_type,cef_color_t& color)}
+                                                }
+                                                break;
+                                            case "CefRefPtr<CefV8Exception>":
+                                                {
+
+                                                }
+                                                break;
+                                            case "HeaderMap":
+                                            case "CefRange":
+                                            case "CefSize":
+                                            case "CefV8ValueList": //eg. CefRefPtr<CefV8Value> ExecuteFunction(CefRefPtr<CefV8Value> object,const CefV8ValueList& arguments)
+                                            case "IssuerChainBinaryList": //eg {void GetDEREncodedIssuerChain(IssuerChainBinaryList& chain)}
+                                            case "PageRangeList":
+                                            case "KeyList"://eg. {bool GetKeys(KeyList& keys)}
+                                            case "CefRect":
+                                            case "CefMouseEvent":
+                                            case "CefPdfPrintSettings":
+                                            case "SwitchMap":
+                                            case "ArgumentList":
+                                            case "CefWindowInfo":
+                                            case "CefCookie":
+                                            case "CefBrowserSettings":
+                                            case "CefPoint":
+                                            case "CefKeyEvent":
+                                            case "AttributeMap":
+                                                {
+                                                    //eg. void ImeSetComposition(const CefString& text,const std::vector<CefCompositionUnderline>& underlines,const CefRange& replacement_range,const CefRange& selection_range)
+                                                    //eg. void SendMouseWheelEvent(const CefMouseEvent& event,int deltaX,int deltaY)
+                                                    //eg. void PrintToPDF(const CefString& path,const CefPdfPrintSettings& settings,CefRefPtr<CefPdfPrintCallback> callback)
+                                                    //eg. void GetSwitches(SwitchMap& switches)
+                                                    //eg. void GetArguments(ArgumentList& arguments)
+                                                    //eg. bool SetCookie(const CefString& url,const CefCookie& cookie,CefRefPtr<CefSetCookieCallback> callback)
+                                                }
+                                                break;
+                                            case "CefString":
+                                                //reference of cef string
+                                                break;
+                                        }
+                                    }
+                                    break;
+                            }
+                        }
+                        break;
+                }
+
+
+            }
+            //---------------------------
             StringBuilder arglistBuilder = new StringBuilder();
             for (int i = 0; i < parCount; ++i)
             {
@@ -520,6 +672,9 @@ namespace BridgeBuilder
                                 {
                                     default:
                                         break;
+                                    case PrimitiveTypeKind.size_t: //uint32
+                                        arglistBuilder.Append(argName + "->" + bridge.CefCppSlotName); //review here
+                                        break;
                                     case PrimitiveTypeKind.Bool:
                                         arglistBuilder.Append(argName + "->" + bridge.CefCppSlotName);
                                         arglistBuilder.Append(" != 0");
@@ -544,11 +699,7 @@ namespace BridgeBuilder
                 }
 
             }
-            //----
-            stbuilder.AppendLine();
-            stbuilder.AppendLine("// gen! " + met.ToString());
-            stbuilder.AppendLine();
-            //----
+
             string instThis = "me";
             if (ret.IsVoid)
             {
@@ -595,27 +746,29 @@ namespace BridgeBuilder
                                                 {
 
                                                 }
-                                                //find what type that implement wrap/unwrap
-                                                CodeTypeDeclaration implBy = txPlan.ImplTypeDecl;
-
-                                                //c-to-cpp => from 'raw' pointer to 'smart' pointer
-                                                //cpp-to-c => from 'smart' pointer to 'raw' pointer
-
-                                                if (implBy.Name.Contains("CToCpp"))
-                                                {
-                                                    //so if you want to send this to client lib
-                                                    //you need to GET raw pointer , so =>
-                                                    stbuilder.Append("MyCefSetVoidPtr(ret," + implBy.Name + "::Unwrap" + "(ret_result));\r\n");
-                                                }
-                                                else if (implBy.Name.Contains("CppToC"))
-                                                {
-                                                    stbuilder.Append("MyCefSetVoidPtr(ret," + implBy.Name + "::Wrap" + "(ret_result));\r\n");
-                                                }
                                                 else
                                                 {
+                                                    //find what type that implement wrap/unwrap
+                                                    CodeTypeDeclaration implBy = txPlan.ImplTypeDecl;
 
+                                                    //c-to-cpp => from 'raw' pointer to 'smart' pointer
+                                                    //cpp-to-c => from 'smart' pointer to 'raw' pointer
+
+                                                    if (implBy.Name.Contains("CToCpp"))
+                                                    {
+                                                        //so if you want to send this to client lib
+                                                        //you need to GET raw pointer , so =>
+                                                        stbuilder.Append("MyCefSetVoidPtr(ret," + implBy.Name + "::Unwrap" + "(ret_result));\r\n");
+                                                    }
+                                                    else if (implBy.Name.Contains("CppToC"))
+                                                    {
+                                                        stbuilder.Append("MyCefSetVoidPtr(ret," + implBy.Name + "::Wrap" + "(ret_result));\r\n");
+                                                    }
+                                                    else
+                                                    {
+
+                                                    }
                                                 }
-
                                             }
                                             else
                                             {
