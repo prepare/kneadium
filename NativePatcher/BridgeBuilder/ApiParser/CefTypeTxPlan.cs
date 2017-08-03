@@ -366,130 +366,194 @@ namespace BridgeBuilder
             totalTypeMethod.AppendLine("}");
         }
 
+        void PrepareCppReturnToCs(MethodParameterTxInfo ret, string retName, string autoRetResultName)
+        {
+            if (ret.IsVoid)
+            {
+                ret.ArgExtractCode = "";
 
-        //static void GenGetCefSmartPtr(StringBuilder arglistBuilder, string argName, TypeBridgeInfo bridge, ReferenceOrPointerTypeSymbol refOrPtr)
-        //{
-        //    switch (refOrPtr.Kind)
-        //    {
-        //        default:
+            }
+            else
+            {
+                //check if we need some clean up code after return to client  
+                switch (ret.TypeSymbol.TypeSymbolKind)
+                {
+                    default:
+                        break;
+                    case TypeSymbolKind.ReferenceOrPointer:
+                        {
+                            ReferenceOrPointerTypeSymbol refOrPtr = (ReferenceOrPointerTypeSymbol)ret.TypeSymbol;
+                            switch (refOrPtr.Kind)
+                            {
+                                default:
+                                    {
 
-        //            break;
-        //        case ContainerTypeKind.ByRef:
-        //            {
-        //                //by ref or what 
-        //                //cast data from ptr
-        //                string elemTypeName = refOrPtr.ElementType.ToString();
-        //                switch (elemTypeName)
-        //                {
-        //                    default:
-        //                        {
-        //                            arglistBuilder.Append("(" + elemTypeName + "*)");
-        //                            arglistBuilder.Append(argName);
-        //                        }
-        //                        break;
-        //                    case "vec<CefString>":
-        //                    case "vec<int64>":
-        //                        {
+                                    }
+                                    break;
+                                case ContainerTypeKind.ByRef:
+                                    break;
+                                case ContainerTypeKind.CefRefPtr:
+                                    //return CefRefPtr => this need unwrap method for raw pointer before send this to client
+                                    {
+                                        TypeSymbol elemType = refOrPtr.ElementType;
+                                        //what type that implement this elem
+                                        if (elemType.TypeSymbolKind == TypeSymbolKind.Simple)
+                                        {
+                                            SimpleTypeSymbol simpleElem = (SimpleTypeSymbol)elemType;
+                                            if (simpleElem.PrimitiveTypeKind == PrimitiveTypeKind.NotPrimitiveType)
+                                            {
+                                                CefTypeTxPlan txPlan = simpleElem.CefTxPlan;
+                                                if (txPlan == null)
+                                                {
 
-        //                        }
-        //                        break;
-        //                    case "CefPdfPrintSettings":
-        //                        break;
-        //                    case "CefString":
-        //                        {
-        //                            arglistBuilder.Append("GetStringHolder(" + argName + ")->value");
-        //                        }
-        //                        break;
-        //                }
-        //            }
-        //            break;
-        //        case ContainerTypeKind.CefRefPtr:
-        //            {
-        //                TypeBridgeInfo bridgeInfo = refOrPtr.BridgeInfo;
-        //                TypeSymbol elemtType = refOrPtr.ElementType;
-        //                if (elemtType is SimpleTypeSymbol)
-        //                {
-        //                    CefTypeTxPlan txplan = ((SimpleTypeSymbol)elemtType).CefTxPlan;
-        //                    if (txplan == null)
-        //                    {
-        //                        if (elemtType.ToString() == "CefBaseRefCounted")
-        //                        {
+                                                }
+                                                else
+                                                {
+                                                    //find what type that implement wrap/unwrap
+                                                    CodeTypeDeclaration implBy = txPlan.ImplTypeDecl;
 
-        //                        }
-        //                        else
-        //                        {
+                                                    //c-to-cpp => from 'raw' pointer to 'smart' pointer
+                                                    //cpp-to-c => from 'smart' pointer to 'raw' pointer
 
-        //                        }
-        //                    }
-        //                    else
-        //                    {
-        //                        CodeTypeDeclaration implTypeDecl = txplan.ImplTypeDecl;
-        //                        ImplWrapDirection implWrapDirection = ImplWrapDirection.None;
-        //                        if (implTypeDecl.Name.Contains("CToCpp"))
-        //                        {
-        //                            implWrapDirection = ImplWrapDirection.CToCpp;
-        //                            string met = GetSmartPointerMet(implWrapDirection);
-        //                            string slotName = bridge.CefCppSlotName.ToString();
+                                                    if (implBy.Name.Contains("CToCpp"))
+                                                    {
+                                                        //so if you want to send this to client lib
+                                                        //you need to GET raw pointer , so =>
 
+                                                        ret.ArgExtractCode = "MyCefSetVoidPtr(" + retName + "," +
+                                                            implBy.Name + "::Unwrap" + "(" + autoRetResultName + "));";
 
-        //                            arglistBuilder.Append(implTypeDecl.Name + "::" + met + "(" + "(" + txplan.UnderlyingCType + "*)" + (argName + "->" + slotName) + ")");
-        //                        }
-        //                        else if (implTypeDecl.Name.Contains("CppToC"))
-        //                        {
-        //                            implWrapDirection = ImplWrapDirection.CppToC;
-        //                            string met = GetSmartPointerMet(implWrapDirection);
-        //                            arglistBuilder.Append(implTypeDecl.Name + "::" + met + "(" + argName + ")");
-        //                        }
-        //                        else
-        //                        {
-        //                            implWrapDirection = ImplWrapDirection.None;
-        //                            string met = GetSmartPointerMet(implWrapDirection);
-        //                            arglistBuilder.Append(implTypeDecl.Name + "::" + met + "(" + argName + ")");
-        //                        }
-        //                    }
-        //                }
-        //                else
-        //                {
+                                                    }
+                                                    else if (implBy.Name.Contains("CppToC"))
+                                                    {
+                                                        ret.ArgExtractCode = "MyCefSetVoidPtr(" + retName + "," +
+                                                            implBy.Name + "::Wrap" + "(" + autoRetResultName + "));";
+                                                    }
+                                                    else
+                                                    {
 
-        //                }
-        //            }
-        //            break;
-        //        case ContainerTypeKind.Pointer:
-        //            {
-        //                string elemTypeName = refOrPtr.ElementType.ToString();
-        //                switch (elemTypeName)
-        //                {
-        //                    default:
-        //                        break;
-        //                    case "char":
-        //                        {
-        //                            //char*
-        //                        }
-        //                        break;
-        //                    case "void": //void*
-        //                        {
-        //                            string slotName = bridge.CefCppSlotName.ToString();
-        //                            arglistBuilder.Append("(" + elemTypeName + "*)");
-        //                            arglistBuilder.Append(argName + "->" + slotName);
-        //                        }
-        //                        break;
-        //                }
+                                                    }
+                                                }
+                                            }
+                                            else
+                                            {
 
-        //            }
-        //            break;
-        //        case ContainerTypeKind.scoped_ptr:
+                                            }
+                                        }
+                                        else
+                                        {
+                                            ret.ArgExtractCode = "MyCefSetVoidPtr(" + retName + "," + autoRetResultName + ");";
+                                        }
+                                    }
+                                    break;
+                                case ContainerTypeKind.Pointer:
+                                    {
+                                        if (refOrPtr.ElementType.BridgeInfo.WellKnownTypeName == WellKnownTypeName.Void)
+                                        {
+                                            //void*
+                                            ret.ArgExtractCode = "MyCefSetVoidPtr(" + retName + "," + autoRetResultName + ");";
 
-        //            break;
-        //    }
-        //}
+                                        }
+                                        else
+                                        {
 
+                                        }
+
+                                    }
+                                    break;
+                                case ContainerTypeKind.scoped_ptr:
+                                    break;
+                            }
+                        }
+                        break;
+                    case TypeSymbolKind.Simple:
+                        {
+                            SimpleTypeSymbol simpleType = (SimpleTypeSymbol)ret.TypeSymbol;
+                            switch (simpleType.PrimitiveTypeKind)
+                            {
+                                default:
+                                    break;
+                                case PrimitiveTypeKind.NotPrimitiveType:
+                                    {
+                                        SimpleTypeSymbol ss = (SimpleTypeSymbol)simpleType;
+                                        if (ss.IsEnum)
+                                        {
+                                            //enum class 
+                                            ret.ArgExtractCode = "MyCefSetVoidPtr(" + retName + ",(int32_t)" + autoRetResultName + ");";
+                                        }
+                                        else
+                                        {
+                                            switch (ss.Name)
+                                            {
+                                                default:
+                                                    {
+
+                                                    }
+                                                    break;
+                                                case "CefTime":
+                                                case "CefRect":
+                                                case "CefPoint":
+                                                    {
+                                                        //original code return the "value" type
+                                                        //we have 2 choices
+                                                        //1. copy-by-value
+                                                        //2. copy-by-reference
+
+                                                        //---test with copy by reference
+                                                        //
+
+                                                        ret.ArgExtractCode = ss.Name + "* tmp_d1= new " + ss.Name + "();\r\n" +
+                                                            "tmp_d1 = ret_result;\r\n" +
+                                                            "MyCefSetVoidPtr(" + retName + ",temp_d1);\r\n";
+
+                                                    }
+                                                    break;
+                                            }
+                                        }
+
+                                    }
+                                    break;
+                                case PrimitiveTypeKind.CefString:
+                                    ret.ArgExtractCode = "SetCefStringToJsValue(" + retName + ",(int32_t)" + autoRetResultName + ");";
+                                    break;
+                                case PrimitiveTypeKind.NaitveInt:
+                                    ret.ArgExtractCode = "MyCefSetInt64(" + retName + "," + autoRetResultName + ");";
+                                    break;
+                                case PrimitiveTypeKind.size_t:
+                                    ret.ArgExtractCode = "MyCefSetInt32(" + retName + ",(int32_t)" + autoRetResultName + ");";
+                                    break;
+                                case PrimitiveTypeKind.Int64:
+                                    ret.ArgExtractCode = "MyCefSetInt64(" + retName + "," + autoRetResultName + ");";
+                                    break;
+                                case PrimitiveTypeKind.UInt64:
+                                    ret.ArgExtractCode = "MyCefSetUInt64(" + retName + "," + autoRetResultName + ");";
+                                    break;
+                                case PrimitiveTypeKind.Double:
+                                    ret.ArgExtractCode = "MyCefSetDouble(" + retName + "," + autoRetResultName + ");";
+                                    break;
+                                case PrimitiveTypeKind.Float:
+                                    ret.ArgExtractCode = "MyCefSetFloat(" + retName + "," + autoRetResultName + ");";
+                                    break;
+                                case PrimitiveTypeKind.Bool:
+                                    ret.ArgExtractCode = "MyCefSetBool(" + retName + "," + autoRetResultName + ");";
+                                    break;
+                                case PrimitiveTypeKind.UInt32:
+                                    ret.ArgExtractCode = "MyCefSetUint32(" + retName + "," + autoRetResultName + ");";
+                                    break;
+                                case PrimitiveTypeKind.Int32:
+                                    ret.ArgExtractCode = "MyCefSetInt32(" + retName + "," + autoRetResultName + ");";
+                                    break;
+                            }
+                        }
+                        break;
+                }
+            }
+        }
         void PrepareCppMetArg(MethodParameterTxInfo par, string argName)
         {
 
             TypeSymbol typeSymbol = par.TypeSymbol;
             TypeBridgeInfo bridge = typeSymbol.BridgeInfo;
-
-
             switch (typeSymbol.TypeSymbolKind)
             {
                 default:
@@ -502,33 +566,32 @@ namespace BridgeBuilder
                         {
                             //treated as int32
                             //arglistBuilder.Append(argName + "->" + bridge.CefCppSlotName);
+
                         }
                         else
                         {
-                            //switch (simpleType.PrimitiveTypeKind)
-                            //{
-                            //    default:
-                            //        break;
-                            //    case PrimitiveTypeKind.size_t: //uint32
-                            //        arglistBuilder.Append(argName + "->" + bridge.CefCppSlotName); //review here
-                            //        break;
-                            //    case PrimitiveTypeKind.Bool:
-                            //        arglistBuilder.Append(argName + "->" + bridge.CefCppSlotName);
-                            //        arglistBuilder.Append(" != 0");
-                            //        break;
-                            //    case PrimitiveTypeKind.NotPrimitiveType:
-                            //        arglistBuilder.Append("(" + simpleType.ToString() + "*)");
-                            //        arglistBuilder.Append(argName + "->" + bridge.CefCppSlotName);
-                            //        break;
-                            //    case PrimitiveTypeKind.NaitveInt:
-                            //    case PrimitiveTypeKind.Int32:
-                            //    case PrimitiveTypeKind.Int64:
-                            //    case PrimitiveTypeKind.UInt32:
-                            //    case PrimitiveTypeKind.Float:
-                            //    case PrimitiveTypeKind.Double:
-                            //        arglistBuilder.Append(argName + "->" + bridge.CefCppSlotName);
-                            //        break;
-                            //}
+                            switch (simpleType.PrimitiveTypeKind)
+                            {
+                                default:
+                                    break;
+                                case PrimitiveTypeKind.size_t: //uint32                                     
+                                    par.ArgExtractCode = argName + "->" + bridge.CefCppSlotName;//review here
+                                    break;
+                                case PrimitiveTypeKind.Bool:
+                                    par.ArgExtractCode = argName + "->" + bridge.CefCppSlotName + " !=0 ";//review here
+                                    break;
+                                case PrimitiveTypeKind.NotPrimitiveType:
+                                    par.ArgExtractCode = "(" + simpleType.ToString() + "*)" + argName + "->" + bridge.CefCppSlotName;
+                                    break;
+                                case PrimitiveTypeKind.NaitveInt:
+                                case PrimitiveTypeKind.Int32:
+                                case PrimitiveTypeKind.Int64:
+                                case PrimitiveTypeKind.UInt32:
+                                case PrimitiveTypeKind.Float:
+                                case PrimitiveTypeKind.Double:
+                                    par.ArgExtractCode = argName + "->" + bridge.CefCppSlotName;
+                                    break;
+                            }
                         }
                     }
                     break;
@@ -578,21 +641,21 @@ namespace BridgeBuilder
                                                 implWrapDirection = ImplWrapDirection.CToCpp;
                                                 string met = GetSmartPointerMet(implWrapDirection);
                                                 string slotName = bridge.CefCppSlotName.ToString();
+                                                par.ArgExtractCode = implTypeDecl.Name + "::" + met + "(" + "(" + txplan.UnderlyingCType + "*)" + (argName + "->" + slotName) + ")";
 
-
-                                                //arglistBuilder.Append(implTypeDecl.Name + "::" + met + "(" + "(" + txplan.UnderlyingCType + "*)" + (argName + "->" + slotName) + ")");
                                             }
                                             else if (implTypeDecl.Name.Contains("CppToC"))
                                             {
                                                 implWrapDirection = ImplWrapDirection.CppToC;
                                                 string met = GetSmartPointerMet(implWrapDirection);
-                                                //arglistBuilder.Append(implTypeDecl.Name + "::" + met + "(" + argName + ")");
+                                                par.ArgExtractCode = implTypeDecl.Name + "::" + met + "(" + argName + ")";
                                             }
                                             else
                                             {
                                                 implWrapDirection = ImplWrapDirection.None;
                                                 string met = GetSmartPointerMet(implWrapDirection);
-                                                //arglistBuilder.Append(implTypeDecl.Name + "::" + met + "(" + argName + ")");
+                                                par.ArgExtractCode = implTypeDecl.Name + "::" + met + "(" + argName + ")";
+
                                             }
                                         }
                                     }
@@ -600,36 +663,10 @@ namespace BridgeBuilder
                                     {
 
                                     }
-                                    // GenGetCefSmartPtr(arglistBuilder, argName, bridge, (ReferenceOrPointerTypeSymbol)typeSymbol);
                                 }
                                 break;
                             case ContainerTypeKind.ByRef:
                                 {
-
-                                    //string elemTypeName = refOrPtr.ElementType.ToString();
-                                    //switch (elemTypeName)
-                                    //{
-                                    //    default:
-                                    //        {
-                                    //            arglistBuilder.Append("(" + elemTypeName + "*)");
-                                    //            arglistBuilder.Append(argName);
-                                    //        }
-                                    //        break;
-                                    //    case "vec<CefString>":
-                                    //    case "vec<int64>":
-                                    //        {
-
-                                    //        }
-                                    //        break;
-                                    //    case "CefPdfPrintSettings":
-                                    //        break;
-                                    //    case "CefString":
-                                    //        {
-                                    //            arglistBuilder.Append("GetStringHolder(" + argName + ")->value");
-                                    //        }
-                                    //        break;
-                                    //}
-
                                     string elemTypeName = refOrPtr.ElementType.ToString();
                                     switch (elemTypeName)
                                     {
@@ -730,7 +767,12 @@ namespace BridgeBuilder
                                             }
                                             break;
                                         case "CefString":
-                                            //reference of cef string
+                                            {
+                                                //reference of cef string
+                                                //get CefString from string holder?
+
+                                                par.ArgExtractCode = "GetStringHolder(" + argName + ")->value"; //CefString                                                 
+                                            }
                                             break;
                                     }
                                 }
@@ -768,6 +810,7 @@ namespace BridgeBuilder
                 //get pars from parameter .
                 PrepareCppMetArg(pars[i], "v" + (i + 1));
             }
+            PrepareCppReturnToCs(ret, "ret", "auto_result");
 
             StringBuilder arglistBuilder = new StringBuilder();
             for (int i = 0; i < parCount; ++i)
@@ -795,174 +838,11 @@ namespace BridgeBuilder
                 stbuilder.Append(instThis + "->" + met.Name + "(");
                 stbuilder.Append(arglistBuilder.ToString());
                 stbuilder.Append(");\r\n");
-                switch (ret.TypeSymbol.TypeSymbolKind)
-                {
-                    default:
-                        break;
-                    case TypeSymbolKind.ReferenceOrPointer:
-                        {
-                            ReferenceOrPointerTypeSymbol refOrPtr = (ReferenceOrPointerTypeSymbol)ret.TypeSymbol;
-                            switch (refOrPtr.Kind)
-                            {
-                                default:
-                                    {
-
-                                    }
-                                    break;
-                                case ContainerTypeKind.ByRef:
-                                    break;
-                                case ContainerTypeKind.CefRefPtr:
-                                    //return CefRefPtr => this need unwrap method for raw pointer before send this to client
-                                    {
-                                        TypeSymbol elemType = refOrPtr.ElementType;
-                                        //what type that implement this elem
-                                        if (elemType.TypeSymbolKind == TypeSymbolKind.Simple)
-                                        {
-                                            SimpleTypeSymbol simpleElem = (SimpleTypeSymbol)elemType;
-                                            if (simpleElem.PrimitiveTypeKind == PrimitiveTypeKind.NotPrimitiveType)
-                                            {
-                                                CefTypeTxPlan txPlan = simpleElem.CefTxPlan;
-                                                if (txPlan == null)
-                                                {
-
-                                                }
-                                                else
-                                                {
-                                                    //find what type that implement wrap/unwrap
-                                                    CodeTypeDeclaration implBy = txPlan.ImplTypeDecl;
-
-                                                    //c-to-cpp => from 'raw' pointer to 'smart' pointer
-                                                    //cpp-to-c => from 'smart' pointer to 'raw' pointer
-
-                                                    if (implBy.Name.Contains("CToCpp"))
-                                                    {
-                                                        //so if you want to send this to client lib
-                                                        //you need to GET raw pointer , so =>
-                                                        stbuilder.Append("MyCefSetVoidPtr(ret," + implBy.Name + "::Unwrap" + "(ret_result));\r\n");
-                                                    }
-                                                    else if (implBy.Name.Contains("CppToC"))
-                                                    {
-                                                        stbuilder.Append("MyCefSetVoidPtr(ret," + implBy.Name + "::Wrap" + "(ret_result));\r\n");
-                                                    }
-                                                    else
-                                                    {
-
-                                                    }
-                                                }
-                                            }
-                                            else
-                                            {
-
-                                            }
-                                        }
-                                        else
-                                        {
-                                            stbuilder.Append("MyCefSetVoidPtr(ret,ret_result);\r\n");
-                                        }
-                                    }
-                                    break;
-                                case ContainerTypeKind.Pointer:
-                                    {
-                                        if (refOrPtr.ElementType.BridgeInfo.WellKnownTypeName == WellKnownTypeName.Void)
-                                        {
-                                            //void*
-                                            stbuilder.Append("MyCefSetVoidPtr(ret,ret_result);\r\n");
-
-                                        }
-                                        else
-                                        {
-
-                                        }
-
-                                    }
-                                    break;
-                                case ContainerTypeKind.scoped_ptr:
-                                    break;
-                            }
-                        }
-                        break;
-                    case TypeSymbolKind.Simple:
-                        {
-                            SimpleTypeSymbol simpleType = (SimpleTypeSymbol)ret.TypeSymbol;
-                            switch (simpleType.PrimitiveTypeKind)
-                            {
-                                default:
-                                    break;
-                                case PrimitiveTypeKind.NotPrimitiveType:
-                                    {
-                                        SimpleTypeSymbol ss = (SimpleTypeSymbol)simpleType;
-                                        if (ss.IsEnum)
-                                        {
-                                            //enum class
-                                            stbuilder.AppendLine("MyCefSetInt32(ret,(int32_t)ret_result);\r\n");
-                                        }
-                                        else
-                                        {
-                                            switch (ss.Name)
-                                            {
-                                                default:
-                                                    {
-
-                                                    }
-                                                    break;
-                                                case "CefTime":
-                                                case "CefRect":
-                                                case "CefPoint":
-                                                    {
-                                                        //original code return the "value" type
-                                                        //we have 2 choices
-                                                        //1. copy-by-value
-                                                        //2. copy-by-reference
-
-                                                        //---test with copy by reference
-                                                        //
-                                                        stbuilder.AppendLine(ss.Name + "* tmp_d1= new " + ss.Name + "();");//new on heap
-                                                        stbuilder.AppendLine("tmp_d1 = ret_result");//copy value type to free heap
-                                                        stbuilder.AppendLine("MyCefSetVoidPtr(ret,tmp_d1);\r\n");
-
-                                                    }
-                                                    break;
-                                            }
-                                        }
-
-                                    }
-                                    break;
-                                case PrimitiveTypeKind.CefString:
-                                    stbuilder.Append("SetCefStringToJsValue(ret,ret_result);\r\n");
-                                    break;
-                                case PrimitiveTypeKind.NaitveInt:
-                                    stbuilder.Append("MyCefSetInt64(ret,ret_result);\r\n");
-                                    break;
-                                case PrimitiveTypeKind.size_t:
-                                    stbuilder.Append("MyCefSetInt32(ret, (int32_t)ret_result);\r\n");
-                                    break;
-                                case PrimitiveTypeKind.Int64:
-                                    stbuilder.Append("MyCefSetInt64(ret,ret_result);\r\n");
-                                    break;
-                                case PrimitiveTypeKind.UInt64:
-                                    stbuilder.Append("MyCefSetUInt64(ret,ret_result);\r\n");
-                                    break;
-                                case PrimitiveTypeKind.Double:
-                                    stbuilder.Append("MyCefSetDouble(ret,ret_result);\r\n");
-                                    break;
-                                case PrimitiveTypeKind.Float:
-                                    stbuilder.Append("MyCefSetFloat(ret,ret_result);\r\n");
-                                    break;
-                                case PrimitiveTypeKind.Bool:
-                                    stbuilder.Append("MyCefSetBool(ret,ret_result);\r\n");
-                                    break;
-                                case PrimitiveTypeKind.UInt32:
-                                    stbuilder.Append("MyCefSetUInt32(ret,ret_result);\r\n");
-                                    break;
-                                case PrimitiveTypeKind.Int32:
-                                    stbuilder.Append("MyCefSetInt32(ret,ret_result);\r\n");
-                                    break;
-                            }
-                        }
-                        break;
-                }
             }
 
+
+            stbuilder.AppendLine(ret.ArgExtractCode);
+            //clean up
 
         }
         public override void GenerateCsCode(CodeStringBuilder stbuilder)
