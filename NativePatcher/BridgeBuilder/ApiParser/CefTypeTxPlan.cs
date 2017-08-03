@@ -188,6 +188,7 @@ namespace BridgeBuilder
         CToCpp,
     }
 
+
     /// <summary>
     /// tx plan for instance element
     /// </summary>
@@ -610,7 +611,38 @@ namespace BridgeBuilder
                             default:
                                 break;
                             case ContainerTypeKind.Pointer:
+                                {
+                                    TypeBridgeInfo bridgeInfo = refOrPtr.BridgeInfo;
+                                    TypeSymbol elemtType = refOrPtr.ElementType;
+                                    if (elemtType is SimpleTypeSymbol)
+                                    {
+                                        SimpleTypeSymbol ss = (SimpleTypeSymbol)elemtType;
+                                        string elem_typename = ss.ToString();
+                                        switch (elem_typename)
+                                        {
+                                            default:
+                                                {
 
+                                                }
+                                                break;
+                                            case "void":
+                                                {
+                                                    //void*
+                                                }
+                                                break;
+                                            case "char":
+                                                {
+                                                    //char*
+
+                                                }
+                                                break;
+                                        }
+                                    }
+                                    else
+                                    {
+
+                                    }
+                                }
                                 break;
                             case ContainerTypeKind.CefRefPtr:
                                 {
@@ -667,111 +699,146 @@ namespace BridgeBuilder
                                 break;
                             case ContainerTypeKind.ByRef:
                                 {
-                                    string elemTypeName = refOrPtr.ElementType.ToString();
-                                    switch (elemTypeName)
+                                    TypeSymbol elemType = refOrPtr.ElementType;
+                                    switch (elemType.TypeSymbolKind)
                                     {
                                         default:
-                                            {
-                                                //eg. {bool GetDataResource(int resource_id,void*& data,size_t& data_size)}
-                                            }
                                             break;
-                                        case "CefRefPtr<CefV8Value>":
-                                            {
-                                                //eg. bool Eval(const CefString& code,const CefString& script_url,int start_line,CefRefPtr<CefV8Value>& retval,CefRefPtr<CefV8Exception>& exception)
-                                            }
-                                            break;
-                                        case "size_t":
-                                            {
-                                                //bool GetDataResource(int resource_id, void*&data,size_t & data_size)
-                                                //bool GetDataResourceForScale(int resource_id,ScaleFactor scale_factor,void*& data,size_t& data_size)
-                                            }
-                                            break;
-                                        case "void*":
-                                            {
-                                                //eg. bool GetDataResource(int resource_id,void*& data,size_t& data_size)
-                                            }
-                                            break;
-                                        case "bool":
-                                            {
-                                                //eg. bool GetAccelerator(int command_id,int& key_code,bool& shift_pressed,bool& ctrl_pressed,bool& alt_pressed)
-                                            }
-                                            break;
-                                        case "cef_color_t":
-                                            {
-                                                //eg. bool GetColor(int command_id,cef_menu_color_type_t color_type,cef_color_t& color)
-                                            }
-                                            break;
-                                        case "int":
-                                            {
-                                                //eg .bool GetRepresentationInfo(float scale_factor,float& actual_scale_factor,int& pixel_width,int& pixel_height)
-                                            }
-                                            break;
-                                        case "float":
-                                            {
-                                                //eg. bool GetRepresentationInfo(float scale_factor,float& actual_scale_factor,int& pixel_width,int& pixel_height)
-
-                                            }
-                                            break;
-                                        case "vec<CefString>":
-                                            //eg. void GetArgv(std::vector<CefString>& argv)
-                                            //eg. bool GetDictionarySuggestions(std::vector<CefString>& suggestions)
-                                            //eg. void SetSupportedSchemes(const std::vector<CefString>& schemes,CefRefPtr<CefCompletionCallback> callback)
-
-                                            break;
-                                        case "vec<int64>":
-                                            {
-                                                //eg. void GetFrameIdentifiers(std::vector<int64>& identifiers)
-                                            }
-                                            break;
-                                        case "vec<CefCompositionUnderline>":
+                                        case TypeSymbolKind.Simple:
                                             {
 
+                                                string elem_typename = refOrPtr.ElementType.ToString();
+                                                switch (elem_typename)
+                                                {
+                                                    default:
+                                                        break;
+                                                    case "bool"://bool&
+                                                        {
+                                                            //eg. bool GetAccelerator(int command_id,int& key_code,bool& shift_pressed,bool& ctrl_pressed,bool& alt_pressed)
+                                                        }
+                                                        break;
+                                                    case "size_t": //size_t&
+                                                                   //bool GetDataResource(int resource_id, void*&data,size_t & data_size)
+                                                                   //bool GetDataResourceForScale(int resource_id,ScaleFactor scale_factor,void*& data,size_t& data_size)
+                                                    case "float": //float&
+                                                        {
+                                                            //eg. bool GetRepresentationInfo(float scale_factor,float& actual_scale_factor,int& pixel_width,int& pixel_height)
+                                                        }
+                                                        break;
+                                                    case "int":
+                                                        {
+                                                            //eg .bool GetRepresentationInfo(float scale_factor,float& actual_scale_factor,int& pixel_width,int& pixel_height)
+                                                        }
+                                                        break;
+                                                    case "CefWindowInfo":
+                                                    case "CefPoint":
+                                                    case "CefSize":
+                                                    case "CefRect":
+                                                    case "CefRange":
+                                                        break;
+                                                    case "CefString":
+                                                        {
+                                                            //known type names
+                                                            par.ArgExtractCode = "GetStringHolder(" + argName + ")->value"; //CefString          
+                                                        }
+                                                        break;
+                                                }
                                             }
                                             break;
-                                        //reference of simple type
-                                        case "ElementVector":
+                                        case TypeSymbolKind.ReferenceOrPointer:
                                             {
-                                                //eg. {bool GetColor(int command_id,cef_menu_color_type_t color_type,cef_color_t& color)}
+                                                string elem_typename = refOrPtr.ElementType.ToString();
+                                                switch (elem_typename)
+                                                {
+                                                    default:
+
+                                                        break;
+                                                    case "void*":
+                                                        {
+                                                            //eg. bool GetDataResource(int resource_id,void*& data,size_t& data_size)
+                                                        }
+                                                        break;
+                                                    case "CefRefPtr<CefV8Value>":
+                                                        //eg. bool Eval(const CefString& code,const CefString& script_url,int start_line,CefRefPtr<CefV8Value>& retval,CefRefPtr<CefV8Exception>& exception)
+                                                        break;
+                                                    case "CefRefPtr<CefV8Exception>":
+                                                        //eg. bool Eval(const CefString& code,const CefString& script_url,int start_line,CefRefPtr<CefV8Value>& retval,CefRefPtr<CefV8Exception>& exception)
+                                                        break;
+
+                                                }
                                             }
                                             break;
-                                        case "CefRefPtr<CefV8Exception>":
-                                            {
-                                                //eg. bool Eval(const CefString& code,const CefString& script_url,int start_line,CefRefPtr<CefV8Value>& retval,CefRefPtr<CefV8Exception>& exception)
-                                            }
+                                        case TypeSymbolKind.Template:
                                             break;
-                                        case "HeaderMap":
-                                        case "CefRange":
-                                        case "CefSize":
-                                        case "CefV8ValueList": //eg. CefRefPtr<CefV8Value> ExecuteFunction(CefRefPtr<CefV8Value> object,const CefV8ValueList& arguments)
-                                        case "IssuerChainBinaryList": //eg {void GetDEREncodedIssuerChain(IssuerChainBinaryList& chain)}
-                                        case "PageRangeList":
-                                        case "KeyList"://eg. {bool GetKeys(KeyList& keys)}
-                                        case "CefRect":
-                                        case "CefMouseEvent":
-                                        case "CefPdfPrintSettings":
-                                        case "SwitchMap":
-                                        case "ArgumentList":
-                                        case "CefWindowInfo":
-                                        case "CefCookie":
-                                        case "CefBrowserSettings":
-                                        case "CefPoint":
-                                        case "CefKeyEvent":
-                                        case "AttributeMap":
+                                        case TypeSymbolKind.TypeDef:
                                             {
                                                 //eg. void ImeSetComposition(const CefString& text,const std::vector<CefCompositionUnderline>& underlines,const CefRange& replacement_range,const CefRange& selection_range)
-                                                //eg. void SendMouseWheelEvent(const CefMouseEvent& event,int deltaX,int deltaY)
-                                                //eg. void PrintToPDF(const CefString& path,const CefPdfPrintSettings& settings,CefRefPtr<CefPdfPrintCallback> callback)
-                                                //eg. void GetSwitches(SwitchMap& switches)
-                                                //eg. void GetArguments(ArgumentList& arguments)
-                                                //eg. bool SetCookie(const CefString& url,const CefCookie& cookie,CefRefPtr<CefSetCookieCallback> callback)
+                                                 
+                                                //typedef 
+                                                string elem_typename = refOrPtr.ElementType.ToString();
+                                                switch (elem_typename)
+                                                {
+                                                    default:
+                                                        break;
+                                                    case "CefBrowserSettings":
+                                                    case "CefPdfPrintSettings":
+                                                    //eg. void PrintToPDF(const CefString& path,const CefPdfPrintSettings& settings,CefRefPtr<CefPdfPrintCallback> callback)
+                                                    case "CefKeyEvent":
+                                                    case "CefMouseEvent":
+                                                    //eg. void SendMouseWheelEvent(const CefMouseEvent& event,int deltaX,int deltaY)
+                                                    case "CefCookie":
+                                                    //eg. bool SetCookie(const CefString& url,const CefCookie& cookie,CefRefPtr<CefSetCookieCallback> callback)
+                                                    //
+
+                                                    case "AttributeMap":
+                                                    case "ElementVector":
+                                                    //eg. {bool GetColor(int command_id,cef_menu_color_type_t color_type,cef_color_t& color)}
+                                                    case "HeaderMap":
+                                                    case "SwitchMap":
+                                                    //eg. void GetSwitches(SwitchMap& switches)
+                                                    case "cef_color_t":
+                                                    //eg. bool GetColor(int command_id,cef_menu_color_type_t color_type,cef_color_t& color)
+                                                    case "ArgumentList":
+                                                    //eg. void GetArguments(ArgumentList& arguments)
+                                                    case "CefV8ValueList":
+                                                    //eg. CefRefPtr<CefV8Value> ExecuteFunction(CefRefPtr<CefV8Value> object,const CefV8ValueList& arguments)
+                                                    case "IssuerChainBinaryList":
+                                                    //eg {void GetDEREncodedIssuerChain(IssuerChainBinaryList& chain)}
+                                                    case "PageRangeList":
+                                                    case "KeyList":     //eg. {bool GetKeys(KeyList& keys)}                                                
+                                                        {
+
+                                                        }
+                                                        break;
+                                                }
                                             }
                                             break;
-                                        case "CefString":
+                                        case TypeSymbolKind.Vec:
                                             {
-                                                //reference of cef string
-                                                //get CefString from string holder?
+                                                string elem_typename = refOrPtr.ElementType.ToString();
+                                                switch (elem_typename)
+                                                {
+                                                    default:
+                                                        break;
+                                                    case "vec<CefString>":
+                                                        {
+                                                            //eg. void GetArgv(std::vector<CefString>& argv)
+                                                            //eg. bool GetDictionarySuggestions(std::vector<CefString>& suggestions)
+                                                            //eg. void SetSupportedSchemes(const std::vector<CefString>& schemes,CefRefPtr<CefCompletionCallback> callback)  
 
-                                                par.ArgExtractCode = "GetStringHolder(" + argName + ")->value"; //CefString                                                 
+                                                        }
+                                                        break;
+                                                    case "vec<int64>":
+                                                        {
+                                                            //eg. void GetFrameIdentifiers(std::vector<int64>& identifiers)
+                                                        }
+                                                        break;
+                                                    case "vec<CefCompositionUnderline>":
+                                                        {
+
+                                                        }
+                                                        break;
+                                                }
                                             }
                                             break;
                                     }
