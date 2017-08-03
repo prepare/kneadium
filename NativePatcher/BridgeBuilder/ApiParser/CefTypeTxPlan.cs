@@ -565,9 +565,8 @@ namespace BridgeBuilder
                         SimpleTypeSymbol simpleType = (SimpleTypeSymbol)typeSymbol;
                         if (simpleType.IsEnum)
                         {
-                            //treated as int32
-                            //arglistBuilder.Append(argName + "->" + bridge.CefCppSlotName);
-
+                            //.net send enum as int32 
+                            par.ArgExtractCode = "(" + simpleType.ToString() + ")" + argName + "->" + bridge.CefCppSlotName;//review here
                         }
                         else
                         {
@@ -600,6 +599,30 @@ namespace BridgeBuilder
                     {
                         //eg. FileDialogMode
                         //check refer to 
+                        //eg CefProcessId
+                        CTypeDefTypeSymbol ctypedef = (CTypeDefTypeSymbol)typeSymbol;
+                        TypeSymbol referTo = ctypedef.ReferToTypeSymbol;
+                        if (referTo.TypeSymbolKind == TypeSymbolKind.Simple)
+                        {
+                            SimpleTypeSymbol ss = (SimpleTypeSymbol)referTo;
+                            if (ss.IsEnum)
+                            {
+                                par.ArgExtractCode = "(" + ctypedef.ToString() + ")" + argName + "->" + bridge.CefCppSlotName;//review here
+                            }
+                            else if (ss.PrimitiveTypeKind == PrimitiveTypeKind.NotPrimitiveType)
+                            {
+
+
+                            }
+                            else
+                            {
+                                par.ArgExtractCode = argName + "->" + bridge.CefCppSlotName;//review here
+                            }
+                        }
+                        else
+                        {
+
+                        }
 
                     }
                     break;
@@ -657,11 +680,12 @@ namespace BridgeBuilder
                                         {
                                             if (elemtType.ToString() == "CefBaseRefCounted")
                                             {
-
+                                                //bool SetUserData(CefRefPtr<CefBaseRefCounted> user_data)
+                                                //only 1
                                             }
                                             else
                                             {
-
+                                                throw new NotSupportedException();
                                             }
                                         }
                                         else
@@ -693,7 +717,8 @@ namespace BridgeBuilder
                                     }
                                     else
                                     {
-
+                                        //should not visit here
+                                        throw new NotSupportedException();
                                     }
                                 }
                                 break;
@@ -773,7 +798,7 @@ namespace BridgeBuilder
                                         case TypeSymbolKind.TypeDef:
                                             {
                                                 //eg. void ImeSetComposition(const CefString& text,const std::vector<CefCompositionUnderline>& underlines,const CefRange& replacement_range,const CefRange& selection_range)
-                                                 
+
                                                 //typedef 
                                                 string elem_typename = refOrPtr.ElementType.ToString();
                                                 switch (elem_typename)
