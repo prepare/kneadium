@@ -205,6 +205,10 @@ namespace BridgeBuilder
             return "";
         }
         public TxParameterDirection Direction { get; set; }
+        
+        internal string ArgPreExtractCode { get; set; }
+        internal string ArgExtractCode { get; set; }
+        internal string ArgPostExtractCode { get; set; }
     }
 
     enum TxParameterDirection
