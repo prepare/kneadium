@@ -196,11 +196,11 @@ namespace BridgeBuilder
         {
             switch (Kind)
             {
-
-                case ContainerTypeKind.scoped_ptr: return "scoped_ptr<" + ElementType.ToString() + ">";
-                case ContainerTypeKind.CefRefPtr: return "CefRefPtr<" + ElementType.ToString() + ">";
                 case ContainerTypeKind.Pointer: return ElementType.ToString() + "*";
                 case ContainerTypeKind.ByRef: return ElementType.ToString() + "&";
+                case ContainerTypeKind.scoped_ptr: return "scoped_ptr<" + ElementType.ToString() + ">";
+                case ContainerTypeKind.CefRefPtr: return "CefRefPtr<" + ElementType.ToString() + ">";
+                case ContainerTypeKind.CefRawPtr: return "CefRawPtr<" + ElementType.ToString() + ">";
                 default:
                     throw new NotSupportedException();
             }

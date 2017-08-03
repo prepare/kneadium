@@ -107,9 +107,9 @@ namespace BridgeBuilder
                                         arglistBuilder.AppendLine("->" + bridge.CefCppSlotName);
                                     }
                                     break;
-                                case ContainerTypeKind.CefRefPtr:
-                                    //cpp object of cef 'smart' pointer (ref-count) 
+                                case ContainerTypeKind.CefRefPtr: 
                                     {
+                                        //cpp object of cef 'smart' pointer (ref-count) 
                                         string elemTypeName = refOrPtr.ElementType.ToString();
                                         arglistBuilder.Append("(" + elemTypeName + "*)");
                                         arglistBuilder.Append("v" + (i + 1));

@@ -759,14 +759,19 @@ namespace BridgeBuilder
                                                     break;
                                             }
                                         }
-                                    }
-                                    else if (t.Name == "CefScopedSandboxInfo")
-                                    {
-                                        //no base class
-                                    }
+                                    } 
                                     else
                                     {
-
+                                        switch (t.Name)
+                                        {
+                                            default:
+                                                break;
+                                            case "CefScopedSandboxInfo":
+                                            case "CefBaseRefCounted":
+                                            case "CefBaseScoped":
+                                            case "CefRefCount":
+                                                break;
+                                        }
                                     }
                                 }
                             }

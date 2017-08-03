@@ -771,7 +771,7 @@ namespace BridgeBuilder
                 parTxInfo.Direction = TxParameterDirection.In;
                 //TODO: review Out,InOut direction 
 
-                TypeSymbol parTypeSymbol = metPar.ParameterType.ResolvedType; 
+                TypeSymbol parTypeSymbol = metPar.ParameterType.ResolvedType;
                 AddMethodParameterTypeTxInfo(parTxInfo, parTypeSymbol);
 
                 metTx.AddMethodParameterTx(parTxInfo);
@@ -1385,6 +1385,15 @@ namespace BridgeBuilder
             }
             return _cefRefPtrBridge;
         }
+        public TypeBridgeInfo GetCefRawPtrBridge()
+        {
+            if (_cefRefPtrBridge == null)
+            {
+                //create new one
+                _cefRefPtrBridge = new TypeBridgeInfo(this, WellKnownTypeName.RefPtrOf, CefCppSlotKind.JSVALUE_TYPE_WRAPPED);
+            }
+            return _cefRefPtrBridge;
+        }
         public TypeBridgeInfo GetScopePtrBridge()
         {
             if (_scopePtrBridge == null)
@@ -1710,17 +1719,21 @@ namespace BridgeBuilder
             {
                 default:
                     throw new NotSupportedException();
+              
                 case ContainerTypeKind.ByRef:
                     bridge = bridgeToElem.GetReferenceBridge();
                     break;
                 case ContainerTypeKind.Pointer:
                     bridge = bridgeToElem.GetPointerBridge();
                     break;
+                case ContainerTypeKind.scoped_ptr:
+                    bridge = bridgeToElem.GetScopePtrBridge();
+                    break;
                 case ContainerTypeKind.CefRefPtr:
                     bridge = bridgeToElem.GetCefRefPtrBridge();
                     break;
-                case ContainerTypeKind.scoped_ptr:
-                    bridge = bridgeToElem.GetScopePtrBridge();
+                case ContainerTypeKind.CefRawPtr:
+                    bridge = bridgeToElem.GetCefRefPtrBridge();
                     break;
             }
 
