@@ -1719,7 +1719,7 @@ namespace BridgeBuilder
                 case ContainerTypeKind.CefRefPtr:
                     bridge = bridgeToElem.GetCefRefPtrBridge();
                     break;
-                case ContainerTypeKind.ScopePtr:
+                case ContainerTypeKind.scoped_ptr:
                     bridge = bridgeToElem.GetScopePtrBridge();
                     break;
             }

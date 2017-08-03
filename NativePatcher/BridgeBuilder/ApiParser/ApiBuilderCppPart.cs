@@ -124,7 +124,7 @@ namespace BridgeBuilder
                                         arglistBuilder.AppendLine("->" + bridge.CefCppSlotName);
                                     }
                                     break;
-                                case ContainerTypeKind.ScopePtr:
+                                case ContainerTypeKind.scoped_ptr:
                                     break;
                             }
                         }
@@ -218,7 +218,7 @@ namespace BridgeBuilder
 
                                     }
                                     break;
-                                case ContainerTypeKind.ScopePtr:
+                                case ContainerTypeKind.scoped_ptr:
                                     break;
                             }
                         }

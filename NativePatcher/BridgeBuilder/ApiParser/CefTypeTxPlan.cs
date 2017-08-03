@@ -310,9 +310,7 @@ namespace BridgeBuilder
             if (implTypeDecl == null)
             {
                 throw new NotSupportedException();
-            }
-
-
+            } 
             totalTypeMethod.AppendLine("ret->type = JSVALUE_TYPE_EMPTY;");
             ImplWrapDirection implWrapDirection = ImplWrapDirection.None;
             if (implTypeDecl.Name.Contains("CToCpp"))
@@ -328,15 +326,9 @@ namespace BridgeBuilder
                 implWrapDirection = ImplWrapDirection.None;
             }
 
-            totalTypeMethod.AppendLine("auto me=" + implTypeDecl.Name + "::" + GetSmartPointerMet(implWrapDirection) + "(me1);");
-
-
-
+            totalTypeMethod.AppendLine("auto me=" + implTypeDecl.Name + "::" + GetSmartPointerMet(implWrapDirection) + "(me1);"); 
             //swicth table is a way that this instance'smethod is called
-            //through the bridge
-
-
-
+            //through the bridge 
 
             int j = _typeTxInfo.methods.Count;
             totalTypeMethod.AppendLine("switch(metName){");
@@ -388,9 +380,13 @@ namespace BridgeBuilder
                 {
                     arglistBuilder.Append(',');
                 }
+                //
                 MethodParameterTxInfo par = pars[i];
                 TypeSymbol typeSymbol = par.TypeSymbol;
                 TypeBridgeInfo bridge = typeSymbol.BridgeInfo;
+
+
+
 
                 //get actual data from C# data
                 //some data need wrap/unwrap
@@ -414,8 +410,7 @@ namespace BridgeBuilder
                                     }
                                     break;
                                 case ContainerTypeKind.CefRefPtr:
-                                    //cpp object of cef 'smart' pointer (ref-count) 
-                                    {
+                                    {   //cpp object of cef 'smart' pointer (ref-count) 
                                         string elemTypeName = refOrPtr.ElementType.ToString();
                                         arglistBuilder.Append("(" + elemTypeName + "*)");
                                         arglistBuilder.Append("v" + (i + 1));
@@ -430,7 +425,7 @@ namespace BridgeBuilder
                                         arglistBuilder.AppendLine("->" + bridge.CefCppSlotName);
                                     }
                                     break;
-                                case ContainerTypeKind.ScopePtr:
+                                case ContainerTypeKind.scoped_ptr:
                                     break;
                             }
                         }
@@ -571,7 +566,7 @@ namespace BridgeBuilder
 
                                     }
                                     break;
-                                case ContainerTypeKind.ScopePtr:
+                                case ContainerTypeKind.scoped_ptr:
                                     break;
                             }
                         }

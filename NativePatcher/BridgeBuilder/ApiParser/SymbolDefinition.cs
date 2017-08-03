@@ -23,10 +23,20 @@ namespace BridgeBuilder
 
     enum ContainerTypeKind
     {
-        ScopePtr,
-        CefRefPtr,
         Pointer,
         ByRef,
+
+        /// <summary>
+        /// Cpp scoped_ptr
+        /// </summary>
+        scoped_ptr,
+
+        /// <summary>
+        /// CEF 'smart pointer'
+        /// </summary>
+        CefRefPtr, //
+        CefRawPtr,
+
     }
     abstract class TypeSymbol : Symbol
     {
@@ -40,7 +50,7 @@ namespace BridgeBuilder
 #endif
         public abstract TypeSymbolKind TypeSymbolKind { get; }
         public TypeBridgeInfo BridgeInfo { get; set; }
-    } 
+    }
 
     class SimpleTypeSymbol : TypeSymbol
     {
@@ -187,8 +197,8 @@ namespace BridgeBuilder
             switch (Kind)
             {
 
-                case ContainerTypeKind.ScopePtr: return "scoped_ptr<" + ElementType.ToString() + ">";
-                case ContainerTypeKind.CefRefPtr: return "refptr<" + ElementType.ToString() + ">";
+                case ContainerTypeKind.scoped_ptr: return "scoped_ptr<" + ElementType.ToString() + ">";
+                case ContainerTypeKind.CefRefPtr: return "CefRefPtr<" + ElementType.ToString() + ">";
                 case ContainerTypeKind.Pointer: return ElementType.ToString() + "*";
                 case ContainerTypeKind.ByRef: return ElementType.ToString() + "&";
                 default:
