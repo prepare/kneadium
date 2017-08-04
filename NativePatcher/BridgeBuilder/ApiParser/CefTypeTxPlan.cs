@@ -367,7 +367,7 @@ namespace BridgeBuilder
             totalTypeMethod.AppendLine("}"); //end switch table
                                              //
 
-            totalTypeMethod.AppendLine(implTypeDecl.Name + "::" + GetRawPtrMet(implWrapDirection) + "(me1);");
+            totalTypeMethod.AppendLine(implTypeDecl.Name + "::" + GetRawPtrMet(implWrapDirection) + "(me);");
 
             totalTypeMethod.AppendLine("}");
         }
