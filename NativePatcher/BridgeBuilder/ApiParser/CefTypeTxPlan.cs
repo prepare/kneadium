@@ -10,7 +10,7 @@ namespace BridgeBuilder
         StringBuilder stbuilder = new StringBuilder();
 #if DEBUG
         static int _dbugLineCount;
-        bool _dbugEnableLineNote = true;
+        bool _dbugEnableLineNote = false;
 #endif
         public void EnterIndentLevel()
         {
@@ -42,10 +42,6 @@ namespace BridgeBuilder
             if (_dbugEnableLineNote)
             {
                 stbuilder.Append("/*" + _dbugLineCount + "*/");
-            }
-            if (_dbugLineCount >= 107)
-            {
-
             }
         }
 #endif
@@ -308,8 +304,17 @@ namespace BridgeBuilder
             _typeTxInfo = implTypeDecl.TypeTxInfo;
             _currentCodeTypeDecl = implTypeDecl;
 
+            int j = _typeTxInfo.methods.Count;
+            CodeStringBuilder const_methodNames = new CodeStringBuilder();
+            for (int i = 0; i < j; ++i)
+            {
+                MethodTxInfo metTx = _typeTxInfo.methods[i];
+                const_methodNames.AppendLine("const int " + orgDecl.Name + "_" + metTx.Name + "=" + (i + 1) + ";");
+            }
+
             CodeStringBuilder totalTypeMethod = new CodeStringBuilder();
             //1. generate method decl
+            totalTypeMethod.AppendLine(const_methodNames.ToString());
             totalTypeMethod.AppendLine("void MyCefMet_" + orgDecl.Name + "(" +
                 this.UnderlyingCType.Name + "* me1,int metName,jsvalue* ret,jsvalue* v1,jsvalue* v2,jsvalue* v3){");
             //2. generate method header
@@ -339,7 +344,7 @@ namespace BridgeBuilder
             //swicth table is a way that this instance'smethod is called
             //through the bridge 
 
-            int j = _typeTxInfo.methods.Count;
+
             totalTypeMethod.AppendLine("switch(metName){");
             totalTypeMethod.AppendLine("case MET_Release:return; //yes, just return");
 
@@ -1052,7 +1057,7 @@ namespace BridgeBuilder
                                                 //}
                                             }
                                             break;
-                                       
+
                                     }
                                 }
                                 break;
@@ -1144,12 +1149,7 @@ namespace BridgeBuilder
 
 
             stbuilder.AppendLine(ret.ArgExtractCode);
-
-
-            //clean up
-
-
-
+            //clean up 
         }
         public override void GenerateCsCode(CodeStringBuilder stbuilder)
         {
