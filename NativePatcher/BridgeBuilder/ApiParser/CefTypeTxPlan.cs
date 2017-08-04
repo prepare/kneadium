@@ -367,188 +367,267 @@ namespace BridgeBuilder
             totalTypeMethod.AppendLine("}");
         }
 
-        void PrepareCppReturnToCs(MethodParameterTxInfo ret, string retName, string autoRetResultName)
+        static string PrepareCppReturnToCs(TypeSymbol ret, string retName, string autoRetResultName)
         {
-            if (ret.IsVoid)
-            {
-                ret.ArgExtractCode = "";
 
-            }
-            else
+            //check if we need some clean up code after return to client  
+            switch (ret.TypeSymbolKind)
             {
-                //check if we need some clean up code after return to client  
-                switch (ret.TypeSymbol.TypeSymbolKind)
-                {
-                    default:
-                        break;
-                    case TypeSymbolKind.ReferenceOrPointer:
+                default:
+                    break;
+                case TypeSymbolKind.TypeDef:
+                    {
+                        CTypeDefTypeSymbol ctypedef = (CTypeDefTypeSymbol)ret;
+                        return "MyCefSetInt32(" + retName + ",(int32_t)" + autoRetResultName + ");";
+                    }
+                case TypeSymbolKind.ReferenceOrPointer:
+                    {
+                        ReferenceOrPointerTypeSymbol refOrPtr = (ReferenceOrPointerTypeSymbol)ret;
+                        switch (refOrPtr.Kind)
                         {
-                            ReferenceOrPointerTypeSymbol refOrPtr = (ReferenceOrPointerTypeSymbol)ret.TypeSymbol;
-                            switch (refOrPtr.Kind)
-                            {
-                                default:
-                                    {
+                            default:
+                                {
 
-                                    }
-                                    break;
-                                case ContainerTypeKind.ByRef:
-                                    break;
-                                case ContainerTypeKind.CefRefPtr:
-                                    //return CefRefPtr => this need unwrap method for raw pointer before send this to client
+                                }
+                                break;
+                            case ContainerTypeKind.ByRef:
+                                {
+                                    TypeSymbol elemType = refOrPtr.ElementType;
+                                    //what type that implement this elem
+                                    if (elemType.TypeSymbolKind == TypeSymbolKind.Simple)
                                     {
-                                        TypeSymbol elemType = refOrPtr.ElementType;
-                                        //what type that implement this elem
-                                        if (elemType.TypeSymbolKind == TypeSymbolKind.Simple)
+                                        SimpleTypeSymbol simpleElem = (SimpleTypeSymbol)elemType;
+                                        switch (simpleElem.PrimitiveTypeKind)
                                         {
-                                            SimpleTypeSymbol simpleElem = (SimpleTypeSymbol)elemType;
-                                            if (simpleElem.PrimitiveTypeKind == PrimitiveTypeKind.NotPrimitiveType)
-                                            {
-                                                CefTypeTxPlan txPlan = simpleElem.CefTxPlan;
-                                                if (txPlan == null)
+                                            case PrimitiveTypeKind.CefString:
+                                                return "SetCefStringToJsValue(" + retName + ",(int32_t)" + autoRetResultName + ");";
+
+                                            case PrimitiveTypeKind.NaitveInt:
+                                                return "MyCefSetInt64(" + retName + "," + autoRetResultName + ");";
+
+                                            case PrimitiveTypeKind.size_t:
+                                                return "MyCefSetInt32(" + retName + ",(int32_t)" + autoRetResultName + ");";
+
+                                            case PrimitiveTypeKind.Int64:
+                                                return "MyCefSetInt64(" + retName + "," + autoRetResultName + ");";
+
+                                            case PrimitiveTypeKind.UInt64:
+                                                return "MyCefSetUInt64(" + retName + "," + autoRetResultName + ");";
+
+                                            case PrimitiveTypeKind.Double:
+                                                return "MyCefSetDouble(" + retName + "," + autoRetResultName + ");";
+
+                                            case PrimitiveTypeKind.Float:
+                                                return "MyCefSetFloat(" + retName + "," + autoRetResultName + ");";
+
+                                            case PrimitiveTypeKind.Bool:
+                                                return "MyCefSetBool(" + retName + "," + autoRetResultName + ");";
+
+                                            case PrimitiveTypeKind.UInt32:
+                                                return "MyCefSetUint32(" + retName + "," + autoRetResultName + ");";
+
+                                            case PrimitiveTypeKind.Int32:
+                                                return "MyCefSetInt32(" + retName + "," + autoRetResultName + ");";
+                                            case PrimitiveTypeKind.NotPrimitiveType:
                                                 {
-
-                                                }
-                                                else
-                                                {
-                                                    //find what type that implement wrap/unwrap
-                                                    CodeTypeDeclaration implBy = txPlan.ImplTypeDecl;
-
-                                                    //c-to-cpp => from 'raw' pointer to 'smart' pointer
-                                                    //cpp-to-c => from 'smart' pointer to 'raw' pointer
-
-                                                    if (implBy.Name.Contains("CToCpp"))
+                                                    CefTypeTxPlan txPlan = simpleElem.CefTxPlan;
+                                                    if (txPlan == null)
                                                     {
-                                                        //so if you want to send this to client lib
-                                                        //you need to GET raw pointer , so =>
 
-                                                        ret.ArgExtractCode = "MyCefSetVoidPtr(" + retName + "," +
-                                                            implBy.Name + "::Unwrap" + "(" + autoRetResultName + "));";
-
-                                                    }
-                                                    else if (implBy.Name.Contains("CppToC"))
-                                                    {
-                                                        ret.ArgExtractCode = "MyCefSetVoidPtr(" + retName + "," +
-                                                            implBy.Name + "::Wrap" + "(" + autoRetResultName + "));";
                                                     }
                                                     else
                                                     {
+                                                        //find what type that implement wrap/unwrap
+                                                        CodeTypeDeclaration implBy = txPlan.ImplTypeDecl;
 
+                                                        //c-to-cpp => from 'raw' pointer to 'smart' pointer
+                                                        //cpp-to-c => from 'smart' pointer to 'raw' pointer
+
+                                                        if (implBy.Name.Contains("CToCpp"))
+                                                        {
+                                                            //so if you want to send this to client lib
+                                                            //you need to GET raw pointer , so =>
+
+                                                            return "MyCefSetVoidPtr(" + retName + "," +
+                                                                  implBy.Name + "::Unwrap" + "(" + autoRetResultName + "));";
+
+                                                        }
+                                                        else if (implBy.Name.Contains("CppToC"))
+                                                        {
+                                                            return "MyCefSetVoidPtr(" + retName + "," +
+                                                                implBy.Name + "::Wrap" + "(" + autoRetResultName + "));";
+                                                        }
+                                                        else
+                                                        {
+
+                                                        }
                                                     }
                                                 }
+                                                break;
+                                        }
+
+                                    }
+                                    else
+                                    {
+                                        return "MyCefSetVoidPtr(" + retName + "," + autoRetResultName + ");";
+                                    }
+                                }
+                                break;
+                            case ContainerTypeKind.CefRefPtr:
+                                //return CefRefPtr => this need unwrap method for raw pointer before send this to client
+                                {
+                                    TypeSymbol elemType = refOrPtr.ElementType;
+                                    //what type that implement this elem
+                                    if (elemType.TypeSymbolKind == TypeSymbolKind.Simple)
+                                    {
+                                        SimpleTypeSymbol simpleElem = (SimpleTypeSymbol)elemType;
+                                        if (simpleElem.PrimitiveTypeKind == PrimitiveTypeKind.NotPrimitiveType)
+                                        {
+                                            CefTypeTxPlan txPlan = simpleElem.CefTxPlan;
+                                            if (txPlan == null)
+                                            {
+                                                return "";
                                             }
                                             else
                                             {
+                                                //find what type that implement wrap/unwrap
+                                                CodeTypeDeclaration implBy = txPlan.ImplTypeDecl;
 
+                                                //c-to-cpp => from 'raw' pointer to 'smart' pointer
+                                                //cpp-to-c => from 'smart' pointer to 'raw' pointer
+
+                                                if (implBy.Name.Contains("CToCpp"))
+                                                {
+                                                    //so if you want to send this to client lib
+                                                    //you need to GET raw pointer , so =>
+
+                                                    return "MyCefSetVoidPtr(" + retName + "," +
+                                                          implBy.Name + "::Unwrap" + "(" + autoRetResultName + "));";
+
+                                                }
+                                                else if (implBy.Name.Contains("CppToC"))
+                                                {
+                                                    return "MyCefSetVoidPtr(" + retName + "," +
+                                                        implBy.Name + "::Wrap" + "(" + autoRetResultName + "));";
+                                                }
+                                                else
+                                                {
+
+                                                }
                                             }
                                         }
                                         else
                                         {
-                                            ret.ArgExtractCode = "MyCefSetVoidPtr(" + retName + "," + autoRetResultName + ");";
+
                                         }
                                     }
-                                    break;
-                                case ContainerTypeKind.Pointer:
+                                    else
                                     {
-                                        if (refOrPtr.ElementType.BridgeInfo.WellKnownTypeName == WellKnownTypeName.Void)
-                                        {
-                                            //void*
-                                            ret.ArgExtractCode = "MyCefSetVoidPtr(" + retName + "," + autoRetResultName + ");";
-
-                                        }
-                                        else
-                                        {
-
-                                        }
+                                        return "MyCefSetVoidPtr(" + retName + "," + autoRetResultName + ");";
+                                    }
+                                }
+                                break;
+                            case ContainerTypeKind.Pointer:
+                                {
+                                    if (refOrPtr.ElementType.BridgeInfo.WellKnownTypeName == WellKnownTypeName.Void)
+                                    {
+                                        //void*
+                                        return "MyCefSetVoidPtr(" + retName + "," + autoRetResultName + ");";
 
                                     }
-                                    break;
-                                case ContainerTypeKind.scoped_ptr:
-                                    break;
-                            }
+                                    else
+                                    {
+
+                                    }
+
+                                }
+                                break;
+                            case ContainerTypeKind.scoped_ptr:
+                                break;
                         }
-                        break;
-                    case TypeSymbolKind.Simple:
+                    }
+                    break;
+                case TypeSymbolKind.Simple:
+                    {
+                        SimpleTypeSymbol simpleType = (SimpleTypeSymbol)ret;
+                        switch (simpleType.PrimitiveTypeKind)
                         {
-                            SimpleTypeSymbol simpleType = (SimpleTypeSymbol)ret.TypeSymbol;
-                            switch (simpleType.PrimitiveTypeKind)
-                            {
-                                default:
-                                    break;
-                                case PrimitiveTypeKind.NotPrimitiveType:
+                            default:
+                                break;
+                            case PrimitiveTypeKind.Void:
+                                return null;
+                            case PrimitiveTypeKind.NotPrimitiveType:
+                                {
+                                    SimpleTypeSymbol ss = (SimpleTypeSymbol)simpleType;
+                                    if (ss.IsEnum)
                                     {
-                                        SimpleTypeSymbol ss = (SimpleTypeSymbol)simpleType;
-                                        if (ss.IsEnum)
-                                        {
-                                            //enum class 
-                                            ret.ArgExtractCode = "MyCefSetVoidPtr(" + retName + ",(int32_t)" + autoRetResultName + ");";
-                                        }
-                                        else
-                                        {
-                                            switch (ss.Name)
-                                            {
-                                                default:
-                                                    {
-
-                                                    }
-                                                    break;
-                                                case "CefTime":
-                                                case "CefRect":
-                                                case "CefPoint":
-                                                    {
-                                                        //original code return the "value" type
-                                                        //we have 2 choices
-                                                        //1. copy-by-value
-                                                        //2. copy-by-reference
-
-                                                        //---test with copy by reference
-                                                        //
-
-                                                        ret.ArgExtractCode = ss.Name + "* tmp_d1= new " + ss.Name + "();\r\n" +
-                                                            "tmp_d1 = ret_result;\r\n" +
-                                                            "MyCefSetVoidPtr(" + retName + ",temp_d1);\r\n";
-
-                                                    }
-                                                    break;
-                                            }
-                                        }
-
+                                        //enum class 
+                                        return "MyCefSetVoidPtr(" + retName + ",(int32_t)" + autoRetResultName + ");";
                                     }
-                                    break;
-                                case PrimitiveTypeKind.CefString:
-                                    ret.ArgExtractCode = "SetCefStringToJsValue(" + retName + ",(int32_t)" + autoRetResultName + ");";
-                                    break;
-                                case PrimitiveTypeKind.NaitveInt:
-                                    ret.ArgExtractCode = "MyCefSetInt64(" + retName + "," + autoRetResultName + ");";
-                                    break;
-                                case PrimitiveTypeKind.size_t:
-                                    ret.ArgExtractCode = "MyCefSetInt32(" + retName + ",(int32_t)" + autoRetResultName + ");";
-                                    break;
-                                case PrimitiveTypeKind.Int64:
-                                    ret.ArgExtractCode = "MyCefSetInt64(" + retName + "," + autoRetResultName + ");";
-                                    break;
-                                case PrimitiveTypeKind.UInt64:
-                                    ret.ArgExtractCode = "MyCefSetUInt64(" + retName + "," + autoRetResultName + ");";
-                                    break;
-                                case PrimitiveTypeKind.Double:
-                                    ret.ArgExtractCode = "MyCefSetDouble(" + retName + "," + autoRetResultName + ");";
-                                    break;
-                                case PrimitiveTypeKind.Float:
-                                    ret.ArgExtractCode = "MyCefSetFloat(" + retName + "," + autoRetResultName + ");";
-                                    break;
-                                case PrimitiveTypeKind.Bool:
-                                    ret.ArgExtractCode = "MyCefSetBool(" + retName + "," + autoRetResultName + ");";
-                                    break;
-                                case PrimitiveTypeKind.UInt32:
-                                    ret.ArgExtractCode = "MyCefSetUint32(" + retName + "," + autoRetResultName + ");";
-                                    break;
-                                case PrimitiveTypeKind.Int32:
-                                    ret.ArgExtractCode = "MyCefSetInt32(" + retName + "," + autoRetResultName + ");";
-                                    break;
-                            }
+                                    else
+                                    {
+                                        switch (ss.Name)
+                                        {
+                                            default:
+                                                {
+
+                                                }
+                                                break;
+                                            case "CefTime":
+                                            case "CefRect":
+                                            case "CefPoint":
+                                                {
+                                                    //original code return the "value" type
+                                                    //we have 2 choices
+                                                    //1. copy-by-value
+                                                    //2. copy-by-reference
+
+                                                    //---test with copy by reference
+                                                    //
+
+                                                    return ss.Name + "* tmp_d1= new " + ss.Name + "();\r\n" +
+                                                        "tmp_d1 = ret_result;\r\n" +
+                                                        "MyCefSetVoidPtr(" + retName + ",temp_d1);\r\n";
+                                                }
+                                        }
+                                    }
+                                }
+                                break;
+                            case PrimitiveTypeKind.CefString:
+                                return "SetCefStringToJsValue(" + retName + ",(int32_t)" + autoRetResultName + ");";
+
+                            case PrimitiveTypeKind.NaitveInt:
+                                return "MyCefSetInt64(" + retName + "," + autoRetResultName + ");";
+
+                            case PrimitiveTypeKind.size_t:
+                                return "MyCefSetInt32(" + retName + ",(int32_t)" + autoRetResultName + ");";
+
+                            case PrimitiveTypeKind.Int64:
+                                return "MyCefSetInt64(" + retName + "," + autoRetResultName + ");";
+
+                            case PrimitiveTypeKind.UInt64:
+                                return "MyCefSetUInt64(" + retName + "," + autoRetResultName + ");";
+
+                            case PrimitiveTypeKind.Double:
+                                return "MyCefSetDouble(" + retName + "," + autoRetResultName + ");";
+
+                            case PrimitiveTypeKind.Float:
+                                return "MyCefSetFloat(" + retName + "," + autoRetResultName + ");";
+
+                            case PrimitiveTypeKind.Bool:
+                                return "MyCefSetBool(" + retName + "," + autoRetResultName + ");";
+
+                            case PrimitiveTypeKind.UInt32:
+                                return "MyCefSetUint32(" + retName + "," + autoRetResultName + ");";
+
+                            case PrimitiveTypeKind.Int32:
+                                return "MyCefSetInt32(" + retName + "," + autoRetResultName + ");";
                         }
-                        break;
-                }
+                    }
+                    break;
             }
+            throw new NotSupportedException();
+
         }
         void PrepareCppMetArg(MethodParameterTxInfo par, string argName)
         {
@@ -743,6 +822,13 @@ namespace BridgeBuilder
                                                     case "bool"://bool&
                                                         {
                                                             //eg. bool GetAccelerator(int command_id,int& key_code,bool& shift_pressed,bool& ctrl_pressed,bool& alt_pressed)
+                                                            string slotName = bridge.CefCppSlotName.ToString();
+                                                            par.ArgPreExtractCode = elem_typename + " tmp_" + argName + "=" + argName + "->" + slotName;
+                                                            par.ArgExtractCode = "&tmp_" + argName;
+                                                            if (!par.IsConst)
+                                                            {
+                                                                par.ArgPostExtractCode = PrepareCppReturnToCs(par.TypeSymbol, argName, " tmp_" + argName);
+                                                            }
 
                                                         }
                                                         break;
@@ -751,16 +837,40 @@ namespace BridgeBuilder
                                                             //size_t&
                                                             //bool GetDataResource(int resource_id, void*&data,size_t & data_size)
                                                             //bool GetDataResourceForScale(int resource_id,ScaleFactor scale_factor,void*& data,size_t& data_size)
+
+                                                            string slotName = bridge.CefCppSlotName.ToString();
+                                                            par.ArgPreExtractCode = elem_typename + " tmp_" + argName + "=" + argName + "->" + slotName;
+                                                            par.ArgExtractCode = "&tmp_" + argName;
+                                                            if (!par.IsConst)
+                                                            {
+                                                                par.ArgPostExtractCode = PrepareCppReturnToCs(par.TypeSymbol, argName, " tmp_" + argName);
+                                                            }
                                                         }
                                                         break;
                                                     case "float": //float&
                                                         {
                                                             //eg. bool GetRepresentationInfo(float scale_factor,float& actual_scale_factor,int& pixel_width,int& pixel_height)
+
+                                                            string slotName = bridge.CefCppSlotName.ToString();
+                                                            par.ArgPreExtractCode = elem_typename + " tmp_" + argName + "=" + argName + "->" + slotName;
+                                                            par.ArgExtractCode = "&tmp_" + argName;
+                                                            if (!par.IsConst)
+                                                            {
+                                                                par.ArgPostExtractCode = PrepareCppReturnToCs(par.TypeSymbol, argName, " tmp_" + argName);
+                                                            }
                                                         }
                                                         break;
                                                     case "int":
                                                         {
                                                             //eg .bool GetRepresentationInfo(float scale_factor,float& actual_scale_factor,int& pixel_width,int& pixel_height)
+
+                                                            string slotName = bridge.CefCppSlotName.ToString();
+                                                            par.ArgPreExtractCode = elem_typename + " tmp_" + argName + "=" + argName + "->" + slotName;
+                                                            par.ArgExtractCode = "&tmp_" + argName;
+                                                            if (!par.IsConst)
+                                                            {
+                                                                par.ArgPostExtractCode = PrepareCppReturnToCs(par.TypeSymbol, argName, " tmp_" + argName);
+                                                            }
                                                         }
                                                         break;
                                                     case "CefWindowInfo":
@@ -772,13 +882,19 @@ namespace BridgeBuilder
                                                             //eg. void ShowDevTools(const CefWindowInfo& windowInfo,CefRefPtr<CefClient> client,const CefBrowserSettings& settings,const CefPoint& inspect_element_at)
                                                             //eg. void ImeSetComposition(const CefString& text,const std::vector<CefCompositionUnderline>& underlines,const CefRange& replacement_range,const CefRange& selection_range)
 
-
+                                                            string slotName = bridge.CefCppSlotName.ToString();
+                                                            par.ArgPreExtractCode = elem_typename + "* tmp_" + argName + "=" + "(*" + elem_typename + ")" + argName + "->" + slotName;
+                                                            par.ArgExtractCode = "&tmp_" + argName;
+                                                            if (!par.IsConst)
+                                                            {
+                                                                par.ArgPostExtractCode = PrepareCppReturnToCs(par.TypeSymbol, argName, " tmp_" + argName);
+                                                            }
 
                                                         }
                                                         break;
                                                     case "CefString":
                                                         {
-                                                            //known type names
+                                                            //known type names 
                                                             par.ArgExtractCode = "GetStringHolder(" + argName + ")->value"; //CefString          
                                                         }
                                                         break;
@@ -796,15 +912,33 @@ namespace BridgeBuilder
                                                     case "void*":
                                                         {
                                                             //eg. bool GetDataResource(int resource_id,void*& data,size_t& data_size)
+                                                            string slotName = bridge.CefCppSlotName.ToString();
+                                                            par.ArgPreExtractCode = elem_typename + " tmp_" + argName + "=" + "(*" + elem_typename + ")" + argName + "->" + slotName;
+                                                            par.ArgExtractCode = "&tmp_" + argName;
+                                                            if (par.IsConst)
+                                                            {
+
+                                                            }
                                                         }
                                                         break;
                                                     case "CefRefPtr<CefV8Value>":
-                                                        //eg. bool Eval(const CefString& code,const CefString& script_url,int start_line,CefRefPtr<CefV8Value>& retval,CefRefPtr<CefV8Exception>& exception)
+                                                        {
+                                                            //eg. bool Eval(const CefString& code,const CefString& script_url,int start_line,CefRefPtr<CefV8Value>& retval,CefRefPtr<CefV8Exception>& exception)
+                                                            if (par.IsConst)
+                                                            {
+
+                                                            }
+                                                        }
                                                         break;
                                                     case "CefRefPtr<CefV8Exception>":
-                                                        //eg. bool Eval(const CefString& code,const CefString& script_url,int start_line,CefRefPtr<CefV8Value>& retval,CefRefPtr<CefV8Exception>& exception)
-                                                        break;
+                                                        {
+                                                            //eg. bool Eval(const CefString& code,const CefString& script_url,int start_line,CefRefPtr<CefV8Value>& retval,CefRefPtr<CefV8Exception>& exception)
+                                                            if (par.IsConst)
+                                                            {
 
+                                                            }
+                                                        }
+                                                        break; 
                                                 }
                                             }
                                             break;
@@ -917,7 +1051,7 @@ namespace BridgeBuilder
                 //get pars from parameter .
                 PrepareCppMetArg(pars[i], "v" + (i + 1));
             }
-            PrepareCppReturnToCs(ret, "ret", "auto_result");
+            ret.ArgExtractCode = PrepareCppReturnToCs(ret.TypeSymbol, "ret", "auto_result");
 
             StringBuilder arglistBuilder = new StringBuilder();
             for (int i = 0; i < parCount; ++i)
@@ -948,8 +1082,23 @@ namespace BridgeBuilder
             }
 
 
+            for (int i = 0; i < parCount; ++i)
+            {
+                MethodParameterTxInfo parTx = pars[i];
+                if (parTx.ArgPostExtractCode != null)
+                {
+                    stbuilder.Append(parTx.ArgPostExtractCode);
+                    stbuilder.AppendLine(";");
+                }
+            }
+
+
             stbuilder.AppendLine(ret.ArgExtractCode);
+
+
             //clean up
+
+
 
         }
         public override void GenerateCsCode(CodeStringBuilder stbuilder)

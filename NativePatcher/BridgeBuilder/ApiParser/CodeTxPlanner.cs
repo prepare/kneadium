@@ -192,6 +192,7 @@ namespace BridgeBuilder
                 this.IsVoid = s.PrimitiveTypeKind == PrimitiveTypeKind.Void;
             }
         }
+        public bool IsConst { get; set; }
         public TypeSymbol TypeSymbol { get; private set; }
         public bool IsMethodReturnParameter { get; set; }
         public string Name { get; set; }
@@ -205,7 +206,7 @@ namespace BridgeBuilder
             return "";
         }
         public TxParameterDirection Direction { get; set; }
-        
+
         internal string ArgPreExtractCode { get; set; }
         internal string ArgExtractCode { get; set; }
         internal string ArgPostExtractCode { get; set; }
@@ -755,8 +756,7 @@ namespace BridgeBuilder
         MethodTxInfo MakeMethodPlan(CodeMethodDeclaration metDecl)
         {
             MethodTxInfo metTx = new MethodTxInfo(metDecl);
-            //make return type plan
-
+            //make return type plan 
 
             //1. return
             MethodParameterTxInfo retTxInfo = new MethodParameterTxInfo(null, metDecl.ReturnType.ResolvedType) { IsMethodReturnParameter = true };
@@ -770,8 +770,9 @@ namespace BridgeBuilder
             for (int i = 0; i < j; ++i)
             {
                 CodeMethodParameter metPar = metDecl.Parameters[i];
-                MethodParameterTxInfo parTxInfo = new MethodParameterTxInfo(metPar.ParameterName, metPar.ParameterType.ResolvedType);
 
+                MethodParameterTxInfo parTxInfo = new MethodParameterTxInfo(metPar.ParameterName, metPar.ParameterType.ResolvedType);
+                parTxInfo.IsConst = metPar.IsConstPar;
                 parTxInfo.Direction = TxParameterDirection.In;
                 //TODO: review Out,InOut direction 
 
@@ -1457,7 +1458,7 @@ namespace BridgeBuilder
 
         }
 
-    } 
+    }
     enum CefSlotName
     {
         UNKNOWN,
@@ -1494,10 +1495,10 @@ namespace BridgeBuilder
             switch (simpleType.Name)
             {
                 default:
-                    {  
+                    {
                         if ((simpleType.Name.StartsWith("cef_") || simpleType.Name.StartsWith("_cef")) &&
                             CefResolvingContext.IsAllLowerLetter(simpleType.Name))
-                        { 
+                        {
                             //this is native cef?
                             var typeBridge = new TypeBridgeInfo(simpleType, WellKnownTypeName.CefCNative, CefCppSlotKind.JSVALUE_TYPE_WRAPPED);
                             return typeBridge;
@@ -1706,7 +1707,7 @@ namespace BridgeBuilder
             {
                 default:
                     throw new NotSupportedException();
-              
+
                 case ContainerTypeKind.ByRef:
                     bridge = bridgeToElem.GetReferenceBridge();
                     break;

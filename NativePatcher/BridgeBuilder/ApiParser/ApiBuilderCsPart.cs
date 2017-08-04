@@ -256,9 +256,7 @@ namespace BridgeBuilder
                 else
                 {
 
-                }
-
-
+                } 
             }
             else if (bridgeInfo.CsGetValueMethodName.StartsWith("Get_ListOf_"))
             {
