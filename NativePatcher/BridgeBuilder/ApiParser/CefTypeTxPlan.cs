@@ -763,7 +763,9 @@ namespace BridgeBuilder
                                             if (elemtType.ToString() == "CefBaseRefCounted")
                                             {
                                                 //bool SetUserData(CefRefPtr<CefBaseRefCounted> user_data)
-                                                //only 1
+                                                //only 1 
+                                                string slotName = bridge.CefCppSlotName.ToString();
+                                                par.ArgExtractCode = argName + "->" + slotName;
                                             }
                                             else
                                             {
@@ -822,14 +824,17 @@ namespace BridgeBuilder
                                                     case "bool"://bool&
                                                         {
                                                             //eg. bool GetAccelerator(int command_id,int& key_code,bool& shift_pressed,bool& ctrl_pressed,bool& alt_pressed)
-                                                            string slotName = bridge.CefCppSlotName.ToString();
-                                                            par.ArgPreExtractCode = elem_typename + " tmp_" + argName + "=" + argName + "->" + slotName;
-                                                            par.ArgExtractCode = "&tmp_" + argName;
-                                                            if (!par.IsConst)
-                                                            {
-                                                                par.ArgPostExtractCode = PrepareCppReturnToCs(par.TypeSymbol, argName, " tmp_" + argName);
-                                                            }
 
+
+                                                            string slotName = bridge.CefCppSlotName.ToString();
+                                                            par.ArgExtractCode = "*((bool*)" + argName + "->" + slotName + "))";
+
+                                                            //par.ArgExtractCode = "&tmp_" + argName;
+                                                            //if (!par.IsConst)
+                                                            //{
+                                                            //    par.ArgPreExtractCode = elem_typename + " tmp_" + argName + "=" + argName + "->" + slotName;
+                                                            //    par.ArgPostExtractCode = PrepareCppReturnToCs(par.TypeSymbol, argName, " tmp_" + argName);
+                                                            //}
                                                         }
                                                         break;
                                                     case "size_t":
@@ -838,39 +843,50 @@ namespace BridgeBuilder
                                                             //bool GetDataResource(int resource_id, void*&data,size_t & data_size)
                                                             //bool GetDataResourceForScale(int resource_id,ScaleFactor scale_factor,void*& data,size_t& data_size)
 
+                                                            //string slotName = bridge.CefCppSlotName.ToString();
+
+                                                            //par.ArgExtractCode = "&tmp_" + argName;
+                                                            //if (!par.IsConst)
+                                                            //{
+                                                            //    par.ArgPreExtractCode = elem_typename + " tmp_" + argName + "=" + argName + "->" + slotName;
+                                                            //    par.ArgPostExtractCode = PrepareCppReturnToCs(par.TypeSymbol, argName, " tmp_" + argName);
+                                                            //}
                                                             string slotName = bridge.CefCppSlotName.ToString();
-                                                            par.ArgPreExtractCode = elem_typename + " tmp_" + argName + "=" + argName + "->" + slotName;
-                                                            par.ArgExtractCode = "&tmp_" + argName;
-                                                            if (!par.IsConst)
-                                                            {
-                                                                par.ArgPostExtractCode = PrepareCppReturnToCs(par.TypeSymbol, argName, " tmp_" + argName);
-                                                            }
+                                                            par.ArgExtractCode = "*((size_t*)" + argName + "->" + slotName + "))";
+
                                                         }
                                                         break;
                                                     case "float": //float&
                                                         {
                                                             //eg. bool GetRepresentationInfo(float scale_factor,float& actual_scale_factor,int& pixel_width,int& pixel_height)
 
+                                                            //string slotName = bridge.CefCppSlotName.ToString();
+
+                                                            //par.ArgExtractCode = "&tmp_" + argName;
+                                                            //if (!par.IsConst)
+                                                            //{
+                                                            //    par.ArgPreExtractCode = elem_typename + " tmp_" + argName + "=" + argName + "->" + slotName;
+                                                            //    par.ArgPostExtractCode = PrepareCppReturnToCs(par.TypeSymbol, argName, " tmp_" + argName);
+                                                            //}
                                                             string slotName = bridge.CefCppSlotName.ToString();
-                                                            par.ArgPreExtractCode = elem_typename + " tmp_" + argName + "=" + argName + "->" + slotName;
-                                                            par.ArgExtractCode = "&tmp_" + argName;
-                                                            if (!par.IsConst)
-                                                            {
-                                                                par.ArgPostExtractCode = PrepareCppReturnToCs(par.TypeSymbol, argName, " tmp_" + argName);
-                                                            }
+                                                            par.ArgExtractCode = "*((float*)" + argName + "->" + slotName + "))";
+
                                                         }
                                                         break;
                                                     case "int":
                                                         {
                                                             //eg .bool GetRepresentationInfo(float scale_factor,float& actual_scale_factor,int& pixel_width,int& pixel_height)
 
+                                                            //string slotName = bridge.CefCppSlotName.ToString();
+
+                                                            //par.ArgExtractCode = "&tmp_" + argName;
+                                                            //if (!par.IsConst)
+                                                            //{
+                                                            //    par.ArgPreExtractCode = elem_typename + " tmp_" + argName + "=" + argName + "->" + slotName;
+                                                            //    par.ArgPostExtractCode = PrepareCppReturnToCs(par.TypeSymbol, argName, " tmp_" + argName);
+                                                            //}
                                                             string slotName = bridge.CefCppSlotName.ToString();
-                                                            par.ArgPreExtractCode = elem_typename + " tmp_" + argName + "=" + argName + "->" + slotName;
-                                                            par.ArgExtractCode = "&tmp_" + argName;
-                                                            if (!par.IsConst)
-                                                            {
-                                                                par.ArgPostExtractCode = PrepareCppReturnToCs(par.TypeSymbol, argName, " tmp_" + argName);
-                                                            }
+                                                            par.ArgExtractCode = "*((int*)" + argName + "->" + slotName + "))";
                                                         }
                                                         break;
                                                     case "CefWindowInfo":
@@ -882,20 +898,27 @@ namespace BridgeBuilder
                                                             //eg. void ShowDevTools(const CefWindowInfo& windowInfo,CefRefPtr<CefClient> client,const CefBrowserSettings& settings,const CefPoint& inspect_element_at)
                                                             //eg. void ImeSetComposition(const CefString& text,const std::vector<CefCompositionUnderline>& underlines,const CefRange& replacement_range,const CefRange& selection_range)
 
-                                                            string slotName = bridge.CefCppSlotName.ToString();
-                                                            par.ArgPreExtractCode = elem_typename + "* tmp_" + argName + "=" + "(*" + elem_typename + ")" + argName + "->" + slotName;
-                                                            par.ArgExtractCode = "&tmp_" + argName;
-                                                            if (!par.IsConst)
-                                                            {
-                                                                par.ArgPostExtractCode = PrepareCppReturnToCs(par.TypeSymbol, argName, " tmp_" + argName);
-                                                            }
+                                                            //string slotName = bridge.CefCppSlotName.ToString();
+                                                            //par.ArgExtractCode = "&tmp_" + argName;
 
+                                                            //if (!par.IsConst)
+                                                            //{
+                                                            //    par.ArgPreExtractCode = elem_typename + "* tmp_" + argName + "=" + "(*" + elem_typename + ")" + argName + "->" + slotName;
+                                                            //    par.ArgPostExtractCode = PrepareCppReturnToCs(par.TypeSymbol, argName, " tmp_" + argName);
+                                                            //}
+                                                            string slotName = bridge.CefCppSlotName.ToString();
+                                                            par.ArgExtractCode = "*((" + elem_typename + "*)" + argName + "->" + slotName + "))";
                                                         }
                                                         break;
                                                     case "CefString":
                                                         {
-                                                            //known type names 
+                                                            //CefString&
+                                                            //known type names  
                                                             par.ArgExtractCode = "GetStringHolder(" + argName + ")->value"; //CefString          
+                                                            //if (!par.IsConst)
+                                                            //{
+
+                                                            //}
                                                         }
                                                         break;
                                                 }
@@ -912,13 +935,15 @@ namespace BridgeBuilder
                                                     case "void*":
                                                         {
                                                             //eg. bool GetDataResource(int resource_id,void*& data,size_t& data_size)
-                                                            string slotName = bridge.CefCppSlotName.ToString();
-                                                            par.ArgPreExtractCode = elem_typename + " tmp_" + argName + "=" + "(*" + elem_typename + ")" + argName + "->" + slotName;
-                                                            par.ArgExtractCode = "&tmp_" + argName;
-                                                            if (par.IsConst)
-                                                            {
+                                                            //string slotName = bridge.CefCppSlotName.ToString();
 
-                                                            }
+                                                            //par.ArgExtractCode = "&tmp_" + argName;
+                                                            //if (par.IsConst)
+                                                            //{
+                                                            //    par.ArgPreExtractCode = elem_typename + " tmp_" + argName + "=" + "(*" + elem_typename + ")" + argName + "->" + slotName;
+                                                            //}
+                                                            string slotName = bridge.CefCppSlotName.ToString();
+                                                            par.ArgExtractCode = "*((" + elem_typename + "*)" + argName + "->" + slotName + "))";
                                                         }
                                                         break;
                                                     case "CefRefPtr<CefV8Value>":
@@ -928,6 +953,8 @@ namespace BridgeBuilder
                                                             {
 
                                                             }
+                                                            string slotName = bridge.CefCppSlotName.ToString();
+                                                            par.ArgExtractCode = "*((" + elem_typename + "*)" + argName + "->" + slotName + "))";
                                                         }
                                                         break;
                                                     case "CefRefPtr<CefV8Exception>":
@@ -937,51 +964,8 @@ namespace BridgeBuilder
                                                             {
 
                                                             }
-                                                        }
-                                                        break; 
-                                                }
-                                            }
-                                            break;
-                                        case TypeSymbolKind.Template:
-                                            break;
-                                        case TypeSymbolKind.TypeDef:
-                                            {
-                                                //eg. void ImeSetComposition(const CefString& text,const std::vector<CefCompositionUnderline>& underlines,const CefRange& replacement_range,const CefRange& selection_range)
-
-                                                //typedef 
-                                                string elem_typename = refOrPtr.ElementType.ToString();
-                                                switch (elem_typename)
-                                                {
-                                                    default:
-                                                        break;
-                                                    case "CefBrowserSettings":
-                                                    case "CefPdfPrintSettings":
-                                                    //eg. void PrintToPDF(const CefString& path,const CefPdfPrintSettings& settings,CefRefPtr<CefPdfPrintCallback> callback)
-                                                    case "CefKeyEvent":
-                                                    case "CefMouseEvent":
-                                                    //eg. void SendMouseWheelEvent(const CefMouseEvent& event,int deltaX,int deltaY)
-                                                    case "CefCookie":
-                                                    //eg. bool SetCookie(const CefString& url,const CefCookie& cookie,CefRefPtr<CefSetCookieCallback> callback)
-                                                    //
-
-                                                    case "AttributeMap":
-                                                    case "ElementVector":
-                                                    //eg. {bool GetColor(int command_id,cef_menu_color_type_t color_type,cef_color_t& color)}
-                                                    case "HeaderMap":
-                                                    case "SwitchMap":
-                                                    //eg. void GetSwitches(SwitchMap& switches)
-                                                    case "cef_color_t":
-                                                    //eg. bool GetColor(int command_id,cef_menu_color_type_t color_type,cef_color_t& color)
-                                                    case "ArgumentList":
-                                                    //eg. void GetArguments(ArgumentList& arguments)
-                                                    case "CefV8ValueList":
-                                                    //eg. CefRefPtr<CefV8Value> ExecuteFunction(CefRefPtr<CefV8Value> object,const CefV8ValueList& arguments)
-                                                    case "IssuerChainBinaryList":
-                                                    //eg {void GetDEREncodedIssuerChain(IssuerChainBinaryList& chain)}
-                                                    case "PageRangeList":
-                                                    case "KeyList":     //eg. {bool GetKeys(KeyList& keys)}                                                
-                                                        {
-
+                                                            string slotName = bridge.CefCppSlotName.ToString();
+                                                            par.ArgExtractCode = "*((" + elem_typename + "*)" + argName + "->" + slotName + "))";
                                                         }
                                                         break;
                                                 }
@@ -990,31 +974,85 @@ namespace BridgeBuilder
                                         case TypeSymbolKind.Vec:
                                             {
                                                 string elem_typename = refOrPtr.ElementType.ToString();
-                                                switch (elem_typename)
-                                                {
-                                                    default:
-                                                        break;
-                                                    case "vec<CefString>":
-                                                        {
-                                                            //eg. void GetArgv(std::vector<CefString>& argv)
-                                                            //eg. bool GetDictionarySuggestions(std::vector<CefString>& suggestions)
-                                                            //eg. void SetSupportedSchemes(const std::vector<CefString>& schemes,CefRefPtr<CefCompletionCallback> callback)  
+                                                string slotName = bridge.CefCppSlotName.ToString();
+                                                par.ArgExtractCode = "*((" + elem_typename + "*)" + argName + "->" + slotName + "))";
 
-                                                        }
-                                                        break;
-                                                    case "vec<int64>":
-                                                        {
-                                                            //eg. void GetFrameIdentifiers(std::vector<int64>& identifiers)
-                                                        }
-                                                        break;
-                                                    case "vec<CefCompositionUnderline>":
-                                                        {
+                                                //switch (elem_typename)
+                                                //{
+                                                //    default:
+                                                //        break;
+                                                //    case "vec<CefString>":
+                                                //        {
+                                                //            //eg. void GetArgv(std::vector<CefString>& argv)
+                                                //            //eg. bool GetDictionarySuggestions(std::vector<CefString>& suggestions)
+                                                //            //eg. void SetSupportedSchemes(const std::vector<CefString>& schemes,CefRefPtr<CefCompletionCallback> callback)   
+                                                //        }
+                                                //        break;
+                                                //    case "vec<int64>":
+                                                //        {
+                                                //            //eg. void GetFrameIdentifiers(std::vector<int64>& identifiers)
+                                                //        }
+                                                //        break;
+                                                //    case "vec<CefCompositionUnderline>":
+                                                //        {
 
-                                                        }
-                                                        break;
-                                                }
+                                                //        }
+                                                //        break;
+                                                //}
                                             }
                                             break;
+                                        case TypeSymbolKind.Template:
+                                            break;
+                                        case TypeSymbolKind.TypeDef:
+                                            {
+                                                //eg. void ImeSetComposition(const CefString& text,const std::vector<CefCompositionUnderline>& underlines,const CefRange& replacement_range,const CefRange& selection_range)
+
+                                                string elem_typename = refOrPtr.ElementType.ToString();
+                                                string slotName = bridge.CefCppSlotName.ToString();
+                                                par.ArgExtractCode = "*((" + elem_typename + "*)" + argName + "->" + slotName + "))";
+
+
+
+                                                ////typedef 
+                                                //string elem_typename = refOrPtr.ElementType.ToString();
+                                                //switch (elem_typename)
+                                                //{
+                                                //    default:
+                                                //        break;
+                                                //    case "CefBrowserSettings":
+                                                //    case "CefPdfPrintSettings":
+                                                //    //eg. void PrintToPDF(const CefString& path,const CefPdfPrintSettings& settings,CefRefPtr<CefPdfPrintCallback> callback)
+                                                //    case "CefKeyEvent":
+                                                //    case "CefMouseEvent":
+                                                //    //eg. void SendMouseWheelEvent(const CefMouseEvent& event,int deltaX,int deltaY)
+                                                //    case "CefCookie":
+                                                //    //eg. bool SetCookie(const CefString& url,const CefCookie& cookie,CefRefPtr<CefSetCookieCallback> callback)
+                                                //    //
+
+                                                //    case "AttributeMap":
+                                                //    case "ElementVector":
+                                                //    //eg. {bool GetColor(int command_id,cef_menu_color_type_t color_type,cef_color_t& color)}
+                                                //    case "HeaderMap":
+                                                //    case "SwitchMap":
+                                                //    //eg. void GetSwitches(SwitchMap& switches)
+                                                //    case "cef_color_t":
+                                                //    //eg. bool GetColor(int command_id,cef_menu_color_type_t color_type,cef_color_t& color)
+                                                //    case "ArgumentList":
+                                                //    //eg. void GetArguments(ArgumentList& arguments)
+                                                //    case "CefV8ValueList":
+                                                //    //eg. CefRefPtr<CefV8Value> ExecuteFunction(CefRefPtr<CefV8Value> object,const CefV8ValueList& arguments)
+                                                //    case "IssuerChainBinaryList":
+                                                //    //eg {void GetDEREncodedIssuerChain(IssuerChainBinaryList& chain)}
+                                                //    case "PageRangeList":
+                                                //    case "KeyList":     //eg. {bool GetKeys(KeyList& keys)}                                                
+                                                //        {
+
+                                                //        }
+                                                //        break;
+                                                //}
+                                            }
+                                            break;
+                                       
                                     }
                                 }
                                 break;
@@ -1051,8 +1089,20 @@ namespace BridgeBuilder
                 //get pars from parameter .
                 PrepareCppMetArg(pars[i], "v" + (i + 1));
             }
-            ret.ArgExtractCode = PrepareCppReturnToCs(ret.TypeSymbol, "ret", "auto_result");
+            ret.ArgExtractCode = PrepareCppReturnToCs(ret.TypeSymbol, "ret", "ret_result");
 
+
+            //---------------------------
+            for (int i = 0; i < parCount; ++i)
+            {
+                MethodParameterTxInfo parTx = pars[i];
+                if (!string.IsNullOrEmpty(parTx.ArgPreExtractCode))
+                {
+                    stbuilder.Append(parTx.ArgPreExtractCode);
+                    stbuilder.AppendLine(";");
+                }
+            }
+            //---------------------------
             StringBuilder arglistBuilder = new StringBuilder();
             for (int i = 0; i < parCount; ++i)
             {
