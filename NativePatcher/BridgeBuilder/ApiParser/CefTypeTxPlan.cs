@@ -651,12 +651,15 @@ namespace BridgeBuilder
                                             case "void":
                                                 {
                                                     //void*
+                                                    string slotName = bridge.CefCppSlotName.ToString();
+                                                    par.ArgExtractCode = argName + "->" + slotName;
                                                 }
                                                 break;
                                             case "char":
                                                 {
                                                     //char*
-
+                                                    string slotName = bridge.CefCppSlotName.ToString();
+                                                    par.ArgExtractCode = argName + "->" + slotName;
                                                 }
                                                 break;
                                         }
@@ -740,11 +743,16 @@ namespace BridgeBuilder
                                                     case "bool"://bool&
                                                         {
                                                             //eg. bool GetAccelerator(int command_id,int& key_code,bool& shift_pressed,bool& ctrl_pressed,bool& alt_pressed)
+
                                                         }
                                                         break;
-                                                    case "size_t": //size_t&
-                                                                   //bool GetDataResource(int resource_id, void*&data,size_t & data_size)
-                                                                   //bool GetDataResourceForScale(int resource_id,ScaleFactor scale_factor,void*& data,size_t& data_size)
+                                                    case "size_t":
+                                                        {
+                                                            //size_t&
+                                                            //bool GetDataResource(int resource_id, void*&data,size_t & data_size)
+                                                            //bool GetDataResourceForScale(int resource_id,ScaleFactor scale_factor,void*& data,size_t& data_size)
+                                                        }
+                                                        break;
                                                     case "float": //float&
                                                         {
                                                             //eg. bool GetRepresentationInfo(float scale_factor,float& actual_scale_factor,int& pixel_width,int& pixel_height)
@@ -760,6 +768,13 @@ namespace BridgeBuilder
                                                     case "CefSize":
                                                     case "CefRect":
                                                     case "CefRange":
+                                                        {
+                                                            //eg. void ShowDevTools(const CefWindowInfo& windowInfo,CefRefPtr<CefClient> client,const CefBrowserSettings& settings,const CefPoint& inspect_element_at)
+                                                            //eg. void ImeSetComposition(const CefString& text,const std::vector<CefCompositionUnderline>& underlines,const CefRange& replacement_range,const CefRange& selection_range)
+
+
+
+                                                        }
                                                         break;
                                                     case "CefString":
                                                         {
