@@ -519,8 +519,16 @@ namespace BridgeBuilder
             //code gen
             foreach (CefTypeTxPlan tx in handlerPlans)
             {
-                CodeStringBuilder stbuilder = new CodeStringBuilder();
-                tx.GenerateCppCode(stbuilder);
+                if (tx.OriginalDecl.Name == "CefRequestHandler")
+                {
+                    CodeStringBuilder stbuilder = new CodeStringBuilder();
+                    //a handler is created on cpp side, then we attach .net delegate to it
+                    //so  we need
+                    //1. 
+                    tx.GenerateCppCode(stbuilder);
+
+                }
+                
             }
             foreach (CefTypeTxPlan tx in callbackPlans)
             {
