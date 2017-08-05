@@ -10,7 +10,7 @@ namespace BridgeBuilder
         StringBuilder stbuilder = new StringBuilder();
 #if DEBUG
         static int _dbugLineCount;
-        bool _dbugEnableLineNote = false;
+        bool _dbugEnableLineNote = true;
 #endif
         public void EnterIndentLevel()
         {
@@ -41,8 +41,14 @@ namespace BridgeBuilder
             _dbugLineCount++;
             if (_dbugEnableLineNote)
             {
-                stbuilder.Append("/*" + _dbugLineCount + "*/");
+                stbuilder.AppendLine("/*" + _dbugLineCount + "*/");
+                if (_dbugLineCount >= 302)
+                {
+
+                }
+
             }
+
         }
 #endif
 
@@ -276,7 +282,6 @@ namespace BridgeBuilder
                     return "Wrap";
                 case ImplWrapDirection.CToCpp:
                     return "Unwrap";
-                    break;
             }
         }
         static string GetSmartPointerMet(ImplWrapDirection wrapDirection)
@@ -293,8 +298,16 @@ namespace BridgeBuilder
 
         }
 
+
+#if DEBUG
+        int _dbug_cpp_count = 0;
+#endif
         public override void GenerateCppCode(CodeStringBuilder stbuilder)
         {
+
+#if DEBUG
+            _dbug_cpp_count++;
+#endif
             //
             //create switch table for C#-interop
             //
@@ -309,14 +322,16 @@ namespace BridgeBuilder
             for (int i = 0; i < j; ++i)
             {
                 MethodTxInfo metTx = _typeTxInfo.methods[i];
-                const_methodNames.AppendLine("const int " + orgDecl.Name + "_" + metTx.Name + "=" + (i + 1) + ";");
+                metTx.CppMethodSwitchCaseName = orgDecl.Name + "_" + metTx.Name + "_" + (i + 1);
+
+                const_methodNames.AppendLine("const int " + metTx.CppMethodSwitchCaseName + "=" + (i + 1) + ";");
             }
 
             CodeStringBuilder totalTypeMethod = new CodeStringBuilder();
             //1. generate method decl
             totalTypeMethod.AppendLine(const_methodNames.ToString());
             totalTypeMethod.AppendLine("void MyCefMet_" + orgDecl.Name + "(" +
-                this.UnderlyingCType.Name + "* me1,int metName,jsvalue* ret,jsvalue* v1,jsvalue* v2,jsvalue* v3){");
+                this.UnderlyingCType.Name + "* me1,int metName,jsvalue* ret,jsvalue* v1,jsvalue* v2,jsvalue* v3,jsvalue* v4,jsvalue* v5,jsvalue* v6 ){");
             //2. generate method header
             //3. generate switch table
 
@@ -355,7 +370,7 @@ namespace BridgeBuilder
                 //create each method,
                 //in our convention we dont generate 
                 MethodTxInfo metTx = _typeTxInfo.methods[i];
-                met_stbuilder.AppendLine("case " + orgDecl.Name + "_" + metTx.Name + ":{");
+                met_stbuilder.AppendLine("case " + metTx.CppMethodSwitchCaseName + ":{");
 
                 GenerateCppMethod(_typeTxInfo.methods[i], met_stbuilder);
 
@@ -691,7 +706,15 @@ namespace BridgeBuilder
                             SimpleTypeSymbol ss = (SimpleTypeSymbol)referTo;
                             if (ss.IsEnum)
                             {
-                                par.ArgExtractCode = "(" + ctypedef.ToString() + ")" + argName + "->" + bridge.CefCppSlotName;//review here
+                                if (ctypedef.ParentType != null && !ctypedef.ParentType.IsGlobalCompilationUnitTypeDefinition)
+                                {
+                                    par.ArgExtractCode = "(" + ctypedef.ParentType + "::" + ctypedef.ToString() + ")" + argName + "->i32";
+                                }
+                                else
+                                {
+                                    par.ArgExtractCode = "(" + ctypedef.ToString() + ")" + argName + "->i32";
+                                }
+
                             }
                             else if (ss.PrimitiveTypeKind == PrimitiveTypeKind.NotPrimitiveType)
                             {
@@ -793,13 +816,15 @@ namespace BridgeBuilder
                                             {
                                                 implWrapDirection = ImplWrapDirection.CppToC;
                                                 string met = GetSmartPointerMet(implWrapDirection);
-                                                par.ArgExtractCode = implTypeDecl.Name + "::" + met + "(" + argName + ")";
+                                                string slotName = bridge.CefCppSlotName.ToString();
+                                                par.ArgExtractCode = implTypeDecl.Name + "::" + met + "(" + (argName + "->" + slotName) + ")";
                                             }
                                             else
                                             {
                                                 implWrapDirection = ImplWrapDirection.None;
                                                 string met = GetSmartPointerMet(implWrapDirection);
-                                                par.ArgExtractCode = implTypeDecl.Name + "::" + met + "(" + argName + ")";
+                                                string slotName = bridge.CefCppSlotName.ToString();
+                                                par.ArgExtractCode = implTypeDecl.Name + "::" + met + "(" + (argName + "->" + slotName) + ")";
 
                                             }
                                         }
@@ -832,7 +857,7 @@ namespace BridgeBuilder
 
 
                                                             string slotName = bridge.CefCppSlotName.ToString();
-                                                            par.ArgExtractCode = "*((bool*)" + argName + "->" + slotName + "))";
+                                                            par.ArgExtractCode = "*((bool*)" + argName + "->" + slotName + ")";
 
                                                             //par.ArgExtractCode = "&tmp_" + argName;
                                                             //if (!par.IsConst)
@@ -857,7 +882,7 @@ namespace BridgeBuilder
                                                             //    par.ArgPostExtractCode = PrepareCppReturnToCs(par.TypeSymbol, argName, " tmp_" + argName);
                                                             //}
                                                             string slotName = bridge.CefCppSlotName.ToString();
-                                                            par.ArgExtractCode = "*((size_t*)" + argName + "->" + slotName + "))";
+                                                            par.ArgExtractCode = "*((size_t*)" + argName + "->" + slotName + ")";
 
                                                         }
                                                         break;
@@ -874,7 +899,7 @@ namespace BridgeBuilder
                                                             //    par.ArgPostExtractCode = PrepareCppReturnToCs(par.TypeSymbol, argName, " tmp_" + argName);
                                                             //}
                                                             string slotName = bridge.CefCppSlotName.ToString();
-                                                            par.ArgExtractCode = "*((float*)" + argName + "->" + slotName + "))";
+                                                            par.ArgExtractCode = "*((float*)" + argName + "->" + slotName + ")";
 
                                                         }
                                                         break;
@@ -891,7 +916,7 @@ namespace BridgeBuilder
                                                             //    par.ArgPostExtractCode = PrepareCppReturnToCs(par.TypeSymbol, argName, " tmp_" + argName);
                                                             //}
                                                             string slotName = bridge.CefCppSlotName.ToString();
-                                                            par.ArgExtractCode = "*((int*)" + argName + "->" + slotName + "))";
+                                                            par.ArgExtractCode = "*((int*)" + argName + "->" + slotName + ")";
                                                         }
                                                         break;
                                                     case "CefWindowInfo":
@@ -912,7 +937,7 @@ namespace BridgeBuilder
                                                             //    par.ArgPostExtractCode = PrepareCppReturnToCs(par.TypeSymbol, argName, " tmp_" + argName);
                                                             //}
                                                             string slotName = bridge.CefCppSlotName.ToString();
-                                                            par.ArgExtractCode = "*((" + elem_typename + "*)" + argName + "->" + slotName + "))";
+                                                            par.ArgExtractCode = "*((" + elem_typename + "*)" + argName + "->" + slotName + ")";
                                                         }
                                                         break;
                                                     case "CefString":
@@ -948,7 +973,7 @@ namespace BridgeBuilder
                                                             //    par.ArgPreExtractCode = elem_typename + " tmp_" + argName + "=" + "(*" + elem_typename + ")" + argName + "->" + slotName;
                                                             //}
                                                             string slotName = bridge.CefCppSlotName.ToString();
-                                                            par.ArgExtractCode = "*((" + elem_typename + "*)" + argName + "->" + slotName + "))";
+                                                            par.ArgExtractCode = "*((" + elem_typename + "*)" + argName + "->" + slotName + ")";
                                                         }
                                                         break;
                                                     case "CefRefPtr<CefV8Value>":
@@ -959,7 +984,7 @@ namespace BridgeBuilder
 
                                                             }
                                                             string slotName = bridge.CefCppSlotName.ToString();
-                                                            par.ArgExtractCode = "*((" + elem_typename + "*)" + argName + "->" + slotName + "))";
+                                                            par.ArgExtractCode = "*((" + elem_typename + "*)" + argName + "->" + slotName + ")";
                                                         }
                                                         break;
                                                     case "CefRefPtr<CefV8Exception>":
@@ -970,7 +995,7 @@ namespace BridgeBuilder
 
                                                             }
                                                             string slotName = bridge.CefCppSlotName.ToString();
-                                                            par.ArgExtractCode = "*((" + elem_typename + "*)" + argName + "->" + slotName + "))";
+                                                            par.ArgExtractCode = "*((" + elem_typename + "*)" + argName + "->" + slotName + ")";
                                                         }
                                                         break;
                                                 }
@@ -980,7 +1005,7 @@ namespace BridgeBuilder
                                             {
                                                 string elem_typename = refOrPtr.ElementType.ToString();
                                                 string slotName = bridge.CefCppSlotName.ToString();
-                                                par.ArgExtractCode = "*((" + elem_typename + "*)" + argName + "->" + slotName + "))";
+                                                par.ArgExtractCode = "*((" + elem_typename + "*)" + argName + "->" + slotName + ")";
 
                                                 //switch (elem_typename)
                                                 //{
@@ -1014,7 +1039,7 @@ namespace BridgeBuilder
 
                                                 string elem_typename = refOrPtr.ElementType.ToString();
                                                 string slotName = bridge.CefCppSlotName.ToString();
-                                                par.ArgExtractCode = "*((" + elem_typename + "*)" + argName + "->" + slotName + "))";
+                                                par.ArgExtractCode = "*((" + elem_typename + "*)" + argName + "->" + slotName + ")";
 
 
 

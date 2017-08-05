@@ -175,7 +175,7 @@ namespace BridgeBuilder
         public TypeSymbol ElementType { get; set; }
         public override string ToString()
         {
-            return "vec<" + ElementType + ">";
+            return "std::vector<" + ElementType + ">";
         }
     }
     class ReferenceOrPointerTypeSymbol : TypeSymbol

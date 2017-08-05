@@ -170,6 +170,8 @@ namespace BridgeBuilder
             set;
         }
 
+        internal string CppMethodSwitchCaseName { get; set; }
+
         public bool CsLeftMethodBodyBlank { get; set; }
 #if DEBUG
         public override string ToString()
