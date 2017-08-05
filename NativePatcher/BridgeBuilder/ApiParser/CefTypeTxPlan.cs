@@ -42,10 +42,10 @@ namespace BridgeBuilder
             if (_dbugEnableLineNote)
             {
                 stbuilder.AppendLine("/*" + _dbugLineCount + "*/");
-                //if (_dbugLineCount >= 396)
-                //{
+                if (_dbugLineCount >= 2337)
+                {
 
-                //}
+                }
             }
 
         }
@@ -384,6 +384,10 @@ namespace BridgeBuilder
             totalTypeMethod.AppendLine(implTypeDecl.Name + "::" + GetRawPtrMet(implWrapDirection) + "(me);");
 
             totalTypeMethod.AppendLine("}");
+
+            //
+            stbuilder.Append(totalTypeMethod.ToString());
+
         }
 
         static string PrepareCppReturnToCs(TypeSymbol ret, string retName, string autoRetResultName)
@@ -443,7 +447,7 @@ namespace BridgeBuilder
                                                 return "MyCefSetBool(" + retName + "," + autoRetResultName + ");";
 
                                             case PrimitiveTypeKind.UInt32:
-                                                return "MyCefSetUint32(" + retName + "," + autoRetResultName + ");";
+                                                return "MyCefSetUInt32(" + retName + "," + autoRetResultName + ");";
 
                                             case PrimitiveTypeKind.Int32:
                                                 return "MyCefSetInt32(" + retName + "," + autoRetResultName + ");";
@@ -581,7 +585,7 @@ namespace BridgeBuilder
                                     if (ss.IsEnum)
                                     {
                                         //enum class 
-                                        return "MyCefSetVoidPtr(" + retName + ",(int32_t)" + autoRetResultName + ");";
+                                        return "MyCefSetInt32(" + retName + ",(int32_t)" + autoRetResultName + ");";
                                     }
                                     else
                                     {
@@ -604,9 +608,8 @@ namespace BridgeBuilder
                                                     //---test with copy by reference
                                                     //
 
-                                                    return ss.Name + "* tmp_d1= new " + ss.Name + "();\r\n" +
-                                                        "tmp_d1 = ret_result;\r\n" +
-                                                        "MyCefSetVoidPtr(" + retName + ",temp_d1);\r\n";
+                                                    return ss.Name + "* tmp_d1= new " + ss.Name + "(" + autoRetResultName + ");\r\n" +
+                                                        "MyCefSetVoidPtr(" + retName + ",tmp_d1);\r\n";
                                                 }
                                         }
                                     }
@@ -637,7 +640,7 @@ namespace BridgeBuilder
                                 return "MyCefSetBool(" + retName + "," + autoRetResultName + ");";
 
                             case PrimitiveTypeKind.UInt32:
-                                return "MyCefSetUint32(" + retName + "," + autoRetResultName + ");";
+                                return "MyCefSetUInt32(" + retName + "," + autoRetResultName + ");";
 
                             case PrimitiveTypeKind.Int32:
                                 return "MyCefSetInt32(" + retName + "," + autoRetResultName + ");";
@@ -720,6 +723,11 @@ namespace BridgeBuilder
 
 
                             }
+                            else if (ss.PrimitiveTypeKind == PrimitiveTypeKind.UInt32)
+                            {
+                                //cef_color_t
+                                par.ArgExtractCode = "(" + ctypedef.ToString() + ")" + argName + "->i32";//review here
+                            }
                             else
                             {
                                 par.ArgExtractCode = argName + "->" + bridge.CefCppSlotName;//review here
@@ -758,7 +766,7 @@ namespace BridgeBuilder
                                                 {
                                                     //void*
                                                     string slotName = bridge.CefCppSlotName.ToString();
-                                                    par.ArgExtractCode = argName + "->" + slotName;
+                                                    par.ArgExtractCode = "(void*)" + argName + "->" + slotName;//direct cast
                                                 }
                                                 break;
                                             case "char":
@@ -1035,10 +1043,23 @@ namespace BridgeBuilder
                                         case TypeSymbolKind.TypeDef:
                                             {
                                                 //eg. void ImeSetComposition(const CefString& text,const std::vector<CefCompositionUnderline>& underlines,const CefRange& replacement_range,const CefRange& selection_range)
+                                                CTypeDefTypeSymbol ctypedef = (CTypeDefTypeSymbol)elemType;
 
-                                                string elem_typename = refOrPtr.ElementType.ToString();
-                                                string slotName = bridge.CefCppSlotName.ToString();
-                                                par.ArgExtractCode = "*((" + elem_typename + "*)" + argName + "->" + slotName + ")";
+                                                if (ctypedef.ParentType != null && !ctypedef.ParentType.IsGlobalCompilationUnitTypeDefinition)
+                                                {
+                                                    string elem_typename = refOrPtr.ElementType.ToString();
+                                                    string slotName = bridge.CefCppSlotName.ToString();
+                                                    par.ArgExtractCode = "*((" + ctypedef.ParentType + "::" + elem_typename + "*)" + argName + "->" + slotName + ")";
+
+                                                }
+                                                else
+                                                {
+                                                    string elem_typename = refOrPtr.ElementType.ToString();
+                                                    string slotName = bridge.CefCppSlotName.ToString();
+                                                    par.ArgExtractCode = "*((" + elem_typename + "*)" + argName + "->" + slotName + ")";
+
+                                                }
+
 
 
 
