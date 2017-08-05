@@ -70,7 +70,7 @@ void MethodArgs::SetArgAsInt32(int argIndex, const int32_t value)
 	}break;
 	}
 }
-void MethodArgs::SetArgAsNativeObject(int argIndex, const void* nativeObject)
+void MethodArgs::SetArgAsNativeObject(int argIndex,const void* nativeObject)
 {
 	switch (argIndex) {
 	case 0:
@@ -162,7 +162,7 @@ void MethodArgs::SetOutputAsInt32(int argIndex, const int32_t value)
 	}break;
 	}
 }
-void MethodArgs::SetOutputAsString(int argIndex, const wchar_t* str)
+void MethodArgs::SetOutputAsString(int argIndex, wchar_t* str)
 {
 	switch (argIndex) {
 	case 0:
@@ -251,10 +251,7 @@ int MethodArgs::ReadOutputAsInt32(int resultIndex) {
 }
 
 
-
-
-
-
+ 
 
 
 const char16* MethodArgs::ReadOutputAsString(int resultIndex)

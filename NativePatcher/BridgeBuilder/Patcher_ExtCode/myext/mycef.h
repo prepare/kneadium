@@ -88,24 +88,24 @@ typedef unsigned __int64 uint64_t;
 
 
 extern "C" {
-	 
+
 	struct jsvalue
 	{
-	    int32_t type; //type and flags
-	                  //this for 32 bits values, also be used as string len, array len  and index to managed slot index
-	    int32_t i32;
-	    // native ptr (may point to native object, native array, native string)
-	    const void* ptr; //uint16_t* or jsvalue**   arr or 
-	               //store float or double
-	    double num;
-	    //store 64 bits value
-	    int64_t i64;
-	}; 
-} 
+		int32_t type; //type and flags
+					  //this for 32 bits values, also be used as string len, array len  and index to managed slot index
+		int32_t i32;
+		// native ptr (may point to native object, native array, native string)
+		const void* ptr; //uint16_t* or jsvalue**   arr or 
+				   //store float or double
+		double num;
+		//store 64 bits value
+		int64_t i64;
+	};
+}
 
 class MethodArgs
 {
-public: 
+public:
 	struct jsvalue arg0;//this arg for instant method
 	struct jsvalue arg1;
 	struct jsvalue arg2;
@@ -117,34 +117,32 @@ public:
 	struct jsvalue result2;
 	struct jsvalue result3;
 	struct jsvalue result4;
-		 
+
 	int16_t resultKind;
 	int16_t argCount;
 	int16_t resultCount;
-
-
-
+	 
 	void SetArgAsString(int argIndex, const wchar_t* str);
 	void SetArgAsNativeObject(int argIndex, const void* nativeObject);
 	void SetArgAsInt32(int argIndex, const int32_t value);
 	void SetArgType(int argIndex, int type);
 
 	//----------------------------------------------------------------------
-	void SetOutputAsNativeObject(int retIndex, const void* nativeObject);
+	void SetOutputAsNativeObject(int retIndex,const void* nativeObject);
 	void SetOutputAsInt32(int retIndex, const int32_t value);
-	void SetOutputAsString(int retIndex, const wchar_t* str);
+	void SetOutputAsString(int retIndex, wchar_t* str);
 	//----------------------------------------------------------------------
 
 	const char16* ReadOutputAsString(int resultIndex);
-	int ReadOutputAsInt32(int resultIndex); 
+	int ReadOutputAsInt32(int resultIndex);
 };
 
 //----------------------------------------------------------------------
 class MethodArgs_0
 {
-public: 
+public:
 	struct jsvalue result0;
-	int16_t resultKind;	  
+	int16_t resultKind;
 };
 
 class MethodArgs_1
@@ -193,7 +191,7 @@ public:
 
 typedef void(__cdecl *managed_callback)(int id, void* args);
 
- 
+
 namespace mycefmx {
 	managed_callback GetManagedCallback();
 	void SetManagedCallback(managed_callback callback);
