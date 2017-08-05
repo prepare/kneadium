@@ -419,7 +419,7 @@ namespace BridgeBuilder
                                         switch (simpleElem.PrimitiveTypeKind)
                                         {
                                             case PrimitiveTypeKind.CefString:
-                                                return "SetCefStringToJsValue(" + retName + ",(int32_t)" + autoRetResultName + ");";
+                                                return "SetCefStringToJsValue(" + retName + "," + autoRetResultName + ");";
 
                                             case PrimitiveTypeKind.NaitveInt:
                                                 return "MyCefSetInt64(" + retName + "," + autoRetResultName + ");";
@@ -613,7 +613,7 @@ namespace BridgeBuilder
                                 }
                                 break;
                             case PrimitiveTypeKind.CefString:
-                                return "SetCefStringToJsValue(" + retName + ",(int32_t)" + autoRetResultName + ");";
+                                return "SetCefStringToJsValue(" + retName + "," + autoRetResultName + ");";
 
                             case PrimitiveTypeKind.NaitveInt:
                                 return "MyCefSetInt64(" + retName + "," + autoRetResultName + ");";
