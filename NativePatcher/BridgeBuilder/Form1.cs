@@ -529,18 +529,20 @@ namespace BridgeBuilder
             }
 
             int tt_count = 0;
+            StringBuilder total1 = new StringBuilder();
+
             foreach (CefTypeTxPlan tx in instanceClassPlans)
             {
                 //pass
                 //CefRequest ,21
                 CodeStringBuilder stbuilder = new CodeStringBuilder();
                 tx.GenerateCppCode(stbuilder);
-                if (tt_count > 26)
-                {
-
-                }
                 tt_count++;
-
+                //
+                total1.AppendLine();
+                total1.AppendLine("// " + tx.OriginalDecl.ToString());
+                total1.Append(stbuilder.ToString());
+                total1.AppendLine();
             }
         }
         CodeCompilationUnit ParseWrapper(string srcFile)
