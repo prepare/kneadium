@@ -263,6 +263,7 @@ args.SetArgAsNativeObject(0, &queryReq);
 this->mcallback_(CEF_MSG_OnQuery, &args);
 
 //auto result = args.ReadOutputAsString(0);
+
 CefString cefstr = args.ReadOutputAsString(0);
 callback->Success(cefstr);
 

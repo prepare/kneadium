@@ -136,9 +136,36 @@ public:
 	//----------------------------------------------------------------------
 
 	const char16* ReadOutputAsString(int resultIndex);
-	int ReadOutputAsInt32(int resultIndex);
-
+	int ReadOutputAsInt32(int resultIndex); 
 };
+
+//----------------------------------------------------------------------
+class MethodArgs_0
+{
+public: 
+	struct jsvalue result0;
+	int16_t resultKind;	  
+};
+
+class MethodArgs_1
+{
+public:
+	struct jsvalue arg0;
+	//
+	struct jsvalue result0;
+	int16_t resultKind;
+};
+
+class MethodArgs_2
+{
+public:
+	struct jsvalue arg0;
+	struct jsvalue arg1;
+	//
+	struct jsvalue result0;
+	int16_t resultKind;
+};
+//----------------------------------------------------------------------
 
 class MyCefStringHolder
 {

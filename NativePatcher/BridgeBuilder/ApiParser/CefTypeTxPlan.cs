@@ -45,8 +45,7 @@ namespace BridgeBuilder
                 if (_dbugLineCount >= 302)
                 {
 
-                }
-
+                } 
             }
 
         }
@@ -817,7 +816,7 @@ namespace BridgeBuilder
                                                 implWrapDirection = ImplWrapDirection.CppToC;
                                                 string met = GetSmartPointerMet(implWrapDirection);
                                                 string slotName = bridge.CefCppSlotName.ToString();
-                                                par.ArgExtractCode = implTypeDecl.Name + "::" + met + "(" + (argName + "->" + slotName) + ")";
+                                                par.ArgExtractCode = implTypeDecl.Name + "::" + met + "(" + "(" + txplan.UnderlyingCType + "*)" + (argName + "->" + slotName) + ")";
                                             }
                                             else
                                             {
@@ -1107,11 +1106,13 @@ namespace BridgeBuilder
             {
                 throw new NotSupportedException();
             }
-            //----
-            stbuilder.AppendLine();
-            stbuilder.AppendLine("// gen! " + met.ToString());
-            stbuilder.AppendLine();
 
+            //--------------------------- 
+            stbuilder.AppendLine();
+            stbuilder.Append(
+                "\r\n" +
+                "// gen! " + met.ToString() + "\r\n"
+                );
             //---------------------------
             for (int i = 0; i < parCount; ++i)
             {
