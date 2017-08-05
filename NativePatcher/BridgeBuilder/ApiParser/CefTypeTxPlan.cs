@@ -42,10 +42,10 @@ namespace BridgeBuilder
             if (_dbugEnableLineNote)
             {
                 stbuilder.AppendLine("/*" + _dbugLineCount + "*/");
-                if (_dbugLineCount >= 302)
-                {
+                //if (_dbugLineCount >= 396)
+                //{
 
-                } 
+                //}
             }
 
         }
@@ -664,7 +664,7 @@ namespace BridgeBuilder
                         if (simpleType.IsEnum)
                         {
                             //.net send enum as int32 
-                            par.ArgExtractCode = "(" + simpleType.ToString() + ")" + argName + "->" + bridge.CefCppSlotName;//review here
+                            par.ArgExtractCode = "(" + simpleType.ToString() + ")" + argName + "->i32";//review here
                         }
                         else
                         {
