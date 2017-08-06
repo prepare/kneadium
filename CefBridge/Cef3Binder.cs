@@ -208,7 +208,7 @@ namespace LayoutFarm.CefBridge
             JsValue a2 = new JsValue();
             JsValue ret;
             Cef3Binder.MyCefFrameCall2(this.nativePtr,
-            (int)CefFrameCallMsg.CefFrame_GetUrl, out ret, ref a1, ref a2);
+            (int)CefFrameCallMsg.CefFrame_GetURL, out ret, ref a1, ref a2);
             //
 
             unsafe
