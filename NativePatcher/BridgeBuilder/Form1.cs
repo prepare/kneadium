@@ -116,7 +116,11 @@ namespace BridgeBuilder
                     indexOfCefClient = onlyPath.IndexOf("\\shared\\");
                     if (indexOfCefClient < 0)
                     {
-                        throw new NotSupportedException();
+                        indexOfCefClient = onlyPath.IndexOf("\\cefclient");
+                        if (indexOfCefClient < 0)
+                        { 
+                            throw new NotSupportedException();
+                        } 
                     }
                 }
                 string rightSide = onlyPath.Substring(indexOfCefClient);
@@ -351,7 +355,7 @@ namespace BridgeBuilder
 
             foreach (CodeTypeDeclaration typedecl in cefTypeCollection.cToCppClasses)
             {
-                TypeTxInfo typeTxPlan = txPlanner.MakeTransformPlan(typedecl); 
+                TypeTxInfo typeTxPlan = txPlanner.MakeTransformPlan(typedecl);
             }
             foreach (CodeTypeDeclaration typedecl in cefTypeCollection.cppToCClasses)
             {

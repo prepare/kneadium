@@ -294,7 +294,7 @@ namespace BridgeBuilder
                 if (nextSpace < 0)
                 {
                     string id = line.Substring(startPos).Trim();
-                    additionalInfo = null; 
+                    additionalInfo = null;
                     taskId = int.Parse(id);
                 }
                 else
@@ -853,7 +853,7 @@ namespace BridgeBuilder
             //meet all criteria(s)
             for (int p = 0; p < n; ++p)
             {
-                string note = preNotes[p];
+                string note = preNotes[p].Trim();
                 int foundAt = FindLineStartWith(output, shouldStartPatchAt, note);
                 if (foundAt < 0)
                 {
@@ -872,7 +872,11 @@ namespace BridgeBuilder
 
             for (int p = 0; p < n; ++p)
             {
-                string note = postNotes[p];
+                string note = postNotes[p].Trim();
+                if (note.StartsWith("//###"))
+                {
+                    break;
+                }
                 int foundAt = FindLineStartWith(output, shouldStartPatchAt, note);
                 if (foundAt < 0)
                 {
