@@ -83,6 +83,7 @@ typedef unsigned __int64 uint64_t;
 
 #define JSVALUE_TYPE_NATIVE_CEFSTRING 30  //my extension
 #define JSVALUE_TYPE_NATIVE_CEFHOLDER_STRING 31//my extension
+#define JSVALUE_TYPE_MANAGED_CB 32
 #define JSVALUE_TYPE_MEM_ERROR      50 //my extension
 
 
@@ -99,30 +100,12 @@ extern "C" {
 	    double num;
 	    //store 64 bits value
 	    int64_t i64;
-	};
-	//struct jsvalue_ret
-	//{
-	//	int32_t type; //type and flags
-	//				  //this for 32 bits values, also be used as string len, array len  and index to managed slot index
-	//	int32_t i32;
-	//	// native ptr (may point to native object, native array, native string)
-	//	void* ptr; //uint16_t* or jsvalue**   arr or 
-	//					 //store float or double
-	//	double num;
-	//	//store 64 bits value
-	//	int64_t i64;
-	//};
-}
-
-
-
+	}; 
+} 
 
 class MethodArgs
 {
-public:
-
-	int method_id;
-
+public: 
 	struct jsvalue arg0;//this arg for instant method
 	struct jsvalue arg1;
 	struct jsvalue arg2;
@@ -134,13 +117,12 @@ public:
 	struct jsvalue result2;
 	struct jsvalue result3;
 	struct jsvalue result4;
+		 
+	int16_t resultKind;
+	int16_t argCount;
+	int16_t resultCount;
 
-	//void* outputBuffer;	 
-	//int outputLen;
-	int resultKind;
 
-	int argCount;
-	int resultCount;
 
 	void SetArgAsString(int argIndex, const wchar_t* str);
 	void SetArgAsNativeObject(int argIndex, const void* nativeObject);

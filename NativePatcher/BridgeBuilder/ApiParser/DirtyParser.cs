@@ -1,6 +1,6 @@
 ﻿//MIT, 2016-2017 ,WinterDev
 using System;
-using System.Collections.Generic; 
+using System.Collections.Generic;
 using System.IO;
 using System.Text;
 namespace BridgeBuilder
@@ -66,7 +66,8 @@ namespace BridgeBuilder
                                 //one or multiple 
                                 LexPunc(charBuffer, j, ref i);
                             }
-                        } break;
+                        }
+                        break;
                 }
             }
         }
@@ -131,7 +132,8 @@ namespace BridgeBuilder
                             tklist.Add(
                                   new Token() { Content = c.ToString(), TokenKind = TokenKind.Punc });
                         }
-                    } break;
+                    }
+                    break;
                 case '=':// ==,  
                 case '!'://!=  
                 case '%':
@@ -197,7 +199,8 @@ namespace BridgeBuilder
 
 
 
-                    } break;
+                    }
+                    break;
                 case '/':
 
                     //may be /=, // , /*
@@ -384,6 +387,19 @@ namespace BridgeBuilder
             //start parse line by line
             //------------
             ParseFileContent();
+            //------------
+
+
+            //add (optional) compilation unit info
+            foreach (CodeTypeDeclaration typedecl in typeList)
+            {
+                typedecl.OriginalCompilationUnit = cu;
+                foreach (CodeMemberDeclaration mb in typedecl.Members)
+                {
+                    mb.OriginalCompilationUnit = cu;
+                }
+            }
+
         }
 
         void ReadUntilEscapeFromBlock()
@@ -527,18 +543,21 @@ namespace BridgeBuilder
                                         {
                                             throw new NotSupportedException();
                                         }
-                                    } break;
+                                    }
+                                    break;
 
                                 case "typedef":
                                     {
                                         //parse typedef 
                                         ParseCTypeDef(globalTypeDecl);
-                                    } break;
+                                    }
+                                    break;
                                 case "template":
                                     {
                                         //skip template
 
-                                    } break;
+                                    }
+                                    break;
                                 case "extern":
                                     {
                                         if (ExpectLiteralString("\"C\""))
@@ -553,24 +572,29 @@ namespace BridgeBuilder
                                             }
                                         }
 
-                                    } break;
+                                    }
+                                    break;
                                 default:
                                     {
                                         //may be global func
                                         //should be method
                                         this.currentTokenIndex--;
                                         ParseTypeMember(globalTypeDecl);
-                                    } break;
+                                    }
+                                    break;
                             }
 
-                        } break;
+                        }
+                        break;
                     case TokenKind.LineComment:
                         {
-                        } break;
+                        }
+                        break;
                     default:
                         {
 
-                        } break;
+                        }
+                        break;
                 }
 
             }
@@ -933,8 +957,8 @@ namespace BridgeBuilder
                 {
                     CodeTypeTemplateTypeReference typeTemplate = new CodeTypeTemplateTypeReference(typeName);
                     type1 = typeTemplate;
-                //parse each item 
-                AGAIN:
+                    //parse each item 
+                    AGAIN:
                     var typeParameter = ExpectType();
                     if (typeParameter != null)
                     {
@@ -957,8 +981,8 @@ namespace BridgeBuilder
                     {
                         var funcTypeReference = new CodeFunctionPointerTypeRefernce();
                         funcTypeReference.ReturnType = typeParameter;
-                    //callback ?  
-                    AGAIN2:
+                        //callback ?  
+                        AGAIN2:
                         CodeMethodParameter par = new CodeMethodParameter();
                         par.IsConstPar = ExpectId("const");
                         par.ParameterType = ExpectType();
@@ -1002,9 +1026,9 @@ namespace BridgeBuilder
                     }
                     type1 = new CodeSimpleTypeReference(typeName);
                 }
-            //------------------
+                //------------------
 
-            CHECK_AGAIN:
+                CHECK_AGAIN:
                 if (ExpectPunc("*"))
                 {
                     type1 = new CodePointerTypeReference(type1);
