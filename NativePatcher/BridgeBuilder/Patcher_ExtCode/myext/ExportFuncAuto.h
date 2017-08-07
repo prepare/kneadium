@@ -97,7 +97,7 @@ class MyBrowser; //forward decl
 //---------------------
 //for auto gen content 
 //
-
-
-
-MY_DLL_EXPORT void MyCefFrameCall2(cef_frame_t* cefFrame, int methodName, jsvalue* ret, jsvalue* v1, jsvalue* v2);
+extern "C" {
+	MY_DLL_EXPORT void MyCefMet_CefBrowser(cef_browser_t* me1, int metName, jsvalue* ret, jsvalue* v1, jsvalue* v2, jsvalue* v3, jsvalue* v4, jsvalue* v5, jsvalue* v6);
+	MY_DLL_EXPORT void MyCefMet_CefFrame(cef_frame_t* me1, int metName, jsvalue* ret, jsvalue* v1, jsvalue* v2, jsvalue* v3, jsvalue* v4, jsvalue* v5, jsvalue* v6);
+}
