@@ -114,7 +114,11 @@ namespace BridgeBuilder
                     indexOfCefClient = onlyPath.IndexOf("\\shared\\");
                     if (indexOfCefClient < 0)
                     {
-                        throw new NotSupportedException();
+                        indexOfCefClient = onlyPath.IndexOf("\\cefclient");
+                        if (indexOfCefClient < 0)
+                        { 
+                            throw new NotSupportedException();
+                        } 
                     }
                 }
                 string rightSide = onlyPath.Substring(indexOfCefClient);
@@ -445,6 +449,7 @@ namespace BridgeBuilder
             foreach (CodeTypeDeclaration typedecl in cefTypeCollection.cToCppClasses)
             {
                 TypeTxInfo typeTxPlan = txPlanner.MakeTransformPlan(typedecl);
+ 
                 typedecl.TypeTxInfo = typeTxPlan;
 
                 //cef -specific
@@ -476,7 +481,7 @@ namespace BridgeBuilder
                 //    StringBuilder stbuilder = new StringBuilder();
                 //    apiBuilderCppPart.GenerateCppPart(typeTxPlan, stbuilder);
                 //}
-                ////
+                //// 
             }
             foreach (CodeTypeDeclaration typedecl in cefTypeCollection.cppToCClasses)
             {
@@ -519,18 +524,38 @@ namespace BridgeBuilder
             //code gen
             foreach (CefTypeTxPlan tx in handlerPlans)
             {
-                CodeStringBuilder stbuilder = new CodeStringBuilder();
-                tx.GenerateCppCode(stbuilder);
+                if (tx.OriginalDecl.Name == "CefRequestHandler")
+                {
+                    CodeStringBuilder stbuilder = new CodeStringBuilder();
+                    //a handler is created on cpp side, then we attach .net delegate to it
+                    //so  we need
+                    //1. 
+                    tx.GenerateCppCode(stbuilder);
+
+                }
+                
             }
             foreach (CefTypeTxPlan tx in callbackPlans)
             {
                 CodeStringBuilder stbuilder = new CodeStringBuilder();
                 tx.GenerateCppCode(stbuilder);
             }
+
+            int tt_count = 0;
+            StringBuilder total1 = new StringBuilder();
+
             foreach (CefTypeTxPlan tx in instanceClassPlans)
             {
+                //pass
+                //CefRequest ,21
                 CodeStringBuilder stbuilder = new CodeStringBuilder();
                 tx.GenerateCppCode(stbuilder);
+                tt_count++;
+                //
+                total1.AppendLine();
+                total1.AppendLine("// " + tx.OriginalDecl.ToString());
+                total1.Append(stbuilder.ToString());
+                total1.AppendLine();
             }
         }
         CodeCompilationUnit ParseWrapper(string srcFile)

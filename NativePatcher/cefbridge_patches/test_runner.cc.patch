@@ -1,7 +1,7 @@
 //###_ORIGINAL D:\projects\cef_binary_3.3071.1647.win32\tests\cefclient\browser//test_runner.cc
 //###_BEGIN 0
 //###_PRE
-#include "tests/cefclient/browser/urlrequest_test.h" 
+#include "tests/cefclient/browser/urlrequest_test.h"
 //###_PRE
 #include "tests/cefclient/browser/window_test.h"
 #include "include/wrapper/cef_byte_read_handler.h"
@@ -60,7 +60,7 @@ return url;
 //###_APPEND_STOP
 //###_BEGIN 0
 //###_PRE
-#endif 
+#endif
 //###_PRE
 }
 void SetupResourceManager2(CefRefPtr<CefResourceManager> resource_manager, managed_callback mcallback) {

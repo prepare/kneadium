@@ -158,7 +158,7 @@ namespace BridgeBuilder
                                 {
                                     if (typeTemplate.Items.Count == 1)
                                     {
-                                        return typeRef.ResolvedType = new ReferenceOrPointerTypeSymbol(ResolveType(typeTemplate.Items[0]), ContainerTypeKind.CefRefPtr);
+                                        return typeRef.ResolvedType = new ReferenceOrPointerTypeSymbol(ResolveType(typeTemplate.Items[0]), ContainerTypeKind.CefRawPtr);
                                     }
                                     throw new NotSupportedException();
                                 }
@@ -166,7 +166,7 @@ namespace BridgeBuilder
                                 {
                                     if (typeTemplate.Items.Count == 1)
                                     {
-                                        return typeRef.ResolvedType = new ReferenceOrPointerTypeSymbol(ResolveType(typeTemplate.Items[0]), ContainerTypeKind.ScopePtr);
+                                        return typeRef.ResolvedType = new ReferenceOrPointerTypeSymbol(ResolveType(typeTemplate.Items[0]), ContainerTypeKind.scoped_ptr);
                                     }
                                     else
                                     {
@@ -759,14 +759,19 @@ namespace BridgeBuilder
                                                     break;
                                             }
                                         }
-                                    }
-                                    else if (t.Name == "CefScopedSandboxInfo")
-                                    {
-                                        //no base class
-                                    }
+                                    } 
                                     else
                                     {
-
+                                        switch (t.Name)
+                                        {
+                                            default:
+                                                break;
+                                            case "CefScopedSandboxInfo":
+                                            case "CefBaseRefCounted":
+                                            case "CefBaseScoped":
+                                            case "CefRefCount":
+                                                break;
+                                        }
                                     }
                                 }
                             }

@@ -123,6 +123,7 @@ namespace BridgeBuilder
             if (CheckIfFileWasPatched(input, out patchCode))
             {
                 //can't patch
+
                 throw new NotSupportedException("not patch again in this file");
             }
             else
@@ -294,7 +295,7 @@ namespace BridgeBuilder
                 if (nextSpace < 0)
                 {
                     string id = line.Substring(startPos).Trim();
-                    additionalInfo = null; 
+                    additionalInfo = null;
                     taskId = int.Parse(id);
                 }
                 else
@@ -367,6 +368,11 @@ namespace BridgeBuilder
             while (i < j && count1 < 2)
             {
                 string nextLine = sourceFile.GetLine(i).TrimStart();
+                if (nextLine.StartsWith("//###"))
+                {
+                    //stop
+                    break;
+                }
                 //parse nextline for a command 
                 if (!string.IsNullOrEmpty(nextLine))
                 {
@@ -412,7 +418,8 @@ namespace BridgeBuilder
 
                     switch (cmdline)
                     {
-                        default: throw new NotSupportedException();
+                        default:
+                            throw new NotSupportedException();
                         case PatchCommand.PRE:
                             {
 
@@ -853,7 +860,7 @@ namespace BridgeBuilder
             //meet all criteria(s)
             for (int p = 0; p < n; ++p)
             {
-                string note = preNotes[p];
+                string note = preNotes[p].Trim();
                 int foundAt = FindLineStartWith(output, shouldStartPatchAt, note);
                 if (foundAt < 0)
                 {
@@ -872,7 +879,11 @@ namespace BridgeBuilder
 
             for (int p = 0; p < n; ++p)
             {
-                string note = postNotes[p];
+                string note = postNotes[p].Trim();
+                if (note.StartsWith("//###"))
+                {
+                    break;
+                }
                 int foundAt = FindLineStartWith(output, shouldStartPatchAt, note);
                 if (foundAt < 0)
                 {

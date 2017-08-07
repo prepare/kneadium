@@ -12,7 +12,7 @@ namespace client {
 //###_END 0
 //###_BEGIN 0
 //###_PRE
-// be executed. 
+// be executed.
 //###_PRE
 void CloseAllWindows(bool force);
 //my extension --for callback to managed side

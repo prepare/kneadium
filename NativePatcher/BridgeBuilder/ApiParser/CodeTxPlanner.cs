@@ -170,6 +170,8 @@ namespace BridgeBuilder
             set;
         }
 
+        internal string CppMethodSwitchCaseName { get; set; }
+
         public bool CsLeftMethodBodyBlank { get; set; }
 #if DEBUG
         public override string ToString()
@@ -192,6 +194,7 @@ namespace BridgeBuilder
                 this.IsVoid = s.PrimitiveTypeKind == PrimitiveTypeKind.Void;
             }
         }
+        public bool IsConst { get; set; }
         public TypeSymbol TypeSymbol { get; private set; }
         public bool IsMethodReturnParameter { get; set; }
         public string Name { get; set; }
@@ -205,6 +208,10 @@ namespace BridgeBuilder
             return "";
         }
         public TxParameterDirection Direction { get; set; }
+
+        internal string ArgPreExtractCode { get; set; }
+        internal string ArgExtractCode { get; set; }
+        internal string ArgPostExtractCode { get; set; }
     }
 
     enum TxParameterDirection
@@ -751,8 +758,7 @@ namespace BridgeBuilder
         MethodTxInfo MakeMethodPlan(CodeMethodDeclaration metDecl)
         {
             MethodTxInfo metTx = new MethodTxInfo(metDecl);
-            //make return type plan
-
+            //make return type plan 
 
             //1. return
             MethodParameterTxInfo retTxInfo = new MethodParameterTxInfo(null, metDecl.ReturnType.ResolvedType) { IsMethodReturnParameter = true };
@@ -766,12 +772,13 @@ namespace BridgeBuilder
             for (int i = 0; i < j; ++i)
             {
                 CodeMethodParameter metPar = metDecl.Parameters[i];
-                MethodParameterTxInfo parTxInfo = new MethodParameterTxInfo(metPar.ParameterName, metPar.ParameterType.ResolvedType);
 
+                MethodParameterTxInfo parTxInfo = new MethodParameterTxInfo(metPar.ParameterName, metPar.ParameterType.ResolvedType);
+                parTxInfo.IsConst = metPar.IsConstPar;
                 parTxInfo.Direction = TxParameterDirection.In;
                 //TODO: review Out,InOut direction 
 
-                TypeSymbol parTypeSymbol = metPar.ParameterType.ResolvedType; 
+                TypeSymbol parTypeSymbol = metPar.ParameterType.ResolvedType;
                 AddMethodParameterTypeTxInfo(parTxInfo, parTypeSymbol);
 
                 metTx.AddMethodParameterTx(parTxInfo);
@@ -1385,6 +1392,15 @@ namespace BridgeBuilder
             }
             return _cefRefPtrBridge;
         }
+        public TypeBridgeInfo GetCefRawPtrBridge()
+        {
+            if (_cefRefPtrBridge == null)
+            {
+                //create new one
+                _cefRefPtrBridge = new TypeBridgeInfo(this, WellKnownTypeName.RefPtrOf, CefCppSlotKind.JSVALUE_TYPE_WRAPPED);
+            }
+            return _cefRefPtrBridge;
+        }
         public TypeBridgeInfo GetScopePtrBridge()
         {
             if (_scopePtrBridge == null)
@@ -1445,14 +1461,6 @@ namespace BridgeBuilder
         }
 
     }
-
-
-
-
-
-
-
-
     enum CefSlotName
     {
         UNKNOWN,
@@ -1490,18 +1498,9 @@ namespace BridgeBuilder
             {
                 default:
                     {
-
-
                         if ((simpleType.Name.StartsWith("cef_") || simpleType.Name.StartsWith("_cef")) &&
                             CefResolvingContext.IsAllLowerLetter(simpleType.Name))
                         {
-                            //TypeSymbol existingType;
-                            //if (typeSymbols.TryGetValue(simpleType.Name, out existingType))
-                            //{
-
-                            //}
-
-
                             //this is native cef?
                             var typeBridge = new TypeBridgeInfo(simpleType, WellKnownTypeName.CefCNative, CefCppSlotKind.JSVALUE_TYPE_WRAPPED);
                             return typeBridge;
@@ -1710,17 +1709,21 @@ namespace BridgeBuilder
             {
                 default:
                     throw new NotSupportedException();
+
                 case ContainerTypeKind.ByRef:
                     bridge = bridgeToElem.GetReferenceBridge();
                     break;
                 case ContainerTypeKind.Pointer:
                     bridge = bridgeToElem.GetPointerBridge();
                     break;
+                case ContainerTypeKind.scoped_ptr:
+                    bridge = bridgeToElem.GetScopePtrBridge();
+                    break;
                 case ContainerTypeKind.CefRefPtr:
                     bridge = bridgeToElem.GetCefRefPtrBridge();
                     break;
-                case ContainerTypeKind.ScopePtr:
-                    bridge = bridgeToElem.GetScopePtrBridge();
+                case ContainerTypeKind.CefRawPtr:
+                    bridge = bridgeToElem.GetCefRefPtrBridge();
                     break;
             }
 

@@ -46,7 +46,7 @@ namespace BridgeBuilder
                 case ContainerTypeKind.Pointer: 
                     VisitByPointer(t);
                     break;
-                case ContainerTypeKind.ScopePtr: 
+                case ContainerTypeKind.scoped_ptr: 
                     VisitByScopePtr(t);
                     break;
             }

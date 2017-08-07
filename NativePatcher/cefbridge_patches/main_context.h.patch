@@ -1,7 +1,7 @@
 //###_ORIGINAL D:\projects\cef_binary_3.3071.1647.win32\tests\cefclient\browser//main_context.h
 //###_BEGIN 0
 //###_PRE
-#include "include/internal/cef_types_wrappers.h" 
+#include "include/internal/cef_types_wrappers.h"
 //###_PRE
 #include "tests/cefclient/browser/osr_renderer.h"
 #include "tests/cefclient/myext/mycef.h" //my extension
