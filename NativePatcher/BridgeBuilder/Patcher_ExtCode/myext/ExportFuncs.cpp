@@ -22,7 +22,7 @@
 #include "libcef_dll/ctocpp/browser_ctocpp.h"
 #include "libcef_dll/ctocpp/v8context_ctocpp.h"
 //
- 
+
 
 
 
@@ -526,7 +526,7 @@ void CopyInt64ListToResult(jsvalue* ret, std::vector<int64>& int64list) {
 }
 //----------------
 
-managed_callback MyCefJsValueGetManagedCallback(jsvalue* v) {
+MY_DLL_EXPORT managed_callback MyCefJsValueGetManagedCallback(jsvalue* v) {
 	if (v->type == JSVALUE_TYPE_MANAGED_CB) {
 		return (managed_callback)v->ptr;
 	}
@@ -534,7 +534,7 @@ managed_callback MyCefJsValueGetManagedCallback(jsvalue* v) {
 		return nullptr;
 	}
 }
-void MyCefJsValueSetManagedCallback(jsvalue* v, managed_callback cb) {
+MY_DLL_EXPORT void MyCefJsValueSetManagedCallback(jsvalue* v, managed_callback cb) {
 	v->type = JSVALUE_TYPE_MANAGED_CB;
 	v->ptr = cb;
 }
@@ -789,7 +789,7 @@ void MyCefFrameCall2(cef_frame_t* cefFrame, int methodName, jsvalue* ret, jsvalu
 		ret->type = JSVALUE_TYPE_WRAPPED;
 		ret->ptr = CefFrameCToCpp::Unwrap(ret_result);
 		CefFrameCToCpp::Unwrap(cefFrame1);
-	}break;		
+	}break;
 	case CefFrame_GetBrowser: {
 		auto ret_result = cefFrame1->GetBrowser();
 		ret->type = JSVALUE_TYPE_WRAPPED;
