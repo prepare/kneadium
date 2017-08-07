@@ -13,7 +13,7 @@ namespace {
 //###_END 0
 //###_BEGIN 0
 //###_PRE
-CefRegisterSchemeHandlerFactory("client", "tests", new ClientSchemeHandlerFactory());
+CefRegisterSchemeHandlerFactory("client", "tests"
 //###_PRE
 }
 #else

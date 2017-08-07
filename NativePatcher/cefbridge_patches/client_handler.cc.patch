@@ -263,6 +263,7 @@ args.SetArgAsNativeObject(0, &queryReq);
 this->mcallback_(CEF_MSG_OnQuery, &args);
 
 //auto result = args.ReadOutputAsString(0);
+
 CefString cefstr = args.ReadOutputAsString(0);
 callback->Success(cefstr);
 
@@ -270,11 +271,7 @@ return true;
 }
 return false;
 }
-};
-//###_POST
-//###_START 5
-//###_POST
-void ClientHandler::OnAfterCreated(CefRefPtr<CefBrowser> browser) {
+}; 
 //###_END 0
 //###_START 5
 void ClientHandler::OnAfterCreated(CefRefPtr<CefBrowser> browser) {
