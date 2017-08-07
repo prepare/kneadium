@@ -62,8 +62,7 @@ extern "C" {
 		bool allow_target_subdomains
 	);
 
-	MY_DLL_EXPORT managed_callback MyCefJsValueGetManagedCallback(jsvalue* v);
-	MY_DLL_EXPORT void MyCefJsValueSetManagedCallback(jsvalue* v, managed_callback cb);
+	
 
 	//
 	MY_DLL_EXPORT void MyCefBwCall2(MyBrowser* myBw, int methodName, jsvalue* ret, jsvalue* v1, jsvalue* v2);

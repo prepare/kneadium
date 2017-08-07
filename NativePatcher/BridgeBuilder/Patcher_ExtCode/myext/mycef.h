@@ -100,7 +100,7 @@ extern "C" {
 	    double num;
 	    //store 64 bits value
 	    int64_t i64;
-	}; 
+	};  
 } 
 
 class MethodArgs
@@ -171,4 +171,11 @@ namespace mycefmx {
 	managed_callback GetManagedCallback();
 	void SetManagedCallback(managed_callback callback);
 
+}
+
+
+extern "C" {
+	 
+	MY_DLL_EXPORT managed_callback MyCefJsValueGetManagedCallback(jsvalue* v);
+	MY_DLL_EXPORT void MyCefJsValueSetManagedCallback(jsvalue* v, managed_callback cb);
 }
