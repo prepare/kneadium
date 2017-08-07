@@ -56,7 +56,7 @@ void MyCefMetArgs_SetResultAsJsValue(MethodArgs* args, int retIndex, jsvalue* va
 	}
 }
 
-void MyCefMetArgs_SetResultAsString(MethodArgs* args, int argIndex, wchar_t* buffer, int len) {
+void MyCefMetArgs_SetResultAsString(MethodArgs* args, int argIndex, const wchar_t* buffer, int len) {
 
 	switch (argIndex)
 	{
@@ -92,7 +92,7 @@ void MyCefMetArgs_SetResultAsString(MethodArgs* args, int argIndex, wchar_t* buf
 	}break;
 	}
 }
-void MyCefMetArgs_SetInputAsString(MethodArgs* args, int argIndex, wchar_t* buffer, int len) {
+void MyCefMetArgs_SetInputAsString(MethodArgs* args, int argIndex, const wchar_t* buffer, int len) {
 
 	//input
 	switch (argIndex)
@@ -194,7 +194,7 @@ void MyCefMetArgs_SetResultAsInt32(MethodArgs* args, int argIndex, int value)
 	}
 
 }
-void MyCefMetArgs_SetResultAsByteBuffer(MethodArgs* args, int argIndex, char* byteBuffer, int len) {
+void MyCefMetArgs_SetResultAsByteBuffer(MethodArgs* args, int argIndex, const char* byteBuffer, int len) {
 
 	switch (argIndex)
 	{
