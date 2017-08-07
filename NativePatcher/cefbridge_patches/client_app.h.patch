@@ -1,7 +1,7 @@
 //###_ORIGINAL D:\projects\cef_binary_3.3071.1647.win32\tests\shared\common//client_app.h
 //###_BEGIN 0
 //###_PRE
-#include <vector> 
+#include <vector>
 //###_PRE
 #include "include/cef_app.h"
 #include "tests/cefclient/myext/mycef_msg_const.h"

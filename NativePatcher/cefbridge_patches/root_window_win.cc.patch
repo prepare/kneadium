@@ -1,4 +1,4 @@
-//###_ORIGINAL D:\projects\cef_binary_3.3071.1647.win32\tests\cefclient\browser\root_window_win.cc
+//###_ORIGINAL D:\projects\cef_binary_3.3071.1647.win32\tests\cefclient\browser//root_window_win.cc
 //###_BEGIN 0
 //###_PRE
 #define URLBAR_HEIGHT 24
@@ -15,16 +15,16 @@ namespace {
 //###_PRE
 void RootWindowWin::OnSetFullscreen(bool fullscreen) {
 //###_PRE
-REQUIRE_MAIN_THREAD();  
+REQUIRE_MAIN_THREAD();
 #if BUILD_TEST
 //###_POST
 CefRefPtr<CefBrowser> browser = GetBrowser();
 //###_POST
-if (browser) { 
+if (browser) {
 //###_END 0
 //###_BEGIN 0
 //###_PRE
-test_runner->Restore(browser); 
+test_runner->Restore(browser);
 //###_PRE
 }
 #endif //BUILD_TEST

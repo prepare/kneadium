@@ -123,7 +123,7 @@ namespace BridgeBuilder
             if (CheckIfFileWasPatched(input, out patchCode))
             {
                 //can't patch
-                
+
                 throw new NotSupportedException("not patch again in this file");
             }
             else
@@ -368,6 +368,10 @@ namespace BridgeBuilder
             while (i < j && count1 < 2)
             {
                 string nextLine = sourceFile.GetLine(i).TrimStart();
+                if (nextLine.StartsWith("//###"))
+                {
+                    //stop
+                }
                 //parse nextline for a command 
                 if (!string.IsNullOrEmpty(nextLine))
                 {

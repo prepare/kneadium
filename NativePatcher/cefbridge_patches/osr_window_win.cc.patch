@@ -3,7 +3,7 @@
 OsrWindowWin::OsrWindowWin(Delegate* delegate,
 //###_BEGIN 0
 //###_PRE
-last_click_count_(0), 
+last_click_count_(0),
 //###_PRE
 last_click_time_(0),
 //my extension

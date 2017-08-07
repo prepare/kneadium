@@ -1,4 +1,4 @@
-//###_ORIGINAL D:\projects\cef_binary_3.3071.1647.win32\tests\cefclient\browser\scheme_test.cc
+//###_ORIGINAL D:\projects\cef_binary_3.3071.1647.win32\tests\cefclient\browser//scheme_test.cc
 //###_BEGIN 0
 //###_PRE
 namespace client {
@@ -13,7 +13,7 @@ namespace {
 //###_END 0
 //###_BEGIN 0
 //###_PRE
-CefRegisterSchemeHandlerFactory("client", "tests"
+new ClientSchemeHandlerFactory());
 //###_PRE
 }
 #else

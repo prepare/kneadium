@@ -1,4 +1,4 @@
-//###_ORIGINAL D:\projects\cef_binary_3.3071.1647.win32\tests\cefclient\renderer\client_app_delegates_renderer.cc
+//###_ORIGINAL D:\projects\cef_binary_3.3071.1647.win32\tests\cefclient\renderer//client_app_delegates_renderer.cc
 //###_BEGIN 0
 //###_PRE
 #include "tests/cefclient/renderer/performance_test.h"
@@ -16,9 +16,9 @@ void ClientAppRenderer::CreateDelegates(DelegateSet& delegates) {
 //###_PRE
 renderer::CreateDelegates(delegates);
 #if BUILD_TEST
+
 //###_POST
 performance_test::CreateDelegates(delegates);
-
 //###_END 0
 //###_BEGIN 0
 //###_PRE
