@@ -279,6 +279,7 @@ settings);
 //###_APPEND_STOP
 //###_SKIP_UNTIL_AND_ACCEPT 4
 }
+ 
 //###_START 5
 void ClientHandler::OnAfterCreated(CefRefPtr<CefBrowser> browser) {
 //###_FIND_NEXT_LANDMARK 5

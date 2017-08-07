@@ -17,27 +17,63 @@ namespace BridgeBuilder
         ReferenceOrPointer,
         Vec,
         Template,
+        TemplateParameter,
         TypeDef,
     }
 
     enum ContainerTypeKind
     {
-        ScopePtr,
-        CefRefPtr,
         Pointer,
         ByRef,
+
+        /// <summary>
+        /// Cpp scoped_ptr
+        /// </summary>
+        scoped_ptr,
+
+        /// <summary>
+        /// CEF 'smart pointer'
+        /// </summary>
+        CefRefPtr, //
+        CefRawPtr,
+
     }
     abstract class TypeSymbol : Symbol
     {
+#if DEBUG
+        public readonly int dbugId = dbugTotalId++;
+        static int dbugTotalId;
+        public TypeSymbol()
+        {
+
+        }
+#endif
         public abstract TypeSymbolKind TypeSymbolKind { get; }
-
-
+        public TypeBridgeInfo BridgeInfo { get; set; }
     }
-    class SimpleType : TypeSymbol
+
+    class SimpleTypeSymbol : TypeSymbol
     {
-        public SimpleType(string name)
+        CodeTypeDeclaration _codeTypeDecl;
+        public SimpleTypeSymbol(string name)
         {
             this.Name = name;
+        }
+        public SimpleTypeSymbol(CodeTypeDeclaration codeTypeDecl)
+        {
+            this._codeTypeDecl = codeTypeDecl;
+            this.Name = codeTypeDecl.FullName;
+        }
+        public bool IsEnum
+        {
+            get
+            {
+                if (_codeTypeDecl != null)
+                {
+                    return _codeTypeDecl.Kind == TypeKind.Enum;
+                }
+                return false;
+            }
         }
         public override TypeSymbolKind TypeSymbolKind { get { return TypeSymbolKind.Simple; } }
         public string Name { get; set; }
@@ -46,10 +82,56 @@ namespace BridgeBuilder
             return Name;
         }
         public List<TypeSymbol> NestedTypeSymbols { get; set; }
-        public CodeTypeDeclaration CreatedByTypeDeclaration { get; set; }
+        public CodeTypeDeclaration CreatedByTypeDeclaration
+        {
+            get
+            {
+                return _codeTypeDecl;
+            }
+        }
+
+        public PrimitiveTypeKind PrimitiveTypeKind { get; set; }
+        public TypeSymbol BaseType { get; set; }
+        internal bool IsGlobalCompilationUnitTypeDefinition
+        {
+            get
+            {
+                if (CreatedByTypeDeclaration != null)
+                {
+                    return CreatedByTypeDeclaration.IsGlobalCompilationUnitType;
+                }
+                return false;
+            }
+        }
+        //
+
+        internal CefTypeTxPlan CefTxPlan { get; set; }
     }
+    public enum PrimitiveTypeKind
+    {
+        NotPrimitiveType,
+        Void,
+        Int32,
+        Int64,
+        UInt32,
+        UInt64,
+        Double,
+        Float,
+        Char,
+        Bool,
+        IntPtr, //native pointer
+        NaitveInt,
+        String,
+        CefString,
+        //
+        size_t,
+
+    }
+
+
     class CTypeDefTypeSymbol : TypeSymbol
     {
+        TypeSymbol _referToTypeSymbol;
         public CTypeDefTypeSymbol(string name, CodeTypeReference originalTypeDecl)
         {
             this.Name = name;
@@ -63,10 +145,22 @@ namespace BridgeBuilder
         {
             return Name;
         }
-        public SimpleType ParentType
+        public SimpleTypeSymbol ParentType
         {
             get;
             set;
+        }
+        public TypeSymbol ReferToTypeSymbol
+        {
+            get { return _referToTypeSymbol; }
+            set
+            {
+                if (value == null)
+                {
+
+                }
+                _referToTypeSymbol = value;
+            }
         }
     }
 
@@ -81,7 +175,7 @@ namespace BridgeBuilder
         public TypeSymbol ElementType { get; set; }
         public override string ToString()
         {
-            return "vec<" + ElementType + ">";
+            return "std::vector<" + ElementType + ">";
         }
     }
     class ReferenceOrPointerTypeSymbol : TypeSymbol
@@ -102,11 +196,11 @@ namespace BridgeBuilder
         {
             switch (Kind)
             {
-
-                case ContainerTypeKind.ScopePtr: return "scoped_ptr<" + ElementType.ToString() + ">";
-                case ContainerTypeKind.CefRefPtr: return "refptr<" + ElementType.ToString() + ">";
                 case ContainerTypeKind.Pointer: return ElementType.ToString() + "*";
                 case ContainerTypeKind.ByRef: return ElementType.ToString() + "&";
+                case ContainerTypeKind.scoped_ptr: return "scoped_ptr<" + ElementType.ToString() + ">";
+                case ContainerTypeKind.CefRefPtr: return "CefRefPtr<" + ElementType.ToString() + ">";
+                case ContainerTypeKind.CefRawPtr: return "CefRawPtr<" + ElementType.ToString() + ">";
                 default:
                     throw new NotSupportedException();
             }
@@ -115,9 +209,9 @@ namespace BridgeBuilder
 
 
 
-    abstract class TemplateType : TypeSymbol
+    abstract class TemplateTypeSymbol : TypeSymbol
     {
-        public TemplateType(string name)
+        public TemplateTypeSymbol(string name)
         {
             this.Name = name;
         }
@@ -126,9 +220,44 @@ namespace BridgeBuilder
         public abstract int ItemCount { get; }
     }
 
-    class TemplateType3 : TemplateType
+    class TemplateTypeSymbol1 : TemplateTypeSymbol
     {
-        public TemplateType3(string name)
+        public TemplateTypeSymbol1(string name)
+            : base(name)
+        {
+            this.Name = name;
+        }
+        public override int ItemCount
+        {
+            get { return 1; }
+        }
+        public TypeSymbol Item0 { get; set; }
+        public override string ToString()
+        {
+            return Name + "<" + Item0 + ">";
+        }
+    }
+    class TemplateTypeSymbol2 : TemplateTypeSymbol
+    {
+        public TemplateTypeSymbol2(string name)
+            : base(name)
+        {
+            this.Name = name;
+        }
+        public override int ItemCount
+        {
+            get { return 2; }
+        }
+        public TypeSymbol Item0 { get; set; }
+        public TypeSymbol Item1 { get; set; }
+        public override string ToString()
+        {
+            return Name + "<" + Item0 + "," + Item1 + ">";
+        }
+    }
+    class TemplateTypeSymbol3 : TemplateTypeSymbol
+    {
+        public TemplateTypeSymbol3(string name)
             : base(name)
         {
             this.Name = name;
@@ -142,7 +271,21 @@ namespace BridgeBuilder
         public TypeSymbol Item2 { get; set; }
         public override string ToString()
         {
-            return Name + "<" + Item1 + "," + Item2 + ">";
+            return Name + "<TODO!Imp," + Item1 + "," + Item2 + ">";
         }
+    }
+
+    class TemplateParameterTypeSymbol : TypeSymbol
+    {
+        CodeTemplateParameter templatePar;
+        public TemplateParameterTypeSymbol(CodeTemplateParameter templatePar)
+        {
+            this.templatePar = templatePar;
+            this.TemplateParameterName = templatePar.ParameterName;
+            this.NewName = templatePar.ParameterKind;
+        }
+        public override TypeSymbolKind TypeSymbolKind { get { return TypeSymbolKind.TemplateParameter; } }
+        public string NewName { get; set; }
+        public string TemplateParameterName { get; set; }
     }
 }
