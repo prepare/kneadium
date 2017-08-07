@@ -240,11 +240,18 @@ namespace LayoutFarm.CefBridge
         {
             JsValue a1 = new JsValue();
             JsValue a2 = new JsValue();
+            JsValue a3 = new JsValue();
+            JsValue a4 = new JsValue();
+            JsValue a5 = new JsValue();
+            JsValue a6 = new JsValue();
             JsValue ret;
 
             a1.Ptr = stringVisitor.nativePtr;
-            Cef3Binder.MyCefFrameCall2(this.nativePtr,
-                (int)CefFrameCallMsg.CefFrame_GetText, out ret, ref a1, ref a2);
+            //Cef3Binder.MyCefFrameCall2(this.nativePtr,
+            //    (int)CefFrameCallMsg.CefFrame_GetText, out ret, ref a1, ref a2);
+            const int CefFrame_GetText_11 = 11;
+            Cef3Binder.MyCefMet_CefFrame(this.nativePtr,
+               CefFrame_GetText_11, out ret, ref a1, ref a2, ref a3, ref a4, ref a5, ref a6);
         }
         public void GetSource(MyCefCallback cb2)
         {
