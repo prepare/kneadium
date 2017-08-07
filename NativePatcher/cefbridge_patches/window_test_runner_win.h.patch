@@ -11,3 +11,14 @@ namespace window_test {
 //###_POST
 // process thread.
 //###_END 0
+//###_BEGIN 0
+//###_PRE
+void Restore(CefRefPtr<CefBrowser> browser) OVERRIDE;
+//###_PRE
+};
+#endif
+//###_POST
+}  // namespace window_test
+//###_POST
+}  // namespace client
+//###_END 0

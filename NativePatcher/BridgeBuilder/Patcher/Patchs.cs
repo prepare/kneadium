@@ -371,6 +371,7 @@ namespace BridgeBuilder
                 if (nextLine.StartsWith("//###"))
                 {
                     //stop
+                    break;
                 }
                 //parse nextline for a command 
                 if (!string.IsNullOrEmpty(nextLine))
