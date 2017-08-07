@@ -191,17 +191,17 @@ namespace LayoutFarm.CefBridge
             Cef3Binder.MyCefFrameCall2(this.nativePtr,
             (int)CefFrameCallMsg.CefFrame_Cut, out ret, ref a1, ref a2);
         }
-        public void GetSource(CefStringVisitor visitor)
-        {
+        //public void GetSource(CefStringVisitor visitor)
+        //{
 
-            JsValue a1 = new JsValue();
-            JsValue a2 = new JsValue();
-            JsValue ret;
-            a1.Type = JsValueType.Wrapped;
-            a1.Ptr = visitor.nativePtr;
-            Cef3Binder.MyCefFrameCall2(this.nativePtr,
-            (int)CefFrameCallMsg.CefFrame_GetSource, out ret, ref a1, ref a2);
-        }
+        //    JsValue a1 = new JsValue();
+        //    JsValue a2 = new JsValue();
+        //    JsValue ret;
+        //    a1.Type = JsValueType.Wrapped;
+        //    a1.Ptr = visitor.nativePtr;
+        //    Cef3Binder.MyCefFrameCall2(this.nativePtr,
+        //    (int)CefFrameCallMsg.CefFrame_GetSource, out ret, ref a1, ref a2);
+        //}
         public string GetUrl()
         {
             JsValue a1 = new JsValue();
@@ -226,16 +226,16 @@ namespace LayoutFarm.CefBridge
             }
         }
 
-        public void GetSource(MyCefStringVisitor stringVisitor)
-        {
-            JsValue a1 = new JsValue();
-            JsValue a2 = new JsValue();
-            JsValue ret;
+        //public void GetSource(MyCefStringVisitor stringVisitor)
+        //{
+        //    JsValue a1 = new JsValue();
+        //    JsValue a2 = new JsValue();
+        //    JsValue ret;
 
-            a1.Ptr = stringVisitor.nativePtr;
-            Cef3Binder.MyCefFrameCall2(this.nativePtr,
-                (int)CefFrameCallMsg.CefFrame_GetSource, out ret, ref a1, ref a2);
-        }
+        //    a1.Ptr = stringVisitor.nativePtr;
+        //    Cef3Binder.MyCefFrameCall2(this.nativePtr,
+        //        (int)CefFrameCallMsg.CefFrame_GetSource, out ret, ref a1, ref a2);
+        //}
         public void GetText(MyCefStringVisitor stringVisitor)
         {
             JsValue a1 = new JsValue();
@@ -247,24 +247,31 @@ namespace LayoutFarm.CefBridge
             JsValue ret;
 
             a1.Ptr = stringVisitor.nativePtr;
-            //Cef3Binder.MyCefFrameCall2(this.nativePtr,
-            //    (int)CefFrameCallMsg.CefFrame_GetText, out ret, ref a1, ref a2);
-            const int CefFrame_GetText_11 = 11;
+
             Cef3Binder.MyCefMet_CefFrame(this.nativePtr,
-               CefFrame_GetText_11, out ret, ref a1, ref a2, ref a3, ref a4, ref a5, ref a6);
+               MetName_CefFrame.CefFrame_GetText_11, out ret, ref a1, ref a2,
+               ref a3, ref a4, ref a5, ref a6);
         }
-        public void GetSource(MyCefCallback cb2)
-        {
+        public void GetSource(MyCefStringVisitor stringVisitor)
+        { 
             JsValue a1 = new JsValue();
             JsValue a2 = new JsValue();
+            JsValue a3 = new JsValue();
+            JsValue a4 = new JsValue();
+            JsValue a5 = new JsValue();
+            JsValue a6 = new JsValue();
+            a1.Ptr = stringVisitor.nativePtr;
             JsValue ret;
-            Cef3Binder.MyCefJsValueSetManagedCallback(ref a1, cb2);
-            Cef3Binder.MyCefFrameCall2(this.nativePtr,
-                (int)CefFrameCallMsg.CefFrame_GetSource_Ext, out ret, ref a1, ref a2);
+
+            
+
+            Cef3Binder.MyCefMet_CefFrame(this.nativePtr,
+               MetName_CefFrame.CefFrame_GetSource_10, out ret, ref a1, ref a2,
+               ref a3, ref a4, ref a5, ref a6);
         }
-        
+
         public void LoadString(string string_val, string url)
-        {  
+        {
             JsValue a1 = new JsValue();
             JsValue a2 = new JsValue();
             JsValue ret;
@@ -278,7 +285,7 @@ namespace LayoutFarm.CefBridge
             JsValue a1 = new JsValue();
             JsValue a2 = new JsValue();
             JsValue ret;
-            
+
             Cef3Binder.MyCefFrameCall2(this.nativePtr,
                 (int)CefFrameCallMsg.CefFrame_Release, out ret, ref a1, ref a2);
         }

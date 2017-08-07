@@ -116,9 +116,9 @@ namespace BridgeBuilder
                     {
                         indexOfCefClient = onlyPath.IndexOf("\\cefclient");
                         if (indexOfCefClient < 0)
-                        { 
+                        {
                             throw new NotSupportedException();
-                        } 
+                        }
                     }
                 }
                 string rightSide = onlyPath.Substring(indexOfCefClient);
@@ -449,7 +449,7 @@ namespace BridgeBuilder
             foreach (CodeTypeDeclaration typedecl in cefTypeCollection.cToCppClasses)
             {
                 TypeTxInfo typeTxPlan = txPlanner.MakeTransformPlan(typedecl);
- 
+
                 typedecl.TypeTxInfo = typeTxPlan;
 
                 //cef -specific
@@ -533,7 +533,7 @@ namespace BridgeBuilder
                     tx.GenerateCppCode(stbuilder);
 
                 }
-                
+
             }
             foreach (CefTypeTxPlan tx in callbackPlans)
             {
@@ -542,20 +542,31 @@ namespace BridgeBuilder
             }
 
             int tt_count = 0;
-            StringBuilder total1 = new StringBuilder();
+            StringBuilder cppCodeStBuilder = new StringBuilder();
+            StringBuilder csCodeStBuilder = new StringBuilder();
 
             foreach (CefTypeTxPlan tx in instanceClassPlans)
             {
                 //pass
                 //CefRequest ,21
-                CodeStringBuilder stbuilder = new CodeStringBuilder();
-                tx.GenerateCppCode(stbuilder);
-                tt_count++;
+                CodeStringBuilder cppCode = new CodeStringBuilder();
+                tx.GenerateCppCode(cppCode);
+                //---------------------------------------------------- 
+                CodeStringBuilder csCode = new CodeStringBuilder();
+                tx.GenerateCsCode(csCode);
+                //----------------------------------------------------  
                 //
-                total1.AppendLine();
-                total1.AppendLine("// " + tx.OriginalDecl.ToString());
-                total1.Append(stbuilder.ToString());
-                total1.AppendLine();
+                cppCodeStBuilder.AppendLine();
+                cppCodeStBuilder.AppendLine("// " + tx.OriginalDecl.ToString());
+                cppCodeStBuilder.Append(cppCode.ToString());
+                cppCodeStBuilder.AppendLine();
+                //---------------------------------------------------- 
+                csCodeStBuilder.AppendLine();
+                csCodeStBuilder.AppendLine("// " + tx.OriginalDecl.ToString());
+                csCodeStBuilder.Append(csCode.ToString());
+                csCodeStBuilder.AppendLine(); 
+
+                tt_count++;
             }
         }
         CodeCompilationUnit ParseWrapper(string srcFile)

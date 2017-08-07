@@ -42,6 +42,9 @@
     <Compile Include="..\CefBridge\Cef3Binder_Auto.cs">
       <Link>CefBridge\Cef3Binder_Auto.cs</Link>
     </Compile>
+    <Compile Include="..\CefBridge\Cef3Binder_Auto2.cs">
+      <Link>CefBridge\Cef3Binder_Auto2.cs</Link>
+    </Compile>
     <Compile Include="..\CefBridge\Cef3InitEssential.cs">
       <Link>CefBridge\Cef3InitEssential.cs</Link>
     </Compile>

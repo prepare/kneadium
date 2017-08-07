@@ -417,7 +417,15 @@ namespace LayoutFarm.CefBridge
             //    out ret, ref a1, ref a2);
             //MyCefFrame myframe = new MyCefFrame(ret.Ptr);
 
-            myframe.GetSource(strCallback);
+
+            MyCefStringVisitor visitor2 = myCefBw.NewStringVisitor((id, ptr) =>
+            {
+                NativeCallArgs args = new NativeCallArgs(ptr);
+                var text = args.GetArgAsString(0);
+            });
+
+
+            myframe.GetSource(visitor2);
             myframe.Release();
 
 

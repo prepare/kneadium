@@ -1272,16 +1272,102 @@ namespace BridgeBuilder
                     stbuilder.Append(parTx.ArgPostExtractCode);
                     stbuilder.AppendLine(";");
                 }
-            }
-
-
+            } 
             stbuilder.AppendLine(ret.ArgExtractCode);
             //clean up 
         }
         public override void GenerateCsCode(CodeStringBuilder stbuilder)
         {
-            //create C# code that call the cefbridge interop method
-            base.GenerateCsCode(stbuilder);
+            CodeTypeDeclaration orgDecl = this.OriginalDecl;
+            CodeTypeDeclaration implTypeDecl = this.ImplTypeDecl;
+            CodeStringBuilder totalTypeMethod = new CodeStringBuilder();
+
+            _typeTxInfo = implTypeDecl.TypeTxInfo;
+            _currentCodeTypeDecl = implTypeDecl;
+
+            int j = _typeTxInfo.methods.Count;
+            //-----------------------------------------------------------------------
+            CodeStringBuilder const_methodNames = new CodeStringBuilder();
+            int maxPar = 0;
+            const_methodNames.AppendLine("static class MetName_" + orgDecl.Name + "{"); 
+            for (int i = 0; i < j; ++i)
+            {
+                MethodTxInfo metTx = _typeTxInfo.methods[i];
+                metTx.CppMethodSwitchCaseName = orgDecl.Name + "_" + metTx.Name + "_" + (i + 1);
+                if (metTx.pars.Count > maxPar)
+                {
+                    maxPar = metTx.pars.Count;
+                }
+                const_methodNames.AppendLine("public const int "+ metTx.CppMethodSwitchCaseName + "=" + (i + 1) + ";");
+            }
+            const_methodNames.AppendLine("}");
+
+            totalTypeMethod.AppendLine(const_methodNames.ToString());
+            //-----------------------------------------------------------------------
+            //{
+            //    StringBuilder met_sig = new StringBuilder();
+            //    met_sig.Append("void MyCefMet_" + orgDecl.Name + "(" +
+            //        this.UnderlyingCType.Name + "* me1,int metName,jsvalue* ret");
+            //    for (int i = 0; i < maxPar; ++i)
+            //    {
+            //        met_sig.Append(",jsvalue* v" + (i + 1));
+            //    }
+            //    met_sig.AppendLine("){");
+            //    totalTypeMethod.Append(met_sig.ToString());
+            //}
+
+            //if (implTypeDecl == null)
+            //{
+            //    throw new NotSupportedException();
+            //}
+            //totalTypeMethod.AppendLine("ret->type = JSVALUE_TYPE_EMPTY;");
+            //ImplWrapDirection implWrapDirection = ImplWrapDirection.None;
+            //if (implTypeDecl.Name.Contains("CToCpp"))
+            //{
+            //    implWrapDirection = ImplWrapDirection.CToCpp;
+            //}
+            //else if (implTypeDecl.Name.Contains("CppToC"))
+            //{
+            //    implWrapDirection = ImplWrapDirection.CppToC;
+            //}
+            //else
+            //{
+            //    implWrapDirection = ImplWrapDirection.None;
+            //}
+
+            //totalTypeMethod.AppendLine("auto me=" + implTypeDecl.Name + "::" + GetSmartPointerMet(implWrapDirection) + "(me1);");
+            ////swicth table is a way that this instance'smethod is called
+            ////through the bridge 
+
+
+            //totalTypeMethod.AppendLine("switch(metName){");
+            //totalTypeMethod.AppendLine("case MET_Release:return; //yes, just return");
+
+
+            //for (int i = 0; i < j; ++i)
+            //{
+            //    CodeStringBuilder met_stbuilder = new CodeStringBuilder();
+            //    //create each method,
+            //    //in our convention we dont generate 
+            //    MethodTxInfo metTx = _typeTxInfo.methods[i];
+            //    met_stbuilder.AppendLine("case " + metTx.CppMethodSwitchCaseName + ":{");
+
+            //    GenerateCppMethod(_typeTxInfo.methods[i], met_stbuilder);
+
+            //    met_stbuilder.AppendLine("} break;");
+
+            //    totalTypeMethod.Append(met_stbuilder.ToString());
+            //}
+
+            //totalTypeMethod.AppendLine("}"); //end switch table
+            //                                 //
+
+            //totalTypeMethod.AppendLine(implTypeDecl.Name + "::" + GetRawPtrMet(implWrapDirection) + "(me);");
+
+            //totalTypeMethod.AppendLine("}");
+
+            //
+            stbuilder.Append(totalTypeMethod.ToString());
         }
     }
 
