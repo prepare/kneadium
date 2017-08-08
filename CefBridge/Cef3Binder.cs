@@ -249,7 +249,7 @@ namespace LayoutFarm.CefBridge
             a1.Ptr = stringVisitor.nativePtr;
 
             Cef3Binder.MyCefMet_CefFrame(this.nativePtr,
-               MetName_CefFrame.CefFrame_GetText_11, out ret, ref a1, ref a2,
+              11, out ret, ref a1, ref a2,
                ref a3, ref a4, ref a5, ref a6);
         }
         public void GetSource(MyCefStringVisitor stringVisitor)
@@ -265,7 +265,7 @@ namespace LayoutFarm.CefBridge
 
 
             Cef3Binder.MyCefMet_CefFrame(this.nativePtr,
-               MetName_CefFrame.CefFrame_GetSource_10, out ret, ref a1, ref a2,
+              10, out ret, ref a1, ref a2,
                ref a3, ref a4, ref a5, ref a6);
         }
 

@@ -12,9 +12,16 @@ namespace LayoutFarm.CefBridge
             this.nativePtr = nativePtr;
         }
     }
-    public struct CefRect { }
+    public struct CefRect
+    {
+        IntPtr nativePtr;
+        public CefRect(IntPtr nativePtr)
+        {
+            this.nativePtr = nativePtr;
+        }
+    }
     public struct CefPdfPrintSettings { }
-    public struct CefPdfPrintCallback { }
+
     public struct CefWindowInfo { }
     public struct CefBrowserSettings { }
     public struct CefKeyEvent { }
@@ -23,10 +30,23 @@ namespace LayoutFarm.CefBridge
     public struct CefRange { }
     public struct SwitchMap { }
     public struct ArgumentList { }
-    public struct CefCompletionCallback { }
+    public struct AttributeMap { }
+    public struct CefTime
+    {
+        IntPtr nativePtr;
+        public CefTime(IntPtr nativePtr)
+        {
+            this.nativePtr = nativePtr;
+        }
+    }
     public struct CefCookie { }
+
+    //--------------
+    public struct CefCompletionCallback { }
     public struct CefSetCookieCallback { }
     public struct CefDeleteCookiesCallback { }
-    public struct AttributeMap { }
-    public struct CefTime { }
+    public struct CefRunFileDialogCallback { }
+    public struct CefPdfPrintCallback { }
+    public struct CefDownloadImageCallback { }
+
 }

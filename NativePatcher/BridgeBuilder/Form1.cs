@@ -475,6 +475,13 @@ namespace BridgeBuilder
             }
             //--------
             //code gen
+
+            int tt_count = 0;
+            StringBuilder cppCodeStBuilder = new StringBuilder();
+            StringBuilder csCodeStBuilder = new StringBuilder();
+
+
+
             foreach (CefTypeTxPlan tx in handlerPlans)
             {
                 if (tx.OriginalDecl.Name == "CefRequestHandler")
@@ -483,7 +490,7 @@ namespace BridgeBuilder
                     //a handler is created on cpp side, then we attach .net delegate to it
                     //so  we need
                     //1. 
-                    tx.GenerateCppCode(stbuilder); 
+                    tx.GenerateCppCode(stbuilder);
                 }
 
             }
@@ -491,11 +498,9 @@ namespace BridgeBuilder
             {
                 CodeStringBuilder stbuilder = new CodeStringBuilder();
                 tx.GenerateCppCode(stbuilder);
+                
             }
 
-            int tt_count = 0;
-            StringBuilder cppCodeStBuilder = new StringBuilder();
-            StringBuilder csCodeStBuilder = new StringBuilder();
 
 
             foreach (CefTypeTxPlan tx in enumTxPlans)
@@ -505,11 +510,6 @@ namespace BridgeBuilder
                 csCodeStBuilder.Append(csCode.ToString());
             }
 
-            foreach (CefTypeTxPlan tx in instanceClassPlans)
-            {
-                CodeStringBuilder csCode = new CodeStringBuilder();
-                tx.GenerateCsCode(csCode);
-            }
 
             foreach (CefTypeTxPlan tx in instanceClassPlans)
             {

@@ -42,10 +42,10 @@ namespace BridgeBuilder
             if (_dbugEnableLineNote)
             {
                 stbuilder.AppendLine("/*" + _dbugLineCount + "*/");
-                if (_dbugLineCount >= 437)
-                {
+                //if (_dbugLineCount >= 437)
+                //{
 
-                }
+                //}
             }
 
         }
@@ -1524,9 +1524,8 @@ namespace BridgeBuilder
 
                                                     //---test with copy by reference
                                                     //
-
-                                                    return ss.Name + "* tmp_d1= new " + ss.Name + "(" + autoRetResultName + ");\r\n" +
-                                                        "MyCefSetVoidPtr(" + retName + ",tmp_d1);\r\n";
+                                                    return "var " + autoRetResultName + "= new " + ss.Name + "(" + autoRetResultName + ".Ptr);\r\n";
+                                                     
                                                 }
                                         }
                                     }
@@ -2353,6 +2352,18 @@ namespace BridgeBuilder
                 MethodParameterTxInfo parTx = pars[i];
                 stbuilder.Append(GetCsRetName(parTx.TypeSymbol));
                 stbuilder.Append(" ");
+
+                //check if parTx.Name is keyword?
+                switch (parTx.Name)
+                {
+                    case "event":
+                        parTx.Name = "_event";
+                        break;
+                    case "checked":
+                        parTx.Name = "_checked";
+                        break;
+                } 
+
                 stbuilder.AppendLine(parTx.Name);
             }
             stbuilder.Append(")");
