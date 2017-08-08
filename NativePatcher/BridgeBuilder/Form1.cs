@@ -385,32 +385,23 @@ namespace BridgeBuilder
             List<CefHandlerTxPlan> handlerPlans = new List<CefHandlerTxPlan>();
             List<CefCallbackTxPlan> callbackPlans = new List<CefCallbackTxPlan>();
             List<CefInstanceElementTxPlan> instanceClassPlans = new List<CefInstanceElementTxPlan>();
-
+            List<CefEnumTxPlan> enumTxPlans = new List<CefEnumTxPlan>();
+            foreach (CodeTypeDeclaration typedecl in cefTypeCollection._enumClasses)
+            {
+                CefEnumTxPlan enumTxPlan = new CefEnumTxPlan(typedecl);
+                enumTxPlans.Add(enumTxPlan);
+                TypeTxInfo typeTxPlan = txPlanner.MakeTransformPlan(typedecl);
+                typedecl.TypeTxInfo = typeTxPlan;
+            }
             foreach (CodeTypeDeclaration typedecl in cefTypeCollection._v_handlerClasses)
             {
+
 
                 CefHandlerTxPlan handlerPlan = new CefHandlerTxPlan(typedecl);
                 handlerPlans.Add(handlerPlan);
                 allTxPlans.Add(typedecl.Name, handlerPlan);
                 TypeTxInfo typeTxPlan = txPlanner.MakeTransformPlan(typedecl);
                 typedecl.TypeTxInfo = typeTxPlan;
-                ////create handler as inteface
-                ////1 instance may implement more than 1 handler 
-
-                ////
-
-                ////
-                //{
-                //    StringBuilder stbuilder = new StringBuilder();
-                //    apiBuilderCsPart.GenerateCsType(typeTxPlan, stbuilder);
-                //}
-                ////
-                ////
-                //{
-                //    StringBuilder stbuilder = new StringBuilder();
-                //    apiBuilderCppPart.GenerateCppPart(typeTxPlan, stbuilder);
-                //}
-                //
             }
             foreach (CodeTypeDeclaration typedecl in cefTypeCollection._v_callBackClasses)
             {
@@ -421,18 +412,6 @@ namespace BridgeBuilder
                 ////
                 TypeTxInfo typeTxPlan = txPlanner.MakeTransformPlan(typedecl);
                 typedecl.TypeTxInfo = typeTxPlan;
-                ////
-                //{
-                //    StringBuilder stbuilder = new StringBuilder();
-                //    apiBuilderCsPart.GenerateCsType(typeTxPlan, stbuilder);
-                //}
-                ////
-                ////
-                //{
-                //    StringBuilder stbuilder = new StringBuilder();
-                //    apiBuilderCppPart.GenerateCppPart(typeTxPlan, stbuilder);
-                //}
-                //
             }
             foreach (CodeTypeDeclaration typedecl in cefTypeCollection._v_instanceClasses)
             {
@@ -469,19 +448,7 @@ namespace BridgeBuilder
 
                 abstractType.CefTxPlan = found;
                 ////[chrome] cpp<-to<-c  <--- ::::: <--- c-interface-to[external - user - lib] ....
-                //TypeTxInfo typeTxPlan = txPlanner.MakeTransformPlan(typedecl);
-                ////
-                //{
-                //    StringBuilder stbuilder = new StringBuilder();
-                //    apiBuilderCsPart.GenerateCsType(typeTxPlan, stbuilder);
-                //}
-                ////
-                ////
-                //{
-                //    StringBuilder stbuilder = new StringBuilder();
-                //    apiBuilderCppPart.GenerateCppPart(typeTxPlan, stbuilder);
-                //}
-                //// 
+
             }
             foreach (CodeTypeDeclaration typedecl in cefTypeCollection.cppToCClasses)
             {
@@ -504,21 +471,7 @@ namespace BridgeBuilder
 
                 ////[chrome]  cpp->to->c  ---> ::::: ---> c-interface-to [external-user-lib] ....
                 ////eg. handlers and callbacks 
-                //TypeTxInfo typeTxPlan = txPlanner.MakeTransformPlan(typedecl);
-                ////classify by nameing convention
-                //string typename = typedecl.Name;
-                ////
-                //{
-                //    StringBuilder stbuilder = new StringBuilder();
-                //    apiBuilderCsPart.GenerateCsType(typeTxPlan, stbuilder);
-                //}
-                ////
-                ////
-                //{
-                //    StringBuilder stbuilder = new StringBuilder();
-                //    apiBuilderCppPart.GenerateCppPart(typeTxPlan, stbuilder);
-                //}
-                ////
+
             }
             //--------
             //code gen
@@ -530,8 +483,7 @@ namespace BridgeBuilder
                     //a handler is created on cpp side, then we attach .net delegate to it
                     //so  we need
                     //1. 
-                    tx.GenerateCppCode(stbuilder);
-
+                    tx.GenerateCppCode(stbuilder); 
                 }
 
             }
@@ -545,8 +497,23 @@ namespace BridgeBuilder
             StringBuilder cppCodeStBuilder = new StringBuilder();
             StringBuilder csCodeStBuilder = new StringBuilder();
 
+
+            foreach (CefTypeTxPlan tx in enumTxPlans)
+            {
+                CodeStringBuilder csCode = new CodeStringBuilder();
+                tx.GenerateCsCode(csCode);
+                csCodeStBuilder.Append(csCode.ToString());
+            }
+
             foreach (CefTypeTxPlan tx in instanceClassPlans)
             {
+                CodeStringBuilder csCode = new CodeStringBuilder();
+                tx.GenerateCsCode(csCode);
+            }
+
+            foreach (CefTypeTxPlan tx in instanceClassPlans)
+            {
+
                 //pass
                 //CefRequest ,21
                 CodeStringBuilder cppCode = new CodeStringBuilder();
@@ -564,7 +531,7 @@ namespace BridgeBuilder
                 csCodeStBuilder.AppendLine();
                 csCodeStBuilder.AppendLine("// " + tx.OriginalDecl.ToString());
                 csCodeStBuilder.Append(csCode.ToString());
-                csCodeStBuilder.AppendLine(); 
+                csCodeStBuilder.AppendLine();
 
                 tt_count++;
             }
