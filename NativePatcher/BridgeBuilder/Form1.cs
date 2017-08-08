@@ -480,7 +480,11 @@ namespace BridgeBuilder
             StringBuilder cppCodeStBuilder = new StringBuilder();
             StringBuilder csCodeStBuilder = new StringBuilder();
 
-
+            csCodeStBuilder.AppendLine("using System;\r\n" +
+            "using System.Collections.Generic;\r\n" +
+            "using System.Runtime.InteropServices;\r\n" +
+            "namespace LayoutFarm.CefBridge.Auto{\r\n");
+        
 
             foreach (CefTypeTxPlan tx in handlerPlans)
             {
@@ -535,6 +539,8 @@ namespace BridgeBuilder
 
                 tt_count++;
             }
+
+            csCodeStBuilder.AppendLine("}");
         }
         CodeCompilationUnit ParseWrapper(string srcFile)
         {
