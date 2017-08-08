@@ -42,10 +42,10 @@ namespace BridgeBuilder
             if (_dbugEnableLineNote)
             {
                 stbuilder.AppendLine("/*" + _dbugLineCount + "*/");
-                //if (_dbugLineCount >= 437)
-                //{
+                if (_dbugLineCount >= 8010)
+                {
 
-                //}
+                }
             }
 
         }
@@ -1502,7 +1502,7 @@ namespace BridgeBuilder
                                     {
                                         //enum ,
                                         //cast from i32 to specific enum type
-                                        return "(" + simpleType.Name + ")" + retName + ".I32";
+                                        return "var " + autoRetResultName + "=(" + simpleType.Name + ")" + retName + ".I32;\r\n";
                                     }
                                     else
                                     {
@@ -1524,8 +1524,8 @@ namespace BridgeBuilder
 
                                                     //---test with copy by reference
                                                     //
-                                                    return "var " + autoRetResultName + "= new " + ss.Name + "(" + autoRetResultName + ".Ptr);\r\n";
-                                                     
+                                                    return "var " + autoRetResultName + "= new " + ss.Name + "(" + retName + ".Ptr);\r\n";
+
                                                 }
                                         }
                                     }
@@ -2362,7 +2362,11 @@ namespace BridgeBuilder
                     case "checked":
                         parTx.Name = "_checked";
                         break;
-                } 
+                    case "object":
+                        parTx.Name = "_object";
+                        break;
+
+                }
 
                 stbuilder.AppendLine(parTx.Name);
             }
