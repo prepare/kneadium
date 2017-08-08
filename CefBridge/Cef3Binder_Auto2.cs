@@ -1856,8 +1856,4 @@ namespace LayoutFarm.CefBridge
         public const int CefZipReader_Eof_12 = 12;
         /*4673*/
     }
-
-
-
-
 }

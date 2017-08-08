@@ -253,7 +253,7 @@ namespace LayoutFarm.CefBridge
                ref a3, ref a4, ref a5, ref a6);
         }
         public void GetSource(MyCefStringVisitor stringVisitor)
-        { 
+        {
             JsValue a1 = new JsValue();
             JsValue a2 = new JsValue();
             JsValue a3 = new JsValue();
@@ -263,7 +263,6 @@ namespace LayoutFarm.CefBridge
             a1.Ptr = stringVisitor.nativePtr;
             JsValue ret;
 
-            
 
             Cef3Binder.MyCefMet_CefFrame(this.nativePtr,
                MetName_CefFrame.CefFrame_GetSource_10, out ret, ref a1, ref a2,
@@ -279,6 +278,7 @@ namespace LayoutFarm.CefBridge
             Cef3Binder.MyCefCreateNativeStringHolder(ref a2, url);
             Cef3Binder.MyCefFrameCall2(this.nativePtr,
             (int)CefFrameCallMsg.CefFrame_LoadString, out ret, ref a1, ref a2);
+            //need string clean up
         }
         public void Release()
         {
@@ -363,12 +363,15 @@ namespace LayoutFarm.CefBridge
             }
             return new string(buffer);
         }
+
+
+
     }
     static partial class Cef3Binder
     {
         static Cef3InitEssential cefInitEssential;
 
-        const string CEF_CLIENT_DLL = "cefclient.dll";
+        internal const string CEF_CLIENT_DLL = "cefclient.dll";
 #if DEBUG
         public static bool s_dbugIsRendererProcess;
 #endif
@@ -678,6 +681,15 @@ namespace LayoutFarm.CefBridge
                 ret.I32 = value.Length;
             }
         }
+        public static string CopyStringAndDestroyNativeSide(ref JsValue value)
+        {
+            NativeMyCefStringHolder ret_str = new NativeMyCefStringHolder(value.Ptr);
+            string str = ret_str.ReadString(value.I32);
+            ret_str.Dispose();
+            value.Ptr = IntPtr.Zero;
+            return str;
+        }
+
     }
 
 
