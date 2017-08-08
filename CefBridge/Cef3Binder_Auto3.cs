@@ -6,7 +6,21 @@ using System.Text;
 using System.Runtime.InteropServices;
 namespace LayoutFarm.CefBridge.Auto
 {
+    
+    public struct CefBrowserHost
+    {
+        /*366*/
+        IntPtr nativePtr;
+        /*367*/
+        internal CefBrowserHost(IntPtr nativePtr)
+        {
+            /*368*/
+            this.nativePtr = nativePtr;
+            /*369*/
+        }
+    }
 
+    /*344*/
     public struct CefBrowser
     {
         /*345*/
@@ -186,7 +200,7 @@ namespace LayoutFarm.CefBridge.Auto
             /*428*/
         }
         /*429*/
-      
+
 
         // gen! CefRefPtr<CefBrowserHost> GetHost()
         /*430*/
@@ -197,7 +211,7 @@ namespace LayoutFarm.CefBridge.Auto
             MyCefMet_CefBrowser(this.nativePtr, _GetHost_1, out ret/*432*/
             );
             /*433*/
-            CefBrowserHost ret_result = new CefBrowserHost(ret.nativePtr);
+            var ret_result = new CefBrowserHost(ret.Ptr);
             /*434*/
             return ret_result;
             /*435*/
@@ -214,7 +228,7 @@ namespace LayoutFarm.CefBridge.Auto
             MyCefMet_CefBrowser(this.nativePtr, _CanGoBack_2, out ret/*439*/
             );
             /*440*/
-            MyCefSetBool(ret, ret_result);
+            var ret_result = ret.I32 != 0;
             /*441*/
             return ret_result;
             /*442*/
@@ -246,7 +260,7 @@ namespace LayoutFarm.CefBridge.Auto
             MyCefMet_CefBrowser(this.nativePtr, _CanGoForward_4, out ret/*452*/
             );
             /*453*/
-            MyCefSetBool(ret, ret_result);
+            var ret_result = ret.I32 != 0;
             /*454*/
             return ret_result;
             /*455*/
@@ -278,7 +292,7 @@ namespace LayoutFarm.CefBridge.Auto
             MyCefMet_CefBrowser(this.nativePtr, _IsLoading_6, out ret/*465*/
             );
             /*466*/
-            MyCefSetBool(ret, ret_result);
+            var ret_result = ret.I32 != 0;
             /*467*/
             return ret_result;
             /*468*/
@@ -340,7 +354,7 @@ namespace LayoutFarm.CefBridge.Auto
             MyCefMet_CefBrowser(this.nativePtr, _GetIdentifier_10, out ret/*490*/
             );
             /*491*/
-            MyCefSetInt64(ret, ret_result);
+            var ret_result = ret.I32;
             /*492*/
             return ret_result;
             /*493*/
@@ -360,7 +374,7 @@ namespace LayoutFarm.CefBridge.Auto
             MyCefMet_CefBrowser(this.nativePtr, _IsSame_11, out ret, ref v1/*498*/
             );
             /*499*/
-            MyCefSetBool(ret, ret_result);
+            var ret_result = ret.I32 != 0;
             /*500*/
             return ret_result;
             /*501*/
@@ -377,7 +391,7 @@ namespace LayoutFarm.CefBridge.Auto
             MyCefMet_CefBrowser(this.nativePtr, _IsPopup_12, out ret/*505*/
             );
             /*506*/
-            MyCefSetBool(ret, ret_result);
+            var ret_result = ret.I32 != 0;
             /*507*/
             return ret_result;
             /*508*/
@@ -394,7 +408,7 @@ namespace LayoutFarm.CefBridge.Auto
             MyCefMet_CefBrowser(this.nativePtr, _HasDocument_13, out ret/*512*/
             );
             /*513*/
-            MyCefSetBool(ret, ret_result);
+            var ret_result = ret.I32 != 0;
             /*514*/
             return ret_result;
             /*515*/
@@ -411,7 +425,7 @@ namespace LayoutFarm.CefBridge.Auto
             MyCefMet_CefBrowser(this.nativePtr, _GetMainFrame_14, out ret/*519*/
             );
             /*520*/
-            CefFrame ret_result = new CefFrame(ret.nativePtr);
+            var ret_result = new CefFrame(ret.Ptr);
             /*521*/
             return ret_result;
             /*522*/
@@ -428,7 +442,7 @@ namespace LayoutFarm.CefBridge.Auto
             MyCefMet_CefBrowser(this.nativePtr, _GetFocusedFrame_15, out ret/*526*/
             );
             /*527*/
-            CefFrame ret_result = new CefFrame(ret.nativePtr);
+            var ret_result = new CefFrame(ret.Ptr);
             /*528*/
             return ret_result;
             /*529*/
@@ -448,7 +462,7 @@ namespace LayoutFarm.CefBridge.Auto
             MyCefMet_CefBrowser(this.nativePtr, _GetFrame_16, out ret, ref v1/*534*/
             );
             /*535*/
-            CefFrame ret_result = new CefFrame(ret.nativePtr);
+            var ret_result = new CefFrame(ret.Ptr);
             /*536*/
             return ret_result;
             /*537*/
@@ -468,7 +482,7 @@ namespace LayoutFarm.CefBridge.Auto
             MyCefMet_CefBrowser(this.nativePtr, _GetFrame_17, out ret, ref v1/*542*/
             );
             /*543*/
-            CefFrame ret_result = new CefFrame(ret.nativePtr);
+            var ret_result = new CefFrame(ret.Ptr);
             /*544*/
             return ret_result;
             /*545*/
@@ -479,13 +493,13 @@ namespace LayoutFarm.CefBridge.Auto
         // gen! size_t GetFrameCount()
         /*547*/
 
-        public uint32 GetFrameCount()/*548*/
+        public uint GetFrameCount()/*548*/
         {
             JsValue ret;
             MyCefMet_CefBrowser(this.nativePtr, _GetFrameCount_18, out ret/*549*/
             );
             /*550*/
-            MyCefSetInt32(ret, (int32_t)ret_result);
+            var ret_result = (uint)ret.I32;
             /*551*/
             return ret_result;
             /*552*/
@@ -544,7 +558,7 @@ namespace LayoutFarm.CefBridge.Auto
             MyCefMet_CefBrowser(this.nativePtr, _SendProcessMessage_21, out ret, ref v1, ref v2/*572*/
             );
             /*573*/
-            MyCefSetBool(ret, ret_result);
+            var ret_result = ret.I32 != 0;
             /*574*/
             return ret_result;
             /*575*/
@@ -552,4 +566,3 @@ namespace LayoutFarm.CefBridge.Auto
         /*576*/
     }
 }
-

@@ -1566,22 +1566,22 @@ namespace BridgeBuilder
                                 //ret_str.Dispose();
                                 return "Cef3Binder.CopyStringAndDestroyNativeSide(ref retName)"; 
                             case PrimitiveTypeKind.NaitveInt:
-                                return "var " + autoRetResultName + "= " + retName + ".I32";
+                                return "var " + autoRetResultName + "= " + retName + ".I32;";
                             case PrimitiveTypeKind.Int64:
-                                return "var " + autoRetResultName + "= " + retName + ".I64";
+                                return "var " + autoRetResultName + "= " + retName + ".I64;";
                             case PrimitiveTypeKind.UInt64:
-                                return "var " + autoRetResultName + "=  (ulong)" + retName + ".I64";
+                                return "var " + autoRetResultName + "=  (ulong)" + retName + ".I64;";
                             case PrimitiveTypeKind.Double:
-                                return "var " + autoRetResultName + "=  " + retName + ".Num";
+                                return "var " + autoRetResultName + "=  " + retName + ".Num;";
                             case PrimitiveTypeKind.Float:
-                                return "var " + autoRetResultName + "= (float)" + retName + ".Num";
+                                return "var " + autoRetResultName + "= (float)" + retName + ".Num;";
                             case PrimitiveTypeKind.Bool:
-                                return "var " + autoRetResultName + "=" + retName + ".I32 !=0";
+                                return "var " + autoRetResultName + "=" + retName + ".I32 !=0;";
                             case PrimitiveTypeKind.size_t:
                             case PrimitiveTypeKind.UInt32:
-                                return "var " + autoRetResultName + "= (uint)" + retName + ".i32";
+                                return "var " + autoRetResultName + "= (uint)" + retName + ".I32;";
                             case PrimitiveTypeKind.Int32:
-                                return "var " + autoRetResultName + "= " + retName + ".I32";
+                                return "var " + autoRetResultName + "= " + retName + ".I32;";
                         }
                     }
                     break;
@@ -2100,7 +2100,7 @@ namespace BridgeBuilder
                                 }
                                 break;
                             case PrimitiveTypeKind.size_t:
-                                return "uint32";
+                                return "uint";
                             case PrimitiveTypeKind.UInt32:
                                 return "uint";
                             case PrimitiveTypeKind.UInt64:
