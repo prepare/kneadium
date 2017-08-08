@@ -55,7 +55,14 @@ namespace LayoutFarm.CefBridge
     public struct CefDeleteCookiesCallback { }
     public struct CefRunFileDialogCallback { }
     public struct CefResolveCallback { }
-    public struct CefBaseRefCounted { }
+    public struct CefBaseRefCounted
+    {
+        IntPtr nativePtr;
+        public CefBaseRefCounted(IntPtr nativePtr)
+        {
+            this.nativePtr = nativePtr;
+        }
+    }
     public struct CefPdfPrintCallback { }
     public struct CefDownloadImageCallback { }
     public struct KeyList { }
@@ -85,7 +92,7 @@ namespace LayoutFarm.CefBridge
         public CefV8ValueList(IntPtr nativePtr)
         {
             this.nativePtr = nativePtr;
-        } 
+        }
     }
 
 }

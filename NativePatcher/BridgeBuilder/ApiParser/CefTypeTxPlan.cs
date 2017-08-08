@@ -42,7 +42,7 @@ namespace BridgeBuilder
             if (_dbugEnableLineNote)
             {
                 stbuilder.AppendLine("/*" + _dbugLineCount + "*/");
-                if (_dbugLineCount >= 8010)
+                if (_dbugLineCount >= 1815)
                 {
 
                 }
@@ -1221,8 +1221,7 @@ namespace BridgeBuilder
 
                                                             //create struct at native part?
                                                             //****
-                                                            par.ArgPreExtractCode = "CefRect cefRect= new CefRect();";
-
+                                                          
 
                                                             //eg. void ShowDevTools(const CefWindowInfo& windowInfo,CefRefPtr<CefClient> client,const CefBrowserSettings& settings,const CefPoint& inspect_element_at)
                                                             //eg. void ImeSetComposition(const CefString& text,const std::vector<CefCompositionUnderline>& underlines,const CefRange& replacement_range,const CefRange& selection_range)
@@ -1362,8 +1361,16 @@ namespace BridgeBuilder
                 case TypeSymbolKind.TypeDef:
                     {
                         CTypeDefTypeSymbol ctypedef = (CTypeDefTypeSymbol)ret;
-                        //from native type def 
+                        //from native type def  
                         TypeSymbol referToType = ctypedef.ReferToTypeSymbol;
+                        if (referToType.TypeSymbolKind == TypeSymbolKind.Simple)
+                        {
+                            SimpleTypeSymbol ss = (SimpleTypeSymbol)referToType;
+                            if (ss.IsEnum)
+                            {
+                                return "var " + autoRetResultName + "= (" + referToType.ToString() + ")ret.I32;\r\n";
+                            }
+                        }
                         return "IntPtr " + autoRetResultName + "= ret.Ptr;";
 
                     }
@@ -2338,7 +2345,16 @@ namespace BridgeBuilder
             stbuilder.Append("public ");
             stbuilder.Append(GetCsRetName(ret.TypeSymbol));
             stbuilder.Append(" ");
-            stbuilder.Append(met.Name);
+
+            //some method name should be renamed
+            if (met.Name == "GetType")
+            {
+                stbuilder.Append("_" + met.Name);
+            }
+            else
+            {
+                stbuilder.Append(met.Name);
+            }
             stbuilder.Append("(");
             //---------------------------
 
