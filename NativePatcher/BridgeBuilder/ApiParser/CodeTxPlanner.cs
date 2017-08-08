@@ -34,6 +34,8 @@ namespace BridgeBuilder
             //
             fields.Add(field);
         }
+
+        public int CsInterOpTypeNameId { get; set; }
 #if DEBUG
         public override string ToString()
         {

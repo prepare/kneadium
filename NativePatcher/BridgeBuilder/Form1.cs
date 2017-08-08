@@ -386,13 +386,29 @@ namespace BridgeBuilder
             List<CefCallbackTxPlan> callbackPlans = new List<CefCallbackTxPlan>();
             List<CefInstanceElementTxPlan> instanceClassPlans = new List<CefInstanceElementTxPlan>();
             List<CefEnumTxPlan> enumTxPlans = new List<CefEnumTxPlan>();
+
+            int typeName = 1;
+
+            foreach (CodeTypeDeclaration typedecl in cefTypeCollection._v_instanceClasses)
+            {
+                CefInstanceElementTxPlan instanceClassPlan = new CefInstanceElementTxPlan(typedecl);
+                instanceClassPlans.Add(instanceClassPlan);
+                allTxPlans.Add(typedecl.Name, instanceClassPlan);
+                TypeTxInfo typeTxPlan = txPlanner.MakeTransformPlan(typedecl);
+                typeTxPlan.CsInterOpTypeNameId = typeName++;
+                typedecl.TypeTxInfo = typeTxPlan;
+            }
+
+
             foreach (CodeTypeDeclaration typedecl in cefTypeCollection._enumClasses)
             {
                 CefEnumTxPlan enumTxPlan = new CefEnumTxPlan(typedecl);
                 enumTxPlans.Add(enumTxPlan);
                 TypeTxInfo typeTxPlan = txPlanner.MakeTransformPlan(typedecl);
+                typeTxPlan.CsInterOpTypeNameId = typeName++;
                 typedecl.TypeTxInfo = typeTxPlan;
             }
+
             foreach (CodeTypeDeclaration typedecl in cefTypeCollection._v_handlerClasses)
             {
 
@@ -401,6 +417,7 @@ namespace BridgeBuilder
                 handlerPlans.Add(handlerPlan);
                 allTxPlans.Add(typedecl.Name, handlerPlan);
                 TypeTxInfo typeTxPlan = txPlanner.MakeTransformPlan(typedecl);
+                typeTxPlan.CsInterOpTypeNameId = typeName++;
                 typedecl.TypeTxInfo = typeTxPlan;
             }
             foreach (CodeTypeDeclaration typedecl in cefTypeCollection._v_callBackClasses)
@@ -411,14 +428,7 @@ namespace BridgeBuilder
                 allTxPlans.Add(typedecl.Name, callbackPlan);
                 ////
                 TypeTxInfo typeTxPlan = txPlanner.MakeTransformPlan(typedecl);
-                typedecl.TypeTxInfo = typeTxPlan;
-            }
-            foreach (CodeTypeDeclaration typedecl in cefTypeCollection._v_instanceClasses)
-            {
-                CefInstanceElementTxPlan instanceClassPlan = new CefInstanceElementTxPlan(typedecl);
-                instanceClassPlans.Add(instanceClassPlan);
-                allTxPlans.Add(typedecl.Name, instanceClassPlan);
-                TypeTxInfo typeTxPlan = txPlanner.MakeTransformPlan(typedecl);
+                typeTxPlan.CsInterOpTypeNameId = typeName++;
                 typedecl.TypeTxInfo = typeTxPlan;
             }
 
@@ -428,7 +438,7 @@ namespace BridgeBuilder
             foreach (CodeTypeDeclaration typedecl in cefTypeCollection.cToCppClasses)
             {
                 TypeTxInfo typeTxPlan = txPlanner.MakeTransformPlan(typedecl);
-
+                typeTxPlan.CsInterOpTypeNameId = typeName++;
                 typedecl.TypeTxInfo = typeTxPlan;
 
                 //cef -specific
@@ -453,6 +463,7 @@ namespace BridgeBuilder
             foreach (CodeTypeDeclaration typedecl in cefTypeCollection.cppToCClasses)
             {
                 TypeTxInfo typeTxPlan = txPlanner.MakeTransformPlan(typedecl);
+                typeTxPlan.CsInterOpTypeNameId = typeName++;
                 typedecl.TypeTxInfo = typeTxPlan;
                 //cef -specific
                 TemplateTypeSymbol3 baseType0 = (TemplateTypeSymbol3)typedecl.BaseTypes[0].ResolvedType;
@@ -484,7 +495,7 @@ namespace BridgeBuilder
             "using System.Collections.Generic;\r\n" +
             "using System.Runtime.InteropServices;\r\n" +
             "namespace LayoutFarm.CefBridge.Auto{\r\n");
-        
+
 
             foreach (CefTypeTxPlan tx in handlerPlans)
             {
@@ -502,7 +513,7 @@ namespace BridgeBuilder
             {
                 CodeStringBuilder stbuilder = new CodeStringBuilder();
                 tx.GenerateCppCode(stbuilder);
-                
+
             }
 
 

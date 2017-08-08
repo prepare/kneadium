@@ -1221,7 +1221,7 @@ namespace BridgeBuilder
 
                                                             //create struct at native part?
                                                             //****
-                                                          
+
 
                                                             //eg. void ShowDevTools(const CefWindowInfo& windowInfo,CefRefPtr<CefClient> client,const CefBrowserSettings& settings,const CefPoint& inspect_element_at)
                                                             //eg. void ImeSetComposition(const CefString& text,const std::vector<CefCompositionUnderline>& underlines,const CefRange& replacement_range,const CefRange& selection_range)
@@ -2016,15 +2016,19 @@ namespace BridgeBuilder
             CodeStringBuilder csStruct = new CodeStringBuilder();
             int maxPar = 0;
             csStruct.AppendLine("public struct " + orgDecl.Name + "{");
+            csStruct.AppendLine("const int _typeNAME=" + orgDecl.TypeTxInfo.CsInterOpTypeNameId + ";");
             for (int i = 0; i < j; ++i)
             {
                 MethodTxInfo metTx = _typeTxInfo.methods[i];
-                metTx.CppMethodSwitchCaseName = "_" + metTx.Name + "_" + (i + 1);
                 if (metTx.pars.Count > maxPar)
                 {
                     maxPar = metTx.pars.Count;
                 }
-                csStruct.AppendLine("const int " + metTx.CppMethodSwitchCaseName + "=" + (i + 1) + ";");
+                if (metTx.CppMethodSwitchCaseName == null)
+                {
+                    throw new NotSupportedException();
+                }
+                csStruct.AppendLine("const int " + metTx.CppMethodSwitchCaseName + "= (_typeNAME <<16) |" + (i + 1) + ";");
             }
             //-----------------------------------------------------------------------
             //create ctor
@@ -2034,11 +2038,11 @@ namespace BridgeBuilder
             csStruct.AppendLine("}");
             //-----------------------------------------------------------------------
             //create native method binder
-            CsCreateNativeMethodBinder(csStruct, orgDecl.Name);
-            for (int i = 0; i < 6; ++i)
-            {
-                CsCreateAccessoryNativeMethodBinder(csStruct, orgDecl.Name, i);
-            }
+            //CsCreateNativeMethodBinder(csStruct, orgDecl.Name);
+            //for (int i = 0; i < 6; ++i)
+            //{
+            //    CsCreateAccessoryNativeMethodBinder(csStruct, orgDecl.Name, i);
+            //}
             //-----------------------------------------------------------------------
             for (int i = 0; i < j; ++i)
             {
@@ -2055,39 +2059,39 @@ namespace BridgeBuilder
             //
             stbuilder.Append(csStruct.ToString());
         }
-        void CsCreateNativeMethodBinder(CodeStringBuilder stbuilder, string orgTypeName)
-        {
-            stbuilder.AppendLine("[DllImport(Cef3Binder.CEF_CLIENT_DLL, CallingConvention = CallingConvention.Cdecl)]");
-            stbuilder.AppendLine("static extern void MyCefMet_" + orgTypeName + "(IntPtr me,int metName,out JsValue ret, ref JsValue v1,ref JsValue v2, ref JsValue v3,ref JsValue v4, ref JsValue v5,ref JsValue v6);\r\n");
-        }
-        void CsCreateAccessoryNativeMethodBinder(CodeStringBuilder stbuilder, string orgTypeName, int npars)
-        {
+        //void CsCreateNativeMethodBinder(CodeStringBuilder stbuilder, string orgTypeName)
+        //{
+        //    stbuilder.AppendLine("[DllImport(Cef3Binder.CEF_CLIENT_DLL, CallingConvention = CallingConvention.Cdecl)]");
+        //    stbuilder.AppendLine("static extern void MyCefMet_" + orgTypeName + "(IntPtr me,int metName,out JsValue ret, ref JsValue v1,ref JsValue v2, ref JsValue v3,ref JsValue v4, ref JsValue v5,ref JsValue v6);\r\n");
+        //}
+        //void CsCreateAccessoryNativeMethodBinder(CodeStringBuilder stbuilder, string orgTypeName, int npars)
+        //{
 
-            stbuilder.AppendLine("static void MyCefMet_" + orgTypeName + "(IntPtr me,int metName,out JsValue ret");
-            for (int i = 0; i < npars; ++i)
-            {
-                stbuilder.Append(",");
-                stbuilder.Append("ref JsValue v" + (i + 1));
-            }
-            stbuilder.AppendLine("){");
+        //    stbuilder.AppendLine("static void MyCefMet_" + orgTypeName + "(IntPtr me,int metName,out JsValue ret");
+        //    for (int i = 0; i < npars; ++i)
+        //    {
+        //        stbuilder.Append(",");
+        //        stbuilder.Append("ref JsValue v" + (i + 1));
+        //    }
+        //    stbuilder.AppendLine("){");
 
-            int remaining = 5 - npars; //v1 -v6 
-            for (int i = npars; i < 6; ++i)
-            {
-                stbuilder.AppendLine("JsValue v" + (i + 1) + "=new JsValue();");
-            }
+        //    int remaining = 5 - npars; //v1 -v6 
+        //    for (int i = npars; i < 6; ++i)
+        //    {
+        //        stbuilder.AppendLine("JsValue v" + (i + 1) + "=new JsValue();");
+        //    }
 
 
-            stbuilder.AppendLine("MyCefMet_" + orgTypeName + "(");
-            stbuilder.AppendLine("me, metName,out ret");
-            for (int i = 0; i < 6; ++i)
-            {
-                stbuilder.Append(",");
-                stbuilder.Append("ref v" + (i + 1));
-            }
-            stbuilder.AppendLine(");");
-            stbuilder.AppendLine("}");
-        }
+        //    stbuilder.AppendLine("MyCefMet_" + orgTypeName + "(");
+        //    stbuilder.AppendLine("me, metName,out ret");
+        //    for (int i = 0; i < 6; ++i)
+        //    {
+        //        stbuilder.Append(",");
+        //        stbuilder.Append("ref v" + (i + 1));
+        //    }
+        //    stbuilder.AppendLine(");");
+        //    stbuilder.AppendLine("}");
+        //}
 
 
         string GetCsRetName(TypeSymbol retType)
@@ -2410,13 +2414,10 @@ namespace BridgeBuilder
             }
             //---------------------------
 
-
-
-
             string orgDeclName = this.OriginalDecl.Name;
             stbuilder.AppendLine();//marker
 
-            stbuilder.Append("MyCefMet_" + orgDeclName + "(");
+            stbuilder.Append("Cef3Binder.MyCefMet_Call" + parCount + "(");
             stbuilder.Append("this.nativePtr," + met.CppMethodSwitchCaseName + ",out ret");
             for (int i = 0; i < parCount; ++i)
             {
