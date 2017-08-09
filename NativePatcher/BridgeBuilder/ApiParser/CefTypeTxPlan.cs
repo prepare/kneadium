@@ -1818,6 +1818,7 @@ namespace BridgeBuilder
 #if DEBUG
         int _dbug_cpp_count = 0;
 #endif
+        internal int MaxMethodParCount { get; private set; }
         public override void GenerateCppCode(CodeStringBuilder stbuilder)
         {
 
@@ -1848,6 +1849,7 @@ namespace BridgeBuilder
                 }
                 const_methodNames.AppendLine("const int " + metTx.CppMethodSwitchCaseName + "=" + (i + 1) + ";");
             }
+            MaxMethodParCount = maxPar;
             totalTypeMethod.AppendLine(const_methodNames.ToString());
             //-----------------------------------------------------------------------
             {
@@ -2034,7 +2036,7 @@ namespace BridgeBuilder
             }
             //-----------------------------------------------------------------------
             //create ctor
-            csStruct.AppendLine("IntPtr nativePtr;");
+            csStruct.AppendLine("internal readonly IntPtr nativePtr;");
             csStruct.AppendLine("internal " + orgDecl.Name + "(IntPtr nativePtr){");
             csStruct.AppendLine("this.nativePtr= nativePtr;");
             csStruct.AppendLine("}");

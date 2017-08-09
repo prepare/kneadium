@@ -277,10 +277,20 @@ namespace LayoutFarm.CefBridge
             JsValue a1 = new JsValue();
             JsValue a2 = new JsValue();
             JsValue ret;
+            //
             Cef3Binder.MyCefCreateNativeStringHolder(ref a1, string_val);
             Cef3Binder.MyCefCreateNativeStringHolder(ref a2, url);
+
             Cef3Binder.MyCefFrameCall2(this.nativePtr,
             (int)CefFrameCallMsg.CefFrame_LoadString, out ret, ref a1, ref a2);
+
+
+
+
+
+
+
+
             //need string clean up
         }
         public void Release()

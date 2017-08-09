@@ -393,7 +393,16 @@ namespace LayoutFarm.CefBridge
             });
         }
 
+        public void LoadText(string text)
+        {
+            MyCefBw myCefBw = new MyCefBw(this.myCefBrowser);
+            MyCefFrame myframe = myCefBw.GetMainFrame();
 
+            Auto.CefFrame frame1 = new Auto.CefFrame(myframe.nativePtr);
+            frame1.LoadString("<html><head><body><h1>hello!</h1></body></html>", "http://localhost");
+            frame1.Release();
+
+        }
         void InternalGetSource2(MyCefCallback strCallback)
         {
             MyCefBw myCefBw = new MyCefBw(this.myCefBrowser);
