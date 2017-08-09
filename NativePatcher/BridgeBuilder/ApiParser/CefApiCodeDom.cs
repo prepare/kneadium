@@ -454,10 +454,11 @@ namespace BridgeBuilder
             _globalTypeDecl = new CodeTypeDeclaration() { IsGlobalCompilationUnitType = true };
             _globalTypeDecl.OriginalCompilationUnit = this;
             _globalTypeDecl.Name = "global!" + cuName;
+            this.CuName = cuName;
         }
 
         public string Filename { get; set; }
-
+        public string CuName { get; set; }
         public void AddTypeDeclaration(CodeTypeDeclaration typedecl)
         {
             typedecl.OriginalCompilationUnit = this;
@@ -479,6 +480,10 @@ namespace BridgeBuilder
         public void AddIncludeFile(string includeFile)
         {
             _includeFiles.Add(new IncludeFileDirective(includeFile));
+        }
+        public override string ToString()
+        {
+            return this.CuName;
         }
 
     }
@@ -688,14 +693,14 @@ namespace BridgeBuilder
             get { return _lineComments; }
             set
             {
-                if (this.Name == "CefBrowser")
-                {
+                //if (this.Name == "CefBrowser")
+                //{
 
-                }
-                if (_lineComments != null)
-                {
+                //}
+                //if (_lineComments != null)
+                //{
 
-                }
+                //}
 
                 _lineComments = value;
             }
