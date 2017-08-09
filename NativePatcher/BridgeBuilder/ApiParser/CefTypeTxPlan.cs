@@ -93,6 +93,8 @@ namespace BridgeBuilder
         }
 
 
+        public int CsInterOpTypeNameId { get; set; }
+
         public virtual void GenerateCppCode(CodeStringBuilder stbuilder)
         {
 
