@@ -393,7 +393,16 @@ namespace LayoutFarm.CefBridge
             });
         }
 
+        public void LoadText(string text, string url)
+        {
+            MyCefBw myCefBw = new MyCefBw(this.myCefBrowser);
+            MyCefFrame myframe = myCefBw.GetMainFrame();
 
+            Auto.CefFrame frame1 = new Auto.CefFrame(myframe.nativePtr);
+            frame1.LoadString(text, url);
+            frame1.Release();
+
+        }
         void InternalGetSource2(MyCefCallback strCallback)
         {
             MyCefBw myCefBw = new MyCefBw(this.myCefBrowser);
@@ -417,7 +426,15 @@ namespace LayoutFarm.CefBridge
             //    out ret, ref a1, ref a2);
             //MyCefFrame myframe = new MyCefFrame(ret.Ptr);
 
-            myframe.GetSource(strCallback);
+
+            MyCefStringVisitor visitor2 = myCefBw.NewStringVisitor((id, ptr) =>
+            {
+                NativeCallArgs args = new NativeCallArgs(ptr);
+                var text = args.GetArgAsString(0);
+            });
+
+
+            myframe.GetSource(visitor2);
             myframe.Release();
 
 
