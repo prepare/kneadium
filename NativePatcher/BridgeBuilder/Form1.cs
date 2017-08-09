@@ -329,7 +329,9 @@ namespace BridgeBuilder
                     {
                         continue;
                     }
-                    CodeCompilationUnit cu = ParseWrapper(onlyHeaderFiles[i]);
+
+                    CodeCompilationUnit cu = ParseWrapper(onlyHeaderFiles[i]); 
+
                     totalCuList.Add(cu);
                 }
             }

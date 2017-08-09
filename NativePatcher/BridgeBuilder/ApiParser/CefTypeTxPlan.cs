@@ -2114,6 +2114,10 @@ namespace BridgeBuilder
                 //in our convention we dont generate 
                 MethodTxInfo metTx = _typeTxInfo.methods[i];
                 //
+                if (metTx.metDecl.LineComments != null)
+                {
+
+                }
                 AddComment(metTx.metDecl.LineComments, csStruct);
                 //
                 GenerateCsMethod(metTx, met_stbuilder);

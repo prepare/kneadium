@@ -670,6 +670,7 @@ namespace BridgeBuilder
 
     abstract class CodeMemberDeclaration
     {
+        Token[] _lineComments;
 #if DEBUG
         static int dbugTotalId;
         public readonly int dbugId = dbugTotalId++;
@@ -682,7 +683,23 @@ namespace BridgeBuilder
         public abstract CodeMemberKind MemberKind { get; }
         public MemberAccessibility MemberAccessibility { get; set; }
         public CodeCompilationUnit OriginalCompilationUnit { get; set; }
-        public Token[] LineComments { get; set; }
+        public Token[] LineComments
+        {
+            get { return _lineComments; }
+            set
+            {
+                if (this.Name == "CefBrowser")
+                {
+
+                }
+                if (_lineComments != null)
+                {
+
+                }
+
+                _lineComments = value;
+            }
+        }
         public CodeTypeReference OwnerTypeDecl { get; set; }
 
     }

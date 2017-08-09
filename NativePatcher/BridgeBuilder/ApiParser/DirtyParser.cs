@@ -1057,8 +1057,7 @@ namespace BridgeBuilder
             {
                 CodeTypeDeclaration enumDecl = ParseEnumDeclaration();
                 enumDecl.LineComments = comments;
-                string enum_name = ExpectId();
-
+                string enum_name = ExpectId(); 
                 if (enum_name != null)
                 {
                     enumDecl.Name = enum_name;
@@ -1234,9 +1233,9 @@ namespace BridgeBuilder
                                 //begin next field 
                                 if (fieldname != null)
                                 {
-                                    CodeFieldDeclaration field_decl = new CodeFieldDeclaration();
-                                    field_decl.LineComments = comments2;
+                                    CodeFieldDeclaration field_decl = new CodeFieldDeclaration();                                  
                                     field_decl.Name = fieldname;
+                                    field_decl.LineComments = comments2;
                                     enumDecl.AddMember(field_decl);
                                     fieldname = null;//reset
                                 }
@@ -1492,14 +1491,13 @@ namespace BridgeBuilder
             {
                 //this is method
                 Token[] comments = FlushCollectedLineComments();
+                
                 CodeMethodDeclaration met = new CodeMethodDeclaration();
                 met.IsStatic = isStatic;
                 met.IsVirtual = isVirtual;
-                met.IsInline = isInline;
-                met.LineComments = comments;
+                met.IsInline = isInline; 
                 met.MemberAccessibility = this._currentMemberAccessibilityMode;
-                met.CppExplicitOwnerType = cppExplicitOwnerTypeName;
-
+                met.CppExplicitOwnerType = cppExplicitOwnerTypeName; 
                 //
                 if (retType.ToString() == codeTypeDecl.Name && name == null)
                 {
@@ -1514,6 +1512,7 @@ namespace BridgeBuilder
                     met.Name = name;
                     met.ReturnType = retType;
                 }
+                met.LineComments = comments;
                 //-----------------------------------------------------
                 //parse func parameters    
                 while (ParseParameter(met)) ;
@@ -1580,11 +1579,11 @@ namespace BridgeBuilder
             {
                 Token[] comments = FlushCollectedLineComments();
                 //this is code field decl
-                CodeFieldDeclaration field = new CodeFieldDeclaration();
-                field.LineComments = comments;
+                CodeFieldDeclaration field = new CodeFieldDeclaration(); 
                 field.MemberAccessibility = this._currentMemberAccessibilityMode;
                 codeTypeDecl.AddMember(field);
                 field.Name = name;
+                field.LineComments = comments;
                 field.FieldType = retType;
                 field.IsStatic = isStatic;
                 field.IsConst = isConst;
