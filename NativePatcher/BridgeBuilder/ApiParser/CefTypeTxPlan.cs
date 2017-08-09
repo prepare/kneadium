@@ -2248,7 +2248,7 @@ namespace BridgeBuilder
                                             throw new NotSupportedException();
                                         case PrimitiveTypeKind.Char:
                                             //pointer or reference of char
-                                            return "byte*";
+                                            return "IntPtr";
                                         case PrimitiveTypeKind.Bool:
                                             return "ref bool";
                                         case PrimitiveTypeKind.CefString:
