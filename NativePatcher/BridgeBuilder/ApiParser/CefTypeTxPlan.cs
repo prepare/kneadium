@@ -2021,6 +2021,11 @@ namespace BridgeBuilder
             int maxPar = 0;
             csStruct.AppendLine("public struct " + orgDecl.Name + "{");
             csStruct.AppendLine("const int _typeNAME=" + orgDecl.TypeTxInfo.CsInterOpTypeNameId + ";");
+
+            string releaseMetName = orgDecl.Name + "_Release_0";
+
+            csStruct.AppendLine("const int " + releaseMetName + "= (_typeNAME <<16) | 0;");
+
             for (int i = 0; i < j; ++i)
             {
                 MethodTxInfo metTx = _typeTxInfo.methods[i];
@@ -2041,12 +2046,11 @@ namespace BridgeBuilder
             csStruct.AppendLine("this.nativePtr= nativePtr;");
             csStruct.AppendLine("}");
             //-----------------------------------------------------------------------
-            //create native method binder
-            //CsCreateNativeMethodBinder(csStruct, orgDecl.Name);
-            //for (int i = 0; i < 6; ++i)
-            //{
-            //    CsCreateAccessoryNativeMethodBinder(csStruct, orgDecl.Name, i);
-            //}
+            //release method for cef instance object
+            csStruct.AppendLine("public void Release(){");
+            csStruct.AppendLine("JsValue ret;");
+            csStruct.AppendLine("Cef3Binder.MyCefMet_Call0(this.nativePtr, " + releaseMetName + ", out ret);");             
+            csStruct.AppendLine("}");
             //-----------------------------------------------------------------------
             for (int i = 0; i < j; ++i)
             {
@@ -2063,40 +2067,6 @@ namespace BridgeBuilder
             //
             stbuilder.Append(csStruct.ToString());
         }
-        //void CsCreateNativeMethodBinder(CodeStringBuilder stbuilder, string orgTypeName)
-        //{
-        //    stbuilder.AppendLine("[DllImport(Cef3Binder.CEF_CLIENT_DLL, CallingConvention = CallingConvention.Cdecl)]");
-        //    stbuilder.AppendLine("static extern void MyCefMet_" + orgTypeName + "(IntPtr me,int metName,out JsValue ret, ref JsValue v1,ref JsValue v2, ref JsValue v3,ref JsValue v4, ref JsValue v5,ref JsValue v6);\r\n");
-        //}
-        //void CsCreateAccessoryNativeMethodBinder(CodeStringBuilder stbuilder, string orgTypeName, int npars)
-        //{
-
-        //    stbuilder.AppendLine("static void MyCefMet_" + orgTypeName + "(IntPtr me,int metName,out JsValue ret");
-        //    for (int i = 0; i < npars; ++i)
-        //    {
-        //        stbuilder.Append(",");
-        //        stbuilder.Append("ref JsValue v" + (i + 1));
-        //    }
-        //    stbuilder.AppendLine("){");
-
-        //    int remaining = 5 - npars; //v1 -v6 
-        //    for (int i = npars; i < 6; ++i)
-        //    {
-        //        stbuilder.AppendLine("JsValue v" + (i + 1) + "=new JsValue();");
-        //    }
-
-
-        //    stbuilder.AppendLine("MyCefMet_" + orgTypeName + "(");
-        //    stbuilder.AppendLine("me, metName,out ret");
-        //    for (int i = 0; i < 6; ++i)
-        //    {
-        //        stbuilder.Append(",");
-        //        stbuilder.Append("ref v" + (i + 1));
-        //    }
-        //    stbuilder.AppendLine(");");
-        //    stbuilder.AppendLine("}");
-        //}
-
 
         string GetCsRetName(TypeSymbol retType)
         {
