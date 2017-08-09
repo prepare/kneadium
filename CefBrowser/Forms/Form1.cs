@@ -167,7 +167,7 @@ namespace LayoutFarm.CefBridge
         private void button17_Click(object sender, EventArgs e)
         {
             //load text
-            this.cefWebBrowser1.Agent.LoadText("AAA");
+            this.cefWebBrowser1.Agent.LoadText("<html><head><body><h1>hello!</h1></body></html>", "http://localhost");
 
         }
     }

@@ -42,7 +42,7 @@ namespace BridgeBuilder
             if (_dbugEnableLineNote)
             {
                 stbuilder.AppendLine("/*" + _dbugLineCount + "*/");
-                if (_dbugLineCount >= 1815)
+                if (_dbugLineCount >= 2037)
                 {
 
                 }
