@@ -42,7 +42,7 @@ namespace BridgeBuilder
             if (_dbugEnableLineNote)
             {
                 stbuilder.AppendLine("/*" + _dbugLineCount + "*/");
-                if (_dbugLineCount >= 2037)
+                if (_dbugLineCount >= 225)
                 {
 
                 }
@@ -1573,6 +1573,55 @@ namespace BridgeBuilder
 
         }
 
+
+        protected static void AddComment(Token[] lineTokens, CodeStringBuilder builder)
+        {
+            if (lineTokens == null)
+            {
+                return;
+            }
+            //
+            StringBuilder stbuilder = new StringBuilder();
+            int j = lineTokens.Length;
+            int lastLine = j - 1;
+
+            stbuilder.Append("/// <summary>\r\n");
+            for (int i = 0; i < j; ++i)
+            {
+                //for cef, special care for first and last line 
+                string lineContent = lineTokens[i].Content;
+                if (i == 0 || i == lastLine)
+                {
+                    if (lineContent.StartsWith("///"))
+                    {
+                        if (lineContent.Substring(3).Trim() == "")
+                        {
+                            continue; //skip this first and last line comment
+                        }
+                    }
+                    else
+                    {
+                        stbuilder.AppendLine("/" + lineContent);
+                    }
+                }
+                else
+                {
+
+                    if (!lineContent.StartsWith("///"))
+                    {
+                        if (lineContent.StartsWith("//"))
+                        {
+                            //append one /
+                            stbuilder.AppendLine("/" + lineTokens[i].Content);
+                            continue;
+                        }
+                    }
+                }
+            }
+            stbuilder.Append("/// </summary>\r\n");
+
+            builder.Append(stbuilder.ToString());
+        }
     }
 
     /// <summary>
@@ -1754,17 +1803,17 @@ namespace BridgeBuilder
 
                 }
             }
-
         }
+
         public override void GenerateCsCode(CodeStringBuilder stbuilder)
         {
             CodeStringBuilder codeBuilder = new CodeStringBuilder();
             CodeTypeDeclaration orgDecl = this.OriginalDecl;
             _typeTxInfo = orgDecl.TypeTxInfo;
             _currentCodeTypeDecl = orgDecl;
-
-            //uint.MaxValue
-
+            //
+            AddComment(orgDecl.LineComments, codeBuilder);
+            //
             codeBuilder.AppendLine("public enum " + orgDecl.Name + enum_base + "{");
             //transform enum
             int i = 0;
@@ -1777,6 +1826,9 @@ namespace BridgeBuilder
                 }
                 i++;
                 CodeFieldDeclaration codeFieldDecl = fieldTx.fieldDecl;
+                //
+                AddComment(codeFieldDecl.LineComments, codeBuilder);
+                //
                 if (codeFieldDecl.InitExpression != null)
                 {
                     string initExpr = codeFieldDecl.InitExpression.ToString();
@@ -2019,6 +2071,9 @@ namespace BridgeBuilder
             //-----------------------------------------------------------------------
             CodeStringBuilder csStruct = new CodeStringBuilder();
             int maxPar = 0;
+
+            AddComment(orgDecl.LineComments, csStruct);
+            //
             csStruct.AppendLine("public struct " + orgDecl.Name + "{");
             csStruct.AppendLine("const int _typeNAME=" + orgDecl.TypeTxInfo.CsInterOpTypeNameId + ";");
 
@@ -2049,7 +2104,7 @@ namespace BridgeBuilder
             //release method for cef instance object
             csStruct.AppendLine("public void Release(){");
             csStruct.AppendLine("JsValue ret;");
-            csStruct.AppendLine("Cef3Binder.MyCefMet_Call0(this.nativePtr, " + releaseMetName + ", out ret);");             
+            csStruct.AppendLine("Cef3Binder.MyCefMet_Call0(this.nativePtr, " + releaseMetName + ", out ret);");
             csStruct.AppendLine("}");
             //-----------------------------------------------------------------------
             for (int i = 0; i < j; ++i)
@@ -2058,6 +2113,9 @@ namespace BridgeBuilder
                 //create each method,
                 //in our convention we dont generate 
                 MethodTxInfo metTx = _typeTxInfo.methods[i];
+                //
+                AddComment(metTx.metDecl.LineComments, csStruct);
+                //
                 GenerateCsMethod(metTx, met_stbuilder);
                 csStruct.Append(met_stbuilder.ToString());
             }

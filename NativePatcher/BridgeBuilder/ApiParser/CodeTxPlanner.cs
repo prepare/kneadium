@@ -154,7 +154,7 @@ namespace BridgeBuilder
 
     class MethodTxInfo
     {
-        CodeMethodDeclaration metDecl;
+        internal CodeMethodDeclaration metDecl;
         public List<MethodParameterTxInfo> pars = new List<MethodParameterTxInfo>();
         public MethodTxInfo(CodeMethodDeclaration metDecl)
         {
