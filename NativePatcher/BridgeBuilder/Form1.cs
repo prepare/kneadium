@@ -603,7 +603,7 @@ namespace BridgeBuilder
                 CefInstanceElementTxPlan instanceClassPlan = instanceClassPlans[i];
                 cppStBuilder.AppendLine("case " + "CefTypeName_" + instanceClassPlan.OriginalDecl.Name + ":");
                 cppStBuilder.AppendLine("{");
-                cppStBuilder.AppendLine("MyCefMet_" + instanceClassPlan.OriginalDecl.Name + "((" + instanceClassPlan.UnderlyingCType + "*)me1,metName & 0xffffffff," +
+                cppStBuilder.AppendLine("MyCefMet_" + instanceClassPlan.OriginalDecl.Name + "((" + instanceClassPlan.UnderlyingCType + "*)me1,metName & 0xffff," +
                     "ret,v1,v2,v3,v4,v5,v6);"
                     );
                 cppStBuilder.AppendLine("break;");

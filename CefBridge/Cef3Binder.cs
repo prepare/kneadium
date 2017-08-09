@@ -248,9 +248,13 @@ namespace LayoutFarm.CefBridge
 
             a1.Ptr = stringVisitor.nativePtr;
 
-            Cef3Binder.MyCefMet_CefFrame(this.nativePtr,
-              11, out ret, ref a1, ref a2,
-               ref a3, ref a4, ref a5, ref a6);
+            CefBridge.Auto.CefFrame ff = new Auto.CefFrame(this.nativePtr);
+            ff.GetText(new Auto.CefStringVisitor(stringVisitor.nativePtr));
+
+
+            //Cef3Binder.MyCefMet_CefFrame(this.nativePtr,
+            //  11, out ret, ref a1, ref a2,
+            //   ref a3, ref a4, ref a5, ref a6);
         }
         public void GetSource(MyCefStringVisitor stringVisitor)
         {
@@ -261,8 +265,7 @@ namespace LayoutFarm.CefBridge
             JsValue a5 = new JsValue();
             JsValue a6 = new JsValue();
             a1.Ptr = stringVisitor.nativePtr;
-            JsValue ret;
-
+            JsValue ret; 
 
             Cef3Binder.MyCefMet_CefFrame(this.nativePtr,
               10, out ret, ref a1, ref a2,
