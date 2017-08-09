@@ -4,67 +4,157 @@ using System.Runtime.InteropServices;
 namespace LayoutFarm.CefBridge.Auto
 {
 
+    /// <summary>
+    /// Log severity levels.
+    /// </summary>
     /*158*/
     public enum cef_log_severity_t
     {
+        /// <summary>
+        /// Default logging (currently INFO logging).
+        /// </summary>
         LOGSEVERITY_DEFAULT/*159*/
     ,
+        /// <summary>
+        /// Verbose logging.
+        /// </summary>
         LOGSEVERITY_VERBOSE/*160*/
     ,
+        /// <summary>
+        /// INFO logging.
+        /// </summary>
         LOGSEVERITY_INFO/*161*/
     ,
+        /// <summary>
+        /// WARNING logging.
+        /// </summary>
         LOGSEVERITY_WARNING/*162*/
     ,
+        /// <summary>
+        /// ERROR logging.
+        /// </summary>
         LOGSEVERITY_ERROR/*163*/
     ,
+        /// <summary>
+        /// Completely disable logging.
+        /// </summary>
         LOGSEVERITY_DISABLE = 99/*164*/
     }
+    /// <summary>
+    /// Represents the state of a setting.
+    /// </summary>
     /*165*/
     public enum cef_state_t
     {
+        /// <summary>
+        /// Use the default state for the setting.
+        /// </summary>
         STATE_DEFAULT = 0/*166*/
     ,
+        /// <summary>
+        /// Enable or allow the setting.
+        /// </summary>
         STATE_ENABLED/*167*/
     ,
+        /// <summary>
+        /// Disable or disallow the setting.
+        /// </summary>
         STATE_DISABLED/*168*/
     }
+    /// <summary>
+    /// Return value types.
+    /// </summary>
     /*169*/
     public enum cef_return_value_t
     {
+        /// <summary>
+        /// Cancel immediately.
+        /// </summary>
         RV_CANCEL = 0/*170*/
     ,
+        /// <summary>
+        /// Continue immediately.
+        /// </summary>
         RV_CONTINUE/*171*/
     ,
+        /// <summary>
+        /// Continue asynchronously (usually via a callback).
+        /// </summary>
         RV_CONTINUE_ASYNC/*172*/
     }
+    /// <summary>
+    /// Process termination status values.
+    /// </summary>
     /*173*/
     public enum cef_termination_status_t
     {
+        /// <summary>
+        /// Non-zero exit status.
+        /// </summary>
         TS_ABNORMAL_TERMINATION/*174*/
     ,
+        /// <summary>
+        /// SIGKILL or task manager kill.
+        /// </summary>
         TS_PROCESS_WAS_KILLED/*175*/
     ,
+        /// <summary>
+        /// Segmentation fault.
+        /// </summary>
         TS_PROCESS_CRASHED/*176*/
     }
+    /// <summary>
+    /// Path key values.
+    /// </summary>
     /*177*/
     public enum cef_path_key_t
     {
+        /// <summary>
+        /// Current directory.
+        /// </summary>
         PK_DIR_CURRENT/*178*/
     ,
+        /// <summary>
+        /// Directory containing PK_FILE_EXE.
+        /// </summary>
         PK_DIR_EXE/*179*/
     ,
+        /// <summary>
+        /// Directory containing PK_FILE_MODULE.
+        /// </summary>
         PK_DIR_MODULE/*180*/
     ,
+        /// <summary>
+        /// Temporary directory.
+        /// </summary>
         PK_DIR_TEMP/*181*/
     ,
+        /// <summary>
+        /// Path and filename of the current executable.
+        /// </summary>
         PK_FILE_EXE/*182*/
     ,
+        /// <summary>
+        /// Path and filename of the module containing the CEF code (usually the libcef
+        /// module).
+        /// </summary>
         PK_FILE_MODULE/*183*/
     ,
+        /// <summary>
+        /// "Local Settings\Application Data" directory under the user profile
+        /// directory on Windows.
+        /// </summary>
         PK_LOCAL_APP_DATA/*184*/
     ,
+        /// <summary>
+        /// "Application Data" directory under the user profile directory on Windows
+        /// and "~/Library/Application Support" directory on Mac OS X.
+        /// </summary>
         PK_USER_DATA/*185*/
     }
+    /// <summary>
+    /// Storage types.
+    /// </summary>
     /*186*/
     public enum cef_storage_type_t
     {
@@ -72,6 +162,10 @@ namespace LayoutFarm.CefBridge.Auto
     ,
         ST_SESSIONSTORAGE/*188*/
     }
+    /// <summary>
+    /// Supported error code values. See net\base\net_error_list.h for complete
+    /// descriptions of the error codes.
+    /// </summary>
     /*189*/
     public enum cef_errorcode_t
     {
@@ -147,6 +241,9 @@ namespace LayoutFarm.CefBridge.Auto
     ,
         ERR_CERT_WEAK_SIGNATURE_ALGORITHM = -208/*225*/
     ,
+        /// <summary>
+        /// -209 is available: was ERR_CERT_NOT_IN_DNS.
+        /// </summary>
         ERR_CERT_NON_UNIQUE_NAME = -210/*226*/
     ,
         ERR_CERT_WEAK_KEY = -211/*227*/
@@ -185,6 +282,11 @@ namespace LayoutFarm.CefBridge.Auto
     ,
         ERR_INSECURE_RESPONSE = -501/*244*/
     }
+    /// <summary>
+    /// Supported certificate status code values. See net\cert\cert_status_flags.h
+    /// for more information. CERT_STATUS_NONE is new in CEF because we use an
+    /// enum while cert_status_flags.h uses a typedef and static const variables.
+    /// </summary>
     /*245*/
     public enum cef_cert_status_t
     {
@@ -196,6 +298,9 @@ namespace LayoutFarm.CefBridge.Auto
     ,
         CERT_STATUS_AUTHORITY_INVALID = 1 << 2/*249*/
     ,
+        /// <summary>
+        /// 1 << 3 is reserved for ERR_CERT_CONTAINS_ERRORS (not useful with WinHTTP).
+        /// </summary>
         CERT_STATUS_NO_REVOCATION_MECHANISM = 1 << 4/*250*/
     ,
         CERT_STATUS_UNABLE_TO_CHECK_REVOCATION = 1 << 5/*251*/
@@ -206,24 +311,41 @@ namespace LayoutFarm.CefBridge.Auto
     ,
         CERT_STATUS_WEAK_SIGNATURE_ALGORITHM = 1 << 8/*254*/
     ,
+        /// <summary>
+        /// 1 << 9 was used for CERT_STATUS_NOT_IN_DNS
+        /// </summary>
         CERT_STATUS_NON_UNIQUE_NAME = 1 << 10/*255*/
     ,
         CERT_STATUS_WEAK_KEY = 1 << 11/*256*/
     ,
+        /// <summary>
+        /// 1 << 12 was used for CERT_STATUS_WEAK_DH_KEY
+        /// </summary>
         CERT_STATUS_PINNED_KEY_MISSING = 1 << 13/*257*/
     ,
         CERT_STATUS_NAME_CONSTRAINT_VIOLATION = 1 << 14/*258*/
     ,
         CERT_STATUS_VALIDITY_TOO_LONG = 1 << 15/*259*/
     ,
+        /// <summary>
+        /// Bits 16 to 31 are for non-error statuses.
+        /// </summary>
         CERT_STATUS_IS_EV = 1 << 16/*260*/
     ,
         CERT_STATUS_REV_CHECKING_ENABLED = 1 << 17/*261*/
     ,
+        /// <summary>
+        /// Bit 18 was CERT_STATUS_IS_DNSSEC
+        /// </summary>
         CERT_STATUS_SHA1_SIGNATURE_PRESENT = 1 << 19/*262*/
     ,
         CERT_STATUS_CT_COMPLIANCE_FAILED = 1 << 20/*263*/
     }
+    /// <summary>
+    /// The manner in which a link click should be opened. These constants match
+    /// their equivalents in Chromium's window_open_disposition.h and should not be
+    /// renumbered.
+    /// </summary>
     /*264*/
     public enum cef_window_open_disposition_t
     {
@@ -245,6 +367,11 @@ namespace LayoutFarm.CefBridge.Auto
     ,
         WOD_OFF_THE_RECORD/*273*/
     }
+    /// <summary>
+    /// "Verb" of a drag-and-drop operation as negotiated between the source and
+    /// destination. These constants match their equivalents in WebCore's
+    /// DragActions.h and should not be renumbered.
+    /// </summary>
     /*274*/
     public enum cef_drag_operations_mask_t : uint
     {
@@ -264,6 +391,9 @@ namespace LayoutFarm.CefBridge.Auto
     ,
         DRAG_OPERATION_EVERY = uint.MaxValue/*282*/
     }
+    /// <summary>
+    /// V8 access control values.
+    /// </summary>
     /*283*/
     public enum cef_v8_accesscontrol_t
     {
@@ -275,17 +405,33 @@ namespace LayoutFarm.CefBridge.Auto
     ,
         V8_ACCESS_CONTROL_PROHIBITS_OVERWRITING = 1 << 2/*287*/
     }
+    /// <summary>
+    /// V8 property attribute values.
+    /// </summary>
     /*288*/
     public enum cef_v8_propertyattribute_t
     {
         V8_PROPERTY_ATTRIBUTE_NONE = 0/*289*/
     ,
+        /// <summary>
+        /// Writeable, Enumerable,
+        ///   Configurable
+        /// </summary>
         V8_PROPERTY_ATTRIBUTE_READONLY = 1 << 0/*290*/
     ,
+        /// <summary>
+        /// Not writeable
+        /// </summary>
         V8_PROPERTY_ATTRIBUTE_DONTENUM = 1 << 1/*291*/
     ,
+        /// <summary>
+        /// Not enumerable
+        /// </summary>
         V8_PROPERTY_ATTRIBUTE_DONTDELETE = 1 << 2/*292*/
     }
+    /// <summary>
+    /// Post data elements may represent either bytes or files.
+    /// </summary>
     /*293*/
     public enum cef_postdataelement_type_t
     {
@@ -295,179 +441,433 @@ namespace LayoutFarm.CefBridge.Auto
     ,
         PDE_TYPE_FILE/*296*/
     }
+    /// <summary>
+    /// Resource type for a request.
+    /// </summary>
     /*297*/
     public enum cef_resource_type_t
     {
+        /// <summary>
+        /// Top level page.
+        /// </summary>
         RT_MAIN_FRAME = 0/*298*/
     ,
+        /// <summary>
+        /// Frame or iframe.
+        /// </summary>
         RT_SUB_FRAME/*299*/
     ,
+        /// <summary>
+        /// CSS stylesheet.
+        /// </summary>
         RT_STYLESHEET/*300*/
     ,
+        /// <summary>
+        /// External script.
+        /// </summary>
         RT_SCRIPT/*301*/
     ,
+        /// <summary>
+        /// Image (jpg/gif/png/etc).
+        /// </summary>
         RT_IMAGE/*302*/
     ,
+        /// <summary>
+        /// Font.
+        /// </summary>
         RT_FONT_RESOURCE/*303*/
     ,
+        /// <summary>
+        /// Some other subresource. This is the default type if the actual type is
+        /// unknown.
+        /// </summary>
         RT_SUB_RESOURCE/*304*/
     ,
+        /// <summary>
+        /// Object (or embed) tag for a plugin, or a resource that a plugin requested.
+        /// </summary>
         RT_OBJECT/*305*/
     ,
+        /// <summary>
+        /// Media resource.
+        /// </summary>
         RT_MEDIA/*306*/
     ,
+        /// <summary>
+        /// Main resource of a dedicated worker.
+        /// </summary>
         RT_WORKER/*307*/
     ,
+        /// <summary>
+        /// Main resource of a shared worker.
+        /// </summary>
         RT_SHARED_WORKER/*308*/
     ,
+        /// <summary>
+        /// Explicitly requested prefetch.
+        /// </summary>
         RT_PREFETCH/*309*/
     ,
+        /// <summary>
+        /// Favicon.
+        /// </summary>
         RT_FAVICON/*310*/
     ,
+        /// <summary>
+        /// XMLHttpRequest.
+        /// </summary>
         RT_XHR/*311*/
     ,
+        /// <summary>
+        /// A request for a <ping>
+        /// </summary>
         RT_PING/*312*/
     ,
+        /// <summary>
+        /// Main resource of a service worker.
+        /// </summary>
         RT_SERVICE_WORKER/*313*/
     ,
+        /// <summary>
+        /// A report of Content Security Policy violations.
+        /// </summary>
         RT_CSP_REPORT/*314*/
     ,
+        /// <summary>
+        /// A resource that a plugin requested.
+        /// </summary>
         RT_PLUGIN_RESOURCE/*315*/
     }
+    /// <summary>
+    /// Transition type for a request. Made up of one source value and 0 or more
+    /// qualifiers.
+    /// </summary>
     /*316*/
     public enum cef_transition_type_t
     {
+        /// <summary>
+        /// Source is a link click or the JavaScript window.open function. This is
+        /// also the default value for requests like sub-resource loads that are not
+        /// navigations.
+        /// </summary>
         TT_LINK = 0/*317*/
     ,
+        /// <summary>
+        /// Source is some other "explicit" navigation action such as creating a new
+        /// browser or using the LoadURL function. This is also the default value
+        /// for navigations where the actual type is unknown.
+        /// </summary>
         TT_EXPLICIT = 1/*318*/
     ,
+        /// <summary>
+        /// Source is a subframe navigation. This is any content that is automatically
+        /// loaded in a non-toplevel frame. For example, if a page consists of several
+        /// frames containing ads, those ad URLs will have this transition type.
+        /// The user may not even realize the content in these pages is a separate
+        /// frame, so may not care about the URL.
+        /// </summary>
         TT_AUTO_SUBFRAME = 3/*319*/
     ,
+        /// <summary>
+        /// Source is a subframe navigation explicitly requested by the user that will
+        /// generate new navigation entries in the back/forward list. These are
+        /// probably more important than frames that were automatically loaded in
+        /// the background because the user probably cares about the fact that this
+        /// link was loaded.
+        /// </summary>
         TT_MANUAL_SUBFRAME = 4/*320*/
     ,
+        /// <summary>
+        /// Source is a form submission by the user. NOTE: In some situations
+        /// submitting a form does not result in this transition type. This can happen
+        /// if the form uses a script to submit the contents.
+        /// </summary>
         TT_FORM_SUBMIT = 7/*321*/
     ,
+        /// <summary>
+        /// Source is a "reload" of the page via the Reload function or by re-visiting
+        /// the same URL. NOTE: This is distinct from the concept of whether a
+        /// particular load uses "reload semantics" (i.e. bypasses cached data).
+        /// </summary>
         TT_RELOAD = 8/*322*/
     ,
+        /// <summary>
+        /// General mask defining the bits used for the source values.
+        /// </summary>
         TT_SOURCE_MASK = 0/*323*/
     ,
         xFF/*324*/
     ,
+        /// <summary>
+        /// Qualifiers.
+        /// Any of the core values above can be augmented by one or more qualifiers.
+        /// These qualifiers further define the transition.
+        /// Attempted to visit a URL but was blocked.
+        /// </summary>
         TT_BLOCKED_FLAG = 0/*325*/
     ,
         x00800000/*326*/
     ,
+        /// <summary>
+        /// Used the Forward or Back function to navigate among browsing history.
+        /// </summary>
         TT_FORWARD_BACK_FLAG = 0/*327*/
     ,
         x01000000/*328*/
     ,
+        /// <summary>
+        /// The beginning of a navigation chain.
+        /// </summary>
         TT_CHAIN_START_FLAG = 0/*329*/
     ,
         x10000000/*330*/
     ,
+        /// <summary>
+        /// The last transition in a redirect chain.
+        /// </summary>
         TT_CHAIN_END_FLAG = 0/*331*/
     ,
         x20000000/*332*/
     ,
+        /// <summary>
+        /// Redirects caused by JavaScript or a meta refresh tag on the page.
+        /// </summary>
         TT_CLIENT_REDIRECT_FLAG = 0/*333*/
     ,
         x40000000/*334*/
     ,
+        /// <summary>
+        /// Redirects sent from the server by HTTP headers.
+        /// </summary>
         TT_SERVER_REDIRECT_FLAG = 0/*335*/
     ,
         x80000000/*336*/
     ,
+        /// <summary>
+        /// Used to test whether a transition involves a redirect.
+        /// </summary>
         TT_IS_REDIRECT_MASK = 0/*337*/
     ,
         xC0000000/*338*/
     ,
+        /// <summary>
+        /// General mask defining the bits used for the qualifiers.
+        /// </summary>
         TT_QUALIFIER_MASK = 0/*339*/
     ,
         xFFFFFF00/*340*/
     }
+    /// <summary>
+    /// Flags used to customize the behavior of CefURLRequest.
+    /// </summary>
     /*341*/
     public enum cef_urlrequest_flags_t
     {
+        /// <summary>
+        /// Default behavior.
+        /// </summary>
         UR_FLAG_NONE = 0/*342*/
     ,
+        /// <summary>
+        /// If set the cache will be skipped when handling the request.
+        /// </summary>
         UR_FLAG_SKIP_CACHE = 1 << 0/*343*/
     ,
+        /// <summary>
+        /// If set user name, password, and cookies may be sent with the request, and
+        /// cookies may be saved from the response.
+        /// </summary>
         UR_FLAG_ALLOW_CACHED_CREDENTIALS = 1 << 1/*344*/
     ,
+        /// <summary>
+        /// If set upload progress events will be generated when a request has a body.
+        /// </summary>
         UR_FLAG_REPORT_UPLOAD_PROGRESS = 1 << 3/*345*/
     ,
+        /// <summary>
+        /// If set the CefURLRequestClient::OnDownloadData method will not be called.
+        /// </summary>
         UR_FLAG_NO_DOWNLOAD_DATA = 1 << 6/*346*/
     ,
+        /// <summary>
+        /// If set 5XX redirect errors will be propagated to the observer instead of
+        /// automatically re-tried. This currently only applies for requests
+        /// originated in the browser process.
+        /// </summary>
         UR_FLAG_NO_RETRY_ON_5XX = 1 << 7/*347*/
     }
+    /// <summary>
+    /// Flags that represent CefURLRequest status.
+    /// </summary>
     /*348*/
     public enum cef_urlrequest_status_t
     {
+        /// <summary>
+        /// Unknown status.
+        /// </summary>
         UR_UNKNOWN = 0/*349*/
     ,
+        /// <summary>
+        /// Request succeeded.
+        /// </summary>
         UR_SUCCESS/*350*/
     ,
+        /// <summary>
+        /// An IO request is pending, and the caller will be informed when it is
+        /// completed.
+        /// </summary>
         UR_IO_PENDING/*351*/
     ,
+        /// <summary>
+        /// Request was canceled programatically.
+        /// </summary>
         UR_CANCELED/*352*/
     ,
+        /// <summary>
+        /// Request failed for some reason.
+        /// </summary>
         UR_FAILED/*353*/
     }
+    /// <summary>
+    /// Existing process IDs.
+    /// </summary>
     /*354*/
     public enum cef_process_id_t
     {
+        /// <summary>
+        /// Browser process.
+        /// </summary>
         PID_BROWSER/*355*/
     ,
+        /// <summary>
+        /// Renderer process.
+        /// </summary>
         PID_RENDERER/*356*/
     }
+    /// <summary>
+    /// Existing thread IDs.
+    /// </summary>
     /*357*/
     public enum cef_thread_id_t
     {
+        /// <summary>
+        /// BROWSER PROCESS THREADS -- Only available in the browser process.
+        /// The main thread in the browser. This will be the same as the main
+        /// application thread if CefInitialize() is called with a
+        /// CefSettings.multi_threaded_message_loop value of false.
+        /// </summary>
         TID_UI/*358*/
     ,
+        /// <summary>
+        /// Used to interact with the database.
+        /// </summary>
         TID_DB/*359*/
     ,
+        /// <summary>
+        /// Used to interact with the file system.
+        /// </summary>
         TID_FILE/*360*/
     ,
+        /// <summary>
+        /// Used for file system operations that block user interactions.
+        /// Responsiveness of this thread affects users.
+        /// </summary>
         TID_FILE_USER_BLOCKING/*361*/
     ,
+        /// <summary>
+        /// Used to launch and terminate browser processes.
+        /// </summary>
         TID_PROCESS_LAUNCHER/*362*/
     ,
+        /// <summary>
+        /// Used to handle slow HTTP cache operations.
+        /// </summary>
         TID_CACHE/*363*/
     ,
+        /// <summary>
+        /// Used to process IPC and network messages.
+        /// </summary>
         TID_IO/*364*/
     ,
+        /// <summary>
+        /// RENDER PROCESS THREADS -- Only available in the render process.
+        /// The main thread in the renderer. Used for all WebKit and V8 interaction.
+        /// </summary>
         TID_RENDERER/*365*/
     }
+    /// <summary>
+    /// Thread priority values listed in increasing order of importance.
+    /// </summary>
     /*366*/
     public enum cef_thread_priority_t
     {
+        /// <summary>
+        /// Suitable for threads that shouldn't disrupt high priority work.
+        /// </summary>
         TP_BACKGROUND/*367*/
     ,
+        /// <summary>
+        /// Default priority level.
+        /// </summary>
         TP_NORMAL/*368*/
     ,
+        /// <summary>
+        /// Suitable for threads which generate data for the display (at ~60Hz).
+        /// </summary>
         TP_DISPLAY/*369*/
     ,
+        /// <summary>
+        /// Suitable for low-latency, glitch-resistant audio.
+        /// </summary>
         TP_REALTIME_AUDIO/*370*/
     }
+    /// <summary>
+    /// Message loop types. Indicates the set of asynchronous events that a message
+    /// loop can process.
+    /// </summary>
     /*371*/
     public enum cef_message_loop_type_t
     {
+        /// <summary>
+        /// Supports tasks and timers.
+        /// </summary>
         ML_TYPE_DEFAULT/*372*/
     ,
+        /// <summary>
+        /// Supports tasks, timers and native UI events (e.g. Windows messages).
+        /// </summary>
         ML_TYPE_UI/*373*/
     ,
+        /// <summary>
+        /// Supports tasks, timers and asynchronous IO events.
+        /// </summary>
         ML_TYPE_IO/*374*/
     }
+    /// <summary>
+    /// Windows COM initialization mode. Specifies how COM will be initialized for a
+    /// new thread.
+    /// </summary>
     /*375*/
     public enum cef_com_init_mode_t
     {
+        /// <summary>
+        /// No COM initialization.
+        /// </summary>
         COM_INIT_MODE_NONE/*376*/
     ,
+        /// <summary>
+        /// Initialize COM using single-threaded apartments.
+        /// </summary>
         COM_INIT_MODE_STA/*377*/
     ,
+        /// <summary>
+        /// Initialize COM using multi-threaded apartments.
+        /// </summary>
         COM_INIT_MODE_MTA/*378*/
     }
+    /// <summary>
+    /// Supported value types.
+    /// </summary>
     /*379*/
     public enum cef_value_type_t
     {
@@ -489,6 +889,9 @@ namespace LayoutFarm.CefBridge.Auto
     ,
         VTYPE_LIST/*388*/
     }
+    /// <summary>
+    /// Supported JavaScript dialog types.
+    /// </summary>
     /*389*/
     public enum cef_jsdialog_type_t
     {
@@ -498,9 +901,16 @@ namespace LayoutFarm.CefBridge.Auto
     ,
         JSDIALOGTYPE_PROMPT/*392*/
     }
+    /// <summary>
+    /// Supported menu IDs. Non-English translations can be provided for the
+    /// IDS_MENU_* strings in CefResourceBundleHandler::GetLocalizedString().
+    /// </summary>
     /*393*/
     public enum cef_menu_id_t
     {
+        /// <summary>
+        /// Navigation.
+        /// </summary>
         MENU_ID_BACK = 100/*394*/
     ,
         MENU_ID_FORWARD = 101/*395*/
@@ -511,6 +921,9 @@ namespace LayoutFarm.CefBridge.Auto
     ,
         MENU_ID_STOPLOAD = 104/*398*/
     ,
+        /// <summary>
+        /// Editing.
+        /// </summary>
         MENU_ID_UNDO = 110/*399*/
     ,
         MENU_ID_REDO = 111/*400*/
@@ -525,12 +938,18 @@ namespace LayoutFarm.CefBridge.Auto
     ,
         MENU_ID_SELECT_ALL = 116/*405*/
     ,
+        /// <summary>
+        /// Miscellaneous.
+        /// </summary>
         MENU_ID_FIND = 130/*406*/
     ,
         MENU_ID_PRINT = 131/*407*/
     ,
         MENU_ID_VIEW_SOURCE = 132/*408*/
     ,
+        /// <summary>
+        /// Spell checking word correction suggestions.
+        /// </summary>
         MENU_ID_SPELLCHECK_SUGGESTION_0 = 200/*409*/
     ,
         MENU_ID_SPELLCHECK_SUGGESTION_1 = 201/*410*/
@@ -547,14 +966,26 @@ namespace LayoutFarm.CefBridge.Auto
     ,
         MENU_ID_ADD_TO_DICTIONARY = 206/*416*/
     ,
+        /// <summary>
+        /// Custom menu items originating from the renderer process. For example,
+        /// plugin placeholder menu items or Flash menu items.
+        /// </summary>
         MENU_ID_CUSTOM_FIRST = 220/*417*/
     ,
         MENU_ID_CUSTOM_LAST = 250/*418*/
     ,
+        /// <summary>
+        /// All user-defined menu IDs should come between MENU_ID_USER_FIRST and
+        /// MENU_ID_USER_LAST to avoid overlapping the Chromium and CEF ID ranges
+        /// defined in the tools/gritsettings/resource_ids file.
+        /// </summary>
         MENU_ID_USER_FIRST = 26500/*419*/
     ,
         MENU_ID_USER_LAST = 28500/*420*/
     }
+    /// <summary>
+    /// Mouse button types.
+    /// </summary>
     /*421*/
     public enum cef_mouse_button_type_t
     {
@@ -564,6 +995,9 @@ namespace LayoutFarm.CefBridge.Auto
     ,
         MBT_RIGHT/*424*/
     }
+    /// <summary>
+    /// Paint element types.
+    /// </summary>
     /*425*/
     public enum cef_paint_element_type_t
     {
@@ -571,6 +1005,9 @@ namespace LayoutFarm.CefBridge.Auto
     ,
         PET_POPUP/*427*/
     }
+    /// <summary>
+    /// Supported event bit flags.
+    /// </summary>
     /*428*/
     public enum cef_event_flags_t
     {
@@ -590,6 +1027,9 @@ namespace LayoutFarm.CefBridge.Auto
     ,
         EVENTFLAG_RIGHT_MOUSE_BUTTON = 1 << 6/*436*/
     ,
+        /// <summary>
+        /// Mac OS-X command key.
+        /// </summary>
         EVENTFLAG_COMMAND_DOWN = 1 << 7/*437*/
     ,
         EVENTFLAG_NUM_LOCK_ON = 1 << 8/*438*/
@@ -600,6 +1040,9 @@ namespace LayoutFarm.CefBridge.Auto
     ,
         EVENTFLAG_IS_RIGHT = 1 << 11/*441*/
     }
+    /// <summary>
+    /// Supported menu item types.
+    /// </summary>
     /*442*/
     public enum cef_menu_item_type_t
     {
@@ -615,38 +1058,86 @@ namespace LayoutFarm.CefBridge.Auto
     ,
         MENUITEMTYPE_SUBMENU/*448*/
     }
+    /// <summary>
+    /// Supported context menu type flags.
+    /// </summary>
     /*449*/
     public enum cef_context_menu_type_flags_t
     {
+        /// <summary>
+        /// No node is selected.
+        /// </summary>
         CM_TYPEFLAG_NONE = 0/*450*/
     ,
+        /// <summary>
+        /// The top page is selected.
+        /// </summary>
         CM_TYPEFLAG_PAGE = 1 << 0/*451*/
     ,
+        /// <summary>
+        /// A subframe page is selected.
+        /// </summary>
         CM_TYPEFLAG_FRAME = 1 << 1/*452*/
     ,
+        /// <summary>
+        /// A link is selected.
+        /// </summary>
         CM_TYPEFLAG_LINK = 1 << 2/*453*/
     ,
+        /// <summary>
+        /// A media node is selected.
+        /// </summary>
         CM_TYPEFLAG_MEDIA = 1 << 3/*454*/
     ,
+        /// <summary>
+        /// There is a textual or mixed selection that is selected.
+        /// </summary>
         CM_TYPEFLAG_SELECTION = 1 << 4/*455*/
     ,
+        /// <summary>
+        /// An editable element is selected.
+        /// </summary>
         CM_TYPEFLAG_EDITABLE = 1 << 5/*456*/
     }
+    /// <summary>
+    /// Supported context menu media types.
+    /// </summary>
     /*457*/
     public enum cef_context_menu_media_type_t
     {
+        /// <summary>
+        /// No special node is in context.
+        /// </summary>
         CM_MEDIATYPE_NONE/*458*/
     ,
+        /// <summary>
+        /// An image node is selected.
+        /// </summary>
         CM_MEDIATYPE_IMAGE/*459*/
     ,
+        /// <summary>
+        /// A video node is selected.
+        /// </summary>
         CM_MEDIATYPE_VIDEO/*460*/
     ,
+        /// <summary>
+        /// An audio node is selected.
+        /// </summary>
         CM_MEDIATYPE_AUDIO/*461*/
     ,
+        /// <summary>
+        /// A file node is selected.
+        /// </summary>
         CM_MEDIATYPE_FILE/*462*/
     ,
+        /// <summary>
+        /// A plugin node is selected.
+        /// </summary>
         CM_MEDIATYPE_PLUGIN/*463*/
     }
+    /// <summary>
+    /// Supported context menu media state bit flags.
+    /// </summary>
     /*464*/
     public enum cef_context_menu_media_state_flags_t
     {
@@ -672,6 +1163,9 @@ namespace LayoutFarm.CefBridge.Auto
     ,
         CM_MEDIAFLAG_CAN_ROTATE = 1 << 9/*475*/
     }
+    /// <summary>
+    /// Supported context menu edit state bit flags.
+    /// </summary>
     /*476*/
     public enum cef_context_menu_edit_state_flags_t
     {
@@ -693,22 +1187,48 @@ namespace LayoutFarm.CefBridge.Auto
     ,
         CM_EDITFLAG_CAN_TRANSLATE = 1 << 7/*485*/
     }
+    /// <summary>
+    /// Key event types.
+    /// </summary>
     /*486*/
     public enum cef_key_event_type_t
     {
+        /// <summary>
+        /// Notification that a key transitioned from "up" to "down".
+        /// </summary>
         KEYEVENT_RAWKEYDOWN = 0/*487*/
     ,
+        /// <summary>
+        /// Notification that a key was pressed. This does not necessarily correspond
+        /// to a character depending on the key and language. Use KEYEVENT_CHAR for
+        /// character input.
+        /// </summary>
         KEYEVENT_KEYDOWN/*488*/
     ,
+        /// <summary>
+        /// Notification that a key was released.
+        /// </summary>
         KEYEVENT_KEYUP/*489*/
     }
+    /// <summary>
+    /// Focus sources.
+    /// </summary>
     /*490*/
     public enum cef_focus_source_t
     {
+        /// <summary>
+        /// The source is explicit navigation via the API (LoadURL(), etc).
+        /// </summary>
         FOCUS_SOURCE_NAVIGATION = 0/*491*/
     ,
+        /// <summary>
+        /// The source is a system-generated focus event.
+        /// </summary>
         FOCUS_SOURCE_SYSTEM/*492*/
     }
+    /// <summary>
+    /// Navigation types.
+    /// </summary>
     /*493*/
     public enum cef_navigation_type_t
     {
@@ -724,6 +1244,12 @@ namespace LayoutFarm.CefBridge.Auto
     ,
         NAVIGATION_OTHER/*499*/
     }
+    /// <summary>
+    /// Supported XML encoding types. The parser supports ASCII, ISO-8859-1, and
+    /// UTF16 (LE and BE) by default. All other types must be translated to UTF8
+    /// before being passed to the parser. If a BOM is detected and the correct
+    /// decoder is available then that decoder will be used automatically.
+    /// </summary>
     /*500*/
     public enum cef_xml_encoding_type_t
     {
@@ -737,6 +1263,9 @@ namespace LayoutFarm.CefBridge.Auto
     ,
         XML_ENCODING_ASCII/*505*/
     }
+    /// <summary>
+    /// XML node types.
+    /// </summary>
     /*506*/
     public enum cef_xml_node_type_t
     {
@@ -762,6 +1291,9 @@ namespace LayoutFarm.CefBridge.Auto
     ,
         XML_NODE_COMMENT/*517*/
     }
+    /// <summary>
+    /// DOM document types.
+    /// </summary>
     /*518*/
     public enum cef_dom_document_type_t
     {
@@ -773,6 +1305,9 @@ namespace LayoutFarm.CefBridge.Auto
     ,
         DOM_DOCUMENT_TYPE_PLUGIN/*522*/
     }
+    /// <summary>
+    /// DOM event category flags.
+    /// </summary>
     /*523*/
     public enum cef_dom_event_category_t
     {
@@ -844,6 +1379,9 @@ namespace LayoutFarm.CefBridge.Auto
     ,
         x8000/*557*/
     }
+    /// <summary>
+    /// DOM event processing phases.
+    /// </summary>
     /*558*/
     public enum cef_dom_event_phase_t
     {
@@ -855,6 +1393,9 @@ namespace LayoutFarm.CefBridge.Auto
     ,
         DOM_EVENT_PHASE_BUBBLING/*562*/
     }
+    /// <summary>
+    /// DOM node types.
+    /// </summary>
     /*563*/
     public enum cef_dom_node_type_t
     {
@@ -878,29 +1419,61 @@ namespace LayoutFarm.CefBridge.Auto
     ,
         DOM_NODE_TYPE_DOCUMENT_FRAGMENT/*573*/
     }
+    /// <summary>
+    /// Supported file dialog modes.
+    /// </summary>
     /*574*/
     public enum cef_file_dialog_mode_t
     {
+        /// <summary>
+        /// Requires that the file exists before allowing the user to pick it.
+        /// </summary>
         FILE_DIALOG_OPEN = 0/*575*/
     ,
+        /// <summary>
+        /// Like Open, but allows picking multiple files to open.
+        /// </summary>
         FILE_DIALOG_OPEN_MULTIPLE/*576*/
     ,
+        /// <summary>
+        /// Like Open, but selects a folder to open.
+        /// </summary>
         FILE_DIALOG_OPEN_FOLDER/*577*/
     ,
+        /// <summary>
+        /// Allows picking a nonexistent file, and prompts to overwrite if the file
+        /// already exists.
+        /// </summary>
         FILE_DIALOG_SAVE/*578*/
     ,
+        /// <summary>
+        /// General mask defining the bits used for the type values.
+        /// </summary>
         FILE_DIALOG_TYPE_MASK = 0/*579*/
     ,
         xFF/*580*/
     ,
+        /// <summary>
+        /// Qualifiers.
+        /// Any of the type values above can be augmented by one or more qualifiers.
+        /// These qualifiers further define the dialog behavior.
+        /// Prompt to overwrite if the user selects an existing file with the Save
+        /// dialog.
+        /// </summary>
         FILE_DIALOG_OVERWRITEPROMPT_FLAG = 0/*581*/
     ,
         x01000000/*582*/
     ,
+        /// <summary>
+        /// Do not display read-only files.
+        /// </summary>
         FILE_DIALOG_HIDEREADONLY_FLAG = 0/*583*/
     ,
         x02000000/*584*/
     }
+    /// <summary>
+    /// Geoposition error codes.
+    /// </summary>
     /*585*/
     public enum cef_geoposition_error_code_t
     {
@@ -912,6 +1485,9 @@ namespace LayoutFarm.CefBridge.Auto
     ,
         GEOPOSITON_ERROR_TIMEOUT/*589*/
     }
+    /// <summary>
+    /// Print job color mode values.
+    /// </summary>
     /*590*/
     public enum cef_color_model_t
     {
@@ -929,6 +1505,9 @@ namespace LayoutFarm.CefBridge.Auto
     ,
         COLOR_MODEL_CMY_K/*597*/
     ,
+        /// <summary>
+        /// CMY_K represents CMY+K.
+        /// </summary>
         COLOR_MODEL_BLACK/*598*/
     ,
         COLOR_MODEL_GRAYSCALE/*599*/
@@ -941,22 +1520,49 @@ namespace LayoutFarm.CefBridge.Auto
     ,
         COLOR_MODEL_COLORMODE_COLOR/*603*/
     ,
+        /// <summary>
+        /// Used in samsung printer ppds.
+        /// </summary>
         COLOR_MODEL_COLORMODE_MONOCHROME/*604*/
     ,
+        /// <summary>
+        /// Used in samsung printer ppds.
+        /// </summary>
         COLOR_MODEL_HP_COLOR_COLOR/*605*/
     ,
+        /// <summary>
+        /// Used in HP color printer ppds.
+        /// </summary>
         COLOR_MODEL_HP_COLOR_BLACK/*606*/
     ,
+        /// <summary>
+        /// Used in HP color printer ppds.
+        /// </summary>
         COLOR_MODEL_PRINTOUTMODE_NORMAL/*607*/
     ,
+        /// <summary>
+        /// Used in foomatic ppds.
+        /// </summary>
         COLOR_MODEL_PRINTOUTMODE_NORMAL_GRAY/*608*/
     ,
+        /// <summary>
+        /// Used in foomatic ppds.
+        /// </summary>
         COLOR_MODEL_PROCESSCOLORMODEL_CMYK/*609*/
     ,
+        /// <summary>
+        /// Used in canon printer ppds.
+        /// </summary>
         COLOR_MODEL_PROCESSCOLORMODEL_GREYSCALE/*610*/
     ,
+        /// <summary>
+        /// Used in canon printer ppds.
+        /// </summary>
         COLOR_MODEL_PROCESSCOLORMODEL_RGB/*611*/
     }
+    /// <summary>
+    /// Print job duplex mode values.
+    /// </summary>
     /*612*/
     public enum cef_duplex_mode_t
     {
@@ -968,6 +1574,9 @@ namespace LayoutFarm.CefBridge.Auto
     ,
         DUPLEX_MODE_SHORT_EDGE/*616*/
     }
+    /// <summary>
+    /// Cursor type values.
+    /// </summary>
     /*617*/
     public enum cef_cursor_type_t
     {
@@ -1059,30 +1668,89 @@ namespace LayoutFarm.CefBridge.Auto
     ,
         CT_CUSTOM/*661*/
     }
+    /// <summary>
+    /// URI unescape rules passed to CefURIDecode().
+    /// </summary>
     /*662*/
     public enum cef_uri_unescape_rule_t
     {
+        /// <summary>
+        /// Don't unescape anything at all.
+        /// </summary>
         UU_NONE = 0/*663*/
     ,
+        /// <summary>
+        /// Don't unescape anything special, but all normal unescaping will happen.
+        /// This is a placeholder and can't be combined with other flags (since it's
+        /// just the absence of them). All other unescape rules imply "normal" in
+        /// addition to their special meaning. Things like escaped letters, digits,
+        /// and most symbols will get unescaped with this mode.
+        /// </summary>
         UU_NORMAL = 1 << 0/*664*/
     ,
+        /// <summary>
+        /// Convert %20 to spaces. In some places where we're showing URLs, we may
+        /// want this. In places where the URL may be copied and pasted out, then
+        /// you wouldn't want this since it might not be interpreted in one piece
+        /// by other applications.
+        /// </summary>
         UU_SPACES = 1 << 1/*665*/
     ,
+        /// <summary>
+        /// Unescapes '/' and '\\'. If these characters were unescaped, the resulting
+        /// URL won't be the same as the source one. Moreover, they are dangerous to
+        /// unescape in strings that will be used as file paths or names. This value
+        /// should only be used when slashes don't have special meaning, like data
+        /// URLs.
+        /// </summary>
         UU_PATH_SEPARATORS = 1 << 2/*666*/
     ,
+        /// <summary>
+        /// Unescapes various characters that will change the meaning of URLs,
+        /// including '%', '+', '&', '#'. Does not unescape path separators.
+        /// If these characters were unescaped, the resulting URL won't be the same
+        /// as the source one. This flag is used when generating final output like
+        /// filenames for URLs where we won't be interpreting as a URL and want to do
+        /// as much unescaping as possible.
+        /// </summary>
         UU_URL_SPECIAL_CHARS_EXCEPT_PATH_SEPARATORS = 1 << 3/*667*/
     ,
+        /// <summary>
+        /// Unescapes characters that can be used in spoofing attempts (such as LOCK)
+        /// and control characters (such as BiDi control characters and %01).  This
+        /// INCLUDES NULLs.  This is used for rare cases such as data: URL decoding
+        /// where the result is binary data.
+        ///
+        /// DO NOT use UU_SPOOFING_AND_CONTROL_CHARS if the URL is going to be
+        /// displayed in the UI for security reasons.
+        /// </summary>
         UU_SPOOFING_AND_CONTROL_CHARS = 1 << 4/*668*/
     ,
+        /// <summary>
+        /// URL queries use "+" for space. This flag controls that replacement.
+        /// </summary>
         UU_REPLACE_PLUS_WITH_SPACE = 1 << 5/*669*/
     }
+    /// <summary>
+    /// Options that can be passed to CefParseJSON.
+    /// </summary>
     /*670*/
     public enum cef_json_parser_options_t
     {
+        /// <summary>
+        /// Parses the input strictly according to RFC 4627. See comments in Chromium's
+        /// base/json/json_reader.h file for known limitations/deviations from the RFC.
+        /// </summary>
         JSON_PARSER_RFC = 0/*671*/
     ,
+        /// <summary>
+        /// Allows commas to exist after the last element in structures.
+        /// </summary>
         JSON_PARSER_ALLOW_TRAILING_COMMAS = 1 << 0/*672*/
     }
+    /// <summary>
+    /// Error codes that can be returned from CefParseJSONAndReturnError.
+    /// </summary>
     /*673*/
     public enum cef_json_parser_error_t
     {
@@ -1104,28 +1772,70 @@ namespace LayoutFarm.CefBridge.Auto
     ,
         JSON_UNQUOTED_DICTIONARY_KEY/*682*/
     }
+    /// <summary>
+    /// Options that can be passed to CefWriteJSON.
+    /// </summary>
     /*683*/
     public enum cef_json_writer_options_t
     {
+        /// <summary>
+        /// Default behavior.
+        /// </summary>
         JSON_WRITER_DEFAULT = 0/*684*/
     ,
+        /// <summary>
+        /// This option instructs the writer that if a Binary value is encountered,
+        /// the value (and key if within a dictionary) will be omitted from the
+        /// output, and success will be returned. Otherwise, if a binary value is
+        /// encountered, failure will be returned.
+        /// </summary>
         JSON_WRITER_OMIT_BINARY_VALUES = 1 << 0/*685*/
     ,
+        /// <summary>
+        /// This option instructs the writer to write doubles that have no fractional
+        /// part as a normal integer (i.e., without using exponential notation
+        /// or appending a '.0') as long as the value is within the range of a
+        /// 64-bit int.
+        /// </summary>
         JSON_WRITER_OMIT_DOUBLE_TYPE_PRESERVATION = 1 << 1/*686*/
     ,
+        /// <summary>
+        /// Return a slightly nicer formatted json string (pads with whitespace to
+        /// help with readability).
+        /// </summary>
         JSON_WRITER_PRETTY_PRINT = 1 << 2/*687*/
     }
+    /// <summary>
+    /// Margin type for PDF printing.
+    /// </summary>
     /*688*/
     public enum cef_pdf_print_margin_type_t
     {
+        /// <summary>
+        /// Default margins.
+        /// </summary>
         PDF_PRINT_MARGIN_DEFAULT/*689*/
     ,
+        /// <summary>
+        /// No margins.
+        /// </summary>
         PDF_PRINT_MARGIN_NONE/*690*/
     ,
+        /// <summary>
+        /// Minimum margins.
+        /// </summary>
         PDF_PRINT_MARGIN_MINIMUM/*691*/
     ,
+        /// <summary>
+        /// Custom margins using the |margin_*| values from cef_pdf_print_settings_t.
+        /// </summary>
         PDF_PRINT_MARGIN_CUSTOM/*692*/
     }
+    /// <summary>
+    /// Supported UI scale factors for the platform. SCALE_FACTOR_NONE is used for
+    /// density independent resources such as string, html/js files or an image that
+    /// can be used for any scale factors (such as wallpapers).
+    /// </summary>
     /*693*/
     public enum cef_scale_factor_t
     {
@@ -1149,55 +1859,134 @@ namespace LayoutFarm.CefBridge.Auto
     ,
         SCALE_FACTOR_300P/*703*/
     }
+    /// <summary>
+    /// Plugin policies supported by CefRequestContextHandler::OnBeforePluginLoad.
+    /// </summary>
     /*704*/
     public enum cef_plugin_policy_t
     {
+        /// <summary>
+        /// Allow the content.
+        /// </summary>
         PLUGIN_POLICY_ALLOW/*705*/
     ,
+        /// <summary>
+        /// Allow important content and block unimportant content based on heuristics.
+        /// The user can manually load blocked content.
+        /// </summary>
         PLUGIN_POLICY_DETECT_IMPORTANT/*706*/
     ,
+        /// <summary>
+        /// Block the content. The user can manually load blocked content.
+        /// </summary>
         PLUGIN_POLICY_BLOCK/*707*/
     ,
+        /// <summary>
+        /// Disable the content. The user cannot load disabled content.
+        /// </summary>
         PLUGIN_POLICY_DISABLE/*708*/
     }
+    /// <summary>
+    /// Policy for how the Referrer HTTP header value will be sent during navigation.
+    /// If the `--no-referrers` command-line flag is specified then the policy value
+    /// will be ignored and the Referrer value will never be sent.
+    /// </summary>
     /*709*/
     public enum cef_referrer_policy_t
     {
+        /// <summary>
+        /// Always send the complete Referrer value.
+        /// </summary>
         REFERRER_POLICY_ALWAYS/*710*/
     ,
+        /// <summary>
+        /// Use the default policy. This is REFERRER_POLICY_ORIGIN_WHEN_CROSS_ORIGIN
+        /// when the `--reduced-referrer-granularity` command-line flag is specified
+        /// and REFERRER_POLICY_NO_REFERRER_WHEN_DOWNGRADE otherwise.
+        ///
+        /// </summary>
         REFERRER_POLICY_DEFAULT/*711*/
     ,
+        /// <summary>
+        /// When navigating from HTTPS to HTTP do not send the Referrer value.
+        /// Otherwise, send the complete Referrer value.
+        /// </summary>
         REFERRER_POLICY_NO_REFERRER_WHEN_DOWNGRADE/*712*/
     ,
+        /// <summary>
+        /// Never send the Referrer value.
+        /// </summary>
         REFERRER_POLICY_NEVER/*713*/
     ,
+        /// <summary>
+        /// Only send the origin component of the Referrer value.
+        /// </summary>
         REFERRER_POLICY_ORIGIN/*714*/
     ,
+        /// <summary>
+        /// When navigating cross-origin only send the origin component of the Referrer
+        /// value. Otherwise, send the complete Referrer value.
+        /// </summary>
         REFERRER_POLICY_ORIGIN_WHEN_CROSS_ORIGIN/*715*/
     }
+    /// <summary>
+    /// Return values for CefResponseFilter::Filter().
+    /// </summary>
     /*716*/
     public enum cef_response_filter_status_t
     {
+        /// <summary>
+        /// Some or all of the pre-filter data was read successfully but more data is
+        /// needed in order to continue filtering (filtered output is pending).
+        /// </summary>
         RESPONSE_FILTER_NEED_MORE_DATA/*717*/
     ,
+        /// <summary>
+        /// Some or all of the pre-filter data was read successfully and all available
+        /// filtered output has been written.
+        /// </summary>
         RESPONSE_FILTER_DONE/*718*/
     }
+    /// <summary>
+    /// Describes how to interpret the components of a pixel.
+    /// </summary>
     /*719*/
     public enum cef_color_type_t
     {
+        /// <summary>
+        /// RGBA with 8 bits per pixel (32bits total).
+        /// </summary>
         CEF_COLOR_TYPE_RGBA_8888/*720*/
     ,
+        /// <summary>
+        /// BGRA with 8 bits per pixel (32bits total).
+        /// </summary>
         CEF_COLOR_TYPE_BGRA_8888/*721*/
     }
+    /// <summary>
+    /// Describes how to interpret the alpha component of a pixel.
+    /// </summary>
     /*722*/
     public enum cef_alpha_type_t
     {
+        /// <summary>
+        /// No transparency. The alpha component is ignored.
+        /// </summary>
         CEF_ALPHA_TYPE_OPAQUE/*723*/
     ,
+        /// <summary>
+        /// Transparency with pre-multiplied alpha component.
+        /// </summary>
         CEF_ALPHA_TYPE_PREMULTIPLIED/*724*/
     ,
+        /// <summary>
+        /// Transparency with post-multiplied alpha component.
+        /// </summary>
         CEF_ALPHA_TYPE_POSTMULTIPLIED/*725*/
     }
+    /// <summary>
+    /// Text style types. Should be kepy in sync with gfx::TextStyle.
+    /// </summary>
     /*726*/
     public enum cef_text_style_t
     {
@@ -1211,26 +2000,58 @@ namespace LayoutFarm.CefBridge.Auto
     ,
         CEF_TEXT_STYLE_UNDERLINE/*731*/
     }
+    /// <summary>
+    /// Specifies where along the main axis the CefBoxLayout child views should be
+    /// laid out.
+    /// </summary>
     /*732*/
     public enum cef_main_axis_alignment_t
     {
+        /// <summary>
+        /// Child views will be left-aligned.
+        /// </summary>
         CEF_MAIN_AXIS_ALIGNMENT_START/*733*/
     ,
+        /// <summary>
+        /// Child views will be center-aligned.
+        /// </summary>
         CEF_MAIN_AXIS_ALIGNMENT_CENTER/*734*/
     ,
+        /// <summary>
+        /// Child views will be right-aligned.
+        /// </summary>
         CEF_MAIN_AXIS_ALIGNMENT_END/*735*/
     }
+    /// <summary>
+    /// Specifies where along the cross axis the CefBoxLayout child views should be
+    /// laid out.
+    /// </summary>
     /*736*/
     public enum cef_cross_axis_alignment_t
     {
+        /// <summary>
+        /// Child views will be stretched to fit.
+        /// </summary>
         CEF_CROSS_AXIS_ALIGNMENT_STRETCH/*737*/
     ,
+        /// <summary>
+        /// Child views will be left-aligned.
+        /// </summary>
         CEF_CROSS_AXIS_ALIGNMENT_START/*738*/
     ,
+        /// <summary>
+        /// Child views will be center-aligned.
+        /// </summary>
         CEF_CROSS_AXIS_ALIGNMENT_CENTER/*739*/
     ,
+        /// <summary>
+        /// Child views will be right-aligned.
+        /// </summary>
         CEF_CROSS_AXIS_ALIGNMENT_END/*740*/
     }
+    /// <summary>
+    /// Specifies the button display state.
+    /// </summary>
     /*741*/
     public enum cef_button_state_t
     {
@@ -1242,15 +2063,31 @@ namespace LayoutFarm.CefBridge.Auto
     ,
         CEF_BUTTON_STATE_DISABLED/*745*/
     }
+    /// <summary>
+    /// Specifies the horizontal text alignment mode.
+    /// </summary>
     /*746*/
     public enum cef_horizontal_alignment_t
     {
+        /// <summary>
+        /// Align the text's left edge with that of its display area.
+        /// </summary>
         CEF_HORIZONTAL_ALIGNMENT_LEFT/*747*/
     ,
+        /// <summary>
+        /// Align the text's center with that of its display area.
+        /// </summary>
         CEF_HORIZONTAL_ALIGNMENT_CENTER/*748*/
     ,
+        /// <summary>
+        /// Align the text's right edge with that of its display area.
+        /// </summary>
         CEF_HORIZONTAL_ALIGNMENT_RIGHT/*749*/
     }
+    /// <summary>
+    /// Specifies how a menu will be anchored for non-RTL languages. The opposite
+    /// position will be used for RTL languages.
+    /// </summary>
     /*750*/
     public enum cef_menu_anchor_position_t
     {
@@ -1260,6 +2097,9 @@ namespace LayoutFarm.CefBridge.Auto
     ,
         CEF_MENU_ANCHOR_BOTTOMCENTER/*753*/
     }
+    /// <summary>
+    /// Supported color types for menu items.
+    /// </summary>
     /*754*/
     public enum cef_menu_color_type_t
     {
@@ -1277,11 +2117,18 @@ namespace LayoutFarm.CefBridge.Auto
     ,
         CEF_MENU_COLOR_COUNT/*761*/
     }
+    /// <summary>
+    /// Supported SSL version values. See net/ssl/ssl_connection_status_flags.h
+    /// for more information.
+    /// </summary>
     /*762*/
     public enum cef_ssl_version_t
     {
         SSL_CONNECTION_VERSION_UNKNOWN = 0/*763*/
     ,
+        /// <summary>
+        /// Unknown SSL version.
+        /// </summary>
         SSL_CONNECTION_VERSION_SSL2 = 1/*764*/
     ,
         SSL_CONNECTION_VERSION_SSL3 = 2/*765*/
@@ -1292,8 +2139,15 @@ namespace LayoutFarm.CefBridge.Auto
     ,
         SSL_CONNECTION_VERSION_TLS1_2 = 5/*768*/
     ,
+        /// <summary>
+        /// Reserve 6 for TLS 1.3.
+        /// </summary>
         SSL_CONNECTION_VERSION_QUIC = 7/*769*/
     }
+    /// <summary>
+    /// Supported SSL content status flags. See content/public/common/ssl_status.h
+    /// for more information.
+    /// </summary>
     /*770*/
     public enum cef_ssl_content_status_t
     {
@@ -1303,19 +2157,36 @@ namespace LayoutFarm.CefBridge.Auto
     ,
         SSL_CONTENT_RAN_INSECURE_CONTENT = 1 << 1/*773*/
     }
+    /// <summary>
+    /// Error codes for CDM registration. See cef_web_plugin.h for details.
+    /// </summary>
     /*774*/
     public enum cef_cdm_registration_error_t
     {
+        /// <summary>
+        /// No error. Registration completed successfully.
+        /// </summary>
         CEF_CDM_REGISTRATION_ERROR_NONE/*775*/
     ,
+        /// <summary>
+        /// Required files or manifest contents are missing.
+        /// </summary>
         CEF_CDM_REGISTRATION_ERROR_INCORRECT_CONTENTS/*776*/
     ,
+        /// <summary>
+        /// The CDM is incompatible with the current Chromium version.
+        /// </summary>
         CEF_CDM_REGISTRATION_ERROR_INCOMPATIBLE/*777*/
     ,
+        /// <summary>
+        /// CDM registration is not supported at this time.
+        /// </summary>
         CEF_CDM_REGISTRATION_ERROR_NOT_SUPPORTED/*778*/
     }
 
     // [virtual] class CefApp
+    /// <summary>
+    /// </summary>
     /*787*/
     public struct CefApp
     {
@@ -1346,6 +2217,12 @@ namespace LayoutFarm.CefBridge.Auto
 
 
     // [virtual] class CefBrowser
+    /// <summary>
+    /// Class used to represent a browser window. When used in the browser process
+    /// the methods of this class may be called on any thread unless otherwise
+    /// indicated in the comments. When used in the render process the methods of
+    /// this class may only be called on the main thread.
+    /// </summary>
     /*912*/
     public struct CefBrowser
     {
@@ -1808,6 +2685,10 @@ namespace LayoutFarm.CefBridge.Auto
 
 
     // [virtual] class CefNavigationEntryVisitor
+    /// <summary>
+    /// Callback interface for CefBrowserHost::GetNavigationEntries. The methods of
+    /// this class will be called on the browser process UI thread.
+    /// </summary>
     /*1102*/
     public struct CefNavigationEntryVisitor
     {
@@ -1838,6 +2719,12 @@ namespace LayoutFarm.CefBridge.Auto
 
 
     // [virtual] class CefBrowserHost
+    /// <summary>
+    /// Class used to represent the browser process aspects of a browser window. The
+    /// methods of this class can only be called in the browser process. They may be
+    /// called on any thread in that process unless otherwise indicated in the
+    /// comments.
+    /// </summary>
     /*1382*/
     public struct CefBrowserHost
     {
@@ -3075,6 +3962,9 @@ namespace LayoutFarm.CefBridge.Auto
 
 
     // [virtual] class CefClient
+    /// <summary>
+    /// Implement this interface to provide handler implementations.
+    /// </summary>
     /*1864*/
     public struct CefClient
     {
@@ -3105,6 +3995,16 @@ namespace LayoutFarm.CefBridge.Auto
 
 
     // [virtual] class CefCommandLine
+    /// <summary>
+    /// Class used to create and/or parse command line arguments. Arguments with
+    /// '--', '-' and, on Windows, '/' prefixes are considered switches. Switches
+    /// will always precede any arguments without switch prefixes. Switches can
+    /// optionally have a value specified using the '=' delimiter (e.g.
+    /// "-switch=value"). An argument of "--" will terminate switch parsing with all
+    /// subsequent tokens, regardless of prefix, being interpreted as non-switch
+    /// arguments. Switch names are considered case-insensitive. This class can be
+    /// used before CefInitialize() is called.
+    /// </summary>
     /*1984*/
     public struct CefCommandLine
     {
@@ -3600,6 +4500,10 @@ namespace LayoutFarm.CefBridge.Auto
 
 
     // [virtual] class CefContextMenuParams
+    /// <summary>
+    /// Provides information about the context menu state. The ethods of this class
+    /// can only be accessed on browser process the UI thread.
+    /// </summary>
     /*2290*/
     public struct CefContextMenuParams
     {
@@ -4057,6 +4961,10 @@ namespace LayoutFarm.CefBridge.Auto
 
 
     // [virtual] class CefCookieManager
+    /// <summary>
+    /// Class used for managing cookies. The methods of this class may be called on
+    /// any thread unless otherwise indicated.
+    /// </summary>
     /*2514*/
     public struct CefCookieManager
     {
@@ -4298,6 +5206,10 @@ namespace LayoutFarm.CefBridge.Auto
 
 
     // [virtual] class CefCookieVisitor
+    /// <summary>
+    /// Interface to implement for visiting cookie values. The methods of this class
+    /// will always be called on the IO thread.
+    /// </summary>
     /*2615*/
     public struct CefCookieVisitor
     {
@@ -4328,6 +5240,10 @@ namespace LayoutFarm.CefBridge.Auto
 
 
     // [virtual] class CefDOMVisitor
+    /// <summary>
+    /// Interface to implement for visiting the DOM. The methods of this class will
+    /// be called on the render process main thread.
+    /// </summary>
     /*2635*/
     public struct CefDOMVisitor
     {
@@ -4358,6 +5274,10 @@ namespace LayoutFarm.CefBridge.Auto
 
 
     // [virtual] class CefDOMDocument
+    /// <summary>
+    /// Class used to represent a DOM document. The methods of this class should only
+    /// be called on the render process main thread thread.
+    /// </summary>
     /*2725*/
     public struct CefDOMDocument
     {
@@ -4685,6 +5605,10 @@ namespace LayoutFarm.CefBridge.Auto
 
 
     // [virtual] class CefDOMNode
+    /// <summary>
+    /// Class used to represent a DOM node. The methods of this class should only be
+    /// called on the render process main thread.
+    /// </summary>
     /*2993*/
     public struct CefDOMNode
     {
@@ -5281,6 +6205,9 @@ namespace LayoutFarm.CefBridge.Auto
 
 
     // [virtual] class CefDownloadItem
+    /// <summary>
+    /// Class used to represent a download item.
+    /// </summary>
     /*3322*/
     public struct CefDownloadItem
     {
@@ -5653,6 +6580,10 @@ namespace LayoutFarm.CefBridge.Auto
 
 
     // [virtual] class CefDragData
+    /// <summary>
+    /// Class used to represent drag data. The methods of this class may be called
+    /// on any thread.
+    /// </summary>
     /*3603*/
     public struct CefDragData
     {
@@ -6238,6 +7169,12 @@ namespace LayoutFarm.CefBridge.Auto
 
 
     // [virtual] class CefFrame
+    /// <summary>
+    /// Class used to represent a frame in the browser window. When used in the
+    /// browser process the methods of this class may be called on any thread unless
+    /// otherwise indicated in the comments. When used in the render process the
+    /// methods of this class may only be called on the main thread.
+    /// </summary>
     /*3961*/
     public struct CefFrame
     {
@@ -6773,6 +7710,14 @@ namespace LayoutFarm.CefBridge.Auto
 
 
     // [virtual] class CefImage
+    /// <summary>
+    /// Container for a single image represented at different scale factors. All
+    /// image representations should be the same size in density independent pixel
+    /// (DIP) units. For example, if the image at scale factor 1.0 is 100x100 pixels
+    /// then the image at scale factor 2.0 should be 200x200 pixels -- both images
+    /// will display with a DIP size of 100x100 units. The methods of this class must
+    /// be called on the browser process UI thread.
+    /// </summary>
     /*4243*/
     public struct CefImage
     {
@@ -7180,6 +8125,12 @@ namespace LayoutFarm.CefBridge.Auto
 
 
     // [virtual] class CefMenuModel
+    /// <summary>
+    /// Supports creation and modification of menus. See cef_menu_id_t for the
+    /// command ids that have default implementations. All user-defined command ids
+    /// should be between MENU_ID_USER_FIRST and MENU_ID_USER_LAST. The methods of
+    /// this class can only be accessed on the browser process the UI thread.
+    /// </summary>
     /*4689*/
     public struct CefMenuModel
     {
@@ -8717,6 +9668,11 @@ namespace LayoutFarm.CefBridge.Auto
 
 
     // [virtual] class CefMenuModelDelegate
+    /// <summary>
+    /// Implement this interface to handle menu model events. The methods of this
+    /// class will be called on the browser process UI thread unless otherwise
+    /// indicated.
+    /// </summary>
     /*5292*/
     public struct CefMenuModelDelegate
     {
@@ -8747,6 +9703,9 @@ namespace LayoutFarm.CefBridge.Auto
 
 
     // [virtual] class CefNavigationEntry
+    /// <summary>
+    /// Class used to represent an entry in navigation history.
+    /// </summary>
     /*5362*/
     public struct CefNavigationEntry
     {
@@ -8979,6 +9938,9 @@ namespace LayoutFarm.CefBridge.Auto
 
 
     // [virtual] class CefPrintSettings
+    /// <summary>
+    /// Class representing print settings.
+    /// </summary>
     /*5577*/
     public struct CefPrintSettings
     {
@@ -9493,6 +10455,8 @@ namespace LayoutFarm.CefBridge.Auto
 
 
     // [virtual] class CefProcessMessage
+    /// <summary>
+    /// </summary>
     /*5810*/
     public struct CefProcessMessage
     {
@@ -9623,6 +10587,10 @@ namespace LayoutFarm.CefBridge.Auto
 
 
     // [virtual] class CefRequest
+    /// <summary>
+    /// Class used to represent a web request. The methods of this class may be
+    /// called on any thread.
+    /// </summary>
     /*5970*/
     public struct CefRequest
     {
@@ -10107,6 +11075,10 @@ namespace LayoutFarm.CefBridge.Auto
 
 
     // [virtual] class CefPostData
+    /// <summary>
+    /// Class used to represent post data for a web request. The methods of this
+    /// class may be called on any thread.
+    /// </summary>
     /*6201*/
     public struct CefPostData
     {
@@ -10282,6 +11254,10 @@ namespace LayoutFarm.CefBridge.Auto
 
 
     // [virtual] class CefPostDataElement
+    /// <summary>
+    /// Class used to represent a single element in the request post data. The
+    /// methods of this class may be called on any thread.
+    /// </summary>
     /*6318*/
     public struct CefPostDataElement
     {
@@ -10487,6 +11463,22 @@ namespace LayoutFarm.CefBridge.Auto
 
 
     // [virtual] class CefRequestContext
+    /// <summary>
+    /// A request context provides request handling for a set of related browser
+    /// or URL request objects. A request context can be specified when creating a
+    /// new browser via the CefBrowserHost static factory methods or when creating a
+    /// new URL request via the CefURLRequest static factory methods. Browser objects
+    /// with different request contexts will never be hosted in the same render
+    /// process. Browser objects with the same request context may or may not be
+    /// hosted in the same render process depending on the process model. Browser
+    /// objects created indirectly via the JavaScript window.open function or
+    /// targeted links will share the same render process and the same request
+    /// context as the source browser. When running in single-process mode there is
+    /// only a single render process (the main process) and so all browsers created
+    /// in single-process mode will share the same request context. This will be the
+    /// first request context passed into a CefBrowserHost static factory method and
+    /// all other request context objects will be ignored.
+    /// </summary>
     /*6496*/
     public struct CefRequestContext
     {
@@ -10975,6 +11967,13 @@ namespace LayoutFarm.CefBridge.Auto
 
 
     // [virtual] class CefResourceBundle
+    /// <summary>
+    /// Class used for retrieving resources from the resource bundle (*.pak) files
+    /// loaded by CEF during startup or via the CefResourceBundleHandler returned
+    /// from CefApp::GetResourceBundleHandler. See CefSettings for additional options
+    /// related to resource bundle loading. The methods of this class may be called
+    /// on any thread unless otherwise indicated.
+    /// </summary>
     /*6709*/
     public struct CefResourceBundle
     {
@@ -11097,6 +12096,10 @@ namespace LayoutFarm.CefBridge.Auto
 
 
     // [virtual] class CefResponse
+    /// <summary>
+    /// Class used to represent a web response. The methods of this class may be
+    /// called on any thread.
+    /// </summary>
     /*6825*/
     public struct CefResponse
     {
@@ -11392,6 +12395,10 @@ namespace LayoutFarm.CefBridge.Auto
 
 
     // [virtual] class CefResponseFilter
+    /// <summary>
+    /// Implement this interface to filter resource response content. The methods of
+    /// this class will be called on the browser process IO thread.
+    /// </summary>
     /*6948*/
     public struct CefResponseFilter
     {
@@ -11422,6 +12429,10 @@ namespace LayoutFarm.CefBridge.Auto
 
 
     // [virtual] class CefSchemeHandlerFactory
+    /// <summary>
+    /// Class that creates CefResourceHandler instances for handling scheme requests.
+    /// The methods of this class will always be called on the IO thread.
+    /// </summary>
     /*6968*/
     public struct CefSchemeHandlerFactory
     {
@@ -11452,6 +12463,9 @@ namespace LayoutFarm.CefBridge.Auto
 
 
     // [virtual] class CefSSLInfo
+    /// <summary>
+    /// Class representing SSL information.
+    /// </summary>
     /*6998*/
     public struct CefSSLInfo
     {
@@ -11523,6 +12537,9 @@ namespace LayoutFarm.CefBridge.Auto
 
 
     // [virtual] class CefSSLStatus
+    /// <summary>
+    /// Class representing the SSL information for a navigation entry.
+    /// </summary>
     /*7059*/
     public struct CefSSLStatus
     {
@@ -11656,6 +12673,10 @@ namespace LayoutFarm.CefBridge.Auto
 
 
     // [virtual] class CefStreamReader
+    /// <summary>
+    /// Class used to read data from a stream. The methods of this class may be
+    /// called on any thread.
+    /// </summary>
     /*7144*/
     public struct CefStreamReader
     {
@@ -11801,6 +12822,10 @@ namespace LayoutFarm.CefBridge.Auto
 
 
     // [virtual] class CefStreamWriter
+    /// <summary>
+    /// Class used to write data to a stream. The methods of this class may be called
+    /// on any thread.
+    /// </summary>
     /*7234*/
     public struct CefStreamWriter
     {
@@ -11946,6 +12971,9 @@ namespace LayoutFarm.CefBridge.Auto
 
 
     // [virtual] class CefStringVisitor
+    /// <summary>
+    /// Implement this interface to receive string values asynchronously.
+    /// </summary>
     /*7299*/
     public struct CefStringVisitor
     {
@@ -11976,6 +13004,8 @@ namespace LayoutFarm.CefBridge.Auto
 
 
     // [virtual] class CefTask
+    /// <summary>
+    /// </summary>
     /*7319*/
     public struct CefTask
     {
@@ -12006,6 +13036,15 @@ namespace LayoutFarm.CefBridge.Auto
 
 
     // [virtual] class CefTaskRunner
+    /// <summary>
+    /// Class that asynchronously executes tasks on the associated thread. It is safe
+    /// to call the methods of this class on any thread.
+    ///
+    /// CEF maintains multiple internal threads that are used for handling different
+    /// types of tasks in different processes. The cef_thread_id_t definitions in
+    /// cef_types.h list the common CEF threads. Task runners are also available for
+    /// other CEF threads as appropriate (for example, V8 WebWorker threads).
+    /// </summary>
     /*7364*/
     public struct CefTaskRunner
     {
@@ -12151,6 +13190,13 @@ namespace LayoutFarm.CefBridge.Auto
 
 
     // [virtual] class CefURLRequest
+    /// <summary>
+    /// Class used to make a URL request. URL requests are not associated with a
+    /// browser instance so no CefClient callbacks will be executed. URL requests
+    /// can be created on any valid CEF thread in either the browser or render
+    /// process. Once created the methods of the URL request object must be accessed
+    /// on the same thread that created it.
+    /// </summary>
     /*7459*/
     public struct CefURLRequest
     {
@@ -12301,6 +13347,11 @@ namespace LayoutFarm.CefBridge.Auto
 
 
     // [virtual] class CefURLRequestClient
+    /// <summary>
+    /// Interface that should be implemented by the CefURLRequest client. The
+    /// methods of this class will be called on the same thread that created the
+    /// request unless otherwise documented.
+    /// </summary>
     /*7526*/
     public struct CefURLRequestClient
     {
@@ -12331,6 +13382,8 @@ namespace LayoutFarm.CefBridge.Auto
 
 
     // [virtual] class CefV8Context
+    /// <summary>
+    /// </summary>
     /*7591*/
     public struct CefV8Context
     {
@@ -12573,6 +13626,11 @@ namespace LayoutFarm.CefBridge.Auto
 
 
     // [virtual] class CefV8Accessor
+    /// <summary>
+    /// Interface that should be implemented to handle V8 accessor calls. Accessor
+    /// identifiers are registered by calling CefV8Value::SetValue(). The methods
+    /// of this class will be called on the thread associated with the V8 accessor.
+    /// </summary>
     /*7695*/
     public struct CefV8Accessor
     {
@@ -12603,6 +13661,14 @@ namespace LayoutFarm.CefBridge.Auto
 
 
     // [virtual] class CefV8Interceptor
+    /// <summary>
+    /// Interface that should be implemented to handle V8 interceptor calls. The
+    /// methods of this class will be called on the thread associated with the V8
+    /// interceptor. Interceptor's named property handlers (with first argument of
+    /// type CefString) are called when object is indexed by string. Indexed property
+    /// handlers (with first argument of type int) are called when object is indexed
+    /// by integer.
+    /// </summary>
     /*7715*/
     public struct CefV8Interceptor
     {
@@ -12633,6 +13699,10 @@ namespace LayoutFarm.CefBridge.Auto
 
 
     // [virtual] class CefV8Exception
+    /// <summary>
+    /// Class representing a V8 exception. The methods of this class may be called on
+    /// any render process thread.
+    /// </summary>
     /*7775*/
     public struct CefV8Exception
     {
@@ -12823,6 +13893,13 @@ namespace LayoutFarm.CefBridge.Auto
 
 
     // [virtual] class CefV8Value
+    /// <summary>
+    /// Class representing a V8 value handle. V8 handles can only be accessed from
+    /// the thread on which they are created. Valid threads for creating a V8 handle
+    /// include the render process main thread (TID_RENDERER) and WebWorker threads.
+    /// A task runner for posting tasks on the associated thread can be retrieved via
+    /// the CefV8Context::GetTaskRunner() method.
+    /// </summary>
     /*8079*/
     public struct CefV8Value
     {
@@ -13831,6 +14908,13 @@ namespace LayoutFarm.CefBridge.Auto
 
 
     // [virtual] class CefV8StackTrace
+    /// <summary>
+    /// Class representing a V8 stack trace handle. V8 handles can only be accessed
+    /// from the thread on which they are created. Valid threads for creating a V8
+    /// handle include the render process main thread (TID_RENDERER) and WebWorker
+    /// threads. A task runner for posting tasks on the associated thread can be
+    /// retrieved via the CefV8Context::GetTaskRunner() method.
+    /// </summary>
     /*8500*/
     public struct CefV8StackTrace
     {
@@ -13924,6 +15008,13 @@ namespace LayoutFarm.CefBridge.Auto
 
 
     // [virtual] class CefV8StackFrame
+    /// <summary>
+    /// Class representing a V8 stack frame handle. V8 handles can only be accessed
+    /// from the thread on which they are created. Valid threads for creating a V8
+    /// handle include the render process main thread (TID_RENDERER) and WebWorker
+    /// threads. A task runner for posting tasks on the associated thread can be
+    /// retrieved via the CefV8Context::GetTaskRunner() method.
+    /// </summary>
     /*8585*/
     public struct CefV8StackFrame
     {
@@ -14114,6 +15205,8 @@ namespace LayoutFarm.CefBridge.Auto
 
 
     // [virtual] class CefValue
+    /// <summary>
+    /// </summary>
     /*8779*/
     public struct CefValue
     {
@@ -14617,6 +15710,9 @@ namespace LayoutFarm.CefBridge.Auto
 
 
     // [virtual] class CefBinaryValue
+    /// <summary>
+    /// Class representing a binary value. Can be used on any process and thread.
+    /// </summary>
     /*9021*/
     public struct CefBinaryValue
     {
@@ -14802,6 +15898,9 @@ namespace LayoutFarm.CefBridge.Auto
 
 
     // [virtual] class CefDictionaryValue
+    /// <summary>
+    /// Class representing a dictionary value. Can be used on any process and thread.
+    /// </summary>
     /*9247*/
     public struct CefDictionaryValue
     {
@@ -15614,6 +16713,9 @@ namespace LayoutFarm.CefBridge.Auto
 
 
     // [virtual] class CefListValue
+    /// <summary>
+    /// Class representing a list value. Can be used on any process and thread.
+    /// </summary>
     /*9713*/
     public struct CefListValue
     {
@@ -16300,6 +17402,9 @@ namespace LayoutFarm.CefBridge.Auto
 
 
     // [virtual] class CefWebPluginInfo
+    /// <summary>
+    /// Information about a specific web plugin.
+    /// </summary>
     /*10009*/
     public struct CefWebPluginInfo
     {
@@ -16410,6 +17515,10 @@ namespace LayoutFarm.CefBridge.Auto
 
 
     // [virtual] class CefWebPluginInfoVisitor
+    /// <summary>
+    /// Interface to implement for visiting web plugin information. The methods of
+    /// this class will be called on the browser process UI thread.
+    /// </summary>
     /*10061*/
     public struct CefWebPluginInfoVisitor
     {
@@ -16440,6 +17549,9 @@ namespace LayoutFarm.CefBridge.Auto
 
 
     // [virtual] class CefX509CertPrincipal
+    /// <summary>
+    /// Class representing the issuer or subject field of an X.509 certificate.
+    /// </summary>
     /*10126*/
     public struct CefX509CertPrincipal
     {
@@ -16654,6 +17766,9 @@ namespace LayoutFarm.CefBridge.Auto
 
 
     // [virtual] class CefX509Certificate
+    /// <summary>
+    /// Class representing a X.509 certificate.
+    /// </summary>
     /*10268*/
     public struct CefX509Certificate
     {
@@ -16888,6 +18003,11 @@ namespace LayoutFarm.CefBridge.Auto
 
 
     // [virtual] class CefXmlReader
+    /// <summary>
+    /// Class that supports the reading of XML data via the libxml streaming API.
+    /// The methods of this class should only be called on the thread that creates
+    /// the object.
+    /// </summary>
     /*10513*/
     public struct CefXmlReader
     {
@@ -17553,6 +18673,11 @@ namespace LayoutFarm.CefBridge.Auto
 
 
     // [virtual] class CefZipReader
+    /// <summary>
+    /// Class that supports the reading of zip archives via the zlib unzip API.
+    /// The methods of this class should only be called on the thread that creates
+    /// the object.
+    /// </summary>
     /*10845*/
     public struct CefZipReader
     {
@@ -17846,4 +18971,5 @@ namespace LayoutFarm.CefBridge.Auto
         }
         /*10961*/
     }
+
 }
