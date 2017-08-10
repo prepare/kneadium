@@ -1825,8 +1825,7 @@ namespace LayoutFarm.CefBridge.Auto
         /// /*cef()*/
         /// </summary>
 
-        public bool IsSame(CefBrowser that
-        )
+        public bool IsSame(CefBrowser that)
         {
             JsValue v1 = new JsValue();
             JsValue ret;
@@ -1899,8 +1898,7 @@ namespace LayoutFarm.CefBridge.Auto
 
         // gen! CefRefPtr<CefFrame> GetFrame(int64 identifier)
 
-        public CefFrame GetFrame(long identifier
-        )
+        public CefFrame GetFrame(long identifier)
         {
             JsValue v1 = new JsValue();
             JsValue ret;
@@ -1913,8 +1911,7 @@ namespace LayoutFarm.CefBridge.Auto
 
         // gen! CefRefPtr<CefFrame> GetFrame(const CefString& name)
 
-        public CefFrame GetFrame(string name
-        )
+        public CefFrame GetFrame(string name)
         {
             JsValue v1 = new JsValue();
             JsValue ret;
@@ -1948,8 +1945,7 @@ namespace LayoutFarm.CefBridge.Auto
         /// /*cef(count_func=identifiers:GetFrameCount)*/
         /// </summary>
 
-        public void GetFrameIdentifiers(List<long> identifiers
-        )
+        public void GetFrameIdentifiers(List<long> identifiers)
         {
             JsValue v1 = new JsValue();
             JsValue ret;
@@ -1966,8 +1962,7 @@ namespace LayoutFarm.CefBridge.Auto
         /// /*cef()*/
         /// </summary>
 
-        public void GetFrameNames(List<string> names
-        )
+        public void GetFrameNames(List<string> names)
         {
             JsValue v1 = new JsValue();
             JsValue ret;
@@ -1985,9 +1980,8 @@ namespace LayoutFarm.CefBridge.Auto
         /// /*cef()*/
         /// </summary>
 
-        public bool SendProcessMessage(cef_process_id_t target_process
-        , CefProcessMessage message
-        )
+        public bool SendProcessMessage(cef_process_id_t target_process,
+        CefProcessMessage message)
         {
             JsValue v1 = new JsValue();
             JsValue v2 = new JsValue();
@@ -2127,8 +2121,7 @@ namespace LayoutFarm.CefBridge.Auto
         /// /*cef()*/
         /// </summary>
 
-        public void CloseBrowser(bool force_close
-        )
+        public void CloseBrowser(bool force_close)
         {
             JsValue v1 = new JsValue();
             JsValue ret;
@@ -2164,8 +2157,7 @@ namespace LayoutFarm.CefBridge.Auto
         /// /*cef()*/
         /// </summary>
 
-        public void SetFocus(bool focus
-        )
+        public void SetFocus(bool focus)
         {
             JsValue v1 = new JsValue();
             JsValue ret;
@@ -2280,8 +2272,7 @@ namespace LayoutFarm.CefBridge.Auto
         /// /*cef()*/
         /// </summary>
 
-        public void SetZoomLevel(double zoomLevel
-        )
+        public void SetZoomLevel(double zoomLevel)
         {
             JsValue v1 = new JsValue();
             JsValue ret;
@@ -2310,13 +2301,12 @@ namespace LayoutFarm.CefBridge.Auto
         /// /*cef(optional_param=title,optional_param=default_file_path,optional_param=accept_filters,index_param=selected_accept_filter)*/
         /// </summary>
 
-        public void RunFileDialog(cef_file_dialog_mode_t mode
-        , string title
-        , string default_file_path
-        , List<string> accept_filters
-        , int selected_accept_filter
-        , CefRunFileDialogCallback callback
-        )
+        public void RunFileDialog(cef_file_dialog_mode_t mode,
+        string title,
+        string default_file_path,
+        List<string> accept_filters,
+        int selected_accept_filter,
+        CefRunFileDialogCallback callback)
         {
             JsValue v1 = new JsValue();
             JsValue v2 = new JsValue();
@@ -2347,8 +2337,7 @@ namespace LayoutFarm.CefBridge.Auto
         /// /*cef()*/
         /// </summary>
 
-        public void StartDownload(string url
-        )
+        public void StartDownload(string url)
         {
             JsValue v1 = new JsValue();
             JsValue ret;
@@ -2375,12 +2364,11 @@ namespace LayoutFarm.CefBridge.Auto
         /// /*cef()*/
         /// </summary>
 
-        public void DownloadImage(string image_url
-        , bool is_favicon
-        , uint max_image_size
-        , bool bypass_cache
-        , CefDownloadImageCallback callback
-        )
+        public void DownloadImage(string image_url,
+        bool is_favicon,
+        uint max_image_size,
+        bool bypass_cache,
+        CefDownloadImageCallback callback)
         {
             JsValue v1 = new JsValue();
             JsValue v2 = new JsValue();
@@ -2423,10 +2411,9 @@ namespace LayoutFarm.CefBridge.Auto
         /// /*cef(optional_param=callback)*/
         /// </summary>
 
-        public void PrintToPDF(string path
-        , CefPdfPrintSettings settings
-        , CefPdfPrintCallback callback
-        )
+        public void PrintToPDF(string path,
+        CefPdfPrintSettings settings,
+        CefPdfPrintCallback callback)
         {
             JsValue v1 = new JsValue();
             JsValue v2 = new JsValue();
@@ -2456,12 +2443,11 @@ namespace LayoutFarm.CefBridge.Auto
         /// /*cef()*/
         /// </summary>
 
-        public void Find(int identifier
-        , string searchText
-        , bool forward
-        , bool matchCase
-        , bool findNext
-        )
+        public void Find(int identifier,
+        string searchText,
+        bool forward,
+        bool matchCase,
+        bool findNext)
         {
             JsValue v1 = new JsValue();
             JsValue v2 = new JsValue();
@@ -2487,8 +2473,7 @@ namespace LayoutFarm.CefBridge.Auto
         /// /*cef()*/
         /// </summary>
 
-        public void StopFinding(bool clearSelection
-        )
+        public void StopFinding(bool clearSelection)
         {
             JsValue v1 = new JsValue();
             JsValue ret;
@@ -2510,11 +2495,10 @@ namespace LayoutFarm.CefBridge.Auto
         /// /*cef(optional_param=windowInfo,optional_param=client,optional_param=settings,optional_param=inspect_element_at)*/
         /// </summary>
 
-        public void ShowDevTools(CefWindowInfo windowInfo
-        , CefClient client
-        , CefBrowserSettings settings
-        , CefPoint inspect_element_at
-        )
+        public void ShowDevTools(CefWindowInfo windowInfo,
+        CefClient client,
+        CefBrowserSettings settings,
+        CefPoint inspect_element_at)
         {
             JsValue v1 = new JsValue();
             JsValue v2 = new JsValue();
@@ -2568,9 +2552,8 @@ namespace LayoutFarm.CefBridge.Auto
         /// /*cef()*/
         /// </summary>
 
-        public void GetNavigationEntries(CefNavigationEntryVisitor visitor
-        , bool current_only
-        )
+        public void GetNavigationEntries(CefNavigationEntryVisitor visitor,
+        bool current_only)
         {
             JsValue v1 = new JsValue();
             JsValue v2 = new JsValue();
@@ -2588,8 +2571,7 @@ namespace LayoutFarm.CefBridge.Auto
         /// /*cef()*/
         /// </summary>
 
-        public void SetMouseCursorChangeDisabled(bool disabled
-        )
+        public void SetMouseCursorChangeDisabled(bool disabled)
         {
             JsValue v1 = new JsValue();
             JsValue ret;
@@ -2621,8 +2603,7 @@ namespace LayoutFarm.CefBridge.Auto
         /// /*cef()*/
         /// </summary>
 
-        public void ReplaceMisspelling(string word
-        )
+        public void ReplaceMisspelling(string word)
         {
             JsValue v1 = new JsValue();
             JsValue ret;
@@ -2640,8 +2621,7 @@ namespace LayoutFarm.CefBridge.Auto
         /// /*cef()*/
         /// </summary>
 
-        public void AddWordToDictionary(string word
-        )
+        public void AddWordToDictionary(string word)
         {
             JsValue v1 = new JsValue();
             JsValue ret;
@@ -2693,8 +2673,7 @@ namespace LayoutFarm.CefBridge.Auto
         /// /*cef()*/
         /// </summary>
 
-        public void WasHidden(bool hidden
-        )
+        public void WasHidden(bool hidden)
         {
             JsValue v1 = new JsValue();
             JsValue ret;
@@ -2731,8 +2710,7 @@ namespace LayoutFarm.CefBridge.Auto
         /// /*cef()*/
         /// </summary>
 
-        public void Invalidate(cef_paint_element_type_t type
-        )
+        public void Invalidate(cef_paint_element_type_t type)
         {
             JsValue v1 = new JsValue();
             JsValue ret;
@@ -2748,8 +2726,7 @@ namespace LayoutFarm.CefBridge.Auto
         /// /*cef()*/
         /// </summary>
 
-        public void SendKeyEvent(CefKeyEvent _event
-        )
+        public void SendKeyEvent(CefKeyEvent _event)
         {
             JsValue v1 = new JsValue();
             JsValue ret;
@@ -2766,11 +2743,10 @@ namespace LayoutFarm.CefBridge.Auto
         /// /*cef()*/
         /// </summary>
 
-        public void SendMouseClickEvent(CefMouseEvent _event
-        , cef_mouse_button_type_t type
-        , bool mouseUp
-        , int clickCount
-        )
+        public void SendMouseClickEvent(CefMouseEvent _event,
+        cef_mouse_button_type_t type,
+        bool mouseUp,
+        int clickCount)
         {
             JsValue v1 = new JsValue();
             JsValue v2 = new JsValue();
@@ -2793,9 +2769,8 @@ namespace LayoutFarm.CefBridge.Auto
         /// /*cef()*/
         /// </summary>
 
-        public void SendMouseMoveEvent(CefMouseEvent _event
-        , bool mouseLeave
-        )
+        public void SendMouseMoveEvent(CefMouseEvent _event,
+        bool mouseLeave)
         {
             JsValue v1 = new JsValue();
             JsValue v2 = new JsValue();
@@ -2817,10 +2792,9 @@ namespace LayoutFarm.CefBridge.Auto
         /// /*cef()*/
         /// </summary>
 
-        public void SendMouseWheelEvent(CefMouseEvent _event
-        , int deltaX
-        , int deltaY
-        )
+        public void SendMouseWheelEvent(CefMouseEvent _event,
+        int deltaX,
+        int deltaY)
         {
             JsValue v1 = new JsValue();
             JsValue v2 = new JsValue();
@@ -2840,8 +2814,7 @@ namespace LayoutFarm.CefBridge.Auto
         /// /*cef()*/
         /// </summary>
 
-        public void SendFocusEvent(bool setFocus
-        )
+        public void SendFocusEvent(bool setFocus)
         {
             JsValue v1 = new JsValue();
             JsValue ret;
@@ -2909,8 +2882,7 @@ namespace LayoutFarm.CefBridge.Auto
         /// /*cef()*/
         /// </summary>
 
-        public void SetWindowlessFrameRate(int frame_rate
-        )
+        public void SetWindowlessFrameRate(int frame_rate)
         {
             JsValue v1 = new JsValue();
             JsValue ret;
@@ -2946,11 +2918,10 @@ namespace LayoutFarm.CefBridge.Auto
         /// /*cef(optional_param=text,optional_param=underlines)*/
         /// </summary>
 
-        public void ImeSetComposition(string text
-        , List<CefCompositionUnderline> underlines
-        , CefRange replacement_range
-        , CefRange selection_range
-        )
+        public void ImeSetComposition(string text,
+        List<CefCompositionUnderline> underlines,
+        CefRange replacement_range,
+        CefRange selection_range)
         {
             JsValue v1 = new JsValue();
             JsValue v2 = new JsValue();
@@ -2980,10 +2951,9 @@ namespace LayoutFarm.CefBridge.Auto
         /// /*cef(optional_param=text)*/
         /// </summary>
 
-        public void ImeCommitText(string text
-        , CefRange replacement_range
-        , int relative_cursor_pos
-        )
+        public void ImeCommitText(string text,
+        CefRange replacement_range,
+        int relative_cursor_pos)
         {
             JsValue v1 = new JsValue();
             JsValue v2 = new JsValue();
@@ -3008,8 +2978,7 @@ namespace LayoutFarm.CefBridge.Auto
         /// /*cef()*/
         /// </summary>
 
-        public void ImeFinishComposingText(bool keep_selection
-        )
+        public void ImeFinishComposingText(bool keep_selection)
         {
             JsValue v1 = new JsValue();
             JsValue ret;
@@ -3048,10 +3017,9 @@ namespace LayoutFarm.CefBridge.Auto
         /// /*cef()*/
         /// </summary>
 
-        public void DragTargetDragEnter(CefDragData drag_data
-        , CefMouseEvent _event
-        , cef_drag_operations_mask_t allowed_ops
-        )
+        public void DragTargetDragEnter(CefDragData drag_data,
+        CefMouseEvent _event,
+        cef_drag_operations_mask_t allowed_ops)
         {
             JsValue v1 = new JsValue();
             JsValue v2 = new JsValue();
@@ -3074,9 +3042,8 @@ namespace LayoutFarm.CefBridge.Auto
         /// /*cef()*/
         /// </summary>
 
-        public void DragTargetDragOver(CefMouseEvent _event
-        , cef_drag_operations_mask_t allowed_ops
-        )
+        public void DragTargetDragOver(CefMouseEvent _event,
+        cef_drag_operations_mask_t allowed_ops)
         {
             JsValue v1 = new JsValue();
             JsValue v2 = new JsValue();
@@ -3114,8 +3081,7 @@ namespace LayoutFarm.CefBridge.Auto
         /// /*cef()*/
         /// </summary>
 
-        public void DragTargetDrop(CefMouseEvent _event
-        )
+        public void DragTargetDrop(CefMouseEvent _event)
         {
             JsValue v1 = new JsValue();
             JsValue ret;
@@ -3137,10 +3103,9 @@ namespace LayoutFarm.CefBridge.Auto
         /// /*cef()*/
         /// </summary>
 
-        public void DragSourceEndedAt(int x
-        , int y
-        , cef_drag_operations_mask_t op
-        )
+        public void DragSourceEndedAt(int x,
+        int y,
+        cef_drag_operations_mask_t op)
         {
             JsValue v1 = new JsValue();
             JsValue v2 = new JsValue();
@@ -3219,8 +3184,7 @@ namespace LayoutFarm.CefBridge.Auto
         /// /*cef()*/
         /// </summary>
 
-        public void SetAccessibilityState(cef_state_t accessibility_state
-        )
+        public void SetAccessibilityState(cef_state_t accessibility_state)
         {
             JsValue v1 = new JsValue();
             JsValue ret;
@@ -3354,9 +3318,8 @@ namespace LayoutFarm.CefBridge.Auto
         /// /*cef()*/
         /// </summary>
 
-        public void InitFromArgv(int argc
-        , IntPtr argv
-        )
+        public void InitFromArgv(int argc,
+        IntPtr argv)
         {
             JsValue v1 = new JsValue();
             JsValue v2 = new JsValue();
@@ -3375,8 +3338,7 @@ namespace LayoutFarm.CefBridge.Auto
         /// /*cef()*/
         /// </summary>
 
-        public void InitFromString(string command_line
-        )
+        public void InitFromString(string command_line)
         {
             JsValue v1 = new JsValue();
             JsValue ret;
@@ -3410,8 +3372,7 @@ namespace LayoutFarm.CefBridge.Auto
         /// /*cef()*/
         /// </summary>
 
-        public void GetArgv(List<string> argv
-        )
+        public void GetArgv(List<string> argv)
         {
             JsValue v1 = new JsValue();
             JsValue ret;
@@ -3459,8 +3420,7 @@ namespace LayoutFarm.CefBridge.Auto
         /// /*cef()*/
         /// </summary>
 
-        public void SetProgram(string program
-        )
+        public void SetProgram(string program)
         {
             JsValue v1 = new JsValue();
             JsValue ret;
@@ -3493,8 +3453,7 @@ namespace LayoutFarm.CefBridge.Auto
         /// /*cef()*/
         /// </summary>
 
-        public bool HasSwitch(string name
-        )
+        public bool HasSwitch(string name)
         {
             JsValue v1 = new JsValue();
             JsValue ret;
@@ -3514,8 +3473,7 @@ namespace LayoutFarm.CefBridge.Auto
         /// /*cef()*/
         /// </summary>
 
-        public string GetSwitchValue(string name
-        )
+        public string GetSwitchValue(string name)
         {
             JsValue v1 = new JsValue();
             JsValue ret;
@@ -3535,8 +3493,7 @@ namespace LayoutFarm.CefBridge.Auto
         /// /*cef()*/
         /// </summary>
 
-        public void GetSwitches(SwitchMap switches
-        )
+        public void GetSwitches(SwitchMap switches)
         {
             JsValue v1 = new JsValue();
             JsValue ret;
@@ -3553,8 +3510,7 @@ namespace LayoutFarm.CefBridge.Auto
         /// /*cef()*/
         /// </summary>
 
-        public void AppendSwitch(string name
-        )
+        public void AppendSwitch(string name)
         {
             JsValue v1 = new JsValue();
             JsValue ret;
@@ -3572,9 +3528,8 @@ namespace LayoutFarm.CefBridge.Auto
         /// /*cef()*/
         /// </summary>
 
-        public void AppendSwitchWithValue(string name
-        , string value
-        )
+        public void AppendSwitchWithValue(string name,
+        string value)
         {
             JsValue v1 = new JsValue();
             JsValue v2 = new JsValue();
@@ -3611,8 +3566,7 @@ namespace LayoutFarm.CefBridge.Auto
         /// /*cef()*/
         /// </summary>
 
-        public void GetArguments(ArgumentList arguments
-        )
+        public void GetArguments(ArgumentList arguments)
         {
             JsValue v1 = new JsValue();
             JsValue ret;
@@ -3628,8 +3582,7 @@ namespace LayoutFarm.CefBridge.Auto
         /// /*cef()*/
         /// </summary>
 
-        public void AppendArgument(string argument
-        )
+        public void AppendArgument(string argument)
         {
             JsValue v1 = new JsValue();
             JsValue ret;
@@ -3648,8 +3601,7 @@ namespace LayoutFarm.CefBridge.Auto
         /// /*cef()*/
         /// </summary>
 
-        public void PrependWrapper(string wrapper
-        )
+        public void PrependWrapper(string wrapper)
         {
             JsValue v1 = new JsValue();
             JsValue ret;
@@ -3950,8 +3902,7 @@ namespace LayoutFarm.CefBridge.Auto
         /// /*cef()*/
         /// </summary>
 
-        public bool GetDictionarySuggestions(List<string> suggestions
-        )
+        public bool GetDictionarySuggestions(List<string> suggestions)
         {
             JsValue v1 = new JsValue();
             JsValue ret;
@@ -4077,9 +4028,8 @@ namespace LayoutFarm.CefBridge.Auto
         /// CefCookieManager methods.
         /// </summary>
 
-        public void SetSupportedSchemes(List<string> schemes
-        , CefCompletionCallback callback
-        )
+        public void SetSupportedSchemes(List<string> schemes,
+        CefCompletionCallback callback)
         {
             JsValue v1 = new JsValue();
             JsValue v2 = new JsValue();
@@ -4100,8 +4050,7 @@ namespace LayoutFarm.CefBridge.Auto
         /// /*cef()*/
         /// </summary>
 
-        public bool VisitAllCookies(CefCookieVisitor visitor
-        )
+        public bool VisitAllCookies(CefCookieVisitor visitor)
         {
             JsValue v1 = new JsValue();
             JsValue ret;
@@ -4122,10 +4071,9 @@ namespace LayoutFarm.CefBridge.Auto
         /// /*cef()*/
         /// </summary>
 
-        public bool VisitUrlCookies(string url
-        , bool includeHttpOnly
-        , CefCookieVisitor visitor
-        )
+        public bool VisitUrlCookies(string url,
+        bool includeHttpOnly,
+        CefCookieVisitor visitor)
         {
             JsValue v1 = new JsValue();
             JsValue v2 = new JsValue();
@@ -4154,10 +4102,9 @@ namespace LayoutFarm.CefBridge.Auto
         /// /*cef(optional_param=callback)*/
         /// </summary>
 
-        public bool SetCookie(string url
-        , CefCookie cookie
-        , CefSetCookieCallback callback
-        )
+        public bool SetCookie(string url,
+        CefCookie cookie,
+        CefSetCookieCallback callback)
         {
             JsValue v1 = new JsValue();
             JsValue v2 = new JsValue();
@@ -4188,10 +4135,9 @@ namespace LayoutFarm.CefBridge.Auto
         /// /*cef(optional_param=url,optional_param=cookie_name,optional_param=callback)*/
         /// </summary>
 
-        public bool DeleteCookies(string url
-        , string cookie_name
-        , CefDeleteCookiesCallback callback
-        )
+        public bool DeleteCookies(string url,
+        string cookie_name,
+        CefDeleteCookiesCallback callback)
         {
             JsValue v1 = new JsValue();
             JsValue v2 = new JsValue();
@@ -4223,10 +4169,9 @@ namespace LayoutFarm.CefBridge.Auto
         /// /*cef(optional_param=path,optional_param=callback)*/
         /// </summary>
 
-        public bool SetStoragePath(string path
-        , bool persist_session_cookies
-        , CefCompletionCallback callback
-        )
+        public bool SetStoragePath(string path,
+        bool persist_session_cookies,
+        CefCompletionCallback callback)
         {
             JsValue v1 = new JsValue();
             JsValue v2 = new JsValue();
@@ -4251,8 +4196,7 @@ namespace LayoutFarm.CefBridge.Auto
         /// /*cef(optional_param=callback)*/
         /// </summary>
 
-        public bool FlushStore(CefCompletionCallback callback
-        )
+        public bool FlushStore(CefCompletionCallback callback)
         {
             JsValue v1 = new JsValue();
             JsValue ret;
@@ -4427,8 +4371,7 @@ namespace LayoutFarm.CefBridge.Auto
         /// /*cef()*/
         /// </summary>
 
-        public CefDOMNode GetElementById(string id
-        )
+        public CefDOMNode GetElementById(string id)
         {
             JsValue v1 = new JsValue();
             JsValue ret;
@@ -4553,8 +4496,7 @@ namespace LayoutFarm.CefBridge.Auto
         /// /*cef()*/
         /// </summary>
 
-        public string GetCompleteURL(string partialURL
-        )
+        public string GetCompleteURL(string partialURL)
         {
             JsValue v1 = new JsValue();
             JsValue ret;
@@ -4713,8 +4655,7 @@ namespace LayoutFarm.CefBridge.Auto
         /// /*cef()*/
         /// </summary>
 
-        public bool IsSame(CefDOMNode that
-        )
+        public bool IsSame(CefDOMNode that)
         {
             JsValue v1 = new JsValue();
             JsValue ret;
@@ -4761,8 +4702,7 @@ namespace LayoutFarm.CefBridge.Auto
         /// /*cef()*/
         /// </summary>
 
-        public bool SetValue(string value
-        )
+        public bool SetValue(string value)
         {
             JsValue v1 = new JsValue();
             JsValue ret;
@@ -4932,8 +4872,7 @@ namespace LayoutFarm.CefBridge.Auto
         /// /*cef()*/
         /// </summary>
 
-        public bool HasElementAttribute(string attrName
-        )
+        public bool HasElementAttribute(string attrName)
         {
             JsValue v1 = new JsValue();
             JsValue ret;
@@ -4952,8 +4891,7 @@ namespace LayoutFarm.CefBridge.Auto
         /// /*cef()*/
         /// </summary>
 
-        public string GetElementAttribute(string attrName
-        )
+        public string GetElementAttribute(string attrName)
         {
             JsValue v1 = new JsValue();
             JsValue ret;
@@ -4972,8 +4910,7 @@ namespace LayoutFarm.CefBridge.Auto
         /// /*cef()*/
         /// </summary>
 
-        public void GetElementAttributes(AttributeMap attrMap
-        )
+        public void GetElementAttributes(AttributeMap attrMap)
         {
             JsValue v1 = new JsValue();
             JsValue ret;
@@ -4990,9 +4927,8 @@ namespace LayoutFarm.CefBridge.Auto
         /// /*cef()*/
         /// </summary>
 
-        public bool SetElementAttribute(string attrName
-        , string value
-        )
+        public bool SetElementAttribute(string attrName,
+        string value)
         {
             JsValue v1 = new JsValue();
             JsValue v2 = new JsValue();
@@ -5573,8 +5509,7 @@ namespace LayoutFarm.CefBridge.Auto
         /// /*cef(optional_param=writer)*/
         /// </summary>
 
-        public uint GetFileContents(CefStreamWriter writer
-        )
+        public uint GetFileContents(CefStreamWriter writer)
         {
             JsValue v1 = new JsValue();
             JsValue ret;
@@ -5592,8 +5527,7 @@ namespace LayoutFarm.CefBridge.Auto
         /// /*cef()*/
         /// </summary>
 
-        public bool GetFileNames(List<string> names
-        )
+        public bool GetFileNames(List<string> names)
         {
             JsValue v1 = new JsValue();
             JsValue ret;
@@ -5611,8 +5545,7 @@ namespace LayoutFarm.CefBridge.Auto
         /// /*cef(optional_param=url)*/
         /// </summary>
 
-        public void SetLinkURL(string url
-        )
+        public void SetLinkURL(string url)
         {
             JsValue v1 = new JsValue();
             JsValue ret;
@@ -5630,8 +5563,7 @@ namespace LayoutFarm.CefBridge.Auto
         /// /*cef(optional_param=title)*/
         /// </summary>
 
-        public void SetLinkTitle(string title
-        )
+        public void SetLinkTitle(string title)
         {
             JsValue v1 = new JsValue();
             JsValue ret;
@@ -5649,8 +5581,7 @@ namespace LayoutFarm.CefBridge.Auto
         /// /*cef(optional_param=data)*/
         /// </summary>
 
-        public void SetLinkMetadata(string data
-        )
+        public void SetLinkMetadata(string data)
         {
             JsValue v1 = new JsValue();
             JsValue ret;
@@ -5668,8 +5599,7 @@ namespace LayoutFarm.CefBridge.Auto
         /// /*cef(optional_param=text)*/
         /// </summary>
 
-        public void SetFragmentText(string text
-        )
+        public void SetFragmentText(string text)
         {
             JsValue v1 = new JsValue();
             JsValue ret;
@@ -5687,8 +5617,7 @@ namespace LayoutFarm.CefBridge.Auto
         /// /*cef(optional_param=html)*/
         /// </summary>
 
-        public void SetFragmentHtml(string html
-        )
+        public void SetFragmentHtml(string html)
         {
             JsValue v1 = new JsValue();
             JsValue ret;
@@ -5706,8 +5635,7 @@ namespace LayoutFarm.CefBridge.Auto
         /// /*cef(optional_param=base_url)*/
         /// </summary>
 
-        public void SetFragmentBaseURL(string base_url
-        )
+        public void SetFragmentBaseURL(string base_url)
         {
             JsValue v1 = new JsValue();
             JsValue ret;
@@ -5741,9 +5669,8 @@ namespace LayoutFarm.CefBridge.Auto
         /// /*cef(optional_param=display_name)*/
         /// </summary>
 
-        public void AddFile(string path
-        , string display_name
-        )
+        public void AddFile(string path,
+        string display_name)
         {
             JsValue v1 = new JsValue();
             JsValue v2 = new JsValue();
@@ -5990,8 +5917,7 @@ namespace LayoutFarm.CefBridge.Auto
         /// /*cef()*/
         /// </summary>
 
-        public void GetSource(CefStringVisitor visitor
-        )
+        public void GetSource(CefStringVisitor visitor)
         {
             JsValue v1 = new JsValue();
             JsValue ret;
@@ -6008,8 +5934,7 @@ namespace LayoutFarm.CefBridge.Auto
         /// /*cef()*/
         /// </summary>
 
-        public void GetText(CefStringVisitor visitor
-        )
+        public void GetText(CefStringVisitor visitor)
         {
             JsValue v1 = new JsValue();
             JsValue ret;
@@ -6025,8 +5950,7 @@ namespace LayoutFarm.CefBridge.Auto
         /// /*cef()*/
         /// </summary>
 
-        public void LoadRequest(CefRequest request
-        )
+        public void LoadRequest(CefRequest request)
         {
             JsValue v1 = new JsValue();
             JsValue ret;
@@ -6042,8 +5966,7 @@ namespace LayoutFarm.CefBridge.Auto
         /// /*cef()*/
         /// </summary>
 
-        public void LoadURL(string url
-        )
+        public void LoadURL(string url)
         {
             JsValue v1 = new JsValue();
             JsValue ret;
@@ -6063,9 +5986,8 @@ namespace LayoutFarm.CefBridge.Auto
         /// /*cef()*/
         /// </summary>
 
-        public void LoadString(string string_val
-        , string url
-        )
+        public void LoadString(string string_val,
+        string url)
         {
             JsValue v1 = new JsValue();
             JsValue v2 = new JsValue();
@@ -6091,10 +6013,9 @@ namespace LayoutFarm.CefBridge.Auto
         /// /*cef(optional_param=script_url)*/
         /// </summary>
 
-        public void ExecuteJavaScript(string code
-        , string script_url
-        , int start_line
-        )
+        public void ExecuteJavaScript(string code,
+        string script_url,
+        int start_line)
         {
             JsValue v1 = new JsValue();
             JsValue v2 = new JsValue();
@@ -6246,8 +6167,7 @@ namespace LayoutFarm.CefBridge.Auto
         /// /*cef()*/
         /// </summary>
 
-        public void VisitDOM(CefDOMVisitor visitor
-        )
+        public void VisitDOM(CefDOMVisitor visitor)
         {
             JsValue v1 = new JsValue();
             JsValue ret;
@@ -6318,8 +6238,7 @@ namespace LayoutFarm.CefBridge.Auto
         /// /*cef()*/
         /// </summary>
 
-        public bool IsSame(CefImage that
-        )
+        public bool IsSame(CefImage that)
         {
             JsValue v1 = new JsValue();
             JsValue ret;
@@ -6340,14 +6259,13 @@ namespace LayoutFarm.CefBridge.Auto
         /// /*cef()*/
         /// </summary>
 
-        public bool AddBitmap(float scale_factor
-        , int pixel_width
-        , int pixel_height
-        , cef_color_type_t color_type
-        , cef_alpha_type_t alpha_type
-        , IntPtr pixel_data
-        , uint pixel_data_size
-        )
+        public bool AddBitmap(float scale_factor,
+        int pixel_width,
+        int pixel_height,
+        cef_color_type_t color_type,
+        cef_alpha_type_t alpha_type,
+        IntPtr pixel_data,
+        uint pixel_data_size)
         {
             JsValue v1 = new JsValue();
             JsValue v2 = new JsValue();
@@ -6378,10 +6296,9 @@ namespace LayoutFarm.CefBridge.Auto
         /// /*cef()*/
         /// </summary>
 
-        public bool AddPNG(float scale_factor
-        , IntPtr png_data
-        , uint png_data_size
-        )
+        public bool AddPNG(float scale_factor,
+        IntPtr png_data,
+        uint png_data_size)
         {
             JsValue v1 = new JsValue();
             JsValue v2 = new JsValue();
@@ -6404,10 +6321,9 @@ namespace LayoutFarm.CefBridge.Auto
         /// /*cef()*/
         /// </summary>
 
-        public bool AddJPEG(float scale_factor
-        , IntPtr jpeg_data
-        , uint jpeg_data_size
-        )
+        public bool AddJPEG(float scale_factor,
+        IntPtr jpeg_data,
+        uint jpeg_data_size)
         {
             JsValue v1 = new JsValue();
             JsValue v2 = new JsValue();
@@ -6458,8 +6374,7 @@ namespace LayoutFarm.CefBridge.Auto
         /// /*cef()*/
         /// </summary>
 
-        public bool HasRepresentation(float scale_factor
-        )
+        public bool HasRepresentation(float scale_factor)
         {
             JsValue v1 = new JsValue();
             JsValue ret;
@@ -6476,8 +6391,7 @@ namespace LayoutFarm.CefBridge.Auto
         /// /*cef()*/
         /// </summary>
 
-        public bool RemoveRepresentation(float scale_factor
-        )
+        public bool RemoveRepresentation(float scale_factor)
         {
             JsValue v1 = new JsValue();
             JsValue ret;
@@ -6497,11 +6411,10 @@ namespace LayoutFarm.CefBridge.Auto
         /// /*cef()*/
         /// </summary>
 
-        public bool GetRepresentationInfo(float scale_factor
-        , ref float actual_scale_factor
-        , ref int pixel_width
-        , ref int pixel_height
-        )
+        public bool GetRepresentationInfo(float scale_factor,
+        ref float actual_scale_factor,
+        ref int pixel_width,
+        ref int pixel_height)
         {
             JsValue v1 = new JsValue();
             JsValue v2 = new JsValue();
@@ -6532,12 +6445,11 @@ namespace LayoutFarm.CefBridge.Auto
         /// /*cef()*/
         /// </summary>
 
-        public CefBinaryValue GetAsBitmap(float scale_factor
-        , cef_color_type_t color_type
-        , cef_alpha_type_t alpha_type
-        , ref int pixel_width
-        , ref int pixel_height
-        )
+        public CefBinaryValue GetAsBitmap(float scale_factor,
+        cef_color_type_t color_type,
+        cef_alpha_type_t alpha_type,
+        ref int pixel_width,
+        ref int pixel_height)
         {
             JsValue v1 = new JsValue();
             JsValue v2 = new JsValue();
@@ -6568,11 +6480,10 @@ namespace LayoutFarm.CefBridge.Auto
         /// /*cef()*/
         /// </summary>
 
-        public CefBinaryValue GetAsPNG(float scale_factor
-        , bool with_transparency
-        , ref int pixel_width
-        , ref int pixel_height
-        )
+        public CefBinaryValue GetAsPNG(float scale_factor,
+        bool with_transparency,
+        ref int pixel_width,
+        ref int pixel_height)
         {
             JsValue v1 = new JsValue();
             JsValue v2 = new JsValue();
@@ -6603,11 +6514,10 @@ namespace LayoutFarm.CefBridge.Auto
         /// /*cef()*/
         /// </summary>
 
-        public CefBinaryValue GetAsJPEG(float scale_factor
-        , int quality
-        , ref int pixel_width
-        , ref int pixel_height
-        )
+        public CefBinaryValue GetAsJPEG(float scale_factor,
+        int quality,
+        ref int pixel_width,
+        ref int pixel_height)
         {
             JsValue v1 = new JsValue();
             JsValue v2 = new JsValue();
@@ -6772,9 +6682,8 @@ namespace LayoutFarm.CefBridge.Auto
         /// /*cef()*/
         /// </summary>
 
-        public bool AddItem(int command_id
-        , string label
-        )
+        public bool AddItem(int command_id,
+        string label)
         {
             JsValue v1 = new JsValue();
             JsValue v2 = new JsValue();
@@ -6795,9 +6704,8 @@ namespace LayoutFarm.CefBridge.Auto
         /// /*cef()*/
         /// </summary>
 
-        public bool AddCheckItem(int command_id
-        , string label
-        )
+        public bool AddCheckItem(int command_id,
+        string label)
         {
             JsValue v1 = new JsValue();
             JsValue v2 = new JsValue();
@@ -6819,10 +6727,9 @@ namespace LayoutFarm.CefBridge.Auto
         /// /*cef()*/
         /// </summary>
 
-        public bool AddRadioItem(int command_id
-        , string label
-        , int group_id
-        )
+        public bool AddRadioItem(int command_id,
+        string label,
+        int group_id)
         {
             JsValue v1 = new JsValue();
             JsValue v2 = new JsValue();
@@ -6845,9 +6752,8 @@ namespace LayoutFarm.CefBridge.Auto
         /// /*cef()*/
         /// </summary>
 
-        public CefMenuModel AddSubMenu(int command_id
-        , string label
-        )
+        public CefMenuModel AddSubMenu(int command_id,
+        string label)
         {
             JsValue v1 = new JsValue();
             JsValue v2 = new JsValue();
@@ -6869,8 +6775,7 @@ namespace LayoutFarm.CefBridge.Auto
         /// /*cef()*/
         /// </summary>
 
-        public bool InsertSeparatorAt(int index
-        )
+        public bool InsertSeparatorAt(int index)
         {
             JsValue v1 = new JsValue();
             JsValue ret;
@@ -6888,10 +6793,9 @@ namespace LayoutFarm.CefBridge.Auto
         /// /*cef()*/
         /// </summary>
 
-        public bool InsertItemAt(int index
-        , int command_id
-        , string label
-        )
+        public bool InsertItemAt(int index,
+        int command_id,
+        string label)
         {
             JsValue v1 = new JsValue();
             JsValue v2 = new JsValue();
@@ -6915,10 +6819,9 @@ namespace LayoutFarm.CefBridge.Auto
         /// /*cef()*/
         /// </summary>
 
-        public bool InsertCheckItemAt(int index
-        , int command_id
-        , string label
-        )
+        public bool InsertCheckItemAt(int index,
+        int command_id,
+        string label)
         {
             JsValue v1 = new JsValue();
             JsValue v2 = new JsValue();
@@ -6943,11 +6846,10 @@ namespace LayoutFarm.CefBridge.Auto
         /// /*cef()*/
         /// </summary>
 
-        public bool InsertRadioItemAt(int index
-        , int command_id
-        , string label
-        , int group_id
-        )
+        public bool InsertRadioItemAt(int index,
+        int command_id,
+        string label,
+        int group_id)
         {
             JsValue v1 = new JsValue();
             JsValue v2 = new JsValue();
@@ -6973,10 +6875,9 @@ namespace LayoutFarm.CefBridge.Auto
         /// /*cef()*/
         /// </summary>
 
-        public CefMenuModel InsertSubMenuAt(int index
-        , int command_id
-        , string label
-        )
+        public CefMenuModel InsertSubMenuAt(int index,
+        int command_id,
+        string label)
         {
             JsValue v1 = new JsValue();
             JsValue v2 = new JsValue();
@@ -6999,8 +6900,7 @@ namespace LayoutFarm.CefBridge.Auto
         /// /*cef()*/
         /// </summary>
 
-        public bool Remove(int command_id
-        )
+        public bool Remove(int command_id)
         {
             JsValue v1 = new JsValue();
             JsValue ret;
@@ -7017,8 +6917,7 @@ namespace LayoutFarm.CefBridge.Auto
         /// /*cef()*/
         /// </summary>
 
-        public bool RemoveAt(int index
-        )
+        public bool RemoveAt(int index)
         {
             JsValue v1 = new JsValue();
             JsValue ret;
@@ -7036,8 +6935,7 @@ namespace LayoutFarm.CefBridge.Auto
         /// /*cef()*/
         /// </summary>
 
-        public int GetIndexOf(int command_id
-        )
+        public int GetIndexOf(int command_id)
         {
             JsValue v1 = new JsValue();
             JsValue ret;
@@ -7055,8 +6953,7 @@ namespace LayoutFarm.CefBridge.Auto
         /// /*cef()*/
         /// </summary>
 
-        public int GetCommandIdAt(int index
-        )
+        public int GetCommandIdAt(int index)
         {
             JsValue v1 = new JsValue();
             JsValue ret;
@@ -7073,9 +6970,8 @@ namespace LayoutFarm.CefBridge.Auto
         /// /*cef()*/
         /// </summary>
 
-        public bool SetCommandIdAt(int index
-        , int command_id
-        )
+        public bool SetCommandIdAt(int index,
+        int command_id)
         {
             JsValue v1 = new JsValue();
             JsValue v2 = new JsValue();
@@ -7094,8 +6990,7 @@ namespace LayoutFarm.CefBridge.Auto
         /// /*cef()*/
         /// </summary>
 
-        public string GetLabel(int command_id
-        )
+        public string GetLabel(int command_id)
         {
             JsValue v1 = new JsValue();
             JsValue ret;
@@ -7113,8 +7008,7 @@ namespace LayoutFarm.CefBridge.Auto
         /// /*cef()*/
         /// </summary>
 
-        public string GetLabelAt(int index
-        )
+        public string GetLabelAt(int index)
         {
             JsValue v1 = new JsValue();
             JsValue ret;
@@ -7131,9 +7025,8 @@ namespace LayoutFarm.CefBridge.Auto
         /// /*cef()*/
         /// </summary>
 
-        public bool SetLabel(int command_id
-        , string label
-        )
+        public bool SetLabel(int command_id,
+        string label)
         {
             JsValue v1 = new JsValue();
             JsValue v2 = new JsValue();
@@ -7154,9 +7047,8 @@ namespace LayoutFarm.CefBridge.Auto
         /// /*cef()*/
         /// </summary>
 
-        public bool SetLabelAt(int index
-        , string label
-        )
+        public bool SetLabelAt(int index,
+        string label)
         {
             JsValue v1 = new JsValue();
             JsValue v2 = new JsValue();
@@ -7177,8 +7069,7 @@ namespace LayoutFarm.CefBridge.Auto
         /// /*cef(default_retval=MENUITEMTYPE_NONE)*/
         /// </summary>
 
-        public cef_menu_item_type_t _GetType(int command_id
-        )
+        public cef_menu_item_type_t _GetType(int command_id)
         {
             JsValue v1 = new JsValue();
             JsValue ret;
@@ -7196,8 +7087,7 @@ namespace LayoutFarm.CefBridge.Auto
         /// /*cef(default_retval=MENUITEMTYPE_NONE)*/
         /// </summary>
 
-        public cef_menu_item_type_t GetTypeAt(int index
-        )
+        public cef_menu_item_type_t GetTypeAt(int index)
         {
             JsValue v1 = new JsValue();
             JsValue ret;
@@ -7215,8 +7105,7 @@ namespace LayoutFarm.CefBridge.Auto
         /// /*cef()*/
         /// </summary>
 
-        public int GetGroupId(int command_id
-        )
+        public int GetGroupId(int command_id)
         {
             JsValue v1 = new JsValue();
             JsValue ret;
@@ -7233,8 +7122,7 @@ namespace LayoutFarm.CefBridge.Auto
         /// /*cef()*/
         /// </summary>
 
-        public int GetGroupIdAt(int index
-        )
+        public int GetGroupIdAt(int index)
         {
             JsValue v1 = new JsValue();
             JsValue ret;
@@ -7251,9 +7139,8 @@ namespace LayoutFarm.CefBridge.Auto
         /// /*cef()*/
         /// </summary>
 
-        public bool SetGroupId(int command_id
-        , int group_id
-        )
+        public bool SetGroupId(int command_id,
+        int group_id)
         {
             JsValue v1 = new JsValue();
             JsValue v2 = new JsValue();
@@ -7272,9 +7159,8 @@ namespace LayoutFarm.CefBridge.Auto
         /// /*cef()*/
         /// </summary>
 
-        public bool SetGroupIdAt(int index
-        , int group_id
-        )
+        public bool SetGroupIdAt(int index,
+        int group_id)
         {
             JsValue v1 = new JsValue();
             JsValue v2 = new JsValue();
@@ -7293,8 +7179,7 @@ namespace LayoutFarm.CefBridge.Auto
         /// /*cef()*/
         /// </summary>
 
-        public CefMenuModel GetSubMenu(int command_id
-        )
+        public CefMenuModel GetSubMenu(int command_id)
         {
             JsValue v1 = new JsValue();
             JsValue ret;
@@ -7311,8 +7196,7 @@ namespace LayoutFarm.CefBridge.Auto
         /// /*cef()*/
         /// </summary>
 
-        public CefMenuModel GetSubMenuAt(int index
-        )
+        public CefMenuModel GetSubMenuAt(int index)
         {
             JsValue v1 = new JsValue();
             JsValue ret;
@@ -7329,8 +7213,7 @@ namespace LayoutFarm.CefBridge.Auto
         /// /*cef()*/
         /// </summary>
 
-        public bool IsVisible(int command_id
-        )
+        public bool IsVisible(int command_id)
         {
             JsValue v1 = new JsValue();
             JsValue ret;
@@ -7347,8 +7230,7 @@ namespace LayoutFarm.CefBridge.Auto
         /// /*cef()*/
         /// </summary>
 
-        public bool IsVisibleAt(int index
-        )
+        public bool IsVisibleAt(int index)
         {
             JsValue v1 = new JsValue();
             JsValue ret;
@@ -7366,9 +7248,8 @@ namespace LayoutFarm.CefBridge.Auto
         /// /*cef()*/
         /// </summary>
 
-        public bool SetVisible(int command_id
-        , bool visible
-        )
+        public bool SetVisible(int command_id,
+        bool visible)
         {
             JsValue v1 = new JsValue();
             JsValue v2 = new JsValue();
@@ -7387,9 +7268,8 @@ namespace LayoutFarm.CefBridge.Auto
         /// /*cef()*/
         /// </summary>
 
-        public bool SetVisibleAt(int index
-        , bool visible
-        )
+        public bool SetVisibleAt(int index,
+        bool visible)
         {
             JsValue v1 = new JsValue();
             JsValue v2 = new JsValue();
@@ -7408,8 +7288,7 @@ namespace LayoutFarm.CefBridge.Auto
         /// /*cef()*/
         /// </summary>
 
-        public bool IsEnabled(int command_id
-        )
+        public bool IsEnabled(int command_id)
         {
             JsValue v1 = new JsValue();
             JsValue ret;
@@ -7426,8 +7305,7 @@ namespace LayoutFarm.CefBridge.Auto
         /// /*cef()*/
         /// </summary>
 
-        public bool IsEnabledAt(int index
-        )
+        public bool IsEnabledAt(int index)
         {
             JsValue v1 = new JsValue();
             JsValue ret;
@@ -7445,9 +7323,8 @@ namespace LayoutFarm.CefBridge.Auto
         /// /*cef()*/
         /// </summary>
 
-        public bool SetEnabled(int command_id
-        , bool enabled
-        )
+        public bool SetEnabled(int command_id,
+        bool enabled)
         {
             JsValue v1 = new JsValue();
             JsValue v2 = new JsValue();
@@ -7467,9 +7344,8 @@ namespace LayoutFarm.CefBridge.Auto
         /// /*cef()*/
         /// </summary>
 
-        public bool SetEnabledAt(int index
-        , bool enabled
-        )
+        public bool SetEnabledAt(int index,
+        bool enabled)
         {
             JsValue v1 = new JsValue();
             JsValue v2 = new JsValue();
@@ -7489,8 +7365,7 @@ namespace LayoutFarm.CefBridge.Auto
         /// /*cef()*/
         /// </summary>
 
-        public bool IsChecked(int command_id
-        )
+        public bool IsChecked(int command_id)
         {
             JsValue v1 = new JsValue();
             JsValue ret;
@@ -7508,8 +7383,7 @@ namespace LayoutFarm.CefBridge.Auto
         /// /*cef()*/
         /// </summary>
 
-        public bool IsCheckedAt(int index
-        )
+        public bool IsCheckedAt(int index)
         {
             JsValue v1 = new JsValue();
             JsValue ret;
@@ -7527,9 +7401,8 @@ namespace LayoutFarm.CefBridge.Auto
         /// /*cef()*/
         /// </summary>
 
-        public bool SetChecked(int command_id
-        , bool _checked
-        )
+        public bool SetChecked(int command_id,
+        bool _checked)
         {
             JsValue v1 = new JsValue();
             JsValue v2 = new JsValue();
@@ -7549,9 +7422,8 @@ namespace LayoutFarm.CefBridge.Auto
         /// /*cef()*/
         /// </summary>
 
-        public bool SetCheckedAt(int index
-        , bool _checked
-        )
+        public bool SetCheckedAt(int index,
+        bool _checked)
         {
             JsValue v1 = new JsValue();
             JsValue v2 = new JsValue();
@@ -7571,8 +7443,7 @@ namespace LayoutFarm.CefBridge.Auto
         /// /*cef()*/
         /// </summary>
 
-        public bool HasAccelerator(int command_id
-        )
+        public bool HasAccelerator(int command_id)
         {
             JsValue v1 = new JsValue();
             JsValue ret;
@@ -7589,8 +7460,7 @@ namespace LayoutFarm.CefBridge.Auto
         /// /*cef()*/
         /// </summary>
 
-        public bool HasAcceleratorAt(int index
-        )
+        public bool HasAcceleratorAt(int index)
         {
             JsValue v1 = new JsValue();
             JsValue ret;
@@ -7608,12 +7478,11 @@ namespace LayoutFarm.CefBridge.Auto
         /// /*cef()*/
         /// </summary>
 
-        public bool SetAccelerator(int command_id
-        , int key_code
-        , bool shift_pressed
-        , bool ctrl_pressed
-        , bool alt_pressed
-        )
+        public bool SetAccelerator(int command_id,
+        int key_code,
+        bool shift_pressed,
+        bool ctrl_pressed,
+        bool alt_pressed)
         {
             JsValue v1 = new JsValue();
             JsValue v2 = new JsValue();
@@ -7639,12 +7508,11 @@ namespace LayoutFarm.CefBridge.Auto
         /// /*cef()*/
         /// </summary>
 
-        public bool SetAcceleratorAt(int index
-        , int key_code
-        , bool shift_pressed
-        , bool ctrl_pressed
-        , bool alt_pressed
-        )
+        public bool SetAcceleratorAt(int index,
+        int key_code,
+        bool shift_pressed,
+        bool ctrl_pressed,
+        bool alt_pressed)
         {
             JsValue v1 = new JsValue();
             JsValue v2 = new JsValue();
@@ -7670,8 +7538,7 @@ namespace LayoutFarm.CefBridge.Auto
         /// /*cef()*/
         /// </summary>
 
-        public bool RemoveAccelerator(int command_id
-        )
+        public bool RemoveAccelerator(int command_id)
         {
             JsValue v1 = new JsValue();
             JsValue ret;
@@ -7689,8 +7556,7 @@ namespace LayoutFarm.CefBridge.Auto
         /// /*cef()*/
         /// </summary>
 
-        public bool RemoveAcceleratorAt(int index
-        )
+        public bool RemoveAcceleratorAt(int index)
         {
             JsValue v1 = new JsValue();
             JsValue ret;
@@ -7708,12 +7574,11 @@ namespace LayoutFarm.CefBridge.Auto
         /// /*cef()*/
         /// </summary>
 
-        public bool GetAccelerator(int command_id
-        , ref int key_code
-        , ref bool shift_pressed
-        , ref bool ctrl_pressed
-        , ref bool alt_pressed
-        )
+        public bool GetAccelerator(int command_id,
+        ref int key_code,
+        ref bool shift_pressed,
+        ref bool ctrl_pressed,
+        ref bool alt_pressed)
         {
             JsValue v1 = new JsValue();
             JsValue v2 = new JsValue();
@@ -7743,12 +7608,11 @@ namespace LayoutFarm.CefBridge.Auto
         /// /*cef()*/
         /// </summary>
 
-        public bool GetAcceleratorAt(int index
-        , ref int key_code
-        , ref bool shift_pressed
-        , ref bool ctrl_pressed
-        , ref bool alt_pressed
-        )
+        public bool GetAcceleratorAt(int index,
+        ref int key_code,
+        ref bool shift_pressed,
+        ref bool ctrl_pressed,
+        ref bool alt_pressed)
         {
             JsValue v1 = new JsValue();
             JsValue v2 = new JsValue();
@@ -7780,10 +7644,9 @@ namespace LayoutFarm.CefBridge.Auto
         /// /*cef()*/
         /// </summary>
 
-        public bool SetColor(int command_id
-        , cef_menu_color_type_t color_type
-        , IntPtr color
-        )
+        public bool SetColor(int command_id,
+        cef_menu_color_type_t color_type,
+        IntPtr color)
         {
             JsValue v1 = new JsValue();
             JsValue v2 = new JsValue();
@@ -7808,10 +7671,9 @@ namespace LayoutFarm.CefBridge.Auto
         /// /*cef()*/
         /// </summary>
 
-        public bool SetColorAt(int index
-        , cef_menu_color_type_t color_type
-        , IntPtr color
-        )
+        public bool SetColorAt(int index,
+        cef_menu_color_type_t color_type,
+        IntPtr color)
         {
             JsValue v1 = new JsValue();
             JsValue v2 = new JsValue();
@@ -7834,10 +7696,9 @@ namespace LayoutFarm.CefBridge.Auto
         /// /*cef()*/
         /// </summary>
 
-        public bool GetColor(int command_id
-        , cef_menu_color_type_t color_type
-        , cef_color_t color
-        )
+        public bool GetColor(int command_id,
+        cef_menu_color_type_t color_type,
+        cef_color_t color)
         {
             JsValue v1 = new JsValue();
             JsValue v2 = new JsValue();
@@ -7861,10 +7722,9 @@ namespace LayoutFarm.CefBridge.Auto
         /// /*cef()*/
         /// </summary>
 
-        public bool GetColorAt(int index
-        , cef_menu_color_type_t color_type
-        , cef_color_t color
-        )
+        public bool GetColorAt(int index,
+        cef_menu_color_type_t color_type,
+        cef_color_t color)
         {
             JsValue v1 = new JsValue();
             JsValue v2 = new JsValue();
@@ -7895,9 +7755,8 @@ namespace LayoutFarm.CefBridge.Auto
         /// /*cef(optional_param=font_list)*/
         /// </summary>
 
-        public bool SetFontList(int command_id
-        , string font_list
-        )
+        public bool SetFontList(int command_id,
+        string font_list)
         {
             JsValue v1 = new JsValue();
             JsValue v2 = new JsValue();
@@ -7929,9 +7788,8 @@ namespace LayoutFarm.CefBridge.Auto
         /// /*cef(optional_param=font_list)*/
         /// </summary>
 
-        public bool SetFontListAt(int index
-        , string font_list
-        )
+        public bool SetFontListAt(int index,
+        string font_list)
         {
             JsValue v1 = new JsValue();
             JsValue v2 = new JsValue();
@@ -8255,8 +8113,7 @@ namespace LayoutFarm.CefBridge.Auto
         /// /*cef()*/
         /// </summary>
 
-        public void SetOrientation(bool landscape
-        )
+        public void SetOrientation(bool landscape)
         {
             JsValue v1 = new JsValue();
             JsValue ret;
@@ -8289,10 +8146,9 @@ namespace LayoutFarm.CefBridge.Auto
         /// /*cef()*/
         /// </summary>
 
-        public void SetPrinterPrintableArea(CefSize physical_size_device_units
-        , CefRect printable_area_device_units
-        , bool landscape_needs_flip
-        )
+        public void SetPrinterPrintableArea(CefSize physical_size_device_units,
+        CefRect printable_area_device_units,
+        bool landscape_needs_flip)
         {
             JsValue v1 = new JsValue();
             JsValue v2 = new JsValue();
@@ -8312,8 +8168,7 @@ namespace LayoutFarm.CefBridge.Auto
         /// /*cef(optional_param=name)*/
         /// </summary>
 
-        public void SetDeviceName(string name
-        )
+        public void SetDeviceName(string name)
         {
             JsValue v1 = new JsValue();
             JsValue ret;
@@ -8346,8 +8201,7 @@ namespace LayoutFarm.CefBridge.Auto
         /// /*cef()*/
         /// </summary>
 
-        public void SetDPI(int dpi
-        )
+        public void SetDPI(int dpi)
         {
             JsValue v1 = new JsValue();
             JsValue ret;
@@ -8378,8 +8232,7 @@ namespace LayoutFarm.CefBridge.Auto
         /// /*cef()*/
         /// </summary>
 
-        public void SetPageRanges(PageRangeList ranges
-        )
+        public void SetPageRanges(PageRangeList ranges)
         {
             JsValue v1 = new JsValue();
             JsValue ret;
@@ -8410,8 +8263,7 @@ namespace LayoutFarm.CefBridge.Auto
         /// /*cef(count_func=ranges:GetPageRangesCount)*/
         /// </summary>
 
-        public void GetPageRanges(PageRangeList ranges
-        )
+        public void GetPageRanges(PageRangeList ranges)
         {
             JsValue v1 = new JsValue();
             JsValue ret;
@@ -8427,8 +8279,7 @@ namespace LayoutFarm.CefBridge.Auto
         /// /*cef()*/
         /// </summary>
 
-        public void SetSelectionOnly(bool selection_only
-        )
+        public void SetSelectionOnly(bool selection_only)
         {
             JsValue v1 = new JsValue();
             JsValue ret;
@@ -8459,8 +8310,7 @@ namespace LayoutFarm.CefBridge.Auto
         /// /*cef()*/
         /// </summary>
 
-        public void SetCollate(bool collate
-        )
+        public void SetCollate(bool collate)
         {
             JsValue v1 = new JsValue();
             JsValue ret;
@@ -8491,8 +8341,7 @@ namespace LayoutFarm.CefBridge.Auto
         /// /*cef()*/
         /// </summary>
 
-        public void SetColorModel(cef_color_model_t model
-        )
+        public void SetColorModel(cef_color_model_t model)
         {
             JsValue v1 = new JsValue();
             JsValue ret;
@@ -8524,8 +8373,7 @@ namespace LayoutFarm.CefBridge.Auto
         /// /*cef()*/
         /// </summary>
 
-        public void SetCopies(int copies
-        )
+        public void SetCopies(int copies)
         {
             JsValue v1 = new JsValue();
             JsValue ret;
@@ -8556,8 +8404,7 @@ namespace LayoutFarm.CefBridge.Auto
         /// /*cef()*/
         /// </summary>
 
-        public void SetDuplexMode(cef_duplex_mode_t mode
-        )
+        public void SetDuplexMode(cef_duplex_mode_t mode)
         {
             JsValue v1 = new JsValue();
             JsValue ret;
@@ -8763,8 +8610,7 @@ namespace LayoutFarm.CefBridge.Auto
         /// /*cef()*/
         /// </summary>
 
-        public void SetURL(string url
-        )
+        public void SetURL(string url)
         {
             JsValue v1 = new JsValue();
             JsValue ret;
@@ -8798,8 +8644,7 @@ namespace LayoutFarm.CefBridge.Auto
         /// /*cef()*/
         /// </summary>
 
-        public void SetMethod(string method
-        )
+        public void SetMethod(string method)
         {
             JsValue v1 = new JsValue();
             JsValue ret;
@@ -8819,9 +8664,8 @@ namespace LayoutFarm.CefBridge.Auto
         /// /*cef()*/
         /// </summary>
 
-        public void SetReferrer(string referrer_url
-        , cef_referrer_policy_t policy
-        )
+        public void SetReferrer(string referrer_url,
+        cef_referrer_policy_t policy)
         {
             JsValue v1 = new JsValue();
             JsValue v2 = new JsValue();
@@ -8887,8 +8731,7 @@ namespace LayoutFarm.CefBridge.Auto
         /// /*cef()*/
         /// </summary>
 
-        public void SetPostData(CefPostData postData
-        )
+        public void SetPostData(CefPostData postData)
         {
             JsValue v1 = new JsValue();
             JsValue ret;
@@ -8904,8 +8747,7 @@ namespace LayoutFarm.CefBridge.Auto
         /// /*cef()*/
         /// </summary>
 
-        public void GetHeaderMap(HeaderMap headerMap
-        )
+        public void GetHeaderMap(HeaderMap headerMap)
         {
             JsValue v1 = new JsValue();
             JsValue ret;
@@ -8922,8 +8764,7 @@ namespace LayoutFarm.CefBridge.Auto
         /// /*cef()*/
         /// </summary>
 
-        public void SetHeaderMap(HeaderMap headerMap
-        )
+        public void SetHeaderMap(HeaderMap headerMap)
         {
             JsValue v1 = new JsValue();
             JsValue ret;
@@ -8939,11 +8780,10 @@ namespace LayoutFarm.CefBridge.Auto
         /// /*cef(optional_param=postData)*/
         /// </summary>
 
-        public void Set(string url
-        , string method
-        , CefPostData postData
-        , HeaderMap headerMap
-        )
+        public void Set(string url,
+        string method,
+        CefPostData postData,
+        HeaderMap headerMap)
         {
             JsValue v1 = new JsValue();
             JsValue v2 = new JsValue();
@@ -8986,8 +8826,7 @@ namespace LayoutFarm.CefBridge.Auto
         /// /*cef()*/
         /// </summary>
 
-        public void SetFlags(int flags
-        )
+        public void SetFlags(int flags)
         {
             JsValue v1 = new JsValue();
             JsValue ret;
@@ -9020,8 +8859,7 @@ namespace LayoutFarm.CefBridge.Auto
         /// /*cef()*/
         /// </summary>
 
-        public void SetFirstPartyForCookies(string url
-        )
+        public void SetFirstPartyForCookies(string url)
         {
             JsValue v1 = new JsValue();
             JsValue ret;
@@ -9168,8 +9006,7 @@ namespace LayoutFarm.CefBridge.Auto
         /// /*cef(count_func=elements:GetElementCount)*/
         /// </summary>
 
-        public void GetElements(ElementVector elements
-        )
+        public void GetElements(ElementVector elements)
         {
             JsValue v1 = new JsValue();
             JsValue ret;
@@ -9186,8 +9023,7 @@ namespace LayoutFarm.CefBridge.Auto
         /// /*cef()*/
         /// </summary>
 
-        public bool RemoveElement(CefPostDataElement element
-        )
+        public bool RemoveElement(CefPostDataElement element)
         {
             JsValue v1 = new JsValue();
             JsValue ret;
@@ -9204,8 +9040,7 @@ namespace LayoutFarm.CefBridge.Auto
         /// /*cef()*/
         /// </summary>
 
-        public bool AddElement(CefPostDataElement element
-        )
+        public bool AddElement(CefPostDataElement element)
         {
             JsValue v1 = new JsValue();
             JsValue ret;
@@ -9295,8 +9130,7 @@ namespace LayoutFarm.CefBridge.Auto
         /// /*cef()*/
         /// </summary>
 
-        public void SetToFile(string fileName
-        )
+        public void SetToFile(string fileName)
         {
             JsValue v1 = new JsValue();
             JsValue ret;
@@ -9315,9 +9149,8 @@ namespace LayoutFarm.CefBridge.Auto
         /// /*cef()*/
         /// </summary>
 
-        public void SetToBytes(uint size
-        , IntPtr bytes
-        )
+        public void SetToBytes(uint size,
+        IntPtr bytes)
         {
             JsValue v1 = new JsValue();
             JsValue v2 = new JsValue();
@@ -9382,9 +9215,8 @@ namespace LayoutFarm.CefBridge.Auto
         /// /*cef()*/
         /// </summary>
 
-        public uint GetBytes(uint size
-        , IntPtr bytes
-        )
+        public uint GetBytes(uint size,
+        IntPtr bytes)
         {
             JsValue v1 = new JsValue();
             JsValue v2 = new JsValue();
@@ -9455,8 +9287,7 @@ namespace LayoutFarm.CefBridge.Auto
         /// CefRequestContext methods.
         /// </summary>
 
-        public bool IsSame(CefRequestContext other
-        )
+        public bool IsSame(CefRequestContext other)
         {
             JsValue v1 = new JsValue();
             JsValue ret;
@@ -9473,8 +9304,7 @@ namespace LayoutFarm.CefBridge.Auto
         /// /*cef()*/
         /// </summary>
 
-        public bool IsSharingWith(CefRequestContext other
-        )
+        public bool IsSharingWith(CefRequestContext other)
         {
             JsValue v1 = new JsValue();
             JsValue ret;
@@ -9544,8 +9374,7 @@ namespace LayoutFarm.CefBridge.Auto
         /// /*cef(optional_param=callback)*/
         /// </summary>
 
-        public CefCookieManager GetDefaultCookieManager(CefCompletionCallback callback
-        )
+        public CefCookieManager GetDefaultCookieManager(CefCompletionCallback callback)
         {
             JsValue v1 = new JsValue();
             JsValue ret;
@@ -9572,10 +9401,9 @@ namespace LayoutFarm.CefBridge.Auto
         /// /*cef(optional_param=domain_name,optional_param=factory)*/
         /// </summary>
 
-        public bool RegisterSchemeHandlerFactory(string scheme_name
-        , string domain_name
-        , CefSchemeHandlerFactory factory
-        )
+        public bool RegisterSchemeHandlerFactory(string scheme_name,
+        string domain_name,
+        CefSchemeHandlerFactory factory)
         {
             JsValue v1 = new JsValue();
             JsValue v2 = new JsValue();
@@ -9619,8 +9447,7 @@ namespace LayoutFarm.CefBridge.Auto
         /// /*cef()*/
         /// </summary>
 
-        public void PurgePluginListCache(bool reload_pages
-        )
+        public void PurgePluginListCache(bool reload_pages)
         {
             JsValue v1 = new JsValue();
             JsValue ret;
@@ -9637,8 +9464,7 @@ namespace LayoutFarm.CefBridge.Auto
         /// /*cef()*/
         /// </summary>
 
-        public bool HasPreference(string name
-        )
+        public bool HasPreference(string name)
         {
             JsValue v1 = new JsValue();
             JsValue ret;
@@ -9661,8 +9487,7 @@ namespace LayoutFarm.CefBridge.Auto
         /// /*cef()*/
         /// </summary>
 
-        public CefValue GetPreference(string name
-        )
+        public CefValue GetPreference(string name)
         {
             JsValue v1 = new JsValue();
             JsValue ret;
@@ -9686,8 +9511,7 @@ namespace LayoutFarm.CefBridge.Auto
         /// /*cef()*/
         /// </summary>
 
-        public CefDictionaryValue GetAllPreferences(bool include_defaults
-        )
+        public CefDictionaryValue GetAllPreferences(bool include_defaults)
         {
             JsValue v1 = new JsValue();
             JsValue ret;
@@ -9707,8 +9531,7 @@ namespace LayoutFarm.CefBridge.Auto
         /// /*cef()*/
         /// </summary>
 
-        public bool CanSetPreference(string name
-        )
+        public bool CanSetPreference(string name)
         {
             JsValue v1 = new JsValue();
             JsValue ret;
@@ -9731,10 +9554,9 @@ namespace LayoutFarm.CefBridge.Auto
         /// /*cef(optional_param=value)*/
         /// </summary>
 
-        public bool SetPreference(string name
-        , CefValue value
-        , string error
-        )
+        public bool SetPreference(string name,
+        CefValue value,
+        string error)
         {
             JsValue v1 = new JsValue();
             JsValue v2 = new JsValue();
@@ -9764,8 +9586,7 @@ namespace LayoutFarm.CefBridge.Auto
         /// /*cef(optional_param=callback)*/
         /// </summary>
 
-        public void ClearCertificateExceptions(CefCompletionCallback callback
-        )
+        public void ClearCertificateExceptions(CefCompletionCallback callback)
         {
             JsValue v1 = new JsValue();
             JsValue ret;
@@ -9784,8 +9605,7 @@ namespace LayoutFarm.CefBridge.Auto
         /// /*cef(optional_param=callback)*/
         /// </summary>
 
-        public void CloseAllConnections(CefCompletionCallback callback
-        )
+        public void CloseAllConnections(CefCompletionCallback callback)
         {
             JsValue v1 = new JsValue();
             JsValue ret;
@@ -9802,9 +9622,8 @@ namespace LayoutFarm.CefBridge.Auto
         /// /*cef()*/
         /// </summary>
 
-        public void ResolveHost(string origin
-        , CefResolveCallback callback
-        )
+        public void ResolveHost(string origin,
+        CefResolveCallback callback)
         {
             JsValue v1 = new JsValue();
             JsValue v2 = new JsValue();
@@ -9827,9 +9646,8 @@ namespace LayoutFarm.CefBridge.Auto
         /// /*cef(default_retval=ERR_FAILED)*/
         /// </summary>
 
-        public cef_errorcode_t ResolveHostCached(string origin
-        , List<string> resolved_ips
-        )
+        public cef_errorcode_t ResolveHostCached(string origin,
+        List<string> resolved_ips)
         {
             JsValue v1 = new JsValue();
             JsValue v2 = new JsValue();
@@ -9880,8 +9698,7 @@ namespace LayoutFarm.CefBridge.Auto
         /// CefResourceBundle methods.
         /// </summary>
 
-        public string GetLocalizedString(int string_id
-        )
+        public string GetLocalizedString(int string_id)
         {
             JsValue v1 = new JsValue();
             JsValue ret;
@@ -9903,10 +9720,9 @@ namespace LayoutFarm.CefBridge.Auto
         /// /*cef()*/
         /// </summary>
 
-        public bool GetDataResource(int resource_id
-        , IntPtr data
-        , ref uint data_size
-        )
+        public bool GetDataResource(int resource_id,
+        IntPtr data,
+        ref uint data_size)
         {
             JsValue v1 = new JsValue();
             JsValue v2 = new JsValue();
@@ -9936,11 +9752,10 @@ namespace LayoutFarm.CefBridge.Auto
         /// /*cef()*/
         /// </summary>
 
-        public bool GetDataResourceForScale(int resource_id
-        , cef_scale_factor_t scale_factor
-        , IntPtr data
-        , ref uint data_size
-        )
+        public bool GetDataResourceForScale(int resource_id,
+        cef_scale_factor_t scale_factor,
+        IntPtr data,
+        ref uint data_size)
         {
             JsValue v1 = new JsValue();
             JsValue v2 = new JsValue();
@@ -10031,8 +9846,7 @@ namespace LayoutFarm.CefBridge.Auto
         /// /*cef()*/
         /// </summary>
 
-        public void SetError(cef_errorcode_t error
-        )
+        public void SetError(cef_errorcode_t error)
         {
             JsValue v1 = new JsValue();
             JsValue ret;
@@ -10063,8 +9877,7 @@ namespace LayoutFarm.CefBridge.Auto
         /// /*cef()*/
         /// </summary>
 
-        public void SetStatus(int status
-        )
+        public void SetStatus(int status)
         {
             JsValue v1 = new JsValue();
             JsValue ret;
@@ -10095,8 +9908,7 @@ namespace LayoutFarm.CefBridge.Auto
         /// /*cef()*/
         /// </summary>
 
-        public void SetStatusText(string statusText
-        )
+        public void SetStatusText(string statusText)
         {
             JsValue v1 = new JsValue();
             JsValue ret;
@@ -10129,8 +9941,7 @@ namespace LayoutFarm.CefBridge.Auto
         /// /*cef()*/
         /// </summary>
 
-        public void SetMimeType(string mimeType
-        )
+        public void SetMimeType(string mimeType)
         {
             JsValue v1 = new JsValue();
             JsValue ret;
@@ -10148,8 +9959,7 @@ namespace LayoutFarm.CefBridge.Auto
         /// /*cef()*/
         /// </summary>
 
-        public string GetHeader(string name
-        )
+        public string GetHeader(string name)
         {
             JsValue v1 = new JsValue();
             JsValue ret;
@@ -10168,8 +9978,7 @@ namespace LayoutFarm.CefBridge.Auto
         /// /*cef()*/
         /// </summary>
 
-        public void GetHeaderMap(HeaderMap headerMap
-        )
+        public void GetHeaderMap(HeaderMap headerMap)
         {
             JsValue v1 = new JsValue();
             JsValue ret;
@@ -10185,8 +9994,7 @@ namespace LayoutFarm.CefBridge.Auto
         /// /*cef()*/
         /// </summary>
 
-        public void SetHeaderMap(HeaderMap headerMap
-        )
+        public void SetHeaderMap(HeaderMap headerMap)
         {
             JsValue v1 = new JsValue();
             JsValue ret;
@@ -10434,10 +10242,9 @@ namespace LayoutFarm.CefBridge.Auto
         /// CefStreamReader methods.
         /// </summary>
 
-        public uint Read(IntPtr ptr
-        , uint size
-        , uint n
-        )
+        public uint Read(IntPtr ptr,
+        uint size,
+        uint n)
         {
             JsValue v1 = new JsValue();
             JsValue v2 = new JsValue();
@@ -10460,9 +10267,8 @@ namespace LayoutFarm.CefBridge.Auto
         /// /*cef()*/
         /// </summary>
 
-        public int Seek(long offset
-        , int whence
-        )
+        public int Seek(long offset,
+        int whence)
         {
             JsValue v1 = new JsValue();
             JsValue v2 = new JsValue();
@@ -10555,10 +10361,9 @@ namespace LayoutFarm.CefBridge.Auto
         /// CefStreamWriter methods.
         /// </summary>
 
-        public uint Write(IntPtr ptr
-        , uint size
-        , uint n
-        )
+        public uint Write(IntPtr ptr,
+        uint size,
+        uint n)
         {
             JsValue v1 = new JsValue();
             JsValue v2 = new JsValue();
@@ -10581,9 +10386,8 @@ namespace LayoutFarm.CefBridge.Auto
         /// /*cef()*/
         /// </summary>
 
-        public int Seek(long offset
-        , int whence
-        )
+        public int Seek(long offset,
+        int whence)
         {
             JsValue v1 = new JsValue();
             JsValue v2 = new JsValue();
@@ -10730,8 +10534,7 @@ namespace LayoutFarm.CefBridge.Auto
         /// CefTaskRunner methods.
         /// </summary>
 
-        public bool IsSame(CefTaskRunner that
-        )
+        public bool IsSame(CefTaskRunner that)
         {
             JsValue v1 = new JsValue();
             JsValue ret;
@@ -10763,8 +10566,7 @@ namespace LayoutFarm.CefBridge.Auto
         /// /*cef()*/
         /// </summary>
 
-        public bool BelongsToThread(cef_thread_id_t threadId
-        )
+        public bool BelongsToThread(cef_thread_id_t threadId)
         {
             JsValue v1 = new JsValue();
             JsValue ret;
@@ -10782,8 +10584,7 @@ namespace LayoutFarm.CefBridge.Auto
         /// /*cef()*/
         /// </summary>
 
-        public bool PostTask(CefTask task
-        )
+        public bool PostTask(CefTask task)
         {
             JsValue v1 = new JsValue();
             JsValue ret;
@@ -10803,9 +10604,8 @@ namespace LayoutFarm.CefBridge.Auto
         /// /*cef()*/
         /// </summary>
 
-        public bool PostDelayedTask(CefTask task
-        , long delay_ms
-        )
+        public bool PostDelayedTask(CefTask task,
+        long delay_ms)
         {
             JsValue v1 = new JsValue();
             JsValue v2 = new JsValue();
@@ -11123,8 +10923,7 @@ namespace LayoutFarm.CefBridge.Auto
         /// /*cef()*/
         /// </summary>
 
-        public bool IsSame(CefV8Context that
-        )
+        public bool IsSame(CefV8Context that)
         {
             JsValue v1 = new JsValue();
             JsValue ret;
@@ -11146,12 +10945,11 @@ namespace LayoutFarm.CefBridge.Auto
         /// /*cef(optional_param=script_url)*/
         /// </summary>
 
-        public bool Eval(string code
-        , string script_url
-        , int start_line
-        , IntPtr retval
-        , IntPtr exception
-        )
+        public bool Eval(string code,
+        string script_url,
+        int start_line,
+        IntPtr retval,
+        IntPtr exception)
         {
             JsValue v1 = new JsValue();
             JsValue v2 = new JsValue();
@@ -11639,8 +11437,7 @@ namespace LayoutFarm.CefBridge.Auto
         /// /*cef()*/
         /// </summary>
 
-        public bool IsSame(CefV8Value that
-        )
+        public bool IsSame(CefV8Value that)
         {
             JsValue v1 = new JsValue();
             JsValue ret;
@@ -11833,8 +11630,7 @@ namespace LayoutFarm.CefBridge.Auto
         /// /*cef()*/
         /// </summary>
 
-        public bool SetRethrowExceptions(bool rethrow
-        )
+        public bool SetRethrowExceptions(bool rethrow)
         {
             JsValue v1 = new JsValue();
             JsValue ret;
@@ -11847,8 +11643,7 @@ namespace LayoutFarm.CefBridge.Auto
 
         // gen! bool HasValue(const CefString& key)
 
-        public bool HasValue(string key
-        )
+        public bool HasValue(string key)
         {
             JsValue v1 = new JsValue();
             JsValue ret;
@@ -11863,8 +11658,7 @@ namespace LayoutFarm.CefBridge.Auto
 
         // gen! bool HasValue(int index)
 
-        public bool HasValue(int index
-        )
+        public bool HasValue(int index)
         {
             JsValue v1 = new JsValue();
             JsValue ret;
@@ -11877,8 +11671,7 @@ namespace LayoutFarm.CefBridge.Auto
 
         // gen! bool DeleteValue(const CefString& key)
 
-        public bool DeleteValue(string key
-        )
+        public bool DeleteValue(string key)
         {
             JsValue v1 = new JsValue();
             JsValue ret;
@@ -11893,8 +11686,7 @@ namespace LayoutFarm.CefBridge.Auto
 
         // gen! bool DeleteValue(int index)
 
-        public bool DeleteValue(int index
-        )
+        public bool DeleteValue(int index)
         {
             JsValue v1 = new JsValue();
             JsValue ret;
@@ -11907,8 +11699,7 @@ namespace LayoutFarm.CefBridge.Auto
 
         // gen! CefRefPtr<CefV8Value> GetValue(const CefString& key)
 
-        public CefV8Value GetValue(string key
-        )
+        public CefV8Value GetValue(string key)
         {
             JsValue v1 = new JsValue();
             JsValue ret;
@@ -11923,8 +11714,7 @@ namespace LayoutFarm.CefBridge.Auto
 
         // gen! CefRefPtr<CefV8Value> GetValue(int index)
 
-        public CefV8Value GetValue(int index
-        )
+        public CefV8Value GetValue(int index)
         {
             JsValue v1 = new JsValue();
             JsValue ret;
@@ -11937,10 +11727,9 @@ namespace LayoutFarm.CefBridge.Auto
 
         // gen! bool SetValue(const CefString& key,CefRefPtr<CefV8Value> value,PropertyAttribute attribute)
 
-        public bool SetValue(string key
-        , CefV8Value value
-        , cef_v8_propertyattribute_t attribute
-        )
+        public bool SetValue(string key,
+        CefV8Value value,
+        cef_v8_propertyattribute_t attribute)
         {
             JsValue v1 = new JsValue();
             JsValue v2 = new JsValue();
@@ -11959,9 +11748,8 @@ namespace LayoutFarm.CefBridge.Auto
 
         // gen! bool SetValue(int index,CefRefPtr<CefV8Value> value)
 
-        public bool SetValue(int index
-        , CefV8Value value
-        )
+        public bool SetValue(int index,
+        CefV8Value value)
         {
             JsValue v1 = new JsValue();
             JsValue v2 = new JsValue();
@@ -11976,10 +11764,9 @@ namespace LayoutFarm.CefBridge.Auto
 
         // gen! bool SetValue(const CefString& key,AccessControl settings,PropertyAttribute attribute)
 
-        public bool SetValue(string key
-        , cef_v8_accesscontrol_t settings
-        , cef_v8_propertyattribute_t attribute
-        )
+        public bool SetValue(string key,
+        cef_v8_accesscontrol_t settings,
+        cef_v8_propertyattribute_t attribute)
         {
             JsValue v1 = new JsValue();
             JsValue v2 = new JsValue();
@@ -12003,8 +11790,7 @@ namespace LayoutFarm.CefBridge.Auto
         /// /*cef()*/
         /// </summary>
 
-        public bool GetKeys(List<string> keys
-        )
+        public bool GetKeys(List<string> keys)
         {
             JsValue v1 = new JsValue();
             JsValue ret;
@@ -12024,12 +11810,11 @@ namespace LayoutFarm.CefBridge.Auto
         /// /*cef(optional_param=user_data)*/
         /// </summary>
 
-        public bool SetUserData(CefBaseRefCounted user_data
-        )
+        public bool SetUserData(CefBaseRefCounted user_data)
         {
             JsValue v1 = new JsValue();
             JsValue ret;
-            //v1.Ptr = user_data;
+            v1.Ptr = user_data.nativePtr;
 
             Cef3Binder.MyCefMet_Call1(this.nativePtr, CefV8Value_SetUserData_36, out ret, ref v1);
             var ret_result = ret.I32 != 0;
@@ -12081,8 +11866,7 @@ namespace LayoutFarm.CefBridge.Auto
         /// /*cef()*/
         /// </summary>
 
-        public int AdjustExternallyAllocatedMemory(int change_in_bytes
-        )
+        public int AdjustExternallyAllocatedMemory(int change_in_bytes)
         {
             JsValue v1 = new JsValue();
             JsValue ret;
@@ -12153,9 +11937,8 @@ namespace LayoutFarm.CefBridge.Auto
         /// /*cef(optional_param=object)*/
         /// </summary>
 
-        public CefV8Value ExecuteFunction(CefV8Value _object
-        , CefV8ValueList arguments
-        )
+        public CefV8Value ExecuteFunction(CefV8Value _object,
+        CefV8ValueList arguments)
         {
             JsValue v1 = new JsValue();
             JsValue v2 = new JsValue();
@@ -12179,10 +11962,9 @@ namespace LayoutFarm.CefBridge.Auto
         /// /*cef(optional_param=object)*/
         /// </summary>
 
-        public CefV8Value ExecuteFunctionWithContext(CefV8Context context
-        , CefV8Value _object
-        , CefV8ValueList arguments
-        )
+        public CefV8Value ExecuteFunctionWithContext(CefV8Context context,
+        CefV8Value _object,
+        CefV8ValueList arguments)
         {
             JsValue v1 = new JsValue();
             JsValue v2 = new JsValue();
@@ -12261,8 +12043,7 @@ namespace LayoutFarm.CefBridge.Auto
         /// /*cef()*/
         /// </summary>
 
-        public CefV8StackFrame GetFrame(int index
-        )
+        public CefV8StackFrame GetFrame(int index)
         {
             JsValue v1 = new JsValue();
             JsValue ret;
@@ -12528,8 +12309,7 @@ namespace LayoutFarm.CefBridge.Auto
         /// /*cef()*/
         /// </summary>
 
-        public bool IsSame(CefValue that
-        )
+        public bool IsSame(CefValue that)
         {
             JsValue v1 = new JsValue();
             JsValue ret;
@@ -12547,8 +12327,7 @@ namespace LayoutFarm.CefBridge.Auto
         /// /*cef()*/
         /// </summary>
 
-        public bool IsEqual(CefValue that
-        )
+        public bool IsEqual(CefValue that)
         {
             JsValue v1 = new JsValue();
             JsValue ret;
@@ -12733,8 +12512,7 @@ namespace LayoutFarm.CefBridge.Auto
         /// /*cef()*/
         /// </summary>
 
-        public bool SetBool(bool value
-        )
+        public bool SetBool(bool value)
         {
             JsValue v1 = new JsValue();
             JsValue ret;
@@ -12752,8 +12530,7 @@ namespace LayoutFarm.CefBridge.Auto
         /// /*cef()*/
         /// </summary>
 
-        public bool SetInt(int value
-        )
+        public bool SetInt(int value)
         {
             JsValue v1 = new JsValue();
             JsValue ret;
@@ -12771,8 +12548,7 @@ namespace LayoutFarm.CefBridge.Auto
         /// /*cef()*/
         /// </summary>
 
-        public bool SetDouble(double value
-        )
+        public bool SetDouble(double value)
         {
             JsValue v1 = new JsValue();
             JsValue ret;
@@ -12790,8 +12566,7 @@ namespace LayoutFarm.CefBridge.Auto
         /// /*cef(optional_param=value)*/
         /// </summary>
 
-        public bool SetString(string value
-        )
+        public bool SetString(string value)
         {
             JsValue v1 = new JsValue();
             JsValue ret;
@@ -12812,8 +12587,7 @@ namespace LayoutFarm.CefBridge.Auto
         /// /*cef()*/
         /// </summary>
 
-        public bool SetBinary(CefBinaryValue value
-        )
+        public bool SetBinary(CefBinaryValue value)
         {
             JsValue v1 = new JsValue();
             JsValue ret;
@@ -12832,8 +12606,7 @@ namespace LayoutFarm.CefBridge.Auto
         /// /*cef()*/
         /// </summary>
 
-        public bool SetDictionary(CefDictionaryValue value
-        )
+        public bool SetDictionary(CefDictionaryValue value)
         {
             JsValue v1 = new JsValue();
             JsValue ret;
@@ -12852,8 +12625,7 @@ namespace LayoutFarm.CefBridge.Auto
         /// /*cef()*/
         /// </summary>
 
-        public bool SetList(CefListValue value
-        )
+        public bool SetList(CefListValue value)
         {
             JsValue v1 = new JsValue();
             JsValue ret;
@@ -12929,8 +12701,7 @@ namespace LayoutFarm.CefBridge.Auto
         /// /*cef()*/
         /// </summary>
 
-        public bool IsSame(CefBinaryValue that
-        )
+        public bool IsSame(CefBinaryValue that)
         {
             JsValue v1 = new JsValue();
             JsValue ret;
@@ -12948,8 +12719,7 @@ namespace LayoutFarm.CefBridge.Auto
         /// /*cef()*/
         /// </summary>
 
-        public bool IsEqual(CefBinaryValue that
-        )
+        public bool IsEqual(CefBinaryValue that)
         {
             JsValue v1 = new JsValue();
             JsValue ret;
@@ -12997,10 +12767,9 @@ namespace LayoutFarm.CefBridge.Auto
         /// /*cef()*/
         /// </summary>
 
-        public uint GetData(IntPtr buffer
-        , uint buffer_size
-        , uint data_offset
-        )
+        public uint GetData(IntPtr buffer,
+        uint buffer_size,
+        uint data_offset)
         {
             JsValue v1 = new JsValue();
             JsValue v2 = new JsValue();
@@ -13119,8 +12888,7 @@ namespace LayoutFarm.CefBridge.Auto
         /// /*cef()*/
         /// </summary>
 
-        public bool IsSame(CefDictionaryValue that
-        )
+        public bool IsSame(CefDictionaryValue that)
         {
             JsValue v1 = new JsValue();
             JsValue ret;
@@ -13138,8 +12906,7 @@ namespace LayoutFarm.CefBridge.Auto
         /// /*cef()*/
         /// </summary>
 
-        public bool IsEqual(CefDictionaryValue that
-        )
+        public bool IsEqual(CefDictionaryValue that)
         {
             JsValue v1 = new JsValue();
             JsValue ret;
@@ -13157,8 +12924,7 @@ namespace LayoutFarm.CefBridge.Auto
         /// /*cef()*/
         /// </summary>
 
-        public CefDictionaryValue Copy(bool exclude_empty_children
-        )
+        public CefDictionaryValue Copy(bool exclude_empty_children)
         {
             JsValue v1 = new JsValue();
             JsValue ret;
@@ -13205,8 +12971,7 @@ namespace LayoutFarm.CefBridge.Auto
         /// /*cef()*/
         /// </summary>
 
-        public bool HasKey(string key
-        )
+        public bool HasKey(string key)
         {
             JsValue v1 = new JsValue();
             JsValue ret;
@@ -13225,8 +12990,7 @@ namespace LayoutFarm.CefBridge.Auto
         /// /*cef()*/
         /// </summary>
 
-        public bool GetKeys(KeyList keys
-        )
+        public bool GetKeys(KeyList keys)
         {
             JsValue v1 = new JsValue();
             JsValue ret;
@@ -13244,8 +13008,7 @@ namespace LayoutFarm.CefBridge.Auto
         /// /*cef()*/
         /// </summary>
 
-        public bool Remove(string key
-        )
+        public bool Remove(string key)
         {
             JsValue v1 = new JsValue();
             JsValue ret;
@@ -13264,8 +13027,7 @@ namespace LayoutFarm.CefBridge.Auto
         /// /*cef(default_retval=VTYPE_INVALID)*/
         /// </summary>
 
-        public cef_value_type_t _GetType(string key
-        )
+        public cef_value_type_t _GetType(string key)
         {
             JsValue v1 = new JsValue();
             JsValue ret;
@@ -13289,8 +13051,7 @@ namespace LayoutFarm.CefBridge.Auto
         /// /*cef()*/
         /// </summary>
 
-        public CefValue GetValue(string key
-        )
+        public CefValue GetValue(string key)
         {
             JsValue v1 = new JsValue();
             JsValue ret;
@@ -13309,8 +13070,7 @@ namespace LayoutFarm.CefBridge.Auto
         /// /*cef()*/
         /// </summary>
 
-        public bool GetBool(string key
-        )
+        public bool GetBool(string key)
         {
             JsValue v1 = new JsValue();
             JsValue ret;
@@ -13329,8 +13089,7 @@ namespace LayoutFarm.CefBridge.Auto
         /// /*cef()*/
         /// </summary>
 
-        public int GetInt(string key
-        )
+        public int GetInt(string key)
         {
             JsValue v1 = new JsValue();
             JsValue ret;
@@ -13349,8 +13108,7 @@ namespace LayoutFarm.CefBridge.Auto
         /// /*cef()*/
         /// </summary>
 
-        public double GetDouble(string key
-        )
+        public double GetDouble(string key)
         {
             JsValue v1 = new JsValue();
             JsValue ret;
@@ -13369,8 +13127,7 @@ namespace LayoutFarm.CefBridge.Auto
         /// /*cef()*/
         /// </summary>
 
-        public string GetString(string key
-        )
+        public string GetString(string key)
         {
             JsValue v1 = new JsValue();
             JsValue ret;
@@ -13390,8 +13147,7 @@ namespace LayoutFarm.CefBridge.Auto
         /// /*cef()*/
         /// </summary>
 
-        public CefBinaryValue GetBinary(string key
-        )
+        public CefBinaryValue GetBinary(string key)
         {
             JsValue v1 = new JsValue();
             JsValue ret;
@@ -13412,8 +13168,7 @@ namespace LayoutFarm.CefBridge.Auto
         /// /*cef()*/
         /// </summary>
 
-        public CefDictionaryValue GetDictionary(string key
-        )
+        public CefDictionaryValue GetDictionary(string key)
         {
             JsValue v1 = new JsValue();
             JsValue ret;
@@ -13434,8 +13189,7 @@ namespace LayoutFarm.CefBridge.Auto
         /// /*cef()*/
         /// </summary>
 
-        public CefListValue GetList(string key
-        )
+        public CefListValue GetList(string key)
         {
             JsValue v1 = new JsValue();
             JsValue ret;
@@ -13459,9 +13213,8 @@ namespace LayoutFarm.CefBridge.Auto
         /// /*cef()*/
         /// </summary>
 
-        public bool SetValue(string key
-        , CefValue value
-        )
+        public bool SetValue(string key,
+        CefValue value)
         {
             JsValue v1 = new JsValue();
             JsValue v2 = new JsValue();
@@ -13483,8 +13236,7 @@ namespace LayoutFarm.CefBridge.Auto
         /// /*cef()*/
         /// </summary>
 
-        public bool SetNull(string key
-        )
+        public bool SetNull(string key)
         {
             JsValue v1 = new JsValue();
             JsValue ret;
@@ -13504,9 +13256,8 @@ namespace LayoutFarm.CefBridge.Auto
         /// /*cef()*/
         /// </summary>
 
-        public bool SetBool(string key
-        , bool value
-        )
+        public bool SetBool(string key,
+        bool value)
         {
             JsValue v1 = new JsValue();
             JsValue v2 = new JsValue();
@@ -13528,9 +13279,8 @@ namespace LayoutFarm.CefBridge.Auto
         /// /*cef()*/
         /// </summary>
 
-        public bool SetInt(string key
-        , int value
-        )
+        public bool SetInt(string key,
+        int value)
         {
             JsValue v1 = new JsValue();
             JsValue v2 = new JsValue();
@@ -13552,9 +13302,8 @@ namespace LayoutFarm.CefBridge.Auto
         /// /*cef()*/
         /// </summary>
 
-        public bool SetDouble(string key
-        , double value
-        )
+        public bool SetDouble(string key,
+        double value)
         {
             JsValue v1 = new JsValue();
             JsValue v2 = new JsValue();
@@ -13576,9 +13325,8 @@ namespace LayoutFarm.CefBridge.Auto
         /// /*cef(optional_param=value)*/
         /// </summary>
 
-        public bool SetString(string key
-        , string value
-        )
+        public bool SetString(string key,
+        string value)
         {
             JsValue v1 = new JsValue();
             JsValue v2 = new JsValue();
@@ -13605,9 +13353,8 @@ namespace LayoutFarm.CefBridge.Auto
         /// /*cef()*/
         /// </summary>
 
-        public bool SetBinary(string key
-        , CefBinaryValue value
-        )
+        public bool SetBinary(string key,
+        CefBinaryValue value)
         {
             JsValue v1 = new JsValue();
             JsValue v2 = new JsValue();
@@ -13632,9 +13379,8 @@ namespace LayoutFarm.CefBridge.Auto
         /// /*cef()*/
         /// </summary>
 
-        public bool SetDictionary(string key
-        , CefDictionaryValue value
-        )
+        public bool SetDictionary(string key,
+        CefDictionaryValue value)
         {
             JsValue v1 = new JsValue();
             JsValue v2 = new JsValue();
@@ -13659,9 +13405,8 @@ namespace LayoutFarm.CefBridge.Auto
         /// /*cef()*/
         /// </summary>
 
-        public bool SetList(string key
-        , CefListValue value
-        )
+        public bool SetList(string key,
+        CefListValue value)
         {
             JsValue v1 = new JsValue();
             JsValue v2 = new JsValue();
@@ -13779,8 +13524,7 @@ namespace LayoutFarm.CefBridge.Auto
         /// /*cef()*/
         /// </summary>
 
-        public bool IsSame(CefListValue that
-        )
+        public bool IsSame(CefListValue that)
         {
             JsValue v1 = new JsValue();
             JsValue ret;
@@ -13798,8 +13542,7 @@ namespace LayoutFarm.CefBridge.Auto
         /// /*cef()*/
         /// </summary>
 
-        public bool IsEqual(CefListValue that
-        )
+        public bool IsEqual(CefListValue that)
         {
             JsValue v1 = new JsValue();
             JsValue ret;
@@ -13832,8 +13575,7 @@ namespace LayoutFarm.CefBridge.Auto
         /// /*cef()*/
         /// </summary>
 
-        public bool SetSize(uint size
-        )
+        public bool SetSize(uint size)
         {
             JsValue v1 = new JsValue();
             JsValue ret;
@@ -13880,8 +13622,7 @@ namespace LayoutFarm.CefBridge.Auto
         /// /*cef()*/
         /// </summary>
 
-        public bool Remove(uint index
-        )
+        public bool Remove(uint index)
         {
             JsValue v1 = new JsValue();
             JsValue ret;
@@ -13898,8 +13639,7 @@ namespace LayoutFarm.CefBridge.Auto
         /// /*cef(default_retval=VTYPE_INVALID)*/
         /// </summary>
 
-        public cef_value_type_t _GetType(uint index
-        )
+        public cef_value_type_t _GetType(uint index)
         {
             JsValue v1 = new JsValue();
             JsValue ret;
@@ -13921,8 +13661,7 @@ namespace LayoutFarm.CefBridge.Auto
         /// /*cef()*/
         /// </summary>
 
-        public CefValue GetValue(uint index
-        )
+        public CefValue GetValue(uint index)
         {
             JsValue v1 = new JsValue();
             JsValue ret;
@@ -13939,8 +13678,7 @@ namespace LayoutFarm.CefBridge.Auto
         /// /*cef()*/
         /// </summary>
 
-        public bool GetBool(uint index
-        )
+        public bool GetBool(uint index)
         {
             JsValue v1 = new JsValue();
             JsValue ret;
@@ -13957,8 +13695,7 @@ namespace LayoutFarm.CefBridge.Auto
         /// /*cef()*/
         /// </summary>
 
-        public int GetInt(uint index
-        )
+        public int GetInt(uint index)
         {
             JsValue v1 = new JsValue();
             JsValue ret;
@@ -13975,8 +13712,7 @@ namespace LayoutFarm.CefBridge.Auto
         /// /*cef()*/
         /// </summary>
 
-        public double GetDouble(uint index
-        )
+        public double GetDouble(uint index)
         {
             JsValue v1 = new JsValue();
             JsValue ret;
@@ -13993,8 +13729,7 @@ namespace LayoutFarm.CefBridge.Auto
         /// /*cef()*/
         /// </summary>
 
-        public string GetString(uint index
-        )
+        public string GetString(uint index)
         {
             JsValue v1 = new JsValue();
             JsValue ret;
@@ -14012,8 +13747,7 @@ namespace LayoutFarm.CefBridge.Auto
         /// /*cef()*/
         /// </summary>
 
-        public CefBinaryValue GetBinary(uint index
-        )
+        public CefBinaryValue GetBinary(uint index)
         {
             JsValue v1 = new JsValue();
             JsValue ret;
@@ -14032,8 +13766,7 @@ namespace LayoutFarm.CefBridge.Auto
         /// /*cef()*/
         /// </summary>
 
-        public CefDictionaryValue GetDictionary(uint index
-        )
+        public CefDictionaryValue GetDictionary(uint index)
         {
             JsValue v1 = new JsValue();
             JsValue ret;
@@ -14052,8 +13785,7 @@ namespace LayoutFarm.CefBridge.Auto
         /// /*cef()*/
         /// </summary>
 
-        public CefListValue GetList(uint index
-        )
+        public CefListValue GetList(uint index)
         {
             JsValue v1 = new JsValue();
             JsValue ret;
@@ -14075,9 +13807,8 @@ namespace LayoutFarm.CefBridge.Auto
         /// /*cef()*/
         /// </summary>
 
-        public bool SetValue(uint index
-        , CefValue value
-        )
+        public bool SetValue(uint index,
+        CefValue value)
         {
             JsValue v1 = new JsValue();
             JsValue v2 = new JsValue();
@@ -14097,8 +13828,7 @@ namespace LayoutFarm.CefBridge.Auto
         /// /*cef()*/
         /// </summary>
 
-        public bool SetNull(uint index
-        )
+        public bool SetNull(uint index)
         {
             JsValue v1 = new JsValue();
             JsValue ret;
@@ -14116,9 +13846,8 @@ namespace LayoutFarm.CefBridge.Auto
         /// /*cef()*/
         /// </summary>
 
-        public bool SetBool(uint index
-        , bool value
-        )
+        public bool SetBool(uint index,
+        bool value)
         {
             JsValue v1 = new JsValue();
             JsValue v2 = new JsValue();
@@ -14138,9 +13867,8 @@ namespace LayoutFarm.CefBridge.Auto
         /// /*cef()*/
         /// </summary>
 
-        public bool SetInt(uint index
-        , int value
-        )
+        public bool SetInt(uint index,
+        int value)
         {
             JsValue v1 = new JsValue();
             JsValue v2 = new JsValue();
@@ -14160,9 +13888,8 @@ namespace LayoutFarm.CefBridge.Auto
         /// /*cef()*/
         /// </summary>
 
-        public bool SetDouble(uint index
-        , double value
-        )
+        public bool SetDouble(uint index,
+        double value)
         {
             JsValue v1 = new JsValue();
             JsValue v2 = new JsValue();
@@ -14182,9 +13909,8 @@ namespace LayoutFarm.CefBridge.Auto
         /// /*cef(optional_param=value)*/
         /// </summary>
 
-        public bool SetString(uint index
-        , string value
-        )
+        public bool SetString(uint index,
+        string value)
         {
             JsValue v1 = new JsValue();
             JsValue v2 = new JsValue();
@@ -14209,9 +13935,8 @@ namespace LayoutFarm.CefBridge.Auto
         /// /*cef()*/
         /// </summary>
 
-        public bool SetBinary(uint index
-        , CefBinaryValue value
-        )
+        public bool SetBinary(uint index,
+        CefBinaryValue value)
         {
             JsValue v1 = new JsValue();
             JsValue v2 = new JsValue();
@@ -14234,9 +13959,8 @@ namespace LayoutFarm.CefBridge.Auto
         /// /*cef()*/
         /// </summary>
 
-        public bool SetDictionary(uint index
-        , CefDictionaryValue value
-        )
+        public bool SetDictionary(uint index,
+        CefDictionaryValue value)
         {
             JsValue v1 = new JsValue();
             JsValue v2 = new JsValue();
@@ -14259,9 +13983,8 @@ namespace LayoutFarm.CefBridge.Auto
         /// /*cef()*/
         /// </summary>
 
-        public bool SetList(uint index
-        , CefListValue value
-        )
+        public bool SetList(uint index,
+        CefListValue value)
         {
             JsValue v1 = new JsValue();
             JsValue v2 = new JsValue();
@@ -14493,8 +14216,7 @@ namespace LayoutFarm.CefBridge.Auto
         /// /*cef()*/
         /// </summary>
 
-        public void GetStreetAddresses(List<string> addresses
-        )
+        public void GetStreetAddresses(List<string> addresses)
         {
             JsValue v1 = new JsValue();
             JsValue ret;
@@ -14511,8 +14233,7 @@ namespace LayoutFarm.CefBridge.Auto
         /// /*cef()*/
         /// </summary>
 
-        public void GetOrganizationNames(List<string> names
-        )
+        public void GetOrganizationNames(List<string> names)
         {
             JsValue v1 = new JsValue();
             JsValue ret;
@@ -14529,8 +14250,7 @@ namespace LayoutFarm.CefBridge.Auto
         /// /*cef()*/
         /// </summary>
 
-        public void GetOrganizationUnitNames(List<string> names
-        )
+        public void GetOrganizationUnitNames(List<string> names)
         {
             JsValue v1 = new JsValue();
             JsValue ret;
@@ -14547,8 +14267,7 @@ namespace LayoutFarm.CefBridge.Auto
         /// /*cef()*/
         /// </summary>
 
-        public void GetDomainComponents(List<string> components
-        )
+        public void GetDomainComponents(List<string> components)
         {
             JsValue v1 = new JsValue();
             JsValue ret;
@@ -14724,8 +14443,7 @@ namespace LayoutFarm.CefBridge.Auto
         /// /*cef(count_func=chain:GetIssuerChainSize)*/
         /// </summary>
 
-        public void GetDEREncodedIssuerChain(IssuerChainBinaryList chain
-        )
+        public void GetDEREncodedIssuerChain(IssuerChainBinaryList chain)
         {
             JsValue v1 = new JsValue();
             JsValue ret;
@@ -14743,8 +14461,7 @@ namespace LayoutFarm.CefBridge.Auto
         /// /*cef(count_func=chain:GetIssuerChainSize)*/
         /// </summary>
 
-        public void GetPEMEncodedIssuerChain(IssuerChainBinaryList chain
-        )
+        public void GetPEMEncodedIssuerChain(IssuerChainBinaryList chain)
         {
             JsValue v1 = new JsValue();
             JsValue ret;
@@ -15074,8 +14791,7 @@ namespace LayoutFarm.CefBridge.Auto
 
         // gen! CefString GetAttribute(int index)
 
-        public string GetAttribute(int index
-        )
+        public string GetAttribute(int index)
         {
             JsValue v1 = new JsValue();
             JsValue ret;
@@ -15088,8 +14804,7 @@ namespace LayoutFarm.CefBridge.Auto
 
         // gen! CefString GetAttribute(const CefString& qualifiedName)
 
-        public string GetAttribute(string qualifiedName
-        )
+        public string GetAttribute(string qualifiedName)
         {
             JsValue v1 = new JsValue();
             JsValue ret;
@@ -15104,9 +14819,8 @@ namespace LayoutFarm.CefBridge.Auto
 
         // gen! CefString GetAttribute(const CefString& localName,const CefString& namespaceURI)
 
-        public string GetAttribute(string localName
-        , string namespaceURI
-        )
+        public string GetAttribute(string localName,
+        string namespaceURI)
         {
             JsValue v1 = new JsValue();
             JsValue v2 = new JsValue();
@@ -15170,8 +14884,7 @@ namespace LayoutFarm.CefBridge.Auto
 
         // gen! bool MoveToAttribute(int index)
 
-        public bool MoveToAttribute(int index
-        )
+        public bool MoveToAttribute(int index)
         {
             JsValue v1 = new JsValue();
             JsValue ret;
@@ -15184,8 +14897,7 @@ namespace LayoutFarm.CefBridge.Auto
 
         // gen! bool MoveToAttribute(const CefString& qualifiedName)
 
-        public bool MoveToAttribute(string qualifiedName
-        )
+        public bool MoveToAttribute(string qualifiedName)
         {
             JsValue v1 = new JsValue();
             JsValue ret;
@@ -15200,9 +14912,8 @@ namespace LayoutFarm.CefBridge.Auto
 
         // gen! bool MoveToAttribute(const CefString& localName,const CefString& namespaceURI)
 
-        public bool MoveToAttribute(string localName
-        , string namespaceURI
-        )
+        public bool MoveToAttribute(string localName,
+        string namespaceURI)
         {
             JsValue v1 = new JsValue();
             JsValue v2 = new JsValue();
@@ -15341,9 +15052,8 @@ namespace LayoutFarm.CefBridge.Auto
         /// /*cef()*/
         /// </summary>
 
-        public bool MoveToFile(string fileName
-        , bool caseSensitive
-        )
+        public bool MoveToFile(string fileName,
+        bool caseSensitive)
         {
             JsValue v1 = new JsValue();
             JsValue v2 = new JsValue();
@@ -15428,8 +15138,7 @@ namespace LayoutFarm.CefBridge.Auto
         /// /*cef(optional_param=password)*/
         /// </summary>
 
-        public bool OpenFile(string password
-        )
+        public bool OpenFile(string password)
         {
             JsValue v1 = new JsValue();
             JsValue ret;
@@ -15464,9 +15173,8 @@ namespace LayoutFarm.CefBridge.Auto
         /// /*cef()*/
         /// </summary>
 
-        public int ReadFile(IntPtr buffer
-        , uint bufferSize
-        )
+        public int ReadFile(IntPtr buffer,
+        uint bufferSize)
         {
             JsValue v1 = new JsValue();
             JsValue v2 = new JsValue();
