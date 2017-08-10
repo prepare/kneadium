@@ -396,10 +396,17 @@ namespace LayoutFarm.CefBridge
         public void LoadText(string text, string url)
         {
             MyCefBw myCefBw = new MyCefBw(this.myCefBrowser);
-            MyCefFrame myframe = myCefBw.GetMainFrame();
+            MyCefFrame myframe = myCefBw.GetMainFrame(); 
 
             Auto.CefFrame frame1 = new Auto.CefFrame(myframe.nativePtr);
+            Auto.CefBrowser bw = frame1.GetBrowser();
+
+            
+            List<string> frameNames = new List<string>();
+            bw.GetFrameNames(frameNames);
+
             frame1.LoadString(text, url);
+            bw.Release();
             frame1.Release();
 
         }
