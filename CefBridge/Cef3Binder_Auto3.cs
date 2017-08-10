@@ -398,7 +398,7 @@ namespace LayoutFarm.CefBridge.Auto
     /// Transition type for a request. Made up of one source value and 0 or more
     /// qualifiers.
     /// </summary>
-    public enum cef_transition_type_t:uint
+    public enum cef_transition_type_t : uint
     {
         /// <summary>
         /// Source is a link click or the JavaScript window.open function. This is
