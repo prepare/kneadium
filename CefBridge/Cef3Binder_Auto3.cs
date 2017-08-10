@@ -660,6 +660,7 @@ namespace LayoutFarm.CefBridge.Auto
     /// Flags used to customize the behavior of CefURLRequest.
     /// </summary>
     /*341*/
+    
     public enum cef_urlrequest_flags_t
     {
         /// <summary>

@@ -41,11 +41,11 @@ namespace BridgeBuilder
             _dbugLineCount++;
             if (_dbugEnableLineNote)
             {
-                stbuilder.AppendLine("/*" + _dbugLineCount + "*/");
-                if (_dbugLineCount >= 2043)
-                {
+                //stbuilder.AppendLine("/*" + _dbugLineCount + "*/");
+                //if (_dbugLineCount >= 2043)
+                //{
 
-                }
+                //}
             }
 
         }
@@ -1333,7 +1333,7 @@ namespace BridgeBuilder
                                                         par.ArgPostExtractCode = "Cef3Binder.CopyStdStringListAndDestroyNativeSide(" + argName + ".Ptr," + par.Name + ")";
                                                         break;
                                                     case "std::vector<CefCompositionUnderline>":
-                                                        par.ArgExtractCode = argName + ".Ptr=Cef3Binder.CreateStdList(3)"; 
+                                                        par.ArgExtractCode = argName + ".Ptr=Cef3Binder.CreateStdList(3)";
                                                         break;
                                                 }
 
@@ -1825,7 +1825,15 @@ namespace BridgeBuilder
             _currentCodeTypeDecl = orgDecl;
             //
             AddComment(orgDecl.LineComments, codeBuilder);
-            //
+
+            //for cef, if enum class end with flags_t 
+            //we add FlagsAttribute to this enum type
+
+            if (orgDecl.Name.EndsWith("flags_t"))
+            {
+                codeBuilder.AppendLine("[Flags]");
+            }
+
             codeBuilder.AppendLine("public enum " + orgDecl.Name + enum_base + "{");
             //transform enum
             int i = 0;

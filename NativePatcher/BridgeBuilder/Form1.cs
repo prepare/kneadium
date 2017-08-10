@@ -511,8 +511,7 @@ namespace BridgeBuilder
 
 
             csCodeStBuilder.AppendLine("using System;\r\n" +
-            "using System.Collections.Generic;\r\n" +
-            "using System.Runtime.InteropServices;\r\n" +
+            "using System.Collections.Generic;\r\n" + 
             "namespace LayoutFarm.CefBridge.Auto{\r\n");
 
 
