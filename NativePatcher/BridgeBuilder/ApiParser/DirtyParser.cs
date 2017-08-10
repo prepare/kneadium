@@ -347,7 +347,9 @@ namespace BridgeBuilder
                         throw new NotSupportedException();
                     }
                     stbuilder.Append(c);
+                    currentIndex = i;
                     isHexNum = true;
+
                 }
                 else
                 {
@@ -360,6 +362,7 @@ namespace BridgeBuilder
                         {
                             //also hex 
                             stbuilder.Append(c);
+                            currentIndex = i;
                         }
                         else
                         {
@@ -420,6 +423,21 @@ namespace BridgeBuilder
         public string Content;
         public TokenKind TokenKind;
         public bool NumberInHexFormat;
+
+#if DEBUG
+        static int dbugTotalId;
+        public readonly int dbugId = dbugTotalId++;
+
+#endif
+        public Token()
+        {
+#if DEBUG
+            //if (dbugId >= 1677)
+            //{
+
+            //}
+#endif
+        }
         public override string ToString()
         {
             return Content;
