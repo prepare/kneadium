@@ -1807,10 +1807,27 @@ namespace BridgeBuilder
                 if (field.InitExpression != null)
                 {
                     //cef specific
-                    if (field.InitExpression.ToString() == "UINT_MAX")
+                    //some init expression need special treatment
+                    string initExprString = field.InitExpression.ToString();
+
+                    if (initExprString == "UINT_MAX")
                     {
                         enum_base = ":uint";
                         break;
+                    }
+                    else
+                    {
+                        initExprString = initExprString.ToLower();
+                        if (initExprString.StartsWith("0x"))
+                        {
+                            uint uint1 = Convert.ToUInt32(initExprString.Substring(2), 16);
+                            if (uint1 >= int.MaxValue)
+                            {
+                                enum_base = ":uint";
+                                break;
+                            }
+                        }
+
                     }
 
                 }

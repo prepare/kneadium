@@ -1,4 +1,5 @@
-﻿using System;
+﻿//MIT, 2017, WinterDev//AUTOGEN CONTENT
+using System;
 using System.Collections.Generic;
 namespace LayoutFarm.CefBridge.Auto
 {
@@ -397,7 +398,7 @@ namespace LayoutFarm.CefBridge.Auto
     /// Transition type for a request. Made up of one source value and 0 or more
     /// qualifiers.
     /// </summary>
-    public enum cef_transition_type_t
+    public enum cef_transition_type_t : uint
     {
         /// <summary>
         /// Source is a link click or the JavaScript window.open function. This is
@@ -442,7 +443,7 @@ namespace LayoutFarm.CefBridge.Auto
         /// <summary>
         /// General mask defining the bits used for the source values.
         /// </summary>
-        TT_SOURCE_MASK = 0,
+        TT_SOURCE_MASK = 0xFF,
         xFF,
         /// <summary>
         /// Qualifiers.
@@ -450,43 +451,35 @@ namespace LayoutFarm.CefBridge.Auto
         /// These qualifiers further define the transition.
         /// Attempted to visit a URL but was blocked.
         /// </summary>
-        TT_BLOCKED_FLAG = 0,
-        x00800000,
+        TT_BLOCKED_FLAG = 0x00800000,
         /// <summary>
         /// Used the Forward or Back function to navigate among browsing history.
         /// </summary>
-        TT_FORWARD_BACK_FLAG = 0,
-        x01000000,
+        TT_FORWARD_BACK_FLAG = 0x01000000,
         /// <summary>
         /// The beginning of a navigation chain.
         /// </summary>
-        TT_CHAIN_START_FLAG = 0,
-        x10000000,
+        TT_CHAIN_START_FLAG = 0x10000000,
         /// <summary>
         /// The last transition in a redirect chain.
         /// </summary>
-        TT_CHAIN_END_FLAG = 0,
-        x20000000,
+        TT_CHAIN_END_FLAG = 0x20000000,
         /// <summary>
         /// Redirects caused by JavaScript or a meta refresh tag on the page.
         /// </summary>
-        TT_CLIENT_REDIRECT_FLAG = 0,
-        x40000000,
+        TT_CLIENT_REDIRECT_FLAG = 0x40000000,
         /// <summary>
         /// Redirects sent from the server by HTTP headers.
         /// </summary>
-        TT_SERVER_REDIRECT_FLAG = 0,
-        x80000000,
+        TT_SERVER_REDIRECT_FLAG = 0x80000000,
         /// <summary>
         /// Used to test whether a transition involves a redirect.
         /// </summary>
-        TT_IS_REDIRECT_MASK = 0,
-        xC0000000,
+        TT_IS_REDIRECT_MASK = 0xC0000000,
         /// <summary>
         /// General mask defining the bits used for the qualifiers.
         /// </summary>
-        TT_QUALIFIER_MASK = 0,
-        xFFFFFF00
+        TT_QUALIFIER_MASK = 0xFFFFFF00
     }
     /// <summary>
     /// Flags used to customize the behavior of CefURLRequest.
@@ -988,40 +981,23 @@ namespace LayoutFarm.CefBridge.Auto
     /// </summary>
     public enum cef_dom_event_category_t
     {
-        DOM_EVENT_CATEGORY_UNKNOWN = 0,
-        x0,
-        DOM_EVENT_CATEGORY_UI = 0,
-        x1,
-        DOM_EVENT_CATEGORY_MOUSE = 0,
-        x2,
-        DOM_EVENT_CATEGORY_MUTATION = 0,
-        x4,
-        DOM_EVENT_CATEGORY_KEYBOARD = 0,
-        x8,
-        DOM_EVENT_CATEGORY_TEXT = 0,
-        x10,
-        DOM_EVENT_CATEGORY_COMPOSITION = 0,
-        x20,
-        DOM_EVENT_CATEGORY_DRAG = 0,
-        x40,
-        DOM_EVENT_CATEGORY_CLIPBOARD = 0,
-        x80,
-        DOM_EVENT_CATEGORY_MESSAGE = 0,
-        x100,
-        DOM_EVENT_CATEGORY_WHEEL = 0,
-        x200,
-        DOM_EVENT_CATEGORY_BEFORE_TEXT_INSERTED = 0,
-        x400,
-        DOM_EVENT_CATEGORY_OVERFLOW = 0,
-        x800,
-        DOM_EVENT_CATEGORY_PAGE_TRANSITION = 0,
-        x1000,
-        DOM_EVENT_CATEGORY_POPSTATE = 0,
-        x2000,
-        DOM_EVENT_CATEGORY_PROGRESS = 0,
-        x4000,
-        DOM_EVENT_CATEGORY_XMLHTTPREQUEST_PROGRESS = 0,
-        x8000
+        DOM_EVENT_CATEGORY_UNKNOWN = 0x0,
+        DOM_EVENT_CATEGORY_UI = 0x1,
+        DOM_EVENT_CATEGORY_MOUSE = 0x2,
+        DOM_EVENT_CATEGORY_MUTATION = 0x4,
+        DOM_EVENT_CATEGORY_KEYBOARD = 0x8,
+        DOM_EVENT_CATEGORY_TEXT = 0x10,
+        DOM_EVENT_CATEGORY_COMPOSITION = 0x20,
+        DOM_EVENT_CATEGORY_DRAG = 0x40,
+        DOM_EVENT_CATEGORY_CLIPBOARD = 0x80,
+        DOM_EVENT_CATEGORY_MESSAGE = 0x100,
+        DOM_EVENT_CATEGORY_WHEEL = 0x200,
+        DOM_EVENT_CATEGORY_BEFORE_TEXT_INSERTED = 0x400,
+        DOM_EVENT_CATEGORY_OVERFLOW = 0x800,
+        DOM_EVENT_CATEGORY_PAGE_TRANSITION = 0x1000,
+        DOM_EVENT_CATEGORY_POPSTATE = 0x2000,
+        DOM_EVENT_CATEGORY_PROGRESS = 0x4000,
+        DOM_EVENT_CATEGORY_XMLHTTPREQUEST_PROGRESS = 0x8000
     }
     /// <summary>
     /// DOM event processing phases.
@@ -1074,7 +1050,7 @@ namespace LayoutFarm.CefBridge.Auto
         /// <summary>
         /// General mask defining the bits used for the type values.
         /// </summary>
-        FILE_DIALOG_TYPE_MASK = 0,
+        FILE_DIALOG_TYPE_MASK = 0xFF,
         xFF,
         /// <summary>
         /// Qualifiers.
@@ -1083,13 +1059,11 @@ namespace LayoutFarm.CefBridge.Auto
         /// Prompt to overwrite if the user selects an existing file with the Save
         /// dialog.
         /// </summary>
-        FILE_DIALOG_OVERWRITEPROMPT_FLAG = 0,
-        x01000000,
+        FILE_DIALOG_OVERWRITEPROMPT_FLAG = 0x01000000,
         /// <summary>
         /// Do not display read-only files.
         /// </summary>
-        FILE_DIALOG_HIDEREADONLY_FLAG = 0,
-        x02000000
+        FILE_DIALOG_HIDEREADONLY_FLAG = 0x02000000
     }
     /// <summary>
     /// Geoposition error codes.

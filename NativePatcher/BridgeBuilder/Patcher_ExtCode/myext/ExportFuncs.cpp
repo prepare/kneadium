@@ -804,13 +804,60 @@ void MyCefFrameCall2(cef_frame_t* cefFrame, int methodName, jsvalue* ret, jsvalu
 	}break;
 	}
 }
+ 
+ 
+void* CreateStdList(int elemType) {
+	switch (elemType) {
+	case 1:
+		return new std::vector<int64>();
+	case 2:
+		return new std::vector<CefString>();
+	case 3:
+		return new std::vector<CefCompositionUnderline>();
+	default:
+		return nullptr;
+	}
+}
 
-const int TypeName_StringVisitor = 1;
+void GetListCount(int elemType, void* list, int32_t* size) {
+	switch (elemType) {
+	case 1:
+		*size= (int32_t)((std::vector<int64>*)list)->size();
+		break;
+	case 2:
+	{
+		*size = (int32_t)((std::vector<CefString>*)list)->size();
+		break;
+	}		
+	case 3:
+		*size = (int32_t)((std::vector<CefCompositionUnderline>*)list)->size();
+		break;
+	default: 
+		*size = 0;
+		break;
+	}
+}
 
-void MyCefRelease(void* ptr, int typeName) {
-	switch (typeName) {
-	case TypeName_StringVisitor: {
-		CefStringVisitorCppToC::Unwrap((cef_string_visitor_t*)ptr);
-	}break;
+void GetListElement(int elemType, void* list, int index, jsvalue* jsvalue) {
+	switch (elemType) {
+	case 1:
+	{
+		jsvalue->i64 = ((std::vector<int64>*)list)->at(index);
+		break;
+	}
+	case 2:
+	{
+		//create string holder for this 
+		MyCefStringHolder* myCefStringHolder = new MyCefStringHolder();
+		CefString cefstr = ((std::vector<CefString>*)list)->at(index);
+		myCefStringHolder->value = cefstr;
+		jsvalue->ptr = myCefStringHolder;
+		jsvalue->i32 = cefstr.length();
+		break;
+	} 
+	case 3: 
+		//nothing now
+	default:
+		break;
 	}
 }

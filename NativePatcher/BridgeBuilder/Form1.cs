@@ -510,9 +510,12 @@ namespace BridgeBuilder
             }
 
 
-            csCodeStBuilder.AppendLine("using System;\r\n" +
-            "using System.Collections.Generic;\r\n" + 
-            "namespace LayoutFarm.CefBridge.Auto{\r\n");
+            csCodeStBuilder.AppendLine(
+                "//MIT, 2017, WinterDev\r" +
+                "//AUTOGEN CONTENT\r\n" +
+                "using System;\r\n" +
+                "using System.Collections.Generic;\r\n" +
+                "namespace LayoutFarm.CefBridge.Auto{\r\n");
 
 
             foreach (CefTypeTxPlan tx in handlerPlans)
