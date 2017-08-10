@@ -444,7 +444,6 @@ namespace LayoutFarm.CefBridge.Auto
         /// General mask defining the bits used for the source values.
         /// </summary>
         TT_SOURCE_MASK = 0xFF,
-        xFF,
         /// <summary>
         /// Qualifiers.
         /// Any of the core values above can be augmented by one or more qualifiers.
@@ -1051,7 +1050,6 @@ namespace LayoutFarm.CefBridge.Auto
         /// General mask defining the bits used for the type values.
         /// </summary>
         FILE_DIALOG_TYPE_MASK = 0xFF,
-        xFF,
         /// <summary>
         /// Qualifiers.
         /// Any of the type values above can be augmented by one or more qualifiers.
@@ -1619,7 +1617,7 @@ namespace LayoutFarm.CefBridge.Auto
     {
         const int _typeNAME = 1;
         const int CefApp_Release_0 = (_typeNAME << 16) | 0;
-        internal readonly IntPtr nativePtr;
+        internal IntPtr nativePtr;
         internal CefApp(IntPtr nativePtr)
         {
             this.nativePtr = nativePtr;
@@ -1628,6 +1626,7 @@ namespace LayoutFarm.CefBridge.Auto
         {
             JsValue ret;
             Cef3Binder.MyCefMet_Call0(this.nativePtr, CefApp_Release_0, out ret);
+            this.nativePtr = IntPtr.Zero;
         }
     }
 
@@ -1665,7 +1664,7 @@ namespace LayoutFarm.CefBridge.Auto
         const int CefBrowser_GetFrameIdentifiers_19 = (_typeNAME << 16) | 19;
         const int CefBrowser_GetFrameNames_20 = (_typeNAME << 16) | 20;
         const int CefBrowser_SendProcessMessage_21 = (_typeNAME << 16) | 21;
-        internal readonly IntPtr nativePtr;
+        internal IntPtr nativePtr;
         internal CefBrowser(IntPtr nativePtr)
         {
             this.nativePtr = nativePtr;
@@ -1674,6 +1673,7 @@ namespace LayoutFarm.CefBridge.Auto
         {
             JsValue ret;
             Cef3Binder.MyCefMet_Call0(this.nativePtr, CefBrowser_Release_0, out ret);
+            this.nativePtr = IntPtr.Zero;
         }
 
         // gen! CefRefPtr<CefBrowserHost> GetHost()
@@ -1686,8 +1686,7 @@ namespace LayoutFarm.CefBridge.Auto
             JsValue ret;
 
             Cef3Binder.MyCefMet_Call0(this.nativePtr, CefBrowser_GetHost_1, out ret);
-            var ret_result = new CefBrowserHost(ret.Ptr);
-            return ret_result;
+            return new CefBrowserHost(ret.Ptr);
         }
 
         // gen! bool CanGoBack()
@@ -1701,8 +1700,7 @@ namespace LayoutFarm.CefBridge.Auto
             JsValue ret;
 
             Cef3Binder.MyCefMet_Call0(this.nativePtr, CefBrowser_CanGoBack_2, out ret);
-            var ret_result = ret.I32 != 0;
-            return ret_result;
+            return ret.I32 != 0;
         }
 
         // gen! void GoBack()
@@ -1730,8 +1728,7 @@ namespace LayoutFarm.CefBridge.Auto
             JsValue ret;
 
             Cef3Binder.MyCefMet_Call0(this.nativePtr, CefBrowser_CanGoForward_4, out ret);
-            var ret_result = ret.I32 != 0;
-            return ret_result;
+            return ret.I32 != 0;
         }
 
         // gen! void GoForward()
@@ -1759,8 +1756,7 @@ namespace LayoutFarm.CefBridge.Auto
             JsValue ret;
 
             Cef3Binder.MyCefMet_Call0(this.nativePtr, CefBrowser_IsLoading_6, out ret);
-            var ret_result = ret.I32 != 0;
-            return ret_result;
+            return ret.I32 != 0;
         }
 
         // gen! void Reload()
@@ -1816,8 +1812,7 @@ namespace LayoutFarm.CefBridge.Auto
             JsValue ret;
 
             Cef3Binder.MyCefMet_Call0(this.nativePtr, CefBrowser_GetIdentifier_10, out ret);
-            var ret_result = ret.I32;
-            return ret_result;
+            return ret.I32;
         }
 
         // gen! bool IsSame(CefRefPtr<CefBrowser> that)
@@ -1827,16 +1822,14 @@ namespace LayoutFarm.CefBridge.Auto
         /// /*cef()*/
         /// </summary>
 
-        public bool IsSame(CefBrowser that
-        )
+        public bool IsSame(CefBrowser that)
         {
             JsValue v1 = new JsValue();
             JsValue ret;
             v1.Ptr = that.nativePtr;
 
             Cef3Binder.MyCefMet_Call1(this.nativePtr, CefBrowser_IsSame_11, out ret, ref v1);
-            var ret_result = ret.I32 != 0;
-            return ret_result;
+            return ret.I32 != 0;
         }
 
         // gen! bool IsPopup()
@@ -1850,8 +1843,7 @@ namespace LayoutFarm.CefBridge.Auto
             JsValue ret;
 
             Cef3Binder.MyCefMet_Call0(this.nativePtr, CefBrowser_IsPopup_12, out ret);
-            var ret_result = ret.I32 != 0;
-            return ret_result;
+            return ret.I32 != 0;
         }
 
         // gen! bool HasDocument()
@@ -1865,8 +1857,7 @@ namespace LayoutFarm.CefBridge.Auto
             JsValue ret;
 
             Cef3Binder.MyCefMet_Call0(this.nativePtr, CefBrowser_HasDocument_13, out ret);
-            var ret_result = ret.I32 != 0;
-            return ret_result;
+            return ret.I32 != 0;
         }
 
         // gen! CefRefPtr<CefFrame> GetMainFrame()
@@ -1880,8 +1871,7 @@ namespace LayoutFarm.CefBridge.Auto
             JsValue ret;
 
             Cef3Binder.MyCefMet_Call0(this.nativePtr, CefBrowser_GetMainFrame_14, out ret);
-            var ret_result = new CefFrame(ret.Ptr);
-            return ret_result;
+            return new CefFrame(ret.Ptr);
         }
 
         // gen! CefRefPtr<CefFrame> GetFocusedFrame()
@@ -1895,28 +1885,24 @@ namespace LayoutFarm.CefBridge.Auto
             JsValue ret;
 
             Cef3Binder.MyCefMet_Call0(this.nativePtr, CefBrowser_GetFocusedFrame_15, out ret);
-            var ret_result = new CefFrame(ret.Ptr);
-            return ret_result;
+            return new CefFrame(ret.Ptr);
         }
 
         // gen! CefRefPtr<CefFrame> GetFrame(int64 identifier)
 
-        public CefFrame GetFrame(long identifier
-        )
+        public CefFrame GetFrame(long identifier)
         {
             JsValue v1 = new JsValue();
             JsValue ret;
             v1.I64 = identifier;
 
             Cef3Binder.MyCefMet_Call1(this.nativePtr, CefBrowser_GetFrame_16, out ret, ref v1);
-            var ret_result = new CefFrame(ret.Ptr);
-            return ret_result;
+            return new CefFrame(ret.Ptr);
         }
 
         // gen! CefRefPtr<CefFrame> GetFrame(const CefString& name)
 
-        public CefFrame GetFrame(string name
-        )
+        public CefFrame GetFrame(string name)
         {
             JsValue v1 = new JsValue();
             JsValue ret;
@@ -1924,9 +1910,8 @@ namespace LayoutFarm.CefBridge.Auto
             ;
 
             Cef3Binder.MyCefMet_Call1(this.nativePtr, CefBrowser_GetFrame_17, out ret, ref v1);
-            var ret_result = new CefFrame(ret.Ptr);
             Cef3Binder.MyCefDeletePtr(v1.Ptr); ;
-            return ret_result;
+            return new CefFrame(ret.Ptr);
         }
 
         // gen! size_t GetFrameCount()
@@ -1940,8 +1925,7 @@ namespace LayoutFarm.CefBridge.Auto
             JsValue ret;
 
             Cef3Binder.MyCefMet_Call0(this.nativePtr, CefBrowser_GetFrameCount_18, out ret);
-            var ret_result = (uint)ret.I32;
-            return ret_result;
+            return (uint)ret.I32;
         }
 
         // gen! void GetFrameIdentifiers(std::vector<int64>& identifiers)
@@ -1950,16 +1934,15 @@ namespace LayoutFarm.CefBridge.Auto
         /// /*cef(count_func=identifiers:GetFrameCount)*/
         /// </summary>
 
-        public void GetFrameIdentifiers(List<long> identifiers
-        )
+        public void GetFrameIdentifiers(List<long> identifiers)
         {
             JsValue v1 = new JsValue();
             JsValue ret;
             v1.Ptr = Cef3Binder.CreateStdList(1);
 
             Cef3Binder.MyCefMet_Call1(this.nativePtr, CefBrowser_GetFrameIdentifiers_19, out ret, ref v1);
-
             Cef3Binder.CopyStdInt64ListAndDestroyNativeSide(v1.Ptr, identifiers);
+
         }
 
         // gen! void GetFrameNames(std::vector<CefString>& names)
@@ -1968,16 +1951,15 @@ namespace LayoutFarm.CefBridge.Auto
         /// /*cef()*/
         /// </summary>
 
-        public void GetFrameNames(List<string> names
-        )
+        public void GetFrameNames(List<string> names)
         {
             JsValue v1 = new JsValue();
             JsValue ret;
             v1.Ptr = Cef3Binder.CreateStdList(2);
 
             Cef3Binder.MyCefMet_Call1(this.nativePtr, CefBrowser_GetFrameNames_20, out ret, ref v1);
-
             Cef3Binder.CopyStdStringListAndDestroyNativeSide(v1.Ptr, names);
+
         }
 
         // gen! bool SendProcessMessage(CefProcessId target_process,CefRefPtr<CefProcessMessage> message)
@@ -1987,9 +1969,8 @@ namespace LayoutFarm.CefBridge.Auto
         /// /*cef()*/
         /// </summary>
 
-        public bool SendProcessMessage(cef_process_id_t target_process
-        , CefProcessMessage message
-        )
+        public bool SendProcessMessage(cef_process_id_t target_process,
+        CefProcessMessage message)
         {
             JsValue v1 = new JsValue();
             JsValue v2 = new JsValue();
@@ -1998,8 +1979,7 @@ namespace LayoutFarm.CefBridge.Auto
             v2.Ptr = message.nativePtr;
 
             Cef3Binder.MyCefMet_Call2(this.nativePtr, CefBrowser_SendProcessMessage_21, out ret, ref v1, ref v2);
-            var ret_result = ret.I32 != 0;
-            return ret_result;
+            return ret.I32 != 0;
         }
     }
 
@@ -2014,7 +1994,7 @@ namespace LayoutFarm.CefBridge.Auto
     {
         const int _typeNAME = 3;
         const int CefNavigationEntryVisitor_Release_0 = (_typeNAME << 16) | 0;
-        internal readonly IntPtr nativePtr;
+        internal IntPtr nativePtr;
         internal CefNavigationEntryVisitor(IntPtr nativePtr)
         {
             this.nativePtr = nativePtr;
@@ -2023,6 +2003,7 @@ namespace LayoutFarm.CefBridge.Auto
         {
             JsValue ret;
             Cef3Binder.MyCefMet_Call0(this.nativePtr, CefNavigationEntryVisitor_Release_0, out ret);
+            this.nativePtr = IntPtr.Zero;
         }
     }
 
@@ -2091,7 +2072,7 @@ namespace LayoutFarm.CefBridge.Auto
         const int CefBrowserHost_DragSourceSystemDragEnded_50 = (_typeNAME << 16) | 50;
         const int CefBrowserHost_GetVisibleNavigationEntry_51 = (_typeNAME << 16) | 51;
         const int CefBrowserHost_SetAccessibilityState_52 = (_typeNAME << 16) | 52;
-        internal readonly IntPtr nativePtr;
+        internal IntPtr nativePtr;
         internal CefBrowserHost(IntPtr nativePtr)
         {
             this.nativePtr = nativePtr;
@@ -2100,6 +2081,7 @@ namespace LayoutFarm.CefBridge.Auto
         {
             JsValue ret;
             Cef3Binder.MyCefMet_Call0(this.nativePtr, CefBrowserHost_Release_0, out ret);
+            this.nativePtr = IntPtr.Zero;
         }
 
         // gen! CefRefPtr<CefBrowser> GetBrowser()
@@ -2112,8 +2094,7 @@ namespace LayoutFarm.CefBridge.Auto
             JsValue ret;
 
             Cef3Binder.MyCefMet_Call0(this.nativePtr, CefBrowserHost_GetBrowser_1, out ret);
-            var ret_result = new CefBrowser(ret.Ptr);
-            return ret_result;
+            return new CefBrowser(ret.Ptr);
         }
 
         // gen! void CloseBrowser(bool force_close)
@@ -2129,8 +2110,7 @@ namespace LayoutFarm.CefBridge.Auto
         /// /*cef()*/
         /// </summary>
 
-        public void CloseBrowser(bool force_close
-        )
+        public void CloseBrowser(bool force_close)
         {
             JsValue v1 = new JsValue();
             JsValue ret;
@@ -2156,8 +2136,7 @@ namespace LayoutFarm.CefBridge.Auto
             JsValue ret;
 
             Cef3Binder.MyCefMet_Call0(this.nativePtr, CefBrowserHost_TryCloseBrowser_3, out ret);
-            var ret_result = ret.I32 != 0;
-            return ret_result;
+            return ret.I32 != 0;
         }
 
         // gen! void SetFocus(bool focus)
@@ -2166,8 +2145,7 @@ namespace LayoutFarm.CefBridge.Auto
         /// /*cef()*/
         /// </summary>
 
-        public void SetFocus(bool focus
-        )
+        public void SetFocus(bool focus)
         {
             JsValue v1 = new JsValue();
             JsValue ret;
@@ -2190,8 +2168,7 @@ namespace LayoutFarm.CefBridge.Auto
             JsValue ret;
 
             Cef3Binder.MyCefMet_Call0(this.nativePtr, CefBrowserHost_GetWindowHandle_5, out ret);
-            IntPtr ret_result = ret.Ptr;
-            return ret_result;
+            return ret.Ptr;
         }
 
         // gen! CefWindowHandle GetOpenerWindowHandle()
@@ -2208,8 +2185,7 @@ namespace LayoutFarm.CefBridge.Auto
             JsValue ret;
 
             Cef3Binder.MyCefMet_Call0(this.nativePtr, CefBrowserHost_GetOpenerWindowHandle_6, out ret);
-            IntPtr ret_result = ret.Ptr;
-            return ret_result;
+            return ret.Ptr;
         }
 
         // gen! bool HasView()
@@ -2223,8 +2199,7 @@ namespace LayoutFarm.CefBridge.Auto
             JsValue ret;
 
             Cef3Binder.MyCefMet_Call0(this.nativePtr, CefBrowserHost_HasView_7, out ret);
-            var ret_result = ret.I32 != 0;
-            return ret_result;
+            return ret.I32 != 0;
         }
 
         // gen! CefRefPtr<CefClient> GetClient()
@@ -2238,8 +2213,7 @@ namespace LayoutFarm.CefBridge.Auto
             JsValue ret;
 
             Cef3Binder.MyCefMet_Call0(this.nativePtr, CefBrowserHost_GetClient_8, out ret);
-            var ret_result = new CefClient(ret.Ptr);
-            return ret_result;
+            return new CefClient(ret.Ptr);
         }
 
         // gen! CefRefPtr<CefRequestContext> GetRequestContext()
@@ -2253,8 +2227,7 @@ namespace LayoutFarm.CefBridge.Auto
             JsValue ret;
 
             Cef3Binder.MyCefMet_Call0(this.nativePtr, CefBrowserHost_GetRequestContext_9, out ret);
-            var ret_result = new CefRequestContext(ret.Ptr);
-            return ret_result;
+            return new CefRequestContext(ret.Ptr);
         }
 
         // gen! double GetZoomLevel()
@@ -2269,8 +2242,7 @@ namespace LayoutFarm.CefBridge.Auto
             JsValue ret;
 
             Cef3Binder.MyCefMet_Call0(this.nativePtr, CefBrowserHost_GetZoomLevel_10, out ret);
-            var ret_result = ret.Num;
-            return ret_result;
+            return ret.Num;
         }
 
         // gen! void SetZoomLevel(double zoomLevel)
@@ -2282,8 +2254,7 @@ namespace LayoutFarm.CefBridge.Auto
         /// /*cef()*/
         /// </summary>
 
-        public void SetZoomLevel(double zoomLevel
-        )
+        public void SetZoomLevel(double zoomLevel)
         {
             JsValue v1 = new JsValue();
             JsValue ret;
@@ -2312,13 +2283,12 @@ namespace LayoutFarm.CefBridge.Auto
         /// /*cef(optional_param=title,optional_param=default_file_path,optional_param=accept_filters,index_param=selected_accept_filter)*/
         /// </summary>
 
-        public void RunFileDialog(cef_file_dialog_mode_t mode
-        , string title
-        , string default_file_path
-        , List<string> accept_filters
-        , int selected_accept_filter
-        , CefRunFileDialogCallback callback
-        )
+        public void RunFileDialog(cef_file_dialog_mode_t mode,
+        string title,
+        string default_file_path,
+        List<string> accept_filters,
+        int selected_accept_filter,
+        CefRunFileDialogCallback callback)
         {
             JsValue v1 = new JsValue();
             JsValue v2 = new JsValue();
@@ -2337,10 +2307,10 @@ namespace LayoutFarm.CefBridge.Auto
             v6.Ptr = callback.nativePtr;
 
             Cef3Binder.MyCefMet_Call6(this.nativePtr, CefBrowserHost_RunFileDialog_12, out ret, ref v1, ref v2, ref v3, ref v4, ref v5, ref v6);
-
             Cef3Binder.MyCefDeletePtr(v2.Ptr); ;
             Cef3Binder.MyCefDeletePtr(v3.Ptr); ;
             Cef3Binder.CopyStdStringListAndDestroyNativeSide(v4.Ptr, accept_filters);
+
         }
 
         // gen! void StartDownload(const CefString& url)
@@ -2349,8 +2319,7 @@ namespace LayoutFarm.CefBridge.Auto
         /// /*cef()*/
         /// </summary>
 
-        public void StartDownload(string url
-        )
+        public void StartDownload(string url)
         {
             JsValue v1 = new JsValue();
             JsValue ret;
@@ -2358,8 +2327,8 @@ namespace LayoutFarm.CefBridge.Auto
             ;
 
             Cef3Binder.MyCefMet_Call1(this.nativePtr, CefBrowserHost_StartDownload_13, out ret, ref v1);
-
             Cef3Binder.MyCefDeletePtr(v1.Ptr); ;
+
         }
 
         // gen! void DownloadImage(const CefString& image_url,bool is_favicon,uint32 max_image_size,bool bypass_cache,CefRefPtr<CefDownloadImageCallback> callback)
@@ -2377,12 +2346,11 @@ namespace LayoutFarm.CefBridge.Auto
         /// /*cef()*/
         /// </summary>
 
-        public void DownloadImage(string image_url
-        , bool is_favicon
-        , uint max_image_size
-        , bool bypass_cache
-        , CefDownloadImageCallback callback
-        )
+        public void DownloadImage(string image_url,
+        bool is_favicon,
+        uint max_image_size,
+        bool bypass_cache,
+        CefDownloadImageCallback callback)
         {
             JsValue v1 = new JsValue();
             JsValue v2 = new JsValue();
@@ -2398,8 +2366,8 @@ namespace LayoutFarm.CefBridge.Auto
             v5.Ptr = callback.nativePtr;
 
             Cef3Binder.MyCefMet_Call5(this.nativePtr, CefBrowserHost_DownloadImage_14, out ret, ref v1, ref v2, ref v3, ref v4, ref v5);
-
             Cef3Binder.MyCefDeletePtr(v1.Ptr); ;
+
         }
 
         // gen! void Print()
@@ -2425,10 +2393,9 @@ namespace LayoutFarm.CefBridge.Auto
         /// /*cef(optional_param=callback)*/
         /// </summary>
 
-        public void PrintToPDF(string path
-        , CefPdfPrintSettings settings
-        , CefPdfPrintCallback callback
-        )
+        public void PrintToPDF(string path,
+        CefPdfPrintSettings settings,
+        CefPdfPrintCallback callback)
         {
             JsValue v1 = new JsValue();
             JsValue v2 = new JsValue();
@@ -2440,8 +2407,8 @@ namespace LayoutFarm.CefBridge.Auto
             v3.Ptr = callback.nativePtr;
 
             Cef3Binder.MyCefMet_Call3(this.nativePtr, CefBrowserHost_PrintToPDF_16, out ret, ref v1, ref v2, ref v3);
-
             Cef3Binder.MyCefDeletePtr(v1.Ptr); ;
+
         }
 
         // gen! void Find(int identifier,const CefString& searchText,bool forward,bool matchCase,bool findNext)
@@ -2458,12 +2425,11 @@ namespace LayoutFarm.CefBridge.Auto
         /// /*cef()*/
         /// </summary>
 
-        public void Find(int identifier
-        , string searchText
-        , bool forward
-        , bool matchCase
-        , bool findNext
-        )
+        public void Find(int identifier,
+        string searchText,
+        bool forward,
+        bool matchCase,
+        bool findNext)
         {
             JsValue v1 = new JsValue();
             JsValue v2 = new JsValue();
@@ -2479,8 +2445,8 @@ namespace LayoutFarm.CefBridge.Auto
             v5.I32 = findNext ? 1 : 0;
 
             Cef3Binder.MyCefMet_Call5(this.nativePtr, CefBrowserHost_Find_17, out ret, ref v1, ref v2, ref v3, ref v4, ref v5);
-
             Cef3Binder.MyCefDeletePtr(v2.Ptr); ;
+
         }
 
         // gen! void StopFinding(bool clearSelection)
@@ -2489,8 +2455,7 @@ namespace LayoutFarm.CefBridge.Auto
         /// /*cef()*/
         /// </summary>
 
-        public void StopFinding(bool clearSelection
-        )
+        public void StopFinding(bool clearSelection)
         {
             JsValue v1 = new JsValue();
             JsValue ret;
@@ -2512,11 +2477,10 @@ namespace LayoutFarm.CefBridge.Auto
         /// /*cef(optional_param=windowInfo,optional_param=client,optional_param=settings,optional_param=inspect_element_at)*/
         /// </summary>
 
-        public void ShowDevTools(CefWindowInfo windowInfo
-        , CefClient client
-        , CefBrowserSettings settings
-        , CefPoint inspect_element_at
-        )
+        public void ShowDevTools(CefWindowInfo windowInfo,
+        CefClient client,
+        CefBrowserSettings settings,
+        CefPoint inspect_element_at)
         {
             JsValue v1 = new JsValue();
             JsValue v2 = new JsValue();
@@ -2558,8 +2522,7 @@ namespace LayoutFarm.CefBridge.Auto
             JsValue ret;
 
             Cef3Binder.MyCefMet_Call0(this.nativePtr, CefBrowserHost_HasDevTools_21, out ret);
-            var ret_result = ret.I32 != 0;
-            return ret_result;
+            return ret.I32 != 0;
         }
 
         // gen! void GetNavigationEntries(CefRefPtr<CefNavigationEntryVisitor> visitor,bool current_only)
@@ -2570,9 +2533,8 @@ namespace LayoutFarm.CefBridge.Auto
         /// /*cef()*/
         /// </summary>
 
-        public void GetNavigationEntries(CefNavigationEntryVisitor visitor
-        , bool current_only
-        )
+        public void GetNavigationEntries(CefNavigationEntryVisitor visitor,
+        bool current_only)
         {
             JsValue v1 = new JsValue();
             JsValue v2 = new JsValue();
@@ -2590,8 +2552,7 @@ namespace LayoutFarm.CefBridge.Auto
         /// /*cef()*/
         /// </summary>
 
-        public void SetMouseCursorChangeDisabled(bool disabled
-        )
+        public void SetMouseCursorChangeDisabled(bool disabled)
         {
             JsValue v1 = new JsValue();
             JsValue ret;
@@ -2612,8 +2573,7 @@ namespace LayoutFarm.CefBridge.Auto
             JsValue ret;
 
             Cef3Binder.MyCefMet_Call0(this.nativePtr, CefBrowserHost_IsMouseCursorChangeDisabled_24, out ret);
-            var ret_result = ret.I32 != 0;
-            return ret_result;
+            return ret.I32 != 0;
         }
 
         // gen! void ReplaceMisspelling(const CefString& word)
@@ -2623,8 +2583,7 @@ namespace LayoutFarm.CefBridge.Auto
         /// /*cef()*/
         /// </summary>
 
-        public void ReplaceMisspelling(string word
-        )
+        public void ReplaceMisspelling(string word)
         {
             JsValue v1 = new JsValue();
             JsValue ret;
@@ -2632,8 +2591,8 @@ namespace LayoutFarm.CefBridge.Auto
             ;
 
             Cef3Binder.MyCefMet_Call1(this.nativePtr, CefBrowserHost_ReplaceMisspelling_25, out ret, ref v1);
-
             Cef3Binder.MyCefDeletePtr(v1.Ptr); ;
+
         }
 
         // gen! void AddWordToDictionary(const CefString& word)
@@ -2642,8 +2601,7 @@ namespace LayoutFarm.CefBridge.Auto
         /// /*cef()*/
         /// </summary>
 
-        public void AddWordToDictionary(string word
-        )
+        public void AddWordToDictionary(string word)
         {
             JsValue v1 = new JsValue();
             JsValue ret;
@@ -2651,8 +2609,8 @@ namespace LayoutFarm.CefBridge.Auto
             ;
 
             Cef3Binder.MyCefMet_Call1(this.nativePtr, CefBrowserHost_AddWordToDictionary_26, out ret, ref v1);
-
             Cef3Binder.MyCefDeletePtr(v1.Ptr); ;
+
         }
 
         // gen! bool IsWindowRenderingDisabled()
@@ -2666,8 +2624,7 @@ namespace LayoutFarm.CefBridge.Auto
             JsValue ret;
 
             Cef3Binder.MyCefMet_Call0(this.nativePtr, CefBrowserHost_IsWindowRenderingDisabled_27, out ret);
-            var ret_result = ret.I32 != 0;
-            return ret_result;
+            return ret.I32 != 0;
         }
 
         // gen! void WasResized()
@@ -2695,8 +2652,7 @@ namespace LayoutFarm.CefBridge.Auto
         /// /*cef()*/
         /// </summary>
 
-        public void WasHidden(bool hidden
-        )
+        public void WasHidden(bool hidden)
         {
             JsValue v1 = new JsValue();
             JsValue ret;
@@ -2733,8 +2689,7 @@ namespace LayoutFarm.CefBridge.Auto
         /// /*cef()*/
         /// </summary>
 
-        public void Invalidate(cef_paint_element_type_t type
-        )
+        public void Invalidate(cef_paint_element_type_t type)
         {
             JsValue v1 = new JsValue();
             JsValue ret;
@@ -2750,8 +2705,7 @@ namespace LayoutFarm.CefBridge.Auto
         /// /*cef()*/
         /// </summary>
 
-        public void SendKeyEvent(CefKeyEvent _event
-        )
+        public void SendKeyEvent(CefKeyEvent _event)
         {
             JsValue v1 = new JsValue();
             JsValue ret;
@@ -2768,11 +2722,10 @@ namespace LayoutFarm.CefBridge.Auto
         /// /*cef()*/
         /// </summary>
 
-        public void SendMouseClickEvent(CefMouseEvent _event
-        , cef_mouse_button_type_t type
-        , bool mouseUp
-        , int clickCount
-        )
+        public void SendMouseClickEvent(CefMouseEvent _event,
+        cef_mouse_button_type_t type,
+        bool mouseUp,
+        int clickCount)
         {
             JsValue v1 = new JsValue();
             JsValue v2 = new JsValue();
@@ -2795,9 +2748,8 @@ namespace LayoutFarm.CefBridge.Auto
         /// /*cef()*/
         /// </summary>
 
-        public void SendMouseMoveEvent(CefMouseEvent _event
-        , bool mouseLeave
-        )
+        public void SendMouseMoveEvent(CefMouseEvent _event,
+        bool mouseLeave)
         {
             JsValue v1 = new JsValue();
             JsValue v2 = new JsValue();
@@ -2819,10 +2771,9 @@ namespace LayoutFarm.CefBridge.Auto
         /// /*cef()*/
         /// </summary>
 
-        public void SendMouseWheelEvent(CefMouseEvent _event
-        , int deltaX
-        , int deltaY
-        )
+        public void SendMouseWheelEvent(CefMouseEvent _event,
+        int deltaX,
+        int deltaY)
         {
             JsValue v1 = new JsValue();
             JsValue v2 = new JsValue();
@@ -2842,8 +2793,7 @@ namespace LayoutFarm.CefBridge.Auto
         /// /*cef()*/
         /// </summary>
 
-        public void SendFocusEvent(bool setFocus
-        )
+        public void SendFocusEvent(bool setFocus)
         {
             JsValue v1 = new JsValue();
             JsValue ret;
@@ -2897,8 +2847,7 @@ namespace LayoutFarm.CefBridge.Auto
             JsValue ret;
 
             Cef3Binder.MyCefMet_Call0(this.nativePtr, CefBrowserHost_GetWindowlessFrameRate_39, out ret);
-            var ret_result = ret.I32;
-            return ret_result;
+            return ret.I32;
         }
 
         // gen! void SetWindowlessFrameRate(int frame_rate)
@@ -2911,8 +2860,7 @@ namespace LayoutFarm.CefBridge.Auto
         /// /*cef()*/
         /// </summary>
 
-        public void SetWindowlessFrameRate(int frame_rate
-        )
+        public void SetWindowlessFrameRate(int frame_rate)
         {
             JsValue v1 = new JsValue();
             JsValue ret;
@@ -2948,11 +2896,10 @@ namespace LayoutFarm.CefBridge.Auto
         /// /*cef(optional_param=text,optional_param=underlines)*/
         /// </summary>
 
-        public void ImeSetComposition(string text
-        , List<CefCompositionUnderline> underlines
-        , CefRange replacement_range
-        , CefRange selection_range
-        )
+        public void ImeSetComposition(string text,
+        List<CefCompositionUnderline> underlines,
+        CefRange replacement_range,
+        CefRange selection_range)
         {
             JsValue v1 = new JsValue();
             JsValue v2 = new JsValue();
@@ -2966,8 +2913,8 @@ namespace LayoutFarm.CefBridge.Auto
             v4.Ptr = selection_range.nativePtr;
 
             Cef3Binder.MyCefMet_Call4(this.nativePtr, CefBrowserHost_ImeSetComposition_41, out ret, ref v1, ref v2, ref v3, ref v4);
-
             Cef3Binder.MyCefDeletePtr(v1.Ptr); ;
+
         }
 
         // gen! void ImeCommitText(const CefString& text,const CefRange& replacement_range,int relative_cursor_pos)
@@ -2982,10 +2929,9 @@ namespace LayoutFarm.CefBridge.Auto
         /// /*cef(optional_param=text)*/
         /// </summary>
 
-        public void ImeCommitText(string text
-        , CefRange replacement_range
-        , int relative_cursor_pos
-        )
+        public void ImeCommitText(string text,
+        CefRange replacement_range,
+        int relative_cursor_pos)
         {
             JsValue v1 = new JsValue();
             JsValue v2 = new JsValue();
@@ -2997,8 +2943,8 @@ namespace LayoutFarm.CefBridge.Auto
             v3.I32 = (int)relative_cursor_pos;
 
             Cef3Binder.MyCefMet_Call3(this.nativePtr, CefBrowserHost_ImeCommitText_42, out ret, ref v1, ref v2, ref v3);
-
             Cef3Binder.MyCefDeletePtr(v1.Ptr); ;
+
         }
 
         // gen! void ImeFinishComposingText(bool keep_selection)
@@ -3010,8 +2956,7 @@ namespace LayoutFarm.CefBridge.Auto
         /// /*cef()*/
         /// </summary>
 
-        public void ImeFinishComposingText(bool keep_selection
-        )
+        public void ImeFinishComposingText(bool keep_selection)
         {
             JsValue v1 = new JsValue();
             JsValue ret;
@@ -3050,10 +2995,9 @@ namespace LayoutFarm.CefBridge.Auto
         /// /*cef()*/
         /// </summary>
 
-        public void DragTargetDragEnter(CefDragData drag_data
-        , CefMouseEvent _event
-        , cef_drag_operations_mask_t allowed_ops
-        )
+        public void DragTargetDragEnter(CefDragData drag_data,
+        CefMouseEvent _event,
+        cef_drag_operations_mask_t allowed_ops)
         {
             JsValue v1 = new JsValue();
             JsValue v2 = new JsValue();
@@ -3076,9 +3020,8 @@ namespace LayoutFarm.CefBridge.Auto
         /// /*cef()*/
         /// </summary>
 
-        public void DragTargetDragOver(CefMouseEvent _event
-        , cef_drag_operations_mask_t allowed_ops
-        )
+        public void DragTargetDragOver(CefMouseEvent _event,
+        cef_drag_operations_mask_t allowed_ops)
         {
             JsValue v1 = new JsValue();
             JsValue v2 = new JsValue();
@@ -3116,8 +3059,7 @@ namespace LayoutFarm.CefBridge.Auto
         /// /*cef()*/
         /// </summary>
 
-        public void DragTargetDrop(CefMouseEvent _event
-        )
+        public void DragTargetDrop(CefMouseEvent _event)
         {
             JsValue v1 = new JsValue();
             JsValue ret;
@@ -3139,10 +3081,9 @@ namespace LayoutFarm.CefBridge.Auto
         /// /*cef()*/
         /// </summary>
 
-        public void DragSourceEndedAt(int x
-        , int y
-        , cef_drag_operations_mask_t op
-        )
+        public void DragSourceEndedAt(int x,
+        int y,
+        cef_drag_operations_mask_t op)
         {
             JsValue v1 = new JsValue();
             JsValue v2 = new JsValue();
@@ -3188,8 +3129,7 @@ namespace LayoutFarm.CefBridge.Auto
             JsValue ret;
 
             Cef3Binder.MyCefMet_Call0(this.nativePtr, CefBrowserHost_GetVisibleNavigationEntry_51, out ret);
-            var ret_result = new CefNavigationEntry(ret.Ptr);
-            return ret_result;
+            return new CefNavigationEntry(ret.Ptr);
         }
 
         // gen! void SetAccessibilityState(cef_state_t accessibility_state)
@@ -3221,8 +3161,7 @@ namespace LayoutFarm.CefBridge.Auto
         /// /*cef()*/
         /// </summary>
 
-        public void SetAccessibilityState(cef_state_t accessibility_state
-        )
+        public void SetAccessibilityState(cef_state_t accessibility_state)
         {
             JsValue v1 = new JsValue();
             JsValue ret;
@@ -3243,7 +3182,7 @@ namespace LayoutFarm.CefBridge.Auto
     {
         const int _typeNAME = 5;
         const int CefClient_Release_0 = (_typeNAME << 16) | 0;
-        internal readonly IntPtr nativePtr;
+        internal IntPtr nativePtr;
         internal CefClient(IntPtr nativePtr)
         {
             this.nativePtr = nativePtr;
@@ -3252,6 +3191,7 @@ namespace LayoutFarm.CefBridge.Auto
         {
             JsValue ret;
             Cef3Binder.MyCefMet_Call0(this.nativePtr, CefClient_Release_0, out ret);
+            this.nativePtr = IntPtr.Zero;
         }
     }
 
@@ -3292,7 +3232,7 @@ namespace LayoutFarm.CefBridge.Auto
         const int CefCommandLine_GetArguments_18 = (_typeNAME << 16) | 18;
         const int CefCommandLine_AppendArgument_19 = (_typeNAME << 16) | 19;
         const int CefCommandLine_PrependWrapper_20 = (_typeNAME << 16) | 20;
-        internal readonly IntPtr nativePtr;
+        internal IntPtr nativePtr;
         internal CefCommandLine(IntPtr nativePtr)
         {
             this.nativePtr = nativePtr;
@@ -3301,6 +3241,7 @@ namespace LayoutFarm.CefBridge.Auto
         {
             JsValue ret;
             Cef3Binder.MyCefMet_Call0(this.nativePtr, CefCommandLine_Release_0, out ret);
+            this.nativePtr = IntPtr.Zero;
         }
 
         // gen! bool IsValid()
@@ -3313,8 +3254,7 @@ namespace LayoutFarm.CefBridge.Auto
             JsValue ret;
 
             Cef3Binder.MyCefMet_Call0(this.nativePtr, CefCommandLine_IsValid_1, out ret);
-            var ret_result = ret.I32 != 0;
-            return ret_result;
+            return ret.I32 != 0;
         }
 
         // gen! bool IsReadOnly()
@@ -3329,8 +3269,7 @@ namespace LayoutFarm.CefBridge.Auto
             JsValue ret;
 
             Cef3Binder.MyCefMet_Call0(this.nativePtr, CefCommandLine_IsReadOnly_2, out ret);
-            var ret_result = ret.I32 != 0;
-            return ret_result;
+            return ret.I32 != 0;
         }
 
         // gen! CefRefPtr<CefCommandLine> Copy()
@@ -3344,8 +3283,7 @@ namespace LayoutFarm.CefBridge.Auto
             JsValue ret;
 
             Cef3Binder.MyCefMet_Call0(this.nativePtr, CefCommandLine_Copy_3, out ret);
-            var ret_result = new CefCommandLine(ret.Ptr);
-            return ret_result;
+            return new CefCommandLine(ret.Ptr);
         }
 
         // gen! void InitFromArgv(int argc,const char* const* argv)
@@ -3356,9 +3294,8 @@ namespace LayoutFarm.CefBridge.Auto
         /// /*cef()*/
         /// </summary>
 
-        public void InitFromArgv(int argc
-        , IntPtr argv
-        )
+        public void InitFromArgv(int argc,
+        IntPtr argv)
         {
             JsValue v1 = new JsValue();
             JsValue v2 = new JsValue();
@@ -3377,8 +3314,7 @@ namespace LayoutFarm.CefBridge.Auto
         /// /*cef()*/
         /// </summary>
 
-        public void InitFromString(string command_line
-        )
+        public void InitFromString(string command_line)
         {
             JsValue v1 = new JsValue();
             JsValue ret;
@@ -3386,8 +3322,8 @@ namespace LayoutFarm.CefBridge.Auto
             ;
 
             Cef3Binder.MyCefMet_Call1(this.nativePtr, CefCommandLine_InitFromString_5, out ret, ref v1);
-
             Cef3Binder.MyCefDeletePtr(v1.Ptr); ;
+
         }
 
         // gen! void Reset()
@@ -3412,16 +3348,15 @@ namespace LayoutFarm.CefBridge.Auto
         /// /*cef()*/
         /// </summary>
 
-        public void GetArgv(List<string> argv
-        )
+        public void GetArgv(List<string> argv)
         {
             JsValue v1 = new JsValue();
             JsValue ret;
             v1.Ptr = Cef3Binder.CreateStdList(2);
 
             Cef3Binder.MyCefMet_Call1(this.nativePtr, CefCommandLine_GetArgv_7, out ret, ref v1);
-
             Cef3Binder.CopyStdStringListAndDestroyNativeSide(v1.Ptr, argv);
+
         }
 
         // gen! CefString GetCommandLineString()
@@ -3436,8 +3371,7 @@ namespace LayoutFarm.CefBridge.Auto
             JsValue ret;
 
             Cef3Binder.MyCefMet_Call0(this.nativePtr, CefCommandLine_GetCommandLineString_8, out ret);
-            var ret_result = Cef3Binder.CopyStringAndDestroyNativeSide(ref ret);
-            return ret_result;
+            return Cef3Binder.CopyStringAndDestroyNativeSide(ref ret);
         }
 
         // gen! CefString GetProgram()
@@ -3451,8 +3385,7 @@ namespace LayoutFarm.CefBridge.Auto
             JsValue ret;
 
             Cef3Binder.MyCefMet_Call0(this.nativePtr, CefCommandLine_GetProgram_9, out ret);
-            var ret_result = Cef3Binder.CopyStringAndDestroyNativeSide(ref ret);
-            return ret_result;
+            return Cef3Binder.CopyStringAndDestroyNativeSide(ref ret);
         }
 
         // gen! void SetProgram(const CefString& program)
@@ -3461,8 +3394,7 @@ namespace LayoutFarm.CefBridge.Auto
         /// /*cef()*/
         /// </summary>
 
-        public void SetProgram(string program
-        )
+        public void SetProgram(string program)
         {
             JsValue v1 = new JsValue();
             JsValue ret;
@@ -3470,8 +3402,8 @@ namespace LayoutFarm.CefBridge.Auto
             ;
 
             Cef3Binder.MyCefMet_Call1(this.nativePtr, CefCommandLine_SetProgram_10, out ret, ref v1);
-
             Cef3Binder.MyCefDeletePtr(v1.Ptr); ;
+
         }
 
         // gen! bool HasSwitches()
@@ -3485,8 +3417,7 @@ namespace LayoutFarm.CefBridge.Auto
             JsValue ret;
 
             Cef3Binder.MyCefMet_Call0(this.nativePtr, CefCommandLine_HasSwitches_11, out ret);
-            var ret_result = ret.I32 != 0;
-            return ret_result;
+            return ret.I32 != 0;
         }
 
         // gen! bool HasSwitch(const CefString& name)
@@ -3495,8 +3426,7 @@ namespace LayoutFarm.CefBridge.Auto
         /// /*cef()*/
         /// </summary>
 
-        public bool HasSwitch(string name
-        )
+        public bool HasSwitch(string name)
         {
             JsValue v1 = new JsValue();
             JsValue ret;
@@ -3504,9 +3434,8 @@ namespace LayoutFarm.CefBridge.Auto
             ;
 
             Cef3Binder.MyCefMet_Call1(this.nativePtr, CefCommandLine_HasSwitch_12, out ret, ref v1);
-            var ret_result = ret.I32 != 0;
             Cef3Binder.MyCefDeletePtr(v1.Ptr); ;
-            return ret_result;
+            return ret.I32 != 0;
         }
 
         // gen! CefString GetSwitchValue(const CefString& name)
@@ -3516,8 +3445,7 @@ namespace LayoutFarm.CefBridge.Auto
         /// /*cef()*/
         /// </summary>
 
-        public string GetSwitchValue(string name
-        )
+        public string GetSwitchValue(string name)
         {
             JsValue v1 = new JsValue();
             JsValue ret;
@@ -3525,9 +3453,8 @@ namespace LayoutFarm.CefBridge.Auto
             ;
 
             Cef3Binder.MyCefMet_Call1(this.nativePtr, CefCommandLine_GetSwitchValue_13, out ret, ref v1);
-            var ret_result = Cef3Binder.CopyStringAndDestroyNativeSide(ref ret);
             Cef3Binder.MyCefDeletePtr(v1.Ptr); ;
-            return ret_result;
+            return Cef3Binder.CopyStringAndDestroyNativeSide(ref ret);
         }
 
         // gen! void GetSwitches(SwitchMap& switches)
@@ -3537,8 +3464,7 @@ namespace LayoutFarm.CefBridge.Auto
         /// /*cef()*/
         /// </summary>
 
-        public void GetSwitches(SwitchMap switches
-        )
+        public void GetSwitches(SwitchMap switches)
         {
             JsValue v1 = new JsValue();
             JsValue ret;
@@ -3555,8 +3481,7 @@ namespace LayoutFarm.CefBridge.Auto
         /// /*cef()*/
         /// </summary>
 
-        public void AppendSwitch(string name
-        )
+        public void AppendSwitch(string name)
         {
             JsValue v1 = new JsValue();
             JsValue ret;
@@ -3564,8 +3489,8 @@ namespace LayoutFarm.CefBridge.Auto
             ;
 
             Cef3Binder.MyCefMet_Call1(this.nativePtr, CefCommandLine_AppendSwitch_15, out ret, ref v1);
-
             Cef3Binder.MyCefDeletePtr(v1.Ptr); ;
+
         }
 
         // gen! void AppendSwitchWithValue(const CefString& name,const CefString& value)
@@ -3574,9 +3499,8 @@ namespace LayoutFarm.CefBridge.Auto
         /// /*cef()*/
         /// </summary>
 
-        public void AppendSwitchWithValue(string name
-        , string value
-        )
+        public void AppendSwitchWithValue(string name,
+        string value)
         {
             JsValue v1 = new JsValue();
             JsValue v2 = new JsValue();
@@ -3587,9 +3511,9 @@ namespace LayoutFarm.CefBridge.Auto
             ;
 
             Cef3Binder.MyCefMet_Call2(this.nativePtr, CefCommandLine_AppendSwitchWithValue_16, out ret, ref v1, ref v2);
-
             Cef3Binder.MyCefDeletePtr(v1.Ptr); ;
             Cef3Binder.MyCefDeletePtr(v2.Ptr); ;
+
         }
 
         // gen! bool HasArguments()
@@ -3603,8 +3527,7 @@ namespace LayoutFarm.CefBridge.Auto
             JsValue ret;
 
             Cef3Binder.MyCefMet_Call0(this.nativePtr, CefCommandLine_HasArguments_17, out ret);
-            var ret_result = ret.I32 != 0;
-            return ret_result;
+            return ret.I32 != 0;
         }
 
         // gen! void GetArguments(ArgumentList& arguments)
@@ -3613,8 +3536,7 @@ namespace LayoutFarm.CefBridge.Auto
         /// /*cef()*/
         /// </summary>
 
-        public void GetArguments(ArgumentList arguments
-        )
+        public void GetArguments(ArgumentList arguments)
         {
             JsValue v1 = new JsValue();
             JsValue ret;
@@ -3630,8 +3552,7 @@ namespace LayoutFarm.CefBridge.Auto
         /// /*cef()*/
         /// </summary>
 
-        public void AppendArgument(string argument
-        )
+        public void AppendArgument(string argument)
         {
             JsValue v1 = new JsValue();
             JsValue ret;
@@ -3639,8 +3560,8 @@ namespace LayoutFarm.CefBridge.Auto
             ;
 
             Cef3Binder.MyCefMet_Call1(this.nativePtr, CefCommandLine_AppendArgument_19, out ret, ref v1);
-
             Cef3Binder.MyCefDeletePtr(v1.Ptr); ;
+
         }
 
         // gen! void PrependWrapper(const CefString& wrapper)
@@ -3650,8 +3571,7 @@ namespace LayoutFarm.CefBridge.Auto
         /// /*cef()*/
         /// </summary>
 
-        public void PrependWrapper(string wrapper
-        )
+        public void PrependWrapper(string wrapper)
         {
             JsValue v1 = new JsValue();
             JsValue ret;
@@ -3659,8 +3579,8 @@ namespace LayoutFarm.CefBridge.Auto
             ;
 
             Cef3Binder.MyCefMet_Call1(this.nativePtr, CefCommandLine_PrependWrapper_20, out ret, ref v1);
-
             Cef3Binder.MyCefDeletePtr(v1.Ptr); ;
+
         }
     }
 
@@ -3696,7 +3616,7 @@ namespace LayoutFarm.CefBridge.Auto
         const int CefContextMenuParams_GetEditStateFlags_19 = (_typeNAME << 16) | 19;
         const int CefContextMenuParams_IsCustomMenu_20 = (_typeNAME << 16) | 20;
         const int CefContextMenuParams_IsPepperMenu_21 = (_typeNAME << 16) | 21;
-        internal readonly IntPtr nativePtr;
+        internal IntPtr nativePtr;
         internal CefContextMenuParams(IntPtr nativePtr)
         {
             this.nativePtr = nativePtr;
@@ -3705,6 +3625,7 @@ namespace LayoutFarm.CefBridge.Auto
         {
             JsValue ret;
             Cef3Binder.MyCefMet_Call0(this.nativePtr, CefContextMenuParams_Release_0, out ret);
+            this.nativePtr = IntPtr.Zero;
         }
 
         // gen! int GetXCoord()
@@ -3717,8 +3638,7 @@ namespace LayoutFarm.CefBridge.Auto
             JsValue ret;
 
             Cef3Binder.MyCefMet_Call0(this.nativePtr, CefContextMenuParams_GetXCoord_1, out ret);
-            var ret_result = ret.I32;
-            return ret_result;
+            return ret.I32;
         }
 
         // gen! int GetYCoord()
@@ -3733,8 +3653,7 @@ namespace LayoutFarm.CefBridge.Auto
             JsValue ret;
 
             Cef3Binder.MyCefMet_Call0(this.nativePtr, CefContextMenuParams_GetYCoord_2, out ret);
-            var ret_result = ret.I32;
-            return ret_result;
+            return ret.I32;
         }
 
         // gen! TypeFlags GetTypeFlags()
@@ -3749,9 +3668,8 @@ namespace LayoutFarm.CefBridge.Auto
             JsValue ret;
 
             Cef3Binder.MyCefMet_Call0(this.nativePtr, CefContextMenuParams_GetTypeFlags_3, out ret);
-            var ret_result = (cef_context_menu_type_flags_t)ret.I32;
+            return (cef_context_menu_type_flags_t)ret.I32;
 
-            return ret_result;
         }
 
         // gen! CefString GetLinkUrl()
@@ -3766,8 +3684,7 @@ namespace LayoutFarm.CefBridge.Auto
             JsValue ret;
 
             Cef3Binder.MyCefMet_Call0(this.nativePtr, CefContextMenuParams_GetLinkUrl_4, out ret);
-            var ret_result = Cef3Binder.CopyStringAndDestroyNativeSide(ref ret);
-            return ret_result;
+            return Cef3Binder.CopyStringAndDestroyNativeSide(ref ret);
         }
 
         // gen! CefString GetUnfilteredLinkUrl()
@@ -3782,8 +3699,7 @@ namespace LayoutFarm.CefBridge.Auto
             JsValue ret;
 
             Cef3Binder.MyCefMet_Call0(this.nativePtr, CefContextMenuParams_GetUnfilteredLinkUrl_5, out ret);
-            var ret_result = Cef3Binder.CopyStringAndDestroyNativeSide(ref ret);
-            return ret_result;
+            return Cef3Binder.CopyStringAndDestroyNativeSide(ref ret);
         }
 
         // gen! CefString GetSourceUrl()
@@ -3798,8 +3714,7 @@ namespace LayoutFarm.CefBridge.Auto
             JsValue ret;
 
             Cef3Binder.MyCefMet_Call0(this.nativePtr, CefContextMenuParams_GetSourceUrl_6, out ret);
-            var ret_result = Cef3Binder.CopyStringAndDestroyNativeSide(ref ret);
-            return ret_result;
+            return Cef3Binder.CopyStringAndDestroyNativeSide(ref ret);
         }
 
         // gen! bool HasImageContents()
@@ -3814,8 +3729,7 @@ namespace LayoutFarm.CefBridge.Auto
             JsValue ret;
 
             Cef3Binder.MyCefMet_Call0(this.nativePtr, CefContextMenuParams_HasImageContents_7, out ret);
-            var ret_result = ret.I32 != 0;
-            return ret_result;
+            return ret.I32 != 0;
         }
 
         // gen! CefString GetTitleText()
@@ -3830,8 +3744,7 @@ namespace LayoutFarm.CefBridge.Auto
             JsValue ret;
 
             Cef3Binder.MyCefMet_Call0(this.nativePtr, CefContextMenuParams_GetTitleText_8, out ret);
-            var ret_result = Cef3Binder.CopyStringAndDestroyNativeSide(ref ret);
-            return ret_result;
+            return Cef3Binder.CopyStringAndDestroyNativeSide(ref ret);
         }
 
         // gen! CefString GetPageUrl()
@@ -3845,8 +3758,7 @@ namespace LayoutFarm.CefBridge.Auto
             JsValue ret;
 
             Cef3Binder.MyCefMet_Call0(this.nativePtr, CefContextMenuParams_GetPageUrl_9, out ret);
-            var ret_result = Cef3Binder.CopyStringAndDestroyNativeSide(ref ret);
-            return ret_result;
+            return Cef3Binder.CopyStringAndDestroyNativeSide(ref ret);
         }
 
         // gen! CefString GetFrameUrl()
@@ -3860,8 +3772,7 @@ namespace LayoutFarm.CefBridge.Auto
             JsValue ret;
 
             Cef3Binder.MyCefMet_Call0(this.nativePtr, CefContextMenuParams_GetFrameUrl_10, out ret);
-            var ret_result = Cef3Binder.CopyStringAndDestroyNativeSide(ref ret);
-            return ret_result;
+            return Cef3Binder.CopyStringAndDestroyNativeSide(ref ret);
         }
 
         // gen! CefString GetFrameCharset()
@@ -3876,8 +3787,7 @@ namespace LayoutFarm.CefBridge.Auto
             JsValue ret;
 
             Cef3Binder.MyCefMet_Call0(this.nativePtr, CefContextMenuParams_GetFrameCharset_11, out ret);
-            var ret_result = Cef3Binder.CopyStringAndDestroyNativeSide(ref ret);
-            return ret_result;
+            return Cef3Binder.CopyStringAndDestroyNativeSide(ref ret);
         }
 
         // gen! MediaType GetMediaType()
@@ -3891,9 +3801,8 @@ namespace LayoutFarm.CefBridge.Auto
             JsValue ret;
 
             Cef3Binder.MyCefMet_Call0(this.nativePtr, CefContextMenuParams_GetMediaType_12, out ret);
-            var ret_result = (cef_context_menu_media_type_t)ret.I32;
+            return (cef_context_menu_media_type_t)ret.I32;
 
-            return ret_result;
         }
 
         // gen! MediaStateFlags GetMediaStateFlags()
@@ -3908,9 +3817,8 @@ namespace LayoutFarm.CefBridge.Auto
             JsValue ret;
 
             Cef3Binder.MyCefMet_Call0(this.nativePtr, CefContextMenuParams_GetMediaStateFlags_13, out ret);
-            var ret_result = (cef_context_menu_media_state_flags_t)ret.I32;
+            return (cef_context_menu_media_state_flags_t)ret.I32;
 
-            return ret_result;
         }
 
         // gen! CefString GetSelectionText()
@@ -3925,8 +3833,7 @@ namespace LayoutFarm.CefBridge.Auto
             JsValue ret;
 
             Cef3Binder.MyCefMet_Call0(this.nativePtr, CefContextMenuParams_GetSelectionText_14, out ret);
-            var ret_result = Cef3Binder.CopyStringAndDestroyNativeSide(ref ret);
-            return ret_result;
+            return Cef3Binder.CopyStringAndDestroyNativeSide(ref ret);
         }
 
         // gen! CefString GetMisspelledWord()
@@ -3941,8 +3848,7 @@ namespace LayoutFarm.CefBridge.Auto
             JsValue ret;
 
             Cef3Binder.MyCefMet_Call0(this.nativePtr, CefContextMenuParams_GetMisspelledWord_15, out ret);
-            var ret_result = Cef3Binder.CopyStringAndDestroyNativeSide(ref ret);
-            return ret_result;
+            return Cef3Binder.CopyStringAndDestroyNativeSide(ref ret);
         }
 
         // gen! bool GetDictionarySuggestions(std::vector<CefString>& suggestions)
@@ -3952,17 +3858,15 @@ namespace LayoutFarm.CefBridge.Auto
         /// /*cef()*/
         /// </summary>
 
-        public bool GetDictionarySuggestions(List<string> suggestions
-        )
+        public bool GetDictionarySuggestions(List<string> suggestions)
         {
             JsValue v1 = new JsValue();
             JsValue ret;
             v1.Ptr = Cef3Binder.CreateStdList(2);
 
             Cef3Binder.MyCefMet_Call1(this.nativePtr, CefContextMenuParams_GetDictionarySuggestions_16, out ret, ref v1);
-            var ret_result = ret.I32 != 0;
             Cef3Binder.CopyStdStringListAndDestroyNativeSide(v1.Ptr, suggestions);
-            return ret_result;
+            return ret.I32 != 0;
         }
 
         // gen! bool IsEditable()
@@ -3976,8 +3880,7 @@ namespace LayoutFarm.CefBridge.Auto
             JsValue ret;
 
             Cef3Binder.MyCefMet_Call0(this.nativePtr, CefContextMenuParams_IsEditable_17, out ret);
-            var ret_result = ret.I32 != 0;
-            return ret_result;
+            return ret.I32 != 0;
         }
 
         // gen! bool IsSpellCheckEnabled()
@@ -3992,8 +3895,7 @@ namespace LayoutFarm.CefBridge.Auto
             JsValue ret;
 
             Cef3Binder.MyCefMet_Call0(this.nativePtr, CefContextMenuParams_IsSpellCheckEnabled_18, out ret);
-            var ret_result = ret.I32 != 0;
-            return ret_result;
+            return ret.I32 != 0;
         }
 
         // gen! EditStateFlags GetEditStateFlags()
@@ -4008,9 +3910,8 @@ namespace LayoutFarm.CefBridge.Auto
             JsValue ret;
 
             Cef3Binder.MyCefMet_Call0(this.nativePtr, CefContextMenuParams_GetEditStateFlags_19, out ret);
-            var ret_result = (cef_context_menu_edit_state_flags_t)ret.I32;
+            return (cef_context_menu_edit_state_flags_t)ret.I32;
 
-            return ret_result;
         }
 
         // gen! bool IsCustomMenu()
@@ -4025,8 +3926,7 @@ namespace LayoutFarm.CefBridge.Auto
             JsValue ret;
 
             Cef3Binder.MyCefMet_Call0(this.nativePtr, CefContextMenuParams_IsCustomMenu_20, out ret);
-            var ret_result = ret.I32 != 0;
-            return ret_result;
+            return ret.I32 != 0;
         }
 
         // gen! bool IsPepperMenu()
@@ -4040,8 +3940,7 @@ namespace LayoutFarm.CefBridge.Auto
             JsValue ret;
 
             Cef3Binder.MyCefMet_Call0(this.nativePtr, CefContextMenuParams_IsPepperMenu_21, out ret);
-            var ret_result = ret.I32 != 0;
-            return ret_result;
+            return ret.I32 != 0;
         }
     }
 
@@ -4063,7 +3962,7 @@ namespace LayoutFarm.CefBridge.Auto
         const int CefCookieManager_DeleteCookies_5 = (_typeNAME << 16) | 5;
         const int CefCookieManager_SetStoragePath_6 = (_typeNAME << 16) | 6;
         const int CefCookieManager_FlushStore_7 = (_typeNAME << 16) | 7;
-        internal readonly IntPtr nativePtr;
+        internal IntPtr nativePtr;
         internal CefCookieManager(IntPtr nativePtr)
         {
             this.nativePtr = nativePtr;
@@ -4072,6 +3971,7 @@ namespace LayoutFarm.CefBridge.Auto
         {
             JsValue ret;
             Cef3Binder.MyCefMet_Call0(this.nativePtr, CefCookieManager_Release_0, out ret);
+            this.nativePtr = IntPtr.Zero;
         }
 
         // gen! void SetSupportedSchemes(const std::vector<CefString>& schemes,CefRefPtr<CefCompletionCallback> callback)
@@ -4079,9 +3979,8 @@ namespace LayoutFarm.CefBridge.Auto
         /// CefCookieManager methods.
         /// </summary>
 
-        public void SetSupportedSchemes(List<string> schemes
-        , CefCompletionCallback callback
-        )
+        public void SetSupportedSchemes(List<string> schemes,
+        CefCompletionCallback callback)
         {
             JsValue v1 = new JsValue();
             JsValue v2 = new JsValue();
@@ -4090,8 +3989,8 @@ namespace LayoutFarm.CefBridge.Auto
             v2.Ptr = callback.nativePtr;
 
             Cef3Binder.MyCefMet_Call2(this.nativePtr, CefCookieManager_SetSupportedSchemes_1, out ret, ref v1, ref v2);
-
             Cef3Binder.CopyStdStringListAndDestroyNativeSide(v1.Ptr, schemes);
+
         }
 
         // gen! bool VisitAllCookies(CefRefPtr<CefCookieVisitor> visitor)
@@ -4102,16 +4001,14 @@ namespace LayoutFarm.CefBridge.Auto
         /// /*cef()*/
         /// </summary>
 
-        public bool VisitAllCookies(CefCookieVisitor visitor
-        )
+        public bool VisitAllCookies(CefCookieVisitor visitor)
         {
             JsValue v1 = new JsValue();
             JsValue ret;
             v1.Ptr = visitor.nativePtr;
 
             Cef3Binder.MyCefMet_Call1(this.nativePtr, CefCookieManager_VisitAllCookies_2, out ret, ref v1);
-            var ret_result = ret.I32 != 0;
-            return ret_result;
+            return ret.I32 != 0;
         }
 
         // gen! bool VisitUrlCookies(const CefString& url,bool includeHttpOnly,CefRefPtr<CefCookieVisitor> visitor)
@@ -4124,10 +4021,9 @@ namespace LayoutFarm.CefBridge.Auto
         /// /*cef()*/
         /// </summary>
 
-        public bool VisitUrlCookies(string url
-        , bool includeHttpOnly
-        , CefCookieVisitor visitor
-        )
+        public bool VisitUrlCookies(string url,
+        bool includeHttpOnly,
+        CefCookieVisitor visitor)
         {
             JsValue v1 = new JsValue();
             JsValue v2 = new JsValue();
@@ -4139,9 +4035,8 @@ namespace LayoutFarm.CefBridge.Auto
             v3.Ptr = visitor.nativePtr;
 
             Cef3Binder.MyCefMet_Call3(this.nativePtr, CefCookieManager_VisitUrlCookies_3, out ret, ref v1, ref v2, ref v3);
-            var ret_result = ret.I32 != 0;
             Cef3Binder.MyCefDeletePtr(v1.Ptr); ;
-            return ret_result;
+            return ret.I32 != 0;
         }
 
         // gen! bool SetCookie(const CefString& url,const CefCookie& cookie,CefRefPtr<CefSetCookieCallback> callback)
@@ -4156,10 +4051,9 @@ namespace LayoutFarm.CefBridge.Auto
         /// /*cef(optional_param=callback)*/
         /// </summary>
 
-        public bool SetCookie(string url
-        , CefCookie cookie
-        , CefSetCookieCallback callback
-        )
+        public bool SetCookie(string url,
+        CefCookie cookie,
+        CefSetCookieCallback callback)
         {
             JsValue v1 = new JsValue();
             JsValue v2 = new JsValue();
@@ -4171,9 +4065,8 @@ namespace LayoutFarm.CefBridge.Auto
             v3.Ptr = callback.nativePtr;
 
             Cef3Binder.MyCefMet_Call3(this.nativePtr, CefCookieManager_SetCookie_4, out ret, ref v1, ref v2, ref v3);
-            var ret_result = ret.I32 != 0;
             Cef3Binder.MyCefDeletePtr(v1.Ptr); ;
-            return ret_result;
+            return ret.I32 != 0;
         }
 
         // gen! bool DeleteCookies(const CefString& url,const CefString& cookie_name,CefRefPtr<CefDeleteCookiesCallback> callback)
@@ -4190,10 +4083,9 @@ namespace LayoutFarm.CefBridge.Auto
         /// /*cef(optional_param=url,optional_param=cookie_name,optional_param=callback)*/
         /// </summary>
 
-        public bool DeleteCookies(string url
-        , string cookie_name
-        , CefDeleteCookiesCallback callback
-        )
+        public bool DeleteCookies(string url,
+        string cookie_name,
+        CefDeleteCookiesCallback callback)
         {
             JsValue v1 = new JsValue();
             JsValue v2 = new JsValue();
@@ -4206,10 +4098,9 @@ namespace LayoutFarm.CefBridge.Auto
             v3.Ptr = callback.nativePtr;
 
             Cef3Binder.MyCefMet_Call3(this.nativePtr, CefCookieManager_DeleteCookies_5, out ret, ref v1, ref v2, ref v3);
-            var ret_result = ret.I32 != 0;
             Cef3Binder.MyCefDeletePtr(v1.Ptr); ;
             Cef3Binder.MyCefDeletePtr(v2.Ptr); ;
-            return ret_result;
+            return ret.I32 != 0;
         }
 
         // gen! bool SetStoragePath(const CefString& path,bool persist_session_cookies,CefRefPtr<CefCompletionCallback> callback)
@@ -4225,10 +4116,9 @@ namespace LayoutFarm.CefBridge.Auto
         /// /*cef(optional_param=path,optional_param=callback)*/
         /// </summary>
 
-        public bool SetStoragePath(string path
-        , bool persist_session_cookies
-        , CefCompletionCallback callback
-        )
+        public bool SetStoragePath(string path,
+        bool persist_session_cookies,
+        CefCompletionCallback callback)
         {
             JsValue v1 = new JsValue();
             JsValue v2 = new JsValue();
@@ -4240,9 +4130,8 @@ namespace LayoutFarm.CefBridge.Auto
             v3.Ptr = callback.nativePtr;
 
             Cef3Binder.MyCefMet_Call3(this.nativePtr, CefCookieManager_SetStoragePath_6, out ret, ref v1, ref v2, ref v3);
-            var ret_result = ret.I32 != 0;
             Cef3Binder.MyCefDeletePtr(v1.Ptr); ;
-            return ret_result;
+            return ret.I32 != 0;
         }
 
         // gen! bool FlushStore(CefRefPtr<CefCompletionCallback> callback)
@@ -4253,16 +4142,14 @@ namespace LayoutFarm.CefBridge.Auto
         /// /*cef(optional_param=callback)*/
         /// </summary>
 
-        public bool FlushStore(CefCompletionCallback callback
-        )
+        public bool FlushStore(CefCompletionCallback callback)
         {
             JsValue v1 = new JsValue();
             JsValue ret;
             v1.Ptr = callback.nativePtr;
 
             Cef3Binder.MyCefMet_Call1(this.nativePtr, CefCookieManager_FlushStore_7, out ret, ref v1);
-            var ret_result = ret.I32 != 0;
-            return ret_result;
+            return ret.I32 != 0;
         }
     }
 
@@ -4277,7 +4164,7 @@ namespace LayoutFarm.CefBridge.Auto
     {
         const int _typeNAME = 9;
         const int CefCookieVisitor_Release_0 = (_typeNAME << 16) | 0;
-        internal readonly IntPtr nativePtr;
+        internal IntPtr nativePtr;
         internal CefCookieVisitor(IntPtr nativePtr)
         {
             this.nativePtr = nativePtr;
@@ -4286,6 +4173,7 @@ namespace LayoutFarm.CefBridge.Auto
         {
             JsValue ret;
             Cef3Binder.MyCefMet_Call0(this.nativePtr, CefCookieVisitor_Release_0, out ret);
+            this.nativePtr = IntPtr.Zero;
         }
     }
 
@@ -4300,7 +4188,7 @@ namespace LayoutFarm.CefBridge.Auto
     {
         const int _typeNAME = 10;
         const int CefDOMVisitor_Release_0 = (_typeNAME << 16) | 0;
-        internal readonly IntPtr nativePtr;
+        internal IntPtr nativePtr;
         internal CefDOMVisitor(IntPtr nativePtr)
         {
             this.nativePtr = nativePtr;
@@ -4309,6 +4197,7 @@ namespace LayoutFarm.CefBridge.Auto
         {
             JsValue ret;
             Cef3Binder.MyCefMet_Call0(this.nativePtr, CefDOMVisitor_Release_0, out ret);
+            this.nativePtr = IntPtr.Zero;
         }
     }
 
@@ -4337,7 +4226,7 @@ namespace LayoutFarm.CefBridge.Auto
         const int CefDOMDocument_GetSelectionAsText_12 = (_typeNAME << 16) | 12;
         const int CefDOMDocument_GetBaseURL_13 = (_typeNAME << 16) | 13;
         const int CefDOMDocument_GetCompleteURL_14 = (_typeNAME << 16) | 14;
-        internal readonly IntPtr nativePtr;
+        internal IntPtr nativePtr;
         internal CefDOMDocument(IntPtr nativePtr)
         {
             this.nativePtr = nativePtr;
@@ -4346,6 +4235,7 @@ namespace LayoutFarm.CefBridge.Auto
         {
             JsValue ret;
             Cef3Binder.MyCefMet_Call0(this.nativePtr, CefDOMDocument_Release_0, out ret);
+            this.nativePtr = IntPtr.Zero;
         }
 
         // gen! Type GetType()
@@ -4358,9 +4248,8 @@ namespace LayoutFarm.CefBridge.Auto
             JsValue ret;
 
             Cef3Binder.MyCefMet_Call0(this.nativePtr, CefDOMDocument_GetType_1, out ret);
-            var ret_result = (cef_dom_document_type_t)ret.I32;
+            return (cef_dom_document_type_t)ret.I32;
 
-            return ret_result;
         }
 
         // gen! CefRefPtr<CefDOMNode> GetDocument()
@@ -4374,8 +4263,7 @@ namespace LayoutFarm.CefBridge.Auto
             JsValue ret;
 
             Cef3Binder.MyCefMet_Call0(this.nativePtr, CefDOMDocument_GetDocument_2, out ret);
-            var ret_result = new CefDOMNode(ret.Ptr);
-            return ret_result;
+            return new CefDOMNode(ret.Ptr);
         }
 
         // gen! CefRefPtr<CefDOMNode> GetBody()
@@ -4389,8 +4277,7 @@ namespace LayoutFarm.CefBridge.Auto
             JsValue ret;
 
             Cef3Binder.MyCefMet_Call0(this.nativePtr, CefDOMDocument_GetBody_3, out ret);
-            var ret_result = new CefDOMNode(ret.Ptr);
-            return ret_result;
+            return new CefDOMNode(ret.Ptr);
         }
 
         // gen! CefRefPtr<CefDOMNode> GetHead()
@@ -4404,8 +4291,7 @@ namespace LayoutFarm.CefBridge.Auto
             JsValue ret;
 
             Cef3Binder.MyCefMet_Call0(this.nativePtr, CefDOMDocument_GetHead_4, out ret);
-            var ret_result = new CefDOMNode(ret.Ptr);
-            return ret_result;
+            return new CefDOMNode(ret.Ptr);
         }
 
         // gen! CefString GetTitle()
@@ -4419,8 +4305,7 @@ namespace LayoutFarm.CefBridge.Auto
             JsValue ret;
 
             Cef3Binder.MyCefMet_Call0(this.nativePtr, CefDOMDocument_GetTitle_5, out ret);
-            var ret_result = Cef3Binder.CopyStringAndDestroyNativeSide(ref ret);
-            return ret_result;
+            return Cef3Binder.CopyStringAndDestroyNativeSide(ref ret);
         }
 
         // gen! CefRefPtr<CefDOMNode> GetElementById(const CefString& id)
@@ -4429,8 +4314,7 @@ namespace LayoutFarm.CefBridge.Auto
         /// /*cef()*/
         /// </summary>
 
-        public CefDOMNode GetElementById(string id
-        )
+        public CefDOMNode GetElementById(string id)
         {
             JsValue v1 = new JsValue();
             JsValue ret;
@@ -4438,9 +4322,8 @@ namespace LayoutFarm.CefBridge.Auto
             ;
 
             Cef3Binder.MyCefMet_Call1(this.nativePtr, CefDOMDocument_GetElementById_6, out ret, ref v1);
-            var ret_result = new CefDOMNode(ret.Ptr);
             Cef3Binder.MyCefDeletePtr(v1.Ptr); ;
-            return ret_result;
+            return new CefDOMNode(ret.Ptr);
         }
 
         // gen! CefRefPtr<CefDOMNode> GetFocusedNode()
@@ -4454,8 +4337,7 @@ namespace LayoutFarm.CefBridge.Auto
             JsValue ret;
 
             Cef3Binder.MyCefMet_Call0(this.nativePtr, CefDOMDocument_GetFocusedNode_7, out ret);
-            var ret_result = new CefDOMNode(ret.Ptr);
-            return ret_result;
+            return new CefDOMNode(ret.Ptr);
         }
 
         // gen! bool HasSelection()
@@ -4469,8 +4351,7 @@ namespace LayoutFarm.CefBridge.Auto
             JsValue ret;
 
             Cef3Binder.MyCefMet_Call0(this.nativePtr, CefDOMDocument_HasSelection_8, out ret);
-            var ret_result = ret.I32 != 0;
-            return ret_result;
+            return ret.I32 != 0;
         }
 
         // gen! int GetSelectionStartOffset()
@@ -4484,8 +4365,7 @@ namespace LayoutFarm.CefBridge.Auto
             JsValue ret;
 
             Cef3Binder.MyCefMet_Call0(this.nativePtr, CefDOMDocument_GetSelectionStartOffset_9, out ret);
-            var ret_result = ret.I32;
-            return ret_result;
+            return ret.I32;
         }
 
         // gen! int GetSelectionEndOffset()
@@ -4499,8 +4379,7 @@ namespace LayoutFarm.CefBridge.Auto
             JsValue ret;
 
             Cef3Binder.MyCefMet_Call0(this.nativePtr, CefDOMDocument_GetSelectionEndOffset_10, out ret);
-            var ret_result = ret.I32;
-            return ret_result;
+            return ret.I32;
         }
 
         // gen! CefString GetSelectionAsMarkup()
@@ -4514,8 +4393,7 @@ namespace LayoutFarm.CefBridge.Auto
             JsValue ret;
 
             Cef3Binder.MyCefMet_Call0(this.nativePtr, CefDOMDocument_GetSelectionAsMarkup_11, out ret);
-            var ret_result = Cef3Binder.CopyStringAndDestroyNativeSide(ref ret);
-            return ret_result;
+            return Cef3Binder.CopyStringAndDestroyNativeSide(ref ret);
         }
 
         // gen! CefString GetSelectionAsText()
@@ -4529,8 +4407,7 @@ namespace LayoutFarm.CefBridge.Auto
             JsValue ret;
 
             Cef3Binder.MyCefMet_Call0(this.nativePtr, CefDOMDocument_GetSelectionAsText_12, out ret);
-            var ret_result = Cef3Binder.CopyStringAndDestroyNativeSide(ref ret);
-            return ret_result;
+            return Cef3Binder.CopyStringAndDestroyNativeSide(ref ret);
         }
 
         // gen! CefString GetBaseURL()
@@ -4544,8 +4421,7 @@ namespace LayoutFarm.CefBridge.Auto
             JsValue ret;
 
             Cef3Binder.MyCefMet_Call0(this.nativePtr, CefDOMDocument_GetBaseURL_13, out ret);
-            var ret_result = Cef3Binder.CopyStringAndDestroyNativeSide(ref ret);
-            return ret_result;
+            return Cef3Binder.CopyStringAndDestroyNativeSide(ref ret);
         }
 
         // gen! CefString GetCompleteURL(const CefString& partialURL)
@@ -4555,8 +4431,7 @@ namespace LayoutFarm.CefBridge.Auto
         /// /*cef()*/
         /// </summary>
 
-        public string GetCompleteURL(string partialURL
-        )
+        public string GetCompleteURL(string partialURL)
         {
             JsValue v1 = new JsValue();
             JsValue ret;
@@ -4564,9 +4439,8 @@ namespace LayoutFarm.CefBridge.Auto
             ;
 
             Cef3Binder.MyCefMet_Call1(this.nativePtr, CefDOMDocument_GetCompleteURL_14, out ret, ref v1);
-            var ret_result = Cef3Binder.CopyStringAndDestroyNativeSide(ref ret);
             Cef3Binder.MyCefDeletePtr(v1.Ptr); ;
-            return ret_result;
+            return Cef3Binder.CopyStringAndDestroyNativeSide(ref ret);
         }
     }
 
@@ -4607,7 +4481,7 @@ namespace LayoutFarm.CefBridge.Auto
         const int CefDOMNode_SetElementAttribute_24 = (_typeNAME << 16) | 24;
         const int CefDOMNode_GetElementInnerText_25 = (_typeNAME << 16) | 25;
         const int CefDOMNode_GetElementBounds_26 = (_typeNAME << 16) | 26;
-        internal readonly IntPtr nativePtr;
+        internal IntPtr nativePtr;
         internal CefDOMNode(IntPtr nativePtr)
         {
             this.nativePtr = nativePtr;
@@ -4616,6 +4490,7 @@ namespace LayoutFarm.CefBridge.Auto
         {
             JsValue ret;
             Cef3Binder.MyCefMet_Call0(this.nativePtr, CefDOMNode_Release_0, out ret);
+            this.nativePtr = IntPtr.Zero;
         }
 
         // gen! Type GetType()
@@ -4628,9 +4503,8 @@ namespace LayoutFarm.CefBridge.Auto
             JsValue ret;
 
             Cef3Binder.MyCefMet_Call0(this.nativePtr, CefDOMNode_GetType_1, out ret);
-            var ret_result = (cef_dom_node_type_t)ret.I32;
+            return (cef_dom_node_type_t)ret.I32;
 
-            return ret_result;
         }
 
         // gen! bool IsText()
@@ -4644,8 +4518,7 @@ namespace LayoutFarm.CefBridge.Auto
             JsValue ret;
 
             Cef3Binder.MyCefMet_Call0(this.nativePtr, CefDOMNode_IsText_2, out ret);
-            var ret_result = ret.I32 != 0;
-            return ret_result;
+            return ret.I32 != 0;
         }
 
         // gen! bool IsElement()
@@ -4659,8 +4532,7 @@ namespace LayoutFarm.CefBridge.Auto
             JsValue ret;
 
             Cef3Binder.MyCefMet_Call0(this.nativePtr, CefDOMNode_IsElement_3, out ret);
-            var ret_result = ret.I32 != 0;
-            return ret_result;
+            return ret.I32 != 0;
         }
 
         // gen! bool IsEditable()
@@ -4674,8 +4546,7 @@ namespace LayoutFarm.CefBridge.Auto
             JsValue ret;
 
             Cef3Binder.MyCefMet_Call0(this.nativePtr, CefDOMNode_IsEditable_4, out ret);
-            var ret_result = ret.I32 != 0;
-            return ret_result;
+            return ret.I32 != 0;
         }
 
         // gen! bool IsFormControlElement()
@@ -4689,8 +4560,7 @@ namespace LayoutFarm.CefBridge.Auto
             JsValue ret;
 
             Cef3Binder.MyCefMet_Call0(this.nativePtr, CefDOMNode_IsFormControlElement_5, out ret);
-            var ret_result = ret.I32 != 0;
-            return ret_result;
+            return ret.I32 != 0;
         }
 
         // gen! CefString GetFormControlElementType()
@@ -4704,8 +4574,7 @@ namespace LayoutFarm.CefBridge.Auto
             JsValue ret;
 
             Cef3Binder.MyCefMet_Call0(this.nativePtr, CefDOMNode_GetFormControlElementType_6, out ret);
-            var ret_result = Cef3Binder.CopyStringAndDestroyNativeSide(ref ret);
-            return ret_result;
+            return Cef3Binder.CopyStringAndDestroyNativeSide(ref ret);
         }
 
         // gen! bool IsSame(CefRefPtr<CefDOMNode> that)
@@ -4715,16 +4584,14 @@ namespace LayoutFarm.CefBridge.Auto
         /// /*cef()*/
         /// </summary>
 
-        public bool IsSame(CefDOMNode that
-        )
+        public bool IsSame(CefDOMNode that)
         {
             JsValue v1 = new JsValue();
             JsValue ret;
             v1.Ptr = that.nativePtr;
 
             Cef3Binder.MyCefMet_Call1(this.nativePtr, CefDOMNode_IsSame_7, out ret, ref v1);
-            var ret_result = ret.I32 != 0;
-            return ret_result;
+            return ret.I32 != 0;
         }
 
         // gen! CefString GetName()
@@ -4738,8 +4605,7 @@ namespace LayoutFarm.CefBridge.Auto
             JsValue ret;
 
             Cef3Binder.MyCefMet_Call0(this.nativePtr, CefDOMNode_GetName_8, out ret);
-            var ret_result = Cef3Binder.CopyStringAndDestroyNativeSide(ref ret);
-            return ret_result;
+            return Cef3Binder.CopyStringAndDestroyNativeSide(ref ret);
         }
 
         // gen! CefString GetValue()
@@ -4753,8 +4619,7 @@ namespace LayoutFarm.CefBridge.Auto
             JsValue ret;
 
             Cef3Binder.MyCefMet_Call0(this.nativePtr, CefDOMNode_GetValue_9, out ret);
-            var ret_result = Cef3Binder.CopyStringAndDestroyNativeSide(ref ret);
-            return ret_result;
+            return Cef3Binder.CopyStringAndDestroyNativeSide(ref ret);
         }
 
         // gen! bool SetValue(const CefString& value)
@@ -4763,8 +4628,7 @@ namespace LayoutFarm.CefBridge.Auto
         /// /*cef()*/
         /// </summary>
 
-        public bool SetValue(string value
-        )
+        public bool SetValue(string value)
         {
             JsValue v1 = new JsValue();
             JsValue ret;
@@ -4772,9 +4636,8 @@ namespace LayoutFarm.CefBridge.Auto
             ;
 
             Cef3Binder.MyCefMet_Call1(this.nativePtr, CefDOMNode_SetValue_10, out ret, ref v1);
-            var ret_result = ret.I32 != 0;
             Cef3Binder.MyCefDeletePtr(v1.Ptr); ;
-            return ret_result;
+            return ret.I32 != 0;
         }
 
         // gen! CefString GetAsMarkup()
@@ -4788,8 +4651,7 @@ namespace LayoutFarm.CefBridge.Auto
             JsValue ret;
 
             Cef3Binder.MyCefMet_Call0(this.nativePtr, CefDOMNode_GetAsMarkup_11, out ret);
-            var ret_result = Cef3Binder.CopyStringAndDestroyNativeSide(ref ret);
-            return ret_result;
+            return Cef3Binder.CopyStringAndDestroyNativeSide(ref ret);
         }
 
         // gen! CefRefPtr<CefDOMDocument> GetDocument()
@@ -4803,8 +4665,7 @@ namespace LayoutFarm.CefBridge.Auto
             JsValue ret;
 
             Cef3Binder.MyCefMet_Call0(this.nativePtr, CefDOMNode_GetDocument_12, out ret);
-            var ret_result = new CefDOMDocument(ret.Ptr);
-            return ret_result;
+            return new CefDOMDocument(ret.Ptr);
         }
 
         // gen! CefRefPtr<CefDOMNode> GetParent()
@@ -4818,8 +4679,7 @@ namespace LayoutFarm.CefBridge.Auto
             JsValue ret;
 
             Cef3Binder.MyCefMet_Call0(this.nativePtr, CefDOMNode_GetParent_13, out ret);
-            var ret_result = new CefDOMNode(ret.Ptr);
-            return ret_result;
+            return new CefDOMNode(ret.Ptr);
         }
 
         // gen! CefRefPtr<CefDOMNode> GetPreviousSibling()
@@ -4833,8 +4693,7 @@ namespace LayoutFarm.CefBridge.Auto
             JsValue ret;
 
             Cef3Binder.MyCefMet_Call0(this.nativePtr, CefDOMNode_GetPreviousSibling_14, out ret);
-            var ret_result = new CefDOMNode(ret.Ptr);
-            return ret_result;
+            return new CefDOMNode(ret.Ptr);
         }
 
         // gen! CefRefPtr<CefDOMNode> GetNextSibling()
@@ -4848,8 +4707,7 @@ namespace LayoutFarm.CefBridge.Auto
             JsValue ret;
 
             Cef3Binder.MyCefMet_Call0(this.nativePtr, CefDOMNode_GetNextSibling_15, out ret);
-            var ret_result = new CefDOMNode(ret.Ptr);
-            return ret_result;
+            return new CefDOMNode(ret.Ptr);
         }
 
         // gen! bool HasChildren()
@@ -4863,8 +4721,7 @@ namespace LayoutFarm.CefBridge.Auto
             JsValue ret;
 
             Cef3Binder.MyCefMet_Call0(this.nativePtr, CefDOMNode_HasChildren_16, out ret);
-            var ret_result = ret.I32 != 0;
-            return ret_result;
+            return ret.I32 != 0;
         }
 
         // gen! CefRefPtr<CefDOMNode> GetFirstChild()
@@ -4878,8 +4735,7 @@ namespace LayoutFarm.CefBridge.Auto
             JsValue ret;
 
             Cef3Binder.MyCefMet_Call0(this.nativePtr, CefDOMNode_GetFirstChild_17, out ret);
-            var ret_result = new CefDOMNode(ret.Ptr);
-            return ret_result;
+            return new CefDOMNode(ret.Ptr);
         }
 
         // gen! CefRefPtr<CefDOMNode> GetLastChild()
@@ -4893,8 +4749,7 @@ namespace LayoutFarm.CefBridge.Auto
             JsValue ret;
 
             Cef3Binder.MyCefMet_Call0(this.nativePtr, CefDOMNode_GetLastChild_18, out ret);
-            var ret_result = new CefDOMNode(ret.Ptr);
-            return ret_result;
+            return new CefDOMNode(ret.Ptr);
         }
 
         // gen! CefString GetElementTagName()
@@ -4909,8 +4764,7 @@ namespace LayoutFarm.CefBridge.Auto
             JsValue ret;
 
             Cef3Binder.MyCefMet_Call0(this.nativePtr, CefDOMNode_GetElementTagName_19, out ret);
-            var ret_result = Cef3Binder.CopyStringAndDestroyNativeSide(ref ret);
-            return ret_result;
+            return Cef3Binder.CopyStringAndDestroyNativeSide(ref ret);
         }
 
         // gen! bool HasElementAttributes()
@@ -4924,8 +4778,7 @@ namespace LayoutFarm.CefBridge.Auto
             JsValue ret;
 
             Cef3Binder.MyCefMet_Call0(this.nativePtr, CefDOMNode_HasElementAttributes_20, out ret);
-            var ret_result = ret.I32 != 0;
-            return ret_result;
+            return ret.I32 != 0;
         }
 
         // gen! bool HasElementAttribute(const CefString& attrName)
@@ -4934,8 +4787,7 @@ namespace LayoutFarm.CefBridge.Auto
         /// /*cef()*/
         /// </summary>
 
-        public bool HasElementAttribute(string attrName
-        )
+        public bool HasElementAttribute(string attrName)
         {
             JsValue v1 = new JsValue();
             JsValue ret;
@@ -4943,9 +4795,8 @@ namespace LayoutFarm.CefBridge.Auto
             ;
 
             Cef3Binder.MyCefMet_Call1(this.nativePtr, CefDOMNode_HasElementAttribute_21, out ret, ref v1);
-            var ret_result = ret.I32 != 0;
             Cef3Binder.MyCefDeletePtr(v1.Ptr); ;
-            return ret_result;
+            return ret.I32 != 0;
         }
 
         // gen! CefString GetElementAttribute(const CefString& attrName)
@@ -4954,8 +4805,7 @@ namespace LayoutFarm.CefBridge.Auto
         /// /*cef()*/
         /// </summary>
 
-        public string GetElementAttribute(string attrName
-        )
+        public string GetElementAttribute(string attrName)
         {
             JsValue v1 = new JsValue();
             JsValue ret;
@@ -4963,9 +4813,8 @@ namespace LayoutFarm.CefBridge.Auto
             ;
 
             Cef3Binder.MyCefMet_Call1(this.nativePtr, CefDOMNode_GetElementAttribute_22, out ret, ref v1);
-            var ret_result = Cef3Binder.CopyStringAndDestroyNativeSide(ref ret);
             Cef3Binder.MyCefDeletePtr(v1.Ptr); ;
-            return ret_result;
+            return Cef3Binder.CopyStringAndDestroyNativeSide(ref ret);
         }
 
         // gen! void GetElementAttributes(AttributeMap& attrMap)
@@ -4974,8 +4823,7 @@ namespace LayoutFarm.CefBridge.Auto
         /// /*cef()*/
         /// </summary>
 
-        public void GetElementAttributes(AttributeMap attrMap
-        )
+        public void GetElementAttributes(AttributeMap attrMap)
         {
             JsValue v1 = new JsValue();
             JsValue ret;
@@ -4992,9 +4840,8 @@ namespace LayoutFarm.CefBridge.Auto
         /// /*cef()*/
         /// </summary>
 
-        public bool SetElementAttribute(string attrName
-        , string value
-        )
+        public bool SetElementAttribute(string attrName,
+        string value)
         {
             JsValue v1 = new JsValue();
             JsValue v2 = new JsValue();
@@ -5005,10 +4852,9 @@ namespace LayoutFarm.CefBridge.Auto
             ;
 
             Cef3Binder.MyCefMet_Call2(this.nativePtr, CefDOMNode_SetElementAttribute_24, out ret, ref v1, ref v2);
-            var ret_result = ret.I32 != 0;
             Cef3Binder.MyCefDeletePtr(v1.Ptr); ;
             Cef3Binder.MyCefDeletePtr(v2.Ptr); ;
-            return ret_result;
+            return ret.I32 != 0;
         }
 
         // gen! CefString GetElementInnerText()
@@ -5022,8 +4868,7 @@ namespace LayoutFarm.CefBridge.Auto
             JsValue ret;
 
             Cef3Binder.MyCefMet_Call0(this.nativePtr, CefDOMNode_GetElementInnerText_25, out ret);
-            var ret_result = Cef3Binder.CopyStringAndDestroyNativeSide(ref ret);
-            return ret_result;
+            return Cef3Binder.CopyStringAndDestroyNativeSide(ref ret);
         }
 
         // gen! CefRect GetElementBounds()
@@ -5037,9 +4882,8 @@ namespace LayoutFarm.CefBridge.Auto
             JsValue ret;
 
             Cef3Binder.MyCefMet_Call0(this.nativePtr, CefDOMNode_GetElementBounds_26, out ret);
-            var ret_result = new CefRect(ret.Ptr);
+            return new CefRect(ret.Ptr);
 
-            return ret_result;
         }
     }
 
@@ -5070,7 +4914,7 @@ namespace LayoutFarm.CefBridge.Auto
         const int CefDownloadItem_GetSuggestedFileName_15 = (_typeNAME << 16) | 15;
         const int CefDownloadItem_GetContentDisposition_16 = (_typeNAME << 16) | 16;
         const int CefDownloadItem_GetMimeType_17 = (_typeNAME << 16) | 17;
-        internal readonly IntPtr nativePtr;
+        internal IntPtr nativePtr;
         internal CefDownloadItem(IntPtr nativePtr)
         {
             this.nativePtr = nativePtr;
@@ -5079,6 +4923,7 @@ namespace LayoutFarm.CefBridge.Auto
         {
             JsValue ret;
             Cef3Binder.MyCefMet_Call0(this.nativePtr, CefDownloadItem_Release_0, out ret);
+            this.nativePtr = IntPtr.Zero;
         }
 
         // gen! bool IsValid()
@@ -5091,8 +4936,7 @@ namespace LayoutFarm.CefBridge.Auto
             JsValue ret;
 
             Cef3Binder.MyCefMet_Call0(this.nativePtr, CefDownloadItem_IsValid_1, out ret);
-            var ret_result = ret.I32 != 0;
-            return ret_result;
+            return ret.I32 != 0;
         }
 
         // gen! bool IsInProgress()
@@ -5106,8 +4950,7 @@ namespace LayoutFarm.CefBridge.Auto
             JsValue ret;
 
             Cef3Binder.MyCefMet_Call0(this.nativePtr, CefDownloadItem_IsInProgress_2, out ret);
-            var ret_result = ret.I32 != 0;
-            return ret_result;
+            return ret.I32 != 0;
         }
 
         // gen! bool IsComplete()
@@ -5121,8 +4964,7 @@ namespace LayoutFarm.CefBridge.Auto
             JsValue ret;
 
             Cef3Binder.MyCefMet_Call0(this.nativePtr, CefDownloadItem_IsComplete_3, out ret);
-            var ret_result = ret.I32 != 0;
-            return ret_result;
+            return ret.I32 != 0;
         }
 
         // gen! bool IsCanceled()
@@ -5136,8 +4978,7 @@ namespace LayoutFarm.CefBridge.Auto
             JsValue ret;
 
             Cef3Binder.MyCefMet_Call0(this.nativePtr, CefDownloadItem_IsCanceled_4, out ret);
-            var ret_result = ret.I32 != 0;
-            return ret_result;
+            return ret.I32 != 0;
         }
 
         // gen! int64 GetCurrentSpeed()
@@ -5151,8 +4992,7 @@ namespace LayoutFarm.CefBridge.Auto
             JsValue ret;
 
             Cef3Binder.MyCefMet_Call0(this.nativePtr, CefDownloadItem_GetCurrentSpeed_5, out ret);
-            var ret_result = ret.I64;
-            return ret_result;
+            return ret.I64;
         }
 
         // gen! int GetPercentComplete()
@@ -5167,8 +5007,7 @@ namespace LayoutFarm.CefBridge.Auto
             JsValue ret;
 
             Cef3Binder.MyCefMet_Call0(this.nativePtr, CefDownloadItem_GetPercentComplete_6, out ret);
-            var ret_result = ret.I32;
-            return ret_result;
+            return ret.I32;
         }
 
         // gen! int64 GetTotalBytes()
@@ -5182,8 +5021,7 @@ namespace LayoutFarm.CefBridge.Auto
             JsValue ret;
 
             Cef3Binder.MyCefMet_Call0(this.nativePtr, CefDownloadItem_GetTotalBytes_7, out ret);
-            var ret_result = ret.I64;
-            return ret_result;
+            return ret.I64;
         }
 
         // gen! int64 GetReceivedBytes()
@@ -5197,8 +5035,7 @@ namespace LayoutFarm.CefBridge.Auto
             JsValue ret;
 
             Cef3Binder.MyCefMet_Call0(this.nativePtr, CefDownloadItem_GetReceivedBytes_8, out ret);
-            var ret_result = ret.I64;
-            return ret_result;
+            return ret.I64;
         }
 
         // gen! CefTime GetStartTime()
@@ -5212,9 +5049,8 @@ namespace LayoutFarm.CefBridge.Auto
             JsValue ret;
 
             Cef3Binder.MyCefMet_Call0(this.nativePtr, CefDownloadItem_GetStartTime_9, out ret);
-            var ret_result = new CefTime(ret.Ptr);
+            return new CefTime(ret.Ptr);
 
-            return ret_result;
         }
 
         // gen! CefTime GetEndTime()
@@ -5228,9 +5064,8 @@ namespace LayoutFarm.CefBridge.Auto
             JsValue ret;
 
             Cef3Binder.MyCefMet_Call0(this.nativePtr, CefDownloadItem_GetEndTime_10, out ret);
-            var ret_result = new CefTime(ret.Ptr);
+            return new CefTime(ret.Ptr);
 
-            return ret_result;
         }
 
         // gen! CefString GetFullPath()
@@ -5244,8 +5079,7 @@ namespace LayoutFarm.CefBridge.Auto
             JsValue ret;
 
             Cef3Binder.MyCefMet_Call0(this.nativePtr, CefDownloadItem_GetFullPath_11, out ret);
-            var ret_result = Cef3Binder.CopyStringAndDestroyNativeSide(ref ret);
-            return ret_result;
+            return Cef3Binder.CopyStringAndDestroyNativeSide(ref ret);
         }
 
         // gen! uint32 GetId()
@@ -5259,8 +5093,7 @@ namespace LayoutFarm.CefBridge.Auto
             JsValue ret;
 
             Cef3Binder.MyCefMet_Call0(this.nativePtr, CefDownloadItem_GetId_12, out ret);
-            var ret_result = (uint)ret.I32;
-            return ret_result;
+            return (uint)ret.I32;
         }
 
         // gen! CefString GetURL()
@@ -5274,8 +5107,7 @@ namespace LayoutFarm.CefBridge.Auto
             JsValue ret;
 
             Cef3Binder.MyCefMet_Call0(this.nativePtr, CefDownloadItem_GetURL_13, out ret);
-            var ret_result = Cef3Binder.CopyStringAndDestroyNativeSide(ref ret);
-            return ret_result;
+            return Cef3Binder.CopyStringAndDestroyNativeSide(ref ret);
         }
 
         // gen! CefString GetOriginalUrl()
@@ -5289,8 +5121,7 @@ namespace LayoutFarm.CefBridge.Auto
             JsValue ret;
 
             Cef3Binder.MyCefMet_Call0(this.nativePtr, CefDownloadItem_GetOriginalUrl_14, out ret);
-            var ret_result = Cef3Binder.CopyStringAndDestroyNativeSide(ref ret);
-            return ret_result;
+            return Cef3Binder.CopyStringAndDestroyNativeSide(ref ret);
         }
 
         // gen! CefString GetSuggestedFileName()
@@ -5304,8 +5135,7 @@ namespace LayoutFarm.CefBridge.Auto
             JsValue ret;
 
             Cef3Binder.MyCefMet_Call0(this.nativePtr, CefDownloadItem_GetSuggestedFileName_15, out ret);
-            var ret_result = Cef3Binder.CopyStringAndDestroyNativeSide(ref ret);
-            return ret_result;
+            return Cef3Binder.CopyStringAndDestroyNativeSide(ref ret);
         }
 
         // gen! CefString GetContentDisposition()
@@ -5319,8 +5149,7 @@ namespace LayoutFarm.CefBridge.Auto
             JsValue ret;
 
             Cef3Binder.MyCefMet_Call0(this.nativePtr, CefDownloadItem_GetContentDisposition_16, out ret);
-            var ret_result = Cef3Binder.CopyStringAndDestroyNativeSide(ref ret);
-            return ret_result;
+            return Cef3Binder.CopyStringAndDestroyNativeSide(ref ret);
         }
 
         // gen! CefString GetMimeType()
@@ -5334,8 +5163,7 @@ namespace LayoutFarm.CefBridge.Auto
             JsValue ret;
 
             Cef3Binder.MyCefMet_Call0(this.nativePtr, CefDownloadItem_GetMimeType_17, out ret);
-            var ret_result = Cef3Binder.CopyStringAndDestroyNativeSide(ref ret);
-            return ret_result;
+            return Cef3Binder.CopyStringAndDestroyNativeSide(ref ret);
         }
     }
 
@@ -5375,7 +5203,7 @@ namespace LayoutFarm.CefBridge.Auto
         const int CefDragData_GetImage_23 = (_typeNAME << 16) | 23;
         const int CefDragData_GetImageHotspot_24 = (_typeNAME << 16) | 24;
         const int CefDragData_HasImage_25 = (_typeNAME << 16) | 25;
-        internal readonly IntPtr nativePtr;
+        internal IntPtr nativePtr;
         internal CefDragData(IntPtr nativePtr)
         {
             this.nativePtr = nativePtr;
@@ -5384,6 +5212,7 @@ namespace LayoutFarm.CefBridge.Auto
         {
             JsValue ret;
             Cef3Binder.MyCefMet_Call0(this.nativePtr, CefDragData_Release_0, out ret);
+            this.nativePtr = IntPtr.Zero;
         }
 
         // gen! CefRefPtr<CefDragData> Clone()
@@ -5396,8 +5225,7 @@ namespace LayoutFarm.CefBridge.Auto
             JsValue ret;
 
             Cef3Binder.MyCefMet_Call0(this.nativePtr, CefDragData_Clone_1, out ret);
-            var ret_result = new CefDragData(ret.Ptr);
-            return ret_result;
+            return new CefDragData(ret.Ptr);
         }
 
         // gen! bool IsReadOnly()
@@ -5411,8 +5239,7 @@ namespace LayoutFarm.CefBridge.Auto
             JsValue ret;
 
             Cef3Binder.MyCefMet_Call0(this.nativePtr, CefDragData_IsReadOnly_2, out ret);
-            var ret_result = ret.I32 != 0;
-            return ret_result;
+            return ret.I32 != 0;
         }
 
         // gen! bool IsLink()
@@ -5426,8 +5253,7 @@ namespace LayoutFarm.CefBridge.Auto
             JsValue ret;
 
             Cef3Binder.MyCefMet_Call0(this.nativePtr, CefDragData_IsLink_3, out ret);
-            var ret_result = ret.I32 != 0;
-            return ret_result;
+            return ret.I32 != 0;
         }
 
         // gen! bool IsFragment()
@@ -5441,8 +5267,7 @@ namespace LayoutFarm.CefBridge.Auto
             JsValue ret;
 
             Cef3Binder.MyCefMet_Call0(this.nativePtr, CefDragData_IsFragment_4, out ret);
-            var ret_result = ret.I32 != 0;
-            return ret_result;
+            return ret.I32 != 0;
         }
 
         // gen! bool IsFile()
@@ -5456,8 +5281,7 @@ namespace LayoutFarm.CefBridge.Auto
             JsValue ret;
 
             Cef3Binder.MyCefMet_Call0(this.nativePtr, CefDragData_IsFile_5, out ret);
-            var ret_result = ret.I32 != 0;
-            return ret_result;
+            return ret.I32 != 0;
         }
 
         // gen! CefString GetLinkURL()
@@ -5471,8 +5295,7 @@ namespace LayoutFarm.CefBridge.Auto
             JsValue ret;
 
             Cef3Binder.MyCefMet_Call0(this.nativePtr, CefDragData_GetLinkURL_6, out ret);
-            var ret_result = Cef3Binder.CopyStringAndDestroyNativeSide(ref ret);
-            return ret_result;
+            return Cef3Binder.CopyStringAndDestroyNativeSide(ref ret);
         }
 
         // gen! CefString GetLinkTitle()
@@ -5486,8 +5309,7 @@ namespace LayoutFarm.CefBridge.Auto
             JsValue ret;
 
             Cef3Binder.MyCefMet_Call0(this.nativePtr, CefDragData_GetLinkTitle_7, out ret);
-            var ret_result = Cef3Binder.CopyStringAndDestroyNativeSide(ref ret);
-            return ret_result;
+            return Cef3Binder.CopyStringAndDestroyNativeSide(ref ret);
         }
 
         // gen! CefString GetLinkMetadata()
@@ -5501,8 +5323,7 @@ namespace LayoutFarm.CefBridge.Auto
             JsValue ret;
 
             Cef3Binder.MyCefMet_Call0(this.nativePtr, CefDragData_GetLinkMetadata_8, out ret);
-            var ret_result = Cef3Binder.CopyStringAndDestroyNativeSide(ref ret);
-            return ret_result;
+            return Cef3Binder.CopyStringAndDestroyNativeSide(ref ret);
         }
 
         // gen! CefString GetFragmentText()
@@ -5516,8 +5337,7 @@ namespace LayoutFarm.CefBridge.Auto
             JsValue ret;
 
             Cef3Binder.MyCefMet_Call0(this.nativePtr, CefDragData_GetFragmentText_9, out ret);
-            var ret_result = Cef3Binder.CopyStringAndDestroyNativeSide(ref ret);
-            return ret_result;
+            return Cef3Binder.CopyStringAndDestroyNativeSide(ref ret);
         }
 
         // gen! CefString GetFragmentHtml()
@@ -5531,8 +5351,7 @@ namespace LayoutFarm.CefBridge.Auto
             JsValue ret;
 
             Cef3Binder.MyCefMet_Call0(this.nativePtr, CefDragData_GetFragmentHtml_10, out ret);
-            var ret_result = Cef3Binder.CopyStringAndDestroyNativeSide(ref ret);
-            return ret_result;
+            return Cef3Binder.CopyStringAndDestroyNativeSide(ref ret);
         }
 
         // gen! CefString GetFragmentBaseURL()
@@ -5547,8 +5366,7 @@ namespace LayoutFarm.CefBridge.Auto
             JsValue ret;
 
             Cef3Binder.MyCefMet_Call0(this.nativePtr, CefDragData_GetFragmentBaseURL_11, out ret);
-            var ret_result = Cef3Binder.CopyStringAndDestroyNativeSide(ref ret);
-            return ret_result;
+            return Cef3Binder.CopyStringAndDestroyNativeSide(ref ret);
         }
 
         // gen! CefString GetFileName()
@@ -5562,8 +5380,7 @@ namespace LayoutFarm.CefBridge.Auto
             JsValue ret;
 
             Cef3Binder.MyCefMet_Call0(this.nativePtr, CefDragData_GetFileName_12, out ret);
-            var ret_result = Cef3Binder.CopyStringAndDestroyNativeSide(ref ret);
-            return ret_result;
+            return Cef3Binder.CopyStringAndDestroyNativeSide(ref ret);
         }
 
         // gen! size_t GetFileContents(CefRefPtr<CefStreamWriter> writer)
@@ -5575,16 +5392,14 @@ namespace LayoutFarm.CefBridge.Auto
         /// /*cef(optional_param=writer)*/
         /// </summary>
 
-        public uint GetFileContents(CefStreamWriter writer
-        )
+        public uint GetFileContents(CefStreamWriter writer)
         {
             JsValue v1 = new JsValue();
             JsValue ret;
             v1.Ptr = writer.nativePtr;
 
             Cef3Binder.MyCefMet_Call1(this.nativePtr, CefDragData_GetFileContents_13, out ret, ref v1);
-            var ret_result = (uint)ret.I32;
-            return ret_result;
+            return (uint)ret.I32;
         }
 
         // gen! bool GetFileNames(std::vector<CefString>& names)
@@ -5594,17 +5409,15 @@ namespace LayoutFarm.CefBridge.Auto
         /// /*cef()*/
         /// </summary>
 
-        public bool GetFileNames(List<string> names
-        )
+        public bool GetFileNames(List<string> names)
         {
             JsValue v1 = new JsValue();
             JsValue ret;
             v1.Ptr = Cef3Binder.CreateStdList(2);
 
             Cef3Binder.MyCefMet_Call1(this.nativePtr, CefDragData_GetFileNames_14, out ret, ref v1);
-            var ret_result = ret.I32 != 0;
             Cef3Binder.CopyStdStringListAndDestroyNativeSide(v1.Ptr, names);
-            return ret_result;
+            return ret.I32 != 0;
         }
 
         // gen! void SetLinkURL(const CefString& url)
@@ -5613,8 +5426,7 @@ namespace LayoutFarm.CefBridge.Auto
         /// /*cef(optional_param=url)*/
         /// </summary>
 
-        public void SetLinkURL(string url
-        )
+        public void SetLinkURL(string url)
         {
             JsValue v1 = new JsValue();
             JsValue ret;
@@ -5622,8 +5434,8 @@ namespace LayoutFarm.CefBridge.Auto
             ;
 
             Cef3Binder.MyCefMet_Call1(this.nativePtr, CefDragData_SetLinkURL_15, out ret, ref v1);
-
             Cef3Binder.MyCefDeletePtr(v1.Ptr); ;
+
         }
 
         // gen! void SetLinkTitle(const CefString& title)
@@ -5632,8 +5444,7 @@ namespace LayoutFarm.CefBridge.Auto
         /// /*cef(optional_param=title)*/
         /// </summary>
 
-        public void SetLinkTitle(string title
-        )
+        public void SetLinkTitle(string title)
         {
             JsValue v1 = new JsValue();
             JsValue ret;
@@ -5641,8 +5452,8 @@ namespace LayoutFarm.CefBridge.Auto
             ;
 
             Cef3Binder.MyCefMet_Call1(this.nativePtr, CefDragData_SetLinkTitle_16, out ret, ref v1);
-
             Cef3Binder.MyCefDeletePtr(v1.Ptr); ;
+
         }
 
         // gen! void SetLinkMetadata(const CefString& data)
@@ -5651,8 +5462,7 @@ namespace LayoutFarm.CefBridge.Auto
         /// /*cef(optional_param=data)*/
         /// </summary>
 
-        public void SetLinkMetadata(string data
-        )
+        public void SetLinkMetadata(string data)
         {
             JsValue v1 = new JsValue();
             JsValue ret;
@@ -5660,8 +5470,8 @@ namespace LayoutFarm.CefBridge.Auto
             ;
 
             Cef3Binder.MyCefMet_Call1(this.nativePtr, CefDragData_SetLinkMetadata_17, out ret, ref v1);
-
             Cef3Binder.MyCefDeletePtr(v1.Ptr); ;
+
         }
 
         // gen! void SetFragmentText(const CefString& text)
@@ -5670,8 +5480,7 @@ namespace LayoutFarm.CefBridge.Auto
         /// /*cef(optional_param=text)*/
         /// </summary>
 
-        public void SetFragmentText(string text
-        )
+        public void SetFragmentText(string text)
         {
             JsValue v1 = new JsValue();
             JsValue ret;
@@ -5679,8 +5488,8 @@ namespace LayoutFarm.CefBridge.Auto
             ;
 
             Cef3Binder.MyCefMet_Call1(this.nativePtr, CefDragData_SetFragmentText_18, out ret, ref v1);
-
             Cef3Binder.MyCefDeletePtr(v1.Ptr); ;
+
         }
 
         // gen! void SetFragmentHtml(const CefString& html)
@@ -5689,8 +5498,7 @@ namespace LayoutFarm.CefBridge.Auto
         /// /*cef(optional_param=html)*/
         /// </summary>
 
-        public void SetFragmentHtml(string html
-        )
+        public void SetFragmentHtml(string html)
         {
             JsValue v1 = new JsValue();
             JsValue ret;
@@ -5698,8 +5506,8 @@ namespace LayoutFarm.CefBridge.Auto
             ;
 
             Cef3Binder.MyCefMet_Call1(this.nativePtr, CefDragData_SetFragmentHtml_19, out ret, ref v1);
-
             Cef3Binder.MyCefDeletePtr(v1.Ptr); ;
+
         }
 
         // gen! void SetFragmentBaseURL(const CefString& base_url)
@@ -5708,8 +5516,7 @@ namespace LayoutFarm.CefBridge.Auto
         /// /*cef(optional_param=base_url)*/
         /// </summary>
 
-        public void SetFragmentBaseURL(string base_url
-        )
+        public void SetFragmentBaseURL(string base_url)
         {
             JsValue v1 = new JsValue();
             JsValue ret;
@@ -5717,8 +5524,8 @@ namespace LayoutFarm.CefBridge.Auto
             ;
 
             Cef3Binder.MyCefMet_Call1(this.nativePtr, CefDragData_SetFragmentBaseURL_20, out ret, ref v1);
-
             Cef3Binder.MyCefDeletePtr(v1.Ptr); ;
+
         }
 
         // gen! void ResetFileContents()
@@ -5743,9 +5550,8 @@ namespace LayoutFarm.CefBridge.Auto
         /// /*cef(optional_param=display_name)*/
         /// </summary>
 
-        public void AddFile(string path
-        , string display_name
-        )
+        public void AddFile(string path,
+        string display_name)
         {
             JsValue v1 = new JsValue();
             JsValue v2 = new JsValue();
@@ -5756,9 +5562,9 @@ namespace LayoutFarm.CefBridge.Auto
             ;
 
             Cef3Binder.MyCefMet_Call2(this.nativePtr, CefDragData_AddFile_22, out ret, ref v1, ref v2);
-
             Cef3Binder.MyCefDeletePtr(v1.Ptr); ;
             Cef3Binder.MyCefDeletePtr(v2.Ptr); ;
+
         }
 
         // gen! CefRefPtr<CefImage> GetImage()
@@ -5773,8 +5579,7 @@ namespace LayoutFarm.CefBridge.Auto
             JsValue ret;
 
             Cef3Binder.MyCefMet_Call0(this.nativePtr, CefDragData_GetImage_23, out ret);
-            var ret_result = new CefImage(ret.Ptr);
-            return ret_result;
+            return new CefImage(ret.Ptr);
         }
 
         // gen! CefPoint GetImageHotspot()
@@ -5788,9 +5593,8 @@ namespace LayoutFarm.CefBridge.Auto
             JsValue ret;
 
             Cef3Binder.MyCefMet_Call0(this.nativePtr, CefDragData_GetImageHotspot_24, out ret);
-            var ret_result = new CefPoint(ret.Ptr);
+            return new CefPoint(ret.Ptr);
 
-            return ret_result;
         }
 
         // gen! bool HasImage()
@@ -5804,8 +5608,7 @@ namespace LayoutFarm.CefBridge.Auto
             JsValue ret;
 
             Cef3Binder.MyCefMet_Call0(this.nativePtr, CefDragData_HasImage_25, out ret);
-            var ret_result = ret.I32 != 0;
-            return ret_result;
+            return ret.I32 != 0;
         }
     }
 
@@ -5846,7 +5649,7 @@ namespace LayoutFarm.CefBridge.Auto
         const int CefFrame_GetBrowser_22 = (_typeNAME << 16) | 22;
         const int CefFrame_GetV8Context_23 = (_typeNAME << 16) | 23;
         const int CefFrame_VisitDOM_24 = (_typeNAME << 16) | 24;
-        internal readonly IntPtr nativePtr;
+        internal IntPtr nativePtr;
         internal CefFrame(IntPtr nativePtr)
         {
             this.nativePtr = nativePtr;
@@ -5855,6 +5658,7 @@ namespace LayoutFarm.CefBridge.Auto
         {
             JsValue ret;
             Cef3Binder.MyCefMet_Call0(this.nativePtr, CefFrame_Release_0, out ret);
+            this.nativePtr = IntPtr.Zero;
         }
 
         // gen! bool IsValid()
@@ -5867,8 +5671,7 @@ namespace LayoutFarm.CefBridge.Auto
             JsValue ret;
 
             Cef3Binder.MyCefMet_Call0(this.nativePtr, CefFrame_IsValid_1, out ret);
-            var ret_result = ret.I32 != 0;
-            return ret_result;
+            return ret.I32 != 0;
         }
 
         // gen! void Undo()
@@ -5992,8 +5795,7 @@ namespace LayoutFarm.CefBridge.Auto
         /// /*cef()*/
         /// </summary>
 
-        public void GetSource(CefStringVisitor visitor
-        )
+        public void GetSource(CefStringVisitor visitor)
         {
             JsValue v1 = new JsValue();
             JsValue ret;
@@ -6010,8 +5812,7 @@ namespace LayoutFarm.CefBridge.Auto
         /// /*cef()*/
         /// </summary>
 
-        public void GetText(CefStringVisitor visitor
-        )
+        public void GetText(CefStringVisitor visitor)
         {
             JsValue v1 = new JsValue();
             JsValue ret;
@@ -6027,8 +5828,7 @@ namespace LayoutFarm.CefBridge.Auto
         /// /*cef()*/
         /// </summary>
 
-        public void LoadRequest(CefRequest request
-        )
+        public void LoadRequest(CefRequest request)
         {
             JsValue v1 = new JsValue();
             JsValue ret;
@@ -6044,8 +5844,7 @@ namespace LayoutFarm.CefBridge.Auto
         /// /*cef()*/
         /// </summary>
 
-        public void LoadURL(string url
-        )
+        public void LoadURL(string url)
         {
             JsValue v1 = new JsValue();
             JsValue ret;
@@ -6053,8 +5852,8 @@ namespace LayoutFarm.CefBridge.Auto
             ;
 
             Cef3Binder.MyCefMet_Call1(this.nativePtr, CefFrame_LoadURL_13, out ret, ref v1);
-
             Cef3Binder.MyCefDeletePtr(v1.Ptr); ;
+
         }
 
         // gen! void LoadString(const CefString& string_val,const CefString& url)
@@ -6065,9 +5864,8 @@ namespace LayoutFarm.CefBridge.Auto
         /// /*cef()*/
         /// </summary>
 
-        public void LoadString(string string_val
-        , string url
-        )
+        public void LoadString(string string_val,
+        string url)
         {
             JsValue v1 = new JsValue();
             JsValue v2 = new JsValue();
@@ -6078,9 +5876,9 @@ namespace LayoutFarm.CefBridge.Auto
             ;
 
             Cef3Binder.MyCefMet_Call2(this.nativePtr, CefFrame_LoadString_14, out ret, ref v1, ref v2);
-
             Cef3Binder.MyCefDeletePtr(v1.Ptr); ;
             Cef3Binder.MyCefDeletePtr(v2.Ptr); ;
+
         }
 
         // gen! void ExecuteJavaScript(const CefString& code,const CefString& script_url,int start_line)
@@ -6093,10 +5891,9 @@ namespace LayoutFarm.CefBridge.Auto
         /// /*cef(optional_param=script_url)*/
         /// </summary>
 
-        public void ExecuteJavaScript(string code
-        , string script_url
-        , int start_line
-        )
+        public void ExecuteJavaScript(string code,
+        string script_url,
+        int start_line)
         {
             JsValue v1 = new JsValue();
             JsValue v2 = new JsValue();
@@ -6109,9 +5906,9 @@ namespace LayoutFarm.CefBridge.Auto
             v3.I32 = (int)start_line;
 
             Cef3Binder.MyCefMet_Call3(this.nativePtr, CefFrame_ExecuteJavaScript_15, out ret, ref v1, ref v2, ref v3);
-
             Cef3Binder.MyCefDeletePtr(v1.Ptr); ;
             Cef3Binder.MyCefDeletePtr(v2.Ptr); ;
+
         }
 
         // gen! bool IsMain()
@@ -6125,8 +5922,7 @@ namespace LayoutFarm.CefBridge.Auto
             JsValue ret;
 
             Cef3Binder.MyCefMet_Call0(this.nativePtr, CefFrame_IsMain_16, out ret);
-            var ret_result = ret.I32 != 0;
-            return ret_result;
+            return ret.I32 != 0;
         }
 
         // gen! bool IsFocused()
@@ -6140,8 +5936,7 @@ namespace LayoutFarm.CefBridge.Auto
             JsValue ret;
 
             Cef3Binder.MyCefMet_Call0(this.nativePtr, CefFrame_IsFocused_17, out ret);
-            var ret_result = ret.I32 != 0;
-            return ret_result;
+            return ret.I32 != 0;
         }
 
         // gen! CefString GetName()
@@ -6159,8 +5954,7 @@ namespace LayoutFarm.CefBridge.Auto
             JsValue ret;
 
             Cef3Binder.MyCefMet_Call0(this.nativePtr, CefFrame_GetName_18, out ret);
-            var ret_result = Cef3Binder.CopyStringAndDestroyNativeSide(ref ret);
-            return ret_result;
+            return Cef3Binder.CopyStringAndDestroyNativeSide(ref ret);
         }
 
         // gen! int64 GetIdentifier()
@@ -6175,8 +5969,7 @@ namespace LayoutFarm.CefBridge.Auto
             JsValue ret;
 
             Cef3Binder.MyCefMet_Call0(this.nativePtr, CefFrame_GetIdentifier_19, out ret);
-            var ret_result = ret.I64;
-            return ret_result;
+            return ret.I64;
         }
 
         // gen! CefRefPtr<CefFrame> GetParent()
@@ -6191,8 +5984,7 @@ namespace LayoutFarm.CefBridge.Auto
             JsValue ret;
 
             Cef3Binder.MyCefMet_Call0(this.nativePtr, CefFrame_GetParent_20, out ret);
-            var ret_result = new CefFrame(ret.Ptr);
-            return ret_result;
+            return new CefFrame(ret.Ptr);
         }
 
         // gen! CefString GetURL()
@@ -6206,8 +5998,7 @@ namespace LayoutFarm.CefBridge.Auto
             JsValue ret;
 
             Cef3Binder.MyCefMet_Call0(this.nativePtr, CefFrame_GetURL_21, out ret);
-            var ret_result = Cef3Binder.CopyStringAndDestroyNativeSide(ref ret);
-            return ret_result;
+            return Cef3Binder.CopyStringAndDestroyNativeSide(ref ret);
         }
 
         // gen! CefRefPtr<CefBrowser> GetBrowser()
@@ -6221,8 +6012,7 @@ namespace LayoutFarm.CefBridge.Auto
             JsValue ret;
 
             Cef3Binder.MyCefMet_Call0(this.nativePtr, CefFrame_GetBrowser_22, out ret);
-            var ret_result = new CefBrowser(ret.Ptr);
-            return ret_result;
+            return new CefBrowser(ret.Ptr);
         }
 
         // gen! CefRefPtr<CefV8Context> GetV8Context()
@@ -6237,8 +6027,7 @@ namespace LayoutFarm.CefBridge.Auto
             JsValue ret;
 
             Cef3Binder.MyCefMet_Call0(this.nativePtr, CefFrame_GetV8Context_23, out ret);
-            var ret_result = new CefV8Context(ret.Ptr);
-            return ret_result;
+            return new CefV8Context(ret.Ptr);
         }
 
         // gen! void VisitDOM(CefRefPtr<CefDOMVisitor> visitor)
@@ -6248,8 +6037,7 @@ namespace LayoutFarm.CefBridge.Auto
         /// /*cef()*/
         /// </summary>
 
-        public void VisitDOM(CefDOMVisitor visitor
-        )
+        public void VisitDOM(CefDOMVisitor visitor)
         {
             JsValue v1 = new JsValue();
             JsValue ret;
@@ -6288,7 +6076,7 @@ namespace LayoutFarm.CefBridge.Auto
         const int CefImage_GetAsBitmap_11 = (_typeNAME << 16) | 11;
         const int CefImage_GetAsPNG_12 = (_typeNAME << 16) | 12;
         const int CefImage_GetAsJPEG_13 = (_typeNAME << 16) | 13;
-        internal readonly IntPtr nativePtr;
+        internal IntPtr nativePtr;
         internal CefImage(IntPtr nativePtr)
         {
             this.nativePtr = nativePtr;
@@ -6297,6 +6085,7 @@ namespace LayoutFarm.CefBridge.Auto
         {
             JsValue ret;
             Cef3Binder.MyCefMet_Call0(this.nativePtr, CefImage_Release_0, out ret);
+            this.nativePtr = IntPtr.Zero;
         }
 
         // gen! bool IsEmpty()
@@ -6309,8 +6098,7 @@ namespace LayoutFarm.CefBridge.Auto
             JsValue ret;
 
             Cef3Binder.MyCefMet_Call0(this.nativePtr, CefImage_IsEmpty_1, out ret);
-            var ret_result = ret.I32 != 0;
-            return ret_result;
+            return ret.I32 != 0;
         }
 
         // gen! bool IsSame(CefRefPtr<CefImage> that)
@@ -6320,16 +6108,14 @@ namespace LayoutFarm.CefBridge.Auto
         /// /*cef()*/
         /// </summary>
 
-        public bool IsSame(CefImage that
-        )
+        public bool IsSame(CefImage that)
         {
             JsValue v1 = new JsValue();
             JsValue ret;
             v1.Ptr = that.nativePtr;
 
             Cef3Binder.MyCefMet_Call1(this.nativePtr, CefImage_IsSame_2, out ret, ref v1);
-            var ret_result = ret.I32 != 0;
-            return ret_result;
+            return ret.I32 != 0;
         }
 
         // gen! bool AddBitmap(float scale_factor,int pixel_width,int pixel_height,cef_color_type_t color_type,cef_alpha_type_t alpha_type,const void* pixel_data,size_t pixel_data_size)
@@ -6342,14 +6128,13 @@ namespace LayoutFarm.CefBridge.Auto
         /// /*cef()*/
         /// </summary>
 
-        public bool AddBitmap(float scale_factor
-        , int pixel_width
-        , int pixel_height
-        , cef_color_type_t color_type
-        , cef_alpha_type_t alpha_type
-        , IntPtr pixel_data
-        , uint pixel_data_size
-        )
+        public bool AddBitmap(float scale_factor,
+        int pixel_width,
+        int pixel_height,
+        cef_color_type_t color_type,
+        cef_alpha_type_t alpha_type,
+        IntPtr pixel_data,
+        uint pixel_data_size)
         {
             JsValue v1 = new JsValue();
             JsValue v2 = new JsValue();
@@ -6368,8 +6153,7 @@ namespace LayoutFarm.CefBridge.Auto
             v7.I32 = (int)pixel_data_size;
 
             Cef3Binder.MyCefMet_Call7(this.nativePtr, CefImage_AddBitmap_3, out ret, ref v1, ref v2, ref v3, ref v4, ref v5, ref v6, ref v7);
-            var ret_result = ret.I32 != 0;
-            return ret_result;
+            return ret.I32 != 0;
         }
 
         // gen! bool AddPNG(float scale_factor,const void* png_data,size_t png_data_size)
@@ -6380,10 +6164,9 @@ namespace LayoutFarm.CefBridge.Auto
         /// /*cef()*/
         /// </summary>
 
-        public bool AddPNG(float scale_factor
-        , IntPtr png_data
-        , uint png_data_size
-        )
+        public bool AddPNG(float scale_factor,
+        IntPtr png_data,
+        uint png_data_size)
         {
             JsValue v1 = new JsValue();
             JsValue v2 = new JsValue();
@@ -6394,8 +6177,7 @@ namespace LayoutFarm.CefBridge.Auto
             v3.I32 = (int)png_data_size;
 
             Cef3Binder.MyCefMet_Call3(this.nativePtr, CefImage_AddPNG_4, out ret, ref v1, ref v2, ref v3);
-            var ret_result = ret.I32 != 0;
-            return ret_result;
+            return ret.I32 != 0;
         }
 
         // gen! bool AddJPEG(float scale_factor,const void* jpeg_data,size_t jpeg_data_size)
@@ -6406,10 +6188,9 @@ namespace LayoutFarm.CefBridge.Auto
         /// /*cef()*/
         /// </summary>
 
-        public bool AddJPEG(float scale_factor
-        , IntPtr jpeg_data
-        , uint jpeg_data_size
-        )
+        public bool AddJPEG(float scale_factor,
+        IntPtr jpeg_data,
+        uint jpeg_data_size)
         {
             JsValue v1 = new JsValue();
             JsValue v2 = new JsValue();
@@ -6420,8 +6201,7 @@ namespace LayoutFarm.CefBridge.Auto
             v3.I32 = (int)jpeg_data_size;
 
             Cef3Binder.MyCefMet_Call3(this.nativePtr, CefImage_AddJPEG_5, out ret, ref v1, ref v2, ref v3);
-            var ret_result = ret.I32 != 0;
-            return ret_result;
+            return ret.I32 != 0;
         }
 
         // gen! size_t GetWidth()
@@ -6435,8 +6215,7 @@ namespace LayoutFarm.CefBridge.Auto
             JsValue ret;
 
             Cef3Binder.MyCefMet_Call0(this.nativePtr, CefImage_GetWidth_6, out ret);
-            var ret_result = (uint)ret.I32;
-            return ret_result;
+            return (uint)ret.I32;
         }
 
         // gen! size_t GetHeight()
@@ -6450,8 +6229,7 @@ namespace LayoutFarm.CefBridge.Auto
             JsValue ret;
 
             Cef3Binder.MyCefMet_Call0(this.nativePtr, CefImage_GetHeight_7, out ret);
-            var ret_result = (uint)ret.I32;
-            return ret_result;
+            return (uint)ret.I32;
         }
 
         // gen! bool HasRepresentation(float scale_factor)
@@ -6460,16 +6238,14 @@ namespace LayoutFarm.CefBridge.Auto
         /// /*cef()*/
         /// </summary>
 
-        public bool HasRepresentation(float scale_factor
-        )
+        public bool HasRepresentation(float scale_factor)
         {
             JsValue v1 = new JsValue();
             JsValue ret;
             v1.Num = scale_factor;
 
             Cef3Binder.MyCefMet_Call1(this.nativePtr, CefImage_HasRepresentation_8, out ret, ref v1);
-            var ret_result = ret.I32 != 0;
-            return ret_result;
+            return ret.I32 != 0;
         }
 
         // gen! bool RemoveRepresentation(float scale_factor)
@@ -6478,16 +6254,14 @@ namespace LayoutFarm.CefBridge.Auto
         /// /*cef()*/
         /// </summary>
 
-        public bool RemoveRepresentation(float scale_factor
-        )
+        public bool RemoveRepresentation(float scale_factor)
         {
             JsValue v1 = new JsValue();
             JsValue ret;
             v1.Num = scale_factor;
 
             Cef3Binder.MyCefMet_Call1(this.nativePtr, CefImage_RemoveRepresentation_9, out ret, ref v1);
-            var ret_result = ret.I32 != 0;
-            return ret_result;
+            return ret.I32 != 0;
         }
 
         // gen! bool GetRepresentationInfo(float scale_factor,float& actual_scale_factor,int& pixel_width,int& pixel_height)
@@ -6499,11 +6273,10 @@ namespace LayoutFarm.CefBridge.Auto
         /// /*cef()*/
         /// </summary>
 
-        public bool GetRepresentationInfo(float scale_factor
-        , ref float actual_scale_factor
-        , ref int pixel_width
-        , ref int pixel_height
-        )
+        public bool GetRepresentationInfo(float scale_factor,
+        ref float actual_scale_factor,
+        ref int pixel_width,
+        ref int pixel_height)
         {
             JsValue v1 = new JsValue();
             JsValue v2 = new JsValue();
@@ -6516,11 +6289,10 @@ namespace LayoutFarm.CefBridge.Auto
             v4.I32 = pixel_height;
 
             Cef3Binder.MyCefMet_Call4(this.nativePtr, CefImage_GetRepresentationInfo_10, out ret, ref v1, ref v2, ref v3, ref v4);
-            var ret_result = ret.I32 != 0;
             actual_scale_factor = (float)v2.Num; ;
             pixel_width = (int)v3.I32; ;
             pixel_height = (int)v4.I32; ;
-            return ret_result;
+            return ret.I32 != 0;
         }
 
         // gen! CefRefPtr<CefBinaryValue> GetAsBitmap(float scale_factor,cef_color_type_t color_type,cef_alpha_type_t alpha_type,int& pixel_width,int& pixel_height)
@@ -6534,12 +6306,11 @@ namespace LayoutFarm.CefBridge.Auto
         /// /*cef()*/
         /// </summary>
 
-        public CefBinaryValue GetAsBitmap(float scale_factor
-        , cef_color_type_t color_type
-        , cef_alpha_type_t alpha_type
-        , ref int pixel_width
-        , ref int pixel_height
-        )
+        public CefBinaryValue GetAsBitmap(float scale_factor,
+        cef_color_type_t color_type,
+        cef_alpha_type_t alpha_type,
+        ref int pixel_width,
+        ref int pixel_height)
         {
             JsValue v1 = new JsValue();
             JsValue v2 = new JsValue();
@@ -6554,10 +6325,9 @@ namespace LayoutFarm.CefBridge.Auto
             v5.I32 = pixel_height;
 
             Cef3Binder.MyCefMet_Call5(this.nativePtr, CefImage_GetAsBitmap_11, out ret, ref v1, ref v2, ref v3, ref v4, ref v5);
-            var ret_result = new CefBinaryValue(ret.Ptr);
             pixel_width = (int)v4.I32; ;
             pixel_height = (int)v5.I32; ;
-            return ret_result;
+            return new CefBinaryValue(ret.Ptr);
         }
 
         // gen! CefRefPtr<CefBinaryValue> GetAsPNG(float scale_factor,bool with_transparency,int& pixel_width,int& pixel_height)
@@ -6570,11 +6340,10 @@ namespace LayoutFarm.CefBridge.Auto
         /// /*cef()*/
         /// </summary>
 
-        public CefBinaryValue GetAsPNG(float scale_factor
-        , bool with_transparency
-        , ref int pixel_width
-        , ref int pixel_height
-        )
+        public CefBinaryValue GetAsPNG(float scale_factor,
+        bool with_transparency,
+        ref int pixel_width,
+        ref int pixel_height)
         {
             JsValue v1 = new JsValue();
             JsValue v2 = new JsValue();
@@ -6587,10 +6356,9 @@ namespace LayoutFarm.CefBridge.Auto
             v4.I32 = pixel_height;
 
             Cef3Binder.MyCefMet_Call4(this.nativePtr, CefImage_GetAsPNG_12, out ret, ref v1, ref v2, ref v3, ref v4);
-            var ret_result = new CefBinaryValue(ret.Ptr);
             pixel_width = (int)v3.I32; ;
             pixel_height = (int)v4.I32; ;
-            return ret_result;
+            return new CefBinaryValue(ret.Ptr);
         }
 
         // gen! CefRefPtr<CefBinaryValue> GetAsJPEG(float scale_factor,int quality,int& pixel_width,int& pixel_height)
@@ -6605,11 +6373,10 @@ namespace LayoutFarm.CefBridge.Auto
         /// /*cef()*/
         /// </summary>
 
-        public CefBinaryValue GetAsJPEG(float scale_factor
-        , int quality
-        , ref int pixel_width
-        , ref int pixel_height
-        )
+        public CefBinaryValue GetAsJPEG(float scale_factor,
+        int quality,
+        ref int pixel_width,
+        ref int pixel_height)
         {
             JsValue v1 = new JsValue();
             JsValue v2 = new JsValue();
@@ -6622,10 +6389,9 @@ namespace LayoutFarm.CefBridge.Auto
             v4.I32 = pixel_height;
 
             Cef3Binder.MyCefMet_Call4(this.nativePtr, CefImage_GetAsJPEG_13, out ret, ref v1, ref v2, ref v3, ref v4);
-            var ret_result = new CefBinaryValue(ret.Ptr);
             pixel_width = (int)v3.I32; ;
             pixel_height = (int)v4.I32; ;
-            return ret_result;
+            return new CefBinaryValue(ret.Ptr);
         }
     }
 
@@ -6698,7 +6464,7 @@ namespace LayoutFarm.CefBridge.Auto
         const int CefMenuModel_GetColorAt_54 = (_typeNAME << 16) | 54;
         const int CefMenuModel_SetFontList_55 = (_typeNAME << 16) | 55;
         const int CefMenuModel_SetFontListAt_56 = (_typeNAME << 16) | 56;
-        internal readonly IntPtr nativePtr;
+        internal IntPtr nativePtr;
         internal CefMenuModel(IntPtr nativePtr)
         {
             this.nativePtr = nativePtr;
@@ -6707,6 +6473,7 @@ namespace LayoutFarm.CefBridge.Auto
         {
             JsValue ret;
             Cef3Binder.MyCefMet_Call0(this.nativePtr, CefMenuModel_Release_0, out ret);
+            this.nativePtr = IntPtr.Zero;
         }
 
         // gen! bool IsSubMenu()
@@ -6719,8 +6486,7 @@ namespace LayoutFarm.CefBridge.Auto
             JsValue ret;
 
             Cef3Binder.MyCefMet_Call0(this.nativePtr, CefMenuModel_IsSubMenu_1, out ret);
-            var ret_result = ret.I32 != 0;
-            return ret_result;
+            return ret.I32 != 0;
         }
 
         // gen! bool Clear()
@@ -6734,8 +6500,7 @@ namespace LayoutFarm.CefBridge.Auto
             JsValue ret;
 
             Cef3Binder.MyCefMet_Call0(this.nativePtr, CefMenuModel_Clear_2, out ret);
-            var ret_result = ret.I32 != 0;
-            return ret_result;
+            return ret.I32 != 0;
         }
 
         // gen! int GetCount()
@@ -6749,8 +6514,7 @@ namespace LayoutFarm.CefBridge.Auto
             JsValue ret;
 
             Cef3Binder.MyCefMet_Call0(this.nativePtr, CefMenuModel_GetCount_3, out ret);
-            var ret_result = ret.I32;
-            return ret_result;
+            return ret.I32;
         }
 
         // gen! bool AddSeparator()
@@ -6764,8 +6528,7 @@ namespace LayoutFarm.CefBridge.Auto
             JsValue ret;
 
             Cef3Binder.MyCefMet_Call0(this.nativePtr, CefMenuModel_AddSeparator_4, out ret);
-            var ret_result = ret.I32 != 0;
-            return ret_result;
+            return ret.I32 != 0;
         }
 
         // gen! bool AddItem(int command_id,const CefString& label)
@@ -6774,9 +6537,8 @@ namespace LayoutFarm.CefBridge.Auto
         /// /*cef()*/
         /// </summary>
 
-        public bool AddItem(int command_id
-        , string label
-        )
+        public bool AddItem(int command_id,
+        string label)
         {
             JsValue v1 = new JsValue();
             JsValue v2 = new JsValue();
@@ -6786,9 +6548,8 @@ namespace LayoutFarm.CefBridge.Auto
             v1.I32 = (int)command_id;
 
             Cef3Binder.MyCefMet_Call2(this.nativePtr, CefMenuModel_AddItem_5, out ret, ref v1, ref v2);
-            var ret_result = ret.I32 != 0;
             Cef3Binder.MyCefDeletePtr(v2.Ptr); ;
-            return ret_result;
+            return ret.I32 != 0;
         }
 
         // gen! bool AddCheckItem(int command_id,const CefString& label)
@@ -6797,9 +6558,8 @@ namespace LayoutFarm.CefBridge.Auto
         /// /*cef()*/
         /// </summary>
 
-        public bool AddCheckItem(int command_id
-        , string label
-        )
+        public bool AddCheckItem(int command_id,
+        string label)
         {
             JsValue v1 = new JsValue();
             JsValue v2 = new JsValue();
@@ -6809,9 +6569,8 @@ namespace LayoutFarm.CefBridge.Auto
             v1.I32 = (int)command_id;
 
             Cef3Binder.MyCefMet_Call2(this.nativePtr, CefMenuModel_AddCheckItem_6, out ret, ref v1, ref v2);
-            var ret_result = ret.I32 != 0;
             Cef3Binder.MyCefDeletePtr(v2.Ptr); ;
-            return ret_result;
+            return ret.I32 != 0;
         }
 
         // gen! bool AddRadioItem(int command_id,const CefString& label,int group_id)
@@ -6821,10 +6580,9 @@ namespace LayoutFarm.CefBridge.Auto
         /// /*cef()*/
         /// </summary>
 
-        public bool AddRadioItem(int command_id
-        , string label
-        , int group_id
-        )
+        public bool AddRadioItem(int command_id,
+        string label,
+        int group_id)
         {
             JsValue v1 = new JsValue();
             JsValue v2 = new JsValue();
@@ -6836,9 +6594,8 @@ namespace LayoutFarm.CefBridge.Auto
             v3.I32 = (int)group_id;
 
             Cef3Binder.MyCefMet_Call3(this.nativePtr, CefMenuModel_AddRadioItem_7, out ret, ref v1, ref v2, ref v3);
-            var ret_result = ret.I32 != 0;
             Cef3Binder.MyCefDeletePtr(v2.Ptr); ;
-            return ret_result;
+            return ret.I32 != 0;
         }
 
         // gen! CefRefPtr<CefMenuModel> AddSubMenu(int command_id,const CefString& label)
@@ -6847,9 +6604,8 @@ namespace LayoutFarm.CefBridge.Auto
         /// /*cef()*/
         /// </summary>
 
-        public CefMenuModel AddSubMenu(int command_id
-        , string label
-        )
+        public CefMenuModel AddSubMenu(int command_id,
+        string label)
         {
             JsValue v1 = new JsValue();
             JsValue v2 = new JsValue();
@@ -6859,9 +6615,8 @@ namespace LayoutFarm.CefBridge.Auto
             v1.I32 = (int)command_id;
 
             Cef3Binder.MyCefMet_Call2(this.nativePtr, CefMenuModel_AddSubMenu_8, out ret, ref v1, ref v2);
-            var ret_result = new CefMenuModel(ret.Ptr);
             Cef3Binder.MyCefDeletePtr(v2.Ptr); ;
-            return ret_result;
+            return new CefMenuModel(ret.Ptr);
         }
 
         // gen! bool InsertSeparatorAt(int index)
@@ -6871,16 +6626,14 @@ namespace LayoutFarm.CefBridge.Auto
         /// /*cef()*/
         /// </summary>
 
-        public bool InsertSeparatorAt(int index
-        )
+        public bool InsertSeparatorAt(int index)
         {
             JsValue v1 = new JsValue();
             JsValue ret;
             v1.I32 = (int)index;
 
             Cef3Binder.MyCefMet_Call1(this.nativePtr, CefMenuModel_InsertSeparatorAt_9, out ret, ref v1);
-            var ret_result = ret.I32 != 0;
-            return ret_result;
+            return ret.I32 != 0;
         }
 
         // gen! bool InsertItemAt(int index,int command_id,const CefString& label)
@@ -6890,10 +6643,9 @@ namespace LayoutFarm.CefBridge.Auto
         /// /*cef()*/
         /// </summary>
 
-        public bool InsertItemAt(int index
-        , int command_id
-        , string label
-        )
+        public bool InsertItemAt(int index,
+        int command_id,
+        string label)
         {
             JsValue v1 = new JsValue();
             JsValue v2 = new JsValue();
@@ -6905,9 +6657,8 @@ namespace LayoutFarm.CefBridge.Auto
             v2.I32 = (int)command_id;
 
             Cef3Binder.MyCefMet_Call3(this.nativePtr, CefMenuModel_InsertItemAt_10, out ret, ref v1, ref v2, ref v3);
-            var ret_result = ret.I32 != 0;
             Cef3Binder.MyCefDeletePtr(v3.Ptr); ;
-            return ret_result;
+            return ret.I32 != 0;
         }
 
         // gen! bool InsertCheckItemAt(int index,int command_id,const CefString& label)
@@ -6917,10 +6668,9 @@ namespace LayoutFarm.CefBridge.Auto
         /// /*cef()*/
         /// </summary>
 
-        public bool InsertCheckItemAt(int index
-        , int command_id
-        , string label
-        )
+        public bool InsertCheckItemAt(int index,
+        int command_id,
+        string label)
         {
             JsValue v1 = new JsValue();
             JsValue v2 = new JsValue();
@@ -6932,9 +6682,8 @@ namespace LayoutFarm.CefBridge.Auto
             v2.I32 = (int)command_id;
 
             Cef3Binder.MyCefMet_Call3(this.nativePtr, CefMenuModel_InsertCheckItemAt_11, out ret, ref v1, ref v2, ref v3);
-            var ret_result = ret.I32 != 0;
             Cef3Binder.MyCefDeletePtr(v3.Ptr); ;
-            return ret_result;
+            return ret.I32 != 0;
         }
 
         // gen! bool InsertRadioItemAt(int index,int command_id,const CefString& label,int group_id)
@@ -6945,11 +6694,10 @@ namespace LayoutFarm.CefBridge.Auto
         /// /*cef()*/
         /// </summary>
 
-        public bool InsertRadioItemAt(int index
-        , int command_id
-        , string label
-        , int group_id
-        )
+        public bool InsertRadioItemAt(int index,
+        int command_id,
+        string label,
+        int group_id)
         {
             JsValue v1 = new JsValue();
             JsValue v2 = new JsValue();
@@ -6963,9 +6711,8 @@ namespace LayoutFarm.CefBridge.Auto
             v4.I32 = (int)group_id;
 
             Cef3Binder.MyCefMet_Call4(this.nativePtr, CefMenuModel_InsertRadioItemAt_12, out ret, ref v1, ref v2, ref v3, ref v4);
-            var ret_result = ret.I32 != 0;
             Cef3Binder.MyCefDeletePtr(v3.Ptr); ;
-            return ret_result;
+            return ret.I32 != 0;
         }
 
         // gen! CefRefPtr<CefMenuModel> InsertSubMenuAt(int index,int command_id,const CefString& label)
@@ -6975,10 +6722,9 @@ namespace LayoutFarm.CefBridge.Auto
         /// /*cef()*/
         /// </summary>
 
-        public CefMenuModel InsertSubMenuAt(int index
-        , int command_id
-        , string label
-        )
+        public CefMenuModel InsertSubMenuAt(int index,
+        int command_id,
+        string label)
         {
             JsValue v1 = new JsValue();
             JsValue v2 = new JsValue();
@@ -6990,9 +6736,8 @@ namespace LayoutFarm.CefBridge.Auto
             v2.I32 = (int)command_id;
 
             Cef3Binder.MyCefMet_Call3(this.nativePtr, CefMenuModel_InsertSubMenuAt_13, out ret, ref v1, ref v2, ref v3);
-            var ret_result = new CefMenuModel(ret.Ptr);
             Cef3Binder.MyCefDeletePtr(v3.Ptr); ;
-            return ret_result;
+            return new CefMenuModel(ret.Ptr);
         }
 
         // gen! bool Remove(int command_id)
@@ -7001,16 +6746,14 @@ namespace LayoutFarm.CefBridge.Auto
         /// /*cef()*/
         /// </summary>
 
-        public bool Remove(int command_id
-        )
+        public bool Remove(int command_id)
         {
             JsValue v1 = new JsValue();
             JsValue ret;
             v1.I32 = (int)command_id;
 
             Cef3Binder.MyCefMet_Call1(this.nativePtr, CefMenuModel_Remove_14, out ret, ref v1);
-            var ret_result = ret.I32 != 0;
-            return ret_result;
+            return ret.I32 != 0;
         }
 
         // gen! bool RemoveAt(int index)
@@ -7019,16 +6762,14 @@ namespace LayoutFarm.CefBridge.Auto
         /// /*cef()*/
         /// </summary>
 
-        public bool RemoveAt(int index
-        )
+        public bool RemoveAt(int index)
         {
             JsValue v1 = new JsValue();
             JsValue ret;
             v1.I32 = (int)index;
 
             Cef3Binder.MyCefMet_Call1(this.nativePtr, CefMenuModel_RemoveAt_15, out ret, ref v1);
-            var ret_result = ret.I32 != 0;
-            return ret_result;
+            return ret.I32 != 0;
         }
 
         // gen! int GetIndexOf(int command_id)
@@ -7038,16 +6779,14 @@ namespace LayoutFarm.CefBridge.Auto
         /// /*cef()*/
         /// </summary>
 
-        public int GetIndexOf(int command_id
-        )
+        public int GetIndexOf(int command_id)
         {
             JsValue v1 = new JsValue();
             JsValue ret;
             v1.I32 = (int)command_id;
 
             Cef3Binder.MyCefMet_Call1(this.nativePtr, CefMenuModel_GetIndexOf_16, out ret, ref v1);
-            var ret_result = ret.I32;
-            return ret_result;
+            return ret.I32;
         }
 
         // gen! int GetCommandIdAt(int index)
@@ -7057,16 +6796,14 @@ namespace LayoutFarm.CefBridge.Auto
         /// /*cef()*/
         /// </summary>
 
-        public int GetCommandIdAt(int index
-        )
+        public int GetCommandIdAt(int index)
         {
             JsValue v1 = new JsValue();
             JsValue ret;
             v1.I32 = (int)index;
 
             Cef3Binder.MyCefMet_Call1(this.nativePtr, CefMenuModel_GetCommandIdAt_17, out ret, ref v1);
-            var ret_result = ret.I32;
-            return ret_result;
+            return ret.I32;
         }
 
         // gen! bool SetCommandIdAt(int index,int command_id)
@@ -7075,9 +6812,8 @@ namespace LayoutFarm.CefBridge.Auto
         /// /*cef()*/
         /// </summary>
 
-        public bool SetCommandIdAt(int index
-        , int command_id
-        )
+        public bool SetCommandIdAt(int index,
+        int command_id)
         {
             JsValue v1 = new JsValue();
             JsValue v2 = new JsValue();
@@ -7086,8 +6822,7 @@ namespace LayoutFarm.CefBridge.Auto
             v2.I32 = (int)command_id;
 
             Cef3Binder.MyCefMet_Call2(this.nativePtr, CefMenuModel_SetCommandIdAt_18, out ret, ref v1, ref v2);
-            var ret_result = ret.I32 != 0;
-            return ret_result;
+            return ret.I32 != 0;
         }
 
         // gen! CefString GetLabel(int command_id)
@@ -7096,16 +6831,14 @@ namespace LayoutFarm.CefBridge.Auto
         /// /*cef()*/
         /// </summary>
 
-        public string GetLabel(int command_id
-        )
+        public string GetLabel(int command_id)
         {
             JsValue v1 = new JsValue();
             JsValue ret;
             v1.I32 = (int)command_id;
 
             Cef3Binder.MyCefMet_Call1(this.nativePtr, CefMenuModel_GetLabel_19, out ret, ref v1);
-            var ret_result = Cef3Binder.CopyStringAndDestroyNativeSide(ref ret);
-            return ret_result;
+            return Cef3Binder.CopyStringAndDestroyNativeSide(ref ret);
         }
 
         // gen! CefString GetLabelAt(int index)
@@ -7115,16 +6848,14 @@ namespace LayoutFarm.CefBridge.Auto
         /// /*cef()*/
         /// </summary>
 
-        public string GetLabelAt(int index
-        )
+        public string GetLabelAt(int index)
         {
             JsValue v1 = new JsValue();
             JsValue ret;
             v1.I32 = (int)index;
 
             Cef3Binder.MyCefMet_Call1(this.nativePtr, CefMenuModel_GetLabelAt_20, out ret, ref v1);
-            var ret_result = Cef3Binder.CopyStringAndDestroyNativeSide(ref ret);
-            return ret_result;
+            return Cef3Binder.CopyStringAndDestroyNativeSide(ref ret);
         }
 
         // gen! bool SetLabel(int command_id,const CefString& label)
@@ -7133,9 +6864,8 @@ namespace LayoutFarm.CefBridge.Auto
         /// /*cef()*/
         /// </summary>
 
-        public bool SetLabel(int command_id
-        , string label
-        )
+        public bool SetLabel(int command_id,
+        string label)
         {
             JsValue v1 = new JsValue();
             JsValue v2 = new JsValue();
@@ -7145,9 +6875,8 @@ namespace LayoutFarm.CefBridge.Auto
             v1.I32 = (int)command_id;
 
             Cef3Binder.MyCefMet_Call2(this.nativePtr, CefMenuModel_SetLabel_21, out ret, ref v1, ref v2);
-            var ret_result = ret.I32 != 0;
             Cef3Binder.MyCefDeletePtr(v2.Ptr); ;
-            return ret_result;
+            return ret.I32 != 0;
         }
 
         // gen! bool SetLabelAt(int index,const CefString& label)
@@ -7156,9 +6885,8 @@ namespace LayoutFarm.CefBridge.Auto
         /// /*cef()*/
         /// </summary>
 
-        public bool SetLabelAt(int index
-        , string label
-        )
+        public bool SetLabelAt(int index,
+        string label)
         {
             JsValue v1 = new JsValue();
             JsValue v2 = new JsValue();
@@ -7168,9 +6896,8 @@ namespace LayoutFarm.CefBridge.Auto
             v1.I32 = (int)index;
 
             Cef3Binder.MyCefMet_Call2(this.nativePtr, CefMenuModel_SetLabelAt_22, out ret, ref v1, ref v2);
-            var ret_result = ret.I32 != 0;
             Cef3Binder.MyCefDeletePtr(v2.Ptr); ;
-            return ret_result;
+            return ret.I32 != 0;
         }
 
         // gen! MenuItemType GetType(int command_id)
@@ -7179,17 +6906,15 @@ namespace LayoutFarm.CefBridge.Auto
         /// /*cef(default_retval=MENUITEMTYPE_NONE)*/
         /// </summary>
 
-        public cef_menu_item_type_t _GetType(int command_id
-        )
+        public cef_menu_item_type_t _GetType(int command_id)
         {
             JsValue v1 = new JsValue();
             JsValue ret;
             v1.I32 = (int)command_id;
 
             Cef3Binder.MyCefMet_Call1(this.nativePtr, CefMenuModel_GetType_23, out ret, ref v1);
-            var ret_result = (cef_menu_item_type_t)ret.I32;
+            return (cef_menu_item_type_t)ret.I32;
 
-            return ret_result;
         }
 
         // gen! MenuItemType GetTypeAt(int index)
@@ -7198,17 +6923,15 @@ namespace LayoutFarm.CefBridge.Auto
         /// /*cef(default_retval=MENUITEMTYPE_NONE)*/
         /// </summary>
 
-        public cef_menu_item_type_t GetTypeAt(int index
-        )
+        public cef_menu_item_type_t GetTypeAt(int index)
         {
             JsValue v1 = new JsValue();
             JsValue ret;
             v1.I32 = (int)index;
 
             Cef3Binder.MyCefMet_Call1(this.nativePtr, CefMenuModel_GetTypeAt_24, out ret, ref v1);
-            var ret_result = (cef_menu_item_type_t)ret.I32;
+            return (cef_menu_item_type_t)ret.I32;
 
-            return ret_result;
         }
 
         // gen! int GetGroupId(int command_id)
@@ -7217,16 +6940,14 @@ namespace LayoutFarm.CefBridge.Auto
         /// /*cef()*/
         /// </summary>
 
-        public int GetGroupId(int command_id
-        )
+        public int GetGroupId(int command_id)
         {
             JsValue v1 = new JsValue();
             JsValue ret;
             v1.I32 = (int)command_id;
 
             Cef3Binder.MyCefMet_Call1(this.nativePtr, CefMenuModel_GetGroupId_25, out ret, ref v1);
-            var ret_result = ret.I32;
-            return ret_result;
+            return ret.I32;
         }
 
         // gen! int GetGroupIdAt(int index)
@@ -7235,16 +6956,14 @@ namespace LayoutFarm.CefBridge.Auto
         /// /*cef()*/
         /// </summary>
 
-        public int GetGroupIdAt(int index
-        )
+        public int GetGroupIdAt(int index)
         {
             JsValue v1 = new JsValue();
             JsValue ret;
             v1.I32 = (int)index;
 
             Cef3Binder.MyCefMet_Call1(this.nativePtr, CefMenuModel_GetGroupIdAt_26, out ret, ref v1);
-            var ret_result = ret.I32;
-            return ret_result;
+            return ret.I32;
         }
 
         // gen! bool SetGroupId(int command_id,int group_id)
@@ -7253,9 +6972,8 @@ namespace LayoutFarm.CefBridge.Auto
         /// /*cef()*/
         /// </summary>
 
-        public bool SetGroupId(int command_id
-        , int group_id
-        )
+        public bool SetGroupId(int command_id,
+        int group_id)
         {
             JsValue v1 = new JsValue();
             JsValue v2 = new JsValue();
@@ -7264,8 +6982,7 @@ namespace LayoutFarm.CefBridge.Auto
             v2.I32 = (int)group_id;
 
             Cef3Binder.MyCefMet_Call2(this.nativePtr, CefMenuModel_SetGroupId_27, out ret, ref v1, ref v2);
-            var ret_result = ret.I32 != 0;
-            return ret_result;
+            return ret.I32 != 0;
         }
 
         // gen! bool SetGroupIdAt(int index,int group_id)
@@ -7274,9 +6991,8 @@ namespace LayoutFarm.CefBridge.Auto
         /// /*cef()*/
         /// </summary>
 
-        public bool SetGroupIdAt(int index
-        , int group_id
-        )
+        public bool SetGroupIdAt(int index,
+        int group_id)
         {
             JsValue v1 = new JsValue();
             JsValue v2 = new JsValue();
@@ -7285,8 +7001,7 @@ namespace LayoutFarm.CefBridge.Auto
             v2.I32 = (int)group_id;
 
             Cef3Binder.MyCefMet_Call2(this.nativePtr, CefMenuModel_SetGroupIdAt_28, out ret, ref v1, ref v2);
-            var ret_result = ret.I32 != 0;
-            return ret_result;
+            return ret.I32 != 0;
         }
 
         // gen! CefRefPtr<CefMenuModel> GetSubMenu(int command_id)
@@ -7295,16 +7010,14 @@ namespace LayoutFarm.CefBridge.Auto
         /// /*cef()*/
         /// </summary>
 
-        public CefMenuModel GetSubMenu(int command_id
-        )
+        public CefMenuModel GetSubMenu(int command_id)
         {
             JsValue v1 = new JsValue();
             JsValue ret;
             v1.I32 = (int)command_id;
 
             Cef3Binder.MyCefMet_Call1(this.nativePtr, CefMenuModel_GetSubMenu_29, out ret, ref v1);
-            var ret_result = new CefMenuModel(ret.Ptr);
-            return ret_result;
+            return new CefMenuModel(ret.Ptr);
         }
 
         // gen! CefRefPtr<CefMenuModel> GetSubMenuAt(int index)
@@ -7313,16 +7026,14 @@ namespace LayoutFarm.CefBridge.Auto
         /// /*cef()*/
         /// </summary>
 
-        public CefMenuModel GetSubMenuAt(int index
-        )
+        public CefMenuModel GetSubMenuAt(int index)
         {
             JsValue v1 = new JsValue();
             JsValue ret;
             v1.I32 = (int)index;
 
             Cef3Binder.MyCefMet_Call1(this.nativePtr, CefMenuModel_GetSubMenuAt_30, out ret, ref v1);
-            var ret_result = new CefMenuModel(ret.Ptr);
-            return ret_result;
+            return new CefMenuModel(ret.Ptr);
         }
 
         // gen! bool IsVisible(int command_id)
@@ -7331,16 +7042,14 @@ namespace LayoutFarm.CefBridge.Auto
         /// /*cef()*/
         /// </summary>
 
-        public bool IsVisible(int command_id
-        )
+        public bool IsVisible(int command_id)
         {
             JsValue v1 = new JsValue();
             JsValue ret;
             v1.I32 = (int)command_id;
 
             Cef3Binder.MyCefMet_Call1(this.nativePtr, CefMenuModel_IsVisible_31, out ret, ref v1);
-            var ret_result = ret.I32 != 0;
-            return ret_result;
+            return ret.I32 != 0;
         }
 
         // gen! bool IsVisibleAt(int index)
@@ -7349,16 +7058,14 @@ namespace LayoutFarm.CefBridge.Auto
         /// /*cef()*/
         /// </summary>
 
-        public bool IsVisibleAt(int index
-        )
+        public bool IsVisibleAt(int index)
         {
             JsValue v1 = new JsValue();
             JsValue ret;
             v1.I32 = (int)index;
 
             Cef3Binder.MyCefMet_Call1(this.nativePtr, CefMenuModel_IsVisibleAt_32, out ret, ref v1);
-            var ret_result = ret.I32 != 0;
-            return ret_result;
+            return ret.I32 != 0;
         }
 
         // gen! bool SetVisible(int command_id,bool visible)
@@ -7368,9 +7075,8 @@ namespace LayoutFarm.CefBridge.Auto
         /// /*cef()*/
         /// </summary>
 
-        public bool SetVisible(int command_id
-        , bool visible
-        )
+        public bool SetVisible(int command_id,
+        bool visible)
         {
             JsValue v1 = new JsValue();
             JsValue v2 = new JsValue();
@@ -7379,8 +7085,7 @@ namespace LayoutFarm.CefBridge.Auto
             v2.I32 = visible ? 1 : 0;
 
             Cef3Binder.MyCefMet_Call2(this.nativePtr, CefMenuModel_SetVisible_33, out ret, ref v1, ref v2);
-            var ret_result = ret.I32 != 0;
-            return ret_result;
+            return ret.I32 != 0;
         }
 
         // gen! bool SetVisibleAt(int index,bool visible)
@@ -7389,9 +7094,8 @@ namespace LayoutFarm.CefBridge.Auto
         /// /*cef()*/
         /// </summary>
 
-        public bool SetVisibleAt(int index
-        , bool visible
-        )
+        public bool SetVisibleAt(int index,
+        bool visible)
         {
             JsValue v1 = new JsValue();
             JsValue v2 = new JsValue();
@@ -7400,8 +7104,7 @@ namespace LayoutFarm.CefBridge.Auto
             v2.I32 = visible ? 1 : 0;
 
             Cef3Binder.MyCefMet_Call2(this.nativePtr, CefMenuModel_SetVisibleAt_34, out ret, ref v1, ref v2);
-            var ret_result = ret.I32 != 0;
-            return ret_result;
+            return ret.I32 != 0;
         }
 
         // gen! bool IsEnabled(int command_id)
@@ -7410,16 +7113,14 @@ namespace LayoutFarm.CefBridge.Auto
         /// /*cef()*/
         /// </summary>
 
-        public bool IsEnabled(int command_id
-        )
+        public bool IsEnabled(int command_id)
         {
             JsValue v1 = new JsValue();
             JsValue ret;
             v1.I32 = (int)command_id;
 
             Cef3Binder.MyCefMet_Call1(this.nativePtr, CefMenuModel_IsEnabled_35, out ret, ref v1);
-            var ret_result = ret.I32 != 0;
-            return ret_result;
+            return ret.I32 != 0;
         }
 
         // gen! bool IsEnabledAt(int index)
@@ -7428,16 +7129,14 @@ namespace LayoutFarm.CefBridge.Auto
         /// /*cef()*/
         /// </summary>
 
-        public bool IsEnabledAt(int index
-        )
+        public bool IsEnabledAt(int index)
         {
             JsValue v1 = new JsValue();
             JsValue ret;
             v1.I32 = (int)index;
 
             Cef3Binder.MyCefMet_Call1(this.nativePtr, CefMenuModel_IsEnabledAt_36, out ret, ref v1);
-            var ret_result = ret.I32 != 0;
-            return ret_result;
+            return ret.I32 != 0;
         }
 
         // gen! bool SetEnabled(int command_id,bool enabled)
@@ -7447,9 +7146,8 @@ namespace LayoutFarm.CefBridge.Auto
         /// /*cef()*/
         /// </summary>
 
-        public bool SetEnabled(int command_id
-        , bool enabled
-        )
+        public bool SetEnabled(int command_id,
+        bool enabled)
         {
             JsValue v1 = new JsValue();
             JsValue v2 = new JsValue();
@@ -7458,8 +7156,7 @@ namespace LayoutFarm.CefBridge.Auto
             v2.I32 = enabled ? 1 : 0;
 
             Cef3Binder.MyCefMet_Call2(this.nativePtr, CefMenuModel_SetEnabled_37, out ret, ref v1, ref v2);
-            var ret_result = ret.I32 != 0;
-            return ret_result;
+            return ret.I32 != 0;
         }
 
         // gen! bool SetEnabledAt(int index,bool enabled)
@@ -7469,9 +7166,8 @@ namespace LayoutFarm.CefBridge.Auto
         /// /*cef()*/
         /// </summary>
 
-        public bool SetEnabledAt(int index
-        , bool enabled
-        )
+        public bool SetEnabledAt(int index,
+        bool enabled)
         {
             JsValue v1 = new JsValue();
             JsValue v2 = new JsValue();
@@ -7480,8 +7176,7 @@ namespace LayoutFarm.CefBridge.Auto
             v2.I32 = enabled ? 1 : 0;
 
             Cef3Binder.MyCefMet_Call2(this.nativePtr, CefMenuModel_SetEnabledAt_38, out ret, ref v1, ref v2);
-            var ret_result = ret.I32 != 0;
-            return ret_result;
+            return ret.I32 != 0;
         }
 
         // gen! bool IsChecked(int command_id)
@@ -7491,16 +7186,14 @@ namespace LayoutFarm.CefBridge.Auto
         /// /*cef()*/
         /// </summary>
 
-        public bool IsChecked(int command_id
-        )
+        public bool IsChecked(int command_id)
         {
             JsValue v1 = new JsValue();
             JsValue ret;
             v1.I32 = (int)command_id;
 
             Cef3Binder.MyCefMet_Call1(this.nativePtr, CefMenuModel_IsChecked_39, out ret, ref v1);
-            var ret_result = ret.I32 != 0;
-            return ret_result;
+            return ret.I32 != 0;
         }
 
         // gen! bool IsCheckedAt(int index)
@@ -7510,16 +7203,14 @@ namespace LayoutFarm.CefBridge.Auto
         /// /*cef()*/
         /// </summary>
 
-        public bool IsCheckedAt(int index
-        )
+        public bool IsCheckedAt(int index)
         {
             JsValue v1 = new JsValue();
             JsValue ret;
             v1.I32 = (int)index;
 
             Cef3Binder.MyCefMet_Call1(this.nativePtr, CefMenuModel_IsCheckedAt_40, out ret, ref v1);
-            var ret_result = ret.I32 != 0;
-            return ret_result;
+            return ret.I32 != 0;
         }
 
         // gen! bool SetChecked(int command_id,bool checked)
@@ -7529,9 +7220,8 @@ namespace LayoutFarm.CefBridge.Auto
         /// /*cef()*/
         /// </summary>
 
-        public bool SetChecked(int command_id
-        , bool _checked
-        )
+        public bool SetChecked(int command_id,
+        bool _checked)
         {
             JsValue v1 = new JsValue();
             JsValue v2 = new JsValue();
@@ -7540,8 +7230,7 @@ namespace LayoutFarm.CefBridge.Auto
             v2.I32 = _checked ? 1 : 0;
 
             Cef3Binder.MyCefMet_Call2(this.nativePtr, CefMenuModel_SetChecked_41, out ret, ref v1, ref v2);
-            var ret_result = ret.I32 != 0;
-            return ret_result;
+            return ret.I32 != 0;
         }
 
         // gen! bool SetCheckedAt(int index,bool checked)
@@ -7551,9 +7240,8 @@ namespace LayoutFarm.CefBridge.Auto
         /// /*cef()*/
         /// </summary>
 
-        public bool SetCheckedAt(int index
-        , bool _checked
-        )
+        public bool SetCheckedAt(int index,
+        bool _checked)
         {
             JsValue v1 = new JsValue();
             JsValue v2 = new JsValue();
@@ -7562,8 +7250,7 @@ namespace LayoutFarm.CefBridge.Auto
             v2.I32 = _checked ? 1 : 0;
 
             Cef3Binder.MyCefMet_Call2(this.nativePtr, CefMenuModel_SetCheckedAt_42, out ret, ref v1, ref v2);
-            var ret_result = ret.I32 != 0;
-            return ret_result;
+            return ret.I32 != 0;
         }
 
         // gen! bool HasAccelerator(int command_id)
@@ -7573,16 +7260,14 @@ namespace LayoutFarm.CefBridge.Auto
         /// /*cef()*/
         /// </summary>
 
-        public bool HasAccelerator(int command_id
-        )
+        public bool HasAccelerator(int command_id)
         {
             JsValue v1 = new JsValue();
             JsValue ret;
             v1.I32 = (int)command_id;
 
             Cef3Binder.MyCefMet_Call1(this.nativePtr, CefMenuModel_HasAccelerator_43, out ret, ref v1);
-            var ret_result = ret.I32 != 0;
-            return ret_result;
+            return ret.I32 != 0;
         }
 
         // gen! bool HasAcceleratorAt(int index)
@@ -7591,16 +7276,14 @@ namespace LayoutFarm.CefBridge.Auto
         /// /*cef()*/
         /// </summary>
 
-        public bool HasAcceleratorAt(int index
-        )
+        public bool HasAcceleratorAt(int index)
         {
             JsValue v1 = new JsValue();
             JsValue ret;
             v1.I32 = (int)index;
 
             Cef3Binder.MyCefMet_Call1(this.nativePtr, CefMenuModel_HasAcceleratorAt_44, out ret, ref v1);
-            var ret_result = ret.I32 != 0;
-            return ret_result;
+            return ret.I32 != 0;
         }
 
         // gen! bool SetAccelerator(int command_id,int key_code,bool shift_pressed,bool ctrl_pressed,bool alt_pressed)
@@ -7610,12 +7293,11 @@ namespace LayoutFarm.CefBridge.Auto
         /// /*cef()*/
         /// </summary>
 
-        public bool SetAccelerator(int command_id
-        , int key_code
-        , bool shift_pressed
-        , bool ctrl_pressed
-        , bool alt_pressed
-        )
+        public bool SetAccelerator(int command_id,
+        int key_code,
+        bool shift_pressed,
+        bool ctrl_pressed,
+        bool alt_pressed)
         {
             JsValue v1 = new JsValue();
             JsValue v2 = new JsValue();
@@ -7630,8 +7312,7 @@ namespace LayoutFarm.CefBridge.Auto
             v5.I32 = alt_pressed ? 1 : 0;
 
             Cef3Binder.MyCefMet_Call5(this.nativePtr, CefMenuModel_SetAccelerator_45, out ret, ref v1, ref v2, ref v3, ref v4, ref v5);
-            var ret_result = ret.I32 != 0;
-            return ret_result;
+            return ret.I32 != 0;
         }
 
         // gen! bool SetAcceleratorAt(int index,int key_code,bool shift_pressed,bool ctrl_pressed,bool alt_pressed)
@@ -7641,12 +7322,11 @@ namespace LayoutFarm.CefBridge.Auto
         /// /*cef()*/
         /// </summary>
 
-        public bool SetAcceleratorAt(int index
-        , int key_code
-        , bool shift_pressed
-        , bool ctrl_pressed
-        , bool alt_pressed
-        )
+        public bool SetAcceleratorAt(int index,
+        int key_code,
+        bool shift_pressed,
+        bool ctrl_pressed,
+        bool alt_pressed)
         {
             JsValue v1 = new JsValue();
             JsValue v2 = new JsValue();
@@ -7661,8 +7341,7 @@ namespace LayoutFarm.CefBridge.Auto
             v5.I32 = alt_pressed ? 1 : 0;
 
             Cef3Binder.MyCefMet_Call5(this.nativePtr, CefMenuModel_SetAcceleratorAt_46, out ret, ref v1, ref v2, ref v3, ref v4, ref v5);
-            var ret_result = ret.I32 != 0;
-            return ret_result;
+            return ret.I32 != 0;
         }
 
         // gen! bool RemoveAccelerator(int command_id)
@@ -7672,16 +7351,14 @@ namespace LayoutFarm.CefBridge.Auto
         /// /*cef()*/
         /// </summary>
 
-        public bool RemoveAccelerator(int command_id
-        )
+        public bool RemoveAccelerator(int command_id)
         {
             JsValue v1 = new JsValue();
             JsValue ret;
             v1.I32 = (int)command_id;
 
             Cef3Binder.MyCefMet_Call1(this.nativePtr, CefMenuModel_RemoveAccelerator_47, out ret, ref v1);
-            var ret_result = ret.I32 != 0;
-            return ret_result;
+            return ret.I32 != 0;
         }
 
         // gen! bool RemoveAcceleratorAt(int index)
@@ -7691,16 +7368,14 @@ namespace LayoutFarm.CefBridge.Auto
         /// /*cef()*/
         /// </summary>
 
-        public bool RemoveAcceleratorAt(int index
-        )
+        public bool RemoveAcceleratorAt(int index)
         {
             JsValue v1 = new JsValue();
             JsValue ret;
             v1.I32 = (int)index;
 
             Cef3Binder.MyCefMet_Call1(this.nativePtr, CefMenuModel_RemoveAcceleratorAt_48, out ret, ref v1);
-            var ret_result = ret.I32 != 0;
-            return ret_result;
+            return ret.I32 != 0;
         }
 
         // gen! bool GetAccelerator(int command_id,int& key_code,bool& shift_pressed,bool& ctrl_pressed,bool& alt_pressed)
@@ -7710,12 +7385,11 @@ namespace LayoutFarm.CefBridge.Auto
         /// /*cef()*/
         /// </summary>
 
-        public bool GetAccelerator(int command_id
-        , ref int key_code
-        , ref bool shift_pressed
-        , ref bool ctrl_pressed
-        , ref bool alt_pressed
-        )
+        public bool GetAccelerator(int command_id,
+        ref int key_code,
+        ref bool shift_pressed,
+        ref bool ctrl_pressed,
+        ref bool alt_pressed)
         {
             JsValue v1 = new JsValue();
             JsValue v2 = new JsValue();
@@ -7730,12 +7404,11 @@ namespace LayoutFarm.CefBridge.Auto
             v5.I32 = (alt_pressed ? 1 : 0);
 
             Cef3Binder.MyCefMet_Call5(this.nativePtr, CefMenuModel_GetAccelerator_49, out ret, ref v1, ref v2, ref v3, ref v4, ref v5);
-            var ret_result = ret.I32 != 0;
             key_code = (int)v2.I32; ;
             shift_pressed = v3.I32 != 0; ;
             ctrl_pressed = v4.I32 != 0; ;
             alt_pressed = v5.I32 != 0; ;
-            return ret_result;
+            return ret.I32 != 0;
         }
 
         // gen! bool GetAcceleratorAt(int index,int& key_code,bool& shift_pressed,bool& ctrl_pressed,bool& alt_pressed)
@@ -7745,12 +7418,11 @@ namespace LayoutFarm.CefBridge.Auto
         /// /*cef()*/
         /// </summary>
 
-        public bool GetAcceleratorAt(int index
-        , ref int key_code
-        , ref bool shift_pressed
-        , ref bool ctrl_pressed
-        , ref bool alt_pressed
-        )
+        public bool GetAcceleratorAt(int index,
+        ref int key_code,
+        ref bool shift_pressed,
+        ref bool ctrl_pressed,
+        ref bool alt_pressed)
         {
             JsValue v1 = new JsValue();
             JsValue v2 = new JsValue();
@@ -7765,12 +7437,11 @@ namespace LayoutFarm.CefBridge.Auto
             v5.I32 = (alt_pressed ? 1 : 0);
 
             Cef3Binder.MyCefMet_Call5(this.nativePtr, CefMenuModel_GetAcceleratorAt_50, out ret, ref v1, ref v2, ref v3, ref v4, ref v5);
-            var ret_result = ret.I32 != 0;
             key_code = (int)v2.I32; ;
             shift_pressed = v3.I32 != 0; ;
             ctrl_pressed = v4.I32 != 0; ;
             alt_pressed = v5.I32 != 0; ;
-            return ret_result;
+            return ret.I32 != 0;
         }
 
         // gen! bool SetColor(int command_id,cef_menu_color_type_t color_type,cef_color_t color)
@@ -7782,10 +7453,9 @@ namespace LayoutFarm.CefBridge.Auto
         /// /*cef()*/
         /// </summary>
 
-        public bool SetColor(int command_id
-        , cef_menu_color_type_t color_type
-        , IntPtr color
-        )
+        public bool SetColor(int command_id,
+        cef_menu_color_type_t color_type,
+        IntPtr color)
         {
             JsValue v1 = new JsValue();
             JsValue v2 = new JsValue();
@@ -7796,8 +7466,7 @@ namespace LayoutFarm.CefBridge.Auto
             v3.I32 = (int)color;
 
             Cef3Binder.MyCefMet_Call3(this.nativePtr, CefMenuModel_SetColor_51, out ret, ref v1, ref v2, ref v3);
-            var ret_result = ret.I32 != 0;
-            return ret_result;
+            return ret.I32 != 0;
         }
 
         // gen! bool SetColorAt(int index,cef_menu_color_type_t color_type,cef_color_t color)
@@ -7810,10 +7479,9 @@ namespace LayoutFarm.CefBridge.Auto
         /// /*cef()*/
         /// </summary>
 
-        public bool SetColorAt(int index
-        , cef_menu_color_type_t color_type
-        , IntPtr color
-        )
+        public bool SetColorAt(int index,
+        cef_menu_color_type_t color_type,
+        IntPtr color)
         {
             JsValue v1 = new JsValue();
             JsValue v2 = new JsValue();
@@ -7824,8 +7492,7 @@ namespace LayoutFarm.CefBridge.Auto
             v3.I32 = (int)color;
 
             Cef3Binder.MyCefMet_Call3(this.nativePtr, CefMenuModel_SetColorAt_52, out ret, ref v1, ref v2, ref v3);
-            var ret_result = ret.I32 != 0;
-            return ret_result;
+            return ret.I32 != 0;
         }
 
         // gen! bool GetColor(int command_id,cef_menu_color_type_t color_type,cef_color_t& color)
@@ -7836,10 +7503,9 @@ namespace LayoutFarm.CefBridge.Auto
         /// /*cef()*/
         /// </summary>
 
-        public bool GetColor(int command_id
-        , cef_menu_color_type_t color_type
-        , cef_color_t color
-        )
+        public bool GetColor(int command_id,
+        cef_menu_color_type_t color_type,
+        cef_color_t color)
         {
             JsValue v1 = new JsValue();
             JsValue v2 = new JsValue();
@@ -7850,8 +7516,7 @@ namespace LayoutFarm.CefBridge.Auto
             v3.Ptr = color.nativePtr;
 
             Cef3Binder.MyCefMet_Call3(this.nativePtr, CefMenuModel_GetColor_53, out ret, ref v1, ref v2, ref v3);
-            var ret_result = ret.I32 != 0;
-            return ret_result;
+            return ret.I32 != 0;
         }
 
         // gen! bool GetColorAt(int index,cef_menu_color_type_t color_type,cef_color_t& color)
@@ -7863,10 +7528,9 @@ namespace LayoutFarm.CefBridge.Auto
         /// /*cef()*/
         /// </summary>
 
-        public bool GetColorAt(int index
-        , cef_menu_color_type_t color_type
-        , cef_color_t color
-        )
+        public bool GetColorAt(int index,
+        cef_menu_color_type_t color_type,
+        cef_color_t color)
         {
             JsValue v1 = new JsValue();
             JsValue v2 = new JsValue();
@@ -7877,8 +7541,7 @@ namespace LayoutFarm.CefBridge.Auto
             v3.Ptr = color.nativePtr;
 
             Cef3Binder.MyCefMet_Call3(this.nativePtr, CefMenuModel_GetColorAt_54, out ret, ref v1, ref v2, ref v3);
-            var ret_result = ret.I32 != 0;
-            return ret_result;
+            return ret.I32 != 0;
         }
 
         // gen! bool SetFontList(int command_id,const CefString& font_list)
@@ -7897,9 +7560,8 @@ namespace LayoutFarm.CefBridge.Auto
         /// /*cef(optional_param=font_list)*/
         /// </summary>
 
-        public bool SetFontList(int command_id
-        , string font_list
-        )
+        public bool SetFontList(int command_id,
+        string font_list)
         {
             JsValue v1 = new JsValue();
             JsValue v2 = new JsValue();
@@ -7909,9 +7571,8 @@ namespace LayoutFarm.CefBridge.Auto
             v1.I32 = (int)command_id;
 
             Cef3Binder.MyCefMet_Call2(this.nativePtr, CefMenuModel_SetFontList_55, out ret, ref v1, ref v2);
-            var ret_result = ret.I32 != 0;
             Cef3Binder.MyCefDeletePtr(v2.Ptr); ;
-            return ret_result;
+            return ret.I32 != 0;
         }
 
         // gen! bool SetFontListAt(int index,const CefString& font_list)
@@ -7931,9 +7592,8 @@ namespace LayoutFarm.CefBridge.Auto
         /// /*cef(optional_param=font_list)*/
         /// </summary>
 
-        public bool SetFontListAt(int index
-        , string font_list
-        )
+        public bool SetFontListAt(int index,
+        string font_list)
         {
             JsValue v1 = new JsValue();
             JsValue v2 = new JsValue();
@@ -7943,9 +7603,8 @@ namespace LayoutFarm.CefBridge.Auto
             v1.I32 = (int)index;
 
             Cef3Binder.MyCefMet_Call2(this.nativePtr, CefMenuModel_SetFontListAt_56, out ret, ref v1, ref v2);
-            var ret_result = ret.I32 != 0;
             Cef3Binder.MyCefDeletePtr(v2.Ptr); ;
-            return ret_result;
+            return ret.I32 != 0;
         }
     }
 
@@ -7961,7 +7620,7 @@ namespace LayoutFarm.CefBridge.Auto
     {
         const int _typeNAME = 18;
         const int CefMenuModelDelegate_Release_0 = (_typeNAME << 16) | 0;
-        internal readonly IntPtr nativePtr;
+        internal IntPtr nativePtr;
         internal CefMenuModelDelegate(IntPtr nativePtr)
         {
             this.nativePtr = nativePtr;
@@ -7970,6 +7629,7 @@ namespace LayoutFarm.CefBridge.Auto
         {
             JsValue ret;
             Cef3Binder.MyCefMet_Call0(this.nativePtr, CefMenuModelDelegate_Release_0, out ret);
+            this.nativePtr = IntPtr.Zero;
         }
     }
 
@@ -7993,7 +7653,7 @@ namespace LayoutFarm.CefBridge.Auto
         const int CefNavigationEntry_GetCompletionTime_8 = (_typeNAME << 16) | 8;
         const int CefNavigationEntry_GetHttpStatusCode_9 = (_typeNAME << 16) | 9;
         const int CefNavigationEntry_GetSSLStatus_10 = (_typeNAME << 16) | 10;
-        internal readonly IntPtr nativePtr;
+        internal IntPtr nativePtr;
         internal CefNavigationEntry(IntPtr nativePtr)
         {
             this.nativePtr = nativePtr;
@@ -8002,6 +7662,7 @@ namespace LayoutFarm.CefBridge.Auto
         {
             JsValue ret;
             Cef3Binder.MyCefMet_Call0(this.nativePtr, CefNavigationEntry_Release_0, out ret);
+            this.nativePtr = IntPtr.Zero;
         }
 
         // gen! bool IsValid()
@@ -8014,8 +7675,7 @@ namespace LayoutFarm.CefBridge.Auto
             JsValue ret;
 
             Cef3Binder.MyCefMet_Call0(this.nativePtr, CefNavigationEntry_IsValid_1, out ret);
-            var ret_result = ret.I32 != 0;
-            return ret_result;
+            return ret.I32 != 0;
         }
 
         // gen! CefString GetURL()
@@ -8030,8 +7690,7 @@ namespace LayoutFarm.CefBridge.Auto
             JsValue ret;
 
             Cef3Binder.MyCefMet_Call0(this.nativePtr, CefNavigationEntry_GetURL_2, out ret);
-            var ret_result = Cef3Binder.CopyStringAndDestroyNativeSide(ref ret);
-            return ret_result;
+            return Cef3Binder.CopyStringAndDestroyNativeSide(ref ret);
         }
 
         // gen! CefString GetDisplayURL()
@@ -8045,8 +7704,7 @@ namespace LayoutFarm.CefBridge.Auto
             JsValue ret;
 
             Cef3Binder.MyCefMet_Call0(this.nativePtr, CefNavigationEntry_GetDisplayURL_3, out ret);
-            var ret_result = Cef3Binder.CopyStringAndDestroyNativeSide(ref ret);
-            return ret_result;
+            return Cef3Binder.CopyStringAndDestroyNativeSide(ref ret);
         }
 
         // gen! CefString GetOriginalURL()
@@ -8060,8 +7718,7 @@ namespace LayoutFarm.CefBridge.Auto
             JsValue ret;
 
             Cef3Binder.MyCefMet_Call0(this.nativePtr, CefNavigationEntry_GetOriginalURL_4, out ret);
-            var ret_result = Cef3Binder.CopyStringAndDestroyNativeSide(ref ret);
-            return ret_result;
+            return Cef3Binder.CopyStringAndDestroyNativeSide(ref ret);
         }
 
         // gen! CefString GetTitle()
@@ -8075,8 +7732,7 @@ namespace LayoutFarm.CefBridge.Auto
             JsValue ret;
 
             Cef3Binder.MyCefMet_Call0(this.nativePtr, CefNavigationEntry_GetTitle_5, out ret);
-            var ret_result = Cef3Binder.CopyStringAndDestroyNativeSide(ref ret);
-            return ret_result;
+            return Cef3Binder.CopyStringAndDestroyNativeSide(ref ret);
         }
 
         // gen! TransitionType GetTransitionType()
@@ -8091,9 +7747,8 @@ namespace LayoutFarm.CefBridge.Auto
             JsValue ret;
 
             Cef3Binder.MyCefMet_Call0(this.nativePtr, CefNavigationEntry_GetTransitionType_6, out ret);
-            var ret_result = (cef_transition_type_t)ret.I32;
+            return (cef_transition_type_t)ret.I32;
 
-            return ret_result;
         }
 
         // gen! bool HasPostData()
@@ -8107,8 +7762,7 @@ namespace LayoutFarm.CefBridge.Auto
             JsValue ret;
 
             Cef3Binder.MyCefMet_Call0(this.nativePtr, CefNavigationEntry_HasPostData_7, out ret);
-            var ret_result = ret.I32 != 0;
-            return ret_result;
+            return ret.I32 != 0;
         }
 
         // gen! CefTime GetCompletionTime()
@@ -8124,9 +7778,8 @@ namespace LayoutFarm.CefBridge.Auto
             JsValue ret;
 
             Cef3Binder.MyCefMet_Call0(this.nativePtr, CefNavigationEntry_GetCompletionTime_8, out ret);
-            var ret_result = new CefTime(ret.Ptr);
+            return new CefTime(ret.Ptr);
 
-            return ret_result;
         }
 
         // gen! int GetHttpStatusCode()
@@ -8142,8 +7795,7 @@ namespace LayoutFarm.CefBridge.Auto
             JsValue ret;
 
             Cef3Binder.MyCefMet_Call0(this.nativePtr, CefNavigationEntry_GetHttpStatusCode_9, out ret);
-            var ret_result = ret.I32;
-            return ret_result;
+            return ret.I32;
         }
 
         // gen! CefRefPtr<CefSSLStatus> GetSSLStatus()
@@ -8157,8 +7809,7 @@ namespace LayoutFarm.CefBridge.Auto
             JsValue ret;
 
             Cef3Binder.MyCefMet_Call0(this.nativePtr, CefNavigationEntry_GetSSLStatus_10, out ret);
-            var ret_result = new CefSSLStatus(ret.Ptr);
-            return ret_result;
+            return new CefSSLStatus(ret.Ptr);
         }
     }
 
@@ -8195,7 +7846,7 @@ namespace LayoutFarm.CefBridge.Auto
         const int CefPrintSettings_GetCopies_21 = (_typeNAME << 16) | 21;
         const int CefPrintSettings_SetDuplexMode_22 = (_typeNAME << 16) | 22;
         const int CefPrintSettings_GetDuplexMode_23 = (_typeNAME << 16) | 23;
-        internal readonly IntPtr nativePtr;
+        internal IntPtr nativePtr;
         internal CefPrintSettings(IntPtr nativePtr)
         {
             this.nativePtr = nativePtr;
@@ -8204,6 +7855,7 @@ namespace LayoutFarm.CefBridge.Auto
         {
             JsValue ret;
             Cef3Binder.MyCefMet_Call0(this.nativePtr, CefPrintSettings_Release_0, out ret);
+            this.nativePtr = IntPtr.Zero;
         }
 
         // gen! bool IsValid()
@@ -8216,8 +7868,7 @@ namespace LayoutFarm.CefBridge.Auto
             JsValue ret;
 
             Cef3Binder.MyCefMet_Call0(this.nativePtr, CefPrintSettings_IsValid_1, out ret);
-            var ret_result = ret.I32 != 0;
-            return ret_result;
+            return ret.I32 != 0;
         }
 
         // gen! bool IsReadOnly()
@@ -8232,8 +7883,7 @@ namespace LayoutFarm.CefBridge.Auto
             JsValue ret;
 
             Cef3Binder.MyCefMet_Call0(this.nativePtr, CefPrintSettings_IsReadOnly_2, out ret);
-            var ret_result = ret.I32 != 0;
-            return ret_result;
+            return ret.I32 != 0;
         }
 
         // gen! CefRefPtr<CefPrintSettings> Copy()
@@ -8247,8 +7897,7 @@ namespace LayoutFarm.CefBridge.Auto
             JsValue ret;
 
             Cef3Binder.MyCefMet_Call0(this.nativePtr, CefPrintSettings_Copy_3, out ret);
-            var ret_result = new CefPrintSettings(ret.Ptr);
-            return ret_result;
+            return new CefPrintSettings(ret.Ptr);
         }
 
         // gen! void SetOrientation(bool landscape)
@@ -8257,8 +7906,7 @@ namespace LayoutFarm.CefBridge.Auto
         /// /*cef()*/
         /// </summary>
 
-        public void SetOrientation(bool landscape
-        )
+        public void SetOrientation(bool landscape)
         {
             JsValue v1 = new JsValue();
             JsValue ret;
@@ -8279,8 +7927,7 @@ namespace LayoutFarm.CefBridge.Auto
             JsValue ret;
 
             Cef3Binder.MyCefMet_Call0(this.nativePtr, CefPrintSettings_IsLandscape_5, out ret);
-            var ret_result = ret.I32 != 0;
-            return ret_result;
+            return ret.I32 != 0;
         }
 
         // gen! void SetPrinterPrintableArea(const CefSize& physical_size_device_units,const CefRect& printable_area_device_units,bool landscape_needs_flip)
@@ -8291,10 +7938,9 @@ namespace LayoutFarm.CefBridge.Auto
         /// /*cef()*/
         /// </summary>
 
-        public void SetPrinterPrintableArea(CefSize physical_size_device_units
-        , CefRect printable_area_device_units
-        , bool landscape_needs_flip
-        )
+        public void SetPrinterPrintableArea(CefSize physical_size_device_units,
+        CefRect printable_area_device_units,
+        bool landscape_needs_flip)
         {
             JsValue v1 = new JsValue();
             JsValue v2 = new JsValue();
@@ -8314,8 +7960,7 @@ namespace LayoutFarm.CefBridge.Auto
         /// /*cef(optional_param=name)*/
         /// </summary>
 
-        public void SetDeviceName(string name
-        )
+        public void SetDeviceName(string name)
         {
             JsValue v1 = new JsValue();
             JsValue ret;
@@ -8323,8 +7968,8 @@ namespace LayoutFarm.CefBridge.Auto
             ;
 
             Cef3Binder.MyCefMet_Call1(this.nativePtr, CefPrintSettings_SetDeviceName_7, out ret, ref v1);
-
             Cef3Binder.MyCefDeletePtr(v1.Ptr); ;
+
         }
 
         // gen! CefString GetDeviceName()
@@ -8338,8 +7983,7 @@ namespace LayoutFarm.CefBridge.Auto
             JsValue ret;
 
             Cef3Binder.MyCefMet_Call0(this.nativePtr, CefPrintSettings_GetDeviceName_8, out ret);
-            var ret_result = Cef3Binder.CopyStringAndDestroyNativeSide(ref ret);
-            return ret_result;
+            return Cef3Binder.CopyStringAndDestroyNativeSide(ref ret);
         }
 
         // gen! void SetDPI(int dpi)
@@ -8348,8 +7992,7 @@ namespace LayoutFarm.CefBridge.Auto
         /// /*cef()*/
         /// </summary>
 
-        public void SetDPI(int dpi
-        )
+        public void SetDPI(int dpi)
         {
             JsValue v1 = new JsValue();
             JsValue ret;
@@ -8370,8 +8013,7 @@ namespace LayoutFarm.CefBridge.Auto
             JsValue ret;
 
             Cef3Binder.MyCefMet_Call0(this.nativePtr, CefPrintSettings_GetDPI_10, out ret);
-            var ret_result = ret.I32;
-            return ret_result;
+            return ret.I32;
         }
 
         // gen! void SetPageRanges(const PageRangeList& ranges)
@@ -8380,8 +8022,7 @@ namespace LayoutFarm.CefBridge.Auto
         /// /*cef()*/
         /// </summary>
 
-        public void SetPageRanges(PageRangeList ranges
-        )
+        public void SetPageRanges(PageRangeList ranges)
         {
             JsValue v1 = new JsValue();
             JsValue ret;
@@ -8402,8 +8043,7 @@ namespace LayoutFarm.CefBridge.Auto
             JsValue ret;
 
             Cef3Binder.MyCefMet_Call0(this.nativePtr, CefPrintSettings_GetPageRangesCount_12, out ret);
-            var ret_result = (uint)ret.I32;
-            return ret_result;
+            return (uint)ret.I32;
         }
 
         // gen! void GetPageRanges(PageRangeList& ranges)
@@ -8412,8 +8052,7 @@ namespace LayoutFarm.CefBridge.Auto
         /// /*cef(count_func=ranges:GetPageRangesCount)*/
         /// </summary>
 
-        public void GetPageRanges(PageRangeList ranges
-        )
+        public void GetPageRanges(PageRangeList ranges)
         {
             JsValue v1 = new JsValue();
             JsValue ret;
@@ -8429,8 +8068,7 @@ namespace LayoutFarm.CefBridge.Auto
         /// /*cef()*/
         /// </summary>
 
-        public void SetSelectionOnly(bool selection_only
-        )
+        public void SetSelectionOnly(bool selection_only)
         {
             JsValue v1 = new JsValue();
             JsValue ret;
@@ -8451,8 +8089,7 @@ namespace LayoutFarm.CefBridge.Auto
             JsValue ret;
 
             Cef3Binder.MyCefMet_Call0(this.nativePtr, CefPrintSettings_IsSelectionOnly_15, out ret);
-            var ret_result = ret.I32 != 0;
-            return ret_result;
+            return ret.I32 != 0;
         }
 
         // gen! void SetCollate(bool collate)
@@ -8461,8 +8098,7 @@ namespace LayoutFarm.CefBridge.Auto
         /// /*cef()*/
         /// </summary>
 
-        public void SetCollate(bool collate
-        )
+        public void SetCollate(bool collate)
         {
             JsValue v1 = new JsValue();
             JsValue ret;
@@ -8483,8 +8119,7 @@ namespace LayoutFarm.CefBridge.Auto
             JsValue ret;
 
             Cef3Binder.MyCefMet_Call0(this.nativePtr, CefPrintSettings_WillCollate_17, out ret);
-            var ret_result = ret.I32 != 0;
-            return ret_result;
+            return ret.I32 != 0;
         }
 
         // gen! void SetColorModel(ColorModel model)
@@ -8493,8 +8128,7 @@ namespace LayoutFarm.CefBridge.Auto
         /// /*cef()*/
         /// </summary>
 
-        public void SetColorModel(cef_color_model_t model
-        )
+        public void SetColorModel(cef_color_model_t model)
         {
             JsValue v1 = new JsValue();
             JsValue ret;
@@ -8515,9 +8149,8 @@ namespace LayoutFarm.CefBridge.Auto
             JsValue ret;
 
             Cef3Binder.MyCefMet_Call0(this.nativePtr, CefPrintSettings_GetColorModel_19, out ret);
-            var ret_result = (cef_color_model_t)ret.I32;
+            return (cef_color_model_t)ret.I32;
 
-            return ret_result;
         }
 
         // gen! void SetCopies(int copies)
@@ -8526,8 +8159,7 @@ namespace LayoutFarm.CefBridge.Auto
         /// /*cef()*/
         /// </summary>
 
-        public void SetCopies(int copies
-        )
+        public void SetCopies(int copies)
         {
             JsValue v1 = new JsValue();
             JsValue ret;
@@ -8548,8 +8180,7 @@ namespace LayoutFarm.CefBridge.Auto
             JsValue ret;
 
             Cef3Binder.MyCefMet_Call0(this.nativePtr, CefPrintSettings_GetCopies_21, out ret);
-            var ret_result = ret.I32;
-            return ret_result;
+            return ret.I32;
         }
 
         // gen! void SetDuplexMode(DuplexMode mode)
@@ -8558,8 +8189,7 @@ namespace LayoutFarm.CefBridge.Auto
         /// /*cef()*/
         /// </summary>
 
-        public void SetDuplexMode(cef_duplex_mode_t mode
-        )
+        public void SetDuplexMode(cef_duplex_mode_t mode)
         {
             JsValue v1 = new JsValue();
             JsValue ret;
@@ -8580,9 +8210,8 @@ namespace LayoutFarm.CefBridge.Auto
             JsValue ret;
 
             Cef3Binder.MyCefMet_Call0(this.nativePtr, CefPrintSettings_GetDuplexMode_23, out ret);
-            var ret_result = (cef_duplex_mode_t)ret.I32;
+            return (cef_duplex_mode_t)ret.I32;
 
-            return ret_result;
         }
     }
 
@@ -8601,7 +8230,7 @@ namespace LayoutFarm.CefBridge.Auto
         const int CefProcessMessage_Copy_3 = (_typeNAME << 16) | 3;
         const int CefProcessMessage_GetName_4 = (_typeNAME << 16) | 4;
         const int CefProcessMessage_GetArgumentList_5 = (_typeNAME << 16) | 5;
-        internal readonly IntPtr nativePtr;
+        internal IntPtr nativePtr;
         internal CefProcessMessage(IntPtr nativePtr)
         {
             this.nativePtr = nativePtr;
@@ -8610,6 +8239,7 @@ namespace LayoutFarm.CefBridge.Auto
         {
             JsValue ret;
             Cef3Binder.MyCefMet_Call0(this.nativePtr, CefProcessMessage_Release_0, out ret);
+            this.nativePtr = IntPtr.Zero;
         }
 
         // gen! bool IsValid()
@@ -8622,8 +8252,7 @@ namespace LayoutFarm.CefBridge.Auto
             JsValue ret;
 
             Cef3Binder.MyCefMet_Call0(this.nativePtr, CefProcessMessage_IsValid_1, out ret);
-            var ret_result = ret.I32 != 0;
-            return ret_result;
+            return ret.I32 != 0;
         }
 
         // gen! bool IsReadOnly()
@@ -8638,8 +8267,7 @@ namespace LayoutFarm.CefBridge.Auto
             JsValue ret;
 
             Cef3Binder.MyCefMet_Call0(this.nativePtr, CefProcessMessage_IsReadOnly_2, out ret);
-            var ret_result = ret.I32 != 0;
-            return ret_result;
+            return ret.I32 != 0;
         }
 
         // gen! CefRefPtr<CefProcessMessage> Copy()
@@ -8653,8 +8281,7 @@ namespace LayoutFarm.CefBridge.Auto
             JsValue ret;
 
             Cef3Binder.MyCefMet_Call0(this.nativePtr, CefProcessMessage_Copy_3, out ret);
-            var ret_result = new CefProcessMessage(ret.Ptr);
-            return ret_result;
+            return new CefProcessMessage(ret.Ptr);
         }
 
         // gen! CefString GetName()
@@ -8668,8 +8295,7 @@ namespace LayoutFarm.CefBridge.Auto
             JsValue ret;
 
             Cef3Binder.MyCefMet_Call0(this.nativePtr, CefProcessMessage_GetName_4, out ret);
-            var ret_result = Cef3Binder.CopyStringAndDestroyNativeSide(ref ret);
-            return ret_result;
+            return Cef3Binder.CopyStringAndDestroyNativeSide(ref ret);
         }
 
         // gen! CefRefPtr<CefListValue> GetArgumentList()
@@ -8683,8 +8309,7 @@ namespace LayoutFarm.CefBridge.Auto
             JsValue ret;
 
             Cef3Binder.MyCefMet_Call0(this.nativePtr, CefProcessMessage_GetArgumentList_5, out ret);
-            var ret_result = new CefListValue(ret.Ptr);
-            return ret_result;
+            return new CefListValue(ret.Ptr);
         }
     }
 
@@ -8719,7 +8344,7 @@ namespace LayoutFarm.CefBridge.Auto
         const int CefRequest_GetResourceType_18 = (_typeNAME << 16) | 18;
         const int CefRequest_GetTransitionType_19 = (_typeNAME << 16) | 19;
         const int CefRequest_GetIdentifier_20 = (_typeNAME << 16) | 20;
-        internal readonly IntPtr nativePtr;
+        internal IntPtr nativePtr;
         internal CefRequest(IntPtr nativePtr)
         {
             this.nativePtr = nativePtr;
@@ -8728,6 +8353,7 @@ namespace LayoutFarm.CefBridge.Auto
         {
             JsValue ret;
             Cef3Binder.MyCefMet_Call0(this.nativePtr, CefRequest_Release_0, out ret);
+            this.nativePtr = IntPtr.Zero;
         }
 
         // gen! bool IsReadOnly()
@@ -8740,8 +8366,7 @@ namespace LayoutFarm.CefBridge.Auto
             JsValue ret;
 
             Cef3Binder.MyCefMet_Call0(this.nativePtr, CefRequest_IsReadOnly_1, out ret);
-            var ret_result = ret.I32 != 0;
-            return ret_result;
+            return ret.I32 != 0;
         }
 
         // gen! CefString GetURL()
@@ -8755,8 +8380,7 @@ namespace LayoutFarm.CefBridge.Auto
             JsValue ret;
 
             Cef3Binder.MyCefMet_Call0(this.nativePtr, CefRequest_GetURL_2, out ret);
-            var ret_result = Cef3Binder.CopyStringAndDestroyNativeSide(ref ret);
-            return ret_result;
+            return Cef3Binder.CopyStringAndDestroyNativeSide(ref ret);
         }
 
         // gen! void SetURL(const CefString& url)
@@ -8765,8 +8389,7 @@ namespace LayoutFarm.CefBridge.Auto
         /// /*cef()*/
         /// </summary>
 
-        public void SetURL(string url
-        )
+        public void SetURL(string url)
         {
             JsValue v1 = new JsValue();
             JsValue ret;
@@ -8774,8 +8397,8 @@ namespace LayoutFarm.CefBridge.Auto
             ;
 
             Cef3Binder.MyCefMet_Call1(this.nativePtr, CefRequest_SetURL_3, out ret, ref v1);
-
             Cef3Binder.MyCefDeletePtr(v1.Ptr); ;
+
         }
 
         // gen! CefString GetMethod()
@@ -8790,8 +8413,7 @@ namespace LayoutFarm.CefBridge.Auto
             JsValue ret;
 
             Cef3Binder.MyCefMet_Call0(this.nativePtr, CefRequest_GetMethod_4, out ret);
-            var ret_result = Cef3Binder.CopyStringAndDestroyNativeSide(ref ret);
-            return ret_result;
+            return Cef3Binder.CopyStringAndDestroyNativeSide(ref ret);
         }
 
         // gen! void SetMethod(const CefString& method)
@@ -8800,8 +8422,7 @@ namespace LayoutFarm.CefBridge.Auto
         /// /*cef()*/
         /// </summary>
 
-        public void SetMethod(string method
-        )
+        public void SetMethod(string method)
         {
             JsValue v1 = new JsValue();
             JsValue ret;
@@ -8809,8 +8430,8 @@ namespace LayoutFarm.CefBridge.Auto
             ;
 
             Cef3Binder.MyCefMet_Call1(this.nativePtr, CefRequest_SetMethod_5, out ret, ref v1);
-
             Cef3Binder.MyCefDeletePtr(v1.Ptr); ;
+
         }
 
         // gen! void SetReferrer(const CefString& referrer_url,ReferrerPolicy policy)
@@ -8821,9 +8442,8 @@ namespace LayoutFarm.CefBridge.Auto
         /// /*cef()*/
         /// </summary>
 
-        public void SetReferrer(string referrer_url
-        , cef_referrer_policy_t policy
-        )
+        public void SetReferrer(string referrer_url,
+        cef_referrer_policy_t policy)
         {
             JsValue v1 = new JsValue();
             JsValue v2 = new JsValue();
@@ -8833,8 +8453,8 @@ namespace LayoutFarm.CefBridge.Auto
             v2.I32 = (int)policy;
 
             Cef3Binder.MyCefMet_Call2(this.nativePtr, CefRequest_SetReferrer_6, out ret, ref v1, ref v2);
-
             Cef3Binder.MyCefDeletePtr(v1.Ptr); ;
+
         }
 
         // gen! CefString GetReferrerURL()
@@ -8848,8 +8468,7 @@ namespace LayoutFarm.CefBridge.Auto
             JsValue ret;
 
             Cef3Binder.MyCefMet_Call0(this.nativePtr, CefRequest_GetReferrerURL_7, out ret);
-            var ret_result = Cef3Binder.CopyStringAndDestroyNativeSide(ref ret);
-            return ret_result;
+            return Cef3Binder.CopyStringAndDestroyNativeSide(ref ret);
         }
 
         // gen! ReferrerPolicy GetReferrerPolicy()
@@ -8863,9 +8482,8 @@ namespace LayoutFarm.CefBridge.Auto
             JsValue ret;
 
             Cef3Binder.MyCefMet_Call0(this.nativePtr, CefRequest_GetReferrerPolicy_8, out ret);
-            var ret_result = (cef_referrer_policy_t)ret.I32;
+            return (cef_referrer_policy_t)ret.I32;
 
-            return ret_result;
         }
 
         // gen! CefRefPtr<CefPostData> GetPostData()
@@ -8879,8 +8497,7 @@ namespace LayoutFarm.CefBridge.Auto
             JsValue ret;
 
             Cef3Binder.MyCefMet_Call0(this.nativePtr, CefRequest_GetPostData_9, out ret);
-            var ret_result = new CefPostData(ret.Ptr);
-            return ret_result;
+            return new CefPostData(ret.Ptr);
         }
 
         // gen! void SetPostData(CefRefPtr<CefPostData> postData)
@@ -8889,8 +8506,7 @@ namespace LayoutFarm.CefBridge.Auto
         /// /*cef()*/
         /// </summary>
 
-        public void SetPostData(CefPostData postData
-        )
+        public void SetPostData(CefPostData postData)
         {
             JsValue v1 = new JsValue();
             JsValue ret;
@@ -8906,8 +8522,7 @@ namespace LayoutFarm.CefBridge.Auto
         /// /*cef()*/
         /// </summary>
 
-        public void GetHeaderMap(HeaderMap headerMap
-        )
+        public void GetHeaderMap(HeaderMap headerMap)
         {
             JsValue v1 = new JsValue();
             JsValue ret;
@@ -8924,8 +8539,7 @@ namespace LayoutFarm.CefBridge.Auto
         /// /*cef()*/
         /// </summary>
 
-        public void SetHeaderMap(HeaderMap headerMap
-        )
+        public void SetHeaderMap(HeaderMap headerMap)
         {
             JsValue v1 = new JsValue();
             JsValue ret;
@@ -8941,11 +8555,10 @@ namespace LayoutFarm.CefBridge.Auto
         /// /*cef(optional_param=postData)*/
         /// </summary>
 
-        public void Set(string url
-        , string method
-        , CefPostData postData
-        , HeaderMap headerMap
-        )
+        public void Set(string url,
+        string method,
+        CefPostData postData,
+        HeaderMap headerMap)
         {
             JsValue v1 = new JsValue();
             JsValue v2 = new JsValue();
@@ -8960,9 +8573,9 @@ namespace LayoutFarm.CefBridge.Auto
             v4.Ptr = headerMap.nativePtr;
 
             Cef3Binder.MyCefMet_Call4(this.nativePtr, CefRequest_Set_13, out ret, ref v1, ref v2, ref v3, ref v4);
-
             Cef3Binder.MyCefDeletePtr(v1.Ptr); ;
             Cef3Binder.MyCefDeletePtr(v2.Ptr); ;
+
         }
 
         // gen! int GetFlags()
@@ -8977,8 +8590,7 @@ namespace LayoutFarm.CefBridge.Auto
             JsValue ret;
 
             Cef3Binder.MyCefMet_Call0(this.nativePtr, CefRequest_GetFlags_14, out ret);
-            var ret_result = ret.I32;
-            return ret_result;
+            return ret.I32;
         }
 
         // gen! void SetFlags(int flags)
@@ -8988,8 +8600,7 @@ namespace LayoutFarm.CefBridge.Auto
         /// /*cef()*/
         /// </summary>
 
-        public void SetFlags(int flags
-        )
+        public void SetFlags(int flags)
         {
             JsValue v1 = new JsValue();
             JsValue ret;
@@ -9011,8 +8622,7 @@ namespace LayoutFarm.CefBridge.Auto
             JsValue ret;
 
             Cef3Binder.MyCefMet_Call0(this.nativePtr, CefRequest_GetFirstPartyForCookies_16, out ret);
-            var ret_result = Cef3Binder.CopyStringAndDestroyNativeSide(ref ret);
-            return ret_result;
+            return Cef3Binder.CopyStringAndDestroyNativeSide(ref ret);
         }
 
         // gen! void SetFirstPartyForCookies(const CefString& url)
@@ -9022,8 +8632,7 @@ namespace LayoutFarm.CefBridge.Auto
         /// /*cef()*/
         /// </summary>
 
-        public void SetFirstPartyForCookies(string url
-        )
+        public void SetFirstPartyForCookies(string url)
         {
             JsValue v1 = new JsValue();
             JsValue ret;
@@ -9031,8 +8640,8 @@ namespace LayoutFarm.CefBridge.Auto
             ;
 
             Cef3Binder.MyCefMet_Call1(this.nativePtr, CefRequest_SetFirstPartyForCookies_17, out ret, ref v1);
-
             Cef3Binder.MyCefDeletePtr(v1.Ptr); ;
+
         }
 
         // gen! ResourceType GetResourceType()
@@ -9047,9 +8656,8 @@ namespace LayoutFarm.CefBridge.Auto
             JsValue ret;
 
             Cef3Binder.MyCefMet_Call0(this.nativePtr, CefRequest_GetResourceType_18, out ret);
-            var ret_result = (cef_resource_type_t)ret.I32;
+            return (cef_resource_type_t)ret.I32;
 
-            return ret_result;
         }
 
         // gen! TransitionType GetTransitionType()
@@ -9065,9 +8673,8 @@ namespace LayoutFarm.CefBridge.Auto
             JsValue ret;
 
             Cef3Binder.MyCefMet_Call0(this.nativePtr, CefRequest_GetTransitionType_19, out ret);
-            var ret_result = (cef_transition_type_t)ret.I32;
+            return (cef_transition_type_t)ret.I32;
 
-            return ret_result;
         }
 
         // gen! uint64 GetIdentifier()
@@ -9083,8 +8690,7 @@ namespace LayoutFarm.CefBridge.Auto
             JsValue ret;
 
             Cef3Binder.MyCefMet_Call0(this.nativePtr, CefRequest_GetIdentifier_20, out ret);
-            var ret_result = (ulong)ret.I64;
-            return ret_result;
+            return (ulong)ret.I64;
         }
     }
 
@@ -9106,7 +8712,7 @@ namespace LayoutFarm.CefBridge.Auto
         const int CefPostData_RemoveElement_5 = (_typeNAME << 16) | 5;
         const int CefPostData_AddElement_6 = (_typeNAME << 16) | 6;
         const int CefPostData_RemoveElements_7 = (_typeNAME << 16) | 7;
-        internal readonly IntPtr nativePtr;
+        internal IntPtr nativePtr;
         internal CefPostData(IntPtr nativePtr)
         {
             this.nativePtr = nativePtr;
@@ -9115,6 +8721,7 @@ namespace LayoutFarm.CefBridge.Auto
         {
             JsValue ret;
             Cef3Binder.MyCefMet_Call0(this.nativePtr, CefPostData_Release_0, out ret);
+            this.nativePtr = IntPtr.Zero;
         }
 
         // gen! bool IsReadOnly()
@@ -9127,8 +8734,7 @@ namespace LayoutFarm.CefBridge.Auto
             JsValue ret;
 
             Cef3Binder.MyCefMet_Call0(this.nativePtr, CefPostData_IsReadOnly_1, out ret);
-            var ret_result = ret.I32 != 0;
-            return ret_result;
+            return ret.I32 != 0;
         }
 
         // gen! bool HasExcludedElements()
@@ -9145,8 +8751,7 @@ namespace LayoutFarm.CefBridge.Auto
             JsValue ret;
 
             Cef3Binder.MyCefMet_Call0(this.nativePtr, CefPostData_HasExcludedElements_2, out ret);
-            var ret_result = ret.I32 != 0;
-            return ret_result;
+            return ret.I32 != 0;
         }
 
         // gen! size_t GetElementCount()
@@ -9160,8 +8765,7 @@ namespace LayoutFarm.CefBridge.Auto
             JsValue ret;
 
             Cef3Binder.MyCefMet_Call0(this.nativePtr, CefPostData_GetElementCount_3, out ret);
-            var ret_result = (uint)ret.I32;
-            return ret_result;
+            return (uint)ret.I32;
         }
 
         // gen! void GetElements(ElementVector& elements)
@@ -9170,8 +8774,7 @@ namespace LayoutFarm.CefBridge.Auto
         /// /*cef(count_func=elements:GetElementCount)*/
         /// </summary>
 
-        public void GetElements(ElementVector elements
-        )
+        public void GetElements(ElementVector elements)
         {
             JsValue v1 = new JsValue();
             JsValue ret;
@@ -9188,16 +8791,14 @@ namespace LayoutFarm.CefBridge.Auto
         /// /*cef()*/
         /// </summary>
 
-        public bool RemoveElement(CefPostDataElement element
-        )
+        public bool RemoveElement(CefPostDataElement element)
         {
             JsValue v1 = new JsValue();
             JsValue ret;
             v1.Ptr = element.nativePtr;
 
             Cef3Binder.MyCefMet_Call1(this.nativePtr, CefPostData_RemoveElement_5, out ret, ref v1);
-            var ret_result = ret.I32 != 0;
-            return ret_result;
+            return ret.I32 != 0;
         }
 
         // gen! bool AddElement(CefRefPtr<CefPostDataElement> element)
@@ -9206,16 +8807,14 @@ namespace LayoutFarm.CefBridge.Auto
         /// /*cef()*/
         /// </summary>
 
-        public bool AddElement(CefPostDataElement element
-        )
+        public bool AddElement(CefPostDataElement element)
         {
             JsValue v1 = new JsValue();
             JsValue ret;
             v1.Ptr = element.nativePtr;
 
             Cef3Binder.MyCefMet_Call1(this.nativePtr, CefPostData_AddElement_6, out ret, ref v1);
-            var ret_result = ret.I32 != 0;
-            return ret_result;
+            return ret.I32 != 0;
         }
 
         // gen! void RemoveElements()
@@ -9252,7 +8851,7 @@ namespace LayoutFarm.CefBridge.Auto
         const int CefPostDataElement_GetFile_6 = (_typeNAME << 16) | 6;
         const int CefPostDataElement_GetBytesCount_7 = (_typeNAME << 16) | 7;
         const int CefPostDataElement_GetBytes_8 = (_typeNAME << 16) | 8;
-        internal readonly IntPtr nativePtr;
+        internal IntPtr nativePtr;
         internal CefPostDataElement(IntPtr nativePtr)
         {
             this.nativePtr = nativePtr;
@@ -9261,6 +8860,7 @@ namespace LayoutFarm.CefBridge.Auto
         {
             JsValue ret;
             Cef3Binder.MyCefMet_Call0(this.nativePtr, CefPostDataElement_Release_0, out ret);
+            this.nativePtr = IntPtr.Zero;
         }
 
         // gen! bool IsReadOnly()
@@ -9273,8 +8873,7 @@ namespace LayoutFarm.CefBridge.Auto
             JsValue ret;
 
             Cef3Binder.MyCefMet_Call0(this.nativePtr, CefPostDataElement_IsReadOnly_1, out ret);
-            var ret_result = ret.I32 != 0;
-            return ret_result;
+            return ret.I32 != 0;
         }
 
         // gen! void SetToEmpty()
@@ -9297,8 +8896,7 @@ namespace LayoutFarm.CefBridge.Auto
         /// /*cef()*/
         /// </summary>
 
-        public void SetToFile(string fileName
-        )
+        public void SetToFile(string fileName)
         {
             JsValue v1 = new JsValue();
             JsValue ret;
@@ -9306,8 +8904,8 @@ namespace LayoutFarm.CefBridge.Auto
             ;
 
             Cef3Binder.MyCefMet_Call1(this.nativePtr, CefPostDataElement_SetToFile_3, out ret, ref v1);
-
             Cef3Binder.MyCefDeletePtr(v1.Ptr); ;
+
         }
 
         // gen! void SetToBytes(size_t size,const void* bytes)
@@ -9317,9 +8915,8 @@ namespace LayoutFarm.CefBridge.Auto
         /// /*cef()*/
         /// </summary>
 
-        public void SetToBytes(uint size
-        , IntPtr bytes
-        )
+        public void SetToBytes(uint size,
+        IntPtr bytes)
         {
             JsValue v1 = new JsValue();
             JsValue v2 = new JsValue();
@@ -9342,9 +8939,8 @@ namespace LayoutFarm.CefBridge.Auto
             JsValue ret;
 
             Cef3Binder.MyCefMet_Call0(this.nativePtr, CefPostDataElement_GetType_5, out ret);
-            var ret_result = (cef_postdataelement_type_t)ret.I32;
+            return (cef_postdataelement_type_t)ret.I32;
 
-            return ret_result;
         }
 
         // gen! CefString GetFile()
@@ -9358,8 +8954,7 @@ namespace LayoutFarm.CefBridge.Auto
             JsValue ret;
 
             Cef3Binder.MyCefMet_Call0(this.nativePtr, CefPostDataElement_GetFile_6, out ret);
-            var ret_result = Cef3Binder.CopyStringAndDestroyNativeSide(ref ret);
-            return ret_result;
+            return Cef3Binder.CopyStringAndDestroyNativeSide(ref ret);
         }
 
         // gen! size_t GetBytesCount()
@@ -9373,8 +8968,7 @@ namespace LayoutFarm.CefBridge.Auto
             JsValue ret;
 
             Cef3Binder.MyCefMet_Call0(this.nativePtr, CefPostDataElement_GetBytesCount_7, out ret);
-            var ret_result = (uint)ret.I32;
-            return ret_result;
+            return (uint)ret.I32;
         }
 
         // gen! size_t GetBytes(size_t size,void* bytes)
@@ -9384,9 +8978,8 @@ namespace LayoutFarm.CefBridge.Auto
         /// /*cef()*/
         /// </summary>
 
-        public uint GetBytes(uint size
-        , IntPtr bytes
-        )
+        public uint GetBytes(uint size,
+        IntPtr bytes)
         {
             JsValue v1 = new JsValue();
             JsValue v2 = new JsValue();
@@ -9395,8 +8988,7 @@ namespace LayoutFarm.CefBridge.Auto
             v2.Ptr = bytes;
 
             Cef3Binder.MyCefMet_Call2(this.nativePtr, CefPostDataElement_GetBytes_8, out ret, ref v1, ref v2);
-            var ret_result = (uint)ret.I32;
-            return ret_result;
+            return (uint)ret.I32;
         }
     }
 
@@ -9441,7 +9033,7 @@ namespace LayoutFarm.CefBridge.Auto
         const int CefRequestContext_CloseAllConnections_16 = (_typeNAME << 16) | 16;
         const int CefRequestContext_ResolveHost_17 = (_typeNAME << 16) | 17;
         const int CefRequestContext_ResolveHostCached_18 = (_typeNAME << 16) | 18;
-        internal readonly IntPtr nativePtr;
+        internal IntPtr nativePtr;
         internal CefRequestContext(IntPtr nativePtr)
         {
             this.nativePtr = nativePtr;
@@ -9450,6 +9042,7 @@ namespace LayoutFarm.CefBridge.Auto
         {
             JsValue ret;
             Cef3Binder.MyCefMet_Call0(this.nativePtr, CefRequestContext_Release_0, out ret);
+            this.nativePtr = IntPtr.Zero;
         }
 
         // gen! bool IsSame(CefRefPtr<CefRequestContext> other)
@@ -9457,16 +9050,14 @@ namespace LayoutFarm.CefBridge.Auto
         /// CefRequestContext methods.
         /// </summary>
 
-        public bool IsSame(CefRequestContext other
-        )
+        public bool IsSame(CefRequestContext other)
         {
             JsValue v1 = new JsValue();
             JsValue ret;
             v1.Ptr = other.nativePtr;
 
             Cef3Binder.MyCefMet_Call1(this.nativePtr, CefRequestContext_IsSame_1, out ret, ref v1);
-            var ret_result = ret.I32 != 0;
-            return ret_result;
+            return ret.I32 != 0;
         }
 
         // gen! bool IsSharingWith(CefRefPtr<CefRequestContext> other)
@@ -9475,16 +9066,14 @@ namespace LayoutFarm.CefBridge.Auto
         /// /*cef()*/
         /// </summary>
 
-        public bool IsSharingWith(CefRequestContext other
-        )
+        public bool IsSharingWith(CefRequestContext other)
         {
             JsValue v1 = new JsValue();
             JsValue ret;
             v1.Ptr = other.nativePtr;
 
             Cef3Binder.MyCefMet_Call1(this.nativePtr, CefRequestContext_IsSharingWith_2, out ret, ref v1);
-            var ret_result = ret.I32 != 0;
-            return ret_result;
+            return ret.I32 != 0;
         }
 
         // gen! bool IsGlobal()
@@ -9500,8 +9089,7 @@ namespace LayoutFarm.CefBridge.Auto
             JsValue ret;
 
             Cef3Binder.MyCefMet_Call0(this.nativePtr, CefRequestContext_IsGlobal_3, out ret);
-            var ret_result = ret.I32 != 0;
-            return ret_result;
+            return ret.I32 != 0;
         }
 
         // gen! CefRefPtr<CefRequestContextHandler> GetHandler()
@@ -9515,8 +9103,7 @@ namespace LayoutFarm.CefBridge.Auto
             JsValue ret;
 
             Cef3Binder.MyCefMet_Call0(this.nativePtr, CefRequestContext_GetHandler_4, out ret);
-            var ret_result = new CefRequestContextHandler(ret.Ptr);
-            return ret_result;
+            return new CefRequestContextHandler(ret.Ptr);
         }
 
         // gen! CefString GetCachePath()
@@ -9531,8 +9118,7 @@ namespace LayoutFarm.CefBridge.Auto
             JsValue ret;
 
             Cef3Binder.MyCefMet_Call0(this.nativePtr, CefRequestContext_GetCachePath_5, out ret);
-            var ret_result = Cef3Binder.CopyStringAndDestroyNativeSide(ref ret);
-            return ret_result;
+            return Cef3Binder.CopyStringAndDestroyNativeSide(ref ret);
         }
 
         // gen! CefRefPtr<CefCookieManager> GetDefaultCookieManager(CefRefPtr<CefCompletionCallback> callback)
@@ -9546,16 +9132,14 @@ namespace LayoutFarm.CefBridge.Auto
         /// /*cef(optional_param=callback)*/
         /// </summary>
 
-        public CefCookieManager GetDefaultCookieManager(CefCompletionCallback callback
-        )
+        public CefCookieManager GetDefaultCookieManager(CefCompletionCallback callback)
         {
             JsValue v1 = new JsValue();
             JsValue ret;
             v1.Ptr = callback.nativePtr;
 
             Cef3Binder.MyCefMet_Call1(this.nativePtr, CefRequestContext_GetDefaultCookieManager_6, out ret, ref v1);
-            var ret_result = new CefCookieManager(ret.Ptr);
-            return ret_result;
+            return new CefCookieManager(ret.Ptr);
         }
 
         // gen! bool RegisterSchemeHandlerFactory(const CefString& scheme_name,const CefString& domain_name,CefRefPtr<CefSchemeHandlerFactory> factory)
@@ -9574,10 +9158,9 @@ namespace LayoutFarm.CefBridge.Auto
         /// /*cef(optional_param=domain_name,optional_param=factory)*/
         /// </summary>
 
-        public bool RegisterSchemeHandlerFactory(string scheme_name
-        , string domain_name
-        , CefSchemeHandlerFactory factory
-        )
+        public bool RegisterSchemeHandlerFactory(string scheme_name,
+        string domain_name,
+        CefSchemeHandlerFactory factory)
         {
             JsValue v1 = new JsValue();
             JsValue v2 = new JsValue();
@@ -9590,10 +9173,9 @@ namespace LayoutFarm.CefBridge.Auto
             v3.Ptr = factory.nativePtr;
 
             Cef3Binder.MyCefMet_Call3(this.nativePtr, CefRequestContext_RegisterSchemeHandlerFactory_7, out ret, ref v1, ref v2, ref v3);
-            var ret_result = ret.I32 != 0;
             Cef3Binder.MyCefDeletePtr(v1.Ptr); ;
             Cef3Binder.MyCefDeletePtr(v2.Ptr); ;
-            return ret_result;
+            return ret.I32 != 0;
         }
 
         // gen! bool ClearSchemeHandlerFactories()
@@ -9608,8 +9190,7 @@ namespace LayoutFarm.CefBridge.Auto
             JsValue ret;
 
             Cef3Binder.MyCefMet_Call0(this.nativePtr, CefRequestContext_ClearSchemeHandlerFactories_8, out ret);
-            var ret_result = ret.I32 != 0;
-            return ret_result;
+            return ret.I32 != 0;
         }
 
         // gen! void PurgePluginListCache(bool reload_pages)
@@ -9621,8 +9202,7 @@ namespace LayoutFarm.CefBridge.Auto
         /// /*cef()*/
         /// </summary>
 
-        public void PurgePluginListCache(bool reload_pages
-        )
+        public void PurgePluginListCache(bool reload_pages)
         {
             JsValue v1 = new JsValue();
             JsValue ret;
@@ -9639,8 +9219,7 @@ namespace LayoutFarm.CefBridge.Auto
         /// /*cef()*/
         /// </summary>
 
-        public bool HasPreference(string name
-        )
+        public bool HasPreference(string name)
         {
             JsValue v1 = new JsValue();
             JsValue ret;
@@ -9648,9 +9227,8 @@ namespace LayoutFarm.CefBridge.Auto
             ;
 
             Cef3Binder.MyCefMet_Call1(this.nativePtr, CefRequestContext_HasPreference_10, out ret, ref v1);
-            var ret_result = ret.I32 != 0;
             Cef3Binder.MyCefDeletePtr(v1.Ptr); ;
-            return ret_result;
+            return ret.I32 != 0;
         }
 
         // gen! CefRefPtr<CefValue> GetPreference(const CefString& name)
@@ -9663,8 +9241,7 @@ namespace LayoutFarm.CefBridge.Auto
         /// /*cef()*/
         /// </summary>
 
-        public CefValue GetPreference(string name
-        )
+        public CefValue GetPreference(string name)
         {
             JsValue v1 = new JsValue();
             JsValue ret;
@@ -9672,9 +9249,8 @@ namespace LayoutFarm.CefBridge.Auto
             ;
 
             Cef3Binder.MyCefMet_Call1(this.nativePtr, CefRequestContext_GetPreference_11, out ret, ref v1);
-            var ret_result = new CefValue(ret.Ptr);
             Cef3Binder.MyCefDeletePtr(v1.Ptr); ;
-            return ret_result;
+            return new CefValue(ret.Ptr);
         }
 
         // gen! CefRefPtr<CefDictionaryValue> GetAllPreferences(bool include_defaults)
@@ -9688,16 +9264,14 @@ namespace LayoutFarm.CefBridge.Auto
         /// /*cef()*/
         /// </summary>
 
-        public CefDictionaryValue GetAllPreferences(bool include_defaults
-        )
+        public CefDictionaryValue GetAllPreferences(bool include_defaults)
         {
             JsValue v1 = new JsValue();
             JsValue ret;
             v1.I32 = include_defaults ? 1 : 0;
 
             Cef3Binder.MyCefMet_Call1(this.nativePtr, CefRequestContext_GetAllPreferences_12, out ret, ref v1);
-            var ret_result = new CefDictionaryValue(ret.Ptr);
-            return ret_result;
+            return new CefDictionaryValue(ret.Ptr);
         }
 
         // gen! bool CanSetPreference(const CefString& name)
@@ -9709,8 +9283,7 @@ namespace LayoutFarm.CefBridge.Auto
         /// /*cef()*/
         /// </summary>
 
-        public bool CanSetPreference(string name
-        )
+        public bool CanSetPreference(string name)
         {
             JsValue v1 = new JsValue();
             JsValue ret;
@@ -9718,9 +9291,8 @@ namespace LayoutFarm.CefBridge.Auto
             ;
 
             Cef3Binder.MyCefMet_Call1(this.nativePtr, CefRequestContext_CanSetPreference_13, out ret, ref v1);
-            var ret_result = ret.I32 != 0;
             Cef3Binder.MyCefDeletePtr(v1.Ptr); ;
-            return ret_result;
+            return ret.I32 != 0;
         }
 
         // gen! bool SetPreference(const CefString& name,CefRefPtr<CefValue> value,CefString& error)
@@ -9733,10 +9305,9 @@ namespace LayoutFarm.CefBridge.Auto
         /// /*cef(optional_param=value)*/
         /// </summary>
 
-        public bool SetPreference(string name
-        , CefValue value
-        , string error
-        )
+        public bool SetPreference(string name,
+        CefValue value,
+        string error)
         {
             JsValue v1 = new JsValue();
             JsValue v2 = new JsValue();
@@ -9749,10 +9320,9 @@ namespace LayoutFarm.CefBridge.Auto
             v2.Ptr = value.nativePtr;
 
             Cef3Binder.MyCefMet_Call3(this.nativePtr, CefRequestContext_SetPreference_14, out ret, ref v1, ref v2, ref v3);
-            var ret_result = ret.I32 != 0;
             Cef3Binder.MyCefDeletePtr(v1.Ptr); ;
             Cef3Binder.MyCefDeletePtr(v3.Ptr); ;
-            return ret_result;
+            return ret.I32 != 0;
         }
 
         // gen! void ClearCertificateExceptions(CefRefPtr<CefCompletionCallback> callback)
@@ -9766,8 +9336,7 @@ namespace LayoutFarm.CefBridge.Auto
         /// /*cef(optional_param=callback)*/
         /// </summary>
 
-        public void ClearCertificateExceptions(CefCompletionCallback callback
-        )
+        public void ClearCertificateExceptions(CefCompletionCallback callback)
         {
             JsValue v1 = new JsValue();
             JsValue ret;
@@ -9786,8 +9355,7 @@ namespace LayoutFarm.CefBridge.Auto
         /// /*cef(optional_param=callback)*/
         /// </summary>
 
-        public void CloseAllConnections(CefCompletionCallback callback
-        )
+        public void CloseAllConnections(CefCompletionCallback callback)
         {
             JsValue v1 = new JsValue();
             JsValue ret;
@@ -9804,9 +9372,8 @@ namespace LayoutFarm.CefBridge.Auto
         /// /*cef()*/
         /// </summary>
 
-        public void ResolveHost(string origin
-        , CefResolveCallback callback
-        )
+        public void ResolveHost(string origin,
+        CefResolveCallback callback)
         {
             JsValue v1 = new JsValue();
             JsValue v2 = new JsValue();
@@ -9816,8 +9383,8 @@ namespace LayoutFarm.CefBridge.Auto
             v2.Ptr = callback.nativePtr;
 
             Cef3Binder.MyCefMet_Call2(this.nativePtr, CefRequestContext_ResolveHost_17, out ret, ref v1, ref v2);
-
             Cef3Binder.MyCefDeletePtr(v1.Ptr); ;
+
         }
 
         // gen! cef_errorcode_t ResolveHostCached(const CefString& origin,std::vector<CefString>& resolved_ips)
@@ -9829,9 +9396,8 @@ namespace LayoutFarm.CefBridge.Auto
         /// /*cef(default_retval=ERR_FAILED)*/
         /// </summary>
 
-        public cef_errorcode_t ResolveHostCached(string origin
-        , List<string> resolved_ips
-        )
+        public cef_errorcode_t ResolveHostCached(string origin,
+        List<string> resolved_ips)
         {
             JsValue v1 = new JsValue();
             JsValue v2 = new JsValue();
@@ -9841,11 +9407,10 @@ namespace LayoutFarm.CefBridge.Auto
             v2.Ptr = Cef3Binder.CreateStdList(2);
 
             Cef3Binder.MyCefMet_Call2(this.nativePtr, CefRequestContext_ResolveHostCached_18, out ret, ref v1, ref v2);
-            var ret_result = (cef_errorcode_t)ret.I32;
-
             Cef3Binder.MyCefDeletePtr(v1.Ptr); ;
             Cef3Binder.CopyStdStringListAndDestroyNativeSide(v2.Ptr, resolved_ips);
-            return ret_result;
+            return (cef_errorcode_t)ret.I32;
+
         }
     }
 
@@ -9866,7 +9431,7 @@ namespace LayoutFarm.CefBridge.Auto
         const int CefResourceBundle_GetLocalizedString_1 = (_typeNAME << 16) | 1;
         const int CefResourceBundle_GetDataResource_2 = (_typeNAME << 16) | 2;
         const int CefResourceBundle_GetDataResourceForScale_3 = (_typeNAME << 16) | 3;
-        internal readonly IntPtr nativePtr;
+        internal IntPtr nativePtr;
         internal CefResourceBundle(IntPtr nativePtr)
         {
             this.nativePtr = nativePtr;
@@ -9875,6 +9440,7 @@ namespace LayoutFarm.CefBridge.Auto
         {
             JsValue ret;
             Cef3Binder.MyCefMet_Call0(this.nativePtr, CefResourceBundle_Release_0, out ret);
+            this.nativePtr = IntPtr.Zero;
         }
 
         // gen! CefString GetLocalizedString(int string_id)
@@ -9882,16 +9448,14 @@ namespace LayoutFarm.CefBridge.Auto
         /// CefResourceBundle methods.
         /// </summary>
 
-        public string GetLocalizedString(int string_id
-        )
+        public string GetLocalizedString(int string_id)
         {
             JsValue v1 = new JsValue();
             JsValue ret;
             v1.I32 = (int)string_id;
 
             Cef3Binder.MyCefMet_Call1(this.nativePtr, CefResourceBundle_GetLocalizedString_1, out ret, ref v1);
-            var ret_result = Cef3Binder.CopyStringAndDestroyNativeSide(ref ret);
-            return ret_result;
+            return Cef3Binder.CopyStringAndDestroyNativeSide(ref ret);
         }
 
         // gen! bool GetDataResource(int resource_id,void*& data,size_t& data_size)
@@ -9905,10 +9469,9 @@ namespace LayoutFarm.CefBridge.Auto
         /// /*cef()*/
         /// </summary>
 
-        public bool GetDataResource(int resource_id
-        , IntPtr data
-        , ref uint data_size
-        )
+        public bool GetDataResource(int resource_id,
+        IntPtr data,
+        ref uint data_size)
         {
             JsValue v1 = new JsValue();
             JsValue v2 = new JsValue();
@@ -9919,10 +9482,9 @@ namespace LayoutFarm.CefBridge.Auto
             v3.I32 = (int)data_size;
 
             Cef3Binder.MyCefMet_Call3(this.nativePtr, CefResourceBundle_GetDataResource_2, out ret, ref v1, ref v2, ref v3);
-            var ret_result = ret.I32 != 0;
             data = v2.Ptr; ;
             data_size = (uint)v3.I32; ;
-            return ret_result;
+            return ret.I32 != 0;
         }
 
         // gen! bool GetDataResourceForScale(int resource_id,ScaleFactor scale_factor,void*& data,size_t& data_size)
@@ -9938,11 +9500,10 @@ namespace LayoutFarm.CefBridge.Auto
         /// /*cef()*/
         /// </summary>
 
-        public bool GetDataResourceForScale(int resource_id
-        , cef_scale_factor_t scale_factor
-        , IntPtr data
-        , ref uint data_size
-        )
+        public bool GetDataResourceForScale(int resource_id,
+        cef_scale_factor_t scale_factor,
+        IntPtr data,
+        ref uint data_size)
         {
             JsValue v1 = new JsValue();
             JsValue v2 = new JsValue();
@@ -9955,10 +9516,9 @@ namespace LayoutFarm.CefBridge.Auto
             v4.I32 = (int)data_size;
 
             Cef3Binder.MyCefMet_Call4(this.nativePtr, CefResourceBundle_GetDataResourceForScale_3, out ret, ref v1, ref v2, ref v3, ref v4);
-            var ret_result = ret.I32 != 0;
             data = v3.Ptr; ;
             data_size = (uint)v4.I32; ;
-            return ret_result;
+            return ret.I32 != 0;
         }
     }
 
@@ -9985,7 +9545,7 @@ namespace LayoutFarm.CefBridge.Auto
         const int CefResponse_GetHeader_10 = (_typeNAME << 16) | 10;
         const int CefResponse_GetHeaderMap_11 = (_typeNAME << 16) | 11;
         const int CefResponse_SetHeaderMap_12 = (_typeNAME << 16) | 12;
-        internal readonly IntPtr nativePtr;
+        internal IntPtr nativePtr;
         internal CefResponse(IntPtr nativePtr)
         {
             this.nativePtr = nativePtr;
@@ -9994,6 +9554,7 @@ namespace LayoutFarm.CefBridge.Auto
         {
             JsValue ret;
             Cef3Binder.MyCefMet_Call0(this.nativePtr, CefResponse_Release_0, out ret);
+            this.nativePtr = IntPtr.Zero;
         }
 
         // gen! bool IsReadOnly()
@@ -10006,8 +9567,7 @@ namespace LayoutFarm.CefBridge.Auto
             JsValue ret;
 
             Cef3Binder.MyCefMet_Call0(this.nativePtr, CefResponse_IsReadOnly_1, out ret);
-            var ret_result = ret.I32 != 0;
-            return ret_result;
+            return ret.I32 != 0;
         }
 
         // gen! cef_errorcode_t GetError()
@@ -10021,9 +9581,8 @@ namespace LayoutFarm.CefBridge.Auto
             JsValue ret;
 
             Cef3Binder.MyCefMet_Call0(this.nativePtr, CefResponse_GetError_2, out ret);
-            var ret_result = (cef_errorcode_t)ret.I32;
+            return (cef_errorcode_t)ret.I32;
 
-            return ret_result;
         }
 
         // gen! void SetError(cef_errorcode_t error)
@@ -10033,8 +9592,7 @@ namespace LayoutFarm.CefBridge.Auto
         /// /*cef()*/
         /// </summary>
 
-        public void SetError(cef_errorcode_t error
-        )
+        public void SetError(cef_errorcode_t error)
         {
             JsValue v1 = new JsValue();
             JsValue ret;
@@ -10055,8 +9613,7 @@ namespace LayoutFarm.CefBridge.Auto
             JsValue ret;
 
             Cef3Binder.MyCefMet_Call0(this.nativePtr, CefResponse_GetStatus_4, out ret);
-            var ret_result = ret.I32;
-            return ret_result;
+            return ret.I32;
         }
 
         // gen! void SetStatus(int status)
@@ -10065,8 +9622,7 @@ namespace LayoutFarm.CefBridge.Auto
         /// /*cef()*/
         /// </summary>
 
-        public void SetStatus(int status
-        )
+        public void SetStatus(int status)
         {
             JsValue v1 = new JsValue();
             JsValue ret;
@@ -10087,8 +9643,7 @@ namespace LayoutFarm.CefBridge.Auto
             JsValue ret;
 
             Cef3Binder.MyCefMet_Call0(this.nativePtr, CefResponse_GetStatusText_6, out ret);
-            var ret_result = Cef3Binder.CopyStringAndDestroyNativeSide(ref ret);
-            return ret_result;
+            return Cef3Binder.CopyStringAndDestroyNativeSide(ref ret);
         }
 
         // gen! void SetStatusText(const CefString& statusText)
@@ -10097,8 +9652,7 @@ namespace LayoutFarm.CefBridge.Auto
         /// /*cef()*/
         /// </summary>
 
-        public void SetStatusText(string statusText
-        )
+        public void SetStatusText(string statusText)
         {
             JsValue v1 = new JsValue();
             JsValue ret;
@@ -10106,8 +9660,8 @@ namespace LayoutFarm.CefBridge.Auto
             ;
 
             Cef3Binder.MyCefMet_Call1(this.nativePtr, CefResponse_SetStatusText_7, out ret, ref v1);
-
             Cef3Binder.MyCefDeletePtr(v1.Ptr); ;
+
         }
 
         // gen! CefString GetMimeType()
@@ -10121,8 +9675,7 @@ namespace LayoutFarm.CefBridge.Auto
             JsValue ret;
 
             Cef3Binder.MyCefMet_Call0(this.nativePtr, CefResponse_GetMimeType_8, out ret);
-            var ret_result = Cef3Binder.CopyStringAndDestroyNativeSide(ref ret);
-            return ret_result;
+            return Cef3Binder.CopyStringAndDestroyNativeSide(ref ret);
         }
 
         // gen! void SetMimeType(const CefString& mimeType)
@@ -10131,8 +9684,7 @@ namespace LayoutFarm.CefBridge.Auto
         /// /*cef()*/
         /// </summary>
 
-        public void SetMimeType(string mimeType
-        )
+        public void SetMimeType(string mimeType)
         {
             JsValue v1 = new JsValue();
             JsValue ret;
@@ -10140,8 +9692,8 @@ namespace LayoutFarm.CefBridge.Auto
             ;
 
             Cef3Binder.MyCefMet_Call1(this.nativePtr, CefResponse_SetMimeType_9, out ret, ref v1);
-
             Cef3Binder.MyCefDeletePtr(v1.Ptr); ;
+
         }
 
         // gen! CefString GetHeader(const CefString& name)
@@ -10150,8 +9702,7 @@ namespace LayoutFarm.CefBridge.Auto
         /// /*cef()*/
         /// </summary>
 
-        public string GetHeader(string name
-        )
+        public string GetHeader(string name)
         {
             JsValue v1 = new JsValue();
             JsValue ret;
@@ -10159,9 +9710,8 @@ namespace LayoutFarm.CefBridge.Auto
             ;
 
             Cef3Binder.MyCefMet_Call1(this.nativePtr, CefResponse_GetHeader_10, out ret, ref v1);
-            var ret_result = Cef3Binder.CopyStringAndDestroyNativeSide(ref ret);
             Cef3Binder.MyCefDeletePtr(v1.Ptr); ;
-            return ret_result;
+            return Cef3Binder.CopyStringAndDestroyNativeSide(ref ret);
         }
 
         // gen! void GetHeaderMap(HeaderMap& headerMap)
@@ -10170,8 +9720,7 @@ namespace LayoutFarm.CefBridge.Auto
         /// /*cef()*/
         /// </summary>
 
-        public void GetHeaderMap(HeaderMap headerMap
-        )
+        public void GetHeaderMap(HeaderMap headerMap)
         {
             JsValue v1 = new JsValue();
             JsValue ret;
@@ -10187,8 +9736,7 @@ namespace LayoutFarm.CefBridge.Auto
         /// /*cef()*/
         /// </summary>
 
-        public void SetHeaderMap(HeaderMap headerMap
-        )
+        public void SetHeaderMap(HeaderMap headerMap)
         {
             JsValue v1 = new JsValue();
             JsValue ret;
@@ -10210,7 +9758,7 @@ namespace LayoutFarm.CefBridge.Auto
     {
         const int _typeNAME = 28;
         const int CefResponseFilter_Release_0 = (_typeNAME << 16) | 0;
-        internal readonly IntPtr nativePtr;
+        internal IntPtr nativePtr;
         internal CefResponseFilter(IntPtr nativePtr)
         {
             this.nativePtr = nativePtr;
@@ -10219,6 +9767,7 @@ namespace LayoutFarm.CefBridge.Auto
         {
             JsValue ret;
             Cef3Binder.MyCefMet_Call0(this.nativePtr, CefResponseFilter_Release_0, out ret);
+            this.nativePtr = IntPtr.Zero;
         }
     }
 
@@ -10233,7 +9782,7 @@ namespace LayoutFarm.CefBridge.Auto
     {
         const int _typeNAME = 29;
         const int CefSchemeHandlerFactory_Release_0 = (_typeNAME << 16) | 0;
-        internal readonly IntPtr nativePtr;
+        internal IntPtr nativePtr;
         internal CefSchemeHandlerFactory(IntPtr nativePtr)
         {
             this.nativePtr = nativePtr;
@@ -10242,6 +9791,7 @@ namespace LayoutFarm.CefBridge.Auto
         {
             JsValue ret;
             Cef3Binder.MyCefMet_Call0(this.nativePtr, CefSchemeHandlerFactory_Release_0, out ret);
+            this.nativePtr = IntPtr.Zero;
         }
     }
 
@@ -10257,7 +9807,7 @@ namespace LayoutFarm.CefBridge.Auto
         const int CefSSLInfo_Release_0 = (_typeNAME << 16) | 0;
         const int CefSSLInfo_GetCertStatus_1 = (_typeNAME << 16) | 1;
         const int CefSSLInfo_GetX509Certificate_2 = (_typeNAME << 16) | 2;
-        internal readonly IntPtr nativePtr;
+        internal IntPtr nativePtr;
         internal CefSSLInfo(IntPtr nativePtr)
         {
             this.nativePtr = nativePtr;
@@ -10266,6 +9816,7 @@ namespace LayoutFarm.CefBridge.Auto
         {
             JsValue ret;
             Cef3Binder.MyCefMet_Call0(this.nativePtr, CefSSLInfo_Release_0, out ret);
+            this.nativePtr = IntPtr.Zero;
         }
 
         // gen! cef_cert_status_t GetCertStatus()
@@ -10278,9 +9829,8 @@ namespace LayoutFarm.CefBridge.Auto
             JsValue ret;
 
             Cef3Binder.MyCefMet_Call0(this.nativePtr, CefSSLInfo_GetCertStatus_1, out ret);
-            var ret_result = (cef_cert_status_t)ret.I32;
+            return (cef_cert_status_t)ret.I32;
 
-            return ret_result;
         }
 
         // gen! CefRefPtr<CefX509Certificate> GetX509Certificate()
@@ -10294,8 +9844,7 @@ namespace LayoutFarm.CefBridge.Auto
             JsValue ret;
 
             Cef3Binder.MyCefMet_Call0(this.nativePtr, CefSSLInfo_GetX509Certificate_2, out ret);
-            var ret_result = new CefX509Certificate(ret.Ptr);
-            return ret_result;
+            return new CefX509Certificate(ret.Ptr);
         }
     }
 
@@ -10314,7 +9863,7 @@ namespace LayoutFarm.CefBridge.Auto
         const int CefSSLStatus_GetSSLVersion_3 = (_typeNAME << 16) | 3;
         const int CefSSLStatus_GetContentStatus_4 = (_typeNAME << 16) | 4;
         const int CefSSLStatus_GetX509Certificate_5 = (_typeNAME << 16) | 5;
-        internal readonly IntPtr nativePtr;
+        internal IntPtr nativePtr;
         internal CefSSLStatus(IntPtr nativePtr)
         {
             this.nativePtr = nativePtr;
@@ -10323,6 +9872,7 @@ namespace LayoutFarm.CefBridge.Auto
         {
             JsValue ret;
             Cef3Binder.MyCefMet_Call0(this.nativePtr, CefSSLStatus_Release_0, out ret);
+            this.nativePtr = IntPtr.Zero;
         }
 
         // gen! bool IsSecureConnection()
@@ -10335,8 +9885,7 @@ namespace LayoutFarm.CefBridge.Auto
             JsValue ret;
 
             Cef3Binder.MyCefMet_Call0(this.nativePtr, CefSSLStatus_IsSecureConnection_1, out ret);
-            var ret_result = ret.I32 != 0;
-            return ret_result;
+            return ret.I32 != 0;
         }
 
         // gen! cef_cert_status_t GetCertStatus()
@@ -10351,9 +9900,8 @@ namespace LayoutFarm.CefBridge.Auto
             JsValue ret;
 
             Cef3Binder.MyCefMet_Call0(this.nativePtr, CefSSLStatus_GetCertStatus_2, out ret);
-            var ret_result = (cef_cert_status_t)ret.I32;
+            return (cef_cert_status_t)ret.I32;
 
-            return ret_result;
         }
 
         // gen! cef_ssl_version_t GetSSLVersion()
@@ -10367,9 +9915,8 @@ namespace LayoutFarm.CefBridge.Auto
             JsValue ret;
 
             Cef3Binder.MyCefMet_Call0(this.nativePtr, CefSSLStatus_GetSSLVersion_3, out ret);
-            var ret_result = (cef_ssl_version_t)ret.I32;
+            return (cef_ssl_version_t)ret.I32;
 
-            return ret_result;
         }
 
         // gen! cef_ssl_content_status_t GetContentStatus()
@@ -10383,9 +9930,8 @@ namespace LayoutFarm.CefBridge.Auto
             JsValue ret;
 
             Cef3Binder.MyCefMet_Call0(this.nativePtr, CefSSLStatus_GetContentStatus_4, out ret);
-            var ret_result = (cef_ssl_content_status_t)ret.I32;
+            return (cef_ssl_content_status_t)ret.I32;
 
-            return ret_result;
         }
 
         // gen! CefRefPtr<CefX509Certificate> GetX509Certificate()
@@ -10399,8 +9945,7 @@ namespace LayoutFarm.CefBridge.Auto
             JsValue ret;
 
             Cef3Binder.MyCefMet_Call0(this.nativePtr, CefSSLStatus_GetX509Certificate_5, out ret);
-            var ret_result = new CefX509Certificate(ret.Ptr);
-            return ret_result;
+            return new CefX509Certificate(ret.Ptr);
         }
     }
 
@@ -10420,7 +9965,7 @@ namespace LayoutFarm.CefBridge.Auto
         const int CefStreamReader_Tell_3 = (_typeNAME << 16) | 3;
         const int CefStreamReader_Eof_4 = (_typeNAME << 16) | 4;
         const int CefStreamReader_MayBlock_5 = (_typeNAME << 16) | 5;
-        internal readonly IntPtr nativePtr;
+        internal IntPtr nativePtr;
         internal CefStreamReader(IntPtr nativePtr)
         {
             this.nativePtr = nativePtr;
@@ -10429,6 +9974,7 @@ namespace LayoutFarm.CefBridge.Auto
         {
             JsValue ret;
             Cef3Binder.MyCefMet_Call0(this.nativePtr, CefStreamReader_Release_0, out ret);
+            this.nativePtr = IntPtr.Zero;
         }
 
         // gen! size_t Read(void* ptr,size_t size,size_t n)
@@ -10436,10 +9982,9 @@ namespace LayoutFarm.CefBridge.Auto
         /// CefStreamReader methods.
         /// </summary>
 
-        public uint Read(IntPtr ptr
-        , uint size
-        , uint n
-        )
+        public uint Read(IntPtr ptr,
+        uint size,
+        uint n)
         {
             JsValue v1 = new JsValue();
             JsValue v2 = new JsValue();
@@ -10450,8 +9995,7 @@ namespace LayoutFarm.CefBridge.Auto
             v3.I32 = (int)n;
 
             Cef3Binder.MyCefMet_Call3(this.nativePtr, CefStreamReader_Read_1, out ret, ref v1, ref v2, ref v3);
-            var ret_result = (uint)ret.I32;
-            return ret_result;
+            return (uint)ret.I32;
         }
 
         // gen! int Seek(int64 offset,int whence)
@@ -10462,9 +10006,8 @@ namespace LayoutFarm.CefBridge.Auto
         /// /*cef()*/
         /// </summary>
 
-        public int Seek(long offset
-        , int whence
-        )
+        public int Seek(long offset,
+        int whence)
         {
             JsValue v1 = new JsValue();
             JsValue v2 = new JsValue();
@@ -10473,8 +10016,7 @@ namespace LayoutFarm.CefBridge.Auto
             v2.I32 = (int)whence;
 
             Cef3Binder.MyCefMet_Call2(this.nativePtr, CefStreamReader_Seek_2, out ret, ref v1, ref v2);
-            var ret_result = ret.I32;
-            return ret_result;
+            return ret.I32;
         }
 
         // gen! int64 Tell()
@@ -10488,8 +10030,7 @@ namespace LayoutFarm.CefBridge.Auto
             JsValue ret;
 
             Cef3Binder.MyCefMet_Call0(this.nativePtr, CefStreamReader_Tell_3, out ret);
-            var ret_result = ret.I64;
-            return ret_result;
+            return ret.I64;
         }
 
         // gen! int Eof()
@@ -10503,8 +10044,7 @@ namespace LayoutFarm.CefBridge.Auto
             JsValue ret;
 
             Cef3Binder.MyCefMet_Call0(this.nativePtr, CefStreamReader_Eof_4, out ret);
-            var ret_result = ret.I32;
-            return ret_result;
+            return ret.I32;
         }
 
         // gen! bool MayBlock()
@@ -10520,8 +10060,7 @@ namespace LayoutFarm.CefBridge.Auto
             JsValue ret;
 
             Cef3Binder.MyCefMet_Call0(this.nativePtr, CefStreamReader_MayBlock_5, out ret);
-            var ret_result = ret.I32 != 0;
-            return ret_result;
+            return ret.I32 != 0;
         }
     }
 
@@ -10541,7 +10080,7 @@ namespace LayoutFarm.CefBridge.Auto
         const int CefStreamWriter_Tell_3 = (_typeNAME << 16) | 3;
         const int CefStreamWriter_Flush_4 = (_typeNAME << 16) | 4;
         const int CefStreamWriter_MayBlock_5 = (_typeNAME << 16) | 5;
-        internal readonly IntPtr nativePtr;
+        internal IntPtr nativePtr;
         internal CefStreamWriter(IntPtr nativePtr)
         {
             this.nativePtr = nativePtr;
@@ -10550,6 +10089,7 @@ namespace LayoutFarm.CefBridge.Auto
         {
             JsValue ret;
             Cef3Binder.MyCefMet_Call0(this.nativePtr, CefStreamWriter_Release_0, out ret);
+            this.nativePtr = IntPtr.Zero;
         }
 
         // gen! size_t Write(const void* ptr,size_t size,size_t n)
@@ -10557,10 +10097,9 @@ namespace LayoutFarm.CefBridge.Auto
         /// CefStreamWriter methods.
         /// </summary>
 
-        public uint Write(IntPtr ptr
-        , uint size
-        , uint n
-        )
+        public uint Write(IntPtr ptr,
+        uint size,
+        uint n)
         {
             JsValue v1 = new JsValue();
             JsValue v2 = new JsValue();
@@ -10571,8 +10110,7 @@ namespace LayoutFarm.CefBridge.Auto
             v3.I32 = (int)n;
 
             Cef3Binder.MyCefMet_Call3(this.nativePtr, CefStreamWriter_Write_1, out ret, ref v1, ref v2, ref v3);
-            var ret_result = (uint)ret.I32;
-            return ret_result;
+            return (uint)ret.I32;
         }
 
         // gen! int Seek(int64 offset,int whence)
@@ -10583,9 +10121,8 @@ namespace LayoutFarm.CefBridge.Auto
         /// /*cef()*/
         /// </summary>
 
-        public int Seek(long offset
-        , int whence
-        )
+        public int Seek(long offset,
+        int whence)
         {
             JsValue v1 = new JsValue();
             JsValue v2 = new JsValue();
@@ -10594,8 +10131,7 @@ namespace LayoutFarm.CefBridge.Auto
             v2.I32 = (int)whence;
 
             Cef3Binder.MyCefMet_Call2(this.nativePtr, CefStreamWriter_Seek_2, out ret, ref v1, ref v2);
-            var ret_result = ret.I32;
-            return ret_result;
+            return ret.I32;
         }
 
         // gen! int64 Tell()
@@ -10609,8 +10145,7 @@ namespace LayoutFarm.CefBridge.Auto
             JsValue ret;
 
             Cef3Binder.MyCefMet_Call0(this.nativePtr, CefStreamWriter_Tell_3, out ret);
-            var ret_result = ret.I64;
-            return ret_result;
+            return ret.I64;
         }
 
         // gen! int Flush()
@@ -10624,8 +10159,7 @@ namespace LayoutFarm.CefBridge.Auto
             JsValue ret;
 
             Cef3Binder.MyCefMet_Call0(this.nativePtr, CefStreamWriter_Flush_4, out ret);
-            var ret_result = ret.I32;
-            return ret_result;
+            return ret.I32;
         }
 
         // gen! bool MayBlock()
@@ -10641,8 +10175,7 @@ namespace LayoutFarm.CefBridge.Auto
             JsValue ret;
 
             Cef3Binder.MyCefMet_Call0(this.nativePtr, CefStreamWriter_MayBlock_5, out ret);
-            var ret_result = ret.I32 != 0;
-            return ret_result;
+            return ret.I32 != 0;
         }
     }
 
@@ -10656,7 +10189,7 @@ namespace LayoutFarm.CefBridge.Auto
     {
         const int _typeNAME = 34;
         const int CefStringVisitor_Release_0 = (_typeNAME << 16) | 0;
-        internal readonly IntPtr nativePtr;
+        internal IntPtr nativePtr;
         internal CefStringVisitor(IntPtr nativePtr)
         {
             this.nativePtr = nativePtr;
@@ -10665,6 +10198,7 @@ namespace LayoutFarm.CefBridge.Auto
         {
             JsValue ret;
             Cef3Binder.MyCefMet_Call0(this.nativePtr, CefStringVisitor_Release_0, out ret);
+            this.nativePtr = IntPtr.Zero;
         }
     }
 
@@ -10683,7 +10217,7 @@ namespace LayoutFarm.CefBridge.Auto
     {
         const int _typeNAME = 35;
         const int CefTask_Release_0 = (_typeNAME << 16) | 0;
-        internal readonly IntPtr nativePtr;
+        internal IntPtr nativePtr;
         internal CefTask(IntPtr nativePtr)
         {
             this.nativePtr = nativePtr;
@@ -10692,6 +10226,7 @@ namespace LayoutFarm.CefBridge.Auto
         {
             JsValue ret;
             Cef3Binder.MyCefMet_Call0(this.nativePtr, CefTask_Release_0, out ret);
+            this.nativePtr = IntPtr.Zero;
         }
     }
 
@@ -10716,7 +10251,7 @@ namespace LayoutFarm.CefBridge.Auto
         const int CefTaskRunner_BelongsToThread_3 = (_typeNAME << 16) | 3;
         const int CefTaskRunner_PostTask_4 = (_typeNAME << 16) | 4;
         const int CefTaskRunner_PostDelayedTask_5 = (_typeNAME << 16) | 5;
-        internal readonly IntPtr nativePtr;
+        internal IntPtr nativePtr;
         internal CefTaskRunner(IntPtr nativePtr)
         {
             this.nativePtr = nativePtr;
@@ -10725,6 +10260,7 @@ namespace LayoutFarm.CefBridge.Auto
         {
             JsValue ret;
             Cef3Binder.MyCefMet_Call0(this.nativePtr, CefTaskRunner_Release_0, out ret);
+            this.nativePtr = IntPtr.Zero;
         }
 
         // gen! bool IsSame(CefRefPtr<CefTaskRunner> that)
@@ -10732,16 +10268,14 @@ namespace LayoutFarm.CefBridge.Auto
         /// CefTaskRunner methods.
         /// </summary>
 
-        public bool IsSame(CefTaskRunner that
-        )
+        public bool IsSame(CefTaskRunner that)
         {
             JsValue v1 = new JsValue();
             JsValue ret;
             v1.Ptr = that.nativePtr;
 
             Cef3Binder.MyCefMet_Call1(this.nativePtr, CefTaskRunner_IsSame_1, out ret, ref v1);
-            var ret_result = ret.I32 != 0;
-            return ret_result;
+            return ret.I32 != 0;
         }
 
         // gen! bool BelongsToCurrentThread()
@@ -10755,8 +10289,7 @@ namespace LayoutFarm.CefBridge.Auto
             JsValue ret;
 
             Cef3Binder.MyCefMet_Call0(this.nativePtr, CefTaskRunner_BelongsToCurrentThread_2, out ret);
-            var ret_result = ret.I32 != 0;
-            return ret_result;
+            return ret.I32 != 0;
         }
 
         // gen! bool BelongsToThread(CefThreadId threadId)
@@ -10765,16 +10298,14 @@ namespace LayoutFarm.CefBridge.Auto
         /// /*cef()*/
         /// </summary>
 
-        public bool BelongsToThread(cef_thread_id_t threadId
-        )
+        public bool BelongsToThread(cef_thread_id_t threadId)
         {
             JsValue v1 = new JsValue();
             JsValue ret;
             v1.I32 = (int)threadId;
 
             Cef3Binder.MyCefMet_Call1(this.nativePtr, CefTaskRunner_BelongsToThread_3, out ret, ref v1);
-            var ret_result = ret.I32 != 0;
-            return ret_result;
+            return ret.I32 != 0;
         }
 
         // gen! bool PostTask(CefRefPtr<CefTask> task)
@@ -10784,16 +10315,14 @@ namespace LayoutFarm.CefBridge.Auto
         /// /*cef()*/
         /// </summary>
 
-        public bool PostTask(CefTask task
-        )
+        public bool PostTask(CefTask task)
         {
             JsValue v1 = new JsValue();
             JsValue ret;
             v1.Ptr = task.nativePtr;
 
             Cef3Binder.MyCefMet_Call1(this.nativePtr, CefTaskRunner_PostTask_4, out ret, ref v1);
-            var ret_result = ret.I32 != 0;
-            return ret_result;
+            return ret.I32 != 0;
         }
 
         // gen! bool PostDelayedTask(CefRefPtr<CefTask> task,int64 delay_ms)
@@ -10805,9 +10334,8 @@ namespace LayoutFarm.CefBridge.Auto
         /// /*cef()*/
         /// </summary>
 
-        public bool PostDelayedTask(CefTask task
-        , long delay_ms
-        )
+        public bool PostDelayedTask(CefTask task,
+        long delay_ms)
         {
             JsValue v1 = new JsValue();
             JsValue v2 = new JsValue();
@@ -10816,8 +10344,7 @@ namespace LayoutFarm.CefBridge.Auto
             v2.I64 = delay_ms;
 
             Cef3Binder.MyCefMet_Call2(this.nativePtr, CefTaskRunner_PostDelayedTask_5, out ret, ref v1, ref v2);
-            var ret_result = ret.I32 != 0;
-            return ret_result;
+            return ret.I32 != 0;
         }
     }
 
@@ -10841,7 +10368,7 @@ namespace LayoutFarm.CefBridge.Auto
         const int CefURLRequest_GetRequestError_4 = (_typeNAME << 16) | 4;
         const int CefURLRequest_GetResponse_5 = (_typeNAME << 16) | 5;
         const int CefURLRequest_Cancel_6 = (_typeNAME << 16) | 6;
-        internal readonly IntPtr nativePtr;
+        internal IntPtr nativePtr;
         internal CefURLRequest(IntPtr nativePtr)
         {
             this.nativePtr = nativePtr;
@@ -10850,6 +10377,7 @@ namespace LayoutFarm.CefBridge.Auto
         {
             JsValue ret;
             Cef3Binder.MyCefMet_Call0(this.nativePtr, CefURLRequest_Release_0, out ret);
+            this.nativePtr = IntPtr.Zero;
         }
 
         // gen! CefRefPtr<CefRequest> GetRequest()
@@ -10862,8 +10390,7 @@ namespace LayoutFarm.CefBridge.Auto
             JsValue ret;
 
             Cef3Binder.MyCefMet_Call0(this.nativePtr, CefURLRequest_GetRequest_1, out ret);
-            var ret_result = new CefRequest(ret.Ptr);
-            return ret_result;
+            return new CefRequest(ret.Ptr);
         }
 
         // gen! CefRefPtr<CefURLRequestClient> GetClient()
@@ -10877,8 +10404,7 @@ namespace LayoutFarm.CefBridge.Auto
             JsValue ret;
 
             Cef3Binder.MyCefMet_Call0(this.nativePtr, CefURLRequest_GetClient_2, out ret);
-            var ret_result = new CefURLRequestClient(ret.Ptr);
-            return ret_result;
+            return new CefURLRequestClient(ret.Ptr);
         }
 
         // gen! Status GetRequestStatus()
@@ -10892,9 +10418,8 @@ namespace LayoutFarm.CefBridge.Auto
             JsValue ret;
 
             Cef3Binder.MyCefMet_Call0(this.nativePtr, CefURLRequest_GetRequestStatus_3, out ret);
-            var ret_result = (cef_urlrequest_status_t)ret.I32;
+            return (cef_urlrequest_status_t)ret.I32;
 
-            return ret_result;
         }
 
         // gen! ErrorCode GetRequestError()
@@ -10909,9 +10434,8 @@ namespace LayoutFarm.CefBridge.Auto
             JsValue ret;
 
             Cef3Binder.MyCefMet_Call0(this.nativePtr, CefURLRequest_GetRequestError_4, out ret);
-            var ret_result = (cef_errorcode_t)ret.I32;
+            return (cef_errorcode_t)ret.I32;
 
-            return ret_result;
         }
 
         // gen! CefRefPtr<CefResponse> GetResponse()
@@ -10927,8 +10451,7 @@ namespace LayoutFarm.CefBridge.Auto
             JsValue ret;
 
             Cef3Binder.MyCefMet_Call0(this.nativePtr, CefURLRequest_GetResponse_5, out ret);
-            var ret_result = new CefResponse(ret.Ptr);
-            return ret_result;
+            return new CefResponse(ret.Ptr);
         }
 
         // gen! void Cancel()
@@ -10958,7 +10481,7 @@ namespace LayoutFarm.CefBridge.Auto
     {
         const int _typeNAME = 38;
         const int CefURLRequestClient_Release_0 = (_typeNAME << 16) | 0;
-        internal readonly IntPtr nativePtr;
+        internal IntPtr nativePtr;
         internal CefURLRequestClient(IntPtr nativePtr)
         {
             this.nativePtr = nativePtr;
@@ -10967,6 +10490,7 @@ namespace LayoutFarm.CefBridge.Auto
         {
             JsValue ret;
             Cef3Binder.MyCefMet_Call0(this.nativePtr, CefURLRequestClient_Release_0, out ret);
+            this.nativePtr = IntPtr.Zero;
         }
     }
 
@@ -10993,7 +10517,7 @@ namespace LayoutFarm.CefBridge.Auto
         const int CefV8Context_Exit_7 = (_typeNAME << 16) | 7;
         const int CefV8Context_IsSame_8 = (_typeNAME << 16) | 8;
         const int CefV8Context_Eval_9 = (_typeNAME << 16) | 9;
-        internal readonly IntPtr nativePtr;
+        internal IntPtr nativePtr;
         internal CefV8Context(IntPtr nativePtr)
         {
             this.nativePtr = nativePtr;
@@ -11002,6 +10526,7 @@ namespace LayoutFarm.CefBridge.Auto
         {
             JsValue ret;
             Cef3Binder.MyCefMet_Call0(this.nativePtr, CefV8Context_Release_0, out ret);
+            this.nativePtr = IntPtr.Zero;
         }
 
         // gen! CefRefPtr<CefTaskRunner> GetTaskRunner()
@@ -11014,8 +10539,7 @@ namespace LayoutFarm.CefBridge.Auto
             JsValue ret;
 
             Cef3Binder.MyCefMet_Call0(this.nativePtr, CefV8Context_GetTaskRunner_1, out ret);
-            var ret_result = new CefTaskRunner(ret.Ptr);
-            return ret_result;
+            return new CefTaskRunner(ret.Ptr);
         }
 
         // gen! bool IsValid()
@@ -11031,8 +10555,7 @@ namespace LayoutFarm.CefBridge.Auto
             JsValue ret;
 
             Cef3Binder.MyCefMet_Call0(this.nativePtr, CefV8Context_IsValid_2, out ret);
-            var ret_result = ret.I32 != 0;
-            return ret_result;
+            return ret.I32 != 0;
         }
 
         // gen! CefRefPtr<CefBrowser> GetBrowser()
@@ -11047,8 +10570,7 @@ namespace LayoutFarm.CefBridge.Auto
             JsValue ret;
 
             Cef3Binder.MyCefMet_Call0(this.nativePtr, CefV8Context_GetBrowser_3, out ret);
-            var ret_result = new CefBrowser(ret.Ptr);
-            return ret_result;
+            return new CefBrowser(ret.Ptr);
         }
 
         // gen! CefRefPtr<CefFrame> GetFrame()
@@ -11063,8 +10585,7 @@ namespace LayoutFarm.CefBridge.Auto
             JsValue ret;
 
             Cef3Binder.MyCefMet_Call0(this.nativePtr, CefV8Context_GetFrame_4, out ret);
-            var ret_result = new CefFrame(ret.Ptr);
-            return ret_result;
+            return new CefFrame(ret.Ptr);
         }
 
         // gen! CefRefPtr<CefV8Value> GetGlobal()
@@ -11079,8 +10600,7 @@ namespace LayoutFarm.CefBridge.Auto
             JsValue ret;
 
             Cef3Binder.MyCefMet_Call0(this.nativePtr, CefV8Context_GetGlobal_5, out ret);
-            var ret_result = new CefV8Value(ret.Ptr);
-            return ret_result;
+            return new CefV8Value(ret.Ptr);
         }
 
         // gen! bool Enter()
@@ -11098,8 +10618,7 @@ namespace LayoutFarm.CefBridge.Auto
             JsValue ret;
 
             Cef3Binder.MyCefMet_Call0(this.nativePtr, CefV8Context_Enter_6, out ret);
-            var ret_result = ret.I32 != 0;
-            return ret_result;
+            return ret.I32 != 0;
         }
 
         // gen! bool Exit()
@@ -11114,8 +10633,7 @@ namespace LayoutFarm.CefBridge.Auto
             JsValue ret;
 
             Cef3Binder.MyCefMet_Call0(this.nativePtr, CefV8Context_Exit_7, out ret);
-            var ret_result = ret.I32 != 0;
-            return ret_result;
+            return ret.I32 != 0;
         }
 
         // gen! bool IsSame(CefRefPtr<CefV8Context> that)
@@ -11125,16 +10643,14 @@ namespace LayoutFarm.CefBridge.Auto
         /// /*cef()*/
         /// </summary>
 
-        public bool IsSame(CefV8Context that
-        )
+        public bool IsSame(CefV8Context that)
         {
             JsValue v1 = new JsValue();
             JsValue ret;
             v1.Ptr = that.nativePtr;
 
             Cef3Binder.MyCefMet_Call1(this.nativePtr, CefV8Context_IsSame_8, out ret, ref v1);
-            var ret_result = ret.I32 != 0;
-            return ret_result;
+            return ret.I32 != 0;
         }
 
         // gen! bool Eval(const CefString& code,const CefString& script_url,int start_line,CefRefPtr<CefV8Value>& retval,CefRefPtr<CefV8Exception>& exception)
@@ -11148,12 +10664,11 @@ namespace LayoutFarm.CefBridge.Auto
         /// /*cef(optional_param=script_url)*/
         /// </summary>
 
-        public bool Eval(string code
-        , string script_url
-        , int start_line
-        , IntPtr retval
-        , IntPtr exception
-        )
+        public bool Eval(string code,
+        string script_url,
+        int start_line,
+        IntPtr retval,
+        IntPtr exception)
         {
             JsValue v1 = new JsValue();
             JsValue v2 = new JsValue();
@@ -11170,12 +10685,11 @@ namespace LayoutFarm.CefBridge.Auto
             v5.Ptr = exception;
 
             Cef3Binder.MyCefMet_Call5(this.nativePtr, CefV8Context_Eval_9, out ret, ref v1, ref v2, ref v3, ref v4, ref v5);
-            var ret_result = ret.I32 != 0;
             Cef3Binder.MyCefDeletePtr(v1.Ptr); ;
             Cef3Binder.MyCefDeletePtr(v2.Ptr); ;
             retval = v4.Ptr; ;
             exception = v5.Ptr; ;
-            return ret_result;
+            return ret.I32 != 0;
         }
     }
 
@@ -11191,7 +10705,7 @@ namespace LayoutFarm.CefBridge.Auto
     {
         const int _typeNAME = 40;
         const int CefV8Accessor_Release_0 = (_typeNAME << 16) | 0;
-        internal readonly IntPtr nativePtr;
+        internal IntPtr nativePtr;
         internal CefV8Accessor(IntPtr nativePtr)
         {
             this.nativePtr = nativePtr;
@@ -11200,6 +10714,7 @@ namespace LayoutFarm.CefBridge.Auto
         {
             JsValue ret;
             Cef3Binder.MyCefMet_Call0(this.nativePtr, CefV8Accessor_Release_0, out ret);
+            this.nativePtr = IntPtr.Zero;
         }
     }
 
@@ -11218,7 +10733,7 @@ namespace LayoutFarm.CefBridge.Auto
     {
         const int _typeNAME = 41;
         const int CefV8Interceptor_Release_0 = (_typeNAME << 16) | 0;
-        internal readonly IntPtr nativePtr;
+        internal IntPtr nativePtr;
         internal CefV8Interceptor(IntPtr nativePtr)
         {
             this.nativePtr = nativePtr;
@@ -11227,6 +10742,7 @@ namespace LayoutFarm.CefBridge.Auto
         {
             JsValue ret;
             Cef3Binder.MyCefMet_Call0(this.nativePtr, CefV8Interceptor_Release_0, out ret);
+            this.nativePtr = IntPtr.Zero;
         }
     }
 
@@ -11249,7 +10765,7 @@ namespace LayoutFarm.CefBridge.Auto
         const int CefV8Exception_GetEndPosition_6 = (_typeNAME << 16) | 6;
         const int CefV8Exception_GetStartColumn_7 = (_typeNAME << 16) | 7;
         const int CefV8Exception_GetEndColumn_8 = (_typeNAME << 16) | 8;
-        internal readonly IntPtr nativePtr;
+        internal IntPtr nativePtr;
         internal CefV8Exception(IntPtr nativePtr)
         {
             this.nativePtr = nativePtr;
@@ -11258,6 +10774,7 @@ namespace LayoutFarm.CefBridge.Auto
         {
             JsValue ret;
             Cef3Binder.MyCefMet_Call0(this.nativePtr, CefV8Exception_Release_0, out ret);
+            this.nativePtr = IntPtr.Zero;
         }
 
         // gen! CefString GetMessage()
@@ -11270,8 +10787,7 @@ namespace LayoutFarm.CefBridge.Auto
             JsValue ret;
 
             Cef3Binder.MyCefMet_Call0(this.nativePtr, CefV8Exception_GetMessage_1, out ret);
-            var ret_result = Cef3Binder.CopyStringAndDestroyNativeSide(ref ret);
-            return ret_result;
+            return Cef3Binder.CopyStringAndDestroyNativeSide(ref ret);
         }
 
         // gen! CefString GetSourceLine()
@@ -11285,8 +10801,7 @@ namespace LayoutFarm.CefBridge.Auto
             JsValue ret;
 
             Cef3Binder.MyCefMet_Call0(this.nativePtr, CefV8Exception_GetSourceLine_2, out ret);
-            var ret_result = Cef3Binder.CopyStringAndDestroyNativeSide(ref ret);
-            return ret_result;
+            return Cef3Binder.CopyStringAndDestroyNativeSide(ref ret);
         }
 
         // gen! CefString GetScriptResourceName()
@@ -11301,8 +10816,7 @@ namespace LayoutFarm.CefBridge.Auto
             JsValue ret;
 
             Cef3Binder.MyCefMet_Call0(this.nativePtr, CefV8Exception_GetScriptResourceName_3, out ret);
-            var ret_result = Cef3Binder.CopyStringAndDestroyNativeSide(ref ret);
-            return ret_result;
+            return Cef3Binder.CopyStringAndDestroyNativeSide(ref ret);
         }
 
         // gen! int GetLineNumber()
@@ -11317,8 +10831,7 @@ namespace LayoutFarm.CefBridge.Auto
             JsValue ret;
 
             Cef3Binder.MyCefMet_Call0(this.nativePtr, CefV8Exception_GetLineNumber_4, out ret);
-            var ret_result = ret.I32;
-            return ret_result;
+            return ret.I32;
         }
 
         // gen! int GetStartPosition()
@@ -11333,8 +10846,7 @@ namespace LayoutFarm.CefBridge.Auto
             JsValue ret;
 
             Cef3Binder.MyCefMet_Call0(this.nativePtr, CefV8Exception_GetStartPosition_5, out ret);
-            var ret_result = ret.I32;
-            return ret_result;
+            return ret.I32;
         }
 
         // gen! int GetEndPosition()
@@ -11349,8 +10861,7 @@ namespace LayoutFarm.CefBridge.Auto
             JsValue ret;
 
             Cef3Binder.MyCefMet_Call0(this.nativePtr, CefV8Exception_GetEndPosition_6, out ret);
-            var ret_result = ret.I32;
-            return ret_result;
+            return ret.I32;
         }
 
         // gen! int GetStartColumn()
@@ -11365,8 +10876,7 @@ namespace LayoutFarm.CefBridge.Auto
             JsValue ret;
 
             Cef3Binder.MyCefMet_Call0(this.nativePtr, CefV8Exception_GetStartColumn_7, out ret);
-            var ret_result = ret.I32;
-            return ret_result;
+            return ret.I32;
         }
 
         // gen! int GetEndColumn()
@@ -11381,8 +10891,7 @@ namespace LayoutFarm.CefBridge.Auto
             JsValue ret;
 
             Cef3Binder.MyCefMet_Call0(this.nativePtr, CefV8Exception_GetEndColumn_8, out ret);
-            var ret_result = ret.I32;
-            return ret_result;
+            return ret.I32;
         }
     }
 
@@ -11444,7 +10953,7 @@ namespace LayoutFarm.CefBridge.Auto
         const int CefV8Value_GetFunctionHandler_42 = (_typeNAME << 16) | 42;
         const int CefV8Value_ExecuteFunction_43 = (_typeNAME << 16) | 43;
         const int CefV8Value_ExecuteFunctionWithContext_44 = (_typeNAME << 16) | 44;
-        internal readonly IntPtr nativePtr;
+        internal IntPtr nativePtr;
         internal CefV8Value(IntPtr nativePtr)
         {
             this.nativePtr = nativePtr;
@@ -11453,6 +10962,7 @@ namespace LayoutFarm.CefBridge.Auto
         {
             JsValue ret;
             Cef3Binder.MyCefMet_Call0(this.nativePtr, CefV8Value_Release_0, out ret);
+            this.nativePtr = IntPtr.Zero;
         }
 
         // gen! bool IsValid()
@@ -11465,8 +10975,7 @@ namespace LayoutFarm.CefBridge.Auto
             JsValue ret;
 
             Cef3Binder.MyCefMet_Call0(this.nativePtr, CefV8Value_IsValid_1, out ret);
-            var ret_result = ret.I32 != 0;
-            return ret_result;
+            return ret.I32 != 0;
         }
 
         // gen! bool IsUndefined()
@@ -11480,8 +10989,7 @@ namespace LayoutFarm.CefBridge.Auto
             JsValue ret;
 
             Cef3Binder.MyCefMet_Call0(this.nativePtr, CefV8Value_IsUndefined_2, out ret);
-            var ret_result = ret.I32 != 0;
-            return ret_result;
+            return ret.I32 != 0;
         }
 
         // gen! bool IsNull()
@@ -11495,8 +11003,7 @@ namespace LayoutFarm.CefBridge.Auto
             JsValue ret;
 
             Cef3Binder.MyCefMet_Call0(this.nativePtr, CefV8Value_IsNull_3, out ret);
-            var ret_result = ret.I32 != 0;
-            return ret_result;
+            return ret.I32 != 0;
         }
 
         // gen! bool IsBool()
@@ -11510,8 +11017,7 @@ namespace LayoutFarm.CefBridge.Auto
             JsValue ret;
 
             Cef3Binder.MyCefMet_Call0(this.nativePtr, CefV8Value_IsBool_4, out ret);
-            var ret_result = ret.I32 != 0;
-            return ret_result;
+            return ret.I32 != 0;
         }
 
         // gen! bool IsInt()
@@ -11525,8 +11031,7 @@ namespace LayoutFarm.CefBridge.Auto
             JsValue ret;
 
             Cef3Binder.MyCefMet_Call0(this.nativePtr, CefV8Value_IsInt_5, out ret);
-            var ret_result = ret.I32 != 0;
-            return ret_result;
+            return ret.I32 != 0;
         }
 
         // gen! bool IsUInt()
@@ -11540,8 +11045,7 @@ namespace LayoutFarm.CefBridge.Auto
             JsValue ret;
 
             Cef3Binder.MyCefMet_Call0(this.nativePtr, CefV8Value_IsUInt_6, out ret);
-            var ret_result = ret.I32 != 0;
-            return ret_result;
+            return ret.I32 != 0;
         }
 
         // gen! bool IsDouble()
@@ -11555,8 +11059,7 @@ namespace LayoutFarm.CefBridge.Auto
             JsValue ret;
 
             Cef3Binder.MyCefMet_Call0(this.nativePtr, CefV8Value_IsDouble_7, out ret);
-            var ret_result = ret.I32 != 0;
-            return ret_result;
+            return ret.I32 != 0;
         }
 
         // gen! bool IsDate()
@@ -11570,8 +11073,7 @@ namespace LayoutFarm.CefBridge.Auto
             JsValue ret;
 
             Cef3Binder.MyCefMet_Call0(this.nativePtr, CefV8Value_IsDate_8, out ret);
-            var ret_result = ret.I32 != 0;
-            return ret_result;
+            return ret.I32 != 0;
         }
 
         // gen! bool IsString()
@@ -11585,8 +11087,7 @@ namespace LayoutFarm.CefBridge.Auto
             JsValue ret;
 
             Cef3Binder.MyCefMet_Call0(this.nativePtr, CefV8Value_IsString_9, out ret);
-            var ret_result = ret.I32 != 0;
-            return ret_result;
+            return ret.I32 != 0;
         }
 
         // gen! bool IsObject()
@@ -11600,8 +11101,7 @@ namespace LayoutFarm.CefBridge.Auto
             JsValue ret;
 
             Cef3Binder.MyCefMet_Call0(this.nativePtr, CefV8Value_IsObject_10, out ret);
-            var ret_result = ret.I32 != 0;
-            return ret_result;
+            return ret.I32 != 0;
         }
 
         // gen! bool IsArray()
@@ -11615,8 +11115,7 @@ namespace LayoutFarm.CefBridge.Auto
             JsValue ret;
 
             Cef3Binder.MyCefMet_Call0(this.nativePtr, CefV8Value_IsArray_11, out ret);
-            var ret_result = ret.I32 != 0;
-            return ret_result;
+            return ret.I32 != 0;
         }
 
         // gen! bool IsFunction()
@@ -11630,8 +11129,7 @@ namespace LayoutFarm.CefBridge.Auto
             JsValue ret;
 
             Cef3Binder.MyCefMet_Call0(this.nativePtr, CefV8Value_IsFunction_12, out ret);
-            var ret_result = ret.I32 != 0;
-            return ret_result;
+            return ret.I32 != 0;
         }
 
         // gen! bool IsSame(CefRefPtr<CefV8Value> that)
@@ -11641,16 +11139,14 @@ namespace LayoutFarm.CefBridge.Auto
         /// /*cef()*/
         /// </summary>
 
-        public bool IsSame(CefV8Value that
-        )
+        public bool IsSame(CefV8Value that)
         {
             JsValue v1 = new JsValue();
             JsValue ret;
             v1.Ptr = that.nativePtr;
 
             Cef3Binder.MyCefMet_Call1(this.nativePtr, CefV8Value_IsSame_13, out ret, ref v1);
-            var ret_result = ret.I32 != 0;
-            return ret_result;
+            return ret.I32 != 0;
         }
 
         // gen! bool GetBoolValue()
@@ -11664,8 +11160,7 @@ namespace LayoutFarm.CefBridge.Auto
             JsValue ret;
 
             Cef3Binder.MyCefMet_Call0(this.nativePtr, CefV8Value_GetBoolValue_14, out ret);
-            var ret_result = ret.I32 != 0;
-            return ret_result;
+            return ret.I32 != 0;
         }
 
         // gen! int32 GetIntValue()
@@ -11679,8 +11174,7 @@ namespace LayoutFarm.CefBridge.Auto
             JsValue ret;
 
             Cef3Binder.MyCefMet_Call0(this.nativePtr, CefV8Value_GetIntValue_15, out ret);
-            var ret_result = ret.I32;
-            return ret_result;
+            return ret.I32;
         }
 
         // gen! uint32 GetUIntValue()
@@ -11694,8 +11188,7 @@ namespace LayoutFarm.CefBridge.Auto
             JsValue ret;
 
             Cef3Binder.MyCefMet_Call0(this.nativePtr, CefV8Value_GetUIntValue_16, out ret);
-            var ret_result = (uint)ret.I32;
-            return ret_result;
+            return (uint)ret.I32;
         }
 
         // gen! double GetDoubleValue()
@@ -11709,8 +11202,7 @@ namespace LayoutFarm.CefBridge.Auto
             JsValue ret;
 
             Cef3Binder.MyCefMet_Call0(this.nativePtr, CefV8Value_GetDoubleValue_17, out ret);
-            var ret_result = ret.Num;
-            return ret_result;
+            return ret.Num;
         }
 
         // gen! CefTime GetDateValue()
@@ -11724,9 +11216,8 @@ namespace LayoutFarm.CefBridge.Auto
             JsValue ret;
 
             Cef3Binder.MyCefMet_Call0(this.nativePtr, CefV8Value_GetDateValue_18, out ret);
-            var ret_result = new CefTime(ret.Ptr);
+            return new CefTime(ret.Ptr);
 
-            return ret_result;
         }
 
         // gen! CefString GetStringValue()
@@ -11740,8 +11231,7 @@ namespace LayoutFarm.CefBridge.Auto
             JsValue ret;
 
             Cef3Binder.MyCefMet_Call0(this.nativePtr, CefV8Value_GetStringValue_19, out ret);
-            var ret_result = Cef3Binder.CopyStringAndDestroyNativeSide(ref ret);
-            return ret_result;
+            return Cef3Binder.CopyStringAndDestroyNativeSide(ref ret);
         }
 
         // gen! bool IsUserCreated()
@@ -11758,8 +11248,7 @@ namespace LayoutFarm.CefBridge.Auto
             JsValue ret;
 
             Cef3Binder.MyCefMet_Call0(this.nativePtr, CefV8Value_IsUserCreated_20, out ret);
-            var ret_result = ret.I32 != 0;
-            return ret_result;
+            return ret.I32 != 0;
         }
 
         // gen! bool HasException()
@@ -11774,8 +11263,7 @@ namespace LayoutFarm.CefBridge.Auto
             JsValue ret;
 
             Cef3Binder.MyCefMet_Call0(this.nativePtr, CefV8Value_HasException_21, out ret);
-            var ret_result = ret.I32 != 0;
-            return ret_result;
+            return ret.I32 != 0;
         }
 
         // gen! CefRefPtr<CefV8Exception> GetException()
@@ -11790,8 +11278,7 @@ namespace LayoutFarm.CefBridge.Auto
             JsValue ret;
 
             Cef3Binder.MyCefMet_Call0(this.nativePtr, CefV8Value_GetException_22, out ret);
-            var ret_result = new CefV8Exception(ret.Ptr);
-            return ret_result;
+            return new CefV8Exception(ret.Ptr);
         }
 
         // gen! bool ClearException()
@@ -11805,8 +11292,7 @@ namespace LayoutFarm.CefBridge.Auto
             JsValue ret;
 
             Cef3Binder.MyCefMet_Call0(this.nativePtr, CefV8Value_ClearException_23, out ret);
-            var ret_result = ret.I32 != 0;
-            return ret_result;
+            return ret.I32 != 0;
         }
 
         // gen! bool WillRethrowExceptions()
@@ -11821,8 +11307,7 @@ namespace LayoutFarm.CefBridge.Auto
             JsValue ret;
 
             Cef3Binder.MyCefMet_Call0(this.nativePtr, CefV8Value_WillRethrowExceptions_24, out ret);
-            var ret_result = ret.I32 != 0;
-            return ret_result;
+            return ret.I32 != 0;
         }
 
         // gen! bool SetRethrowExceptions(bool rethrow)
@@ -11835,22 +11320,19 @@ namespace LayoutFarm.CefBridge.Auto
         /// /*cef()*/
         /// </summary>
 
-        public bool SetRethrowExceptions(bool rethrow
-        )
+        public bool SetRethrowExceptions(bool rethrow)
         {
             JsValue v1 = new JsValue();
             JsValue ret;
             v1.I32 = rethrow ? 1 : 0;
 
             Cef3Binder.MyCefMet_Call1(this.nativePtr, CefV8Value_SetRethrowExceptions_25, out ret, ref v1);
-            var ret_result = ret.I32 != 0;
-            return ret_result;
+            return ret.I32 != 0;
         }
 
         // gen! bool HasValue(const CefString& key)
 
-        public bool HasValue(string key
-        )
+        public bool HasValue(string key)
         {
             JsValue v1 = new JsValue();
             JsValue ret;
@@ -11858,29 +11340,25 @@ namespace LayoutFarm.CefBridge.Auto
             ;
 
             Cef3Binder.MyCefMet_Call1(this.nativePtr, CefV8Value_HasValue_26, out ret, ref v1);
-            var ret_result = ret.I32 != 0;
             Cef3Binder.MyCefDeletePtr(v1.Ptr); ;
-            return ret_result;
+            return ret.I32 != 0;
         }
 
         // gen! bool HasValue(int index)
 
-        public bool HasValue(int index
-        )
+        public bool HasValue(int index)
         {
             JsValue v1 = new JsValue();
             JsValue ret;
             v1.I32 = (int)index;
 
             Cef3Binder.MyCefMet_Call1(this.nativePtr, CefV8Value_HasValue_27, out ret, ref v1);
-            var ret_result = ret.I32 != 0;
-            return ret_result;
+            return ret.I32 != 0;
         }
 
         // gen! bool DeleteValue(const CefString& key)
 
-        public bool DeleteValue(string key
-        )
+        public bool DeleteValue(string key)
         {
             JsValue v1 = new JsValue();
             JsValue ret;
@@ -11888,29 +11366,25 @@ namespace LayoutFarm.CefBridge.Auto
             ;
 
             Cef3Binder.MyCefMet_Call1(this.nativePtr, CefV8Value_DeleteValue_28, out ret, ref v1);
-            var ret_result = ret.I32 != 0;
             Cef3Binder.MyCefDeletePtr(v1.Ptr); ;
-            return ret_result;
+            return ret.I32 != 0;
         }
 
         // gen! bool DeleteValue(int index)
 
-        public bool DeleteValue(int index
-        )
+        public bool DeleteValue(int index)
         {
             JsValue v1 = new JsValue();
             JsValue ret;
             v1.I32 = (int)index;
 
             Cef3Binder.MyCefMet_Call1(this.nativePtr, CefV8Value_DeleteValue_29, out ret, ref v1);
-            var ret_result = ret.I32 != 0;
-            return ret_result;
+            return ret.I32 != 0;
         }
 
         // gen! CefRefPtr<CefV8Value> GetValue(const CefString& key)
 
-        public CefV8Value GetValue(string key
-        )
+        public CefV8Value GetValue(string key)
         {
             JsValue v1 = new JsValue();
             JsValue ret;
@@ -11918,31 +11392,27 @@ namespace LayoutFarm.CefBridge.Auto
             ;
 
             Cef3Binder.MyCefMet_Call1(this.nativePtr, CefV8Value_GetValue_30, out ret, ref v1);
-            var ret_result = new CefV8Value(ret.Ptr);
             Cef3Binder.MyCefDeletePtr(v1.Ptr); ;
-            return ret_result;
+            return new CefV8Value(ret.Ptr);
         }
 
         // gen! CefRefPtr<CefV8Value> GetValue(int index)
 
-        public CefV8Value GetValue(int index
-        )
+        public CefV8Value GetValue(int index)
         {
             JsValue v1 = new JsValue();
             JsValue ret;
             v1.I32 = (int)index;
 
             Cef3Binder.MyCefMet_Call1(this.nativePtr, CefV8Value_GetValue_31, out ret, ref v1);
-            var ret_result = new CefV8Value(ret.Ptr);
-            return ret_result;
+            return new CefV8Value(ret.Ptr);
         }
 
         // gen! bool SetValue(const CefString& key,CefRefPtr<CefV8Value> value,PropertyAttribute attribute)
 
-        public bool SetValue(string key
-        , CefV8Value value
-        , cef_v8_propertyattribute_t attribute
-        )
+        public bool SetValue(string key,
+        CefV8Value value,
+        cef_v8_propertyattribute_t attribute)
         {
             JsValue v1 = new JsValue();
             JsValue v2 = new JsValue();
@@ -11954,16 +11424,14 @@ namespace LayoutFarm.CefBridge.Auto
             v3.I32 = (int)attribute;
 
             Cef3Binder.MyCefMet_Call3(this.nativePtr, CefV8Value_SetValue_32, out ret, ref v1, ref v2, ref v3);
-            var ret_result = ret.I32 != 0;
             Cef3Binder.MyCefDeletePtr(v1.Ptr); ;
-            return ret_result;
+            return ret.I32 != 0;
         }
 
         // gen! bool SetValue(int index,CefRefPtr<CefV8Value> value)
 
-        public bool SetValue(int index
-        , CefV8Value value
-        )
+        public bool SetValue(int index,
+        CefV8Value value)
         {
             JsValue v1 = new JsValue();
             JsValue v2 = new JsValue();
@@ -11972,16 +11440,14 @@ namespace LayoutFarm.CefBridge.Auto
             v2.Ptr = value.nativePtr;
 
             Cef3Binder.MyCefMet_Call2(this.nativePtr, CefV8Value_SetValue_33, out ret, ref v1, ref v2);
-            var ret_result = ret.I32 != 0;
-            return ret_result;
+            return ret.I32 != 0;
         }
 
         // gen! bool SetValue(const CefString& key,AccessControl settings,PropertyAttribute attribute)
 
-        public bool SetValue(string key
-        , cef_v8_accesscontrol_t settings
-        , cef_v8_propertyattribute_t attribute
-        )
+        public bool SetValue(string key,
+        cef_v8_accesscontrol_t settings,
+        cef_v8_propertyattribute_t attribute)
         {
             JsValue v1 = new JsValue();
             JsValue v2 = new JsValue();
@@ -11993,9 +11459,8 @@ namespace LayoutFarm.CefBridge.Auto
             v3.I32 = (int)attribute;
 
             Cef3Binder.MyCefMet_Call3(this.nativePtr, CefV8Value_SetValue_34, out ret, ref v1, ref v2, ref v3);
-            var ret_result = ret.I32 != 0;
             Cef3Binder.MyCefDeletePtr(v1.Ptr); ;
-            return ret_result;
+            return ret.I32 != 0;
         }
 
         // gen! bool GetKeys(std::vector<CefString>& keys)
@@ -12005,17 +11470,15 @@ namespace LayoutFarm.CefBridge.Auto
         /// /*cef()*/
         /// </summary>
 
-        public bool GetKeys(List<string> keys
-        )
+        public bool GetKeys(List<string> keys)
         {
             JsValue v1 = new JsValue();
             JsValue ret;
             v1.Ptr = Cef3Binder.CreateStdList(2);
 
             Cef3Binder.MyCefMet_Call1(this.nativePtr, CefV8Value_GetKeys_35, out ret, ref v1);
-            var ret_result = ret.I32 != 0;
             Cef3Binder.CopyStdStringListAndDestroyNativeSide(v1.Ptr, keys);
-            return ret_result;
+            return ret.I32 != 0;
         }
 
         // gen! bool SetUserData(CefRefPtr<CefBaseRefCounted> user_data)
@@ -12026,16 +11489,14 @@ namespace LayoutFarm.CefBridge.Auto
         /// /*cef(optional_param=user_data)*/
         /// </summary>
 
-        public bool SetUserData(CefBaseRefCounted user_data
-        )
+        public bool SetUserData(CefBaseRefCounted user_data)
         {
             JsValue v1 = new JsValue();
             JsValue ret;
-            //v1.Ptr = user_data;
+            v1.Ptr = user_data.nativePtr;
 
             Cef3Binder.MyCefMet_Call1(this.nativePtr, CefV8Value_SetUserData_36, out ret, ref v1);
-            var ret_result = ret.I32 != 0;
-            return ret_result;
+            return ret.I32 != 0;
         }
 
         // gen! CefRefPtr<CefBaseRefCounted> GetUserData()
@@ -12049,8 +11510,7 @@ namespace LayoutFarm.CefBridge.Auto
             JsValue ret;
 
             Cef3Binder.MyCefMet_Call0(this.nativePtr, CefV8Value_GetUserData_37, out ret);
-            var ret_result = new CefBaseRefCounted(ret.Ptr);
-            return ret_result;
+            return new CefBaseRefCounted(ret.Ptr);
         }
 
         // gen! int GetExternallyAllocatedMemory()
@@ -12065,8 +11525,7 @@ namespace LayoutFarm.CefBridge.Auto
             JsValue ret;
 
             Cef3Binder.MyCefMet_Call0(this.nativePtr, CefV8Value_GetExternallyAllocatedMemory_38, out ret);
-            var ret_result = ret.I32;
-            return ret_result;
+            return ret.I32;
         }
 
         // gen! int AdjustExternallyAllocatedMemory(int change_in_bytes)
@@ -12083,16 +11542,14 @@ namespace LayoutFarm.CefBridge.Auto
         /// /*cef()*/
         /// </summary>
 
-        public int AdjustExternallyAllocatedMemory(int change_in_bytes
-        )
+        public int AdjustExternallyAllocatedMemory(int change_in_bytes)
         {
             JsValue v1 = new JsValue();
             JsValue ret;
             v1.I32 = (int)change_in_bytes;
 
             Cef3Binder.MyCefMet_Call1(this.nativePtr, CefV8Value_AdjustExternallyAllocatedMemory_39, out ret, ref v1);
-            var ret_result = ret.I32;
-            return ret_result;
+            return ret.I32;
         }
 
         // gen! int GetArrayLength()
@@ -12107,8 +11564,7 @@ namespace LayoutFarm.CefBridge.Auto
             JsValue ret;
 
             Cef3Binder.MyCefMet_Call0(this.nativePtr, CefV8Value_GetArrayLength_40, out ret);
-            var ret_result = ret.I32;
-            return ret_result;
+            return ret.I32;
         }
 
         // gen! CefString GetFunctionName()
@@ -12123,8 +11579,7 @@ namespace LayoutFarm.CefBridge.Auto
             JsValue ret;
 
             Cef3Binder.MyCefMet_Call0(this.nativePtr, CefV8Value_GetFunctionName_41, out ret);
-            var ret_result = Cef3Binder.CopyStringAndDestroyNativeSide(ref ret);
-            return ret_result;
+            return Cef3Binder.CopyStringAndDestroyNativeSide(ref ret);
         }
 
         // gen! CefRefPtr<CefV8Handler> GetFunctionHandler()
@@ -12138,8 +11593,7 @@ namespace LayoutFarm.CefBridge.Auto
             JsValue ret;
 
             Cef3Binder.MyCefMet_Call0(this.nativePtr, CefV8Value_GetFunctionHandler_42, out ret);
-            var ret_result = new CefV8Handler(ret.Ptr);
-            return ret_result;
+            return new CefV8Handler(ret.Ptr);
         }
 
         // gen! CefRefPtr<CefV8Value> ExecuteFunction(CefRefPtr<CefV8Value> object,const CefV8ValueList& arguments)
@@ -12155,9 +11609,8 @@ namespace LayoutFarm.CefBridge.Auto
         /// /*cef(optional_param=object)*/
         /// </summary>
 
-        public CefV8Value ExecuteFunction(CefV8Value _object
-        , CefV8ValueList arguments
-        )
+        public CefV8Value ExecuteFunction(CefV8Value _object,
+        CefV8ValueList arguments)
         {
             JsValue v1 = new JsValue();
             JsValue v2 = new JsValue();
@@ -12166,8 +11619,7 @@ namespace LayoutFarm.CefBridge.Auto
             v2.Ptr = arguments.nativePtr;
 
             Cef3Binder.MyCefMet_Call2(this.nativePtr, CefV8Value_ExecuteFunction_43, out ret, ref v1, ref v2);
-            var ret_result = new CefV8Value(ret.Ptr);
-            return ret_result;
+            return new CefV8Value(ret.Ptr);
         }
 
         // gen! CefRefPtr<CefV8Value> ExecuteFunctionWithContext(CefRefPtr<CefV8Context> context,CefRefPtr<CefV8Value> object,const CefV8ValueList& arguments)
@@ -12181,10 +11633,9 @@ namespace LayoutFarm.CefBridge.Auto
         /// /*cef(optional_param=object)*/
         /// </summary>
 
-        public CefV8Value ExecuteFunctionWithContext(CefV8Context context
-        , CefV8Value _object
-        , CefV8ValueList arguments
-        )
+        public CefV8Value ExecuteFunctionWithContext(CefV8Context context,
+        CefV8Value _object,
+        CefV8ValueList arguments)
         {
             JsValue v1 = new JsValue();
             JsValue v2 = new JsValue();
@@ -12195,8 +11646,7 @@ namespace LayoutFarm.CefBridge.Auto
             v3.Ptr = arguments.nativePtr;
 
             Cef3Binder.MyCefMet_Call3(this.nativePtr, CefV8Value_ExecuteFunctionWithContext_44, out ret, ref v1, ref v2, ref v3);
-            var ret_result = new CefV8Value(ret.Ptr);
-            return ret_result;
+            return new CefV8Value(ret.Ptr);
         }
     }
 
@@ -12217,7 +11667,7 @@ namespace LayoutFarm.CefBridge.Auto
         const int CefV8StackTrace_IsValid_1 = (_typeNAME << 16) | 1;
         const int CefV8StackTrace_GetFrameCount_2 = (_typeNAME << 16) | 2;
         const int CefV8StackTrace_GetFrame_3 = (_typeNAME << 16) | 3;
-        internal readonly IntPtr nativePtr;
+        internal IntPtr nativePtr;
         internal CefV8StackTrace(IntPtr nativePtr)
         {
             this.nativePtr = nativePtr;
@@ -12226,6 +11676,7 @@ namespace LayoutFarm.CefBridge.Auto
         {
             JsValue ret;
             Cef3Binder.MyCefMet_Call0(this.nativePtr, CefV8StackTrace_Release_0, out ret);
+            this.nativePtr = IntPtr.Zero;
         }
 
         // gen! bool IsValid()
@@ -12238,8 +11689,7 @@ namespace LayoutFarm.CefBridge.Auto
             JsValue ret;
 
             Cef3Binder.MyCefMet_Call0(this.nativePtr, CefV8StackTrace_IsValid_1, out ret);
-            var ret_result = ret.I32 != 0;
-            return ret_result;
+            return ret.I32 != 0;
         }
 
         // gen! int GetFrameCount()
@@ -12253,8 +11703,7 @@ namespace LayoutFarm.CefBridge.Auto
             JsValue ret;
 
             Cef3Binder.MyCefMet_Call0(this.nativePtr, CefV8StackTrace_GetFrameCount_2, out ret);
-            var ret_result = ret.I32;
-            return ret_result;
+            return ret.I32;
         }
 
         // gen! CefRefPtr<CefV8StackFrame> GetFrame(int index)
@@ -12263,16 +11712,14 @@ namespace LayoutFarm.CefBridge.Auto
         /// /*cef()*/
         /// </summary>
 
-        public CefV8StackFrame GetFrame(int index
-        )
+        public CefV8StackFrame GetFrame(int index)
         {
             JsValue v1 = new JsValue();
             JsValue ret;
             v1.I32 = (int)index;
 
             Cef3Binder.MyCefMet_Call1(this.nativePtr, CefV8StackTrace_GetFrame_3, out ret, ref v1);
-            var ret_result = new CefV8StackFrame(ret.Ptr);
-            return ret_result;
+            return new CefV8StackFrame(ret.Ptr);
         }
     }
 
@@ -12298,7 +11745,7 @@ namespace LayoutFarm.CefBridge.Auto
         const int CefV8StackFrame_GetColumn_6 = (_typeNAME << 16) | 6;
         const int CefV8StackFrame_IsEval_7 = (_typeNAME << 16) | 7;
         const int CefV8StackFrame_IsConstructor_8 = (_typeNAME << 16) | 8;
-        internal readonly IntPtr nativePtr;
+        internal IntPtr nativePtr;
         internal CefV8StackFrame(IntPtr nativePtr)
         {
             this.nativePtr = nativePtr;
@@ -12307,6 +11754,7 @@ namespace LayoutFarm.CefBridge.Auto
         {
             JsValue ret;
             Cef3Binder.MyCefMet_Call0(this.nativePtr, CefV8StackFrame_Release_0, out ret);
+            this.nativePtr = IntPtr.Zero;
         }
 
         // gen! bool IsValid()
@@ -12319,8 +11767,7 @@ namespace LayoutFarm.CefBridge.Auto
             JsValue ret;
 
             Cef3Binder.MyCefMet_Call0(this.nativePtr, CefV8StackFrame_IsValid_1, out ret);
-            var ret_result = ret.I32 != 0;
-            return ret_result;
+            return ret.I32 != 0;
         }
 
         // gen! CefString GetScriptName()
@@ -12334,8 +11781,7 @@ namespace LayoutFarm.CefBridge.Auto
             JsValue ret;
 
             Cef3Binder.MyCefMet_Call0(this.nativePtr, CefV8StackFrame_GetScriptName_2, out ret);
-            var ret_result = Cef3Binder.CopyStringAndDestroyNativeSide(ref ret);
-            return ret_result;
+            return Cef3Binder.CopyStringAndDestroyNativeSide(ref ret);
         }
 
         // gen! CefString GetScriptNameOrSourceURL()
@@ -12351,8 +11797,7 @@ namespace LayoutFarm.CefBridge.Auto
             JsValue ret;
 
             Cef3Binder.MyCefMet_Call0(this.nativePtr, CefV8StackFrame_GetScriptNameOrSourceURL_3, out ret);
-            var ret_result = Cef3Binder.CopyStringAndDestroyNativeSide(ref ret);
-            return ret_result;
+            return Cef3Binder.CopyStringAndDestroyNativeSide(ref ret);
         }
 
         // gen! CefString GetFunctionName()
@@ -12366,8 +11811,7 @@ namespace LayoutFarm.CefBridge.Auto
             JsValue ret;
 
             Cef3Binder.MyCefMet_Call0(this.nativePtr, CefV8StackFrame_GetFunctionName_4, out ret);
-            var ret_result = Cef3Binder.CopyStringAndDestroyNativeSide(ref ret);
-            return ret_result;
+            return Cef3Binder.CopyStringAndDestroyNativeSide(ref ret);
         }
 
         // gen! int GetLineNumber()
@@ -12381,8 +11825,7 @@ namespace LayoutFarm.CefBridge.Auto
             JsValue ret;
 
             Cef3Binder.MyCefMet_Call0(this.nativePtr, CefV8StackFrame_GetLineNumber_5, out ret);
-            var ret_result = ret.I32;
-            return ret_result;
+            return ret.I32;
         }
 
         // gen! int GetColumn()
@@ -12397,8 +11840,7 @@ namespace LayoutFarm.CefBridge.Auto
             JsValue ret;
 
             Cef3Binder.MyCefMet_Call0(this.nativePtr, CefV8StackFrame_GetColumn_6, out ret);
-            var ret_result = ret.I32;
-            return ret_result;
+            return ret.I32;
         }
 
         // gen! bool IsEval()
@@ -12412,8 +11854,7 @@ namespace LayoutFarm.CefBridge.Auto
             JsValue ret;
 
             Cef3Binder.MyCefMet_Call0(this.nativePtr, CefV8StackFrame_IsEval_7, out ret);
-            var ret_result = ret.I32 != 0;
-            return ret_result;
+            return ret.I32 != 0;
         }
 
         // gen! bool IsConstructor()
@@ -12427,8 +11868,7 @@ namespace LayoutFarm.CefBridge.Auto
             JsValue ret;
 
             Cef3Binder.MyCefMet_Call0(this.nativePtr, CefV8StackFrame_IsConstructor_8, out ret);
-            var ret_result = ret.I32 != 0;
-            return ret_result;
+            return ret.I32 != 0;
         }
     }
 
@@ -12466,7 +11906,7 @@ namespace LayoutFarm.CefBridge.Auto
         const int CefValue_SetBinary_20 = (_typeNAME << 16) | 20;
         const int CefValue_SetDictionary_21 = (_typeNAME << 16) | 21;
         const int CefValue_SetList_22 = (_typeNAME << 16) | 22;
-        internal readonly IntPtr nativePtr;
+        internal IntPtr nativePtr;
         internal CefValue(IntPtr nativePtr)
         {
             this.nativePtr = nativePtr;
@@ -12475,6 +11915,7 @@ namespace LayoutFarm.CefBridge.Auto
         {
             JsValue ret;
             Cef3Binder.MyCefMet_Call0(this.nativePtr, CefValue_Release_0, out ret);
+            this.nativePtr = IntPtr.Zero;
         }
 
         // gen! bool IsValid()
@@ -12487,8 +11928,7 @@ namespace LayoutFarm.CefBridge.Auto
             JsValue ret;
 
             Cef3Binder.MyCefMet_Call0(this.nativePtr, CefValue_IsValid_1, out ret);
-            var ret_result = ret.I32 != 0;
-            return ret_result;
+            return ret.I32 != 0;
         }
 
         // gen! bool IsOwned()
@@ -12502,8 +11942,7 @@ namespace LayoutFarm.CefBridge.Auto
             JsValue ret;
 
             Cef3Binder.MyCefMet_Call0(this.nativePtr, CefValue_IsOwned_2, out ret);
-            var ret_result = ret.I32 != 0;
-            return ret_result;
+            return ret.I32 != 0;
         }
 
         // gen! bool IsReadOnly()
@@ -12518,8 +11957,7 @@ namespace LayoutFarm.CefBridge.Auto
             JsValue ret;
 
             Cef3Binder.MyCefMet_Call0(this.nativePtr, CefValue_IsReadOnly_3, out ret);
-            var ret_result = ret.I32 != 0;
-            return ret_result;
+            return ret.I32 != 0;
         }
 
         // gen! bool IsSame(CefRefPtr<CefValue> that)
@@ -12530,16 +11968,14 @@ namespace LayoutFarm.CefBridge.Auto
         /// /*cef()*/
         /// </summary>
 
-        public bool IsSame(CefValue that
-        )
+        public bool IsSame(CefValue that)
         {
             JsValue v1 = new JsValue();
             JsValue ret;
             v1.Ptr = that.nativePtr;
 
             Cef3Binder.MyCefMet_Call1(this.nativePtr, CefValue_IsSame_4, out ret, ref v1);
-            var ret_result = ret.I32 != 0;
-            return ret_result;
+            return ret.I32 != 0;
         }
 
         // gen! bool IsEqual(CefRefPtr<CefValue> that)
@@ -12549,16 +11985,14 @@ namespace LayoutFarm.CefBridge.Auto
         /// /*cef()*/
         /// </summary>
 
-        public bool IsEqual(CefValue that
-        )
+        public bool IsEqual(CefValue that)
         {
             JsValue v1 = new JsValue();
             JsValue ret;
             v1.Ptr = that.nativePtr;
 
             Cef3Binder.MyCefMet_Call1(this.nativePtr, CefValue_IsEqual_5, out ret, ref v1);
-            var ret_result = ret.I32 != 0;
-            return ret_result;
+            return ret.I32 != 0;
         }
 
         // gen! CefRefPtr<CefValue> Copy()
@@ -12572,8 +12006,7 @@ namespace LayoutFarm.CefBridge.Auto
             JsValue ret;
 
             Cef3Binder.MyCefMet_Call0(this.nativePtr, CefValue_Copy_6, out ret);
-            var ret_result = new CefValue(ret.Ptr);
-            return ret_result;
+            return new CefValue(ret.Ptr);
         }
 
         // gen! CefValueType GetType()
@@ -12587,9 +12020,8 @@ namespace LayoutFarm.CefBridge.Auto
             JsValue ret;
 
             Cef3Binder.MyCefMet_Call0(this.nativePtr, CefValue_GetType_7, out ret);
-            var ret_result = (cef_value_type_t)ret.I32;
+            return (cef_value_type_t)ret.I32;
 
-            return ret_result;
         }
 
         // gen! bool GetBool()
@@ -12603,8 +12035,7 @@ namespace LayoutFarm.CefBridge.Auto
             JsValue ret;
 
             Cef3Binder.MyCefMet_Call0(this.nativePtr, CefValue_GetBool_8, out ret);
-            var ret_result = ret.I32 != 0;
-            return ret_result;
+            return ret.I32 != 0;
         }
 
         // gen! int GetInt()
@@ -12618,8 +12049,7 @@ namespace LayoutFarm.CefBridge.Auto
             JsValue ret;
 
             Cef3Binder.MyCefMet_Call0(this.nativePtr, CefValue_GetInt_9, out ret);
-            var ret_result = ret.I32;
-            return ret_result;
+            return ret.I32;
         }
 
         // gen! double GetDouble()
@@ -12633,8 +12063,7 @@ namespace LayoutFarm.CefBridge.Auto
             JsValue ret;
 
             Cef3Binder.MyCefMet_Call0(this.nativePtr, CefValue_GetDouble_10, out ret);
-            var ret_result = ret.Num;
-            return ret_result;
+            return ret.Num;
         }
 
         // gen! CefString GetString()
@@ -12648,8 +12077,7 @@ namespace LayoutFarm.CefBridge.Auto
             JsValue ret;
 
             Cef3Binder.MyCefMet_Call0(this.nativePtr, CefValue_GetString_11, out ret);
-            var ret_result = Cef3Binder.CopyStringAndDestroyNativeSide(ref ret);
-            return ret_result;
+            return Cef3Binder.CopyStringAndDestroyNativeSide(ref ret);
         }
 
         // gen! CefRefPtr<CefBinaryValue> GetBinary()
@@ -12668,8 +12096,7 @@ namespace LayoutFarm.CefBridge.Auto
             JsValue ret;
 
             Cef3Binder.MyCefMet_Call0(this.nativePtr, CefValue_GetBinary_12, out ret);
-            var ret_result = new CefBinaryValue(ret.Ptr);
-            return ret_result;
+            return new CefBinaryValue(ret.Ptr);
         }
 
         // gen! CefRefPtr<CefDictionaryValue> GetDictionary()
@@ -12688,8 +12115,7 @@ namespace LayoutFarm.CefBridge.Auto
             JsValue ret;
 
             Cef3Binder.MyCefMet_Call0(this.nativePtr, CefValue_GetDictionary_13, out ret);
-            var ret_result = new CefDictionaryValue(ret.Ptr);
-            return ret_result;
+            return new CefDictionaryValue(ret.Ptr);
         }
 
         // gen! CefRefPtr<CefListValue> GetList()
@@ -12708,8 +12134,7 @@ namespace LayoutFarm.CefBridge.Auto
             JsValue ret;
 
             Cef3Binder.MyCefMet_Call0(this.nativePtr, CefValue_GetList_14, out ret);
-            var ret_result = new CefListValue(ret.Ptr);
-            return ret_result;
+            return new CefListValue(ret.Ptr);
         }
 
         // gen! bool SetNull()
@@ -12724,8 +12149,7 @@ namespace LayoutFarm.CefBridge.Auto
             JsValue ret;
 
             Cef3Binder.MyCefMet_Call0(this.nativePtr, CefValue_SetNull_15, out ret);
-            var ret_result = ret.I32 != 0;
-            return ret_result;
+            return ret.I32 != 0;
         }
 
         // gen! bool SetBool(bool value)
@@ -12735,16 +12159,14 @@ namespace LayoutFarm.CefBridge.Auto
         /// /*cef()*/
         /// </summary>
 
-        public bool SetBool(bool value
-        )
+        public bool SetBool(bool value)
         {
             JsValue v1 = new JsValue();
             JsValue ret;
             v1.I32 = value ? 1 : 0;
 
             Cef3Binder.MyCefMet_Call1(this.nativePtr, CefValue_SetBool_16, out ret, ref v1);
-            var ret_result = ret.I32 != 0;
-            return ret_result;
+            return ret.I32 != 0;
         }
 
         // gen! bool SetInt(int value)
@@ -12754,16 +12176,14 @@ namespace LayoutFarm.CefBridge.Auto
         /// /*cef()*/
         /// </summary>
 
-        public bool SetInt(int value
-        )
+        public bool SetInt(int value)
         {
             JsValue v1 = new JsValue();
             JsValue ret;
             v1.I32 = (int)value;
 
             Cef3Binder.MyCefMet_Call1(this.nativePtr, CefValue_SetInt_17, out ret, ref v1);
-            var ret_result = ret.I32 != 0;
-            return ret_result;
+            return ret.I32 != 0;
         }
 
         // gen! bool SetDouble(double value)
@@ -12773,16 +12193,14 @@ namespace LayoutFarm.CefBridge.Auto
         /// /*cef()*/
         /// </summary>
 
-        public bool SetDouble(double value
-        )
+        public bool SetDouble(double value)
         {
             JsValue v1 = new JsValue();
             JsValue ret;
             v1.Num = value;
 
             Cef3Binder.MyCefMet_Call1(this.nativePtr, CefValue_SetDouble_18, out ret, ref v1);
-            var ret_result = ret.I32 != 0;
-            return ret_result;
+            return ret.I32 != 0;
         }
 
         // gen! bool SetString(const CefString& value)
@@ -12792,8 +12210,7 @@ namespace LayoutFarm.CefBridge.Auto
         /// /*cef(optional_param=value)*/
         /// </summary>
 
-        public bool SetString(string value
-        )
+        public bool SetString(string value)
         {
             JsValue v1 = new JsValue();
             JsValue ret;
@@ -12801,9 +12218,8 @@ namespace LayoutFarm.CefBridge.Auto
             ;
 
             Cef3Binder.MyCefMet_Call1(this.nativePtr, CefValue_SetString_19, out ret, ref v1);
-            var ret_result = ret.I32 != 0;
             Cef3Binder.MyCefDeletePtr(v1.Ptr); ;
-            return ret_result;
+            return ret.I32 != 0;
         }
 
         // gen! bool SetBinary(CefRefPtr<CefBinaryValue> value)
@@ -12814,16 +12230,14 @@ namespace LayoutFarm.CefBridge.Auto
         /// /*cef()*/
         /// </summary>
 
-        public bool SetBinary(CefBinaryValue value
-        )
+        public bool SetBinary(CefBinaryValue value)
         {
             JsValue v1 = new JsValue();
             JsValue ret;
             v1.Ptr = value.nativePtr;
 
             Cef3Binder.MyCefMet_Call1(this.nativePtr, CefValue_SetBinary_20, out ret, ref v1);
-            var ret_result = ret.I32 != 0;
-            return ret_result;
+            return ret.I32 != 0;
         }
 
         // gen! bool SetDictionary(CefRefPtr<CefDictionaryValue> value)
@@ -12834,16 +12248,14 @@ namespace LayoutFarm.CefBridge.Auto
         /// /*cef()*/
         /// </summary>
 
-        public bool SetDictionary(CefDictionaryValue value
-        )
+        public bool SetDictionary(CefDictionaryValue value)
         {
             JsValue v1 = new JsValue();
             JsValue ret;
             v1.Ptr = value.nativePtr;
 
             Cef3Binder.MyCefMet_Call1(this.nativePtr, CefValue_SetDictionary_21, out ret, ref v1);
-            var ret_result = ret.I32 != 0;
-            return ret_result;
+            return ret.I32 != 0;
         }
 
         // gen! bool SetList(CefRefPtr<CefListValue> value)
@@ -12854,16 +12266,14 @@ namespace LayoutFarm.CefBridge.Auto
         /// /*cef()*/
         /// </summary>
 
-        public bool SetList(CefListValue value
-        )
+        public bool SetList(CefListValue value)
         {
             JsValue v1 = new JsValue();
             JsValue ret;
             v1.Ptr = value.nativePtr;
 
             Cef3Binder.MyCefMet_Call1(this.nativePtr, CefValue_SetList_22, out ret, ref v1);
-            var ret_result = ret.I32 != 0;
-            return ret_result;
+            return ret.I32 != 0;
         }
     }
 
@@ -12884,7 +12294,7 @@ namespace LayoutFarm.CefBridge.Auto
         const int CefBinaryValue_Copy_5 = (_typeNAME << 16) | 5;
         const int CefBinaryValue_GetSize_6 = (_typeNAME << 16) | 6;
         const int CefBinaryValue_GetData_7 = (_typeNAME << 16) | 7;
-        internal readonly IntPtr nativePtr;
+        internal IntPtr nativePtr;
         internal CefBinaryValue(IntPtr nativePtr)
         {
             this.nativePtr = nativePtr;
@@ -12893,6 +12303,7 @@ namespace LayoutFarm.CefBridge.Auto
         {
             JsValue ret;
             Cef3Binder.MyCefMet_Call0(this.nativePtr, CefBinaryValue_Release_0, out ret);
+            this.nativePtr = IntPtr.Zero;
         }
 
         // gen! bool IsValid()
@@ -12905,8 +12316,7 @@ namespace LayoutFarm.CefBridge.Auto
             JsValue ret;
 
             Cef3Binder.MyCefMet_Call0(this.nativePtr, CefBinaryValue_IsValid_1, out ret);
-            var ret_result = ret.I32 != 0;
-            return ret_result;
+            return ret.I32 != 0;
         }
 
         // gen! bool IsOwned()
@@ -12920,8 +12330,7 @@ namespace LayoutFarm.CefBridge.Auto
             JsValue ret;
 
             Cef3Binder.MyCefMet_Call0(this.nativePtr, CefBinaryValue_IsOwned_2, out ret);
-            var ret_result = ret.I32 != 0;
-            return ret_result;
+            return ret.I32 != 0;
         }
 
         // gen! bool IsSame(CefRefPtr<CefBinaryValue> that)
@@ -12931,16 +12340,14 @@ namespace LayoutFarm.CefBridge.Auto
         /// /*cef()*/
         /// </summary>
 
-        public bool IsSame(CefBinaryValue that
-        )
+        public bool IsSame(CefBinaryValue that)
         {
             JsValue v1 = new JsValue();
             JsValue ret;
             v1.Ptr = that.nativePtr;
 
             Cef3Binder.MyCefMet_Call1(this.nativePtr, CefBinaryValue_IsSame_3, out ret, ref v1);
-            var ret_result = ret.I32 != 0;
-            return ret_result;
+            return ret.I32 != 0;
         }
 
         // gen! bool IsEqual(CefRefPtr<CefBinaryValue> that)
@@ -12950,16 +12357,14 @@ namespace LayoutFarm.CefBridge.Auto
         /// /*cef()*/
         /// </summary>
 
-        public bool IsEqual(CefBinaryValue that
-        )
+        public bool IsEqual(CefBinaryValue that)
         {
             JsValue v1 = new JsValue();
             JsValue ret;
             v1.Ptr = that.nativePtr;
 
             Cef3Binder.MyCefMet_Call1(this.nativePtr, CefBinaryValue_IsEqual_4, out ret, ref v1);
-            var ret_result = ret.I32 != 0;
-            return ret_result;
+            return ret.I32 != 0;
         }
 
         // gen! CefRefPtr<CefBinaryValue> Copy()
@@ -12973,8 +12378,7 @@ namespace LayoutFarm.CefBridge.Auto
             JsValue ret;
 
             Cef3Binder.MyCefMet_Call0(this.nativePtr, CefBinaryValue_Copy_5, out ret);
-            var ret_result = new CefBinaryValue(ret.Ptr);
-            return ret_result;
+            return new CefBinaryValue(ret.Ptr);
         }
 
         // gen! size_t GetSize()
@@ -12988,8 +12392,7 @@ namespace LayoutFarm.CefBridge.Auto
             JsValue ret;
 
             Cef3Binder.MyCefMet_Call0(this.nativePtr, CefBinaryValue_GetSize_6, out ret);
-            var ret_result = (uint)ret.I32;
-            return ret_result;
+            return (uint)ret.I32;
         }
 
         // gen! size_t GetData(void* buffer,size_t buffer_size,size_t data_offset)
@@ -12999,10 +12402,9 @@ namespace LayoutFarm.CefBridge.Auto
         /// /*cef()*/
         /// </summary>
 
-        public uint GetData(IntPtr buffer
-        , uint buffer_size
-        , uint data_offset
-        )
+        public uint GetData(IntPtr buffer,
+        uint buffer_size,
+        uint data_offset)
         {
             JsValue v1 = new JsValue();
             JsValue v2 = new JsValue();
@@ -13013,8 +12415,7 @@ namespace LayoutFarm.CefBridge.Auto
             v3.I32 = (int)data_offset;
 
             Cef3Binder.MyCefMet_Call3(this.nativePtr, CefBinaryValue_GetData_7, out ret, ref v1, ref v2, ref v3);
-            var ret_result = (uint)ret.I32;
-            return ret_result;
+            return (uint)ret.I32;
         }
     }
 
@@ -13057,7 +12458,7 @@ namespace LayoutFarm.CefBridge.Auto
         const int CefDictionaryValue_SetBinary_27 = (_typeNAME << 16) | 27;
         const int CefDictionaryValue_SetDictionary_28 = (_typeNAME << 16) | 28;
         const int CefDictionaryValue_SetList_29 = (_typeNAME << 16) | 29;
-        internal readonly IntPtr nativePtr;
+        internal IntPtr nativePtr;
         internal CefDictionaryValue(IntPtr nativePtr)
         {
             this.nativePtr = nativePtr;
@@ -13066,6 +12467,7 @@ namespace LayoutFarm.CefBridge.Auto
         {
             JsValue ret;
             Cef3Binder.MyCefMet_Call0(this.nativePtr, CefDictionaryValue_Release_0, out ret);
+            this.nativePtr = IntPtr.Zero;
         }
 
         // gen! bool IsValid()
@@ -13078,8 +12480,7 @@ namespace LayoutFarm.CefBridge.Auto
             JsValue ret;
 
             Cef3Binder.MyCefMet_Call0(this.nativePtr, CefDictionaryValue_IsValid_1, out ret);
-            var ret_result = ret.I32 != 0;
-            return ret_result;
+            return ret.I32 != 0;
         }
 
         // gen! bool IsOwned()
@@ -13093,8 +12494,7 @@ namespace LayoutFarm.CefBridge.Auto
             JsValue ret;
 
             Cef3Binder.MyCefMet_Call0(this.nativePtr, CefDictionaryValue_IsOwned_2, out ret);
-            var ret_result = ret.I32 != 0;
-            return ret_result;
+            return ret.I32 != 0;
         }
 
         // gen! bool IsReadOnly()
@@ -13109,8 +12509,7 @@ namespace LayoutFarm.CefBridge.Auto
             JsValue ret;
 
             Cef3Binder.MyCefMet_Call0(this.nativePtr, CefDictionaryValue_IsReadOnly_3, out ret);
-            var ret_result = ret.I32 != 0;
-            return ret_result;
+            return ret.I32 != 0;
         }
 
         // gen! bool IsSame(CefRefPtr<CefDictionaryValue> that)
@@ -13121,16 +12520,14 @@ namespace LayoutFarm.CefBridge.Auto
         /// /*cef()*/
         /// </summary>
 
-        public bool IsSame(CefDictionaryValue that
-        )
+        public bool IsSame(CefDictionaryValue that)
         {
             JsValue v1 = new JsValue();
             JsValue ret;
             v1.Ptr = that.nativePtr;
 
             Cef3Binder.MyCefMet_Call1(this.nativePtr, CefDictionaryValue_IsSame_4, out ret, ref v1);
-            var ret_result = ret.I32 != 0;
-            return ret_result;
+            return ret.I32 != 0;
         }
 
         // gen! bool IsEqual(CefRefPtr<CefDictionaryValue> that)
@@ -13140,16 +12537,14 @@ namespace LayoutFarm.CefBridge.Auto
         /// /*cef()*/
         /// </summary>
 
-        public bool IsEqual(CefDictionaryValue that
-        )
+        public bool IsEqual(CefDictionaryValue that)
         {
             JsValue v1 = new JsValue();
             JsValue ret;
             v1.Ptr = that.nativePtr;
 
             Cef3Binder.MyCefMet_Call1(this.nativePtr, CefDictionaryValue_IsEqual_5, out ret, ref v1);
-            var ret_result = ret.I32 != 0;
-            return ret_result;
+            return ret.I32 != 0;
         }
 
         // gen! CefRefPtr<CefDictionaryValue> Copy(bool exclude_empty_children)
@@ -13159,16 +12554,14 @@ namespace LayoutFarm.CefBridge.Auto
         /// /*cef()*/
         /// </summary>
 
-        public CefDictionaryValue Copy(bool exclude_empty_children
-        )
+        public CefDictionaryValue Copy(bool exclude_empty_children)
         {
             JsValue v1 = new JsValue();
             JsValue ret;
             v1.I32 = exclude_empty_children ? 1 : 0;
 
             Cef3Binder.MyCefMet_Call1(this.nativePtr, CefDictionaryValue_Copy_6, out ret, ref v1);
-            var ret_result = new CefDictionaryValue(ret.Ptr);
-            return ret_result;
+            return new CefDictionaryValue(ret.Ptr);
         }
 
         // gen! size_t GetSize()
@@ -13182,8 +12575,7 @@ namespace LayoutFarm.CefBridge.Auto
             JsValue ret;
 
             Cef3Binder.MyCefMet_Call0(this.nativePtr, CefDictionaryValue_GetSize_7, out ret);
-            var ret_result = (uint)ret.I32;
-            return ret_result;
+            return (uint)ret.I32;
         }
 
         // gen! bool Clear()
@@ -13197,8 +12589,7 @@ namespace LayoutFarm.CefBridge.Auto
             JsValue ret;
 
             Cef3Binder.MyCefMet_Call0(this.nativePtr, CefDictionaryValue_Clear_8, out ret);
-            var ret_result = ret.I32 != 0;
-            return ret_result;
+            return ret.I32 != 0;
         }
 
         // gen! bool HasKey(const CefString& key)
@@ -13207,8 +12598,7 @@ namespace LayoutFarm.CefBridge.Auto
         /// /*cef()*/
         /// </summary>
 
-        public bool HasKey(string key
-        )
+        public bool HasKey(string key)
         {
             JsValue v1 = new JsValue();
             JsValue ret;
@@ -13216,9 +12606,8 @@ namespace LayoutFarm.CefBridge.Auto
             ;
 
             Cef3Binder.MyCefMet_Call1(this.nativePtr, CefDictionaryValue_HasKey_9, out ret, ref v1);
-            var ret_result = ret.I32 != 0;
             Cef3Binder.MyCefDeletePtr(v1.Ptr); ;
-            return ret_result;
+            return ret.I32 != 0;
         }
 
         // gen! bool GetKeys(KeyList& keys)
@@ -13227,16 +12616,14 @@ namespace LayoutFarm.CefBridge.Auto
         /// /*cef()*/
         /// </summary>
 
-        public bool GetKeys(KeyList keys
-        )
+        public bool GetKeys(KeyList keys)
         {
             JsValue v1 = new JsValue();
             JsValue ret;
             v1.Ptr = keys.nativePtr;
 
             Cef3Binder.MyCefMet_Call1(this.nativePtr, CefDictionaryValue_GetKeys_10, out ret, ref v1);
-            var ret_result = ret.I32 != 0;
-            return ret_result;
+            return ret.I32 != 0;
         }
 
         // gen! bool Remove(const CefString& key)
@@ -13246,8 +12633,7 @@ namespace LayoutFarm.CefBridge.Auto
         /// /*cef()*/
         /// </summary>
 
-        public bool Remove(string key
-        )
+        public bool Remove(string key)
         {
             JsValue v1 = new JsValue();
             JsValue ret;
@@ -13255,9 +12641,8 @@ namespace LayoutFarm.CefBridge.Auto
             ;
 
             Cef3Binder.MyCefMet_Call1(this.nativePtr, CefDictionaryValue_Remove_11, out ret, ref v1);
-            var ret_result = ret.I32 != 0;
             Cef3Binder.MyCefDeletePtr(v1.Ptr); ;
-            return ret_result;
+            return ret.I32 != 0;
         }
 
         // gen! CefValueType GetType(const CefString& key)
@@ -13266,8 +12651,7 @@ namespace LayoutFarm.CefBridge.Auto
         /// /*cef(default_retval=VTYPE_INVALID)*/
         /// </summary>
 
-        public cef_value_type_t _GetType(string key
-        )
+        public cef_value_type_t _GetType(string key)
         {
             JsValue v1 = new JsValue();
             JsValue ret;
@@ -13275,10 +12659,9 @@ namespace LayoutFarm.CefBridge.Auto
             ;
 
             Cef3Binder.MyCefMet_Call1(this.nativePtr, CefDictionaryValue_GetType_12, out ret, ref v1);
-            var ret_result = (cef_value_type_t)ret.I32;
-
             Cef3Binder.MyCefDeletePtr(v1.Ptr); ;
-            return ret_result;
+            return (cef_value_type_t)ret.I32;
+
         }
 
         // gen! CefRefPtr<CefValue> GetValue(const CefString& key)
@@ -13291,8 +12674,7 @@ namespace LayoutFarm.CefBridge.Auto
         /// /*cef()*/
         /// </summary>
 
-        public CefValue GetValue(string key
-        )
+        public CefValue GetValue(string key)
         {
             JsValue v1 = new JsValue();
             JsValue ret;
@@ -13300,9 +12682,8 @@ namespace LayoutFarm.CefBridge.Auto
             ;
 
             Cef3Binder.MyCefMet_Call1(this.nativePtr, CefDictionaryValue_GetValue_13, out ret, ref v1);
-            var ret_result = new CefValue(ret.Ptr);
             Cef3Binder.MyCefDeletePtr(v1.Ptr); ;
-            return ret_result;
+            return new CefValue(ret.Ptr);
         }
 
         // gen! bool GetBool(const CefString& key)
@@ -13311,8 +12692,7 @@ namespace LayoutFarm.CefBridge.Auto
         /// /*cef()*/
         /// </summary>
 
-        public bool GetBool(string key
-        )
+        public bool GetBool(string key)
         {
             JsValue v1 = new JsValue();
             JsValue ret;
@@ -13320,9 +12700,8 @@ namespace LayoutFarm.CefBridge.Auto
             ;
 
             Cef3Binder.MyCefMet_Call1(this.nativePtr, CefDictionaryValue_GetBool_14, out ret, ref v1);
-            var ret_result = ret.I32 != 0;
             Cef3Binder.MyCefDeletePtr(v1.Ptr); ;
-            return ret_result;
+            return ret.I32 != 0;
         }
 
         // gen! int GetInt(const CefString& key)
@@ -13331,8 +12710,7 @@ namespace LayoutFarm.CefBridge.Auto
         /// /*cef()*/
         /// </summary>
 
-        public int GetInt(string key
-        )
+        public int GetInt(string key)
         {
             JsValue v1 = new JsValue();
             JsValue ret;
@@ -13340,9 +12718,8 @@ namespace LayoutFarm.CefBridge.Auto
             ;
 
             Cef3Binder.MyCefMet_Call1(this.nativePtr, CefDictionaryValue_GetInt_15, out ret, ref v1);
-            var ret_result = ret.I32;
             Cef3Binder.MyCefDeletePtr(v1.Ptr); ;
-            return ret_result;
+            return ret.I32;
         }
 
         // gen! double GetDouble(const CefString& key)
@@ -13351,8 +12728,7 @@ namespace LayoutFarm.CefBridge.Auto
         /// /*cef()*/
         /// </summary>
 
-        public double GetDouble(string key
-        )
+        public double GetDouble(string key)
         {
             JsValue v1 = new JsValue();
             JsValue ret;
@@ -13360,9 +12736,8 @@ namespace LayoutFarm.CefBridge.Auto
             ;
 
             Cef3Binder.MyCefMet_Call1(this.nativePtr, CefDictionaryValue_GetDouble_16, out ret, ref v1);
-            var ret_result = ret.Num;
             Cef3Binder.MyCefDeletePtr(v1.Ptr); ;
-            return ret_result;
+            return ret.Num;
         }
 
         // gen! CefString GetString(const CefString& key)
@@ -13371,8 +12746,7 @@ namespace LayoutFarm.CefBridge.Auto
         /// /*cef()*/
         /// </summary>
 
-        public string GetString(string key
-        )
+        public string GetString(string key)
         {
             JsValue v1 = new JsValue();
             JsValue ret;
@@ -13380,9 +12754,8 @@ namespace LayoutFarm.CefBridge.Auto
             ;
 
             Cef3Binder.MyCefMet_Call1(this.nativePtr, CefDictionaryValue_GetString_17, out ret, ref v1);
-            var ret_result = Cef3Binder.CopyStringAndDestroyNativeSide(ref ret);
             Cef3Binder.MyCefDeletePtr(v1.Ptr); ;
-            return ret_result;
+            return Cef3Binder.CopyStringAndDestroyNativeSide(ref ret);
         }
 
         // gen! CefRefPtr<CefBinaryValue> GetBinary(const CefString& key)
@@ -13392,8 +12765,7 @@ namespace LayoutFarm.CefBridge.Auto
         /// /*cef()*/
         /// </summary>
 
-        public CefBinaryValue GetBinary(string key
-        )
+        public CefBinaryValue GetBinary(string key)
         {
             JsValue v1 = new JsValue();
             JsValue ret;
@@ -13401,9 +12773,8 @@ namespace LayoutFarm.CefBridge.Auto
             ;
 
             Cef3Binder.MyCefMet_Call1(this.nativePtr, CefDictionaryValue_GetBinary_18, out ret, ref v1);
-            var ret_result = new CefBinaryValue(ret.Ptr);
             Cef3Binder.MyCefDeletePtr(v1.Ptr); ;
-            return ret_result;
+            return new CefBinaryValue(ret.Ptr);
         }
 
         // gen! CefRefPtr<CefDictionaryValue> GetDictionary(const CefString& key)
@@ -13414,8 +12785,7 @@ namespace LayoutFarm.CefBridge.Auto
         /// /*cef()*/
         /// </summary>
 
-        public CefDictionaryValue GetDictionary(string key
-        )
+        public CefDictionaryValue GetDictionary(string key)
         {
             JsValue v1 = new JsValue();
             JsValue ret;
@@ -13423,9 +12793,8 @@ namespace LayoutFarm.CefBridge.Auto
             ;
 
             Cef3Binder.MyCefMet_Call1(this.nativePtr, CefDictionaryValue_GetDictionary_19, out ret, ref v1);
-            var ret_result = new CefDictionaryValue(ret.Ptr);
             Cef3Binder.MyCefDeletePtr(v1.Ptr); ;
-            return ret_result;
+            return new CefDictionaryValue(ret.Ptr);
         }
 
         // gen! CefRefPtr<CefListValue> GetList(const CefString& key)
@@ -13436,8 +12805,7 @@ namespace LayoutFarm.CefBridge.Auto
         /// /*cef()*/
         /// </summary>
 
-        public CefListValue GetList(string key
-        )
+        public CefListValue GetList(string key)
         {
             JsValue v1 = new JsValue();
             JsValue ret;
@@ -13445,9 +12813,8 @@ namespace LayoutFarm.CefBridge.Auto
             ;
 
             Cef3Binder.MyCefMet_Call1(this.nativePtr, CefDictionaryValue_GetList_20, out ret, ref v1);
-            var ret_result = new CefListValue(ret.Ptr);
             Cef3Binder.MyCefDeletePtr(v1.Ptr); ;
-            return ret_result;
+            return new CefListValue(ret.Ptr);
         }
 
         // gen! bool SetValue(const CefString& key,CefRefPtr<CefValue> value)
@@ -13461,9 +12828,8 @@ namespace LayoutFarm.CefBridge.Auto
         /// /*cef()*/
         /// </summary>
 
-        public bool SetValue(string key
-        , CefValue value
-        )
+        public bool SetValue(string key,
+        CefValue value)
         {
             JsValue v1 = new JsValue();
             JsValue v2 = new JsValue();
@@ -13473,9 +12839,8 @@ namespace LayoutFarm.CefBridge.Auto
             v2.Ptr = value.nativePtr;
 
             Cef3Binder.MyCefMet_Call2(this.nativePtr, CefDictionaryValue_SetValue_21, out ret, ref v1, ref v2);
-            var ret_result = ret.I32 != 0;
             Cef3Binder.MyCefDeletePtr(v1.Ptr); ;
-            return ret_result;
+            return ret.I32 != 0;
         }
 
         // gen! bool SetNull(const CefString& key)
@@ -13485,8 +12850,7 @@ namespace LayoutFarm.CefBridge.Auto
         /// /*cef()*/
         /// </summary>
 
-        public bool SetNull(string key
-        )
+        public bool SetNull(string key)
         {
             JsValue v1 = new JsValue();
             JsValue ret;
@@ -13494,9 +12858,8 @@ namespace LayoutFarm.CefBridge.Auto
             ;
 
             Cef3Binder.MyCefMet_Call1(this.nativePtr, CefDictionaryValue_SetNull_22, out ret, ref v1);
-            var ret_result = ret.I32 != 0;
             Cef3Binder.MyCefDeletePtr(v1.Ptr); ;
-            return ret_result;
+            return ret.I32 != 0;
         }
 
         // gen! bool SetBool(const CefString& key,bool value)
@@ -13506,9 +12869,8 @@ namespace LayoutFarm.CefBridge.Auto
         /// /*cef()*/
         /// </summary>
 
-        public bool SetBool(string key
-        , bool value
-        )
+        public bool SetBool(string key,
+        bool value)
         {
             JsValue v1 = new JsValue();
             JsValue v2 = new JsValue();
@@ -13518,9 +12880,8 @@ namespace LayoutFarm.CefBridge.Auto
             v2.I32 = value ? 1 : 0;
 
             Cef3Binder.MyCefMet_Call2(this.nativePtr, CefDictionaryValue_SetBool_23, out ret, ref v1, ref v2);
-            var ret_result = ret.I32 != 0;
             Cef3Binder.MyCefDeletePtr(v1.Ptr); ;
-            return ret_result;
+            return ret.I32 != 0;
         }
 
         // gen! bool SetInt(const CefString& key,int value)
@@ -13530,9 +12891,8 @@ namespace LayoutFarm.CefBridge.Auto
         /// /*cef()*/
         /// </summary>
 
-        public bool SetInt(string key
-        , int value
-        )
+        public bool SetInt(string key,
+        int value)
         {
             JsValue v1 = new JsValue();
             JsValue v2 = new JsValue();
@@ -13542,9 +12902,8 @@ namespace LayoutFarm.CefBridge.Auto
             v2.I32 = (int)value;
 
             Cef3Binder.MyCefMet_Call2(this.nativePtr, CefDictionaryValue_SetInt_24, out ret, ref v1, ref v2);
-            var ret_result = ret.I32 != 0;
             Cef3Binder.MyCefDeletePtr(v1.Ptr); ;
-            return ret_result;
+            return ret.I32 != 0;
         }
 
         // gen! bool SetDouble(const CefString& key,double value)
@@ -13554,9 +12913,8 @@ namespace LayoutFarm.CefBridge.Auto
         /// /*cef()*/
         /// </summary>
 
-        public bool SetDouble(string key
-        , double value
-        )
+        public bool SetDouble(string key,
+        double value)
         {
             JsValue v1 = new JsValue();
             JsValue v2 = new JsValue();
@@ -13566,9 +12924,8 @@ namespace LayoutFarm.CefBridge.Auto
             v2.Num = value;
 
             Cef3Binder.MyCefMet_Call2(this.nativePtr, CefDictionaryValue_SetDouble_25, out ret, ref v1, ref v2);
-            var ret_result = ret.I32 != 0;
             Cef3Binder.MyCefDeletePtr(v1.Ptr); ;
-            return ret_result;
+            return ret.I32 != 0;
         }
 
         // gen! bool SetString(const CefString& key,const CefString& value)
@@ -13578,9 +12935,8 @@ namespace LayoutFarm.CefBridge.Auto
         /// /*cef(optional_param=value)*/
         /// </summary>
 
-        public bool SetString(string key
-        , string value
-        )
+        public bool SetString(string key,
+        string value)
         {
             JsValue v1 = new JsValue();
             JsValue v2 = new JsValue();
@@ -13591,10 +12947,9 @@ namespace LayoutFarm.CefBridge.Auto
             ;
 
             Cef3Binder.MyCefMet_Call2(this.nativePtr, CefDictionaryValue_SetString_26, out ret, ref v1, ref v2);
-            var ret_result = ret.I32 != 0;
             Cef3Binder.MyCefDeletePtr(v1.Ptr); ;
             Cef3Binder.MyCefDeletePtr(v2.Ptr); ;
-            return ret_result;
+            return ret.I32 != 0;
         }
 
         // gen! bool SetBinary(const CefString& key,CefRefPtr<CefBinaryValue> value)
@@ -13607,9 +12962,8 @@ namespace LayoutFarm.CefBridge.Auto
         /// /*cef()*/
         /// </summary>
 
-        public bool SetBinary(string key
-        , CefBinaryValue value
-        )
+        public bool SetBinary(string key,
+        CefBinaryValue value)
         {
             JsValue v1 = new JsValue();
             JsValue v2 = new JsValue();
@@ -13619,9 +12973,8 @@ namespace LayoutFarm.CefBridge.Auto
             v2.Ptr = value.nativePtr;
 
             Cef3Binder.MyCefMet_Call2(this.nativePtr, CefDictionaryValue_SetBinary_27, out ret, ref v1, ref v2);
-            var ret_result = ret.I32 != 0;
             Cef3Binder.MyCefDeletePtr(v1.Ptr); ;
-            return ret_result;
+            return ret.I32 != 0;
         }
 
         // gen! bool SetDictionary(const CefString& key,CefRefPtr<CefDictionaryValue> value)
@@ -13634,9 +12987,8 @@ namespace LayoutFarm.CefBridge.Auto
         /// /*cef()*/
         /// </summary>
 
-        public bool SetDictionary(string key
-        , CefDictionaryValue value
-        )
+        public bool SetDictionary(string key,
+        CefDictionaryValue value)
         {
             JsValue v1 = new JsValue();
             JsValue v2 = new JsValue();
@@ -13646,9 +12998,8 @@ namespace LayoutFarm.CefBridge.Auto
             v2.Ptr = value.nativePtr;
 
             Cef3Binder.MyCefMet_Call2(this.nativePtr, CefDictionaryValue_SetDictionary_28, out ret, ref v1, ref v2);
-            var ret_result = ret.I32 != 0;
             Cef3Binder.MyCefDeletePtr(v1.Ptr); ;
-            return ret_result;
+            return ret.I32 != 0;
         }
 
         // gen! bool SetList(const CefString& key,CefRefPtr<CefListValue> value)
@@ -13661,9 +13012,8 @@ namespace LayoutFarm.CefBridge.Auto
         /// /*cef()*/
         /// </summary>
 
-        public bool SetList(string key
-        , CefListValue value
-        )
+        public bool SetList(string key,
+        CefListValue value)
         {
             JsValue v1 = new JsValue();
             JsValue v2 = new JsValue();
@@ -13673,9 +13023,8 @@ namespace LayoutFarm.CefBridge.Auto
             v2.Ptr = value.nativePtr;
 
             Cef3Binder.MyCefMet_Call2(this.nativePtr, CefDictionaryValue_SetList_29, out ret, ref v1, ref v2);
-            var ret_result = ret.I32 != 0;
             Cef3Binder.MyCefDeletePtr(v1.Ptr); ;
-            return ret_result;
+            return ret.I32 != 0;
         }
     }
 
@@ -13717,7 +13066,7 @@ namespace LayoutFarm.CefBridge.Auto
         const int CefListValue_SetBinary_26 = (_typeNAME << 16) | 26;
         const int CefListValue_SetDictionary_27 = (_typeNAME << 16) | 27;
         const int CefListValue_SetList_28 = (_typeNAME << 16) | 28;
-        internal readonly IntPtr nativePtr;
+        internal IntPtr nativePtr;
         internal CefListValue(IntPtr nativePtr)
         {
             this.nativePtr = nativePtr;
@@ -13726,6 +13075,7 @@ namespace LayoutFarm.CefBridge.Auto
         {
             JsValue ret;
             Cef3Binder.MyCefMet_Call0(this.nativePtr, CefListValue_Release_0, out ret);
+            this.nativePtr = IntPtr.Zero;
         }
 
         // gen! bool IsValid()
@@ -13738,8 +13088,7 @@ namespace LayoutFarm.CefBridge.Auto
             JsValue ret;
 
             Cef3Binder.MyCefMet_Call0(this.nativePtr, CefListValue_IsValid_1, out ret);
-            var ret_result = ret.I32 != 0;
-            return ret_result;
+            return ret.I32 != 0;
         }
 
         // gen! bool IsOwned()
@@ -13753,8 +13102,7 @@ namespace LayoutFarm.CefBridge.Auto
             JsValue ret;
 
             Cef3Binder.MyCefMet_Call0(this.nativePtr, CefListValue_IsOwned_2, out ret);
-            var ret_result = ret.I32 != 0;
-            return ret_result;
+            return ret.I32 != 0;
         }
 
         // gen! bool IsReadOnly()
@@ -13769,8 +13117,7 @@ namespace LayoutFarm.CefBridge.Auto
             JsValue ret;
 
             Cef3Binder.MyCefMet_Call0(this.nativePtr, CefListValue_IsReadOnly_3, out ret);
-            var ret_result = ret.I32 != 0;
-            return ret_result;
+            return ret.I32 != 0;
         }
 
         // gen! bool IsSame(CefRefPtr<CefListValue> that)
@@ -13781,16 +13128,14 @@ namespace LayoutFarm.CefBridge.Auto
         /// /*cef()*/
         /// </summary>
 
-        public bool IsSame(CefListValue that
-        )
+        public bool IsSame(CefListValue that)
         {
             JsValue v1 = new JsValue();
             JsValue ret;
             v1.Ptr = that.nativePtr;
 
             Cef3Binder.MyCefMet_Call1(this.nativePtr, CefListValue_IsSame_4, out ret, ref v1);
-            var ret_result = ret.I32 != 0;
-            return ret_result;
+            return ret.I32 != 0;
         }
 
         // gen! bool IsEqual(CefRefPtr<CefListValue> that)
@@ -13800,16 +13145,14 @@ namespace LayoutFarm.CefBridge.Auto
         /// /*cef()*/
         /// </summary>
 
-        public bool IsEqual(CefListValue that
-        )
+        public bool IsEqual(CefListValue that)
         {
             JsValue v1 = new JsValue();
             JsValue ret;
             v1.Ptr = that.nativePtr;
 
             Cef3Binder.MyCefMet_Call1(this.nativePtr, CefListValue_IsEqual_5, out ret, ref v1);
-            var ret_result = ret.I32 != 0;
-            return ret_result;
+            return ret.I32 != 0;
         }
 
         // gen! CefRefPtr<CefListValue> Copy()
@@ -13823,8 +13166,7 @@ namespace LayoutFarm.CefBridge.Auto
             JsValue ret;
 
             Cef3Binder.MyCefMet_Call0(this.nativePtr, CefListValue_Copy_6, out ret);
-            var ret_result = new CefListValue(ret.Ptr);
-            return ret_result;
+            return new CefListValue(ret.Ptr);
         }
 
         // gen! bool SetSize(size_t size)
@@ -13834,16 +13176,14 @@ namespace LayoutFarm.CefBridge.Auto
         /// /*cef()*/
         /// </summary>
 
-        public bool SetSize(uint size
-        )
+        public bool SetSize(uint size)
         {
             JsValue v1 = new JsValue();
             JsValue ret;
             v1.I32 = (int)size;
 
             Cef3Binder.MyCefMet_Call1(this.nativePtr, CefListValue_SetSize_7, out ret, ref v1);
-            var ret_result = ret.I32 != 0;
-            return ret_result;
+            return ret.I32 != 0;
         }
 
         // gen! size_t GetSize()
@@ -13857,8 +13197,7 @@ namespace LayoutFarm.CefBridge.Auto
             JsValue ret;
 
             Cef3Binder.MyCefMet_Call0(this.nativePtr, CefListValue_GetSize_8, out ret);
-            var ret_result = (uint)ret.I32;
-            return ret_result;
+            return (uint)ret.I32;
         }
 
         // gen! bool Clear()
@@ -13872,8 +13211,7 @@ namespace LayoutFarm.CefBridge.Auto
             JsValue ret;
 
             Cef3Binder.MyCefMet_Call0(this.nativePtr, CefListValue_Clear_9, out ret);
-            var ret_result = ret.I32 != 0;
-            return ret_result;
+            return ret.I32 != 0;
         }
 
         // gen! bool Remove(size_t index)
@@ -13882,16 +13220,14 @@ namespace LayoutFarm.CefBridge.Auto
         /// /*cef()*/
         /// </summary>
 
-        public bool Remove(uint index
-        )
+        public bool Remove(uint index)
         {
             JsValue v1 = new JsValue();
             JsValue ret;
             v1.I32 = (int)index;
 
             Cef3Binder.MyCefMet_Call1(this.nativePtr, CefListValue_Remove_10, out ret, ref v1);
-            var ret_result = ret.I32 != 0;
-            return ret_result;
+            return ret.I32 != 0;
         }
 
         // gen! CefValueType GetType(size_t index)
@@ -13900,17 +13236,15 @@ namespace LayoutFarm.CefBridge.Auto
         /// /*cef(default_retval=VTYPE_INVALID)*/
         /// </summary>
 
-        public cef_value_type_t _GetType(uint index
-        )
+        public cef_value_type_t _GetType(uint index)
         {
             JsValue v1 = new JsValue();
             JsValue ret;
             v1.I32 = (int)index;
 
             Cef3Binder.MyCefMet_Call1(this.nativePtr, CefListValue_GetType_11, out ret, ref v1);
-            var ret_result = (cef_value_type_t)ret.I32;
+            return (cef_value_type_t)ret.I32;
 
-            return ret_result;
         }
 
         // gen! CefRefPtr<CefValue> GetValue(size_t index)
@@ -13923,16 +13257,14 @@ namespace LayoutFarm.CefBridge.Auto
         /// /*cef()*/
         /// </summary>
 
-        public CefValue GetValue(uint index
-        )
+        public CefValue GetValue(uint index)
         {
             JsValue v1 = new JsValue();
             JsValue ret;
             v1.I32 = (int)index;
 
             Cef3Binder.MyCefMet_Call1(this.nativePtr, CefListValue_GetValue_12, out ret, ref v1);
-            var ret_result = new CefValue(ret.Ptr);
-            return ret_result;
+            return new CefValue(ret.Ptr);
         }
 
         // gen! bool GetBool(size_t index)
@@ -13941,16 +13273,14 @@ namespace LayoutFarm.CefBridge.Auto
         /// /*cef()*/
         /// </summary>
 
-        public bool GetBool(uint index
-        )
+        public bool GetBool(uint index)
         {
             JsValue v1 = new JsValue();
             JsValue ret;
             v1.I32 = (int)index;
 
             Cef3Binder.MyCefMet_Call1(this.nativePtr, CefListValue_GetBool_13, out ret, ref v1);
-            var ret_result = ret.I32 != 0;
-            return ret_result;
+            return ret.I32 != 0;
         }
 
         // gen! int GetInt(size_t index)
@@ -13959,16 +13289,14 @@ namespace LayoutFarm.CefBridge.Auto
         /// /*cef()*/
         /// </summary>
 
-        public int GetInt(uint index
-        )
+        public int GetInt(uint index)
         {
             JsValue v1 = new JsValue();
             JsValue ret;
             v1.I32 = (int)index;
 
             Cef3Binder.MyCefMet_Call1(this.nativePtr, CefListValue_GetInt_14, out ret, ref v1);
-            var ret_result = ret.I32;
-            return ret_result;
+            return ret.I32;
         }
 
         // gen! double GetDouble(size_t index)
@@ -13977,16 +13305,14 @@ namespace LayoutFarm.CefBridge.Auto
         /// /*cef()*/
         /// </summary>
 
-        public double GetDouble(uint index
-        )
+        public double GetDouble(uint index)
         {
             JsValue v1 = new JsValue();
             JsValue ret;
             v1.I32 = (int)index;
 
             Cef3Binder.MyCefMet_Call1(this.nativePtr, CefListValue_GetDouble_15, out ret, ref v1);
-            var ret_result = ret.Num;
-            return ret_result;
+            return ret.Num;
         }
 
         // gen! CefString GetString(size_t index)
@@ -13995,16 +13321,14 @@ namespace LayoutFarm.CefBridge.Auto
         /// /*cef()*/
         /// </summary>
 
-        public string GetString(uint index
-        )
+        public string GetString(uint index)
         {
             JsValue v1 = new JsValue();
             JsValue ret;
             v1.I32 = (int)index;
 
             Cef3Binder.MyCefMet_Call1(this.nativePtr, CefListValue_GetString_16, out ret, ref v1);
-            var ret_result = Cef3Binder.CopyStringAndDestroyNativeSide(ref ret);
-            return ret_result;
+            return Cef3Binder.CopyStringAndDestroyNativeSide(ref ret);
         }
 
         // gen! CefRefPtr<CefBinaryValue> GetBinary(size_t index)
@@ -14014,16 +13338,14 @@ namespace LayoutFarm.CefBridge.Auto
         /// /*cef()*/
         /// </summary>
 
-        public CefBinaryValue GetBinary(uint index
-        )
+        public CefBinaryValue GetBinary(uint index)
         {
             JsValue v1 = new JsValue();
             JsValue ret;
             v1.I32 = (int)index;
 
             Cef3Binder.MyCefMet_Call1(this.nativePtr, CefListValue_GetBinary_17, out ret, ref v1);
-            var ret_result = new CefBinaryValue(ret.Ptr);
-            return ret_result;
+            return new CefBinaryValue(ret.Ptr);
         }
 
         // gen! CefRefPtr<CefDictionaryValue> GetDictionary(size_t index)
@@ -14034,16 +13356,14 @@ namespace LayoutFarm.CefBridge.Auto
         /// /*cef()*/
         /// </summary>
 
-        public CefDictionaryValue GetDictionary(uint index
-        )
+        public CefDictionaryValue GetDictionary(uint index)
         {
             JsValue v1 = new JsValue();
             JsValue ret;
             v1.I32 = (int)index;
 
             Cef3Binder.MyCefMet_Call1(this.nativePtr, CefListValue_GetDictionary_18, out ret, ref v1);
-            var ret_result = new CefDictionaryValue(ret.Ptr);
-            return ret_result;
+            return new CefDictionaryValue(ret.Ptr);
         }
 
         // gen! CefRefPtr<CefListValue> GetList(size_t index)
@@ -14054,16 +13374,14 @@ namespace LayoutFarm.CefBridge.Auto
         /// /*cef()*/
         /// </summary>
 
-        public CefListValue GetList(uint index
-        )
+        public CefListValue GetList(uint index)
         {
             JsValue v1 = new JsValue();
             JsValue ret;
             v1.I32 = (int)index;
 
             Cef3Binder.MyCefMet_Call1(this.nativePtr, CefListValue_GetList_19, out ret, ref v1);
-            var ret_result = new CefListValue(ret.Ptr);
-            return ret_result;
+            return new CefListValue(ret.Ptr);
         }
 
         // gen! bool SetValue(size_t index,CefRefPtr<CefValue> value)
@@ -14077,9 +13395,8 @@ namespace LayoutFarm.CefBridge.Auto
         /// /*cef()*/
         /// </summary>
 
-        public bool SetValue(uint index
-        , CefValue value
-        )
+        public bool SetValue(uint index,
+        CefValue value)
         {
             JsValue v1 = new JsValue();
             JsValue v2 = new JsValue();
@@ -14088,8 +13405,7 @@ namespace LayoutFarm.CefBridge.Auto
             v2.Ptr = value.nativePtr;
 
             Cef3Binder.MyCefMet_Call2(this.nativePtr, CefListValue_SetValue_20, out ret, ref v1, ref v2);
-            var ret_result = ret.I32 != 0;
-            return ret_result;
+            return ret.I32 != 0;
         }
 
         // gen! bool SetNull(size_t index)
@@ -14099,16 +13415,14 @@ namespace LayoutFarm.CefBridge.Auto
         /// /*cef()*/
         /// </summary>
 
-        public bool SetNull(uint index
-        )
+        public bool SetNull(uint index)
         {
             JsValue v1 = new JsValue();
             JsValue ret;
             v1.I32 = (int)index;
 
             Cef3Binder.MyCefMet_Call1(this.nativePtr, CefListValue_SetNull_21, out ret, ref v1);
-            var ret_result = ret.I32 != 0;
-            return ret_result;
+            return ret.I32 != 0;
         }
 
         // gen! bool SetBool(size_t index,bool value)
@@ -14118,9 +13432,8 @@ namespace LayoutFarm.CefBridge.Auto
         /// /*cef()*/
         /// </summary>
 
-        public bool SetBool(uint index
-        , bool value
-        )
+        public bool SetBool(uint index,
+        bool value)
         {
             JsValue v1 = new JsValue();
             JsValue v2 = new JsValue();
@@ -14129,8 +13442,7 @@ namespace LayoutFarm.CefBridge.Auto
             v2.I32 = value ? 1 : 0;
 
             Cef3Binder.MyCefMet_Call2(this.nativePtr, CefListValue_SetBool_22, out ret, ref v1, ref v2);
-            var ret_result = ret.I32 != 0;
-            return ret_result;
+            return ret.I32 != 0;
         }
 
         // gen! bool SetInt(size_t index,int value)
@@ -14140,9 +13452,8 @@ namespace LayoutFarm.CefBridge.Auto
         /// /*cef()*/
         /// </summary>
 
-        public bool SetInt(uint index
-        , int value
-        )
+        public bool SetInt(uint index,
+        int value)
         {
             JsValue v1 = new JsValue();
             JsValue v2 = new JsValue();
@@ -14151,8 +13462,7 @@ namespace LayoutFarm.CefBridge.Auto
             v2.I32 = (int)value;
 
             Cef3Binder.MyCefMet_Call2(this.nativePtr, CefListValue_SetInt_23, out ret, ref v1, ref v2);
-            var ret_result = ret.I32 != 0;
-            return ret_result;
+            return ret.I32 != 0;
         }
 
         // gen! bool SetDouble(size_t index,double value)
@@ -14162,9 +13472,8 @@ namespace LayoutFarm.CefBridge.Auto
         /// /*cef()*/
         /// </summary>
 
-        public bool SetDouble(uint index
-        , double value
-        )
+        public bool SetDouble(uint index,
+        double value)
         {
             JsValue v1 = new JsValue();
             JsValue v2 = new JsValue();
@@ -14173,8 +13482,7 @@ namespace LayoutFarm.CefBridge.Auto
             v2.Num = value;
 
             Cef3Binder.MyCefMet_Call2(this.nativePtr, CefListValue_SetDouble_24, out ret, ref v1, ref v2);
-            var ret_result = ret.I32 != 0;
-            return ret_result;
+            return ret.I32 != 0;
         }
 
         // gen! bool SetString(size_t index,const CefString& value)
@@ -14184,9 +13492,8 @@ namespace LayoutFarm.CefBridge.Auto
         /// /*cef(optional_param=value)*/
         /// </summary>
 
-        public bool SetString(uint index
-        , string value
-        )
+        public bool SetString(uint index,
+        string value)
         {
             JsValue v1 = new JsValue();
             JsValue v2 = new JsValue();
@@ -14196,9 +13503,8 @@ namespace LayoutFarm.CefBridge.Auto
             v1.I32 = (int)index;
 
             Cef3Binder.MyCefMet_Call2(this.nativePtr, CefListValue_SetString_25, out ret, ref v1, ref v2);
-            var ret_result = ret.I32 != 0;
             Cef3Binder.MyCefDeletePtr(v2.Ptr); ;
-            return ret_result;
+            return ret.I32 != 0;
         }
 
         // gen! bool SetBinary(size_t index,CefRefPtr<CefBinaryValue> value)
@@ -14211,9 +13517,8 @@ namespace LayoutFarm.CefBridge.Auto
         /// /*cef()*/
         /// </summary>
 
-        public bool SetBinary(uint index
-        , CefBinaryValue value
-        )
+        public bool SetBinary(uint index,
+        CefBinaryValue value)
         {
             JsValue v1 = new JsValue();
             JsValue v2 = new JsValue();
@@ -14222,8 +13527,7 @@ namespace LayoutFarm.CefBridge.Auto
             v2.Ptr = value.nativePtr;
 
             Cef3Binder.MyCefMet_Call2(this.nativePtr, CefListValue_SetBinary_26, out ret, ref v1, ref v2);
-            var ret_result = ret.I32 != 0;
-            return ret_result;
+            return ret.I32 != 0;
         }
 
         // gen! bool SetDictionary(size_t index,CefRefPtr<CefDictionaryValue> value)
@@ -14236,9 +13540,8 @@ namespace LayoutFarm.CefBridge.Auto
         /// /*cef()*/
         /// </summary>
 
-        public bool SetDictionary(uint index
-        , CefDictionaryValue value
-        )
+        public bool SetDictionary(uint index,
+        CefDictionaryValue value)
         {
             JsValue v1 = new JsValue();
             JsValue v2 = new JsValue();
@@ -14247,8 +13550,7 @@ namespace LayoutFarm.CefBridge.Auto
             v2.Ptr = value.nativePtr;
 
             Cef3Binder.MyCefMet_Call2(this.nativePtr, CefListValue_SetDictionary_27, out ret, ref v1, ref v2);
-            var ret_result = ret.I32 != 0;
-            return ret_result;
+            return ret.I32 != 0;
         }
 
         // gen! bool SetList(size_t index,CefRefPtr<CefListValue> value)
@@ -14261,9 +13563,8 @@ namespace LayoutFarm.CefBridge.Auto
         /// /*cef()*/
         /// </summary>
 
-        public bool SetList(uint index
-        , CefListValue value
-        )
+        public bool SetList(uint index,
+        CefListValue value)
         {
             JsValue v1 = new JsValue();
             JsValue v2 = new JsValue();
@@ -14272,8 +13573,7 @@ namespace LayoutFarm.CefBridge.Auto
             v2.Ptr = value.nativePtr;
 
             Cef3Binder.MyCefMet_Call2(this.nativePtr, CefListValue_SetList_28, out ret, ref v1, ref v2);
-            var ret_result = ret.I32 != 0;
-            return ret_result;
+            return ret.I32 != 0;
         }
     }
 
@@ -14291,7 +13591,7 @@ namespace LayoutFarm.CefBridge.Auto
         const int CefWebPluginInfo_GetPath_2 = (_typeNAME << 16) | 2;
         const int CefWebPluginInfo_GetVersion_3 = (_typeNAME << 16) | 3;
         const int CefWebPluginInfo_GetDescription_4 = (_typeNAME << 16) | 4;
-        internal readonly IntPtr nativePtr;
+        internal IntPtr nativePtr;
         internal CefWebPluginInfo(IntPtr nativePtr)
         {
             this.nativePtr = nativePtr;
@@ -14300,6 +13600,7 @@ namespace LayoutFarm.CefBridge.Auto
         {
             JsValue ret;
             Cef3Binder.MyCefMet_Call0(this.nativePtr, CefWebPluginInfo_Release_0, out ret);
+            this.nativePtr = IntPtr.Zero;
         }
 
         // gen! CefString GetName()
@@ -14312,8 +13613,7 @@ namespace LayoutFarm.CefBridge.Auto
             JsValue ret;
 
             Cef3Binder.MyCefMet_Call0(this.nativePtr, CefWebPluginInfo_GetName_1, out ret);
-            var ret_result = Cef3Binder.CopyStringAndDestroyNativeSide(ref ret);
-            return ret_result;
+            return Cef3Binder.CopyStringAndDestroyNativeSide(ref ret);
         }
 
         // gen! CefString GetPath()
@@ -14327,8 +13627,7 @@ namespace LayoutFarm.CefBridge.Auto
             JsValue ret;
 
             Cef3Binder.MyCefMet_Call0(this.nativePtr, CefWebPluginInfo_GetPath_2, out ret);
-            var ret_result = Cef3Binder.CopyStringAndDestroyNativeSide(ref ret);
-            return ret_result;
+            return Cef3Binder.CopyStringAndDestroyNativeSide(ref ret);
         }
 
         // gen! CefString GetVersion()
@@ -14342,8 +13641,7 @@ namespace LayoutFarm.CefBridge.Auto
             JsValue ret;
 
             Cef3Binder.MyCefMet_Call0(this.nativePtr, CefWebPluginInfo_GetVersion_3, out ret);
-            var ret_result = Cef3Binder.CopyStringAndDestroyNativeSide(ref ret);
-            return ret_result;
+            return Cef3Binder.CopyStringAndDestroyNativeSide(ref ret);
         }
 
         // gen! CefString GetDescription()
@@ -14357,8 +13655,7 @@ namespace LayoutFarm.CefBridge.Auto
             JsValue ret;
 
             Cef3Binder.MyCefMet_Call0(this.nativePtr, CefWebPluginInfo_GetDescription_4, out ret);
-            var ret_result = Cef3Binder.CopyStringAndDestroyNativeSide(ref ret);
-            return ret_result;
+            return Cef3Binder.CopyStringAndDestroyNativeSide(ref ret);
         }
     }
 
@@ -14373,7 +13670,7 @@ namespace LayoutFarm.CefBridge.Auto
     {
         const int _typeNAME = 51;
         const int CefWebPluginInfoVisitor_Release_0 = (_typeNAME << 16) | 0;
-        internal readonly IntPtr nativePtr;
+        internal IntPtr nativePtr;
         internal CefWebPluginInfoVisitor(IntPtr nativePtr)
         {
             this.nativePtr = nativePtr;
@@ -14382,6 +13679,7 @@ namespace LayoutFarm.CefBridge.Auto
         {
             JsValue ret;
             Cef3Binder.MyCefMet_Call0(this.nativePtr, CefWebPluginInfoVisitor_Release_0, out ret);
+            this.nativePtr = IntPtr.Zero;
         }
     }
 
@@ -14404,7 +13702,7 @@ namespace LayoutFarm.CefBridge.Auto
         const int CefX509CertPrincipal_GetOrganizationNames_7 = (_typeNAME << 16) | 7;
         const int CefX509CertPrincipal_GetOrganizationUnitNames_8 = (_typeNAME << 16) | 8;
         const int CefX509CertPrincipal_GetDomainComponents_9 = (_typeNAME << 16) | 9;
-        internal readonly IntPtr nativePtr;
+        internal IntPtr nativePtr;
         internal CefX509CertPrincipal(IntPtr nativePtr)
         {
             this.nativePtr = nativePtr;
@@ -14413,6 +13711,7 @@ namespace LayoutFarm.CefBridge.Auto
         {
             JsValue ret;
             Cef3Binder.MyCefMet_Call0(this.nativePtr, CefX509CertPrincipal_Release_0, out ret);
+            this.nativePtr = IntPtr.Zero;
         }
 
         // gen! CefString GetDisplayName()
@@ -14425,8 +13724,7 @@ namespace LayoutFarm.CefBridge.Auto
             JsValue ret;
 
             Cef3Binder.MyCefMet_Call0(this.nativePtr, CefX509CertPrincipal_GetDisplayName_1, out ret);
-            var ret_result = Cef3Binder.CopyStringAndDestroyNativeSide(ref ret);
-            return ret_result;
+            return Cef3Binder.CopyStringAndDestroyNativeSide(ref ret);
         }
 
         // gen! CefString GetCommonName()
@@ -14440,8 +13738,7 @@ namespace LayoutFarm.CefBridge.Auto
             JsValue ret;
 
             Cef3Binder.MyCefMet_Call0(this.nativePtr, CefX509CertPrincipal_GetCommonName_2, out ret);
-            var ret_result = Cef3Binder.CopyStringAndDestroyNativeSide(ref ret);
-            return ret_result;
+            return Cef3Binder.CopyStringAndDestroyNativeSide(ref ret);
         }
 
         // gen! CefString GetLocalityName()
@@ -14455,8 +13752,7 @@ namespace LayoutFarm.CefBridge.Auto
             JsValue ret;
 
             Cef3Binder.MyCefMet_Call0(this.nativePtr, CefX509CertPrincipal_GetLocalityName_3, out ret);
-            var ret_result = Cef3Binder.CopyStringAndDestroyNativeSide(ref ret);
-            return ret_result;
+            return Cef3Binder.CopyStringAndDestroyNativeSide(ref ret);
         }
 
         // gen! CefString GetStateOrProvinceName()
@@ -14470,8 +13766,7 @@ namespace LayoutFarm.CefBridge.Auto
             JsValue ret;
 
             Cef3Binder.MyCefMet_Call0(this.nativePtr, CefX509CertPrincipal_GetStateOrProvinceName_4, out ret);
-            var ret_result = Cef3Binder.CopyStringAndDestroyNativeSide(ref ret);
-            return ret_result;
+            return Cef3Binder.CopyStringAndDestroyNativeSide(ref ret);
         }
 
         // gen! CefString GetCountryName()
@@ -14485,8 +13780,7 @@ namespace LayoutFarm.CefBridge.Auto
             JsValue ret;
 
             Cef3Binder.MyCefMet_Call0(this.nativePtr, CefX509CertPrincipal_GetCountryName_5, out ret);
-            var ret_result = Cef3Binder.CopyStringAndDestroyNativeSide(ref ret);
-            return ret_result;
+            return Cef3Binder.CopyStringAndDestroyNativeSide(ref ret);
         }
 
         // gen! void GetStreetAddresses(std::vector<CefString>& addresses)
@@ -14495,16 +13789,15 @@ namespace LayoutFarm.CefBridge.Auto
         /// /*cef()*/
         /// </summary>
 
-        public void GetStreetAddresses(List<string> addresses
-        )
+        public void GetStreetAddresses(List<string> addresses)
         {
             JsValue v1 = new JsValue();
             JsValue ret;
             v1.Ptr = Cef3Binder.CreateStdList(2);
 
             Cef3Binder.MyCefMet_Call1(this.nativePtr, CefX509CertPrincipal_GetStreetAddresses_6, out ret, ref v1);
-
             Cef3Binder.CopyStdStringListAndDestroyNativeSide(v1.Ptr, addresses);
+
         }
 
         // gen! void GetOrganizationNames(std::vector<CefString>& names)
@@ -14513,16 +13806,15 @@ namespace LayoutFarm.CefBridge.Auto
         /// /*cef()*/
         /// </summary>
 
-        public void GetOrganizationNames(List<string> names
-        )
+        public void GetOrganizationNames(List<string> names)
         {
             JsValue v1 = new JsValue();
             JsValue ret;
             v1.Ptr = Cef3Binder.CreateStdList(2);
 
             Cef3Binder.MyCefMet_Call1(this.nativePtr, CefX509CertPrincipal_GetOrganizationNames_7, out ret, ref v1);
-
             Cef3Binder.CopyStdStringListAndDestroyNativeSide(v1.Ptr, names);
+
         }
 
         // gen! void GetOrganizationUnitNames(std::vector<CefString>& names)
@@ -14531,16 +13823,15 @@ namespace LayoutFarm.CefBridge.Auto
         /// /*cef()*/
         /// </summary>
 
-        public void GetOrganizationUnitNames(List<string> names
-        )
+        public void GetOrganizationUnitNames(List<string> names)
         {
             JsValue v1 = new JsValue();
             JsValue ret;
             v1.Ptr = Cef3Binder.CreateStdList(2);
 
             Cef3Binder.MyCefMet_Call1(this.nativePtr, CefX509CertPrincipal_GetOrganizationUnitNames_8, out ret, ref v1);
-
             Cef3Binder.CopyStdStringListAndDestroyNativeSide(v1.Ptr, names);
+
         }
 
         // gen! void GetDomainComponents(std::vector<CefString>& components)
@@ -14549,16 +13840,15 @@ namespace LayoutFarm.CefBridge.Auto
         /// /*cef()*/
         /// </summary>
 
-        public void GetDomainComponents(List<string> components
-        )
+        public void GetDomainComponents(List<string> components)
         {
             JsValue v1 = new JsValue();
             JsValue ret;
             v1.Ptr = Cef3Binder.CreateStdList(2);
 
             Cef3Binder.MyCefMet_Call1(this.nativePtr, CefX509CertPrincipal_GetDomainComponents_9, out ret, ref v1);
-
             Cef3Binder.CopyStdStringListAndDestroyNativeSide(v1.Ptr, components);
+
         }
     }
 
@@ -14582,7 +13872,7 @@ namespace LayoutFarm.CefBridge.Auto
         const int CefX509Certificate_GetIssuerChainSize_8 = (_typeNAME << 16) | 8;
         const int CefX509Certificate_GetDEREncodedIssuerChain_9 = (_typeNAME << 16) | 9;
         const int CefX509Certificate_GetPEMEncodedIssuerChain_10 = (_typeNAME << 16) | 10;
-        internal readonly IntPtr nativePtr;
+        internal IntPtr nativePtr;
         internal CefX509Certificate(IntPtr nativePtr)
         {
             this.nativePtr = nativePtr;
@@ -14591,6 +13881,7 @@ namespace LayoutFarm.CefBridge.Auto
         {
             JsValue ret;
             Cef3Binder.MyCefMet_Call0(this.nativePtr, CefX509Certificate_Release_0, out ret);
+            this.nativePtr = IntPtr.Zero;
         }
 
         // gen! CefRefPtr<CefX509CertPrincipal> GetSubject()
@@ -14603,8 +13894,7 @@ namespace LayoutFarm.CefBridge.Auto
             JsValue ret;
 
             Cef3Binder.MyCefMet_Call0(this.nativePtr, CefX509Certificate_GetSubject_1, out ret);
-            var ret_result = new CefX509CertPrincipal(ret.Ptr);
-            return ret_result;
+            return new CefX509CertPrincipal(ret.Ptr);
         }
 
         // gen! CefRefPtr<CefX509CertPrincipal> GetIssuer()
@@ -14618,8 +13908,7 @@ namespace LayoutFarm.CefBridge.Auto
             JsValue ret;
 
             Cef3Binder.MyCefMet_Call0(this.nativePtr, CefX509Certificate_GetIssuer_2, out ret);
-            var ret_result = new CefX509CertPrincipal(ret.Ptr);
-            return ret_result;
+            return new CefX509CertPrincipal(ret.Ptr);
         }
 
         // gen! CefRefPtr<CefBinaryValue> GetSerialNumber()
@@ -14634,8 +13923,7 @@ namespace LayoutFarm.CefBridge.Auto
             JsValue ret;
 
             Cef3Binder.MyCefMet_Call0(this.nativePtr, CefX509Certificate_GetSerialNumber_3, out ret);
-            var ret_result = new CefBinaryValue(ret.Ptr);
-            return ret_result;
+            return new CefBinaryValue(ret.Ptr);
         }
 
         // gen! CefTime GetValidStart()
@@ -14650,9 +13938,8 @@ namespace LayoutFarm.CefBridge.Auto
             JsValue ret;
 
             Cef3Binder.MyCefMet_Call0(this.nativePtr, CefX509Certificate_GetValidStart_4, out ret);
-            var ret_result = new CefTime(ret.Ptr);
+            return new CefTime(ret.Ptr);
 
-            return ret_result;
         }
 
         // gen! CefTime GetValidExpiry()
@@ -14667,9 +13954,8 @@ namespace LayoutFarm.CefBridge.Auto
             JsValue ret;
 
             Cef3Binder.MyCefMet_Call0(this.nativePtr, CefX509Certificate_GetValidExpiry_5, out ret);
-            var ret_result = new CefTime(ret.Ptr);
+            return new CefTime(ret.Ptr);
 
-            return ret_result;
         }
 
         // gen! CefRefPtr<CefBinaryValue> GetDEREncoded()
@@ -14683,8 +13969,7 @@ namespace LayoutFarm.CefBridge.Auto
             JsValue ret;
 
             Cef3Binder.MyCefMet_Call0(this.nativePtr, CefX509Certificate_GetDEREncoded_6, out ret);
-            var ret_result = new CefBinaryValue(ret.Ptr);
-            return ret_result;
+            return new CefBinaryValue(ret.Ptr);
         }
 
         // gen! CefRefPtr<CefBinaryValue> GetPEMEncoded()
@@ -14698,8 +13983,7 @@ namespace LayoutFarm.CefBridge.Auto
             JsValue ret;
 
             Cef3Binder.MyCefMet_Call0(this.nativePtr, CefX509Certificate_GetPEMEncoded_7, out ret);
-            var ret_result = new CefBinaryValue(ret.Ptr);
-            return ret_result;
+            return new CefBinaryValue(ret.Ptr);
         }
 
         // gen! size_t GetIssuerChainSize()
@@ -14714,8 +13998,7 @@ namespace LayoutFarm.CefBridge.Auto
             JsValue ret;
 
             Cef3Binder.MyCefMet_Call0(this.nativePtr, CefX509Certificate_GetIssuerChainSize_8, out ret);
-            var ret_result = (uint)ret.I32;
-            return ret_result;
+            return (uint)ret.I32;
         }
 
         // gen! void GetDEREncodedIssuerChain(IssuerChainBinaryList& chain)
@@ -14726,8 +14009,7 @@ namespace LayoutFarm.CefBridge.Auto
         /// /*cef(count_func=chain:GetIssuerChainSize)*/
         /// </summary>
 
-        public void GetDEREncodedIssuerChain(IssuerChainBinaryList chain
-        )
+        public void GetDEREncodedIssuerChain(IssuerChainBinaryList chain)
         {
             JsValue v1 = new JsValue();
             JsValue ret;
@@ -14745,8 +14027,7 @@ namespace LayoutFarm.CefBridge.Auto
         /// /*cef(count_func=chain:GetIssuerChainSize)*/
         /// </summary>
 
-        public void GetPEMEncodedIssuerChain(IssuerChainBinaryList chain
-        )
+        public void GetPEMEncodedIssuerChain(IssuerChainBinaryList chain)
         {
             JsValue v1 = new JsValue();
             JsValue ret;
@@ -14798,7 +14079,7 @@ namespace LayoutFarm.CefBridge.Auto
         const int CefXmlReader_MoveToFirstAttribute_27 = (_typeNAME << 16) | 27;
         const int CefXmlReader_MoveToNextAttribute_28 = (_typeNAME << 16) | 28;
         const int CefXmlReader_MoveToCarryingElement_29 = (_typeNAME << 16) | 29;
-        internal readonly IntPtr nativePtr;
+        internal IntPtr nativePtr;
         internal CefXmlReader(IntPtr nativePtr)
         {
             this.nativePtr = nativePtr;
@@ -14807,6 +14088,7 @@ namespace LayoutFarm.CefBridge.Auto
         {
             JsValue ret;
             Cef3Binder.MyCefMet_Call0(this.nativePtr, CefXmlReader_Release_0, out ret);
+            this.nativePtr = IntPtr.Zero;
         }
 
         // gen! bool MoveToNextNode()
@@ -14819,8 +14101,7 @@ namespace LayoutFarm.CefBridge.Auto
             JsValue ret;
 
             Cef3Binder.MyCefMet_Call0(this.nativePtr, CefXmlReader_MoveToNextNode_1, out ret);
-            var ret_result = ret.I32 != 0;
-            return ret_result;
+            return ret.I32 != 0;
         }
 
         // gen! bool Close()
@@ -14835,8 +14116,7 @@ namespace LayoutFarm.CefBridge.Auto
             JsValue ret;
 
             Cef3Binder.MyCefMet_Call0(this.nativePtr, CefXmlReader_Close_2, out ret);
-            var ret_result = ret.I32 != 0;
-            return ret_result;
+            return ret.I32 != 0;
         }
 
         // gen! bool HasError()
@@ -14850,8 +14130,7 @@ namespace LayoutFarm.CefBridge.Auto
             JsValue ret;
 
             Cef3Binder.MyCefMet_Call0(this.nativePtr, CefXmlReader_HasError_3, out ret);
-            var ret_result = ret.I32 != 0;
-            return ret_result;
+            return ret.I32 != 0;
         }
 
         // gen! CefString GetError()
@@ -14865,8 +14144,7 @@ namespace LayoutFarm.CefBridge.Auto
             JsValue ret;
 
             Cef3Binder.MyCefMet_Call0(this.nativePtr, CefXmlReader_GetError_4, out ret);
-            var ret_result = Cef3Binder.CopyStringAndDestroyNativeSide(ref ret);
-            return ret_result;
+            return Cef3Binder.CopyStringAndDestroyNativeSide(ref ret);
         }
 
         // gen! NodeType GetType()
@@ -14882,9 +14160,8 @@ namespace LayoutFarm.CefBridge.Auto
             JsValue ret;
 
             Cef3Binder.MyCefMet_Call0(this.nativePtr, CefXmlReader_GetType_5, out ret);
-            var ret_result = (cef_xml_node_type_t)ret.I32;
+            return (cef_xml_node_type_t)ret.I32;
 
-            return ret_result;
         }
 
         // gen! int GetDepth()
@@ -14898,8 +14175,7 @@ namespace LayoutFarm.CefBridge.Auto
             JsValue ret;
 
             Cef3Binder.MyCefMet_Call0(this.nativePtr, CefXmlReader_GetDepth_6, out ret);
-            var ret_result = ret.I32;
-            return ret_result;
+            return ret.I32;
         }
 
         // gen! CefString GetLocalName()
@@ -14914,8 +14190,7 @@ namespace LayoutFarm.CefBridge.Auto
             JsValue ret;
 
             Cef3Binder.MyCefMet_Call0(this.nativePtr, CefXmlReader_GetLocalName_7, out ret);
-            var ret_result = Cef3Binder.CopyStringAndDestroyNativeSide(ref ret);
-            return ret_result;
+            return Cef3Binder.CopyStringAndDestroyNativeSide(ref ret);
         }
 
         // gen! CefString GetPrefix()
@@ -14930,8 +14205,7 @@ namespace LayoutFarm.CefBridge.Auto
             JsValue ret;
 
             Cef3Binder.MyCefMet_Call0(this.nativePtr, CefXmlReader_GetPrefix_8, out ret);
-            var ret_result = Cef3Binder.CopyStringAndDestroyNativeSide(ref ret);
-            return ret_result;
+            return Cef3Binder.CopyStringAndDestroyNativeSide(ref ret);
         }
 
         // gen! CefString GetQualifiedName()
@@ -14946,8 +14220,7 @@ namespace LayoutFarm.CefBridge.Auto
             JsValue ret;
 
             Cef3Binder.MyCefMet_Call0(this.nativePtr, CefXmlReader_GetQualifiedName_9, out ret);
-            var ret_result = Cef3Binder.CopyStringAndDestroyNativeSide(ref ret);
-            return ret_result;
+            return Cef3Binder.CopyStringAndDestroyNativeSide(ref ret);
         }
 
         // gen! CefString GetNamespaceURI()
@@ -14962,8 +14235,7 @@ namespace LayoutFarm.CefBridge.Auto
             JsValue ret;
 
             Cef3Binder.MyCefMet_Call0(this.nativePtr, CefXmlReader_GetNamespaceURI_10, out ret);
-            var ret_result = Cef3Binder.CopyStringAndDestroyNativeSide(ref ret);
-            return ret_result;
+            return Cef3Binder.CopyStringAndDestroyNativeSide(ref ret);
         }
 
         // gen! CefString GetBaseURI()
@@ -14978,8 +14250,7 @@ namespace LayoutFarm.CefBridge.Auto
             JsValue ret;
 
             Cef3Binder.MyCefMet_Call0(this.nativePtr, CefXmlReader_GetBaseURI_11, out ret);
-            var ret_result = Cef3Binder.CopyStringAndDestroyNativeSide(ref ret);
-            return ret_result;
+            return Cef3Binder.CopyStringAndDestroyNativeSide(ref ret);
         }
 
         // gen! CefString GetXmlLang()
@@ -14994,8 +14265,7 @@ namespace LayoutFarm.CefBridge.Auto
             JsValue ret;
 
             Cef3Binder.MyCefMet_Call0(this.nativePtr, CefXmlReader_GetXmlLang_12, out ret);
-            var ret_result = Cef3Binder.CopyStringAndDestroyNativeSide(ref ret);
-            return ret_result;
+            return Cef3Binder.CopyStringAndDestroyNativeSide(ref ret);
         }
 
         // gen! bool IsEmptyElement()
@@ -15010,8 +14280,7 @@ namespace LayoutFarm.CefBridge.Auto
             JsValue ret;
 
             Cef3Binder.MyCefMet_Call0(this.nativePtr, CefXmlReader_IsEmptyElement_13, out ret);
-            var ret_result = ret.I32 != 0;
-            return ret_result;
+            return ret.I32 != 0;
         }
 
         // gen! bool HasValue()
@@ -15025,8 +14294,7 @@ namespace LayoutFarm.CefBridge.Auto
             JsValue ret;
 
             Cef3Binder.MyCefMet_Call0(this.nativePtr, CefXmlReader_HasValue_14, out ret);
-            var ret_result = ret.I32 != 0;
-            return ret_result;
+            return ret.I32 != 0;
         }
 
         // gen! CefString GetValue()
@@ -15040,8 +14308,7 @@ namespace LayoutFarm.CefBridge.Auto
             JsValue ret;
 
             Cef3Binder.MyCefMet_Call0(this.nativePtr, CefXmlReader_GetValue_15, out ret);
-            var ret_result = Cef3Binder.CopyStringAndDestroyNativeSide(ref ret);
-            return ret_result;
+            return Cef3Binder.CopyStringAndDestroyNativeSide(ref ret);
         }
 
         // gen! bool HasAttributes()
@@ -15055,8 +14322,7 @@ namespace LayoutFarm.CefBridge.Auto
             JsValue ret;
 
             Cef3Binder.MyCefMet_Call0(this.nativePtr, CefXmlReader_HasAttributes_16, out ret);
-            var ret_result = ret.I32 != 0;
-            return ret_result;
+            return ret.I32 != 0;
         }
 
         // gen! size_t GetAttributeCount()
@@ -15070,28 +14336,24 @@ namespace LayoutFarm.CefBridge.Auto
             JsValue ret;
 
             Cef3Binder.MyCefMet_Call0(this.nativePtr, CefXmlReader_GetAttributeCount_17, out ret);
-            var ret_result = (uint)ret.I32;
-            return ret_result;
+            return (uint)ret.I32;
         }
 
         // gen! CefString GetAttribute(int index)
 
-        public string GetAttribute(int index
-        )
+        public string GetAttribute(int index)
         {
             JsValue v1 = new JsValue();
             JsValue ret;
             v1.I32 = (int)index;
 
             Cef3Binder.MyCefMet_Call1(this.nativePtr, CefXmlReader_GetAttribute_18, out ret, ref v1);
-            var ret_result = Cef3Binder.CopyStringAndDestroyNativeSide(ref ret);
-            return ret_result;
+            return Cef3Binder.CopyStringAndDestroyNativeSide(ref ret);
         }
 
         // gen! CefString GetAttribute(const CefString& qualifiedName)
 
-        public string GetAttribute(string qualifiedName
-        )
+        public string GetAttribute(string qualifiedName)
         {
             JsValue v1 = new JsValue();
             JsValue ret;
@@ -15099,16 +14361,14 @@ namespace LayoutFarm.CefBridge.Auto
             ;
 
             Cef3Binder.MyCefMet_Call1(this.nativePtr, CefXmlReader_GetAttribute_19, out ret, ref v1);
-            var ret_result = Cef3Binder.CopyStringAndDestroyNativeSide(ref ret);
             Cef3Binder.MyCefDeletePtr(v1.Ptr); ;
-            return ret_result;
+            return Cef3Binder.CopyStringAndDestroyNativeSide(ref ret);
         }
 
         // gen! CefString GetAttribute(const CefString& localName,const CefString& namespaceURI)
 
-        public string GetAttribute(string localName
-        , string namespaceURI
-        )
+        public string GetAttribute(string localName,
+        string namespaceURI)
         {
             JsValue v1 = new JsValue();
             JsValue v2 = new JsValue();
@@ -15119,10 +14379,9 @@ namespace LayoutFarm.CefBridge.Auto
             ;
 
             Cef3Binder.MyCefMet_Call2(this.nativePtr, CefXmlReader_GetAttribute_20, out ret, ref v1, ref v2);
-            var ret_result = Cef3Binder.CopyStringAndDestroyNativeSide(ref ret);
             Cef3Binder.MyCefDeletePtr(v1.Ptr); ;
             Cef3Binder.MyCefDeletePtr(v2.Ptr); ;
-            return ret_result;
+            return Cef3Binder.CopyStringAndDestroyNativeSide(ref ret);
         }
 
         // gen! CefString GetInnerXml()
@@ -15136,8 +14395,7 @@ namespace LayoutFarm.CefBridge.Auto
             JsValue ret;
 
             Cef3Binder.MyCefMet_Call0(this.nativePtr, CefXmlReader_GetInnerXml_21, out ret);
-            var ret_result = Cef3Binder.CopyStringAndDestroyNativeSide(ref ret);
-            return ret_result;
+            return Cef3Binder.CopyStringAndDestroyNativeSide(ref ret);
         }
 
         // gen! CefString GetOuterXml()
@@ -15151,8 +14409,7 @@ namespace LayoutFarm.CefBridge.Auto
             JsValue ret;
 
             Cef3Binder.MyCefMet_Call0(this.nativePtr, CefXmlReader_GetOuterXml_22, out ret);
-            var ret_result = Cef3Binder.CopyStringAndDestroyNativeSide(ref ret);
-            return ret_result;
+            return Cef3Binder.CopyStringAndDestroyNativeSide(ref ret);
         }
 
         // gen! int GetLineNumber()
@@ -15166,28 +14423,24 @@ namespace LayoutFarm.CefBridge.Auto
             JsValue ret;
 
             Cef3Binder.MyCefMet_Call0(this.nativePtr, CefXmlReader_GetLineNumber_23, out ret);
-            var ret_result = ret.I32;
-            return ret_result;
+            return ret.I32;
         }
 
         // gen! bool MoveToAttribute(int index)
 
-        public bool MoveToAttribute(int index
-        )
+        public bool MoveToAttribute(int index)
         {
             JsValue v1 = new JsValue();
             JsValue ret;
             v1.I32 = (int)index;
 
             Cef3Binder.MyCefMet_Call1(this.nativePtr, CefXmlReader_MoveToAttribute_24, out ret, ref v1);
-            var ret_result = ret.I32 != 0;
-            return ret_result;
+            return ret.I32 != 0;
         }
 
         // gen! bool MoveToAttribute(const CefString& qualifiedName)
 
-        public bool MoveToAttribute(string qualifiedName
-        )
+        public bool MoveToAttribute(string qualifiedName)
         {
             JsValue v1 = new JsValue();
             JsValue ret;
@@ -15195,16 +14448,14 @@ namespace LayoutFarm.CefBridge.Auto
             ;
 
             Cef3Binder.MyCefMet_Call1(this.nativePtr, CefXmlReader_MoveToAttribute_25, out ret, ref v1);
-            var ret_result = ret.I32 != 0;
             Cef3Binder.MyCefDeletePtr(v1.Ptr); ;
-            return ret_result;
+            return ret.I32 != 0;
         }
 
         // gen! bool MoveToAttribute(const CefString& localName,const CefString& namespaceURI)
 
-        public bool MoveToAttribute(string localName
-        , string namespaceURI
-        )
+        public bool MoveToAttribute(string localName,
+        string namespaceURI)
         {
             JsValue v1 = new JsValue();
             JsValue v2 = new JsValue();
@@ -15215,10 +14466,9 @@ namespace LayoutFarm.CefBridge.Auto
             ;
 
             Cef3Binder.MyCefMet_Call2(this.nativePtr, CefXmlReader_MoveToAttribute_26, out ret, ref v1, ref v2);
-            var ret_result = ret.I32 != 0;
             Cef3Binder.MyCefDeletePtr(v1.Ptr); ;
             Cef3Binder.MyCefDeletePtr(v2.Ptr); ;
-            return ret_result;
+            return ret.I32 != 0;
         }
 
         // gen! bool MoveToFirstAttribute()
@@ -15233,8 +14483,7 @@ namespace LayoutFarm.CefBridge.Auto
             JsValue ret;
 
             Cef3Binder.MyCefMet_Call0(this.nativePtr, CefXmlReader_MoveToFirstAttribute_27, out ret);
-            var ret_result = ret.I32 != 0;
-            return ret_result;
+            return ret.I32 != 0;
         }
 
         // gen! bool MoveToNextAttribute()
@@ -15249,8 +14498,7 @@ namespace LayoutFarm.CefBridge.Auto
             JsValue ret;
 
             Cef3Binder.MyCefMet_Call0(this.nativePtr, CefXmlReader_MoveToNextAttribute_28, out ret);
-            var ret_result = ret.I32 != 0;
-            return ret_result;
+            return ret.I32 != 0;
         }
 
         // gen! bool MoveToCarryingElement()
@@ -15265,8 +14513,7 @@ namespace LayoutFarm.CefBridge.Auto
             JsValue ret;
 
             Cef3Binder.MyCefMet_Call0(this.nativePtr, CefXmlReader_MoveToCarryingElement_29, out ret);
-            var ret_result = ret.I32 != 0;
-            return ret_result;
+            return ret.I32 != 0;
         }
     }
 
@@ -15294,7 +14541,7 @@ namespace LayoutFarm.CefBridge.Auto
         const int CefZipReader_ReadFile_10 = (_typeNAME << 16) | 10;
         const int CefZipReader_Tell_11 = (_typeNAME << 16) | 11;
         const int CefZipReader_Eof_12 = (_typeNAME << 16) | 12;
-        internal readonly IntPtr nativePtr;
+        internal IntPtr nativePtr;
         internal CefZipReader(IntPtr nativePtr)
         {
             this.nativePtr = nativePtr;
@@ -15303,6 +14550,7 @@ namespace LayoutFarm.CefBridge.Auto
         {
             JsValue ret;
             Cef3Binder.MyCefMet_Call0(this.nativePtr, CefZipReader_Release_0, out ret);
+            this.nativePtr = IntPtr.Zero;
         }
 
         // gen! bool MoveToFirstFile()
@@ -15315,8 +14563,7 @@ namespace LayoutFarm.CefBridge.Auto
             JsValue ret;
 
             Cef3Binder.MyCefMet_Call0(this.nativePtr, CefZipReader_MoveToFirstFile_1, out ret);
-            var ret_result = ret.I32 != 0;
-            return ret_result;
+            return ret.I32 != 0;
         }
 
         // gen! bool MoveToNextFile()
@@ -15331,8 +14578,7 @@ namespace LayoutFarm.CefBridge.Auto
             JsValue ret;
 
             Cef3Binder.MyCefMet_Call0(this.nativePtr, CefZipReader_MoveToNextFile_2, out ret);
-            var ret_result = ret.I32 != 0;
-            return ret_result;
+            return ret.I32 != 0;
         }
 
         // gen! bool MoveToFile(const CefString& fileName,bool caseSensitive)
@@ -15343,9 +14589,8 @@ namespace LayoutFarm.CefBridge.Auto
         /// /*cef()*/
         /// </summary>
 
-        public bool MoveToFile(string fileName
-        , bool caseSensitive
-        )
+        public bool MoveToFile(string fileName,
+        bool caseSensitive)
         {
             JsValue v1 = new JsValue();
             JsValue v2 = new JsValue();
@@ -15355,9 +14600,8 @@ namespace LayoutFarm.CefBridge.Auto
             v2.I32 = caseSensitive ? 1 : 0;
 
             Cef3Binder.MyCefMet_Call2(this.nativePtr, CefZipReader_MoveToFile_3, out ret, ref v1, ref v2);
-            var ret_result = ret.I32 != 0;
             Cef3Binder.MyCefDeletePtr(v1.Ptr); ;
-            return ret_result;
+            return ret.I32 != 0;
         }
 
         // gen! bool Close()
@@ -15372,8 +14616,7 @@ namespace LayoutFarm.CefBridge.Auto
             JsValue ret;
 
             Cef3Binder.MyCefMet_Call0(this.nativePtr, CefZipReader_Close_4, out ret);
-            var ret_result = ret.I32 != 0;
-            return ret_result;
+            return ret.I32 != 0;
         }
 
         // gen! CefString GetFileName()
@@ -15388,8 +14631,7 @@ namespace LayoutFarm.CefBridge.Auto
             JsValue ret;
 
             Cef3Binder.MyCefMet_Call0(this.nativePtr, CefZipReader_GetFileName_5, out ret);
-            var ret_result = Cef3Binder.CopyStringAndDestroyNativeSide(ref ret);
-            return ret_result;
+            return Cef3Binder.CopyStringAndDestroyNativeSide(ref ret);
         }
 
         // gen! int64 GetFileSize()
@@ -15403,8 +14645,7 @@ namespace LayoutFarm.CefBridge.Auto
             JsValue ret;
 
             Cef3Binder.MyCefMet_Call0(this.nativePtr, CefZipReader_GetFileSize_6, out ret);
-            var ret_result = ret.I64;
-            return ret_result;
+            return ret.I64;
         }
 
         // gen! CefTime GetFileLastModified()
@@ -15418,9 +14659,8 @@ namespace LayoutFarm.CefBridge.Auto
             JsValue ret;
 
             Cef3Binder.MyCefMet_Call0(this.nativePtr, CefZipReader_GetFileLastModified_7, out ret);
-            var ret_result = new CefTime(ret.Ptr);
+            return new CefTime(ret.Ptr);
 
-            return ret_result;
         }
 
         // gen! bool OpenFile(const CefString& password)
@@ -15430,8 +14670,7 @@ namespace LayoutFarm.CefBridge.Auto
         /// /*cef(optional_param=password)*/
         /// </summary>
 
-        public bool OpenFile(string password
-        )
+        public bool OpenFile(string password)
         {
             JsValue v1 = new JsValue();
             JsValue ret;
@@ -15439,9 +14678,8 @@ namespace LayoutFarm.CefBridge.Auto
             ;
 
             Cef3Binder.MyCefMet_Call1(this.nativePtr, CefZipReader_OpenFile_8, out ret, ref v1);
-            var ret_result = ret.I32 != 0;
             Cef3Binder.MyCefDeletePtr(v1.Ptr); ;
-            return ret_result;
+            return ret.I32 != 0;
         }
 
         // gen! bool CloseFile()
@@ -15455,8 +14693,7 @@ namespace LayoutFarm.CefBridge.Auto
             JsValue ret;
 
             Cef3Binder.MyCefMet_Call0(this.nativePtr, CefZipReader_CloseFile_9, out ret);
-            var ret_result = ret.I32 != 0;
-            return ret_result;
+            return ret.I32 != 0;
         }
 
         // gen! int ReadFile(void* buffer,size_t bufferSize)
@@ -15466,9 +14703,8 @@ namespace LayoutFarm.CefBridge.Auto
         /// /*cef()*/
         /// </summary>
 
-        public int ReadFile(IntPtr buffer
-        , uint bufferSize
-        )
+        public int ReadFile(IntPtr buffer,
+        uint bufferSize)
         {
             JsValue v1 = new JsValue();
             JsValue v2 = new JsValue();
@@ -15477,8 +14713,7 @@ namespace LayoutFarm.CefBridge.Auto
             v2.I32 = (int)bufferSize;
 
             Cef3Binder.MyCefMet_Call2(this.nativePtr, CefZipReader_ReadFile_10, out ret, ref v1, ref v2);
-            var ret_result = ret.I32;
-            return ret_result;
+            return ret.I32;
         }
 
         // gen! int64 Tell()
@@ -15492,8 +14727,7 @@ namespace LayoutFarm.CefBridge.Auto
             JsValue ret;
 
             Cef3Binder.MyCefMet_Call0(this.nativePtr, CefZipReader_Tell_11, out ret);
-            var ret_result = ret.I64;
-            return ret_result;
+            return ret.I64;
         }
 
         // gen! bool Eof()
@@ -15507,8 +14741,7 @@ namespace LayoutFarm.CefBridge.Auto
             JsValue ret;
 
             Cef3Binder.MyCefMet_Call0(this.nativePtr, CefZipReader_Eof_12, out ret);
-            var ret_result = ret.I32 != 0;
-            return ret_result;
+            return ret.I32 != 0;
         }
     }
 
