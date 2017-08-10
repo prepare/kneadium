@@ -42,7 +42,7 @@ namespace BridgeBuilder
             if (_dbugEnableLineNote)
             {
                 stbuilder.AppendLine("/*" + _dbugLineCount + "*/");
-                if (_dbugLineCount >= 225)
+                if (_dbugLineCount >= 2043)
                 {
 
                 }
@@ -460,7 +460,7 @@ namespace BridgeBuilder
 
         protected static void PrepareCppMetArg(MethodParameterTxInfo par, string argName)
         {
-
+            par.ClearExtractCode();
             TypeSymbol typeSymbol = par.TypeSymbol;
             TypeBridgeInfo bridge = typeSymbol.BridgeInfo;
             switch (typeSymbol.TypeSymbolKind)
@@ -923,9 +923,26 @@ namespace BridgeBuilder
 
         protected static void PrepareCsMetArg(MethodParameterTxInfo par, string argName)
         {
-
+            par.ClearExtractCode();
             TypeSymbol typeSymbol = par.TypeSymbol;
             TypeBridgeInfo bridge = typeSymbol.BridgeInfo;
+
+            //check if parTx.Name is keyword?
+            switch (par.Name)
+            {
+                case "event":
+                    par.Name = "_event";
+                    break;
+                case "checked":
+                    par.Name = "_checked";
+                    break;
+                case "object":
+                    par.Name = "_object";
+                    break;
+
+            }
+            //-----------------
+
             switch (typeSymbol.TypeSymbolKind)
             {
                 default:
@@ -955,10 +972,10 @@ namespace BridgeBuilder
                                     par.ArgExtractCode = "(" + simpleType.ToString() + "*)" + argName + "->" + bridge.CefCppSlotName;
                                     break;
                                 case PrimitiveTypeKind.NaitveInt:
+                                    par.ArgExtractCode = argName + ".I32= (int)" + par.Name;//review here
+                                    break;
                                 case PrimitiveTypeKind.Int32:
-                                    {
-                                        par.ArgExtractCode = argName + ".I32= " + par.Name + "?1:0";//review here
-                                    }
+                                    par.ArgExtractCode = argName + ".I32= " + par.Name;//review here 
                                     break;
                                 case PrimitiveTypeKind.UInt32:
                                     {
@@ -1046,16 +1063,14 @@ namespace BridgeBuilder
                                                 break;
                                             case "void":
                                                 {
-                                                    //void*
-                                                    string slotName = bridge.CefCppSlotName.ToString();
-                                                    par.ArgExtractCode = "(void*)" + argName + "->" + slotName;//direct cast
+                                                    //void* 
+                                                    par.ArgExtractCode = argName + ".Ptr=" + par.Name;
                                                 }
                                                 break;
                                             case "char":
                                                 {
-                                                    //char*
-                                                    string slotName = bridge.CefCppSlotName.ToString();
-                                                    par.ArgExtractCode = argName + "->" + slotName;
+                                                    //char* 
+                                                    par.ArgExtractCode = argName + ".Ptr=" + par.Name;
                                                 }
                                                 break;
                                         }
@@ -1081,8 +1096,7 @@ namespace BridgeBuilder
                                             {
                                                 //bool SetUserData(CefRefPtr<CefBaseRefCounted> user_data)
                                                 //only 1 
-                                                string slotName = bridge.CefCppSlotName.ToString();
-                                                par.ArgExtractCode = argName + "->" + slotName;
+                                                par.ArgExtractCode = argName + ".Ptr=" + par.Name;
                                             }
                                             else
                                             {
@@ -1168,7 +1182,7 @@ namespace BridgeBuilder
                                                             //string slotName = bridge.CefCppSlotName.ToString();
                                                             //par.ArgExtractCode = "*((size_t*)" + argName + "->" + slotName + ")";
 
-                                                            par.ArgExtractCode = argName + ".I32=" + par.Name;
+                                                            par.ArgExtractCode = argName + ".I32= (int)" + par.Name;
                                                             par.ArgPostExtractCode = par.Name + "= (uint)" + argName + ".I32;"; //restore result back
                                                         }
                                                         break;
@@ -1246,9 +1260,7 @@ namespace BridgeBuilder
                                                             //native need cefstring
                                                             //so we create a cef string handle holder
                                                             par.ArgPreExtractCode = argName + ".Ptr=" + " Cef3Binder.MyCefCreateCefString(" + par.Name + ");\r\n";
-                                                            par.ArgExtractCode = argName + ".Ptr";
                                                             par.ArgPostExtractCode = "Cef3Binder.MyCefDeletePtr(" + argName + ".Ptr);";
-
                                                         }
                                                         break;
                                                 }
@@ -1303,32 +1315,28 @@ namespace BridgeBuilder
                                             break;
                                         case TypeSymbolKind.Vec:
                                             {
+                                                //for cef,...
+                                                //list of what
+
                                                 string elem_typename = refOrPtr.ElementType.ToString();
-                                                string slotName = bridge.CefCppSlotName.ToString();
-                                                par.ArgExtractCode = "*((" + elem_typename + "*)" + argName + "->" + slotName + ")";
+                                                switch (elem_typename)
+                                                {
+                                                    default:
+                                                        throw new NotFiniteNumberException();
+                                                    case "std::vector<int64>":
+                                                        par.ArgExtractCode = argName + ".Ptr=Cef3Binder.CreateStdList(1)";
+                                                        par.ArgPostExtractCode = "Cef3Binder.CopyStdInt64ListAndDestroyNativeSide(" + argName + ".Ptr," + par.Name + ")";
 
-                                                //switch (elem_typename)
-                                                //{
-                                                //    default:
-                                                //        break;
-                                                //    case "vec<CefString>":
-                                                //        {
-                                                //            //eg. void GetArgv(std::vector<CefString>& argv)
-                                                //            //eg. bool GetDictionarySuggestions(std::vector<CefString>& suggestions)
-                                                //            //eg. void SetSupportedSchemes(const std::vector<CefString>& schemes,CefRefPtr<CefCompletionCallback> callback)   
-                                                //        }
-                                                //        break;
-                                                //    case "vec<int64>":
-                                                //        {
-                                                //            //eg. void GetFrameIdentifiers(std::vector<int64>& identifiers)
-                                                //        }
-                                                //        break;
-                                                //    case "vec<CefCompositionUnderline>":
-                                                //        {
+                                                        break;
+                                                    case "std::vector<CefString>":
+                                                        par.ArgExtractCode = argName + ".Ptr=Cef3Binder.CreateStdList(2)";
+                                                        par.ArgPostExtractCode = "Cef3Binder.CopyStdStringListAndDestroyNativeSide(" + argName + ".Ptr," + par.Name + ")";
+                                                        break;
+                                                    case "std::vector<CefCompositionUnderline>":
+                                                        par.ArgExtractCode = argName + ".Ptr=Cef3Binder.CreateStdList(3)"; 
+                                                        break;
+                                                }
 
-                                                //        }
-                                                //        break;
-                                                //}
                                             }
                                             break;
                                         case TypeSymbolKind.Template:
@@ -2072,7 +2080,7 @@ namespace BridgeBuilder
             foreach (CodeMethodDeclaration orgMet in orgDecl.GetMethodIter())
             {
                 Token[] lineComments = orgMet.LineComments;
-               
+
                 if (lineComments != null)
                 {
                     results.Clear();
@@ -2156,7 +2164,7 @@ namespace BridgeBuilder
                 CodeStringBuilder met_stbuilder = new CodeStringBuilder();
                 //create each method,
                 //in our convention we dont generate 
-                MethodTxInfo metTx = _typeTxInfo.methods[i]; 
+                MethodTxInfo metTx = _typeTxInfo.methods[i];
                 GenerateCsMethod(metTx, met_stbuilder);
                 csStruct.Append(met_stbuilder.ToString());
             }
@@ -2402,7 +2410,7 @@ namespace BridgeBuilder
             //--------------------------- 
             //generate method sig 
             //--------------------------- 
-            
+
             stbuilder.Append(
                 "\r\n" +
                 "// gen! " + met.ToString() + "\r\n"
@@ -2446,22 +2454,6 @@ namespace BridgeBuilder
                 MethodParameterTxInfo parTx = pars[i];
                 stbuilder.Append(GetCsRetName(parTx.TypeSymbol));
                 stbuilder.Append(" ");
-
-                //check if parTx.Name is keyword?
-                switch (parTx.Name)
-                {
-                    case "event":
-                        parTx.Name = "_event";
-                        break;
-                    case "checked":
-                        parTx.Name = "_checked";
-                        break;
-                    case "object":
-                        parTx.Name = "_object";
-                        break;
-
-                }
-
                 stbuilder.AppendLine(parTx.Name);
             }
             stbuilder.Append(")");
@@ -2487,7 +2479,15 @@ namespace BridgeBuilder
                 }
             }
             //---------------------------
-
+            for (int i = 0; i < parCount; ++i)
+            {
+                MethodParameterTxInfo parTx = pars[i];
+                if (!string.IsNullOrEmpty(parTx.ArgExtractCode))
+                {
+                    stbuilder.Append(parTx.ArgExtractCode);
+                    stbuilder.AppendLine(";");
+                }
+            }
             string orgDeclName = this.OriginalDecl.Name;
             stbuilder.AppendLine();//marker
 
