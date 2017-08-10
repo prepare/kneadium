@@ -135,24 +135,7 @@ namespace LayoutFarm.CefBridge
         {
             return Cef3Binder.MyCefJs_CefV8Value_IsFunc(this.Ptr);
         }
-        public string ReadValueAsString()
-        {
-            const int BUFF_LEN = 512;
-            char[] charBuff = new char[BUFF_LEN];
-            unsafe
-            {
-                fixed (char* head = &charBuff[0])
-                {
-                    int actualLen = 0;
-                    Cef3Binder.MyCefJs_CefV8Value_ReadAsString(this.Ptr, head, BUFF_LEN, out actualLen);
-                    if (actualLen > BUFF_LEN)
-                    {
-                        //read more
-                    }
-                    return new string(charBuff, 0, actualLen);
-                }
-            }
-        }
+       
     }
 
 
