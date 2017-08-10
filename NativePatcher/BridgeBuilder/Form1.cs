@@ -43,11 +43,11 @@ namespace BridgeBuilder
             //----------
             //copy extension code          
             CopyFileInFolder(saveFolder,
-                @"D:\projects\CefBridge\NativePatcher\cefbridge_patches"
+                @"D:\projects\Kneadium\NativePatcher\cefbridge_patches"
                );
             //copy ext from actual src 
             CopyFileInFolder(srcRootDir + "\\myext",
-                 @"D:\projects\CefBridge\NativePatcher\BridgeBuilder\Patcher_ExtCode\myext");
+                 @"D:\projects\Kneadium\NativePatcher\BridgeBuilder\Patcher_ExtCode\myext");
 
         }
 
@@ -175,11 +175,11 @@ namespace BridgeBuilder
             //----------
             //copy extension code          
             CopyFileInFolder(saveFolder,
-                @"D:\projects\CefBridge\NativePatcher\cefbridge_patches_mac"
+                @"D:\projects\Kneadium\NativePatcher\cefbridge_patches_mac"
                );
             //copy ext from actual src 
             CopyFileInFolder(srcRootDir + "\\myext",
-                 @"D:\projects\CefBridge\NativePatcher\BridgeBuilder\Patcher_ExtCode_mac\myext");
+                 @"D:\projects\Kneadium\NativePatcher\BridgeBuilder\Patcher_ExtCode_mac\myext");
         }
 
         private void cmdMacApplyPatches_Click(object sender, EventArgs e)
