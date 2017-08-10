@@ -1,5 +1,4 @@
-﻿//MIT, 2017, WinterDev
-//AUTOGEN CONTENT
+﻿//MIT, 2017, WinterDev//AUTOGEN CONTENT
 using System;
 using System.Collections.Generic;
 namespace LayoutFarm.CefBridge.Auto
@@ -445,7 +444,6 @@ namespace LayoutFarm.CefBridge.Auto
         /// General mask defining the bits used for the source values.
         /// </summary>
         TT_SOURCE_MASK = 0xFF,
-        xFF,
         /// <summary>
         /// Qualifiers.
         /// Any of the core values above can be augmented by one or more qualifiers.
@@ -1052,7 +1050,6 @@ namespace LayoutFarm.CefBridge.Auto
         /// General mask defining the bits used for the type values.
         /// </summary>
         FILE_DIALOG_TYPE_MASK = 0xFF,
-        xFF,
         /// <summary>
         /// Qualifiers.
         /// Any of the type values above can be augmented by one or more qualifiers.
