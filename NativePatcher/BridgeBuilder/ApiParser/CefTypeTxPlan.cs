@@ -2156,10 +2156,7 @@ namespace BridgeBuilder
                 CodeStringBuilder met_stbuilder = new CodeStringBuilder();
                 //create each method,
                 //in our convention we dont generate 
-                MethodTxInfo metTx = _typeTxInfo.methods[i];
-                
-                AddComment(metTx.metDecl.LineComments, csStruct);
-                //
+                MethodTxInfo metTx = _typeTxInfo.methods[i]; 
                 GenerateCsMethod(metTx, met_stbuilder);
                 csStruct.Append(met_stbuilder.ToString());
             }
@@ -2405,13 +2402,14 @@ namespace BridgeBuilder
             //--------------------------- 
             //generate method sig 
             //--------------------------- 
-            stbuilder.AppendLine();
+            
             stbuilder.Append(
                 "\r\n" +
                 "// gen! " + met.ToString() + "\r\n"
                 );
-
             //---------------------------
+            AddComment(met.metDecl.LineComments, stbuilder);
+
             for (int i = 0; i < parCount; ++i)
             {
                 //prepare some method args
