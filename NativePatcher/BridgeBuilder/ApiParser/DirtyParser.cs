@@ -329,6 +329,7 @@ namespace BridgeBuilder
             //
             stbuilder.Append(c);
 
+            bool isHexNum = false;
             for (int i = currentIndex + 1; i < charCount; ++i)
             {
                 c = charBuffer[i];
@@ -337,17 +338,49 @@ namespace BridgeBuilder
                     stbuilder.Append(c);
                     currentIndex = i;
                 }
+                else if (c == 'x' || c == 'X')
+                {
+                    //may be hex number
+                    //look next
+                    if (isHexNum)
+                    {
+                        throw new NotSupportedException();
+                    }
+                    stbuilder.Append(c);
+                    isHexNum = true;
+                }
                 else
                 {
                     //stop
                     //here
-                    break;
+                    if (isHexNum)
+                    {
+                        char c1 = c.ToString().ToLower()[0];
+                        if (c1 >= 'a' && c1 <= 'f')
+                        {
+                            //also hex 
+                            stbuilder.Append(c);
+                        }
+                        else
+                        {
+                            break;
+                        }
+                    }
+                    else
+                    {
+                        break;
+                    }
                 }
             }
 
             if (stbuilder.Length > 0)
             {
-                tklist.Add(new Token() { Content = stbuilder.ToString(), TokenKind = TokenKind.LiteralNumber });
+                tklist.Add(new Token()
+                {
+                    Content = stbuilder.ToString(),
+                    TokenKind = TokenKind.LiteralNumber,
+                    NumberInHexFormat = isHexNum
+                });
             }
         }
         void LexStrignLiteral(char[] charBuffer, int charCount, ref int currentIndex)
@@ -386,6 +419,7 @@ namespace BridgeBuilder
     {
         public string Content;
         public TokenKind TokenKind;
+        public bool NumberInHexFormat;
         public override string ToString()
         {
             return Content;
@@ -575,7 +609,6 @@ namespace BridgeBuilder
             }
             //-------------------------------------------------------
             int tkcount = tokenList.Count;
-
             //-------------------------------------------------------
 #if DEBUG
 
@@ -1331,7 +1364,7 @@ namespace BridgeBuilder
             dbugCount++;
 
 #endif
- 
+
             //member modifiers
             //this version must be public 
             //parse each member 
@@ -1509,7 +1542,7 @@ namespace BridgeBuilder
             if (ExpectPunc("("))
             {
                 //this is method
-                Token[] comments = FlushCollectedLineComments(); 
+                Token[] comments = FlushCollectedLineComments();
                 CodeMethodDeclaration met = new CodeMethodDeclaration();
                 met.IsStatic = isStatic;
                 met.IsVirtual = isVirtual;
