@@ -1378,10 +1378,12 @@ namespace BridgeBuilder
                             SimpleTypeSymbol ss = (SimpleTypeSymbol)referToType;
                             if (ss.IsEnum)
                             {
-                                return "var " + autoRetResultName + "= (" + referToType.ToString() + ")ret.I32;\r\n";
+                                //return "var " + autoRetResultName + "= (" + referToType.ToString() + ")ret.I32;\r\n";
+                                return " return (" + referToType.ToString() + ")" + retName + ".I32;\r\n";
                             }
                         }
-                        return "IntPtr " + autoRetResultName + "= ret.Ptr;";
+                        return "return "+ retName + ".Ptr;";
+                        //return "IntPtr " + autoRetResultName + "= ret.Ptr;";
 
                     }
                 case TypeSymbolKind.ReferenceOrPointer:
@@ -1390,119 +1392,17 @@ namespace BridgeBuilder
                         switch (refOrPtr.Kind)
                         {
                             default:
-                                {
-
-                                }
-                                break;
                             case ContainerTypeKind.ByRef:
-                                {
-                                    TypeSymbol elemType = refOrPtr.ElementType;
-                                    //what type that implement this elem
-                                    if (elemType.TypeSymbolKind == TypeSymbolKind.Simple)
-                                    {
-                                        SimpleTypeSymbol simpleElem = (SimpleTypeSymbol)elemType;
-                                        switch (simpleElem.PrimitiveTypeKind)
-                                        {
-                                            case PrimitiveTypeKind.CefString:
-                                                return "SetCefStringToJsValue(" + retName + "," + autoRetResultName + ");";
-
-                                            case PrimitiveTypeKind.NaitveInt:
-                                                return "MyCefSetInt64(" + retName + "," + autoRetResultName + ");";
-
-                                            case PrimitiveTypeKind.size_t:
-                                                return "MyCefSetInt32(" + retName + ",(int32_t)" + autoRetResultName + ");";
-
-                                            case PrimitiveTypeKind.Int64:
-                                                return "MyCefSetInt64(" + retName + "," + autoRetResultName + ");";
-
-                                            case PrimitiveTypeKind.UInt64:
-                                                return "MyCefSetUInt64(" + retName + "," + autoRetResultName + ");";
-
-                                            case PrimitiveTypeKind.Double:
-                                                return "MyCefSetDouble(" + retName + "," + autoRetResultName + ");";
-
-                                            case PrimitiveTypeKind.Float:
-                                                return "MyCefSetFloat(" + retName + "," + autoRetResultName + ");";
-
-                                            case PrimitiveTypeKind.Bool:
-                                                return "MyCefSetBool(" + retName + "," + autoRetResultName + ");";
-
-                                            case PrimitiveTypeKind.UInt32:
-                                                return "MyCefSetUInt32(" + retName + "," + autoRetResultName + ");";
-
-                                            case PrimitiveTypeKind.Int32:
-                                                return "MyCefSetInt32(" + retName + "," + autoRetResultName + ");";
-                                            case PrimitiveTypeKind.NotPrimitiveType:
-                                                {
-                                                    CefTypeTxPlan txPlan = simpleElem.CefTxPlan;
-                                                    if (txPlan == null)
-                                                    {
-
-                                                    }
-                                                    else
-                                                    {
-                                                        //find what type that implement wrap/unwrap
-                                                        CodeTypeDeclaration implBy = txPlan.ImplTypeDecl;
-
-                                                        //c-to-cpp => from 'raw' pointer to 'smart' pointer
-                                                        //cpp-to-c => from 'smart' pointer to 'raw' pointer
-
-                                                        if (implBy.Name.Contains("CToCpp"))
-                                                        {
-                                                            //so if you want to send this to client lib
-                                                            //you need to GET raw pointer , so =>
-
-                                                            return "MyCefSetVoidPtr(" + retName + "," +
-                                                                  implBy.Name + "::Unwrap" + "(" + autoRetResultName + "));";
-
-                                                        }
-                                                        else if (implBy.Name.Contains("CppToC"))
-                                                        {
-                                                            return "MyCefSetVoidPtr(" + retName + "," +
-                                                                implBy.Name + "::Wrap" + "(" + autoRetResultName + "));";
-                                                        }
-                                                        else
-                                                        {
-
-                                                        }
-                                                    }
-                                                }
-                                                break;
-                                        }
-
-                                    }
-                                    else
-                                    {
-                                        return "MyCefSetVoidPtr(" + retName + "," + autoRetResultName + ");";
-                                    }
-                                }
-                                break;
+                                throw new NotSupportedException();
                             case ContainerTypeKind.CefRefPtr:
                                 {
                                     //the result is inner pointer from cef 'smart' pointer
                                     TypeSymbol elemType = refOrPtr.ElementType;
-                                    return "var " + autoRetResultName + "= new " + elemType + "(ret.Ptr);";
+                                    //return "var " + autoRetResultName + "= new " + elemType + "(ret.Ptr);";
+                                    return "return new " + elemType + "("+ retName + ".Ptr);";
                                 }
-                            case ContainerTypeKind.Pointer:
-                                {
-                                    if (refOrPtr.ElementType.BridgeInfo.WellKnownTypeName == WellKnownTypeName.Void)
-                                    {
-                                        //void*
-                                        return "MyCefSetVoidPtr(" + retName + "," + autoRetResultName + ");";
-
-                                    }
-                                    else
-                                    {
-
-                                    }
-
-                                }
-                                break;
-                            case ContainerTypeKind.scoped_ptr:
-                                break;
                         }
                     }
-                    break;
                 case TypeSymbolKind.Simple:
                     {
                         SimpleTypeSymbol simpleType = (SimpleTypeSymbol)ret;
@@ -1519,7 +1419,8 @@ namespace BridgeBuilder
                                     {
                                         //enum ,
                                         //cast from i32 to specific enum type
-                                        return "var " + autoRetResultName + "=(" + simpleType.Name + ")" + retName + ".I32;\r\n";
+                                        //return "var " + autoRetResultName + "=(" + simpleType.Name + ")" + retName + ".I32;\r\n";
+                                        return "return (" + simpleType.Name + ")" + retName + ".I32;\r\n";
                                     }
                                     else
                                     {
@@ -1541,8 +1442,8 @@ namespace BridgeBuilder
 
                                                     //---test with copy by reference
                                                     //
-                                                    return "var " + autoRetResultName + "= new " + ss.Name + "(" + retName + ".Ptr);\r\n";
-
+                                                    // return "var " + autoRetResultName + "= new " + ss.Name + "(" + retName + ".Ptr);\r\n";
+                                                    return "return new " + ss.Name + "(" + retName + ".Ptr);\r\n";
                                                 }
                                         }
                                     }
@@ -1555,24 +1456,33 @@ namespace BridgeBuilder
                                 //NativeMyCefStringHolder ret_str = new NativeMyCefStringHolder(ret.Ptr);
                                 //string url = ret_str.ReadString(ret.I32);
                                 //ret_str.Dispose();
-                                return "var " + autoRetResultName + "= " + "Cef3Binder.CopyStringAndDestroyNativeSide(ref " + retName + ");";
+                                //return "var " + autoRetResultName + "= " + "Cef3Binder.CopyStringAndDestroyNativeSide(ref " + retName + ");";
+                                return "return Cef3Binder.CopyStringAndDestroyNativeSide(ref " + retName + ");";
                             case PrimitiveTypeKind.NaitveInt:
-                                return "var " + autoRetResultName + "= " + retName + ".I32;";
+                                //return "var " + autoRetResultName + "= " + retName + ".I32;";
+                                return "return " + retName + ".I32;";
                             case PrimitiveTypeKind.Int64:
-                                return "var " + autoRetResultName + "= " + retName + ".I64;";
+                                //return "var " + autoRetResultName + "= " + retName + ".I64;";
+                                return "return " + retName + ".I64;";
                             case PrimitiveTypeKind.UInt64:
-                                return "var " + autoRetResultName + "=  (ulong)" + retName + ".I64;";
+                                //return "var " + autoRetResultName + "=  (ulong)" + retName + ".I64;";
+                                return "return (ulong)" + retName + ".I64;";
                             case PrimitiveTypeKind.Double:
-                                return "var " + autoRetResultName + "=  " + retName + ".Num;";
+                                //return "var " + autoRetResultName + "=  " + retName + ".Num;";
+                                return "return " + retName + ".Num;";
                             case PrimitiveTypeKind.Float:
-                                return "var " + autoRetResultName + "= (float)" + retName + ".Num;";
+                                //return "var " + autoRetResultName + "= (float)" + retName + ".Num;";
+                                return "return (float)" + retName + ".Num;";
                             case PrimitiveTypeKind.Bool:
-                                return "var " + autoRetResultName + "=" + retName + ".I32 !=0;";
+                                //return "var " + autoRetResultName + "=" + retName + ".I32 !=0;";
+                                return "return " + retName + ".I32 !=0;";
                             case PrimitiveTypeKind.size_t:
                             case PrimitiveTypeKind.UInt32:
-                                return "var " + autoRetResultName + "= (uint)" + retName + ".I32;";
+                                //return "var " + autoRetResultName + "= (uint)" + retName + ".I32;";
+                                return "return (uint)" + retName + ".I32;";
                             case PrimitiveTypeKind.Int32:
-                                return "var " + autoRetResultName + "= " + retName + ".I32;";
+                                //return "var " + autoRetResultName + "= " + retName + ".I32;";
+                                return "return " + retName + ".I32;";
                         }
                     }
                     break;
@@ -2184,7 +2094,7 @@ namespace BridgeBuilder
             csStruct.AppendLine("Cef3Binder.MyCefMet_Call0(this.nativePtr, " + releaseMetName + ", out ret);");
             csStruct.AppendLine("this.nativePtr= IntPtr.Zero;");
             csStruct.AppendLine("}");
-            
+
             //-----------------------------------------------------------------------
             for (int i = 0; i < j; ++i)
             {
@@ -2471,7 +2381,6 @@ namespace BridgeBuilder
             stbuilder.Append("(");
             //---------------------------
 
-            //---------------------------
             for (int i = 0; i < parCount; ++i)
             {
                 if (i > 0)
@@ -2526,8 +2435,8 @@ namespace BridgeBuilder
             }
             stbuilder.Append(");\r\n");
 
-            stbuilder.AppendLine(ret.ArgExtractCode);
-            //clean up 
+
+            //clean up input arg
             //--------------------
             for (int i = 0; i < parCount; ++i)
             {
@@ -2540,10 +2449,11 @@ namespace BridgeBuilder
             }
             //--------------------
 
-            if (!met.ReturnPlan.IsVoid)
-            {
-                stbuilder.AppendLine("return ret_result;");
-            }
+            stbuilder.AppendLine(ret.ArgExtractCode);
+            //if (!met.ReturnPlan.IsVoid)
+            //{
+            //    stbuilder.AppendLine("return ret_result;");
+            //}
 
             stbuilder.AppendLine("}");
         }
