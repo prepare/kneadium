@@ -2294,474 +2294,432 @@ namespace LayoutFarm.CefBridge.Auto
             Cef3Binder.MyCefMet_Call0(this.nativePtr, CefBrowser_Release_0, out ret);
             /*943*/
         }
+
+        // gen! CefRefPtr<CefBrowserHost> GetHost()
         /// <summary>
         /// CefBrowser methods.
         /// </summary>
         /*944*/
 
-
-        // gen! CefRefPtr<CefBrowserHost> GetHost()
-        /*945*/
-
-        public CefBrowserHost GetHost()/*946*/
+        public CefBrowserHost GetHost()/*945*/
         {
             JsValue ret;
-            /*947*/
+            /*946*/
 
             Cef3Binder.MyCefMet_Call0(this.nativePtr, CefBrowser_GetHost_1, out ret);
-            /*948*/
+            /*947*/
             var ret_result = new CefBrowserHost(ret.Ptr);
-            /*949*/
+            /*948*/
             return ret_result;
-            /*950*/
+            /*949*/
         }
+
+        // gen! bool CanGoBack()
         /// <summary>
         /// Returns true if the browser can navigate backwards.
         /// /*cef()*/
         /// </summary>
-        /*951*/
+        /*950*/
 
-
-        // gen! bool CanGoBack()
-        /*952*/
-
-        public bool CanGoBack()/*953*/
+        public bool CanGoBack()/*951*/
         {
             JsValue ret;
-            /*954*/
+            /*952*/
 
             Cef3Binder.MyCefMet_Call0(this.nativePtr, CefBrowser_CanGoBack_2, out ret);
-            /*955*/
+            /*953*/
             var ret_result = ret.I32 != 0;
-            /*956*/
+            /*954*/
             return ret_result;
-            /*957*/
+            /*955*/
         }
+
+        // gen! void GoBack()
         /// <summary>
         /// Navigate backwards.
         /// /*cef()*/
         /// </summary>
-        /*958*/
+        /*956*/
 
-
-        // gen! void GoBack()
-        /*959*/
-
-        public void GoBack()/*960*/
+        public void GoBack()/*957*/
         {
             JsValue ret;
-            /*961*/
+            /*958*/
 
             Cef3Binder.MyCefMet_Call0(this.nativePtr, CefBrowser_GoBack_3, out ret);
-            /*962*/
+            /*959*/
 
-            /*963*/
+            /*960*/
         }
+
+        // gen! bool CanGoForward()
         /// <summary>
         /// Returns true if the browser can navigate forwards.
         /// /*cef()*/
         /// </summary>
-        /*964*/
+        /*961*/
 
-
-        // gen! bool CanGoForward()
-        /*965*/
-
-        public bool CanGoForward()/*966*/
+        public bool CanGoForward()/*962*/
         {
             JsValue ret;
-            /*967*/
+            /*963*/
 
             Cef3Binder.MyCefMet_Call0(this.nativePtr, CefBrowser_CanGoForward_4, out ret);
-            /*968*/
+            /*964*/
             var ret_result = ret.I32 != 0;
-            /*969*/
+            /*965*/
             return ret_result;
-            /*970*/
+            /*966*/
         }
+
+        // gen! void GoForward()
         /// <summary>
         /// Navigate forwards.
         /// /*cef()*/
         /// </summary>
-        /*971*/
+        /*967*/
 
-
-        // gen! void GoForward()
-        /*972*/
-
-        public void GoForward()/*973*/
+        public void GoForward()/*968*/
         {
             JsValue ret;
-            /*974*/
+            /*969*/
 
             Cef3Binder.MyCefMet_Call0(this.nativePtr, CefBrowser_GoForward_5, out ret);
-            /*975*/
+            /*970*/
 
-            /*976*/
+            /*971*/
         }
+
+        // gen! bool IsLoading()
         /// <summary>
         /// Returns true if the browser is currently loading.
         /// /*cef()*/
         /// </summary>
-        /*977*/
+        /*972*/
 
-
-        // gen! bool IsLoading()
-        /*978*/
-
-        public bool IsLoading()/*979*/
+        public bool IsLoading()/*973*/
         {
             JsValue ret;
-            /*980*/
+            /*974*/
 
             Cef3Binder.MyCefMet_Call0(this.nativePtr, CefBrowser_IsLoading_6, out ret);
-            /*981*/
+            /*975*/
             var ret_result = ret.I32 != 0;
-            /*982*/
+            /*976*/
             return ret_result;
-            /*983*/
+            /*977*/
         }
+
+        // gen! void Reload()
         /// <summary>
         /// Reload the current page.
         /// /*cef()*/
         /// </summary>
-        /*984*/
+        /*978*/
 
-
-        // gen! void Reload()
-        /*985*/
-
-        public void Reload()/*986*/
+        public void Reload()/*979*/
         {
             JsValue ret;
-            /*987*/
+            /*980*/
 
             Cef3Binder.MyCefMet_Call0(this.nativePtr, CefBrowser_Reload_7, out ret);
-            /*988*/
+            /*981*/
 
-            /*989*/
+            /*982*/
         }
+
+        // gen! void ReloadIgnoreCache()
         /// <summary>
         /// Reload the current page ignoring any cached data.
         /// /*cef()*/
         /// </summary>
-        /*990*/
+        /*983*/
 
-
-        // gen! void ReloadIgnoreCache()
-        /*991*/
-
-        public void ReloadIgnoreCache()/*992*/
+        public void ReloadIgnoreCache()/*984*/
         {
             JsValue ret;
-            /*993*/
+            /*985*/
 
             Cef3Binder.MyCefMet_Call0(this.nativePtr, CefBrowser_ReloadIgnoreCache_8, out ret);
-            /*994*/
+            /*986*/
 
-            /*995*/
+            /*987*/
         }
+
+        // gen! void StopLoad()
         /// <summary>
         /// Stop loading the page.
         /// /*cef()*/
         /// </summary>
-        /*996*/
+        /*988*/
 
-
-        // gen! void StopLoad()
-        /*997*/
-
-        public void StopLoad()/*998*/
+        public void StopLoad()/*989*/
         {
             JsValue ret;
-            /*999*/
+            /*990*/
 
             Cef3Binder.MyCefMet_Call0(this.nativePtr, CefBrowser_StopLoad_9, out ret);
-            /*1000*/
+            /*991*/
 
-            /*1001*/
+            /*992*/
         }
+
+        // gen! int GetIdentifier()
         /// <summary>
         /// Returns the globally unique identifier for this browser.
         /// /*cef()*/
         /// </summary>
-        /*1002*/
+        /*993*/
 
-
-        // gen! int GetIdentifier()
-        /*1003*/
-
-        public int GetIdentifier()/*1004*/
+        public int GetIdentifier()/*994*/
         {
             JsValue ret;
-            /*1005*/
+            /*995*/
 
             Cef3Binder.MyCefMet_Call0(this.nativePtr, CefBrowser_GetIdentifier_10, out ret);
-            /*1006*/
+            /*996*/
             var ret_result = ret.I32;
-            /*1007*/
+            /*997*/
             return ret_result;
-            /*1008*/
+            /*998*/
         }
+
+        // gen! bool IsSame(CefRefPtr<CefBrowser> that)
         /// <summary>
         /// Returns true if this object is pointing to the same handle as |that|
         /// object.
         /// /*cef()*/
         /// </summary>
-        /*1009*/
+        /*999*/
 
-
-        // gen! bool IsSame(CefRefPtr<CefBrowser> that)
-        /*1010*/
-
-        public bool IsSame(CefBrowser /*1011*/
+        public bool IsSame(CefBrowser /*1000*/
         that
-        )/*1012*/
+        )/*1001*/
         {
             JsValue v1 = new JsValue();
             JsValue ret;
-            /*1013*/
+            /*1002*/
 
             Cef3Binder.MyCefMet_Call1(this.nativePtr, CefBrowser_IsSame_11, out ret, ref v1);
-            /*1014*/
+            /*1003*/
             var ret_result = ret.I32 != 0;
-            /*1015*/
+            /*1004*/
             return ret_result;
-            /*1016*/
+            /*1005*/
         }
+
+        // gen! bool IsPopup()
         /// <summary>
         /// Returns true if the window is a popup window.
         /// /*cef()*/
         /// </summary>
-        /*1017*/
+        /*1006*/
 
-
-        // gen! bool IsPopup()
-        /*1018*/
-
-        public bool IsPopup()/*1019*/
+        public bool IsPopup()/*1007*/
         {
             JsValue ret;
-            /*1020*/
+            /*1008*/
 
             Cef3Binder.MyCefMet_Call0(this.nativePtr, CefBrowser_IsPopup_12, out ret);
-            /*1021*/
+            /*1009*/
             var ret_result = ret.I32 != 0;
-            /*1022*/
+            /*1010*/
             return ret_result;
-            /*1023*/
+            /*1011*/
         }
+
+        // gen! bool HasDocument()
         /// <summary>
         /// Returns true if a document has been loaded in the browser.
         /// /*cef()*/
         /// </summary>
-        /*1024*/
+        /*1012*/
 
-
-        // gen! bool HasDocument()
-        /*1025*/
-
-        public bool HasDocument()/*1026*/
+        public bool HasDocument()/*1013*/
         {
             JsValue ret;
-            /*1027*/
+            /*1014*/
 
             Cef3Binder.MyCefMet_Call0(this.nativePtr, CefBrowser_HasDocument_13, out ret);
-            /*1028*/
+            /*1015*/
             var ret_result = ret.I32 != 0;
-            /*1029*/
+            /*1016*/
             return ret_result;
-            /*1030*/
+            /*1017*/
         }
+
+        // gen! CefRefPtr<CefFrame> GetMainFrame()
         /// <summary>
         /// Returns the main (top-level) frame for the browser window.
         /// /*cef()*/
         /// </summary>
-        /*1031*/
+        /*1018*/
 
-
-        // gen! CefRefPtr<CefFrame> GetMainFrame()
-        /*1032*/
-
-        public CefFrame GetMainFrame()/*1033*/
+        public CefFrame GetMainFrame()/*1019*/
         {
             JsValue ret;
-            /*1034*/
+            /*1020*/
 
             Cef3Binder.MyCefMet_Call0(this.nativePtr, CefBrowser_GetMainFrame_14, out ret);
-            /*1035*/
+            /*1021*/
             var ret_result = new CefFrame(ret.Ptr);
-            /*1036*/
+            /*1022*/
             return ret_result;
-            /*1037*/
+            /*1023*/
         }
+
+        // gen! CefRefPtr<CefFrame> GetFocusedFrame()
         /// <summary>
         /// Returns the focused frame for the browser window.
         /// /*cef()*/
         /// </summary>
-        /*1038*/
+        /*1024*/
 
-
-        // gen! CefRefPtr<CefFrame> GetFocusedFrame()
-        /*1039*/
-
-        public CefFrame GetFocusedFrame()/*1040*/
+        public CefFrame GetFocusedFrame()/*1025*/
         {
             JsValue ret;
-            /*1041*/
+            /*1026*/
 
             Cef3Binder.MyCefMet_Call0(this.nativePtr, CefBrowser_GetFocusedFrame_15, out ret);
-            /*1042*/
+            /*1027*/
             var ret_result = new CefFrame(ret.Ptr);
-            /*1043*/
+            /*1028*/
             return ret_result;
-            /*1044*/
+            /*1029*/
         }
-        /*1045*/
-
 
         // gen! CefRefPtr<CefFrame> GetFrame(int64 identifier)
-        /*1046*/
+        /*1030*/
 
-        public CefFrame GetFrame(long /*1047*/
+        public CefFrame GetFrame(long /*1031*/
         identifier
-        )/*1048*/
+        )/*1032*/
         {
             JsValue v1 = new JsValue();
             JsValue ret;
-            /*1049*/
+            /*1033*/
 
             Cef3Binder.MyCefMet_Call1(this.nativePtr, CefBrowser_GetFrame_16, out ret, ref v1);
-            /*1050*/
+            /*1034*/
             var ret_result = new CefFrame(ret.Ptr);
-            /*1051*/
+            /*1035*/
             return ret_result;
-            /*1052*/
+            /*1036*/
         }
-        /*1053*/
-
 
         // gen! CefRefPtr<CefFrame> GetFrame(const CefString& name)
-        /*1054*/
+        /*1037*/
 
-        public CefFrame GetFrame(string /*1055*/
+        public CefFrame GetFrame(string /*1038*/
         name
-        )/*1056*/
+        )/*1039*/
         {
             JsValue v1 = new JsValue();
             JsValue ret;
             v1.Ptr = Cef3Binder.MyCefCreateCefString(name);
-            /*1057*/
+            /*1040*/
             ;
-            /*1058*/
+            /*1041*/
 
             Cef3Binder.MyCefMet_Call1(this.nativePtr, CefBrowser_GetFrame_17, out ret, ref v1);
-            /*1059*/
+            /*1042*/
             var ret_result = new CefFrame(ret.Ptr);
-            Cef3Binder.MyCefDeletePtr(v1.Ptr);/*1060*/
+            Cef3Binder.MyCefDeletePtr(v1.Ptr);/*1043*/
             ;
-            /*1061*/
+            /*1044*/
             return ret_result;
-            /*1062*/
+            /*1045*/
         }
+
+        // gen! size_t GetFrameCount()
         /// <summary>
         /// Returns the number of frames that currently exist.
         /// /*cef()*/
         /// </summary>
-        /*1063*/
+        /*1046*/
 
-
-        // gen! size_t GetFrameCount()
-        /*1064*/
-
-        public uint GetFrameCount()/*1065*/
+        public uint GetFrameCount()/*1047*/
         {
             JsValue ret;
-            /*1066*/
+            /*1048*/
 
             Cef3Binder.MyCefMet_Call0(this.nativePtr, CefBrowser_GetFrameCount_18, out ret);
-            /*1067*/
+            /*1049*/
             var ret_result = (uint)ret.I32;
-            /*1068*/
+            /*1050*/
             return ret_result;
-            /*1069*/
+            /*1051*/
         }
+
+        // gen! void GetFrameIdentifiers(std::vector<int64>& identifiers)
         /// <summary>
         /// Returns the identifiers of all existing frames.
         /// /*cef(count_func=identifiers:GetFrameCount)*/
         /// </summary>
-        /*1070*/
+        /*1052*/
 
-
-        // gen! void GetFrameIdentifiers(std::vector<int64>& identifiers)
-        /*1071*/
-
-        public void GetFrameIdentifiers(List<long> /*1072*/
+        public void GetFrameIdentifiers(List<long> /*1053*/
         identifiers
-        )/*1073*/
+        )/*1054*/
         {
             JsValue v1 = new JsValue();
             JsValue ret;
-            /*1074*/
+            /*1055*/
 
             Cef3Binder.MyCefMet_Call1(this.nativePtr, CefBrowser_GetFrameIdentifiers_19, out ret, ref v1);
-            /*1075*/
+            /*1056*/
 
-            /*1076*/
+            /*1057*/
         }
+
+        // gen! void GetFrameNames(std::vector<CefString>& names)
         /// <summary>
         /// Returns the names of all existing frames.
         /// /*cef()*/
         /// </summary>
-        /*1077*/
+        /*1058*/
 
-
-        // gen! void GetFrameNames(std::vector<CefString>& names)
-        /*1078*/
-
-        public void GetFrameNames(List<string> /*1079*/
+        public void GetFrameNames(List<string> /*1059*/
         names
-        )/*1080*/
+        )/*1060*/
         {
             JsValue v1 = new JsValue();
             JsValue ret;
-            /*1081*/
+            /*1061*/
 
             Cef3Binder.MyCefMet_Call1(this.nativePtr, CefBrowser_GetFrameNames_20, out ret, ref v1);
-            /*1082*/
+            /*1062*/
 
-            /*1083*/
+            /*1063*/
         }
+
+        // gen! bool SendProcessMessage(CefProcessId target_process,CefRefPtr<CefProcessMessage> message)
         /// <summary>
         /// Send a message to the specified |target_process|. Returns true if the
         /// message was sent successfully.
         /// /*cef()*/
         /// </summary>
-        /*1084*/
+        /*1064*/
 
-
-        // gen! bool SendProcessMessage(CefProcessId target_process,CefRefPtr<CefProcessMessage> message)
-        /*1085*/
-
-        public bool SendProcessMessage(cef_process_id_t /*1086*/
+        public bool SendProcessMessage(cef_process_id_t /*1065*/
         target_process
-        , CefProcessMessage /*1087*/
+        , CefProcessMessage /*1066*/
         message
-        )/*1088*/
+        )/*1067*/
         {
             JsValue v1 = new JsValue();
             JsValue v2 = new JsValue();
             JsValue ret;
-            /*1089*/
+            /*1068*/
 
             Cef3Binder.MyCefMet_Call2(this.nativePtr, CefBrowser_SendProcessMessage_21, out ret, ref v1, ref v2);
-            /*1090*/
+            /*1069*/
             var ret_result = ret.I32 != 0;
-            /*1091*/
+            /*1070*/
             return ret_result;
-            /*1092*/
+            /*1071*/
         }
-        /*1093*/
+        /*1072*/
     }
 
 
@@ -2771,32 +2729,32 @@ namespace LayoutFarm.CefBridge.Auto
     /// this class will be called on the browser process UI thread.
     /// /*(source=client)*/
     /// </summary>
-    /*1102*/
+    /*1081*/
     public struct CefNavigationEntryVisitor
     {
-        /*1103*/
+        /*1082*/
         const int _typeNAME = 3;
-        /*1104*/
+        /*1083*/
         const int CefNavigationEntryVisitor_Release_0 = (_typeNAME << 16) | 0;
-        /*1105*/
+        /*1084*/
         internal readonly IntPtr nativePtr;
-        /*1106*/
+        /*1085*/
         internal CefNavigationEntryVisitor(IntPtr nativePtr)
         {
-            /*1107*/
+            /*1086*/
             this.nativePtr = nativePtr;
-            /*1108*/
+            /*1087*/
         }
-        /*1109*/
+        /*1088*/
         public void Release()
         {
-            /*1110*/
+            /*1089*/
             JsValue ret;
-            /*1111*/
+            /*1090*/
             Cef3Binder.MyCefMet_Call0(this.nativePtr, CefNavigationEntryVisitor_Release_0, out ret);
-            /*1112*/
+            /*1091*/
         }
-        /*1113*/
+        /*1092*/
     }
 
 
@@ -2808,156 +2766,156 @@ namespace LayoutFarm.CefBridge.Auto
     /// comments.
     /// /*(source=library)*/
     /// </summary>
-    /*1382*/
+    /*1361*/
     public struct CefBrowserHost
     {
-        /*1383*/
+        /*1362*/
         const int _typeNAME = 4;
-        /*1384*/
+        /*1363*/
         const int CefBrowserHost_Release_0 = (_typeNAME << 16) | 0;
-        /*1385*/
+        /*1364*/
         const int CefBrowserHost_GetBrowser_1 = (_typeNAME << 16) | 1;
-        /*1386*/
+        /*1365*/
         const int CefBrowserHost_CloseBrowser_2 = (_typeNAME << 16) | 2;
-        /*1387*/
+        /*1366*/
         const int CefBrowserHost_TryCloseBrowser_3 = (_typeNAME << 16) | 3;
-        /*1388*/
+        /*1367*/
         const int CefBrowserHost_SetFocus_4 = (_typeNAME << 16) | 4;
-        /*1389*/
+        /*1368*/
         const int CefBrowserHost_GetWindowHandle_5 = (_typeNAME << 16) | 5;
-        /*1390*/
+        /*1369*/
         const int CefBrowserHost_GetOpenerWindowHandle_6 = (_typeNAME << 16) | 6;
-        /*1391*/
+        /*1370*/
         const int CefBrowserHost_HasView_7 = (_typeNAME << 16) | 7;
-        /*1392*/
+        /*1371*/
         const int CefBrowserHost_GetClient_8 = (_typeNAME << 16) | 8;
-        /*1393*/
+        /*1372*/
         const int CefBrowserHost_GetRequestContext_9 = (_typeNAME << 16) | 9;
-        /*1394*/
+        /*1373*/
         const int CefBrowserHost_GetZoomLevel_10 = (_typeNAME << 16) | 10;
-        /*1395*/
+        /*1374*/
         const int CefBrowserHost_SetZoomLevel_11 = (_typeNAME << 16) | 11;
-        /*1396*/
+        /*1375*/
         const int CefBrowserHost_RunFileDialog_12 = (_typeNAME << 16) | 12;
-        /*1397*/
+        /*1376*/
         const int CefBrowserHost_StartDownload_13 = (_typeNAME << 16) | 13;
-        /*1398*/
+        /*1377*/
         const int CefBrowserHost_DownloadImage_14 = (_typeNAME << 16) | 14;
-        /*1399*/
+        /*1378*/
         const int CefBrowserHost_Print_15 = (_typeNAME << 16) | 15;
-        /*1400*/
+        /*1379*/
         const int CefBrowserHost_PrintToPDF_16 = (_typeNAME << 16) | 16;
-        /*1401*/
+        /*1380*/
         const int CefBrowserHost_Find_17 = (_typeNAME << 16) | 17;
-        /*1402*/
+        /*1381*/
         const int CefBrowserHost_StopFinding_18 = (_typeNAME << 16) | 18;
-        /*1403*/
+        /*1382*/
         const int CefBrowserHost_ShowDevTools_19 = (_typeNAME << 16) | 19;
-        /*1404*/
+        /*1383*/
         const int CefBrowserHost_CloseDevTools_20 = (_typeNAME << 16) | 20;
-        /*1405*/
+        /*1384*/
         const int CefBrowserHost_HasDevTools_21 = (_typeNAME << 16) | 21;
-        /*1406*/
+        /*1385*/
         const int CefBrowserHost_GetNavigationEntries_22 = (_typeNAME << 16) | 22;
-        /*1407*/
+        /*1386*/
         const int CefBrowserHost_SetMouseCursorChangeDisabled_23 = (_typeNAME << 16) | 23;
-        /*1408*/
+        /*1387*/
         const int CefBrowserHost_IsMouseCursorChangeDisabled_24 = (_typeNAME << 16) | 24;
-        /*1409*/
+        /*1388*/
         const int CefBrowserHost_ReplaceMisspelling_25 = (_typeNAME << 16) | 25;
-        /*1410*/
+        /*1389*/
         const int CefBrowserHost_AddWordToDictionary_26 = (_typeNAME << 16) | 26;
-        /*1411*/
+        /*1390*/
         const int CefBrowserHost_IsWindowRenderingDisabled_27 = (_typeNAME << 16) | 27;
-        /*1412*/
+        /*1391*/
         const int CefBrowserHost_WasResized_28 = (_typeNAME << 16) | 28;
-        /*1413*/
+        /*1392*/
         const int CefBrowserHost_WasHidden_29 = (_typeNAME << 16) | 29;
-        /*1414*/
+        /*1393*/
         const int CefBrowserHost_NotifyScreenInfoChanged_30 = (_typeNAME << 16) | 30;
-        /*1415*/
+        /*1394*/
         const int CefBrowserHost_Invalidate_31 = (_typeNAME << 16) | 31;
-        /*1416*/
+        /*1395*/
         const int CefBrowserHost_SendKeyEvent_32 = (_typeNAME << 16) | 32;
-        /*1417*/
+        /*1396*/
         const int CefBrowserHost_SendMouseClickEvent_33 = (_typeNAME << 16) | 33;
-        /*1418*/
+        /*1397*/
         const int CefBrowserHost_SendMouseMoveEvent_34 = (_typeNAME << 16) | 34;
-        /*1419*/
+        /*1398*/
         const int CefBrowserHost_SendMouseWheelEvent_35 = (_typeNAME << 16) | 35;
-        /*1420*/
+        /*1399*/
         const int CefBrowserHost_SendFocusEvent_36 = (_typeNAME << 16) | 36;
-        /*1421*/
+        /*1400*/
         const int CefBrowserHost_SendCaptureLostEvent_37 = (_typeNAME << 16) | 37;
-        /*1422*/
+        /*1401*/
         const int CefBrowserHost_NotifyMoveOrResizeStarted_38 = (_typeNAME << 16) | 38;
-        /*1423*/
+        /*1402*/
         const int CefBrowserHost_GetWindowlessFrameRate_39 = (_typeNAME << 16) | 39;
-        /*1424*/
+        /*1403*/
         const int CefBrowserHost_SetWindowlessFrameRate_40 = (_typeNAME << 16) | 40;
-        /*1425*/
+        /*1404*/
         const int CefBrowserHost_ImeSetComposition_41 = (_typeNAME << 16) | 41;
-        /*1426*/
+        /*1405*/
         const int CefBrowserHost_ImeCommitText_42 = (_typeNAME << 16) | 42;
-        /*1427*/
+        /*1406*/
         const int CefBrowserHost_ImeFinishComposingText_43 = (_typeNAME << 16) | 43;
-        /*1428*/
+        /*1407*/
         const int CefBrowserHost_ImeCancelComposition_44 = (_typeNAME << 16) | 44;
-        /*1429*/
+        /*1408*/
         const int CefBrowserHost_DragTargetDragEnter_45 = (_typeNAME << 16) | 45;
-        /*1430*/
+        /*1409*/
         const int CefBrowserHost_DragTargetDragOver_46 = (_typeNAME << 16) | 46;
-        /*1431*/
+        /*1410*/
         const int CefBrowserHost_DragTargetDragLeave_47 = (_typeNAME << 16) | 47;
-        /*1432*/
+        /*1411*/
         const int CefBrowserHost_DragTargetDrop_48 = (_typeNAME << 16) | 48;
-        /*1433*/
+        /*1412*/
         const int CefBrowserHost_DragSourceEndedAt_49 = (_typeNAME << 16) | 49;
-        /*1434*/
+        /*1413*/
         const int CefBrowserHost_DragSourceSystemDragEnded_50 = (_typeNAME << 16) | 50;
-        /*1435*/
+        /*1414*/
         const int CefBrowserHost_GetVisibleNavigationEntry_51 = (_typeNAME << 16) | 51;
-        /*1436*/
+        /*1415*/
         const int CefBrowserHost_SetAccessibilityState_52 = (_typeNAME << 16) | 52;
-        /*1437*/
+        /*1416*/
         internal readonly IntPtr nativePtr;
-        /*1438*/
+        /*1417*/
         internal CefBrowserHost(IntPtr nativePtr)
         {
-            /*1439*/
+            /*1418*/
             this.nativePtr = nativePtr;
-            /*1440*/
+            /*1419*/
         }
-        /*1441*/
+        /*1420*/
         public void Release()
         {
-            /*1442*/
+            /*1421*/
             JsValue ret;
-            /*1443*/
+            /*1422*/
             Cef3Binder.MyCefMet_Call0(this.nativePtr, CefBrowserHost_Release_0, out ret);
-            /*1444*/
+            /*1423*/
         }
+
+        // gen! CefRefPtr<CefBrowser> GetBrowser()
         /// <summary>
         /// CefBrowserHost methods.
         /// </summary>
-        /*1445*/
+        /*1424*/
 
-
-        // gen! CefRefPtr<CefBrowser> GetBrowser()
-        /*1446*/
-
-        public CefBrowser GetBrowser()/*1447*/
+        public CefBrowser GetBrowser()/*1425*/
         {
             JsValue ret;
-            /*1448*/
+            /*1426*/
 
             Cef3Binder.MyCefMet_Call0(this.nativePtr, CefBrowserHost_GetBrowser_1, out ret);
-            /*1449*/
+            /*1427*/
             var ret_result = new CefBrowser(ret.Ptr);
-            /*1450*/
+            /*1428*/
             return ret_result;
-            /*1451*/
+            /*1429*/
         }
+
+        // gen! void CloseBrowser(bool force_close)
         /// <summary>
         /// Request that the browser close. The JavaScript 'onbeforeunload' event will
         /// be fired. If |force_close| is false the event handler, if any, will be
@@ -2969,25 +2927,23 @@ namespace LayoutFarm.CefBridge.Auto
         /// information.
         /// /*cef()*/
         /// </summary>
-        /*1452*/
+        /*1430*/
 
-
-        // gen! void CloseBrowser(bool force_close)
-        /*1453*/
-
-        public void CloseBrowser(bool /*1454*/
+        public void CloseBrowser(bool /*1431*/
         force_close
-        )/*1455*/
+        )/*1432*/
         {
             JsValue v1 = new JsValue();
             JsValue ret;
-            /*1456*/
+            /*1433*/
 
             Cef3Binder.MyCefMet_Call1(this.nativePtr, CefBrowserHost_CloseBrowser_2, out ret, ref v1);
-            /*1457*/
+            /*1434*/
 
-            /*1458*/
+            /*1435*/
         }
+
+        // gen! bool TryCloseBrowser()
         /// <summary>
         /// Helper for closing a browser. Call this method from the top-level window
         /// close handler. Internally this calls CloseBrowser(false) if the close has
@@ -2997,71 +2953,65 @@ namespace LayoutFarm.CefBridge.Auto
         /// information. This method must be called on the browser process UI thread.
         /// /*cef()*/
         /// </summary>
-        /*1459*/
+        /*1436*/
 
-
-        // gen! bool TryCloseBrowser()
-        /*1460*/
-
-        public bool TryCloseBrowser()/*1461*/
+        public bool TryCloseBrowser()/*1437*/
         {
             JsValue ret;
-            /*1462*/
+            /*1438*/
 
             Cef3Binder.MyCefMet_Call0(this.nativePtr, CefBrowserHost_TryCloseBrowser_3, out ret);
-            /*1463*/
+            /*1439*/
             var ret_result = ret.I32 != 0;
-            /*1464*/
+            /*1440*/
             return ret_result;
-            /*1465*/
+            /*1441*/
         }
+
+        // gen! void SetFocus(bool focus)
         /// <summary>
         /// Set whether the browser is focused.
         /// /*cef()*/
         /// </summary>
-        /*1466*/
+        /*1442*/
 
-
-        // gen! void SetFocus(bool focus)
-        /*1467*/
-
-        public void SetFocus(bool /*1468*/
+        public void SetFocus(bool /*1443*/
         focus
-        )/*1469*/
+        )/*1444*/
         {
             JsValue v1 = new JsValue();
             JsValue ret;
-            /*1470*/
+            /*1445*/
 
             Cef3Binder.MyCefMet_Call1(this.nativePtr, CefBrowserHost_SetFocus_4, out ret, ref v1);
-            /*1471*/
+            /*1446*/
 
-            /*1472*/
+            /*1447*/
         }
+
+        // gen! CefWindowHandle GetWindowHandle()
         /// <summary>
         /// Retrieve the window handle for this browser. If this browser is wrapped in
         /// a CefBrowserView this method should be called on the browser process UI
         /// thread and it will return the handle for the top-level native window.
         /// /*cef()*/
         /// </summary>
-        /*1473*/
+        /*1448*/
 
-
-        // gen! CefWindowHandle GetWindowHandle()
-        /*1474*/
-
-        public IntPtr GetWindowHandle()/*1475*/
+        public IntPtr GetWindowHandle()/*1449*/
         {
             JsValue ret;
-            /*1476*/
+            /*1450*/
 
             Cef3Binder.MyCefMet_Call0(this.nativePtr, CefBrowserHost_GetWindowHandle_5, out ret);
-            /*1477*/
+            /*1451*/
             IntPtr ret_result = ret.Ptr;
-            /*1478*/
+            /*1452*/
             return ret_result;
-            /*1479*/
+            /*1453*/
         }
+
+        // gen! CefWindowHandle GetOpenerWindowHandle()
         /// <summary>
         /// Retrieve the window handle of the browser that opened this browser. Will
         /// return NULL for non-popup windows or if this browser is wrapped in a
@@ -3069,113 +3019,103 @@ namespace LayoutFarm.CefBridge.Auto
         /// of modal windows.
         /// /*cef()*/
         /// </summary>
-        /*1480*/
+        /*1454*/
 
-
-        // gen! CefWindowHandle GetOpenerWindowHandle()
-        /*1481*/
-
-        public IntPtr GetOpenerWindowHandle()/*1482*/
+        public IntPtr GetOpenerWindowHandle()/*1455*/
         {
             JsValue ret;
-            /*1483*/
+            /*1456*/
 
             Cef3Binder.MyCefMet_Call0(this.nativePtr, CefBrowserHost_GetOpenerWindowHandle_6, out ret);
-            /*1484*/
+            /*1457*/
             IntPtr ret_result = ret.Ptr;
-            /*1485*/
+            /*1458*/
             return ret_result;
-            /*1486*/
+            /*1459*/
         }
+
+        // gen! bool HasView()
         /// <summary>
         /// Returns true if this browser is wrapped in a CefBrowserView.
         /// /*cef()*/
         /// </summary>
-        /*1487*/
+        /*1460*/
 
-
-        // gen! bool HasView()
-        /*1488*/
-
-        public bool HasView()/*1489*/
+        public bool HasView()/*1461*/
         {
             JsValue ret;
-            /*1490*/
+            /*1462*/
 
             Cef3Binder.MyCefMet_Call0(this.nativePtr, CefBrowserHost_HasView_7, out ret);
-            /*1491*/
+            /*1463*/
             var ret_result = ret.I32 != 0;
-            /*1492*/
+            /*1464*/
             return ret_result;
-            /*1493*/
+            /*1465*/
         }
+
+        // gen! CefRefPtr<CefClient> GetClient()
         /// <summary>
         /// Returns the client for this browser.
         /// /*cef()*/
         /// </summary>
-        /*1494*/
+        /*1466*/
 
-
-        // gen! CefRefPtr<CefClient> GetClient()
-        /*1495*/
-
-        public CefClient GetClient()/*1496*/
+        public CefClient GetClient()/*1467*/
         {
             JsValue ret;
-            /*1497*/
+            /*1468*/
 
             Cef3Binder.MyCefMet_Call0(this.nativePtr, CefBrowserHost_GetClient_8, out ret);
-            /*1498*/
+            /*1469*/
             var ret_result = new CefClient(ret.Ptr);
-            /*1499*/
+            /*1470*/
             return ret_result;
-            /*1500*/
+            /*1471*/
         }
+
+        // gen! CefRefPtr<CefRequestContext> GetRequestContext()
         /// <summary>
         /// Returns the request context for this browser.
         /// /*cef()*/
         /// </summary>
-        /*1501*/
+        /*1472*/
 
-
-        // gen! CefRefPtr<CefRequestContext> GetRequestContext()
-        /*1502*/
-
-        public CefRequestContext GetRequestContext()/*1503*/
+        public CefRequestContext GetRequestContext()/*1473*/
         {
             JsValue ret;
-            /*1504*/
+            /*1474*/
 
             Cef3Binder.MyCefMet_Call0(this.nativePtr, CefBrowserHost_GetRequestContext_9, out ret);
-            /*1505*/
+            /*1475*/
             var ret_result = new CefRequestContext(ret.Ptr);
-            /*1506*/
+            /*1476*/
             return ret_result;
-            /*1507*/
+            /*1477*/
         }
+
+        // gen! double GetZoomLevel()
         /// <summary>
         /// Get the current zoom level. The default zoom level is 0.0. This method can
         /// only be called on the UI thread.
         /// /*cef()*/
         /// </summary>
-        /*1508*/
+        /*1478*/
 
-
-        // gen! double GetZoomLevel()
-        /*1509*/
-
-        public double GetZoomLevel()/*1510*/
+        public double GetZoomLevel()/*1479*/
         {
             JsValue ret;
-            /*1511*/
+            /*1480*/
 
             Cef3Binder.MyCefMet_Call0(this.nativePtr, CefBrowserHost_GetZoomLevel_10, out ret);
-            /*1512*/
+            /*1481*/
             var ret_result = ret.Num;
-            /*1513*/
+            /*1482*/
             return ret_result;
-            /*1514*/
+            /*1483*/
         }
+
+        // gen! void SetZoomLevel(double zoomLevel)
         /// <summary>
         /// Change the zoom level to the specified value. Specify 0.0 to reset the
         /// zoom level. If called on the UI thread the change will be applied
@@ -3183,25 +3123,23 @@ namespace LayoutFarm.CefBridge.Auto
         /// UI thread.
         /// /*cef()*/
         /// </summary>
-        /*1515*/
+        /*1484*/
 
-
-        // gen! void SetZoomLevel(double zoomLevel)
-        /*1516*/
-
-        public void SetZoomLevel(double /*1517*/
+        public void SetZoomLevel(double /*1485*/
         zoomLevel
-        )/*1518*/
+        )/*1486*/
         {
             JsValue v1 = new JsValue();
             JsValue ret;
-            /*1519*/
+            /*1487*/
 
             Cef3Binder.MyCefMet_Call1(this.nativePtr, CefBrowserHost_SetZoomLevel_11, out ret, ref v1);
-            /*1520*/
+            /*1488*/
 
-            /*1521*/
+            /*1489*/
         }
+
+        // gen! void RunFileDialog(FileDialogMode mode,const CefString& title,const CefString& default_file_path,const std::vector<CefString>& accept_filters,int selected_accept_filter,CefRefPtr<CefRunFileDialogCallback> callback)
         /// <summary>
         /// Call to run a file chooser dialog. Only a single file chooser dialog may be
         /// pending at any given time. |mode| represents the type of dialog to display.
@@ -3219,25 +3157,21 @@ namespace LayoutFarm.CefBridge.Auto
         /// will be initiated asynchronously on the UI thread.
         /// /*cef(optional_param=title,optional_param=default_file_path,optional_param=accept_filters,index_param=selected_accept_filter)*/
         /// </summary>
-        /*1522*/
+        /*1490*/
 
-
-        // gen! void RunFileDialog(FileDialogMode mode,const CefString& title,const CefString& default_file_path,const std::vector<CefString>& accept_filters,int selected_accept_filter,CefRefPtr<CefRunFileDialogCallback> callback)
-        /*1523*/
-
-        public void RunFileDialog(cef_file_dialog_mode_t /*1524*/
+        public void RunFileDialog(cef_file_dialog_mode_t /*1491*/
         mode
-        , string /*1525*/
+        , string /*1492*/
         title
-        , string /*1526*/
+        , string /*1493*/
         default_file_path
-        , List<string> /*1527*/
+        , List<string> /*1494*/
         accept_filters
-        , int /*1528*/
+        , int /*1495*/
         selected_accept_filter
-        , CefRunFileDialogCallback /*1529*/
+        , CefRunFileDialogCallback /*1496*/
         callback
-        )/*1530*/
+        )/*1497*/
         {
             JsValue v1 = new JsValue();
             JsValue v2 = new JsValue();
@@ -3247,50 +3181,50 @@ namespace LayoutFarm.CefBridge.Auto
             JsValue v6 = new JsValue();
             JsValue ret;
             v2.Ptr = Cef3Binder.MyCefCreateCefString(title);
-            /*1531*/
+            /*1498*/
             ;
             v3.Ptr = Cef3Binder.MyCefCreateCefString(default_file_path);
-            /*1532*/
+            /*1499*/
             ;
-            /*1533*/
+            /*1500*/
 
             Cef3Binder.MyCefMet_Call6(this.nativePtr, CefBrowserHost_RunFileDialog_12, out ret, ref v1, ref v2, ref v3, ref v4, ref v5, ref v6);
-            /*1534*/
+            /*1501*/
 
-            Cef3Binder.MyCefDeletePtr(v2.Ptr);/*1535*/
+            Cef3Binder.MyCefDeletePtr(v2.Ptr);/*1502*/
             ;
-            Cef3Binder.MyCefDeletePtr(v3.Ptr);/*1536*/
+            Cef3Binder.MyCefDeletePtr(v3.Ptr);/*1503*/
             ;
-            /*1537*/
+            /*1504*/
         }
+
+        // gen! void StartDownload(const CefString& url)
         /// <summary>
         /// Download the file at |url| using CefDownloadHandler.
         /// /*cef()*/
         /// </summary>
-        /*1538*/
+        /*1505*/
 
-
-        // gen! void StartDownload(const CefString& url)
-        /*1539*/
-
-        public void StartDownload(string /*1540*/
+        public void StartDownload(string /*1506*/
         url
-        )/*1541*/
+        )/*1507*/
         {
             JsValue v1 = new JsValue();
             JsValue ret;
             v1.Ptr = Cef3Binder.MyCefCreateCefString(url);
-            /*1542*/
+            /*1508*/
             ;
-            /*1543*/
+            /*1509*/
 
             Cef3Binder.MyCefMet_Call1(this.nativePtr, CefBrowserHost_StartDownload_13, out ret, ref v1);
-            /*1544*/
+            /*1510*/
 
-            Cef3Binder.MyCefDeletePtr(v1.Ptr);/*1545*/
+            Cef3Binder.MyCefDeletePtr(v1.Ptr);/*1511*/
             ;
-            /*1546*/
+            /*1512*/
         }
+
+        // gen! void DownloadImage(const CefString& image_url,bool is_favicon,uint32 max_image_size,bool bypass_cache,CefRefPtr<CefDownloadImageCallback> callback)
         /// <summary>
         /// Download |image_url| and execute |callback| on completion with the images
         /// received from the renderer. If |is_favicon| is true then cookies are not
@@ -3304,23 +3238,19 @@ namespace LayoutFarm.CefBridge.Auto
         /// server even if it is present in the browser cache.
         /// /*cef()*/
         /// </summary>
-        /*1547*/
+        /*1513*/
 
-
-        // gen! void DownloadImage(const CefString& image_url,bool is_favicon,uint32 max_image_size,bool bypass_cache,CefRefPtr<CefDownloadImageCallback> callback)
-        /*1548*/
-
-        public void DownloadImage(string /*1549*/
+        public void DownloadImage(string /*1514*/
         image_url
-        , bool /*1550*/
+        , bool /*1515*/
         is_favicon
-        , uint /*1551*/
+        , uint /*1516*/
         max_image_size
-        , bool /*1552*/
+        , bool /*1517*/
         bypass_cache
-        , CefDownloadImageCallback /*1553*/
+        , CefDownloadImageCallback /*1518*/
         callback
-        )/*1554*/
+        )/*1519*/
         {
             JsValue v1 = new JsValue();
             JsValue v2 = new JsValue();
@@ -3329,37 +3259,37 @@ namespace LayoutFarm.CefBridge.Auto
             JsValue v5 = new JsValue();
             JsValue ret;
             v1.Ptr = Cef3Binder.MyCefCreateCefString(image_url);
-            /*1555*/
+            /*1520*/
             ;
-            /*1556*/
+            /*1521*/
 
             Cef3Binder.MyCefMet_Call5(this.nativePtr, CefBrowserHost_DownloadImage_14, out ret, ref v1, ref v2, ref v3, ref v4, ref v5);
-            /*1557*/
+            /*1522*/
 
-            Cef3Binder.MyCefDeletePtr(v1.Ptr);/*1558*/
+            Cef3Binder.MyCefDeletePtr(v1.Ptr);/*1523*/
             ;
-            /*1559*/
+            /*1524*/
         }
+
+        // gen! void Print()
         /// <summary>
         /// Print the current browser contents.
         /// /*cef()*/
         /// </summary>
-        /*1560*/
+        /*1525*/
 
-
-        // gen! void Print()
-        /*1561*/
-
-        public void Print()/*1562*/
+        public void Print()/*1526*/
         {
             JsValue ret;
-            /*1563*/
+            /*1527*/
 
             Cef3Binder.MyCefMet_Call0(this.nativePtr, CefBrowserHost_Print_15, out ret);
-            /*1564*/
+            /*1528*/
 
-            /*1565*/
+            /*1529*/
         }
+
+        // gen! void PrintToPDF(const CefString& path,const CefPdfPrintSettings& settings,CefRefPtr<CefPdfPrintCallback> callback)
         /// <summary>
         /// Print the current browser contents to the PDF file specified by |path| and
         /// execute |callback| on completion. The caller is responsible for deleting
@@ -3367,36 +3297,34 @@ namespace LayoutFarm.CefBridge.Auto
         /// CefPrintHandler::GetPdfPaperSize method.
         /// /*cef(optional_param=callback)*/
         /// </summary>
-        /*1566*/
+        /*1530*/
 
-
-        // gen! void PrintToPDF(const CefString& path,const CefPdfPrintSettings& settings,CefRefPtr<CefPdfPrintCallback> callback)
-        /*1567*/
-
-        public void PrintToPDF(string /*1568*/
+        public void PrintToPDF(string /*1531*/
         path
-        , CefPdfPrintSettings /*1569*/
+        , CefPdfPrintSettings /*1532*/
         settings
-        , CefPdfPrintCallback /*1570*/
+        , CefPdfPrintCallback /*1533*/
         callback
-        )/*1571*/
+        )/*1534*/
         {
             JsValue v1 = new JsValue();
             JsValue v2 = new JsValue();
             JsValue v3 = new JsValue();
             JsValue ret;
             v1.Ptr = Cef3Binder.MyCefCreateCefString(path);
-            /*1572*/
+            /*1535*/
             ;
-            /*1573*/
+            /*1536*/
 
             Cef3Binder.MyCefMet_Call3(this.nativePtr, CefBrowserHost_PrintToPDF_16, out ret, ref v1, ref v2, ref v3);
-            /*1574*/
+            /*1537*/
 
-            Cef3Binder.MyCefDeletePtr(v1.Ptr);/*1575*/
+            Cef3Binder.MyCefDeletePtr(v1.Ptr);/*1538*/
             ;
-            /*1576*/
+            /*1539*/
         }
+
+        // gen! void Find(int identifier,const CefString& searchText,bool forward,bool matchCase,bool findNext)
         /// <summary>
         /// Search for |searchText|. |identifier| must be a unique ID and these IDs
         /// must strictly increase so that newer requests always have greater IDs than
@@ -3409,23 +3337,19 @@ namespace LayoutFarm.CefBridge.Auto
         /// report find results.
         /// /*cef()*/
         /// </summary>
-        /*1577*/
+        /*1540*/
 
-
-        // gen! void Find(int identifier,const CefString& searchText,bool forward,bool matchCase,bool findNext)
-        /*1578*/
-
-        public void Find(int /*1579*/
+        public void Find(int /*1541*/
         identifier
-        , string /*1580*/
+        , string /*1542*/
         searchText
-        , bool /*1581*/
+        , bool /*1543*/
         forward
-        , bool /*1582*/
+        , bool /*1544*/
         matchCase
-        , bool /*1583*/
+        , bool /*1545*/
         findNext
-        )/*1584*/
+        )/*1546*/
         {
             JsValue v1 = new JsValue();
             JsValue v2 = new JsValue();
@@ -3434,40 +3358,40 @@ namespace LayoutFarm.CefBridge.Auto
             JsValue v5 = new JsValue();
             JsValue ret;
             v2.Ptr = Cef3Binder.MyCefCreateCefString(searchText);
-            /*1585*/
+            /*1547*/
             ;
-            /*1586*/
+            /*1548*/
 
             Cef3Binder.MyCefMet_Call5(this.nativePtr, CefBrowserHost_Find_17, out ret, ref v1, ref v2, ref v3, ref v4, ref v5);
-            /*1587*/
+            /*1549*/
 
-            Cef3Binder.MyCefDeletePtr(v2.Ptr);/*1588*/
+            Cef3Binder.MyCefDeletePtr(v2.Ptr);/*1550*/
             ;
-            /*1589*/
+            /*1551*/
         }
+
+        // gen! void StopFinding(bool clearSelection)
         /// <summary>
         /// Cancel all searches that are currently going on.
         /// /*cef()*/
         /// </summary>
-        /*1590*/
+        /*1552*/
 
-
-        // gen! void StopFinding(bool clearSelection)
-        /*1591*/
-
-        public void StopFinding(bool /*1592*/
+        public void StopFinding(bool /*1553*/
         clearSelection
-        )/*1593*/
+        )/*1554*/
         {
             JsValue v1 = new JsValue();
             JsValue ret;
-            /*1594*/
+            /*1555*/
 
             Cef3Binder.MyCefMet_Call1(this.nativePtr, CefBrowserHost_StopFinding_18, out ret, ref v1);
-            /*1595*/
+            /*1556*/
 
-            /*1596*/
+            /*1557*/
         }
+
+        // gen! void ShowDevTools(const CefWindowInfo& windowInfo,CefRefPtr<CefClient> client,const CefBrowserSettings& settings,const CefPoint& inspect_element_at)
         /// <summary>
         /// Open developer tools (DevTools) in its own browser. The DevTools browser
         /// will remain associated with this browser. If the DevTools browser is
@@ -3478,229 +3402,211 @@ namespace LayoutFarm.CefBridge.Auto
         /// wrapped in a CefBrowserView.
         /// /*cef(optional_param=windowInfo,optional_param=client,optional_param=settings,optional_param=inspect_element_at)*/
         /// </summary>
-        /*1597*/
+        /*1558*/
 
-
-        // gen! void ShowDevTools(const CefWindowInfo& windowInfo,CefRefPtr<CefClient> client,const CefBrowserSettings& settings,const CefPoint& inspect_element_at)
-        /*1598*/
-
-        public void ShowDevTools(CefWindowInfo /*1599*/
+        public void ShowDevTools(CefWindowInfo /*1559*/
         windowInfo
-        , CefClient /*1600*/
+        , CefClient /*1560*/
         client
-        , CefBrowserSettings /*1601*/
+        , CefBrowserSettings /*1561*/
         settings
-        , CefPoint /*1602*/
+        , CefPoint /*1562*/
         inspect_element_at
-        )/*1603*/
+        )/*1563*/
         {
             JsValue v1 = new JsValue();
             JsValue v2 = new JsValue();
             JsValue v3 = new JsValue();
             JsValue v4 = new JsValue();
             JsValue ret;
-            /*1604*/
+            /*1564*/
 
             Cef3Binder.MyCefMet_Call4(this.nativePtr, CefBrowserHost_ShowDevTools_19, out ret, ref v1, ref v2, ref v3, ref v4);
-            /*1605*/
+            /*1565*/
 
-            /*1606*/
+            /*1566*/
         }
+
+        // gen! void CloseDevTools()
         /// <summary>
         /// Explicitly close the associated DevTools browser, if any.
         /// /*cef()*/
         /// </summary>
-        /*1607*/
+        /*1567*/
 
-
-        // gen! void CloseDevTools()
-        /*1608*/
-
-        public void CloseDevTools()/*1609*/
+        public void CloseDevTools()/*1568*/
         {
             JsValue ret;
-            /*1610*/
+            /*1569*/
 
             Cef3Binder.MyCefMet_Call0(this.nativePtr, CefBrowserHost_CloseDevTools_20, out ret);
-            /*1611*/
+            /*1570*/
 
-            /*1612*/
+            /*1571*/
         }
+
+        // gen! bool HasDevTools()
         /// <summary>
         /// Returns true if this browser currently has an associated DevTools browser.
         /// Must be called on the browser process UI thread.
         /// /*cef()*/
         /// </summary>
-        /*1613*/
+        /*1572*/
 
-
-        // gen! bool HasDevTools()
-        /*1614*/
-
-        public bool HasDevTools()/*1615*/
+        public bool HasDevTools()/*1573*/
         {
             JsValue ret;
-            /*1616*/
+            /*1574*/
 
             Cef3Binder.MyCefMet_Call0(this.nativePtr, CefBrowserHost_HasDevTools_21, out ret);
-            /*1617*/
+            /*1575*/
             var ret_result = ret.I32 != 0;
-            /*1618*/
+            /*1576*/
             return ret_result;
-            /*1619*/
+            /*1577*/
         }
+
+        // gen! void GetNavigationEntries(CefRefPtr<CefNavigationEntryVisitor> visitor,bool current_only)
         /// <summary>
         /// Retrieve a snapshot of current navigation entries as values sent to the
         /// specified visitor. If |current_only| is true only the current navigation
         /// entry will be sent, otherwise all navigation entries will be sent.
         /// /*cef()*/
         /// </summary>
-        /*1620*/
+        /*1578*/
 
-
-        // gen! void GetNavigationEntries(CefRefPtr<CefNavigationEntryVisitor> visitor,bool current_only)
-        /*1621*/
-
-        public void GetNavigationEntries(CefNavigationEntryVisitor /*1622*/
+        public void GetNavigationEntries(CefNavigationEntryVisitor /*1579*/
         visitor
-        , bool /*1623*/
+        , bool /*1580*/
         current_only
-        )/*1624*/
+        )/*1581*/
         {
             JsValue v1 = new JsValue();
             JsValue v2 = new JsValue();
             JsValue ret;
-            /*1625*/
+            /*1582*/
 
             Cef3Binder.MyCefMet_Call2(this.nativePtr, CefBrowserHost_GetNavigationEntries_22, out ret, ref v1, ref v2);
-            /*1626*/
+            /*1583*/
 
-            /*1627*/
+            /*1584*/
         }
+
+        // gen! void SetMouseCursorChangeDisabled(bool disabled)
         /// <summary>
         /// Set whether mouse cursor change is disabled.
         /// /*cef()*/
         /// </summary>
-        /*1628*/
+        /*1585*/
 
-
-        // gen! void SetMouseCursorChangeDisabled(bool disabled)
-        /*1629*/
-
-        public void SetMouseCursorChangeDisabled(bool /*1630*/
+        public void SetMouseCursorChangeDisabled(bool /*1586*/
         disabled
-        )/*1631*/
+        )/*1587*/
         {
             JsValue v1 = new JsValue();
             JsValue ret;
-            /*1632*/
+            /*1588*/
 
             Cef3Binder.MyCefMet_Call1(this.nativePtr, CefBrowserHost_SetMouseCursorChangeDisabled_23, out ret, ref v1);
-            /*1633*/
+            /*1589*/
 
-            /*1634*/
+            /*1590*/
         }
+
+        // gen! bool IsMouseCursorChangeDisabled()
         /// <summary>
         /// Returns true if mouse cursor change is disabled.
         /// /*cef()*/
         /// </summary>
-        /*1635*/
+        /*1591*/
 
-
-        // gen! bool IsMouseCursorChangeDisabled()
-        /*1636*/
-
-        public bool IsMouseCursorChangeDisabled()/*1637*/
+        public bool IsMouseCursorChangeDisabled()/*1592*/
         {
             JsValue ret;
-            /*1638*/
+            /*1593*/
 
             Cef3Binder.MyCefMet_Call0(this.nativePtr, CefBrowserHost_IsMouseCursorChangeDisabled_24, out ret);
-            /*1639*/
+            /*1594*/
             var ret_result = ret.I32 != 0;
-            /*1640*/
+            /*1595*/
             return ret_result;
-            /*1641*/
+            /*1596*/
         }
+
+        // gen! void ReplaceMisspelling(const CefString& word)
         /// <summary>
         /// If a misspelled word is currently selected in an editable node calling
         /// this method will replace it with the specified |word|.
         /// /*cef()*/
         /// </summary>
-        /*1642*/
+        /*1597*/
 
-
-        // gen! void ReplaceMisspelling(const CefString& word)
-        /*1643*/
-
-        public void ReplaceMisspelling(string /*1644*/
+        public void ReplaceMisspelling(string /*1598*/
         word
-        )/*1645*/
+        )/*1599*/
         {
             JsValue v1 = new JsValue();
             JsValue ret;
             v1.Ptr = Cef3Binder.MyCefCreateCefString(word);
-            /*1646*/
+            /*1600*/
             ;
-            /*1647*/
+            /*1601*/
 
             Cef3Binder.MyCefMet_Call1(this.nativePtr, CefBrowserHost_ReplaceMisspelling_25, out ret, ref v1);
-            /*1648*/
+            /*1602*/
 
-            Cef3Binder.MyCefDeletePtr(v1.Ptr);/*1649*/
+            Cef3Binder.MyCefDeletePtr(v1.Ptr);/*1603*/
             ;
-            /*1650*/
+            /*1604*/
         }
+
+        // gen! void AddWordToDictionary(const CefString& word)
         /// <summary>
         /// Add the specified |word| to the spelling dictionary.
         /// /*cef()*/
         /// </summary>
-        /*1651*/
+        /*1605*/
 
-
-        // gen! void AddWordToDictionary(const CefString& word)
-        /*1652*/
-
-        public void AddWordToDictionary(string /*1653*/
+        public void AddWordToDictionary(string /*1606*/
         word
-        )/*1654*/
+        )/*1607*/
         {
             JsValue v1 = new JsValue();
             JsValue ret;
             v1.Ptr = Cef3Binder.MyCefCreateCefString(word);
-            /*1655*/
+            /*1608*/
             ;
-            /*1656*/
+            /*1609*/
 
             Cef3Binder.MyCefMet_Call1(this.nativePtr, CefBrowserHost_AddWordToDictionary_26, out ret, ref v1);
-            /*1657*/
+            /*1610*/
 
-            Cef3Binder.MyCefDeletePtr(v1.Ptr);/*1658*/
+            Cef3Binder.MyCefDeletePtr(v1.Ptr);/*1611*/
             ;
-            /*1659*/
+            /*1612*/
         }
+
+        // gen! bool IsWindowRenderingDisabled()
         /// <summary>
         /// Returns true if window rendering is disabled.
         /// /*cef()*/
         /// </summary>
-        /*1660*/
+        /*1613*/
 
-
-        // gen! bool IsWindowRenderingDisabled()
-        /*1661*/
-
-        public bool IsWindowRenderingDisabled()/*1662*/
+        public bool IsWindowRenderingDisabled()/*1614*/
         {
             JsValue ret;
-            /*1663*/
+            /*1615*/
 
             Cef3Binder.MyCefMet_Call0(this.nativePtr, CefBrowserHost_IsWindowRenderingDisabled_27, out ret);
-            /*1664*/
+            /*1616*/
             var ret_result = ret.I32 != 0;
-            /*1665*/
+            /*1617*/
             return ret_result;
-            /*1666*/
+            /*1618*/
         }
+
+        // gen! void WasResized()
         /// <summary>
         /// Notify the browser that the widget has been resized. The browser will first
         /// call CefRenderHandler::GetViewRect to get the new size and then call
@@ -3708,47 +3614,43 @@ namespace LayoutFarm.CefBridge.Auto
         /// method is only used when window rendering is disabled.
         /// /*cef()*/
         /// </summary>
-        /*1667*/
+        /*1619*/
 
-
-        // gen! void WasResized()
-        /*1668*/
-
-        public void WasResized()/*1669*/
+        public void WasResized()/*1620*/
         {
             JsValue ret;
-            /*1670*/
+            /*1621*/
 
             Cef3Binder.MyCefMet_Call0(this.nativePtr, CefBrowserHost_WasResized_28, out ret);
-            /*1671*/
+            /*1622*/
 
-            /*1672*/
+            /*1623*/
         }
+
+        // gen! void WasHidden(bool hidden)
         /// <summary>
         /// Notify the browser that it has been hidden or shown. Layouting and
         /// CefRenderHandler::OnPaint notification will stop when the browser is
         /// hidden. This method is only used when window rendering is disabled.
         /// /*cef()*/
         /// </summary>
-        /*1673*/
+        /*1624*/
 
-
-        // gen! void WasHidden(bool hidden)
-        /*1674*/
-
-        public void WasHidden(bool /*1675*/
+        public void WasHidden(bool /*1625*/
         hidden
-        )/*1676*/
+        )/*1626*/
         {
             JsValue v1 = new JsValue();
             JsValue ret;
-            /*1677*/
+            /*1627*/
 
             Cef3Binder.MyCefMet_Call1(this.nativePtr, CefBrowserHost_WasHidden_29, out ret, ref v1);
-            /*1678*/
+            /*1628*/
 
-            /*1679*/
+            /*1629*/
         }
+
+        // gen! void NotifyScreenInfoChanged()
         /// <summary>
         /// Send a notification to the browser that the screen info has changed. The
         /// browser will then call CefRenderHandler::GetScreenInfo to update the
@@ -3758,130 +3660,120 @@ namespace LayoutFarm.CefBridge.Auto
         /// disabled.
         /// /*cef()*/
         /// </summary>
-        /*1680*/
+        /*1630*/
 
-
-        // gen! void NotifyScreenInfoChanged()
-        /*1681*/
-
-        public void NotifyScreenInfoChanged()/*1682*/
+        public void NotifyScreenInfoChanged()/*1631*/
         {
             JsValue ret;
-            /*1683*/
+            /*1632*/
 
             Cef3Binder.MyCefMet_Call0(this.nativePtr, CefBrowserHost_NotifyScreenInfoChanged_30, out ret);
-            /*1684*/
+            /*1633*/
 
-            /*1685*/
+            /*1634*/
         }
+
+        // gen! void Invalidate(PaintElementType type)
         /// <summary>
         /// Invalidate the view. The browser will call CefRenderHandler::OnPaint
         /// asynchronously. This method is only used when window rendering is
         /// disabled.
         /// /*cef()*/
         /// </summary>
-        /*1686*/
+        /*1635*/
 
-
-        // gen! void Invalidate(PaintElementType type)
-        /*1687*/
-
-        public void Invalidate(cef_paint_element_type_t /*1688*/
+        public void Invalidate(cef_paint_element_type_t /*1636*/
         type
-        )/*1689*/
+        )/*1637*/
         {
             JsValue v1 = new JsValue();
             JsValue ret;
-            /*1690*/
+            /*1638*/
 
             Cef3Binder.MyCefMet_Call1(this.nativePtr, CefBrowserHost_Invalidate_31, out ret, ref v1);
-            /*1691*/
+            /*1639*/
 
-            /*1692*/
+            /*1640*/
         }
+
+        // gen! void SendKeyEvent(const CefKeyEvent& event)
         /// <summary>
         /// Send a key event to the browser.
         /// /*cef()*/
         /// </summary>
-        /*1693*/
+        /*1641*/
 
-
-        // gen! void SendKeyEvent(const CefKeyEvent& event)
-        /*1694*/
-
-        public void SendKeyEvent(CefKeyEvent /*1695*/
+        public void SendKeyEvent(CefKeyEvent /*1642*/
         _event
-        )/*1696*/
+        )/*1643*/
         {
             JsValue v1 = new JsValue();
             JsValue ret;
-            /*1697*/
+            /*1644*/
 
             Cef3Binder.MyCefMet_Call1(this.nativePtr, CefBrowserHost_SendKeyEvent_32, out ret, ref v1);
-            /*1698*/
+            /*1645*/
 
-            /*1699*/
+            /*1646*/
         }
+
+        // gen! void SendMouseClickEvent(const CefMouseEvent& event,MouseButtonType type,bool mouseUp,int clickCount)
         /// <summary>
         /// Send a mouse click event to the browser. The |x| and |y| coordinates are
         /// relative to the upper-left corner of the view.
         /// /*cef()*/
         /// </summary>
-        /*1700*/
+        /*1647*/
 
-
-        // gen! void SendMouseClickEvent(const CefMouseEvent& event,MouseButtonType type,bool mouseUp,int clickCount)
-        /*1701*/
-
-        public void SendMouseClickEvent(CefMouseEvent /*1702*/
+        public void SendMouseClickEvent(CefMouseEvent /*1648*/
         _event
-        , cef_mouse_button_type_t /*1703*/
+        , cef_mouse_button_type_t /*1649*/
         type
-        , bool /*1704*/
+        , bool /*1650*/
         mouseUp
-        , int /*1705*/
+        , int /*1651*/
         clickCount
-        )/*1706*/
+        )/*1652*/
         {
             JsValue v1 = new JsValue();
             JsValue v2 = new JsValue();
             JsValue v3 = new JsValue();
             JsValue v4 = new JsValue();
             JsValue ret;
-            /*1707*/
+            /*1653*/
 
             Cef3Binder.MyCefMet_Call4(this.nativePtr, CefBrowserHost_SendMouseClickEvent_33, out ret, ref v1, ref v2, ref v3, ref v4);
-            /*1708*/
+            /*1654*/
 
-            /*1709*/
+            /*1655*/
         }
+
+        // gen! void SendMouseMoveEvent(const CefMouseEvent& event,bool mouseLeave)
         /// <summary>
         /// Send a mouse move event to the browser. The |x| and |y| coordinates are
         /// relative to the upper-left corner of the view.
         /// /*cef()*/
         /// </summary>
-        /*1710*/
+        /*1656*/
 
-
-        // gen! void SendMouseMoveEvent(const CefMouseEvent& event,bool mouseLeave)
-        /*1711*/
-
-        public void SendMouseMoveEvent(CefMouseEvent /*1712*/
+        public void SendMouseMoveEvent(CefMouseEvent /*1657*/
         _event
-        , bool /*1713*/
+        , bool /*1658*/
         mouseLeave
-        )/*1714*/
+        )/*1659*/
         {
             JsValue v1 = new JsValue();
             JsValue v2 = new JsValue();
             JsValue ret;
-            /*1715*/
+            /*1660*/
 
             Cef3Binder.MyCefMet_Call2(this.nativePtr, CefBrowserHost_SendMouseMoveEvent_34, out ret, ref v1, ref v2);
-            /*1716*/
+            /*1661*/
 
-            /*1717*/
+            /*1662*/
         }
+
+        // gen! void SendMouseWheelEvent(const CefMouseEvent& event,int deltaX,int deltaY)
         /// <summary>
         /// Send a mouse wheel event to the browser. The |x| and |y| coordinates are
         /// relative to the upper-left corner of the view. The |deltaX| and |deltaY|
@@ -3890,95 +3782,87 @@ namespace LayoutFarm.CefBridge.Auto
         /// CefRenderHandler::GetScreenPoint should be implemented properly.
         /// /*cef()*/
         /// </summary>
-        /*1718*/
+        /*1663*/
 
-
-        // gen! void SendMouseWheelEvent(const CefMouseEvent& event,int deltaX,int deltaY)
-        /*1719*/
-
-        public void SendMouseWheelEvent(CefMouseEvent /*1720*/
+        public void SendMouseWheelEvent(CefMouseEvent /*1664*/
         _event
-        , int /*1721*/
+        , int /*1665*/
         deltaX
-        , int /*1722*/
+        , int /*1666*/
         deltaY
-        )/*1723*/
+        )/*1667*/
         {
             JsValue v1 = new JsValue();
             JsValue v2 = new JsValue();
             JsValue v3 = new JsValue();
             JsValue ret;
-            /*1724*/
+            /*1668*/
 
             Cef3Binder.MyCefMet_Call3(this.nativePtr, CefBrowserHost_SendMouseWheelEvent_35, out ret, ref v1, ref v2, ref v3);
-            /*1725*/
+            /*1669*/
 
-            /*1726*/
+            /*1670*/
         }
+
+        // gen! void SendFocusEvent(bool setFocus)
         /// <summary>
         /// Send a focus event to the browser.
         /// /*cef()*/
         /// </summary>
-        /*1727*/
+        /*1671*/
 
-
-        // gen! void SendFocusEvent(bool setFocus)
-        /*1728*/
-
-        public void SendFocusEvent(bool /*1729*/
+        public void SendFocusEvent(bool /*1672*/
         setFocus
-        )/*1730*/
+        )/*1673*/
         {
             JsValue v1 = new JsValue();
             JsValue ret;
-            /*1731*/
+            /*1674*/
 
             Cef3Binder.MyCefMet_Call1(this.nativePtr, CefBrowserHost_SendFocusEvent_36, out ret, ref v1);
-            /*1732*/
+            /*1675*/
 
-            /*1733*/
+            /*1676*/
         }
+
+        // gen! void SendCaptureLostEvent()
         /// <summary>
         /// Send a capture lost event to the browser.
         /// /*cef()*/
         /// </summary>
-        /*1734*/
+        /*1677*/
 
-
-        // gen! void SendCaptureLostEvent()
-        /*1735*/
-
-        public void SendCaptureLostEvent()/*1736*/
+        public void SendCaptureLostEvent()/*1678*/
         {
             JsValue ret;
-            /*1737*/
+            /*1679*/
 
             Cef3Binder.MyCefMet_Call0(this.nativePtr, CefBrowserHost_SendCaptureLostEvent_37, out ret);
-            /*1738*/
+            /*1680*/
 
-            /*1739*/
+            /*1681*/
         }
+
+        // gen! void NotifyMoveOrResizeStarted()
         /// <summary>
         /// Notify the browser that the window hosting it is about to be moved or
         /// resized. This method is only used on Windows and Linux.
         /// /*cef()*/
         /// </summary>
-        /*1740*/
+        /*1682*/
 
-
-        // gen! void NotifyMoveOrResizeStarted()
-        /*1741*/
-
-        public void NotifyMoveOrResizeStarted()/*1742*/
+        public void NotifyMoveOrResizeStarted()/*1683*/
         {
             JsValue ret;
-            /*1743*/
+            /*1684*/
 
             Cef3Binder.MyCefMet_Call0(this.nativePtr, CefBrowserHost_NotifyMoveOrResizeStarted_38, out ret);
-            /*1744*/
+            /*1685*/
 
-            /*1745*/
+            /*1686*/
         }
+
+        // gen! int GetWindowlessFrameRate()
         /// <summary>
         /// Returns the maximum rate in frames per second (fps) that CefRenderHandler::
         /// OnPaint will be called for a windowless browser. The actual fps may be
@@ -3987,24 +3871,22 @@ namespace LayoutFarm.CefBridge.Auto
         /// can only be called on the UI thread.
         /// /*cef()*/
         /// </summary>
-        /*1746*/
+        /*1687*/
 
-
-        // gen! int GetWindowlessFrameRate()
-        /*1747*/
-
-        public int GetWindowlessFrameRate()/*1748*/
+        public int GetWindowlessFrameRate()/*1688*/
         {
             JsValue ret;
-            /*1749*/
+            /*1689*/
 
             Cef3Binder.MyCefMet_Call0(this.nativePtr, CefBrowserHost_GetWindowlessFrameRate_39, out ret);
-            /*1750*/
+            /*1690*/
             var ret_result = ret.I32;
-            /*1751*/
+            /*1691*/
             return ret_result;
-            /*1752*/
+            /*1692*/
         }
+
+        // gen! void SetWindowlessFrameRate(int frame_rate)
         /// <summary>
         /// Set the maximum rate in frames per second (fps) that CefRenderHandler::
         /// OnPaint will be called for a windowless browser. The actual fps may be
@@ -4013,25 +3895,23 @@ namespace LayoutFarm.CefBridge.Auto
         /// set at browser creation via CefBrowserSettings.windowless_frame_rate.
         /// /*cef()*/
         /// </summary>
-        /*1753*/
+        /*1693*/
 
-
-        // gen! void SetWindowlessFrameRate(int frame_rate)
-        /*1754*/
-
-        public void SetWindowlessFrameRate(int /*1755*/
+        public void SetWindowlessFrameRate(int /*1694*/
         frame_rate
-        )/*1756*/
+        )/*1695*/
         {
             JsValue v1 = new JsValue();
             JsValue ret;
-            /*1757*/
+            /*1696*/
 
             Cef3Binder.MyCefMet_Call1(this.nativePtr, CefBrowserHost_SetWindowlessFrameRate_40, out ret, ref v1);
-            /*1758*/
+            /*1697*/
 
-            /*1759*/
+            /*1698*/
         }
+
+        // gen! void ImeSetComposition(const CefString& text,const std::vector<CefCompositionUnderline>& underlines,const CefRange& replacement_range,const CefRange& selection_range)
         /// <summary>
         /// Begins a new composition or updates the existing composition. Blink has a
         /// special node (a composition node) that allows the input method to change
@@ -4056,21 +3936,17 @@ namespace LayoutFarm.CefBridge.Auto
         /// This method is only used when window rendering is disabled.
         /// /*cef(optional_param=text,optional_param=underlines)*/
         /// </summary>
-        /*1760*/
+        /*1699*/
 
-
-        // gen! void ImeSetComposition(const CefString& text,const std::vector<CefCompositionUnderline>& underlines,const CefRange& replacement_range,const CefRange& selection_range)
-        /*1761*/
-
-        public void ImeSetComposition(string /*1762*/
+        public void ImeSetComposition(string /*1700*/
         text
-        , List<CefCompositionUnderline> /*1763*/
+        , List<CefCompositionUnderline> /*1701*/
         underlines
-        , CefRange /*1764*/
+        , CefRange /*1702*/
         replacement_range
-        , CefRange /*1765*/
+        , CefRange /*1703*/
         selection_range
-        )/*1766*/
+        )/*1704*/
         {
             JsValue v1 = new JsValue();
             JsValue v2 = new JsValue();
@@ -4078,17 +3954,19 @@ namespace LayoutFarm.CefBridge.Auto
             JsValue v4 = new JsValue();
             JsValue ret;
             v1.Ptr = Cef3Binder.MyCefCreateCefString(text);
-            /*1767*/
+            /*1705*/
             ;
-            /*1768*/
+            /*1706*/
 
             Cef3Binder.MyCefMet_Call4(this.nativePtr, CefBrowserHost_ImeSetComposition_41, out ret, ref v1, ref v2, ref v3, ref v4);
-            /*1769*/
+            /*1707*/
 
-            Cef3Binder.MyCefDeletePtr(v1.Ptr);/*1770*/
+            Cef3Binder.MyCefDeletePtr(v1.Ptr);/*1708*/
             ;
-            /*1771*/
+            /*1709*/
         }
+
+        // gen! void ImeCommitText(const CefString& text,const CefRange& replacement_range,int relative_cursor_pos)
         /// <summary>
         /// Completes the existing composition by optionally inserting the specified
         /// |text| into the composition node. |replacement_range| is an optional range
@@ -4099,36 +3977,34 @@ namespace LayoutFarm.CefBridge.Auto
         /// This method is only used when window rendering is disabled.
         /// /*cef(optional_param=text)*/
         /// </summary>
-        /*1772*/
+        /*1710*/
 
-
-        // gen! void ImeCommitText(const CefString& text,const CefRange& replacement_range,int relative_cursor_pos)
-        /*1773*/
-
-        public void ImeCommitText(string /*1774*/
+        public void ImeCommitText(string /*1711*/
         text
-        , CefRange /*1775*/
+        , CefRange /*1712*/
         replacement_range
-        , int /*1776*/
+        , int /*1713*/
         relative_cursor_pos
-        )/*1777*/
+        )/*1714*/
         {
             JsValue v1 = new JsValue();
             JsValue v2 = new JsValue();
             JsValue v3 = new JsValue();
             JsValue ret;
             v1.Ptr = Cef3Binder.MyCefCreateCefString(text);
-            /*1778*/
+            /*1715*/
             ;
-            /*1779*/
+            /*1716*/
 
             Cef3Binder.MyCefMet_Call3(this.nativePtr, CefBrowserHost_ImeCommitText_42, out ret, ref v1, ref v2, ref v3);
-            /*1780*/
+            /*1717*/
 
-            Cef3Binder.MyCefDeletePtr(v1.Ptr);/*1781*/
+            Cef3Binder.MyCefDeletePtr(v1.Ptr);/*1718*/
             ;
-            /*1782*/
+            /*1719*/
         }
+
+        // gen! void ImeFinishComposingText(bool keep_selection)
         /// <summary>
         /// Completes the existing composition by applying the current composition node
         /// contents. If |keep_selection| is false the current selection, if any, will
@@ -4136,25 +4012,23 @@ namespace LayoutFarm.CefBridge.Auto
         /// This method is only used when window rendering is disabled.
         /// /*cef()*/
         /// </summary>
-        /*1783*/
+        /*1720*/
 
-
-        // gen! void ImeFinishComposingText(bool keep_selection)
-        /*1784*/
-
-        public void ImeFinishComposingText(bool /*1785*/
+        public void ImeFinishComposingText(bool /*1721*/
         keep_selection
-        )/*1786*/
+        )/*1722*/
         {
             JsValue v1 = new JsValue();
             JsValue ret;
-            /*1787*/
+            /*1723*/
 
             Cef3Binder.MyCefMet_Call1(this.nativePtr, CefBrowserHost_ImeFinishComposingText_43, out ret, ref v1);
-            /*1788*/
+            /*1724*/
 
-            /*1789*/
+            /*1725*/
         }
+
+        // gen! void ImeCancelComposition()
         /// <summary>
         /// Cancels the existing composition and discards the composition node
         /// contents without applying them. See comments on ImeSetComposition for
@@ -4162,22 +4036,20 @@ namespace LayoutFarm.CefBridge.Auto
         /// This method is only used when window rendering is disabled.
         /// /*cef()*/
         /// </summary>
-        /*1790*/
+        /*1726*/
 
-
-        // gen! void ImeCancelComposition()
-        /*1791*/
-
-        public void ImeCancelComposition()/*1792*/
+        public void ImeCancelComposition()/*1727*/
         {
             JsValue ret;
-            /*1793*/
+            /*1728*/
 
             Cef3Binder.MyCefMet_Call0(this.nativePtr, CefBrowserHost_ImeCancelComposition_44, out ret);
-            /*1794*/
+            /*1729*/
 
-            /*1795*/
+            /*1730*/
         }
+
+        // gen! void DragTargetDragEnter(CefRefPtr<CefDragData> drag_data,const CefMouseEvent& event,DragOperationsMask allowed_ops)
         /// <summary>
         /// Call this method when the user drags the mouse into the web view (before
         /// calling DragTargetDragOver/DragTargetLeave/DragTargetDrop).
@@ -4188,31 +4060,29 @@ namespace LayoutFarm.CefBridge.Auto
         /// This method is only used when window rendering is disabled.
         /// /*cef()*/
         /// </summary>
-        /*1796*/
+        /*1731*/
 
-
-        // gen! void DragTargetDragEnter(CefRefPtr<CefDragData> drag_data,const CefMouseEvent& event,DragOperationsMask allowed_ops)
-        /*1797*/
-
-        public void DragTargetDragEnter(CefDragData /*1798*/
+        public void DragTargetDragEnter(CefDragData /*1732*/
         drag_data
-        , CefMouseEvent /*1799*/
+        , CefMouseEvent /*1733*/
         _event
-        , cef_drag_operations_mask_t /*1800*/
+        , cef_drag_operations_mask_t /*1734*/
         allowed_ops
-        )/*1801*/
+        )/*1735*/
         {
             JsValue v1 = new JsValue();
             JsValue v2 = new JsValue();
             JsValue v3 = new JsValue();
             JsValue ret;
-            /*1802*/
+            /*1736*/
 
             Cef3Binder.MyCefMet_Call3(this.nativePtr, CefBrowserHost_DragTargetDragEnter_45, out ret, ref v1, ref v2, ref v3);
-            /*1803*/
+            /*1737*/
 
-            /*1804*/
+            /*1738*/
         }
+
+        // gen! void DragTargetDragOver(const CefMouseEvent& event,DragOperationsMask allowed_ops)
         /// <summary>
         /// Call this method each time the mouse is moved across the web view during
         /// a drag operation (after calling DragTargetDragEnter and before calling
@@ -4220,50 +4090,46 @@ namespace LayoutFarm.CefBridge.Auto
         /// This method is only used when window rendering is disabled.
         /// /*cef()*/
         /// </summary>
-        /*1805*/
+        /*1739*/
 
-
-        // gen! void DragTargetDragOver(const CefMouseEvent& event,DragOperationsMask allowed_ops)
-        /*1806*/
-
-        public void DragTargetDragOver(CefMouseEvent /*1807*/
+        public void DragTargetDragOver(CefMouseEvent /*1740*/
         _event
-        , cef_drag_operations_mask_t /*1808*/
+        , cef_drag_operations_mask_t /*1741*/
         allowed_ops
-        )/*1809*/
+        )/*1742*/
         {
             JsValue v1 = new JsValue();
             JsValue v2 = new JsValue();
             JsValue ret;
-            /*1810*/
+            /*1743*/
 
             Cef3Binder.MyCefMet_Call2(this.nativePtr, CefBrowserHost_DragTargetDragOver_46, out ret, ref v1, ref v2);
-            /*1811*/
+            /*1744*/
 
-            /*1812*/
+            /*1745*/
         }
+
+        // gen! void DragTargetDragLeave()
         /// <summary>
         /// Call this method when the user drags the mouse out of the web view (after
         /// calling DragTargetDragEnter).
         /// This method is only used when window rendering is disabled.
         /// /*cef()*/
         /// </summary>
-        /*1813*/
+        /*1746*/
 
-
-        // gen! void DragTargetDragLeave()
-        /*1814*/
-
-        public void DragTargetDragLeave()/*1815*/
+        public void DragTargetDragLeave()/*1747*/
         {
             JsValue ret;
-            /*1816*/
+            /*1748*/
 
             Cef3Binder.MyCefMet_Call0(this.nativePtr, CefBrowserHost_DragTargetDragLeave_47, out ret);
-            /*1817*/
+            /*1749*/
 
-            /*1818*/
+            /*1750*/
         }
+
+        // gen! void DragTargetDrop(const CefMouseEvent& event)
         /// <summary>
         /// Call this method when the user completes the drag operation by dropping
         /// the object onto the web view (after calling DragTargetDragEnter).
@@ -4272,25 +4138,23 @@ namespace LayoutFarm.CefBridge.Auto
         /// This method is only used when window rendering is disabled.
         /// /*cef()*/
         /// </summary>
-        /*1819*/
+        /*1751*/
 
-
-        // gen! void DragTargetDrop(const CefMouseEvent& event)
-        /*1820*/
-
-        public void DragTargetDrop(CefMouseEvent /*1821*/
+        public void DragTargetDrop(CefMouseEvent /*1752*/
         _event
-        )/*1822*/
+        )/*1753*/
         {
             JsValue v1 = new JsValue();
             JsValue ret;
-            /*1823*/
+            /*1754*/
 
             Cef3Binder.MyCefMet_Call1(this.nativePtr, CefBrowserHost_DragTargetDrop_48, out ret, ref v1);
-            /*1824*/
+            /*1755*/
 
-            /*1825*/
+            /*1756*/
         }
+
+        // gen! void DragSourceEndedAt(int x,int y,DragOperationsMask op)
         /// <summary>
         /// Call this method when the drag operation started by a
         /// CefRenderHandler::StartDragging call has ended either in a drop or
@@ -4301,31 +4165,29 @@ namespace LayoutFarm.CefBridge.Auto
         /// This method is only used when window rendering is disabled.
         /// /*cef()*/
         /// </summary>
-        /*1826*/
+        /*1757*/
 
-
-        // gen! void DragSourceEndedAt(int x,int y,DragOperationsMask op)
-        /*1827*/
-
-        public void DragSourceEndedAt(int /*1828*/
+        public void DragSourceEndedAt(int /*1758*/
         x
-        , int /*1829*/
+        , int /*1759*/
         y
-        , cef_drag_operations_mask_t /*1830*/
+        , cef_drag_operations_mask_t /*1760*/
         op
-        )/*1831*/
+        )/*1761*/
         {
             JsValue v1 = new JsValue();
             JsValue v2 = new JsValue();
             JsValue v3 = new JsValue();
             JsValue ret;
-            /*1832*/
+            /*1762*/
 
             Cef3Binder.MyCefMet_Call3(this.nativePtr, CefBrowserHost_DragSourceEndedAt_49, out ret, ref v1, ref v2, ref v3);
-            /*1833*/
+            /*1763*/
 
-            /*1834*/
+            /*1764*/
         }
+
+        // gen! void DragSourceSystemDragEnded()
         /// <summary>
         /// Call this method when the drag operation started by a
         /// CefRenderHandler::StartDragging call has completed. This method may be
@@ -4336,45 +4198,41 @@ namespace LayoutFarm.CefBridge.Auto
         /// This method is only used when window rendering is disabled.
         /// /*cef()*/
         /// </summary>
-        /*1835*/
+        /*1765*/
 
-
-        // gen! void DragSourceSystemDragEnded()
-        /*1836*/
-
-        public void DragSourceSystemDragEnded()/*1837*/
+        public void DragSourceSystemDragEnded()/*1766*/
         {
             JsValue ret;
-            /*1838*/
+            /*1767*/
 
             Cef3Binder.MyCefMet_Call0(this.nativePtr, CefBrowserHost_DragSourceSystemDragEnded_50, out ret);
-            /*1839*/
+            /*1768*/
 
-            /*1840*/
+            /*1769*/
         }
+
+        // gen! CefRefPtr<CefNavigationEntry> GetVisibleNavigationEntry()
         /// <summary>
         /// Returns the current visible navigation entry for this browser. This method
         /// can only be called on the UI thread.
         /// /*cef()*/
         /// </summary>
-        /*1841*/
+        /*1770*/
 
-
-        // gen! CefRefPtr<CefNavigationEntry> GetVisibleNavigationEntry()
-        /*1842*/
-
-        public CefNavigationEntry GetVisibleNavigationEntry()/*1843*/
+        public CefNavigationEntry GetVisibleNavigationEntry()/*1771*/
         {
             JsValue ret;
-            /*1844*/
+            /*1772*/
 
             Cef3Binder.MyCefMet_Call0(this.nativePtr, CefBrowserHost_GetVisibleNavigationEntry_51, out ret);
-            /*1845*/
+            /*1773*/
             var ret_result = new CefNavigationEntry(ret.Ptr);
-            /*1846*/
+            /*1774*/
             return ret_result;
-            /*1847*/
+            /*1775*/
         }
+
+        // gen! void SetAccessibilityState(cef_state_t accessibility_state)
         /// <summary>
         /// Set accessibility state for all frames. |accessibility_state| may be
         /// default, enabled or disabled. If |accessibility_state| is STATE_DEFAULT
@@ -4402,26 +4260,22 @@ namespace LayoutFarm.CefBridge.Auto
         /// objects using CefAccessibiltyHandler callbacks if desired.
         /// /*cef()*/
         /// </summary>
-        /*1848*/
+        /*1776*/
 
-
-        // gen! void SetAccessibilityState(cef_state_t accessibility_state)
-        /*1849*/
-
-        public void SetAccessibilityState(cef_state_t /*1850*/
+        public void SetAccessibilityState(cef_state_t /*1777*/
         accessibility_state
-        )/*1851*/
+        )/*1778*/
         {
             JsValue v1 = new JsValue();
             JsValue ret;
-            /*1852*/
+            /*1779*/
 
             Cef3Binder.MyCefMet_Call1(this.nativePtr, CefBrowserHost_SetAccessibilityState_52, out ret, ref v1);
-            /*1853*/
+            /*1780*/
 
-            /*1854*/
+            /*1781*/
         }
-        /*1855*/
+        /*1782*/
     }
 
 
@@ -4430,32 +4284,32 @@ namespace LayoutFarm.CefBridge.Auto
     /// Implement this interface to provide handler implementations.
     /// /*(source=client,no_debugct_check)*/
     /// </summary>
-    /*1864*/
+    /*1791*/
     public struct CefClient
     {
-        /*1865*/
+        /*1792*/
         const int _typeNAME = 5;
-        /*1866*/
+        /*1793*/
         const int CefClient_Release_0 = (_typeNAME << 16) | 0;
-        /*1867*/
+        /*1794*/
         internal readonly IntPtr nativePtr;
-        /*1868*/
+        /*1795*/
         internal CefClient(IntPtr nativePtr)
         {
-            /*1869*/
+            /*1796*/
             this.nativePtr = nativePtr;
-            /*1870*/
+            /*1797*/
         }
-        /*1871*/
+        /*1798*/
         public void Release()
         {
-            /*1872*/
+            /*1799*/
             JsValue ret;
-            /*1873*/
+            /*1800*/
             Cef3Binder.MyCefMet_Call0(this.nativePtr, CefClient_Release_0, out ret);
-            /*1874*/
+            /*1801*/
         }
-        /*1875*/
+        /*1802*/
     }
 
 
@@ -4471,587 +4325,547 @@ namespace LayoutFarm.CefBridge.Auto
     /// used before CefInitialize() is called.
     /// /*(source=library,no_debugct_check)*/
     /// </summary>
-    /*1984*/
+    /*1911*/
     public struct CefCommandLine
     {
-        /*1985*/
+        /*1912*/
         const int _typeNAME = 6;
-        /*1986*/
+        /*1913*/
         const int CefCommandLine_Release_0 = (_typeNAME << 16) | 0;
-        /*1987*/
+        /*1914*/
         const int CefCommandLine_IsValid_1 = (_typeNAME << 16) | 1;
-        /*1988*/
+        /*1915*/
         const int CefCommandLine_IsReadOnly_2 = (_typeNAME << 16) | 2;
-        /*1989*/
+        /*1916*/
         const int CefCommandLine_Copy_3 = (_typeNAME << 16) | 3;
-        /*1990*/
+        /*1917*/
         const int CefCommandLine_InitFromArgv_4 = (_typeNAME << 16) | 4;
-        /*1991*/
+        /*1918*/
         const int CefCommandLine_InitFromString_5 = (_typeNAME << 16) | 5;
-        /*1992*/
+        /*1919*/
         const int CefCommandLine_Reset_6 = (_typeNAME << 16) | 6;
-        /*1993*/
+        /*1920*/
         const int CefCommandLine_GetArgv_7 = (_typeNAME << 16) | 7;
-        /*1994*/
+        /*1921*/
         const int CefCommandLine_GetCommandLineString_8 = (_typeNAME << 16) | 8;
-        /*1995*/
+        /*1922*/
         const int CefCommandLine_GetProgram_9 = (_typeNAME << 16) | 9;
-        /*1996*/
+        /*1923*/
         const int CefCommandLine_SetProgram_10 = (_typeNAME << 16) | 10;
-        /*1997*/
+        /*1924*/
         const int CefCommandLine_HasSwitches_11 = (_typeNAME << 16) | 11;
-        /*1998*/
+        /*1925*/
         const int CefCommandLine_HasSwitch_12 = (_typeNAME << 16) | 12;
-        /*1999*/
+        /*1926*/
         const int CefCommandLine_GetSwitchValue_13 = (_typeNAME << 16) | 13;
-        /*2000*/
+        /*1927*/
         const int CefCommandLine_GetSwitches_14 = (_typeNAME << 16) | 14;
-        /*2001*/
+        /*1928*/
         const int CefCommandLine_AppendSwitch_15 = (_typeNAME << 16) | 15;
-        /*2002*/
+        /*1929*/
         const int CefCommandLine_AppendSwitchWithValue_16 = (_typeNAME << 16) | 16;
-        /*2003*/
+        /*1930*/
         const int CefCommandLine_HasArguments_17 = (_typeNAME << 16) | 17;
-        /*2004*/
+        /*1931*/
         const int CefCommandLine_GetArguments_18 = (_typeNAME << 16) | 18;
-        /*2005*/
+        /*1932*/
         const int CefCommandLine_AppendArgument_19 = (_typeNAME << 16) | 19;
-        /*2006*/
+        /*1933*/
         const int CefCommandLine_PrependWrapper_20 = (_typeNAME << 16) | 20;
-        /*2007*/
+        /*1934*/
         internal readonly IntPtr nativePtr;
-        /*2008*/
+        /*1935*/
         internal CefCommandLine(IntPtr nativePtr)
         {
-            /*2009*/
+            /*1936*/
             this.nativePtr = nativePtr;
-            /*2010*/
+            /*1937*/
         }
-        /*2011*/
+        /*1938*/
         public void Release()
         {
-            /*2012*/
+            /*1939*/
             JsValue ret;
-            /*2013*/
+            /*1940*/
             Cef3Binder.MyCefMet_Call0(this.nativePtr, CefCommandLine_Release_0, out ret);
-            /*2014*/
+            /*1941*/
         }
+
+        // gen! bool IsValid()
         /// <summary>
         /// CefCommandLine methods.
         /// </summary>
-        /*2015*/
+        /*1942*/
 
-
-        // gen! bool IsValid()
-        /*2016*/
-
-        public bool IsValid()/*2017*/
+        public bool IsValid()/*1943*/
         {
             JsValue ret;
-            /*2018*/
+            /*1944*/
 
             Cef3Binder.MyCefMet_Call0(this.nativePtr, CefCommandLine_IsValid_1, out ret);
-            /*2019*/
+            /*1945*/
             var ret_result = ret.I32 != 0;
-            /*2020*/
+            /*1946*/
             return ret_result;
-            /*2021*/
+            /*1947*/
         }
+
+        // gen! bool IsReadOnly()
         /// <summary>
         /// Returns true if the values of this object are read-only. Some APIs may
         /// expose read-only objects.
         /// /*cef()*/
         /// </summary>
-        /*2022*/
+        /*1948*/
 
-
-        // gen! bool IsReadOnly()
-        /*2023*/
-
-        public bool IsReadOnly()/*2024*/
+        public bool IsReadOnly()/*1949*/
         {
             JsValue ret;
-            /*2025*/
+            /*1950*/
 
             Cef3Binder.MyCefMet_Call0(this.nativePtr, CefCommandLine_IsReadOnly_2, out ret);
-            /*2026*/
+            /*1951*/
             var ret_result = ret.I32 != 0;
-            /*2027*/
+            /*1952*/
             return ret_result;
-            /*2028*/
+            /*1953*/
         }
+
+        // gen! CefRefPtr<CefCommandLine> Copy()
         /// <summary>
         /// Returns a writable copy of this object.
         /// /*cef()*/
         /// </summary>
-        /*2029*/
+        /*1954*/
 
-
-        // gen! CefRefPtr<CefCommandLine> Copy()
-        /*2030*/
-
-        public CefCommandLine Copy()/*2031*/
+        public CefCommandLine Copy()/*1955*/
         {
             JsValue ret;
-            /*2032*/
+            /*1956*/
 
             Cef3Binder.MyCefMet_Call0(this.nativePtr, CefCommandLine_Copy_3, out ret);
-            /*2033*/
+            /*1957*/
             var ret_result = new CefCommandLine(ret.Ptr);
-            /*2034*/
+            /*1958*/
             return ret_result;
-            /*2035*/
+            /*1959*/
         }
+
+        // gen! void InitFromArgv(int argc,const char* const* argv)
         /// <summary>
         /// Initialize the command line with the specified |argc| and |argv| values.
         /// The first argument must be the name of the program. This method is only
         /// supported on non-Windows platforms.
         /// /*cef()*/
         /// </summary>
-        /*2036*/
+        /*1960*/
 
-
-        // gen! void InitFromArgv(int argc,const char* const* argv)
-        /*2037*/
-
-        public void InitFromArgv(int /*2038*/
+        public void InitFromArgv(int /*1961*/
         argc
-        , IntPtr /*2039*/
+        , IntPtr /*1962*/
         argv
-        )/*2040*/
+        )/*1963*/
         {
             JsValue v1 = new JsValue();
             JsValue v2 = new JsValue();
             JsValue ret;
-            /*2041*/
+            /*1964*/
 
             Cef3Binder.MyCefMet_Call2(this.nativePtr, CefCommandLine_InitFromArgv_4, out ret, ref v1, ref v2);
-            /*2042*/
+            /*1965*/
 
-            /*2043*/
+            /*1966*/
         }
+
+        // gen! void InitFromString(const CefString& command_line)
         /// <summary>
         /// Initialize the command line with the string returned by calling
         /// GetCommandLineW(). This method is only supported on Windows.
         /// /*cef()*/
         /// </summary>
-        /*2044*/
+        /*1967*/
 
-
-        // gen! void InitFromString(const CefString& command_line)
-        /*2045*/
-
-        public void InitFromString(string /*2046*/
+        public void InitFromString(string /*1968*/
         command_line
-        )/*2047*/
+        )/*1969*/
         {
             JsValue v1 = new JsValue();
             JsValue ret;
             v1.Ptr = Cef3Binder.MyCefCreateCefString(command_line);
-            /*2048*/
+            /*1970*/
             ;
-            /*2049*/
+            /*1971*/
 
             Cef3Binder.MyCefMet_Call1(this.nativePtr, CefCommandLine_InitFromString_5, out ret, ref v1);
-            /*2050*/
+            /*1972*/
 
-            Cef3Binder.MyCefDeletePtr(v1.Ptr);/*2051*/
+            Cef3Binder.MyCefDeletePtr(v1.Ptr);/*1973*/
             ;
-            /*2052*/
+            /*1974*/
         }
+
+        // gen! void Reset()
         /// <summary>
         /// Reset the command-line switches and arguments but leave the program
         /// component unchanged.
         /// /*cef()*/
         /// </summary>
-        /*2053*/
+        /*1975*/
 
-
-        // gen! void Reset()
-        /*2054*/
-
-        public void Reset()/*2055*/
+        public void Reset()/*1976*/
         {
             JsValue ret;
-            /*2056*/
+            /*1977*/
 
             Cef3Binder.MyCefMet_Call0(this.nativePtr, CefCommandLine_Reset_6, out ret);
-            /*2057*/
+            /*1978*/
 
-            /*2058*/
+            /*1979*/
         }
+
+        // gen! void GetArgv(std::vector<CefString>& argv)
         /// <summary>
         /// Retrieve the original command line string as a vector of strings.
         /// The argv array: { program, [(--|-|/)switch[=value]]*, [--], [argument]* }
         /// /*cef()*/
         /// </summary>
-        /*2059*/
+        /*1980*/
 
-
-        // gen! void GetArgv(std::vector<CefString>& argv)
-        /*2060*/
-
-        public void GetArgv(List<string> /*2061*/
+        public void GetArgv(List<string> /*1981*/
         argv
-        )/*2062*/
+        )/*1982*/
         {
             JsValue v1 = new JsValue();
             JsValue ret;
-            /*2063*/
+            /*1983*/
 
             Cef3Binder.MyCefMet_Call1(this.nativePtr, CefCommandLine_GetArgv_7, out ret, ref v1);
-            /*2064*/
+            /*1984*/
 
-            /*2065*/
+            /*1985*/
         }
+
+        // gen! CefString GetCommandLineString()
         /// <summary>
         /// Constructs and returns the represented command line string. Use this method
         /// cautiously because quoting behavior is unclear.
         /// /*cef()*/
         /// </summary>
-        /*2066*/
+        /*1986*/
 
-
-        // gen! CefString GetCommandLineString()
-        /*2067*/
-
-        public string GetCommandLineString()/*2068*/
+        public string GetCommandLineString()/*1987*/
         {
             JsValue ret;
-            /*2069*/
+            /*1988*/
 
             Cef3Binder.MyCefMet_Call0(this.nativePtr, CefCommandLine_GetCommandLineString_8, out ret);
-            /*2070*/
+            /*1989*/
             var ret_result = Cef3Binder.CopyStringAndDestroyNativeSide(ref ret);
-            /*2071*/
+            /*1990*/
             return ret_result;
-            /*2072*/
+            /*1991*/
         }
+
+        // gen! CefString GetProgram()
         /// <summary>
         /// Get the program part of the command line string (the first item).
         /// /*cef()*/
         /// </summary>
-        /*2073*/
+        /*1992*/
 
-
-        // gen! CefString GetProgram()
-        /*2074*/
-
-        public string GetProgram()/*2075*/
+        public string GetProgram()/*1993*/
         {
             JsValue ret;
-            /*2076*/
+            /*1994*/
 
             Cef3Binder.MyCefMet_Call0(this.nativePtr, CefCommandLine_GetProgram_9, out ret);
-            /*2077*/
+            /*1995*/
             var ret_result = Cef3Binder.CopyStringAndDestroyNativeSide(ref ret);
-            /*2078*/
+            /*1996*/
             return ret_result;
-            /*2079*/
+            /*1997*/
         }
+
+        // gen! void SetProgram(const CefString& program)
         /// <summary>
         /// Set the program part of the command line string (the first item).
         /// /*cef()*/
         /// </summary>
-        /*2080*/
+        /*1998*/
 
-
-        // gen! void SetProgram(const CefString& program)
-        /*2081*/
-
-        public void SetProgram(string /*2082*/
+        public void SetProgram(string /*1999*/
         program
-        )/*2083*/
+        )/*2000*/
         {
             JsValue v1 = new JsValue();
             JsValue ret;
             v1.Ptr = Cef3Binder.MyCefCreateCefString(program);
-            /*2084*/
+            /*2001*/
             ;
-            /*2085*/
+            /*2002*/
 
             Cef3Binder.MyCefMet_Call1(this.nativePtr, CefCommandLine_SetProgram_10, out ret, ref v1);
-            /*2086*/
+            /*2003*/
 
-            Cef3Binder.MyCefDeletePtr(v1.Ptr);/*2087*/
+            Cef3Binder.MyCefDeletePtr(v1.Ptr);/*2004*/
             ;
-            /*2088*/
+            /*2005*/
         }
+
+        // gen! bool HasSwitches()
         /// <summary>
         /// Returns true if the command line has switches.
         /// /*cef()*/
         /// </summary>
-        /*2089*/
+        /*2006*/
 
-
-        // gen! bool HasSwitches()
-        /*2090*/
-
-        public bool HasSwitches()/*2091*/
+        public bool HasSwitches()/*2007*/
         {
             JsValue ret;
-            /*2092*/
+            /*2008*/
 
             Cef3Binder.MyCefMet_Call0(this.nativePtr, CefCommandLine_HasSwitches_11, out ret);
-            /*2093*/
+            /*2009*/
             var ret_result = ret.I32 != 0;
-            /*2094*/
+            /*2010*/
             return ret_result;
-            /*2095*/
+            /*2011*/
         }
+
+        // gen! bool HasSwitch(const CefString& name)
         /// <summary>
         /// Returns true if the command line contains the given switch.
         /// /*cef()*/
         /// </summary>
-        /*2096*/
+        /*2012*/
 
-
-        // gen! bool HasSwitch(const CefString& name)
-        /*2097*/
-
-        public bool HasSwitch(string /*2098*/
+        public bool HasSwitch(string /*2013*/
         name
-        )/*2099*/
+        )/*2014*/
         {
             JsValue v1 = new JsValue();
             JsValue ret;
             v1.Ptr = Cef3Binder.MyCefCreateCefString(name);
-            /*2100*/
+            /*2015*/
             ;
-            /*2101*/
+            /*2016*/
 
             Cef3Binder.MyCefMet_Call1(this.nativePtr, CefCommandLine_HasSwitch_12, out ret, ref v1);
-            /*2102*/
+            /*2017*/
             var ret_result = ret.I32 != 0;
-            Cef3Binder.MyCefDeletePtr(v1.Ptr);/*2103*/
+            Cef3Binder.MyCefDeletePtr(v1.Ptr);/*2018*/
             ;
-            /*2104*/
+            /*2019*/
             return ret_result;
-            /*2105*/
+            /*2020*/
         }
+
+        // gen! CefString GetSwitchValue(const CefString& name)
         /// <summary>
         /// Returns the value associated with the given switch. If the switch has no
         /// value or isn't present this method returns the empty string.
         /// /*cef()*/
         /// </summary>
-        /*2106*/
+        /*2021*/
 
-
-        // gen! CefString GetSwitchValue(const CefString& name)
-        /*2107*/
-
-        public string GetSwitchValue(string /*2108*/
+        public string GetSwitchValue(string /*2022*/
         name
-        )/*2109*/
+        )/*2023*/
         {
             JsValue v1 = new JsValue();
             JsValue ret;
             v1.Ptr = Cef3Binder.MyCefCreateCefString(name);
-            /*2110*/
+            /*2024*/
             ;
-            /*2111*/
+            /*2025*/
 
             Cef3Binder.MyCefMet_Call1(this.nativePtr, CefCommandLine_GetSwitchValue_13, out ret, ref v1);
-            /*2112*/
+            /*2026*/
             var ret_result = Cef3Binder.CopyStringAndDestroyNativeSide(ref ret);
-            Cef3Binder.MyCefDeletePtr(v1.Ptr);/*2113*/
+            Cef3Binder.MyCefDeletePtr(v1.Ptr);/*2027*/
             ;
-            /*2114*/
+            /*2028*/
             return ret_result;
-            /*2115*/
+            /*2029*/
         }
+
+        // gen! void GetSwitches(SwitchMap& switches)
         /// <summary>
         /// Returns the map of switch names and values. If a switch has no value an
         /// empty string is returned.
         /// /*cef()*/
         /// </summary>
-        /*2116*/
+        /*2030*/
 
-
-        // gen! void GetSwitches(SwitchMap& switches)
-        /*2117*/
-
-        public void GetSwitches(SwitchMap /*2118*/
+        public void GetSwitches(SwitchMap /*2031*/
         switches
-        )/*2119*/
+        )/*2032*/
         {
             JsValue v1 = new JsValue();
             JsValue ret;
-            /*2120*/
+            /*2033*/
 
             Cef3Binder.MyCefMet_Call1(this.nativePtr, CefCommandLine_GetSwitches_14, out ret, ref v1);
-            /*2121*/
+            /*2034*/
 
-            /*2122*/
+            /*2035*/
         }
+
+        // gen! void AppendSwitch(const CefString& name)
         /// <summary>
         /// Add a switch to the end of the command line. If the switch has no value
         /// pass an empty value string.
         /// /*cef()*/
         /// </summary>
-        /*2123*/
+        /*2036*/
 
-
-        // gen! void AppendSwitch(const CefString& name)
-        /*2124*/
-
-        public void AppendSwitch(string /*2125*/
+        public void AppendSwitch(string /*2037*/
         name
-        )/*2126*/
+        )/*2038*/
         {
             JsValue v1 = new JsValue();
             JsValue ret;
             v1.Ptr = Cef3Binder.MyCefCreateCefString(name);
-            /*2127*/
+            /*2039*/
             ;
-            /*2128*/
+            /*2040*/
 
             Cef3Binder.MyCefMet_Call1(this.nativePtr, CefCommandLine_AppendSwitch_15, out ret, ref v1);
-            /*2129*/
+            /*2041*/
 
-            Cef3Binder.MyCefDeletePtr(v1.Ptr);/*2130*/
+            Cef3Binder.MyCefDeletePtr(v1.Ptr);/*2042*/
             ;
-            /*2131*/
+            /*2043*/
         }
+
+        // gen! void AppendSwitchWithValue(const CefString& name,const CefString& value)
         /// <summary>
         /// Add a switch with the specified value to the end of the command line.
         /// /*cef()*/
         /// </summary>
-        /*2132*/
+        /*2044*/
 
-
-        // gen! void AppendSwitchWithValue(const CefString& name,const CefString& value)
-        /*2133*/
-
-        public void AppendSwitchWithValue(string /*2134*/
+        public void AppendSwitchWithValue(string /*2045*/
         name
-        , string /*2135*/
+        , string /*2046*/
         value
-        )/*2136*/
+        )/*2047*/
         {
             JsValue v1 = new JsValue();
             JsValue v2 = new JsValue();
             JsValue ret;
             v1.Ptr = Cef3Binder.MyCefCreateCefString(name);
-            /*2137*/
+            /*2048*/
             ;
             v2.Ptr = Cef3Binder.MyCefCreateCefString(value);
-            /*2138*/
+            /*2049*/
             ;
-            /*2139*/
+            /*2050*/
 
             Cef3Binder.MyCefMet_Call2(this.nativePtr, CefCommandLine_AppendSwitchWithValue_16, out ret, ref v1, ref v2);
-            /*2140*/
+            /*2051*/
 
-            Cef3Binder.MyCefDeletePtr(v1.Ptr);/*2141*/
+            Cef3Binder.MyCefDeletePtr(v1.Ptr);/*2052*/
             ;
-            Cef3Binder.MyCefDeletePtr(v2.Ptr);/*2142*/
+            Cef3Binder.MyCefDeletePtr(v2.Ptr);/*2053*/
             ;
-            /*2143*/
+            /*2054*/
         }
+
+        // gen! bool HasArguments()
         /// <summary>
         /// True if there are remaining command line arguments.
         /// /*cef()*/
         /// </summary>
-        /*2144*/
+        /*2055*/
 
-
-        // gen! bool HasArguments()
-        /*2145*/
-
-        public bool HasArguments()/*2146*/
+        public bool HasArguments()/*2056*/
         {
             JsValue ret;
-            /*2147*/
+            /*2057*/
 
             Cef3Binder.MyCefMet_Call0(this.nativePtr, CefCommandLine_HasArguments_17, out ret);
-            /*2148*/
+            /*2058*/
             var ret_result = ret.I32 != 0;
-            /*2149*/
+            /*2059*/
             return ret_result;
-            /*2150*/
+            /*2060*/
         }
+
+        // gen! void GetArguments(ArgumentList& arguments)
         /// <summary>
         /// Get the remaining command line arguments.
         /// /*cef()*/
         /// </summary>
-        /*2151*/
+        /*2061*/
 
-
-        // gen! void GetArguments(ArgumentList& arguments)
-        /*2152*/
-
-        public void GetArguments(ArgumentList /*2153*/
+        public void GetArguments(ArgumentList /*2062*/
         arguments
-        )/*2154*/
+        )/*2063*/
         {
             JsValue v1 = new JsValue();
             JsValue ret;
-            /*2155*/
+            /*2064*/
 
             Cef3Binder.MyCefMet_Call1(this.nativePtr, CefCommandLine_GetArguments_18, out ret, ref v1);
-            /*2156*/
+            /*2065*/
 
-            /*2157*/
+            /*2066*/
         }
+
+        // gen! void AppendArgument(const CefString& argument)
         /// <summary>
         /// Add an argument to the end of the command line.
         /// /*cef()*/
         /// </summary>
-        /*2158*/
+        /*2067*/
 
-
-        // gen! void AppendArgument(const CefString& argument)
-        /*2159*/
-
-        public void AppendArgument(string /*2160*/
+        public void AppendArgument(string /*2068*/
         argument
-        )/*2161*/
+        )/*2069*/
         {
             JsValue v1 = new JsValue();
             JsValue ret;
             v1.Ptr = Cef3Binder.MyCefCreateCefString(argument);
-            /*2162*/
+            /*2070*/
             ;
-            /*2163*/
+            /*2071*/
 
             Cef3Binder.MyCefMet_Call1(this.nativePtr, CefCommandLine_AppendArgument_19, out ret, ref v1);
-            /*2164*/
+            /*2072*/
 
-            Cef3Binder.MyCefDeletePtr(v1.Ptr);/*2165*/
+            Cef3Binder.MyCefDeletePtr(v1.Ptr);/*2073*/
             ;
-            /*2166*/
+            /*2074*/
         }
+
+        // gen! void PrependWrapper(const CefString& wrapper)
         /// <summary>
         /// Insert a command before the current command.
         /// Common for debuggers, like "valgrind" or "gdb --args".
         /// /*cef()*/
         /// </summary>
-        /*2167*/
+        /*2075*/
 
-
-        // gen! void PrependWrapper(const CefString& wrapper)
-        /*2168*/
-
-        public void PrependWrapper(string /*2169*/
+        public void PrependWrapper(string /*2076*/
         wrapper
-        )/*2170*/
+        )/*2077*/
         {
             JsValue v1 = new JsValue();
             JsValue ret;
             v1.Ptr = Cef3Binder.MyCefCreateCefString(wrapper);
-            /*2171*/
+            /*2078*/
             ;
-            /*2172*/
+            /*2079*/
 
             Cef3Binder.MyCefMet_Call1(this.nativePtr, CefCommandLine_PrependWrapper_20, out ret, ref v1);
-            /*2173*/
+            /*2080*/
 
-            Cef3Binder.MyCefDeletePtr(v1.Ptr);/*2174*/
+            Cef3Binder.MyCefDeletePtr(v1.Ptr);/*2081*/
             ;
-            /*2175*/
+            /*2082*/
         }
-        /*2176*/
+        /*2083*/
     }
 
 
@@ -5061,557 +4875,515 @@ namespace LayoutFarm.CefBridge.Auto
     /// can only be accessed on browser process the UI thread.
     /// /*(source=library)*/
     /// </summary>
-    /*2290*/
+    /*2197*/
     public struct CefContextMenuParams
     {
-        /*2291*/
+        /*2198*/
         const int _typeNAME = 7;
-        /*2292*/
+        /*2199*/
         const int CefContextMenuParams_Release_0 = (_typeNAME << 16) | 0;
-        /*2293*/
+        /*2200*/
         const int CefContextMenuParams_GetXCoord_1 = (_typeNAME << 16) | 1;
-        /*2294*/
+        /*2201*/
         const int CefContextMenuParams_GetYCoord_2 = (_typeNAME << 16) | 2;
-        /*2295*/
+        /*2202*/
         const int CefContextMenuParams_GetTypeFlags_3 = (_typeNAME << 16) | 3;
-        /*2296*/
+        /*2203*/
         const int CefContextMenuParams_GetLinkUrl_4 = (_typeNAME << 16) | 4;
-        /*2297*/
+        /*2204*/
         const int CefContextMenuParams_GetUnfilteredLinkUrl_5 = (_typeNAME << 16) | 5;
-        /*2298*/
+        /*2205*/
         const int CefContextMenuParams_GetSourceUrl_6 = (_typeNAME << 16) | 6;
-        /*2299*/
+        /*2206*/
         const int CefContextMenuParams_HasImageContents_7 = (_typeNAME << 16) | 7;
-        /*2300*/
+        /*2207*/
         const int CefContextMenuParams_GetTitleText_8 = (_typeNAME << 16) | 8;
-        /*2301*/
+        /*2208*/
         const int CefContextMenuParams_GetPageUrl_9 = (_typeNAME << 16) | 9;
-        /*2302*/
+        /*2209*/
         const int CefContextMenuParams_GetFrameUrl_10 = (_typeNAME << 16) | 10;
-        /*2303*/
+        /*2210*/
         const int CefContextMenuParams_GetFrameCharset_11 = (_typeNAME << 16) | 11;
-        /*2304*/
+        /*2211*/
         const int CefContextMenuParams_GetMediaType_12 = (_typeNAME << 16) | 12;
-        /*2305*/
+        /*2212*/
         const int CefContextMenuParams_GetMediaStateFlags_13 = (_typeNAME << 16) | 13;
-        /*2306*/
+        /*2213*/
         const int CefContextMenuParams_GetSelectionText_14 = (_typeNAME << 16) | 14;
-        /*2307*/
+        /*2214*/
         const int CefContextMenuParams_GetMisspelledWord_15 = (_typeNAME << 16) | 15;
-        /*2308*/
+        /*2215*/
         const int CefContextMenuParams_GetDictionarySuggestions_16 = (_typeNAME << 16) | 16;
-        /*2309*/
+        /*2216*/
         const int CefContextMenuParams_IsEditable_17 = (_typeNAME << 16) | 17;
-        /*2310*/
+        /*2217*/
         const int CefContextMenuParams_IsSpellCheckEnabled_18 = (_typeNAME << 16) | 18;
-        /*2311*/
+        /*2218*/
         const int CefContextMenuParams_GetEditStateFlags_19 = (_typeNAME << 16) | 19;
-        /*2312*/
+        /*2219*/
         const int CefContextMenuParams_IsCustomMenu_20 = (_typeNAME << 16) | 20;
-        /*2313*/
+        /*2220*/
         const int CefContextMenuParams_IsPepperMenu_21 = (_typeNAME << 16) | 21;
-        /*2314*/
+        /*2221*/
         internal readonly IntPtr nativePtr;
-        /*2315*/
+        /*2222*/
         internal CefContextMenuParams(IntPtr nativePtr)
         {
-            /*2316*/
+            /*2223*/
             this.nativePtr = nativePtr;
-            /*2317*/
+            /*2224*/
         }
-        /*2318*/
+        /*2225*/
         public void Release()
         {
-            /*2319*/
+            /*2226*/
             JsValue ret;
-            /*2320*/
+            /*2227*/
             Cef3Binder.MyCefMet_Call0(this.nativePtr, CefContextMenuParams_Release_0, out ret);
-            /*2321*/
+            /*2228*/
         }
+
+        // gen! int GetXCoord()
         /// <summary>
         /// CefContextMenuParams methods.
         /// </summary>
-        /*2322*/
+        /*2229*/
 
-
-        // gen! int GetXCoord()
-        /*2323*/
-
-        public int GetXCoord()/*2324*/
+        public int GetXCoord()/*2230*/
         {
             JsValue ret;
-            /*2325*/
+            /*2231*/
 
             Cef3Binder.MyCefMet_Call0(this.nativePtr, CefContextMenuParams_GetXCoord_1, out ret);
-            /*2326*/
+            /*2232*/
             var ret_result = ret.I32;
-            /*2327*/
+            /*2233*/
             return ret_result;
-            /*2328*/
+            /*2234*/
         }
+
+        // gen! int GetYCoord()
         /// <summary>
         /// Returns the Y coordinate of the mouse where the context menu was invoked.
         /// Coords are relative to the associated RenderView's origin.
         /// /*cef()*/
         /// </summary>
-        /*2329*/
+        /*2235*/
 
-
-        // gen! int GetYCoord()
-        /*2330*/
-
-        public int GetYCoord()/*2331*/
+        public int GetYCoord()/*2236*/
         {
             JsValue ret;
-            /*2332*/
+            /*2237*/
 
             Cef3Binder.MyCefMet_Call0(this.nativePtr, CefContextMenuParams_GetYCoord_2, out ret);
-            /*2333*/
+            /*2238*/
             var ret_result = ret.I32;
-            /*2334*/
+            /*2239*/
             return ret_result;
-            /*2335*/
+            /*2240*/
         }
+
+        // gen! TypeFlags GetTypeFlags()
         /// <summary>
         /// Returns flags representing the type of node that the context menu was
         /// invoked on.
         /// /*cef(default_retval=CM_TYPEFLAG_NONE)*/
         /// </summary>
-        /*2336*/
+        /*2241*/
 
-
-        // gen! TypeFlags GetTypeFlags()
-        /*2337*/
-
-        public cef_context_menu_type_flags_t GetTypeFlags()/*2338*/
+        public cef_context_menu_type_flags_t GetTypeFlags()/*2242*/
         {
             JsValue ret;
-            /*2339*/
+            /*2243*/
 
             Cef3Binder.MyCefMet_Call0(this.nativePtr, CefContextMenuParams_GetTypeFlags_3, out ret);
-            /*2340*/
+            /*2244*/
             var ret_result = (cef_context_menu_type_flags_t)ret.I32;
 
-            /*2341*/
+            /*2245*/
             return ret_result;
-            /*2342*/
+            /*2246*/
         }
+
+        // gen! CefString GetLinkUrl()
         /// <summary>
         /// Returns the URL of the link, if any, that encloses the node that the
         /// context menu was invoked on.
         /// /*cef()*/
         /// </summary>
-        /*2343*/
+        /*2247*/
 
-
-        // gen! CefString GetLinkUrl()
-        /*2344*/
-
-        public string GetLinkUrl()/*2345*/
+        public string GetLinkUrl()/*2248*/
         {
             JsValue ret;
-            /*2346*/
+            /*2249*/
 
             Cef3Binder.MyCefMet_Call0(this.nativePtr, CefContextMenuParams_GetLinkUrl_4, out ret);
-            /*2347*/
+            /*2250*/
             var ret_result = Cef3Binder.CopyStringAndDestroyNativeSide(ref ret);
-            /*2348*/
+            /*2251*/
             return ret_result;
-            /*2349*/
+            /*2252*/
         }
+
+        // gen! CefString GetUnfilteredLinkUrl()
         /// <summary>
         /// Returns the link URL, if any, to be used ONLY for "copy link address". We
         /// don't validate this field in the frontend process.
         /// /*cef()*/
         /// </summary>
-        /*2350*/
+        /*2253*/
 
-
-        // gen! CefString GetUnfilteredLinkUrl()
-        /*2351*/
-
-        public string GetUnfilteredLinkUrl()/*2352*/
+        public string GetUnfilteredLinkUrl()/*2254*/
         {
             JsValue ret;
-            /*2353*/
+            /*2255*/
 
             Cef3Binder.MyCefMet_Call0(this.nativePtr, CefContextMenuParams_GetUnfilteredLinkUrl_5, out ret);
-            /*2354*/
+            /*2256*/
             var ret_result = Cef3Binder.CopyStringAndDestroyNativeSide(ref ret);
-            /*2355*/
+            /*2257*/
             return ret_result;
-            /*2356*/
+            /*2258*/
         }
+
+        // gen! CefString GetSourceUrl()
         /// <summary>
         /// Returns the source URL, if any, for the element that the context menu was
         /// invoked on. Example of elements with source URLs are img, audio, and video.
         /// /*cef()*/
         /// </summary>
-        /*2357*/
+        /*2259*/
 
-
-        // gen! CefString GetSourceUrl()
-        /*2358*/
-
-        public string GetSourceUrl()/*2359*/
+        public string GetSourceUrl()/*2260*/
         {
             JsValue ret;
-            /*2360*/
+            /*2261*/
 
             Cef3Binder.MyCefMet_Call0(this.nativePtr, CefContextMenuParams_GetSourceUrl_6, out ret);
-            /*2361*/
+            /*2262*/
             var ret_result = Cef3Binder.CopyStringAndDestroyNativeSide(ref ret);
-            /*2362*/
+            /*2263*/
             return ret_result;
-            /*2363*/
+            /*2264*/
         }
+
+        // gen! bool HasImageContents()
         /// <summary>
         /// Returns true if the context menu was invoked on an image which has
         /// non-empty contents.
         /// /*cef()*/
         /// </summary>
-        /*2364*/
+        /*2265*/
 
-
-        // gen! bool HasImageContents()
-        /*2365*/
-
-        public bool HasImageContents()/*2366*/
+        public bool HasImageContents()/*2266*/
         {
             JsValue ret;
-            /*2367*/
+            /*2267*/
 
             Cef3Binder.MyCefMet_Call0(this.nativePtr, CefContextMenuParams_HasImageContents_7, out ret);
-            /*2368*/
+            /*2268*/
             var ret_result = ret.I32 != 0;
-            /*2369*/
+            /*2269*/
             return ret_result;
-            /*2370*/
+            /*2270*/
         }
+
+        // gen! CefString GetTitleText()
         /// <summary>
         /// Returns the title text or the alt text if the context menu was invoked on
         /// an image.
         /// /*cef()*/
         /// </summary>
-        /*2371*/
+        /*2271*/
 
-
-        // gen! CefString GetTitleText()
-        /*2372*/
-
-        public string GetTitleText()/*2373*/
+        public string GetTitleText()/*2272*/
         {
             JsValue ret;
-            /*2374*/
+            /*2273*/
 
             Cef3Binder.MyCefMet_Call0(this.nativePtr, CefContextMenuParams_GetTitleText_8, out ret);
-            /*2375*/
+            /*2274*/
             var ret_result = Cef3Binder.CopyStringAndDestroyNativeSide(ref ret);
-            /*2376*/
+            /*2275*/
             return ret_result;
-            /*2377*/
+            /*2276*/
         }
+
+        // gen! CefString GetPageUrl()
         /// <summary>
         /// Returns the URL of the top level page that the context menu was invoked on.
         /// /*cef()*/
         /// </summary>
-        /*2378*/
+        /*2277*/
 
-
-        // gen! CefString GetPageUrl()
-        /*2379*/
-
-        public string GetPageUrl()/*2380*/
+        public string GetPageUrl()/*2278*/
         {
             JsValue ret;
-            /*2381*/
+            /*2279*/
 
             Cef3Binder.MyCefMet_Call0(this.nativePtr, CefContextMenuParams_GetPageUrl_9, out ret);
-            /*2382*/
+            /*2280*/
             var ret_result = Cef3Binder.CopyStringAndDestroyNativeSide(ref ret);
-            /*2383*/
+            /*2281*/
             return ret_result;
-            /*2384*/
+            /*2282*/
         }
+
+        // gen! CefString GetFrameUrl()
         /// <summary>
         /// Returns the URL of the subframe that the context menu was invoked on.
         /// /*cef()*/
         /// </summary>
-        /*2385*/
+        /*2283*/
 
-
-        // gen! CefString GetFrameUrl()
-        /*2386*/
-
-        public string GetFrameUrl()/*2387*/
+        public string GetFrameUrl()/*2284*/
         {
             JsValue ret;
-            /*2388*/
+            /*2285*/
 
             Cef3Binder.MyCefMet_Call0(this.nativePtr, CefContextMenuParams_GetFrameUrl_10, out ret);
-            /*2389*/
+            /*2286*/
             var ret_result = Cef3Binder.CopyStringAndDestroyNativeSide(ref ret);
-            /*2390*/
+            /*2287*/
             return ret_result;
-            /*2391*/
+            /*2288*/
         }
+
+        // gen! CefString GetFrameCharset()
         /// <summary>
         /// Returns the character encoding of the subframe that the context menu was
         /// invoked on.
         /// /*cef()*/
         /// </summary>
-        /*2392*/
+        /*2289*/
 
-
-        // gen! CefString GetFrameCharset()
-        /*2393*/
-
-        public string GetFrameCharset()/*2394*/
+        public string GetFrameCharset()/*2290*/
         {
             JsValue ret;
-            /*2395*/
+            /*2291*/
 
             Cef3Binder.MyCefMet_Call0(this.nativePtr, CefContextMenuParams_GetFrameCharset_11, out ret);
-            /*2396*/
+            /*2292*/
             var ret_result = Cef3Binder.CopyStringAndDestroyNativeSide(ref ret);
-            /*2397*/
+            /*2293*/
             return ret_result;
-            /*2398*/
+            /*2294*/
         }
+
+        // gen! MediaType GetMediaType()
         /// <summary>
         /// Returns the type of context node that the context menu was invoked on.
         /// /*cef(default_retval=CM_MEDIATYPE_NONE)*/
         /// </summary>
-        /*2399*/
+        /*2295*/
 
-
-        // gen! MediaType GetMediaType()
-        /*2400*/
-
-        public cef_context_menu_media_type_t GetMediaType()/*2401*/
+        public cef_context_menu_media_type_t GetMediaType()/*2296*/
         {
             JsValue ret;
-            /*2402*/
+            /*2297*/
 
             Cef3Binder.MyCefMet_Call0(this.nativePtr, CefContextMenuParams_GetMediaType_12, out ret);
-            /*2403*/
+            /*2298*/
             var ret_result = (cef_context_menu_media_type_t)ret.I32;
 
-            /*2404*/
+            /*2299*/
             return ret_result;
-            /*2405*/
+            /*2300*/
         }
+
+        // gen! MediaStateFlags GetMediaStateFlags()
         /// <summary>
         /// Returns flags representing the actions supported by the media element, if
         /// any, that the context menu was invoked on.
         /// /*cef(default_retval=CM_MEDIAFLAG_NONE)*/
         /// </summary>
-        /*2406*/
+        /*2301*/
 
-
-        // gen! MediaStateFlags GetMediaStateFlags()
-        /*2407*/
-
-        public cef_context_menu_media_state_flags_t GetMediaStateFlags()/*2408*/
+        public cef_context_menu_media_state_flags_t GetMediaStateFlags()/*2302*/
         {
             JsValue ret;
-            /*2409*/
+            /*2303*/
 
             Cef3Binder.MyCefMet_Call0(this.nativePtr, CefContextMenuParams_GetMediaStateFlags_13, out ret);
-            /*2410*/
+            /*2304*/
             var ret_result = (cef_context_menu_media_state_flags_t)ret.I32;
 
-            /*2411*/
+            /*2305*/
             return ret_result;
-            /*2412*/
+            /*2306*/
         }
+
+        // gen! CefString GetSelectionText()
         /// <summary>
         /// Returns the text of the selection, if any, that the context menu was
         /// invoked on.
         /// /*cef()*/
         /// </summary>
-        /*2413*/
+        /*2307*/
 
-
-        // gen! CefString GetSelectionText()
-        /*2414*/
-
-        public string GetSelectionText()/*2415*/
+        public string GetSelectionText()/*2308*/
         {
             JsValue ret;
-            /*2416*/
+            /*2309*/
 
             Cef3Binder.MyCefMet_Call0(this.nativePtr, CefContextMenuParams_GetSelectionText_14, out ret);
-            /*2417*/
+            /*2310*/
             var ret_result = Cef3Binder.CopyStringAndDestroyNativeSide(ref ret);
-            /*2418*/
+            /*2311*/
             return ret_result;
-            /*2419*/
+            /*2312*/
         }
+
+        // gen! CefString GetMisspelledWord()
         /// <summary>
         /// Returns the text of the misspelled word, if any, that the context menu was
         /// invoked on.
         /// /*cef()*/
         /// </summary>
-        /*2420*/
+        /*2313*/
 
-
-        // gen! CefString GetMisspelledWord()
-        /*2421*/
-
-        public string GetMisspelledWord()/*2422*/
+        public string GetMisspelledWord()/*2314*/
         {
             JsValue ret;
-            /*2423*/
+            /*2315*/
 
             Cef3Binder.MyCefMet_Call0(this.nativePtr, CefContextMenuParams_GetMisspelledWord_15, out ret);
-            /*2424*/
+            /*2316*/
             var ret_result = Cef3Binder.CopyStringAndDestroyNativeSide(ref ret);
-            /*2425*/
+            /*2317*/
             return ret_result;
-            /*2426*/
+            /*2318*/
         }
+
+        // gen! bool GetDictionarySuggestions(std::vector<CefString>& suggestions)
         /// <summary>
         /// Returns true if suggestions exist, false otherwise. Fills in |suggestions|
         /// from the spell check service for the misspelled word if there is one.
         /// /*cef()*/
         /// </summary>
-        /*2427*/
+        /*2319*/
 
-
-        // gen! bool GetDictionarySuggestions(std::vector<CefString>& suggestions)
-        /*2428*/
-
-        public bool GetDictionarySuggestions(List<string> /*2429*/
+        public bool GetDictionarySuggestions(List<string> /*2320*/
         suggestions
-        )/*2430*/
+        )/*2321*/
         {
             JsValue v1 = new JsValue();
             JsValue ret;
-            /*2431*/
+            /*2322*/
 
             Cef3Binder.MyCefMet_Call1(this.nativePtr, CefContextMenuParams_GetDictionarySuggestions_16, out ret, ref v1);
-            /*2432*/
+            /*2323*/
             var ret_result = ret.I32 != 0;
-            /*2433*/
+            /*2324*/
             return ret_result;
-            /*2434*/
+            /*2325*/
         }
+
+        // gen! bool IsEditable()
         /// <summary>
         /// Returns true if the context menu was invoked on an editable node.
         /// /*cef()*/
         /// </summary>
-        /*2435*/
+        /*2326*/
 
-
-        // gen! bool IsEditable()
-        /*2436*/
-
-        public bool IsEditable()/*2437*/
+        public bool IsEditable()/*2327*/
         {
             JsValue ret;
-            /*2438*/
+            /*2328*/
 
             Cef3Binder.MyCefMet_Call0(this.nativePtr, CefContextMenuParams_IsEditable_17, out ret);
-            /*2439*/
+            /*2329*/
             var ret_result = ret.I32 != 0;
-            /*2440*/
+            /*2330*/
             return ret_result;
-            /*2441*/
+            /*2331*/
         }
+
+        // gen! bool IsSpellCheckEnabled()
         /// <summary>
         /// Returns true if the context menu was invoked on an editable node where
         /// spell-check is enabled.
         /// /*cef()*/
         /// </summary>
-        /*2442*/
+        /*2332*/
 
-
-        // gen! bool IsSpellCheckEnabled()
-        /*2443*/
-
-        public bool IsSpellCheckEnabled()/*2444*/
+        public bool IsSpellCheckEnabled()/*2333*/
         {
             JsValue ret;
-            /*2445*/
+            /*2334*/
 
             Cef3Binder.MyCefMet_Call0(this.nativePtr, CefContextMenuParams_IsSpellCheckEnabled_18, out ret);
-            /*2446*/
+            /*2335*/
             var ret_result = ret.I32 != 0;
-            /*2447*/
+            /*2336*/
             return ret_result;
-            /*2448*/
+            /*2337*/
         }
+
+        // gen! EditStateFlags GetEditStateFlags()
         /// <summary>
         /// Returns flags representing the actions supported by the editable node, if
         /// any, that the context menu was invoked on.
         /// /*cef(default_retval=CM_EDITFLAG_NONE)*/
         /// </summary>
-        /*2449*/
+        /*2338*/
 
-
-        // gen! EditStateFlags GetEditStateFlags()
-        /*2450*/
-
-        public cef_context_menu_edit_state_flags_t GetEditStateFlags()/*2451*/
+        public cef_context_menu_edit_state_flags_t GetEditStateFlags()/*2339*/
         {
             JsValue ret;
-            /*2452*/
+            /*2340*/
 
             Cef3Binder.MyCefMet_Call0(this.nativePtr, CefContextMenuParams_GetEditStateFlags_19, out ret);
-            /*2453*/
+            /*2341*/
             var ret_result = (cef_context_menu_edit_state_flags_t)ret.I32;
 
-            /*2454*/
+            /*2342*/
             return ret_result;
-            /*2455*/
+            /*2343*/
         }
+
+        // gen! bool IsCustomMenu()
         /// <summary>
         /// Returns true if the context menu contains items specified by the renderer
         /// process (for example, plugin placeholder or pepper plugin menu items).
         /// /*cef()*/
         /// </summary>
-        /*2456*/
+        /*2344*/
 
-
-        // gen! bool IsCustomMenu()
-        /*2457*/
-
-        public bool IsCustomMenu()/*2458*/
+        public bool IsCustomMenu()/*2345*/
         {
             JsValue ret;
-            /*2459*/
+            /*2346*/
 
             Cef3Binder.MyCefMet_Call0(this.nativePtr, CefContextMenuParams_IsCustomMenu_20, out ret);
-            /*2460*/
+            /*2347*/
             var ret_result = ret.I32 != 0;
-            /*2461*/
+            /*2348*/
             return ret_result;
-            /*2462*/
+            /*2349*/
         }
+
+        // gen! bool IsPepperMenu()
         /// <summary>
         /// Returns true if the context menu was invoked from a pepper plugin.
         /// /*cef()*/
         /// </summary>
-        /*2463*/
+        /*2350*/
 
-
-        // gen! bool IsPepperMenu()
-        /*2464*/
-
-        public bool IsPepperMenu()/*2465*/
+        public bool IsPepperMenu()/*2351*/
         {
             JsValue ret;
-            /*2466*/
+            /*2352*/
 
             Cef3Binder.MyCefMet_Call0(this.nativePtr, CefContextMenuParams_IsPepperMenu_21, out ret);
-            /*2467*/
+            /*2353*/
             var ret_result = ret.I32 != 0;
-            /*2468*/
+            /*2354*/
             return ret_result;
-            /*2469*/
+            /*2355*/
         }
-        /*2470*/
+        /*2356*/
     }
 
 
@@ -5621,97 +5393,95 @@ namespace LayoutFarm.CefBridge.Auto
     /// any thread unless otherwise indicated.
     /// /*(source=library,no_debugct_check)*/
     /// </summary>
-    /*2514*/
+    /*2400*/
     public struct CefCookieManager
     {
-        /*2515*/
+        /*2401*/
         const int _typeNAME = 8;
-        /*2516*/
+        /*2402*/
         const int CefCookieManager_Release_0 = (_typeNAME << 16) | 0;
-        /*2517*/
+        /*2403*/
         const int CefCookieManager_SetSupportedSchemes_1 = (_typeNAME << 16) | 1;
-        /*2518*/
+        /*2404*/
         const int CefCookieManager_VisitAllCookies_2 = (_typeNAME << 16) | 2;
-        /*2519*/
+        /*2405*/
         const int CefCookieManager_VisitUrlCookies_3 = (_typeNAME << 16) | 3;
-        /*2520*/
+        /*2406*/
         const int CefCookieManager_SetCookie_4 = (_typeNAME << 16) | 4;
-        /*2521*/
+        /*2407*/
         const int CefCookieManager_DeleteCookies_5 = (_typeNAME << 16) | 5;
-        /*2522*/
+        /*2408*/
         const int CefCookieManager_SetStoragePath_6 = (_typeNAME << 16) | 6;
-        /*2523*/
+        /*2409*/
         const int CefCookieManager_FlushStore_7 = (_typeNAME << 16) | 7;
-        /*2524*/
+        /*2410*/
         internal readonly IntPtr nativePtr;
-        /*2525*/
+        /*2411*/
         internal CefCookieManager(IntPtr nativePtr)
         {
-            /*2526*/
+            /*2412*/
             this.nativePtr = nativePtr;
-            /*2527*/
+            /*2413*/
         }
-        /*2528*/
+        /*2414*/
         public void Release()
         {
-            /*2529*/
+            /*2415*/
             JsValue ret;
-            /*2530*/
+            /*2416*/
             Cef3Binder.MyCefMet_Call0(this.nativePtr, CefCookieManager_Release_0, out ret);
-            /*2531*/
+            /*2417*/
         }
+
+        // gen! void SetSupportedSchemes(const std::vector<CefString>& schemes,CefRefPtr<CefCompletionCallback> callback)
         /// <summary>
         /// CefCookieManager methods.
         /// </summary>
-        /*2532*/
+        /*2418*/
 
-
-        // gen! void SetSupportedSchemes(const std::vector<CefString>& schemes,CefRefPtr<CefCompletionCallback> callback)
-        /*2533*/
-
-        public void SetSupportedSchemes(List<string> /*2534*/
+        public void SetSupportedSchemes(List<string> /*2419*/
         schemes
-        , CefCompletionCallback /*2535*/
+        , CefCompletionCallback /*2420*/
         callback
-        )/*2536*/
+        )/*2421*/
         {
             JsValue v1 = new JsValue();
             JsValue v2 = new JsValue();
             JsValue ret;
-            /*2537*/
+            /*2422*/
 
             Cef3Binder.MyCefMet_Call2(this.nativePtr, CefCookieManager_SetSupportedSchemes_1, out ret, ref v1, ref v2);
-            /*2538*/
+            /*2423*/
 
-            /*2539*/
+            /*2424*/
         }
+
+        // gen! bool VisitAllCookies(CefRefPtr<CefCookieVisitor> visitor)
         /// <summary>
         /// Visit all cookies on the IO thread. The returned cookies are ordered by
         /// longest path, then by earliest creation date. Returns false if cookies
         /// cannot be accessed.
         /// /*cef()*/
         /// </summary>
-        /*2540*/
+        /*2425*/
 
-
-        // gen! bool VisitAllCookies(CefRefPtr<CefCookieVisitor> visitor)
-        /*2541*/
-
-        public bool VisitAllCookies(CefCookieVisitor /*2542*/
+        public bool VisitAllCookies(CefCookieVisitor /*2426*/
         visitor
-        )/*2543*/
+        )/*2427*/
         {
             JsValue v1 = new JsValue();
             JsValue ret;
-            /*2544*/
+            /*2428*/
 
             Cef3Binder.MyCefMet_Call1(this.nativePtr, CefCookieManager_VisitAllCookies_2, out ret, ref v1);
-            /*2545*/
+            /*2429*/
             var ret_result = ret.I32 != 0;
-            /*2546*/
+            /*2430*/
             return ret_result;
-            /*2547*/
+            /*2431*/
         }
+
+        // gen! bool VisitUrlCookies(const CefString& url,bool includeHttpOnly,CefRefPtr<CefCookieVisitor> visitor)
         /// <summary>
         /// Visit a subset of cookies on the IO thread. The results are filtered by the
         /// given url scheme, host, domain and path. If |includeHttpOnly| is true
@@ -5720,38 +5490,36 @@ namespace LayoutFarm.CefBridge.Auto
         /// Returns false if cookies cannot be accessed.
         /// /*cef()*/
         /// </summary>
-        /*2548*/
+        /*2432*/
 
-
-        // gen! bool VisitUrlCookies(const CefString& url,bool includeHttpOnly,CefRefPtr<CefCookieVisitor> visitor)
-        /*2549*/
-
-        public bool VisitUrlCookies(string /*2550*/
+        public bool VisitUrlCookies(string /*2433*/
         url
-        , bool /*2551*/
+        , bool /*2434*/
         includeHttpOnly
-        , CefCookieVisitor /*2552*/
+        , CefCookieVisitor /*2435*/
         visitor
-        )/*2553*/
+        )/*2436*/
         {
             JsValue v1 = new JsValue();
             JsValue v2 = new JsValue();
             JsValue v3 = new JsValue();
             JsValue ret;
             v1.Ptr = Cef3Binder.MyCefCreateCefString(url);
-            /*2554*/
+            /*2437*/
             ;
-            /*2555*/
+            /*2438*/
 
             Cef3Binder.MyCefMet_Call3(this.nativePtr, CefCookieManager_VisitUrlCookies_3, out ret, ref v1, ref v2, ref v3);
-            /*2556*/
+            /*2439*/
             var ret_result = ret.I32 != 0;
-            Cef3Binder.MyCefDeletePtr(v1.Ptr);/*2557*/
+            Cef3Binder.MyCefDeletePtr(v1.Ptr);/*2440*/
             ;
-            /*2558*/
+            /*2441*/
             return ret_result;
-            /*2559*/
+            /*2442*/
         }
+
+        // gen! bool SetCookie(const CefString& url,const CefCookie& cookie,CefRefPtr<CefSetCookieCallback> callback)
         /// <summary>
         /// Sets a cookie given a valid URL and explicit user-provided cookie
         /// attributes. This function expects each attribute to be well-formed. It will
@@ -5762,38 +5530,36 @@ namespace LayoutFarm.CefBridge.Auto
         /// false if an invalid URL is specified or if cookies cannot be accessed.
         /// /*cef(optional_param=callback)*/
         /// </summary>
-        /*2560*/
+        /*2443*/
 
-
-        // gen! bool SetCookie(const CefString& url,const CefCookie& cookie,CefRefPtr<CefSetCookieCallback> callback)
-        /*2561*/
-
-        public bool SetCookie(string /*2562*/
+        public bool SetCookie(string /*2444*/
         url
-        , CefCookie /*2563*/
+        , CefCookie /*2445*/
         cookie
-        , CefSetCookieCallback /*2564*/
+        , CefSetCookieCallback /*2446*/
         callback
-        )/*2565*/
+        )/*2447*/
         {
             JsValue v1 = new JsValue();
             JsValue v2 = new JsValue();
             JsValue v3 = new JsValue();
             JsValue ret;
             v1.Ptr = Cef3Binder.MyCefCreateCefString(url);
-            /*2566*/
+            /*2448*/
             ;
-            /*2567*/
+            /*2449*/
 
             Cef3Binder.MyCefMet_Call3(this.nativePtr, CefCookieManager_SetCookie_4, out ret, ref v1, ref v2, ref v3);
-            /*2568*/
+            /*2450*/
             var ret_result = ret.I32 != 0;
-            Cef3Binder.MyCefDeletePtr(v1.Ptr);/*2569*/
+            Cef3Binder.MyCefDeletePtr(v1.Ptr);/*2451*/
             ;
-            /*2570*/
+            /*2452*/
             return ret_result;
-            /*2571*/
+            /*2453*/
         }
+
+        // gen! bool DeleteCookies(const CefString& url,const CefString& cookie_name,CefRefPtr<CefDeleteCookiesCallback> callback)
         /// <summary>
         /// Delete all cookies that match the specified parameters. If both |url| and
         /// |cookie_name| values are specified all host and domain cookies matching
@@ -5806,43 +5572,41 @@ namespace LayoutFarm.CefBridge.Auto
         /// deleted using the Visit*Cookies() methods.
         /// /*cef(optional_param=url,optional_param=cookie_name,optional_param=callback)*/
         /// </summary>
-        /*2572*/
+        /*2454*/
 
-
-        // gen! bool DeleteCookies(const CefString& url,const CefString& cookie_name,CefRefPtr<CefDeleteCookiesCallback> callback)
-        /*2573*/
-
-        public bool DeleteCookies(string /*2574*/
+        public bool DeleteCookies(string /*2455*/
         url
-        , string /*2575*/
+        , string /*2456*/
         cookie_name
-        , CefDeleteCookiesCallback /*2576*/
+        , CefDeleteCookiesCallback /*2457*/
         callback
-        )/*2577*/
+        )/*2458*/
         {
             JsValue v1 = new JsValue();
             JsValue v2 = new JsValue();
             JsValue v3 = new JsValue();
             JsValue ret;
             v1.Ptr = Cef3Binder.MyCefCreateCefString(url);
-            /*2578*/
+            /*2459*/
             ;
             v2.Ptr = Cef3Binder.MyCefCreateCefString(cookie_name);
-            /*2579*/
+            /*2460*/
             ;
-            /*2580*/
+            /*2461*/
 
             Cef3Binder.MyCefMet_Call3(this.nativePtr, CefCookieManager_DeleteCookies_5, out ret, ref v1, ref v2, ref v3);
-            /*2581*/
+            /*2462*/
             var ret_result = ret.I32 != 0;
-            Cef3Binder.MyCefDeletePtr(v1.Ptr);/*2582*/
+            Cef3Binder.MyCefDeletePtr(v1.Ptr);/*2463*/
             ;
-            Cef3Binder.MyCefDeletePtr(v2.Ptr);/*2583*/
+            Cef3Binder.MyCefDeletePtr(v2.Ptr);/*2464*/
             ;
-            /*2584*/
+            /*2465*/
             return ret_result;
-            /*2585*/
+            /*2466*/
         }
+
+        // gen! bool SetStoragePath(const CefString& path,bool persist_session_cookies,CefRefPtr<CefCompletionCallback> callback)
         /// <summary>
         /// Sets the directory path that will be used for storing cookie data. If
         /// |path| is empty data will be stored in memory only. Otherwise, data will be
@@ -5854,66 +5618,60 @@ namespace LayoutFarm.CefBridge.Auto
         /// initialized. Returns false if cookies cannot be accessed.
         /// /*cef(optional_param=path,optional_param=callback)*/
         /// </summary>
-        /*2586*/
+        /*2467*/
 
-
-        // gen! bool SetStoragePath(const CefString& path,bool persist_session_cookies,CefRefPtr<CefCompletionCallback> callback)
-        /*2587*/
-
-        public bool SetStoragePath(string /*2588*/
+        public bool SetStoragePath(string /*2468*/
         path
-        , bool /*2589*/
+        , bool /*2469*/
         persist_session_cookies
-        , CefCompletionCallback /*2590*/
+        , CefCompletionCallback /*2470*/
         callback
-        )/*2591*/
+        )/*2471*/
         {
             JsValue v1 = new JsValue();
             JsValue v2 = new JsValue();
             JsValue v3 = new JsValue();
             JsValue ret;
             v1.Ptr = Cef3Binder.MyCefCreateCefString(path);
-            /*2592*/
+            /*2472*/
             ;
-            /*2593*/
+            /*2473*/
 
             Cef3Binder.MyCefMet_Call3(this.nativePtr, CefCookieManager_SetStoragePath_6, out ret, ref v1, ref v2, ref v3);
-            /*2594*/
+            /*2474*/
             var ret_result = ret.I32 != 0;
-            Cef3Binder.MyCefDeletePtr(v1.Ptr);/*2595*/
+            Cef3Binder.MyCefDeletePtr(v1.Ptr);/*2475*/
             ;
-            /*2596*/
+            /*2476*/
             return ret_result;
-            /*2597*/
+            /*2477*/
         }
+
+        // gen! bool FlushStore(CefRefPtr<CefCompletionCallback> callback)
         /// <summary>
         /// Flush the backing store (if any) to disk. If |callback| is non-NULL it will
         /// be executed asnychronously on the IO thread after the flush is complete.
         /// Returns false if cookies cannot be accessed.
         /// /*cef(optional_param=callback)*/
         /// </summary>
-        /*2598*/
+        /*2478*/
 
-
-        // gen! bool FlushStore(CefRefPtr<CefCompletionCallback> callback)
-        /*2599*/
-
-        public bool FlushStore(CefCompletionCallback /*2600*/
+        public bool FlushStore(CefCompletionCallback /*2479*/
         callback
-        )/*2601*/
+        )/*2480*/
         {
             JsValue v1 = new JsValue();
             JsValue ret;
-            /*2602*/
+            /*2481*/
 
             Cef3Binder.MyCefMet_Call1(this.nativePtr, CefCookieManager_FlushStore_7, out ret, ref v1);
-            /*2603*/
+            /*2482*/
             var ret_result = ret.I32 != 0;
-            /*2604*/
+            /*2483*/
             return ret_result;
-            /*2605*/
+            /*2484*/
         }
-        /*2606*/
+        /*2485*/
     }
 
 
@@ -5923,32 +5681,32 @@ namespace LayoutFarm.CefBridge.Auto
     /// will always be called on the IO thread.
     /// /*(source=client)*/
     /// </summary>
-    /*2615*/
+    /*2494*/
     public struct CefCookieVisitor
     {
-        /*2616*/
+        /*2495*/
         const int _typeNAME = 9;
-        /*2617*/
+        /*2496*/
         const int CefCookieVisitor_Release_0 = (_typeNAME << 16) | 0;
-        /*2618*/
+        /*2497*/
         internal readonly IntPtr nativePtr;
-        /*2619*/
+        /*2498*/
         internal CefCookieVisitor(IntPtr nativePtr)
         {
-            /*2620*/
+            /*2499*/
             this.nativePtr = nativePtr;
-            /*2621*/
+            /*2500*/
         }
-        /*2622*/
+        /*2501*/
         public void Release()
         {
-            /*2623*/
+            /*2502*/
             JsValue ret;
-            /*2624*/
+            /*2503*/
             Cef3Binder.MyCefMet_Call0(this.nativePtr, CefCookieVisitor_Release_0, out ret);
-            /*2625*/
+            /*2504*/
         }
-        /*2626*/
+        /*2505*/
     }
 
 
@@ -5958,32 +5716,32 @@ namespace LayoutFarm.CefBridge.Auto
     /// be called on the render process main thread.
     /// /*(source=client)*/
     /// </summary>
-    /*2635*/
+    /*2514*/
     public struct CefDOMVisitor
     {
-        /*2636*/
+        /*2515*/
         const int _typeNAME = 10;
-        /*2637*/
+        /*2516*/
         const int CefDOMVisitor_Release_0 = (_typeNAME << 16) | 0;
-        /*2638*/
+        /*2517*/
         internal readonly IntPtr nativePtr;
-        /*2639*/
+        /*2518*/
         internal CefDOMVisitor(IntPtr nativePtr)
         {
-            /*2640*/
+            /*2519*/
             this.nativePtr = nativePtr;
-            /*2641*/
+            /*2520*/
         }
-        /*2642*/
+        /*2521*/
         public void Release()
         {
-            /*2643*/
+            /*2522*/
             JsValue ret;
-            /*2644*/
+            /*2523*/
             Cef3Binder.MyCefMet_Call0(this.nativePtr, CefDOMVisitor_Release_0, out ret);
-            /*2645*/
+            /*2524*/
         }
-        /*2646*/
+        /*2525*/
     }
 
 
@@ -5993,385 +5751,357 @@ namespace LayoutFarm.CefBridge.Auto
     /// be called on the render process main thread thread.
     /// /*(source=library)*/
     /// </summary>
-    /*2725*/
+    /*2604*/
     public struct CefDOMDocument
     {
-        /*2726*/
+        /*2605*/
         const int _typeNAME = 11;
-        /*2727*/
+        /*2606*/
         const int CefDOMDocument_Release_0 = (_typeNAME << 16) | 0;
-        /*2728*/
+        /*2607*/
         const int CefDOMDocument_GetType_1 = (_typeNAME << 16) | 1;
-        /*2729*/
+        /*2608*/
         const int CefDOMDocument_GetDocument_2 = (_typeNAME << 16) | 2;
-        /*2730*/
+        /*2609*/
         const int CefDOMDocument_GetBody_3 = (_typeNAME << 16) | 3;
-        /*2731*/
+        /*2610*/
         const int CefDOMDocument_GetHead_4 = (_typeNAME << 16) | 4;
-        /*2732*/
+        /*2611*/
         const int CefDOMDocument_GetTitle_5 = (_typeNAME << 16) | 5;
-        /*2733*/
+        /*2612*/
         const int CefDOMDocument_GetElementById_6 = (_typeNAME << 16) | 6;
-        /*2734*/
+        /*2613*/
         const int CefDOMDocument_GetFocusedNode_7 = (_typeNAME << 16) | 7;
-        /*2735*/
+        /*2614*/
         const int CefDOMDocument_HasSelection_8 = (_typeNAME << 16) | 8;
-        /*2736*/
+        /*2615*/
         const int CefDOMDocument_GetSelectionStartOffset_9 = (_typeNAME << 16) | 9;
-        /*2737*/
+        /*2616*/
         const int CefDOMDocument_GetSelectionEndOffset_10 = (_typeNAME << 16) | 10;
-        /*2738*/
+        /*2617*/
         const int CefDOMDocument_GetSelectionAsMarkup_11 = (_typeNAME << 16) | 11;
-        /*2739*/
+        /*2618*/
         const int CefDOMDocument_GetSelectionAsText_12 = (_typeNAME << 16) | 12;
-        /*2740*/
+        /*2619*/
         const int CefDOMDocument_GetBaseURL_13 = (_typeNAME << 16) | 13;
-        /*2741*/
+        /*2620*/
         const int CefDOMDocument_GetCompleteURL_14 = (_typeNAME << 16) | 14;
-        /*2742*/
+        /*2621*/
         internal readonly IntPtr nativePtr;
-        /*2743*/
+        /*2622*/
         internal CefDOMDocument(IntPtr nativePtr)
         {
-            /*2744*/
+            /*2623*/
             this.nativePtr = nativePtr;
-            /*2745*/
+            /*2624*/
         }
-        /*2746*/
+        /*2625*/
         public void Release()
         {
-            /*2747*/
+            /*2626*/
             JsValue ret;
-            /*2748*/
+            /*2627*/
             Cef3Binder.MyCefMet_Call0(this.nativePtr, CefDOMDocument_Release_0, out ret);
-            /*2749*/
+            /*2628*/
         }
+
+        // gen! Type GetType()
         /// <summary>
         /// CefDOMDocument methods.
         /// </summary>
-        /*2750*/
+        /*2629*/
 
-
-        // gen! Type GetType()
-        /*2751*/
-
-        public cef_dom_document_type_t _GetType()/*2752*/
+        public cef_dom_document_type_t _GetType()/*2630*/
         {
             JsValue ret;
-            /*2753*/
+            /*2631*/
 
             Cef3Binder.MyCefMet_Call0(this.nativePtr, CefDOMDocument_GetType_1, out ret);
-            /*2754*/
+            /*2632*/
             var ret_result = (cef_dom_document_type_t)ret.I32;
 
-            /*2755*/
+            /*2633*/
             return ret_result;
-            /*2756*/
+            /*2634*/
         }
+
+        // gen! CefRefPtr<CefDOMNode> GetDocument()
         /// <summary>
         /// Returns the root document node.
         /// /*cef()*/
         /// </summary>
-        /*2757*/
+        /*2635*/
 
-
-        // gen! CefRefPtr<CefDOMNode> GetDocument()
-        /*2758*/
-
-        public CefDOMNode GetDocument()/*2759*/
+        public CefDOMNode GetDocument()/*2636*/
         {
             JsValue ret;
-            /*2760*/
+            /*2637*/
 
             Cef3Binder.MyCefMet_Call0(this.nativePtr, CefDOMDocument_GetDocument_2, out ret);
-            /*2761*/
+            /*2638*/
             var ret_result = new CefDOMNode(ret.Ptr);
-            /*2762*/
+            /*2639*/
             return ret_result;
-            /*2763*/
+            /*2640*/
         }
+
+        // gen! CefRefPtr<CefDOMNode> GetBody()
         /// <summary>
         /// Returns the BODY node of an HTML document.
         /// /*cef()*/
         /// </summary>
-        /*2764*/
+        /*2641*/
 
-
-        // gen! CefRefPtr<CefDOMNode> GetBody()
-        /*2765*/
-
-        public CefDOMNode GetBody()/*2766*/
+        public CefDOMNode GetBody()/*2642*/
         {
             JsValue ret;
-            /*2767*/
+            /*2643*/
 
             Cef3Binder.MyCefMet_Call0(this.nativePtr, CefDOMDocument_GetBody_3, out ret);
-            /*2768*/
+            /*2644*/
             var ret_result = new CefDOMNode(ret.Ptr);
-            /*2769*/
+            /*2645*/
             return ret_result;
-            /*2770*/
+            /*2646*/
         }
+
+        // gen! CefRefPtr<CefDOMNode> GetHead()
         /// <summary>
         /// Returns the HEAD node of an HTML document.
         /// /*cef()*/
         /// </summary>
-        /*2771*/
+        /*2647*/
 
-
-        // gen! CefRefPtr<CefDOMNode> GetHead()
-        /*2772*/
-
-        public CefDOMNode GetHead()/*2773*/
+        public CefDOMNode GetHead()/*2648*/
         {
             JsValue ret;
-            /*2774*/
+            /*2649*/
 
             Cef3Binder.MyCefMet_Call0(this.nativePtr, CefDOMDocument_GetHead_4, out ret);
-            /*2775*/
+            /*2650*/
             var ret_result = new CefDOMNode(ret.Ptr);
-            /*2776*/
+            /*2651*/
             return ret_result;
-            /*2777*/
+            /*2652*/
         }
+
+        // gen! CefString GetTitle()
         /// <summary>
         /// Returns the title of an HTML document.
         /// /*cef()*/
         /// </summary>
-        /*2778*/
+        /*2653*/
 
-
-        // gen! CefString GetTitle()
-        /*2779*/
-
-        public string GetTitle()/*2780*/
+        public string GetTitle()/*2654*/
         {
             JsValue ret;
-            /*2781*/
+            /*2655*/
 
             Cef3Binder.MyCefMet_Call0(this.nativePtr, CefDOMDocument_GetTitle_5, out ret);
-            /*2782*/
+            /*2656*/
             var ret_result = Cef3Binder.CopyStringAndDestroyNativeSide(ref ret);
-            /*2783*/
+            /*2657*/
             return ret_result;
-            /*2784*/
+            /*2658*/
         }
+
+        // gen! CefRefPtr<CefDOMNode> GetElementById(const CefString& id)
         /// <summary>
         /// Returns the document element with the specified ID value.
         /// /*cef()*/
         /// </summary>
-        /*2785*/
+        /*2659*/
 
-
-        // gen! CefRefPtr<CefDOMNode> GetElementById(const CefString& id)
-        /*2786*/
-
-        public CefDOMNode GetElementById(string /*2787*/
+        public CefDOMNode GetElementById(string /*2660*/
         id
-        )/*2788*/
+        )/*2661*/
         {
             JsValue v1 = new JsValue();
             JsValue ret;
             v1.Ptr = Cef3Binder.MyCefCreateCefString(id);
-            /*2789*/
+            /*2662*/
             ;
-            /*2790*/
+            /*2663*/
 
             Cef3Binder.MyCefMet_Call1(this.nativePtr, CefDOMDocument_GetElementById_6, out ret, ref v1);
-            /*2791*/
+            /*2664*/
             var ret_result = new CefDOMNode(ret.Ptr);
-            Cef3Binder.MyCefDeletePtr(v1.Ptr);/*2792*/
+            Cef3Binder.MyCefDeletePtr(v1.Ptr);/*2665*/
             ;
-            /*2793*/
+            /*2666*/
             return ret_result;
-            /*2794*/
+            /*2667*/
         }
+
+        // gen! CefRefPtr<CefDOMNode> GetFocusedNode()
         /// <summary>
         /// Returns the node that currently has keyboard focus.
         /// /*cef()*/
         /// </summary>
-        /*2795*/
+        /*2668*/
 
-
-        // gen! CefRefPtr<CefDOMNode> GetFocusedNode()
-        /*2796*/
-
-        public CefDOMNode GetFocusedNode()/*2797*/
+        public CefDOMNode GetFocusedNode()/*2669*/
         {
             JsValue ret;
-            /*2798*/
+            /*2670*/
 
             Cef3Binder.MyCefMet_Call0(this.nativePtr, CefDOMDocument_GetFocusedNode_7, out ret);
-            /*2799*/
+            /*2671*/
             var ret_result = new CefDOMNode(ret.Ptr);
-            /*2800*/
+            /*2672*/
             return ret_result;
-            /*2801*/
+            /*2673*/
         }
+
+        // gen! bool HasSelection()
         /// <summary>
         /// Returns true if a portion of the document is selected.
         /// /*cef()*/
         /// </summary>
-        /*2802*/
+        /*2674*/
 
-
-        // gen! bool HasSelection()
-        /*2803*/
-
-        public bool HasSelection()/*2804*/
+        public bool HasSelection()/*2675*/
         {
             JsValue ret;
-            /*2805*/
+            /*2676*/
 
             Cef3Binder.MyCefMet_Call0(this.nativePtr, CefDOMDocument_HasSelection_8, out ret);
-            /*2806*/
+            /*2677*/
             var ret_result = ret.I32 != 0;
-            /*2807*/
+            /*2678*/
             return ret_result;
-            /*2808*/
+            /*2679*/
         }
+
+        // gen! int GetSelectionStartOffset()
         /// <summary>
         /// Returns the selection offset within the start node.
         /// /*cef()*/
         /// </summary>
-        /*2809*/
+        /*2680*/
 
-
-        // gen! int GetSelectionStartOffset()
-        /*2810*/
-
-        public int GetSelectionStartOffset()/*2811*/
+        public int GetSelectionStartOffset()/*2681*/
         {
             JsValue ret;
-            /*2812*/
+            /*2682*/
 
             Cef3Binder.MyCefMet_Call0(this.nativePtr, CefDOMDocument_GetSelectionStartOffset_9, out ret);
-            /*2813*/
+            /*2683*/
             var ret_result = ret.I32;
-            /*2814*/
+            /*2684*/
             return ret_result;
-            /*2815*/
+            /*2685*/
         }
+
+        // gen! int GetSelectionEndOffset()
         /// <summary>
         /// Returns the selection offset within the end node.
         /// /*cef()*/
         /// </summary>
-        /*2816*/
+        /*2686*/
 
-
-        // gen! int GetSelectionEndOffset()
-        /*2817*/
-
-        public int GetSelectionEndOffset()/*2818*/
+        public int GetSelectionEndOffset()/*2687*/
         {
             JsValue ret;
-            /*2819*/
+            /*2688*/
 
             Cef3Binder.MyCefMet_Call0(this.nativePtr, CefDOMDocument_GetSelectionEndOffset_10, out ret);
-            /*2820*/
+            /*2689*/
             var ret_result = ret.I32;
-            /*2821*/
+            /*2690*/
             return ret_result;
-            /*2822*/
+            /*2691*/
         }
+
+        // gen! CefString GetSelectionAsMarkup()
         /// <summary>
         /// Returns the contents of this selection as markup.
         /// /*cef()*/
         /// </summary>
-        /*2823*/
+        /*2692*/
 
-
-        // gen! CefString GetSelectionAsMarkup()
-        /*2824*/
-
-        public string GetSelectionAsMarkup()/*2825*/
+        public string GetSelectionAsMarkup()/*2693*/
         {
             JsValue ret;
-            /*2826*/
+            /*2694*/
 
             Cef3Binder.MyCefMet_Call0(this.nativePtr, CefDOMDocument_GetSelectionAsMarkup_11, out ret);
-            /*2827*/
+            /*2695*/
             var ret_result = Cef3Binder.CopyStringAndDestroyNativeSide(ref ret);
-            /*2828*/
+            /*2696*/
             return ret_result;
-            /*2829*/
+            /*2697*/
         }
+
+        // gen! CefString GetSelectionAsText()
         /// <summary>
         /// Returns the contents of this selection as text.
         /// /*cef()*/
         /// </summary>
-        /*2830*/
+        /*2698*/
 
-
-        // gen! CefString GetSelectionAsText()
-        /*2831*/
-
-        public string GetSelectionAsText()/*2832*/
+        public string GetSelectionAsText()/*2699*/
         {
             JsValue ret;
-            /*2833*/
+            /*2700*/
 
             Cef3Binder.MyCefMet_Call0(this.nativePtr, CefDOMDocument_GetSelectionAsText_12, out ret);
-            /*2834*/
+            /*2701*/
             var ret_result = Cef3Binder.CopyStringAndDestroyNativeSide(ref ret);
-            /*2835*/
+            /*2702*/
             return ret_result;
-            /*2836*/
+            /*2703*/
         }
+
+        // gen! CefString GetBaseURL()
         /// <summary>
         /// Returns the base URL for the document.
         /// /*cef()*/
         /// </summary>
-        /*2837*/
+        /*2704*/
 
-
-        // gen! CefString GetBaseURL()
-        /*2838*/
-
-        public string GetBaseURL()/*2839*/
+        public string GetBaseURL()/*2705*/
         {
             JsValue ret;
-            /*2840*/
+            /*2706*/
 
             Cef3Binder.MyCefMet_Call0(this.nativePtr, CefDOMDocument_GetBaseURL_13, out ret);
-            /*2841*/
+            /*2707*/
             var ret_result = Cef3Binder.CopyStringAndDestroyNativeSide(ref ret);
-            /*2842*/
+            /*2708*/
             return ret_result;
-            /*2843*/
+            /*2709*/
         }
+
+        // gen! CefString GetCompleteURL(const CefString& partialURL)
         /// <summary>
         /// Returns a complete URL based on the document base URL and the specified
         /// partial URL.
         /// /*cef()*/
         /// </summary>
-        /*2844*/
+        /*2710*/
 
-
-        // gen! CefString GetCompleteURL(const CefString& partialURL)
-        /*2845*/
-
-        public string GetCompleteURL(string /*2846*/
+        public string GetCompleteURL(string /*2711*/
         partialURL
-        )/*2847*/
+        )/*2712*/
         {
             JsValue v1 = new JsValue();
             JsValue ret;
             v1.Ptr = Cef3Binder.MyCefCreateCefString(partialURL);
-            /*2848*/
+            /*2713*/
             ;
-            /*2849*/
+            /*2714*/
 
             Cef3Binder.MyCefMet_Call1(this.nativePtr, CefDOMDocument_GetCompleteURL_14, out ret, ref v1);
-            /*2850*/
+            /*2715*/
             var ret_result = Cef3Binder.CopyStringAndDestroyNativeSide(ref ret);
-            Cef3Binder.MyCefDeletePtr(v1.Ptr);/*2851*/
+            Cef3Binder.MyCefDeletePtr(v1.Ptr);/*2716*/
             ;
-            /*2852*/
+            /*2717*/
             return ret_result;
-            /*2853*/
+            /*2718*/
         }
-        /*2854*/
+        /*2719*/
     }
 
 
@@ -6381,704 +6111,652 @@ namespace LayoutFarm.CefBridge.Auto
     /// called on the render process main thread.
     /// /*(source=library)*/
     /// </summary>
-    /*2993*/
+    /*2858*/
     public struct CefDOMNode
     {
-        /*2994*/
+        /*2859*/
         const int _typeNAME = 12;
-        /*2995*/
+        /*2860*/
         const int CefDOMNode_Release_0 = (_typeNAME << 16) | 0;
-        /*2996*/
+        /*2861*/
         const int CefDOMNode_GetType_1 = (_typeNAME << 16) | 1;
-        /*2997*/
+        /*2862*/
         const int CefDOMNode_IsText_2 = (_typeNAME << 16) | 2;
-        /*2998*/
+        /*2863*/
         const int CefDOMNode_IsElement_3 = (_typeNAME << 16) | 3;
-        /*2999*/
+        /*2864*/
         const int CefDOMNode_IsEditable_4 = (_typeNAME << 16) | 4;
-        /*3000*/
+        /*2865*/
         const int CefDOMNode_IsFormControlElement_5 = (_typeNAME << 16) | 5;
-        /*3001*/
+        /*2866*/
         const int CefDOMNode_GetFormControlElementType_6 = (_typeNAME << 16) | 6;
-        /*3002*/
+        /*2867*/
         const int CefDOMNode_IsSame_7 = (_typeNAME << 16) | 7;
-        /*3003*/
+        /*2868*/
         const int CefDOMNode_GetName_8 = (_typeNAME << 16) | 8;
-        /*3004*/
+        /*2869*/
         const int CefDOMNode_GetValue_9 = (_typeNAME << 16) | 9;
-        /*3005*/
+        /*2870*/
         const int CefDOMNode_SetValue_10 = (_typeNAME << 16) | 10;
-        /*3006*/
+        /*2871*/
         const int CefDOMNode_GetAsMarkup_11 = (_typeNAME << 16) | 11;
-        /*3007*/
+        /*2872*/
         const int CefDOMNode_GetDocument_12 = (_typeNAME << 16) | 12;
-        /*3008*/
+        /*2873*/
         const int CefDOMNode_GetParent_13 = (_typeNAME << 16) | 13;
-        /*3009*/
+        /*2874*/
         const int CefDOMNode_GetPreviousSibling_14 = (_typeNAME << 16) | 14;
-        /*3010*/
+        /*2875*/
         const int CefDOMNode_GetNextSibling_15 = (_typeNAME << 16) | 15;
-        /*3011*/
+        /*2876*/
         const int CefDOMNode_HasChildren_16 = (_typeNAME << 16) | 16;
-        /*3012*/
+        /*2877*/
         const int CefDOMNode_GetFirstChild_17 = (_typeNAME << 16) | 17;
-        /*3013*/
+        /*2878*/
         const int CefDOMNode_GetLastChild_18 = (_typeNAME << 16) | 18;
-        /*3014*/
+        /*2879*/
         const int CefDOMNode_GetElementTagName_19 = (_typeNAME << 16) | 19;
-        /*3015*/
+        /*2880*/
         const int CefDOMNode_HasElementAttributes_20 = (_typeNAME << 16) | 20;
-        /*3016*/
+        /*2881*/
         const int CefDOMNode_HasElementAttribute_21 = (_typeNAME << 16) | 21;
-        /*3017*/
+        /*2882*/
         const int CefDOMNode_GetElementAttribute_22 = (_typeNAME << 16) | 22;
-        /*3018*/
+        /*2883*/
         const int CefDOMNode_GetElementAttributes_23 = (_typeNAME << 16) | 23;
-        /*3019*/
+        /*2884*/
         const int CefDOMNode_SetElementAttribute_24 = (_typeNAME << 16) | 24;
-        /*3020*/
+        /*2885*/
         const int CefDOMNode_GetElementInnerText_25 = (_typeNAME << 16) | 25;
-        /*3021*/
+        /*2886*/
         const int CefDOMNode_GetElementBounds_26 = (_typeNAME << 16) | 26;
-        /*3022*/
+        /*2887*/
         internal readonly IntPtr nativePtr;
-        /*3023*/
+        /*2888*/
         internal CefDOMNode(IntPtr nativePtr)
         {
-            /*3024*/
+            /*2889*/
             this.nativePtr = nativePtr;
-            /*3025*/
+            /*2890*/
         }
-        /*3026*/
+        /*2891*/
         public void Release()
         {
-            /*3027*/
+            /*2892*/
             JsValue ret;
-            /*3028*/
+            /*2893*/
             Cef3Binder.MyCefMet_Call0(this.nativePtr, CefDOMNode_Release_0, out ret);
-            /*3029*/
+            /*2894*/
         }
+
+        // gen! Type GetType()
         /// <summary>
         /// CefDOMNode methods.
         /// </summary>
-        /*3030*/
+        /*2895*/
 
-
-        // gen! Type GetType()
-        /*3031*/
-
-        public cef_dom_node_type_t _GetType()/*3032*/
+        public cef_dom_node_type_t _GetType()/*2896*/
         {
             JsValue ret;
-            /*3033*/
+            /*2897*/
 
             Cef3Binder.MyCefMet_Call0(this.nativePtr, CefDOMNode_GetType_1, out ret);
-            /*3034*/
+            /*2898*/
             var ret_result = (cef_dom_node_type_t)ret.I32;
 
-            /*3035*/
+            /*2899*/
             return ret_result;
-            /*3036*/
+            /*2900*/
         }
+
+        // gen! bool IsText()
         /// <summary>
         /// Returns true if this is a text node.
         /// /*cef()*/
         /// </summary>
-        /*3037*/
+        /*2901*/
 
-
-        // gen! bool IsText()
-        /*3038*/
-
-        public bool IsText()/*3039*/
+        public bool IsText()/*2902*/
         {
             JsValue ret;
-            /*3040*/
+            /*2903*/
 
             Cef3Binder.MyCefMet_Call0(this.nativePtr, CefDOMNode_IsText_2, out ret);
-            /*3041*/
+            /*2904*/
             var ret_result = ret.I32 != 0;
-            /*3042*/
+            /*2905*/
             return ret_result;
-            /*3043*/
+            /*2906*/
         }
+
+        // gen! bool IsElement()
         /// <summary>
         /// Returns true if this is an element node.
         /// /*cef()*/
         /// </summary>
-        /*3044*/
+        /*2907*/
 
-
-        // gen! bool IsElement()
-        /*3045*/
-
-        public bool IsElement()/*3046*/
+        public bool IsElement()/*2908*/
         {
             JsValue ret;
-            /*3047*/
+            /*2909*/
 
             Cef3Binder.MyCefMet_Call0(this.nativePtr, CefDOMNode_IsElement_3, out ret);
-            /*3048*/
+            /*2910*/
             var ret_result = ret.I32 != 0;
-            /*3049*/
+            /*2911*/
             return ret_result;
-            /*3050*/
+            /*2912*/
         }
+
+        // gen! bool IsEditable()
         /// <summary>
         /// Returns true if this is an editable node.
         /// /*cef()*/
         /// </summary>
-        /*3051*/
+        /*2913*/
 
-
-        // gen! bool IsEditable()
-        /*3052*/
-
-        public bool IsEditable()/*3053*/
+        public bool IsEditable()/*2914*/
         {
             JsValue ret;
-            /*3054*/
+            /*2915*/
 
             Cef3Binder.MyCefMet_Call0(this.nativePtr, CefDOMNode_IsEditable_4, out ret);
-            /*3055*/
+            /*2916*/
             var ret_result = ret.I32 != 0;
-            /*3056*/
+            /*2917*/
             return ret_result;
-            /*3057*/
+            /*2918*/
         }
+
+        // gen! bool IsFormControlElement()
         /// <summary>
         /// Returns true if this is a form control element node.
         /// /*cef()*/
         /// </summary>
-        /*3058*/
+        /*2919*/
 
-
-        // gen! bool IsFormControlElement()
-        /*3059*/
-
-        public bool IsFormControlElement()/*3060*/
+        public bool IsFormControlElement()/*2920*/
         {
             JsValue ret;
-            /*3061*/
+            /*2921*/
 
             Cef3Binder.MyCefMet_Call0(this.nativePtr, CefDOMNode_IsFormControlElement_5, out ret);
-            /*3062*/
+            /*2922*/
             var ret_result = ret.I32 != 0;
-            /*3063*/
+            /*2923*/
             return ret_result;
-            /*3064*/
+            /*2924*/
         }
+
+        // gen! CefString GetFormControlElementType()
         /// <summary>
         /// Returns the type of this form control element node.
         /// /*cef()*/
         /// </summary>
-        /*3065*/
+        /*2925*/
 
-
-        // gen! CefString GetFormControlElementType()
-        /*3066*/
-
-        public string GetFormControlElementType()/*3067*/
+        public string GetFormControlElementType()/*2926*/
         {
             JsValue ret;
-            /*3068*/
+            /*2927*/
 
             Cef3Binder.MyCefMet_Call0(this.nativePtr, CefDOMNode_GetFormControlElementType_6, out ret);
-            /*3069*/
+            /*2928*/
             var ret_result = Cef3Binder.CopyStringAndDestroyNativeSide(ref ret);
-            /*3070*/
+            /*2929*/
             return ret_result;
-            /*3071*/
+            /*2930*/
         }
+
+        // gen! bool IsSame(CefRefPtr<CefDOMNode> that)
         /// <summary>
         /// Returns true if this object is pointing to the same handle as |that|
         /// object.
         /// /*cef()*/
         /// </summary>
-        /*3072*/
+        /*2931*/
 
-
-        // gen! bool IsSame(CefRefPtr<CefDOMNode> that)
-        /*3073*/
-
-        public bool IsSame(CefDOMNode /*3074*/
+        public bool IsSame(CefDOMNode /*2932*/
         that
-        )/*3075*/
+        )/*2933*/
         {
             JsValue v1 = new JsValue();
             JsValue ret;
-            /*3076*/
+            /*2934*/
 
             Cef3Binder.MyCefMet_Call1(this.nativePtr, CefDOMNode_IsSame_7, out ret, ref v1);
-            /*3077*/
+            /*2935*/
             var ret_result = ret.I32 != 0;
-            /*3078*/
+            /*2936*/
             return ret_result;
-            /*3079*/
+            /*2937*/
         }
+
+        // gen! CefString GetName()
         /// <summary>
         /// Returns the name of this node.
         /// /*cef()*/
         /// </summary>
-        /*3080*/
+        /*2938*/
 
-
-        // gen! CefString GetName()
-        /*3081*/
-
-        public string GetName()/*3082*/
+        public string GetName()/*2939*/
         {
             JsValue ret;
-            /*3083*/
+            /*2940*/
 
             Cef3Binder.MyCefMet_Call0(this.nativePtr, CefDOMNode_GetName_8, out ret);
-            /*3084*/
+            /*2941*/
             var ret_result = Cef3Binder.CopyStringAndDestroyNativeSide(ref ret);
-            /*3085*/
+            /*2942*/
             return ret_result;
-            /*3086*/
+            /*2943*/
         }
+
+        // gen! CefString GetValue()
         /// <summary>
         /// Returns the value of this node.
         /// /*cef()*/
         /// </summary>
-        /*3087*/
+        /*2944*/
 
-
-        // gen! CefString GetValue()
-        /*3088*/
-
-        public string GetValue()/*3089*/
+        public string GetValue()/*2945*/
         {
             JsValue ret;
-            /*3090*/
+            /*2946*/
 
             Cef3Binder.MyCefMet_Call0(this.nativePtr, CefDOMNode_GetValue_9, out ret);
-            /*3091*/
+            /*2947*/
             var ret_result = Cef3Binder.CopyStringAndDestroyNativeSide(ref ret);
-            /*3092*/
+            /*2948*/
             return ret_result;
-            /*3093*/
+            /*2949*/
         }
+
+        // gen! bool SetValue(const CefString& value)
         /// <summary>
         /// Set the value of this node. Returns true on success.
         /// /*cef()*/
         /// </summary>
-        /*3094*/
+        /*2950*/
 
-
-        // gen! bool SetValue(const CefString& value)
-        /*3095*/
-
-        public bool SetValue(string /*3096*/
+        public bool SetValue(string /*2951*/
         value
-        )/*3097*/
+        )/*2952*/
         {
             JsValue v1 = new JsValue();
             JsValue ret;
             v1.Ptr = Cef3Binder.MyCefCreateCefString(value);
-            /*3098*/
+            /*2953*/
             ;
-            /*3099*/
+            /*2954*/
 
             Cef3Binder.MyCefMet_Call1(this.nativePtr, CefDOMNode_SetValue_10, out ret, ref v1);
-            /*3100*/
+            /*2955*/
             var ret_result = ret.I32 != 0;
-            Cef3Binder.MyCefDeletePtr(v1.Ptr);/*3101*/
+            Cef3Binder.MyCefDeletePtr(v1.Ptr);/*2956*/
             ;
-            /*3102*/
+            /*2957*/
             return ret_result;
-            /*3103*/
+            /*2958*/
         }
+
+        // gen! CefString GetAsMarkup()
         /// <summary>
         /// Returns the contents of this node as markup.
         /// /*cef()*/
         /// </summary>
-        /*3104*/
+        /*2959*/
 
-
-        // gen! CefString GetAsMarkup()
-        /*3105*/
-
-        public string GetAsMarkup()/*3106*/
+        public string GetAsMarkup()/*2960*/
         {
             JsValue ret;
-            /*3107*/
+            /*2961*/
 
             Cef3Binder.MyCefMet_Call0(this.nativePtr, CefDOMNode_GetAsMarkup_11, out ret);
-            /*3108*/
+            /*2962*/
             var ret_result = Cef3Binder.CopyStringAndDestroyNativeSide(ref ret);
-            /*3109*/
+            /*2963*/
             return ret_result;
-            /*3110*/
+            /*2964*/
         }
+
+        // gen! CefRefPtr<CefDOMDocument> GetDocument()
         /// <summary>
         /// Returns the document associated with this node.
         /// /*cef()*/
         /// </summary>
-        /*3111*/
+        /*2965*/
 
-
-        // gen! CefRefPtr<CefDOMDocument> GetDocument()
-        /*3112*/
-
-        public CefDOMDocument GetDocument()/*3113*/
+        public CefDOMDocument GetDocument()/*2966*/
         {
             JsValue ret;
-            /*3114*/
+            /*2967*/
 
             Cef3Binder.MyCefMet_Call0(this.nativePtr, CefDOMNode_GetDocument_12, out ret);
-            /*3115*/
+            /*2968*/
             var ret_result = new CefDOMDocument(ret.Ptr);
-            /*3116*/
+            /*2969*/
             return ret_result;
-            /*3117*/
+            /*2970*/
         }
+
+        // gen! CefRefPtr<CefDOMNode> GetParent()
         /// <summary>
         /// Returns the parent node.
         /// /*cef()*/
         /// </summary>
-        /*3118*/
+        /*2971*/
 
-
-        // gen! CefRefPtr<CefDOMNode> GetParent()
-        /*3119*/
-
-        public CefDOMNode GetParent()/*3120*/
+        public CefDOMNode GetParent()/*2972*/
         {
             JsValue ret;
-            /*3121*/
+            /*2973*/
 
             Cef3Binder.MyCefMet_Call0(this.nativePtr, CefDOMNode_GetParent_13, out ret);
-            /*3122*/
+            /*2974*/
             var ret_result = new CefDOMNode(ret.Ptr);
-            /*3123*/
+            /*2975*/
             return ret_result;
-            /*3124*/
+            /*2976*/
         }
+
+        // gen! CefRefPtr<CefDOMNode> GetPreviousSibling()
         /// <summary>
         /// Returns the previous sibling node.
         /// /*cef()*/
         /// </summary>
-        /*3125*/
+        /*2977*/
 
-
-        // gen! CefRefPtr<CefDOMNode> GetPreviousSibling()
-        /*3126*/
-
-        public CefDOMNode GetPreviousSibling()/*3127*/
+        public CefDOMNode GetPreviousSibling()/*2978*/
         {
             JsValue ret;
-            /*3128*/
+            /*2979*/
 
             Cef3Binder.MyCefMet_Call0(this.nativePtr, CefDOMNode_GetPreviousSibling_14, out ret);
-            /*3129*/
+            /*2980*/
             var ret_result = new CefDOMNode(ret.Ptr);
-            /*3130*/
+            /*2981*/
             return ret_result;
-            /*3131*/
+            /*2982*/
         }
+
+        // gen! CefRefPtr<CefDOMNode> GetNextSibling()
         /// <summary>
         /// Returns the next sibling node.
         /// /*cef()*/
         /// </summary>
-        /*3132*/
+        /*2983*/
 
-
-        // gen! CefRefPtr<CefDOMNode> GetNextSibling()
-        /*3133*/
-
-        public CefDOMNode GetNextSibling()/*3134*/
+        public CefDOMNode GetNextSibling()/*2984*/
         {
             JsValue ret;
-            /*3135*/
+            /*2985*/
 
             Cef3Binder.MyCefMet_Call0(this.nativePtr, CefDOMNode_GetNextSibling_15, out ret);
-            /*3136*/
+            /*2986*/
             var ret_result = new CefDOMNode(ret.Ptr);
-            /*3137*/
+            /*2987*/
             return ret_result;
-            /*3138*/
+            /*2988*/
         }
+
+        // gen! bool HasChildren()
         /// <summary>
         /// Returns true if this node has child nodes.
         /// /*cef()*/
         /// </summary>
-        /*3139*/
+        /*2989*/
 
-
-        // gen! bool HasChildren()
-        /*3140*/
-
-        public bool HasChildren()/*3141*/
+        public bool HasChildren()/*2990*/
         {
             JsValue ret;
-            /*3142*/
+            /*2991*/
 
             Cef3Binder.MyCefMet_Call0(this.nativePtr, CefDOMNode_HasChildren_16, out ret);
-            /*3143*/
+            /*2992*/
             var ret_result = ret.I32 != 0;
-            /*3144*/
+            /*2993*/
             return ret_result;
-            /*3145*/
+            /*2994*/
         }
+
+        // gen! CefRefPtr<CefDOMNode> GetFirstChild()
         /// <summary>
         /// Return the first child node.
         /// /*cef()*/
         /// </summary>
-        /*3146*/
+        /*2995*/
 
-
-        // gen! CefRefPtr<CefDOMNode> GetFirstChild()
-        /*3147*/
-
-        public CefDOMNode GetFirstChild()/*3148*/
+        public CefDOMNode GetFirstChild()/*2996*/
         {
             JsValue ret;
-            /*3149*/
+            /*2997*/
 
             Cef3Binder.MyCefMet_Call0(this.nativePtr, CefDOMNode_GetFirstChild_17, out ret);
-            /*3150*/
+            /*2998*/
             var ret_result = new CefDOMNode(ret.Ptr);
-            /*3151*/
+            /*2999*/
             return ret_result;
-            /*3152*/
+            /*3000*/
         }
+
+        // gen! CefRefPtr<CefDOMNode> GetLastChild()
         /// <summary>
         /// Returns the last child node.
         /// /*cef()*/
         /// </summary>
-        /*3153*/
+        /*3001*/
 
-
-        // gen! CefRefPtr<CefDOMNode> GetLastChild()
-        /*3154*/
-
-        public CefDOMNode GetLastChild()/*3155*/
+        public CefDOMNode GetLastChild()/*3002*/
         {
             JsValue ret;
-            /*3156*/
+            /*3003*/
 
             Cef3Binder.MyCefMet_Call0(this.nativePtr, CefDOMNode_GetLastChild_18, out ret);
-            /*3157*/
+            /*3004*/
             var ret_result = new CefDOMNode(ret.Ptr);
-            /*3158*/
+            /*3005*/
             return ret_result;
-            /*3159*/
+            /*3006*/
         }
+
+        // gen! CefString GetElementTagName()
         /// <summary>
         /// The following methods are valid only for element nodes.
         /// Returns the tag name of this element.
         /// /*cef()*/
         /// </summary>
-        /*3160*/
+        /*3007*/
 
-
-        // gen! CefString GetElementTagName()
-        /*3161*/
-
-        public string GetElementTagName()/*3162*/
+        public string GetElementTagName()/*3008*/
         {
             JsValue ret;
-            /*3163*/
+            /*3009*/
 
             Cef3Binder.MyCefMet_Call0(this.nativePtr, CefDOMNode_GetElementTagName_19, out ret);
-            /*3164*/
+            /*3010*/
             var ret_result = Cef3Binder.CopyStringAndDestroyNativeSide(ref ret);
-            /*3165*/
+            /*3011*/
             return ret_result;
-            /*3166*/
+            /*3012*/
         }
+
+        // gen! bool HasElementAttributes()
         /// <summary>
         /// Returns true if this element has attributes.
         /// /*cef()*/
         /// </summary>
-        /*3167*/
+        /*3013*/
 
-
-        // gen! bool HasElementAttributes()
-        /*3168*/
-
-        public bool HasElementAttributes()/*3169*/
+        public bool HasElementAttributes()/*3014*/
         {
             JsValue ret;
-            /*3170*/
+            /*3015*/
 
             Cef3Binder.MyCefMet_Call0(this.nativePtr, CefDOMNode_HasElementAttributes_20, out ret);
-            /*3171*/
+            /*3016*/
             var ret_result = ret.I32 != 0;
-            /*3172*/
+            /*3017*/
             return ret_result;
-            /*3173*/
+            /*3018*/
         }
+
+        // gen! bool HasElementAttribute(const CefString& attrName)
         /// <summary>
         /// Returns true if this element has an attribute named |attrName|.
         /// /*cef()*/
         /// </summary>
-        /*3174*/
+        /*3019*/
 
-
-        // gen! bool HasElementAttribute(const CefString& attrName)
-        /*3175*/
-
-        public bool HasElementAttribute(string /*3176*/
+        public bool HasElementAttribute(string /*3020*/
         attrName
-        )/*3177*/
+        )/*3021*/
         {
             JsValue v1 = new JsValue();
             JsValue ret;
             v1.Ptr = Cef3Binder.MyCefCreateCefString(attrName);
-            /*3178*/
+            /*3022*/
             ;
-            /*3179*/
+            /*3023*/
 
             Cef3Binder.MyCefMet_Call1(this.nativePtr, CefDOMNode_HasElementAttribute_21, out ret, ref v1);
-            /*3180*/
+            /*3024*/
             var ret_result = ret.I32 != 0;
-            Cef3Binder.MyCefDeletePtr(v1.Ptr);/*3181*/
+            Cef3Binder.MyCefDeletePtr(v1.Ptr);/*3025*/
             ;
-            /*3182*/
+            /*3026*/
             return ret_result;
-            /*3183*/
+            /*3027*/
         }
+
+        // gen! CefString GetElementAttribute(const CefString& attrName)
         /// <summary>
         /// Returns the element attribute named |attrName|.
         /// /*cef()*/
         /// </summary>
-        /*3184*/
+        /*3028*/
 
-
-        // gen! CefString GetElementAttribute(const CefString& attrName)
-        /*3185*/
-
-        public string GetElementAttribute(string /*3186*/
+        public string GetElementAttribute(string /*3029*/
         attrName
-        )/*3187*/
+        )/*3030*/
         {
             JsValue v1 = new JsValue();
             JsValue ret;
             v1.Ptr = Cef3Binder.MyCefCreateCefString(attrName);
-            /*3188*/
+            /*3031*/
             ;
-            /*3189*/
+            /*3032*/
 
             Cef3Binder.MyCefMet_Call1(this.nativePtr, CefDOMNode_GetElementAttribute_22, out ret, ref v1);
-            /*3190*/
+            /*3033*/
             var ret_result = Cef3Binder.CopyStringAndDestroyNativeSide(ref ret);
-            Cef3Binder.MyCefDeletePtr(v1.Ptr);/*3191*/
+            Cef3Binder.MyCefDeletePtr(v1.Ptr);/*3034*/
             ;
-            /*3192*/
+            /*3035*/
             return ret_result;
-            /*3193*/
+            /*3036*/
         }
+
+        // gen! void GetElementAttributes(AttributeMap& attrMap)
         /// <summary>
         /// Returns a map of all element attributes.
         /// /*cef()*/
         /// </summary>
-        /*3194*/
+        /*3037*/
 
-
-        // gen! void GetElementAttributes(AttributeMap& attrMap)
-        /*3195*/
-
-        public void GetElementAttributes(AttributeMap /*3196*/
+        public void GetElementAttributes(AttributeMap /*3038*/
         attrMap
-        )/*3197*/
+        )/*3039*/
         {
             JsValue v1 = new JsValue();
             JsValue ret;
-            /*3198*/
+            /*3040*/
 
             Cef3Binder.MyCefMet_Call1(this.nativePtr, CefDOMNode_GetElementAttributes_23, out ret, ref v1);
-            /*3199*/
+            /*3041*/
 
-            /*3200*/
+            /*3042*/
         }
+
+        // gen! bool SetElementAttribute(const CefString& attrName,const CefString& value)
         /// <summary>
         /// Set the value for the element attribute named |attrName|. Returns true on
         /// success.
         /// /*cef()*/
         /// </summary>
-        /*3201*/
+        /*3043*/
 
-
-        // gen! bool SetElementAttribute(const CefString& attrName,const CefString& value)
-        /*3202*/
-
-        public bool SetElementAttribute(string /*3203*/
+        public bool SetElementAttribute(string /*3044*/
         attrName
-        , string /*3204*/
+        , string /*3045*/
         value
-        )/*3205*/
+        )/*3046*/
         {
             JsValue v1 = new JsValue();
             JsValue v2 = new JsValue();
             JsValue ret;
             v1.Ptr = Cef3Binder.MyCefCreateCefString(attrName);
-            /*3206*/
+            /*3047*/
             ;
             v2.Ptr = Cef3Binder.MyCefCreateCefString(value);
-            /*3207*/
+            /*3048*/
             ;
-            /*3208*/
+            /*3049*/
 
             Cef3Binder.MyCefMet_Call2(this.nativePtr, CefDOMNode_SetElementAttribute_24, out ret, ref v1, ref v2);
-            /*3209*/
+            /*3050*/
             var ret_result = ret.I32 != 0;
-            Cef3Binder.MyCefDeletePtr(v1.Ptr);/*3210*/
+            Cef3Binder.MyCefDeletePtr(v1.Ptr);/*3051*/
             ;
-            Cef3Binder.MyCefDeletePtr(v2.Ptr);/*3211*/
+            Cef3Binder.MyCefDeletePtr(v2.Ptr);/*3052*/
             ;
-            /*3212*/
+            /*3053*/
             return ret_result;
-            /*3213*/
+            /*3054*/
         }
+
+        // gen! CefString GetElementInnerText()
         /// <summary>
         /// Returns the inner text of the element.
         /// /*cef()*/
         /// </summary>
-        /*3214*/
+        /*3055*/
 
-
-        // gen! CefString GetElementInnerText()
-        /*3215*/
-
-        public string GetElementInnerText()/*3216*/
+        public string GetElementInnerText()/*3056*/
         {
             JsValue ret;
-            /*3217*/
+            /*3057*/
 
             Cef3Binder.MyCefMet_Call0(this.nativePtr, CefDOMNode_GetElementInnerText_25, out ret);
-            /*3218*/
+            /*3058*/
             var ret_result = Cef3Binder.CopyStringAndDestroyNativeSide(ref ret);
-            /*3219*/
+            /*3059*/
             return ret_result;
-            /*3220*/
+            /*3060*/
         }
+
+        // gen! CefRect GetElementBounds()
         /// <summary>
         /// Returns the bounds of the element.
         /// /*cef()*/
         /// </summary>
-        /*3221*/
+        /*3061*/
 
-
-        // gen! CefRect GetElementBounds()
-        /*3222*/
-
-        public CefRect GetElementBounds()/*3223*/
+        public CefRect GetElementBounds()/*3062*/
         {
             JsValue ret;
-            /*3224*/
+            /*3063*/
 
             Cef3Binder.MyCefMet_Call0(this.nativePtr, CefDOMNode_GetElementBounds_26, out ret);
-            /*3225*/
+            /*3064*/
             var ret_result = new CefRect(ret.Ptr);
 
-            /*3226*/
+            /*3065*/
             return ret_result;
-            /*3227*/
+            /*3066*/
         }
-        /*3228*/
+        /*3067*/
     }
 
 
@@ -7087,442 +6765,408 @@ namespace LayoutFarm.CefBridge.Auto
     /// Class used to represent a download item.
     /// /*(source=library)*/
     /// </summary>
-    /*3322*/
+    /*3161*/
     public struct CefDownloadItem
     {
-        /*3323*/
+        /*3162*/
         const int _typeNAME = 13;
-        /*3324*/
+        /*3163*/
         const int CefDownloadItem_Release_0 = (_typeNAME << 16) | 0;
-        /*3325*/
+        /*3164*/
         const int CefDownloadItem_IsValid_1 = (_typeNAME << 16) | 1;
-        /*3326*/
+        /*3165*/
         const int CefDownloadItem_IsInProgress_2 = (_typeNAME << 16) | 2;
-        /*3327*/
+        /*3166*/
         const int CefDownloadItem_IsComplete_3 = (_typeNAME << 16) | 3;
-        /*3328*/
+        /*3167*/
         const int CefDownloadItem_IsCanceled_4 = (_typeNAME << 16) | 4;
-        /*3329*/
+        /*3168*/
         const int CefDownloadItem_GetCurrentSpeed_5 = (_typeNAME << 16) | 5;
-        /*3330*/
+        /*3169*/
         const int CefDownloadItem_GetPercentComplete_6 = (_typeNAME << 16) | 6;
-        /*3331*/
+        /*3170*/
         const int CefDownloadItem_GetTotalBytes_7 = (_typeNAME << 16) | 7;
-        /*3332*/
+        /*3171*/
         const int CefDownloadItem_GetReceivedBytes_8 = (_typeNAME << 16) | 8;
-        /*3333*/
+        /*3172*/
         const int CefDownloadItem_GetStartTime_9 = (_typeNAME << 16) | 9;
-        /*3334*/
+        /*3173*/
         const int CefDownloadItem_GetEndTime_10 = (_typeNAME << 16) | 10;
-        /*3335*/
+        /*3174*/
         const int CefDownloadItem_GetFullPath_11 = (_typeNAME << 16) | 11;
-        /*3336*/
+        /*3175*/
         const int CefDownloadItem_GetId_12 = (_typeNAME << 16) | 12;
-        /*3337*/
+        /*3176*/
         const int CefDownloadItem_GetURL_13 = (_typeNAME << 16) | 13;
-        /*3338*/
+        /*3177*/
         const int CefDownloadItem_GetOriginalUrl_14 = (_typeNAME << 16) | 14;
-        /*3339*/
+        /*3178*/
         const int CefDownloadItem_GetSuggestedFileName_15 = (_typeNAME << 16) | 15;
-        /*3340*/
+        /*3179*/
         const int CefDownloadItem_GetContentDisposition_16 = (_typeNAME << 16) | 16;
-        /*3341*/
+        /*3180*/
         const int CefDownloadItem_GetMimeType_17 = (_typeNAME << 16) | 17;
-        /*3342*/
+        /*3181*/
         internal readonly IntPtr nativePtr;
-        /*3343*/
+        /*3182*/
         internal CefDownloadItem(IntPtr nativePtr)
         {
-            /*3344*/
+            /*3183*/
             this.nativePtr = nativePtr;
-            /*3345*/
+            /*3184*/
         }
-        /*3346*/
+        /*3185*/
         public void Release()
         {
-            /*3347*/
+            /*3186*/
             JsValue ret;
-            /*3348*/
+            /*3187*/
             Cef3Binder.MyCefMet_Call0(this.nativePtr, CefDownloadItem_Release_0, out ret);
-            /*3349*/
+            /*3188*/
         }
+
+        // gen! bool IsValid()
         /// <summary>
         /// CefDownloadItem methods.
         /// </summary>
-        /*3350*/
+        /*3189*/
 
-
-        // gen! bool IsValid()
-        /*3351*/
-
-        public bool IsValid()/*3352*/
+        public bool IsValid()/*3190*/
         {
             JsValue ret;
-            /*3353*/
+            /*3191*/
 
             Cef3Binder.MyCefMet_Call0(this.nativePtr, CefDownloadItem_IsValid_1, out ret);
-            /*3354*/
+            /*3192*/
             var ret_result = ret.I32 != 0;
-            /*3355*/
+            /*3193*/
             return ret_result;
-            /*3356*/
+            /*3194*/
         }
+
+        // gen! bool IsInProgress()
         /// <summary>
         /// Returns true if the download is in progress.
         /// /*cef()*/
         /// </summary>
-        /*3357*/
+        /*3195*/
 
-
-        // gen! bool IsInProgress()
-        /*3358*/
-
-        public bool IsInProgress()/*3359*/
+        public bool IsInProgress()/*3196*/
         {
             JsValue ret;
-            /*3360*/
+            /*3197*/
 
             Cef3Binder.MyCefMet_Call0(this.nativePtr, CefDownloadItem_IsInProgress_2, out ret);
-            /*3361*/
+            /*3198*/
             var ret_result = ret.I32 != 0;
-            /*3362*/
+            /*3199*/
             return ret_result;
-            /*3363*/
+            /*3200*/
         }
+
+        // gen! bool IsComplete()
         /// <summary>
         /// Returns true if the download is complete.
         /// /*cef()*/
         /// </summary>
-        /*3364*/
+        /*3201*/
 
-
-        // gen! bool IsComplete()
-        /*3365*/
-
-        public bool IsComplete()/*3366*/
+        public bool IsComplete()/*3202*/
         {
             JsValue ret;
-            /*3367*/
+            /*3203*/
 
             Cef3Binder.MyCefMet_Call0(this.nativePtr, CefDownloadItem_IsComplete_3, out ret);
-            /*3368*/
+            /*3204*/
             var ret_result = ret.I32 != 0;
-            /*3369*/
+            /*3205*/
             return ret_result;
-            /*3370*/
+            /*3206*/
         }
+
+        // gen! bool IsCanceled()
         /// <summary>
         /// Returns true if the download has been canceled or interrupted.
         /// /*cef()*/
         /// </summary>
-        /*3371*/
+        /*3207*/
 
-
-        // gen! bool IsCanceled()
-        /*3372*/
-
-        public bool IsCanceled()/*3373*/
+        public bool IsCanceled()/*3208*/
         {
             JsValue ret;
-            /*3374*/
+            /*3209*/
 
             Cef3Binder.MyCefMet_Call0(this.nativePtr, CefDownloadItem_IsCanceled_4, out ret);
-            /*3375*/
+            /*3210*/
             var ret_result = ret.I32 != 0;
-            /*3376*/
+            /*3211*/
             return ret_result;
-            /*3377*/
+            /*3212*/
         }
+
+        // gen! int64 GetCurrentSpeed()
         /// <summary>
         /// Returns a simple speed estimate in bytes/s.
         /// /*cef()*/
         /// </summary>
-        /*3378*/
+        /*3213*/
 
-
-        // gen! int64 GetCurrentSpeed()
-        /*3379*/
-
-        public long GetCurrentSpeed()/*3380*/
+        public long GetCurrentSpeed()/*3214*/
         {
             JsValue ret;
-            /*3381*/
+            /*3215*/
 
             Cef3Binder.MyCefMet_Call0(this.nativePtr, CefDownloadItem_GetCurrentSpeed_5, out ret);
-            /*3382*/
+            /*3216*/
             var ret_result = ret.I64;
-            /*3383*/
+            /*3217*/
             return ret_result;
-            /*3384*/
+            /*3218*/
         }
+
+        // gen! int GetPercentComplete()
         /// <summary>
         /// Returns the rough percent complete or -1 if the receive total size is
         /// unknown.
         /// /*cef()*/
         /// </summary>
-        /*3385*/
+        /*3219*/
 
-
-        // gen! int GetPercentComplete()
-        /*3386*/
-
-        public int GetPercentComplete()/*3387*/
+        public int GetPercentComplete()/*3220*/
         {
             JsValue ret;
-            /*3388*/
+            /*3221*/
 
             Cef3Binder.MyCefMet_Call0(this.nativePtr, CefDownloadItem_GetPercentComplete_6, out ret);
-            /*3389*/
+            /*3222*/
             var ret_result = ret.I32;
-            /*3390*/
+            /*3223*/
             return ret_result;
-            /*3391*/
+            /*3224*/
         }
+
+        // gen! int64 GetTotalBytes()
         /// <summary>
         /// Returns the total number of bytes.
         /// /*cef()*/
         /// </summary>
-        /*3392*/
+        /*3225*/
 
-
-        // gen! int64 GetTotalBytes()
-        /*3393*/
-
-        public long GetTotalBytes()/*3394*/
+        public long GetTotalBytes()/*3226*/
         {
             JsValue ret;
-            /*3395*/
+            /*3227*/
 
             Cef3Binder.MyCefMet_Call0(this.nativePtr, CefDownloadItem_GetTotalBytes_7, out ret);
-            /*3396*/
+            /*3228*/
             var ret_result = ret.I64;
-            /*3397*/
+            /*3229*/
             return ret_result;
-            /*3398*/
+            /*3230*/
         }
+
+        // gen! int64 GetReceivedBytes()
         /// <summary>
         /// Returns the number of received bytes.
         /// /*cef()*/
         /// </summary>
-        /*3399*/
+        /*3231*/
 
-
-        // gen! int64 GetReceivedBytes()
-        /*3400*/
-
-        public long GetReceivedBytes()/*3401*/
+        public long GetReceivedBytes()/*3232*/
         {
             JsValue ret;
-            /*3402*/
+            /*3233*/
 
             Cef3Binder.MyCefMet_Call0(this.nativePtr, CefDownloadItem_GetReceivedBytes_8, out ret);
-            /*3403*/
+            /*3234*/
             var ret_result = ret.I64;
-            /*3404*/
+            /*3235*/
             return ret_result;
-            /*3405*/
+            /*3236*/
         }
+
+        // gen! CefTime GetStartTime()
         /// <summary>
         /// Returns the time that the download started.
         /// /*cef()*/
         /// </summary>
-        /*3406*/
+        /*3237*/
 
-
-        // gen! CefTime GetStartTime()
-        /*3407*/
-
-        public CefTime GetStartTime()/*3408*/
+        public CefTime GetStartTime()/*3238*/
         {
             JsValue ret;
-            /*3409*/
+            /*3239*/
 
             Cef3Binder.MyCefMet_Call0(this.nativePtr, CefDownloadItem_GetStartTime_9, out ret);
-            /*3410*/
+            /*3240*/
             var ret_result = new CefTime(ret.Ptr);
 
-            /*3411*/
+            /*3241*/
             return ret_result;
-            /*3412*/
+            /*3242*/
         }
+
+        // gen! CefTime GetEndTime()
         /// <summary>
         /// Returns the time that the download ended.
         /// /*cef()*/
         /// </summary>
-        /*3413*/
+        /*3243*/
 
-
-        // gen! CefTime GetEndTime()
-        /*3414*/
-
-        public CefTime GetEndTime()/*3415*/
+        public CefTime GetEndTime()/*3244*/
         {
             JsValue ret;
-            /*3416*/
+            /*3245*/
 
             Cef3Binder.MyCefMet_Call0(this.nativePtr, CefDownloadItem_GetEndTime_10, out ret);
-            /*3417*/
+            /*3246*/
             var ret_result = new CefTime(ret.Ptr);
 
-            /*3418*/
+            /*3247*/
             return ret_result;
-            /*3419*/
+            /*3248*/
         }
+
+        // gen! CefString GetFullPath()
         /// <summary>
         /// Returns the full path to the downloaded or downloading file.
         /// /*cef()*/
         /// </summary>
-        /*3420*/
+        /*3249*/
 
-
-        // gen! CefString GetFullPath()
-        /*3421*/
-
-        public string GetFullPath()/*3422*/
+        public string GetFullPath()/*3250*/
         {
             JsValue ret;
-            /*3423*/
+            /*3251*/
 
             Cef3Binder.MyCefMet_Call0(this.nativePtr, CefDownloadItem_GetFullPath_11, out ret);
-            /*3424*/
+            /*3252*/
             var ret_result = Cef3Binder.CopyStringAndDestroyNativeSide(ref ret);
-            /*3425*/
+            /*3253*/
             return ret_result;
-            /*3426*/
+            /*3254*/
         }
+
+        // gen! uint32 GetId()
         /// <summary>
         /// Returns the unique identifier for this download.
         /// /*cef()*/
         /// </summary>
-        /*3427*/
+        /*3255*/
 
-
-        // gen! uint32 GetId()
-        /*3428*/
-
-        public uint GetId()/*3429*/
+        public uint GetId()/*3256*/
         {
             JsValue ret;
-            /*3430*/
+            /*3257*/
 
             Cef3Binder.MyCefMet_Call0(this.nativePtr, CefDownloadItem_GetId_12, out ret);
-            /*3431*/
+            /*3258*/
             var ret_result = (uint)ret.I32;
-            /*3432*/
+            /*3259*/
             return ret_result;
-            /*3433*/
+            /*3260*/
         }
+
+        // gen! CefString GetURL()
         /// <summary>
         /// Returns the URL.
         /// /*cef()*/
         /// </summary>
-        /*3434*/
+        /*3261*/
 
-
-        // gen! CefString GetURL()
-        /*3435*/
-
-        public string GetURL()/*3436*/
+        public string GetURL()/*3262*/
         {
             JsValue ret;
-            /*3437*/
+            /*3263*/
 
             Cef3Binder.MyCefMet_Call0(this.nativePtr, CefDownloadItem_GetURL_13, out ret);
-            /*3438*/
+            /*3264*/
             var ret_result = Cef3Binder.CopyStringAndDestroyNativeSide(ref ret);
-            /*3439*/
+            /*3265*/
             return ret_result;
-            /*3440*/
+            /*3266*/
         }
+
+        // gen! CefString GetOriginalUrl()
         /// <summary>
         /// Returns the original URL before any redirections.
         /// /*cef()*/
         /// </summary>
-        /*3441*/
+        /*3267*/
 
-
-        // gen! CefString GetOriginalUrl()
-        /*3442*/
-
-        public string GetOriginalUrl()/*3443*/
+        public string GetOriginalUrl()/*3268*/
         {
             JsValue ret;
-            /*3444*/
+            /*3269*/
 
             Cef3Binder.MyCefMet_Call0(this.nativePtr, CefDownloadItem_GetOriginalUrl_14, out ret);
-            /*3445*/
+            /*3270*/
             var ret_result = Cef3Binder.CopyStringAndDestroyNativeSide(ref ret);
-            /*3446*/
+            /*3271*/
             return ret_result;
-            /*3447*/
+            /*3272*/
         }
+
+        // gen! CefString GetSuggestedFileName()
         /// <summary>
         /// Returns the suggested file name.
         /// /*cef()*/
         /// </summary>
-        /*3448*/
+        /*3273*/
 
-
-        // gen! CefString GetSuggestedFileName()
-        /*3449*/
-
-        public string GetSuggestedFileName()/*3450*/
+        public string GetSuggestedFileName()/*3274*/
         {
             JsValue ret;
-            /*3451*/
+            /*3275*/
 
             Cef3Binder.MyCefMet_Call0(this.nativePtr, CefDownloadItem_GetSuggestedFileName_15, out ret);
-            /*3452*/
+            /*3276*/
             var ret_result = Cef3Binder.CopyStringAndDestroyNativeSide(ref ret);
-            /*3453*/
+            /*3277*/
             return ret_result;
-            /*3454*/
+            /*3278*/
         }
+
+        // gen! CefString GetContentDisposition()
         /// <summary>
         /// Returns the content disposition.
         /// /*cef()*/
         /// </summary>
-        /*3455*/
+        /*3279*/
 
-
-        // gen! CefString GetContentDisposition()
-        /*3456*/
-
-        public string GetContentDisposition()/*3457*/
+        public string GetContentDisposition()/*3280*/
         {
             JsValue ret;
-            /*3458*/
+            /*3281*/
 
             Cef3Binder.MyCefMet_Call0(this.nativePtr, CefDownloadItem_GetContentDisposition_16, out ret);
-            /*3459*/
+            /*3282*/
             var ret_result = Cef3Binder.CopyStringAndDestroyNativeSide(ref ret);
-            /*3460*/
+            /*3283*/
             return ret_result;
-            /*3461*/
+            /*3284*/
         }
+
+        // gen! CefString GetMimeType()
         /// <summary>
         /// Returns the mime type.
         /// /*cef()*/
         /// </summary>
-        /*3462*/
+        /*3285*/
 
-
-        // gen! CefString GetMimeType()
-        /*3463*/
-
-        public string GetMimeType()/*3464*/
+        public string GetMimeType()/*3286*/
         {
             JsValue ret;
-            /*3465*/
+            /*3287*/
 
             Cef3Binder.MyCefMet_Call0(this.nativePtr, CefDownloadItem_GetMimeType_17, out ret);
-            /*3466*/
+            /*3288*/
             var ret_result = Cef3Binder.CopyStringAndDestroyNativeSide(ref ret);
-            /*3467*/
+            /*3289*/
             return ret_result;
-            /*3468*/
+            /*3290*/
         }
-        /*3469*/
+        /*3291*/
     }
 
 
@@ -7532,345 +7176,323 @@ namespace LayoutFarm.CefBridge.Auto
     /// on any thread.
     /// /*(source=library)*/
     /// </summary>
-    /*3603*/
+    /*3425*/
     public struct CefDragData
     {
-        /*3604*/
+        /*3426*/
         const int _typeNAME = 14;
-        /*3605*/
+        /*3427*/
         const int CefDragData_Release_0 = (_typeNAME << 16) | 0;
-        /*3606*/
+        /*3428*/
         const int CefDragData_Clone_1 = (_typeNAME << 16) | 1;
-        /*3607*/
+        /*3429*/
         const int CefDragData_IsReadOnly_2 = (_typeNAME << 16) | 2;
-        /*3608*/
+        /*3430*/
         const int CefDragData_IsLink_3 = (_typeNAME << 16) | 3;
-        /*3609*/
+        /*3431*/
         const int CefDragData_IsFragment_4 = (_typeNAME << 16) | 4;
-        /*3610*/
+        /*3432*/
         const int CefDragData_IsFile_5 = (_typeNAME << 16) | 5;
-        /*3611*/
+        /*3433*/
         const int CefDragData_GetLinkURL_6 = (_typeNAME << 16) | 6;
-        /*3612*/
+        /*3434*/
         const int CefDragData_GetLinkTitle_7 = (_typeNAME << 16) | 7;
-        /*3613*/
+        /*3435*/
         const int CefDragData_GetLinkMetadata_8 = (_typeNAME << 16) | 8;
-        /*3614*/
+        /*3436*/
         const int CefDragData_GetFragmentText_9 = (_typeNAME << 16) | 9;
-        /*3615*/
+        /*3437*/
         const int CefDragData_GetFragmentHtml_10 = (_typeNAME << 16) | 10;
-        /*3616*/
+        /*3438*/
         const int CefDragData_GetFragmentBaseURL_11 = (_typeNAME << 16) | 11;
-        /*3617*/
+        /*3439*/
         const int CefDragData_GetFileName_12 = (_typeNAME << 16) | 12;
-        /*3618*/
+        /*3440*/
         const int CefDragData_GetFileContents_13 = (_typeNAME << 16) | 13;
-        /*3619*/
+        /*3441*/
         const int CefDragData_GetFileNames_14 = (_typeNAME << 16) | 14;
-        /*3620*/
+        /*3442*/
         const int CefDragData_SetLinkURL_15 = (_typeNAME << 16) | 15;
-        /*3621*/
+        /*3443*/
         const int CefDragData_SetLinkTitle_16 = (_typeNAME << 16) | 16;
-        /*3622*/
+        /*3444*/
         const int CefDragData_SetLinkMetadata_17 = (_typeNAME << 16) | 17;
-        /*3623*/
+        /*3445*/
         const int CefDragData_SetFragmentText_18 = (_typeNAME << 16) | 18;
-        /*3624*/
+        /*3446*/
         const int CefDragData_SetFragmentHtml_19 = (_typeNAME << 16) | 19;
-        /*3625*/
+        /*3447*/
         const int CefDragData_SetFragmentBaseURL_20 = (_typeNAME << 16) | 20;
-        /*3626*/
+        /*3448*/
         const int CefDragData_ResetFileContents_21 = (_typeNAME << 16) | 21;
-        /*3627*/
+        /*3449*/
         const int CefDragData_AddFile_22 = (_typeNAME << 16) | 22;
-        /*3628*/
+        /*3450*/
         const int CefDragData_GetImage_23 = (_typeNAME << 16) | 23;
-        /*3629*/
+        /*3451*/
         const int CefDragData_GetImageHotspot_24 = (_typeNAME << 16) | 24;
-        /*3630*/
+        /*3452*/
         const int CefDragData_HasImage_25 = (_typeNAME << 16) | 25;
-        /*3631*/
+        /*3453*/
         internal readonly IntPtr nativePtr;
-        /*3632*/
+        /*3454*/
         internal CefDragData(IntPtr nativePtr)
         {
-            /*3633*/
+            /*3455*/
             this.nativePtr = nativePtr;
-            /*3634*/
+            /*3456*/
         }
-        /*3635*/
+        /*3457*/
         public void Release()
         {
-            /*3636*/
+            /*3458*/
             JsValue ret;
-            /*3637*/
+            /*3459*/
             Cef3Binder.MyCefMet_Call0(this.nativePtr, CefDragData_Release_0, out ret);
-            /*3638*/
+            /*3460*/
         }
+
+        // gen! CefRefPtr<CefDragData> Clone()
         /// <summary>
         /// CefDragData methods.
         /// </summary>
-        /*3639*/
+        /*3461*/
 
-
-        // gen! CefRefPtr<CefDragData> Clone()
-        /*3640*/
-
-        public CefDragData Clone()/*3641*/
+        public CefDragData Clone()/*3462*/
         {
             JsValue ret;
-            /*3642*/
+            /*3463*/
 
             Cef3Binder.MyCefMet_Call0(this.nativePtr, CefDragData_Clone_1, out ret);
-            /*3643*/
+            /*3464*/
             var ret_result = new CefDragData(ret.Ptr);
-            /*3644*/
+            /*3465*/
             return ret_result;
-            /*3645*/
+            /*3466*/
         }
+
+        // gen! bool IsReadOnly()
         /// <summary>
         /// Returns true if this object is read-only.
         /// /*cef()*/
         /// </summary>
-        /*3646*/
+        /*3467*/
 
-
-        // gen! bool IsReadOnly()
-        /*3647*/
-
-        public bool IsReadOnly()/*3648*/
+        public bool IsReadOnly()/*3468*/
         {
             JsValue ret;
-            /*3649*/
+            /*3469*/
 
             Cef3Binder.MyCefMet_Call0(this.nativePtr, CefDragData_IsReadOnly_2, out ret);
-            /*3650*/
+            /*3470*/
             var ret_result = ret.I32 != 0;
-            /*3651*/
+            /*3471*/
             return ret_result;
-            /*3652*/
+            /*3472*/
         }
+
+        // gen! bool IsLink()
         /// <summary>
         /// Returns true if the drag data is a link.
         /// /*cef()*/
         /// </summary>
-        /*3653*/
+        /*3473*/
 
-
-        // gen! bool IsLink()
-        /*3654*/
-
-        public bool IsLink()/*3655*/
+        public bool IsLink()/*3474*/
         {
             JsValue ret;
-            /*3656*/
+            /*3475*/
 
             Cef3Binder.MyCefMet_Call0(this.nativePtr, CefDragData_IsLink_3, out ret);
-            /*3657*/
+            /*3476*/
             var ret_result = ret.I32 != 0;
-            /*3658*/
+            /*3477*/
             return ret_result;
-            /*3659*/
+            /*3478*/
         }
+
+        // gen! bool IsFragment()
         /// <summary>
         /// Returns true if the drag data is a text or html fragment.
         /// /*cef()*/
         /// </summary>
-        /*3660*/
+        /*3479*/
 
-
-        // gen! bool IsFragment()
-        /*3661*/
-
-        public bool IsFragment()/*3662*/
+        public bool IsFragment()/*3480*/
         {
             JsValue ret;
-            /*3663*/
+            /*3481*/
 
             Cef3Binder.MyCefMet_Call0(this.nativePtr, CefDragData_IsFragment_4, out ret);
-            /*3664*/
+            /*3482*/
             var ret_result = ret.I32 != 0;
-            /*3665*/
+            /*3483*/
             return ret_result;
-            /*3666*/
+            /*3484*/
         }
+
+        // gen! bool IsFile()
         /// <summary>
         /// Returns true if the drag data is a file.
         /// /*cef()*/
         /// </summary>
-        /*3667*/
+        /*3485*/
 
-
-        // gen! bool IsFile()
-        /*3668*/
-
-        public bool IsFile()/*3669*/
+        public bool IsFile()/*3486*/
         {
             JsValue ret;
-            /*3670*/
+            /*3487*/
 
             Cef3Binder.MyCefMet_Call0(this.nativePtr, CefDragData_IsFile_5, out ret);
-            /*3671*/
+            /*3488*/
             var ret_result = ret.I32 != 0;
-            /*3672*/
+            /*3489*/
             return ret_result;
-            /*3673*/
+            /*3490*/
         }
+
+        // gen! CefString GetLinkURL()
         /// <summary>
         /// Return the link URL that is being dragged.
         /// /*cef()*/
         /// </summary>
-        /*3674*/
+        /*3491*/
 
-
-        // gen! CefString GetLinkURL()
-        /*3675*/
-
-        public string GetLinkURL()/*3676*/
+        public string GetLinkURL()/*3492*/
         {
             JsValue ret;
-            /*3677*/
+            /*3493*/
 
             Cef3Binder.MyCefMet_Call0(this.nativePtr, CefDragData_GetLinkURL_6, out ret);
-            /*3678*/
+            /*3494*/
             var ret_result = Cef3Binder.CopyStringAndDestroyNativeSide(ref ret);
-            /*3679*/
+            /*3495*/
             return ret_result;
-            /*3680*/
+            /*3496*/
         }
+
+        // gen! CefString GetLinkTitle()
         /// <summary>
         /// Return the title associated with the link being dragged.
         /// /*cef()*/
         /// </summary>
-        /*3681*/
+        /*3497*/
 
-
-        // gen! CefString GetLinkTitle()
-        /*3682*/
-
-        public string GetLinkTitle()/*3683*/
+        public string GetLinkTitle()/*3498*/
         {
             JsValue ret;
-            /*3684*/
+            /*3499*/
 
             Cef3Binder.MyCefMet_Call0(this.nativePtr, CefDragData_GetLinkTitle_7, out ret);
-            /*3685*/
+            /*3500*/
             var ret_result = Cef3Binder.CopyStringAndDestroyNativeSide(ref ret);
-            /*3686*/
+            /*3501*/
             return ret_result;
-            /*3687*/
+            /*3502*/
         }
+
+        // gen! CefString GetLinkMetadata()
         /// <summary>
         /// Return the metadata, if any, associated with the link being dragged.
         /// /*cef()*/
         /// </summary>
-        /*3688*/
+        /*3503*/
 
-
-        // gen! CefString GetLinkMetadata()
-        /*3689*/
-
-        public string GetLinkMetadata()/*3690*/
+        public string GetLinkMetadata()/*3504*/
         {
             JsValue ret;
-            /*3691*/
+            /*3505*/
 
             Cef3Binder.MyCefMet_Call0(this.nativePtr, CefDragData_GetLinkMetadata_8, out ret);
-            /*3692*/
+            /*3506*/
             var ret_result = Cef3Binder.CopyStringAndDestroyNativeSide(ref ret);
-            /*3693*/
+            /*3507*/
             return ret_result;
-            /*3694*/
+            /*3508*/
         }
+
+        // gen! CefString GetFragmentText()
         /// <summary>
         /// Return the plain text fragment that is being dragged.
         /// /*cef()*/
         /// </summary>
-        /*3695*/
+        /*3509*/
 
-
-        // gen! CefString GetFragmentText()
-        /*3696*/
-
-        public string GetFragmentText()/*3697*/
+        public string GetFragmentText()/*3510*/
         {
             JsValue ret;
-            /*3698*/
+            /*3511*/
 
             Cef3Binder.MyCefMet_Call0(this.nativePtr, CefDragData_GetFragmentText_9, out ret);
-            /*3699*/
+            /*3512*/
             var ret_result = Cef3Binder.CopyStringAndDestroyNativeSide(ref ret);
-            /*3700*/
+            /*3513*/
             return ret_result;
-            /*3701*/
+            /*3514*/
         }
+
+        // gen! CefString GetFragmentHtml()
         /// <summary>
         /// Return the text/html fragment that is being dragged.
         /// /*cef()*/
         /// </summary>
-        /*3702*/
+        /*3515*/
 
-
-        // gen! CefString GetFragmentHtml()
-        /*3703*/
-
-        public string GetFragmentHtml()/*3704*/
+        public string GetFragmentHtml()/*3516*/
         {
             JsValue ret;
-            /*3705*/
+            /*3517*/
 
             Cef3Binder.MyCefMet_Call0(this.nativePtr, CefDragData_GetFragmentHtml_10, out ret);
-            /*3706*/
+            /*3518*/
             var ret_result = Cef3Binder.CopyStringAndDestroyNativeSide(ref ret);
-            /*3707*/
+            /*3519*/
             return ret_result;
-            /*3708*/
+            /*3520*/
         }
+
+        // gen! CefString GetFragmentBaseURL()
         /// <summary>
         /// Return the base URL that the fragment came from. This value is used for
         /// resolving relative URLs and may be empty.
         /// /*cef()*/
         /// </summary>
-        /*3709*/
+        /*3521*/
 
-
-        // gen! CefString GetFragmentBaseURL()
-        /*3710*/
-
-        public string GetFragmentBaseURL()/*3711*/
+        public string GetFragmentBaseURL()/*3522*/
         {
             JsValue ret;
-            /*3712*/
+            /*3523*/
 
             Cef3Binder.MyCefMet_Call0(this.nativePtr, CefDragData_GetFragmentBaseURL_11, out ret);
-            /*3713*/
+            /*3524*/
             var ret_result = Cef3Binder.CopyStringAndDestroyNativeSide(ref ret);
-            /*3714*/
+            /*3525*/
             return ret_result;
-            /*3715*/
+            /*3526*/
         }
+
+        // gen! CefString GetFileName()
         /// <summary>
         /// Return the name of the file being dragged out of the browser window.
         /// /*cef()*/
         /// </summary>
-        /*3716*/
+        /*3527*/
 
-
-        // gen! CefString GetFileName()
-        /*3717*/
-
-        public string GetFileName()/*3718*/
+        public string GetFileName()/*3528*/
         {
             JsValue ret;
-            /*3719*/
+            /*3529*/
 
             Cef3Binder.MyCefMet_Call0(this.nativePtr, CefDragData_GetFileName_12, out ret);
-            /*3720*/
+            /*3530*/
             var ret_result = Cef3Binder.CopyStringAndDestroyNativeSide(ref ret);
-            /*3721*/
+            /*3531*/
             return ret_result;
-            /*3722*/
+            /*3532*/
         }
+
+        // gen! size_t GetFileContents(CefRefPtr<CefStreamWriter> writer)
         /// <summary>
         /// Write the contents of the file being dragged out of the web view into
         /// |writer|. Returns the number of bytes sent to |writer|. If |writer| is
@@ -7878,348 +7500,320 @@ namespace LayoutFarm.CefBridge.Auto
         /// Call GetFileName() to get a suggested name for the file.
         /// /*cef(optional_param=writer)*/
         /// </summary>
-        /*3723*/
+        /*3533*/
 
-
-        // gen! size_t GetFileContents(CefRefPtr<CefStreamWriter> writer)
-        /*3724*/
-
-        public uint GetFileContents(CefStreamWriter /*3725*/
+        public uint GetFileContents(CefStreamWriter /*3534*/
         writer
-        )/*3726*/
+        )/*3535*/
         {
             JsValue v1 = new JsValue();
             JsValue ret;
-            /*3727*/
+            /*3536*/
 
             Cef3Binder.MyCefMet_Call1(this.nativePtr, CefDragData_GetFileContents_13, out ret, ref v1);
-            /*3728*/
+            /*3537*/
             var ret_result = (uint)ret.I32;
-            /*3729*/
+            /*3538*/
             return ret_result;
-            /*3730*/
+            /*3539*/
         }
+
+        // gen! bool GetFileNames(std::vector<CefString>& names)
         /// <summary>
         /// Retrieve the list of file names that are being dragged into the browser
         /// window.
         /// /*cef()*/
         /// </summary>
-        /*3731*/
+        /*3540*/
 
-
-        // gen! bool GetFileNames(std::vector<CefString>& names)
-        /*3732*/
-
-        public bool GetFileNames(List<string> /*3733*/
+        public bool GetFileNames(List<string> /*3541*/
         names
-        )/*3734*/
+        )/*3542*/
         {
             JsValue v1 = new JsValue();
             JsValue ret;
-            /*3735*/
+            /*3543*/
 
             Cef3Binder.MyCefMet_Call1(this.nativePtr, CefDragData_GetFileNames_14, out ret, ref v1);
-            /*3736*/
+            /*3544*/
             var ret_result = ret.I32 != 0;
-            /*3737*/
+            /*3545*/
             return ret_result;
-            /*3738*/
+            /*3546*/
         }
+
+        // gen! void SetLinkURL(const CefString& url)
         /// <summary>
         /// Set the link URL that is being dragged.
         /// /*cef(optional_param=url)*/
         /// </summary>
-        /*3739*/
+        /*3547*/
 
-
-        // gen! void SetLinkURL(const CefString& url)
-        /*3740*/
-
-        public void SetLinkURL(string /*3741*/
+        public void SetLinkURL(string /*3548*/
         url
-        )/*3742*/
+        )/*3549*/
         {
             JsValue v1 = new JsValue();
             JsValue ret;
             v1.Ptr = Cef3Binder.MyCefCreateCefString(url);
-            /*3743*/
+            /*3550*/
             ;
-            /*3744*/
+            /*3551*/
 
             Cef3Binder.MyCefMet_Call1(this.nativePtr, CefDragData_SetLinkURL_15, out ret, ref v1);
-            /*3745*/
+            /*3552*/
 
-            Cef3Binder.MyCefDeletePtr(v1.Ptr);/*3746*/
+            Cef3Binder.MyCefDeletePtr(v1.Ptr);/*3553*/
             ;
-            /*3747*/
+            /*3554*/
         }
+
+        // gen! void SetLinkTitle(const CefString& title)
         /// <summary>
         /// Set the title associated with the link being dragged.
         /// /*cef(optional_param=title)*/
         /// </summary>
-        /*3748*/
+        /*3555*/
 
-
-        // gen! void SetLinkTitle(const CefString& title)
-        /*3749*/
-
-        public void SetLinkTitle(string /*3750*/
+        public void SetLinkTitle(string /*3556*/
         title
-        )/*3751*/
+        )/*3557*/
         {
             JsValue v1 = new JsValue();
             JsValue ret;
             v1.Ptr = Cef3Binder.MyCefCreateCefString(title);
-            /*3752*/
+            /*3558*/
             ;
-            /*3753*/
+            /*3559*/
 
             Cef3Binder.MyCefMet_Call1(this.nativePtr, CefDragData_SetLinkTitle_16, out ret, ref v1);
-            /*3754*/
+            /*3560*/
 
-            Cef3Binder.MyCefDeletePtr(v1.Ptr);/*3755*/
+            Cef3Binder.MyCefDeletePtr(v1.Ptr);/*3561*/
             ;
-            /*3756*/
+            /*3562*/
         }
+
+        // gen! void SetLinkMetadata(const CefString& data)
         /// <summary>
         /// Set the metadata associated with the link being dragged.
         /// /*cef(optional_param=data)*/
         /// </summary>
-        /*3757*/
+        /*3563*/
 
-
-        // gen! void SetLinkMetadata(const CefString& data)
-        /*3758*/
-
-        public void SetLinkMetadata(string /*3759*/
+        public void SetLinkMetadata(string /*3564*/
         data
-        )/*3760*/
+        )/*3565*/
         {
             JsValue v1 = new JsValue();
             JsValue ret;
             v1.Ptr = Cef3Binder.MyCefCreateCefString(data);
-            /*3761*/
+            /*3566*/
             ;
-            /*3762*/
+            /*3567*/
 
             Cef3Binder.MyCefMet_Call1(this.nativePtr, CefDragData_SetLinkMetadata_17, out ret, ref v1);
-            /*3763*/
+            /*3568*/
 
-            Cef3Binder.MyCefDeletePtr(v1.Ptr);/*3764*/
+            Cef3Binder.MyCefDeletePtr(v1.Ptr);/*3569*/
             ;
-            /*3765*/
+            /*3570*/
         }
+
+        // gen! void SetFragmentText(const CefString& text)
         /// <summary>
         /// Set the plain text fragment that is being dragged.
         /// /*cef(optional_param=text)*/
         /// </summary>
-        /*3766*/
+        /*3571*/
 
-
-        // gen! void SetFragmentText(const CefString& text)
-        /*3767*/
-
-        public void SetFragmentText(string /*3768*/
+        public void SetFragmentText(string /*3572*/
         text
-        )/*3769*/
+        )/*3573*/
         {
             JsValue v1 = new JsValue();
             JsValue ret;
             v1.Ptr = Cef3Binder.MyCefCreateCefString(text);
-            /*3770*/
+            /*3574*/
             ;
-            /*3771*/
+            /*3575*/
 
             Cef3Binder.MyCefMet_Call1(this.nativePtr, CefDragData_SetFragmentText_18, out ret, ref v1);
-            /*3772*/
+            /*3576*/
 
-            Cef3Binder.MyCefDeletePtr(v1.Ptr);/*3773*/
+            Cef3Binder.MyCefDeletePtr(v1.Ptr);/*3577*/
             ;
-            /*3774*/
+            /*3578*/
         }
+
+        // gen! void SetFragmentHtml(const CefString& html)
         /// <summary>
         /// Set the text/html fragment that is being dragged.
         /// /*cef(optional_param=html)*/
         /// </summary>
-        /*3775*/
+        /*3579*/
 
-
-        // gen! void SetFragmentHtml(const CefString& html)
-        /*3776*/
-
-        public void SetFragmentHtml(string /*3777*/
+        public void SetFragmentHtml(string /*3580*/
         html
-        )/*3778*/
+        )/*3581*/
         {
             JsValue v1 = new JsValue();
             JsValue ret;
             v1.Ptr = Cef3Binder.MyCefCreateCefString(html);
-            /*3779*/
+            /*3582*/
             ;
-            /*3780*/
+            /*3583*/
 
             Cef3Binder.MyCefMet_Call1(this.nativePtr, CefDragData_SetFragmentHtml_19, out ret, ref v1);
-            /*3781*/
+            /*3584*/
 
-            Cef3Binder.MyCefDeletePtr(v1.Ptr);/*3782*/
+            Cef3Binder.MyCefDeletePtr(v1.Ptr);/*3585*/
             ;
-            /*3783*/
+            /*3586*/
         }
+
+        // gen! void SetFragmentBaseURL(const CefString& base_url)
         /// <summary>
         /// Set the base URL that the fragment came from.
         /// /*cef(optional_param=base_url)*/
         /// </summary>
-        /*3784*/
+        /*3587*/
 
-
-        // gen! void SetFragmentBaseURL(const CefString& base_url)
-        /*3785*/
-
-        public void SetFragmentBaseURL(string /*3786*/
+        public void SetFragmentBaseURL(string /*3588*/
         base_url
-        )/*3787*/
+        )/*3589*/
         {
             JsValue v1 = new JsValue();
             JsValue ret;
             v1.Ptr = Cef3Binder.MyCefCreateCefString(base_url);
-            /*3788*/
+            /*3590*/
             ;
-            /*3789*/
+            /*3591*/
 
             Cef3Binder.MyCefMet_Call1(this.nativePtr, CefDragData_SetFragmentBaseURL_20, out ret, ref v1);
-            /*3790*/
+            /*3592*/
 
-            Cef3Binder.MyCefDeletePtr(v1.Ptr);/*3791*/
+            Cef3Binder.MyCefDeletePtr(v1.Ptr);/*3593*/
             ;
-            /*3792*/
+            /*3594*/
         }
+
+        // gen! void ResetFileContents()
         /// <summary>
         /// Reset the file contents. You should do this before calling
         /// CefBrowserHost::DragTargetDragEnter as the web view does not allow us to
         /// drag in this kind of data.
         /// /*cef()*/
         /// </summary>
-        /*3793*/
+        /*3595*/
 
-
-        // gen! void ResetFileContents()
-        /*3794*/
-
-        public void ResetFileContents()/*3795*/
+        public void ResetFileContents()/*3596*/
         {
             JsValue ret;
-            /*3796*/
+            /*3597*/
 
             Cef3Binder.MyCefMet_Call0(this.nativePtr, CefDragData_ResetFileContents_21, out ret);
-            /*3797*/
+            /*3598*/
 
-            /*3798*/
+            /*3599*/
         }
+
+        // gen! void AddFile(const CefString& path,const CefString& display_name)
         /// <summary>
         /// Add a file that is being dragged into the webview.
         /// /*cef(optional_param=display_name)*/
         /// </summary>
-        /*3799*/
+        /*3600*/
 
-
-        // gen! void AddFile(const CefString& path,const CefString& display_name)
-        /*3800*/
-
-        public void AddFile(string /*3801*/
+        public void AddFile(string /*3601*/
         path
-        , string /*3802*/
+        , string /*3602*/
         display_name
-        )/*3803*/
+        )/*3603*/
         {
             JsValue v1 = new JsValue();
             JsValue v2 = new JsValue();
             JsValue ret;
             v1.Ptr = Cef3Binder.MyCefCreateCefString(path);
-            /*3804*/
+            /*3604*/
             ;
             v2.Ptr = Cef3Binder.MyCefCreateCefString(display_name);
-            /*3805*/
+            /*3605*/
             ;
-            /*3806*/
+            /*3606*/
 
             Cef3Binder.MyCefMet_Call2(this.nativePtr, CefDragData_AddFile_22, out ret, ref v1, ref v2);
-            /*3807*/
+            /*3607*/
 
-            Cef3Binder.MyCefDeletePtr(v1.Ptr);/*3808*/
+            Cef3Binder.MyCefDeletePtr(v1.Ptr);/*3608*/
             ;
-            Cef3Binder.MyCefDeletePtr(v2.Ptr);/*3809*/
+            Cef3Binder.MyCefDeletePtr(v2.Ptr);/*3609*/
             ;
-            /*3810*/
+            /*3610*/
         }
+
+        // gen! CefRefPtr<CefImage> GetImage()
         /// <summary>
         /// Get the image representation of drag data. May return NULL if no image
         /// representation is available.
         /// /*cef()*/
         /// </summary>
-        /*3811*/
+        /*3611*/
 
-
-        // gen! CefRefPtr<CefImage> GetImage()
-        /*3812*/
-
-        public CefImage GetImage()/*3813*/
+        public CefImage GetImage()/*3612*/
         {
             JsValue ret;
-            /*3814*/
+            /*3613*/
 
             Cef3Binder.MyCefMet_Call0(this.nativePtr, CefDragData_GetImage_23, out ret);
-            /*3815*/
+            /*3614*/
             var ret_result = new CefImage(ret.Ptr);
-            /*3816*/
+            /*3615*/
             return ret_result;
-            /*3817*/
+            /*3616*/
         }
+
+        // gen! CefPoint GetImageHotspot()
         /// <summary>
         /// Get the image hotspot (drag start location relative to image dimensions).
         /// /*cef()*/
         /// </summary>
-        /*3818*/
+        /*3617*/
 
-
-        // gen! CefPoint GetImageHotspot()
-        /*3819*/
-
-        public CefPoint GetImageHotspot()/*3820*/
+        public CefPoint GetImageHotspot()/*3618*/
         {
             JsValue ret;
-            /*3821*/
+            /*3619*/
 
             Cef3Binder.MyCefMet_Call0(this.nativePtr, CefDragData_GetImageHotspot_24, out ret);
-            /*3822*/
+            /*3620*/
             var ret_result = new CefPoint(ret.Ptr);
 
-            /*3823*/
+            /*3621*/
             return ret_result;
-            /*3824*/
+            /*3622*/
         }
+
+        // gen! bool HasImage()
         /// <summary>
         /// Returns true if an image representation of drag data is available.
         /// /*cef()*/
         /// </summary>
-        /*3825*/
+        /*3623*/
 
-
-        // gen! bool HasImage()
-        /*3826*/
-
-        public bool HasImage()/*3827*/
+        public bool HasImage()/*3624*/
         {
             JsValue ret;
-            /*3828*/
+            /*3625*/
 
             Cef3Binder.MyCefMet_Call0(this.nativePtr, CefDragData_HasImage_25, out ret);
-            /*3829*/
+            /*3626*/
             var ret_result = ret.I32 != 0;
-            /*3830*/
+            /*3627*/
             return ret_result;
-            /*3831*/
+            /*3628*/
         }
-        /*3832*/
+        /*3629*/
     }
 
 
@@ -8231,399 +7825,373 @@ namespace LayoutFarm.CefBridge.Auto
     /// methods of this class may only be called on the main thread.
     /// /*(source=library)*/
     /// </summary>
-    /*3961*/
+    /*3758*/
     public struct CefFrame
     {
-        /*3962*/
+        /*3759*/
         const int _typeNAME = 15;
-        /*3963*/
+        /*3760*/
         const int CefFrame_Release_0 = (_typeNAME << 16) | 0;
-        /*3964*/
+        /*3761*/
         const int CefFrame_IsValid_1 = (_typeNAME << 16) | 1;
-        /*3965*/
+        /*3762*/
         const int CefFrame_Undo_2 = (_typeNAME << 16) | 2;
-        /*3966*/
+        /*3763*/
         const int CefFrame_Redo_3 = (_typeNAME << 16) | 3;
-        /*3967*/
+        /*3764*/
         const int CefFrame_Cut_4 = (_typeNAME << 16) | 4;
-        /*3968*/
+        /*3765*/
         const int CefFrame_Copy_5 = (_typeNAME << 16) | 5;
-        /*3969*/
+        /*3766*/
         const int CefFrame_Paste_6 = (_typeNAME << 16) | 6;
-        /*3970*/
+        /*3767*/
         const int CefFrame_Delete_7 = (_typeNAME << 16) | 7;
-        /*3971*/
+        /*3768*/
         const int CefFrame_SelectAll_8 = (_typeNAME << 16) | 8;
-        /*3972*/
+        /*3769*/
         const int CefFrame_ViewSource_9 = (_typeNAME << 16) | 9;
-        /*3973*/
+        /*3770*/
         const int CefFrame_GetSource_10 = (_typeNAME << 16) | 10;
-        /*3974*/
+        /*3771*/
         const int CefFrame_GetText_11 = (_typeNAME << 16) | 11;
-        /*3975*/
+        /*3772*/
         const int CefFrame_LoadRequest_12 = (_typeNAME << 16) | 12;
-        /*3976*/
+        /*3773*/
         const int CefFrame_LoadURL_13 = (_typeNAME << 16) | 13;
-        /*3977*/
+        /*3774*/
         const int CefFrame_LoadString_14 = (_typeNAME << 16) | 14;
-        /*3978*/
+        /*3775*/
         const int CefFrame_ExecuteJavaScript_15 = (_typeNAME << 16) | 15;
-        /*3979*/
+        /*3776*/
         const int CefFrame_IsMain_16 = (_typeNAME << 16) | 16;
-        /*3980*/
+        /*3777*/
         const int CefFrame_IsFocused_17 = (_typeNAME << 16) | 17;
-        /*3981*/
+        /*3778*/
         const int CefFrame_GetName_18 = (_typeNAME << 16) | 18;
-        /*3982*/
+        /*3779*/
         const int CefFrame_GetIdentifier_19 = (_typeNAME << 16) | 19;
-        /*3983*/
+        /*3780*/
         const int CefFrame_GetParent_20 = (_typeNAME << 16) | 20;
-        /*3984*/
+        /*3781*/
         const int CefFrame_GetURL_21 = (_typeNAME << 16) | 21;
-        /*3985*/
+        /*3782*/
         const int CefFrame_GetBrowser_22 = (_typeNAME << 16) | 22;
-        /*3986*/
+        /*3783*/
         const int CefFrame_GetV8Context_23 = (_typeNAME << 16) | 23;
-        /*3987*/
+        /*3784*/
         const int CefFrame_VisitDOM_24 = (_typeNAME << 16) | 24;
-        /*3988*/
+        /*3785*/
         internal readonly IntPtr nativePtr;
-        /*3989*/
+        /*3786*/
         internal CefFrame(IntPtr nativePtr)
         {
-            /*3990*/
+            /*3787*/
             this.nativePtr = nativePtr;
-            /*3991*/
+            /*3788*/
         }
-        /*3992*/
+        /*3789*/
         public void Release()
         {
-            /*3993*/
+            /*3790*/
             JsValue ret;
-            /*3994*/
+            /*3791*/
             Cef3Binder.MyCefMet_Call0(this.nativePtr, CefFrame_Release_0, out ret);
-            /*3995*/
+            /*3792*/
         }
+
+        // gen! bool IsValid()
         /// <summary>
         /// CefFrame methods.
         /// </summary>
-        /*3996*/
+        /*3793*/
 
-
-        // gen! bool IsValid()
-        /*3997*/
-
-        public bool IsValid()/*3998*/
+        public bool IsValid()/*3794*/
         {
             JsValue ret;
-            /*3999*/
+            /*3795*/
 
             Cef3Binder.MyCefMet_Call0(this.nativePtr, CefFrame_IsValid_1, out ret);
-            /*4000*/
+            /*3796*/
             var ret_result = ret.I32 != 0;
-            /*4001*/
+            /*3797*/
             return ret_result;
-            /*4002*/
+            /*3798*/
         }
+
+        // gen! void Undo()
         /// <summary>
         /// Execute undo in this frame.
         /// /*cef()*/
         /// </summary>
-        /*4003*/
+        /*3799*/
 
-
-        // gen! void Undo()
-        /*4004*/
-
-        public void Undo()/*4005*/
+        public void Undo()/*3800*/
         {
             JsValue ret;
-            /*4006*/
+            /*3801*/
 
             Cef3Binder.MyCefMet_Call0(this.nativePtr, CefFrame_Undo_2, out ret);
-            /*4007*/
+            /*3802*/
 
-            /*4008*/
+            /*3803*/
         }
+
+        // gen! void Redo()
         /// <summary>
         /// Execute redo in this frame.
         /// /*cef()*/
         /// </summary>
-        /*4009*/
+        /*3804*/
 
-
-        // gen! void Redo()
-        /*4010*/
-
-        public void Redo()/*4011*/
+        public void Redo()/*3805*/
         {
             JsValue ret;
-            /*4012*/
+            /*3806*/
 
             Cef3Binder.MyCefMet_Call0(this.nativePtr, CefFrame_Redo_3, out ret);
-            /*4013*/
+            /*3807*/
 
-            /*4014*/
+            /*3808*/
         }
+
+        // gen! void Cut()
         /// <summary>
         /// Execute cut in this frame.
         /// /*cef()*/
         /// </summary>
-        /*4015*/
+        /*3809*/
 
-
-        // gen! void Cut()
-        /*4016*/
-
-        public void Cut()/*4017*/
+        public void Cut()/*3810*/
         {
             JsValue ret;
-            /*4018*/
+            /*3811*/
 
             Cef3Binder.MyCefMet_Call0(this.nativePtr, CefFrame_Cut_4, out ret);
-            /*4019*/
+            /*3812*/
 
-            /*4020*/
+            /*3813*/
         }
+
+        // gen! void Copy()
         /// <summary>
         /// Execute copy in this frame.
         /// /*cef()*/
         /// </summary>
-        /*4021*/
+        /*3814*/
 
-
-        // gen! void Copy()
-        /*4022*/
-
-        public void Copy()/*4023*/
+        public void Copy()/*3815*/
         {
             JsValue ret;
-            /*4024*/
+            /*3816*/
 
             Cef3Binder.MyCefMet_Call0(this.nativePtr, CefFrame_Copy_5, out ret);
-            /*4025*/
+            /*3817*/
 
-            /*4026*/
+            /*3818*/
         }
+
+        // gen! void Paste()
         /// <summary>
         /// Execute paste in this frame.
         /// /*cef()*/
         /// </summary>
-        /*4027*/
+        /*3819*/
 
-
-        // gen! void Paste()
-        /*4028*/
-
-        public void Paste()/*4029*/
+        public void Paste()/*3820*/
         {
             JsValue ret;
-            /*4030*/
+            /*3821*/
 
             Cef3Binder.MyCefMet_Call0(this.nativePtr, CefFrame_Paste_6, out ret);
-            /*4031*/
+            /*3822*/
 
-            /*4032*/
+            /*3823*/
         }
+
+        // gen! void Delete()
         /// <summary>
         /// Execute delete in this frame.
         /// /*cef(capi_name=del)*/
         /// </summary>
-        /*4033*/
+        /*3824*/
 
-
-        // gen! void Delete()
-        /*4034*/
-
-        public void Delete()/*4035*/
+        public void Delete()/*3825*/
         {
             JsValue ret;
-            /*4036*/
+            /*3826*/
 
             Cef3Binder.MyCefMet_Call0(this.nativePtr, CefFrame_Delete_7, out ret);
-            /*4037*/
+            /*3827*/
 
-            /*4038*/
+            /*3828*/
         }
+
+        // gen! void SelectAll()
         /// <summary>
         /// Execute select all in this frame.
         /// /*cef()*/
         /// </summary>
-        /*4039*/
+        /*3829*/
 
-
-        // gen! void SelectAll()
-        /*4040*/
-
-        public void SelectAll()/*4041*/
+        public void SelectAll()/*3830*/
         {
             JsValue ret;
-            /*4042*/
+            /*3831*/
 
             Cef3Binder.MyCefMet_Call0(this.nativePtr, CefFrame_SelectAll_8, out ret);
-            /*4043*/
+            /*3832*/
 
-            /*4044*/
+            /*3833*/
         }
+
+        // gen! void ViewSource()
         /// <summary>
         /// Save this frame's HTML source to a temporary file and open it in the
         /// default text viewing application. This method can only be called from the
         /// browser process.
         /// /*cef()*/
         /// </summary>
-        /*4045*/
+        /*3834*/
 
-
-        // gen! void ViewSource()
-        /*4046*/
-
-        public void ViewSource()/*4047*/
+        public void ViewSource()/*3835*/
         {
             JsValue ret;
-            /*4048*/
+            /*3836*/
 
             Cef3Binder.MyCefMet_Call0(this.nativePtr, CefFrame_ViewSource_9, out ret);
-            /*4049*/
+            /*3837*/
 
-            /*4050*/
+            /*3838*/
         }
+
+        // gen! void GetSource(CefRefPtr<CefStringVisitor> visitor)
         /// <summary>
         /// Retrieve this frame's HTML source as a string sent to the specified
         /// visitor.
         /// /*cef()*/
         /// </summary>
-        /*4051*/
+        /*3839*/
 
-
-        // gen! void GetSource(CefRefPtr<CefStringVisitor> visitor)
-        /*4052*/
-
-        public void GetSource(CefStringVisitor /*4053*/
+        public void GetSource(CefStringVisitor /*3840*/
         visitor
-        )/*4054*/
+        )/*3841*/
         {
             JsValue v1 = new JsValue();
             JsValue ret;
-            /*4055*/
+            /*3842*/
 
             Cef3Binder.MyCefMet_Call1(this.nativePtr, CefFrame_GetSource_10, out ret, ref v1);
-            /*4056*/
+            /*3843*/
 
-            /*4057*/
+            /*3844*/
         }
+
+        // gen! void GetText(CefRefPtr<CefStringVisitor> visitor)
         /// <summary>
         /// Retrieve this frame's display text as a string sent to the specified
         /// visitor.
         /// /*cef()*/
         /// </summary>
-        /*4058*/
+        /*3845*/
 
-
-        // gen! void GetText(CefRefPtr<CefStringVisitor> visitor)
-        /*4059*/
-
-        public void GetText(CefStringVisitor /*4060*/
+        public void GetText(CefStringVisitor /*3846*/
         visitor
-        )/*4061*/
+        )/*3847*/
         {
             JsValue v1 = new JsValue();
             JsValue ret;
-            /*4062*/
+            /*3848*/
 
             Cef3Binder.MyCefMet_Call1(this.nativePtr, CefFrame_GetText_11, out ret, ref v1);
-            /*4063*/
+            /*3849*/
 
-            /*4064*/
+            /*3850*/
         }
+
+        // gen! void LoadRequest(CefRefPtr<CefRequest> request)
         /// <summary>
         /// Load the request represented by the |request| object.
         /// /*cef()*/
         /// </summary>
-        /*4065*/
+        /*3851*/
 
-
-        // gen! void LoadRequest(CefRefPtr<CefRequest> request)
-        /*4066*/
-
-        public void LoadRequest(CefRequest /*4067*/
+        public void LoadRequest(CefRequest /*3852*/
         request
-        )/*4068*/
+        )/*3853*/
         {
             JsValue v1 = new JsValue();
             JsValue ret;
-            /*4069*/
+            /*3854*/
 
             Cef3Binder.MyCefMet_Call1(this.nativePtr, CefFrame_LoadRequest_12, out ret, ref v1);
-            /*4070*/
+            /*3855*/
 
-            /*4071*/
+            /*3856*/
         }
+
+        // gen! void LoadURL(const CefString& url)
         /// <summary>
         /// Load the specified |url|.
         /// /*cef()*/
         /// </summary>
-        /*4072*/
+        /*3857*/
 
-
-        // gen! void LoadURL(const CefString& url)
-        /*4073*/
-
-        public void LoadURL(string /*4074*/
+        public void LoadURL(string /*3858*/
         url
-        )/*4075*/
+        )/*3859*/
         {
             JsValue v1 = new JsValue();
             JsValue ret;
             v1.Ptr = Cef3Binder.MyCefCreateCefString(url);
-            /*4076*/
+            /*3860*/
             ;
-            /*4077*/
+            /*3861*/
 
             Cef3Binder.MyCefMet_Call1(this.nativePtr, CefFrame_LoadURL_13, out ret, ref v1);
-            /*4078*/
+            /*3862*/
 
-            Cef3Binder.MyCefDeletePtr(v1.Ptr);/*4079*/
+            Cef3Binder.MyCefDeletePtr(v1.Ptr);/*3863*/
             ;
-            /*4080*/
+            /*3864*/
         }
+
+        // gen! void LoadString(const CefString& string_val,const CefString& url)
         /// <summary>
         /// Load the contents of |string_val| with the specified dummy |url|. |url|
         /// should have a standard scheme (for example, http scheme) or behaviors like
         /// link clicks and web security restrictions may not behave as expected.
         /// /*cef()*/
         /// </summary>
-        /*4081*/
+        /*3865*/
 
-
-        // gen! void LoadString(const CefString& string_val,const CefString& url)
-        /*4082*/
-
-        public void LoadString(string /*4083*/
+        public void LoadString(string /*3866*/
         string_val
-        , string /*4084*/
+        , string /*3867*/
         url
-        )/*4085*/
+        )/*3868*/
         {
             JsValue v1 = new JsValue();
             JsValue v2 = new JsValue();
             JsValue ret;
             v1.Ptr = Cef3Binder.MyCefCreateCefString(string_val);
-            /*4086*/
+            /*3869*/
             ;
             v2.Ptr = Cef3Binder.MyCefCreateCefString(url);
-            /*4087*/
+            /*3870*/
             ;
-            /*4088*/
+            /*3871*/
 
             Cef3Binder.MyCefMet_Call2(this.nativePtr, CefFrame_LoadString_14, out ret, ref v1, ref v2);
-            /*4089*/
+            /*3872*/
 
-            Cef3Binder.MyCefDeletePtr(v1.Ptr);/*4090*/
+            Cef3Binder.MyCefDeletePtr(v1.Ptr);/*3873*/
             ;
-            Cef3Binder.MyCefDeletePtr(v2.Ptr);/*4091*/
+            Cef3Binder.MyCefDeletePtr(v2.Ptr);/*3874*/
             ;
-            /*4092*/
+            /*3875*/
         }
+
+        // gen! void ExecuteJavaScript(const CefString& code,const CefString& script_url,int start_line)
         /// <summary>
         /// Execute a string of JavaScript code in this frame. The |script_url|
         /// parameter is the URL where the script in question can be found, if any.
@@ -8632,85 +8200,79 @@ namespace LayoutFarm.CefBridge.Auto
         /// reporting.
         /// /*cef(optional_param=script_url)*/
         /// </summary>
-        /*4093*/
+        /*3876*/
 
-
-        // gen! void ExecuteJavaScript(const CefString& code,const CefString& script_url,int start_line)
-        /*4094*/
-
-        public void ExecuteJavaScript(string /*4095*/
+        public void ExecuteJavaScript(string /*3877*/
         code
-        , string /*4096*/
+        , string /*3878*/
         script_url
-        , int /*4097*/
+        , int /*3879*/
         start_line
-        )/*4098*/
+        )/*3880*/
         {
             JsValue v1 = new JsValue();
             JsValue v2 = new JsValue();
             JsValue v3 = new JsValue();
             JsValue ret;
             v1.Ptr = Cef3Binder.MyCefCreateCefString(code);
-            /*4099*/
+            /*3881*/
             ;
             v2.Ptr = Cef3Binder.MyCefCreateCefString(script_url);
-            /*4100*/
+            /*3882*/
             ;
-            /*4101*/
+            /*3883*/
 
             Cef3Binder.MyCefMet_Call3(this.nativePtr, CefFrame_ExecuteJavaScript_15, out ret, ref v1, ref v2, ref v3);
-            /*4102*/
+            /*3884*/
 
-            Cef3Binder.MyCefDeletePtr(v1.Ptr);/*4103*/
+            Cef3Binder.MyCefDeletePtr(v1.Ptr);/*3885*/
             ;
-            Cef3Binder.MyCefDeletePtr(v2.Ptr);/*4104*/
+            Cef3Binder.MyCefDeletePtr(v2.Ptr);/*3886*/
             ;
-            /*4105*/
+            /*3887*/
         }
+
+        // gen! bool IsMain()
         /// <summary>
         /// Returns true if this is the main (top-level) frame.
         /// /*cef()*/
         /// </summary>
-        /*4106*/
+        /*3888*/
 
-
-        // gen! bool IsMain()
-        /*4107*/
-
-        public bool IsMain()/*4108*/
+        public bool IsMain()/*3889*/
         {
             JsValue ret;
-            /*4109*/
+            /*3890*/
 
             Cef3Binder.MyCefMet_Call0(this.nativePtr, CefFrame_IsMain_16, out ret);
-            /*4110*/
+            /*3891*/
             var ret_result = ret.I32 != 0;
-            /*4111*/
+            /*3892*/
             return ret_result;
-            /*4112*/
+            /*3893*/
         }
+
+        // gen! bool IsFocused()
         /// <summary>
         /// Returns true if this is the focused frame.
         /// /*cef()*/
         /// </summary>
-        /*4113*/
+        /*3894*/
 
-
-        // gen! bool IsFocused()
-        /*4114*/
-
-        public bool IsFocused()/*4115*/
+        public bool IsFocused()/*3895*/
         {
             JsValue ret;
-            /*4116*/
+            /*3896*/
 
             Cef3Binder.MyCefMet_Call0(this.nativePtr, CefFrame_IsFocused_17, out ret);
-            /*4117*/
+            /*3897*/
             var ret_result = ret.I32 != 0;
-            /*4118*/
+            /*3898*/
             return ret_result;
-            /*4119*/
+            /*3899*/
         }
+
+        // gen! CefString GetName()
         /// <summary>
         /// Returns the name for this frame. If the frame has an assigned name (for
         /// example, set via the iframe "name" attribute) then that value will be
@@ -8719,162 +8281,146 @@ namespace LayoutFarm.CefBridge.Auto
         /// value.
         /// /*cef()*/
         /// </summary>
-        /*4120*/
+        /*3900*/
 
-
-        // gen! CefString GetName()
-        /*4121*/
-
-        public string GetName()/*4122*/
+        public string GetName()/*3901*/
         {
             JsValue ret;
-            /*4123*/
+            /*3902*/
 
             Cef3Binder.MyCefMet_Call0(this.nativePtr, CefFrame_GetName_18, out ret);
-            /*4124*/
+            /*3903*/
             var ret_result = Cef3Binder.CopyStringAndDestroyNativeSide(ref ret);
-            /*4125*/
+            /*3904*/
             return ret_result;
-            /*4126*/
+            /*3905*/
         }
+
+        // gen! int64 GetIdentifier()
         /// <summary>
         /// Returns the globally unique identifier for this frame or < 0 if the
         /// underlying frame does not yet exist.
         /// /*cef()*/
         /// </summary>
-        /*4127*/
+        /*3906*/
 
-
-        // gen! int64 GetIdentifier()
-        /*4128*/
-
-        public long GetIdentifier()/*4129*/
+        public long GetIdentifier()/*3907*/
         {
             JsValue ret;
-            /*4130*/
+            /*3908*/
 
             Cef3Binder.MyCefMet_Call0(this.nativePtr, CefFrame_GetIdentifier_19, out ret);
-            /*4131*/
+            /*3909*/
             var ret_result = ret.I64;
-            /*4132*/
+            /*3910*/
             return ret_result;
-            /*4133*/
+            /*3911*/
         }
+
+        // gen! CefRefPtr<CefFrame> GetParent()
         /// <summary>
         /// Returns the parent of this frame or NULL if this is the main (top-level)
         /// frame.
         /// /*cef()*/
         /// </summary>
-        /*4134*/
+        /*3912*/
 
-
-        // gen! CefRefPtr<CefFrame> GetParent()
-        /*4135*/
-
-        public CefFrame GetParent()/*4136*/
+        public CefFrame GetParent()/*3913*/
         {
             JsValue ret;
-            /*4137*/
+            /*3914*/
 
             Cef3Binder.MyCefMet_Call0(this.nativePtr, CefFrame_GetParent_20, out ret);
-            /*4138*/
+            /*3915*/
             var ret_result = new CefFrame(ret.Ptr);
-            /*4139*/
+            /*3916*/
             return ret_result;
-            /*4140*/
+            /*3917*/
         }
+
+        // gen! CefString GetURL()
         /// <summary>
         /// Returns the URL currently loaded in this frame.
         /// /*cef()*/
         /// </summary>
-        /*4141*/
+        /*3918*/
 
-
-        // gen! CefString GetURL()
-        /*4142*/
-
-        public string GetURL()/*4143*/
+        public string GetURL()/*3919*/
         {
             JsValue ret;
-            /*4144*/
+            /*3920*/
 
             Cef3Binder.MyCefMet_Call0(this.nativePtr, CefFrame_GetURL_21, out ret);
-            /*4145*/
+            /*3921*/
             var ret_result = Cef3Binder.CopyStringAndDestroyNativeSide(ref ret);
-            /*4146*/
+            /*3922*/
             return ret_result;
-            /*4147*/
+            /*3923*/
         }
+
+        // gen! CefRefPtr<CefBrowser> GetBrowser()
         /// <summary>
         /// Returns the browser that this frame belongs to.
         /// /*cef()*/
         /// </summary>
-        /*4148*/
+        /*3924*/
 
-
-        // gen! CefRefPtr<CefBrowser> GetBrowser()
-        /*4149*/
-
-        public CefBrowser GetBrowser()/*4150*/
+        public CefBrowser GetBrowser()/*3925*/
         {
             JsValue ret;
-            /*4151*/
+            /*3926*/
 
             Cef3Binder.MyCefMet_Call0(this.nativePtr, CefFrame_GetBrowser_22, out ret);
-            /*4152*/
+            /*3927*/
             var ret_result = new CefBrowser(ret.Ptr);
-            /*4153*/
+            /*3928*/
             return ret_result;
-            /*4154*/
+            /*3929*/
         }
+
+        // gen! CefRefPtr<CefV8Context> GetV8Context()
         /// <summary>
         /// Get the V8 context associated with the frame. This method can only be
         /// called from the render process.
         /// /*cef()*/
         /// </summary>
-        /*4155*/
+        /*3930*/
 
-
-        // gen! CefRefPtr<CefV8Context> GetV8Context()
-        /*4156*/
-
-        public CefV8Context GetV8Context()/*4157*/
+        public CefV8Context GetV8Context()/*3931*/
         {
             JsValue ret;
-            /*4158*/
+            /*3932*/
 
             Cef3Binder.MyCefMet_Call0(this.nativePtr, CefFrame_GetV8Context_23, out ret);
-            /*4159*/
+            /*3933*/
             var ret_result = new CefV8Context(ret.Ptr);
-            /*4160*/
+            /*3934*/
             return ret_result;
-            /*4161*/
+            /*3935*/
         }
+
+        // gen! void VisitDOM(CefRefPtr<CefDOMVisitor> visitor)
         /// <summary>
         /// Visit the DOM document. This method can only be called from the render
         /// process.
         /// /*cef()*/
         /// </summary>
-        /*4162*/
+        /*3936*/
 
-
-        // gen! void VisitDOM(CefRefPtr<CefDOMVisitor> visitor)
-        /*4163*/
-
-        public void VisitDOM(CefDOMVisitor /*4164*/
+        public void VisitDOM(CefDOMVisitor /*3937*/
         visitor
-        )/*4165*/
+        )/*3938*/
         {
             JsValue v1 = new JsValue();
             JsValue ret;
-            /*4166*/
+            /*3939*/
 
             Cef3Binder.MyCefMet_Call1(this.nativePtr, CefFrame_VisitDOM_24, out ret, ref v1);
-            /*4167*/
+            /*3940*/
 
-            /*4168*/
+            /*3941*/
         }
-        /*4169*/
+        /*3942*/
     }
 
 
@@ -8888,104 +8434,102 @@ namespace LayoutFarm.CefBridge.Auto
     /// be called on the browser process UI thread.
     /// /*(source=library)*/
     /// </summary>
-    /*4243*/
+    /*4016*/
     public struct CefImage
     {
-        /*4244*/
+        /*4017*/
         const int _typeNAME = 16;
-        /*4245*/
+        /*4018*/
         const int CefImage_Release_0 = (_typeNAME << 16) | 0;
-        /*4246*/
+        /*4019*/
         const int CefImage_IsEmpty_1 = (_typeNAME << 16) | 1;
-        /*4247*/
+        /*4020*/
         const int CefImage_IsSame_2 = (_typeNAME << 16) | 2;
-        /*4248*/
+        /*4021*/
         const int CefImage_AddBitmap_3 = (_typeNAME << 16) | 3;
-        /*4249*/
+        /*4022*/
         const int CefImage_AddPNG_4 = (_typeNAME << 16) | 4;
-        /*4250*/
+        /*4023*/
         const int CefImage_AddJPEG_5 = (_typeNAME << 16) | 5;
-        /*4251*/
+        /*4024*/
         const int CefImage_GetWidth_6 = (_typeNAME << 16) | 6;
-        /*4252*/
+        /*4025*/
         const int CefImage_GetHeight_7 = (_typeNAME << 16) | 7;
-        /*4253*/
+        /*4026*/
         const int CefImage_HasRepresentation_8 = (_typeNAME << 16) | 8;
-        /*4254*/
+        /*4027*/
         const int CefImage_RemoveRepresentation_9 = (_typeNAME << 16) | 9;
-        /*4255*/
+        /*4028*/
         const int CefImage_GetRepresentationInfo_10 = (_typeNAME << 16) | 10;
-        /*4256*/
+        /*4029*/
         const int CefImage_GetAsBitmap_11 = (_typeNAME << 16) | 11;
-        /*4257*/
+        /*4030*/
         const int CefImage_GetAsPNG_12 = (_typeNAME << 16) | 12;
-        /*4258*/
+        /*4031*/
         const int CefImage_GetAsJPEG_13 = (_typeNAME << 16) | 13;
-        /*4259*/
+        /*4032*/
         internal readonly IntPtr nativePtr;
-        /*4260*/
+        /*4033*/
         internal CefImage(IntPtr nativePtr)
         {
-            /*4261*/
+            /*4034*/
             this.nativePtr = nativePtr;
-            /*4262*/
+            /*4035*/
         }
-        /*4263*/
+        /*4036*/
         public void Release()
         {
-            /*4264*/
+            /*4037*/
             JsValue ret;
-            /*4265*/
+            /*4038*/
             Cef3Binder.MyCefMet_Call0(this.nativePtr, CefImage_Release_0, out ret);
-            /*4266*/
+            /*4039*/
         }
+
+        // gen! bool IsEmpty()
         /// <summary>
         /// CefImage methods.
         /// </summary>
-        /*4267*/
+        /*4040*/
 
-
-        // gen! bool IsEmpty()
-        /*4268*/
-
-        public bool IsEmpty()/*4269*/
+        public bool IsEmpty()/*4041*/
         {
             JsValue ret;
-            /*4270*/
+            /*4042*/
 
             Cef3Binder.MyCefMet_Call0(this.nativePtr, CefImage_IsEmpty_1, out ret);
-            /*4271*/
+            /*4043*/
             var ret_result = ret.I32 != 0;
-            /*4272*/
+            /*4044*/
             return ret_result;
-            /*4273*/
+            /*4045*/
         }
+
+        // gen! bool IsSame(CefRefPtr<CefImage> that)
         /// <summary>
         /// Returns true if this Image and |that| Image share the same underlying
         /// storage. Will also return true if both images are empty.
         /// /*cef()*/
         /// </summary>
-        /*4274*/
+        /*4046*/
 
-
-        // gen! bool IsSame(CefRefPtr<CefImage> that)
-        /*4275*/
-
-        public bool IsSame(CefImage /*4276*/
+        public bool IsSame(CefImage /*4047*/
         that
-        )/*4277*/
+        )/*4048*/
         {
             JsValue v1 = new JsValue();
             JsValue ret;
-            /*4278*/
+            /*4049*/
 
             Cef3Binder.MyCefMet_Call1(this.nativePtr, CefImage_IsSame_2, out ret, ref v1);
-            /*4279*/
+            /*4050*/
             var ret_result = ret.I32 != 0;
-            /*4280*/
+            /*4051*/
             return ret_result;
-            /*4281*/
+            /*4052*/
         }
+
+        // gen! bool AddBitmap(float scale_factor,int pixel_width,int pixel_height,cef_color_type_t color_type,cef_alpha_type_t alpha_type,const void* pixel_data,size_t pixel_data_size)
         /// <summary>
         /// Add a bitmap image representation for |scale_factor|. Only 32-bit RGBA/BGRA
         /// formats are supported. |pixel_width| and |pixel_height| are the bitmap
@@ -8994,27 +8538,23 @@ namespace LayoutFarm.CefBridge.Auto
         /// |color_type| and |alpha_type| values specify the pixel format.
         /// /*cef()*/
         /// </summary>
-        /*4282*/
+        /*4053*/
 
-
-        // gen! bool AddBitmap(float scale_factor,int pixel_width,int pixel_height,cef_color_type_t color_type,cef_alpha_type_t alpha_type,const void* pixel_data,size_t pixel_data_size)
-        /*4283*/
-
-        public bool AddBitmap(float /*4284*/
+        public bool AddBitmap(float /*4054*/
         scale_factor
-        , int /*4285*/
+        , int /*4055*/
         pixel_width
-        , int /*4286*/
+        , int /*4056*/
         pixel_height
-        , cef_color_type_t /*4287*/
+        , cef_color_type_t /*4057*/
         color_type
-        , cef_alpha_type_t /*4288*/
+        , cef_alpha_type_t /*4058*/
         alpha_type
-        , IntPtr /*4289*/
+        , IntPtr /*4059*/
         pixel_data
-        , uint /*4290*/
+        , uint /*4060*/
         pixel_data_size
-        )/*4291*/
+        )/*4061*/
         {
             JsValue v1 = new JsValue();
             JsValue v2 = new JsValue();
@@ -9024,175 +8564,165 @@ namespace LayoutFarm.CefBridge.Auto
             JsValue v6 = new JsValue();
             JsValue v7 = new JsValue();
             JsValue ret;
-            /*4292*/
+            /*4062*/
 
             Cef3Binder.MyCefMet_Call7(this.nativePtr, CefImage_AddBitmap_3, out ret, ref v1, ref v2, ref v3, ref v4, ref v5, ref v6, ref v7);
-            /*4293*/
+            /*4063*/
             var ret_result = ret.I32 != 0;
-            /*4294*/
+            /*4064*/
             return ret_result;
-            /*4295*/
+            /*4065*/
         }
+
+        // gen! bool AddPNG(float scale_factor,const void* png_data,size_t png_data_size)
         /// <summary>
         /// Add a PNG image representation for |scale_factor|. |png_data| is the image
         /// data of size |png_data_size|. Any alpha transparency in the PNG data will
         /// be maintained.
         /// /*cef()*/
         /// </summary>
-        /*4296*/
+        /*4066*/
 
-
-        // gen! bool AddPNG(float scale_factor,const void* png_data,size_t png_data_size)
-        /*4297*/
-
-        public bool AddPNG(float /*4298*/
+        public bool AddPNG(float /*4067*/
         scale_factor
-        , IntPtr /*4299*/
+        , IntPtr /*4068*/
         png_data
-        , uint /*4300*/
+        , uint /*4069*/
         png_data_size
-        )/*4301*/
+        )/*4070*/
         {
             JsValue v1 = new JsValue();
             JsValue v2 = new JsValue();
             JsValue v3 = new JsValue();
             JsValue ret;
-            /*4302*/
+            /*4071*/
 
             Cef3Binder.MyCefMet_Call3(this.nativePtr, CefImage_AddPNG_4, out ret, ref v1, ref v2, ref v3);
-            /*4303*/
+            /*4072*/
             var ret_result = ret.I32 != 0;
-            /*4304*/
+            /*4073*/
             return ret_result;
-            /*4305*/
+            /*4074*/
         }
+
+        // gen! bool AddJPEG(float scale_factor,const void* jpeg_data,size_t jpeg_data_size)
         /// <summary>
         /// Create a JPEG image representation for |scale_factor|. |jpeg_data| is the
         /// image data of size |jpeg_data_size|. The JPEG format does not support
         /// transparency so the alpha byte will be set to 0xFF for all pixels.
         /// /*cef()*/
         /// </summary>
-        /*4306*/
+        /*4075*/
 
-
-        // gen! bool AddJPEG(float scale_factor,const void* jpeg_data,size_t jpeg_data_size)
-        /*4307*/
-
-        public bool AddJPEG(float /*4308*/
+        public bool AddJPEG(float /*4076*/
         scale_factor
-        , IntPtr /*4309*/
+        , IntPtr /*4077*/
         jpeg_data
-        , uint /*4310*/
+        , uint /*4078*/
         jpeg_data_size
-        )/*4311*/
+        )/*4079*/
         {
             JsValue v1 = new JsValue();
             JsValue v2 = new JsValue();
             JsValue v3 = new JsValue();
             JsValue ret;
-            /*4312*/
+            /*4080*/
 
             Cef3Binder.MyCefMet_Call3(this.nativePtr, CefImage_AddJPEG_5, out ret, ref v1, ref v2, ref v3);
-            /*4313*/
+            /*4081*/
             var ret_result = ret.I32 != 0;
-            /*4314*/
+            /*4082*/
             return ret_result;
-            /*4315*/
+            /*4083*/
         }
+
+        // gen! size_t GetWidth()
         /// <summary>
         /// Returns the image width in density independent pixel (DIP) units.
         /// /*cef()*/
         /// </summary>
-        /*4316*/
+        /*4084*/
 
-
-        // gen! size_t GetWidth()
-        /*4317*/
-
-        public uint GetWidth()/*4318*/
+        public uint GetWidth()/*4085*/
         {
             JsValue ret;
-            /*4319*/
+            /*4086*/
 
             Cef3Binder.MyCefMet_Call0(this.nativePtr, CefImage_GetWidth_6, out ret);
-            /*4320*/
+            /*4087*/
             var ret_result = (uint)ret.I32;
-            /*4321*/
+            /*4088*/
             return ret_result;
-            /*4322*/
+            /*4089*/
         }
+
+        // gen! size_t GetHeight()
         /// <summary>
         /// Returns the image height in density independent pixel (DIP) units.
         /// /*cef()*/
         /// </summary>
-        /*4323*/
+        /*4090*/
 
-
-        // gen! size_t GetHeight()
-        /*4324*/
-
-        public uint GetHeight()/*4325*/
+        public uint GetHeight()/*4091*/
         {
             JsValue ret;
-            /*4326*/
+            /*4092*/
 
             Cef3Binder.MyCefMet_Call0(this.nativePtr, CefImage_GetHeight_7, out ret);
-            /*4327*/
+            /*4093*/
             var ret_result = (uint)ret.I32;
-            /*4328*/
+            /*4094*/
             return ret_result;
-            /*4329*/
+            /*4095*/
         }
+
+        // gen! bool HasRepresentation(float scale_factor)
         /// <summary>
         /// Returns true if this image contains a representation for |scale_factor|.
         /// /*cef()*/
         /// </summary>
-        /*4330*/
+        /*4096*/
 
-
-        // gen! bool HasRepresentation(float scale_factor)
-        /*4331*/
-
-        public bool HasRepresentation(float /*4332*/
+        public bool HasRepresentation(float /*4097*/
         scale_factor
-        )/*4333*/
+        )/*4098*/
         {
             JsValue v1 = new JsValue();
             JsValue ret;
-            /*4334*/
+            /*4099*/
 
             Cef3Binder.MyCefMet_Call1(this.nativePtr, CefImage_HasRepresentation_8, out ret, ref v1);
-            /*4335*/
+            /*4100*/
             var ret_result = ret.I32 != 0;
-            /*4336*/
+            /*4101*/
             return ret_result;
-            /*4337*/
+            /*4102*/
         }
+
+        // gen! bool RemoveRepresentation(float scale_factor)
         /// <summary>
         /// Removes the representation for |scale_factor|. Returns true on success.
         /// /*cef()*/
         /// </summary>
-        /*4338*/
+        /*4103*/
 
-
-        // gen! bool RemoveRepresentation(float scale_factor)
-        /*4339*/
-
-        public bool RemoveRepresentation(float /*4340*/
+        public bool RemoveRepresentation(float /*4104*/
         scale_factor
-        )/*4341*/
+        )/*4105*/
         {
             JsValue v1 = new JsValue();
             JsValue ret;
-            /*4342*/
+            /*4106*/
 
             Cef3Binder.MyCefMet_Call1(this.nativePtr, CefImage_RemoveRepresentation_9, out ret, ref v1);
-            /*4343*/
+            /*4107*/
             var ret_result = ret.I32 != 0;
-            /*4344*/
+            /*4108*/
             return ret_result;
-            /*4345*/
+            /*4109*/
         }
+
+        // gen! bool GetRepresentationInfo(float scale_factor,float& actual_scale_factor,int& pixel_width,int& pixel_height)
         /// <summary>
         /// Returns information for the representation that most closely matches
         /// |scale_factor|. |actual_scale_factor| is the actual scale factor for the
@@ -9200,42 +8730,40 @@ namespace LayoutFarm.CefBridge.Auto
         /// size in pixel coordinates. Returns true on success.
         /// /*cef()*/
         /// </summary>
-        /*4346*/
+        /*4110*/
 
-
-        // gen! bool GetRepresentationInfo(float scale_factor,float& actual_scale_factor,int& pixel_width,int& pixel_height)
-        /*4347*/
-
-        public bool GetRepresentationInfo(float /*4348*/
+        public bool GetRepresentationInfo(float /*4111*/
         scale_factor
-        , ref float /*4349*/
+        , ref float /*4112*/
         actual_scale_factor
-        , ref int /*4350*/
+        , ref int /*4113*/
         pixel_width
-        , ref int /*4351*/
+        , ref int /*4114*/
         pixel_height
-        )/*4352*/
+        )/*4115*/
         {
             JsValue v1 = new JsValue();
             JsValue v2 = new JsValue();
             JsValue v3 = new JsValue();
             JsValue v4 = new JsValue();
             JsValue ret;
-            /*4353*/
+            /*4116*/
 
             Cef3Binder.MyCefMet_Call4(this.nativePtr, CefImage_GetRepresentationInfo_10, out ret, ref v1, ref v2, ref v3, ref v4);
-            /*4354*/
+            /*4117*/
             var ret_result = ret.I32 != 0;
-            actual_scale_factor = (float)v2.Num;/*4355*/
+            actual_scale_factor = (float)v2.Num;/*4118*/
             ;
-            pixel_width = (int)v3.I32;/*4356*/
+            pixel_width = (int)v3.I32;/*4119*/
             ;
-            pixel_height = (int)v4.I32;/*4357*/
+            pixel_height = (int)v4.I32;/*4120*/
             ;
-            /*4358*/
+            /*4121*/
             return ret_result;
-            /*4359*/
+            /*4122*/
         }
+
+        // gen! CefRefPtr<CefBinaryValue> GetAsBitmap(float scale_factor,cef_color_type_t color_type,cef_alpha_type_t alpha_type,int& pixel_width,int& pixel_height)
         /// <summary>
         /// Returns the bitmap representation that most closely matches |scale_factor|.
         /// Only 32-bit RGBA/BGRA formats are supported. |color_type| and |alpha_type|
@@ -9245,23 +8773,19 @@ namespace LayoutFarm.CefBridge.Auto
         /// failure.
         /// /*cef()*/
         /// </summary>
-        /*4360*/
+        /*4123*/
 
-
-        // gen! CefRefPtr<CefBinaryValue> GetAsBitmap(float scale_factor,cef_color_type_t color_type,cef_alpha_type_t alpha_type,int& pixel_width,int& pixel_height)
-        /*4361*/
-
-        public CefBinaryValue GetAsBitmap(float /*4362*/
+        public CefBinaryValue GetAsBitmap(float /*4124*/
         scale_factor
-        , cef_color_type_t /*4363*/
+        , cef_color_type_t /*4125*/
         color_type
-        , cef_alpha_type_t /*4364*/
+        , cef_alpha_type_t /*4126*/
         alpha_type
-        , ref int /*4365*/
+        , ref int /*4127*/
         pixel_width
-        , ref int /*4366*/
+        , ref int /*4128*/
         pixel_height
-        )/*4367*/
+        )/*4129*/
         {
             JsValue v1 = new JsValue();
             JsValue v2 = new JsValue();
@@ -9269,19 +8793,21 @@ namespace LayoutFarm.CefBridge.Auto
             JsValue v4 = new JsValue();
             JsValue v5 = new JsValue();
             JsValue ret;
-            /*4368*/
+            /*4130*/
 
             Cef3Binder.MyCefMet_Call5(this.nativePtr, CefImage_GetAsBitmap_11, out ret, ref v1, ref v2, ref v3, ref v4, ref v5);
-            /*4369*/
+            /*4131*/
             var ret_result = new CefBinaryValue(ret.Ptr);
-            pixel_width = (int)v4.I32;/*4370*/
+            pixel_width = (int)v4.I32;/*4132*/
             ;
-            pixel_height = (int)v5.I32;/*4371*/
+            pixel_height = (int)v5.I32;/*4133*/
             ;
-            /*4372*/
+            /*4134*/
             return ret_result;
-            /*4373*/
+            /*4135*/
         }
+
+        // gen! CefRefPtr<CefBinaryValue> GetAsPNG(float scale_factor,bool with_transparency,int& pixel_width,int& pixel_height)
         /// <summary>
         /// Returns the PNG representation that most closely matches |scale_factor|. If
         /// |with_transparency| is true any alpha transparency in the image will be
@@ -9290,40 +8816,38 @@ namespace LayoutFarm.CefBridge.Auto
         /// CefBinaryValue containing the PNG image data on success or NULL on failure.
         /// /*cef()*/
         /// </summary>
-        /*4374*/
+        /*4136*/
 
-
-        // gen! CefRefPtr<CefBinaryValue> GetAsPNG(float scale_factor,bool with_transparency,int& pixel_width,int& pixel_height)
-        /*4375*/
-
-        public CefBinaryValue GetAsPNG(float /*4376*/
+        public CefBinaryValue GetAsPNG(float /*4137*/
         scale_factor
-        , bool /*4377*/
+        , bool /*4138*/
         with_transparency
-        , ref int /*4378*/
+        , ref int /*4139*/
         pixel_width
-        , ref int /*4379*/
+        , ref int /*4140*/
         pixel_height
-        )/*4380*/
+        )/*4141*/
         {
             JsValue v1 = new JsValue();
             JsValue v2 = new JsValue();
             JsValue v3 = new JsValue();
             JsValue v4 = new JsValue();
             JsValue ret;
-            /*4381*/
+            /*4142*/
 
             Cef3Binder.MyCefMet_Call4(this.nativePtr, CefImage_GetAsPNG_12, out ret, ref v1, ref v2, ref v3, ref v4);
-            /*4382*/
+            /*4143*/
             var ret_result = new CefBinaryValue(ret.Ptr);
-            pixel_width = (int)v3.I32;/*4383*/
+            pixel_width = (int)v3.I32;/*4144*/
             ;
-            pixel_height = (int)v4.I32;/*4384*/
+            pixel_height = (int)v4.I32;/*4145*/
             ;
-            /*4385*/
+            /*4146*/
             return ret_result;
-            /*4386*/
+            /*4147*/
         }
+
+        // gen! CefRefPtr<CefBinaryValue> GetAsJPEG(float scale_factor,int quality,int& pixel_width,int& pixel_height)
         /// <summary>
         /// Returns the JPEG representation that most closely matches |scale_factor|.
         /// |quality| determines the compression level with 0 == lowest and 100 ==
@@ -9334,41 +8858,37 @@ namespace LayoutFarm.CefBridge.Auto
         /// failure.
         /// /*cef()*/
         /// </summary>
-        /*4387*/
+        /*4148*/
 
-
-        // gen! CefRefPtr<CefBinaryValue> GetAsJPEG(float scale_factor,int quality,int& pixel_width,int& pixel_height)
-        /*4388*/
-
-        public CefBinaryValue GetAsJPEG(float /*4389*/
+        public CefBinaryValue GetAsJPEG(float /*4149*/
         scale_factor
-        , int /*4390*/
+        , int /*4150*/
         quality
-        , ref int /*4391*/
+        , ref int /*4151*/
         pixel_width
-        , ref int /*4392*/
+        , ref int /*4152*/
         pixel_height
-        )/*4393*/
+        )/*4153*/
         {
             JsValue v1 = new JsValue();
             JsValue v2 = new JsValue();
             JsValue v3 = new JsValue();
             JsValue v4 = new JsValue();
             JsValue ret;
-            /*4394*/
+            /*4154*/
 
             Cef3Binder.MyCefMet_Call4(this.nativePtr, CefImage_GetAsJPEG_13, out ret, ref v1, ref v2, ref v3, ref v4);
-            /*4395*/
+            /*4155*/
             var ret_result = new CefBinaryValue(ret.Ptr);
-            pixel_width = (int)v3.I32;/*4396*/
+            pixel_width = (int)v3.I32;/*4156*/
             ;
-            pixel_height = (int)v4.I32;/*4397*/
+            pixel_height = (int)v4.I32;/*4157*/
             ;
-            /*4398*/
+            /*4158*/
             return ret_result;
-            /*4399*/
+            /*4159*/
         }
-        /*4400*/
+        /*4160*/
     }
 
 
@@ -9380,487 +8900,463 @@ namespace LayoutFarm.CefBridge.Auto
     /// this class can only be accessed on the browser process the UI thread.
     /// /*(source=library)*/
     /// </summary>
-    /*4689*/
+    /*4449*/
     public struct CefMenuModel
     {
-        /*4690*/
+        /*4450*/
         const int _typeNAME = 17;
-        /*4691*/
+        /*4451*/
         const int CefMenuModel_Release_0 = (_typeNAME << 16) | 0;
-        /*4692*/
+        /*4452*/
         const int CefMenuModel_IsSubMenu_1 = (_typeNAME << 16) | 1;
-        /*4693*/
+        /*4453*/
         const int CefMenuModel_Clear_2 = (_typeNAME << 16) | 2;
-        /*4694*/
+        /*4454*/
         const int CefMenuModel_GetCount_3 = (_typeNAME << 16) | 3;
-        /*4695*/
+        /*4455*/
         const int CefMenuModel_AddSeparator_4 = (_typeNAME << 16) | 4;
-        /*4696*/
+        /*4456*/
         const int CefMenuModel_AddItem_5 = (_typeNAME << 16) | 5;
-        /*4697*/
+        /*4457*/
         const int CefMenuModel_AddCheckItem_6 = (_typeNAME << 16) | 6;
-        /*4698*/
+        /*4458*/
         const int CefMenuModel_AddRadioItem_7 = (_typeNAME << 16) | 7;
-        /*4699*/
+        /*4459*/
         const int CefMenuModel_AddSubMenu_8 = (_typeNAME << 16) | 8;
-        /*4700*/
+        /*4460*/
         const int CefMenuModel_InsertSeparatorAt_9 = (_typeNAME << 16) | 9;
-        /*4701*/
+        /*4461*/
         const int CefMenuModel_InsertItemAt_10 = (_typeNAME << 16) | 10;
-        /*4702*/
+        /*4462*/
         const int CefMenuModel_InsertCheckItemAt_11 = (_typeNAME << 16) | 11;
-        /*4703*/
+        /*4463*/
         const int CefMenuModel_InsertRadioItemAt_12 = (_typeNAME << 16) | 12;
-        /*4704*/
+        /*4464*/
         const int CefMenuModel_InsertSubMenuAt_13 = (_typeNAME << 16) | 13;
-        /*4705*/
+        /*4465*/
         const int CefMenuModel_Remove_14 = (_typeNAME << 16) | 14;
-        /*4706*/
+        /*4466*/
         const int CefMenuModel_RemoveAt_15 = (_typeNAME << 16) | 15;
-        /*4707*/
+        /*4467*/
         const int CefMenuModel_GetIndexOf_16 = (_typeNAME << 16) | 16;
-        /*4708*/
+        /*4468*/
         const int CefMenuModel_GetCommandIdAt_17 = (_typeNAME << 16) | 17;
-        /*4709*/
+        /*4469*/
         const int CefMenuModel_SetCommandIdAt_18 = (_typeNAME << 16) | 18;
-        /*4710*/
+        /*4470*/
         const int CefMenuModel_GetLabel_19 = (_typeNAME << 16) | 19;
-        /*4711*/
+        /*4471*/
         const int CefMenuModel_GetLabelAt_20 = (_typeNAME << 16) | 20;
-        /*4712*/
+        /*4472*/
         const int CefMenuModel_SetLabel_21 = (_typeNAME << 16) | 21;
-        /*4713*/
+        /*4473*/
         const int CefMenuModel_SetLabelAt_22 = (_typeNAME << 16) | 22;
-        /*4714*/
+        /*4474*/
         const int CefMenuModel_GetType_23 = (_typeNAME << 16) | 23;
-        /*4715*/
+        /*4475*/
         const int CefMenuModel_GetTypeAt_24 = (_typeNAME << 16) | 24;
-        /*4716*/
+        /*4476*/
         const int CefMenuModel_GetGroupId_25 = (_typeNAME << 16) | 25;
-        /*4717*/
+        /*4477*/
         const int CefMenuModel_GetGroupIdAt_26 = (_typeNAME << 16) | 26;
-        /*4718*/
+        /*4478*/
         const int CefMenuModel_SetGroupId_27 = (_typeNAME << 16) | 27;
-        /*4719*/
+        /*4479*/
         const int CefMenuModel_SetGroupIdAt_28 = (_typeNAME << 16) | 28;
-        /*4720*/
+        /*4480*/
         const int CefMenuModel_GetSubMenu_29 = (_typeNAME << 16) | 29;
-        /*4721*/
+        /*4481*/
         const int CefMenuModel_GetSubMenuAt_30 = (_typeNAME << 16) | 30;
-        /*4722*/
+        /*4482*/
         const int CefMenuModel_IsVisible_31 = (_typeNAME << 16) | 31;
-        /*4723*/
+        /*4483*/
         const int CefMenuModel_IsVisibleAt_32 = (_typeNAME << 16) | 32;
-        /*4724*/
+        /*4484*/
         const int CefMenuModel_SetVisible_33 = (_typeNAME << 16) | 33;
-        /*4725*/
+        /*4485*/
         const int CefMenuModel_SetVisibleAt_34 = (_typeNAME << 16) | 34;
-        /*4726*/
+        /*4486*/
         const int CefMenuModel_IsEnabled_35 = (_typeNAME << 16) | 35;
-        /*4727*/
+        /*4487*/
         const int CefMenuModel_IsEnabledAt_36 = (_typeNAME << 16) | 36;
-        /*4728*/
+        /*4488*/
         const int CefMenuModel_SetEnabled_37 = (_typeNAME << 16) | 37;
-        /*4729*/
+        /*4489*/
         const int CefMenuModel_SetEnabledAt_38 = (_typeNAME << 16) | 38;
-        /*4730*/
+        /*4490*/
         const int CefMenuModel_IsChecked_39 = (_typeNAME << 16) | 39;
-        /*4731*/
+        /*4491*/
         const int CefMenuModel_IsCheckedAt_40 = (_typeNAME << 16) | 40;
-        /*4732*/
+        /*4492*/
         const int CefMenuModel_SetChecked_41 = (_typeNAME << 16) | 41;
-        /*4733*/
+        /*4493*/
         const int CefMenuModel_SetCheckedAt_42 = (_typeNAME << 16) | 42;
-        /*4734*/
+        /*4494*/
         const int CefMenuModel_HasAccelerator_43 = (_typeNAME << 16) | 43;
-        /*4735*/
+        /*4495*/
         const int CefMenuModel_HasAcceleratorAt_44 = (_typeNAME << 16) | 44;
-        /*4736*/
+        /*4496*/
         const int CefMenuModel_SetAccelerator_45 = (_typeNAME << 16) | 45;
-        /*4737*/
+        /*4497*/
         const int CefMenuModel_SetAcceleratorAt_46 = (_typeNAME << 16) | 46;
-        /*4738*/
+        /*4498*/
         const int CefMenuModel_RemoveAccelerator_47 = (_typeNAME << 16) | 47;
-        /*4739*/
+        /*4499*/
         const int CefMenuModel_RemoveAcceleratorAt_48 = (_typeNAME << 16) | 48;
-        /*4740*/
+        /*4500*/
         const int CefMenuModel_GetAccelerator_49 = (_typeNAME << 16) | 49;
-        /*4741*/
+        /*4501*/
         const int CefMenuModel_GetAcceleratorAt_50 = (_typeNAME << 16) | 50;
-        /*4742*/
+        /*4502*/
         const int CefMenuModel_SetColor_51 = (_typeNAME << 16) | 51;
-        /*4743*/
+        /*4503*/
         const int CefMenuModel_SetColorAt_52 = (_typeNAME << 16) | 52;
-        /*4744*/
+        /*4504*/
         const int CefMenuModel_GetColor_53 = (_typeNAME << 16) | 53;
-        /*4745*/
+        /*4505*/
         const int CefMenuModel_GetColorAt_54 = (_typeNAME << 16) | 54;
-        /*4746*/
+        /*4506*/
         const int CefMenuModel_SetFontList_55 = (_typeNAME << 16) | 55;
-        /*4747*/
+        /*4507*/
         const int CefMenuModel_SetFontListAt_56 = (_typeNAME << 16) | 56;
-        /*4748*/
+        /*4508*/
         internal readonly IntPtr nativePtr;
-        /*4749*/
+        /*4509*/
         internal CefMenuModel(IntPtr nativePtr)
         {
-            /*4750*/
+            /*4510*/
             this.nativePtr = nativePtr;
-            /*4751*/
+            /*4511*/
         }
-        /*4752*/
+        /*4512*/
         public void Release()
         {
-            /*4753*/
+            /*4513*/
             JsValue ret;
-            /*4754*/
+            /*4514*/
             Cef3Binder.MyCefMet_Call0(this.nativePtr, CefMenuModel_Release_0, out ret);
-            /*4755*/
+            /*4515*/
         }
+
+        // gen! bool IsSubMenu()
         /// <summary>
         /// CefMenuModel methods.
         /// </summary>
-        /*4756*/
+        /*4516*/
 
-
-        // gen! bool IsSubMenu()
-        /*4757*/
-
-        public bool IsSubMenu()/*4758*/
+        public bool IsSubMenu()/*4517*/
         {
             JsValue ret;
-            /*4759*/
+            /*4518*/
 
             Cef3Binder.MyCefMet_Call0(this.nativePtr, CefMenuModel_IsSubMenu_1, out ret);
-            /*4760*/
+            /*4519*/
             var ret_result = ret.I32 != 0;
-            /*4761*/
+            /*4520*/
             return ret_result;
-            /*4762*/
+            /*4521*/
         }
+
+        // gen! bool Clear()
         /// <summary>
         /// Clears the menu. Returns true on success.
         /// /*cef()*/
         /// </summary>
-        /*4763*/
+        /*4522*/
 
-
-        // gen! bool Clear()
-        /*4764*/
-
-        public bool Clear()/*4765*/
+        public bool Clear()/*4523*/
         {
             JsValue ret;
-            /*4766*/
+            /*4524*/
 
             Cef3Binder.MyCefMet_Call0(this.nativePtr, CefMenuModel_Clear_2, out ret);
-            /*4767*/
+            /*4525*/
             var ret_result = ret.I32 != 0;
-            /*4768*/
+            /*4526*/
             return ret_result;
-            /*4769*/
+            /*4527*/
         }
+
+        // gen! int GetCount()
         /// <summary>
         /// Returns the number of items in this menu.
         /// /*cef()*/
         /// </summary>
-        /*4770*/
+        /*4528*/
 
-
-        // gen! int GetCount()
-        /*4771*/
-
-        public int GetCount()/*4772*/
+        public int GetCount()/*4529*/
         {
             JsValue ret;
-            /*4773*/
+            /*4530*/
 
             Cef3Binder.MyCefMet_Call0(this.nativePtr, CefMenuModel_GetCount_3, out ret);
-            /*4774*/
+            /*4531*/
             var ret_result = ret.I32;
-            /*4775*/
+            /*4532*/
             return ret_result;
-            /*4776*/
+            /*4533*/
         }
+
+        // gen! bool AddSeparator()
         /// <summary>
         /// Add a separator to the menu. Returns true on success.
         /// /*cef()*/
         /// </summary>
-        /*4777*/
+        /*4534*/
 
-
-        // gen! bool AddSeparator()
-        /*4778*/
-
-        public bool AddSeparator()/*4779*/
+        public bool AddSeparator()/*4535*/
         {
             JsValue ret;
-            /*4780*/
+            /*4536*/
 
             Cef3Binder.MyCefMet_Call0(this.nativePtr, CefMenuModel_AddSeparator_4, out ret);
-            /*4781*/
+            /*4537*/
             var ret_result = ret.I32 != 0;
-            /*4782*/
+            /*4538*/
             return ret_result;
-            /*4783*/
+            /*4539*/
         }
+
+        // gen! bool AddItem(int command_id,const CefString& label)
         /// <summary>
         /// Add an item to the menu. Returns true on success.
         /// /*cef()*/
         /// </summary>
-        /*4784*/
+        /*4540*/
 
-
-        // gen! bool AddItem(int command_id,const CefString& label)
-        /*4785*/
-
-        public bool AddItem(int /*4786*/
+        public bool AddItem(int /*4541*/
         command_id
-        , string /*4787*/
+        , string /*4542*/
         label
-        )/*4788*/
+        )/*4543*/
         {
             JsValue v1 = new JsValue();
             JsValue v2 = new JsValue();
             JsValue ret;
             v2.Ptr = Cef3Binder.MyCefCreateCefString(label);
-            /*4789*/
+            /*4544*/
             ;
-            /*4790*/
+            /*4545*/
 
             Cef3Binder.MyCefMet_Call2(this.nativePtr, CefMenuModel_AddItem_5, out ret, ref v1, ref v2);
-            /*4791*/
+            /*4546*/
             var ret_result = ret.I32 != 0;
-            Cef3Binder.MyCefDeletePtr(v2.Ptr);/*4792*/
+            Cef3Binder.MyCefDeletePtr(v2.Ptr);/*4547*/
             ;
-            /*4793*/
+            /*4548*/
             return ret_result;
-            /*4794*/
+            /*4549*/
         }
+
+        // gen! bool AddCheckItem(int command_id,const CefString& label)
         /// <summary>
         /// Add a check item to the menu. Returns true on success.
         /// /*cef()*/
         /// </summary>
-        /*4795*/
+        /*4550*/
 
-
-        // gen! bool AddCheckItem(int command_id,const CefString& label)
-        /*4796*/
-
-        public bool AddCheckItem(int /*4797*/
+        public bool AddCheckItem(int /*4551*/
         command_id
-        , string /*4798*/
+        , string /*4552*/
         label
-        )/*4799*/
+        )/*4553*/
         {
             JsValue v1 = new JsValue();
             JsValue v2 = new JsValue();
             JsValue ret;
             v2.Ptr = Cef3Binder.MyCefCreateCefString(label);
-            /*4800*/
+            /*4554*/
             ;
-            /*4801*/
+            /*4555*/
 
             Cef3Binder.MyCefMet_Call2(this.nativePtr, CefMenuModel_AddCheckItem_6, out ret, ref v1, ref v2);
-            /*4802*/
+            /*4556*/
             var ret_result = ret.I32 != 0;
-            Cef3Binder.MyCefDeletePtr(v2.Ptr);/*4803*/
+            Cef3Binder.MyCefDeletePtr(v2.Ptr);/*4557*/
             ;
-            /*4804*/
+            /*4558*/
             return ret_result;
-            /*4805*/
+            /*4559*/
         }
+
+        // gen! bool AddRadioItem(int command_id,const CefString& label,int group_id)
         /// <summary>
         /// Add a radio item to the menu. Only a single item with the specified
         /// |group_id| can be checked at a time. Returns true on success.
         /// /*cef()*/
         /// </summary>
-        /*4806*/
+        /*4560*/
 
-
-        // gen! bool AddRadioItem(int command_id,const CefString& label,int group_id)
-        /*4807*/
-
-        public bool AddRadioItem(int /*4808*/
+        public bool AddRadioItem(int /*4561*/
         command_id
-        , string /*4809*/
+        , string /*4562*/
         label
-        , int /*4810*/
+        , int /*4563*/
         group_id
-        )/*4811*/
+        )/*4564*/
         {
             JsValue v1 = new JsValue();
             JsValue v2 = new JsValue();
             JsValue v3 = new JsValue();
             JsValue ret;
             v2.Ptr = Cef3Binder.MyCefCreateCefString(label);
-            /*4812*/
+            /*4565*/
             ;
-            /*4813*/
+            /*4566*/
 
             Cef3Binder.MyCefMet_Call3(this.nativePtr, CefMenuModel_AddRadioItem_7, out ret, ref v1, ref v2, ref v3);
-            /*4814*/
+            /*4567*/
             var ret_result = ret.I32 != 0;
-            Cef3Binder.MyCefDeletePtr(v2.Ptr);/*4815*/
+            Cef3Binder.MyCefDeletePtr(v2.Ptr);/*4568*/
             ;
-            /*4816*/
+            /*4569*/
             return ret_result;
-            /*4817*/
+            /*4570*/
         }
+
+        // gen! CefRefPtr<CefMenuModel> AddSubMenu(int command_id,const CefString& label)
         /// <summary>
         /// Add a sub-menu to the menu. The new sub-menu is returned.
         /// /*cef()*/
         /// </summary>
-        /*4818*/
+        /*4571*/
 
-
-        // gen! CefRefPtr<CefMenuModel> AddSubMenu(int command_id,const CefString& label)
-        /*4819*/
-
-        public CefMenuModel AddSubMenu(int /*4820*/
+        public CefMenuModel AddSubMenu(int /*4572*/
         command_id
-        , string /*4821*/
+        , string /*4573*/
         label
-        )/*4822*/
+        )/*4574*/
         {
             JsValue v1 = new JsValue();
             JsValue v2 = new JsValue();
             JsValue ret;
             v2.Ptr = Cef3Binder.MyCefCreateCefString(label);
-            /*4823*/
+            /*4575*/
             ;
-            /*4824*/
+            /*4576*/
 
             Cef3Binder.MyCefMet_Call2(this.nativePtr, CefMenuModel_AddSubMenu_8, out ret, ref v1, ref v2);
-            /*4825*/
+            /*4577*/
             var ret_result = new CefMenuModel(ret.Ptr);
-            Cef3Binder.MyCefDeletePtr(v2.Ptr);/*4826*/
+            Cef3Binder.MyCefDeletePtr(v2.Ptr);/*4578*/
             ;
-            /*4827*/
+            /*4579*/
             return ret_result;
-            /*4828*/
+            /*4580*/
         }
+
+        // gen! bool InsertSeparatorAt(int index)
         /// <summary>
         /// Insert a separator in the menu at the specified |index|. Returns true on
         /// success.
         /// /*cef()*/
         /// </summary>
-        /*4829*/
+        /*4581*/
 
-
-        // gen! bool InsertSeparatorAt(int index)
-        /*4830*/
-
-        public bool InsertSeparatorAt(int /*4831*/
+        public bool InsertSeparatorAt(int /*4582*/
         index
-        )/*4832*/
+        )/*4583*/
         {
             JsValue v1 = new JsValue();
             JsValue ret;
-            /*4833*/
+            /*4584*/
 
             Cef3Binder.MyCefMet_Call1(this.nativePtr, CefMenuModel_InsertSeparatorAt_9, out ret, ref v1);
-            /*4834*/
+            /*4585*/
             var ret_result = ret.I32 != 0;
-            /*4835*/
+            /*4586*/
             return ret_result;
-            /*4836*/
+            /*4587*/
         }
+
+        // gen! bool InsertItemAt(int index,int command_id,const CefString& label)
         /// <summary>
         /// Insert an item in the menu at the specified |index|. Returns true on
         /// success.
         /// /*cef()*/
         /// </summary>
-        /*4837*/
+        /*4588*/
 
-
-        // gen! bool InsertItemAt(int index,int command_id,const CefString& label)
-        /*4838*/
-
-        public bool InsertItemAt(int /*4839*/
+        public bool InsertItemAt(int /*4589*/
         index
-        , int /*4840*/
+        , int /*4590*/
         command_id
-        , string /*4841*/
+        , string /*4591*/
         label
-        )/*4842*/
+        )/*4592*/
         {
             JsValue v1 = new JsValue();
             JsValue v2 = new JsValue();
             JsValue v3 = new JsValue();
             JsValue ret;
             v3.Ptr = Cef3Binder.MyCefCreateCefString(label);
-            /*4843*/
+            /*4593*/
             ;
-            /*4844*/
+            /*4594*/
 
             Cef3Binder.MyCefMet_Call3(this.nativePtr, CefMenuModel_InsertItemAt_10, out ret, ref v1, ref v2, ref v3);
-            /*4845*/
+            /*4595*/
             var ret_result = ret.I32 != 0;
-            Cef3Binder.MyCefDeletePtr(v3.Ptr);/*4846*/
+            Cef3Binder.MyCefDeletePtr(v3.Ptr);/*4596*/
             ;
-            /*4847*/
+            /*4597*/
             return ret_result;
-            /*4848*/
+            /*4598*/
         }
+
+        // gen! bool InsertCheckItemAt(int index,int command_id,const CefString& label)
         /// <summary>
         /// Insert a check item in the menu at the specified |index|. Returns true on
         /// success.
         /// /*cef()*/
         /// </summary>
-        /*4849*/
+        /*4599*/
 
-
-        // gen! bool InsertCheckItemAt(int index,int command_id,const CefString& label)
-        /*4850*/
-
-        public bool InsertCheckItemAt(int /*4851*/
+        public bool InsertCheckItemAt(int /*4600*/
         index
-        , int /*4852*/
+        , int /*4601*/
         command_id
-        , string /*4853*/
+        , string /*4602*/
         label
-        )/*4854*/
+        )/*4603*/
         {
             JsValue v1 = new JsValue();
             JsValue v2 = new JsValue();
             JsValue v3 = new JsValue();
             JsValue ret;
             v3.Ptr = Cef3Binder.MyCefCreateCefString(label);
-            /*4855*/
+            /*4604*/
             ;
-            /*4856*/
+            /*4605*/
 
             Cef3Binder.MyCefMet_Call3(this.nativePtr, CefMenuModel_InsertCheckItemAt_11, out ret, ref v1, ref v2, ref v3);
-            /*4857*/
+            /*4606*/
             var ret_result = ret.I32 != 0;
-            Cef3Binder.MyCefDeletePtr(v3.Ptr);/*4858*/
+            Cef3Binder.MyCefDeletePtr(v3.Ptr);/*4607*/
             ;
-            /*4859*/
+            /*4608*/
             return ret_result;
-            /*4860*/
+            /*4609*/
         }
+
+        // gen! bool InsertRadioItemAt(int index,int command_id,const CefString& label,int group_id)
         /// <summary>
         /// Insert a radio item in the menu at the specified |index|. Only a single
         /// item with the specified |group_id| can be checked at a time. Returns true
         /// on success.
         /// /*cef()*/
         /// </summary>
-        /*4861*/
+        /*4610*/
 
-
-        // gen! bool InsertRadioItemAt(int index,int command_id,const CefString& label,int group_id)
-        /*4862*/
-
-        public bool InsertRadioItemAt(int /*4863*/
+        public bool InsertRadioItemAt(int /*4611*/
         index
-        , int /*4864*/
+        , int /*4612*/
         command_id
-        , string /*4865*/
+        , string /*4613*/
         label
-        , int /*4866*/
+        , int /*4614*/
         group_id
-        )/*4867*/
+        )/*4615*/
         {
             JsValue v1 = new JsValue();
             JsValue v2 = new JsValue();
@@ -9868,67 +9364,905 @@ namespace LayoutFarm.CefBridge.Auto
             JsValue v4 = new JsValue();
             JsValue ret;
             v3.Ptr = Cef3Binder.MyCefCreateCefString(label);
-            /*4868*/
+            /*4616*/
             ;
-            /*4869*/
+            /*4617*/
 
             Cef3Binder.MyCefMet_Call4(this.nativePtr, CefMenuModel_InsertRadioItemAt_12, out ret, ref v1, ref v2, ref v3, ref v4);
-            /*4870*/
+            /*4618*/
             var ret_result = ret.I32 != 0;
-            Cef3Binder.MyCefDeletePtr(v3.Ptr);/*4871*/
+            Cef3Binder.MyCefDeletePtr(v3.Ptr);/*4619*/
             ;
-            /*4872*/
+            /*4620*/
             return ret_result;
-            /*4873*/
+            /*4621*/
         }
+
+        // gen! CefRefPtr<CefMenuModel> InsertSubMenuAt(int index,int command_id,const CefString& label)
         /// <summary>
         /// Insert a sub-menu in the menu at the specified |index|. The new sub-menu
         /// is returned.
         /// /*cef()*/
         /// </summary>
-        /*4874*/
+        /*4622*/
 
-
-        // gen! CefRefPtr<CefMenuModel> InsertSubMenuAt(int index,int command_id,const CefString& label)
-        /*4875*/
-
-        public CefMenuModel InsertSubMenuAt(int /*4876*/
+        public CefMenuModel InsertSubMenuAt(int /*4623*/
         index
-        , int /*4877*/
+        , int /*4624*/
         command_id
-        , string /*4878*/
+        , string /*4625*/
         label
-        )/*4879*/
+        )/*4626*/
         {
             JsValue v1 = new JsValue();
             JsValue v2 = new JsValue();
             JsValue v3 = new JsValue();
             JsValue ret;
             v3.Ptr = Cef3Binder.MyCefCreateCefString(label);
-            /*4880*/
+            /*4627*/
             ;
-            /*4881*/
+            /*4628*/
 
             Cef3Binder.MyCefMet_Call3(this.nativePtr, CefMenuModel_InsertSubMenuAt_13, out ret, ref v1, ref v2, ref v3);
-            /*4882*/
+            /*4629*/
             var ret_result = new CefMenuModel(ret.Ptr);
-            Cef3Binder.MyCefDeletePtr(v3.Ptr);/*4883*/
+            Cef3Binder.MyCefDeletePtr(v3.Ptr);/*4630*/
             ;
-            /*4884*/
+            /*4631*/
             return ret_result;
-            /*4885*/
+            /*4632*/
         }
+
+        // gen! bool Remove(int command_id)
         /// <summary>
         /// Removes the item with the specified |command_id|. Returns true on success.
         /// /*cef()*/
         /// </summary>
-        /*4886*/
+        /*4633*/
 
+        public bool Remove(int /*4634*/
+        command_id
+        )/*4635*/
+        {
+            JsValue v1 = new JsValue();
+            JsValue ret;
+            /*4636*/
 
-        // gen! bool Remove(int command_id)
+            Cef3Binder.MyCefMet_Call1(this.nativePtr, CefMenuModel_Remove_14, out ret, ref v1);
+            /*4637*/
+            var ret_result = ret.I32 != 0;
+            /*4638*/
+            return ret_result;
+            /*4639*/
+        }
+
+        // gen! bool RemoveAt(int index)
+        /// <summary>
+        /// Removes the item at the specified |index|. Returns true on success.
+        /// /*cef()*/
+        /// </summary>
+        /*4640*/
+
+        public bool RemoveAt(int /*4641*/
+        index
+        )/*4642*/
+        {
+            JsValue v1 = new JsValue();
+            JsValue ret;
+            /*4643*/
+
+            Cef3Binder.MyCefMet_Call1(this.nativePtr, CefMenuModel_RemoveAt_15, out ret, ref v1);
+            /*4644*/
+            var ret_result = ret.I32 != 0;
+            /*4645*/
+            return ret_result;
+            /*4646*/
+        }
+
+        // gen! int GetIndexOf(int command_id)
+        /// <summary>
+        /// Returns the index associated with the specified |command_id| or -1 if not
+        /// found due to the command id not existing in the menu.
+        /// /*cef()*/
+        /// </summary>
+        /*4647*/
+
+        public int GetIndexOf(int /*4648*/
+        command_id
+        )/*4649*/
+        {
+            JsValue v1 = new JsValue();
+            JsValue ret;
+            /*4650*/
+
+            Cef3Binder.MyCefMet_Call1(this.nativePtr, CefMenuModel_GetIndexOf_16, out ret, ref v1);
+            /*4651*/
+            var ret_result = ret.I32;
+            /*4652*/
+            return ret_result;
+            /*4653*/
+        }
+
+        // gen! int GetCommandIdAt(int index)
+        /// <summary>
+        /// Returns the command id at the specified |index| or -1 if not found due to
+        /// invalid range or the index being a separator.
+        /// /*cef()*/
+        /// </summary>
+        /*4654*/
+
+        public int GetCommandIdAt(int /*4655*/
+        index
+        )/*4656*/
+        {
+            JsValue v1 = new JsValue();
+            JsValue ret;
+            /*4657*/
+
+            Cef3Binder.MyCefMet_Call1(this.nativePtr, CefMenuModel_GetCommandIdAt_17, out ret, ref v1);
+            /*4658*/
+            var ret_result = ret.I32;
+            /*4659*/
+            return ret_result;
+            /*4660*/
+        }
+
+        // gen! bool SetCommandIdAt(int index,int command_id)
+        /// <summary>
+        /// Sets the command id at the specified |index|. Returns true on success.
+        /// /*cef()*/
+        /// </summary>
+        /*4661*/
+
+        public bool SetCommandIdAt(int /*4662*/
+        index
+        , int /*4663*/
+        command_id
+        )/*4664*/
+        {
+            JsValue v1 = new JsValue();
+            JsValue v2 = new JsValue();
+            JsValue ret;
+            /*4665*/
+
+            Cef3Binder.MyCefMet_Call2(this.nativePtr, CefMenuModel_SetCommandIdAt_18, out ret, ref v1, ref v2);
+            /*4666*/
+            var ret_result = ret.I32 != 0;
+            /*4667*/
+            return ret_result;
+            /*4668*/
+        }
+
+        // gen! CefString GetLabel(int command_id)
+        /// <summary>
+        /// Returns the label for the specified |command_id| or empty if not found.
+        /// /*cef()*/
+        /// </summary>
+        /*4669*/
+
+        public string GetLabel(int /*4670*/
+        command_id
+        )/*4671*/
+        {
+            JsValue v1 = new JsValue();
+            JsValue ret;
+            /*4672*/
+
+            Cef3Binder.MyCefMet_Call1(this.nativePtr, CefMenuModel_GetLabel_19, out ret, ref v1);
+            /*4673*/
+            var ret_result = Cef3Binder.CopyStringAndDestroyNativeSide(ref ret);
+            /*4674*/
+            return ret_result;
+            /*4675*/
+        }
+
+        // gen! CefString GetLabelAt(int index)
+        /// <summary>
+        /// Returns the label at the specified |index| or empty if not found due to
+        /// invalid range or the index being a separator.
+        /// /*cef()*/
+        /// </summary>
+        /*4676*/
+
+        public string GetLabelAt(int /*4677*/
+        index
+        )/*4678*/
+        {
+            JsValue v1 = new JsValue();
+            JsValue ret;
+            /*4679*/
+
+            Cef3Binder.MyCefMet_Call1(this.nativePtr, CefMenuModel_GetLabelAt_20, out ret, ref v1);
+            /*4680*/
+            var ret_result = Cef3Binder.CopyStringAndDestroyNativeSide(ref ret);
+            /*4681*/
+            return ret_result;
+            /*4682*/
+        }
+
+        // gen! bool SetLabel(int command_id,const CefString& label)
+        /// <summary>
+        /// Sets the label for the specified |command_id|. Returns true on success.
+        /// /*cef()*/
+        /// </summary>
+        /*4683*/
+
+        public bool SetLabel(int /*4684*/
+        command_id
+        , string /*4685*/
+        label
+        )/*4686*/
+        {
+            JsValue v1 = new JsValue();
+            JsValue v2 = new JsValue();
+            JsValue ret;
+            v2.Ptr = Cef3Binder.MyCefCreateCefString(label);
+            /*4687*/
+            ;
+            /*4688*/
+
+            Cef3Binder.MyCefMet_Call2(this.nativePtr, CefMenuModel_SetLabel_21, out ret, ref v1, ref v2);
+            /*4689*/
+            var ret_result = ret.I32 != 0;
+            Cef3Binder.MyCefDeletePtr(v2.Ptr);/*4690*/
+            ;
+            /*4691*/
+            return ret_result;
+            /*4692*/
+        }
+
+        // gen! bool SetLabelAt(int index,const CefString& label)
+        /// <summary>
+        /// Set the label at the specified |index|. Returns true on success.
+        /// /*cef()*/
+        /// </summary>
+        /*4693*/
+
+        public bool SetLabelAt(int /*4694*/
+        index
+        , string /*4695*/
+        label
+        )/*4696*/
+        {
+            JsValue v1 = new JsValue();
+            JsValue v2 = new JsValue();
+            JsValue ret;
+            v2.Ptr = Cef3Binder.MyCefCreateCefString(label);
+            /*4697*/
+            ;
+            /*4698*/
+
+            Cef3Binder.MyCefMet_Call2(this.nativePtr, CefMenuModel_SetLabelAt_22, out ret, ref v1, ref v2);
+            /*4699*/
+            var ret_result = ret.I32 != 0;
+            Cef3Binder.MyCefDeletePtr(v2.Ptr);/*4700*/
+            ;
+            /*4701*/
+            return ret_result;
+            /*4702*/
+        }
+
+        // gen! MenuItemType GetType(int command_id)
+        /// <summary>
+        /// Returns the item type for the specified |command_id|.
+        /// /*cef(default_retval=MENUITEMTYPE_NONE)*/
+        /// </summary>
+        /*4703*/
+
+        public cef_menu_item_type_t _GetType(int /*4704*/
+        command_id
+        )/*4705*/
+        {
+            JsValue v1 = new JsValue();
+            JsValue ret;
+            /*4706*/
+
+            Cef3Binder.MyCefMet_Call1(this.nativePtr, CefMenuModel_GetType_23, out ret, ref v1);
+            /*4707*/
+            var ret_result = (cef_menu_item_type_t)ret.I32;
+
+            /*4708*/
+            return ret_result;
+            /*4709*/
+        }
+
+        // gen! MenuItemType GetTypeAt(int index)
+        /// <summary>
+        /// Returns the item type at the specified |index|.
+        /// /*cef(default_retval=MENUITEMTYPE_NONE)*/
+        /// </summary>
+        /*4710*/
+
+        public cef_menu_item_type_t GetTypeAt(int /*4711*/
+        index
+        )/*4712*/
+        {
+            JsValue v1 = new JsValue();
+            JsValue ret;
+            /*4713*/
+
+            Cef3Binder.MyCefMet_Call1(this.nativePtr, CefMenuModel_GetTypeAt_24, out ret, ref v1);
+            /*4714*/
+            var ret_result = (cef_menu_item_type_t)ret.I32;
+
+            /*4715*/
+            return ret_result;
+            /*4716*/
+        }
+
+        // gen! int GetGroupId(int command_id)
+        /// <summary>
+        /// Returns the group id for the specified |command_id| or -1 if invalid.
+        /// /*cef()*/
+        /// </summary>
+        /*4717*/
+
+        public int GetGroupId(int /*4718*/
+        command_id
+        )/*4719*/
+        {
+            JsValue v1 = new JsValue();
+            JsValue ret;
+            /*4720*/
+
+            Cef3Binder.MyCefMet_Call1(this.nativePtr, CefMenuModel_GetGroupId_25, out ret, ref v1);
+            /*4721*/
+            var ret_result = ret.I32;
+            /*4722*/
+            return ret_result;
+            /*4723*/
+        }
+
+        // gen! int GetGroupIdAt(int index)
+        /// <summary>
+        /// Returns the group id at the specified |index| or -1 if invalid.
+        /// /*cef()*/
+        /// </summary>
+        /*4724*/
+
+        public int GetGroupIdAt(int /*4725*/
+        index
+        )/*4726*/
+        {
+            JsValue v1 = new JsValue();
+            JsValue ret;
+            /*4727*/
+
+            Cef3Binder.MyCefMet_Call1(this.nativePtr, CefMenuModel_GetGroupIdAt_26, out ret, ref v1);
+            /*4728*/
+            var ret_result = ret.I32;
+            /*4729*/
+            return ret_result;
+            /*4730*/
+        }
+
+        // gen! bool SetGroupId(int command_id,int group_id)
+        /// <summary>
+        /// Sets the group id for the specified |command_id|. Returns true on success.
+        /// /*cef()*/
+        /// </summary>
+        /*4731*/
+
+        public bool SetGroupId(int /*4732*/
+        command_id
+        , int /*4733*/
+        group_id
+        )/*4734*/
+        {
+            JsValue v1 = new JsValue();
+            JsValue v2 = new JsValue();
+            JsValue ret;
+            /*4735*/
+
+            Cef3Binder.MyCefMet_Call2(this.nativePtr, CefMenuModel_SetGroupId_27, out ret, ref v1, ref v2);
+            /*4736*/
+            var ret_result = ret.I32 != 0;
+            /*4737*/
+            return ret_result;
+            /*4738*/
+        }
+
+        // gen! bool SetGroupIdAt(int index,int group_id)
+        /// <summary>
+        /// Sets the group id at the specified |index|. Returns true on success.
+        /// /*cef()*/
+        /// </summary>
+        /*4739*/
+
+        public bool SetGroupIdAt(int /*4740*/
+        index
+        , int /*4741*/
+        group_id
+        )/*4742*/
+        {
+            JsValue v1 = new JsValue();
+            JsValue v2 = new JsValue();
+            JsValue ret;
+            /*4743*/
+
+            Cef3Binder.MyCefMet_Call2(this.nativePtr, CefMenuModel_SetGroupIdAt_28, out ret, ref v1, ref v2);
+            /*4744*/
+            var ret_result = ret.I32 != 0;
+            /*4745*/
+            return ret_result;
+            /*4746*/
+        }
+
+        // gen! CefRefPtr<CefMenuModel> GetSubMenu(int command_id)
+        /// <summary>
+        /// Returns the submenu for the specified |command_id| or empty if invalid.
+        /// /*cef()*/
+        /// </summary>
+        /*4747*/
+
+        public CefMenuModel GetSubMenu(int /*4748*/
+        command_id
+        )/*4749*/
+        {
+            JsValue v1 = new JsValue();
+            JsValue ret;
+            /*4750*/
+
+            Cef3Binder.MyCefMet_Call1(this.nativePtr, CefMenuModel_GetSubMenu_29, out ret, ref v1);
+            /*4751*/
+            var ret_result = new CefMenuModel(ret.Ptr);
+            /*4752*/
+            return ret_result;
+            /*4753*/
+        }
+
+        // gen! CefRefPtr<CefMenuModel> GetSubMenuAt(int index)
+        /// <summary>
+        /// Returns the submenu at the specified |index| or empty if invalid.
+        /// /*cef()*/
+        /// </summary>
+        /*4754*/
+
+        public CefMenuModel GetSubMenuAt(int /*4755*/
+        index
+        )/*4756*/
+        {
+            JsValue v1 = new JsValue();
+            JsValue ret;
+            /*4757*/
+
+            Cef3Binder.MyCefMet_Call1(this.nativePtr, CefMenuModel_GetSubMenuAt_30, out ret, ref v1);
+            /*4758*/
+            var ret_result = new CefMenuModel(ret.Ptr);
+            /*4759*/
+            return ret_result;
+            /*4760*/
+        }
+
+        // gen! bool IsVisible(int command_id)
+        /// <summary>
+        /// Returns true if the specified |command_id| is visible.
+        /// /*cef()*/
+        /// </summary>
+        /*4761*/
+
+        public bool IsVisible(int /*4762*/
+        command_id
+        )/*4763*/
+        {
+            JsValue v1 = new JsValue();
+            JsValue ret;
+            /*4764*/
+
+            Cef3Binder.MyCefMet_Call1(this.nativePtr, CefMenuModel_IsVisible_31, out ret, ref v1);
+            /*4765*/
+            var ret_result = ret.I32 != 0;
+            /*4766*/
+            return ret_result;
+            /*4767*/
+        }
+
+        // gen! bool IsVisibleAt(int index)
+        /// <summary>
+        /// Returns true if the specified |index| is visible.
+        /// /*cef()*/
+        /// </summary>
+        /*4768*/
+
+        public bool IsVisibleAt(int /*4769*/
+        index
+        )/*4770*/
+        {
+            JsValue v1 = new JsValue();
+            JsValue ret;
+            /*4771*/
+
+            Cef3Binder.MyCefMet_Call1(this.nativePtr, CefMenuModel_IsVisibleAt_32, out ret, ref v1);
+            /*4772*/
+            var ret_result = ret.I32 != 0;
+            /*4773*/
+            return ret_result;
+            /*4774*/
+        }
+
+        // gen! bool SetVisible(int command_id,bool visible)
+        /// <summary>
+        /// Change the visibility of the specified |command_id|. Returns true on
+        /// success.
+        /// /*cef()*/
+        /// </summary>
+        /*4775*/
+
+        public bool SetVisible(int /*4776*/
+        command_id
+        , bool /*4777*/
+        visible
+        )/*4778*/
+        {
+            JsValue v1 = new JsValue();
+            JsValue v2 = new JsValue();
+            JsValue ret;
+            /*4779*/
+
+            Cef3Binder.MyCefMet_Call2(this.nativePtr, CefMenuModel_SetVisible_33, out ret, ref v1, ref v2);
+            /*4780*/
+            var ret_result = ret.I32 != 0;
+            /*4781*/
+            return ret_result;
+            /*4782*/
+        }
+
+        // gen! bool SetVisibleAt(int index,bool visible)
+        /// <summary>
+        /// Change the visibility at the specified |index|. Returns true on success.
+        /// /*cef()*/
+        /// </summary>
+        /*4783*/
+
+        public bool SetVisibleAt(int /*4784*/
+        index
+        , bool /*4785*/
+        visible
+        )/*4786*/
+        {
+            JsValue v1 = new JsValue();
+            JsValue v2 = new JsValue();
+            JsValue ret;
+            /*4787*/
+
+            Cef3Binder.MyCefMet_Call2(this.nativePtr, CefMenuModel_SetVisibleAt_34, out ret, ref v1, ref v2);
+            /*4788*/
+            var ret_result = ret.I32 != 0;
+            /*4789*/
+            return ret_result;
+            /*4790*/
+        }
+
+        // gen! bool IsEnabled(int command_id)
+        /// <summary>
+        /// Returns true if the specified |command_id| is enabled.
+        /// /*cef()*/
+        /// </summary>
+        /*4791*/
+
+        public bool IsEnabled(int /*4792*/
+        command_id
+        )/*4793*/
+        {
+            JsValue v1 = new JsValue();
+            JsValue ret;
+            /*4794*/
+
+            Cef3Binder.MyCefMet_Call1(this.nativePtr, CefMenuModel_IsEnabled_35, out ret, ref v1);
+            /*4795*/
+            var ret_result = ret.I32 != 0;
+            /*4796*/
+            return ret_result;
+            /*4797*/
+        }
+
+        // gen! bool IsEnabledAt(int index)
+        /// <summary>
+        /// Returns true if the specified |index| is enabled.
+        /// /*cef()*/
+        /// </summary>
+        /*4798*/
+
+        public bool IsEnabledAt(int /*4799*/
+        index
+        )/*4800*/
+        {
+            JsValue v1 = new JsValue();
+            JsValue ret;
+            /*4801*/
+
+            Cef3Binder.MyCefMet_Call1(this.nativePtr, CefMenuModel_IsEnabledAt_36, out ret, ref v1);
+            /*4802*/
+            var ret_result = ret.I32 != 0;
+            /*4803*/
+            return ret_result;
+            /*4804*/
+        }
+
+        // gen! bool SetEnabled(int command_id,bool enabled)
+        /// <summary>
+        /// Change the enabled status of the specified |command_id|. Returns true on
+        /// success.
+        /// /*cef()*/
+        /// </summary>
+        /*4805*/
+
+        public bool SetEnabled(int /*4806*/
+        command_id
+        , bool /*4807*/
+        enabled
+        )/*4808*/
+        {
+            JsValue v1 = new JsValue();
+            JsValue v2 = new JsValue();
+            JsValue ret;
+            /*4809*/
+
+            Cef3Binder.MyCefMet_Call2(this.nativePtr, CefMenuModel_SetEnabled_37, out ret, ref v1, ref v2);
+            /*4810*/
+            var ret_result = ret.I32 != 0;
+            /*4811*/
+            return ret_result;
+            /*4812*/
+        }
+
+        // gen! bool SetEnabledAt(int index,bool enabled)
+        /// <summary>
+        /// Change the enabled status at the specified |index|. Returns true on
+        /// success.
+        /// /*cef()*/
+        /// </summary>
+        /*4813*/
+
+        public bool SetEnabledAt(int /*4814*/
+        index
+        , bool /*4815*/
+        enabled
+        )/*4816*/
+        {
+            JsValue v1 = new JsValue();
+            JsValue v2 = new JsValue();
+            JsValue ret;
+            /*4817*/
+
+            Cef3Binder.MyCefMet_Call2(this.nativePtr, CefMenuModel_SetEnabledAt_38, out ret, ref v1, ref v2);
+            /*4818*/
+            var ret_result = ret.I32 != 0;
+            /*4819*/
+            return ret_result;
+            /*4820*/
+        }
+
+        // gen! bool IsChecked(int command_id)
+        /// <summary>
+        /// Returns true if the specified |command_id| is checked. Only applies to
+        /// check and radio items.
+        /// /*cef()*/
+        /// </summary>
+        /*4821*/
+
+        public bool IsChecked(int /*4822*/
+        command_id
+        )/*4823*/
+        {
+            JsValue v1 = new JsValue();
+            JsValue ret;
+            /*4824*/
+
+            Cef3Binder.MyCefMet_Call1(this.nativePtr, CefMenuModel_IsChecked_39, out ret, ref v1);
+            /*4825*/
+            var ret_result = ret.I32 != 0;
+            /*4826*/
+            return ret_result;
+            /*4827*/
+        }
+
+        // gen! bool IsCheckedAt(int index)
+        /// <summary>
+        /// Returns true if the specified |index| is checked. Only applies to check
+        /// and radio items.
+        /// /*cef()*/
+        /// </summary>
+        /*4828*/
+
+        public bool IsCheckedAt(int /*4829*/
+        index
+        )/*4830*/
+        {
+            JsValue v1 = new JsValue();
+            JsValue ret;
+            /*4831*/
+
+            Cef3Binder.MyCefMet_Call1(this.nativePtr, CefMenuModel_IsCheckedAt_40, out ret, ref v1);
+            /*4832*/
+            var ret_result = ret.I32 != 0;
+            /*4833*/
+            return ret_result;
+            /*4834*/
+        }
+
+        // gen! bool SetChecked(int command_id,bool checked)
+        /// <summary>
+        /// Check the specified |command_id|. Only applies to check and radio items.
+        /// Returns true on success.
+        /// /*cef()*/
+        /// </summary>
+        /*4835*/
+
+        public bool SetChecked(int /*4836*/
+        command_id
+        , bool /*4837*/
+        _checked
+        )/*4838*/
+        {
+            JsValue v1 = new JsValue();
+            JsValue v2 = new JsValue();
+            JsValue ret;
+            /*4839*/
+
+            Cef3Binder.MyCefMet_Call2(this.nativePtr, CefMenuModel_SetChecked_41, out ret, ref v1, ref v2);
+            /*4840*/
+            var ret_result = ret.I32 != 0;
+            /*4841*/
+            return ret_result;
+            /*4842*/
+        }
+
+        // gen! bool SetCheckedAt(int index,bool checked)
+        /// <summary>
+        /// Check the specified |index|. Only applies to check and radio items. Returns
+        /// true on success.
+        /// /*cef()*/
+        /// </summary>
+        /*4843*/
+
+        public bool SetCheckedAt(int /*4844*/
+        index
+        , bool /*4845*/
+        _checked
+        )/*4846*/
+        {
+            JsValue v1 = new JsValue();
+            JsValue v2 = new JsValue();
+            JsValue ret;
+            /*4847*/
+
+            Cef3Binder.MyCefMet_Call2(this.nativePtr, CefMenuModel_SetCheckedAt_42, out ret, ref v1, ref v2);
+            /*4848*/
+            var ret_result = ret.I32 != 0;
+            /*4849*/
+            return ret_result;
+            /*4850*/
+        }
+
+        // gen! bool HasAccelerator(int command_id)
+        /// <summary>
+        /// Returns true if the specified |command_id| has a keyboard accelerator
+        /// assigned.
+        /// /*cef()*/
+        /// </summary>
+        /*4851*/
+
+        public bool HasAccelerator(int /*4852*/
+        command_id
+        )/*4853*/
+        {
+            JsValue v1 = new JsValue();
+            JsValue ret;
+            /*4854*/
+
+            Cef3Binder.MyCefMet_Call1(this.nativePtr, CefMenuModel_HasAccelerator_43, out ret, ref v1);
+            /*4855*/
+            var ret_result = ret.I32 != 0;
+            /*4856*/
+            return ret_result;
+            /*4857*/
+        }
+
+        // gen! bool HasAcceleratorAt(int index)
+        /// <summary>
+        /// Returns true if the specified |index| has a keyboard accelerator assigned.
+        /// /*cef()*/
+        /// </summary>
+        /*4858*/
+
+        public bool HasAcceleratorAt(int /*4859*/
+        index
+        )/*4860*/
+        {
+            JsValue v1 = new JsValue();
+            JsValue ret;
+            /*4861*/
+
+            Cef3Binder.MyCefMet_Call1(this.nativePtr, CefMenuModel_HasAcceleratorAt_44, out ret, ref v1);
+            /*4862*/
+            var ret_result = ret.I32 != 0;
+            /*4863*/
+            return ret_result;
+            /*4864*/
+        }
+
+        // gen! bool SetAccelerator(int command_id,int key_code,bool shift_pressed,bool ctrl_pressed,bool alt_pressed)
+        /// <summary>
+        /// Set the keyboard accelerator for the specified |command_id|. |key_code| can
+        /// be any virtual key or character value. Returns true on success.
+        /// /*cef()*/
+        /// </summary>
+        /*4865*/
+
+        public bool SetAccelerator(int /*4866*/
+        command_id
+        , int /*4867*/
+        key_code
+        , bool /*4868*/
+        shift_pressed
+        , bool /*4869*/
+        ctrl_pressed
+        , bool /*4870*/
+        alt_pressed
+        )/*4871*/
+        {
+            JsValue v1 = new JsValue();
+            JsValue v2 = new JsValue();
+            JsValue v3 = new JsValue();
+            JsValue v4 = new JsValue();
+            JsValue v5 = new JsValue();
+            JsValue ret;
+            /*4872*/
+
+            Cef3Binder.MyCefMet_Call5(this.nativePtr, CefMenuModel_SetAccelerator_45, out ret, ref v1, ref v2, ref v3, ref v4, ref v5);
+            /*4873*/
+            var ret_result = ret.I32 != 0;
+            /*4874*/
+            return ret_result;
+            /*4875*/
+        }
+
+        // gen! bool SetAcceleratorAt(int index,int key_code,bool shift_pressed,bool ctrl_pressed,bool alt_pressed)
+        /// <summary>
+        /// Set the keyboard accelerator at the specified |index|. |key_code| can be
+        /// any virtual key or character value. Returns true on success.
+        /// /*cef()*/
+        /// </summary>
+        /*4876*/
+
+        public bool SetAcceleratorAt(int /*4877*/
+        index
+        , int /*4878*/
+        key_code
+        , bool /*4879*/
+        shift_pressed
+        , bool /*4880*/
+        ctrl_pressed
+        , bool /*4881*/
+        alt_pressed
+        )/*4882*/
+        {
+            JsValue v1 = new JsValue();
+            JsValue v2 = new JsValue();
+            JsValue v3 = new JsValue();
+            JsValue v4 = new JsValue();
+            JsValue v5 = new JsValue();
+            JsValue ret;
+            /*4883*/
+
+            Cef3Binder.MyCefMet_Call5(this.nativePtr, CefMenuModel_SetAcceleratorAt_46, out ret, ref v1, ref v2, ref v3, ref v4, ref v5);
+            /*4884*/
+            var ret_result = ret.I32 != 0;
+            /*4885*/
+            return ret_result;
+            /*4886*/
+        }
+
+        // gen! bool RemoveAccelerator(int command_id)
+        /// <summary>
+        /// Remove the keyboard accelerator for the specified |command_id|. Returns
+        /// true on success.
+        /// /*cef()*/
+        /// </summary>
         /*4887*/
 
-        public bool Remove(int /*4888*/
+        public bool RemoveAccelerator(int /*4888*/
         command_id
         )/*4889*/
         {
@@ -9936,969 +10270,57 @@ namespace LayoutFarm.CefBridge.Auto
             JsValue ret;
             /*4890*/
 
-            Cef3Binder.MyCefMet_Call1(this.nativePtr, CefMenuModel_Remove_14, out ret, ref v1);
+            Cef3Binder.MyCefMet_Call1(this.nativePtr, CefMenuModel_RemoveAccelerator_47, out ret, ref v1);
             /*4891*/
             var ret_result = ret.I32 != 0;
             /*4892*/
             return ret_result;
             /*4893*/
         }
-        /// <summary>
-        /// Removes the item at the specified |index|. Returns true on success.
-        /// /*cef()*/
-        /// </summary>
-        /*4894*/
 
-
-        // gen! bool RemoveAt(int index)
-        /*4895*/
-
-        public bool RemoveAt(int /*4896*/
-        index
-        )/*4897*/
-        {
-            JsValue v1 = new JsValue();
-            JsValue ret;
-            /*4898*/
-
-            Cef3Binder.MyCefMet_Call1(this.nativePtr, CefMenuModel_RemoveAt_15, out ret, ref v1);
-            /*4899*/
-            var ret_result = ret.I32 != 0;
-            /*4900*/
-            return ret_result;
-            /*4901*/
-        }
-        /// <summary>
-        /// Returns the index associated with the specified |command_id| or -1 if not
-        /// found due to the command id not existing in the menu.
-        /// /*cef()*/
-        /// </summary>
-        /*4902*/
-
-
-        // gen! int GetIndexOf(int command_id)
-        /*4903*/
-
-        public int GetIndexOf(int /*4904*/
-        command_id
-        )/*4905*/
-        {
-            JsValue v1 = new JsValue();
-            JsValue ret;
-            /*4906*/
-
-            Cef3Binder.MyCefMet_Call1(this.nativePtr, CefMenuModel_GetIndexOf_16, out ret, ref v1);
-            /*4907*/
-            var ret_result = ret.I32;
-            /*4908*/
-            return ret_result;
-            /*4909*/
-        }
-        /// <summary>
-        /// Returns the command id at the specified |index| or -1 if not found due to
-        /// invalid range or the index being a separator.
-        /// /*cef()*/
-        /// </summary>
-        /*4910*/
-
-
-        // gen! int GetCommandIdAt(int index)
-        /*4911*/
-
-        public int GetCommandIdAt(int /*4912*/
-        index
-        )/*4913*/
-        {
-            JsValue v1 = new JsValue();
-            JsValue ret;
-            /*4914*/
-
-            Cef3Binder.MyCefMet_Call1(this.nativePtr, CefMenuModel_GetCommandIdAt_17, out ret, ref v1);
-            /*4915*/
-            var ret_result = ret.I32;
-            /*4916*/
-            return ret_result;
-            /*4917*/
-        }
-        /// <summary>
-        /// Sets the command id at the specified |index|. Returns true on success.
-        /// /*cef()*/
-        /// </summary>
-        /*4918*/
-
-
-        // gen! bool SetCommandIdAt(int index,int command_id)
-        /*4919*/
-
-        public bool SetCommandIdAt(int /*4920*/
-        index
-        , int /*4921*/
-        command_id
-        )/*4922*/
-        {
-            JsValue v1 = new JsValue();
-            JsValue v2 = new JsValue();
-            JsValue ret;
-            /*4923*/
-
-            Cef3Binder.MyCefMet_Call2(this.nativePtr, CefMenuModel_SetCommandIdAt_18, out ret, ref v1, ref v2);
-            /*4924*/
-            var ret_result = ret.I32 != 0;
-            /*4925*/
-            return ret_result;
-            /*4926*/
-        }
-        /// <summary>
-        /// Returns the label for the specified |command_id| or empty if not found.
-        /// /*cef()*/
-        /// </summary>
-        /*4927*/
-
-
-        // gen! CefString GetLabel(int command_id)
-        /*4928*/
-
-        public string GetLabel(int /*4929*/
-        command_id
-        )/*4930*/
-        {
-            JsValue v1 = new JsValue();
-            JsValue ret;
-            /*4931*/
-
-            Cef3Binder.MyCefMet_Call1(this.nativePtr, CefMenuModel_GetLabel_19, out ret, ref v1);
-            /*4932*/
-            var ret_result = Cef3Binder.CopyStringAndDestroyNativeSide(ref ret);
-            /*4933*/
-            return ret_result;
-            /*4934*/
-        }
-        /// <summary>
-        /// Returns the label at the specified |index| or empty if not found due to
-        /// invalid range or the index being a separator.
-        /// /*cef()*/
-        /// </summary>
-        /*4935*/
-
-
-        // gen! CefString GetLabelAt(int index)
-        /*4936*/
-
-        public string GetLabelAt(int /*4937*/
-        index
-        )/*4938*/
-        {
-            JsValue v1 = new JsValue();
-            JsValue ret;
-            /*4939*/
-
-            Cef3Binder.MyCefMet_Call1(this.nativePtr, CefMenuModel_GetLabelAt_20, out ret, ref v1);
-            /*4940*/
-            var ret_result = Cef3Binder.CopyStringAndDestroyNativeSide(ref ret);
-            /*4941*/
-            return ret_result;
-            /*4942*/
-        }
-        /// <summary>
-        /// Sets the label for the specified |command_id|. Returns true on success.
-        /// /*cef()*/
-        /// </summary>
-        /*4943*/
-
-
-        // gen! bool SetLabel(int command_id,const CefString& label)
-        /*4944*/
-
-        public bool SetLabel(int /*4945*/
-        command_id
-        , string /*4946*/
-        label
-        )/*4947*/
-        {
-            JsValue v1 = new JsValue();
-            JsValue v2 = new JsValue();
-            JsValue ret;
-            v2.Ptr = Cef3Binder.MyCefCreateCefString(label);
-            /*4948*/
-            ;
-            /*4949*/
-
-            Cef3Binder.MyCefMet_Call2(this.nativePtr, CefMenuModel_SetLabel_21, out ret, ref v1, ref v2);
-            /*4950*/
-            var ret_result = ret.I32 != 0;
-            Cef3Binder.MyCefDeletePtr(v2.Ptr);/*4951*/
-            ;
-            /*4952*/
-            return ret_result;
-            /*4953*/
-        }
-        /// <summary>
-        /// Set the label at the specified |index|. Returns true on success.
-        /// /*cef()*/
-        /// </summary>
-        /*4954*/
-
-
-        // gen! bool SetLabelAt(int index,const CefString& label)
-        /*4955*/
-
-        public bool SetLabelAt(int /*4956*/
-        index
-        , string /*4957*/
-        label
-        )/*4958*/
-        {
-            JsValue v1 = new JsValue();
-            JsValue v2 = new JsValue();
-            JsValue ret;
-            v2.Ptr = Cef3Binder.MyCefCreateCefString(label);
-            /*4959*/
-            ;
-            /*4960*/
-
-            Cef3Binder.MyCefMet_Call2(this.nativePtr, CefMenuModel_SetLabelAt_22, out ret, ref v1, ref v2);
-            /*4961*/
-            var ret_result = ret.I32 != 0;
-            Cef3Binder.MyCefDeletePtr(v2.Ptr);/*4962*/
-            ;
-            /*4963*/
-            return ret_result;
-            /*4964*/
-        }
-        /// <summary>
-        /// Returns the item type for the specified |command_id|.
-        /// /*cef(default_retval=MENUITEMTYPE_NONE)*/
-        /// </summary>
-        /*4965*/
-
-
-        // gen! MenuItemType GetType(int command_id)
-        /*4966*/
-
-        public cef_menu_item_type_t _GetType(int /*4967*/
-        command_id
-        )/*4968*/
-        {
-            JsValue v1 = new JsValue();
-            JsValue ret;
-            /*4969*/
-
-            Cef3Binder.MyCefMet_Call1(this.nativePtr, CefMenuModel_GetType_23, out ret, ref v1);
-            /*4970*/
-            var ret_result = (cef_menu_item_type_t)ret.I32;
-
-            /*4971*/
-            return ret_result;
-            /*4972*/
-        }
-        /// <summary>
-        /// Returns the item type at the specified |index|.
-        /// /*cef(default_retval=MENUITEMTYPE_NONE)*/
-        /// </summary>
-        /*4973*/
-
-
-        // gen! MenuItemType GetTypeAt(int index)
-        /*4974*/
-
-        public cef_menu_item_type_t GetTypeAt(int /*4975*/
-        index
-        )/*4976*/
-        {
-            JsValue v1 = new JsValue();
-            JsValue ret;
-            /*4977*/
-
-            Cef3Binder.MyCefMet_Call1(this.nativePtr, CefMenuModel_GetTypeAt_24, out ret, ref v1);
-            /*4978*/
-            var ret_result = (cef_menu_item_type_t)ret.I32;
-
-            /*4979*/
-            return ret_result;
-            /*4980*/
-        }
-        /// <summary>
-        /// Returns the group id for the specified |command_id| or -1 if invalid.
-        /// /*cef()*/
-        /// </summary>
-        /*4981*/
-
-
-        // gen! int GetGroupId(int command_id)
-        /*4982*/
-
-        public int GetGroupId(int /*4983*/
-        command_id
-        )/*4984*/
-        {
-            JsValue v1 = new JsValue();
-            JsValue ret;
-            /*4985*/
-
-            Cef3Binder.MyCefMet_Call1(this.nativePtr, CefMenuModel_GetGroupId_25, out ret, ref v1);
-            /*4986*/
-            var ret_result = ret.I32;
-            /*4987*/
-            return ret_result;
-            /*4988*/
-        }
-        /// <summary>
-        /// Returns the group id at the specified |index| or -1 if invalid.
-        /// /*cef()*/
-        /// </summary>
-        /*4989*/
-
-
-        // gen! int GetGroupIdAt(int index)
-        /*4990*/
-
-        public int GetGroupIdAt(int /*4991*/
-        index
-        )/*4992*/
-        {
-            JsValue v1 = new JsValue();
-            JsValue ret;
-            /*4993*/
-
-            Cef3Binder.MyCefMet_Call1(this.nativePtr, CefMenuModel_GetGroupIdAt_26, out ret, ref v1);
-            /*4994*/
-            var ret_result = ret.I32;
-            /*4995*/
-            return ret_result;
-            /*4996*/
-        }
-        /// <summary>
-        /// Sets the group id for the specified |command_id|. Returns true on success.
-        /// /*cef()*/
-        /// </summary>
-        /*4997*/
-
-
-        // gen! bool SetGroupId(int command_id,int group_id)
-        /*4998*/
-
-        public bool SetGroupId(int /*4999*/
-        command_id
-        , int /*5000*/
-        group_id
-        )/*5001*/
-        {
-            JsValue v1 = new JsValue();
-            JsValue v2 = new JsValue();
-            JsValue ret;
-            /*5002*/
-
-            Cef3Binder.MyCefMet_Call2(this.nativePtr, CefMenuModel_SetGroupId_27, out ret, ref v1, ref v2);
-            /*5003*/
-            var ret_result = ret.I32 != 0;
-            /*5004*/
-            return ret_result;
-            /*5005*/
-        }
-        /// <summary>
-        /// Sets the group id at the specified |index|. Returns true on success.
-        /// /*cef()*/
-        /// </summary>
-        /*5006*/
-
-
-        // gen! bool SetGroupIdAt(int index,int group_id)
-        /*5007*/
-
-        public bool SetGroupIdAt(int /*5008*/
-        index
-        , int /*5009*/
-        group_id
-        )/*5010*/
-        {
-            JsValue v1 = new JsValue();
-            JsValue v2 = new JsValue();
-            JsValue ret;
-            /*5011*/
-
-            Cef3Binder.MyCefMet_Call2(this.nativePtr, CefMenuModel_SetGroupIdAt_28, out ret, ref v1, ref v2);
-            /*5012*/
-            var ret_result = ret.I32 != 0;
-            /*5013*/
-            return ret_result;
-            /*5014*/
-        }
-        /// <summary>
-        /// Returns the submenu for the specified |command_id| or empty if invalid.
-        /// /*cef()*/
-        /// </summary>
-        /*5015*/
-
-
-        // gen! CefRefPtr<CefMenuModel> GetSubMenu(int command_id)
-        /*5016*/
-
-        public CefMenuModel GetSubMenu(int /*5017*/
-        command_id
-        )/*5018*/
-        {
-            JsValue v1 = new JsValue();
-            JsValue ret;
-            /*5019*/
-
-            Cef3Binder.MyCefMet_Call1(this.nativePtr, CefMenuModel_GetSubMenu_29, out ret, ref v1);
-            /*5020*/
-            var ret_result = new CefMenuModel(ret.Ptr);
-            /*5021*/
-            return ret_result;
-            /*5022*/
-        }
-        /// <summary>
-        /// Returns the submenu at the specified |index| or empty if invalid.
-        /// /*cef()*/
-        /// </summary>
-        /*5023*/
-
-
-        // gen! CefRefPtr<CefMenuModel> GetSubMenuAt(int index)
-        /*5024*/
-
-        public CefMenuModel GetSubMenuAt(int /*5025*/
-        index
-        )/*5026*/
-        {
-            JsValue v1 = new JsValue();
-            JsValue ret;
-            /*5027*/
-
-            Cef3Binder.MyCefMet_Call1(this.nativePtr, CefMenuModel_GetSubMenuAt_30, out ret, ref v1);
-            /*5028*/
-            var ret_result = new CefMenuModel(ret.Ptr);
-            /*5029*/
-            return ret_result;
-            /*5030*/
-        }
-        /// <summary>
-        /// Returns true if the specified |command_id| is visible.
-        /// /*cef()*/
-        /// </summary>
-        /*5031*/
-
-
-        // gen! bool IsVisible(int command_id)
-        /*5032*/
-
-        public bool IsVisible(int /*5033*/
-        command_id
-        )/*5034*/
-        {
-            JsValue v1 = new JsValue();
-            JsValue ret;
-            /*5035*/
-
-            Cef3Binder.MyCefMet_Call1(this.nativePtr, CefMenuModel_IsVisible_31, out ret, ref v1);
-            /*5036*/
-            var ret_result = ret.I32 != 0;
-            /*5037*/
-            return ret_result;
-            /*5038*/
-        }
-        /// <summary>
-        /// Returns true if the specified |index| is visible.
-        /// /*cef()*/
-        /// </summary>
-        /*5039*/
-
-
-        // gen! bool IsVisibleAt(int index)
-        /*5040*/
-
-        public bool IsVisibleAt(int /*5041*/
-        index
-        )/*5042*/
-        {
-            JsValue v1 = new JsValue();
-            JsValue ret;
-            /*5043*/
-
-            Cef3Binder.MyCefMet_Call1(this.nativePtr, CefMenuModel_IsVisibleAt_32, out ret, ref v1);
-            /*5044*/
-            var ret_result = ret.I32 != 0;
-            /*5045*/
-            return ret_result;
-            /*5046*/
-        }
-        /// <summary>
-        /// Change the visibility of the specified |command_id|. Returns true on
-        /// success.
-        /// /*cef()*/
-        /// </summary>
-        /*5047*/
-
-
-        // gen! bool SetVisible(int command_id,bool visible)
-        /*5048*/
-
-        public bool SetVisible(int /*5049*/
-        command_id
-        , bool /*5050*/
-        visible
-        )/*5051*/
-        {
-            JsValue v1 = new JsValue();
-            JsValue v2 = new JsValue();
-            JsValue ret;
-            /*5052*/
-
-            Cef3Binder.MyCefMet_Call2(this.nativePtr, CefMenuModel_SetVisible_33, out ret, ref v1, ref v2);
-            /*5053*/
-            var ret_result = ret.I32 != 0;
-            /*5054*/
-            return ret_result;
-            /*5055*/
-        }
-        /// <summary>
-        /// Change the visibility at the specified |index|. Returns true on success.
-        /// /*cef()*/
-        /// </summary>
-        /*5056*/
-
-
-        // gen! bool SetVisibleAt(int index,bool visible)
-        /*5057*/
-
-        public bool SetVisibleAt(int /*5058*/
-        index
-        , bool /*5059*/
-        visible
-        )/*5060*/
-        {
-            JsValue v1 = new JsValue();
-            JsValue v2 = new JsValue();
-            JsValue ret;
-            /*5061*/
-
-            Cef3Binder.MyCefMet_Call2(this.nativePtr, CefMenuModel_SetVisibleAt_34, out ret, ref v1, ref v2);
-            /*5062*/
-            var ret_result = ret.I32 != 0;
-            /*5063*/
-            return ret_result;
-            /*5064*/
-        }
-        /// <summary>
-        /// Returns true if the specified |command_id| is enabled.
-        /// /*cef()*/
-        /// </summary>
-        /*5065*/
-
-
-        // gen! bool IsEnabled(int command_id)
-        /*5066*/
-
-        public bool IsEnabled(int /*5067*/
-        command_id
-        )/*5068*/
-        {
-            JsValue v1 = new JsValue();
-            JsValue ret;
-            /*5069*/
-
-            Cef3Binder.MyCefMet_Call1(this.nativePtr, CefMenuModel_IsEnabled_35, out ret, ref v1);
-            /*5070*/
-            var ret_result = ret.I32 != 0;
-            /*5071*/
-            return ret_result;
-            /*5072*/
-        }
-        /// <summary>
-        /// Returns true if the specified |index| is enabled.
-        /// /*cef()*/
-        /// </summary>
-        /*5073*/
-
-
-        // gen! bool IsEnabledAt(int index)
-        /*5074*/
-
-        public bool IsEnabledAt(int /*5075*/
-        index
-        )/*5076*/
-        {
-            JsValue v1 = new JsValue();
-            JsValue ret;
-            /*5077*/
-
-            Cef3Binder.MyCefMet_Call1(this.nativePtr, CefMenuModel_IsEnabledAt_36, out ret, ref v1);
-            /*5078*/
-            var ret_result = ret.I32 != 0;
-            /*5079*/
-            return ret_result;
-            /*5080*/
-        }
-        /// <summary>
-        /// Change the enabled status of the specified |command_id|. Returns true on
-        /// success.
-        /// /*cef()*/
-        /// </summary>
-        /*5081*/
-
-
-        // gen! bool SetEnabled(int command_id,bool enabled)
-        /*5082*/
-
-        public bool SetEnabled(int /*5083*/
-        command_id
-        , bool /*5084*/
-        enabled
-        )/*5085*/
-        {
-            JsValue v1 = new JsValue();
-            JsValue v2 = new JsValue();
-            JsValue ret;
-            /*5086*/
-
-            Cef3Binder.MyCefMet_Call2(this.nativePtr, CefMenuModel_SetEnabled_37, out ret, ref v1, ref v2);
-            /*5087*/
-            var ret_result = ret.I32 != 0;
-            /*5088*/
-            return ret_result;
-            /*5089*/
-        }
-        /// <summary>
-        /// Change the enabled status at the specified |index|. Returns true on
-        /// success.
-        /// /*cef()*/
-        /// </summary>
-        /*5090*/
-
-
-        // gen! bool SetEnabledAt(int index,bool enabled)
-        /*5091*/
-
-        public bool SetEnabledAt(int /*5092*/
-        index
-        , bool /*5093*/
-        enabled
-        )/*5094*/
-        {
-            JsValue v1 = new JsValue();
-            JsValue v2 = new JsValue();
-            JsValue ret;
-            /*5095*/
-
-            Cef3Binder.MyCefMet_Call2(this.nativePtr, CefMenuModel_SetEnabledAt_38, out ret, ref v1, ref v2);
-            /*5096*/
-            var ret_result = ret.I32 != 0;
-            /*5097*/
-            return ret_result;
-            /*5098*/
-        }
-        /// <summary>
-        /// Returns true if the specified |command_id| is checked. Only applies to
-        /// check and radio items.
-        /// /*cef()*/
-        /// </summary>
-        /*5099*/
-
-
-        // gen! bool IsChecked(int command_id)
-        /*5100*/
-
-        public bool IsChecked(int /*5101*/
-        command_id
-        )/*5102*/
-        {
-            JsValue v1 = new JsValue();
-            JsValue ret;
-            /*5103*/
-
-            Cef3Binder.MyCefMet_Call1(this.nativePtr, CefMenuModel_IsChecked_39, out ret, ref v1);
-            /*5104*/
-            var ret_result = ret.I32 != 0;
-            /*5105*/
-            return ret_result;
-            /*5106*/
-        }
-        /// <summary>
-        /// Returns true if the specified |index| is checked. Only applies to check
-        /// and radio items.
-        /// /*cef()*/
-        /// </summary>
-        /*5107*/
-
-
-        // gen! bool IsCheckedAt(int index)
-        /*5108*/
-
-        public bool IsCheckedAt(int /*5109*/
-        index
-        )/*5110*/
-        {
-            JsValue v1 = new JsValue();
-            JsValue ret;
-            /*5111*/
-
-            Cef3Binder.MyCefMet_Call1(this.nativePtr, CefMenuModel_IsCheckedAt_40, out ret, ref v1);
-            /*5112*/
-            var ret_result = ret.I32 != 0;
-            /*5113*/
-            return ret_result;
-            /*5114*/
-        }
-        /// <summary>
-        /// Check the specified |command_id|. Only applies to check and radio items.
-        /// Returns true on success.
-        /// /*cef()*/
-        /// </summary>
-        /*5115*/
-
-
-        // gen! bool SetChecked(int command_id,bool checked)
-        /*5116*/
-
-        public bool SetChecked(int /*5117*/
-        command_id
-        , bool /*5118*/
-        _checked
-        )/*5119*/
-        {
-            JsValue v1 = new JsValue();
-            JsValue v2 = new JsValue();
-            JsValue ret;
-            /*5120*/
-
-            Cef3Binder.MyCefMet_Call2(this.nativePtr, CefMenuModel_SetChecked_41, out ret, ref v1, ref v2);
-            /*5121*/
-            var ret_result = ret.I32 != 0;
-            /*5122*/
-            return ret_result;
-            /*5123*/
-        }
-        /// <summary>
-        /// Check the specified |index|. Only applies to check and radio items. Returns
-        /// true on success.
-        /// /*cef()*/
-        /// </summary>
-        /*5124*/
-
-
-        // gen! bool SetCheckedAt(int index,bool checked)
-        /*5125*/
-
-        public bool SetCheckedAt(int /*5126*/
-        index
-        , bool /*5127*/
-        _checked
-        )/*5128*/
-        {
-            JsValue v1 = new JsValue();
-            JsValue v2 = new JsValue();
-            JsValue ret;
-            /*5129*/
-
-            Cef3Binder.MyCefMet_Call2(this.nativePtr, CefMenuModel_SetCheckedAt_42, out ret, ref v1, ref v2);
-            /*5130*/
-            var ret_result = ret.I32 != 0;
-            /*5131*/
-            return ret_result;
-            /*5132*/
-        }
-        /// <summary>
-        /// Returns true if the specified |command_id| has a keyboard accelerator
-        /// assigned.
-        /// /*cef()*/
-        /// </summary>
-        /*5133*/
-
-
-        // gen! bool HasAccelerator(int command_id)
-        /*5134*/
-
-        public bool HasAccelerator(int /*5135*/
-        command_id
-        )/*5136*/
-        {
-            JsValue v1 = new JsValue();
-            JsValue ret;
-            /*5137*/
-
-            Cef3Binder.MyCefMet_Call1(this.nativePtr, CefMenuModel_HasAccelerator_43, out ret, ref v1);
-            /*5138*/
-            var ret_result = ret.I32 != 0;
-            /*5139*/
-            return ret_result;
-            /*5140*/
-        }
-        /// <summary>
-        /// Returns true if the specified |index| has a keyboard accelerator assigned.
-        /// /*cef()*/
-        /// </summary>
-        /*5141*/
-
-
-        // gen! bool HasAcceleratorAt(int index)
-        /*5142*/
-
-        public bool HasAcceleratorAt(int /*5143*/
-        index
-        )/*5144*/
-        {
-            JsValue v1 = new JsValue();
-            JsValue ret;
-            /*5145*/
-
-            Cef3Binder.MyCefMet_Call1(this.nativePtr, CefMenuModel_HasAcceleratorAt_44, out ret, ref v1);
-            /*5146*/
-            var ret_result = ret.I32 != 0;
-            /*5147*/
-            return ret_result;
-            /*5148*/
-        }
-        /// <summary>
-        /// Set the keyboard accelerator for the specified |command_id|. |key_code| can
-        /// be any virtual key or character value. Returns true on success.
-        /// /*cef()*/
-        /// </summary>
-        /*5149*/
-
-
-        // gen! bool SetAccelerator(int command_id,int key_code,bool shift_pressed,bool ctrl_pressed,bool alt_pressed)
-        /*5150*/
-
-        public bool SetAccelerator(int /*5151*/
-        command_id
-        , int /*5152*/
-        key_code
-        , bool /*5153*/
-        shift_pressed
-        , bool /*5154*/
-        ctrl_pressed
-        , bool /*5155*/
-        alt_pressed
-        )/*5156*/
-        {
-            JsValue v1 = new JsValue();
-            JsValue v2 = new JsValue();
-            JsValue v3 = new JsValue();
-            JsValue v4 = new JsValue();
-            JsValue v5 = new JsValue();
-            JsValue ret;
-            /*5157*/
-
-            Cef3Binder.MyCefMet_Call5(this.nativePtr, CefMenuModel_SetAccelerator_45, out ret, ref v1, ref v2, ref v3, ref v4, ref v5);
-            /*5158*/
-            var ret_result = ret.I32 != 0;
-            /*5159*/
-            return ret_result;
-            /*5160*/
-        }
-        /// <summary>
-        /// Set the keyboard accelerator at the specified |index|. |key_code| can be
-        /// any virtual key or character value. Returns true on success.
-        /// /*cef()*/
-        /// </summary>
-        /*5161*/
-
-
-        // gen! bool SetAcceleratorAt(int index,int key_code,bool shift_pressed,bool ctrl_pressed,bool alt_pressed)
-        /*5162*/
-
-        public bool SetAcceleratorAt(int /*5163*/
-        index
-        , int /*5164*/
-        key_code
-        , bool /*5165*/
-        shift_pressed
-        , bool /*5166*/
-        ctrl_pressed
-        , bool /*5167*/
-        alt_pressed
-        )/*5168*/
-        {
-            JsValue v1 = new JsValue();
-            JsValue v2 = new JsValue();
-            JsValue v3 = new JsValue();
-            JsValue v4 = new JsValue();
-            JsValue v5 = new JsValue();
-            JsValue ret;
-            /*5169*/
-
-            Cef3Binder.MyCefMet_Call5(this.nativePtr, CefMenuModel_SetAcceleratorAt_46, out ret, ref v1, ref v2, ref v3, ref v4, ref v5);
-            /*5170*/
-            var ret_result = ret.I32 != 0;
-            /*5171*/
-            return ret_result;
-            /*5172*/
-        }
-        /// <summary>
-        /// Remove the keyboard accelerator for the specified |command_id|. Returns
-        /// true on success.
-        /// /*cef()*/
-        /// </summary>
-        /*5173*/
-
-
-        // gen! bool RemoveAccelerator(int command_id)
-        /*5174*/
-
-        public bool RemoveAccelerator(int /*5175*/
-        command_id
-        )/*5176*/
-        {
-            JsValue v1 = new JsValue();
-            JsValue ret;
-            /*5177*/
-
-            Cef3Binder.MyCefMet_Call1(this.nativePtr, CefMenuModel_RemoveAccelerator_47, out ret, ref v1);
-            /*5178*/
-            var ret_result = ret.I32 != 0;
-            /*5179*/
-            return ret_result;
-            /*5180*/
-        }
+        // gen! bool RemoveAcceleratorAt(int index)
         /// <summary>
         /// Remove the keyboard accelerator at the specified |index|. Returns true on
         /// success.
         /// /*cef()*/
         /// </summary>
-        /*5181*/
+        /*4894*/
 
-
-        // gen! bool RemoveAcceleratorAt(int index)
-        /*5182*/
-
-        public bool RemoveAcceleratorAt(int /*5183*/
+        public bool RemoveAcceleratorAt(int /*4895*/
         index
-        )/*5184*/
+        )/*4896*/
         {
             JsValue v1 = new JsValue();
             JsValue ret;
-            /*5185*/
+            /*4897*/
 
             Cef3Binder.MyCefMet_Call1(this.nativePtr, CefMenuModel_RemoveAcceleratorAt_48, out ret, ref v1);
-            /*5186*/
+            /*4898*/
             var ret_result = ret.I32 != 0;
-            /*5187*/
+            /*4899*/
             return ret_result;
-            /*5188*/
+            /*4900*/
         }
+
+        // gen! bool GetAccelerator(int command_id,int& key_code,bool& shift_pressed,bool& ctrl_pressed,bool& alt_pressed)
         /// <summary>
         /// Retrieves the keyboard accelerator for the specified |command_id|. Returns
         /// true on success.
         /// /*cef()*/
         /// </summary>
-        /*5189*/
+        /*4901*/
 
-
-        // gen! bool GetAccelerator(int command_id,int& key_code,bool& shift_pressed,bool& ctrl_pressed,bool& alt_pressed)
-        /*5190*/
-
-        public bool GetAccelerator(int /*5191*/
+        public bool GetAccelerator(int /*4902*/
         command_id
-        , ref int /*5192*/
+        , ref int /*4903*/
         key_code
-        , ref bool /*5193*/
+        , ref bool /*4904*/
         shift_pressed
-        , ref bool /*5194*/
+        , ref bool /*4905*/
         ctrl_pressed
-        , ref bool /*5195*/
+        , ref bool /*4906*/
         alt_pressed
-        )/*5196*/
+        )/*4907*/
         {
             JsValue v1 = new JsValue();
             JsValue v2 = new JsValue();
@@ -10906,45 +10328,43 @@ namespace LayoutFarm.CefBridge.Auto
             JsValue v4 = new JsValue();
             JsValue v5 = new JsValue();
             JsValue ret;
-            /*5197*/
+            /*4908*/
 
             Cef3Binder.MyCefMet_Call5(this.nativePtr, CefMenuModel_GetAccelerator_49, out ret, ref v1, ref v2, ref v3, ref v4, ref v5);
-            /*5198*/
+            /*4909*/
             var ret_result = ret.I32 != 0;
-            key_code = (int)v2.I32;/*5199*/
+            key_code = (int)v2.I32;/*4910*/
             ;
-            shift_pressed = v3.I32 != 0;/*5200*/
+            shift_pressed = v3.I32 != 0;/*4911*/
             ;
-            ctrl_pressed = v4.I32 != 0;/*5201*/
+            ctrl_pressed = v4.I32 != 0;/*4912*/
             ;
-            alt_pressed = v5.I32 != 0;/*5202*/
+            alt_pressed = v5.I32 != 0;/*4913*/
             ;
-            /*5203*/
+            /*4914*/
             return ret_result;
-            /*5204*/
+            /*4915*/
         }
+
+        // gen! bool GetAcceleratorAt(int index,int& key_code,bool& shift_pressed,bool& ctrl_pressed,bool& alt_pressed)
         /// <summary>
         /// Retrieves the keyboard accelerator for the specified |index|. Returns true
         /// on success.
         /// /*cef()*/
         /// </summary>
-        /*5205*/
+        /*4916*/
 
-
-        // gen! bool GetAcceleratorAt(int index,int& key_code,bool& shift_pressed,bool& ctrl_pressed,bool& alt_pressed)
-        /*5206*/
-
-        public bool GetAcceleratorAt(int /*5207*/
+        public bool GetAcceleratorAt(int /*4917*/
         index
-        , ref int /*5208*/
+        , ref int /*4918*/
         key_code
-        , ref bool /*5209*/
+        , ref bool /*4919*/
         shift_pressed
-        , ref bool /*5210*/
+        , ref bool /*4920*/
         ctrl_pressed
-        , ref bool /*5211*/
+        , ref bool /*4921*/
         alt_pressed
-        )/*5212*/
+        )/*4922*/
         {
             JsValue v1 = new JsValue();
             JsValue v2 = new JsValue();
@@ -10952,23 +10372,25 @@ namespace LayoutFarm.CefBridge.Auto
             JsValue v4 = new JsValue();
             JsValue v5 = new JsValue();
             JsValue ret;
-            /*5213*/
+            /*4923*/
 
             Cef3Binder.MyCefMet_Call5(this.nativePtr, CefMenuModel_GetAcceleratorAt_50, out ret, ref v1, ref v2, ref v3, ref v4, ref v5);
-            /*5214*/
+            /*4924*/
             var ret_result = ret.I32 != 0;
-            key_code = (int)v2.I32;/*5215*/
+            key_code = (int)v2.I32;/*4925*/
             ;
-            shift_pressed = v3.I32 != 0;/*5216*/
+            shift_pressed = v3.I32 != 0;/*4926*/
             ;
-            ctrl_pressed = v4.I32 != 0;/*5217*/
+            ctrl_pressed = v4.I32 != 0;/*4927*/
             ;
-            alt_pressed = v5.I32 != 0;/*5218*/
+            alt_pressed = v5.I32 != 0;/*4928*/
             ;
-            /*5219*/
+            /*4929*/
             return ret_result;
-            /*5220*/
+            /*4930*/
         }
+
+        // gen! bool SetColor(int command_id,cef_menu_color_type_t color_type,cef_color_t color)
         /// <summary>
         /// Set the explicit color for |command_id| and |color_type| to |color|.
         /// Specify a |color| value of 0 to remove the explicit color. If no explicit
@@ -10976,33 +10398,31 @@ namespace LayoutFarm.CefBridge.Auto
         /// be used. Returns true on success.
         /// /*cef()*/
         /// </summary>
-        /*5221*/
+        /*4931*/
 
-
-        // gen! bool SetColor(int command_id,cef_menu_color_type_t color_type,cef_color_t color)
-        /*5222*/
-
-        public bool SetColor(int /*5223*/
+        public bool SetColor(int /*4932*/
         command_id
-        , cef_menu_color_type_t /*5224*/
+        , cef_menu_color_type_t /*4933*/
         color_type
-        , IntPtr /*5225*/
+        , IntPtr /*4934*/
         color
-        )/*5226*/
+        )/*4935*/
         {
             JsValue v1 = new JsValue();
             JsValue v2 = new JsValue();
             JsValue v3 = new JsValue();
             JsValue ret;
-            /*5227*/
+            /*4936*/
 
             Cef3Binder.MyCefMet_Call3(this.nativePtr, CefMenuModel_SetColor_51, out ret, ref v1, ref v2, ref v3);
-            /*5228*/
+            /*4937*/
             var ret_result = ret.I32 != 0;
-            /*5229*/
+            /*4938*/
             return ret_result;
-            /*5230*/
+            /*4939*/
         }
+
+        // gen! bool SetColorAt(int index,cef_menu_color_type_t color_type,cef_color_t color)
         /// <summary>
         /// Set the explicit color for |command_id| and |index| to |color|. Specify a
         /// |color| value of 0 to remove the explicit color. Specify an |index| value
@@ -11011,66 +10431,62 @@ namespace LayoutFarm.CefBridge.Auto
         /// then the system color will be used. Returns true on success.
         /// /*cef()*/
         /// </summary>
-        /*5231*/
+        /*4940*/
 
-
-        // gen! bool SetColorAt(int index,cef_menu_color_type_t color_type,cef_color_t color)
-        /*5232*/
-
-        public bool SetColorAt(int /*5233*/
+        public bool SetColorAt(int /*4941*/
         index
-        , cef_menu_color_type_t /*5234*/
+        , cef_menu_color_type_t /*4942*/
         color_type
-        , IntPtr /*5235*/
+        , IntPtr /*4943*/
         color
-        )/*5236*/
+        )/*4944*/
         {
             JsValue v1 = new JsValue();
             JsValue v2 = new JsValue();
             JsValue v3 = new JsValue();
             JsValue ret;
-            /*5237*/
+            /*4945*/
 
             Cef3Binder.MyCefMet_Call3(this.nativePtr, CefMenuModel_SetColorAt_52, out ret, ref v1, ref v2, ref v3);
-            /*5238*/
+            /*4946*/
             var ret_result = ret.I32 != 0;
-            /*5239*/
+            /*4947*/
             return ret_result;
-            /*5240*/
+            /*4948*/
         }
+
+        // gen! bool GetColor(int command_id,cef_menu_color_type_t color_type,cef_color_t& color)
         /// <summary>
         /// Returns in |color| the color that was explicitly set for |command_id| and
         /// |color_type|. If a color was not set then 0 will be returned in |color|.
         /// Returns true on success.
         /// /*cef()*/
         /// </summary>
-        /*5241*/
+        /*4949*/
 
-
-        // gen! bool GetColor(int command_id,cef_menu_color_type_t color_type,cef_color_t& color)
-        /*5242*/
-
-        public bool GetColor(int /*5243*/
+        public bool GetColor(int /*4950*/
         command_id
-        , cef_menu_color_type_t /*5244*/
+        , cef_menu_color_type_t /*4951*/
         color_type
-        , cef_color_t /*5245*/
+        , cef_color_t /*4952*/
         color
-        )/*5246*/
+        )/*4953*/
         {
             JsValue v1 = new JsValue();
             JsValue v2 = new JsValue();
             JsValue v3 = new JsValue();
             JsValue ret;
-            /*5247*/
+            /*4954*/
 
             Cef3Binder.MyCefMet_Call3(this.nativePtr, CefMenuModel_GetColor_53, out ret, ref v1, ref v2, ref v3);
-            /*5248*/
+            /*4955*/
             var ret_result = ret.I32 != 0;
-            /*5249*/
+            /*4956*/
             return ret_result;
-            /*5250*/
+            /*4957*/
         }
+
+        // gen! bool GetColorAt(int index,cef_menu_color_type_t color_type,cef_color_t& color)
         /// <summary>
         /// Returns in |color| the color that was explicitly set for |command_id| and
         /// |color_type|. Specify an |index| value of -1 to return the default color
@@ -11078,33 +10494,31 @@ namespace LayoutFarm.CefBridge.Auto
         /// Returns true on success.
         /// /*cef()*/
         /// </summary>
-        /*5251*/
+        /*4958*/
 
-
-        // gen! bool GetColorAt(int index,cef_menu_color_type_t color_type,cef_color_t& color)
-        /*5252*/
-
-        public bool GetColorAt(int /*5253*/
+        public bool GetColorAt(int /*4959*/
         index
-        , cef_menu_color_type_t /*5254*/
+        , cef_menu_color_type_t /*4960*/
         color_type
-        , cef_color_t /*5255*/
+        , cef_color_t /*4961*/
         color
-        )/*5256*/
+        )/*4962*/
         {
             JsValue v1 = new JsValue();
             JsValue v2 = new JsValue();
             JsValue v3 = new JsValue();
             JsValue ret;
-            /*5257*/
+            /*4963*/
 
             Cef3Binder.MyCefMet_Call3(this.nativePtr, CefMenuModel_GetColorAt_54, out ret, ref v1, ref v2, ref v3);
-            /*5258*/
+            /*4964*/
             var ret_result = ret.I32 != 0;
-            /*5259*/
+            /*4965*/
             return ret_result;
-            /*5260*/
+            /*4966*/
         }
+
+        // gen! bool SetFontList(int command_id,const CefString& font_list)
         /// <summary>
         /// Sets the font list for the specified |command_id|. If |font_list| is empty
         /// the system font will be used. Returns true on success. The format is
@@ -11119,35 +10533,33 @@ namespace LayoutFarm.CefBridge.Auto
         /// - "Arial, 14px"
         /// /*cef(optional_param=font_list)*/
         /// </summary>
-        /*5261*/
+        /*4967*/
 
-
-        // gen! bool SetFontList(int command_id,const CefString& font_list)
-        /*5262*/
-
-        public bool SetFontList(int /*5263*/
+        public bool SetFontList(int /*4968*/
         command_id
-        , string /*5264*/
+        , string /*4969*/
         font_list
-        )/*5265*/
+        )/*4970*/
         {
             JsValue v1 = new JsValue();
             JsValue v2 = new JsValue();
             JsValue ret;
             v2.Ptr = Cef3Binder.MyCefCreateCefString(font_list);
-            /*5266*/
+            /*4971*/
             ;
-            /*5267*/
+            /*4972*/
 
             Cef3Binder.MyCefMet_Call2(this.nativePtr, CefMenuModel_SetFontList_55, out ret, ref v1, ref v2);
-            /*5268*/
+            /*4973*/
             var ret_result = ret.I32 != 0;
-            Cef3Binder.MyCefDeletePtr(v2.Ptr);/*5269*/
+            Cef3Binder.MyCefDeletePtr(v2.Ptr);/*4974*/
             ;
-            /*5270*/
+            /*4975*/
             return ret_result;
-            /*5271*/
+            /*4976*/
         }
+
+        // gen! bool SetFontListAt(int index,const CefString& font_list)
         /// <summary>
         /// Sets the font list for the specified |index|. Specify an |index| value of
         /// -1 to set the default font. If |font_list| is empty the system font will
@@ -11163,36 +10575,32 @@ namespace LayoutFarm.CefBridge.Auto
         /// - "Arial, 14px"
         /// /*cef(optional_param=font_list)*/
         /// </summary>
-        /*5272*/
+        /*4977*/
 
-
-        // gen! bool SetFontListAt(int index,const CefString& font_list)
-        /*5273*/
-
-        public bool SetFontListAt(int /*5274*/
+        public bool SetFontListAt(int /*4978*/
         index
-        , string /*5275*/
+        , string /*4979*/
         font_list
-        )/*5276*/
+        )/*4980*/
         {
             JsValue v1 = new JsValue();
             JsValue v2 = new JsValue();
             JsValue ret;
             v2.Ptr = Cef3Binder.MyCefCreateCefString(font_list);
-            /*5277*/
+            /*4981*/
             ;
-            /*5278*/
+            /*4982*/
 
             Cef3Binder.MyCefMet_Call2(this.nativePtr, CefMenuModel_SetFontListAt_56, out ret, ref v1, ref v2);
-            /*5279*/
+            /*4983*/
             var ret_result = ret.I32 != 0;
-            Cef3Binder.MyCefDeletePtr(v2.Ptr);/*5280*/
+            Cef3Binder.MyCefDeletePtr(v2.Ptr);/*4984*/
             ;
-            /*5281*/
+            /*4985*/
             return ret_result;
-            /*5282*/
+            /*4986*/
         }
-        /*5283*/
+        /*4987*/
     }
 
 
@@ -11203,32 +10611,32 @@ namespace LayoutFarm.CefBridge.Auto
     /// indicated.
     /// /*(source=client)*/
     /// </summary>
-    /*5292*/
+    /*4996*/
     public struct CefMenuModelDelegate
     {
-        /*5293*/
+        /*4997*/
         const int _typeNAME = 18;
-        /*5294*/
+        /*4998*/
         const int CefMenuModelDelegate_Release_0 = (_typeNAME << 16) | 0;
-        /*5295*/
+        /*4999*/
         internal readonly IntPtr nativePtr;
-        /*5296*/
+        /*5000*/
         internal CefMenuModelDelegate(IntPtr nativePtr)
         {
-            /*5297*/
+            /*5001*/
             this.nativePtr = nativePtr;
-            /*5298*/
+            /*5002*/
         }
-        /*5299*/
+        /*5003*/
         public void Release()
         {
-            /*5300*/
+            /*5004*/
             JsValue ret;
-            /*5301*/
+            /*5005*/
             Cef3Binder.MyCefMet_Call0(this.nativePtr, CefMenuModelDelegate_Release_0, out ret);
-            /*5302*/
+            /*5006*/
         }
-        /*5303*/
+        /*5007*/
     }
 
 
@@ -11237,279 +10645,259 @@ namespace LayoutFarm.CefBridge.Auto
     /// Class used to represent an entry in navigation history.
     /// /*(source=library)*/
     /// </summary>
-    /*5362*/
+    /*5066*/
     public struct CefNavigationEntry
     {
-        /*5363*/
+        /*5067*/
         const int _typeNAME = 19;
-        /*5364*/
+        /*5068*/
         const int CefNavigationEntry_Release_0 = (_typeNAME << 16) | 0;
-        /*5365*/
+        /*5069*/
         const int CefNavigationEntry_IsValid_1 = (_typeNAME << 16) | 1;
-        /*5366*/
+        /*5070*/
         const int CefNavigationEntry_GetURL_2 = (_typeNAME << 16) | 2;
-        /*5367*/
+        /*5071*/
         const int CefNavigationEntry_GetDisplayURL_3 = (_typeNAME << 16) | 3;
-        /*5368*/
+        /*5072*/
         const int CefNavigationEntry_GetOriginalURL_4 = (_typeNAME << 16) | 4;
-        /*5369*/
+        /*5073*/
         const int CefNavigationEntry_GetTitle_5 = (_typeNAME << 16) | 5;
-        /*5370*/
+        /*5074*/
         const int CefNavigationEntry_GetTransitionType_6 = (_typeNAME << 16) | 6;
-        /*5371*/
+        /*5075*/
         const int CefNavigationEntry_HasPostData_7 = (_typeNAME << 16) | 7;
-        /*5372*/
+        /*5076*/
         const int CefNavigationEntry_GetCompletionTime_8 = (_typeNAME << 16) | 8;
-        /*5373*/
+        /*5077*/
         const int CefNavigationEntry_GetHttpStatusCode_9 = (_typeNAME << 16) | 9;
-        /*5374*/
+        /*5078*/
         const int CefNavigationEntry_GetSSLStatus_10 = (_typeNAME << 16) | 10;
-        /*5375*/
+        /*5079*/
         internal readonly IntPtr nativePtr;
-        /*5376*/
+        /*5080*/
         internal CefNavigationEntry(IntPtr nativePtr)
         {
-            /*5377*/
+            /*5081*/
             this.nativePtr = nativePtr;
-            /*5378*/
+            /*5082*/
         }
-        /*5379*/
+        /*5083*/
         public void Release()
         {
-            /*5380*/
+            /*5084*/
             JsValue ret;
-            /*5381*/
+            /*5085*/
             Cef3Binder.MyCefMet_Call0(this.nativePtr, CefNavigationEntry_Release_0, out ret);
-            /*5382*/
+            /*5086*/
         }
+
+        // gen! bool IsValid()
         /// <summary>
         /// CefNavigationEntry methods.
         /// </summary>
-        /*5383*/
+        /*5087*/
 
-
-        // gen! bool IsValid()
-        /*5384*/
-
-        public bool IsValid()/*5385*/
+        public bool IsValid()/*5088*/
         {
             JsValue ret;
-            /*5386*/
+            /*5089*/
 
             Cef3Binder.MyCefMet_Call0(this.nativePtr, CefNavigationEntry_IsValid_1, out ret);
-            /*5387*/
+            /*5090*/
             var ret_result = ret.I32 != 0;
-            /*5388*/
+            /*5091*/
             return ret_result;
-            /*5389*/
+            /*5092*/
         }
+
+        // gen! CefString GetURL()
         /// <summary>
         /// Returns the actual URL of the page. For some pages this may be data: URL or
         /// similar. Use GetDisplayURL() to return a display-friendly version.
         /// /*cef()*/
         /// </summary>
-        /*5390*/
+        /*5093*/
 
-
-        // gen! CefString GetURL()
-        /*5391*/
-
-        public string GetURL()/*5392*/
+        public string GetURL()/*5094*/
         {
             JsValue ret;
-            /*5393*/
+            /*5095*/
 
             Cef3Binder.MyCefMet_Call0(this.nativePtr, CefNavigationEntry_GetURL_2, out ret);
-            /*5394*/
+            /*5096*/
             var ret_result = Cef3Binder.CopyStringAndDestroyNativeSide(ref ret);
-            /*5395*/
+            /*5097*/
             return ret_result;
-            /*5396*/
+            /*5098*/
         }
+
+        // gen! CefString GetDisplayURL()
         /// <summary>
         /// Returns a display-friendly version of the URL.
         /// /*cef()*/
         /// </summary>
-        /*5397*/
+        /*5099*/
 
-
-        // gen! CefString GetDisplayURL()
-        /*5398*/
-
-        public string GetDisplayURL()/*5399*/
+        public string GetDisplayURL()/*5100*/
         {
             JsValue ret;
-            /*5400*/
+            /*5101*/
 
             Cef3Binder.MyCefMet_Call0(this.nativePtr, CefNavigationEntry_GetDisplayURL_3, out ret);
-            /*5401*/
+            /*5102*/
             var ret_result = Cef3Binder.CopyStringAndDestroyNativeSide(ref ret);
-            /*5402*/
+            /*5103*/
             return ret_result;
-            /*5403*/
+            /*5104*/
         }
+
+        // gen! CefString GetOriginalURL()
         /// <summary>
         /// Returns the original URL that was entered by the user before any redirects.
         /// /*cef()*/
         /// </summary>
-        /*5404*/
+        /*5105*/
 
-
-        // gen! CefString GetOriginalURL()
-        /*5405*/
-
-        public string GetOriginalURL()/*5406*/
+        public string GetOriginalURL()/*5106*/
         {
             JsValue ret;
-            /*5407*/
+            /*5107*/
 
             Cef3Binder.MyCefMet_Call0(this.nativePtr, CefNavigationEntry_GetOriginalURL_4, out ret);
-            /*5408*/
+            /*5108*/
             var ret_result = Cef3Binder.CopyStringAndDestroyNativeSide(ref ret);
-            /*5409*/
+            /*5109*/
             return ret_result;
-            /*5410*/
+            /*5110*/
         }
+
+        // gen! CefString GetTitle()
         /// <summary>
         /// Returns the title set by the page. This value may be empty.
         /// /*cef()*/
         /// </summary>
-        /*5411*/
+        /*5111*/
 
-
-        // gen! CefString GetTitle()
-        /*5412*/
-
-        public string GetTitle()/*5413*/
+        public string GetTitle()/*5112*/
         {
             JsValue ret;
-            /*5414*/
+            /*5113*/
 
             Cef3Binder.MyCefMet_Call0(this.nativePtr, CefNavigationEntry_GetTitle_5, out ret);
-            /*5415*/
+            /*5114*/
             var ret_result = Cef3Binder.CopyStringAndDestroyNativeSide(ref ret);
-            /*5416*/
+            /*5115*/
             return ret_result;
-            /*5417*/
+            /*5116*/
         }
+
+        // gen! TransitionType GetTransitionType()
         /// <summary>
         /// Returns the transition type which indicates what the user did to move to
         /// this page from the previous page.
         /// /*cef(default_retval=TT_EXPLICIT)*/
         /// </summary>
-        /*5418*/
+        /*5117*/
 
-
-        // gen! TransitionType GetTransitionType()
-        /*5419*/
-
-        public cef_transition_type_t GetTransitionType()/*5420*/
+        public cef_transition_type_t GetTransitionType()/*5118*/
         {
             JsValue ret;
-            /*5421*/
+            /*5119*/
 
             Cef3Binder.MyCefMet_Call0(this.nativePtr, CefNavigationEntry_GetTransitionType_6, out ret);
-            /*5422*/
+            /*5120*/
             var ret_result = (cef_transition_type_t)ret.I32;
 
-            /*5423*/
+            /*5121*/
             return ret_result;
-            /*5424*/
+            /*5122*/
         }
+
+        // gen! bool HasPostData()
         /// <summary>
         /// Returns true if this navigation includes post data.
         /// /*cef()*/
         /// </summary>
-        /*5425*/
+        /*5123*/
 
-
-        // gen! bool HasPostData()
-        /*5426*/
-
-        public bool HasPostData()/*5427*/
+        public bool HasPostData()/*5124*/
         {
             JsValue ret;
-            /*5428*/
+            /*5125*/
 
             Cef3Binder.MyCefMet_Call0(this.nativePtr, CefNavigationEntry_HasPostData_7, out ret);
-            /*5429*/
+            /*5126*/
             var ret_result = ret.I32 != 0;
-            /*5430*/
+            /*5127*/
             return ret_result;
-            /*5431*/
+            /*5128*/
         }
+
+        // gen! CefTime GetCompletionTime()
         /// <summary>
         /// Returns the time for the last known successful navigation completion. A
         /// navigation may be completed more than once if the page is reloaded. May be
         /// 0 if the navigation has not yet completed.
         /// /*cef()*/
         /// </summary>
-        /*5432*/
+        /*5129*/
 
-
-        // gen! CefTime GetCompletionTime()
-        /*5433*/
-
-        public CefTime GetCompletionTime()/*5434*/
+        public CefTime GetCompletionTime()/*5130*/
         {
             JsValue ret;
-            /*5435*/
+            /*5131*/
 
             Cef3Binder.MyCefMet_Call0(this.nativePtr, CefNavigationEntry_GetCompletionTime_8, out ret);
-            /*5436*/
+            /*5132*/
             var ret_result = new CefTime(ret.Ptr);
 
-            /*5437*/
+            /*5133*/
             return ret_result;
-            /*5438*/
+            /*5134*/
         }
+
+        // gen! int GetHttpStatusCode()
         /// <summary>
         /// Returns the HTTP status code for the last known successful navigation
         /// response. May be 0 if the response has not yet been received or if the
         /// navigation has not yet completed.
         /// /*cef()*/
         /// </summary>
-        /*5439*/
+        /*5135*/
 
-
-        // gen! int GetHttpStatusCode()
-        /*5440*/
-
-        public int GetHttpStatusCode()/*5441*/
+        public int GetHttpStatusCode()/*5136*/
         {
             JsValue ret;
-            /*5442*/
+            /*5137*/
 
             Cef3Binder.MyCefMet_Call0(this.nativePtr, CefNavigationEntry_GetHttpStatusCode_9, out ret);
-            /*5443*/
+            /*5138*/
             var ret_result = ret.I32;
-            /*5444*/
+            /*5139*/
             return ret_result;
-            /*5445*/
+            /*5140*/
         }
+
+        // gen! CefRefPtr<CefSSLStatus> GetSSLStatus()
         /// <summary>
         /// Returns the SSL information for this navigation entry.
         /// /*cef()*/
         /// </summary>
-        /*5446*/
+        /*5141*/
 
-
-        // gen! CefRefPtr<CefSSLStatus> GetSSLStatus()
-        /*5447*/
-
-        public CefSSLStatus GetSSLStatus()/*5448*/
+        public CefSSLStatus GetSSLStatus()/*5142*/
         {
             JsValue ret;
-            /*5449*/
+            /*5143*/
 
             Cef3Binder.MyCefMet_Call0(this.nativePtr, CefNavigationEntry_GetSSLStatus_10, out ret);
-            /*5450*/
+            /*5144*/
             var ret_result = new CefSSLStatus(ret.Ptr);
-            /*5451*/
+            /*5145*/
             return ret_result;
-            /*5452*/
+            /*5146*/
         }
-        /*5453*/
+        /*5147*/
     }
 
 
@@ -11518,610 +10906,564 @@ namespace LayoutFarm.CefBridge.Auto
     /// Class representing print settings.
     /// /*(source=library)*/
     /// </summary>
-    /*5577*/
+    /*5271*/
     public struct CefPrintSettings
     {
-        /*5578*/
+        /*5272*/
         const int _typeNAME = 20;
-        /*5579*/
+        /*5273*/
         const int CefPrintSettings_Release_0 = (_typeNAME << 16) | 0;
-        /*5580*/
+        /*5274*/
         const int CefPrintSettings_IsValid_1 = (_typeNAME << 16) | 1;
-        /*5581*/
+        /*5275*/
         const int CefPrintSettings_IsReadOnly_2 = (_typeNAME << 16) | 2;
-        /*5582*/
+        /*5276*/
         const int CefPrintSettings_Copy_3 = (_typeNAME << 16) | 3;
-        /*5583*/
+        /*5277*/
         const int CefPrintSettings_SetOrientation_4 = (_typeNAME << 16) | 4;
-        /*5584*/
+        /*5278*/
         const int CefPrintSettings_IsLandscape_5 = (_typeNAME << 16) | 5;
-        /*5585*/
+        /*5279*/
         const int CefPrintSettings_SetPrinterPrintableArea_6 = (_typeNAME << 16) | 6;
-        /*5586*/
+        /*5280*/
         const int CefPrintSettings_SetDeviceName_7 = (_typeNAME << 16) | 7;
-        /*5587*/
+        /*5281*/
         const int CefPrintSettings_GetDeviceName_8 = (_typeNAME << 16) | 8;
-        /*5588*/
+        /*5282*/
         const int CefPrintSettings_SetDPI_9 = (_typeNAME << 16) | 9;
-        /*5589*/
+        /*5283*/
         const int CefPrintSettings_GetDPI_10 = (_typeNAME << 16) | 10;
-        /*5590*/
+        /*5284*/
         const int CefPrintSettings_SetPageRanges_11 = (_typeNAME << 16) | 11;
-        /*5591*/
+        /*5285*/
         const int CefPrintSettings_GetPageRangesCount_12 = (_typeNAME << 16) | 12;
-        /*5592*/
+        /*5286*/
         const int CefPrintSettings_GetPageRanges_13 = (_typeNAME << 16) | 13;
-        /*5593*/
+        /*5287*/
         const int CefPrintSettings_SetSelectionOnly_14 = (_typeNAME << 16) | 14;
-        /*5594*/
+        /*5288*/
         const int CefPrintSettings_IsSelectionOnly_15 = (_typeNAME << 16) | 15;
-        /*5595*/
+        /*5289*/
         const int CefPrintSettings_SetCollate_16 = (_typeNAME << 16) | 16;
-        /*5596*/
+        /*5290*/
         const int CefPrintSettings_WillCollate_17 = (_typeNAME << 16) | 17;
-        /*5597*/
+        /*5291*/
         const int CefPrintSettings_SetColorModel_18 = (_typeNAME << 16) | 18;
-        /*5598*/
+        /*5292*/
         const int CefPrintSettings_GetColorModel_19 = (_typeNAME << 16) | 19;
-        /*5599*/
+        /*5293*/
         const int CefPrintSettings_SetCopies_20 = (_typeNAME << 16) | 20;
-        /*5600*/
+        /*5294*/
         const int CefPrintSettings_GetCopies_21 = (_typeNAME << 16) | 21;
-        /*5601*/
+        /*5295*/
         const int CefPrintSettings_SetDuplexMode_22 = (_typeNAME << 16) | 22;
-        /*5602*/
+        /*5296*/
         const int CefPrintSettings_GetDuplexMode_23 = (_typeNAME << 16) | 23;
-        /*5603*/
+        /*5297*/
         internal readonly IntPtr nativePtr;
-        /*5604*/
+        /*5298*/
         internal CefPrintSettings(IntPtr nativePtr)
         {
-            /*5605*/
+            /*5299*/
             this.nativePtr = nativePtr;
-            /*5606*/
+            /*5300*/
         }
-        /*5607*/
+        /*5301*/
         public void Release()
         {
-            /*5608*/
+            /*5302*/
             JsValue ret;
-            /*5609*/
+            /*5303*/
             Cef3Binder.MyCefMet_Call0(this.nativePtr, CefPrintSettings_Release_0, out ret);
-            /*5610*/
+            /*5304*/
         }
+
+        // gen! bool IsValid()
         /// <summary>
         /// CefPrintSettings methods.
         /// </summary>
-        /*5611*/
+        /*5305*/
 
-
-        // gen! bool IsValid()
-        /*5612*/
-
-        public bool IsValid()/*5613*/
+        public bool IsValid()/*5306*/
         {
             JsValue ret;
-            /*5614*/
+            /*5307*/
 
             Cef3Binder.MyCefMet_Call0(this.nativePtr, CefPrintSettings_IsValid_1, out ret);
-            /*5615*/
+            /*5308*/
             var ret_result = ret.I32 != 0;
-            /*5616*/
+            /*5309*/
             return ret_result;
-            /*5617*/
+            /*5310*/
         }
+
+        // gen! bool IsReadOnly()
         /// <summary>
         /// Returns true if the values of this object are read-only. Some APIs may
         /// expose read-only objects.
         /// /*cef()*/
         /// </summary>
-        /*5618*/
+        /*5311*/
 
-
-        // gen! bool IsReadOnly()
-        /*5619*/
-
-        public bool IsReadOnly()/*5620*/
+        public bool IsReadOnly()/*5312*/
         {
             JsValue ret;
-            /*5621*/
+            /*5313*/
 
             Cef3Binder.MyCefMet_Call0(this.nativePtr, CefPrintSettings_IsReadOnly_2, out ret);
-            /*5622*/
+            /*5314*/
             var ret_result = ret.I32 != 0;
-            /*5623*/
+            /*5315*/
             return ret_result;
-            /*5624*/
+            /*5316*/
         }
+
+        // gen! CefRefPtr<CefPrintSettings> Copy()
         /// <summary>
         /// Returns a writable copy of this object.
         /// /*cef()*/
         /// </summary>
-        /*5625*/
+        /*5317*/
 
-
-        // gen! CefRefPtr<CefPrintSettings> Copy()
-        /*5626*/
-
-        public CefPrintSettings Copy()/*5627*/
+        public CefPrintSettings Copy()/*5318*/
         {
             JsValue ret;
-            /*5628*/
+            /*5319*/
 
             Cef3Binder.MyCefMet_Call0(this.nativePtr, CefPrintSettings_Copy_3, out ret);
-            /*5629*/
+            /*5320*/
             var ret_result = new CefPrintSettings(ret.Ptr);
-            /*5630*/
+            /*5321*/
             return ret_result;
-            /*5631*/
+            /*5322*/
         }
+
+        // gen! void SetOrientation(bool landscape)
         /// <summary>
         /// Set the page orientation.
         /// /*cef()*/
         /// </summary>
-        /*5632*/
+        /*5323*/
 
-
-        // gen! void SetOrientation(bool landscape)
-        /*5633*/
-
-        public void SetOrientation(bool /*5634*/
+        public void SetOrientation(bool /*5324*/
         landscape
-        )/*5635*/
+        )/*5325*/
         {
             JsValue v1 = new JsValue();
             JsValue ret;
-            /*5636*/
+            /*5326*/
 
             Cef3Binder.MyCefMet_Call1(this.nativePtr, CefPrintSettings_SetOrientation_4, out ret, ref v1);
-            /*5637*/
+            /*5327*/
 
-            /*5638*/
+            /*5328*/
         }
+
+        // gen! bool IsLandscape()
         /// <summary>
         /// Returns true if the orientation is landscape.
         /// /*cef()*/
         /// </summary>
-        /*5639*/
+        /*5329*/
 
-
-        // gen! bool IsLandscape()
-        /*5640*/
-
-        public bool IsLandscape()/*5641*/
+        public bool IsLandscape()/*5330*/
         {
             JsValue ret;
-            /*5642*/
+            /*5331*/
 
             Cef3Binder.MyCefMet_Call0(this.nativePtr, CefPrintSettings_IsLandscape_5, out ret);
-            /*5643*/
+            /*5332*/
             var ret_result = ret.I32 != 0;
-            /*5644*/
+            /*5333*/
             return ret_result;
-            /*5645*/
+            /*5334*/
         }
+
+        // gen! void SetPrinterPrintableArea(const CefSize& physical_size_device_units,const CefRect& printable_area_device_units,bool landscape_needs_flip)
         /// <summary>
         /// Set the printer printable area in device units.
         /// Some platforms already provide flipped area. Set |landscape_needs_flip|
         /// to false on those platforms to avoid double flipping.
         /// /*cef()*/
         /// </summary>
-        /*5646*/
+        /*5335*/
 
-
-        // gen! void SetPrinterPrintableArea(const CefSize& physical_size_device_units,const CefRect& printable_area_device_units,bool landscape_needs_flip)
-        /*5647*/
-
-        public void SetPrinterPrintableArea(CefSize /*5648*/
+        public void SetPrinterPrintableArea(CefSize /*5336*/
         physical_size_device_units
-        , CefRect /*5649*/
+        , CefRect /*5337*/
         printable_area_device_units
-        , bool /*5650*/
+        , bool /*5338*/
         landscape_needs_flip
-        )/*5651*/
+        )/*5339*/
         {
             JsValue v1 = new JsValue();
             JsValue v2 = new JsValue();
             JsValue v3 = new JsValue();
             JsValue ret;
-            /*5652*/
+            /*5340*/
 
             Cef3Binder.MyCefMet_Call3(this.nativePtr, CefPrintSettings_SetPrinterPrintableArea_6, out ret, ref v1, ref v2, ref v3);
-            /*5653*/
+            /*5341*/
 
-            /*5654*/
+            /*5342*/
         }
+
+        // gen! void SetDeviceName(const CefString& name)
         /// <summary>
         /// Set the device name.
         /// /*cef(optional_param=name)*/
         /// </summary>
-        /*5655*/
+        /*5343*/
 
-
-        // gen! void SetDeviceName(const CefString& name)
-        /*5656*/
-
-        public void SetDeviceName(string /*5657*/
+        public void SetDeviceName(string /*5344*/
         name
-        )/*5658*/
+        )/*5345*/
         {
             JsValue v1 = new JsValue();
             JsValue ret;
             v1.Ptr = Cef3Binder.MyCefCreateCefString(name);
-            /*5659*/
+            /*5346*/
             ;
-            /*5660*/
+            /*5347*/
 
             Cef3Binder.MyCefMet_Call1(this.nativePtr, CefPrintSettings_SetDeviceName_7, out ret, ref v1);
-            /*5661*/
+            /*5348*/
 
-            Cef3Binder.MyCefDeletePtr(v1.Ptr);/*5662*/
+            Cef3Binder.MyCefDeletePtr(v1.Ptr);/*5349*/
             ;
-            /*5663*/
+            /*5350*/
         }
+
+        // gen! CefString GetDeviceName()
         /// <summary>
         /// Get the device name.
         /// /*cef()*/
         /// </summary>
-        /*5664*/
+        /*5351*/
 
-
-        // gen! CefString GetDeviceName()
-        /*5665*/
-
-        public string GetDeviceName()/*5666*/
+        public string GetDeviceName()/*5352*/
         {
             JsValue ret;
-            /*5667*/
+            /*5353*/
 
             Cef3Binder.MyCefMet_Call0(this.nativePtr, CefPrintSettings_GetDeviceName_8, out ret);
-            /*5668*/
+            /*5354*/
             var ret_result = Cef3Binder.CopyStringAndDestroyNativeSide(ref ret);
-            /*5669*/
+            /*5355*/
             return ret_result;
-            /*5670*/
+            /*5356*/
         }
+
+        // gen! void SetDPI(int dpi)
         /// <summary>
         /// Set the DPI (dots per inch).
         /// /*cef()*/
         /// </summary>
-        /*5671*/
+        /*5357*/
 
-
-        // gen! void SetDPI(int dpi)
-        /*5672*/
-
-        public void SetDPI(int /*5673*/
+        public void SetDPI(int /*5358*/
         dpi
-        )/*5674*/
+        )/*5359*/
         {
             JsValue v1 = new JsValue();
             JsValue ret;
-            /*5675*/
+            /*5360*/
 
             Cef3Binder.MyCefMet_Call1(this.nativePtr, CefPrintSettings_SetDPI_9, out ret, ref v1);
-            /*5676*/
+            /*5361*/
 
-            /*5677*/
+            /*5362*/
         }
+
+        // gen! int GetDPI()
         /// <summary>
         /// Get the DPI (dots per inch).
         /// /*cef()*/
         /// </summary>
-        /*5678*/
+        /*5363*/
 
-
-        // gen! int GetDPI()
-        /*5679*/
-
-        public int GetDPI()/*5680*/
+        public int GetDPI()/*5364*/
         {
             JsValue ret;
-            /*5681*/
+            /*5365*/
 
             Cef3Binder.MyCefMet_Call0(this.nativePtr, CefPrintSettings_GetDPI_10, out ret);
-            /*5682*/
+            /*5366*/
             var ret_result = ret.I32;
-            /*5683*/
+            /*5367*/
             return ret_result;
-            /*5684*/
+            /*5368*/
         }
+
+        // gen! void SetPageRanges(const PageRangeList& ranges)
         /// <summary>
         /// Set the page ranges.
         /// /*cef()*/
         /// </summary>
-        /*5685*/
+        /*5369*/
 
-
-        // gen! void SetPageRanges(const PageRangeList& ranges)
-        /*5686*/
-
-        public void SetPageRanges(PageRangeList /*5687*/
+        public void SetPageRanges(PageRangeList /*5370*/
         ranges
-        )/*5688*/
+        )/*5371*/
         {
             JsValue v1 = new JsValue();
             JsValue ret;
-            /*5689*/
+            /*5372*/
 
             Cef3Binder.MyCefMet_Call1(this.nativePtr, CefPrintSettings_SetPageRanges_11, out ret, ref v1);
-            /*5690*/
+            /*5373*/
 
-            /*5691*/
+            /*5374*/
         }
+
+        // gen! size_t GetPageRangesCount()
         /// <summary>
         /// Returns the number of page ranges that currently exist.
         /// /*cef()*/
         /// </summary>
-        /*5692*/
+        /*5375*/
 
-
-        // gen! size_t GetPageRangesCount()
-        /*5693*/
-
-        public uint GetPageRangesCount()/*5694*/
+        public uint GetPageRangesCount()/*5376*/
         {
             JsValue ret;
-            /*5695*/
+            /*5377*/
 
             Cef3Binder.MyCefMet_Call0(this.nativePtr, CefPrintSettings_GetPageRangesCount_12, out ret);
-            /*5696*/
+            /*5378*/
             var ret_result = (uint)ret.I32;
-            /*5697*/
+            /*5379*/
             return ret_result;
-            /*5698*/
+            /*5380*/
         }
+
+        // gen! void GetPageRanges(PageRangeList& ranges)
         /// <summary>
         /// Retrieve the page ranges.
         /// /*cef(count_func=ranges:GetPageRangesCount)*/
         /// </summary>
-        /*5699*/
+        /*5381*/
 
-
-        // gen! void GetPageRanges(PageRangeList& ranges)
-        /*5700*/
-
-        public void GetPageRanges(PageRangeList /*5701*/
+        public void GetPageRanges(PageRangeList /*5382*/
         ranges
-        )/*5702*/
+        )/*5383*/
         {
             JsValue v1 = new JsValue();
             JsValue ret;
-            /*5703*/
+            /*5384*/
 
             Cef3Binder.MyCefMet_Call1(this.nativePtr, CefPrintSettings_GetPageRanges_13, out ret, ref v1);
-            /*5704*/
+            /*5385*/
 
-            /*5705*/
+            /*5386*/
         }
+
+        // gen! void SetSelectionOnly(bool selection_only)
         /// <summary>
         /// Set whether only the selection will be printed.
         /// /*cef()*/
         /// </summary>
-        /*5706*/
+        /*5387*/
 
-
-        // gen! void SetSelectionOnly(bool selection_only)
-        /*5707*/
-
-        public void SetSelectionOnly(bool /*5708*/
+        public void SetSelectionOnly(bool /*5388*/
         selection_only
-        )/*5709*/
+        )/*5389*/
         {
             JsValue v1 = new JsValue();
             JsValue ret;
-            /*5710*/
+            /*5390*/
 
             Cef3Binder.MyCefMet_Call1(this.nativePtr, CefPrintSettings_SetSelectionOnly_14, out ret, ref v1);
-            /*5711*/
+            /*5391*/
 
-            /*5712*/
+            /*5392*/
         }
+
+        // gen! bool IsSelectionOnly()
         /// <summary>
         /// Returns true if only the selection will be printed.
         /// /*cef()*/
         /// </summary>
-        /*5713*/
+        /*5393*/
 
-
-        // gen! bool IsSelectionOnly()
-        /*5714*/
-
-        public bool IsSelectionOnly()/*5715*/
+        public bool IsSelectionOnly()/*5394*/
         {
             JsValue ret;
-            /*5716*/
+            /*5395*/
 
             Cef3Binder.MyCefMet_Call0(this.nativePtr, CefPrintSettings_IsSelectionOnly_15, out ret);
-            /*5717*/
+            /*5396*/
             var ret_result = ret.I32 != 0;
-            /*5718*/
+            /*5397*/
             return ret_result;
-            /*5719*/
+            /*5398*/
         }
+
+        // gen! void SetCollate(bool collate)
         /// <summary>
         /// Set whether pages will be collated.
         /// /*cef()*/
         /// </summary>
-        /*5720*/
+        /*5399*/
 
-
-        // gen! void SetCollate(bool collate)
-        /*5721*/
-
-        public void SetCollate(bool /*5722*/
+        public void SetCollate(bool /*5400*/
         collate
-        )/*5723*/
+        )/*5401*/
         {
             JsValue v1 = new JsValue();
             JsValue ret;
-            /*5724*/
+            /*5402*/
 
             Cef3Binder.MyCefMet_Call1(this.nativePtr, CefPrintSettings_SetCollate_16, out ret, ref v1);
-            /*5725*/
+            /*5403*/
 
-            /*5726*/
+            /*5404*/
         }
+
+        // gen! bool WillCollate()
         /// <summary>
         /// Returns true if pages will be collated.
         /// /*cef()*/
         /// </summary>
-        /*5727*/
+        /*5405*/
 
-
-        // gen! bool WillCollate()
-        /*5728*/
-
-        public bool WillCollate()/*5729*/
+        public bool WillCollate()/*5406*/
         {
             JsValue ret;
-            /*5730*/
+            /*5407*/
 
             Cef3Binder.MyCefMet_Call0(this.nativePtr, CefPrintSettings_WillCollate_17, out ret);
-            /*5731*/
+            /*5408*/
             var ret_result = ret.I32 != 0;
-            /*5732*/
+            /*5409*/
             return ret_result;
-            /*5733*/
+            /*5410*/
         }
+
+        // gen! void SetColorModel(ColorModel model)
         /// <summary>
         /// Set the color model.
         /// /*cef()*/
         /// </summary>
-        /*5734*/
+        /*5411*/
 
-
-        // gen! void SetColorModel(ColorModel model)
-        /*5735*/
-
-        public void SetColorModel(cef_color_model_t /*5736*/
+        public void SetColorModel(cef_color_model_t /*5412*/
         model
-        )/*5737*/
+        )/*5413*/
         {
             JsValue v1 = new JsValue();
             JsValue ret;
-            /*5738*/
+            /*5414*/
 
             Cef3Binder.MyCefMet_Call1(this.nativePtr, CefPrintSettings_SetColorModel_18, out ret, ref v1);
-            /*5739*/
+            /*5415*/
 
-            /*5740*/
+            /*5416*/
         }
+
+        // gen! ColorModel GetColorModel()
         /// <summary>
         /// Get the color model.
         /// /*cef(default_retval=COLOR_MODEL_UNKNOWN)*/
         /// </summary>
-        /*5741*/
+        /*5417*/
 
-
-        // gen! ColorModel GetColorModel()
-        /*5742*/
-
-        public cef_color_model_t GetColorModel()/*5743*/
+        public cef_color_model_t GetColorModel()/*5418*/
         {
             JsValue ret;
-            /*5744*/
+            /*5419*/
 
             Cef3Binder.MyCefMet_Call0(this.nativePtr, CefPrintSettings_GetColorModel_19, out ret);
-            /*5745*/
+            /*5420*/
             var ret_result = (cef_color_model_t)ret.I32;
 
-            /*5746*/
+            /*5421*/
             return ret_result;
-            /*5747*/
+            /*5422*/
         }
+
+        // gen! void SetCopies(int copies)
         /// <summary>
         /// Set the number of copies.
         /// /*cef()*/
         /// </summary>
-        /*5748*/
+        /*5423*/
 
-
-        // gen! void SetCopies(int copies)
-        /*5749*/
-
-        public void SetCopies(int /*5750*/
+        public void SetCopies(int /*5424*/
         copies
-        )/*5751*/
+        )/*5425*/
         {
             JsValue v1 = new JsValue();
             JsValue ret;
-            /*5752*/
+            /*5426*/
 
             Cef3Binder.MyCefMet_Call1(this.nativePtr, CefPrintSettings_SetCopies_20, out ret, ref v1);
-            /*5753*/
+            /*5427*/
 
-            /*5754*/
+            /*5428*/
         }
+
+        // gen! int GetCopies()
         /// <summary>
         /// Get the number of copies.
         /// /*cef()*/
         /// </summary>
-        /*5755*/
+        /*5429*/
 
-
-        // gen! int GetCopies()
-        /*5756*/
-
-        public int GetCopies()/*5757*/
+        public int GetCopies()/*5430*/
         {
             JsValue ret;
-            /*5758*/
+            /*5431*/
 
             Cef3Binder.MyCefMet_Call0(this.nativePtr, CefPrintSettings_GetCopies_21, out ret);
-            /*5759*/
+            /*5432*/
             var ret_result = ret.I32;
-            /*5760*/
+            /*5433*/
             return ret_result;
-            /*5761*/
+            /*5434*/
         }
+
+        // gen! void SetDuplexMode(DuplexMode mode)
         /// <summary>
         /// Set the duplex mode.
         /// /*cef()*/
         /// </summary>
-        /*5762*/
+        /*5435*/
 
-
-        // gen! void SetDuplexMode(DuplexMode mode)
-        /*5763*/
-
-        public void SetDuplexMode(cef_duplex_mode_t /*5764*/
+        public void SetDuplexMode(cef_duplex_mode_t /*5436*/
         mode
-        )/*5765*/
+        )/*5437*/
         {
             JsValue v1 = new JsValue();
             JsValue ret;
-            /*5766*/
+            /*5438*/
 
             Cef3Binder.MyCefMet_Call1(this.nativePtr, CefPrintSettings_SetDuplexMode_22, out ret, ref v1);
-            /*5767*/
+            /*5439*/
 
-            /*5768*/
+            /*5440*/
         }
+
+        // gen! DuplexMode GetDuplexMode()
         /// <summary>
         /// Get the duplex mode.
         /// /*cef(default_retval=DUPLEX_MODE_UNKNOWN)*/
         /// </summary>
-        /*5769*/
+        /*5441*/
 
-
-        // gen! DuplexMode GetDuplexMode()
-        /*5770*/
-
-        public cef_duplex_mode_t GetDuplexMode()/*5771*/
+        public cef_duplex_mode_t GetDuplexMode()/*5442*/
         {
             JsValue ret;
-            /*5772*/
+            /*5443*/
 
             Cef3Binder.MyCefMet_Call0(this.nativePtr, CefPrintSettings_GetDuplexMode_23, out ret);
-            /*5773*/
+            /*5444*/
             var ret_result = (cef_duplex_mode_t)ret.I32;
 
-            /*5774*/
+            /*5445*/
             return ret_result;
-            /*5775*/
+            /*5446*/
         }
-        /*5776*/
+        /*5447*/
     }
 
 
@@ -12130,152 +11472,142 @@ namespace LayoutFarm.CefBridge.Auto
     /// Class representing a message. Can be used on any process and thread.
     /// /*cef(source=library)*/
     /// </summary>
-    /*5810*/
+    /*5481*/
     public struct CefProcessMessage
     {
-        /*5811*/
+        /*5482*/
         const int _typeNAME = 21;
-        /*5812*/
+        /*5483*/
         const int CefProcessMessage_Release_0 = (_typeNAME << 16) | 0;
-        /*5813*/
+        /*5484*/
         const int CefProcessMessage_IsValid_1 = (_typeNAME << 16) | 1;
-        /*5814*/
+        /*5485*/
         const int CefProcessMessage_IsReadOnly_2 = (_typeNAME << 16) | 2;
-        /*5815*/
+        /*5486*/
         const int CefProcessMessage_Copy_3 = (_typeNAME << 16) | 3;
-        /*5816*/
+        /*5487*/
         const int CefProcessMessage_GetName_4 = (_typeNAME << 16) | 4;
-        /*5817*/
+        /*5488*/
         const int CefProcessMessage_GetArgumentList_5 = (_typeNAME << 16) | 5;
-        /*5818*/
+        /*5489*/
         internal readonly IntPtr nativePtr;
-        /*5819*/
+        /*5490*/
         internal CefProcessMessage(IntPtr nativePtr)
         {
-            /*5820*/
+            /*5491*/
             this.nativePtr = nativePtr;
-            /*5821*/
+            /*5492*/
         }
-        /*5822*/
+        /*5493*/
         public void Release()
         {
-            /*5823*/
+            /*5494*/
             JsValue ret;
-            /*5824*/
+            /*5495*/
             Cef3Binder.MyCefMet_Call0(this.nativePtr, CefProcessMessage_Release_0, out ret);
-            /*5825*/
+            /*5496*/
         }
+
+        // gen! bool IsValid()
         /// <summary>
         /// CefProcessMessage methods.
         /// </summary>
-        /*5826*/
+        /*5497*/
 
-
-        // gen! bool IsValid()
-        /*5827*/
-
-        public bool IsValid()/*5828*/
+        public bool IsValid()/*5498*/
         {
             JsValue ret;
-            /*5829*/
+            /*5499*/
 
             Cef3Binder.MyCefMet_Call0(this.nativePtr, CefProcessMessage_IsValid_1, out ret);
-            /*5830*/
+            /*5500*/
             var ret_result = ret.I32 != 0;
-            /*5831*/
+            /*5501*/
             return ret_result;
-            /*5832*/
+            /*5502*/
         }
+
+        // gen! bool IsReadOnly()
         /// <summary>
         /// Returns true if the values of this object are read-only. Some APIs may
         /// expose read-only objects.
         /// /*cef()*/
         /// </summary>
-        /*5833*/
+        /*5503*/
 
-
-        // gen! bool IsReadOnly()
-        /*5834*/
-
-        public bool IsReadOnly()/*5835*/
+        public bool IsReadOnly()/*5504*/
         {
             JsValue ret;
-            /*5836*/
+            /*5505*/
 
             Cef3Binder.MyCefMet_Call0(this.nativePtr, CefProcessMessage_IsReadOnly_2, out ret);
-            /*5837*/
+            /*5506*/
             var ret_result = ret.I32 != 0;
-            /*5838*/
+            /*5507*/
             return ret_result;
-            /*5839*/
+            /*5508*/
         }
+
+        // gen! CefRefPtr<CefProcessMessage> Copy()
         /// <summary>
         /// Returns a writable copy of this object.
         /// /*cef()*/
         /// </summary>
-        /*5840*/
+        /*5509*/
 
-
-        // gen! CefRefPtr<CefProcessMessage> Copy()
-        /*5841*/
-
-        public CefProcessMessage Copy()/*5842*/
+        public CefProcessMessage Copy()/*5510*/
         {
             JsValue ret;
-            /*5843*/
+            /*5511*/
 
             Cef3Binder.MyCefMet_Call0(this.nativePtr, CefProcessMessage_Copy_3, out ret);
-            /*5844*/
+            /*5512*/
             var ret_result = new CefProcessMessage(ret.Ptr);
-            /*5845*/
+            /*5513*/
             return ret_result;
-            /*5846*/
+            /*5514*/
         }
+
+        // gen! CefString GetName()
         /// <summary>
         /// Returns the message name.
         /// /*cef()*/
         /// </summary>
-        /*5847*/
+        /*5515*/
 
-
-        // gen! CefString GetName()
-        /*5848*/
-
-        public string GetName()/*5849*/
+        public string GetName()/*5516*/
         {
             JsValue ret;
-            /*5850*/
+            /*5517*/
 
             Cef3Binder.MyCefMet_Call0(this.nativePtr, CefProcessMessage_GetName_4, out ret);
-            /*5851*/
+            /*5518*/
             var ret_result = Cef3Binder.CopyStringAndDestroyNativeSide(ref ret);
-            /*5852*/
+            /*5519*/
             return ret_result;
-            /*5853*/
+            /*5520*/
         }
+
+        // gen! CefRefPtr<CefListValue> GetArgumentList()
         /// <summary>
         /// Returns the list of arguments.
         /// /*cef()*/
         /// </summary>
-        /*5854*/
+        /*5521*/
 
-
-        // gen! CefRefPtr<CefListValue> GetArgumentList()
-        /*5855*/
-
-        public CefListValue GetArgumentList()/*5856*/
+        public CefListValue GetArgumentList()/*5522*/
         {
             JsValue ret;
-            /*5857*/
+            /*5523*/
 
             Cef3Binder.MyCefMet_Call0(this.nativePtr, CefProcessMessage_GetArgumentList_5, out ret);
-            /*5858*/
+            /*5524*/
             var ret_result = new CefListValue(ret.Ptr);
-            /*5859*/
+            /*5525*/
             return ret_result;
-            /*5860*/
+            /*5526*/
         }
-        /*5861*/
+        /*5527*/
     }
 
 
@@ -12285,382 +11617,356 @@ namespace LayoutFarm.CefBridge.Auto
     /// called on any thread.
     /// /*(source=library,no_debugct_check)*/
     /// </summary>
-    /*5970*/
+    /*5636*/
     public struct CefRequest
     {
-        /*5971*/
+        /*5637*/
         const int _typeNAME = 22;
-        /*5972*/
+        /*5638*/
         const int CefRequest_Release_0 = (_typeNAME << 16) | 0;
-        /*5973*/
+        /*5639*/
         const int CefRequest_IsReadOnly_1 = (_typeNAME << 16) | 1;
-        /*5974*/
+        /*5640*/
         const int CefRequest_GetURL_2 = (_typeNAME << 16) | 2;
-        /*5975*/
+        /*5641*/
         const int CefRequest_SetURL_3 = (_typeNAME << 16) | 3;
-        /*5976*/
+        /*5642*/
         const int CefRequest_GetMethod_4 = (_typeNAME << 16) | 4;
-        /*5977*/
+        /*5643*/
         const int CefRequest_SetMethod_5 = (_typeNAME << 16) | 5;
-        /*5978*/
+        /*5644*/
         const int CefRequest_SetReferrer_6 = (_typeNAME << 16) | 6;
-        /*5979*/
+        /*5645*/
         const int CefRequest_GetReferrerURL_7 = (_typeNAME << 16) | 7;
-        /*5980*/
+        /*5646*/
         const int CefRequest_GetReferrerPolicy_8 = (_typeNAME << 16) | 8;
-        /*5981*/
+        /*5647*/
         const int CefRequest_GetPostData_9 = (_typeNAME << 16) | 9;
-        /*5982*/
+        /*5648*/
         const int CefRequest_SetPostData_10 = (_typeNAME << 16) | 10;
-        /*5983*/
+        /*5649*/
         const int CefRequest_GetHeaderMap_11 = (_typeNAME << 16) | 11;
-        /*5984*/
+        /*5650*/
         const int CefRequest_SetHeaderMap_12 = (_typeNAME << 16) | 12;
-        /*5985*/
+        /*5651*/
         const int CefRequest_Set_13 = (_typeNAME << 16) | 13;
-        /*5986*/
+        /*5652*/
         const int CefRequest_GetFlags_14 = (_typeNAME << 16) | 14;
-        /*5987*/
+        /*5653*/
         const int CefRequest_SetFlags_15 = (_typeNAME << 16) | 15;
-        /*5988*/
+        /*5654*/
         const int CefRequest_GetFirstPartyForCookies_16 = (_typeNAME << 16) | 16;
-        /*5989*/
+        /*5655*/
         const int CefRequest_SetFirstPartyForCookies_17 = (_typeNAME << 16) | 17;
-        /*5990*/
+        /*5656*/
         const int CefRequest_GetResourceType_18 = (_typeNAME << 16) | 18;
-        /*5991*/
+        /*5657*/
         const int CefRequest_GetTransitionType_19 = (_typeNAME << 16) | 19;
-        /*5992*/
+        /*5658*/
         const int CefRequest_GetIdentifier_20 = (_typeNAME << 16) | 20;
-        /*5993*/
+        /*5659*/
         internal readonly IntPtr nativePtr;
-        /*5994*/
+        /*5660*/
         internal CefRequest(IntPtr nativePtr)
         {
-            /*5995*/
+            /*5661*/
             this.nativePtr = nativePtr;
-            /*5996*/
+            /*5662*/
         }
-        /*5997*/
+        /*5663*/
         public void Release()
         {
-            /*5998*/
+            /*5664*/
             JsValue ret;
-            /*5999*/
+            /*5665*/
             Cef3Binder.MyCefMet_Call0(this.nativePtr, CefRequest_Release_0, out ret);
-            /*6000*/
+            /*5666*/
         }
+
+        // gen! bool IsReadOnly()
         /// <summary>
         /// CefRequest methods.
         /// </summary>
-        /*6001*/
+        /*5667*/
 
-
-        // gen! bool IsReadOnly()
-        /*6002*/
-
-        public bool IsReadOnly()/*6003*/
+        public bool IsReadOnly()/*5668*/
         {
             JsValue ret;
-            /*6004*/
+            /*5669*/
 
             Cef3Binder.MyCefMet_Call0(this.nativePtr, CefRequest_IsReadOnly_1, out ret);
-            /*6005*/
+            /*5670*/
             var ret_result = ret.I32 != 0;
-            /*6006*/
+            /*5671*/
             return ret_result;
-            /*6007*/
+            /*5672*/
         }
+
+        // gen! CefString GetURL()
         /// <summary>
         /// Get the fully qualified URL.
         /// /*cef()*/
         /// </summary>
-        /*6008*/
+        /*5673*/
 
-
-        // gen! CefString GetURL()
-        /*6009*/
-
-        public string GetURL()/*6010*/
+        public string GetURL()/*5674*/
         {
             JsValue ret;
-            /*6011*/
+            /*5675*/
 
             Cef3Binder.MyCefMet_Call0(this.nativePtr, CefRequest_GetURL_2, out ret);
-            /*6012*/
+            /*5676*/
             var ret_result = Cef3Binder.CopyStringAndDestroyNativeSide(ref ret);
-            /*6013*/
+            /*5677*/
             return ret_result;
-            /*6014*/
+            /*5678*/
         }
+
+        // gen! void SetURL(const CefString& url)
         /// <summary>
         /// Set the fully qualified URL.
         /// /*cef()*/
         /// </summary>
-        /*6015*/
+        /*5679*/
 
-
-        // gen! void SetURL(const CefString& url)
-        /*6016*/
-
-        public void SetURL(string /*6017*/
+        public void SetURL(string /*5680*/
         url
-        )/*6018*/
+        )/*5681*/
         {
             JsValue v1 = new JsValue();
             JsValue ret;
             v1.Ptr = Cef3Binder.MyCefCreateCefString(url);
-            /*6019*/
+            /*5682*/
             ;
-            /*6020*/
+            /*5683*/
 
             Cef3Binder.MyCefMet_Call1(this.nativePtr, CefRequest_SetURL_3, out ret, ref v1);
-            /*6021*/
+            /*5684*/
 
-            Cef3Binder.MyCefDeletePtr(v1.Ptr);/*6022*/
+            Cef3Binder.MyCefDeletePtr(v1.Ptr);/*5685*/
             ;
-            /*6023*/
+            /*5686*/
         }
+
+        // gen! CefString GetMethod()
         /// <summary>
         /// Get the request method type. The value will default to POST if post data
         /// is provided and GET otherwise.
         /// /*cef()*/
         /// </summary>
-        /*6024*/
+        /*5687*/
 
-
-        // gen! CefString GetMethod()
-        /*6025*/
-
-        public string GetMethod()/*6026*/
+        public string GetMethod()/*5688*/
         {
             JsValue ret;
-            /*6027*/
+            /*5689*/
 
             Cef3Binder.MyCefMet_Call0(this.nativePtr, CefRequest_GetMethod_4, out ret);
-            /*6028*/
+            /*5690*/
             var ret_result = Cef3Binder.CopyStringAndDestroyNativeSide(ref ret);
-            /*6029*/
+            /*5691*/
             return ret_result;
-            /*6030*/
+            /*5692*/
         }
+
+        // gen! void SetMethod(const CefString& method)
         /// <summary>
         /// Set the request method type.
         /// /*cef()*/
         /// </summary>
-        /*6031*/
+        /*5693*/
 
-
-        // gen! void SetMethod(const CefString& method)
-        /*6032*/
-
-        public void SetMethod(string /*6033*/
+        public void SetMethod(string /*5694*/
         method
-        )/*6034*/
+        )/*5695*/
         {
             JsValue v1 = new JsValue();
             JsValue ret;
             v1.Ptr = Cef3Binder.MyCefCreateCefString(method);
-            /*6035*/
+            /*5696*/
             ;
-            /*6036*/
+            /*5697*/
 
             Cef3Binder.MyCefMet_Call1(this.nativePtr, CefRequest_SetMethod_5, out ret, ref v1);
-            /*6037*/
+            /*5698*/
 
-            Cef3Binder.MyCefDeletePtr(v1.Ptr);/*6038*/
+            Cef3Binder.MyCefDeletePtr(v1.Ptr);/*5699*/
             ;
-            /*6039*/
+            /*5700*/
         }
+
+        // gen! void SetReferrer(const CefString& referrer_url,ReferrerPolicy policy)
         /// <summary>
         /// Set the referrer URL and policy. If non-empty the referrer URL must be
         /// fully qualified with an HTTP or HTTPS scheme component. Any username,
         /// password or ref component will be removed.
         /// /*cef()*/
         /// </summary>
-        /*6040*/
+        /*5701*/
 
-
-        // gen! void SetReferrer(const CefString& referrer_url,ReferrerPolicy policy)
-        /*6041*/
-
-        public void SetReferrer(string /*6042*/
+        public void SetReferrer(string /*5702*/
         referrer_url
-        , cef_referrer_policy_t /*6043*/
+        , cef_referrer_policy_t /*5703*/
         policy
-        )/*6044*/
+        )/*5704*/
         {
             JsValue v1 = new JsValue();
             JsValue v2 = new JsValue();
             JsValue ret;
             v1.Ptr = Cef3Binder.MyCefCreateCefString(referrer_url);
-            /*6045*/
+            /*5705*/
             ;
-            /*6046*/
+            /*5706*/
 
             Cef3Binder.MyCefMet_Call2(this.nativePtr, CefRequest_SetReferrer_6, out ret, ref v1, ref v2);
-            /*6047*/
+            /*5707*/
 
-            Cef3Binder.MyCefDeletePtr(v1.Ptr);/*6048*/
+            Cef3Binder.MyCefDeletePtr(v1.Ptr);/*5708*/
             ;
-            /*6049*/
+            /*5709*/
         }
+
+        // gen! CefString GetReferrerURL()
         /// <summary>
         /// Get the referrer URL.
         /// /*cef()*/
         /// </summary>
-        /*6050*/
+        /*5710*/
 
-
-        // gen! CefString GetReferrerURL()
-        /*6051*/
-
-        public string GetReferrerURL()/*6052*/
+        public string GetReferrerURL()/*5711*/
         {
             JsValue ret;
-            /*6053*/
+            /*5712*/
 
             Cef3Binder.MyCefMet_Call0(this.nativePtr, CefRequest_GetReferrerURL_7, out ret);
-            /*6054*/
+            /*5713*/
             var ret_result = Cef3Binder.CopyStringAndDestroyNativeSide(ref ret);
-            /*6055*/
+            /*5714*/
             return ret_result;
-            /*6056*/
+            /*5715*/
         }
+
+        // gen! ReferrerPolicy GetReferrerPolicy()
         /// <summary>
         /// Get the referrer policy.
         /// /*cef(default_retval=REFERRER_POLICY_DEFAULT)*/
         /// </summary>
-        /*6057*/
+        /*5716*/
 
-
-        // gen! ReferrerPolicy GetReferrerPolicy()
-        /*6058*/
-
-        public cef_referrer_policy_t GetReferrerPolicy()/*6059*/
+        public cef_referrer_policy_t GetReferrerPolicy()/*5717*/
         {
             JsValue ret;
-            /*6060*/
+            /*5718*/
 
             Cef3Binder.MyCefMet_Call0(this.nativePtr, CefRequest_GetReferrerPolicy_8, out ret);
-            /*6061*/
+            /*5719*/
             var ret_result = (cef_referrer_policy_t)ret.I32;
 
-            /*6062*/
+            /*5720*/
             return ret_result;
-            /*6063*/
+            /*5721*/
         }
+
+        // gen! CefRefPtr<CefPostData> GetPostData()
         /// <summary>
         /// Get the post data.
         /// /*cef()*/
         /// </summary>
-        /*6064*/
+        /*5722*/
 
-
-        // gen! CefRefPtr<CefPostData> GetPostData()
-        /*6065*/
-
-        public CefPostData GetPostData()/*6066*/
+        public CefPostData GetPostData()/*5723*/
         {
             JsValue ret;
-            /*6067*/
+            /*5724*/
 
             Cef3Binder.MyCefMet_Call0(this.nativePtr, CefRequest_GetPostData_9, out ret);
-            /*6068*/
+            /*5725*/
             var ret_result = new CefPostData(ret.Ptr);
-            /*6069*/
+            /*5726*/
             return ret_result;
-            /*6070*/
+            /*5727*/
         }
+
+        // gen! void SetPostData(CefRefPtr<CefPostData> postData)
         /// <summary>
         /// Set the post data.
         /// /*cef()*/
         /// </summary>
-        /*6071*/
+        /*5728*/
 
-
-        // gen! void SetPostData(CefRefPtr<CefPostData> postData)
-        /*6072*/
-
-        public void SetPostData(CefPostData /*6073*/
+        public void SetPostData(CefPostData /*5729*/
         postData
-        )/*6074*/
+        )/*5730*/
         {
             JsValue v1 = new JsValue();
             JsValue ret;
-            /*6075*/
+            /*5731*/
 
             Cef3Binder.MyCefMet_Call1(this.nativePtr, CefRequest_SetPostData_10, out ret, ref v1);
-            /*6076*/
+            /*5732*/
 
-            /*6077*/
+            /*5733*/
         }
+
+        // gen! void GetHeaderMap(HeaderMap& headerMap)
         /// <summary>
         /// Get the header values. Will not include the Referer value if any.
         /// /*cef()*/
         /// </summary>
-        /*6078*/
+        /*5734*/
 
-
-        // gen! void GetHeaderMap(HeaderMap& headerMap)
-        /*6079*/
-
-        public void GetHeaderMap(HeaderMap /*6080*/
+        public void GetHeaderMap(HeaderMap /*5735*/
         headerMap
-        )/*6081*/
+        )/*5736*/
         {
             JsValue v1 = new JsValue();
             JsValue ret;
-            /*6082*/
+            /*5737*/
 
             Cef3Binder.MyCefMet_Call1(this.nativePtr, CefRequest_GetHeaderMap_11, out ret, ref v1);
-            /*6083*/
+            /*5738*/
 
-            /*6084*/
+            /*5739*/
         }
+
+        // gen! void SetHeaderMap(const HeaderMap& headerMap)
         /// <summary>
         /// Set the header values. If a Referer value exists in the header map it will
         /// be removed and ignored.
         /// /*cef()*/
         /// </summary>
-        /*6085*/
+        /*5740*/
 
-
-        // gen! void SetHeaderMap(const HeaderMap& headerMap)
-        /*6086*/
-
-        public void SetHeaderMap(HeaderMap /*6087*/
+        public void SetHeaderMap(HeaderMap /*5741*/
         headerMap
-        )/*6088*/
+        )/*5742*/
         {
             JsValue v1 = new JsValue();
             JsValue ret;
-            /*6089*/
+            /*5743*/
 
             Cef3Binder.MyCefMet_Call1(this.nativePtr, CefRequest_SetHeaderMap_12, out ret, ref v1);
-            /*6090*/
+            /*5744*/
 
-            /*6091*/
+            /*5745*/
         }
+
+        // gen! void Set(const CefString& url,const CefString& method,CefRefPtr<CefPostData> postData,const HeaderMap& headerMap)
         /// <summary>
         /// Set all values at one time.
         /// /*cef(optional_param=postData)*/
         /// </summary>
-        /*6092*/
+        /*5746*/
 
-
-        // gen! void Set(const CefString& url,const CefString& method,CefRefPtr<CefPostData> postData,const HeaderMap& headerMap)
-        /*6093*/
-
-        public void Set(string /*6094*/
+        public void Set(string /*5747*/
         url
-        , string /*6095*/
+        , string /*5748*/
         method
-        , CefPostData /*6096*/
+        , CefPostData /*5749*/
         postData
-        , HeaderMap /*6097*/
+        , HeaderMap /*5750*/
         headerMap
-        )/*6098*/
+        )/*5751*/
         {
             JsValue v1 = new JsValue();
             JsValue v2 = new JsValue();
@@ -12668,195 +11974,181 @@ namespace LayoutFarm.CefBridge.Auto
             JsValue v4 = new JsValue();
             JsValue ret;
             v1.Ptr = Cef3Binder.MyCefCreateCefString(url);
-            /*6099*/
+            /*5752*/
             ;
             v2.Ptr = Cef3Binder.MyCefCreateCefString(method);
-            /*6100*/
+            /*5753*/
             ;
-            /*6101*/
+            /*5754*/
 
             Cef3Binder.MyCefMet_Call4(this.nativePtr, CefRequest_Set_13, out ret, ref v1, ref v2, ref v3, ref v4);
-            /*6102*/
+            /*5755*/
 
-            Cef3Binder.MyCefDeletePtr(v1.Ptr);/*6103*/
+            Cef3Binder.MyCefDeletePtr(v1.Ptr);/*5756*/
             ;
-            Cef3Binder.MyCefDeletePtr(v2.Ptr);/*6104*/
+            Cef3Binder.MyCefDeletePtr(v2.Ptr);/*5757*/
             ;
-            /*6105*/
+            /*5758*/
         }
+
+        // gen! int GetFlags()
         /// <summary>
         /// Get the flags used in combination with CefURLRequest. See
         /// cef_urlrequest_flags_t for supported values.
         /// /*cef(default_retval=UR_FLAG_NONE)*/
         /// </summary>
-        /*6106*/
+        /*5759*/
 
-
-        // gen! int GetFlags()
-        /*6107*/
-
-        public int GetFlags()/*6108*/
+        public int GetFlags()/*5760*/
         {
             JsValue ret;
-            /*6109*/
+            /*5761*/
 
             Cef3Binder.MyCefMet_Call0(this.nativePtr, CefRequest_GetFlags_14, out ret);
-            /*6110*/
+            /*5762*/
             var ret_result = ret.I32;
-            /*6111*/
+            /*5763*/
             return ret_result;
-            /*6112*/
+            /*5764*/
         }
+
+        // gen! void SetFlags(int flags)
         /// <summary>
         /// Set the flags used in combination with CefURLRequest.  See
         /// cef_urlrequest_flags_t for supported values.
         /// /*cef()*/
         /// </summary>
-        /*6113*/
+        /*5765*/
 
-
-        // gen! void SetFlags(int flags)
-        /*6114*/
-
-        public void SetFlags(int /*6115*/
+        public void SetFlags(int /*5766*/
         flags
-        )/*6116*/
+        )/*5767*/
         {
             JsValue v1 = new JsValue();
             JsValue ret;
-            /*6117*/
+            /*5768*/
 
             Cef3Binder.MyCefMet_Call1(this.nativePtr, CefRequest_SetFlags_15, out ret, ref v1);
-            /*6118*/
+            /*5769*/
 
-            /*6119*/
+            /*5770*/
         }
+
+        // gen! CefString GetFirstPartyForCookies()
         /// <summary>
         /// Set the URL to the first party for cookies used in combination with
         /// CefURLRequest.
         /// /*cef()*/
         /// </summary>
-        /*6120*/
+        /*5771*/
 
-
-        // gen! CefString GetFirstPartyForCookies()
-        /*6121*/
-
-        public string GetFirstPartyForCookies()/*6122*/
+        public string GetFirstPartyForCookies()/*5772*/
         {
             JsValue ret;
-            /*6123*/
+            /*5773*/
 
             Cef3Binder.MyCefMet_Call0(this.nativePtr, CefRequest_GetFirstPartyForCookies_16, out ret);
-            /*6124*/
+            /*5774*/
             var ret_result = Cef3Binder.CopyStringAndDestroyNativeSide(ref ret);
-            /*6125*/
+            /*5775*/
             return ret_result;
-            /*6126*/
+            /*5776*/
         }
+
+        // gen! void SetFirstPartyForCookies(const CefString& url)
         /// <summary>
         /// Get the URL to the first party for cookies used in combination with
         /// CefURLRequest.
         /// /*cef()*/
         /// </summary>
-        /*6127*/
+        /*5777*/
 
-
-        // gen! void SetFirstPartyForCookies(const CefString& url)
-        /*6128*/
-
-        public void SetFirstPartyForCookies(string /*6129*/
+        public void SetFirstPartyForCookies(string /*5778*/
         url
-        )/*6130*/
+        )/*5779*/
         {
             JsValue v1 = new JsValue();
             JsValue ret;
             v1.Ptr = Cef3Binder.MyCefCreateCefString(url);
-            /*6131*/
+            /*5780*/
             ;
-            /*6132*/
+            /*5781*/
 
             Cef3Binder.MyCefMet_Call1(this.nativePtr, CefRequest_SetFirstPartyForCookies_17, out ret, ref v1);
-            /*6133*/
+            /*5782*/
 
-            Cef3Binder.MyCefDeletePtr(v1.Ptr);/*6134*/
+            Cef3Binder.MyCefDeletePtr(v1.Ptr);/*5783*/
             ;
-            /*6135*/
+            /*5784*/
         }
+
+        // gen! ResourceType GetResourceType()
         /// <summary>
         /// Get the resource type for this request. Only available in the browser
         /// process.
         /// /*cef(default_retval=RT_SUB_RESOURCE)*/
         /// </summary>
-        /*6136*/
+        /*5785*/
 
-
-        // gen! ResourceType GetResourceType()
-        /*6137*/
-
-        public cef_resource_type_t GetResourceType()/*6138*/
+        public cef_resource_type_t GetResourceType()/*5786*/
         {
             JsValue ret;
-            /*6139*/
+            /*5787*/
 
             Cef3Binder.MyCefMet_Call0(this.nativePtr, CefRequest_GetResourceType_18, out ret);
-            /*6140*/
+            /*5788*/
             var ret_result = (cef_resource_type_t)ret.I32;
 
-            /*6141*/
+            /*5789*/
             return ret_result;
-            /*6142*/
+            /*5790*/
         }
+
+        // gen! TransitionType GetTransitionType()
         /// <summary>
         /// Get the transition type for this request. Only available in the browser
         /// process and only applies to requests that represent a main frame or
         /// sub-frame navigation.
         /// /*cef(default_retval=TT_EXPLICIT)*/
         /// </summary>
-        /*6143*/
+        /*5791*/
 
-
-        // gen! TransitionType GetTransitionType()
-        /*6144*/
-
-        public cef_transition_type_t GetTransitionType()/*6145*/
+        public cef_transition_type_t GetTransitionType()/*5792*/
         {
             JsValue ret;
-            /*6146*/
+            /*5793*/
 
             Cef3Binder.MyCefMet_Call0(this.nativePtr, CefRequest_GetTransitionType_19, out ret);
-            /*6147*/
+            /*5794*/
             var ret_result = (cef_transition_type_t)ret.I32;
 
-            /*6148*/
+            /*5795*/
             return ret_result;
-            /*6149*/
+            /*5796*/
         }
+
+        // gen! uint64 GetIdentifier()
         /// <summary>
         /// Returns the globally unique identifier for this request or 0 if not
         /// specified. Can be used by CefRequestHandler implementations in the browser
         /// process to track a single request across multiple callbacks.
         /// /*cef()*/
         /// </summary>
-        /*6150*/
+        /*5797*/
 
-
-        // gen! uint64 GetIdentifier()
-        /*6151*/
-
-        public ulong GetIdentifier()/*6152*/
+        public ulong GetIdentifier()/*5798*/
         {
             JsValue ret;
-            /*6153*/
+            /*5799*/
 
             Cef3Binder.MyCefMet_Call0(this.nativePtr, CefRequest_GetIdentifier_20, out ret);
-            /*6154*/
+            /*5800*/
             var ret_result = (ulong)ret.I64;
-            /*6155*/
+            /*5801*/
             return ret_result;
-            /*6156*/
+            /*5802*/
         }
-        /*6157*/
+        /*5803*/
     }
 
 
@@ -12866,66 +12158,66 @@ namespace LayoutFarm.CefBridge.Auto
     /// class may be called on any thread.
     /// /*(source=library,no_debugct_check)*/
     /// </summary>
-    /*6201*/
+    /*5847*/
     public struct CefPostData
     {
-        /*6202*/
+        /*5848*/
         const int _typeNAME = 23;
-        /*6203*/
+        /*5849*/
         const int CefPostData_Release_0 = (_typeNAME << 16) | 0;
-        /*6204*/
+        /*5850*/
         const int CefPostData_IsReadOnly_1 = (_typeNAME << 16) | 1;
-        /*6205*/
+        /*5851*/
         const int CefPostData_HasExcludedElements_2 = (_typeNAME << 16) | 2;
-        /*6206*/
+        /*5852*/
         const int CefPostData_GetElementCount_3 = (_typeNAME << 16) | 3;
-        /*6207*/
+        /*5853*/
         const int CefPostData_GetElements_4 = (_typeNAME << 16) | 4;
-        /*6208*/
+        /*5854*/
         const int CefPostData_RemoveElement_5 = (_typeNAME << 16) | 5;
-        /*6209*/
+        /*5855*/
         const int CefPostData_AddElement_6 = (_typeNAME << 16) | 6;
-        /*6210*/
+        /*5856*/
         const int CefPostData_RemoveElements_7 = (_typeNAME << 16) | 7;
-        /*6211*/
+        /*5857*/
         internal readonly IntPtr nativePtr;
-        /*6212*/
+        /*5858*/
         internal CefPostData(IntPtr nativePtr)
         {
-            /*6213*/
+            /*5859*/
             this.nativePtr = nativePtr;
-            /*6214*/
+            /*5860*/
         }
-        /*6215*/
+        /*5861*/
         public void Release()
         {
-            /*6216*/
+            /*5862*/
             JsValue ret;
-            /*6217*/
+            /*5863*/
             Cef3Binder.MyCefMet_Call0(this.nativePtr, CefPostData_Release_0, out ret);
-            /*6218*/
+            /*5864*/
         }
+
+        // gen! bool IsReadOnly()
         /// <summary>
         /// CefPostData methods.
         /// </summary>
-        /*6219*/
+        /*5865*/
 
-
-        // gen! bool IsReadOnly()
-        /*6220*/
-
-        public bool IsReadOnly()/*6221*/
+        public bool IsReadOnly()/*5866*/
         {
             JsValue ret;
-            /*6222*/
+            /*5867*/
 
             Cef3Binder.MyCefMet_Call0(this.nativePtr, CefPostData_IsReadOnly_1, out ret);
-            /*6223*/
+            /*5868*/
             var ret_result = ret.I32 != 0;
-            /*6224*/
+            /*5869*/
             return ret_result;
-            /*6225*/
+            /*5870*/
         }
+
+        // gen! bool HasExcludedElements()
         /// <summary>
         /// Returns true if the underlying POST data includes elements that are not
         /// represented by this CefPostData object (for example, multi-part file upload
@@ -12933,141 +12225,127 @@ namespace LayoutFarm.CefBridge.Auto
         /// the request failing.
         /// /*cef()*/
         /// </summary>
-        /*6226*/
+        /*5871*/
 
-
-        // gen! bool HasExcludedElements()
-        /*6227*/
-
-        public bool HasExcludedElements()/*6228*/
+        public bool HasExcludedElements()/*5872*/
         {
             JsValue ret;
-            /*6229*/
+            /*5873*/
 
             Cef3Binder.MyCefMet_Call0(this.nativePtr, CefPostData_HasExcludedElements_2, out ret);
-            /*6230*/
+            /*5874*/
             var ret_result = ret.I32 != 0;
-            /*6231*/
+            /*5875*/
             return ret_result;
-            /*6232*/
+            /*5876*/
         }
+
+        // gen! size_t GetElementCount()
         /// <summary>
         /// Returns the number of existing post data elements.
         /// /*cef()*/
         /// </summary>
-        /*6233*/
+        /*5877*/
 
-
-        // gen! size_t GetElementCount()
-        /*6234*/
-
-        public uint GetElementCount()/*6235*/
+        public uint GetElementCount()/*5878*/
         {
             JsValue ret;
-            /*6236*/
+            /*5879*/
 
             Cef3Binder.MyCefMet_Call0(this.nativePtr, CefPostData_GetElementCount_3, out ret);
-            /*6237*/
+            /*5880*/
             var ret_result = (uint)ret.I32;
-            /*6238*/
+            /*5881*/
             return ret_result;
-            /*6239*/
+            /*5882*/
         }
+
+        // gen! void GetElements(ElementVector& elements)
         /// <summary>
         /// Retrieve the post data elements.
         /// /*cef(count_func=elements:GetElementCount)*/
         /// </summary>
-        /*6240*/
+        /*5883*/
 
-
-        // gen! void GetElements(ElementVector& elements)
-        /*6241*/
-
-        public void GetElements(ElementVector /*6242*/
+        public void GetElements(ElementVector /*5884*/
         elements
-        )/*6243*/
+        )/*5885*/
         {
             JsValue v1 = new JsValue();
             JsValue ret;
-            /*6244*/
+            /*5886*/
 
             Cef3Binder.MyCefMet_Call1(this.nativePtr, CefPostData_GetElements_4, out ret, ref v1);
-            /*6245*/
+            /*5887*/
 
-            /*6246*/
+            /*5888*/
         }
+
+        // gen! bool RemoveElement(CefRefPtr<CefPostDataElement> element)
         /// <summary>
         /// Remove the specified post data element.  Returns true if the removal
         /// succeeds.
         /// /*cef()*/
         /// </summary>
-        /*6247*/
+        /*5889*/
 
-
-        // gen! bool RemoveElement(CefRefPtr<CefPostDataElement> element)
-        /*6248*/
-
-        public bool RemoveElement(CefPostDataElement /*6249*/
+        public bool RemoveElement(CefPostDataElement /*5890*/
         element
-        )/*6250*/
+        )/*5891*/
         {
             JsValue v1 = new JsValue();
             JsValue ret;
-            /*6251*/
+            /*5892*/
 
             Cef3Binder.MyCefMet_Call1(this.nativePtr, CefPostData_RemoveElement_5, out ret, ref v1);
-            /*6252*/
+            /*5893*/
             var ret_result = ret.I32 != 0;
-            /*6253*/
+            /*5894*/
             return ret_result;
-            /*6254*/
+            /*5895*/
         }
+
+        // gen! bool AddElement(CefRefPtr<CefPostDataElement> element)
         /// <summary>
         /// Add the specified post data element.  Returns true if the add succeeds.
         /// /*cef()*/
         /// </summary>
-        /*6255*/
+        /*5896*/
 
-
-        // gen! bool AddElement(CefRefPtr<CefPostDataElement> element)
-        /*6256*/
-
-        public bool AddElement(CefPostDataElement /*6257*/
+        public bool AddElement(CefPostDataElement /*5897*/
         element
-        )/*6258*/
+        )/*5898*/
         {
             JsValue v1 = new JsValue();
             JsValue ret;
-            /*6259*/
+            /*5899*/
 
             Cef3Binder.MyCefMet_Call1(this.nativePtr, CefPostData_AddElement_6, out ret, ref v1);
-            /*6260*/
+            /*5900*/
             var ret_result = ret.I32 != 0;
-            /*6261*/
+            /*5901*/
             return ret_result;
-            /*6262*/
+            /*5902*/
         }
+
+        // gen! void RemoveElements()
         /// <summary>
         /// Remove all existing post data elements.
         /// /*cef()*/
         /// </summary>
-        /*6263*/
+        /*5903*/
 
-
-        // gen! void RemoveElements()
-        /*6264*/
-
-        public void RemoveElements()/*6265*/
+        public void RemoveElements()/*5904*/
         {
             JsValue ret;
-            /*6266*/
+            /*5905*/
 
             Cef3Binder.MyCefMet_Call0(this.nativePtr, CefPostData_RemoveElements_7, out ret);
-            /*6267*/
+            /*5906*/
 
-            /*6268*/
+            /*5907*/
         }
-        /*6269*/
+        /*5908*/
     }
 
 
@@ -13077,240 +12355,224 @@ namespace LayoutFarm.CefBridge.Auto
     /// methods of this class may be called on any thread.
     /// /*(source=library,no_debugct_check)*/
     /// </summary>
-    /*6318*/
+    /*5957*/
     public struct CefPostDataElement
     {
-        /*6319*/
+        /*5958*/
         const int _typeNAME = 24;
-        /*6320*/
+        /*5959*/
         const int CefPostDataElement_Release_0 = (_typeNAME << 16) | 0;
-        /*6321*/
+        /*5960*/
         const int CefPostDataElement_IsReadOnly_1 = (_typeNAME << 16) | 1;
-        /*6322*/
+        /*5961*/
         const int CefPostDataElement_SetToEmpty_2 = (_typeNAME << 16) | 2;
-        /*6323*/
+        /*5962*/
         const int CefPostDataElement_SetToFile_3 = (_typeNAME << 16) | 3;
-        /*6324*/
+        /*5963*/
         const int CefPostDataElement_SetToBytes_4 = (_typeNAME << 16) | 4;
-        /*6325*/
+        /*5964*/
         const int CefPostDataElement_GetType_5 = (_typeNAME << 16) | 5;
-        /*6326*/
+        /*5965*/
         const int CefPostDataElement_GetFile_6 = (_typeNAME << 16) | 6;
-        /*6327*/
+        /*5966*/
         const int CefPostDataElement_GetBytesCount_7 = (_typeNAME << 16) | 7;
-        /*6328*/
+        /*5967*/
         const int CefPostDataElement_GetBytes_8 = (_typeNAME << 16) | 8;
-        /*6329*/
+        /*5968*/
         internal readonly IntPtr nativePtr;
-        /*6330*/
+        /*5969*/
         internal CefPostDataElement(IntPtr nativePtr)
         {
-            /*6331*/
+            /*5970*/
             this.nativePtr = nativePtr;
-            /*6332*/
+            /*5971*/
         }
-        /*6333*/
+        /*5972*/
         public void Release()
         {
-            /*6334*/
+            /*5973*/
             JsValue ret;
-            /*6335*/
+            /*5974*/
             Cef3Binder.MyCefMet_Call0(this.nativePtr, CefPostDataElement_Release_0, out ret);
-            /*6336*/
+            /*5975*/
         }
+
+        // gen! bool IsReadOnly()
         /// <summary>
         /// CefPostDataElement methods.
         /// </summary>
-        /*6337*/
+        /*5976*/
 
-
-        // gen! bool IsReadOnly()
-        /*6338*/
-
-        public bool IsReadOnly()/*6339*/
+        public bool IsReadOnly()/*5977*/
         {
             JsValue ret;
-            /*6340*/
+            /*5978*/
 
             Cef3Binder.MyCefMet_Call0(this.nativePtr, CefPostDataElement_IsReadOnly_1, out ret);
-            /*6341*/
+            /*5979*/
             var ret_result = ret.I32 != 0;
-            /*6342*/
+            /*5980*/
             return ret_result;
-            /*6343*/
+            /*5981*/
         }
+
+        // gen! void SetToEmpty()
         /// <summary>
         /// Remove all contents from the post data element.
         /// /*cef()*/
         /// </summary>
-        /*6344*/
+        /*5982*/
 
-
-        // gen! void SetToEmpty()
-        /*6345*/
-
-        public void SetToEmpty()/*6346*/
+        public void SetToEmpty()/*5983*/
         {
             JsValue ret;
-            /*6347*/
+            /*5984*/
 
             Cef3Binder.MyCefMet_Call0(this.nativePtr, CefPostDataElement_SetToEmpty_2, out ret);
-            /*6348*/
+            /*5985*/
 
-            /*6349*/
+            /*5986*/
         }
+
+        // gen! void SetToFile(const CefString& fileName)
         /// <summary>
         /// The post data element will represent a file.
         /// /*cef()*/
         /// </summary>
-        /*6350*/
+        /*5987*/
 
-
-        // gen! void SetToFile(const CefString& fileName)
-        /*6351*/
-
-        public void SetToFile(string /*6352*/
+        public void SetToFile(string /*5988*/
         fileName
-        )/*6353*/
+        )/*5989*/
         {
             JsValue v1 = new JsValue();
             JsValue ret;
             v1.Ptr = Cef3Binder.MyCefCreateCefString(fileName);
-            /*6354*/
+            /*5990*/
             ;
-            /*6355*/
+            /*5991*/
 
             Cef3Binder.MyCefMet_Call1(this.nativePtr, CefPostDataElement_SetToFile_3, out ret, ref v1);
-            /*6356*/
+            /*5992*/
 
-            Cef3Binder.MyCefDeletePtr(v1.Ptr);/*6357*/
+            Cef3Binder.MyCefDeletePtr(v1.Ptr);/*5993*/
             ;
-            /*6358*/
+            /*5994*/
         }
+
+        // gen! void SetToBytes(size_t size,const void* bytes)
         /// <summary>
         /// The post data element will represent bytes.  The bytes passed
         /// in will be copied.
         /// /*cef()*/
         /// </summary>
-        /*6359*/
+        /*5995*/
 
-
-        // gen! void SetToBytes(size_t size,const void* bytes)
-        /*6360*/
-
-        public void SetToBytes(uint /*6361*/
+        public void SetToBytes(uint /*5996*/
         size
-        , IntPtr /*6362*/
+        , IntPtr /*5997*/
         bytes
-        )/*6363*/
+        )/*5998*/
         {
             JsValue v1 = new JsValue();
             JsValue v2 = new JsValue();
             JsValue ret;
-            /*6364*/
+            /*5999*/
 
             Cef3Binder.MyCefMet_Call2(this.nativePtr, CefPostDataElement_SetToBytes_4, out ret, ref v1, ref v2);
-            /*6365*/
+            /*6000*/
 
-            /*6366*/
+            /*6001*/
         }
+
+        // gen! Type GetType()
         /// <summary>
         /// Return the type of this post data element.
         /// /*cef(default_retval=PDE_TYPE_EMPTY)*/
         /// </summary>
-        /*6367*/
+        /*6002*/
 
-
-        // gen! Type GetType()
-        /*6368*/
-
-        public cef_postdataelement_type_t _GetType()/*6369*/
+        public cef_postdataelement_type_t _GetType()/*6003*/
         {
             JsValue ret;
-            /*6370*/
+            /*6004*/
 
             Cef3Binder.MyCefMet_Call0(this.nativePtr, CefPostDataElement_GetType_5, out ret);
-            /*6371*/
+            /*6005*/
             var ret_result = (cef_postdataelement_type_t)ret.I32;
 
-            /*6372*/
+            /*6006*/
             return ret_result;
-            /*6373*/
+            /*6007*/
         }
+
+        // gen! CefString GetFile()
         /// <summary>
         /// Return the file name.
         /// /*cef()*/
         /// </summary>
-        /*6374*/
+        /*6008*/
 
-
-        // gen! CefString GetFile()
-        /*6375*/
-
-        public string GetFile()/*6376*/
+        public string GetFile()/*6009*/
         {
             JsValue ret;
-            /*6377*/
+            /*6010*/
 
             Cef3Binder.MyCefMet_Call0(this.nativePtr, CefPostDataElement_GetFile_6, out ret);
-            /*6378*/
+            /*6011*/
             var ret_result = Cef3Binder.CopyStringAndDestroyNativeSide(ref ret);
-            /*6379*/
+            /*6012*/
             return ret_result;
-            /*6380*/
+            /*6013*/
         }
+
+        // gen! size_t GetBytesCount()
         /// <summary>
         /// Return the number of bytes.
         /// /*cef()*/
         /// </summary>
-        /*6381*/
+        /*6014*/
 
-
-        // gen! size_t GetBytesCount()
-        /*6382*/
-
-        public uint GetBytesCount()/*6383*/
+        public uint GetBytesCount()/*6015*/
         {
             JsValue ret;
-            /*6384*/
+            /*6016*/
 
             Cef3Binder.MyCefMet_Call0(this.nativePtr, CefPostDataElement_GetBytesCount_7, out ret);
-            /*6385*/
+            /*6017*/
             var ret_result = (uint)ret.I32;
-            /*6386*/
+            /*6018*/
             return ret_result;
-            /*6387*/
+            /*6019*/
         }
+
+        // gen! size_t GetBytes(size_t size,void* bytes)
         /// <summary>
         /// Read up to |size| bytes into |bytes| and return the number of bytes
         /// actually read.
         /// /*cef()*/
         /// </summary>
-        /*6388*/
+        /*6020*/
 
-
-        // gen! size_t GetBytes(size_t size,void* bytes)
-        /*6389*/
-
-        public uint GetBytes(uint /*6390*/
+        public uint GetBytes(uint /*6021*/
         size
-        , IntPtr /*6391*/
+        , IntPtr /*6022*/
         bytes
-        )/*6392*/
+        )/*6023*/
         {
             JsValue v1 = new JsValue();
             JsValue v2 = new JsValue();
             JsValue ret;
-            /*6393*/
+            /*6024*/
 
             Cef3Binder.MyCefMet_Call2(this.nativePtr, CefPostDataElement_GetBytes_8, out ret, ref v1, ref v2);
-            /*6394*/
+            /*6025*/
             var ret_result = (uint)ret.I32;
-            /*6395*/
+            /*6026*/
             return ret_result;
-            /*6396*/
+            /*6027*/
         }
-        /*6397*/
+        /*6028*/
     }
 
 
@@ -13332,185 +12594,177 @@ namespace LayoutFarm.CefBridge.Auto
     /// all other request context objects will be ignored.
     /// /*(source=library,no_debugct_check)*/
     /// </summary>
-    /*6496*/
+    /*6127*/
     public struct CefRequestContext
     {
-        /*6497*/
+        /*6128*/
         const int _typeNAME = 25;
-        /*6498*/
+        /*6129*/
         const int CefRequestContext_Release_0 = (_typeNAME << 16) | 0;
-        /*6499*/
+        /*6130*/
         const int CefRequestContext_IsSame_1 = (_typeNAME << 16) | 1;
-        /*6500*/
+        /*6131*/
         const int CefRequestContext_IsSharingWith_2 = (_typeNAME << 16) | 2;
-        /*6501*/
+        /*6132*/
         const int CefRequestContext_IsGlobal_3 = (_typeNAME << 16) | 3;
-        /*6502*/
+        /*6133*/
         const int CefRequestContext_GetHandler_4 = (_typeNAME << 16) | 4;
-        /*6503*/
+        /*6134*/
         const int CefRequestContext_GetCachePath_5 = (_typeNAME << 16) | 5;
-        /*6504*/
+        /*6135*/
         const int CefRequestContext_GetDefaultCookieManager_6 = (_typeNAME << 16) | 6;
-        /*6505*/
+        /*6136*/
         const int CefRequestContext_RegisterSchemeHandlerFactory_7 = (_typeNAME << 16) | 7;
-        /*6506*/
+        /*6137*/
         const int CefRequestContext_ClearSchemeHandlerFactories_8 = (_typeNAME << 16) | 8;
-        /*6507*/
+        /*6138*/
         const int CefRequestContext_PurgePluginListCache_9 = (_typeNAME << 16) | 9;
-        /*6508*/
+        /*6139*/
         const int CefRequestContext_HasPreference_10 = (_typeNAME << 16) | 10;
-        /*6509*/
+        /*6140*/
         const int CefRequestContext_GetPreference_11 = (_typeNAME << 16) | 11;
-        /*6510*/
+        /*6141*/
         const int CefRequestContext_GetAllPreferences_12 = (_typeNAME << 16) | 12;
-        /*6511*/
+        /*6142*/
         const int CefRequestContext_CanSetPreference_13 = (_typeNAME << 16) | 13;
-        /*6512*/
+        /*6143*/
         const int CefRequestContext_SetPreference_14 = (_typeNAME << 16) | 14;
-        /*6513*/
+        /*6144*/
         const int CefRequestContext_ClearCertificateExceptions_15 = (_typeNAME << 16) | 15;
-        /*6514*/
+        /*6145*/
         const int CefRequestContext_CloseAllConnections_16 = (_typeNAME << 16) | 16;
-        /*6515*/
+        /*6146*/
         const int CefRequestContext_ResolveHost_17 = (_typeNAME << 16) | 17;
-        /*6516*/
+        /*6147*/
         const int CefRequestContext_ResolveHostCached_18 = (_typeNAME << 16) | 18;
-        /*6517*/
+        /*6148*/
         internal readonly IntPtr nativePtr;
-        /*6518*/
+        /*6149*/
         internal CefRequestContext(IntPtr nativePtr)
         {
-            /*6519*/
+            /*6150*/
             this.nativePtr = nativePtr;
-            /*6520*/
+            /*6151*/
         }
-        /*6521*/
+        /*6152*/
         public void Release()
         {
-            /*6522*/
+            /*6153*/
             JsValue ret;
-            /*6523*/
+            /*6154*/
             Cef3Binder.MyCefMet_Call0(this.nativePtr, CefRequestContext_Release_0, out ret);
-            /*6524*/
+            /*6155*/
         }
+
+        // gen! bool IsSame(CefRefPtr<CefRequestContext> other)
         /// <summary>
         /// CefRequestContext methods.
         /// </summary>
-        /*6525*/
+        /*6156*/
 
-
-        // gen! bool IsSame(CefRefPtr<CefRequestContext> other)
-        /*6526*/
-
-        public bool IsSame(CefRequestContext /*6527*/
+        public bool IsSame(CefRequestContext /*6157*/
         other
-        )/*6528*/
+        )/*6158*/
         {
             JsValue v1 = new JsValue();
             JsValue ret;
-            /*6529*/
+            /*6159*/
 
             Cef3Binder.MyCefMet_Call1(this.nativePtr, CefRequestContext_IsSame_1, out ret, ref v1);
-            /*6530*/
+            /*6160*/
             var ret_result = ret.I32 != 0;
-            /*6531*/
+            /*6161*/
             return ret_result;
-            /*6532*/
+            /*6162*/
         }
+
+        // gen! bool IsSharingWith(CefRefPtr<CefRequestContext> other)
         /// <summary>
         /// Returns true if this object is sharing the same storage as |that| object.
         /// /*cef()*/
         /// </summary>
-        /*6533*/
+        /*6163*/
 
-
-        // gen! bool IsSharingWith(CefRefPtr<CefRequestContext> other)
-        /*6534*/
-
-        public bool IsSharingWith(CefRequestContext /*6535*/
+        public bool IsSharingWith(CefRequestContext /*6164*/
         other
-        )/*6536*/
+        )/*6165*/
         {
             JsValue v1 = new JsValue();
             JsValue ret;
-            /*6537*/
+            /*6166*/
 
             Cef3Binder.MyCefMet_Call1(this.nativePtr, CefRequestContext_IsSharingWith_2, out ret, ref v1);
-            /*6538*/
+            /*6167*/
             var ret_result = ret.I32 != 0;
-            /*6539*/
+            /*6168*/
             return ret_result;
-            /*6540*/
+            /*6169*/
         }
+
+        // gen! bool IsGlobal()
         /// <summary>
         /// Returns true if this object is the global context. The global context is
         /// used by default when creating a browser or URL request with a NULL context
         /// argument.
         /// /*cef()*/
         /// </summary>
-        /*6541*/
+        /*6170*/
 
-
-        // gen! bool IsGlobal()
-        /*6542*/
-
-        public bool IsGlobal()/*6543*/
+        public bool IsGlobal()/*6171*/
         {
             JsValue ret;
-            /*6544*/
+            /*6172*/
 
             Cef3Binder.MyCefMet_Call0(this.nativePtr, CefRequestContext_IsGlobal_3, out ret);
-            /*6545*/
+            /*6173*/
             var ret_result = ret.I32 != 0;
-            /*6546*/
+            /*6174*/
             return ret_result;
-            /*6547*/
+            /*6175*/
         }
+
+        // gen! CefRefPtr<CefRequestContextHandler> GetHandler()
         /// <summary>
         /// Returns the handler for this context if any.
         /// /*cef()*/
         /// </summary>
-        /*6548*/
+        /*6176*/
 
-
-        // gen! CefRefPtr<CefRequestContextHandler> GetHandler()
-        /*6549*/
-
-        public CefRequestContextHandler GetHandler()/*6550*/
+        public CefRequestContextHandler GetHandler()/*6177*/
         {
             JsValue ret;
-            /*6551*/
+            /*6178*/
 
             Cef3Binder.MyCefMet_Call0(this.nativePtr, CefRequestContext_GetHandler_4, out ret);
-            /*6552*/
+            /*6179*/
             var ret_result = new CefRequestContextHandler(ret.Ptr);
-            /*6553*/
+            /*6180*/
             return ret_result;
-            /*6554*/
+            /*6181*/
         }
+
+        // gen! CefString GetCachePath()
         /// <summary>
         /// Returns the cache path for this object. If empty an "incognito mode"
         /// in-memory cache is being used.
         /// /*cef()*/
         /// </summary>
-        /*6555*/
+        /*6182*/
 
-
-        // gen! CefString GetCachePath()
-        /*6556*/
-
-        public string GetCachePath()/*6557*/
+        public string GetCachePath()/*6183*/
         {
             JsValue ret;
-            /*6558*/
+            /*6184*/
 
             Cef3Binder.MyCefMet_Call0(this.nativePtr, CefRequestContext_GetCachePath_5, out ret);
-            /*6559*/
+            /*6185*/
             var ret_result = Cef3Binder.CopyStringAndDestroyNativeSide(ref ret);
-            /*6560*/
+            /*6186*/
             return ret_result;
-            /*6561*/
+            /*6187*/
         }
+
+        // gen! CefRefPtr<CefCookieManager> GetDefaultCookieManager(CefRefPtr<CefCompletionCallback> callback)
         /// <summary>
         /// Returns the default cookie manager for this object. This will be the global
         /// cookie manager if this object is the global request context. Otherwise,
@@ -13520,27 +12774,25 @@ namespace LayoutFarm.CefBridge.Auto
         /// after the manager's storage has been initialized.
         /// /*cef(optional_param=callback)*/
         /// </summary>
-        /*6562*/
+        /*6188*/
 
-
-        // gen! CefRefPtr<CefCookieManager> GetDefaultCookieManager(CefRefPtr<CefCompletionCallback> callback)
-        /*6563*/
-
-        public CefCookieManager GetDefaultCookieManager(CefCompletionCallback /*6564*/
+        public CefCookieManager GetDefaultCookieManager(CefCompletionCallback /*6189*/
         callback
-        )/*6565*/
+        )/*6190*/
         {
             JsValue v1 = new JsValue();
             JsValue ret;
-            /*6566*/
+            /*6191*/
 
             Cef3Binder.MyCefMet_Call1(this.nativePtr, CefRequestContext_GetDefaultCookieManager_6, out ret, ref v1);
-            /*6567*/
+            /*6192*/
             var ret_result = new CefCookieManager(ret.Ptr);
-            /*6568*/
+            /*6193*/
             return ret_result;
-            /*6569*/
+            /*6194*/
         }
+
+        // gen! bool RegisterSchemeHandlerFactory(const CefString& scheme_name,const CefString& domain_name,CefRefPtr<CefSchemeHandlerFactory> factory)
         /// <summary>
         /// Register a scheme handler factory for the specified |scheme_name| and
         /// optional |domain_name|. An empty |domain_name| value for a standard scheme
@@ -13555,66 +12807,62 @@ namespace LayoutFarm.CefBridge.Auto
         /// called on any thread in the browser process.
         /// /*cef(optional_param=domain_name,optional_param=factory)*/
         /// </summary>
-        /*6570*/
+        /*6195*/
 
-
-        // gen! bool RegisterSchemeHandlerFactory(const CefString& scheme_name,const CefString& domain_name,CefRefPtr<CefSchemeHandlerFactory> factory)
-        /*6571*/
-
-        public bool RegisterSchemeHandlerFactory(string /*6572*/
+        public bool RegisterSchemeHandlerFactory(string /*6196*/
         scheme_name
-        , string /*6573*/
+        , string /*6197*/
         domain_name
-        , CefSchemeHandlerFactory /*6574*/
+        , CefSchemeHandlerFactory /*6198*/
         factory
-        )/*6575*/
+        )/*6199*/
         {
             JsValue v1 = new JsValue();
             JsValue v2 = new JsValue();
             JsValue v3 = new JsValue();
             JsValue ret;
             v1.Ptr = Cef3Binder.MyCefCreateCefString(scheme_name);
-            /*6576*/
+            /*6200*/
             ;
             v2.Ptr = Cef3Binder.MyCefCreateCefString(domain_name);
-            /*6577*/
+            /*6201*/
             ;
-            /*6578*/
+            /*6202*/
 
             Cef3Binder.MyCefMet_Call3(this.nativePtr, CefRequestContext_RegisterSchemeHandlerFactory_7, out ret, ref v1, ref v2, ref v3);
-            /*6579*/
+            /*6203*/
             var ret_result = ret.I32 != 0;
-            Cef3Binder.MyCefDeletePtr(v1.Ptr);/*6580*/
+            Cef3Binder.MyCefDeletePtr(v1.Ptr);/*6204*/
             ;
-            Cef3Binder.MyCefDeletePtr(v2.Ptr);/*6581*/
+            Cef3Binder.MyCefDeletePtr(v2.Ptr);/*6205*/
             ;
-            /*6582*/
+            /*6206*/
             return ret_result;
-            /*6583*/
+            /*6207*/
         }
+
+        // gen! bool ClearSchemeHandlerFactories()
         /// <summary>
         /// Clear all registered scheme handler factories. Returns false on error. This
         /// function may be called on any thread in the browser process.
         /// /*cef()*/
         /// </summary>
-        /*6584*/
+        /*6208*/
 
-
-        // gen! bool ClearSchemeHandlerFactories()
-        /*6585*/
-
-        public bool ClearSchemeHandlerFactories()/*6586*/
+        public bool ClearSchemeHandlerFactories()/*6209*/
         {
             JsValue ret;
-            /*6587*/
+            /*6210*/
 
             Cef3Binder.MyCefMet_Call0(this.nativePtr, CefRequestContext_ClearSchemeHandlerFactories_8, out ret);
-            /*6588*/
+            /*6211*/
             var ret_result = ret.I32 != 0;
-            /*6589*/
+            /*6212*/
             return ret_result;
-            /*6590*/
+            /*6213*/
         }
+
+        // gen! void PurgePluginListCache(bool reload_pages)
         /// <summary>
         /// Tells all renderer processes associated with this context to throw away
         /// their plugin list cache. If |reload_pages| is true they will also reload
@@ -13622,56 +12870,52 @@ namespace LayoutFarm.CefBridge.Auto
         /// be called to rebuild the plugin list cache.
         /// /*cef()*/
         /// </summary>
-        /*6591*/
+        /*6214*/
 
-
-        // gen! void PurgePluginListCache(bool reload_pages)
-        /*6592*/
-
-        public void PurgePluginListCache(bool /*6593*/
+        public void PurgePluginListCache(bool /*6215*/
         reload_pages
-        )/*6594*/
+        )/*6216*/
         {
             JsValue v1 = new JsValue();
             JsValue ret;
-            /*6595*/
+            /*6217*/
 
             Cef3Binder.MyCefMet_Call1(this.nativePtr, CefRequestContext_PurgePluginListCache_9, out ret, ref v1);
-            /*6596*/
+            /*6218*/
 
-            /*6597*/
+            /*6219*/
         }
+
+        // gen! bool HasPreference(const CefString& name)
         /// <summary>
         /// Returns true if a preference with the specified |name| exists. This method
         /// must be called on the browser process UI thread.
         /// /*cef()*/
         /// </summary>
-        /*6598*/
+        /*6220*/
 
-
-        // gen! bool HasPreference(const CefString& name)
-        /*6599*/
-
-        public bool HasPreference(string /*6600*/
+        public bool HasPreference(string /*6221*/
         name
-        )/*6601*/
+        )/*6222*/
         {
             JsValue v1 = new JsValue();
             JsValue ret;
             v1.Ptr = Cef3Binder.MyCefCreateCefString(name);
-            /*6602*/
+            /*6223*/
             ;
-            /*6603*/
+            /*6224*/
 
             Cef3Binder.MyCefMet_Call1(this.nativePtr, CefRequestContext_HasPreference_10, out ret, ref v1);
-            /*6604*/
+            /*6225*/
             var ret_result = ret.I32 != 0;
-            Cef3Binder.MyCefDeletePtr(v1.Ptr);/*6605*/
+            Cef3Binder.MyCefDeletePtr(v1.Ptr);/*6226*/
             ;
-            /*6606*/
+            /*6227*/
             return ret_result;
-            /*6607*/
+            /*6228*/
         }
+
+        // gen! CefRefPtr<CefValue> GetPreference(const CefString& name)
         /// <summary>
         /// Returns the value for the preference with the specified |name|. Returns
         /// NULL if the preference does not exist. The returned object contains a copy
@@ -13680,32 +12924,30 @@ namespace LayoutFarm.CefBridge.Auto
         /// on the browser process UI thread.
         /// /*cef()*/
         /// </summary>
-        /*6608*/
+        /*6229*/
 
-
-        // gen! CefRefPtr<CefValue> GetPreference(const CefString& name)
-        /*6609*/
-
-        public CefValue GetPreference(string /*6610*/
+        public CefValue GetPreference(string /*6230*/
         name
-        )/*6611*/
+        )/*6231*/
         {
             JsValue v1 = new JsValue();
             JsValue ret;
             v1.Ptr = Cef3Binder.MyCefCreateCefString(name);
-            /*6612*/
+            /*6232*/
             ;
-            /*6613*/
+            /*6233*/
 
             Cef3Binder.MyCefMet_Call1(this.nativePtr, CefRequestContext_GetPreference_11, out ret, ref v1);
-            /*6614*/
+            /*6234*/
             var ret_result = new CefValue(ret.Ptr);
-            Cef3Binder.MyCefDeletePtr(v1.Ptr);/*6615*/
+            Cef3Binder.MyCefDeletePtr(v1.Ptr);/*6235*/
             ;
-            /*6616*/
+            /*6236*/
             return ret_result;
-            /*6617*/
+            /*6237*/
         }
+
+        // gen! CefRefPtr<CefDictionaryValue> GetAllPreferences(bool include_defaults)
         /// <summary>
         /// Returns all preferences as a dictionary. If |include_defaults| is true then
         /// preferences currently at their default value will be included. The returned
@@ -13715,27 +12957,25 @@ namespace LayoutFarm.CefBridge.Auto
         /// thread.
         /// /*cef()*/
         /// </summary>
-        /*6618*/
+        /*6238*/
 
-
-        // gen! CefRefPtr<CefDictionaryValue> GetAllPreferences(bool include_defaults)
-        /*6619*/
-
-        public CefDictionaryValue GetAllPreferences(bool /*6620*/
+        public CefDictionaryValue GetAllPreferences(bool /*6239*/
         include_defaults
-        )/*6621*/
+        )/*6240*/
         {
             JsValue v1 = new JsValue();
             JsValue ret;
-            /*6622*/
+            /*6241*/
 
             Cef3Binder.MyCefMet_Call1(this.nativePtr, CefRequestContext_GetAllPreferences_12, out ret, ref v1);
-            /*6623*/
+            /*6242*/
             var ret_result = new CefDictionaryValue(ret.Ptr);
-            /*6624*/
+            /*6243*/
             return ret_result;
-            /*6625*/
+            /*6244*/
         }
+
+        // gen! bool CanSetPreference(const CefString& name)
         /// <summary>
         /// Returns true if the preference with the specified |name| can be modified
         /// using SetPreference. As one example preferences set via the command-line
@@ -13743,32 +12983,30 @@ namespace LayoutFarm.CefBridge.Auto
         /// process UI thread.
         /// /*cef()*/
         /// </summary>
-        /*6626*/
+        /*6245*/
 
-
-        // gen! bool CanSetPreference(const CefString& name)
-        /*6627*/
-
-        public bool CanSetPreference(string /*6628*/
+        public bool CanSetPreference(string /*6246*/
         name
-        )/*6629*/
+        )/*6247*/
         {
             JsValue v1 = new JsValue();
             JsValue ret;
             v1.Ptr = Cef3Binder.MyCefCreateCefString(name);
-            /*6630*/
+            /*6248*/
             ;
-            /*6631*/
+            /*6249*/
 
             Cef3Binder.MyCefMet_Call1(this.nativePtr, CefRequestContext_CanSetPreference_13, out ret, ref v1);
-            /*6632*/
+            /*6250*/
             var ret_result = ret.I32 != 0;
-            Cef3Binder.MyCefDeletePtr(v1.Ptr);/*6633*/
+            Cef3Binder.MyCefDeletePtr(v1.Ptr);/*6251*/
             ;
-            /*6634*/
+            /*6252*/
             return ret_result;
-            /*6635*/
+            /*6253*/
         }
+
+        // gen! bool SetPreference(const CefString& name,CefRefPtr<CefValue> value,CefString& error)
         /// <summary>
         /// Set the |value| associated with preference |name|. Returns true if the
         /// value is set successfully and false otherwise. If |value| is NULL the
@@ -13777,43 +13015,41 @@ namespace LayoutFarm.CefBridge.Auto
         /// problem. This method must be called on the browser process UI thread.
         /// /*cef(optional_param=value)*/
         /// </summary>
-        /*6636*/
+        /*6254*/
 
-
-        // gen! bool SetPreference(const CefString& name,CefRefPtr<CefValue> value,CefString& error)
-        /*6637*/
-
-        public bool SetPreference(string /*6638*/
+        public bool SetPreference(string /*6255*/
         name
-        , CefValue /*6639*/
+        , CefValue /*6256*/
         value
-        , string /*6640*/
+        , string /*6257*/
         error
-        )/*6641*/
+        )/*6258*/
         {
             JsValue v1 = new JsValue();
             JsValue v2 = new JsValue();
             JsValue v3 = new JsValue();
             JsValue ret;
             v1.Ptr = Cef3Binder.MyCefCreateCefString(name);
-            /*6642*/
+            /*6259*/
             ;
             v3.Ptr = Cef3Binder.MyCefCreateCefString(error);
-            /*6643*/
+            /*6260*/
             ;
-            /*6644*/
+            /*6261*/
 
             Cef3Binder.MyCefMet_Call3(this.nativePtr, CefRequestContext_SetPreference_14, out ret, ref v1, ref v2, ref v3);
-            /*6645*/
+            /*6262*/
             var ret_result = ret.I32 != 0;
-            Cef3Binder.MyCefDeletePtr(v1.Ptr);/*6646*/
+            Cef3Binder.MyCefDeletePtr(v1.Ptr);/*6263*/
             ;
-            Cef3Binder.MyCefDeletePtr(v3.Ptr);/*6647*/
+            Cef3Binder.MyCefDeletePtr(v3.Ptr);/*6264*/
             ;
-            /*6648*/
+            /*6265*/
             return ret_result;
-            /*6649*/
+            /*6266*/
         }
+
+        // gen! void ClearCertificateExceptions(CefRefPtr<CefCompletionCallback> callback)
         /// <summary>
         /// Clears all certificate exceptions that were added as part of handling
         /// CefRequestHandler::OnCertificateError(). If you call this it is
@@ -13823,25 +13059,23 @@ namespace LayoutFarm.CefBridge.Auto
         /// completion.
         /// /*cef(optional_param=callback)*/
         /// </summary>
-        /*6650*/
+        /*6267*/
 
-
-        // gen! void ClearCertificateExceptions(CefRefPtr<CefCompletionCallback> callback)
-        /*6651*/
-
-        public void ClearCertificateExceptions(CefCompletionCallback /*6652*/
+        public void ClearCertificateExceptions(CefCompletionCallback /*6268*/
         callback
-        )/*6653*/
+        )/*6269*/
         {
             JsValue v1 = new JsValue();
             JsValue ret;
-            /*6654*/
+            /*6270*/
 
             Cef3Binder.MyCefMet_Call1(this.nativePtr, CefRequestContext_ClearCertificateExceptions_15, out ret, ref v1);
-            /*6655*/
+            /*6271*/
 
-            /*6656*/
+            /*6272*/
         }
+
+        // gen! void CloseAllConnections(CefRefPtr<CefCompletionCallback> callback)
         /// <summary>
         /// Clears all active and idle connections that Chromium currently has.
         /// This is only recommended if you have released all other CEF objects but
@@ -13849,57 +13083,53 @@ namespace LayoutFarm.CefBridge.Auto
         /// executed on the UI thread after completion.
         /// /*cef(optional_param=callback)*/
         /// </summary>
-        /*6657*/
+        /*6273*/
 
-
-        // gen! void CloseAllConnections(CefRefPtr<CefCompletionCallback> callback)
-        /*6658*/
-
-        public void CloseAllConnections(CefCompletionCallback /*6659*/
+        public void CloseAllConnections(CefCompletionCallback /*6274*/
         callback
-        )/*6660*/
+        )/*6275*/
         {
             JsValue v1 = new JsValue();
             JsValue ret;
-            /*6661*/
+            /*6276*/
 
             Cef3Binder.MyCefMet_Call1(this.nativePtr, CefRequestContext_CloseAllConnections_16, out ret, ref v1);
-            /*6662*/
+            /*6277*/
 
-            /*6663*/
+            /*6278*/
         }
+
+        // gen! void ResolveHost(const CefString& origin,CefRefPtr<CefResolveCallback> callback)
         /// <summary>
         /// Attempts to resolve |origin| to a list of associated IP addresses.
         /// |callback| will be executed on the UI thread after completion.
         /// /*cef()*/
         /// </summary>
-        /*6664*/
+        /*6279*/
 
-
-        // gen! void ResolveHost(const CefString& origin,CefRefPtr<CefResolveCallback> callback)
-        /*6665*/
-
-        public void ResolveHost(string /*6666*/
+        public void ResolveHost(string /*6280*/
         origin
-        , CefResolveCallback /*6667*/
+        , CefResolveCallback /*6281*/
         callback
-        )/*6668*/
+        )/*6282*/
         {
             JsValue v1 = new JsValue();
             JsValue v2 = new JsValue();
             JsValue ret;
             v1.Ptr = Cef3Binder.MyCefCreateCefString(origin);
-            /*6669*/
+            /*6283*/
             ;
-            /*6670*/
+            /*6284*/
 
             Cef3Binder.MyCefMet_Call2(this.nativePtr, CefRequestContext_ResolveHost_17, out ret, ref v1, ref v2);
-            /*6671*/
+            /*6285*/
 
-            Cef3Binder.MyCefDeletePtr(v1.Ptr);/*6672*/
+            Cef3Binder.MyCefDeletePtr(v1.Ptr);/*6286*/
             ;
-            /*6673*/
+            /*6287*/
         }
+
+        // gen! cef_errorcode_t ResolveHostCached(const CefString& origin,std::vector<CefString>& resolved_ips)
         /// <summary>
         /// Attempts to resolve |origin| to a list of associated IP addresses using
         /// cached data. |resolved_ips| will be populated with the list of resolved IP
@@ -13907,37 +13137,33 @@ namespace LayoutFarm.CefBridge.Auto
         /// success. This method must be called on the browser process IO thread.
         /// /*cef(default_retval=ERR_FAILED)*/
         /// </summary>
-        /*6674*/
+        /*6288*/
 
-
-        // gen! cef_errorcode_t ResolveHostCached(const CefString& origin,std::vector<CefString>& resolved_ips)
-        /*6675*/
-
-        public cef_errorcode_t ResolveHostCached(string /*6676*/
+        public cef_errorcode_t ResolveHostCached(string /*6289*/
         origin
-        , List<string> /*6677*/
+        , List<string> /*6290*/
         resolved_ips
-        )/*6678*/
+        )/*6291*/
         {
             JsValue v1 = new JsValue();
             JsValue v2 = new JsValue();
             JsValue ret;
             v1.Ptr = Cef3Binder.MyCefCreateCefString(origin);
-            /*6679*/
+            /*6292*/
             ;
-            /*6680*/
+            /*6293*/
 
             Cef3Binder.MyCefMet_Call2(this.nativePtr, CefRequestContext_ResolveHostCached_18, out ret, ref v1, ref v2);
-            /*6681*/
+            /*6294*/
             var ret_result = (cef_errorcode_t)ret.I32;
 
-            Cef3Binder.MyCefDeletePtr(v1.Ptr);/*6682*/
+            Cef3Binder.MyCefDeletePtr(v1.Ptr);/*6295*/
             ;
-            /*6683*/
+            /*6296*/
             return ret_result;
-            /*6684*/
+            /*6297*/
         }
-        /*6685*/
+        /*6298*/
     }
 
 
@@ -13950,61 +13176,61 @@ namespace LayoutFarm.CefBridge.Auto
     /// on any thread unless otherwise indicated.
     /// /*(source=library,no_debugct_check)*/
     /// </summary>
-    /*6709*/
+    /*6322*/
     public struct CefResourceBundle
     {
-        /*6710*/
+        /*6323*/
         const int _typeNAME = 26;
-        /*6711*/
+        /*6324*/
         const int CefResourceBundle_Release_0 = (_typeNAME << 16) | 0;
-        /*6712*/
+        /*6325*/
         const int CefResourceBundle_GetLocalizedString_1 = (_typeNAME << 16) | 1;
-        /*6713*/
+        /*6326*/
         const int CefResourceBundle_GetDataResource_2 = (_typeNAME << 16) | 2;
-        /*6714*/
+        /*6327*/
         const int CefResourceBundle_GetDataResourceForScale_3 = (_typeNAME << 16) | 3;
-        /*6715*/
+        /*6328*/
         internal readonly IntPtr nativePtr;
-        /*6716*/
+        /*6329*/
         internal CefResourceBundle(IntPtr nativePtr)
         {
-            /*6717*/
+            /*6330*/
             this.nativePtr = nativePtr;
-            /*6718*/
+            /*6331*/
         }
-        /*6719*/
+        /*6332*/
         public void Release()
         {
-            /*6720*/
+            /*6333*/
             JsValue ret;
-            /*6721*/
+            /*6334*/
             Cef3Binder.MyCefMet_Call0(this.nativePtr, CefResourceBundle_Release_0, out ret);
-            /*6722*/
+            /*6335*/
         }
+
+        // gen! CefString GetLocalizedString(int string_id)
         /// <summary>
         /// CefResourceBundle methods.
         /// </summary>
-        /*6723*/
+        /*6336*/
 
-
-        // gen! CefString GetLocalizedString(int string_id)
-        /*6724*/
-
-        public string GetLocalizedString(int /*6725*/
+        public string GetLocalizedString(int /*6337*/
         string_id
-        )/*6726*/
+        )/*6338*/
         {
             JsValue v1 = new JsValue();
             JsValue ret;
-            /*6727*/
+            /*6339*/
 
             Cef3Binder.MyCefMet_Call1(this.nativePtr, CefResourceBundle_GetLocalizedString_1, out ret, ref v1);
-            /*6728*/
+            /*6340*/
             var ret_result = Cef3Binder.CopyStringAndDestroyNativeSide(ref ret);
-            /*6729*/
+            /*6341*/
             return ret_result;
-            /*6730*/
+            /*6342*/
         }
+
+        // gen! bool GetDataResource(int resource_id,void*& data,size_t& data_size)
         /// <summary>
         /// Retrieves the contents of the specified scale independent |resource_id|.
         /// If the value is found then |data| and |data_size| will be populated and
@@ -14014,37 +13240,35 @@ namespace LayoutFarm.CefBridge.Auto
         /// of valid resource ID values.
         /// /*cef()*/
         /// </summary>
-        /*6731*/
+        /*6343*/
 
-
-        // gen! bool GetDataResource(int resource_id,void*& data,size_t& data_size)
-        /*6732*/
-
-        public bool GetDataResource(int /*6733*/
+        public bool GetDataResource(int /*6344*/
         resource_id
-        , IntPtr /*6734*/
+        , IntPtr /*6345*/
         data
-        , ref uint /*6735*/
+        , ref uint /*6346*/
         data_size
-        )/*6736*/
+        )/*6347*/
         {
             JsValue v1 = new JsValue();
             JsValue v2 = new JsValue();
             JsValue v3 = new JsValue();
             JsValue ret;
-            /*6737*/
+            /*6348*/
 
             Cef3Binder.MyCefMet_Call3(this.nativePtr, CefResourceBundle_GetDataResource_2, out ret, ref v1, ref v2, ref v3);
-            /*6738*/
+            /*6349*/
             var ret_result = ret.I32 != 0;
-            data = v2.Ptr;/*6739*/
+            data = v2.Ptr;/*6350*/
             ;
-            data_size = (uint)v3.I32;/*6740*/
+            data_size = (uint)v3.I32;/*6351*/
             ;
-            /*6741*/
+            /*6352*/
             return ret_result;
-            /*6742*/
+            /*6353*/
         }
+
+        // gen! bool GetDataResourceForScale(int resource_id,ScaleFactor scale_factor,void*& data,size_t& data_size)
         /// <summary>
         /// Retrieves the contents of the specified |resource_id| nearest the scale
         /// factor |scale_factor|. Use a |scale_factor| value of SCALE_FACTOR_NONE for
@@ -14056,41 +13280,37 @@ namespace LayoutFarm.CefBridge.Auto
         /// values.
         /// /*cef()*/
         /// </summary>
-        /*6743*/
+        /*6354*/
 
-
-        // gen! bool GetDataResourceForScale(int resource_id,ScaleFactor scale_factor,void*& data,size_t& data_size)
-        /*6744*/
-
-        public bool GetDataResourceForScale(int /*6745*/
+        public bool GetDataResourceForScale(int /*6355*/
         resource_id
-        , cef_scale_factor_t /*6746*/
+        , cef_scale_factor_t /*6356*/
         scale_factor
-        , IntPtr /*6747*/
+        , IntPtr /*6357*/
         data
-        , ref uint /*6748*/
+        , ref uint /*6358*/
         data_size
-        )/*6749*/
+        )/*6359*/
         {
             JsValue v1 = new JsValue();
             JsValue v2 = new JsValue();
             JsValue v3 = new JsValue();
             JsValue v4 = new JsValue();
             JsValue ret;
-            /*6750*/
+            /*6360*/
 
             Cef3Binder.MyCefMet_Call4(this.nativePtr, CefResourceBundle_GetDataResourceForScale_3, out ret, ref v1, ref v2, ref v3, ref v4);
-            /*6751*/
+            /*6361*/
             var ret_result = ret.I32 != 0;
-            data = v3.Ptr;/*6752*/
+            data = v3.Ptr;/*6362*/
             ;
-            data_size = (uint)v4.I32;/*6753*/
+            data_size = (uint)v4.I32;/*6363*/
             ;
-            /*6754*/
+            /*6364*/
             return ret_result;
-            /*6755*/
+            /*6365*/
         }
-        /*6756*/
+        /*6366*/
     }
 
 
@@ -14100,345 +13320,321 @@ namespace LayoutFarm.CefBridge.Auto
     /// called on any thread.
     /// /*(source=library,no_debugct_check)*/
     /// </summary>
-    /*6825*/
+    /*6435*/
     public struct CefResponse
     {
-        /*6826*/
+        /*6436*/
         const int _typeNAME = 27;
-        /*6827*/
+        /*6437*/
         const int CefResponse_Release_0 = (_typeNAME << 16) | 0;
-        /*6828*/
+        /*6438*/
         const int CefResponse_IsReadOnly_1 = (_typeNAME << 16) | 1;
-        /*6829*/
+        /*6439*/
         const int CefResponse_GetError_2 = (_typeNAME << 16) | 2;
-        /*6830*/
+        /*6440*/
         const int CefResponse_SetError_3 = (_typeNAME << 16) | 3;
-        /*6831*/
+        /*6441*/
         const int CefResponse_GetStatus_4 = (_typeNAME << 16) | 4;
-        /*6832*/
+        /*6442*/
         const int CefResponse_SetStatus_5 = (_typeNAME << 16) | 5;
-        /*6833*/
+        /*6443*/
         const int CefResponse_GetStatusText_6 = (_typeNAME << 16) | 6;
-        /*6834*/
+        /*6444*/
         const int CefResponse_SetStatusText_7 = (_typeNAME << 16) | 7;
-        /*6835*/
+        /*6445*/
         const int CefResponse_GetMimeType_8 = (_typeNAME << 16) | 8;
-        /*6836*/
+        /*6446*/
         const int CefResponse_SetMimeType_9 = (_typeNAME << 16) | 9;
-        /*6837*/
+        /*6447*/
         const int CefResponse_GetHeader_10 = (_typeNAME << 16) | 10;
-        /*6838*/
+        /*6448*/
         const int CefResponse_GetHeaderMap_11 = (_typeNAME << 16) | 11;
-        /*6839*/
+        /*6449*/
         const int CefResponse_SetHeaderMap_12 = (_typeNAME << 16) | 12;
-        /*6840*/
+        /*6450*/
         internal readonly IntPtr nativePtr;
-        /*6841*/
+        /*6451*/
         internal CefResponse(IntPtr nativePtr)
         {
-            /*6842*/
+            /*6452*/
             this.nativePtr = nativePtr;
-            /*6843*/
+            /*6453*/
         }
-        /*6844*/
+        /*6454*/
         public void Release()
         {
-            /*6845*/
+            /*6455*/
             JsValue ret;
-            /*6846*/
+            /*6456*/
             Cef3Binder.MyCefMet_Call0(this.nativePtr, CefResponse_Release_0, out ret);
-            /*6847*/
+            /*6457*/
         }
+
+        // gen! bool IsReadOnly()
         /// <summary>
         /// CefResponse methods.
         /// </summary>
-        /*6848*/
+        /*6458*/
 
-
-        // gen! bool IsReadOnly()
-        /*6849*/
-
-        public bool IsReadOnly()/*6850*/
+        public bool IsReadOnly()/*6459*/
         {
             JsValue ret;
-            /*6851*/
+            /*6460*/
 
             Cef3Binder.MyCefMet_Call0(this.nativePtr, CefResponse_IsReadOnly_1, out ret);
-            /*6852*/
+            /*6461*/
             var ret_result = ret.I32 != 0;
-            /*6853*/
+            /*6462*/
             return ret_result;
-            /*6854*/
+            /*6463*/
         }
+
+        // gen! cef_errorcode_t GetError()
         /// <summary>
         /// Get the response error code. Returns ERR_NONE if there was no error.
         /// /*cef(default_retval=ERR_NONE)*/
         /// </summary>
-        /*6855*/
+        /*6464*/
 
-
-        // gen! cef_errorcode_t GetError()
-        /*6856*/
-
-        public cef_errorcode_t GetError()/*6857*/
+        public cef_errorcode_t GetError()/*6465*/
         {
             JsValue ret;
-            /*6858*/
+            /*6466*/
 
             Cef3Binder.MyCefMet_Call0(this.nativePtr, CefResponse_GetError_2, out ret);
-            /*6859*/
+            /*6467*/
             var ret_result = (cef_errorcode_t)ret.I32;
 
-            /*6860*/
+            /*6468*/
             return ret_result;
-            /*6861*/
+            /*6469*/
         }
+
+        // gen! void SetError(cef_errorcode_t error)
         /// <summary>
         /// Set the response error code. This can be used by custom scheme handlers
         /// to return errors during initial request processing.
         /// /*cef()*/
         /// </summary>
-        /*6862*/
+        /*6470*/
 
-
-        // gen! void SetError(cef_errorcode_t error)
-        /*6863*/
-
-        public void SetError(cef_errorcode_t /*6864*/
+        public void SetError(cef_errorcode_t /*6471*/
         error
-        )/*6865*/
+        )/*6472*/
         {
             JsValue v1 = new JsValue();
             JsValue ret;
-            /*6866*/
+            /*6473*/
 
             Cef3Binder.MyCefMet_Call1(this.nativePtr, CefResponse_SetError_3, out ret, ref v1);
-            /*6867*/
+            /*6474*/
 
-            /*6868*/
+            /*6475*/
         }
+
+        // gen! int GetStatus()
         /// <summary>
         /// Get the response status code.
         /// /*cef()*/
         /// </summary>
-        /*6869*/
+        /*6476*/
 
-
-        // gen! int GetStatus()
-        /*6870*/
-
-        public int GetStatus()/*6871*/
+        public int GetStatus()/*6477*/
         {
             JsValue ret;
-            /*6872*/
+            /*6478*/
 
             Cef3Binder.MyCefMet_Call0(this.nativePtr, CefResponse_GetStatus_4, out ret);
-            /*6873*/
+            /*6479*/
             var ret_result = ret.I32;
-            /*6874*/
+            /*6480*/
             return ret_result;
-            /*6875*/
+            /*6481*/
         }
+
+        // gen! void SetStatus(int status)
         /// <summary>
         /// Set the response status code.
         /// /*cef()*/
         /// </summary>
-        /*6876*/
+        /*6482*/
 
-
-        // gen! void SetStatus(int status)
-        /*6877*/
-
-        public void SetStatus(int /*6878*/
+        public void SetStatus(int /*6483*/
         status
-        )/*6879*/
+        )/*6484*/
         {
             JsValue v1 = new JsValue();
             JsValue ret;
-            /*6880*/
+            /*6485*/
 
             Cef3Binder.MyCefMet_Call1(this.nativePtr, CefResponse_SetStatus_5, out ret, ref v1);
-            /*6881*/
+            /*6486*/
 
-            /*6882*/
+            /*6487*/
         }
+
+        // gen! CefString GetStatusText()
         /// <summary>
         /// Get the response status text.
         /// /*cef()*/
         /// </summary>
-        /*6883*/
+        /*6488*/
 
-
-        // gen! CefString GetStatusText()
-        /*6884*/
-
-        public string GetStatusText()/*6885*/
+        public string GetStatusText()/*6489*/
         {
             JsValue ret;
-            /*6886*/
+            /*6490*/
 
             Cef3Binder.MyCefMet_Call0(this.nativePtr, CefResponse_GetStatusText_6, out ret);
-            /*6887*/
+            /*6491*/
             var ret_result = Cef3Binder.CopyStringAndDestroyNativeSide(ref ret);
-            /*6888*/
+            /*6492*/
             return ret_result;
-            /*6889*/
+            /*6493*/
         }
+
+        // gen! void SetStatusText(const CefString& statusText)
         /// <summary>
         /// Set the response status text.
         /// /*cef()*/
         /// </summary>
-        /*6890*/
+        /*6494*/
 
-
-        // gen! void SetStatusText(const CefString& statusText)
-        /*6891*/
-
-        public void SetStatusText(string /*6892*/
+        public void SetStatusText(string /*6495*/
         statusText
-        )/*6893*/
+        )/*6496*/
         {
             JsValue v1 = new JsValue();
             JsValue ret;
             v1.Ptr = Cef3Binder.MyCefCreateCefString(statusText);
-            /*6894*/
+            /*6497*/
             ;
-            /*6895*/
+            /*6498*/
 
             Cef3Binder.MyCefMet_Call1(this.nativePtr, CefResponse_SetStatusText_7, out ret, ref v1);
-            /*6896*/
+            /*6499*/
 
-            Cef3Binder.MyCefDeletePtr(v1.Ptr);/*6897*/
+            Cef3Binder.MyCefDeletePtr(v1.Ptr);/*6500*/
             ;
-            /*6898*/
+            /*6501*/
         }
+
+        // gen! CefString GetMimeType()
         /// <summary>
         /// Get the response mime type.
         /// /*cef()*/
         /// </summary>
-        /*6899*/
+        /*6502*/
 
-
-        // gen! CefString GetMimeType()
-        /*6900*/
-
-        public string GetMimeType()/*6901*/
+        public string GetMimeType()/*6503*/
         {
             JsValue ret;
-            /*6902*/
+            /*6504*/
 
             Cef3Binder.MyCefMet_Call0(this.nativePtr, CefResponse_GetMimeType_8, out ret);
-            /*6903*/
+            /*6505*/
             var ret_result = Cef3Binder.CopyStringAndDestroyNativeSide(ref ret);
-            /*6904*/
+            /*6506*/
             return ret_result;
-            /*6905*/
+            /*6507*/
         }
+
+        // gen! void SetMimeType(const CefString& mimeType)
         /// <summary>
         /// Set the response mime type.
         /// /*cef()*/
         /// </summary>
-        /*6906*/
+        /*6508*/
 
-
-        // gen! void SetMimeType(const CefString& mimeType)
-        /*6907*/
-
-        public void SetMimeType(string /*6908*/
+        public void SetMimeType(string /*6509*/
         mimeType
-        )/*6909*/
+        )/*6510*/
         {
             JsValue v1 = new JsValue();
             JsValue ret;
             v1.Ptr = Cef3Binder.MyCefCreateCefString(mimeType);
-            /*6910*/
+            /*6511*/
             ;
-            /*6911*/
+            /*6512*/
 
             Cef3Binder.MyCefMet_Call1(this.nativePtr, CefResponse_SetMimeType_9, out ret, ref v1);
-            /*6912*/
+            /*6513*/
 
-            Cef3Binder.MyCefDeletePtr(v1.Ptr);/*6913*/
+            Cef3Binder.MyCefDeletePtr(v1.Ptr);/*6514*/
             ;
-            /*6914*/
+            /*6515*/
         }
+
+        // gen! CefString GetHeader(const CefString& name)
         /// <summary>
         /// Get the value for the specified response header field.
         /// /*cef()*/
         /// </summary>
-        /*6915*/
+        /*6516*/
 
-
-        // gen! CefString GetHeader(const CefString& name)
-        /*6916*/
-
-        public string GetHeader(string /*6917*/
+        public string GetHeader(string /*6517*/
         name
-        )/*6918*/
+        )/*6518*/
         {
             JsValue v1 = new JsValue();
             JsValue ret;
             v1.Ptr = Cef3Binder.MyCefCreateCefString(name);
-            /*6919*/
+            /*6519*/
             ;
-            /*6920*/
+            /*6520*/
 
             Cef3Binder.MyCefMet_Call1(this.nativePtr, CefResponse_GetHeader_10, out ret, ref v1);
-            /*6921*/
+            /*6521*/
             var ret_result = Cef3Binder.CopyStringAndDestroyNativeSide(ref ret);
-            Cef3Binder.MyCefDeletePtr(v1.Ptr);/*6922*/
+            Cef3Binder.MyCefDeletePtr(v1.Ptr);/*6522*/
             ;
-            /*6923*/
+            /*6523*/
             return ret_result;
-            /*6924*/
+            /*6524*/
         }
+
+        // gen! void GetHeaderMap(HeaderMap& headerMap)
         /// <summary>
         /// Get all response header fields.
         /// /*cef()*/
         /// </summary>
-        /*6925*/
+        /*6525*/
 
-
-        // gen! void GetHeaderMap(HeaderMap& headerMap)
-        /*6926*/
-
-        public void GetHeaderMap(HeaderMap /*6927*/
+        public void GetHeaderMap(HeaderMap /*6526*/
         headerMap
-        )/*6928*/
+        )/*6527*/
         {
             JsValue v1 = new JsValue();
             JsValue ret;
-            /*6929*/
+            /*6528*/
 
             Cef3Binder.MyCefMet_Call1(this.nativePtr, CefResponse_GetHeaderMap_11, out ret, ref v1);
-            /*6930*/
+            /*6529*/
 
-            /*6931*/
+            /*6530*/
         }
+
+        // gen! void SetHeaderMap(const HeaderMap& headerMap)
         /// <summary>
         /// Set all response header fields.
         /// /*cef()*/
         /// </summary>
-        /*6932*/
+        /*6531*/
 
-
-        // gen! void SetHeaderMap(const HeaderMap& headerMap)
-        /*6933*/
-
-        public void SetHeaderMap(HeaderMap /*6934*/
+        public void SetHeaderMap(HeaderMap /*6532*/
         headerMap
-        )/*6935*/
+        )/*6533*/
         {
             JsValue v1 = new JsValue();
             JsValue ret;
-            /*6936*/
+            /*6534*/
 
             Cef3Binder.MyCefMet_Call1(this.nativePtr, CefResponse_SetHeaderMap_12, out ret, ref v1);
-            /*6937*/
+            /*6535*/
 
-            /*6938*/
+            /*6536*/
         }
-        /*6939*/
+        /*6537*/
     }
 
 
@@ -14448,32 +13644,32 @@ namespace LayoutFarm.CefBridge.Auto
     /// this class will be called on the browser process IO thread.
     /// /*(source=client)*/
     /// </summary>
-    /*6948*/
+    /*6546*/
     public struct CefResponseFilter
     {
-        /*6949*/
+        /*6547*/
         const int _typeNAME = 28;
-        /*6950*/
+        /*6548*/
         const int CefResponseFilter_Release_0 = (_typeNAME << 16) | 0;
-        /*6951*/
+        /*6549*/
         internal readonly IntPtr nativePtr;
-        /*6952*/
+        /*6550*/
         internal CefResponseFilter(IntPtr nativePtr)
         {
-            /*6953*/
+            /*6551*/
             this.nativePtr = nativePtr;
-            /*6954*/
+            /*6552*/
         }
-        /*6955*/
+        /*6553*/
         public void Release()
         {
-            /*6956*/
+            /*6554*/
             JsValue ret;
-            /*6957*/
+            /*6555*/
             Cef3Binder.MyCefMet_Call0(this.nativePtr, CefResponseFilter_Release_0, out ret);
-            /*6958*/
+            /*6556*/
         }
-        /*6959*/
+        /*6557*/
     }
 
 
@@ -14483,32 +13679,32 @@ namespace LayoutFarm.CefBridge.Auto
     /// The methods of this class will always be called on the IO thread.
     /// /*(source=client)*/
     /// </summary>
-    /*6968*/
+    /*6566*/
     public struct CefSchemeHandlerFactory
     {
-        /*6969*/
+        /*6567*/
         const int _typeNAME = 29;
-        /*6970*/
+        /*6568*/
         const int CefSchemeHandlerFactory_Release_0 = (_typeNAME << 16) | 0;
-        /*6971*/
+        /*6569*/
         internal readonly IntPtr nativePtr;
-        /*6972*/
+        /*6570*/
         internal CefSchemeHandlerFactory(IntPtr nativePtr)
         {
-            /*6973*/
+            /*6571*/
             this.nativePtr = nativePtr;
-            /*6974*/
+            /*6572*/
         }
-        /*6975*/
+        /*6573*/
         public void Release()
         {
-            /*6976*/
+            /*6574*/
             JsValue ret;
-            /*6977*/
+            /*6575*/
             Cef3Binder.MyCefMet_Call0(this.nativePtr, CefSchemeHandlerFactory_Release_0, out ret);
-            /*6978*/
+            /*6576*/
         }
-        /*6979*/
+        /*6577*/
     }
 
 
@@ -14517,80 +13713,76 @@ namespace LayoutFarm.CefBridge.Auto
     /// Class representing SSL information.
     /// /*(source=library)*/
     /// </summary>
-    /*6998*/
+    /*6596*/
     public struct CefSSLInfo
     {
-        /*6999*/
+        /*6597*/
         const int _typeNAME = 30;
-        /*7000*/
+        /*6598*/
         const int CefSSLInfo_Release_0 = (_typeNAME << 16) | 0;
-        /*7001*/
+        /*6599*/
         const int CefSSLInfo_GetCertStatus_1 = (_typeNAME << 16) | 1;
-        /*7002*/
+        /*6600*/
         const int CefSSLInfo_GetX509Certificate_2 = (_typeNAME << 16) | 2;
-        /*7003*/
+        /*6601*/
         internal readonly IntPtr nativePtr;
-        /*7004*/
+        /*6602*/
         internal CefSSLInfo(IntPtr nativePtr)
         {
-            /*7005*/
+            /*6603*/
             this.nativePtr = nativePtr;
-            /*7006*/
+            /*6604*/
         }
-        /*7007*/
+        /*6605*/
         public void Release()
         {
-            /*7008*/
+            /*6606*/
             JsValue ret;
-            /*7009*/
+            /*6607*/
             Cef3Binder.MyCefMet_Call0(this.nativePtr, CefSSLInfo_Release_0, out ret);
-            /*7010*/
+            /*6608*/
         }
+
+        // gen! cef_cert_status_t GetCertStatus()
         /// <summary>
         /// CefSSLInfo methods.
         /// </summary>
-        /*7011*/
+        /*6609*/
 
-
-        // gen! cef_cert_status_t GetCertStatus()
-        /*7012*/
-
-        public cef_cert_status_t GetCertStatus()/*7013*/
+        public cef_cert_status_t GetCertStatus()/*6610*/
         {
             JsValue ret;
-            /*7014*/
+            /*6611*/
 
             Cef3Binder.MyCefMet_Call0(this.nativePtr, CefSSLInfo_GetCertStatus_1, out ret);
-            /*7015*/
+            /*6612*/
             var ret_result = (cef_cert_status_t)ret.I32;
 
-            /*7016*/
+            /*6613*/
             return ret_result;
-            /*7017*/
+            /*6614*/
         }
+
+        // gen! CefRefPtr<CefX509Certificate> GetX509Certificate()
         /// <summary>
         /// Returns the X.509 certificate.
         /// /*cef()*/
         /// </summary>
-        /*7018*/
+        /*6615*/
 
-
-        // gen! CefRefPtr<CefX509Certificate> GetX509Certificate()
-        /*7019*/
-
-        public CefX509Certificate GetX509Certificate()/*7020*/
+        public CefX509Certificate GetX509Certificate()/*6616*/
         {
             JsValue ret;
-            /*7021*/
+            /*6617*/
 
             Cef3Binder.MyCefMet_Call0(this.nativePtr, CefSSLInfo_GetX509Certificate_2, out ret);
-            /*7022*/
+            /*6618*/
             var ret_result = new CefX509Certificate(ret.Ptr);
-            /*7023*/
+            /*6619*/
             return ret_result;
-            /*7024*/
+            /*6620*/
         }
-        /*7025*/
+        /*6621*/
     }
 
 
@@ -14599,155 +13791,145 @@ namespace LayoutFarm.CefBridge.Auto
     /// Class representing the SSL information for a navigation entry.
     /// /*(source=library)*/
     /// </summary>
-    /*7059*/
+    /*6655*/
     public struct CefSSLStatus
     {
-        /*7060*/
+        /*6656*/
         const int _typeNAME = 31;
-        /*7061*/
+        /*6657*/
         const int CefSSLStatus_Release_0 = (_typeNAME << 16) | 0;
-        /*7062*/
+        /*6658*/
         const int CefSSLStatus_IsSecureConnection_1 = (_typeNAME << 16) | 1;
-        /*7063*/
+        /*6659*/
         const int CefSSLStatus_GetCertStatus_2 = (_typeNAME << 16) | 2;
-        /*7064*/
+        /*6660*/
         const int CefSSLStatus_GetSSLVersion_3 = (_typeNAME << 16) | 3;
-        /*7065*/
+        /*6661*/
         const int CefSSLStatus_GetContentStatus_4 = (_typeNAME << 16) | 4;
-        /*7066*/
+        /*6662*/
         const int CefSSLStatus_GetX509Certificate_5 = (_typeNAME << 16) | 5;
-        /*7067*/
+        /*6663*/
         internal readonly IntPtr nativePtr;
-        /*7068*/
+        /*6664*/
         internal CefSSLStatus(IntPtr nativePtr)
         {
-            /*7069*/
+            /*6665*/
             this.nativePtr = nativePtr;
-            /*7070*/
+            /*6666*/
         }
-        /*7071*/
+        /*6667*/
         public void Release()
         {
-            /*7072*/
+            /*6668*/
             JsValue ret;
-            /*7073*/
+            /*6669*/
             Cef3Binder.MyCefMet_Call0(this.nativePtr, CefSSLStatus_Release_0, out ret);
-            /*7074*/
+            /*6670*/
         }
+
+        // gen! bool IsSecureConnection()
         /// <summary>
         /// CefSSLStatus methods.
         /// </summary>
-        /*7075*/
+        /*6671*/
 
-
-        // gen! bool IsSecureConnection()
-        /*7076*/
-
-        public bool IsSecureConnection()/*7077*/
+        public bool IsSecureConnection()/*6672*/
         {
             JsValue ret;
-            /*7078*/
+            /*6673*/
 
             Cef3Binder.MyCefMet_Call0(this.nativePtr, CefSSLStatus_IsSecureConnection_1, out ret);
-            /*7079*/
+            /*6674*/
             var ret_result = ret.I32 != 0;
-            /*7080*/
+            /*6675*/
             return ret_result;
-            /*7081*/
+            /*6676*/
         }
+
+        // gen! cef_cert_status_t GetCertStatus()
         /// <summary>
         /// Returns a bitmask containing any and all problems verifying the server
         /// certificate.
         /// /*cef(default_retval=CERT_STATUS_NONE)*/
         /// </summary>
-        /*7082*/
+        /*6677*/
 
-
-        // gen! cef_cert_status_t GetCertStatus()
-        /*7083*/
-
-        public cef_cert_status_t GetCertStatus()/*7084*/
+        public cef_cert_status_t GetCertStatus()/*6678*/
         {
             JsValue ret;
-            /*7085*/
+            /*6679*/
 
             Cef3Binder.MyCefMet_Call0(this.nativePtr, CefSSLStatus_GetCertStatus_2, out ret);
-            /*7086*/
+            /*6680*/
             var ret_result = (cef_cert_status_t)ret.I32;
 
-            /*7087*/
+            /*6681*/
             return ret_result;
-            /*7088*/
+            /*6682*/
         }
+
+        // gen! cef_ssl_version_t GetSSLVersion()
         /// <summary>
         /// Returns the SSL version used for the SSL connection.
         /// /*cef(default_retval=SSL_CONNECTION_VERSION_UNKNOWN)*/
         /// </summary>
-        /*7089*/
+        /*6683*/
 
-
-        // gen! cef_ssl_version_t GetSSLVersion()
-        /*7090*/
-
-        public cef_ssl_version_t GetSSLVersion()/*7091*/
+        public cef_ssl_version_t GetSSLVersion()/*6684*/
         {
             JsValue ret;
-            /*7092*/
+            /*6685*/
 
             Cef3Binder.MyCefMet_Call0(this.nativePtr, CefSSLStatus_GetSSLVersion_3, out ret);
-            /*7093*/
+            /*6686*/
             var ret_result = (cef_ssl_version_t)ret.I32;
 
-            /*7094*/
+            /*6687*/
             return ret_result;
-            /*7095*/
+            /*6688*/
         }
+
+        // gen! cef_ssl_content_status_t GetContentStatus()
         /// <summary>
         /// Returns a bitmask containing the page security content status.
         /// /*cef(default_retval=SSL_CONTENT_NORMAL_CONTENT)*/
         /// </summary>
-        /*7096*/
+        /*6689*/
 
-
-        // gen! cef_ssl_content_status_t GetContentStatus()
-        /*7097*/
-
-        public cef_ssl_content_status_t GetContentStatus()/*7098*/
+        public cef_ssl_content_status_t GetContentStatus()/*6690*/
         {
             JsValue ret;
-            /*7099*/
+            /*6691*/
 
             Cef3Binder.MyCefMet_Call0(this.nativePtr, CefSSLStatus_GetContentStatus_4, out ret);
-            /*7100*/
+            /*6692*/
             var ret_result = (cef_ssl_content_status_t)ret.I32;
 
-            /*7101*/
+            /*6693*/
             return ret_result;
-            /*7102*/
+            /*6694*/
         }
+
+        // gen! CefRefPtr<CefX509Certificate> GetX509Certificate()
         /// <summary>
         /// Returns the X.509 certificate.
         /// /*cef()*/
         /// </summary>
-        /*7103*/
+        /*6695*/
 
-
-        // gen! CefRefPtr<CefX509Certificate> GetX509Certificate()
-        /*7104*/
-
-        public CefX509Certificate GetX509Certificate()/*7105*/
+        public CefX509Certificate GetX509Certificate()/*6696*/
         {
             JsValue ret;
-            /*7106*/
+            /*6697*/
 
             Cef3Binder.MyCefMet_Call0(this.nativePtr, CefSSLStatus_GetX509Certificate_5, out ret);
-            /*7107*/
+            /*6698*/
             var ret_result = new CefX509Certificate(ret.Ptr);
-            /*7108*/
+            /*6699*/
             return ret_result;
-            /*7109*/
+            /*6700*/
         }
-        /*7110*/
+        /*6701*/
     }
 
 
@@ -14757,170 +13939,160 @@ namespace LayoutFarm.CefBridge.Auto
     /// called on any thread.
     /// /*(source=library)*/
     /// </summary>
-    /*7144*/
+    /*6735*/
     public struct CefStreamReader
     {
-        /*7145*/
+        /*6736*/
         const int _typeNAME = 32;
-        /*7146*/
+        /*6737*/
         const int CefStreamReader_Release_0 = (_typeNAME << 16) | 0;
-        /*7147*/
+        /*6738*/
         const int CefStreamReader_Read_1 = (_typeNAME << 16) | 1;
-        /*7148*/
+        /*6739*/
         const int CefStreamReader_Seek_2 = (_typeNAME << 16) | 2;
-        /*7149*/
+        /*6740*/
         const int CefStreamReader_Tell_3 = (_typeNAME << 16) | 3;
-        /*7150*/
+        /*6741*/
         const int CefStreamReader_Eof_4 = (_typeNAME << 16) | 4;
-        /*7151*/
+        /*6742*/
         const int CefStreamReader_MayBlock_5 = (_typeNAME << 16) | 5;
-        /*7152*/
+        /*6743*/
         internal readonly IntPtr nativePtr;
-        /*7153*/
+        /*6744*/
         internal CefStreamReader(IntPtr nativePtr)
         {
-            /*7154*/
+            /*6745*/
             this.nativePtr = nativePtr;
-            /*7155*/
+            /*6746*/
         }
-        /*7156*/
+        /*6747*/
         public void Release()
         {
-            /*7157*/
+            /*6748*/
             JsValue ret;
-            /*7158*/
+            /*6749*/
             Cef3Binder.MyCefMet_Call0(this.nativePtr, CefStreamReader_Release_0, out ret);
-            /*7159*/
+            /*6750*/
         }
+
+        // gen! size_t Read(void* ptr,size_t size,size_t n)
         /// <summary>
         /// CefStreamReader methods.
         /// </summary>
-        /*7160*/
+        /*6751*/
 
-
-        // gen! size_t Read(void* ptr,size_t size,size_t n)
-        /*7161*/
-
-        public uint Read(IntPtr /*7162*/
+        public uint Read(IntPtr /*6752*/
         ptr
-        , uint /*7163*/
+        , uint /*6753*/
         size
-        , uint /*7164*/
+        , uint /*6754*/
         n
-        )/*7165*/
+        )/*6755*/
         {
             JsValue v1 = new JsValue();
             JsValue v2 = new JsValue();
             JsValue v3 = new JsValue();
             JsValue ret;
-            /*7166*/
+            /*6756*/
 
             Cef3Binder.MyCefMet_Call3(this.nativePtr, CefStreamReader_Read_1, out ret, ref v1, ref v2, ref v3);
-            /*7167*/
+            /*6757*/
             var ret_result = (uint)ret.I32;
-            /*7168*/
+            /*6758*/
             return ret_result;
-            /*7169*/
+            /*6759*/
         }
+
+        // gen! int Seek(int64 offset,int whence)
         /// <summary>
         /// Seek to the specified offset position. |whence| may be any one of
         /// SEEK_CUR, SEEK_END or SEEK_SET. Returns zero on success and non-zero on
         /// failure.
         /// /*cef()*/
         /// </summary>
-        /*7170*/
+        /*6760*/
 
-
-        // gen! int Seek(int64 offset,int whence)
-        /*7171*/
-
-        public int Seek(long /*7172*/
+        public int Seek(long /*6761*/
         offset
-        , int /*7173*/
+        , int /*6762*/
         whence
-        )/*7174*/
+        )/*6763*/
         {
             JsValue v1 = new JsValue();
             JsValue v2 = new JsValue();
             JsValue ret;
-            /*7175*/
+            /*6764*/
 
             Cef3Binder.MyCefMet_Call2(this.nativePtr, CefStreamReader_Seek_2, out ret, ref v1, ref v2);
-            /*7176*/
+            /*6765*/
             var ret_result = ret.I32;
-            /*7177*/
+            /*6766*/
             return ret_result;
-            /*7178*/
+            /*6767*/
         }
+
+        // gen! int64 Tell()
         /// <summary>
         /// Return the current offset position.
         /// /*cef()*/
         /// </summary>
-        /*7179*/
+        /*6768*/
 
-
-        // gen! int64 Tell()
-        /*7180*/
-
-        public long Tell()/*7181*/
+        public long Tell()/*6769*/
         {
             JsValue ret;
-            /*7182*/
+            /*6770*/
 
             Cef3Binder.MyCefMet_Call0(this.nativePtr, CefStreamReader_Tell_3, out ret);
-            /*7183*/
+            /*6771*/
             var ret_result = ret.I64;
-            /*7184*/
+            /*6772*/
             return ret_result;
-            /*7185*/
+            /*6773*/
         }
+
+        // gen! int Eof()
         /// <summary>
         /// Return non-zero if at end of file.
         /// /*cef()*/
         /// </summary>
-        /*7186*/
+        /*6774*/
 
-
-        // gen! int Eof()
-        /*7187*/
-
-        public int Eof()/*7188*/
+        public int Eof()/*6775*/
         {
             JsValue ret;
-            /*7189*/
+            /*6776*/
 
             Cef3Binder.MyCefMet_Call0(this.nativePtr, CefStreamReader_Eof_4, out ret);
-            /*7190*/
+            /*6777*/
             var ret_result = ret.I32;
-            /*7191*/
+            /*6778*/
             return ret_result;
-            /*7192*/
+            /*6779*/
         }
+
+        // gen! bool MayBlock()
         /// <summary>
         /// Returns true if this reader performs work like accessing the file system
         /// which may block. Used as a hint for determining the thread to access the
         /// reader from.
         /// /*cef()*/
         /// </summary>
-        /*7193*/
+        /*6780*/
 
-
-        // gen! bool MayBlock()
-        /*7194*/
-
-        public bool MayBlock()/*7195*/
+        public bool MayBlock()/*6781*/
         {
             JsValue ret;
-            /*7196*/
+            /*6782*/
 
             Cef3Binder.MyCefMet_Call0(this.nativePtr, CefStreamReader_MayBlock_5, out ret);
-            /*7197*/
+            /*6783*/
             var ret_result = ret.I32 != 0;
-            /*7198*/
+            /*6784*/
             return ret_result;
-            /*7199*/
+            /*6785*/
         }
-        /*7200*/
+        /*6786*/
     }
 
 
@@ -14930,170 +14102,160 @@ namespace LayoutFarm.CefBridge.Auto
     /// on any thread.
     /// /*(source=library)*/
     /// </summary>
-    /*7234*/
+    /*6820*/
     public struct CefStreamWriter
     {
-        /*7235*/
+        /*6821*/
         const int _typeNAME = 33;
-        /*7236*/
+        /*6822*/
         const int CefStreamWriter_Release_0 = (_typeNAME << 16) | 0;
-        /*7237*/
+        /*6823*/
         const int CefStreamWriter_Write_1 = (_typeNAME << 16) | 1;
-        /*7238*/
+        /*6824*/
         const int CefStreamWriter_Seek_2 = (_typeNAME << 16) | 2;
-        /*7239*/
+        /*6825*/
         const int CefStreamWriter_Tell_3 = (_typeNAME << 16) | 3;
-        /*7240*/
+        /*6826*/
         const int CefStreamWriter_Flush_4 = (_typeNAME << 16) | 4;
-        /*7241*/
+        /*6827*/
         const int CefStreamWriter_MayBlock_5 = (_typeNAME << 16) | 5;
-        /*7242*/
+        /*6828*/
         internal readonly IntPtr nativePtr;
-        /*7243*/
+        /*6829*/
         internal CefStreamWriter(IntPtr nativePtr)
         {
-            /*7244*/
+            /*6830*/
             this.nativePtr = nativePtr;
-            /*7245*/
+            /*6831*/
         }
-        /*7246*/
+        /*6832*/
         public void Release()
         {
-            /*7247*/
+            /*6833*/
             JsValue ret;
-            /*7248*/
+            /*6834*/
             Cef3Binder.MyCefMet_Call0(this.nativePtr, CefStreamWriter_Release_0, out ret);
-            /*7249*/
+            /*6835*/
         }
+
+        // gen! size_t Write(const void* ptr,size_t size,size_t n)
         /// <summary>
         /// CefStreamWriter methods.
         /// </summary>
-        /*7250*/
+        /*6836*/
 
-
-        // gen! size_t Write(const void* ptr,size_t size,size_t n)
-        /*7251*/
-
-        public uint Write(IntPtr /*7252*/
+        public uint Write(IntPtr /*6837*/
         ptr
-        , uint /*7253*/
+        , uint /*6838*/
         size
-        , uint /*7254*/
+        , uint /*6839*/
         n
-        )/*7255*/
+        )/*6840*/
         {
             JsValue v1 = new JsValue();
             JsValue v2 = new JsValue();
             JsValue v3 = new JsValue();
             JsValue ret;
-            /*7256*/
+            /*6841*/
 
             Cef3Binder.MyCefMet_Call3(this.nativePtr, CefStreamWriter_Write_1, out ret, ref v1, ref v2, ref v3);
-            /*7257*/
+            /*6842*/
             var ret_result = (uint)ret.I32;
-            /*7258*/
+            /*6843*/
             return ret_result;
-            /*7259*/
+            /*6844*/
         }
+
+        // gen! int Seek(int64 offset,int whence)
         /// <summary>
         /// Seek to the specified offset position. |whence| may be any one of
         /// SEEK_CUR, SEEK_END or SEEK_SET. Returns zero on success and non-zero on
         /// failure.
         /// /*cef()*/
         /// </summary>
-        /*7260*/
+        /*6845*/
 
-
-        // gen! int Seek(int64 offset,int whence)
-        /*7261*/
-
-        public int Seek(long /*7262*/
+        public int Seek(long /*6846*/
         offset
-        , int /*7263*/
+        , int /*6847*/
         whence
-        )/*7264*/
+        )/*6848*/
         {
             JsValue v1 = new JsValue();
             JsValue v2 = new JsValue();
             JsValue ret;
-            /*7265*/
+            /*6849*/
 
             Cef3Binder.MyCefMet_Call2(this.nativePtr, CefStreamWriter_Seek_2, out ret, ref v1, ref v2);
-            /*7266*/
+            /*6850*/
             var ret_result = ret.I32;
-            /*7267*/
+            /*6851*/
             return ret_result;
-            /*7268*/
+            /*6852*/
         }
+
+        // gen! int64 Tell()
         /// <summary>
         /// Return the current offset position.
         /// /*cef()*/
         /// </summary>
-        /*7269*/
+        /*6853*/
 
-
-        // gen! int64 Tell()
-        /*7270*/
-
-        public long Tell()/*7271*/
+        public long Tell()/*6854*/
         {
             JsValue ret;
-            /*7272*/
+            /*6855*/
 
             Cef3Binder.MyCefMet_Call0(this.nativePtr, CefStreamWriter_Tell_3, out ret);
-            /*7273*/
+            /*6856*/
             var ret_result = ret.I64;
-            /*7274*/
+            /*6857*/
             return ret_result;
-            /*7275*/
+            /*6858*/
         }
+
+        // gen! int Flush()
         /// <summary>
         /// Flush the stream.
         /// /*cef()*/
         /// </summary>
-        /*7276*/
+        /*6859*/
 
-
-        // gen! int Flush()
-        /*7277*/
-
-        public int Flush()/*7278*/
+        public int Flush()/*6860*/
         {
             JsValue ret;
-            /*7279*/
+            /*6861*/
 
             Cef3Binder.MyCefMet_Call0(this.nativePtr, CefStreamWriter_Flush_4, out ret);
-            /*7280*/
+            /*6862*/
             var ret_result = ret.I32;
-            /*7281*/
+            /*6863*/
             return ret_result;
-            /*7282*/
+            /*6864*/
         }
+
+        // gen! bool MayBlock()
         /// <summary>
         /// Returns true if this writer performs work like accessing the file system
         /// which may block. Used as a hint for determining the thread to access the
         /// writer from.
         /// /*cef()*/
         /// </summary>
-        /*7283*/
+        /*6865*/
 
-
-        // gen! bool MayBlock()
-        /*7284*/
-
-        public bool MayBlock()/*7285*/
+        public bool MayBlock()/*6866*/
         {
             JsValue ret;
-            /*7286*/
+            /*6867*/
 
             Cef3Binder.MyCefMet_Call0(this.nativePtr, CefStreamWriter_MayBlock_5, out ret);
-            /*7287*/
+            /*6868*/
             var ret_result = ret.I32 != 0;
-            /*7288*/
+            /*6869*/
             return ret_result;
-            /*7289*/
+            /*6870*/
         }
-        /*7290*/
+        /*6871*/
     }
 
 
@@ -15102,32 +14264,32 @@ namespace LayoutFarm.CefBridge.Auto
     /// Implement this interface to receive string values asynchronously.
     /// /*(source=client)*/
     /// </summary>
-    /*7299*/
+    /*6880*/
     public struct CefStringVisitor
     {
-        /*7300*/
+        /*6881*/
         const int _typeNAME = 34;
-        /*7301*/
+        /*6882*/
         const int CefStringVisitor_Release_0 = (_typeNAME << 16) | 0;
-        /*7302*/
+        /*6883*/
         internal readonly IntPtr nativePtr;
-        /*7303*/
+        /*6884*/
         internal CefStringVisitor(IntPtr nativePtr)
         {
-            /*7304*/
+            /*6885*/
             this.nativePtr = nativePtr;
-            /*7305*/
+            /*6886*/
         }
-        /*7306*/
+        /*6887*/
         public void Release()
         {
-            /*7307*/
+            /*6888*/
             JsValue ret;
-            /*7308*/
+            /*6889*/
             Cef3Binder.MyCefMet_Call0(this.nativePtr, CefStringVisitor_Release_0, out ret);
-            /*7309*/
+            /*6890*/
         }
-        /*7310*/
+        /*6891*/
     }
 
 
@@ -15141,32 +14303,32 @@ namespace LayoutFarm.CefBridge.Auto
     /// task object destructor.
     /// /*cef(source=client)*/
     /// </summary>
-    /*7319*/
+    /*6900*/
     public struct CefTask
     {
-        /*7320*/
+        /*6901*/
         const int _typeNAME = 35;
-        /*7321*/
+        /*6902*/
         const int CefTask_Release_0 = (_typeNAME << 16) | 0;
-        /*7322*/
+        /*6903*/
         internal readonly IntPtr nativePtr;
-        /*7323*/
+        /*6904*/
         internal CefTask(IntPtr nativePtr)
         {
-            /*7324*/
+            /*6905*/
             this.nativePtr = nativePtr;
-            /*7325*/
+            /*6906*/
         }
-        /*7326*/
+        /*6907*/
         public void Release()
         {
-            /*7327*/
+            /*6908*/
             JsValue ret;
-            /*7328*/
+            /*6909*/
             Cef3Binder.MyCefMet_Call0(this.nativePtr, CefTask_Release_0, out ret);
-            /*7329*/
+            /*6910*/
         }
-        /*7330*/
+        /*6911*/
     }
 
 
@@ -15181,138 +14343,132 @@ namespace LayoutFarm.CefBridge.Auto
     /// other CEF threads as appropriate (for example, V8 WebWorker threads).
     /// /*(source=library)*/
     /// </summary>
-    /*7364*/
+    /*6945*/
     public struct CefTaskRunner
     {
-        /*7365*/
+        /*6946*/
         const int _typeNAME = 36;
-        /*7366*/
+        /*6947*/
         const int CefTaskRunner_Release_0 = (_typeNAME << 16) | 0;
-        /*7367*/
+        /*6948*/
         const int CefTaskRunner_IsSame_1 = (_typeNAME << 16) | 1;
-        /*7368*/
+        /*6949*/
         const int CefTaskRunner_BelongsToCurrentThread_2 = (_typeNAME << 16) | 2;
-        /*7369*/
+        /*6950*/
         const int CefTaskRunner_BelongsToThread_3 = (_typeNAME << 16) | 3;
-        /*7370*/
+        /*6951*/
         const int CefTaskRunner_PostTask_4 = (_typeNAME << 16) | 4;
-        /*7371*/
+        /*6952*/
         const int CefTaskRunner_PostDelayedTask_5 = (_typeNAME << 16) | 5;
-        /*7372*/
+        /*6953*/
         internal readonly IntPtr nativePtr;
-        /*7373*/
+        /*6954*/
         internal CefTaskRunner(IntPtr nativePtr)
         {
-            /*7374*/
+            /*6955*/
             this.nativePtr = nativePtr;
-            /*7375*/
+            /*6956*/
         }
-        /*7376*/
+        /*6957*/
         public void Release()
         {
-            /*7377*/
+            /*6958*/
             JsValue ret;
-            /*7378*/
+            /*6959*/
             Cef3Binder.MyCefMet_Call0(this.nativePtr, CefTaskRunner_Release_0, out ret);
-            /*7379*/
+            /*6960*/
         }
+
+        // gen! bool IsSame(CefRefPtr<CefTaskRunner> that)
         /// <summary>
         /// CefTaskRunner methods.
         /// </summary>
-        /*7380*/
+        /*6961*/
 
-
-        // gen! bool IsSame(CefRefPtr<CefTaskRunner> that)
-        /*7381*/
-
-        public bool IsSame(CefTaskRunner /*7382*/
+        public bool IsSame(CefTaskRunner /*6962*/
         that
-        )/*7383*/
+        )/*6963*/
         {
             JsValue v1 = new JsValue();
             JsValue ret;
-            /*7384*/
+            /*6964*/
 
             Cef3Binder.MyCefMet_Call1(this.nativePtr, CefTaskRunner_IsSame_1, out ret, ref v1);
-            /*7385*/
+            /*6965*/
             var ret_result = ret.I32 != 0;
-            /*7386*/
+            /*6966*/
             return ret_result;
-            /*7387*/
+            /*6967*/
         }
+
+        // gen! bool BelongsToCurrentThread()
         /// <summary>
         /// Returns true if this task runner belongs to the current thread.
         /// /*cef()*/
         /// </summary>
-        /*7388*/
+        /*6968*/
 
-
-        // gen! bool BelongsToCurrentThread()
-        /*7389*/
-
-        public bool BelongsToCurrentThread()/*7390*/
+        public bool BelongsToCurrentThread()/*6969*/
         {
             JsValue ret;
-            /*7391*/
+            /*6970*/
 
             Cef3Binder.MyCefMet_Call0(this.nativePtr, CefTaskRunner_BelongsToCurrentThread_2, out ret);
-            /*7392*/
+            /*6971*/
             var ret_result = ret.I32 != 0;
-            /*7393*/
+            /*6972*/
             return ret_result;
-            /*7394*/
+            /*6973*/
         }
+
+        // gen! bool BelongsToThread(CefThreadId threadId)
         /// <summary>
         /// Returns true if this task runner is for the specified CEF thread.
         /// /*cef()*/
         /// </summary>
-        /*7395*/
+        /*6974*/
 
-
-        // gen! bool BelongsToThread(CefThreadId threadId)
-        /*7396*/
-
-        public bool BelongsToThread(cef_thread_id_t /*7397*/
+        public bool BelongsToThread(cef_thread_id_t /*6975*/
         threadId
-        )/*7398*/
+        )/*6976*/
         {
             JsValue v1 = new JsValue();
             JsValue ret;
-            /*7399*/
+            /*6977*/
 
             Cef3Binder.MyCefMet_Call1(this.nativePtr, CefTaskRunner_BelongsToThread_3, out ret, ref v1);
-            /*7400*/
+            /*6978*/
             var ret_result = ret.I32 != 0;
-            /*7401*/
+            /*6979*/
             return ret_result;
-            /*7402*/
+            /*6980*/
         }
+
+        // gen! bool PostTask(CefRefPtr<CefTask> task)
         /// <summary>
         /// Post a task for execution on the thread associated with this task runner.
         /// Execution will occur asynchronously.
         /// /*cef()*/
         /// </summary>
-        /*7403*/
+        /*6981*/
 
-
-        // gen! bool PostTask(CefRefPtr<CefTask> task)
-        /*7404*/
-
-        public bool PostTask(CefTask /*7405*/
+        public bool PostTask(CefTask /*6982*/
         task
-        )/*7406*/
+        )/*6983*/
         {
             JsValue v1 = new JsValue();
             JsValue ret;
-            /*7407*/
+            /*6984*/
 
             Cef3Binder.MyCefMet_Call1(this.nativePtr, CefTaskRunner_PostTask_4, out ret, ref v1);
-            /*7408*/
+            /*6985*/
             var ret_result = ret.I32 != 0;
-            /*7409*/
+            /*6986*/
             return ret_result;
-            /*7410*/
+            /*6987*/
         }
+
+        // gen! bool PostDelayedTask(CefRefPtr<CefTask> task,int64 delay_ms)
         /// <summary>
         /// Post a task for delayed execution on the thread associated with this task
         /// runner. Execution will occur asynchronously. Delayed tasks are not
@@ -15320,31 +14476,27 @@ namespace LayoutFarm.CefBridge.Auto
         /// specified delay.
         /// /*cef()*/
         /// </summary>
-        /*7411*/
+        /*6988*/
 
-
-        // gen! bool PostDelayedTask(CefRefPtr<CefTask> task,int64 delay_ms)
-        /*7412*/
-
-        public bool PostDelayedTask(CefTask /*7413*/
+        public bool PostDelayedTask(CefTask /*6989*/
         task
-        , long /*7414*/
+        , long /*6990*/
         delay_ms
-        )/*7415*/
+        )/*6991*/
         {
             JsValue v1 = new JsValue();
             JsValue v2 = new JsValue();
             JsValue ret;
-            /*7416*/
+            /*6992*/
 
             Cef3Binder.MyCefMet_Call2(this.nativePtr, CefTaskRunner_PostDelayedTask_5, out ret, ref v1, ref v2);
-            /*7417*/
+            /*6993*/
             var ret_result = ret.I32 != 0;
-            /*7418*/
+            /*6994*/
             return ret_result;
-            /*7419*/
+            /*6995*/
         }
-        /*7420*/
+        /*6996*/
     }
 
 
@@ -15357,178 +14509,166 @@ namespace LayoutFarm.CefBridge.Auto
     /// on the same thread that created it.
     /// /*(source=library)*/
     /// </summary>
-    /*7459*/
+    /*7035*/
     public struct CefURLRequest
     {
-        /*7460*/
+        /*7036*/
         const int _typeNAME = 37;
-        /*7461*/
+        /*7037*/
         const int CefURLRequest_Release_0 = (_typeNAME << 16) | 0;
-        /*7462*/
+        /*7038*/
         const int CefURLRequest_GetRequest_1 = (_typeNAME << 16) | 1;
-        /*7463*/
+        /*7039*/
         const int CefURLRequest_GetClient_2 = (_typeNAME << 16) | 2;
-        /*7464*/
+        /*7040*/
         const int CefURLRequest_GetRequestStatus_3 = (_typeNAME << 16) | 3;
-        /*7465*/
+        /*7041*/
         const int CefURLRequest_GetRequestError_4 = (_typeNAME << 16) | 4;
-        /*7466*/
+        /*7042*/
         const int CefURLRequest_GetResponse_5 = (_typeNAME << 16) | 5;
-        /*7467*/
+        /*7043*/
         const int CefURLRequest_Cancel_6 = (_typeNAME << 16) | 6;
-        /*7468*/
+        /*7044*/
         internal readonly IntPtr nativePtr;
-        /*7469*/
+        /*7045*/
         internal CefURLRequest(IntPtr nativePtr)
         {
-            /*7470*/
+            /*7046*/
             this.nativePtr = nativePtr;
-            /*7471*/
+            /*7047*/
         }
-        /*7472*/
+        /*7048*/
         public void Release()
         {
-            /*7473*/
+            /*7049*/
             JsValue ret;
-            /*7474*/
+            /*7050*/
             Cef3Binder.MyCefMet_Call0(this.nativePtr, CefURLRequest_Release_0, out ret);
-            /*7475*/
+            /*7051*/
         }
+
+        // gen! CefRefPtr<CefRequest> GetRequest()
         /// <summary>
         /// CefURLRequest methods.
         /// </summary>
-        /*7476*/
+        /*7052*/
 
-
-        // gen! CefRefPtr<CefRequest> GetRequest()
-        /*7477*/
-
-        public CefRequest GetRequest()/*7478*/
+        public CefRequest GetRequest()/*7053*/
         {
             JsValue ret;
-            /*7479*/
+            /*7054*/
 
             Cef3Binder.MyCefMet_Call0(this.nativePtr, CefURLRequest_GetRequest_1, out ret);
-            /*7480*/
+            /*7055*/
             var ret_result = new CefRequest(ret.Ptr);
-            /*7481*/
+            /*7056*/
             return ret_result;
-            /*7482*/
+            /*7057*/
         }
+
+        // gen! CefRefPtr<CefURLRequestClient> GetClient()
         /// <summary>
         /// Returns the client.
         /// /*cef()*/
         /// </summary>
-        /*7483*/
+        /*7058*/
 
-
-        // gen! CefRefPtr<CefURLRequestClient> GetClient()
-        /*7484*/
-
-        public CefURLRequestClient GetClient()/*7485*/
+        public CefURLRequestClient GetClient()/*7059*/
         {
             JsValue ret;
-            /*7486*/
+            /*7060*/
 
             Cef3Binder.MyCefMet_Call0(this.nativePtr, CefURLRequest_GetClient_2, out ret);
-            /*7487*/
+            /*7061*/
             var ret_result = new CefURLRequestClient(ret.Ptr);
-            /*7488*/
+            /*7062*/
             return ret_result;
-            /*7489*/
+            /*7063*/
         }
+
+        // gen! Status GetRequestStatus()
         /// <summary>
         /// Returns the request status.
         /// /*cef(default_retval=UR_UNKNOWN)*/
         /// </summary>
-        /*7490*/
+        /*7064*/
 
-
-        // gen! Status GetRequestStatus()
-        /*7491*/
-
-        public cef_urlrequest_status_t GetRequestStatus()/*7492*/
+        public cef_urlrequest_status_t GetRequestStatus()/*7065*/
         {
             JsValue ret;
-            /*7493*/
+            /*7066*/
 
             Cef3Binder.MyCefMet_Call0(this.nativePtr, CefURLRequest_GetRequestStatus_3, out ret);
-            /*7494*/
+            /*7067*/
             var ret_result = (cef_urlrequest_status_t)ret.I32;
 
-            /*7495*/
+            /*7068*/
             return ret_result;
-            /*7496*/
+            /*7069*/
         }
+
+        // gen! ErrorCode GetRequestError()
         /// <summary>
         /// Returns the request error if status is UR_CANCELED or UR_FAILED, or 0
         /// otherwise.
         /// /*cef(default_retval=ERR_NONE)*/
         /// </summary>
-        /*7497*/
+        /*7070*/
 
-
-        // gen! ErrorCode GetRequestError()
-        /*7498*/
-
-        public cef_errorcode_t GetRequestError()/*7499*/
+        public cef_errorcode_t GetRequestError()/*7071*/
         {
             JsValue ret;
-            /*7500*/
+            /*7072*/
 
             Cef3Binder.MyCefMet_Call0(this.nativePtr, CefURLRequest_GetRequestError_4, out ret);
-            /*7501*/
+            /*7073*/
             var ret_result = (cef_errorcode_t)ret.I32;
 
-            /*7502*/
+            /*7074*/
             return ret_result;
-            /*7503*/
+            /*7075*/
         }
+
+        // gen! CefRefPtr<CefResponse> GetResponse()
         /// <summary>
         /// Returns the response, or NULL if no response information is available.
         /// Response information will only be available after the upload has completed.
         /// The returned object is read-only and should not be modified.
         /// /*cef()*/
         /// </summary>
-        /*7504*/
+        /*7076*/
 
-
-        // gen! CefRefPtr<CefResponse> GetResponse()
-        /*7505*/
-
-        public CefResponse GetResponse()/*7506*/
+        public CefResponse GetResponse()/*7077*/
         {
             JsValue ret;
-            /*7507*/
+            /*7078*/
 
             Cef3Binder.MyCefMet_Call0(this.nativePtr, CefURLRequest_GetResponse_5, out ret);
-            /*7508*/
+            /*7079*/
             var ret_result = new CefResponse(ret.Ptr);
-            /*7509*/
+            /*7080*/
             return ret_result;
-            /*7510*/
+            /*7081*/
         }
+
+        // gen! void Cancel()
         /// <summary>
         /// Cancel the request.
         /// /*cef()*/
         /// </summary>
-        /*7511*/
+        /*7082*/
 
-
-        // gen! void Cancel()
-        /*7512*/
-
-        public void Cancel()/*7513*/
+        public void Cancel()/*7083*/
         {
             JsValue ret;
-            /*7514*/
+            /*7084*/
 
             Cef3Binder.MyCefMet_Call0(this.nativePtr, CefURLRequest_Cancel_6, out ret);
-            /*7515*/
+            /*7085*/
 
-            /*7516*/
+            /*7086*/
         }
-        /*7517*/
+        /*7087*/
     }
 
 
@@ -15539,32 +14679,32 @@ namespace LayoutFarm.CefBridge.Auto
     /// request unless otherwise documented.
     /// /*(source=client)*/
     /// </summary>
-    /*7526*/
+    /*7096*/
     public struct CefURLRequestClient
     {
-        /*7527*/
+        /*7097*/
         const int _typeNAME = 38;
-        /*7528*/
+        /*7098*/
         const int CefURLRequestClient_Release_0 = (_typeNAME << 16) | 0;
-        /*7529*/
+        /*7099*/
         internal readonly IntPtr nativePtr;
-        /*7530*/
+        /*7100*/
         internal CefURLRequestClient(IntPtr nativePtr)
         {
-            /*7531*/
+            /*7101*/
             this.nativePtr = nativePtr;
-            /*7532*/
+            /*7102*/
         }
-        /*7533*/
+        /*7103*/
         public void Release()
         {
-            /*7534*/
+            /*7104*/
             JsValue ret;
-            /*7535*/
+            /*7105*/
             Cef3Binder.MyCefMet_Call0(this.nativePtr, CefURLRequestClient_Release_0, out ret);
-            /*7536*/
+            /*7106*/
         }
-        /*7537*/
+        /*7107*/
     }
 
 
@@ -15577,163 +14717,155 @@ namespace LayoutFarm.CefBridge.Auto
     /// the CefV8Context::GetTaskRunner() method.
     /// /*cef(source=library)*/
     /// </summary>
-    /*7591*/
+    /*7161*/
     public struct CefV8Context
     {
-        /*7592*/
+        /*7162*/
         const int _typeNAME = 39;
-        /*7593*/
+        /*7163*/
         const int CefV8Context_Release_0 = (_typeNAME << 16) | 0;
-        /*7594*/
+        /*7164*/
         const int CefV8Context_GetTaskRunner_1 = (_typeNAME << 16) | 1;
-        /*7595*/
+        /*7165*/
         const int CefV8Context_IsValid_2 = (_typeNAME << 16) | 2;
-        /*7596*/
+        /*7166*/
         const int CefV8Context_GetBrowser_3 = (_typeNAME << 16) | 3;
-        /*7597*/
+        /*7167*/
         const int CefV8Context_GetFrame_4 = (_typeNAME << 16) | 4;
-        /*7598*/
+        /*7168*/
         const int CefV8Context_GetGlobal_5 = (_typeNAME << 16) | 5;
-        /*7599*/
+        /*7169*/
         const int CefV8Context_Enter_6 = (_typeNAME << 16) | 6;
-        /*7600*/
+        /*7170*/
         const int CefV8Context_Exit_7 = (_typeNAME << 16) | 7;
-        /*7601*/
+        /*7171*/
         const int CefV8Context_IsSame_8 = (_typeNAME << 16) | 8;
-        /*7602*/
+        /*7172*/
         const int CefV8Context_Eval_9 = (_typeNAME << 16) | 9;
-        /*7603*/
+        /*7173*/
         internal readonly IntPtr nativePtr;
-        /*7604*/
+        /*7174*/
         internal CefV8Context(IntPtr nativePtr)
         {
-            /*7605*/
+            /*7175*/
             this.nativePtr = nativePtr;
-            /*7606*/
+            /*7176*/
         }
-        /*7607*/
+        /*7177*/
         public void Release()
         {
-            /*7608*/
+            /*7178*/
             JsValue ret;
-            /*7609*/
+            /*7179*/
             Cef3Binder.MyCefMet_Call0(this.nativePtr, CefV8Context_Release_0, out ret);
-            /*7610*/
+            /*7180*/
         }
+
+        // gen! CefRefPtr<CefTaskRunner> GetTaskRunner()
         /// <summary>
         /// CefV8Context methods.
         /// </summary>
-        /*7611*/
+        /*7181*/
 
-
-        // gen! CefRefPtr<CefTaskRunner> GetTaskRunner()
-        /*7612*/
-
-        public CefTaskRunner GetTaskRunner()/*7613*/
+        public CefTaskRunner GetTaskRunner()/*7182*/
         {
             JsValue ret;
-            /*7614*/
+            /*7183*/
 
             Cef3Binder.MyCefMet_Call0(this.nativePtr, CefV8Context_GetTaskRunner_1, out ret);
-            /*7615*/
+            /*7184*/
             var ret_result = new CefTaskRunner(ret.Ptr);
-            /*7616*/
+            /*7185*/
             return ret_result;
-            /*7617*/
+            /*7186*/
         }
+
+        // gen! bool IsValid()
         /// <summary>
         /// Returns true if the underlying handle is valid and it can be accessed on
         /// the current thread. Do not call any other methods if this method returns
         /// false.
         /// /*cef()*/
         /// </summary>
-        /*7618*/
+        /*7187*/
 
-
-        // gen! bool IsValid()
-        /*7619*/
-
-        public bool IsValid()/*7620*/
+        public bool IsValid()/*7188*/
         {
             JsValue ret;
-            /*7621*/
+            /*7189*/
 
             Cef3Binder.MyCefMet_Call0(this.nativePtr, CefV8Context_IsValid_2, out ret);
-            /*7622*/
+            /*7190*/
             var ret_result = ret.I32 != 0;
-            /*7623*/
+            /*7191*/
             return ret_result;
-            /*7624*/
+            /*7192*/
         }
+
+        // gen! CefRefPtr<CefBrowser> GetBrowser()
         /// <summary>
         /// Returns the browser for this context. This method will return an empty
         /// reference for WebWorker contexts.
         /// /*cef()*/
         /// </summary>
-        /*7625*/
+        /*7193*/
 
-
-        // gen! CefRefPtr<CefBrowser> GetBrowser()
-        /*7626*/
-
-        public CefBrowser GetBrowser()/*7627*/
+        public CefBrowser GetBrowser()/*7194*/
         {
             JsValue ret;
-            /*7628*/
+            /*7195*/
 
             Cef3Binder.MyCefMet_Call0(this.nativePtr, CefV8Context_GetBrowser_3, out ret);
-            /*7629*/
+            /*7196*/
             var ret_result = new CefBrowser(ret.Ptr);
-            /*7630*/
+            /*7197*/
             return ret_result;
-            /*7631*/
+            /*7198*/
         }
+
+        // gen! CefRefPtr<CefFrame> GetFrame()
         /// <summary>
         /// Returns the frame for this context. This method will return an empty
         /// reference for WebWorker contexts.
         /// /*cef()*/
         /// </summary>
-        /*7632*/
+        /*7199*/
 
-
-        // gen! CefRefPtr<CefFrame> GetFrame()
-        /*7633*/
-
-        public CefFrame GetFrame()/*7634*/
+        public CefFrame GetFrame()/*7200*/
         {
             JsValue ret;
-            /*7635*/
+            /*7201*/
 
             Cef3Binder.MyCefMet_Call0(this.nativePtr, CefV8Context_GetFrame_4, out ret);
-            /*7636*/
+            /*7202*/
             var ret_result = new CefFrame(ret.Ptr);
-            /*7637*/
+            /*7203*/
             return ret_result;
-            /*7638*/
+            /*7204*/
         }
+
+        // gen! CefRefPtr<CefV8Value> GetGlobal()
         /// <summary>
         /// Returns the global object for this context. The context must be entered
         /// before calling this method.
         /// /*cef()*/
         /// </summary>
-        /*7639*/
+        /*7205*/
 
-
-        // gen! CefRefPtr<CefV8Value> GetGlobal()
-        /*7640*/
-
-        public CefV8Value GetGlobal()/*7641*/
+        public CefV8Value GetGlobal()/*7206*/
         {
             JsValue ret;
-            /*7642*/
+            /*7207*/
 
             Cef3Binder.MyCefMet_Call0(this.nativePtr, CefV8Context_GetGlobal_5, out ret);
-            /*7643*/
+            /*7208*/
             var ret_result = new CefV8Value(ret.Ptr);
-            /*7644*/
+            /*7209*/
             return ret_result;
-            /*7645*/
+            /*7210*/
         }
+
+        // gen! bool Enter()
         /// <summary>
         /// Enter this context. A context must be explicitly entered before creating a
         /// V8 Object, Array, Function or Date asynchronously. Exit() must be called
@@ -15742,73 +14874,67 @@ namespace LayoutFarm.CefBridge.Auto
         /// the scope was entered successfully.
         /// /*cef()*/
         /// </summary>
-        /*7646*/
+        /*7211*/
 
-
-        // gen! bool Enter()
-        /*7647*/
-
-        public bool Enter()/*7648*/
+        public bool Enter()/*7212*/
         {
             JsValue ret;
-            /*7649*/
+            /*7213*/
 
             Cef3Binder.MyCefMet_Call0(this.nativePtr, CefV8Context_Enter_6, out ret);
-            /*7650*/
+            /*7214*/
             var ret_result = ret.I32 != 0;
-            /*7651*/
+            /*7215*/
             return ret_result;
-            /*7652*/
+            /*7216*/
         }
+
+        // gen! bool Exit()
         /// <summary>
         /// Exit this context. Call this method only after calling Enter(). Returns
         /// true if the scope was exited successfully.
         /// /*cef()*/
         /// </summary>
-        /*7653*/
+        /*7217*/
 
-
-        // gen! bool Exit()
-        /*7654*/
-
-        public bool Exit()/*7655*/
+        public bool Exit()/*7218*/
         {
             JsValue ret;
-            /*7656*/
+            /*7219*/
 
             Cef3Binder.MyCefMet_Call0(this.nativePtr, CefV8Context_Exit_7, out ret);
-            /*7657*/
+            /*7220*/
             var ret_result = ret.I32 != 0;
-            /*7658*/
+            /*7221*/
             return ret_result;
-            /*7659*/
+            /*7222*/
         }
+
+        // gen! bool IsSame(CefRefPtr<CefV8Context> that)
         /// <summary>
         /// Returns true if this object is pointing to the same handle as |that|
         /// object.
         /// /*cef()*/
         /// </summary>
-        /*7660*/
+        /*7223*/
 
-
-        // gen! bool IsSame(CefRefPtr<CefV8Context> that)
-        /*7661*/
-
-        public bool IsSame(CefV8Context /*7662*/
+        public bool IsSame(CefV8Context /*7224*/
         that
-        )/*7663*/
+        )/*7225*/
         {
             JsValue v1 = new JsValue();
             JsValue ret;
-            /*7664*/
+            /*7226*/
 
             Cef3Binder.MyCefMet_Call1(this.nativePtr, CefV8Context_IsSame_8, out ret, ref v1);
-            /*7665*/
+            /*7227*/
             var ret_result = ret.I32 != 0;
-            /*7666*/
+            /*7228*/
             return ret_result;
-            /*7667*/
+            /*7229*/
         }
+
+        // gen! bool Eval(const CefString& code,const CefString& script_url,int start_line,CefRefPtr<CefV8Value>& retval,CefRefPtr<CefV8Exception>& exception)
         /// <summary>
         /// Execute a string of JavaScript code in this V8 context. The |script_url|
         /// parameter is the URL where the script in question can be found, if any.
@@ -15818,23 +14944,19 @@ namespace LayoutFarm.CefBridge.Auto
         /// exception, if any, and the function will return false.
         /// /*cef(optional_param=script_url)*/
         /// </summary>
-        /*7668*/
+        /*7230*/
 
-
-        // gen! bool Eval(const CefString& code,const CefString& script_url,int start_line,CefRefPtr<CefV8Value>& retval,CefRefPtr<CefV8Exception>& exception)
-        /*7669*/
-
-        public bool Eval(string /*7670*/
+        public bool Eval(string /*7231*/
         code
-        , string /*7671*/
+        , string /*7232*/
         script_url
-        , int /*7672*/
+        , int /*7233*/
         start_line
-        , IntPtr /*7673*/
+        , IntPtr /*7234*/
         retval
-        , IntPtr /*7674*/
+        , IntPtr /*7235*/
         exception
-        )/*7675*/
+        )/*7236*/
         {
             JsValue v1 = new JsValue();
             JsValue v2 = new JsValue();
@@ -15843,29 +14965,29 @@ namespace LayoutFarm.CefBridge.Auto
             JsValue v5 = new JsValue();
             JsValue ret;
             v1.Ptr = Cef3Binder.MyCefCreateCefString(code);
-            /*7676*/
+            /*7237*/
             ;
             v2.Ptr = Cef3Binder.MyCefCreateCefString(script_url);
-            /*7677*/
+            /*7238*/
             ;
-            /*7678*/
+            /*7239*/
 
             Cef3Binder.MyCefMet_Call5(this.nativePtr, CefV8Context_Eval_9, out ret, ref v1, ref v2, ref v3, ref v4, ref v5);
-            /*7679*/
+            /*7240*/
             var ret_result = ret.I32 != 0;
-            Cef3Binder.MyCefDeletePtr(v1.Ptr);/*7680*/
+            Cef3Binder.MyCefDeletePtr(v1.Ptr);/*7241*/
             ;
-            Cef3Binder.MyCefDeletePtr(v2.Ptr);/*7681*/
+            Cef3Binder.MyCefDeletePtr(v2.Ptr);/*7242*/
             ;
-            retval = v4.Ptr;/*7682*/
+            retval = v4.Ptr;/*7243*/
             ;
-            exception = v5.Ptr;/*7683*/
+            exception = v5.Ptr;/*7244*/
             ;
-            /*7684*/
+            /*7245*/
             return ret_result;
-            /*7685*/
+            /*7246*/
         }
-        /*7686*/
+        /*7247*/
     }
 
 
@@ -15876,32 +14998,32 @@ namespace LayoutFarm.CefBridge.Auto
     /// of this class will be called on the thread associated with the V8 accessor.
     /// /*(source=client)*/
     /// </summary>
-    /*7695*/
+    /*7256*/
     public struct CefV8Accessor
     {
-        /*7696*/
+        /*7257*/
         const int _typeNAME = 40;
-        /*7697*/
+        /*7258*/
         const int CefV8Accessor_Release_0 = (_typeNAME << 16) | 0;
-        /*7698*/
+        /*7259*/
         internal readonly IntPtr nativePtr;
-        /*7699*/
+        /*7260*/
         internal CefV8Accessor(IntPtr nativePtr)
         {
-            /*7700*/
+            /*7261*/
             this.nativePtr = nativePtr;
-            /*7701*/
+            /*7262*/
         }
-        /*7702*/
+        /*7263*/
         public void Release()
         {
-            /*7703*/
+            /*7264*/
             JsValue ret;
-            /*7704*/
+            /*7265*/
             Cef3Binder.MyCefMet_Call0(this.nativePtr, CefV8Accessor_Release_0, out ret);
-            /*7705*/
+            /*7266*/
         }
-        /*7706*/
+        /*7267*/
     }
 
 
@@ -15915,32 +15037,32 @@ namespace LayoutFarm.CefBridge.Auto
     /// by integer.
     /// /*(source=client)*/
     /// </summary>
-    /*7715*/
+    /*7276*/
     public struct CefV8Interceptor
     {
-        /*7716*/
+        /*7277*/
         const int _typeNAME = 41;
-        /*7717*/
+        /*7278*/
         const int CefV8Interceptor_Release_0 = (_typeNAME << 16) | 0;
-        /*7718*/
+        /*7279*/
         internal readonly IntPtr nativePtr;
-        /*7719*/
+        /*7280*/
         internal CefV8Interceptor(IntPtr nativePtr)
         {
-            /*7720*/
+            /*7281*/
             this.nativePtr = nativePtr;
-            /*7721*/
+            /*7282*/
         }
-        /*7722*/
+        /*7283*/
         public void Release()
         {
-            /*7723*/
+            /*7284*/
             JsValue ret;
-            /*7724*/
+            /*7285*/
             Cef3Binder.MyCefMet_Call0(this.nativePtr, CefV8Interceptor_Release_0, out ret);
-            /*7725*/
+            /*7286*/
         }
-        /*7726*/
+        /*7287*/
     }
 
 
@@ -15950,229 +15072,213 @@ namespace LayoutFarm.CefBridge.Auto
     /// any render process thread.
     /// /*(source=library)*/
     /// </summary>
-    /*7775*/
+    /*7336*/
     public struct CefV8Exception
     {
-        /*7776*/
+        /*7337*/
         const int _typeNAME = 42;
-        /*7777*/
+        /*7338*/
         const int CefV8Exception_Release_0 = (_typeNAME << 16) | 0;
-        /*7778*/
+        /*7339*/
         const int CefV8Exception_GetMessage_1 = (_typeNAME << 16) | 1;
-        /*7779*/
+        /*7340*/
         const int CefV8Exception_GetSourceLine_2 = (_typeNAME << 16) | 2;
-        /*7780*/
+        /*7341*/
         const int CefV8Exception_GetScriptResourceName_3 = (_typeNAME << 16) | 3;
-        /*7781*/
+        /*7342*/
         const int CefV8Exception_GetLineNumber_4 = (_typeNAME << 16) | 4;
-        /*7782*/
+        /*7343*/
         const int CefV8Exception_GetStartPosition_5 = (_typeNAME << 16) | 5;
-        /*7783*/
+        /*7344*/
         const int CefV8Exception_GetEndPosition_6 = (_typeNAME << 16) | 6;
-        /*7784*/
+        /*7345*/
         const int CefV8Exception_GetStartColumn_7 = (_typeNAME << 16) | 7;
-        /*7785*/
+        /*7346*/
         const int CefV8Exception_GetEndColumn_8 = (_typeNAME << 16) | 8;
-        /*7786*/
+        /*7347*/
         internal readonly IntPtr nativePtr;
-        /*7787*/
+        /*7348*/
         internal CefV8Exception(IntPtr nativePtr)
         {
-            /*7788*/
+            /*7349*/
             this.nativePtr = nativePtr;
-            /*7789*/
+            /*7350*/
         }
-        /*7790*/
+        /*7351*/
         public void Release()
         {
-            /*7791*/
+            /*7352*/
             JsValue ret;
-            /*7792*/
+            /*7353*/
             Cef3Binder.MyCefMet_Call0(this.nativePtr, CefV8Exception_Release_0, out ret);
-            /*7793*/
+            /*7354*/
         }
+
+        // gen! CefString GetMessage()
         /// <summary>
         /// CefV8Exception methods.
         /// </summary>
-        /*7794*/
+        /*7355*/
 
-
-        // gen! CefString GetMessage()
-        /*7795*/
-
-        public string GetMessage()/*7796*/
+        public string GetMessage()/*7356*/
         {
             JsValue ret;
-            /*7797*/
+            /*7357*/
 
             Cef3Binder.MyCefMet_Call0(this.nativePtr, CefV8Exception_GetMessage_1, out ret);
-            /*7798*/
+            /*7358*/
             var ret_result = Cef3Binder.CopyStringAndDestroyNativeSide(ref ret);
-            /*7799*/
+            /*7359*/
             return ret_result;
-            /*7800*/
+            /*7360*/
         }
+
+        // gen! CefString GetSourceLine()
         /// <summary>
         /// Returns the line of source code that the exception occurred within.
         /// /*cef()*/
         /// </summary>
-        /*7801*/
+        /*7361*/
 
-
-        // gen! CefString GetSourceLine()
-        /*7802*/
-
-        public string GetSourceLine()/*7803*/
+        public string GetSourceLine()/*7362*/
         {
             JsValue ret;
-            /*7804*/
+            /*7363*/
 
             Cef3Binder.MyCefMet_Call0(this.nativePtr, CefV8Exception_GetSourceLine_2, out ret);
-            /*7805*/
+            /*7364*/
             var ret_result = Cef3Binder.CopyStringAndDestroyNativeSide(ref ret);
-            /*7806*/
+            /*7365*/
             return ret_result;
-            /*7807*/
+            /*7366*/
         }
+
+        // gen! CefString GetScriptResourceName()
         /// <summary>
         /// Returns the resource name for the script from where the function causing
         /// the error originates.
         /// /*cef()*/
         /// </summary>
-        /*7808*/
+        /*7367*/
 
-
-        // gen! CefString GetScriptResourceName()
-        /*7809*/
-
-        public string GetScriptResourceName()/*7810*/
+        public string GetScriptResourceName()/*7368*/
         {
             JsValue ret;
-            /*7811*/
+            /*7369*/
 
             Cef3Binder.MyCefMet_Call0(this.nativePtr, CefV8Exception_GetScriptResourceName_3, out ret);
-            /*7812*/
+            /*7370*/
             var ret_result = Cef3Binder.CopyStringAndDestroyNativeSide(ref ret);
-            /*7813*/
+            /*7371*/
             return ret_result;
-            /*7814*/
+            /*7372*/
         }
+
+        // gen! int GetLineNumber()
         /// <summary>
         /// Returns the 1-based number of the line where the error occurred or 0 if the
         /// line number is unknown.
         /// /*cef()*/
         /// </summary>
-        /*7815*/
+        /*7373*/
 
-
-        // gen! int GetLineNumber()
-        /*7816*/
-
-        public int GetLineNumber()/*7817*/
+        public int GetLineNumber()/*7374*/
         {
             JsValue ret;
-            /*7818*/
+            /*7375*/
 
             Cef3Binder.MyCefMet_Call0(this.nativePtr, CefV8Exception_GetLineNumber_4, out ret);
-            /*7819*/
+            /*7376*/
             var ret_result = ret.I32;
-            /*7820*/
+            /*7377*/
             return ret_result;
-            /*7821*/
+            /*7378*/
         }
+
+        // gen! int GetStartPosition()
         /// <summary>
         /// Returns the index within the script of the first character where the error
         /// occurred.
         /// /*cef()*/
         /// </summary>
-        /*7822*/
+        /*7379*/
 
-
-        // gen! int GetStartPosition()
-        /*7823*/
-
-        public int GetStartPosition()/*7824*/
+        public int GetStartPosition()/*7380*/
         {
             JsValue ret;
-            /*7825*/
+            /*7381*/
 
             Cef3Binder.MyCefMet_Call0(this.nativePtr, CefV8Exception_GetStartPosition_5, out ret);
-            /*7826*/
+            /*7382*/
             var ret_result = ret.I32;
-            /*7827*/
+            /*7383*/
             return ret_result;
-            /*7828*/
+            /*7384*/
         }
+
+        // gen! int GetEndPosition()
         /// <summary>
         /// Returns the index within the script of the last character where the error
         /// occurred.
         /// /*cef()*/
         /// </summary>
-        /*7829*/
+        /*7385*/
 
-
-        // gen! int GetEndPosition()
-        /*7830*/
-
-        public int GetEndPosition()/*7831*/
+        public int GetEndPosition()/*7386*/
         {
             JsValue ret;
-            /*7832*/
+            /*7387*/
 
             Cef3Binder.MyCefMet_Call0(this.nativePtr, CefV8Exception_GetEndPosition_6, out ret);
-            /*7833*/
+            /*7388*/
             var ret_result = ret.I32;
-            /*7834*/
+            /*7389*/
             return ret_result;
-            /*7835*/
+            /*7390*/
         }
+
+        // gen! int GetStartColumn()
         /// <summary>
         /// Returns the index within the line of the first character where the error
         /// occurred.
         /// /*cef()*/
         /// </summary>
-        /*7836*/
+        /*7391*/
 
-
-        // gen! int GetStartColumn()
-        /*7837*/
-
-        public int GetStartColumn()/*7838*/
+        public int GetStartColumn()/*7392*/
         {
             JsValue ret;
-            /*7839*/
+            /*7393*/
 
             Cef3Binder.MyCefMet_Call0(this.nativePtr, CefV8Exception_GetStartColumn_7, out ret);
-            /*7840*/
+            /*7394*/
             var ret_result = ret.I32;
-            /*7841*/
+            /*7395*/
             return ret_result;
-            /*7842*/
+            /*7396*/
         }
+
+        // gen! int GetEndColumn()
         /// <summary>
         /// Returns the index within the line of the last character where the error
         /// occurred.
         /// /*cef()*/
         /// </summary>
-        /*7843*/
+        /*7397*/
 
-
-        // gen! int GetEndColumn()
-        /*7844*/
-
-        public int GetEndColumn()/*7845*/
+        public int GetEndColumn()/*7398*/
         {
             JsValue ret;
-            /*7846*/
+            /*7399*/
 
             Cef3Binder.MyCefMet_Call0(this.nativePtr, CefV8Exception_GetEndColumn_8, out ret);
-            /*7847*/
+            /*7400*/
             var ret_result = ret.I32;
-            /*7848*/
+            /*7401*/
             return ret_result;
-            /*7849*/
+            /*7402*/
         }
-        /*7850*/
+        /*7403*/
     }
 
 
@@ -16185,541 +15291,505 @@ namespace LayoutFarm.CefBridge.Auto
     /// the CefV8Context::GetTaskRunner() method.
     /// /*(source=library)*/
     /// </summary>
-    /*8079*/
+    /*7632*/
     public struct CefV8Value
     {
-        /*8080*/
+        /*7633*/
         const int _typeNAME = 43;
-        /*8081*/
+        /*7634*/
         const int CefV8Value_Release_0 = (_typeNAME << 16) | 0;
-        /*8082*/
+        /*7635*/
         const int CefV8Value_IsValid_1 = (_typeNAME << 16) | 1;
-        /*8083*/
+        /*7636*/
         const int CefV8Value_IsUndefined_2 = (_typeNAME << 16) | 2;
-        /*8084*/
+        /*7637*/
         const int CefV8Value_IsNull_3 = (_typeNAME << 16) | 3;
-        /*8085*/
+        /*7638*/
         const int CefV8Value_IsBool_4 = (_typeNAME << 16) | 4;
-        /*8086*/
+        /*7639*/
         const int CefV8Value_IsInt_5 = (_typeNAME << 16) | 5;
-        /*8087*/
+        /*7640*/
         const int CefV8Value_IsUInt_6 = (_typeNAME << 16) | 6;
-        /*8088*/
+        /*7641*/
         const int CefV8Value_IsDouble_7 = (_typeNAME << 16) | 7;
-        /*8089*/
+        /*7642*/
         const int CefV8Value_IsDate_8 = (_typeNAME << 16) | 8;
-        /*8090*/
+        /*7643*/
         const int CefV8Value_IsString_9 = (_typeNAME << 16) | 9;
-        /*8091*/
+        /*7644*/
         const int CefV8Value_IsObject_10 = (_typeNAME << 16) | 10;
-        /*8092*/
+        /*7645*/
         const int CefV8Value_IsArray_11 = (_typeNAME << 16) | 11;
-        /*8093*/
+        /*7646*/
         const int CefV8Value_IsFunction_12 = (_typeNAME << 16) | 12;
-        /*8094*/
+        /*7647*/
         const int CefV8Value_IsSame_13 = (_typeNAME << 16) | 13;
-        /*8095*/
+        /*7648*/
         const int CefV8Value_GetBoolValue_14 = (_typeNAME << 16) | 14;
-        /*8096*/
+        /*7649*/
         const int CefV8Value_GetIntValue_15 = (_typeNAME << 16) | 15;
-        /*8097*/
+        /*7650*/
         const int CefV8Value_GetUIntValue_16 = (_typeNAME << 16) | 16;
-        /*8098*/
+        /*7651*/
         const int CefV8Value_GetDoubleValue_17 = (_typeNAME << 16) | 17;
-        /*8099*/
+        /*7652*/
         const int CefV8Value_GetDateValue_18 = (_typeNAME << 16) | 18;
-        /*8100*/
+        /*7653*/
         const int CefV8Value_GetStringValue_19 = (_typeNAME << 16) | 19;
-        /*8101*/
+        /*7654*/
         const int CefV8Value_IsUserCreated_20 = (_typeNAME << 16) | 20;
-        /*8102*/
+        /*7655*/
         const int CefV8Value_HasException_21 = (_typeNAME << 16) | 21;
-        /*8103*/
+        /*7656*/
         const int CefV8Value_GetException_22 = (_typeNAME << 16) | 22;
-        /*8104*/
+        /*7657*/
         const int CefV8Value_ClearException_23 = (_typeNAME << 16) | 23;
-        /*8105*/
+        /*7658*/
         const int CefV8Value_WillRethrowExceptions_24 = (_typeNAME << 16) | 24;
-        /*8106*/
+        /*7659*/
         const int CefV8Value_SetRethrowExceptions_25 = (_typeNAME << 16) | 25;
-        /*8107*/
+        /*7660*/
         const int CefV8Value_HasValue_26 = (_typeNAME << 16) | 26;
-        /*8108*/
+        /*7661*/
         const int CefV8Value_HasValue_27 = (_typeNAME << 16) | 27;
-        /*8109*/
+        /*7662*/
         const int CefV8Value_DeleteValue_28 = (_typeNAME << 16) | 28;
-        /*8110*/
+        /*7663*/
         const int CefV8Value_DeleteValue_29 = (_typeNAME << 16) | 29;
-        /*8111*/
+        /*7664*/
         const int CefV8Value_GetValue_30 = (_typeNAME << 16) | 30;
-        /*8112*/
+        /*7665*/
         const int CefV8Value_GetValue_31 = (_typeNAME << 16) | 31;
-        /*8113*/
+        /*7666*/
         const int CefV8Value_SetValue_32 = (_typeNAME << 16) | 32;
-        /*8114*/
+        /*7667*/
         const int CefV8Value_SetValue_33 = (_typeNAME << 16) | 33;
-        /*8115*/
+        /*7668*/
         const int CefV8Value_SetValue_34 = (_typeNAME << 16) | 34;
-        /*8116*/
+        /*7669*/
         const int CefV8Value_GetKeys_35 = (_typeNAME << 16) | 35;
-        /*8117*/
+        /*7670*/
         const int CefV8Value_SetUserData_36 = (_typeNAME << 16) | 36;
-        /*8118*/
+        /*7671*/
         const int CefV8Value_GetUserData_37 = (_typeNAME << 16) | 37;
-        /*8119*/
+        /*7672*/
         const int CefV8Value_GetExternallyAllocatedMemory_38 = (_typeNAME << 16) | 38;
-        /*8120*/
+        /*7673*/
         const int CefV8Value_AdjustExternallyAllocatedMemory_39 = (_typeNAME << 16) | 39;
-        /*8121*/
+        /*7674*/
         const int CefV8Value_GetArrayLength_40 = (_typeNAME << 16) | 40;
-        /*8122*/
+        /*7675*/
         const int CefV8Value_GetFunctionName_41 = (_typeNAME << 16) | 41;
-        /*8123*/
+        /*7676*/
         const int CefV8Value_GetFunctionHandler_42 = (_typeNAME << 16) | 42;
-        /*8124*/
+        /*7677*/
         const int CefV8Value_ExecuteFunction_43 = (_typeNAME << 16) | 43;
-        /*8125*/
+        /*7678*/
         const int CefV8Value_ExecuteFunctionWithContext_44 = (_typeNAME << 16) | 44;
-        /*8126*/
+        /*7679*/
         internal readonly IntPtr nativePtr;
-        /*8127*/
+        /*7680*/
         internal CefV8Value(IntPtr nativePtr)
         {
-            /*8128*/
+            /*7681*/
             this.nativePtr = nativePtr;
-            /*8129*/
+            /*7682*/
         }
-        /*8130*/
+        /*7683*/
         public void Release()
         {
-            /*8131*/
+            /*7684*/
             JsValue ret;
-            /*8132*/
+            /*7685*/
             Cef3Binder.MyCefMet_Call0(this.nativePtr, CefV8Value_Release_0, out ret);
-            /*8133*/
+            /*7686*/
         }
+
+        // gen! bool IsValid()
         /// <summary>
         /// CefV8Value methods.
         /// </summary>
-        /*8134*/
+        /*7687*/
 
-
-        // gen! bool IsValid()
-        /*8135*/
-
-        public bool IsValid()/*8136*/
+        public bool IsValid()/*7688*/
         {
             JsValue ret;
-            /*8137*/
+            /*7689*/
 
             Cef3Binder.MyCefMet_Call0(this.nativePtr, CefV8Value_IsValid_1, out ret);
-            /*8138*/
+            /*7690*/
             var ret_result = ret.I32 != 0;
-            /*8139*/
+            /*7691*/
             return ret_result;
-            /*8140*/
+            /*7692*/
         }
+
+        // gen! bool IsUndefined()
         /// <summary>
         /// True if the value type is undefined.
         /// /*cef()*/
         /// </summary>
-        /*8141*/
+        /*7693*/
 
-
-        // gen! bool IsUndefined()
-        /*8142*/
-
-        public bool IsUndefined()/*8143*/
+        public bool IsUndefined()/*7694*/
         {
             JsValue ret;
-            /*8144*/
+            /*7695*/
 
             Cef3Binder.MyCefMet_Call0(this.nativePtr, CefV8Value_IsUndefined_2, out ret);
-            /*8145*/
+            /*7696*/
             var ret_result = ret.I32 != 0;
-            /*8146*/
+            /*7697*/
             return ret_result;
-            /*8147*/
+            /*7698*/
         }
+
+        // gen! bool IsNull()
         /// <summary>
         /// True if the value type is null.
         /// /*cef()*/
         /// </summary>
-        /*8148*/
+        /*7699*/
 
-
-        // gen! bool IsNull()
-        /*8149*/
-
-        public bool IsNull()/*8150*/
+        public bool IsNull()/*7700*/
         {
             JsValue ret;
-            /*8151*/
+            /*7701*/
 
             Cef3Binder.MyCefMet_Call0(this.nativePtr, CefV8Value_IsNull_3, out ret);
-            /*8152*/
+            /*7702*/
             var ret_result = ret.I32 != 0;
-            /*8153*/
+            /*7703*/
             return ret_result;
-            /*8154*/
+            /*7704*/
         }
+
+        // gen! bool IsBool()
         /// <summary>
         /// True if the value type is bool.
         /// /*cef()*/
         /// </summary>
-        /*8155*/
+        /*7705*/
 
-
-        // gen! bool IsBool()
-        /*8156*/
-
-        public bool IsBool()/*8157*/
+        public bool IsBool()/*7706*/
         {
             JsValue ret;
-            /*8158*/
+            /*7707*/
 
             Cef3Binder.MyCefMet_Call0(this.nativePtr, CefV8Value_IsBool_4, out ret);
-            /*8159*/
+            /*7708*/
             var ret_result = ret.I32 != 0;
-            /*8160*/
+            /*7709*/
             return ret_result;
-            /*8161*/
+            /*7710*/
         }
+
+        // gen! bool IsInt()
         /// <summary>
         /// True if the value type is int.
         /// /*cef()*/
         /// </summary>
-        /*8162*/
+        /*7711*/
 
-
-        // gen! bool IsInt()
-        /*8163*/
-
-        public bool IsInt()/*8164*/
+        public bool IsInt()/*7712*/
         {
             JsValue ret;
-            /*8165*/
+            /*7713*/
 
             Cef3Binder.MyCefMet_Call0(this.nativePtr, CefV8Value_IsInt_5, out ret);
-            /*8166*/
+            /*7714*/
             var ret_result = ret.I32 != 0;
-            /*8167*/
+            /*7715*/
             return ret_result;
-            /*8168*/
+            /*7716*/
         }
+
+        // gen! bool IsUInt()
         /// <summary>
         /// True if the value type is unsigned int.
         /// /*cef()*/
         /// </summary>
-        /*8169*/
+        /*7717*/
 
-
-        // gen! bool IsUInt()
-        /*8170*/
-
-        public bool IsUInt()/*8171*/
+        public bool IsUInt()/*7718*/
         {
             JsValue ret;
-            /*8172*/
+            /*7719*/
 
             Cef3Binder.MyCefMet_Call0(this.nativePtr, CefV8Value_IsUInt_6, out ret);
-            /*8173*/
+            /*7720*/
             var ret_result = ret.I32 != 0;
-            /*8174*/
+            /*7721*/
             return ret_result;
-            /*8175*/
+            /*7722*/
         }
+
+        // gen! bool IsDouble()
         /// <summary>
         /// True if the value type is double.
         /// /*cef()*/
         /// </summary>
-        /*8176*/
+        /*7723*/
 
-
-        // gen! bool IsDouble()
-        /*8177*/
-
-        public bool IsDouble()/*8178*/
+        public bool IsDouble()/*7724*/
         {
             JsValue ret;
-            /*8179*/
+            /*7725*/
 
             Cef3Binder.MyCefMet_Call0(this.nativePtr, CefV8Value_IsDouble_7, out ret);
-            /*8180*/
+            /*7726*/
             var ret_result = ret.I32 != 0;
-            /*8181*/
+            /*7727*/
             return ret_result;
-            /*8182*/
+            /*7728*/
         }
+
+        // gen! bool IsDate()
         /// <summary>
         /// True if the value type is Date.
         /// /*cef()*/
         /// </summary>
-        /*8183*/
+        /*7729*/
 
-
-        // gen! bool IsDate()
-        /*8184*/
-
-        public bool IsDate()/*8185*/
+        public bool IsDate()/*7730*/
         {
             JsValue ret;
-            /*8186*/
+            /*7731*/
 
             Cef3Binder.MyCefMet_Call0(this.nativePtr, CefV8Value_IsDate_8, out ret);
-            /*8187*/
+            /*7732*/
             var ret_result = ret.I32 != 0;
-            /*8188*/
+            /*7733*/
             return ret_result;
-            /*8189*/
+            /*7734*/
         }
+
+        // gen! bool IsString()
         /// <summary>
         /// True if the value type is string.
         /// /*cef()*/
         /// </summary>
-        /*8190*/
+        /*7735*/
 
-
-        // gen! bool IsString()
-        /*8191*/
-
-        public bool IsString()/*8192*/
+        public bool IsString()/*7736*/
         {
             JsValue ret;
-            /*8193*/
+            /*7737*/
 
             Cef3Binder.MyCefMet_Call0(this.nativePtr, CefV8Value_IsString_9, out ret);
-            /*8194*/
+            /*7738*/
             var ret_result = ret.I32 != 0;
-            /*8195*/
+            /*7739*/
             return ret_result;
-            /*8196*/
+            /*7740*/
         }
+
+        // gen! bool IsObject()
         /// <summary>
         /// True if the value type is object.
         /// /*cef()*/
         /// </summary>
-        /*8197*/
+        /*7741*/
 
-
-        // gen! bool IsObject()
-        /*8198*/
-
-        public bool IsObject()/*8199*/
+        public bool IsObject()/*7742*/
         {
             JsValue ret;
-            /*8200*/
+            /*7743*/
 
             Cef3Binder.MyCefMet_Call0(this.nativePtr, CefV8Value_IsObject_10, out ret);
-            /*8201*/
+            /*7744*/
             var ret_result = ret.I32 != 0;
-            /*8202*/
+            /*7745*/
             return ret_result;
-            /*8203*/
+            /*7746*/
         }
+
+        // gen! bool IsArray()
         /// <summary>
         /// True if the value type is array.
         /// /*cef()*/
         /// </summary>
-        /*8204*/
+        /*7747*/
 
-
-        // gen! bool IsArray()
-        /*8205*/
-
-        public bool IsArray()/*8206*/
+        public bool IsArray()/*7748*/
         {
             JsValue ret;
-            /*8207*/
+            /*7749*/
 
             Cef3Binder.MyCefMet_Call0(this.nativePtr, CefV8Value_IsArray_11, out ret);
-            /*8208*/
+            /*7750*/
             var ret_result = ret.I32 != 0;
-            /*8209*/
+            /*7751*/
             return ret_result;
-            /*8210*/
+            /*7752*/
         }
+
+        // gen! bool IsFunction()
         /// <summary>
         /// True if the value type is function.
         /// /*cef()*/
         /// </summary>
-        /*8211*/
+        /*7753*/
 
-
-        // gen! bool IsFunction()
-        /*8212*/
-
-        public bool IsFunction()/*8213*/
+        public bool IsFunction()/*7754*/
         {
             JsValue ret;
-            /*8214*/
+            /*7755*/
 
             Cef3Binder.MyCefMet_Call0(this.nativePtr, CefV8Value_IsFunction_12, out ret);
-            /*8215*/
+            /*7756*/
             var ret_result = ret.I32 != 0;
-            /*8216*/
+            /*7757*/
             return ret_result;
-            /*8217*/
+            /*7758*/
         }
+
+        // gen! bool IsSame(CefRefPtr<CefV8Value> that)
         /// <summary>
         /// Returns true if this object is pointing to the same handle as |that|
         /// object.
         /// /*cef()*/
         /// </summary>
-        /*8218*/
+        /*7759*/
 
-
-        // gen! bool IsSame(CefRefPtr<CefV8Value> that)
-        /*8219*/
-
-        public bool IsSame(CefV8Value /*8220*/
+        public bool IsSame(CefV8Value /*7760*/
         that
-        )/*8221*/
+        )/*7761*/
         {
             JsValue v1 = new JsValue();
             JsValue ret;
-            /*8222*/
+            /*7762*/
 
             Cef3Binder.MyCefMet_Call1(this.nativePtr, CefV8Value_IsSame_13, out ret, ref v1);
-            /*8223*/
+            /*7763*/
             var ret_result = ret.I32 != 0;
-            /*8224*/
+            /*7764*/
             return ret_result;
-            /*8225*/
+            /*7765*/
         }
+
+        // gen! bool GetBoolValue()
         /// <summary>
         /// Return a bool value.
         /// /*cef()*/
         /// </summary>
-        /*8226*/
+        /*7766*/
 
-
-        // gen! bool GetBoolValue()
-        /*8227*/
-
-        public bool GetBoolValue()/*8228*/
+        public bool GetBoolValue()/*7767*/
         {
             JsValue ret;
-            /*8229*/
+            /*7768*/
 
             Cef3Binder.MyCefMet_Call0(this.nativePtr, CefV8Value_GetBoolValue_14, out ret);
-            /*8230*/
+            /*7769*/
             var ret_result = ret.I32 != 0;
-            /*8231*/
+            /*7770*/
             return ret_result;
-            /*8232*/
+            /*7771*/
         }
+
+        // gen! int32 GetIntValue()
         /// <summary>
         /// Return an int value.
         /// /*cef()*/
         /// </summary>
-        /*8233*/
+        /*7772*/
 
-
-        // gen! int32 GetIntValue()
-        /*8234*/
-
-        public int GetIntValue()/*8235*/
+        public int GetIntValue()/*7773*/
         {
             JsValue ret;
-            /*8236*/
+            /*7774*/
 
             Cef3Binder.MyCefMet_Call0(this.nativePtr, CefV8Value_GetIntValue_15, out ret);
-            /*8237*/
+            /*7775*/
             var ret_result = ret.I32;
-            /*8238*/
+            /*7776*/
             return ret_result;
-            /*8239*/
+            /*7777*/
         }
+
+        // gen! uint32 GetUIntValue()
         /// <summary>
         /// Return an unsigned int value.
         /// /*cef()*/
         /// </summary>
-        /*8240*/
+        /*7778*/
 
-
-        // gen! uint32 GetUIntValue()
-        /*8241*/
-
-        public uint GetUIntValue()/*8242*/
+        public uint GetUIntValue()/*7779*/
         {
             JsValue ret;
-            /*8243*/
+            /*7780*/
 
             Cef3Binder.MyCefMet_Call0(this.nativePtr, CefV8Value_GetUIntValue_16, out ret);
-            /*8244*/
+            /*7781*/
             var ret_result = (uint)ret.I32;
-            /*8245*/
+            /*7782*/
             return ret_result;
-            /*8246*/
+            /*7783*/
         }
+
+        // gen! double GetDoubleValue()
         /// <summary>
         /// Return a double value.
         /// /*cef()*/
         /// </summary>
-        /*8247*/
+        /*7784*/
 
-
-        // gen! double GetDoubleValue()
-        /*8248*/
-
-        public double GetDoubleValue()/*8249*/
+        public double GetDoubleValue()/*7785*/
         {
             JsValue ret;
-            /*8250*/
+            /*7786*/
 
             Cef3Binder.MyCefMet_Call0(this.nativePtr, CefV8Value_GetDoubleValue_17, out ret);
-            /*8251*/
+            /*7787*/
             var ret_result = ret.Num;
-            /*8252*/
+            /*7788*/
             return ret_result;
-            /*8253*/
+            /*7789*/
         }
+
+        // gen! CefTime GetDateValue()
         /// <summary>
         /// Return a Date value.
         /// /*cef()*/
         /// </summary>
-        /*8254*/
+        /*7790*/
 
-
-        // gen! CefTime GetDateValue()
-        /*8255*/
-
-        public CefTime GetDateValue()/*8256*/
+        public CefTime GetDateValue()/*7791*/
         {
             JsValue ret;
-            /*8257*/
+            /*7792*/
 
             Cef3Binder.MyCefMet_Call0(this.nativePtr, CefV8Value_GetDateValue_18, out ret);
-            /*8258*/
+            /*7793*/
             var ret_result = new CefTime(ret.Ptr);
 
-            /*8259*/
+            /*7794*/
             return ret_result;
-            /*8260*/
+            /*7795*/
         }
+
+        // gen! CefString GetStringValue()
         /// <summary>
         /// Return a string value.
         /// /*cef()*/
         /// </summary>
-        /*8261*/
+        /*7796*/
 
-
-        // gen! CefString GetStringValue()
-        /*8262*/
-
-        public string GetStringValue()/*8263*/
+        public string GetStringValue()/*7797*/
         {
             JsValue ret;
-            /*8264*/
+            /*7798*/
 
             Cef3Binder.MyCefMet_Call0(this.nativePtr, CefV8Value_GetStringValue_19, out ret);
-            /*8265*/
+            /*7799*/
             var ret_result = Cef3Binder.CopyStringAndDestroyNativeSide(ref ret);
-            /*8266*/
+            /*7800*/
             return ret_result;
-            /*8267*/
+            /*7801*/
         }
+
+        // gen! bool IsUserCreated()
         /// <summary>
         /// OBJECT METHODS - These methods are only available on objects. Arrays and
         /// functions are also objects. String- and integer-based keys can be used
@@ -16727,115 +15797,105 @@ namespace LayoutFarm.CefBridge.Auto
         /// Returns true if this is a user created object.
         /// /*cef()*/
         /// </summary>
-        /*8268*/
+        /*7802*/
 
-
-        // gen! bool IsUserCreated()
-        /*8269*/
-
-        public bool IsUserCreated()/*8270*/
+        public bool IsUserCreated()/*7803*/
         {
             JsValue ret;
-            /*8271*/
+            /*7804*/
 
             Cef3Binder.MyCefMet_Call0(this.nativePtr, CefV8Value_IsUserCreated_20, out ret);
-            /*8272*/
+            /*7805*/
             var ret_result = ret.I32 != 0;
-            /*8273*/
+            /*7806*/
             return ret_result;
-            /*8274*/
+            /*7807*/
         }
+
+        // gen! bool HasException()
         /// <summary>
         /// Returns true if the last method call resulted in an exception. This
         /// attribute exists only in the scope of the current CEF value object.
         /// /*cef()*/
         /// </summary>
-        /*8275*/
+        /*7808*/
 
-
-        // gen! bool HasException()
-        /*8276*/
-
-        public bool HasException()/*8277*/
+        public bool HasException()/*7809*/
         {
             JsValue ret;
-            /*8278*/
+            /*7810*/
 
             Cef3Binder.MyCefMet_Call0(this.nativePtr, CefV8Value_HasException_21, out ret);
-            /*8279*/
+            /*7811*/
             var ret_result = ret.I32 != 0;
-            /*8280*/
+            /*7812*/
             return ret_result;
-            /*8281*/
+            /*7813*/
         }
+
+        // gen! CefRefPtr<CefV8Exception> GetException()
         /// <summary>
         /// Returns the exception resulting from the last method call. This attribute
         /// exists only in the scope of the current CEF value object.
         /// /*cef()*/
         /// </summary>
-        /*8282*/
+        /*7814*/
 
-
-        // gen! CefRefPtr<CefV8Exception> GetException()
-        /*8283*/
-
-        public CefV8Exception GetException()/*8284*/
+        public CefV8Exception GetException()/*7815*/
         {
             JsValue ret;
-            /*8285*/
+            /*7816*/
 
             Cef3Binder.MyCefMet_Call0(this.nativePtr, CefV8Value_GetException_22, out ret);
-            /*8286*/
+            /*7817*/
             var ret_result = new CefV8Exception(ret.Ptr);
-            /*8287*/
+            /*7818*/
             return ret_result;
-            /*8288*/
+            /*7819*/
         }
+
+        // gen! bool ClearException()
         /// <summary>
         /// Clears the last exception and returns true on success.
         /// /*cef()*/
         /// </summary>
-        /*8289*/
+        /*7820*/
 
-
-        // gen! bool ClearException()
-        /*8290*/
-
-        public bool ClearException()/*8291*/
+        public bool ClearException()/*7821*/
         {
             JsValue ret;
-            /*8292*/
+            /*7822*/
 
             Cef3Binder.MyCefMet_Call0(this.nativePtr, CefV8Value_ClearException_23, out ret);
-            /*8293*/
+            /*7823*/
             var ret_result = ret.I32 != 0;
-            /*8294*/
+            /*7824*/
             return ret_result;
-            /*8295*/
+            /*7825*/
         }
+
+        // gen! bool WillRethrowExceptions()
         /// <summary>
         /// Returns true if this object will re-throw future exceptions. This attribute
         /// exists only in the scope of the current CEF value object.
         /// /*cef()*/
         /// </summary>
-        /*8296*/
+        /*7826*/
 
-
-        // gen! bool WillRethrowExceptions()
-        /*8297*/
-
-        public bool WillRethrowExceptions()/*8298*/
+        public bool WillRethrowExceptions()/*7827*/
         {
             JsValue ret;
-            /*8299*/
+            /*7828*/
 
             Cef3Binder.MyCefMet_Call0(this.nativePtr, CefV8Value_WillRethrowExceptions_24, out ret);
-            /*8300*/
+            /*7829*/
             var ret_result = ret.I32 != 0;
-            /*8301*/
+            /*7830*/
             return ret_result;
-            /*8302*/
+            /*7831*/
         }
+
+        // gen! bool SetRethrowExceptions(bool rethrow)
         /// <summary>
         /// Set whether this object will re-throw future exceptions. By default
         /// exceptions are not re-thrown. If a exception is re-thrown the current
@@ -16844,354 +15904,326 @@ namespace LayoutFarm.CefBridge.Auto
         /// only in the scope of the current CEF value object.
         /// /*cef()*/
         /// </summary>
-        /*8303*/
+        /*7832*/
 
-
-        // gen! bool SetRethrowExceptions(bool rethrow)
-        /*8304*/
-
-        public bool SetRethrowExceptions(bool /*8305*/
+        public bool SetRethrowExceptions(bool /*7833*/
         rethrow
-        )/*8306*/
+        )/*7834*/
         {
             JsValue v1 = new JsValue();
             JsValue ret;
-            /*8307*/
+            /*7835*/
 
             Cef3Binder.MyCefMet_Call1(this.nativePtr, CefV8Value_SetRethrowExceptions_25, out ret, ref v1);
-            /*8308*/
+            /*7836*/
             var ret_result = ret.I32 != 0;
-            /*8309*/
+            /*7837*/
             return ret_result;
-            /*8310*/
+            /*7838*/
         }
-        /*8311*/
-
 
         // gen! bool HasValue(const CefString& key)
-        /*8312*/
+        /*7839*/
 
-        public bool HasValue(string /*8313*/
+        public bool HasValue(string /*7840*/
         key
-        )/*8314*/
+        )/*7841*/
         {
             JsValue v1 = new JsValue();
             JsValue ret;
             v1.Ptr = Cef3Binder.MyCefCreateCefString(key);
-            /*8315*/
+            /*7842*/
             ;
-            /*8316*/
+            /*7843*/
 
             Cef3Binder.MyCefMet_Call1(this.nativePtr, CefV8Value_HasValue_26, out ret, ref v1);
-            /*8317*/
+            /*7844*/
             var ret_result = ret.I32 != 0;
-            Cef3Binder.MyCefDeletePtr(v1.Ptr);/*8318*/
+            Cef3Binder.MyCefDeletePtr(v1.Ptr);/*7845*/
             ;
-            /*8319*/
+            /*7846*/
             return ret_result;
-            /*8320*/
+            /*7847*/
         }
-        /*8321*/
-
 
         // gen! bool HasValue(int index)
-        /*8322*/
+        /*7848*/
 
-        public bool HasValue(int /*8323*/
+        public bool HasValue(int /*7849*/
         index
-        )/*8324*/
+        )/*7850*/
         {
             JsValue v1 = new JsValue();
             JsValue ret;
-            /*8325*/
+            /*7851*/
 
             Cef3Binder.MyCefMet_Call1(this.nativePtr, CefV8Value_HasValue_27, out ret, ref v1);
-            /*8326*/
+            /*7852*/
             var ret_result = ret.I32 != 0;
-            /*8327*/
+            /*7853*/
             return ret_result;
-            /*8328*/
+            /*7854*/
         }
-        /*8329*/
-
 
         // gen! bool DeleteValue(const CefString& key)
-        /*8330*/
+        /*7855*/
 
-        public bool DeleteValue(string /*8331*/
+        public bool DeleteValue(string /*7856*/
         key
-        )/*8332*/
+        )/*7857*/
         {
             JsValue v1 = new JsValue();
             JsValue ret;
             v1.Ptr = Cef3Binder.MyCefCreateCefString(key);
-            /*8333*/
+            /*7858*/
             ;
-            /*8334*/
+            /*7859*/
 
             Cef3Binder.MyCefMet_Call1(this.nativePtr, CefV8Value_DeleteValue_28, out ret, ref v1);
-            /*8335*/
+            /*7860*/
             var ret_result = ret.I32 != 0;
-            Cef3Binder.MyCefDeletePtr(v1.Ptr);/*8336*/
+            Cef3Binder.MyCefDeletePtr(v1.Ptr);/*7861*/
             ;
-            /*8337*/
+            /*7862*/
             return ret_result;
-            /*8338*/
+            /*7863*/
         }
-        /*8339*/
-
 
         // gen! bool DeleteValue(int index)
-        /*8340*/
+        /*7864*/
 
-        public bool DeleteValue(int /*8341*/
+        public bool DeleteValue(int /*7865*/
         index
-        )/*8342*/
+        )/*7866*/
         {
             JsValue v1 = new JsValue();
             JsValue ret;
-            /*8343*/
+            /*7867*/
 
             Cef3Binder.MyCefMet_Call1(this.nativePtr, CefV8Value_DeleteValue_29, out ret, ref v1);
-            /*8344*/
+            /*7868*/
             var ret_result = ret.I32 != 0;
-            /*8345*/
+            /*7869*/
             return ret_result;
-            /*8346*/
+            /*7870*/
         }
-        /*8347*/
-
 
         // gen! CefRefPtr<CefV8Value> GetValue(const CefString& key)
-        /*8348*/
+        /*7871*/
 
-        public CefV8Value GetValue(string /*8349*/
+        public CefV8Value GetValue(string /*7872*/
         key
-        )/*8350*/
+        )/*7873*/
         {
             JsValue v1 = new JsValue();
             JsValue ret;
             v1.Ptr = Cef3Binder.MyCefCreateCefString(key);
-            /*8351*/
+            /*7874*/
             ;
-            /*8352*/
+            /*7875*/
 
             Cef3Binder.MyCefMet_Call1(this.nativePtr, CefV8Value_GetValue_30, out ret, ref v1);
-            /*8353*/
+            /*7876*/
             var ret_result = new CefV8Value(ret.Ptr);
-            Cef3Binder.MyCefDeletePtr(v1.Ptr);/*8354*/
+            Cef3Binder.MyCefDeletePtr(v1.Ptr);/*7877*/
             ;
-            /*8355*/
+            /*7878*/
             return ret_result;
-            /*8356*/
+            /*7879*/
         }
-        /*8357*/
-
 
         // gen! CefRefPtr<CefV8Value> GetValue(int index)
-        /*8358*/
+        /*7880*/
 
-        public CefV8Value GetValue(int /*8359*/
+        public CefV8Value GetValue(int /*7881*/
         index
-        )/*8360*/
+        )/*7882*/
         {
             JsValue v1 = new JsValue();
             JsValue ret;
-            /*8361*/
+            /*7883*/
 
             Cef3Binder.MyCefMet_Call1(this.nativePtr, CefV8Value_GetValue_31, out ret, ref v1);
-            /*8362*/
+            /*7884*/
             var ret_result = new CefV8Value(ret.Ptr);
-            /*8363*/
+            /*7885*/
             return ret_result;
-            /*8364*/
+            /*7886*/
         }
-        /*8365*/
-
 
         // gen! bool SetValue(const CefString& key,CefRefPtr<CefV8Value> value,PropertyAttribute attribute)
-        /*8366*/
+        /*7887*/
 
-        public bool SetValue(string /*8367*/
+        public bool SetValue(string /*7888*/
         key
-        , CefV8Value /*8368*/
+        , CefV8Value /*7889*/
         value
-        , cef_v8_propertyattribute_t /*8369*/
+        , cef_v8_propertyattribute_t /*7890*/
         attribute
-        )/*8370*/
+        )/*7891*/
         {
             JsValue v1 = new JsValue();
             JsValue v2 = new JsValue();
             JsValue v3 = new JsValue();
             JsValue ret;
             v1.Ptr = Cef3Binder.MyCefCreateCefString(key);
-            /*8371*/
+            /*7892*/
             ;
-            /*8372*/
+            /*7893*/
 
             Cef3Binder.MyCefMet_Call3(this.nativePtr, CefV8Value_SetValue_32, out ret, ref v1, ref v2, ref v3);
-            /*8373*/
+            /*7894*/
             var ret_result = ret.I32 != 0;
-            Cef3Binder.MyCefDeletePtr(v1.Ptr);/*8374*/
+            Cef3Binder.MyCefDeletePtr(v1.Ptr);/*7895*/
             ;
-            /*8375*/
+            /*7896*/
             return ret_result;
-            /*8376*/
+            /*7897*/
         }
-        /*8377*/
-
 
         // gen! bool SetValue(int index,CefRefPtr<CefV8Value> value)
-        /*8378*/
+        /*7898*/
 
-        public bool SetValue(int /*8379*/
+        public bool SetValue(int /*7899*/
         index
-        , CefV8Value /*8380*/
+        , CefV8Value /*7900*/
         value
-        )/*8381*/
+        )/*7901*/
         {
             JsValue v1 = new JsValue();
             JsValue v2 = new JsValue();
             JsValue ret;
-            /*8382*/
+            /*7902*/
 
             Cef3Binder.MyCefMet_Call2(this.nativePtr, CefV8Value_SetValue_33, out ret, ref v1, ref v2);
-            /*8383*/
+            /*7903*/
             var ret_result = ret.I32 != 0;
-            /*8384*/
+            /*7904*/
             return ret_result;
-            /*8385*/
+            /*7905*/
         }
-        /*8386*/
-
 
         // gen! bool SetValue(const CefString& key,AccessControl settings,PropertyAttribute attribute)
-        /*8387*/
+        /*7906*/
 
-        public bool SetValue(string /*8388*/
+        public bool SetValue(string /*7907*/
         key
-        , cef_v8_accesscontrol_t /*8389*/
+        , cef_v8_accesscontrol_t /*7908*/
         settings
-        , cef_v8_propertyattribute_t /*8390*/
+        , cef_v8_propertyattribute_t /*7909*/
         attribute
-        )/*8391*/
+        )/*7910*/
         {
             JsValue v1 = new JsValue();
             JsValue v2 = new JsValue();
             JsValue v3 = new JsValue();
             JsValue ret;
             v1.Ptr = Cef3Binder.MyCefCreateCefString(key);
-            /*8392*/
+            /*7911*/
             ;
-            /*8393*/
+            /*7912*/
 
             Cef3Binder.MyCefMet_Call3(this.nativePtr, CefV8Value_SetValue_34, out ret, ref v1, ref v2, ref v3);
-            /*8394*/
+            /*7913*/
             var ret_result = ret.I32 != 0;
-            Cef3Binder.MyCefDeletePtr(v1.Ptr);/*8395*/
+            Cef3Binder.MyCefDeletePtr(v1.Ptr);/*7914*/
             ;
-            /*8396*/
+            /*7915*/
             return ret_result;
-            /*8397*/
+            /*7916*/
         }
+
+        // gen! bool GetKeys(std::vector<CefString>& keys)
         /// <summary>
         /// Read the keys for the object's values into the specified vector. Integer-
         /// based keys will also be returned as strings.
         /// /*cef()*/
         /// </summary>
-        /*8398*/
+        /*7917*/
 
-
-        // gen! bool GetKeys(std::vector<CefString>& keys)
-        /*8399*/
-
-        public bool GetKeys(List<string> /*8400*/
+        public bool GetKeys(List<string> /*7918*/
         keys
-        )/*8401*/
+        )/*7919*/
         {
             JsValue v1 = new JsValue();
             JsValue ret;
-            /*8402*/
+            /*7920*/
 
             Cef3Binder.MyCefMet_Call1(this.nativePtr, CefV8Value_GetKeys_35, out ret, ref v1);
-            /*8403*/
+            /*7921*/
             var ret_result = ret.I32 != 0;
-            /*8404*/
+            /*7922*/
             return ret_result;
-            /*8405*/
+            /*7923*/
         }
+
+        // gen! bool SetUserData(CefRefPtr<CefBaseRefCounted> user_data)
         /// <summary>
         /// Sets the user data for this object and returns true on success. Returns
         /// false if this method is called incorrectly. This method can only be called
         /// on user created objects.
         /// /*cef(optional_param=user_data)*/
         /// </summary>
-        /*8406*/
+        /*7924*/
 
-
-        // gen! bool SetUserData(CefRefPtr<CefBaseRefCounted> user_data)
-        /*8407*/
-
-        public bool SetUserData(CefBaseRefCounted /*8408*/
+        public bool SetUserData(CefBaseRefCounted /*7925*/
         user_data
-        )/*8409*/
+        )/*7926*/
         {
             JsValue v1 = new JsValue();
             JsValue ret;
-            /*8410*/
+            /*7927*/
 
             Cef3Binder.MyCefMet_Call1(this.nativePtr, CefV8Value_SetUserData_36, out ret, ref v1);
-            /*8411*/
+            /*7928*/
             var ret_result = ret.I32 != 0;
-            /*8412*/
+            /*7929*/
             return ret_result;
-            /*8413*/
+            /*7930*/
         }
+
+        // gen! CefRefPtr<CefBaseRefCounted> GetUserData()
         /// <summary>
         /// Returns the user data, if any, assigned to this object.
         /// /*cef()*/
         /// </summary>
-        /*8414*/
+        /*7931*/
 
-
-        // gen! CefRefPtr<CefBaseRefCounted> GetUserData()
-        /*8415*/
-
-        public CefBaseRefCounted GetUserData()/*8416*/
+        public CefBaseRefCounted GetUserData()/*7932*/
         {
             JsValue ret;
-            /*8417*/
+            /*7933*/
 
             Cef3Binder.MyCefMet_Call0(this.nativePtr, CefV8Value_GetUserData_37, out ret);
-            /*8418*/
+            /*7934*/
             var ret_result = new CefBaseRefCounted(ret.Ptr);
-            /*8419*/
+            /*7935*/
             return ret_result;
-            /*8420*/
+            /*7936*/
         }
+
+        // gen! int GetExternallyAllocatedMemory()
         /// <summary>
         /// Returns the amount of externally allocated memory registered for the
         /// object.
         /// /*cef()*/
         /// </summary>
-        /*8421*/
+        /*7937*/
 
-
-        // gen! int GetExternallyAllocatedMemory()
-        /*8422*/
-
-        public int GetExternallyAllocatedMemory()/*8423*/
+        public int GetExternallyAllocatedMemory()/*7938*/
         {
             JsValue ret;
-            /*8424*/
+            /*7939*/
 
             Cef3Binder.MyCefMet_Call0(this.nativePtr, CefV8Value_GetExternallyAllocatedMemory_38, out ret);
-            /*8425*/
+            /*7940*/
             var ret_result = ret.I32;
-            /*8426*/
+            /*7941*/
             return ret_result;
-            /*8427*/
+            /*7942*/
         }
+
+        // gen! int AdjustExternallyAllocatedMemory(int change_in_bytes)
         /// <summary>
         /// Adjusts the amount of registered external memory for the object. Used to
         /// give V8 an indication of the amount of externally allocated memory that is
@@ -17204,95 +16236,87 @@ namespace LayoutFarm.CefBridge.Auto
         /// only be called on user created objects.
         /// /*cef()*/
         /// </summary>
-        /*8428*/
+        /*7943*/
 
-
-        // gen! int AdjustExternallyAllocatedMemory(int change_in_bytes)
-        /*8429*/
-
-        public int AdjustExternallyAllocatedMemory(int /*8430*/
+        public int AdjustExternallyAllocatedMemory(int /*7944*/
         change_in_bytes
-        )/*8431*/
+        )/*7945*/
         {
             JsValue v1 = new JsValue();
             JsValue ret;
-            /*8432*/
+            /*7946*/
 
             Cef3Binder.MyCefMet_Call1(this.nativePtr, CefV8Value_AdjustExternallyAllocatedMemory_39, out ret, ref v1);
-            /*8433*/
+            /*7947*/
             var ret_result = ret.I32;
-            /*8434*/
+            /*7948*/
             return ret_result;
-            /*8435*/
+            /*7949*/
         }
+
+        // gen! int GetArrayLength()
         /// <summary>
         /// ARRAY METHODS - These methods are only available on arrays.
         /// Returns the number of elements in the array.
         /// /*cef()*/
         /// </summary>
-        /*8436*/
+        /*7950*/
 
-
-        // gen! int GetArrayLength()
-        /*8437*/
-
-        public int GetArrayLength()/*8438*/
+        public int GetArrayLength()/*7951*/
         {
             JsValue ret;
-            /*8439*/
+            /*7952*/
 
             Cef3Binder.MyCefMet_Call0(this.nativePtr, CefV8Value_GetArrayLength_40, out ret);
-            /*8440*/
+            /*7953*/
             var ret_result = ret.I32;
-            /*8441*/
+            /*7954*/
             return ret_result;
-            /*8442*/
+            /*7955*/
         }
+
+        // gen! CefString GetFunctionName()
         /// <summary>
         /// FUNCTION METHODS - These methods are only available on functions.
         /// Returns the function name.
         /// /*cef()*/
         /// </summary>
-        /*8443*/
+        /*7956*/
 
-
-        // gen! CefString GetFunctionName()
-        /*8444*/
-
-        public string GetFunctionName()/*8445*/
+        public string GetFunctionName()/*7957*/
         {
             JsValue ret;
-            /*8446*/
+            /*7958*/
 
             Cef3Binder.MyCefMet_Call0(this.nativePtr, CefV8Value_GetFunctionName_41, out ret);
-            /*8447*/
+            /*7959*/
             var ret_result = Cef3Binder.CopyStringAndDestroyNativeSide(ref ret);
-            /*8448*/
+            /*7960*/
             return ret_result;
-            /*8449*/
+            /*7961*/
         }
+
+        // gen! CefRefPtr<CefV8Handler> GetFunctionHandler()
         /// <summary>
         /// Returns the function handler or NULL if not a CEF-created function.
         /// /*cef()*/
         /// </summary>
-        /*8450*/
+        /*7962*/
 
-
-        // gen! CefRefPtr<CefV8Handler> GetFunctionHandler()
-        /*8451*/
-
-        public CefV8Handler GetFunctionHandler()/*8452*/
+        public CefV8Handler GetFunctionHandler()/*7963*/
         {
             JsValue ret;
-            /*8453*/
+            /*7964*/
 
             Cef3Binder.MyCefMet_Call0(this.nativePtr, CefV8Value_GetFunctionHandler_42, out ret);
-            /*8454*/
+            /*7965*/
             var ret_result = new CefV8Handler(ret.Ptr);
-            /*8455*/
+            /*7966*/
             return ret_result;
-            /*8456*/
+            /*7967*/
         }
+
+        // gen! CefRefPtr<CefV8Value> ExecuteFunction(CefRefPtr<CefV8Value> object,const CefV8ValueList& arguments)
         /// <summary>
         /// Execute the function using the current V8 context. This method should only
         /// be called from within the scope of a CefV8Handler or CefV8Accessor
@@ -17304,30 +16328,28 @@ namespace LayoutFarm.CefBridge.Auto
         /// this method is called incorrectly or an exception is thrown.
         /// /*cef(optional_param=object)*/
         /// </summary>
-        /*8457*/
+        /*7968*/
 
-
-        // gen! CefRefPtr<CefV8Value> ExecuteFunction(CefRefPtr<CefV8Value> object,const CefV8ValueList& arguments)
-        /*8458*/
-
-        public CefV8Value ExecuteFunction(CefV8Value /*8459*/
+        public CefV8Value ExecuteFunction(CefV8Value /*7969*/
         _object
-        , CefV8ValueList /*8460*/
+        , CefV8ValueList /*7970*/
         arguments
-        )/*8461*/
+        )/*7971*/
         {
             JsValue v1 = new JsValue();
             JsValue v2 = new JsValue();
             JsValue ret;
-            /*8462*/
+            /*7972*/
 
             Cef3Binder.MyCefMet_Call2(this.nativePtr, CefV8Value_ExecuteFunction_43, out ret, ref v1, ref v2);
-            /*8463*/
+            /*7973*/
             var ret_result = new CefV8Value(ret.Ptr);
-            /*8464*/
+            /*7974*/
             return ret_result;
-            /*8465*/
+            /*7975*/
         }
+
+        // gen! CefRefPtr<CefV8Value> ExecuteFunctionWithContext(CefRefPtr<CefV8Context> context,CefRefPtr<CefV8Value> object,const CefV8ValueList& arguments)
         /// <summary>
         /// Execute the function using the specified V8 context. |object| is the
         /// receiver ('this' object) of the function. If |object| is empty the
@@ -17337,34 +16359,30 @@ namespace LayoutFarm.CefBridge.Auto
         /// exception is thrown.
         /// /*cef(optional_param=object)*/
         /// </summary>
-        /*8466*/
+        /*7976*/
 
-
-        // gen! CefRefPtr<CefV8Value> ExecuteFunctionWithContext(CefRefPtr<CefV8Context> context,CefRefPtr<CefV8Value> object,const CefV8ValueList& arguments)
-        /*8467*/
-
-        public CefV8Value ExecuteFunctionWithContext(CefV8Context /*8468*/
+        public CefV8Value ExecuteFunctionWithContext(CefV8Context /*7977*/
         context
-        , CefV8Value /*8469*/
+        , CefV8Value /*7978*/
         _object
-        , CefV8ValueList /*8470*/
+        , CefV8ValueList /*7979*/
         arguments
-        )/*8471*/
+        )/*7980*/
         {
             JsValue v1 = new JsValue();
             JsValue v2 = new JsValue();
             JsValue v3 = new JsValue();
             JsValue ret;
-            /*8472*/
+            /*7981*/
 
             Cef3Binder.MyCefMet_Call3(this.nativePtr, CefV8Value_ExecuteFunctionWithContext_44, out ret, ref v1, ref v2, ref v3);
-            /*8473*/
+            /*7982*/
             var ret_result = new CefV8Value(ret.Ptr);
-            /*8474*/
+            /*7983*/
             return ret_result;
-            /*8475*/
+            /*7984*/
         }
-        /*8476*/
+        /*7985*/
     }
 
 
@@ -17377,106 +16395,100 @@ namespace LayoutFarm.CefBridge.Auto
     /// retrieved via the CefV8Context::GetTaskRunner() method.
     /// /*(source=library)*/
     /// </summary>
-    /*8500*/
+    /*8009*/
     public struct CefV8StackTrace
     {
-        /*8501*/
+        /*8010*/
         const int _typeNAME = 44;
-        /*8502*/
+        /*8011*/
         const int CefV8StackTrace_Release_0 = (_typeNAME << 16) | 0;
-        /*8503*/
+        /*8012*/
         const int CefV8StackTrace_IsValid_1 = (_typeNAME << 16) | 1;
-        /*8504*/
+        /*8013*/
         const int CefV8StackTrace_GetFrameCount_2 = (_typeNAME << 16) | 2;
-        /*8505*/
+        /*8014*/
         const int CefV8StackTrace_GetFrame_3 = (_typeNAME << 16) | 3;
-        /*8506*/
+        /*8015*/
         internal readonly IntPtr nativePtr;
-        /*8507*/
+        /*8016*/
         internal CefV8StackTrace(IntPtr nativePtr)
         {
-            /*8508*/
+            /*8017*/
             this.nativePtr = nativePtr;
-            /*8509*/
+            /*8018*/
         }
-        /*8510*/
+        /*8019*/
         public void Release()
         {
-            /*8511*/
+            /*8020*/
             JsValue ret;
-            /*8512*/
+            /*8021*/
             Cef3Binder.MyCefMet_Call0(this.nativePtr, CefV8StackTrace_Release_0, out ret);
-            /*8513*/
+            /*8022*/
         }
+
+        // gen! bool IsValid()
         /// <summary>
         /// CefV8StackTrace methods.
         /// </summary>
-        /*8514*/
+        /*8023*/
 
-
-        // gen! bool IsValid()
-        /*8515*/
-
-        public bool IsValid()/*8516*/
+        public bool IsValid()/*8024*/
         {
             JsValue ret;
-            /*8517*/
+            /*8025*/
 
             Cef3Binder.MyCefMet_Call0(this.nativePtr, CefV8StackTrace_IsValid_1, out ret);
-            /*8518*/
+            /*8026*/
             var ret_result = ret.I32 != 0;
-            /*8519*/
+            /*8027*/
             return ret_result;
-            /*8520*/
+            /*8028*/
         }
+
+        // gen! int GetFrameCount()
         /// <summary>
         /// Returns the number of stack frames.
         /// /*cef()*/
         /// </summary>
-        /*8521*/
+        /*8029*/
 
-
-        // gen! int GetFrameCount()
-        /*8522*/
-
-        public int GetFrameCount()/*8523*/
+        public int GetFrameCount()/*8030*/
         {
             JsValue ret;
-            /*8524*/
+            /*8031*/
 
             Cef3Binder.MyCefMet_Call0(this.nativePtr, CefV8StackTrace_GetFrameCount_2, out ret);
-            /*8525*/
+            /*8032*/
             var ret_result = ret.I32;
-            /*8526*/
+            /*8033*/
             return ret_result;
-            /*8527*/
+            /*8034*/
         }
+
+        // gen! CefRefPtr<CefV8StackFrame> GetFrame(int index)
         /// <summary>
         /// Returns the stack frame at the specified 0-based index.
         /// /*cef()*/
         /// </summary>
-        /*8528*/
+        /*8035*/
 
-
-        // gen! CefRefPtr<CefV8StackFrame> GetFrame(int index)
-        /*8529*/
-
-        public CefV8StackFrame GetFrame(int /*8530*/
+        public CefV8StackFrame GetFrame(int /*8036*/
         index
-        )/*8531*/
+        )/*8037*/
         {
             JsValue v1 = new JsValue();
             JsValue ret;
-            /*8532*/
+            /*8038*/
 
             Cef3Binder.MyCefMet_Call1(this.nativePtr, CefV8StackTrace_GetFrame_3, out ret, ref v1);
-            /*8533*/
+            /*8039*/
             var ret_result = new CefV8StackFrame(ret.Ptr);
-            /*8534*/
+            /*8040*/
             return ret_result;
-            /*8535*/
+            /*8041*/
         }
-        /*8536*/
+        /*8042*/
     }
 
 
@@ -17489,226 +16501,210 @@ namespace LayoutFarm.CefBridge.Auto
     /// retrieved via the CefV8Context::GetTaskRunner() method.
     /// /*(source=library)*/
     /// </summary>
-    /*8585*/
+    /*8091*/
     public struct CefV8StackFrame
     {
-        /*8586*/
+        /*8092*/
         const int _typeNAME = 45;
-        /*8587*/
+        /*8093*/
         const int CefV8StackFrame_Release_0 = (_typeNAME << 16) | 0;
-        /*8588*/
+        /*8094*/
         const int CefV8StackFrame_IsValid_1 = (_typeNAME << 16) | 1;
-        /*8589*/
+        /*8095*/
         const int CefV8StackFrame_GetScriptName_2 = (_typeNAME << 16) | 2;
-        /*8590*/
+        /*8096*/
         const int CefV8StackFrame_GetScriptNameOrSourceURL_3 = (_typeNAME << 16) | 3;
-        /*8591*/
+        /*8097*/
         const int CefV8StackFrame_GetFunctionName_4 = (_typeNAME << 16) | 4;
-        /*8592*/
+        /*8098*/
         const int CefV8StackFrame_GetLineNumber_5 = (_typeNAME << 16) | 5;
-        /*8593*/
+        /*8099*/
         const int CefV8StackFrame_GetColumn_6 = (_typeNAME << 16) | 6;
-        /*8594*/
+        /*8100*/
         const int CefV8StackFrame_IsEval_7 = (_typeNAME << 16) | 7;
-        /*8595*/
+        /*8101*/
         const int CefV8StackFrame_IsConstructor_8 = (_typeNAME << 16) | 8;
-        /*8596*/
+        /*8102*/
         internal readonly IntPtr nativePtr;
-        /*8597*/
+        /*8103*/
         internal CefV8StackFrame(IntPtr nativePtr)
         {
-            /*8598*/
+            /*8104*/
             this.nativePtr = nativePtr;
-            /*8599*/
+            /*8105*/
         }
-        /*8600*/
+        /*8106*/
         public void Release()
         {
-            /*8601*/
+            /*8107*/
             JsValue ret;
-            /*8602*/
+            /*8108*/
             Cef3Binder.MyCefMet_Call0(this.nativePtr, CefV8StackFrame_Release_0, out ret);
-            /*8603*/
+            /*8109*/
         }
+
+        // gen! bool IsValid()
         /// <summary>
         /// CefV8StackFrame methods.
         /// </summary>
-        /*8604*/
+        /*8110*/
 
-
-        // gen! bool IsValid()
-        /*8605*/
-
-        public bool IsValid()/*8606*/
+        public bool IsValid()/*8111*/
         {
             JsValue ret;
-            /*8607*/
+            /*8112*/
 
             Cef3Binder.MyCefMet_Call0(this.nativePtr, CefV8StackFrame_IsValid_1, out ret);
-            /*8608*/
+            /*8113*/
             var ret_result = ret.I32 != 0;
-            /*8609*/
+            /*8114*/
             return ret_result;
-            /*8610*/
+            /*8115*/
         }
+
+        // gen! CefString GetScriptName()
         /// <summary>
         /// Returns the name of the resource script that contains the function.
         /// /*cef()*/
         /// </summary>
-        /*8611*/
+        /*8116*/
 
-
-        // gen! CefString GetScriptName()
-        /*8612*/
-
-        public string GetScriptName()/*8613*/
+        public string GetScriptName()/*8117*/
         {
             JsValue ret;
-            /*8614*/
+            /*8118*/
 
             Cef3Binder.MyCefMet_Call0(this.nativePtr, CefV8StackFrame_GetScriptName_2, out ret);
-            /*8615*/
+            /*8119*/
             var ret_result = Cef3Binder.CopyStringAndDestroyNativeSide(ref ret);
-            /*8616*/
+            /*8120*/
             return ret_result;
-            /*8617*/
+            /*8121*/
         }
+
+        // gen! CefString GetScriptNameOrSourceURL()
         /// <summary>
         /// Returns the name of the resource script that contains the function or the
         /// sourceURL value if the script name is undefined and its source ends with
         /// a "//@ sourceURL=..." string.
         /// /*cef()*/
         /// </summary>
-        /*8618*/
+        /*8122*/
 
-
-        // gen! CefString GetScriptNameOrSourceURL()
-        /*8619*/
-
-        public string GetScriptNameOrSourceURL()/*8620*/
+        public string GetScriptNameOrSourceURL()/*8123*/
         {
             JsValue ret;
-            /*8621*/
+            /*8124*/
 
             Cef3Binder.MyCefMet_Call0(this.nativePtr, CefV8StackFrame_GetScriptNameOrSourceURL_3, out ret);
-            /*8622*/
+            /*8125*/
             var ret_result = Cef3Binder.CopyStringAndDestroyNativeSide(ref ret);
-            /*8623*/
+            /*8126*/
             return ret_result;
-            /*8624*/
+            /*8127*/
         }
+
+        // gen! CefString GetFunctionName()
         /// <summary>
         /// Returns the name of the function.
         /// /*cef()*/
         /// </summary>
-        /*8625*/
+        /*8128*/
 
-
-        // gen! CefString GetFunctionName()
-        /*8626*/
-
-        public string GetFunctionName()/*8627*/
+        public string GetFunctionName()/*8129*/
         {
             JsValue ret;
-            /*8628*/
+            /*8130*/
 
             Cef3Binder.MyCefMet_Call0(this.nativePtr, CefV8StackFrame_GetFunctionName_4, out ret);
-            /*8629*/
+            /*8131*/
             var ret_result = Cef3Binder.CopyStringAndDestroyNativeSide(ref ret);
-            /*8630*/
+            /*8132*/
             return ret_result;
-            /*8631*/
+            /*8133*/
         }
+
+        // gen! int GetLineNumber()
         /// <summary>
         /// Returns the 1-based line number for the function call or 0 if unknown.
         /// /*cef()*/
         /// </summary>
-        /*8632*/
+        /*8134*/
 
-
-        // gen! int GetLineNumber()
-        /*8633*/
-
-        public int GetLineNumber()/*8634*/
+        public int GetLineNumber()/*8135*/
         {
             JsValue ret;
-            /*8635*/
+            /*8136*/
 
             Cef3Binder.MyCefMet_Call0(this.nativePtr, CefV8StackFrame_GetLineNumber_5, out ret);
-            /*8636*/
+            /*8137*/
             var ret_result = ret.I32;
-            /*8637*/
+            /*8138*/
             return ret_result;
-            /*8638*/
+            /*8139*/
         }
+
+        // gen! int GetColumn()
         /// <summary>
         /// Returns the 1-based column offset on the line for the function call or 0 if
         /// unknown.
         /// /*cef()*/
         /// </summary>
-        /*8639*/
+        /*8140*/
 
-
-        // gen! int GetColumn()
-        /*8640*/
-
-        public int GetColumn()/*8641*/
+        public int GetColumn()/*8141*/
         {
             JsValue ret;
-            /*8642*/
+            /*8142*/
 
             Cef3Binder.MyCefMet_Call0(this.nativePtr, CefV8StackFrame_GetColumn_6, out ret);
-            /*8643*/
+            /*8143*/
             var ret_result = ret.I32;
-            /*8644*/
+            /*8144*/
             return ret_result;
-            /*8645*/
+            /*8145*/
         }
+
+        // gen! bool IsEval()
         /// <summary>
         /// Returns true if the function was compiled using eval().
         /// /*cef()*/
         /// </summary>
-        /*8646*/
+        /*8146*/
 
-
-        // gen! bool IsEval()
-        /*8647*/
-
-        public bool IsEval()/*8648*/
+        public bool IsEval()/*8147*/
         {
             JsValue ret;
-            /*8649*/
+            /*8148*/
 
             Cef3Binder.MyCefMet_Call0(this.nativePtr, CefV8StackFrame_IsEval_7, out ret);
-            /*8650*/
+            /*8149*/
             var ret_result = ret.I32 != 0;
-            /*8651*/
+            /*8150*/
             return ret_result;
-            /*8652*/
+            /*8151*/
         }
+
+        // gen! bool IsConstructor()
         /// <summary>
         /// Returns true if the function was called as a constructor via "new".
         /// /*cef()*/
         /// </summary>
-        /*8653*/
+        /*8152*/
 
-
-        // gen! bool IsConstructor()
-        /*8654*/
-
-        public bool IsConstructor()/*8655*/
+        public bool IsConstructor()/*8153*/
         {
             JsValue ret;
-            /*8656*/
+            /*8154*/
 
             Cef3Binder.MyCefMet_Call0(this.nativePtr, CefV8StackFrame_IsConstructor_8, out ret);
-            /*8657*/
+            /*8155*/
             var ret_result = ret.I32 != 0;
-            /*8658*/
+            /*8156*/
             return ret_result;
-            /*8659*/
+            /*8157*/
         }
-        /*8660*/
+        /*8158*/
     }
 
 
@@ -17719,327 +16715,307 @@ namespace LayoutFarm.CefBridge.Auto
     /// process and thread.
     /// /*cef(source=library)*/
     /// </summary>
-    /*8779*/
+    /*8277*/
     public struct CefValue
     {
-        /*8780*/
+        /*8278*/
         const int _typeNAME = 46;
-        /*8781*/
+        /*8279*/
         const int CefValue_Release_0 = (_typeNAME << 16) | 0;
-        /*8782*/
+        /*8280*/
         const int CefValue_IsValid_1 = (_typeNAME << 16) | 1;
-        /*8783*/
+        /*8281*/
         const int CefValue_IsOwned_2 = (_typeNAME << 16) | 2;
-        /*8784*/
+        /*8282*/
         const int CefValue_IsReadOnly_3 = (_typeNAME << 16) | 3;
-        /*8785*/
+        /*8283*/
         const int CefValue_IsSame_4 = (_typeNAME << 16) | 4;
-        /*8786*/
+        /*8284*/
         const int CefValue_IsEqual_5 = (_typeNAME << 16) | 5;
-        /*8787*/
+        /*8285*/
         const int CefValue_Copy_6 = (_typeNAME << 16) | 6;
-        /*8788*/
+        /*8286*/
         const int CefValue_GetType_7 = (_typeNAME << 16) | 7;
-        /*8789*/
+        /*8287*/
         const int CefValue_GetBool_8 = (_typeNAME << 16) | 8;
-        /*8790*/
+        /*8288*/
         const int CefValue_GetInt_9 = (_typeNAME << 16) | 9;
-        /*8791*/
+        /*8289*/
         const int CefValue_GetDouble_10 = (_typeNAME << 16) | 10;
-        /*8792*/
+        /*8290*/
         const int CefValue_GetString_11 = (_typeNAME << 16) | 11;
-        /*8793*/
+        /*8291*/
         const int CefValue_GetBinary_12 = (_typeNAME << 16) | 12;
-        /*8794*/
+        /*8292*/
         const int CefValue_GetDictionary_13 = (_typeNAME << 16) | 13;
-        /*8795*/
+        /*8293*/
         const int CefValue_GetList_14 = (_typeNAME << 16) | 14;
-        /*8796*/
+        /*8294*/
         const int CefValue_SetNull_15 = (_typeNAME << 16) | 15;
-        /*8797*/
+        /*8295*/
         const int CefValue_SetBool_16 = (_typeNAME << 16) | 16;
-        /*8798*/
+        /*8296*/
         const int CefValue_SetInt_17 = (_typeNAME << 16) | 17;
-        /*8799*/
+        /*8297*/
         const int CefValue_SetDouble_18 = (_typeNAME << 16) | 18;
-        /*8800*/
+        /*8298*/
         const int CefValue_SetString_19 = (_typeNAME << 16) | 19;
-        /*8801*/
+        /*8299*/
         const int CefValue_SetBinary_20 = (_typeNAME << 16) | 20;
-        /*8802*/
+        /*8300*/
         const int CefValue_SetDictionary_21 = (_typeNAME << 16) | 21;
-        /*8803*/
+        /*8301*/
         const int CefValue_SetList_22 = (_typeNAME << 16) | 22;
-        /*8804*/
+        /*8302*/
         internal readonly IntPtr nativePtr;
-        /*8805*/
+        /*8303*/
         internal CefValue(IntPtr nativePtr)
         {
-            /*8806*/
+            /*8304*/
             this.nativePtr = nativePtr;
-            /*8807*/
+            /*8305*/
         }
-        /*8808*/
+        /*8306*/
         public void Release()
         {
-            /*8809*/
+            /*8307*/
             JsValue ret;
-            /*8810*/
+            /*8308*/
             Cef3Binder.MyCefMet_Call0(this.nativePtr, CefValue_Release_0, out ret);
-            /*8811*/
+            /*8309*/
         }
+
+        // gen! bool IsValid()
         /// <summary>
         /// CefValue methods.
         /// </summary>
-        /*8812*/
+        /*8310*/
 
-
-        // gen! bool IsValid()
-        /*8813*/
-
-        public bool IsValid()/*8814*/
+        public bool IsValid()/*8311*/
         {
             JsValue ret;
-            /*8815*/
+            /*8312*/
 
             Cef3Binder.MyCefMet_Call0(this.nativePtr, CefValue_IsValid_1, out ret);
-            /*8816*/
+            /*8313*/
             var ret_result = ret.I32 != 0;
-            /*8817*/
+            /*8314*/
             return ret_result;
-            /*8818*/
+            /*8315*/
         }
+
+        // gen! bool IsOwned()
         /// <summary>
         /// Returns true if the underlying data is owned by another object.
         /// /*cef()*/
         /// </summary>
-        /*8819*/
+        /*8316*/
 
-
-        // gen! bool IsOwned()
-        /*8820*/
-
-        public bool IsOwned()/*8821*/
+        public bool IsOwned()/*8317*/
         {
             JsValue ret;
-            /*8822*/
+            /*8318*/
 
             Cef3Binder.MyCefMet_Call0(this.nativePtr, CefValue_IsOwned_2, out ret);
-            /*8823*/
+            /*8319*/
             var ret_result = ret.I32 != 0;
-            /*8824*/
+            /*8320*/
             return ret_result;
-            /*8825*/
+            /*8321*/
         }
+
+        // gen! bool IsReadOnly()
         /// <summary>
         /// Returns true if the underlying data is read-only. Some APIs may expose
         /// read-only objects.
         /// /*cef()*/
         /// </summary>
-        /*8826*/
+        /*8322*/
 
-
-        // gen! bool IsReadOnly()
-        /*8827*/
-
-        public bool IsReadOnly()/*8828*/
+        public bool IsReadOnly()/*8323*/
         {
             JsValue ret;
-            /*8829*/
+            /*8324*/
 
             Cef3Binder.MyCefMet_Call0(this.nativePtr, CefValue_IsReadOnly_3, out ret);
-            /*8830*/
+            /*8325*/
             var ret_result = ret.I32 != 0;
-            /*8831*/
+            /*8326*/
             return ret_result;
-            /*8832*/
+            /*8327*/
         }
+
+        // gen! bool IsSame(CefRefPtr<CefValue> that)
         /// <summary>
         /// Returns true if this object and |that| object have the same underlying
         /// data. If true modifications to this object will also affect |that| object
         /// and vice-versa.
         /// /*cef()*/
         /// </summary>
-        /*8833*/
+        /*8328*/
 
-
-        // gen! bool IsSame(CefRefPtr<CefValue> that)
-        /*8834*/
-
-        public bool IsSame(CefValue /*8835*/
+        public bool IsSame(CefValue /*8329*/
         that
-        )/*8836*/
+        )/*8330*/
         {
             JsValue v1 = new JsValue();
             JsValue ret;
-            /*8837*/
+            /*8331*/
 
             Cef3Binder.MyCefMet_Call1(this.nativePtr, CefValue_IsSame_4, out ret, ref v1);
-            /*8838*/
+            /*8332*/
             var ret_result = ret.I32 != 0;
-            /*8839*/
+            /*8333*/
             return ret_result;
-            /*8840*/
+            /*8334*/
         }
+
+        // gen! bool IsEqual(CefRefPtr<CefValue> that)
         /// <summary>
         /// Returns true if this object and |that| object have an equivalent underlying
         /// value but are not necessarily the same object.
         /// /*cef()*/
         /// </summary>
-        /*8841*/
+        /*8335*/
 
-
-        // gen! bool IsEqual(CefRefPtr<CefValue> that)
-        /*8842*/
-
-        public bool IsEqual(CefValue /*8843*/
+        public bool IsEqual(CefValue /*8336*/
         that
-        )/*8844*/
+        )/*8337*/
         {
             JsValue v1 = new JsValue();
             JsValue ret;
-            /*8845*/
+            /*8338*/
 
             Cef3Binder.MyCefMet_Call1(this.nativePtr, CefValue_IsEqual_5, out ret, ref v1);
-            /*8846*/
+            /*8339*/
             var ret_result = ret.I32 != 0;
-            /*8847*/
+            /*8340*/
             return ret_result;
-            /*8848*/
+            /*8341*/
         }
+
+        // gen! CefRefPtr<CefValue> Copy()
         /// <summary>
         /// Returns a copy of this object. The underlying data will also be copied.
         /// /*cef()*/
         /// </summary>
-        /*8849*/
+        /*8342*/
 
-
-        // gen! CefRefPtr<CefValue> Copy()
-        /*8850*/
-
-        public CefValue Copy()/*8851*/
+        public CefValue Copy()/*8343*/
         {
             JsValue ret;
-            /*8852*/
+            /*8344*/
 
             Cef3Binder.MyCefMet_Call0(this.nativePtr, CefValue_Copy_6, out ret);
-            /*8853*/
+            /*8345*/
             var ret_result = new CefValue(ret.Ptr);
-            /*8854*/
+            /*8346*/
             return ret_result;
-            /*8855*/
+            /*8347*/
         }
+
+        // gen! CefValueType GetType()
         /// <summary>
         /// Returns the underlying value type.
         /// /*cef(default_retval=VTYPE_INVALID)*/
         /// </summary>
-        /*8856*/
+        /*8348*/
 
-
-        // gen! CefValueType GetType()
-        /*8857*/
-
-        public cef_value_type_t _GetType()/*8858*/
+        public cef_value_type_t _GetType()/*8349*/
         {
             JsValue ret;
-            /*8859*/
+            /*8350*/
 
             Cef3Binder.MyCefMet_Call0(this.nativePtr, CefValue_GetType_7, out ret);
-            /*8860*/
+            /*8351*/
             var ret_result = (cef_value_type_t)ret.I32;
 
-            /*8861*/
+            /*8352*/
             return ret_result;
-            /*8862*/
+            /*8353*/
         }
+
+        // gen! bool GetBool()
         /// <summary>
         /// Returns the underlying value as type bool.
         /// /*cef()*/
         /// </summary>
-        /*8863*/
+        /*8354*/
 
-
-        // gen! bool GetBool()
-        /*8864*/
-
-        public bool GetBool()/*8865*/
+        public bool GetBool()/*8355*/
         {
             JsValue ret;
-            /*8866*/
+            /*8356*/
 
             Cef3Binder.MyCefMet_Call0(this.nativePtr, CefValue_GetBool_8, out ret);
-            /*8867*/
+            /*8357*/
             var ret_result = ret.I32 != 0;
-            /*8868*/
+            /*8358*/
             return ret_result;
-            /*8869*/
+            /*8359*/
         }
+
+        // gen! int GetInt()
         /// <summary>
         /// Returns the underlying value as type int.
         /// /*cef()*/
         /// </summary>
-        /*8870*/
+        /*8360*/
 
-
-        // gen! int GetInt()
-        /*8871*/
-
-        public int GetInt()/*8872*/
+        public int GetInt()/*8361*/
         {
             JsValue ret;
-            /*8873*/
+            /*8362*/
 
             Cef3Binder.MyCefMet_Call0(this.nativePtr, CefValue_GetInt_9, out ret);
-            /*8874*/
+            /*8363*/
             var ret_result = ret.I32;
-            /*8875*/
+            /*8364*/
             return ret_result;
-            /*8876*/
+            /*8365*/
         }
+
+        // gen! double GetDouble()
         /// <summary>
         /// Returns the underlying value as type double.
         /// /*cef()*/
         /// </summary>
-        /*8877*/
+        /*8366*/
 
-
-        // gen! double GetDouble()
-        /*8878*/
-
-        public double GetDouble()/*8879*/
+        public double GetDouble()/*8367*/
         {
             JsValue ret;
-            /*8880*/
+            /*8368*/
 
             Cef3Binder.MyCefMet_Call0(this.nativePtr, CefValue_GetDouble_10, out ret);
-            /*8881*/
+            /*8369*/
             var ret_result = ret.Num;
-            /*8882*/
+            /*8370*/
             return ret_result;
-            /*8883*/
+            /*8371*/
         }
+
+        // gen! CefString GetString()
         /// <summary>
         /// Returns the underlying value as type string.
         /// /*cef()*/
         /// </summary>
-        /*8884*/
+        /*8372*/
 
-
-        // gen! CefString GetString()
-        /*8885*/
-
-        public string GetString()/*8886*/
+        public string GetString()/*8373*/
         {
             JsValue ret;
-            /*8887*/
+            /*8374*/
 
             Cef3Binder.MyCefMet_Call0(this.nativePtr, CefValue_GetString_11, out ret);
-            /*8888*/
+            /*8375*/
             var ret_result = Cef3Binder.CopyStringAndDestroyNativeSide(ref ret);
-            /*8889*/
+            /*8376*/
             return ret_result;
-            /*8890*/
+            /*8377*/
         }
+
+        // gen! CefRefPtr<CefBinaryValue> GetBinary()
         /// <summary>
         /// Returns the underlying value as type binary. The returned reference may
         /// become invalid if the value is owned by another object or if ownership is
@@ -18049,24 +17025,22 @@ namespace LayoutFarm.CefBridge.Auto
         /// to SetBinary().
         /// /*cef()*/
         /// </summary>
-        /*8891*/
+        /*8378*/
 
-
-        // gen! CefRefPtr<CefBinaryValue> GetBinary()
-        /*8892*/
-
-        public CefBinaryValue GetBinary()/*8893*/
+        public CefBinaryValue GetBinary()/*8379*/
         {
             JsValue ret;
-            /*8894*/
+            /*8380*/
 
             Cef3Binder.MyCefMet_Call0(this.nativePtr, CefValue_GetBinary_12, out ret);
-            /*8895*/
+            /*8381*/
             var ret_result = new CefBinaryValue(ret.Ptr);
-            /*8896*/
+            /*8382*/
             return ret_result;
-            /*8897*/
+            /*8383*/
         }
+
+        // gen! CefRefPtr<CefDictionaryValue> GetDictionary()
         /// <summary>
         /// Returns the underlying value as type dictionary. The returned reference may
         /// become invalid if the value is owned by another object or if ownership is
@@ -18076,24 +17050,22 @@ namespace LayoutFarm.CefBridge.Auto
         /// to SetDictionary().
         /// /*cef()*/
         /// </summary>
-        /*8898*/
+        /*8384*/
 
-
-        // gen! CefRefPtr<CefDictionaryValue> GetDictionary()
-        /*8899*/
-
-        public CefDictionaryValue GetDictionary()/*8900*/
+        public CefDictionaryValue GetDictionary()/*8385*/
         {
             JsValue ret;
-            /*8901*/
+            /*8386*/
 
             Cef3Binder.MyCefMet_Call0(this.nativePtr, CefValue_GetDictionary_13, out ret);
-            /*8902*/
+            /*8387*/
             var ret_result = new CefDictionaryValue(ret.Ptr);
-            /*8903*/
+            /*8388*/
             return ret_result;
-            /*8904*/
+            /*8389*/
         }
+
+        // gen! CefRefPtr<CefListValue> GetList()
         /// <summary>
         /// Returns the underlying value as type list. The returned reference may
         /// become invalid if the value is owned by another object or if ownership is
@@ -18103,238 +17075,218 @@ namespace LayoutFarm.CefBridge.Auto
         /// to SetList().
         /// /*cef()*/
         /// </summary>
-        /*8905*/
+        /*8390*/
 
-
-        // gen! CefRefPtr<CefListValue> GetList()
-        /*8906*/
-
-        public CefListValue GetList()/*8907*/
+        public CefListValue GetList()/*8391*/
         {
             JsValue ret;
-            /*8908*/
+            /*8392*/
 
             Cef3Binder.MyCefMet_Call0(this.nativePtr, CefValue_GetList_14, out ret);
-            /*8909*/
+            /*8393*/
             var ret_result = new CefListValue(ret.Ptr);
-            /*8910*/
+            /*8394*/
             return ret_result;
-            /*8911*/
+            /*8395*/
         }
+
+        // gen! bool SetNull()
         /// <summary>
         /// Sets the underlying value as type null. Returns true if the value was set
         /// successfully.
         /// /*cef()*/
         /// </summary>
-        /*8912*/
+        /*8396*/
 
-
-        // gen! bool SetNull()
-        /*8913*/
-
-        public bool SetNull()/*8914*/
+        public bool SetNull()/*8397*/
         {
             JsValue ret;
-            /*8915*/
+            /*8398*/
 
             Cef3Binder.MyCefMet_Call0(this.nativePtr, CefValue_SetNull_15, out ret);
-            /*8916*/
+            /*8399*/
             var ret_result = ret.I32 != 0;
-            /*8917*/
+            /*8400*/
             return ret_result;
-            /*8918*/
+            /*8401*/
         }
+
+        // gen! bool SetBool(bool value)
         /// <summary>
         /// Sets the underlying value as type bool. Returns true if the value was set
         /// successfully.
         /// /*cef()*/
         /// </summary>
-        /*8919*/
+        /*8402*/
 
-
-        // gen! bool SetBool(bool value)
-        /*8920*/
-
-        public bool SetBool(bool /*8921*/
+        public bool SetBool(bool /*8403*/
         value
-        )/*8922*/
+        )/*8404*/
         {
             JsValue v1 = new JsValue();
             JsValue ret;
-            /*8923*/
+            /*8405*/
 
             Cef3Binder.MyCefMet_Call1(this.nativePtr, CefValue_SetBool_16, out ret, ref v1);
-            /*8924*/
+            /*8406*/
             var ret_result = ret.I32 != 0;
-            /*8925*/
+            /*8407*/
             return ret_result;
-            /*8926*/
+            /*8408*/
         }
+
+        // gen! bool SetInt(int value)
         /// <summary>
         /// Sets the underlying value as type int. Returns true if the value was set
         /// successfully.
         /// /*cef()*/
         /// </summary>
-        /*8927*/
+        /*8409*/
 
-
-        // gen! bool SetInt(int value)
-        /*8928*/
-
-        public bool SetInt(int /*8929*/
+        public bool SetInt(int /*8410*/
         value
-        )/*8930*/
+        )/*8411*/
         {
             JsValue v1 = new JsValue();
             JsValue ret;
-            /*8931*/
+            /*8412*/
 
             Cef3Binder.MyCefMet_Call1(this.nativePtr, CefValue_SetInt_17, out ret, ref v1);
-            /*8932*/
+            /*8413*/
             var ret_result = ret.I32 != 0;
-            /*8933*/
+            /*8414*/
             return ret_result;
-            /*8934*/
+            /*8415*/
         }
+
+        // gen! bool SetDouble(double value)
         /// <summary>
         /// Sets the underlying value as type double. Returns true if the value was set
         /// successfully.
         /// /*cef()*/
         /// </summary>
-        /*8935*/
+        /*8416*/
 
-
-        // gen! bool SetDouble(double value)
-        /*8936*/
-
-        public bool SetDouble(double /*8937*/
+        public bool SetDouble(double /*8417*/
         value
-        )/*8938*/
+        )/*8418*/
         {
             JsValue v1 = new JsValue();
             JsValue ret;
-            /*8939*/
+            /*8419*/
 
             Cef3Binder.MyCefMet_Call1(this.nativePtr, CefValue_SetDouble_18, out ret, ref v1);
-            /*8940*/
+            /*8420*/
             var ret_result = ret.I32 != 0;
-            /*8941*/
+            /*8421*/
             return ret_result;
-            /*8942*/
+            /*8422*/
         }
+
+        // gen! bool SetString(const CefString& value)
         /// <summary>
         /// Sets the underlying value as type string. Returns true if the value was set
         /// successfully.
         /// /*cef(optional_param=value)*/
         /// </summary>
-        /*8943*/
+        /*8423*/
 
-
-        // gen! bool SetString(const CefString& value)
-        /*8944*/
-
-        public bool SetString(string /*8945*/
+        public bool SetString(string /*8424*/
         value
-        )/*8946*/
+        )/*8425*/
         {
             JsValue v1 = new JsValue();
             JsValue ret;
             v1.Ptr = Cef3Binder.MyCefCreateCefString(value);
-            /*8947*/
+            /*8426*/
             ;
-            /*8948*/
+            /*8427*/
 
             Cef3Binder.MyCefMet_Call1(this.nativePtr, CefValue_SetString_19, out ret, ref v1);
-            /*8949*/
+            /*8428*/
             var ret_result = ret.I32 != 0;
-            Cef3Binder.MyCefDeletePtr(v1.Ptr);/*8950*/
+            Cef3Binder.MyCefDeletePtr(v1.Ptr);/*8429*/
             ;
-            /*8951*/
+            /*8430*/
             return ret_result;
-            /*8952*/
+            /*8431*/
         }
+
+        // gen! bool SetBinary(CefRefPtr<CefBinaryValue> value)
         /// <summary>
         /// Sets the underlying value as type binary. Returns true if the value was set
         /// successfully. This object keeps a reference to |value| and ownership of the
         /// underlying data remains unchanged.
         /// /*cef()*/
         /// </summary>
-        /*8953*/
+        /*8432*/
 
-
-        // gen! bool SetBinary(CefRefPtr<CefBinaryValue> value)
-        /*8954*/
-
-        public bool SetBinary(CefBinaryValue /*8955*/
+        public bool SetBinary(CefBinaryValue /*8433*/
         value
-        )/*8956*/
+        )/*8434*/
         {
             JsValue v1 = new JsValue();
             JsValue ret;
-            /*8957*/
+            /*8435*/
 
             Cef3Binder.MyCefMet_Call1(this.nativePtr, CefValue_SetBinary_20, out ret, ref v1);
-            /*8958*/
+            /*8436*/
             var ret_result = ret.I32 != 0;
-            /*8959*/
+            /*8437*/
             return ret_result;
-            /*8960*/
+            /*8438*/
         }
+
+        // gen! bool SetDictionary(CefRefPtr<CefDictionaryValue> value)
         /// <summary>
         /// Sets the underlying value as type dict. Returns true if the value was set
         /// successfully. This object keeps a reference to |value| and ownership of the
         /// underlying data remains unchanged.
         /// /*cef()*/
         /// </summary>
-        /*8961*/
+        /*8439*/
 
-
-        // gen! bool SetDictionary(CefRefPtr<CefDictionaryValue> value)
-        /*8962*/
-
-        public bool SetDictionary(CefDictionaryValue /*8963*/
+        public bool SetDictionary(CefDictionaryValue /*8440*/
         value
-        )/*8964*/
+        )/*8441*/
         {
             JsValue v1 = new JsValue();
             JsValue ret;
-            /*8965*/
+            /*8442*/
 
             Cef3Binder.MyCefMet_Call1(this.nativePtr, CefValue_SetDictionary_21, out ret, ref v1);
-            /*8966*/
+            /*8443*/
             var ret_result = ret.I32 != 0;
-            /*8967*/
+            /*8444*/
             return ret_result;
-            /*8968*/
+            /*8445*/
         }
+
+        // gen! bool SetList(CefRefPtr<CefListValue> value)
         /// <summary>
         /// Sets the underlying value as type list. Returns true if the value was set
         /// successfully. This object keeps a reference to |value| and ownership of the
         /// underlying data remains unchanged.
         /// /*cef()*/
         /// </summary>
-        /*8969*/
+        /*8446*/
 
-
-        // gen! bool SetList(CefRefPtr<CefListValue> value)
-        /*8970*/
-
-        public bool SetList(CefListValue /*8971*/
+        public bool SetList(CefListValue /*8447*/
         value
-        )/*8972*/
+        )/*8448*/
         {
             JsValue v1 = new JsValue();
             JsValue ret;
-            /*8973*/
+            /*8449*/
 
             Cef3Binder.MyCefMet_Call1(this.nativePtr, CefValue_SetList_22, out ret, ref v1);
-            /*8974*/
+            /*8450*/
             var ret_result = ret.I32 != 0;
-            /*8975*/
+            /*8451*/
             return ret_result;
-            /*8976*/
+            /*8452*/
         }
-        /*8977*/
+        /*8453*/
     }
 
 
@@ -18343,217 +17295,203 @@ namespace LayoutFarm.CefBridge.Auto
     /// Class representing a binary value. Can be used on any process and thread.
     /// /*(source=library)*/
     /// </summary>
-    /*9021*/
+    /*8497*/
     public struct CefBinaryValue
     {
-        /*9022*/
+        /*8498*/
         const int _typeNAME = 47;
-        /*9023*/
+        /*8499*/
         const int CefBinaryValue_Release_0 = (_typeNAME << 16) | 0;
-        /*9024*/
+        /*8500*/
         const int CefBinaryValue_IsValid_1 = (_typeNAME << 16) | 1;
-        /*9025*/
+        /*8501*/
         const int CefBinaryValue_IsOwned_2 = (_typeNAME << 16) | 2;
-        /*9026*/
+        /*8502*/
         const int CefBinaryValue_IsSame_3 = (_typeNAME << 16) | 3;
-        /*9027*/
+        /*8503*/
         const int CefBinaryValue_IsEqual_4 = (_typeNAME << 16) | 4;
-        /*9028*/
+        /*8504*/
         const int CefBinaryValue_Copy_5 = (_typeNAME << 16) | 5;
-        /*9029*/
+        /*8505*/
         const int CefBinaryValue_GetSize_6 = (_typeNAME << 16) | 6;
-        /*9030*/
+        /*8506*/
         const int CefBinaryValue_GetData_7 = (_typeNAME << 16) | 7;
-        /*9031*/
+        /*8507*/
         internal readonly IntPtr nativePtr;
-        /*9032*/
+        /*8508*/
         internal CefBinaryValue(IntPtr nativePtr)
         {
-            /*9033*/
+            /*8509*/
             this.nativePtr = nativePtr;
-            /*9034*/
+            /*8510*/
         }
-        /*9035*/
+        /*8511*/
         public void Release()
         {
-            /*9036*/
+            /*8512*/
             JsValue ret;
-            /*9037*/
+            /*8513*/
             Cef3Binder.MyCefMet_Call0(this.nativePtr, CefBinaryValue_Release_0, out ret);
-            /*9038*/
+            /*8514*/
         }
+
+        // gen! bool IsValid()
         /// <summary>
         /// CefBinaryValue methods.
         /// </summary>
-        /*9039*/
+        /*8515*/
 
-
-        // gen! bool IsValid()
-        /*9040*/
-
-        public bool IsValid()/*9041*/
+        public bool IsValid()/*8516*/
         {
             JsValue ret;
-            /*9042*/
+            /*8517*/
 
             Cef3Binder.MyCefMet_Call0(this.nativePtr, CefBinaryValue_IsValid_1, out ret);
-            /*9043*/
+            /*8518*/
             var ret_result = ret.I32 != 0;
-            /*9044*/
+            /*8519*/
             return ret_result;
-            /*9045*/
+            /*8520*/
         }
+
+        // gen! bool IsOwned()
         /// <summary>
         /// Returns true if this object is currently owned by another object.
         /// /*cef()*/
         /// </summary>
-        /*9046*/
+        /*8521*/
 
-
-        // gen! bool IsOwned()
-        /*9047*/
-
-        public bool IsOwned()/*9048*/
+        public bool IsOwned()/*8522*/
         {
             JsValue ret;
-            /*9049*/
+            /*8523*/
 
             Cef3Binder.MyCefMet_Call0(this.nativePtr, CefBinaryValue_IsOwned_2, out ret);
-            /*9050*/
+            /*8524*/
             var ret_result = ret.I32 != 0;
-            /*9051*/
+            /*8525*/
             return ret_result;
-            /*9052*/
+            /*8526*/
         }
+
+        // gen! bool IsSame(CefRefPtr<CefBinaryValue> that)
         /// <summary>
         /// Returns true if this object and |that| object have the same underlying
         /// data.
         /// /*cef()*/
         /// </summary>
-        /*9053*/
+        /*8527*/
 
-
-        // gen! bool IsSame(CefRefPtr<CefBinaryValue> that)
-        /*9054*/
-
-        public bool IsSame(CefBinaryValue /*9055*/
+        public bool IsSame(CefBinaryValue /*8528*/
         that
-        )/*9056*/
+        )/*8529*/
         {
             JsValue v1 = new JsValue();
             JsValue ret;
-            /*9057*/
+            /*8530*/
 
             Cef3Binder.MyCefMet_Call1(this.nativePtr, CefBinaryValue_IsSame_3, out ret, ref v1);
-            /*9058*/
+            /*8531*/
             var ret_result = ret.I32 != 0;
-            /*9059*/
+            /*8532*/
             return ret_result;
-            /*9060*/
+            /*8533*/
         }
+
+        // gen! bool IsEqual(CefRefPtr<CefBinaryValue> that)
         /// <summary>
         /// Returns true if this object and |that| object have an equivalent underlying
         /// value but are not necessarily the same object.
         /// /*cef()*/
         /// </summary>
-        /*9061*/
+        /*8534*/
 
-
-        // gen! bool IsEqual(CefRefPtr<CefBinaryValue> that)
-        /*9062*/
-
-        public bool IsEqual(CefBinaryValue /*9063*/
+        public bool IsEqual(CefBinaryValue /*8535*/
         that
-        )/*9064*/
+        )/*8536*/
         {
             JsValue v1 = new JsValue();
             JsValue ret;
-            /*9065*/
+            /*8537*/
 
             Cef3Binder.MyCefMet_Call1(this.nativePtr, CefBinaryValue_IsEqual_4, out ret, ref v1);
-            /*9066*/
+            /*8538*/
             var ret_result = ret.I32 != 0;
-            /*9067*/
+            /*8539*/
             return ret_result;
-            /*9068*/
+            /*8540*/
         }
+
+        // gen! CefRefPtr<CefBinaryValue> Copy()
         /// <summary>
         /// Returns a copy of this object. The data in this object will also be copied.
         /// /*cef()*/
         /// </summary>
-        /*9069*/
+        /*8541*/
 
-
-        // gen! CefRefPtr<CefBinaryValue> Copy()
-        /*9070*/
-
-        public CefBinaryValue Copy()/*9071*/
+        public CefBinaryValue Copy()/*8542*/
         {
             JsValue ret;
-            /*9072*/
+            /*8543*/
 
             Cef3Binder.MyCefMet_Call0(this.nativePtr, CefBinaryValue_Copy_5, out ret);
-            /*9073*/
+            /*8544*/
             var ret_result = new CefBinaryValue(ret.Ptr);
-            /*9074*/
+            /*8545*/
             return ret_result;
-            /*9075*/
+            /*8546*/
         }
+
+        // gen! size_t GetSize()
         /// <summary>
         /// Returns the data size.
         /// /*cef()*/
         /// </summary>
-        /*9076*/
+        /*8547*/
 
-
-        // gen! size_t GetSize()
-        /*9077*/
-
-        public uint GetSize()/*9078*/
+        public uint GetSize()/*8548*/
         {
             JsValue ret;
-            /*9079*/
+            /*8549*/
 
             Cef3Binder.MyCefMet_Call0(this.nativePtr, CefBinaryValue_GetSize_6, out ret);
-            /*9080*/
+            /*8550*/
             var ret_result = (uint)ret.I32;
-            /*9081*/
+            /*8551*/
             return ret_result;
-            /*9082*/
+            /*8552*/
         }
+
+        // gen! size_t GetData(void* buffer,size_t buffer_size,size_t data_offset)
         /// <summary>
         /// Read up to |buffer_size| number of bytes into |buffer|. Reading begins at
         /// the specified byte |data_offset|. Returns the number of bytes read.
         /// /*cef()*/
         /// </summary>
-        /*9083*/
+        /*8553*/
 
-
-        // gen! size_t GetData(void* buffer,size_t buffer_size,size_t data_offset)
-        /*9084*/
-
-        public uint GetData(IntPtr /*9085*/
+        public uint GetData(IntPtr /*8554*/
         buffer
-        , uint /*9086*/
+        , uint /*8555*/
         buffer_size
-        , uint /*9087*/
+        , uint /*8556*/
         data_offset
-        )/*9088*/
+        )/*8557*/
         {
             JsValue v1 = new JsValue();
             JsValue v2 = new JsValue();
             JsValue v3 = new JsValue();
             JsValue ret;
-            /*9089*/
+            /*8558*/
 
             Cef3Binder.MyCefMet_Call3(this.nativePtr, CefBinaryValue_GetData_7, out ret, ref v1, ref v2, ref v3);
-            /*9090*/
+            /*8559*/
             var ret_result = (uint)ret.I32;
-            /*9091*/
+            /*8560*/
             return ret_result;
-            /*9092*/
+            /*8561*/
         }
-        /*9093*/
+        /*8562*/
     }
 
 
@@ -18562,395 +17500,373 @@ namespace LayoutFarm.CefBridge.Auto
     /// Class representing a dictionary value. Can be used on any process and thread.
     /// /*(source=library)*/
     /// </summary>
-    /*9247*/
+    /*8716*/
     public struct CefDictionaryValue
     {
-        /*9248*/
+        /*8717*/
         const int _typeNAME = 48;
-        /*9249*/
+        /*8718*/
         const int CefDictionaryValue_Release_0 = (_typeNAME << 16) | 0;
-        /*9250*/
+        /*8719*/
         const int CefDictionaryValue_IsValid_1 = (_typeNAME << 16) | 1;
-        /*9251*/
+        /*8720*/
         const int CefDictionaryValue_IsOwned_2 = (_typeNAME << 16) | 2;
-        /*9252*/
+        /*8721*/
         const int CefDictionaryValue_IsReadOnly_3 = (_typeNAME << 16) | 3;
-        /*9253*/
+        /*8722*/
         const int CefDictionaryValue_IsSame_4 = (_typeNAME << 16) | 4;
-        /*9254*/
+        /*8723*/
         const int CefDictionaryValue_IsEqual_5 = (_typeNAME << 16) | 5;
-        /*9255*/
+        /*8724*/
         const int CefDictionaryValue_Copy_6 = (_typeNAME << 16) | 6;
-        /*9256*/
+        /*8725*/
         const int CefDictionaryValue_GetSize_7 = (_typeNAME << 16) | 7;
-        /*9257*/
+        /*8726*/
         const int CefDictionaryValue_Clear_8 = (_typeNAME << 16) | 8;
-        /*9258*/
+        /*8727*/
         const int CefDictionaryValue_HasKey_9 = (_typeNAME << 16) | 9;
-        /*9259*/
+        /*8728*/
         const int CefDictionaryValue_GetKeys_10 = (_typeNAME << 16) | 10;
-        /*9260*/
+        /*8729*/
         const int CefDictionaryValue_Remove_11 = (_typeNAME << 16) | 11;
-        /*9261*/
+        /*8730*/
         const int CefDictionaryValue_GetType_12 = (_typeNAME << 16) | 12;
-        /*9262*/
+        /*8731*/
         const int CefDictionaryValue_GetValue_13 = (_typeNAME << 16) | 13;
-        /*9263*/
+        /*8732*/
         const int CefDictionaryValue_GetBool_14 = (_typeNAME << 16) | 14;
-        /*9264*/
+        /*8733*/
         const int CefDictionaryValue_GetInt_15 = (_typeNAME << 16) | 15;
-        /*9265*/
+        /*8734*/
         const int CefDictionaryValue_GetDouble_16 = (_typeNAME << 16) | 16;
-        /*9266*/
+        /*8735*/
         const int CefDictionaryValue_GetString_17 = (_typeNAME << 16) | 17;
-        /*9267*/
+        /*8736*/
         const int CefDictionaryValue_GetBinary_18 = (_typeNAME << 16) | 18;
-        /*9268*/
+        /*8737*/
         const int CefDictionaryValue_GetDictionary_19 = (_typeNAME << 16) | 19;
-        /*9269*/
+        /*8738*/
         const int CefDictionaryValue_GetList_20 = (_typeNAME << 16) | 20;
-        /*9270*/
+        /*8739*/
         const int CefDictionaryValue_SetValue_21 = (_typeNAME << 16) | 21;
-        /*9271*/
+        /*8740*/
         const int CefDictionaryValue_SetNull_22 = (_typeNAME << 16) | 22;
-        /*9272*/
+        /*8741*/
         const int CefDictionaryValue_SetBool_23 = (_typeNAME << 16) | 23;
-        /*9273*/
+        /*8742*/
         const int CefDictionaryValue_SetInt_24 = (_typeNAME << 16) | 24;
-        /*9274*/
+        /*8743*/
         const int CefDictionaryValue_SetDouble_25 = (_typeNAME << 16) | 25;
-        /*9275*/
+        /*8744*/
         const int CefDictionaryValue_SetString_26 = (_typeNAME << 16) | 26;
-        /*9276*/
+        /*8745*/
         const int CefDictionaryValue_SetBinary_27 = (_typeNAME << 16) | 27;
-        /*9277*/
+        /*8746*/
         const int CefDictionaryValue_SetDictionary_28 = (_typeNAME << 16) | 28;
-        /*9278*/
+        /*8747*/
         const int CefDictionaryValue_SetList_29 = (_typeNAME << 16) | 29;
-        /*9279*/
+        /*8748*/
         internal readonly IntPtr nativePtr;
-        /*9280*/
+        /*8749*/
         internal CefDictionaryValue(IntPtr nativePtr)
         {
-            /*9281*/
+            /*8750*/
             this.nativePtr = nativePtr;
-            /*9282*/
+            /*8751*/
         }
-        /*9283*/
+        /*8752*/
         public void Release()
         {
-            /*9284*/
+            /*8753*/
             JsValue ret;
-            /*9285*/
+            /*8754*/
             Cef3Binder.MyCefMet_Call0(this.nativePtr, CefDictionaryValue_Release_0, out ret);
-            /*9286*/
+            /*8755*/
         }
+
+        // gen! bool IsValid()
         /// <summary>
         /// CefDictionaryValue methods.
         /// </summary>
-        /*9287*/
+        /*8756*/
 
-
-        // gen! bool IsValid()
-        /*9288*/
-
-        public bool IsValid()/*9289*/
+        public bool IsValid()/*8757*/
         {
             JsValue ret;
-            /*9290*/
+            /*8758*/
 
             Cef3Binder.MyCefMet_Call0(this.nativePtr, CefDictionaryValue_IsValid_1, out ret);
-            /*9291*/
+            /*8759*/
             var ret_result = ret.I32 != 0;
-            /*9292*/
+            /*8760*/
             return ret_result;
-            /*9293*/
+            /*8761*/
         }
+
+        // gen! bool IsOwned()
         /// <summary>
         /// Returns true if this object is currently owned by another object.
         /// /*cef()*/
         /// </summary>
-        /*9294*/
+        /*8762*/
 
-
-        // gen! bool IsOwned()
-        /*9295*/
-
-        public bool IsOwned()/*9296*/
+        public bool IsOwned()/*8763*/
         {
             JsValue ret;
-            /*9297*/
+            /*8764*/
 
             Cef3Binder.MyCefMet_Call0(this.nativePtr, CefDictionaryValue_IsOwned_2, out ret);
-            /*9298*/
+            /*8765*/
             var ret_result = ret.I32 != 0;
-            /*9299*/
+            /*8766*/
             return ret_result;
-            /*9300*/
+            /*8767*/
         }
+
+        // gen! bool IsReadOnly()
         /// <summary>
         /// Returns true if the values of this object are read-only. Some APIs may
         /// expose read-only objects.
         /// /*cef()*/
         /// </summary>
-        /*9301*/
+        /*8768*/
 
-
-        // gen! bool IsReadOnly()
-        /*9302*/
-
-        public bool IsReadOnly()/*9303*/
+        public bool IsReadOnly()/*8769*/
         {
             JsValue ret;
-            /*9304*/
+            /*8770*/
 
             Cef3Binder.MyCefMet_Call0(this.nativePtr, CefDictionaryValue_IsReadOnly_3, out ret);
-            /*9305*/
+            /*8771*/
             var ret_result = ret.I32 != 0;
-            /*9306*/
+            /*8772*/
             return ret_result;
-            /*9307*/
+            /*8773*/
         }
+
+        // gen! bool IsSame(CefRefPtr<CefDictionaryValue> that)
         /// <summary>
         /// Returns true if this object and |that| object have the same underlying
         /// data. If true modifications to this object will also affect |that| object
         /// and vice-versa.
         /// /*cef()*/
         /// </summary>
-        /*9308*/
+        /*8774*/
 
-
-        // gen! bool IsSame(CefRefPtr<CefDictionaryValue> that)
-        /*9309*/
-
-        public bool IsSame(CefDictionaryValue /*9310*/
+        public bool IsSame(CefDictionaryValue /*8775*/
         that
-        )/*9311*/
+        )/*8776*/
         {
             JsValue v1 = new JsValue();
             JsValue ret;
-            /*9312*/
+            /*8777*/
 
             Cef3Binder.MyCefMet_Call1(this.nativePtr, CefDictionaryValue_IsSame_4, out ret, ref v1);
-            /*9313*/
+            /*8778*/
             var ret_result = ret.I32 != 0;
-            /*9314*/
+            /*8779*/
             return ret_result;
-            /*9315*/
+            /*8780*/
         }
+
+        // gen! bool IsEqual(CefRefPtr<CefDictionaryValue> that)
         /// <summary>
         /// Returns true if this object and |that| object have an equivalent underlying
         /// value but are not necessarily the same object.
         /// /*cef()*/
         /// </summary>
-        /*9316*/
+        /*8781*/
 
-
-        // gen! bool IsEqual(CefRefPtr<CefDictionaryValue> that)
-        /*9317*/
-
-        public bool IsEqual(CefDictionaryValue /*9318*/
+        public bool IsEqual(CefDictionaryValue /*8782*/
         that
-        )/*9319*/
+        )/*8783*/
         {
             JsValue v1 = new JsValue();
             JsValue ret;
-            /*9320*/
+            /*8784*/
 
             Cef3Binder.MyCefMet_Call1(this.nativePtr, CefDictionaryValue_IsEqual_5, out ret, ref v1);
-            /*9321*/
+            /*8785*/
             var ret_result = ret.I32 != 0;
-            /*9322*/
+            /*8786*/
             return ret_result;
-            /*9323*/
+            /*8787*/
         }
+
+        // gen! CefRefPtr<CefDictionaryValue> Copy(bool exclude_empty_children)
         /// <summary>
         /// Returns a writable copy of this object. If |exclude_empty_children| is true
         /// any empty dictionaries or lists will be excluded from the copy.
         /// /*cef()*/
         /// </summary>
-        /*9324*/
+        /*8788*/
 
-
-        // gen! CefRefPtr<CefDictionaryValue> Copy(bool exclude_empty_children)
-        /*9325*/
-
-        public CefDictionaryValue Copy(bool /*9326*/
+        public CefDictionaryValue Copy(bool /*8789*/
         exclude_empty_children
-        )/*9327*/
+        )/*8790*/
         {
             JsValue v1 = new JsValue();
             JsValue ret;
-            /*9328*/
+            /*8791*/
 
             Cef3Binder.MyCefMet_Call1(this.nativePtr, CefDictionaryValue_Copy_6, out ret, ref v1);
-            /*9329*/
+            /*8792*/
             var ret_result = new CefDictionaryValue(ret.Ptr);
-            /*9330*/
+            /*8793*/
             return ret_result;
-            /*9331*/
+            /*8794*/
         }
+
+        // gen! size_t GetSize()
         /// <summary>
         /// Returns the number of values.
         /// /*cef()*/
         /// </summary>
-        /*9332*/
+        /*8795*/
 
-
-        // gen! size_t GetSize()
-        /*9333*/
-
-        public uint GetSize()/*9334*/
+        public uint GetSize()/*8796*/
         {
             JsValue ret;
-            /*9335*/
+            /*8797*/
 
             Cef3Binder.MyCefMet_Call0(this.nativePtr, CefDictionaryValue_GetSize_7, out ret);
-            /*9336*/
+            /*8798*/
             var ret_result = (uint)ret.I32;
-            /*9337*/
+            /*8799*/
             return ret_result;
-            /*9338*/
+            /*8800*/
         }
+
+        // gen! bool Clear()
         /// <summary>
         /// Removes all values. Returns true on success.
         /// /*cef()*/
         /// </summary>
-        /*9339*/
+        /*8801*/
 
-
-        // gen! bool Clear()
-        /*9340*/
-
-        public bool Clear()/*9341*/
+        public bool Clear()/*8802*/
         {
             JsValue ret;
-            /*9342*/
+            /*8803*/
 
             Cef3Binder.MyCefMet_Call0(this.nativePtr, CefDictionaryValue_Clear_8, out ret);
-            /*9343*/
+            /*8804*/
             var ret_result = ret.I32 != 0;
-            /*9344*/
+            /*8805*/
             return ret_result;
-            /*9345*/
+            /*8806*/
         }
+
+        // gen! bool HasKey(const CefString& key)
         /// <summary>
         /// Returns true if the current dictionary has a value for the given key.
         /// /*cef()*/
         /// </summary>
-        /*9346*/
+        /*8807*/
 
-
-        // gen! bool HasKey(const CefString& key)
-        /*9347*/
-
-        public bool HasKey(string /*9348*/
+        public bool HasKey(string /*8808*/
         key
-        )/*9349*/
+        )/*8809*/
         {
             JsValue v1 = new JsValue();
             JsValue ret;
             v1.Ptr = Cef3Binder.MyCefCreateCefString(key);
-            /*9350*/
+            /*8810*/
             ;
-            /*9351*/
+            /*8811*/
 
             Cef3Binder.MyCefMet_Call1(this.nativePtr, CefDictionaryValue_HasKey_9, out ret, ref v1);
-            /*9352*/
+            /*8812*/
             var ret_result = ret.I32 != 0;
-            Cef3Binder.MyCefDeletePtr(v1.Ptr);/*9353*/
+            Cef3Binder.MyCefDeletePtr(v1.Ptr);/*8813*/
             ;
-            /*9354*/
+            /*8814*/
             return ret_result;
-            /*9355*/
+            /*8815*/
         }
+
+        // gen! bool GetKeys(KeyList& keys)
         /// <summary>
         /// Reads all keys for this dictionary into the specified vector.
         /// /*cef()*/
         /// </summary>
-        /*9356*/
+        /*8816*/
 
-
-        // gen! bool GetKeys(KeyList& keys)
-        /*9357*/
-
-        public bool GetKeys(KeyList /*9358*/
+        public bool GetKeys(KeyList /*8817*/
         keys
-        )/*9359*/
+        )/*8818*/
         {
             JsValue v1 = new JsValue();
             JsValue ret;
-            /*9360*/
+            /*8819*/
 
             Cef3Binder.MyCefMet_Call1(this.nativePtr, CefDictionaryValue_GetKeys_10, out ret, ref v1);
-            /*9361*/
+            /*8820*/
             var ret_result = ret.I32 != 0;
-            /*9362*/
+            /*8821*/
             return ret_result;
-            /*9363*/
+            /*8822*/
         }
+
+        // gen! bool Remove(const CefString& key)
         /// <summary>
         /// Removes the value at the specified key. Returns true is the value was
         /// removed successfully.
         /// /*cef()*/
         /// </summary>
-        /*9364*/
+        /*8823*/
 
-
-        // gen! bool Remove(const CefString& key)
-        /*9365*/
-
-        public bool Remove(string /*9366*/
+        public bool Remove(string /*8824*/
         key
-        )/*9367*/
+        )/*8825*/
         {
             JsValue v1 = new JsValue();
             JsValue ret;
             v1.Ptr = Cef3Binder.MyCefCreateCefString(key);
-            /*9368*/
+            /*8826*/
             ;
-            /*9369*/
+            /*8827*/
 
             Cef3Binder.MyCefMet_Call1(this.nativePtr, CefDictionaryValue_Remove_11, out ret, ref v1);
-            /*9370*/
+            /*8828*/
             var ret_result = ret.I32 != 0;
-            Cef3Binder.MyCefDeletePtr(v1.Ptr);/*9371*/
+            Cef3Binder.MyCefDeletePtr(v1.Ptr);/*8829*/
             ;
-            /*9372*/
+            /*8830*/
             return ret_result;
-            /*9373*/
+            /*8831*/
         }
+
+        // gen! CefValueType GetType(const CefString& key)
         /// <summary>
         /// Returns the value type for the specified key.
         /// /*cef(default_retval=VTYPE_INVALID)*/
         /// </summary>
-        /*9374*/
+        /*8832*/
 
-
-        // gen! CefValueType GetType(const CefString& key)
-        /*9375*/
-
-        public cef_value_type_t _GetType(string /*9376*/
+        public cef_value_type_t _GetType(string /*8833*/
         key
-        )/*9377*/
+        )/*8834*/
         {
             JsValue v1 = new JsValue();
             JsValue ret;
             v1.Ptr = Cef3Binder.MyCefCreateCefString(key);
-            /*9378*/
+            /*8835*/
             ;
-            /*9379*/
+            /*8836*/
 
             Cef3Binder.MyCefMet_Call1(this.nativePtr, CefDictionaryValue_GetType_12, out ret, ref v1);
-            /*9380*/
+            /*8837*/
             var ret_result = (cef_value_type_t)ret.I32;
 
-            Cef3Binder.MyCefDeletePtr(v1.Ptr);/*9381*/
+            Cef3Binder.MyCefDeletePtr(v1.Ptr);/*8838*/
             ;
-            /*9382*/
+            /*8839*/
             return ret_result;
-            /*9383*/
+            /*8840*/
         }
+
+        // gen! CefRefPtr<CefValue> GetValue(const CefString& key)
         /// <summary>
         /// Returns the value at the specified key. For simple types the returned
         /// value will copy existing data and modifications to the value will not
@@ -18959,247 +17875,231 @@ namespace LayoutFarm.CefBridge.Auto
         /// will modify this object.
         /// /*cef()*/
         /// </summary>
-        /*9384*/
+        /*8841*/
 
-
-        // gen! CefRefPtr<CefValue> GetValue(const CefString& key)
-        /*9385*/
-
-        public CefValue GetValue(string /*9386*/
+        public CefValue GetValue(string /*8842*/
         key
-        )/*9387*/
+        )/*8843*/
         {
             JsValue v1 = new JsValue();
             JsValue ret;
             v1.Ptr = Cef3Binder.MyCefCreateCefString(key);
-            /*9388*/
+            /*8844*/
             ;
-            /*9389*/
+            /*8845*/
 
             Cef3Binder.MyCefMet_Call1(this.nativePtr, CefDictionaryValue_GetValue_13, out ret, ref v1);
-            /*9390*/
+            /*8846*/
             var ret_result = new CefValue(ret.Ptr);
-            Cef3Binder.MyCefDeletePtr(v1.Ptr);/*9391*/
+            Cef3Binder.MyCefDeletePtr(v1.Ptr);/*8847*/
             ;
-            /*9392*/
+            /*8848*/
             return ret_result;
-            /*9393*/
+            /*8849*/
         }
+
+        // gen! bool GetBool(const CefString& key)
         /// <summary>
         /// Returns the value at the specified key as type bool.
         /// /*cef()*/
         /// </summary>
-        /*9394*/
+        /*8850*/
 
-
-        // gen! bool GetBool(const CefString& key)
-        /*9395*/
-
-        public bool GetBool(string /*9396*/
+        public bool GetBool(string /*8851*/
         key
-        )/*9397*/
+        )/*8852*/
         {
             JsValue v1 = new JsValue();
             JsValue ret;
             v1.Ptr = Cef3Binder.MyCefCreateCefString(key);
-            /*9398*/
+            /*8853*/
             ;
-            /*9399*/
+            /*8854*/
 
             Cef3Binder.MyCefMet_Call1(this.nativePtr, CefDictionaryValue_GetBool_14, out ret, ref v1);
-            /*9400*/
+            /*8855*/
             var ret_result = ret.I32 != 0;
-            Cef3Binder.MyCefDeletePtr(v1.Ptr);/*9401*/
+            Cef3Binder.MyCefDeletePtr(v1.Ptr);/*8856*/
             ;
-            /*9402*/
+            /*8857*/
             return ret_result;
-            /*9403*/
+            /*8858*/
         }
+
+        // gen! int GetInt(const CefString& key)
         /// <summary>
         /// Returns the value at the specified key as type int.
         /// /*cef()*/
         /// </summary>
-        /*9404*/
+        /*8859*/
 
-
-        // gen! int GetInt(const CefString& key)
-        /*9405*/
-
-        public int GetInt(string /*9406*/
+        public int GetInt(string /*8860*/
         key
-        )/*9407*/
+        )/*8861*/
         {
             JsValue v1 = new JsValue();
             JsValue ret;
             v1.Ptr = Cef3Binder.MyCefCreateCefString(key);
-            /*9408*/
+            /*8862*/
             ;
-            /*9409*/
+            /*8863*/
 
             Cef3Binder.MyCefMet_Call1(this.nativePtr, CefDictionaryValue_GetInt_15, out ret, ref v1);
-            /*9410*/
+            /*8864*/
             var ret_result = ret.I32;
-            Cef3Binder.MyCefDeletePtr(v1.Ptr);/*9411*/
+            Cef3Binder.MyCefDeletePtr(v1.Ptr);/*8865*/
             ;
-            /*9412*/
+            /*8866*/
             return ret_result;
-            /*9413*/
+            /*8867*/
         }
+
+        // gen! double GetDouble(const CefString& key)
         /// <summary>
         /// Returns the value at the specified key as type double.
         /// /*cef()*/
         /// </summary>
-        /*9414*/
+        /*8868*/
 
-
-        // gen! double GetDouble(const CefString& key)
-        /*9415*/
-
-        public double GetDouble(string /*9416*/
+        public double GetDouble(string /*8869*/
         key
-        )/*9417*/
+        )/*8870*/
         {
             JsValue v1 = new JsValue();
             JsValue ret;
             v1.Ptr = Cef3Binder.MyCefCreateCefString(key);
-            /*9418*/
+            /*8871*/
             ;
-            /*9419*/
+            /*8872*/
 
             Cef3Binder.MyCefMet_Call1(this.nativePtr, CefDictionaryValue_GetDouble_16, out ret, ref v1);
-            /*9420*/
+            /*8873*/
             var ret_result = ret.Num;
-            Cef3Binder.MyCefDeletePtr(v1.Ptr);/*9421*/
+            Cef3Binder.MyCefDeletePtr(v1.Ptr);/*8874*/
             ;
-            /*9422*/
+            /*8875*/
             return ret_result;
-            /*9423*/
+            /*8876*/
         }
+
+        // gen! CefString GetString(const CefString& key)
         /// <summary>
         /// Returns the value at the specified key as type string.
         /// /*cef()*/
         /// </summary>
-        /*9424*/
+        /*8877*/
 
-
-        // gen! CefString GetString(const CefString& key)
-        /*9425*/
-
-        public string GetString(string /*9426*/
+        public string GetString(string /*8878*/
         key
-        )/*9427*/
+        )/*8879*/
         {
             JsValue v1 = new JsValue();
             JsValue ret;
             v1.Ptr = Cef3Binder.MyCefCreateCefString(key);
-            /*9428*/
+            /*8880*/
             ;
-            /*9429*/
+            /*8881*/
 
             Cef3Binder.MyCefMet_Call1(this.nativePtr, CefDictionaryValue_GetString_17, out ret, ref v1);
-            /*9430*/
+            /*8882*/
             var ret_result = Cef3Binder.CopyStringAndDestroyNativeSide(ref ret);
-            Cef3Binder.MyCefDeletePtr(v1.Ptr);/*9431*/
+            Cef3Binder.MyCefDeletePtr(v1.Ptr);/*8883*/
             ;
-            /*9432*/
+            /*8884*/
             return ret_result;
-            /*9433*/
+            /*8885*/
         }
+
+        // gen! CefRefPtr<CefBinaryValue> GetBinary(const CefString& key)
         /// <summary>
         /// Returns the value at the specified key as type binary. The returned
         /// value will reference existing data.
         /// /*cef()*/
         /// </summary>
-        /*9434*/
+        /*8886*/
 
-
-        // gen! CefRefPtr<CefBinaryValue> GetBinary(const CefString& key)
-        /*9435*/
-
-        public CefBinaryValue GetBinary(string /*9436*/
+        public CefBinaryValue GetBinary(string /*8887*/
         key
-        )/*9437*/
+        )/*8888*/
         {
             JsValue v1 = new JsValue();
             JsValue ret;
             v1.Ptr = Cef3Binder.MyCefCreateCefString(key);
-            /*9438*/
+            /*8889*/
             ;
-            /*9439*/
+            /*8890*/
 
             Cef3Binder.MyCefMet_Call1(this.nativePtr, CefDictionaryValue_GetBinary_18, out ret, ref v1);
-            /*9440*/
+            /*8891*/
             var ret_result = new CefBinaryValue(ret.Ptr);
-            Cef3Binder.MyCefDeletePtr(v1.Ptr);/*9441*/
+            Cef3Binder.MyCefDeletePtr(v1.Ptr);/*8892*/
             ;
-            /*9442*/
+            /*8893*/
             return ret_result;
-            /*9443*/
+            /*8894*/
         }
+
+        // gen! CefRefPtr<CefDictionaryValue> GetDictionary(const CefString& key)
         /// <summary>
         /// Returns the value at the specified key as type dictionary. The returned
         /// value will reference existing data and modifications to the value will
         /// modify this object.
         /// /*cef()*/
         /// </summary>
-        /*9444*/
+        /*8895*/
 
-
-        // gen! CefRefPtr<CefDictionaryValue> GetDictionary(const CefString& key)
-        /*9445*/
-
-        public CefDictionaryValue GetDictionary(string /*9446*/
+        public CefDictionaryValue GetDictionary(string /*8896*/
         key
-        )/*9447*/
+        )/*8897*/
         {
             JsValue v1 = new JsValue();
             JsValue ret;
             v1.Ptr = Cef3Binder.MyCefCreateCefString(key);
-            /*9448*/
+            /*8898*/
             ;
-            /*9449*/
+            /*8899*/
 
             Cef3Binder.MyCefMet_Call1(this.nativePtr, CefDictionaryValue_GetDictionary_19, out ret, ref v1);
-            /*9450*/
+            /*8900*/
             var ret_result = new CefDictionaryValue(ret.Ptr);
-            Cef3Binder.MyCefDeletePtr(v1.Ptr);/*9451*/
+            Cef3Binder.MyCefDeletePtr(v1.Ptr);/*8901*/
             ;
-            /*9452*/
+            /*8902*/
             return ret_result;
-            /*9453*/
+            /*8903*/
         }
+
+        // gen! CefRefPtr<CefListValue> GetList(const CefString& key)
         /// <summary>
         /// Returns the value at the specified key as type list. The returned value
         /// will reference existing data and modifications to the value will modify
         /// this object.
         /// /*cef()*/
         /// </summary>
-        /*9454*/
+        /*8904*/
 
-
-        // gen! CefRefPtr<CefListValue> GetList(const CefString& key)
-        /*9455*/
-
-        public CefListValue GetList(string /*9456*/
+        public CefListValue GetList(string /*8905*/
         key
-        )/*9457*/
+        )/*8906*/
         {
             JsValue v1 = new JsValue();
             JsValue ret;
             v1.Ptr = Cef3Binder.MyCefCreateCefString(key);
-            /*9458*/
+            /*8907*/
             ;
-            /*9459*/
+            /*8908*/
 
             Cef3Binder.MyCefMet_Call1(this.nativePtr, CefDictionaryValue_GetList_20, out ret, ref v1);
-            /*9460*/
+            /*8909*/
             var ret_result = new CefListValue(ret.Ptr);
-            Cef3Binder.MyCefDeletePtr(v1.Ptr);/*9461*/
+            Cef3Binder.MyCefDeletePtr(v1.Ptr);/*8910*/
             ;
-            /*9462*/
+            /*8911*/
             return ret_result;
-            /*9463*/
+            /*8912*/
         }
+
+        // gen! bool SetValue(const CefString& key,CefRefPtr<CefValue> value)
         /// <summary>
         /// Sets the value at the specified key. Returns true if the value was set
         /// successfully. If |value| represents simple data then the underlying data
@@ -19209,207 +18109,195 @@ namespace LayoutFarm.CefBridge.Auto
         /// this object.
         /// /*cef()*/
         /// </summary>
-        /*9464*/
+        /*8913*/
 
-
-        // gen! bool SetValue(const CefString& key,CefRefPtr<CefValue> value)
-        /*9465*/
-
-        public bool SetValue(string /*9466*/
+        public bool SetValue(string /*8914*/
         key
-        , CefValue /*9467*/
+        , CefValue /*8915*/
         value
-        )/*9468*/
+        )/*8916*/
         {
             JsValue v1 = new JsValue();
             JsValue v2 = new JsValue();
             JsValue ret;
             v1.Ptr = Cef3Binder.MyCefCreateCefString(key);
-            /*9469*/
+            /*8917*/
             ;
-            /*9470*/
+            /*8918*/
 
             Cef3Binder.MyCefMet_Call2(this.nativePtr, CefDictionaryValue_SetValue_21, out ret, ref v1, ref v2);
-            /*9471*/
+            /*8919*/
             var ret_result = ret.I32 != 0;
-            Cef3Binder.MyCefDeletePtr(v1.Ptr);/*9472*/
+            Cef3Binder.MyCefDeletePtr(v1.Ptr);/*8920*/
             ;
-            /*9473*/
+            /*8921*/
             return ret_result;
-            /*9474*/
+            /*8922*/
         }
+
+        // gen! bool SetNull(const CefString& key)
         /// <summary>
         /// Sets the value at the specified key as type null. Returns true if the
         /// value was set successfully.
         /// /*cef()*/
         /// </summary>
-        /*9475*/
+        /*8923*/
 
-
-        // gen! bool SetNull(const CefString& key)
-        /*9476*/
-
-        public bool SetNull(string /*9477*/
+        public bool SetNull(string /*8924*/
         key
-        )/*9478*/
+        )/*8925*/
         {
             JsValue v1 = new JsValue();
             JsValue ret;
             v1.Ptr = Cef3Binder.MyCefCreateCefString(key);
-            /*9479*/
+            /*8926*/
             ;
-            /*9480*/
+            /*8927*/
 
             Cef3Binder.MyCefMet_Call1(this.nativePtr, CefDictionaryValue_SetNull_22, out ret, ref v1);
-            /*9481*/
+            /*8928*/
             var ret_result = ret.I32 != 0;
-            Cef3Binder.MyCefDeletePtr(v1.Ptr);/*9482*/
+            Cef3Binder.MyCefDeletePtr(v1.Ptr);/*8929*/
             ;
-            /*9483*/
+            /*8930*/
             return ret_result;
-            /*9484*/
+            /*8931*/
         }
+
+        // gen! bool SetBool(const CefString& key,bool value)
         /// <summary>
         /// Sets the value at the specified key as type bool. Returns true if the
         /// value was set successfully.
         /// /*cef()*/
         /// </summary>
-        /*9485*/
+        /*8932*/
 
-
-        // gen! bool SetBool(const CefString& key,bool value)
-        /*9486*/
-
-        public bool SetBool(string /*9487*/
+        public bool SetBool(string /*8933*/
         key
-        , bool /*9488*/
+        , bool /*8934*/
         value
-        )/*9489*/
+        )/*8935*/
         {
             JsValue v1 = new JsValue();
             JsValue v2 = new JsValue();
             JsValue ret;
             v1.Ptr = Cef3Binder.MyCefCreateCefString(key);
-            /*9490*/
+            /*8936*/
             ;
-            /*9491*/
+            /*8937*/
 
             Cef3Binder.MyCefMet_Call2(this.nativePtr, CefDictionaryValue_SetBool_23, out ret, ref v1, ref v2);
-            /*9492*/
+            /*8938*/
             var ret_result = ret.I32 != 0;
-            Cef3Binder.MyCefDeletePtr(v1.Ptr);/*9493*/
+            Cef3Binder.MyCefDeletePtr(v1.Ptr);/*8939*/
             ;
-            /*9494*/
+            /*8940*/
             return ret_result;
-            /*9495*/
+            /*8941*/
         }
+
+        // gen! bool SetInt(const CefString& key,int value)
         /// <summary>
         /// Sets the value at the specified key as type int. Returns true if the
         /// value was set successfully.
         /// /*cef()*/
         /// </summary>
-        /*9496*/
+        /*8942*/
 
-
-        // gen! bool SetInt(const CefString& key,int value)
-        /*9497*/
-
-        public bool SetInt(string /*9498*/
+        public bool SetInt(string /*8943*/
         key
-        , int /*9499*/
+        , int /*8944*/
         value
-        )/*9500*/
+        )/*8945*/
         {
             JsValue v1 = new JsValue();
             JsValue v2 = new JsValue();
             JsValue ret;
             v1.Ptr = Cef3Binder.MyCefCreateCefString(key);
-            /*9501*/
+            /*8946*/
             ;
-            /*9502*/
+            /*8947*/
 
             Cef3Binder.MyCefMet_Call2(this.nativePtr, CefDictionaryValue_SetInt_24, out ret, ref v1, ref v2);
-            /*9503*/
+            /*8948*/
             var ret_result = ret.I32 != 0;
-            Cef3Binder.MyCefDeletePtr(v1.Ptr);/*9504*/
+            Cef3Binder.MyCefDeletePtr(v1.Ptr);/*8949*/
             ;
-            /*9505*/
+            /*8950*/
             return ret_result;
-            /*9506*/
+            /*8951*/
         }
+
+        // gen! bool SetDouble(const CefString& key,double value)
         /// <summary>
         /// Sets the value at the specified key as type double. Returns true if the
         /// value was set successfully.
         /// /*cef()*/
         /// </summary>
-        /*9507*/
+        /*8952*/
 
-
-        // gen! bool SetDouble(const CefString& key,double value)
-        /*9508*/
-
-        public bool SetDouble(string /*9509*/
+        public bool SetDouble(string /*8953*/
         key
-        , double /*9510*/
+        , double /*8954*/
         value
-        )/*9511*/
+        )/*8955*/
         {
             JsValue v1 = new JsValue();
             JsValue v2 = new JsValue();
             JsValue ret;
             v1.Ptr = Cef3Binder.MyCefCreateCefString(key);
-            /*9512*/
+            /*8956*/
             ;
-            /*9513*/
+            /*8957*/
 
             Cef3Binder.MyCefMet_Call2(this.nativePtr, CefDictionaryValue_SetDouble_25, out ret, ref v1, ref v2);
-            /*9514*/
+            /*8958*/
             var ret_result = ret.I32 != 0;
-            Cef3Binder.MyCefDeletePtr(v1.Ptr);/*9515*/
+            Cef3Binder.MyCefDeletePtr(v1.Ptr);/*8959*/
             ;
-            /*9516*/
+            /*8960*/
             return ret_result;
-            /*9517*/
+            /*8961*/
         }
+
+        // gen! bool SetString(const CefString& key,const CefString& value)
         /// <summary>
         /// Sets the value at the specified key as type string. Returns true if the
         /// value was set successfully.
         /// /*cef(optional_param=value)*/
         /// </summary>
-        /*9518*/
+        /*8962*/
 
-
-        // gen! bool SetString(const CefString& key,const CefString& value)
-        /*9519*/
-
-        public bool SetString(string /*9520*/
+        public bool SetString(string /*8963*/
         key
-        , string /*9521*/
+        , string /*8964*/
         value
-        )/*9522*/
+        )/*8965*/
         {
             JsValue v1 = new JsValue();
             JsValue v2 = new JsValue();
             JsValue ret;
             v1.Ptr = Cef3Binder.MyCefCreateCefString(key);
-            /*9523*/
+            /*8966*/
             ;
             v2.Ptr = Cef3Binder.MyCefCreateCefString(value);
-            /*9524*/
+            /*8967*/
             ;
-            /*9525*/
+            /*8968*/
 
             Cef3Binder.MyCefMet_Call2(this.nativePtr, CefDictionaryValue_SetString_26, out ret, ref v1, ref v2);
-            /*9526*/
+            /*8969*/
             var ret_result = ret.I32 != 0;
-            Cef3Binder.MyCefDeletePtr(v1.Ptr);/*9527*/
+            Cef3Binder.MyCefDeletePtr(v1.Ptr);/*8970*/
             ;
-            Cef3Binder.MyCefDeletePtr(v2.Ptr);/*9528*/
+            Cef3Binder.MyCefDeletePtr(v2.Ptr);/*8971*/
             ;
-            /*9529*/
+            /*8972*/
             return ret_result;
-            /*9530*/
+            /*8973*/
         }
+
+        // gen! bool SetBinary(const CefString& key,CefRefPtr<CefBinaryValue> value)
         /// <summary>
         /// Sets the value at the specified key as type binary. Returns true if the
         /// value was set successfully. If |value| is currently owned by another object
@@ -19418,35 +18306,33 @@ namespace LayoutFarm.CefBridge.Auto
         /// reference will be invalidated.
         /// /*cef()*/
         /// </summary>
-        /*9531*/
+        /*8974*/
 
-
-        // gen! bool SetBinary(const CefString& key,CefRefPtr<CefBinaryValue> value)
-        /*9532*/
-
-        public bool SetBinary(string /*9533*/
+        public bool SetBinary(string /*8975*/
         key
-        , CefBinaryValue /*9534*/
+        , CefBinaryValue /*8976*/
         value
-        )/*9535*/
+        )/*8977*/
         {
             JsValue v1 = new JsValue();
             JsValue v2 = new JsValue();
             JsValue ret;
             v1.Ptr = Cef3Binder.MyCefCreateCefString(key);
-            /*9536*/
+            /*8978*/
             ;
-            /*9537*/
+            /*8979*/
 
             Cef3Binder.MyCefMet_Call2(this.nativePtr, CefDictionaryValue_SetBinary_27, out ret, ref v1, ref v2);
-            /*9538*/
+            /*8980*/
             var ret_result = ret.I32 != 0;
-            Cef3Binder.MyCefDeletePtr(v1.Ptr);/*9539*/
+            Cef3Binder.MyCefDeletePtr(v1.Ptr);/*8981*/
             ;
-            /*9540*/
+            /*8982*/
             return ret_result;
-            /*9541*/
+            /*8983*/
         }
+
+        // gen! bool SetDictionary(const CefString& key,CefRefPtr<CefDictionaryValue> value)
         /// <summary>
         /// Sets the value at the specified key as type dict. Returns true if the
         /// value was set successfully. If |value| is currently owned by another object
@@ -19455,35 +18341,33 @@ namespace LayoutFarm.CefBridge.Auto
         /// reference will be invalidated.
         /// /*cef()*/
         /// </summary>
-        /*9542*/
+        /*8984*/
 
-
-        // gen! bool SetDictionary(const CefString& key,CefRefPtr<CefDictionaryValue> value)
-        /*9543*/
-
-        public bool SetDictionary(string /*9544*/
+        public bool SetDictionary(string /*8985*/
         key
-        , CefDictionaryValue /*9545*/
+        , CefDictionaryValue /*8986*/
         value
-        )/*9546*/
+        )/*8987*/
         {
             JsValue v1 = new JsValue();
             JsValue v2 = new JsValue();
             JsValue ret;
             v1.Ptr = Cef3Binder.MyCefCreateCefString(key);
-            /*9547*/
+            /*8988*/
             ;
-            /*9548*/
+            /*8989*/
 
             Cef3Binder.MyCefMet_Call2(this.nativePtr, CefDictionaryValue_SetDictionary_28, out ret, ref v1, ref v2);
-            /*9549*/
+            /*8990*/
             var ret_result = ret.I32 != 0;
-            Cef3Binder.MyCefDeletePtr(v1.Ptr);/*9550*/
+            Cef3Binder.MyCefDeletePtr(v1.Ptr);/*8991*/
             ;
-            /*9551*/
+            /*8992*/
             return ret_result;
-            /*9552*/
+            /*8993*/
         }
+
+        // gen! bool SetList(const CefString& key,CefRefPtr<CefListValue> value)
         /// <summary>
         /// Sets the value at the specified key as type list. Returns true if the
         /// value was set successfully. If |value| is currently owned by another object
@@ -19492,36 +18376,32 @@ namespace LayoutFarm.CefBridge.Auto
         /// reference will be invalidated.
         /// /*cef()*/
         /// </summary>
-        /*9553*/
+        /*8994*/
 
-
-        // gen! bool SetList(const CefString& key,CefRefPtr<CefListValue> value)
-        /*9554*/
-
-        public bool SetList(string /*9555*/
+        public bool SetList(string /*8995*/
         key
-        , CefListValue /*9556*/
+        , CefListValue /*8996*/
         value
-        )/*9557*/
+        )/*8997*/
         {
             JsValue v1 = new JsValue();
             JsValue v2 = new JsValue();
             JsValue ret;
             v1.Ptr = Cef3Binder.MyCefCreateCefString(key);
-            /*9558*/
+            /*8998*/
             ;
-            /*9559*/
+            /*8999*/
 
             Cef3Binder.MyCefMet_Call2(this.nativePtr, CefDictionaryValue_SetList_29, out ret, ref v1, ref v2);
-            /*9560*/
+            /*9000*/
             var ret_result = ret.I32 != 0;
-            Cef3Binder.MyCefDeletePtr(v1.Ptr);/*9561*/
+            Cef3Binder.MyCefDeletePtr(v1.Ptr);/*9001*/
             ;
-            /*9562*/
+            /*9002*/
             return ret_result;
-            /*9563*/
+            /*9003*/
         }
-        /*9564*/
+        /*9004*/
     }
 
 
@@ -19530,349 +18410,329 @@ namespace LayoutFarm.CefBridge.Auto
     /// Class representing a list value. Can be used on any process and thread.
     /// /*(source=library)*/
     /// </summary>
-    /*9713*/
+    /*9153*/
     public struct CefListValue
     {
-        /*9714*/
+        /*9154*/
         const int _typeNAME = 49;
-        /*9715*/
+        /*9155*/
         const int CefListValue_Release_0 = (_typeNAME << 16) | 0;
-        /*9716*/
+        /*9156*/
         const int CefListValue_IsValid_1 = (_typeNAME << 16) | 1;
-        /*9717*/
+        /*9157*/
         const int CefListValue_IsOwned_2 = (_typeNAME << 16) | 2;
-        /*9718*/
+        /*9158*/
         const int CefListValue_IsReadOnly_3 = (_typeNAME << 16) | 3;
-        /*9719*/
+        /*9159*/
         const int CefListValue_IsSame_4 = (_typeNAME << 16) | 4;
-        /*9720*/
+        /*9160*/
         const int CefListValue_IsEqual_5 = (_typeNAME << 16) | 5;
-        /*9721*/
+        /*9161*/
         const int CefListValue_Copy_6 = (_typeNAME << 16) | 6;
-        /*9722*/
+        /*9162*/
         const int CefListValue_SetSize_7 = (_typeNAME << 16) | 7;
-        /*9723*/
+        /*9163*/
         const int CefListValue_GetSize_8 = (_typeNAME << 16) | 8;
-        /*9724*/
+        /*9164*/
         const int CefListValue_Clear_9 = (_typeNAME << 16) | 9;
-        /*9725*/
+        /*9165*/
         const int CefListValue_Remove_10 = (_typeNAME << 16) | 10;
-        /*9726*/
+        /*9166*/
         const int CefListValue_GetType_11 = (_typeNAME << 16) | 11;
-        /*9727*/
+        /*9167*/
         const int CefListValue_GetValue_12 = (_typeNAME << 16) | 12;
-        /*9728*/
+        /*9168*/
         const int CefListValue_GetBool_13 = (_typeNAME << 16) | 13;
-        /*9729*/
+        /*9169*/
         const int CefListValue_GetInt_14 = (_typeNAME << 16) | 14;
-        /*9730*/
+        /*9170*/
         const int CefListValue_GetDouble_15 = (_typeNAME << 16) | 15;
-        /*9731*/
+        /*9171*/
         const int CefListValue_GetString_16 = (_typeNAME << 16) | 16;
-        /*9732*/
+        /*9172*/
         const int CefListValue_GetBinary_17 = (_typeNAME << 16) | 17;
-        /*9733*/
+        /*9173*/
         const int CefListValue_GetDictionary_18 = (_typeNAME << 16) | 18;
-        /*9734*/
+        /*9174*/
         const int CefListValue_GetList_19 = (_typeNAME << 16) | 19;
-        /*9735*/
+        /*9175*/
         const int CefListValue_SetValue_20 = (_typeNAME << 16) | 20;
-        /*9736*/
+        /*9176*/
         const int CefListValue_SetNull_21 = (_typeNAME << 16) | 21;
-        /*9737*/
+        /*9177*/
         const int CefListValue_SetBool_22 = (_typeNAME << 16) | 22;
-        /*9738*/
+        /*9178*/
         const int CefListValue_SetInt_23 = (_typeNAME << 16) | 23;
-        /*9739*/
+        /*9179*/
         const int CefListValue_SetDouble_24 = (_typeNAME << 16) | 24;
-        /*9740*/
+        /*9180*/
         const int CefListValue_SetString_25 = (_typeNAME << 16) | 25;
-        /*9741*/
+        /*9181*/
         const int CefListValue_SetBinary_26 = (_typeNAME << 16) | 26;
-        /*9742*/
+        /*9182*/
         const int CefListValue_SetDictionary_27 = (_typeNAME << 16) | 27;
-        /*9743*/
+        /*9183*/
         const int CefListValue_SetList_28 = (_typeNAME << 16) | 28;
-        /*9744*/
+        /*9184*/
         internal readonly IntPtr nativePtr;
-        /*9745*/
+        /*9185*/
         internal CefListValue(IntPtr nativePtr)
         {
-            /*9746*/
+            /*9186*/
             this.nativePtr = nativePtr;
-            /*9747*/
+            /*9187*/
         }
-        /*9748*/
+        /*9188*/
         public void Release()
         {
-            /*9749*/
+            /*9189*/
             JsValue ret;
-            /*9750*/
+            /*9190*/
             Cef3Binder.MyCefMet_Call0(this.nativePtr, CefListValue_Release_0, out ret);
-            /*9751*/
+            /*9191*/
         }
+
+        // gen! bool IsValid()
         /// <summary>
         /// CefListValue methods.
         /// </summary>
-        /*9752*/
+        /*9192*/
 
-
-        // gen! bool IsValid()
-        /*9753*/
-
-        public bool IsValid()/*9754*/
+        public bool IsValid()/*9193*/
         {
             JsValue ret;
-            /*9755*/
+            /*9194*/
 
             Cef3Binder.MyCefMet_Call0(this.nativePtr, CefListValue_IsValid_1, out ret);
-            /*9756*/
+            /*9195*/
             var ret_result = ret.I32 != 0;
-            /*9757*/
+            /*9196*/
             return ret_result;
-            /*9758*/
+            /*9197*/
         }
+
+        // gen! bool IsOwned()
         /// <summary>
         /// Returns true if this object is currently owned by another object.
         /// /*cef()*/
         /// </summary>
-        /*9759*/
+        /*9198*/
 
-
-        // gen! bool IsOwned()
-        /*9760*/
-
-        public bool IsOwned()/*9761*/
+        public bool IsOwned()/*9199*/
         {
             JsValue ret;
-            /*9762*/
+            /*9200*/
 
             Cef3Binder.MyCefMet_Call0(this.nativePtr, CefListValue_IsOwned_2, out ret);
-            /*9763*/
+            /*9201*/
             var ret_result = ret.I32 != 0;
-            /*9764*/
+            /*9202*/
             return ret_result;
-            /*9765*/
+            /*9203*/
         }
+
+        // gen! bool IsReadOnly()
         /// <summary>
         /// Returns true if the values of this object are read-only. Some APIs may
         /// expose read-only objects.
         /// /*cef()*/
         /// </summary>
-        /*9766*/
+        /*9204*/
 
-
-        // gen! bool IsReadOnly()
-        /*9767*/
-
-        public bool IsReadOnly()/*9768*/
+        public bool IsReadOnly()/*9205*/
         {
             JsValue ret;
-            /*9769*/
+            /*9206*/
 
             Cef3Binder.MyCefMet_Call0(this.nativePtr, CefListValue_IsReadOnly_3, out ret);
-            /*9770*/
+            /*9207*/
             var ret_result = ret.I32 != 0;
-            /*9771*/
+            /*9208*/
             return ret_result;
-            /*9772*/
+            /*9209*/
         }
+
+        // gen! bool IsSame(CefRefPtr<CefListValue> that)
         /// <summary>
         /// Returns true if this object and |that| object have the same underlying
         /// data. If true modifications to this object will also affect |that| object
         /// and vice-versa.
         /// /*cef()*/
         /// </summary>
-        /*9773*/
+        /*9210*/
 
-
-        // gen! bool IsSame(CefRefPtr<CefListValue> that)
-        /*9774*/
-
-        public bool IsSame(CefListValue /*9775*/
+        public bool IsSame(CefListValue /*9211*/
         that
-        )/*9776*/
+        )/*9212*/
         {
             JsValue v1 = new JsValue();
             JsValue ret;
-            /*9777*/
+            /*9213*/
 
             Cef3Binder.MyCefMet_Call1(this.nativePtr, CefListValue_IsSame_4, out ret, ref v1);
-            /*9778*/
+            /*9214*/
             var ret_result = ret.I32 != 0;
-            /*9779*/
+            /*9215*/
             return ret_result;
-            /*9780*/
+            /*9216*/
         }
+
+        // gen! bool IsEqual(CefRefPtr<CefListValue> that)
         /// <summary>
         /// Returns true if this object and |that| object have an equivalent underlying
         /// value but are not necessarily the same object.
         /// /*cef()*/
         /// </summary>
-        /*9781*/
+        /*9217*/
 
-
-        // gen! bool IsEqual(CefRefPtr<CefListValue> that)
-        /*9782*/
-
-        public bool IsEqual(CefListValue /*9783*/
+        public bool IsEqual(CefListValue /*9218*/
         that
-        )/*9784*/
+        )/*9219*/
         {
             JsValue v1 = new JsValue();
             JsValue ret;
-            /*9785*/
+            /*9220*/
 
             Cef3Binder.MyCefMet_Call1(this.nativePtr, CefListValue_IsEqual_5, out ret, ref v1);
-            /*9786*/
+            /*9221*/
             var ret_result = ret.I32 != 0;
-            /*9787*/
+            /*9222*/
             return ret_result;
-            /*9788*/
+            /*9223*/
         }
+
+        // gen! CefRefPtr<CefListValue> Copy()
         /// <summary>
         /// Returns a writable copy of this object.
         /// /*cef()*/
         /// </summary>
-        /*9789*/
+        /*9224*/
 
-
-        // gen! CefRefPtr<CefListValue> Copy()
-        /*9790*/
-
-        public CefListValue Copy()/*9791*/
+        public CefListValue Copy()/*9225*/
         {
             JsValue ret;
-            /*9792*/
+            /*9226*/
 
             Cef3Binder.MyCefMet_Call0(this.nativePtr, CefListValue_Copy_6, out ret);
-            /*9793*/
+            /*9227*/
             var ret_result = new CefListValue(ret.Ptr);
-            /*9794*/
+            /*9228*/
             return ret_result;
-            /*9795*/
+            /*9229*/
         }
+
+        // gen! bool SetSize(size_t size)
         /// <summary>
         /// Sets the number of values. If the number of values is expanded all
         /// new value slots will default to type null. Returns true on success.
         /// /*cef()*/
         /// </summary>
-        /*9796*/
+        /*9230*/
 
-
-        // gen! bool SetSize(size_t size)
-        /*9797*/
-
-        public bool SetSize(uint /*9798*/
+        public bool SetSize(uint /*9231*/
         size
-        )/*9799*/
+        )/*9232*/
         {
             JsValue v1 = new JsValue();
             JsValue ret;
-            /*9800*/
+            /*9233*/
 
             Cef3Binder.MyCefMet_Call1(this.nativePtr, CefListValue_SetSize_7, out ret, ref v1);
-            /*9801*/
+            /*9234*/
             var ret_result = ret.I32 != 0;
-            /*9802*/
+            /*9235*/
             return ret_result;
-            /*9803*/
+            /*9236*/
         }
+
+        // gen! size_t GetSize()
         /// <summary>
         /// Returns the number of values.
         /// /*cef()*/
         /// </summary>
-        /*9804*/
+        /*9237*/
 
-
-        // gen! size_t GetSize()
-        /*9805*/
-
-        public uint GetSize()/*9806*/
+        public uint GetSize()/*9238*/
         {
             JsValue ret;
-            /*9807*/
+            /*9239*/
 
             Cef3Binder.MyCefMet_Call0(this.nativePtr, CefListValue_GetSize_8, out ret);
-            /*9808*/
+            /*9240*/
             var ret_result = (uint)ret.I32;
-            /*9809*/
+            /*9241*/
             return ret_result;
-            /*9810*/
+            /*9242*/
         }
+
+        // gen! bool Clear()
         /// <summary>
         /// Removes all values. Returns true on success.
         /// /*cef()*/
         /// </summary>
-        /*9811*/
+        /*9243*/
 
-
-        // gen! bool Clear()
-        /*9812*/
-
-        public bool Clear()/*9813*/
+        public bool Clear()/*9244*/
         {
             JsValue ret;
-            /*9814*/
+            /*9245*/
 
             Cef3Binder.MyCefMet_Call0(this.nativePtr, CefListValue_Clear_9, out ret);
-            /*9815*/
+            /*9246*/
             var ret_result = ret.I32 != 0;
-            /*9816*/
+            /*9247*/
             return ret_result;
-            /*9817*/
+            /*9248*/
         }
+
+        // gen! bool Remove(size_t index)
         /// <summary>
         /// Removes the value at the specified index.
         /// /*cef()*/
         /// </summary>
-        /*9818*/
+        /*9249*/
 
-
-        // gen! bool Remove(size_t index)
-        /*9819*/
-
-        public bool Remove(uint /*9820*/
+        public bool Remove(uint /*9250*/
         index
-        )/*9821*/
+        )/*9251*/
         {
             JsValue v1 = new JsValue();
             JsValue ret;
-            /*9822*/
+            /*9252*/
 
             Cef3Binder.MyCefMet_Call1(this.nativePtr, CefListValue_Remove_10, out ret, ref v1);
-            /*9823*/
+            /*9253*/
             var ret_result = ret.I32 != 0;
-            /*9824*/
+            /*9254*/
             return ret_result;
-            /*9825*/
+            /*9255*/
         }
+
+        // gen! CefValueType GetType(size_t index)
         /// <summary>
         /// Returns the value type at the specified index.
         /// /*cef(default_retval=VTYPE_INVALID)*/
         /// </summary>
-        /*9826*/
+        /*9256*/
 
-
-        // gen! CefValueType GetType(size_t index)
-        /*9827*/
-
-        public cef_value_type_t _GetType(uint /*9828*/
+        public cef_value_type_t _GetType(uint /*9257*/
         index
-        )/*9829*/
+        )/*9258*/
         {
             JsValue v1 = new JsValue();
             JsValue ret;
-            /*9830*/
+            /*9259*/
 
             Cef3Binder.MyCefMet_Call1(this.nativePtr, CefListValue_GetType_11, out ret, ref v1);
-            /*9831*/
+            /*9260*/
             var ret_result = (cef_value_type_t)ret.I32;
 
-            /*9832*/
+            /*9261*/
             return ret_result;
-            /*9833*/
+            /*9262*/
         }
+
+        // gen! CefRefPtr<CefValue> GetValue(size_t index)
         /// <summary>
         /// Returns the value at the specified index. For simple types the returned
         /// value will copy existing data and modifications to the value will not
@@ -19881,207 +18741,191 @@ namespace LayoutFarm.CefBridge.Auto
         /// will modify this object.
         /// /*cef()*/
         /// </summary>
-        /*9834*/
+        /*9263*/
 
-
-        // gen! CefRefPtr<CefValue> GetValue(size_t index)
-        /*9835*/
-
-        public CefValue GetValue(uint /*9836*/
+        public CefValue GetValue(uint /*9264*/
         index
-        )/*9837*/
+        )/*9265*/
         {
             JsValue v1 = new JsValue();
             JsValue ret;
-            /*9838*/
+            /*9266*/
 
             Cef3Binder.MyCefMet_Call1(this.nativePtr, CefListValue_GetValue_12, out ret, ref v1);
-            /*9839*/
+            /*9267*/
             var ret_result = new CefValue(ret.Ptr);
-            /*9840*/
+            /*9268*/
             return ret_result;
-            /*9841*/
+            /*9269*/
         }
+
+        // gen! bool GetBool(size_t index)
         /// <summary>
         /// Returns the value at the specified index as type bool.
         /// /*cef()*/
         /// </summary>
-        /*9842*/
+        /*9270*/
 
-
-        // gen! bool GetBool(size_t index)
-        /*9843*/
-
-        public bool GetBool(uint /*9844*/
+        public bool GetBool(uint /*9271*/
         index
-        )/*9845*/
+        )/*9272*/
         {
             JsValue v1 = new JsValue();
             JsValue ret;
-            /*9846*/
+            /*9273*/
 
             Cef3Binder.MyCefMet_Call1(this.nativePtr, CefListValue_GetBool_13, out ret, ref v1);
-            /*9847*/
+            /*9274*/
             var ret_result = ret.I32 != 0;
-            /*9848*/
+            /*9275*/
             return ret_result;
-            /*9849*/
+            /*9276*/
         }
+
+        // gen! int GetInt(size_t index)
         /// <summary>
         /// Returns the value at the specified index as type int.
         /// /*cef()*/
         /// </summary>
-        /*9850*/
+        /*9277*/
 
-
-        // gen! int GetInt(size_t index)
-        /*9851*/
-
-        public int GetInt(uint /*9852*/
+        public int GetInt(uint /*9278*/
         index
-        )/*9853*/
+        )/*9279*/
         {
             JsValue v1 = new JsValue();
             JsValue ret;
-            /*9854*/
+            /*9280*/
 
             Cef3Binder.MyCefMet_Call1(this.nativePtr, CefListValue_GetInt_14, out ret, ref v1);
-            /*9855*/
+            /*9281*/
             var ret_result = ret.I32;
-            /*9856*/
+            /*9282*/
             return ret_result;
-            /*9857*/
+            /*9283*/
         }
+
+        // gen! double GetDouble(size_t index)
         /// <summary>
         /// Returns the value at the specified index as type double.
         /// /*cef()*/
         /// </summary>
-        /*9858*/
+        /*9284*/
 
-
-        // gen! double GetDouble(size_t index)
-        /*9859*/
-
-        public double GetDouble(uint /*9860*/
+        public double GetDouble(uint /*9285*/
         index
-        )/*9861*/
+        )/*9286*/
         {
             JsValue v1 = new JsValue();
             JsValue ret;
-            /*9862*/
+            /*9287*/
 
             Cef3Binder.MyCefMet_Call1(this.nativePtr, CefListValue_GetDouble_15, out ret, ref v1);
-            /*9863*/
+            /*9288*/
             var ret_result = ret.Num;
-            /*9864*/
+            /*9289*/
             return ret_result;
-            /*9865*/
+            /*9290*/
         }
+
+        // gen! CefString GetString(size_t index)
         /// <summary>
         /// Returns the value at the specified index as type string.
         /// /*cef()*/
         /// </summary>
-        /*9866*/
+        /*9291*/
 
-
-        // gen! CefString GetString(size_t index)
-        /*9867*/
-
-        public string GetString(uint /*9868*/
+        public string GetString(uint /*9292*/
         index
-        )/*9869*/
+        )/*9293*/
         {
             JsValue v1 = new JsValue();
             JsValue ret;
-            /*9870*/
+            /*9294*/
 
             Cef3Binder.MyCefMet_Call1(this.nativePtr, CefListValue_GetString_16, out ret, ref v1);
-            /*9871*/
+            /*9295*/
             var ret_result = Cef3Binder.CopyStringAndDestroyNativeSide(ref ret);
-            /*9872*/
+            /*9296*/
             return ret_result;
-            /*9873*/
+            /*9297*/
         }
+
+        // gen! CefRefPtr<CefBinaryValue> GetBinary(size_t index)
         /// <summary>
         /// Returns the value at the specified index as type binary. The returned
         /// value will reference existing data.
         /// /*cef()*/
         /// </summary>
-        /*9874*/
+        /*9298*/
 
-
-        // gen! CefRefPtr<CefBinaryValue> GetBinary(size_t index)
-        /*9875*/
-
-        public CefBinaryValue GetBinary(uint /*9876*/
+        public CefBinaryValue GetBinary(uint /*9299*/
         index
-        )/*9877*/
+        )/*9300*/
         {
             JsValue v1 = new JsValue();
             JsValue ret;
-            /*9878*/
+            /*9301*/
 
             Cef3Binder.MyCefMet_Call1(this.nativePtr, CefListValue_GetBinary_17, out ret, ref v1);
-            /*9879*/
+            /*9302*/
             var ret_result = new CefBinaryValue(ret.Ptr);
-            /*9880*/
+            /*9303*/
             return ret_result;
-            /*9881*/
+            /*9304*/
         }
+
+        // gen! CefRefPtr<CefDictionaryValue> GetDictionary(size_t index)
         /// <summary>
         /// Returns the value at the specified index as type dictionary. The returned
         /// value will reference existing data and modifications to the value will
         /// modify this object.
         /// /*cef()*/
         /// </summary>
-        /*9882*/
+        /*9305*/
 
-
-        // gen! CefRefPtr<CefDictionaryValue> GetDictionary(size_t index)
-        /*9883*/
-
-        public CefDictionaryValue GetDictionary(uint /*9884*/
+        public CefDictionaryValue GetDictionary(uint /*9306*/
         index
-        )/*9885*/
+        )/*9307*/
         {
             JsValue v1 = new JsValue();
             JsValue ret;
-            /*9886*/
+            /*9308*/
 
             Cef3Binder.MyCefMet_Call1(this.nativePtr, CefListValue_GetDictionary_18, out ret, ref v1);
-            /*9887*/
+            /*9309*/
             var ret_result = new CefDictionaryValue(ret.Ptr);
-            /*9888*/
+            /*9310*/
             return ret_result;
-            /*9889*/
+            /*9311*/
         }
+
+        // gen! CefRefPtr<CefListValue> GetList(size_t index)
         /// <summary>
         /// Returns the value at the specified index as type list. The returned
         /// value will reference existing data and modifications to the value will
         /// modify this object.
         /// /*cef()*/
         /// </summary>
-        /*9890*/
+        /*9312*/
 
-
-        // gen! CefRefPtr<CefListValue> GetList(size_t index)
-        /*9891*/
-
-        public CefListValue GetList(uint /*9892*/
+        public CefListValue GetList(uint /*9313*/
         index
-        )/*9893*/
+        )/*9314*/
         {
             JsValue v1 = new JsValue();
             JsValue ret;
-            /*9894*/
+            /*9315*/
 
             Cef3Binder.MyCefMet_Call1(this.nativePtr, CefListValue_GetList_19, out ret, ref v1);
-            /*9895*/
+            /*9316*/
             var ret_result = new CefListValue(ret.Ptr);
-            /*9896*/
+            /*9317*/
             return ret_result;
-            /*9897*/
+            /*9318*/
         }
+
+        // gen! bool SetValue(size_t index,CefRefPtr<CefValue> value)
         /// <summary>
         /// Sets the value at the specified index. Returns true if the value was set
         /// successfully. If |value| represents simple data then the underlying data
@@ -20091,177 +18935,165 @@ namespace LayoutFarm.CefBridge.Auto
         /// this object.
         /// /*cef()*/
         /// </summary>
-        /*9898*/
+        /*9319*/
 
-
-        // gen! bool SetValue(size_t index,CefRefPtr<CefValue> value)
-        /*9899*/
-
-        public bool SetValue(uint /*9900*/
+        public bool SetValue(uint /*9320*/
         index
-        , CefValue /*9901*/
+        , CefValue /*9321*/
         value
-        )/*9902*/
+        )/*9322*/
         {
             JsValue v1 = new JsValue();
             JsValue v2 = new JsValue();
             JsValue ret;
-            /*9903*/
+            /*9323*/
 
             Cef3Binder.MyCefMet_Call2(this.nativePtr, CefListValue_SetValue_20, out ret, ref v1, ref v2);
-            /*9904*/
+            /*9324*/
             var ret_result = ret.I32 != 0;
-            /*9905*/
+            /*9325*/
             return ret_result;
-            /*9906*/
+            /*9326*/
         }
+
+        // gen! bool SetNull(size_t index)
         /// <summary>
         /// Sets the value at the specified index as type null. Returns true if the
         /// value was set successfully.
         /// /*cef()*/
         /// </summary>
-        /*9907*/
+        /*9327*/
 
-
-        // gen! bool SetNull(size_t index)
-        /*9908*/
-
-        public bool SetNull(uint /*9909*/
+        public bool SetNull(uint /*9328*/
         index
-        )/*9910*/
+        )/*9329*/
         {
             JsValue v1 = new JsValue();
             JsValue ret;
-            /*9911*/
+            /*9330*/
 
             Cef3Binder.MyCefMet_Call1(this.nativePtr, CefListValue_SetNull_21, out ret, ref v1);
-            /*9912*/
+            /*9331*/
             var ret_result = ret.I32 != 0;
-            /*9913*/
+            /*9332*/
             return ret_result;
-            /*9914*/
+            /*9333*/
         }
+
+        // gen! bool SetBool(size_t index,bool value)
         /// <summary>
         /// Sets the value at the specified index as type bool. Returns true if the
         /// value was set successfully.
         /// /*cef()*/
         /// </summary>
-        /*9915*/
+        /*9334*/
 
-
-        // gen! bool SetBool(size_t index,bool value)
-        /*9916*/
-
-        public bool SetBool(uint /*9917*/
+        public bool SetBool(uint /*9335*/
         index
-        , bool /*9918*/
+        , bool /*9336*/
         value
-        )/*9919*/
+        )/*9337*/
         {
             JsValue v1 = new JsValue();
             JsValue v2 = new JsValue();
             JsValue ret;
-            /*9920*/
+            /*9338*/
 
             Cef3Binder.MyCefMet_Call2(this.nativePtr, CefListValue_SetBool_22, out ret, ref v1, ref v2);
-            /*9921*/
+            /*9339*/
             var ret_result = ret.I32 != 0;
-            /*9922*/
+            /*9340*/
             return ret_result;
-            /*9923*/
+            /*9341*/
         }
+
+        // gen! bool SetInt(size_t index,int value)
         /// <summary>
         /// Sets the value at the specified index as type int. Returns true if the
         /// value was set successfully.
         /// /*cef()*/
         /// </summary>
-        /*9924*/
+        /*9342*/
 
-
-        // gen! bool SetInt(size_t index,int value)
-        /*9925*/
-
-        public bool SetInt(uint /*9926*/
+        public bool SetInt(uint /*9343*/
         index
-        , int /*9927*/
+        , int /*9344*/
         value
-        )/*9928*/
+        )/*9345*/
         {
             JsValue v1 = new JsValue();
             JsValue v2 = new JsValue();
             JsValue ret;
-            /*9929*/
+            /*9346*/
 
             Cef3Binder.MyCefMet_Call2(this.nativePtr, CefListValue_SetInt_23, out ret, ref v1, ref v2);
-            /*9930*/
+            /*9347*/
             var ret_result = ret.I32 != 0;
-            /*9931*/
+            /*9348*/
             return ret_result;
-            /*9932*/
+            /*9349*/
         }
+
+        // gen! bool SetDouble(size_t index,double value)
         /// <summary>
         /// Sets the value at the specified index as type double. Returns true if the
         /// value was set successfully.
         /// /*cef()*/
         /// </summary>
-        /*9933*/
+        /*9350*/
 
-
-        // gen! bool SetDouble(size_t index,double value)
-        /*9934*/
-
-        public bool SetDouble(uint /*9935*/
+        public bool SetDouble(uint /*9351*/
         index
-        , double /*9936*/
+        , double /*9352*/
         value
-        )/*9937*/
+        )/*9353*/
         {
             JsValue v1 = new JsValue();
             JsValue v2 = new JsValue();
             JsValue ret;
-            /*9938*/
+            /*9354*/
 
             Cef3Binder.MyCefMet_Call2(this.nativePtr, CefListValue_SetDouble_24, out ret, ref v1, ref v2);
-            /*9939*/
+            /*9355*/
             var ret_result = ret.I32 != 0;
-            /*9940*/
+            /*9356*/
             return ret_result;
-            /*9941*/
+            /*9357*/
         }
+
+        // gen! bool SetString(size_t index,const CefString& value)
         /// <summary>
         /// Sets the value at the specified index as type string. Returns true if the
         /// value was set successfully.
         /// /*cef(optional_param=value)*/
         /// </summary>
-        /*9942*/
+        /*9358*/
 
-
-        // gen! bool SetString(size_t index,const CefString& value)
-        /*9943*/
-
-        public bool SetString(uint /*9944*/
+        public bool SetString(uint /*9359*/
         index
-        , string /*9945*/
+        , string /*9360*/
         value
-        )/*9946*/
+        )/*9361*/
         {
             JsValue v1 = new JsValue();
             JsValue v2 = new JsValue();
             JsValue ret;
             v2.Ptr = Cef3Binder.MyCefCreateCefString(value);
-            /*9947*/
+            /*9362*/
             ;
-            /*9948*/
+            /*9363*/
 
             Cef3Binder.MyCefMet_Call2(this.nativePtr, CefListValue_SetString_25, out ret, ref v1, ref v2);
-            /*9949*/
+            /*9364*/
             var ret_result = ret.I32 != 0;
-            Cef3Binder.MyCefDeletePtr(v2.Ptr);/*9950*/
+            Cef3Binder.MyCefDeletePtr(v2.Ptr);/*9365*/
             ;
-            /*9951*/
+            /*9366*/
             return ret_result;
-            /*9952*/
+            /*9367*/
         }
+
+        // gen! bool SetBinary(size_t index,CefRefPtr<CefBinaryValue> value)
         /// <summary>
         /// Sets the value at the specified index as type binary. Returns true if the
         /// value was set successfully. If |value| is currently owned by another object
@@ -20270,30 +19102,28 @@ namespace LayoutFarm.CefBridge.Auto
         /// reference will be invalidated.
         /// /*cef()*/
         /// </summary>
-        /*9953*/
+        /*9368*/
 
-
-        // gen! bool SetBinary(size_t index,CefRefPtr<CefBinaryValue> value)
-        /*9954*/
-
-        public bool SetBinary(uint /*9955*/
+        public bool SetBinary(uint /*9369*/
         index
-        , CefBinaryValue /*9956*/
+        , CefBinaryValue /*9370*/
         value
-        )/*9957*/
+        )/*9371*/
         {
             JsValue v1 = new JsValue();
             JsValue v2 = new JsValue();
             JsValue ret;
-            /*9958*/
+            /*9372*/
 
             Cef3Binder.MyCefMet_Call2(this.nativePtr, CefListValue_SetBinary_26, out ret, ref v1, ref v2);
-            /*9959*/
+            /*9373*/
             var ret_result = ret.I32 != 0;
-            /*9960*/
+            /*9374*/
             return ret_result;
-            /*9961*/
+            /*9375*/
         }
+
+        // gen! bool SetDictionary(size_t index,CefRefPtr<CefDictionaryValue> value)
         /// <summary>
         /// Sets the value at the specified index as type dict. Returns true if the
         /// value was set successfully. If |value| is currently owned by another object
@@ -20302,30 +19132,28 @@ namespace LayoutFarm.CefBridge.Auto
         /// reference will be invalidated.
         /// /*cef()*/
         /// </summary>
-        /*9962*/
+        /*9376*/
 
-
-        // gen! bool SetDictionary(size_t index,CefRefPtr<CefDictionaryValue> value)
-        /*9963*/
-
-        public bool SetDictionary(uint /*9964*/
+        public bool SetDictionary(uint /*9377*/
         index
-        , CefDictionaryValue /*9965*/
+        , CefDictionaryValue /*9378*/
         value
-        )/*9966*/
+        )/*9379*/
         {
             JsValue v1 = new JsValue();
             JsValue v2 = new JsValue();
             JsValue ret;
-            /*9967*/
+            /*9380*/
 
             Cef3Binder.MyCefMet_Call2(this.nativePtr, CefListValue_SetDictionary_27, out ret, ref v1, ref v2);
-            /*9968*/
+            /*9381*/
             var ret_result = ret.I32 != 0;
-            /*9969*/
+            /*9382*/
             return ret_result;
-            /*9970*/
+            /*9383*/
         }
+
+        // gen! bool SetList(size_t index,CefRefPtr<CefListValue> value)
         /// <summary>
         /// Sets the value at the specified index as type list. Returns true if the
         /// value was set successfully. If |value| is currently owned by another object
@@ -20334,31 +19162,27 @@ namespace LayoutFarm.CefBridge.Auto
         /// reference will be invalidated.
         /// /*cef()*/
         /// </summary>
-        /*9971*/
+        /*9384*/
 
-
-        // gen! bool SetList(size_t index,CefRefPtr<CefListValue> value)
-        /*9972*/
-
-        public bool SetList(uint /*9973*/
+        public bool SetList(uint /*9385*/
         index
-        , CefListValue /*9974*/
+        , CefListValue /*9386*/
         value
-        )/*9975*/
+        )/*9387*/
         {
             JsValue v1 = new JsValue();
             JsValue v2 = new JsValue();
             JsValue ret;
-            /*9976*/
+            /*9388*/
 
             Cef3Binder.MyCefMet_Call2(this.nativePtr, CefListValue_SetList_28, out ret, ref v1, ref v2);
-            /*9977*/
+            /*9389*/
             var ret_result = ret.I32 != 0;
-            /*9978*/
+            /*9390*/
             return ret_result;
-            /*9979*/
+            /*9391*/
         }
-        /*9980*/
+        /*9392*/
     }
 
 
@@ -20367,127 +19191,119 @@ namespace LayoutFarm.CefBridge.Auto
     /// Information about a specific web plugin.
     /// /*(source=library)*/
     /// </summary>
-    /*10009*/
+    /*9421*/
     public struct CefWebPluginInfo
     {
-        /*10010*/
+        /*9422*/
         const int _typeNAME = 50;
-        /*10011*/
+        /*9423*/
         const int CefWebPluginInfo_Release_0 = (_typeNAME << 16) | 0;
-        /*10012*/
+        /*9424*/
         const int CefWebPluginInfo_GetName_1 = (_typeNAME << 16) | 1;
-        /*10013*/
+        /*9425*/
         const int CefWebPluginInfo_GetPath_2 = (_typeNAME << 16) | 2;
-        /*10014*/
+        /*9426*/
         const int CefWebPluginInfo_GetVersion_3 = (_typeNAME << 16) | 3;
-        /*10015*/
+        /*9427*/
         const int CefWebPluginInfo_GetDescription_4 = (_typeNAME << 16) | 4;
-        /*10016*/
+        /*9428*/
         internal readonly IntPtr nativePtr;
-        /*10017*/
+        /*9429*/
         internal CefWebPluginInfo(IntPtr nativePtr)
         {
-            /*10018*/
+            /*9430*/
             this.nativePtr = nativePtr;
-            /*10019*/
+            /*9431*/
         }
-        /*10020*/
+        /*9432*/
         public void Release()
         {
-            /*10021*/
+            /*9433*/
             JsValue ret;
-            /*10022*/
+            /*9434*/
             Cef3Binder.MyCefMet_Call0(this.nativePtr, CefWebPluginInfo_Release_0, out ret);
-            /*10023*/
+            /*9435*/
         }
+
+        // gen! CefString GetName()
         /// <summary>
         /// CefWebPluginInfo methods.
         /// </summary>
-        /*10024*/
+        /*9436*/
 
-
-        // gen! CefString GetName()
-        /*10025*/
-
-        public string GetName()/*10026*/
+        public string GetName()/*9437*/
         {
             JsValue ret;
-            /*10027*/
+            /*9438*/
 
             Cef3Binder.MyCefMet_Call0(this.nativePtr, CefWebPluginInfo_GetName_1, out ret);
-            /*10028*/
+            /*9439*/
             var ret_result = Cef3Binder.CopyStringAndDestroyNativeSide(ref ret);
-            /*10029*/
+            /*9440*/
             return ret_result;
-            /*10030*/
+            /*9441*/
         }
+
+        // gen! CefString GetPath()
         /// <summary>
         /// Returns the plugin file path (DLL/bundle/library).
         /// /*cef()*/
         /// </summary>
-        /*10031*/
+        /*9442*/
 
-
-        // gen! CefString GetPath()
-        /*10032*/
-
-        public string GetPath()/*10033*/
+        public string GetPath()/*9443*/
         {
             JsValue ret;
-            /*10034*/
+            /*9444*/
 
             Cef3Binder.MyCefMet_Call0(this.nativePtr, CefWebPluginInfo_GetPath_2, out ret);
-            /*10035*/
+            /*9445*/
             var ret_result = Cef3Binder.CopyStringAndDestroyNativeSide(ref ret);
-            /*10036*/
+            /*9446*/
             return ret_result;
-            /*10037*/
+            /*9447*/
         }
+
+        // gen! CefString GetVersion()
         /// <summary>
         /// Returns the version of the plugin (may be OS-specific).
         /// /*cef()*/
         /// </summary>
-        /*10038*/
+        /*9448*/
 
-
-        // gen! CefString GetVersion()
-        /*10039*/
-
-        public string GetVersion()/*10040*/
+        public string GetVersion()/*9449*/
         {
             JsValue ret;
-            /*10041*/
+            /*9450*/
 
             Cef3Binder.MyCefMet_Call0(this.nativePtr, CefWebPluginInfo_GetVersion_3, out ret);
-            /*10042*/
+            /*9451*/
             var ret_result = Cef3Binder.CopyStringAndDestroyNativeSide(ref ret);
-            /*10043*/
+            /*9452*/
             return ret_result;
-            /*10044*/
+            /*9453*/
         }
+
+        // gen! CefString GetDescription()
         /// <summary>
         /// Returns a description of the plugin from the version information.
         /// /*cef()*/
         /// </summary>
-        /*10045*/
+        /*9454*/
 
-
-        // gen! CefString GetDescription()
-        /*10046*/
-
-        public string GetDescription()/*10047*/
+        public string GetDescription()/*9455*/
         {
             JsValue ret;
-            /*10048*/
+            /*9456*/
 
             Cef3Binder.MyCefMet_Call0(this.nativePtr, CefWebPluginInfo_GetDescription_4, out ret);
-            /*10049*/
+            /*9457*/
             var ret_result = Cef3Binder.CopyStringAndDestroyNativeSide(ref ret);
-            /*10050*/
+            /*9458*/
             return ret_result;
-            /*10051*/
+            /*9459*/
         }
-        /*10052*/
+        /*9460*/
     }
 
 
@@ -20497,32 +19313,32 @@ namespace LayoutFarm.CefBridge.Auto
     /// this class will be called on the browser process UI thread.
     /// /*(source=client)*/
     /// </summary>
-    /*10061*/
+    /*9469*/
     public struct CefWebPluginInfoVisitor
     {
-        /*10062*/
+        /*9470*/
         const int _typeNAME = 51;
-        /*10063*/
+        /*9471*/
         const int CefWebPluginInfoVisitor_Release_0 = (_typeNAME << 16) | 0;
-        /*10064*/
+        /*9472*/
         internal readonly IntPtr nativePtr;
-        /*10065*/
+        /*9473*/
         internal CefWebPluginInfoVisitor(IntPtr nativePtr)
         {
-            /*10066*/
+            /*9474*/
             this.nativePtr = nativePtr;
-            /*10067*/
+            /*9475*/
         }
-        /*10068*/
+        /*9476*/
         public void Release()
         {
-            /*10069*/
+            /*9477*/
             JsValue ret;
-            /*10070*/
+            /*9478*/
             Cef3Binder.MyCefMet_Call0(this.nativePtr, CefWebPluginInfoVisitor_Release_0, out ret);
-            /*10071*/
+            /*9479*/
         }
-        /*10072*/
+        /*9480*/
     }
 
 
@@ -20531,251 +19347,233 @@ namespace LayoutFarm.CefBridge.Auto
     /// Class representing the issuer or subject field of an X.509 certificate.
     /// /*(source=library)*/
     /// </summary>
-    /*10126*/
+    /*9534*/
     public struct CefX509CertPrincipal
     {
-        /*10127*/
+        /*9535*/
         const int _typeNAME = 52;
-        /*10128*/
+        /*9536*/
         const int CefX509CertPrincipal_Release_0 = (_typeNAME << 16) | 0;
-        /*10129*/
+        /*9537*/
         const int CefX509CertPrincipal_GetDisplayName_1 = (_typeNAME << 16) | 1;
-        /*10130*/
+        /*9538*/
         const int CefX509CertPrincipal_GetCommonName_2 = (_typeNAME << 16) | 2;
-        /*10131*/
+        /*9539*/
         const int CefX509CertPrincipal_GetLocalityName_3 = (_typeNAME << 16) | 3;
-        /*10132*/
+        /*9540*/
         const int CefX509CertPrincipal_GetStateOrProvinceName_4 = (_typeNAME << 16) | 4;
-        /*10133*/
+        /*9541*/
         const int CefX509CertPrincipal_GetCountryName_5 = (_typeNAME << 16) | 5;
-        /*10134*/
+        /*9542*/
         const int CefX509CertPrincipal_GetStreetAddresses_6 = (_typeNAME << 16) | 6;
-        /*10135*/
+        /*9543*/
         const int CefX509CertPrincipal_GetOrganizationNames_7 = (_typeNAME << 16) | 7;
-        /*10136*/
+        /*9544*/
         const int CefX509CertPrincipal_GetOrganizationUnitNames_8 = (_typeNAME << 16) | 8;
-        /*10137*/
+        /*9545*/
         const int CefX509CertPrincipal_GetDomainComponents_9 = (_typeNAME << 16) | 9;
-        /*10138*/
+        /*9546*/
         internal readonly IntPtr nativePtr;
-        /*10139*/
+        /*9547*/
         internal CefX509CertPrincipal(IntPtr nativePtr)
         {
-            /*10140*/
+            /*9548*/
             this.nativePtr = nativePtr;
-            /*10141*/
+            /*9549*/
         }
-        /*10142*/
+        /*9550*/
         public void Release()
         {
-            /*10143*/
+            /*9551*/
             JsValue ret;
-            /*10144*/
+            /*9552*/
             Cef3Binder.MyCefMet_Call0(this.nativePtr, CefX509CertPrincipal_Release_0, out ret);
-            /*10145*/
+            /*9553*/
         }
+
+        // gen! CefString GetDisplayName()
         /// <summary>
         /// CefX509CertPrincipal methods.
         /// </summary>
-        /*10146*/
+        /*9554*/
 
-
-        // gen! CefString GetDisplayName()
-        /*10147*/
-
-        public string GetDisplayName()/*10148*/
+        public string GetDisplayName()/*9555*/
         {
             JsValue ret;
-            /*10149*/
+            /*9556*/
 
             Cef3Binder.MyCefMet_Call0(this.nativePtr, CefX509CertPrincipal_GetDisplayName_1, out ret);
-            /*10150*/
+            /*9557*/
             var ret_result = Cef3Binder.CopyStringAndDestroyNativeSide(ref ret);
-            /*10151*/
+            /*9558*/
             return ret_result;
-            /*10152*/
+            /*9559*/
         }
+
+        // gen! CefString GetCommonName()
         /// <summary>
         /// Returns the common name.
         /// /*cef()*/
         /// </summary>
-        /*10153*/
+        /*9560*/
 
-
-        // gen! CefString GetCommonName()
-        /*10154*/
-
-        public string GetCommonName()/*10155*/
+        public string GetCommonName()/*9561*/
         {
             JsValue ret;
-            /*10156*/
+            /*9562*/
 
             Cef3Binder.MyCefMet_Call0(this.nativePtr, CefX509CertPrincipal_GetCommonName_2, out ret);
-            /*10157*/
+            /*9563*/
             var ret_result = Cef3Binder.CopyStringAndDestroyNativeSide(ref ret);
-            /*10158*/
+            /*9564*/
             return ret_result;
-            /*10159*/
+            /*9565*/
         }
+
+        // gen! CefString GetLocalityName()
         /// <summary>
         /// Returns the locality name.
         /// /*cef()*/
         /// </summary>
-        /*10160*/
+        /*9566*/
 
-
-        // gen! CefString GetLocalityName()
-        /*10161*/
-
-        public string GetLocalityName()/*10162*/
+        public string GetLocalityName()/*9567*/
         {
             JsValue ret;
-            /*10163*/
+            /*9568*/
 
             Cef3Binder.MyCefMet_Call0(this.nativePtr, CefX509CertPrincipal_GetLocalityName_3, out ret);
-            /*10164*/
+            /*9569*/
             var ret_result = Cef3Binder.CopyStringAndDestroyNativeSide(ref ret);
-            /*10165*/
+            /*9570*/
             return ret_result;
-            /*10166*/
+            /*9571*/
         }
+
+        // gen! CefString GetStateOrProvinceName()
         /// <summary>
         /// Returns the state or province name.
         /// /*cef()*/
         /// </summary>
-        /*10167*/
+        /*9572*/
 
-
-        // gen! CefString GetStateOrProvinceName()
-        /*10168*/
-
-        public string GetStateOrProvinceName()/*10169*/
+        public string GetStateOrProvinceName()/*9573*/
         {
             JsValue ret;
-            /*10170*/
+            /*9574*/
 
             Cef3Binder.MyCefMet_Call0(this.nativePtr, CefX509CertPrincipal_GetStateOrProvinceName_4, out ret);
-            /*10171*/
+            /*9575*/
             var ret_result = Cef3Binder.CopyStringAndDestroyNativeSide(ref ret);
-            /*10172*/
+            /*9576*/
             return ret_result;
-            /*10173*/
+            /*9577*/
         }
+
+        // gen! CefString GetCountryName()
         /// <summary>
         /// Returns the country name.
         /// /*cef()*/
         /// </summary>
-        /*10174*/
+        /*9578*/
 
-
-        // gen! CefString GetCountryName()
-        /*10175*/
-
-        public string GetCountryName()/*10176*/
+        public string GetCountryName()/*9579*/
         {
             JsValue ret;
-            /*10177*/
+            /*9580*/
 
             Cef3Binder.MyCefMet_Call0(this.nativePtr, CefX509CertPrincipal_GetCountryName_5, out ret);
-            /*10178*/
+            /*9581*/
             var ret_result = Cef3Binder.CopyStringAndDestroyNativeSide(ref ret);
-            /*10179*/
+            /*9582*/
             return ret_result;
-            /*10180*/
+            /*9583*/
         }
+
+        // gen! void GetStreetAddresses(std::vector<CefString>& addresses)
         /// <summary>
         /// Retrieve the list of street addresses.
         /// /*cef()*/
         /// </summary>
-        /*10181*/
+        /*9584*/
 
-
-        // gen! void GetStreetAddresses(std::vector<CefString>& addresses)
-        /*10182*/
-
-        public void GetStreetAddresses(List<string> /*10183*/
+        public void GetStreetAddresses(List<string> /*9585*/
         addresses
-        )/*10184*/
+        )/*9586*/
         {
             JsValue v1 = new JsValue();
             JsValue ret;
-            /*10185*/
+            /*9587*/
 
             Cef3Binder.MyCefMet_Call1(this.nativePtr, CefX509CertPrincipal_GetStreetAddresses_6, out ret, ref v1);
-            /*10186*/
+            /*9588*/
 
-            /*10187*/
+            /*9589*/
         }
+
+        // gen! void GetOrganizationNames(std::vector<CefString>& names)
         /// <summary>
         /// Retrieve the list of organization names.
         /// /*cef()*/
         /// </summary>
-        /*10188*/
+        /*9590*/
 
-
-        // gen! void GetOrganizationNames(std::vector<CefString>& names)
-        /*10189*/
-
-        public void GetOrganizationNames(List<string> /*10190*/
+        public void GetOrganizationNames(List<string> /*9591*/
         names
-        )/*10191*/
+        )/*9592*/
         {
             JsValue v1 = new JsValue();
             JsValue ret;
-            /*10192*/
+            /*9593*/
 
             Cef3Binder.MyCefMet_Call1(this.nativePtr, CefX509CertPrincipal_GetOrganizationNames_7, out ret, ref v1);
-            /*10193*/
+            /*9594*/
 
-            /*10194*/
+            /*9595*/
         }
+
+        // gen! void GetOrganizationUnitNames(std::vector<CefString>& names)
         /// <summary>
         /// Retrieve the list of organization unit names.
         /// /*cef()*/
         /// </summary>
-        /*10195*/
+        /*9596*/
 
-
-        // gen! void GetOrganizationUnitNames(std::vector<CefString>& names)
-        /*10196*/
-
-        public void GetOrganizationUnitNames(List<string> /*10197*/
+        public void GetOrganizationUnitNames(List<string> /*9597*/
         names
-        )/*10198*/
+        )/*9598*/
         {
             JsValue v1 = new JsValue();
             JsValue ret;
-            /*10199*/
+            /*9599*/
 
             Cef3Binder.MyCefMet_Call1(this.nativePtr, CefX509CertPrincipal_GetOrganizationUnitNames_8, out ret, ref v1);
-            /*10200*/
+            /*9600*/
 
-            /*10201*/
+            /*9601*/
         }
+
+        // gen! void GetDomainComponents(std::vector<CefString>& components)
         /// <summary>
         /// Retrieve the list of domain components.
         /// /*cef()*/
         /// </summary>
-        /*10202*/
+        /*9602*/
 
-
-        // gen! void GetDomainComponents(std::vector<CefString>& components)
-        /*10203*/
-
-        public void GetDomainComponents(List<string> /*10204*/
+        public void GetDomainComponents(List<string> /*9603*/
         components
-        )/*10205*/
+        )/*9604*/
         {
             JsValue v1 = new JsValue();
             JsValue ret;
-            /*10206*/
+            /*9605*/
 
             Cef3Binder.MyCefMet_Call1(this.nativePtr, CefX509CertPrincipal_GetDomainComponents_9, out ret, ref v1);
-            /*10207*/
+            /*9606*/
 
-            /*10208*/
+            /*9607*/
         }
-        /*10209*/
+        /*9608*/
     }
 
 
@@ -20784,283 +19582,263 @@ namespace LayoutFarm.CefBridge.Auto
     /// Class representing a X.509 certificate.
     /// /*(source=library)*/
     /// </summary>
-    /*10268*/
+    /*9667*/
     public struct CefX509Certificate
     {
-        /*10269*/
+        /*9668*/
         const int _typeNAME = 53;
-        /*10270*/
+        /*9669*/
         const int CefX509Certificate_Release_0 = (_typeNAME << 16) | 0;
-        /*10271*/
+        /*9670*/
         const int CefX509Certificate_GetSubject_1 = (_typeNAME << 16) | 1;
-        /*10272*/
+        /*9671*/
         const int CefX509Certificate_GetIssuer_2 = (_typeNAME << 16) | 2;
-        /*10273*/
+        /*9672*/
         const int CefX509Certificate_GetSerialNumber_3 = (_typeNAME << 16) | 3;
-        /*10274*/
+        /*9673*/
         const int CefX509Certificate_GetValidStart_4 = (_typeNAME << 16) | 4;
-        /*10275*/
+        /*9674*/
         const int CefX509Certificate_GetValidExpiry_5 = (_typeNAME << 16) | 5;
-        /*10276*/
+        /*9675*/
         const int CefX509Certificate_GetDEREncoded_6 = (_typeNAME << 16) | 6;
-        /*10277*/
+        /*9676*/
         const int CefX509Certificate_GetPEMEncoded_7 = (_typeNAME << 16) | 7;
-        /*10278*/
+        /*9677*/
         const int CefX509Certificate_GetIssuerChainSize_8 = (_typeNAME << 16) | 8;
-        /*10279*/
+        /*9678*/
         const int CefX509Certificate_GetDEREncodedIssuerChain_9 = (_typeNAME << 16) | 9;
-        /*10280*/
+        /*9679*/
         const int CefX509Certificate_GetPEMEncodedIssuerChain_10 = (_typeNAME << 16) | 10;
-        /*10281*/
+        /*9680*/
         internal readonly IntPtr nativePtr;
-        /*10282*/
+        /*9681*/
         internal CefX509Certificate(IntPtr nativePtr)
         {
-            /*10283*/
+            /*9682*/
             this.nativePtr = nativePtr;
-            /*10284*/
+            /*9683*/
         }
-        /*10285*/
+        /*9684*/
         public void Release()
         {
-            /*10286*/
+            /*9685*/
             JsValue ret;
-            /*10287*/
+            /*9686*/
             Cef3Binder.MyCefMet_Call0(this.nativePtr, CefX509Certificate_Release_0, out ret);
-            /*10288*/
+            /*9687*/
         }
+
+        // gen! CefRefPtr<CefX509CertPrincipal> GetSubject()
         /// <summary>
         /// CefX509Certificate methods.
         /// </summary>
-        /*10289*/
+        /*9688*/
 
-
-        // gen! CefRefPtr<CefX509CertPrincipal> GetSubject()
-        /*10290*/
-
-        public CefX509CertPrincipal GetSubject()/*10291*/
+        public CefX509CertPrincipal GetSubject()/*9689*/
         {
             JsValue ret;
-            /*10292*/
+            /*9690*/
 
             Cef3Binder.MyCefMet_Call0(this.nativePtr, CefX509Certificate_GetSubject_1, out ret);
-            /*10293*/
+            /*9691*/
             var ret_result = new CefX509CertPrincipal(ret.Ptr);
-            /*10294*/
+            /*9692*/
             return ret_result;
-            /*10295*/
+            /*9693*/
         }
+
+        // gen! CefRefPtr<CefX509CertPrincipal> GetIssuer()
         /// <summary>
         /// Returns the issuer of the X.509 certificate.
         /// /*cef()*/
         /// </summary>
-        /*10296*/
+        /*9694*/
 
-
-        // gen! CefRefPtr<CefX509CertPrincipal> GetIssuer()
-        /*10297*/
-
-        public CefX509CertPrincipal GetIssuer()/*10298*/
+        public CefX509CertPrincipal GetIssuer()/*9695*/
         {
             JsValue ret;
-            /*10299*/
+            /*9696*/
 
             Cef3Binder.MyCefMet_Call0(this.nativePtr, CefX509Certificate_GetIssuer_2, out ret);
-            /*10300*/
+            /*9697*/
             var ret_result = new CefX509CertPrincipal(ret.Ptr);
-            /*10301*/
+            /*9698*/
             return ret_result;
-            /*10302*/
+            /*9699*/
         }
+
+        // gen! CefRefPtr<CefBinaryValue> GetSerialNumber()
         /// <summary>
         /// Returns the DER encoded serial number for the X.509 certificate. The value
         /// possibly includes a leading 00 byte.
         /// /*cef()*/
         /// </summary>
-        /*10303*/
+        /*9700*/
 
-
-        // gen! CefRefPtr<CefBinaryValue> GetSerialNumber()
-        /*10304*/
-
-        public CefBinaryValue GetSerialNumber()/*10305*/
+        public CefBinaryValue GetSerialNumber()/*9701*/
         {
             JsValue ret;
-            /*10306*/
+            /*9702*/
 
             Cef3Binder.MyCefMet_Call0(this.nativePtr, CefX509Certificate_GetSerialNumber_3, out ret);
-            /*10307*/
+            /*9703*/
             var ret_result = new CefBinaryValue(ret.Ptr);
-            /*10308*/
+            /*9704*/
             return ret_result;
-            /*10309*/
+            /*9705*/
         }
+
+        // gen! CefTime GetValidStart()
         /// <summary>
         /// Returns the date before which the X.509 certificate is invalid.
         /// CefTime.GetTimeT() will return 0 if no date was specified.
         /// /*cef()*/
         /// </summary>
-        /*10310*/
+        /*9706*/
 
-
-        // gen! CefTime GetValidStart()
-        /*10311*/
-
-        public CefTime GetValidStart()/*10312*/
+        public CefTime GetValidStart()/*9707*/
         {
             JsValue ret;
-            /*10313*/
+            /*9708*/
 
             Cef3Binder.MyCefMet_Call0(this.nativePtr, CefX509Certificate_GetValidStart_4, out ret);
-            /*10314*/
+            /*9709*/
             var ret_result = new CefTime(ret.Ptr);
 
-            /*10315*/
+            /*9710*/
             return ret_result;
-            /*10316*/
+            /*9711*/
         }
+
+        // gen! CefTime GetValidExpiry()
         /// <summary>
         /// Returns the date after which the X.509 certificate is invalid.
         /// CefTime.GetTimeT() will return 0 if no date was specified.
         /// /*cef()*/
         /// </summary>
-        /*10317*/
+        /*9712*/
 
-
-        // gen! CefTime GetValidExpiry()
-        /*10318*/
-
-        public CefTime GetValidExpiry()/*10319*/
+        public CefTime GetValidExpiry()/*9713*/
         {
             JsValue ret;
-            /*10320*/
+            /*9714*/
 
             Cef3Binder.MyCefMet_Call0(this.nativePtr, CefX509Certificate_GetValidExpiry_5, out ret);
-            /*10321*/
+            /*9715*/
             var ret_result = new CefTime(ret.Ptr);
 
-            /*10322*/
+            /*9716*/
             return ret_result;
-            /*10323*/
+            /*9717*/
         }
+
+        // gen! CefRefPtr<CefBinaryValue> GetDEREncoded()
         /// <summary>
         /// Returns the DER encoded data for the X.509 certificate.
         /// /*cef()*/
         /// </summary>
-        /*10324*/
+        /*9718*/
 
-
-        // gen! CefRefPtr<CefBinaryValue> GetDEREncoded()
-        /*10325*/
-
-        public CefBinaryValue GetDEREncoded()/*10326*/
+        public CefBinaryValue GetDEREncoded()/*9719*/
         {
             JsValue ret;
-            /*10327*/
+            /*9720*/
 
             Cef3Binder.MyCefMet_Call0(this.nativePtr, CefX509Certificate_GetDEREncoded_6, out ret);
-            /*10328*/
+            /*9721*/
             var ret_result = new CefBinaryValue(ret.Ptr);
-            /*10329*/
+            /*9722*/
             return ret_result;
-            /*10330*/
+            /*9723*/
         }
+
+        // gen! CefRefPtr<CefBinaryValue> GetPEMEncoded()
         /// <summary>
         /// Returns the PEM encoded data for the X.509 certificate.
         /// /*cef()*/
         /// </summary>
-        /*10331*/
+        /*9724*/
 
-
-        // gen! CefRefPtr<CefBinaryValue> GetPEMEncoded()
-        /*10332*/
-
-        public CefBinaryValue GetPEMEncoded()/*10333*/
+        public CefBinaryValue GetPEMEncoded()/*9725*/
         {
             JsValue ret;
-            /*10334*/
+            /*9726*/
 
             Cef3Binder.MyCefMet_Call0(this.nativePtr, CefX509Certificate_GetPEMEncoded_7, out ret);
-            /*10335*/
+            /*9727*/
             var ret_result = new CefBinaryValue(ret.Ptr);
-            /*10336*/
+            /*9728*/
             return ret_result;
-            /*10337*/
+            /*9729*/
         }
+
+        // gen! size_t GetIssuerChainSize()
         /// <summary>
         /// Returns the number of certificates in the issuer chain.
         /// If 0, the certificate is self-signed.
         /// /*cef()*/
         /// </summary>
-        /*10338*/
+        /*9730*/
 
-
-        // gen! size_t GetIssuerChainSize()
-        /*10339*/
-
-        public uint GetIssuerChainSize()/*10340*/
+        public uint GetIssuerChainSize()/*9731*/
         {
             JsValue ret;
-            /*10341*/
+            /*9732*/
 
             Cef3Binder.MyCefMet_Call0(this.nativePtr, CefX509Certificate_GetIssuerChainSize_8, out ret);
-            /*10342*/
+            /*9733*/
             var ret_result = (uint)ret.I32;
-            /*10343*/
+            /*9734*/
             return ret_result;
-            /*10344*/
+            /*9735*/
         }
+
+        // gen! void GetDEREncodedIssuerChain(IssuerChainBinaryList& chain)
         /// <summary>
         /// Returns the DER encoded data for the certificate issuer chain.
         /// If we failed to encode a certificate in the chain it is still
         /// present in the array but is an empty string.
         /// /*cef(count_func=chain:GetIssuerChainSize)*/
         /// </summary>
-        /*10345*/
+        /*9736*/
 
-
-        // gen! void GetDEREncodedIssuerChain(IssuerChainBinaryList& chain)
-        /*10346*/
-
-        public void GetDEREncodedIssuerChain(IssuerChainBinaryList /*10347*/
+        public void GetDEREncodedIssuerChain(IssuerChainBinaryList /*9737*/
         chain
-        )/*10348*/
+        )/*9738*/
         {
             JsValue v1 = new JsValue();
             JsValue ret;
-            /*10349*/
+            /*9739*/
 
             Cef3Binder.MyCefMet_Call1(this.nativePtr, CefX509Certificate_GetDEREncodedIssuerChain_9, out ret, ref v1);
-            /*10350*/
+            /*9740*/
 
-            /*10351*/
+            /*9741*/
         }
+
+        // gen! void GetPEMEncodedIssuerChain(IssuerChainBinaryList& chain)
         /// <summary>
         /// Returns the PEM encoded data for the certificate issuer chain.
         /// If we failed to encode a certificate in the chain it is still
         /// present in the array but is an empty string.
         /// /*cef(count_func=chain:GetIssuerChainSize)*/
         /// </summary>
-        /*10352*/
+        /*9742*/
 
-
-        // gen! void GetPEMEncodedIssuerChain(IssuerChainBinaryList& chain)
-        /*10353*/
-
-        public void GetPEMEncodedIssuerChain(IssuerChainBinaryList /*10354*/
+        public void GetPEMEncodedIssuerChain(IssuerChainBinaryList /*9743*/
         chain
-        )/*10355*/
+        )/*9744*/
         {
             JsValue v1 = new JsValue();
             JsValue ret;
-            /*10356*/
+            /*9745*/
 
             Cef3Binder.MyCefMet_Call1(this.nativePtr, CefX509Certificate_GetPEMEncodedIssuerChain_10, out ret, ref v1);
-            /*10357*/
+            /*9746*/
 
-            /*10358*/
+            /*9747*/
         }
-        /*10359*/
+        /*9748*/
     }
 
 
@@ -21071,771 +19849,713 @@ namespace LayoutFarm.CefBridge.Auto
     /// the object.
     /// /*(source=library)*/
     /// </summary>
-    /*10513*/
+    /*9902*/
     public struct CefXmlReader
     {
-        /*10514*/
+        /*9903*/
         const int _typeNAME = 54;
-        /*10515*/
+        /*9904*/
         const int CefXmlReader_Release_0 = (_typeNAME << 16) | 0;
-        /*10516*/
+        /*9905*/
         const int CefXmlReader_MoveToNextNode_1 = (_typeNAME << 16) | 1;
-        /*10517*/
+        /*9906*/
         const int CefXmlReader_Close_2 = (_typeNAME << 16) | 2;
-        /*10518*/
+        /*9907*/
         const int CefXmlReader_HasError_3 = (_typeNAME << 16) | 3;
-        /*10519*/
+        /*9908*/
         const int CefXmlReader_GetError_4 = (_typeNAME << 16) | 4;
-        /*10520*/
+        /*9909*/
         const int CefXmlReader_GetType_5 = (_typeNAME << 16) | 5;
-        /*10521*/
+        /*9910*/
         const int CefXmlReader_GetDepth_6 = (_typeNAME << 16) | 6;
-        /*10522*/
+        /*9911*/
         const int CefXmlReader_GetLocalName_7 = (_typeNAME << 16) | 7;
-        /*10523*/
+        /*9912*/
         const int CefXmlReader_GetPrefix_8 = (_typeNAME << 16) | 8;
-        /*10524*/
+        /*9913*/
         const int CefXmlReader_GetQualifiedName_9 = (_typeNAME << 16) | 9;
-        /*10525*/
+        /*9914*/
         const int CefXmlReader_GetNamespaceURI_10 = (_typeNAME << 16) | 10;
-        /*10526*/
+        /*9915*/
         const int CefXmlReader_GetBaseURI_11 = (_typeNAME << 16) | 11;
-        /*10527*/
+        /*9916*/
         const int CefXmlReader_GetXmlLang_12 = (_typeNAME << 16) | 12;
-        /*10528*/
+        /*9917*/
         const int CefXmlReader_IsEmptyElement_13 = (_typeNAME << 16) | 13;
-        /*10529*/
+        /*9918*/
         const int CefXmlReader_HasValue_14 = (_typeNAME << 16) | 14;
-        /*10530*/
+        /*9919*/
         const int CefXmlReader_GetValue_15 = (_typeNAME << 16) | 15;
-        /*10531*/
+        /*9920*/
         const int CefXmlReader_HasAttributes_16 = (_typeNAME << 16) | 16;
-        /*10532*/
+        /*9921*/
         const int CefXmlReader_GetAttributeCount_17 = (_typeNAME << 16) | 17;
-        /*10533*/
+        /*9922*/
         const int CefXmlReader_GetAttribute_18 = (_typeNAME << 16) | 18;
-        /*10534*/
+        /*9923*/
         const int CefXmlReader_GetAttribute_19 = (_typeNAME << 16) | 19;
-        /*10535*/
+        /*9924*/
         const int CefXmlReader_GetAttribute_20 = (_typeNAME << 16) | 20;
-        /*10536*/
+        /*9925*/
         const int CefXmlReader_GetInnerXml_21 = (_typeNAME << 16) | 21;
-        /*10537*/
+        /*9926*/
         const int CefXmlReader_GetOuterXml_22 = (_typeNAME << 16) | 22;
-        /*10538*/
+        /*9927*/
         const int CefXmlReader_GetLineNumber_23 = (_typeNAME << 16) | 23;
-        /*10539*/
+        /*9928*/
         const int CefXmlReader_MoveToAttribute_24 = (_typeNAME << 16) | 24;
-        /*10540*/
+        /*9929*/
         const int CefXmlReader_MoveToAttribute_25 = (_typeNAME << 16) | 25;
-        /*10541*/
+        /*9930*/
         const int CefXmlReader_MoveToAttribute_26 = (_typeNAME << 16) | 26;
-        /*10542*/
+        /*9931*/
         const int CefXmlReader_MoveToFirstAttribute_27 = (_typeNAME << 16) | 27;
-        /*10543*/
+        /*9932*/
         const int CefXmlReader_MoveToNextAttribute_28 = (_typeNAME << 16) | 28;
-        /*10544*/
+        /*9933*/
         const int CefXmlReader_MoveToCarryingElement_29 = (_typeNAME << 16) | 29;
-        /*10545*/
+        /*9934*/
         internal readonly IntPtr nativePtr;
-        /*10546*/
+        /*9935*/
         internal CefXmlReader(IntPtr nativePtr)
         {
-            /*10547*/
+            /*9936*/
             this.nativePtr = nativePtr;
-            /*10548*/
+            /*9937*/
         }
-        /*10549*/
+        /*9938*/
         public void Release()
         {
-            /*10550*/
+            /*9939*/
             JsValue ret;
-            /*10551*/
+            /*9940*/
             Cef3Binder.MyCefMet_Call0(this.nativePtr, CefXmlReader_Release_0, out ret);
-            /*10552*/
+            /*9941*/
         }
+
+        // gen! bool MoveToNextNode()
         /// <summary>
         /// CefXmlReader methods.
         /// </summary>
-        /*10553*/
+        /*9942*/
 
-
-        // gen! bool MoveToNextNode()
-        /*10554*/
-
-        public bool MoveToNextNode()/*10555*/
+        public bool MoveToNextNode()/*9943*/
         {
             JsValue ret;
-            /*10556*/
+            /*9944*/
 
             Cef3Binder.MyCefMet_Call0(this.nativePtr, CefXmlReader_MoveToNextNode_1, out ret);
-            /*10557*/
+            /*9945*/
             var ret_result = ret.I32 != 0;
-            /*10558*/
+            /*9946*/
             return ret_result;
-            /*10559*/
+            /*9947*/
         }
+
+        // gen! bool Close()
         /// <summary>
         /// Close the document. This should be called directly to ensure that cleanup
         /// occurs on the correct thread.
         /// /*cef()*/
         /// </summary>
-        /*10560*/
+        /*9948*/
 
-
-        // gen! bool Close()
-        /*10561*/
-
-        public bool Close()/*10562*/
+        public bool Close()/*9949*/
         {
             JsValue ret;
-            /*10563*/
+            /*9950*/
 
             Cef3Binder.MyCefMet_Call0(this.nativePtr, CefXmlReader_Close_2, out ret);
-            /*10564*/
+            /*9951*/
             var ret_result = ret.I32 != 0;
-            /*10565*/
+            /*9952*/
             return ret_result;
-            /*10566*/
+            /*9953*/
         }
+
+        // gen! bool HasError()
         /// <summary>
         /// Returns true if an error has been reported by the XML parser.
         /// /*cef()*/
         /// </summary>
-        /*10567*/
+        /*9954*/
 
-
-        // gen! bool HasError()
-        /*10568*/
-
-        public bool HasError()/*10569*/
+        public bool HasError()/*9955*/
         {
             JsValue ret;
-            /*10570*/
+            /*9956*/
 
             Cef3Binder.MyCefMet_Call0(this.nativePtr, CefXmlReader_HasError_3, out ret);
-            /*10571*/
+            /*9957*/
             var ret_result = ret.I32 != 0;
-            /*10572*/
+            /*9958*/
             return ret_result;
-            /*10573*/
+            /*9959*/
         }
+
+        // gen! CefString GetError()
         /// <summary>
         /// Returns the error string.
         /// /*cef()*/
         /// </summary>
-        /*10574*/
+        /*9960*/
 
-
-        // gen! CefString GetError()
-        /*10575*/
-
-        public string GetError()/*10576*/
+        public string GetError()/*9961*/
         {
             JsValue ret;
-            /*10577*/
+            /*9962*/
 
             Cef3Binder.MyCefMet_Call0(this.nativePtr, CefXmlReader_GetError_4, out ret);
-            /*10578*/
+            /*9963*/
             var ret_result = Cef3Binder.CopyStringAndDestroyNativeSide(ref ret);
-            /*10579*/
+            /*9964*/
             return ret_result;
-            /*10580*/
+            /*9965*/
         }
+
+        // gen! NodeType GetType()
         /// <summary>
         /// The below methods retrieve data for the node at the current cursor
         /// position.
         /// Returns the node type.
         /// /*cef(default_retval=XML_NODE_UNSUPPORTED)*/
         /// </summary>
-        /*10581*/
+        /*9966*/
 
-
-        // gen! NodeType GetType()
-        /*10582*/
-
-        public cef_xml_node_type_t _GetType()/*10583*/
+        public cef_xml_node_type_t _GetType()/*9967*/
         {
             JsValue ret;
-            /*10584*/
+            /*9968*/
 
             Cef3Binder.MyCefMet_Call0(this.nativePtr, CefXmlReader_GetType_5, out ret);
-            /*10585*/
+            /*9969*/
             var ret_result = (cef_xml_node_type_t)ret.I32;
 
-            /*10586*/
+            /*9970*/
             return ret_result;
-            /*10587*/
+            /*9971*/
         }
+
+        // gen! int GetDepth()
         /// <summary>
         /// Returns the node depth. Depth starts at 0 for the root node.
         /// /*cef()*/
         /// </summary>
-        /*10588*/
+        /*9972*/
 
-
-        // gen! int GetDepth()
-        /*10589*/
-
-        public int GetDepth()/*10590*/
+        public int GetDepth()/*9973*/
         {
             JsValue ret;
-            /*10591*/
+            /*9974*/
 
             Cef3Binder.MyCefMet_Call0(this.nativePtr, CefXmlReader_GetDepth_6, out ret);
-            /*10592*/
+            /*9975*/
             var ret_result = ret.I32;
-            /*10593*/
+            /*9976*/
             return ret_result;
-            /*10594*/
+            /*9977*/
         }
+
+        // gen! CefString GetLocalName()
         /// <summary>
         /// Returns the local name. See
         /// http://www.w3.org/TR/REC-xml-names/#NT-LocalPart for additional details.
         /// /*cef()*/
         /// </summary>
-        /*10595*/
+        /*9978*/
 
-
-        // gen! CefString GetLocalName()
-        /*10596*/
-
-        public string GetLocalName()/*10597*/
+        public string GetLocalName()/*9979*/
         {
             JsValue ret;
-            /*10598*/
+            /*9980*/
 
             Cef3Binder.MyCefMet_Call0(this.nativePtr, CefXmlReader_GetLocalName_7, out ret);
-            /*10599*/
+            /*9981*/
             var ret_result = Cef3Binder.CopyStringAndDestroyNativeSide(ref ret);
-            /*10600*/
+            /*9982*/
             return ret_result;
-            /*10601*/
+            /*9983*/
         }
+
+        // gen! CefString GetPrefix()
         /// <summary>
         /// Returns the namespace prefix. See http://www.w3.org/TR/REC-xml-names/ for
         /// additional details.
         /// /*cef()*/
         /// </summary>
-        /*10602*/
+        /*9984*/
 
-
-        // gen! CefString GetPrefix()
-        /*10603*/
-
-        public string GetPrefix()/*10604*/
+        public string GetPrefix()/*9985*/
         {
             JsValue ret;
-            /*10605*/
+            /*9986*/
 
             Cef3Binder.MyCefMet_Call0(this.nativePtr, CefXmlReader_GetPrefix_8, out ret);
-            /*10606*/
+            /*9987*/
             var ret_result = Cef3Binder.CopyStringAndDestroyNativeSide(ref ret);
-            /*10607*/
+            /*9988*/
             return ret_result;
-            /*10608*/
+            /*9989*/
         }
+
+        // gen! CefString GetQualifiedName()
         /// <summary>
         /// Returns the qualified name, equal to (Prefix:)LocalName. See
         /// http://www.w3.org/TR/REC-xml-names/#ns-qualnames for additional details.
         /// /*cef()*/
         /// </summary>
-        /*10609*/
+        /*9990*/
 
-
-        // gen! CefString GetQualifiedName()
-        /*10610*/
-
-        public string GetQualifiedName()/*10611*/
+        public string GetQualifiedName()/*9991*/
         {
             JsValue ret;
-            /*10612*/
+            /*9992*/
 
             Cef3Binder.MyCefMet_Call0(this.nativePtr, CefXmlReader_GetQualifiedName_9, out ret);
-            /*10613*/
+            /*9993*/
             var ret_result = Cef3Binder.CopyStringAndDestroyNativeSide(ref ret);
-            /*10614*/
+            /*9994*/
             return ret_result;
-            /*10615*/
+            /*9995*/
         }
+
+        // gen! CefString GetNamespaceURI()
         /// <summary>
         /// Returns the URI defining the namespace associated with the node. See
         /// http://www.w3.org/TR/REC-xml-names/ for additional details.
         /// /*cef()*/
         /// </summary>
-        /*10616*/
+        /*9996*/
 
-
-        // gen! CefString GetNamespaceURI()
-        /*10617*/
-
-        public string GetNamespaceURI()/*10618*/
+        public string GetNamespaceURI()/*9997*/
         {
             JsValue ret;
-            /*10619*/
+            /*9998*/
 
             Cef3Binder.MyCefMet_Call0(this.nativePtr, CefXmlReader_GetNamespaceURI_10, out ret);
-            /*10620*/
+            /*9999*/
             var ret_result = Cef3Binder.CopyStringAndDestroyNativeSide(ref ret);
-            /*10621*/
+            /*10000*/
             return ret_result;
-            /*10622*/
+            /*10001*/
         }
+
+        // gen! CefString GetBaseURI()
         /// <summary>
         /// Returns the base URI of the node. See http://www.w3.org/TR/xmlbase/ for
         /// additional details.
         /// /*cef()*/
         /// </summary>
-        /*10623*/
+        /*10002*/
 
-
-        // gen! CefString GetBaseURI()
-        /*10624*/
-
-        public string GetBaseURI()/*10625*/
+        public string GetBaseURI()/*10003*/
         {
             JsValue ret;
-            /*10626*/
+            /*10004*/
 
             Cef3Binder.MyCefMet_Call0(this.nativePtr, CefXmlReader_GetBaseURI_11, out ret);
-            /*10627*/
+            /*10005*/
             var ret_result = Cef3Binder.CopyStringAndDestroyNativeSide(ref ret);
-            /*10628*/
+            /*10006*/
             return ret_result;
-            /*10629*/
+            /*10007*/
         }
+
+        // gen! CefString GetXmlLang()
         /// <summary>
         /// Returns the xml:lang scope within which the node resides. See
         /// http://www.w3.org/TR/REC-xml/#sec-lang-tag for additional details.
         /// /*cef()*/
         /// </summary>
-        /*10630*/
+        /*10008*/
 
-
-        // gen! CefString GetXmlLang()
-        /*10631*/
-
-        public string GetXmlLang()/*10632*/
+        public string GetXmlLang()/*10009*/
         {
             JsValue ret;
-            /*10633*/
+            /*10010*/
 
             Cef3Binder.MyCefMet_Call0(this.nativePtr, CefXmlReader_GetXmlLang_12, out ret);
-            /*10634*/
+            /*10011*/
             var ret_result = Cef3Binder.CopyStringAndDestroyNativeSide(ref ret);
-            /*10635*/
+            /*10012*/
             return ret_result;
-            /*10636*/
+            /*10013*/
         }
+
+        // gen! bool IsEmptyElement()
         /// <summary>
         /// Returns true if the node represents an empty element. <a/> is considered
         /// empty but <a></a> is not.
         /// /*cef()*/
         /// </summary>
-        /*10637*/
+        /*10014*/
 
-
-        // gen! bool IsEmptyElement()
-        /*10638*/
-
-        public bool IsEmptyElement()/*10639*/
+        public bool IsEmptyElement()/*10015*/
         {
             JsValue ret;
-            /*10640*/
+            /*10016*/
 
             Cef3Binder.MyCefMet_Call0(this.nativePtr, CefXmlReader_IsEmptyElement_13, out ret);
-            /*10641*/
+            /*10017*/
             var ret_result = ret.I32 != 0;
-            /*10642*/
+            /*10018*/
             return ret_result;
-            /*10643*/
+            /*10019*/
         }
+
+        // gen! bool HasValue()
         /// <summary>
         /// Returns true if the node has a text value.
         /// /*cef()*/
         /// </summary>
-        /*10644*/
+        /*10020*/
 
-
-        // gen! bool HasValue()
-        /*10645*/
-
-        public bool HasValue()/*10646*/
+        public bool HasValue()/*10021*/
         {
             JsValue ret;
-            /*10647*/
+            /*10022*/
 
             Cef3Binder.MyCefMet_Call0(this.nativePtr, CefXmlReader_HasValue_14, out ret);
-            /*10648*/
+            /*10023*/
             var ret_result = ret.I32 != 0;
-            /*10649*/
+            /*10024*/
             return ret_result;
-            /*10650*/
+            /*10025*/
         }
+
+        // gen! CefString GetValue()
         /// <summary>
         /// Returns the text value.
         /// /*cef()*/
         /// </summary>
-        /*10651*/
+        /*10026*/
 
-
-        // gen! CefString GetValue()
-        /*10652*/
-
-        public string GetValue()/*10653*/
+        public string GetValue()/*10027*/
         {
             JsValue ret;
-            /*10654*/
+            /*10028*/
 
             Cef3Binder.MyCefMet_Call0(this.nativePtr, CefXmlReader_GetValue_15, out ret);
-            /*10655*/
+            /*10029*/
             var ret_result = Cef3Binder.CopyStringAndDestroyNativeSide(ref ret);
-            /*10656*/
+            /*10030*/
             return ret_result;
-            /*10657*/
+            /*10031*/
         }
+
+        // gen! bool HasAttributes()
         /// <summary>
         /// Returns true if the node has attributes.
         /// /*cef()*/
         /// </summary>
-        /*10658*/
+        /*10032*/
 
-
-        // gen! bool HasAttributes()
-        /*10659*/
-
-        public bool HasAttributes()/*10660*/
+        public bool HasAttributes()/*10033*/
         {
             JsValue ret;
-            /*10661*/
+            /*10034*/
 
             Cef3Binder.MyCefMet_Call0(this.nativePtr, CefXmlReader_HasAttributes_16, out ret);
-            /*10662*/
+            /*10035*/
             var ret_result = ret.I32 != 0;
-            /*10663*/
+            /*10036*/
             return ret_result;
-            /*10664*/
+            /*10037*/
         }
+
+        // gen! size_t GetAttributeCount()
         /// <summary>
         /// Returns the number of attributes.
         /// /*cef()*/
         /// </summary>
-        /*10665*/
+        /*10038*/
 
-
-        // gen! size_t GetAttributeCount()
-        /*10666*/
-
-        public uint GetAttributeCount()/*10667*/
+        public uint GetAttributeCount()/*10039*/
         {
             JsValue ret;
-            /*10668*/
+            /*10040*/
 
             Cef3Binder.MyCefMet_Call0(this.nativePtr, CefXmlReader_GetAttributeCount_17, out ret);
-            /*10669*/
+            /*10041*/
             var ret_result = (uint)ret.I32;
-            /*10670*/
+            /*10042*/
             return ret_result;
-            /*10671*/
+            /*10043*/
         }
-        /*10672*/
-
 
         // gen! CefString GetAttribute(int index)
-        /*10673*/
+        /*10044*/
 
-        public string GetAttribute(int /*10674*/
+        public string GetAttribute(int /*10045*/
         index
-        )/*10675*/
+        )/*10046*/
         {
             JsValue v1 = new JsValue();
             JsValue ret;
-            /*10676*/
+            /*10047*/
 
             Cef3Binder.MyCefMet_Call1(this.nativePtr, CefXmlReader_GetAttribute_18, out ret, ref v1);
-            /*10677*/
+            /*10048*/
             var ret_result = Cef3Binder.CopyStringAndDestroyNativeSide(ref ret);
-            /*10678*/
+            /*10049*/
             return ret_result;
-            /*10679*/
+            /*10050*/
         }
-        /*10680*/
-
 
         // gen! CefString GetAttribute(const CefString& qualifiedName)
-        /*10681*/
+        /*10051*/
 
-        public string GetAttribute(string /*10682*/
+        public string GetAttribute(string /*10052*/
         qualifiedName
-        )/*10683*/
+        )/*10053*/
         {
             JsValue v1 = new JsValue();
             JsValue ret;
             v1.Ptr = Cef3Binder.MyCefCreateCefString(qualifiedName);
-            /*10684*/
+            /*10054*/
             ;
-            /*10685*/
+            /*10055*/
 
             Cef3Binder.MyCefMet_Call1(this.nativePtr, CefXmlReader_GetAttribute_19, out ret, ref v1);
-            /*10686*/
+            /*10056*/
             var ret_result = Cef3Binder.CopyStringAndDestroyNativeSide(ref ret);
-            Cef3Binder.MyCefDeletePtr(v1.Ptr);/*10687*/
+            Cef3Binder.MyCefDeletePtr(v1.Ptr);/*10057*/
             ;
-            /*10688*/
+            /*10058*/
             return ret_result;
-            /*10689*/
+            /*10059*/
         }
-        /*10690*/
-
 
         // gen! CefString GetAttribute(const CefString& localName,const CefString& namespaceURI)
-        /*10691*/
+        /*10060*/
 
-        public string GetAttribute(string /*10692*/
+        public string GetAttribute(string /*10061*/
         localName
-        , string /*10693*/
+        , string /*10062*/
         namespaceURI
-        )/*10694*/
+        )/*10063*/
         {
             JsValue v1 = new JsValue();
             JsValue v2 = new JsValue();
             JsValue ret;
             v1.Ptr = Cef3Binder.MyCefCreateCefString(localName);
-            /*10695*/
+            /*10064*/
             ;
             v2.Ptr = Cef3Binder.MyCefCreateCefString(namespaceURI);
-            /*10696*/
+            /*10065*/
             ;
-            /*10697*/
+            /*10066*/
 
             Cef3Binder.MyCefMet_Call2(this.nativePtr, CefXmlReader_GetAttribute_20, out ret, ref v1, ref v2);
-            /*10698*/
+            /*10067*/
             var ret_result = Cef3Binder.CopyStringAndDestroyNativeSide(ref ret);
-            Cef3Binder.MyCefDeletePtr(v1.Ptr);/*10699*/
+            Cef3Binder.MyCefDeletePtr(v1.Ptr);/*10068*/
             ;
-            Cef3Binder.MyCefDeletePtr(v2.Ptr);/*10700*/
+            Cef3Binder.MyCefDeletePtr(v2.Ptr);/*10069*/
             ;
-            /*10701*/
+            /*10070*/
             return ret_result;
-            /*10702*/
+            /*10071*/
         }
+
+        // gen! CefString GetInnerXml()
         /// <summary>
         /// Returns an XML representation of the current node's children.
         /// /*cef()*/
         /// </summary>
-        /*10703*/
+        /*10072*/
 
-
-        // gen! CefString GetInnerXml()
-        /*10704*/
-
-        public string GetInnerXml()/*10705*/
+        public string GetInnerXml()/*10073*/
         {
             JsValue ret;
-            /*10706*/
+            /*10074*/
 
             Cef3Binder.MyCefMet_Call0(this.nativePtr, CefXmlReader_GetInnerXml_21, out ret);
-            /*10707*/
+            /*10075*/
             var ret_result = Cef3Binder.CopyStringAndDestroyNativeSide(ref ret);
-            /*10708*/
+            /*10076*/
             return ret_result;
-            /*10709*/
+            /*10077*/
         }
+
+        // gen! CefString GetOuterXml()
         /// <summary>
         /// Returns an XML representation of the current node including its children.
         /// /*cef()*/
         /// </summary>
-        /*10710*/
+        /*10078*/
 
-
-        // gen! CefString GetOuterXml()
-        /*10711*/
-
-        public string GetOuterXml()/*10712*/
+        public string GetOuterXml()/*10079*/
         {
             JsValue ret;
-            /*10713*/
+            /*10080*/
 
             Cef3Binder.MyCefMet_Call0(this.nativePtr, CefXmlReader_GetOuterXml_22, out ret);
-            /*10714*/
+            /*10081*/
             var ret_result = Cef3Binder.CopyStringAndDestroyNativeSide(ref ret);
-            /*10715*/
+            /*10082*/
             return ret_result;
-            /*10716*/
+            /*10083*/
         }
+
+        // gen! int GetLineNumber()
         /// <summary>
         /// Returns the line number for the current node.
         /// /*cef()*/
         /// </summary>
-        /*10717*/
+        /*10084*/
 
-
-        // gen! int GetLineNumber()
-        /*10718*/
-
-        public int GetLineNumber()/*10719*/
+        public int GetLineNumber()/*10085*/
         {
             JsValue ret;
-            /*10720*/
+            /*10086*/
 
             Cef3Binder.MyCefMet_Call0(this.nativePtr, CefXmlReader_GetLineNumber_23, out ret);
-            /*10721*/
+            /*10087*/
             var ret_result = ret.I32;
-            /*10722*/
+            /*10088*/
             return ret_result;
-            /*10723*/
+            /*10089*/
         }
-        /*10724*/
-
 
         // gen! bool MoveToAttribute(int index)
-        /*10725*/
+        /*10090*/
 
-        public bool MoveToAttribute(int /*10726*/
+        public bool MoveToAttribute(int /*10091*/
         index
-        )/*10727*/
+        )/*10092*/
         {
             JsValue v1 = new JsValue();
             JsValue ret;
-            /*10728*/
+            /*10093*/
 
             Cef3Binder.MyCefMet_Call1(this.nativePtr, CefXmlReader_MoveToAttribute_24, out ret, ref v1);
-            /*10729*/
+            /*10094*/
             var ret_result = ret.I32 != 0;
-            /*10730*/
+            /*10095*/
             return ret_result;
-            /*10731*/
+            /*10096*/
         }
-        /*10732*/
-
 
         // gen! bool MoveToAttribute(const CefString& qualifiedName)
-        /*10733*/
+        /*10097*/
 
-        public bool MoveToAttribute(string /*10734*/
+        public bool MoveToAttribute(string /*10098*/
         qualifiedName
-        )/*10735*/
+        )/*10099*/
         {
             JsValue v1 = new JsValue();
             JsValue ret;
             v1.Ptr = Cef3Binder.MyCefCreateCefString(qualifiedName);
-            /*10736*/
+            /*10100*/
             ;
-            /*10737*/
+            /*10101*/
 
             Cef3Binder.MyCefMet_Call1(this.nativePtr, CefXmlReader_MoveToAttribute_25, out ret, ref v1);
-            /*10738*/
+            /*10102*/
             var ret_result = ret.I32 != 0;
-            Cef3Binder.MyCefDeletePtr(v1.Ptr);/*10739*/
+            Cef3Binder.MyCefDeletePtr(v1.Ptr);/*10103*/
             ;
-            /*10740*/
+            /*10104*/
             return ret_result;
-            /*10741*/
+            /*10105*/
         }
-        /*10742*/
-
 
         // gen! bool MoveToAttribute(const CefString& localName,const CefString& namespaceURI)
-        /*10743*/
+        /*10106*/
 
-        public bool MoveToAttribute(string /*10744*/
+        public bool MoveToAttribute(string /*10107*/
         localName
-        , string /*10745*/
+        , string /*10108*/
         namespaceURI
-        )/*10746*/
+        )/*10109*/
         {
             JsValue v1 = new JsValue();
             JsValue v2 = new JsValue();
             JsValue ret;
             v1.Ptr = Cef3Binder.MyCefCreateCefString(localName);
-            /*10747*/
+            /*10110*/
             ;
             v2.Ptr = Cef3Binder.MyCefCreateCefString(namespaceURI);
-            /*10748*/
+            /*10111*/
             ;
-            /*10749*/
+            /*10112*/
 
             Cef3Binder.MyCefMet_Call2(this.nativePtr, CefXmlReader_MoveToAttribute_26, out ret, ref v1, ref v2);
-            /*10750*/
+            /*10113*/
             var ret_result = ret.I32 != 0;
-            Cef3Binder.MyCefDeletePtr(v1.Ptr);/*10751*/
+            Cef3Binder.MyCefDeletePtr(v1.Ptr);/*10114*/
             ;
-            Cef3Binder.MyCefDeletePtr(v2.Ptr);/*10752*/
+            Cef3Binder.MyCefDeletePtr(v2.Ptr);/*10115*/
             ;
-            /*10753*/
+            /*10116*/
             return ret_result;
-            /*10754*/
+            /*10117*/
         }
+
+        // gen! bool MoveToFirstAttribute()
         /// <summary>
         /// Moves the cursor to the first attribute in the current element. Returns
         /// true if the cursor position was set successfully.
         /// /*cef()*/
         /// </summary>
-        /*10755*/
+        /*10118*/
 
-
-        // gen! bool MoveToFirstAttribute()
-        /*10756*/
-
-        public bool MoveToFirstAttribute()/*10757*/
+        public bool MoveToFirstAttribute()/*10119*/
         {
             JsValue ret;
-            /*10758*/
+            /*10120*/
 
             Cef3Binder.MyCefMet_Call0(this.nativePtr, CefXmlReader_MoveToFirstAttribute_27, out ret);
-            /*10759*/
+            /*10121*/
             var ret_result = ret.I32 != 0;
-            /*10760*/
+            /*10122*/
             return ret_result;
-            /*10761*/
+            /*10123*/
         }
+
+        // gen! bool MoveToNextAttribute()
         /// <summary>
         /// Moves the cursor to the next attribute in the current element. Returns
         /// true if the cursor position was set successfully.
         /// /*cef()*/
         /// </summary>
-        /*10762*/
+        /*10124*/
 
-
-        // gen! bool MoveToNextAttribute()
-        /*10763*/
-
-        public bool MoveToNextAttribute()/*10764*/
+        public bool MoveToNextAttribute()/*10125*/
         {
             JsValue ret;
-            /*10765*/
+            /*10126*/
 
             Cef3Binder.MyCefMet_Call0(this.nativePtr, CefXmlReader_MoveToNextAttribute_28, out ret);
-            /*10766*/
+            /*10127*/
             var ret_result = ret.I32 != 0;
-            /*10767*/
+            /*10128*/
             return ret_result;
-            /*10768*/
+            /*10129*/
         }
+
+        // gen! bool MoveToCarryingElement()
         /// <summary>
         /// Moves the cursor back to the carrying element. Returns true if the cursor
         /// position was set successfully.
         /// /*cef()*/
         /// </summary>
-        /*10769*/
+        /*10130*/
 
-
-        // gen! bool MoveToCarryingElement()
-        /*10770*/
-
-        public bool MoveToCarryingElement()/*10771*/
+        public bool MoveToCarryingElement()/*10131*/
         {
             JsValue ret;
-            /*10772*/
+            /*10132*/
 
             Cef3Binder.MyCefMet_Call0(this.nativePtr, CefXmlReader_MoveToCarryingElement_29, out ret);
-            /*10773*/
+            /*10133*/
             var ret_result = ret.I32 != 0;
-            /*10774*/
+            /*10134*/
             return ret_result;
-            /*10775*/
+            /*10135*/
         }
-        /*10776*/
+        /*10136*/
     }
 
 
@@ -21846,352 +20566,328 @@ namespace LayoutFarm.CefBridge.Auto
     /// the object.
     /// /*(source=library)*/
     /// </summary>
-    /*10845*/
+    /*10205*/
     public struct CefZipReader
     {
-        /*10846*/
+        /*10206*/
         const int _typeNAME = 55;
-        /*10847*/
+        /*10207*/
         const int CefZipReader_Release_0 = (_typeNAME << 16) | 0;
-        /*10848*/
+        /*10208*/
         const int CefZipReader_MoveToFirstFile_1 = (_typeNAME << 16) | 1;
-        /*10849*/
+        /*10209*/
         const int CefZipReader_MoveToNextFile_2 = (_typeNAME << 16) | 2;
-        /*10850*/
+        /*10210*/
         const int CefZipReader_MoveToFile_3 = (_typeNAME << 16) | 3;
-        /*10851*/
+        /*10211*/
         const int CefZipReader_Close_4 = (_typeNAME << 16) | 4;
-        /*10852*/
+        /*10212*/
         const int CefZipReader_GetFileName_5 = (_typeNAME << 16) | 5;
-        /*10853*/
+        /*10213*/
         const int CefZipReader_GetFileSize_6 = (_typeNAME << 16) | 6;
-        /*10854*/
+        /*10214*/
         const int CefZipReader_GetFileLastModified_7 = (_typeNAME << 16) | 7;
-        /*10855*/
+        /*10215*/
         const int CefZipReader_OpenFile_8 = (_typeNAME << 16) | 8;
-        /*10856*/
+        /*10216*/
         const int CefZipReader_CloseFile_9 = (_typeNAME << 16) | 9;
-        /*10857*/
+        /*10217*/
         const int CefZipReader_ReadFile_10 = (_typeNAME << 16) | 10;
-        /*10858*/
+        /*10218*/
         const int CefZipReader_Tell_11 = (_typeNAME << 16) | 11;
-        /*10859*/
+        /*10219*/
         const int CefZipReader_Eof_12 = (_typeNAME << 16) | 12;
-        /*10860*/
+        /*10220*/
         internal readonly IntPtr nativePtr;
-        /*10861*/
+        /*10221*/
         internal CefZipReader(IntPtr nativePtr)
         {
-            /*10862*/
+            /*10222*/
             this.nativePtr = nativePtr;
-            /*10863*/
+            /*10223*/
         }
-        /*10864*/
+        /*10224*/
         public void Release()
         {
-            /*10865*/
+            /*10225*/
             JsValue ret;
-            /*10866*/
+            /*10226*/
             Cef3Binder.MyCefMet_Call0(this.nativePtr, CefZipReader_Release_0, out ret);
-            /*10867*/
+            /*10227*/
         }
+
+        // gen! bool MoveToFirstFile()
         /// <summary>
         /// CefZipReader methods.
         /// </summary>
-        /*10868*/
+        /*10228*/
 
-
-        // gen! bool MoveToFirstFile()
-        /*10869*/
-
-        public bool MoveToFirstFile()/*10870*/
+        public bool MoveToFirstFile()/*10229*/
         {
             JsValue ret;
-            /*10871*/
+            /*10230*/
 
             Cef3Binder.MyCefMet_Call0(this.nativePtr, CefZipReader_MoveToFirstFile_1, out ret);
-            /*10872*/
+            /*10231*/
             var ret_result = ret.I32 != 0;
-            /*10873*/
+            /*10232*/
             return ret_result;
-            /*10874*/
+            /*10233*/
         }
+
+        // gen! bool MoveToNextFile()
         /// <summary>
         /// Moves the cursor to the next file in the archive. Returns true if the
         /// cursor position was set successfully.
         /// /*cef()*/
         /// </summary>
-        /*10875*/
+        /*10234*/
 
-
-        // gen! bool MoveToNextFile()
-        /*10876*/
-
-        public bool MoveToNextFile()/*10877*/
+        public bool MoveToNextFile()/*10235*/
         {
             JsValue ret;
-            /*10878*/
+            /*10236*/
 
             Cef3Binder.MyCefMet_Call0(this.nativePtr, CefZipReader_MoveToNextFile_2, out ret);
-            /*10879*/
+            /*10237*/
             var ret_result = ret.I32 != 0;
-            /*10880*/
+            /*10238*/
             return ret_result;
-            /*10881*/
+            /*10239*/
         }
+
+        // gen! bool MoveToFile(const CefString& fileName,bool caseSensitive)
         /// <summary>
         /// Moves the cursor to the specified file in the archive. If |caseSensitive|
         /// is true then the search will be case sensitive. Returns true if the cursor
         /// position was set successfully.
         /// /*cef()*/
         /// </summary>
-        /*10882*/
+        /*10240*/
 
-
-        // gen! bool MoveToFile(const CefString& fileName,bool caseSensitive)
-        /*10883*/
-
-        public bool MoveToFile(string /*10884*/
+        public bool MoveToFile(string /*10241*/
         fileName
-        , bool /*10885*/
+        , bool /*10242*/
         caseSensitive
-        )/*10886*/
+        )/*10243*/
         {
             JsValue v1 = new JsValue();
             JsValue v2 = new JsValue();
             JsValue ret;
             v1.Ptr = Cef3Binder.MyCefCreateCefString(fileName);
-            /*10887*/
+            /*10244*/
             ;
-            /*10888*/
+            /*10245*/
 
             Cef3Binder.MyCefMet_Call2(this.nativePtr, CefZipReader_MoveToFile_3, out ret, ref v1, ref v2);
-            /*10889*/
+            /*10246*/
             var ret_result = ret.I32 != 0;
-            Cef3Binder.MyCefDeletePtr(v1.Ptr);/*10890*/
+            Cef3Binder.MyCefDeletePtr(v1.Ptr);/*10247*/
             ;
-            /*10891*/
+            /*10248*/
             return ret_result;
-            /*10892*/
+            /*10249*/
         }
+
+        // gen! bool Close()
         /// <summary>
         /// Closes the archive. This should be called directly to ensure that cleanup
         /// occurs on the correct thread.
         /// /*cef()*/
         /// </summary>
-        /*10893*/
+        /*10250*/
 
-
-        // gen! bool Close()
-        /*10894*/
-
-        public bool Close()/*10895*/
+        public bool Close()/*10251*/
         {
             JsValue ret;
-            /*10896*/
+            /*10252*/
 
             Cef3Binder.MyCefMet_Call0(this.nativePtr, CefZipReader_Close_4, out ret);
-            /*10897*/
+            /*10253*/
             var ret_result = ret.I32 != 0;
-            /*10898*/
+            /*10254*/
             return ret_result;
-            /*10899*/
+            /*10255*/
         }
+
+        // gen! CefString GetFileName()
         /// <summary>
         /// The below methods act on the file at the current cursor position.
         /// Returns the name of the file.
         /// /*cef()*/
         /// </summary>
-        /*10900*/
+        /*10256*/
 
-
-        // gen! CefString GetFileName()
-        /*10901*/
-
-        public string GetFileName()/*10902*/
+        public string GetFileName()/*10257*/
         {
             JsValue ret;
-            /*10903*/
+            /*10258*/
 
             Cef3Binder.MyCefMet_Call0(this.nativePtr, CefZipReader_GetFileName_5, out ret);
-            /*10904*/
+            /*10259*/
             var ret_result = Cef3Binder.CopyStringAndDestroyNativeSide(ref ret);
-            /*10905*/
+            /*10260*/
             return ret_result;
-            /*10906*/
+            /*10261*/
         }
+
+        // gen! int64 GetFileSize()
         /// <summary>
         /// Returns the uncompressed size of the file.
         /// /*cef()*/
         /// </summary>
-        /*10907*/
+        /*10262*/
 
-
-        // gen! int64 GetFileSize()
-        /*10908*/
-
-        public long GetFileSize()/*10909*/
+        public long GetFileSize()/*10263*/
         {
             JsValue ret;
-            /*10910*/
+            /*10264*/
 
             Cef3Binder.MyCefMet_Call0(this.nativePtr, CefZipReader_GetFileSize_6, out ret);
-            /*10911*/
+            /*10265*/
             var ret_result = ret.I64;
-            /*10912*/
+            /*10266*/
             return ret_result;
-            /*10913*/
+            /*10267*/
         }
+
+        // gen! CefTime GetFileLastModified()
         /// <summary>
         /// Returns the last modified timestamp for the file.
         /// /*cef()*/
         /// </summary>
-        /*10914*/
+        /*10268*/
 
-
-        // gen! CefTime GetFileLastModified()
-        /*10915*/
-
-        public CefTime GetFileLastModified()/*10916*/
+        public CefTime GetFileLastModified()/*10269*/
         {
             JsValue ret;
-            /*10917*/
+            /*10270*/
 
             Cef3Binder.MyCefMet_Call0(this.nativePtr, CefZipReader_GetFileLastModified_7, out ret);
-            /*10918*/
+            /*10271*/
             var ret_result = new CefTime(ret.Ptr);
 
-            /*10919*/
+            /*10272*/
             return ret_result;
-            /*10920*/
+            /*10273*/
         }
+
+        // gen! bool OpenFile(const CefString& password)
         /// <summary>
         /// Opens the file for reading of uncompressed data. A read password may
         /// optionally be specified.
         /// /*cef(optional_param=password)*/
         /// </summary>
-        /*10921*/
+        /*10274*/
 
-
-        // gen! bool OpenFile(const CefString& password)
-        /*10922*/
-
-        public bool OpenFile(string /*10923*/
+        public bool OpenFile(string /*10275*/
         password
-        )/*10924*/
+        )/*10276*/
         {
             JsValue v1 = new JsValue();
             JsValue ret;
             v1.Ptr = Cef3Binder.MyCefCreateCefString(password);
-            /*10925*/
+            /*10277*/
             ;
-            /*10926*/
+            /*10278*/
 
             Cef3Binder.MyCefMet_Call1(this.nativePtr, CefZipReader_OpenFile_8, out ret, ref v1);
-            /*10927*/
+            /*10279*/
             var ret_result = ret.I32 != 0;
-            Cef3Binder.MyCefDeletePtr(v1.Ptr);/*10928*/
+            Cef3Binder.MyCefDeletePtr(v1.Ptr);/*10280*/
             ;
-            /*10929*/
+            /*10281*/
             return ret_result;
-            /*10930*/
+            /*10282*/
         }
+
+        // gen! bool CloseFile()
         /// <summary>
         /// Closes the file.
         /// /*cef()*/
         /// </summary>
-        /*10931*/
+        /*10283*/
 
-
-        // gen! bool CloseFile()
-        /*10932*/
-
-        public bool CloseFile()/*10933*/
+        public bool CloseFile()/*10284*/
         {
             JsValue ret;
-            /*10934*/
+            /*10285*/
 
             Cef3Binder.MyCefMet_Call0(this.nativePtr, CefZipReader_CloseFile_9, out ret);
-            /*10935*/
+            /*10286*/
             var ret_result = ret.I32 != 0;
-            /*10936*/
+            /*10287*/
             return ret_result;
-            /*10937*/
+            /*10288*/
         }
+
+        // gen! int ReadFile(void* buffer,size_t bufferSize)
         /// <summary>
         /// Read uncompressed file contents into the specified buffer. Returns < 0 if
         /// an error occurred, 0 if at the end of file, or the number of bytes read.
         /// /*cef()*/
         /// </summary>
-        /*10938*/
+        /*10289*/
 
-
-        // gen! int ReadFile(void* buffer,size_t bufferSize)
-        /*10939*/
-
-        public int ReadFile(IntPtr /*10940*/
+        public int ReadFile(IntPtr /*10290*/
         buffer
-        , uint /*10941*/
+        , uint /*10291*/
         bufferSize
-        )/*10942*/
+        )/*10292*/
         {
             JsValue v1 = new JsValue();
             JsValue v2 = new JsValue();
             JsValue ret;
-            /*10943*/
+            /*10293*/
 
             Cef3Binder.MyCefMet_Call2(this.nativePtr, CefZipReader_ReadFile_10, out ret, ref v1, ref v2);
-            /*10944*/
+            /*10294*/
             var ret_result = ret.I32;
-            /*10945*/
+            /*10295*/
             return ret_result;
-            /*10946*/
+            /*10296*/
         }
+
+        // gen! int64 Tell()
         /// <summary>
         /// Returns the current offset in the uncompressed file contents.
         /// /*cef()*/
         /// </summary>
-        /*10947*/
+        /*10297*/
 
-
-        // gen! int64 Tell()
-        /*10948*/
-
-        public long Tell()/*10949*/
+        public long Tell()/*10298*/
         {
             JsValue ret;
-            /*10950*/
+            /*10299*/
 
             Cef3Binder.MyCefMet_Call0(this.nativePtr, CefZipReader_Tell_11, out ret);
-            /*10951*/
+            /*10300*/
             var ret_result = ret.I64;
-            /*10952*/
+            /*10301*/
             return ret_result;
-            /*10953*/
+            /*10302*/
         }
+
+        // gen! bool Eof()
         /// <summary>
         /// Returns true if at end of the file contents.
         /// /*cef()*/
         /// </summary>
-        /*10954*/
+        /*10303*/
 
-
-        // gen! bool Eof()
-        /*10955*/
-
-        public bool Eof()/*10956*/
+        public bool Eof()/*10304*/
         {
             JsValue ret;
-            /*10957*/
+            /*10305*/
 
             Cef3Binder.MyCefMet_Call0(this.nativePtr, CefZipReader_Eof_12, out ret);
-            /*10958*/
+            /*10306*/
             var ret_result = ret.I32 != 0;
-            /*10959*/
+            /*10307*/
             return ret_result;
-            /*10960*/
+            /*10308*/
         }
-        /*10961*/
+        /*10309*/
     }
 
 }
