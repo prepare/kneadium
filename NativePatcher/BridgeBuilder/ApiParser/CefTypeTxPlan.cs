@@ -1997,7 +1997,7 @@ namespace BridgeBuilder
                 MethodParameterTxInfo parTx = pars[i];
                 if (parTx.ArgPostExtractCode != null)
                 {
-                    stbuilder.Append(parTx.ArgPostExtractCode);
+                    stbuilder.AppendLine(parTx.ArgPostExtractCode);
                 }
             }
             stbuilder.AppendLine(ret.ArgExtractCode);
@@ -2440,7 +2440,7 @@ namespace BridgeBuilder
                 MethodParameterTxInfo parTx = pars[i];
                 if (parTx.ArgPostExtractCode != null)
                 {
-                    stbuilder.Append(parTx.ArgPostExtractCode);
+                    stbuilder.AppendLine(parTx.ArgPostExtractCode);
                 }
             }
             //--------------------
