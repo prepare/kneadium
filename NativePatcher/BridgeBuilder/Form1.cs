@@ -534,7 +534,10 @@ namespace BridgeBuilder
             {
                 CodeStringBuilder stbuilder = new CodeStringBuilder();
                 tx.GenerateCppCode(stbuilder);
-
+                //
+                CodeStringBuilder csCode = new CodeStringBuilder();
+                tx.GenerateCsCode(csCode);
+                csCodeStBuilder.Append(csCode.ToString());
             }
 
 
@@ -578,7 +581,7 @@ namespace BridgeBuilder
         }
         void CreateCppSwitchTable(StringBuilder stbuilder, List<CefInstanceElementTxPlan> instanceClassPlans)
         {
-            CodeStringBuilder cppStBuilder = new CodeStringBuilder(); 
+            CodeStringBuilder cppStBuilder = new CodeStringBuilder();
             //------
             cppStBuilder.AppendLine("void MyCefMet_CallN(void* me1, int metName, jsvalue* ret, jsvalue* v1, jsvalue* v2, jsvalue* v3, jsvalue* v4, jsvalue* v5, jsvalue* v6){");
             cppStBuilder.AppendLine(" int cefTypeName = (metName >> 16);");

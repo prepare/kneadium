@@ -692,6 +692,7 @@ namespace BridgeBuilder
     abstract class CodeMemberDeclaration
     {
         Token[] _lineComments;
+        string _name;
 #if DEBUG
         static int dbugTotalId;
         public readonly int dbugId = dbugTotalId++;
@@ -700,7 +701,14 @@ namespace BridgeBuilder
 
         }
 #endif
-        public string Name { get; set; }
+        public string Name
+        {
+            get { return _name; }
+            set
+            {
+                _name = value; 
+            }
+        }
         public abstract CodeMemberKind MemberKind { get; }
         public MemberAccessibility MemberAccessibility { get; set; }
         public CodeCompilationUnit OriginalCompilationUnit { get; set; }
@@ -709,7 +717,7 @@ namespace BridgeBuilder
             get { return _lineComments; }
             set
             {
-                 
+
 
                 _lineComments = value;
             }

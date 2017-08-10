@@ -65,6 +65,10 @@ namespace BridgeBuilder
     abstract class CefTypeTxPlan : TypeTxPlan
     {
         CodeTypeDeclaration _implDecl;
+
+#if DEBUG
+        protected int _dbug_cpp_count = 0;
+#endif
         public CefTypeTxPlan(CodeTypeDeclaration originalDecl)
         {
             this.OriginalDecl = originalDecl;
@@ -92,7 +96,7 @@ namespace BridgeBuilder
             }
         }
 
-
+        internal int MaxMethodParCount { get; set; }
         public int CsInterOpTypeNameId { get; set; }
 
         public virtual void GenerateCppCode(CodeStringBuilder stbuilder)
@@ -919,7 +923,225 @@ namespace BridgeBuilder
 
         }
 
+        protected static string GetCsRetName(TypeSymbol retType)
+        {
+            //return type from cs
+            switch (retType.TypeSymbolKind)
+            {
+                default:
+                    break;
+                case TypeSymbolKind.TypeDef:
+                    {
+                        CTypeDefTypeSymbol typedef = (CTypeDefTypeSymbol)retType;
+                        TypeSymbol referToType = typedef.ReferToTypeSymbol;
+                        if (referToType.TypeSymbolKind == TypeSymbolKind.Simple)
+                        {
+                            SimpleTypeSymbol ss = (SimpleTypeSymbol)referToType;
+                            if (ss.CreatedByTypeDeclaration != null)
+                            {
+                                if (ss.CreatedByTypeDeclaration.Kind == TypeKind.Enum)
+                                {
+                                    return ss.CreatedByTypeDeclaration.Name;
+                                }
+                            }
+                            else
+                            {
+                                return "IntPtr";
+                            }
+                        }
+                        else
+                        {
+                            throw new NotSupportedException();
+                        }
+                    }
+                    break;
+                case TypeSymbolKind.Simple:
+                    {
+                        SimpleTypeSymbol ss = (SimpleTypeSymbol)retType;
+                        switch (ss.PrimitiveTypeKind)
+                        {
+                            default:
+                                throw new NotSupportedException();
+                            case PrimitiveTypeKind.Bool:
+                                return "bool";
+                            case PrimitiveTypeKind.CefString:
+                                return "string";
+                            case PrimitiveTypeKind.Double:
+                                return "double";
+                            case PrimitiveTypeKind.Float:
+                                return "float";
+                            case PrimitiveTypeKind.NaitveInt:
+                                return "int";
+                            case PrimitiveTypeKind.Int32:
+                                return "int";
+                            case PrimitiveTypeKind.Int64:
+                                return "long";
+                            case PrimitiveTypeKind.NotPrimitiveType:
+                                {
+                                    if (ss.IsEnum)
+                                    {
+                                        return ss.Name;
+                                    }
+                                    else
+                                    {
+                                        return ss.Name;
+                                    }
+                                }
+                                break;
+                            case PrimitiveTypeKind.size_t:
+                                return "uint";
+                            case PrimitiveTypeKind.UInt32:
+                                return "uint";
+                            case PrimitiveTypeKind.UInt64:
+                                return "ulong";
+                            case PrimitiveTypeKind.Void:
+                                return "void";
+                        }
+                    }
+                    break;
+                case TypeSymbolKind.ReferenceOrPointer:
+                    {
+                        ReferenceOrPointerTypeSymbol refOrPtr = (ReferenceOrPointerTypeSymbol)retType;
+                        TypeSymbol elemType = refOrPtr.ElementType;
+                        switch (elemType.TypeSymbolKind)
+                        {
+                            default:
+                                throw new NotSupportedException();
+                            case TypeSymbolKind.ReferenceOrPointer:
+                                {
+                                    //eg. bool GetDataResource(int resource_id,void*& data,size_t& data_size)
 
+                                    switch (elemType.ToString())
+                                    {
+                                        default:
+                                            break;
+                                        case "CefRefPtr<CefV8Value>":
+                                            return "IntPtr";
+                                        case "void*":
+                                            return "IntPtr";
+                                        case "CefRefPtr<CefV8Exception>":
+                                            return "IntPtr";
+                                    }
+                                }
+                                break;
+                            case TypeSymbolKind.TypeDef:
+                                {
+                                    CTypeDefTypeSymbol typedef = (CTypeDefTypeSymbol)elemType;
+
+                                    switch (typedef.Name)
+                                    {
+                                        default:
+                                            throw new NotSupportedException();
+                                        case "cef_color_t":
+                                        case "CefKeyEvent":
+                                        case "CefMouseEvent":
+                                        case "CefBrowserSettings":
+                                        case "CefPdfPrintSettings":
+                                        case "SwitchMap":
+                                        case "ArgumentList":
+                                        case "AttributeMap":
+                                        case "CefCookie":
+                                        case "PageRangeList":
+                                        case "HeaderMap":
+                                        case "ElementVector":
+                                        case "CefV8ValueList":
+                                        case "KeyList":
+                                        case "IssuerChainBinaryList":
+                                            return typedef.Name;
+                                    }
+
+
+                                }
+                                break;
+                            case TypeSymbolKind.Vec:
+                                {
+                                    VecTypeSymbol vec = (VecTypeSymbol)elemType;
+                                    TypeSymbol elem = vec.ElementType;
+                                    switch (elem.TypeSymbolKind)
+                                    {
+                                        default:
+                                            throw new NotSupportedException();
+                                        case TypeSymbolKind.TypeDef:
+                                            {
+                                                CTypeDefTypeSymbol typedef = (CTypeDefTypeSymbol)elem;
+                                                switch (typedef.Name)
+                                                {
+                                                    default:
+                                                        throw new NotSupportedException();
+                                                    case "CefCompositionUnderline":
+                                                        return "List<CefCompositionUnderline>";
+                                                }
+                                            }
+                                            break;
+                                        case TypeSymbolKind.Simple:
+                                            {
+                                                SimpleTypeSymbol ss = (SimpleTypeSymbol)elem;
+                                                switch (ss.PrimitiveTypeKind)
+                                                {
+                                                    default:
+                                                        throw new NotSupportedException();
+                                                    case PrimitiveTypeKind.Int64:
+                                                        //list of unit
+                                                        return "List<long>";
+                                                    case PrimitiveTypeKind.String:
+                                                        return "List<string>";
+                                                    case PrimitiveTypeKind.CefString:
+                                                        return "List<string>";
+
+                                                }
+                                            }
+                                    }
+                                }
+                                break;
+                            case TypeSymbolKind.Simple:
+                                {
+                                    SimpleTypeSymbol ss = (SimpleTypeSymbol)elemType;
+
+                                    switch (ss.PrimitiveTypeKind)
+                                    {
+                                        default:
+                                            throw new NotSupportedException();
+                                        case PrimitiveTypeKind.Char:
+                                            //pointer or reference of char
+                                            return "IntPtr";
+                                        case PrimitiveTypeKind.Bool:
+                                            return "ref bool";
+                                        case PrimitiveTypeKind.CefString:
+                                            return "string";
+                                        case PrimitiveTypeKind.Double:
+                                            return "ref  double";
+                                        case PrimitiveTypeKind.Float:
+                                            return "ref float";
+                                        case PrimitiveTypeKind.NaitveInt:
+                                        case PrimitiveTypeKind.Int32:
+                                            return "ref int";
+                                        case PrimitiveTypeKind.Int64:
+                                            return "long";
+                                        case PrimitiveTypeKind.NotPrimitiveType:
+                                            //ref of this simple type
+                                            return ss.Name;
+                                        case PrimitiveTypeKind.size_t:
+                                            return "ref uint";
+                                        case PrimitiveTypeKind.UInt32:
+                                            return "ref uint";
+                                        case PrimitiveTypeKind.UInt64:
+                                            return "ref ulong";
+                                        case PrimitiveTypeKind.Void:
+                                            //request void* 
+                                            //change this to IntPtr
+                                            return "IntPtr";
+                                    }
+
+                                }
+                                break;
+                        }
+                    }
+                    break;
+
+            }
+
+            throw new NotSupportedException();
+        }
 
         protected static void PrepareCsMetArg(MethodParameterTxInfo par, string argName)
         {
@@ -1551,37 +1773,304 @@ namespace BridgeBuilder
     /// </summary>
     class CefCallbackTxPlan : CefTypeTxPlan
     {
+        TypeTxInfo _typeTxInfo;
+        CodeTypeDeclaration _currentCodeTypeDecl;
         public CefCallbackTxPlan(CodeTypeDeclaration typedecl)
             : base(typedecl)
         {
             //this is call back
         }
+
         public override void GenerateCppCode(CodeStringBuilder stbuilder)
         {
-            base.GenerateCppCode(stbuilder);
+
+#if DEBUG
+            _dbug_cpp_count++;
+#endif
+            //
+            //create switch table for C#-interop
+            //
+            CodeTypeDeclaration orgDecl = this.OriginalDecl;
+            CodeTypeDeclaration implTypeDecl = this.ImplTypeDecl;
+            CodeStringBuilder totalTypeMethod = new CodeStringBuilder();
+
+            _typeTxInfo = implTypeDecl.TypeTxInfo;
+            _currentCodeTypeDecl = implTypeDecl;
+
+            int j = _typeTxInfo.methods.Count;
+            //-----------------------------------------------------------------------
+            CodeStringBuilder const_methodNames = new CodeStringBuilder();
+            int maxPar = 0;
+            for (int i = 0; i < j; ++i)
+            {
+                MethodTxInfo metTx = _typeTxInfo.methods[i];
+                metTx.CppMethodSwitchCaseName = orgDecl.Name + "_" + metTx.Name + "_" + (i + 1);
+                if (metTx.pars.Count > maxPar)
+                {
+                    maxPar = metTx.pars.Count;
+                }
+                const_methodNames.AppendLine("const int " + metTx.CppMethodSwitchCaseName + "=" + (i + 1) + ";");
+            }
+            MaxMethodParCount = maxPar;
+            totalTypeMethod.AppendLine(const_methodNames.ToString());
+            //-----------------------------------------------------------------------
+            {
+                StringBuilder met_sig = new StringBuilder();
+                met_sig.Append("void MyCefMet_" + orgDecl.Name + "(" +
+                    this.UnderlyingCType.Name + "* me1,int metName,jsvalue* ret");
+                for (int i = 0; i < maxPar; ++i)
+                {
+                    met_sig.Append(",jsvalue* v" + (i + 1));
+                }
+                met_sig.AppendLine("){");
+                totalTypeMethod.Append(met_sig.ToString());
+            }
+
+            if (implTypeDecl == null)
+            {
+                throw new NotSupportedException();
+            }
+            totalTypeMethod.AppendLine("ret->type = JSVALUE_TYPE_EMPTY;");
+            ImplWrapDirection implWrapDirection = ImplWrapDirection.None;
+            if (implTypeDecl.Name.Contains("CToCpp"))
+            {
+                implWrapDirection = ImplWrapDirection.CToCpp;
+            }
+            else if (implTypeDecl.Name.Contains("CppToC"))
+            {
+                implWrapDirection = ImplWrapDirection.CppToC;
+            }
+            else
+            {
+                implWrapDirection = ImplWrapDirection.None;
+            }
+
+            totalTypeMethod.AppendLine("auto me=" + implTypeDecl.Name + "::" + GetSmartPointerMet(implWrapDirection) + "(me1);");
+            //swicth table is a way that this instance'smethod is called
+            //through the bridge 
+
+
+            totalTypeMethod.AppendLine("switch(metName){");
+            totalTypeMethod.AppendLine("case MET_Release:return; //yes, just return");
+
+
+            for (int i = 0; i < j; ++i)
+            {
+                CodeStringBuilder met_stbuilder = new CodeStringBuilder();
+                //create each method,
+                //in our convention we dont generate 
+                MethodTxInfo metTx = _typeTxInfo.methods[i];
+                met_stbuilder.AppendLine("case " + metTx.CppMethodSwitchCaseName + ":{");
+
+                //GenerateCppMethod(_typeTxInfo.methods[i], met_stbuilder);
+
+                met_stbuilder.AppendLine("} break;");
+
+                totalTypeMethod.Append(met_stbuilder.ToString());
+            }
+
+            totalTypeMethod.AppendLine("}"); //end switch table
+                                             //
+
+            totalTypeMethod.AppendLine(implTypeDecl.Name + "::" + GetRawPtrMet(implWrapDirection) + "(me);");
+
+            totalTypeMethod.AppendLine("}");
+
+            //
+            stbuilder.Append(totalTypeMethod.ToString());
+
         }
         public override void GenerateCsCode(CodeStringBuilder stbuilder)
         {
 
             CodeTypeDeclaration orgDecl = this.OriginalDecl;
             CodeTypeDeclaration implTypeDecl = this.ImplTypeDecl;
-            if (implTypeDecl == null)
+
+
+            //-----------------------------------------------------------------------
+            _typeTxInfo = implTypeDecl.TypeTxInfo;
+            _currentCodeTypeDecl = implTypeDecl;
+
+            int j = _typeTxInfo.methods.Count;
+            //-----------------------------------------------------------------------
+            CodeStringBuilder csStruct = new CodeStringBuilder();
+            int maxPar = 0;
+
+            AddComment(orgDecl.LineComments, csStruct);
+            //
+            csStruct.AppendLine("public struct " + orgDecl.Name + "{");
+            csStruct.AppendLine("const int _typeNAME=" + orgDecl.TypeTxInfo.CsInterOpTypeNameId + ";");
+
+            string releaseMetName = orgDecl.Name + "_Release_0";
+
+            csStruct.AppendLine("const int " + releaseMetName + "= (_typeNAME <<16) | 0;");
+
+            for (int i = 0; i < j; ++i)
+            {
+                MethodTxInfo metTx = _typeTxInfo.methods[i];
+                if (metTx.pars.Count > maxPar)
+                {
+                    maxPar = metTx.pars.Count;
+                }
+                if (metTx.CppMethodSwitchCaseName == null)
+                {
+                    throw new NotSupportedException();
+                }
+                csStruct.AppendLine("const int " + metTx.CppMethodSwitchCaseName + "= (_typeNAME <<16) |" + (i + 1) + ";");
+            }
+            //-----------------------------------------------------------------------
+            //create ctor
+            csStruct.AppendLine("internal IntPtr nativePtr;");
+            csStruct.AppendLine("internal " + orgDecl.Name + "(IntPtr nativePtr){");
+            csStruct.AppendLine("this.nativePtr= nativePtr;");
+            csStruct.AppendLine("}");
+            //-----------------------------------------------------------------------
+            //release method for cef instance object
+            csStruct.AppendLine("public void Release(){");
+            csStruct.AppendLine("JsValue ret;");
+            csStruct.AppendLine("Cef3Binder.MyCefMet_Call0(this.nativePtr, " + releaseMetName + ", out ret);");
+            csStruct.AppendLine("this.nativePtr= IntPtr.Zero;");
+            csStruct.AppendLine("}");
+
+            //-----------------------------------------------------------------------
+            for (int i = 0; i < j; ++i)
+            {
+                CodeStringBuilder met_stbuilder = new CodeStringBuilder();
+                //create each method,
+                //in our convention we dont generate 
+                MethodTxInfo metTx = _typeTxInfo.methods[i];
+                GenerateCsMethod(metTx, met_stbuilder);
+                csStruct.Append(met_stbuilder.ToString());
+            }
+
+            csStruct.AppendLine("}");  //close struct
+
+            //
+            stbuilder.Append(csStruct.ToString());
+        }
+        void GenerateCsMethod(MethodTxInfo met, CodeStringBuilder stbuilder)
+        {
+
+            if (met.CsLeftMethodBodyBlank) return;  //temp here 
+            //---------------------------------------
+            //extract managed args and then call native c++ method 
+            MethodParameterTxInfo ret = met.ReturnPlan;
+            List<MethodParameterTxInfo> pars = met.pars;
+            int parCount = pars.Count;
+            if (parCount > 15)
             {
                 throw new NotSupportedException();
             }
+            //--------------------------- 
+            //generate method sig 
+            //--------------------------- 
 
-            if (implTypeDecl.Name.Contains("CToCPP"))
+            stbuilder.Append(
+                "\r\n" +
+                "// gen! " + met.ToString() + "\r\n"
+                );
+            //---------------------------
+            AddComment(met.metDecl.LineComments, stbuilder);
+
+            for (int i = 0; i < parCount; ++i)
             {
-
+                //prepare some method args
+                //get pars from parameter .                 
+                PrepareCsMetArg(pars[i], "v" + (i + 1));
             }
-            else if (implTypeDecl.Name.Contains("CppToC"))
-            {
 
+            ret.ArgExtractCode = PrepareDataFromNativeToCs(ret.TypeSymbol, "ret", "ret_result");
+            stbuilder.AppendLine();
+            //------------------
+            stbuilder.Append("public ");
+            stbuilder.Append(GetCsRetName(ret.TypeSymbol));
+            stbuilder.Append(" ");
+
+            //some method name should be renamed
+            if (met.Name == "GetType")
+            {
+                stbuilder.Append("_" + met.Name);
             }
             else
             {
-
+                stbuilder.Append(met.Name);
             }
+            stbuilder.Append("(");
+            //---------------------------
+
+            for (int i = 0; i < parCount; ++i)
+            {
+                if (i > 0)
+                {
+                    stbuilder.AppendLine(",");
+                }
+                MethodParameterTxInfo parTx = pars[i];
+                stbuilder.Append(GetCsRetName(parTx.TypeSymbol));
+                stbuilder.Append(" ");
+                stbuilder.Append(parTx.Name);
+            }
+            stbuilder.Append(")");
+            stbuilder.AppendLine("{");
+
+
+            StringBuilder argList = new StringBuilder();
+            for (int i = 0; i < parCount; ++i)
+            {
+                argList.AppendLine("JsValue " + "v" + (i + 1) + "=new JsValue();");
+            }
+            argList.AppendLine("JsValue ret;");
+            stbuilder.Append(argList.ToString());
+
+            //---------------------------
+            for (int i = 0; i < parCount; ++i)
+            {
+                MethodParameterTxInfo parTx = pars[i];
+                if (!string.IsNullOrEmpty(parTx.ArgPreExtractCode))
+                {
+                    stbuilder.Append(parTx.ArgPreExtractCode);
+                }
+            }
+            //---------------------------
+            for (int i = 0; i < parCount; ++i)
+            {
+                MethodParameterTxInfo parTx = pars[i];
+                if (!string.IsNullOrEmpty(parTx.ArgExtractCode))
+                {
+                    stbuilder.Append(parTx.ArgExtractCode);
+                    stbuilder.AppendLine(";");
+                }
+            }
+            string orgDeclName = this.OriginalDecl.Name;
+            stbuilder.AppendLine();//marker
+
+            stbuilder.Append("Cef3Binder.MyCefMet_Call" + parCount + "(");
+            stbuilder.Append("this.nativePtr," + met.CppMethodSwitchCaseName + ",out ret");
+            for (int i = 0; i < parCount; ++i)
+            {
+                stbuilder.Append(",ref " + "v" + (i + 1));
+            }
+            stbuilder.Append(");\r\n");
+
+
+            //clean up input arg
+            //--------------------
+            for (int i = 0; i < parCount; ++i)
+            {
+                MethodParameterTxInfo parTx = pars[i];
+                if (parTx.ArgPostExtractCode != null)
+                {
+                    stbuilder.AppendLine(parTx.ArgPostExtractCode);
+                }
+            }
+            //--------------------
+
+            stbuilder.AppendLine(ret.ArgExtractCode);
+            //if (!met.ReturnPlan.IsVoid)
+            //{
+            //    stbuilder.AppendLine("return ret_result;");
+            //}
+
+            stbuilder.AppendLine("}");
         }
 
     }
@@ -1814,10 +2303,8 @@ namespace BridgeBuilder
 
         }
 
-#if DEBUG
-        int _dbug_cpp_count = 0;
-#endif
-        internal int MaxMethodParCount { get; private set; }
+
+
 
 
 
@@ -1852,6 +2339,7 @@ namespace BridgeBuilder
                 const_methodNames.AppendLine("const int " + metTx.CppMethodSwitchCaseName + "=" + (i + 1) + ";");
             }
             MaxMethodParCount = maxPar;
+
             totalTypeMethod.AppendLine(const_methodNames.ToString());
             //-----------------------------------------------------------------------
             {
@@ -2110,225 +2598,7 @@ namespace BridgeBuilder
             stbuilder.Append(csStruct.ToString());
         }
 
-        string GetCsRetName(TypeSymbol retType)
-        {
-            //return type from cs
-            switch (retType.TypeSymbolKind)
-            {
-                default:
-                    break;
-                case TypeSymbolKind.TypeDef:
-                    {
-                        CTypeDefTypeSymbol typedef = (CTypeDefTypeSymbol)retType;
-                        TypeSymbol referToType = typedef.ReferToTypeSymbol;
-                        if (referToType.TypeSymbolKind == TypeSymbolKind.Simple)
-                        {
-                            SimpleTypeSymbol ss = (SimpleTypeSymbol)referToType;
-                            if (ss.CreatedByTypeDeclaration != null)
-                            {
-                                if (ss.CreatedByTypeDeclaration.Kind == TypeKind.Enum)
-                                {
-                                    return ss.CreatedByTypeDeclaration.Name;
-                                }
-                            }
-                            else
-                            {
-                                return "IntPtr";
-                            }
-                        }
-                        else
-                        {
-                            throw new NotSupportedException();
-                        }
-                    }
-                    break;
-                case TypeSymbolKind.Simple:
-                    {
-                        SimpleTypeSymbol ss = (SimpleTypeSymbol)retType;
-                        switch (ss.PrimitiveTypeKind)
-                        {
-                            default:
-                                throw new NotSupportedException();
-                            case PrimitiveTypeKind.Bool:
-                                return "bool";
-                            case PrimitiveTypeKind.CefString:
-                                return "string";
-                            case PrimitiveTypeKind.Double:
-                                return "double";
-                            case PrimitiveTypeKind.Float:
-                                return "float";
-                            case PrimitiveTypeKind.NaitveInt:
-                                return "int";
-                            case PrimitiveTypeKind.Int32:
-                                return "int";
-                            case PrimitiveTypeKind.Int64:
-                                return "long";
-                            case PrimitiveTypeKind.NotPrimitiveType:
-                                {
-                                    if (ss.IsEnum)
-                                    {
-                                        return ss.Name;
-                                    }
-                                    else
-                                    {
-                                        return ss.Name;
-                                    }
-                                }
-                                break;
-                            case PrimitiveTypeKind.size_t:
-                                return "uint";
-                            case PrimitiveTypeKind.UInt32:
-                                return "uint";
-                            case PrimitiveTypeKind.UInt64:
-                                return "ulong";
-                            case PrimitiveTypeKind.Void:
-                                return "void";
-                        }
-                    }
-                    break;
-                case TypeSymbolKind.ReferenceOrPointer:
-                    {
-                        ReferenceOrPointerTypeSymbol refOrPtr = (ReferenceOrPointerTypeSymbol)retType;
-                        TypeSymbol elemType = refOrPtr.ElementType;
-                        switch (elemType.TypeSymbolKind)
-                        {
-                            default:
-                                throw new NotSupportedException();
-                            case TypeSymbolKind.ReferenceOrPointer:
-                                {
-                                    //eg. bool GetDataResource(int resource_id,void*& data,size_t& data_size)
 
-                                    switch (elemType.ToString())
-                                    {
-                                        default:
-                                            break;
-                                        case "CefRefPtr<CefV8Value>":
-                                            return "IntPtr";
-                                        case "void*":
-                                            return "IntPtr";
-                                        case "CefRefPtr<CefV8Exception>":
-                                            return "IntPtr";
-                                    }
-                                }
-                                break;
-                            case TypeSymbolKind.TypeDef:
-                                {
-                                    CTypeDefTypeSymbol typedef = (CTypeDefTypeSymbol)elemType;
-
-                                    switch (typedef.Name)
-                                    {
-                                        default:
-                                            throw new NotSupportedException();
-                                        case "cef_color_t":
-                                        case "CefKeyEvent":
-                                        case "CefMouseEvent":
-                                        case "CefBrowserSettings":
-                                        case "CefPdfPrintSettings":
-                                        case "SwitchMap":
-                                        case "ArgumentList":
-                                        case "AttributeMap":
-                                        case "CefCookie":
-                                        case "PageRangeList":
-                                        case "HeaderMap":
-                                        case "ElementVector":
-                                        case "CefV8ValueList":
-                                        case "KeyList":
-                                        case "IssuerChainBinaryList":
-                                            return typedef.Name;
-                                    }
-
-
-                                }
-                                break;
-                            case TypeSymbolKind.Vec:
-                                {
-                                    VecTypeSymbol vec = (VecTypeSymbol)elemType;
-                                    TypeSymbol elem = vec.ElementType;
-                                    switch (elem.TypeSymbolKind)
-                                    {
-                                        default:
-                                            throw new NotSupportedException();
-                                        case TypeSymbolKind.TypeDef:
-                                            {
-                                                CTypeDefTypeSymbol typedef = (CTypeDefTypeSymbol)elem;
-                                                switch (typedef.Name)
-                                                {
-                                                    default:
-                                                        throw new NotSupportedException();
-                                                    case "CefCompositionUnderline":
-                                                        return "List<CefCompositionUnderline>";
-                                                }
-                                            }
-                                            break;
-                                        case TypeSymbolKind.Simple:
-                                            {
-                                                SimpleTypeSymbol ss = (SimpleTypeSymbol)elem;
-                                                switch (ss.PrimitiveTypeKind)
-                                                {
-                                                    default:
-                                                        throw new NotSupportedException();
-                                                    case PrimitiveTypeKind.Int64:
-                                                        //list of unit
-                                                        return "List<long>";
-                                                    case PrimitiveTypeKind.String:
-                                                        return "List<string>";
-                                                    case PrimitiveTypeKind.CefString:
-                                                        return "List<string>";
-
-                                                }
-                                            }
-                                    }
-                                }
-                                break;
-                            case TypeSymbolKind.Simple:
-                                {
-                                    SimpleTypeSymbol ss = (SimpleTypeSymbol)elemType;
-
-                                    switch (ss.PrimitiveTypeKind)
-                                    {
-                                        default:
-                                            throw new NotSupportedException();
-                                        case PrimitiveTypeKind.Char:
-                                            //pointer or reference of char
-                                            return "IntPtr";
-                                        case PrimitiveTypeKind.Bool:
-                                            return "ref bool";
-                                        case PrimitiveTypeKind.CefString:
-                                            return "string";
-                                        case PrimitiveTypeKind.Double:
-                                            return "ref  double";
-                                        case PrimitiveTypeKind.Float:
-                                            return "ref float";
-                                        case PrimitiveTypeKind.NaitveInt:
-                                        case PrimitiveTypeKind.Int32:
-                                            return "ref int";
-                                        case PrimitiveTypeKind.Int64:
-                                            return "long";
-                                        case PrimitiveTypeKind.NotPrimitiveType:
-                                            //ref of this simple type
-                                            return ss.Name;
-                                        case PrimitiveTypeKind.size_t:
-                                            return "ref uint";
-                                        case PrimitiveTypeKind.UInt32:
-                                            return "ref uint";
-                                        case PrimitiveTypeKind.UInt64:
-                                            return "ref ulong";
-                                        case PrimitiveTypeKind.Void:
-                                            //request void* 
-                                            //change this to IntPtr
-                                            return "IntPtr";
-                                    }
-
-                                }
-                                break;
-                        }
-                    }
-                    break;
-
-            }
-
-            throw new NotSupportedException();
-        }
         void GenerateCsMethod(MethodTxInfo met, CodeStringBuilder stbuilder)
         {
 

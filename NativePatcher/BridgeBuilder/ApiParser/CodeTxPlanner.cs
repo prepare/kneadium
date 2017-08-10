@@ -737,6 +737,7 @@ namespace BridgeBuilder
             {
                 foreach (CodeMethodDeclaration metDecl in typedecl.GetMethodIter())
                 {
+                   
                     if (metDecl.MethodKind == MethodKind.Normal)
                     {
                         MethodTxInfo metTx = MakeMethodPlan(metDecl);
