@@ -1325,15 +1325,15 @@ namespace BridgeBuilder
                                                         throw new NotFiniteNumberException();
                                                     case "std::vector<int64>":
                                                         par.ArgExtractCode = argName + ".Ptr=Cef3Binder.CreateStdList(1)";
-                                                        par.ArgPostExtractCode = "Cef3Binder.CopyStdInt64ListAndDestroyNativeSide(" + argName + ".Ptr," + par.Name + ")";
+                                                        par.ArgPostExtractCode = "Cef3Binder.CopyStdInt64ListAndDestroyNativeSide(" + argName + ".Ptr," + par.Name + ");";
 
                                                         break;
                                                     case "std::vector<CefString>":
                                                         par.ArgExtractCode = argName + ".Ptr=Cef3Binder.CreateStdList(2)";
-                                                        par.ArgPostExtractCode = "Cef3Binder.CopyStdStringListAndDestroyNativeSide(" + argName + ".Ptr," + par.Name + ")";
+                                                        par.ArgPostExtractCode = "Cef3Binder.CopyStdStringListAndDestroyNativeSide(" + argName + ".Ptr," + par.Name + ");";
                                                         break;
                                                     case "std::vector<CefCompositionUnderline>":
-                                                        par.ArgExtractCode = argName + ".Ptr=Cef3Binder.CreateStdList(3)";
+                                                        par.ArgExtractCode = argName + ".Ptr=Cef3Binder.CreateStdList(3);";
                                                         break;
                                                 }
 
@@ -1960,7 +1960,6 @@ namespace BridgeBuilder
                 if (!string.IsNullOrEmpty(parTx.ArgPreExtractCode))
                 {
                     stbuilder.Append(parTx.ArgPreExtractCode);
-                    stbuilder.AppendLine(";");
                 }
             }
             //---------------------------
@@ -1998,7 +1997,7 @@ namespace BridgeBuilder
                 MethodParameterTxInfo parTx = pars[i];
                 if (parTx.ArgPostExtractCode != null)
                 {
-                    stbuilder.Append(parTx.ArgPostExtractCode);
+                    stbuilder.AppendLine(parTx.ArgPostExtractCode);
                 }
             }
             stbuilder.AppendLine(ret.ArgExtractCode);
@@ -2410,7 +2409,6 @@ namespace BridgeBuilder
                 if (!string.IsNullOrEmpty(parTx.ArgPreExtractCode))
                 {
                     stbuilder.Append(parTx.ArgPreExtractCode);
-                    stbuilder.AppendLine(";");
                 }
             }
             //---------------------------
@@ -2442,8 +2440,7 @@ namespace BridgeBuilder
                 MethodParameterTxInfo parTx = pars[i];
                 if (parTx.ArgPostExtractCode != null)
                 {
-                    stbuilder.Append(parTx.ArgPostExtractCode);
-                    stbuilder.AppendLine(";");
+                    stbuilder.AppendLine(parTx.ArgPostExtractCode);
                 }
             }
             //--------------------
