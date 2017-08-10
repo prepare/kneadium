@@ -42,7 +42,7 @@ namespace BridgeBuilder
             if (_dbugEnableLineNote)
             {
                 //stbuilder.AppendLine("/*" + _dbugLineCount + "*/");
-                //if (_dbugLineCount >= 2043)
+                //if (_dbugLineCount >= 8200)
                 //{
 
                 //}
@@ -1096,7 +1096,7 @@ namespace BridgeBuilder
                                             {
                                                 //bool SetUserData(CefRefPtr<CefBaseRefCounted> user_data)
                                                 //only 1 
-                                                par.ArgExtractCode = argName + ".Ptr=" + par.Name;
+                                                par.ArgExtractCode = argName + ".Ptr=" + par.Name + ".nativePtr";
                                             }
                                             else
                                             {
@@ -2474,12 +2474,12 @@ namespace BridgeBuilder
             {
                 if (i > 0)
                 {
-                    stbuilder.Append(",");
+                    stbuilder.AppendLine(",");
                 }
                 MethodParameterTxInfo parTx = pars[i];
                 stbuilder.Append(GetCsRetName(parTx.TypeSymbol));
                 stbuilder.Append(" ");
-                stbuilder.AppendLine(parTx.Name);
+                stbuilder.Append(parTx.Name);
             }
             stbuilder.Append(")");
             stbuilder.AppendLine("{");
