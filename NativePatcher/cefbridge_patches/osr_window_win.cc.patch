@@ -1,12 +1,18 @@
-//###_ORIGINAL D:\projects\cef_binary_3.3071.1647.win64\tests\cefclient\browser//osr_window_win.cc
+//###_ORIGINAL D:\projects\cef_binary_3.3071.1647.win32\tests\cefclient\browser//osr_window_win.cc
 //###_START 0
 OsrWindowWin::OsrWindowWin(Delegate* delegate,
-//###_FIND_NEXT_LANDMARK 0
+//###_BEGIN 0
+//###_PRE
+last_click_count_(0),
+//###_PRE
 last_click_time_(0),
-//###_APPEND_START 0
 //my extension
 border_visible_(false),
-//###_APPEND_STOP
+//###_POST
+last_mouse_down_on_view_(false) {
+//###_POST
+DCHECK(delegate_);
+//###_END 0
 //###_START 0
 void OsrWindowWin::Create(HWND parent_hwnd, const RECT& rect) {
 //###_FIND_NEXT_LANDMARK 0

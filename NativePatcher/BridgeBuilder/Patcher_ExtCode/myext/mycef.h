@@ -1,4 +1,4 @@
-//MIT 2015, WinterDev
+//MIT, 2015-2017, WinterDev
 
 // This file is part of the VroomJs library.
 //
@@ -26,11 +26,9 @@
 // THE SOFTWARE.
 
 #include <string>
+#include <uchar.h>
 
-#include "include/cef_client.h"
-#include "include/wrapper/cef_helpers.h"
-#include "include/wrapper/cef_message_router.h"
-#include "include/wrapper/cef_resource_manager.h"
+#include "include/wrapper/cef_message_router.h" 
 #include "tests/cefclient/browser/client_types.h"
 
 #pragma once
@@ -50,10 +48,13 @@ typedef unsigned __int64 uint64_t;
 
 #include <stdint.h>
 
+#endif 
+
+#ifdef _WIN32 
+#define MY_DLL_EXPORT __declspec(dllexport)
+#else 
+#define MY_DLL_EXPORT
 #endif
-
-
-
 
 // jsvalue (JsValue on the CLR side) is a struct that can be easily marshaled
 // by simply blitting its value (being only 16 bytes should be quite fast too).
@@ -81,47 +82,30 @@ typedef unsigned __int64 uint64_t;
 #define JSVALUE_TYPE_BUFFER         20 //my extension
 
 #define JSVALUE_TYPE_NATIVE_CEFSTRING 30  //my extension
+#define JSVALUE_TYPE_NATIVE_CEFHOLDER_STRING 31//my extension
+#define JSVALUE_TYPE_MANAGED_CB 32
+#define JSVALUE_TYPE_MEM_ERROR      50 //my extension
 
 
 extern "C" {
-
-
+	 
 	struct jsvalue
 	{
-		//-------------
-		//from vroomjs
-		//-------------
-
-		// 8 bytes is the maximum CLR alignment; by putting the union first and a
-		// int64_t inside it we make (almost) sure the offset of 'type' will always
-		// be 8 and the total size 16. We add a check to JsContext_new anyway. 
-		union
-		{
-			int32_t     i32;
-			int64_t     i64;
-			double      num;
-			const void    *ptr;
-			const char    *byteBuffer;
-			const uint16_t *str;
-			const wchar_t *str2;
-			const jsvalue  *arr;
-		} value;
-
-		int32_t         type;
-		int32_t         length; // Also used as slot index on the CLR side.
-	};
-
-}
-
-
-
+	    int32_t type; //type and flags
+	                  //this for 32 bits values, also be used as string len, array len  and index to managed slot index
+	    int32_t i32;
+	    // native ptr (may point to native object, native array, native string)
+	    const void* ptr; //uint16_t* or jsvalue**   arr or 
+	               //store float or double
+	    double num;
+	    //store 64 bits value
+	    int64_t i64;
+	};  
+} 
 
 class MethodArgs
 {
-public:
-
-	int method_id;
-
+public: 
 	struct jsvalue arg0;//this arg for instant method
 	struct jsvalue arg1;
 	struct jsvalue arg2;
@@ -133,23 +117,25 @@ public:
 	struct jsvalue result2;
 	struct jsvalue result3;
 	struct jsvalue result4;
+		 
+	int16_t resultKind;
+	int16_t argCount;
+	int16_t resultCount;
 
-	//void* outputBuffer;	 
-	//int outputLen;
-	int resultKind;
 
-	int argCount;
-	int resultCount;
 
 	void SetArgAsString(int argIndex, const wchar_t* str);
 	void SetArgAsNativeObject(int argIndex, const void* nativeObject);
 	void SetArgAsInt32(int argIndex, const int32_t value);
-
-	void SetOutputString(int resultIndex, const void* dataBuffer, int len);
 	void SetArgType(int argIndex, int type);
 
 	//----------------------------------------------------------------------
-	std::wstring ReadOutputAsString(int resultIndex);
+	void SetOutputAsNativeObject(int retIndex, const void* nativeObject);
+	void SetOutputAsInt32(int retIndex, const int32_t value);
+	void SetOutputAsString(int retIndex, const wchar_t* str);
+	//----------------------------------------------------------------------
+
+	const char16* ReadOutputAsString(int resultIndex);
 	int ReadOutputAsInt32(int resultIndex);
 
 };
@@ -158,7 +144,7 @@ class MyCefStringHolder
 {
 public:
 	CefString value;
-	void* any;
+	//void* any;
 };
 
 class QueryRequestArgs
@@ -177,6 +163,19 @@ public:
 };
 
 
-//typedef void (__stdcall *managed_callback)(int id, void* args);   
+
 typedef void(__cdecl *managed_callback)(int id, void* args);
 
+ 
+namespace mycefmx {
+	managed_callback GetManagedCallback();
+	void SetManagedCallback(managed_callback callback);
+
+}
+
+
+extern "C" {
+	 
+	MY_DLL_EXPORT managed_callback MyCefJsValueGetManagedCallback(jsvalue* v);
+	MY_DLL_EXPORT void MyCefJsValueSetManagedCallback(jsvalue* v, managed_callback cb);
+}

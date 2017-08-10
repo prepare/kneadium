@@ -1,0 +1,14 @@
+//###_ORIGINAL D:\projects\cef_binary_3.3071.1647.macos\tests\cefclient\browser//root_window_manager.h
+//###_START 0
+#include "tests/cefclient/browser/temp_window.h"
+//###_APPEND_START 0
+#include "tests/cefclient/myext/mycef.h"
+//###_APPEND_STOP
+//###_START 1
+// Close all existing windows. If |force| is true onunload handlers will not
+//###_FIND_NEXT_LANDMARK 1
+void CloseAllWindows(bool force);
+//###_APPEND_START 1
+//my extension --for callback to managed side
+managed_callback myMxCallback_;
+//###_APPEND_STOP

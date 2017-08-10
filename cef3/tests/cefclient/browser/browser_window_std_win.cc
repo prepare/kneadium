@@ -10,106 +10,106 @@
 
 namespace client {
 
-//###_START 1
-BrowserWindowStdWin::BrowserWindowStdWin(Delegate* delegate,
-                                         const std::string& startup_url)
-    : BrowserWindow(delegate) {
-//###_FIND_NEXT_LANDMARK 1
-  client_handler_ = new ClientHandlerStd(this, startup_url);
-//###_FIND_NEXT_LANDMARK 1
-}
-//###_APPEND_START 1
-void BrowserWindowStdWin::ClientClose() const {
+	//###_START 1
+	BrowserWindowStdWin::BrowserWindowStdWin(Delegate* delegate,
+		const std::string& startup_url)
+		: BrowserWindow(delegate) {
+		//###_FIND_NEXT_LANDMARK 1
+		client_handler_ = new ClientHandlerStd(this, startup_url);
+		//###_FIND_NEXT_LANDMARK 1
+	}
+	//###_APPEND_START 1
+	void BrowserWindowStdWin::ClientClose() const {
 
-}
-//###_APPEND_STOP
+	}
+	//###_APPEND_STOP
 
-void BrowserWindowStdWin::CreateBrowser(
-    ClientWindowHandle parent_handle,
-    const CefRect& rect,
-    const CefBrowserSettings& settings,
-    CefRefPtr<CefRequestContext> request_context) {
-  REQUIRE_MAIN_THREAD();
+	void BrowserWindowStdWin::CreateBrowser(
+		ClientWindowHandle parent_handle,
+		const CefRect& rect,
+		const CefBrowserSettings& settings,
+		CefRefPtr<CefRequestContext> request_context) {
+		REQUIRE_MAIN_THREAD();
 
-  CefWindowInfo window_info;
-  RECT wnd_rect = {rect.x, rect.y, rect.x + rect.width, rect.y + rect.height};
-  window_info.SetAsChild(parent_handle, wnd_rect);
+		CefWindowInfo window_info;
+		RECT wnd_rect = { rect.x, rect.y, rect.x + rect.width, rect.y + rect.height };
+		window_info.SetAsChild(parent_handle, wnd_rect);
 
-  CefBrowserHost::CreateBrowser(window_info, client_handler_,
-                                client_handler_->startup_url(), settings,
-                                request_context);
-}
+		CefBrowserHost::CreateBrowser(window_info, client_handler_,
+			client_handler_->startup_url(), settings,
+			request_context);
+	}
 
-void BrowserWindowStdWin::GetPopupConfig(CefWindowHandle temp_handle,
-                                         CefWindowInfo& windowInfo,
-                                         CefRefPtr<CefClient>& client,
-                                         CefBrowserSettings& settings) {
-  // Note: This method may be called on any thread.
-  // The window will be properly sized after the browser is created.
-  windowInfo.SetAsChild(temp_handle, RECT());
-  client = client_handler_;
-}
+	void BrowserWindowStdWin::GetPopupConfig(CefWindowHandle temp_handle,
+		CefWindowInfo& windowInfo,
+		CefRefPtr<CefClient>& client,
+		CefBrowserSettings& settings) {
+		// Note: This method may be called on any thread.
+		// The window will be properly sized after the browser is created.
+		windowInfo.SetAsChild(temp_handle, RECT());
+		client = client_handler_;
+	}
 
-void BrowserWindowStdWin::ShowPopup(ClientWindowHandle parent_handle,
-                                    int x,
-                                    int y,
-                                    size_t width,
-                                    size_t height) {
-  REQUIRE_MAIN_THREAD();
+	void BrowserWindowStdWin::ShowPopup(ClientWindowHandle parent_handle,
+		int x,
+		int y,
+		size_t width,
+		size_t height) {
+		REQUIRE_MAIN_THREAD();
 
-  HWND hwnd = GetWindowHandle();
-  if (hwnd) {
-    SetParent(hwnd, parent_handle);
-    SetWindowPos(hwnd, NULL, x, y, static_cast<int>(width),
-                 static_cast<int>(height), SWP_NOZORDER);
-    ShowWindow(hwnd, SW_SHOW);
-  }
-}
+		HWND hwnd = GetWindowHandle();
+		if (hwnd) {
+			SetParent(hwnd, parent_handle);
+			SetWindowPos(hwnd, NULL, x, y, static_cast<int>(width),
+				static_cast<int>(height), SWP_NOZORDER);
+			ShowWindow(hwnd, SW_SHOW);
+		}
+	}
 
-void BrowserWindowStdWin::Show() {
-  REQUIRE_MAIN_THREAD();
+	void BrowserWindowStdWin::Show() {
+		REQUIRE_MAIN_THREAD();
 
-  HWND hwnd = GetWindowHandle();
-  if (hwnd && !::IsWindowVisible(hwnd))
-    ShowWindow(hwnd, SW_SHOW);
-}
+		HWND hwnd = GetWindowHandle();
+		if (hwnd && !::IsWindowVisible(hwnd))
+			ShowWindow(hwnd, SW_SHOW);
+	}
 
-void BrowserWindowStdWin::Hide() {
-  REQUIRE_MAIN_THREAD();
+	void BrowserWindowStdWin::Hide() {
+		REQUIRE_MAIN_THREAD();
 
-  HWND hwnd = GetWindowHandle();
-  if (hwnd) {
-    // When the frame window is minimized set the browser window size to 0x0 to
-    // reduce resource usage.
-    SetWindowPos(hwnd, NULL, 0, 0, 0, 0,
-                 SWP_NOZORDER | SWP_NOMOVE | SWP_NOACTIVATE);
-  }
-}
+		HWND hwnd = GetWindowHandle();
+		if (hwnd) {
+			// When the frame window is minimized set the browser window size to 0x0 to
+			// reduce resource usage.
+			SetWindowPos(hwnd, NULL, 0, 0, 0, 0,
+				SWP_NOZORDER | SWP_NOMOVE | SWP_NOACTIVATE);
+		}
+	}
 
-void BrowserWindowStdWin::SetBounds(int x, int y, size_t width, size_t height) {
-  REQUIRE_MAIN_THREAD();
+	void BrowserWindowStdWin::SetBounds(int x, int y, size_t width, size_t height) {
+		REQUIRE_MAIN_THREAD();
 
-  HWND hwnd = GetWindowHandle();
-  if (hwnd) {
-    // Set the browser window bounds.
-    SetWindowPos(hwnd, NULL, x, y, static_cast<int>(width),
-                 static_cast<int>(height), SWP_NOZORDER);
-  }
-}
+		HWND hwnd = GetWindowHandle();
+		if (hwnd) {
+			// Set the browser window bounds.
+			SetWindowPos(hwnd, NULL, x, y, static_cast<int>(width),
+				static_cast<int>(height), SWP_NOZORDER);
+		}
+	}
 
-void BrowserWindowStdWin::SetFocus(bool focus) {
-  REQUIRE_MAIN_THREAD();
+	void BrowserWindowStdWin::SetFocus(bool focus) {
+		REQUIRE_MAIN_THREAD();
 
-  if (browser_)
-    browser_->GetHost()->SetFocus(focus);
-}
+		if (browser_)
+			browser_->GetHost()->SetFocus(focus);
+	}
 
-ClientWindowHandle BrowserWindowStdWin::GetWindowHandle() const {
-  REQUIRE_MAIN_THREAD();
+	ClientWindowHandle BrowserWindowStdWin::GetWindowHandle() const {
+		REQUIRE_MAIN_THREAD();
 
-  if (browser_)
-    return browser_->GetHost()->GetWindowHandle();
-  return NULL;
-}
+		if (browser_)
+			return browser_->GetHost()->GetWindowHandle();
+		return NULL;
+	}
 
 }  // namespace client

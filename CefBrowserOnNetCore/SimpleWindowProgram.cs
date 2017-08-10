@@ -19,7 +19,7 @@ namespace TestGlfw
             //string commonAppDir = System.IO.Path.GetDirectoryName(Application.CommonAppDataPath);//skip version
             //------  
             ReferencePaths.LIB_PATH = @"D:\projects/cef_3_3071.1647/win64";//*** 64 bits
-            ReferencePaths.SUB_PROCESS_PATH = ReferencePaths.LIB_PATH + "/CefBwSp.exe";
+            ReferencePaths.SUB_PROCESS_PATH = ReferencePaths.LIB_PATH + "/CefSpNetCore.exe";
             //---------------
             ReferencePaths.OUTPUT_DIR = @"../../../_output";//dir
             ReferencePaths.LOG_PATH = ReferencePaths.OUTPUT_DIR + "/cef_console.log"; //file
@@ -27,9 +27,7 @@ namespace TestGlfw
             ReferencePaths.SAVE_IMAGE_PATH = ReferencePaths.OUTPUT_DIR + "/snap02"; //dir
 
 
-            //reset
-            ReferencePaths.LIB_PATH = @"D:\projects/cef_3_3071.1647/win64";//*** 64 bits
-            ReferencePaths.SUB_PROCESS_PATH = ReferencePaths.LIB_PATH + "/CefBwSp.exe";
+           
 
 
             //----  

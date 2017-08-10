@@ -4,7 +4,7 @@ namespace LayoutFarm.CefBridge
 {
     public static class ReferencePaths
     {
-        public static string LIB_PATH = @"D:\projects/cef_3_3701/Release";
+        public static string LIB_PATH = null;
         public static string SUB_PROCESS_PATH = null;
         //
         public static string OUTPUT_DIR = @"../../../_output";//dir

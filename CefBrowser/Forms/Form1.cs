@@ -32,8 +32,8 @@ namespace LayoutFarm.CefBridge
         private void button7_Click(object sender, EventArgs e)
         {
             this.cefWebBrowser1.Focus();
-            this.cefWebBrowser1.NavigateTo("https://html5test.com");
-            //this.cefWebBrowser1.NavigateTo("https://localhost:8000");
+            //this.cefWebBrowser1.NavigateTo("https://html5test.com");
+            this.cefWebBrowser1.NavigateTo("http://localhost");
             //this.cefWebBrowser1.NavigateTo("http://localhost/LiborMasekThesis.pdf");
             //this.cefWebBrowser1.NavigateTo("http://localhost/pdfjs/web/viewer.html");
             //this.cefWebBrowser1.NavigateTo("http://localhost/pdfjs/web/compressed.tracemonkey-pldi-09.pdf");
@@ -145,6 +145,30 @@ namespace LayoutFarm.CefBridge
             //    p.Controls.Remove(p);
             //    p.Dispose();
             //}
+        }
+
+        private void button15_Click(object sender, EventArgs e)
+        {
+            //this.cefWebBrowser1.Agent.PrintToPdf("d:\\WImageTest\\testpdf.pdf");
+            string pdfConfig = "{\"header_footer_enabled\":true,\"header_footer_url\":\"hello001\",\"landscape\":1}";
+            this.cefWebBrowser1.Agent.PrintToPdf(pdfConfig, "d:\\WImageTest\\testpdf.pdf");
+        }
+
+        private void button16_Click(object sender, EventArgs e)
+        {
+            this.cefWebBrowser1.Agent.GetSource2((str) =>
+            {
+
+
+
+            });
+        }
+
+        private void button17_Click(object sender, EventArgs e)
+        {
+            //load text
+            this.cefWebBrowser1.Agent.LoadText("<html><head><body><h1>hello!</h1></body></html>", "http://localhost");
+
         }
     }
 }

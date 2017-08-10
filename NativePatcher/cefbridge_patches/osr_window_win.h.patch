@@ -1,7 +1,7 @@
-//###_ORIGINAL D:\projects\cef_binary_3.3071.1647.win64\tests\cefclient\browser//osr_window_win.h
+//###_ORIGINAL D:\projects\cef_binary_3.3071.1647.win32\tests\cefclient\browser//osr_window_win.h
 //###_START 0
 void SetDeviceScaleFactor(float device_scale_factor);
 //###_APPEND_START 0
-bool border_visible_; 
+bool border_visible_;
 bool closing1_;
 //###_APPEND_STOP

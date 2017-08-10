@@ -125,7 +125,11 @@ namespace LayoutFarm.CefBridge
         }
         public void Set(string key, Cef3Func cef3Func)
         {
-            Cef3Binder.MyCefJs_CefV8Value_SetValue_ByString(this.Ptr, key, cef3Func.Ptr, (int)CefV8PropertyAttribute.V8_PROPERTY_ATTRIBUTE_READONLY);
+            Cef3Binder.MyCefJs_CefV8Value_SetValue_ByString(
+                this.Ptr,
+                key,
+                cef3Func.Ptr,
+                (int)CefV8PropertyAttribute.V8_PROPERTY_ATTRIBUTE_READONLY);
         }
         public bool IsFunc()
         {
@@ -140,7 +144,7 @@ namespace LayoutFarm.CefBridge
                 fixed (char* head = &charBuff[0])
                 {
                     int actualLen = 0;
-                    Cef3Binder.MyCefJs_CefV8Value_ReadAsString(this.Ptr, head, BUFF_LEN, ref actualLen);
+                    Cef3Binder.MyCefJs_CefV8Value_ReadAsString(this.Ptr, head, BUFF_LEN, out actualLen);
                     if (actualLen > BUFF_LEN)
                     {
                         //read more
@@ -151,57 +155,91 @@ namespace LayoutFarm.CefBridge
         }
     }
 
-    [StructLayout(LayoutKind.Explicit)]
-    public struct JsValue
+
+    //struct jsvalue
+    //{
+    //    int32_t type; //type and flags
+    //                  //this for 32 bits values, also be used as string len, array len  and index to managed slot index
+    //    int32_t i32;
+    //    // native ptr (may point to native object, native array, native string)
+    //    void* ptr; //uint16_t* or jsvalue**   arr or 
+    //               //store float or double
+    //    double num;
+    //    //store 64 bits value
+    //    int64_t i64;
+    //};
+
+    //---------------------------------------
+    //2017-06-04
+    //1. for internal inter-op only -> always be private
+    //for inter-op with native lib, .net core on macOS x64 dose not support explicit layout
+    //so we need sequential layout
+    //2. this is a quite large object, and is designed to be used on stack,
+    //pass by reference to native side
+    //---------------------------------------
+    /// <summary>
+    /// for internal inter-op only -> always be private,used on stack,pass by reference
+    /// </summary>
+    [StructLayout(LayoutKind.Sequential)]
+    struct JsValue
     {
-        [FieldOffset(0)]
-        public int I32;
-        [FieldOffset(0)]
-        public long I64;
-        [FieldOffset(0)]
-        public double Num;
         /// <summary>
-        /// ptr from native side
+        /// type and flags
         /// </summary>
-        [FieldOffset(0)]
-        public IntPtr Ptr;
-        /// <summary>
-        /// offset(8)See JsValueType, marshaled as integer. 
-        /// </summary>
-        [FieldOffset(8)]
         public JsValueType Type;
         /// <summary>
-        /// offset(12) Length of array or string 
+        /// this for 32 bits values, also be used as string len, array len  and index to managed slot index
         /// </summary>
-        [FieldOffset(12)]
-        public int Length;
+        public int I32;//
         /// <summary>
-        /// offset(12) managed object keepalive index. 
+        /// native ptr (may point to native object, native array, native string)
         /// </summary>
-        [FieldOffset(12)]
-        public int Index;
-        public static JsValue Null
-        {
-            get { return new JsValue() { Type = JsValueType.Null }; }
-        }
+        public IntPtr Ptr;
+        /// <summary>
+        /// store float or double
+        /// </summary>
+        public double Num;// 
+        /// <summary>
+        /// store 64 bits value
+        /// </summary>
+        public long I64;// 
 
-        public static JsValue Empty
-        {
-            get { return new JsValue() { Type = JsValueType.Empty }; }
-        }
+        //--------------------------------
 
-        public static JsValue Error(int slot)
-        {
-            return new JsValue { Type = JsValueType.ManagedError, Index = slot };
-        }
 
-        public override string ToString()
-        {
-            return string.Format("[JsValue({0})]", Type);
-        }
+      
     }
+
+
+
     public enum JsValueType
     {
+
+        //#define JSVALUE_TYPE_UNKNOWN_ERROR  -1
+        //#define JSVALUE_TYPE_EMPTY			 0
+        //#define JSVALUE_TYPE_NULL            1
+        //#define JSVALUE_TYPE_BOOLEAN         2
+        //#define JSVALUE_TYPE_INTEGER         3
+        //#define JSVALUE_TYPE_NUMBER          4
+        //#define JSVALUE_TYPE_STRING          5 //unicode string
+        //#define JSVALUE_TYPE_DATE            6
+        //#define JSVALUE_TYPE_INDEX           7
+        //#define JSVALUE_TYPE_ARRAY          10
+        //#define JSVALUE_TYPE_STRING_ERROR   11
+        //#define JSVALUE_TYPE_MANAGED        12
+        //#define JSVALUE_TYPE_MANAGED_ERROR  13
+        //#define JSVALUE_TYPE_WRAPPED        14
+        //#define JSVALUE_TYPE_DICT           15
+        //#define JSVALUE_TYPE_ERROR          16
+        //#define JSVALUE_TYPE_FUNCTION       17
+
+        //#define JSVALUE_TYPE_JSTYPEDEF      18 //my extension
+        //#define JSVALUE_TYPE_INTEGER64      19 //my extension
+        //#define JSVALUE_TYPE_BUFFER         20 //my extension
+
+        //#define JSVALUE_TYPE_NATIVE_CEFSTRING 30  //my extension
+        //#define JSVALUE_TYPE_MEM_ERROR      50 //my extension
+
         UnknownError = -1,
         Empty = 0,
         Null = 1,
@@ -221,7 +259,14 @@ namespace LayoutFarm.CefBridge
         Function = 17,
         //---------------
         //my extension
-        JsTypeWrap = 18
+        JsTypeWrap = 18,
+        Int64 = 19,
+        Buffer = 20,
+        NativeCefString = 30,
+        JSVALUE_TYPE_NATIVE_CEFHOLDER_STRING = 31,
+        JSVALUE_TYPE_MANAGED_CB = 32,
+        MemError = 50,
+
     }
     public class NativeBrowser : Cef3RefCountingValue
     {
@@ -230,7 +275,7 @@ namespace LayoutFarm.CefBridge
         }
         public void ExecJavascript(string src, string url)
         {
-            Cef3Binder.MyCefBwExecJavascript2(this.Ptr, src, url);
+            throw new NotSupportedException();
         }
     }
     public class NativeFrame : Cef3RefCountingValue
@@ -240,19 +285,28 @@ namespace LayoutFarm.CefBridge
         }
         public NativeJsContext GetFrameContext()
         {
-            return new NativeJsContext(Cef3Binder.MyCefJsFrameContext(this.Ptr));
+            return new NativeJsContext(Cef3Binder.MyCefFrame_GetContext(this.Ptr));
         }
         public string GetUrl()
         {
             unsafe
             {
-                char[] buffer = new char[255];
-                int actualLength = 0;
-                fixed (char* buffer_head = &buffer[0])
-                {
-                    Cef3Binder.MyCefFrame_GetUrl(Ptr, buffer_head, 255, ref actualLength);
-                    return new string(buffer_head);
-                }
+                JsValue ret;
+                JsValue arg1 = new JsValue();
+                JsValue arg2 = new JsValue();
+                Cef3Binder.MyCefFrameCall2(this.Ptr, (int)CefFrameCallMsg.CefFrame_GetURL, out ret, ref arg1, ref arg2);
+                NativeMyCefStringHolder ret_str = new NativeMyCefStringHolder(ret.Ptr);
+                string url = ret_str.ReadString(ret.I32);
+                ret_str.Dispose();
+                return url;
+                //get url, in this version max size =255?
+                //char[] buffer = new char[255];
+                //int actualLength = 0;
+                //fixed (char* buffer_head = &buffer[0])
+                //{
+                //    Cef3Binder.MyCefFrame_GetUrl(Ptr, buffer_head, 255, ref actualLength);
+                //    return new string(buffer_head);
+                //}
             }
         }
     }
