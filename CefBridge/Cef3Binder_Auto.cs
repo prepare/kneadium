@@ -86,9 +86,7 @@ namespace LayoutFarm.CefBridge
         [DllImport(CEF_CLIENT_DLL, CallingConvention = CallingConvention.Cdecl)]
         public static extern void MyCefFrameCall2(IntPtr myCefBw, int methodName, out JsValue ret, ref JsValue arg1, ref JsValue arg2);
 
-        [DllImport(CEF_CLIENT_DLL, CallingConvention = CallingConvention.Cdecl)]
-        public static extern void MyCefRelease(IntPtr myCefBw, int kind);
-        //--------------
+      
 
         [DllImport(CEF_CLIENT_DLL, CallingConvention = CallingConvention.Cdecl)]
         public static extern void MyCefMet_CefBrowser(IntPtr /*cef_browser_t* */ me1, int metName, out JsValue ret, ref JsValue arg1, ref JsValue arg2, ref JsValue arg3, ref JsValue arg4, ref JsValue arg5, ref JsValue arg6);
