@@ -69,6 +69,12 @@ extern "C" {
 	//
 	MY_DLL_EXPORT void MyCefFrameCall2(cef_frame_t* cefFrame, int methodName, jsvalue* ret, jsvalue* v1, jsvalue* v2);
 	
+	 
+	//
+	MY_DLL_EXPORT void* CreateStdList(int elemType);
 
-	MY_DLL_EXPORT void 	MyCefRelease(void* ptr, int typeName);
+	MY_DLL_EXPORT void GetListCount(int elemType, void* list, int32_t* size);
+
+	MY_DLL_EXPORT void GetListElement(int elemType, void* list, int index, jsvalue* jsvalue);
+	 
 }
