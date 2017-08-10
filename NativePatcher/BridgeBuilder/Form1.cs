@@ -511,7 +511,7 @@ namespace BridgeBuilder
 
 
             csCodeStBuilder.AppendLine(
-                "//MIT, 2017, WinterDev\r" +
+                "//MIT, 2017, WinterDev\r\n" +
                 "//AUTOGEN CONTENT\r\n" +
                 "using System;\r\n" +
                 "using System.Collections.Generic;\r\n" +

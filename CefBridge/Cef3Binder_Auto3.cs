@@ -1,4 +1,5 @@
-﻿//MIT, 2017, WinterDev//AUTOGEN CONTENT
+﻿//MIT, 2017, WinterDev
+//AUTOGEN CONTENT
 using System;
 using System.Collections.Generic;
 namespace LayoutFarm.CefBridge.Auto
