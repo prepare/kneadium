@@ -578,26 +578,7 @@ namespace BridgeBuilder
         }
         void CreateCppSwitchTable(StringBuilder stbuilder, List<CefInstanceElementTxPlan> instanceClassPlans)
         {
-            CodeStringBuilder cppStBuilder = new CodeStringBuilder();
-
-            //-----
-            //cpp switch table
-            /////////////////////
-            //void MyCefMet_CallN(void* me1, int metName, jsvalue* ret, jsvalue* v1, jsvalue* v2, jsvalue* v3, jsvalue* v4, jsvalue* v5, jsvalue* v6)
-            //{
-
-            //    int cefTypeName = (metName >> 16);
-            //    switch (cefTypeName)
-            //    {
-            //        default:
-            //            break;
-            //        case CefTypeName_CefApp:
-            //            MyCefMet_CefApp((cef_app_t*)me1, (metName) & 0xffffffff, ret, v1, v2, v3, v4, v5, v6);
-            //            break;
-
-            //    }
-            //}
-
+            CodeStringBuilder cppStBuilder = new CodeStringBuilder(); 
             //------
             cppStBuilder.AppendLine("void MyCefMet_CallN(void* me1, int metName, jsvalue* ret, jsvalue* v1, jsvalue* v2, jsvalue* v3, jsvalue* v4, jsvalue* v5, jsvalue* v6){");
             cppStBuilder.AppendLine(" int cefTypeName = (metName >> 16);");

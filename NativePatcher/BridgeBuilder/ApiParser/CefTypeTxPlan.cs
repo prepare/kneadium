@@ -1382,7 +1382,7 @@ namespace BridgeBuilder
                                 return " return (" + referToType.ToString() + ")" + retName + ".I32;\r\n";
                             }
                         }
-                        return "return "+ retName + ".Ptr;";
+                        return "return " + retName + ".Ptr;";
                         //return "IntPtr " + autoRetResultName + "= ret.Ptr;";
 
                     }
@@ -1399,7 +1399,7 @@ namespace BridgeBuilder
                                     //the result is inner pointer from cef 'smart' pointer
                                     TypeSymbol elemType = refOrPtr.ElementType;
                                     //return "var " + autoRetResultName + "= new " + elemType + "(ret.Ptr);";
-                                    return "return new " + elemType + "("+ retName + ".Ptr);";
+                                    return "return new " + elemType + "(" + retName + ".Ptr);";
                                 }
                         }
                     }
@@ -1999,7 +1999,6 @@ namespace BridgeBuilder
                 if (parTx.ArgPostExtractCode != null)
                 {
                     stbuilder.Append(parTx.ArgPostExtractCode);
-                    stbuilder.AppendLine(";");
                 }
             }
             stbuilder.AppendLine(ret.ArgExtractCode);
