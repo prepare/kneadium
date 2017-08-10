@@ -2186,6 +2186,9 @@ namespace LayoutFarm.CefBridge.Auto
 
     // [virtual] class CefApp
     /// <summary>
+    /// Implement this interface to provide handler implementations. Methods will be
+    /// called by the process and/or thread indicated.
+    /// /*cef(source=client,no_debugct_check)*/
     /// </summary>
     /*787*/
     public struct CefApp
@@ -2222,6 +2225,7 @@ namespace LayoutFarm.CefBridge.Auto
     /// the methods of this class may be called on any thread unless otherwise
     /// indicated in the comments. When used in the render process the methods of
     /// this class may only be called on the main thread.
+    /// /*(source=library)*/
     /// </summary>
     /*912*/
     public struct CefBrowser
@@ -2290,6 +2294,9 @@ namespace LayoutFarm.CefBridge.Auto
             Cef3Binder.MyCefMet_Call0(this.nativePtr, CefBrowser_Release_0, out ret);
             /*943*/
         }
+        /// <summary>
+        /// CefBrowser methods.
+        /// </summary>
         /*944*/
 
 
@@ -2308,6 +2315,10 @@ namespace LayoutFarm.CefBridge.Auto
             return ret_result;
             /*950*/
         }
+        /// <summary>
+        /// Returns true if the browser can navigate backwards.
+        /// /*cef()*/
+        /// </summary>
         /*951*/
 
 
@@ -2326,6 +2337,10 @@ namespace LayoutFarm.CefBridge.Auto
             return ret_result;
             /*957*/
         }
+        /// <summary>
+        /// Navigate backwards.
+        /// /*cef()*/
+        /// </summary>
         /*958*/
 
 
@@ -2342,6 +2357,10 @@ namespace LayoutFarm.CefBridge.Auto
 
             /*963*/
         }
+        /// <summary>
+        /// Returns true if the browser can navigate forwards.
+        /// /*cef()*/
+        /// </summary>
         /*964*/
 
 
@@ -2360,6 +2379,10 @@ namespace LayoutFarm.CefBridge.Auto
             return ret_result;
             /*970*/
         }
+        /// <summary>
+        /// Navigate forwards.
+        /// /*cef()*/
+        /// </summary>
         /*971*/
 
 
@@ -2376,6 +2399,10 @@ namespace LayoutFarm.CefBridge.Auto
 
             /*976*/
         }
+        /// <summary>
+        /// Returns true if the browser is currently loading.
+        /// /*cef()*/
+        /// </summary>
         /*977*/
 
 
@@ -2394,6 +2421,10 @@ namespace LayoutFarm.CefBridge.Auto
             return ret_result;
             /*983*/
         }
+        /// <summary>
+        /// Reload the current page.
+        /// /*cef()*/
+        /// </summary>
         /*984*/
 
 
@@ -2410,6 +2441,10 @@ namespace LayoutFarm.CefBridge.Auto
 
             /*989*/
         }
+        /// <summary>
+        /// Reload the current page ignoring any cached data.
+        /// /*cef()*/
+        /// </summary>
         /*990*/
 
 
@@ -2426,6 +2461,10 @@ namespace LayoutFarm.CefBridge.Auto
 
             /*995*/
         }
+        /// <summary>
+        /// Stop loading the page.
+        /// /*cef()*/
+        /// </summary>
         /*996*/
 
 
@@ -2442,6 +2481,10 @@ namespace LayoutFarm.CefBridge.Auto
 
             /*1001*/
         }
+        /// <summary>
+        /// Returns the globally unique identifier for this browser.
+        /// /*cef()*/
+        /// </summary>
         /*1002*/
 
 
@@ -2460,6 +2503,11 @@ namespace LayoutFarm.CefBridge.Auto
             return ret_result;
             /*1008*/
         }
+        /// <summary>
+        /// Returns true if this object is pointing to the same handle as |that|
+        /// object.
+        /// /*cef()*/
+        /// </summary>
         /*1009*/
 
 
@@ -2481,6 +2529,10 @@ namespace LayoutFarm.CefBridge.Auto
             return ret_result;
             /*1016*/
         }
+        /// <summary>
+        /// Returns true if the window is a popup window.
+        /// /*cef()*/
+        /// </summary>
         /*1017*/
 
 
@@ -2499,6 +2551,10 @@ namespace LayoutFarm.CefBridge.Auto
             return ret_result;
             /*1023*/
         }
+        /// <summary>
+        /// Returns true if a document has been loaded in the browser.
+        /// /*cef()*/
+        /// </summary>
         /*1024*/
 
 
@@ -2517,6 +2573,10 @@ namespace LayoutFarm.CefBridge.Auto
             return ret_result;
             /*1030*/
         }
+        /// <summary>
+        /// Returns the main (top-level) frame for the browser window.
+        /// /*cef()*/
+        /// </summary>
         /*1031*/
 
 
@@ -2535,6 +2595,10 @@ namespace LayoutFarm.CefBridge.Auto
             return ret_result;
             /*1037*/
         }
+        /// <summary>
+        /// Returns the focused frame for the browser window.
+        /// /*cef()*/
+        /// </summary>
         /*1038*/
 
 
@@ -2600,6 +2664,10 @@ namespace LayoutFarm.CefBridge.Auto
             return ret_result;
             /*1062*/
         }
+        /// <summary>
+        /// Returns the number of frames that currently exist.
+        /// /*cef()*/
+        /// </summary>
         /*1063*/
 
 
@@ -2618,6 +2686,10 @@ namespace LayoutFarm.CefBridge.Auto
             return ret_result;
             /*1069*/
         }
+        /// <summary>
+        /// Returns the identifiers of all existing frames.
+        /// /*cef(count_func=identifiers:GetFrameCount)*/
+        /// </summary>
         /*1070*/
 
 
@@ -2637,6 +2709,10 @@ namespace LayoutFarm.CefBridge.Auto
 
             /*1076*/
         }
+        /// <summary>
+        /// Returns the names of all existing frames.
+        /// /*cef()*/
+        /// </summary>
         /*1077*/
 
 
@@ -2656,6 +2732,11 @@ namespace LayoutFarm.CefBridge.Auto
 
             /*1083*/
         }
+        /// <summary>
+        /// Send a message to the specified |target_process|. Returns true if the
+        /// message was sent successfully.
+        /// /*cef()*/
+        /// </summary>
         /*1084*/
 
 
@@ -2688,6 +2769,7 @@ namespace LayoutFarm.CefBridge.Auto
     /// <summary>
     /// Callback interface for CefBrowserHost::GetNavigationEntries. The methods of
     /// this class will be called on the browser process UI thread.
+    /// /*(source=client)*/
     /// </summary>
     /*1102*/
     public struct CefNavigationEntryVisitor
@@ -2724,6 +2806,7 @@ namespace LayoutFarm.CefBridge.Auto
     /// methods of this class can only be called in the browser process. They may be
     /// called on any thread in that process unless otherwise indicated in the
     /// comments.
+    /// /*(source=library)*/
     /// </summary>
     /*1382*/
     public struct CefBrowserHost
@@ -2854,6 +2937,9 @@ namespace LayoutFarm.CefBridge.Auto
             Cef3Binder.MyCefMet_Call0(this.nativePtr, CefBrowserHost_Release_0, out ret);
             /*1444*/
         }
+        /// <summary>
+        /// CefBrowserHost methods.
+        /// </summary>
         /*1445*/
 
 
@@ -2872,6 +2958,17 @@ namespace LayoutFarm.CefBridge.Auto
             return ret_result;
             /*1451*/
         }
+        /// <summary>
+        /// Request that the browser close. The JavaScript 'onbeforeunload' event will
+        /// be fired. If |force_close| is false the event handler, if any, will be
+        /// allowed to prompt the user and the user can optionally cancel the close.
+        /// If |force_close| is true the prompt will not be displayed and the close
+        /// will proceed. Results in a call to CefLifeSpanHandler::DoClose() if the
+        /// event handler allows the close or if |force_close| is true. See
+        /// CefLifeSpanHandler::DoClose() documentation for additional usage
+        /// information.
+        /// /*cef()*/
+        /// </summary>
         /*1452*/
 
 
@@ -2891,6 +2988,15 @@ namespace LayoutFarm.CefBridge.Auto
 
             /*1458*/
         }
+        /// <summary>
+        /// Helper for closing a browser. Call this method from the top-level window
+        /// close handler. Internally this calls CloseBrowser(false) if the close has
+        /// not yet been initiated. This method returns false while the close is
+        /// pending and true after the close has completed. See CloseBrowser() and
+        /// CefLifeSpanHandler::DoClose() documentation for additional usage
+        /// information. This method must be called on the browser process UI thread.
+        /// /*cef()*/
+        /// </summary>
         /*1459*/
 
 
@@ -2909,6 +3015,10 @@ namespace LayoutFarm.CefBridge.Auto
             return ret_result;
             /*1465*/
         }
+        /// <summary>
+        /// Set whether the browser is focused.
+        /// /*cef()*/
+        /// </summary>
         /*1466*/
 
 
@@ -2928,6 +3038,12 @@ namespace LayoutFarm.CefBridge.Auto
 
             /*1472*/
         }
+        /// <summary>
+        /// Retrieve the window handle for this browser. If this browser is wrapped in
+        /// a CefBrowserView this method should be called on the browser process UI
+        /// thread and it will return the handle for the top-level native window.
+        /// /*cef()*/
+        /// </summary>
         /*1473*/
 
 
@@ -2946,6 +3062,13 @@ namespace LayoutFarm.CefBridge.Auto
             return ret_result;
             /*1479*/
         }
+        /// <summary>
+        /// Retrieve the window handle of the browser that opened this browser. Will
+        /// return NULL for non-popup windows or if this browser is wrapped in a
+        /// CefBrowserView. This method can be used in combination with custom handling
+        /// of modal windows.
+        /// /*cef()*/
+        /// </summary>
         /*1480*/
 
 
@@ -2964,6 +3087,10 @@ namespace LayoutFarm.CefBridge.Auto
             return ret_result;
             /*1486*/
         }
+        /// <summary>
+        /// Returns true if this browser is wrapped in a CefBrowserView.
+        /// /*cef()*/
+        /// </summary>
         /*1487*/
 
 
@@ -2982,6 +3109,10 @@ namespace LayoutFarm.CefBridge.Auto
             return ret_result;
             /*1493*/
         }
+        /// <summary>
+        /// Returns the client for this browser.
+        /// /*cef()*/
+        /// </summary>
         /*1494*/
 
 
@@ -3000,6 +3131,10 @@ namespace LayoutFarm.CefBridge.Auto
             return ret_result;
             /*1500*/
         }
+        /// <summary>
+        /// Returns the request context for this browser.
+        /// /*cef()*/
+        /// </summary>
         /*1501*/
 
 
@@ -3018,6 +3153,11 @@ namespace LayoutFarm.CefBridge.Auto
             return ret_result;
             /*1507*/
         }
+        /// <summary>
+        /// Get the current zoom level. The default zoom level is 0.0. This method can
+        /// only be called on the UI thread.
+        /// /*cef()*/
+        /// </summary>
         /*1508*/
 
 
@@ -3036,6 +3176,13 @@ namespace LayoutFarm.CefBridge.Auto
             return ret_result;
             /*1514*/
         }
+        /// <summary>
+        /// Change the zoom level to the specified value. Specify 0.0 to reset the
+        /// zoom level. If called on the UI thread the change will be applied
+        /// immediately. Otherwise, the change will be applied asynchronously on the
+        /// UI thread.
+        /// /*cef()*/
+        /// </summary>
         /*1515*/
 
 
@@ -3055,6 +3202,23 @@ namespace LayoutFarm.CefBridge.Auto
 
             /*1521*/
         }
+        /// <summary>
+        /// Call to run a file chooser dialog. Only a single file chooser dialog may be
+        /// pending at any given time. |mode| represents the type of dialog to display.
+        /// |title| to the title to be used for the dialog and may be empty to show the
+        /// default title ("Open" or "Save" depending on the mode). |default_file_path|
+        /// is the path with optional directory and/or file name component that will be
+        /// initially selected in the dialog. |accept_filters| are used to restrict the
+        /// selectable file types and may any combination of (a) valid lower-cased MIME
+        /// types (e.g. "text/*" or "image/*"), (b) individual file extensions (e.g.
+        /// ".txt" or ".png"), or (c) combined description and file extension delimited
+        /// using "|" and ";" (e.g. "Image Types|.png;.gif;.jpg").
+        /// |selected_accept_filter| is the 0-based index of the filter that will be
+        /// selected by default. |callback| will be executed after the dialog is
+        /// dismissed or immediately if another dialog is already pending. The dialog
+        /// will be initiated asynchronously on the UI thread.
+        /// /*cef(optional_param=title,optional_param=default_file_path,optional_param=accept_filters,index_param=selected_accept_filter)*/
+        /// </summary>
         /*1522*/
 
 
@@ -3099,6 +3263,10 @@ namespace LayoutFarm.CefBridge.Auto
             ;
             /*1537*/
         }
+        /// <summary>
+        /// Download the file at |url| using CefDownloadHandler.
+        /// /*cef()*/
+        /// </summary>
         /*1538*/
 
 
@@ -3123,6 +3291,19 @@ namespace LayoutFarm.CefBridge.Auto
             ;
             /*1546*/
         }
+        /// <summary>
+        /// Download |image_url| and execute |callback| on completion with the images
+        /// received from the renderer. If |is_favicon| is true then cookies are not
+        /// sent and not accepted during download. Images with density independent
+        /// pixel (DIP) sizes larger than |max_image_size| are filtered out from the
+        /// image results. Versions of the image at different scale factors may be
+        /// downloaded up to the maximum scale factor supported by the system. If there
+        /// are no image results <= |max_image_size| then the smallest image is resized
+        /// to |max_image_size| and is the only result. A |max_image_size| of 0 means
+        /// unlimited. If |bypass_cache| is true then |image_url| is requested from the
+        /// server even if it is present in the browser cache.
+        /// /*cef()*/
+        /// </summary>
         /*1547*/
 
 
@@ -3159,6 +3340,10 @@ namespace LayoutFarm.CefBridge.Auto
             ;
             /*1559*/
         }
+        /// <summary>
+        /// Print the current browser contents.
+        /// /*cef()*/
+        /// </summary>
         /*1560*/
 
 
@@ -3175,6 +3360,13 @@ namespace LayoutFarm.CefBridge.Auto
 
             /*1565*/
         }
+        /// <summary>
+        /// Print the current browser contents to the PDF file specified by |path| and
+        /// execute |callback| on completion. The caller is responsible for deleting
+        /// |path| when done. For PDF printing to work on Linux you must implement the
+        /// CefPrintHandler::GetPdfPaperSize method.
+        /// /*cef(optional_param=callback)*/
+        /// </summary>
         /*1566*/
 
 
@@ -3205,6 +3397,18 @@ namespace LayoutFarm.CefBridge.Auto
             ;
             /*1576*/
         }
+        /// <summary>
+        /// Search for |searchText|. |identifier| must be a unique ID and these IDs
+        /// must strictly increase so that newer requests always have greater IDs than
+        /// older requests. If |identifier| is zero or less than the previous ID value
+        /// then it will be automatically assigned a new valid ID. |forward| indicates
+        /// whether to search forward or backward within the page. |matchCase|
+        /// indicates whether the search should be case-sensitive. |findNext| indicates
+        /// whether this is the first request or a follow-up. The CefFindHandler
+        /// instance, if any, returned via CefClient::GetFindHandler will be called to
+        /// report find results.
+        /// /*cef()*/
+        /// </summary>
         /*1577*/
 
 
@@ -3241,6 +3445,10 @@ namespace LayoutFarm.CefBridge.Auto
             ;
             /*1589*/
         }
+        /// <summary>
+        /// Cancel all searches that are currently going on.
+        /// /*cef()*/
+        /// </summary>
         /*1590*/
 
 
@@ -3260,6 +3468,16 @@ namespace LayoutFarm.CefBridge.Auto
 
             /*1596*/
         }
+        /// <summary>
+        /// Open developer tools (DevTools) in its own browser. The DevTools browser
+        /// will remain associated with this browser. If the DevTools browser is
+        /// already open then it will be focused, in which case the |windowInfo|,
+        /// |client| and |settings| parameters will be ignored. If |inspect_element_at|
+        /// is non-empty then the element at the specified (x,y) location will be
+        /// inspected. The |windowInfo| parameter will be ignored if this browser is
+        /// wrapped in a CefBrowserView.
+        /// /*cef(optional_param=windowInfo,optional_param=client,optional_param=settings,optional_param=inspect_element_at)*/
+        /// </summary>
         /*1597*/
 
 
@@ -3288,6 +3506,10 @@ namespace LayoutFarm.CefBridge.Auto
 
             /*1606*/
         }
+        /// <summary>
+        /// Explicitly close the associated DevTools browser, if any.
+        /// /*cef()*/
+        /// </summary>
         /*1607*/
 
 
@@ -3304,6 +3526,11 @@ namespace LayoutFarm.CefBridge.Auto
 
             /*1612*/
         }
+        /// <summary>
+        /// Returns true if this browser currently has an associated DevTools browser.
+        /// Must be called on the browser process UI thread.
+        /// /*cef()*/
+        /// </summary>
         /*1613*/
 
 
@@ -3322,6 +3549,12 @@ namespace LayoutFarm.CefBridge.Auto
             return ret_result;
             /*1619*/
         }
+        /// <summary>
+        /// Retrieve a snapshot of current navigation entries as values sent to the
+        /// specified visitor. If |current_only| is true only the current navigation
+        /// entry will be sent, otherwise all navigation entries will be sent.
+        /// /*cef()*/
+        /// </summary>
         /*1620*/
 
 
@@ -3344,6 +3577,10 @@ namespace LayoutFarm.CefBridge.Auto
 
             /*1627*/
         }
+        /// <summary>
+        /// Set whether mouse cursor change is disabled.
+        /// /*cef()*/
+        /// </summary>
         /*1628*/
 
 
@@ -3363,6 +3600,10 @@ namespace LayoutFarm.CefBridge.Auto
 
             /*1634*/
         }
+        /// <summary>
+        /// Returns true if mouse cursor change is disabled.
+        /// /*cef()*/
+        /// </summary>
         /*1635*/
 
 
@@ -3381,6 +3622,11 @@ namespace LayoutFarm.CefBridge.Auto
             return ret_result;
             /*1641*/
         }
+        /// <summary>
+        /// If a misspelled word is currently selected in an editable node calling
+        /// this method will replace it with the specified |word|.
+        /// /*cef()*/
+        /// </summary>
         /*1642*/
 
 
@@ -3405,6 +3651,10 @@ namespace LayoutFarm.CefBridge.Auto
             ;
             /*1650*/
         }
+        /// <summary>
+        /// Add the specified |word| to the spelling dictionary.
+        /// /*cef()*/
+        /// </summary>
         /*1651*/
 
 
@@ -3429,6 +3679,10 @@ namespace LayoutFarm.CefBridge.Auto
             ;
             /*1659*/
         }
+        /// <summary>
+        /// Returns true if window rendering is disabled.
+        /// /*cef()*/
+        /// </summary>
         /*1660*/
 
 
@@ -3447,6 +3701,13 @@ namespace LayoutFarm.CefBridge.Auto
             return ret_result;
             /*1666*/
         }
+        /// <summary>
+        /// Notify the browser that the widget has been resized. The browser will first
+        /// call CefRenderHandler::GetViewRect to get the new size and then call
+        /// CefRenderHandler::OnPaint asynchronously with the updated regions. This
+        /// method is only used when window rendering is disabled.
+        /// /*cef()*/
+        /// </summary>
         /*1667*/
 
 
@@ -3463,6 +3724,12 @@ namespace LayoutFarm.CefBridge.Auto
 
             /*1672*/
         }
+        /// <summary>
+        /// Notify the browser that it has been hidden or shown. Layouting and
+        /// CefRenderHandler::OnPaint notification will stop when the browser is
+        /// hidden. This method is only used when window rendering is disabled.
+        /// /*cef()*/
+        /// </summary>
         /*1673*/
 
 
@@ -3482,6 +3749,15 @@ namespace LayoutFarm.CefBridge.Auto
 
             /*1679*/
         }
+        /// <summary>
+        /// Send a notification to the browser that the screen info has changed. The
+        /// browser will then call CefRenderHandler::GetScreenInfo to update the
+        /// screen information with the new values. This simulates moving the webview
+        /// window from one display to another, or changing the properties of the
+        /// current display. This method is only used when window rendering is
+        /// disabled.
+        /// /*cef()*/
+        /// </summary>
         /*1680*/
 
 
@@ -3498,6 +3774,12 @@ namespace LayoutFarm.CefBridge.Auto
 
             /*1685*/
         }
+        /// <summary>
+        /// Invalidate the view. The browser will call CefRenderHandler::OnPaint
+        /// asynchronously. This method is only used when window rendering is
+        /// disabled.
+        /// /*cef()*/
+        /// </summary>
         /*1686*/
 
 
@@ -3517,6 +3799,10 @@ namespace LayoutFarm.CefBridge.Auto
 
             /*1692*/
         }
+        /// <summary>
+        /// Send a key event to the browser.
+        /// /*cef()*/
+        /// </summary>
         /*1693*/
 
 
@@ -3536,6 +3822,11 @@ namespace LayoutFarm.CefBridge.Auto
 
             /*1699*/
         }
+        /// <summary>
+        /// Send a mouse click event to the browser. The |x| and |y| coordinates are
+        /// relative to the upper-left corner of the view.
+        /// /*cef()*/
+        /// </summary>
         /*1700*/
 
 
@@ -3564,6 +3855,11 @@ namespace LayoutFarm.CefBridge.Auto
 
             /*1709*/
         }
+        /// <summary>
+        /// Send a mouse move event to the browser. The |x| and |y| coordinates are
+        /// relative to the upper-left corner of the view.
+        /// /*cef()*/
+        /// </summary>
         /*1710*/
 
 
@@ -3586,6 +3882,14 @@ namespace LayoutFarm.CefBridge.Auto
 
             /*1717*/
         }
+        /// <summary>
+        /// Send a mouse wheel event to the browser. The |x| and |y| coordinates are
+        /// relative to the upper-left corner of the view. The |deltaX| and |deltaY|
+        /// values represent the movement delta in the X and Y directions respectively.
+        /// In order to scroll inside select popups with window rendering disabled
+        /// CefRenderHandler::GetScreenPoint should be implemented properly.
+        /// /*cef()*/
+        /// </summary>
         /*1718*/
 
 
@@ -3611,6 +3915,10 @@ namespace LayoutFarm.CefBridge.Auto
 
             /*1726*/
         }
+        /// <summary>
+        /// Send a focus event to the browser.
+        /// /*cef()*/
+        /// </summary>
         /*1727*/
 
 
@@ -3630,6 +3938,10 @@ namespace LayoutFarm.CefBridge.Auto
 
             /*1733*/
         }
+        /// <summary>
+        /// Send a capture lost event to the browser.
+        /// /*cef()*/
+        /// </summary>
         /*1734*/
 
 
@@ -3646,6 +3958,11 @@ namespace LayoutFarm.CefBridge.Auto
 
             /*1739*/
         }
+        /// <summary>
+        /// Notify the browser that the window hosting it is about to be moved or
+        /// resized. This method is only used on Windows and Linux.
+        /// /*cef()*/
+        /// </summary>
         /*1740*/
 
 
@@ -3662,6 +3979,14 @@ namespace LayoutFarm.CefBridge.Auto
 
             /*1745*/
         }
+        /// <summary>
+        /// Returns the maximum rate in frames per second (fps) that CefRenderHandler::
+        /// OnPaint will be called for a windowless browser. The actual fps may be
+        /// lower if the browser cannot generate frames at the requested rate. The
+        /// minimum value is 1 and the maximum value is 60 (default 30). This method
+        /// can only be called on the UI thread.
+        /// /*cef()*/
+        /// </summary>
         /*1746*/
 
 
@@ -3680,6 +4005,14 @@ namespace LayoutFarm.CefBridge.Auto
             return ret_result;
             /*1752*/
         }
+        /// <summary>
+        /// Set the maximum rate in frames per second (fps) that CefRenderHandler::
+        /// OnPaint will be called for a windowless browser. The actual fps may be
+        /// lower if the browser cannot generate frames at the requested rate. The
+        /// minimum value is 1 and the maximum value is 60 (default 30). Can also be
+        /// set at browser creation via CefBrowserSettings.windowless_frame_rate.
+        /// /*cef()*/
+        /// </summary>
         /*1753*/
 
 
@@ -3699,6 +4032,30 @@ namespace LayoutFarm.CefBridge.Auto
 
             /*1759*/
         }
+        /// <summary>
+        /// Begins a new composition or updates the existing composition. Blink has a
+        /// special node (a composition node) that allows the input method to change
+        /// text without affecting other DOM nodes. |text| is the optional text that
+        /// will be inserted into the composition node. |underlines| is an optional set
+        /// of ranges that will be underlined in the resulting text.
+        /// |replacement_range| is an optional range of the existing text that will be
+        /// replaced. |selection_range| is an optional range of the resulting text that
+        /// will be selected after insertion or replacement. The |replacement_range|
+        /// value is only used on OS X.
+        ///
+        /// This method may be called multiple times as the composition changes. When
+        /// the client is done making changes the composition should either be canceled
+        /// or completed. To cancel the composition call ImeCancelComposition. To
+        /// complete the composition call either ImeCommitText or
+        /// ImeFinishComposingText. Completion is usually signaled when:
+        ///   A. The client receives a WM_IME_COMPOSITION message with a GCS_RESULTSTR
+        ///      flag (on Windows), or;
+        ///   B. The client receives a "commit" signal of GtkIMContext (on Linux), or;
+        ///   C. insertText of NSTextInput is called (on Mac).
+        ///
+        /// This method is only used when window rendering is disabled.
+        /// /*cef(optional_param=text,optional_param=underlines)*/
+        /// </summary>
         /*1760*/
 
 
@@ -3732,6 +4089,16 @@ namespace LayoutFarm.CefBridge.Auto
             ;
             /*1771*/
         }
+        /// <summary>
+        /// Completes the existing composition by optionally inserting the specified
+        /// |text| into the composition node. |replacement_range| is an optional range
+        /// of the existing text that will be replaced. |relative_cursor_pos| is where
+        /// the cursor will be positioned relative to the current cursor position. See
+        /// comments on ImeSetComposition for usage. The |replacement_range| and
+        /// |relative_cursor_pos| values are only used on OS X.
+        /// This method is only used when window rendering is disabled.
+        /// /*cef(optional_param=text)*/
+        /// </summary>
         /*1772*/
 
 
@@ -3762,6 +4129,13 @@ namespace LayoutFarm.CefBridge.Auto
             ;
             /*1782*/
         }
+        /// <summary>
+        /// Completes the existing composition by applying the current composition node
+        /// contents. If |keep_selection| is false the current selection, if any, will
+        /// be discarded. See comments on ImeSetComposition for usage.
+        /// This method is only used when window rendering is disabled.
+        /// /*cef()*/
+        /// </summary>
         /*1783*/
 
 
@@ -3781,6 +4155,13 @@ namespace LayoutFarm.CefBridge.Auto
 
             /*1789*/
         }
+        /// <summary>
+        /// Cancels the existing composition and discards the composition node
+        /// contents without applying them. See comments on ImeSetComposition for
+        /// usage.
+        /// This method is only used when window rendering is disabled.
+        /// /*cef()*/
+        /// </summary>
         /*1790*/
 
 
@@ -3797,6 +4178,16 @@ namespace LayoutFarm.CefBridge.Auto
 
             /*1795*/
         }
+        /// <summary>
+        /// Call this method when the user drags the mouse into the web view (before
+        /// calling DragTargetDragOver/DragTargetLeave/DragTargetDrop).
+        /// |drag_data| should not contain file contents as this type of data is not
+        /// allowed to be dragged into the web view. File contents can be removed using
+        /// CefDragData::ResetFileContents (for example, if |drag_data| comes from
+        /// CefRenderHandler::StartDragging).
+        /// This method is only used when window rendering is disabled.
+        /// /*cef()*/
+        /// </summary>
         /*1796*/
 
 
@@ -3822,6 +4213,13 @@ namespace LayoutFarm.CefBridge.Auto
 
             /*1804*/
         }
+        /// <summary>
+        /// Call this method each time the mouse is moved across the web view during
+        /// a drag operation (after calling DragTargetDragEnter and before calling
+        /// DragTargetDragLeave/DragTargetDrop).
+        /// This method is only used when window rendering is disabled.
+        /// /*cef()*/
+        /// </summary>
         /*1805*/
 
 
@@ -3844,6 +4242,12 @@ namespace LayoutFarm.CefBridge.Auto
 
             /*1812*/
         }
+        /// <summary>
+        /// Call this method when the user drags the mouse out of the web view (after
+        /// calling DragTargetDragEnter).
+        /// This method is only used when window rendering is disabled.
+        /// /*cef()*/
+        /// </summary>
         /*1813*/
 
 
@@ -3860,6 +4264,14 @@ namespace LayoutFarm.CefBridge.Auto
 
             /*1818*/
         }
+        /// <summary>
+        /// Call this method when the user completes the drag operation by dropping
+        /// the object onto the web view (after calling DragTargetDragEnter).
+        /// The object being dropped is |drag_data|, given as an argument to
+        /// the previous DragTargetDragEnter call.
+        /// This method is only used when window rendering is disabled.
+        /// /*cef()*/
+        /// </summary>
         /*1819*/
 
 
@@ -3879,6 +4291,16 @@ namespace LayoutFarm.CefBridge.Auto
 
             /*1825*/
         }
+        /// <summary>
+        /// Call this method when the drag operation started by a
+        /// CefRenderHandler::StartDragging call has ended either in a drop or
+        /// by being cancelled. |x| and |y| are mouse coordinates relative to the
+        /// upper-left corner of the view. If the web view is both the drag source
+        /// and the drag target then all DragTarget* methods should be called before
+        /// DragSource* mthods.
+        /// This method is only used when window rendering is disabled.
+        /// /*cef()*/
+        /// </summary>
         /*1826*/
 
 
@@ -3904,6 +4326,16 @@ namespace LayoutFarm.CefBridge.Auto
 
             /*1834*/
         }
+        /// <summary>
+        /// Call this method when the drag operation started by a
+        /// CefRenderHandler::StartDragging call has completed. This method may be
+        /// called immediately without first calling DragSourceEndedAt to cancel a
+        /// drag operation. If the web view is both the drag source and the drag
+        /// target then all DragTarget* methods should be called before DragSource*
+        /// mthods.
+        /// This method is only used when window rendering is disabled.
+        /// /*cef()*/
+        /// </summary>
         /*1835*/
 
 
@@ -3920,6 +4352,11 @@ namespace LayoutFarm.CefBridge.Auto
 
             /*1840*/
         }
+        /// <summary>
+        /// Returns the current visible navigation entry for this browser. This method
+        /// can only be called on the UI thread.
+        /// /*cef()*/
+        /// </summary>
         /*1841*/
 
 
@@ -3938,6 +4375,33 @@ namespace LayoutFarm.CefBridge.Auto
             return ret_result;
             /*1847*/
         }
+        /// <summary>
+        /// Set accessibility state for all frames. |accessibility_state| may be
+        /// default, enabled or disabled. If |accessibility_state| is STATE_DEFAULT
+        /// then accessibility will be disabled by default and the state may be further
+        /// controlled with the "force-renderer-accessibility" and
+        /// "disable-renderer-accessibility" command-line switches. If
+        /// |accessibility_state| is STATE_ENABLED then accessibility will be enabled.
+        /// If |accessibility_state| is STATE_DISABLED then accessibility will be
+        /// completely disabled.
+        ///
+        /// For windowed browsers accessibility will be enabled in Complete mode (which
+        /// corresponds to kAccessibilityModeComplete in Chromium). In this mode all
+        /// platform accessibility objects will be created and managed by Chromium's
+        /// internal implementation. The client needs only to detect the screen reader
+        /// and call this method appropriately. For example, on macOS the client can
+        /// handle the @"AXEnhancedUserInterface" accessibility attribute to detect
+        /// VoiceOver state changes and on Windows the client can handle WM_GETOBJECT
+        /// with OBJID_CLIENT to detect accessibility readers.
+        ///
+        /// For windowless browsers accessibility will be enabled in TreeOnly mode
+        /// (which corresponds to kAccessibilityModeWebContentsOnly in Chromium). In
+        /// this mode renderer accessibility is enabled, the full tree is computed, and
+        /// events are passed to CefAccessibiltyHandler, but platform accessibility
+        /// objects are not created. The client may implement platform accessibility
+        /// objects using CefAccessibiltyHandler callbacks if desired.
+        /// /*cef()*/
+        /// </summary>
         /*1848*/
 
 
@@ -3964,6 +4428,7 @@ namespace LayoutFarm.CefBridge.Auto
     // [virtual] class CefClient
     /// <summary>
     /// Implement this interface to provide handler implementations.
+    /// /*(source=client,no_debugct_check)*/
     /// </summary>
     /*1864*/
     public struct CefClient
@@ -4004,6 +4469,7 @@ namespace LayoutFarm.CefBridge.Auto
     /// subsequent tokens, regardless of prefix, being interpreted as non-switch
     /// arguments. Switch names are considered case-insensitive. This class can be
     /// used before CefInitialize() is called.
+    /// /*(source=library,no_debugct_check)*/
     /// </summary>
     /*1984*/
     public struct CefCommandLine
@@ -4070,6 +4536,9 @@ namespace LayoutFarm.CefBridge.Auto
             Cef3Binder.MyCefMet_Call0(this.nativePtr, CefCommandLine_Release_0, out ret);
             /*2014*/
         }
+        /// <summary>
+        /// CefCommandLine methods.
+        /// </summary>
         /*2015*/
 
 
@@ -4088,6 +4557,11 @@ namespace LayoutFarm.CefBridge.Auto
             return ret_result;
             /*2021*/
         }
+        /// <summary>
+        /// Returns true if the values of this object are read-only. Some APIs may
+        /// expose read-only objects.
+        /// /*cef()*/
+        /// </summary>
         /*2022*/
 
 
@@ -4106,6 +4580,10 @@ namespace LayoutFarm.CefBridge.Auto
             return ret_result;
             /*2028*/
         }
+        /// <summary>
+        /// Returns a writable copy of this object.
+        /// /*cef()*/
+        /// </summary>
         /*2029*/
 
 
@@ -4124,6 +4602,12 @@ namespace LayoutFarm.CefBridge.Auto
             return ret_result;
             /*2035*/
         }
+        /// <summary>
+        /// Initialize the command line with the specified |argc| and |argv| values.
+        /// The first argument must be the name of the program. This method is only
+        /// supported on non-Windows platforms.
+        /// /*cef()*/
+        /// </summary>
         /*2036*/
 
 
@@ -4146,6 +4630,11 @@ namespace LayoutFarm.CefBridge.Auto
 
             /*2043*/
         }
+        /// <summary>
+        /// Initialize the command line with the string returned by calling
+        /// GetCommandLineW(). This method is only supported on Windows.
+        /// /*cef()*/
+        /// </summary>
         /*2044*/
 
 
@@ -4170,6 +4659,11 @@ namespace LayoutFarm.CefBridge.Auto
             ;
             /*2052*/
         }
+        /// <summary>
+        /// Reset the command-line switches and arguments but leave the program
+        /// component unchanged.
+        /// /*cef()*/
+        /// </summary>
         /*2053*/
 
 
@@ -4186,6 +4680,11 @@ namespace LayoutFarm.CefBridge.Auto
 
             /*2058*/
         }
+        /// <summary>
+        /// Retrieve the original command line string as a vector of strings.
+        /// The argv array: { program, [(--|-|/)switch[=value]]*, [--], [argument]* }
+        /// /*cef()*/
+        /// </summary>
         /*2059*/
 
 
@@ -4205,6 +4704,11 @@ namespace LayoutFarm.CefBridge.Auto
 
             /*2065*/
         }
+        /// <summary>
+        /// Constructs and returns the represented command line string. Use this method
+        /// cautiously because quoting behavior is unclear.
+        /// /*cef()*/
+        /// </summary>
         /*2066*/
 
 
@@ -4223,6 +4727,10 @@ namespace LayoutFarm.CefBridge.Auto
             return ret_result;
             /*2072*/
         }
+        /// <summary>
+        /// Get the program part of the command line string (the first item).
+        /// /*cef()*/
+        /// </summary>
         /*2073*/
 
 
@@ -4241,6 +4749,10 @@ namespace LayoutFarm.CefBridge.Auto
             return ret_result;
             /*2079*/
         }
+        /// <summary>
+        /// Set the program part of the command line string (the first item).
+        /// /*cef()*/
+        /// </summary>
         /*2080*/
 
 
@@ -4265,6 +4777,10 @@ namespace LayoutFarm.CefBridge.Auto
             ;
             /*2088*/
         }
+        /// <summary>
+        /// Returns true if the command line has switches.
+        /// /*cef()*/
+        /// </summary>
         /*2089*/
 
 
@@ -4283,6 +4799,10 @@ namespace LayoutFarm.CefBridge.Auto
             return ret_result;
             /*2095*/
         }
+        /// <summary>
+        /// Returns true if the command line contains the given switch.
+        /// /*cef()*/
+        /// </summary>
         /*2096*/
 
 
@@ -4309,6 +4829,11 @@ namespace LayoutFarm.CefBridge.Auto
             return ret_result;
             /*2105*/
         }
+        /// <summary>
+        /// Returns the value associated with the given switch. If the switch has no
+        /// value or isn't present this method returns the empty string.
+        /// /*cef()*/
+        /// </summary>
         /*2106*/
 
 
@@ -4335,6 +4860,11 @@ namespace LayoutFarm.CefBridge.Auto
             return ret_result;
             /*2115*/
         }
+        /// <summary>
+        /// Returns the map of switch names and values. If a switch has no value an
+        /// empty string is returned.
+        /// /*cef()*/
+        /// </summary>
         /*2116*/
 
 
@@ -4354,6 +4884,11 @@ namespace LayoutFarm.CefBridge.Auto
 
             /*2122*/
         }
+        /// <summary>
+        /// Add a switch to the end of the command line. If the switch has no value
+        /// pass an empty value string.
+        /// /*cef()*/
+        /// </summary>
         /*2123*/
 
 
@@ -4378,6 +4913,10 @@ namespace LayoutFarm.CefBridge.Auto
             ;
             /*2131*/
         }
+        /// <summary>
+        /// Add a switch with the specified value to the end of the command line.
+        /// /*cef()*/
+        /// </summary>
         /*2132*/
 
 
@@ -4410,6 +4949,10 @@ namespace LayoutFarm.CefBridge.Auto
             ;
             /*2143*/
         }
+        /// <summary>
+        /// True if there are remaining command line arguments.
+        /// /*cef()*/
+        /// </summary>
         /*2144*/
 
 
@@ -4428,6 +4971,10 @@ namespace LayoutFarm.CefBridge.Auto
             return ret_result;
             /*2150*/
         }
+        /// <summary>
+        /// Get the remaining command line arguments.
+        /// /*cef()*/
+        /// </summary>
         /*2151*/
 
 
@@ -4447,6 +4994,10 @@ namespace LayoutFarm.CefBridge.Auto
 
             /*2157*/
         }
+        /// <summary>
+        /// Add an argument to the end of the command line.
+        /// /*cef()*/
+        /// </summary>
         /*2158*/
 
 
@@ -4471,6 +5022,11 @@ namespace LayoutFarm.CefBridge.Auto
             ;
             /*2166*/
         }
+        /// <summary>
+        /// Insert a command before the current command.
+        /// Common for debuggers, like "valgrind" or "gdb --args".
+        /// /*cef()*/
+        /// </summary>
         /*2167*/
 
 
@@ -4503,6 +5059,7 @@ namespace LayoutFarm.CefBridge.Auto
     /// <summary>
     /// Provides information about the context menu state. The ethods of this class
     /// can only be accessed on browser process the UI thread.
+    /// /*(source=library)*/
     /// </summary>
     /*2290*/
     public struct CefContextMenuParams
@@ -4571,6 +5128,9 @@ namespace LayoutFarm.CefBridge.Auto
             Cef3Binder.MyCefMet_Call0(this.nativePtr, CefContextMenuParams_Release_0, out ret);
             /*2321*/
         }
+        /// <summary>
+        /// CefContextMenuParams methods.
+        /// </summary>
         /*2322*/
 
 
@@ -4589,6 +5149,11 @@ namespace LayoutFarm.CefBridge.Auto
             return ret_result;
             /*2328*/
         }
+        /// <summary>
+        /// Returns the Y coordinate of the mouse where the context menu was invoked.
+        /// Coords are relative to the associated RenderView's origin.
+        /// /*cef()*/
+        /// </summary>
         /*2329*/
 
 
@@ -4607,6 +5172,11 @@ namespace LayoutFarm.CefBridge.Auto
             return ret_result;
             /*2335*/
         }
+        /// <summary>
+        /// Returns flags representing the type of node that the context menu was
+        /// invoked on.
+        /// /*cef(default_retval=CM_TYPEFLAG_NONE)*/
+        /// </summary>
         /*2336*/
 
 
@@ -4626,6 +5196,11 @@ namespace LayoutFarm.CefBridge.Auto
             return ret_result;
             /*2342*/
         }
+        /// <summary>
+        /// Returns the URL of the link, if any, that encloses the node that the
+        /// context menu was invoked on.
+        /// /*cef()*/
+        /// </summary>
         /*2343*/
 
 
@@ -4644,6 +5219,11 @@ namespace LayoutFarm.CefBridge.Auto
             return ret_result;
             /*2349*/
         }
+        /// <summary>
+        /// Returns the link URL, if any, to be used ONLY for "copy link address". We
+        /// don't validate this field in the frontend process.
+        /// /*cef()*/
+        /// </summary>
         /*2350*/
 
 
@@ -4662,6 +5242,11 @@ namespace LayoutFarm.CefBridge.Auto
             return ret_result;
             /*2356*/
         }
+        /// <summary>
+        /// Returns the source URL, if any, for the element that the context menu was
+        /// invoked on. Example of elements with source URLs are img, audio, and video.
+        /// /*cef()*/
+        /// </summary>
         /*2357*/
 
 
@@ -4680,6 +5265,11 @@ namespace LayoutFarm.CefBridge.Auto
             return ret_result;
             /*2363*/
         }
+        /// <summary>
+        /// Returns true if the context menu was invoked on an image which has
+        /// non-empty contents.
+        /// /*cef()*/
+        /// </summary>
         /*2364*/
 
 
@@ -4698,6 +5288,11 @@ namespace LayoutFarm.CefBridge.Auto
             return ret_result;
             /*2370*/
         }
+        /// <summary>
+        /// Returns the title text or the alt text if the context menu was invoked on
+        /// an image.
+        /// /*cef()*/
+        /// </summary>
         /*2371*/
 
 
@@ -4716,6 +5311,10 @@ namespace LayoutFarm.CefBridge.Auto
             return ret_result;
             /*2377*/
         }
+        /// <summary>
+        /// Returns the URL of the top level page that the context menu was invoked on.
+        /// /*cef()*/
+        /// </summary>
         /*2378*/
 
 
@@ -4734,6 +5333,10 @@ namespace LayoutFarm.CefBridge.Auto
             return ret_result;
             /*2384*/
         }
+        /// <summary>
+        /// Returns the URL of the subframe that the context menu was invoked on.
+        /// /*cef()*/
+        /// </summary>
         /*2385*/
 
 
@@ -4752,6 +5355,11 @@ namespace LayoutFarm.CefBridge.Auto
             return ret_result;
             /*2391*/
         }
+        /// <summary>
+        /// Returns the character encoding of the subframe that the context menu was
+        /// invoked on.
+        /// /*cef()*/
+        /// </summary>
         /*2392*/
 
 
@@ -4770,6 +5378,10 @@ namespace LayoutFarm.CefBridge.Auto
             return ret_result;
             /*2398*/
         }
+        /// <summary>
+        /// Returns the type of context node that the context menu was invoked on.
+        /// /*cef(default_retval=CM_MEDIATYPE_NONE)*/
+        /// </summary>
         /*2399*/
 
 
@@ -4789,6 +5401,11 @@ namespace LayoutFarm.CefBridge.Auto
             return ret_result;
             /*2405*/
         }
+        /// <summary>
+        /// Returns flags representing the actions supported by the media element, if
+        /// any, that the context menu was invoked on.
+        /// /*cef(default_retval=CM_MEDIAFLAG_NONE)*/
+        /// </summary>
         /*2406*/
 
 
@@ -4808,6 +5425,11 @@ namespace LayoutFarm.CefBridge.Auto
             return ret_result;
             /*2412*/
         }
+        /// <summary>
+        /// Returns the text of the selection, if any, that the context menu was
+        /// invoked on.
+        /// /*cef()*/
+        /// </summary>
         /*2413*/
 
 
@@ -4826,6 +5448,11 @@ namespace LayoutFarm.CefBridge.Auto
             return ret_result;
             /*2419*/
         }
+        /// <summary>
+        /// Returns the text of the misspelled word, if any, that the context menu was
+        /// invoked on.
+        /// /*cef()*/
+        /// </summary>
         /*2420*/
 
 
@@ -4844,6 +5471,11 @@ namespace LayoutFarm.CefBridge.Auto
             return ret_result;
             /*2426*/
         }
+        /// <summary>
+        /// Returns true if suggestions exist, false otherwise. Fills in |suggestions|
+        /// from the spell check service for the misspelled word if there is one.
+        /// /*cef()*/
+        /// </summary>
         /*2427*/
 
 
@@ -4865,6 +5497,10 @@ namespace LayoutFarm.CefBridge.Auto
             return ret_result;
             /*2434*/
         }
+        /// <summary>
+        /// Returns true if the context menu was invoked on an editable node.
+        /// /*cef()*/
+        /// </summary>
         /*2435*/
 
 
@@ -4883,6 +5519,11 @@ namespace LayoutFarm.CefBridge.Auto
             return ret_result;
             /*2441*/
         }
+        /// <summary>
+        /// Returns true if the context menu was invoked on an editable node where
+        /// spell-check is enabled.
+        /// /*cef()*/
+        /// </summary>
         /*2442*/
 
 
@@ -4901,6 +5542,11 @@ namespace LayoutFarm.CefBridge.Auto
             return ret_result;
             /*2448*/
         }
+        /// <summary>
+        /// Returns flags representing the actions supported by the editable node, if
+        /// any, that the context menu was invoked on.
+        /// /*cef(default_retval=CM_EDITFLAG_NONE)*/
+        /// </summary>
         /*2449*/
 
 
@@ -4920,6 +5566,11 @@ namespace LayoutFarm.CefBridge.Auto
             return ret_result;
             /*2455*/
         }
+        /// <summary>
+        /// Returns true if the context menu contains items specified by the renderer
+        /// process (for example, plugin placeholder or pepper plugin menu items).
+        /// /*cef()*/
+        /// </summary>
         /*2456*/
 
 
@@ -4938,6 +5589,10 @@ namespace LayoutFarm.CefBridge.Auto
             return ret_result;
             /*2462*/
         }
+        /// <summary>
+        /// Returns true if the context menu was invoked from a pepper plugin.
+        /// /*cef()*/
+        /// </summary>
         /*2463*/
 
 
@@ -4964,6 +5619,7 @@ namespace LayoutFarm.CefBridge.Auto
     /// <summary>
     /// Class used for managing cookies. The methods of this class may be called on
     /// any thread unless otherwise indicated.
+    /// /*(source=library,no_debugct_check)*/
     /// </summary>
     /*2514*/
     public struct CefCookieManager
@@ -5004,6 +5660,9 @@ namespace LayoutFarm.CefBridge.Auto
             Cef3Binder.MyCefMet_Call0(this.nativePtr, CefCookieManager_Release_0, out ret);
             /*2531*/
         }
+        /// <summary>
+        /// CefCookieManager methods.
+        /// </summary>
         /*2532*/
 
 
@@ -5026,6 +5685,12 @@ namespace LayoutFarm.CefBridge.Auto
 
             /*2539*/
         }
+        /// <summary>
+        /// Visit all cookies on the IO thread. The returned cookies are ordered by
+        /// longest path, then by earliest creation date. Returns false if cookies
+        /// cannot be accessed.
+        /// /*cef()*/
+        /// </summary>
         /*2540*/
 
 
@@ -5047,6 +5712,14 @@ namespace LayoutFarm.CefBridge.Auto
             return ret_result;
             /*2547*/
         }
+        /// <summary>
+        /// Visit a subset of cookies on the IO thread. The results are filtered by the
+        /// given url scheme, host, domain and path. If |includeHttpOnly| is true
+        /// HTTP-only cookies will also be included in the results. The returned
+        /// cookies are ordered by longest path, then by earliest creation date.
+        /// Returns false if cookies cannot be accessed.
+        /// /*cef()*/
+        /// </summary>
         /*2548*/
 
 
@@ -5079,6 +5752,16 @@ namespace LayoutFarm.CefBridge.Auto
             return ret_result;
             /*2559*/
         }
+        /// <summary>
+        /// Sets a cookie given a valid URL and explicit user-provided cookie
+        /// attributes. This function expects each attribute to be well-formed. It will
+        /// check for disallowed characters (e.g. the ';' character is disallowed
+        /// within the cookie value attribute) and fail without setting the cookie if
+        /// such characters are found. If |callback| is non-NULL it will be executed
+        /// asnychronously on the IO thread after the cookie has been set. Returns
+        /// false if an invalid URL is specified or if cookies cannot be accessed.
+        /// /*cef(optional_param=callback)*/
+        /// </summary>
         /*2560*/
 
 
@@ -5111,6 +5794,18 @@ namespace LayoutFarm.CefBridge.Auto
             return ret_result;
             /*2571*/
         }
+        /// <summary>
+        /// Delete all cookies that match the specified parameters. If both |url| and
+        /// |cookie_name| values are specified all host and domain cookies matching
+        /// both will be deleted. If only |url| is specified all host cookies (but not
+        /// domain cookies) irrespective of path will be deleted. If |url| is empty all
+        /// cookies for all hosts and domains will be deleted. If |callback| is
+        /// non-NULL it will be executed asnychronously on the IO thread after the
+        /// cookies have been deleted. Returns false if a non-empty invalid URL is
+        /// specified or if cookies cannot be accessed. Cookies can alternately be
+        /// deleted using the Visit*Cookies() methods.
+        /// /*cef(optional_param=url,optional_param=cookie_name,optional_param=callback)*/
+        /// </summary>
         /*2572*/
 
 
@@ -5148,6 +5843,17 @@ namespace LayoutFarm.CefBridge.Auto
             return ret_result;
             /*2585*/
         }
+        /// <summary>
+        /// Sets the directory path that will be used for storing cookie data. If
+        /// |path| is empty data will be stored in memory only. Otherwise, data will be
+        /// stored at the specified |path|. To persist session cookies (cookies without
+        /// an expiry date or validity interval) set |persist_session_cookies| to true.
+        /// Session cookies are generally intended to be transient and most Web
+        /// browsers do not persist them. If |callback| is non-NULL it will be executed
+        /// asnychronously on the IO thread after the manager's storage has been
+        /// initialized. Returns false if cookies cannot be accessed.
+        /// /*cef(optional_param=path,optional_param=callback)*/
+        /// </summary>
         /*2586*/
 
 
@@ -5180,6 +5886,12 @@ namespace LayoutFarm.CefBridge.Auto
             return ret_result;
             /*2597*/
         }
+        /// <summary>
+        /// Flush the backing store (if any) to disk. If |callback| is non-NULL it will
+        /// be executed asnychronously on the IO thread after the flush is complete.
+        /// Returns false if cookies cannot be accessed.
+        /// /*cef(optional_param=callback)*/
+        /// </summary>
         /*2598*/
 
 
@@ -5209,6 +5921,7 @@ namespace LayoutFarm.CefBridge.Auto
     /// <summary>
     /// Interface to implement for visiting cookie values. The methods of this class
     /// will always be called on the IO thread.
+    /// /*(source=client)*/
     /// </summary>
     /*2615*/
     public struct CefCookieVisitor
@@ -5243,6 +5956,7 @@ namespace LayoutFarm.CefBridge.Auto
     /// <summary>
     /// Interface to implement for visiting the DOM. The methods of this class will
     /// be called on the render process main thread.
+    /// /*(source=client)*/
     /// </summary>
     /*2635*/
     public struct CefDOMVisitor
@@ -5277,6 +5991,7 @@ namespace LayoutFarm.CefBridge.Auto
     /// <summary>
     /// Class used to represent a DOM document. The methods of this class should only
     /// be called on the render process main thread thread.
+    /// /*(source=library)*/
     /// </summary>
     /*2725*/
     public struct CefDOMDocument
@@ -5331,6 +6046,9 @@ namespace LayoutFarm.CefBridge.Auto
             Cef3Binder.MyCefMet_Call0(this.nativePtr, CefDOMDocument_Release_0, out ret);
             /*2749*/
         }
+        /// <summary>
+        /// CefDOMDocument methods.
+        /// </summary>
         /*2750*/
 
 
@@ -5350,6 +6068,10 @@ namespace LayoutFarm.CefBridge.Auto
             return ret_result;
             /*2756*/
         }
+        /// <summary>
+        /// Returns the root document node.
+        /// /*cef()*/
+        /// </summary>
         /*2757*/
 
 
@@ -5368,6 +6090,10 @@ namespace LayoutFarm.CefBridge.Auto
             return ret_result;
             /*2763*/
         }
+        /// <summary>
+        /// Returns the BODY node of an HTML document.
+        /// /*cef()*/
+        /// </summary>
         /*2764*/
 
 
@@ -5386,6 +6112,10 @@ namespace LayoutFarm.CefBridge.Auto
             return ret_result;
             /*2770*/
         }
+        /// <summary>
+        /// Returns the HEAD node of an HTML document.
+        /// /*cef()*/
+        /// </summary>
         /*2771*/
 
 
@@ -5404,6 +6134,10 @@ namespace LayoutFarm.CefBridge.Auto
             return ret_result;
             /*2777*/
         }
+        /// <summary>
+        /// Returns the title of an HTML document.
+        /// /*cef()*/
+        /// </summary>
         /*2778*/
 
 
@@ -5422,6 +6156,10 @@ namespace LayoutFarm.CefBridge.Auto
             return ret_result;
             /*2784*/
         }
+        /// <summary>
+        /// Returns the document element with the specified ID value.
+        /// /*cef()*/
+        /// </summary>
         /*2785*/
 
 
@@ -5448,6 +6186,10 @@ namespace LayoutFarm.CefBridge.Auto
             return ret_result;
             /*2794*/
         }
+        /// <summary>
+        /// Returns the node that currently has keyboard focus.
+        /// /*cef()*/
+        /// </summary>
         /*2795*/
 
 
@@ -5466,6 +6208,10 @@ namespace LayoutFarm.CefBridge.Auto
             return ret_result;
             /*2801*/
         }
+        /// <summary>
+        /// Returns true if a portion of the document is selected.
+        /// /*cef()*/
+        /// </summary>
         /*2802*/
 
 
@@ -5484,6 +6230,10 @@ namespace LayoutFarm.CefBridge.Auto
             return ret_result;
             /*2808*/
         }
+        /// <summary>
+        /// Returns the selection offset within the start node.
+        /// /*cef()*/
+        /// </summary>
         /*2809*/
 
 
@@ -5502,6 +6252,10 @@ namespace LayoutFarm.CefBridge.Auto
             return ret_result;
             /*2815*/
         }
+        /// <summary>
+        /// Returns the selection offset within the end node.
+        /// /*cef()*/
+        /// </summary>
         /*2816*/
 
 
@@ -5520,6 +6274,10 @@ namespace LayoutFarm.CefBridge.Auto
             return ret_result;
             /*2822*/
         }
+        /// <summary>
+        /// Returns the contents of this selection as markup.
+        /// /*cef()*/
+        /// </summary>
         /*2823*/
 
 
@@ -5538,6 +6296,10 @@ namespace LayoutFarm.CefBridge.Auto
             return ret_result;
             /*2829*/
         }
+        /// <summary>
+        /// Returns the contents of this selection as text.
+        /// /*cef()*/
+        /// </summary>
         /*2830*/
 
 
@@ -5556,6 +6318,10 @@ namespace LayoutFarm.CefBridge.Auto
             return ret_result;
             /*2836*/
         }
+        /// <summary>
+        /// Returns the base URL for the document.
+        /// /*cef()*/
+        /// </summary>
         /*2837*/
 
 
@@ -5574,6 +6340,11 @@ namespace LayoutFarm.CefBridge.Auto
             return ret_result;
             /*2843*/
         }
+        /// <summary>
+        /// Returns a complete URL based on the document base URL and the specified
+        /// partial URL.
+        /// /*cef()*/
+        /// </summary>
         /*2844*/
 
 
@@ -5608,6 +6379,7 @@ namespace LayoutFarm.CefBridge.Auto
     /// <summary>
     /// Class used to represent a DOM node. The methods of this class should only be
     /// called on the render process main thread.
+    /// /*(source=library)*/
     /// </summary>
     /*2993*/
     public struct CefDOMNode
@@ -5686,6 +6458,9 @@ namespace LayoutFarm.CefBridge.Auto
             Cef3Binder.MyCefMet_Call0(this.nativePtr, CefDOMNode_Release_0, out ret);
             /*3029*/
         }
+        /// <summary>
+        /// CefDOMNode methods.
+        /// </summary>
         /*3030*/
 
 
@@ -5705,6 +6480,10 @@ namespace LayoutFarm.CefBridge.Auto
             return ret_result;
             /*3036*/
         }
+        /// <summary>
+        /// Returns true if this is a text node.
+        /// /*cef()*/
+        /// </summary>
         /*3037*/
 
 
@@ -5723,6 +6502,10 @@ namespace LayoutFarm.CefBridge.Auto
             return ret_result;
             /*3043*/
         }
+        /// <summary>
+        /// Returns true if this is an element node.
+        /// /*cef()*/
+        /// </summary>
         /*3044*/
 
 
@@ -5741,6 +6524,10 @@ namespace LayoutFarm.CefBridge.Auto
             return ret_result;
             /*3050*/
         }
+        /// <summary>
+        /// Returns true if this is an editable node.
+        /// /*cef()*/
+        /// </summary>
         /*3051*/
 
 
@@ -5759,6 +6546,10 @@ namespace LayoutFarm.CefBridge.Auto
             return ret_result;
             /*3057*/
         }
+        /// <summary>
+        /// Returns true if this is a form control element node.
+        /// /*cef()*/
+        /// </summary>
         /*3058*/
 
 
@@ -5777,6 +6568,10 @@ namespace LayoutFarm.CefBridge.Auto
             return ret_result;
             /*3064*/
         }
+        /// <summary>
+        /// Returns the type of this form control element node.
+        /// /*cef()*/
+        /// </summary>
         /*3065*/
 
 
@@ -5795,6 +6590,11 @@ namespace LayoutFarm.CefBridge.Auto
             return ret_result;
             /*3071*/
         }
+        /// <summary>
+        /// Returns true if this object is pointing to the same handle as |that|
+        /// object.
+        /// /*cef()*/
+        /// </summary>
         /*3072*/
 
 
@@ -5816,6 +6616,10 @@ namespace LayoutFarm.CefBridge.Auto
             return ret_result;
             /*3079*/
         }
+        /// <summary>
+        /// Returns the name of this node.
+        /// /*cef()*/
+        /// </summary>
         /*3080*/
 
 
@@ -5834,6 +6638,10 @@ namespace LayoutFarm.CefBridge.Auto
             return ret_result;
             /*3086*/
         }
+        /// <summary>
+        /// Returns the value of this node.
+        /// /*cef()*/
+        /// </summary>
         /*3087*/
 
 
@@ -5852,6 +6660,10 @@ namespace LayoutFarm.CefBridge.Auto
             return ret_result;
             /*3093*/
         }
+        /// <summary>
+        /// Set the value of this node. Returns true on success.
+        /// /*cef()*/
+        /// </summary>
         /*3094*/
 
 
@@ -5878,6 +6690,10 @@ namespace LayoutFarm.CefBridge.Auto
             return ret_result;
             /*3103*/
         }
+        /// <summary>
+        /// Returns the contents of this node as markup.
+        /// /*cef()*/
+        /// </summary>
         /*3104*/
 
 
@@ -5896,6 +6712,10 @@ namespace LayoutFarm.CefBridge.Auto
             return ret_result;
             /*3110*/
         }
+        /// <summary>
+        /// Returns the document associated with this node.
+        /// /*cef()*/
+        /// </summary>
         /*3111*/
 
 
@@ -5914,6 +6734,10 @@ namespace LayoutFarm.CefBridge.Auto
             return ret_result;
             /*3117*/
         }
+        /// <summary>
+        /// Returns the parent node.
+        /// /*cef()*/
+        /// </summary>
         /*3118*/
 
 
@@ -5932,6 +6756,10 @@ namespace LayoutFarm.CefBridge.Auto
             return ret_result;
             /*3124*/
         }
+        /// <summary>
+        /// Returns the previous sibling node.
+        /// /*cef()*/
+        /// </summary>
         /*3125*/
 
 
@@ -5950,6 +6778,10 @@ namespace LayoutFarm.CefBridge.Auto
             return ret_result;
             /*3131*/
         }
+        /// <summary>
+        /// Returns the next sibling node.
+        /// /*cef()*/
+        /// </summary>
         /*3132*/
 
 
@@ -5968,6 +6800,10 @@ namespace LayoutFarm.CefBridge.Auto
             return ret_result;
             /*3138*/
         }
+        /// <summary>
+        /// Returns true if this node has child nodes.
+        /// /*cef()*/
+        /// </summary>
         /*3139*/
 
 
@@ -5986,6 +6822,10 @@ namespace LayoutFarm.CefBridge.Auto
             return ret_result;
             /*3145*/
         }
+        /// <summary>
+        /// Return the first child node.
+        /// /*cef()*/
+        /// </summary>
         /*3146*/
 
 
@@ -6004,6 +6844,10 @@ namespace LayoutFarm.CefBridge.Auto
             return ret_result;
             /*3152*/
         }
+        /// <summary>
+        /// Returns the last child node.
+        /// /*cef()*/
+        /// </summary>
         /*3153*/
 
 
@@ -6022,6 +6866,11 @@ namespace LayoutFarm.CefBridge.Auto
             return ret_result;
             /*3159*/
         }
+        /// <summary>
+        /// The following methods are valid only for element nodes.
+        /// Returns the tag name of this element.
+        /// /*cef()*/
+        /// </summary>
         /*3160*/
 
 
@@ -6040,6 +6889,10 @@ namespace LayoutFarm.CefBridge.Auto
             return ret_result;
             /*3166*/
         }
+        /// <summary>
+        /// Returns true if this element has attributes.
+        /// /*cef()*/
+        /// </summary>
         /*3167*/
 
 
@@ -6058,6 +6911,10 @@ namespace LayoutFarm.CefBridge.Auto
             return ret_result;
             /*3173*/
         }
+        /// <summary>
+        /// Returns true if this element has an attribute named |attrName|.
+        /// /*cef()*/
+        /// </summary>
         /*3174*/
 
 
@@ -6084,6 +6941,10 @@ namespace LayoutFarm.CefBridge.Auto
             return ret_result;
             /*3183*/
         }
+        /// <summary>
+        /// Returns the element attribute named |attrName|.
+        /// /*cef()*/
+        /// </summary>
         /*3184*/
 
 
@@ -6110,6 +6971,10 @@ namespace LayoutFarm.CefBridge.Auto
             return ret_result;
             /*3193*/
         }
+        /// <summary>
+        /// Returns a map of all element attributes.
+        /// /*cef()*/
+        /// </summary>
         /*3194*/
 
 
@@ -6129,6 +6994,11 @@ namespace LayoutFarm.CefBridge.Auto
 
             /*3200*/
         }
+        /// <summary>
+        /// Set the value for the element attribute named |attrName|. Returns true on
+        /// success.
+        /// /*cef()*/
+        /// </summary>
         /*3201*/
 
 
@@ -6163,6 +7033,10 @@ namespace LayoutFarm.CefBridge.Auto
             return ret_result;
             /*3213*/
         }
+        /// <summary>
+        /// Returns the inner text of the element.
+        /// /*cef()*/
+        /// </summary>
         /*3214*/
 
 
@@ -6181,6 +7055,10 @@ namespace LayoutFarm.CefBridge.Auto
             return ret_result;
             /*3220*/
         }
+        /// <summary>
+        /// Returns the bounds of the element.
+        /// /*cef()*/
+        /// </summary>
         /*3221*/
 
 
@@ -6207,6 +7085,7 @@ namespace LayoutFarm.CefBridge.Auto
     // [virtual] class CefDownloadItem
     /// <summary>
     /// Class used to represent a download item.
+    /// /*(source=library)*/
     /// </summary>
     /*3322*/
     public struct CefDownloadItem
@@ -6267,6 +7146,9 @@ namespace LayoutFarm.CefBridge.Auto
             Cef3Binder.MyCefMet_Call0(this.nativePtr, CefDownloadItem_Release_0, out ret);
             /*3349*/
         }
+        /// <summary>
+        /// CefDownloadItem methods.
+        /// </summary>
         /*3350*/
 
 
@@ -6285,6 +7167,10 @@ namespace LayoutFarm.CefBridge.Auto
             return ret_result;
             /*3356*/
         }
+        /// <summary>
+        /// Returns true if the download is in progress.
+        /// /*cef()*/
+        /// </summary>
         /*3357*/
 
 
@@ -6303,6 +7189,10 @@ namespace LayoutFarm.CefBridge.Auto
             return ret_result;
             /*3363*/
         }
+        /// <summary>
+        /// Returns true if the download is complete.
+        /// /*cef()*/
+        /// </summary>
         /*3364*/
 
 
@@ -6321,6 +7211,10 @@ namespace LayoutFarm.CefBridge.Auto
             return ret_result;
             /*3370*/
         }
+        /// <summary>
+        /// Returns true if the download has been canceled or interrupted.
+        /// /*cef()*/
+        /// </summary>
         /*3371*/
 
 
@@ -6339,6 +7233,10 @@ namespace LayoutFarm.CefBridge.Auto
             return ret_result;
             /*3377*/
         }
+        /// <summary>
+        /// Returns a simple speed estimate in bytes/s.
+        /// /*cef()*/
+        /// </summary>
         /*3378*/
 
 
@@ -6357,6 +7255,11 @@ namespace LayoutFarm.CefBridge.Auto
             return ret_result;
             /*3384*/
         }
+        /// <summary>
+        /// Returns the rough percent complete or -1 if the receive total size is
+        /// unknown.
+        /// /*cef()*/
+        /// </summary>
         /*3385*/
 
 
@@ -6375,6 +7278,10 @@ namespace LayoutFarm.CefBridge.Auto
             return ret_result;
             /*3391*/
         }
+        /// <summary>
+        /// Returns the total number of bytes.
+        /// /*cef()*/
+        /// </summary>
         /*3392*/
 
 
@@ -6393,6 +7300,10 @@ namespace LayoutFarm.CefBridge.Auto
             return ret_result;
             /*3398*/
         }
+        /// <summary>
+        /// Returns the number of received bytes.
+        /// /*cef()*/
+        /// </summary>
         /*3399*/
 
 
@@ -6411,6 +7322,10 @@ namespace LayoutFarm.CefBridge.Auto
             return ret_result;
             /*3405*/
         }
+        /// <summary>
+        /// Returns the time that the download started.
+        /// /*cef()*/
+        /// </summary>
         /*3406*/
 
 
@@ -6430,6 +7345,10 @@ namespace LayoutFarm.CefBridge.Auto
             return ret_result;
             /*3412*/
         }
+        /// <summary>
+        /// Returns the time that the download ended.
+        /// /*cef()*/
+        /// </summary>
         /*3413*/
 
 
@@ -6449,6 +7368,10 @@ namespace LayoutFarm.CefBridge.Auto
             return ret_result;
             /*3419*/
         }
+        /// <summary>
+        /// Returns the full path to the downloaded or downloading file.
+        /// /*cef()*/
+        /// </summary>
         /*3420*/
 
 
@@ -6467,6 +7390,10 @@ namespace LayoutFarm.CefBridge.Auto
             return ret_result;
             /*3426*/
         }
+        /// <summary>
+        /// Returns the unique identifier for this download.
+        /// /*cef()*/
+        /// </summary>
         /*3427*/
 
 
@@ -6485,6 +7412,10 @@ namespace LayoutFarm.CefBridge.Auto
             return ret_result;
             /*3433*/
         }
+        /// <summary>
+        /// Returns the URL.
+        /// /*cef()*/
+        /// </summary>
         /*3434*/
 
 
@@ -6503,6 +7434,10 @@ namespace LayoutFarm.CefBridge.Auto
             return ret_result;
             /*3440*/
         }
+        /// <summary>
+        /// Returns the original URL before any redirections.
+        /// /*cef()*/
+        /// </summary>
         /*3441*/
 
 
@@ -6521,6 +7456,10 @@ namespace LayoutFarm.CefBridge.Auto
             return ret_result;
             /*3447*/
         }
+        /// <summary>
+        /// Returns the suggested file name.
+        /// /*cef()*/
+        /// </summary>
         /*3448*/
 
 
@@ -6539,6 +7478,10 @@ namespace LayoutFarm.CefBridge.Auto
             return ret_result;
             /*3454*/
         }
+        /// <summary>
+        /// Returns the content disposition.
+        /// /*cef()*/
+        /// </summary>
         /*3455*/
 
 
@@ -6557,6 +7500,10 @@ namespace LayoutFarm.CefBridge.Auto
             return ret_result;
             /*3461*/
         }
+        /// <summary>
+        /// Returns the mime type.
+        /// /*cef()*/
+        /// </summary>
         /*3462*/
 
 
@@ -6583,6 +7530,7 @@ namespace LayoutFarm.CefBridge.Auto
     /// <summary>
     /// Class used to represent drag data. The methods of this class may be called
     /// on any thread.
+    /// /*(source=library)*/
     /// </summary>
     /*3603*/
     public struct CefDragData
@@ -6659,6 +7607,9 @@ namespace LayoutFarm.CefBridge.Auto
             Cef3Binder.MyCefMet_Call0(this.nativePtr, CefDragData_Release_0, out ret);
             /*3638*/
         }
+        /// <summary>
+        /// CefDragData methods.
+        /// </summary>
         /*3639*/
 
 
@@ -6677,6 +7628,10 @@ namespace LayoutFarm.CefBridge.Auto
             return ret_result;
             /*3645*/
         }
+        /// <summary>
+        /// Returns true if this object is read-only.
+        /// /*cef()*/
+        /// </summary>
         /*3646*/
 
 
@@ -6695,6 +7650,10 @@ namespace LayoutFarm.CefBridge.Auto
             return ret_result;
             /*3652*/
         }
+        /// <summary>
+        /// Returns true if the drag data is a link.
+        /// /*cef()*/
+        /// </summary>
         /*3653*/
 
 
@@ -6713,6 +7672,10 @@ namespace LayoutFarm.CefBridge.Auto
             return ret_result;
             /*3659*/
         }
+        /// <summary>
+        /// Returns true if the drag data is a text or html fragment.
+        /// /*cef()*/
+        /// </summary>
         /*3660*/
 
 
@@ -6731,6 +7694,10 @@ namespace LayoutFarm.CefBridge.Auto
             return ret_result;
             /*3666*/
         }
+        /// <summary>
+        /// Returns true if the drag data is a file.
+        /// /*cef()*/
+        /// </summary>
         /*3667*/
 
 
@@ -6749,6 +7716,10 @@ namespace LayoutFarm.CefBridge.Auto
             return ret_result;
             /*3673*/
         }
+        /// <summary>
+        /// Return the link URL that is being dragged.
+        /// /*cef()*/
+        /// </summary>
         /*3674*/
 
 
@@ -6767,6 +7738,10 @@ namespace LayoutFarm.CefBridge.Auto
             return ret_result;
             /*3680*/
         }
+        /// <summary>
+        /// Return the title associated with the link being dragged.
+        /// /*cef()*/
+        /// </summary>
         /*3681*/
 
 
@@ -6785,6 +7760,10 @@ namespace LayoutFarm.CefBridge.Auto
             return ret_result;
             /*3687*/
         }
+        /// <summary>
+        /// Return the metadata, if any, associated with the link being dragged.
+        /// /*cef()*/
+        /// </summary>
         /*3688*/
 
 
@@ -6803,6 +7782,10 @@ namespace LayoutFarm.CefBridge.Auto
             return ret_result;
             /*3694*/
         }
+        /// <summary>
+        /// Return the plain text fragment that is being dragged.
+        /// /*cef()*/
+        /// </summary>
         /*3695*/
 
 
@@ -6821,6 +7804,10 @@ namespace LayoutFarm.CefBridge.Auto
             return ret_result;
             /*3701*/
         }
+        /// <summary>
+        /// Return the text/html fragment that is being dragged.
+        /// /*cef()*/
+        /// </summary>
         /*3702*/
 
 
@@ -6839,6 +7826,11 @@ namespace LayoutFarm.CefBridge.Auto
             return ret_result;
             /*3708*/
         }
+        /// <summary>
+        /// Return the base URL that the fragment came from. This value is used for
+        /// resolving relative URLs and may be empty.
+        /// /*cef()*/
+        /// </summary>
         /*3709*/
 
 
@@ -6857,6 +7849,10 @@ namespace LayoutFarm.CefBridge.Auto
             return ret_result;
             /*3715*/
         }
+        /// <summary>
+        /// Return the name of the file being dragged out of the browser window.
+        /// /*cef()*/
+        /// </summary>
         /*3716*/
 
 
@@ -6875,6 +7871,13 @@ namespace LayoutFarm.CefBridge.Auto
             return ret_result;
             /*3722*/
         }
+        /// <summary>
+        /// Write the contents of the file being dragged out of the web view into
+        /// |writer|. Returns the number of bytes sent to |writer|. If |writer| is
+        /// NULL this method will return the size of the file contents in bytes.
+        /// Call GetFileName() to get a suggested name for the file.
+        /// /*cef(optional_param=writer)*/
+        /// </summary>
         /*3723*/
 
 
@@ -6896,6 +7899,11 @@ namespace LayoutFarm.CefBridge.Auto
             return ret_result;
             /*3730*/
         }
+        /// <summary>
+        /// Retrieve the list of file names that are being dragged into the browser
+        /// window.
+        /// /*cef()*/
+        /// </summary>
         /*3731*/
 
 
@@ -6917,6 +7925,10 @@ namespace LayoutFarm.CefBridge.Auto
             return ret_result;
             /*3738*/
         }
+        /// <summary>
+        /// Set the link URL that is being dragged.
+        /// /*cef(optional_param=url)*/
+        /// </summary>
         /*3739*/
 
 
@@ -6941,6 +7953,10 @@ namespace LayoutFarm.CefBridge.Auto
             ;
             /*3747*/
         }
+        /// <summary>
+        /// Set the title associated with the link being dragged.
+        /// /*cef(optional_param=title)*/
+        /// </summary>
         /*3748*/
 
 
@@ -6965,6 +7981,10 @@ namespace LayoutFarm.CefBridge.Auto
             ;
             /*3756*/
         }
+        /// <summary>
+        /// Set the metadata associated with the link being dragged.
+        /// /*cef(optional_param=data)*/
+        /// </summary>
         /*3757*/
 
 
@@ -6989,6 +8009,10 @@ namespace LayoutFarm.CefBridge.Auto
             ;
             /*3765*/
         }
+        /// <summary>
+        /// Set the plain text fragment that is being dragged.
+        /// /*cef(optional_param=text)*/
+        /// </summary>
         /*3766*/
 
 
@@ -7013,6 +8037,10 @@ namespace LayoutFarm.CefBridge.Auto
             ;
             /*3774*/
         }
+        /// <summary>
+        /// Set the text/html fragment that is being dragged.
+        /// /*cef(optional_param=html)*/
+        /// </summary>
         /*3775*/
 
 
@@ -7037,6 +8065,10 @@ namespace LayoutFarm.CefBridge.Auto
             ;
             /*3783*/
         }
+        /// <summary>
+        /// Set the base URL that the fragment came from.
+        /// /*cef(optional_param=base_url)*/
+        /// </summary>
         /*3784*/
 
 
@@ -7061,6 +8093,12 @@ namespace LayoutFarm.CefBridge.Auto
             ;
             /*3792*/
         }
+        /// <summary>
+        /// Reset the file contents. You should do this before calling
+        /// CefBrowserHost::DragTargetDragEnter as the web view does not allow us to
+        /// drag in this kind of data.
+        /// /*cef()*/
+        /// </summary>
         /*3793*/
 
 
@@ -7077,6 +8115,10 @@ namespace LayoutFarm.CefBridge.Auto
 
             /*3798*/
         }
+        /// <summary>
+        /// Add a file that is being dragged into the webview.
+        /// /*cef(optional_param=display_name)*/
+        /// </summary>
         /*3799*/
 
 
@@ -7109,6 +8151,11 @@ namespace LayoutFarm.CefBridge.Auto
             ;
             /*3810*/
         }
+        /// <summary>
+        /// Get the image representation of drag data. May return NULL if no image
+        /// representation is available.
+        /// /*cef()*/
+        /// </summary>
         /*3811*/
 
 
@@ -7127,6 +8174,10 @@ namespace LayoutFarm.CefBridge.Auto
             return ret_result;
             /*3817*/
         }
+        /// <summary>
+        /// Get the image hotspot (drag start location relative to image dimensions).
+        /// /*cef()*/
+        /// </summary>
         /*3818*/
 
 
@@ -7146,6 +8197,10 @@ namespace LayoutFarm.CefBridge.Auto
             return ret_result;
             /*3824*/
         }
+        /// <summary>
+        /// Returns true if an image representation of drag data is available.
+        /// /*cef()*/
+        /// </summary>
         /*3825*/
 
 
@@ -7174,6 +8229,7 @@ namespace LayoutFarm.CefBridge.Auto
     /// browser process the methods of this class may be called on any thread unless
     /// otherwise indicated in the comments. When used in the render process the
     /// methods of this class may only be called on the main thread.
+    /// /*(source=library)*/
     /// </summary>
     /*3961*/
     public struct CefFrame
@@ -7248,6 +8304,9 @@ namespace LayoutFarm.CefBridge.Auto
             Cef3Binder.MyCefMet_Call0(this.nativePtr, CefFrame_Release_0, out ret);
             /*3995*/
         }
+        /// <summary>
+        /// CefFrame methods.
+        /// </summary>
         /*3996*/
 
 
@@ -7266,6 +8325,10 @@ namespace LayoutFarm.CefBridge.Auto
             return ret_result;
             /*4002*/
         }
+        /// <summary>
+        /// Execute undo in this frame.
+        /// /*cef()*/
+        /// </summary>
         /*4003*/
 
 
@@ -7282,6 +8345,10 @@ namespace LayoutFarm.CefBridge.Auto
 
             /*4008*/
         }
+        /// <summary>
+        /// Execute redo in this frame.
+        /// /*cef()*/
+        /// </summary>
         /*4009*/
 
 
@@ -7298,6 +8365,10 @@ namespace LayoutFarm.CefBridge.Auto
 
             /*4014*/
         }
+        /// <summary>
+        /// Execute cut in this frame.
+        /// /*cef()*/
+        /// </summary>
         /*4015*/
 
 
@@ -7314,6 +8385,10 @@ namespace LayoutFarm.CefBridge.Auto
 
             /*4020*/
         }
+        /// <summary>
+        /// Execute copy in this frame.
+        /// /*cef()*/
+        /// </summary>
         /*4021*/
 
 
@@ -7330,6 +8405,10 @@ namespace LayoutFarm.CefBridge.Auto
 
             /*4026*/
         }
+        /// <summary>
+        /// Execute paste in this frame.
+        /// /*cef()*/
+        /// </summary>
         /*4027*/
 
 
@@ -7346,6 +8425,10 @@ namespace LayoutFarm.CefBridge.Auto
 
             /*4032*/
         }
+        /// <summary>
+        /// Execute delete in this frame.
+        /// /*cef(capi_name=del)*/
+        /// </summary>
         /*4033*/
 
 
@@ -7362,6 +8445,10 @@ namespace LayoutFarm.CefBridge.Auto
 
             /*4038*/
         }
+        /// <summary>
+        /// Execute select all in this frame.
+        /// /*cef()*/
+        /// </summary>
         /*4039*/
 
 
@@ -7378,6 +8465,12 @@ namespace LayoutFarm.CefBridge.Auto
 
             /*4044*/
         }
+        /// <summary>
+        /// Save this frame's HTML source to a temporary file and open it in the
+        /// default text viewing application. This method can only be called from the
+        /// browser process.
+        /// /*cef()*/
+        /// </summary>
         /*4045*/
 
 
@@ -7394,6 +8487,11 @@ namespace LayoutFarm.CefBridge.Auto
 
             /*4050*/
         }
+        /// <summary>
+        /// Retrieve this frame's HTML source as a string sent to the specified
+        /// visitor.
+        /// /*cef()*/
+        /// </summary>
         /*4051*/
 
 
@@ -7413,6 +8511,11 @@ namespace LayoutFarm.CefBridge.Auto
 
             /*4057*/
         }
+        /// <summary>
+        /// Retrieve this frame's display text as a string sent to the specified
+        /// visitor.
+        /// /*cef()*/
+        /// </summary>
         /*4058*/
 
 
@@ -7432,6 +8535,10 @@ namespace LayoutFarm.CefBridge.Auto
 
             /*4064*/
         }
+        /// <summary>
+        /// Load the request represented by the |request| object.
+        /// /*cef()*/
+        /// </summary>
         /*4065*/
 
 
@@ -7451,6 +8558,10 @@ namespace LayoutFarm.CefBridge.Auto
 
             /*4071*/
         }
+        /// <summary>
+        /// Load the specified |url|.
+        /// /*cef()*/
+        /// </summary>
         /*4072*/
 
 
@@ -7475,6 +8586,12 @@ namespace LayoutFarm.CefBridge.Auto
             ;
             /*4080*/
         }
+        /// <summary>
+        /// Load the contents of |string_val| with the specified dummy |url|. |url|
+        /// should have a standard scheme (for example, http scheme) or behaviors like
+        /// link clicks and web security restrictions may not behave as expected.
+        /// /*cef()*/
+        /// </summary>
         /*4081*/
 
 
@@ -7507,6 +8624,14 @@ namespace LayoutFarm.CefBridge.Auto
             ;
             /*4092*/
         }
+        /// <summary>
+        /// Execute a string of JavaScript code in this frame. The |script_url|
+        /// parameter is the URL where the script in question can be found, if any.
+        /// The renderer may request this URL to show the developer the source of the
+        /// error.  The |start_line| parameter is the base line number to use for error
+        /// reporting.
+        /// /*cef(optional_param=script_url)*/
+        /// </summary>
         /*4093*/
 
 
@@ -7542,6 +8667,10 @@ namespace LayoutFarm.CefBridge.Auto
             ;
             /*4105*/
         }
+        /// <summary>
+        /// Returns true if this is the main (top-level) frame.
+        /// /*cef()*/
+        /// </summary>
         /*4106*/
 
 
@@ -7560,6 +8689,10 @@ namespace LayoutFarm.CefBridge.Auto
             return ret_result;
             /*4112*/
         }
+        /// <summary>
+        /// Returns true if this is the focused frame.
+        /// /*cef()*/
+        /// </summary>
         /*4113*/
 
 
@@ -7578,6 +8711,14 @@ namespace LayoutFarm.CefBridge.Auto
             return ret_result;
             /*4119*/
         }
+        /// <summary>
+        /// Returns the name for this frame. If the frame has an assigned name (for
+        /// example, set via the iframe "name" attribute) then that value will be
+        /// returned. Otherwise a unique name will be constructed based on the frame
+        /// parent hierarchy. The main (top-level) frame will always have an empty name
+        /// value.
+        /// /*cef()*/
+        /// </summary>
         /*4120*/
 
 
@@ -7596,6 +8737,11 @@ namespace LayoutFarm.CefBridge.Auto
             return ret_result;
             /*4126*/
         }
+        /// <summary>
+        /// Returns the globally unique identifier for this frame or < 0 if the
+        /// underlying frame does not yet exist.
+        /// /*cef()*/
+        /// </summary>
         /*4127*/
 
 
@@ -7614,6 +8760,11 @@ namespace LayoutFarm.CefBridge.Auto
             return ret_result;
             /*4133*/
         }
+        /// <summary>
+        /// Returns the parent of this frame or NULL if this is the main (top-level)
+        /// frame.
+        /// /*cef()*/
+        /// </summary>
         /*4134*/
 
 
@@ -7632,6 +8783,10 @@ namespace LayoutFarm.CefBridge.Auto
             return ret_result;
             /*4140*/
         }
+        /// <summary>
+        /// Returns the URL currently loaded in this frame.
+        /// /*cef()*/
+        /// </summary>
         /*4141*/
 
 
@@ -7650,6 +8805,10 @@ namespace LayoutFarm.CefBridge.Auto
             return ret_result;
             /*4147*/
         }
+        /// <summary>
+        /// Returns the browser that this frame belongs to.
+        /// /*cef()*/
+        /// </summary>
         /*4148*/
 
 
@@ -7668,6 +8827,11 @@ namespace LayoutFarm.CefBridge.Auto
             return ret_result;
             /*4154*/
         }
+        /// <summary>
+        /// Get the V8 context associated with the frame. This method can only be
+        /// called from the render process.
+        /// /*cef()*/
+        /// </summary>
         /*4155*/
 
 
@@ -7686,6 +8850,11 @@ namespace LayoutFarm.CefBridge.Auto
             return ret_result;
             /*4161*/
         }
+        /// <summary>
+        /// Visit the DOM document. This method can only be called from the render
+        /// process.
+        /// /*cef()*/
+        /// </summary>
         /*4162*/
 
 
@@ -7717,6 +8886,7 @@ namespace LayoutFarm.CefBridge.Auto
     /// then the image at scale factor 2.0 should be 200x200 pixels -- both images
     /// will display with a DIP size of 100x100 units. The methods of this class must
     /// be called on the browser process UI thread.
+    /// /*(source=library)*/
     /// </summary>
     /*4243*/
     public struct CefImage
@@ -7769,6 +8939,9 @@ namespace LayoutFarm.CefBridge.Auto
             Cef3Binder.MyCefMet_Call0(this.nativePtr, CefImage_Release_0, out ret);
             /*4266*/
         }
+        /// <summary>
+        /// CefImage methods.
+        /// </summary>
         /*4267*/
 
 
@@ -7787,6 +8960,11 @@ namespace LayoutFarm.CefBridge.Auto
             return ret_result;
             /*4273*/
         }
+        /// <summary>
+        /// Returns true if this Image and |that| Image share the same underlying
+        /// storage. Will also return true if both images are empty.
+        /// /*cef()*/
+        /// </summary>
         /*4274*/
 
 
@@ -7808,6 +8986,14 @@ namespace LayoutFarm.CefBridge.Auto
             return ret_result;
             /*4281*/
         }
+        /// <summary>
+        /// Add a bitmap image representation for |scale_factor|. Only 32-bit RGBA/BGRA
+        /// formats are supported. |pixel_width| and |pixel_height| are the bitmap
+        /// representation size in pixel coordinates. |pixel_data| is the array of
+        /// pixel data and should be |pixel_width| x |pixel_height| x 4 bytes in size.
+        /// |color_type| and |alpha_type| values specify the pixel format.
+        /// /*cef()*/
+        /// </summary>
         /*4282*/
 
 
@@ -7847,6 +9033,12 @@ namespace LayoutFarm.CefBridge.Auto
             return ret_result;
             /*4295*/
         }
+        /// <summary>
+        /// Add a PNG image representation for |scale_factor|. |png_data| is the image
+        /// data of size |png_data_size|. Any alpha transparency in the PNG data will
+        /// be maintained.
+        /// /*cef()*/
+        /// </summary>
         /*4296*/
 
 
@@ -7874,6 +9066,12 @@ namespace LayoutFarm.CefBridge.Auto
             return ret_result;
             /*4305*/
         }
+        /// <summary>
+        /// Create a JPEG image representation for |scale_factor|. |jpeg_data| is the
+        /// image data of size |jpeg_data_size|. The JPEG format does not support
+        /// transparency so the alpha byte will be set to 0xFF for all pixels.
+        /// /*cef()*/
+        /// </summary>
         /*4306*/
 
 
@@ -7901,6 +9099,10 @@ namespace LayoutFarm.CefBridge.Auto
             return ret_result;
             /*4315*/
         }
+        /// <summary>
+        /// Returns the image width in density independent pixel (DIP) units.
+        /// /*cef()*/
+        /// </summary>
         /*4316*/
 
 
@@ -7919,6 +9121,10 @@ namespace LayoutFarm.CefBridge.Auto
             return ret_result;
             /*4322*/
         }
+        /// <summary>
+        /// Returns the image height in density independent pixel (DIP) units.
+        /// /*cef()*/
+        /// </summary>
         /*4323*/
 
 
@@ -7937,6 +9143,10 @@ namespace LayoutFarm.CefBridge.Auto
             return ret_result;
             /*4329*/
         }
+        /// <summary>
+        /// Returns true if this image contains a representation for |scale_factor|.
+        /// /*cef()*/
+        /// </summary>
         /*4330*/
 
 
@@ -7958,6 +9168,10 @@ namespace LayoutFarm.CefBridge.Auto
             return ret_result;
             /*4337*/
         }
+        /// <summary>
+        /// Removes the representation for |scale_factor|. Returns true on success.
+        /// /*cef()*/
+        /// </summary>
         /*4338*/
 
 
@@ -7979,6 +9193,13 @@ namespace LayoutFarm.CefBridge.Auto
             return ret_result;
             /*4345*/
         }
+        /// <summary>
+        /// Returns information for the representation that most closely matches
+        /// |scale_factor|. |actual_scale_factor| is the actual scale factor for the
+        /// representation. |pixel_width| and |pixel_height| are the representation
+        /// size in pixel coordinates. Returns true on success.
+        /// /*cef()*/
+        /// </summary>
         /*4346*/
 
 
@@ -8015,6 +9236,15 @@ namespace LayoutFarm.CefBridge.Auto
             return ret_result;
             /*4359*/
         }
+        /// <summary>
+        /// Returns the bitmap representation that most closely matches |scale_factor|.
+        /// Only 32-bit RGBA/BGRA formats are supported. |color_type| and |alpha_type|
+        /// values specify the desired output pixel format. |pixel_width| and
+        /// |pixel_height| are the output representation size in pixel coordinates.
+        /// Returns a CefBinaryValue containing the pixel data on success or NULL on
+        /// failure.
+        /// /*cef()*/
+        /// </summary>
         /*4360*/
 
 
@@ -8052,6 +9282,14 @@ namespace LayoutFarm.CefBridge.Auto
             return ret_result;
             /*4373*/
         }
+        /// <summary>
+        /// Returns the PNG representation that most closely matches |scale_factor|. If
+        /// |with_transparency| is true any alpha transparency in the image will be
+        /// represented in the resulting PNG data. |pixel_width| and |pixel_height| are
+        /// the output representation size in pixel coordinates. Returns a
+        /// CefBinaryValue containing the PNG image data on success or NULL on failure.
+        /// /*cef()*/
+        /// </summary>
         /*4374*/
 
 
@@ -8086,6 +9324,16 @@ namespace LayoutFarm.CefBridge.Auto
             return ret_result;
             /*4386*/
         }
+        /// <summary>
+        /// Returns the JPEG representation that most closely matches |scale_factor|.
+        /// |quality| determines the compression level with 0 == lowest and 100 ==
+        /// highest. The JPEG format does not support alpha transparency and the alpha
+        /// channel, if any, will be discarded. |pixel_width| and |pixel_height| are
+        /// the output representation size in pixel coordinates. Returns a
+        /// CefBinaryValue containing the JPEG image data on success or NULL on
+        /// failure.
+        /// /*cef()*/
+        /// </summary>
         /*4387*/
 
 
@@ -8130,6 +9378,7 @@ namespace LayoutFarm.CefBridge.Auto
     /// command ids that have default implementations. All user-defined command ids
     /// should be between MENU_ID_USER_FIRST and MENU_ID_USER_LAST. The methods of
     /// this class can only be accessed on the browser process the UI thread.
+    /// /*(source=library)*/
     /// </summary>
     /*4689*/
     public struct CefMenuModel
@@ -8268,6 +9517,9 @@ namespace LayoutFarm.CefBridge.Auto
             Cef3Binder.MyCefMet_Call0(this.nativePtr, CefMenuModel_Release_0, out ret);
             /*4755*/
         }
+        /// <summary>
+        /// CefMenuModel methods.
+        /// </summary>
         /*4756*/
 
 
@@ -8286,6 +9538,10 @@ namespace LayoutFarm.CefBridge.Auto
             return ret_result;
             /*4762*/
         }
+        /// <summary>
+        /// Clears the menu. Returns true on success.
+        /// /*cef()*/
+        /// </summary>
         /*4763*/
 
 
@@ -8304,6 +9560,10 @@ namespace LayoutFarm.CefBridge.Auto
             return ret_result;
             /*4769*/
         }
+        /// <summary>
+        /// Returns the number of items in this menu.
+        /// /*cef()*/
+        /// </summary>
         /*4770*/
 
 
@@ -8322,6 +9582,10 @@ namespace LayoutFarm.CefBridge.Auto
             return ret_result;
             /*4776*/
         }
+        /// <summary>
+        /// Add a separator to the menu. Returns true on success.
+        /// /*cef()*/
+        /// </summary>
         /*4777*/
 
 
@@ -8340,6 +9604,10 @@ namespace LayoutFarm.CefBridge.Auto
             return ret_result;
             /*4783*/
         }
+        /// <summary>
+        /// Add an item to the menu. Returns true on success.
+        /// /*cef()*/
+        /// </summary>
         /*4784*/
 
 
@@ -8369,6 +9637,10 @@ namespace LayoutFarm.CefBridge.Auto
             return ret_result;
             /*4794*/
         }
+        /// <summary>
+        /// Add a check item to the menu. Returns true on success.
+        /// /*cef()*/
+        /// </summary>
         /*4795*/
 
 
@@ -8398,6 +9670,11 @@ namespace LayoutFarm.CefBridge.Auto
             return ret_result;
             /*4805*/
         }
+        /// <summary>
+        /// Add a radio item to the menu. Only a single item with the specified
+        /// |group_id| can be checked at a time. Returns true on success.
+        /// /*cef()*/
+        /// </summary>
         /*4806*/
 
 
@@ -8430,6 +9707,10 @@ namespace LayoutFarm.CefBridge.Auto
             return ret_result;
             /*4817*/
         }
+        /// <summary>
+        /// Add a sub-menu to the menu. The new sub-menu is returned.
+        /// /*cef()*/
+        /// </summary>
         /*4818*/
 
 
@@ -8459,6 +9740,11 @@ namespace LayoutFarm.CefBridge.Auto
             return ret_result;
             /*4828*/
         }
+        /// <summary>
+        /// Insert a separator in the menu at the specified |index|. Returns true on
+        /// success.
+        /// /*cef()*/
+        /// </summary>
         /*4829*/
 
 
@@ -8480,6 +9766,11 @@ namespace LayoutFarm.CefBridge.Auto
             return ret_result;
             /*4836*/
         }
+        /// <summary>
+        /// Insert an item in the menu at the specified |index|. Returns true on
+        /// success.
+        /// /*cef()*/
+        /// </summary>
         /*4837*/
 
 
@@ -8512,6 +9803,11 @@ namespace LayoutFarm.CefBridge.Auto
             return ret_result;
             /*4848*/
         }
+        /// <summary>
+        /// Insert a check item in the menu at the specified |index|. Returns true on
+        /// success.
+        /// /*cef()*/
+        /// </summary>
         /*4849*/
 
 
@@ -8544,6 +9840,12 @@ namespace LayoutFarm.CefBridge.Auto
             return ret_result;
             /*4860*/
         }
+        /// <summary>
+        /// Insert a radio item in the menu at the specified |index|. Only a single
+        /// item with the specified |group_id| can be checked at a time. Returns true
+        /// on success.
+        /// /*cef()*/
+        /// </summary>
         /*4861*/
 
 
@@ -8579,6 +9881,11 @@ namespace LayoutFarm.CefBridge.Auto
             return ret_result;
             /*4873*/
         }
+        /// <summary>
+        /// Insert a sub-menu in the menu at the specified |index|. The new sub-menu
+        /// is returned.
+        /// /*cef()*/
+        /// </summary>
         /*4874*/
 
 
@@ -8611,6 +9918,10 @@ namespace LayoutFarm.CefBridge.Auto
             return ret_result;
             /*4885*/
         }
+        /// <summary>
+        /// Removes the item with the specified |command_id|. Returns true on success.
+        /// /*cef()*/
+        /// </summary>
         /*4886*/
 
 
@@ -8632,6 +9943,10 @@ namespace LayoutFarm.CefBridge.Auto
             return ret_result;
             /*4893*/
         }
+        /// <summary>
+        /// Removes the item at the specified |index|. Returns true on success.
+        /// /*cef()*/
+        /// </summary>
         /*4894*/
 
 
@@ -8653,6 +9968,11 @@ namespace LayoutFarm.CefBridge.Auto
             return ret_result;
             /*4901*/
         }
+        /// <summary>
+        /// Returns the index associated with the specified |command_id| or -1 if not
+        /// found due to the command id not existing in the menu.
+        /// /*cef()*/
+        /// </summary>
         /*4902*/
 
 
@@ -8674,6 +9994,11 @@ namespace LayoutFarm.CefBridge.Auto
             return ret_result;
             /*4909*/
         }
+        /// <summary>
+        /// Returns the command id at the specified |index| or -1 if not found due to
+        /// invalid range or the index being a separator.
+        /// /*cef()*/
+        /// </summary>
         /*4910*/
 
 
@@ -8695,6 +10020,10 @@ namespace LayoutFarm.CefBridge.Auto
             return ret_result;
             /*4917*/
         }
+        /// <summary>
+        /// Sets the command id at the specified |index|. Returns true on success.
+        /// /*cef()*/
+        /// </summary>
         /*4918*/
 
 
@@ -8719,6 +10048,10 @@ namespace LayoutFarm.CefBridge.Auto
             return ret_result;
             /*4926*/
         }
+        /// <summary>
+        /// Returns the label for the specified |command_id| or empty if not found.
+        /// /*cef()*/
+        /// </summary>
         /*4927*/
 
 
@@ -8740,6 +10073,11 @@ namespace LayoutFarm.CefBridge.Auto
             return ret_result;
             /*4934*/
         }
+        /// <summary>
+        /// Returns the label at the specified |index| or empty if not found due to
+        /// invalid range or the index being a separator.
+        /// /*cef()*/
+        /// </summary>
         /*4935*/
 
 
@@ -8761,6 +10099,10 @@ namespace LayoutFarm.CefBridge.Auto
             return ret_result;
             /*4942*/
         }
+        /// <summary>
+        /// Sets the label for the specified |command_id|. Returns true on success.
+        /// /*cef()*/
+        /// </summary>
         /*4943*/
 
 
@@ -8790,6 +10132,10 @@ namespace LayoutFarm.CefBridge.Auto
             return ret_result;
             /*4953*/
         }
+        /// <summary>
+        /// Set the label at the specified |index|. Returns true on success.
+        /// /*cef()*/
+        /// </summary>
         /*4954*/
 
 
@@ -8819,6 +10165,10 @@ namespace LayoutFarm.CefBridge.Auto
             return ret_result;
             /*4964*/
         }
+        /// <summary>
+        /// Returns the item type for the specified |command_id|.
+        /// /*cef(default_retval=MENUITEMTYPE_NONE)*/
+        /// </summary>
         /*4965*/
 
 
@@ -8841,6 +10191,10 @@ namespace LayoutFarm.CefBridge.Auto
             return ret_result;
             /*4972*/
         }
+        /// <summary>
+        /// Returns the item type at the specified |index|.
+        /// /*cef(default_retval=MENUITEMTYPE_NONE)*/
+        /// </summary>
         /*4973*/
 
 
@@ -8863,6 +10217,10 @@ namespace LayoutFarm.CefBridge.Auto
             return ret_result;
             /*4980*/
         }
+        /// <summary>
+        /// Returns the group id for the specified |command_id| or -1 if invalid.
+        /// /*cef()*/
+        /// </summary>
         /*4981*/
 
 
@@ -8884,6 +10242,10 @@ namespace LayoutFarm.CefBridge.Auto
             return ret_result;
             /*4988*/
         }
+        /// <summary>
+        /// Returns the group id at the specified |index| or -1 if invalid.
+        /// /*cef()*/
+        /// </summary>
         /*4989*/
 
 
@@ -8905,6 +10267,10 @@ namespace LayoutFarm.CefBridge.Auto
             return ret_result;
             /*4996*/
         }
+        /// <summary>
+        /// Sets the group id for the specified |command_id|. Returns true on success.
+        /// /*cef()*/
+        /// </summary>
         /*4997*/
 
 
@@ -8929,6 +10295,10 @@ namespace LayoutFarm.CefBridge.Auto
             return ret_result;
             /*5005*/
         }
+        /// <summary>
+        /// Sets the group id at the specified |index|. Returns true on success.
+        /// /*cef()*/
+        /// </summary>
         /*5006*/
 
 
@@ -8953,6 +10323,10 @@ namespace LayoutFarm.CefBridge.Auto
             return ret_result;
             /*5014*/
         }
+        /// <summary>
+        /// Returns the submenu for the specified |command_id| or empty if invalid.
+        /// /*cef()*/
+        /// </summary>
         /*5015*/
 
 
@@ -8974,6 +10348,10 @@ namespace LayoutFarm.CefBridge.Auto
             return ret_result;
             /*5022*/
         }
+        /// <summary>
+        /// Returns the submenu at the specified |index| or empty if invalid.
+        /// /*cef()*/
+        /// </summary>
         /*5023*/
 
 
@@ -8995,6 +10373,10 @@ namespace LayoutFarm.CefBridge.Auto
             return ret_result;
             /*5030*/
         }
+        /// <summary>
+        /// Returns true if the specified |command_id| is visible.
+        /// /*cef()*/
+        /// </summary>
         /*5031*/
 
 
@@ -9016,6 +10398,10 @@ namespace LayoutFarm.CefBridge.Auto
             return ret_result;
             /*5038*/
         }
+        /// <summary>
+        /// Returns true if the specified |index| is visible.
+        /// /*cef()*/
+        /// </summary>
         /*5039*/
 
 
@@ -9037,6 +10423,11 @@ namespace LayoutFarm.CefBridge.Auto
             return ret_result;
             /*5046*/
         }
+        /// <summary>
+        /// Change the visibility of the specified |command_id|. Returns true on
+        /// success.
+        /// /*cef()*/
+        /// </summary>
         /*5047*/
 
 
@@ -9061,6 +10452,10 @@ namespace LayoutFarm.CefBridge.Auto
             return ret_result;
             /*5055*/
         }
+        /// <summary>
+        /// Change the visibility at the specified |index|. Returns true on success.
+        /// /*cef()*/
+        /// </summary>
         /*5056*/
 
 
@@ -9085,6 +10480,10 @@ namespace LayoutFarm.CefBridge.Auto
             return ret_result;
             /*5064*/
         }
+        /// <summary>
+        /// Returns true if the specified |command_id| is enabled.
+        /// /*cef()*/
+        /// </summary>
         /*5065*/
 
 
@@ -9106,6 +10505,10 @@ namespace LayoutFarm.CefBridge.Auto
             return ret_result;
             /*5072*/
         }
+        /// <summary>
+        /// Returns true if the specified |index| is enabled.
+        /// /*cef()*/
+        /// </summary>
         /*5073*/
 
 
@@ -9127,6 +10530,11 @@ namespace LayoutFarm.CefBridge.Auto
             return ret_result;
             /*5080*/
         }
+        /// <summary>
+        /// Change the enabled status of the specified |command_id|. Returns true on
+        /// success.
+        /// /*cef()*/
+        /// </summary>
         /*5081*/
 
 
@@ -9151,6 +10559,11 @@ namespace LayoutFarm.CefBridge.Auto
             return ret_result;
             /*5089*/
         }
+        /// <summary>
+        /// Change the enabled status at the specified |index|. Returns true on
+        /// success.
+        /// /*cef()*/
+        /// </summary>
         /*5090*/
 
 
@@ -9175,6 +10588,11 @@ namespace LayoutFarm.CefBridge.Auto
             return ret_result;
             /*5098*/
         }
+        /// <summary>
+        /// Returns true if the specified |command_id| is checked. Only applies to
+        /// check and radio items.
+        /// /*cef()*/
+        /// </summary>
         /*5099*/
 
 
@@ -9196,6 +10614,11 @@ namespace LayoutFarm.CefBridge.Auto
             return ret_result;
             /*5106*/
         }
+        /// <summary>
+        /// Returns true if the specified |index| is checked. Only applies to check
+        /// and radio items.
+        /// /*cef()*/
+        /// </summary>
         /*5107*/
 
 
@@ -9217,6 +10640,11 @@ namespace LayoutFarm.CefBridge.Auto
             return ret_result;
             /*5114*/
         }
+        /// <summary>
+        /// Check the specified |command_id|. Only applies to check and radio items.
+        /// Returns true on success.
+        /// /*cef()*/
+        /// </summary>
         /*5115*/
 
 
@@ -9241,6 +10669,11 @@ namespace LayoutFarm.CefBridge.Auto
             return ret_result;
             /*5123*/
         }
+        /// <summary>
+        /// Check the specified |index|. Only applies to check and radio items. Returns
+        /// true on success.
+        /// /*cef()*/
+        /// </summary>
         /*5124*/
 
 
@@ -9265,6 +10698,11 @@ namespace LayoutFarm.CefBridge.Auto
             return ret_result;
             /*5132*/
         }
+        /// <summary>
+        /// Returns true if the specified |command_id| has a keyboard accelerator
+        /// assigned.
+        /// /*cef()*/
+        /// </summary>
         /*5133*/
 
 
@@ -9286,6 +10724,10 @@ namespace LayoutFarm.CefBridge.Auto
             return ret_result;
             /*5140*/
         }
+        /// <summary>
+        /// Returns true if the specified |index| has a keyboard accelerator assigned.
+        /// /*cef()*/
+        /// </summary>
         /*5141*/
 
 
@@ -9307,6 +10749,11 @@ namespace LayoutFarm.CefBridge.Auto
             return ret_result;
             /*5148*/
         }
+        /// <summary>
+        /// Set the keyboard accelerator for the specified |command_id|. |key_code| can
+        /// be any virtual key or character value. Returns true on success.
+        /// /*cef()*/
+        /// </summary>
         /*5149*/
 
 
@@ -9340,6 +10787,11 @@ namespace LayoutFarm.CefBridge.Auto
             return ret_result;
             /*5160*/
         }
+        /// <summary>
+        /// Set the keyboard accelerator at the specified |index|. |key_code| can be
+        /// any virtual key or character value. Returns true on success.
+        /// /*cef()*/
+        /// </summary>
         /*5161*/
 
 
@@ -9373,6 +10825,11 @@ namespace LayoutFarm.CefBridge.Auto
             return ret_result;
             /*5172*/
         }
+        /// <summary>
+        /// Remove the keyboard accelerator for the specified |command_id|. Returns
+        /// true on success.
+        /// /*cef()*/
+        /// </summary>
         /*5173*/
 
 
@@ -9394,6 +10851,11 @@ namespace LayoutFarm.CefBridge.Auto
             return ret_result;
             /*5180*/
         }
+        /// <summary>
+        /// Remove the keyboard accelerator at the specified |index|. Returns true on
+        /// success.
+        /// /*cef()*/
+        /// </summary>
         /*5181*/
 
 
@@ -9415,6 +10877,11 @@ namespace LayoutFarm.CefBridge.Auto
             return ret_result;
             /*5188*/
         }
+        /// <summary>
+        /// Retrieves the keyboard accelerator for the specified |command_id|. Returns
+        /// true on success.
+        /// /*cef()*/
+        /// </summary>
         /*5189*/
 
 
@@ -9456,6 +10923,11 @@ namespace LayoutFarm.CefBridge.Auto
             return ret_result;
             /*5204*/
         }
+        /// <summary>
+        /// Retrieves the keyboard accelerator for the specified |index|. Returns true
+        /// on success.
+        /// /*cef()*/
+        /// </summary>
         /*5205*/
 
 
@@ -9497,6 +10969,13 @@ namespace LayoutFarm.CefBridge.Auto
             return ret_result;
             /*5220*/
         }
+        /// <summary>
+        /// Set the explicit color for |command_id| and |color_type| to |color|.
+        /// Specify a |color| value of 0 to remove the explicit color. If no explicit
+        /// color or default color is set for |color_type| then the system color will
+        /// be used. Returns true on success.
+        /// /*cef()*/
+        /// </summary>
         /*5221*/
 
 
@@ -9524,6 +11003,14 @@ namespace LayoutFarm.CefBridge.Auto
             return ret_result;
             /*5230*/
         }
+        /// <summary>
+        /// Set the explicit color for |command_id| and |index| to |color|. Specify a
+        /// |color| value of 0 to remove the explicit color. Specify an |index| value
+        /// of -1 to set the default color for items that do not have an explicit
+        /// color set. If no explicit color or default color is set for |color_type|
+        /// then the system color will be used. Returns true on success.
+        /// /*cef()*/
+        /// </summary>
         /*5231*/
 
 
@@ -9551,6 +11038,12 @@ namespace LayoutFarm.CefBridge.Auto
             return ret_result;
             /*5240*/
         }
+        /// <summary>
+        /// Returns in |color| the color that was explicitly set for |command_id| and
+        /// |color_type|. If a color was not set then 0 will be returned in |color|.
+        /// Returns true on success.
+        /// /*cef()*/
+        /// </summary>
         /*5241*/
 
 
@@ -9578,6 +11071,13 @@ namespace LayoutFarm.CefBridge.Auto
             return ret_result;
             /*5250*/
         }
+        /// <summary>
+        /// Returns in |color| the color that was explicitly set for |command_id| and
+        /// |color_type|. Specify an |index| value of -1 to return the default color
+        /// in |color|. If a color was not set then 0 will be returned in |color|.
+        /// Returns true on success.
+        /// /*cef()*/
+        /// </summary>
         /*5251*/
 
 
@@ -9605,6 +11105,20 @@ namespace LayoutFarm.CefBridge.Auto
             return ret_result;
             /*5260*/
         }
+        /// <summary>
+        /// Sets the font list for the specified |command_id|. If |font_list| is empty
+        /// the system font will be used. Returns true on success. The format is
+        /// "<FONT_FAMILY_LIST>,[STYLES] <SIZE>", where:
+        /// - FONT_FAMILY_LIST is a comma-separated list of font family names,
+        /// - STYLES is an optional space-separated list of style names (case-sensitive
+        ///   "Bold" and "Italic" are supported), and
+        /// - SIZE is an integer font size in pixels with the suffix "px".
+        ///
+        /// Here are examples of valid font description strings:
+        /// - "Arial, Helvetica, Bold Italic 14px"
+        /// - "Arial, 14px"
+        /// /*cef(optional_param=font_list)*/
+        /// </summary>
         /*5261*/
 
 
@@ -9634,6 +11148,21 @@ namespace LayoutFarm.CefBridge.Auto
             return ret_result;
             /*5271*/
         }
+        /// <summary>
+        /// Sets the font list for the specified |index|. Specify an |index| value of
+        /// -1 to set the default font. If |font_list| is empty the system font will
+        /// be used. Returns true on success. The format is
+        /// "<FONT_FAMILY_LIST>,[STYLES] <SIZE>", where:
+        /// - FONT_FAMILY_LIST is a comma-separated list of font family names,
+        /// - STYLES is an optional space-separated list of style names (case-sensitive
+        ///   "Bold" and "Italic" are supported), and
+        /// - SIZE is an integer font size in pixels with the suffix "px".
+        ///
+        /// Here are examples of valid font description strings:
+        /// - "Arial, Helvetica, Bold Italic 14px"
+        /// - "Arial, 14px"
+        /// /*cef(optional_param=font_list)*/
+        /// </summary>
         /*5272*/
 
 
@@ -9672,6 +11201,7 @@ namespace LayoutFarm.CefBridge.Auto
     /// Implement this interface to handle menu model events. The methods of this
     /// class will be called on the browser process UI thread unless otherwise
     /// indicated.
+    /// /*(source=client)*/
     /// </summary>
     /*5292*/
     public struct CefMenuModelDelegate
@@ -9705,6 +11235,7 @@ namespace LayoutFarm.CefBridge.Auto
     // [virtual] class CefNavigationEntry
     /// <summary>
     /// Class used to represent an entry in navigation history.
+    /// /*(source=library)*/
     /// </summary>
     /*5362*/
     public struct CefNavigationEntry
@@ -9751,6 +11282,9 @@ namespace LayoutFarm.CefBridge.Auto
             Cef3Binder.MyCefMet_Call0(this.nativePtr, CefNavigationEntry_Release_0, out ret);
             /*5382*/
         }
+        /// <summary>
+        /// CefNavigationEntry methods.
+        /// </summary>
         /*5383*/
 
 
@@ -9769,6 +11303,11 @@ namespace LayoutFarm.CefBridge.Auto
             return ret_result;
             /*5389*/
         }
+        /// <summary>
+        /// Returns the actual URL of the page. For some pages this may be data: URL or
+        /// similar. Use GetDisplayURL() to return a display-friendly version.
+        /// /*cef()*/
+        /// </summary>
         /*5390*/
 
 
@@ -9787,6 +11326,10 @@ namespace LayoutFarm.CefBridge.Auto
             return ret_result;
             /*5396*/
         }
+        /// <summary>
+        /// Returns a display-friendly version of the URL.
+        /// /*cef()*/
+        /// </summary>
         /*5397*/
 
 
@@ -9805,6 +11348,10 @@ namespace LayoutFarm.CefBridge.Auto
             return ret_result;
             /*5403*/
         }
+        /// <summary>
+        /// Returns the original URL that was entered by the user before any redirects.
+        /// /*cef()*/
+        /// </summary>
         /*5404*/
 
 
@@ -9823,6 +11370,10 @@ namespace LayoutFarm.CefBridge.Auto
             return ret_result;
             /*5410*/
         }
+        /// <summary>
+        /// Returns the title set by the page. This value may be empty.
+        /// /*cef()*/
+        /// </summary>
         /*5411*/
 
 
@@ -9841,6 +11392,11 @@ namespace LayoutFarm.CefBridge.Auto
             return ret_result;
             /*5417*/
         }
+        /// <summary>
+        /// Returns the transition type which indicates what the user did to move to
+        /// this page from the previous page.
+        /// /*cef(default_retval=TT_EXPLICIT)*/
+        /// </summary>
         /*5418*/
 
 
@@ -9860,6 +11416,10 @@ namespace LayoutFarm.CefBridge.Auto
             return ret_result;
             /*5424*/
         }
+        /// <summary>
+        /// Returns true if this navigation includes post data.
+        /// /*cef()*/
+        /// </summary>
         /*5425*/
 
 
@@ -9878,6 +11438,12 @@ namespace LayoutFarm.CefBridge.Auto
             return ret_result;
             /*5431*/
         }
+        /// <summary>
+        /// Returns the time for the last known successful navigation completion. A
+        /// navigation may be completed more than once if the page is reloaded. May be
+        /// 0 if the navigation has not yet completed.
+        /// /*cef()*/
+        /// </summary>
         /*5432*/
 
 
@@ -9897,6 +11463,12 @@ namespace LayoutFarm.CefBridge.Auto
             return ret_result;
             /*5438*/
         }
+        /// <summary>
+        /// Returns the HTTP status code for the last known successful navigation
+        /// response. May be 0 if the response has not yet been received or if the
+        /// navigation has not yet completed.
+        /// /*cef()*/
+        /// </summary>
         /*5439*/
 
 
@@ -9915,6 +11487,10 @@ namespace LayoutFarm.CefBridge.Auto
             return ret_result;
             /*5445*/
         }
+        /// <summary>
+        /// Returns the SSL information for this navigation entry.
+        /// /*cef()*/
+        /// </summary>
         /*5446*/
 
 
@@ -9940,6 +11516,7 @@ namespace LayoutFarm.CefBridge.Auto
     // [virtual] class CefPrintSettings
     /// <summary>
     /// Class representing print settings.
+    /// /*(source=library)*/
     /// </summary>
     /*5577*/
     public struct CefPrintSettings
@@ -10012,6 +11589,9 @@ namespace LayoutFarm.CefBridge.Auto
             Cef3Binder.MyCefMet_Call0(this.nativePtr, CefPrintSettings_Release_0, out ret);
             /*5610*/
         }
+        /// <summary>
+        /// CefPrintSettings methods.
+        /// </summary>
         /*5611*/
 
 
@@ -10030,6 +11610,11 @@ namespace LayoutFarm.CefBridge.Auto
             return ret_result;
             /*5617*/
         }
+        /// <summary>
+        /// Returns true if the values of this object are read-only. Some APIs may
+        /// expose read-only objects.
+        /// /*cef()*/
+        /// </summary>
         /*5618*/
 
 
@@ -10048,6 +11633,10 @@ namespace LayoutFarm.CefBridge.Auto
             return ret_result;
             /*5624*/
         }
+        /// <summary>
+        /// Returns a writable copy of this object.
+        /// /*cef()*/
+        /// </summary>
         /*5625*/
 
 
@@ -10066,6 +11655,10 @@ namespace LayoutFarm.CefBridge.Auto
             return ret_result;
             /*5631*/
         }
+        /// <summary>
+        /// Set the page orientation.
+        /// /*cef()*/
+        /// </summary>
         /*5632*/
 
 
@@ -10085,6 +11678,10 @@ namespace LayoutFarm.CefBridge.Auto
 
             /*5638*/
         }
+        /// <summary>
+        /// Returns true if the orientation is landscape.
+        /// /*cef()*/
+        /// </summary>
         /*5639*/
 
 
@@ -10103,6 +11700,12 @@ namespace LayoutFarm.CefBridge.Auto
             return ret_result;
             /*5645*/
         }
+        /// <summary>
+        /// Set the printer printable area in device units.
+        /// Some platforms already provide flipped area. Set |landscape_needs_flip|
+        /// to false on those platforms to avoid double flipping.
+        /// /*cef()*/
+        /// </summary>
         /*5646*/
 
 
@@ -10128,6 +11731,10 @@ namespace LayoutFarm.CefBridge.Auto
 
             /*5654*/
         }
+        /// <summary>
+        /// Set the device name.
+        /// /*cef(optional_param=name)*/
+        /// </summary>
         /*5655*/
 
 
@@ -10152,6 +11759,10 @@ namespace LayoutFarm.CefBridge.Auto
             ;
             /*5663*/
         }
+        /// <summary>
+        /// Get the device name.
+        /// /*cef()*/
+        /// </summary>
         /*5664*/
 
 
@@ -10170,6 +11781,10 @@ namespace LayoutFarm.CefBridge.Auto
             return ret_result;
             /*5670*/
         }
+        /// <summary>
+        /// Set the DPI (dots per inch).
+        /// /*cef()*/
+        /// </summary>
         /*5671*/
 
 
@@ -10189,6 +11804,10 @@ namespace LayoutFarm.CefBridge.Auto
 
             /*5677*/
         }
+        /// <summary>
+        /// Get the DPI (dots per inch).
+        /// /*cef()*/
+        /// </summary>
         /*5678*/
 
 
@@ -10207,6 +11826,10 @@ namespace LayoutFarm.CefBridge.Auto
             return ret_result;
             /*5684*/
         }
+        /// <summary>
+        /// Set the page ranges.
+        /// /*cef()*/
+        /// </summary>
         /*5685*/
 
 
@@ -10226,6 +11849,10 @@ namespace LayoutFarm.CefBridge.Auto
 
             /*5691*/
         }
+        /// <summary>
+        /// Returns the number of page ranges that currently exist.
+        /// /*cef()*/
+        /// </summary>
         /*5692*/
 
 
@@ -10244,6 +11871,10 @@ namespace LayoutFarm.CefBridge.Auto
             return ret_result;
             /*5698*/
         }
+        /// <summary>
+        /// Retrieve the page ranges.
+        /// /*cef(count_func=ranges:GetPageRangesCount)*/
+        /// </summary>
         /*5699*/
 
 
@@ -10263,6 +11894,10 @@ namespace LayoutFarm.CefBridge.Auto
 
             /*5705*/
         }
+        /// <summary>
+        /// Set whether only the selection will be printed.
+        /// /*cef()*/
+        /// </summary>
         /*5706*/
 
 
@@ -10282,6 +11917,10 @@ namespace LayoutFarm.CefBridge.Auto
 
             /*5712*/
         }
+        /// <summary>
+        /// Returns true if only the selection will be printed.
+        /// /*cef()*/
+        /// </summary>
         /*5713*/
 
 
@@ -10300,6 +11939,10 @@ namespace LayoutFarm.CefBridge.Auto
             return ret_result;
             /*5719*/
         }
+        /// <summary>
+        /// Set whether pages will be collated.
+        /// /*cef()*/
+        /// </summary>
         /*5720*/
 
 
@@ -10319,6 +11962,10 @@ namespace LayoutFarm.CefBridge.Auto
 
             /*5726*/
         }
+        /// <summary>
+        /// Returns true if pages will be collated.
+        /// /*cef()*/
+        /// </summary>
         /*5727*/
 
 
@@ -10337,6 +11984,10 @@ namespace LayoutFarm.CefBridge.Auto
             return ret_result;
             /*5733*/
         }
+        /// <summary>
+        /// Set the color model.
+        /// /*cef()*/
+        /// </summary>
         /*5734*/
 
 
@@ -10356,6 +12007,10 @@ namespace LayoutFarm.CefBridge.Auto
 
             /*5740*/
         }
+        /// <summary>
+        /// Get the color model.
+        /// /*cef(default_retval=COLOR_MODEL_UNKNOWN)*/
+        /// </summary>
         /*5741*/
 
 
@@ -10375,6 +12030,10 @@ namespace LayoutFarm.CefBridge.Auto
             return ret_result;
             /*5747*/
         }
+        /// <summary>
+        /// Set the number of copies.
+        /// /*cef()*/
+        /// </summary>
         /*5748*/
 
 
@@ -10394,6 +12053,10 @@ namespace LayoutFarm.CefBridge.Auto
 
             /*5754*/
         }
+        /// <summary>
+        /// Get the number of copies.
+        /// /*cef()*/
+        /// </summary>
         /*5755*/
 
 
@@ -10412,6 +12075,10 @@ namespace LayoutFarm.CefBridge.Auto
             return ret_result;
             /*5761*/
         }
+        /// <summary>
+        /// Set the duplex mode.
+        /// /*cef()*/
+        /// </summary>
         /*5762*/
 
 
@@ -10431,6 +12098,10 @@ namespace LayoutFarm.CefBridge.Auto
 
             /*5768*/
         }
+        /// <summary>
+        /// Get the duplex mode.
+        /// /*cef(default_retval=DUPLEX_MODE_UNKNOWN)*/
+        /// </summary>
         /*5769*/
 
 
@@ -10456,6 +12127,8 @@ namespace LayoutFarm.CefBridge.Auto
 
     // [virtual] class CefProcessMessage
     /// <summary>
+    /// Class representing a message. Can be used on any process and thread.
+    /// /*cef(source=library)*/
     /// </summary>
     /*5810*/
     public struct CefProcessMessage
@@ -10492,6 +12165,9 @@ namespace LayoutFarm.CefBridge.Auto
             Cef3Binder.MyCefMet_Call0(this.nativePtr, CefProcessMessage_Release_0, out ret);
             /*5825*/
         }
+        /// <summary>
+        /// CefProcessMessage methods.
+        /// </summary>
         /*5826*/
 
 
@@ -10510,6 +12186,11 @@ namespace LayoutFarm.CefBridge.Auto
             return ret_result;
             /*5832*/
         }
+        /// <summary>
+        /// Returns true if the values of this object are read-only. Some APIs may
+        /// expose read-only objects.
+        /// /*cef()*/
+        /// </summary>
         /*5833*/
 
 
@@ -10528,6 +12209,10 @@ namespace LayoutFarm.CefBridge.Auto
             return ret_result;
             /*5839*/
         }
+        /// <summary>
+        /// Returns a writable copy of this object.
+        /// /*cef()*/
+        /// </summary>
         /*5840*/
 
 
@@ -10546,6 +12231,10 @@ namespace LayoutFarm.CefBridge.Auto
             return ret_result;
             /*5846*/
         }
+        /// <summary>
+        /// Returns the message name.
+        /// /*cef()*/
+        /// </summary>
         /*5847*/
 
 
@@ -10564,6 +12253,10 @@ namespace LayoutFarm.CefBridge.Auto
             return ret_result;
             /*5853*/
         }
+        /// <summary>
+        /// Returns the list of arguments.
+        /// /*cef()*/
+        /// </summary>
         /*5854*/
 
 
@@ -10590,6 +12283,7 @@ namespace LayoutFarm.CefBridge.Auto
     /// <summary>
     /// Class used to represent a web request. The methods of this class may be
     /// called on any thread.
+    /// /*(source=library,no_debugct_check)*/
     /// </summary>
     /*5970*/
     public struct CefRequest
@@ -10656,6 +12350,9 @@ namespace LayoutFarm.CefBridge.Auto
             Cef3Binder.MyCefMet_Call0(this.nativePtr, CefRequest_Release_0, out ret);
             /*6000*/
         }
+        /// <summary>
+        /// CefRequest methods.
+        /// </summary>
         /*6001*/
 
 
@@ -10674,6 +12371,10 @@ namespace LayoutFarm.CefBridge.Auto
             return ret_result;
             /*6007*/
         }
+        /// <summary>
+        /// Get the fully qualified URL.
+        /// /*cef()*/
+        /// </summary>
         /*6008*/
 
 
@@ -10692,6 +12393,10 @@ namespace LayoutFarm.CefBridge.Auto
             return ret_result;
             /*6014*/
         }
+        /// <summary>
+        /// Set the fully qualified URL.
+        /// /*cef()*/
+        /// </summary>
         /*6015*/
 
 
@@ -10716,6 +12421,11 @@ namespace LayoutFarm.CefBridge.Auto
             ;
             /*6023*/
         }
+        /// <summary>
+        /// Get the request method type. The value will default to POST if post data
+        /// is provided and GET otherwise.
+        /// /*cef()*/
+        /// </summary>
         /*6024*/
 
 
@@ -10734,6 +12444,10 @@ namespace LayoutFarm.CefBridge.Auto
             return ret_result;
             /*6030*/
         }
+        /// <summary>
+        /// Set the request method type.
+        /// /*cef()*/
+        /// </summary>
         /*6031*/
 
 
@@ -10758,6 +12472,12 @@ namespace LayoutFarm.CefBridge.Auto
             ;
             /*6039*/
         }
+        /// <summary>
+        /// Set the referrer URL and policy. If non-empty the referrer URL must be
+        /// fully qualified with an HTTP or HTTPS scheme component. Any username,
+        /// password or ref component will be removed.
+        /// /*cef()*/
+        /// </summary>
         /*6040*/
 
 
@@ -10785,6 +12505,10 @@ namespace LayoutFarm.CefBridge.Auto
             ;
             /*6049*/
         }
+        /// <summary>
+        /// Get the referrer URL.
+        /// /*cef()*/
+        /// </summary>
         /*6050*/
 
 
@@ -10803,6 +12527,10 @@ namespace LayoutFarm.CefBridge.Auto
             return ret_result;
             /*6056*/
         }
+        /// <summary>
+        /// Get the referrer policy.
+        /// /*cef(default_retval=REFERRER_POLICY_DEFAULT)*/
+        /// </summary>
         /*6057*/
 
 
@@ -10822,6 +12550,10 @@ namespace LayoutFarm.CefBridge.Auto
             return ret_result;
             /*6063*/
         }
+        /// <summary>
+        /// Get the post data.
+        /// /*cef()*/
+        /// </summary>
         /*6064*/
 
 
@@ -10840,6 +12572,10 @@ namespace LayoutFarm.CefBridge.Auto
             return ret_result;
             /*6070*/
         }
+        /// <summary>
+        /// Set the post data.
+        /// /*cef()*/
+        /// </summary>
         /*6071*/
 
 
@@ -10859,6 +12595,10 @@ namespace LayoutFarm.CefBridge.Auto
 
             /*6077*/
         }
+        /// <summary>
+        /// Get the header values. Will not include the Referer value if any.
+        /// /*cef()*/
+        /// </summary>
         /*6078*/
 
 
@@ -10878,6 +12618,11 @@ namespace LayoutFarm.CefBridge.Auto
 
             /*6084*/
         }
+        /// <summary>
+        /// Set the header values. If a Referer value exists in the header map it will
+        /// be removed and ignored.
+        /// /*cef()*/
+        /// </summary>
         /*6085*/
 
 
@@ -10897,6 +12642,10 @@ namespace LayoutFarm.CefBridge.Auto
 
             /*6091*/
         }
+        /// <summary>
+        /// Set all values at one time.
+        /// /*cef(optional_param=postData)*/
+        /// </summary>
         /*6092*/
 
 
@@ -10935,6 +12684,11 @@ namespace LayoutFarm.CefBridge.Auto
             ;
             /*6105*/
         }
+        /// <summary>
+        /// Get the flags used in combination with CefURLRequest. See
+        /// cef_urlrequest_flags_t for supported values.
+        /// /*cef(default_retval=UR_FLAG_NONE)*/
+        /// </summary>
         /*6106*/
 
 
@@ -10953,6 +12707,11 @@ namespace LayoutFarm.CefBridge.Auto
             return ret_result;
             /*6112*/
         }
+        /// <summary>
+        /// Set the flags used in combination with CefURLRequest.  See
+        /// cef_urlrequest_flags_t for supported values.
+        /// /*cef()*/
+        /// </summary>
         /*6113*/
 
 
@@ -10972,6 +12731,11 @@ namespace LayoutFarm.CefBridge.Auto
 
             /*6119*/
         }
+        /// <summary>
+        /// Set the URL to the first party for cookies used in combination with
+        /// CefURLRequest.
+        /// /*cef()*/
+        /// </summary>
         /*6120*/
 
 
@@ -10990,6 +12754,11 @@ namespace LayoutFarm.CefBridge.Auto
             return ret_result;
             /*6126*/
         }
+        /// <summary>
+        /// Get the URL to the first party for cookies used in combination with
+        /// CefURLRequest.
+        /// /*cef()*/
+        /// </summary>
         /*6127*/
 
 
@@ -11014,6 +12783,11 @@ namespace LayoutFarm.CefBridge.Auto
             ;
             /*6135*/
         }
+        /// <summary>
+        /// Get the resource type for this request. Only available in the browser
+        /// process.
+        /// /*cef(default_retval=RT_SUB_RESOURCE)*/
+        /// </summary>
         /*6136*/
 
 
@@ -11033,6 +12807,12 @@ namespace LayoutFarm.CefBridge.Auto
             return ret_result;
             /*6142*/
         }
+        /// <summary>
+        /// Get the transition type for this request. Only available in the browser
+        /// process and only applies to requests that represent a main frame or
+        /// sub-frame navigation.
+        /// /*cef(default_retval=TT_EXPLICIT)*/
+        /// </summary>
         /*6143*/
 
 
@@ -11052,6 +12832,12 @@ namespace LayoutFarm.CefBridge.Auto
             return ret_result;
             /*6149*/
         }
+        /// <summary>
+        /// Returns the globally unique identifier for this request or 0 if not
+        /// specified. Can be used by CefRequestHandler implementations in the browser
+        /// process to track a single request across multiple callbacks.
+        /// /*cef()*/
+        /// </summary>
         /*6150*/
 
 
@@ -11078,6 +12864,7 @@ namespace LayoutFarm.CefBridge.Auto
     /// <summary>
     /// Class used to represent post data for a web request. The methods of this
     /// class may be called on any thread.
+    /// /*(source=library,no_debugct_check)*/
     /// </summary>
     /*6201*/
     public struct CefPostData
@@ -11118,6 +12905,9 @@ namespace LayoutFarm.CefBridge.Auto
             Cef3Binder.MyCefMet_Call0(this.nativePtr, CefPostData_Release_0, out ret);
             /*6218*/
         }
+        /// <summary>
+        /// CefPostData methods.
+        /// </summary>
         /*6219*/
 
 
@@ -11136,6 +12926,13 @@ namespace LayoutFarm.CefBridge.Auto
             return ret_result;
             /*6225*/
         }
+        /// <summary>
+        /// Returns true if the underlying POST data includes elements that are not
+        /// represented by this CefPostData object (for example, multi-part file upload
+        /// data). Modifying CefPostData objects with excluded elements may result in
+        /// the request failing.
+        /// /*cef()*/
+        /// </summary>
         /*6226*/
 
 
@@ -11154,6 +12951,10 @@ namespace LayoutFarm.CefBridge.Auto
             return ret_result;
             /*6232*/
         }
+        /// <summary>
+        /// Returns the number of existing post data elements.
+        /// /*cef()*/
+        /// </summary>
         /*6233*/
 
 
@@ -11172,6 +12973,10 @@ namespace LayoutFarm.CefBridge.Auto
             return ret_result;
             /*6239*/
         }
+        /// <summary>
+        /// Retrieve the post data elements.
+        /// /*cef(count_func=elements:GetElementCount)*/
+        /// </summary>
         /*6240*/
 
 
@@ -11191,6 +12996,11 @@ namespace LayoutFarm.CefBridge.Auto
 
             /*6246*/
         }
+        /// <summary>
+        /// Remove the specified post data element.  Returns true if the removal
+        /// succeeds.
+        /// /*cef()*/
+        /// </summary>
         /*6247*/
 
 
@@ -11212,6 +13022,10 @@ namespace LayoutFarm.CefBridge.Auto
             return ret_result;
             /*6254*/
         }
+        /// <summary>
+        /// Add the specified post data element.  Returns true if the add succeeds.
+        /// /*cef()*/
+        /// </summary>
         /*6255*/
 
 
@@ -11233,6 +13047,10 @@ namespace LayoutFarm.CefBridge.Auto
             return ret_result;
             /*6262*/
         }
+        /// <summary>
+        /// Remove all existing post data elements.
+        /// /*cef()*/
+        /// </summary>
         /*6263*/
 
 
@@ -11257,6 +13075,7 @@ namespace LayoutFarm.CefBridge.Auto
     /// <summary>
     /// Class used to represent a single element in the request post data. The
     /// methods of this class may be called on any thread.
+    /// /*(source=library,no_debugct_check)*/
     /// </summary>
     /*6318*/
     public struct CefPostDataElement
@@ -11299,6 +13118,9 @@ namespace LayoutFarm.CefBridge.Auto
             Cef3Binder.MyCefMet_Call0(this.nativePtr, CefPostDataElement_Release_0, out ret);
             /*6336*/
         }
+        /// <summary>
+        /// CefPostDataElement methods.
+        /// </summary>
         /*6337*/
 
 
@@ -11317,6 +13139,10 @@ namespace LayoutFarm.CefBridge.Auto
             return ret_result;
             /*6343*/
         }
+        /// <summary>
+        /// Remove all contents from the post data element.
+        /// /*cef()*/
+        /// </summary>
         /*6344*/
 
 
@@ -11333,6 +13159,10 @@ namespace LayoutFarm.CefBridge.Auto
 
             /*6349*/
         }
+        /// <summary>
+        /// The post data element will represent a file.
+        /// /*cef()*/
+        /// </summary>
         /*6350*/
 
 
@@ -11357,6 +13187,11 @@ namespace LayoutFarm.CefBridge.Auto
             ;
             /*6358*/
         }
+        /// <summary>
+        /// The post data element will represent bytes.  The bytes passed
+        /// in will be copied.
+        /// /*cef()*/
+        /// </summary>
         /*6359*/
 
 
@@ -11379,6 +13214,10 @@ namespace LayoutFarm.CefBridge.Auto
 
             /*6366*/
         }
+        /// <summary>
+        /// Return the type of this post data element.
+        /// /*cef(default_retval=PDE_TYPE_EMPTY)*/
+        /// </summary>
         /*6367*/
 
 
@@ -11398,6 +13237,10 @@ namespace LayoutFarm.CefBridge.Auto
             return ret_result;
             /*6373*/
         }
+        /// <summary>
+        /// Return the file name.
+        /// /*cef()*/
+        /// </summary>
         /*6374*/
 
 
@@ -11416,6 +13259,10 @@ namespace LayoutFarm.CefBridge.Auto
             return ret_result;
             /*6380*/
         }
+        /// <summary>
+        /// Return the number of bytes.
+        /// /*cef()*/
+        /// </summary>
         /*6381*/
 
 
@@ -11434,6 +13281,11 @@ namespace LayoutFarm.CefBridge.Auto
             return ret_result;
             /*6387*/
         }
+        /// <summary>
+        /// Read up to |size| bytes into |bytes| and return the number of bytes
+        /// actually read.
+        /// /*cef()*/
+        /// </summary>
         /*6388*/
 
 
@@ -11478,6 +13330,7 @@ namespace LayoutFarm.CefBridge.Auto
     /// in single-process mode will share the same request context. This will be the
     /// first request context passed into a CefBrowserHost static factory method and
     /// all other request context objects will be ignored.
+    /// /*(source=library,no_debugct_check)*/
     /// </summary>
     /*6496*/
     public struct CefRequestContext
@@ -11540,6 +13393,9 @@ namespace LayoutFarm.CefBridge.Auto
             Cef3Binder.MyCefMet_Call0(this.nativePtr, CefRequestContext_Release_0, out ret);
             /*6524*/
         }
+        /// <summary>
+        /// CefRequestContext methods.
+        /// </summary>
         /*6525*/
 
 
@@ -11561,6 +13417,10 @@ namespace LayoutFarm.CefBridge.Auto
             return ret_result;
             /*6532*/
         }
+        /// <summary>
+        /// Returns true if this object is sharing the same storage as |that| object.
+        /// /*cef()*/
+        /// </summary>
         /*6533*/
 
 
@@ -11582,6 +13442,12 @@ namespace LayoutFarm.CefBridge.Auto
             return ret_result;
             /*6540*/
         }
+        /// <summary>
+        /// Returns true if this object is the global context. The global context is
+        /// used by default when creating a browser or URL request with a NULL context
+        /// argument.
+        /// /*cef()*/
+        /// </summary>
         /*6541*/
 
 
@@ -11600,6 +13466,10 @@ namespace LayoutFarm.CefBridge.Auto
             return ret_result;
             /*6547*/
         }
+        /// <summary>
+        /// Returns the handler for this context if any.
+        /// /*cef()*/
+        /// </summary>
         /*6548*/
 
 
@@ -11618,6 +13488,11 @@ namespace LayoutFarm.CefBridge.Auto
             return ret_result;
             /*6554*/
         }
+        /// <summary>
+        /// Returns the cache path for this object. If empty an "incognito mode"
+        /// in-memory cache is being used.
+        /// /*cef()*/
+        /// </summary>
         /*6555*/
 
 
@@ -11636,6 +13511,15 @@ namespace LayoutFarm.CefBridge.Auto
             return ret_result;
             /*6561*/
         }
+        /// <summary>
+        /// Returns the default cookie manager for this object. This will be the global
+        /// cookie manager if this object is the global request context. Otherwise,
+        /// this will be the default cookie manager used when this request context does
+        /// not receive a value via CefRequestContextHandler::GetCookieManager(). If
+        /// |callback| is non-NULL it will be executed asnychronously on the IO thread
+        /// after the manager's storage has been initialized.
+        /// /*cef(optional_param=callback)*/
+        /// </summary>
         /*6562*/
 
 
@@ -11657,6 +13541,20 @@ namespace LayoutFarm.CefBridge.Auto
             return ret_result;
             /*6569*/
         }
+        /// <summary>
+        /// Register a scheme handler factory for the specified |scheme_name| and
+        /// optional |domain_name|. An empty |domain_name| value for a standard scheme
+        /// will cause the factory to match all domain names. The |domain_name| value
+        /// will be ignored for non-standard schemes. If |scheme_name| is a built-in
+        /// scheme and no handler is returned by |factory| then the built-in scheme
+        /// handler factory will be called. If |scheme_name| is a custom scheme then
+        /// you must also implement the CefApp::OnRegisterCustomSchemes() method in all
+        /// processes. This function may be called multiple times to change or remove
+        /// the factory that matches the specified |scheme_name| and optional
+        /// |domain_name|. Returns false if an error occurs. This function may be
+        /// called on any thread in the browser process.
+        /// /*cef(optional_param=domain_name,optional_param=factory)*/
+        /// </summary>
         /*6570*/
 
 
@@ -11694,6 +13592,11 @@ namespace LayoutFarm.CefBridge.Auto
             return ret_result;
             /*6583*/
         }
+        /// <summary>
+        /// Clear all registered scheme handler factories. Returns false on error. This
+        /// function may be called on any thread in the browser process.
+        /// /*cef()*/
+        /// </summary>
         /*6584*/
 
 
@@ -11712,6 +13615,13 @@ namespace LayoutFarm.CefBridge.Auto
             return ret_result;
             /*6590*/
         }
+        /// <summary>
+        /// Tells all renderer processes associated with this context to throw away
+        /// their plugin list cache. If |reload_pages| is true they will also reload
+        /// all pages with plugins. CefRequestContextHandler::OnBeforePluginLoad may
+        /// be called to rebuild the plugin list cache.
+        /// /*cef()*/
+        /// </summary>
         /*6591*/
 
 
@@ -11731,6 +13641,11 @@ namespace LayoutFarm.CefBridge.Auto
 
             /*6597*/
         }
+        /// <summary>
+        /// Returns true if a preference with the specified |name| exists. This method
+        /// must be called on the browser process UI thread.
+        /// /*cef()*/
+        /// </summary>
         /*6598*/
 
 
@@ -11757,6 +13672,14 @@ namespace LayoutFarm.CefBridge.Auto
             return ret_result;
             /*6607*/
         }
+        /// <summary>
+        /// Returns the value for the preference with the specified |name|. Returns
+        /// NULL if the preference does not exist. The returned object contains a copy
+        /// of the underlying preference value and modifications to the returned object
+        /// will not modify the underlying preference value. This method must be called
+        /// on the browser process UI thread.
+        /// /*cef()*/
+        /// </summary>
         /*6608*/
 
 
@@ -11783,6 +13706,15 @@ namespace LayoutFarm.CefBridge.Auto
             return ret_result;
             /*6617*/
         }
+        /// <summary>
+        /// Returns all preferences as a dictionary. If |include_defaults| is true then
+        /// preferences currently at their default value will be included. The returned
+        /// object contains a copy of the underlying preference values and
+        /// modifications to the returned object will not modify the underlying
+        /// preference values. This method must be called on the browser process UI
+        /// thread.
+        /// /*cef()*/
+        /// </summary>
         /*6618*/
 
 
@@ -11804,6 +13736,13 @@ namespace LayoutFarm.CefBridge.Auto
             return ret_result;
             /*6625*/
         }
+        /// <summary>
+        /// Returns true if the preference with the specified |name| can be modified
+        /// using SetPreference. As one example preferences set via the command-line
+        /// usually cannot be modified. This method must be called on the browser
+        /// process UI thread.
+        /// /*cef()*/
+        /// </summary>
         /*6626*/
 
 
@@ -11830,6 +13769,14 @@ namespace LayoutFarm.CefBridge.Auto
             return ret_result;
             /*6635*/
         }
+        /// <summary>
+        /// Set the |value| associated with preference |name|. Returns true if the
+        /// value is set successfully and false otherwise. If |value| is NULL the
+        /// preference will be restored to its default value. If setting the preference
+        /// fails then |error| will be populated with a detailed description of the
+        /// problem. This method must be called on the browser process UI thread.
+        /// /*cef(optional_param=value)*/
+        /// </summary>
         /*6636*/
 
 
@@ -11867,6 +13814,15 @@ namespace LayoutFarm.CefBridge.Auto
             return ret_result;
             /*6649*/
         }
+        /// <summary>
+        /// Clears all certificate exceptions that were added as part of handling
+        /// CefRequestHandler::OnCertificateError(). If you call this it is
+        /// recommended that you also call CloseAllConnections() or you risk not
+        /// being prompted again for server certificates if you reconnect quickly.
+        /// If |callback| is non-NULL it will be executed on the UI thread after
+        /// completion.
+        /// /*cef(optional_param=callback)*/
+        /// </summary>
         /*6650*/
 
 
@@ -11886,6 +13842,13 @@ namespace LayoutFarm.CefBridge.Auto
 
             /*6656*/
         }
+        /// <summary>
+        /// Clears all active and idle connections that Chromium currently has.
+        /// This is only recommended if you have released all other CEF objects but
+        /// don't yet want to call CefShutdown(). If |callback| is non-NULL it will be
+        /// executed on the UI thread after completion.
+        /// /*cef(optional_param=callback)*/
+        /// </summary>
         /*6657*/
 
 
@@ -11905,6 +13868,11 @@ namespace LayoutFarm.CefBridge.Auto
 
             /*6663*/
         }
+        /// <summary>
+        /// Attempts to resolve |origin| to a list of associated IP addresses.
+        /// |callback| will be executed on the UI thread after completion.
+        /// /*cef()*/
+        /// </summary>
         /*6664*/
 
 
@@ -11932,6 +13900,13 @@ namespace LayoutFarm.CefBridge.Auto
             ;
             /*6673*/
         }
+        /// <summary>
+        /// Attempts to resolve |origin| to a list of associated IP addresses using
+        /// cached data. |resolved_ips| will be populated with the list of resolved IP
+        /// addresses or empty if no cached data is available. Returns ERR_NONE on
+        /// success. This method must be called on the browser process IO thread.
+        /// /*cef(default_retval=ERR_FAILED)*/
+        /// </summary>
         /*6674*/
 
 
@@ -11973,6 +13948,7 @@ namespace LayoutFarm.CefBridge.Auto
     /// from CefApp::GetResourceBundleHandler. See CefSettings for additional options
     /// related to resource bundle loading. The methods of this class may be called
     /// on any thread unless otherwise indicated.
+    /// /*(source=library,no_debugct_check)*/
     /// </summary>
     /*6709*/
     public struct CefResourceBundle
@@ -12005,6 +13981,9 @@ namespace LayoutFarm.CefBridge.Auto
             Cef3Binder.MyCefMet_Call0(this.nativePtr, CefResourceBundle_Release_0, out ret);
             /*6722*/
         }
+        /// <summary>
+        /// CefResourceBundle methods.
+        /// </summary>
         /*6723*/
 
 
@@ -12026,6 +14005,15 @@ namespace LayoutFarm.CefBridge.Auto
             return ret_result;
             /*6730*/
         }
+        /// <summary>
+        /// Retrieves the contents of the specified scale independent |resource_id|.
+        /// If the value is found then |data| and |data_size| will be populated and
+        /// this method will return true. If the value is not found then this method
+        /// will return false. The returned |data| pointer will remain resident in
+        /// memory and should not be freed. Include cef_pack_resources.h for a listing
+        /// of valid resource ID values.
+        /// /*cef()*/
+        /// </summary>
         /*6731*/
 
 
@@ -12057,6 +14045,17 @@ namespace LayoutFarm.CefBridge.Auto
             return ret_result;
             /*6742*/
         }
+        /// <summary>
+        /// Retrieves the contents of the specified |resource_id| nearest the scale
+        /// factor |scale_factor|. Use a |scale_factor| value of SCALE_FACTOR_NONE for
+        /// scale independent resources or call GetDataResource instead. If the value
+        /// is found then |data| and |data_size| will be populated and this method will
+        /// return true. If the value is not found then this method will return false.
+        /// The returned |data| pointer will remain resident in memory and should not
+        /// be freed. Include cef_pack_resources.h for a listing of valid resource ID
+        /// values.
+        /// /*cef()*/
+        /// </summary>
         /*6743*/
 
 
@@ -12099,6 +14098,7 @@ namespace LayoutFarm.CefBridge.Auto
     /// <summary>
     /// Class used to represent a web response. The methods of this class may be
     /// called on any thread.
+    /// /*(source=library,no_debugct_check)*/
     /// </summary>
     /*6825*/
     public struct CefResponse
@@ -12149,6 +14149,9 @@ namespace LayoutFarm.CefBridge.Auto
             Cef3Binder.MyCefMet_Call0(this.nativePtr, CefResponse_Release_0, out ret);
             /*6847*/
         }
+        /// <summary>
+        /// CefResponse methods.
+        /// </summary>
         /*6848*/
 
 
@@ -12167,6 +14170,10 @@ namespace LayoutFarm.CefBridge.Auto
             return ret_result;
             /*6854*/
         }
+        /// <summary>
+        /// Get the response error code. Returns ERR_NONE if there was no error.
+        /// /*cef(default_retval=ERR_NONE)*/
+        /// </summary>
         /*6855*/
 
 
@@ -12186,6 +14193,11 @@ namespace LayoutFarm.CefBridge.Auto
             return ret_result;
             /*6861*/
         }
+        /// <summary>
+        /// Set the response error code. This can be used by custom scheme handlers
+        /// to return errors during initial request processing.
+        /// /*cef()*/
+        /// </summary>
         /*6862*/
 
 
@@ -12205,6 +14217,10 @@ namespace LayoutFarm.CefBridge.Auto
 
             /*6868*/
         }
+        /// <summary>
+        /// Get the response status code.
+        /// /*cef()*/
+        /// </summary>
         /*6869*/
 
 
@@ -12223,6 +14239,10 @@ namespace LayoutFarm.CefBridge.Auto
             return ret_result;
             /*6875*/
         }
+        /// <summary>
+        /// Set the response status code.
+        /// /*cef()*/
+        /// </summary>
         /*6876*/
 
 
@@ -12242,6 +14262,10 @@ namespace LayoutFarm.CefBridge.Auto
 
             /*6882*/
         }
+        /// <summary>
+        /// Get the response status text.
+        /// /*cef()*/
+        /// </summary>
         /*6883*/
 
 
@@ -12260,6 +14284,10 @@ namespace LayoutFarm.CefBridge.Auto
             return ret_result;
             /*6889*/
         }
+        /// <summary>
+        /// Set the response status text.
+        /// /*cef()*/
+        /// </summary>
         /*6890*/
 
 
@@ -12284,6 +14312,10 @@ namespace LayoutFarm.CefBridge.Auto
             ;
             /*6898*/
         }
+        /// <summary>
+        /// Get the response mime type.
+        /// /*cef()*/
+        /// </summary>
         /*6899*/
 
 
@@ -12302,6 +14334,10 @@ namespace LayoutFarm.CefBridge.Auto
             return ret_result;
             /*6905*/
         }
+        /// <summary>
+        /// Set the response mime type.
+        /// /*cef()*/
+        /// </summary>
         /*6906*/
 
 
@@ -12326,6 +14362,10 @@ namespace LayoutFarm.CefBridge.Auto
             ;
             /*6914*/
         }
+        /// <summary>
+        /// Get the value for the specified response header field.
+        /// /*cef()*/
+        /// </summary>
         /*6915*/
 
 
@@ -12352,6 +14392,10 @@ namespace LayoutFarm.CefBridge.Auto
             return ret_result;
             /*6924*/
         }
+        /// <summary>
+        /// Get all response header fields.
+        /// /*cef()*/
+        /// </summary>
         /*6925*/
 
 
@@ -12371,6 +14415,10 @@ namespace LayoutFarm.CefBridge.Auto
 
             /*6931*/
         }
+        /// <summary>
+        /// Set all response header fields.
+        /// /*cef()*/
+        /// </summary>
         /*6932*/
 
 
@@ -12398,6 +14446,7 @@ namespace LayoutFarm.CefBridge.Auto
     /// <summary>
     /// Implement this interface to filter resource response content. The methods of
     /// this class will be called on the browser process IO thread.
+    /// /*(source=client)*/
     /// </summary>
     /*6948*/
     public struct CefResponseFilter
@@ -12432,6 +14481,7 @@ namespace LayoutFarm.CefBridge.Auto
     /// <summary>
     /// Class that creates CefResourceHandler instances for handling scheme requests.
     /// The methods of this class will always be called on the IO thread.
+    /// /*(source=client)*/
     /// </summary>
     /*6968*/
     public struct CefSchemeHandlerFactory
@@ -12465,6 +14515,7 @@ namespace LayoutFarm.CefBridge.Auto
     // [virtual] class CefSSLInfo
     /// <summary>
     /// Class representing SSL information.
+    /// /*(source=library)*/
     /// </summary>
     /*6998*/
     public struct CefSSLInfo
@@ -12495,6 +14546,9 @@ namespace LayoutFarm.CefBridge.Auto
             Cef3Binder.MyCefMet_Call0(this.nativePtr, CefSSLInfo_Release_0, out ret);
             /*7010*/
         }
+        /// <summary>
+        /// CefSSLInfo methods.
+        /// </summary>
         /*7011*/
 
 
@@ -12514,6 +14568,10 @@ namespace LayoutFarm.CefBridge.Auto
             return ret_result;
             /*7017*/
         }
+        /// <summary>
+        /// Returns the X.509 certificate.
+        /// /*cef()*/
+        /// </summary>
         /*7018*/
 
 
@@ -12539,6 +14597,7 @@ namespace LayoutFarm.CefBridge.Auto
     // [virtual] class CefSSLStatus
     /// <summary>
     /// Class representing the SSL information for a navigation entry.
+    /// /*(source=library)*/
     /// </summary>
     /*7059*/
     public struct CefSSLStatus
@@ -12575,6 +14634,9 @@ namespace LayoutFarm.CefBridge.Auto
             Cef3Binder.MyCefMet_Call0(this.nativePtr, CefSSLStatus_Release_0, out ret);
             /*7074*/
         }
+        /// <summary>
+        /// CefSSLStatus methods.
+        /// </summary>
         /*7075*/
 
 
@@ -12593,6 +14655,11 @@ namespace LayoutFarm.CefBridge.Auto
             return ret_result;
             /*7081*/
         }
+        /// <summary>
+        /// Returns a bitmask containing any and all problems verifying the server
+        /// certificate.
+        /// /*cef(default_retval=CERT_STATUS_NONE)*/
+        /// </summary>
         /*7082*/
 
 
@@ -12612,6 +14679,10 @@ namespace LayoutFarm.CefBridge.Auto
             return ret_result;
             /*7088*/
         }
+        /// <summary>
+        /// Returns the SSL version used for the SSL connection.
+        /// /*cef(default_retval=SSL_CONNECTION_VERSION_UNKNOWN)*/
+        /// </summary>
         /*7089*/
 
 
@@ -12631,6 +14702,10 @@ namespace LayoutFarm.CefBridge.Auto
             return ret_result;
             /*7095*/
         }
+        /// <summary>
+        /// Returns a bitmask containing the page security content status.
+        /// /*cef(default_retval=SSL_CONTENT_NORMAL_CONTENT)*/
+        /// </summary>
         /*7096*/
 
 
@@ -12650,6 +14725,10 @@ namespace LayoutFarm.CefBridge.Auto
             return ret_result;
             /*7102*/
         }
+        /// <summary>
+        /// Returns the X.509 certificate.
+        /// /*cef()*/
+        /// </summary>
         /*7103*/
 
 
@@ -12676,6 +14755,7 @@ namespace LayoutFarm.CefBridge.Auto
     /// <summary>
     /// Class used to read data from a stream. The methods of this class may be
     /// called on any thread.
+    /// /*(source=library)*/
     /// </summary>
     /*7144*/
     public struct CefStreamReader
@@ -12712,6 +14792,9 @@ namespace LayoutFarm.CefBridge.Auto
             Cef3Binder.MyCefMet_Call0(this.nativePtr, CefStreamReader_Release_0, out ret);
             /*7159*/
         }
+        /// <summary>
+        /// CefStreamReader methods.
+        /// </summary>
         /*7160*/
 
 
@@ -12739,6 +14822,12 @@ namespace LayoutFarm.CefBridge.Auto
             return ret_result;
             /*7169*/
         }
+        /// <summary>
+        /// Seek to the specified offset position. |whence| may be any one of
+        /// SEEK_CUR, SEEK_END or SEEK_SET. Returns zero on success and non-zero on
+        /// failure.
+        /// /*cef()*/
+        /// </summary>
         /*7170*/
 
 
@@ -12763,6 +14852,10 @@ namespace LayoutFarm.CefBridge.Auto
             return ret_result;
             /*7178*/
         }
+        /// <summary>
+        /// Return the current offset position.
+        /// /*cef()*/
+        /// </summary>
         /*7179*/
 
 
@@ -12781,6 +14874,10 @@ namespace LayoutFarm.CefBridge.Auto
             return ret_result;
             /*7185*/
         }
+        /// <summary>
+        /// Return non-zero if at end of file.
+        /// /*cef()*/
+        /// </summary>
         /*7186*/
 
 
@@ -12799,6 +14896,12 @@ namespace LayoutFarm.CefBridge.Auto
             return ret_result;
             /*7192*/
         }
+        /// <summary>
+        /// Returns true if this reader performs work like accessing the file system
+        /// which may block. Used as a hint for determining the thread to access the
+        /// reader from.
+        /// /*cef()*/
+        /// </summary>
         /*7193*/
 
 
@@ -12825,6 +14928,7 @@ namespace LayoutFarm.CefBridge.Auto
     /// <summary>
     /// Class used to write data to a stream. The methods of this class may be called
     /// on any thread.
+    /// /*(source=library)*/
     /// </summary>
     /*7234*/
     public struct CefStreamWriter
@@ -12861,6 +14965,9 @@ namespace LayoutFarm.CefBridge.Auto
             Cef3Binder.MyCefMet_Call0(this.nativePtr, CefStreamWriter_Release_0, out ret);
             /*7249*/
         }
+        /// <summary>
+        /// CefStreamWriter methods.
+        /// </summary>
         /*7250*/
 
 
@@ -12888,6 +14995,12 @@ namespace LayoutFarm.CefBridge.Auto
             return ret_result;
             /*7259*/
         }
+        /// <summary>
+        /// Seek to the specified offset position. |whence| may be any one of
+        /// SEEK_CUR, SEEK_END or SEEK_SET. Returns zero on success and non-zero on
+        /// failure.
+        /// /*cef()*/
+        /// </summary>
         /*7260*/
 
 
@@ -12912,6 +15025,10 @@ namespace LayoutFarm.CefBridge.Auto
             return ret_result;
             /*7268*/
         }
+        /// <summary>
+        /// Return the current offset position.
+        /// /*cef()*/
+        /// </summary>
         /*7269*/
 
 
@@ -12930,6 +15047,10 @@ namespace LayoutFarm.CefBridge.Auto
             return ret_result;
             /*7275*/
         }
+        /// <summary>
+        /// Flush the stream.
+        /// /*cef()*/
+        /// </summary>
         /*7276*/
 
 
@@ -12948,6 +15069,12 @@ namespace LayoutFarm.CefBridge.Auto
             return ret_result;
             /*7282*/
         }
+        /// <summary>
+        /// Returns true if this writer performs work like accessing the file system
+        /// which may block. Used as a hint for determining the thread to access the
+        /// writer from.
+        /// /*cef()*/
+        /// </summary>
         /*7283*/
 
 
@@ -12973,6 +15100,7 @@ namespace LayoutFarm.CefBridge.Auto
     // [virtual] class CefStringVisitor
     /// <summary>
     /// Implement this interface to receive string values asynchronously.
+    /// /*(source=client)*/
     /// </summary>
     /*7299*/
     public struct CefStringVisitor
@@ -13005,6 +15133,13 @@ namespace LayoutFarm.CefBridge.Auto
 
     // [virtual] class CefTask
     /// <summary>
+    /// Implement this interface for asynchronous task execution. If the task is
+    /// posted successfully and if the associated message loop is still running then
+    /// the Execute() method will be called on the target thread. If the task fails
+    /// to post then the task object may be destroyed on the source thread instead of
+    /// the target thread. For this reason be cautious when performing work in the
+    /// task object destructor.
+    /// /*cef(source=client)*/
     /// </summary>
     /*7319*/
     public struct CefTask
@@ -13044,6 +15179,7 @@ namespace LayoutFarm.CefBridge.Auto
     /// types of tasks in different processes. The cef_thread_id_t definitions in
     /// cef_types.h list the common CEF threads. Task runners are also available for
     /// other CEF threads as appropriate (for example, V8 WebWorker threads).
+    /// /*(source=library)*/
     /// </summary>
     /*7364*/
     public struct CefTaskRunner
@@ -13080,6 +15216,9 @@ namespace LayoutFarm.CefBridge.Auto
             Cef3Binder.MyCefMet_Call0(this.nativePtr, CefTaskRunner_Release_0, out ret);
             /*7379*/
         }
+        /// <summary>
+        /// CefTaskRunner methods.
+        /// </summary>
         /*7380*/
 
 
@@ -13101,6 +15240,10 @@ namespace LayoutFarm.CefBridge.Auto
             return ret_result;
             /*7387*/
         }
+        /// <summary>
+        /// Returns true if this task runner belongs to the current thread.
+        /// /*cef()*/
+        /// </summary>
         /*7388*/
 
 
@@ -13119,6 +15262,10 @@ namespace LayoutFarm.CefBridge.Auto
             return ret_result;
             /*7394*/
         }
+        /// <summary>
+        /// Returns true if this task runner is for the specified CEF thread.
+        /// /*cef()*/
+        /// </summary>
         /*7395*/
 
 
@@ -13140,6 +15287,11 @@ namespace LayoutFarm.CefBridge.Auto
             return ret_result;
             /*7402*/
         }
+        /// <summary>
+        /// Post a task for execution on the thread associated with this task runner.
+        /// Execution will occur asynchronously.
+        /// /*cef()*/
+        /// </summary>
         /*7403*/
 
 
@@ -13161,6 +15313,13 @@ namespace LayoutFarm.CefBridge.Auto
             return ret_result;
             /*7410*/
         }
+        /// <summary>
+        /// Post a task for delayed execution on the thread associated with this task
+        /// runner. Execution will occur asynchronously. Delayed tasks are not
+        /// supported on V8 WebWorker threads and will be executed without the
+        /// specified delay.
+        /// /*cef()*/
+        /// </summary>
         /*7411*/
 
 
@@ -13196,6 +15355,7 @@ namespace LayoutFarm.CefBridge.Auto
     /// can be created on any valid CEF thread in either the browser or render
     /// process. Once created the methods of the URL request object must be accessed
     /// on the same thread that created it.
+    /// /*(source=library)*/
     /// </summary>
     /*7459*/
     public struct CefURLRequest
@@ -13234,6 +15394,9 @@ namespace LayoutFarm.CefBridge.Auto
             Cef3Binder.MyCefMet_Call0(this.nativePtr, CefURLRequest_Release_0, out ret);
             /*7475*/
         }
+        /// <summary>
+        /// CefURLRequest methods.
+        /// </summary>
         /*7476*/
 
 
@@ -13252,6 +15415,10 @@ namespace LayoutFarm.CefBridge.Auto
             return ret_result;
             /*7482*/
         }
+        /// <summary>
+        /// Returns the client.
+        /// /*cef()*/
+        /// </summary>
         /*7483*/
 
 
@@ -13270,6 +15437,10 @@ namespace LayoutFarm.CefBridge.Auto
             return ret_result;
             /*7489*/
         }
+        /// <summary>
+        /// Returns the request status.
+        /// /*cef(default_retval=UR_UNKNOWN)*/
+        /// </summary>
         /*7490*/
 
 
@@ -13289,6 +15460,11 @@ namespace LayoutFarm.CefBridge.Auto
             return ret_result;
             /*7496*/
         }
+        /// <summary>
+        /// Returns the request error if status is UR_CANCELED or UR_FAILED, or 0
+        /// otherwise.
+        /// /*cef(default_retval=ERR_NONE)*/
+        /// </summary>
         /*7497*/
 
 
@@ -13308,6 +15484,12 @@ namespace LayoutFarm.CefBridge.Auto
             return ret_result;
             /*7503*/
         }
+        /// <summary>
+        /// Returns the response, or NULL if no response information is available.
+        /// Response information will only be available after the upload has completed.
+        /// The returned object is read-only and should not be modified.
+        /// /*cef()*/
+        /// </summary>
         /*7504*/
 
 
@@ -13326,6 +15508,10 @@ namespace LayoutFarm.CefBridge.Auto
             return ret_result;
             /*7510*/
         }
+        /// <summary>
+        /// Cancel the request.
+        /// /*cef()*/
+        /// </summary>
         /*7511*/
 
 
@@ -13351,6 +15537,7 @@ namespace LayoutFarm.CefBridge.Auto
     /// Interface that should be implemented by the CefURLRequest client. The
     /// methods of this class will be called on the same thread that created the
     /// request unless otherwise documented.
+    /// /*(source=client)*/
     /// </summary>
     /*7526*/
     public struct CefURLRequestClient
@@ -13383,6 +15570,12 @@ namespace LayoutFarm.CefBridge.Auto
 
     // [virtual] class CefV8Context
     /// <summary>
+    /// Class representing a V8 context handle. V8 handles can only be accessed from
+    /// the thread on which they are created. Valid threads for creating a V8 handle
+    /// include the render process main thread (TID_RENDERER) and WebWorker threads.
+    /// A task runner for posting tasks on the associated thread can be retrieved via
+    /// the CefV8Context::GetTaskRunner() method.
+    /// /*cef(source=library)*/
     /// </summary>
     /*7591*/
     public struct CefV8Context
@@ -13427,6 +15620,9 @@ namespace LayoutFarm.CefBridge.Auto
             Cef3Binder.MyCefMet_Call0(this.nativePtr, CefV8Context_Release_0, out ret);
             /*7610*/
         }
+        /// <summary>
+        /// CefV8Context methods.
+        /// </summary>
         /*7611*/
 
 
@@ -13445,6 +15641,12 @@ namespace LayoutFarm.CefBridge.Auto
             return ret_result;
             /*7617*/
         }
+        /// <summary>
+        /// Returns true if the underlying handle is valid and it can be accessed on
+        /// the current thread. Do not call any other methods if this method returns
+        /// false.
+        /// /*cef()*/
+        /// </summary>
         /*7618*/
 
 
@@ -13463,6 +15665,11 @@ namespace LayoutFarm.CefBridge.Auto
             return ret_result;
             /*7624*/
         }
+        /// <summary>
+        /// Returns the browser for this context. This method will return an empty
+        /// reference for WebWorker contexts.
+        /// /*cef()*/
+        /// </summary>
         /*7625*/
 
 
@@ -13481,6 +15688,11 @@ namespace LayoutFarm.CefBridge.Auto
             return ret_result;
             /*7631*/
         }
+        /// <summary>
+        /// Returns the frame for this context. This method will return an empty
+        /// reference for WebWorker contexts.
+        /// /*cef()*/
+        /// </summary>
         /*7632*/
 
 
@@ -13499,6 +15711,11 @@ namespace LayoutFarm.CefBridge.Auto
             return ret_result;
             /*7638*/
         }
+        /// <summary>
+        /// Returns the global object for this context. The context must be entered
+        /// before calling this method.
+        /// /*cef()*/
+        /// </summary>
         /*7639*/
 
 
@@ -13517,6 +15734,14 @@ namespace LayoutFarm.CefBridge.Auto
             return ret_result;
             /*7645*/
         }
+        /// <summary>
+        /// Enter this context. A context must be explicitly entered before creating a
+        /// V8 Object, Array, Function or Date asynchronously. Exit() must be called
+        /// the same number of times as Enter() before releasing this context. V8
+        /// objects belong to the context in which they are created. Returns true if
+        /// the scope was entered successfully.
+        /// /*cef()*/
+        /// </summary>
         /*7646*/
 
 
@@ -13535,6 +15760,11 @@ namespace LayoutFarm.CefBridge.Auto
             return ret_result;
             /*7652*/
         }
+        /// <summary>
+        /// Exit this context. Call this method only after calling Enter(). Returns
+        /// true if the scope was exited successfully.
+        /// /*cef()*/
+        /// </summary>
         /*7653*/
 
 
@@ -13553,6 +15783,11 @@ namespace LayoutFarm.CefBridge.Auto
             return ret_result;
             /*7659*/
         }
+        /// <summary>
+        /// Returns true if this object is pointing to the same handle as |that|
+        /// object.
+        /// /*cef()*/
+        /// </summary>
         /*7660*/
 
 
@@ -13574,6 +15809,15 @@ namespace LayoutFarm.CefBridge.Auto
             return ret_result;
             /*7667*/
         }
+        /// <summary>
+        /// Execute a string of JavaScript code in this V8 context. The |script_url|
+        /// parameter is the URL where the script in question can be found, if any.
+        /// The |start_line| parameter is the base line number to use for error
+        /// reporting. On success |retval| will be set to the return value, if any, and
+        /// the function will return true. On failure |exception| will be set to the
+        /// exception, if any, and the function will return false.
+        /// /*cef(optional_param=script_url)*/
+        /// </summary>
         /*7668*/
 
 
@@ -13630,6 +15874,7 @@ namespace LayoutFarm.CefBridge.Auto
     /// Interface that should be implemented to handle V8 accessor calls. Accessor
     /// identifiers are registered by calling CefV8Value::SetValue(). The methods
     /// of this class will be called on the thread associated with the V8 accessor.
+    /// /*(source=client)*/
     /// </summary>
     /*7695*/
     public struct CefV8Accessor
@@ -13668,6 +15913,7 @@ namespace LayoutFarm.CefBridge.Auto
     /// type CefString) are called when object is indexed by string. Indexed property
     /// handlers (with first argument of type int) are called when object is indexed
     /// by integer.
+    /// /*(source=client)*/
     /// </summary>
     /*7715*/
     public struct CefV8Interceptor
@@ -13702,6 +15948,7 @@ namespace LayoutFarm.CefBridge.Auto
     /// <summary>
     /// Class representing a V8 exception. The methods of this class may be called on
     /// any render process thread.
+    /// /*(source=library)*/
     /// </summary>
     /*7775*/
     public struct CefV8Exception
@@ -13744,6 +15991,9 @@ namespace LayoutFarm.CefBridge.Auto
             Cef3Binder.MyCefMet_Call0(this.nativePtr, CefV8Exception_Release_0, out ret);
             /*7793*/
         }
+        /// <summary>
+        /// CefV8Exception methods.
+        /// </summary>
         /*7794*/
 
 
@@ -13762,6 +16012,10 @@ namespace LayoutFarm.CefBridge.Auto
             return ret_result;
             /*7800*/
         }
+        /// <summary>
+        /// Returns the line of source code that the exception occurred within.
+        /// /*cef()*/
+        /// </summary>
         /*7801*/
 
 
@@ -13780,6 +16034,11 @@ namespace LayoutFarm.CefBridge.Auto
             return ret_result;
             /*7807*/
         }
+        /// <summary>
+        /// Returns the resource name for the script from where the function causing
+        /// the error originates.
+        /// /*cef()*/
+        /// </summary>
         /*7808*/
 
 
@@ -13798,6 +16057,11 @@ namespace LayoutFarm.CefBridge.Auto
             return ret_result;
             /*7814*/
         }
+        /// <summary>
+        /// Returns the 1-based number of the line where the error occurred or 0 if the
+        /// line number is unknown.
+        /// /*cef()*/
+        /// </summary>
         /*7815*/
 
 
@@ -13816,6 +16080,11 @@ namespace LayoutFarm.CefBridge.Auto
             return ret_result;
             /*7821*/
         }
+        /// <summary>
+        /// Returns the index within the script of the first character where the error
+        /// occurred.
+        /// /*cef()*/
+        /// </summary>
         /*7822*/
 
 
@@ -13834,6 +16103,11 @@ namespace LayoutFarm.CefBridge.Auto
             return ret_result;
             /*7828*/
         }
+        /// <summary>
+        /// Returns the index within the script of the last character where the error
+        /// occurred.
+        /// /*cef()*/
+        /// </summary>
         /*7829*/
 
 
@@ -13852,6 +16126,11 @@ namespace LayoutFarm.CefBridge.Auto
             return ret_result;
             /*7835*/
         }
+        /// <summary>
+        /// Returns the index within the line of the first character where the error
+        /// occurred.
+        /// /*cef()*/
+        /// </summary>
         /*7836*/
 
 
@@ -13870,6 +16149,11 @@ namespace LayoutFarm.CefBridge.Auto
             return ret_result;
             /*7842*/
         }
+        /// <summary>
+        /// Returns the index within the line of the last character where the error
+        /// occurred.
+        /// /*cef()*/
+        /// </summary>
         /*7843*/
 
 
@@ -13899,6 +16183,7 @@ namespace LayoutFarm.CefBridge.Auto
     /// include the render process main thread (TID_RENDERER) and WebWorker threads.
     /// A task runner for posting tasks on the associated thread can be retrieved via
     /// the CefV8Context::GetTaskRunner() method.
+    /// /*(source=library)*/
     /// </summary>
     /*8079*/
     public struct CefV8Value
@@ -14013,6 +16298,9 @@ namespace LayoutFarm.CefBridge.Auto
             Cef3Binder.MyCefMet_Call0(this.nativePtr, CefV8Value_Release_0, out ret);
             /*8133*/
         }
+        /// <summary>
+        /// CefV8Value methods.
+        /// </summary>
         /*8134*/
 
 
@@ -14031,6 +16319,10 @@ namespace LayoutFarm.CefBridge.Auto
             return ret_result;
             /*8140*/
         }
+        /// <summary>
+        /// True if the value type is undefined.
+        /// /*cef()*/
+        /// </summary>
         /*8141*/
 
 
@@ -14049,6 +16341,10 @@ namespace LayoutFarm.CefBridge.Auto
             return ret_result;
             /*8147*/
         }
+        /// <summary>
+        /// True if the value type is null.
+        /// /*cef()*/
+        /// </summary>
         /*8148*/
 
 
@@ -14067,6 +16363,10 @@ namespace LayoutFarm.CefBridge.Auto
             return ret_result;
             /*8154*/
         }
+        /// <summary>
+        /// True if the value type is bool.
+        /// /*cef()*/
+        /// </summary>
         /*8155*/
 
 
@@ -14085,6 +16385,10 @@ namespace LayoutFarm.CefBridge.Auto
             return ret_result;
             /*8161*/
         }
+        /// <summary>
+        /// True if the value type is int.
+        /// /*cef()*/
+        /// </summary>
         /*8162*/
 
 
@@ -14103,6 +16407,10 @@ namespace LayoutFarm.CefBridge.Auto
             return ret_result;
             /*8168*/
         }
+        /// <summary>
+        /// True if the value type is unsigned int.
+        /// /*cef()*/
+        /// </summary>
         /*8169*/
 
 
@@ -14121,6 +16429,10 @@ namespace LayoutFarm.CefBridge.Auto
             return ret_result;
             /*8175*/
         }
+        /// <summary>
+        /// True if the value type is double.
+        /// /*cef()*/
+        /// </summary>
         /*8176*/
 
 
@@ -14139,6 +16451,10 @@ namespace LayoutFarm.CefBridge.Auto
             return ret_result;
             /*8182*/
         }
+        /// <summary>
+        /// True if the value type is Date.
+        /// /*cef()*/
+        /// </summary>
         /*8183*/
 
 
@@ -14157,6 +16473,10 @@ namespace LayoutFarm.CefBridge.Auto
             return ret_result;
             /*8189*/
         }
+        /// <summary>
+        /// True if the value type is string.
+        /// /*cef()*/
+        /// </summary>
         /*8190*/
 
 
@@ -14175,6 +16495,10 @@ namespace LayoutFarm.CefBridge.Auto
             return ret_result;
             /*8196*/
         }
+        /// <summary>
+        /// True if the value type is object.
+        /// /*cef()*/
+        /// </summary>
         /*8197*/
 
 
@@ -14193,6 +16517,10 @@ namespace LayoutFarm.CefBridge.Auto
             return ret_result;
             /*8203*/
         }
+        /// <summary>
+        /// True if the value type is array.
+        /// /*cef()*/
+        /// </summary>
         /*8204*/
 
 
@@ -14211,6 +16539,10 @@ namespace LayoutFarm.CefBridge.Auto
             return ret_result;
             /*8210*/
         }
+        /// <summary>
+        /// True if the value type is function.
+        /// /*cef()*/
+        /// </summary>
         /*8211*/
 
 
@@ -14229,6 +16561,11 @@ namespace LayoutFarm.CefBridge.Auto
             return ret_result;
             /*8217*/
         }
+        /// <summary>
+        /// Returns true if this object is pointing to the same handle as |that|
+        /// object.
+        /// /*cef()*/
+        /// </summary>
         /*8218*/
 
 
@@ -14250,6 +16587,10 @@ namespace LayoutFarm.CefBridge.Auto
             return ret_result;
             /*8225*/
         }
+        /// <summary>
+        /// Return a bool value.
+        /// /*cef()*/
+        /// </summary>
         /*8226*/
 
 
@@ -14268,6 +16609,10 @@ namespace LayoutFarm.CefBridge.Auto
             return ret_result;
             /*8232*/
         }
+        /// <summary>
+        /// Return an int value.
+        /// /*cef()*/
+        /// </summary>
         /*8233*/
 
 
@@ -14286,6 +16631,10 @@ namespace LayoutFarm.CefBridge.Auto
             return ret_result;
             /*8239*/
         }
+        /// <summary>
+        /// Return an unsigned int value.
+        /// /*cef()*/
+        /// </summary>
         /*8240*/
 
 
@@ -14304,6 +16653,10 @@ namespace LayoutFarm.CefBridge.Auto
             return ret_result;
             /*8246*/
         }
+        /// <summary>
+        /// Return a double value.
+        /// /*cef()*/
+        /// </summary>
         /*8247*/
 
 
@@ -14322,6 +16675,10 @@ namespace LayoutFarm.CefBridge.Auto
             return ret_result;
             /*8253*/
         }
+        /// <summary>
+        /// Return a Date value.
+        /// /*cef()*/
+        /// </summary>
         /*8254*/
 
 
@@ -14341,6 +16698,10 @@ namespace LayoutFarm.CefBridge.Auto
             return ret_result;
             /*8260*/
         }
+        /// <summary>
+        /// Return a string value.
+        /// /*cef()*/
+        /// </summary>
         /*8261*/
 
 
@@ -14359,6 +16720,13 @@ namespace LayoutFarm.CefBridge.Auto
             return ret_result;
             /*8267*/
         }
+        /// <summary>
+        /// OBJECT METHODS - These methods are only available on objects. Arrays and
+        /// functions are also objects. String- and integer-based keys can be used
+        /// interchangably with the framework converting between them as necessary.
+        /// Returns true if this is a user created object.
+        /// /*cef()*/
+        /// </summary>
         /*8268*/
 
 
@@ -14377,6 +16745,11 @@ namespace LayoutFarm.CefBridge.Auto
             return ret_result;
             /*8274*/
         }
+        /// <summary>
+        /// Returns true if the last method call resulted in an exception. This
+        /// attribute exists only in the scope of the current CEF value object.
+        /// /*cef()*/
+        /// </summary>
         /*8275*/
 
 
@@ -14395,6 +16768,11 @@ namespace LayoutFarm.CefBridge.Auto
             return ret_result;
             /*8281*/
         }
+        /// <summary>
+        /// Returns the exception resulting from the last method call. This attribute
+        /// exists only in the scope of the current CEF value object.
+        /// /*cef()*/
+        /// </summary>
         /*8282*/
 
 
@@ -14413,6 +16791,10 @@ namespace LayoutFarm.CefBridge.Auto
             return ret_result;
             /*8288*/
         }
+        /// <summary>
+        /// Clears the last exception and returns true on success.
+        /// /*cef()*/
+        /// </summary>
         /*8289*/
 
 
@@ -14431,6 +16813,11 @@ namespace LayoutFarm.CefBridge.Auto
             return ret_result;
             /*8295*/
         }
+        /// <summary>
+        /// Returns true if this object will re-throw future exceptions. This attribute
+        /// exists only in the scope of the current CEF value object.
+        /// /*cef()*/
+        /// </summary>
         /*8296*/
 
 
@@ -14449,6 +16836,14 @@ namespace LayoutFarm.CefBridge.Auto
             return ret_result;
             /*8302*/
         }
+        /// <summary>
+        /// Set whether this object will re-throw future exceptions. By default
+        /// exceptions are not re-thrown. If a exception is re-thrown the current
+        /// context should not be accessed again until after the exception has been
+        /// caught and not re-thrown. Returns true on success. This attribute exists
+        /// only in the scope of the current CEF value object.
+        /// /*cef()*/
+        /// </summary>
         /*8303*/
 
 
@@ -14699,6 +17094,11 @@ namespace LayoutFarm.CefBridge.Auto
             return ret_result;
             /*8397*/
         }
+        /// <summary>
+        /// Read the keys for the object's values into the specified vector. Integer-
+        /// based keys will also be returned as strings.
+        /// /*cef()*/
+        /// </summary>
         /*8398*/
 
 
@@ -14720,6 +17120,12 @@ namespace LayoutFarm.CefBridge.Auto
             return ret_result;
             /*8405*/
         }
+        /// <summary>
+        /// Sets the user data for this object and returns true on success. Returns
+        /// false if this method is called incorrectly. This method can only be called
+        /// on user created objects.
+        /// /*cef(optional_param=user_data)*/
+        /// </summary>
         /*8406*/
 
 
@@ -14741,6 +17147,10 @@ namespace LayoutFarm.CefBridge.Auto
             return ret_result;
             /*8413*/
         }
+        /// <summary>
+        /// Returns the user data, if any, assigned to this object.
+        /// /*cef()*/
+        /// </summary>
         /*8414*/
 
 
@@ -14759,6 +17169,11 @@ namespace LayoutFarm.CefBridge.Auto
             return ret_result;
             /*8420*/
         }
+        /// <summary>
+        /// Returns the amount of externally allocated memory registered for the
+        /// object.
+        /// /*cef()*/
+        /// </summary>
         /*8421*/
 
 
@@ -14777,6 +17192,18 @@ namespace LayoutFarm.CefBridge.Auto
             return ret_result;
             /*8427*/
         }
+        /// <summary>
+        /// Adjusts the amount of registered external memory for the object. Used to
+        /// give V8 an indication of the amount of externally allocated memory that is
+        /// kept alive by JavaScript objects. V8 uses this information to decide when
+        /// to perform global garbage collection. Each CefV8Value tracks the amount of
+        /// external memory associated with it and automatically decreases the global
+        /// total by the appropriate amount on its destruction. |change_in_bytes|
+        /// specifies the number of bytes to adjust by. This method returns the number
+        /// of bytes associated with the object after the adjustment. This method can
+        /// only be called on user created objects.
+        /// /*cef()*/
+        /// </summary>
         /*8428*/
 
 
@@ -14798,6 +17225,11 @@ namespace LayoutFarm.CefBridge.Auto
             return ret_result;
             /*8435*/
         }
+        /// <summary>
+        /// ARRAY METHODS - These methods are only available on arrays.
+        /// Returns the number of elements in the array.
+        /// /*cef()*/
+        /// </summary>
         /*8436*/
 
 
@@ -14816,6 +17248,11 @@ namespace LayoutFarm.CefBridge.Auto
             return ret_result;
             /*8442*/
         }
+        /// <summary>
+        /// FUNCTION METHODS - These methods are only available on functions.
+        /// Returns the function name.
+        /// /*cef()*/
+        /// </summary>
         /*8443*/
 
 
@@ -14834,6 +17271,10 @@ namespace LayoutFarm.CefBridge.Auto
             return ret_result;
             /*8449*/
         }
+        /// <summary>
+        /// Returns the function handler or NULL if not a CEF-created function.
+        /// /*cef()*/
+        /// </summary>
         /*8450*/
 
 
@@ -14852,6 +17293,17 @@ namespace LayoutFarm.CefBridge.Auto
             return ret_result;
             /*8456*/
         }
+        /// <summary>
+        /// Execute the function using the current V8 context. This method should only
+        /// be called from within the scope of a CefV8Handler or CefV8Accessor
+        /// callback, or in combination with calling Enter() and Exit() on a stored
+        /// CefV8Context reference. |object| is the receiver ('this' object) of the
+        /// function. If |object| is empty the current context's global object will be
+        /// used. |arguments| is the list of arguments that will be passed to the
+        /// function. Returns the function return value on success. Returns NULL if
+        /// this method is called incorrectly or an exception is thrown.
+        /// /*cef(optional_param=object)*/
+        /// </summary>
         /*8457*/
 
 
@@ -14876,6 +17328,15 @@ namespace LayoutFarm.CefBridge.Auto
             return ret_result;
             /*8465*/
         }
+        /// <summary>
+        /// Execute the function using the specified V8 context. |object| is the
+        /// receiver ('this' object) of the function. If |object| is empty the
+        /// specified context's global object will be used. |arguments| is the list of
+        /// arguments that will be passed to the function. Returns the function return
+        /// value on success. Returns NULL if this method is called incorrectly or an
+        /// exception is thrown.
+        /// /*cef(optional_param=object)*/
+        /// </summary>
         /*8466*/
 
 
@@ -14914,6 +17375,7 @@ namespace LayoutFarm.CefBridge.Auto
     /// handle include the render process main thread (TID_RENDERER) and WebWorker
     /// threads. A task runner for posting tasks on the associated thread can be
     /// retrieved via the CefV8Context::GetTaskRunner() method.
+    /// /*(source=library)*/
     /// </summary>
     /*8500*/
     public struct CefV8StackTrace
@@ -14946,6 +17408,9 @@ namespace LayoutFarm.CefBridge.Auto
             Cef3Binder.MyCefMet_Call0(this.nativePtr, CefV8StackTrace_Release_0, out ret);
             /*8513*/
         }
+        /// <summary>
+        /// CefV8StackTrace methods.
+        /// </summary>
         /*8514*/
 
 
@@ -14964,6 +17429,10 @@ namespace LayoutFarm.CefBridge.Auto
             return ret_result;
             /*8520*/
         }
+        /// <summary>
+        /// Returns the number of stack frames.
+        /// /*cef()*/
+        /// </summary>
         /*8521*/
 
 
@@ -14982,6 +17451,10 @@ namespace LayoutFarm.CefBridge.Auto
             return ret_result;
             /*8527*/
         }
+        /// <summary>
+        /// Returns the stack frame at the specified 0-based index.
+        /// /*cef()*/
+        /// </summary>
         /*8528*/
 
 
@@ -15014,6 +17487,7 @@ namespace LayoutFarm.CefBridge.Auto
     /// handle include the render process main thread (TID_RENDERER) and WebWorker
     /// threads. A task runner for posting tasks on the associated thread can be
     /// retrieved via the CefV8Context::GetTaskRunner() method.
+    /// /*(source=library)*/
     /// </summary>
     /*8585*/
     public struct CefV8StackFrame
@@ -15056,6 +17530,9 @@ namespace LayoutFarm.CefBridge.Auto
             Cef3Binder.MyCefMet_Call0(this.nativePtr, CefV8StackFrame_Release_0, out ret);
             /*8603*/
         }
+        /// <summary>
+        /// CefV8StackFrame methods.
+        /// </summary>
         /*8604*/
 
 
@@ -15074,6 +17551,10 @@ namespace LayoutFarm.CefBridge.Auto
             return ret_result;
             /*8610*/
         }
+        /// <summary>
+        /// Returns the name of the resource script that contains the function.
+        /// /*cef()*/
+        /// </summary>
         /*8611*/
 
 
@@ -15092,6 +17573,12 @@ namespace LayoutFarm.CefBridge.Auto
             return ret_result;
             /*8617*/
         }
+        /// <summary>
+        /// Returns the name of the resource script that contains the function or the
+        /// sourceURL value if the script name is undefined and its source ends with
+        /// a "//@ sourceURL=..." string.
+        /// /*cef()*/
+        /// </summary>
         /*8618*/
 
 
@@ -15110,6 +17597,10 @@ namespace LayoutFarm.CefBridge.Auto
             return ret_result;
             /*8624*/
         }
+        /// <summary>
+        /// Returns the name of the function.
+        /// /*cef()*/
+        /// </summary>
         /*8625*/
 
 
@@ -15128,6 +17619,10 @@ namespace LayoutFarm.CefBridge.Auto
             return ret_result;
             /*8631*/
         }
+        /// <summary>
+        /// Returns the 1-based line number for the function call or 0 if unknown.
+        /// /*cef()*/
+        /// </summary>
         /*8632*/
 
 
@@ -15146,6 +17641,11 @@ namespace LayoutFarm.CefBridge.Auto
             return ret_result;
             /*8638*/
         }
+        /// <summary>
+        /// Returns the 1-based column offset on the line for the function call or 0 if
+        /// unknown.
+        /// /*cef()*/
+        /// </summary>
         /*8639*/
 
 
@@ -15164,6 +17664,10 @@ namespace LayoutFarm.CefBridge.Auto
             return ret_result;
             /*8645*/
         }
+        /// <summary>
+        /// Returns true if the function was compiled using eval().
+        /// /*cef()*/
+        /// </summary>
         /*8646*/
 
 
@@ -15182,6 +17686,10 @@ namespace LayoutFarm.CefBridge.Auto
             return ret_result;
             /*8652*/
         }
+        /// <summary>
+        /// Returns true if the function was called as a constructor via "new".
+        /// /*cef()*/
+        /// </summary>
         /*8653*/
 
 
@@ -15206,6 +17714,10 @@ namespace LayoutFarm.CefBridge.Auto
 
     // [virtual] class CefValue
     /// <summary>
+    /// Class that wraps other data value types. Complex types (binary, dictionary
+    /// and list) will be referenced but not owned by this object. Can be used on any
+    /// process and thread.
+    /// /*cef(source=library)*/
     /// </summary>
     /*8779*/
     public struct CefValue
@@ -15276,6 +17788,9 @@ namespace LayoutFarm.CefBridge.Auto
             Cef3Binder.MyCefMet_Call0(this.nativePtr, CefValue_Release_0, out ret);
             /*8811*/
         }
+        /// <summary>
+        /// CefValue methods.
+        /// </summary>
         /*8812*/
 
 
@@ -15294,6 +17809,10 @@ namespace LayoutFarm.CefBridge.Auto
             return ret_result;
             /*8818*/
         }
+        /// <summary>
+        /// Returns true if the underlying data is owned by another object.
+        /// /*cef()*/
+        /// </summary>
         /*8819*/
 
 
@@ -15312,6 +17831,11 @@ namespace LayoutFarm.CefBridge.Auto
             return ret_result;
             /*8825*/
         }
+        /// <summary>
+        /// Returns true if the underlying data is read-only. Some APIs may expose
+        /// read-only objects.
+        /// /*cef()*/
+        /// </summary>
         /*8826*/
 
 
@@ -15330,6 +17854,12 @@ namespace LayoutFarm.CefBridge.Auto
             return ret_result;
             /*8832*/
         }
+        /// <summary>
+        /// Returns true if this object and |that| object have the same underlying
+        /// data. If true modifications to this object will also affect |that| object
+        /// and vice-versa.
+        /// /*cef()*/
+        /// </summary>
         /*8833*/
 
 
@@ -15351,6 +17881,11 @@ namespace LayoutFarm.CefBridge.Auto
             return ret_result;
             /*8840*/
         }
+        /// <summary>
+        /// Returns true if this object and |that| object have an equivalent underlying
+        /// value but are not necessarily the same object.
+        /// /*cef()*/
+        /// </summary>
         /*8841*/
 
 
@@ -15372,6 +17907,10 @@ namespace LayoutFarm.CefBridge.Auto
             return ret_result;
             /*8848*/
         }
+        /// <summary>
+        /// Returns a copy of this object. The underlying data will also be copied.
+        /// /*cef()*/
+        /// </summary>
         /*8849*/
 
 
@@ -15390,6 +17929,10 @@ namespace LayoutFarm.CefBridge.Auto
             return ret_result;
             /*8855*/
         }
+        /// <summary>
+        /// Returns the underlying value type.
+        /// /*cef(default_retval=VTYPE_INVALID)*/
+        /// </summary>
         /*8856*/
 
 
@@ -15409,6 +17952,10 @@ namespace LayoutFarm.CefBridge.Auto
             return ret_result;
             /*8862*/
         }
+        /// <summary>
+        /// Returns the underlying value as type bool.
+        /// /*cef()*/
+        /// </summary>
         /*8863*/
 
 
@@ -15427,6 +17974,10 @@ namespace LayoutFarm.CefBridge.Auto
             return ret_result;
             /*8869*/
         }
+        /// <summary>
+        /// Returns the underlying value as type int.
+        /// /*cef()*/
+        /// </summary>
         /*8870*/
 
 
@@ -15445,6 +17996,10 @@ namespace LayoutFarm.CefBridge.Auto
             return ret_result;
             /*8876*/
         }
+        /// <summary>
+        /// Returns the underlying value as type double.
+        /// /*cef()*/
+        /// </summary>
         /*8877*/
 
 
@@ -15463,6 +18018,10 @@ namespace LayoutFarm.CefBridge.Auto
             return ret_result;
             /*8883*/
         }
+        /// <summary>
+        /// Returns the underlying value as type string.
+        /// /*cef()*/
+        /// </summary>
         /*8884*/
 
 
@@ -15481,6 +18040,15 @@ namespace LayoutFarm.CefBridge.Auto
             return ret_result;
             /*8890*/
         }
+        /// <summary>
+        /// Returns the underlying value as type binary. The returned reference may
+        /// become invalid if the value is owned by another object or if ownership is
+        /// transferred to another object in the future. To maintain a reference to
+        /// the value after assigning ownership to a dictionary or list pass this
+        /// object to the SetValue() method instead of passing the returned reference
+        /// to SetBinary().
+        /// /*cef()*/
+        /// </summary>
         /*8891*/
 
 
@@ -15499,6 +18067,15 @@ namespace LayoutFarm.CefBridge.Auto
             return ret_result;
             /*8897*/
         }
+        /// <summary>
+        /// Returns the underlying value as type dictionary. The returned reference may
+        /// become invalid if the value is owned by another object or if ownership is
+        /// transferred to another object in the future. To maintain a reference to
+        /// the value after assigning ownership to a dictionary or list pass this
+        /// object to the SetValue() method instead of passing the returned reference
+        /// to SetDictionary().
+        /// /*cef()*/
+        /// </summary>
         /*8898*/
 
 
@@ -15517,6 +18094,15 @@ namespace LayoutFarm.CefBridge.Auto
             return ret_result;
             /*8904*/
         }
+        /// <summary>
+        /// Returns the underlying value as type list. The returned reference may
+        /// become invalid if the value is owned by another object or if ownership is
+        /// transferred to another object in the future. To maintain a reference to
+        /// the value after assigning ownership to a dictionary or list pass this
+        /// object to the SetValue() method instead of passing the returned reference
+        /// to SetList().
+        /// /*cef()*/
+        /// </summary>
         /*8905*/
 
 
@@ -15535,6 +18121,11 @@ namespace LayoutFarm.CefBridge.Auto
             return ret_result;
             /*8911*/
         }
+        /// <summary>
+        /// Sets the underlying value as type null. Returns true if the value was set
+        /// successfully.
+        /// /*cef()*/
+        /// </summary>
         /*8912*/
 
 
@@ -15553,6 +18144,11 @@ namespace LayoutFarm.CefBridge.Auto
             return ret_result;
             /*8918*/
         }
+        /// <summary>
+        /// Sets the underlying value as type bool. Returns true if the value was set
+        /// successfully.
+        /// /*cef()*/
+        /// </summary>
         /*8919*/
 
 
@@ -15574,6 +18170,11 @@ namespace LayoutFarm.CefBridge.Auto
             return ret_result;
             /*8926*/
         }
+        /// <summary>
+        /// Sets the underlying value as type int. Returns true if the value was set
+        /// successfully.
+        /// /*cef()*/
+        /// </summary>
         /*8927*/
 
 
@@ -15595,6 +18196,11 @@ namespace LayoutFarm.CefBridge.Auto
             return ret_result;
             /*8934*/
         }
+        /// <summary>
+        /// Sets the underlying value as type double. Returns true if the value was set
+        /// successfully.
+        /// /*cef()*/
+        /// </summary>
         /*8935*/
 
 
@@ -15616,6 +18222,11 @@ namespace LayoutFarm.CefBridge.Auto
             return ret_result;
             /*8942*/
         }
+        /// <summary>
+        /// Sets the underlying value as type string. Returns true if the value was set
+        /// successfully.
+        /// /*cef(optional_param=value)*/
+        /// </summary>
         /*8943*/
 
 
@@ -15642,6 +18253,12 @@ namespace LayoutFarm.CefBridge.Auto
             return ret_result;
             /*8952*/
         }
+        /// <summary>
+        /// Sets the underlying value as type binary. Returns true if the value was set
+        /// successfully. This object keeps a reference to |value| and ownership of the
+        /// underlying data remains unchanged.
+        /// /*cef()*/
+        /// </summary>
         /*8953*/
 
 
@@ -15663,6 +18280,12 @@ namespace LayoutFarm.CefBridge.Auto
             return ret_result;
             /*8960*/
         }
+        /// <summary>
+        /// Sets the underlying value as type dict. Returns true if the value was set
+        /// successfully. This object keeps a reference to |value| and ownership of the
+        /// underlying data remains unchanged.
+        /// /*cef()*/
+        /// </summary>
         /*8961*/
 
 
@@ -15684,6 +18307,12 @@ namespace LayoutFarm.CefBridge.Auto
             return ret_result;
             /*8968*/
         }
+        /// <summary>
+        /// Sets the underlying value as type list. Returns true if the value was set
+        /// successfully. This object keeps a reference to |value| and ownership of the
+        /// underlying data remains unchanged.
+        /// /*cef()*/
+        /// </summary>
         /*8969*/
 
 
@@ -15712,6 +18341,7 @@ namespace LayoutFarm.CefBridge.Auto
     // [virtual] class CefBinaryValue
     /// <summary>
     /// Class representing a binary value. Can be used on any process and thread.
+    /// /*(source=library)*/
     /// </summary>
     /*9021*/
     public struct CefBinaryValue
@@ -15752,6 +18382,9 @@ namespace LayoutFarm.CefBridge.Auto
             Cef3Binder.MyCefMet_Call0(this.nativePtr, CefBinaryValue_Release_0, out ret);
             /*9038*/
         }
+        /// <summary>
+        /// CefBinaryValue methods.
+        /// </summary>
         /*9039*/
 
 
@@ -15770,6 +18403,10 @@ namespace LayoutFarm.CefBridge.Auto
             return ret_result;
             /*9045*/
         }
+        /// <summary>
+        /// Returns true if this object is currently owned by another object.
+        /// /*cef()*/
+        /// </summary>
         /*9046*/
 
 
@@ -15788,6 +18425,11 @@ namespace LayoutFarm.CefBridge.Auto
             return ret_result;
             /*9052*/
         }
+        /// <summary>
+        /// Returns true if this object and |that| object have the same underlying
+        /// data.
+        /// /*cef()*/
+        /// </summary>
         /*9053*/
 
 
@@ -15809,6 +18451,11 @@ namespace LayoutFarm.CefBridge.Auto
             return ret_result;
             /*9060*/
         }
+        /// <summary>
+        /// Returns true if this object and |that| object have an equivalent underlying
+        /// value but are not necessarily the same object.
+        /// /*cef()*/
+        /// </summary>
         /*9061*/
 
 
@@ -15830,6 +18477,10 @@ namespace LayoutFarm.CefBridge.Auto
             return ret_result;
             /*9068*/
         }
+        /// <summary>
+        /// Returns a copy of this object. The data in this object will also be copied.
+        /// /*cef()*/
+        /// </summary>
         /*9069*/
 
 
@@ -15848,6 +18499,10 @@ namespace LayoutFarm.CefBridge.Auto
             return ret_result;
             /*9075*/
         }
+        /// <summary>
+        /// Returns the data size.
+        /// /*cef()*/
+        /// </summary>
         /*9076*/
 
 
@@ -15866,6 +18521,11 @@ namespace LayoutFarm.CefBridge.Auto
             return ret_result;
             /*9082*/
         }
+        /// <summary>
+        /// Read up to |buffer_size| number of bytes into |buffer|. Reading begins at
+        /// the specified byte |data_offset|. Returns the number of bytes read.
+        /// /*cef()*/
+        /// </summary>
         /*9083*/
 
 
@@ -15900,6 +18560,7 @@ namespace LayoutFarm.CefBridge.Auto
     // [virtual] class CefDictionaryValue
     /// <summary>
     /// Class representing a dictionary value. Can be used on any process and thread.
+    /// /*(source=library)*/
     /// </summary>
     /*9247*/
     public struct CefDictionaryValue
@@ -15984,6 +18645,9 @@ namespace LayoutFarm.CefBridge.Auto
             Cef3Binder.MyCefMet_Call0(this.nativePtr, CefDictionaryValue_Release_0, out ret);
             /*9286*/
         }
+        /// <summary>
+        /// CefDictionaryValue methods.
+        /// </summary>
         /*9287*/
 
 
@@ -16002,6 +18666,10 @@ namespace LayoutFarm.CefBridge.Auto
             return ret_result;
             /*9293*/
         }
+        /// <summary>
+        /// Returns true if this object is currently owned by another object.
+        /// /*cef()*/
+        /// </summary>
         /*9294*/
 
 
@@ -16020,6 +18688,11 @@ namespace LayoutFarm.CefBridge.Auto
             return ret_result;
             /*9300*/
         }
+        /// <summary>
+        /// Returns true if the values of this object are read-only. Some APIs may
+        /// expose read-only objects.
+        /// /*cef()*/
+        /// </summary>
         /*9301*/
 
 
@@ -16038,6 +18711,12 @@ namespace LayoutFarm.CefBridge.Auto
             return ret_result;
             /*9307*/
         }
+        /// <summary>
+        /// Returns true if this object and |that| object have the same underlying
+        /// data. If true modifications to this object will also affect |that| object
+        /// and vice-versa.
+        /// /*cef()*/
+        /// </summary>
         /*9308*/
 
 
@@ -16059,6 +18738,11 @@ namespace LayoutFarm.CefBridge.Auto
             return ret_result;
             /*9315*/
         }
+        /// <summary>
+        /// Returns true if this object and |that| object have an equivalent underlying
+        /// value but are not necessarily the same object.
+        /// /*cef()*/
+        /// </summary>
         /*9316*/
 
 
@@ -16080,6 +18764,11 @@ namespace LayoutFarm.CefBridge.Auto
             return ret_result;
             /*9323*/
         }
+        /// <summary>
+        /// Returns a writable copy of this object. If |exclude_empty_children| is true
+        /// any empty dictionaries or lists will be excluded from the copy.
+        /// /*cef()*/
+        /// </summary>
         /*9324*/
 
 
@@ -16101,6 +18790,10 @@ namespace LayoutFarm.CefBridge.Auto
             return ret_result;
             /*9331*/
         }
+        /// <summary>
+        /// Returns the number of values.
+        /// /*cef()*/
+        /// </summary>
         /*9332*/
 
 
@@ -16119,6 +18812,10 @@ namespace LayoutFarm.CefBridge.Auto
             return ret_result;
             /*9338*/
         }
+        /// <summary>
+        /// Removes all values. Returns true on success.
+        /// /*cef()*/
+        /// </summary>
         /*9339*/
 
 
@@ -16137,6 +18834,10 @@ namespace LayoutFarm.CefBridge.Auto
             return ret_result;
             /*9345*/
         }
+        /// <summary>
+        /// Returns true if the current dictionary has a value for the given key.
+        /// /*cef()*/
+        /// </summary>
         /*9346*/
 
 
@@ -16163,6 +18864,10 @@ namespace LayoutFarm.CefBridge.Auto
             return ret_result;
             /*9355*/
         }
+        /// <summary>
+        /// Reads all keys for this dictionary into the specified vector.
+        /// /*cef()*/
+        /// </summary>
         /*9356*/
 
 
@@ -16184,6 +18889,11 @@ namespace LayoutFarm.CefBridge.Auto
             return ret_result;
             /*9363*/
         }
+        /// <summary>
+        /// Removes the value at the specified key. Returns true is the value was
+        /// removed successfully.
+        /// /*cef()*/
+        /// </summary>
         /*9364*/
 
 
@@ -16210,6 +18920,10 @@ namespace LayoutFarm.CefBridge.Auto
             return ret_result;
             /*9373*/
         }
+        /// <summary>
+        /// Returns the value type for the specified key.
+        /// /*cef(default_retval=VTYPE_INVALID)*/
+        /// </summary>
         /*9374*/
 
 
@@ -16237,6 +18951,14 @@ namespace LayoutFarm.CefBridge.Auto
             return ret_result;
             /*9383*/
         }
+        /// <summary>
+        /// Returns the value at the specified key. For simple types the returned
+        /// value will copy existing data and modifications to the value will not
+        /// modify this object. For complex types (binary, dictionary and list) the
+        /// returned value will reference existing data and modifications to the value
+        /// will modify this object.
+        /// /*cef()*/
+        /// </summary>
         /*9384*/
 
 
@@ -16263,6 +18985,10 @@ namespace LayoutFarm.CefBridge.Auto
             return ret_result;
             /*9393*/
         }
+        /// <summary>
+        /// Returns the value at the specified key as type bool.
+        /// /*cef()*/
+        /// </summary>
         /*9394*/
 
 
@@ -16289,6 +19015,10 @@ namespace LayoutFarm.CefBridge.Auto
             return ret_result;
             /*9403*/
         }
+        /// <summary>
+        /// Returns the value at the specified key as type int.
+        /// /*cef()*/
+        /// </summary>
         /*9404*/
 
 
@@ -16315,6 +19045,10 @@ namespace LayoutFarm.CefBridge.Auto
             return ret_result;
             /*9413*/
         }
+        /// <summary>
+        /// Returns the value at the specified key as type double.
+        /// /*cef()*/
+        /// </summary>
         /*9414*/
 
 
@@ -16341,6 +19075,10 @@ namespace LayoutFarm.CefBridge.Auto
             return ret_result;
             /*9423*/
         }
+        /// <summary>
+        /// Returns the value at the specified key as type string.
+        /// /*cef()*/
+        /// </summary>
         /*9424*/
 
 
@@ -16367,6 +19105,11 @@ namespace LayoutFarm.CefBridge.Auto
             return ret_result;
             /*9433*/
         }
+        /// <summary>
+        /// Returns the value at the specified key as type binary. The returned
+        /// value will reference existing data.
+        /// /*cef()*/
+        /// </summary>
         /*9434*/
 
 
@@ -16393,6 +19136,12 @@ namespace LayoutFarm.CefBridge.Auto
             return ret_result;
             /*9443*/
         }
+        /// <summary>
+        /// Returns the value at the specified key as type dictionary. The returned
+        /// value will reference existing data and modifications to the value will
+        /// modify this object.
+        /// /*cef()*/
+        /// </summary>
         /*9444*/
 
 
@@ -16419,6 +19168,12 @@ namespace LayoutFarm.CefBridge.Auto
             return ret_result;
             /*9453*/
         }
+        /// <summary>
+        /// Returns the value at the specified key as type list. The returned value
+        /// will reference existing data and modifications to the value will modify
+        /// this object.
+        /// /*cef()*/
+        /// </summary>
         /*9454*/
 
 
@@ -16445,6 +19200,15 @@ namespace LayoutFarm.CefBridge.Auto
             return ret_result;
             /*9463*/
         }
+        /// <summary>
+        /// Sets the value at the specified key. Returns true if the value was set
+        /// successfully. If |value| represents simple data then the underlying data
+        /// will be copied and modifications to |value| will not modify this object. If
+        /// |value| represents complex data (binary, dictionary or list) then the
+        /// underlying data will be referenced and modifications to |value| will modify
+        /// this object.
+        /// /*cef()*/
+        /// </summary>
         /*9464*/
 
 
@@ -16474,6 +19238,11 @@ namespace LayoutFarm.CefBridge.Auto
             return ret_result;
             /*9474*/
         }
+        /// <summary>
+        /// Sets the value at the specified key as type null. Returns true if the
+        /// value was set successfully.
+        /// /*cef()*/
+        /// </summary>
         /*9475*/
 
 
@@ -16500,6 +19269,11 @@ namespace LayoutFarm.CefBridge.Auto
             return ret_result;
             /*9484*/
         }
+        /// <summary>
+        /// Sets the value at the specified key as type bool. Returns true if the
+        /// value was set successfully.
+        /// /*cef()*/
+        /// </summary>
         /*9485*/
 
 
@@ -16529,6 +19303,11 @@ namespace LayoutFarm.CefBridge.Auto
             return ret_result;
             /*9495*/
         }
+        /// <summary>
+        /// Sets the value at the specified key as type int. Returns true if the
+        /// value was set successfully.
+        /// /*cef()*/
+        /// </summary>
         /*9496*/
 
 
@@ -16558,6 +19337,11 @@ namespace LayoutFarm.CefBridge.Auto
             return ret_result;
             /*9506*/
         }
+        /// <summary>
+        /// Sets the value at the specified key as type double. Returns true if the
+        /// value was set successfully.
+        /// /*cef()*/
+        /// </summary>
         /*9507*/
 
 
@@ -16587,6 +19371,11 @@ namespace LayoutFarm.CefBridge.Auto
             return ret_result;
             /*9517*/
         }
+        /// <summary>
+        /// Sets the value at the specified key as type string. Returns true if the
+        /// value was set successfully.
+        /// /*cef(optional_param=value)*/
+        /// </summary>
         /*9518*/
 
 
@@ -16621,6 +19410,14 @@ namespace LayoutFarm.CefBridge.Auto
             return ret_result;
             /*9530*/
         }
+        /// <summary>
+        /// Sets the value at the specified key as type binary. Returns true if the
+        /// value was set successfully. If |value| is currently owned by another object
+        /// then the value will be copied and the |value| reference will not change.
+        /// Otherwise, ownership will be transferred to this object and the |value|
+        /// reference will be invalidated.
+        /// /*cef()*/
+        /// </summary>
         /*9531*/
 
 
@@ -16650,6 +19447,14 @@ namespace LayoutFarm.CefBridge.Auto
             return ret_result;
             /*9541*/
         }
+        /// <summary>
+        /// Sets the value at the specified key as type dict. Returns true if the
+        /// value was set successfully. If |value| is currently owned by another object
+        /// then the value will be copied and the |value| reference will not change.
+        /// Otherwise, ownership will be transferred to this object and the |value|
+        /// reference will be invalidated.
+        /// /*cef()*/
+        /// </summary>
         /*9542*/
 
 
@@ -16679,6 +19484,14 @@ namespace LayoutFarm.CefBridge.Auto
             return ret_result;
             /*9552*/
         }
+        /// <summary>
+        /// Sets the value at the specified key as type list. Returns true if the
+        /// value was set successfully. If |value| is currently owned by another object
+        /// then the value will be copied and the |value| reference will not change.
+        /// Otherwise, ownership will be transferred to this object and the |value|
+        /// reference will be invalidated.
+        /// /*cef()*/
+        /// </summary>
         /*9553*/
 
 
@@ -16715,6 +19528,7 @@ namespace LayoutFarm.CefBridge.Auto
     // [virtual] class CefListValue
     /// <summary>
     /// Class representing a list value. Can be used on any process and thread.
+    /// /*(source=library)*/
     /// </summary>
     /*9713*/
     public struct CefListValue
@@ -16797,6 +19611,9 @@ namespace LayoutFarm.CefBridge.Auto
             Cef3Binder.MyCefMet_Call0(this.nativePtr, CefListValue_Release_0, out ret);
             /*9751*/
         }
+        /// <summary>
+        /// CefListValue methods.
+        /// </summary>
         /*9752*/
 
 
@@ -16815,6 +19632,10 @@ namespace LayoutFarm.CefBridge.Auto
             return ret_result;
             /*9758*/
         }
+        /// <summary>
+        /// Returns true if this object is currently owned by another object.
+        /// /*cef()*/
+        /// </summary>
         /*9759*/
 
 
@@ -16833,6 +19654,11 @@ namespace LayoutFarm.CefBridge.Auto
             return ret_result;
             /*9765*/
         }
+        /// <summary>
+        /// Returns true if the values of this object are read-only. Some APIs may
+        /// expose read-only objects.
+        /// /*cef()*/
+        /// </summary>
         /*9766*/
 
 
@@ -16851,6 +19677,12 @@ namespace LayoutFarm.CefBridge.Auto
             return ret_result;
             /*9772*/
         }
+        /// <summary>
+        /// Returns true if this object and |that| object have the same underlying
+        /// data. If true modifications to this object will also affect |that| object
+        /// and vice-versa.
+        /// /*cef()*/
+        /// </summary>
         /*9773*/
 
 
@@ -16872,6 +19704,11 @@ namespace LayoutFarm.CefBridge.Auto
             return ret_result;
             /*9780*/
         }
+        /// <summary>
+        /// Returns true if this object and |that| object have an equivalent underlying
+        /// value but are not necessarily the same object.
+        /// /*cef()*/
+        /// </summary>
         /*9781*/
 
 
@@ -16893,6 +19730,10 @@ namespace LayoutFarm.CefBridge.Auto
             return ret_result;
             /*9788*/
         }
+        /// <summary>
+        /// Returns a writable copy of this object.
+        /// /*cef()*/
+        /// </summary>
         /*9789*/
 
 
@@ -16911,6 +19752,11 @@ namespace LayoutFarm.CefBridge.Auto
             return ret_result;
             /*9795*/
         }
+        /// <summary>
+        /// Sets the number of values. If the number of values is expanded all
+        /// new value slots will default to type null. Returns true on success.
+        /// /*cef()*/
+        /// </summary>
         /*9796*/
 
 
@@ -16932,6 +19778,10 @@ namespace LayoutFarm.CefBridge.Auto
             return ret_result;
             /*9803*/
         }
+        /// <summary>
+        /// Returns the number of values.
+        /// /*cef()*/
+        /// </summary>
         /*9804*/
 
 
@@ -16950,6 +19800,10 @@ namespace LayoutFarm.CefBridge.Auto
             return ret_result;
             /*9810*/
         }
+        /// <summary>
+        /// Removes all values. Returns true on success.
+        /// /*cef()*/
+        /// </summary>
         /*9811*/
 
 
@@ -16968,6 +19822,10 @@ namespace LayoutFarm.CefBridge.Auto
             return ret_result;
             /*9817*/
         }
+        /// <summary>
+        /// Removes the value at the specified index.
+        /// /*cef()*/
+        /// </summary>
         /*9818*/
 
 
@@ -16989,6 +19847,10 @@ namespace LayoutFarm.CefBridge.Auto
             return ret_result;
             /*9825*/
         }
+        /// <summary>
+        /// Returns the value type at the specified index.
+        /// /*cef(default_retval=VTYPE_INVALID)*/
+        /// </summary>
         /*9826*/
 
 
@@ -17011,6 +19873,14 @@ namespace LayoutFarm.CefBridge.Auto
             return ret_result;
             /*9833*/
         }
+        /// <summary>
+        /// Returns the value at the specified index. For simple types the returned
+        /// value will copy existing data and modifications to the value will not
+        /// modify this object. For complex types (binary, dictionary and list) the
+        /// returned value will reference existing data and modifications to the value
+        /// will modify this object.
+        /// /*cef()*/
+        /// </summary>
         /*9834*/
 
 
@@ -17032,6 +19902,10 @@ namespace LayoutFarm.CefBridge.Auto
             return ret_result;
             /*9841*/
         }
+        /// <summary>
+        /// Returns the value at the specified index as type bool.
+        /// /*cef()*/
+        /// </summary>
         /*9842*/
 
 
@@ -17053,6 +19927,10 @@ namespace LayoutFarm.CefBridge.Auto
             return ret_result;
             /*9849*/
         }
+        /// <summary>
+        /// Returns the value at the specified index as type int.
+        /// /*cef()*/
+        /// </summary>
         /*9850*/
 
 
@@ -17074,6 +19952,10 @@ namespace LayoutFarm.CefBridge.Auto
             return ret_result;
             /*9857*/
         }
+        /// <summary>
+        /// Returns the value at the specified index as type double.
+        /// /*cef()*/
+        /// </summary>
         /*9858*/
 
 
@@ -17095,6 +19977,10 @@ namespace LayoutFarm.CefBridge.Auto
             return ret_result;
             /*9865*/
         }
+        /// <summary>
+        /// Returns the value at the specified index as type string.
+        /// /*cef()*/
+        /// </summary>
         /*9866*/
 
 
@@ -17116,6 +20002,11 @@ namespace LayoutFarm.CefBridge.Auto
             return ret_result;
             /*9873*/
         }
+        /// <summary>
+        /// Returns the value at the specified index as type binary. The returned
+        /// value will reference existing data.
+        /// /*cef()*/
+        /// </summary>
         /*9874*/
 
 
@@ -17137,6 +20028,12 @@ namespace LayoutFarm.CefBridge.Auto
             return ret_result;
             /*9881*/
         }
+        /// <summary>
+        /// Returns the value at the specified index as type dictionary. The returned
+        /// value will reference existing data and modifications to the value will
+        /// modify this object.
+        /// /*cef()*/
+        /// </summary>
         /*9882*/
 
 
@@ -17158,6 +20055,12 @@ namespace LayoutFarm.CefBridge.Auto
             return ret_result;
             /*9889*/
         }
+        /// <summary>
+        /// Returns the value at the specified index as type list. The returned
+        /// value will reference existing data and modifications to the value will
+        /// modify this object.
+        /// /*cef()*/
+        /// </summary>
         /*9890*/
 
 
@@ -17179,6 +20082,15 @@ namespace LayoutFarm.CefBridge.Auto
             return ret_result;
             /*9897*/
         }
+        /// <summary>
+        /// Sets the value at the specified index. Returns true if the value was set
+        /// successfully. If |value| represents simple data then the underlying data
+        /// will be copied and modifications to |value| will not modify this object. If
+        /// |value| represents complex data (binary, dictionary or list) then the
+        /// underlying data will be referenced and modifications to |value| will modify
+        /// this object.
+        /// /*cef()*/
+        /// </summary>
         /*9898*/
 
 
@@ -17203,6 +20115,11 @@ namespace LayoutFarm.CefBridge.Auto
             return ret_result;
             /*9906*/
         }
+        /// <summary>
+        /// Sets the value at the specified index as type null. Returns true if the
+        /// value was set successfully.
+        /// /*cef()*/
+        /// </summary>
         /*9907*/
 
 
@@ -17224,6 +20141,11 @@ namespace LayoutFarm.CefBridge.Auto
             return ret_result;
             /*9914*/
         }
+        /// <summary>
+        /// Sets the value at the specified index as type bool. Returns true if the
+        /// value was set successfully.
+        /// /*cef()*/
+        /// </summary>
         /*9915*/
 
 
@@ -17248,6 +20170,11 @@ namespace LayoutFarm.CefBridge.Auto
             return ret_result;
             /*9923*/
         }
+        /// <summary>
+        /// Sets the value at the specified index as type int. Returns true if the
+        /// value was set successfully.
+        /// /*cef()*/
+        /// </summary>
         /*9924*/
 
 
@@ -17272,6 +20199,11 @@ namespace LayoutFarm.CefBridge.Auto
             return ret_result;
             /*9932*/
         }
+        /// <summary>
+        /// Sets the value at the specified index as type double. Returns true if the
+        /// value was set successfully.
+        /// /*cef()*/
+        /// </summary>
         /*9933*/
 
 
@@ -17296,6 +20228,11 @@ namespace LayoutFarm.CefBridge.Auto
             return ret_result;
             /*9941*/
         }
+        /// <summary>
+        /// Sets the value at the specified index as type string. Returns true if the
+        /// value was set successfully.
+        /// /*cef(optional_param=value)*/
+        /// </summary>
         /*9942*/
 
 
@@ -17325,6 +20262,14 @@ namespace LayoutFarm.CefBridge.Auto
             return ret_result;
             /*9952*/
         }
+        /// <summary>
+        /// Sets the value at the specified index as type binary. Returns true if the
+        /// value was set successfully. If |value| is currently owned by another object
+        /// then the value will be copied and the |value| reference will not change.
+        /// Otherwise, ownership will be transferred to this object and the |value|
+        /// reference will be invalidated.
+        /// /*cef()*/
+        /// </summary>
         /*9953*/
 
 
@@ -17349,6 +20294,14 @@ namespace LayoutFarm.CefBridge.Auto
             return ret_result;
             /*9961*/
         }
+        /// <summary>
+        /// Sets the value at the specified index as type dict. Returns true if the
+        /// value was set successfully. If |value| is currently owned by another object
+        /// then the value will be copied and the |value| reference will not change.
+        /// Otherwise, ownership will be transferred to this object and the |value|
+        /// reference will be invalidated.
+        /// /*cef()*/
+        /// </summary>
         /*9962*/
 
 
@@ -17373,6 +20326,14 @@ namespace LayoutFarm.CefBridge.Auto
             return ret_result;
             /*9970*/
         }
+        /// <summary>
+        /// Sets the value at the specified index as type list. Returns true if the
+        /// value was set successfully. If |value| is currently owned by another object
+        /// then the value will be copied and the |value| reference will not change.
+        /// Otherwise, ownership will be transferred to this object and the |value|
+        /// reference will be invalidated.
+        /// /*cef()*/
+        /// </summary>
         /*9971*/
 
 
@@ -17404,6 +20365,7 @@ namespace LayoutFarm.CefBridge.Auto
     // [virtual] class CefWebPluginInfo
     /// <summary>
     /// Information about a specific web plugin.
+    /// /*(source=library)*/
     /// </summary>
     /*10009*/
     public struct CefWebPluginInfo
@@ -17438,6 +20400,9 @@ namespace LayoutFarm.CefBridge.Auto
             Cef3Binder.MyCefMet_Call0(this.nativePtr, CefWebPluginInfo_Release_0, out ret);
             /*10023*/
         }
+        /// <summary>
+        /// CefWebPluginInfo methods.
+        /// </summary>
         /*10024*/
 
 
@@ -17456,6 +20421,10 @@ namespace LayoutFarm.CefBridge.Auto
             return ret_result;
             /*10030*/
         }
+        /// <summary>
+        /// Returns the plugin file path (DLL/bundle/library).
+        /// /*cef()*/
+        /// </summary>
         /*10031*/
 
 
@@ -17474,6 +20443,10 @@ namespace LayoutFarm.CefBridge.Auto
             return ret_result;
             /*10037*/
         }
+        /// <summary>
+        /// Returns the version of the plugin (may be OS-specific).
+        /// /*cef()*/
+        /// </summary>
         /*10038*/
 
 
@@ -17492,6 +20465,10 @@ namespace LayoutFarm.CefBridge.Auto
             return ret_result;
             /*10044*/
         }
+        /// <summary>
+        /// Returns a description of the plugin from the version information.
+        /// /*cef()*/
+        /// </summary>
         /*10045*/
 
 
@@ -17518,6 +20495,7 @@ namespace LayoutFarm.CefBridge.Auto
     /// <summary>
     /// Interface to implement for visiting web plugin information. The methods of
     /// this class will be called on the browser process UI thread.
+    /// /*(source=client)*/
     /// </summary>
     /*10061*/
     public struct CefWebPluginInfoVisitor
@@ -17551,6 +20529,7 @@ namespace LayoutFarm.CefBridge.Auto
     // [virtual] class CefX509CertPrincipal
     /// <summary>
     /// Class representing the issuer or subject field of an X.509 certificate.
+    /// /*(source=library)*/
     /// </summary>
     /*10126*/
     public struct CefX509CertPrincipal
@@ -17595,6 +20574,9 @@ namespace LayoutFarm.CefBridge.Auto
             Cef3Binder.MyCefMet_Call0(this.nativePtr, CefX509CertPrincipal_Release_0, out ret);
             /*10145*/
         }
+        /// <summary>
+        /// CefX509CertPrincipal methods.
+        /// </summary>
         /*10146*/
 
 
@@ -17613,6 +20595,10 @@ namespace LayoutFarm.CefBridge.Auto
             return ret_result;
             /*10152*/
         }
+        /// <summary>
+        /// Returns the common name.
+        /// /*cef()*/
+        /// </summary>
         /*10153*/
 
 
@@ -17631,6 +20617,10 @@ namespace LayoutFarm.CefBridge.Auto
             return ret_result;
             /*10159*/
         }
+        /// <summary>
+        /// Returns the locality name.
+        /// /*cef()*/
+        /// </summary>
         /*10160*/
 
 
@@ -17649,6 +20639,10 @@ namespace LayoutFarm.CefBridge.Auto
             return ret_result;
             /*10166*/
         }
+        /// <summary>
+        /// Returns the state or province name.
+        /// /*cef()*/
+        /// </summary>
         /*10167*/
 
 
@@ -17667,6 +20661,10 @@ namespace LayoutFarm.CefBridge.Auto
             return ret_result;
             /*10173*/
         }
+        /// <summary>
+        /// Returns the country name.
+        /// /*cef()*/
+        /// </summary>
         /*10174*/
 
 
@@ -17685,6 +20683,10 @@ namespace LayoutFarm.CefBridge.Auto
             return ret_result;
             /*10180*/
         }
+        /// <summary>
+        /// Retrieve the list of street addresses.
+        /// /*cef()*/
+        /// </summary>
         /*10181*/
 
 
@@ -17704,6 +20706,10 @@ namespace LayoutFarm.CefBridge.Auto
 
             /*10187*/
         }
+        /// <summary>
+        /// Retrieve the list of organization names.
+        /// /*cef()*/
+        /// </summary>
         /*10188*/
 
 
@@ -17723,6 +20729,10 @@ namespace LayoutFarm.CefBridge.Auto
 
             /*10194*/
         }
+        /// <summary>
+        /// Retrieve the list of organization unit names.
+        /// /*cef()*/
+        /// </summary>
         /*10195*/
 
 
@@ -17742,6 +20752,10 @@ namespace LayoutFarm.CefBridge.Auto
 
             /*10201*/
         }
+        /// <summary>
+        /// Retrieve the list of domain components.
+        /// /*cef()*/
+        /// </summary>
         /*10202*/
 
 
@@ -17768,6 +20782,7 @@ namespace LayoutFarm.CefBridge.Auto
     // [virtual] class CefX509Certificate
     /// <summary>
     /// Class representing a X.509 certificate.
+    /// /*(source=library)*/
     /// </summary>
     /*10268*/
     public struct CefX509Certificate
@@ -17814,6 +20829,9 @@ namespace LayoutFarm.CefBridge.Auto
             Cef3Binder.MyCefMet_Call0(this.nativePtr, CefX509Certificate_Release_0, out ret);
             /*10288*/
         }
+        /// <summary>
+        /// CefX509Certificate methods.
+        /// </summary>
         /*10289*/
 
 
@@ -17832,6 +20850,10 @@ namespace LayoutFarm.CefBridge.Auto
             return ret_result;
             /*10295*/
         }
+        /// <summary>
+        /// Returns the issuer of the X.509 certificate.
+        /// /*cef()*/
+        /// </summary>
         /*10296*/
 
 
@@ -17850,6 +20872,11 @@ namespace LayoutFarm.CefBridge.Auto
             return ret_result;
             /*10302*/
         }
+        /// <summary>
+        /// Returns the DER encoded serial number for the X.509 certificate. The value
+        /// possibly includes a leading 00 byte.
+        /// /*cef()*/
+        /// </summary>
         /*10303*/
 
 
@@ -17868,6 +20895,11 @@ namespace LayoutFarm.CefBridge.Auto
             return ret_result;
             /*10309*/
         }
+        /// <summary>
+        /// Returns the date before which the X.509 certificate is invalid.
+        /// CefTime.GetTimeT() will return 0 if no date was specified.
+        /// /*cef()*/
+        /// </summary>
         /*10310*/
 
 
@@ -17887,6 +20919,11 @@ namespace LayoutFarm.CefBridge.Auto
             return ret_result;
             /*10316*/
         }
+        /// <summary>
+        /// Returns the date after which the X.509 certificate is invalid.
+        /// CefTime.GetTimeT() will return 0 if no date was specified.
+        /// /*cef()*/
+        /// </summary>
         /*10317*/
 
 
@@ -17906,6 +20943,10 @@ namespace LayoutFarm.CefBridge.Auto
             return ret_result;
             /*10323*/
         }
+        /// <summary>
+        /// Returns the DER encoded data for the X.509 certificate.
+        /// /*cef()*/
+        /// </summary>
         /*10324*/
 
 
@@ -17924,6 +20965,10 @@ namespace LayoutFarm.CefBridge.Auto
             return ret_result;
             /*10330*/
         }
+        /// <summary>
+        /// Returns the PEM encoded data for the X.509 certificate.
+        /// /*cef()*/
+        /// </summary>
         /*10331*/
 
 
@@ -17942,6 +20987,11 @@ namespace LayoutFarm.CefBridge.Auto
             return ret_result;
             /*10337*/
         }
+        /// <summary>
+        /// Returns the number of certificates in the issuer chain.
+        /// If 0, the certificate is self-signed.
+        /// /*cef()*/
+        /// </summary>
         /*10338*/
 
 
@@ -17960,6 +21010,12 @@ namespace LayoutFarm.CefBridge.Auto
             return ret_result;
             /*10344*/
         }
+        /// <summary>
+        /// Returns the DER encoded data for the certificate issuer chain.
+        /// If we failed to encode a certificate in the chain it is still
+        /// present in the array but is an empty string.
+        /// /*cef(count_func=chain:GetIssuerChainSize)*/
+        /// </summary>
         /*10345*/
 
 
@@ -17979,6 +21035,12 @@ namespace LayoutFarm.CefBridge.Auto
 
             /*10351*/
         }
+        /// <summary>
+        /// Returns the PEM encoded data for the certificate issuer chain.
+        /// If we failed to encode a certificate in the chain it is still
+        /// present in the array but is an empty string.
+        /// /*cef(count_func=chain:GetIssuerChainSize)*/
+        /// </summary>
         /*10352*/
 
 
@@ -18007,6 +21069,7 @@ namespace LayoutFarm.CefBridge.Auto
     /// Class that supports the reading of XML data via the libxml streaming API.
     /// The methods of this class should only be called on the thread that creates
     /// the object.
+    /// /*(source=library)*/
     /// </summary>
     /*10513*/
     public struct CefXmlReader
@@ -18091,6 +21154,9 @@ namespace LayoutFarm.CefBridge.Auto
             Cef3Binder.MyCefMet_Call0(this.nativePtr, CefXmlReader_Release_0, out ret);
             /*10552*/
         }
+        /// <summary>
+        /// CefXmlReader methods.
+        /// </summary>
         /*10553*/
 
 
@@ -18109,6 +21175,11 @@ namespace LayoutFarm.CefBridge.Auto
             return ret_result;
             /*10559*/
         }
+        /// <summary>
+        /// Close the document. This should be called directly to ensure that cleanup
+        /// occurs on the correct thread.
+        /// /*cef()*/
+        /// </summary>
         /*10560*/
 
 
@@ -18127,6 +21198,10 @@ namespace LayoutFarm.CefBridge.Auto
             return ret_result;
             /*10566*/
         }
+        /// <summary>
+        /// Returns true if an error has been reported by the XML parser.
+        /// /*cef()*/
+        /// </summary>
         /*10567*/
 
 
@@ -18145,6 +21220,10 @@ namespace LayoutFarm.CefBridge.Auto
             return ret_result;
             /*10573*/
         }
+        /// <summary>
+        /// Returns the error string.
+        /// /*cef()*/
+        /// </summary>
         /*10574*/
 
 
@@ -18163,6 +21242,12 @@ namespace LayoutFarm.CefBridge.Auto
             return ret_result;
             /*10580*/
         }
+        /// <summary>
+        /// The below methods retrieve data for the node at the current cursor
+        /// position.
+        /// Returns the node type.
+        /// /*cef(default_retval=XML_NODE_UNSUPPORTED)*/
+        /// </summary>
         /*10581*/
 
 
@@ -18182,6 +21267,10 @@ namespace LayoutFarm.CefBridge.Auto
             return ret_result;
             /*10587*/
         }
+        /// <summary>
+        /// Returns the node depth. Depth starts at 0 for the root node.
+        /// /*cef()*/
+        /// </summary>
         /*10588*/
 
 
@@ -18200,6 +21289,11 @@ namespace LayoutFarm.CefBridge.Auto
             return ret_result;
             /*10594*/
         }
+        /// <summary>
+        /// Returns the local name. See
+        /// http://www.w3.org/TR/REC-xml-names/#NT-LocalPart for additional details.
+        /// /*cef()*/
+        /// </summary>
         /*10595*/
 
 
@@ -18218,6 +21312,11 @@ namespace LayoutFarm.CefBridge.Auto
             return ret_result;
             /*10601*/
         }
+        /// <summary>
+        /// Returns the namespace prefix. See http://www.w3.org/TR/REC-xml-names/ for
+        /// additional details.
+        /// /*cef()*/
+        /// </summary>
         /*10602*/
 
 
@@ -18236,6 +21335,11 @@ namespace LayoutFarm.CefBridge.Auto
             return ret_result;
             /*10608*/
         }
+        /// <summary>
+        /// Returns the qualified name, equal to (Prefix:)LocalName. See
+        /// http://www.w3.org/TR/REC-xml-names/#ns-qualnames for additional details.
+        /// /*cef()*/
+        /// </summary>
         /*10609*/
 
 
@@ -18254,6 +21358,11 @@ namespace LayoutFarm.CefBridge.Auto
             return ret_result;
             /*10615*/
         }
+        /// <summary>
+        /// Returns the URI defining the namespace associated with the node. See
+        /// http://www.w3.org/TR/REC-xml-names/ for additional details.
+        /// /*cef()*/
+        /// </summary>
         /*10616*/
 
 
@@ -18272,6 +21381,11 @@ namespace LayoutFarm.CefBridge.Auto
             return ret_result;
             /*10622*/
         }
+        /// <summary>
+        /// Returns the base URI of the node. See http://www.w3.org/TR/xmlbase/ for
+        /// additional details.
+        /// /*cef()*/
+        /// </summary>
         /*10623*/
 
 
@@ -18290,6 +21404,11 @@ namespace LayoutFarm.CefBridge.Auto
             return ret_result;
             /*10629*/
         }
+        /// <summary>
+        /// Returns the xml:lang scope within which the node resides. See
+        /// http://www.w3.org/TR/REC-xml/#sec-lang-tag for additional details.
+        /// /*cef()*/
+        /// </summary>
         /*10630*/
 
 
@@ -18308,6 +21427,11 @@ namespace LayoutFarm.CefBridge.Auto
             return ret_result;
             /*10636*/
         }
+        /// <summary>
+        /// Returns true if the node represents an empty element. <a/> is considered
+        /// empty but <a></a> is not.
+        /// /*cef()*/
+        /// </summary>
         /*10637*/
 
 
@@ -18326,6 +21450,10 @@ namespace LayoutFarm.CefBridge.Auto
             return ret_result;
             /*10643*/
         }
+        /// <summary>
+        /// Returns true if the node has a text value.
+        /// /*cef()*/
+        /// </summary>
         /*10644*/
 
 
@@ -18344,6 +21472,10 @@ namespace LayoutFarm.CefBridge.Auto
             return ret_result;
             /*10650*/
         }
+        /// <summary>
+        /// Returns the text value.
+        /// /*cef()*/
+        /// </summary>
         /*10651*/
 
 
@@ -18362,6 +21494,10 @@ namespace LayoutFarm.CefBridge.Auto
             return ret_result;
             /*10657*/
         }
+        /// <summary>
+        /// Returns true if the node has attributes.
+        /// /*cef()*/
+        /// </summary>
         /*10658*/
 
 
@@ -18380,6 +21516,10 @@ namespace LayoutFarm.CefBridge.Auto
             return ret_result;
             /*10664*/
         }
+        /// <summary>
+        /// Returns the number of attributes.
+        /// /*cef()*/
+        /// </summary>
         /*10665*/
 
 
@@ -18479,6 +21619,10 @@ namespace LayoutFarm.CefBridge.Auto
             return ret_result;
             /*10702*/
         }
+        /// <summary>
+        /// Returns an XML representation of the current node's children.
+        /// /*cef()*/
+        /// </summary>
         /*10703*/
 
 
@@ -18497,6 +21641,10 @@ namespace LayoutFarm.CefBridge.Auto
             return ret_result;
             /*10709*/
         }
+        /// <summary>
+        /// Returns an XML representation of the current node including its children.
+        /// /*cef()*/
+        /// </summary>
         /*10710*/
 
 
@@ -18515,6 +21663,10 @@ namespace LayoutFarm.CefBridge.Auto
             return ret_result;
             /*10716*/
         }
+        /// <summary>
+        /// Returns the line number for the current node.
+        /// /*cef()*/
+        /// </summary>
         /*10717*/
 
 
@@ -18614,6 +21766,11 @@ namespace LayoutFarm.CefBridge.Auto
             return ret_result;
             /*10754*/
         }
+        /// <summary>
+        /// Moves the cursor to the first attribute in the current element. Returns
+        /// true if the cursor position was set successfully.
+        /// /*cef()*/
+        /// </summary>
         /*10755*/
 
 
@@ -18632,6 +21789,11 @@ namespace LayoutFarm.CefBridge.Auto
             return ret_result;
             /*10761*/
         }
+        /// <summary>
+        /// Moves the cursor to the next attribute in the current element. Returns
+        /// true if the cursor position was set successfully.
+        /// /*cef()*/
+        /// </summary>
         /*10762*/
 
 
@@ -18650,6 +21812,11 @@ namespace LayoutFarm.CefBridge.Auto
             return ret_result;
             /*10768*/
         }
+        /// <summary>
+        /// Moves the cursor back to the carrying element. Returns true if the cursor
+        /// position was set successfully.
+        /// /*cef()*/
+        /// </summary>
         /*10769*/
 
 
@@ -18677,6 +21844,7 @@ namespace LayoutFarm.CefBridge.Auto
     /// Class that supports the reading of zip archives via the zlib unzip API.
     /// The methods of this class should only be called on the thread that creates
     /// the object.
+    /// /*(source=library)*/
     /// </summary>
     /*10845*/
     public struct CefZipReader
@@ -18727,6 +21895,9 @@ namespace LayoutFarm.CefBridge.Auto
             Cef3Binder.MyCefMet_Call0(this.nativePtr, CefZipReader_Release_0, out ret);
             /*10867*/
         }
+        /// <summary>
+        /// CefZipReader methods.
+        /// </summary>
         /*10868*/
 
 
@@ -18745,6 +21916,11 @@ namespace LayoutFarm.CefBridge.Auto
             return ret_result;
             /*10874*/
         }
+        /// <summary>
+        /// Moves the cursor to the next file in the archive. Returns true if the
+        /// cursor position was set successfully.
+        /// /*cef()*/
+        /// </summary>
         /*10875*/
 
 
@@ -18763,6 +21939,12 @@ namespace LayoutFarm.CefBridge.Auto
             return ret_result;
             /*10881*/
         }
+        /// <summary>
+        /// Moves the cursor to the specified file in the archive. If |caseSensitive|
+        /// is true then the search will be case sensitive. Returns true if the cursor
+        /// position was set successfully.
+        /// /*cef()*/
+        /// </summary>
         /*10882*/
 
 
@@ -18792,6 +21974,11 @@ namespace LayoutFarm.CefBridge.Auto
             return ret_result;
             /*10892*/
         }
+        /// <summary>
+        /// Closes the archive. This should be called directly to ensure that cleanup
+        /// occurs on the correct thread.
+        /// /*cef()*/
+        /// </summary>
         /*10893*/
 
 
@@ -18810,6 +21997,11 @@ namespace LayoutFarm.CefBridge.Auto
             return ret_result;
             /*10899*/
         }
+        /// <summary>
+        /// The below methods act on the file at the current cursor position.
+        /// Returns the name of the file.
+        /// /*cef()*/
+        /// </summary>
         /*10900*/
 
 
@@ -18828,6 +22020,10 @@ namespace LayoutFarm.CefBridge.Auto
             return ret_result;
             /*10906*/
         }
+        /// <summary>
+        /// Returns the uncompressed size of the file.
+        /// /*cef()*/
+        /// </summary>
         /*10907*/
 
 
@@ -18846,6 +22042,10 @@ namespace LayoutFarm.CefBridge.Auto
             return ret_result;
             /*10913*/
         }
+        /// <summary>
+        /// Returns the last modified timestamp for the file.
+        /// /*cef()*/
+        /// </summary>
         /*10914*/
 
 
@@ -18865,6 +22065,11 @@ namespace LayoutFarm.CefBridge.Auto
             return ret_result;
             /*10920*/
         }
+        /// <summary>
+        /// Opens the file for reading of uncompressed data. A read password may
+        /// optionally be specified.
+        /// /*cef(optional_param=password)*/
+        /// </summary>
         /*10921*/
 
 
@@ -18891,6 +22096,10 @@ namespace LayoutFarm.CefBridge.Auto
             return ret_result;
             /*10930*/
         }
+        /// <summary>
+        /// Closes the file.
+        /// /*cef()*/
+        /// </summary>
         /*10931*/
 
 
@@ -18909,6 +22118,11 @@ namespace LayoutFarm.CefBridge.Auto
             return ret_result;
             /*10937*/
         }
+        /// <summary>
+        /// Read uncompressed file contents into the specified buffer. Returns < 0 if
+        /// an error occurred, 0 if at the end of file, or the number of bytes read.
+        /// /*cef()*/
+        /// </summary>
         /*10938*/
 
 
@@ -18933,6 +22147,10 @@ namespace LayoutFarm.CefBridge.Auto
             return ret_result;
             /*10946*/
         }
+        /// <summary>
+        /// Returns the current offset in the uncompressed file contents.
+        /// /*cef()*/
+        /// </summary>
         /*10947*/
 
 
@@ -18951,6 +22169,10 @@ namespace LayoutFarm.CefBridge.Auto
             return ret_result;
             /*10953*/
         }
+        /// <summary>
+        /// Returns true if at end of the file contents.
+        /// /*cef()*/
+        /// </summary>
         /*10954*/
 
 
