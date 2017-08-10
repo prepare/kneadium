@@ -14631,4 +14631,771 @@ namespace LayoutFarm.CefBridge.Auto
         }
     }
 
+    /// <summary>
+    /// Callback interface used for asynchronous continuation of authentication
+    /// requests.
+    /// /*(source=library)*/
+    /// </summary>
+    public struct CefAuthCallback
+    {
+        const int _typeNAME = 80;
+        const int CefAuthCallback_Release_0 = (_typeNAME << 16) | 0;
+        const int CefAuthCallbackCToCpp_Continue = (_typeNAME << 16) | 1;
+        const int CefAuthCallbackCToCpp_Cancel = (_typeNAME << 16) | 2;
+        internal IntPtr nativePtr;
+        internal CefAuthCallback(IntPtr nativePtr)
+        {
+            this.nativePtr = nativePtr;
+        }
+        public void Release()
+        {
+            JsValue ret;
+            Cef3Binder.MyCefMet_Call0(this.nativePtr, CefAuthCallback_Release_0, out ret);
+            this.nativePtr = IntPtr.Zero;
+        }
+
+        // gen! void Continue(const CefString& username,const CefString& password)
+        /// <summary>
+        /// CefAuthCallback methods.
+        /// </summary>
+
+        public void Continue(string username,
+        string password)
+        {
+            JsValue v1 = new JsValue();
+            JsValue v2 = new JsValue();
+            JsValue ret;
+            v1.Ptr = Cef3Binder.MyCefCreateCefString(username);
+            v2.Ptr = Cef3Binder.MyCefCreateCefString(password);
+
+            Cef3Binder.MyCefMet_Call2(this.nativePtr, CefAuthCallbackCToCpp_Continue, out ret, ref v1, ref v2);
+            Cef3Binder.MyCefDeletePtr(v1.Ptr);
+            Cef3Binder.MyCefDeletePtr(v2.Ptr);
+
+        }
+
+        // gen! void Cancel()
+
+        public void Cancel()
+        {
+            JsValue ret;
+
+            Cef3Binder.MyCefMet_Call0(this.nativePtr, CefAuthCallbackCToCpp_Cancel, out ret);
+
+        }
+    }
+    /// <summary>
+    /// Callback interface for CefBrowserHost::RunFileDialog. The methods of this
+    /// class will be called on the browser process UI thread.
+    /// /*(source=client)*/
+    /// </summary>
+    public struct CefRunFileDialogCallback
+    {
+        const int _typeNAME = 81;
+        const int CefRunFileDialogCallback_Release_0 = (_typeNAME << 16) | 0;
+        internal IntPtr nativePtr;
+        internal CefRunFileDialogCallback(IntPtr nativePtr)
+        {
+            this.nativePtr = nativePtr;
+        }
+        public void Release()
+        {
+            JsValue ret;
+            Cef3Binder.MyCefMet_Call0(this.nativePtr, CefRunFileDialogCallback_Release_0, out ret);
+            this.nativePtr = IntPtr.Zero;
+        }
+    }
+    /// <summary>
+    /// Callback interface for CefBrowserHost::PrintToPDF. The methods of this class
+    /// will be called on the browser process UI thread.
+    /// /*(source=client)*/
+    /// </summary>
+    public struct CefPdfPrintCallback
+    {
+        const int _typeNAME = 82;
+        const int CefPdfPrintCallback_Release_0 = (_typeNAME << 16) | 0;
+        internal IntPtr nativePtr;
+        internal CefPdfPrintCallback(IntPtr nativePtr)
+        {
+            this.nativePtr = nativePtr;
+        }
+        public void Release()
+        {
+            JsValue ret;
+            Cef3Binder.MyCefMet_Call0(this.nativePtr, CefPdfPrintCallback_Release_0, out ret);
+            this.nativePtr = IntPtr.Zero;
+        }
+    }
+    /// <summary>
+    /// Callback interface for CefBrowserHost::DownloadImage. The methods of this
+    /// class will be called on the browser process UI thread.
+    /// /*(source=client)*/
+    /// </summary>
+    public struct CefDownloadImageCallback
+    {
+        const int _typeNAME = 83;
+        const int CefDownloadImageCallback_Release_0 = (_typeNAME << 16) | 0;
+        internal IntPtr nativePtr;
+        internal CefDownloadImageCallback(IntPtr nativePtr)
+        {
+            this.nativePtr = nativePtr;
+        }
+        public void Release()
+        {
+            JsValue ret;
+            Cef3Binder.MyCefMet_Call0(this.nativePtr, CefDownloadImageCallback_Release_0, out ret);
+            this.nativePtr = IntPtr.Zero;
+        }
+    }
+    /// <summary>
+    /// Generic callback interface used for asynchronous continuation.
+    /// /*(source=library)*/
+    /// </summary>
+    public struct CefCallback
+    {
+        const int _typeNAME = 84;
+        const int CefCallback_Release_0 = (_typeNAME << 16) | 0;
+        const int CefCallbackCToCpp_Continue = (_typeNAME << 16) | 1;
+        const int CefCallbackCToCpp_Cancel = (_typeNAME << 16) | 2;
+        internal IntPtr nativePtr;
+        internal CefCallback(IntPtr nativePtr)
+        {
+            this.nativePtr = nativePtr;
+        }
+        public void Release()
+        {
+            JsValue ret;
+            Cef3Binder.MyCefMet_Call0(this.nativePtr, CefCallback_Release_0, out ret);
+            this.nativePtr = IntPtr.Zero;
+        }
+
+        // gen! void Continue()
+        /// <summary>
+        /// CefCallback methods.
+        /// </summary>
+
+        public void Continue()
+        {
+            JsValue ret;
+
+            Cef3Binder.MyCefMet_Call0(this.nativePtr, CefCallbackCToCpp_Continue, out ret);
+
+        }
+
+        // gen! void Cancel()
+
+        public void Cancel()
+        {
+            JsValue ret;
+
+            Cef3Binder.MyCefMet_Call0(this.nativePtr, CefCallbackCToCpp_Cancel, out ret);
+
+        }
+    }
+    /// <summary>
+    /// Generic callback interface used for asynchronous completion.
+    /// /*(source=client)*/
+    /// </summary>
+    public struct CefCompletionCallback
+    {
+        const int _typeNAME = 85;
+        const int CefCompletionCallback_Release_0 = (_typeNAME << 16) | 0;
+        internal IntPtr nativePtr;
+        internal CefCompletionCallback(IntPtr nativePtr)
+        {
+            this.nativePtr = nativePtr;
+        }
+        public void Release()
+        {
+            JsValue ret;
+            Cef3Binder.MyCefMet_Call0(this.nativePtr, CefCompletionCallback_Release_0, out ret);
+            this.nativePtr = IntPtr.Zero;
+        }
+    }
+    /// <summary>
+    /// Callback interface used for continuation of custom context menu display.
+    /// /*(source=library)*/
+    /// </summary>
+    public struct CefRunContextMenuCallback
+    {
+        const int _typeNAME = 86;
+        const int CefRunContextMenuCallback_Release_0 = (_typeNAME << 16) | 0;
+        const int CefRunContextMenuCallbackCToCpp_Continue = (_typeNAME << 16) | 1;
+        const int CefRunContextMenuCallbackCToCpp_Cancel = (_typeNAME << 16) | 2;
+        internal IntPtr nativePtr;
+        internal CefRunContextMenuCallback(IntPtr nativePtr)
+        {
+            this.nativePtr = nativePtr;
+        }
+        public void Release()
+        {
+            JsValue ret;
+            Cef3Binder.MyCefMet_Call0(this.nativePtr, CefRunContextMenuCallback_Release_0, out ret);
+            this.nativePtr = IntPtr.Zero;
+        }
+
+        // gen! void Continue(int command_id,EventFlags event_flags)
+        /// <summary>
+        /// CefRunContextMenuCallback methods.
+        /// </summary>
+
+        public void Continue(int command_id,
+        cef_event_flags_t event_flags)
+        {
+            JsValue v1 = new JsValue();
+            JsValue v2 = new JsValue();
+            JsValue ret;
+            v1.I32 = (int)command_id;
+            v2.I32 = (int)event_flags;
+
+            Cef3Binder.MyCefMet_Call2(this.nativePtr, CefRunContextMenuCallbackCToCpp_Continue, out ret, ref v1, ref v2);
+
+        }
+
+        // gen! void Cancel()
+
+        public void Cancel()
+        {
+            JsValue ret;
+
+            Cef3Binder.MyCefMet_Call0(this.nativePtr, CefRunContextMenuCallbackCToCpp_Cancel, out ret);
+
+        }
+    }
+    /// <summary>
+    /// Interface to implement to be notified of asynchronous completion via
+    /// CefCookieManager::SetCookie().
+    /// /*(source=client)*/
+    /// </summary>
+    public struct CefSetCookieCallback
+    {
+        const int _typeNAME = 87;
+        const int CefSetCookieCallback_Release_0 = (_typeNAME << 16) | 0;
+        internal IntPtr nativePtr;
+        internal CefSetCookieCallback(IntPtr nativePtr)
+        {
+            this.nativePtr = nativePtr;
+        }
+        public void Release()
+        {
+            JsValue ret;
+            Cef3Binder.MyCefMet_Call0(this.nativePtr, CefSetCookieCallback_Release_0, out ret);
+            this.nativePtr = IntPtr.Zero;
+        }
+    }
+    /// <summary>
+    /// Interface to implement to be notified of asynchronous completion via
+    /// CefCookieManager::DeleteCookies().
+    /// /*(source=client)*/
+    /// </summary>
+    public struct CefDeleteCookiesCallback
+    {
+        const int _typeNAME = 88;
+        const int CefDeleteCookiesCallback_Release_0 = (_typeNAME << 16) | 0;
+        internal IntPtr nativePtr;
+        internal CefDeleteCookiesCallback(IntPtr nativePtr)
+        {
+            this.nativePtr = nativePtr;
+        }
+        public void Release()
+        {
+            JsValue ret;
+            Cef3Binder.MyCefMet_Call0(this.nativePtr, CefDeleteCookiesCallback_Release_0, out ret);
+            this.nativePtr = IntPtr.Zero;
+        }
+    }
+    /// <summary>
+    /// Callback interface for asynchronous continuation of file dialog requests.
+    /// /*(source=library)*/
+    /// </summary>
+    public struct CefFileDialogCallback
+    {
+        const int _typeNAME = 89;
+        const int CefFileDialogCallback_Release_0 = (_typeNAME << 16) | 0;
+        const int CefFileDialogCallbackCToCpp_Continue = (_typeNAME << 16) | 1;
+        const int CefFileDialogCallbackCToCpp_Cancel = (_typeNAME << 16) | 2;
+        internal IntPtr nativePtr;
+        internal CefFileDialogCallback(IntPtr nativePtr)
+        {
+            this.nativePtr = nativePtr;
+        }
+        public void Release()
+        {
+            JsValue ret;
+            Cef3Binder.MyCefMet_Call0(this.nativePtr, CefFileDialogCallback_Release_0, out ret);
+            this.nativePtr = IntPtr.Zero;
+        }
+
+        // gen! void Continue(int selected_accept_filter,const std::vector<CefString>& file_paths)
+        /// <summary>
+        /// CefFileDialogCallback methods.
+        /// </summary>
+
+        public void Continue(int selected_accept_filter,
+        List<string> file_paths)
+        {
+            JsValue v1 = new JsValue();
+            JsValue v2 = new JsValue();
+            JsValue ret;
+            v1.I32 = (int)selected_accept_filter;
+            v2.Ptr = Cef3Binder.CreateStdList(2);
+
+            Cef3Binder.MyCefMet_Call2(this.nativePtr, CefFileDialogCallbackCToCpp_Continue, out ret, ref v1, ref v2);
+            Cef3Binder.CopyStdStringListAndDestroyNativeSide(v2.Ptr, file_paths);
+
+        }
+
+        // gen! void Cancel()
+
+        public void Cancel()
+        {
+            JsValue ret;
+
+            Cef3Binder.MyCefMet_Call0(this.nativePtr, CefFileDialogCallbackCToCpp_Cancel, out ret);
+
+        }
+    }
+    /// <summary>
+    /// Callback interface used to asynchronously continue a download.
+    /// /*(source=library)*/
+    /// </summary>
+    public struct CefBeforeDownloadCallback
+    {
+        const int _typeNAME = 90;
+        const int CefBeforeDownloadCallback_Release_0 = (_typeNAME << 16) | 0;
+        const int CefBeforeDownloadCallbackCToCpp_Continue = (_typeNAME << 16) | 1;
+        internal IntPtr nativePtr;
+        internal CefBeforeDownloadCallback(IntPtr nativePtr)
+        {
+            this.nativePtr = nativePtr;
+        }
+        public void Release()
+        {
+            JsValue ret;
+            Cef3Binder.MyCefMet_Call0(this.nativePtr, CefBeforeDownloadCallback_Release_0, out ret);
+            this.nativePtr = IntPtr.Zero;
+        }
+
+        // gen! void Continue(const CefString& download_path,bool show_dialog)
+        /// <summary>
+        /// CefBeforeDownloadCallback methods.
+        /// </summary>
+
+        public void Continue(string download_path,
+        bool show_dialog)
+        {
+            JsValue v1 = new JsValue();
+            JsValue v2 = new JsValue();
+            JsValue ret;
+            v1.Ptr = Cef3Binder.MyCefCreateCefString(download_path);
+            v2.I32 = show_dialog ? 1 : 0;
+
+            Cef3Binder.MyCefMet_Call2(this.nativePtr, CefBeforeDownloadCallbackCToCpp_Continue, out ret, ref v1, ref v2);
+            Cef3Binder.MyCefDeletePtr(v1.Ptr);
+
+        }
+    }
+    /// <summary>
+    /// Callback interface used to asynchronously cancel a download.
+    /// /*(source=library)*/
+    /// </summary>
+    public struct CefDownloadItemCallback
+    {
+        const int _typeNAME = 91;
+        const int CefDownloadItemCallback_Release_0 = (_typeNAME << 16) | 0;
+        const int CefDownloadItemCallbackCToCpp_Cancel = (_typeNAME << 16) | 1;
+        const int CefDownloadItemCallbackCToCpp_Pause = (_typeNAME << 16) | 2;
+        const int CefDownloadItemCallbackCToCpp_Resume = (_typeNAME << 16) | 3;
+        internal IntPtr nativePtr;
+        internal CefDownloadItemCallback(IntPtr nativePtr)
+        {
+            this.nativePtr = nativePtr;
+        }
+        public void Release()
+        {
+            JsValue ret;
+            Cef3Binder.MyCefMet_Call0(this.nativePtr, CefDownloadItemCallback_Release_0, out ret);
+            this.nativePtr = IntPtr.Zero;
+        }
+
+        // gen! void Cancel()
+        /// <summary>
+        /// CefDownloadItemCallback methods.
+        /// </summary>
+
+        public void Cancel()
+        {
+            JsValue ret;
+
+            Cef3Binder.MyCefMet_Call0(this.nativePtr, CefDownloadItemCallbackCToCpp_Cancel, out ret);
+
+        }
+
+        // gen! void Pause()
+
+        public void Pause()
+        {
+            JsValue ret;
+
+            Cef3Binder.MyCefMet_Call0(this.nativePtr, CefDownloadItemCallbackCToCpp_Pause, out ret);
+
+        }
+
+        // gen! void Resume()
+
+        public void Resume()
+        {
+            JsValue ret;
+
+            Cef3Binder.MyCefMet_Call0(this.nativePtr, CefDownloadItemCallbackCToCpp_Resume, out ret);
+
+        }
+    }
+    /// <summary>
+    /// Implement this interface to receive geolocation updates. The methods of this
+    /// class will be called on the browser process UI thread.
+    /// /*(source=client)*/
+    /// </summary>
+    public struct CefGetGeolocationCallback
+    {
+        const int _typeNAME = 92;
+        const int CefGetGeolocationCallback_Release_0 = (_typeNAME << 16) | 0;
+        internal IntPtr nativePtr;
+        internal CefGetGeolocationCallback(IntPtr nativePtr)
+        {
+            this.nativePtr = nativePtr;
+        }
+        public void Release()
+        {
+            JsValue ret;
+            Cef3Binder.MyCefMet_Call0(this.nativePtr, CefGetGeolocationCallback_Release_0, out ret);
+            this.nativePtr = IntPtr.Zero;
+        }
+    }
+    /// <summary>
+    /// Callback interface used for asynchronous continuation of geolocation
+    /// permission requests.
+    /// /*(source=library)*/
+    /// </summary>
+    public struct CefGeolocationCallback
+    {
+        const int _typeNAME = 93;
+        const int CefGeolocationCallback_Release_0 = (_typeNAME << 16) | 0;
+        const int CefGeolocationCallbackCToCpp_Continue = (_typeNAME << 16) | 1;
+        internal IntPtr nativePtr;
+        internal CefGeolocationCallback(IntPtr nativePtr)
+        {
+            this.nativePtr = nativePtr;
+        }
+        public void Release()
+        {
+            JsValue ret;
+            Cef3Binder.MyCefMet_Call0(this.nativePtr, CefGeolocationCallback_Release_0, out ret);
+            this.nativePtr = IntPtr.Zero;
+        }
+
+        // gen! void Continue(bool allow)
+        /// <summary>
+        /// CefGeolocationCallback methods.
+        /// </summary>
+
+        public void Continue(bool allow)
+        {
+            JsValue v1 = new JsValue();
+            JsValue ret;
+            v1.I32 = allow ? 1 : 0;
+
+            Cef3Binder.MyCefMet_Call1(this.nativePtr, CefGeolocationCallbackCToCpp_Continue, out ret, ref v1);
+
+        }
+    }
+    /// <summary>
+    /// Callback interface used for asynchronous continuation of JavaScript dialog
+    /// requests.
+    /// /*(source=library)*/
+    /// </summary>
+    public struct CefJSDialogCallback
+    {
+        const int _typeNAME = 94;
+        const int CefJSDialogCallback_Release_0 = (_typeNAME << 16) | 0;
+        const int CefJSDialogCallbackCToCpp_Continue = (_typeNAME << 16) | 1;
+        internal IntPtr nativePtr;
+        internal CefJSDialogCallback(IntPtr nativePtr)
+        {
+            this.nativePtr = nativePtr;
+        }
+        public void Release()
+        {
+            JsValue ret;
+            Cef3Binder.MyCefMet_Call0(this.nativePtr, CefJSDialogCallback_Release_0, out ret);
+            this.nativePtr = IntPtr.Zero;
+        }
+
+        // gen! void Continue(bool success,const CefString& user_input)
+        /// <summary>
+        /// CefJSDialogCallback methods.
+        /// </summary>
+
+        public void Continue(bool success,
+        string user_input)
+        {
+            JsValue v1 = new JsValue();
+            JsValue v2 = new JsValue();
+            JsValue ret;
+            v2.Ptr = Cef3Binder.MyCefCreateCefString(user_input);
+            v1.I32 = success ? 1 : 0;
+
+            Cef3Binder.MyCefMet_Call2(this.nativePtr, CefJSDialogCallbackCToCpp_Continue, out ret, ref v1, ref v2);
+            Cef3Binder.MyCefDeletePtr(v2.Ptr);
+
+        }
+    }
+    /// <summary>
+    /// Callback interface for asynchronous continuation of print dialog requests.
+    /// /*(source=library)*/
+    /// </summary>
+    public struct CefPrintDialogCallback
+    {
+        const int _typeNAME = 95;
+        const int CefPrintDialogCallback_Release_0 = (_typeNAME << 16) | 0;
+        const int CefPrintDialogCallbackCToCpp_Continue = (_typeNAME << 16) | 1;
+        const int CefPrintDialogCallbackCToCpp_Cancel = (_typeNAME << 16) | 2;
+        internal IntPtr nativePtr;
+        internal CefPrintDialogCallback(IntPtr nativePtr)
+        {
+            this.nativePtr = nativePtr;
+        }
+        public void Release()
+        {
+            JsValue ret;
+            Cef3Binder.MyCefMet_Call0(this.nativePtr, CefPrintDialogCallback_Release_0, out ret);
+            this.nativePtr = IntPtr.Zero;
+        }
+
+        // gen! void Continue(CefRefPtr<CefPrintSettings> settings)
+        /// <summary>
+        /// CefPrintDialogCallback methods.
+        /// </summary>
+
+        public void Continue(CefPrintSettings settings)
+        {
+            JsValue v1 = new JsValue();
+            JsValue ret;
+            v1.Ptr = settings.nativePtr;
+
+            Cef3Binder.MyCefMet_Call1(this.nativePtr, CefPrintDialogCallbackCToCpp_Continue, out ret, ref v1);
+
+        }
+
+        // gen! void Cancel()
+
+        public void Cancel()
+        {
+            JsValue ret;
+
+            Cef3Binder.MyCefMet_Call0(this.nativePtr, CefPrintDialogCallbackCToCpp_Cancel, out ret);
+
+        }
+    }
+    /// <summary>
+    /// Callback interface for asynchronous continuation of print job requests.
+    /// /*(source=library)*/
+    /// </summary>
+    public struct CefPrintJobCallback
+    {
+        const int _typeNAME = 96;
+        const int CefPrintJobCallback_Release_0 = (_typeNAME << 16) | 0;
+        const int CefPrintJobCallbackCToCpp_Continue = (_typeNAME << 16) | 1;
+        internal IntPtr nativePtr;
+        internal CefPrintJobCallback(IntPtr nativePtr)
+        {
+            this.nativePtr = nativePtr;
+        }
+        public void Release()
+        {
+            JsValue ret;
+            Cef3Binder.MyCefMet_Call0(this.nativePtr, CefPrintJobCallback_Release_0, out ret);
+            this.nativePtr = IntPtr.Zero;
+        }
+
+        // gen! void Continue()
+        /// <summary>
+        /// CefPrintJobCallback methods.
+        /// </summary>
+
+        public void Continue()
+        {
+            JsValue ret;
+
+            Cef3Binder.MyCefMet_Call0(this.nativePtr, CefPrintJobCallbackCToCpp_Continue, out ret);
+
+        }
+    }
+    /// <summary>
+    /// Callback interface for CefRequestContext::ResolveHost.
+    /// /*(source=client)*/
+    /// </summary>
+    public struct CefResolveCallback
+    {
+        const int _typeNAME = 97;
+        const int CefResolveCallback_Release_0 = (_typeNAME << 16) | 0;
+        internal IntPtr nativePtr;
+        internal CefResolveCallback(IntPtr nativePtr)
+        {
+            this.nativePtr = nativePtr;
+        }
+        public void Release()
+        {
+            JsValue ret;
+            Cef3Binder.MyCefMet_Call0(this.nativePtr, CefResolveCallback_Release_0, out ret);
+            this.nativePtr = IntPtr.Zero;
+        }
+    }
+    /// <summary>
+    /// Callback interface used for asynchronous continuation of url requests.
+    /// /*(source=library)*/
+    /// </summary>
+    public struct CefRequestCallback
+    {
+        const int _typeNAME = 98;
+        const int CefRequestCallback_Release_0 = (_typeNAME << 16) | 0;
+        const int CefRequestCallbackCToCpp_Continue = (_typeNAME << 16) | 1;
+        const int CefRequestCallbackCToCpp_Cancel = (_typeNAME << 16) | 2;
+        internal IntPtr nativePtr;
+        internal CefRequestCallback(IntPtr nativePtr)
+        {
+            this.nativePtr = nativePtr;
+        }
+        public void Release()
+        {
+            JsValue ret;
+            Cef3Binder.MyCefMet_Call0(this.nativePtr, CefRequestCallback_Release_0, out ret);
+            this.nativePtr = IntPtr.Zero;
+        }
+
+        // gen! void Continue(bool allow)
+        /// <summary>
+        /// CefRequestCallback methods.
+        /// </summary>
+
+        public void Continue(bool allow)
+        {
+            JsValue v1 = new JsValue();
+            JsValue ret;
+            v1.I32 = allow ? 1 : 0;
+
+            Cef3Binder.MyCefMet_Call1(this.nativePtr, CefRequestCallbackCToCpp_Continue, out ret, ref v1);
+
+        }
+
+        // gen! void Cancel()
+
+        public void Cancel()
+        {
+            JsValue ret;
+
+            Cef3Binder.MyCefMet_Call0(this.nativePtr, CefRequestCallbackCToCpp_Cancel, out ret);
+
+        }
+    }
+    /// <summary>
+    /// Callback interface used to select a client certificate for authentication.
+    /// /*(source=library)*/
+    /// </summary>
+    public struct CefSelectClientCertificateCallback
+    {
+        const int _typeNAME = 99;
+        const int CefSelectClientCertificateCallback_Release_0 = (_typeNAME << 16) | 0;
+        const int CefSelectClientCertificateCallbackCToCpp_Select = (_typeNAME << 16) | 1;
+        internal IntPtr nativePtr;
+        internal CefSelectClientCertificateCallback(IntPtr nativePtr)
+        {
+            this.nativePtr = nativePtr;
+        }
+        public void Release()
+        {
+            JsValue ret;
+            Cef3Binder.MyCefMet_Call0(this.nativePtr, CefSelectClientCertificateCallback_Release_0, out ret);
+            this.nativePtr = IntPtr.Zero;
+        }
+
+        // gen! void Select(CefRefPtr<CefX509Certificate> cert)
+        /// <summary>
+        /// CefSelectClientCertificateCallback methods.
+        /// </summary>
+
+        public void Select(CefX509Certificate cert)
+        {
+            JsValue v1 = new JsValue();
+            JsValue ret;
+            v1.Ptr = cert.nativePtr;
+
+            Cef3Binder.MyCefMet_Call1(this.nativePtr, CefSelectClientCertificateCallbackCToCpp_Select, out ret, ref v1);
+
+        }
+    }
+    /// <summary>
+    /// Implement this interface to receive notification when tracing has completed.
+    /// The methods of this class will be called on the browser process UI thread.
+    /// /*(source=client)*/
+    /// </summary>
+    public struct CefEndTracingCallback
+    {
+        const int _typeNAME = 100;
+        const int CefEndTracingCallback_Release_0 = (_typeNAME << 16) | 0;
+        internal IntPtr nativePtr;
+        internal CefEndTracingCallback(IntPtr nativePtr)
+        {
+            this.nativePtr = nativePtr;
+        }
+        public void Release()
+        {
+            JsValue ret;
+            Cef3Binder.MyCefMet_Call0(this.nativePtr, CefEndTracingCallback_Release_0, out ret);
+            this.nativePtr = IntPtr.Zero;
+        }
+    }
+    /// <summary>
+    /// Interface to implement for receiving unstable plugin information. The methods
+    /// of this class will be called on the browser process IO thread.
+    /// /*cef(source=client)*/
+    /// </summary>
+    public struct CefWebPluginUnstableCallback
+    {
+        const int _typeNAME = 101;
+        const int CefWebPluginUnstableCallback_Release_0 = (_typeNAME << 16) | 0;
+        internal IntPtr nativePtr;
+        internal CefWebPluginUnstableCallback(IntPtr nativePtr)
+        {
+            this.nativePtr = nativePtr;
+        }
+        public void Release()
+        {
+            JsValue ret;
+            Cef3Binder.MyCefMet_Call0(this.nativePtr, CefWebPluginUnstableCallback_Release_0, out ret);
+            this.nativePtr = IntPtr.Zero;
+        }
+    }
+    /// <summary>
+    /// Implement this interface to receive notification when CDM registration is
+    /// complete. The methods of this class will be called on the browser process
+    /// UI thread.
+    /// /*cef(source=client)*/
+    /// </summary>
+    public struct CefRegisterCdmCallback
+    {
+        const int _typeNAME = 102;
+        const int CefRegisterCdmCallback_Release_0 = (_typeNAME << 16) | 0;
+        internal IntPtr nativePtr;
+        internal CefRegisterCdmCallback(IntPtr nativePtr)
+        {
+            this.nativePtr = nativePtr;
+        }
+        public void Release()
+        {
+            JsValue ret;
+            Cef3Binder.MyCefMet_Call0(this.nativePtr, CefRegisterCdmCallback_Release_0, out ret);
+            this.nativePtr = IntPtr.Zero;
+        }
+    }
 }

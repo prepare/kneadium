@@ -1794,8 +1794,8 @@ namespace BridgeBuilder
             CodeTypeDeclaration implTypeDecl = this.ImplTypeDecl;
             CodeStringBuilder totalTypeMethod = new CodeStringBuilder();
 
-            _typeTxInfo = implTypeDecl.TypeTxInfo;
-            _currentCodeTypeDecl = implTypeDecl;
+            _typeTxInfo = orgDecl.TypeTxInfo;
+            _currentCodeTypeDecl = orgDecl;
 
             int j = _typeTxInfo.methods.Count;
             //-----------------------------------------------------------------------
@@ -1914,7 +1914,8 @@ namespace BridgeBuilder
                 }
                 if (metTx.CppMethodSwitchCaseName == null)
                 {
-                    throw new NotSupportedException();
+                    metTx.CppMethodSwitchCaseName = _currentCodeTypeDecl.Name + "_" + metTx.Name;
+                    //throw new NotSupportedException();
                 }
                 csStruct.AppendLine("const int " + metTx.CppMethodSwitchCaseName + "= (_typeNAME <<16) |" + (i + 1) + ";");
             }

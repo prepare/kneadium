@@ -530,18 +530,7 @@ namespace BridgeBuilder
                 }
 
             }
-            foreach (CefTypeTxPlan tx in callbackPlans)
-            {
-                CodeStringBuilder stbuilder = new CodeStringBuilder();
-                tx.GenerateCppCode(stbuilder);
-                //
-                CodeStringBuilder csCode = new CodeStringBuilder();
-                tx.GenerateCsCode(csCode);
-                csCodeStBuilder.Append(csCode.ToString());
-            }
-
-
-
+            
             foreach (CefTypeTxPlan tx in enumTxPlans)
             {
                 CodeStringBuilder csCode = new CodeStringBuilder();
@@ -574,6 +563,18 @@ namespace BridgeBuilder
 
                 tt_count++;
             }
+
+            //
+            foreach (CefTypeTxPlan tx in callbackPlans)
+            {
+                CodeStringBuilder stbuilder = new CodeStringBuilder();
+                tx.GenerateCppCode(stbuilder);
+                //
+                CodeStringBuilder csCode = new CodeStringBuilder();
+                tx.GenerateCsCode(csCode);
+                csCodeStBuilder.Append(csCode.ToString());
+            }
+            // 
 
             CreateCppSwitchTable(cppCodeStBuilder, instanceClassPlans);
 
