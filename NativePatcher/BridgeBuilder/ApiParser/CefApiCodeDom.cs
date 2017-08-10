@@ -404,7 +404,23 @@ namespace BridgeBuilder
             }
             return foundCount;
         }
-
+        public int FindMethod(string name, List<CodeMethodDeclaration> results)
+        {
+            int foundCount = 0;
+            if (_members == null) return 0;
+            //
+            int j = _members.Count;
+            for (int i = 0; i < j; ++i)
+            {
+                CodeMemberDeclaration mb = _members[i];
+                if (mb.Name == name && mb.MemberKind == CodeMemberKind.Method)
+                {
+                    foundCount++;
+                    results.Add((CodeMethodDeclaration)mb);
+                }
+            }
+            return foundCount;
+        }
         //
         //transformation 
         internal TypeTxInfo TypeTxInfo { get; set; }
@@ -693,14 +709,7 @@ namespace BridgeBuilder
             get { return _lineComments; }
             set
             {
-                //if (this.Name == "CefBrowser")
-                //{
-
-                //}
-                //if (_lineComments != null)
-                //{
-
-                //}
+                 
 
                 _lineComments = value;
             }

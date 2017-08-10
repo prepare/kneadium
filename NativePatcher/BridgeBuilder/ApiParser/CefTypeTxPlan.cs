@@ -1598,6 +1598,10 @@ namespace BridgeBuilder
                         {
                             continue; //skip this first and last line comment
                         }
+                        else
+                        {
+                            stbuilder.AppendLine(lineContent);
+                        }
                     }
                     else
                     {
@@ -1871,6 +1875,9 @@ namespace BridgeBuilder
         int _dbug_cpp_count = 0;
 #endif
         internal int MaxMethodParCount { get; private set; }
+
+
+
         public override void GenerateCppCode(CodeStringBuilder stbuilder)
         {
 
@@ -2057,13 +2064,50 @@ namespace BridgeBuilder
         }
 
         //---------------------------------------------------
+        void AddComments(CodeTypeDeclaration orgDecl, CodeTypeDeclaration implTypeDecl)
+        {
 
+            //copy comment from orgDecl to implTypeDecl 
+            List<CodeMethodDeclaration> results = new List<CodeMethodDeclaration>();
+            foreach (CodeMethodDeclaration orgMet in orgDecl.GetMethodIter())
+            {
+                Token[] lineComments = orgMet.LineComments;
+               
+                if (lineComments != null)
+                {
+                    results.Clear();
+                    implTypeDecl.FindMethod(orgMet.Name, results);
+                    switch (results.Count)
+                    {
+                        case 0://not found
+                            break;
+                        case 1:
+                            //found 1
+                            {
+                                CodeMethodDeclaration implMethodDecl = results[0];
+                                if (implMethodDecl.LineComments == null)
+                                {
+                                    implMethodDecl.LineComments = lineComments;
+                                }
+                                else
+                                {
+                                }
+
+                            }
+                            break;
+                        default:
+                            break;
+                    }
+                }
+            }
+        }
         public override void GenerateCsCode(CodeStringBuilder stbuilder)
         {
             CodeTypeDeclaration orgDecl = this.OriginalDecl;
             CodeTypeDeclaration implTypeDecl = this.ImplTypeDecl;
 
-
+            AddComments(orgDecl, implTypeDecl);
+            //-----------------------------------------------------------------------
             _typeTxInfo = implTypeDecl.TypeTxInfo;
             _currentCodeTypeDecl = implTypeDecl;
 
@@ -2113,11 +2157,7 @@ namespace BridgeBuilder
                 //create each method,
                 //in our convention we dont generate 
                 MethodTxInfo metTx = _typeTxInfo.methods[i];
-                //
-                if (metTx.metDecl.LineComments != null)
-                {
-
-                }
+                
                 AddComment(metTx.metDecl.LineComments, csStruct);
                 //
                 GenerateCsMethod(metTx, met_stbuilder);
