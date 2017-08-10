@@ -329,6 +329,12 @@ namespace BridgeBuilder
                     {
                         continue;
                     }
+
+                    //if (onlyHeaderFiles[i].Contains("cef_browser"))
+                    //{
+
+                    //}
+
                     CodeCompilationUnit cu = ParseWrapper(onlyHeaderFiles[i]);
                     totalCuList.Add(cu);
                 }
@@ -505,8 +511,7 @@ namespace BridgeBuilder
 
 
             csCodeStBuilder.AppendLine("using System;\r\n" +
-            "using System.Collections.Generic;\r\n" +
-            "using System.Runtime.InteropServices;\r\n" +
+            "using System.Collections.Generic;\r\n" + 
             "namespace LayoutFarm.CefBridge.Auto{\r\n");
 
 
@@ -603,7 +608,7 @@ namespace BridgeBuilder
                 CefInstanceElementTxPlan instanceClassPlan = instanceClassPlans[i];
                 cppStBuilder.AppendLine("case " + "CefTypeName_" + instanceClassPlan.OriginalDecl.Name + ":");
                 cppStBuilder.AppendLine("{");
-                cppStBuilder.AppendLine("MyCefMet_" + instanceClassPlan.OriginalDecl.Name + "((" + instanceClassPlan.UnderlyingCType + "*)me1,metName & 0xffff,ret");             
+                cppStBuilder.AppendLine("MyCefMet_" + instanceClassPlan.OriginalDecl.Name + "((" + instanceClassPlan.UnderlyingCType + "*)me1,metName & 0xffff,ret");
                 int nn = instanceClassPlan.MaxMethodParCount;
                 for (int m = 0; m < nn; ++m)
                 {

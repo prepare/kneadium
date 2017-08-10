@@ -476,20 +476,30 @@ namespace BridgeBuilder
             }
 
         }
-        void ReadUntilEscapeFromInlineComment()
+        void ReadUntilEscapeFromInlineComment(Token commentTk)
         {
+            StringBuilder stbuilder = new StringBuilder();
+            stbuilder.Append(commentTk.Content);
+
+            lineComments.Add(commentTk);
+
             int tkcount = tokenList.Count;
             for (int n = currentTokenIndex + 1; n < tkcount; ++n)
             {
                 Token nextTk = tokenList[n];
+                stbuilder.Append(nextTk);
+
                 if (nextTk.TokenKind == TokenKind.Comment)
                 {
                     //found , just stop here
                     currentTokenIndex = n;
+                    //ok
+                    commentTk.Content = "/// " + stbuilder.ToString();
                     break;
                 }
                 else
                 {
+
                     continue;
                 }
             }
@@ -604,7 +614,7 @@ namespace BridgeBuilder
                         //TODO: review here 
                         //not correct
                         currentTokenIndex++;
-                        ReadUntilEscapeFromInlineComment();
+                        ReadUntilEscapeFromInlineComment(tk);
                         continue;//go read next again  
                     case TokenKind.Id:
                         {
@@ -619,6 +629,8 @@ namespace BridgeBuilder
                                         CodeTypeDeclaration typeDecl = ParseTypeDeclaration(tk.Content == "class" ? TypeKind.Class : TypeKind.Struct);
                                         typeDecl.Kind = (tk.Content == "class") ? TypeKind.Class : TypeKind.Struct;
                                         templateNotation = null;
+                                        typeDecl.LineComments = comments;
+
                                         if (typeDecl != null)
                                         {
                                             cu.AddTypeDeclaration(typeDecl);
@@ -691,7 +703,7 @@ namespace BridgeBuilder
                     return ExpectId();
                 case TokenKind.Comment:
                     currentTokenIndex++;
-                    ReadUntilEscapeFromInlineComment();
+                    ReadUntilEscapeFromInlineComment(tk);
                     return ExpectId();
                 case TokenKind.Id:
                     currentTokenIndex = i;
@@ -708,6 +720,9 @@ namespace BridgeBuilder
             switch (tk.TokenKind)
             {
                 case TokenKind.LineComment:
+                    this.lineComments.Add(tk);
+                    currentTokenIndex++;
+                    return ExpectToken(k, value);
                 case TokenKind.PreprocessingDirective:
                     currentTokenIndex++;
                     return ExpectToken(k, value);
@@ -724,7 +739,7 @@ namespace BridgeBuilder
                 case TokenKind.Comment:
                     //found open comment
                     currentTokenIndex++;
-                    ReadUntilEscapeFromInlineComment();
+                    ReadUntilEscapeFromInlineComment(tk);
                     return ExpectToken(k, value);
                 default:
 
@@ -816,12 +831,15 @@ namespace BridgeBuilder
             switch (tk.TokenKind)
             {
                 case TokenKind.LineComment:
+                    lineComments.Add(tk);
+                    currentTokenIndex++;
+                    return ExpectPunc(expectedPunc);
                 case TokenKind.PreprocessingDirective:
                     currentTokenIndex++;
                     return ExpectPunc(expectedPunc);
                 case TokenKind.Comment:
                     currentTokenIndex++;
-                    ReadUntilEscapeFromInlineComment();
+                    ReadUntilEscapeFromInlineComment(tk);
                     return ExpectPunc(expectedPunc);
                 case TokenKind.Punc:
                     if (tk.Content == expectedPunc)
@@ -1058,7 +1076,6 @@ namespace BridgeBuilder
                 CodeTypeDeclaration enumDecl = ParseEnumDeclaration();
                 enumDecl.LineComments = comments;
                 string enum_name = ExpectId();
-
                 if (enum_name != null)
                 {
                     enumDecl.Name = enum_name;
@@ -1235,8 +1252,8 @@ namespace BridgeBuilder
                                 if (fieldname != null)
                                 {
                                     CodeFieldDeclaration field_decl = new CodeFieldDeclaration();
-                                    field_decl.LineComments = comments2;
                                     field_decl.Name = fieldname;
+                                    field_decl.LineComments = comments2;
                                     enumDecl.AddMember(field_decl);
                                     fieldname = null;//reset
                                 }
@@ -1314,7 +1331,7 @@ namespace BridgeBuilder
             dbugCount++;
 
 #endif
-
+ 
             //member modifiers
             //this version must be public 
             //parse each member 
@@ -1400,6 +1417,7 @@ namespace BridgeBuilder
             //-------
 
             string name = ExpectId();
+
             if (name == "operator")
             {
                 //operator method
@@ -1491,15 +1509,13 @@ namespace BridgeBuilder
             if (ExpectPunc("("))
             {
                 //this is method
-                Token[] comments = FlushCollectedLineComments();
+                Token[] comments = FlushCollectedLineComments(); 
                 CodeMethodDeclaration met = new CodeMethodDeclaration();
                 met.IsStatic = isStatic;
                 met.IsVirtual = isVirtual;
                 met.IsInline = isInline;
-                met.LineComments = comments;
                 met.MemberAccessibility = this._currentMemberAccessibilityMode;
                 met.CppExplicitOwnerType = cppExplicitOwnerTypeName;
-
                 //
                 if (retType.ToString() == codeTypeDecl.Name && name == null)
                 {
@@ -1514,6 +1530,7 @@ namespace BridgeBuilder
                     met.Name = name;
                     met.ReturnType = retType;
                 }
+                met.LineComments = comments;
                 //-----------------------------------------------------
                 //parse func parameters    
                 while (ParseParameter(met)) ;
@@ -1581,10 +1598,10 @@ namespace BridgeBuilder
                 Token[] comments = FlushCollectedLineComments();
                 //this is code field decl
                 CodeFieldDeclaration field = new CodeFieldDeclaration();
-                field.LineComments = comments;
                 field.MemberAccessibility = this._currentMemberAccessibilityMode;
                 codeTypeDecl.AddMember(field);
                 field.Name = name;
+                field.LineComments = comments;
                 field.FieldType = retType;
                 field.IsStatic = isStatic;
                 field.IsConst = isConst;

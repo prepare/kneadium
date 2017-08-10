@@ -86,9 +86,7 @@ namespace LayoutFarm.CefBridge
         [DllImport(CEF_CLIENT_DLL, CallingConvention = CallingConvention.Cdecl)]
         public static extern void MyCefFrameCall2(IntPtr myCefBw, int methodName, out JsValue ret, ref JsValue arg1, ref JsValue arg2);
 
-        [DllImport(CEF_CLIENT_DLL, CallingConvention = CallingConvention.Cdecl)]
-        public static extern void MyCefRelease(IntPtr myCefBw, int kind);
-        //--------------
+      
 
         [DllImport(CEF_CLIENT_DLL, CallingConvention = CallingConvention.Cdecl)]
         public static extern void MyCefMet_CefBrowser(IntPtr /*cef_browser_t* */ me1, int metName, out JsValue ret, ref JsValue arg1, ref JsValue arg2, ref JsValue arg3, ref JsValue arg4, ref JsValue arg5, ref JsValue arg6);
@@ -96,129 +94,86 @@ namespace LayoutFarm.CefBridge
         public static extern void MyCefMet_CefFrame(IntPtr /*cef_frame_t**/ me1, int metName, out JsValue ret, ref JsValue arg1, ref JsValue arg2, ref JsValue arg3, ref JsValue arg4, ref JsValue arg5, ref JsValue arg6);
 
 
-
-
-
         [DllImport(Cef3Binder.CEF_CLIENT_DLL, CallingConvention = CallingConvention.Cdecl)]
-        public static extern void MyCefMet_CallN(IntPtr me, int metName, out JsValue ret, ref JsValue v1, ref JsValue v2, ref JsValue v3, ref JsValue v4, ref JsValue v5, ref JsValue v6);
-
-
-
-
+        public static extern void MyCefMet_CallN(IntPtr me, int metName, out JsValue ret, ref JsValue v1,
+            ref JsValue v2, ref JsValue v3, ref JsValue v4, ref JsValue v5, ref JsValue v6, ref JsValue v7);
 
         public static void MyCefMet_Call0(IntPtr me, int metName, out JsValue ret)
         {
-        
-            JsValue v1 = new JsValue(); 
-            JsValue v2 = new JsValue(); 
-            JsValue v3 = new JsValue(); 
-            JsValue v4 = new JsValue(); 
-            JsValue v5 = new JsValue(); 
-            JsValue v6 = new JsValue(); 
-            MyCefMet_CallN( 
+
+            JsValue v_notUsed = new JsValue();
+
+            MyCefMet_CallN(
             me, metName, out ret
-            , ref v1, ref v2, ref v3, ref v4, ref v5, ref v6 
-            ); 
+            , ref v_notUsed, ref v_notUsed, ref v_notUsed, ref v_notUsed, ref v_notUsed, ref v_notUsed, ref v_notUsed
+            );
         }
-         
+
         public static void MyCefMet_Call1(IntPtr me, int metName, out JsValue ret
-        , ref JsValue v1/*5087*/
+        , ref JsValue v1
         )
         {
-            /*5088*/
-            JsValue v2 = new JsValue();
-            /*5089*/
-            JsValue v3 = new JsValue();
-            /*5090*/
-            JsValue v4 = new JsValue();
-            /*5091*/
-            JsValue v5 = new JsValue();
-            /*5092*/
-            JsValue v6 = new JsValue();
-            /*5093*/
+            JsValue v_notUsed = new JsValue();
             MyCefMet_CallN(
-            /*5094*/
             me, metName, out ret
-            , ref v1, ref v2, ref v3, ref v4, ref v5, ref v6/*5095*/
+            , ref v1, ref v_notUsed, ref v_notUsed, ref v_notUsed, ref v_notUsed, ref v_notUsed, ref v_notUsed
             );
-            /*5096*/
         }
-        /*5097*/
         public static void MyCefMet_Call2(IntPtr me, int metName, out JsValue ret
-        , ref JsValue v1, ref JsValue v2/*5098*/
+        , ref JsValue v1, ref JsValue v2
         )
         {
-            /*5099*/
-            JsValue v3 = new JsValue();
-            /*5100*/
-            JsValue v4 = new JsValue();
-            /*5101*/
-            JsValue v5 = new JsValue();
-            /*5102*/
-            JsValue v6 = new JsValue();
-            /*5103*/
+            JsValue v_notUsed = new JsValue();
             MyCefMet_CallN(
-            /*5104*/
             me, metName, out ret
-            , ref v1, ref v2, ref v3, ref v4, ref v5, ref v6/*5105*/
+            , ref v1, ref v2,
+            ref v_notUsed, ref v_notUsed, ref v_notUsed, ref v_notUsed, ref v_notUsed
             );
-            /*5106*/
         }
-        /*5107*/
         public static void MyCefMet_Call3(IntPtr me, int metName, out JsValue ret
-        , ref JsValue v1, ref JsValue v2, ref JsValue v3/*5108*/
+        , ref JsValue v1, ref JsValue v2, ref JsValue v3
         )
         {
-            /*5109*/
-            JsValue v4 = new JsValue();
-            /*5110*/
-            JsValue v5 = new JsValue();
-            /*5111*/
-            JsValue v6 = new JsValue();
-            /*5112*/
+            JsValue v_notUsed = new JsValue();
             MyCefMet_CallN(
-            /*5113*/
             me, metName, out ret
-            , ref v1, ref v2, ref v3, ref v4, ref v5, ref v6/*5114*/
+            , ref v1, ref v2, ref v3,
+            ref v_notUsed, ref v_notUsed, ref v_notUsed, ref v_notUsed
             );
-            /*5115*/
         }
-        /*5116*/
         public static void MyCefMet_Call4(IntPtr me, int metName, out JsValue ret
         , ref JsValue v1, ref JsValue v2, ref JsValue v3, ref JsValue v4/*5117*/
         )
         {
-            /*5118*/
-            JsValue v5 = new JsValue();
-            /*5119*/
-            JsValue v6 = new JsValue();
-            /*5120*/
+            JsValue v_notUsed = new JsValue();
             MyCefMet_CallN(
-            /*5121*/
             me, metName, out ret
-            , ref v1, ref v2, ref v3, ref v4, ref v5, ref v6/*5122*/
+            , ref v1, ref v2, ref v3, ref v4,
+            ref v_notUsed, ref v_notUsed, ref v_notUsed
             );
-            /*5123*/
         }
 
         public static void MyCefMet_Call5(IntPtr me, int metName, out JsValue ret
-        , ref JsValue v1, ref JsValue v2, ref JsValue v3, ref JsValue v4, ref JsValue v5/*5125*/
+        , ref JsValue v1, ref JsValue v2, ref JsValue v3, ref JsValue v4, ref JsValue v5
         )
         {
 
-            JsValue v6 = new JsValue();
+            JsValue v_notUsed = new JsValue();
             MyCefMet_CallN(
             me, metName, out ret
-            , ref v1, ref v2, ref v3, ref v4, ref v5, ref v6
+            , ref v1, ref v2, ref v3, ref v4, ref v5,
+            ref v_notUsed, ref v_notUsed
             );
         }
         public static void MyCefMet_Call6(IntPtr me, int metName, out JsValue ret
         , ref JsValue v1, ref JsValue v2, ref JsValue v3, ref JsValue v4, ref JsValue v5, ref JsValue v6
         )
         {
+            JsValue v_notUsed = new JsValue();
             MyCefMet_CallN(
             me, metName, out ret
-            , ref v1, ref v2, ref v3, ref v4, ref v5, ref v6
+            , ref v1, ref v2, ref v3, ref v4, ref v5, ref v6,
+            ref v_notUsed
             );
         }
         public static void MyCefMet_Call7(IntPtr me, int metName, out JsValue ret
@@ -227,7 +182,7 @@ namespace LayoutFarm.CefBridge
         {
             MyCefMet_CallN(
             me, metName, out ret
-            , ref v1, ref v2, ref v3, ref v4, ref v5, ref v6
+            , ref v1, ref v2, ref v3, ref v4, ref v5, ref v6, ref v7
             );
         }
     }

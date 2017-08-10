@@ -1,12 +1,11 @@
 ﻿//MIT, 2015-2017, WinterDev
 
-using System;
-using System.Runtime.InteropServices;
+using System; 
 namespace LayoutFarm.CefBridge
 {
     public struct CefPoint
     {
-        IntPtr nativePtr;
+        internal IntPtr nativePtr;
         public CefPoint(IntPtr nativePtr)
         {
             this.nativePtr = nativePtr;
@@ -14,7 +13,7 @@ namespace LayoutFarm.CefBridge
     }
     public struct CefRect
     {
-        IntPtr nativePtr;
+        internal IntPtr nativePtr;
         public CefRect(IntPtr nativePtr)
         {
             this.nativePtr = nativePtr;
@@ -22,23 +21,53 @@ namespace LayoutFarm.CefBridge
     }
     public struct CefSize
     {
-        IntPtr nativePtr;
+        internal IntPtr nativePtr;
         public CefSize(IntPtr nativePtr)
         {
             this.nativePtr = nativePtr;
         }
     }
-    public struct CefPdfPrintSettings { }
+    public struct CefPdfPrintSettings
+    {
+        internal IntPtr nativePtr;
+    }
 
-    public struct CefWindowInfo { }
-    public struct CefBrowserSettings { }
-    public struct CefKeyEvent { }
-    public struct CefMouseEvent { }
-    public struct CefCompositionUnderline { }
-    public struct CefRange { }
-    public struct SwitchMap { }
-    public struct ArgumentList { }
-    public struct AttributeMap { }
+    public struct CefWindowInfo
+    {
+        internal IntPtr nativePtr;
+    }
+    public struct CefBrowserSettings
+    {
+        internal IntPtr nativePtr;
+    }
+    public struct CefKeyEvent
+    {
+        internal IntPtr nativePtr;
+    }
+    public struct CefMouseEvent
+    {
+        internal IntPtr nativePtr;
+    }
+    public struct CefCompositionUnderline
+    {
+        internal IntPtr nativePtr;
+    }
+    public struct CefRange
+    {
+        internal IntPtr nativePtr;
+    }
+    public struct SwitchMap
+    {
+        internal IntPtr nativePtr;
+    }
+    public struct ArgumentList
+    {
+        internal IntPtr nativePtr;
+    }
+    public struct AttributeMap
+    {
+        internal IntPtr nativePtr;
+    }
     public struct CefTime
     {
         IntPtr nativePtr;
@@ -47,40 +76,82 @@ namespace LayoutFarm.CefBridge
             this.nativePtr = nativePtr;
         }
     }
-    public struct CefCookie { }
-    public struct HeaderMap { }
+    public struct CefCookie
+    {
+        internal IntPtr nativePtr;
+    }
+    public struct HeaderMap
+    {
+        internal IntPtr nativePtr;
+    }
     //--------------
-    public struct CefCompletionCallback { }
-    public struct CefSetCookieCallback { }
-    public struct CefDeleteCookiesCallback { }
-    public struct CefRunFileDialogCallback { }
-    public struct CefResolveCallback { }
+    public struct CefCompletionCallback
+    {
+        internal IntPtr nativePtr;
+    }
+    public struct CefSetCookieCallback
+    {
+        internal IntPtr nativePtr;
+    }
+    public struct CefDeleteCookiesCallback
+    {
+        internal IntPtr nativePtr;
+    }
+    public struct CefRunFileDialogCallback
+    {
+        internal IntPtr nativePtr;
+    }
+    public struct CefResolveCallback
+    {
+        internal IntPtr nativePtr;
+    }
     public struct CefBaseRefCounted
     {
-        IntPtr nativePtr;
+        internal IntPtr nativePtr;
         public CefBaseRefCounted(IntPtr nativePtr)
         {
             this.nativePtr = nativePtr;
         }
     }
-    public struct CefPdfPrintCallback { }
-    public struct CefDownloadImageCallback { }
-    public struct KeyList { }
+    public struct CefPdfPrintCallback
+    {
+        internal IntPtr nativePtr;
+    }
+    public struct CefDownloadImageCallback
+    {
+        internal IntPtr nativePtr;
+    }
+    public struct KeyList
+    {
+        internal IntPtr nativePtr;
+    }
     public struct CefRequestContextHandler
     {
-        IntPtr nativePtr;
+        internal IntPtr nativePtr;
         public CefRequestContextHandler(IntPtr nativePtr)
         {
             this.nativePtr = nativePtr;
         }
     }
-    public struct IssuerChainBinaryList { }
-    public struct ElementVector { }
-    public struct PageRangeList { }
-    public struct cef_color_t { }
+    public struct IssuerChainBinaryList
+    {
+        internal IntPtr nativePtr;
+    }
+    public struct ElementVector
+    {
+        internal IntPtr nativePtr;
+    }
+    public struct PageRangeList
+    {
+        internal IntPtr nativePtr;
+    }
+    public struct cef_color_t
+    {
+        internal IntPtr nativePtr;
+    }
     public struct CefV8Handler
     {
-        IntPtr nativePtr;
+        internal IntPtr nativePtr;
         public CefV8Handler(IntPtr nativePtr)
         {
             this.nativePtr = nativePtr;
@@ -88,7 +159,7 @@ namespace LayoutFarm.CefBridge
     }
     public struct CefV8ValueList
     {
-        IntPtr nativePtr;
+        internal IntPtr nativePtr;
         public CefV8ValueList(IntPtr nativePtr)
         {
             this.nativePtr = nativePtr;

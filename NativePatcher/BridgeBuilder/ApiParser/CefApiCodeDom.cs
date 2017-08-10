@@ -404,7 +404,23 @@ namespace BridgeBuilder
             }
             return foundCount;
         }
-
+        public int FindMethod(string name, List<CodeMethodDeclaration> results)
+        {
+            int foundCount = 0;
+            if (_members == null) return 0;
+            //
+            int j = _members.Count;
+            for (int i = 0; i < j; ++i)
+            {
+                CodeMemberDeclaration mb = _members[i];
+                if (mb.Name == name && mb.MemberKind == CodeMemberKind.Method)
+                {
+                    foundCount++;
+                    results.Add((CodeMethodDeclaration)mb);
+                }
+            }
+            return foundCount;
+        }
         //
         //transformation 
         internal TypeTxInfo TypeTxInfo { get; set; }
@@ -454,10 +470,11 @@ namespace BridgeBuilder
             _globalTypeDecl = new CodeTypeDeclaration() { IsGlobalCompilationUnitType = true };
             _globalTypeDecl.OriginalCompilationUnit = this;
             _globalTypeDecl.Name = "global!" + cuName;
+            this.CuName = cuName;
         }
 
         public string Filename { get; set; }
-
+        public string CuName { get; set; }
         public void AddTypeDeclaration(CodeTypeDeclaration typedecl)
         {
             typedecl.OriginalCompilationUnit = this;
@@ -479,6 +496,10 @@ namespace BridgeBuilder
         public void AddIncludeFile(string includeFile)
         {
             _includeFiles.Add(new IncludeFileDirective(includeFile));
+        }
+        public override string ToString()
+        {
+            return this.CuName;
         }
 
     }
@@ -670,6 +691,7 @@ namespace BridgeBuilder
 
     abstract class CodeMemberDeclaration
     {
+        Token[] _lineComments;
 #if DEBUG
         static int dbugTotalId;
         public readonly int dbugId = dbugTotalId++;
@@ -682,7 +704,16 @@ namespace BridgeBuilder
         public abstract CodeMemberKind MemberKind { get; }
         public MemberAccessibility MemberAccessibility { get; set; }
         public CodeCompilationUnit OriginalCompilationUnit { get; set; }
-        public Token[] LineComments { get; set; }
+        public Token[] LineComments
+        {
+            get { return _lineComments; }
+            set
+            {
+                 
+
+                _lineComments = value;
+            }
+        }
         public CodeTypeReference OwnerTypeDecl { get; set; }
 
     }

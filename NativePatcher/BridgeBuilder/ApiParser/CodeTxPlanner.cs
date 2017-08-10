@@ -154,7 +154,7 @@ namespace BridgeBuilder
 
     class MethodTxInfo
     {
-        CodeMethodDeclaration metDecl;
+        internal CodeMethodDeclaration metDecl;
         public List<MethodParameterTxInfo> pars = new List<MethodParameterTxInfo>();
         public MethodTxInfo(CodeMethodDeclaration metDecl)
         {
@@ -214,6 +214,11 @@ namespace BridgeBuilder
         internal string ArgPreExtractCode { get; set; }
         internal string ArgExtractCode { get; set; }
         internal string ArgPostExtractCode { get; set; }
+
+        internal void ClearExtractCode()
+        {
+            ArgPreExtractCode = ArgExtractCode = ArgPostExtractCode = null;
+        }
     }
 
     enum TxParameterDirection
