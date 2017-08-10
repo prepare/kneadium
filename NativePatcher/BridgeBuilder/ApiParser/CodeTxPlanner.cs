@@ -214,6 +214,11 @@ namespace BridgeBuilder
         internal string ArgPreExtractCode { get; set; }
         internal string ArgExtractCode { get; set; }
         internal string ArgPostExtractCode { get; set; }
+
+        internal void ClearExtractCode()
+        {
+            ArgPreExtractCode = ArgExtractCode = ArgPostExtractCode = null;
+        }
     }
 
     enum TxParameterDirection
