@@ -1617,7 +1617,7 @@ namespace LayoutFarm.CefBridge.Auto
     {
         const int _typeNAME = 1;
         const int CefApp_Release_0 = (_typeNAME << 16) | 0;
-        internal readonly IntPtr nativePtr;
+        internal IntPtr nativePtr;
         internal CefApp(IntPtr nativePtr)
         {
             this.nativePtr = nativePtr;
@@ -1626,6 +1626,7 @@ namespace LayoutFarm.CefBridge.Auto
         {
             JsValue ret;
             Cef3Binder.MyCefMet_Call0(this.nativePtr, CefApp_Release_0, out ret);
+            this.nativePtr = IntPtr.Zero;
         }
     }
 
@@ -1663,7 +1664,7 @@ namespace LayoutFarm.CefBridge.Auto
         const int CefBrowser_GetFrameIdentifiers_19 = (_typeNAME << 16) | 19;
         const int CefBrowser_GetFrameNames_20 = (_typeNAME << 16) | 20;
         const int CefBrowser_SendProcessMessage_21 = (_typeNAME << 16) | 21;
-        internal readonly IntPtr nativePtr;
+        internal IntPtr nativePtr;
         internal CefBrowser(IntPtr nativePtr)
         {
             this.nativePtr = nativePtr;
@@ -1672,6 +1673,7 @@ namespace LayoutFarm.CefBridge.Auto
         {
             JsValue ret;
             Cef3Binder.MyCefMet_Call0(this.nativePtr, CefBrowser_Release_0, out ret);
+            this.nativePtr = IntPtr.Zero;
         }
 
         // gen! CefRefPtr<CefBrowserHost> GetHost()
@@ -2006,7 +2008,7 @@ namespace LayoutFarm.CefBridge.Auto
     {
         const int _typeNAME = 3;
         const int CefNavigationEntryVisitor_Release_0 = (_typeNAME << 16) | 0;
-        internal readonly IntPtr nativePtr;
+        internal IntPtr nativePtr;
         internal CefNavigationEntryVisitor(IntPtr nativePtr)
         {
             this.nativePtr = nativePtr;
@@ -2015,6 +2017,7 @@ namespace LayoutFarm.CefBridge.Auto
         {
             JsValue ret;
             Cef3Binder.MyCefMet_Call0(this.nativePtr, CefNavigationEntryVisitor_Release_0, out ret);
+            this.nativePtr = IntPtr.Zero;
         }
     }
 
@@ -2083,7 +2086,7 @@ namespace LayoutFarm.CefBridge.Auto
         const int CefBrowserHost_DragSourceSystemDragEnded_50 = (_typeNAME << 16) | 50;
         const int CefBrowserHost_GetVisibleNavigationEntry_51 = (_typeNAME << 16) | 51;
         const int CefBrowserHost_SetAccessibilityState_52 = (_typeNAME << 16) | 52;
-        internal readonly IntPtr nativePtr;
+        internal IntPtr nativePtr;
         internal CefBrowserHost(IntPtr nativePtr)
         {
             this.nativePtr = nativePtr;
@@ -2092,6 +2095,7 @@ namespace LayoutFarm.CefBridge.Auto
         {
             JsValue ret;
             Cef3Binder.MyCefMet_Call0(this.nativePtr, CefBrowserHost_Release_0, out ret);
+            this.nativePtr = IntPtr.Zero;
         }
 
         // gen! CefRefPtr<CefBrowser> GetBrowser()
@@ -3205,7 +3209,7 @@ namespace LayoutFarm.CefBridge.Auto
     {
         const int _typeNAME = 5;
         const int CefClient_Release_0 = (_typeNAME << 16) | 0;
-        internal readonly IntPtr nativePtr;
+        internal IntPtr nativePtr;
         internal CefClient(IntPtr nativePtr)
         {
             this.nativePtr = nativePtr;
@@ -3214,6 +3218,7 @@ namespace LayoutFarm.CefBridge.Auto
         {
             JsValue ret;
             Cef3Binder.MyCefMet_Call0(this.nativePtr, CefClient_Release_0, out ret);
+            this.nativePtr = IntPtr.Zero;
         }
     }
 
@@ -3254,7 +3259,7 @@ namespace LayoutFarm.CefBridge.Auto
         const int CefCommandLine_GetArguments_18 = (_typeNAME << 16) | 18;
         const int CefCommandLine_AppendArgument_19 = (_typeNAME << 16) | 19;
         const int CefCommandLine_PrependWrapper_20 = (_typeNAME << 16) | 20;
-        internal readonly IntPtr nativePtr;
+        internal IntPtr nativePtr;
         internal CefCommandLine(IntPtr nativePtr)
         {
             this.nativePtr = nativePtr;
@@ -3263,6 +3268,7 @@ namespace LayoutFarm.CefBridge.Auto
         {
             JsValue ret;
             Cef3Binder.MyCefMet_Call0(this.nativePtr, CefCommandLine_Release_0, out ret);
+            this.nativePtr = IntPtr.Zero;
         }
 
         // gen! bool IsValid()
@@ -3646,7 +3652,7 @@ namespace LayoutFarm.CefBridge.Auto
         const int CefContextMenuParams_GetEditStateFlags_19 = (_typeNAME << 16) | 19;
         const int CefContextMenuParams_IsCustomMenu_20 = (_typeNAME << 16) | 20;
         const int CefContextMenuParams_IsPepperMenu_21 = (_typeNAME << 16) | 21;
-        internal readonly IntPtr nativePtr;
+        internal IntPtr nativePtr;
         internal CefContextMenuParams(IntPtr nativePtr)
         {
             this.nativePtr = nativePtr;
@@ -3655,6 +3661,7 @@ namespace LayoutFarm.CefBridge.Auto
         {
             JsValue ret;
             Cef3Binder.MyCefMet_Call0(this.nativePtr, CefContextMenuParams_Release_0, out ret);
+            this.nativePtr = IntPtr.Zero;
         }
 
         // gen! int GetXCoord()
@@ -4012,7 +4019,7 @@ namespace LayoutFarm.CefBridge.Auto
         const int CefCookieManager_DeleteCookies_5 = (_typeNAME << 16) | 5;
         const int CefCookieManager_SetStoragePath_6 = (_typeNAME << 16) | 6;
         const int CefCookieManager_FlushStore_7 = (_typeNAME << 16) | 7;
-        internal readonly IntPtr nativePtr;
+        internal IntPtr nativePtr;
         internal CefCookieManager(IntPtr nativePtr)
         {
             this.nativePtr = nativePtr;
@@ -4021,6 +4028,7 @@ namespace LayoutFarm.CefBridge.Auto
         {
             JsValue ret;
             Cef3Binder.MyCefMet_Call0(this.nativePtr, CefCookieManager_Release_0, out ret);
+            this.nativePtr = IntPtr.Zero;
         }
 
         // gen! void SetSupportedSchemes(const std::vector<CefString>& schemes,CefRefPtr<CefCompletionCallback> callback)
@@ -4219,7 +4227,7 @@ namespace LayoutFarm.CefBridge.Auto
     {
         const int _typeNAME = 9;
         const int CefCookieVisitor_Release_0 = (_typeNAME << 16) | 0;
-        internal readonly IntPtr nativePtr;
+        internal IntPtr nativePtr;
         internal CefCookieVisitor(IntPtr nativePtr)
         {
             this.nativePtr = nativePtr;
@@ -4228,6 +4236,7 @@ namespace LayoutFarm.CefBridge.Auto
         {
             JsValue ret;
             Cef3Binder.MyCefMet_Call0(this.nativePtr, CefCookieVisitor_Release_0, out ret);
+            this.nativePtr = IntPtr.Zero;
         }
     }
 
@@ -4242,7 +4251,7 @@ namespace LayoutFarm.CefBridge.Auto
     {
         const int _typeNAME = 10;
         const int CefDOMVisitor_Release_0 = (_typeNAME << 16) | 0;
-        internal readonly IntPtr nativePtr;
+        internal IntPtr nativePtr;
         internal CefDOMVisitor(IntPtr nativePtr)
         {
             this.nativePtr = nativePtr;
@@ -4251,6 +4260,7 @@ namespace LayoutFarm.CefBridge.Auto
         {
             JsValue ret;
             Cef3Binder.MyCefMet_Call0(this.nativePtr, CefDOMVisitor_Release_0, out ret);
+            this.nativePtr = IntPtr.Zero;
         }
     }
 
@@ -4279,7 +4289,7 @@ namespace LayoutFarm.CefBridge.Auto
         const int CefDOMDocument_GetSelectionAsText_12 = (_typeNAME << 16) | 12;
         const int CefDOMDocument_GetBaseURL_13 = (_typeNAME << 16) | 13;
         const int CefDOMDocument_GetCompleteURL_14 = (_typeNAME << 16) | 14;
-        internal readonly IntPtr nativePtr;
+        internal IntPtr nativePtr;
         internal CefDOMDocument(IntPtr nativePtr)
         {
             this.nativePtr = nativePtr;
@@ -4288,6 +4298,7 @@ namespace LayoutFarm.CefBridge.Auto
         {
             JsValue ret;
             Cef3Binder.MyCefMet_Call0(this.nativePtr, CefDOMDocument_Release_0, out ret);
+            this.nativePtr = IntPtr.Zero;
         }
 
         // gen! Type GetType()
@@ -4547,7 +4558,7 @@ namespace LayoutFarm.CefBridge.Auto
         const int CefDOMNode_SetElementAttribute_24 = (_typeNAME << 16) | 24;
         const int CefDOMNode_GetElementInnerText_25 = (_typeNAME << 16) | 25;
         const int CefDOMNode_GetElementBounds_26 = (_typeNAME << 16) | 26;
-        internal readonly IntPtr nativePtr;
+        internal IntPtr nativePtr;
         internal CefDOMNode(IntPtr nativePtr)
         {
             this.nativePtr = nativePtr;
@@ -4556,6 +4567,7 @@ namespace LayoutFarm.CefBridge.Auto
         {
             JsValue ret;
             Cef3Binder.MyCefMet_Call0(this.nativePtr, CefDOMNode_Release_0, out ret);
+            this.nativePtr = IntPtr.Zero;
         }
 
         // gen! Type GetType()
@@ -5004,7 +5016,7 @@ namespace LayoutFarm.CefBridge.Auto
         const int CefDownloadItem_GetSuggestedFileName_15 = (_typeNAME << 16) | 15;
         const int CefDownloadItem_GetContentDisposition_16 = (_typeNAME << 16) | 16;
         const int CefDownloadItem_GetMimeType_17 = (_typeNAME << 16) | 17;
-        internal readonly IntPtr nativePtr;
+        internal IntPtr nativePtr;
         internal CefDownloadItem(IntPtr nativePtr)
         {
             this.nativePtr = nativePtr;
@@ -5013,6 +5025,7 @@ namespace LayoutFarm.CefBridge.Auto
         {
             JsValue ret;
             Cef3Binder.MyCefMet_Call0(this.nativePtr, CefDownloadItem_Release_0, out ret);
+            this.nativePtr = IntPtr.Zero;
         }
 
         // gen! bool IsValid()
@@ -5309,7 +5322,7 @@ namespace LayoutFarm.CefBridge.Auto
         const int CefDragData_GetImage_23 = (_typeNAME << 16) | 23;
         const int CefDragData_GetImageHotspot_24 = (_typeNAME << 16) | 24;
         const int CefDragData_HasImage_25 = (_typeNAME << 16) | 25;
-        internal readonly IntPtr nativePtr;
+        internal IntPtr nativePtr;
         internal CefDragData(IntPtr nativePtr)
         {
             this.nativePtr = nativePtr;
@@ -5318,6 +5331,7 @@ namespace LayoutFarm.CefBridge.Auto
         {
             JsValue ret;
             Cef3Binder.MyCefMet_Call0(this.nativePtr, CefDragData_Release_0, out ret);
+            this.nativePtr = IntPtr.Zero;
         }
 
         // gen! CefRefPtr<CefDragData> Clone()
@@ -5771,7 +5785,7 @@ namespace LayoutFarm.CefBridge.Auto
         const int CefFrame_GetBrowser_22 = (_typeNAME << 16) | 22;
         const int CefFrame_GetV8Context_23 = (_typeNAME << 16) | 23;
         const int CefFrame_VisitDOM_24 = (_typeNAME << 16) | 24;
-        internal readonly IntPtr nativePtr;
+        internal IntPtr nativePtr;
         internal CefFrame(IntPtr nativePtr)
         {
             this.nativePtr = nativePtr;
@@ -5780,6 +5794,7 @@ namespace LayoutFarm.CefBridge.Auto
         {
             JsValue ret;
             Cef3Binder.MyCefMet_Call0(this.nativePtr, CefFrame_Release_0, out ret);
+            this.nativePtr = IntPtr.Zero;
         }
 
         // gen! bool IsValid()
@@ -6206,7 +6221,7 @@ namespace LayoutFarm.CefBridge.Auto
         const int CefImage_GetAsBitmap_11 = (_typeNAME << 16) | 11;
         const int CefImage_GetAsPNG_12 = (_typeNAME << 16) | 12;
         const int CefImage_GetAsJPEG_13 = (_typeNAME << 16) | 13;
-        internal readonly IntPtr nativePtr;
+        internal IntPtr nativePtr;
         internal CefImage(IntPtr nativePtr)
         {
             this.nativePtr = nativePtr;
@@ -6215,6 +6230,7 @@ namespace LayoutFarm.CefBridge.Auto
         {
             JsValue ret;
             Cef3Binder.MyCefMet_Call0(this.nativePtr, CefImage_Release_0, out ret);
+            this.nativePtr = IntPtr.Zero;
         }
 
         // gen! bool IsEmpty()
@@ -6606,7 +6622,7 @@ namespace LayoutFarm.CefBridge.Auto
         const int CefMenuModel_GetColorAt_54 = (_typeNAME << 16) | 54;
         const int CefMenuModel_SetFontList_55 = (_typeNAME << 16) | 55;
         const int CefMenuModel_SetFontListAt_56 = (_typeNAME << 16) | 56;
-        internal readonly IntPtr nativePtr;
+        internal IntPtr nativePtr;
         internal CefMenuModel(IntPtr nativePtr)
         {
             this.nativePtr = nativePtr;
@@ -6615,6 +6631,7 @@ namespace LayoutFarm.CefBridge.Auto
         {
             JsValue ret;
             Cef3Binder.MyCefMet_Call0(this.nativePtr, CefMenuModel_Release_0, out ret);
+            this.nativePtr = IntPtr.Zero;
         }
 
         // gen! bool IsSubMenu()
@@ -7817,7 +7834,7 @@ namespace LayoutFarm.CefBridge.Auto
     {
         const int _typeNAME = 18;
         const int CefMenuModelDelegate_Release_0 = (_typeNAME << 16) | 0;
-        internal readonly IntPtr nativePtr;
+        internal IntPtr nativePtr;
         internal CefMenuModelDelegate(IntPtr nativePtr)
         {
             this.nativePtr = nativePtr;
@@ -7826,6 +7843,7 @@ namespace LayoutFarm.CefBridge.Auto
         {
             JsValue ret;
             Cef3Binder.MyCefMet_Call0(this.nativePtr, CefMenuModelDelegate_Release_0, out ret);
+            this.nativePtr = IntPtr.Zero;
         }
     }
 
@@ -7849,7 +7867,7 @@ namespace LayoutFarm.CefBridge.Auto
         const int CefNavigationEntry_GetCompletionTime_8 = (_typeNAME << 16) | 8;
         const int CefNavigationEntry_GetHttpStatusCode_9 = (_typeNAME << 16) | 9;
         const int CefNavigationEntry_GetSSLStatus_10 = (_typeNAME << 16) | 10;
-        internal readonly IntPtr nativePtr;
+        internal IntPtr nativePtr;
         internal CefNavigationEntry(IntPtr nativePtr)
         {
             this.nativePtr = nativePtr;
@@ -7858,6 +7876,7 @@ namespace LayoutFarm.CefBridge.Auto
         {
             JsValue ret;
             Cef3Binder.MyCefMet_Call0(this.nativePtr, CefNavigationEntry_Release_0, out ret);
+            this.nativePtr = IntPtr.Zero;
         }
 
         // gen! bool IsValid()
@@ -8051,7 +8070,7 @@ namespace LayoutFarm.CefBridge.Auto
         const int CefPrintSettings_GetCopies_21 = (_typeNAME << 16) | 21;
         const int CefPrintSettings_SetDuplexMode_22 = (_typeNAME << 16) | 22;
         const int CefPrintSettings_GetDuplexMode_23 = (_typeNAME << 16) | 23;
-        internal readonly IntPtr nativePtr;
+        internal IntPtr nativePtr;
         internal CefPrintSettings(IntPtr nativePtr)
         {
             this.nativePtr = nativePtr;
@@ -8060,6 +8079,7 @@ namespace LayoutFarm.CefBridge.Auto
         {
             JsValue ret;
             Cef3Binder.MyCefMet_Call0(this.nativePtr, CefPrintSettings_Release_0, out ret);
+            this.nativePtr = IntPtr.Zero;
         }
 
         // gen! bool IsValid()
@@ -8446,7 +8466,7 @@ namespace LayoutFarm.CefBridge.Auto
         const int CefProcessMessage_Copy_3 = (_typeNAME << 16) | 3;
         const int CefProcessMessage_GetName_4 = (_typeNAME << 16) | 4;
         const int CefProcessMessage_GetArgumentList_5 = (_typeNAME << 16) | 5;
-        internal readonly IntPtr nativePtr;
+        internal IntPtr nativePtr;
         internal CefProcessMessage(IntPtr nativePtr)
         {
             this.nativePtr = nativePtr;
@@ -8455,6 +8475,7 @@ namespace LayoutFarm.CefBridge.Auto
         {
             JsValue ret;
             Cef3Binder.MyCefMet_Call0(this.nativePtr, CefProcessMessage_Release_0, out ret);
+            this.nativePtr = IntPtr.Zero;
         }
 
         // gen! bool IsValid()
@@ -8564,7 +8585,7 @@ namespace LayoutFarm.CefBridge.Auto
         const int CefRequest_GetResourceType_18 = (_typeNAME << 16) | 18;
         const int CefRequest_GetTransitionType_19 = (_typeNAME << 16) | 19;
         const int CefRequest_GetIdentifier_20 = (_typeNAME << 16) | 20;
-        internal readonly IntPtr nativePtr;
+        internal IntPtr nativePtr;
         internal CefRequest(IntPtr nativePtr)
         {
             this.nativePtr = nativePtr;
@@ -8573,6 +8594,7 @@ namespace LayoutFarm.CefBridge.Auto
         {
             JsValue ret;
             Cef3Binder.MyCefMet_Call0(this.nativePtr, CefRequest_Release_0, out ret);
+            this.nativePtr = IntPtr.Zero;
         }
 
         // gen! bool IsReadOnly()
@@ -8942,7 +8964,7 @@ namespace LayoutFarm.CefBridge.Auto
         const int CefPostData_RemoveElement_5 = (_typeNAME << 16) | 5;
         const int CefPostData_AddElement_6 = (_typeNAME << 16) | 6;
         const int CefPostData_RemoveElements_7 = (_typeNAME << 16) | 7;
-        internal readonly IntPtr nativePtr;
+        internal IntPtr nativePtr;
         internal CefPostData(IntPtr nativePtr)
         {
             this.nativePtr = nativePtr;
@@ -8951,6 +8973,7 @@ namespace LayoutFarm.CefBridge.Auto
         {
             JsValue ret;
             Cef3Binder.MyCefMet_Call0(this.nativePtr, CefPostData_Release_0, out ret);
+            this.nativePtr = IntPtr.Zero;
         }
 
         // gen! bool IsReadOnly()
@@ -9085,7 +9108,7 @@ namespace LayoutFarm.CefBridge.Auto
         const int CefPostDataElement_GetFile_6 = (_typeNAME << 16) | 6;
         const int CefPostDataElement_GetBytesCount_7 = (_typeNAME << 16) | 7;
         const int CefPostDataElement_GetBytes_8 = (_typeNAME << 16) | 8;
-        internal readonly IntPtr nativePtr;
+        internal IntPtr nativePtr;
         internal CefPostDataElement(IntPtr nativePtr)
         {
             this.nativePtr = nativePtr;
@@ -9094,6 +9117,7 @@ namespace LayoutFarm.CefBridge.Auto
         {
             JsValue ret;
             Cef3Binder.MyCefMet_Call0(this.nativePtr, CefPostDataElement_Release_0, out ret);
+            this.nativePtr = IntPtr.Zero;
         }
 
         // gen! bool IsReadOnly()
@@ -9271,7 +9295,7 @@ namespace LayoutFarm.CefBridge.Auto
         const int CefRequestContext_CloseAllConnections_16 = (_typeNAME << 16) | 16;
         const int CefRequestContext_ResolveHost_17 = (_typeNAME << 16) | 17;
         const int CefRequestContext_ResolveHostCached_18 = (_typeNAME << 16) | 18;
-        internal readonly IntPtr nativePtr;
+        internal IntPtr nativePtr;
         internal CefRequestContext(IntPtr nativePtr)
         {
             this.nativePtr = nativePtr;
@@ -9280,6 +9304,7 @@ namespace LayoutFarm.CefBridge.Auto
         {
             JsValue ret;
             Cef3Binder.MyCefMet_Call0(this.nativePtr, CefRequestContext_Release_0, out ret);
+            this.nativePtr = IntPtr.Zero;
         }
 
         // gen! bool IsSame(CefRefPtr<CefRequestContext> other)
@@ -9682,7 +9707,7 @@ namespace LayoutFarm.CefBridge.Auto
         const int CefResourceBundle_GetLocalizedString_1 = (_typeNAME << 16) | 1;
         const int CefResourceBundle_GetDataResource_2 = (_typeNAME << 16) | 2;
         const int CefResourceBundle_GetDataResourceForScale_3 = (_typeNAME << 16) | 3;
-        internal readonly IntPtr nativePtr;
+        internal IntPtr nativePtr;
         internal CefResourceBundle(IntPtr nativePtr)
         {
             this.nativePtr = nativePtr;
@@ -9691,6 +9716,7 @@ namespace LayoutFarm.CefBridge.Auto
         {
             JsValue ret;
             Cef3Binder.MyCefMet_Call0(this.nativePtr, CefResourceBundle_Release_0, out ret);
+            this.nativePtr = IntPtr.Zero;
         }
 
         // gen! CefString GetLocalizedString(int string_id)
@@ -9798,7 +9824,7 @@ namespace LayoutFarm.CefBridge.Auto
         const int CefResponse_GetHeader_10 = (_typeNAME << 16) | 10;
         const int CefResponse_GetHeaderMap_11 = (_typeNAME << 16) | 11;
         const int CefResponse_SetHeaderMap_12 = (_typeNAME << 16) | 12;
-        internal readonly IntPtr nativePtr;
+        internal IntPtr nativePtr;
         internal CefResponse(IntPtr nativePtr)
         {
             this.nativePtr = nativePtr;
@@ -9807,6 +9833,7 @@ namespace LayoutFarm.CefBridge.Auto
         {
             JsValue ret;
             Cef3Binder.MyCefMet_Call0(this.nativePtr, CefResponse_Release_0, out ret);
+            this.nativePtr = IntPtr.Zero;
         }
 
         // gen! bool IsReadOnly()
@@ -10016,7 +10043,7 @@ namespace LayoutFarm.CefBridge.Auto
     {
         const int _typeNAME = 28;
         const int CefResponseFilter_Release_0 = (_typeNAME << 16) | 0;
-        internal readonly IntPtr nativePtr;
+        internal IntPtr nativePtr;
         internal CefResponseFilter(IntPtr nativePtr)
         {
             this.nativePtr = nativePtr;
@@ -10025,6 +10052,7 @@ namespace LayoutFarm.CefBridge.Auto
         {
             JsValue ret;
             Cef3Binder.MyCefMet_Call0(this.nativePtr, CefResponseFilter_Release_0, out ret);
+            this.nativePtr = IntPtr.Zero;
         }
     }
 
@@ -10039,7 +10067,7 @@ namespace LayoutFarm.CefBridge.Auto
     {
         const int _typeNAME = 29;
         const int CefSchemeHandlerFactory_Release_0 = (_typeNAME << 16) | 0;
-        internal readonly IntPtr nativePtr;
+        internal IntPtr nativePtr;
         internal CefSchemeHandlerFactory(IntPtr nativePtr)
         {
             this.nativePtr = nativePtr;
@@ -10048,6 +10076,7 @@ namespace LayoutFarm.CefBridge.Auto
         {
             JsValue ret;
             Cef3Binder.MyCefMet_Call0(this.nativePtr, CefSchemeHandlerFactory_Release_0, out ret);
+            this.nativePtr = IntPtr.Zero;
         }
     }
 
@@ -10063,7 +10092,7 @@ namespace LayoutFarm.CefBridge.Auto
         const int CefSSLInfo_Release_0 = (_typeNAME << 16) | 0;
         const int CefSSLInfo_GetCertStatus_1 = (_typeNAME << 16) | 1;
         const int CefSSLInfo_GetX509Certificate_2 = (_typeNAME << 16) | 2;
-        internal readonly IntPtr nativePtr;
+        internal IntPtr nativePtr;
         internal CefSSLInfo(IntPtr nativePtr)
         {
             this.nativePtr = nativePtr;
@@ -10072,6 +10101,7 @@ namespace LayoutFarm.CefBridge.Auto
         {
             JsValue ret;
             Cef3Binder.MyCefMet_Call0(this.nativePtr, CefSSLInfo_Release_0, out ret);
+            this.nativePtr = IntPtr.Zero;
         }
 
         // gen! cef_cert_status_t GetCertStatus()
@@ -10120,7 +10150,7 @@ namespace LayoutFarm.CefBridge.Auto
         const int CefSSLStatus_GetSSLVersion_3 = (_typeNAME << 16) | 3;
         const int CefSSLStatus_GetContentStatus_4 = (_typeNAME << 16) | 4;
         const int CefSSLStatus_GetX509Certificate_5 = (_typeNAME << 16) | 5;
-        internal readonly IntPtr nativePtr;
+        internal IntPtr nativePtr;
         internal CefSSLStatus(IntPtr nativePtr)
         {
             this.nativePtr = nativePtr;
@@ -10129,6 +10159,7 @@ namespace LayoutFarm.CefBridge.Auto
         {
             JsValue ret;
             Cef3Binder.MyCefMet_Call0(this.nativePtr, CefSSLStatus_Release_0, out ret);
+            this.nativePtr = IntPtr.Zero;
         }
 
         // gen! bool IsSecureConnection()
@@ -10226,7 +10257,7 @@ namespace LayoutFarm.CefBridge.Auto
         const int CefStreamReader_Tell_3 = (_typeNAME << 16) | 3;
         const int CefStreamReader_Eof_4 = (_typeNAME << 16) | 4;
         const int CefStreamReader_MayBlock_5 = (_typeNAME << 16) | 5;
-        internal readonly IntPtr nativePtr;
+        internal IntPtr nativePtr;
         internal CefStreamReader(IntPtr nativePtr)
         {
             this.nativePtr = nativePtr;
@@ -10235,6 +10266,7 @@ namespace LayoutFarm.CefBridge.Auto
         {
             JsValue ret;
             Cef3Binder.MyCefMet_Call0(this.nativePtr, CefStreamReader_Release_0, out ret);
+            this.nativePtr = IntPtr.Zero;
         }
 
         // gen! size_t Read(void* ptr,size_t size,size_t n)
@@ -10345,7 +10377,7 @@ namespace LayoutFarm.CefBridge.Auto
         const int CefStreamWriter_Tell_3 = (_typeNAME << 16) | 3;
         const int CefStreamWriter_Flush_4 = (_typeNAME << 16) | 4;
         const int CefStreamWriter_MayBlock_5 = (_typeNAME << 16) | 5;
-        internal readonly IntPtr nativePtr;
+        internal IntPtr nativePtr;
         internal CefStreamWriter(IntPtr nativePtr)
         {
             this.nativePtr = nativePtr;
@@ -10354,6 +10386,7 @@ namespace LayoutFarm.CefBridge.Auto
         {
             JsValue ret;
             Cef3Binder.MyCefMet_Call0(this.nativePtr, CefStreamWriter_Release_0, out ret);
+            this.nativePtr = IntPtr.Zero;
         }
 
         // gen! size_t Write(const void* ptr,size_t size,size_t n)
@@ -10458,7 +10491,7 @@ namespace LayoutFarm.CefBridge.Auto
     {
         const int _typeNAME = 34;
         const int CefStringVisitor_Release_0 = (_typeNAME << 16) | 0;
-        internal readonly IntPtr nativePtr;
+        internal IntPtr nativePtr;
         internal CefStringVisitor(IntPtr nativePtr)
         {
             this.nativePtr = nativePtr;
@@ -10467,6 +10500,7 @@ namespace LayoutFarm.CefBridge.Auto
         {
             JsValue ret;
             Cef3Binder.MyCefMet_Call0(this.nativePtr, CefStringVisitor_Release_0, out ret);
+            this.nativePtr = IntPtr.Zero;
         }
     }
 
@@ -10485,7 +10519,7 @@ namespace LayoutFarm.CefBridge.Auto
     {
         const int _typeNAME = 35;
         const int CefTask_Release_0 = (_typeNAME << 16) | 0;
-        internal readonly IntPtr nativePtr;
+        internal IntPtr nativePtr;
         internal CefTask(IntPtr nativePtr)
         {
             this.nativePtr = nativePtr;
@@ -10494,6 +10528,7 @@ namespace LayoutFarm.CefBridge.Auto
         {
             JsValue ret;
             Cef3Binder.MyCefMet_Call0(this.nativePtr, CefTask_Release_0, out ret);
+            this.nativePtr = IntPtr.Zero;
         }
     }
 
@@ -10518,7 +10553,7 @@ namespace LayoutFarm.CefBridge.Auto
         const int CefTaskRunner_BelongsToThread_3 = (_typeNAME << 16) | 3;
         const int CefTaskRunner_PostTask_4 = (_typeNAME << 16) | 4;
         const int CefTaskRunner_PostDelayedTask_5 = (_typeNAME << 16) | 5;
-        internal readonly IntPtr nativePtr;
+        internal IntPtr nativePtr;
         internal CefTaskRunner(IntPtr nativePtr)
         {
             this.nativePtr = nativePtr;
@@ -10527,6 +10562,7 @@ namespace LayoutFarm.CefBridge.Auto
         {
             JsValue ret;
             Cef3Binder.MyCefMet_Call0(this.nativePtr, CefTaskRunner_Release_0, out ret);
+            this.nativePtr = IntPtr.Zero;
         }
 
         // gen! bool IsSame(CefRefPtr<CefTaskRunner> that)
@@ -10639,7 +10675,7 @@ namespace LayoutFarm.CefBridge.Auto
         const int CefURLRequest_GetRequestError_4 = (_typeNAME << 16) | 4;
         const int CefURLRequest_GetResponse_5 = (_typeNAME << 16) | 5;
         const int CefURLRequest_Cancel_6 = (_typeNAME << 16) | 6;
-        internal readonly IntPtr nativePtr;
+        internal IntPtr nativePtr;
         internal CefURLRequest(IntPtr nativePtr)
         {
             this.nativePtr = nativePtr;
@@ -10648,6 +10684,7 @@ namespace LayoutFarm.CefBridge.Auto
         {
             JsValue ret;
             Cef3Binder.MyCefMet_Call0(this.nativePtr, CefURLRequest_Release_0, out ret);
+            this.nativePtr = IntPtr.Zero;
         }
 
         // gen! CefRefPtr<CefRequest> GetRequest()
@@ -10756,7 +10793,7 @@ namespace LayoutFarm.CefBridge.Auto
     {
         const int _typeNAME = 38;
         const int CefURLRequestClient_Release_0 = (_typeNAME << 16) | 0;
-        internal readonly IntPtr nativePtr;
+        internal IntPtr nativePtr;
         internal CefURLRequestClient(IntPtr nativePtr)
         {
             this.nativePtr = nativePtr;
@@ -10765,6 +10802,7 @@ namespace LayoutFarm.CefBridge.Auto
         {
             JsValue ret;
             Cef3Binder.MyCefMet_Call0(this.nativePtr, CefURLRequestClient_Release_0, out ret);
+            this.nativePtr = IntPtr.Zero;
         }
     }
 
@@ -10791,7 +10829,7 @@ namespace LayoutFarm.CefBridge.Auto
         const int CefV8Context_Exit_7 = (_typeNAME << 16) | 7;
         const int CefV8Context_IsSame_8 = (_typeNAME << 16) | 8;
         const int CefV8Context_Eval_9 = (_typeNAME << 16) | 9;
-        internal readonly IntPtr nativePtr;
+        internal IntPtr nativePtr;
         internal CefV8Context(IntPtr nativePtr)
         {
             this.nativePtr = nativePtr;
@@ -10800,6 +10838,7 @@ namespace LayoutFarm.CefBridge.Auto
         {
             JsValue ret;
             Cef3Binder.MyCefMet_Call0(this.nativePtr, CefV8Context_Release_0, out ret);
+            this.nativePtr = IntPtr.Zero;
         }
 
         // gen! CefRefPtr<CefTaskRunner> GetTaskRunner()
@@ -10987,7 +11026,7 @@ namespace LayoutFarm.CefBridge.Auto
     {
         const int _typeNAME = 40;
         const int CefV8Accessor_Release_0 = (_typeNAME << 16) | 0;
-        internal readonly IntPtr nativePtr;
+        internal IntPtr nativePtr;
         internal CefV8Accessor(IntPtr nativePtr)
         {
             this.nativePtr = nativePtr;
@@ -10996,6 +11035,7 @@ namespace LayoutFarm.CefBridge.Auto
         {
             JsValue ret;
             Cef3Binder.MyCefMet_Call0(this.nativePtr, CefV8Accessor_Release_0, out ret);
+            this.nativePtr = IntPtr.Zero;
         }
     }
 
@@ -11014,7 +11054,7 @@ namespace LayoutFarm.CefBridge.Auto
     {
         const int _typeNAME = 41;
         const int CefV8Interceptor_Release_0 = (_typeNAME << 16) | 0;
-        internal readonly IntPtr nativePtr;
+        internal IntPtr nativePtr;
         internal CefV8Interceptor(IntPtr nativePtr)
         {
             this.nativePtr = nativePtr;
@@ -11023,6 +11063,7 @@ namespace LayoutFarm.CefBridge.Auto
         {
             JsValue ret;
             Cef3Binder.MyCefMet_Call0(this.nativePtr, CefV8Interceptor_Release_0, out ret);
+            this.nativePtr = IntPtr.Zero;
         }
     }
 
@@ -11045,7 +11086,7 @@ namespace LayoutFarm.CefBridge.Auto
         const int CefV8Exception_GetEndPosition_6 = (_typeNAME << 16) | 6;
         const int CefV8Exception_GetStartColumn_7 = (_typeNAME << 16) | 7;
         const int CefV8Exception_GetEndColumn_8 = (_typeNAME << 16) | 8;
-        internal readonly IntPtr nativePtr;
+        internal IntPtr nativePtr;
         internal CefV8Exception(IntPtr nativePtr)
         {
             this.nativePtr = nativePtr;
@@ -11054,6 +11095,7 @@ namespace LayoutFarm.CefBridge.Auto
         {
             JsValue ret;
             Cef3Binder.MyCefMet_Call0(this.nativePtr, CefV8Exception_Release_0, out ret);
+            this.nativePtr = IntPtr.Zero;
         }
 
         // gen! CefString GetMessage()
@@ -11240,7 +11282,7 @@ namespace LayoutFarm.CefBridge.Auto
         const int CefV8Value_GetFunctionHandler_42 = (_typeNAME << 16) | 42;
         const int CefV8Value_ExecuteFunction_43 = (_typeNAME << 16) | 43;
         const int CefV8Value_ExecuteFunctionWithContext_44 = (_typeNAME << 16) | 44;
-        internal readonly IntPtr nativePtr;
+        internal IntPtr nativePtr;
         internal CefV8Value(IntPtr nativePtr)
         {
             this.nativePtr = nativePtr;
@@ -11249,6 +11291,7 @@ namespace LayoutFarm.CefBridge.Auto
         {
             JsValue ret;
             Cef3Binder.MyCefMet_Call0(this.nativePtr, CefV8Value_Release_0, out ret);
+            this.nativePtr = IntPtr.Zero;
         }
 
         // gen! bool IsValid()
@@ -11997,7 +12040,7 @@ namespace LayoutFarm.CefBridge.Auto
         const int CefV8StackTrace_IsValid_1 = (_typeNAME << 16) | 1;
         const int CefV8StackTrace_GetFrameCount_2 = (_typeNAME << 16) | 2;
         const int CefV8StackTrace_GetFrame_3 = (_typeNAME << 16) | 3;
-        internal readonly IntPtr nativePtr;
+        internal IntPtr nativePtr;
         internal CefV8StackTrace(IntPtr nativePtr)
         {
             this.nativePtr = nativePtr;
@@ -12006,6 +12049,7 @@ namespace LayoutFarm.CefBridge.Auto
         {
             JsValue ret;
             Cef3Binder.MyCefMet_Call0(this.nativePtr, CefV8StackTrace_Release_0, out ret);
+            this.nativePtr = IntPtr.Zero;
         }
 
         // gen! bool IsValid()
@@ -12077,7 +12121,7 @@ namespace LayoutFarm.CefBridge.Auto
         const int CefV8StackFrame_GetColumn_6 = (_typeNAME << 16) | 6;
         const int CefV8StackFrame_IsEval_7 = (_typeNAME << 16) | 7;
         const int CefV8StackFrame_IsConstructor_8 = (_typeNAME << 16) | 8;
-        internal readonly IntPtr nativePtr;
+        internal IntPtr nativePtr;
         internal CefV8StackFrame(IntPtr nativePtr)
         {
             this.nativePtr = nativePtr;
@@ -12086,6 +12130,7 @@ namespace LayoutFarm.CefBridge.Auto
         {
             JsValue ret;
             Cef3Binder.MyCefMet_Call0(this.nativePtr, CefV8StackFrame_Release_0, out ret);
+            this.nativePtr = IntPtr.Zero;
         }
 
         // gen! bool IsValid()
@@ -12245,7 +12290,7 @@ namespace LayoutFarm.CefBridge.Auto
         const int CefValue_SetBinary_20 = (_typeNAME << 16) | 20;
         const int CefValue_SetDictionary_21 = (_typeNAME << 16) | 21;
         const int CefValue_SetList_22 = (_typeNAME << 16) | 22;
-        internal readonly IntPtr nativePtr;
+        internal IntPtr nativePtr;
         internal CefValue(IntPtr nativePtr)
         {
             this.nativePtr = nativePtr;
@@ -12254,6 +12299,7 @@ namespace LayoutFarm.CefBridge.Auto
         {
             JsValue ret;
             Cef3Binder.MyCefMet_Call0(this.nativePtr, CefValue_Release_0, out ret);
+            this.nativePtr = IntPtr.Zero;
         }
 
         // gen! bool IsValid()
@@ -12654,7 +12700,7 @@ namespace LayoutFarm.CefBridge.Auto
         const int CefBinaryValue_Copy_5 = (_typeNAME << 16) | 5;
         const int CefBinaryValue_GetSize_6 = (_typeNAME << 16) | 6;
         const int CefBinaryValue_GetData_7 = (_typeNAME << 16) | 7;
-        internal readonly IntPtr nativePtr;
+        internal IntPtr nativePtr;
         internal CefBinaryValue(IntPtr nativePtr)
         {
             this.nativePtr = nativePtr;
@@ -12663,6 +12709,7 @@ namespace LayoutFarm.CefBridge.Auto
         {
             JsValue ret;
             Cef3Binder.MyCefMet_Call0(this.nativePtr, CefBinaryValue_Release_0, out ret);
+            this.nativePtr = IntPtr.Zero;
         }
 
         // gen! bool IsValid()
@@ -12824,7 +12871,7 @@ namespace LayoutFarm.CefBridge.Auto
         const int CefDictionaryValue_SetBinary_27 = (_typeNAME << 16) | 27;
         const int CefDictionaryValue_SetDictionary_28 = (_typeNAME << 16) | 28;
         const int CefDictionaryValue_SetList_29 = (_typeNAME << 16) | 29;
-        internal readonly IntPtr nativePtr;
+        internal IntPtr nativePtr;
         internal CefDictionaryValue(IntPtr nativePtr)
         {
             this.nativePtr = nativePtr;
@@ -12833,6 +12880,7 @@ namespace LayoutFarm.CefBridge.Auto
         {
             JsValue ret;
             Cef3Binder.MyCefMet_Call0(this.nativePtr, CefDictionaryValue_Release_0, out ret);
+            this.nativePtr = IntPtr.Zero;
         }
 
         // gen! bool IsValid()
@@ -13460,7 +13508,7 @@ namespace LayoutFarm.CefBridge.Auto
         const int CefListValue_SetBinary_26 = (_typeNAME << 16) | 26;
         const int CefListValue_SetDictionary_27 = (_typeNAME << 16) | 27;
         const int CefListValue_SetList_28 = (_typeNAME << 16) | 28;
-        internal readonly IntPtr nativePtr;
+        internal IntPtr nativePtr;
         internal CefListValue(IntPtr nativePtr)
         {
             this.nativePtr = nativePtr;
@@ -13469,6 +13517,7 @@ namespace LayoutFarm.CefBridge.Auto
         {
             JsValue ret;
             Cef3Binder.MyCefMet_Call0(this.nativePtr, CefListValue_Release_0, out ret);
+            this.nativePtr = IntPtr.Zero;
         }
 
         // gen! bool IsValid()
@@ -14012,7 +14061,7 @@ namespace LayoutFarm.CefBridge.Auto
         const int CefWebPluginInfo_GetPath_2 = (_typeNAME << 16) | 2;
         const int CefWebPluginInfo_GetVersion_3 = (_typeNAME << 16) | 3;
         const int CefWebPluginInfo_GetDescription_4 = (_typeNAME << 16) | 4;
-        internal readonly IntPtr nativePtr;
+        internal IntPtr nativePtr;
         internal CefWebPluginInfo(IntPtr nativePtr)
         {
             this.nativePtr = nativePtr;
@@ -14021,6 +14070,7 @@ namespace LayoutFarm.CefBridge.Auto
         {
             JsValue ret;
             Cef3Binder.MyCefMet_Call0(this.nativePtr, CefWebPluginInfo_Release_0, out ret);
+            this.nativePtr = IntPtr.Zero;
         }
 
         // gen! CefString GetName()
@@ -14094,7 +14144,7 @@ namespace LayoutFarm.CefBridge.Auto
     {
         const int _typeNAME = 51;
         const int CefWebPluginInfoVisitor_Release_0 = (_typeNAME << 16) | 0;
-        internal readonly IntPtr nativePtr;
+        internal IntPtr nativePtr;
         internal CefWebPluginInfoVisitor(IntPtr nativePtr)
         {
             this.nativePtr = nativePtr;
@@ -14103,6 +14153,7 @@ namespace LayoutFarm.CefBridge.Auto
         {
             JsValue ret;
             Cef3Binder.MyCefMet_Call0(this.nativePtr, CefWebPluginInfoVisitor_Release_0, out ret);
+            this.nativePtr = IntPtr.Zero;
         }
     }
 
@@ -14125,7 +14176,7 @@ namespace LayoutFarm.CefBridge.Auto
         const int CefX509CertPrincipal_GetOrganizationNames_7 = (_typeNAME << 16) | 7;
         const int CefX509CertPrincipal_GetOrganizationUnitNames_8 = (_typeNAME << 16) | 8;
         const int CefX509CertPrincipal_GetDomainComponents_9 = (_typeNAME << 16) | 9;
-        internal readonly IntPtr nativePtr;
+        internal IntPtr nativePtr;
         internal CefX509CertPrincipal(IntPtr nativePtr)
         {
             this.nativePtr = nativePtr;
@@ -14134,6 +14185,7 @@ namespace LayoutFarm.CefBridge.Auto
         {
             JsValue ret;
             Cef3Binder.MyCefMet_Call0(this.nativePtr, CefX509CertPrincipal_Release_0, out ret);
+            this.nativePtr = IntPtr.Zero;
         }
 
         // gen! CefString GetDisplayName()
@@ -14299,7 +14351,7 @@ namespace LayoutFarm.CefBridge.Auto
         const int CefX509Certificate_GetIssuerChainSize_8 = (_typeNAME << 16) | 8;
         const int CefX509Certificate_GetDEREncodedIssuerChain_9 = (_typeNAME << 16) | 9;
         const int CefX509Certificate_GetPEMEncodedIssuerChain_10 = (_typeNAME << 16) | 10;
-        internal readonly IntPtr nativePtr;
+        internal IntPtr nativePtr;
         internal CefX509Certificate(IntPtr nativePtr)
         {
             this.nativePtr = nativePtr;
@@ -14308,6 +14360,7 @@ namespace LayoutFarm.CefBridge.Auto
         {
             JsValue ret;
             Cef3Binder.MyCefMet_Call0(this.nativePtr, CefX509Certificate_Release_0, out ret);
+            this.nativePtr = IntPtr.Zero;
         }
 
         // gen! CefRefPtr<CefX509CertPrincipal> GetSubject()
@@ -14513,7 +14566,7 @@ namespace LayoutFarm.CefBridge.Auto
         const int CefXmlReader_MoveToFirstAttribute_27 = (_typeNAME << 16) | 27;
         const int CefXmlReader_MoveToNextAttribute_28 = (_typeNAME << 16) | 28;
         const int CefXmlReader_MoveToCarryingElement_29 = (_typeNAME << 16) | 29;
-        internal readonly IntPtr nativePtr;
+        internal IntPtr nativePtr;
         internal CefXmlReader(IntPtr nativePtr)
         {
             this.nativePtr = nativePtr;
@@ -14522,6 +14575,7 @@ namespace LayoutFarm.CefBridge.Auto
         {
             JsValue ret;
             Cef3Binder.MyCefMet_Call0(this.nativePtr, CefXmlReader_Release_0, out ret);
+            this.nativePtr = IntPtr.Zero;
         }
 
         // gen! bool MoveToNextNode()
@@ -15003,7 +15057,7 @@ namespace LayoutFarm.CefBridge.Auto
         const int CefZipReader_ReadFile_10 = (_typeNAME << 16) | 10;
         const int CefZipReader_Tell_11 = (_typeNAME << 16) | 11;
         const int CefZipReader_Eof_12 = (_typeNAME << 16) | 12;
-        internal readonly IntPtr nativePtr;
+        internal IntPtr nativePtr;
         internal CefZipReader(IntPtr nativePtr)
         {
             this.nativePtr = nativePtr;
@@ -15012,6 +15066,7 @@ namespace LayoutFarm.CefBridge.Auto
         {
             JsValue ret;
             Cef3Binder.MyCefMet_Call0(this.nativePtr, CefZipReader_Release_0, out ret);
+            this.nativePtr = IntPtr.Zero;
         }
 
         // gen! bool MoveToFirstFile()

@@ -2173,7 +2173,7 @@ namespace BridgeBuilder
             }
             //-----------------------------------------------------------------------
             //create ctor
-            csStruct.AppendLine("internal readonly IntPtr nativePtr;");
+            csStruct.AppendLine("internal IntPtr nativePtr;");
             csStruct.AppendLine("internal " + orgDecl.Name + "(IntPtr nativePtr){");
             csStruct.AppendLine("this.nativePtr= nativePtr;");
             csStruct.AppendLine("}");
@@ -2182,7 +2182,9 @@ namespace BridgeBuilder
             csStruct.AppendLine("public void Release(){");
             csStruct.AppendLine("JsValue ret;");
             csStruct.AppendLine("Cef3Binder.MyCefMet_Call0(this.nativePtr, " + releaseMetName + ", out ret);");
+            csStruct.AppendLine("this.nativePtr= IntPtr.Zero;");
             csStruct.AppendLine("}");
+            
             //-----------------------------------------------------------------------
             for (int i = 0; i < j; ++i)
             {
