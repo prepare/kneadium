@@ -26,7 +26,7 @@
     <PlatformTarget>x86</PlatformTarget>
     <DebugType>pdbonly</DebugType>
     <Optimize>true</Optimize>
-    <OutputPath>bin\Release\</OutputPath>
+    <OutputPath>..\bin\Release\</OutputPath>
     <DefineConstants>TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
@@ -41,6 +41,12 @@
     </Compile>
     <Compile Include="..\CefBridge\Cef3Binder_Auto.cs">
       <Link>CefBridge\Cef3Binder_Auto.cs</Link>
+    </Compile>
+    <Compile Include="..\CefBridge\Cef3Binder_Auto2.cs">
+      <Link>CefBridge\Cef3Binder_Auto2.cs</Link>
+    </Compile>
+    <Compile Include="..\CefBridge\Cef3Binder_Auto3.cs">
+      <Link>CefBridge\Cef3Binder_Auto3.cs</Link>
     </Compile>
     <Compile Include="..\CefBridge\Cef3InitEssential.cs">
       <Link>CefBridge\Cef3InitEssential.cs</Link>

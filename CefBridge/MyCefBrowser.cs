@@ -369,7 +369,6 @@ namespace LayoutFarm.CefBridge
             //keep alive callback
             InternalGetText((id, nativePtr) =>
             {
-
                 var args = new NativeCallArgs(nativePtr);
                 strCallback(args.GetArgAsString(0));
             });
@@ -393,13 +392,64 @@ namespace LayoutFarm.CefBridge
                 strCallback(args.GetArgAsString(0));
             });
         }
+
+        public void LoadText(string text, string url)
+        {
+            MyCefBw myCefBw = new MyCefBw(this.myCefBrowser);
+            MyCefFrame myframe = myCefBw.GetMainFrame(); 
+
+            Auto.CefFrame frame1 = new Auto.CefFrame(myframe.nativePtr);
+            Auto.CefBrowser bw = frame1.GetBrowser();
+
+            
+            List<string> frameNames = new List<string>();
+            bw.GetFrameNames(frameNames);
+
+            frame1.LoadString(text, url);
+            bw.Release();
+            frame1.Release();
+
+        }
         void InternalGetSource2(MyCefCallback strCallback)
         {
-            //keep alive callback
-            keepAliveCallBack.Add(strCallback);
-            IntPtr cefFrame = Cef3Binder.MyCefBwGetMainFrame(this.myCefBrowser);
-            Cef3Binder.MyCefFrameGetSource(cefFrame, strCallback);
+            MyCefBw myCefBw = new MyCefBw(this.myCefBrowser);
+            MyCefStringVisitor visitor = myCefBw.NewStringVisitor((id, ptr) =>
+            {
+                NativeCallArgs args = new NativeCallArgs(ptr);
+                var text = args.GetArgAsString(0);
+            });
 
+
+            //
+            MyCefFrame myframe = myCefBw.GetMainFrame();
+            myframe.GetText(visitor);
+            //
+
+            //JsValue ret;
+            //JsValue a1 = new JsValue();
+            //JsValue a2 = new JsValue();
+            //Cef3Binder.MyCefBwCall2(myCefBrowser,
+            //    (int)CefBwCallMsg.CefBw_GetMainFrame,
+            //    out ret, ref a1, ref a2);
+            //MyCefFrame myframe = new MyCefFrame(ret.Ptr);
+
+
+            MyCefStringVisitor visitor2 = myCefBw.NewStringVisitor((id, ptr) =>
+            {
+                NativeCallArgs args = new NativeCallArgs(ptr);
+                var text = args.GetArgAsString(0);
+            });
+
+
+            myframe.GetSource(visitor2);
+            myframe.Release();
+
+
+
+            //myCefBw.ContextMainFrame(myframe =>
+            //{
+            //    myframe.GetSource(strCallback);
+            //});
         }
         void InternalGetSource(MyCefCallback strCallback)
         {
@@ -536,7 +586,7 @@ namespace LayoutFarm.CefBridge
                 int len = ret.I32 + 1; //+1 for null terminated string
                 char* buff = stackalloc char[len];
                 int actualLen = 0;
-                Cef3Binder.MyCefStringHolder_Read(ret.Ptr, buff, len, ref actualLen);
+                Cef3Binder.MyCefStringHolder_Read(ret.Ptr, buff, len, out actualLen);
                 string value = new string(buff);
                 Cef3Binder.MyCefDeletePtr(ret.Ptr);
             }

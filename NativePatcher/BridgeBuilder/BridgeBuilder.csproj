@@ -39,12 +39,15 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="ApiParser\ApiBuild.cs" />
+    <Compile Include="ApiParser\ApiBuilderCppPart.cs" />
+    <Compile Include="ApiParser\ApiBuilderCsPart.cs" />
     <Compile Include="ApiParser\CefApiCodeDom.cs" />
     <Compile Include="ApiParser\CefTypeCollection.cs" />
     <Compile Include="ApiParser\CodeTxPlanner.cs" />
     <Compile Include="ApiParser\DirtyParser.cs" />
     <Compile Include="ApiParser\SymbolDefinition.cs" />
+    <Compile Include="ApiParser\TypeSymbolWalk.cs" />
+    <Compile Include="ApiParser\CefTypeTxPlan.cs" />
     <Compile Include="Patcher\ManualPatcher.cs" />
     <Compile Include="Patcher\PatchBuilder.cs" />
     <Compile Include="Patcher\Patchs.cs" />

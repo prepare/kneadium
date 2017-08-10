@@ -2,6 +2,9 @@
 
 using System;
 using System.Runtime.InteropServices;
+
+
+
 namespace LayoutFarm.CefBridge
 {
 
@@ -45,6 +48,30 @@ namespace LayoutFarm.CefBridge
         ///
         LOGSEVERITY_DISABLE = 99
     }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
     public enum MyCefMsg
@@ -105,6 +132,217 @@ namespace LayoutFarm.CefBridge
         CEF_SETTINGS_LogSeverity = 19,
     }
 
+    public struct MyCefStringVisitor
+    {
+        internal IntPtr nativePtr;
+        internal MyCefStringVisitor(IntPtr ptr)
+        {
+            this.nativePtr = ptr;
+        }
+        public void Release()
+        {
+
+        }
+    }
+    public struct CefStringVisitor
+    {
+        internal IntPtr nativePtr;
+        internal CefStringVisitor(IntPtr ptr)
+        {
+            this.nativePtr = ptr;
+        }
+        public void Release()
+        {
+
+        }
+    }
+    public struct MyCefFrame
+    {
+        internal IntPtr nativePtr;
+        internal MyCefFrame(IntPtr nativePtr)
+        {
+            this.nativePtr = nativePtr;
+        }
+
+        public bool IsValid()
+        {
+
+            JsValue a1 = new JsValue();
+            JsValue a2 = new JsValue();
+            JsValue ret;
+            Cef3Binder.MyCefFrameCall2(this.nativePtr,
+            (int)CefFrameCallMsg.CefFrame_IsValid, out ret, ref a1, ref a2);
+            return ret.I32 != 0;
+        }
+        public void Undo()
+        {
+            JsValue a1 = new JsValue();
+            JsValue a2 = new JsValue();
+            JsValue ret;
+            Cef3Binder.MyCefFrameCall2(this.nativePtr,
+            (int)CefFrameCallMsg.CefFrame_Undo, out ret, ref a1, ref a2);
+        }
+        public void Cut()
+        {
+
+            JsValue a1 = new JsValue();
+            JsValue a2 = new JsValue();
+            JsValue ret;
+            Cef3Binder.MyCefFrameCall2(this.nativePtr,
+            (int)CefFrameCallMsg.CefFrame_Cut, out ret, ref a1, ref a2);
+        }
+        //public void GetSource(CefStringVisitor visitor)
+        //{
+
+        //    JsValue a1 = new JsValue();
+        //    JsValue a2 = new JsValue();
+        //    JsValue ret;
+        //    a1.Type = JsValueType.Wrapped;
+        //    a1.Ptr = visitor.nativePtr;
+        //    Cef3Binder.MyCefFrameCall2(this.nativePtr,
+        //    (int)CefFrameCallMsg.CefFrame_GetSource, out ret, ref a1, ref a2);
+        //}
+        public string GetUrl()
+        {
+            JsValue a1 = new JsValue();
+            JsValue a2 = new JsValue();
+            JsValue ret;
+            Cef3Binder.MyCefFrameCall2(this.nativePtr,
+            (int)CefFrameCallMsg.CefFrame_GetURL, out ret, ref a1, ref a2);
+            //
+
+            unsafe
+            {
+                int actualLen;
+                int buffLen = ret.I32; //string len
+                char* buffHead = stackalloc char[buffLen];
+
+                Cef3Binder.MyCefStringHolder_Read(ret.Ptr, buffHead, buffLen, out actualLen);
+                if (actualLen > buffLen)
+                {
+                    //read more
+                }
+                return new string(buffHead, 0, actualLen);
+            }
+        }
+
+        //public void GetSource(MyCefStringVisitor stringVisitor)
+        //{
+        //    JsValue a1 = new JsValue();
+        //    JsValue a2 = new JsValue();
+        //    JsValue ret;
+
+        //    a1.Ptr = stringVisitor.nativePtr;
+        //    Cef3Binder.MyCefFrameCall2(this.nativePtr,
+        //        (int)CefFrameCallMsg.CefFrame_GetSource, out ret, ref a1, ref a2);
+        //}
+        public void GetText(MyCefStringVisitor stringVisitor)
+        {
+            JsValue a1 = new JsValue();
+            JsValue a2 = new JsValue();
+            JsValue a3 = new JsValue();
+            JsValue a4 = new JsValue();
+            JsValue a5 = new JsValue();
+            JsValue a6 = new JsValue();
+            JsValue ret;
+
+            a1.Ptr = stringVisitor.nativePtr;
+
+            CefBridge.Auto.CefFrame ff = new Auto.CefFrame(this.nativePtr);
+            ff.GetText(new Auto.CefStringVisitor(stringVisitor.nativePtr));
+
+
+            //Cef3Binder.MyCefMet_CefFrame(this.nativePtr,
+            //  11, out ret, ref a1, ref a2,
+            //   ref a3, ref a4, ref a5, ref a6);
+        }
+        public void GetSource(MyCefStringVisitor stringVisitor)
+        {
+            JsValue a1 = new JsValue();
+            JsValue a2 = new JsValue();
+            JsValue a3 = new JsValue();
+            JsValue a4 = new JsValue();
+            JsValue a5 = new JsValue();
+            JsValue a6 = new JsValue();
+            a1.Ptr = stringVisitor.nativePtr;
+            JsValue ret;
+
+            Cef3Binder.MyCefMet_CefFrame(this.nativePtr,
+              10, out ret, ref a1, ref a2,
+               ref a3, ref a4, ref a5, ref a6);
+        }
+
+        public void LoadString(string string_val, string url)
+        {
+            JsValue a1 = new JsValue();
+            JsValue a2 = new JsValue();
+            JsValue ret;
+            //
+            Cef3Binder.MyCefCreateNativeStringHolder(ref a1, string_val);
+            Cef3Binder.MyCefCreateNativeStringHolder(ref a2, url);
+
+            Cef3Binder.MyCefFrameCall2(this.nativePtr,
+            (int)CefFrameCallMsg.CefFrame_LoadString, out ret, ref a1, ref a2);
+
+
+
+
+
+
+
+
+            //need string clean up
+        }
+        public void Release()
+        {
+            JsValue a1 = new JsValue();
+            JsValue a2 = new JsValue();
+            JsValue ret;
+
+            Cef3Binder.MyCefFrameCall2(this.nativePtr,
+                (int)CefFrameCallMsg.CefFrame_Release, out ret, ref a1, ref a2);
+        }
+
+    }
+
+    public struct MyCefBw
+    {
+        internal IntPtr ptr;
+        internal MyCefBw(IntPtr ptr)
+        {
+            this.ptr = ptr;
+        }
+        public MyCefFrame GetMainFrame()
+        {
+            JsValue ret;
+            JsValue a1 = new JsValue();
+            JsValue a2 = new JsValue();
+
+            Cef3Binder.MyCefBwCall2(ptr,
+                (int)CefBwCallMsg.CefBw_GetMainFrame,
+                out ret, ref a1, ref a2);
+            return new MyCefFrame(ret.Ptr);
+
+        }
+        public MyCefStringVisitor NewStringVisitor(MyCefCallback cb)
+        {
+            JsValue ret;
+            JsValue a1 = new JsValue();
+            JsValue a2 = new JsValue();
+            Cef3Binder.MyCefJsValueSetManagedCallback(ref a1, cb);
+            Cef3Binder.MyCefBwCall2(ptr,
+               (int)CefBwCallMsg.CefBw_NewStringVisitor,
+               out ret, ref a1, ref a2);
+            return new MyCefStringVisitor(ret.Ptr);
+        }
+
+    }
+
+
+
+
+
+
 
     public struct NativeMyCefStringHolder
     {
@@ -123,12 +361,33 @@ namespace LayoutFarm.CefBridge
         {
             return new NativeMyCefStringHolder(Cef3Binder.MyCefCreateCefString(str));
         }
+        public string ReadString(int len)
+        {
+            //--------
+            if (len == 0) return string.Empty;
+            //--------
+            int buff_len = len + 1;
+
+            char[] buffer = new char[buff_len];
+            unsafe
+            {
+                fixed (char* h = &buffer[0])
+                {
+                    int actualLen = 0;
+                    Cef3Binder.MyCefStringHolder_Read(this.nativePtr, h, buff_len, out actualLen);
+                }
+            }
+            return new string(buffer);
+        }
+
+
+
     }
     static partial class Cef3Binder
     {
         static Cef3InitEssential cefInitEssential;
 
-        const string CEF_CLIENT_DLL = "cefclient.dll";
+        internal const string CEF_CLIENT_DLL = "cefclient.dll";
 #if DEBUG
         public static bool s_dbugIsRendererProcess;
 #endif
@@ -276,7 +535,7 @@ namespace LayoutFarm.CefBridge
         [DllImport(CEF_CLIENT_DLL, CallingConvention = CallingConvention.Cdecl, CharSet = CharSet.Unicode)]
         public static extern void MyCefSetupBrowserHwndOSR(IntPtr myCefBrowser, IntPtr hWndParent, int x, int y, int width, int height, string initUrl, IntPtr requestContext);
 
-         
+
 
 
         [DllImport(CEF_CLIENT_DLL)]
@@ -300,7 +559,7 @@ namespace LayoutFarm.CefBridge
         [DllImport(CEF_CLIENT_DLL, CallingConvention = CallingConvention.Cdecl)]
         internal static extern void MyCefMetArgs_GetResult(IntPtr metArgPtr, int index, out JsValue outputValue);
 
-         
+
 
         [DllImport(CEF_CLIENT_DLL, CallingConvention = CallingConvention.Cdecl)]
         public static extern void MyCefShowDevTools(IntPtr myCefBw, IntPtr myCefDevTool, IntPtr parentWindow);
@@ -318,13 +577,6 @@ namespace LayoutFarm.CefBridge
         //--------------------------------------------------- 
         [DllImport(CEF_CLIENT_DLL, CallingConvention = CallingConvention.Cdecl, CharSet = CharSet.Unicode)]
         public static extern void MyCefPrintToPdf(IntPtr myCefBw, IntPtr setting, string filename, MyCefCallback callback);
-
-
-        [DllImport(CEF_CLIENT_DLL, CallingConvention = CallingConvention.Cdecl)]
-        public static extern IntPtr MyCefBwGetMainFrame(IntPtr myBw);
-        //
-        [DllImport(CEF_CLIENT_DLL, CallingConvention = CallingConvention.Cdecl)]
-        public static extern void MyCefFrameGetSource(IntPtr frame, MyCefCallback strCallBack);
 
 
 
@@ -401,22 +653,89 @@ namespace LayoutFarm.CefBridge
         internal static unsafe extern IntPtr MyCefJs_ExecJsFunctionWithContext(IntPtr cefJsFunc, IntPtr context, char* argAsJsonString);
         [DllImport(CEF_CLIENT_DLL, CallingConvention = CallingConvention.Cdecl, CharSet = CharSet.Unicode)]
         internal static extern bool MyCefJs_CefRegisterExtension(string extensionName, string extensionCode);
+
         [DllImport(CEF_CLIENT_DLL, CallingConvention = CallingConvention.Cdecl)]
-        public static extern unsafe void MyCefFrame_GetUrl(IntPtr myCefFrame, char* outputBuffer, int outputBufferLen, ref int actualLength);
+        public static extern unsafe void MyCefString_Read(IntPtr cefStr, char* outputBuffer, int outputBufferLen, out int actualLength);
         [DllImport(CEF_CLIENT_DLL, CallingConvention = CallingConvention.Cdecl)]
-        public static extern unsafe void MyCefString_Read(IntPtr cefStr, char* outputBuffer, int outputBufferLen, ref int actualLength);
-        [DllImport(CEF_CLIENT_DLL, CallingConvention = CallingConvention.Cdecl)]
-        public static extern unsafe void MyCefStringHolder_Read(IntPtr mycefStrHolder, char* outputBuffer, int outputBufferLen, ref int actualLength);
+        public static extern unsafe void MyCefStringHolder_Read(IntPtr mycefStrHolder, char* outputBuffer, int outputBufferLen, out int actualLength);
         [DllImport(CEF_CLIENT_DLL, CallingConvention = CallingConvention.Cdecl, CharSet = CharSet.Unicode)]
-        public static extern unsafe void MyCefJs_CefV8Value_ReadAsString(IntPtr cefV8Value, char* outputBuffer, int outputBufferLen, ref int actualLength);
+        public static extern unsafe void MyCefJs_CefV8Value_ReadAsString(IntPtr cefV8Value, char* outputBuffer, int outputBufferLen, out int actualLength);
         [DllImport(CEF_CLIENT_DLL, CallingConvention = CallingConvention.Cdecl)]
         public static extern int MyCefJs_MetReadArgAsInt32(IntPtr jsArgs, int index);
         [DllImport(CEF_CLIENT_DLL, CallingConvention = CallingConvention.Cdecl)]
-        public static extern unsafe void MyCefJs_MetReadArgAsString(IntPtr jsArgs, int index, char* outputBuffer, int outputBufferLen, ref int actualLength);
+        public static extern unsafe void MyCefJs_MetReadArgAsString(IntPtr jsArgs, int index, char* outputBuffer, int outputBufferLen, out int actualLength);
         [DllImport(CEF_CLIENT_DLL, CallingConvention = CallingConvention.Cdecl)]
-        public static extern unsafe IntPtr MyCefJs_MetReadArgAsCefV8Value(IntPtr jsArgs, int index);
+        public static extern IntPtr MyCefJs_MetReadArgAsCefV8Value(IntPtr jsArgs, int index);
         [DllImport(CEF_CLIENT_DLL, CallingConvention = CallingConvention.Cdecl)]
-        public static extern unsafe IntPtr MyCefJs_MetReadArgAsV8FuncHandle(IntPtr jsArgs, int index);
+        public static extern IntPtr MyCefJs_MetReadArgAsV8FuncHandle(IntPtr jsArgs, int index);
+        //list func
+        [DllImport(CEF_CLIENT_DLL, CallingConvention = CallingConvention.Cdecl)]
+        public static extern IntPtr CreateStdList(int listType);
+        [DllImport(CEF_CLIENT_DLL, CallingConvention = CallingConvention.Cdecl)]
+        public static extern void GetListCount(int listType, IntPtr list, out int count);
+        [DllImport(CEF_CLIENT_DLL, CallingConvention = CallingConvention.Cdecl)]
+        public static extern void GetListElement(int elemType, IntPtr list, int index, ref JsValue jsvalue);
+
+
+        public static string MyCefJsReadString(ref JsValue ret)
+        {
+            unsafe
+            {
+                int actualLen;
+                int buffLen = ret.I32; //string len
+                char* buffHead = stackalloc char[buffLen];
+                Cef3Binder.MyCefStringHolder_Read(ret.Ptr, buffHead, buffLen, out actualLen);
+                if (actualLen > buffLen)
+                {
+                    //read more
+                }
+                return new string(buffHead, 0, actualLen);
+            }
+        }
+        public static void MyCefCreateNativeStringHolder(ref JsValue ret, string value)
+        {
+            unsafe
+            {
+                ret.Type = JsValueType.NativeCefString;
+                ret.Ptr = Cef3Binder.MyCefCreateCefString(value);
+                ret.I32 = value.Length;
+            }
+        }
+        public static string CopyStringAndDestroyNativeSide(ref JsValue value)
+        {
+            NativeMyCefStringHolder ret_str = new NativeMyCefStringHolder(value.Ptr);
+            string str = ret_str.ReadString(value.I32);
+            ret_str.Dispose();
+            value.Ptr = IntPtr.Zero;
+            return str;
+        }
+
+
+        public static void CopyStdInt64ListAndDestroyNativeSide(IntPtr stdInt64List, System.Collections.Generic.List<long> outputList)
+        {
+            int listCount;
+            Cef3Binder.GetListCount(1, stdInt64List, out listCount);
+            for (int i = 0; i < listCount; ++i)
+            {
+                JsValue value = new JsValue();
+                Cef3Binder.GetListElement(1, stdInt64List, i, ref value);
+                outputList.Add(value.I64);
+            }
+            Cef3Binder.MyCefDeletePtr(stdInt64List);
+        }
+        public static void CopyStdStringListAndDestroyNativeSide(IntPtr stdStringList, System.Collections.Generic.List<string> outputList)
+        {
+            int listCount;
+            Cef3Binder.GetListCount(2, stdStringList, out listCount);
+
+            for (int i = 0; i < listCount; ++i)
+            {
+                JsValue value = new JsValue();
+                Cef3Binder.GetListElement(2, stdStringList, i, ref value);
+                outputList.Add(CopyStringAndDestroyNativeSide(ref value));
+            }
+            Cef3Binder.MyCefDeletePtr(stdStringList);
+        }
 
     }
 

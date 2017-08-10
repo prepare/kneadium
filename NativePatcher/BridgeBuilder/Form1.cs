@@ -1,4 +1,5 @@
-﻿using System;
+﻿//MIT, 2016-2017 ,WinterDev
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Drawing;
@@ -17,9 +18,7 @@ namespace BridgeBuilder
 
         private void cmdCreatePatchFiles_Click(object sender, EventArgs e)
         {
-            //string srcRootDir = @"D:\projects\cef_binary_3.2526.1366" + "\\cefclient"; //2526.1366
-            //string srcRootDir = "d:\\projects\\CefBridge\\cef3\\cefclient";
-            //string srcRootDir = "d:\\projects\\CefBridge\\cef3\\cefclient";
+
 
             //1. analyze modified source files, in source folder
             //string srcRootDir = @"D:\projects\cef_binary_3.2883.1548\tests\cefclient";
@@ -98,7 +97,7 @@ namespace BridgeBuilder
             List<PatchFile> pfiles = builder2.GetAllPatchFiles();
             //string oldPathName = srcRootDir;
 
-            string newPathName = srcRootDir;// "d:\\projects\\CefBridge\\cef3\\cefclient";
+            string newPathName = srcRootDir;
 
             for (int i = pfiles.Count - 1; i >= 0; --i)
             {
@@ -115,7 +114,11 @@ namespace BridgeBuilder
                     indexOfCefClient = onlyPath.IndexOf("\\shared\\");
                     if (indexOfCefClient < 0)
                     {
-                        throw new NotSupportedException();
+                        indexOfCefClient = onlyPath.IndexOf("\\cefclient");
+                        if (indexOfCefClient < 0)
+                        {
+                            throw new NotSupportedException();
+                        }
                     }
                 }
                 string rightSide = onlyPath.Substring(indexOfCefClient);
@@ -231,7 +234,14 @@ namespace BridgeBuilder
         private void button1_Click(object sender, EventArgs e)
         {
             //string srcFile = @"D:\projects\cef_binary_3.3071.1647.win32\include\cef_browser.h";
-            string srcFile = @"D:\projects\cef_binary_3.3071.1647.win32\include\cef_request_handler.h";
+            //string srcFile = @"D:\projects\cef_binary_3.3071.1647.win32\include\cef_request_handler.h";
+            //string srcFile = @"D:\projects\cef_binary_3.3071.1647.win32\include\internal\cef_time.h";
+            //
+            string srcFile = @"D:\projects\cef_binary_3.3071.1647.win32\libcef_dll\ctocpp\ctocpp_ref_counted.h"; //pass,parse only
+            //string srcFile = @"D:\projects\cef_binary_3.3071.1647.win32\libcef_dll\ctocpp\ctocpp_scoped.h"; //pass,parse only
+            //string srcFile = @"D:\projects\cef_binary_3.3071.1647.win32\libcef_dll\cpptoc\cpptoc_ref_counted.h"; //pass,parse only
+            //string srcFile = @"D:\projects\cef_binary_3.3071.1647.win32\libcef_dll\cpptoc\cpptoc_scoped.h"; //pass,parse only
+            //string srcFile = @"D:\projects\cef_binary_3.3071.1647.win32\include\cef_base.h"; //pass,parse only
 
             //
             Cef3HeaderFileParser headerParser = new Cef3HeaderFileParser();
@@ -242,18 +252,27 @@ namespace BridgeBuilder
             List<CodeCompilationUnit> culist = new List<CodeCompilationUnit>();
             culist.Add(cu);
             CefTypeCollection cefTypeCollection = new CefTypeCollection();
-            cefTypeCollection.CollectAllTypeDefinitions(culist);
+            cefTypeCollection.RootFolder = @"D:\projects\cef_binary_3.3071.1647.win32";
+
+            cefTypeCollection.SetTypeSystem(culist);
             //-----------
 
             TypeTranformPlanner txPlanner = new TypeTranformPlanner();
             txPlanner.CefTypeCollection = cefTypeCollection;
 
-            ApiBuilder apiBuilder = new ApiBuilder();
+            ApiBuilderCsPart apiBuilderCs = new ApiBuilderCsPart();
+            ApiBuilderCppPart apiBuilderCpp = new ApiBuilderCppPart();
 
-            int j = cu.Members.Count;
+            CodeTypeDeclaration globalType = cu.GlobalTypeDecl;
+            if (globalType.MemberCount > 0)
+            {
+                //TODO: review global type
+            }
+            //
+            int j = cu.TypeCount;
             for (int i = 0; i < j; ++i)
             {
-                CodeTypeDeclaration typedecl = cu.Members[i];
+                CodeTypeDeclaration typedecl = cu.GetTypeDeclaration(i);
                 if (typedecl.Name == null)
                 {
                     continue;
@@ -265,13 +284,338 @@ namespace BridgeBuilder
 
                 StringBuilder stbuilder = new StringBuilder();
                 TypeTxInfo typeTxPlan = txPlanner.MakeTransformPlan(typedecl);
-                apiBuilder.GenerateCsType(typeTxPlan, stbuilder);
+                apiBuilderCs.GenerateCsType(typeTxPlan, stbuilder);
+                //
                 StringBuilder cppPart = new StringBuilder();
-                apiBuilder.GenerateCppPart(typeTxPlan, cppPart);
+                apiBuilderCpp.GenerateCppPart(typeTxPlan, cppPart);
+            }
+        }
 
+
+        static Dictionary<string, bool> CreateSkipFiles(string[] filenames)
+        {
+            Dictionary<string, bool> dic = new Dictionary<string, bool>();
+            foreach (string s in filenames)
+            {
+                dic.Add(s, true);
+            }
+            return dic;
+        }
+
+        private void button2_Click(object sender, EventArgs e)
+        {
+            //cpp-to-c wrapper and c-to-cpp wrapper
+            //ParseWrapper(@"D:\projects\cef_binary_3.3071.1647.win32\libcef_dll\ctocpp\frame_ctocpp.h");
+
+            string cefDir = @"D:\projects\cef_binary_3.3071.1647.win32";
+            List<CodeCompilationUnit> totalCuList = new List<CodeCompilationUnit>();
+            {
+
+                //include/internal
+                totalCuList.Add(ParseWrapper(cefDir + @"\include\internal\cef_types.h"));
+                totalCuList.Add(ParseWrapper(cefDir + @"\include\internal\cef_types_wrappers.h"));
+                totalCuList.Add(ParseWrapper(cefDir + @"\include\internal\cef_win.h")); //for windows
+
+            }
+            {
+                //include folder
+                string[] onlyHeaderFiles = System.IO.Directory.GetFiles(cefDir + @"\include\", "*.h");
+                Dictionary<string, bool> skipFiles = CreateSkipFiles(new string[0]);
+
+                int j = onlyHeaderFiles.Length;
+                for (int i = 0; i < j; ++i)
+                {
+                    if (skipFiles.ContainsKey(System.IO.Path.GetFileName(onlyHeaderFiles[i])))
+                    {
+                        continue;
+                    }
+
+                    //if (onlyHeaderFiles[i].Contains("cef_browser"))
+                    //{
+
+                    //}
+
+                    CodeCompilationUnit cu = ParseWrapper(onlyHeaderFiles[i]);
+                    totalCuList.Add(cu);
+                }
+            }
+            //c to cpp 
+            {
+                string[] onlyHeaderFiles = System.IO.Directory.GetFiles(cefDir + @"\libcef_dll\ctocpp", "*.h");
+                Dictionary<string, bool> skipFiles = CreateSkipFiles(new string[0]);
+
+                int j = onlyHeaderFiles.Length;
+                for (int i = 0; i < j; ++i)
+                {
+                    if (skipFiles.ContainsKey(System.IO.Path.GetFileName(onlyHeaderFiles[i])))
+                    {
+                        continue;
+                    }
+                    CodeCompilationUnit cu = ParseWrapper(onlyHeaderFiles[i]);
+                    totalCuList.Add(cu);
+                }
+            }
+
+            //cpp to c
+            {
+                string[] onlyHeaderFiles = System.IO.Directory.GetFiles(cefDir + @"\libcef_dll\cpptoc", "*.h");
+                Dictionary<string, bool> skipFiles = CreateSkipFiles(new string[0]);
+
+                int j = onlyHeaderFiles.Length;
+                for (int i = 0; i < j; ++i)
+                {
+                    if (skipFiles.ContainsKey(System.IO.Path.GetFileName(onlyHeaderFiles[i])))
+                    {
+                        continue;
+                    }
+                    CodeCompilationUnit cu = ParseWrapper(onlyHeaderFiles[i]);
+                    totalCuList.Add(cu);
+                }
+            }
+
+            //
+            ApiBuilderCsPart apiBuilderCsPart = new ApiBuilderCsPart();
+            ApiBuilderCppPart apiBuilderCppPart = new ApiBuilderCppPart();
+
+            //
+            CefTypeCollection cefTypeCollection = new CefTypeCollection();
+            cefTypeCollection.RootFolder = cefDir;
+            cefTypeCollection.SetTypeSystem(totalCuList);
+
+            //
+            TypeTranformPlanner txPlanner = new TypeTranformPlanner();
+            txPlanner.CefTypeCollection = cefTypeCollection;
+
+
+            Dictionary<string, CefTypeTxPlan> allTxPlans = new Dictionary<string, CefTypeTxPlan>();
+            List<CefHandlerTxPlan> handlerPlans = new List<CefHandlerTxPlan>();
+            List<CefCallbackTxPlan> callbackPlans = new List<CefCallbackTxPlan>();
+            List<CefInstanceElementTxPlan> instanceClassPlans = new List<CefInstanceElementTxPlan>();
+            List<CefEnumTxPlan> enumTxPlans = new List<CefEnumTxPlan>();
+
+            int typeName = 1;
+
+            List<TypeTxInfo> typeTxInfoList = new List<TypeTxInfo>();
+
+            foreach (CodeTypeDeclaration typedecl in cefTypeCollection._v_instanceClasses)
+            {
+                CefInstanceElementTxPlan instanceClassPlan = new CefInstanceElementTxPlan(typedecl);
+                instanceClassPlans.Add(instanceClassPlan);
+                allTxPlans.Add(typedecl.Name, instanceClassPlan);
+                TypeTxInfo typeTxPlan = txPlanner.MakeTransformPlan(typedecl);
+                instanceClassPlan.CsInterOpTypeNameId = typeTxPlan.CsInterOpTypeNameId = typeName++;
+                typedecl.TypeTxInfo = typeTxPlan;
+                typeTxInfoList.Add(typeTxPlan);
+            }
+
+
+            foreach (CodeTypeDeclaration typedecl in cefTypeCollection._v_handlerClasses)
+            {
+
+                CefHandlerTxPlan handlerPlan = new CefHandlerTxPlan(typedecl);
+                handlerPlans.Add(handlerPlan);
+                allTxPlans.Add(typedecl.Name, handlerPlan);
+                TypeTxInfo typeTxPlan = txPlanner.MakeTransformPlan(typedecl);
+                handlerPlan.CsInterOpTypeNameId = typeTxPlan.CsInterOpTypeNameId = typeName++;
+                typedecl.TypeTxInfo = typeTxPlan;
+                typeTxInfoList.Add(typeTxPlan);
+            }
+            foreach (CodeTypeDeclaration typedecl in cefTypeCollection._v_callBackClasses)
+            {
+
+                CefCallbackTxPlan callbackPlan = new CefCallbackTxPlan(typedecl);
+                callbackPlans.Add(callbackPlan);
+                allTxPlans.Add(typedecl.Name, callbackPlan);
+                ////
+                TypeTxInfo typeTxPlan = txPlanner.MakeTransformPlan(typedecl);
+                callbackPlan.CsInterOpTypeNameId = typeTxPlan.CsInterOpTypeNameId = typeName++;
+                typedecl.TypeTxInfo = typeTxPlan;
+                typeTxInfoList.Add(typeTxPlan);
+            }
+            //
+            foreach (CodeTypeDeclaration typedecl in cefTypeCollection._enumClasses)
+            {
+                CefEnumTxPlan enumTxPlan = new CefEnumTxPlan(typedecl);
+                enumTxPlans.Add(enumTxPlan);
+                allTxPlans.Add(typedecl.Name, enumTxPlan);
+                TypeTxInfo typeTxPlan = txPlanner.MakeTransformPlan(typedecl);
+                enumTxPlan.CsInterOpTypeNameId = typeTxPlan.CsInterOpTypeNameId = typeName++;
+                typedecl.TypeTxInfo = typeTxPlan;
 
             }
 
+            List<CodeTypeDeclaration> notFoundAbstractClasses = new List<CodeTypeDeclaration>();
+
+            foreach (CodeTypeDeclaration typedecl in cefTypeCollection.cToCppClasses)
+            {
+                TypeTxInfo typeTxPlan = txPlanner.MakeTransformPlan(typedecl);
+                typeTxPlan.CsInterOpTypeNameId = typeName++;
+                typedecl.TypeTxInfo = typeTxPlan;
+
+                //cef -specific
+                TemplateTypeSymbol3 baseType0 = (TemplateTypeSymbol3)typedecl.BaseTypes[0].ResolvedType;
+                //add information to our model
+                SimpleTypeSymbol abstractType = (SimpleTypeSymbol)baseType0.Item1;
+                SimpleTypeSymbol underlying_c_type = (SimpleTypeSymbol)baseType0.Item2;
+
+                CefTypeTxPlan found;
+                if (!allTxPlans.TryGetValue(abstractType.Name, out found))
+                {
+                    notFoundAbstractClasses.Add(typedecl);
+                    continue;
+                }
+                found.UnderlyingCType = underlying_c_type;
+                found.ImplTypeDecl = typedecl;
+
+                abstractType.CefTxPlan = found;
+                ////[chrome] cpp<-to<-c  <--- ::::: <--- c-interface-to[external - user - lib] ....
+
+            }
+            foreach (CodeTypeDeclaration typedecl in cefTypeCollection.cppToCClasses)
+            {
+                TypeTxInfo typeTxPlan = txPlanner.MakeTransformPlan(typedecl);
+                typeTxPlan.CsInterOpTypeNameId = typeName++;
+                typedecl.TypeTxInfo = typeTxPlan;
+                //cef -specific
+                TemplateTypeSymbol3 baseType0 = (TemplateTypeSymbol3)typedecl.BaseTypes[0].ResolvedType;
+                SimpleTypeSymbol abstractType = (SimpleTypeSymbol)baseType0.Item1;
+                SimpleTypeSymbol underlying_c_type = (SimpleTypeSymbol)baseType0.Item2;
+                CefTypeTxPlan found;
+                if (!allTxPlans.TryGetValue(abstractType.Name, out found))
+                {
+                    notFoundAbstractClasses.Add(typedecl);
+                    continue;
+                }
+
+                found.UnderlyingCType = underlying_c_type;
+                found.ImplTypeDecl = typedecl;
+                abstractType.CefTxPlan = found;
+
+                ////[chrome]  cpp->to->c  ---> ::::: ---> c-interface-to [external-user-lib] ....
+                ////eg. handlers and callbacks 
+
+            }
+            //--------
+            //code gen
+
+            int tt_count = 0;
+            StringBuilder cppCodeStBuilder = new StringBuilder();
+            StringBuilder csCodeStBuilder = new StringBuilder();
+
+
+            foreach (TypeTxInfo txinfo in typeTxInfoList)
+            {
+                cppCodeStBuilder.AppendLine("const int CefTypeName_" + txinfo.TypeDecl.Name + " = " + txinfo.CsInterOpTypeNameId.ToString() + ";");
+
+            }
+
+
+            csCodeStBuilder.AppendLine(
+                "//MIT, 2017, WinterDev\r\n" +
+                "//AUTOGEN CONTENT\r\n" +
+                "using System;\r\n" +
+                "using System.Collections.Generic;\r\n" +
+                "namespace LayoutFarm.CefBridge.Auto{\r\n");
+
+
+            foreach (CefTypeTxPlan tx in handlerPlans)
+            {
+                if (tx.OriginalDecl.Name == "CefRequestHandler")
+                {
+                    CodeStringBuilder stbuilder = new CodeStringBuilder();
+                    //a handler is created on cpp side, then we attach .net delegate to it
+                    //so  we need
+                    //1. 
+                    tx.GenerateCppCode(stbuilder);
+                }
+
+            }
+            foreach (CefTypeTxPlan tx in callbackPlans)
+            {
+                CodeStringBuilder stbuilder = new CodeStringBuilder();
+                tx.GenerateCppCode(stbuilder);
+
+            }
+
+
+
+            foreach (CefTypeTxPlan tx in enumTxPlans)
+            {
+                CodeStringBuilder csCode = new CodeStringBuilder();
+                tx.GenerateCsCode(csCode);
+                csCodeStBuilder.Append(csCode.ToString());
+            }
+
+
+            foreach (CefTypeTxPlan tx in instanceClassPlans)
+            {
+
+                //pass
+                //CefRequest ,21
+                CodeStringBuilder cppCode = new CodeStringBuilder();
+                tx.GenerateCppCode(cppCode);
+                //---------------------------------------------------- 
+                CodeStringBuilder csCode = new CodeStringBuilder();
+                tx.GenerateCsCode(csCode);
+                //----------------------------------------------------  
+                //
+                cppCodeStBuilder.AppendLine();
+                cppCodeStBuilder.AppendLine("// " + tx.OriginalDecl.ToString());
+                cppCodeStBuilder.Append(cppCode.ToString());
+                cppCodeStBuilder.AppendLine();
+                //---------------------------------------------------- 
+                csCodeStBuilder.AppendLine();
+                csCodeStBuilder.AppendLine("// " + tx.OriginalDecl.ToString());
+                csCodeStBuilder.Append(csCode.ToString());
+                csCodeStBuilder.AppendLine();
+
+                tt_count++;
+            }
+
+            CreateCppSwitchTable(cppCodeStBuilder, instanceClassPlans);
+
+            csCodeStBuilder.AppendLine("}");
+        }
+        void CreateCppSwitchTable(StringBuilder stbuilder, List<CefInstanceElementTxPlan> instanceClassPlans)
+        {
+            CodeStringBuilder cppStBuilder = new CodeStringBuilder(); 
+            //------
+            cppStBuilder.AppendLine("void MyCefMet_CallN(void* me1, int metName, jsvalue* ret, jsvalue* v1, jsvalue* v2, jsvalue* v3, jsvalue* v4, jsvalue* v5, jsvalue* v6){");
+            cppStBuilder.AppendLine(" int cefTypeName = (metName >> 16);");
+            cppStBuilder.AppendLine(" switch (cefTypeName)");
+            cppStBuilder.AppendLine(" {");
+            cppStBuilder.AppendLine(" default: break;");
+
+            int j = instanceClassPlans.Count;
+            for (int i = 0; i < j; ++i)
+            {
+                CefInstanceElementTxPlan instanceClassPlan = instanceClassPlans[i];
+                cppStBuilder.AppendLine("case " + "CefTypeName_" + instanceClassPlan.OriginalDecl.Name + ":");
+                cppStBuilder.AppendLine("{");
+                cppStBuilder.AppendLine("MyCefMet_" + instanceClassPlan.OriginalDecl.Name + "((" + instanceClassPlan.UnderlyingCType + "*)me1,metName & 0xffff,ret");
+                int nn = instanceClassPlan.MaxMethodParCount;
+                for (int m = 0; m < nn; ++m)
+                {
+                    cppStBuilder.Append(",v" + (m + 1));
+                }
+
+                cppStBuilder.AppendLine(");");
+                cppStBuilder.AppendLine("break;");
+                cppStBuilder.AppendLine("}");
+            }
+            cppStBuilder.AppendLine("}");
+            cppStBuilder.AppendLine("}");
+
+            stbuilder.Append(cppStBuilder.ToString());
+        }
+
+        CodeCompilationUnit ParseWrapper(string srcFile)
+        {
+            //string srcFile = @"D:\projects\cef_binary_3.3071.1647.win32\libcef_dll\ctocpp\frame_ctocpp.h";
+            //
+            Cef3HeaderFileParser headerParser = new Cef3HeaderFileParser();
+            headerParser.Parse(srcFile);
+            return headerParser.Result;
         }
     }
 }
