@@ -270,13 +270,7 @@ namespace BridgeBuilder
                                                 {
                                                     CefTypeTxPlan txPlan = simpleElem.CefTxPlan;
                                                     if (txPlan == null)
-                                                    {
-                                                        //string name = simpleElem.ToString();
-                                                        //switch (name)
-                                                        //{
-                                                        //    case "CefPoint":
-                                                        //        break;
-                                                        //}
+                                                    { 
                                                         return "MyCefSetVoidPtr(" + retName + "," + autoRetResultName + "));";
                                                     }
                                                     else
