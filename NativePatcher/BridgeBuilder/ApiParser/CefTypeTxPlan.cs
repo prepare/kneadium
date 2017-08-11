@@ -42,10 +42,10 @@ namespace BridgeBuilder
             if (_dbugEnableLineNote)
             {
                 stbuilder.AppendLine("/*" + _dbugLineCount + "*/");
-                if (_dbugLineCount >= 7475)
-                {
+                //if (_dbugLineCount >= 9834)
+                //{
 
-                }
+                //}
             }
 
         }
@@ -2641,6 +2641,7 @@ namespace BridgeBuilder
             //call a method and get some result back 
             //
             stbuilder.AppendLine("this->mcallback(" + met.CppMethodSwitchCaseName + ",&args);");
+
             //post call
             for (int i = 0; i < j; ++i)
             {
@@ -2651,10 +2652,40 @@ namespace BridgeBuilder
                 }
             }
 
-
+            //temp fix, arg extract code 
+            if (!met.ReturnPlan.IsVoid)
+            {
+                stbuilder.AppendLine("return " + met.ReturnPlan.ArgExtractCode.Replace("->", ".") + ";");
+            }
             //and return value
             stbuilder.AppendLine("}"); //if(this->mcallback){
+
             //-----------
+
+            if (!met.ReturnPlan.IsVoid)
+            {
+                string retTypeName = metDecl.ReturnType.ToString();
+                if (retTypeName.StartsWith("CefRefPtr<"))
+                {
+                    stbuilder.Append("return nullptr;");
+                }
+                else
+                {
+                    switch (metDecl.ReturnType.ToString())
+                    {
+                        case "bool":
+                            stbuilder.Append("return false;");
+                            break;
+                        case "FilterStatus":
+                            stbuilder.Append("return (FilterStatus)0;");
+                            break;
+                        default:
+                            throw new NotSupportedException();
+
+                    }
+                }
+            }
+
             stbuilder.AppendLine("}"); //method
         }
         public override void GenerateCppCode(CodeStringBuilder stbuilder)
@@ -2805,7 +2836,7 @@ namespace BridgeBuilder
                     //prepare data and call the callback
                     GenerateCppImplMethod(met, stbuilder);
                 }
-                stbuilder.AppendLine("};"); 
+                stbuilder.AppendLine("};");
 
             }
             //

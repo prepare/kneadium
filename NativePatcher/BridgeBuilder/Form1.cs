@@ -612,11 +612,13 @@ namespace BridgeBuilder
                 CodeTypeDeclaration typedecl = tx.OriginalDecl;
                 stbuilder.AppendLine("case  CefTypeName_" + typedecl.Name + ":{");
                 CodeTypeDeclaration implTypeDecl = tx.ImplTypeDecl;
-                stbuilder.AppendLine("CefRefPtr<" + implTypeDecl.Name + "> inst=new " + implTypeDecl.Name + "();");
-                stbuilder.AppendLine("return " + implTypeDecl.Name + "::Wrap(inst);");
+                stbuilder.AppendLine("auto inst =new " + tx.CppImplClassName + "();");
+                stbuilder.AppendLine("inst->mcallback = mcallback;");
+                stbuilder.AppendLine("return inst;");
                 stbuilder.AppendLine("}");
             }
-            stbuilder.AppendLine("}");
+            stbuilder.AppendLine("}");//end switch
+            stbuilder.AppendLine("return nullptr;");
             stbuilder.AppendLine("}");
             //
             outputStBuilder.Append(stbuilder.ToString());
@@ -699,7 +701,8 @@ namespace BridgeBuilder
                 value->ptr = cefPoint;
             } 
             struct MyMetArgs2
-                    {
+                    {   
+                        jsvalue ret;
                         jsvalue v1;
                         jsvalue v2;
                         jsvalue v3;
