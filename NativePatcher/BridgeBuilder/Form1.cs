@@ -596,7 +596,7 @@ namespace BridgeBuilder
         {
             CodeStringBuilder cppStBuilder = new CodeStringBuilder();
             //------
-            cppStBuilder.AppendLine("void MyCefMet_CallN(void* me1, int metName, jsvalue* ret, jsvalue* v1, jsvalue* v2, jsvalue* v3, jsvalue* v4, jsvalue* v5, jsvalue* v6){");
+            cppStBuilder.AppendLine("void MyCefMet_CallN(void* me1, int metName, jsvalue* ret, jsvalue* v1, jsvalue* v2, jsvalue* v3, jsvalue* v4, jsvalue* v5, jsvalue* v6, jsvalue* v7){");
             cppStBuilder.AppendLine(" int cefTypeName = (metName >> 16);");
             cppStBuilder.AppendLine(" switch (cefTypeName)");
             cppStBuilder.AppendLine(" {");

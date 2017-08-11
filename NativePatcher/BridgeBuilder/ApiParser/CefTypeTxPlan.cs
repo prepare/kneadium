@@ -41,11 +41,11 @@ namespace BridgeBuilder
             _dbugLineCount++;
             if (_dbugEnableLineNote)
             {
-                //stbuilder.AppendLine("/*" + _dbugLineCount + "*/");
-                //if (_dbugLineCount >= 8200)
-                //{
+                stbuilder.AppendLine("/*" + _dbugLineCount + "*/");
+                if (_dbugLineCount >= 7475)
+                {
 
-                //}
+                }
             }
 
         }
@@ -200,9 +200,10 @@ namespace BridgeBuilder
             }
 
         }
-        protected static string PrepareDataFromCppToCs(TypeSymbol ret, string retName, string autoRetResultName)
+        protected static string PrepareDataFromCppToCs(MethodParameterTxInfo par, string retName, string autoRetResultName)
         {
 
+            TypeSymbol ret = par.TypeSymbol;
             //check if we need some clean up code after return to client  
             switch (ret.TypeSymbolKind)
             {
@@ -226,7 +227,7 @@ namespace BridgeBuilder
                             case ContainerTypeKind.CefRawPtr:
                                 {
                                     //raw pointer 
-                                    return "MyCefSetVoidPtr(" + retName + "," + autoRetResultName + "));";
+                                    return "MyCefSetVoidPtr(" + retName + "," + autoRetResultName + ");";
                                 }
                             case ContainerTypeKind.ByRef:
                                 {
@@ -270,8 +271,16 @@ namespace BridgeBuilder
                                                 {
                                                     CefTypeTxPlan txPlan = simpleElem.CefTxPlan;
                                                     if (txPlan == null)
-                                                    { 
-                                                        return "MyCefSetVoidPtr(" + retName + "," + autoRetResultName + "));";
+                                                    {
+                                                        if (par.IsConst)
+                                                        {
+                                                            return "MyCefSetVoidPtr2(" + retName + ",&" + autoRetResultName + ");";
+                                                        }
+                                                        else
+                                                        {
+                                                            return "MyCefSetVoidPtr(" + retName + "," + autoRetResultName + ");";
+                                                        }
+
                                                     }
                                                     else
                                                     {
@@ -311,7 +320,15 @@ namespace BridgeBuilder
                                     }
                                     else
                                     {
-                                        return "MyCefSetVoidPtr(" + retName + "," + autoRetResultName + ");";
+                                        if (par.IsConst)
+                                        {
+                                            return "MyCefSetVoidPtr2(" + retName + ",&" + autoRetResultName + ");";
+                                        }
+                                        else
+                                        {
+                                            return "MyCefSetVoidPtr(" + retName + "," + autoRetResultName + ");";
+                                        }
+
                                     }
                                 }
                                 break;
@@ -328,7 +345,13 @@ namespace BridgeBuilder
                                             CefTypeTxPlan txPlan = simpleElem.CefTxPlan;
                                             if (txPlan == null)
                                             {
-                                                return "";
+
+                                                if (simpleElem.ToString() == "CefBaseRefCounted")
+                                                {
+                                                    return "!";
+                                                }
+                                                throw new NotSupportedException();
+
                                             }
                                             else
                                             {
@@ -354,7 +377,7 @@ namespace BridgeBuilder
                                                 }
                                                 else
                                                 {
-
+                                                    throw new NotSupportedException();
                                                 }
                                             }
                                         }
@@ -374,8 +397,14 @@ namespace BridgeBuilder
                                     if (refOrPtr.ElementType.BridgeInfo.WellKnownTypeName == WellKnownTypeName.Void)
                                     {
                                         //void*
-                                        return "MyCefSetVoidPtr(" + retName + "," + autoRetResultName + ");";
-
+                                        if (par.IsConst)
+                                        {
+                                            return "MyCefSetVoidPtr2(" + retName + "," + autoRetResultName + ");";
+                                        }
+                                        else
+                                        {
+                                            return "MyCefSetVoidPtr(" + retName + "," + autoRetResultName + ");";
+                                        }
                                     }
                                     else
                                     {
@@ -567,6 +596,7 @@ namespace BridgeBuilder
                         {
                             default:
                                 break;
+                            case ContainerTypeKind.CefRawPtr:
                             case ContainerTypeKind.Pointer:
                                 {
                                     TypeBridgeInfo bridgeInfo = refOrPtr.BridgeInfo;
@@ -580,6 +610,12 @@ namespace BridgeBuilder
                                             default:
                                                 {
 
+                                                }
+                                                break;
+                                            case "CefSchemeRegistrar":
+                                                {
+                                                    string slotName = bridge.CefCppSlotName.ToString();
+                                                    par.ArgExtractCode = "(CefSchemeRegistrar*)" + argName + "->" + slotName;//direct cast
                                                 }
                                                 break;
                                             case "void":
@@ -1825,7 +1861,7 @@ namespace BridgeBuilder
             {
                 MethodParameterTxInfo parTx = met.pars[i];
                 parTx.ClearExtractCode();
-                parTx.ArgExtractCode = PrepareDataFromCppToCs(parTx.TypeSymbol, "&args.v" + (i + 1), parTx.Name);
+                parTx.ArgExtractCode = PrepareDataFromCppToCs(parTx, "&args.v" + (i + 1), parTx.Name);
             }
             PrepareCppMetArg(met.ReturnPlan, "args.ret");
             //
@@ -2044,7 +2080,7 @@ namespace BridgeBuilder
                 //get pars from parameter .
                 PrepareCppMetArg(pars[i], "v" + (i + 1));
             }
-            ret.ArgExtractCode = PrepareDataFromCppToCs(ret.TypeSymbol, "ret", "ret_result");
+            ret.ArgExtractCode = PrepareDataFromCppToCs(met.ReturnPlan, "ret", "ret_result");
 
 
             //---------------------------
@@ -2375,7 +2411,7 @@ namespace BridgeBuilder
             for (int i = 0; i < j; ++i)
             {
                 MethodParameterTxInfo parTx = met.pars[i];
-                parTx.ArgExtractCode = PrepareDataFromCppToCs(parTx.TypeSymbol, "&args.v" + (i + 1), parTx.Name);
+                parTx.ArgExtractCode = PrepareDataFromCppToCs(parTx, "&args.v" + (i + 1), parTx.Name);
             }
             PrepareCppMetArg(met.ReturnPlan, "args.ret");
 
@@ -2527,7 +2563,18 @@ namespace BridgeBuilder
 
             CodeMethodDeclaration metDecl = (CodeMethodDeclaration)met.metDecl;
             stbuilder.AppendLine("//gen! " + metDecl.ToString());
-            stbuilder.Append("virtual " + metDecl.ReturnType + " " + metDecl.Name + "(");
+
+            //temp
+            if (metDecl.ReturnType.ToString() == "FilterStatus")
+            {
+                stbuilder.Append("virtual " + metDecl.ReturnType.ResolvedType + " " + metDecl.Name + "(");
+            }
+            else
+            {
+                stbuilder.Append("virtual " + metDecl.ReturnType + " " + metDecl.Name + "(");
+            }
+
+
             List<CodeMethodParameter> pars = metDecl.Parameters;
             int j = pars.Count;
             for (int i = 0; i < j; ++i)
@@ -2555,7 +2602,7 @@ namespace BridgeBuilder
             {
                 MethodParameterTxInfo parTx = met.pars[i];
                 parTx.ClearExtractCode();
-                parTx.ArgExtractCode = PrepareDataFromCppToCs(parTx.TypeSymbol, "&args.v" + (i + 1), parTx.Name);
+                parTx.ArgExtractCode = PrepareDataFromCppToCs(parTx, "&args.v" + (i + 1), parTx.Name);
             }
             PrepareCppMetArg(met.ReturnPlan, "args.ret");
             //
@@ -2746,7 +2793,7 @@ namespace BridgeBuilder
 
             }
             //
-           
+
 
         }
 
@@ -2779,7 +2826,7 @@ namespace BridgeBuilder
                 //get pars from parameter .
                 PrepareCppMetArg(pars[i], "v" + (i + 1));
             }
-            ret.ArgExtractCode = PrepareDataFromCppToCs(ret.TypeSymbol, "ret", "ret_result");
+            ret.ArgExtractCode = PrepareDataFromCppToCs(ret, "ret", "ret_result");
 
 
             //---------------------------
