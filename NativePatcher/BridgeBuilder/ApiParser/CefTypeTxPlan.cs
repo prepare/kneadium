@@ -1901,6 +1901,46 @@ namespace BridgeBuilder
             //-----------
             stbuilder.AppendLine("}"); //method
         }
+
+        void GenerateImplClass(
+            List<MethodTxInfo> onEventMethods,
+            CodeStringBuilder stbuilder)
+        {
+            CodeTypeDeclaration orgDecl = this.OriginalDecl;
+            CodeTypeDeclaration implTypeDecl = this.ImplTypeDecl;
+            string className = "My" + orgDecl.Name;
+            int nn = onEventMethods.Count;
+            for (int mm = 0; mm < nn; ++mm)
+            {
+                //implement on event notificationi
+                MethodTxInfo met = onEventMethods[mm];
+                met.CppMethodSwitchCaseName = className + "_" + met.Name + "_" + (mm + 1);
+                stbuilder.AppendLine("const int " + met.CppMethodSwitchCaseName + "=" + (mm + 1) + ";");
+            }
+
+            //create a cpp class              
+            stbuilder.Append("class " + className);
+            stbuilder.Append(":public " + implTypeDecl.Name);
+            stbuilder.AppendLine("{");
+            //members
+            stbuilder.AppendLine("public:");
+            stbuilder.AppendLine("managed_callback mcallback;");
+            stbuilder.AppendLine("explicit " + className + "(){");
+            stbuilder.AppendLine("mcallback= NULL;");
+            stbuilder.AppendLine("}");
+            //
+
+            nn = onEventMethods.Count;
+            for (int mm = 0; mm < nn; ++mm)
+            {
+                //implement on event notificationi
+                MethodTxInfo met = onEventMethods[mm];
+                //prepare data and call the callback
+                GenerateCppImplMethod(met, stbuilder);
+            }
+            stbuilder.AppendLine("};");
+        }
+
         public override void GenerateCppCode(CodeStringBuilder stbuilder)
         {
 
@@ -1945,37 +1985,7 @@ namespace BridgeBuilder
 
             if (onEventMethods.Count > 0)
             {
-                string className = "My" + orgDecl.Name;
-                int nn = onEventMethods.Count;
-                for (int mm = 0; mm < nn; ++mm)
-                {
-                    //implement on event notificationi
-                    MethodTxInfo met = onEventMethods[mm];
-                    met.CppMethodSwitchCaseName = className + "_" + met.Name + "_" + (mm + 1);
-                    stbuilder.AppendLine("const int " + met.CppMethodSwitchCaseName + "=" + (mm + 1) + ";");
-                }
-
-                //create a cpp class              
-                stbuilder.Append("class " + className);
-                stbuilder.Append(":public " + implTypeDecl.Name);
-                stbuilder.AppendLine("{");
-                //members
-                stbuilder.AppendLine("public:");
-                stbuilder.AppendLine("managed_callback mcallback;");
-                stbuilder.AppendLine("explicit " + className + "(){");
-                stbuilder.AppendLine("mcallback= NULL;");
-                stbuilder.AppendLine("}");
-                //
-
-                nn = onEventMethods.Count;
-                for (int mm = 0; mm < nn; ++mm)
-                {
-                    //implement on event notificationi
-                    MethodTxInfo met = onEventMethods[mm];
-                    //prepare data and call the callback
-                    GenerateCppImplMethod(met, stbuilder);
-                }
-                stbuilder.AppendLine("};");
+                GenerateImplClass(onEventMethods, stbuilder);
             }
 
             MaxMethodParCount = maxPar;
@@ -2632,10 +2642,7 @@ namespace BridgeBuilder
                     stbuilder.AppendLine(parTx.ArgPostExtractCode);
                 }
             }
-            if (!met.ReturnPlan.IsVoid)
-            {
 
-            }
 
             //and return value
             stbuilder.AppendLine("}"); //if(this->mcallback){

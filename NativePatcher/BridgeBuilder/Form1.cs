@@ -511,12 +511,11 @@ namespace BridgeBuilder
             int tt_count = 0;
             StringBuilder cppCodeStBuilder = new StringBuilder();
             StringBuilder csCodeStBuilder = new StringBuilder();
-
+            AddCppBuiltInBeginCode(cppCodeStBuilder);
 
             foreach (TypeTxInfo txinfo in typeTxInfoList)
             {
                 cppCodeStBuilder.AppendLine("const int CefTypeName_" + txinfo.TypeDecl.Name + " = " + txinfo.CsInterOpTypeNameId.ToString() + ";");
-
             }
 
 
@@ -589,8 +588,116 @@ namespace BridgeBuilder
             // 
 
             CreateCppSwitchTable(cppCodeStBuilder, instanceClassPlans);
-
+            //
+            AddCppBuiltInEndCode(cppCodeStBuilder);
+            //
             csCodeStBuilder.AppendLine("}");
+        }
+
+        void AddCppBuiltInBeginCode(StringBuilder cppStBuilder)
+        {
+
+            string prebuilt1 =
+                @"
+            //MIT, 2017, WinterDev
+            //AUTOGEN
+        
+            #pragma once
+            #include ""ExportFuncAuto.h"" 
+            //----------------
+            const int MET_Release = 0;
+            //---------------- 
+            //
+            inline void SetCefStringToJsValue(jsvalue* value, const CefString&cefstr) {
+
+                MyCefStringHolder* str = new MyCefStringHolder();
+                str->value = cefstr;
+                //
+                value->type = JSVALUE_TYPE_NATIVE_CEFHOLDER_STRING;
+                value->ptr = str;
+                value->i32 = str->value.length();
+            }
+            inline void MyCefSetVoidPtr(jsvalue* value, void* data)
+            {
+                value->type = JSVALUE_TYPE_WRAPPED;
+                value->ptr = data;
+            }
+            inline void MyCefSetVoidPtr2(jsvalue* value,const void* data) {
+                value->type = JSVALUE_TYPE_WRAPPED;
+                value->ptr = data;
+            }
+            inline void MyCefSetInt32(jsvalue* value, int32_t data)
+            {
+                value->type = JSVALUE_TYPE_INTEGER;
+                value->i32 = data;
+            }
+            inline void MyCefSetUInt32(jsvalue* value, uint32_t data)
+            {
+                value->type = JSVALUE_TYPE_INTEGER;
+                value->i32 = (int32_t)data;
+            }
+            inline void MyCefSetInt64(jsvalue* value, int64_t data)
+            {
+                value->type = JSVALUE_TYPE_INTEGER64;
+                value->i64 = data;
+            }
+            inline void MyCefSetUInt64(jsvalue* value, uint64_t data)
+            {
+                value->type = JSVALUE_TYPE_INTEGER64;
+                value->i64 = data;
+            }
+            inline void MyCefSetBool(jsvalue* value, bool data)
+            {
+                value->type = JSVALUE_TYPE_BOOLEAN;
+                value->i32 = data ? 1 : 0;
+            }
+            inline void MyCefSetDouble(jsvalue* value, double data)
+            {
+                value->type = JSVALUE_TYPE_NUMBER;
+                value->num = data;
+            }
+            inline void MyCefSetFloat(jsvalue* value, float data)
+            {
+                value->type = JSVALUE_TYPE_NUMBER;
+                value->num = data;
+            }
+            inline MyCefStringHolder*GetStringHolder(jsvalue * value) {
+                return (MyCefStringHolder*)value->ptr;
+            }
+            inline void MyCefSetCefPoint(jsvalue* value, CefPoint&data) {
+
+                CefPoint* cefPoint = new CefPoint();
+                value->type = JSVALUE_TYPE_WRAPPED;
+                value->ptr = cefPoint;
+            } 
+            struct MyMetArgs2
+                    {
+                        jsvalue v1;
+                        jsvalue v2;
+                        jsvalue v3;
+                        jsvalue v4;
+                        jsvalue v5;
+                        jsvalue v6;
+                        jsvalue v7;
+                    };
+            //////////////////////////////////////////////////////////////////";
+
+            using (System.IO.StringReader strReader = new System.IO.StringReader(prebuilt1))
+            {
+                string line = strReader.ReadLine();
+                while (line != null)
+                {
+
+                    line = line.TrimStart();
+                    cppStBuilder.AppendLine(line);
+                    //
+                    line = strReader.ReadLine();
+                }
+            }
+        }
+        void AddCppBuiltInEndCode(StringBuilder cppStBuilder)
+        {
+            cppStBuilder.AppendLine("/////////////////////////////////////////////////");
         }
         void CreateCppSwitchTable(StringBuilder stbuilder, List<CefInstanceElementTxPlan> instanceClassPlans)
         {
