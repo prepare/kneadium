@@ -41,7 +41,7 @@ namespace BridgeBuilder
             _dbugLineCount++;
             if (_dbugEnableLineNote)
             {
-                stbuilder.AppendLine("/*" + _dbugLineCount + "*/");
+                //stbuilder.AppendLine("/*" + _dbugLineCount + "*/");
                 //if (_dbugLineCount >= 9834)
                 //{
 
