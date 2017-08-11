@@ -22,9 +22,9 @@
 #include "libcef_dll/ctocpp/browser_ctocpp.h"
 #include "libcef_dll/ctocpp/v8context_ctocpp.h"
 //
-
-
-
+#include "libcef_dll/ctocpp/download_item_callback_ctocpp.h"
+#include "libcef_dll/cpptoc/download_image_callback_cpptoc.h"
+#include "libcef_dll/cpptoc/run_file_dialog_callback_cpptoc.h"
 
 client::MainContextImpl* mainContext;
 client::MainMessageLoop* message_loop;  //essential for mainloop checking 
@@ -287,7 +287,7 @@ int MyCefSetupBrowserHwndOSR(MyBrowser* myBw, HWND surfaceHwnd, int x, int y, in
 class MyCefStringVisitor : public CefStringVisitor {
 public:
 	managed_callback mcallback;
-	explicit MyCefStringVisitor(CefRefPtr<CefBrowser> browser) : browser_(browser) {
+	explicit MyCefStringVisitor() {
 		mcallback = NULL;
 	}
 	virtual void Visit(const CefString& string) OVERRIDE {
@@ -301,14 +301,13 @@ public:
 		}
 	}
 private:
-	CefRefPtr<CefBrowser> browser_;
 	IMPLEMENT_REFCOUNTING(MyCefStringVisitor);
 };
 
 void MyCefDomGetTextWalk(MyBrowser* myBw, managed_callback strCallBack)
 {
 	auto bw = myBw->bwWindow->GetBrowser();
-	auto bwVisitor = new MyCefStringVisitor(bw);
+	auto bwVisitor = new MyCefStringVisitor();
 	bwVisitor->mcallback = strCallBack;
 	bw->GetMainFrame()->GetText(bwVisitor);
 	//this is not blocking method, so=> need to create visitor on heap
@@ -317,7 +316,7 @@ void MyCefDomGetTextWalk(MyBrowser* myBw, managed_callback strCallBack)
 void MyCefDomGetSourceWalk(MyBrowser* myBw, managed_callback strCallBack)
 {
 	auto bw = myBw->bwWindow->GetBrowser();
-	auto bwVisitor = new MyCefStringVisitor(bw);
+	auto bwVisitor = new MyCefStringVisitor();
 	bwVisitor->mcallback = strCallBack;
 	bw->GetMainFrame()->GetSource(bwVisitor);
 	//this is not blocking method, so=> need to create visitor on heap
@@ -689,7 +688,7 @@ void MyCefBwCall2(MyBrowser* myBw, int methodName, jsvalue* ret, jsvalue* v1, js
 	}break;
 	case CefBw_NewStringVisitor: {
 
-		auto stringVisitor = new MyCefStringVisitor(myBw->bwWindow->GetBrowser());
+		auto stringVisitor = new MyCefStringVisitor();
 		stringVisitor->mcallback = MyCefJsValueGetManagedCallback(v1);
 		ret->type = JSVALUE_TYPE_WRAPPED;
 		ret->ptr = CefStringVisitorCppToC::Wrap(stringVisitor);
@@ -752,7 +751,7 @@ void MyCefFrameCall2(cef_frame_t* cefFrame, int methodName, jsvalue* ret, jsvalu
 	case CefFrame_GetSource_Ext:
 	{
 		//void GetSource(CefRefPtr<CefStringVisitor> visitor) OVERRIDE;
-		auto bwVisitor = new MyCefStringVisitor(cefFrame1->GetBrowser());
+		auto bwVisitor = new MyCefStringVisitor();
 		bwVisitor->mcallback = MyCefJsValueGetManagedCallback(v1);
 		cefFrame1->GetSource(bwVisitor);
 		CefFrameCToCpp::Unwrap(cefFrame1); //unwrap before return back 
@@ -804,8 +803,8 @@ void MyCefFrameCall2(cef_frame_t* cefFrame, int methodName, jsvalue* ret, jsvalu
 	}break;
 	}
 }
- 
- 
+
+
 void* CreateStdList(int elemType) {
 	switch (elemType) {
 	case 1:
@@ -822,17 +821,17 @@ void* CreateStdList(int elemType) {
 void GetListCount(int elemType, void* list, int32_t* size) {
 	switch (elemType) {
 	case 1:
-		*size= (int32_t)((std::vector<int64>*)list)->size();
+		*size = (int32_t)((std::vector<int64>*)list)->size();
 		break;
 	case 2:
 	{
 		*size = (int32_t)((std::vector<CefString>*)list)->size();
 		break;
-	}		
+	}
 	case 3:
 		*size = (int32_t)((std::vector<CefCompositionUnderline>*)list)->size();
 		break;
-	default: 
+	default:
 		*size = 0;
 		break;
 	}
@@ -854,10 +853,12 @@ void GetListElement(int elemType, void* list, int index, jsvalue* jsvalue) {
 		jsvalue->ptr = myCefStringHolder;
 		jsvalue->i32 = cefstr.length();
 		break;
-	} 
-	case 3: 
+	}
+	case 3:
 		//nothing now
 	default:
 		break;
 	}
 }
+
+

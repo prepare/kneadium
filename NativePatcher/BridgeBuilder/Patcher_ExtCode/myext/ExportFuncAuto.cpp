@@ -23,6 +23,10 @@ inline void MyCefSetVoidPtr(jsvalue* value, void* data) {
 	value->type = JSVALUE_TYPE_WRAPPED;
 	value->ptr = data;
 }
+inline void MyCefSetVoidPtr2(jsvalue* value,const void* data) {
+	value->type = JSVALUE_TYPE_WRAPPED;
+	value->ptr = data;
+}
 inline void MyCefSetInt32(jsvalue* value, int32_t data) {
 	value->type = JSVALUE_TYPE_INTEGER;
 	value->i32 = data;
@@ -10623,4 +10627,609 @@ void MyCefMet_CallN(void* me1, int metName, jsvalue* ret, jsvalue* v1, jsvalue* 
 	/*11023*/
 }
 
- 
+
+
+
+struct MyMetArgs2 {
+	jsvalue v1;
+	jsvalue v2;
+	jsvalue v3;
+	jsvalue v4;
+
+};
+
+
+ /////////////////////////////////////////////
+
+const int CefAuthCallback_Continue_1 = 1;
+const int CefAuthCallback_Cancel_2 = 2;
+
+void MyCefMet_CefAuthCallback(cef_auth_callback_t* me1, int metName, jsvalue* ret, jsvalue* v1, jsvalue* v2) {
+	ret->type = JSVALUE_TYPE_EMPTY;
+	auto me = CefAuthCallbackCToCpp::Wrap(me1);
+	switch (metName) {
+	case MET_Release:return; //yes, just return
+	case CefAuthCallback_Continue_1: {
+
+
+		// gen! void Continue(const CefString& username,const CefString& password)
+		me->Continue(GetStringHolder(v1)->value,
+			GetStringHolder(v2)->value);
+
+	} break;
+	case CefAuthCallback_Cancel_2: {
+
+
+		// gen! void Cancel()
+		me->Cancel();
+
+	} break;
+	}
+	CefAuthCallbackCToCpp::Unwrap(me);
+}
+const int MyCefRunFileDialogCallback_OnFileDialogDismissed_1 = 1;
+class MyCefRunFileDialogCallback :public CefRunFileDialogCallbackCppToC {
+public:
+	managed_callback mcallback;
+	explicit MyCefRunFileDialogCallback() {
+		mcallback = NULL;
+	}
+	//gen! void OnFileDialogDismissed(int selected_accept_filter,const std::vector<CefString>& file_paths)
+	virtual void OnFileDialogDismissed(int selected_accept_filter, const std::vector<CefString>& file_paths) {
+		if (this->mcallback) {
+			MyMetArgs2 args;
+			memset(&args, 0, sizeof(MyMetArgs2));
+			MyCefSetInt64(&args.v1, selected_accept_filter);
+			MyCefSetVoidPtr2(&args.v2, &file_paths);
+			this->mcallback(MyCefRunFileDialogCallback_OnFileDialogDismissed_1, &args);
+		}
+	}
+};
+const int CefRunFileDialogCallback_OnFileDialogDismissed_1 = 1;
+
+void MyCefMet_CefRunFileDialogCallback(cef_run_file_dialog_callback_t* me1, int metName, jsvalue* ret, jsvalue* v1, jsvalue* v2) {
+	ret->type = JSVALUE_TYPE_EMPTY;
+	auto me = CefRunFileDialogCallbackCppToC::Unwrap(me1);
+	switch (metName) {
+	case MET_Release:return; //yes, just return
+	}
+	CefRunFileDialogCallbackCppToC::Wrap(me);
+}
+const int MyCefPdfPrintCallback_OnPdfPrintFinished_1 = 1;
+class MyCefPdfPrintCallback :public CefPdfPrintCallbackCppToC {
+public:
+	managed_callback mcallback;
+	explicit MyCefPdfPrintCallback() {
+		mcallback = NULL;
+	}
+	//gen! void OnPdfPrintFinished(const CefString& path,bool ok)
+	virtual void OnPdfPrintFinished(const CefString& path, bool ok) {
+		if (this->mcallback) {
+			MyMetArgs2 args;
+			memset(&args, 0, sizeof(MyMetArgs2));
+			SetCefStringToJsValue(&args.v1, path);
+			MyCefSetBool(&args.v2, ok);
+			this->mcallback(MyCefPdfPrintCallback_OnPdfPrintFinished_1, &args);
+		}
+	}
+};
+const int CefPdfPrintCallback_OnPdfPrintFinished_1 = 1;
+
+void MyCefMet_CefPdfPrintCallback(cef_pdf_print_callback_t* me1, int metName, jsvalue* ret, jsvalue* v1, jsvalue* v2) {
+	ret->type = JSVALUE_TYPE_EMPTY;
+	auto me = CefPdfPrintCallbackCppToC::Unwrap(me1);
+	switch (metName) {
+	case MET_Release:return; //yes, just return
+	}
+	CefPdfPrintCallbackCppToC::Wrap(me);
+}
+const int MyCefDownloadImageCallback_OnDownloadImageFinished_1 = 1;
+class MyCefDownloadImageCallback :public CefDownloadImageCallbackCppToC {
+public:
+	managed_callback mcallback;
+	explicit MyCefDownloadImageCallback() {
+		mcallback = NULL;
+	}
+	//gen! void OnDownloadImageFinished(const CefString& image_url,int http_status_code,CefRefPtr<CefImage> image)
+	virtual void OnDownloadImageFinished(const CefString& image_url, int http_status_code, CefRefPtr<CefImage> image) {
+		if (this->mcallback) {
+			MyMetArgs2 args;
+			memset(&args, 0, sizeof(MyMetArgs2));
+			SetCefStringToJsValue(&args.v1, image_url);
+			MyCefSetInt64(&args.v2, http_status_code);
+			MyCefSetVoidPtr(&args.v3, CefImageCToCpp::Unwrap(image));
+			this->mcallback(MyCefDownloadImageCallback_OnDownloadImageFinished_1, &args);
+		}
+	}
+};
+const int CefDownloadImageCallback_OnDownloadImageFinished_1 = 1;
+
+void MyCefMet_CefDownloadImageCallback(cef_download_image_callback_t* me1, int metName, jsvalue* ret, jsvalue* v1, jsvalue* v2, jsvalue* v3) {
+	ret->type = JSVALUE_TYPE_EMPTY;
+	auto me = CefDownloadImageCallbackCppToC::Unwrap(me1);
+	switch (metName) {
+	case MET_Release:return; //yes, just return
+	}
+	CefDownloadImageCallbackCppToC::Wrap(me);
+}
+const int CefCallback_Continue_1 = 1;
+const int CefCallback_Cancel_2 = 2;
+
+void MyCefMet_CefCallback(cef_callback_t* me1, int metName, jsvalue* ret) {
+	ret->type = JSVALUE_TYPE_EMPTY;
+	auto me = CefCallbackCToCpp::Wrap(me1);
+	switch (metName) {
+	case MET_Release:return; //yes, just return
+	case CefCallback_Continue_1: {
+
+
+		// gen! void Continue()
+		me->Continue();
+
+	} break;
+	case CefCallback_Cancel_2: {
+
+
+		// gen! void Cancel()
+		me->Cancel();
+
+	} break;
+	}
+	CefCallbackCToCpp::Unwrap(me);
+}
+const int MyCefCompletionCallback_OnComplete_1 = 1;
+class MyCefCompletionCallback :public CefCompletionCallbackCppToC {
+public:
+	managed_callback mcallback;
+	explicit MyCefCompletionCallback() {
+		mcallback = NULL;
+	}
+	//gen! void OnComplete()
+	virtual void OnComplete() {
+		if (this->mcallback) {
+			MyMetArgs2 args;
+			memset(&args, 0, sizeof(MyMetArgs2));
+			this->mcallback(MyCefCompletionCallback_OnComplete_1, &args);
+		}
+	}
+};
+const int CefCompletionCallback_OnComplete_1 = 1;
+
+void MyCefMet_CefCompletionCallback(cef_completion_callback_t* me1, int metName, jsvalue* ret) {
+	ret->type = JSVALUE_TYPE_EMPTY;
+	auto me = CefCompletionCallbackCppToC::Unwrap(me1);
+	switch (metName) {
+	case MET_Release:return; //yes, just return
+	}
+	CefCompletionCallbackCppToC::Wrap(me);
+}
+const int CefRunContextMenuCallback_Continue_1 = 1;
+const int CefRunContextMenuCallback_Cancel_2 = 2;
+
+void MyCefMet_CefRunContextMenuCallback(cef_run_context_menu_callback_t* me1, int metName, jsvalue* ret, jsvalue* v1, jsvalue* v2) {
+	ret->type = JSVALUE_TYPE_EMPTY;
+	auto me = CefRunContextMenuCallbackCToCpp::Wrap(me1);
+	switch (metName) {
+	case MET_Release:return; //yes, just return
+	case CefRunContextMenuCallback_Continue_1: {
+
+
+		// gen! void Continue(int command_id,EventFlags event_flags)
+		me->Continue(v1->i32,
+			(cef_event_flags_t)v2->i32);
+
+	} break;
+	case CefRunContextMenuCallback_Cancel_2: {
+
+
+		// gen! void Cancel()
+		me->Cancel();
+
+	} break;
+	}
+	CefRunContextMenuCallbackCToCpp::Unwrap(me);
+}
+const int MyCefSetCookieCallback_OnComplete_1 = 1;
+class MyCefSetCookieCallback :public CefSetCookieCallbackCppToC {
+public:
+	managed_callback mcallback;
+	explicit MyCefSetCookieCallback() {
+		mcallback = NULL;
+	}
+	//gen! void OnComplete(bool success)
+	virtual void OnComplete(bool success) {
+		if (this->mcallback) {
+			MyMetArgs2 args;
+			memset(&args, 0, sizeof(MyMetArgs2));
+			MyCefSetBool(&args.v1, success);
+			this->mcallback(MyCefSetCookieCallback_OnComplete_1, &args);
+		}
+	}
+};
+const int CefSetCookieCallback_OnComplete_1 = 1;
+
+void MyCefMet_CefSetCookieCallback(cef_set_cookie_callback_t* me1, int metName, jsvalue* ret, jsvalue* v1) {
+	ret->type = JSVALUE_TYPE_EMPTY;
+	auto me = CefSetCookieCallbackCppToC::Unwrap(me1);
+	switch (metName) {
+	case MET_Release:return; //yes, just return
+	}
+	CefSetCookieCallbackCppToC::Wrap(me);
+}
+const int MyCefDeleteCookiesCallback_OnComplete_1 = 1;
+class MyCefDeleteCookiesCallback :public CefDeleteCookiesCallbackCppToC {
+public:
+	managed_callback mcallback;
+	explicit MyCefDeleteCookiesCallback() {
+		mcallback = NULL;
+	}
+	//gen! void OnComplete(int num_deleted)
+	virtual void OnComplete(int num_deleted) {
+		if (this->mcallback) {
+			MyMetArgs2 args;
+			memset(&args, 0, sizeof(MyMetArgs2));
+			MyCefSetInt64(&args.v1, num_deleted);
+			this->mcallback(MyCefDeleteCookiesCallback_OnComplete_1, &args);
+		}
+	}
+};
+const int CefDeleteCookiesCallback_OnComplete_1 = 1;
+
+void MyCefMet_CefDeleteCookiesCallback(cef_delete_cookies_callback_t* me1, int metName, jsvalue* ret, jsvalue* v1) {
+	ret->type = JSVALUE_TYPE_EMPTY;
+	auto me = CefDeleteCookiesCallbackCppToC::Unwrap(me1);
+	switch (metName) {
+	case MET_Release:return; //yes, just return
+	}
+	CefDeleteCookiesCallbackCppToC::Wrap(me);
+}
+const int CefFileDialogCallback_Continue_1 = 1;
+const int CefFileDialogCallback_Cancel_2 = 2;
+
+void MyCefMet_CefFileDialogCallback(cef_file_dialog_callback_t* me1, int metName, jsvalue* ret, jsvalue* v1, jsvalue* v2) {
+	ret->type = JSVALUE_TYPE_EMPTY;
+	auto me = CefFileDialogCallbackCToCpp::Wrap(me1);
+	switch (metName) {
+	case MET_Release:return; //yes, just return
+	case CefFileDialogCallback_Continue_1: {
+
+
+		// gen! void Continue(int selected_accept_filter,const std::vector<CefString>& file_paths)
+		me->Continue(v1->i32,
+			*((std::vector<CefString>*)v2->ptr));
+
+	} break;
+	case CefFileDialogCallback_Cancel_2: {
+
+
+		// gen! void Cancel()
+		me->Cancel();
+
+	} break;
+	}
+	CefFileDialogCallbackCToCpp::Unwrap(me);
+}
+const int CefBeforeDownloadCallback_Continue_1 = 1;
+
+void MyCefMet_CefBeforeDownloadCallback(cef_before_download_callback_t* me1, int metName, jsvalue* ret, jsvalue* v1, jsvalue* v2) {
+	ret->type = JSVALUE_TYPE_EMPTY;
+	auto me = CefBeforeDownloadCallbackCToCpp::Wrap(me1);
+	switch (metName) {
+	case MET_Release:return; //yes, just return
+	case CefBeforeDownloadCallback_Continue_1: {
+
+
+		// gen! void Continue(const CefString& download_path,bool show_dialog)
+		me->Continue(GetStringHolder(v1)->value,
+			v2->i32 != 0);
+
+	} break;
+	}
+	CefBeforeDownloadCallbackCToCpp::Unwrap(me);
+}
+const int CefDownloadItemCallback_Cancel_1 = 1;
+const int CefDownloadItemCallback_Pause_2 = 2;
+const int CefDownloadItemCallback_Resume_3 = 3;
+
+void MyCefMet_CefDownloadItemCallback(cef_download_item_callback_t* me1, int metName, jsvalue* ret) {
+	ret->type = JSVALUE_TYPE_EMPTY;
+	auto me = CefDownloadItemCallbackCToCpp::Wrap(me1);
+	switch (metName) {
+	case MET_Release:return; //yes, just return
+	case CefDownloadItemCallback_Cancel_1: {
+
+
+		// gen! void Cancel()
+		me->Cancel();
+
+	} break;
+	case CefDownloadItemCallback_Pause_2: {
+
+
+		// gen! void Pause()
+		me->Pause();
+
+	} break;
+	case CefDownloadItemCallback_Resume_3: {
+
+
+		// gen! void Resume()
+		me->Resume();
+
+	} break;
+	}
+	CefDownloadItemCallbackCToCpp::Unwrap(me);
+}
+const int MyCefGetGeolocationCallback_OnLocationUpdate_1 = 1;
+class MyCefGetGeolocationCallback :public CefGetGeolocationCallbackCppToC {
+public:
+	managed_callback mcallback;
+	explicit MyCefGetGeolocationCallback() {
+		mcallback = NULL;
+	}
+	//gen! void OnLocationUpdate(const CefGeoposition& position)
+	virtual void OnLocationUpdate(const CefGeoposition& position) {
+		if (this->mcallback) {
+			MyMetArgs2 args;
+			memset(&args, 0, sizeof(MyMetArgs2));
+			MyCefSetVoidPtr2(&args.v1, &position);
+			this->mcallback(MyCefGetGeolocationCallback_OnLocationUpdate_1, &args);
+		}
+	}
+};
+const int CefGetGeolocationCallback_OnLocationUpdate_1 = 1;
+
+void MyCefMet_CefGetGeolocationCallback(cef_get_geolocation_callback_t* me1, int metName, jsvalue* ret, jsvalue* v1) {
+	ret->type = JSVALUE_TYPE_EMPTY;
+	auto me = CefGetGeolocationCallbackCppToC::Unwrap(me1);
+	switch (metName) {
+	case MET_Release:return; //yes, just return
+	}
+	CefGetGeolocationCallbackCppToC::Wrap(me);
+}
+const int CefGeolocationCallback_Continue_1 = 1;
+
+void MyCefMet_CefGeolocationCallback(cef_geolocation_callback_t* me1, int metName, jsvalue* ret, jsvalue* v1) {
+	ret->type = JSVALUE_TYPE_EMPTY;
+	auto me = CefGeolocationCallbackCToCpp::Wrap(me1);
+	switch (metName) {
+	case MET_Release:return; //yes, just return
+	case CefGeolocationCallback_Continue_1: {
+
+
+		// gen! void Continue(bool allow)
+		me->Continue(v1->i32 != 0);
+
+	} break;
+	}
+	CefGeolocationCallbackCToCpp::Unwrap(me);
+}
+const int CefJSDialogCallback_Continue_1 = 1;
+
+void MyCefMet_CefJSDialogCallback(cef_jsdialog_callback_t* me1, int metName, jsvalue* ret, jsvalue* v1, jsvalue* v2) {
+	ret->type = JSVALUE_TYPE_EMPTY;
+	auto me = CefJSDialogCallbackCToCpp::Wrap(me1);
+	switch (metName) {
+	case MET_Release:return; //yes, just return
+	case CefJSDialogCallback_Continue_1: {
+
+
+		// gen! void Continue(bool success,const CefString& user_input)
+		me->Continue(v1->i32 != 0,
+			GetStringHolder(v2)->value);
+
+	} break;
+	}
+	CefJSDialogCallbackCToCpp::Unwrap(me);
+}
+const int CefPrintDialogCallback_Continue_1 = 1;
+const int CefPrintDialogCallback_Cancel_2 = 2;
+
+void MyCefMet_CefPrintDialogCallback(cef_print_dialog_callback_t* me1, int metName, jsvalue* ret, jsvalue* v1) {
+	ret->type = JSVALUE_TYPE_EMPTY;
+	auto me = CefPrintDialogCallbackCToCpp::Wrap(me1);
+	switch (metName) {
+	case MET_Release:return; //yes, just return
+	case CefPrintDialogCallback_Continue_1: {
+
+
+		// gen! void Continue(CefRefPtr<CefPrintSettings> settings)
+		me->Continue(CefPrintSettingsCToCpp::Wrap((cef_print_settings_t*)v1->ptr));
+
+	} break;
+	case CefPrintDialogCallback_Cancel_2: {
+
+
+		// gen! void Cancel()
+		me->Cancel();
+
+	} break;
+	}
+	CefPrintDialogCallbackCToCpp::Unwrap(me);
+}
+const int CefPrintJobCallback_Continue_1 = 1;
+
+void MyCefMet_CefPrintJobCallback(cef_print_job_callback_t* me1, int metName, jsvalue* ret) {
+	ret->type = JSVALUE_TYPE_EMPTY;
+	auto me = CefPrintJobCallbackCToCpp::Wrap(me1);
+	switch (metName) {
+	case MET_Release:return; //yes, just return
+	case CefPrintJobCallback_Continue_1: {
+
+
+		// gen! void Continue()
+		me->Continue();
+
+	} break;
+	}
+	CefPrintJobCallbackCToCpp::Unwrap(me);
+}
+const int MyCefResolveCallback_OnResolveCompleted_1 = 1;
+class MyCefResolveCallback :public CefResolveCallbackCppToC {
+public:
+	managed_callback mcallback;
+	explicit MyCefResolveCallback() {
+		mcallback = NULL;
+	}
+	//gen! void OnResolveCompleted(cef_errorcode_t result,const std::vector<CefString>& resolved_ips)
+	virtual void OnResolveCompleted(cef_errorcode_t result, const std::vector<CefString>& resolved_ips) {
+		if (this->mcallback) {
+			MyMetArgs2 args;
+			memset(&args, 0, sizeof(MyMetArgs2));
+			MyCefSetInt32(&args.v1, (int32_t)result);
+			MyCefSetVoidPtr2(&args.v2, &resolved_ips);
+			this->mcallback(MyCefResolveCallback_OnResolveCompleted_1, &args);
+		}
+	}
+};
+const int CefResolveCallback_OnResolveCompleted_1 = 1;
+
+void MyCefMet_CefResolveCallback(cef_resolve_callback_t* me1, int metName, jsvalue* ret, jsvalue* v1, jsvalue* v2) {
+	ret->type = JSVALUE_TYPE_EMPTY;
+	auto me = CefResolveCallbackCppToC::Unwrap(me1);
+	switch (metName) {
+	case MET_Release:return; //yes, just return
+	}
+	CefResolveCallbackCppToC::Wrap(me);
+}
+const int CefRequestCallback_Continue_1 = 1;
+const int CefRequestCallback_Cancel_2 = 2;
+
+void MyCefMet_CefRequestCallback(cef_request_callback_t* me1, int metName, jsvalue* ret, jsvalue* v1) {
+	ret->type = JSVALUE_TYPE_EMPTY;
+	auto me = CefRequestCallbackCToCpp::Wrap(me1);
+	switch (metName) {
+	case MET_Release:return; //yes, just return
+	case CefRequestCallback_Continue_1: {
+
+
+		// gen! void Continue(bool allow)
+		me->Continue(v1->i32 != 0);
+
+	} break;
+	case CefRequestCallback_Cancel_2: {
+
+
+		// gen! void Cancel()
+		me->Cancel();
+
+	} break;
+	}
+	CefRequestCallbackCToCpp::Unwrap(me);
+}
+const int CefSelectClientCertificateCallback_Select_1 = 1;
+
+void MyCefMet_CefSelectClientCertificateCallback(cef_select_client_certificate_callback_t* me1, int metName, jsvalue* ret, jsvalue* v1) {
+	ret->type = JSVALUE_TYPE_EMPTY;
+	auto me = CefSelectClientCertificateCallbackCToCpp::Wrap(me1);
+	switch (metName) {
+	case MET_Release:return; //yes, just return
+	case CefSelectClientCertificateCallback_Select_1: {
+
+
+		// gen! void Select(CefRefPtr<CefX509Certificate> cert)
+		me->Select(CefX509CertificateCToCpp::Wrap((cef_x509certificate_t*)v1->ptr));
+
+	} break;
+	}
+	CefSelectClientCertificateCallbackCToCpp::Unwrap(me);
+}
+const int MyCefEndTracingCallback_OnEndTracingComplete_1 = 1;
+class MyCefEndTracingCallback :public CefEndTracingCallbackCppToC {
+public:
+	managed_callback mcallback;
+	explicit MyCefEndTracingCallback() {
+		mcallback = NULL;
+	}
+	//gen! void OnEndTracingComplete(const CefString& tracing_file)
+	virtual void OnEndTracingComplete(const CefString& tracing_file) {
+		if (this->mcallback) {
+			MyMetArgs2 args;
+			memset(&args, 0, sizeof(MyMetArgs2));
+			SetCefStringToJsValue(&args.v1, tracing_file);
+			this->mcallback(MyCefEndTracingCallback_OnEndTracingComplete_1, &args);
+		}
+	}
+};
+const int CefEndTracingCallback_OnEndTracingComplete_1 = 1;
+
+void MyCefMet_CefEndTracingCallback(cef_end_tracing_callback_t* me1, int metName, jsvalue* ret, jsvalue* v1) {
+	ret->type = JSVALUE_TYPE_EMPTY;
+	auto me = CefEndTracingCallbackCppToC::Unwrap(me1);
+	switch (metName) {
+	case MET_Release:return; //yes, just return
+	}
+	CefEndTracingCallbackCppToC::Wrap(me);
+}
+const int CefWebPluginUnstableCallback_IsUnstable_1 = 1;
+
+void MyCefMet_CefWebPluginUnstableCallback(cef_web_plugin_unstable_callback_t* me1, int metName, jsvalue* ret, jsvalue* v1, jsvalue* v2) {
+	ret->type = JSVALUE_TYPE_EMPTY;
+	auto me = CefWebPluginUnstableCallbackCppToC::Unwrap(me1);
+	switch (metName) {
+	case MET_Release:return; //yes, just return
+	case CefWebPluginUnstableCallback_IsUnstable_1: {
+
+
+		// gen! void IsUnstable(const CefString& path,bool unstable)
+		me->IsUnstable(GetStringHolder(v1)->value,
+			v2->i32 != 0);
+
+	} break;
+	}
+	CefWebPluginUnstableCallbackCppToC::Wrap(me);
+}
+const int MyCefRegisterCdmCallback_OnCdmRegistrationComplete_1 = 1;
+class MyCefRegisterCdmCallback :public CefRegisterCdmCallbackCppToC {
+public:
+	managed_callback mcallback;
+	explicit MyCefRegisterCdmCallback() {
+		mcallback = NULL;
+	}
+	//gen! void OnCdmRegistrationComplete(cef_cdm_registration_error_t result,const CefString& error_message)
+	virtual void OnCdmRegistrationComplete(cef_cdm_registration_error_t result, const CefString& error_message) {
+		if (this->mcallback) {
+			MyMetArgs2 args;
+			memset(&args, 0, sizeof(MyMetArgs2));
+			MyCefSetInt32(&args.v1, (int32_t)result);
+			SetCefStringToJsValue(&args.v2, error_message);
+			this->mcallback(MyCefRegisterCdmCallback_OnCdmRegistrationComplete_1, &args);
+		}
+	}
+};
+const int CefRegisterCdmCallback_OnCdmRegistrationComplete_1 = 1;
+
+void MyCefMet_CefRegisterCdmCallback(cef_register_cdm_callback_t* me1, int metName, jsvalue* ret, jsvalue* v1, jsvalue* v2) {
+	ret->type = JSVALUE_TYPE_EMPTY;
+	auto me = CefRegisterCdmCallbackCppToC::Unwrap(me1);
+	switch (metName) {
+	case MET_Release:return; //yes, just return
+	}
+	CefRegisterCdmCallbackCppToC::Wrap(me);
+}
+/////////////////////////////////////////////////
+
+const int NewInstance_StringVisitor = 1;
+const int NewInstance_DownloadItemCallback = 2;
+
+void* NewInstance(int typeName, jsvalue* jsvalue) {
+	switch (typeName)
+	{
+		//MyCefStringVisitor
+	case NewInstance_StringVisitor:
+	{
+		/*CefBrowser ownerCefBw;
+		MyCefStringVisitor mycefStringVisitor = new MyCefStringVisitor();
+		*/
+
+	}
+	case NewInstance_DownloadItemCallback:
+	{
+		CefRefPtr<CefDownloadItemCallbackCToCpp> downloadItemRef = new CefDownloadItemCallbackCToCpp();
+		return CefDownloadItemCallbackCToCpp::Unwrap(downloadItemRef); //return to .net side
+	}
+	default:
+		return nullptr;
+	}
+
+}

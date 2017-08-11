@@ -62,10 +62,18 @@ class MyBrowser; //forward decl
 #include "libcef_dll/ctocpp/response_ctocpp.h"
 #include "libcef_dll/ctocpp/urlrequest_ctocpp.h"
 				 //
+#include "libcef_dll/ctocpp/callback_ctocpp.h"
 #include "libcef_dll/ctocpp/value_ctocpp.h"
 #include "libcef_dll/ctocpp/dictionary_value_ctocpp.h"
 #include "libcef_dll/ctocpp/list_value_ctocpp.h"
-
+#include "libcef_dll/ctocpp/select_client_certificate_callback_ctocpp.h"
+#include "libcef_dll/ctocpp/auth_callback_ctocpp.h"
+#include "libcef_dll/ctocpp/jsdialog_callback_ctocpp.h"
+#include "libcef_dll/ctocpp/geolocation_callback_ctocpp.h"
+#include "libcef_dll/ctocpp/file_dialog_callback_ctocpp.h"
+#include "libcef_dll/ctocpp/before_download_callback_ctocpp.h"
+#include "libcef_dll/ctocpp/print_dialog_callback_ctocpp.h"
+#include "libcef_dll/ctocpp/print_job_callback_ctocpp.h"
 				 //
 #include "libcef_dll/cpptoc/drag_handler_cpptoc.h" 
 #include "libcef_dll/cpptoc/navigation_entry_visitor_cpptoc.h"
@@ -93,6 +101,9 @@ class MyBrowser; //forward decl
 #include "libcef_dll/cpptoc/app_cpptoc.h"
 #include "libcef_dll/cpptoc/urlrequest_client_cpptoc.h"
 #include "libcef_dll/cpptoc/string_visitor_cpptoc.h"
+#include "libcef_dll/cpptoc/get_geolocation_callback_cpptoc.h"
+#include "libcef_dll/cpptoc/end_tracing_callback_cpptoc.h"
+#include "libcef_dll/cpptoc/register_cdm_callback_cpptoc.h"
 
 //---------------------
 //for auto gen content 
@@ -100,5 +111,6 @@ class MyBrowser; //forward decl
 extern "C" {
 	 
 	MY_DLL_EXPORT void MyCefMet_CallN(void* me1, int metName, jsvalue* ret, jsvalue* v1, jsvalue* v2, jsvalue* v3, jsvalue* v4, jsvalue* v5, jsvalue* v6, jsvalue* v7); 
+	MY_DLL_EXPORT void* NewInstance(int typeName, jsvalue* jsvalue);
 
 }
