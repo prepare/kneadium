@@ -2518,10 +2518,6 @@ namespace BridgeBuilder
         }
 
 
-
-
-
-
         public override void GenerateCppCode(CodeStringBuilder stbuilder)
         {
 
@@ -2541,11 +2537,19 @@ namespace BridgeBuilder
             int j = _typeTxInfo.methods.Count;
             //-----------------------------------------------------------------------
             CodeStringBuilder const_methodNames = new CodeStringBuilder();
+            List<MethodTxInfo> onEventMethods = new List<MethodTxInfo>();
             int maxPar = 0;
             for (int i = 0; i < j; ++i)
             {
                 MethodTxInfo metTx = _typeTxInfo.methods[i];
+
                 metTx.CppMethodSwitchCaseName = orgDecl.Name + "_" + metTx.Name + "_" + (i + 1);
+                //-----------------
+                if (metTx.Name.StartsWith("On"))
+                {
+                    onEventMethods.Add(metTx);
+                }
+                //-----------------
                 if (metTx.pars.Count > maxPar)
                 {
                     maxPar = metTx.pars.Count;
@@ -2553,7 +2557,6 @@ namespace BridgeBuilder
                 const_methodNames.AppendLine("const int " + metTx.CppMethodSwitchCaseName + "=" + (i + 1) + ";");
             }
             MaxMethodParCount = maxPar;
-
             totalTypeMethod.AppendLine(const_methodNames.ToString());
             //-----------------------------------------------------------------------
             {
@@ -2618,6 +2621,12 @@ namespace BridgeBuilder
 
             totalTypeMethod.AppendLine("}");
 
+
+            //-------------------------------------------
+            if (onEventMethods.Count > 0)
+            {
+
+            }
             //
             stbuilder.Append(totalTypeMethod.ToString());
 
