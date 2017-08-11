@@ -393,9 +393,6 @@ namespace BridgeBuilder
             List<CefInstanceElementTxPlan> instanceClassPlans = new List<CefInstanceElementTxPlan>();
             List<CefEnumTxPlan> enumTxPlans = new List<CefEnumTxPlan>();
 
-            //-
-            List<CefInstanceElementTxPlan> cefVisitors = new List<CefInstanceElementTxPlan>();
-
 
             int typeName = 1;
 
@@ -411,10 +408,6 @@ namespace BridgeBuilder
                 typedecl.TypeTxInfo = typeTxPlan;
                 typeTxInfoList.Add(typeTxPlan);
 
-                if (typedecl.Name.EndsWith("Visitor"))
-                {
-                    cefVisitors.Add(instanceClassPlan);
-                }
             }
 
 
@@ -508,6 +501,8 @@ namespace BridgeBuilder
             //--------
             //code gen
 
+            List<CefTypeTxPlan> customImplClasses = new List<CefTypeTxPlan>();
+
             int tt_count = 0;
             StringBuilder cppCodeStBuilder = new StringBuilder();
             StringBuilder csCodeStBuilder = new StringBuilder();
@@ -529,6 +524,7 @@ namespace BridgeBuilder
 
             foreach (CefTypeTxPlan tx in handlerPlans)
             {
+
                 if (tx.OriginalDecl.Name == "CefRequestHandler")
                 {
                     CodeStringBuilder stbuilder = new CodeStringBuilder();
@@ -570,6 +566,10 @@ namespace BridgeBuilder
                 csCodeStBuilder.Append(csCode.ToString());
                 csCodeStBuilder.AppendLine();
 
+                if (tx.CppImplClassNameId > 0)
+                {
+                    customImplClasses.Add(tx);
+                }
                 tt_count++;
             }
 
@@ -584,16 +584,44 @@ namespace BridgeBuilder
                 CodeStringBuilder csCode = new CodeStringBuilder();
                 tx.GenerateCsCode(csCode);
                 csCodeStBuilder.Append(csCode.ToString());
+
+                if (tx.CppImplClassNameId > 0)
+                {
+                    customImplClasses.Add(tx);
+                }
             }
             // 
 
             CreateCppSwitchTable(cppCodeStBuilder, instanceClassPlans);
-            //
+            CreateNewInstanceMethod(cppCodeStBuilder, customImplClasses);
+
             AddCppBuiltInEndCode(cppCodeStBuilder);
             //
             csCodeStBuilder.AppendLine("}");
         }
+        void CreateNewInstanceMethod(StringBuilder outputStBuilder, List<CefTypeTxPlan> customImplClasses)
+        {
+            CodeStringBuilder stbuilder = new CodeStringBuilder();
+            //void* NewInstance(int typeName, managed_callback mcallback, jsvalue* jsvalue);
+            stbuilder.AppendLine("void* NewInstance(int typeName, managed_callback mcallback, jsvalue* jsvalue){");
+            stbuilder.AppendLine("switch(typeName){");
+            int j = customImplClasses.Count;
+            for (int i = 0; i < j; ++i)
+            {
+                CefTypeTxPlan tx = customImplClasses[i];
+                CodeTypeDeclaration typedecl = tx.OriginalDecl;
+                stbuilder.AppendLine("case  CefTypeName_" + typedecl.Name + ":{");
+                CodeTypeDeclaration implTypeDecl = tx.ImplTypeDecl;
+                stbuilder.AppendLine("CefRefPtr<" + implTypeDecl.Name + "> inst=new " + implTypeDecl.Name + "();");
+                stbuilder.AppendLine("return " + implTypeDecl.Name + "::Wrap(inst);");
+                stbuilder.AppendLine("}");
+            }
+            stbuilder.AppendLine("}");
+            stbuilder.AppendLine("}");
+            //
+            outputStBuilder.Append(stbuilder.ToString());
 
+        }
         void AddCppBuiltInBeginCode(StringBuilder cppStBuilder)
         {
 

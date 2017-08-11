@@ -108,6 +108,9 @@ namespace BridgeBuilder
 
         }
 
+        public string CppImplClassName { get; set; }
+        public int CppImplClassNameId { get; set; }
+
         protected static string GetRawPtrMet(ImplWrapDirection wrapDirection)
         {
 
@@ -1820,6 +1823,8 @@ namespace BridgeBuilder
     {
         TypeTxInfo _typeTxInfo;
         CodeTypeDeclaration _currentCodeTypeDecl;
+
+
         public CefCallbackTxPlan(CodeTypeDeclaration typedecl)
             : base(typedecl)
         {
@@ -1903,8 +1908,8 @@ namespace BridgeBuilder
         }
 
         void GenerateImplClass(
-            List<MethodTxInfo> onEventMethods,
-            CodeStringBuilder stbuilder)
+           List<MethodTxInfo> onEventMethods,
+           CodeStringBuilder stbuilder)
         {
             CodeTypeDeclaration orgDecl = this.OriginalDecl;
             CodeTypeDeclaration implTypeDecl = this.ImplTypeDecl;
@@ -1917,6 +1922,9 @@ namespace BridgeBuilder
                 met.CppMethodSwitchCaseName = className + "_" + met.Name + "_" + (mm + 1);
                 stbuilder.AppendLine("const int " + met.CppMethodSwitchCaseName + "=" + (mm + 1) + ";");
             }
+
+            this.CppImplClassNameId = _typeTxInfo.CsInterOpTypeNameId;
+            this.CppImplClassName = className;
 
             //create a cpp class              
             stbuilder.Append("class " + className);
@@ -2786,6 +2794,8 @@ namespace BridgeBuilder
                 stbuilder.AppendLine("mcallback= NULL;");
                 stbuilder.AppendLine("}");
                 //
+                this.CppImplClassNameId = _typeTxInfo.CsInterOpTypeNameId;
+                this.CppImplClassName = className;
 
                 nn = callToDotNetMets.Count;
                 for (int mm = 0; mm < nn; ++mm)
@@ -2795,8 +2805,7 @@ namespace BridgeBuilder
                     //prepare data and call the callback
                     GenerateCppImplMethod(met, stbuilder);
                 }
-                stbuilder.AppendLine("};");
-
+                stbuilder.AppendLine("};"); 
 
             }
             //
