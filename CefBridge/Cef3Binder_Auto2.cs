@@ -1,6 +1,6 @@
 ﻿//MIT, 2015-2017, WinterDev
 
-using System; 
+using System;
 namespace LayoutFarm.CefBridge
 {
     public struct CefPoint
@@ -166,4 +166,6 @@ namespace LayoutFarm.CefBridge
         }
     }
 
+
+   
 }

@@ -393,6 +393,10 @@ namespace BridgeBuilder
             List<CefInstanceElementTxPlan> instanceClassPlans = new List<CefInstanceElementTxPlan>();
             List<CefEnumTxPlan> enumTxPlans = new List<CefEnumTxPlan>();
 
+            //-
+            List<CefInstanceElementTxPlan> cefVisitors = new List<CefInstanceElementTxPlan>();
+
+
             int typeName = 1;
 
             List<TypeTxInfo> typeTxInfoList = new List<TypeTxInfo>();
@@ -406,6 +410,11 @@ namespace BridgeBuilder
                 instanceClassPlan.CsInterOpTypeNameId = typeTxPlan.CsInterOpTypeNameId = typeName++;
                 typedecl.TypeTxInfo = typeTxPlan;
                 typeTxInfoList.Add(typeTxPlan);
+
+                if (typedecl.Name.EndsWith("Visitor"))
+                {
+                    cefVisitors.Add(instanceClassPlan);
+                }
             }
 
 
@@ -473,6 +482,7 @@ namespace BridgeBuilder
             }
             foreach (CodeTypeDeclaration typedecl in cefTypeCollection.cppToCClasses)
             {
+                //callback, handle, visitor etc
                 TypeTxInfo typeTxPlan = txPlanner.MakeTransformPlan(typedecl);
                 typeTxPlan.CsInterOpTypeNameId = typeName++;
                 typedecl.TypeTxInfo = typeTxPlan;
@@ -518,57 +528,59 @@ namespace BridgeBuilder
                 "namespace LayoutFarm.CefBridge.Auto{\r\n");
 
 
-            foreach (CefTypeTxPlan tx in handlerPlans)
-            {
-                if (tx.OriginalDecl.Name == "CefRequestHandler")
-                {
-                    CodeStringBuilder stbuilder = new CodeStringBuilder();
-                    //a handler is created on cpp side, then we attach .net delegate to it
-                    //so  we need
-                    //1. 
-                    tx.GenerateCppCode(stbuilder);
-                }
+            //foreach (CefTypeTxPlan tx in handlerPlans)
+            //{
+            //    if (tx.OriginalDecl.Name == "CefRequestHandler")
+            //    {
+            //        CodeStringBuilder stbuilder = new CodeStringBuilder();
+            //        //a handler is created on cpp side, then we attach .net delegate to it
+            //        //so  we need
+            //        //1. 
+            //        tx.GenerateCppCode(stbuilder);
+            //    }
 
-            }
-            
-            foreach (CefTypeTxPlan tx in enumTxPlans)
-            {
-                CodeStringBuilder csCode = new CodeStringBuilder();
-                tx.GenerateCsCode(csCode);
-                csCodeStBuilder.Append(csCode.ToString());
-            }
+            //}
+
+            //foreach (CefTypeTxPlan tx in enumTxPlans)
+            //{
+            //    CodeStringBuilder csCode = new CodeStringBuilder();
+            //    tx.GenerateCsCode(csCode);
+            //    csCodeStBuilder.Append(csCode.ToString());
+            //}
 
 
-            foreach (CefTypeTxPlan tx in instanceClassPlans)
-            {
+            //foreach (CefTypeTxPlan tx in instanceClassPlans)
+            //{
 
-                //pass
-                //CefRequest ,21
-                CodeStringBuilder cppCode = new CodeStringBuilder();
-                tx.GenerateCppCode(cppCode);
-                //---------------------------------------------------- 
-                CodeStringBuilder csCode = new CodeStringBuilder();
-                tx.GenerateCsCode(csCode);
-                //----------------------------------------------------  
-                //
-                cppCodeStBuilder.AppendLine();
-                cppCodeStBuilder.AppendLine("// " + tx.OriginalDecl.ToString());
-                cppCodeStBuilder.Append(cppCode.ToString());
-                cppCodeStBuilder.AppendLine();
-                //---------------------------------------------------- 
-                csCodeStBuilder.AppendLine();
-                csCodeStBuilder.AppendLine("// " + tx.OriginalDecl.ToString());
-                csCodeStBuilder.Append(csCode.ToString());
-                csCodeStBuilder.AppendLine();
+            //    //pass
+            //    //CefRequest ,21
+            //    CodeStringBuilder cppCode = new CodeStringBuilder();
+            //    tx.GenerateCppCode(cppCode);
+            //    //---------------------------------------------------- 
+            //    CodeStringBuilder csCode = new CodeStringBuilder();
+            //    tx.GenerateCsCode(csCode);
+            //    //----------------------------------------------------  
+            //    //
+            //    cppCodeStBuilder.AppendLine();
+            //    cppCodeStBuilder.AppendLine("// " + tx.OriginalDecl.ToString());
+            //    cppCodeStBuilder.Append(cppCode.ToString());
+            //    cppCodeStBuilder.AppendLine();
+            //    //---------------------------------------------------- 
+            //    csCodeStBuilder.AppendLine();
+            //    csCodeStBuilder.AppendLine("// " + tx.OriginalDecl.ToString());
+            //    csCodeStBuilder.Append(csCode.ToString());
+            //    csCodeStBuilder.AppendLine();
 
-                tt_count++;
-            }
+            //    tt_count++;
+            //}
 
-            //
+
             foreach (CefTypeTxPlan tx in callbackPlans)
             {
                 CodeStringBuilder stbuilder = new CodeStringBuilder();
                 tx.GenerateCppCode(stbuilder);
+                cppCodeStBuilder.Append(stbuilder.ToString());
+
                 //
                 CodeStringBuilder csCode = new CodeStringBuilder();
                 tx.GenerateCsCode(csCode);

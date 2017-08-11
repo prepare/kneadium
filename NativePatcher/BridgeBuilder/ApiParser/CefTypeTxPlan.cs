@@ -300,6 +300,10 @@ namespace BridgeBuilder
                                         }
 
                                     }
+                                    else if (elemType.TypeSymbolKind == TypeSymbolKind.Vec)
+                                    {
+                                        return "MyCefSetVoidPtr2(" + retName + ",&" + autoRetResultName + ");";
+                                    }
                                     else
                                     {
                                         return "MyCefSetVoidPtr(" + retName + "," + autoRetResultName + ");";
@@ -1779,8 +1783,83 @@ namespace BridgeBuilder
             : base(typedecl)
         {
             //this is call back
+
         }
 
+        void GenerateCppImplMethod(MethodTxInfo met, CodeStringBuilder stbuilder)
+        {
+
+
+            CodeMethodDeclaration metDecl = (CodeMethodDeclaration)met.metDecl;
+            stbuilder.AppendLine("//gen! " + metDecl.ToString());
+            stbuilder.Append("virtual " + metDecl.ReturnType + " " + metDecl.Name + "(");
+            List<CodeMethodParameter> pars = metDecl.Parameters;
+            int j = pars.Count;
+            for (int i = 0; i < j; ++i)
+            {
+                if (i > 0)
+                {
+                    stbuilder.Append(",");
+                }
+                CodeMethodParameter par = pars[i];
+
+                if (par.IsConstPar)
+                {
+                    stbuilder.Append("const ");
+                }
+                stbuilder.Append(par.ParameterType.ToString() + " ");
+                stbuilder.Append(par.ParameterName);
+            }
+            stbuilder.AppendLine("){");
+            //-----------
+            stbuilder.AppendLine("if(this->mcallback){");
+            //call to managed 
+            stbuilder.AppendLine("MyMetArgs2 args;");
+            stbuilder.AppendLine("memset(&args, 0, sizeof(MyMetArgs2));");
+            for (int i = 0; i < j; ++i)
+            {
+                MethodParameterTxInfo parTx = met.pars[i];
+                parTx.ClearExtractCode();
+                parTx.ArgExtractCode = PrepareDataFromCppToCs(parTx.TypeSymbol, "&args.v" + (i + 1), parTx.Name);
+            }
+            PrepareCppMetArg(met.ReturnPlan, "args.ret");
+            //
+            for (int i = 0; i < j; ++i)
+            {
+                MethodParameterTxInfo parTx = met.pars[i];
+                if (parTx.ArgPreExtractCode != null)
+                {
+                    stbuilder.AppendLine(parTx.ArgPreExtractCode);
+                }
+            }
+            for (int i = 0; i < j; ++i)
+            {
+                MethodParameterTxInfo parTx = met.pars[i];
+                stbuilder.AppendLine(parTx.ArgExtractCode);
+            }
+            //
+            //call a method and get some result back 
+            //
+            stbuilder.AppendLine("this->mcallback(" + met.CppMethodSwitchCaseName + ",&args);");
+            //post call
+            for (int i = 0; i < j; ++i)
+            {
+                MethodParameterTxInfo parTx = met.pars[i];
+                if (parTx.ArgPostExtractCode != null)
+                {
+                    stbuilder.AppendLine(parTx.ArgPostExtractCode);
+                }
+            }
+            if (!met.ReturnPlan.IsVoid)
+            {
+
+            }
+
+            //and return value
+            stbuilder.AppendLine("}"); //if(this->mcallback){
+            //-----------
+            stbuilder.AppendLine("}"); //method
+        }
         public override void GenerateCppCode(CodeStringBuilder stbuilder)
         {
 
@@ -1801,9 +1880,21 @@ namespace BridgeBuilder
             //-----------------------------------------------------------------------
             CodeStringBuilder const_methodNames = new CodeStringBuilder();
             int maxPar = 0;
+
+            List<MethodTxInfo> onEventMethods = new List<MethodTxInfo>();
             for (int i = 0; i < j; ++i)
             {
                 MethodTxInfo metTx = _typeTxInfo.methods[i];
+                if (metTx.metDecl.IsVirtual)
+                {
+                    //this method need a callback to .net side (.net-side event listener)
+                    if (metTx.metDecl.Name.StartsWith("On"))
+                    {
+                        onEventMethods.Add(metTx);
+                    }
+
+                }
+
                 metTx.CppMethodSwitchCaseName = orgDecl.Name + "_" + metTx.Name + "_" + (i + 1);
                 if (metTx.pars.Count > maxPar)
                 {
@@ -1811,6 +1902,42 @@ namespace BridgeBuilder
                 }
                 const_methodNames.AppendLine("const int " + metTx.CppMethodSwitchCaseName + "=" + (i + 1) + ";");
             }
+
+            if (onEventMethods.Count > 0)
+            {
+                string className = "My" + orgDecl.Name;
+                int nn = onEventMethods.Count;
+                for (int mm = 0; mm < nn; ++mm)
+                {
+                    //implement on event notificationi
+                    MethodTxInfo met = onEventMethods[mm];
+                    met.CppMethodSwitchCaseName = className + "_" + met.Name + "_" + (mm + 1);
+                    stbuilder.AppendLine("const int " + met.CppMethodSwitchCaseName + "=" + (mm + 1) + ";");
+                }
+
+                //create a cpp class              
+                stbuilder.Append("class " + className);
+                stbuilder.Append(":public " + implTypeDecl.Name);
+                stbuilder.AppendLine("{");
+                //members
+                stbuilder.AppendLine("public:");
+                stbuilder.AppendLine("managed_callback mcallback;");
+                stbuilder.AppendLine("explicit " + className + "(){");
+                stbuilder.AppendLine("mcallback= NULL;");
+                stbuilder.AppendLine("}");
+                //
+
+                nn = onEventMethods.Count;
+                for (int mm = 0; mm < nn; ++mm)
+                {
+                    //implement on event notificationi
+                    MethodTxInfo met = onEventMethods[mm];
+                    //prepare data and call the callback
+                    GenerateCppImplMethod(met, stbuilder);
+                }
+                stbuilder.AppendLine("};");
+            }
+
             MaxMethodParCount = maxPar;
             totalTypeMethod.AppendLine(const_methodNames.ToString());
             //-----------------------------------------------------------------------
@@ -1847,8 +1974,7 @@ namespace BridgeBuilder
 
             totalTypeMethod.AppendLine("auto me=" + implTypeDecl.Name + "::" + GetSmartPointerMet(implWrapDirection) + "(me1);");
             //swicth table is a way that this instance'smethod is called
-            //through the bridge 
-
+            //through the bridge  
 
             totalTypeMethod.AppendLine("switch(metName){");
             totalTypeMethod.AppendLine("case MET_Release:return; //yes, just return");
@@ -1860,9 +1986,14 @@ namespace BridgeBuilder
                 //create each method,
                 //in our convention we dont generate 
                 MethodTxInfo metTx = _typeTxInfo.methods[i];
+                if (metTx.Name.StartsWith("On"))
+                {
+                    //cef convention
+                    continue;
+                }
                 met_stbuilder.AppendLine("case " + metTx.CppMethodSwitchCaseName + ":{");
 
-                //GenerateCppMethod(_typeTxInfo.methods[i], met_stbuilder);
+                GenerateCppMethod(_typeTxInfo.methods[i], met_stbuilder);
 
                 met_stbuilder.AppendLine("} break;");
 
@@ -1879,6 +2010,88 @@ namespace BridgeBuilder
             //
             stbuilder.Append(totalTypeMethod.ToString());
 
+        }
+        void GenerateCppMethod(MethodTxInfo met, CodeStringBuilder stbuilder)
+        {
+            if (met.CsLeftMethodBodyBlank) return;  //temp here
+                                                    //---------------------------------------
+
+            //extract managed args and then call native c++ method
+            //----
+            MethodParameterTxInfo ret = met.ReturnPlan;
+            //----
+            List<MethodParameterTxInfo> pars = met.pars;
+            int parCount = pars.Count;
+            if (parCount > 15)
+            {
+                throw new NotSupportedException();
+            }
+
+            //--------------------------- 
+            stbuilder.AppendLine();
+            stbuilder.Append(
+                "\r\n" +
+                "// gen! " + met.ToString() + "\r\n"
+                );
+            //---------------------------
+            for (int i = 0; i < parCount; ++i)
+            {
+                //prepare some method args
+                //get pars from parameter .
+                PrepareCppMetArg(pars[i], "v" + (i + 1));
+            }
+            ret.ArgExtractCode = PrepareDataFromCppToCs(ret.TypeSymbol, "ret", "ret_result");
+
+
+            //---------------------------
+            for (int i = 0; i < parCount; ++i)
+            {
+                MethodParameterTxInfo parTx = pars[i];
+                if (!string.IsNullOrEmpty(parTx.ArgPreExtractCode))
+                {
+                    stbuilder.Append(parTx.ArgPreExtractCode);
+                }
+            }
+            //---------------------------
+            StringBuilder arglistBuilder = new StringBuilder();
+            for (int i = 0; i < parCount; ++i)
+            {
+                MethodParameterTxInfo parTx = pars[i];
+                if (i > 0)
+                {
+                    arglistBuilder.AppendLine(",");
+                }
+                arglistBuilder.Append(parTx.ArgExtractCode);
+            }
+
+            string instThis = "me";
+            if (ret.IsVoid)
+            {
+                //call, no return result
+                stbuilder.Append(instThis + "->" + met.Name + "(");
+                stbuilder.Append(arglistBuilder.ToString());
+                stbuilder.Append(");\r\n");
+
+            }
+            else
+            {
+                stbuilder.Append("auto ret_result=");
+                stbuilder.Append(instThis + "->" + met.Name + "(");
+                stbuilder.Append(arglistBuilder.ToString());
+                stbuilder.Append(");\r\n");
+            }
+
+
+            for (int i = 0; i < parCount; ++i)
+            {
+                MethodParameterTxInfo parTx = pars[i];
+                if (parTx.ArgPostExtractCode != null)
+                {
+                    stbuilder.AppendLine(parTx.ArgPostExtractCode);
+                }
+            }
+            stbuilder.AppendLine(ret.ArgExtractCode);
+            //clean up 
         }
         public override void GenerateCsCode(CodeStringBuilder stbuilder)
         {
