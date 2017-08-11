@@ -675,10 +675,7 @@ namespace LayoutFarm.CefBridge
         public static extern void GetListCount(int listType, IntPtr list, out int count);
         [DllImport(CEF_CLIENT_DLL, CallingConvention = CallingConvention.Cdecl)]
         public static extern void GetListElement(int elemType, IntPtr list, int index, ref JsValue jsvalue);
-        //new instance 
-        [DllImport(CEF_CLIENT_DLL, CallingConvention = CallingConvention.Cdecl)]
-        public static extern IntPtr NewInstance(int callbackKind, ref JsValue v1);
-        //
+       
 
         public static string MyCefJsReadString(ref JsValue ret)
         {
