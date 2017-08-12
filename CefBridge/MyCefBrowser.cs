@@ -366,6 +366,34 @@ namespace LayoutFarm.CefBridge
 
         public void GetText(Action<string> strCallback)
         {
+
+
+            MyCefBw myCefBw = new MyCefBw(this.myCefBrowser);
+            MyCefFrame myframe = myCefBw.GetMainFrame();
+
+            Auto.CefFrame frame1 = new Auto.CefFrame(myframe.nativePtr);
+            Auto.CefBrowser bw = frame1.GetBrowser();
+
+
+            MyCefCallback visitorCallback = (int id, IntPtr nativeArgs) =>
+            {
+                MyCefNativeMetArgs metArgs = new MyCefNativeMetArgs(nativeArgs);
+                if (metArgs.GetArgCount() == 1)
+                {
+                    JsValue value;
+                    metArgs.GetArg(0, out value);
+                    string data = Cef3Binder.MyCefJsReadString(ref value);
+
+                }
+            };
+
+            Auto.CefStringVisitor visitor = Auto.CefStringVisitor.New(visitorCallback);
+
+
+            frame1.GetText(visitor);
+
+            bw.Release();
+            frame1.Release();
             //keep alive callback
             InternalGetText((id, nativePtr) =>
             {
@@ -396,12 +424,12 @@ namespace LayoutFarm.CefBridge
         public void LoadText(string text, string url)
         {
             MyCefBw myCefBw = new MyCefBw(this.myCefBrowser);
-            MyCefFrame myframe = myCefBw.GetMainFrame(); 
+            MyCefFrame myframe = myCefBw.GetMainFrame();
 
             Auto.CefFrame frame1 = new Auto.CefFrame(myframe.nativePtr);
             Auto.CefBrowser bw = frame1.GetBrowser();
 
-            
+
             List<string> frameNames = new List<string>();
             bw.GetFrameNames(frameNames);
 
