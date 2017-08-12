@@ -690,7 +690,7 @@ namespace LayoutFarm.CefBridge
             unsafe
             {
                 int actualLen;
-                int buffLen = ret.I32; //string len
+                int buffLen = ret.I32 + 1; //string len
                 char* buffHead = stackalloc char[buffLen];
                 Cef3Binder.MyCefStringHolder_Read(ret.Ptr, buffHead, buffLen, out actualLen);
                 if (actualLen > buffLen)
