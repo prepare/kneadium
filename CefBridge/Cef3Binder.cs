@@ -700,6 +700,18 @@ namespace LayoutFarm.CefBridge
                 return new string(buffHead, 0, actualLen);
             }
         }
+        public unsafe static string MyCefJsReadString(JsValue* ret)
+        { 
+            int actualLen;
+            int buffLen = ret->I32 + 1; //string len
+            char* buffHead = stackalloc char[buffLen];
+            Cef3Binder.MyCefStringHolder_Read(ret->Ptr, buffHead, buffLen, out actualLen);
+            if (actualLen > buffLen)
+            {
+                //read more
+            }
+            return new string(buffHead, 0, actualLen); 
+        }
         public static void MyCefCreateNativeStringHolder(ref JsValue ret, string value)
         {
             unsafe

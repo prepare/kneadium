@@ -203,7 +203,13 @@ namespace BridgeBuilder
             }
 
         }
-        protected static string PrepareDataFromCppToCs(MethodParameterTxInfo par, string retName, string autoRetResultName)
+        /// <summary>
+        /// bring data from srcExpression and store to the destExpression
+        /// </summary>
+        /// <param name="par"></param>
+        /// <param name="destExpression"></param>
+        /// <param name="srcExpression"></param>
+        protected static void PrepareDataFromNativeToCs(MethodParameterTxInfo par, string destExpression, string srcExpression)
         {
 
             TypeSymbol ret = par.TypeSymbol;
@@ -215,7 +221,8 @@ namespace BridgeBuilder
                 case TypeSymbolKind.TypeDef:
                     {
                         CTypeDefTypeSymbol ctypedef = (CTypeDefTypeSymbol)ret;
-                        return "MyCefSetInt32(" + retName + ",(int32_t)" + autoRetResultName + ");";
+                        par.ArgExtractCode = "MyCefSetInt32(" + destExpression + ",(int32_t)" + srcExpression + ");";
+                        return;
                     }
                 case TypeSymbolKind.ReferenceOrPointer:
                     {
@@ -230,7 +237,8 @@ namespace BridgeBuilder
                             case ContainerTypeKind.CefRawPtr:
                                 {
                                     //raw pointer 
-                                    return "MyCefSetVoidPtr(" + retName + "," + autoRetResultName + ");";
+                                    par.ArgExtractCode = "MyCefSetVoidPtr(" + destExpression + "," + srcExpression + ");";
+                                    return;
                                 }
                             case ContainerTypeKind.ByRef:
                                 {
@@ -242,34 +250,38 @@ namespace BridgeBuilder
                                         switch (simpleElem.PrimitiveTypeKind)
                                         {
                                             case PrimitiveTypeKind.CefString:
-                                                return "SetCefStringToJsValue(" + retName + "," + autoRetResultName + ");";
+                                                par.ArgExtractCode = "SetCefStringToJsValue(" + destExpression + "," + srcExpression + ");";
+                                                //need StringHolder cleanup
+                                                par.ArgPostExtractCode = "DeleteCefStringHolderFromJsValue(" + destExpression + ");";
 
+                                                return;
                                             case PrimitiveTypeKind.NaitveInt:
-                                                return "MyCefSetInt64(" + retName + "," + autoRetResultName + ");";
-
+                                                par.ArgExtractCode = "MyCefSetInt64(" + destExpression + "," + srcExpression + ");";
+                                                return;
                                             case PrimitiveTypeKind.size_t:
-                                                return "MyCefSetInt32(" + retName + ",(int32_t)" + autoRetResultName + ");";
-
+                                                par.ArgExtractCode = "MyCefSetInt32(" + destExpression + ",(int32_t)" + srcExpression + ");";
+                                                return;
                                             case PrimitiveTypeKind.Int64:
-                                                return "MyCefSetInt64(" + retName + "," + autoRetResultName + ");";
-
+                                                par.ArgExtractCode = "MyCefSetInt64(" + destExpression + "," + srcExpression + ");";
+                                                return;
                                             case PrimitiveTypeKind.UInt64:
-                                                return "MyCefSetUInt64(" + retName + "," + autoRetResultName + ");";
-
+                                                par.ArgExtractCode = "MyCefSetUInt64(" + destExpression + "," + srcExpression + ");";
+                                                return;
                                             case PrimitiveTypeKind.Double:
-                                                return "MyCefSetDouble(" + retName + "," + autoRetResultName + ");";
-
+                                                par.ArgExtractCode = "MyCefSetDouble(" + destExpression + "," + srcExpression + ");";
+                                                return;
                                             case PrimitiveTypeKind.Float:
-                                                return "MyCefSetFloat(" + retName + "," + autoRetResultName + ");";
-
+                                                par.ArgExtractCode = "MyCefSetFloat(" + destExpression + "," + srcExpression + ");";
+                                                return;
                                             case PrimitiveTypeKind.Bool:
-                                                return "MyCefSetBool(" + retName + "," + autoRetResultName + ");";
-
+                                                par.ArgExtractCode = "MyCefSetBool(" + destExpression + "," + srcExpression + ");";
+                                                return;
                                             case PrimitiveTypeKind.UInt32:
-                                                return "MyCefSetUInt32(" + retName + "," + autoRetResultName + ");";
-
+                                                par.ArgExtractCode = "MyCefSetUInt32(" + destExpression + "," + srcExpression + ");";
+                                                return;
                                             case PrimitiveTypeKind.Int32:
-                                                return "MyCefSetInt32(" + retName + "," + autoRetResultName + ");";
+                                                par.ArgExtractCode = "MyCefSetInt32(" + destExpression + "," + srcExpression + ");";
+                                                return;
                                             case PrimitiveTypeKind.NotPrimitiveType:
                                                 {
                                                     CefTypeTxPlan txPlan = simpleElem.CefTxPlan;
@@ -277,13 +289,13 @@ namespace BridgeBuilder
                                                     {
                                                         if (par.IsConst)
                                                         {
-                                                            return "MyCefSetVoidPtr2(" + retName + ",&" + autoRetResultName + ");";
+                                                            par.ArgExtractCode = "MyCefSetVoidPtr2(" + destExpression + ",&" + srcExpression + ");";
                                                         }
                                                         else
                                                         {
-                                                            return "MyCefSetVoidPtr(" + retName + "," + autoRetResultName + ");";
+                                                            par.ArgExtractCode = "MyCefSetVoidPtr(" + destExpression + "," + srcExpression + ");";
                                                         }
-
+                                                        return;
                                                     }
                                                     else
                                                     {
@@ -298,14 +310,16 @@ namespace BridgeBuilder
                                                             //so if you want to send this to client lib
                                                             //you need to GET raw pointer , so =>
 
-                                                            return "MyCefSetVoidPtr(" + retName + "," +
-                                                                  implBy.Name + "::Unwrap" + "(" + autoRetResultName + "));";
+                                                            par.ArgExtractCode = "MyCefSetVoidPtr(" + destExpression + "," +
+                                                                  implBy.Name + "::Unwrap" + "(" + srcExpression + "));";
+                                                            return;
 
                                                         }
                                                         else if (implBy.Name.Contains("CppToC"))
                                                         {
-                                                            return "MyCefSetVoidPtr(" + retName + "," +
-                                                                implBy.Name + "::Wrap" + "(" + autoRetResultName + "));";
+                                                            par.ArgExtractCode = "MyCefSetVoidPtr(" + destExpression + "," +
+                                                                implBy.Name + "::Wrap" + "(" + srcExpression + "));";
+                                                            return;
                                                         }
                                                         else
                                                         {
@@ -313,25 +327,25 @@ namespace BridgeBuilder
                                                         }
                                                     }
                                                 }
-                                                break;
                                         }
 
                                     }
                                     else if (elemType.TypeSymbolKind == TypeSymbolKind.Vec)
                                     {
-                                        return "MyCefSetVoidPtr2(" + retName + ",&" + autoRetResultName + ");";
+                                        par.ArgExtractCode = "MyCefSetVoidPtr2(" + destExpression + ",&" + srcExpression + ");";
+                                        return;
                                     }
                                     else
                                     {
                                         if (par.IsConst)
                                         {
-                                            return "MyCefSetVoidPtr2(" + retName + ",&" + autoRetResultName + ");";
+                                            par.ArgExtractCode = "MyCefSetVoidPtr2(" + destExpression + ",&" + srcExpression + ");";
                                         }
                                         else
                                         {
-                                            return "MyCefSetVoidPtr(" + retName + "," + autoRetResultName + ");";
+                                            par.ArgExtractCode = "MyCefSetVoidPtr(" + destExpression + "," + srcExpression + ");";
                                         }
-
+                                        return;
                                     }
                                 }
                                 break;
@@ -351,7 +365,8 @@ namespace BridgeBuilder
 
                                                 if (simpleElem.ToString() == "CefBaseRefCounted")
                                                 {
-                                                    return "!";
+                                                    par.ArgExtractCode = "!";
+                                                    return;
                                                 }
                                                 throw new NotSupportedException();
 
@@ -369,19 +384,20 @@ namespace BridgeBuilder
                                                     //so if you want to send this to client lib
                                                     //you need to GET raw pointer , so =>
 
-                                                    return "MyCefSetVoidPtr(" + retName + "," +
-                                                          implBy.Name + "::Unwrap" + "(" + autoRetResultName + "));";
+                                                    par.ArgExtractCode = "MyCefSetVoidPtr(" + destExpression + "," +
+                                                          implBy.Name + "::Unwrap" + "(" + srcExpression + "));";
 
                                                 }
                                                 else if (implBy.Name.Contains("CppToC"))
                                                 {
-                                                    return "MyCefSetVoidPtr(" + retName + "," +
-                                                        implBy.Name + "::Wrap" + "(" + autoRetResultName + "));";
+                                                    par.ArgExtractCode = "MyCefSetVoidPtr(" + destExpression + "," +
+                                                        implBy.Name + "::Wrap" + "(" + srcExpression + "));";
                                                 }
                                                 else
                                                 {
                                                     throw new NotSupportedException();
                                                 }
+                                                return;
                                             }
                                         }
                                         else
@@ -391,7 +407,8 @@ namespace BridgeBuilder
                                     }
                                     else
                                     {
-                                        return "MyCefSetVoidPtr(" + retName + "," + autoRetResultName + ");";
+                                        par.ArgExtractCode = "MyCefSetVoidPtr(" + destExpression + "," + srcExpression + ");";
+                                        return;
                                     }
                                 }
                                 break;
@@ -402,11 +419,13 @@ namespace BridgeBuilder
                                         //void*
                                         if (par.IsConst)
                                         {
-                                            return "MyCefSetVoidPtr2(" + retName + "," + autoRetResultName + ");";
+                                            par.ArgExtractCode = "MyCefSetVoidPtr2(" + destExpression + "," + srcExpression + ");";
+                                            return;
                                         }
                                         else
                                         {
-                                            return "MyCefSetVoidPtr(" + retName + "," + autoRetResultName + ");";
+                                            par.ArgExtractCode = "MyCefSetVoidPtr(" + destExpression + "," + srcExpression + ");";
+                                            return;
                                         }
                                     }
                                     else
@@ -429,14 +448,16 @@ namespace BridgeBuilder
                             default:
                                 break;
                             case PrimitiveTypeKind.Void:
-                                return null;
+                                par.ArgExtractCode = null;
+                                return;
                             case PrimitiveTypeKind.NotPrimitiveType:
                                 {
                                     SimpleTypeSymbol ss = (SimpleTypeSymbol)simpleType;
                                     if (ss.IsEnum)
                                     {
                                         //enum class 
-                                        return "MyCefSetInt32(" + retName + ",(int32_t)" + autoRetResultName + ");";
+                                        par.ArgExtractCode = "MyCefSetInt32(" + destExpression + ",(int32_t)" + srcExpression + ");";
+                                        return;
                                     }
                                     else
                                     {
@@ -459,42 +480,44 @@ namespace BridgeBuilder
                                                     //---test with copy by reference
                                                     //
 
-                                                    return ss.Name + "* tmp_d1= new " + ss.Name + "(" + autoRetResultName + ");\r\n" +
-                                                        "MyCefSetVoidPtr(" + retName + ",tmp_d1);\r\n";
+                                                    par.ArgExtractCode = ss.Name + "* tmp_d1= new " + ss.Name + "(" + srcExpression + ");\r\n" +
+                                                        "MyCefSetVoidPtr(" + destExpression + ",tmp_d1);\r\n";
+                                                    return;
                                                 }
                                         }
                                     }
                                 }
                                 break;
                             case PrimitiveTypeKind.CefString:
-                                return "SetCefStringToJsValue(" + retName + "," + autoRetResultName + ");";
-
+                                par.ArgExtractCode = "SetCefStringToJsValue(" + destExpression + "," + srcExpression + ");";
+                                return;
                             case PrimitiveTypeKind.NaitveInt:
-                                return "MyCefSetInt64(" + retName + "," + autoRetResultName + ");";
-
+                                par.ArgExtractCode = "MyCefSetInt64(" + destExpression + "," + srcExpression + ");";
+                                return;
                             case PrimitiveTypeKind.size_t:
-                                return "MyCefSetInt32(" + retName + ",(int32_t)" + autoRetResultName + ");";
-
+                                par.ArgExtractCode = "MyCefSetInt32(" + destExpression + ",(int32_t)" + srcExpression + ");";
+                                return;
                             case PrimitiveTypeKind.Int64:
-                                return "MyCefSetInt64(" + retName + "," + autoRetResultName + ");";
-
+                                par.ArgExtractCode = "MyCefSetInt64(" + destExpression + "," + srcExpression + ");";
+                                return;
                             case PrimitiveTypeKind.UInt64:
-                                return "MyCefSetUInt64(" + retName + "," + autoRetResultName + ");";
-
+                                par.ArgExtractCode = "MyCefSetUInt64(" + destExpression + "," + srcExpression + ");";
+                                return;
                             case PrimitiveTypeKind.Double:
-                                return "MyCefSetDouble(" + retName + "," + autoRetResultName + ");";
-
+                                par.ArgExtractCode = "MyCefSetDouble(" + destExpression + "," + srcExpression + ");";
+                                return;
                             case PrimitiveTypeKind.Float:
-                                return "MyCefSetFloat(" + retName + "," + autoRetResultName + ");";
-
+                                par.ArgExtractCode = "MyCefSetFloat(" + destExpression + "," + srcExpression + ");";
+                                return;
                             case PrimitiveTypeKind.Bool:
-                                return "MyCefSetBool(" + retName + "," + autoRetResultName + ");";
-
+                                par.ArgExtractCode = "MyCefSetBool(" + destExpression + "," + srcExpression + ");";
+                                return;
                             case PrimitiveTypeKind.UInt32:
-                                return "MyCefSetUInt32(" + retName + "," + autoRetResultName + ");";
-
+                                par.ArgExtractCode = "MyCefSetUInt32(" + destExpression + "," + srcExpression + ");";
+                                return;
                             case PrimitiveTypeKind.Int32:
-                                return "MyCefSetInt32(" + retName + "," + autoRetResultName + ");";
+                                par.ArgExtractCode = "MyCefSetInt32(" + destExpression + "," + srcExpression + ");";
+                                return;
                         }
                     }
                     break;
@@ -1861,14 +1884,14 @@ namespace BridgeBuilder
             stbuilder.AppendLine("if(this->mcallback){");
             //call to managed 
             stbuilder.AppendLine("MyMetArgs2 args;");
-            stbuilder.AppendLine("memset(&args, 0, sizeof(MyMetArgs2));"); 
+            stbuilder.AppendLine("memset(&args, 0, sizeof(MyMetArgs2));");
             stbuilder.AppendLine("args.argCount=" + j + ";");
 
             for (int i = 0; i < j; ++i)
             {
                 MethodParameterTxInfo parTx = met.pars[i];
                 parTx.ClearExtractCode();
-                parTx.ArgExtractCode = PrepareDataFromCppToCs(parTx, "&args.v" + (i + 1), parTx.Name);
+                PrepareDataFromNativeToCs(parTx, "&args.v" + (i + 1), parTx.Name);
             }
             PrepareCppMetArg(met.ReturnPlan, "args.ret");
             //
@@ -2104,7 +2127,7 @@ namespace BridgeBuilder
                 //get pars from parameter .
                 PrepareCppMetArg(pars[i], "v" + (i + 1));
             }
-            ret.ArgExtractCode = PrepareDataFromCppToCs(met.ReturnPlan, "ret", "ret_result");
+            PrepareDataFromNativeToCs(met.ReturnPlan, "ret", "ret_result");
 
 
             //---------------------------
@@ -2435,7 +2458,7 @@ namespace BridgeBuilder
             for (int i = 0; i < j; ++i)
             {
                 MethodParameterTxInfo parTx = met.pars[i];
-                parTx.ArgExtractCode = PrepareDataFromCppToCs(parTx, "&args.v" + (i + 1), parTx.Name);
+                PrepareDataFromNativeToCs(parTx, "&args.v" + (i + 1), parTx.Name);
             }
             PrepareCppMetArg(met.ReturnPlan, "args.ret");
 
@@ -2627,7 +2650,7 @@ namespace BridgeBuilder
             {
                 MethodParameterTxInfo parTx = met.pars[i];
                 parTx.ClearExtractCode();
-                parTx.ArgExtractCode = PrepareDataFromCppToCs(parTx, "&args.v" + (i + 1), parTx.Name);
+                PrepareDataFromNativeToCs(parTx, "&args.v" + (i + 1), parTx.Name);
             }
             PrepareCppMetArg(met.ReturnPlan, "args.ret");
             //
@@ -2906,7 +2929,7 @@ namespace BridgeBuilder
                 //get pars from parameter .
                 PrepareCppMetArg(pars[i], "v" + (i + 1));
             }
-            ret.ArgExtractCode = PrepareDataFromCppToCs(ret, "ret", "ret_result");
+            PrepareDataFromNativeToCs(ret, "ret", "ret_result");
 
 
             //---------------------------

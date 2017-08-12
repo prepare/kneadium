@@ -10129,7 +10129,27 @@ namespace LayoutFarm.CefBridge.Auto
             JsValue not_used = new JsValue(); //not used
             return new CefStringVisitor(
                 Cef3Binder.NewInstance(_typeNAME, callback, ref not_used));
+        } 
+        //--------------------
+        public struct OnVisitPars
+        {
+            internal IntPtr nativePtr;
+            public OnVisitPars(IntPtr nativePtr)
+            {
+                this.nativePtr = nativePtr;
+            }
+            public string _string //string par
+            {
+                get
+                {
+                    unsafe
+                    {
+                        return Cef3Binder.MyCefJsReadString((JsValue*)Cef3Binder.MyMetArgGetArgAddress(nativePtr, 1));
+                    }
+                }
+            }
         }
+        //--------------------
     }
 
 

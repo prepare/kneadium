@@ -17,6 +17,10 @@ inline void SetCefStringToJsValue(jsvalue* value, const CefString&cefstr) {
 	value->ptr = str;
 	value->i32 = str->value.length();
 }
+inline void DeleteCefStringHolderFromJsValue(jsvalue* value) {
+	value->i32 = 0;
+	delete value->ptr;
+}
 inline void MyCefSetVoidPtr(jsvalue* value, void* data)
 {
 	value->type = JSVALUE_TYPE_WRAPPED;
@@ -71,7 +75,7 @@ inline void MyCefSetCefPoint(jsvalue* value, CefPoint&data) {
 	value->ptr = cefPoint;
 }
 struct MyMetArgs2
-{	
+{
 	int32_t argCount;
 	jsvalue ret;
 	jsvalue v1;
@@ -285,6 +289,7 @@ public:
 			SetCefStringToJsValue(&args.v1, process_type);
 			MyCefSetVoidPtr(&args.v2, CefCommandLineCToCpp::Unwrap(command_line));
 			this->mcallback(MyCefApp_OnBeforeCommandLineProcessing_1, &args);
+			DeleteCefStringHolderFromJsValue(&args.v1);
 		}
 	}
 	//gen! void OnRegisterCustomSchemes(CefRawPtr<CefSchemeRegistrar> registrar)
@@ -3602,6 +3607,7 @@ public:
 			MyCefSetVoidPtr(&args.v1, CefMenuModelCToCpp::Unwrap(menu_model));
 			SetCefStringToJsValue(&args.v2, label);
 			this->mcallback(MyCefMenuModelDelegate_FormatLabel_7, &args);
+			DeleteCefStringHolderFromJsValue(&args.v2);
 			return args.ret.i32 != 0;
 		}
 		return false;
@@ -4699,6 +4705,7 @@ public:
 			SetCefStringToJsValue(&args.v3, scheme_name);
 			MyCefSetVoidPtr(&args.v4, CefRequestCToCpp::Unwrap(request));
 			this->mcallback(MyCefSchemeHandlerFactory_Create_1, &args);
+			DeleteCefStringHolderFromJsValue(&args.v3);
 			return CefResourceHandlerCppToC::Unwrap((cef_resource_handler_t*)args.ret.ptr);
 		}
 		return nullptr;
@@ -4931,6 +4938,7 @@ public:
 			args.argCount = 1;
 			SetCefStringToJsValue(&args.v1, string);
 			this->mcallback(MyCefStringVisitor_Visit_1, &args);
+			DeleteCefStringHolderFromJsValue(&args.v1);
 		}
 	}
 private:
@@ -5221,6 +5229,9 @@ public:
 			SetCefStringToJsValue(&args.v5, scheme);
 			MyCefSetVoidPtr(&args.v6, CefAuthCallbackCToCpp::Unwrap(callback));
 			this->mcallback(MyCefURLRequestClient_GetAuthCredentials_5, &args);
+			DeleteCefStringHolderFromJsValue(&args.v2);
+			DeleteCefStringHolderFromJsValue(&args.v4);
+			DeleteCefStringHolderFromJsValue(&args.v5);
 			return args.ret.i32 != 0;
 		}
 		return false;
@@ -5369,6 +5380,8 @@ public:
 			MyCefSetVoidPtr(&args.v3, retval);
 			SetCefStringToJsValue(&args.v4, exception);
 			this->mcallback(MyCefV8Accessor_Get_1, &args);
+			DeleteCefStringHolderFromJsValue(&args.v1);
+			DeleteCefStringHolderFromJsValue(&args.v4);
 			return args.ret.i32 != 0;
 		}
 		return false;
@@ -5384,6 +5397,8 @@ public:
 			MyCefSetVoidPtr(&args.v3, CefV8ValueCToCpp::Unwrap(value));
 			SetCefStringToJsValue(&args.v4, exception);
 			this->mcallback(MyCefV8Accessor_Set_2, &args);
+			DeleteCefStringHolderFromJsValue(&args.v1);
+			DeleteCefStringHolderFromJsValue(&args.v4);
 			return args.ret.i32 != 0;
 		}
 		return false;
@@ -5468,6 +5483,8 @@ public:
 			MyCefSetVoidPtr(&args.v3, retval);
 			SetCefStringToJsValue(&args.v4, exception);
 			this->mcallback(MyCefV8Interceptor_Get_1, &args);
+			DeleteCefStringHolderFromJsValue(&args.v1);
+			DeleteCefStringHolderFromJsValue(&args.v4);
 			return args.ret.i32 != 0;
 		}
 		return false;
@@ -5483,6 +5500,7 @@ public:
 			MyCefSetVoidPtr(&args.v3, retval);
 			SetCefStringToJsValue(&args.v4, exception);
 			this->mcallback(MyCefV8Interceptor_Get_2, &args);
+			DeleteCefStringHolderFromJsValue(&args.v4);
 			return args.ret.i32 != 0;
 		}
 		return false;
@@ -5498,6 +5516,8 @@ public:
 			MyCefSetVoidPtr(&args.v3, CefV8ValueCToCpp::Unwrap(value));
 			SetCefStringToJsValue(&args.v4, exception);
 			this->mcallback(MyCefV8Interceptor_Set_3, &args);
+			DeleteCefStringHolderFromJsValue(&args.v1);
+			DeleteCefStringHolderFromJsValue(&args.v4);
 			return args.ret.i32 != 0;
 		}
 		return false;
@@ -5513,6 +5533,7 @@ public:
 			MyCefSetVoidPtr(&args.v3, CefV8ValueCToCpp::Unwrap(value));
 			SetCefStringToJsValue(&args.v4, exception);
 			this->mcallback(MyCefV8Interceptor_Set_4, &args);
+			DeleteCefStringHolderFromJsValue(&args.v4);
 			return args.ret.i32 != 0;
 		}
 		return false;
@@ -7538,6 +7559,7 @@ public:
 			SetCefStringToJsValue(&args.v1, path);
 			MyCefSetBool(&args.v2, ok);
 			this->mcallback(MyCefPdfPrintCallback_OnPdfPrintFinished_1, &args);
+			DeleteCefStringHolderFromJsValue(&args.v1);
 		}
 	}
 private:
@@ -7570,6 +7592,7 @@ public:
 			MyCefSetInt64(&args.v2, http_status_code);
 			MyCefSetVoidPtr(&args.v3, CefImageCToCpp::Unwrap(image));
 			this->mcallback(MyCefDownloadImageCallback_OnDownloadImageFinished_1, &args);
+			DeleteCefStringHolderFromJsValue(&args.v1);
 		}
 	}
 private:
@@ -7997,6 +8020,7 @@ public:
 			args.argCount = 1;
 			SetCefStringToJsValue(&args.v1, tracing_file);
 			this->mcallback(MyCefEndTracingCallback_OnEndTracingComplete_1, &args);
+			DeleteCefStringHolderFromJsValue(&args.v1);
 		}
 	}
 private:
@@ -8046,6 +8070,7 @@ public:
 			MyCefSetInt32(&args.v1, (int32_t)result);
 			SetCefStringToJsValue(&args.v2, error_message);
 			this->mcallback(MyCefRegisterCdmCallback_OnCdmRegistrationComplete_1, &args);
+			DeleteCefStringHolderFromJsValue(&args.v2);
 		}
 	}
 private:
