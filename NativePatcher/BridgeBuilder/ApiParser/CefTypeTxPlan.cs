@@ -256,7 +256,7 @@ namespace BridgeBuilder
 
                                                 return;
                                             case PrimitiveTypeKind.NaitveInt:
-                                                par.ArgExtractCode = "MyCefSetInt64(" + destExpression + "," + srcExpression + ");";
+                                                par.ArgExtractCode = "MyCefSetInt32(" + destExpression + ",(int32_t)" + srcExpression + ");";
                                                 return;
                                             case PrimitiveTypeKind.size_t:
                                                 par.ArgExtractCode = "MyCefSetInt32(" + destExpression + ",(int32_t)" + srcExpression + ");";
@@ -539,7 +539,7 @@ namespace BridgeBuilder
                                 par.ArgExtractCode = "SetCefStringToJsValue(" + destExpression + "," + srcExpression + ");";
                                 return;
                             case PrimitiveTypeKind.NaitveInt:
-                                par.ArgExtractCode = "MyCefSetInt64(" + destExpression + "," + srcExpression + ");";
+                                par.ArgExtractCode = "MyCefSetInt32(" + destExpression + ",(int32_t)" + srcExpression + ");";
                                 return;
                             case PrimitiveTypeKind.size_t:
                                 par.ArgExtractCode = "MyCefSetInt32(" + destExpression + ",(int32_t)" + srcExpression + ");";

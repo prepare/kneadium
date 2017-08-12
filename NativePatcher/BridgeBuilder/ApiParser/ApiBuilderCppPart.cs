@@ -273,7 +273,7 @@ namespace BridgeBuilder
                                     stbuilder.Append("SetCefStringToJsValue(ret,ret_result);\r\n");
                                     break;
                                 case PrimitiveTypeKind.NaitveInt:
-                                    stbuilder.Append("MyCefSetInt64(ret,ret_result);\r\n");
+                                    stbuilder.Append("MyCefSetInt32(ret, (int32_t)ret_result);\r\n");
                                     break;
                                 case PrimitiveTypeKind.size_t:
                                     stbuilder.Append("MyCefSetInt32(ret, (int32_t)ret_result);\r\n");
