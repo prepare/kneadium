@@ -2652,19 +2652,7 @@ namespace BridgeBuilder
             }
             totalTypeMethod.AppendLine(const_methodNames.ToString());
             //-----------------------------------------------------------------------
-
-
-            for (int i = 0; i < j; ++i)
-            {
-                CodeStringBuilder met_stbuilder = new CodeStringBuilder();
-                //create each method,
-                //in our convention we dont generate 
-                MethodTxInfo metTx = _typeTxInfo.methods[i];
-                GenerateCppMethod(_typeTxInfo.methods[i], met_stbuilder);
-                totalTypeMethod.Append(met_stbuilder.ToString());
-            }
-
-            stbuilder.Append(totalTypeMethod.ToString());
+             
 
 
             if (callToDotNetMets.Count > 0)
