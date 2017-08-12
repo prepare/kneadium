@@ -12,8 +12,7 @@ namespace BridgeBuilder
     {
         public Form1()
         {
-            InitializeComponent();
-            A a = new A(2);
+            InitializeComponent(); 
         }
 
 
@@ -703,6 +702,7 @@ namespace BridgeBuilder
             } 
             struct MyMetArgs2
                     {   
+                        int32_t argCount;
                         jsvalue ret;
                         jsvalue v1;
                         jsvalue v2;

@@ -1861,7 +1861,9 @@ namespace BridgeBuilder
             stbuilder.AppendLine("if(this->mcallback){");
             //call to managed 
             stbuilder.AppendLine("MyMetArgs2 args;");
-            stbuilder.AppendLine("memset(&args, 0, sizeof(MyMetArgs2));");
+            stbuilder.AppendLine("memset(&args, 0, sizeof(MyMetArgs2));"); 
+            stbuilder.AppendLine("args.argCount=" + j + ";");
+
             for (int i = 0; i < j; ++i)
             {
                 MethodParameterTxInfo parTx = met.pars[i];
@@ -2620,6 +2622,7 @@ namespace BridgeBuilder
             //call to managed 
             stbuilder.AppendLine("MyMetArgs2 args;");
             stbuilder.AppendLine("memset(&args, 0, sizeof(MyMetArgs2));");
+            stbuilder.AppendLine("args.argCount=" + j + ";");
             for (int i = 0; i < j; ++i)
             {
                 MethodParameterTxInfo parTx = met.pars[i];
@@ -2869,7 +2872,7 @@ namespace BridgeBuilder
                 //private member
                 stbuilder.AppendLine("private:");
                 stbuilder.AppendLine("IMPLEMENT_REFCOUNTING(" + className + ");");
-                 
+
                 stbuilder.AppendLine("};");
             }
         }
