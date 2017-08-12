@@ -381,7 +381,7 @@ namespace LayoutFarm.CefBridge
                 if (metArgs.GetArgCount() == 1)
                 {
                     JsValue value;
-                    metArgs.GetArg(0, out value);
+                    metArgs.GetArg(1, out value);
                     string data = Cef3Binder.MyCefJsReadString(ref value);
 
                 }
