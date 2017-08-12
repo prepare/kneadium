@@ -10124,6 +10124,12 @@ namespace LayoutFarm.CefBridge.Auto
             Cef3Binder.MyCefMet_Call0(this.nativePtr, CefStringVisitor_Release_0, out ret);
             this.nativePtr = IntPtr.Zero;
         }
+        public static CefStringVisitor New(MyCefCallback callback)
+        {
+            JsValue not_used = new JsValue(); //not used
+            return new CefStringVisitor(
+                Cef3Binder.NewInstance(_typeNAME, callback, ref not_used));
+        }
     }
 
 

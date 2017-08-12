@@ -1928,7 +1928,7 @@ namespace BridgeBuilder
 
             //create a cpp class              
             stbuilder.Append("class " + className);
-            stbuilder.Append(":public " + implTypeDecl.Name);
+            stbuilder.Append(":public " + orgDecl.Name);
             stbuilder.AppendLine("{");
             //members
             stbuilder.AppendLine("public:");
@@ -1946,6 +1946,10 @@ namespace BridgeBuilder
                 //prepare data and call the callback
                 GenerateCppImplMethod(met, stbuilder);
             }
+
+            stbuilder.AppendLine("private:");
+            stbuilder.AppendLine("IMPLEMENT_REFCOUNTING(" + className + ");");
+
             stbuilder.AppendLine("};");
         }
 
@@ -2804,6 +2808,30 @@ namespace BridgeBuilder
             //-------------------------------------------
             if (callToDotNetMets.Count > 0)
             {
+
+                //class MyCefStringVisitor1 : public CefStringVisitor {
+                //public:
+                //	managed_callback mcallback;
+                //        explicit MyCefStringVisitor1()
+                //        {
+                //            mcallback = NULL;
+                //        }
+                //        virtual void Visit(const CefString& string) OVERRIDE {
+
+                //		if (mcallback) {
+                //			MethodArgs metArgs;
+
+                //            memset(&metArgs, 0, sizeof(MethodArgs));
+                //        metArgs.SetArgAsNativeObject(0, &string);
+                //			metArgs.SetArgType(0, JSVALUE_TYPE_NATIVE_CEFSTRING);
+                //			this->mcallback(CEF_MSG_MyCefDomGetTextWalk_Visit, &metArgs);
+                //    }
+                //}
+                //private:
+                //    IMPLEMENT_REFCOUNTING(MyCefStringVisitor1);
+                //};
+
+
                 string className = "My" + orgDecl.Name;
                 int nn = callToDotNetMets.Count;
                 for (int mm = 0; mm < nn; ++mm)
@@ -2816,7 +2844,7 @@ namespace BridgeBuilder
 
                 //create a cpp class              
                 stbuilder.Append("class " + className);
-                stbuilder.Append(":public " + implTypeDecl.Name);
+                stbuilder.Append(":public " + orgDecl.Name);
                 stbuilder.AppendLine("{");
                 //members
                 stbuilder.AppendLine("public:");
@@ -2836,12 +2864,14 @@ namespace BridgeBuilder
                     //prepare data and call the callback
                     GenerateCppImplMethod(met, stbuilder);
                 }
+
+
+                //private member
+                stbuilder.AppendLine("private:");
+                stbuilder.AppendLine("IMPLEMENT_REFCOUNTING(" + className + ");");
+                 
                 stbuilder.AppendLine("};");
-
             }
-            //
-
-
         }
 
         void GenerateCppMethod(MethodTxInfo met, CodeStringBuilder stbuilder)
@@ -2975,6 +3005,7 @@ namespace BridgeBuilder
             _typeTxInfo = implTypeDecl.TypeTxInfo;
 
 
+
             int j = _typeTxInfo.methods.Count;
             //-----------------------------------------------------------------------
             CodeStringBuilder csStruct = new CodeStringBuilder();
@@ -3027,6 +3058,15 @@ namespace BridgeBuilder
                 csStruct.Append(met_stbuilder.ToString());
             }
 
+            //-----------------------------------------------------------------------
+            if (this.CppImplClassName != null)
+            {
+                csStruct.AppendLine("public static " + orgDecl.Name + " New(MyCefCallback callback){");
+                csStruct.AppendLine("JsValue not_used= new JsValue();");
+                csStruct.AppendLine("return new " + orgDecl.Name + "(Cef3Binder.NewInstance(_typeNAME,callback,ref not_used));");
+                csStruct.AppendLine("}");
+            }
+            //-----------------------------------------------------------------------
             csStruct.AppendLine("}");  //close struct
 
             //

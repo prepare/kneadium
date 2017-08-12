@@ -12,6 +12,9 @@ namespace LayoutFarm.CefBridge
 
     [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
     public delegate void MyCefCallback(int id, IntPtr args);
+
+
+
     //----------------------------------------------------------------------
     //cef msg constant
     //----------------------------------------------------------------------
@@ -675,7 +678,12 @@ namespace LayoutFarm.CefBridge
         public static extern void GetListCount(int listType, IntPtr list, out int count);
         [DllImport(CEF_CLIENT_DLL, CallingConvention = CallingConvention.Cdecl)]
         public static extern void GetListElement(int elemType, IntPtr list, int index, ref JsValue jsvalue);
-       
+        //met args
+        [DllImport(CEF_CLIENT_DLL, CallingConvention = CallingConvention.Cdecl)]
+        public static extern int MyMetArgGetCount(IntPtr myMetArgs);
+        [DllImport(CEF_CLIENT_DLL, CallingConvention = CallingConvention.Cdecl)]
+        public static unsafe extern void* MyMetArgGetArgAddress(IntPtr myMetArgs, int index);
+        //--------
 
         public static string MyCefJsReadString(ref JsValue ret)
         {
