@@ -414,25 +414,72 @@ namespace BridgeBuilder
                                 break;
                             case ContainerTypeKind.Pointer:
                                 {
-                                    if (refOrPtr.ElementType.BridgeInfo.WellKnownTypeName == WellKnownTypeName.Void)
+
+                                    TypeSymbol elemType = refOrPtr.ElementType;
+                                    if (elemType.TypeSymbolKind == TypeSymbolKind.Simple)
                                     {
-                                        //void*
-                                        if (par.IsConst)
+                                        SimpleTypeSymbol simpleElem = (SimpleTypeSymbol)elemType;
+                                        switch (simpleElem.PrimitiveTypeKind)
                                         {
-                                            par.ArgExtractCode = "MyCefSetVoidPtr2(" + destExpression + "," + srcExpression + ");";
-                                            return;
+                                            default:
+                                                break;
+                                            case PrimitiveTypeKind.NotPrimitiveType:
+                                                {
+                                                    CodeTypeDeclaration createdBy = simpleElem.CreatedByTypeDeclaration;
+                                                    if (createdBy.Kind == TypeKind.Enum)
+                                                    {
+                                                        if (!par.IsConst)
+                                                        {
+                                                            par.ArgExtractCode = "MyCefSetInt32(" + destExpression + ",(int32_t)" + srcExpression + ");";
+                                                            //TODO: set post 
+                                                            return;
+                                                        }
+                                                    }
+                                                    else
+                                                    {
+
+                                                    }
+                                                }
+                                                break;
+                                            case PrimitiveTypeKind.Bool:
+                                                {
+                                                    //bool*
+                                                    if (par.IsConst)
+                                                    {
+
+                                                    }
+                                                    else
+                                                    {
+                                                        par.ArgExtractCode = "MyCefSetBool(" + destExpression + ",*" + srcExpression + ");";
+                                                        return;
+                                                    }
+                                                }
+                                                break;
+                                            case PrimitiveTypeKind.Void:
+                                                {
+                                                    //void*
+                                                    if (par.IsConst)
+                                                    {
+                                                        par.ArgExtractCode = "MyCefSetVoidPtr2(" + destExpression + "," + srcExpression + ");";
+                                                        return;
+                                                    }
+                                                    else
+                                                    {
+                                                        par.ArgExtractCode = "MyCefSetVoidPtr(" + destExpression + "," + srcExpression + ");";
+                                                        return;
+                                                    }
+                                                }
                                         }
-                                        else
-                                        {
-                                            par.ArgExtractCode = "MyCefSetVoidPtr(" + destExpression + "," + srcExpression + ");";
-                                            return;
-                                        }
+                                    }
+                                    else if (elemType.TypeSymbolKind == TypeSymbolKind.TypeDef)
+                                    {
+
+
                                     }
                                     else
                                     {
 
                                     }
-
                                 }
                                 break;
                             case ContainerTypeKind.scoped_ptr:
@@ -2500,6 +2547,18 @@ namespace BridgeBuilder
                             break;
                         case "ReturnValue":
                             stbuilder.Append("return (ReturnValue)0;");
+                            break;
+                        case "CefSize":
+                            stbuilder.Append("return !");
+                            break;
+                        case "size_t":
+                            stbuilder.Append("return 0;");
+                            break;
+                        case "int":
+                            stbuilder.Append("return 0;");
+                            break;
+                        case "int64":
+                            stbuilder.Append("return 0;");
                             break;
                         default:
                             throw new NotSupportedException();
