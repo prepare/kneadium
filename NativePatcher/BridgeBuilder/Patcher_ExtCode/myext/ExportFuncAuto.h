@@ -62,10 +62,18 @@ class MyBrowser; //forward decl
 #include "libcef_dll/ctocpp/response_ctocpp.h"
 #include "libcef_dll/ctocpp/urlrequest_ctocpp.h"
 				 //
+#include "libcef_dll/ctocpp/callback_ctocpp.h"
 #include "libcef_dll/ctocpp/value_ctocpp.h"
 #include "libcef_dll/ctocpp/dictionary_value_ctocpp.h"
 #include "libcef_dll/ctocpp/list_value_ctocpp.h"
-
+#include "libcef_dll/ctocpp/select_client_certificate_callback_ctocpp.h"
+#include "libcef_dll/ctocpp/auth_callback_ctocpp.h"
+#include "libcef_dll/ctocpp/jsdialog_callback_ctocpp.h"
+#include "libcef_dll/ctocpp/geolocation_callback_ctocpp.h"
+#include "libcef_dll/ctocpp/file_dialog_callback_ctocpp.h"
+#include "libcef_dll/ctocpp/before_download_callback_ctocpp.h"
+#include "libcef_dll/ctocpp/print_dialog_callback_ctocpp.h"
+#include "libcef_dll/ctocpp/print_job_callback_ctocpp.h"
 				 //
 #include "libcef_dll/cpptoc/drag_handler_cpptoc.h" 
 #include "libcef_dll/cpptoc/navigation_entry_visitor_cpptoc.h"
@@ -93,12 +101,39 @@ class MyBrowser; //forward decl
 #include "libcef_dll/cpptoc/app_cpptoc.h"
 #include "libcef_dll/cpptoc/urlrequest_client_cpptoc.h"
 #include "libcef_dll/cpptoc/string_visitor_cpptoc.h"
+#include "libcef_dll/cpptoc/get_geolocation_callback_cpptoc.h"
+#include "libcef_dll/cpptoc/end_tracing_callback_cpptoc.h"
+#include "libcef_dll/cpptoc/register_cdm_callback_cpptoc.h"
 
+//handlers
+#include "libcef_dll/cpptoc/resource_bundle_handler_cpptoc.h"
+#include "libcef_dll/cpptoc/browser_process_handler_cpptoc.h"
+#include "libcef_dll/cpptoc/dialog_handler_cpptoc.h"
+#include "libcef_dll/cpptoc/render_process_handler_cpptoc.h"
+#include "libcef_dll/cpptoc/context_menu_handler_cpptoc.h"
+#include "libcef_dll/cpptoc/display_handler_cpptoc.h"
+#include "libcef_dll/cpptoc/download_handler_cpptoc.h"
+#include "libcef_dll/cpptoc/find_handler_cpptoc.h"
+#include "libcef_dll/cpptoc/focus_handler_cpptoc.h"
+#include "libcef_dll/cpptoc/geolocation_handler_cpptoc.h"
+#include "libcef_dll/cpptoc/jsdialog_handler_cpptoc.h"
+#include "libcef_dll/cpptoc/keyboard_handler_cpptoc.h"
+#include "libcef_dll/cpptoc/life_span_handler_cpptoc.h"
+#include "libcef_dll/cpptoc/load_handler_cpptoc.h"
+#include "libcef_dll/cpptoc/render_handler_cpptoc.h"
+#include "libcef_dll/cpptoc/request_handler_cpptoc.h"
+#include "libcef_dll/cpptoc/resource_handler_cpptoc.h"
 //---------------------
 //for auto gen content 
 //
 extern "C" {
 	 
 	MY_DLL_EXPORT void MyCefMet_CallN(void* me1, int metName, jsvalue* ret, jsvalue* v1, jsvalue* v2, jsvalue* v3, jsvalue* v4, jsvalue* v5, jsvalue* v6, jsvalue* v7); 
+	MY_DLL_EXPORT void* NewInstance(int typeName, managed_callback mcallback, jsvalue* jsvalue);
 
+
+	//MyMetArg
+	MY_DLL_EXPORT int32_t MyMetArgGetCount(void* /*MyMetArgs2*/ mymetArgs);
+	//0-> 7
+	MY_DLL_EXPORT void* MyMetArgGetArgAddress(void* /*MyMetArgs2*/mymetArgs,int index);
 }

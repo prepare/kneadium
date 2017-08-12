@@ -12,7 +12,7 @@ namespace BridgeBuilder
     {
         public Form1()
         {
-            InitializeComponent();
+            InitializeComponent(); 
         }
 
 
@@ -393,6 +393,7 @@ namespace BridgeBuilder
             List<CefInstanceElementTxPlan> instanceClassPlans = new List<CefInstanceElementTxPlan>();
             List<CefEnumTxPlan> enumTxPlans = new List<CefEnumTxPlan>();
 
+
             int typeName = 1;
 
             List<TypeTxInfo> typeTxInfoList = new List<TypeTxInfo>();
@@ -406,6 +407,7 @@ namespace BridgeBuilder
                 instanceClassPlan.CsInterOpTypeNameId = typeTxPlan.CsInterOpTypeNameId = typeName++;
                 typedecl.TypeTxInfo = typeTxPlan;
                 typeTxInfoList.Add(typeTxPlan);
+
             }
 
 
@@ -473,6 +475,7 @@ namespace BridgeBuilder
             }
             foreach (CodeTypeDeclaration typedecl in cefTypeCollection.cppToCClasses)
             {
+                //callback, handle, visitor etc
                 TypeTxInfo typeTxPlan = txPlanner.MakeTransformPlan(typedecl);
                 typeTxPlan.CsInterOpTypeNameId = typeName++;
                 typedecl.TypeTxInfo = typeTxPlan;
@@ -498,15 +501,16 @@ namespace BridgeBuilder
             //--------
             //code gen
 
+            List<CefTypeTxPlan> customImplClasses = new List<CefTypeTxPlan>();
+
             int tt_count = 0;
             StringBuilder cppCodeStBuilder = new StringBuilder();
             StringBuilder csCodeStBuilder = new StringBuilder();
-
+            AddCppBuiltInBeginCode(cppCodeStBuilder);
 
             foreach (TypeTxInfo txinfo in typeTxInfoList)
             {
                 cppCodeStBuilder.AppendLine("const int CefTypeName_" + txinfo.TypeDecl.Name + " = " + txinfo.CsInterOpTypeNameId.ToString() + ";");
-
             }
 
 
@@ -520,6 +524,7 @@ namespace BridgeBuilder
 
             foreach (CefTypeTxPlan tx in handlerPlans)
             {
+
                 if (tx.OriginalDecl.Name == "CefRequestHandler")
                 {
                     CodeStringBuilder stbuilder = new CodeStringBuilder();
@@ -530,7 +535,7 @@ namespace BridgeBuilder
                 }
 
             }
-            
+
             foreach (CefTypeTxPlan tx in enumTxPlans)
             {
                 CodeStringBuilder csCode = new CodeStringBuilder();
@@ -561,30 +566,208 @@ namespace BridgeBuilder
                 csCodeStBuilder.Append(csCode.ToString());
                 csCodeStBuilder.AppendLine();
 
+                if (tx.CppImplClassNameId > 0)
+                {
+                    customImplClasses.Add(tx);
+                }
                 tt_count++;
             }
 
-            //
+
             foreach (CefTypeTxPlan tx in callbackPlans)
             {
                 CodeStringBuilder stbuilder = new CodeStringBuilder();
                 tx.GenerateCppCode(stbuilder);
+                cppCodeStBuilder.Append(stbuilder.ToString());
+
                 //
                 CodeStringBuilder csCode = new CodeStringBuilder();
                 tx.GenerateCsCode(csCode);
                 csCodeStBuilder.Append(csCode.ToString());
+
+                if (tx.CppImplClassNameId > 0)
+                {
+                    customImplClasses.Add(tx);
+                }
             }
             // 
 
             CreateCppSwitchTable(cppCodeStBuilder, instanceClassPlans);
+            CreateNewInstanceMethod(cppCodeStBuilder, customImplClasses);
 
+            AddCppBuiltInEndCode(cppCodeStBuilder);
+            //
             csCodeStBuilder.AppendLine("}");
+        }
+        void CreateNewInstanceMethod(StringBuilder outputStBuilder, List<CefTypeTxPlan> customImplClasses)
+        {
+            CodeStringBuilder stbuilder = new CodeStringBuilder();
+            //void* NewInstance(int typeName, managed_callback mcallback, jsvalue* jsvalue);
+            stbuilder.AppendLine("void* NewInstance(int typeName, managed_callback mcallback, jsvalue* jsvalue){");
+            stbuilder.AppendLine("switch(typeName){");
+            int j = customImplClasses.Count;
+            for (int i = 0; i < j; ++i)
+            {
+                CefTypeTxPlan tx = customImplClasses[i];
+                CodeTypeDeclaration typedecl = tx.OriginalDecl;
+                stbuilder.AppendLine("case  CefTypeName_" + typedecl.Name + ":{");
+                CodeTypeDeclaration implTypeDecl = tx.ImplTypeDecl;
+                stbuilder.AppendLine("auto inst =new " + tx.CppImplClassName + "();");
+                stbuilder.AppendLine("inst->mcallback = mcallback;");
+                stbuilder.AppendLine("return " + tx.ImplTypeDecl.Name + "::Wrap(inst);");
+                stbuilder.AppendLine("}");
+            }
+            stbuilder.AppendLine("}");//end switch
+            stbuilder.AppendLine("return nullptr;");
+            stbuilder.AppendLine("}");
+            //
+            outputStBuilder.Append(stbuilder.ToString());
+
+        }
+        void AddCppBuiltInBeginCode(StringBuilder cppStBuilder)
+        {
+
+            string prebuilt1 =
+                @"
+            //MIT, 2017, WinterDev
+            //AUTOGEN
+        
+            #pragma once
+            #include ""ExportFuncAuto.h"" 
+            //----------------
+            const int MET_Release = 0;
+            //---------------- 
+            //
+            inline void SetCefStringToJsValue(jsvalue* value, const CefString&cefstr) {
+
+                MyCefStringHolder* str = new MyCefStringHolder();
+                str->value = cefstr;
+                //
+                value->type = JSVALUE_TYPE_NATIVE_CEFHOLDER_STRING;
+                value->ptr = str;
+                value->i32 = str->value.length();
+            }
+            inline void DeleteCefStringHolderFromJsValue(jsvalue* value) {
+	            value->i32 = 0;
+	            delete value->ptr;  
+            }
+            inline void MyCefSetVoidPtr(jsvalue* value, void* data)
+            {
+                value->type = JSVALUE_TYPE_WRAPPED;
+                value->ptr = data;
+            }
+            inline void MyCefSetVoidPtr2(jsvalue* value,const void* data) {
+                value->type = JSVALUE_TYPE_WRAPPED;
+                value->ptr = data;
+            }
+            inline void MyCefSetInt32(jsvalue* value, int32_t data)
+            {
+                value->type = JSVALUE_TYPE_INTEGER;
+                value->i32 = data;
+            }
+            inline void MyCefSetUInt32(jsvalue* value, uint32_t data)
+            {
+                value->type = JSVALUE_TYPE_INTEGER;
+                value->i32 = (int32_t)data;
+            }
+            inline void MyCefSetInt64(jsvalue* value, int64_t data)
+            {
+                value->type = JSVALUE_TYPE_INTEGER64;
+                value->i64 = data;
+            }
+            inline void MyCefSetUInt64(jsvalue* value, uint64_t data)
+            {
+                value->type = JSVALUE_TYPE_INTEGER64;
+                value->i64 = data;
+            }
+            inline void MyCefSetBool(jsvalue* value, bool data)
+            {
+                value->type = JSVALUE_TYPE_BOOLEAN;
+                value->i32 = data ? 1 : 0;
+            }
+            inline void MyCefSetDouble(jsvalue* value, double data)
+            {
+                value->type = JSVALUE_TYPE_NUMBER;
+                value->num = data;
+            }
+            inline void MyCefSetFloat(jsvalue* value, float data)
+            {
+                value->type = JSVALUE_TYPE_NUMBER;
+                value->num = data;
+            }
+            inline MyCefStringHolder*GetStringHolder(jsvalue * value) {
+                return (MyCefStringHolder*)value->ptr;
+            }
+            inline void MyCefSetCefPoint(jsvalue* value, CefPoint&data) {
+
+                CefPoint* cefPoint = new CefPoint();
+                value->type = JSVALUE_TYPE_WRAPPED;
+                value->ptr = cefPoint;
+            } 
+            struct MyMetArgs2
+                    {   
+                        int32_t argCount;
+                        jsvalue ret;
+                        jsvalue v1;
+                        jsvalue v2;
+                        jsvalue v3;
+                        jsvalue v4;
+                        jsvalue v5;
+                        jsvalue v6;
+                        jsvalue v7;
+                    };
+                //MyMetArg
+                int32_t MyMetArgGetCount(void* /*MyMetArgs2*/ mymetArgs) {
+	                return ((MyMetArgs2*)mymetArgs)->argCount;
+                }
+                //0-> 7
+                void* MyMetArgGetArgAddress(void* /*MyMetArgs2*/mymetArgs, int index) {
+	                switch (index)
+	                {
+	                case 0:
+		                return &(((MyMetArgs2*)mymetArgs)->ret);
+	                case 1:
+		                return &(((MyMetArgs2*)mymetArgs)->v1);
+	                case 2:
+		                return &(((MyMetArgs2*)mymetArgs)->v2);
+	                case 3:
+		                return &(((MyMetArgs2*)mymetArgs)->v3);
+	                case 4:
+		                return &(((MyMetArgs2*)mymetArgs)->v4);
+	                case 5:
+		                return &(((MyMetArgs2*)mymetArgs)->v5);
+	                case 6:
+		                return &(((MyMetArgs2*)mymetArgs)->v6);
+	                case 7:
+		                return &(((MyMetArgs2*)mymetArgs)->v7);
+	                default:
+		                return nullptr;		 
+	                }
+                }
+            //////////////////////////////////////////////////////////////////";
+
+            using (System.IO.StringReader strReader = new System.IO.StringReader(prebuilt1))
+            {
+                string line = strReader.ReadLine();
+                while (line != null)
+                {
+
+                    line = line.TrimStart();
+                    cppStBuilder.AppendLine(line);
+                    //
+                    line = strReader.ReadLine();
+                }
+            }
+        }
+        void AddCppBuiltInEndCode(StringBuilder cppStBuilder)
+        {
+            cppStBuilder.AppendLine("/////////////////////////////////////////////////");
         }
         void CreateCppSwitchTable(StringBuilder stbuilder, List<CefInstanceElementTxPlan> instanceClassPlans)
         {
             CodeStringBuilder cppStBuilder = new CodeStringBuilder();
             //------
-            cppStBuilder.AppendLine("void MyCefMet_CallN(void* me1, int metName, jsvalue* ret, jsvalue* v1, jsvalue* v2, jsvalue* v3, jsvalue* v4, jsvalue* v5, jsvalue* v6){");
+            cppStBuilder.AppendLine("void MyCefMet_CallN(void* me1, int metName, jsvalue* ret, jsvalue* v1, jsvalue* v2, jsvalue* v3, jsvalue* v4, jsvalue* v5, jsvalue* v6, jsvalue* v7){");
             cppStBuilder.AppendLine(" int cefTypeName = (metName >> 16);");
             cppStBuilder.AppendLine(" switch (cefTypeName)");
             cppStBuilder.AppendLine(" {");

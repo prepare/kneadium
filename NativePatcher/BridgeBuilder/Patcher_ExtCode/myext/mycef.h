@@ -143,8 +143,7 @@ public:
 class MyCefStringHolder
 {
 public:
-	CefString value;
-	//void* any;
+	CefString value; 
 };
 
 class QueryRequestArgs
