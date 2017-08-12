@@ -12,7 +12,7 @@ namespace BridgeBuilder
     {
         public Form1()
         {
-            InitializeComponent(); 
+            InitializeComponent();
         }
 
 
@@ -330,11 +330,6 @@ namespace BridgeBuilder
                         continue;
                     }
 
-                    //if (onlyHeaderFiles[i].Contains("cef_browser"))
-                    //{
-
-                    //}
-
                     CodeCompilationUnit cu = ParseWrapper(onlyHeaderFiles[i]);
                     totalCuList.Add(cu);
                 }
@@ -522,19 +517,7 @@ namespace BridgeBuilder
                 "namespace LayoutFarm.CefBridge.Auto{\r\n");
 
 
-            foreach (CefTypeTxPlan tx in handlerPlans)
-            {
 
-                if (tx.OriginalDecl.Name == "CefRequestHandler")
-                {
-                    CodeStringBuilder stbuilder = new CodeStringBuilder();
-                    //a handler is created on cpp side, then we attach .net delegate to it
-                    //so  we need
-                    //1. 
-                    tx.GenerateCppCode(stbuilder);
-                }
-
-            }
 
             foreach (CefTypeTxPlan tx in enumTxPlans)
             {
@@ -591,6 +574,25 @@ namespace BridgeBuilder
                 }
             }
             // 
+
+            foreach (CefTypeTxPlan tx in handlerPlans)
+            {
+
+                CodeStringBuilder stbuilder = new CodeStringBuilder();
+                //a handler is created on cpp side, then we attach .net delegate to it
+                //so  we need
+                //1. 
+                tx.GenerateCppCode(stbuilder);
+                cppCodeStBuilder.Append(stbuilder.ToString());
+
+            }
+
+
+
+
+
+
+
 
             CreateCppSwitchTable(cppCodeStBuilder, instanceClassPlans);
             CreateNewInstanceMethod(cppCodeStBuilder, customImplClasses);
@@ -715,6 +717,7 @@ namespace BridgeBuilder
                         jsvalue v5;
                         jsvalue v6;
                         jsvalue v7;
+                        jsvalue v8;
                     };
                 //MyMetArg
                 int32_t MyMetArgGetCount(void* /*MyMetArgs2*/ mymetArgs) {
