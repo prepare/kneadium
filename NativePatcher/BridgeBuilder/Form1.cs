@@ -13,6 +13,7 @@ namespace BridgeBuilder
         public Form1()
         {
             InitializeComponent();
+            A a = new A(2);
         }
 
 
@@ -614,7 +615,7 @@ namespace BridgeBuilder
                 CodeTypeDeclaration implTypeDecl = tx.ImplTypeDecl;
                 stbuilder.AppendLine("auto inst =new " + tx.CppImplClassName + "();");
                 stbuilder.AppendLine("inst->mcallback = mcallback;");
-                stbuilder.AppendLine("return inst;");
+                stbuilder.AppendLine("return " + tx.ImplTypeDecl.Name + "::Wrap(inst);");
                 stbuilder.AppendLine("}");
             }
             stbuilder.AppendLine("}");//end switch
@@ -711,6 +712,34 @@ namespace BridgeBuilder
                         jsvalue v6;
                         jsvalue v7;
                     };
+                //MyMetArg
+                int32_t MyMetArgGetCount(void* /*MyMetArgs2*/ mymetArgs) {
+	                return ((MyMetArgs2*)mymetArgs)->argCount;
+                }
+                //0-> 7
+                void* MyMetArgGetArgAddress(void* /*MyMetArgs2*/mymetArgs, int index) {
+	                switch (index)
+	                {
+	                case 0:
+		                return &(((MyMetArgs2*)mymetArgs)->ret);
+	                case 1:
+		                return &(((MyMetArgs2*)mymetArgs)->v1);
+	                case 2:
+		                return &(((MyMetArgs2*)mymetArgs)->v2);
+	                case 3:
+		                return &(((MyMetArgs2*)mymetArgs)->v3);
+	                case 4:
+		                return &(((MyMetArgs2*)mymetArgs)->v4);
+	                case 5:
+		                return &(((MyMetArgs2*)mymetArgs)->v5);
+	                case 6:
+		                return &(((MyMetArgs2*)mymetArgs)->v6);
+	                case 7:
+		                return &(((MyMetArgs2*)mymetArgs)->v7);
+	                default:
+		                return nullptr;		 
+	                }
+                }
             //////////////////////////////////////////////////////////////////";
 
             using (System.IO.StringReader strReader = new System.IO.StringReader(prebuilt1))
