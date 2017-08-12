@@ -1934,15 +1934,19 @@ namespace BridgeBuilder
             //-----------
             stbuilder.AppendLine("if(this->mcallback){");
             //call to managed 
-            stbuilder.AppendLine("MyMetArgs2 args;");
-            stbuilder.AppendLine("memset(&args, 0, sizeof(MyMetArgs2));");
+            stbuilder.AppendLine("MyMetArgsN args;");
+            stbuilder.AppendLine("memset(&args, 0, sizeof(MyMetArgsN));");
             stbuilder.AppendLine("args.argCount=" + j + ";");
-
-            for (int i = 0; i < j; ++i)
+            if (j > 0)
             {
-                MethodParameterTxInfo parTx = met.pars[i];
-                parTx.ClearExtractCode();
-                CefTypeTxPlan.PrepareDataFromNativeToCs(parTx, "&args.v" + (i + 1), parTx.Name);
+                stbuilder.AppendLine("jsvalue vargs[" + j + "];");
+                stbuilder.AppendLine("args.vargs=vargs;");
+                for (int i = 0; i < j; ++i)
+                {
+                    MethodParameterTxInfo parTx = met.pars[i];
+                    parTx.ClearExtractCode();
+                    CefTypeTxPlan.PrepareDataFromNativeToCs(parTx, "&vargs[" + i + "]", parTx.Name);
+                }
             }
             CefTypeTxPlan.PrepareCppMetArg(met.ReturnPlan, "args.ret");
             //
@@ -2479,14 +2483,20 @@ namespace BridgeBuilder
             //-----------
             stbuilder.AppendLine("if(this->mcallback){");
             //call to managed 
-            stbuilder.AppendLine("MyMetArgs2 args;");
-            stbuilder.AppendLine("memset(&args, 0, sizeof(MyMetArgs2));");
+            stbuilder.AppendLine("MyMetArgsN args;");
+            stbuilder.AppendLine("memset(&args, 0, sizeof(MyMetArgsN));");
             stbuilder.AppendLine("args.argCount=" + j + ";");
-            for (int i = 0; i < j; ++i)
+            if (j > 0)
             {
-                MethodParameterTxInfo parTx = met.pars[i];
-                parTx.ClearExtractCode();
-                PrepareDataFromNativeToCs(parTx, "&args.v" + (i + 1), parTx.Name);
+                stbuilder.AppendLine("jsvalue vargs[" + j + "];");
+                stbuilder.AppendLine("args.vargs=vargs;");
+
+                for (int i = 0; i < j; ++i)
+                {
+                    MethodParameterTxInfo parTx = met.pars[i];
+                    parTx.ClearExtractCode();
+                    PrepareDataFromNativeToCs(parTx, "&vargs[" + i + "]", parTx.Name);
+                }
             }
             PrepareCppMetArg(met.ReturnPlan, "args.ret");
             //
@@ -2652,7 +2662,7 @@ namespace BridgeBuilder
             }
             totalTypeMethod.AppendLine(const_methodNames.ToString());
             //-----------------------------------------------------------------------
-             
+
 
 
             if (callToDotNetMets.Count > 0)
@@ -2879,15 +2889,22 @@ namespace BridgeBuilder
             //-----------
             stbuilder.AppendLine("if(this->mcallback){");
             //call to managed 
-            stbuilder.AppendLine("MyMetArgs2 args;");
-            stbuilder.AppendLine("memset(&args, 0, sizeof(MyMetArgs2));");
+            stbuilder.AppendLine("MyMetArgsN args;");
+            stbuilder.AppendLine("memset(&args, 0, sizeof(MyMetArgsN));");
             stbuilder.AppendLine("args.argCount=" + j + ";");
-            for (int i = 0; i < j; ++i)
+            if (j > 0)
             {
-                MethodParameterTxInfo parTx = met.pars[i];
-                parTx.ClearExtractCode();
-                PrepareDataFromNativeToCs(parTx, "&args.v" + (i + 1), parTx.Name);
+                stbuilder.AppendLine("jsvalue vargs[" + j + "];");
+                stbuilder.AppendLine("args.vargs=vargs;");
+
+                for (int i = 0; i < j; ++i)
+                {
+                    MethodParameterTxInfo parTx = met.pars[i];
+                    parTx.ClearExtractCode();
+                    PrepareDataFromNativeToCs(parTx, "&vargs[" + i + "]", parTx.Name);
+                }
             }
+          
             PrepareCppMetArg(met.ReturnPlan, "args.ret");
             //
             for (int i = 0; i < j; ++i)

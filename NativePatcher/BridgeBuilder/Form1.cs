@@ -586,14 +586,7 @@ namespace BridgeBuilder
                 cppCodeStBuilder.Append(stbuilder.ToString());
 
             }
-
-
-
-
-
-
-
-
+             
             CreateCppSwitchTable(cppCodeStBuilder, instanceClassPlans);
             CreateNewInstanceMethod(cppCodeStBuilder, customImplClasses);
 
@@ -706,47 +699,26 @@ namespace BridgeBuilder
                 value->type = JSVALUE_TYPE_WRAPPED;
                 value->ptr = cefPoint;
             } 
-            struct MyMetArgs2
-                    {   
-                        int32_t argCount;
-                        jsvalue ret;
-                        jsvalue v1;
-                        jsvalue v2;
-                        jsvalue v3;
-                        jsvalue v4;
-                        jsvalue v5;
-                        jsvalue v6;
-                        jsvalue v7;
-                        jsvalue v8;
-                    };
-                //MyMetArg
-                int32_t MyMetArgGetCount(void* /*MyMetArgs2*/ mymetArgs) {
-	                return ((MyMetArgs2*)mymetArgs)->argCount;
-                }
-                //0-> 7
-                void* MyMetArgGetArgAddress(void* /*MyMetArgs2*/mymetArgs, int index) {
-	                switch (index)
-	                {
-	                case 0:
-		                return &(((MyMetArgs2*)mymetArgs)->ret);
-	                case 1:
-		                return &(((MyMetArgs2*)mymetArgs)->v1);
-	                case 2:
-		                return &(((MyMetArgs2*)mymetArgs)->v2);
-	                case 3:
-		                return &(((MyMetArgs2*)mymetArgs)->v3);
-	                case 4:
-		                return &(((MyMetArgs2*)mymetArgs)->v4);
-	                case 5:
-		                return &(((MyMetArgs2*)mymetArgs)->v5);
-	                case 6:
-		                return &(((MyMetArgs2*)mymetArgs)->v6);
-	                case 7:
-		                return &(((MyMetArgs2*)mymetArgs)->v7);
-	                default:
-		                return nullptr;		 
-	                }
-                }
+              ///------------------------
+            struct MyMetArgsN
+            {
+	            int32_t argCount;
+	            jsvalue ret;
+	            jsvalue* vargs;
+            };
+ 
+            int32_t MyMetArgGetCount(void* /*MyMetArgsN*/ mymetArgs) {
+	            return ((MyMetArgsN*)mymetArgs)->argCount;
+            } 
+            void* MyMetArgGetArgAddress(void* /*MyMetArgsN*/mymetArgs, int index) { 
+	            MyMetArgsN* metArg = (MyMetArgsN*)mymetArgs;
+	            if (index > (metArg->argCount)) {
+		            return nullptr;
+	            }
+	            else {
+		            return &metArg->vargs[index];
+	            } 
+            }
             //////////////////////////////////////////////////////////////////";
 
             using (System.IO.StringReader strReader = new System.IO.StringReader(prebuilt1))
