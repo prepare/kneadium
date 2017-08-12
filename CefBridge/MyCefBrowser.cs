@@ -375,16 +375,20 @@ namespace LayoutFarm.CefBridge
             Auto.CefBrowser bw = frame1.GetBrowser();
 
 
-            MyCefCallback visitorCallback = (int id, IntPtr nativeArgs) =>
+            MyCefCallback visitorCallback = (int methodId, IntPtr nativeArgs) =>
             {
-                MyCefNativeMetArgs metArgs = new MyCefNativeMetArgs(nativeArgs);
-                if (metArgs.GetArgCount() == 1)
-                {
-                    JsValue value;
-                    metArgs.GetArg(1, out value);
-                    string data = Cef3Binder.MyCefJsReadString(ref value);
+                //wrap with the specific pars
+                var pars = new Auto.CefStringVisitor.OnVisitPars(nativeArgs);
+                string data = pars._string;
 
-                }
+                //MyCefNativeMetArgs metArgs = new MyCefNativeMetArgs(nativeArgs);
+                //if (metArgs.GetArgCount() == 1)
+                //{
+                //    JsValue value;
+                //    metArgs.GetArg(1, out value);
+                //    string data = Cef3Binder.MyCefJsReadString(ref value);
+
+                //}
             };
 
             Auto.CefStringVisitor visitor = Auto.CefStringVisitor.New(visitorCallback);
