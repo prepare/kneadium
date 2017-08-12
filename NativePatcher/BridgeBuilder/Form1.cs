@@ -647,6 +647,10 @@ namespace BridgeBuilder
                 value->ptr = str;
                 value->i32 = str->value.length();
             }
+            inline void DeleteCefStringHolderFromJsValue(jsvalue* value) {
+	            value->i32 = 0;
+	            delete value->ptr;  
+            }
             inline void MyCefSetVoidPtr(jsvalue* value, void* data)
             {
                 value->type = JSVALUE_TYPE_WRAPPED;
