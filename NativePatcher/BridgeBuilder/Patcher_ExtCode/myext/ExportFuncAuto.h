@@ -131,4 +131,9 @@ extern "C" {
 	MY_DLL_EXPORT void MyCefMet_CallN(void* me1, int metName, jsvalue* ret, jsvalue* v1, jsvalue* v2, jsvalue* v3, jsvalue* v4, jsvalue* v5, jsvalue* v6, jsvalue* v7); 
 	MY_DLL_EXPORT void* NewInstance(int typeName, managed_callback mcallback, jsvalue* jsvalue);
 
+
+	//MyMetArg
+	MY_DLL_EXPORT int32_t MyMetArgGetCount(void* /*MyMetArgs2*/ mymetArgs);
+	//0-> 7
+	MY_DLL_EXPORT void* MyMetArgGetArgAddress(void* /*MyMetArgs2*/mymetArgs,int index);
 }

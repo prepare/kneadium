@@ -71,7 +71,8 @@ inline void MyCefSetCefPoint(jsvalue* value, CefPoint&data) {
 	value->ptr = cefPoint;
 }
 struct MyMetArgs2
-{
+{	
+	int32_t argCount;
 	jsvalue ret;
 	jsvalue v1;
 	jsvalue v2;
@@ -81,6 +82,34 @@ struct MyMetArgs2
 	jsvalue v6;
 	jsvalue v7;
 };
+//MyMetArg
+int32_t MyMetArgGetCount(void* /*MyMetArgs2*/ mymetArgs) {
+	return ((MyMetArgs2*)mymetArgs)->argCount;
+}
+//0-> 7
+void* MyMetArgGetArgAddress(void* /*MyMetArgs2*/mymetArgs, int index) {
+	switch (index)
+	{
+	case 0:
+		return &(((MyMetArgs2*)mymetArgs)->ret);
+	case 1:
+		return &(((MyMetArgs2*)mymetArgs)->v1);
+	case 2:
+		return &(((MyMetArgs2*)mymetArgs)->v2);
+	case 3:
+		return &(((MyMetArgs2*)mymetArgs)->v3);
+	case 4:
+		return &(((MyMetArgs2*)mymetArgs)->v4);
+	case 5:
+		return &(((MyMetArgs2*)mymetArgs)->v5);
+	case 6:
+		return &(((MyMetArgs2*)mymetArgs)->v6);
+	case 7:
+		return &(((MyMetArgs2*)mymetArgs)->v7);
+	default:
+		return nullptr;
+	}
+}
 //////////////////////////////////////////////////////////////////
 const int CefTypeName_CefApp = 1;
 const int CefTypeName_CefBrowser = 2;
@@ -241,7 +270,7 @@ const int MyCefApp_OnRegisterCustomSchemes_2 = 2;
 const int MyCefApp_GetResourceBundleHandler_3 = 3;
 const int MyCefApp_GetBrowserProcessHandler_4 = 4;
 const int MyCefApp_GetRenderProcessHandler_5 = 5;
-class MyCefApp :public CefAppCppToC {
+class MyCefApp :public CefApp {
 public:
 	managed_callback mcallback;
 	explicit MyCefApp() {
@@ -252,6 +281,7 @@ public:
 		if (this->mcallback) {
 			MyMetArgs2 args;
 			memset(&args, 0, sizeof(MyMetArgs2));
+			args.argCount = 2;
 			SetCefStringToJsValue(&args.v1, process_type);
 			MyCefSetVoidPtr(&args.v2, CefCommandLineCToCpp::Unwrap(command_line));
 			this->mcallback(MyCefApp_OnBeforeCommandLineProcessing_1, &args);
@@ -262,6 +292,7 @@ public:
 		if (this->mcallback) {
 			MyMetArgs2 args;
 			memset(&args, 0, sizeof(MyMetArgs2));
+			args.argCount = 1;
 			MyCefSetVoidPtr(&args.v1, registrar);
 			this->mcallback(MyCefApp_OnRegisterCustomSchemes_2, &args);
 		}
@@ -271,6 +302,7 @@ public:
 		if (this->mcallback) {
 			MyMetArgs2 args;
 			memset(&args, 0, sizeof(MyMetArgs2));
+			args.argCount = 0;
 			this->mcallback(MyCefApp_GetResourceBundleHandler_3, &args);
 			return CefResourceBundleHandlerCppToC::Unwrap((cef_resource_bundle_handler_t*)args.ret.ptr);
 		}
@@ -281,6 +313,7 @@ public:
 		if (this->mcallback) {
 			MyMetArgs2 args;
 			memset(&args, 0, sizeof(MyMetArgs2));
+			args.argCount = 0;
 			this->mcallback(MyCefApp_GetBrowserProcessHandler_4, &args);
 			return CefBrowserProcessHandlerCppToC::Unwrap((cef_browser_process_handler_t*)args.ret.ptr);
 		}
@@ -291,11 +324,14 @@ public:
 		if (this->mcallback) {
 			MyMetArgs2 args;
 			memset(&args, 0, sizeof(MyMetArgs2));
+			args.argCount = 0;
 			this->mcallback(MyCefApp_GetRenderProcessHandler_5, &args);
 			return CefRenderProcessHandlerCppToC::Unwrap((cef_render_process_handler_t*)args.ret.ptr);
 		}
 		return nullptr;
 	}
+private:
+	IMPLEMENT_REFCOUNTING(MyCefApp);
 };
 
 
@@ -502,7 +538,7 @@ void MyCefMet_CefNavigationEntryVisitor(cef_navigation_entry_visitor_t* me1, int
 	CefNavigationEntryVisitorCppToC::Wrap(me);
 }
 const int MyCefNavigationEntryVisitor_Visit_1 = 1;
-class MyCefNavigationEntryVisitor :public CefNavigationEntryVisitorCppToC {
+class MyCefNavigationEntryVisitor :public CefNavigationEntryVisitor {
 public:
 	managed_callback mcallback;
 	explicit MyCefNavigationEntryVisitor() {
@@ -513,6 +549,7 @@ public:
 		if (this->mcallback) {
 			MyMetArgs2 args;
 			memset(&args, 0, sizeof(MyMetArgs2));
+			args.argCount = 4;
 			MyCefSetVoidPtr(&args.v1, CefNavigationEntryCToCpp::Unwrap(entry));
 			MyCefSetBool(&args.v2, current);
 			MyCefSetInt64(&args.v3, index);
@@ -522,6 +559,8 @@ public:
 		}
 		return false;
 	}
+private:
+	IMPLEMENT_REFCOUNTING(MyCefNavigationEntryVisitor);
 };
 
 
@@ -1135,7 +1174,7 @@ const int MyCefClient_GetLoadHandler_12 = 12;
 const int MyCefClient_GetRenderHandler_13 = 13;
 const int MyCefClient_GetRequestHandler_14 = 14;
 const int MyCefClient_OnProcessMessageReceived_15 = 15;
-class MyCefClient :public CefClientCppToC {
+class MyCefClient :public CefClient {
 public:
 	managed_callback mcallback;
 	explicit MyCefClient() {
@@ -1146,6 +1185,7 @@ public:
 		if (this->mcallback) {
 			MyMetArgs2 args;
 			memset(&args, 0, sizeof(MyMetArgs2));
+			args.argCount = 0;
 			this->mcallback(MyCefClient_GetContextMenuHandler_1, &args);
 			return CefContextMenuHandlerCppToC::Unwrap((cef_context_menu_handler_t*)args.ret.ptr);
 		}
@@ -1156,6 +1196,7 @@ public:
 		if (this->mcallback) {
 			MyMetArgs2 args;
 			memset(&args, 0, sizeof(MyMetArgs2));
+			args.argCount = 0;
 			this->mcallback(MyCefClient_GetDialogHandler_2, &args);
 			return CefDialogHandlerCppToC::Unwrap((cef_dialog_handler_t*)args.ret.ptr);
 		}
@@ -1166,6 +1207,7 @@ public:
 		if (this->mcallback) {
 			MyMetArgs2 args;
 			memset(&args, 0, sizeof(MyMetArgs2));
+			args.argCount = 0;
 			this->mcallback(MyCefClient_GetDisplayHandler_3, &args);
 			return CefDisplayHandlerCppToC::Unwrap((cef_display_handler_t*)args.ret.ptr);
 		}
@@ -1176,6 +1218,7 @@ public:
 		if (this->mcallback) {
 			MyMetArgs2 args;
 			memset(&args, 0, sizeof(MyMetArgs2));
+			args.argCount = 0;
 			this->mcallback(MyCefClient_GetDownloadHandler_4, &args);
 			return CefDownloadHandlerCppToC::Unwrap((cef_download_handler_t*)args.ret.ptr);
 		}
@@ -1186,6 +1229,7 @@ public:
 		if (this->mcallback) {
 			MyMetArgs2 args;
 			memset(&args, 0, sizeof(MyMetArgs2));
+			args.argCount = 0;
 			this->mcallback(MyCefClient_GetDragHandler_5, &args);
 			return CefDragHandlerCppToC::Unwrap((cef_drag_handler_t*)args.ret.ptr);
 		}
@@ -1196,6 +1240,7 @@ public:
 		if (this->mcallback) {
 			MyMetArgs2 args;
 			memset(&args, 0, sizeof(MyMetArgs2));
+			args.argCount = 0;
 			this->mcallback(MyCefClient_GetFindHandler_6, &args);
 			return CefFindHandlerCppToC::Unwrap((cef_find_handler_t*)args.ret.ptr);
 		}
@@ -1206,6 +1251,7 @@ public:
 		if (this->mcallback) {
 			MyMetArgs2 args;
 			memset(&args, 0, sizeof(MyMetArgs2));
+			args.argCount = 0;
 			this->mcallback(MyCefClient_GetFocusHandler_7, &args);
 			return CefFocusHandlerCppToC::Unwrap((cef_focus_handler_t*)args.ret.ptr);
 		}
@@ -1216,6 +1262,7 @@ public:
 		if (this->mcallback) {
 			MyMetArgs2 args;
 			memset(&args, 0, sizeof(MyMetArgs2));
+			args.argCount = 0;
 			this->mcallback(MyCefClient_GetGeolocationHandler_8, &args);
 			return CefGeolocationHandlerCppToC::Unwrap((cef_geolocation_handler_t*)args.ret.ptr);
 		}
@@ -1226,6 +1273,7 @@ public:
 		if (this->mcallback) {
 			MyMetArgs2 args;
 			memset(&args, 0, sizeof(MyMetArgs2));
+			args.argCount = 0;
 			this->mcallback(MyCefClient_GetJSDialogHandler_9, &args);
 			return CefJSDialogHandlerCppToC::Unwrap((cef_jsdialog_handler_t*)args.ret.ptr);
 		}
@@ -1236,6 +1284,7 @@ public:
 		if (this->mcallback) {
 			MyMetArgs2 args;
 			memset(&args, 0, sizeof(MyMetArgs2));
+			args.argCount = 0;
 			this->mcallback(MyCefClient_GetKeyboardHandler_10, &args);
 			return CefKeyboardHandlerCppToC::Unwrap((cef_keyboard_handler_t*)args.ret.ptr);
 		}
@@ -1246,6 +1295,7 @@ public:
 		if (this->mcallback) {
 			MyMetArgs2 args;
 			memset(&args, 0, sizeof(MyMetArgs2));
+			args.argCount = 0;
 			this->mcallback(MyCefClient_GetLifeSpanHandler_11, &args);
 			return CefLifeSpanHandlerCppToC::Unwrap((cef_life_span_handler_t*)args.ret.ptr);
 		}
@@ -1256,6 +1306,7 @@ public:
 		if (this->mcallback) {
 			MyMetArgs2 args;
 			memset(&args, 0, sizeof(MyMetArgs2));
+			args.argCount = 0;
 			this->mcallback(MyCefClient_GetLoadHandler_12, &args);
 			return CefLoadHandlerCppToC::Unwrap((cef_load_handler_t*)args.ret.ptr);
 		}
@@ -1266,6 +1317,7 @@ public:
 		if (this->mcallback) {
 			MyMetArgs2 args;
 			memset(&args, 0, sizeof(MyMetArgs2));
+			args.argCount = 0;
 			this->mcallback(MyCefClient_GetRenderHandler_13, &args);
 			return CefRenderHandlerCppToC::Unwrap((cef_render_handler_t*)args.ret.ptr);
 		}
@@ -1276,6 +1328,7 @@ public:
 		if (this->mcallback) {
 			MyMetArgs2 args;
 			memset(&args, 0, sizeof(MyMetArgs2));
+			args.argCount = 0;
 			this->mcallback(MyCefClient_GetRequestHandler_14, &args);
 			return CefRequestHandlerCppToC::Unwrap((cef_request_handler_t*)args.ret.ptr);
 		}
@@ -1286,6 +1339,7 @@ public:
 		if (this->mcallback) {
 			MyMetArgs2 args;
 			memset(&args, 0, sizeof(MyMetArgs2));
+			args.argCount = 3;
 			MyCefSetVoidPtr(&args.v1, CefBrowserCToCpp::Unwrap(browser));
 			MyCefSetInt32(&args.v2, (int32_t)source_process);
 			MyCefSetVoidPtr(&args.v3, CefProcessMessageCToCpp::Unwrap(message));
@@ -1294,6 +1348,8 @@ public:
 		}
 		return false;
 	}
+private:
+	IMPLEMENT_REFCOUNTING(MyCefClient);
 };
 
 
@@ -1750,7 +1806,7 @@ void MyCefMet_CefCookieVisitor(cef_cookie_visitor_t* me1, int metName, jsvalue* 
 	CefCookieVisitorCppToC::Wrap(me);
 }
 const int MyCefCookieVisitor_Visit_1 = 1;
-class MyCefCookieVisitor :public CefCookieVisitorCppToC {
+class MyCefCookieVisitor :public CefCookieVisitor {
 public:
 	managed_callback mcallback;
 	explicit MyCefCookieVisitor() {
@@ -1761,6 +1817,7 @@ public:
 		if (this->mcallback) {
 			MyMetArgs2 args;
 			memset(&args, 0, sizeof(MyMetArgs2));
+			args.argCount = 4;
 			MyCefSetVoidPtr2(&args.v1, &cookie);
 			MyCefSetInt64(&args.v2, count);
 			MyCefSetInt64(&args.v3, total);
@@ -1770,6 +1827,8 @@ public:
 		}
 		return false;
 	}
+private:
+	IMPLEMENT_REFCOUNTING(MyCefCookieVisitor);
 };
 
 
@@ -1792,7 +1851,7 @@ void MyCefMet_CefDOMVisitor(cef_domvisitor_t* me1, int metName, jsvalue* ret, js
 	CefDOMVisitorCppToC::Wrap(me);
 }
 const int MyCefDOMVisitor_Visit_1 = 1;
-class MyCefDOMVisitor :public CefDOMVisitorCppToC {
+class MyCefDOMVisitor :public CefDOMVisitor {
 public:
 	managed_callback mcallback;
 	explicit MyCefDOMVisitor() {
@@ -1803,10 +1862,13 @@ public:
 		if (this->mcallback) {
 			MyMetArgs2 args;
 			memset(&args, 0, sizeof(MyMetArgs2));
+			args.argCount = 1;
 			MyCefSetVoidPtr(&args.v1, CefDOMDocumentCToCpp::Unwrap(document));
 			this->mcallback(MyCefDOMVisitor_Visit_1, &args);
 		}
 	}
+private:
+	IMPLEMENT_REFCOUNTING(MyCefDOMVisitor);
 };
 
 
@@ -3460,7 +3522,7 @@ const int MyCefMenuModelDelegate_UnhandledCloseSubmenu_4 = 4;
 const int MyCefMenuModelDelegate_MenuWillShow_5 = 5;
 const int MyCefMenuModelDelegate_MenuClosed_6 = 6;
 const int MyCefMenuModelDelegate_FormatLabel_7 = 7;
-class MyCefMenuModelDelegate :public CefMenuModelDelegateCppToC {
+class MyCefMenuModelDelegate :public CefMenuModelDelegate {
 public:
 	managed_callback mcallback;
 	explicit MyCefMenuModelDelegate() {
@@ -3471,6 +3533,7 @@ public:
 		if (this->mcallback) {
 			MyMetArgs2 args;
 			memset(&args, 0, sizeof(MyMetArgs2));
+			args.argCount = 3;
 			MyCefSetVoidPtr(&args.v1, CefMenuModelCToCpp::Unwrap(menu_model));
 			MyCefSetInt64(&args.v2, command_id);
 			MyCefSetInt32(&args.v3, (int32_t)event_flags);
@@ -3482,6 +3545,7 @@ public:
 		if (this->mcallback) {
 			MyMetArgs2 args;
 			memset(&args, 0, sizeof(MyMetArgs2));
+			args.argCount = 2;
 			MyCefSetVoidPtr(&args.v1, CefMenuModelCToCpp::Unwrap(menu_model));
 			MyCefSetVoidPtr2(&args.v2, &screen_point);
 			this->mcallback(MyCefMenuModelDelegate_MouseOutsideMenu_2, &args);
@@ -3492,6 +3556,7 @@ public:
 		if (this->mcallback) {
 			MyMetArgs2 args;
 			memset(&args, 0, sizeof(MyMetArgs2));
+			args.argCount = 2;
 			MyCefSetVoidPtr(&args.v1, CefMenuModelCToCpp::Unwrap(menu_model));
 			MyCefSetBool(&args.v2, is_rtl);
 			this->mcallback(MyCefMenuModelDelegate_UnhandledOpenSubmenu_3, &args);
@@ -3502,6 +3567,7 @@ public:
 		if (this->mcallback) {
 			MyMetArgs2 args;
 			memset(&args, 0, sizeof(MyMetArgs2));
+			args.argCount = 2;
 			MyCefSetVoidPtr(&args.v1, CefMenuModelCToCpp::Unwrap(menu_model));
 			MyCefSetBool(&args.v2, is_rtl);
 			this->mcallback(MyCefMenuModelDelegate_UnhandledCloseSubmenu_4, &args);
@@ -3512,6 +3578,7 @@ public:
 		if (this->mcallback) {
 			MyMetArgs2 args;
 			memset(&args, 0, sizeof(MyMetArgs2));
+			args.argCount = 1;
 			MyCefSetVoidPtr(&args.v1, CefMenuModelCToCpp::Unwrap(menu_model));
 			this->mcallback(MyCefMenuModelDelegate_MenuWillShow_5, &args);
 		}
@@ -3521,6 +3588,7 @@ public:
 		if (this->mcallback) {
 			MyMetArgs2 args;
 			memset(&args, 0, sizeof(MyMetArgs2));
+			args.argCount = 1;
 			MyCefSetVoidPtr(&args.v1, CefMenuModelCToCpp::Unwrap(menu_model));
 			this->mcallback(MyCefMenuModelDelegate_MenuClosed_6, &args);
 		}
@@ -3530,6 +3598,7 @@ public:
 		if (this->mcallback) {
 			MyMetArgs2 args;
 			memset(&args, 0, sizeof(MyMetArgs2));
+			args.argCount = 2;
 			MyCefSetVoidPtr(&args.v1, CefMenuModelCToCpp::Unwrap(menu_model));
 			SetCefStringToJsValue(&args.v2, label);
 			this->mcallback(MyCefMenuModelDelegate_FormatLabel_7, &args);
@@ -3537,6 +3606,8 @@ public:
 		}
 		return false;
 	}
+private:
+	IMPLEMENT_REFCOUNTING(MyCefMenuModelDelegate);
 };
 
 
@@ -4550,7 +4621,7 @@ void MyCefMet_CefResponseFilter(cef_response_filter_t* me1, int metName, jsvalue
 }
 const int MyCefResponseFilter_InitFilter_1 = 1;
 const int MyCefResponseFilter_Filter_2 = 2;
-class MyCefResponseFilter :public CefResponseFilterCppToC {
+class MyCefResponseFilter :public CefResponseFilter {
 public:
 	managed_callback mcallback;
 	explicit MyCefResponseFilter() {
@@ -4561,6 +4632,7 @@ public:
 		if (this->mcallback) {
 			MyMetArgs2 args;
 			memset(&args, 0, sizeof(MyMetArgs2));
+			args.argCount = 0;
 			this->mcallback(MyCefResponseFilter_InitFilter_1, &args);
 			return args.ret.i32 != 0;
 		}
@@ -4571,6 +4643,7 @@ public:
 		if (this->mcallback) {
 			MyMetArgs2 args;
 			memset(&args, 0, sizeof(MyMetArgs2));
+			args.argCount = 6;
 			MyCefSetVoidPtr(&args.v1, data_in);
 			MyCefSetInt32(&args.v2, (int32_t)data_in_size);
 			MyCefSetInt32(&args.v3, (int32_t)data_in_read);
@@ -4580,8 +4653,10 @@ public:
 			this->mcallback(MyCefResponseFilter_Filter_2, &args);
 			return (cef_response_filter_status_t)args.ret.i32;
 		}
-		return (cef_response_filter_status_t)0;
+		return (FilterStatus)0;
 	}
+private:
+	IMPLEMENT_REFCOUNTING(MyCefResponseFilter);
 };
 
 
@@ -4607,7 +4682,7 @@ void MyCefMet_CefSchemeHandlerFactory(cef_scheme_handler_factory_t* me1, int met
 	CefSchemeHandlerFactoryCppToC::Wrap(me);
 }
 const int MyCefSchemeHandlerFactory_Create_1 = 1;
-class MyCefSchemeHandlerFactory :public CefSchemeHandlerFactoryCppToC {
+class MyCefSchemeHandlerFactory :public CefSchemeHandlerFactory {
 public:
 	managed_callback mcallback;
 	explicit MyCefSchemeHandlerFactory() {
@@ -4618,6 +4693,7 @@ public:
 		if (this->mcallback) {
 			MyMetArgs2 args;
 			memset(&args, 0, sizeof(MyMetArgs2));
+			args.argCount = 4;
 			MyCefSetVoidPtr(&args.v1, CefBrowserCToCpp::Unwrap(browser));
 			MyCefSetVoidPtr(&args.v2, CefFrameCToCpp::Unwrap(frame));
 			SetCefStringToJsValue(&args.v3, scheme_name);
@@ -4627,6 +4703,8 @@ public:
 		}
 		return nullptr;
 	}
+private:
+	IMPLEMENT_REFCOUNTING(MyCefSchemeHandlerFactory);
 };
 
 
@@ -4839,7 +4917,7 @@ void MyCefMet_CefStringVisitor(cef_string_visitor_t* me1, int metName, jsvalue* 
 	CefStringVisitorCppToC::Wrap(me);
 }
 const int MyCefStringVisitor_Visit_1 = 1;
-class MyCefStringVisitor :public CefStringVisitorCppToC {
+class MyCefStringVisitor :public CefStringVisitor {
 public:
 	managed_callback mcallback;
 	explicit MyCefStringVisitor() {
@@ -4850,10 +4928,13 @@ public:
 		if (this->mcallback) {
 			MyMetArgs2 args;
 			memset(&args, 0, sizeof(MyMetArgs2));
+			args.argCount = 1;
 			SetCefStringToJsValue(&args.v1, string);
 			this->mcallback(MyCefStringVisitor_Visit_1, &args);
 		}
 	}
+private:
+	IMPLEMENT_REFCOUNTING(MyCefStringVisitor);
 };
 
 
@@ -4876,7 +4957,7 @@ void MyCefMet_CefTask(cef_task_t* me1, int metName, jsvalue* ret) {
 	CefTaskCppToC::Wrap(me);
 }
 const int MyCefTask_Execute_1 = 1;
-class MyCefTask :public CefTaskCppToC {
+class MyCefTask :public CefTask {
 public:
 	managed_callback mcallback;
 	explicit MyCefTask() {
@@ -4887,9 +4968,12 @@ public:
 		if (this->mcallback) {
 			MyMetArgs2 args;
 			memset(&args, 0, sizeof(MyMetArgs2));
+			args.argCount = 0;
 			this->mcallback(MyCefTask_Execute_1, &args);
 		}
 	}
+private:
+	IMPLEMENT_REFCOUNTING(MyCefTask);
 };
 
 
@@ -5072,7 +5156,7 @@ const int MyCefURLRequestClient_OnUploadProgress_2 = 2;
 const int MyCefURLRequestClient_OnDownloadProgress_3 = 3;
 const int MyCefURLRequestClient_OnDownloadData_4 = 4;
 const int MyCefURLRequestClient_GetAuthCredentials_5 = 5;
-class MyCefURLRequestClient :public CefURLRequestClientCppToC {
+class MyCefURLRequestClient :public CefURLRequestClient {
 public:
 	managed_callback mcallback;
 	explicit MyCefURLRequestClient() {
@@ -5083,6 +5167,7 @@ public:
 		if (this->mcallback) {
 			MyMetArgs2 args;
 			memset(&args, 0, sizeof(MyMetArgs2));
+			args.argCount = 1;
 			MyCefSetVoidPtr(&args.v1, CefURLRequestCToCpp::Unwrap(request));
 			this->mcallback(MyCefURLRequestClient_OnRequestComplete_1, &args);
 		}
@@ -5092,6 +5177,7 @@ public:
 		if (this->mcallback) {
 			MyMetArgs2 args;
 			memset(&args, 0, sizeof(MyMetArgs2));
+			args.argCount = 3;
 			MyCefSetVoidPtr(&args.v1, CefURLRequestCToCpp::Unwrap(request));
 			MyCefSetInt64(&args.v2, current);
 			MyCefSetInt64(&args.v3, total);
@@ -5103,6 +5189,7 @@ public:
 		if (this->mcallback) {
 			MyMetArgs2 args;
 			memset(&args, 0, sizeof(MyMetArgs2));
+			args.argCount = 3;
 			MyCefSetVoidPtr(&args.v1, CefURLRequestCToCpp::Unwrap(request));
 			MyCefSetInt64(&args.v2, current);
 			MyCefSetInt64(&args.v3, total);
@@ -5114,6 +5201,7 @@ public:
 		if (this->mcallback) {
 			MyMetArgs2 args;
 			memset(&args, 0, sizeof(MyMetArgs2));
+			args.argCount = 3;
 			MyCefSetVoidPtr(&args.v1, CefURLRequestCToCpp::Unwrap(request));
 			MyCefSetVoidPtr2(&args.v2, data);
 			MyCefSetInt32(&args.v3, (int32_t)data_length);
@@ -5125,6 +5213,7 @@ public:
 		if (this->mcallback) {
 			MyMetArgs2 args;
 			memset(&args, 0, sizeof(MyMetArgs2));
+			args.argCount = 6;
 			MyCefSetBool(&args.v1, isProxy);
 			SetCefStringToJsValue(&args.v2, host);
 			MyCefSetInt64(&args.v3, port);
@@ -5136,6 +5225,8 @@ public:
 		}
 		return false;
 	}
+private:
+	IMPLEMENT_REFCOUNTING(MyCefURLRequestClient);
 };
 
 
@@ -5261,7 +5352,7 @@ void MyCefMet_CefV8Accessor(cef_v8accessor_t* me1, int metName, jsvalue* ret, js
 }
 const int MyCefV8Accessor_Get_1 = 1;
 const int MyCefV8Accessor_Set_2 = 2;
-class MyCefV8Accessor :public CefV8AccessorCppToC {
+class MyCefV8Accessor :public CefV8Accessor {
 public:
 	managed_callback mcallback;
 	explicit MyCefV8Accessor() {
@@ -5272,6 +5363,7 @@ public:
 		if (this->mcallback) {
 			MyMetArgs2 args;
 			memset(&args, 0, sizeof(MyMetArgs2));
+			args.argCount = 4;
 			SetCefStringToJsValue(&args.v1, name);
 			MyCefSetVoidPtr(&args.v2, CefV8ValueCToCpp::Unwrap(object));
 			MyCefSetVoidPtr(&args.v3, retval);
@@ -5286,6 +5378,7 @@ public:
 		if (this->mcallback) {
 			MyMetArgs2 args;
 			memset(&args, 0, sizeof(MyMetArgs2));
+			args.argCount = 4;
 			SetCefStringToJsValue(&args.v1, name);
 			MyCefSetVoidPtr(&args.v2, CefV8ValueCToCpp::Unwrap(object));
 			MyCefSetVoidPtr(&args.v3, CefV8ValueCToCpp::Unwrap(value));
@@ -5295,6 +5388,8 @@ public:
 		}
 		return false;
 	}
+private:
+	IMPLEMENT_REFCOUNTING(MyCefV8Accessor);
 };
 
 
@@ -5356,7 +5451,7 @@ const int MyCefV8Interceptor_Get_1 = 1;
 const int MyCefV8Interceptor_Get_2 = 2;
 const int MyCefV8Interceptor_Set_3 = 3;
 const int MyCefV8Interceptor_Set_4 = 4;
-class MyCefV8Interceptor :public CefV8InterceptorCppToC {
+class MyCefV8Interceptor :public CefV8Interceptor {
 public:
 	managed_callback mcallback;
 	explicit MyCefV8Interceptor() {
@@ -5367,6 +5462,7 @@ public:
 		if (this->mcallback) {
 			MyMetArgs2 args;
 			memset(&args, 0, sizeof(MyMetArgs2));
+			args.argCount = 4;
 			SetCefStringToJsValue(&args.v1, name);
 			MyCefSetVoidPtr(&args.v2, CefV8ValueCToCpp::Unwrap(object));
 			MyCefSetVoidPtr(&args.v3, retval);
@@ -5381,6 +5477,7 @@ public:
 		if (this->mcallback) {
 			MyMetArgs2 args;
 			memset(&args, 0, sizeof(MyMetArgs2));
+			args.argCount = 4;
 			MyCefSetInt64(&args.v1, index);
 			MyCefSetVoidPtr(&args.v2, CefV8ValueCToCpp::Unwrap(object));
 			MyCefSetVoidPtr(&args.v3, retval);
@@ -5395,6 +5492,7 @@ public:
 		if (this->mcallback) {
 			MyMetArgs2 args;
 			memset(&args, 0, sizeof(MyMetArgs2));
+			args.argCount = 4;
 			SetCefStringToJsValue(&args.v1, name);
 			MyCefSetVoidPtr(&args.v2, CefV8ValueCToCpp::Unwrap(object));
 			MyCefSetVoidPtr(&args.v3, CefV8ValueCToCpp::Unwrap(value));
@@ -5409,6 +5507,7 @@ public:
 		if (this->mcallback) {
 			MyMetArgs2 args;
 			memset(&args, 0, sizeof(MyMetArgs2));
+			args.argCount = 4;
 			MyCefSetInt64(&args.v1, index);
 			MyCefSetVoidPtr(&args.v2, CefV8ValueCToCpp::Unwrap(object));
 			MyCefSetVoidPtr(&args.v3, CefV8ValueCToCpp::Unwrap(value));
@@ -5418,6 +5517,8 @@ public:
 		}
 		return false;
 	}
+private:
+	IMPLEMENT_REFCOUNTING(MyCefV8Interceptor);
 };
 
 
@@ -6802,7 +6903,7 @@ void MyCefMet_CefWebPluginInfoVisitor(cef_web_plugin_info_visitor_t* me1, int me
 	CefWebPluginInfoVisitorCppToC::Wrap(me);
 }
 const int MyCefWebPluginInfoVisitor_Visit_1 = 1;
-class MyCefWebPluginInfoVisitor :public CefWebPluginInfoVisitorCppToC {
+class MyCefWebPluginInfoVisitor :public CefWebPluginInfoVisitor {
 public:
 	managed_callback mcallback;
 	explicit MyCefWebPluginInfoVisitor() {
@@ -6813,6 +6914,7 @@ public:
 		if (this->mcallback) {
 			MyMetArgs2 args;
 			memset(&args, 0, sizeof(MyMetArgs2));
+			args.argCount = 3;
 			MyCefSetVoidPtr(&args.v1, CefWebPluginInfoCToCpp::Unwrap(info));
 			MyCefSetInt64(&args.v2, count);
 			MyCefSetInt64(&args.v3, total);
@@ -6821,6 +6923,8 @@ public:
 		}
 		return false;
 	}
+private:
+	IMPLEMENT_REFCOUNTING(MyCefWebPluginInfoVisitor);
 };
 
 
@@ -7388,7 +7492,7 @@ void MyCefMet_CefAuthCallback(cef_auth_callback_t* me1, int metName, jsvalue* re
 	CefAuthCallbackCToCpp::Unwrap(me);
 }
 const int MyCefRunFileDialogCallback_OnFileDialogDismissed_1 = 1;
-class MyCefRunFileDialogCallback :public CefRunFileDialogCallbackCppToC {
+class MyCefRunFileDialogCallback :public CefRunFileDialogCallback {
 public:
 	managed_callback mcallback;
 	explicit MyCefRunFileDialogCallback() {
@@ -7399,11 +7503,14 @@ public:
 		if (this->mcallback) {
 			MyMetArgs2 args;
 			memset(&args, 0, sizeof(MyMetArgs2));
+			args.argCount = 2;
 			MyCefSetInt64(&args.v1, selected_accept_filter);
 			MyCefSetVoidPtr2(&args.v2, &file_paths);
 			this->mcallback(MyCefRunFileDialogCallback_OnFileDialogDismissed_1, &args);
 		}
 	}
+private:
+	IMPLEMENT_REFCOUNTING(MyCefRunFileDialogCallback);
 };
 const int CefRunFileDialogCallback_OnFileDialogDismissed_1 = 1;
 
@@ -7416,7 +7523,7 @@ void MyCefMet_CefRunFileDialogCallback(cef_run_file_dialog_callback_t* me1, int 
 	CefRunFileDialogCallbackCppToC::Wrap(me);
 }
 const int MyCefPdfPrintCallback_OnPdfPrintFinished_1 = 1;
-class MyCefPdfPrintCallback :public CefPdfPrintCallbackCppToC {
+class MyCefPdfPrintCallback :public CefPdfPrintCallback {
 public:
 	managed_callback mcallback;
 	explicit MyCefPdfPrintCallback() {
@@ -7427,11 +7534,14 @@ public:
 		if (this->mcallback) {
 			MyMetArgs2 args;
 			memset(&args, 0, sizeof(MyMetArgs2));
+			args.argCount = 2;
 			SetCefStringToJsValue(&args.v1, path);
 			MyCefSetBool(&args.v2, ok);
 			this->mcallback(MyCefPdfPrintCallback_OnPdfPrintFinished_1, &args);
 		}
 	}
+private:
+	IMPLEMENT_REFCOUNTING(MyCefPdfPrintCallback);
 };
 const int CefPdfPrintCallback_OnPdfPrintFinished_1 = 1;
 
@@ -7444,7 +7554,7 @@ void MyCefMet_CefPdfPrintCallback(cef_pdf_print_callback_t* me1, int metName, js
 	CefPdfPrintCallbackCppToC::Wrap(me);
 }
 const int MyCefDownloadImageCallback_OnDownloadImageFinished_1 = 1;
-class MyCefDownloadImageCallback :public CefDownloadImageCallbackCppToC {
+class MyCefDownloadImageCallback :public CefDownloadImageCallback {
 public:
 	managed_callback mcallback;
 	explicit MyCefDownloadImageCallback() {
@@ -7455,12 +7565,15 @@ public:
 		if (this->mcallback) {
 			MyMetArgs2 args;
 			memset(&args, 0, sizeof(MyMetArgs2));
+			args.argCount = 3;
 			SetCefStringToJsValue(&args.v1, image_url);
 			MyCefSetInt64(&args.v2, http_status_code);
 			MyCefSetVoidPtr(&args.v3, CefImageCToCpp::Unwrap(image));
 			this->mcallback(MyCefDownloadImageCallback_OnDownloadImageFinished_1, &args);
 		}
 	}
+private:
+	IMPLEMENT_REFCOUNTING(MyCefDownloadImageCallback);
 };
 const int CefDownloadImageCallback_OnDownloadImageFinished_1 = 1;
 
@@ -7498,7 +7611,7 @@ void MyCefMet_CefCallback(cef_callback_t* me1, int metName, jsvalue* ret) {
 	CefCallbackCToCpp::Unwrap(me);
 }
 const int MyCefCompletionCallback_OnComplete_1 = 1;
-class MyCefCompletionCallback :public CefCompletionCallbackCppToC {
+class MyCefCompletionCallback :public CefCompletionCallback {
 public:
 	managed_callback mcallback;
 	explicit MyCefCompletionCallback() {
@@ -7509,9 +7622,12 @@ public:
 		if (this->mcallback) {
 			MyMetArgs2 args;
 			memset(&args, 0, sizeof(MyMetArgs2));
+			args.argCount = 0;
 			this->mcallback(MyCefCompletionCallback_OnComplete_1, &args);
 		}
 	}
+private:
+	IMPLEMENT_REFCOUNTING(MyCefCompletionCallback);
 };
 const int CefCompletionCallback_OnComplete_1 = 1;
 
@@ -7550,7 +7666,7 @@ void MyCefMet_CefRunContextMenuCallback(cef_run_context_menu_callback_t* me1, in
 	CefRunContextMenuCallbackCToCpp::Unwrap(me);
 }
 const int MyCefSetCookieCallback_OnComplete_1 = 1;
-class MyCefSetCookieCallback :public CefSetCookieCallbackCppToC {
+class MyCefSetCookieCallback :public CefSetCookieCallback {
 public:
 	managed_callback mcallback;
 	explicit MyCefSetCookieCallback() {
@@ -7561,10 +7677,13 @@ public:
 		if (this->mcallback) {
 			MyMetArgs2 args;
 			memset(&args, 0, sizeof(MyMetArgs2));
+			args.argCount = 1;
 			MyCefSetBool(&args.v1, success);
 			this->mcallback(MyCefSetCookieCallback_OnComplete_1, &args);
 		}
 	}
+private:
+	IMPLEMENT_REFCOUNTING(MyCefSetCookieCallback);
 };
 const int CefSetCookieCallback_OnComplete_1 = 1;
 
@@ -7577,7 +7696,7 @@ void MyCefMet_CefSetCookieCallback(cef_set_cookie_callback_t* me1, int metName, 
 	CefSetCookieCallbackCppToC::Wrap(me);
 }
 const int MyCefDeleteCookiesCallback_OnComplete_1 = 1;
-class MyCefDeleteCookiesCallback :public CefDeleteCookiesCallbackCppToC {
+class MyCefDeleteCookiesCallback :public CefDeleteCookiesCallback {
 public:
 	managed_callback mcallback;
 	explicit MyCefDeleteCookiesCallback() {
@@ -7588,10 +7707,13 @@ public:
 		if (this->mcallback) {
 			MyMetArgs2 args;
 			memset(&args, 0, sizeof(MyMetArgs2));
+			args.argCount = 1;
 			MyCefSetInt64(&args.v1, num_deleted);
 			this->mcallback(MyCefDeleteCookiesCallback_OnComplete_1, &args);
 		}
 	}
+private:
+	IMPLEMENT_REFCOUNTING(MyCefDeleteCookiesCallback);
 };
 const int CefDeleteCookiesCallback_OnComplete_1 = 1;
 
@@ -7681,7 +7803,7 @@ void MyCefMet_CefDownloadItemCallback(cef_download_item_callback_t* me1, int met
 	CefDownloadItemCallbackCToCpp::Unwrap(me);
 }
 const int MyCefGetGeolocationCallback_OnLocationUpdate_1 = 1;
-class MyCefGetGeolocationCallback :public CefGetGeolocationCallbackCppToC {
+class MyCefGetGeolocationCallback :public CefGetGeolocationCallback {
 public:
 	managed_callback mcallback;
 	explicit MyCefGetGeolocationCallback() {
@@ -7692,10 +7814,13 @@ public:
 		if (this->mcallback) {
 			MyMetArgs2 args;
 			memset(&args, 0, sizeof(MyMetArgs2));
+			args.argCount = 1;
 			MyCefSetVoidPtr2(&args.v1, &position);
 			this->mcallback(MyCefGetGeolocationCallback_OnLocationUpdate_1, &args);
 		}
 	}
+private:
+	IMPLEMENT_REFCOUNTING(MyCefGetGeolocationCallback);
 };
 const int CefGetGeolocationCallback_OnLocationUpdate_1 = 1;
 
@@ -7785,7 +7910,7 @@ void MyCefMet_CefPrintJobCallback(cef_print_job_callback_t* me1, int metName, js
 	CefPrintJobCallbackCToCpp::Unwrap(me);
 }
 const int MyCefResolveCallback_OnResolveCompleted_1 = 1;
-class MyCefResolveCallback :public CefResolveCallbackCppToC {
+class MyCefResolveCallback :public CefResolveCallback {
 public:
 	managed_callback mcallback;
 	explicit MyCefResolveCallback() {
@@ -7796,11 +7921,14 @@ public:
 		if (this->mcallback) {
 			MyMetArgs2 args;
 			memset(&args, 0, sizeof(MyMetArgs2));
+			args.argCount = 2;
 			MyCefSetInt32(&args.v1, (int32_t)result);
 			MyCefSetVoidPtr2(&args.v2, &resolved_ips);
 			this->mcallback(MyCefResolveCallback_OnResolveCompleted_1, &args);
 		}
 	}
+private:
+	IMPLEMENT_REFCOUNTING(MyCefResolveCallback);
 };
 const int CefResolveCallback_OnResolveCompleted_1 = 1;
 
@@ -7855,7 +7983,7 @@ void MyCefMet_CefSelectClientCertificateCallback(cef_select_client_certificate_c
 	CefSelectClientCertificateCallbackCToCpp::Unwrap(me);
 }
 const int MyCefEndTracingCallback_OnEndTracingComplete_1 = 1;
-class MyCefEndTracingCallback :public CefEndTracingCallbackCppToC {
+class MyCefEndTracingCallback :public CefEndTracingCallback {
 public:
 	managed_callback mcallback;
 	explicit MyCefEndTracingCallback() {
@@ -7866,10 +7994,13 @@ public:
 		if (this->mcallback) {
 			MyMetArgs2 args;
 			memset(&args, 0, sizeof(MyMetArgs2));
+			args.argCount = 1;
 			SetCefStringToJsValue(&args.v1, tracing_file);
 			this->mcallback(MyCefEndTracingCallback_OnEndTracingComplete_1, &args);
 		}
 	}
+private:
+	IMPLEMENT_REFCOUNTING(MyCefEndTracingCallback);
 };
 const int CefEndTracingCallback_OnEndTracingComplete_1 = 1;
 
@@ -7900,7 +8031,7 @@ void MyCefMet_CefWebPluginUnstableCallback(cef_web_plugin_unstable_callback_t* m
 	CefWebPluginUnstableCallbackCppToC::Wrap(me);
 }
 const int MyCefRegisterCdmCallback_OnCdmRegistrationComplete_1 = 1;
-class MyCefRegisterCdmCallback :public CefRegisterCdmCallbackCppToC {
+class MyCefRegisterCdmCallback :public CefRegisterCdmCallback {
 public:
 	managed_callback mcallback;
 	explicit MyCefRegisterCdmCallback() {
@@ -7911,11 +8042,14 @@ public:
 		if (this->mcallback) {
 			MyMetArgs2 args;
 			memset(&args, 0, sizeof(MyMetArgs2));
+			args.argCount = 2;
 			MyCefSetInt32(&args.v1, (int32_t)result);
 			SetCefStringToJsValue(&args.v2, error_message);
 			this->mcallback(MyCefRegisterCdmCallback_OnCdmRegistrationComplete_1, &args);
 		}
 	}
+private:
+	IMPLEMENT_REFCOUNTING(MyCefRegisterCdmCallback);
 };
 const int CefRegisterCdmCallback_OnCdmRegistrationComplete_1 = 1;
 
@@ -8269,122 +8403,122 @@ void* NewInstance(int typeName, managed_callback mcallback, jsvalue* jsvalue) {
 	case  CefTypeName_CefApp: {
 		auto inst = new MyCefApp();
 		inst->mcallback = mcallback;
-		return inst;
+		return CefAppCppToC::Wrap(inst);
 	}
 	case  CefTypeName_CefNavigationEntryVisitor: {
 		auto inst = new MyCefNavigationEntryVisitor();
 		inst->mcallback = mcallback;
-		return inst;
+		return CefNavigationEntryVisitorCppToC::Wrap(inst);
 	}
 	case  CefTypeName_CefClient: {
 		auto inst = new MyCefClient();
 		inst->mcallback = mcallback;
-		return inst;
+		return CefClientCppToC::Wrap(inst);
 	}
 	case  CefTypeName_CefCookieVisitor: {
 		auto inst = new MyCefCookieVisitor();
 		inst->mcallback = mcallback;
-		return inst;
+		return CefCookieVisitorCppToC::Wrap(inst);
 	}
 	case  CefTypeName_CefDOMVisitor: {
 		auto inst = new MyCefDOMVisitor();
 		inst->mcallback = mcallback;
-		return inst;
+		return CefDOMVisitorCppToC::Wrap(inst);
 	}
 	case  CefTypeName_CefMenuModelDelegate: {
 		auto inst = new MyCefMenuModelDelegate();
 		inst->mcallback = mcallback;
-		return inst;
+		return CefMenuModelDelegateCppToC::Wrap(inst);
 	}
 	case  CefTypeName_CefResponseFilter: {
 		auto inst = new MyCefResponseFilter();
 		inst->mcallback = mcallback;
-		return inst;
+		return CefResponseFilterCppToC::Wrap(inst);
 	}
 	case  CefTypeName_CefSchemeHandlerFactory: {
 		auto inst = new MyCefSchemeHandlerFactory();
 		inst->mcallback = mcallback;
-		return inst;
+		return CefSchemeHandlerFactoryCppToC::Wrap(inst);
 	}
 	case  CefTypeName_CefStringVisitor: {
 		auto inst = new MyCefStringVisitor();
 		inst->mcallback = mcallback;
-		return inst;
+		return CefStringVisitorCppToC::Wrap(inst);
 	}
 	case  CefTypeName_CefTask: {
 		auto inst = new MyCefTask();
 		inst->mcallback = mcallback;
-		return inst;
+		return CefTaskCppToC::Wrap(inst);
 	}
 	case  CefTypeName_CefURLRequestClient: {
 		auto inst = new MyCefURLRequestClient();
 		inst->mcallback = mcallback;
-		return inst;
+		return CefURLRequestClientCppToC::Wrap(inst);
 	}
 	case  CefTypeName_CefV8Accessor: {
 		auto inst = new MyCefV8Accessor();
 		inst->mcallback = mcallback;
-		return inst;
+		return CefV8AccessorCppToC::Wrap(inst);
 	}
 	case  CefTypeName_CefV8Interceptor: {
 		auto inst = new MyCefV8Interceptor();
 		inst->mcallback = mcallback;
-		return inst;
+		return CefV8InterceptorCppToC::Wrap(inst);
 	}
 	case  CefTypeName_CefWebPluginInfoVisitor: {
 		auto inst = new MyCefWebPluginInfoVisitor();
 		inst->mcallback = mcallback;
-		return inst;
+		return CefWebPluginInfoVisitorCppToC::Wrap(inst);
 	}
 	case  CefTypeName_CefRunFileDialogCallback: {
 		auto inst = new MyCefRunFileDialogCallback();
 		inst->mcallback = mcallback;
-		return inst;
+		return CefRunFileDialogCallbackCppToC::Wrap(inst);
 	}
 	case  CefTypeName_CefPdfPrintCallback: {
 		auto inst = new MyCefPdfPrintCallback();
 		inst->mcallback = mcallback;
-		return inst;
+		return CefPdfPrintCallbackCppToC::Wrap(inst);
 	}
 	case  CefTypeName_CefDownloadImageCallback: {
 		auto inst = new MyCefDownloadImageCallback();
 		inst->mcallback = mcallback;
-		return inst;
+		return CefDownloadImageCallbackCppToC::Wrap(inst);
 	}
 	case  CefTypeName_CefCompletionCallback: {
 		auto inst = new MyCefCompletionCallback();
 		inst->mcallback = mcallback;
-		return inst;
+		return CefCompletionCallbackCppToC::Wrap(inst);
 	}
 	case  CefTypeName_CefSetCookieCallback: {
 		auto inst = new MyCefSetCookieCallback();
 		inst->mcallback = mcallback;
-		return inst;
+		return CefSetCookieCallbackCppToC::Wrap(inst);
 	}
 	case  CefTypeName_CefDeleteCookiesCallback: {
 		auto inst = new MyCefDeleteCookiesCallback();
 		inst->mcallback = mcallback;
-		return inst;
+		return CefDeleteCookiesCallbackCppToC::Wrap(inst);
 	}
 	case  CefTypeName_CefGetGeolocationCallback: {
 		auto inst = new MyCefGetGeolocationCallback();
 		inst->mcallback = mcallback;
-		return inst;
+		return CefGetGeolocationCallbackCppToC::Wrap(inst);
 	}
 	case  CefTypeName_CefResolveCallback: {
 		auto inst = new MyCefResolveCallback();
 		inst->mcallback = mcallback;
-		return inst;
+		return CefResolveCallbackCppToC::Wrap(inst);
 	}
 	case  CefTypeName_CefEndTracingCallback: {
 		auto inst = new MyCefEndTracingCallback();
 		inst->mcallback = mcallback;
-		return inst;
+		return CefEndTracingCallbackCppToC::Wrap(inst);
 	}
 	case  CefTypeName_CefRegisterCdmCallback: {
 		auto inst = new MyCefRegisterCdmCallback();
 		inst->mcallback = mcallback;
-		return inst;
+		return CefRegisterCdmCallbackCppToC::Wrap(inst);
 	}
 	}
 	return nullptr;
