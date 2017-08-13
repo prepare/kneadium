@@ -3088,9 +3088,9 @@ namespace BridgeBuilder
             //-----------------------------------------------------------------------
             if (this.CppImplClassName != null)
             {
-                stbuilder.AppendLine("public static " + orgDecl.Name + " New(MyCefCallback callback){");
+                stbuilder.AppendLine("public static " + className + " New(MyCefCallback callback){");
                 stbuilder.AppendLine("JsValue not_used= new JsValue();");
-                stbuilder.AppendLine("return new " + orgDecl.Name + "(Cef3Binder.NewInstance(_typeNAME,callback,ref not_used));");
+                stbuilder.AppendLine("return new " + className + "(Cef3Binder.NewInstance(_typeNAME,callback,ref not_used));");
                 stbuilder.AppendLine("}");
             }
 
