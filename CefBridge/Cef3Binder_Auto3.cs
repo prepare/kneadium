@@ -15468,8 +15468,9 @@ namespace LayoutFarm.CefBridge.Auto
             this.nativePtr = IntPtr.Zero;
         }
     }
-    class MyCefAccessibilityHandler
+    public class MyCefAccessibilityHandler
     {
+        const int _typeNAME = 56;
         const int MyCefAccessibilityHandler_OnAccessibilityTreeChange_1 = 1;
         const int MyCefAccessibilityHandler_OnAccessibilityLocationChange_2 = 2;
         internal IntPtr nativePtr;
@@ -15511,9 +15512,15 @@ namespace LayoutFarm.CefBridge.Auto
         public void OnAccessibilityLocationChange(CefValue value)
         {
         }
+        public static CefAccessibilityHandler New(MyCefCallback callback)
+        {
+            JsValue not_used = new JsValue();
+            return new CefAccessibilityHandler(Cef3Binder.NewInstance(_typeNAME, callback, ref not_used));
+        }
     }
-    class MyCefBrowserProcessHandler
+    public class MyCefBrowserProcessHandler
     {
+        const int _typeNAME = 57;
         const int MyCefBrowserProcessHandler_OnContextInitialized_1 = 1;
         const int MyCefBrowserProcessHandler_OnBeforeChildProcessLaunch_2 = 2;
         const int MyCefBrowserProcessHandler_OnRenderProcessThreadCreated_3 = 3;
@@ -15584,9 +15591,15 @@ namespace LayoutFarm.CefBridge.Auto
         public void OnScheduleMessagePumpWork(long delay_ms)
         {
         }
+        public static CefBrowserProcessHandler New(MyCefCallback callback)
+        {
+            JsValue not_used = new JsValue();
+            return new CefBrowserProcessHandler(Cef3Binder.NewInstance(_typeNAME, callback, ref not_used));
+        }
     }
-    class MyCefContextMenuHandler
+    public class MyCefContextMenuHandler
     {
+        const int _typeNAME = 58;
         const int MyCefContextMenuHandler_OnBeforeContextMenu_1 = 1;
         const int MyCefContextMenuHandler_RunContextMenu_2 = 2;
         const int MyCefContextMenuHandler_OnContextMenuCommand_3 = 3;
@@ -15714,9 +15727,15 @@ namespace LayoutFarm.CefBridge.Auto
         public void OnContextMenuDismissed(CefBrowser browser, CefFrame frame)
         {
         }
+        public static CefContextMenuHandler New(MyCefCallback callback)
+        {
+            JsValue not_used = new JsValue();
+            return new CefContextMenuHandler(Cef3Binder.NewInstance(_typeNAME, callback, ref not_used));
+        }
     }
-    class MyCefDialogHandler
+    public class MyCefDialogHandler
     {
+        const int _typeNAME = 59;
         const int MyCefDialogHandler_OnFileDialog_1 = 1;
         internal IntPtr nativePtr;
         public MyCefDialogHandler(IntPtr nativePtr)
@@ -15765,9 +15784,15 @@ namespace LayoutFarm.CefBridge.Auto
         {
             return false;
         }
+        public static CefDialogHandler New(MyCefCallback callback)
+        {
+            JsValue not_used = new JsValue();
+            return new CefDialogHandler(Cef3Binder.NewInstance(_typeNAME, callback, ref not_used));
+        }
     }
-    class MyCefDisplayHandler
+    public class MyCefDisplayHandler
     {
+        const int _typeNAME = 60;
         const int MyCefDisplayHandler_OnAddressChange_1 = 1;
         const int MyCefDisplayHandler_OnTitleChange_2 = 2;
         const int MyCefDisplayHandler_OnFaviconURLChange_3 = 3;
@@ -15941,9 +15966,15 @@ namespace LayoutFarm.CefBridge.Auto
         {
             return false;
         }
+        public static CefDisplayHandler New(MyCefCallback callback)
+        {
+            JsValue not_used = new JsValue();
+            return new CefDisplayHandler(Cef3Binder.NewInstance(_typeNAME, callback, ref not_used));
+        }
     }
-    class MyCefDownloadHandler
+    public class MyCefDownloadHandler
     {
+        const int _typeNAME = 61;
         const int MyCefDownloadHandler_OnBeforeDownload_1 = 1;
         const int MyCefDownloadHandler_OnDownloadUpdated_2 = 2;
         internal IntPtr nativePtr;
@@ -16005,9 +16036,15 @@ namespace LayoutFarm.CefBridge.Auto
         public void OnDownloadUpdated(CefBrowser browser, CefDownloadItem download_item, CefDownloadItemCallback callback)
         {
         }
+        public static CefDownloadHandler New(MyCefCallback callback)
+        {
+            JsValue not_used = new JsValue();
+            return new CefDownloadHandler(Cef3Binder.NewInstance(_typeNAME, callback, ref not_used));
+        }
     }
-    class MyCefDragHandler
+    public class MyCefDragHandler
     {
+        const int _typeNAME = 62;
         const int MyCefDragHandler_OnDragEnter_1 = 1;
         const int MyCefDragHandler_OnDraggableRegionsChanged_2 = 2;
         internal IntPtr nativePtr;
@@ -16062,9 +16099,15 @@ namespace LayoutFarm.CefBridge.Auto
         public void OnDraggableRegionsChanged(CefBrowser browser, List<object> regions)
         {
         }
+        public static CefDragHandler New(MyCefCallback callback)
+        {
+            JsValue not_used = new JsValue();
+            return new CefDragHandler(Cef3Binder.NewInstance(_typeNAME, callback, ref not_used));
+        }
     }
-    class MyCefFindHandler
+    public class MyCefFindHandler
     {
+        const int _typeNAME = 63;
         const int MyCefFindHandler_OnFindResult_1 = 1;
         internal IntPtr nativePtr;
         public MyCefFindHandler(IntPtr nativePtr)
@@ -16108,9 +16151,15 @@ namespace LayoutFarm.CefBridge.Auto
         public void OnFindResult(CefBrowser browser, int identifier, int count, CefRect selectionRect, int activeMatchOrdinal, bool finalUpdate)
         {
         }
+        public static CefFindHandler New(MyCefCallback callback)
+        {
+            JsValue not_used = new JsValue();
+            return new CefFindHandler(Cef3Binder.NewInstance(_typeNAME, callback, ref not_used));
+        }
     }
-    class MyCefFocusHandler
+    public class MyCefFocusHandler
     {
+        const int _typeNAME = 64;
         const int MyCefFocusHandler_OnTakeFocus_1 = 1;
         const int MyCefFocusHandler_OnSetFocus_2 = 2;
         const int MyCefFocusHandler_OnGotFocus_3 = 3;
@@ -16179,9 +16228,15 @@ namespace LayoutFarm.CefBridge.Auto
         public void OnGotFocus(CefBrowser browser)
         {
         }
+        public static CefFocusHandler New(MyCefCallback callback)
+        {
+            JsValue not_used = new JsValue();
+            return new CefFocusHandler(Cef3Binder.NewInstance(_typeNAME, callback, ref not_used));
+        }
     }
-    class MyCefGeolocationHandler
+    public class MyCefGeolocationHandler
     {
+        const int _typeNAME = 65;
         const int MyCefGeolocationHandler_OnRequestGeolocationPermission_1 = 1;
         const int MyCefGeolocationHandler_OnCancelGeolocationPermission_2 = 2;
         internal IntPtr nativePtr;
@@ -16240,9 +16295,15 @@ namespace LayoutFarm.CefBridge.Auto
         public void OnCancelGeolocationPermission(CefBrowser browser, int request_id)
         {
         }
+        public static CefGeolocationHandler New(MyCefCallback callback)
+        {
+            JsValue not_used = new JsValue();
+            return new CefGeolocationHandler(Cef3Binder.NewInstance(_typeNAME, callback, ref not_used));
+        }
     }
-    class MyCefJSDialogHandler
+    public class MyCefJSDialogHandler
     {
+        const int _typeNAME = 66;
         const int MyCefJSDialogHandler_OnJSDialog_1 = 1;
         const int MyCefJSDialogHandler_OnBeforeUnloadDialog_2 = 2;
         const int MyCefJSDialogHandler_OnResetDialogState_3 = 3;
@@ -16362,9 +16423,15 @@ namespace LayoutFarm.CefBridge.Auto
         public void OnDialogClosed(CefBrowser browser)
         {
         }
+        public static CefJSDialogHandler New(MyCefCallback callback)
+        {
+            JsValue not_used = new JsValue();
+            return new CefJSDialogHandler(Cef3Binder.NewInstance(_typeNAME, callback, ref not_used));
+        }
     }
-    class MyCefKeyboardHandler
+    public class MyCefKeyboardHandler
     {
+        const int _typeNAME = 67;
         const int MyCefKeyboardHandler_OnPreKeyEvent_1 = 1;
         const int MyCefKeyboardHandler_OnKeyEvent_2 = 2;
         internal IntPtr nativePtr;
@@ -16432,9 +16499,15 @@ namespace LayoutFarm.CefBridge.Auto
         {
             return false;
         }
+        public static CefKeyboardHandler New(MyCefCallback callback)
+        {
+            JsValue not_used = new JsValue();
+            return new CefKeyboardHandler(Cef3Binder.NewInstance(_typeNAME, callback, ref not_used));
+        }
     }
-    class MyCefLifeSpanHandler
+    public class MyCefLifeSpanHandler
     {
+        const int _typeNAME = 68;
         const int MyCefLifeSpanHandler_OnBeforePopup_1 = 1;
         const int MyCefLifeSpanHandler_OnAfterCreated_2 = 2;
         const int MyCefLifeSpanHandler_DoClose_3 = 3;
@@ -16558,9 +16631,15 @@ namespace LayoutFarm.CefBridge.Auto
         public void OnBeforeClose(CefBrowser browser)
         {
         }
+        public static CefLifeSpanHandler New(MyCefCallback callback)
+        {
+            JsValue not_used = new JsValue();
+            return new CefLifeSpanHandler(Cef3Binder.NewInstance(_typeNAME, callback, ref not_used));
+        }
     }
-    class MyCefLoadHandler
+    public class MyCefLoadHandler
     {
+        const int _typeNAME = 69;
         const int MyCefLoadHandler_OnLoadingStateChange_1 = 1;
         const int MyCefLoadHandler_OnLoadStart_2 = 2;
         const int MyCefLoadHandler_OnLoadEnd_3 = 3;
@@ -16682,9 +16761,15 @@ namespace LayoutFarm.CefBridge.Auto
         public void OnLoadError(CefBrowser browser, CefFrame frame, cef_errorcode_t errorCode, string errorText, string failedUrl)
         {
         }
+        public static CefLoadHandler New(MyCefCallback callback)
+        {
+            JsValue not_used = new JsValue();
+            return new CefLoadHandler(Cef3Binder.NewInstance(_typeNAME, callback, ref not_used));
+        }
     }
-    class MyCefPrintHandler
+    public class MyCefPrintHandler
     {
+        const int _typeNAME = 70;
         const int MyCefPrintHandler_OnPrintStart_1 = 1;
         const int MyCefPrintHandler_OnPrintSettings_2 = 2;
         const int MyCefPrintHandler_OnPrintDialog_3 = 3;
@@ -16829,9 +16914,15 @@ namespace LayoutFarm.CefBridge.Auto
         {
             throw new CefNotImplementedException();
         }
+        public static CefPrintHandler New(MyCefCallback callback)
+        {
+            JsValue not_used = new JsValue();
+            return new CefPrintHandler(Cef3Binder.NewInstance(_typeNAME, callback, ref not_used));
+        }
     }
-    class MyCefRenderHandler
+    public class MyCefRenderHandler
     {
+        const int _typeNAME = 71;
         const int MyCefRenderHandler_GetAccessibilityHandler_1 = 1;
         const int MyCefRenderHandler_GetRootScreenRect_2 = 2;
         const int MyCefRenderHandler_GetViewRect_3 = 3;
@@ -17176,9 +17267,15 @@ namespace LayoutFarm.CefBridge.Auto
         public void OnImeCompositionRangeChanged(CefBrowser browser, CefRange selected_range, List<object> character_bounds)
         {
         }
+        public static CefRenderHandler New(MyCefCallback callback)
+        {
+            JsValue not_used = new JsValue();
+            return new CefRenderHandler(Cef3Binder.NewInstance(_typeNAME, callback, ref not_used));
+        }
     }
-    class MyCefRenderProcessHandler
+    public class MyCefRenderProcessHandler
     {
+        const int _typeNAME = 72;
         const int MyCefRenderProcessHandler_OnRenderThreadCreated_1 = 1;
         const int MyCefRenderProcessHandler_OnWebKitInitialized_2 = 2;
         const int MyCefRenderProcessHandler_OnBrowserCreated_3 = 3;
@@ -17423,9 +17520,15 @@ namespace LayoutFarm.CefBridge.Auto
         {
             return false;
         }
+        public static CefRenderProcessHandler New(MyCefCallback callback)
+        {
+            JsValue not_used = new JsValue();
+            return new CefRenderProcessHandler(Cef3Binder.NewInstance(_typeNAME, callback, ref not_used));
+        }
     }
-    class MyCefRequestContextHandler
+    public class MyCefRequestContextHandler
     {
+        const int _typeNAME = 73;
         const int MyCefRequestContextHandler_GetCookieManager_1 = 1;
         const int MyCefRequestContextHandler_OnBeforePluginLoad_2 = 2;
         internal IntPtr nativePtr;
@@ -17476,9 +17579,15 @@ namespace LayoutFarm.CefBridge.Auto
         {
             return false;
         }
+        public static CefRequestContextHandler New(MyCefCallback callback)
+        {
+            JsValue not_used = new JsValue();
+            return new CefRequestContextHandler(Cef3Binder.NewInstance(_typeNAME, callback, ref not_used));
+        }
     }
-    class MyCefRequestHandler
+    public class MyCefRequestHandler
     {
+        const int _typeNAME = 74;
         const int MyCefRequestHandler_OnBeforeBrowse_1 = 1;
         const int MyCefRequestHandler_OnOpenURLFromTab_2 = 2;
         const int MyCefRequestHandler_OnBeforeResourceLoad_3 = 3;
@@ -17986,9 +18095,15 @@ namespace LayoutFarm.CefBridge.Auto
         public void OnRenderProcessTerminated(CefBrowser browser, cef_termination_status_t status)
         {
         }
+        public static CefRequestHandler New(MyCefCallback callback)
+        {
+            JsValue not_used = new JsValue();
+            return new CefRequestHandler(Cef3Binder.NewInstance(_typeNAME, callback, ref not_used));
+        }
     }
-    class MyCefResourceBundleHandler
+    public class MyCefResourceBundleHandler
     {
+        const int _typeNAME = 75;
         const int MyCefResourceBundleHandler_GetLocalizedString_1 = 1;
         const int MyCefResourceBundleHandler_GetDataResource_2 = 2;
         const int MyCefResourceBundleHandler_GetDataResourceForScale_3 = 3;
@@ -18083,9 +18198,15 @@ namespace LayoutFarm.CefBridge.Auto
         {
             return false;
         }
+        public static CefResourceBundleHandler New(MyCefCallback callback)
+        {
+            JsValue not_used = new JsValue();
+            return new CefResourceBundleHandler(Cef3Binder.NewInstance(_typeNAME, callback, ref not_used));
+        }
     }
-    class MyCefResourceHandler
+    public class MyCefResourceHandler
     {
+        const int _typeNAME = 76;
         const int MyCefResourceHandler_ProcessRequest_1 = 1;
         const int MyCefResourceHandler_GetResponseHeaders_2 = 2;
         const int MyCefResourceHandler_ReadResponse_3 = 3;
@@ -18218,9 +18339,15 @@ namespace LayoutFarm.CefBridge.Auto
         public void Cancel()
         {
         }
+        public static CefResourceHandler New(MyCefCallback callback)
+        {
+            JsValue not_used = new JsValue();
+            return new CefResourceHandler(Cef3Binder.NewInstance(_typeNAME, callback, ref not_used));
+        }
     }
-    class MyCefReadHandler
+    public class MyCefReadHandler
     {
+        const int _typeNAME = 77;
         const int MyCefReadHandler_Read_1 = 1;
         const int MyCefReadHandler_Seek_2 = 2;
         const int MyCefReadHandler_Tell_3 = 3;
@@ -18294,9 +18421,15 @@ namespace LayoutFarm.CefBridge.Auto
         {
             return false;
         }
+        public static CefReadHandler New(MyCefCallback callback)
+        {
+            JsValue not_used = new JsValue();
+            return new CefReadHandler(Cef3Binder.NewInstance(_typeNAME, callback, ref not_used));
+        }
     }
-    class MyCefWriteHandler
+    public class MyCefWriteHandler
     {
+        const int _typeNAME = 78;
         const int MyCefWriteHandler_Write_1 = 1;
         const int MyCefWriteHandler_Seek_2 = 2;
         const int MyCefWriteHandler_Tell_3 = 3;
@@ -18370,9 +18503,15 @@ namespace LayoutFarm.CefBridge.Auto
         {
             return false;
         }
+        public static CefWriteHandler New(MyCefCallback callback)
+        {
+            JsValue not_used = new JsValue();
+            return new CefWriteHandler(Cef3Binder.NewInstance(_typeNAME, callback, ref not_used));
+        }
     }
-    class MyCefV8Handler
+    public class MyCefV8Handler
     {
+        const int _typeNAME = 79;
         const int MyCefV8Handler_Execute_1 = 1;
         internal IntPtr nativePtr;
         public MyCefV8Handler(IntPtr nativePtr)
@@ -18412,6 +18551,11 @@ namespace LayoutFarm.CefBridge.Auto
         public bool Execute(string name, CefV8Value _object, CefV8ValueList arguments, IntPtr retval, string exception)
         {
             return false;
+        }
+        public static CefV8Handler New(MyCefCallback callback)
+        {
+            JsValue not_used = new JsValue();
+            return new CefV8Handler(Cef3Binder.NewInstance(_typeNAME, callback, ref not_used));
         }
     }
 }
