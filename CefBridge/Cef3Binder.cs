@@ -685,6 +685,70 @@ namespace LayoutFarm.CefBridge
         public static unsafe extern void* MyMetArgGetArgAddress(IntPtr myMetArgs, int index);
         //--------
 
+        public static string MyMetArgGetAsString(IntPtr myMetArgs, int index)
+        {
+            unsafe
+            {
+                return Cef3Binder.MyCefJsReadString((JsValue*)Cef3Binder.MyMetArgGetArgAddress(myMetArgs, index));
+            }
+        }
+        public static int MyMetArgGetAsInt32(IntPtr myMetArgs, int index)
+        {
+            unsafe
+            {
+                JsValue* jsvalue = (JsValue*)Cef3Binder.MyMetArgGetArgAddress(myMetArgs, index);
+                return jsvalue->I32;
+            }
+        }
+        public static uint MyMetArgGetAsUInt32(IntPtr myMetArgs, int index)
+        {
+            unsafe
+            {
+                JsValue* jsvalue = (JsValue*)Cef3Binder.MyMetArgGetArgAddress(myMetArgs, index);
+                return (uint)jsvalue->I32;
+            }
+        }
+        public static long MyMetArgGetAsInt64(IntPtr myMetArgs, int index)
+        {
+            unsafe
+            {
+                JsValue* jsvalue = (JsValue*)Cef3Binder.MyMetArgGetArgAddress(myMetArgs, index);
+                return jsvalue->I64;
+            }
+        }
+        public static ulong MyMetArgGetAsUInt64(IntPtr myMetArgs, int index)
+        {
+            unsafe
+            {
+                JsValue* jsvalue = (JsValue*)Cef3Binder.MyMetArgGetArgAddress(myMetArgs, index);
+                return (ulong)jsvalue->I64;
+            }
+        }
+        public static bool MyMetArgGetAsBool(IntPtr myMetArgs, int index)
+        {
+            unsafe
+            {
+                JsValue* jsvalue = (JsValue*)Cef3Binder.MyMetArgGetArgAddress(myMetArgs, index);
+                return jsvalue->I32 != 0;
+            }
+        }
+        public static double MyMetArgGetAsDouble(IntPtr myMetArgs, int index)
+        {
+            unsafe
+            {
+                JsValue* jsvalue = (JsValue*)Cef3Binder.MyMetArgGetArgAddress(myMetArgs, index);
+                return jsvalue->Num;
+            }
+        }
+        public static float MyMetArgGetAsFloat(IntPtr myMetArgs, int index)
+        {
+            unsafe
+            {
+                JsValue* jsvalue = (JsValue*)Cef3Binder.MyMetArgGetArgAddress(myMetArgs, index);
+                return jsvalue->Num;
+            }
+        }
+        //--------
         public static string MyCefJsReadString(ref JsValue ret)
         {
             unsafe
@@ -701,7 +765,7 @@ namespace LayoutFarm.CefBridge
             }
         }
         public unsafe static string MyCefJsReadString(JsValue* ret)
-        { 
+        {
             int actualLen;
             int buffLen = ret->I32 + 1; //string len
             char* buffHead = stackalloc char[buffLen];
@@ -710,7 +774,7 @@ namespace LayoutFarm.CefBridge
             {
                 //read more
             }
-            return new string(buffHead, 0, actualLen); 
+            return new string(buffHead, 0, actualLen);
         }
         public static void MyCefCreateNativeStringHolder(ref JsValue ret, string value)
         {
