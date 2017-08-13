@@ -187,5 +187,9 @@ namespace LayoutFarm.CefBridge
         }
     }
 
+    class CefImplementedException : NotImplementedException
+    {
+
+    }
 
 }
