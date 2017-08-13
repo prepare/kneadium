@@ -3132,7 +3132,7 @@ namespace BridgeBuilder
                     stbuilder.AppendLine("case " + met.CppMethodSwitchCaseName + ":{");
                     stbuilder.AppendLine("var args = new " + met.Name + "Args(nativeMetArgs);");
                     stbuilder.AppendLine("newInst." + met.Name + "(args);");
-                    stbuilder.AppendLine("}");//case
+                    stbuilder.AppendLine("}break;");//case
 
                 }
 
