@@ -41,7 +41,7 @@ namespace BridgeBuilder
             _dbugLineCount++;
             if (_dbugEnableLineNote)
             {
-               // stbuilder.AppendLine("/*" + _dbugLineCount + "*/");
+                // stbuilder.AppendLine("/*" + _dbugLineCount + "*/");
                 //if (_dbugLineCount >= 14863)
                 //{
 
@@ -2777,7 +2777,7 @@ namespace BridgeBuilder
                 }
             }
 
-            
+
 
             if (callToDotNetMets.Count > 0)
             {
@@ -2786,16 +2786,13 @@ namespace BridgeBuilder
 
         }
 
-        void GenerateCsMethodArgsClass(MethodTxInfo met, CodeStringBuilder stbuilder)
+        string GenerateCsMethodArgsClass(MethodTxInfo met, CodeStringBuilder stbuilder)
         {
             //generate cs method pars
             CodeMethodDeclaration metDecl = (CodeMethodDeclaration)met.metDecl;
             List<CodeMethodParameter> pars = metDecl.Parameters;
             int j = pars.Count;
-            if (j == 0)
-            {
-                return;
-            }
+
 
             stbuilder.AppendLine("//gen! " + metDecl.ToString());
             //temp 
@@ -2960,15 +2957,14 @@ namespace BridgeBuilder
 
                 stbuilder.AppendLine("}"); //method
             }
-
-
-
             stbuilder.AppendLine("}"); //struct
+
+            return className;
         }
-        void GenerateCsImplMethod(MethodTxInfo met, CodeStringBuilder stbuilder)
+        void GenerateCsImplMethod1(MethodTxInfo met, CodeStringBuilder stbuilder)
         {
             CodeMethodDeclaration metDecl = (CodeMethodDeclaration)met.metDecl;
-            stbuilder.AppendLine("//gen! " + metDecl.ToString());
+
             //temp 
             stbuilder.Append("public ");
             stbuilder.Append(GetCsRetName(met.ReturnPlan.TypeSymbol));
@@ -3050,7 +3046,20 @@ namespace BridgeBuilder
 
             stbuilder.AppendLine("}"); //method
         }
+        void GenerateCsImplMethod2(string argClassName, MethodTxInfo met, CodeStringBuilder stbuilder)
+        {
+            CodeMethodDeclaration metDecl = (CodeMethodDeclaration)met.metDecl;
+            //temp 
+            stbuilder.Append("public void ");
+            stbuilder.Append(" ");
+            stbuilder.Append(met.Name);
+            stbuilder.Append("(");
+            stbuilder.Append(argClassName + " args");
+            stbuilder.Append("){");
+            //arg expansion
 
+            stbuilder.AppendLine("}"); //method
+        }
         void GenerateCsImplClass(CodeTypeDeclaration orgDecl, List<MethodTxInfo> callToDotNetMets, CodeStringBuilder stbuilder)
         {
 
@@ -3074,6 +3083,9 @@ namespace BridgeBuilder
             stbuilder.AppendLine("public " + className + "(IntPtr nativePtr){");
             stbuilder.AppendLine("this.nativePtr= nativePtr;");
             stbuilder.AppendLine("}");
+            //
+            stbuilder.AppendLine("public " + className + "(){}");
+
             //------
             nn = callToDotNetMets.Count;
             for (int mm = 0; mm < nn; ++mm)
@@ -3081,16 +3093,54 @@ namespace BridgeBuilder
                 //implement on event notificationi
                 MethodTxInfo met = callToDotNetMets[mm];
                 //prepare data and call the callback
-                GenerateCsMethodArgsClass(met, stbuilder);
-                GenerateCsImplMethod(met, stbuilder);
+                string argClassName = GenerateCsMethodArgsClass(met, stbuilder);
+                GenerateCsImplMethod2(argClassName, met, stbuilder);
+
+                GenerateCsImplMethod1(met, stbuilder);
             }
 
             //-----------------------------------------------------------------------
             if (this.CppImplClassName != null)
             {
+                //new with callback
                 stbuilder.AppendLine("public static " + className + " New(MyCefCallback callback){");
                 stbuilder.AppendLine("JsValue not_used= new JsValue();");
                 stbuilder.AppendLine("return new " + className + "(Cef3Binder.NewInstance(_typeNAME,callback,ref not_used));");
+                stbuilder.AppendLine("}");
+                //with built in method table
+
+                //public static MyCefRequestHandler New()
+                //{ 
+                //    MyCefRequestHandler newInst = new MyCefRequestHandler();
+                //    newInst.nativePtr = Cef3Binder.NewInstance(_typeNAME, new MyCefCallback((met_id, nativeMetArgs) =>
+                //    {
+
+
+                //    }));
+                //    return newInst;
+                //}
+                stbuilder.AppendLine("public static " + className + " New(){");
+                stbuilder.AppendLine(className + " newInst= new " + className + "();");
+                stbuilder.AppendLine("newInst.nativePtr = Cef3Binder.NewInstance(_typeNAME,(met_id, nativeMetArgs) =>");
+                stbuilder.AppendLine("{");
+                stbuilder.AppendLine("switch(met_id){");
+
+                for (int mm = 0; mm < nn; ++mm)
+                {
+                    //implement on event notificationi
+                    MethodTxInfo met = callToDotNetMets[mm];
+                    stbuilder.AppendLine("case " + met.CppMethodSwitchCaseName + ":{");
+                    stbuilder.AppendLine("var args = new " + met.Name + "Args(nativeMetArgs);");
+                    stbuilder.AppendLine("newInst." + met.Name + "(args);");
+                    stbuilder.AppendLine("}");//case
+
+                }
+
+
+                stbuilder.AppendLine("}");//switch
+
+                stbuilder.AppendLine("});");
+                stbuilder.AppendLine("return newInst;");
                 stbuilder.AppendLine("}");
             }
 
