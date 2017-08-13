@@ -2777,7 +2777,7 @@ namespace BridgeBuilder
                 }
             }
 
-
+            
 
             if (callToDotNetMets.Count > 0)
             {
@@ -3056,8 +3056,9 @@ namespace BridgeBuilder
 
             string className = "My" + orgDecl.Name;
             //create a cpp class              
-            stbuilder.Append("class " + className);
+            stbuilder.Append("public class " + className);
             stbuilder.AppendLine("{");
+            stbuilder.AppendLine("const int _typeNAME=" + orgDecl.TypeTxInfo.CsInterOpTypeNameId + ";");
 
             int nn = callToDotNetMets.Count;
             for (int mm = 0; mm < nn; ++mm)
@@ -3082,6 +3083,15 @@ namespace BridgeBuilder
                 //prepare data and call the callback
                 GenerateCsMethodArgsClass(met, stbuilder);
                 GenerateCsImplMethod(met, stbuilder);
+            }
+
+            //-----------------------------------------------------------------------
+            if (this.CppImplClassName != null)
+            {
+                stbuilder.AppendLine("public static " + orgDecl.Name + " New(MyCefCallback callback){");
+                stbuilder.AppendLine("JsValue not_used= new JsValue();");
+                stbuilder.AppendLine("return new " + orgDecl.Name + "(Cef3Binder.NewInstance(_typeNAME,callback,ref not_used));");
+                stbuilder.AppendLine("}");
             }
 
             stbuilder.AppendLine("}");

@@ -555,6 +555,11 @@ namespace BridgeBuilder
                 stbuilder = new CodeStringBuilder();
                 tx.GenerateCsCode(stbuilder);
                 csCodeStBuilder.Append(stbuilder.ToString());
+
+                if (tx.CppImplClassNameId > 0)
+                {
+                    customImplClasses.Add(tx);
+                }
             }
 
             CreateCppSwitchTable(cppCodeStBuilder, instanceClassPlans);
