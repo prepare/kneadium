@@ -13,7 +13,11 @@ namespace LayoutFarm.CefBridge
     }
     public struct CefAccessibilityHandler
     {
-
+        internal IntPtr nativePtr;
+        public CefAccessibilityHandler(IntPtr nativePtr)
+        {
+            this.nativePtr = nativePtr;
+        }
     }
     public struct CefBrowserProcessHandler
     {
