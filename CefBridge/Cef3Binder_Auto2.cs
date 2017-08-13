@@ -15,9 +15,142 @@ namespace LayoutFarm.CefBridge
     {
 
     }
+    public struct CefBrowserProcessHandler
+    {
+        internal IntPtr nativePtr;
+        public CefBrowserProcessHandler(IntPtr nativePtr)
+        {
+            this.nativePtr = nativePtr;
+        }
+    }
+    public struct CefRequestHandler
+    {
+        internal IntPtr nativePtr;
+        public CefRequestHandler(IntPtr nativePtr)
+        {
+            this.nativePtr = nativePtr;
+        }
+    }
+    public struct CefRenderProcessHandler
+    {
+        internal IntPtr nativePtr;
+        public CefRenderProcessHandler(IntPtr nativePtr)
+        {
+            this.nativePtr = nativePtr;
+        }
+
+    }
+    public struct CefLifeSpanHandler
+    {
+        internal IntPtr nativePtr;
+        public CefLifeSpanHandler(IntPtr nativePtr)
+        {
+            this.nativePtr = nativePtr;
+        } 
+    }
+    public struct CefKeyboardHandler
+    {
+        internal IntPtr nativePtr;
+        public CefKeyboardHandler(IntPtr nativePtr)
+        {
+            this.nativePtr = nativePtr;
+        }
+    }
+    public struct CefDialogHandler
+    {
+        internal IntPtr nativePtr;
+        public CefDialogHandler(IntPtr nativePtr)
+        {
+            this.nativePtr = nativePtr;
+        }
+    }
+    public struct CefDisplayHandler
+    {
+        internal IntPtr nativePtr;
+        public CefDisplayHandler(IntPtr nativePtr)
+        {
+            this.nativePtr = nativePtr;
+        }
+    }
+    public struct CefFindHandler
+    {
+        internal IntPtr nativePtr;
+        public CefFindHandler(IntPtr nativePtr)
+        {
+            this.nativePtr = nativePtr;
+        }
+    }
+    public struct CefDragHandler
+    {
+        internal IntPtr nativePtr;
+        public CefDragHandler(IntPtr nativePtr)
+        {
+            this.nativePtr = nativePtr;
+        }
+    }
+    public struct CefDownloadHandler
+    {
+        internal IntPtr nativePtr;
+        public CefDownloadHandler(IntPtr nativePtr)
+        {
+            this.nativePtr = nativePtr;
+        }
+    }
+    public struct CefFocusHandler
+    {
+        internal IntPtr nativePtr;
+        public CefFocusHandler(IntPtr nativePtr)
+        {
+            this.nativePtr = nativePtr;
+        }
+    }
+    public struct CefGeolocationHandler
+    {
+        internal IntPtr nativePtr;
+        public CefGeolocationHandler(IntPtr nativePtr)
+        {
+            this.nativePtr = nativePtr;
+        }
+    }
+    public struct CefContextMenuHandler
+    {
+        internal IntPtr nativePtr;
+        public CefContextMenuHandler(IntPtr nativePtr)
+        {
+            this.nativePtr = nativePtr;
+        }
+    }
+    public struct CefRenderHandler
+    {
+        internal IntPtr nativePtr;
+        public CefRenderHandler(IntPtr nativePtr)
+        {
+            this.nativePtr = nativePtr;
+        }
+    }
+    public struct CefJSDialogHandler
+    {
+        internal IntPtr nativePtr;
+        public CefJSDialogHandler(IntPtr nativePtr)
+        {
+            this.nativePtr = nativePtr;
+        }
+    }
     public struct CefLoadHandler
     {
-
+        internal IntPtr nativePtr;
+        public CefLoadHandler(IntPtr nativePtr)
+        {
+            this.nativePtr = nativePtr;
+        }
+    }
+    public struct CefReadHandler
+    {
+        internal IntPtr nativePtr;
+        public CefReadHandler(IntPtr nativePtr)
+        {
+            this.nativePtr = nativePtr;
+        }
     }
     public struct CefCursorInfo
     {
@@ -145,6 +278,22 @@ namespace LayoutFarm.CefBridge
     {
         internal IntPtr nativePtr;
         public SwitchMap(IntPtr nativePtr)
+        {
+            this.nativePtr = nativePtr;
+        }
+    }
+    public struct CefWriteHandler
+    {
+        internal IntPtr nativePtr;
+        public CefWriteHandler(IntPtr nativePtr)
+        {
+            this.nativePtr = nativePtr;
+        }
+    }
+    public struct CefResourceBundleHandler
+    {
+        internal IntPtr nativePtr;
+        public CefResourceBundleHandler(IntPtr nativePtr)
         {
             this.nativePtr = nativePtr;
         }
