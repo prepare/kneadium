@@ -2966,7 +2966,7 @@ namespace BridgeBuilder
             CodeMethodDeclaration metDecl = (CodeMethodDeclaration)met.metDecl;
 
             //temp 
-            stbuilder.Append("public ");
+            stbuilder.Append("public virtual ");
             stbuilder.Append(GetCsRetName(met.ReturnPlan.TypeSymbol));
             stbuilder.Append(" ");
             stbuilder.Append(met.Name);
@@ -3050,7 +3050,7 @@ namespace BridgeBuilder
         {
             CodeMethodDeclaration metDecl = (CodeMethodDeclaration)met.metDecl;
             //temp 
-            stbuilder.Append("public void ");
+            stbuilder.Append("public virtual void ");
             stbuilder.Append(" ");
             stbuilder.Append(met.Name);
             stbuilder.Append("(");
