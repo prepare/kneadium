@@ -41,11 +41,11 @@ namespace BridgeBuilder
             _dbugLineCount++;
             if (_dbugEnableLineNote)
             {
-                stbuilder.AppendLine("/*" + _dbugLineCount + "*/");
-                if (_dbugLineCount >= 14863)
-                {
+               // stbuilder.AppendLine("/*" + _dbugLineCount + "*/");
+                //if (_dbugLineCount >= 14863)
+                //{
 
-                }
+                //}
             }
 
         }
@@ -2789,8 +2789,14 @@ namespace BridgeBuilder
         void GenerateCsMethodArgsClass(MethodTxInfo met, CodeStringBuilder stbuilder)
         {
             //generate cs method pars
-
             CodeMethodDeclaration metDecl = (CodeMethodDeclaration)met.metDecl;
+            List<CodeMethodParameter> pars = metDecl.Parameters;
+            int j = pars.Count;
+            if (j == 0)
+            {
+                return;
+            }
+
             stbuilder.AppendLine("//gen! " + metDecl.ToString());
             //temp 
             string className = met.Name + "Args";
@@ -2803,8 +2809,7 @@ namespace BridgeBuilder
             stbuilder.AppendLine("}");
 
 
-            List<CodeMethodParameter> pars = metDecl.Parameters;
-            int j = pars.Count;
+
             for (int i = 0; i < j; ++i)
             {
                 //move this to method
