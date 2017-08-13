@@ -2961,7 +2961,7 @@ namespace BridgeBuilder
 
             return className;
         }
-        void GenerateCsImplMethod1(MethodTxInfo met, CodeStringBuilder stbuilder)
+        void GenerateCsExpandedArgsMethodImpl(MethodTxInfo met, CodeStringBuilder stbuilder)
         {
             CodeMethodDeclaration metDecl = (CodeMethodDeclaration)met.metDecl;
 
@@ -2992,6 +2992,16 @@ namespace BridgeBuilder
                     case "string":
                         {
                             parTx.Name = "_string";
+                        }
+                        break;
+                    case "object":
+                        {
+                            parTx.Name = "_object";
+                        }
+                        break;
+                    case "event":
+                        {
+                            parTx.Name = "_event";
                         }
                         break;
                 }
@@ -3046,7 +3056,7 @@ namespace BridgeBuilder
 
             stbuilder.AppendLine("}"); //method
         }
-        void GenerateCsImplMethod2(string argClassName, MethodTxInfo met, CodeStringBuilder stbuilder)
+        void GenerateCsSingleArgMethodImpl(string argClassName, MethodTxInfo met, CodeStringBuilder stbuilder)
         {
             CodeMethodDeclaration metDecl = (CodeMethodDeclaration)met.metDecl;
             //temp 
@@ -3055,8 +3065,28 @@ namespace BridgeBuilder
             stbuilder.Append(met.Name);
             stbuilder.Append("(");
             stbuilder.Append(argClassName + " args");
-            stbuilder.Append("){");
-            //arg expansion
+            stbuilder.AppendLine("){");
+            stbuilder.Append(met.Name);
+            stbuilder.Append("(");
+            List<MethodParameterTxInfo> pars = met.pars;
+            int j = pars.Count;
+            if (j > 0)
+            {
+                //arg expansion 
+                //bool allow_os_execution = false;
+                //OnProtocolExecution(args.browser(), args.url(), ref allow_os_execution);
+                //args.allow_os_execution(allow_os_execution);
+                for (int i = 0; i < j; ++i)
+                {
+                    if (i > 0)
+                    {
+                        stbuilder.Append(",\r\n");
+                    }
+                    MethodParameterTxInfo par = pars[i];
+                    stbuilder.Append("args." + par.Name + "()");
+                }
+            }
+            stbuilder.AppendLine(");");
 
             stbuilder.AppendLine("}"); //method
         }
@@ -3092,18 +3122,19 @@ namespace BridgeBuilder
             {
                 //implement on event notificationi
                 MethodTxInfo met = callToDotNetMets[mm];
-                //prepare data and call the callback
+                //prepare data and call the callback                
+                GenerateCsExpandedArgsMethodImpl(met, stbuilder);
                 string argClassName = GenerateCsMethodArgsClass(met, stbuilder);
-                GenerateCsImplMethod2(argClassName, met, stbuilder);
+                GenerateCsSingleArgMethodImpl(argClassName, met, stbuilder);
 
-                GenerateCsImplMethod1(met, stbuilder);
+
             }
 
             //-----------------------------------------------------------------------
             if (this.CppImplClassName != null)
             {
                 //new with callback
-                stbuilder.AppendLine("public static " + className + " New(MyCefCallback callback){"); 
+                stbuilder.AppendLine("public static " + className + " New(MyCefCallback callback){");
                 stbuilder.AppendLine("return new " + className + "(Cef3Binder.NewInstance(_typeNAME,callback));");
                 stbuilder.AppendLine("}");
                 //with built in method table
@@ -3128,8 +3159,8 @@ namespace BridgeBuilder
                 {
                     //implement on event notificationi
                     MethodTxInfo met = callToDotNetMets[mm];
-                    stbuilder.AppendLine("case " + met.CppMethodSwitchCaseName + ":{");                     
-                    stbuilder.AppendLine("newInst." + met.Name + "(new "+ met.Name + "Args(nativeMetArgs));");
+                    stbuilder.AppendLine("case " + met.CppMethodSwitchCaseName + ":{");
+                    stbuilder.AppendLine("newInst." + met.Name + "(new " + met.Name + "Args(nativeMetArgs));");
                     stbuilder.AppendLine("}break;");//case
 
                 }
