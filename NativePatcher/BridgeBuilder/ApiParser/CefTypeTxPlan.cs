@@ -41,8 +41,8 @@ namespace BridgeBuilder
             _dbugLineCount++;
             if (_dbugEnableLineNote)
             {
-                //stbuilder.AppendLine("/*" + _dbugLineCount + "*/");
-                //if (_dbugLineCount >= 9834)
+               // stbuilder.AppendLine("/*" + _dbugLineCount + "*/");
+                //if (_dbugLineCount >= 14863)
                 //{
 
                 //}
@@ -1195,7 +1195,8 @@ namespace BridgeBuilder
                                                 }
 
                                                 //list of a smart pointer object
-                                            }break;
+                                            }
+                                            break;
                                         case TypeSymbolKind.TypeDef:
                                             {
                                                 CTypeDefTypeSymbol typedef = (CTypeDefTypeSymbol)elem;
@@ -2468,7 +2469,7 @@ namespace BridgeBuilder
         }
         void GenerateCppImplMethod(MethodTxInfo met, CodeStringBuilder stbuilder)
         {
-            CodeMethodDeclaration metDecl = (CodeMethodDeclaration)met.metDecl;
+            CodeMethodDeclaration metDecl = met.metDecl;
             stbuilder.AppendLine("//gen! " + metDecl.ToString());
             //temp
             if (metDecl.ReturnType.ToString() == "FilterStatus")
@@ -2788,8 +2789,14 @@ namespace BridgeBuilder
         void GenerateCsMethodArgsClass(MethodTxInfo met, CodeStringBuilder stbuilder)
         {
             //generate cs method pars
-
             CodeMethodDeclaration metDecl = (CodeMethodDeclaration)met.metDecl;
+            List<CodeMethodParameter> pars = metDecl.Parameters;
+            int j = pars.Count;
+            if (j == 0)
+            {
+                return;
+            }
+
             stbuilder.AppendLine("//gen! " + metDecl.ToString());
             //temp 
             string className = met.Name + "Args";
@@ -2802,8 +2809,7 @@ namespace BridgeBuilder
             stbuilder.AppendLine("}");
 
 
-            List<CodeMethodParameter> pars = metDecl.Parameters;
-            int j = pars.Count;
+
             for (int i = 0; i < j; ++i)
             {
                 //move this to method
@@ -2813,22 +2819,43 @@ namespace BridgeBuilder
                 switch (parTx.Name)
                 {
                     case "params":
-                        {
-                            parTx.Name = "_params";
-                        }
+                        parTx.Name = "_params";
                         break;
                     case "string":
-                        {
-                            parTx.Name = "_string";
-                        }
+                        parTx.Name = "_string";
+                        break;
+                    case "object":
+                        parTx.Name = "_object";
+                        break;
+                    case "event":
+                        parTx.Name = "_event";
                         break;
                 }
                 //
                 stbuilder.Append("public ");
 
                 string csParTypeName = GetCsRetName(parTx.TypeSymbol);
-                stbuilder.Append(csParTypeName);
-
+                string csSetterParTypeName = null;
+                switch (csParTypeName)
+                {
+                    case "ref bool":
+                        //provide both getter and setter method
+                        stbuilder.Append("bool");
+                        csSetterParTypeName = "bool";
+                        break;
+                    case "ref int":
+                        stbuilder.Append("int");
+                        csSetterParTypeName = "int";
+                        break;
+                    case "ref uint":
+                        stbuilder.Append("uint");
+                        csSetterParTypeName = "uint";
+                        break;
+                    default:
+                        stbuilder.Append(csParTypeName);
+                        csSetterParTypeName = csParTypeName;
+                        break;
+                }
 
                 //some cpp name can't be use in C#                 
                 stbuilder.Append(" ");
@@ -2840,25 +2867,37 @@ namespace BridgeBuilder
                 switch (csParTypeName)
                 {
                     default:
-                        if (!(csParTypeName.StartsWith("Cef") ||
-                            csParTypeName.StartsWith("cef")))
                         {
 
-                        } 
+                            if (csParTypeName.StartsWith("Cef"))
+                            {
+                                stbuilder.Append("return new " + csParTypeName + "(Cef3Binder.MyMetArgGetAsIntPtr(nativePtr," + (i + 1).ToString() + "));");
+                            }
+                            else if (csParTypeName.StartsWith("cef"))
+                            {
+                                stbuilder.Append("return " + "(" + csParTypeName + ")" + "Cef3Binder.MyMetArgGetAsInt32(nativePtr," + (i + 1).ToString() + ");");
+                            }
+                            else
+                            {
+                                stbuilder.Append("throw new CefNotImplementedException();");
+                            }
+                        }
+
                         break;
-                    case "IntPtr": 
+                    case "IntPtr":
+                        stbuilder.Append("throw new CefNotImplementedException();");
                         break;
                     case "List<object>":
                     case "List<string>":
-                    case "List<CefCompositionUnderline>": 
+                    case "List<CefCompositionUnderline>":
+                        stbuilder.Append("throw new CefNotImplementedException();");
                         break;
                     case "CefValue":
-                        
+
                         stbuilder.Append("throw new CefNotImplementedException();");
                         break;
                     case "uint":
                         stbuilder.Append("return " + "Cef3Binder.MyMetArgGetAsUInt32(nativePtr," + (i + 1).ToString() + ");");
-                        break;
                         break;
                     case "int":
                         stbuilder.Append("return " + "Cef3Binder.MyMetArgGetAsInt32(nativePtr," + (i + 1).ToString() + ");");
@@ -2877,18 +2916,49 @@ namespace BridgeBuilder
                         break;
                     case "ref bool":
                         //provide both getter and setter method
-                        stbuilder.Append("return " + "Cef3Binder.MyMetArgGetAsBool(nativePtr," + (i + 1).ToString() + ");");
-                        break;
+                        {
+                            stbuilder.Append("return " + "Cef3Binder.MyMetArgGetAsBool(nativePtr," + (i + 1).ToString() + ");");
+                            stbuilder.AppendLine("}");
+
+                            //method
+                            //generate setter part
+
+                            stbuilder.AppendLine("public void " + parTx.Name + "(" + csSetterParTypeName + " value){");
+                            stbuilder.AppendLine("Cef3Binder.MyMetArgSetBoolToAddress(nativePtr," + (i + 1).ToString() + ",value);");
+                            stbuilder.AppendLine("}");
+                            continue;
+                        }
+
                     case "ref int":
-                        stbuilder.Append("return " + "Cef3Binder.MyMetArgGetAsInt32(nativePtr," + (i + 1).ToString() + ");");
-                        break;
+                        {
+                            stbuilder.Append("return " + "Cef3Binder.MyMetArgGetAsInt32(nativePtr," + (i + 1).ToString() + ");");
+                            stbuilder.AppendLine("}");
+
+                            //method
+                            //generate setter part
+                            stbuilder.AppendLine("public void " + parTx.Name + "(" + csSetterParTypeName + " value){");
+                            stbuilder.AppendLine("Cef3Binder.MyMetArgSetInt32ToAddress(nativePtr," + (i + 1).ToString() + ",value);");
+                            stbuilder.AppendLine("}");
+                            continue;
+                        }
+
                     case "ref uint":
-                        stbuilder.Append("return " + "Cef3Binder.MyMetArgGetAsUInt32(nativePtr," + (i + 1).ToString() + ");");
-                        break;
+                        {
+                            stbuilder.Append("return " + "Cef3Binder.MyMetArgGetAsUInt32(nativePtr," + (i + 1).ToString() + ");");
+                            stbuilder.AppendLine("}");
+
+                            //method
+                            //generate setter part
+                            stbuilder.AppendLine("public void " + parTx.Name + "(" + csSetterParTypeName + " value){");
+                            stbuilder.AppendLine("Cef3Binder.MyMetArgSetUInt32ToAddress(nativePtr," + (i + 1).ToString() + ",value);");
+                            stbuilder.AppendLine("}");
+                            continue;
+                        }
+
                 }
 
 
-                stbuilder.AppendLine("}");
+                stbuilder.AppendLine("}"); //method
             }
 
 
@@ -2944,7 +3014,7 @@ namespace BridgeBuilder
                 string retTypeName = metDecl.ReturnType.ToString();
                 if (retTypeName.StartsWith("CefRefPtr<"))
                 {
-                    stbuilder.Append("return nullptr;");
+                    stbuilder.Append("throw new CefNotImplementedException();");
                 }
                 else
                 {
@@ -2960,7 +3030,7 @@ namespace BridgeBuilder
                             stbuilder.Append("return (ReturnValue)0;");
                             break;
                         case "CefSize":
-                            stbuilder.Append("throw new CefImplementedException();");
+                            stbuilder.Append("throw new CefNotImplementedException();");
                             break;
                         case "size_t":
                             stbuilder.Append("return 0;");
@@ -2995,8 +3065,15 @@ namespace BridgeBuilder
                 //implement on event notificationi
                 MethodTxInfo met = callToDotNetMets[mm];
                 stbuilder.AppendLine("const int " + met.CppMethodSwitchCaseName + "=" + (mm + 1) + ";");
-            } 
+            }
+            //------
 
+
+            stbuilder.AppendLine("internal IntPtr nativePtr;");
+            stbuilder.AppendLine("public " + className + "(IntPtr nativePtr){");
+            stbuilder.AppendLine("this.nativePtr= nativePtr;");
+            stbuilder.AppendLine("}");
+            //------
             nn = callToDotNetMets.Count;
             for (int mm = 0; mm < nn; ++mm)
             {
