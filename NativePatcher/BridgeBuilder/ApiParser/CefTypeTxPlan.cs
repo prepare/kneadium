@@ -274,7 +274,9 @@ namespace BridgeBuilder
                                                 par.ArgExtractCode = "MyCefSetFloat(" + destExpression + "," + srcExpression + ");";
                                                 return;
                                             case PrimitiveTypeKind.Bool:
-                                                par.ArgExtractCode = "MyCefSetBool(" + destExpression + "," + srcExpression + ");";
+                                                //reference to bool
+                                                //par.ArgExtractCode = "MyCefSetBool(" + destExpression + "," + srcExpression + ");";
+                                                par.ArgExtractCode = "MyCefSetVoidPtr(" + destExpression + ",&" + srcExpression + ");";
                                                 return;
                                             case PrimitiveTypeKind.UInt32:
                                                 par.ArgExtractCode = "MyCefSetUInt32(" + destExpression + "," + srcExpression + ");";
@@ -1133,6 +1135,8 @@ namespace BridgeBuilder
                                     {
                                         default:
                                             break;
+                                        case "CefRefPtr<CefClient>":
+                                            return "IntPtr";
                                         case "CefRefPtr<CefV8Value>":
                                             return "IntPtr";
                                         case "void*":
@@ -1150,6 +1154,8 @@ namespace BridgeBuilder
                                     {
                                         default:
                                             throw new NotSupportedException();
+                                        case "CefCursorInfo":
+                                        case "CefPopupFeatures":
                                         case "cef_color_t":
                                         case "CefKeyEvent":
                                         case "CefMouseEvent":
@@ -1179,6 +1185,17 @@ namespace BridgeBuilder
                                     {
                                         default:
                                             throw new NotSupportedException();
+                                        case TypeSymbolKind.ReferenceOrPointer:
+                                            {
+                                                string name = elem.ToString();
+                                                switch (name)
+                                                {
+                                                    case "CefRefPtr<CefX509Certificate>":
+                                                        return "List<CefCompositionUnderline>";
+                                                }
+
+                                                //list of a smart pointer object
+                                            }break;
                                         case TypeSymbolKind.TypeDef:
                                             {
                                                 CTypeDefTypeSymbol typedef = (CTypeDefTypeSymbol)elem;
@@ -1198,6 +1215,8 @@ namespace BridgeBuilder
                                                 {
                                                     default:
                                                         throw new NotSupportedException();
+                                                    case PrimitiveTypeKind.NotPrimitiveType:
+                                                        return "List<object>";
                                                     case PrimitiveTypeKind.Int64:
                                                         //list of unit
                                                         return "List<long>";
@@ -2559,7 +2578,7 @@ namespace BridgeBuilder
                             stbuilder.Append("return (ReturnValue)0;");
                             break;
                         case "CefSize":
-                            stbuilder.Append("return !");
+                            stbuilder.Append("throw new CefNotImplementException();");
                             break;
                         case "size_t":
                             stbuilder.Append("return 0;");
@@ -2620,6 +2639,8 @@ namespace BridgeBuilder
             stbuilder.AppendLine("IMPLEMENT_REFCOUNTING(" + className + ");");
             stbuilder.AppendLine("};");
         }
+
+
         public override void GenerateCppCode(CodeStringBuilder stbuilder)
         {
             CodeTypeDeclaration orgDecl = this.OriginalDecl;
@@ -2721,8 +2742,275 @@ namespace BridgeBuilder
         }
         public override void GenerateCsCode(CodeStringBuilder stbuilder)
         {
-            base.GenerateCsCode(stbuilder);
+            CodeTypeDeclaration orgDecl = this.OriginalDecl;
+            CodeTypeDeclaration implTypeDecl = this.ImplTypeDecl;
+
+
+            if (implTypeDecl.Name.Contains("CppToC"))
+            {
+                _typeTxInfo = orgDecl.TypeTxInfo;
+            }
+            else
+            {
+                _typeTxInfo = implTypeDecl.TypeTxInfo;
+            }
+
+            //-----------------------------------------------------------------------
+            List<MethodTxInfo> callToDotNetMets = new List<MethodTxInfo>();
+
+            int maxPar = 0;
+            int j = _typeTxInfo.methods.Count;
+
+            for (int i = 0; i < j; ++i)
+            {
+                MethodTxInfo metTx = _typeTxInfo.methods[i];
+                //-----------------
+                CodeMethodDeclaration codeMethodDecl = metTx.metDecl;
+                if (codeMethodDecl.IsAbstract || codeMethodDecl.IsVirtual)
+                {
+                    callToDotNetMets.Add(metTx);
+                }
+                if (metTx.pars.Count > maxPar)
+                {
+                    maxPar = metTx.pars.Count;
+                }
+            }
+
+
+
+            if (callToDotNetMets.Count > 0)
+            {
+                GenerateCsImplClass(orgDecl, callToDotNetMets, stbuilder);
+            }
+
         }
+
+        void GenerateCsMethodArgsClass(MethodTxInfo met, CodeStringBuilder stbuilder)
+        {
+            //generate cs method pars
+
+            CodeMethodDeclaration metDecl = (CodeMethodDeclaration)met.metDecl;
+            stbuilder.AppendLine("//gen! " + metDecl.ToString());
+            //temp 
+            string className = met.Name + "Args";
+
+            stbuilder.AppendLine("public struct " + className + "{ ");
+            stbuilder.AppendLine("internal IntPtr nativePtr; //met arg native ptr");
+
+            stbuilder.AppendLine("internal " + className + "(IntPtr nativePtr){");
+            stbuilder.AppendLine("this.nativePtr = nativePtr;");
+            stbuilder.AppendLine("}");
+
+
+            List<CodeMethodParameter> pars = metDecl.Parameters;
+            int j = pars.Count;
+            for (int i = 0; i < j; ++i)
+            {
+                //move this to method
+
+                CodeMethodParameter par = pars[i];
+                MethodParameterTxInfo parTx = met.pars[i];
+                switch (parTx.Name)
+                {
+                    case "params":
+                        {
+                            parTx.Name = "_params";
+                        }
+                        break;
+                    case "string":
+                        {
+                            parTx.Name = "_string";
+                        }
+                        break;
+                }
+                //
+                stbuilder.Append("public ");
+
+                string csParTypeName = GetCsRetName(parTx.TypeSymbol);
+                stbuilder.Append(csParTypeName);
+
+
+                //some cpp name can't be use in C#                 
+                stbuilder.Append(" ");
+                stbuilder.Append(parTx.Name);
+                stbuilder.Append("()");
+                stbuilder.AppendLine("{");
+
+
+                switch (csParTypeName)
+                {
+                    default:
+                        if (!(csParTypeName.StartsWith("Cef") ||
+                            csParTypeName.StartsWith("cef")))
+                        {
+
+                        } 
+                        break;
+                    case "IntPtr": 
+                        break;
+                    case "List<object>":
+                    case "List<string>":
+                    case "List<CefCompositionUnderline>": 
+                        break;
+                    case "CefValue":
+                        
+                        stbuilder.Append("throw new CefNotImplementedException();");
+                        break;
+                    case "uint":
+                        stbuilder.Append("return " + "Cef3Binder.MyMetArgGetAsUInt32(nativePtr," + (i + 1).ToString() + ");");
+                        break;
+                        break;
+                    case "int":
+                        stbuilder.Append("return " + "Cef3Binder.MyMetArgGetAsInt32(nativePtr," + (i + 1).ToString() + ");");
+                        break;
+                    case "long":
+                        stbuilder.Append("return " + "Cef3Binder.MyMetArgGetAsInt64(nativePtr," + (i + 1).ToString() + ");");
+                        break;
+                    case "string":
+                        stbuilder.Append("return " + "Cef3Binder.MyMetArgGetAsString(nativePtr," + (i + 1).ToString() + ");");
+                        break;
+                    case "bool":
+                        stbuilder.Append("return " + "Cef3Binder.MyMetArgGetAsBool(nativePtr," + (i + 1).ToString() + ");");
+                        break;
+                    case "double":
+                        stbuilder.Append("return " + "Cef3Binder.MyMetArgGetAsDouble(nativePtr," + (i + 1).ToString() + ");");
+                        break;
+                    case "ref bool":
+                        //provide both getter and setter method
+                        stbuilder.Append("return " + "Cef3Binder.MyMetArgGetAsBool(nativePtr," + (i + 1).ToString() + ");");
+                        break;
+                    case "ref int":
+                        stbuilder.Append("return " + "Cef3Binder.MyMetArgGetAsInt32(nativePtr," + (i + 1).ToString() + ");");
+                        break;
+                    case "ref uint":
+                        stbuilder.Append("return " + "Cef3Binder.MyMetArgGetAsUInt32(nativePtr," + (i + 1).ToString() + ");");
+                        break;
+                }
+
+
+                stbuilder.AppendLine("}");
+            }
+
+
+
+            stbuilder.AppendLine("}"); //struct
+        }
+        void GenerateCsImplMethod(MethodTxInfo met, CodeStringBuilder stbuilder)
+        {
+            CodeMethodDeclaration metDecl = (CodeMethodDeclaration)met.metDecl;
+            stbuilder.AppendLine("//gen! " + metDecl.ToString());
+            //temp 
+            stbuilder.Append("public ");
+            stbuilder.Append(GetCsRetName(met.ReturnPlan.TypeSymbol));
+            stbuilder.Append(" ");
+            stbuilder.Append(met.Name);
+            stbuilder.Append("(");
+
+            List<CodeMethodParameter> pars = metDecl.Parameters;
+            int j = pars.Count;
+            for (int i = 0; i < j; ++i)
+            {
+                if (i > 0)
+                {
+                    stbuilder.Append(",");
+                }
+                CodeMethodParameter par = pars[i];
+                MethodParameterTxInfo parTx = met.pars[i];
+                switch (parTx.Name)
+                {
+                    case "params":
+                        {
+                            parTx.Name = "_params";
+                        }
+                        break;
+                    case "string":
+                        {
+                            parTx.Name = "_string";
+                        }
+                        break;
+                }
+                //
+                stbuilder.Append(GetCsRetName(parTx.TypeSymbol));
+                //some cpp name can't be use in C#
+                stbuilder.Append(" ");
+                stbuilder.Append(parTx.Name);
+            }
+            stbuilder.AppendLine("){");
+
+
+
+            if (!met.ReturnPlan.IsVoid)
+            {
+                string retTypeName = metDecl.ReturnType.ToString();
+                if (retTypeName.StartsWith("CefRefPtr<"))
+                {
+                    stbuilder.Append("return nullptr;");
+                }
+                else
+                {
+                    switch (metDecl.ReturnType.ToString())
+                    {
+                        case "bool":
+                            stbuilder.Append("return false;");
+                            break;
+                        case "FilterStatus": //TODO: revisit here
+                            stbuilder.Append("return (FilterStatus)0;");
+                            break;
+                        case "ReturnValue":
+                            stbuilder.Append("return (ReturnValue)0;");
+                            break;
+                        case "CefSize":
+                            stbuilder.Append("throw new CefImplementedException();");
+                            break;
+                        case "size_t":
+                            stbuilder.Append("return 0;");
+                            break;
+                        case "int":
+                            stbuilder.Append("return 0;");
+                            break;
+                        case "int64":
+                            stbuilder.Append("return 0;");
+                            break;
+                        default:
+                            throw new NotSupportedException();
+
+                    }
+                }
+            }
+
+            stbuilder.AppendLine("}"); //method
+        }
+
+        void GenerateCsImplClass(CodeTypeDeclaration orgDecl, List<MethodTxInfo> callToDotNetMets, CodeStringBuilder stbuilder)
+        {
+
+            string className = "My" + orgDecl.Name;
+            //create a cpp class              
+            stbuilder.Append("class " + className);
+            stbuilder.AppendLine("{");
+
+            int nn = callToDotNetMets.Count;
+            for (int mm = 0; mm < nn; ++mm)
+            {
+                //implement on event notificationi
+                MethodTxInfo met = callToDotNetMets[mm];
+                stbuilder.AppendLine("const int " + met.CppMethodSwitchCaseName + "=" + (mm + 1) + ";");
+            } 
+
+            nn = callToDotNetMets.Count;
+            for (int mm = 0; mm < nn; ++mm)
+            {
+                //implement on event notificationi
+                MethodTxInfo met = callToDotNetMets[mm];
+                //prepare data and call the callback
+                GenerateCsMethodArgsClass(met, stbuilder);
+                GenerateCsImplMethod(met, stbuilder);
+            }
+
+            stbuilder.AppendLine("}");
+        }
+
+
     }
 
 
@@ -2904,7 +3192,7 @@ namespace BridgeBuilder
                     PrepareDataFromNativeToCs(parTx, "&vargs[" + i + "]", parTx.Name);
                 }
             }
-          
+
             PrepareCppMetArg(met.ReturnPlan, "args.ret");
             //
             for (int i = 0; i < j; ++i)
