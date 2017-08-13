@@ -101,6 +101,15 @@ namespace LayoutFarm.CefBridge
         public static extern void MyCefMet_CallN(IntPtr me, int metName, out JsValue ret, ref JsValue v1,
             ref JsValue v2, ref JsValue v3, ref JsValue v4, ref JsValue v5, ref JsValue v6, ref JsValue v7);
 
+
+        public static IntPtr NewInstance(int typeName, MyCefCallback callback)
+        {
+            JsValue not_used = new JsValue();
+            return NewInstance(typeName, callback, ref not_used);
+        }
+
+
+
         public static void MyCefMet_Call0(IntPtr me, int metName, out JsValue ret)
         {
 
