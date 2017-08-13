@@ -15527,14 +15527,12 @@ namespace LayoutFarm.CefBridge.Auto
                 {
                     case MyCefAccessibilityHandler_OnAccessibilityTreeChange_1:
                         {
-                            var args = new OnAccessibilityTreeChangeArgs(nativeMetArgs);
-                            newInst.OnAccessibilityTreeChange(args);
+                            newInst.OnAccessibilityTreeChange(new OnAccessibilityTreeChangeArgs(nativeMetArgs));
                         }
                         break;
                     case MyCefAccessibilityHandler_OnAccessibilityLocationChange_2:
                         {
-                            var args = new OnAccessibilityLocationChangeArgs(nativeMetArgs);
-                            newInst.OnAccessibilityLocationChange(args);
+                            newInst.OnAccessibilityLocationChange(new OnAccessibilityLocationChangeArgs(nativeMetArgs));
                         }
                         break;
                 }
@@ -15648,32 +15646,27 @@ namespace LayoutFarm.CefBridge.Auto
                 {
                     case MyCefBrowserProcessHandler_OnContextInitialized_1:
                         {
-                            var args = new OnContextInitializedArgs(nativeMetArgs);
-                            newInst.OnContextInitialized(args);
+                            newInst.OnContextInitialized(new OnContextInitializedArgs(nativeMetArgs));
                         }
                         break;
                     case MyCefBrowserProcessHandler_OnBeforeChildProcessLaunch_2:
                         {
-                            var args = new OnBeforeChildProcessLaunchArgs(nativeMetArgs);
-                            newInst.OnBeforeChildProcessLaunch(args);
+                            newInst.OnBeforeChildProcessLaunch(new OnBeforeChildProcessLaunchArgs(nativeMetArgs));
                         }
                         break;
                     case MyCefBrowserProcessHandler_OnRenderProcessThreadCreated_3:
                         {
-                            var args = new OnRenderProcessThreadCreatedArgs(nativeMetArgs);
-                            newInst.OnRenderProcessThreadCreated(args);
+                            newInst.OnRenderProcessThreadCreated(new OnRenderProcessThreadCreatedArgs(nativeMetArgs));
                         }
                         break;
                     case MyCefBrowserProcessHandler_GetPrintHandler_4:
                         {
-                            var args = new GetPrintHandlerArgs(nativeMetArgs);
-                            newInst.GetPrintHandler(args);
+                            newInst.GetPrintHandler(new GetPrintHandlerArgs(nativeMetArgs));
                         }
                         break;
                     case MyCefBrowserProcessHandler_OnScheduleMessagePumpWork_5:
                         {
-                            var args = new OnScheduleMessagePumpWorkArgs(nativeMetArgs);
-                            newInst.OnScheduleMessagePumpWork(args);
+                            newInst.OnScheduleMessagePumpWork(new OnScheduleMessagePumpWorkArgs(nativeMetArgs));
                         }
                         break;
                 }
@@ -15826,26 +15819,22 @@ namespace LayoutFarm.CefBridge.Auto
                 {
                     case MyCefContextMenuHandler_OnBeforeContextMenu_1:
                         {
-                            var args = new OnBeforeContextMenuArgs(nativeMetArgs);
-                            newInst.OnBeforeContextMenu(args);
+                            newInst.OnBeforeContextMenu(new OnBeforeContextMenuArgs(nativeMetArgs));
                         }
                         break;
                     case MyCefContextMenuHandler_RunContextMenu_2:
                         {
-                            var args = new RunContextMenuArgs(nativeMetArgs);
-                            newInst.RunContextMenu(args);
+                            newInst.RunContextMenu(new RunContextMenuArgs(nativeMetArgs));
                         }
                         break;
                     case MyCefContextMenuHandler_OnContextMenuCommand_3:
                         {
-                            var args = new OnContextMenuCommandArgs(nativeMetArgs);
-                            newInst.OnContextMenuCommand(args);
+                            newInst.OnContextMenuCommand(new OnContextMenuCommandArgs(nativeMetArgs));
                         }
                         break;
                     case MyCefContextMenuHandler_OnContextMenuDismissed_4:
                         {
-                            var args = new OnContextMenuDismissedArgs(nativeMetArgs);
-                            newInst.OnContextMenuDismissed(args);
+                            newInst.OnContextMenuDismissed(new OnContextMenuDismissedArgs(nativeMetArgs));
                         }
                         break;
                 }
@@ -15919,8 +15908,7 @@ namespace LayoutFarm.CefBridge.Auto
                 {
                     case MyCefDialogHandler_OnFileDialog_1:
                         {
-                            var args = new OnFileDialogArgs(nativeMetArgs);
-                            newInst.OnFileDialog(args);
+                            newInst.OnFileDialog(new OnFileDialogArgs(nativeMetArgs));
                         }
                         break;
                 }
@@ -16119,44 +16107,37 @@ namespace LayoutFarm.CefBridge.Auto
                 {
                     case MyCefDisplayHandler_OnAddressChange_1:
                         {
-                            var args = new OnAddressChangeArgs(nativeMetArgs);
-                            newInst.OnAddressChange(args);
+                            newInst.OnAddressChange(new OnAddressChangeArgs(nativeMetArgs));
                         }
                         break;
                     case MyCefDisplayHandler_OnTitleChange_2:
                         {
-                            var args = new OnTitleChangeArgs(nativeMetArgs);
-                            newInst.OnTitleChange(args);
+                            newInst.OnTitleChange(new OnTitleChangeArgs(nativeMetArgs));
                         }
                         break;
                     case MyCefDisplayHandler_OnFaviconURLChange_3:
                         {
-                            var args = new OnFaviconURLChangeArgs(nativeMetArgs);
-                            newInst.OnFaviconURLChange(args);
+                            newInst.OnFaviconURLChange(new OnFaviconURLChangeArgs(nativeMetArgs));
                         }
                         break;
                     case MyCefDisplayHandler_OnFullscreenModeChange_4:
                         {
-                            var args = new OnFullscreenModeChangeArgs(nativeMetArgs);
-                            newInst.OnFullscreenModeChange(args);
+                            newInst.OnFullscreenModeChange(new OnFullscreenModeChangeArgs(nativeMetArgs));
                         }
                         break;
                     case MyCefDisplayHandler_OnTooltip_5:
                         {
-                            var args = new OnTooltipArgs(nativeMetArgs);
-                            newInst.OnTooltip(args);
+                            newInst.OnTooltip(new OnTooltipArgs(nativeMetArgs));
                         }
                         break;
                     case MyCefDisplayHandler_OnStatusMessage_6:
                         {
-                            var args = new OnStatusMessageArgs(nativeMetArgs);
-                            newInst.OnStatusMessage(args);
+                            newInst.OnStatusMessage(new OnStatusMessageArgs(nativeMetArgs));
                         }
                         break;
                     case MyCefDisplayHandler_OnConsoleMessage_7:
                         {
-                            var args = new OnConsoleMessageArgs(nativeMetArgs);
-                            newInst.OnConsoleMessage(args);
+                            newInst.OnConsoleMessage(new OnConsoleMessageArgs(nativeMetArgs));
                         }
                         break;
                 }
@@ -16243,14 +16224,12 @@ namespace LayoutFarm.CefBridge.Auto
                 {
                     case MyCefDownloadHandler_OnBeforeDownload_1:
                         {
-                            var args = new OnBeforeDownloadArgs(nativeMetArgs);
-                            newInst.OnBeforeDownload(args);
+                            newInst.OnBeforeDownload(new OnBeforeDownloadArgs(nativeMetArgs));
                         }
                         break;
                     case MyCefDownloadHandler_OnDownloadUpdated_2:
                         {
-                            var args = new OnDownloadUpdatedArgs(nativeMetArgs);
-                            newInst.OnDownloadUpdated(args);
+                            newInst.OnDownloadUpdated(new OnDownloadUpdatedArgs(nativeMetArgs));
                         }
                         break;
                 }
@@ -16330,14 +16309,12 @@ namespace LayoutFarm.CefBridge.Auto
                 {
                     case MyCefDragHandler_OnDragEnter_1:
                         {
-                            var args = new OnDragEnterArgs(nativeMetArgs);
-                            newInst.OnDragEnter(args);
+                            newInst.OnDragEnter(new OnDragEnterArgs(nativeMetArgs));
                         }
                         break;
                     case MyCefDragHandler_OnDraggableRegionsChanged_2:
                         {
-                            var args = new OnDraggableRegionsChangedArgs(nativeMetArgs);
-                            newInst.OnDraggableRegionsChanged(args);
+                            newInst.OnDraggableRegionsChanged(new OnDraggableRegionsChangedArgs(nativeMetArgs));
                         }
                         break;
                 }
@@ -16406,8 +16383,7 @@ namespace LayoutFarm.CefBridge.Auto
                 {
                     case MyCefFindHandler_OnFindResult_1:
                         {
-                            var args = new OnFindResultArgs(nativeMetArgs);
-                            newInst.OnFindResult(args);
+                            newInst.OnFindResult(new OnFindResultArgs(nativeMetArgs));
                         }
                         break;
                 }
@@ -16501,20 +16477,17 @@ namespace LayoutFarm.CefBridge.Auto
                 {
                     case MyCefFocusHandler_OnTakeFocus_1:
                         {
-                            var args = new OnTakeFocusArgs(nativeMetArgs);
-                            newInst.OnTakeFocus(args);
+                            newInst.OnTakeFocus(new OnTakeFocusArgs(nativeMetArgs));
                         }
                         break;
                     case MyCefFocusHandler_OnSetFocus_2:
                         {
-                            var args = new OnSetFocusArgs(nativeMetArgs);
-                            newInst.OnSetFocus(args);
+                            newInst.OnSetFocus(new OnSetFocusArgs(nativeMetArgs));
                         }
                         break;
                     case MyCefFocusHandler_OnGotFocus_3:
                         {
-                            var args = new OnGotFocusArgs(nativeMetArgs);
-                            newInst.OnGotFocus(args);
+                            newInst.OnGotFocus(new OnGotFocusArgs(nativeMetArgs));
                         }
                         break;
                 }
@@ -16598,14 +16571,12 @@ namespace LayoutFarm.CefBridge.Auto
                 {
                     case MyCefGeolocationHandler_OnRequestGeolocationPermission_1:
                         {
-                            var args = new OnRequestGeolocationPermissionArgs(nativeMetArgs);
-                            newInst.OnRequestGeolocationPermission(args);
+                            newInst.OnRequestGeolocationPermission(new OnRequestGeolocationPermissionArgs(nativeMetArgs));
                         }
                         break;
                     case MyCefGeolocationHandler_OnCancelGeolocationPermission_2:
                         {
-                            var args = new OnCancelGeolocationPermissionArgs(nativeMetArgs);
-                            newInst.OnCancelGeolocationPermission(args);
+                            newInst.OnCancelGeolocationPermission(new OnCancelGeolocationPermissionArgs(nativeMetArgs));
                         }
                         break;
                 }
@@ -16750,26 +16721,22 @@ namespace LayoutFarm.CefBridge.Auto
                 {
                     case MyCefJSDialogHandler_OnJSDialog_1:
                         {
-                            var args = new OnJSDialogArgs(nativeMetArgs);
-                            newInst.OnJSDialog(args);
+                            newInst.OnJSDialog(new OnJSDialogArgs(nativeMetArgs));
                         }
                         break;
                     case MyCefJSDialogHandler_OnBeforeUnloadDialog_2:
                         {
-                            var args = new OnBeforeUnloadDialogArgs(nativeMetArgs);
-                            newInst.OnBeforeUnloadDialog(args);
+                            newInst.OnBeforeUnloadDialog(new OnBeforeUnloadDialogArgs(nativeMetArgs));
                         }
                         break;
                     case MyCefJSDialogHandler_OnResetDialogState_3:
                         {
-                            var args = new OnResetDialogStateArgs(nativeMetArgs);
-                            newInst.OnResetDialogState(args);
+                            newInst.OnResetDialogState(new OnResetDialogStateArgs(nativeMetArgs));
                         }
                         break;
                     case MyCefJSDialogHandler_OnDialogClosed_4:
                         {
-                            var args = new OnDialogClosedArgs(nativeMetArgs);
-                            newInst.OnDialogClosed(args);
+                            newInst.OnDialogClosed(new OnDialogClosedArgs(nativeMetArgs));
                         }
                         break;
                 }
@@ -16862,14 +16829,12 @@ namespace LayoutFarm.CefBridge.Auto
                 {
                     case MyCefKeyboardHandler_OnPreKeyEvent_1:
                         {
-                            var args = new OnPreKeyEventArgs(nativeMetArgs);
-                            newInst.OnPreKeyEvent(args);
+                            newInst.OnPreKeyEvent(new OnPreKeyEventArgs(nativeMetArgs));
                         }
                         break;
                     case MyCefKeyboardHandler_OnKeyEvent_2:
                         {
-                            var args = new OnKeyEventArgs(nativeMetArgs);
-                            newInst.OnKeyEvent(args);
+                            newInst.OnKeyEvent(new OnKeyEventArgs(nativeMetArgs));
                         }
                         break;
                 }
@@ -17018,26 +16983,22 @@ namespace LayoutFarm.CefBridge.Auto
                 {
                     case MyCefLifeSpanHandler_OnBeforePopup_1:
                         {
-                            var args = new OnBeforePopupArgs(nativeMetArgs);
-                            newInst.OnBeforePopup(args);
+                            newInst.OnBeforePopup(new OnBeforePopupArgs(nativeMetArgs));
                         }
                         break;
                     case MyCefLifeSpanHandler_OnAfterCreated_2:
                         {
-                            var args = new OnAfterCreatedArgs(nativeMetArgs);
-                            newInst.OnAfterCreated(args);
+                            newInst.OnAfterCreated(new OnAfterCreatedArgs(nativeMetArgs));
                         }
                         break;
                     case MyCefLifeSpanHandler_DoClose_3:
                         {
-                            var args = new DoCloseArgs(nativeMetArgs);
-                            newInst.DoClose(args);
+                            newInst.DoClose(new DoCloseArgs(nativeMetArgs));
                         }
                         break;
                     case MyCefLifeSpanHandler_OnBeforeClose_4:
                         {
-                            var args = new OnBeforeCloseArgs(nativeMetArgs);
-                            newInst.OnBeforeClose(args);
+                            newInst.OnBeforeClose(new OnBeforeCloseArgs(nativeMetArgs));
                         }
                         break;
                 }
@@ -17184,26 +17145,22 @@ namespace LayoutFarm.CefBridge.Auto
                 {
                     case MyCefLoadHandler_OnLoadingStateChange_1:
                         {
-                            var args = new OnLoadingStateChangeArgs(nativeMetArgs);
-                            newInst.OnLoadingStateChange(args);
+                            newInst.OnLoadingStateChange(new OnLoadingStateChangeArgs(nativeMetArgs));
                         }
                         break;
                     case MyCefLoadHandler_OnLoadStart_2:
                         {
-                            var args = new OnLoadStartArgs(nativeMetArgs);
-                            newInst.OnLoadStart(args);
+                            newInst.OnLoadStart(new OnLoadStartArgs(nativeMetArgs));
                         }
                         break;
                     case MyCefLoadHandler_OnLoadEnd_3:
                         {
-                            var args = new OnLoadEndArgs(nativeMetArgs);
-                            newInst.OnLoadEnd(args);
+                            newInst.OnLoadEnd(new OnLoadEndArgs(nativeMetArgs));
                         }
                         break;
                     case MyCefLoadHandler_OnLoadError_4:
                         {
-                            var args = new OnLoadErrorArgs(nativeMetArgs);
-                            newInst.OnLoadError(args);
+                            newInst.OnLoadError(new OnLoadErrorArgs(nativeMetArgs));
                         }
                         break;
                 }
@@ -17373,38 +17330,32 @@ namespace LayoutFarm.CefBridge.Auto
                 {
                     case MyCefPrintHandler_OnPrintStart_1:
                         {
-                            var args = new OnPrintStartArgs(nativeMetArgs);
-                            newInst.OnPrintStart(args);
+                            newInst.OnPrintStart(new OnPrintStartArgs(nativeMetArgs));
                         }
                         break;
                     case MyCefPrintHandler_OnPrintSettings_2:
                         {
-                            var args = new OnPrintSettingsArgs(nativeMetArgs);
-                            newInst.OnPrintSettings(args);
+                            newInst.OnPrintSettings(new OnPrintSettingsArgs(nativeMetArgs));
                         }
                         break;
                     case MyCefPrintHandler_OnPrintDialog_3:
                         {
-                            var args = new OnPrintDialogArgs(nativeMetArgs);
-                            newInst.OnPrintDialog(args);
+                            newInst.OnPrintDialog(new OnPrintDialogArgs(nativeMetArgs));
                         }
                         break;
                     case MyCefPrintHandler_OnPrintJob_4:
                         {
-                            var args = new OnPrintJobArgs(nativeMetArgs);
-                            newInst.OnPrintJob(args);
+                            newInst.OnPrintJob(new OnPrintJobArgs(nativeMetArgs));
                         }
                         break;
                     case MyCefPrintHandler_OnPrintReset_5:
                         {
-                            var args = new OnPrintResetArgs(nativeMetArgs);
-                            newInst.OnPrintReset(args);
+                            newInst.OnPrintReset(new OnPrintResetArgs(nativeMetArgs));
                         }
                         break;
                     case MyCefPrintHandler_GetPdfPaperSize_6:
                         {
-                            var args = new GetPdfPaperSizeArgs(nativeMetArgs);
-                            newInst.GetPdfPaperSize(args);
+                            newInst.GetPdfPaperSize(new GetPdfPaperSizeArgs(nativeMetArgs));
                         }
                         break;
                 }
@@ -17783,80 +17734,67 @@ namespace LayoutFarm.CefBridge.Auto
                 {
                     case MyCefRenderHandler_GetAccessibilityHandler_1:
                         {
-                            var args = new GetAccessibilityHandlerArgs(nativeMetArgs);
-                            newInst.GetAccessibilityHandler(args);
+                            newInst.GetAccessibilityHandler(new GetAccessibilityHandlerArgs(nativeMetArgs));
                         }
                         break;
                     case MyCefRenderHandler_GetRootScreenRect_2:
                         {
-                            var args = new GetRootScreenRectArgs(nativeMetArgs);
-                            newInst.GetRootScreenRect(args);
+                            newInst.GetRootScreenRect(new GetRootScreenRectArgs(nativeMetArgs));
                         }
                         break;
                     case MyCefRenderHandler_GetViewRect_3:
                         {
-                            var args = new GetViewRectArgs(nativeMetArgs);
-                            newInst.GetViewRect(args);
+                            newInst.GetViewRect(new GetViewRectArgs(nativeMetArgs));
                         }
                         break;
                     case MyCefRenderHandler_GetScreenPoint_4:
                         {
-                            var args = new GetScreenPointArgs(nativeMetArgs);
-                            newInst.GetScreenPoint(args);
+                            newInst.GetScreenPoint(new GetScreenPointArgs(nativeMetArgs));
                         }
                         break;
                     case MyCefRenderHandler_GetScreenInfo_5:
                         {
-                            var args = new GetScreenInfoArgs(nativeMetArgs);
-                            newInst.GetScreenInfo(args);
+                            newInst.GetScreenInfo(new GetScreenInfoArgs(nativeMetArgs));
                         }
                         break;
                     case MyCefRenderHandler_OnPopupShow_6:
                         {
-                            var args = new OnPopupShowArgs(nativeMetArgs);
-                            newInst.OnPopupShow(args);
+                            newInst.OnPopupShow(new OnPopupShowArgs(nativeMetArgs));
                         }
                         break;
                     case MyCefRenderHandler_OnPopupSize_7:
                         {
-                            var args = new OnPopupSizeArgs(nativeMetArgs);
-                            newInst.OnPopupSize(args);
+                            newInst.OnPopupSize(new OnPopupSizeArgs(nativeMetArgs));
                         }
                         break;
                     case MyCefRenderHandler_OnPaint_8:
                         {
-                            var args = new OnPaintArgs(nativeMetArgs);
-                            newInst.OnPaint(args);
+                            newInst.OnPaint(new OnPaintArgs(nativeMetArgs));
                         }
                         break;
                     case MyCefRenderHandler_OnCursorChange_9:
                         {
-                            var args = new OnCursorChangeArgs(nativeMetArgs);
-                            newInst.OnCursorChange(args);
+                            newInst.OnCursorChange(new OnCursorChangeArgs(nativeMetArgs));
                         }
                         break;
                     case MyCefRenderHandler_StartDragging_10:
                         {
-                            var args = new StartDraggingArgs(nativeMetArgs);
-                            newInst.StartDragging(args);
+                            newInst.StartDragging(new StartDraggingArgs(nativeMetArgs));
                         }
                         break;
                     case MyCefRenderHandler_UpdateDragCursor_11:
                         {
-                            var args = new UpdateDragCursorArgs(nativeMetArgs);
-                            newInst.UpdateDragCursor(args);
+                            newInst.UpdateDragCursor(new UpdateDragCursorArgs(nativeMetArgs));
                         }
                         break;
                     case MyCefRenderHandler_OnScrollOffsetChanged_12:
                         {
-                            var args = new OnScrollOffsetChangedArgs(nativeMetArgs);
-                            newInst.OnScrollOffsetChanged(args);
+                            newInst.OnScrollOffsetChanged(new OnScrollOffsetChangedArgs(nativeMetArgs));
                         }
                         break;
                     case MyCefRenderHandler_OnImeCompositionRangeChanged_13:
                         {
-                            var args = new OnImeCompositionRangeChangedArgs(nativeMetArgs);
-                            newInst.OnImeCompositionRangeChanged(args);
+                            newInst.OnImeCompositionRangeChanged(new OnImeCompositionRangeChangedArgs(nativeMetArgs));
                         }
                         break;
                 }
@@ -18144,68 +18082,57 @@ namespace LayoutFarm.CefBridge.Auto
                 {
                     case MyCefRenderProcessHandler_OnRenderThreadCreated_1:
                         {
-                            var args = new OnRenderThreadCreatedArgs(nativeMetArgs);
-                            newInst.OnRenderThreadCreated(args);
+                            newInst.OnRenderThreadCreated(new OnRenderThreadCreatedArgs(nativeMetArgs));
                         }
                         break;
                     case MyCefRenderProcessHandler_OnWebKitInitialized_2:
                         {
-                            var args = new OnWebKitInitializedArgs(nativeMetArgs);
-                            newInst.OnWebKitInitialized(args);
+                            newInst.OnWebKitInitialized(new OnWebKitInitializedArgs(nativeMetArgs));
                         }
                         break;
                     case MyCefRenderProcessHandler_OnBrowserCreated_3:
                         {
-                            var args = new OnBrowserCreatedArgs(nativeMetArgs);
-                            newInst.OnBrowserCreated(args);
+                            newInst.OnBrowserCreated(new OnBrowserCreatedArgs(nativeMetArgs));
                         }
                         break;
                     case MyCefRenderProcessHandler_OnBrowserDestroyed_4:
                         {
-                            var args = new OnBrowserDestroyedArgs(nativeMetArgs);
-                            newInst.OnBrowserDestroyed(args);
+                            newInst.OnBrowserDestroyed(new OnBrowserDestroyedArgs(nativeMetArgs));
                         }
                         break;
                     case MyCefRenderProcessHandler_GetLoadHandler_5:
                         {
-                            var args = new GetLoadHandlerArgs(nativeMetArgs);
-                            newInst.GetLoadHandler(args);
+                            newInst.GetLoadHandler(new GetLoadHandlerArgs(nativeMetArgs));
                         }
                         break;
                     case MyCefRenderProcessHandler_OnBeforeNavigation_6:
                         {
-                            var args = new OnBeforeNavigationArgs(nativeMetArgs);
-                            newInst.OnBeforeNavigation(args);
+                            newInst.OnBeforeNavigation(new OnBeforeNavigationArgs(nativeMetArgs));
                         }
                         break;
                     case MyCefRenderProcessHandler_OnContextCreated_7:
                         {
-                            var args = new OnContextCreatedArgs(nativeMetArgs);
-                            newInst.OnContextCreated(args);
+                            newInst.OnContextCreated(new OnContextCreatedArgs(nativeMetArgs));
                         }
                         break;
                     case MyCefRenderProcessHandler_OnContextReleased_8:
                         {
-                            var args = new OnContextReleasedArgs(nativeMetArgs);
-                            newInst.OnContextReleased(args);
+                            newInst.OnContextReleased(new OnContextReleasedArgs(nativeMetArgs));
                         }
                         break;
                     case MyCefRenderProcessHandler_OnUncaughtException_9:
                         {
-                            var args = new OnUncaughtExceptionArgs(nativeMetArgs);
-                            newInst.OnUncaughtException(args);
+                            newInst.OnUncaughtException(new OnUncaughtExceptionArgs(nativeMetArgs));
                         }
                         break;
                     case MyCefRenderProcessHandler_OnFocusedNodeChanged_10:
                         {
-                            var args = new OnFocusedNodeChangedArgs(nativeMetArgs);
-                            newInst.OnFocusedNodeChanged(args);
+                            newInst.OnFocusedNodeChanged(new OnFocusedNodeChangedArgs(nativeMetArgs));
                         }
                         break;
                     case MyCefRenderProcessHandler_OnProcessMessageReceived_11:
                         {
-                            var args = new OnProcessMessageReceivedArgs(nativeMetArgs);
-                            newInst.OnProcessMessageReceived(args);
+                            newInst.OnProcessMessageReceived(new OnProcessMessageReceivedArgs(nativeMetArgs));
                         }
                         break;
                 }
@@ -18290,14 +18217,12 @@ namespace LayoutFarm.CefBridge.Auto
                 {
                     case MyCefRequestContextHandler_GetCookieManager_1:
                         {
-                            var args = new GetCookieManagerArgs(nativeMetArgs);
-                            newInst.GetCookieManager(args);
+                            newInst.GetCookieManager(new GetCookieManagerArgs(nativeMetArgs));
                         }
                         break;
                     case MyCefRequestContextHandler_OnBeforePluginLoad_2:
                         {
-                            var args = new OnBeforePluginLoadArgs(nativeMetArgs);
-                            newInst.OnBeforePluginLoad(args);
+                            newInst.OnBeforePluginLoad(new OnBeforePluginLoadArgs(nativeMetArgs));
                         }
                         break;
                 }
@@ -18830,98 +18755,82 @@ namespace LayoutFarm.CefBridge.Auto
                 {
                     case MyCefRequestHandler_OnBeforeBrowse_1:
                         {
-                            var args = new OnBeforeBrowseArgs(nativeMetArgs);
-                            newInst.OnBeforeBrowse(args);
+                            newInst.OnBeforeBrowse(new OnBeforeBrowseArgs(nativeMetArgs));
                         }
                         break;
                     case MyCefRequestHandler_OnOpenURLFromTab_2:
                         {
-                            var args = new OnOpenURLFromTabArgs(nativeMetArgs);
-                            newInst.OnOpenURLFromTab(args);
+                            newInst.OnOpenURLFromTab(new OnOpenURLFromTabArgs(nativeMetArgs));
                         }
                         break;
                     case MyCefRequestHandler_OnBeforeResourceLoad_3:
                         {
-                            var args = new OnBeforeResourceLoadArgs(nativeMetArgs);
-                            newInst.OnBeforeResourceLoad(args);
+                            newInst.OnBeforeResourceLoad(new OnBeforeResourceLoadArgs(nativeMetArgs));
                         }
                         break;
                     case MyCefRequestHandler_GetResourceHandler_4:
                         {
-                            var args = new GetResourceHandlerArgs(nativeMetArgs);
-                            newInst.GetResourceHandler(args);
+                            newInst.GetResourceHandler(new GetResourceHandlerArgs(nativeMetArgs));
                         }
                         break;
                     case MyCefRequestHandler_OnResourceRedirect_5:
                         {
-                            var args = new OnResourceRedirectArgs(nativeMetArgs);
-                            newInst.OnResourceRedirect(args);
+                            newInst.OnResourceRedirect(new OnResourceRedirectArgs(nativeMetArgs));
                         }
                         break;
                     case MyCefRequestHandler_OnResourceResponse_6:
                         {
-                            var args = new OnResourceResponseArgs(nativeMetArgs);
-                            newInst.OnResourceResponse(args);
+                            newInst.OnResourceResponse(new OnResourceResponseArgs(nativeMetArgs));
                         }
                         break;
                     case MyCefRequestHandler_GetResourceResponseFilter_7:
                         {
-                            var args = new GetResourceResponseFilterArgs(nativeMetArgs);
-                            newInst.GetResourceResponseFilter(args);
+                            newInst.GetResourceResponseFilter(new GetResourceResponseFilterArgs(nativeMetArgs));
                         }
                         break;
                     case MyCefRequestHandler_OnResourceLoadComplete_8:
                         {
-                            var args = new OnResourceLoadCompleteArgs(nativeMetArgs);
-                            newInst.OnResourceLoadComplete(args);
+                            newInst.OnResourceLoadComplete(new OnResourceLoadCompleteArgs(nativeMetArgs));
                         }
                         break;
                     case MyCefRequestHandler_GetAuthCredentials_9:
                         {
-                            var args = new GetAuthCredentialsArgs(nativeMetArgs);
-                            newInst.GetAuthCredentials(args);
+                            newInst.GetAuthCredentials(new GetAuthCredentialsArgs(nativeMetArgs));
                         }
                         break;
                     case MyCefRequestHandler_OnQuotaRequest_10:
                         {
-                            var args = new OnQuotaRequestArgs(nativeMetArgs);
-                            newInst.OnQuotaRequest(args);
+                            newInst.OnQuotaRequest(new OnQuotaRequestArgs(nativeMetArgs));
                         }
                         break;
                     case MyCefRequestHandler_OnProtocolExecution_11:
                         {
-                            var args = new OnProtocolExecutionArgs(nativeMetArgs);
-                            newInst.OnProtocolExecution(args);
+                            newInst.OnProtocolExecution(new OnProtocolExecutionArgs(nativeMetArgs));
                         }
                         break;
                     case MyCefRequestHandler_OnCertificateError_12:
                         {
-                            var args = new OnCertificateErrorArgs(nativeMetArgs);
-                            newInst.OnCertificateError(args);
+                            newInst.OnCertificateError(new OnCertificateErrorArgs(nativeMetArgs));
                         }
                         break;
                     case MyCefRequestHandler_OnSelectClientCertificate_13:
                         {
-                            var args = new OnSelectClientCertificateArgs(nativeMetArgs);
-                            newInst.OnSelectClientCertificate(args);
+                            newInst.OnSelectClientCertificate(new OnSelectClientCertificateArgs(nativeMetArgs));
                         }
                         break;
                     case MyCefRequestHandler_OnPluginCrashed_14:
                         {
-                            var args = new OnPluginCrashedArgs(nativeMetArgs);
-                            newInst.OnPluginCrashed(args);
+                            newInst.OnPluginCrashed(new OnPluginCrashedArgs(nativeMetArgs));
                         }
                         break;
                     case MyCefRequestHandler_OnRenderViewReady_15:
                         {
-                            var args = new OnRenderViewReadyArgs(nativeMetArgs);
-                            newInst.OnRenderViewReady(args);
+                            newInst.OnRenderViewReady(new OnRenderViewReadyArgs(nativeMetArgs));
                         }
                         break;
                     case MyCefRequestHandler_OnRenderProcessTerminated_16:
                         {
-                            var args = new OnRenderProcessTerminatedArgs(nativeMetArgs);
-                            newInst.OnRenderProcessTerminated(args);
+                            newInst.OnRenderProcessTerminated(new OnRenderProcessTerminatedArgs(nativeMetArgs));
                         }
                         break;
                 }
@@ -19041,20 +18950,17 @@ namespace LayoutFarm.CefBridge.Auto
                 {
                     case MyCefResourceBundleHandler_GetLocalizedString_1:
                         {
-                            var args = new GetLocalizedStringArgs(nativeMetArgs);
-                            newInst.GetLocalizedString(args);
+                            newInst.GetLocalizedString(new GetLocalizedStringArgs(nativeMetArgs));
                         }
                         break;
                     case MyCefResourceBundleHandler_GetDataResource_2:
                         {
-                            var args = new GetDataResourceArgs(nativeMetArgs);
-                            newInst.GetDataResource(args);
+                            newInst.GetDataResource(new GetDataResourceArgs(nativeMetArgs));
                         }
                         break;
                     case MyCefResourceBundleHandler_GetDataResourceForScale_3:
                         {
-                            var args = new GetDataResourceForScaleArgs(nativeMetArgs);
-                            newInst.GetDataResourceForScale(args);
+                            newInst.GetDataResourceForScale(new GetDataResourceForScaleArgs(nativeMetArgs));
                         }
                         break;
                 }
@@ -19221,38 +19127,32 @@ namespace LayoutFarm.CefBridge.Auto
                 {
                     case MyCefResourceHandler_ProcessRequest_1:
                         {
-                            var args = new ProcessRequestArgs(nativeMetArgs);
-                            newInst.ProcessRequest(args);
+                            newInst.ProcessRequest(new ProcessRequestArgs(nativeMetArgs));
                         }
                         break;
                     case MyCefResourceHandler_GetResponseHeaders_2:
                         {
-                            var args = new GetResponseHeadersArgs(nativeMetArgs);
-                            newInst.GetResponseHeaders(args);
+                            newInst.GetResponseHeaders(new GetResponseHeadersArgs(nativeMetArgs));
                         }
                         break;
                     case MyCefResourceHandler_ReadResponse_3:
                         {
-                            var args = new ReadResponseArgs(nativeMetArgs);
-                            newInst.ReadResponse(args);
+                            newInst.ReadResponse(new ReadResponseArgs(nativeMetArgs));
                         }
                         break;
                     case MyCefResourceHandler_CanGetCookie_4:
                         {
-                            var args = new CanGetCookieArgs(nativeMetArgs);
-                            newInst.CanGetCookie(args);
+                            newInst.CanGetCookie(new CanGetCookieArgs(nativeMetArgs));
                         }
                         break;
                     case MyCefResourceHandler_CanSetCookie_5:
                         {
-                            var args = new CanSetCookieArgs(nativeMetArgs);
-                            newInst.CanSetCookie(args);
+                            newInst.CanSetCookie(new CanSetCookieArgs(nativeMetArgs));
                         }
                         break;
                     case MyCefResourceHandler_Cancel_6:
                         {
-                            var args = new CancelArgs(nativeMetArgs);
-                            newInst.Cancel(args);
+                            newInst.Cancel(new CancelArgs(nativeMetArgs));
                         }
                         break;
                 }
@@ -19378,32 +19278,27 @@ namespace LayoutFarm.CefBridge.Auto
                 {
                     case MyCefReadHandler_Read_1:
                         {
-                            var args = new ReadArgs(nativeMetArgs);
-                            newInst.Read(args);
+                            newInst.Read(new ReadArgs(nativeMetArgs));
                         }
                         break;
                     case MyCefReadHandler_Seek_2:
                         {
-                            var args = new SeekArgs(nativeMetArgs);
-                            newInst.Seek(args);
+                            newInst.Seek(new SeekArgs(nativeMetArgs));
                         }
                         break;
                     case MyCefReadHandler_Tell_3:
                         {
-                            var args = new TellArgs(nativeMetArgs);
-                            newInst.Tell(args);
+                            newInst.Tell(new TellArgs(nativeMetArgs));
                         }
                         break;
                     case MyCefReadHandler_Eof_4:
                         {
-                            var args = new EofArgs(nativeMetArgs);
-                            newInst.Eof(args);
+                            newInst.Eof(new EofArgs(nativeMetArgs));
                         }
                         break;
                     case MyCefReadHandler_MayBlock_5:
                         {
-                            var args = new MayBlockArgs(nativeMetArgs);
-                            newInst.MayBlock(args);
+                            newInst.MayBlock(new MayBlockArgs(nativeMetArgs));
                         }
                         break;
                 }
@@ -19529,32 +19424,27 @@ namespace LayoutFarm.CefBridge.Auto
                 {
                     case MyCefWriteHandler_Write_1:
                         {
-                            var args = new WriteArgs(nativeMetArgs);
-                            newInst.Write(args);
+                            newInst.Write(new WriteArgs(nativeMetArgs));
                         }
                         break;
                     case MyCefWriteHandler_Seek_2:
                         {
-                            var args = new SeekArgs(nativeMetArgs);
-                            newInst.Seek(args);
+                            newInst.Seek(new SeekArgs(nativeMetArgs));
                         }
                         break;
                     case MyCefWriteHandler_Tell_3:
                         {
-                            var args = new TellArgs(nativeMetArgs);
-                            newInst.Tell(args);
+                            newInst.Tell(new TellArgs(nativeMetArgs));
                         }
                         break;
                     case MyCefWriteHandler_Flush_4:
                         {
-                            var args = new FlushArgs(nativeMetArgs);
-                            newInst.Flush(args);
+                            newInst.Flush(new FlushArgs(nativeMetArgs));
                         }
                         break;
                     case MyCefWriteHandler_MayBlock_5:
                         {
-                            var args = new MayBlockArgs(nativeMetArgs);
-                            newInst.MayBlock(args);
+                            newInst.MayBlock(new MayBlockArgs(nativeMetArgs));
                         }
                         break;
                 }
@@ -19620,8 +19510,7 @@ namespace LayoutFarm.CefBridge.Auto
                 {
                     case MyCefV8Handler_Execute_1:
                         {
-                            var args = new ExecuteArgs(nativeMetArgs);
-                            newInst.Execute(args);
+                            newInst.Execute(new ExecuteArgs(nativeMetArgs));
                         }
                         break;
                 }

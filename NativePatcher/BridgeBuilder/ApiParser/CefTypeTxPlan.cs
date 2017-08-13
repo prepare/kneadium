@@ -3129,9 +3129,8 @@ namespace BridgeBuilder
                 {
                     //implement on event notificationi
                     MethodTxInfo met = callToDotNetMets[mm];
-                    stbuilder.AppendLine("case " + met.CppMethodSwitchCaseName + ":{");
-                    stbuilder.AppendLine("var args = new " + met.Name + "Args(nativeMetArgs);");
-                    stbuilder.AppendLine("newInst." + met.Name + "(args);");
+                    stbuilder.AppendLine("case " + met.CppMethodSwitchCaseName + ":{");                     
+                    stbuilder.AppendLine("newInst." + met.Name + "(new "+ met.Name + "Args(nativeMetArgs));");
                     stbuilder.AppendLine("}break;");//case
 
                 }
