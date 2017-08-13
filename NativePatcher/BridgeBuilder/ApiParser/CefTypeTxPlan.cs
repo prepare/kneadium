@@ -3103,9 +3103,8 @@ namespace BridgeBuilder
             if (this.CppImplClassName != null)
             {
                 //new with callback
-                stbuilder.AppendLine("public static " + className + " New(MyCefCallback callback){");
-                stbuilder.AppendLine("JsValue not_used= new JsValue();");
-                stbuilder.AppendLine("return new " + className + "(Cef3Binder.NewInstance(_typeNAME,callback,ref not_used));");
+                stbuilder.AppendLine("public static " + className + " New(MyCefCallback callback){"); 
+                stbuilder.AppendLine("return new " + className + "(Cef3Binder.NewInstance(_typeNAME,callback));");
                 stbuilder.AppendLine("}");
                 //with built in method table
 
