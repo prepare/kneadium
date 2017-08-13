@@ -1816,7 +1816,7 @@ public:
 			MyCefSetVoidPtr2(&vargs[0], &cookie);
 			MyCefSetInt32(&vargs[1], (int32_t)count);
 			MyCefSetInt32(&vargs[2], (int32_t)total);
-			MyCefSetBool(&vargs[3], deleteCookie);
+			MyCefSetVoidPtr(&vargs[3], &deleteCookie);
 			this->mcallback(MyCefCookieVisitor_Visit_1, &args);
 			return args.ret.i32 != 0;
 		}
@@ -5966,9 +5966,9 @@ void MyCefMet_CefV8Value(cef_v8value_t* me1, int metName, jsvalue* ret, jsvalue*
 	case CefV8Value_GetUserData_37: {
 
 
-		// gen! CefRefPtr<CefBaseRefCounted> GetUserData()
-		/*auto ret_result = me->GetUserData();
-		!*/
+		//// gen! CefRefPtr<CefBaseRefCounted> GetUserData()
+		//auto ret_result = me->GetUserData();
+		//!
 	} break;
 	case CefV8Value_GetExternallyAllocatedMemory_38: {
 
@@ -8700,7 +8700,7 @@ public:
 			SetCefStringToJsValue(&vargs[3], message_text);
 			SetCefStringToJsValue(&vargs[4], default_prompt_text);
 			MyCefSetVoidPtr(&vargs[5], CefJSDialogCallbackCToCpp::Unwrap(callback));
-			MyCefSetBool(&vargs[6], suppress_message);
+			MyCefSetVoidPtr(&vargs[6], &suppress_message);
 			this->mcallback(MyCefJSDialogHandler_OnJSDialog_1, &args);
 			DeleteCefStringHolderFromJsValue(&vargs[1]);
 			DeleteCefStringHolderFromJsValue(&vargs[3]);
@@ -9044,7 +9044,7 @@ public:
 			args.vargs = vargs;
 			MyCefSetInt32(&vargs[0], (int32_t)device_units_per_inch);
 			this->mcallback(MyCefPrintHandler_GetPdfPaperSize_6, &args);
-			
+			 
 		}
 		CefSize s;
 		return s;
@@ -9091,7 +9091,7 @@ public:
 			jsvalue vargs[2];
 			args.vargs = vargs;
 			MyCefSetVoidPtr(&vargs[0], CefBrowserCToCpp::Unwrap(browser));
-		//	MyCefSetVoidPtr(&vargs[1], rect);
+			//MyCefSetVoidPtr(&vargs[1], rect);
 			this->mcallback(MyCefRenderHandler_GetRootScreenRect_2, &args);
 			return args.ret.i32 != 0;
 		}
@@ -9678,8 +9678,6 @@ public:
 		}
 		return false;
 	}
-	
-
 	//gen! void OnProtocolExecution(CefRefPtr<CefBrowser> browser,const CefString& url,bool& allow_os_execution)
 	virtual void OnProtocolExecution(CefRefPtr<CefBrowser> browser, const CefString& url, bool& allow_os_execution) {
 		if (this->mcallback) {
@@ -10580,6 +10578,126 @@ void* NewInstance(int typeName, managed_callback mcallback, jsvalue* jsvalue) {
 		auto inst = new MyCefRegisterCdmCallback();
 		inst->mcallback = mcallback;
 		return CefRegisterCdmCallbackCppToC::Wrap(inst);
+	}
+	case  CefTypeName_CefAccessibilityHandler: {
+		auto inst = new MyCefAccessibilityHandler();
+		inst->mcallback = mcallback;
+		return CefAccessibilityHandlerCppToC::Wrap(inst);
+	}
+	case  CefTypeName_CefBrowserProcessHandler: {
+		auto inst = new MyCefBrowserProcessHandler();
+		inst->mcallback = mcallback;
+		return CefBrowserProcessHandlerCppToC::Wrap(inst);
+	}
+	case  CefTypeName_CefContextMenuHandler: {
+		auto inst = new MyCefContextMenuHandler();
+		inst->mcallback = mcallback;
+		return CefContextMenuHandlerCppToC::Wrap(inst);
+	}
+	case  CefTypeName_CefDialogHandler: {
+		auto inst = new MyCefDialogHandler();
+		inst->mcallback = mcallback;
+		return CefDialogHandlerCppToC::Wrap(inst);
+	}
+	case  CefTypeName_CefDisplayHandler: {
+		auto inst = new MyCefDisplayHandler();
+		inst->mcallback = mcallback;
+		return CefDisplayHandlerCppToC::Wrap(inst);
+	}
+	case  CefTypeName_CefDownloadHandler: {
+		auto inst = new MyCefDownloadHandler();
+		inst->mcallback = mcallback;
+		return CefDownloadHandlerCppToC::Wrap(inst);
+	}
+	case  CefTypeName_CefDragHandler: {
+		auto inst = new MyCefDragHandler();
+		inst->mcallback = mcallback;
+		return CefDragHandlerCppToC::Wrap(inst);
+	}
+	case  CefTypeName_CefFindHandler: {
+		auto inst = new MyCefFindHandler();
+		inst->mcallback = mcallback;
+		return CefFindHandlerCppToC::Wrap(inst);
+	}
+	case  CefTypeName_CefFocusHandler: {
+		auto inst = new MyCefFocusHandler();
+		inst->mcallback = mcallback;
+		return CefFocusHandlerCppToC::Wrap(inst);
+	}
+	case  CefTypeName_CefGeolocationHandler: {
+		auto inst = new MyCefGeolocationHandler();
+		inst->mcallback = mcallback;
+		return CefGeolocationHandlerCppToC::Wrap(inst);
+	}
+	case  CefTypeName_CefJSDialogHandler: {
+		auto inst = new MyCefJSDialogHandler();
+		inst->mcallback = mcallback;
+		return CefJSDialogHandlerCppToC::Wrap(inst);
+	}
+	case  CefTypeName_CefKeyboardHandler: {
+		auto inst = new MyCefKeyboardHandler();
+		inst->mcallback = mcallback;
+		return CefKeyboardHandlerCppToC::Wrap(inst);
+	}
+	case  CefTypeName_CefLifeSpanHandler: {
+		auto inst = new MyCefLifeSpanHandler();
+		inst->mcallback = mcallback;
+		return CefLifeSpanHandlerCppToC::Wrap(inst);
+	}
+	case  CefTypeName_CefLoadHandler: {
+		auto inst = new MyCefLoadHandler();
+		inst->mcallback = mcallback;
+		return CefLoadHandlerCppToC::Wrap(inst);
+	}
+	case  CefTypeName_CefPrintHandler: {
+		auto inst = new MyCefPrintHandler();
+		inst->mcallback = mcallback;
+		return CefPrintHandlerCppToC::Wrap(inst);
+	}
+	case  CefTypeName_CefRenderHandler: {
+		auto inst = new MyCefRenderHandler();
+		inst->mcallback = mcallback;
+		return CefRenderHandlerCppToC::Wrap(inst);
+	}
+	case  CefTypeName_CefRenderProcessHandler: {
+		auto inst = new MyCefRenderProcessHandler();
+		inst->mcallback = mcallback;
+		return CefRenderProcessHandlerCppToC::Wrap(inst);
+	}
+	case  CefTypeName_CefRequestContextHandler: {
+		auto inst = new MyCefRequestContextHandler();
+		inst->mcallback = mcallback;
+		return CefRequestContextHandlerCppToC::Wrap(inst);
+	}
+	case  CefTypeName_CefRequestHandler: {
+		auto inst = new MyCefRequestHandler();
+		inst->mcallback = mcallback;
+		return CefRequestHandlerCppToC::Wrap(inst);
+	}
+	case  CefTypeName_CefResourceBundleHandler: {
+		auto inst = new MyCefResourceBundleHandler();
+		inst->mcallback = mcallback;
+		return CefResourceBundleHandlerCppToC::Wrap(inst);
+	}
+	case  CefTypeName_CefResourceHandler: {
+		auto inst = new MyCefResourceHandler();
+		inst->mcallback = mcallback;
+		return CefResourceHandlerCppToC::Wrap(inst);
+	}
+	case  CefTypeName_CefReadHandler: {
+		auto inst = new MyCefReadHandler();
+		inst->mcallback = mcallback;
+		return CefReadHandlerCppToC::Wrap(inst);
+	}
+	case  CefTypeName_CefWriteHandler: {
+		auto inst = new MyCefWriteHandler();
+		inst->mcallback = mcallback;
+		return CefWriteHandlerCppToC::Wrap(inst);
+	}
+	case  CefTypeName_CefV8Handler: {
+		auto inst = new MyCefV8Handler();
+		inst->mcallback = mcallback;
+		return CefV8HandlerCppToC::Wrap(inst);
 	}
 	}
 	return nullptr;

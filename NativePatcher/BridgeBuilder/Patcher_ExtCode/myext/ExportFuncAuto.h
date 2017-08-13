@@ -127,6 +127,7 @@ class MyBrowser; //forward decl
 #include "libcef_dll/cpptoc/request_handler_cpptoc.h"
 #include "libcef_dll/cpptoc/resource_handler_cpptoc.h"
 #include "libcef_dll/cpptoc/print_handler_cpptoc.h"
+#include "libcef_dll/cpptoc/read_handler_cpptoc.h"
 //---------------------
 //for auto gen content 
 //
