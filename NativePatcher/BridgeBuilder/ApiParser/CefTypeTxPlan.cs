@@ -42,7 +42,7 @@ namespace BridgeBuilder
             if (_dbugEnableLineNote)
             {
                 stbuilder.AppendLine("/*" + _dbugLineCount + "*/");
-                if (_dbugLineCount >= 13116)
+                if (_dbugLineCount >= 14863)
                 {
 
                 }
@@ -2862,11 +2862,22 @@ namespace BridgeBuilder
                 switch (csParTypeName)
                 {
                     default:
-                        if (!(csParTypeName.StartsWith("Cef") ||
-                            csParTypeName.StartsWith("cef")))
                         {
+
+                            if (csParTypeName.StartsWith("Cef"))
+                            {
+                                stbuilder.Append("return new " + csParTypeName + "(Cef3Binder.MyMetArgGetAsIntPtr(nativePtr," + (i + 1).ToString() + "));");
+                            }
+                            else if (csParTypeName.StartsWith("cef"))
+                            {
+                                stbuilder.Append("return " + "(" + csParTypeName + ")" + "Cef3Binder.MyMetArgGetAsInt32(nativePtr," + (i + 1).ToString() + ");");
+                            }
+                            else
+                            {
+                                stbuilder.Append("throw new CefNotImplementedException();");
+                            }
                         }
-                        stbuilder.Append("throw new CefNotImplementedException();");
+
                         break;
                     case "IntPtr":
                         stbuilder.Append("throw new CefNotImplementedException();");

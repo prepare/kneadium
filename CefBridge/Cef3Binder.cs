@@ -748,7 +748,14 @@ namespace LayoutFarm.CefBridge
                 return (float)jsvalue->Num;
             }
         }
-
+        public static IntPtr MyMetArgGetAsIntPtr(IntPtr myMetArgs, int index)
+        {
+            unsafe
+            {
+                JsValue* jsvalue = (JsValue*)Cef3Binder.MyMetArgGetArgAddress(myMetArgs, index);
+                return jsvalue->Ptr;
+            }
+        }
         public static void MyMetArgSetBoolToAddress(IntPtr myMetArgs, int index, bool value)
         {
             unsafe

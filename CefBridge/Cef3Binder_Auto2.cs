@@ -21,20 +21,36 @@ namespace LayoutFarm.CefBridge
     }
     public struct CefCursorInfo
     {
-
+        internal IntPtr nativePtr;
+        public CefCursorInfo(IntPtr nativePtr)
+        {
+            this.nativePtr = nativePtr;
+        }
     }
-    
+
     public struct CefPopupFeatures
     {
-
+        internal IntPtr nativePtr;
+        public CefPopupFeatures(IntPtr nativePtr)
+        {
+            this.nativePtr = nativePtr;
+        }
     }
     public struct CefResourceHandler
     {
-
+        internal IntPtr nativePtr;
+        public CefResourceHandler(IntPtr nativePtr)
+        {
+            this.nativePtr = nativePtr;
+        }
     }
     public struct ReturnValue
     {
-
+        internal IntPtr nativePtr;
+        public ReturnValue(IntPtr nativePtr)
+        {
+            this.nativePtr = nativePtr;
+        }
     }
     public struct CefScreenInfo
     {
@@ -71,35 +87,67 @@ namespace LayoutFarm.CefBridge
     public struct CefPdfPrintSettings
     {
         internal IntPtr nativePtr;
+        public CefPdfPrintSettings(IntPtr nativePtr)
+        {
+            this.nativePtr = nativePtr;
+        }
     }
 
     public struct CefWindowInfo
     {
         internal IntPtr nativePtr;
+        public CefWindowInfo(IntPtr nativePtr)
+        {
+            this.nativePtr = nativePtr;
+        }
     }
     public struct CefBrowserSettings
     {
         internal IntPtr nativePtr;
+        public CefBrowserSettings(IntPtr nativePtr)
+        {
+            this.nativePtr = nativePtr;
+        }
     }
     public struct CefKeyEvent
     {
         internal IntPtr nativePtr;
+        public CefKeyEvent(IntPtr nativePtr)
+        {
+            this.nativePtr = nativePtr;
+        }
     }
     public struct CefMouseEvent
     {
         internal IntPtr nativePtr;
+        public CefMouseEvent(IntPtr nativePtr)
+        {
+            this.nativePtr = nativePtr;
+        }
     }
     public struct CefCompositionUnderline
     {
         internal IntPtr nativePtr;
+        public CefCompositionUnderline(IntPtr nativePtr)
+        {
+            this.nativePtr = nativePtr;
+        }
     }
     public struct CefRange
     {
         internal IntPtr nativePtr;
+        public CefRange(IntPtr nativePtr)
+        {
+            this.nativePtr = nativePtr;
+        }
     }
     public struct SwitchMap
     {
         internal IntPtr nativePtr;
+        public SwitchMap(IntPtr nativePtr)
+        {
+            this.nativePtr = nativePtr;
+        }
     }
     public struct ArgumentList
     {
@@ -120,6 +168,10 @@ namespace LayoutFarm.CefBridge
     public struct CefCookie
     {
         internal IntPtr nativePtr;
+        public CefCookie(IntPtr nativePtr)
+        {
+            this.nativePtr = nativePtr;
+        }
     }
     public struct HeaderMap
     {
