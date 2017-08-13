@@ -3,6 +3,47 @@
 using System;
 namespace LayoutFarm.CefBridge
 {
+    public struct CefPrintHandler
+    {
+        internal IntPtr nativePtr;
+        public CefPrintHandler(IntPtr nativePtr)
+        {
+            this.nativePtr = nativePtr;
+        }
+    }
+    public struct CefAccessibilityHandler
+    {
+
+    }
+    public struct CefLoadHandler
+    {
+
+    }
+    public struct CefCursorInfo
+    {
+
+    }
+    
+    public struct CefPopupFeatures
+    {
+
+    }
+    public struct CefResourceHandler
+    {
+
+    }
+    public struct ReturnValue
+    {
+
+    }
+    public struct CefScreenInfo
+    {
+        internal IntPtr nativePtr;
+        public CefScreenInfo(IntPtr nativePtr)
+        {
+            this.nativePtr = nativePtr;
+        }
+    }
     public struct CefPoint
     {
         internal IntPtr nativePtr;
@@ -187,7 +228,7 @@ namespace LayoutFarm.CefBridge
         }
     }
 
-    class CefImplementedException : NotImplementedException
+    class CefNotImplementedException : NotImplementedException
     {
 
     }

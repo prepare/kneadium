@@ -745,10 +745,36 @@ namespace LayoutFarm.CefBridge
             unsafe
             {
                 JsValue* jsvalue = (JsValue*)Cef3Binder.MyMetArgGetArgAddress(myMetArgs, index);
-                return jsvalue->Num;
+                return (float)jsvalue->Num;
             }
         }
-        //--------
+
+        public static void MyMetArgSetBoolToAddress(IntPtr myMetArgs, int index, bool value)
+        {
+            unsafe
+            {
+                JsValue* jsvalue = (JsValue*)Cef3Binder.MyMetArgGetArgAddress(myMetArgs, index);
+                *((bool*)jsvalue->Ptr) = value;
+            }
+        }
+        public static void MyMetArgSetUInt32ToAddress(IntPtr myMetArgs, int index, uint value)
+        {
+            unsafe
+            {
+
+                JsValue* jsvalue = (JsValue*)Cef3Binder.MyMetArgGetArgAddress(myMetArgs, index);
+                *((uint*)jsvalue->Ptr) = value;
+            }
+        }
+        public static void MyMetArgSetInt32ToAddress(IntPtr myMetArgs, int index, int value)
+        {
+            unsafe
+            {
+
+                JsValue* jsvalue = (JsValue*)Cef3Binder.MyMetArgGetArgAddress(myMetArgs, index);
+                *((int*)jsvalue->Ptr) = value;
+            }
+        }
         public static string MyCefJsReadString(ref JsValue ret)
         {
             unsafe
