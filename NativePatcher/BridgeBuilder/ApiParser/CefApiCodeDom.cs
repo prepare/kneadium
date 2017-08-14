@@ -27,7 +27,8 @@ namespace BridgeBuilder
     {
         Class,
         Struct,
-        Enum
+        Enum,
+        FunctionPointer,
     }
 
     class CodeTypeTemplateNotation
@@ -170,6 +171,15 @@ namespace BridgeBuilder
         {
             return Name;
         }
+    }
+
+    class CodeFunctionPointerTypeDecl : CodeTypeDeclaration
+    {
+        public CodeFunctionPointerTypeDecl()
+        {
+            Kind = TypeKind.FunctionPointer;
+        }
+        public CodeFunctionPointerTypeRefernce FuncPointerType { get; set; }
     }
 
     class CodeTypeDeclaration : CodeMemberDeclaration
@@ -706,7 +716,7 @@ namespace BridgeBuilder
             get { return _name; }
             set
             {
-                _name = value; 
+                _name = value;
             }
         }
         public abstract CodeMemberKind MemberKind { get; }
@@ -740,6 +750,8 @@ namespace BridgeBuilder
         Ctor,
         Dtor
     }
+
+
     class CodeFieldDeclaration : CodeMemberDeclaration
     {
         public CodeFieldDeclaration()

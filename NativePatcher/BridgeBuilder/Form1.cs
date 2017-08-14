@@ -275,7 +275,43 @@ namespace BridgeBuilder
             //ParseWrapper(@"D:\projects\cef_binary_3.3071.1647.win32\libcef_dll\ctocpp\frame_ctocpp.h");
 
             string cefDir = @"D:\projects\cef_binary_3.3071.1647.win32";
+
+            List<CodeCompilationUnit> totalCuList_capi = new List<CodeCompilationUnit>();
             List<CodeCompilationUnit> totalCuList = new List<CodeCompilationUnit>();
+            {
+                //cef capi
+                string[] onlyHeaderFiles = System.IO.Directory.GetFiles(cefDir + @"\include\capi", "*.h");
+                Dictionary<string, bool> skipFiles = CreateSkipFiles(new string[0]);
+                int j = onlyHeaderFiles.Length;
+                for (int i = 0; i < j; ++i)
+                {
+                    if (skipFiles.ContainsKey(System.IO.Path.GetFileName(onlyHeaderFiles[i])))
+                    {
+                        continue;
+                    }
+                    CodeCompilationUnit cu = ParseWrapper(onlyHeaderFiles[i]);
+                    totalCuList_capi.Add(cu);
+                }
+            }
+            {
+                //cef capi/views
+                string[] onlyHeaderFiles = System.IO.Directory.GetFiles(cefDir + @"\include\capi\views", "*.h");
+                Dictionary<string, bool> skipFiles = CreateSkipFiles(new string[0]);
+                int j = onlyHeaderFiles.Length;
+                for (int i = 0; i < j; ++i)
+                {
+                    if (skipFiles.ContainsKey(System.IO.Path.GetFileName(onlyHeaderFiles[i])))
+                    {
+                        continue;
+                    }
+                    CodeCompilationUnit cu = ParseWrapper(onlyHeaderFiles[i]);
+                    totalCuList_capi.Add(cu);
+                }
+            }
+
+
+
+
             {
 
                 //include/internal
@@ -284,6 +320,9 @@ namespace BridgeBuilder
                 totalCuList.Add(ParseWrapper(cefDir + @"\include\internal\cef_win.h")); //for windows
 
             }
+
+
+          
             {
                 //include folder
                 string[] onlyHeaderFiles = System.IO.Directory.GetFiles(cefDir + @"\include\", "*.h");
@@ -300,7 +339,8 @@ namespace BridgeBuilder
                     CodeCompilationUnit cu = ParseWrapper(onlyHeaderFiles[i]);
                     totalCuList.Add(cu);
                 }
-            }
+            } 
+            
             //c to cpp 
             {
                 string[] onlyHeaderFiles = System.IO.Directory.GetFiles(cefDir + @"\libcef_dll\ctocpp", "*.h");
