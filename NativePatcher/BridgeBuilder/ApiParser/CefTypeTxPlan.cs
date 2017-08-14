@@ -2838,15 +2838,18 @@ namespace BridgeBuilder
                     case "ref bool":
                         //provide both getter and setter method
                         stbuilder.Append("bool");
-                        csSetterParTypeName = "bool";
+                        parTx.ArgByRef = true;//temp
+                        parTx.InnerTypeName = csSetterParTypeName = "bool";
                         break;
                     case "ref int":
                         stbuilder.Append("int");
-                        csSetterParTypeName = "int";
+                        parTx.ArgByRef = true;//temp
+                        parTx.InnerTypeName = csSetterParTypeName = "int";
                         break;
                     case "ref uint":
                         stbuilder.Append("uint");
-                        csSetterParTypeName = "uint";
+                        parTx.ArgByRef = true;//temp
+                        parTx.InnerTypeName = csSetterParTypeName = "uint";
                         break;
                     default:
                         stbuilder.Append(csParTypeName);
@@ -3006,7 +3009,12 @@ namespace BridgeBuilder
                         break;
                 }
                 //
-                stbuilder.Append(GetCsRetName(parTx.TypeSymbol));
+
+                string parTypeName = GetCsRetName(parTx.TypeSymbol);
+                stbuilder.Append(parTypeName);
+
+
+
                 //some cpp name can't be use in C#
                 stbuilder.Append(" ");
                 stbuilder.Append(parTx.Name);
@@ -3060,22 +3068,46 @@ namespace BridgeBuilder
         {
             CodeMethodDeclaration metDecl = (CodeMethodDeclaration)met.metDecl;
             //temp 
-            stbuilder.Append("public virtual void ");
+            List<MethodParameterTxInfo> pars = met.pars;
+
+            stbuilder.Append("public virtual void");
             stbuilder.Append(" ");
             stbuilder.Append(met.Name);
             stbuilder.Append("(");
             stbuilder.Append(argClassName + " args");
             stbuilder.AppendLine("){");
-            stbuilder.Append(met.Name);
-            stbuilder.Append("(");
-            List<MethodParameterTxInfo> pars = met.pars;
+            //call 
             int j = pars.Count;
             if (j > 0)
             {
                 //arg expansion 
                 //bool allow_os_execution = false;
                 //OnProtocolExecution(args.browser(), args.url(), ref allow_os_execution);
-                //args.allow_os_execution(allow_os_execution);
+                //args.allow_os_execution(allow_os_execution); 
+                for (int i = 0; i < j; ++i)
+                {
+                    MethodParameterTxInfo par = pars[i];
+                    if (par.ArgByRef)
+                    {
+                        stbuilder.Append(par.InnerTypeName + " " + par.Name + "_ref");
+                        //with default value
+                        if (par.InnerTypeName == "bool")
+                        {
+                            stbuilder.AppendLine("=false;");
+                        }
+                        else
+                        {
+                            stbuilder.AppendLine("=0;");
+                        }
+                    }
+                }
+            }
+            //-------
+            stbuilder.Append(met.Name);
+            stbuilder.Append("(");
+            if (j > 0)
+            {
+                 
                 for (int i = 0; i < j; ++i)
                 {
                     if (i > 0)
@@ -3083,10 +3115,29 @@ namespace BridgeBuilder
                         stbuilder.Append(",\r\n");
                     }
                     MethodParameterTxInfo par = pars[i];
-                    stbuilder.Append("args." + par.Name + "()");
+                    if (par.ArgByRef)
+                    {
+                        stbuilder.Append("ref " + par.Name + "_ref");
+                    }
+                    else
+                    {
+                        stbuilder.Append("args." + par.Name + "()");
+                    }
                 }
             }
             stbuilder.AppendLine(");");
+            if (j > 0)
+            {
+                for (int i = 0; i < j; ++i)
+                {
+                    MethodParameterTxInfo par = pars[i];
+                    if (par.ArgByRef)
+                    {
+                        stbuilder.AppendLine("args." + par.Name + "(" + par.Name + "_ref" + ");");
+                    }
+                }
+            }
+
 
             stbuilder.AppendLine("}"); //method
         }

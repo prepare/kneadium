@@ -16768,13 +16768,15 @@ namespace LayoutFarm.CefBridge.Auto
         }
         public virtual void OnJSDialog(OnJSDialogArgs args)
         {
+            bool suppress_message_ref = false;
             OnJSDialog(args.browser(),
             args.origin_url(),
             args.dialog_type(),
             args.message_text(),
             args.default_prompt_text(),
             args.callback(),
-            args.suppress_message());
+            ref suppress_message_ref);
+            args.suppress_message(suppress_message_ref);
         }
         public virtual bool OnBeforeUnloadDialog(CefBrowser browser, string message_text, bool is_reload, CefJSDialogCallback callback)
         {
@@ -16934,10 +16936,12 @@ namespace LayoutFarm.CefBridge.Auto
         }
         public virtual void OnPreKeyEvent(OnPreKeyEventArgs args)
         {
+            bool is_keyboard_shortcut_ref = false;
             OnPreKeyEvent(args.browser(),
             args._event(),
             args.os_event(),
-            args.is_keyboard_shortcut());
+            ref is_keyboard_shortcut_ref);
+            args.is_keyboard_shortcut(is_keyboard_shortcut_ref);
         }
         public virtual bool OnKeyEvent(CefBrowser browser, CefKeyEvent _event, IntPtr os_event)
         {
@@ -17072,6 +17076,7 @@ namespace LayoutFarm.CefBridge.Auto
         }
         public virtual void OnBeforePopup(OnBeforePopupArgs args)
         {
+            bool no_javascript_access_ref = false;
             OnBeforePopup(args.browser(),
             args.frame(),
             args.target_url(),
@@ -17082,7 +17087,8 @@ namespace LayoutFarm.CefBridge.Auto
             args.windowInfo(),
             args.client(),
             args.settings(),
-            args.no_javascript_access());
+            ref no_javascript_access_ref);
+            args.no_javascript_access(no_javascript_access_ref);
         }
         public virtual void OnAfterCreated(CefBrowser browser)
         {
@@ -17718,11 +17724,15 @@ namespace LayoutFarm.CefBridge.Auto
         }
         public virtual void GetScreenPoint(GetScreenPointArgs args)
         {
+            int screenX_ref = 0;
+            int screenY_ref = 0;
             GetScreenPoint(args.browser(),
             args.viewX(),
             args.viewY(),
-            args.screenX(),
-            args.screenY());
+            ref screenX_ref,
+            ref screenY_ref);
+            args.screenX(screenX_ref);
+            args.screenY(screenY_ref);
         }
         public virtual bool GetScreenInfo(CefBrowser browser, CefScreenInfo screen_info)
         {
@@ -19021,9 +19031,11 @@ namespace LayoutFarm.CefBridge.Auto
         }
         public virtual void OnProtocolExecution(OnProtocolExecutionArgs args)
         {
+            bool allow_os_execution_ref = false;
             OnProtocolExecution(args.browser(),
             args.url(),
-            args.allow_os_execution());
+            ref allow_os_execution_ref);
+            args.allow_os_execution(allow_os_execution_ref);
         }
         public virtual bool OnCertificateError(CefBrowser browser, cef_errorcode_t cert_error, string request_url, CefSSLInfo ssl_info, CefRequestCallback callback)
         {
@@ -19347,9 +19359,11 @@ namespace LayoutFarm.CefBridge.Auto
         }
         public virtual void GetDataResource(GetDataResourceArgs args)
         {
+            uint data_size_ref = 0;
             GetDataResource(args.resource_id(),
             args.data(),
-            args.data_size());
+            ref data_size_ref);
+            args.data_size(data_size_ref);
         }
         public virtual bool GetDataResourceForScale(int resource_id, cef_scale_factor_t scale_factor, IntPtr data, ref uint data_size)
         {
@@ -19386,10 +19400,12 @@ namespace LayoutFarm.CefBridge.Auto
         }
         public virtual void GetDataResourceForScale(GetDataResourceForScaleArgs args)
         {
+            uint data_size_ref = 0;
             GetDataResourceForScale(args.resource_id(),
             args.scale_factor(),
             args.data(),
-            args.data_size());
+            ref data_size_ref);
+            args.data_size(data_size_ref);
         }
         public static MyCefResourceBundleHandler New(MyCefCallback callback)
         {
@@ -19528,10 +19544,12 @@ namespace LayoutFarm.CefBridge.Auto
         }
         public virtual void ReadResponse(ReadResponseArgs args)
         {
+            int bytes_read_ref = 0;
             ReadResponse(args.data_out(),
             args.bytes_to_read(),
-            args.bytes_read(),
+            ref bytes_read_ref,
             args.callback());
+            args.bytes_read(bytes_read_ref);
         }
         public virtual bool CanGetCookie(CefCookie cookie)
         {
