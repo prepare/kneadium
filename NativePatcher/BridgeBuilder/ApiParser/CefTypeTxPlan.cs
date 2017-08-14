@@ -2805,8 +2805,6 @@ namespace BridgeBuilder
             stbuilder.AppendLine("this.nativePtr = nativePtr;");
             stbuilder.AppendLine("}");
 
-
-
             for (int i = 0; i < j; ++i)
             {
                 //move this to method
@@ -3072,6 +3070,7 @@ namespace BridgeBuilder
 
             stbuilder.Append("public virtual void");
             stbuilder.Append(" ");
+            stbuilder.AppendLine("//expand args");
             stbuilder.Append(met.Name);
             stbuilder.Append("(");
             stbuilder.Append(argClassName + " args");
@@ -3089,7 +3088,7 @@ namespace BridgeBuilder
                     MethodParameterTxInfo par = pars[i];
                     if (par.ArgByRef)
                     {
-                        stbuilder.Append(par.InnerTypeName + " " + par.Name + "_ref");
+                        stbuilder.Append(par.InnerTypeName + " " + par.Name);
                         //with default value
                         if (par.InnerTypeName == "bool")
                         {
@@ -3107,7 +3106,7 @@ namespace BridgeBuilder
             stbuilder.Append("(");
             if (j > 0)
             {
-                 
+
                 for (int i = 0; i < j; ++i)
                 {
                     if (i > 0)
@@ -3117,7 +3116,7 @@ namespace BridgeBuilder
                     MethodParameterTxInfo par = pars[i];
                     if (par.ArgByRef)
                     {
-                        stbuilder.Append("ref " + par.Name + "_ref");
+                        stbuilder.Append("ref " + par.Name);
                     }
                     else
                     {
@@ -3133,7 +3132,7 @@ namespace BridgeBuilder
                     MethodParameterTxInfo par = pars[i];
                     if (par.ArgByRef)
                     {
-                        stbuilder.AppendLine("args." + par.Name + "(" + par.Name + "_ref" + ");");
+                        stbuilder.AppendLine("args." + par.Name + "(" + par.Name + ");");
                     }
                 }
             }
@@ -3144,7 +3143,7 @@ namespace BridgeBuilder
         void GenerateCsImplClass(CodeTypeDeclaration orgDecl, List<MethodTxInfo> callToDotNetMets, CodeStringBuilder stbuilder)
         {
 
-            string className = "My" + orgDecl.Name;
+            string className = orgDecl.Name;
             //create a cpp class              
             stbuilder.Append("public class " + className);
             stbuilder.AppendLine("{");
@@ -3177,8 +3176,6 @@ namespace BridgeBuilder
                 GenerateCsExpandedArgsMethodImpl(met, stbuilder);
                 string argClassName = GenerateCsMethodArgsClass(met, stbuilder);
                 GenerateCsSingleArgMethodImpl(argClassName, met, stbuilder);
-
-
             }
 
             //-----------------------------------------------------------------------
@@ -3190,16 +3187,6 @@ namespace BridgeBuilder
                 stbuilder.AppendLine("}");
                 //with built in method table
 
-                //public static MyCefRequestHandler New()
-                //{ 
-                //    MyCefRequestHandler newInst = new MyCefRequestHandler();
-                //    newInst.nativePtr = Cef3Binder.NewInstance(_typeNAME, new MyCefCallback((met_id, nativeMetArgs) =>
-                //    {
-
-
-                //    }));
-                //    return newInst;
-                //}
                 stbuilder.AppendLine("public static " + className + " New(){");
                 stbuilder.AppendLine(className + " newInst= new " + className + "();");
                 stbuilder.AppendLine("newInst.nativePtr = Cef3Binder.NewInstance(_typeNAME,(met_id, nativeMetArgs) =>");
@@ -3212,8 +3199,7 @@ namespace BridgeBuilder
                     MethodTxInfo met = callToDotNetMets[mm];
                     stbuilder.AppendLine("case " + met.CppMethodSwitchCaseName + ":{");
                     stbuilder.AppendLine("newInst." + met.Name + "(new " + met.Name + "Args(nativeMetArgs));");
-                    stbuilder.AppendLine("}break;");//case
-
+                    stbuilder.AppendLine("}break;");//case 
                 }
 
 
@@ -3226,8 +3212,6 @@ namespace BridgeBuilder
 
             stbuilder.AppendLine("}");
         }
-
-
     }
 
 
