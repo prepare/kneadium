@@ -276,7 +276,7 @@ namespace BridgeBuilder
 
             string cefDir = @"D:\projects\cef_binary_3.3071.1647.win32";
 
-            List<CodeCompilationUnit> totalCuList_Capi = new List<CodeCompilationUnit>();
+            List<CodeCompilationUnit> totalCuList_capi = new List<CodeCompilationUnit>();
             List<CodeCompilationUnit> totalCuList = new List<CodeCompilationUnit>();
             {
                 //cef capi
@@ -290,24 +290,24 @@ namespace BridgeBuilder
                         continue;
                     }
                     CodeCompilationUnit cu = ParseWrapper(onlyHeaderFiles[i]);
-                    totalCuList_Capi.Add(cu);
+                    totalCuList_capi.Add(cu);
                 }
             }
-            //{
-            //    //cef capi/views
-            //    string[] onlyHeaderFiles = System.IO.Directory.GetFiles(cefDir + @"\include\capi\views", "*.h");
-            //    Dictionary<string, bool> skipFiles = CreateSkipFiles(new string[0]);
-            //    int j = onlyHeaderFiles.Length;
-            //    for (int i = 0; i < j; ++i)
-            //    {
-            //        if (skipFiles.ContainsKey(System.IO.Path.GetFileName(onlyHeaderFiles[i])))
-            //        {
-            //            continue;
-            //        }
-            //        CodeCompilationUnit cu = ParseWrapper(onlyHeaderFiles[i]);
-            //        totalCuList.Add(cu);
-            //    }
-            //}
+            {
+                //cef capi/views
+                string[] onlyHeaderFiles = System.IO.Directory.GetFiles(cefDir + @"\include\capi\views", "*.h");
+                Dictionary<string, bool> skipFiles = CreateSkipFiles(new string[0]);
+                int j = onlyHeaderFiles.Length;
+                for (int i = 0; i < j; ++i)
+                {
+                    if (skipFiles.ContainsKey(System.IO.Path.GetFileName(onlyHeaderFiles[i])))
+                    {
+                        continue;
+                    }
+                    CodeCompilationUnit cu = ParseWrapper(onlyHeaderFiles[i]);
+                    totalCuList_capi.Add(cu);
+                }
+            }
 
 
 

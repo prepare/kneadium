@@ -1382,7 +1382,7 @@ namespace BridgeBuilder
 
 #if DEBUG
             dbugCount++;
-
+            
 #endif
 
             //member modifiers
@@ -1435,6 +1435,7 @@ namespace BridgeBuilder
             }
             CodeTypeReference retType = null;
             //---------------------------
+            bool isCefExport = ExpectId("CEF_EXPORT"); //cef specific
             if (ExpectId("class"))
             {
                 //sub class
@@ -1465,8 +1466,7 @@ namespace BridgeBuilder
             }
 
             //modifier
-            bool isOperatorMethod = false;
-            bool isCefExport = ExpectId("CEF_EXPORT"); //cef specific
+            bool isOperatorMethod = false; 
             bool isStatic = ExpectId("static");
             bool isVirtual = ExpectId("virtual");
             bool isConst = ExpectId("const");
