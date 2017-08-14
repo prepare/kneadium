@@ -20,21 +20,18 @@ namespace BridgeBuilder
         {
 
             //1. analyze modified source files, in source folder 
-            string srcRootDir = @"D:\projects\cef_binary_3.3071.1647.win32\tests\cefclient";
+            string srcRootDir = @"D:\projects\cef_binary_3.3071.1647.win32";
+             
 
             PatchBuilder builder = new PatchBuilder(new string[]{
-                srcRootDir,
-                @"D:\projects\cef_binary_3.3071.1647.win32\tests\shared"
+                srcRootDir + @"\tests\cefclient",
+                srcRootDir + @"\tests\shared"
             });
             builder.MakePatch();
 
             //2. save patch to...
             string saveFolder = "d:\\WImageTest\\cefbridge_patches";
-            builder.Save(saveFolder);
-
-            ////3. test load those patches
-            //PatchBuilder builder2 = new PatchBuilder(srcRootDir);
-            //builder2.LoadPatchesFromFolder(saveFolder);
+            builder.Save(saveFolder); 
 
             //----------
             //copy extension code          
@@ -42,11 +39,18 @@ namespace BridgeBuilder
                 @"D:\projects\Kneadium\NativePatcher\cefbridge_patches"
                );
             //copy ext from actual src 
-            CopyFileInFolder(srcRootDir + "\\myext",
+            CopyFileInFolder(
+                srcRootDir + @"\tests\cefclient\myext",
                  @"D:\projects\Kneadium\NativePatcher\BridgeBuilder\Patcher_ExtCode\myext");
+            //----------
+            //copy ext from actual src 
+            CopyFileInFolder(
+                srcRootDir + @"\libcef_dll\myext",
+                 @"D:\projects\Kneadium\NativePatcher\BridgeBuilder\Patcher_ExtCode\myext");
+            //----------
+
 
         }
-
         static void CopyFileInFolder(string srcFolder, string targetFolder)
         {
             //not recursive
@@ -322,7 +326,7 @@ namespace BridgeBuilder
             }
 
 
-          
+
             {
                 //include folder
                 string[] onlyHeaderFiles = System.IO.Directory.GetFiles(cefDir + @"\include\", "*.h");
@@ -339,8 +343,8 @@ namespace BridgeBuilder
                     CodeCompilationUnit cu = ParseWrapper(onlyHeaderFiles[i]);
                     totalCuList.Add(cu);
                 }
-            } 
-            
+            }
+
             //c to cpp 
             {
                 string[] onlyHeaderFiles = System.IO.Directory.GetFiles(cefDir + @"\libcef_dll\ctocpp", "*.h");

@@ -1,13 +1,13 @@
 
 //MIT, 2017, WinterDev
-//AUTOGEN
-
+//AUTOGEN 
 #pragma once
 #include "ExportFuncAuto.h" 
 //----------------
 const int MET_Release = 0;
 //---------------- 
 //
+
 inline void SetCefStringToJsValue(jsvalue* value, const CefString&cefstr) {
 
 	MyCefStringHolder* str = new MyCefStringHolder();
@@ -75,12 +75,6 @@ inline void MyCefSetCefPoint(jsvalue* value, CefPoint&data) {
 	value->ptr = cefPoint;
 }
 ///------------------------
-struct MyMetArgsN
-{
-	int32_t argCount;
-	jsvalue ret;
-	jsvalue* vargs;
-};
 
 int32_t MyMetArgGetCount(void* /*MyMetArgsN*/ mymetArgs) {
 	return ((MyMetArgsN*)mymetArgs)->argCount;
@@ -9044,7 +9038,7 @@ public:
 			args.vargs = vargs;
 			MyCefSetInt32(&vargs[0], (int32_t)device_units_per_inch);
 			this->mcallback(MyCefPrintHandler_GetPdfPaperSize_6, &args);
-			 
+
 		}
 		CefSize s;
 		return s;

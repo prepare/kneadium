@@ -1,14 +1,12 @@
 #pragma once
-#define WRAPPING_CEF_SHARED 1
-#include "mycef.h" //mycef's jsvalue   
-#include "mycef_msg_const.h"
-class MyBrowser; //forward decl
-				 //---------------------
-				 //for auto gen content
+
+//for auto gen content
+ 
+#include "myext.h"
 #include "include/internal/cef_types.h"
 #include "include/wrapper/cef_helpers.h"
 
-				 //
+//
 #include "include/capi/cef_resource_bundle_handler_capi.h"
 #include "include/capi/cef_resource_bundle_capi.h"
 #include "include/capi/cef_xml_reader_capi.h"
@@ -18,7 +16,7 @@ class MyBrowser; //forward decl
 #include "include/capi/cef_command_line_capi.h"
 #include "include/capi/cef_urlrequest_capi.h"
 #include "include/capi/cef_app_capi.h"
-				 //
+//
 #include "libcef_dll/ctocpp/frame_ctocpp.h"
 #include "libcef_dll/ctocpp/browser_ctocpp.h"
 #include "libcef_dll/ctocpp/v8context_ctocpp.h"
@@ -50,7 +48,7 @@ class MyBrowser; //forward decl
 #include "libcef_dll/ctocpp/xml_reader_ctocpp.h"
 #include "libcef_dll/ctocpp/zip_reader_ctocpp.h"
 #include "libcef_dll/ctocpp/command_line_ctocpp.h"
-				 //
+//
 #include "libcef_dll/ctocpp/v8context_ctocpp.h"
 #include "libcef_dll/ctocpp/v8exception_ctocpp.h"
 #include "libcef_dll/ctocpp/v8stack_frame_ctocpp.h"
@@ -63,7 +61,7 @@ class MyBrowser; //forward decl
 #include "libcef_dll/ctocpp/print_settings_ctocpp.h"
 #include "libcef_dll/ctocpp/response_ctocpp.h"
 #include "libcef_dll/ctocpp/urlrequest_ctocpp.h"
-				 //
+//
 #include "libcef_dll/ctocpp/callback_ctocpp.h"
 #include "libcef_dll/ctocpp/value_ctocpp.h"
 #include "libcef_dll/ctocpp/dictionary_value_ctocpp.h"
@@ -76,7 +74,7 @@ class MyBrowser; //forward decl
 #include "libcef_dll/ctocpp/before_download_callback_ctocpp.h"
 #include "libcef_dll/ctocpp/print_dialog_callback_ctocpp.h"
 #include "libcef_dll/ctocpp/print_job_callback_ctocpp.h"
-				 //
+//
 #include "libcef_dll/cpptoc/drag_handler_cpptoc.h" 
 #include "libcef_dll/cpptoc/navigation_entry_visitor_cpptoc.h"
 #include "libcef_dll/cpptoc/pdf_print_callback_cpptoc.h"
@@ -129,16 +127,17 @@ class MyBrowser; //forward decl
 #include "libcef_dll/cpptoc/print_handler_cpptoc.h"
 #include "libcef_dll/cpptoc/read_handler_cpptoc.h"
 //---------------------
+ 
 //for auto gen content 
 //
 extern "C" {
-	 
-	MY_DLL_EXPORT void MyCefMet_CallN(void* me1, int metName, jsvalue* ret, jsvalue* v1, jsvalue* v2, jsvalue* v3, jsvalue* v4, jsvalue* v5, jsvalue* v6, jsvalue* v7); 
+
+	MY_DLL_EXPORT void MyCefMet_CallN(void* me1, int metName, jsvalue* ret, jsvalue* v1, jsvalue* v2, jsvalue* v3, jsvalue* v4, jsvalue* v5, jsvalue* v6, jsvalue* v7);
 	MY_DLL_EXPORT void* NewInstance(int typeName, managed_callback mcallback, jsvalue* jsvalue);
 
 
 	//MyMetArg
 	MY_DLL_EXPORT int32_t MyMetArgGetCount(void* /*MyMetArgs2*/ mymetArgs);
 	//0-> 7
-	MY_DLL_EXPORT void* MyMetArgGetArgAddress(void* /*MyMetArgs2*/mymetArgs,int index);
+	MY_DLL_EXPORT void* MyMetArgGetArgAddress(void* /*MyMetArgs2*/mymetArgs, int index);
 }

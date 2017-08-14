@@ -21,6 +21,17 @@ public:
 managed_callback mcallback_;//my extension
 MyCefJsHandler() {}
 
+struct QueryRequestArgs
+{
+CefBrowser* browser;
+CefFrame* frame;
+MyCefStringHolder* request;
+int64 query_id;
+bool persistent;
+CefMessageRouterBrowserSide::Callback* callback;
+};
+
+
 virtual bool OnQuery(CefRefPtr<CefBrowser> browser,
 CefRefPtr<CefFrame> frame,
 int64 query_id,

@@ -249,13 +249,7 @@ int MethodArgs::ReadOutputAsInt32(int resultIndex) {
 	}
 	return 0;//else
 }
-
-
-
-
-
-
-
+ 
 
 const char16* MethodArgs::ReadOutputAsString(int resultIndex)
 {
@@ -315,20 +309,6 @@ const char16* MethodArgs::ReadOutputAsString(int resultIndex)
 	}
 	return nullptr;
 }
-
-QueryRequestArgs::QueryRequestArgs() {
-
-
-	this->browser = nullptr;
-	this->frame = nullptr;
-	this->query_id = 0;
-	this->request = nullptr;
-	this->persistent = false;
-	this->callback = nullptr;
-}
-
-
-
 
 namespace mycefmx {
 	managed_callback m_callback;
