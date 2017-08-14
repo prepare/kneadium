@@ -2035,8 +2035,9 @@ namespace BridgeBuilder
             stbuilder.AppendLine("explicit " + className + "(){");
             stbuilder.AppendLine("mcallback= NULL;");
             stbuilder.AppendLine("}");
-            //
+            stbuilder.AppendLine("virtual managed_callback GetManagedCallBack() { return mcallback; }");
 
+            // 
             nn = onEventMethods.Count;
             for (int mm = 0; mm < nn; ++mm)
             {
@@ -2623,6 +2624,8 @@ namespace BridgeBuilder
             stbuilder.AppendLine("explicit " + className + "(){");
             stbuilder.AppendLine("mcallback= NULL;");
             stbuilder.AppendLine("}");
+            stbuilder.AppendLine("virtual managed_callback GetManagedCallBack() { return mcallback; }");
+
             //
             this.CppImplClassNameId = _typeTxInfo.CsInterOpTypeNameId;
             this.CppImplClassName = className;
@@ -2705,7 +2708,7 @@ namespace BridgeBuilder
                 );
             //---------------------------
 
-             
+
             stbuilder.AppendLine("MetArgs args;");
             stbuilder.AppendLine("memset(&args, 0, sizeof(MetArgs));");
             //
@@ -3476,6 +3479,8 @@ namespace BridgeBuilder
             stbuilder.AppendLine("explicit " + className + "(){");
             stbuilder.AppendLine("mcallback= NULL;");
             stbuilder.AppendLine("}");
+            stbuilder.AppendLine("virtual managed_callback GetManagedCallBack() { return mcallback; }");
+
             //
             this.CppImplClassNameId = _typeTxInfo.CsInterOpTypeNameId;
             this.CppImplClassName = className;
