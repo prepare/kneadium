@@ -141,3 +141,75 @@ extern "C" {
 	//0-> 7
 	MY_DLL_EXPORT void* MyMetArgGetArgAddress(void* /*MyMetArgs2*/mymetArgs, int index);
 }
+
+inline void SetCefStringToJsValue(jsvalue* value, const CefString&cefstr) {
+
+	MyCefStringHolder* str = new MyCefStringHolder();
+	str->value = cefstr;
+	//
+	value->type = JSVALUE_TYPE_NATIVE_CEFHOLDER_STRING;
+	value->ptr = str;
+	value->i32 = str->value.length();
+}
+inline void DeleteCefStringHolderFromJsValue(jsvalue* value) {
+	value->i32 = 0;
+	delete value->ptr;
+}
+inline void MyCefSetVoidPtr(jsvalue* value, void* data)
+{
+	value->type = JSVALUE_TYPE_WRAPPED;
+	value->ptr = data;
+}
+inline void MyCefSetVoidPtr2(jsvalue* value, const void* data) {
+	value->type = JSVALUE_TYPE_WRAPPED;
+	value->ptr = data;
+}
+inline void MyCefSetInt32(jsvalue* value, int32_t data)
+{
+	value->type = JSVALUE_TYPE_INTEGER;
+	value->i32 = data;
+}
+inline void MyCefSetUInt32(jsvalue* value, uint32_t data)
+{
+	value->type = JSVALUE_TYPE_INTEGER;
+	value->i32 = (int32_t)data;
+}
+inline void MyCefSetInt64(jsvalue* value, int64_t data)
+{
+	value->type = JSVALUE_TYPE_INTEGER64;
+	value->i64 = data;
+}
+inline void MyCefSetUInt64(jsvalue* value, uint64_t data)
+{
+	value->type = JSVALUE_TYPE_INTEGER64;
+	value->i64 = data;
+}
+inline void MyCefSetBool(jsvalue* value, bool data)
+{
+	value->type = JSVALUE_TYPE_BOOLEAN;
+	value->i32 = data ? 1 : 0;
+}
+inline void MyCefSetBool(jsvalue* value, int data)
+{
+	value->type = JSVALUE_TYPE_BOOLEAN;
+	value->i32 = data ? 1 : 0;
+}
+inline void MyCefSetDouble(jsvalue* value, double data)
+{
+	value->type = JSVALUE_TYPE_NUMBER;
+	value->num = data;
+}
+inline void MyCefSetFloat(jsvalue* value, float data)
+{
+	value->type = JSVALUE_TYPE_NUMBER;
+	value->num = data;
+}
+inline MyCefStringHolder*GetStringHolder(jsvalue * value) {
+	return (MyCefStringHolder*)value->ptr;
+}
+inline void MyCefSetCefPoint(jsvalue* value, CefPoint&data) {
+
+	CefPoint* cefPoint = new CefPoint();
+	value->type = JSVALUE_TYPE_WRAPPED;
+	value->ptr = cefPoint;
+}
