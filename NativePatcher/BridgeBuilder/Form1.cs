@@ -12,18 +12,14 @@ namespace BridgeBuilder
     {
         public Form1()
         {
-            InitializeComponent(); 
+            InitializeComponent();
         }
 
 
         private void cmdCreatePatchFiles_Click(object sender, EventArgs e)
         {
 
-
-            //1. analyze modified source files, in source folder
-            //string srcRootDir = @"D:\projects\cef_binary_3.2883.1548\tests\cefclient";
-            //string srcRootDir = @"D:\projects\cef_binary_3.2883.1553\tests\cefclient";
-            //string srcRootDir = @"D:\projects\cef_binary_3.3071.1634\tests\cefclient";
+            //1. analyze modified source files, in source folder 
             string srcRootDir = @"D:\projects\cef_binary_3.3071.1647.win32\tests\cefclient";
 
             PatchBuilder builder = new PatchBuilder(new string[]{
@@ -70,27 +66,12 @@ namespace BridgeBuilder
         }
         private void cmdLoadPatchAndApplyPatch_Click(object sender, EventArgs e)
         {
-            //string srcRootDir = @"D:\projects\cef_binary_3.2526.1366" + "\\cefclient"; //2526.1366
-            //string srcRootDir = @"D:\projects\cef_binary_3.2623.1395" + "\\cefclient"; //2526.1366
-            //string srcRootDir = @"D:\projects\cef_binary_3.2623.1399" + "\\cefclient"; //2526.1366
-            //string srcRootDir = @"D:\projects\cef_binary_3.2704.1418"; 
-            //string srcRootDir = @"D:\projects\cef_binary_3.2785.1466";  
-            //string srcRootDir = @"D:\projects\cef_binary_3.2883.1548\\tests"; 
-            //string srcRootDir = @"D:\projects\cef_binary_3.2883.1553\\tests";
-            //string srcRootDir = @"D:\projects\cef_binary_3.3029.1619\tests";
-            //string srcRootDir = @"D:\projects\cef_binary_3.3071.1634\tests";
-            //
-            //cef_binary_3.3071.1647
-            //string srcRootDir = @"D:\projects\cef_binary_3.3071.1647.win32\tests";
+            //cef_binary_3.3071.1647 
             string srcRootDir = @"D:\projects\cef_binary_3.3071.1647.win32\tests";
             string saveFolder = "d:\\WImageTest\\cefbridge_patches";
 
             PatchBuilder builder2 = new PatchBuilder(new string[]{
                 srcRootDir,
-                //@"D:\projects\cef_binary_3.2883.1553\\shared"
-                //@"D:\projects\cef_binary_3.3029.1619\shared"
-                //@"D:\projects\cef_binary_3.3071.1647.win32\shared"
-               // @"D:\projects\cef_binary_3.3071.1647.win64\tests\shared"
             });
             builder2.LoadPatchesFromFolder(saveFolder);
 
@@ -136,20 +117,6 @@ namespace BridgeBuilder
             string extTargetDir = newPathName + "\\cefclient\\myext";
             manualPatcher.CopyExtensionSources(extTargetDir);
             manualPatcher.Do_CMake_txt();
-
-            //bool is3_2704 = true;
-            //if (is3_2704)
-            //{
-            //    string extTargetDir = newPathName + "\\cefclient\\myext";
-            //    manualPatcher.CopyExtensionSources(extTargetDir);
-            //    manualPatcher.Do_CMake_txt_New_3_2704_up();
-            //}
-            //else
-            //{
-            //    string extTargetDir = newPathName + "\\myext";
-            //    manualPatcher.CopyExtensionSources(extTargetDir);
-            //    manualPatcher.Do_CMake_txt_old(); ;
-            //}
 
         }
 
@@ -329,11 +296,6 @@ namespace BridgeBuilder
                     {
                         continue;
                     }
-
-                    //if (onlyHeaderFiles[i].Contains("cef_browser"))
-                    //{
-
-                    //}
 
                     CodeCompilationUnit cu = ParseWrapper(onlyHeaderFiles[i]);
                     totalCuList.Add(cu);
@@ -522,19 +484,7 @@ namespace BridgeBuilder
                 "namespace LayoutFarm.CefBridge.Auto{\r\n");
 
 
-            foreach (CefTypeTxPlan tx in handlerPlans)
-            {
 
-                if (tx.OriginalDecl.Name == "CefRequestHandler")
-                {
-                    CodeStringBuilder stbuilder = new CodeStringBuilder();
-                    //a handler is created on cpp side, then we attach .net delegate to it
-                    //so  we need
-                    //1. 
-                    tx.GenerateCppCode(stbuilder);
-                }
-
-            }
 
             foreach (CefTypeTxPlan tx in enumTxPlans)
             {
@@ -591,6 +541,26 @@ namespace BridgeBuilder
                 }
             }
             // 
+
+            foreach (CefTypeTxPlan tx in handlerPlans)
+            {
+
+                CodeStringBuilder stbuilder = new CodeStringBuilder();
+                //a handler is created on cpp side, then we attach .net delegate to it
+                //so  we need
+                //1. 
+                tx.GenerateCppCode(stbuilder);
+                cppCodeStBuilder.Append(stbuilder.ToString());
+                //
+                stbuilder = new CodeStringBuilder();
+                tx.GenerateCsCode(stbuilder);
+                csCodeStBuilder.Append(stbuilder.ToString());
+
+                if (tx.CppImplClassNameId > 0)
+                {
+                    customImplClasses.Add(tx);
+                }
+            }
 
             CreateCppSwitchTable(cppCodeStBuilder, instanceClassPlans);
             CreateNewInstanceMethod(cppCodeStBuilder, customImplClasses);
@@ -704,46 +674,26 @@ namespace BridgeBuilder
                 value->type = JSVALUE_TYPE_WRAPPED;
                 value->ptr = cefPoint;
             } 
-            struct MyMetArgs2
-                    {   
-                        int32_t argCount;
-                        jsvalue ret;
-                        jsvalue v1;
-                        jsvalue v2;
-                        jsvalue v3;
-                        jsvalue v4;
-                        jsvalue v5;
-                        jsvalue v6;
-                        jsvalue v7;
-                    };
-                //MyMetArg
-                int32_t MyMetArgGetCount(void* /*MyMetArgs2*/ mymetArgs) {
-	                return ((MyMetArgs2*)mymetArgs)->argCount;
-                }
-                //0-> 7
-                void* MyMetArgGetArgAddress(void* /*MyMetArgs2*/mymetArgs, int index) {
-	                switch (index)
-	                {
-	                case 0:
-		                return &(((MyMetArgs2*)mymetArgs)->ret);
-	                case 1:
-		                return &(((MyMetArgs2*)mymetArgs)->v1);
-	                case 2:
-		                return &(((MyMetArgs2*)mymetArgs)->v2);
-	                case 3:
-		                return &(((MyMetArgs2*)mymetArgs)->v3);
-	                case 4:
-		                return &(((MyMetArgs2*)mymetArgs)->v4);
-	                case 5:
-		                return &(((MyMetArgs2*)mymetArgs)->v5);
-	                case 6:
-		                return &(((MyMetArgs2*)mymetArgs)->v6);
-	                case 7:
-		                return &(((MyMetArgs2*)mymetArgs)->v7);
-	                default:
-		                return nullptr;		 
-	                }
-                }
+              ///------------------------
+            struct MyMetArgsN
+            {
+	            int32_t argCount;
+	            jsvalue ret;
+	            jsvalue* vargs;
+            };
+ 
+            int32_t MyMetArgGetCount(void* /*MyMetArgsN*/ mymetArgs) {
+	            return ((MyMetArgsN*)mymetArgs)->argCount;
+            } 
+            void* MyMetArgGetArgAddress(void* /*MyMetArgsN*/mymetArgs, int index) { 
+	            MyMetArgsN* metArg = (MyMetArgsN*)mymetArgs;
+	            if (index > (metArg->argCount)) {
+		            return nullptr;
+	            }
+	            else {
+		            return &metArg->vargs[index];
+	            } 
+            }
             //////////////////////////////////////////////////////////////////";
 
             using (System.IO.StringReader strReader = new System.IO.StringReader(prebuilt1))

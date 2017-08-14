@@ -1629,6 +1629,11 @@ namespace LayoutFarm.CefBridge.Auto
             Cef3Binder.MyCefMet_Call0(this.nativePtr, CefApp_Release_0, out ret);
             this.nativePtr = IntPtr.Zero;
         }
+        public static CefApp New(MyCefCallback callback)
+        {
+            JsValue not_used = new JsValue();
+            return new CefApp(Cef3Binder.NewInstance(_typeNAME, callback, ref not_used));
+        }
     }
 
 
@@ -2004,6 +2009,11 @@ namespace LayoutFarm.CefBridge.Auto
             JsValue ret;
             Cef3Binder.MyCefMet_Call0(this.nativePtr, CefNavigationEntryVisitor_Release_0, out ret);
             this.nativePtr = IntPtr.Zero;
+        }
+        public static CefNavigationEntryVisitor New(MyCefCallback callback)
+        {
+            JsValue not_used = new JsValue();
+            return new CefNavigationEntryVisitor(Cef3Binder.NewInstance(_typeNAME, callback, ref not_used));
         }
     }
 
@@ -3183,6 +3193,11 @@ namespace LayoutFarm.CefBridge.Auto
             Cef3Binder.MyCefMet_Call0(this.nativePtr, CefClient_Release_0, out ret);
             this.nativePtr = IntPtr.Zero;
         }
+        public static CefClient New(MyCefCallback callback)
+        {
+            JsValue not_used = new JsValue();
+            return new CefClient(Cef3Binder.NewInstance(_typeNAME, callback, ref not_used));
+        }
     }
 
 
@@ -4151,6 +4166,11 @@ namespace LayoutFarm.CefBridge.Auto
             Cef3Binder.MyCefMet_Call0(this.nativePtr, CefCookieVisitor_Release_0, out ret);
             this.nativePtr = IntPtr.Zero;
         }
+        public static CefCookieVisitor New(MyCefCallback callback)
+        {
+            JsValue not_used = new JsValue();
+            return new CefCookieVisitor(Cef3Binder.NewInstance(_typeNAME, callback, ref not_used));
+        }
     }
 
 
@@ -4174,6 +4194,11 @@ namespace LayoutFarm.CefBridge.Auto
             JsValue ret;
             Cef3Binder.MyCefMet_Call0(this.nativePtr, CefDOMVisitor_Release_0, out ret);
             this.nativePtr = IntPtr.Zero;
+        }
+        public static CefDOMVisitor New(MyCefCallback callback)
+        {
+            JsValue not_used = new JsValue();
+            return new CefDOMVisitor(Cef3Binder.NewInstance(_typeNAME, callback, ref not_used));
         }
     }
 
@@ -7575,6 +7600,11 @@ namespace LayoutFarm.CefBridge.Auto
             Cef3Binder.MyCefMet_Call0(this.nativePtr, CefMenuModelDelegate_Release_0, out ret);
             this.nativePtr = IntPtr.Zero;
         }
+        public static CefMenuModelDelegate New(MyCefCallback callback)
+        {
+            JsValue not_used = new JsValue();
+            return new CefMenuModelDelegate(Cef3Binder.NewInstance(_typeNAME, callback, ref not_used));
+        }
     }
 
 
@@ -9693,6 +9723,11 @@ namespace LayoutFarm.CefBridge.Auto
             Cef3Binder.MyCefMet_Call0(this.nativePtr, CefResponseFilter_Release_0, out ret);
             this.nativePtr = IntPtr.Zero;
         }
+        public static CefResponseFilter New(MyCefCallback callback)
+        {
+            JsValue not_used = new JsValue();
+            return new CefResponseFilter(Cef3Binder.NewInstance(_typeNAME, callback, ref not_used));
+        }
     }
 
 
@@ -9716,6 +9751,11 @@ namespace LayoutFarm.CefBridge.Auto
             JsValue ret;
             Cef3Binder.MyCefMet_Call0(this.nativePtr, CefSchemeHandlerFactory_Release_0, out ret);
             this.nativePtr = IntPtr.Zero;
+        }
+        public static CefSchemeHandlerFactory New(MyCefCallback callback)
+        {
+            JsValue not_used = new JsValue();
+            return new CefSchemeHandlerFactory(Cef3Binder.NewInstance(_typeNAME, callback, ref not_used));
         }
     }
 
@@ -10126,30 +10166,9 @@ namespace LayoutFarm.CefBridge.Auto
         }
         public static CefStringVisitor New(MyCefCallback callback)
         {
-            JsValue not_used = new JsValue(); //not used
-            return new CefStringVisitor(
-                Cef3Binder.NewInstance(_typeNAME, callback, ref not_used));
-        } 
-        //--------------------
-        public struct OnVisitPars
-        {
-            internal IntPtr nativePtr;
-            public OnVisitPars(IntPtr nativePtr)
-            {
-                this.nativePtr = nativePtr;
-            }
-            public string _string //string par
-            {
-                get
-                {
-                    unsafe
-                    {
-                        return Cef3Binder.MyCefJsReadString((JsValue*)Cef3Binder.MyMetArgGetArgAddress(nativePtr, 1));
-                    }
-                }
-            }
+            JsValue not_used = new JsValue();
+            return new CefStringVisitor(Cef3Binder.NewInstance(_typeNAME, callback, ref not_used));
         }
-        //--------------------
     }
 
 
@@ -10177,6 +10196,11 @@ namespace LayoutFarm.CefBridge.Auto
             JsValue ret;
             Cef3Binder.MyCefMet_Call0(this.nativePtr, CefTask_Release_0, out ret);
             this.nativePtr = IntPtr.Zero;
+        }
+        public static CefTask New(MyCefCallback callback)
+        {
+            JsValue not_used = new JsValue();
+            return new CefTask(Cef3Binder.NewInstance(_typeNAME, callback, ref not_used));
         }
     }
 
@@ -10442,6 +10466,11 @@ namespace LayoutFarm.CefBridge.Auto
             Cef3Binder.MyCefMet_Call0(this.nativePtr, CefURLRequestClient_Release_0, out ret);
             this.nativePtr = IntPtr.Zero;
         }
+        public static CefURLRequestClient New(MyCefCallback callback)
+        {
+            JsValue not_used = new JsValue();
+            return new CefURLRequestClient(Cef3Binder.NewInstance(_typeNAME, callback, ref not_used));
+        }
     }
 
 
@@ -10664,6 +10693,11 @@ namespace LayoutFarm.CefBridge.Auto
             Cef3Binder.MyCefMet_Call0(this.nativePtr, CefV8Accessor_Release_0, out ret);
             this.nativePtr = IntPtr.Zero;
         }
+        public static CefV8Accessor New(MyCefCallback callback)
+        {
+            JsValue not_used = new JsValue();
+            return new CefV8Accessor(Cef3Binder.NewInstance(_typeNAME, callback, ref not_used));
+        }
     }
 
 
@@ -10691,6 +10725,11 @@ namespace LayoutFarm.CefBridge.Auto
             JsValue ret;
             Cef3Binder.MyCefMet_Call0(this.nativePtr, CefV8Interceptor_Release_0, out ret);
             this.nativePtr = IntPtr.Zero;
+        }
+        public static CefV8Interceptor New(MyCefCallback callback)
+        {
+            JsValue not_used = new JsValue();
+            return new CefV8Interceptor(Cef3Binder.NewInstance(_typeNAME, callback, ref not_used));
         }
     }
 
@@ -13601,6 +13640,11 @@ namespace LayoutFarm.CefBridge.Auto
             Cef3Binder.MyCefMet_Call0(this.nativePtr, CefWebPluginInfoVisitor_Release_0, out ret);
             this.nativePtr = IntPtr.Zero;
         }
+        public static CefWebPluginInfoVisitor New(MyCefCallback callback)
+        {
+            JsValue not_used = new JsValue();
+            return new CefWebPluginInfoVisitor(Cef3Binder.NewInstance(_typeNAME, callback, ref not_used));
+        }
     }
 
 
@@ -15422,6 +15466,4702 @@ namespace LayoutFarm.CefBridge.Auto
             JsValue ret;
             Cef3Binder.MyCefMet_Call0(this.nativePtr, CefRegisterCdmCallback_Release_0, out ret);
             this.nativePtr = IntPtr.Zero;
+        }
+    }
+    public class CefAccessibilityHandler
+    {
+        const int _typeNAME = 56;
+        const int MyCefAccessibilityHandler_OnAccessibilityTreeChange_1 = 1;
+        const int MyCefAccessibilityHandler_OnAccessibilityLocationChange_2 = 2;
+        internal IntPtr nativePtr;
+        public CefAccessibilityHandler(IntPtr nativePtr)
+        {
+            this.nativePtr = nativePtr;
+        }
+        public CefAccessibilityHandler() { }
+        public virtual void OnAccessibilityTreeChange(CefValue value)
+        {
+        }
+        //gen! void OnAccessibilityTreeChange(CefRefPtr<CefValue> value)
+        public struct OnAccessibilityTreeChangeArgs
+        {
+            internal IntPtr nativePtr; //met arg native ptr
+            internal OnAccessibilityTreeChangeArgs(IntPtr nativePtr)
+            {
+                this.nativePtr = nativePtr;
+            }
+            public CefValue value()
+            {
+                throw new CefNotImplementedException();
+            }
+        }
+        public virtual void //expand args
+        OnAccessibilityTreeChange(OnAccessibilityTreeChangeArgs args)
+        {
+            OnAccessibilityTreeChange(args.value());
+        }
+        public virtual void OnAccessibilityLocationChange(CefValue value)
+        {
+        }
+        //gen! void OnAccessibilityLocationChange(CefRefPtr<CefValue> value)
+        public struct OnAccessibilityLocationChangeArgs
+        {
+            internal IntPtr nativePtr; //met arg native ptr
+            internal OnAccessibilityLocationChangeArgs(IntPtr nativePtr)
+            {
+                this.nativePtr = nativePtr;
+            }
+            public CefValue value()
+            {
+                throw new CefNotImplementedException();
+            }
+        }
+        public virtual void //expand args
+        OnAccessibilityLocationChange(OnAccessibilityLocationChangeArgs args)
+        {
+            OnAccessibilityLocationChange(args.value());
+        }
+        public static CefAccessibilityHandler New(MyCefCallback callback)
+        {
+            return new CefAccessibilityHandler(Cef3Binder.NewInstance(_typeNAME, callback));
+        }
+        public static CefAccessibilityHandler New()
+        {
+            CefAccessibilityHandler newInst = new CefAccessibilityHandler();
+            newInst.nativePtr = Cef3Binder.NewInstance(_typeNAME, (met_id, nativeMetArgs) =>
+            {
+                switch (met_id)
+                {
+                    case MyCefAccessibilityHandler_OnAccessibilityTreeChange_1:
+                        {
+                            newInst.OnAccessibilityTreeChange(new OnAccessibilityTreeChangeArgs(nativeMetArgs));
+                        }
+                        break;
+                    case MyCefAccessibilityHandler_OnAccessibilityLocationChange_2:
+                        {
+                            newInst.OnAccessibilityLocationChange(new OnAccessibilityLocationChangeArgs(nativeMetArgs));
+                        }
+                        break;
+                }
+            });
+            return newInst;
+        }
+    }
+    public class CefBrowserProcessHandler
+    {
+        const int _typeNAME = 57;
+        const int MyCefBrowserProcessHandler_OnContextInitialized_1 = 1;
+        const int MyCefBrowserProcessHandler_OnBeforeChildProcessLaunch_2 = 2;
+        const int MyCefBrowserProcessHandler_OnRenderProcessThreadCreated_3 = 3;
+        const int MyCefBrowserProcessHandler_GetPrintHandler_4 = 4;
+        const int MyCefBrowserProcessHandler_OnScheduleMessagePumpWork_5 = 5;
+        internal IntPtr nativePtr;
+        public CefBrowserProcessHandler(IntPtr nativePtr)
+        {
+            this.nativePtr = nativePtr;
+        }
+        public CefBrowserProcessHandler() { }
+        public virtual void OnContextInitialized()
+        {
+        }
+        //gen! void OnContextInitialized()
+        public struct OnContextInitializedArgs
+        {
+            internal IntPtr nativePtr; //met arg native ptr
+            internal OnContextInitializedArgs(IntPtr nativePtr)
+            {
+                this.nativePtr = nativePtr;
+            }
+        }
+        public virtual void //expand args
+        OnContextInitialized(OnContextInitializedArgs args)
+        {
+            OnContextInitialized();
+        }
+        public virtual void OnBeforeChildProcessLaunch(CefCommandLine command_line)
+        {
+        }
+        //gen! void OnBeforeChildProcessLaunch(CefRefPtr<CefCommandLine> command_line)
+        public struct OnBeforeChildProcessLaunchArgs
+        {
+            internal IntPtr nativePtr; //met arg native ptr
+            internal OnBeforeChildProcessLaunchArgs(IntPtr nativePtr)
+            {
+                this.nativePtr = nativePtr;
+            }
+            public CefCommandLine command_line()
+            {
+                return new CefCommandLine(Cef3Binder.MyMetArgGetAsIntPtr(nativePtr, 1));
+            }
+        }
+        public virtual void //expand args
+        OnBeforeChildProcessLaunch(OnBeforeChildProcessLaunchArgs args)
+        {
+            OnBeforeChildProcessLaunch(args.command_line());
+        }
+        public virtual void OnRenderProcessThreadCreated(CefListValue extra_info)
+        {
+        }
+        //gen! void OnRenderProcessThreadCreated(CefRefPtr<CefListValue> extra_info)
+        public struct OnRenderProcessThreadCreatedArgs
+        {
+            internal IntPtr nativePtr; //met arg native ptr
+            internal OnRenderProcessThreadCreatedArgs(IntPtr nativePtr)
+            {
+                this.nativePtr = nativePtr;
+            }
+            public CefListValue extra_info()
+            {
+                return new CefListValue(Cef3Binder.MyMetArgGetAsIntPtr(nativePtr, 1));
+            }
+        }
+        public virtual void //expand args
+        OnRenderProcessThreadCreated(OnRenderProcessThreadCreatedArgs args)
+        {
+            OnRenderProcessThreadCreated(args.extra_info());
+        }
+        public virtual CefPrintHandler GetPrintHandler()
+        {
+            throw new CefNotImplementedException();
+        }
+        //gen! CefRefPtr<CefPrintHandler> GetPrintHandler()
+        public struct GetPrintHandlerArgs
+        {
+            internal IntPtr nativePtr; //met arg native ptr
+            internal GetPrintHandlerArgs(IntPtr nativePtr)
+            {
+                this.nativePtr = nativePtr;
+            }
+        }
+        public virtual void //expand args
+        GetPrintHandler(GetPrintHandlerArgs args)
+        {
+            GetPrintHandler();
+        }
+        public virtual void OnScheduleMessagePumpWork(long delay_ms)
+        {
+        }
+        //gen! void OnScheduleMessagePumpWork(int64 delay_ms)
+        public struct OnScheduleMessagePumpWorkArgs
+        {
+            internal IntPtr nativePtr; //met arg native ptr
+            internal OnScheduleMessagePumpWorkArgs(IntPtr nativePtr)
+            {
+                this.nativePtr = nativePtr;
+            }
+            public long delay_ms()
+            {
+                return Cef3Binder.MyMetArgGetAsInt64(nativePtr, 1);
+            }
+        }
+        public virtual void //expand args
+        OnScheduleMessagePumpWork(OnScheduleMessagePumpWorkArgs args)
+        {
+            OnScheduleMessagePumpWork(args.delay_ms());
+        }
+        public static CefBrowserProcessHandler New(MyCefCallback callback)
+        {
+            return new CefBrowserProcessHandler(Cef3Binder.NewInstance(_typeNAME, callback));
+        }
+        public static CefBrowserProcessHandler New()
+        {
+            CefBrowserProcessHandler newInst = new CefBrowserProcessHandler();
+            newInst.nativePtr = Cef3Binder.NewInstance(_typeNAME, (met_id, nativeMetArgs) =>
+            {
+                switch (met_id)
+                {
+                    case MyCefBrowserProcessHandler_OnContextInitialized_1:
+                        {
+                            newInst.OnContextInitialized(new OnContextInitializedArgs(nativeMetArgs));
+                        }
+                        break;
+                    case MyCefBrowserProcessHandler_OnBeforeChildProcessLaunch_2:
+                        {
+                            newInst.OnBeforeChildProcessLaunch(new OnBeforeChildProcessLaunchArgs(nativeMetArgs));
+                        }
+                        break;
+                    case MyCefBrowserProcessHandler_OnRenderProcessThreadCreated_3:
+                        {
+                            newInst.OnRenderProcessThreadCreated(new OnRenderProcessThreadCreatedArgs(nativeMetArgs));
+                        }
+                        break;
+                    case MyCefBrowserProcessHandler_GetPrintHandler_4:
+                        {
+                            newInst.GetPrintHandler(new GetPrintHandlerArgs(nativeMetArgs));
+                        }
+                        break;
+                    case MyCefBrowserProcessHandler_OnScheduleMessagePumpWork_5:
+                        {
+                            newInst.OnScheduleMessagePumpWork(new OnScheduleMessagePumpWorkArgs(nativeMetArgs));
+                        }
+                        break;
+                }
+            });
+            return newInst;
+        }
+    }
+    public class CefContextMenuHandler
+    {
+        const int _typeNAME = 58;
+        const int MyCefContextMenuHandler_OnBeforeContextMenu_1 = 1;
+        const int MyCefContextMenuHandler_RunContextMenu_2 = 2;
+        const int MyCefContextMenuHandler_OnContextMenuCommand_3 = 3;
+        const int MyCefContextMenuHandler_OnContextMenuDismissed_4 = 4;
+        internal IntPtr nativePtr;
+        public CefContextMenuHandler(IntPtr nativePtr)
+        {
+            this.nativePtr = nativePtr;
+        }
+        public CefContextMenuHandler() { }
+        public virtual void OnBeforeContextMenu(CefBrowser browser, CefFrame frame, CefContextMenuParams _params, CefMenuModel model)
+        {
+        }
+        //gen! void OnBeforeContextMenu(CefRefPtr<CefBrowser> browser,CefRefPtr<CefFrame> frame,CefRefPtr<CefContextMenuParams> params,CefRefPtr<CefMenuModel> model)
+        public struct OnBeforeContextMenuArgs
+        {
+            internal IntPtr nativePtr; //met arg native ptr
+            internal OnBeforeContextMenuArgs(IntPtr nativePtr)
+            {
+                this.nativePtr = nativePtr;
+            }
+            public CefBrowser browser()
+            {
+                return new CefBrowser(Cef3Binder.MyMetArgGetAsIntPtr(nativePtr, 1));
+            }
+            public CefFrame frame()
+            {
+                return new CefFrame(Cef3Binder.MyMetArgGetAsIntPtr(nativePtr, 2));
+            }
+            public CefContextMenuParams _params()
+            {
+                return new CefContextMenuParams(Cef3Binder.MyMetArgGetAsIntPtr(nativePtr, 3));
+            }
+            public CefMenuModel model()
+            {
+                return new CefMenuModel(Cef3Binder.MyMetArgGetAsIntPtr(nativePtr, 4));
+            }
+        }
+        public virtual void //expand args
+        OnBeforeContextMenu(OnBeforeContextMenuArgs args)
+        {
+            OnBeforeContextMenu(args.browser(),
+            args.frame(),
+            args._params(),
+            args.model());
+        }
+        public virtual bool RunContextMenu(CefBrowser browser, CefFrame frame, CefContextMenuParams _params, CefMenuModel model, CefRunContextMenuCallback callback)
+        {
+            return false;
+        }
+        //gen! bool RunContextMenu(CefRefPtr<CefBrowser> browser,CefRefPtr<CefFrame> frame,CefRefPtr<CefContextMenuParams> params,CefRefPtr<CefMenuModel> model,CefRefPtr<CefRunContextMenuCallback> callback)
+        public struct RunContextMenuArgs
+        {
+            internal IntPtr nativePtr; //met arg native ptr
+            internal RunContextMenuArgs(IntPtr nativePtr)
+            {
+                this.nativePtr = nativePtr;
+            }
+            public CefBrowser browser()
+            {
+                return new CefBrowser(Cef3Binder.MyMetArgGetAsIntPtr(nativePtr, 1));
+            }
+            public CefFrame frame()
+            {
+                return new CefFrame(Cef3Binder.MyMetArgGetAsIntPtr(nativePtr, 2));
+            }
+            public CefContextMenuParams _params()
+            {
+                return new CefContextMenuParams(Cef3Binder.MyMetArgGetAsIntPtr(nativePtr, 3));
+            }
+            public CefMenuModel model()
+            {
+                return new CefMenuModel(Cef3Binder.MyMetArgGetAsIntPtr(nativePtr, 4));
+            }
+            public CefRunContextMenuCallback callback()
+            {
+                return new CefRunContextMenuCallback(Cef3Binder.MyMetArgGetAsIntPtr(nativePtr, 5));
+            }
+        }
+        public virtual void //expand args
+        RunContextMenu(RunContextMenuArgs args)
+        {
+            RunContextMenu(args.browser(),
+            args.frame(),
+            args._params(),
+            args.model(),
+            args.callback());
+        }
+        public virtual bool OnContextMenuCommand(CefBrowser browser, CefFrame frame, CefContextMenuParams _params, int command_id, cef_event_flags_t event_flags)
+        {
+            return false;
+        }
+        //gen! bool OnContextMenuCommand(CefRefPtr<CefBrowser> browser,CefRefPtr<CefFrame> frame,CefRefPtr<CefContextMenuParams> params,int command_id,EventFlags event_flags)
+        public struct OnContextMenuCommandArgs
+        {
+            internal IntPtr nativePtr; //met arg native ptr
+            internal OnContextMenuCommandArgs(IntPtr nativePtr)
+            {
+                this.nativePtr = nativePtr;
+            }
+            public CefBrowser browser()
+            {
+                return new CefBrowser(Cef3Binder.MyMetArgGetAsIntPtr(nativePtr, 1));
+            }
+            public CefFrame frame()
+            {
+                return new CefFrame(Cef3Binder.MyMetArgGetAsIntPtr(nativePtr, 2));
+            }
+            public CefContextMenuParams _params()
+            {
+                return new CefContextMenuParams(Cef3Binder.MyMetArgGetAsIntPtr(nativePtr, 3));
+            }
+            public int command_id()
+            {
+                return Cef3Binder.MyMetArgGetAsInt32(nativePtr, 4);
+            }
+            public cef_event_flags_t event_flags()
+            {
+                return (cef_event_flags_t)Cef3Binder.MyMetArgGetAsInt32(nativePtr, 5);
+            }
+        }
+        public virtual void //expand args
+        OnContextMenuCommand(OnContextMenuCommandArgs args)
+        {
+            OnContextMenuCommand(args.browser(),
+            args.frame(),
+            args._params(),
+            args.command_id(),
+            args.event_flags());
+        }
+        public virtual void OnContextMenuDismissed(CefBrowser browser, CefFrame frame)
+        {
+        }
+        //gen! void OnContextMenuDismissed(CefRefPtr<CefBrowser> browser,CefRefPtr<CefFrame> frame)
+        public struct OnContextMenuDismissedArgs
+        {
+            internal IntPtr nativePtr; //met arg native ptr
+            internal OnContextMenuDismissedArgs(IntPtr nativePtr)
+            {
+                this.nativePtr = nativePtr;
+            }
+            public CefBrowser browser()
+            {
+                return new CefBrowser(Cef3Binder.MyMetArgGetAsIntPtr(nativePtr, 1));
+            }
+            public CefFrame frame()
+            {
+                return new CefFrame(Cef3Binder.MyMetArgGetAsIntPtr(nativePtr, 2));
+            }
+        }
+        public virtual void //expand args
+        OnContextMenuDismissed(OnContextMenuDismissedArgs args)
+        {
+            OnContextMenuDismissed(args.browser(),
+            args.frame());
+        }
+        public static CefContextMenuHandler New(MyCefCallback callback)
+        {
+            return new CefContextMenuHandler(Cef3Binder.NewInstance(_typeNAME, callback));
+        }
+        public static CefContextMenuHandler New()
+        {
+            CefContextMenuHandler newInst = new CefContextMenuHandler();
+            newInst.nativePtr = Cef3Binder.NewInstance(_typeNAME, (met_id, nativeMetArgs) =>
+            {
+                switch (met_id)
+                {
+                    case MyCefContextMenuHandler_OnBeforeContextMenu_1:
+                        {
+                            newInst.OnBeforeContextMenu(new OnBeforeContextMenuArgs(nativeMetArgs));
+                        }
+                        break;
+                    case MyCefContextMenuHandler_RunContextMenu_2:
+                        {
+                            newInst.RunContextMenu(new RunContextMenuArgs(nativeMetArgs));
+                        }
+                        break;
+                    case MyCefContextMenuHandler_OnContextMenuCommand_3:
+                        {
+                            newInst.OnContextMenuCommand(new OnContextMenuCommandArgs(nativeMetArgs));
+                        }
+                        break;
+                    case MyCefContextMenuHandler_OnContextMenuDismissed_4:
+                        {
+                            newInst.OnContextMenuDismissed(new OnContextMenuDismissedArgs(nativeMetArgs));
+                        }
+                        break;
+                }
+            });
+            return newInst;
+        }
+    }
+    public class CefDialogHandler
+    {
+        const int _typeNAME = 59;
+        const int MyCefDialogHandler_OnFileDialog_1 = 1;
+        internal IntPtr nativePtr;
+        public CefDialogHandler(IntPtr nativePtr)
+        {
+            this.nativePtr = nativePtr;
+        }
+        public CefDialogHandler() { }
+        public virtual bool OnFileDialog(CefBrowser browser, cef_file_dialog_mode_t mode, string title, string default_file_path, List<string> accept_filters, int selected_accept_filter, CefFileDialogCallback callback)
+        {
+            return false;
+        }
+        //gen! bool OnFileDialog(CefRefPtr<CefBrowser> browser,FileDialogMode mode,const CefString& title,const CefString& default_file_path,const std::vector<CefString>& accept_filters,int selected_accept_filter,CefRefPtr<CefFileDialogCallback> callback)
+        public struct OnFileDialogArgs
+        {
+            internal IntPtr nativePtr; //met arg native ptr
+            internal OnFileDialogArgs(IntPtr nativePtr)
+            {
+                this.nativePtr = nativePtr;
+            }
+            public CefBrowser browser()
+            {
+                return new CefBrowser(Cef3Binder.MyMetArgGetAsIntPtr(nativePtr, 1));
+            }
+            public cef_file_dialog_mode_t mode()
+            {
+                return (cef_file_dialog_mode_t)Cef3Binder.MyMetArgGetAsInt32(nativePtr, 2);
+            }
+            public string title()
+            {
+                return Cef3Binder.MyMetArgGetAsString(nativePtr, 3);
+            }
+            public string default_file_path()
+            {
+                return Cef3Binder.MyMetArgGetAsString(nativePtr, 4);
+            }
+            public List<string> accept_filters()
+            {
+                throw new CefNotImplementedException();
+            }
+            public int selected_accept_filter()
+            {
+                return Cef3Binder.MyMetArgGetAsInt32(nativePtr, 6);
+            }
+            public CefFileDialogCallback callback()
+            {
+                return new CefFileDialogCallback(Cef3Binder.MyMetArgGetAsIntPtr(nativePtr, 7));
+            }
+        }
+        public virtual void //expand args
+        OnFileDialog(OnFileDialogArgs args)
+        {
+            OnFileDialog(args.browser(),
+            args.mode(),
+            args.title(),
+            args.default_file_path(),
+            args.accept_filters(),
+            args.selected_accept_filter(),
+            args.callback());
+        }
+        public static CefDialogHandler New(MyCefCallback callback)
+        {
+            return new CefDialogHandler(Cef3Binder.NewInstance(_typeNAME, callback));
+        }
+        public static CefDialogHandler New()
+        {
+            CefDialogHandler newInst = new CefDialogHandler();
+            newInst.nativePtr = Cef3Binder.NewInstance(_typeNAME, (met_id, nativeMetArgs) =>
+            {
+                switch (met_id)
+                {
+                    case MyCefDialogHandler_OnFileDialog_1:
+                        {
+                            newInst.OnFileDialog(new OnFileDialogArgs(nativeMetArgs));
+                        }
+                        break;
+                }
+            });
+            return newInst;
+        }
+    }
+    public class CefDisplayHandler
+    {
+        const int _typeNAME = 60;
+        const int MyCefDisplayHandler_OnAddressChange_1 = 1;
+        const int MyCefDisplayHandler_OnTitleChange_2 = 2;
+        const int MyCefDisplayHandler_OnFaviconURLChange_3 = 3;
+        const int MyCefDisplayHandler_OnFullscreenModeChange_4 = 4;
+        const int MyCefDisplayHandler_OnTooltip_5 = 5;
+        const int MyCefDisplayHandler_OnStatusMessage_6 = 6;
+        const int MyCefDisplayHandler_OnConsoleMessage_7 = 7;
+        internal IntPtr nativePtr;
+        public CefDisplayHandler(IntPtr nativePtr)
+        {
+            this.nativePtr = nativePtr;
+        }
+        public CefDisplayHandler() { }
+        public virtual void OnAddressChange(CefBrowser browser, CefFrame frame, string url)
+        {
+        }
+        //gen! void OnAddressChange(CefRefPtr<CefBrowser> browser,CefRefPtr<CefFrame> frame,const CefString& url)
+        public struct OnAddressChangeArgs
+        {
+            internal IntPtr nativePtr; //met arg native ptr
+            internal OnAddressChangeArgs(IntPtr nativePtr)
+            {
+                this.nativePtr = nativePtr;
+            }
+            public CefBrowser browser()
+            {
+                return new CefBrowser(Cef3Binder.MyMetArgGetAsIntPtr(nativePtr, 1));
+            }
+            public CefFrame frame()
+            {
+                return new CefFrame(Cef3Binder.MyMetArgGetAsIntPtr(nativePtr, 2));
+            }
+            public string url()
+            {
+                return Cef3Binder.MyMetArgGetAsString(nativePtr, 3);
+            }
+        }
+        public virtual void //expand args
+        OnAddressChange(OnAddressChangeArgs args)
+        {
+            OnAddressChange(args.browser(),
+            args.frame(),
+            args.url());
+        }
+        public virtual void OnTitleChange(CefBrowser browser, string title)
+        {
+        }
+        //gen! void OnTitleChange(CefRefPtr<CefBrowser> browser,const CefString& title)
+        public struct OnTitleChangeArgs
+        {
+            internal IntPtr nativePtr; //met arg native ptr
+            internal OnTitleChangeArgs(IntPtr nativePtr)
+            {
+                this.nativePtr = nativePtr;
+            }
+            public CefBrowser browser()
+            {
+                return new CefBrowser(Cef3Binder.MyMetArgGetAsIntPtr(nativePtr, 1));
+            }
+            public string title()
+            {
+                return Cef3Binder.MyMetArgGetAsString(nativePtr, 2);
+            }
+        }
+        public virtual void //expand args
+        OnTitleChange(OnTitleChangeArgs args)
+        {
+            OnTitleChange(args.browser(),
+            args.title());
+        }
+        public virtual void OnFaviconURLChange(CefBrowser browser, List<string> icon_urls)
+        {
+        }
+        //gen! void OnFaviconURLChange(CefRefPtr<CefBrowser> browser,const std::vector<CefString>& icon_urls)
+        public struct OnFaviconURLChangeArgs
+        {
+            internal IntPtr nativePtr; //met arg native ptr
+            internal OnFaviconURLChangeArgs(IntPtr nativePtr)
+            {
+                this.nativePtr = nativePtr;
+            }
+            public CefBrowser browser()
+            {
+                return new CefBrowser(Cef3Binder.MyMetArgGetAsIntPtr(nativePtr, 1));
+            }
+            public List<string> icon_urls()
+            {
+                throw new CefNotImplementedException();
+            }
+        }
+        public virtual void //expand args
+        OnFaviconURLChange(OnFaviconURLChangeArgs args)
+        {
+            OnFaviconURLChange(args.browser(),
+            args.icon_urls());
+        }
+        public virtual void OnFullscreenModeChange(CefBrowser browser, bool fullscreen)
+        {
+        }
+        //gen! void OnFullscreenModeChange(CefRefPtr<CefBrowser> browser,bool fullscreen)
+        public struct OnFullscreenModeChangeArgs
+        {
+            internal IntPtr nativePtr; //met arg native ptr
+            internal OnFullscreenModeChangeArgs(IntPtr nativePtr)
+            {
+                this.nativePtr = nativePtr;
+            }
+            public CefBrowser browser()
+            {
+                return new CefBrowser(Cef3Binder.MyMetArgGetAsIntPtr(nativePtr, 1));
+            }
+            public bool fullscreen()
+            {
+                return Cef3Binder.MyMetArgGetAsBool(nativePtr, 2);
+            }
+        }
+        public virtual void //expand args
+        OnFullscreenModeChange(OnFullscreenModeChangeArgs args)
+        {
+            OnFullscreenModeChange(args.browser(),
+            args.fullscreen());
+        }
+        public virtual bool OnTooltip(CefBrowser browser, string text)
+        {
+            return false;
+        }
+        //gen! bool OnTooltip(CefRefPtr<CefBrowser> browser,CefString& text)
+        public struct OnTooltipArgs
+        {
+            internal IntPtr nativePtr; //met arg native ptr
+            internal OnTooltipArgs(IntPtr nativePtr)
+            {
+                this.nativePtr = nativePtr;
+            }
+            public CefBrowser browser()
+            {
+                return new CefBrowser(Cef3Binder.MyMetArgGetAsIntPtr(nativePtr, 1));
+            }
+            public string text()
+            {
+                return Cef3Binder.MyMetArgGetAsString(nativePtr, 2);
+            }
+        }
+        public virtual void //expand args
+        OnTooltip(OnTooltipArgs args)
+        {
+            OnTooltip(args.browser(),
+            args.text());
+        }
+        public virtual void OnStatusMessage(CefBrowser browser, string value)
+        {
+        }
+        //gen! void OnStatusMessage(CefRefPtr<CefBrowser> browser,const CefString& value)
+        public struct OnStatusMessageArgs
+        {
+            internal IntPtr nativePtr; //met arg native ptr
+            internal OnStatusMessageArgs(IntPtr nativePtr)
+            {
+                this.nativePtr = nativePtr;
+            }
+            public CefBrowser browser()
+            {
+                return new CefBrowser(Cef3Binder.MyMetArgGetAsIntPtr(nativePtr, 1));
+            }
+            public string value()
+            {
+                return Cef3Binder.MyMetArgGetAsString(nativePtr, 2);
+            }
+        }
+        public virtual void //expand args
+        OnStatusMessage(OnStatusMessageArgs args)
+        {
+            OnStatusMessage(args.browser(),
+            args.value());
+        }
+        public virtual bool OnConsoleMessage(CefBrowser browser, string message, string source, int line)
+        {
+            return false;
+        }
+        //gen! bool OnConsoleMessage(CefRefPtr<CefBrowser> browser,const CefString& message,const CefString& source,int line)
+        public struct OnConsoleMessageArgs
+        {
+            internal IntPtr nativePtr; //met arg native ptr
+            internal OnConsoleMessageArgs(IntPtr nativePtr)
+            {
+                this.nativePtr = nativePtr;
+            }
+            public CefBrowser browser()
+            {
+                return new CefBrowser(Cef3Binder.MyMetArgGetAsIntPtr(nativePtr, 1));
+            }
+            public string message()
+            {
+                return Cef3Binder.MyMetArgGetAsString(nativePtr, 2);
+            }
+            public string source()
+            {
+                return Cef3Binder.MyMetArgGetAsString(nativePtr, 3);
+            }
+            public int line()
+            {
+                return Cef3Binder.MyMetArgGetAsInt32(nativePtr, 4);
+            }
+        }
+        public virtual void //expand args
+        OnConsoleMessage(OnConsoleMessageArgs args)
+        {
+            OnConsoleMessage(args.browser(),
+            args.message(),
+            args.source(),
+            args.line());
+        }
+        public static CefDisplayHandler New(MyCefCallback callback)
+        {
+            return new CefDisplayHandler(Cef3Binder.NewInstance(_typeNAME, callback));
+        }
+        public static CefDisplayHandler New()
+        {
+            CefDisplayHandler newInst = new CefDisplayHandler();
+            newInst.nativePtr = Cef3Binder.NewInstance(_typeNAME, (met_id, nativeMetArgs) =>
+            {
+                switch (met_id)
+                {
+                    case MyCefDisplayHandler_OnAddressChange_1:
+                        {
+                            newInst.OnAddressChange(new OnAddressChangeArgs(nativeMetArgs));
+                        }
+                        break;
+                    case MyCefDisplayHandler_OnTitleChange_2:
+                        {
+                            newInst.OnTitleChange(new OnTitleChangeArgs(nativeMetArgs));
+                        }
+                        break;
+                    case MyCefDisplayHandler_OnFaviconURLChange_3:
+                        {
+                            newInst.OnFaviconURLChange(new OnFaviconURLChangeArgs(nativeMetArgs));
+                        }
+                        break;
+                    case MyCefDisplayHandler_OnFullscreenModeChange_4:
+                        {
+                            newInst.OnFullscreenModeChange(new OnFullscreenModeChangeArgs(nativeMetArgs));
+                        }
+                        break;
+                    case MyCefDisplayHandler_OnTooltip_5:
+                        {
+                            newInst.OnTooltip(new OnTooltipArgs(nativeMetArgs));
+                        }
+                        break;
+                    case MyCefDisplayHandler_OnStatusMessage_6:
+                        {
+                            newInst.OnStatusMessage(new OnStatusMessageArgs(nativeMetArgs));
+                        }
+                        break;
+                    case MyCefDisplayHandler_OnConsoleMessage_7:
+                        {
+                            newInst.OnConsoleMessage(new OnConsoleMessageArgs(nativeMetArgs));
+                        }
+                        break;
+                }
+            });
+            return newInst;
+        }
+    }
+    public class CefDownloadHandler
+    {
+        const int _typeNAME = 61;
+        const int MyCefDownloadHandler_OnBeforeDownload_1 = 1;
+        const int MyCefDownloadHandler_OnDownloadUpdated_2 = 2;
+        internal IntPtr nativePtr;
+        public CefDownloadHandler(IntPtr nativePtr)
+        {
+            this.nativePtr = nativePtr;
+        }
+        public CefDownloadHandler() { }
+        public virtual void OnBeforeDownload(CefBrowser browser, CefDownloadItem download_item, string suggested_name, CefBeforeDownloadCallback callback)
+        {
+        }
+        //gen! void OnBeforeDownload(CefRefPtr<CefBrowser> browser,CefRefPtr<CefDownloadItem> download_item,const CefString& suggested_name,CefRefPtr<CefBeforeDownloadCallback> callback)
+        public struct OnBeforeDownloadArgs
+        {
+            internal IntPtr nativePtr; //met arg native ptr
+            internal OnBeforeDownloadArgs(IntPtr nativePtr)
+            {
+                this.nativePtr = nativePtr;
+            }
+            public CefBrowser browser()
+            {
+                return new CefBrowser(Cef3Binder.MyMetArgGetAsIntPtr(nativePtr, 1));
+            }
+            public CefDownloadItem download_item()
+            {
+                return new CefDownloadItem(Cef3Binder.MyMetArgGetAsIntPtr(nativePtr, 2));
+            }
+            public string suggested_name()
+            {
+                return Cef3Binder.MyMetArgGetAsString(nativePtr, 3);
+            }
+            public CefBeforeDownloadCallback callback()
+            {
+                return new CefBeforeDownloadCallback(Cef3Binder.MyMetArgGetAsIntPtr(nativePtr, 4));
+            }
+        }
+        public virtual void //expand args
+        OnBeforeDownload(OnBeforeDownloadArgs args)
+        {
+            OnBeforeDownload(args.browser(),
+            args.download_item(),
+            args.suggested_name(),
+            args.callback());
+        }
+        public virtual void OnDownloadUpdated(CefBrowser browser, CefDownloadItem download_item, CefDownloadItemCallback callback)
+        {
+        }
+        //gen! void OnDownloadUpdated(CefRefPtr<CefBrowser> browser,CefRefPtr<CefDownloadItem> download_item,CefRefPtr<CefDownloadItemCallback> callback)
+        public struct OnDownloadUpdatedArgs
+        {
+            internal IntPtr nativePtr; //met arg native ptr
+            internal OnDownloadUpdatedArgs(IntPtr nativePtr)
+            {
+                this.nativePtr = nativePtr;
+            }
+            public CefBrowser browser()
+            {
+                return new CefBrowser(Cef3Binder.MyMetArgGetAsIntPtr(nativePtr, 1));
+            }
+            public CefDownloadItem download_item()
+            {
+                return new CefDownloadItem(Cef3Binder.MyMetArgGetAsIntPtr(nativePtr, 2));
+            }
+            public CefDownloadItemCallback callback()
+            {
+                return new CefDownloadItemCallback(Cef3Binder.MyMetArgGetAsIntPtr(nativePtr, 3));
+            }
+        }
+        public virtual void //expand args
+        OnDownloadUpdated(OnDownloadUpdatedArgs args)
+        {
+            OnDownloadUpdated(args.browser(),
+            args.download_item(),
+            args.callback());
+        }
+        public static CefDownloadHandler New(MyCefCallback callback)
+        {
+            return new CefDownloadHandler(Cef3Binder.NewInstance(_typeNAME, callback));
+        }
+        public static CefDownloadHandler New()
+        {
+            CefDownloadHandler newInst = new CefDownloadHandler();
+            newInst.nativePtr = Cef3Binder.NewInstance(_typeNAME, (met_id, nativeMetArgs) =>
+            {
+                switch (met_id)
+                {
+                    case MyCefDownloadHandler_OnBeforeDownload_1:
+                        {
+                            newInst.OnBeforeDownload(new OnBeforeDownloadArgs(nativeMetArgs));
+                        }
+                        break;
+                    case MyCefDownloadHandler_OnDownloadUpdated_2:
+                        {
+                            newInst.OnDownloadUpdated(new OnDownloadUpdatedArgs(nativeMetArgs));
+                        }
+                        break;
+                }
+            });
+            return newInst;
+        }
+    }
+    public class CefDragHandler
+    {
+        const int _typeNAME = 62;
+        const int MyCefDragHandler_OnDragEnter_1 = 1;
+        const int MyCefDragHandler_OnDraggableRegionsChanged_2 = 2;
+        internal IntPtr nativePtr;
+        public CefDragHandler(IntPtr nativePtr)
+        {
+            this.nativePtr = nativePtr;
+        }
+        public CefDragHandler() { }
+        public virtual bool OnDragEnter(CefBrowser browser, CefDragData dragData, cef_drag_operations_mask_t mask)
+        {
+            return false;
+        }
+        //gen! bool OnDragEnter(CefRefPtr<CefBrowser> browser,CefRefPtr<CefDragData> dragData,DragOperationsMask mask)
+        public struct OnDragEnterArgs
+        {
+            internal IntPtr nativePtr; //met arg native ptr
+            internal OnDragEnterArgs(IntPtr nativePtr)
+            {
+                this.nativePtr = nativePtr;
+            }
+            public CefBrowser browser()
+            {
+                return new CefBrowser(Cef3Binder.MyMetArgGetAsIntPtr(nativePtr, 1));
+            }
+            public CefDragData dragData()
+            {
+                return new CefDragData(Cef3Binder.MyMetArgGetAsIntPtr(nativePtr, 2));
+            }
+            public cef_drag_operations_mask_t mask()
+            {
+                return (cef_drag_operations_mask_t)Cef3Binder.MyMetArgGetAsInt32(nativePtr, 3);
+            }
+        }
+        public virtual void //expand args
+        OnDragEnter(OnDragEnterArgs args)
+        {
+            OnDragEnter(args.browser(),
+            args.dragData(),
+            args.mask());
+        }
+        public virtual void OnDraggableRegionsChanged(CefBrowser browser, List<object> regions)
+        {
+        }
+        //gen! void OnDraggableRegionsChanged(CefRefPtr<CefBrowser> browser,const std::vector<CefDraggableRegion>& regions)
+        public struct OnDraggableRegionsChangedArgs
+        {
+            internal IntPtr nativePtr; //met arg native ptr
+            internal OnDraggableRegionsChangedArgs(IntPtr nativePtr)
+            {
+                this.nativePtr = nativePtr;
+            }
+            public CefBrowser browser()
+            {
+                return new CefBrowser(Cef3Binder.MyMetArgGetAsIntPtr(nativePtr, 1));
+            }
+            public List<object> regions()
+            {
+                throw new CefNotImplementedException();
+            }
+        }
+        public virtual void //expand args
+        OnDraggableRegionsChanged(OnDraggableRegionsChangedArgs args)
+        {
+            OnDraggableRegionsChanged(args.browser(),
+            args.regions());
+        }
+        public static CefDragHandler New(MyCefCallback callback)
+        {
+            return new CefDragHandler(Cef3Binder.NewInstance(_typeNAME, callback));
+        }
+        public static CefDragHandler New()
+        {
+            CefDragHandler newInst = new CefDragHandler();
+            newInst.nativePtr = Cef3Binder.NewInstance(_typeNAME, (met_id, nativeMetArgs) =>
+            {
+                switch (met_id)
+                {
+                    case MyCefDragHandler_OnDragEnter_1:
+                        {
+                            newInst.OnDragEnter(new OnDragEnterArgs(nativeMetArgs));
+                        }
+                        break;
+                    case MyCefDragHandler_OnDraggableRegionsChanged_2:
+                        {
+                            newInst.OnDraggableRegionsChanged(new OnDraggableRegionsChangedArgs(nativeMetArgs));
+                        }
+                        break;
+                }
+            });
+            return newInst;
+        }
+    }
+    public class CefFindHandler
+    {
+        const int _typeNAME = 63;
+        const int MyCefFindHandler_OnFindResult_1 = 1;
+        internal IntPtr nativePtr;
+        public CefFindHandler(IntPtr nativePtr)
+        {
+            this.nativePtr = nativePtr;
+        }
+        public CefFindHandler() { }
+        public virtual void OnFindResult(CefBrowser browser, int identifier, int count, CefRect selectionRect, int activeMatchOrdinal, bool finalUpdate)
+        {
+        }
+        //gen! void OnFindResult(CefRefPtr<CefBrowser> browser,int identifier,int count,const CefRect& selectionRect,int activeMatchOrdinal,bool finalUpdate)
+        public struct OnFindResultArgs
+        {
+            internal IntPtr nativePtr; //met arg native ptr
+            internal OnFindResultArgs(IntPtr nativePtr)
+            {
+                this.nativePtr = nativePtr;
+            }
+            public CefBrowser browser()
+            {
+                return new CefBrowser(Cef3Binder.MyMetArgGetAsIntPtr(nativePtr, 1));
+            }
+            public int identifier()
+            {
+                return Cef3Binder.MyMetArgGetAsInt32(nativePtr, 2);
+            }
+            public int count()
+            {
+                return Cef3Binder.MyMetArgGetAsInt32(nativePtr, 3);
+            }
+            public CefRect selectionRect()
+            {
+                return new CefRect(Cef3Binder.MyMetArgGetAsIntPtr(nativePtr, 4));
+            }
+            public int activeMatchOrdinal()
+            {
+                return Cef3Binder.MyMetArgGetAsInt32(nativePtr, 5);
+            }
+            public bool finalUpdate()
+            {
+                return Cef3Binder.MyMetArgGetAsBool(nativePtr, 6);
+            }
+        }
+        public virtual void //expand args
+        OnFindResult(OnFindResultArgs args)
+        {
+            OnFindResult(args.browser(),
+            args.identifier(),
+            args.count(),
+            args.selectionRect(),
+            args.activeMatchOrdinal(),
+            args.finalUpdate());
+        }
+        public static CefFindHandler New(MyCefCallback callback)
+        {
+            return new CefFindHandler(Cef3Binder.NewInstance(_typeNAME, callback));
+        }
+        public static CefFindHandler New()
+        {
+            CefFindHandler newInst = new CefFindHandler();
+            newInst.nativePtr = Cef3Binder.NewInstance(_typeNAME, (met_id, nativeMetArgs) =>
+            {
+                switch (met_id)
+                {
+                    case MyCefFindHandler_OnFindResult_1:
+                        {
+                            newInst.OnFindResult(new OnFindResultArgs(nativeMetArgs));
+                        }
+                        break;
+                }
+            });
+            return newInst;
+        }
+    }
+    public class CefFocusHandler
+    {
+        const int _typeNAME = 64;
+        const int MyCefFocusHandler_OnTakeFocus_1 = 1;
+        const int MyCefFocusHandler_OnSetFocus_2 = 2;
+        const int MyCefFocusHandler_OnGotFocus_3 = 3;
+        internal IntPtr nativePtr;
+        public CefFocusHandler(IntPtr nativePtr)
+        {
+            this.nativePtr = nativePtr;
+        }
+        public CefFocusHandler() { }
+        public virtual void OnTakeFocus(CefBrowser browser, bool next)
+        {
+        }
+        //gen! void OnTakeFocus(CefRefPtr<CefBrowser> browser,bool next)
+        public struct OnTakeFocusArgs
+        {
+            internal IntPtr nativePtr; //met arg native ptr
+            internal OnTakeFocusArgs(IntPtr nativePtr)
+            {
+                this.nativePtr = nativePtr;
+            }
+            public CefBrowser browser()
+            {
+                return new CefBrowser(Cef3Binder.MyMetArgGetAsIntPtr(nativePtr, 1));
+            }
+            public bool next()
+            {
+                return Cef3Binder.MyMetArgGetAsBool(nativePtr, 2);
+            }
+        }
+        public virtual void //expand args
+        OnTakeFocus(OnTakeFocusArgs args)
+        {
+            OnTakeFocus(args.browser(),
+            args.next());
+        }
+        public virtual bool OnSetFocus(CefBrowser browser, cef_focus_source_t source)
+        {
+            return false;
+        }
+        //gen! bool OnSetFocus(CefRefPtr<CefBrowser> browser,FocusSource source)
+        public struct OnSetFocusArgs
+        {
+            internal IntPtr nativePtr; //met arg native ptr
+            internal OnSetFocusArgs(IntPtr nativePtr)
+            {
+                this.nativePtr = nativePtr;
+            }
+            public CefBrowser browser()
+            {
+                return new CefBrowser(Cef3Binder.MyMetArgGetAsIntPtr(nativePtr, 1));
+            }
+            public cef_focus_source_t source()
+            {
+                return (cef_focus_source_t)Cef3Binder.MyMetArgGetAsInt32(nativePtr, 2);
+            }
+        }
+        public virtual void //expand args
+        OnSetFocus(OnSetFocusArgs args)
+        {
+            OnSetFocus(args.browser(),
+            args.source());
+        }
+        public virtual void OnGotFocus(CefBrowser browser)
+        {
+        }
+        //gen! void OnGotFocus(CefRefPtr<CefBrowser> browser)
+        public struct OnGotFocusArgs
+        {
+            internal IntPtr nativePtr; //met arg native ptr
+            internal OnGotFocusArgs(IntPtr nativePtr)
+            {
+                this.nativePtr = nativePtr;
+            }
+            public CefBrowser browser()
+            {
+                return new CefBrowser(Cef3Binder.MyMetArgGetAsIntPtr(nativePtr, 1));
+            }
+        }
+        public virtual void //expand args
+        OnGotFocus(OnGotFocusArgs args)
+        {
+            OnGotFocus(args.browser());
+        }
+        public static CefFocusHandler New(MyCefCallback callback)
+        {
+            return new CefFocusHandler(Cef3Binder.NewInstance(_typeNAME, callback));
+        }
+        public static CefFocusHandler New()
+        {
+            CefFocusHandler newInst = new CefFocusHandler();
+            newInst.nativePtr = Cef3Binder.NewInstance(_typeNAME, (met_id, nativeMetArgs) =>
+            {
+                switch (met_id)
+                {
+                    case MyCefFocusHandler_OnTakeFocus_1:
+                        {
+                            newInst.OnTakeFocus(new OnTakeFocusArgs(nativeMetArgs));
+                        }
+                        break;
+                    case MyCefFocusHandler_OnSetFocus_2:
+                        {
+                            newInst.OnSetFocus(new OnSetFocusArgs(nativeMetArgs));
+                        }
+                        break;
+                    case MyCefFocusHandler_OnGotFocus_3:
+                        {
+                            newInst.OnGotFocus(new OnGotFocusArgs(nativeMetArgs));
+                        }
+                        break;
+                }
+            });
+            return newInst;
+        }
+    }
+    public class CefGeolocationHandler
+    {
+        const int _typeNAME = 65;
+        const int MyCefGeolocationHandler_OnRequestGeolocationPermission_1 = 1;
+        const int MyCefGeolocationHandler_OnCancelGeolocationPermission_2 = 2;
+        internal IntPtr nativePtr;
+        public CefGeolocationHandler(IntPtr nativePtr)
+        {
+            this.nativePtr = nativePtr;
+        }
+        public CefGeolocationHandler() { }
+        public virtual bool OnRequestGeolocationPermission(CefBrowser browser, string requesting_url, int request_id, CefGeolocationCallback callback)
+        {
+            return false;
+        }
+        //gen! bool OnRequestGeolocationPermission(CefRefPtr<CefBrowser> browser,const CefString& requesting_url,int request_id,CefRefPtr<CefGeolocationCallback> callback)
+        public struct OnRequestGeolocationPermissionArgs
+        {
+            internal IntPtr nativePtr; //met arg native ptr
+            internal OnRequestGeolocationPermissionArgs(IntPtr nativePtr)
+            {
+                this.nativePtr = nativePtr;
+            }
+            public CefBrowser browser()
+            {
+                return new CefBrowser(Cef3Binder.MyMetArgGetAsIntPtr(nativePtr, 1));
+            }
+            public string requesting_url()
+            {
+                return Cef3Binder.MyMetArgGetAsString(nativePtr, 2);
+            }
+            public int request_id()
+            {
+                return Cef3Binder.MyMetArgGetAsInt32(nativePtr, 3);
+            }
+            public CefGeolocationCallback callback()
+            {
+                return new CefGeolocationCallback(Cef3Binder.MyMetArgGetAsIntPtr(nativePtr, 4));
+            }
+        }
+        public virtual void //expand args
+        OnRequestGeolocationPermission(OnRequestGeolocationPermissionArgs args)
+        {
+            OnRequestGeolocationPermission(args.browser(),
+            args.requesting_url(),
+            args.request_id(),
+            args.callback());
+        }
+        public virtual void OnCancelGeolocationPermission(CefBrowser browser, int request_id)
+        {
+        }
+        //gen! void OnCancelGeolocationPermission(CefRefPtr<CefBrowser> browser,int request_id)
+        public struct OnCancelGeolocationPermissionArgs
+        {
+            internal IntPtr nativePtr; //met arg native ptr
+            internal OnCancelGeolocationPermissionArgs(IntPtr nativePtr)
+            {
+                this.nativePtr = nativePtr;
+            }
+            public CefBrowser browser()
+            {
+                return new CefBrowser(Cef3Binder.MyMetArgGetAsIntPtr(nativePtr, 1));
+            }
+            public int request_id()
+            {
+                return Cef3Binder.MyMetArgGetAsInt32(nativePtr, 2);
+            }
+        }
+        public virtual void //expand args
+        OnCancelGeolocationPermission(OnCancelGeolocationPermissionArgs args)
+        {
+            OnCancelGeolocationPermission(args.browser(),
+            args.request_id());
+        }
+        public static CefGeolocationHandler New(MyCefCallback callback)
+        {
+            return new CefGeolocationHandler(Cef3Binder.NewInstance(_typeNAME, callback));
+        }
+        public static CefGeolocationHandler New()
+        {
+            CefGeolocationHandler newInst = new CefGeolocationHandler();
+            newInst.nativePtr = Cef3Binder.NewInstance(_typeNAME, (met_id, nativeMetArgs) =>
+            {
+                switch (met_id)
+                {
+                    case MyCefGeolocationHandler_OnRequestGeolocationPermission_1:
+                        {
+                            newInst.OnRequestGeolocationPermission(new OnRequestGeolocationPermissionArgs(nativeMetArgs));
+                        }
+                        break;
+                    case MyCefGeolocationHandler_OnCancelGeolocationPermission_2:
+                        {
+                            newInst.OnCancelGeolocationPermission(new OnCancelGeolocationPermissionArgs(nativeMetArgs));
+                        }
+                        break;
+                }
+            });
+            return newInst;
+        }
+    }
+    public class CefJSDialogHandler
+    {
+        const int _typeNAME = 66;
+        const int MyCefJSDialogHandler_OnJSDialog_1 = 1;
+        const int MyCefJSDialogHandler_OnBeforeUnloadDialog_2 = 2;
+        const int MyCefJSDialogHandler_OnResetDialogState_3 = 3;
+        const int MyCefJSDialogHandler_OnDialogClosed_4 = 4;
+        internal IntPtr nativePtr;
+        public CefJSDialogHandler(IntPtr nativePtr)
+        {
+            this.nativePtr = nativePtr;
+        }
+        public CefJSDialogHandler() { }
+        public virtual bool OnJSDialog(CefBrowser browser, string origin_url, cef_jsdialog_type_t dialog_type, string message_text, string default_prompt_text, CefJSDialogCallback callback, ref bool suppress_message)
+        {
+            return false;
+        }
+        //gen! bool OnJSDialog(CefRefPtr<CefBrowser> browser,const CefString& origin_url,JSDialogType dialog_type,const CefString& message_text,const CefString& default_prompt_text,CefRefPtr<CefJSDialogCallback> callback,bool& suppress_message)
+        public struct OnJSDialogArgs
+        {
+            internal IntPtr nativePtr; //met arg native ptr
+            internal OnJSDialogArgs(IntPtr nativePtr)
+            {
+                this.nativePtr = nativePtr;
+            }
+            public CefBrowser browser()
+            {
+                return new CefBrowser(Cef3Binder.MyMetArgGetAsIntPtr(nativePtr, 1));
+            }
+            public string origin_url()
+            {
+                return Cef3Binder.MyMetArgGetAsString(nativePtr, 2);
+            }
+            public cef_jsdialog_type_t dialog_type()
+            {
+                return (cef_jsdialog_type_t)Cef3Binder.MyMetArgGetAsInt32(nativePtr, 3);
+            }
+            public string message_text()
+            {
+                return Cef3Binder.MyMetArgGetAsString(nativePtr, 4);
+            }
+            public string default_prompt_text()
+            {
+                return Cef3Binder.MyMetArgGetAsString(nativePtr, 5);
+            }
+            public CefJSDialogCallback callback()
+            {
+                return new CefJSDialogCallback(Cef3Binder.MyMetArgGetAsIntPtr(nativePtr, 6));
+            }
+            public bool suppress_message()
+            {
+                return Cef3Binder.MyMetArgGetAsBool(nativePtr, 7);
+            }
+            public void suppress_message(bool value)
+            {
+                Cef3Binder.MyMetArgSetBoolToAddress(nativePtr, 7, value);
+            }
+        }
+        public virtual void //expand args
+        OnJSDialog(OnJSDialogArgs args)
+        {
+            bool suppress_message = false;
+            OnJSDialog(args.browser(),
+            args.origin_url(),
+            args.dialog_type(),
+            args.message_text(),
+            args.default_prompt_text(),
+            args.callback(),
+            ref suppress_message);
+            args.suppress_message(suppress_message);
+        }
+        public virtual bool OnBeforeUnloadDialog(CefBrowser browser, string message_text, bool is_reload, CefJSDialogCallback callback)
+        {
+            return false;
+        }
+        //gen! bool OnBeforeUnloadDialog(CefRefPtr<CefBrowser> browser,const CefString& message_text,bool is_reload,CefRefPtr<CefJSDialogCallback> callback)
+        public struct OnBeforeUnloadDialogArgs
+        {
+            internal IntPtr nativePtr; //met arg native ptr
+            internal OnBeforeUnloadDialogArgs(IntPtr nativePtr)
+            {
+                this.nativePtr = nativePtr;
+            }
+            public CefBrowser browser()
+            {
+                return new CefBrowser(Cef3Binder.MyMetArgGetAsIntPtr(nativePtr, 1));
+            }
+            public string message_text()
+            {
+                return Cef3Binder.MyMetArgGetAsString(nativePtr, 2);
+            }
+            public bool is_reload()
+            {
+                return Cef3Binder.MyMetArgGetAsBool(nativePtr, 3);
+            }
+            public CefJSDialogCallback callback()
+            {
+                return new CefJSDialogCallback(Cef3Binder.MyMetArgGetAsIntPtr(nativePtr, 4));
+            }
+        }
+        public virtual void //expand args
+        OnBeforeUnloadDialog(OnBeforeUnloadDialogArgs args)
+        {
+            OnBeforeUnloadDialog(args.browser(),
+            args.message_text(),
+            args.is_reload(),
+            args.callback());
+        }
+        public virtual void OnResetDialogState(CefBrowser browser)
+        {
+        }
+        //gen! void OnResetDialogState(CefRefPtr<CefBrowser> browser)
+        public struct OnResetDialogStateArgs
+        {
+            internal IntPtr nativePtr; //met arg native ptr
+            internal OnResetDialogStateArgs(IntPtr nativePtr)
+            {
+                this.nativePtr = nativePtr;
+            }
+            public CefBrowser browser()
+            {
+                return new CefBrowser(Cef3Binder.MyMetArgGetAsIntPtr(nativePtr, 1));
+            }
+        }
+        public virtual void //expand args
+        OnResetDialogState(OnResetDialogStateArgs args)
+        {
+            OnResetDialogState(args.browser());
+        }
+        public virtual void OnDialogClosed(CefBrowser browser)
+        {
+        }
+        //gen! void OnDialogClosed(CefRefPtr<CefBrowser> browser)
+        public struct OnDialogClosedArgs
+        {
+            internal IntPtr nativePtr; //met arg native ptr
+            internal OnDialogClosedArgs(IntPtr nativePtr)
+            {
+                this.nativePtr = nativePtr;
+            }
+            public CefBrowser browser()
+            {
+                return new CefBrowser(Cef3Binder.MyMetArgGetAsIntPtr(nativePtr, 1));
+            }
+        }
+        public virtual void //expand args
+        OnDialogClosed(OnDialogClosedArgs args)
+        {
+            OnDialogClosed(args.browser());
+        }
+        public static CefJSDialogHandler New(MyCefCallback callback)
+        {
+            return new CefJSDialogHandler(Cef3Binder.NewInstance(_typeNAME, callback));
+        }
+        public static CefJSDialogHandler New()
+        {
+            CefJSDialogHandler newInst = new CefJSDialogHandler();
+            newInst.nativePtr = Cef3Binder.NewInstance(_typeNAME, (met_id, nativeMetArgs) =>
+            {
+                switch (met_id)
+                {
+                    case MyCefJSDialogHandler_OnJSDialog_1:
+                        {
+                            newInst.OnJSDialog(new OnJSDialogArgs(nativeMetArgs));
+                        }
+                        break;
+                    case MyCefJSDialogHandler_OnBeforeUnloadDialog_2:
+                        {
+                            newInst.OnBeforeUnloadDialog(new OnBeforeUnloadDialogArgs(nativeMetArgs));
+                        }
+                        break;
+                    case MyCefJSDialogHandler_OnResetDialogState_3:
+                        {
+                            newInst.OnResetDialogState(new OnResetDialogStateArgs(nativeMetArgs));
+                        }
+                        break;
+                    case MyCefJSDialogHandler_OnDialogClosed_4:
+                        {
+                            newInst.OnDialogClosed(new OnDialogClosedArgs(nativeMetArgs));
+                        }
+                        break;
+                }
+            });
+            return newInst;
+        }
+    }
+    public class CefKeyboardHandler
+    {
+        const int _typeNAME = 67;
+        const int MyCefKeyboardHandler_OnPreKeyEvent_1 = 1;
+        const int MyCefKeyboardHandler_OnKeyEvent_2 = 2;
+        internal IntPtr nativePtr;
+        public CefKeyboardHandler(IntPtr nativePtr)
+        {
+            this.nativePtr = nativePtr;
+        }
+        public CefKeyboardHandler() { }
+        public virtual bool OnPreKeyEvent(CefBrowser browser, CefKeyEvent _event, IntPtr os_event, ref bool is_keyboard_shortcut)
+        {
+            return false;
+        }
+        //gen! bool OnPreKeyEvent(CefRefPtr<CefBrowser> browser,const CefKeyEvent& event,CefEventHandle os_event,bool* is_keyboard_shortcut)
+        public struct OnPreKeyEventArgs
+        {
+            internal IntPtr nativePtr; //met arg native ptr
+            internal OnPreKeyEventArgs(IntPtr nativePtr)
+            {
+                this.nativePtr = nativePtr;
+            }
+            public CefBrowser browser()
+            {
+                return new CefBrowser(Cef3Binder.MyMetArgGetAsIntPtr(nativePtr, 1));
+            }
+            public CefKeyEvent _event()
+            {
+                return new CefKeyEvent(Cef3Binder.MyMetArgGetAsIntPtr(nativePtr, 2));
+            }
+            public IntPtr os_event()
+            {
+                throw new CefNotImplementedException();
+            }
+            public bool is_keyboard_shortcut()
+            {
+                return Cef3Binder.MyMetArgGetAsBool(nativePtr, 4);
+            }
+            public void is_keyboard_shortcut(bool value)
+            {
+                Cef3Binder.MyMetArgSetBoolToAddress(nativePtr, 4, value);
+            }
+        }
+        public virtual void //expand args
+        OnPreKeyEvent(OnPreKeyEventArgs args)
+        {
+            bool is_keyboard_shortcut = false;
+            OnPreKeyEvent(args.browser(),
+            args._event(),
+            args.os_event(),
+            ref is_keyboard_shortcut);
+            args.is_keyboard_shortcut(is_keyboard_shortcut);
+        }
+        public virtual bool OnKeyEvent(CefBrowser browser, CefKeyEvent _event, IntPtr os_event)
+        {
+            return false;
+        }
+        //gen! bool OnKeyEvent(CefRefPtr<CefBrowser> browser,const CefKeyEvent& event,CefEventHandle os_event)
+        public struct OnKeyEventArgs
+        {
+            internal IntPtr nativePtr; //met arg native ptr
+            internal OnKeyEventArgs(IntPtr nativePtr)
+            {
+                this.nativePtr = nativePtr;
+            }
+            public CefBrowser browser()
+            {
+                return new CefBrowser(Cef3Binder.MyMetArgGetAsIntPtr(nativePtr, 1));
+            }
+            public CefKeyEvent _event()
+            {
+                return new CefKeyEvent(Cef3Binder.MyMetArgGetAsIntPtr(nativePtr, 2));
+            }
+            public IntPtr os_event()
+            {
+                throw new CefNotImplementedException();
+            }
+        }
+        public virtual void //expand args
+        OnKeyEvent(OnKeyEventArgs args)
+        {
+            OnKeyEvent(args.browser(),
+            args._event(),
+            args.os_event());
+        }
+        public static CefKeyboardHandler New(MyCefCallback callback)
+        {
+            return new CefKeyboardHandler(Cef3Binder.NewInstance(_typeNAME, callback));
+        }
+        public static CefKeyboardHandler New()
+        {
+            CefKeyboardHandler newInst = new CefKeyboardHandler();
+            newInst.nativePtr = Cef3Binder.NewInstance(_typeNAME, (met_id, nativeMetArgs) =>
+            {
+                switch (met_id)
+                {
+                    case MyCefKeyboardHandler_OnPreKeyEvent_1:
+                        {
+                            newInst.OnPreKeyEvent(new OnPreKeyEventArgs(nativeMetArgs));
+                        }
+                        break;
+                    case MyCefKeyboardHandler_OnKeyEvent_2:
+                        {
+                            newInst.OnKeyEvent(new OnKeyEventArgs(nativeMetArgs));
+                        }
+                        break;
+                }
+            });
+            return newInst;
+        }
+    }
+    public class CefLifeSpanHandler
+    {
+        const int _typeNAME = 68;
+        const int MyCefLifeSpanHandler_OnBeforePopup_1 = 1;
+        const int MyCefLifeSpanHandler_OnAfterCreated_2 = 2;
+        const int MyCefLifeSpanHandler_DoClose_3 = 3;
+        const int MyCefLifeSpanHandler_OnBeforeClose_4 = 4;
+        internal IntPtr nativePtr;
+        public CefLifeSpanHandler(IntPtr nativePtr)
+        {
+            this.nativePtr = nativePtr;
+        }
+        public CefLifeSpanHandler() { }
+        public virtual bool OnBeforePopup(CefBrowser browser, CefFrame frame, string target_url, string target_frame_name, cef_window_open_disposition_t target_disposition, bool user_gesture, CefPopupFeatures popupFeatures, CefWindowInfo windowInfo, IntPtr client, CefBrowserSettings settings, ref bool no_javascript_access)
+        {
+            return false;
+        }
+        //gen! bool OnBeforePopup(CefRefPtr<CefBrowser> browser,CefRefPtr<CefFrame> frame,const CefString& target_url,const CefString& target_frame_name,WindowOpenDisposition target_disposition,bool user_gesture,const CefPopupFeatures& popupFeatures,CefWindowInfo& windowInfo,CefRefPtr<CefClient>& client,CefBrowserSettings& settings,bool* no_javascript_access)
+        public struct OnBeforePopupArgs
+        {
+            internal IntPtr nativePtr; //met arg native ptr
+            internal OnBeforePopupArgs(IntPtr nativePtr)
+            {
+                this.nativePtr = nativePtr;
+            }
+            public CefBrowser browser()
+            {
+                return new CefBrowser(Cef3Binder.MyMetArgGetAsIntPtr(nativePtr, 1));
+            }
+            public CefFrame frame()
+            {
+                return new CefFrame(Cef3Binder.MyMetArgGetAsIntPtr(nativePtr, 2));
+            }
+            public string target_url()
+            {
+                return Cef3Binder.MyMetArgGetAsString(nativePtr, 3);
+            }
+            public string target_frame_name()
+            {
+                return Cef3Binder.MyMetArgGetAsString(nativePtr, 4);
+            }
+            public cef_window_open_disposition_t target_disposition()
+            {
+                return (cef_window_open_disposition_t)Cef3Binder.MyMetArgGetAsInt32(nativePtr, 5);
+            }
+            public bool user_gesture()
+            {
+                return Cef3Binder.MyMetArgGetAsBool(nativePtr, 6);
+            }
+            public CefPopupFeatures popupFeatures()
+            {
+                return new CefPopupFeatures(Cef3Binder.MyMetArgGetAsIntPtr(nativePtr, 7));
+            }
+            public CefWindowInfo windowInfo()
+            {
+                return new CefWindowInfo(Cef3Binder.MyMetArgGetAsIntPtr(nativePtr, 8));
+            }
+            public IntPtr client()
+            {
+                throw new CefNotImplementedException();
+            }
+            public CefBrowserSettings settings()
+            {
+                return new CefBrowserSettings(Cef3Binder.MyMetArgGetAsIntPtr(nativePtr, 10));
+            }
+            public bool no_javascript_access()
+            {
+                return Cef3Binder.MyMetArgGetAsBool(nativePtr, 11);
+            }
+            public void no_javascript_access(bool value)
+            {
+                Cef3Binder.MyMetArgSetBoolToAddress(nativePtr, 11, value);
+            }
+        }
+        public virtual void //expand args
+        OnBeforePopup(OnBeforePopupArgs args)
+        {
+            bool no_javascript_access = false;
+            OnBeforePopup(args.browser(),
+            args.frame(),
+            args.target_url(),
+            args.target_frame_name(),
+            args.target_disposition(),
+            args.user_gesture(),
+            args.popupFeatures(),
+            args.windowInfo(),
+            args.client(),
+            args.settings(),
+            ref no_javascript_access);
+            args.no_javascript_access(no_javascript_access);
+        }
+        public virtual void OnAfterCreated(CefBrowser browser)
+        {
+        }
+        //gen! void OnAfterCreated(CefRefPtr<CefBrowser> browser)
+        public struct OnAfterCreatedArgs
+        {
+            internal IntPtr nativePtr; //met arg native ptr
+            internal OnAfterCreatedArgs(IntPtr nativePtr)
+            {
+                this.nativePtr = nativePtr;
+            }
+            public CefBrowser browser()
+            {
+                return new CefBrowser(Cef3Binder.MyMetArgGetAsIntPtr(nativePtr, 1));
+            }
+        }
+        public virtual void //expand args
+        OnAfterCreated(OnAfterCreatedArgs args)
+        {
+            OnAfterCreated(args.browser());
+        }
+        public virtual bool DoClose(CefBrowser browser)
+        {
+            return false;
+        }
+        //gen! bool DoClose(CefRefPtr<CefBrowser> browser)
+        public struct DoCloseArgs
+        {
+            internal IntPtr nativePtr; //met arg native ptr
+            internal DoCloseArgs(IntPtr nativePtr)
+            {
+                this.nativePtr = nativePtr;
+            }
+            public CefBrowser browser()
+            {
+                return new CefBrowser(Cef3Binder.MyMetArgGetAsIntPtr(nativePtr, 1));
+            }
+        }
+        public virtual void //expand args
+        DoClose(DoCloseArgs args)
+        {
+            DoClose(args.browser());
+        }
+        public virtual void OnBeforeClose(CefBrowser browser)
+        {
+        }
+        //gen! void OnBeforeClose(CefRefPtr<CefBrowser> browser)
+        public struct OnBeforeCloseArgs
+        {
+            internal IntPtr nativePtr; //met arg native ptr
+            internal OnBeforeCloseArgs(IntPtr nativePtr)
+            {
+                this.nativePtr = nativePtr;
+            }
+            public CefBrowser browser()
+            {
+                return new CefBrowser(Cef3Binder.MyMetArgGetAsIntPtr(nativePtr, 1));
+            }
+        }
+        public virtual void //expand args
+        OnBeforeClose(OnBeforeCloseArgs args)
+        {
+            OnBeforeClose(args.browser());
+        }
+        public static CefLifeSpanHandler New(MyCefCallback callback)
+        {
+            return new CefLifeSpanHandler(Cef3Binder.NewInstance(_typeNAME, callback));
+        }
+        public static CefLifeSpanHandler New()
+        {
+            CefLifeSpanHandler newInst = new CefLifeSpanHandler();
+            newInst.nativePtr = Cef3Binder.NewInstance(_typeNAME, (met_id, nativeMetArgs) =>
+            {
+                switch (met_id)
+                {
+                    case MyCefLifeSpanHandler_OnBeforePopup_1:
+                        {
+                            newInst.OnBeforePopup(new OnBeforePopupArgs(nativeMetArgs));
+                        }
+                        break;
+                    case MyCefLifeSpanHandler_OnAfterCreated_2:
+                        {
+                            newInst.OnAfterCreated(new OnAfterCreatedArgs(nativeMetArgs));
+                        }
+                        break;
+                    case MyCefLifeSpanHandler_DoClose_3:
+                        {
+                            newInst.DoClose(new DoCloseArgs(nativeMetArgs));
+                        }
+                        break;
+                    case MyCefLifeSpanHandler_OnBeforeClose_4:
+                        {
+                            newInst.OnBeforeClose(new OnBeforeCloseArgs(nativeMetArgs));
+                        }
+                        break;
+                }
+            });
+            return newInst;
+        }
+    }
+    public class CefLoadHandler
+    {
+        const int _typeNAME = 69;
+        const int MyCefLoadHandler_OnLoadingStateChange_1 = 1;
+        const int MyCefLoadHandler_OnLoadStart_2 = 2;
+        const int MyCefLoadHandler_OnLoadEnd_3 = 3;
+        const int MyCefLoadHandler_OnLoadError_4 = 4;
+        internal IntPtr nativePtr;
+        public CefLoadHandler(IntPtr nativePtr)
+        {
+            this.nativePtr = nativePtr;
+        }
+        public CefLoadHandler() { }
+        public virtual void OnLoadingStateChange(CefBrowser browser, bool isLoading, bool canGoBack, bool canGoForward)
+        {
+        }
+        //gen! void OnLoadingStateChange(CefRefPtr<CefBrowser> browser,bool isLoading,bool canGoBack,bool canGoForward)
+        public struct OnLoadingStateChangeArgs
+        {
+            internal IntPtr nativePtr; //met arg native ptr
+            internal OnLoadingStateChangeArgs(IntPtr nativePtr)
+            {
+                this.nativePtr = nativePtr;
+            }
+            public CefBrowser browser()
+            {
+                return new CefBrowser(Cef3Binder.MyMetArgGetAsIntPtr(nativePtr, 1));
+            }
+            public bool isLoading()
+            {
+                return Cef3Binder.MyMetArgGetAsBool(nativePtr, 2);
+            }
+            public bool canGoBack()
+            {
+                return Cef3Binder.MyMetArgGetAsBool(nativePtr, 3);
+            }
+            public bool canGoForward()
+            {
+                return Cef3Binder.MyMetArgGetAsBool(nativePtr, 4);
+            }
+        }
+        public virtual void //expand args
+        OnLoadingStateChange(OnLoadingStateChangeArgs args)
+        {
+            OnLoadingStateChange(args.browser(),
+            args.isLoading(),
+            args.canGoBack(),
+            args.canGoForward());
+        }
+        public virtual void OnLoadStart(CefBrowser browser, CefFrame frame, cef_transition_type_t transition_type)
+        {
+        }
+        //gen! void OnLoadStart(CefRefPtr<CefBrowser> browser,CefRefPtr<CefFrame> frame,TransitionType transition_type)
+        public struct OnLoadStartArgs
+        {
+            internal IntPtr nativePtr; //met arg native ptr
+            internal OnLoadStartArgs(IntPtr nativePtr)
+            {
+                this.nativePtr = nativePtr;
+            }
+            public CefBrowser browser()
+            {
+                return new CefBrowser(Cef3Binder.MyMetArgGetAsIntPtr(nativePtr, 1));
+            }
+            public CefFrame frame()
+            {
+                return new CefFrame(Cef3Binder.MyMetArgGetAsIntPtr(nativePtr, 2));
+            }
+            public cef_transition_type_t transition_type()
+            {
+                return (cef_transition_type_t)Cef3Binder.MyMetArgGetAsInt32(nativePtr, 3);
+            }
+        }
+        public virtual void //expand args
+        OnLoadStart(OnLoadStartArgs args)
+        {
+            OnLoadStart(args.browser(),
+            args.frame(),
+            args.transition_type());
+        }
+        public virtual void OnLoadEnd(CefBrowser browser, CefFrame frame, int httpStatusCode)
+        {
+        }
+        //gen! void OnLoadEnd(CefRefPtr<CefBrowser> browser,CefRefPtr<CefFrame> frame,int httpStatusCode)
+        public struct OnLoadEndArgs
+        {
+            internal IntPtr nativePtr; //met arg native ptr
+            internal OnLoadEndArgs(IntPtr nativePtr)
+            {
+                this.nativePtr = nativePtr;
+            }
+            public CefBrowser browser()
+            {
+                return new CefBrowser(Cef3Binder.MyMetArgGetAsIntPtr(nativePtr, 1));
+            }
+            public CefFrame frame()
+            {
+                return new CefFrame(Cef3Binder.MyMetArgGetAsIntPtr(nativePtr, 2));
+            }
+            public int httpStatusCode()
+            {
+                return Cef3Binder.MyMetArgGetAsInt32(nativePtr, 3);
+            }
+        }
+        public virtual void //expand args
+        OnLoadEnd(OnLoadEndArgs args)
+        {
+            OnLoadEnd(args.browser(),
+            args.frame(),
+            args.httpStatusCode());
+        }
+        public virtual void OnLoadError(CefBrowser browser, CefFrame frame, cef_errorcode_t errorCode, string errorText, string failedUrl)
+        {
+        }
+        //gen! void OnLoadError(CefRefPtr<CefBrowser> browser,CefRefPtr<CefFrame> frame,ErrorCode errorCode,const CefString& errorText,const CefString& failedUrl)
+        public struct OnLoadErrorArgs
+        {
+            internal IntPtr nativePtr; //met arg native ptr
+            internal OnLoadErrorArgs(IntPtr nativePtr)
+            {
+                this.nativePtr = nativePtr;
+            }
+            public CefBrowser browser()
+            {
+                return new CefBrowser(Cef3Binder.MyMetArgGetAsIntPtr(nativePtr, 1));
+            }
+            public CefFrame frame()
+            {
+                return new CefFrame(Cef3Binder.MyMetArgGetAsIntPtr(nativePtr, 2));
+            }
+            public cef_errorcode_t errorCode()
+            {
+                return (cef_errorcode_t)Cef3Binder.MyMetArgGetAsInt32(nativePtr, 3);
+            }
+            public string errorText()
+            {
+                return Cef3Binder.MyMetArgGetAsString(nativePtr, 4);
+            }
+            public string failedUrl()
+            {
+                return Cef3Binder.MyMetArgGetAsString(nativePtr, 5);
+            }
+        }
+        public virtual void //expand args
+        OnLoadError(OnLoadErrorArgs args)
+        {
+            OnLoadError(args.browser(),
+            args.frame(),
+            args.errorCode(),
+            args.errorText(),
+            args.failedUrl());
+        }
+        public static CefLoadHandler New(MyCefCallback callback)
+        {
+            return new CefLoadHandler(Cef3Binder.NewInstance(_typeNAME, callback));
+        }
+        public static CefLoadHandler New()
+        {
+            CefLoadHandler newInst = new CefLoadHandler();
+            newInst.nativePtr = Cef3Binder.NewInstance(_typeNAME, (met_id, nativeMetArgs) =>
+            {
+                switch (met_id)
+                {
+                    case MyCefLoadHandler_OnLoadingStateChange_1:
+                        {
+                            newInst.OnLoadingStateChange(new OnLoadingStateChangeArgs(nativeMetArgs));
+                        }
+                        break;
+                    case MyCefLoadHandler_OnLoadStart_2:
+                        {
+                            newInst.OnLoadStart(new OnLoadStartArgs(nativeMetArgs));
+                        }
+                        break;
+                    case MyCefLoadHandler_OnLoadEnd_3:
+                        {
+                            newInst.OnLoadEnd(new OnLoadEndArgs(nativeMetArgs));
+                        }
+                        break;
+                    case MyCefLoadHandler_OnLoadError_4:
+                        {
+                            newInst.OnLoadError(new OnLoadErrorArgs(nativeMetArgs));
+                        }
+                        break;
+                }
+            });
+            return newInst;
+        }
+    }
+    public class CefPrintHandler
+    {
+        const int _typeNAME = 70;
+        const int MyCefPrintHandler_OnPrintStart_1 = 1;
+        const int MyCefPrintHandler_OnPrintSettings_2 = 2;
+        const int MyCefPrintHandler_OnPrintDialog_3 = 3;
+        const int MyCefPrintHandler_OnPrintJob_4 = 4;
+        const int MyCefPrintHandler_OnPrintReset_5 = 5;
+        const int MyCefPrintHandler_GetPdfPaperSize_6 = 6;
+        internal IntPtr nativePtr;
+        public CefPrintHandler(IntPtr nativePtr)
+        {
+            this.nativePtr = nativePtr;
+        }
+        public CefPrintHandler() { }
+        public virtual void OnPrintStart(CefBrowser browser)
+        {
+        }
+        //gen! void OnPrintStart(CefRefPtr<CefBrowser> browser)
+        public struct OnPrintStartArgs
+        {
+            internal IntPtr nativePtr; //met arg native ptr
+            internal OnPrintStartArgs(IntPtr nativePtr)
+            {
+                this.nativePtr = nativePtr;
+            }
+            public CefBrowser browser()
+            {
+                return new CefBrowser(Cef3Binder.MyMetArgGetAsIntPtr(nativePtr, 1));
+            }
+        }
+        public virtual void //expand args
+        OnPrintStart(OnPrintStartArgs args)
+        {
+            OnPrintStart(args.browser());
+        }
+        public virtual void OnPrintSettings(CefBrowser browser, CefPrintSettings settings, bool get_defaults)
+        {
+        }
+        //gen! void OnPrintSettings(CefRefPtr<CefBrowser> browser,CefRefPtr<CefPrintSettings> settings,bool get_defaults)
+        public struct OnPrintSettingsArgs
+        {
+            internal IntPtr nativePtr; //met arg native ptr
+            internal OnPrintSettingsArgs(IntPtr nativePtr)
+            {
+                this.nativePtr = nativePtr;
+            }
+            public CefBrowser browser()
+            {
+                return new CefBrowser(Cef3Binder.MyMetArgGetAsIntPtr(nativePtr, 1));
+            }
+            public CefPrintSettings settings()
+            {
+                return new CefPrintSettings(Cef3Binder.MyMetArgGetAsIntPtr(nativePtr, 2));
+            }
+            public bool get_defaults()
+            {
+                return Cef3Binder.MyMetArgGetAsBool(nativePtr, 3);
+            }
+        }
+        public virtual void //expand args
+        OnPrintSettings(OnPrintSettingsArgs args)
+        {
+            OnPrintSettings(args.browser(),
+            args.settings(),
+            args.get_defaults());
+        }
+        public virtual bool OnPrintDialog(CefBrowser browser, bool has_selection, CefPrintDialogCallback callback)
+        {
+            return false;
+        }
+        //gen! bool OnPrintDialog(CefRefPtr<CefBrowser> browser,bool has_selection,CefRefPtr<CefPrintDialogCallback> callback)
+        public struct OnPrintDialogArgs
+        {
+            internal IntPtr nativePtr; //met arg native ptr
+            internal OnPrintDialogArgs(IntPtr nativePtr)
+            {
+                this.nativePtr = nativePtr;
+            }
+            public CefBrowser browser()
+            {
+                return new CefBrowser(Cef3Binder.MyMetArgGetAsIntPtr(nativePtr, 1));
+            }
+            public bool has_selection()
+            {
+                return Cef3Binder.MyMetArgGetAsBool(nativePtr, 2);
+            }
+            public CefPrintDialogCallback callback()
+            {
+                return new CefPrintDialogCallback(Cef3Binder.MyMetArgGetAsIntPtr(nativePtr, 3));
+            }
+        }
+        public virtual void //expand args
+        OnPrintDialog(OnPrintDialogArgs args)
+        {
+            OnPrintDialog(args.browser(),
+            args.has_selection(),
+            args.callback());
+        }
+        public virtual bool OnPrintJob(CefBrowser browser, string document_name, string pdf_file_path, CefPrintJobCallback callback)
+        {
+            return false;
+        }
+        //gen! bool OnPrintJob(CefRefPtr<CefBrowser> browser,const CefString& document_name,const CefString& pdf_file_path,CefRefPtr<CefPrintJobCallback> callback)
+        public struct OnPrintJobArgs
+        {
+            internal IntPtr nativePtr; //met arg native ptr
+            internal OnPrintJobArgs(IntPtr nativePtr)
+            {
+                this.nativePtr = nativePtr;
+            }
+            public CefBrowser browser()
+            {
+                return new CefBrowser(Cef3Binder.MyMetArgGetAsIntPtr(nativePtr, 1));
+            }
+            public string document_name()
+            {
+                return Cef3Binder.MyMetArgGetAsString(nativePtr, 2);
+            }
+            public string pdf_file_path()
+            {
+                return Cef3Binder.MyMetArgGetAsString(nativePtr, 3);
+            }
+            public CefPrintJobCallback callback()
+            {
+                return new CefPrintJobCallback(Cef3Binder.MyMetArgGetAsIntPtr(nativePtr, 4));
+            }
+        }
+        public virtual void //expand args
+        OnPrintJob(OnPrintJobArgs args)
+        {
+            OnPrintJob(args.browser(),
+            args.document_name(),
+            args.pdf_file_path(),
+            args.callback());
+        }
+        public virtual void OnPrintReset(CefBrowser browser)
+        {
+        }
+        //gen! void OnPrintReset(CefRefPtr<CefBrowser> browser)
+        public struct OnPrintResetArgs
+        {
+            internal IntPtr nativePtr; //met arg native ptr
+            internal OnPrintResetArgs(IntPtr nativePtr)
+            {
+                this.nativePtr = nativePtr;
+            }
+            public CefBrowser browser()
+            {
+                return new CefBrowser(Cef3Binder.MyMetArgGetAsIntPtr(nativePtr, 1));
+            }
+        }
+        public virtual void //expand args
+        OnPrintReset(OnPrintResetArgs args)
+        {
+            OnPrintReset(args.browser());
+        }
+        public virtual CefSize GetPdfPaperSize(int device_units_per_inch)
+        {
+            throw new CefNotImplementedException();
+        }
+        //gen! CefSize GetPdfPaperSize(int device_units_per_inch)
+        public struct GetPdfPaperSizeArgs
+        {
+            internal IntPtr nativePtr; //met arg native ptr
+            internal GetPdfPaperSizeArgs(IntPtr nativePtr)
+            {
+                this.nativePtr = nativePtr;
+            }
+            public int device_units_per_inch()
+            {
+                return Cef3Binder.MyMetArgGetAsInt32(nativePtr, 1);
+            }
+        }
+        public virtual void //expand args
+        GetPdfPaperSize(GetPdfPaperSizeArgs args)
+        {
+            GetPdfPaperSize(args.device_units_per_inch());
+        }
+        public static CefPrintHandler New(MyCefCallback callback)
+        {
+            return new CefPrintHandler(Cef3Binder.NewInstance(_typeNAME, callback));
+        }
+        public static CefPrintHandler New()
+        {
+            CefPrintHandler newInst = new CefPrintHandler();
+            newInst.nativePtr = Cef3Binder.NewInstance(_typeNAME, (met_id, nativeMetArgs) =>
+            {
+                switch (met_id)
+                {
+                    case MyCefPrintHandler_OnPrintStart_1:
+                        {
+                            newInst.OnPrintStart(new OnPrintStartArgs(nativeMetArgs));
+                        }
+                        break;
+                    case MyCefPrintHandler_OnPrintSettings_2:
+                        {
+                            newInst.OnPrintSettings(new OnPrintSettingsArgs(nativeMetArgs));
+                        }
+                        break;
+                    case MyCefPrintHandler_OnPrintDialog_3:
+                        {
+                            newInst.OnPrintDialog(new OnPrintDialogArgs(nativeMetArgs));
+                        }
+                        break;
+                    case MyCefPrintHandler_OnPrintJob_4:
+                        {
+                            newInst.OnPrintJob(new OnPrintJobArgs(nativeMetArgs));
+                        }
+                        break;
+                    case MyCefPrintHandler_OnPrintReset_5:
+                        {
+                            newInst.OnPrintReset(new OnPrintResetArgs(nativeMetArgs));
+                        }
+                        break;
+                    case MyCefPrintHandler_GetPdfPaperSize_6:
+                        {
+                            newInst.GetPdfPaperSize(new GetPdfPaperSizeArgs(nativeMetArgs));
+                        }
+                        break;
+                }
+            });
+            return newInst;
+        }
+    }
+    public class CefRenderHandler
+    {
+        const int _typeNAME = 71;
+        const int MyCefRenderHandler_GetAccessibilityHandler_1 = 1;
+        const int MyCefRenderHandler_GetRootScreenRect_2 = 2;
+        const int MyCefRenderHandler_GetViewRect_3 = 3;
+        const int MyCefRenderHandler_GetScreenPoint_4 = 4;
+        const int MyCefRenderHandler_GetScreenInfo_5 = 5;
+        const int MyCefRenderHandler_OnPopupShow_6 = 6;
+        const int MyCefRenderHandler_OnPopupSize_7 = 7;
+        const int MyCefRenderHandler_OnPaint_8 = 8;
+        const int MyCefRenderHandler_OnCursorChange_9 = 9;
+        const int MyCefRenderHandler_StartDragging_10 = 10;
+        const int MyCefRenderHandler_UpdateDragCursor_11 = 11;
+        const int MyCefRenderHandler_OnScrollOffsetChanged_12 = 12;
+        const int MyCefRenderHandler_OnImeCompositionRangeChanged_13 = 13;
+        internal IntPtr nativePtr;
+        public CefRenderHandler(IntPtr nativePtr)
+        {
+            this.nativePtr = nativePtr;
+        }
+        public CefRenderHandler() { }
+        public virtual CefAccessibilityHandler GetAccessibilityHandler()
+        {
+            throw new CefNotImplementedException();
+        }
+        //gen! CefRefPtr<CefAccessibilityHandler> GetAccessibilityHandler()
+        public struct GetAccessibilityHandlerArgs
+        {
+            internal IntPtr nativePtr; //met arg native ptr
+            internal GetAccessibilityHandlerArgs(IntPtr nativePtr)
+            {
+                this.nativePtr = nativePtr;
+            }
+        }
+        public virtual void //expand args
+        GetAccessibilityHandler(GetAccessibilityHandlerArgs args)
+        {
+            GetAccessibilityHandler();
+        }
+        public virtual bool GetRootScreenRect(CefBrowser browser, CefRect rect)
+        {
+            return false;
+        }
+        //gen! bool GetRootScreenRect(CefRefPtr<CefBrowser> browser,CefRect& rect)
+        public struct GetRootScreenRectArgs
+        {
+            internal IntPtr nativePtr; //met arg native ptr
+            internal GetRootScreenRectArgs(IntPtr nativePtr)
+            {
+                this.nativePtr = nativePtr;
+            }
+            public CefBrowser browser()
+            {
+                return new CefBrowser(Cef3Binder.MyMetArgGetAsIntPtr(nativePtr, 1));
+            }
+            public CefRect rect()
+            {
+                return new CefRect(Cef3Binder.MyMetArgGetAsIntPtr(nativePtr, 2));
+            }
+        }
+        public virtual void //expand args
+        GetRootScreenRect(GetRootScreenRectArgs args)
+        {
+            GetRootScreenRect(args.browser(),
+            args.rect());
+        }
+        public virtual bool GetViewRect(CefBrowser browser, CefRect rect)
+        {
+            return false;
+        }
+        //gen! bool GetViewRect(CefRefPtr<CefBrowser> browser,CefRect& rect)
+        public struct GetViewRectArgs
+        {
+            internal IntPtr nativePtr; //met arg native ptr
+            internal GetViewRectArgs(IntPtr nativePtr)
+            {
+                this.nativePtr = nativePtr;
+            }
+            public CefBrowser browser()
+            {
+                return new CefBrowser(Cef3Binder.MyMetArgGetAsIntPtr(nativePtr, 1));
+            }
+            public CefRect rect()
+            {
+                return new CefRect(Cef3Binder.MyMetArgGetAsIntPtr(nativePtr, 2));
+            }
+        }
+        public virtual void //expand args
+        GetViewRect(GetViewRectArgs args)
+        {
+            GetViewRect(args.browser(),
+            args.rect());
+        }
+        public virtual bool GetScreenPoint(CefBrowser browser, int viewX, int viewY, ref int screenX, ref int screenY)
+        {
+            return false;
+        }
+        //gen! bool GetScreenPoint(CefRefPtr<CefBrowser> browser,int viewX,int viewY,int& screenX,int& screenY)
+        public struct GetScreenPointArgs
+        {
+            internal IntPtr nativePtr; //met arg native ptr
+            internal GetScreenPointArgs(IntPtr nativePtr)
+            {
+                this.nativePtr = nativePtr;
+            }
+            public CefBrowser browser()
+            {
+                return new CefBrowser(Cef3Binder.MyMetArgGetAsIntPtr(nativePtr, 1));
+            }
+            public int viewX()
+            {
+                return Cef3Binder.MyMetArgGetAsInt32(nativePtr, 2);
+            }
+            public int viewY()
+            {
+                return Cef3Binder.MyMetArgGetAsInt32(nativePtr, 3);
+            }
+            public int screenX()
+            {
+                return Cef3Binder.MyMetArgGetAsInt32(nativePtr, 4);
+            }
+            public void screenX(int value)
+            {
+                Cef3Binder.MyMetArgSetInt32ToAddress(nativePtr, 4, value);
+            }
+            public int screenY()
+            {
+                return Cef3Binder.MyMetArgGetAsInt32(nativePtr, 5);
+            }
+            public void screenY(int value)
+            {
+                Cef3Binder.MyMetArgSetInt32ToAddress(nativePtr, 5, value);
+            }
+        }
+        public virtual void //expand args
+        GetScreenPoint(GetScreenPointArgs args)
+        {
+            int screenX = 0;
+            int screenY = 0;
+            GetScreenPoint(args.browser(),
+            args.viewX(),
+            args.viewY(),
+            ref screenX,
+            ref screenY);
+            args.screenX(screenX);
+            args.screenY(screenY);
+        }
+        public virtual bool GetScreenInfo(CefBrowser browser, CefScreenInfo screen_info)
+        {
+            return false;
+        }
+        //gen! bool GetScreenInfo(CefRefPtr<CefBrowser> browser,CefScreenInfo& screen_info)
+        public struct GetScreenInfoArgs
+        {
+            internal IntPtr nativePtr; //met arg native ptr
+            internal GetScreenInfoArgs(IntPtr nativePtr)
+            {
+                this.nativePtr = nativePtr;
+            }
+            public CefBrowser browser()
+            {
+                return new CefBrowser(Cef3Binder.MyMetArgGetAsIntPtr(nativePtr, 1));
+            }
+            public CefScreenInfo screen_info()
+            {
+                return new CefScreenInfo(Cef3Binder.MyMetArgGetAsIntPtr(nativePtr, 2));
+            }
+        }
+        public virtual void //expand args
+        GetScreenInfo(GetScreenInfoArgs args)
+        {
+            GetScreenInfo(args.browser(),
+            args.screen_info());
+        }
+        public virtual void OnPopupShow(CefBrowser browser, bool show)
+        {
+        }
+        //gen! void OnPopupShow(CefRefPtr<CefBrowser> browser,bool show)
+        public struct OnPopupShowArgs
+        {
+            internal IntPtr nativePtr; //met arg native ptr
+            internal OnPopupShowArgs(IntPtr nativePtr)
+            {
+                this.nativePtr = nativePtr;
+            }
+            public CefBrowser browser()
+            {
+                return new CefBrowser(Cef3Binder.MyMetArgGetAsIntPtr(nativePtr, 1));
+            }
+            public bool show()
+            {
+                return Cef3Binder.MyMetArgGetAsBool(nativePtr, 2);
+            }
+        }
+        public virtual void //expand args
+        OnPopupShow(OnPopupShowArgs args)
+        {
+            OnPopupShow(args.browser(),
+            args.show());
+        }
+        public virtual void OnPopupSize(CefBrowser browser, CefRect rect)
+        {
+        }
+        //gen! void OnPopupSize(CefRefPtr<CefBrowser> browser,const CefRect& rect)
+        public struct OnPopupSizeArgs
+        {
+            internal IntPtr nativePtr; //met arg native ptr
+            internal OnPopupSizeArgs(IntPtr nativePtr)
+            {
+                this.nativePtr = nativePtr;
+            }
+            public CefBrowser browser()
+            {
+                return new CefBrowser(Cef3Binder.MyMetArgGetAsIntPtr(nativePtr, 1));
+            }
+            public CefRect rect()
+            {
+                return new CefRect(Cef3Binder.MyMetArgGetAsIntPtr(nativePtr, 2));
+            }
+        }
+        public virtual void //expand args
+        OnPopupSize(OnPopupSizeArgs args)
+        {
+            OnPopupSize(args.browser(),
+            args.rect());
+        }
+        public virtual void OnPaint(CefBrowser browser, cef_paint_element_type_t type, List<object> dirtyRects, IntPtr buffer, int width, int height)
+        {
+        }
+        //gen! void OnPaint(CefRefPtr<CefBrowser> browser,PaintElementType type,const RectList& dirtyRects,const void* buffer,int width,int height)
+        public struct OnPaintArgs
+        {
+            internal IntPtr nativePtr; //met arg native ptr
+            internal OnPaintArgs(IntPtr nativePtr)
+            {
+                this.nativePtr = nativePtr;
+            }
+            public CefBrowser browser()
+            {
+                return new CefBrowser(Cef3Binder.MyMetArgGetAsIntPtr(nativePtr, 1));
+            }
+            public cef_paint_element_type_t type()
+            {
+                return (cef_paint_element_type_t)Cef3Binder.MyMetArgGetAsInt32(nativePtr, 2);
+            }
+            public List<object> dirtyRects()
+            {
+                throw new CefNotImplementedException();
+            }
+            public IntPtr buffer()
+            {
+                throw new CefNotImplementedException();
+            }
+            public int width()
+            {
+                return Cef3Binder.MyMetArgGetAsInt32(nativePtr, 5);
+            }
+            public int height()
+            {
+                return Cef3Binder.MyMetArgGetAsInt32(nativePtr, 6);
+            }
+        }
+        public virtual void //expand args
+        OnPaint(OnPaintArgs args)
+        {
+            OnPaint(args.browser(),
+            args.type(),
+            args.dirtyRects(),
+            args.buffer(),
+            args.width(),
+            args.height());
+        }
+        public virtual void OnCursorChange(CefBrowser browser, IntPtr cursor, cef_cursor_type_t type, CefCursorInfo custom_cursor_info)
+        {
+        }
+        //gen! void OnCursorChange(CefRefPtr<CefBrowser> browser,CefCursorHandle cursor,CursorType type,const CefCursorInfo& custom_cursor_info)
+        public struct OnCursorChangeArgs
+        {
+            internal IntPtr nativePtr; //met arg native ptr
+            internal OnCursorChangeArgs(IntPtr nativePtr)
+            {
+                this.nativePtr = nativePtr;
+            }
+            public CefBrowser browser()
+            {
+                return new CefBrowser(Cef3Binder.MyMetArgGetAsIntPtr(nativePtr, 1));
+            }
+            public IntPtr cursor()
+            {
+                throw new CefNotImplementedException();
+            }
+            public cef_cursor_type_t type()
+            {
+                return (cef_cursor_type_t)Cef3Binder.MyMetArgGetAsInt32(nativePtr, 3);
+            }
+            public CefCursorInfo custom_cursor_info()
+            {
+                return new CefCursorInfo(Cef3Binder.MyMetArgGetAsIntPtr(nativePtr, 4));
+            }
+        }
+        public virtual void //expand args
+        OnCursorChange(OnCursorChangeArgs args)
+        {
+            OnCursorChange(args.browser(),
+            args.cursor(),
+            args.type(),
+            args.custom_cursor_info());
+        }
+        public virtual bool StartDragging(CefBrowser browser, CefDragData drag_data, cef_drag_operations_mask_t allowed_ops, int x, int y)
+        {
+            return false;
+        }
+        //gen! bool StartDragging(CefRefPtr<CefBrowser> browser,CefRefPtr<CefDragData> drag_data,DragOperationsMask allowed_ops,int x,int y)
+        public struct StartDraggingArgs
+        {
+            internal IntPtr nativePtr; //met arg native ptr
+            internal StartDraggingArgs(IntPtr nativePtr)
+            {
+                this.nativePtr = nativePtr;
+            }
+            public CefBrowser browser()
+            {
+                return new CefBrowser(Cef3Binder.MyMetArgGetAsIntPtr(nativePtr, 1));
+            }
+            public CefDragData drag_data()
+            {
+                return new CefDragData(Cef3Binder.MyMetArgGetAsIntPtr(nativePtr, 2));
+            }
+            public cef_drag_operations_mask_t allowed_ops()
+            {
+                return (cef_drag_operations_mask_t)Cef3Binder.MyMetArgGetAsInt32(nativePtr, 3);
+            }
+            public int x()
+            {
+                return Cef3Binder.MyMetArgGetAsInt32(nativePtr, 4);
+            }
+            public int y()
+            {
+                return Cef3Binder.MyMetArgGetAsInt32(nativePtr, 5);
+            }
+        }
+        public virtual void //expand args
+        StartDragging(StartDraggingArgs args)
+        {
+            StartDragging(args.browser(),
+            args.drag_data(),
+            args.allowed_ops(),
+            args.x(),
+            args.y());
+        }
+        public virtual void UpdateDragCursor(CefBrowser browser, cef_drag_operations_mask_t operation)
+        {
+        }
+        //gen! void UpdateDragCursor(CefRefPtr<CefBrowser> browser,DragOperation operation)
+        public struct UpdateDragCursorArgs
+        {
+            internal IntPtr nativePtr; //met arg native ptr
+            internal UpdateDragCursorArgs(IntPtr nativePtr)
+            {
+                this.nativePtr = nativePtr;
+            }
+            public CefBrowser browser()
+            {
+                return new CefBrowser(Cef3Binder.MyMetArgGetAsIntPtr(nativePtr, 1));
+            }
+            public cef_drag_operations_mask_t operation()
+            {
+                return (cef_drag_operations_mask_t)Cef3Binder.MyMetArgGetAsInt32(nativePtr, 2);
+            }
+        }
+        public virtual void //expand args
+        UpdateDragCursor(UpdateDragCursorArgs args)
+        {
+            UpdateDragCursor(args.browser(),
+            args.operation());
+        }
+        public virtual void OnScrollOffsetChanged(CefBrowser browser, double x, double y)
+        {
+        }
+        //gen! void OnScrollOffsetChanged(CefRefPtr<CefBrowser> browser,double x,double y)
+        public struct OnScrollOffsetChangedArgs
+        {
+            internal IntPtr nativePtr; //met arg native ptr
+            internal OnScrollOffsetChangedArgs(IntPtr nativePtr)
+            {
+                this.nativePtr = nativePtr;
+            }
+            public CefBrowser browser()
+            {
+                return new CefBrowser(Cef3Binder.MyMetArgGetAsIntPtr(nativePtr, 1));
+            }
+            public double x()
+            {
+                return Cef3Binder.MyMetArgGetAsDouble(nativePtr, 2);
+            }
+            public double y()
+            {
+                return Cef3Binder.MyMetArgGetAsDouble(nativePtr, 3);
+            }
+        }
+        public virtual void //expand args
+        OnScrollOffsetChanged(OnScrollOffsetChangedArgs args)
+        {
+            OnScrollOffsetChanged(args.browser(),
+            args.x(),
+            args.y());
+        }
+        public virtual void OnImeCompositionRangeChanged(CefBrowser browser, CefRange selected_range, List<object> character_bounds)
+        {
+        }
+        //gen! void OnImeCompositionRangeChanged(CefRefPtr<CefBrowser> browser,const CefRange& selected_range,const RectList& character_bounds)
+        public struct OnImeCompositionRangeChangedArgs
+        {
+            internal IntPtr nativePtr; //met arg native ptr
+            internal OnImeCompositionRangeChangedArgs(IntPtr nativePtr)
+            {
+                this.nativePtr = nativePtr;
+            }
+            public CefBrowser browser()
+            {
+                return new CefBrowser(Cef3Binder.MyMetArgGetAsIntPtr(nativePtr, 1));
+            }
+            public CefRange selected_range()
+            {
+                return new CefRange(Cef3Binder.MyMetArgGetAsIntPtr(nativePtr, 2));
+            }
+            public List<object> character_bounds()
+            {
+                throw new CefNotImplementedException();
+            }
+        }
+        public virtual void //expand args
+        OnImeCompositionRangeChanged(OnImeCompositionRangeChangedArgs args)
+        {
+            OnImeCompositionRangeChanged(args.browser(),
+            args.selected_range(),
+            args.character_bounds());
+        }
+        public static CefRenderHandler New(MyCefCallback callback)
+        {
+            return new CefRenderHandler(Cef3Binder.NewInstance(_typeNAME, callback));
+        }
+        public static CefRenderHandler New()
+        {
+            CefRenderHandler newInst = new CefRenderHandler();
+            newInst.nativePtr = Cef3Binder.NewInstance(_typeNAME, (met_id, nativeMetArgs) =>
+            {
+                switch (met_id)
+                {
+                    case MyCefRenderHandler_GetAccessibilityHandler_1:
+                        {
+                            newInst.GetAccessibilityHandler(new GetAccessibilityHandlerArgs(nativeMetArgs));
+                        }
+                        break;
+                    case MyCefRenderHandler_GetRootScreenRect_2:
+                        {
+                            newInst.GetRootScreenRect(new GetRootScreenRectArgs(nativeMetArgs));
+                        }
+                        break;
+                    case MyCefRenderHandler_GetViewRect_3:
+                        {
+                            newInst.GetViewRect(new GetViewRectArgs(nativeMetArgs));
+                        }
+                        break;
+                    case MyCefRenderHandler_GetScreenPoint_4:
+                        {
+                            newInst.GetScreenPoint(new GetScreenPointArgs(nativeMetArgs));
+                        }
+                        break;
+                    case MyCefRenderHandler_GetScreenInfo_5:
+                        {
+                            newInst.GetScreenInfo(new GetScreenInfoArgs(nativeMetArgs));
+                        }
+                        break;
+                    case MyCefRenderHandler_OnPopupShow_6:
+                        {
+                            newInst.OnPopupShow(new OnPopupShowArgs(nativeMetArgs));
+                        }
+                        break;
+                    case MyCefRenderHandler_OnPopupSize_7:
+                        {
+                            newInst.OnPopupSize(new OnPopupSizeArgs(nativeMetArgs));
+                        }
+                        break;
+                    case MyCefRenderHandler_OnPaint_8:
+                        {
+                            newInst.OnPaint(new OnPaintArgs(nativeMetArgs));
+                        }
+                        break;
+                    case MyCefRenderHandler_OnCursorChange_9:
+                        {
+                            newInst.OnCursorChange(new OnCursorChangeArgs(nativeMetArgs));
+                        }
+                        break;
+                    case MyCefRenderHandler_StartDragging_10:
+                        {
+                            newInst.StartDragging(new StartDraggingArgs(nativeMetArgs));
+                        }
+                        break;
+                    case MyCefRenderHandler_UpdateDragCursor_11:
+                        {
+                            newInst.UpdateDragCursor(new UpdateDragCursorArgs(nativeMetArgs));
+                        }
+                        break;
+                    case MyCefRenderHandler_OnScrollOffsetChanged_12:
+                        {
+                            newInst.OnScrollOffsetChanged(new OnScrollOffsetChangedArgs(nativeMetArgs));
+                        }
+                        break;
+                    case MyCefRenderHandler_OnImeCompositionRangeChanged_13:
+                        {
+                            newInst.OnImeCompositionRangeChanged(new OnImeCompositionRangeChangedArgs(nativeMetArgs));
+                        }
+                        break;
+                }
+            });
+            return newInst;
+        }
+    }
+    public class CefRenderProcessHandler
+    {
+        const int _typeNAME = 72;
+        const int MyCefRenderProcessHandler_OnRenderThreadCreated_1 = 1;
+        const int MyCefRenderProcessHandler_OnWebKitInitialized_2 = 2;
+        const int MyCefRenderProcessHandler_OnBrowserCreated_3 = 3;
+        const int MyCefRenderProcessHandler_OnBrowserDestroyed_4 = 4;
+        const int MyCefRenderProcessHandler_GetLoadHandler_5 = 5;
+        const int MyCefRenderProcessHandler_OnBeforeNavigation_6 = 6;
+        const int MyCefRenderProcessHandler_OnContextCreated_7 = 7;
+        const int MyCefRenderProcessHandler_OnContextReleased_8 = 8;
+        const int MyCefRenderProcessHandler_OnUncaughtException_9 = 9;
+        const int MyCefRenderProcessHandler_OnFocusedNodeChanged_10 = 10;
+        const int MyCefRenderProcessHandler_OnProcessMessageReceived_11 = 11;
+        internal IntPtr nativePtr;
+        public CefRenderProcessHandler(IntPtr nativePtr)
+        {
+            this.nativePtr = nativePtr;
+        }
+        public CefRenderProcessHandler() { }
+        public virtual void OnRenderThreadCreated(CefListValue extra_info)
+        {
+        }
+        //gen! void OnRenderThreadCreated(CefRefPtr<CefListValue> extra_info)
+        public struct OnRenderThreadCreatedArgs
+        {
+            internal IntPtr nativePtr; //met arg native ptr
+            internal OnRenderThreadCreatedArgs(IntPtr nativePtr)
+            {
+                this.nativePtr = nativePtr;
+            }
+            public CefListValue extra_info()
+            {
+                return new CefListValue(Cef3Binder.MyMetArgGetAsIntPtr(nativePtr, 1));
+            }
+        }
+        public virtual void //expand args
+        OnRenderThreadCreated(OnRenderThreadCreatedArgs args)
+        {
+            OnRenderThreadCreated(args.extra_info());
+        }
+        public virtual void OnWebKitInitialized()
+        {
+        }
+        //gen! void OnWebKitInitialized()
+        public struct OnWebKitInitializedArgs
+        {
+            internal IntPtr nativePtr; //met arg native ptr
+            internal OnWebKitInitializedArgs(IntPtr nativePtr)
+            {
+                this.nativePtr = nativePtr;
+            }
+        }
+        public virtual void //expand args
+        OnWebKitInitialized(OnWebKitInitializedArgs args)
+        {
+            OnWebKitInitialized();
+        }
+        public virtual void OnBrowserCreated(CefBrowser browser)
+        {
+        }
+        //gen! void OnBrowserCreated(CefRefPtr<CefBrowser> browser)
+        public struct OnBrowserCreatedArgs
+        {
+            internal IntPtr nativePtr; //met arg native ptr
+            internal OnBrowserCreatedArgs(IntPtr nativePtr)
+            {
+                this.nativePtr = nativePtr;
+            }
+            public CefBrowser browser()
+            {
+                return new CefBrowser(Cef3Binder.MyMetArgGetAsIntPtr(nativePtr, 1));
+            }
+        }
+        public virtual void //expand args
+        OnBrowserCreated(OnBrowserCreatedArgs args)
+        {
+            OnBrowserCreated(args.browser());
+        }
+        public virtual void OnBrowserDestroyed(CefBrowser browser)
+        {
+        }
+        //gen! void OnBrowserDestroyed(CefRefPtr<CefBrowser> browser)
+        public struct OnBrowserDestroyedArgs
+        {
+            internal IntPtr nativePtr; //met arg native ptr
+            internal OnBrowserDestroyedArgs(IntPtr nativePtr)
+            {
+                this.nativePtr = nativePtr;
+            }
+            public CefBrowser browser()
+            {
+                return new CefBrowser(Cef3Binder.MyMetArgGetAsIntPtr(nativePtr, 1));
+            }
+        }
+        public virtual void //expand args
+        OnBrowserDestroyed(OnBrowserDestroyedArgs args)
+        {
+            OnBrowserDestroyed(args.browser());
+        }
+        public virtual CefLoadHandler GetLoadHandler()
+        {
+            throw new CefNotImplementedException();
+        }
+        //gen! CefRefPtr<CefLoadHandler> GetLoadHandler()
+        public struct GetLoadHandlerArgs
+        {
+            internal IntPtr nativePtr; //met arg native ptr
+            internal GetLoadHandlerArgs(IntPtr nativePtr)
+            {
+                this.nativePtr = nativePtr;
+            }
+        }
+        public virtual void //expand args
+        GetLoadHandler(GetLoadHandlerArgs args)
+        {
+            GetLoadHandler();
+        }
+        public virtual bool OnBeforeNavigation(CefBrowser browser, CefFrame frame, CefRequest request, cef_navigation_type_t navigation_type, bool is_redirect)
+        {
+            return false;
+        }
+        //gen! bool OnBeforeNavigation(CefRefPtr<CefBrowser> browser,CefRefPtr<CefFrame> frame,CefRefPtr<CefRequest> request,NavigationType navigation_type,bool is_redirect)
+        public struct OnBeforeNavigationArgs
+        {
+            internal IntPtr nativePtr; //met arg native ptr
+            internal OnBeforeNavigationArgs(IntPtr nativePtr)
+            {
+                this.nativePtr = nativePtr;
+            }
+            public CefBrowser browser()
+            {
+                return new CefBrowser(Cef3Binder.MyMetArgGetAsIntPtr(nativePtr, 1));
+            }
+            public CefFrame frame()
+            {
+                return new CefFrame(Cef3Binder.MyMetArgGetAsIntPtr(nativePtr, 2));
+            }
+            public CefRequest request()
+            {
+                return new CefRequest(Cef3Binder.MyMetArgGetAsIntPtr(nativePtr, 3));
+            }
+            public cef_navigation_type_t navigation_type()
+            {
+                return (cef_navigation_type_t)Cef3Binder.MyMetArgGetAsInt32(nativePtr, 4);
+            }
+            public bool is_redirect()
+            {
+                return Cef3Binder.MyMetArgGetAsBool(nativePtr, 5);
+            }
+        }
+        public virtual void //expand args
+        OnBeforeNavigation(OnBeforeNavigationArgs args)
+        {
+            OnBeforeNavigation(args.browser(),
+            args.frame(),
+            args.request(),
+            args.navigation_type(),
+            args.is_redirect());
+        }
+        public virtual void OnContextCreated(CefBrowser browser, CefFrame frame, CefV8Context context)
+        {
+        }
+        //gen! void OnContextCreated(CefRefPtr<CefBrowser> browser,CefRefPtr<CefFrame> frame,CefRefPtr<CefV8Context> context)
+        public struct OnContextCreatedArgs
+        {
+            internal IntPtr nativePtr; //met arg native ptr
+            internal OnContextCreatedArgs(IntPtr nativePtr)
+            {
+                this.nativePtr = nativePtr;
+            }
+            public CefBrowser browser()
+            {
+                return new CefBrowser(Cef3Binder.MyMetArgGetAsIntPtr(nativePtr, 1));
+            }
+            public CefFrame frame()
+            {
+                return new CefFrame(Cef3Binder.MyMetArgGetAsIntPtr(nativePtr, 2));
+            }
+            public CefV8Context context()
+            {
+                return new CefV8Context(Cef3Binder.MyMetArgGetAsIntPtr(nativePtr, 3));
+            }
+        }
+        public virtual void //expand args
+        OnContextCreated(OnContextCreatedArgs args)
+        {
+            OnContextCreated(args.browser(),
+            args.frame(),
+            args.context());
+        }
+        public virtual void OnContextReleased(CefBrowser browser, CefFrame frame, CefV8Context context)
+        {
+        }
+        //gen! void OnContextReleased(CefRefPtr<CefBrowser> browser,CefRefPtr<CefFrame> frame,CefRefPtr<CefV8Context> context)
+        public struct OnContextReleasedArgs
+        {
+            internal IntPtr nativePtr; //met arg native ptr
+            internal OnContextReleasedArgs(IntPtr nativePtr)
+            {
+                this.nativePtr = nativePtr;
+            }
+            public CefBrowser browser()
+            {
+                return new CefBrowser(Cef3Binder.MyMetArgGetAsIntPtr(nativePtr, 1));
+            }
+            public CefFrame frame()
+            {
+                return new CefFrame(Cef3Binder.MyMetArgGetAsIntPtr(nativePtr, 2));
+            }
+            public CefV8Context context()
+            {
+                return new CefV8Context(Cef3Binder.MyMetArgGetAsIntPtr(nativePtr, 3));
+            }
+        }
+        public virtual void //expand args
+        OnContextReleased(OnContextReleasedArgs args)
+        {
+            OnContextReleased(args.browser(),
+            args.frame(),
+            args.context());
+        }
+        public virtual void OnUncaughtException(CefBrowser browser, CefFrame frame, CefV8Context context, CefV8Exception exception, CefV8StackTrace stackTrace)
+        {
+        }
+        //gen! void OnUncaughtException(CefRefPtr<CefBrowser> browser,CefRefPtr<CefFrame> frame,CefRefPtr<CefV8Context> context,CefRefPtr<CefV8Exception> exception,CefRefPtr<CefV8StackTrace> stackTrace)
+        public struct OnUncaughtExceptionArgs
+        {
+            internal IntPtr nativePtr; //met arg native ptr
+            internal OnUncaughtExceptionArgs(IntPtr nativePtr)
+            {
+                this.nativePtr = nativePtr;
+            }
+            public CefBrowser browser()
+            {
+                return new CefBrowser(Cef3Binder.MyMetArgGetAsIntPtr(nativePtr, 1));
+            }
+            public CefFrame frame()
+            {
+                return new CefFrame(Cef3Binder.MyMetArgGetAsIntPtr(nativePtr, 2));
+            }
+            public CefV8Context context()
+            {
+                return new CefV8Context(Cef3Binder.MyMetArgGetAsIntPtr(nativePtr, 3));
+            }
+            public CefV8Exception exception()
+            {
+                return new CefV8Exception(Cef3Binder.MyMetArgGetAsIntPtr(nativePtr, 4));
+            }
+            public CefV8StackTrace stackTrace()
+            {
+                return new CefV8StackTrace(Cef3Binder.MyMetArgGetAsIntPtr(nativePtr, 5));
+            }
+        }
+        public virtual void //expand args
+        OnUncaughtException(OnUncaughtExceptionArgs args)
+        {
+            OnUncaughtException(args.browser(),
+            args.frame(),
+            args.context(),
+            args.exception(),
+            args.stackTrace());
+        }
+        public virtual void OnFocusedNodeChanged(CefBrowser browser, CefFrame frame, CefDOMNode node)
+        {
+        }
+        //gen! void OnFocusedNodeChanged(CefRefPtr<CefBrowser> browser,CefRefPtr<CefFrame> frame,CefRefPtr<CefDOMNode> node)
+        public struct OnFocusedNodeChangedArgs
+        {
+            internal IntPtr nativePtr; //met arg native ptr
+            internal OnFocusedNodeChangedArgs(IntPtr nativePtr)
+            {
+                this.nativePtr = nativePtr;
+            }
+            public CefBrowser browser()
+            {
+                return new CefBrowser(Cef3Binder.MyMetArgGetAsIntPtr(nativePtr, 1));
+            }
+            public CefFrame frame()
+            {
+                return new CefFrame(Cef3Binder.MyMetArgGetAsIntPtr(nativePtr, 2));
+            }
+            public CefDOMNode node()
+            {
+                return new CefDOMNode(Cef3Binder.MyMetArgGetAsIntPtr(nativePtr, 3));
+            }
+        }
+        public virtual void //expand args
+        OnFocusedNodeChanged(OnFocusedNodeChangedArgs args)
+        {
+            OnFocusedNodeChanged(args.browser(),
+            args.frame(),
+            args.node());
+        }
+        public virtual bool OnProcessMessageReceived(CefBrowser browser, cef_process_id_t source_process, CefProcessMessage message)
+        {
+            return false;
+        }
+        //gen! bool OnProcessMessageReceived(CefRefPtr<CefBrowser> browser,CefProcessId source_process,CefRefPtr<CefProcessMessage> message)
+        public struct OnProcessMessageReceivedArgs
+        {
+            internal IntPtr nativePtr; //met arg native ptr
+            internal OnProcessMessageReceivedArgs(IntPtr nativePtr)
+            {
+                this.nativePtr = nativePtr;
+            }
+            public CefBrowser browser()
+            {
+                return new CefBrowser(Cef3Binder.MyMetArgGetAsIntPtr(nativePtr, 1));
+            }
+            public cef_process_id_t source_process()
+            {
+                return (cef_process_id_t)Cef3Binder.MyMetArgGetAsInt32(nativePtr, 2);
+            }
+            public CefProcessMessage message()
+            {
+                return new CefProcessMessage(Cef3Binder.MyMetArgGetAsIntPtr(nativePtr, 3));
+            }
+        }
+        public virtual void //expand args
+        OnProcessMessageReceived(OnProcessMessageReceivedArgs args)
+        {
+            OnProcessMessageReceived(args.browser(),
+            args.source_process(),
+            args.message());
+        }
+        public static CefRenderProcessHandler New(MyCefCallback callback)
+        {
+            return new CefRenderProcessHandler(Cef3Binder.NewInstance(_typeNAME, callback));
+        }
+        public static CefRenderProcessHandler New()
+        {
+            CefRenderProcessHandler newInst = new CefRenderProcessHandler();
+            newInst.nativePtr = Cef3Binder.NewInstance(_typeNAME, (met_id, nativeMetArgs) =>
+            {
+                switch (met_id)
+                {
+                    case MyCefRenderProcessHandler_OnRenderThreadCreated_1:
+                        {
+                            newInst.OnRenderThreadCreated(new OnRenderThreadCreatedArgs(nativeMetArgs));
+                        }
+                        break;
+                    case MyCefRenderProcessHandler_OnWebKitInitialized_2:
+                        {
+                            newInst.OnWebKitInitialized(new OnWebKitInitializedArgs(nativeMetArgs));
+                        }
+                        break;
+                    case MyCefRenderProcessHandler_OnBrowserCreated_3:
+                        {
+                            newInst.OnBrowserCreated(new OnBrowserCreatedArgs(nativeMetArgs));
+                        }
+                        break;
+                    case MyCefRenderProcessHandler_OnBrowserDestroyed_4:
+                        {
+                            newInst.OnBrowserDestroyed(new OnBrowserDestroyedArgs(nativeMetArgs));
+                        }
+                        break;
+                    case MyCefRenderProcessHandler_GetLoadHandler_5:
+                        {
+                            newInst.GetLoadHandler(new GetLoadHandlerArgs(nativeMetArgs));
+                        }
+                        break;
+                    case MyCefRenderProcessHandler_OnBeforeNavigation_6:
+                        {
+                            newInst.OnBeforeNavigation(new OnBeforeNavigationArgs(nativeMetArgs));
+                        }
+                        break;
+                    case MyCefRenderProcessHandler_OnContextCreated_7:
+                        {
+                            newInst.OnContextCreated(new OnContextCreatedArgs(nativeMetArgs));
+                        }
+                        break;
+                    case MyCefRenderProcessHandler_OnContextReleased_8:
+                        {
+                            newInst.OnContextReleased(new OnContextReleasedArgs(nativeMetArgs));
+                        }
+                        break;
+                    case MyCefRenderProcessHandler_OnUncaughtException_9:
+                        {
+                            newInst.OnUncaughtException(new OnUncaughtExceptionArgs(nativeMetArgs));
+                        }
+                        break;
+                    case MyCefRenderProcessHandler_OnFocusedNodeChanged_10:
+                        {
+                            newInst.OnFocusedNodeChanged(new OnFocusedNodeChangedArgs(nativeMetArgs));
+                        }
+                        break;
+                    case MyCefRenderProcessHandler_OnProcessMessageReceived_11:
+                        {
+                            newInst.OnProcessMessageReceived(new OnProcessMessageReceivedArgs(nativeMetArgs));
+                        }
+                        break;
+                }
+            });
+            return newInst;
+        }
+    }
+    public class CefRequestContextHandler
+    {
+        const int _typeNAME = 73;
+        const int MyCefRequestContextHandler_GetCookieManager_1 = 1;
+        const int MyCefRequestContextHandler_OnBeforePluginLoad_2 = 2;
+        internal IntPtr nativePtr;
+        public CefRequestContextHandler(IntPtr nativePtr)
+        {
+            this.nativePtr = nativePtr;
+        }
+        public CefRequestContextHandler() { }
+        public virtual CefCookieManager GetCookieManager()
+        {
+            throw new CefNotImplementedException();
+        }
+        //gen! CefRefPtr<CefCookieManager> GetCookieManager()
+        public struct GetCookieManagerArgs
+        {
+            internal IntPtr nativePtr; //met arg native ptr
+            internal GetCookieManagerArgs(IntPtr nativePtr)
+            {
+                this.nativePtr = nativePtr;
+            }
+        }
+        public virtual void //expand args
+        GetCookieManager(GetCookieManagerArgs args)
+        {
+            GetCookieManager();
+        }
+        public virtual bool OnBeforePluginLoad(string mime_type, string plugin_url, bool is_main_frame, string top_origin_url, CefWebPluginInfo plugin_info, cef_plugin_policy_t plugin_policy)
+        {
+            return false;
+        }
+        //gen! bool OnBeforePluginLoad(const CefString& mime_type,const CefString& plugin_url,bool is_main_frame,const CefString& top_origin_url,CefRefPtr<CefWebPluginInfo> plugin_info,PluginPolicy* plugin_policy)
+        public struct OnBeforePluginLoadArgs
+        {
+            internal IntPtr nativePtr; //met arg native ptr
+            internal OnBeforePluginLoadArgs(IntPtr nativePtr)
+            {
+                this.nativePtr = nativePtr;
+            }
+            public string mime_type()
+            {
+                return Cef3Binder.MyMetArgGetAsString(nativePtr, 1);
+            }
+            public string plugin_url()
+            {
+                return Cef3Binder.MyMetArgGetAsString(nativePtr, 2);
+            }
+            public bool is_main_frame()
+            {
+                return Cef3Binder.MyMetArgGetAsBool(nativePtr, 3);
+            }
+            public string top_origin_url()
+            {
+                return Cef3Binder.MyMetArgGetAsString(nativePtr, 4);
+            }
+            public CefWebPluginInfo plugin_info()
+            {
+                return new CefWebPluginInfo(Cef3Binder.MyMetArgGetAsIntPtr(nativePtr, 5));
+            }
+            public cef_plugin_policy_t plugin_policy()
+            {
+                return (cef_plugin_policy_t)Cef3Binder.MyMetArgGetAsInt32(nativePtr, 6);
+            }
+        }
+        public virtual void //expand args
+        OnBeforePluginLoad(OnBeforePluginLoadArgs args)
+        {
+            OnBeforePluginLoad(args.mime_type(),
+            args.plugin_url(),
+            args.is_main_frame(),
+            args.top_origin_url(),
+            args.plugin_info(),
+            args.plugin_policy());
+        }
+        public static CefRequestContextHandler New(MyCefCallback callback)
+        {
+            return new CefRequestContextHandler(Cef3Binder.NewInstance(_typeNAME, callback));
+        }
+        public static CefRequestContextHandler New()
+        {
+            CefRequestContextHandler newInst = new CefRequestContextHandler();
+            newInst.nativePtr = Cef3Binder.NewInstance(_typeNAME, (met_id, nativeMetArgs) =>
+            {
+                switch (met_id)
+                {
+                    case MyCefRequestContextHandler_GetCookieManager_1:
+                        {
+                            newInst.GetCookieManager(new GetCookieManagerArgs(nativeMetArgs));
+                        }
+                        break;
+                    case MyCefRequestContextHandler_OnBeforePluginLoad_2:
+                        {
+                            newInst.OnBeforePluginLoad(new OnBeforePluginLoadArgs(nativeMetArgs));
+                        }
+                        break;
+                }
+            });
+            return newInst;
+        }
+    }
+    public class CefRequestHandler
+    {
+        const int _typeNAME = 74;
+        const int MyCefRequestHandler_OnBeforeBrowse_1 = 1;
+        const int MyCefRequestHandler_OnOpenURLFromTab_2 = 2;
+        const int MyCefRequestHandler_OnBeforeResourceLoad_3 = 3;
+        const int MyCefRequestHandler_GetResourceHandler_4 = 4;
+        const int MyCefRequestHandler_OnResourceRedirect_5 = 5;
+        const int MyCefRequestHandler_OnResourceResponse_6 = 6;
+        const int MyCefRequestHandler_GetResourceResponseFilter_7 = 7;
+        const int MyCefRequestHandler_OnResourceLoadComplete_8 = 8;
+        const int MyCefRequestHandler_GetAuthCredentials_9 = 9;
+        const int MyCefRequestHandler_OnQuotaRequest_10 = 10;
+        const int MyCefRequestHandler_OnProtocolExecution_11 = 11;
+        const int MyCefRequestHandler_OnCertificateError_12 = 12;
+        const int MyCefRequestHandler_OnSelectClientCertificate_13 = 13;
+        const int MyCefRequestHandler_OnPluginCrashed_14 = 14;
+        const int MyCefRequestHandler_OnRenderViewReady_15 = 15;
+        const int MyCefRequestHandler_OnRenderProcessTerminated_16 = 16;
+        internal IntPtr nativePtr;
+        public CefRequestHandler(IntPtr nativePtr)
+        {
+            this.nativePtr = nativePtr;
+        }
+        public CefRequestHandler() { }
+        public virtual bool OnBeforeBrowse(CefBrowser browser, CefFrame frame, CefRequest request, bool is_redirect)
+        {
+            return false;
+        }
+        //gen! bool OnBeforeBrowse(CefRefPtr<CefBrowser> browser,CefRefPtr<CefFrame> frame,CefRefPtr<CefRequest> request,bool is_redirect)
+        public struct OnBeforeBrowseArgs
+        {
+            internal IntPtr nativePtr; //met arg native ptr
+            internal OnBeforeBrowseArgs(IntPtr nativePtr)
+            {
+                this.nativePtr = nativePtr;
+            }
+            public CefBrowser browser()
+            {
+                return new CefBrowser(Cef3Binder.MyMetArgGetAsIntPtr(nativePtr, 1));
+            }
+            public CefFrame frame()
+            {
+                return new CefFrame(Cef3Binder.MyMetArgGetAsIntPtr(nativePtr, 2));
+            }
+            public CefRequest request()
+            {
+                return new CefRequest(Cef3Binder.MyMetArgGetAsIntPtr(nativePtr, 3));
+            }
+            public bool is_redirect()
+            {
+                return Cef3Binder.MyMetArgGetAsBool(nativePtr, 4);
+            }
+        }
+        public virtual void //expand args
+        OnBeforeBrowse(OnBeforeBrowseArgs args)
+        {
+            OnBeforeBrowse(args.browser(),
+            args.frame(),
+            args.request(),
+            args.is_redirect());
+        }
+        public virtual bool OnOpenURLFromTab(CefBrowser browser, CefFrame frame, string target_url, cef_window_open_disposition_t target_disposition, bool user_gesture)
+        {
+            return false;
+        }
+        //gen! bool OnOpenURLFromTab(CefRefPtr<CefBrowser> browser,CefRefPtr<CefFrame> frame,const CefString& target_url,WindowOpenDisposition target_disposition,bool user_gesture)
+        public struct OnOpenURLFromTabArgs
+        {
+            internal IntPtr nativePtr; //met arg native ptr
+            internal OnOpenURLFromTabArgs(IntPtr nativePtr)
+            {
+                this.nativePtr = nativePtr;
+            }
+            public CefBrowser browser()
+            {
+                return new CefBrowser(Cef3Binder.MyMetArgGetAsIntPtr(nativePtr, 1));
+            }
+            public CefFrame frame()
+            {
+                return new CefFrame(Cef3Binder.MyMetArgGetAsIntPtr(nativePtr, 2));
+            }
+            public string target_url()
+            {
+                return Cef3Binder.MyMetArgGetAsString(nativePtr, 3);
+            }
+            public cef_window_open_disposition_t target_disposition()
+            {
+                return (cef_window_open_disposition_t)Cef3Binder.MyMetArgGetAsInt32(nativePtr, 4);
+            }
+            public bool user_gesture()
+            {
+                return Cef3Binder.MyMetArgGetAsBool(nativePtr, 5);
+            }
+        }
+        public virtual void //expand args
+        OnOpenURLFromTab(OnOpenURLFromTabArgs args)
+        {
+            OnOpenURLFromTab(args.browser(),
+            args.frame(),
+            args.target_url(),
+            args.target_disposition(),
+            args.user_gesture());
+        }
+        public virtual cef_return_value_t OnBeforeResourceLoad(CefBrowser browser, CefFrame frame, CefRequest request, CefRequestCallback callback)
+        {
+            return (cef_return_value_t)0;
+        }
+        //gen! ReturnValue OnBeforeResourceLoad(CefRefPtr<CefBrowser> browser,CefRefPtr<CefFrame> frame,CefRefPtr<CefRequest> request,CefRefPtr<CefRequestCallback> callback)
+        public struct OnBeforeResourceLoadArgs
+        {
+            internal IntPtr nativePtr; //met arg native ptr
+            internal OnBeforeResourceLoadArgs(IntPtr nativePtr)
+            {
+                this.nativePtr = nativePtr;
+            }
+            public CefBrowser browser()
+            {
+                return new CefBrowser(Cef3Binder.MyMetArgGetAsIntPtr(nativePtr, 1));
+            }
+            public CefFrame frame()
+            {
+                return new CefFrame(Cef3Binder.MyMetArgGetAsIntPtr(nativePtr, 2));
+            }
+            public CefRequest request()
+            {
+                return new CefRequest(Cef3Binder.MyMetArgGetAsIntPtr(nativePtr, 3));
+            }
+            public CefRequestCallback callback()
+            {
+                return new CefRequestCallback(Cef3Binder.MyMetArgGetAsIntPtr(nativePtr, 4));
+            }
+        }
+        public virtual void //expand args
+        OnBeforeResourceLoad(OnBeforeResourceLoadArgs args)
+        {
+            OnBeforeResourceLoad(args.browser(),
+            args.frame(),
+            args.request(),
+            args.callback());
+        }
+        public virtual CefResourceHandler GetResourceHandler(CefBrowser browser, CefFrame frame, CefRequest request)
+        {
+            throw new CefNotImplementedException();
+        }
+        //gen! CefRefPtr<CefResourceHandler> GetResourceHandler(CefRefPtr<CefBrowser> browser,CefRefPtr<CefFrame> frame,CefRefPtr<CefRequest> request)
+        public struct GetResourceHandlerArgs
+        {
+            internal IntPtr nativePtr; //met arg native ptr
+            internal GetResourceHandlerArgs(IntPtr nativePtr)
+            {
+                this.nativePtr = nativePtr;
+            }
+            public CefBrowser browser()
+            {
+                return new CefBrowser(Cef3Binder.MyMetArgGetAsIntPtr(nativePtr, 1));
+            }
+            public CefFrame frame()
+            {
+                return new CefFrame(Cef3Binder.MyMetArgGetAsIntPtr(nativePtr, 2));
+            }
+            public CefRequest request()
+            {
+                return new CefRequest(Cef3Binder.MyMetArgGetAsIntPtr(nativePtr, 3));
+            }
+        }
+        public virtual void //expand args
+        GetResourceHandler(GetResourceHandlerArgs args)
+        {
+            GetResourceHandler(args.browser(),
+            args.frame(),
+            args.request());
+        }
+        public virtual void OnResourceRedirect(CefBrowser browser, CefFrame frame, CefRequest request, CefResponse response, string new_url)
+        {
+        }
+        //gen! void OnResourceRedirect(CefRefPtr<CefBrowser> browser,CefRefPtr<CefFrame> frame,CefRefPtr<CefRequest> request,CefRefPtr<CefResponse> response,CefString& new_url)
+        public struct OnResourceRedirectArgs
+        {
+            internal IntPtr nativePtr; //met arg native ptr
+            internal OnResourceRedirectArgs(IntPtr nativePtr)
+            {
+                this.nativePtr = nativePtr;
+            }
+            public CefBrowser browser()
+            {
+                return new CefBrowser(Cef3Binder.MyMetArgGetAsIntPtr(nativePtr, 1));
+            }
+            public CefFrame frame()
+            {
+                return new CefFrame(Cef3Binder.MyMetArgGetAsIntPtr(nativePtr, 2));
+            }
+            public CefRequest request()
+            {
+                return new CefRequest(Cef3Binder.MyMetArgGetAsIntPtr(nativePtr, 3));
+            }
+            public CefResponse response()
+            {
+                return new CefResponse(Cef3Binder.MyMetArgGetAsIntPtr(nativePtr, 4));
+            }
+            public string new_url()
+            {
+                return Cef3Binder.MyMetArgGetAsString(nativePtr, 5);
+            }
+        }
+        public virtual void //expand args
+        OnResourceRedirect(OnResourceRedirectArgs args)
+        {
+            OnResourceRedirect(args.browser(),
+            args.frame(),
+            args.request(),
+            args.response(),
+            args.new_url());
+        }
+        public virtual bool OnResourceResponse(CefBrowser browser, CefFrame frame, CefRequest request, CefResponse response)
+        {
+            return false;
+        }
+        //gen! bool OnResourceResponse(CefRefPtr<CefBrowser> browser,CefRefPtr<CefFrame> frame,CefRefPtr<CefRequest> request,CefRefPtr<CefResponse> response)
+        public struct OnResourceResponseArgs
+        {
+            internal IntPtr nativePtr; //met arg native ptr
+            internal OnResourceResponseArgs(IntPtr nativePtr)
+            {
+                this.nativePtr = nativePtr;
+            }
+            public CefBrowser browser()
+            {
+                return new CefBrowser(Cef3Binder.MyMetArgGetAsIntPtr(nativePtr, 1));
+            }
+            public CefFrame frame()
+            {
+                return new CefFrame(Cef3Binder.MyMetArgGetAsIntPtr(nativePtr, 2));
+            }
+            public CefRequest request()
+            {
+                return new CefRequest(Cef3Binder.MyMetArgGetAsIntPtr(nativePtr, 3));
+            }
+            public CefResponse response()
+            {
+                return new CefResponse(Cef3Binder.MyMetArgGetAsIntPtr(nativePtr, 4));
+            }
+        }
+        public virtual void //expand args
+        OnResourceResponse(OnResourceResponseArgs args)
+        {
+            OnResourceResponse(args.browser(),
+            args.frame(),
+            args.request(),
+            args.response());
+        }
+        public virtual CefResponseFilter GetResourceResponseFilter(CefBrowser browser, CefFrame frame, CefRequest request, CefResponse response)
+        {
+            throw new CefNotImplementedException();
+        }
+        //gen! CefRefPtr<CefResponseFilter> GetResourceResponseFilter(CefRefPtr<CefBrowser> browser,CefRefPtr<CefFrame> frame,CefRefPtr<CefRequest> request,CefRefPtr<CefResponse> response)
+        public struct GetResourceResponseFilterArgs
+        {
+            internal IntPtr nativePtr; //met arg native ptr
+            internal GetResourceResponseFilterArgs(IntPtr nativePtr)
+            {
+                this.nativePtr = nativePtr;
+            }
+            public CefBrowser browser()
+            {
+                return new CefBrowser(Cef3Binder.MyMetArgGetAsIntPtr(nativePtr, 1));
+            }
+            public CefFrame frame()
+            {
+                return new CefFrame(Cef3Binder.MyMetArgGetAsIntPtr(nativePtr, 2));
+            }
+            public CefRequest request()
+            {
+                return new CefRequest(Cef3Binder.MyMetArgGetAsIntPtr(nativePtr, 3));
+            }
+            public CefResponse response()
+            {
+                return new CefResponse(Cef3Binder.MyMetArgGetAsIntPtr(nativePtr, 4));
+            }
+        }
+        public virtual void //expand args
+        GetResourceResponseFilter(GetResourceResponseFilterArgs args)
+        {
+            GetResourceResponseFilter(args.browser(),
+            args.frame(),
+            args.request(),
+            args.response());
+        }
+        public virtual void OnResourceLoadComplete(CefBrowser browser, CefFrame frame, CefRequest request, CefResponse response, cef_urlrequest_status_t status, long received_content_length)
+        {
+        }
+        //gen! void OnResourceLoadComplete(CefRefPtr<CefBrowser> browser,CefRefPtr<CefFrame> frame,CefRefPtr<CefRequest> request,CefRefPtr<CefResponse> response,URLRequestStatus status,int64 received_content_length)
+        public struct OnResourceLoadCompleteArgs
+        {
+            internal IntPtr nativePtr; //met arg native ptr
+            internal OnResourceLoadCompleteArgs(IntPtr nativePtr)
+            {
+                this.nativePtr = nativePtr;
+            }
+            public CefBrowser browser()
+            {
+                return new CefBrowser(Cef3Binder.MyMetArgGetAsIntPtr(nativePtr, 1));
+            }
+            public CefFrame frame()
+            {
+                return new CefFrame(Cef3Binder.MyMetArgGetAsIntPtr(nativePtr, 2));
+            }
+            public CefRequest request()
+            {
+                return new CefRequest(Cef3Binder.MyMetArgGetAsIntPtr(nativePtr, 3));
+            }
+            public CefResponse response()
+            {
+                return new CefResponse(Cef3Binder.MyMetArgGetAsIntPtr(nativePtr, 4));
+            }
+            public cef_urlrequest_status_t status()
+            {
+                return (cef_urlrequest_status_t)Cef3Binder.MyMetArgGetAsInt32(nativePtr, 5);
+            }
+            public long received_content_length()
+            {
+                return Cef3Binder.MyMetArgGetAsInt64(nativePtr, 6);
+            }
+        }
+        public virtual void //expand args
+        OnResourceLoadComplete(OnResourceLoadCompleteArgs args)
+        {
+            OnResourceLoadComplete(args.browser(),
+            args.frame(),
+            args.request(),
+            args.response(),
+            args.status(),
+            args.received_content_length());
+        }
+        public virtual bool GetAuthCredentials(CefBrowser browser, CefFrame frame, bool isProxy, string host, int port, string realm, string scheme, CefAuthCallback callback)
+        {
+            return false;
+        }
+        //gen! bool GetAuthCredentials(CefRefPtr<CefBrowser> browser,CefRefPtr<CefFrame> frame,bool isProxy,const CefString& host,int port,const CefString& realm,const CefString& scheme,CefRefPtr<CefAuthCallback> callback)
+        public struct GetAuthCredentialsArgs
+        {
+            internal IntPtr nativePtr; //met arg native ptr
+            internal GetAuthCredentialsArgs(IntPtr nativePtr)
+            {
+                this.nativePtr = nativePtr;
+            }
+            public CefBrowser browser()
+            {
+                return new CefBrowser(Cef3Binder.MyMetArgGetAsIntPtr(nativePtr, 1));
+            }
+            public CefFrame frame()
+            {
+                return new CefFrame(Cef3Binder.MyMetArgGetAsIntPtr(nativePtr, 2));
+            }
+            public bool isProxy()
+            {
+                return Cef3Binder.MyMetArgGetAsBool(nativePtr, 3);
+            }
+            public string host()
+            {
+                return Cef3Binder.MyMetArgGetAsString(nativePtr, 4);
+            }
+            public int port()
+            {
+                return Cef3Binder.MyMetArgGetAsInt32(nativePtr, 5);
+            }
+            public string realm()
+            {
+                return Cef3Binder.MyMetArgGetAsString(nativePtr, 6);
+            }
+            public string scheme()
+            {
+                return Cef3Binder.MyMetArgGetAsString(nativePtr, 7);
+            }
+            public CefAuthCallback callback()
+            {
+                return new CefAuthCallback(Cef3Binder.MyMetArgGetAsIntPtr(nativePtr, 8));
+            }
+        }
+        public virtual void //expand args
+        GetAuthCredentials(GetAuthCredentialsArgs args)
+        {
+            GetAuthCredentials(args.browser(),
+            args.frame(),
+            args.isProxy(),
+            args.host(),
+            args.port(),
+            args.realm(),
+            args.scheme(),
+            args.callback());
+        }
+        public virtual bool OnQuotaRequest(CefBrowser browser, string origin_url, long new_size, CefRequestCallback callback)
+        {
+            return false;
+        }
+        //gen! bool OnQuotaRequest(CefRefPtr<CefBrowser> browser,const CefString& origin_url,int64 new_size,CefRefPtr<CefRequestCallback> callback)
+        public struct OnQuotaRequestArgs
+        {
+            internal IntPtr nativePtr; //met arg native ptr
+            internal OnQuotaRequestArgs(IntPtr nativePtr)
+            {
+                this.nativePtr = nativePtr;
+            }
+            public CefBrowser browser()
+            {
+                return new CefBrowser(Cef3Binder.MyMetArgGetAsIntPtr(nativePtr, 1));
+            }
+            public string origin_url()
+            {
+                return Cef3Binder.MyMetArgGetAsString(nativePtr, 2);
+            }
+            public long new_size()
+            {
+                return Cef3Binder.MyMetArgGetAsInt64(nativePtr, 3);
+            }
+            public CefRequestCallback callback()
+            {
+                return new CefRequestCallback(Cef3Binder.MyMetArgGetAsIntPtr(nativePtr, 4));
+            }
+        }
+        public virtual void //expand args
+        OnQuotaRequest(OnQuotaRequestArgs args)
+        {
+            OnQuotaRequest(args.browser(),
+            args.origin_url(),
+            args.new_size(),
+            args.callback());
+        }
+        public virtual void OnProtocolExecution(CefBrowser browser, string url, ref bool allow_os_execution)
+        {
+        }
+        //gen! void OnProtocolExecution(CefRefPtr<CefBrowser> browser,const CefString& url,bool& allow_os_execution)
+        public struct OnProtocolExecutionArgs
+        {
+            internal IntPtr nativePtr; //met arg native ptr
+            internal OnProtocolExecutionArgs(IntPtr nativePtr)
+            {
+                this.nativePtr = nativePtr;
+            }
+            public CefBrowser browser()
+            {
+                return new CefBrowser(Cef3Binder.MyMetArgGetAsIntPtr(nativePtr, 1));
+            }
+            public string url()
+            {
+                return Cef3Binder.MyMetArgGetAsString(nativePtr, 2);
+            }
+            public bool allow_os_execution()
+            {
+                return Cef3Binder.MyMetArgGetAsBool(nativePtr, 3);
+            }
+            public void allow_os_execution(bool value)
+            {
+                Cef3Binder.MyMetArgSetBoolToAddress(nativePtr, 3, value);
+            }
+        }
+        public virtual void //expand args
+        OnProtocolExecution(OnProtocolExecutionArgs args)
+        {
+            bool allow_os_execution = false;
+            OnProtocolExecution(args.browser(),
+            args.url(),
+            ref allow_os_execution);
+            args.allow_os_execution(allow_os_execution);
+        }
+        public virtual bool OnCertificateError(CefBrowser browser, cef_errorcode_t cert_error, string request_url, CefSSLInfo ssl_info, CefRequestCallback callback)
+        {
+            return false;
+        }
+        //gen! bool OnCertificateError(CefRefPtr<CefBrowser> browser,cef_errorcode_t cert_error,const CefString& request_url,CefRefPtr<CefSSLInfo> ssl_info,CefRefPtr<CefRequestCallback> callback)
+        public struct OnCertificateErrorArgs
+        {
+            internal IntPtr nativePtr; //met arg native ptr
+            internal OnCertificateErrorArgs(IntPtr nativePtr)
+            {
+                this.nativePtr = nativePtr;
+            }
+            public CefBrowser browser()
+            {
+                return new CefBrowser(Cef3Binder.MyMetArgGetAsIntPtr(nativePtr, 1));
+            }
+            public cef_errorcode_t cert_error()
+            {
+                return (cef_errorcode_t)Cef3Binder.MyMetArgGetAsInt32(nativePtr, 2);
+            }
+            public string request_url()
+            {
+                return Cef3Binder.MyMetArgGetAsString(nativePtr, 3);
+            }
+            public CefSSLInfo ssl_info()
+            {
+                return new CefSSLInfo(Cef3Binder.MyMetArgGetAsIntPtr(nativePtr, 4));
+            }
+            public CefRequestCallback callback()
+            {
+                return new CefRequestCallback(Cef3Binder.MyMetArgGetAsIntPtr(nativePtr, 5));
+            }
+        }
+        public virtual void //expand args
+        OnCertificateError(OnCertificateErrorArgs args)
+        {
+            OnCertificateError(args.browser(),
+            args.cert_error(),
+            args.request_url(),
+            args.ssl_info(),
+            args.callback());
+        }
+        public virtual bool OnSelectClientCertificate(CefBrowser browser, bool isProxy, string host, int port, List<CefCompositionUnderline> certificates, CefSelectClientCertificateCallback callback)
+        {
+            return false;
+        }
+        //gen! bool OnSelectClientCertificate(CefRefPtr<CefBrowser> browser,bool isProxy,const CefString& host,int port,const X509CertificateList& certificates,CefRefPtr<CefSelectClientCertificateCallback> callback)
+        public struct OnSelectClientCertificateArgs
+        {
+            internal IntPtr nativePtr; //met arg native ptr
+            internal OnSelectClientCertificateArgs(IntPtr nativePtr)
+            {
+                this.nativePtr = nativePtr;
+            }
+            public CefBrowser browser()
+            {
+                return new CefBrowser(Cef3Binder.MyMetArgGetAsIntPtr(nativePtr, 1));
+            }
+            public bool isProxy()
+            {
+                return Cef3Binder.MyMetArgGetAsBool(nativePtr, 2);
+            }
+            public string host()
+            {
+                return Cef3Binder.MyMetArgGetAsString(nativePtr, 3);
+            }
+            public int port()
+            {
+                return Cef3Binder.MyMetArgGetAsInt32(nativePtr, 4);
+            }
+            public List<CefCompositionUnderline> certificates()
+            {
+                throw new CefNotImplementedException();
+            }
+            public CefSelectClientCertificateCallback callback()
+            {
+                return new CefSelectClientCertificateCallback(Cef3Binder.MyMetArgGetAsIntPtr(nativePtr, 6));
+            }
+        }
+        public virtual void //expand args
+        OnSelectClientCertificate(OnSelectClientCertificateArgs args)
+        {
+            OnSelectClientCertificate(args.browser(),
+            args.isProxy(),
+            args.host(),
+            args.port(),
+            args.certificates(),
+            args.callback());
+        }
+        public virtual void OnPluginCrashed(CefBrowser browser, string plugin_path)
+        {
+        }
+        //gen! void OnPluginCrashed(CefRefPtr<CefBrowser> browser,const CefString& plugin_path)
+        public struct OnPluginCrashedArgs
+        {
+            internal IntPtr nativePtr; //met arg native ptr
+            internal OnPluginCrashedArgs(IntPtr nativePtr)
+            {
+                this.nativePtr = nativePtr;
+            }
+            public CefBrowser browser()
+            {
+                return new CefBrowser(Cef3Binder.MyMetArgGetAsIntPtr(nativePtr, 1));
+            }
+            public string plugin_path()
+            {
+                return Cef3Binder.MyMetArgGetAsString(nativePtr, 2);
+            }
+        }
+        public virtual void //expand args
+        OnPluginCrashed(OnPluginCrashedArgs args)
+        {
+            OnPluginCrashed(args.browser(),
+            args.plugin_path());
+        }
+        public virtual void OnRenderViewReady(CefBrowser browser)
+        {
+        }
+        //gen! void OnRenderViewReady(CefRefPtr<CefBrowser> browser)
+        public struct OnRenderViewReadyArgs
+        {
+            internal IntPtr nativePtr; //met arg native ptr
+            internal OnRenderViewReadyArgs(IntPtr nativePtr)
+            {
+                this.nativePtr = nativePtr;
+            }
+            public CefBrowser browser()
+            {
+                return new CefBrowser(Cef3Binder.MyMetArgGetAsIntPtr(nativePtr, 1));
+            }
+        }
+        public virtual void //expand args
+        OnRenderViewReady(OnRenderViewReadyArgs args)
+        {
+            OnRenderViewReady(args.browser());
+        }
+        public virtual void OnRenderProcessTerminated(CefBrowser browser, cef_termination_status_t status)
+        {
+        }
+        //gen! void OnRenderProcessTerminated(CefRefPtr<CefBrowser> browser,TerminationStatus status)
+        public struct OnRenderProcessTerminatedArgs
+        {
+            internal IntPtr nativePtr; //met arg native ptr
+            internal OnRenderProcessTerminatedArgs(IntPtr nativePtr)
+            {
+                this.nativePtr = nativePtr;
+            }
+            public CefBrowser browser()
+            {
+                return new CefBrowser(Cef3Binder.MyMetArgGetAsIntPtr(nativePtr, 1));
+            }
+            public cef_termination_status_t status()
+            {
+                return (cef_termination_status_t)Cef3Binder.MyMetArgGetAsInt32(nativePtr, 2);
+            }
+        }
+        public virtual void //expand args
+        OnRenderProcessTerminated(OnRenderProcessTerminatedArgs args)
+        {
+            OnRenderProcessTerminated(args.browser(),
+            args.status());
+        }
+        public static CefRequestHandler New(MyCefCallback callback)
+        {
+            return new CefRequestHandler(Cef3Binder.NewInstance(_typeNAME, callback));
+        }
+        public static CefRequestHandler New()
+        {
+            CefRequestHandler newInst = new CefRequestHandler();
+            newInst.nativePtr = Cef3Binder.NewInstance(_typeNAME, (met_id, nativeMetArgs) =>
+            {
+                switch (met_id)
+                {
+                    case MyCefRequestHandler_OnBeforeBrowse_1:
+                        {
+                            newInst.OnBeforeBrowse(new OnBeforeBrowseArgs(nativeMetArgs));
+                        }
+                        break;
+                    case MyCefRequestHandler_OnOpenURLFromTab_2:
+                        {
+                            newInst.OnOpenURLFromTab(new OnOpenURLFromTabArgs(nativeMetArgs));
+                        }
+                        break;
+                    case MyCefRequestHandler_OnBeforeResourceLoad_3:
+                        {
+                            newInst.OnBeforeResourceLoad(new OnBeforeResourceLoadArgs(nativeMetArgs));
+                        }
+                        break;
+                    case MyCefRequestHandler_GetResourceHandler_4:
+                        {
+                            newInst.GetResourceHandler(new GetResourceHandlerArgs(nativeMetArgs));
+                        }
+                        break;
+                    case MyCefRequestHandler_OnResourceRedirect_5:
+                        {
+                            newInst.OnResourceRedirect(new OnResourceRedirectArgs(nativeMetArgs));
+                        }
+                        break;
+                    case MyCefRequestHandler_OnResourceResponse_6:
+                        {
+                            newInst.OnResourceResponse(new OnResourceResponseArgs(nativeMetArgs));
+                        }
+                        break;
+                    case MyCefRequestHandler_GetResourceResponseFilter_7:
+                        {
+                            newInst.GetResourceResponseFilter(new GetResourceResponseFilterArgs(nativeMetArgs));
+                        }
+                        break;
+                    case MyCefRequestHandler_OnResourceLoadComplete_8:
+                        {
+                            newInst.OnResourceLoadComplete(new OnResourceLoadCompleteArgs(nativeMetArgs));
+                        }
+                        break;
+                    case MyCefRequestHandler_GetAuthCredentials_9:
+                        {
+                            newInst.GetAuthCredentials(new GetAuthCredentialsArgs(nativeMetArgs));
+                        }
+                        break;
+                    case MyCefRequestHandler_OnQuotaRequest_10:
+                        {
+                            newInst.OnQuotaRequest(new OnQuotaRequestArgs(nativeMetArgs));
+                        }
+                        break;
+                    case MyCefRequestHandler_OnProtocolExecution_11:
+                        {
+                            newInst.OnProtocolExecution(new OnProtocolExecutionArgs(nativeMetArgs));
+                        }
+                        break;
+                    case MyCefRequestHandler_OnCertificateError_12:
+                        {
+                            newInst.OnCertificateError(new OnCertificateErrorArgs(nativeMetArgs));
+                        }
+                        break;
+                    case MyCefRequestHandler_OnSelectClientCertificate_13:
+                        {
+                            newInst.OnSelectClientCertificate(new OnSelectClientCertificateArgs(nativeMetArgs));
+                        }
+                        break;
+                    case MyCefRequestHandler_OnPluginCrashed_14:
+                        {
+                            newInst.OnPluginCrashed(new OnPluginCrashedArgs(nativeMetArgs));
+                        }
+                        break;
+                    case MyCefRequestHandler_OnRenderViewReady_15:
+                        {
+                            newInst.OnRenderViewReady(new OnRenderViewReadyArgs(nativeMetArgs));
+                        }
+                        break;
+                    case MyCefRequestHandler_OnRenderProcessTerminated_16:
+                        {
+                            newInst.OnRenderProcessTerminated(new OnRenderProcessTerminatedArgs(nativeMetArgs));
+                        }
+                        break;
+                }
+            });
+            return newInst;
+        }
+    }
+    public class CefResourceBundleHandler
+    {
+        const int _typeNAME = 75;
+        const int MyCefResourceBundleHandler_GetLocalizedString_1 = 1;
+        const int MyCefResourceBundleHandler_GetDataResource_2 = 2;
+        const int MyCefResourceBundleHandler_GetDataResourceForScale_3 = 3;
+        internal IntPtr nativePtr;
+        public CefResourceBundleHandler(IntPtr nativePtr)
+        {
+            this.nativePtr = nativePtr;
+        }
+        public CefResourceBundleHandler() { }
+        public virtual bool GetLocalizedString(int string_id, string _string)
+        {
+            return false;
+        }
+        //gen! bool GetLocalizedString(int string_id,CefString& string)
+        public struct GetLocalizedStringArgs
+        {
+            internal IntPtr nativePtr; //met arg native ptr
+            internal GetLocalizedStringArgs(IntPtr nativePtr)
+            {
+                this.nativePtr = nativePtr;
+            }
+            public int string_id()
+            {
+                return Cef3Binder.MyMetArgGetAsInt32(nativePtr, 1);
+            }
+            public string _string()
+            {
+                return Cef3Binder.MyMetArgGetAsString(nativePtr, 2);
+            }
+        }
+        public virtual void //expand args
+        GetLocalizedString(GetLocalizedStringArgs args)
+        {
+            GetLocalizedString(args.string_id(),
+            args._string());
+        }
+        public virtual bool GetDataResource(int resource_id, IntPtr data, ref uint data_size)
+        {
+            return false;
+        }
+        //gen! bool GetDataResource(int resource_id,void*& data,size_t& data_size)
+        public struct GetDataResourceArgs
+        {
+            internal IntPtr nativePtr; //met arg native ptr
+            internal GetDataResourceArgs(IntPtr nativePtr)
+            {
+                this.nativePtr = nativePtr;
+            }
+            public int resource_id()
+            {
+                return Cef3Binder.MyMetArgGetAsInt32(nativePtr, 1);
+            }
+            public IntPtr data()
+            {
+                throw new CefNotImplementedException();
+            }
+            public uint data_size()
+            {
+                return Cef3Binder.MyMetArgGetAsUInt32(nativePtr, 3);
+            }
+            public void data_size(uint value)
+            {
+                Cef3Binder.MyMetArgSetUInt32ToAddress(nativePtr, 3, value);
+            }
+        }
+        public virtual void //expand args
+        GetDataResource(GetDataResourceArgs args)
+        {
+            uint data_size = 0;
+            GetDataResource(args.resource_id(),
+            args.data(),
+            ref data_size);
+            args.data_size(data_size);
+        }
+        public virtual bool GetDataResourceForScale(int resource_id, cef_scale_factor_t scale_factor, IntPtr data, ref uint data_size)
+        {
+            return false;
+        }
+        //gen! bool GetDataResourceForScale(int resource_id,ScaleFactor scale_factor,void*& data,size_t& data_size)
+        public struct GetDataResourceForScaleArgs
+        {
+            internal IntPtr nativePtr; //met arg native ptr
+            internal GetDataResourceForScaleArgs(IntPtr nativePtr)
+            {
+                this.nativePtr = nativePtr;
+            }
+            public int resource_id()
+            {
+                return Cef3Binder.MyMetArgGetAsInt32(nativePtr, 1);
+            }
+            public cef_scale_factor_t scale_factor()
+            {
+                return (cef_scale_factor_t)Cef3Binder.MyMetArgGetAsInt32(nativePtr, 2);
+            }
+            public IntPtr data()
+            {
+                throw new CefNotImplementedException();
+            }
+            public uint data_size()
+            {
+                return Cef3Binder.MyMetArgGetAsUInt32(nativePtr, 4);
+            }
+            public void data_size(uint value)
+            {
+                Cef3Binder.MyMetArgSetUInt32ToAddress(nativePtr, 4, value);
+            }
+        }
+        public virtual void //expand args
+        GetDataResourceForScale(GetDataResourceForScaleArgs args)
+        {
+            uint data_size = 0;
+            GetDataResourceForScale(args.resource_id(),
+            args.scale_factor(),
+            args.data(),
+            ref data_size);
+            args.data_size(data_size);
+        }
+        public static CefResourceBundleHandler New(MyCefCallback callback)
+        {
+            return new CefResourceBundleHandler(Cef3Binder.NewInstance(_typeNAME, callback));
+        }
+        public static CefResourceBundleHandler New()
+        {
+            CefResourceBundleHandler newInst = new CefResourceBundleHandler();
+            newInst.nativePtr = Cef3Binder.NewInstance(_typeNAME, (met_id, nativeMetArgs) =>
+            {
+                switch (met_id)
+                {
+                    case MyCefResourceBundleHandler_GetLocalizedString_1:
+                        {
+                            newInst.GetLocalizedString(new GetLocalizedStringArgs(nativeMetArgs));
+                        }
+                        break;
+                    case MyCefResourceBundleHandler_GetDataResource_2:
+                        {
+                            newInst.GetDataResource(new GetDataResourceArgs(nativeMetArgs));
+                        }
+                        break;
+                    case MyCefResourceBundleHandler_GetDataResourceForScale_3:
+                        {
+                            newInst.GetDataResourceForScale(new GetDataResourceForScaleArgs(nativeMetArgs));
+                        }
+                        break;
+                }
+            });
+            return newInst;
+        }
+    }
+    public class CefResourceHandler
+    {
+        const int _typeNAME = 76;
+        const int MyCefResourceHandler_ProcessRequest_1 = 1;
+        const int MyCefResourceHandler_GetResponseHeaders_2 = 2;
+        const int MyCefResourceHandler_ReadResponse_3 = 3;
+        const int MyCefResourceHandler_CanGetCookie_4 = 4;
+        const int MyCefResourceHandler_CanSetCookie_5 = 5;
+        const int MyCefResourceHandler_Cancel_6 = 6;
+        internal IntPtr nativePtr;
+        public CefResourceHandler(IntPtr nativePtr)
+        {
+            this.nativePtr = nativePtr;
+        }
+        public CefResourceHandler() { }
+        public virtual bool ProcessRequest(CefRequest request, CefCallback callback)
+        {
+            return false;
+        }
+        //gen! bool ProcessRequest(CefRefPtr<CefRequest> request,CefRefPtr<CefCallback> callback)
+        public struct ProcessRequestArgs
+        {
+            internal IntPtr nativePtr; //met arg native ptr
+            internal ProcessRequestArgs(IntPtr nativePtr)
+            {
+                this.nativePtr = nativePtr;
+            }
+            public CefRequest request()
+            {
+                return new CefRequest(Cef3Binder.MyMetArgGetAsIntPtr(nativePtr, 1));
+            }
+            public CefCallback callback()
+            {
+                return new CefCallback(Cef3Binder.MyMetArgGetAsIntPtr(nativePtr, 2));
+            }
+        }
+        public virtual void //expand args
+        ProcessRequest(ProcessRequestArgs args)
+        {
+            ProcessRequest(args.request(),
+            args.callback());
+        }
+        public virtual void GetResponseHeaders(CefResponse response, long response_length, string redirectUrl)
+        {
+        }
+        //gen! void GetResponseHeaders(CefRefPtr<CefResponse> response,int64& response_length,CefString& redirectUrl)
+        public struct GetResponseHeadersArgs
+        {
+            internal IntPtr nativePtr; //met arg native ptr
+            internal GetResponseHeadersArgs(IntPtr nativePtr)
+            {
+                this.nativePtr = nativePtr;
+            }
+            public CefResponse response()
+            {
+                return new CefResponse(Cef3Binder.MyMetArgGetAsIntPtr(nativePtr, 1));
+            }
+            public long response_length()
+            {
+                return Cef3Binder.MyMetArgGetAsInt64(nativePtr, 2);
+            }
+            public string redirectUrl()
+            {
+                return Cef3Binder.MyMetArgGetAsString(nativePtr, 3);
+            }
+        }
+        public virtual void //expand args
+        GetResponseHeaders(GetResponseHeadersArgs args)
+        {
+            GetResponseHeaders(args.response(),
+            args.response_length(),
+            args.redirectUrl());
+        }
+        public virtual bool ReadResponse(IntPtr data_out, int bytes_to_read, ref int bytes_read, CefCallback callback)
+        {
+            return false;
+        }
+        //gen! bool ReadResponse(void* data_out,int bytes_to_read,int& bytes_read,CefRefPtr<CefCallback> callback)
+        public struct ReadResponseArgs
+        {
+            internal IntPtr nativePtr; //met arg native ptr
+            internal ReadResponseArgs(IntPtr nativePtr)
+            {
+                this.nativePtr = nativePtr;
+            }
+            public IntPtr data_out()
+            {
+                throw new CefNotImplementedException();
+            }
+            public int bytes_to_read()
+            {
+                return Cef3Binder.MyMetArgGetAsInt32(nativePtr, 2);
+            }
+            public int bytes_read()
+            {
+                return Cef3Binder.MyMetArgGetAsInt32(nativePtr, 3);
+            }
+            public void bytes_read(int value)
+            {
+                Cef3Binder.MyMetArgSetInt32ToAddress(nativePtr, 3, value);
+            }
+            public CefCallback callback()
+            {
+                return new CefCallback(Cef3Binder.MyMetArgGetAsIntPtr(nativePtr, 4));
+            }
+        }
+        public virtual void //expand args
+        ReadResponse(ReadResponseArgs args)
+        {
+            int bytes_read = 0;
+            ReadResponse(args.data_out(),
+            args.bytes_to_read(),
+            ref bytes_read,
+            args.callback());
+            args.bytes_read(bytes_read);
+        }
+        public virtual bool CanGetCookie(CefCookie cookie)
+        {
+            return false;
+        }
+        //gen! bool CanGetCookie(const CefCookie& cookie)
+        public struct CanGetCookieArgs
+        {
+            internal IntPtr nativePtr; //met arg native ptr
+            internal CanGetCookieArgs(IntPtr nativePtr)
+            {
+                this.nativePtr = nativePtr;
+            }
+            public CefCookie cookie()
+            {
+                return new CefCookie(Cef3Binder.MyMetArgGetAsIntPtr(nativePtr, 1));
+            }
+        }
+        public virtual void //expand args
+        CanGetCookie(CanGetCookieArgs args)
+        {
+            CanGetCookie(args.cookie());
+        }
+        public virtual bool CanSetCookie(CefCookie cookie)
+        {
+            return false;
+        }
+        //gen! bool CanSetCookie(const CefCookie& cookie)
+        public struct CanSetCookieArgs
+        {
+            internal IntPtr nativePtr; //met arg native ptr
+            internal CanSetCookieArgs(IntPtr nativePtr)
+            {
+                this.nativePtr = nativePtr;
+            }
+            public CefCookie cookie()
+            {
+                return new CefCookie(Cef3Binder.MyMetArgGetAsIntPtr(nativePtr, 1));
+            }
+        }
+        public virtual void //expand args
+        CanSetCookie(CanSetCookieArgs args)
+        {
+            CanSetCookie(args.cookie());
+        }
+        public virtual void Cancel()
+        {
+        }
+        //gen! void Cancel()
+        public struct CancelArgs
+        {
+            internal IntPtr nativePtr; //met arg native ptr
+            internal CancelArgs(IntPtr nativePtr)
+            {
+                this.nativePtr = nativePtr;
+            }
+        }
+        public virtual void //expand args
+        Cancel(CancelArgs args)
+        {
+            Cancel();
+        }
+        public static CefResourceHandler New(MyCefCallback callback)
+        {
+            return new CefResourceHandler(Cef3Binder.NewInstance(_typeNAME, callback));
+        }
+        public static CefResourceHandler New()
+        {
+            CefResourceHandler newInst = new CefResourceHandler();
+            newInst.nativePtr = Cef3Binder.NewInstance(_typeNAME, (met_id, nativeMetArgs) =>
+            {
+                switch (met_id)
+                {
+                    case MyCefResourceHandler_ProcessRequest_1:
+                        {
+                            newInst.ProcessRequest(new ProcessRequestArgs(nativeMetArgs));
+                        }
+                        break;
+                    case MyCefResourceHandler_GetResponseHeaders_2:
+                        {
+                            newInst.GetResponseHeaders(new GetResponseHeadersArgs(nativeMetArgs));
+                        }
+                        break;
+                    case MyCefResourceHandler_ReadResponse_3:
+                        {
+                            newInst.ReadResponse(new ReadResponseArgs(nativeMetArgs));
+                        }
+                        break;
+                    case MyCefResourceHandler_CanGetCookie_4:
+                        {
+                            newInst.CanGetCookie(new CanGetCookieArgs(nativeMetArgs));
+                        }
+                        break;
+                    case MyCefResourceHandler_CanSetCookie_5:
+                        {
+                            newInst.CanSetCookie(new CanSetCookieArgs(nativeMetArgs));
+                        }
+                        break;
+                    case MyCefResourceHandler_Cancel_6:
+                        {
+                            newInst.Cancel(new CancelArgs(nativeMetArgs));
+                        }
+                        break;
+                }
+            });
+            return newInst;
+        }
+    }
+    public class CefReadHandler
+    {
+        const int _typeNAME = 77;
+        const int MyCefReadHandler_Read_1 = 1;
+        const int MyCefReadHandler_Seek_2 = 2;
+        const int MyCefReadHandler_Tell_3 = 3;
+        const int MyCefReadHandler_Eof_4 = 4;
+        const int MyCefReadHandler_MayBlock_5 = 5;
+        internal IntPtr nativePtr;
+        public CefReadHandler(IntPtr nativePtr)
+        {
+            this.nativePtr = nativePtr;
+        }
+        public CefReadHandler() { }
+        public virtual uint Read(IntPtr ptr, uint size, uint n)
+        {
+            return 0;
+        }
+        //gen! size_t Read(void* ptr,size_t size,size_t n)
+        public struct ReadArgs
+        {
+            internal IntPtr nativePtr; //met arg native ptr
+            internal ReadArgs(IntPtr nativePtr)
+            {
+                this.nativePtr = nativePtr;
+            }
+            public IntPtr ptr()
+            {
+                throw new CefNotImplementedException();
+            }
+            public uint size()
+            {
+                return Cef3Binder.MyMetArgGetAsUInt32(nativePtr, 2);
+            }
+            public uint n()
+            {
+                return Cef3Binder.MyMetArgGetAsUInt32(nativePtr, 3);
+            }
+        }
+        public virtual void //expand args
+        Read(ReadArgs args)
+        {
+            Read(args.ptr(),
+            args.size(),
+            args.n());
+        }
+        public virtual int Seek(long offset, int whence)
+        {
+            return 0;
+        }
+        //gen! int Seek(int64 offset,int whence)
+        public struct SeekArgs
+        {
+            internal IntPtr nativePtr; //met arg native ptr
+            internal SeekArgs(IntPtr nativePtr)
+            {
+                this.nativePtr = nativePtr;
+            }
+            public long offset()
+            {
+                return Cef3Binder.MyMetArgGetAsInt64(nativePtr, 1);
+            }
+            public int whence()
+            {
+                return Cef3Binder.MyMetArgGetAsInt32(nativePtr, 2);
+            }
+        }
+        public virtual void //expand args
+        Seek(SeekArgs args)
+        {
+            Seek(args.offset(),
+            args.whence());
+        }
+        public virtual long Tell()
+        {
+            return 0;
+        }
+        //gen! int64 Tell()
+        public struct TellArgs
+        {
+            internal IntPtr nativePtr; //met arg native ptr
+            internal TellArgs(IntPtr nativePtr)
+            {
+                this.nativePtr = nativePtr;
+            }
+        }
+        public virtual void //expand args
+        Tell(TellArgs args)
+        {
+            Tell();
+        }
+        public virtual int Eof()
+        {
+            return 0;
+        }
+        //gen! int Eof()
+        public struct EofArgs
+        {
+            internal IntPtr nativePtr; //met arg native ptr
+            internal EofArgs(IntPtr nativePtr)
+            {
+                this.nativePtr = nativePtr;
+            }
+        }
+        public virtual void //expand args
+        Eof(EofArgs args)
+        {
+            Eof();
+        }
+        public virtual bool MayBlock()
+        {
+            return false;
+        }
+        //gen! bool MayBlock()
+        public struct MayBlockArgs
+        {
+            internal IntPtr nativePtr; //met arg native ptr
+            internal MayBlockArgs(IntPtr nativePtr)
+            {
+                this.nativePtr = nativePtr;
+            }
+        }
+        public virtual void //expand args
+        MayBlock(MayBlockArgs args)
+        {
+            MayBlock();
+        }
+        public static CefReadHandler New(MyCefCallback callback)
+        {
+            return new CefReadHandler(Cef3Binder.NewInstance(_typeNAME, callback));
+        }
+        public static CefReadHandler New()
+        {
+            CefReadHandler newInst = new CefReadHandler();
+            newInst.nativePtr = Cef3Binder.NewInstance(_typeNAME, (met_id, nativeMetArgs) =>
+            {
+                switch (met_id)
+                {
+                    case MyCefReadHandler_Read_1:
+                        {
+                            newInst.Read(new ReadArgs(nativeMetArgs));
+                        }
+                        break;
+                    case MyCefReadHandler_Seek_2:
+                        {
+                            newInst.Seek(new SeekArgs(nativeMetArgs));
+                        }
+                        break;
+                    case MyCefReadHandler_Tell_3:
+                        {
+                            newInst.Tell(new TellArgs(nativeMetArgs));
+                        }
+                        break;
+                    case MyCefReadHandler_Eof_4:
+                        {
+                            newInst.Eof(new EofArgs(nativeMetArgs));
+                        }
+                        break;
+                    case MyCefReadHandler_MayBlock_5:
+                        {
+                            newInst.MayBlock(new MayBlockArgs(nativeMetArgs));
+                        }
+                        break;
+                }
+            });
+            return newInst;
+        }
+    }
+    public class CefWriteHandler
+    {
+        const int _typeNAME = 78;
+        const int MyCefWriteHandler_Write_1 = 1;
+        const int MyCefWriteHandler_Seek_2 = 2;
+        const int MyCefWriteHandler_Tell_3 = 3;
+        const int MyCefWriteHandler_Flush_4 = 4;
+        const int MyCefWriteHandler_MayBlock_5 = 5;
+        internal IntPtr nativePtr;
+        public CefWriteHandler(IntPtr nativePtr)
+        {
+            this.nativePtr = nativePtr;
+        }
+        public CefWriteHandler() { }
+        public virtual uint Write(IntPtr ptr, uint size, uint n)
+        {
+            return 0;
+        }
+        //gen! size_t Write(const void* ptr,size_t size,size_t n)
+        public struct WriteArgs
+        {
+            internal IntPtr nativePtr; //met arg native ptr
+            internal WriteArgs(IntPtr nativePtr)
+            {
+                this.nativePtr = nativePtr;
+            }
+            public IntPtr ptr()
+            {
+                throw new CefNotImplementedException();
+            }
+            public uint size()
+            {
+                return Cef3Binder.MyMetArgGetAsUInt32(nativePtr, 2);
+            }
+            public uint n()
+            {
+                return Cef3Binder.MyMetArgGetAsUInt32(nativePtr, 3);
+            }
+        }
+        public virtual void //expand args
+        Write(WriteArgs args)
+        {
+            Write(args.ptr(),
+            args.size(),
+            args.n());
+        }
+        public virtual int Seek(long offset, int whence)
+        {
+            return 0;
+        }
+        //gen! int Seek(int64 offset,int whence)
+        public struct SeekArgs
+        {
+            internal IntPtr nativePtr; //met arg native ptr
+            internal SeekArgs(IntPtr nativePtr)
+            {
+                this.nativePtr = nativePtr;
+            }
+            public long offset()
+            {
+                return Cef3Binder.MyMetArgGetAsInt64(nativePtr, 1);
+            }
+            public int whence()
+            {
+                return Cef3Binder.MyMetArgGetAsInt32(nativePtr, 2);
+            }
+        }
+        public virtual void //expand args
+        Seek(SeekArgs args)
+        {
+            Seek(args.offset(),
+            args.whence());
+        }
+        public virtual long Tell()
+        {
+            return 0;
+        }
+        //gen! int64 Tell()
+        public struct TellArgs
+        {
+            internal IntPtr nativePtr; //met arg native ptr
+            internal TellArgs(IntPtr nativePtr)
+            {
+                this.nativePtr = nativePtr;
+            }
+        }
+        public virtual void //expand args
+        Tell(TellArgs args)
+        {
+            Tell();
+        }
+        public virtual int Flush()
+        {
+            return 0;
+        }
+        //gen! int Flush()
+        public struct FlushArgs
+        {
+            internal IntPtr nativePtr; //met arg native ptr
+            internal FlushArgs(IntPtr nativePtr)
+            {
+                this.nativePtr = nativePtr;
+            }
+        }
+        public virtual void //expand args
+        Flush(FlushArgs args)
+        {
+            Flush();
+        }
+        public virtual bool MayBlock()
+        {
+            return false;
+        }
+        //gen! bool MayBlock()
+        public struct MayBlockArgs
+        {
+            internal IntPtr nativePtr; //met arg native ptr
+            internal MayBlockArgs(IntPtr nativePtr)
+            {
+                this.nativePtr = nativePtr;
+            }
+        }
+        public virtual void //expand args
+        MayBlock(MayBlockArgs args)
+        {
+            MayBlock();
+        }
+        public static CefWriteHandler New(MyCefCallback callback)
+        {
+            return new CefWriteHandler(Cef3Binder.NewInstance(_typeNAME, callback));
+        }
+        public static CefWriteHandler New()
+        {
+            CefWriteHandler newInst = new CefWriteHandler();
+            newInst.nativePtr = Cef3Binder.NewInstance(_typeNAME, (met_id, nativeMetArgs) =>
+            {
+                switch (met_id)
+                {
+                    case MyCefWriteHandler_Write_1:
+                        {
+                            newInst.Write(new WriteArgs(nativeMetArgs));
+                        }
+                        break;
+                    case MyCefWriteHandler_Seek_2:
+                        {
+                            newInst.Seek(new SeekArgs(nativeMetArgs));
+                        }
+                        break;
+                    case MyCefWriteHandler_Tell_3:
+                        {
+                            newInst.Tell(new TellArgs(nativeMetArgs));
+                        }
+                        break;
+                    case MyCefWriteHandler_Flush_4:
+                        {
+                            newInst.Flush(new FlushArgs(nativeMetArgs));
+                        }
+                        break;
+                    case MyCefWriteHandler_MayBlock_5:
+                        {
+                            newInst.MayBlock(new MayBlockArgs(nativeMetArgs));
+                        }
+                        break;
+                }
+            });
+            return newInst;
+        }
+    }
+    public class CefV8Handler
+    {
+        const int _typeNAME = 79;
+        const int MyCefV8Handler_Execute_1 = 1;
+        internal IntPtr nativePtr;
+        public CefV8Handler(IntPtr nativePtr)
+        {
+            this.nativePtr = nativePtr;
+        }
+        public CefV8Handler() { }
+        public virtual bool Execute(string name, CefV8Value _object, CefV8ValueList arguments, IntPtr retval, string exception)
+        {
+            return false;
+        }
+        //gen! bool Execute(const CefString& name,CefRefPtr<CefV8Value> object,const CefV8ValueList& arguments,CefRefPtr<CefV8Value>& retval,CefString& exception)
+        public struct ExecuteArgs
+        {
+            internal IntPtr nativePtr; //met arg native ptr
+            internal ExecuteArgs(IntPtr nativePtr)
+            {
+                this.nativePtr = nativePtr;
+            }
+            public string name()
+            {
+                return Cef3Binder.MyMetArgGetAsString(nativePtr, 1);
+            }
+            public CefV8Value _object()
+            {
+                return new CefV8Value(Cef3Binder.MyMetArgGetAsIntPtr(nativePtr, 2));
+            }
+            public CefV8ValueList arguments()
+            {
+                return new CefV8ValueList(Cef3Binder.MyMetArgGetAsIntPtr(nativePtr, 3));
+            }
+            public IntPtr retval()
+            {
+                throw new CefNotImplementedException();
+            }
+            public string exception()
+            {
+                return Cef3Binder.MyMetArgGetAsString(nativePtr, 5);
+            }
+        }
+        public virtual void //expand args
+        Execute(ExecuteArgs args)
+        {
+            Execute(args.name(),
+            args._object(),
+            args.arguments(),
+            args.retval(),
+            args.exception());
+        }
+        public static CefV8Handler New(MyCefCallback callback)
+        {
+            return new CefV8Handler(Cef3Binder.NewInstance(_typeNAME, callback));
+        }
+        public static CefV8Handler New()
+        {
+            CefV8Handler newInst = new CefV8Handler();
+            newInst.nativePtr = Cef3Binder.NewInstance(_typeNAME, (met_id, nativeMetArgs) =>
+            {
+                switch (met_id)
+                {
+                    case MyCefV8Handler_Execute_1:
+                        {
+                            newInst.Execute(new ExecuteArgs(nativeMetArgs));
+                        }
+                        break;
+                }
+            });
+            return newInst;
         }
     }
 }

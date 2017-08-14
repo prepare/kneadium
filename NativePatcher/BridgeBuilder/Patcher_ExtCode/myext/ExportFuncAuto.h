@@ -6,6 +6,8 @@ class MyBrowser; //forward decl
 				 //---------------------
 				 //for auto gen content
 #include "include/internal/cef_types.h"
+#include "include/wrapper/cef_helpers.h"
+
 				 //
 #include "include/capi/cef_resource_bundle_handler_capi.h"
 #include "include/capi/cef_resource_bundle_capi.h"
@@ -104,6 +106,7 @@ class MyBrowser; //forward decl
 #include "libcef_dll/cpptoc/get_geolocation_callback_cpptoc.h"
 #include "libcef_dll/cpptoc/end_tracing_callback_cpptoc.h"
 #include "libcef_dll/cpptoc/register_cdm_callback_cpptoc.h"
+#include "libcef_dll/cpptoc/accessibility_handler_cpptoc.h"
 
 //handlers
 #include "libcef_dll/cpptoc/resource_bundle_handler_cpptoc.h"
@@ -123,6 +126,8 @@ class MyBrowser; //forward decl
 #include "libcef_dll/cpptoc/render_handler_cpptoc.h"
 #include "libcef_dll/cpptoc/request_handler_cpptoc.h"
 #include "libcef_dll/cpptoc/resource_handler_cpptoc.h"
+#include "libcef_dll/cpptoc/print_handler_cpptoc.h"
+#include "libcef_dll/cpptoc/read_handler_cpptoc.h"
 //---------------------
 //for auto gen content 
 //

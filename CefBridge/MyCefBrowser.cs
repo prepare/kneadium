@@ -378,8 +378,8 @@ namespace LayoutFarm.CefBridge
             MyCefCallback visitorCallback = (int methodId, IntPtr nativeArgs) =>
             {
                 //wrap with the specific pars
-                var pars = new Auto.CefStringVisitor.OnVisitPars(nativeArgs);
-                string data = pars._string;
+                //var pars = new Auto.CefStringVisitor(nativeArgs);
+                //string data = pars._string;
 
                 //MyCefNativeMetArgs metArgs = new MyCefNativeMetArgs(nativeArgs);
                 //if (metArgs.GetArgCount() == 1)

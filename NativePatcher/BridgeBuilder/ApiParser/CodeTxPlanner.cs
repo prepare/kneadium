@@ -214,9 +214,12 @@ namespace BridgeBuilder
         internal string ArgPreExtractCode { get; set; }
         internal string ArgExtractCode { get; set; }
         internal string ArgPostExtractCode { get; set; }
-
+        internal bool ArgByRef { get; set; } //temp
+        internal string InnerTypeName { get; set; } //temp
         internal void ClearExtractCode()
         {
+            ArgByRef = false; //temp
+            InnerTypeName = null;//temp
             ArgPreExtractCode = ArgExtractCode = ArgPostExtractCode = null;
         }
     }
@@ -737,7 +740,7 @@ namespace BridgeBuilder
             {
                 foreach (CodeMethodDeclaration metDecl in typedecl.GetMethodIter())
                 {
-                   
+
                     if (metDecl.MethodKind == MethodKind.Normal)
                     {
                         MethodTxInfo metTx = MakeMethodPlan(metDecl);
