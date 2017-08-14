@@ -997,8 +997,7 @@ namespace BridgeBuilder
             {
                 foreach (CodeMethodDeclaration metDecl in typedecl.GetMethodIter())
                 {
-                    //this version we resolve only method ***
-
+                    
 
                     switch (metDecl.MethodKind)
                     {
@@ -1047,10 +1046,7 @@ namespace BridgeBuilder
                 //cef-name convention
                 throw new NotSupportedException();
             }
-            if (cToCppTypeReference.Name != "StructName")
-            {
-                throw new NotSupportedException();
-            }
+
 #endif
             TypeSymbol found;
             if (!typeSymbols.TryGetValue(cToCppTypeReference.Name, out found))
