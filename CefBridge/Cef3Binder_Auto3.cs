@@ -15615,7 +15615,7 @@ namespace LayoutFarm.CefBridge.Auto
         {
             OnRenderProcessThreadCreated(args.extra_info());
         }
-        public virtual CefPrintHandler GetPrintHandler()
+        public virtual MyCefPrintHandler GetPrintHandler()
         {
             throw new CefNotImplementedException();
         }
@@ -17612,7 +17612,7 @@ namespace LayoutFarm.CefBridge.Auto
             this.nativePtr = nativePtr;
         }
         public MyCefRenderHandler() { }
-        public virtual CefAccessibilityHandler GetAccessibilityHandler()
+        public virtual MyCefAccessibilityHandler GetAccessibilityHandler()
         {
             throw new CefNotImplementedException();
         }
@@ -18193,7 +18193,7 @@ namespace LayoutFarm.CefBridge.Auto
         {
             OnBrowserDestroyed(args.browser());
         }
-        public virtual CefLoadHandler GetLoadHandler()
+        public virtual MyCefLoadHandler GetLoadHandler()
         {
             throw new CefNotImplementedException();
         }
@@ -18687,7 +18687,7 @@ namespace LayoutFarm.CefBridge.Auto
         }
         public virtual cef_return_value_t OnBeforeResourceLoad(CefBrowser browser, CefFrame frame, CefRequest request, CefRequestCallback callback)
         {
-            return (ReturnValue)0;
+            return (cef_return_value_t)0;
         }
         //gen! ReturnValue OnBeforeResourceLoad(CefRefPtr<CefBrowser> browser,CefRefPtr<CefFrame> frame,CefRefPtr<CefRequest> request,CefRefPtr<CefRequestCallback> callback)
         public struct OnBeforeResourceLoadArgs
@@ -18721,7 +18721,7 @@ namespace LayoutFarm.CefBridge.Auto
             args.request(),
             args.callback());
         }
-        public virtual CefResourceHandler GetResourceHandler(CefBrowser browser, CefFrame frame, CefRequest request)
+        public virtual MyCefResourceHandler GetResourceHandler(CefBrowser browser, CefFrame frame, CefRequest request)
         {
             throw new CefNotImplementedException();
         }
