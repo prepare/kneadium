@@ -278,7 +278,7 @@ namespace BridgeBuilder
                 //
                 stbuilder.AppendLine("autogen!: " + met.ToString());
 
-                stbuilder.AppendLine("if(this->mcallback_){");
+                stbuilder.AppendLine("if(mcallback_){");
                 stbuilder.AppendLine("MethodArgs args;");
                 stbuilder.AppendLine("memset(&args,0,sizeof(MethodArgs));");
 
@@ -464,12 +464,9 @@ namespace BridgeBuilder
 
                 //-------
                 //call the delegate
-                stbuilder.AppendLine("this->mcallback_(CEF_MSG_" + met.Name + ",&args);");
+                stbuilder.AppendLine("mcallback_(CEF_MSG_" + met.Name + ",&args);");
 
-                //get some var back 
-
-
-
+                //get some var back  
 
                 TypeSymbol returnType = met.ReturnType.ResolvedType;
                 if (returnType == null)

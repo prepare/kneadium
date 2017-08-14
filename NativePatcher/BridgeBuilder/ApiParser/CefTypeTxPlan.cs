@@ -1952,7 +1952,7 @@ namespace BridgeBuilder
             }
             stbuilder.AppendLine("){");
             //-----------
-            stbuilder.AppendLine("if(this->mcallback){");
+            stbuilder.AppendLine("if(mcallback){");
             //call to managed 
             stbuilder.AppendLine("MyMetArgsN args;");
             stbuilder.AppendLine("memset(&args, 0, sizeof(MyMetArgsN));");
@@ -1986,7 +1986,7 @@ namespace BridgeBuilder
             //
             //call a method and get some result back 
             //
-            stbuilder.AppendLine("this->mcallback(" + met.CppMethodSwitchCaseName + ",&args);");
+            stbuilder.AppendLine("mcallback(" + met.CppMethodSwitchCaseName + ",&args);");
             //post call
             for (int i = 0; i < j; ++i)
             {
@@ -2501,7 +2501,7 @@ namespace BridgeBuilder
             }
             stbuilder.AppendLine("){");
             //-----------
-            stbuilder.AppendLine("if(this->mcallback){");
+            stbuilder.AppendLine("if(mcallback){");
             //call to managed 
             stbuilder.AppendLine("MyMetArgsN args;");
             stbuilder.AppendLine("memset(&args, 0, sizeof(MyMetArgsN));");
@@ -2536,7 +2536,7 @@ namespace BridgeBuilder
             //
             //call a method and get some result back 
             //
-            stbuilder.AppendLine("this->mcallback(" + met.CppMethodSwitchCaseName + ",&args);");
+            stbuilder.AppendLine("mcallback(" + met.CppMethodSwitchCaseName + ",&args);");
 
             //post call
             for (int i = 0; i < j; ++i)
@@ -2705,15 +2705,7 @@ namespace BridgeBuilder
                 );
             //---------------------------
 
-
-            //MethodArgs args;
-            //memset(&args, 0, sizeof(MethodArgs));
-            //CefString cefStr1 = url;
-            //args.SetArgAsString(0, cefStr1.c_str());
-            //this->mcallback_(CEF_MSG_ClientHandler_ExecCustomProtocol, &args);
-            ////then what to do next
-
-
+             
             stbuilder.AppendLine("MetArgs args;");
             stbuilder.AppendLine("memset(&args, 0, sizeof(MetArgs));");
             //
@@ -2734,7 +2726,7 @@ namespace BridgeBuilder
             }
 
             //
-            stbuilder.AppendLine("this->mcallback_(" + met.CppMethodSwitchCaseName + ", &args)");
+            stbuilder.AppendLine("mcallback_(" + met.CppMethodSwitchCaseName + ", &args)");
             if (!met.ReturnPlan.IsVoid)
             {
                 stbuilder.AppendLine("return " + met.ReturnPlan.ArgExtractCode);
@@ -3376,7 +3368,7 @@ namespace BridgeBuilder
             }
             stbuilder.AppendLine("){");
             //-----------
-            stbuilder.AppendLine("if(this->mcallback){");
+            stbuilder.AppendLine("if(mcallback){");
             //call to managed 
             stbuilder.AppendLine("MyMetArgsN args;");
             stbuilder.AppendLine("memset(&args, 0, sizeof(MyMetArgsN));");
@@ -3412,7 +3404,7 @@ namespace BridgeBuilder
             //
             //call a method and get some result back 
             //
-            stbuilder.AppendLine("this->mcallback(" + met.CppMethodSwitchCaseName + ",&args);");
+            stbuilder.AppendLine("mcallback(" + met.CppMethodSwitchCaseName + ",&args);");
 
             //post call
             for (int i = 0; i < j; ++i)
