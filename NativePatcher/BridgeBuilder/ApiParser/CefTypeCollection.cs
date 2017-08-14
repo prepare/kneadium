@@ -759,7 +759,7 @@ namespace BridgeBuilder
                                                     break;
                                             }
                                         }
-                                    } 
+                                    }
                                     else
                                     {
                                         switch (t.Name)
@@ -1045,6 +1045,10 @@ namespace BridgeBuilder
             if (!CefResolvingContext.IsAllLowerLetter(cToCppTypeReference.Name))
             {
                 //cef-name convention
+                throw new NotSupportedException();
+            }
+            if (cToCppTypeReference.Name != "StructName")
+            {
                 throw new NotSupportedException();
             }
 #endif
