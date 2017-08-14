@@ -977,6 +977,7 @@ namespace BridgeBuilder
             //-----------------------------------------------------
             if (ExpectPunc("{"))
             {
+                //struct detail
                 if (par_types != null)
                 {
                     //rename 
@@ -1035,9 +1036,10 @@ namespace BridgeBuilder
                 }
 
             }
+
             else
             {
-                throw new NotSupportedException();
+
             }
 
             //------
@@ -1431,7 +1433,7 @@ namespace BridgeBuilder
                 return !ExpectPunc("}");
 
             }
-
+            CodeTypeReference retType = null;
             //---------------------------
             if (ExpectId("class"))
             {
@@ -1448,7 +1450,18 @@ namespace BridgeBuilder
                 subClass.MemberAccessibility = _currentMemberAccessibilityMode;
                 subClass.Kind = TypeKind.Struct;
                 codeTypeDecl.AddMember(subClass);
-                return !ExpectPunc("}");
+                //after struct decl
+
+                if (ExpectPunc("*"))
+                {
+                    retType = new CodePointerTypeReference(
+                        new CodeSimpleTypeReference(subClass.Name));
+
+                }
+                else
+                {
+                    return !ExpectPunc("}");
+                }
             }
 
             //modifier
@@ -1463,7 +1476,10 @@ namespace BridgeBuilder
             bool isDestructor = ExpectPunc("~");
 
             //-------
-            CodeTypeReference retType = ExpectType();
+            if (retType == null)
+            {
+                retType = ExpectType();
+            }
             bool isCallback = ExpectId("CEF_CALLBACK"); //cef specific
             //-------
 
@@ -1559,8 +1575,119 @@ namespace BridgeBuilder
             //-----------------------------------
             if (ExpectPunc("("))
             {
-                //this is method
+                //this may be  method or delegate decl
                 Token[] comments = FlushCollectedLineComments();
+
+                if (name == null)
+                {
+                    //macro/ctor/dtor
+                    if (retType.ToString() == codeTypeDecl.Name)
+                    {
+                        //should be ctor or dtor
+                        //this will be handled later
+                    }
+                    else
+                    {
+                        //macro or delegate decl
+                        //cef3
+                        if (!IsAllUpperLetter(retType.ToString()))
+                        {
+                            //cef 3 : assume this is a func pointer decl
+                            bool isCallback2 = ExpectId("CEF_CALLBACK"); //cef specific
+                            if (!isCallback2)
+                            {
+                                throw new NotSupportedException();
+                            }
+                            //
+                            if (!ExpectPunc("*"))
+                            {
+                                throw new NotSupportedException();
+                            }
+                            //
+                            //pointer field name
+                            string delFieldName = ExpectId();
+
+                            CodeFunctionPointerTypeRefernce funcPtrType = new CodeFunctionPointerTypeRefernce();
+                            funcPtrType.Name = delFieldName;
+                            funcPtrType.ReturnType = retType;
+                            //
+                            CodeFieldDeclaration fieldDecl = new CodeFieldDeclaration();
+                            fieldDecl.FieldType = funcPtrType;
+                            fieldDecl.Name = delFieldName;
+                            fieldDecl.LineComments = comments;
+
+                            codeTypeDecl.AddMember(fieldDecl);
+
+                            if (!ExpectPunc(")"))
+                            {
+                                throw new NotSupportedException();
+                            }
+                            if (!ExpectPunc("("))
+                            {
+                                throw new NotSupportedException();
+                            }
+                            //begin pars 
+                            //callback ?  
+                            AGAIN2:
+
+                            Token tk2 = ExpectPunc();
+                            if (tk2 != null)
+                            {
+                                //stop
+                                if (tk2.Content == ",")
+                                {
+                                    //next par
+
+                                }
+                                else if (tk2.Content == ")")
+                                {
+                                    //end delegate 
+                                    if (!ExpectPunc(";"))
+                                    {
+                                        throw new NotSupportedException();
+                                    }
+
+                                    return !ExpectPunc("}");
+                                }
+                                else
+                                {
+                                    throw new NotSupportedException();
+                                }
+                            }
+
+                            CodeMethodParameter metPar = new CodeMethodParameter();
+                            bool isConst2 = ExpectId("const");
+
+                            CodeTypeReference parType1 = ExpectType();
+                            if (parType1.Name == "struct")
+                            {
+                                parType1 = ExpectType();
+                            }
+
+                            //before par name
+                            if (ExpectId("const"))
+                            {
+                                if (ExpectPunc("*"))
+                                {
+                                    metPar.IsConstParName = true;
+                                }
+                                else
+                                {
+
+                                }
+                            }
+
+                            metPar.ParameterName = ExpectId();
+                            metPar.ParameterType = parType1;
+                            metPar.IsConstPar = isConst2;
+
+                            funcPtrType.Parameters.Add(metPar);
+                            goto AGAIN2;
+
+                        }
+                    }
+                }
+
                 CodeMethodDeclaration met = new CodeMethodDeclaration();
                 met.IsStatic = isStatic;
                 met.IsVirtual = isVirtual;
@@ -1577,6 +1704,7 @@ namespace BridgeBuilder
                 }
                 else
                 {
+
                     met.IsOperatorMethod = isOperatorMethod;
                     met.Name = name;
                     met.ReturnType = retType;
@@ -1688,6 +1816,8 @@ namespace BridgeBuilder
                 CodeTypeReference typename = ExpectType();//1. 
                 if (ExpectPunc("::"))
                 {
+                    //CodeTypeReference rightPart = ExpectType();
+
                     string typename1 = ExpectId();
                     if (ExpectPunc("*"))
                     {
