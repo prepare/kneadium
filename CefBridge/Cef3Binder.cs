@@ -622,6 +622,8 @@ namespace LayoutFarm.CefBridge
         public static extern int MyMetArgGetCount(IntPtr myMetArgs);
         [DllImport(CEF_CLIENT_DLL, CallingConvention = CallingConvention.Cdecl)]
         public static unsafe extern void* MyMetArgGetArgAddress(IntPtr myMetArgs, int index);
+        [DllImport(CEF_CLIENT_DLL, CallingConvention = CallingConvention.Cdecl)]
+        public static unsafe extern void* MyMetArgGetArgAddressH(IntPtr /*MyMetArgsN*/mymetArgs);
         //--------
 
         public static string MyMetArgGetAsString(IntPtr myMetArgs, int index)
