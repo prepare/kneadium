@@ -3065,12 +3065,13 @@ namespace BridgeBuilder
 
             stbuilder.Append("public virtual void");
             stbuilder.Append(" ");
-            stbuilder.AppendLine("//expand args");
+           
             stbuilder.Append(met.Name);
             stbuilder.Append("(");
             stbuilder.Append(argClassName + " args");
             stbuilder.AppendLine("){");
             //call 
+            stbuilder.AppendLine("//expand args");
             int j = pars.Count;
             if (j > 0)
             {
@@ -3149,7 +3150,7 @@ namespace BridgeBuilder
             {
                 //implement on event notificationi
                 MethodTxInfo met = callToDotNetMets[mm];
-                stbuilder.AppendLine("const int " + met.CppMethodSwitchCaseName + "=" + (mm + 1) + ";");
+                stbuilder.AppendLine("const int " + met.CppMethodSwitchCaseName + "= (_typeNAME <<16) | " + (mm + 1) + ";");
             }
             //------
 

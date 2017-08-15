@@ -71,7 +71,7 @@ namespace BridgeBuilder
         private void cmdLoadPatchAndApplyPatch_Click(object sender, EventArgs e)
         {
             //cef_binary_3.3071.1647 
-            string srcRootDir0 = "@D:\projects\cef_binary_3.3071.1647.win32";
+            string srcRootDir0 = @"D:\projects\cef_binary_3.3071.1647.win32";
             string srcRootDir = @"D:\projects\cef_binary_3.3071.1647.win32\tests";
             string saveFolder = "d:\\WImageTest\\cefbridge_patches";
 
