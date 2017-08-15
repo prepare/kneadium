@@ -246,7 +246,7 @@ namespace LayoutFarm.CefBridge
         {
             int severity = (int)logSeverity;
             Cef3Binder.MyCefSetInitSettings(this.nativePtr,
-               CefSettingsKey.CEF_SETTINGS_LogSeverity, severity.ToString());
+               CefSettingsKey.CEF_SETTINGS_LogSeverity, ((int)severity).ToString());
         }
     }
 }
