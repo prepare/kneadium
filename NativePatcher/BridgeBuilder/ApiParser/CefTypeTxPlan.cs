@@ -2789,7 +2789,7 @@ namespace BridgeBuilder
             int j = pars.Count;
 
 
-            stbuilder.AppendLine("//gen! " + metDecl.ToString());
+        
             //temp 
             string className = met.Name + "Args";
 
@@ -2990,7 +2990,34 @@ namespace BridgeBuilder
             }
 
         }
+        void GenerateCsExpandedArgsMethodForInterface(MethodTxInfo met, CodeStringBuilder stbuilder)
+        {
+            CodeMethodDeclaration metDecl = (CodeMethodDeclaration)met.metDecl;
 
+            //temp             
+            stbuilder.Append(GetCsRetName(met.ReturnPlan.TypeSymbol));
+            stbuilder.Append(" ");
+            stbuilder.Append(met.Name);
+            stbuilder.Append("(");
+
+            List<CodeMethodParameter> pars = metDecl.Parameters;
+            int j = pars.Count;
+            for (int i = 0; i < j; ++i)
+            {
+                if (i > 0)
+                {
+                    stbuilder.Append(",");
+                }
+
+                MethodParameterTxInfo parTx = met.pars[i];
+                string parTypeName = GetCsRetName(parTx.TypeSymbol);
+                stbuilder.Append(parTypeName);
+                //some cpp name can't be use in C#
+                stbuilder.Append(" ");
+                stbuilder.Append(parTx.Name);
+            }
+            stbuilder.AppendLine(");");
+        }
         void GenerateCsExpandedArgsMethodImpl(MethodTxInfo met, CodeStringBuilder stbuilder)
         {
             CodeMethodDeclaration metDecl = (CodeMethodDeclaration)met.metDecl;
@@ -3201,13 +3228,12 @@ namespace BridgeBuilder
                 //implement on event notificationi
                 MethodTxInfo met = callToDotNetMets[mm];
                 //prepare data and call the callback                
-
+                stbuilder.AppendLine("//gen! " + met.metDecl.ToString());
+                //
                 GenerateCsExpandedArgsMethodImpl(met, stbuilder);
                 string argClassName = GenerateCsMethodArgsClass(met, stbuilder);
                 met.CsArgClassName = argClassName;
-                GenerateCsSingleArgMethodImpl(argClassName, met, stbuilder);
-
-
+                GenerateCsSingleArgMethodImpl(argClassName, met, stbuilder); 
             }
 
             //-----------------------------------------------------------------------
@@ -3242,18 +3268,27 @@ namespace BridgeBuilder
 
 
             //------------------------------            
-            stbuilder.Append("public interface I");
+            stbuilder.Append("public interface I0");
             stbuilder.AppendLine("{");
             for (int mm = 0; mm < nn; ++mm)
             {
                 //implement on event notificationi
                 MethodTxInfo met = callToDotNetMets[mm];
                 GenerateCsSingleArgMethodImplForInterface(met.CsArgClassName, met, stbuilder);
-
             }
             stbuilder.AppendLine("}");
             //-----------------
 
+            stbuilder.Append("public interface I1");
+            stbuilder.AppendLine("{");
+            for (int mm = 0; mm < nn; ++mm)
+            {
+                //implement on event notificationi
+                MethodTxInfo met = callToDotNetMets[mm];
+                GenerateCsExpandedArgsMethodForInterface(met, stbuilder);
+            }
+            stbuilder.AppendLine("}");
+            //-----------------
 
             stbuilder.AppendLine("}");
         }
