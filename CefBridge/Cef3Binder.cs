@@ -392,23 +392,9 @@ namespace LayoutFarm.CefBridge
                 Cef3InitEssential.IsInMainProcess = true;
             }
             //----------------------------------------------------------- 
-            //check version
+            //check version ...
             //1.
-            int myCefVersion = MyCefGetVersion();
-            //-----------------------------------------------------------
-            //2. 
-            //managedListener0 = new MyCefCallback(Cef3callBack_ForMangedCallBack0);
-            //3. unmanaged side can call back to this managed part 
-            //int regResult = RegisterManagedCallBack(managedListener0, 0);
-            //-----------------------------------------------------------
-            //again ... another managed 
-
-
-            //managedListener1 = new MyCefCallback(Cef3callBack_ForMangedCallBack2);
-            //regResult = RegisterManagedCallBack(managedListener1, 1);
-            //-----------------------------------------------------------
-            //init cef  
-
+            int myCefVersion = MyCefGetVersion(); 
             clientApp = cefInitEssential.CreateClientApp();
             return true;
         }

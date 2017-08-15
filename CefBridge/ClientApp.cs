@@ -38,15 +38,21 @@ namespace LayoutFarm.CefBridge
                 if (!isInitWithProcessHandle)
                 {
                     isInitWithProcessHandle = true;
-                    //1. register mx callback 
-                    Cef3Binder.RegisterManagedCallBack(this.mxCallback = new MyCefCallback(MxCallBack), 3);
+                    //1. register mx callback,
+                    //call-back must be created first (before client app).
+                    //
+                    Cef3Binder.RegisterManagedCallBack(this.mxCallback = new MyCefCallback(HandleNativeReq), 3);
                     //2. create client app
                     this.clientAppPtr = Cef3Binder.MyCefCreateClientApp(processHandle);
                 }
             }
         }
-
-        void MxCallBack(int id, IntPtr argsPtr)
+        /// <summary>
+        /// handle native reqiest , this is called by native side.
+        /// </summary>
+        /// <param name="id"></param>
+        /// <param name="argsPtr"></param>
+        void HandleNativeReq(int id, IntPtr argsPtr)
         {
             switch ((MyCefMsg)id)
             {
@@ -130,7 +136,7 @@ namespace LayoutFarm.CefBridge
             }
         }
 
-        protected void InitCefSettings(CefSettings cefSettings)
+        void InitCefSettings(CefSettings cefSettings)
         {
             if (ReferencePaths.SUB_PROCESS_PATH != null)
             {
