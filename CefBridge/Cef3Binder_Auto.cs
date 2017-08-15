@@ -341,7 +341,7 @@ namespace LayoutFarm.CefBridge
             (int)CefFrameCallMsg.CefFrame_ViewSource, out ret, ref a1, ref a2);
         }
 
-        public void GetSource(CefStringVisitor visitor)
+        public void GetSource(Auto.CefStringVisitor visitor)
         {
 
             //autogen!
@@ -355,7 +355,7 @@ namespace LayoutFarm.CefBridge
             (int)CefFrameCallMsg.CefFrame_GetSource, out ret, ref a1, ref a2);
         }
 
-        public void GetText(CefStringVisitor visitor)
+        public void GetText(Auto.CefStringVisitor visitor)
         {
 
             //autogen!

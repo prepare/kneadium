@@ -445,7 +445,7 @@ namespace LayoutFarm.CefBridge
         void InternalGetSource2(MyCefCallback strCallback)
         {
             MyCefBw myCefBw = new MyCefBw(this.myCefBrowser);
-            MyCefStringVisitor visitor = myCefBw.NewStringVisitor((id, ptr) =>
+            Auto.CefStringVisitor visitor = myCefBw.NewStringVisitor((id, ptr) =>
             {
                 NativeCallArgs args = new NativeCallArgs(ptr);
                 var text = args.GetArgAsString(0);
@@ -466,7 +466,7 @@ namespace LayoutFarm.CefBridge
             //MyCefFrame myframe = new MyCefFrame(ret.Ptr);
 
 
-            MyCefStringVisitor visitor2 = myCefBw.NewStringVisitor((id, ptr) =>
+            Auto.CefStringVisitor visitor2 = myCefBw.NewStringVisitor((id, ptr) =>
             {
                 NativeCallArgs args = new NativeCallArgs(ptr);
                 var text = args.GetArgAsString(0);

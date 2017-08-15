@@ -87,31 +87,7 @@ namespace LayoutFarm.CefBridge
         CEF_SETTINGS_LogFile = 18,
         CEF_SETTINGS_LogSeverity = 19,
     }
-
-    public struct MyCefStringVisitor
-    {
-        internal IntPtr nativePtr;
-        internal MyCefStringVisitor(IntPtr ptr)
-        {
-            this.nativePtr = ptr;
-        }
-        public void Release()
-        {
-
-        }
-    }
-    public struct CefStringVisitor
-    {
-        internal IntPtr nativePtr;
-        internal CefStringVisitor(IntPtr ptr)
-        {
-            this.nativePtr = ptr;
-        }
-        public void Release()
-        {
-
-        }
-    }
+     
     public struct MyCefFrame
     {
         internal IntPtr nativePtr;
@@ -192,7 +168,7 @@ namespace LayoutFarm.CefBridge
         //    Cef3Binder.MyCefFrameCall2(this.nativePtr,
         //        (int)CefFrameCallMsg.CefFrame_GetSource, out ret, ref a1, ref a2);
         //}
-        public void GetText(MyCefStringVisitor stringVisitor)
+        public void GetText(Auto.CefStringVisitor stringVisitor)
         {
             JsValue a1 = new JsValue();
             JsValue a2 = new JsValue();
@@ -212,7 +188,7 @@ namespace LayoutFarm.CefBridge
             //  11, out ret, ref a1, ref a2,
             //   ref a3, ref a4, ref a5, ref a6);
         }
-        public void GetSource(MyCefStringVisitor stringVisitor)
+        public void GetSource(Auto.CefStringVisitor stringVisitor)
         {
             JsValue a1 = new JsValue();
             JsValue a2 = new JsValue();
@@ -280,7 +256,7 @@ namespace LayoutFarm.CefBridge
             return new MyCefFrame(ret.Ptr);
 
         }
-        public MyCefStringVisitor NewStringVisitor(MyCefCallback cb)
+        public Auto.CefStringVisitor NewStringVisitor(MyCefCallback cb)
         {
             JsValue ret;
             JsValue a1 = new JsValue();
@@ -289,7 +265,7 @@ namespace LayoutFarm.CefBridge
             Cef3Binder.MyCefBwCall2(ptr,
                (int)CefBwCallMsg.CefBw_NewStringVisitor,
                out ret, ref a1, ref a2);
-            return new MyCefStringVisitor(ret.Ptr);
+            return new Auto.CefStringVisitor(ret.Ptr);
         }
 
     }
