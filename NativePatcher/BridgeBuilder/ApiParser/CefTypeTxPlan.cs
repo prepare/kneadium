@@ -2789,7 +2789,7 @@ namespace BridgeBuilder
             int j = pars.Count;
 
 
-        
+
             //temp 
             string className = met.Name + "Args";
 
@@ -3108,72 +3108,74 @@ namespace BridgeBuilder
             stbuilder.Append(met.Name);
             stbuilder.Append("(");
             stbuilder.Append(argClassName + " args");
-            stbuilder.AppendLine("){");
-            //call 
-            stbuilder.AppendLine("//expand args");
-            int j = pars.Count;
-            if (j > 0)
-            {
-                //arg expansion 
-                //bool allow_os_execution = false;
-                //OnProtocolExecution(args.browser(), args.url(), ref allow_os_execution);
-                //args.allow_os_execution(allow_os_execution); 
-                for (int i = 0; i < j; ++i)
-                {
-                    MethodParameterTxInfo par = pars[i];
-                    if (par.ArgByRef)
-                    {
-                        stbuilder.Append(par.InnerTypeName + " " + par.Name);
-                        //with default value
-                        if (par.InnerTypeName == "bool")
-                        {
-                            stbuilder.AppendLine("=false;");
-                        }
-                        else
-                        {
-                            stbuilder.AppendLine("=0;");
-                        }
-                    }
-                }
-            }
-            //-------
-            stbuilder.Append(met.Name);
-            stbuilder.Append("(");
-            if (j > 0)
-            {
-
-                for (int i = 0; i < j; ++i)
-                {
-                    if (i > 0)
-                    {
-                        stbuilder.Append(",\r\n");
-                    }
-                    MethodParameterTxInfo par = pars[i];
-                    if (par.ArgByRef)
-                    {
-                        stbuilder.Append("ref " + par.Name);
-                    }
-                    else
-                    {
-                        stbuilder.Append("args." + par.Name + "()");
-                    }
-                }
-            }
-            stbuilder.AppendLine(");");
-            if (j > 0)
-            {
-                for (int i = 0; i < j; ++i)
-                {
-                    MethodParameterTxInfo par = pars[i];
-                    if (par.ArgByRef)
-                    {
-                        stbuilder.AppendLine("args." + par.Name + "(" + par.Name + ");");
-                    }
-                }
-            }
+            stbuilder.AppendLine("){}");
 
 
-            stbuilder.AppendLine("}"); //method
+            ////call 
+            //stbuilder.AppendLine("//expand args");
+            //int j = pars.Count;
+            //if (j > 0)
+            //{
+            //    //arg expansion 
+            //    //bool allow_os_execution = false;
+            //    //OnProtocolExecution(args.browser(), args.url(), ref allow_os_execution);
+            //    //args.allow_os_execution(allow_os_execution); 
+            //    for (int i = 0; i < j; ++i)
+            //    {
+            //        MethodParameterTxInfo par = pars[i];
+            //        if (par.ArgByRef)
+            //        {
+            //            stbuilder.Append(par.InnerTypeName + " " + par.Name);
+            //            //with default value
+            //            if (par.InnerTypeName == "bool")
+            //            {
+            //                stbuilder.AppendLine("=false;");
+            //            }
+            //            else
+            //            {
+            //                stbuilder.AppendLine("=0;");
+            //            }
+            //        }
+            //    }
+            //}
+            ////-------
+            //stbuilder.Append(met.Name);
+            //stbuilder.Append("(");
+            //if (j > 0)
+            //{
+
+            //    for (int i = 0; i < j; ++i)
+            //    {
+            //        if (i > 0)
+            //        {
+            //            stbuilder.Append(",\r\n");
+            //        }
+            //        MethodParameterTxInfo par = pars[i];
+            //        if (par.ArgByRef)
+            //        {
+            //            stbuilder.Append("ref " + par.Name);
+            //        }
+            //        else
+            //        {
+            //            stbuilder.Append("args." + par.Name + "()");
+            //        }
+            //    }
+            //}
+            //stbuilder.AppendLine(");");
+            //if (j > 0)
+            //{
+            //    for (int i = 0; i < j; ++i)
+            //    {
+            //        MethodParameterTxInfo par = pars[i];
+            //        if (par.ArgByRef)
+            //        {
+            //            stbuilder.AppendLine("args." + par.Name + "(" + par.Name + ");");
+            //        }
+            //    }
+            //}
+
+
+            //stbuilder.AppendLine("}"); //method
         }
         void GenerateCsSingleArgMethodImplForInterface(string argClassName, MethodTxInfo met, CodeStringBuilder stbuilder)
         {
@@ -3201,7 +3203,7 @@ namespace BridgeBuilder
 
 
             //create a cpp class              
-            stbuilder.Append("public class " + className);
+            stbuilder.Append("public struct " + className);
             stbuilder.AppendLine("{");
             stbuilder.AppendLine("const int _typeNAME=" + orgDecl.TypeTxInfo.CsInterOpTypeNameId + ";");
 
@@ -3212,15 +3214,15 @@ namespace BridgeBuilder
                 MethodTxInfo met = callToDotNetMets[mm];
 
                 PrepareCsMetPars(met);
-                stbuilder.AppendLine("const int " + met.CppMethodSwitchCaseName + "= (_typeNAME <<16) | " + (mm + 1) + ";");
+                stbuilder.AppendLine("const int " + met.CppMethodSwitchCaseName + "= " + (mm + 1) + ";");
             }
-            //------ 
-            stbuilder.AppendLine("internal IntPtr nativePtr;");
-            stbuilder.AppendLine("public " + className + "(IntPtr nativePtr){");
-            stbuilder.AppendLine("this.nativePtr= nativePtr;");
-            stbuilder.AppendLine("}");
-            //
-            stbuilder.AppendLine("public " + className + "(){}");
+            ////------ 
+            //stbuilder.AppendLine("internal IntPtr nativePtr;");
+            //stbuilder.AppendLine("public " + className + "(IntPtr nativePtr){");
+            //stbuilder.AppendLine("this.nativePtr= nativePtr;");
+            //stbuilder.AppendLine("}");
+            ////
+            //stbuilder.AppendLine("public " + className + "(){}");
             //------
 
             for (int mm = 0; mm < nn; ++mm)
@@ -3230,39 +3232,39 @@ namespace BridgeBuilder
                 //prepare data and call the callback                
                 stbuilder.AppendLine("//gen! " + met.metDecl.ToString());
                 //
-                GenerateCsExpandedArgsMethodImpl(met, stbuilder);
+                //GenerateCsExpandedArgsMethodImpl(met, stbuilder);
                 string argClassName = GenerateCsMethodArgsClass(met, stbuilder);
                 met.CsArgClassName = argClassName;
-                GenerateCsSingleArgMethodImpl(argClassName, met, stbuilder); 
+                //GenerateCsSingleArgMethodImpl(argClassName, met, stbuilder); 
             }
 
             //-----------------------------------------------------------------------
             if (this.CppImplClassName != null)
             {
                 //new with callback
-                stbuilder.AppendLine("public static " + className + " New(MyCefCallback callback){");
-                stbuilder.AppendLine("return new " + className + "(Cef3Binder.NewInstance(_typeNAME,callback));");
-                stbuilder.AppendLine("}");
-                //with built in method table
+                //stbuilder.AppendLine("public static " + className + " New(MyCefCallback callback){");
+                //stbuilder.AppendLine("return new " + className + "(Cef3Binder.NewInstance(_typeNAME,callback));");
+                //stbuilder.AppendLine("}");
+                ////with built in method table
 
-                stbuilder.AppendLine("public static " + className + " New(){");
-                stbuilder.AppendLine(className + " newInst= new " + className + "();");
-                stbuilder.AppendLine("newInst.nativePtr = Cef3Binder.NewInstance(_typeNAME,(met_id, nativeMetArgs) =>");
-                stbuilder.AppendLine("{");
-                stbuilder.AppendLine("switch(met_id){");
+                //stbuilder.AppendLine("public static " + className + " New(){");
+                //stbuilder.AppendLine(className + " newInst= new " + className + "();");
+                //stbuilder.AppendLine("newInst.nativePtr = Cef3Binder.NewInstance(_typeNAME,(met_id, nativeMetArgs) =>");
+                //stbuilder.AppendLine("{");
+                //stbuilder.AppendLine("switch(met_id){");
 
-                for (int mm = 0; mm < nn; ++mm)
-                {
-                    //implement on event notificationi
-                    MethodTxInfo met = callToDotNetMets[mm];
-                    stbuilder.AppendLine("case " + met.CppMethodSwitchCaseName + ":{");
-                    stbuilder.AppendLine("newInst." + met.Name + "(new " + met.Name + "Args(nativeMetArgs));");
-                    stbuilder.AppendLine("}break;");//case 
-                }
-                stbuilder.AppendLine("}");//switch 
-                stbuilder.AppendLine("});");
-                stbuilder.AppendLine("return newInst;");
-                stbuilder.AppendLine("}");
+                //for (int mm = 0; mm < nn; ++mm)
+                //{
+                //    //implement on event notificationi
+                //    MethodTxInfo met = callToDotNetMets[mm];
+                //    stbuilder.AppendLine("case " + met.CppMethodSwitchCaseName + ":{");
+                //    stbuilder.AppendLine("newInst." + met.Name + "(new " + met.Name + "Args(nativeMetArgs));");
+                //    stbuilder.AppendLine("}break;");//case 
+                //}
+                //stbuilder.AppendLine("}");//switch 
+                //stbuilder.AppendLine("});");
+                //stbuilder.AppendLine("return newInst;");
+                //stbuilder.AppendLine("}");
             }
 
 
@@ -3290,8 +3292,45 @@ namespace BridgeBuilder
             stbuilder.AppendLine("}");
             //-----------------
 
+            //create sample impl 
+            //-----------------
+            string abClassName = "B0";
+            stbuilder.AppendLine("public abstract class " + abClassName + ":I0 {"); //
+            stbuilder.AppendLine("//sample base class");
+            for (int mm = 0; mm < nn; ++mm)
+            {
+                //implement on event notification
+                MethodTxInfo met = callToDotNetMets[mm];
+                string argClassName = met.CsArgClassName;
+                GenerateCsSingleArgMethodImpl(argClassName, met, stbuilder);
+            }
             stbuilder.AppendLine("}");
+            //-----------------
+
+
+            stbuilder.AppendLine("public static void HandleNativeReq(I0 inst, int met_id, IntPtr nativeArgPtr)");
+            stbuilder.AppendLine("{");
+            stbuilder.AppendLine("int met_name = met_id & 0xffff;");
+            stbuilder.AppendLine("switch (met_name){");
+            //
+            for (int mm = 0; mm < nn; ++mm)
+            {
+                //implement on event notificationi
+                MethodTxInfo met = callToDotNetMets[mm];
+                stbuilder.AppendLine("case " + met.CppMethodSwitchCaseName + ":{");
+
+                stbuilder.AppendLine("inst." + met.Name + "(new " + met.CsArgClassName + "(nativeArgPtr));");
+
+                stbuilder.AppendLine("}break;");//case 
+            }
+
+            stbuilder.AppendLine("}"); //end switch
+            stbuilder.AppendLine("}"); //end method
+            //-----------------
+            stbuilder.AppendLine("}"); //end struct
         }
+
+
     }
 
 
