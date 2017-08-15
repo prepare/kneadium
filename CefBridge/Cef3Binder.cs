@@ -2,7 +2,12 @@
 
 using System;
 using System.Runtime.InteropServices;
-
+#if NET20
+namespace System.Runtime.CompilerServices
+{
+    public partial class ExtensionAttribute : Attribute { }
+}
+#endif
 
 
 namespace LayoutFarm.CefBridge
