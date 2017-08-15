@@ -599,7 +599,7 @@ namespace LayoutFarm.CefBridge
         [DllImport(CEF_CLIENT_DLL, CallingConvention = CallingConvention.Cdecl)]
         public static unsafe extern void* MyMetArgGetArgAddress(IntPtr myMetArgs, int index);
         [DllImport(CEF_CLIENT_DLL, CallingConvention = CallingConvention.Cdecl)]
-        public static unsafe extern void* MyMetArgGetArgAddressH(IntPtr /*MyMetArgsN*/mymetArgs);
+        public static unsafe extern void* MyMetArgGetArgAddressH(IntPtr /*MyMetArgsN*/mymetArgs,out int argCount);
         //--------
 
         public static string MyMetArgGetAsString(IntPtr myMetArgs, int index)
