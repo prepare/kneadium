@@ -21,7 +21,7 @@ namespace BridgeBuilder
 
             //1. analyze modified source files, in source folder 
             string srcRootDir = @"D:\projects\cef_binary_3.3071.1647.win32";
-             
+
 
             PatchBuilder builder = new PatchBuilder(new string[]{
                 srcRootDir + @"\tests\cefclient",
@@ -31,7 +31,7 @@ namespace BridgeBuilder
 
             //2. save patch to...
             string saveFolder = "d:\\WImageTest\\cefbridge_patches";
-            builder.Save(saveFolder); 
+            builder.Save(saveFolder);
 
             //----------
             //copy extension code          
@@ -71,6 +71,7 @@ namespace BridgeBuilder
         private void cmdLoadPatchAndApplyPatch_Click(object sender, EventArgs e)
         {
             //cef_binary_3.3071.1647 
+            string srcRootDir0 = @"D:\projects\cef_binary_3.3071.1647.win32";
             string srcRootDir = @"D:\projects\cef_binary_3.3071.1647.win32\tests";
             string saveFolder = "d:\\WImageTest\\cefbridge_patches";
 
@@ -120,8 +121,8 @@ namespace BridgeBuilder
 
             string extTargetDir = newPathName + "\\cefclient\\myext";
             manualPatcher.CopyExtensionSources(extTargetDir);
-            manualPatcher.Do_CMake_txt();
-
+            manualPatcher.Do_CefClient_CMake_txt();
+            manualPatcher.Do_LibCefDll_CMake_txt(srcRootDir0 + "\\libcef_dll\\CMakeList.txt");
         }
 
         private void cmdMacBuildPatchesFromSrc_Click(object sender, EventArgs e)
@@ -199,7 +200,7 @@ namespace BridgeBuilder
             ManualPatcher manualPatcher = new ManualPatcher(newPathName);
             string extTargetDir = newPathName + "\\cefclient\\myext";
             manualPatcher.CopyExtensionSources(extTargetDir);
-            manualPatcher.Do_CMake_txt();
+            manualPatcher.Do_CefClient_CMake_txt();
         }
 
         private void button1_Click(object sender, EventArgs e)
@@ -312,7 +313,7 @@ namespace BridgeBuilder
                     totalCuList_capi.Add(cu);
                 }
             }
-             
+
 
             {
 
@@ -322,7 +323,7 @@ namespace BridgeBuilder
                 totalCuList.Add(ParseWrapper(cefDir + @"\include\internal\cef_win.h")); //for windows
 
             }
-             
+
 
             {
                 //include folder
