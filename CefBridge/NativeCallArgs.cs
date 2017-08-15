@@ -242,11 +242,11 @@ namespace LayoutFarm.CefBridge
             Cef3Binder.MyCefSetInitSettings(this.nativePtr,
                 CefSettingsKey.CEF_SETTINGS_RemoteDebuggingPort, portNo.ToString());
         }
-        public void SetLogSeverity(LogServerity logSeverity)
+        public void SetLogSeverity(LayoutFarm.CefBridge.Auto.cef_log_severity_t logSeverity)
         {
             int severity = (int)logSeverity;
             Cef3Binder.MyCefSetInitSettings(this.nativePtr,
-               CefSettingsKey.CEF_SETTINGS_RemoteDebuggingPort, severity.ToString());
+               CefSettingsKey.CEF_SETTINGS_LogSeverity, severity.ToString());
         }
     }
 }

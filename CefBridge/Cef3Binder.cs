@@ -23,60 +23,8 @@ namespace LayoutFarm.CefBridge
     //----------------------------------------------------------------------
     //cef msg constant
     //----------------------------------------------------------------------
-
-    public enum LogServerity
-    {
-        ///
-        // Default logging (currently INFO logging).
-        ///
-        LOGSEVERITY_DEFAULT,
-
-        ///
-        // Verbose logging.
-        ///
-        LOGSEVERITY_VERBOSE,
-
-        ///
-        // INFO logging.
-        ///
-        LOGSEVERITY_INFO,
-
-        ///
-        // WARNING logging.
-        ///
-        LOGSEVERITY_WARNING,
-
-        ///
-        // ERROR logging.
-        ///
-        LOGSEVERITY_ERROR,
-
-        ///
-        // Completely disable logging.
-        ///
-        LOGSEVERITY_DISABLE = 99
-    }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+     
+         
 
 
 
