@@ -2957,26 +2957,12 @@ namespace BridgeBuilder
 
             return className;
         }
-        void GenerateCsExpandedArgsMethodImpl(MethodTxInfo met, CodeStringBuilder stbuilder)
+
+        void PrepareCsMetPars(MethodTxInfo met)
         {
-            CodeMethodDeclaration metDecl = (CodeMethodDeclaration)met.metDecl;
-
-            //temp 
-            stbuilder.Append("public virtual ");
-            stbuilder.Append(GetCsRetName(met.ReturnPlan.TypeSymbol));
-            stbuilder.Append(" ");
-            stbuilder.Append(met.Name);
-            stbuilder.Append("(");
-
-            List<CodeMethodParameter> pars = metDecl.Parameters;
-            int j = pars.Count;
+            int j = met.pars.Count;
             for (int i = 0; i < j; ++i)
             {
-                if (i > 0)
-                {
-                    stbuilder.Append(",");
-                }
-                CodeMethodParameter par = pars[i];
                 MethodParameterTxInfo parTx = met.pars[i];
                 switch (parTx.Name)
                 {
@@ -3001,8 +2987,31 @@ namespace BridgeBuilder
                         }
                         break;
                 }
-                //
+            }
+            
+        }
 
+        void GenerateCsExpandedArgsMethodImpl(MethodTxInfo met, CodeStringBuilder stbuilder)
+        {
+            CodeMethodDeclaration metDecl = (CodeMethodDeclaration)met.metDecl;
+
+            //temp 
+            stbuilder.Append("public virtual ");
+            stbuilder.Append(GetCsRetName(met.ReturnPlan.TypeSymbol));
+            stbuilder.Append(" ");
+            stbuilder.Append(met.Name);
+            stbuilder.Append("(");
+
+            List<CodeMethodParameter> pars = metDecl.Parameters;
+            int j = pars.Count;
+            for (int i = 0; i < j; ++i)
+            {
+                if (i > 0)
+                {
+                    stbuilder.Append(",");
+                }
+
+                MethodParameterTxInfo parTx = met.pars[i];
                 string parTypeName = GetCsRetName(parTx.TypeSymbol);
                 stbuilder.Append(parTypeName);
 
@@ -3065,7 +3074,7 @@ namespace BridgeBuilder
 
             stbuilder.Append("public virtual void");
             stbuilder.Append(" ");
-           
+
             stbuilder.Append(met.Name);
             stbuilder.Append("(");
             stbuilder.Append(argClassName + " args");
@@ -3169,6 +3178,7 @@ namespace BridgeBuilder
                 //implement on event notificationi
                 MethodTxInfo met = callToDotNetMets[mm];
                 //prepare data and call the callback                
+                PrepareCsMetPars(met);
                 GenerateCsExpandedArgsMethodImpl(met, stbuilder);
                 string argClassName = GenerateCsMethodArgsClass(met, stbuilder);
                 GenerateCsSingleArgMethodImpl(argClassName, met, stbuilder);
