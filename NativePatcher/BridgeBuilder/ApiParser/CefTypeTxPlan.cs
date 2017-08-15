@@ -3153,7 +3153,7 @@ namespace BridgeBuilder
             //create a cpp class              
             stbuilder.Append("public struct " + className);
             stbuilder.AppendLine("{");
-            stbuilder.AppendLine("const int _typeNAME=" + orgDecl.TypeTxInfo.CsInterOpTypeNameId + ";");
+            stbuilder.AppendLine("public const int _typeNAME=" + orgDecl.TypeTxInfo.CsInterOpTypeNameId + ";");
 
 
             for (int mm = 0; mm < nn; ++mm)
