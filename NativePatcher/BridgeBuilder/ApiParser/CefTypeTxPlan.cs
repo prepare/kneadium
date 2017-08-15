@@ -3239,21 +3239,23 @@ namespace BridgeBuilder
                 stbuilder.AppendLine("}");
             }
 
-            stbuilder.AppendLine("}");
 
-            //------------------------------
-            stbuilder.Append("public interface I" + className);
+
+            //------------------------------            
+            stbuilder.Append("public interface I");
             stbuilder.AppendLine("{");
             for (int mm = 0; mm < nn; ++mm)
             {
                 //implement on event notificationi
                 MethodTxInfo met = callToDotNetMets[mm];
-                GenerateCsSingleArgMethodImplForInterface(className + "." + met.CsArgClassName, met, stbuilder);
+                GenerateCsSingleArgMethodImplForInterface(met.CsArgClassName, met, stbuilder);
 
             }
             stbuilder.AppendLine("}");
             //-----------------
 
+
+            stbuilder.AppendLine("}");
         }
     }
 
