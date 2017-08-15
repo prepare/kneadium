@@ -2988,7 +2988,7 @@ namespace BridgeBuilder
                         break;
                 }
             }
-            
+
         }
 
         void GenerateCsExpandedArgsMethodImpl(MethodTxInfo met, CodeStringBuilder stbuilder)
@@ -3066,6 +3066,9 @@ namespace BridgeBuilder
 
             stbuilder.AppendLine("}"); //method
         }
+
+
+
         void GenerateCsSingleArgMethodImpl(string argClassName, MethodTxInfo met, CodeStringBuilder stbuilder)
         {
             CodeMethodDeclaration metDecl = (CodeMethodDeclaration)met.metDecl;
@@ -3145,43 +3148,66 @@ namespace BridgeBuilder
 
             stbuilder.AppendLine("}"); //method
         }
+        void GenerateCsSingleArgMethodImplForInterface(string argClassName, MethodTxInfo met, CodeStringBuilder stbuilder)
+        {
+            CodeMethodDeclaration metDecl = (CodeMethodDeclaration)met.metDecl;
+            //temp 
+            List<MethodParameterTxInfo> pars = met.pars;
+
+            stbuilder.Append("void");
+            stbuilder.Append(" ");
+
+            stbuilder.Append(met.Name);
+            stbuilder.Append("(");
+            stbuilder.Append(argClassName + " args");
+            stbuilder.AppendLine(");");
+        }
         void GenerateCsImplClass(CodeTypeDeclaration orgDecl, List<MethodTxInfo> callToDotNetMets, CodeStringBuilder stbuilder)
         {
+            int nn = callToDotNetMets.Count;
+            //create interface for this handler
+            //we provide 2 interfaces
+            //1. singles arg interface
+            //2. expanded args interface
 
             string className = orgDecl.Name;
+
+
             //create a cpp class              
             stbuilder.Append("public class " + className);
             stbuilder.AppendLine("{");
             stbuilder.AppendLine("const int _typeNAME=" + orgDecl.TypeTxInfo.CsInterOpTypeNameId + ";");
 
-            int nn = callToDotNetMets.Count;
+
             for (int mm = 0; mm < nn; ++mm)
             {
                 //implement on event notificationi
                 MethodTxInfo met = callToDotNetMets[mm];
+
+                PrepareCsMetPars(met);
                 stbuilder.AppendLine("const int " + met.CppMethodSwitchCaseName + "= (_typeNAME <<16) | " + (mm + 1) + ";");
             }
-            //------
-
-
+            //------ 
             stbuilder.AppendLine("internal IntPtr nativePtr;");
             stbuilder.AppendLine("public " + className + "(IntPtr nativePtr){");
             stbuilder.AppendLine("this.nativePtr= nativePtr;");
             stbuilder.AppendLine("}");
             //
             stbuilder.AppendLine("public " + className + "(){}");
-
             //------
-            nn = callToDotNetMets.Count;
+
             for (int mm = 0; mm < nn; ++mm)
             {
                 //implement on event notificationi
                 MethodTxInfo met = callToDotNetMets[mm];
                 //prepare data and call the callback                
-                PrepareCsMetPars(met);
+
                 GenerateCsExpandedArgsMethodImpl(met, stbuilder);
                 string argClassName = GenerateCsMethodArgsClass(met, stbuilder);
+                met.CsArgClassName = argClassName;
                 GenerateCsSingleArgMethodImpl(argClassName, met, stbuilder);
+
+
             }
 
             //-----------------------------------------------------------------------
@@ -3207,16 +3233,27 @@ namespace BridgeBuilder
                     stbuilder.AppendLine("newInst." + met.Name + "(new " + met.Name + "Args(nativeMetArgs));");
                     stbuilder.AppendLine("}break;");//case 
                 }
-
-
-                stbuilder.AppendLine("}");//switch
-
+                stbuilder.AppendLine("}");//switch 
                 stbuilder.AppendLine("});");
                 stbuilder.AppendLine("return newInst;");
                 stbuilder.AppendLine("}");
             }
 
             stbuilder.AppendLine("}");
+
+            //------------------------------
+            stbuilder.Append("public interface I" + className);
+            stbuilder.AppendLine("{");
+            for (int mm = 0; mm < nn; ++mm)
+            {
+                //implement on event notificationi
+                MethodTxInfo met = callToDotNetMets[mm];
+                GenerateCsSingleArgMethodImplForInterface(className + "." + met.CsArgClassName, met, stbuilder);
+
+            }
+            stbuilder.AppendLine("}");
+            //-----------------
+
         }
     }
 
