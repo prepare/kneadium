@@ -4,8 +4,9 @@
 
 #pragma once
 #include "ExportFuncAuto.h" 
-
-
+//----------------
+const int MET_Release = 0;
+//----------------  
 //
 #include "libcef_dll/cpptoc/drag_handler_cpptoc.h" 
 #include "libcef_dll/cpptoc/navigation_entry_visitor_cpptoc.h"
@@ -59,28 +60,7 @@
 #include "libcef_dll/cpptoc/print_handler_cpptoc.h"
 #include "libcef_dll/cpptoc/read_handler_cpptoc.h"
 
-
-//----------------
-const int MET_Release = 0;
-//----------------  
-
-int32_t MyMetArgGetCount(void* /*MyMetArgsN*/ mymetArgs) {
-	return ((MyMetArgsN*)mymetArgs)->argCount;
-}
-void* MyMetArgGetArgAddressH(void* /*MyMetArgsN*/mymetArgs, int* argCount) {
-	MyMetArgsN* metArg = (MyMetArgsN*)mymetArgs;
-	*argCount = metArg->argCount;
-	return &metArg->vargs;	//return address of arg array 
-}
-void* MyMetArgGetArgAddress(void* /*MyMetArgsN*/mymetArgs, int index) {
-	MyMetArgsN* metArg = (MyMetArgsN*)mymetArgs;
-	if (index > (metArg->argCount)) {
-		return nullptr;
-	}
-	else {
-		return &metArg->vargs[index];
-	}
-}
+ 
 //////////////////////////////////////////////////////////////////
 const int CefTypeName_CefApp = 1;
 const int CefTypeName_CefBrowser = 2;
@@ -253,12 +233,13 @@ public:
 			MyMetArgsN args;
 			memset(&args, 0, sizeof(MyMetArgsN));
 			args.argCount = 2;
-			jsvalue vargs[2];
+			jsvalue vargs[3];
+			memset(&vargs, 0, sizeof(jsvalue) * 3);
 			args.vargs = vargs;
-			SetCefStringToJsValue(&vargs[0], process_type);
-			MyCefSetVoidPtr(&vargs[1], CefCommandLineCToCpp::Unwrap(command_line));
+			SetCefStringToJsValue(&vargs[1], process_type);
+			MyCefSetVoidPtr(&vargs[2], CefCommandLineCToCpp::Unwrap(command_line));
 			mcallback(MyCefApp_OnBeforeCommandLineProcessing_1, &args);
-			DeleteCefStringHolderFromJsValue(&vargs[0]);
+			DeleteCefStringHolderFromJsValue(&vargs[1]);
 		}
 	}
 	//gen! void OnRegisterCustomSchemes(CefRawPtr<CefSchemeRegistrar> registrar)
@@ -267,9 +248,10 @@ public:
 			MyMetArgsN args;
 			memset(&args, 0, sizeof(MyMetArgsN));
 			args.argCount = 1;
-			jsvalue vargs[1];
+			jsvalue vargs[2];
+			memset(&vargs, 0, sizeof(jsvalue) * 2);
 			args.vargs = vargs;
-			MyCefSetVoidPtr(&vargs[0], registrar);
+			MyCefSetVoidPtr(&vargs[1], registrar);
 			mcallback(MyCefApp_OnRegisterCustomSchemes_2, &args);
 		}
 	}
@@ -279,8 +261,11 @@ public:
 			MyMetArgsN args;
 			memset(&args, 0, sizeof(MyMetArgsN));
 			args.argCount = 0;
+			jsvalue vargs[1];
+			memset(&vargs, 0, sizeof(jsvalue) * 1);
+			args.vargs = vargs;
 			mcallback(MyCefApp_GetResourceBundleHandler_3, &args);
-			return CefResourceBundleHandlerCppToC::Unwrap((cef_resource_bundle_handler_t*)args.ret.ptr);
+			return CefResourceBundleHandlerCppToC::Unwrap((cef_resource_bundle_handler_t*)vargs[0].ptr);
 		}
 		return nullptr;
 	}
@@ -290,8 +275,11 @@ public:
 			MyMetArgsN args;
 			memset(&args, 0, sizeof(MyMetArgsN));
 			args.argCount = 0;
+			jsvalue vargs[1];
+			memset(&vargs, 0, sizeof(jsvalue) * 1);
+			args.vargs = vargs;
 			mcallback(MyCefApp_GetBrowserProcessHandler_4, &args);
-			return CefBrowserProcessHandlerCppToC::Unwrap((cef_browser_process_handler_t*)args.ret.ptr);
+			return CefBrowserProcessHandlerCppToC::Unwrap((cef_browser_process_handler_t*)vargs[0].ptr);
 		}
 		return nullptr;
 	}
@@ -301,8 +289,11 @@ public:
 			MyMetArgsN args;
 			memset(&args, 0, sizeof(MyMetArgsN));
 			args.argCount = 0;
+			jsvalue vargs[1];
+			memset(&vargs, 0, sizeof(jsvalue) * 1);
+			args.vargs = vargs;
 			mcallback(MyCefApp_GetRenderProcessHandler_5, &args);
-			return CefRenderProcessHandlerCppToC::Unwrap((cef_render_process_handler_t*)args.ret.ptr);
+			return CefRenderProcessHandlerCppToC::Unwrap((cef_render_process_handler_t*)vargs[0].ptr);
 		}
 		return nullptr;
 	}
@@ -526,14 +517,15 @@ public:
 			MyMetArgsN args;
 			memset(&args, 0, sizeof(MyMetArgsN));
 			args.argCount = 4;
-			jsvalue vargs[4];
+			jsvalue vargs[5];
+			memset(&vargs, 0, sizeof(jsvalue) * 5);
 			args.vargs = vargs;
-			MyCefSetVoidPtr(&vargs[0], CefNavigationEntryCToCpp::Unwrap(entry));
-			MyCefSetBool(&vargs[1], current);
-			MyCefSetInt32(&vargs[2], (int32_t)index);
-			MyCefSetInt32(&vargs[3], (int32_t)total);
+			MyCefSetVoidPtr(&vargs[1], CefNavigationEntryCToCpp::Unwrap(entry));
+			MyCefSetBool(&vargs[2], current);
+			MyCefSetInt32(&vargs[3], (int32_t)index);
+			MyCefSetInt32(&vargs[4], (int32_t)total);
 			mcallback(MyCefNavigationEntryVisitor_Visit_1, &args);
-			return args.ret.i32 != 0;
+			return vargs[0].i32 != 0;
 		}
 		return false;
 	}
@@ -1164,8 +1156,11 @@ public:
 			MyMetArgsN args;
 			memset(&args, 0, sizeof(MyMetArgsN));
 			args.argCount = 0;
+			jsvalue vargs[1];
+			memset(&vargs, 0, sizeof(jsvalue) * 1);
+			args.vargs = vargs;
 			mcallback(MyCefClient_GetContextMenuHandler_1, &args);
-			return CefContextMenuHandlerCppToC::Unwrap((cef_context_menu_handler_t*)args.ret.ptr);
+			return CefContextMenuHandlerCppToC::Unwrap((cef_context_menu_handler_t*)vargs[0].ptr);
 		}
 		return nullptr;
 	}
@@ -1175,8 +1170,11 @@ public:
 			MyMetArgsN args;
 			memset(&args, 0, sizeof(MyMetArgsN));
 			args.argCount = 0;
+			jsvalue vargs[1];
+			memset(&vargs, 0, sizeof(jsvalue) * 1);
+			args.vargs = vargs;
 			mcallback(MyCefClient_GetDialogHandler_2, &args);
-			return CefDialogHandlerCppToC::Unwrap((cef_dialog_handler_t*)args.ret.ptr);
+			return CefDialogHandlerCppToC::Unwrap((cef_dialog_handler_t*)vargs[0].ptr);
 		}
 		return nullptr;
 	}
@@ -1186,8 +1184,11 @@ public:
 			MyMetArgsN args;
 			memset(&args, 0, sizeof(MyMetArgsN));
 			args.argCount = 0;
+			jsvalue vargs[1];
+			memset(&vargs, 0, sizeof(jsvalue) * 1);
+			args.vargs = vargs;
 			mcallback(MyCefClient_GetDisplayHandler_3, &args);
-			return CefDisplayHandlerCppToC::Unwrap((cef_display_handler_t*)args.ret.ptr);
+			return CefDisplayHandlerCppToC::Unwrap((cef_display_handler_t*)vargs[0].ptr);
 		}
 		return nullptr;
 	}
@@ -1197,8 +1198,11 @@ public:
 			MyMetArgsN args;
 			memset(&args, 0, sizeof(MyMetArgsN));
 			args.argCount = 0;
+			jsvalue vargs[1];
+			memset(&vargs, 0, sizeof(jsvalue) * 1);
+			args.vargs = vargs;
 			mcallback(MyCefClient_GetDownloadHandler_4, &args);
-			return CefDownloadHandlerCppToC::Unwrap((cef_download_handler_t*)args.ret.ptr);
+			return CefDownloadHandlerCppToC::Unwrap((cef_download_handler_t*)vargs[0].ptr);
 		}
 		return nullptr;
 	}
@@ -1208,8 +1212,11 @@ public:
 			MyMetArgsN args;
 			memset(&args, 0, sizeof(MyMetArgsN));
 			args.argCount = 0;
+			jsvalue vargs[1];
+			memset(&vargs, 0, sizeof(jsvalue) * 1);
+			args.vargs = vargs;
 			mcallback(MyCefClient_GetDragHandler_5, &args);
-			return CefDragHandlerCppToC::Unwrap((cef_drag_handler_t*)args.ret.ptr);
+			return CefDragHandlerCppToC::Unwrap((cef_drag_handler_t*)vargs[0].ptr);
 		}
 		return nullptr;
 	}
@@ -1219,8 +1226,11 @@ public:
 			MyMetArgsN args;
 			memset(&args, 0, sizeof(MyMetArgsN));
 			args.argCount = 0;
+			jsvalue vargs[1];
+			memset(&vargs, 0, sizeof(jsvalue) * 1);
+			args.vargs = vargs;
 			mcallback(MyCefClient_GetFindHandler_6, &args);
-			return CefFindHandlerCppToC::Unwrap((cef_find_handler_t*)args.ret.ptr);
+			return CefFindHandlerCppToC::Unwrap((cef_find_handler_t*)vargs[0].ptr);
 		}
 		return nullptr;
 	}
@@ -1230,8 +1240,11 @@ public:
 			MyMetArgsN args;
 			memset(&args, 0, sizeof(MyMetArgsN));
 			args.argCount = 0;
+			jsvalue vargs[1];
+			memset(&vargs, 0, sizeof(jsvalue) * 1);
+			args.vargs = vargs;
 			mcallback(MyCefClient_GetFocusHandler_7, &args);
-			return CefFocusHandlerCppToC::Unwrap((cef_focus_handler_t*)args.ret.ptr);
+			return CefFocusHandlerCppToC::Unwrap((cef_focus_handler_t*)vargs[0].ptr);
 		}
 		return nullptr;
 	}
@@ -1241,8 +1254,11 @@ public:
 			MyMetArgsN args;
 			memset(&args, 0, sizeof(MyMetArgsN));
 			args.argCount = 0;
+			jsvalue vargs[1];
+			memset(&vargs, 0, sizeof(jsvalue) * 1);
+			args.vargs = vargs;
 			mcallback(MyCefClient_GetGeolocationHandler_8, &args);
-			return CefGeolocationHandlerCppToC::Unwrap((cef_geolocation_handler_t*)args.ret.ptr);
+			return CefGeolocationHandlerCppToC::Unwrap((cef_geolocation_handler_t*)vargs[0].ptr);
 		}
 		return nullptr;
 	}
@@ -1252,8 +1268,11 @@ public:
 			MyMetArgsN args;
 			memset(&args, 0, sizeof(MyMetArgsN));
 			args.argCount = 0;
+			jsvalue vargs[1];
+			memset(&vargs, 0, sizeof(jsvalue) * 1);
+			args.vargs = vargs;
 			mcallback(MyCefClient_GetJSDialogHandler_9, &args);
-			return CefJSDialogHandlerCppToC::Unwrap((cef_jsdialog_handler_t*)args.ret.ptr);
+			return CefJSDialogHandlerCppToC::Unwrap((cef_jsdialog_handler_t*)vargs[0].ptr);
 		}
 		return nullptr;
 	}
@@ -1263,8 +1282,11 @@ public:
 			MyMetArgsN args;
 			memset(&args, 0, sizeof(MyMetArgsN));
 			args.argCount = 0;
+			jsvalue vargs[1];
+			memset(&vargs, 0, sizeof(jsvalue) * 1);
+			args.vargs = vargs;
 			mcallback(MyCefClient_GetKeyboardHandler_10, &args);
-			return CefKeyboardHandlerCppToC::Unwrap((cef_keyboard_handler_t*)args.ret.ptr);
+			return CefKeyboardHandlerCppToC::Unwrap((cef_keyboard_handler_t*)vargs[0].ptr);
 		}
 		return nullptr;
 	}
@@ -1274,8 +1296,11 @@ public:
 			MyMetArgsN args;
 			memset(&args, 0, sizeof(MyMetArgsN));
 			args.argCount = 0;
+			jsvalue vargs[1];
+			memset(&vargs, 0, sizeof(jsvalue) * 1);
+			args.vargs = vargs;
 			mcallback(MyCefClient_GetLifeSpanHandler_11, &args);
-			return CefLifeSpanHandlerCppToC::Unwrap((cef_life_span_handler_t*)args.ret.ptr);
+			return CefLifeSpanHandlerCppToC::Unwrap((cef_life_span_handler_t*)vargs[0].ptr);
 		}
 		return nullptr;
 	}
@@ -1285,8 +1310,11 @@ public:
 			MyMetArgsN args;
 			memset(&args, 0, sizeof(MyMetArgsN));
 			args.argCount = 0;
+			jsvalue vargs[1];
+			memset(&vargs, 0, sizeof(jsvalue) * 1);
+			args.vargs = vargs;
 			mcallback(MyCefClient_GetLoadHandler_12, &args);
-			return CefLoadHandlerCppToC::Unwrap((cef_load_handler_t*)args.ret.ptr);
+			return CefLoadHandlerCppToC::Unwrap((cef_load_handler_t*)vargs[0].ptr);
 		}
 		return nullptr;
 	}
@@ -1296,8 +1324,11 @@ public:
 			MyMetArgsN args;
 			memset(&args, 0, sizeof(MyMetArgsN));
 			args.argCount = 0;
+			jsvalue vargs[1];
+			memset(&vargs, 0, sizeof(jsvalue) * 1);
+			args.vargs = vargs;
 			mcallback(MyCefClient_GetRenderHandler_13, &args);
-			return CefRenderHandlerCppToC::Unwrap((cef_render_handler_t*)args.ret.ptr);
+			return CefRenderHandlerCppToC::Unwrap((cef_render_handler_t*)vargs[0].ptr);
 		}
 		return nullptr;
 	}
@@ -1307,8 +1338,11 @@ public:
 			MyMetArgsN args;
 			memset(&args, 0, sizeof(MyMetArgsN));
 			args.argCount = 0;
+			jsvalue vargs[1];
+			memset(&vargs, 0, sizeof(jsvalue) * 1);
+			args.vargs = vargs;
 			mcallback(MyCefClient_GetRequestHandler_14, &args);
-			return CefRequestHandlerCppToC::Unwrap((cef_request_handler_t*)args.ret.ptr);
+			return CefRequestHandlerCppToC::Unwrap((cef_request_handler_t*)vargs[0].ptr);
 		}
 		return nullptr;
 	}
@@ -1318,13 +1352,14 @@ public:
 			MyMetArgsN args;
 			memset(&args, 0, sizeof(MyMetArgsN));
 			args.argCount = 3;
-			jsvalue vargs[3];
+			jsvalue vargs[4];
+			memset(&vargs, 0, sizeof(jsvalue) * 4);
 			args.vargs = vargs;
-			MyCefSetVoidPtr(&vargs[0], CefBrowserCToCpp::Unwrap(browser));
-			MyCefSetInt32(&vargs[1], (int32_t)source_process);
-			MyCefSetVoidPtr(&vargs[2], CefProcessMessageCToCpp::Unwrap(message));
+			MyCefSetVoidPtr(&vargs[1], CefBrowserCToCpp::Unwrap(browser));
+			MyCefSetInt32(&vargs[2], (int32_t)source_process);
+			MyCefSetVoidPtr(&vargs[3], CefProcessMessageCToCpp::Unwrap(message));
 			mcallback(MyCefClient_OnProcessMessageReceived_15, &args);
-			return args.ret.i32 != 0;
+			return vargs[0].i32 != 0;
 		}
 		return false;
 	}
@@ -1798,14 +1833,15 @@ public:
 			MyMetArgsN args;
 			memset(&args, 0, sizeof(MyMetArgsN));
 			args.argCount = 4;
-			jsvalue vargs[4];
+			jsvalue vargs[5];
+			memset(&vargs, 0, sizeof(jsvalue) * 5);
 			args.vargs = vargs;
-			MyCefSetVoidPtr2(&vargs[0], &cookie);
-			MyCefSetInt32(&vargs[1], (int32_t)count);
-			MyCefSetInt32(&vargs[2], (int32_t)total);
-			MyCefSetVoidPtr(&vargs[3], &deleteCookie);
+			MyCefSetVoidPtr2(&vargs[1], &cookie);
+			MyCefSetInt32(&vargs[2], (int32_t)count);
+			MyCefSetInt32(&vargs[3], (int32_t)total);
+			MyCefSetVoidPtr(&vargs[4], &deleteCookie);
 			mcallback(MyCefCookieVisitor_Visit_1, &args);
-			return args.ret.i32 != 0;
+			return vargs[0].i32 != 0;
 		}
 		return false;
 	}
@@ -1845,9 +1881,10 @@ public:
 			MyMetArgsN args;
 			memset(&args, 0, sizeof(MyMetArgsN));
 			args.argCount = 1;
-			jsvalue vargs[1];
+			jsvalue vargs[2];
+			memset(&vargs, 0, sizeof(jsvalue) * 2);
 			args.vargs = vargs;
-			MyCefSetVoidPtr(&vargs[0], CefDOMDocumentCToCpp::Unwrap(document));
+			MyCefSetVoidPtr(&vargs[1], CefDOMDocumentCToCpp::Unwrap(document));
 			mcallback(MyCefDOMVisitor_Visit_1, &args);
 		}
 	}
@@ -3518,11 +3555,12 @@ public:
 			MyMetArgsN args;
 			memset(&args, 0, sizeof(MyMetArgsN));
 			args.argCount = 3;
-			jsvalue vargs[3];
+			jsvalue vargs[4];
+			memset(&vargs, 0, sizeof(jsvalue) * 4);
 			args.vargs = vargs;
-			MyCefSetVoidPtr(&vargs[0], CefMenuModelCToCpp::Unwrap(menu_model));
-			MyCefSetInt32(&vargs[1], (int32_t)command_id);
-			MyCefSetInt32(&vargs[2], (int32_t)event_flags);
+			MyCefSetVoidPtr(&vargs[1], CefMenuModelCToCpp::Unwrap(menu_model));
+			MyCefSetInt32(&vargs[2], (int32_t)command_id);
+			MyCefSetInt32(&vargs[3], (int32_t)event_flags);
 			mcallback(MyCefMenuModelDelegate_ExecuteCommand_1, &args);
 		}
 	}
@@ -3532,10 +3570,11 @@ public:
 			MyMetArgsN args;
 			memset(&args, 0, sizeof(MyMetArgsN));
 			args.argCount = 2;
-			jsvalue vargs[2];
+			jsvalue vargs[3];
+			memset(&vargs, 0, sizeof(jsvalue) * 3);
 			args.vargs = vargs;
-			MyCefSetVoidPtr(&vargs[0], CefMenuModelCToCpp::Unwrap(menu_model));
-			MyCefSetVoidPtr2(&vargs[1], &screen_point);
+			MyCefSetVoidPtr(&vargs[1], CefMenuModelCToCpp::Unwrap(menu_model));
+			MyCefSetVoidPtr2(&vargs[2], &screen_point);
 			mcallback(MyCefMenuModelDelegate_MouseOutsideMenu_2, &args);
 		}
 	}
@@ -3545,10 +3584,11 @@ public:
 			MyMetArgsN args;
 			memset(&args, 0, sizeof(MyMetArgsN));
 			args.argCount = 2;
-			jsvalue vargs[2];
+			jsvalue vargs[3];
+			memset(&vargs, 0, sizeof(jsvalue) * 3);
 			args.vargs = vargs;
-			MyCefSetVoidPtr(&vargs[0], CefMenuModelCToCpp::Unwrap(menu_model));
-			MyCefSetBool(&vargs[1], is_rtl);
+			MyCefSetVoidPtr(&vargs[1], CefMenuModelCToCpp::Unwrap(menu_model));
+			MyCefSetBool(&vargs[2], is_rtl);
 			mcallback(MyCefMenuModelDelegate_UnhandledOpenSubmenu_3, &args);
 		}
 	}
@@ -3558,10 +3598,11 @@ public:
 			MyMetArgsN args;
 			memset(&args, 0, sizeof(MyMetArgsN));
 			args.argCount = 2;
-			jsvalue vargs[2];
+			jsvalue vargs[3];
+			memset(&vargs, 0, sizeof(jsvalue) * 3);
 			args.vargs = vargs;
-			MyCefSetVoidPtr(&vargs[0], CefMenuModelCToCpp::Unwrap(menu_model));
-			MyCefSetBool(&vargs[1], is_rtl);
+			MyCefSetVoidPtr(&vargs[1], CefMenuModelCToCpp::Unwrap(menu_model));
+			MyCefSetBool(&vargs[2], is_rtl);
 			mcallback(MyCefMenuModelDelegate_UnhandledCloseSubmenu_4, &args);
 		}
 	}
@@ -3571,9 +3612,10 @@ public:
 			MyMetArgsN args;
 			memset(&args, 0, sizeof(MyMetArgsN));
 			args.argCount = 1;
-			jsvalue vargs[1];
+			jsvalue vargs[2];
+			memset(&vargs, 0, sizeof(jsvalue) * 2);
 			args.vargs = vargs;
-			MyCefSetVoidPtr(&vargs[0], CefMenuModelCToCpp::Unwrap(menu_model));
+			MyCefSetVoidPtr(&vargs[1], CefMenuModelCToCpp::Unwrap(menu_model));
 			mcallback(MyCefMenuModelDelegate_MenuWillShow_5, &args);
 		}
 	}
@@ -3583,9 +3625,10 @@ public:
 			MyMetArgsN args;
 			memset(&args, 0, sizeof(MyMetArgsN));
 			args.argCount = 1;
-			jsvalue vargs[1];
+			jsvalue vargs[2];
+			memset(&vargs, 0, sizeof(jsvalue) * 2);
 			args.vargs = vargs;
-			MyCefSetVoidPtr(&vargs[0], CefMenuModelCToCpp::Unwrap(menu_model));
+			MyCefSetVoidPtr(&vargs[1], CefMenuModelCToCpp::Unwrap(menu_model));
 			mcallback(MyCefMenuModelDelegate_MenuClosed_6, &args);
 		}
 	}
@@ -3595,13 +3638,14 @@ public:
 			MyMetArgsN args;
 			memset(&args, 0, sizeof(MyMetArgsN));
 			args.argCount = 2;
-			jsvalue vargs[2];
+			jsvalue vargs[3];
+			memset(&vargs, 0, sizeof(jsvalue) * 3);
 			args.vargs = vargs;
-			MyCefSetVoidPtr(&vargs[0], CefMenuModelCToCpp::Unwrap(menu_model));
-			SetCefStringToJsValue(&vargs[1], label);
+			MyCefSetVoidPtr(&vargs[1], CefMenuModelCToCpp::Unwrap(menu_model));
+			SetCefStringToJsValue(&vargs[2], label);
 			mcallback(MyCefMenuModelDelegate_FormatLabel_7, &args);
-			DeleteCefStringHolderFromJsValue(&vargs[1]);
-			return args.ret.i32 != 0;
+			DeleteCefStringHolderFromJsValue(&vargs[2]);
+			return vargs[0].i32 != 0;
 		}
 		return false;
 	}
@@ -4632,8 +4676,11 @@ public:
 			MyMetArgsN args;
 			memset(&args, 0, sizeof(MyMetArgsN));
 			args.argCount = 0;
+			jsvalue vargs[1];
+			memset(&vargs, 0, sizeof(jsvalue) * 1);
+			args.vargs = vargs;
 			mcallback(MyCefResponseFilter_InitFilter_1, &args);
-			return args.ret.i32 != 0;
+			return vargs[0].i32 != 0;
 		}
 		return false;
 	}
@@ -4643,16 +4690,17 @@ public:
 			MyMetArgsN args;
 			memset(&args, 0, sizeof(MyMetArgsN));
 			args.argCount = 6;
-			jsvalue vargs[6];
+			jsvalue vargs[7];
+			memset(&vargs, 0, sizeof(jsvalue) * 7);
 			args.vargs = vargs;
-			MyCefSetVoidPtr(&vargs[0], data_in);
-			MyCefSetInt32(&vargs[1], (int32_t)data_in_size);
-			MyCefSetInt32(&vargs[2], (int32_t)data_in_read);
-			MyCefSetVoidPtr(&vargs[3], data_out);
-			MyCefSetInt32(&vargs[4], (int32_t)data_out_size);
-			MyCefSetInt32(&vargs[5], (int32_t)data_out_written);
+			MyCefSetVoidPtr(&vargs[1], data_in);
+			MyCefSetInt32(&vargs[2], (int32_t)data_in_size);
+			MyCefSetInt32(&vargs[3], (int32_t)data_in_read);
+			MyCefSetVoidPtr(&vargs[4], data_out);
+			MyCefSetInt32(&vargs[5], (int32_t)data_out_size);
+			MyCefSetInt32(&vargs[6], (int32_t)data_out_written);
 			mcallback(MyCefResponseFilter_Filter_2, &args);
-			return (cef_response_filter_status_t)args.ret.i32;
+			return (cef_response_filter_status_t)vargs[0].i32;
 		}
 		return (FilterStatus)0;
 	}
@@ -4695,15 +4743,16 @@ public:
 			MyMetArgsN args;
 			memset(&args, 0, sizeof(MyMetArgsN));
 			args.argCount = 4;
-			jsvalue vargs[4];
+			jsvalue vargs[5];
+			memset(&vargs, 0, sizeof(jsvalue) * 5);
 			args.vargs = vargs;
-			MyCefSetVoidPtr(&vargs[0], CefBrowserCToCpp::Unwrap(browser));
-			MyCefSetVoidPtr(&vargs[1], CefFrameCToCpp::Unwrap(frame));
-			SetCefStringToJsValue(&vargs[2], scheme_name);
-			MyCefSetVoidPtr(&vargs[3], CefRequestCToCpp::Unwrap(request));
+			MyCefSetVoidPtr(&vargs[1], CefBrowserCToCpp::Unwrap(browser));
+			MyCefSetVoidPtr(&vargs[2], CefFrameCToCpp::Unwrap(frame));
+			SetCefStringToJsValue(&vargs[3], scheme_name);
+			MyCefSetVoidPtr(&vargs[4], CefRequestCToCpp::Unwrap(request));
 			mcallback(MyCefSchemeHandlerFactory_Create_1, &args);
-			DeleteCefStringHolderFromJsValue(&vargs[2]);
-			return CefResourceHandlerCppToC::Unwrap((cef_resource_handler_t*)args.ret.ptr);
+			DeleteCefStringHolderFromJsValue(&vargs[3]);
+			return CefResourceHandlerCppToC::Unwrap((cef_resource_handler_t*)vargs[0].ptr);
 		}
 		return nullptr;
 	}
@@ -4933,11 +4982,12 @@ public:
 			MyMetArgsN args;
 			memset(&args, 0, sizeof(MyMetArgsN));
 			args.argCount = 1;
-			jsvalue vargs[1];
+			jsvalue vargs[2];
+			memset(&vargs, 0, sizeof(jsvalue) * 2);
 			args.vargs = vargs;
-			SetCefStringToJsValue(&vargs[0], string);
+			SetCefStringToJsValue(&vargs[1], string);
 			mcallback(MyCefStringVisitor_Visit_1, &args);
-			DeleteCefStringHolderFromJsValue(&vargs[0]);
+			DeleteCefStringHolderFromJsValue(&vargs[1]);
 		}
 	}
 private:
@@ -4976,6 +5026,9 @@ public:
 			MyMetArgsN args;
 			memset(&args, 0, sizeof(MyMetArgsN));
 			args.argCount = 0;
+			jsvalue vargs[1];
+			memset(&vargs, 0, sizeof(jsvalue) * 1);
+			args.vargs = vargs;
 			mcallback(MyCefTask_Execute_1, &args);
 		}
 	}
@@ -5175,9 +5228,10 @@ public:
 			MyMetArgsN args;
 			memset(&args, 0, sizeof(MyMetArgsN));
 			args.argCount = 1;
-			jsvalue vargs[1];
+			jsvalue vargs[2];
+			memset(&vargs, 0, sizeof(jsvalue) * 2);
 			args.vargs = vargs;
-			MyCefSetVoidPtr(&vargs[0], CefURLRequestCToCpp::Unwrap(request));
+			MyCefSetVoidPtr(&vargs[1], CefURLRequestCToCpp::Unwrap(request));
 			mcallback(MyCefURLRequestClient_OnRequestComplete_1, &args);
 		}
 	}
@@ -5187,11 +5241,12 @@ public:
 			MyMetArgsN args;
 			memset(&args, 0, sizeof(MyMetArgsN));
 			args.argCount = 3;
-			jsvalue vargs[3];
+			jsvalue vargs[4];
+			memset(&vargs, 0, sizeof(jsvalue) * 4);
 			args.vargs = vargs;
-			MyCefSetVoidPtr(&vargs[0], CefURLRequestCToCpp::Unwrap(request));
-			MyCefSetInt64(&vargs[1], current);
-			MyCefSetInt64(&vargs[2], total);
+			MyCefSetVoidPtr(&vargs[1], CefURLRequestCToCpp::Unwrap(request));
+			MyCefSetInt64(&vargs[2], current);
+			MyCefSetInt64(&vargs[3], total);
 			mcallback(MyCefURLRequestClient_OnUploadProgress_2, &args);
 		}
 	}
@@ -5201,11 +5256,12 @@ public:
 			MyMetArgsN args;
 			memset(&args, 0, sizeof(MyMetArgsN));
 			args.argCount = 3;
-			jsvalue vargs[3];
+			jsvalue vargs[4];
+			memset(&vargs, 0, sizeof(jsvalue) * 4);
 			args.vargs = vargs;
-			MyCefSetVoidPtr(&vargs[0], CefURLRequestCToCpp::Unwrap(request));
-			MyCefSetInt64(&vargs[1], current);
-			MyCefSetInt64(&vargs[2], total);
+			MyCefSetVoidPtr(&vargs[1], CefURLRequestCToCpp::Unwrap(request));
+			MyCefSetInt64(&vargs[2], current);
+			MyCefSetInt64(&vargs[3], total);
 			mcallback(MyCefURLRequestClient_OnDownloadProgress_3, &args);
 		}
 	}
@@ -5215,11 +5271,12 @@ public:
 			MyMetArgsN args;
 			memset(&args, 0, sizeof(MyMetArgsN));
 			args.argCount = 3;
-			jsvalue vargs[3];
+			jsvalue vargs[4];
+			memset(&vargs, 0, sizeof(jsvalue) * 4);
 			args.vargs = vargs;
-			MyCefSetVoidPtr(&vargs[0], CefURLRequestCToCpp::Unwrap(request));
-			MyCefSetVoidPtr2(&vargs[1], data);
-			MyCefSetInt32(&vargs[2], (int32_t)data_length);
+			MyCefSetVoidPtr(&vargs[1], CefURLRequestCToCpp::Unwrap(request));
+			MyCefSetVoidPtr2(&vargs[2], data);
+			MyCefSetInt32(&vargs[3], (int32_t)data_length);
 			mcallback(MyCefURLRequestClient_OnDownloadData_4, &args);
 		}
 	}
@@ -5229,19 +5286,20 @@ public:
 			MyMetArgsN args;
 			memset(&args, 0, sizeof(MyMetArgsN));
 			args.argCount = 6;
-			jsvalue vargs[6];
+			jsvalue vargs[7];
+			memset(&vargs, 0, sizeof(jsvalue) * 7);
 			args.vargs = vargs;
-			MyCefSetBool(&vargs[0], isProxy);
-			SetCefStringToJsValue(&vargs[1], host);
-			MyCefSetInt32(&vargs[2], (int32_t)port);
-			SetCefStringToJsValue(&vargs[3], realm);
-			SetCefStringToJsValue(&vargs[4], scheme);
-			MyCefSetVoidPtr(&vargs[5], CefAuthCallbackCToCpp::Unwrap(callback));
+			MyCefSetBool(&vargs[1], isProxy);
+			SetCefStringToJsValue(&vargs[2], host);
+			MyCefSetInt32(&vargs[3], (int32_t)port);
+			SetCefStringToJsValue(&vargs[4], realm);
+			SetCefStringToJsValue(&vargs[5], scheme);
+			MyCefSetVoidPtr(&vargs[6], CefAuthCallbackCToCpp::Unwrap(callback));
 			mcallback(MyCefURLRequestClient_GetAuthCredentials_5, &args);
-			DeleteCefStringHolderFromJsValue(&vargs[1]);
-			DeleteCefStringHolderFromJsValue(&vargs[3]);
+			DeleteCefStringHolderFromJsValue(&vargs[2]);
 			DeleteCefStringHolderFromJsValue(&vargs[4]);
-			return args.ret.i32 != 0;
+			DeleteCefStringHolderFromJsValue(&vargs[5]);
+			return vargs[0].i32 != 0;
 		}
 		return false;
 	}
@@ -5384,16 +5442,17 @@ public:
 			MyMetArgsN args;
 			memset(&args, 0, sizeof(MyMetArgsN));
 			args.argCount = 4;
-			jsvalue vargs[4];
+			jsvalue vargs[5];
+			memset(&vargs, 0, sizeof(jsvalue) * 5);
 			args.vargs = vargs;
-			SetCefStringToJsValue(&vargs[0], name);
-			MyCefSetVoidPtr(&vargs[1], CefV8ValueCToCpp::Unwrap(object));
-			MyCefSetVoidPtr(&vargs[2], retval);
-			SetCefStringToJsValue(&vargs[3], exception);
+			SetCefStringToJsValue(&vargs[1], name);
+			MyCefSetVoidPtr(&vargs[2], CefV8ValueCToCpp::Unwrap(object));
+			MyCefSetVoidPtr(&vargs[3], retval);
+			SetCefStringToJsValue(&vargs[4], exception);
 			mcallback(MyCefV8Accessor_Get_1, &args);
-			DeleteCefStringHolderFromJsValue(&vargs[0]);
-			DeleteCefStringHolderFromJsValue(&vargs[3]);
-			return args.ret.i32 != 0;
+			DeleteCefStringHolderFromJsValue(&vargs[1]);
+			DeleteCefStringHolderFromJsValue(&vargs[4]);
+			return vargs[0].i32 != 0;
 		}
 		return false;
 	}
@@ -5403,16 +5462,17 @@ public:
 			MyMetArgsN args;
 			memset(&args, 0, sizeof(MyMetArgsN));
 			args.argCount = 4;
-			jsvalue vargs[4];
+			jsvalue vargs[5];
+			memset(&vargs, 0, sizeof(jsvalue) * 5);
 			args.vargs = vargs;
-			SetCefStringToJsValue(&vargs[0], name);
-			MyCefSetVoidPtr(&vargs[1], CefV8ValueCToCpp::Unwrap(object));
-			MyCefSetVoidPtr(&vargs[2], CefV8ValueCToCpp::Unwrap(value));
-			SetCefStringToJsValue(&vargs[3], exception);
+			SetCefStringToJsValue(&vargs[1], name);
+			MyCefSetVoidPtr(&vargs[2], CefV8ValueCToCpp::Unwrap(object));
+			MyCefSetVoidPtr(&vargs[3], CefV8ValueCToCpp::Unwrap(value));
+			SetCefStringToJsValue(&vargs[4], exception);
 			mcallback(MyCefV8Accessor_Set_2, &args);
-			DeleteCefStringHolderFromJsValue(&vargs[0]);
-			DeleteCefStringHolderFromJsValue(&vargs[3]);
-			return args.ret.i32 != 0;
+			DeleteCefStringHolderFromJsValue(&vargs[1]);
+			DeleteCefStringHolderFromJsValue(&vargs[4]);
+			return vargs[0].i32 != 0;
 		}
 		return false;
 	}
@@ -5491,16 +5551,17 @@ public:
 			MyMetArgsN args;
 			memset(&args, 0, sizeof(MyMetArgsN));
 			args.argCount = 4;
-			jsvalue vargs[4];
+			jsvalue vargs[5];
+			memset(&vargs, 0, sizeof(jsvalue) * 5);
 			args.vargs = vargs;
-			SetCefStringToJsValue(&vargs[0], name);
-			MyCefSetVoidPtr(&vargs[1], CefV8ValueCToCpp::Unwrap(object));
-			MyCefSetVoidPtr(&vargs[2], retval);
-			SetCefStringToJsValue(&vargs[3], exception);
+			SetCefStringToJsValue(&vargs[1], name);
+			MyCefSetVoidPtr(&vargs[2], CefV8ValueCToCpp::Unwrap(object));
+			MyCefSetVoidPtr(&vargs[3], retval);
+			SetCefStringToJsValue(&vargs[4], exception);
 			mcallback(MyCefV8Interceptor_Get_1, &args);
-			DeleteCefStringHolderFromJsValue(&vargs[0]);
-			DeleteCefStringHolderFromJsValue(&vargs[3]);
-			return args.ret.i32 != 0;
+			DeleteCefStringHolderFromJsValue(&vargs[1]);
+			DeleteCefStringHolderFromJsValue(&vargs[4]);
+			return vargs[0].i32 != 0;
 		}
 		return false;
 	}
@@ -5510,15 +5571,16 @@ public:
 			MyMetArgsN args;
 			memset(&args, 0, sizeof(MyMetArgsN));
 			args.argCount = 4;
-			jsvalue vargs[4];
+			jsvalue vargs[5];
+			memset(&vargs, 0, sizeof(jsvalue) * 5);
 			args.vargs = vargs;
-			MyCefSetInt32(&vargs[0], (int32_t)index);
-			MyCefSetVoidPtr(&vargs[1], CefV8ValueCToCpp::Unwrap(object));
-			MyCefSetVoidPtr(&vargs[2], retval);
-			SetCefStringToJsValue(&vargs[3], exception);
+			MyCefSetInt32(&vargs[1], (int32_t)index);
+			MyCefSetVoidPtr(&vargs[2], CefV8ValueCToCpp::Unwrap(object));
+			MyCefSetVoidPtr(&vargs[3], retval);
+			SetCefStringToJsValue(&vargs[4], exception);
 			mcallback(MyCefV8Interceptor_Get_2, &args);
-			DeleteCefStringHolderFromJsValue(&vargs[3]);
-			return args.ret.i32 != 0;
+			DeleteCefStringHolderFromJsValue(&vargs[4]);
+			return vargs[0].i32 != 0;
 		}
 		return false;
 	}
@@ -5528,16 +5590,17 @@ public:
 			MyMetArgsN args;
 			memset(&args, 0, sizeof(MyMetArgsN));
 			args.argCount = 4;
-			jsvalue vargs[4];
+			jsvalue vargs[5];
+			memset(&vargs, 0, sizeof(jsvalue) * 5);
 			args.vargs = vargs;
-			SetCefStringToJsValue(&vargs[0], name);
-			MyCefSetVoidPtr(&vargs[1], CefV8ValueCToCpp::Unwrap(object));
-			MyCefSetVoidPtr(&vargs[2], CefV8ValueCToCpp::Unwrap(value));
-			SetCefStringToJsValue(&vargs[3], exception);
+			SetCefStringToJsValue(&vargs[1], name);
+			MyCefSetVoidPtr(&vargs[2], CefV8ValueCToCpp::Unwrap(object));
+			MyCefSetVoidPtr(&vargs[3], CefV8ValueCToCpp::Unwrap(value));
+			SetCefStringToJsValue(&vargs[4], exception);
 			mcallback(MyCefV8Interceptor_Set_3, &args);
-			DeleteCefStringHolderFromJsValue(&vargs[0]);
-			DeleteCefStringHolderFromJsValue(&vargs[3]);
-			return args.ret.i32 != 0;
+			DeleteCefStringHolderFromJsValue(&vargs[1]);
+			DeleteCefStringHolderFromJsValue(&vargs[4]);
+			return vargs[0].i32 != 0;
 		}
 		return false;
 	}
@@ -5547,15 +5610,16 @@ public:
 			MyMetArgsN args;
 			memset(&args, 0, sizeof(MyMetArgsN));
 			args.argCount = 4;
-			jsvalue vargs[4];
+			jsvalue vargs[5];
+			memset(&vargs, 0, sizeof(jsvalue) * 5);
 			args.vargs = vargs;
-			MyCefSetInt32(&vargs[0], (int32_t)index);
-			MyCefSetVoidPtr(&vargs[1], CefV8ValueCToCpp::Unwrap(object));
-			MyCefSetVoidPtr(&vargs[2], CefV8ValueCToCpp::Unwrap(value));
-			SetCefStringToJsValue(&vargs[3], exception);
+			MyCefSetInt32(&vargs[1], (int32_t)index);
+			MyCefSetVoidPtr(&vargs[2], CefV8ValueCToCpp::Unwrap(object));
+			MyCefSetVoidPtr(&vargs[3], CefV8ValueCToCpp::Unwrap(value));
+			SetCefStringToJsValue(&vargs[4], exception);
 			mcallback(MyCefV8Interceptor_Set_4, &args);
-			DeleteCefStringHolderFromJsValue(&vargs[3]);
-			return args.ret.i32 != 0;
+			DeleteCefStringHolderFromJsValue(&vargs[4]);
+			return vargs[0].i32 != 0;
 		}
 		return false;
 	}
@@ -6957,13 +7021,14 @@ public:
 			MyMetArgsN args;
 			memset(&args, 0, sizeof(MyMetArgsN));
 			args.argCount = 3;
-			jsvalue vargs[3];
+			jsvalue vargs[4];
+			memset(&vargs, 0, sizeof(jsvalue) * 4);
 			args.vargs = vargs;
-			MyCefSetVoidPtr(&vargs[0], CefWebPluginInfoCToCpp::Unwrap(info));
-			MyCefSetInt32(&vargs[1], (int32_t)count);
-			MyCefSetInt32(&vargs[2], (int32_t)total);
+			MyCefSetVoidPtr(&vargs[1], CefWebPluginInfoCToCpp::Unwrap(info));
+			MyCefSetInt32(&vargs[2], (int32_t)count);
+			MyCefSetInt32(&vargs[3], (int32_t)total);
 			mcallback(MyCefWebPluginInfoVisitor_Visit_1, &args);
-			return args.ret.i32 != 0;
+			return vargs[0].i32 != 0;
 		}
 		return false;
 	}
@@ -7548,10 +7613,11 @@ public:
 			MyMetArgsN args;
 			memset(&args, 0, sizeof(MyMetArgsN));
 			args.argCount = 2;
-			jsvalue vargs[2];
+			jsvalue vargs[3];
+			memset(&vargs, 0, sizeof(jsvalue) * 3);
 			args.vargs = vargs;
-			MyCefSetInt32(&vargs[0], (int32_t)selected_accept_filter);
-			MyCefSetVoidPtr2(&vargs[1], &file_paths);
+			MyCefSetInt32(&vargs[1], (int32_t)selected_accept_filter);
+			MyCefSetVoidPtr2(&vargs[2], &file_paths);
 			mcallback(MyCefRunFileDialogCallback_OnFileDialogDismissed_1, &args);
 		}
 	}
@@ -7581,12 +7647,13 @@ public:
 			MyMetArgsN args;
 			memset(&args, 0, sizeof(MyMetArgsN));
 			args.argCount = 2;
-			jsvalue vargs[2];
+			jsvalue vargs[3];
+			memset(&vargs, 0, sizeof(jsvalue) * 3);
 			args.vargs = vargs;
-			SetCefStringToJsValue(&vargs[0], path);
-			MyCefSetBool(&vargs[1], ok);
+			SetCefStringToJsValue(&vargs[1], path);
+			MyCefSetBool(&vargs[2], ok);
 			mcallback(MyCefPdfPrintCallback_OnPdfPrintFinished_1, &args);
-			DeleteCefStringHolderFromJsValue(&vargs[0]);
+			DeleteCefStringHolderFromJsValue(&vargs[1]);
 		}
 	}
 private:
@@ -7615,13 +7682,14 @@ public:
 			MyMetArgsN args;
 			memset(&args, 0, sizeof(MyMetArgsN));
 			args.argCount = 3;
-			jsvalue vargs[3];
+			jsvalue vargs[4];
+			memset(&vargs, 0, sizeof(jsvalue) * 4);
 			args.vargs = vargs;
-			SetCefStringToJsValue(&vargs[0], image_url);
-			MyCefSetInt32(&vargs[1], (int32_t)http_status_code);
-			MyCefSetVoidPtr(&vargs[2], CefImageCToCpp::Unwrap(image));
+			SetCefStringToJsValue(&vargs[1], image_url);
+			MyCefSetInt32(&vargs[2], (int32_t)http_status_code);
+			MyCefSetVoidPtr(&vargs[3], CefImageCToCpp::Unwrap(image));
 			mcallback(MyCefDownloadImageCallback_OnDownloadImageFinished_1, &args);
-			DeleteCefStringHolderFromJsValue(&vargs[0]);
+			DeleteCefStringHolderFromJsValue(&vargs[1]);
 		}
 	}
 private:
@@ -7675,6 +7743,9 @@ public:
 			MyMetArgsN args;
 			memset(&args, 0, sizeof(MyMetArgsN));
 			args.argCount = 0;
+			jsvalue vargs[1];
+			memset(&vargs, 0, sizeof(jsvalue) * 1);
+			args.vargs = vargs;
 			mcallback(MyCefCompletionCallback_OnComplete_1, &args);
 		}
 	}
@@ -7730,9 +7801,10 @@ public:
 			MyMetArgsN args;
 			memset(&args, 0, sizeof(MyMetArgsN));
 			args.argCount = 1;
-			jsvalue vargs[1];
+			jsvalue vargs[2];
+			memset(&vargs, 0, sizeof(jsvalue) * 2);
 			args.vargs = vargs;
-			MyCefSetBool(&vargs[0], success);
+			MyCefSetBool(&vargs[1], success);
 			mcallback(MyCefSetCookieCallback_OnComplete_1, &args);
 		}
 	}
@@ -7762,9 +7834,10 @@ public:
 			MyMetArgsN args;
 			memset(&args, 0, sizeof(MyMetArgsN));
 			args.argCount = 1;
-			jsvalue vargs[1];
+			jsvalue vargs[2];
+			memset(&vargs, 0, sizeof(jsvalue) * 2);
 			args.vargs = vargs;
-			MyCefSetInt32(&vargs[0], (int32_t)num_deleted);
+			MyCefSetInt32(&vargs[1], (int32_t)num_deleted);
 			mcallback(MyCefDeleteCookiesCallback_OnComplete_1, &args);
 		}
 	}
@@ -7871,9 +7944,10 @@ public:
 			MyMetArgsN args;
 			memset(&args, 0, sizeof(MyMetArgsN));
 			args.argCount = 1;
-			jsvalue vargs[1];
+			jsvalue vargs[2];
+			memset(&vargs, 0, sizeof(jsvalue) * 2);
 			args.vargs = vargs;
-			MyCefSetVoidPtr2(&vargs[0], &position);
+			MyCefSetVoidPtr2(&vargs[1], &position);
 			mcallback(MyCefGetGeolocationCallback_OnLocationUpdate_1, &args);
 		}
 	}
@@ -7980,10 +8054,11 @@ public:
 			MyMetArgsN args;
 			memset(&args, 0, sizeof(MyMetArgsN));
 			args.argCount = 2;
-			jsvalue vargs[2];
+			jsvalue vargs[3];
+			memset(&vargs, 0, sizeof(jsvalue) * 3);
 			args.vargs = vargs;
-			MyCefSetInt32(&vargs[0], (int32_t)result);
-			MyCefSetVoidPtr2(&vargs[1], &resolved_ips);
+			MyCefSetInt32(&vargs[1], (int32_t)result);
+			MyCefSetVoidPtr2(&vargs[2], &resolved_ips);
 			mcallback(MyCefResolveCallback_OnResolveCompleted_1, &args);
 		}
 	}
@@ -8055,11 +8130,12 @@ public:
 			MyMetArgsN args;
 			memset(&args, 0, sizeof(MyMetArgsN));
 			args.argCount = 1;
-			jsvalue vargs[1];
+			jsvalue vargs[2];
+			memset(&vargs, 0, sizeof(jsvalue) * 2);
 			args.vargs = vargs;
-			SetCefStringToJsValue(&vargs[0], tracing_file);
+			SetCefStringToJsValue(&vargs[1], tracing_file);
 			mcallback(MyCefEndTracingCallback_OnEndTracingComplete_1, &args);
-			DeleteCefStringHolderFromJsValue(&vargs[0]);
+			DeleteCefStringHolderFromJsValue(&vargs[1]);
 		}
 	}
 private:
@@ -8106,12 +8182,13 @@ public:
 			MyMetArgsN args;
 			memset(&args, 0, sizeof(MyMetArgsN));
 			args.argCount = 2;
-			jsvalue vargs[2];
+			jsvalue vargs[3];
+			memset(&vargs, 0, sizeof(jsvalue) * 3);
 			args.vargs = vargs;
-			MyCefSetInt32(&vargs[0], (int32_t)result);
-			SetCefStringToJsValue(&vargs[1], error_message);
+			MyCefSetInt32(&vargs[1], (int32_t)result);
+			SetCefStringToJsValue(&vargs[2], error_message);
 			mcallback(MyCefRegisterCdmCallback_OnCdmRegistrationComplete_1, &args);
-			DeleteCefStringHolderFromJsValue(&vargs[1]);
+			DeleteCefStringHolderFromJsValue(&vargs[2]);
 		}
 	}
 private:
@@ -8137,9 +8214,10 @@ namespace CefAccessibilityHandlerExt {
 			MyMetArgsN args;
 			memset(&args, 0, sizeof(MyMetArgsN));
 			args.argCount = 1;
-			jsvalue vargs[1];
+			jsvalue vargs[2];
+			memset(&vargs, 0, sizeof(jsvalue) * 2);
 			args.vargs = vargs;
-			MyCefSetVoidPtr(&vargs[0], CefValueCToCpp::Unwrap(value));
+			MyCefSetVoidPtr(&vargs[1], CefValueCToCpp::Unwrap(value));
 			mcallback((_typeName << 16) | CefAccessibilityHandlerExt_OnAccessibilityTreeChange_1, &args);
 		}
 	}
@@ -8149,9 +8227,10 @@ namespace CefAccessibilityHandlerExt {
 			MyMetArgsN args;
 			memset(&args, 0, sizeof(MyMetArgsN));
 			args.argCount = 1;
-			jsvalue vargs[1];
+			jsvalue vargs[2];
+			memset(&vargs, 0, sizeof(jsvalue) * 2);
 			args.vargs = vargs;
-			MyCefSetVoidPtr(&vargs[0], CefValueCToCpp::Unwrap(value));
+			MyCefSetVoidPtr(&vargs[1], CefValueCToCpp::Unwrap(value));
 			mcallback((_typeName << 16) | CefAccessibilityHandlerExt_OnAccessibilityLocationChange_2, &args);
 		}
 	}
@@ -8169,6 +8248,9 @@ namespace CefBrowserProcessHandlerExt {
 			MyMetArgsN args;
 			memset(&args, 0, sizeof(MyMetArgsN));
 			args.argCount = 0;
+			jsvalue vargs[1];
+			memset(&vargs, 0, sizeof(jsvalue) * 1);
+			args.vargs = vargs;
 			mcallback((_typeName << 16) | CefBrowserProcessHandlerExt_OnContextInitialized_1, &args);
 		}
 	}
@@ -8178,9 +8260,10 @@ namespace CefBrowserProcessHandlerExt {
 			MyMetArgsN args;
 			memset(&args, 0, sizeof(MyMetArgsN));
 			args.argCount = 1;
-			jsvalue vargs[1];
+			jsvalue vargs[2];
+			memset(&vargs, 0, sizeof(jsvalue) * 2);
 			args.vargs = vargs;
-			MyCefSetVoidPtr(&vargs[0], CefCommandLineCToCpp::Unwrap(command_line));
+			MyCefSetVoidPtr(&vargs[1], CefCommandLineCToCpp::Unwrap(command_line));
 			mcallback((_typeName << 16) | CefBrowserProcessHandlerExt_OnBeforeChildProcessLaunch_2, &args);
 		}
 	}
@@ -8190,9 +8273,10 @@ namespace CefBrowserProcessHandlerExt {
 			MyMetArgsN args;
 			memset(&args, 0, sizeof(MyMetArgsN));
 			args.argCount = 1;
-			jsvalue vargs[1];
+			jsvalue vargs[2];
+			memset(&vargs, 0, sizeof(jsvalue) * 2);
 			args.vargs = vargs;
-			MyCefSetVoidPtr(&vargs[0], CefListValueCToCpp::Unwrap(extra_info));
+			MyCefSetVoidPtr(&vargs[1], CefListValueCToCpp::Unwrap(extra_info));
 			mcallback((_typeName << 16) | CefBrowserProcessHandlerExt_OnRenderProcessThreadCreated_3, &args);
 		}
 	}
@@ -8202,8 +8286,11 @@ namespace CefBrowserProcessHandlerExt {
 			MyMetArgsN args;
 			memset(&args, 0, sizeof(MyMetArgsN));
 			args.argCount = 0;
+			jsvalue vargs[1];
+			memset(&vargs, 0, sizeof(jsvalue) * 1);
+			args.vargs = vargs;
 			mcallback((_typeName << 16) | CefBrowserProcessHandlerExt_GetPrintHandler_4, &args);
-			return CefPrintHandlerCppToC::Unwrap((cef_print_handler_t*)args.ret.ptr);
+			return CefPrintHandlerCppToC::Unwrap((cef_print_handler_t*)vargs[0].ptr);
 		}
 		return nullptr;
 	}
@@ -8213,9 +8300,10 @@ namespace CefBrowserProcessHandlerExt {
 			MyMetArgsN args;
 			memset(&args, 0, sizeof(MyMetArgsN));
 			args.argCount = 1;
-			jsvalue vargs[1];
+			jsvalue vargs[2];
+			memset(&vargs, 0, sizeof(jsvalue) * 2);
 			args.vargs = vargs;
-			MyCefSetInt64(&vargs[0], delay_ms);
+			MyCefSetInt64(&vargs[1], delay_ms);
 			mcallback((_typeName << 16) | CefBrowserProcessHandlerExt_OnScheduleMessagePumpWork_5, &args);
 		}
 	}
@@ -8232,12 +8320,13 @@ namespace CefContextMenuHandlerExt {
 			MyMetArgsN args;
 			memset(&args, 0, sizeof(MyMetArgsN));
 			args.argCount = 4;
-			jsvalue vargs[4];
+			jsvalue vargs[5];
+			memset(&vargs, 0, sizeof(jsvalue) * 5);
 			args.vargs = vargs;
-			MyCefSetVoidPtr(&vargs[0], CefBrowserCToCpp::Unwrap(browser));
-			MyCefSetVoidPtr(&vargs[1], CefFrameCToCpp::Unwrap(frame));
-			MyCefSetVoidPtr(&vargs[2], CefContextMenuParamsCToCpp::Unwrap(params));
-			MyCefSetVoidPtr(&vargs[3], CefMenuModelCToCpp::Unwrap(model));
+			MyCefSetVoidPtr(&vargs[1], CefBrowserCToCpp::Unwrap(browser));
+			MyCefSetVoidPtr(&vargs[2], CefFrameCToCpp::Unwrap(frame));
+			MyCefSetVoidPtr(&vargs[3], CefContextMenuParamsCToCpp::Unwrap(params));
+			MyCefSetVoidPtr(&vargs[4], CefMenuModelCToCpp::Unwrap(model));
 			mcallback((_typeName << 16) | CefContextMenuHandlerExt_OnBeforeContextMenu_1, &args);
 		}
 	}
@@ -8247,15 +8336,16 @@ namespace CefContextMenuHandlerExt {
 			MyMetArgsN args;
 			memset(&args, 0, sizeof(MyMetArgsN));
 			args.argCount = 5;
-			jsvalue vargs[5];
+			jsvalue vargs[6];
+			memset(&vargs, 0, sizeof(jsvalue) * 6);
 			args.vargs = vargs;
-			MyCefSetVoidPtr(&vargs[0], CefBrowserCToCpp::Unwrap(browser));
-			MyCefSetVoidPtr(&vargs[1], CefFrameCToCpp::Unwrap(frame));
-			MyCefSetVoidPtr(&vargs[2], CefContextMenuParamsCToCpp::Unwrap(params));
-			MyCefSetVoidPtr(&vargs[3], CefMenuModelCToCpp::Unwrap(model));
-			MyCefSetVoidPtr(&vargs[4], CefRunContextMenuCallbackCToCpp::Unwrap(callback));
+			MyCefSetVoidPtr(&vargs[1], CefBrowserCToCpp::Unwrap(browser));
+			MyCefSetVoidPtr(&vargs[2], CefFrameCToCpp::Unwrap(frame));
+			MyCefSetVoidPtr(&vargs[3], CefContextMenuParamsCToCpp::Unwrap(params));
+			MyCefSetVoidPtr(&vargs[4], CefMenuModelCToCpp::Unwrap(model));
+			MyCefSetVoidPtr(&vargs[5], CefRunContextMenuCallbackCToCpp::Unwrap(callback));
 			mcallback((_typeName << 16) | CefContextMenuHandlerExt_RunContextMenu_2, &args);
-			return args.ret.i32 != 0;
+			return vargs[0].i32 != 0;
 		}
 		return false;
 	}
@@ -8265,15 +8355,16 @@ namespace CefContextMenuHandlerExt {
 			MyMetArgsN args;
 			memset(&args, 0, sizeof(MyMetArgsN));
 			args.argCount = 5;
-			jsvalue vargs[5];
+			jsvalue vargs[6];
+			memset(&vargs, 0, sizeof(jsvalue) * 6);
 			args.vargs = vargs;
-			MyCefSetVoidPtr(&vargs[0], CefBrowserCToCpp::Unwrap(browser));
-			MyCefSetVoidPtr(&vargs[1], CefFrameCToCpp::Unwrap(frame));
-			MyCefSetVoidPtr(&vargs[2], CefContextMenuParamsCToCpp::Unwrap(params));
-			MyCefSetInt32(&vargs[3], (int32_t)command_id);
-			MyCefSetInt32(&vargs[4], (int32_t)event_flags);
+			MyCefSetVoidPtr(&vargs[1], CefBrowserCToCpp::Unwrap(browser));
+			MyCefSetVoidPtr(&vargs[2], CefFrameCToCpp::Unwrap(frame));
+			MyCefSetVoidPtr(&vargs[3], CefContextMenuParamsCToCpp::Unwrap(params));
+			MyCefSetInt32(&vargs[4], (int32_t)command_id);
+			MyCefSetInt32(&vargs[5], (int32_t)event_flags);
 			mcallback((_typeName << 16) | CefContextMenuHandlerExt_OnContextMenuCommand_3, &args);
-			return args.ret.i32 != 0;
+			return vargs[0].i32 != 0;
 		}
 		return false;
 	}
@@ -8283,10 +8374,11 @@ namespace CefContextMenuHandlerExt {
 			MyMetArgsN args;
 			memset(&args, 0, sizeof(MyMetArgsN));
 			args.argCount = 2;
-			jsvalue vargs[2];
+			jsvalue vargs[3];
+			memset(&vargs, 0, sizeof(jsvalue) * 3);
 			args.vargs = vargs;
-			MyCefSetVoidPtr(&vargs[0], CefBrowserCToCpp::Unwrap(browser));
-			MyCefSetVoidPtr(&vargs[1], CefFrameCToCpp::Unwrap(frame));
+			MyCefSetVoidPtr(&vargs[1], CefBrowserCToCpp::Unwrap(browser));
+			MyCefSetVoidPtr(&vargs[2], CefFrameCToCpp::Unwrap(frame));
 			mcallback((_typeName << 16) | CefContextMenuHandlerExt_OnContextMenuDismissed_4, &args);
 		}
 	}
@@ -8300,19 +8392,20 @@ namespace CefDialogHandlerExt {
 			MyMetArgsN args;
 			memset(&args, 0, sizeof(MyMetArgsN));
 			args.argCount = 7;
-			jsvalue vargs[7];
+			jsvalue vargs[8];
+			memset(&vargs, 0, sizeof(jsvalue) * 8);
 			args.vargs = vargs;
-			MyCefSetVoidPtr(&vargs[0], CefBrowserCToCpp::Unwrap(browser));
-			MyCefSetInt32(&vargs[1], (int32_t)mode);
-			SetCefStringToJsValue(&vargs[2], title);
-			SetCefStringToJsValue(&vargs[3], default_file_path);
-			MyCefSetVoidPtr2(&vargs[4], &accept_filters);
-			MyCefSetInt32(&vargs[5], (int32_t)selected_accept_filter);
-			MyCefSetVoidPtr(&vargs[6], CefFileDialogCallbackCToCpp::Unwrap(callback));
+			MyCefSetVoidPtr(&vargs[1], CefBrowserCToCpp::Unwrap(browser));
+			MyCefSetInt32(&vargs[2], (int32_t)mode);
+			SetCefStringToJsValue(&vargs[3], title);
+			SetCefStringToJsValue(&vargs[4], default_file_path);
+			MyCefSetVoidPtr2(&vargs[5], &accept_filters);
+			MyCefSetInt32(&vargs[6], (int32_t)selected_accept_filter);
+			MyCefSetVoidPtr(&vargs[7], CefFileDialogCallbackCToCpp::Unwrap(callback));
 			mcallback((_typeName << 16) | CefDialogHandlerExt_OnFileDialog_1, &args);
-			DeleteCefStringHolderFromJsValue(&vargs[2]);
 			DeleteCefStringHolderFromJsValue(&vargs[3]);
-			return args.ret.i32 != 0;
+			DeleteCefStringHolderFromJsValue(&vargs[4]);
+			return vargs[0].i32 != 0;
 		}
 		return false;
 	}
@@ -8332,13 +8425,14 @@ namespace CefDisplayHandlerExt {
 			MyMetArgsN args;
 			memset(&args, 0, sizeof(MyMetArgsN));
 			args.argCount = 3;
-			jsvalue vargs[3];
+			jsvalue vargs[4];
+			memset(&vargs, 0, sizeof(jsvalue) * 4);
 			args.vargs = vargs;
-			MyCefSetVoidPtr(&vargs[0], CefBrowserCToCpp::Unwrap(browser));
-			MyCefSetVoidPtr(&vargs[1], CefFrameCToCpp::Unwrap(frame));
-			SetCefStringToJsValue(&vargs[2], url);
+			MyCefSetVoidPtr(&vargs[1], CefBrowserCToCpp::Unwrap(browser));
+			MyCefSetVoidPtr(&vargs[2], CefFrameCToCpp::Unwrap(frame));
+			SetCefStringToJsValue(&vargs[3], url);
 			mcallback((_typeName << 16) | CefDisplayHandlerExt_OnAddressChange_1, &args);
-			DeleteCefStringHolderFromJsValue(&vargs[2]);
+			DeleteCefStringHolderFromJsValue(&vargs[3]);
 		}
 	}
 	//gen! void OnTitleChange(CefRefPtr<CefBrowser> browser,const CefString& title)
@@ -8347,12 +8441,13 @@ namespace CefDisplayHandlerExt {
 			MyMetArgsN args;
 			memset(&args, 0, sizeof(MyMetArgsN));
 			args.argCount = 2;
-			jsvalue vargs[2];
+			jsvalue vargs[3];
+			memset(&vargs, 0, sizeof(jsvalue) * 3);
 			args.vargs = vargs;
-			MyCefSetVoidPtr(&vargs[0], CefBrowserCToCpp::Unwrap(browser));
-			SetCefStringToJsValue(&vargs[1], title);
+			MyCefSetVoidPtr(&vargs[1], CefBrowserCToCpp::Unwrap(browser));
+			SetCefStringToJsValue(&vargs[2], title);
 			mcallback((_typeName << 16) | CefDisplayHandlerExt_OnTitleChange_2, &args);
-			DeleteCefStringHolderFromJsValue(&vargs[1]);
+			DeleteCefStringHolderFromJsValue(&vargs[2]);
 		}
 	}
 	//gen! void OnFaviconURLChange(CefRefPtr<CefBrowser> browser,const std::vector<CefString>& icon_urls)
@@ -8361,10 +8456,11 @@ namespace CefDisplayHandlerExt {
 			MyMetArgsN args;
 			memset(&args, 0, sizeof(MyMetArgsN));
 			args.argCount = 2;
-			jsvalue vargs[2];
+			jsvalue vargs[3];
+			memset(&vargs, 0, sizeof(jsvalue) * 3);
 			args.vargs = vargs;
-			MyCefSetVoidPtr(&vargs[0], CefBrowserCToCpp::Unwrap(browser));
-			MyCefSetVoidPtr2(&vargs[1], &icon_urls);
+			MyCefSetVoidPtr(&vargs[1], CefBrowserCToCpp::Unwrap(browser));
+			MyCefSetVoidPtr2(&vargs[2], &icon_urls);
 			mcallback((_typeName << 16) | CefDisplayHandlerExt_OnFaviconURLChange_3, &args);
 		}
 	}
@@ -8374,10 +8470,11 @@ namespace CefDisplayHandlerExt {
 			MyMetArgsN args;
 			memset(&args, 0, sizeof(MyMetArgsN));
 			args.argCount = 2;
-			jsvalue vargs[2];
+			jsvalue vargs[3];
+			memset(&vargs, 0, sizeof(jsvalue) * 3);
 			args.vargs = vargs;
-			MyCefSetVoidPtr(&vargs[0], CefBrowserCToCpp::Unwrap(browser));
-			MyCefSetBool(&vargs[1], fullscreen);
+			MyCefSetVoidPtr(&vargs[1], CefBrowserCToCpp::Unwrap(browser));
+			MyCefSetBool(&vargs[2], fullscreen);
 			mcallback((_typeName << 16) | CefDisplayHandlerExt_OnFullscreenModeChange_4, &args);
 		}
 	}
@@ -8387,13 +8484,14 @@ namespace CefDisplayHandlerExt {
 			MyMetArgsN args;
 			memset(&args, 0, sizeof(MyMetArgsN));
 			args.argCount = 2;
-			jsvalue vargs[2];
+			jsvalue vargs[3];
+			memset(&vargs, 0, sizeof(jsvalue) * 3);
 			args.vargs = vargs;
-			MyCefSetVoidPtr(&vargs[0], CefBrowserCToCpp::Unwrap(browser));
-			SetCefStringToJsValue(&vargs[1], text);
+			MyCefSetVoidPtr(&vargs[1], CefBrowserCToCpp::Unwrap(browser));
+			SetCefStringToJsValue(&vargs[2], text);
 			mcallback((_typeName << 16) | CefDisplayHandlerExt_OnTooltip_5, &args);
-			DeleteCefStringHolderFromJsValue(&vargs[1]);
-			return args.ret.i32 != 0;
+			DeleteCefStringHolderFromJsValue(&vargs[2]);
+			return vargs[0].i32 != 0;
 		}
 		return false;
 	}
@@ -8403,12 +8501,13 @@ namespace CefDisplayHandlerExt {
 			MyMetArgsN args;
 			memset(&args, 0, sizeof(MyMetArgsN));
 			args.argCount = 2;
-			jsvalue vargs[2];
+			jsvalue vargs[3];
+			memset(&vargs, 0, sizeof(jsvalue) * 3);
 			args.vargs = vargs;
-			MyCefSetVoidPtr(&vargs[0], CefBrowserCToCpp::Unwrap(browser));
-			SetCefStringToJsValue(&vargs[1], value);
+			MyCefSetVoidPtr(&vargs[1], CefBrowserCToCpp::Unwrap(browser));
+			SetCefStringToJsValue(&vargs[2], value);
 			mcallback((_typeName << 16) | CefDisplayHandlerExt_OnStatusMessage_6, &args);
-			DeleteCefStringHolderFromJsValue(&vargs[1]);
+			DeleteCefStringHolderFromJsValue(&vargs[2]);
 		}
 	}
 	//gen! bool OnConsoleMessage(CefRefPtr<CefBrowser> browser,const CefString& message,const CefString& source,int line)
@@ -8417,16 +8516,17 @@ namespace CefDisplayHandlerExt {
 			MyMetArgsN args;
 			memset(&args, 0, sizeof(MyMetArgsN));
 			args.argCount = 4;
-			jsvalue vargs[4];
+			jsvalue vargs[5];
+			memset(&vargs, 0, sizeof(jsvalue) * 5);
 			args.vargs = vargs;
-			MyCefSetVoidPtr(&vargs[0], CefBrowserCToCpp::Unwrap(browser));
-			SetCefStringToJsValue(&vargs[1], message);
-			SetCefStringToJsValue(&vargs[2], source);
-			MyCefSetInt32(&vargs[3], (int32_t)line);
+			MyCefSetVoidPtr(&vargs[1], CefBrowserCToCpp::Unwrap(browser));
+			SetCefStringToJsValue(&vargs[2], message);
+			SetCefStringToJsValue(&vargs[3], source);
+			MyCefSetInt32(&vargs[4], (int32_t)line);
 			mcallback((_typeName << 16) | CefDisplayHandlerExt_OnConsoleMessage_7, &args);
-			DeleteCefStringHolderFromJsValue(&vargs[1]);
 			DeleteCefStringHolderFromJsValue(&vargs[2]);
-			return args.ret.i32 != 0;
+			DeleteCefStringHolderFromJsValue(&vargs[3]);
+			return vargs[0].i32 != 0;
 		}
 		return false;
 	}
@@ -8441,14 +8541,15 @@ namespace CefDownloadHandlerExt {
 			MyMetArgsN args;
 			memset(&args, 0, sizeof(MyMetArgsN));
 			args.argCount = 4;
-			jsvalue vargs[4];
+			jsvalue vargs[5];
+			memset(&vargs, 0, sizeof(jsvalue) * 5);
 			args.vargs = vargs;
-			MyCefSetVoidPtr(&vargs[0], CefBrowserCToCpp::Unwrap(browser));
-			MyCefSetVoidPtr(&vargs[1], CefDownloadItemCToCpp::Unwrap(download_item));
-			SetCefStringToJsValue(&vargs[2], suggested_name);
-			MyCefSetVoidPtr(&vargs[3], CefBeforeDownloadCallbackCToCpp::Unwrap(callback));
+			MyCefSetVoidPtr(&vargs[1], CefBrowserCToCpp::Unwrap(browser));
+			MyCefSetVoidPtr(&vargs[2], CefDownloadItemCToCpp::Unwrap(download_item));
+			SetCefStringToJsValue(&vargs[3], suggested_name);
+			MyCefSetVoidPtr(&vargs[4], CefBeforeDownloadCallbackCToCpp::Unwrap(callback));
 			mcallback((_typeName << 16) | CefDownloadHandlerExt_OnBeforeDownload_1, &args);
-			DeleteCefStringHolderFromJsValue(&vargs[2]);
+			DeleteCefStringHolderFromJsValue(&vargs[3]);
 		}
 	}
 	//gen! void OnDownloadUpdated(CefRefPtr<CefBrowser> browser,CefRefPtr<CefDownloadItem> download_item,CefRefPtr<CefDownloadItemCallback> callback)
@@ -8457,11 +8558,12 @@ namespace CefDownloadHandlerExt {
 			MyMetArgsN args;
 			memset(&args, 0, sizeof(MyMetArgsN));
 			args.argCount = 3;
-			jsvalue vargs[3];
+			jsvalue vargs[4];
+			memset(&vargs, 0, sizeof(jsvalue) * 4);
 			args.vargs = vargs;
-			MyCefSetVoidPtr(&vargs[0], CefBrowserCToCpp::Unwrap(browser));
-			MyCefSetVoidPtr(&vargs[1], CefDownloadItemCToCpp::Unwrap(download_item));
-			MyCefSetVoidPtr(&vargs[2], CefDownloadItemCallbackCToCpp::Unwrap(callback));
+			MyCefSetVoidPtr(&vargs[1], CefBrowserCToCpp::Unwrap(browser));
+			MyCefSetVoidPtr(&vargs[2], CefDownloadItemCToCpp::Unwrap(download_item));
+			MyCefSetVoidPtr(&vargs[3], CefDownloadItemCallbackCToCpp::Unwrap(callback));
 			mcallback((_typeName << 16) | CefDownloadHandlerExt_OnDownloadUpdated_2, &args);
 		}
 	}
@@ -8476,13 +8578,14 @@ namespace CefDragHandlerExt {
 			MyMetArgsN args;
 			memset(&args, 0, sizeof(MyMetArgsN));
 			args.argCount = 3;
-			jsvalue vargs[3];
+			jsvalue vargs[4];
+			memset(&vargs, 0, sizeof(jsvalue) * 4);
 			args.vargs = vargs;
-			MyCefSetVoidPtr(&vargs[0], CefBrowserCToCpp::Unwrap(browser));
-			MyCefSetVoidPtr(&vargs[1], CefDragDataCToCpp::Unwrap(dragData));
-			MyCefSetInt32(&vargs[2], (int32_t)mask);
+			MyCefSetVoidPtr(&vargs[1], CefBrowserCToCpp::Unwrap(browser));
+			MyCefSetVoidPtr(&vargs[2], CefDragDataCToCpp::Unwrap(dragData));
+			MyCefSetInt32(&vargs[3], (int32_t)mask);
 			mcallback((_typeName << 16) | CefDragHandlerExt_OnDragEnter_1, &args);
-			return args.ret.i32 != 0;
+			return vargs[0].i32 != 0;
 		}
 		return false;
 	}
@@ -8492,10 +8595,11 @@ namespace CefDragHandlerExt {
 			MyMetArgsN args;
 			memset(&args, 0, sizeof(MyMetArgsN));
 			args.argCount = 2;
-			jsvalue vargs[2];
+			jsvalue vargs[3];
+			memset(&vargs, 0, sizeof(jsvalue) * 3);
 			args.vargs = vargs;
-			MyCefSetVoidPtr(&vargs[0], CefBrowserCToCpp::Unwrap(browser));
-			MyCefSetVoidPtr2(&vargs[1], &regions);
+			MyCefSetVoidPtr(&vargs[1], CefBrowserCToCpp::Unwrap(browser));
+			MyCefSetVoidPtr2(&vargs[2], &regions);
 			mcallback((_typeName << 16) | CefDragHandlerExt_OnDraggableRegionsChanged_2, &args);
 		}
 	}
@@ -8509,14 +8613,15 @@ namespace CefFindHandlerExt {
 			MyMetArgsN args;
 			memset(&args, 0, sizeof(MyMetArgsN));
 			args.argCount = 6;
-			jsvalue vargs[6];
+			jsvalue vargs[7];
+			memset(&vargs, 0, sizeof(jsvalue) * 7);
 			args.vargs = vargs;
-			MyCefSetVoidPtr(&vargs[0], CefBrowserCToCpp::Unwrap(browser));
-			MyCefSetInt32(&vargs[1], (int32_t)identifier);
-			MyCefSetInt32(&vargs[2], (int32_t)count);
-			MyCefSetVoidPtr2(&vargs[3], &selectionRect);
-			MyCefSetInt32(&vargs[4], (int32_t)activeMatchOrdinal);
-			MyCefSetBool(&vargs[5], finalUpdate);
+			MyCefSetVoidPtr(&vargs[1], CefBrowserCToCpp::Unwrap(browser));
+			MyCefSetInt32(&vargs[2], (int32_t)identifier);
+			MyCefSetInt32(&vargs[3], (int32_t)count);
+			MyCefSetVoidPtr2(&vargs[4], &selectionRect);
+			MyCefSetInt32(&vargs[5], (int32_t)activeMatchOrdinal);
+			MyCefSetBool(&vargs[6], finalUpdate);
 			mcallback((_typeName << 16) | CefFindHandlerExt_OnFindResult_1, &args);
 		}
 	}
@@ -8532,10 +8637,11 @@ namespace CefFocusHandlerExt {
 			MyMetArgsN args;
 			memset(&args, 0, sizeof(MyMetArgsN));
 			args.argCount = 2;
-			jsvalue vargs[2];
+			jsvalue vargs[3];
+			memset(&vargs, 0, sizeof(jsvalue) * 3);
 			args.vargs = vargs;
-			MyCefSetVoidPtr(&vargs[0], CefBrowserCToCpp::Unwrap(browser));
-			MyCefSetBool(&vargs[1], next);
+			MyCefSetVoidPtr(&vargs[1], CefBrowserCToCpp::Unwrap(browser));
+			MyCefSetBool(&vargs[2], next);
 			mcallback((_typeName << 16) | CefFocusHandlerExt_OnTakeFocus_1, &args);
 		}
 	}
@@ -8545,12 +8651,13 @@ namespace CefFocusHandlerExt {
 			MyMetArgsN args;
 			memset(&args, 0, sizeof(MyMetArgsN));
 			args.argCount = 2;
-			jsvalue vargs[2];
+			jsvalue vargs[3];
+			memset(&vargs, 0, sizeof(jsvalue) * 3);
 			args.vargs = vargs;
-			MyCefSetVoidPtr(&vargs[0], CefBrowserCToCpp::Unwrap(browser));
-			MyCefSetInt32(&vargs[1], (int32_t)source);
+			MyCefSetVoidPtr(&vargs[1], CefBrowserCToCpp::Unwrap(browser));
+			MyCefSetInt32(&vargs[2], (int32_t)source);
 			mcallback((_typeName << 16) | CefFocusHandlerExt_OnSetFocus_2, &args);
-			return args.ret.i32 != 0;
+			return vargs[0].i32 != 0;
 		}
 		return false;
 	}
@@ -8560,9 +8667,10 @@ namespace CefFocusHandlerExt {
 			MyMetArgsN args;
 			memset(&args, 0, sizeof(MyMetArgsN));
 			args.argCount = 1;
-			jsvalue vargs[1];
+			jsvalue vargs[2];
+			memset(&vargs, 0, sizeof(jsvalue) * 2);
 			args.vargs = vargs;
-			MyCefSetVoidPtr(&vargs[0], CefBrowserCToCpp::Unwrap(browser));
+			MyCefSetVoidPtr(&vargs[1], CefBrowserCToCpp::Unwrap(browser));
 			mcallback((_typeName << 16) | CefFocusHandlerExt_OnGotFocus_3, &args);
 		}
 	}
@@ -8577,15 +8685,16 @@ namespace CefGeolocationHandlerExt {
 			MyMetArgsN args;
 			memset(&args, 0, sizeof(MyMetArgsN));
 			args.argCount = 4;
-			jsvalue vargs[4];
+			jsvalue vargs[5];
+			memset(&vargs, 0, sizeof(jsvalue) * 5);
 			args.vargs = vargs;
-			MyCefSetVoidPtr(&vargs[0], CefBrowserCToCpp::Unwrap(browser));
-			SetCefStringToJsValue(&vargs[1], requesting_url);
-			MyCefSetInt32(&vargs[2], (int32_t)request_id);
-			MyCefSetVoidPtr(&vargs[3], CefGeolocationCallbackCToCpp::Unwrap(callback));
+			MyCefSetVoidPtr(&vargs[1], CefBrowserCToCpp::Unwrap(browser));
+			SetCefStringToJsValue(&vargs[2], requesting_url);
+			MyCefSetInt32(&vargs[3], (int32_t)request_id);
+			MyCefSetVoidPtr(&vargs[4], CefGeolocationCallbackCToCpp::Unwrap(callback));
 			mcallback((_typeName << 16) | CefGeolocationHandlerExt_OnRequestGeolocationPermission_1, &args);
-			DeleteCefStringHolderFromJsValue(&vargs[1]);
-			return args.ret.i32 != 0;
+			DeleteCefStringHolderFromJsValue(&vargs[2]);
+			return vargs[0].i32 != 0;
 		}
 		return false;
 	}
@@ -8595,10 +8704,11 @@ namespace CefGeolocationHandlerExt {
 			MyMetArgsN args;
 			memset(&args, 0, sizeof(MyMetArgsN));
 			args.argCount = 2;
-			jsvalue vargs[2];
+			jsvalue vargs[3];
+			memset(&vargs, 0, sizeof(jsvalue) * 3);
 			args.vargs = vargs;
-			MyCefSetVoidPtr(&vargs[0], CefBrowserCToCpp::Unwrap(browser));
-			MyCefSetInt32(&vargs[1], (int32_t)request_id);
+			MyCefSetVoidPtr(&vargs[1], CefBrowserCToCpp::Unwrap(browser));
+			MyCefSetInt32(&vargs[2], (int32_t)request_id);
 			mcallback((_typeName << 16) | CefGeolocationHandlerExt_OnCancelGeolocationPermission_2, &args);
 		}
 	}
@@ -8615,20 +8725,21 @@ namespace CefJSDialogHandlerExt {
 			MyMetArgsN args;
 			memset(&args, 0, sizeof(MyMetArgsN));
 			args.argCount = 7;
-			jsvalue vargs[7];
+			jsvalue vargs[8];
+			memset(&vargs, 0, sizeof(jsvalue) * 8);
 			args.vargs = vargs;
-			MyCefSetVoidPtr(&vargs[0], CefBrowserCToCpp::Unwrap(browser));
-			SetCefStringToJsValue(&vargs[1], origin_url);
-			MyCefSetInt32(&vargs[2], (int32_t)dialog_type);
-			SetCefStringToJsValue(&vargs[3], message_text);
-			SetCefStringToJsValue(&vargs[4], default_prompt_text);
-			MyCefSetVoidPtr(&vargs[5], CefJSDialogCallbackCToCpp::Unwrap(callback));
-			MyCefSetVoidPtr(&vargs[6], &suppress_message);
+			MyCefSetVoidPtr(&vargs[1], CefBrowserCToCpp::Unwrap(browser));
+			SetCefStringToJsValue(&vargs[2], origin_url);
+			MyCefSetInt32(&vargs[3], (int32_t)dialog_type);
+			SetCefStringToJsValue(&vargs[4], message_text);
+			SetCefStringToJsValue(&vargs[5], default_prompt_text);
+			MyCefSetVoidPtr(&vargs[6], CefJSDialogCallbackCToCpp::Unwrap(callback));
+			MyCefSetVoidPtr(&vargs[7], &suppress_message);
 			mcallback((_typeName << 16) | CefJSDialogHandlerExt_OnJSDialog_1, &args);
-			DeleteCefStringHolderFromJsValue(&vargs[1]);
-			DeleteCefStringHolderFromJsValue(&vargs[3]);
+			DeleteCefStringHolderFromJsValue(&vargs[2]);
 			DeleteCefStringHolderFromJsValue(&vargs[4]);
-			return args.ret.i32 != 0;
+			DeleteCefStringHolderFromJsValue(&vargs[5]);
+			return vargs[0].i32 != 0;
 		}
 		return false;
 	}
@@ -8638,15 +8749,16 @@ namespace CefJSDialogHandlerExt {
 			MyMetArgsN args;
 			memset(&args, 0, sizeof(MyMetArgsN));
 			args.argCount = 4;
-			jsvalue vargs[4];
+			jsvalue vargs[5];
+			memset(&vargs, 0, sizeof(jsvalue) * 5);
 			args.vargs = vargs;
-			MyCefSetVoidPtr(&vargs[0], CefBrowserCToCpp::Unwrap(browser));
-			SetCefStringToJsValue(&vargs[1], message_text);
-			MyCefSetBool(&vargs[2], is_reload);
-			MyCefSetVoidPtr(&vargs[3], CefJSDialogCallbackCToCpp::Unwrap(callback));
+			MyCefSetVoidPtr(&vargs[1], CefBrowserCToCpp::Unwrap(browser));
+			SetCefStringToJsValue(&vargs[2], message_text);
+			MyCefSetBool(&vargs[3], is_reload);
+			MyCefSetVoidPtr(&vargs[4], CefJSDialogCallbackCToCpp::Unwrap(callback));
 			mcallback((_typeName << 16) | CefJSDialogHandlerExt_OnBeforeUnloadDialog_2, &args);
-			DeleteCefStringHolderFromJsValue(&vargs[1]);
-			return args.ret.i32 != 0;
+			DeleteCefStringHolderFromJsValue(&vargs[2]);
+			return vargs[0].i32 != 0;
 		}
 		return false;
 	}
@@ -8656,9 +8768,10 @@ namespace CefJSDialogHandlerExt {
 			MyMetArgsN args;
 			memset(&args, 0, sizeof(MyMetArgsN));
 			args.argCount = 1;
-			jsvalue vargs[1];
+			jsvalue vargs[2];
+			memset(&vargs, 0, sizeof(jsvalue) * 2);
 			args.vargs = vargs;
-			MyCefSetVoidPtr(&vargs[0], CefBrowserCToCpp::Unwrap(browser));
+			MyCefSetVoidPtr(&vargs[1], CefBrowserCToCpp::Unwrap(browser));
 			mcallback((_typeName << 16) | CefJSDialogHandlerExt_OnResetDialogState_3, &args);
 		}
 	}
@@ -8668,9 +8781,10 @@ namespace CefJSDialogHandlerExt {
 			MyMetArgsN args;
 			memset(&args, 0, sizeof(MyMetArgsN));
 			args.argCount = 1;
-			jsvalue vargs[1];
+			jsvalue vargs[2];
+			memset(&vargs, 0, sizeof(jsvalue) * 2);
 			args.vargs = vargs;
-			MyCefSetVoidPtr(&vargs[0], CefBrowserCToCpp::Unwrap(browser));
+			MyCefSetVoidPtr(&vargs[1], CefBrowserCToCpp::Unwrap(browser));
 			mcallback((_typeName << 16) | CefJSDialogHandlerExt_OnDialogClosed_4, &args);
 		}
 	}
@@ -8685,14 +8799,15 @@ namespace CefKeyboardHandlerExt {
 			MyMetArgsN args;
 			memset(&args, 0, sizeof(MyMetArgsN));
 			args.argCount = 4;
-			jsvalue vargs[4];
+			jsvalue vargs[5];
+			memset(&vargs, 0, sizeof(jsvalue) * 5);
 			args.vargs = vargs;
-			MyCefSetVoidPtr(&vargs[0], CefBrowserCToCpp::Unwrap(browser));
-			MyCefSetVoidPtr2(&vargs[1], &event);
-			MyCefSetInt32(&vargs[2], (int32_t)os_event);
-			MyCefSetBool(&vargs[3], *is_keyboard_shortcut);
+			MyCefSetVoidPtr(&vargs[1], CefBrowserCToCpp::Unwrap(browser));
+			MyCefSetVoidPtr2(&vargs[2], &event);
+			MyCefSetInt32(&vargs[3], (int32_t)os_event);
+			MyCefSetBool(&vargs[4], *is_keyboard_shortcut);
 			mcallback((_typeName << 16) | CefKeyboardHandlerExt_OnPreKeyEvent_1, &args);
-			return args.ret.i32 != 0;
+			return vargs[0].i32 != 0;
 		}
 		return false;
 	}
@@ -8702,13 +8817,14 @@ namespace CefKeyboardHandlerExt {
 			MyMetArgsN args;
 			memset(&args, 0, sizeof(MyMetArgsN));
 			args.argCount = 3;
-			jsvalue vargs[3];
+			jsvalue vargs[4];
+			memset(&vargs, 0, sizeof(jsvalue) * 4);
 			args.vargs = vargs;
-			MyCefSetVoidPtr(&vargs[0], CefBrowserCToCpp::Unwrap(browser));
-			MyCefSetVoidPtr2(&vargs[1], &event);
-			MyCefSetInt32(&vargs[2], (int32_t)os_event);
+			MyCefSetVoidPtr(&vargs[1], CefBrowserCToCpp::Unwrap(browser));
+			MyCefSetVoidPtr2(&vargs[2], &event);
+			MyCefSetInt32(&vargs[3], (int32_t)os_event);
 			mcallback((_typeName << 16) | CefKeyboardHandlerExt_OnKeyEvent_2, &args);
-			return args.ret.i32 != 0;
+			return vargs[0].i32 != 0;
 		}
 		return false;
 	}
@@ -8725,23 +8841,24 @@ namespace CefLifeSpanHandlerExt {
 			MyMetArgsN args;
 			memset(&args, 0, sizeof(MyMetArgsN));
 			args.argCount = 11;
-			jsvalue vargs[11];
+			jsvalue vargs[12];
+			memset(&vargs, 0, sizeof(jsvalue) * 12);
 			args.vargs = vargs;
-			MyCefSetVoidPtr(&vargs[0], CefBrowserCToCpp::Unwrap(browser));
-			MyCefSetVoidPtr(&vargs[1], CefFrameCToCpp::Unwrap(frame));
-			SetCefStringToJsValue(&vargs[2], target_url);
-			SetCefStringToJsValue(&vargs[3], target_frame_name);
-			MyCefSetInt32(&vargs[4], (int32_t)target_disposition);
-			MyCefSetBool(&vargs[5], user_gesture);
-			MyCefSetVoidPtr2(&vargs[6], &popupFeatures);
-			//MyCefSetVoidPtr(&vargs[7], windowInfo);
-			MyCefSetVoidPtr(&vargs[8], client);
-			//MyCefSetVoidPtr(&vargs[9], settings);
-			MyCefSetBool(&vargs[10], *no_javascript_access);
+			MyCefSetVoidPtr(&vargs[1], CefBrowserCToCpp::Unwrap(browser));
+			MyCefSetVoidPtr(&vargs[2], CefFrameCToCpp::Unwrap(frame));
+			SetCefStringToJsValue(&vargs[3], target_url);
+			SetCefStringToJsValue(&vargs[4], target_frame_name);
+			MyCefSetInt32(&vargs[5], (int32_t)target_disposition);
+			MyCefSetBool(&vargs[6], user_gesture);
+			MyCefSetVoidPtr2(&vargs[7], &popupFeatures);
+			//MyCefSetVoidPtr(&vargs[8], windowInfo);
+			MyCefSetVoidPtr(&vargs[9], client);
+			//MyCefSetVoidPtr(&vargs[10], settings);
+			MyCefSetBool(&vargs[11], *no_javascript_access);
 			mcallback((_typeName << 16) | CefLifeSpanHandlerExt_OnBeforePopup_1, &args);
-			DeleteCefStringHolderFromJsValue(&vargs[2]);
 			DeleteCefStringHolderFromJsValue(&vargs[3]);
-			return args.ret.i32 != 0;
+			DeleteCefStringHolderFromJsValue(&vargs[4]);
+			return vargs[0].i32 != 0;
 		}
 		return false;
 	}
@@ -8751,9 +8868,10 @@ namespace CefLifeSpanHandlerExt {
 			MyMetArgsN args;
 			memset(&args, 0, sizeof(MyMetArgsN));
 			args.argCount = 1;
-			jsvalue vargs[1];
+			jsvalue vargs[2];
+			memset(&vargs, 0, sizeof(jsvalue) * 2);
 			args.vargs = vargs;
-			MyCefSetVoidPtr(&vargs[0], CefBrowserCToCpp::Unwrap(browser));
+			MyCefSetVoidPtr(&vargs[1], CefBrowserCToCpp::Unwrap(browser));
 			mcallback((_typeName << 16) | CefLifeSpanHandlerExt_OnAfterCreated_2, &args);
 		}
 	}
@@ -8763,11 +8881,12 @@ namespace CefLifeSpanHandlerExt {
 			MyMetArgsN args;
 			memset(&args, 0, sizeof(MyMetArgsN));
 			args.argCount = 1;
-			jsvalue vargs[1];
+			jsvalue vargs[2];
+			memset(&vargs, 0, sizeof(jsvalue) * 2);
 			args.vargs = vargs;
-			MyCefSetVoidPtr(&vargs[0], CefBrowserCToCpp::Unwrap(browser));
+			MyCefSetVoidPtr(&vargs[1], CefBrowserCToCpp::Unwrap(browser));
 			mcallback((_typeName << 16) | CefLifeSpanHandlerExt_DoClose_3, &args);
-			return args.ret.i32 != 0;
+			return vargs[0].i32 != 0;
 		}
 		return false;
 	}
@@ -8777,9 +8896,10 @@ namespace CefLifeSpanHandlerExt {
 			MyMetArgsN args;
 			memset(&args, 0, sizeof(MyMetArgsN));
 			args.argCount = 1;
-			jsvalue vargs[1];
+			jsvalue vargs[2];
+			memset(&vargs, 0, sizeof(jsvalue) * 2);
 			args.vargs = vargs;
-			MyCefSetVoidPtr(&vargs[0], CefBrowserCToCpp::Unwrap(browser));
+			MyCefSetVoidPtr(&vargs[1], CefBrowserCToCpp::Unwrap(browser));
 			mcallback((_typeName << 16) | CefLifeSpanHandlerExt_OnBeforeClose_4, &args);
 		}
 	}
@@ -8796,12 +8916,13 @@ namespace CefLoadHandlerExt {
 			MyMetArgsN args;
 			memset(&args, 0, sizeof(MyMetArgsN));
 			args.argCount = 4;
-			jsvalue vargs[4];
+			jsvalue vargs[5];
+			memset(&vargs, 0, sizeof(jsvalue) * 5);
 			args.vargs = vargs;
-			MyCefSetVoidPtr(&vargs[0], CefBrowserCToCpp::Unwrap(browser));
-			MyCefSetBool(&vargs[1], isLoading);
-			MyCefSetBool(&vargs[2], canGoBack);
-			MyCefSetBool(&vargs[3], canGoForward);
+			MyCefSetVoidPtr(&vargs[1], CefBrowserCToCpp::Unwrap(browser));
+			MyCefSetBool(&vargs[2], isLoading);
+			MyCefSetBool(&vargs[3], canGoBack);
+			MyCefSetBool(&vargs[4], canGoForward);
 			mcallback((_typeName << 16) | CefLoadHandlerExt_OnLoadingStateChange_1, &args);
 		}
 	}
@@ -8811,11 +8932,12 @@ namespace CefLoadHandlerExt {
 			MyMetArgsN args;
 			memset(&args, 0, sizeof(MyMetArgsN));
 			args.argCount = 3;
-			jsvalue vargs[3];
+			jsvalue vargs[4];
+			memset(&vargs, 0, sizeof(jsvalue) * 4);
 			args.vargs = vargs;
-			MyCefSetVoidPtr(&vargs[0], CefBrowserCToCpp::Unwrap(browser));
-			MyCefSetVoidPtr(&vargs[1], CefFrameCToCpp::Unwrap(frame));
-			MyCefSetInt32(&vargs[2], (int32_t)transition_type);
+			MyCefSetVoidPtr(&vargs[1], CefBrowserCToCpp::Unwrap(browser));
+			MyCefSetVoidPtr(&vargs[2], CefFrameCToCpp::Unwrap(frame));
+			MyCefSetInt32(&vargs[3], (int32_t)transition_type);
 			mcallback((_typeName << 16) | CefLoadHandlerExt_OnLoadStart_2, &args);
 		}
 	}
@@ -8825,11 +8947,12 @@ namespace CefLoadHandlerExt {
 			MyMetArgsN args;
 			memset(&args, 0, sizeof(MyMetArgsN));
 			args.argCount = 3;
-			jsvalue vargs[3];
+			jsvalue vargs[4];
+			memset(&vargs, 0, sizeof(jsvalue) * 4);
 			args.vargs = vargs;
-			MyCefSetVoidPtr(&vargs[0], CefBrowserCToCpp::Unwrap(browser));
-			MyCefSetVoidPtr(&vargs[1], CefFrameCToCpp::Unwrap(frame));
-			MyCefSetInt32(&vargs[2], (int32_t)httpStatusCode);
+			MyCefSetVoidPtr(&vargs[1], CefBrowserCToCpp::Unwrap(browser));
+			MyCefSetVoidPtr(&vargs[2], CefFrameCToCpp::Unwrap(frame));
+			MyCefSetInt32(&vargs[3], (int32_t)httpStatusCode);
 			mcallback((_typeName << 16) | CefLoadHandlerExt_OnLoadEnd_3, &args);
 		}
 	}
@@ -8839,16 +8962,17 @@ namespace CefLoadHandlerExt {
 			MyMetArgsN args;
 			memset(&args, 0, sizeof(MyMetArgsN));
 			args.argCount = 5;
-			jsvalue vargs[5];
+			jsvalue vargs[6];
+			memset(&vargs, 0, sizeof(jsvalue) * 6);
 			args.vargs = vargs;
-			MyCefSetVoidPtr(&vargs[0], CefBrowserCToCpp::Unwrap(browser));
-			MyCefSetVoidPtr(&vargs[1], CefFrameCToCpp::Unwrap(frame));
-			MyCefSetInt32(&vargs[2], (int32_t)errorCode);
-			SetCefStringToJsValue(&vargs[3], errorText);
-			SetCefStringToJsValue(&vargs[4], failedUrl);
+			MyCefSetVoidPtr(&vargs[1], CefBrowserCToCpp::Unwrap(browser));
+			MyCefSetVoidPtr(&vargs[2], CefFrameCToCpp::Unwrap(frame));
+			MyCefSetInt32(&vargs[3], (int32_t)errorCode);
+			SetCefStringToJsValue(&vargs[4], errorText);
+			SetCefStringToJsValue(&vargs[5], failedUrl);
 			mcallback((_typeName << 16) | CefLoadHandlerExt_OnLoadError_4, &args);
-			DeleteCefStringHolderFromJsValue(&vargs[3]);
 			DeleteCefStringHolderFromJsValue(&vargs[4]);
+			DeleteCefStringHolderFromJsValue(&vargs[5]);
 		}
 	}
 }
@@ -8866,9 +8990,10 @@ namespace CefPrintHandlerExt {
 			MyMetArgsN args;
 			memset(&args, 0, sizeof(MyMetArgsN));
 			args.argCount = 1;
-			jsvalue vargs[1];
+			jsvalue vargs[2];
+			memset(&vargs, 0, sizeof(jsvalue) * 2);
 			args.vargs = vargs;
-			MyCefSetVoidPtr(&vargs[0], CefBrowserCToCpp::Unwrap(browser));
+			MyCefSetVoidPtr(&vargs[1], CefBrowserCToCpp::Unwrap(browser));
 			mcallback((_typeName << 16) | CefPrintHandlerExt_OnPrintStart_1, &args);
 		}
 	}
@@ -8878,11 +9003,12 @@ namespace CefPrintHandlerExt {
 			MyMetArgsN args;
 			memset(&args, 0, sizeof(MyMetArgsN));
 			args.argCount = 3;
-			jsvalue vargs[3];
+			jsvalue vargs[4];
+			memset(&vargs, 0, sizeof(jsvalue) * 4);
 			args.vargs = vargs;
-			MyCefSetVoidPtr(&vargs[0], CefBrowserCToCpp::Unwrap(browser));
-			MyCefSetVoidPtr(&vargs[1], CefPrintSettingsCToCpp::Unwrap(settings));
-			MyCefSetBool(&vargs[2], get_defaults);
+			MyCefSetVoidPtr(&vargs[1], CefBrowserCToCpp::Unwrap(browser));
+			MyCefSetVoidPtr(&vargs[2], CefPrintSettingsCToCpp::Unwrap(settings));
+			MyCefSetBool(&vargs[3], get_defaults);
 			mcallback((_typeName << 16) | CefPrintHandlerExt_OnPrintSettings_2, &args);
 		}
 	}
@@ -8892,13 +9018,14 @@ namespace CefPrintHandlerExt {
 			MyMetArgsN args;
 			memset(&args, 0, sizeof(MyMetArgsN));
 			args.argCount = 3;
-			jsvalue vargs[3];
+			jsvalue vargs[4];
+			memset(&vargs, 0, sizeof(jsvalue) * 4);
 			args.vargs = vargs;
-			MyCefSetVoidPtr(&vargs[0], CefBrowserCToCpp::Unwrap(browser));
-			MyCefSetBool(&vargs[1], has_selection);
-			MyCefSetVoidPtr(&vargs[2], CefPrintDialogCallbackCToCpp::Unwrap(callback));
+			MyCefSetVoidPtr(&vargs[1], CefBrowserCToCpp::Unwrap(browser));
+			MyCefSetBool(&vargs[2], has_selection);
+			MyCefSetVoidPtr(&vargs[3], CefPrintDialogCallbackCToCpp::Unwrap(callback));
 			mcallback((_typeName << 16) | CefPrintHandlerExt_OnPrintDialog_3, &args);
-			return args.ret.i32 != 0;
+			return vargs[0].i32 != 0;
 		}
 		return false;
 	}
@@ -8908,16 +9035,17 @@ namespace CefPrintHandlerExt {
 			MyMetArgsN args;
 			memset(&args, 0, sizeof(MyMetArgsN));
 			args.argCount = 4;
-			jsvalue vargs[4];
+			jsvalue vargs[5];
+			memset(&vargs, 0, sizeof(jsvalue) * 5);
 			args.vargs = vargs;
-			MyCefSetVoidPtr(&vargs[0], CefBrowserCToCpp::Unwrap(browser));
-			SetCefStringToJsValue(&vargs[1], document_name);
-			SetCefStringToJsValue(&vargs[2], pdf_file_path);
-			MyCefSetVoidPtr(&vargs[3], CefPrintJobCallbackCToCpp::Unwrap(callback));
+			MyCefSetVoidPtr(&vargs[1], CefBrowserCToCpp::Unwrap(browser));
+			SetCefStringToJsValue(&vargs[2], document_name);
+			SetCefStringToJsValue(&vargs[3], pdf_file_path);
+			MyCefSetVoidPtr(&vargs[4], CefPrintJobCallbackCToCpp::Unwrap(callback));
 			mcallback((_typeName << 16) | CefPrintHandlerExt_OnPrintJob_4, &args);
-			DeleteCefStringHolderFromJsValue(&vargs[1]);
 			DeleteCefStringHolderFromJsValue(&vargs[2]);
-			return args.ret.i32 != 0;
+			DeleteCefStringHolderFromJsValue(&vargs[3]);
+			return vargs[0].i32 != 0;
 		}
 		return false;
 	}
@@ -8927,9 +9055,10 @@ namespace CefPrintHandlerExt {
 			MyMetArgsN args;
 			memset(&args, 0, sizeof(MyMetArgsN));
 			args.argCount = 1;
-			jsvalue vargs[1];
+			jsvalue vargs[2];
+			memset(&vargs, 0, sizeof(jsvalue) * 2);
 			args.vargs = vargs;
-			MyCefSetVoidPtr(&vargs[0], CefBrowserCToCpp::Unwrap(browser));
+			MyCefSetVoidPtr(&vargs[1], CefBrowserCToCpp::Unwrap(browser));
 			mcallback((_typeName << 16) | CefPrintHandlerExt_OnPrintReset_5, &args);
 		}
 	}
@@ -8939,14 +9068,16 @@ namespace CefPrintHandlerExt {
 			MyMetArgsN args;
 			memset(&args, 0, sizeof(MyMetArgsN));
 			args.argCount = 1;
-			jsvalue vargs[1];
+			jsvalue vargs[2];
+			memset(&vargs, 0, sizeof(jsvalue) * 2);
 			args.vargs = vargs;
-			MyCefSetInt32(&vargs[0], (int32_t)device_units_per_inch);
+			MyCefSetInt32(&vargs[1], (int32_t)device_units_per_inch);
 			mcallback((_typeName << 16) | CefPrintHandlerExt_GetPdfPaperSize_6, &args);
-			 
+			/*return (CefSize*)vargs[0].ptr;*/
 		}
+		//throw new CefNotImplementException();
 		CefSize s;
-		return s;	 
+		return s;
 	}
 }
 namespace CefRenderHandlerExt {
@@ -8970,8 +9101,11 @@ namespace CefRenderHandlerExt {
 			MyMetArgsN args;
 			memset(&args, 0, sizeof(MyMetArgsN));
 			args.argCount = 0;
+			jsvalue vargs[1];
+			memset(&vargs, 0, sizeof(jsvalue) * 1);
+			args.vargs = vargs;
 			mcallback((_typeName << 16) | CefRenderHandlerExt_GetAccessibilityHandler_1, &args);
-			return CefAccessibilityHandlerCppToC::Unwrap((cef_accessibility_handler_t*)args.ret.ptr);
+			return CefAccessibilityHandlerCppToC::Unwrap((cef_accessibility_handler_t*)vargs[0].ptr);
 		}
 		return nullptr;
 	}
@@ -8981,12 +9115,13 @@ namespace CefRenderHandlerExt {
 			MyMetArgsN args;
 			memset(&args, 0, sizeof(MyMetArgsN));
 			args.argCount = 2;
-			jsvalue vargs[2];
+			jsvalue vargs[3];
+			memset(&vargs, 0, sizeof(jsvalue) * 3);
 			args.vargs = vargs;
-			MyCefSetVoidPtr(&vargs[0], CefBrowserCToCpp::Unwrap(browser));
-			//MyCefSetVoidPtr(&vargs[1], rect);
+			MyCefSetVoidPtr(&vargs[1], CefBrowserCToCpp::Unwrap(browser));
+			//MyCefSetVoidPtr(&vargs[2], rect);
 			mcallback((_typeName << 16) | CefRenderHandlerExt_GetRootScreenRect_2, &args);
-			return args.ret.i32 != 0;
+			return vargs[0].i32 != 0;
 		}
 		return false;
 	}
@@ -8996,12 +9131,13 @@ namespace CefRenderHandlerExt {
 			MyMetArgsN args;
 			memset(&args, 0, sizeof(MyMetArgsN));
 			args.argCount = 2;
-			jsvalue vargs[2];
+			jsvalue vargs[3];
+			memset(&vargs, 0, sizeof(jsvalue) * 3);
 			args.vargs = vargs;
-			MyCefSetVoidPtr(&vargs[0], CefBrowserCToCpp::Unwrap(browser));
-			//MyCefSetVoidPtr(&vargs[1], rect);
+			MyCefSetVoidPtr(&vargs[1], CefBrowserCToCpp::Unwrap(browser));
+//			MyCefSetVoidPtr(&vargs[2], rect);
 			mcallback((_typeName << 16) | CefRenderHandlerExt_GetViewRect_3, &args);
-			return args.ret.i32 != 0;
+			return vargs[0].i32 != 0;
 		}
 		return false;
 	}
@@ -9011,15 +9147,16 @@ namespace CefRenderHandlerExt {
 			MyMetArgsN args;
 			memset(&args, 0, sizeof(MyMetArgsN));
 			args.argCount = 5;
-			jsvalue vargs[5];
+			jsvalue vargs[6];
+			memset(&vargs, 0, sizeof(jsvalue) * 6);
 			args.vargs = vargs;
-			MyCefSetVoidPtr(&vargs[0], CefBrowserCToCpp::Unwrap(browser));
-			MyCefSetInt32(&vargs[1], (int32_t)viewX);
-			MyCefSetInt32(&vargs[2], (int32_t)viewY);
-			MyCefSetInt32(&vargs[3], (int32_t)screenX);
-			MyCefSetInt32(&vargs[4], (int32_t)screenY);
+			MyCefSetVoidPtr(&vargs[1], CefBrowserCToCpp::Unwrap(browser));
+			MyCefSetInt32(&vargs[2], (int32_t)viewX);
+			MyCefSetInt32(&vargs[3], (int32_t)viewY);
+			MyCefSetInt32(&vargs[4], (int32_t)screenX);
+			MyCefSetInt32(&vargs[5], (int32_t)screenY);
 			mcallback((_typeName << 16) | CefRenderHandlerExt_GetScreenPoint_4, &args);
-			return args.ret.i32 != 0;
+			return vargs[0].i32 != 0;
 		}
 		return false;
 	}
@@ -9029,12 +9166,13 @@ namespace CefRenderHandlerExt {
 			MyMetArgsN args;
 			memset(&args, 0, sizeof(MyMetArgsN));
 			args.argCount = 2;
-			jsvalue vargs[2];
+			jsvalue vargs[3];
+			memset(&vargs, 0, sizeof(jsvalue) * 3);
 			args.vargs = vargs;
-			MyCefSetVoidPtr(&vargs[0], CefBrowserCToCpp::Unwrap(browser));
-			//MyCefSetVoidPtr(&vargs[1], screen_info);
+			MyCefSetVoidPtr(&vargs[1], CefBrowserCToCpp::Unwrap(browser));
+			//MyCefSetVoidPtr(&vargs[2], screen_info);
 			mcallback((_typeName << 16) | CefRenderHandlerExt_GetScreenInfo_5, &args);
-			return args.ret.i32 != 0;
+			return vargs[0].i32 != 0;
 		}
 		return false;
 	}
@@ -9044,10 +9182,11 @@ namespace CefRenderHandlerExt {
 			MyMetArgsN args;
 			memset(&args, 0, sizeof(MyMetArgsN));
 			args.argCount = 2;
-			jsvalue vargs[2];
+			jsvalue vargs[3];
+			memset(&vargs, 0, sizeof(jsvalue) * 3);
 			args.vargs = vargs;
-			MyCefSetVoidPtr(&vargs[0], CefBrowserCToCpp::Unwrap(browser));
-			MyCefSetBool(&vargs[1], show);
+			MyCefSetVoidPtr(&vargs[1], CefBrowserCToCpp::Unwrap(browser));
+			MyCefSetBool(&vargs[2], show);
 			mcallback((_typeName << 16) | CefRenderHandlerExt_OnPopupShow_6, &args);
 		}
 	}
@@ -9057,10 +9196,11 @@ namespace CefRenderHandlerExt {
 			MyMetArgsN args;
 			memset(&args, 0, sizeof(MyMetArgsN));
 			args.argCount = 2;
-			jsvalue vargs[2];
+			jsvalue vargs[3];
+			memset(&vargs, 0, sizeof(jsvalue) * 3);
 			args.vargs = vargs;
-			MyCefSetVoidPtr(&vargs[0], CefBrowserCToCpp::Unwrap(browser));
-			MyCefSetVoidPtr2(&vargs[1], &rect);
+			MyCefSetVoidPtr(&vargs[1], CefBrowserCToCpp::Unwrap(browser));
+			MyCefSetVoidPtr2(&vargs[2], &rect);
 			mcallback((_typeName << 16) | CefRenderHandlerExt_OnPopupSize_7, &args);
 		}
 	}
@@ -9070,14 +9210,15 @@ namespace CefRenderHandlerExt {
 			MyMetArgsN args;
 			memset(&args, 0, sizeof(MyMetArgsN));
 			args.argCount = 6;
-			jsvalue vargs[6];
+			jsvalue vargs[7];
+			memset(&vargs, 0, sizeof(jsvalue) * 7);
 			args.vargs = vargs;
-			MyCefSetVoidPtr(&vargs[0], CefBrowserCToCpp::Unwrap(browser));
-			MyCefSetInt32(&vargs[1], (int32_t)type);
-			MyCefSetVoidPtr2(&vargs[2], &dirtyRects);
-			MyCefSetVoidPtr2(&vargs[3], buffer);
-			MyCefSetInt32(&vargs[4], (int32_t)width);
-			MyCefSetInt32(&vargs[5], (int32_t)height);
+			MyCefSetVoidPtr(&vargs[1], CefBrowserCToCpp::Unwrap(browser));
+			MyCefSetInt32(&vargs[2], (int32_t)type);
+			MyCefSetVoidPtr2(&vargs[3], &dirtyRects);
+			MyCefSetVoidPtr2(&vargs[4], buffer);
+			MyCefSetInt32(&vargs[5], (int32_t)width);
+			MyCefSetInt32(&vargs[6], (int32_t)height);
 			mcallback((_typeName << 16) | CefRenderHandlerExt_OnPaint_8, &args);
 		}
 	}
@@ -9087,12 +9228,13 @@ namespace CefRenderHandlerExt {
 			MyMetArgsN args;
 			memset(&args, 0, sizeof(MyMetArgsN));
 			args.argCount = 4;
-			jsvalue vargs[4];
+			jsvalue vargs[5];
+			memset(&vargs, 0, sizeof(jsvalue) * 5);
 			args.vargs = vargs;
-			MyCefSetVoidPtr(&vargs[0], CefBrowserCToCpp::Unwrap(browser));
-			MyCefSetInt32(&vargs[1], (int32_t)cursor);
-			MyCefSetInt32(&vargs[2], (int32_t)type);
-			MyCefSetVoidPtr2(&vargs[3], &custom_cursor_info);
+			MyCefSetVoidPtr(&vargs[1], CefBrowserCToCpp::Unwrap(browser));
+			MyCefSetInt32(&vargs[2], (int32_t)cursor);
+			MyCefSetInt32(&vargs[3], (int32_t)type);
+			MyCefSetVoidPtr2(&vargs[4], &custom_cursor_info);
 			mcallback((_typeName << 16) | CefRenderHandlerExt_OnCursorChange_9, &args);
 		}
 	}
@@ -9102,15 +9244,16 @@ namespace CefRenderHandlerExt {
 			MyMetArgsN args;
 			memset(&args, 0, sizeof(MyMetArgsN));
 			args.argCount = 5;
-			jsvalue vargs[5];
+			jsvalue vargs[6];
+			memset(&vargs, 0, sizeof(jsvalue) * 6);
 			args.vargs = vargs;
-			MyCefSetVoidPtr(&vargs[0], CefBrowserCToCpp::Unwrap(browser));
-			MyCefSetVoidPtr(&vargs[1], CefDragDataCToCpp::Unwrap(drag_data));
-			MyCefSetInt32(&vargs[2], (int32_t)allowed_ops);
-			MyCefSetInt32(&vargs[3], (int32_t)x);
-			MyCefSetInt32(&vargs[4], (int32_t)y);
+			MyCefSetVoidPtr(&vargs[1], CefBrowserCToCpp::Unwrap(browser));
+			MyCefSetVoidPtr(&vargs[2], CefDragDataCToCpp::Unwrap(drag_data));
+			MyCefSetInt32(&vargs[3], (int32_t)allowed_ops);
+			MyCefSetInt32(&vargs[4], (int32_t)x);
+			MyCefSetInt32(&vargs[5], (int32_t)y);
 			mcallback((_typeName << 16) | CefRenderHandlerExt_StartDragging_10, &args);
-			return args.ret.i32 != 0;
+			return vargs[0].i32 != 0;
 		}
 		return false;
 	}
@@ -9120,10 +9263,11 @@ namespace CefRenderHandlerExt {
 			MyMetArgsN args;
 			memset(&args, 0, sizeof(MyMetArgsN));
 			args.argCount = 2;
-			jsvalue vargs[2];
+			jsvalue vargs[3];
+			memset(&vargs, 0, sizeof(jsvalue) * 3);
 			args.vargs = vargs;
-			MyCefSetVoidPtr(&vargs[0], CefBrowserCToCpp::Unwrap(browser));
-			MyCefSetInt32(&vargs[1], (int32_t)operation);
+			MyCefSetVoidPtr(&vargs[1], CefBrowserCToCpp::Unwrap(browser));
+			MyCefSetInt32(&vargs[2], (int32_t)operation);
 			mcallback((_typeName << 16) | CefRenderHandlerExt_UpdateDragCursor_11, &args);
 		}
 	}
@@ -9133,11 +9277,12 @@ namespace CefRenderHandlerExt {
 			MyMetArgsN args;
 			memset(&args, 0, sizeof(MyMetArgsN));
 			args.argCount = 3;
-			jsvalue vargs[3];
+			jsvalue vargs[4];
+			memset(&vargs, 0, sizeof(jsvalue) * 4);
 			args.vargs = vargs;
-			MyCefSetVoidPtr(&vargs[0], CefBrowserCToCpp::Unwrap(browser));
-			MyCefSetDouble(&vargs[1], x);
-			MyCefSetDouble(&vargs[2], y);
+			MyCefSetVoidPtr(&vargs[1], CefBrowserCToCpp::Unwrap(browser));
+			MyCefSetDouble(&vargs[2], x);
+			MyCefSetDouble(&vargs[3], y);
 			mcallback((_typeName << 16) | CefRenderHandlerExt_OnScrollOffsetChanged_12, &args);
 		}
 	}
@@ -9147,11 +9292,12 @@ namespace CefRenderHandlerExt {
 			MyMetArgsN args;
 			memset(&args, 0, sizeof(MyMetArgsN));
 			args.argCount = 3;
-			jsvalue vargs[3];
+			jsvalue vargs[4];
+			memset(&vargs, 0, sizeof(jsvalue) * 4);
 			args.vargs = vargs;
-			MyCefSetVoidPtr(&vargs[0], CefBrowserCToCpp::Unwrap(browser));
-			MyCefSetVoidPtr2(&vargs[1], &selected_range);
-			MyCefSetVoidPtr2(&vargs[2], &character_bounds);
+			MyCefSetVoidPtr(&vargs[1], CefBrowserCToCpp::Unwrap(browser));
+			MyCefSetVoidPtr2(&vargs[2], &selected_range);
+			MyCefSetVoidPtr2(&vargs[3], &character_bounds);
 			mcallback((_typeName << 16) | CefRenderHandlerExt_OnImeCompositionRangeChanged_13, &args);
 		}
 	}
@@ -9175,9 +9321,10 @@ namespace CefRenderProcessHandlerExt {
 			MyMetArgsN args;
 			memset(&args, 0, sizeof(MyMetArgsN));
 			args.argCount = 1;
-			jsvalue vargs[1];
+			jsvalue vargs[2];
+			memset(&vargs, 0, sizeof(jsvalue) * 2);
 			args.vargs = vargs;
-			MyCefSetVoidPtr(&vargs[0], CefListValueCToCpp::Unwrap(extra_info));
+			MyCefSetVoidPtr(&vargs[1], CefListValueCToCpp::Unwrap(extra_info));
 			mcallback((_typeName << 16) | CefRenderProcessHandlerExt_OnRenderThreadCreated_1, &args);
 		}
 	}
@@ -9187,6 +9334,9 @@ namespace CefRenderProcessHandlerExt {
 			MyMetArgsN args;
 			memset(&args, 0, sizeof(MyMetArgsN));
 			args.argCount = 0;
+			jsvalue vargs[1];
+			memset(&vargs, 0, sizeof(jsvalue) * 1);
+			args.vargs = vargs;
 			mcallback((_typeName << 16) | CefRenderProcessHandlerExt_OnWebKitInitialized_2, &args);
 		}
 	}
@@ -9196,9 +9346,10 @@ namespace CefRenderProcessHandlerExt {
 			MyMetArgsN args;
 			memset(&args, 0, sizeof(MyMetArgsN));
 			args.argCount = 1;
-			jsvalue vargs[1];
+			jsvalue vargs[2];
+			memset(&vargs, 0, sizeof(jsvalue) * 2);
 			args.vargs = vargs;
-			MyCefSetVoidPtr(&vargs[0], CefBrowserCToCpp::Unwrap(browser));
+			MyCefSetVoidPtr(&vargs[1], CefBrowserCToCpp::Unwrap(browser));
 			mcallback((_typeName << 16) | CefRenderProcessHandlerExt_OnBrowserCreated_3, &args);
 		}
 	}
@@ -9208,9 +9359,10 @@ namespace CefRenderProcessHandlerExt {
 			MyMetArgsN args;
 			memset(&args, 0, sizeof(MyMetArgsN));
 			args.argCount = 1;
-			jsvalue vargs[1];
+			jsvalue vargs[2];
+			memset(&vargs, 0, sizeof(jsvalue) * 2);
 			args.vargs = vargs;
-			MyCefSetVoidPtr(&vargs[0], CefBrowserCToCpp::Unwrap(browser));
+			MyCefSetVoidPtr(&vargs[1], CefBrowserCToCpp::Unwrap(browser));
 			mcallback((_typeName << 16) | CefRenderProcessHandlerExt_OnBrowserDestroyed_4, &args);
 		}
 	}
@@ -9220,8 +9372,11 @@ namespace CefRenderProcessHandlerExt {
 			MyMetArgsN args;
 			memset(&args, 0, sizeof(MyMetArgsN));
 			args.argCount = 0;
+			jsvalue vargs[1];
+			memset(&vargs, 0, sizeof(jsvalue) * 1);
+			args.vargs = vargs;
 			mcallback((_typeName << 16) | CefRenderProcessHandlerExt_GetLoadHandler_5, &args);
-			return CefLoadHandlerCppToC::Unwrap((cef_load_handler_t*)args.ret.ptr);
+			return CefLoadHandlerCppToC::Unwrap((cef_load_handler_t*)vargs[0].ptr);
 		}
 		return nullptr;
 	}
@@ -9231,15 +9386,16 @@ namespace CefRenderProcessHandlerExt {
 			MyMetArgsN args;
 			memset(&args, 0, sizeof(MyMetArgsN));
 			args.argCount = 5;
-			jsvalue vargs[5];
+			jsvalue vargs[6];
+			memset(&vargs, 0, sizeof(jsvalue) * 6);
 			args.vargs = vargs;
-			MyCefSetVoidPtr(&vargs[0], CefBrowserCToCpp::Unwrap(browser));
-			MyCefSetVoidPtr(&vargs[1], CefFrameCToCpp::Unwrap(frame));
-			MyCefSetVoidPtr(&vargs[2], CefRequestCToCpp::Unwrap(request));
-			MyCefSetInt32(&vargs[3], (int32_t)navigation_type);
-			MyCefSetBool(&vargs[4], is_redirect);
+			MyCefSetVoidPtr(&vargs[1], CefBrowserCToCpp::Unwrap(browser));
+			MyCefSetVoidPtr(&vargs[2], CefFrameCToCpp::Unwrap(frame));
+			MyCefSetVoidPtr(&vargs[3], CefRequestCToCpp::Unwrap(request));
+			MyCefSetInt32(&vargs[4], (int32_t)navigation_type);
+			MyCefSetBool(&vargs[5], is_redirect);
 			mcallback((_typeName << 16) | CefRenderProcessHandlerExt_OnBeforeNavigation_6, &args);
-			return args.ret.i32 != 0;
+			return vargs[0].i32 != 0;
 		}
 		return false;
 	}
@@ -9249,11 +9405,12 @@ namespace CefRenderProcessHandlerExt {
 			MyMetArgsN args;
 			memset(&args, 0, sizeof(MyMetArgsN));
 			args.argCount = 3;
-			jsvalue vargs[3];
+			jsvalue vargs[4];
+			memset(&vargs, 0, sizeof(jsvalue) * 4);
 			args.vargs = vargs;
-			MyCefSetVoidPtr(&vargs[0], CefBrowserCToCpp::Unwrap(browser));
-			MyCefSetVoidPtr(&vargs[1], CefFrameCToCpp::Unwrap(frame));
-			MyCefSetVoidPtr(&vargs[2], CefV8ContextCToCpp::Unwrap(context));
+			MyCefSetVoidPtr(&vargs[1], CefBrowserCToCpp::Unwrap(browser));
+			MyCefSetVoidPtr(&vargs[2], CefFrameCToCpp::Unwrap(frame));
+			MyCefSetVoidPtr(&vargs[3], CefV8ContextCToCpp::Unwrap(context));
 			mcallback((_typeName << 16) | CefRenderProcessHandlerExt_OnContextCreated_7, &args);
 		}
 	}
@@ -9263,11 +9420,12 @@ namespace CefRenderProcessHandlerExt {
 			MyMetArgsN args;
 			memset(&args, 0, sizeof(MyMetArgsN));
 			args.argCount = 3;
-			jsvalue vargs[3];
+			jsvalue vargs[4];
+			memset(&vargs, 0, sizeof(jsvalue) * 4);
 			args.vargs = vargs;
-			MyCefSetVoidPtr(&vargs[0], CefBrowserCToCpp::Unwrap(browser));
-			MyCefSetVoidPtr(&vargs[1], CefFrameCToCpp::Unwrap(frame));
-			MyCefSetVoidPtr(&vargs[2], CefV8ContextCToCpp::Unwrap(context));
+			MyCefSetVoidPtr(&vargs[1], CefBrowserCToCpp::Unwrap(browser));
+			MyCefSetVoidPtr(&vargs[2], CefFrameCToCpp::Unwrap(frame));
+			MyCefSetVoidPtr(&vargs[3], CefV8ContextCToCpp::Unwrap(context));
 			mcallback((_typeName << 16) | CefRenderProcessHandlerExt_OnContextReleased_8, &args);
 		}
 	}
@@ -9277,13 +9435,14 @@ namespace CefRenderProcessHandlerExt {
 			MyMetArgsN args;
 			memset(&args, 0, sizeof(MyMetArgsN));
 			args.argCount = 5;
-			jsvalue vargs[5];
+			jsvalue vargs[6];
+			memset(&vargs, 0, sizeof(jsvalue) * 6);
 			args.vargs = vargs;
-			MyCefSetVoidPtr(&vargs[0], CefBrowserCToCpp::Unwrap(browser));
-			MyCefSetVoidPtr(&vargs[1], CefFrameCToCpp::Unwrap(frame));
-			MyCefSetVoidPtr(&vargs[2], CefV8ContextCToCpp::Unwrap(context));
-			MyCefSetVoidPtr(&vargs[3], CefV8ExceptionCToCpp::Unwrap(exception));
-			MyCefSetVoidPtr(&vargs[4], CefV8StackTraceCToCpp::Unwrap(stackTrace));
+			MyCefSetVoidPtr(&vargs[1], CefBrowserCToCpp::Unwrap(browser));
+			MyCefSetVoidPtr(&vargs[2], CefFrameCToCpp::Unwrap(frame));
+			MyCefSetVoidPtr(&vargs[3], CefV8ContextCToCpp::Unwrap(context));
+			MyCefSetVoidPtr(&vargs[4], CefV8ExceptionCToCpp::Unwrap(exception));
+			MyCefSetVoidPtr(&vargs[5], CefV8StackTraceCToCpp::Unwrap(stackTrace));
 			mcallback((_typeName << 16) | CefRenderProcessHandlerExt_OnUncaughtException_9, &args);
 		}
 	}
@@ -9293,11 +9452,12 @@ namespace CefRenderProcessHandlerExt {
 			MyMetArgsN args;
 			memset(&args, 0, sizeof(MyMetArgsN));
 			args.argCount = 3;
-			jsvalue vargs[3];
+			jsvalue vargs[4];
+			memset(&vargs, 0, sizeof(jsvalue) * 4);
 			args.vargs = vargs;
-			MyCefSetVoidPtr(&vargs[0], CefBrowserCToCpp::Unwrap(browser));
-			MyCefSetVoidPtr(&vargs[1], CefFrameCToCpp::Unwrap(frame));
-			MyCefSetVoidPtr(&vargs[2], CefDOMNodeCToCpp::Unwrap(node));
+			MyCefSetVoidPtr(&vargs[1], CefBrowserCToCpp::Unwrap(browser));
+			MyCefSetVoidPtr(&vargs[2], CefFrameCToCpp::Unwrap(frame));
+			MyCefSetVoidPtr(&vargs[3], CefDOMNodeCToCpp::Unwrap(node));
 			mcallback((_typeName << 16) | CefRenderProcessHandlerExt_OnFocusedNodeChanged_10, &args);
 		}
 	}
@@ -9307,13 +9467,14 @@ namespace CefRenderProcessHandlerExt {
 			MyMetArgsN args;
 			memset(&args, 0, sizeof(MyMetArgsN));
 			args.argCount = 3;
-			jsvalue vargs[3];
+			jsvalue vargs[4];
+			memset(&vargs, 0, sizeof(jsvalue) * 4);
 			args.vargs = vargs;
-			MyCefSetVoidPtr(&vargs[0], CefBrowserCToCpp::Unwrap(browser));
-			MyCefSetInt32(&vargs[1], (int32_t)source_process);
-			MyCefSetVoidPtr(&vargs[2], CefProcessMessageCToCpp::Unwrap(message));
+			MyCefSetVoidPtr(&vargs[1], CefBrowserCToCpp::Unwrap(browser));
+			MyCefSetInt32(&vargs[2], (int32_t)source_process);
+			MyCefSetVoidPtr(&vargs[3], CefProcessMessageCToCpp::Unwrap(message));
 			mcallback((_typeName << 16) | CefRenderProcessHandlerExt_OnProcessMessageReceived_11, &args);
-			return args.ret.i32 != 0;
+			return vargs[0].i32 != 0;
 		}
 		return false;
 	}
@@ -9328,8 +9489,11 @@ namespace CefRequestContextHandlerExt {
 			MyMetArgsN args;
 			memset(&args, 0, sizeof(MyMetArgsN));
 			args.argCount = 0;
+			jsvalue vargs[1];
+			memset(&vargs, 0, sizeof(jsvalue) * 1);
+			args.vargs = vargs;
 			mcallback((_typeName << 16) | CefRequestContextHandlerExt_GetCookieManager_1, &args);
-			return CefCookieManagerCToCpp::Wrap((cef_cookie_manager_t*)args.ret.ptr);
+			return CefCookieManagerCToCpp::Wrap((cef_cookie_manager_t*)vargs[0].ptr);
 		}
 		return nullptr;
 	}
@@ -9339,19 +9503,20 @@ namespace CefRequestContextHandlerExt {
 			MyMetArgsN args;
 			memset(&args, 0, sizeof(MyMetArgsN));
 			args.argCount = 6;
-			jsvalue vargs[6];
+			jsvalue vargs[7];
+			memset(&vargs, 0, sizeof(jsvalue) * 7);
 			args.vargs = vargs;
-			SetCefStringToJsValue(&vargs[0], mime_type);
-			SetCefStringToJsValue(&vargs[1], plugin_url);
-			MyCefSetBool(&vargs[2], is_main_frame);
-			SetCefStringToJsValue(&vargs[3], top_origin_url);
-			MyCefSetVoidPtr(&vargs[4], CefWebPluginInfoCToCpp::Unwrap(plugin_info));
-			MyCefSetInt32(&vargs[5], (int32_t)plugin_policy);
+			SetCefStringToJsValue(&vargs[1], mime_type);
+			SetCefStringToJsValue(&vargs[2], plugin_url);
+			MyCefSetBool(&vargs[3], is_main_frame);
+			SetCefStringToJsValue(&vargs[4], top_origin_url);
+			MyCefSetVoidPtr(&vargs[5], CefWebPluginInfoCToCpp::Unwrap(plugin_info));
+			MyCefSetInt32(&vargs[6], (int32_t)plugin_policy);
 			mcallback((_typeName << 16) | CefRequestContextHandlerExt_OnBeforePluginLoad_2, &args);
-			DeleteCefStringHolderFromJsValue(&vargs[0]);
 			DeleteCefStringHolderFromJsValue(&vargs[1]);
-			DeleteCefStringHolderFromJsValue(&vargs[3]);
-			return args.ret.i32 != 0;
+			DeleteCefStringHolderFromJsValue(&vargs[2]);
+			DeleteCefStringHolderFromJsValue(&vargs[4]);
+			return vargs[0].i32 != 0;
 		}
 		return false;
 	}
@@ -9380,14 +9545,15 @@ namespace CefRequestHandlerExt {
 			MyMetArgsN args;
 			memset(&args, 0, sizeof(MyMetArgsN));
 			args.argCount = 4;
-			jsvalue vargs[4];
+			jsvalue vargs[5];
+			memset(&vargs, 0, sizeof(jsvalue) * 5);
 			args.vargs = vargs;
-			MyCefSetVoidPtr(&vargs[0], CefBrowserCToCpp::Unwrap(browser));
-			MyCefSetVoidPtr(&vargs[1], CefFrameCToCpp::Unwrap(frame));
-			MyCefSetVoidPtr(&vargs[2], CefRequestCToCpp::Unwrap(request));
-			MyCefSetBool(&vargs[3], is_redirect);
+			MyCefSetVoidPtr(&vargs[1], CefBrowserCToCpp::Unwrap(browser));
+			MyCefSetVoidPtr(&vargs[2], CefFrameCToCpp::Unwrap(frame));
+			MyCefSetVoidPtr(&vargs[3], CefRequestCToCpp::Unwrap(request));
+			MyCefSetBool(&vargs[4], is_redirect);
 			mcallback((_typeName << 16) | CefRequestHandlerExt_OnBeforeBrowse_1, &args);
-			return args.ret.i32 != 0;
+			return vargs[0].i32 != 0;
 		}
 		return false;
 	}
@@ -9397,16 +9563,17 @@ namespace CefRequestHandlerExt {
 			MyMetArgsN args;
 			memset(&args, 0, sizeof(MyMetArgsN));
 			args.argCount = 5;
-			jsvalue vargs[5];
+			jsvalue vargs[6];
+			memset(&vargs, 0, sizeof(jsvalue) * 6);
 			args.vargs = vargs;
-			MyCefSetVoidPtr(&vargs[0], CefBrowserCToCpp::Unwrap(browser));
-			MyCefSetVoidPtr(&vargs[1], CefFrameCToCpp::Unwrap(frame));
-			SetCefStringToJsValue(&vargs[2], target_url);
-			MyCefSetInt32(&vargs[3], (int32_t)target_disposition);
-			MyCefSetBool(&vargs[4], user_gesture);
+			MyCefSetVoidPtr(&vargs[1], CefBrowserCToCpp::Unwrap(browser));
+			MyCefSetVoidPtr(&vargs[2], CefFrameCToCpp::Unwrap(frame));
+			SetCefStringToJsValue(&vargs[3], target_url);
+			MyCefSetInt32(&vargs[4], (int32_t)target_disposition);
+			MyCefSetBool(&vargs[5], user_gesture);
 			mcallback((_typeName << 16) | CefRequestHandlerExt_OnOpenURLFromTab_2, &args);
-			DeleteCefStringHolderFromJsValue(&vargs[2]);
-			return args.ret.i32 != 0;
+			DeleteCefStringHolderFromJsValue(&vargs[3]);
+			return vargs[0].i32 != 0;
 		}
 		return false;
 	}
@@ -9416,14 +9583,15 @@ namespace CefRequestHandlerExt {
 			MyMetArgsN args;
 			memset(&args, 0, sizeof(MyMetArgsN));
 			args.argCount = 4;
-			jsvalue vargs[4];
+			jsvalue vargs[5];
+			memset(&vargs, 0, sizeof(jsvalue) * 5);
 			args.vargs = vargs;
-			MyCefSetVoidPtr(&vargs[0], CefBrowserCToCpp::Unwrap(browser));
-			MyCefSetVoidPtr(&vargs[1], CefFrameCToCpp::Unwrap(frame));
-			MyCefSetVoidPtr(&vargs[2], CefRequestCToCpp::Unwrap(request));
-			MyCefSetVoidPtr(&vargs[3], CefRequestCallbackCToCpp::Unwrap(callback));
+			MyCefSetVoidPtr(&vargs[1], CefBrowserCToCpp::Unwrap(browser));
+			MyCefSetVoidPtr(&vargs[2], CefFrameCToCpp::Unwrap(frame));
+			MyCefSetVoidPtr(&vargs[3], CefRequestCToCpp::Unwrap(request));
+			MyCefSetVoidPtr(&vargs[4], CefRequestCallbackCToCpp::Unwrap(callback));
 			mcallback((_typeName << 16) | CefRequestHandlerExt_OnBeforeResourceLoad_3, &args);
-			return (cef_return_value_t)args.ret.i32;
+			return (cef_return_value_t)vargs[0].i32;
 		}
 		return (CefRequestHandler::ReturnValue)0;
 	}
@@ -9433,13 +9601,14 @@ namespace CefRequestHandlerExt {
 			MyMetArgsN args;
 			memset(&args, 0, sizeof(MyMetArgsN));
 			args.argCount = 3;
-			jsvalue vargs[3];
+			jsvalue vargs[4];
+			memset(&vargs, 0, sizeof(jsvalue) * 4);
 			args.vargs = vargs;
-			MyCefSetVoidPtr(&vargs[0], CefBrowserCToCpp::Unwrap(browser));
-			MyCefSetVoidPtr(&vargs[1], CefFrameCToCpp::Unwrap(frame));
-			MyCefSetVoidPtr(&vargs[2], CefRequestCToCpp::Unwrap(request));
+			MyCefSetVoidPtr(&vargs[1], CefBrowserCToCpp::Unwrap(browser));
+			MyCefSetVoidPtr(&vargs[2], CefFrameCToCpp::Unwrap(frame));
+			MyCefSetVoidPtr(&vargs[3], CefRequestCToCpp::Unwrap(request));
 			mcallback((_typeName << 16) | CefRequestHandlerExt_GetResourceHandler_4, &args);
-			return CefResourceHandlerCppToC::Unwrap((cef_resource_handler_t*)args.ret.ptr);
+			return CefResourceHandlerCppToC::Unwrap((cef_resource_handler_t*)vargs[0].ptr);
 		}
 		return nullptr;
 	}
@@ -9449,15 +9618,16 @@ namespace CefRequestHandlerExt {
 			MyMetArgsN args;
 			memset(&args, 0, sizeof(MyMetArgsN));
 			args.argCount = 5;
-			jsvalue vargs[5];
+			jsvalue vargs[6];
+			memset(&vargs, 0, sizeof(jsvalue) * 6);
 			args.vargs = vargs;
-			MyCefSetVoidPtr(&vargs[0], CefBrowserCToCpp::Unwrap(browser));
-			MyCefSetVoidPtr(&vargs[1], CefFrameCToCpp::Unwrap(frame));
-			MyCefSetVoidPtr(&vargs[2], CefRequestCToCpp::Unwrap(request));
-			MyCefSetVoidPtr(&vargs[3], CefResponseCToCpp::Unwrap(response));
-			SetCefStringToJsValue(&vargs[4], new_url);
+			MyCefSetVoidPtr(&vargs[1], CefBrowserCToCpp::Unwrap(browser));
+			MyCefSetVoidPtr(&vargs[2], CefFrameCToCpp::Unwrap(frame));
+			MyCefSetVoidPtr(&vargs[3], CefRequestCToCpp::Unwrap(request));
+			MyCefSetVoidPtr(&vargs[4], CefResponseCToCpp::Unwrap(response));
+			SetCefStringToJsValue(&vargs[5], new_url);
 			mcallback((_typeName << 16) | CefRequestHandlerExt_OnResourceRedirect_5, &args);
-			DeleteCefStringHolderFromJsValue(&vargs[4]);
+			DeleteCefStringHolderFromJsValue(&vargs[5]);
 		}
 	}
 	//gen! bool OnResourceResponse(CefRefPtr<CefBrowser> browser,CefRefPtr<CefFrame> frame,CefRefPtr<CefRequest> request,CefRefPtr<CefResponse> response)
@@ -9466,14 +9636,15 @@ namespace CefRequestHandlerExt {
 			MyMetArgsN args;
 			memset(&args, 0, sizeof(MyMetArgsN));
 			args.argCount = 4;
-			jsvalue vargs[4];
+			jsvalue vargs[5];
+			memset(&vargs, 0, sizeof(jsvalue) * 5);
 			args.vargs = vargs;
-			MyCefSetVoidPtr(&vargs[0], CefBrowserCToCpp::Unwrap(browser));
-			MyCefSetVoidPtr(&vargs[1], CefFrameCToCpp::Unwrap(frame));
-			MyCefSetVoidPtr(&vargs[2], CefRequestCToCpp::Unwrap(request));
-			MyCefSetVoidPtr(&vargs[3], CefResponseCToCpp::Unwrap(response));
+			MyCefSetVoidPtr(&vargs[1], CefBrowserCToCpp::Unwrap(browser));
+			MyCefSetVoidPtr(&vargs[2], CefFrameCToCpp::Unwrap(frame));
+			MyCefSetVoidPtr(&vargs[3], CefRequestCToCpp::Unwrap(request));
+			MyCefSetVoidPtr(&vargs[4], CefResponseCToCpp::Unwrap(response));
 			mcallback((_typeName << 16) | CefRequestHandlerExt_OnResourceResponse_6, &args);
-			return args.ret.i32 != 0;
+			return vargs[0].i32 != 0;
 		}
 		return false;
 	}
@@ -9483,14 +9654,15 @@ namespace CefRequestHandlerExt {
 			MyMetArgsN args;
 			memset(&args, 0, sizeof(MyMetArgsN));
 			args.argCount = 4;
-			jsvalue vargs[4];
+			jsvalue vargs[5];
+			memset(&vargs, 0, sizeof(jsvalue) * 5);
 			args.vargs = vargs;
-			MyCefSetVoidPtr(&vargs[0], CefBrowserCToCpp::Unwrap(browser));
-			MyCefSetVoidPtr(&vargs[1], CefFrameCToCpp::Unwrap(frame));
-			MyCefSetVoidPtr(&vargs[2], CefRequestCToCpp::Unwrap(request));
-			MyCefSetVoidPtr(&vargs[3], CefResponseCToCpp::Unwrap(response));
+			MyCefSetVoidPtr(&vargs[1], CefBrowserCToCpp::Unwrap(browser));
+			MyCefSetVoidPtr(&vargs[2], CefFrameCToCpp::Unwrap(frame));
+			MyCefSetVoidPtr(&vargs[3], CefRequestCToCpp::Unwrap(request));
+			MyCefSetVoidPtr(&vargs[4], CefResponseCToCpp::Unwrap(response));
 			mcallback((_typeName << 16) | CefRequestHandlerExt_GetResourceResponseFilter_7, &args);
-			return CefResponseFilterCppToC::Unwrap((cef_response_filter_t*)args.ret.ptr);
+			return CefResponseFilterCppToC::Unwrap((cef_response_filter_t*)vargs[0].ptr);
 		}
 		return nullptr;
 	}
@@ -9500,14 +9672,15 @@ namespace CefRequestHandlerExt {
 			MyMetArgsN args;
 			memset(&args, 0, sizeof(MyMetArgsN));
 			args.argCount = 6;
-			jsvalue vargs[6];
+			jsvalue vargs[7];
+			memset(&vargs, 0, sizeof(jsvalue) * 7);
 			args.vargs = vargs;
-			MyCefSetVoidPtr(&vargs[0], CefBrowserCToCpp::Unwrap(browser));
-			MyCefSetVoidPtr(&vargs[1], CefFrameCToCpp::Unwrap(frame));
-			MyCefSetVoidPtr(&vargs[2], CefRequestCToCpp::Unwrap(request));
-			MyCefSetVoidPtr(&vargs[3], CefResponseCToCpp::Unwrap(response));
-			MyCefSetInt32(&vargs[4], (int32_t)status);
-			MyCefSetInt64(&vargs[5], received_content_length);
+			MyCefSetVoidPtr(&vargs[1], CefBrowserCToCpp::Unwrap(browser));
+			MyCefSetVoidPtr(&vargs[2], CefFrameCToCpp::Unwrap(frame));
+			MyCefSetVoidPtr(&vargs[3], CefRequestCToCpp::Unwrap(request));
+			MyCefSetVoidPtr(&vargs[4], CefResponseCToCpp::Unwrap(response));
+			MyCefSetInt32(&vargs[5], (int32_t)status);
+			MyCefSetInt64(&vargs[6], received_content_length);
 			mcallback((_typeName << 16) | CefRequestHandlerExt_OnResourceLoadComplete_8, &args);
 		}
 	}
@@ -9517,21 +9690,22 @@ namespace CefRequestHandlerExt {
 			MyMetArgsN args;
 			memset(&args, 0, sizeof(MyMetArgsN));
 			args.argCount = 8;
-			jsvalue vargs[8];
+			jsvalue vargs[9];
+			memset(&vargs, 0, sizeof(jsvalue) * 9);
 			args.vargs = vargs;
-			MyCefSetVoidPtr(&vargs[0], CefBrowserCToCpp::Unwrap(browser));
-			MyCefSetVoidPtr(&vargs[1], CefFrameCToCpp::Unwrap(frame));
-			MyCefSetBool(&vargs[2], isProxy);
-			SetCefStringToJsValue(&vargs[3], host);
-			MyCefSetInt32(&vargs[4], (int32_t)port);
-			SetCefStringToJsValue(&vargs[5], realm);
-			SetCefStringToJsValue(&vargs[6], scheme);
-			MyCefSetVoidPtr(&vargs[7], CefAuthCallbackCToCpp::Unwrap(callback));
+			MyCefSetVoidPtr(&vargs[1], CefBrowserCToCpp::Unwrap(browser));
+			MyCefSetVoidPtr(&vargs[2], CefFrameCToCpp::Unwrap(frame));
+			MyCefSetBool(&vargs[3], isProxy);
+			SetCefStringToJsValue(&vargs[4], host);
+			MyCefSetInt32(&vargs[5], (int32_t)port);
+			SetCefStringToJsValue(&vargs[6], realm);
+			SetCefStringToJsValue(&vargs[7], scheme);
+			MyCefSetVoidPtr(&vargs[8], CefAuthCallbackCToCpp::Unwrap(callback));
 			mcallback((_typeName << 16) | CefRequestHandlerExt_GetAuthCredentials_9, &args);
-			DeleteCefStringHolderFromJsValue(&vargs[3]);
-			DeleteCefStringHolderFromJsValue(&vargs[5]);
+			DeleteCefStringHolderFromJsValue(&vargs[4]);
 			DeleteCefStringHolderFromJsValue(&vargs[6]);
-			return args.ret.i32 != 0;
+			DeleteCefStringHolderFromJsValue(&vargs[7]);
+			return vargs[0].i32 != 0;
 		}
 		return false;
 	}
@@ -9541,15 +9715,16 @@ namespace CefRequestHandlerExt {
 			MyMetArgsN args;
 			memset(&args, 0, sizeof(MyMetArgsN));
 			args.argCount = 4;
-			jsvalue vargs[4];
+			jsvalue vargs[5];
+			memset(&vargs, 0, sizeof(jsvalue) * 5);
 			args.vargs = vargs;
-			MyCefSetVoidPtr(&vargs[0], CefBrowserCToCpp::Unwrap(browser));
-			SetCefStringToJsValue(&vargs[1], origin_url);
-			MyCefSetInt64(&vargs[2], new_size);
-			MyCefSetVoidPtr(&vargs[3], CefRequestCallbackCToCpp::Unwrap(callback));
+			MyCefSetVoidPtr(&vargs[1], CefBrowserCToCpp::Unwrap(browser));
+			SetCefStringToJsValue(&vargs[2], origin_url);
+			MyCefSetInt64(&vargs[3], new_size);
+			MyCefSetVoidPtr(&vargs[4], CefRequestCallbackCToCpp::Unwrap(callback));
 			mcallback((_typeName << 16) | CefRequestHandlerExt_OnQuotaRequest_10, &args);
-			DeleteCefStringHolderFromJsValue(&vargs[1]);
-			return args.ret.i32 != 0;
+			DeleteCefStringHolderFromJsValue(&vargs[2]);
+			return vargs[0].i32 != 0;
 		}
 		return false;
 	}
@@ -9559,13 +9734,14 @@ namespace CefRequestHandlerExt {
 			MyMetArgsN args;
 			memset(&args, 0, sizeof(MyMetArgsN));
 			args.argCount = 3;
-			jsvalue vargs[3];
+			jsvalue vargs[4];
+			memset(&vargs, 0, sizeof(jsvalue) * 4);
 			args.vargs = vargs;
-			MyCefSetVoidPtr(&vargs[0], CefBrowserCToCpp::Unwrap(browser));
-			SetCefStringToJsValue(&vargs[1], url);
-			MyCefSetVoidPtr(&vargs[2], &allow_os_execution);
+			MyCefSetVoidPtr(&vargs[1], CefBrowserCToCpp::Unwrap(browser));
+			SetCefStringToJsValue(&vargs[2], url);
+			MyCefSetVoidPtr(&vargs[3], &allow_os_execution);
 			mcallback((_typeName << 16) | CefRequestHandlerExt_OnProtocolExecution_11, &args);
-			DeleteCefStringHolderFromJsValue(&vargs[1]);
+			DeleteCefStringHolderFromJsValue(&vargs[2]);
 		}
 	}
 	//gen! bool OnCertificateError(CefRefPtr<CefBrowser> browser,cef_errorcode_t cert_error,const CefString& request_url,CefRefPtr<CefSSLInfo> ssl_info,CefRefPtr<CefRequestCallback> callback)
@@ -9574,16 +9750,17 @@ namespace CefRequestHandlerExt {
 			MyMetArgsN args;
 			memset(&args, 0, sizeof(MyMetArgsN));
 			args.argCount = 5;
-			jsvalue vargs[5];
+			jsvalue vargs[6];
+			memset(&vargs, 0, sizeof(jsvalue) * 6);
 			args.vargs = vargs;
-			MyCefSetVoidPtr(&vargs[0], CefBrowserCToCpp::Unwrap(browser));
-			MyCefSetInt32(&vargs[1], (int32_t)cert_error);
-			SetCefStringToJsValue(&vargs[2], request_url);
-			MyCefSetVoidPtr(&vargs[3], CefSSLInfoCToCpp::Unwrap(ssl_info));
-			MyCefSetVoidPtr(&vargs[4], CefRequestCallbackCToCpp::Unwrap(callback));
+			MyCefSetVoidPtr(&vargs[1], CefBrowserCToCpp::Unwrap(browser));
+			MyCefSetInt32(&vargs[2], (int32_t)cert_error);
+			SetCefStringToJsValue(&vargs[3], request_url);
+			MyCefSetVoidPtr(&vargs[4], CefSSLInfoCToCpp::Unwrap(ssl_info));
+			MyCefSetVoidPtr(&vargs[5], CefRequestCallbackCToCpp::Unwrap(callback));
 			mcallback((_typeName << 16) | CefRequestHandlerExt_OnCertificateError_12, &args);
-			DeleteCefStringHolderFromJsValue(&vargs[2]);
-			return args.ret.i32 != 0;
+			DeleteCefStringHolderFromJsValue(&vargs[3]);
+			return vargs[0].i32 != 0;
 		}
 		return false;
 	}
@@ -9593,17 +9770,18 @@ namespace CefRequestHandlerExt {
 			MyMetArgsN args;
 			memset(&args, 0, sizeof(MyMetArgsN));
 			args.argCount = 6;
-			jsvalue vargs[6];
+			jsvalue vargs[7];
+			memset(&vargs, 0, sizeof(jsvalue) * 7);
 			args.vargs = vargs;
-			MyCefSetVoidPtr(&vargs[0], CefBrowserCToCpp::Unwrap(browser));
-			MyCefSetBool(&vargs[1], isProxy);
-			SetCefStringToJsValue(&vargs[2], host);
-			MyCefSetInt32(&vargs[3], (int32_t)port);
-			MyCefSetVoidPtr2(&vargs[4], &certificates);
-			MyCefSetVoidPtr(&vargs[5], CefSelectClientCertificateCallbackCToCpp::Unwrap(callback));
+			MyCefSetVoidPtr(&vargs[1], CefBrowserCToCpp::Unwrap(browser));
+			MyCefSetBool(&vargs[2], isProxy);
+			SetCefStringToJsValue(&vargs[3], host);
+			MyCefSetInt32(&vargs[4], (int32_t)port);
+			MyCefSetVoidPtr2(&vargs[5], &certificates);
+			MyCefSetVoidPtr(&vargs[6], CefSelectClientCertificateCallbackCToCpp::Unwrap(callback));
 			mcallback((_typeName << 16) | CefRequestHandlerExt_OnSelectClientCertificate_13, &args);
-			DeleteCefStringHolderFromJsValue(&vargs[2]);
-			return args.ret.i32 != 0;
+			DeleteCefStringHolderFromJsValue(&vargs[3]);
+			return vargs[0].i32 != 0;
 		}
 		return false;
 	}
@@ -9613,12 +9791,13 @@ namespace CefRequestHandlerExt {
 			MyMetArgsN args;
 			memset(&args, 0, sizeof(MyMetArgsN));
 			args.argCount = 2;
-			jsvalue vargs[2];
+			jsvalue vargs[3];
+			memset(&vargs, 0, sizeof(jsvalue) * 3);
 			args.vargs = vargs;
-			MyCefSetVoidPtr(&vargs[0], CefBrowserCToCpp::Unwrap(browser));
-			SetCefStringToJsValue(&vargs[1], plugin_path);
+			MyCefSetVoidPtr(&vargs[1], CefBrowserCToCpp::Unwrap(browser));
+			SetCefStringToJsValue(&vargs[2], plugin_path);
 			mcallback((_typeName << 16) | CefRequestHandlerExt_OnPluginCrashed_14, &args);
-			DeleteCefStringHolderFromJsValue(&vargs[1]);
+			DeleteCefStringHolderFromJsValue(&vargs[2]);
 		}
 	}
 	//gen! void OnRenderViewReady(CefRefPtr<CefBrowser> browser)
@@ -9627,9 +9806,10 @@ namespace CefRequestHandlerExt {
 			MyMetArgsN args;
 			memset(&args, 0, sizeof(MyMetArgsN));
 			args.argCount = 1;
-			jsvalue vargs[1];
+			jsvalue vargs[2];
+			memset(&vargs, 0, sizeof(jsvalue) * 2);
 			args.vargs = vargs;
-			MyCefSetVoidPtr(&vargs[0], CefBrowserCToCpp::Unwrap(browser));
+			MyCefSetVoidPtr(&vargs[1], CefBrowserCToCpp::Unwrap(browser));
 			mcallback((_typeName << 16) | CefRequestHandlerExt_OnRenderViewReady_15, &args);
 		}
 	}
@@ -9639,10 +9819,11 @@ namespace CefRequestHandlerExt {
 			MyMetArgsN args;
 			memset(&args, 0, sizeof(MyMetArgsN));
 			args.argCount = 2;
-			jsvalue vargs[2];
+			jsvalue vargs[3];
+			memset(&vargs, 0, sizeof(jsvalue) * 3);
 			args.vargs = vargs;
-			MyCefSetVoidPtr(&vargs[0], CefBrowserCToCpp::Unwrap(browser));
-			MyCefSetInt32(&vargs[1], (int32_t)status);
+			MyCefSetVoidPtr(&vargs[1], CefBrowserCToCpp::Unwrap(browser));
+			MyCefSetInt32(&vargs[2], (int32_t)status);
 			mcallback((_typeName << 16) | CefRequestHandlerExt_OnRenderProcessTerminated_16, &args);
 		}
 	}
@@ -9658,13 +9839,14 @@ namespace CefResourceBundleHandlerExt {
 			MyMetArgsN args;
 			memset(&args, 0, sizeof(MyMetArgsN));
 			args.argCount = 2;
-			jsvalue vargs[2];
+			jsvalue vargs[3];
+			memset(&vargs, 0, sizeof(jsvalue) * 3);
 			args.vargs = vargs;
-			MyCefSetInt32(&vargs[0], (int32_t)string_id);
-			SetCefStringToJsValue(&vargs[1], string);
+			MyCefSetInt32(&vargs[1], (int32_t)string_id);
+			SetCefStringToJsValue(&vargs[2], string);
 			mcallback((_typeName << 16) | CefResourceBundleHandlerExt_GetLocalizedString_1, &args);
-			DeleteCefStringHolderFromJsValue(&vargs[1]);
-			return args.ret.i32 != 0;
+			DeleteCefStringHolderFromJsValue(&vargs[2]);
+			return vargs[0].i32 != 0;
 		}
 		return false;
 	}
@@ -9674,13 +9856,14 @@ namespace CefResourceBundleHandlerExt {
 			MyMetArgsN args;
 			memset(&args, 0, sizeof(MyMetArgsN));
 			args.argCount = 3;
-			jsvalue vargs[3];
+			jsvalue vargs[4];
+			memset(&vargs, 0, sizeof(jsvalue) * 4);
 			args.vargs = vargs;
-			MyCefSetInt32(&vargs[0], (int32_t)resource_id);
-			MyCefSetVoidPtr(&vargs[1], data);
-			MyCefSetInt32(&vargs[2], (int32_t)data_size);
+			MyCefSetInt32(&vargs[1], (int32_t)resource_id);
+			MyCefSetVoidPtr(&vargs[2], data);
+			MyCefSetInt32(&vargs[3], (int32_t)data_size);
 			mcallback((_typeName << 16) | CefResourceBundleHandlerExt_GetDataResource_2, &args);
-			return args.ret.i32 != 0;
+			return vargs[0].i32 != 0;
 		}
 		return false;
 	}
@@ -9690,14 +9873,15 @@ namespace CefResourceBundleHandlerExt {
 			MyMetArgsN args;
 			memset(&args, 0, sizeof(MyMetArgsN));
 			args.argCount = 4;
-			jsvalue vargs[4];
+			jsvalue vargs[5];
+			memset(&vargs, 0, sizeof(jsvalue) * 5);
 			args.vargs = vargs;
-			MyCefSetInt32(&vargs[0], (int32_t)resource_id);
-			MyCefSetInt32(&vargs[1], (int32_t)scale_factor);
-			MyCefSetVoidPtr(&vargs[2], data);
-			MyCefSetInt32(&vargs[3], (int32_t)data_size);
+			MyCefSetInt32(&vargs[1], (int32_t)resource_id);
+			MyCefSetInt32(&vargs[2], (int32_t)scale_factor);
+			MyCefSetVoidPtr(&vargs[3], data);
+			MyCefSetInt32(&vargs[4], (int32_t)data_size);
 			mcallback((_typeName << 16) | CefResourceBundleHandlerExt_GetDataResourceForScale_3, &args);
-			return args.ret.i32 != 0;
+			return vargs[0].i32 != 0;
 		}
 		return false;
 	}
@@ -9716,12 +9900,13 @@ namespace CefResourceHandlerExt {
 			MyMetArgsN args;
 			memset(&args, 0, sizeof(MyMetArgsN));
 			args.argCount = 2;
-			jsvalue vargs[2];
+			jsvalue vargs[3];
+			memset(&vargs, 0, sizeof(jsvalue) * 3);
 			args.vargs = vargs;
-			MyCefSetVoidPtr(&vargs[0], CefRequestCToCpp::Unwrap(request));
-			MyCefSetVoidPtr(&vargs[1], CefCallbackCToCpp::Unwrap(callback));
+			MyCefSetVoidPtr(&vargs[1], CefRequestCToCpp::Unwrap(request));
+			MyCefSetVoidPtr(&vargs[2], CefCallbackCToCpp::Unwrap(callback));
 			mcallback((_typeName << 16) | CefResourceHandlerExt_ProcessRequest_1, &args);
-			return args.ret.i32 != 0;
+			return vargs[0].i32 != 0;
 		}
 		return false;
 	}
@@ -9731,13 +9916,14 @@ namespace CefResourceHandlerExt {
 			MyMetArgsN args;
 			memset(&args, 0, sizeof(MyMetArgsN));
 			args.argCount = 3;
-			jsvalue vargs[3];
+			jsvalue vargs[4];
+			memset(&vargs, 0, sizeof(jsvalue) * 4);
 			args.vargs = vargs;
-			MyCefSetVoidPtr(&vargs[0], CefResponseCToCpp::Unwrap(response));
-			MyCefSetInt64(&vargs[1], response_length);
-			SetCefStringToJsValue(&vargs[2], redirectUrl);
+			MyCefSetVoidPtr(&vargs[1], CefResponseCToCpp::Unwrap(response));
+			MyCefSetInt64(&vargs[2], response_length);
+			SetCefStringToJsValue(&vargs[3], redirectUrl);
 			mcallback((_typeName << 16) | CefResourceHandlerExt_GetResponseHeaders_2, &args);
-			DeleteCefStringHolderFromJsValue(&vargs[2]);
+			DeleteCefStringHolderFromJsValue(&vargs[3]);
 		}
 	}
 	//gen! bool ReadResponse(void* data_out,int bytes_to_read,int& bytes_read,CefRefPtr<CefCallback> callback)
@@ -9746,14 +9932,15 @@ namespace CefResourceHandlerExt {
 			MyMetArgsN args;
 			memset(&args, 0, sizeof(MyMetArgsN));
 			args.argCount = 4;
-			jsvalue vargs[4];
+			jsvalue vargs[5];
+			memset(&vargs, 0, sizeof(jsvalue) * 5);
 			args.vargs = vargs;
-			MyCefSetVoidPtr(&vargs[0], data_out);
-			MyCefSetInt32(&vargs[1], (int32_t)bytes_to_read);
-			MyCefSetInt32(&vargs[2], (int32_t)bytes_read);
-			MyCefSetVoidPtr(&vargs[3], CefCallbackCToCpp::Unwrap(callback));
+			MyCefSetVoidPtr(&vargs[1], data_out);
+			MyCefSetInt32(&vargs[2], (int32_t)bytes_to_read);
+			MyCefSetInt32(&vargs[3], (int32_t)bytes_read);
+			MyCefSetVoidPtr(&vargs[4], CefCallbackCToCpp::Unwrap(callback));
 			mcallback((_typeName << 16) | CefResourceHandlerExt_ReadResponse_3, &args);
-			return args.ret.i32 != 0;
+			return vargs[0].i32 != 0;
 		}
 		return false;
 	}
@@ -9763,11 +9950,12 @@ namespace CefResourceHandlerExt {
 			MyMetArgsN args;
 			memset(&args, 0, sizeof(MyMetArgsN));
 			args.argCount = 1;
-			jsvalue vargs[1];
+			jsvalue vargs[2];
+			memset(&vargs, 0, sizeof(jsvalue) * 2);
 			args.vargs = vargs;
-			MyCefSetVoidPtr2(&vargs[0], &cookie);
+			MyCefSetVoidPtr2(&vargs[1], &cookie);
 			mcallback((_typeName << 16) | CefResourceHandlerExt_CanGetCookie_4, &args);
-			return args.ret.i32 != 0;
+			return vargs[0].i32 != 0;
 		}
 		return false;
 	}
@@ -9777,11 +9965,12 @@ namespace CefResourceHandlerExt {
 			MyMetArgsN args;
 			memset(&args, 0, sizeof(MyMetArgsN));
 			args.argCount = 1;
-			jsvalue vargs[1];
+			jsvalue vargs[2];
+			memset(&vargs, 0, sizeof(jsvalue) * 2);
 			args.vargs = vargs;
-			MyCefSetVoidPtr2(&vargs[0], &cookie);
+			MyCefSetVoidPtr2(&vargs[1], &cookie);
 			mcallback((_typeName << 16) | CefResourceHandlerExt_CanSetCookie_5, &args);
-			return args.ret.i32 != 0;
+			return vargs[0].i32 != 0;
 		}
 		return false;
 	}
@@ -9791,6 +9980,9 @@ namespace CefResourceHandlerExt {
 			MyMetArgsN args;
 			memset(&args, 0, sizeof(MyMetArgsN));
 			args.argCount = 0;
+			jsvalue vargs[1];
+			memset(&vargs, 0, sizeof(jsvalue) * 1);
+			args.vargs = vargs;
 			mcallback((_typeName << 16) | CefResourceHandlerExt_Cancel_6, &args);
 		}
 	}
@@ -9808,13 +10000,14 @@ namespace CefReadHandlerExt {
 			MyMetArgsN args;
 			memset(&args, 0, sizeof(MyMetArgsN));
 			args.argCount = 3;
-			jsvalue vargs[3];
+			jsvalue vargs[4];
+			memset(&vargs, 0, sizeof(jsvalue) * 4);
 			args.vargs = vargs;
-			MyCefSetVoidPtr(&vargs[0], ptr);
-			MyCefSetInt32(&vargs[1], (int32_t)size);
-			MyCefSetInt32(&vargs[2], (int32_t)n);
+			MyCefSetVoidPtr(&vargs[1], ptr);
+			MyCefSetInt32(&vargs[2], (int32_t)size);
+			MyCefSetInt32(&vargs[3], (int32_t)n);
 			mcallback((_typeName << 16) | CefReadHandlerExt_Read_1, &args);
-			return args.ret.i64;
+			return vargs[0].i64;
 		}
 		return 0;
 	}
@@ -9824,12 +10017,13 @@ namespace CefReadHandlerExt {
 			MyMetArgsN args;
 			memset(&args, 0, sizeof(MyMetArgsN));
 			args.argCount = 2;
-			jsvalue vargs[2];
+			jsvalue vargs[3];
+			memset(&vargs, 0, sizeof(jsvalue) * 3);
 			args.vargs = vargs;
-			MyCefSetInt64(&vargs[0], offset);
-			MyCefSetInt32(&vargs[1], (int32_t)whence);
+			MyCefSetInt64(&vargs[1], offset);
+			MyCefSetInt32(&vargs[2], (int32_t)whence);
 			mcallback((_typeName << 16) | CefReadHandlerExt_Seek_2, &args);
-			return args.ret.i32;
+			return vargs[0].i32;
 		}
 		return 0;
 	}
@@ -9839,8 +10033,11 @@ namespace CefReadHandlerExt {
 			MyMetArgsN args;
 			memset(&args, 0, sizeof(MyMetArgsN));
 			args.argCount = 0;
+			jsvalue vargs[1];
+			memset(&vargs, 0, sizeof(jsvalue) * 1);
+			args.vargs = vargs;
 			mcallback((_typeName << 16) | CefReadHandlerExt_Tell_3, &args);
-			return args.ret.i64;
+			return vargs[0].i64;
 		}
 		return 0;
 	}
@@ -9850,8 +10047,11 @@ namespace CefReadHandlerExt {
 			MyMetArgsN args;
 			memset(&args, 0, sizeof(MyMetArgsN));
 			args.argCount = 0;
+			jsvalue vargs[1];
+			memset(&vargs, 0, sizeof(jsvalue) * 1);
+			args.vargs = vargs;
 			mcallback((_typeName << 16) | CefReadHandlerExt_Eof_4, &args);
-			return args.ret.i32;
+			return vargs[0].i32;
 		}
 		return 0;
 	}
@@ -9861,8 +10061,11 @@ namespace CefReadHandlerExt {
 			MyMetArgsN args;
 			memset(&args, 0, sizeof(MyMetArgsN));
 			args.argCount = 0;
+			jsvalue vargs[1];
+			memset(&vargs, 0, sizeof(jsvalue) * 1);
+			args.vargs = vargs;
 			mcallback((_typeName << 16) | CefReadHandlerExt_MayBlock_5, &args);
-			return args.ret.i32 != 0;
+			return vargs[0].i32 != 0;
 		}
 		return false;
 	}
@@ -9880,13 +10083,14 @@ namespace CefWriteHandlerExt {
 			MyMetArgsN args;
 			memset(&args, 0, sizeof(MyMetArgsN));
 			args.argCount = 3;
-			jsvalue vargs[3];
+			jsvalue vargs[4];
+			memset(&vargs, 0, sizeof(jsvalue) * 4);
 			args.vargs = vargs;
-			MyCefSetVoidPtr2(&vargs[0], ptr);
-			MyCefSetInt32(&vargs[1], (int32_t)size);
-			MyCefSetInt32(&vargs[2], (int32_t)n);
+			MyCefSetVoidPtr2(&vargs[1], ptr);
+			MyCefSetInt32(&vargs[2], (int32_t)size);
+			MyCefSetInt32(&vargs[3], (int32_t)n);
 			mcallback((_typeName << 16) | CefWriteHandlerExt_Write_1, &args);
-			return args.ret.i64;
+			return vargs[0].i64;
 		}
 		return 0;
 	}
@@ -9896,12 +10100,13 @@ namespace CefWriteHandlerExt {
 			MyMetArgsN args;
 			memset(&args, 0, sizeof(MyMetArgsN));
 			args.argCount = 2;
-			jsvalue vargs[2];
+			jsvalue vargs[3];
+			memset(&vargs, 0, sizeof(jsvalue) * 3);
 			args.vargs = vargs;
-			MyCefSetInt64(&vargs[0], offset);
-			MyCefSetInt32(&vargs[1], (int32_t)whence);
+			MyCefSetInt64(&vargs[1], offset);
+			MyCefSetInt32(&vargs[2], (int32_t)whence);
 			mcallback((_typeName << 16) | CefWriteHandlerExt_Seek_2, &args);
-			return args.ret.i32;
+			return vargs[0].i32;
 		}
 		return 0;
 	}
@@ -9911,8 +10116,11 @@ namespace CefWriteHandlerExt {
 			MyMetArgsN args;
 			memset(&args, 0, sizeof(MyMetArgsN));
 			args.argCount = 0;
+			jsvalue vargs[1];
+			memset(&vargs, 0, sizeof(jsvalue) * 1);
+			args.vargs = vargs;
 			mcallback((_typeName << 16) | CefWriteHandlerExt_Tell_3, &args);
-			return args.ret.i64;
+			return vargs[0].i64;
 		}
 		return 0;
 	}
@@ -9922,8 +10130,11 @@ namespace CefWriteHandlerExt {
 			MyMetArgsN args;
 			memset(&args, 0, sizeof(MyMetArgsN));
 			args.argCount = 0;
+			jsvalue vargs[1];
+			memset(&vargs, 0, sizeof(jsvalue) * 1);
+			args.vargs = vargs;
 			mcallback((_typeName << 16) | CefWriteHandlerExt_Flush_4, &args);
-			return args.ret.i32;
+			return vargs[0].i32;
 		}
 		return 0;
 	}
@@ -9933,8 +10144,11 @@ namespace CefWriteHandlerExt {
 			MyMetArgsN args;
 			memset(&args, 0, sizeof(MyMetArgsN));
 			args.argCount = 0;
+			jsvalue vargs[1];
+			memset(&vargs, 0, sizeof(jsvalue) * 1);
+			args.vargs = vargs;
 			mcallback((_typeName << 16) | CefWriteHandlerExt_MayBlock_5, &args);
-			return args.ret.i32 != 0;
+			return vargs[0].i32 != 0;
 		}
 		return false;
 	}
@@ -9948,17 +10162,18 @@ namespace CefV8HandlerExt {
 			MyMetArgsN args;
 			memset(&args, 0, sizeof(MyMetArgsN));
 			args.argCount = 5;
-			jsvalue vargs[5];
+			jsvalue vargs[6];
+			memset(&vargs, 0, sizeof(jsvalue) * 6);
 			args.vargs = vargs;
-			SetCefStringToJsValue(&vargs[0], name);
-			MyCefSetVoidPtr(&vargs[1], CefV8ValueCToCpp::Unwrap(object));
-			MyCefSetVoidPtr2(&vargs[2], &arguments);
-			MyCefSetVoidPtr(&vargs[3], retval);
-			SetCefStringToJsValue(&vargs[4], exception);
+			SetCefStringToJsValue(&vargs[1], name);
+			MyCefSetVoidPtr(&vargs[2], CefV8ValueCToCpp::Unwrap(object));
+			MyCefSetVoidPtr2(&vargs[3], &arguments);
+			MyCefSetVoidPtr(&vargs[4], retval);
+			SetCefStringToJsValue(&vargs[5], exception);
 			mcallback((_typeName << 16) | CefV8HandlerExt_Execute_1, &args);
-			DeleteCefStringHolderFromJsValue(&vargs[0]);
-			DeleteCefStringHolderFromJsValue(&vargs[4]);
-			return args.ret.i32 != 0;
+			DeleteCefStringHolderFromJsValue(&vargs[1]);
+			DeleteCefStringHolderFromJsValue(&vargs[5]);
+			return vargs[0].i32 != 0;
 		}
 		return false;
 	}

@@ -1,3 +1,4 @@
+//MIT, 2015-2017, WinterDev
 #pragma once
 
   
@@ -75,13 +76,6 @@ typedef void(__cdecl *managed_callback)(int id, void* args);
  struct MyMetArgsN
  {
 	 int32_t argCount;
-	 jsvalue ret;
 	 jsvalue* vargs;
  };
 
-#include "include/internal/cef_string.h"
- class MyCefStringHolder
- {
- public:
-	 CefString value;
- };

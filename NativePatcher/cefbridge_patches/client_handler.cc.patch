@@ -176,7 +176,11 @@ CEF_REQUIRE_UI_THREAD();
 //###_APPEND_START 7
 if (this->mcallback_) {
 
-
+//-------------
+CefDownloadHandlerExt::OnBeforeDownload(this->mcallback_,
+browser, download_item, suggested_name,
+callback);
+//-------------
 
 MethodArgs metArgs;
 memset(&metArgs, 0, sizeof(MethodArgs));
@@ -204,6 +208,9 @@ if (this->mcallback_) {
 
 if (download_item->IsComplete()) {
 //this version we notify back when complete
+
+CefDownloadHandlerExt::OnDownloadUpdated(this->mcallback_, browser, download_item, callback);
+
 MethodArgs metArgs;
 memset(&metArgs, 0, sizeof(MethodArgs));
 metArgs.SetArgAsNativeObject(0, browser);

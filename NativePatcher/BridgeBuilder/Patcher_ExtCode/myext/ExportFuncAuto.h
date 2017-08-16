@@ -1,3 +1,4 @@
+//MIT, 2015-2017, WinterDev
 #pragma once
 
 //for auto gen content
@@ -77,22 +78,13 @@
 #include "libcef_dll/ctocpp/before_download_callback_ctocpp.h"
 #include "libcef_dll/ctocpp/print_dialog_callback_ctocpp.h"
 #include "libcef_dll/ctocpp/print_job_callback_ctocpp.h"
-
+#include "libcef_dll/myext/MyCefStringHolder.h"
 
 //
 extern "C" {
 
 	MY_DLL_EXPORT void MyCefMet_CallN(void* me1, int metName, jsvalue* ret, jsvalue* v1, jsvalue* v2, jsvalue* v3, jsvalue* v4, jsvalue* v5, jsvalue* v6, jsvalue* v7);
-	MY_DLL_EXPORT void* NewInstance(int typeName, managed_callback mcallback, jsvalue* jsvalue);
-
-
-	//MyMetArg
-	MY_DLL_EXPORT int32_t MyMetArgGetCount(void* /*MyMetArgsN*/ mymetArgs);
-	MY_DLL_EXPORT void* MyMetArgGetArgAddressH(void* /*MyMetArgsN*/mymetArgs, int32_t* argCount);
-
-	//0-> 7
-	MY_DLL_EXPORT void* MyMetArgGetArgAddress(void* /*MyMetArgsN*/mymetArgs, int index);
-
+	MY_DLL_EXPORT void* NewInstance(int typeName, managed_callback mcallback, jsvalue* jsvalue); 
 }
 
 inline void SetCefStringToJsValue(jsvalue* value, const CefString&cefstr) {
