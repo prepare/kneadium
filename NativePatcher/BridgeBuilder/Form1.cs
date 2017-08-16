@@ -536,7 +536,11 @@ namespace BridgeBuilder
             }
 
 
-            foreach (CefTypeTxPlan tx in instanceClassPlans)
+
+
+
+            //
+            foreach (CefInstanceElementTxPlan tx in instanceClassPlans)
             {
 
                 //pass
@@ -566,7 +570,7 @@ namespace BridgeBuilder
             }
 
 
-            foreach (CefTypeTxPlan tx in callbackPlans)
+            foreach (CefCallbackTxPlan tx in callbackPlans)
             {
                 CodeStringBuilder stbuilder = new CodeStringBuilder();
                 tx.GenerateCppCode(stbuilder);
@@ -576,40 +580,68 @@ namespace BridgeBuilder
                 CodeStringBuilder csCode = new CodeStringBuilder();
                 tx.GenerateCsCode(csCode);
                 csCodeStBuilder.Append(csCode.ToString());
-
                 if (tx.CppImplClassNameId > 0)
                 {
                     customImplClasses.Add(tx);
                 }
-            }
-            // 
 
-            foreach (CefTypeTxPlan tx in handlerPlans)
+            }
+
+            // 
+            CodeStringBuilder cppHeaderAutogen = new CodeStringBuilder();
+            cppHeaderAutogen.AppendLine("//AUTOGEN");
+            //create default msg handler
+
+
+            foreach (CefHandlerTxPlan tx in handlerPlans)
             {
 
                 CodeStringBuilder stbuilder = new CodeStringBuilder();
                 //a handler is created on cpp side, then we attach .net delegate to it
                 //so  we need
                 //1. 
+                tx._cppHeaderStBuilder = cppHeaderAutogen;
+                //
                 tx.GenerateCppCode(stbuilder);
                 cppCodeStBuilder.Append(stbuilder.ToString());
                 //
                 stbuilder = new CodeStringBuilder();
                 tx.GenerateCsCode(stbuilder);
                 csCodeStBuilder.Append(stbuilder.ToString());
-
-                if (tx.CppImplClassNameId > 0)
-                {
-                    customImplClasses.Add(tx);
-                }
+                //no default implementation handler class                 
             }
 
+
+            //---------
+            CodeStringBuilder cs_handlerSwitchTable = new CodeStringBuilder();
+            cs_handlerSwitchTable.AppendLine("//------ common cef handler swicth table---------");
+            cs_handlerSwitchTable.AppendLine("public static class CefHandleNativeRequestSwitchHandlers{");
+            cs_handlerSwitchTable.AppendLine("public static void HandleNativeReq(object inst, int met_id,IntPtr args){");
+            cs_handlerSwitchTable.AppendLine("switch((met_id>>16)){");
+            foreach (CefHandlerTxPlan tx in handlerPlans)
+            {
+                cs_handlerSwitchTable.AppendLine("case " + tx.OriginalDecl.Name + "._typeNAME:{");
+                cs_handlerSwitchTable.AppendLine(tx.OriginalDecl.Name + ".HandleNativeReq(inst as " + tx.OriginalDecl.Name + ".I0," +
+                        " inst as " + tx.OriginalDecl.Name + ".I1,met_id,args);");
+                cs_handlerSwitchTable.AppendLine("}break;");
+            }
+            //--------
+            //create handle common switch table
+            cs_handlerSwitchTable.AppendLine("}");//switch
+            cs_handlerSwitchTable.AppendLine("}");//HandleNativeReq()
+            cs_handlerSwitchTable.AppendLine("}");
+
+            //add to cs code
+            csCodeStBuilder.Append(cs_handlerSwitchTable.ToString());
+            //cs...
+            csCodeStBuilder.AppendLine("}"); //end cs
+            //--------
+            //cpp
             CreateCppSwitchTable(cppCodeStBuilder, instanceClassPlans);
             CreateNewInstanceMethod(cppCodeStBuilder, customImplClasses);
-
             AddCppBuiltInEndCode(cppCodeStBuilder);
             //
-            csCodeStBuilder.AppendLine("}");
+
         }
         void CreateNewInstanceMethod(StringBuilder outputStBuilder, List<CefTypeTxPlan> customImplClasses)
         {
@@ -653,6 +685,11 @@ namespace BridgeBuilder
             int32_t MyMetArgGetCount(void* /*MyMetArgsN*/ mymetArgs) {
 	            return ((MyMetArgsN*)mymetArgs)->argCount;
             } 
+            void* MyMetArgGetArgAddressH(void* /*MyMetArgsN*/mymetArgs, int* argCount) {
+	            MyMetArgsN* metArg = (MyMetArgsN*)mymetArgs;
+	            *argCount = metArg->argCount;
+	            return &metArg->vargs;	//return address of arg array 
+            }
             void* MyMetArgGetArgAddress(void* /*MyMetArgsN*/mymetArgs, int index) { 
 	            MyMetArgsN* metArg = (MyMetArgsN*)mymetArgs;
 	            if (index > (metArg->argCount)) {

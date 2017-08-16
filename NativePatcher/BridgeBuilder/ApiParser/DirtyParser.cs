@@ -1607,8 +1607,7 @@ namespace BridgeBuilder
                             //pointer field name
                             string delFieldName = ExpectId();
 
-                            CodeFunctionPointerTypeRefernce funcPtrType = new CodeFunctionPointerTypeRefernce();
-                            funcPtrType.Name = delFieldName;
+                            CodeFunctionPointerTypeRefernce funcPtrType = new CodeFunctionPointerTypeRefernce(delFieldName); 
                             funcPtrType.ReturnType = retType;
                             //
                             CodeFieldDeclaration fieldDecl = new CodeFieldDeclaration();
@@ -1864,7 +1863,7 @@ namespace BridgeBuilder
                 }
                 else if (ExpectPunc("("))
                 {
-                    var funcTypeReference = new CodeFunctionPointerTypeRefernce();
+                    var funcTypeReference = new CodeFunctionPointerTypeRefernce(null);
                     funcTypeReference.ReturnType = typeParameter;
                     //callback ?  
                     AGAIN2:
