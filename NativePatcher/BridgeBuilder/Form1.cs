@@ -536,7 +536,11 @@ namespace BridgeBuilder
             }
 
 
-            foreach (CefTypeTxPlan tx in instanceClassPlans)
+
+
+            
+            //
+            foreach (CefInstanceElementTxPlan tx in instanceClassPlans)
             {
 
                 //pass
@@ -566,7 +570,7 @@ namespace BridgeBuilder
             }
 
 
-            foreach (CefTypeTxPlan tx in callbackPlans)
+            foreach (CefCallbackTxPlan tx in callbackPlans)
             {
                 CodeStringBuilder stbuilder = new CodeStringBuilder();
                 tx.GenerateCppCode(stbuilder);
@@ -582,15 +586,20 @@ namespace BridgeBuilder
                     customImplClasses.Add(tx);
                 }
             }
-            // 
 
-            foreach (CefTypeTxPlan tx in handlerPlans)
+            // 
+            CodeStringBuilder cppHeaderAutogen = new CodeStringBuilder();
+            cppHeaderAutogen.AppendLine("//AUTOGEN");
+
+            foreach (CefHandlerTxPlan tx in handlerPlans)
             {
 
                 CodeStringBuilder stbuilder = new CodeStringBuilder();
                 //a handler is created on cpp side, then we attach .net delegate to it
                 //so  we need
                 //1. 
+                tx._cppHeaderStBuilder = cppHeaderAutogen;
+                //
                 tx.GenerateCppCode(stbuilder);
                 cppCodeStBuilder.Append(stbuilder.ToString());
                 //

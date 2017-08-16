@@ -2462,6 +2462,7 @@ namespace BridgeBuilder
     class CefHandlerTxPlan : CefTypeTxPlan
     {
         TypeTxInfo _typeTxInfo;
+        internal CodeStringBuilder _cppHeaderStBuilder;
 
         public CefHandlerTxPlan(CodeTypeDeclaration typedecl)
             : base(typedecl)
@@ -2737,6 +2738,42 @@ namespace BridgeBuilder
 
             stbuilder.AppendLine("}"); //method
         }
+
+        void GenerateCppImplMethodDeclarationForNs(MethodTxInfo met, CodeStringBuilder stbuilder)
+        {
+            CodeMethodDeclaration metDecl = met.metDecl;
+            stbuilder.AppendLine();
+            stbuilder.AppendLine("//gen! " + metDecl.ToString());
+            //temp
+            if (metDecl.ReturnType.ToString() == "FilterStatus")
+            {
+                stbuilder.Append(metDecl.ReturnType.ResolvedType + " " + metDecl.Name + "(");
+            }
+            else
+            {
+                stbuilder.Append(metDecl.ReturnType + " " + metDecl.Name + "(");
+            } 
+            List<CodeMethodParameter> pars = metDecl.Parameters; 
+            //first par is managed callback
+            stbuilder.Append("managed_callback mcallback"); 
+            int j = pars.Count;
+            for (int i = 0; i < j; ++i)
+            {
+
+                stbuilder.Append(",");
+                CodeMethodParameter par = pars[i];
+
+                if (par.IsConstPar)
+                {
+                    stbuilder.Append("const ");
+                }
+                //parameter type
+
+                stbuilder.Append(par.ParameterType.ResolvedType.FullName + " ");
+                stbuilder.Append(par.ParameterName);
+            }
+            stbuilder.AppendLine(");"); 
+        }
         void GenerateCppImplClass(CodeTypeDeclaration orgDecl, List<MethodTxInfo> callToDotNetMets, CodeStringBuilder stbuilder)
         {
 
@@ -2781,6 +2818,7 @@ namespace BridgeBuilder
         }
         void GenerateCppImplNamespace(CodeTypeDeclaration orgDecl, List<MethodTxInfo> callToDotNetMets, CodeStringBuilder stbuilder)
         {
+             
 
             string className = "My" + orgDecl.Name;
             int nn = callToDotNetMets.Count;
@@ -2792,15 +2830,12 @@ namespace BridgeBuilder
                 stbuilder.AppendLine("const int " + met.CppMethodSwitchCaseName + "=" + (mm + 1) + ";");
             }
 
-            //create a cpp class              
-            stbuilder.Append("namespace " + className);
-            stbuilder.AppendLine("{");
-            //members 
-            //stbuilder.AppendLine("managed_callback GetManagedCallBack() const OVERRIDE { return mcallback; }");
-
             this.CppImplClassNameId = _typeTxInfo.CsInterOpTypeNameId;
-            this.CppImplClassName = className;
-
+            this.CppImplClassName = className; 
+            //----------------------------------------------
+            //create a cpp namespace      
+            stbuilder.Append("namespace " + className);
+            stbuilder.AppendLine("{"); 
             nn = callToDotNetMets.Count;
             for (int mm = 0; mm < nn; ++mm)
             {
@@ -2810,6 +2845,19 @@ namespace BridgeBuilder
                 GenerateCppImplMethodForNs(met, stbuilder);
             }
             stbuilder.AppendLine("}");
+            //----------------------------------------------
+
+            _cppHeaderStBuilder.AppendLine("namespace " + className);
+            _cppHeaderStBuilder.AppendLine("{");
+            for (int mm = 0; mm < nn; ++mm)
+            {
+                //implement on event notificationi
+                MethodTxInfo met = callToDotNetMets[mm];
+                //prepare data and call the callback                 
+                GenerateCppImplMethodDeclarationForNs(met, _cppHeaderStBuilder);
+            }
+            _cppHeaderStBuilder.AppendLine("}");
+
         }
 
         public override void GenerateCppCode(CodeStringBuilder stbuilder)
