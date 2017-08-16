@@ -2794,7 +2794,7 @@ namespace BridgeBuilder
             string className = met.Name + "Args";
 
             stbuilder.AppendLine("public struct " + className + "{ ");
-            stbuilder.AppendLine("internal IntPtr nativePtr; //met arg native ptr");
+            stbuilder.AppendLine("IntPtr nativePtr; //met arg native ptr");
 
             stbuilder.AppendLine("internal " + className + "(IntPtr nativePtr){");
             stbuilder.AppendLine("this.nativePtr = nativePtr;");
