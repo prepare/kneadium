@@ -653,6 +653,11 @@ namespace BridgeBuilder
             int32_t MyMetArgGetCount(void* /*MyMetArgsN*/ mymetArgs) {
 	            return ((MyMetArgsN*)mymetArgs)->argCount;
             } 
+            void* MyMetArgGetArgAddressH(void* /*MyMetArgsN*/mymetArgs, int* argCount) {
+	            MyMetArgsN* metArg = (MyMetArgsN*)mymetArgs;
+	            *argCount = metArg->argCount;
+	            return &metArg->vargs;	//return address of arg array 
+            }
             void* MyMetArgGetArgAddress(void* /*MyMetArgsN*/mymetArgs, int index) { 
 	            MyMetArgsN* metArg = (MyMetArgsN*)mymetArgs;
 	            if (index > (metArg->argCount)) {
