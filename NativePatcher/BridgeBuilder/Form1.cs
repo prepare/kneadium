@@ -734,23 +734,7 @@ namespace BridgeBuilder
 #include ""libcef_dll/cpptoc/print_handler_cpptoc.h""
 #include ""libcef_dll/cpptoc/read_handler_cpptoc.h""
 
-            int32_t MyMetArgGetCount(void* /*MyMetArgsN*/ mymetArgs) {
-	            return ((MyMetArgsN*)mymetArgs)->argCount;
-            } 
-            void* MyMetArgGetArgAddressH(void* /*MyMetArgsN*/mymetArgs, int32_t* argCount) {
-	            MyMetArgsN* metArg = (MyMetArgsN*)mymetArgs;
-	            *argCount = metArg->argCount;
-	            return &metArg->vargs;	//return address of arg array 
-            }
-            void* MyMetArgGetArgAddress(void* /*MyMetArgsN*/mymetArgs, int index) { 
-	            MyMetArgsN* metArg = (MyMetArgsN*)mymetArgs;
-	            if (index > (metArg->argCount)) {
-		            return nullptr;
-	            }
-	            else {
-		            return &metArg->vargs[index];
-	            } 
-            }
+            
             //////////////////////////////////////////////////////////////////";
 
             using (System.IO.StringReader strReader = new System.IO.StringReader(prebuilt1))
