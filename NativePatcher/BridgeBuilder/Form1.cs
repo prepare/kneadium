@@ -538,7 +538,7 @@ namespace BridgeBuilder
 
 
 
-            
+
             //
             foreach (CefInstanceElementTxPlan tx in instanceClassPlans)
             {
@@ -584,12 +584,14 @@ namespace BridgeBuilder
                 {
                     customImplClasses.Add(tx);
                 }
-               
+
             }
 
             // 
             CodeStringBuilder cppHeaderAutogen = new CodeStringBuilder();
             cppHeaderAutogen.AppendLine("//AUTOGEN");
+            //create default msg handler
+
 
             foreach (CefHandlerTxPlan tx in handlerPlans)
             {
@@ -606,16 +608,40 @@ namespace BridgeBuilder
                 stbuilder = new CodeStringBuilder();
                 tx.GenerateCsCode(stbuilder);
                 csCodeStBuilder.Append(stbuilder.ToString());
-                //no default implementation handler class
-                 
+                //no default implementation handler class                 
             }
 
+
+            //---------
+            CodeStringBuilder cs_handlerSwitchTable = new CodeStringBuilder();
+            cs_handlerSwitchTable.AppendLine("//------ common cef handler swicth table---------");
+            cs_handlerSwitchTable.AppendLine("public static class CefHandleNativeRequestSwitchHandlers{");
+            cs_handlerSwitchTable.AppendLine("public static void HandleNativeReq(object inst, int met_id,IntPtr args){");
+            cs_handlerSwitchTable.AppendLine("switch((met_id>>16)){");
+            foreach (CefHandlerTxPlan tx in handlerPlans)
+            {
+                cs_handlerSwitchTable.AppendLine("case " + tx.OriginalDecl.Name + "._typeNAME:{");
+                cs_handlerSwitchTable.AppendLine(tx.OriginalDecl.Name + ".HandleNativeReq(inst as " + tx.OriginalDecl.Name + ".I0," +
+                        " inst as " + tx.OriginalDecl.Name + ".I1,met_id,args);");
+                cs_handlerSwitchTable.AppendLine("}break;");
+            }
+            //--------
+            //create handle common switch table
+            cs_handlerSwitchTable.AppendLine("}");//switch
+            cs_handlerSwitchTable.AppendLine("}");//HandleNativeReq()
+            cs_handlerSwitchTable.AppendLine("}");
+
+            //add to cs code
+            csCodeStBuilder.Append(cs_handlerSwitchTable.ToString());
+            //cs...
+            csCodeStBuilder.AppendLine("}"); //end cs
+            //--------
+            //cpp
             CreateCppSwitchTable(cppCodeStBuilder, instanceClassPlans);
             CreateNewInstanceMethod(cppCodeStBuilder, customImplClasses);
-
             AddCppBuiltInEndCode(cppCodeStBuilder);
             //
-            csCodeStBuilder.AppendLine("}");
+
         }
         void CreateNewInstanceMethod(StringBuilder outputStBuilder, List<CefTypeTxPlan> customImplClasses)
         {
