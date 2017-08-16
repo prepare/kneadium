@@ -4,13 +4,21 @@
 
 #pragma once
 #include "ExportFuncAuto.h" 
+
+
+//---------------------
+
 //----------------
 const int MET_Release = 0;
 //----------------  
- 
 
 int32_t MyMetArgGetCount(void* /*MyMetArgsN*/ mymetArgs) {
 	return ((MyMetArgsN*)mymetArgs)->argCount;
+}
+void* MyMetArgGetArgAddressH(void* /*MyMetArgsN*/mymetArgs, int* argCount) {
+	MyMetArgsN* metArg = (MyMetArgsN*)mymetArgs;
+	*argCount = metArg->argCount;
+	return &metArg->vargs;	//return address of arg array 
 }
 void* MyMetArgGetArgAddress(void* /*MyMetArgsN*/mymetArgs, int index) {
 	MyMetArgsN* metArg = (MyMetArgsN*)mymetArgs;
@@ -8069,14 +8077,9 @@ void MyCefMet_CefRegisterCdmCallback(cef_register_cdm_callback_t* me1, int metNa
 }
 const int MyCefAccessibilityHandler_OnAccessibilityTreeChange_1 = 1;
 const int MyCefAccessibilityHandler_OnAccessibilityLocationChange_2 = 2;
-class MyCefAccessibilityHandler :public CefAccessibilityHandler {
-public:
-	managed_callback mcallback;
-	explicit MyCefAccessibilityHandler() {
-		mcallback = NULL;
-	}
+namespace MyCefAccessibilityHandler {
 	//gen! void OnAccessibilityTreeChange(CefRefPtr<CefValue> value)
-	virtual void OnAccessibilityTreeChange(CefRefPtr<CefValue> value) {
+	void OnAccessibilityTreeChange(managed_callback mcallback, CefRefPtr<CefValue> value) {
 		if (mcallback) {
 			MyMetArgsN args;
 			memset(&args, 0, sizeof(MyMetArgsN));
@@ -8088,7 +8091,7 @@ public:
 		}
 	}
 	//gen! void OnAccessibilityLocationChange(CefRefPtr<CefValue> value)
-	virtual void OnAccessibilityLocationChange(CefRefPtr<CefValue> value) {
+	void OnAccessibilityLocationChange(managed_callback mcallback, CefRefPtr<CefValue> value) {
 		if (mcallback) {
 			MyMetArgsN args;
 			memset(&args, 0, sizeof(MyMetArgsN));
@@ -8099,22 +8102,15 @@ public:
 			mcallback(MyCefAccessibilityHandler_OnAccessibilityLocationChange_2, &args);
 		}
 	}
-private:
-	IMPLEMENT_REFCOUNTING(MyCefAccessibilityHandler);
-};
+}
 const int MyCefBrowserProcessHandler_OnContextInitialized_1 = 1;
 const int MyCefBrowserProcessHandler_OnBeforeChildProcessLaunch_2 = 2;
 const int MyCefBrowserProcessHandler_OnRenderProcessThreadCreated_3 = 3;
 const int MyCefBrowserProcessHandler_GetPrintHandler_4 = 4;
 const int MyCefBrowserProcessHandler_OnScheduleMessagePumpWork_5 = 5;
-class MyCefBrowserProcessHandler :public CefBrowserProcessHandler {
-public:
-	managed_callback mcallback;
-	explicit MyCefBrowserProcessHandler() {
-		mcallback = NULL;
-	}
+namespace MyCefBrowserProcessHandler {
 	//gen! void OnContextInitialized()
-	virtual void OnContextInitialized() {
+	void OnContextInitialized(managed_callback mcallback) {
 		if (mcallback) {
 			MyMetArgsN args;
 			memset(&args, 0, sizeof(MyMetArgsN));
@@ -8123,7 +8119,7 @@ public:
 		}
 	}
 	//gen! void OnBeforeChildProcessLaunch(CefRefPtr<CefCommandLine> command_line)
-	virtual void OnBeforeChildProcessLaunch(CefRefPtr<CefCommandLine> command_line) {
+	void OnBeforeChildProcessLaunch(managed_callback mcallback, CefRefPtr<CefCommandLine> command_line) {
 		if (mcallback) {
 			MyMetArgsN args;
 			memset(&args, 0, sizeof(MyMetArgsN));
@@ -8135,7 +8131,7 @@ public:
 		}
 	}
 	//gen! void OnRenderProcessThreadCreated(CefRefPtr<CefListValue> extra_info)
-	virtual void OnRenderProcessThreadCreated(CefRefPtr<CefListValue> extra_info) {
+	void OnRenderProcessThreadCreated(managed_callback mcallback, CefRefPtr<CefListValue> extra_info) {
 		if (mcallback) {
 			MyMetArgsN args;
 			memset(&args, 0, sizeof(MyMetArgsN));
@@ -8147,7 +8143,7 @@ public:
 		}
 	}
 	//gen! CefRefPtr<CefPrintHandler> GetPrintHandler()
-	virtual CefRefPtr<CefPrintHandler> GetPrintHandler() {
+	CefRefPtr<CefPrintHandler> GetPrintHandler(managed_callback mcallback) {
 		if (mcallback) {
 			MyMetArgsN args;
 			memset(&args, 0, sizeof(MyMetArgsN));
@@ -8158,7 +8154,7 @@ public:
 		return nullptr;
 	}
 	//gen! void OnScheduleMessagePumpWork(int64 delay_ms)
-	virtual void OnScheduleMessagePumpWork(int64 delay_ms) {
+	void OnScheduleMessagePumpWork(managed_callback mcallback, int64 delay_ms) {
 		if (mcallback) {
 			MyMetArgsN args;
 			memset(&args, 0, sizeof(MyMetArgsN));
@@ -8169,21 +8165,14 @@ public:
 			mcallback(MyCefBrowserProcessHandler_OnScheduleMessagePumpWork_5, &args);
 		}
 	}
-private:
-	IMPLEMENT_REFCOUNTING(MyCefBrowserProcessHandler);
-};
+}
 const int MyCefContextMenuHandler_OnBeforeContextMenu_1 = 1;
 const int MyCefContextMenuHandler_RunContextMenu_2 = 2;
 const int MyCefContextMenuHandler_OnContextMenuCommand_3 = 3;
 const int MyCefContextMenuHandler_OnContextMenuDismissed_4 = 4;
-class MyCefContextMenuHandler :public CefContextMenuHandler {
-public:
-	managed_callback mcallback;
-	explicit MyCefContextMenuHandler() {
-		mcallback = NULL;
-	}
+namespace MyCefContextMenuHandler {
 	//gen! void OnBeforeContextMenu(CefRefPtr<CefBrowser> browser,CefRefPtr<CefFrame> frame,CefRefPtr<CefContextMenuParams> params,CefRefPtr<CefMenuModel> model)
-	virtual void OnBeforeContextMenu(CefRefPtr<CefBrowser> browser, CefRefPtr<CefFrame> frame, CefRefPtr<CefContextMenuParams> params, CefRefPtr<CefMenuModel> model) {
+	void OnBeforeContextMenu(managed_callback mcallback, CefRefPtr<CefBrowser> browser, CefRefPtr<CefFrame> frame, CefRefPtr<CefContextMenuParams> params, CefRefPtr<CefMenuModel> model) {
 		if (mcallback) {
 			MyMetArgsN args;
 			memset(&args, 0, sizeof(MyMetArgsN));
@@ -8198,7 +8187,7 @@ public:
 		}
 	}
 	//gen! bool RunContextMenu(CefRefPtr<CefBrowser> browser,CefRefPtr<CefFrame> frame,CefRefPtr<CefContextMenuParams> params,CefRefPtr<CefMenuModel> model,CefRefPtr<CefRunContextMenuCallback> callback)
-	virtual bool RunContextMenu(CefRefPtr<CefBrowser> browser, CefRefPtr<CefFrame> frame, CefRefPtr<CefContextMenuParams> params, CefRefPtr<CefMenuModel> model, CefRefPtr<CefRunContextMenuCallback> callback) {
+	bool RunContextMenu(managed_callback mcallback, CefRefPtr<CefBrowser> browser, CefRefPtr<CefFrame> frame, CefRefPtr<CefContextMenuParams> params, CefRefPtr<CefMenuModel> model, CefRefPtr<CefRunContextMenuCallback> callback) {
 		if (mcallback) {
 			MyMetArgsN args;
 			memset(&args, 0, sizeof(MyMetArgsN));
@@ -8216,7 +8205,7 @@ public:
 		return false;
 	}
 	//gen! bool OnContextMenuCommand(CefRefPtr<CefBrowser> browser,CefRefPtr<CefFrame> frame,CefRefPtr<CefContextMenuParams> params,int command_id,EventFlags event_flags)
-	virtual bool OnContextMenuCommand(CefRefPtr<CefBrowser> browser, CefRefPtr<CefFrame> frame, CefRefPtr<CefContextMenuParams> params, int command_id, EventFlags event_flags) {
+	bool OnContextMenuCommand(managed_callback mcallback, CefRefPtr<CefBrowser> browser, CefRefPtr<CefFrame> frame, CefRefPtr<CefContextMenuParams> params, int command_id, cef_event_flags_t event_flags) {
 		if (mcallback) {
 			MyMetArgsN args;
 			memset(&args, 0, sizeof(MyMetArgsN));
@@ -8234,7 +8223,7 @@ public:
 		return false;
 	}
 	//gen! void OnContextMenuDismissed(CefRefPtr<CefBrowser> browser,CefRefPtr<CefFrame> frame)
-	virtual void OnContextMenuDismissed(CefRefPtr<CefBrowser> browser, CefRefPtr<CefFrame> frame) {
+	void OnContextMenuDismissed(managed_callback mcallback, CefRefPtr<CefBrowser> browser, CefRefPtr<CefFrame> frame) {
 		if (mcallback) {
 			MyMetArgsN args;
 			memset(&args, 0, sizeof(MyMetArgsN));
@@ -8246,18 +8235,11 @@ public:
 			mcallback(MyCefContextMenuHandler_OnContextMenuDismissed_4, &args);
 		}
 	}
-private:
-	IMPLEMENT_REFCOUNTING(MyCefContextMenuHandler);
-};
+}
 const int MyCefDialogHandler_OnFileDialog_1 = 1;
-class MyCefDialogHandler :public CefDialogHandler {
-public:
-	managed_callback mcallback;
-	explicit MyCefDialogHandler() {
-		mcallback = NULL;
-	}
+namespace MyCefDialogHandler {
 	//gen! bool OnFileDialog(CefRefPtr<CefBrowser> browser,FileDialogMode mode,const CefString& title,const CefString& default_file_path,const std::vector<CefString>& accept_filters,int selected_accept_filter,CefRefPtr<CefFileDialogCallback> callback)
-	virtual bool OnFileDialog(CefRefPtr<CefBrowser> browser, FileDialogMode mode, const CefString& title, const CefString& default_file_path, const std::vector<CefString>& accept_filters, int selected_accept_filter, CefRefPtr<CefFileDialogCallback> callback) {
+	bool OnFileDialog(managed_callback mcallback, CefRefPtr<CefBrowser> browser, cef_file_dialog_mode_t mode, const CefString& title, const CefString& default_file_path, const std::vector<CefString>& accept_filters, int selected_accept_filter, CefRefPtr<CefFileDialogCallback> callback) {
 		if (mcallback) {
 			MyMetArgsN args;
 			memset(&args, 0, sizeof(MyMetArgsN));
@@ -8278,9 +8260,7 @@ public:
 		}
 		return false;
 	}
-private:
-	IMPLEMENT_REFCOUNTING(MyCefDialogHandler);
-};
+}
 const int MyCefDisplayHandler_OnAddressChange_1 = 1;
 const int MyCefDisplayHandler_OnTitleChange_2 = 2;
 const int MyCefDisplayHandler_OnFaviconURLChange_3 = 3;
@@ -8288,14 +8268,11 @@ const int MyCefDisplayHandler_OnFullscreenModeChange_4 = 4;
 const int MyCefDisplayHandler_OnTooltip_5 = 5;
 const int MyCefDisplayHandler_OnStatusMessage_6 = 6;
 const int MyCefDisplayHandler_OnConsoleMessage_7 = 7;
-class MyCefDisplayHandler :public CefDisplayHandler {
-public:
-	managed_callback mcallback;
-	explicit MyCefDisplayHandler() {
-		mcallback = NULL;
-	}
+
+namespace MyCefDisplayHandler {
+
 	//gen! void OnAddressChange(CefRefPtr<CefBrowser> browser,CefRefPtr<CefFrame> frame,const CefString& url)
-	virtual void OnAddressChange(CefRefPtr<CefBrowser> browser, CefRefPtr<CefFrame> frame, const CefString& url) {
+	void OnAddressChange(managed_callback mcallback, CefRefPtr<CefBrowser> browser, CefRefPtr<CefFrame> frame, const CefString& url) {
 		if (mcallback) {
 			MyMetArgsN args;
 			memset(&args, 0, sizeof(MyMetArgsN));
@@ -8310,7 +8287,7 @@ public:
 		}
 	}
 	//gen! void OnTitleChange(CefRefPtr<CefBrowser> browser,const CefString& title)
-	virtual void OnTitleChange(CefRefPtr<CefBrowser> browser, const CefString& title) {
+	void OnTitleChange(managed_callback mcallback, CefRefPtr<CefBrowser> browser, const CefString& title) {
 		if (mcallback) {
 			MyMetArgsN args;
 			memset(&args, 0, sizeof(MyMetArgsN));
@@ -8324,7 +8301,7 @@ public:
 		}
 	}
 	//gen! void OnFaviconURLChange(CefRefPtr<CefBrowser> browser,const std::vector<CefString>& icon_urls)
-	virtual void OnFaviconURLChange(CefRefPtr<CefBrowser> browser, const std::vector<CefString>& icon_urls) {
+	void OnFaviconURLChange(managed_callback mcallback, CefRefPtr<CefBrowser> browser, const std::vector<CefString>& icon_urls) {
 		if (mcallback) {
 			MyMetArgsN args;
 			memset(&args, 0, sizeof(MyMetArgsN));
@@ -8337,7 +8314,7 @@ public:
 		}
 	}
 	//gen! void OnFullscreenModeChange(CefRefPtr<CefBrowser> browser,bool fullscreen)
-	virtual void OnFullscreenModeChange(CefRefPtr<CefBrowser> browser, bool fullscreen) {
+	void OnFullscreenModeChange(managed_callback mcallback, CefRefPtr<CefBrowser> browser, bool fullscreen) {
 		if (mcallback) {
 			MyMetArgsN args;
 			memset(&args, 0, sizeof(MyMetArgsN));
@@ -8350,7 +8327,7 @@ public:
 		}
 	}
 	//gen! bool OnTooltip(CefRefPtr<CefBrowser> browser,CefString& text)
-	virtual bool OnTooltip(CefRefPtr<CefBrowser> browser, CefString& text) {
+	bool OnTooltip(managed_callback mcallback, CefRefPtr<CefBrowser> browser, CefString& text) {
 		if (mcallback) {
 			MyMetArgsN args;
 			memset(&args, 0, sizeof(MyMetArgsN));
@@ -8366,7 +8343,7 @@ public:
 		return false;
 	}
 	//gen! void OnStatusMessage(CefRefPtr<CefBrowser> browser,const CefString& value)
-	virtual void OnStatusMessage(CefRefPtr<CefBrowser> browser, const CefString& value) {
+	void OnStatusMessage(managed_callback mcallback, CefRefPtr<CefBrowser> browser, const CefString& value) {
 		if (mcallback) {
 			MyMetArgsN args;
 			memset(&args, 0, sizeof(MyMetArgsN));
@@ -8380,7 +8357,7 @@ public:
 		}
 	}
 	//gen! bool OnConsoleMessage(CefRefPtr<CefBrowser> browser,const CefString& message,const CefString& source,int line)
-	virtual bool OnConsoleMessage(CefRefPtr<CefBrowser> browser, const CefString& message, const CefString& source, int line) {
+	bool OnConsoleMessage(managed_callback mcallback, CefRefPtr<CefBrowser> browser, const CefString& message, const CefString& source, int line) {
 		if (mcallback) {
 			MyMetArgsN args;
 			memset(&args, 0, sizeof(MyMetArgsN));
@@ -8398,19 +8375,12 @@ public:
 		}
 		return false;
 	}
-private:
-	IMPLEMENT_REFCOUNTING(MyCefDisplayHandler);
-};
+}
 const int MyCefDownloadHandler_OnBeforeDownload_1 = 1;
 const int MyCefDownloadHandler_OnDownloadUpdated_2 = 2;
-class MyCefDownloadHandler :public CefDownloadHandler {
-public:
-	managed_callback mcallback;
-	explicit MyCefDownloadHandler() {
-		mcallback = NULL;
-	}
+namespace MyCefDownloadHandler {
 	//gen! void OnBeforeDownload(CefRefPtr<CefBrowser> browser,CefRefPtr<CefDownloadItem> download_item,const CefString& suggested_name,CefRefPtr<CefBeforeDownloadCallback> callback)
-	virtual void OnBeforeDownload(CefRefPtr<CefBrowser> browser, CefRefPtr<CefDownloadItem> download_item, const CefString& suggested_name, CefRefPtr<CefBeforeDownloadCallback> callback) {
+	void OnBeforeDownload(managed_callback mcallback, CefRefPtr<CefBrowser> browser, CefRefPtr<CefDownloadItem> download_item, const CefString& suggested_name, CefRefPtr<CefBeforeDownloadCallback> callback) {
 		if (mcallback) {
 			MyMetArgsN args;
 			memset(&args, 0, sizeof(MyMetArgsN));
@@ -8426,7 +8396,7 @@ public:
 		}
 	}
 	//gen! void OnDownloadUpdated(CefRefPtr<CefBrowser> browser,CefRefPtr<CefDownloadItem> download_item,CefRefPtr<CefDownloadItemCallback> callback)
-	virtual void OnDownloadUpdated(CefRefPtr<CefBrowser> browser, CefRefPtr<CefDownloadItem> download_item, CefRefPtr<CefDownloadItemCallback> callback) {
+	void OnDownloadUpdated(managed_callback mcallback, CefRefPtr<CefBrowser> browser, CefRefPtr<CefDownloadItem> download_item, CefRefPtr<CefDownloadItemCallback> callback) {
 		if (mcallback) {
 			MyMetArgsN args;
 			memset(&args, 0, sizeof(MyMetArgsN));
@@ -8439,19 +8409,12 @@ public:
 			mcallback(MyCefDownloadHandler_OnDownloadUpdated_2, &args);
 		}
 	}
-private:
-	IMPLEMENT_REFCOUNTING(MyCefDownloadHandler);
-};
+}
 const int MyCefDragHandler_OnDragEnter_1 = 1;
 const int MyCefDragHandler_OnDraggableRegionsChanged_2 = 2;
-class MyCefDragHandler :public CefDragHandler {
-public:
-	managed_callback mcallback;
-	explicit MyCefDragHandler() {
-		mcallback = NULL;
-	}
+namespace MyCefDragHandler {
 	//gen! bool OnDragEnter(CefRefPtr<CefBrowser> browser,CefRefPtr<CefDragData> dragData,DragOperationsMask mask)
-	virtual bool OnDragEnter(CefRefPtr<CefBrowser> browser, CefRefPtr<CefDragData> dragData, DragOperationsMask mask) {
+	bool OnDragEnter(managed_callback mcallback, CefRefPtr<CefBrowser> browser, CefRefPtr<CefDragData> dragData, cef_drag_operations_mask_t mask) {
 		if (mcallback) {
 			MyMetArgsN args;
 			memset(&args, 0, sizeof(MyMetArgsN));
@@ -8467,7 +8430,7 @@ public:
 		return false;
 	}
 	//gen! void OnDraggableRegionsChanged(CefRefPtr<CefBrowser> browser,const std::vector<CefDraggableRegion>& regions)
-	virtual void OnDraggableRegionsChanged(CefRefPtr<CefBrowser> browser, const std::vector<CefDraggableRegion>& regions) {
+	void OnDraggableRegionsChanged(managed_callback mcallback, CefRefPtr<CefBrowser> browser, const std::vector<CefDraggableRegion>& regions) {
 		if (mcallback) {
 			MyMetArgsN args;
 			memset(&args, 0, sizeof(MyMetArgsN));
@@ -8479,18 +8442,11 @@ public:
 			mcallback(MyCefDragHandler_OnDraggableRegionsChanged_2, &args);
 		}
 	}
-private:
-	IMPLEMENT_REFCOUNTING(MyCefDragHandler);
-};
+}
 const int MyCefFindHandler_OnFindResult_1 = 1;
-class MyCefFindHandler :public CefFindHandler {
-public:
-	managed_callback mcallback;
-	explicit MyCefFindHandler() {
-		mcallback = NULL;
-	}
+namespace MyCefFindHandler {
 	//gen! void OnFindResult(CefRefPtr<CefBrowser> browser,int identifier,int count,const CefRect& selectionRect,int activeMatchOrdinal,bool finalUpdate)
-	virtual void OnFindResult(CefRefPtr<CefBrowser> browser, int identifier, int count, const CefRect& selectionRect, int activeMatchOrdinal, bool finalUpdate) {
+	void OnFindResult(managed_callback mcallback, CefRefPtr<CefBrowser> browser, int identifier, int count, const CefRect& selectionRect, int activeMatchOrdinal, bool finalUpdate) {
 		if (mcallback) {
 			MyMetArgsN args;
 			memset(&args, 0, sizeof(MyMetArgsN));
@@ -8506,20 +8462,13 @@ public:
 			mcallback(MyCefFindHandler_OnFindResult_1, &args);
 		}
 	}
-private:
-	IMPLEMENT_REFCOUNTING(MyCefFindHandler);
-};
+}
 const int MyCefFocusHandler_OnTakeFocus_1 = 1;
 const int MyCefFocusHandler_OnSetFocus_2 = 2;
 const int MyCefFocusHandler_OnGotFocus_3 = 3;
-class MyCefFocusHandler :public CefFocusHandler {
-public:
-	managed_callback mcallback;
-	explicit MyCefFocusHandler() {
-		mcallback = NULL;
-	}
+namespace MyCefFocusHandler {
 	//gen! void OnTakeFocus(CefRefPtr<CefBrowser> browser,bool next)
-	virtual void OnTakeFocus(CefRefPtr<CefBrowser> browser, bool next) {
+	void OnTakeFocus(managed_callback mcallback, CefRefPtr<CefBrowser> browser, bool next) {
 		if (mcallback) {
 			MyMetArgsN args;
 			memset(&args, 0, sizeof(MyMetArgsN));
@@ -8532,7 +8481,7 @@ public:
 		}
 	}
 	//gen! bool OnSetFocus(CefRefPtr<CefBrowser> browser,FocusSource source)
-	virtual bool OnSetFocus(CefRefPtr<CefBrowser> browser, FocusSource source) {
+	bool OnSetFocus(managed_callback mcallback, CefRefPtr<CefBrowser> browser, cef_focus_source_t source) {
 		if (mcallback) {
 			MyMetArgsN args;
 			memset(&args, 0, sizeof(MyMetArgsN));
@@ -8547,7 +8496,7 @@ public:
 		return false;
 	}
 	//gen! void OnGotFocus(CefRefPtr<CefBrowser> browser)
-	virtual void OnGotFocus(CefRefPtr<CefBrowser> browser) {
+	void OnGotFocus(managed_callback mcallback, CefRefPtr<CefBrowser> browser) {
 		if (mcallback) {
 			MyMetArgsN args;
 			memset(&args, 0, sizeof(MyMetArgsN));
@@ -8558,19 +8507,12 @@ public:
 			mcallback(MyCefFocusHandler_OnGotFocus_3, &args);
 		}
 	}
-private:
-	IMPLEMENT_REFCOUNTING(MyCefFocusHandler);
-};
+}
 const int MyCefGeolocationHandler_OnRequestGeolocationPermission_1 = 1;
 const int MyCefGeolocationHandler_OnCancelGeolocationPermission_2 = 2;
-class MyCefGeolocationHandler :public CefGeolocationHandler {
-public:
-	managed_callback mcallback;
-	explicit MyCefGeolocationHandler() {
-		mcallback = NULL;
-	}
+namespace MyCefGeolocationHandler {
 	//gen! bool OnRequestGeolocationPermission(CefRefPtr<CefBrowser> browser,const CefString& requesting_url,int request_id,CefRefPtr<CefGeolocationCallback> callback)
-	virtual bool OnRequestGeolocationPermission(CefRefPtr<CefBrowser> browser, const CefString& requesting_url, int request_id, CefRefPtr<CefGeolocationCallback> callback) {
+	bool OnRequestGeolocationPermission(managed_callback mcallback, CefRefPtr<CefBrowser> browser, const CefString& requesting_url, int request_id, CefRefPtr<CefGeolocationCallback> callback) {
 		if (mcallback) {
 			MyMetArgsN args;
 			memset(&args, 0, sizeof(MyMetArgsN));
@@ -8588,7 +8530,7 @@ public:
 		return false;
 	}
 	//gen! void OnCancelGeolocationPermission(CefRefPtr<CefBrowser> browser,int request_id)
-	virtual void OnCancelGeolocationPermission(CefRefPtr<CefBrowser> browser, int request_id) {
+	void OnCancelGeolocationPermission(managed_callback mcallback, CefRefPtr<CefBrowser> browser, int request_id) {
 		if (mcallback) {
 			MyMetArgsN args;
 			memset(&args, 0, sizeof(MyMetArgsN));
@@ -8600,21 +8542,14 @@ public:
 			mcallback(MyCefGeolocationHandler_OnCancelGeolocationPermission_2, &args);
 		}
 	}
-private:
-	IMPLEMENT_REFCOUNTING(MyCefGeolocationHandler);
-};
+}
 const int MyCefJSDialogHandler_OnJSDialog_1 = 1;
 const int MyCefJSDialogHandler_OnBeforeUnloadDialog_2 = 2;
 const int MyCefJSDialogHandler_OnResetDialogState_3 = 3;
 const int MyCefJSDialogHandler_OnDialogClosed_4 = 4;
-class MyCefJSDialogHandler :public CefJSDialogHandler {
-public:
-	managed_callback mcallback;
-	explicit MyCefJSDialogHandler() {
-		mcallback = NULL;
-	}
+namespace MyCefJSDialogHandler {
 	//gen! bool OnJSDialog(CefRefPtr<CefBrowser> browser,const CefString& origin_url,JSDialogType dialog_type,const CefString& message_text,const CefString& default_prompt_text,CefRefPtr<CefJSDialogCallback> callback,bool& suppress_message)
-	virtual bool OnJSDialog(CefRefPtr<CefBrowser> browser, const CefString& origin_url, JSDialogType dialog_type, const CefString& message_text, const CefString& default_prompt_text, CefRefPtr<CefJSDialogCallback> callback, bool& suppress_message) {
+	bool OnJSDialog(managed_callback mcallback, CefRefPtr<CefBrowser> browser, const CefString& origin_url, cef_jsdialog_type_t dialog_type, const CefString& message_text, const CefString& default_prompt_text, CefRefPtr<CefJSDialogCallback> callback, bool& suppress_message) {
 		if (mcallback) {
 			MyMetArgsN args;
 			memset(&args, 0, sizeof(MyMetArgsN));
@@ -8637,7 +8572,7 @@ public:
 		return false;
 	}
 	//gen! bool OnBeforeUnloadDialog(CefRefPtr<CefBrowser> browser,const CefString& message_text,bool is_reload,CefRefPtr<CefJSDialogCallback> callback)
-	virtual bool OnBeforeUnloadDialog(CefRefPtr<CefBrowser> browser, const CefString& message_text, bool is_reload, CefRefPtr<CefJSDialogCallback> callback) {
+	bool OnBeforeUnloadDialog(managed_callback mcallback, CefRefPtr<CefBrowser> browser, const CefString& message_text, bool is_reload, CefRefPtr<CefJSDialogCallback> callback) {
 		if (mcallback) {
 			MyMetArgsN args;
 			memset(&args, 0, sizeof(MyMetArgsN));
@@ -8655,7 +8590,7 @@ public:
 		return false;
 	}
 	//gen! void OnResetDialogState(CefRefPtr<CefBrowser> browser)
-	virtual void OnResetDialogState(CefRefPtr<CefBrowser> browser) {
+	void OnResetDialogState(managed_callback mcallback, CefRefPtr<CefBrowser> browser) {
 		if (mcallback) {
 			MyMetArgsN args;
 			memset(&args, 0, sizeof(MyMetArgsN));
@@ -8667,7 +8602,7 @@ public:
 		}
 	}
 	//gen! void OnDialogClosed(CefRefPtr<CefBrowser> browser)
-	virtual void OnDialogClosed(CefRefPtr<CefBrowser> browser) {
+	void OnDialogClosed(managed_callback mcallback, CefRefPtr<CefBrowser> browser) {
 		if (mcallback) {
 			MyMetArgsN args;
 			memset(&args, 0, sizeof(MyMetArgsN));
@@ -8678,19 +8613,12 @@ public:
 			mcallback(MyCefJSDialogHandler_OnDialogClosed_4, &args);
 		}
 	}
-private:
-	IMPLEMENT_REFCOUNTING(MyCefJSDialogHandler);
-};
+}
 const int MyCefKeyboardHandler_OnPreKeyEvent_1 = 1;
 const int MyCefKeyboardHandler_OnKeyEvent_2 = 2;
-class MyCefKeyboardHandler :public CefKeyboardHandler {
-public:
-	managed_callback mcallback;
-	explicit MyCefKeyboardHandler() {
-		mcallback = NULL;
-	}
+namespace MyCefKeyboardHandler {
 	//gen! bool OnPreKeyEvent(CefRefPtr<CefBrowser> browser,const CefKeyEvent& event,CefEventHandle os_event,bool* is_keyboard_shortcut)
-	virtual bool OnPreKeyEvent(CefRefPtr<CefBrowser> browser, const CefKeyEvent& event, CefEventHandle os_event, bool* is_keyboard_shortcut) {
+	bool OnPreKeyEvent(managed_callback mcallback, CefRefPtr<CefBrowser> browser, const CefKeyEvent& event, CefEventHandle os_event, bool* is_keyboard_shortcut) {
 		if (mcallback) {
 			MyMetArgsN args;
 			memset(&args, 0, sizeof(MyMetArgsN));
@@ -8707,7 +8635,7 @@ public:
 		return false;
 	}
 	//gen! bool OnKeyEvent(CefRefPtr<CefBrowser> browser,const CefKeyEvent& event,CefEventHandle os_event)
-	virtual bool OnKeyEvent(CefRefPtr<CefBrowser> browser, const CefKeyEvent& event, CefEventHandle os_event) {
+	bool OnKeyEvent(managed_callback mcallback, CefRefPtr<CefBrowser> browser, const CefKeyEvent& event, CefEventHandle os_event) {
 		if (mcallback) {
 			MyMetArgsN args;
 			memset(&args, 0, sizeof(MyMetArgsN));
@@ -8722,21 +8650,14 @@ public:
 		}
 		return false;
 	}
-private:
-	IMPLEMENT_REFCOUNTING(MyCefKeyboardHandler);
-};
+}
 const int MyCefLifeSpanHandler_OnBeforePopup_1 = 1;
 const int MyCefLifeSpanHandler_OnAfterCreated_2 = 2;
 const int MyCefLifeSpanHandler_DoClose_3 = 3;
 const int MyCefLifeSpanHandler_OnBeforeClose_4 = 4;
-class MyCefLifeSpanHandler :public CefLifeSpanHandler {
-public:
-	managed_callback mcallback;
-	explicit MyCefLifeSpanHandler() {
-		mcallback = NULL;
-	}
+namespace MyCefLifeSpanHandler {
 	//gen! bool OnBeforePopup(CefRefPtr<CefBrowser> browser,CefRefPtr<CefFrame> frame,const CefString& target_url,const CefString& target_frame_name,WindowOpenDisposition target_disposition,bool user_gesture,const CefPopupFeatures& popupFeatures,CefWindowInfo& windowInfo,CefRefPtr<CefClient>& client,CefBrowserSettings& settings,bool* no_javascript_access)
-	virtual bool OnBeforePopup(CefRefPtr<CefBrowser> browser, CefRefPtr<CefFrame> frame, const CefString& target_url, const CefString& target_frame_name, WindowOpenDisposition target_disposition, bool user_gesture, const CefPopupFeatures& popupFeatures, CefWindowInfo& windowInfo, CefRefPtr<CefClient>& client, CefBrowserSettings& settings, bool* no_javascript_access) {
+	bool OnBeforePopup(managed_callback mcallback, CefRefPtr<CefBrowser> browser, CefRefPtr<CefFrame> frame, const CefString& target_url, const CefString& target_frame_name, cef_window_open_disposition_t target_disposition, bool user_gesture, const CefPopupFeatures& popupFeatures, CefWindowInfo& windowInfo, CefRefPtr<CefClient>& client, CefBrowserSettings& settings, bool* no_javascript_access) {
 		if (mcallback) {
 			MyMetArgsN args;
 			memset(&args, 0, sizeof(MyMetArgsN));
@@ -8762,7 +8683,7 @@ public:
 		return false;
 	}
 	//gen! void OnAfterCreated(CefRefPtr<CefBrowser> browser)
-	virtual void OnAfterCreated(CefRefPtr<CefBrowser> browser) {
+	void OnAfterCreated(managed_callback mcallback, CefRefPtr<CefBrowser> browser) {
 		if (mcallback) {
 			MyMetArgsN args;
 			memset(&args, 0, sizeof(MyMetArgsN));
@@ -8774,7 +8695,7 @@ public:
 		}
 	}
 	//gen! bool DoClose(CefRefPtr<CefBrowser> browser)
-	virtual bool DoClose(CefRefPtr<CefBrowser> browser) {
+	bool DoClose(managed_callback mcallback, CefRefPtr<CefBrowser> browser) {
 		if (mcallback) {
 			MyMetArgsN args;
 			memset(&args, 0, sizeof(MyMetArgsN));
@@ -8788,7 +8709,7 @@ public:
 		return false;
 	}
 	//gen! void OnBeforeClose(CefRefPtr<CefBrowser> browser)
-	virtual void OnBeforeClose(CefRefPtr<CefBrowser> browser) {
+	void OnBeforeClose(managed_callback mcallback, CefRefPtr<CefBrowser> browser) {
 		if (mcallback) {
 			MyMetArgsN args;
 			memset(&args, 0, sizeof(MyMetArgsN));
@@ -8799,21 +8720,14 @@ public:
 			mcallback(MyCefLifeSpanHandler_OnBeforeClose_4, &args);
 		}
 	}
-private:
-	IMPLEMENT_REFCOUNTING(MyCefLifeSpanHandler);
-};
+}
 const int MyCefLoadHandler_OnLoadingStateChange_1 = 1;
 const int MyCefLoadHandler_OnLoadStart_2 = 2;
 const int MyCefLoadHandler_OnLoadEnd_3 = 3;
 const int MyCefLoadHandler_OnLoadError_4 = 4;
-class MyCefLoadHandler :public CefLoadHandler {
-public:
-	managed_callback mcallback;
-	explicit MyCefLoadHandler() {
-		mcallback = NULL;
-	}
+namespace MyCefLoadHandler {
 	//gen! void OnLoadingStateChange(CefRefPtr<CefBrowser> browser,bool isLoading,bool canGoBack,bool canGoForward)
-	virtual void OnLoadingStateChange(CefRefPtr<CefBrowser> browser, bool isLoading, bool canGoBack, bool canGoForward) {
+	void OnLoadingStateChange(managed_callback mcallback, CefRefPtr<CefBrowser> browser, bool isLoading, bool canGoBack, bool canGoForward) {
 		if (mcallback) {
 			MyMetArgsN args;
 			memset(&args, 0, sizeof(MyMetArgsN));
@@ -8828,7 +8742,7 @@ public:
 		}
 	}
 	//gen! void OnLoadStart(CefRefPtr<CefBrowser> browser,CefRefPtr<CefFrame> frame,TransitionType transition_type)
-	virtual void OnLoadStart(CefRefPtr<CefBrowser> browser, CefRefPtr<CefFrame> frame, TransitionType transition_type) {
+	void OnLoadStart(managed_callback mcallback, CefRefPtr<CefBrowser> browser, CefRefPtr<CefFrame> frame, cef_transition_type_t transition_type) {
 		if (mcallback) {
 			MyMetArgsN args;
 			memset(&args, 0, sizeof(MyMetArgsN));
@@ -8842,7 +8756,7 @@ public:
 		}
 	}
 	//gen! void OnLoadEnd(CefRefPtr<CefBrowser> browser,CefRefPtr<CefFrame> frame,int httpStatusCode)
-	virtual void OnLoadEnd(CefRefPtr<CefBrowser> browser, CefRefPtr<CefFrame> frame, int httpStatusCode) {
+	void OnLoadEnd(managed_callback mcallback, CefRefPtr<CefBrowser> browser, CefRefPtr<CefFrame> frame, int httpStatusCode) {
 		if (mcallback) {
 			MyMetArgsN args;
 			memset(&args, 0, sizeof(MyMetArgsN));
@@ -8856,7 +8770,7 @@ public:
 		}
 	}
 	//gen! void OnLoadError(CefRefPtr<CefBrowser> browser,CefRefPtr<CefFrame> frame,ErrorCode errorCode,const CefString& errorText,const CefString& failedUrl)
-	virtual void OnLoadError(CefRefPtr<CefBrowser> browser, CefRefPtr<CefFrame> frame, ErrorCode errorCode, const CefString& errorText, const CefString& failedUrl) {
+	void OnLoadError(managed_callback mcallback, CefRefPtr<CefBrowser> browser, CefRefPtr<CefFrame> frame, cef_errorcode_t errorCode, const CefString& errorText, const CefString& failedUrl) {
 		if (mcallback) {
 			MyMetArgsN args;
 			memset(&args, 0, sizeof(MyMetArgsN));
@@ -8873,23 +8787,16 @@ public:
 			DeleteCefStringHolderFromJsValue(&vargs[4]);
 		}
 	}
-private:
-	IMPLEMENT_REFCOUNTING(MyCefLoadHandler);
-};
+}
 const int MyCefPrintHandler_OnPrintStart_1 = 1;
 const int MyCefPrintHandler_OnPrintSettings_2 = 2;
 const int MyCefPrintHandler_OnPrintDialog_3 = 3;
 const int MyCefPrintHandler_OnPrintJob_4 = 4;
 const int MyCefPrintHandler_OnPrintReset_5 = 5;
 const int MyCefPrintHandler_GetPdfPaperSize_6 = 6;
-class MyCefPrintHandler :public CefPrintHandler {
-public:
-	managed_callback mcallback;
-	explicit MyCefPrintHandler() {
-		mcallback = NULL;
-	}
+namespace MyCefPrintHandler {
 	//gen! void OnPrintStart(CefRefPtr<CefBrowser> browser)
-	virtual void OnPrintStart(CefRefPtr<CefBrowser> browser) {
+	void OnPrintStart(managed_callback mcallback, CefRefPtr<CefBrowser> browser) {
 		if (mcallback) {
 			MyMetArgsN args;
 			memset(&args, 0, sizeof(MyMetArgsN));
@@ -8901,7 +8808,7 @@ public:
 		}
 	}
 	//gen! void OnPrintSettings(CefRefPtr<CefBrowser> browser,CefRefPtr<CefPrintSettings> settings,bool get_defaults)
-	virtual void OnPrintSettings(CefRefPtr<CefBrowser> browser, CefRefPtr<CefPrintSettings> settings, bool get_defaults) {
+	void OnPrintSettings(managed_callback mcallback, CefRefPtr<CefBrowser> browser, CefRefPtr<CefPrintSettings> settings, bool get_defaults) {
 		if (mcallback) {
 			MyMetArgsN args;
 			memset(&args, 0, sizeof(MyMetArgsN));
@@ -8915,7 +8822,7 @@ public:
 		}
 	}
 	//gen! bool OnPrintDialog(CefRefPtr<CefBrowser> browser,bool has_selection,CefRefPtr<CefPrintDialogCallback> callback)
-	virtual bool OnPrintDialog(CefRefPtr<CefBrowser> browser, bool has_selection, CefRefPtr<CefPrintDialogCallback> callback) {
+	bool OnPrintDialog(managed_callback mcallback, CefRefPtr<CefBrowser> browser, bool has_selection, CefRefPtr<CefPrintDialogCallback> callback) {
 		if (mcallback) {
 			MyMetArgsN args;
 			memset(&args, 0, sizeof(MyMetArgsN));
@@ -8931,7 +8838,7 @@ public:
 		return false;
 	}
 	//gen! bool OnPrintJob(CefRefPtr<CefBrowser> browser,const CefString& document_name,const CefString& pdf_file_path,CefRefPtr<CefPrintJobCallback> callback)
-	virtual bool OnPrintJob(CefRefPtr<CefBrowser> browser, const CefString& document_name, const CefString& pdf_file_path, CefRefPtr<CefPrintJobCallback> callback) {
+	bool OnPrintJob(managed_callback mcallback, CefRefPtr<CefBrowser> browser, const CefString& document_name, const CefString& pdf_file_path, CefRefPtr<CefPrintJobCallback> callback) {
 		if (mcallback) {
 			MyMetArgsN args;
 			memset(&args, 0, sizeof(MyMetArgsN));
@@ -8950,7 +8857,7 @@ public:
 		return false;
 	}
 	//gen! void OnPrintReset(CefRefPtr<CefBrowser> browser)
-	virtual void OnPrintReset(CefRefPtr<CefBrowser> browser) {
+	void OnPrintReset(managed_callback mcallback, CefRefPtr<CefBrowser> browser) {
 		if (mcallback) {
 			MyMetArgsN args;
 			memset(&args, 0, sizeof(MyMetArgsN));
@@ -8962,7 +8869,7 @@ public:
 		}
 	}
 	//gen! CefSize GetPdfPaperSize(int device_units_per_inch)
-	virtual CefSize GetPdfPaperSize(int device_units_per_inch) {
+	CefSize GetPdfPaperSize(managed_callback mcallback, int device_units_per_inch) {
 		if (mcallback) {
 			MyMetArgsN args;
 			memset(&args, 0, sizeof(MyMetArgsN));
@@ -8970,14 +8877,13 @@ public:
 			jsvalue vargs[1];
 			args.vargs = vargs;
 			MyCefSetInt32(&vargs[0], (int32_t)device_units_per_inch);
-			mcallback(MyCefPrintHandler_GetPdfPaperSize_6, &args);			 
+			mcallback(MyCefPrintHandler_GetPdfPaperSize_6, &args);
+			 
 		}
 		CefSize s;
 		return s;
 	}
-private:
-	IMPLEMENT_REFCOUNTING(MyCefPrintHandler);
-};
+}
 const int MyCefRenderHandler_GetAccessibilityHandler_1 = 1;
 const int MyCefRenderHandler_GetRootScreenRect_2 = 2;
 const int MyCefRenderHandler_GetViewRect_3 = 3;
@@ -8991,14 +8897,9 @@ const int MyCefRenderHandler_StartDragging_10 = 10;
 const int MyCefRenderHandler_UpdateDragCursor_11 = 11;
 const int MyCefRenderHandler_OnScrollOffsetChanged_12 = 12;
 const int MyCefRenderHandler_OnImeCompositionRangeChanged_13 = 13;
-class MyCefRenderHandler :public CefRenderHandler {
-public:
-	managed_callback mcallback;
-	explicit MyCefRenderHandler() {
-		mcallback = NULL;
-	}
+namespace MyCefRenderHandler {
 	//gen! CefRefPtr<CefAccessibilityHandler> GetAccessibilityHandler()
-	virtual CefRefPtr<CefAccessibilityHandler> GetAccessibilityHandler() {
+	CefRefPtr<CefAccessibilityHandler> GetAccessibilityHandler(managed_callback mcallback) {
 		if (mcallback) {
 			MyMetArgsN args;
 			memset(&args, 0, sizeof(MyMetArgsN));
@@ -9009,7 +8910,7 @@ public:
 		return nullptr;
 	}
 	//gen! bool GetRootScreenRect(CefRefPtr<CefBrowser> browser,CefRect& rect)
-	virtual bool GetRootScreenRect(CefRefPtr<CefBrowser> browser, CefRect& rect) {
+	bool GetRootScreenRect(managed_callback mcallback, CefRefPtr<CefBrowser> browser, CefRect& rect) {
 		if (mcallback) {
 			MyMetArgsN args;
 			memset(&args, 0, sizeof(MyMetArgsN));
@@ -9024,7 +8925,7 @@ public:
 		return false;
 	}
 	//gen! bool GetViewRect(CefRefPtr<CefBrowser> browser,CefRect& rect)
-	virtual bool GetViewRect(CefRefPtr<CefBrowser> browser, CefRect& rect) {
+	bool GetViewRect(managed_callback mcallback, CefRefPtr<CefBrowser> browser, CefRect& rect) {
 		if (mcallback) {
 			MyMetArgsN args;
 			memset(&args, 0, sizeof(MyMetArgsN));
@@ -9039,7 +8940,7 @@ public:
 		return false;
 	}
 	//gen! bool GetScreenPoint(CefRefPtr<CefBrowser> browser,int viewX,int viewY,int& screenX,int& screenY)
-	virtual bool GetScreenPoint(CefRefPtr<CefBrowser> browser, int viewX, int viewY, int& screenX, int& screenY) {
+	bool GetScreenPoint(managed_callback mcallback, CefRefPtr<CefBrowser> browser, int viewX, int viewY, int& screenX, int& screenY) {
 		if (mcallback) {
 			MyMetArgsN args;
 			memset(&args, 0, sizeof(MyMetArgsN));
@@ -9057,7 +8958,7 @@ public:
 		return false;
 	}
 	//gen! bool GetScreenInfo(CefRefPtr<CefBrowser> browser,CefScreenInfo& screen_info)
-	virtual bool GetScreenInfo(CefRefPtr<CefBrowser> browser, CefScreenInfo& screen_info) {
+	bool GetScreenInfo(managed_callback mcallback, CefRefPtr<CefBrowser> browser, CefScreenInfo& screen_info) {
 		if (mcallback) {
 			MyMetArgsN args;
 			memset(&args, 0, sizeof(MyMetArgsN));
@@ -9072,7 +8973,7 @@ public:
 		return false;
 	}
 	//gen! void OnPopupShow(CefRefPtr<CefBrowser> browser,bool show)
-	virtual void OnPopupShow(CefRefPtr<CefBrowser> browser, bool show) {
+	void OnPopupShow(managed_callback mcallback, CefRefPtr<CefBrowser> browser, bool show) {
 		if (mcallback) {
 			MyMetArgsN args;
 			memset(&args, 0, sizeof(MyMetArgsN));
@@ -9085,7 +8986,7 @@ public:
 		}
 	}
 	//gen! void OnPopupSize(CefRefPtr<CefBrowser> browser,const CefRect& rect)
-	virtual void OnPopupSize(CefRefPtr<CefBrowser> browser, const CefRect& rect) {
+	void OnPopupSize(managed_callback mcallback, CefRefPtr<CefBrowser> browser, const CefRect& rect) {
 		if (mcallback) {
 			MyMetArgsN args;
 			memset(&args, 0, sizeof(MyMetArgsN));
@@ -9098,7 +8999,7 @@ public:
 		}
 	}
 	//gen! void OnPaint(CefRefPtr<CefBrowser> browser,PaintElementType type,const RectList& dirtyRects,const void* buffer,int width,int height)
-	virtual void OnPaint(CefRefPtr<CefBrowser> browser, PaintElementType type, const RectList& dirtyRects, const void* buffer, int width, int height) {
+	void OnPaint(managed_callback mcallback, CefRefPtr<CefBrowser> browser, cef_paint_element_type_t type, const std::vector<CefRect>& dirtyRects, const void* buffer, int width, int height) {
 		if (mcallback) {
 			MyMetArgsN args;
 			memset(&args, 0, sizeof(MyMetArgsN));
@@ -9115,7 +9016,7 @@ public:
 		}
 	}
 	//gen! void OnCursorChange(CefRefPtr<CefBrowser> browser,CefCursorHandle cursor,CursorType type,const CefCursorInfo& custom_cursor_info)
-	virtual void OnCursorChange(CefRefPtr<CefBrowser> browser, CefCursorHandle cursor, CursorType type, const CefCursorInfo& custom_cursor_info) {
+	void OnCursorChange(managed_callback mcallback, CefRefPtr<CefBrowser> browser, CefCursorHandle cursor, cef_cursor_type_t type, const CefCursorInfo& custom_cursor_info) {
 		if (mcallback) {
 			MyMetArgsN args;
 			memset(&args, 0, sizeof(MyMetArgsN));
@@ -9130,7 +9031,7 @@ public:
 		}
 	}
 	//gen! bool StartDragging(CefRefPtr<CefBrowser> browser,CefRefPtr<CefDragData> drag_data,DragOperationsMask allowed_ops,int x,int y)
-	virtual bool StartDragging(CefRefPtr<CefBrowser> browser, CefRefPtr<CefDragData> drag_data, DragOperationsMask allowed_ops, int x, int y) {
+	bool StartDragging(managed_callback mcallback, CefRefPtr<CefBrowser> browser, CefRefPtr<CefDragData> drag_data, cef_drag_operations_mask_t allowed_ops, int x, int y) {
 		if (mcallback) {
 			MyMetArgsN args;
 			memset(&args, 0, sizeof(MyMetArgsN));
@@ -9148,7 +9049,7 @@ public:
 		return false;
 	}
 	//gen! void UpdateDragCursor(CefRefPtr<CefBrowser> browser,DragOperation operation)
-	virtual void UpdateDragCursor(CefRefPtr<CefBrowser> browser, DragOperation operation) {
+	void UpdateDragCursor(managed_callback mcallback, CefRefPtr<CefBrowser> browser, cef_drag_operations_mask_t operation) {
 		if (mcallback) {
 			MyMetArgsN args;
 			memset(&args, 0, sizeof(MyMetArgsN));
@@ -9161,7 +9062,7 @@ public:
 		}
 	}
 	//gen! void OnScrollOffsetChanged(CefRefPtr<CefBrowser> browser,double x,double y)
-	virtual void OnScrollOffsetChanged(CefRefPtr<CefBrowser> browser, double x, double y) {
+	void OnScrollOffsetChanged(managed_callback mcallback, CefRefPtr<CefBrowser> browser, double x, double y) {
 		if (mcallback) {
 			MyMetArgsN args;
 			memset(&args, 0, sizeof(MyMetArgsN));
@@ -9175,7 +9076,7 @@ public:
 		}
 	}
 	//gen! void OnImeCompositionRangeChanged(CefRefPtr<CefBrowser> browser,const CefRange& selected_range,const RectList& character_bounds)
-	virtual void OnImeCompositionRangeChanged(CefRefPtr<CefBrowser> browser, const CefRange& selected_range, const RectList& character_bounds) {
+	void OnImeCompositionRangeChanged(managed_callback mcallback, CefRefPtr<CefBrowser> browser, const CefRange& selected_range, const std::vector<CefRect>& character_bounds) {
 		if (mcallback) {
 			MyMetArgsN args;
 			memset(&args, 0, sizeof(MyMetArgsN));
@@ -9188,9 +9089,7 @@ public:
 			mcallback(MyCefRenderHandler_OnImeCompositionRangeChanged_13, &args);
 		}
 	}
-private:
-	IMPLEMENT_REFCOUNTING(MyCefRenderHandler);
-};
+}
 const int MyCefRenderProcessHandler_OnRenderThreadCreated_1 = 1;
 const int MyCefRenderProcessHandler_OnWebKitInitialized_2 = 2;
 const int MyCefRenderProcessHandler_OnBrowserCreated_3 = 3;
@@ -9202,14 +9101,9 @@ const int MyCefRenderProcessHandler_OnContextReleased_8 = 8;
 const int MyCefRenderProcessHandler_OnUncaughtException_9 = 9;
 const int MyCefRenderProcessHandler_OnFocusedNodeChanged_10 = 10;
 const int MyCefRenderProcessHandler_OnProcessMessageReceived_11 = 11;
-class MyCefRenderProcessHandler :public CefRenderProcessHandler {
-public:
-	managed_callback mcallback;
-	explicit MyCefRenderProcessHandler() {
-		mcallback = NULL;
-	}
+namespace MyCefRenderProcessHandler {
 	//gen! void OnRenderThreadCreated(CefRefPtr<CefListValue> extra_info)
-	virtual void OnRenderThreadCreated(CefRefPtr<CefListValue> extra_info) {
+	void OnRenderThreadCreated(managed_callback mcallback, CefRefPtr<CefListValue> extra_info) {
 		if (mcallback) {
 			MyMetArgsN args;
 			memset(&args, 0, sizeof(MyMetArgsN));
@@ -9221,7 +9115,7 @@ public:
 		}
 	}
 	//gen! void OnWebKitInitialized()
-	virtual void OnWebKitInitialized() {
+	void OnWebKitInitialized(managed_callback mcallback) {
 		if (mcallback) {
 			MyMetArgsN args;
 			memset(&args, 0, sizeof(MyMetArgsN));
@@ -9230,7 +9124,7 @@ public:
 		}
 	}
 	//gen! void OnBrowserCreated(CefRefPtr<CefBrowser> browser)
-	virtual void OnBrowserCreated(CefRefPtr<CefBrowser> browser) {
+	void OnBrowserCreated(managed_callback mcallback, CefRefPtr<CefBrowser> browser) {
 		if (mcallback) {
 			MyMetArgsN args;
 			memset(&args, 0, sizeof(MyMetArgsN));
@@ -9242,7 +9136,7 @@ public:
 		}
 	}
 	//gen! void OnBrowserDestroyed(CefRefPtr<CefBrowser> browser)
-	virtual void OnBrowserDestroyed(CefRefPtr<CefBrowser> browser) {
+	void OnBrowserDestroyed(managed_callback mcallback, CefRefPtr<CefBrowser> browser) {
 		if (mcallback) {
 			MyMetArgsN args;
 			memset(&args, 0, sizeof(MyMetArgsN));
@@ -9254,7 +9148,7 @@ public:
 		}
 	}
 	//gen! CefRefPtr<CefLoadHandler> GetLoadHandler()
-	virtual CefRefPtr<CefLoadHandler> GetLoadHandler() {
+	CefRefPtr<CefLoadHandler> GetLoadHandler(managed_callback mcallback) {
 		if (mcallback) {
 			MyMetArgsN args;
 			memset(&args, 0, sizeof(MyMetArgsN));
@@ -9265,7 +9159,7 @@ public:
 		return nullptr;
 	}
 	//gen! bool OnBeforeNavigation(CefRefPtr<CefBrowser> browser,CefRefPtr<CefFrame> frame,CefRefPtr<CefRequest> request,NavigationType navigation_type,bool is_redirect)
-	virtual bool OnBeforeNavigation(CefRefPtr<CefBrowser> browser, CefRefPtr<CefFrame> frame, CefRefPtr<CefRequest> request, NavigationType navigation_type, bool is_redirect) {
+	bool OnBeforeNavigation(managed_callback mcallback, CefRefPtr<CefBrowser> browser, CefRefPtr<CefFrame> frame, CefRefPtr<CefRequest> request, cef_navigation_type_t navigation_type, bool is_redirect) {
 		if (mcallback) {
 			MyMetArgsN args;
 			memset(&args, 0, sizeof(MyMetArgsN));
@@ -9283,7 +9177,7 @@ public:
 		return false;
 	}
 	//gen! void OnContextCreated(CefRefPtr<CefBrowser> browser,CefRefPtr<CefFrame> frame,CefRefPtr<CefV8Context> context)
-	virtual void OnContextCreated(CefRefPtr<CefBrowser> browser, CefRefPtr<CefFrame> frame, CefRefPtr<CefV8Context> context) {
+	void OnContextCreated(managed_callback mcallback, CefRefPtr<CefBrowser> browser, CefRefPtr<CefFrame> frame, CefRefPtr<CefV8Context> context) {
 		if (mcallback) {
 			MyMetArgsN args;
 			memset(&args, 0, sizeof(MyMetArgsN));
@@ -9297,7 +9191,7 @@ public:
 		}
 	}
 	//gen! void OnContextReleased(CefRefPtr<CefBrowser> browser,CefRefPtr<CefFrame> frame,CefRefPtr<CefV8Context> context)
-	virtual void OnContextReleased(CefRefPtr<CefBrowser> browser, CefRefPtr<CefFrame> frame, CefRefPtr<CefV8Context> context) {
+	void OnContextReleased(managed_callback mcallback, CefRefPtr<CefBrowser> browser, CefRefPtr<CefFrame> frame, CefRefPtr<CefV8Context> context) {
 		if (mcallback) {
 			MyMetArgsN args;
 			memset(&args, 0, sizeof(MyMetArgsN));
@@ -9311,7 +9205,7 @@ public:
 		}
 	}
 	//gen! void OnUncaughtException(CefRefPtr<CefBrowser> browser,CefRefPtr<CefFrame> frame,CefRefPtr<CefV8Context> context,CefRefPtr<CefV8Exception> exception,CefRefPtr<CefV8StackTrace> stackTrace)
-	virtual void OnUncaughtException(CefRefPtr<CefBrowser> browser, CefRefPtr<CefFrame> frame, CefRefPtr<CefV8Context> context, CefRefPtr<CefV8Exception> exception, CefRefPtr<CefV8StackTrace> stackTrace) {
+	void OnUncaughtException(managed_callback mcallback, CefRefPtr<CefBrowser> browser, CefRefPtr<CefFrame> frame, CefRefPtr<CefV8Context> context, CefRefPtr<CefV8Exception> exception, CefRefPtr<CefV8StackTrace> stackTrace) {
 		if (mcallback) {
 			MyMetArgsN args;
 			memset(&args, 0, sizeof(MyMetArgsN));
@@ -9327,7 +9221,7 @@ public:
 		}
 	}
 	//gen! void OnFocusedNodeChanged(CefRefPtr<CefBrowser> browser,CefRefPtr<CefFrame> frame,CefRefPtr<CefDOMNode> node)
-	virtual void OnFocusedNodeChanged(CefRefPtr<CefBrowser> browser, CefRefPtr<CefFrame> frame, CefRefPtr<CefDOMNode> node) {
+	void OnFocusedNodeChanged(managed_callback mcallback, CefRefPtr<CefBrowser> browser, CefRefPtr<CefFrame> frame, CefRefPtr<CefDOMNode> node) {
 		if (mcallback) {
 			MyMetArgsN args;
 			memset(&args, 0, sizeof(MyMetArgsN));
@@ -9341,7 +9235,7 @@ public:
 		}
 	}
 	//gen! bool OnProcessMessageReceived(CefRefPtr<CefBrowser> browser,CefProcessId source_process,CefRefPtr<CefProcessMessage> message)
-	virtual bool OnProcessMessageReceived(CefRefPtr<CefBrowser> browser, CefProcessId source_process, CefRefPtr<CefProcessMessage> message) {
+	bool OnProcessMessageReceived(managed_callback mcallback, CefRefPtr<CefBrowser> browser, CefProcessId source_process, CefRefPtr<CefProcessMessage> message) {
 		if (mcallback) {
 			MyMetArgsN args;
 			memset(&args, 0, sizeof(MyMetArgsN));
@@ -9356,19 +9250,12 @@ public:
 		}
 		return false;
 	}
-private:
-	IMPLEMENT_REFCOUNTING(MyCefRenderProcessHandler);
-};
+}
 const int MyCefRequestContextHandler_GetCookieManager_1 = 1;
 const int MyCefRequestContextHandler_OnBeforePluginLoad_2 = 2;
-class MyCefRequestContextHandler :public CefRequestContextHandler {
-public:
-	managed_callback mcallback;
-	explicit MyCefRequestContextHandler() {
-		mcallback = NULL;
-	}
+namespace MyCefRequestContextHandler {
 	//gen! CefRefPtr<CefCookieManager> GetCookieManager()
-	virtual CefRefPtr<CefCookieManager> GetCookieManager() {
+	CefRefPtr<CefCookieManager> GetCookieManager(managed_callback mcallback) {
 		if (mcallback) {
 			MyMetArgsN args;
 			memset(&args, 0, sizeof(MyMetArgsN));
@@ -9379,7 +9266,7 @@ public:
 		return nullptr;
 	}
 	//gen! bool OnBeforePluginLoad(const CefString& mime_type,const CefString& plugin_url,bool is_main_frame,const CefString& top_origin_url,CefRefPtr<CefWebPluginInfo> plugin_info,PluginPolicy* plugin_policy)
-	virtual bool OnBeforePluginLoad(const CefString& mime_type, const CefString& plugin_url, bool is_main_frame, const CefString& top_origin_url, CefRefPtr<CefWebPluginInfo> plugin_info, PluginPolicy* plugin_policy) {
+	bool OnBeforePluginLoad(managed_callback mcallback, const CefString& mime_type, const CefString& plugin_url, bool is_main_frame, const CefString& top_origin_url, CefRefPtr<CefWebPluginInfo> plugin_info, cef_plugin_policy_t* plugin_policy) {
 		if (mcallback) {
 			MyMetArgsN args;
 			memset(&args, 0, sizeof(MyMetArgsN));
@@ -9400,9 +9287,7 @@ public:
 		}
 		return false;
 	}
-private:
-	IMPLEMENT_REFCOUNTING(MyCefRequestContextHandler);
-};
+}
 const int MyCefRequestHandler_OnBeforeBrowse_1 = 1;
 const int MyCefRequestHandler_OnOpenURLFromTab_2 = 2;
 const int MyCefRequestHandler_OnBeforeResourceLoad_3 = 3;
@@ -9419,14 +9304,9 @@ const int MyCefRequestHandler_OnSelectClientCertificate_13 = 13;
 const int MyCefRequestHandler_OnPluginCrashed_14 = 14;
 const int MyCefRequestHandler_OnRenderViewReady_15 = 15;
 const int MyCefRequestHandler_OnRenderProcessTerminated_16 = 16;
-class MyCefRequestHandler :public CefRequestHandler {
-public:
-	managed_callback mcallback;
-	explicit MyCefRequestHandler() {
-		mcallback = NULL;
-	}
+namespace MyCefRequestHandler {
 	//gen! bool OnBeforeBrowse(CefRefPtr<CefBrowser> browser,CefRefPtr<CefFrame> frame,CefRefPtr<CefRequest> request,bool is_redirect)
-	virtual bool OnBeforeBrowse(CefRefPtr<CefBrowser> browser, CefRefPtr<CefFrame> frame, CefRefPtr<CefRequest> request, bool is_redirect) {
+	bool OnBeforeBrowse(managed_callback mcallback, CefRefPtr<CefBrowser> browser, CefRefPtr<CefFrame> frame, CefRefPtr<CefRequest> request, bool is_redirect) {
 		if (mcallback) {
 			MyMetArgsN args;
 			memset(&args, 0, sizeof(MyMetArgsN));
@@ -9443,7 +9323,7 @@ public:
 		return false;
 	}
 	//gen! bool OnOpenURLFromTab(CefRefPtr<CefBrowser> browser,CefRefPtr<CefFrame> frame,const CefString& target_url,WindowOpenDisposition target_disposition,bool user_gesture)
-	virtual bool OnOpenURLFromTab(CefRefPtr<CefBrowser> browser, CefRefPtr<CefFrame> frame, const CefString& target_url, WindowOpenDisposition target_disposition, bool user_gesture) {
+	bool OnOpenURLFromTab(managed_callback mcallback, CefRefPtr<CefBrowser> browser, CefRefPtr<CefFrame> frame, const CefString& target_url, cef_window_open_disposition_t target_disposition, bool user_gesture) {
 		if (mcallback) {
 			MyMetArgsN args;
 			memset(&args, 0, sizeof(MyMetArgsN));
@@ -9462,7 +9342,7 @@ public:
 		return false;
 	}
 	//gen! ReturnValue OnBeforeResourceLoad(CefRefPtr<CefBrowser> browser,CefRefPtr<CefFrame> frame,CefRefPtr<CefRequest> request,CefRefPtr<CefRequestCallback> callback)
-	virtual ReturnValue OnBeforeResourceLoad(CefRefPtr<CefBrowser> browser, CefRefPtr<CefFrame> frame, CefRefPtr<CefRequest> request, CefRefPtr<CefRequestCallback> callback) {
+	CefRequestHandler::ReturnValue OnBeforeResourceLoad(managed_callback mcallback, CefRefPtr<CefBrowser> browser, CefRefPtr<CefFrame> frame, CefRefPtr<CefRequest> request, CefRefPtr<CefRequestCallback> callback) {
 		if (mcallback) {
 			MyMetArgsN args;
 			memset(&args, 0, sizeof(MyMetArgsN));
@@ -9475,11 +9355,12 @@ public:
 			MyCefSetVoidPtr(&vargs[3], CefRequestCallbackCToCpp::Unwrap(callback));
 			mcallback(MyCefRequestHandler_OnBeforeResourceLoad_3, &args);
 			return (cef_return_value_t)args.ret.i32;
+			
 		}
-		return (ReturnValue)0;
+		return (CefRequestHandler::ReturnValue)0;
 	}
 	//gen! CefRefPtr<CefResourceHandler> GetResourceHandler(CefRefPtr<CefBrowser> browser,CefRefPtr<CefFrame> frame,CefRefPtr<CefRequest> request)
-	virtual CefRefPtr<CefResourceHandler> GetResourceHandler(CefRefPtr<CefBrowser> browser, CefRefPtr<CefFrame> frame, CefRefPtr<CefRequest> request) {
+	CefRefPtr<CefResourceHandler> GetResourceHandler(managed_callback mcallback, CefRefPtr<CefBrowser> browser, CefRefPtr<CefFrame> frame, CefRefPtr<CefRequest> request) {
 		if (mcallback) {
 			MyMetArgsN args;
 			memset(&args, 0, sizeof(MyMetArgsN));
@@ -9495,7 +9376,7 @@ public:
 		return nullptr;
 	}
 	//gen! void OnResourceRedirect(CefRefPtr<CefBrowser> browser,CefRefPtr<CefFrame> frame,CefRefPtr<CefRequest> request,CefRefPtr<CefResponse> response,CefString& new_url)
-	virtual void OnResourceRedirect(CefRefPtr<CefBrowser> browser, CefRefPtr<CefFrame> frame, CefRefPtr<CefRequest> request, CefRefPtr<CefResponse> response, CefString& new_url) {
+	void OnResourceRedirect(managed_callback mcallback, CefRefPtr<CefBrowser> browser, CefRefPtr<CefFrame> frame, CefRefPtr<CefRequest> request, CefRefPtr<CefResponse> response, CefString& new_url) {
 		if (mcallback) {
 			MyMetArgsN args;
 			memset(&args, 0, sizeof(MyMetArgsN));
@@ -9512,7 +9393,7 @@ public:
 		}
 	}
 	//gen! bool OnResourceResponse(CefRefPtr<CefBrowser> browser,CefRefPtr<CefFrame> frame,CefRefPtr<CefRequest> request,CefRefPtr<CefResponse> response)
-	virtual bool OnResourceResponse(CefRefPtr<CefBrowser> browser, CefRefPtr<CefFrame> frame, CefRefPtr<CefRequest> request, CefRefPtr<CefResponse> response) {
+	bool OnResourceResponse(managed_callback mcallback, CefRefPtr<CefBrowser> browser, CefRefPtr<CefFrame> frame, CefRefPtr<CefRequest> request, CefRefPtr<CefResponse> response) {
 		if (mcallback) {
 			MyMetArgsN args;
 			memset(&args, 0, sizeof(MyMetArgsN));
@@ -9529,7 +9410,7 @@ public:
 		return false;
 	}
 	//gen! CefRefPtr<CefResponseFilter> GetResourceResponseFilter(CefRefPtr<CefBrowser> browser,CefRefPtr<CefFrame> frame,CefRefPtr<CefRequest> request,CefRefPtr<CefResponse> response)
-	virtual CefRefPtr<CefResponseFilter> GetResourceResponseFilter(CefRefPtr<CefBrowser> browser, CefRefPtr<CefFrame> frame, CefRefPtr<CefRequest> request, CefRefPtr<CefResponse> response) {
+	CefRefPtr<CefResponseFilter> GetResourceResponseFilter(managed_callback mcallback, CefRefPtr<CefBrowser> browser, CefRefPtr<CefFrame> frame, CefRefPtr<CefRequest> request, CefRefPtr<CefResponse> response) {
 		if (mcallback) {
 			MyMetArgsN args;
 			memset(&args, 0, sizeof(MyMetArgsN));
@@ -9546,7 +9427,7 @@ public:
 		return nullptr;
 	}
 	//gen! void OnResourceLoadComplete(CefRefPtr<CefBrowser> browser,CefRefPtr<CefFrame> frame,CefRefPtr<CefRequest> request,CefRefPtr<CefResponse> response,URLRequestStatus status,int64 received_content_length)
-	virtual void OnResourceLoadComplete(CefRefPtr<CefBrowser> browser, CefRefPtr<CefFrame> frame, CefRefPtr<CefRequest> request, CefRefPtr<CefResponse> response, URLRequestStatus status, int64 received_content_length) {
+	void OnResourceLoadComplete(managed_callback mcallback, CefRefPtr<CefBrowser> browser, CefRefPtr<CefFrame> frame, CefRefPtr<CefRequest> request, CefRefPtr<CefResponse> response, cef_urlrequest_status_t status, int64 received_content_length) {
 		if (mcallback) {
 			MyMetArgsN args;
 			memset(&args, 0, sizeof(MyMetArgsN));
@@ -9563,7 +9444,7 @@ public:
 		}
 	}
 	//gen! bool GetAuthCredentials(CefRefPtr<CefBrowser> browser,CefRefPtr<CefFrame> frame,bool isProxy,const CefString& host,int port,const CefString& realm,const CefString& scheme,CefRefPtr<CefAuthCallback> callback)
-	virtual bool GetAuthCredentials(CefRefPtr<CefBrowser> browser, CefRefPtr<CefFrame> frame, bool isProxy, const CefString& host, int port, const CefString& realm, const CefString& scheme, CefRefPtr<CefAuthCallback> callback) {
+	bool GetAuthCredentials(managed_callback mcallback, CefRefPtr<CefBrowser> browser, CefRefPtr<CefFrame> frame, bool isProxy, const CefString& host, int port, const CefString& realm, const CefString& scheme, CefRefPtr<CefAuthCallback> callback) {
 		if (mcallback) {
 			MyMetArgsN args;
 			memset(&args, 0, sizeof(MyMetArgsN));
@@ -9587,7 +9468,7 @@ public:
 		return false;
 	}
 	//gen! bool OnQuotaRequest(CefRefPtr<CefBrowser> browser,const CefString& origin_url,int64 new_size,CefRefPtr<CefRequestCallback> callback)
-	virtual bool OnQuotaRequest(CefRefPtr<CefBrowser> browser, const CefString& origin_url, int64 new_size, CefRefPtr<CefRequestCallback> callback) {
+	bool OnQuotaRequest(managed_callback mcallback, CefRefPtr<CefBrowser> browser, const CefString& origin_url, int64 new_size, CefRefPtr<CefRequestCallback> callback) {
 		if (mcallback) {
 			MyMetArgsN args;
 			memset(&args, 0, sizeof(MyMetArgsN));
@@ -9605,7 +9486,7 @@ public:
 		return false;
 	}
 	//gen! void OnProtocolExecution(CefRefPtr<CefBrowser> browser,const CefString& url,bool& allow_os_execution)
-	virtual void OnProtocolExecution(CefRefPtr<CefBrowser> browser, const CefString& url, bool& allow_os_execution) {
+	void OnProtocolExecution(managed_callback mcallback, CefRefPtr<CefBrowser> browser, const CefString& url, bool& allow_os_execution) {
 		if (mcallback) {
 			MyMetArgsN args;
 			memset(&args, 0, sizeof(MyMetArgsN));
@@ -9620,7 +9501,7 @@ public:
 		}
 	}
 	//gen! bool OnCertificateError(CefRefPtr<CefBrowser> browser,cef_errorcode_t cert_error,const CefString& request_url,CefRefPtr<CefSSLInfo> ssl_info,CefRefPtr<CefRequestCallback> callback)
-	virtual bool OnCertificateError(CefRefPtr<CefBrowser> browser, cef_errorcode_t cert_error, const CefString& request_url, CefRefPtr<CefSSLInfo> ssl_info, CefRefPtr<CefRequestCallback> callback) {
+	bool OnCertificateError(managed_callback mcallback, CefRefPtr<CefBrowser> browser, cef_errorcode_t cert_error, const CefString& request_url, CefRefPtr<CefSSLInfo> ssl_info, CefRefPtr<CefRequestCallback> callback) {
 		if (mcallback) {
 			MyMetArgsN args;
 			memset(&args, 0, sizeof(MyMetArgsN));
@@ -9639,7 +9520,7 @@ public:
 		return false;
 	}
 	//gen! bool OnSelectClientCertificate(CefRefPtr<CefBrowser> browser,bool isProxy,const CefString& host,int port,const X509CertificateList& certificates,CefRefPtr<CefSelectClientCertificateCallback> callback)
-	virtual bool OnSelectClientCertificate(CefRefPtr<CefBrowser> browser, bool isProxy, const CefString& host, int port, const X509CertificateList& certificates, CefRefPtr<CefSelectClientCertificateCallback> callback) {
+	bool OnSelectClientCertificate(managed_callback mcallback, CefRefPtr<CefBrowser> browser, bool isProxy, const CefString& host, int port, const std::vector<CefRefPtr<CefX509Certificate>>& certificates, CefRefPtr<CefSelectClientCertificateCallback> callback) {
 		if (mcallback) {
 			MyMetArgsN args;
 			memset(&args, 0, sizeof(MyMetArgsN));
@@ -9659,7 +9540,7 @@ public:
 		return false;
 	}
 	//gen! void OnPluginCrashed(CefRefPtr<CefBrowser> browser,const CefString& plugin_path)
-	virtual void OnPluginCrashed(CefRefPtr<CefBrowser> browser, const CefString& plugin_path) {
+	void OnPluginCrashed(managed_callback mcallback, CefRefPtr<CefBrowser> browser, const CefString& plugin_path) {
 		if (mcallback) {
 			MyMetArgsN args;
 			memset(&args, 0, sizeof(MyMetArgsN));
@@ -9673,7 +9554,7 @@ public:
 		}
 	}
 	//gen! void OnRenderViewReady(CefRefPtr<CefBrowser> browser)
-	virtual void OnRenderViewReady(CefRefPtr<CefBrowser> browser) {
+	void OnRenderViewReady(managed_callback mcallback, CefRefPtr<CefBrowser> browser) {
 		if (mcallback) {
 			MyMetArgsN args;
 			memset(&args, 0, sizeof(MyMetArgsN));
@@ -9685,7 +9566,7 @@ public:
 		}
 	}
 	//gen! void OnRenderProcessTerminated(CefRefPtr<CefBrowser> browser,TerminationStatus status)
-	virtual void OnRenderProcessTerminated(CefRefPtr<CefBrowser> browser, TerminationStatus status) {
+	void OnRenderProcessTerminated(managed_callback mcallback, CefRefPtr<CefBrowser> browser, cef_termination_status_t status) {
 		if (mcallback) {
 			MyMetArgsN args;
 			memset(&args, 0, sizeof(MyMetArgsN));
@@ -9697,20 +9578,13 @@ public:
 			mcallback(MyCefRequestHandler_OnRenderProcessTerminated_16, &args);
 		}
 	}
-private:
-	IMPLEMENT_REFCOUNTING(MyCefRequestHandler);
-};
+}
 const int MyCefResourceBundleHandler_GetLocalizedString_1 = 1;
 const int MyCefResourceBundleHandler_GetDataResource_2 = 2;
 const int MyCefResourceBundleHandler_GetDataResourceForScale_3 = 3;
-class MyCefResourceBundleHandler :public CefResourceBundleHandler {
-public:
-	managed_callback mcallback;
-	explicit MyCefResourceBundleHandler() {
-		mcallback = NULL;
-	}
+namespace MyCefResourceBundleHandler {
 	//gen! bool GetLocalizedString(int string_id,CefString& string)
-	virtual bool GetLocalizedString(int string_id, CefString& string) {
+	bool GetLocalizedString(managed_callback mcallback, int string_id, CefString& string) {
 		if (mcallback) {
 			MyMetArgsN args;
 			memset(&args, 0, sizeof(MyMetArgsN));
@@ -9726,7 +9600,7 @@ public:
 		return false;
 	}
 	//gen! bool GetDataResource(int resource_id,void*& data,size_t& data_size)
-	virtual bool GetDataResource(int resource_id, void*& data, size_t& data_size) {
+	bool GetDataResource(managed_callback mcallback, int resource_id, void*& data, size_t& data_size) {
 		if (mcallback) {
 			MyMetArgsN args;
 			memset(&args, 0, sizeof(MyMetArgsN));
@@ -9742,7 +9616,7 @@ public:
 		return false;
 	}
 	//gen! bool GetDataResourceForScale(int resource_id,ScaleFactor scale_factor,void*& data,size_t& data_size)
-	virtual bool GetDataResourceForScale(int resource_id, ScaleFactor scale_factor, void*& data, size_t& data_size) {
+	bool GetDataResourceForScale(managed_callback mcallback, int resource_id, cef_scale_factor_t scale_factor, void*& data, size_t& data_size) {
 		if (mcallback) {
 			MyMetArgsN args;
 			memset(&args, 0, sizeof(MyMetArgsN));
@@ -9758,23 +9632,16 @@ public:
 		}
 		return false;
 	}
-private:
-	IMPLEMENT_REFCOUNTING(MyCefResourceBundleHandler);
-};
+}
 const int MyCefResourceHandler_ProcessRequest_1 = 1;
 const int MyCefResourceHandler_GetResponseHeaders_2 = 2;
 const int MyCefResourceHandler_ReadResponse_3 = 3;
 const int MyCefResourceHandler_CanGetCookie_4 = 4;
 const int MyCefResourceHandler_CanSetCookie_5 = 5;
 const int MyCefResourceHandler_Cancel_6 = 6;
-class MyCefResourceHandler :public CefResourceHandler {
-public:
-	managed_callback mcallback;
-	explicit MyCefResourceHandler() {
-		mcallback = NULL;
-	}
+namespace MyCefResourceHandler {
 	//gen! bool ProcessRequest(CefRefPtr<CefRequest> request,CefRefPtr<CefCallback> callback)
-	virtual bool ProcessRequest(CefRefPtr<CefRequest> request, CefRefPtr<CefCallback> callback) {
+	bool ProcessRequest(managed_callback mcallback, CefRefPtr<CefRequest> request, CefRefPtr<CefCallback> callback) {
 		if (mcallback) {
 			MyMetArgsN args;
 			memset(&args, 0, sizeof(MyMetArgsN));
@@ -9789,7 +9656,7 @@ public:
 		return false;
 	}
 	//gen! void GetResponseHeaders(CefRefPtr<CefResponse> response,int64& response_length,CefString& redirectUrl)
-	virtual void GetResponseHeaders(CefRefPtr<CefResponse> response, int64& response_length, CefString& redirectUrl) {
+	void GetResponseHeaders(managed_callback mcallback, CefRefPtr<CefResponse> response, int64& response_length, CefString& redirectUrl) {
 		if (mcallback) {
 			MyMetArgsN args;
 			memset(&args, 0, sizeof(MyMetArgsN));
@@ -9804,7 +9671,7 @@ public:
 		}
 	}
 	//gen! bool ReadResponse(void* data_out,int bytes_to_read,int& bytes_read,CefRefPtr<CefCallback> callback)
-	virtual bool ReadResponse(void* data_out, int bytes_to_read, int& bytes_read, CefRefPtr<CefCallback> callback) {
+	bool ReadResponse(managed_callback mcallback, void* data_out, int bytes_to_read, int& bytes_read, CefRefPtr<CefCallback> callback) {
 		if (mcallback) {
 			MyMetArgsN args;
 			memset(&args, 0, sizeof(MyMetArgsN));
@@ -9821,7 +9688,7 @@ public:
 		return false;
 	}
 	//gen! bool CanGetCookie(const CefCookie& cookie)
-	virtual bool CanGetCookie(const CefCookie& cookie) {
+	bool CanGetCookie(managed_callback mcallback, const CefCookie& cookie) {
 		if (mcallback) {
 			MyMetArgsN args;
 			memset(&args, 0, sizeof(MyMetArgsN));
@@ -9835,7 +9702,7 @@ public:
 		return false;
 	}
 	//gen! bool CanSetCookie(const CefCookie& cookie)
-	virtual bool CanSetCookie(const CefCookie& cookie) {
+	bool CanSetCookie(managed_callback mcallback, const CefCookie& cookie) {
 		if (mcallback) {
 			MyMetArgsN args;
 			memset(&args, 0, sizeof(MyMetArgsN));
@@ -9849,7 +9716,7 @@ public:
 		return false;
 	}
 	//gen! void Cancel()
-	virtual void Cancel() {
+	void Cancel(managed_callback mcallback) {
 		if (mcallback) {
 			MyMetArgsN args;
 			memset(&args, 0, sizeof(MyMetArgsN));
@@ -9857,22 +9724,15 @@ public:
 			mcallback(MyCefResourceHandler_Cancel_6, &args);
 		}
 	}
-private:
-	IMPLEMENT_REFCOUNTING(MyCefResourceHandler);
-};
+}
 const int MyCefReadHandler_Read_1 = 1;
 const int MyCefReadHandler_Seek_2 = 2;
 const int MyCefReadHandler_Tell_3 = 3;
 const int MyCefReadHandler_Eof_4 = 4;
 const int MyCefReadHandler_MayBlock_5 = 5;
-class MyCefReadHandler :public CefReadHandler {
-public:
-	managed_callback mcallback;
-	explicit MyCefReadHandler() {
-		mcallback = NULL;
-	}
+namespace MyCefReadHandler {
 	//gen! size_t Read(void* ptr,size_t size,size_t n)
-	virtual size_t Read(void* ptr, size_t size, size_t n) {
+	size_t Read(managed_callback mcallback, void* ptr, size_t size, size_t n) {
 		if (mcallback) {
 			MyMetArgsN args;
 			memset(&args, 0, sizeof(MyMetArgsN));
@@ -9888,7 +9748,7 @@ public:
 		return 0;
 	}
 	//gen! int Seek(int64 offset,int whence)
-	virtual int Seek(int64 offset, int whence) {
+	int Seek(managed_callback mcallback, int64 offset, int whence) {
 		if (mcallback) {
 			MyMetArgsN args;
 			memset(&args, 0, sizeof(MyMetArgsN));
@@ -9903,7 +9763,7 @@ public:
 		return 0;
 	}
 	//gen! int64 Tell()
-	virtual int64 Tell() {
+	int64 Tell(managed_callback mcallback) {
 		if (mcallback) {
 			MyMetArgsN args;
 			memset(&args, 0, sizeof(MyMetArgsN));
@@ -9914,7 +9774,7 @@ public:
 		return 0;
 	}
 	//gen! int Eof()
-	virtual int Eof() {
+	int Eof(managed_callback mcallback) {
 		if (mcallback) {
 			MyMetArgsN args;
 			memset(&args, 0, sizeof(MyMetArgsN));
@@ -9925,7 +9785,7 @@ public:
 		return 0;
 	}
 	//gen! bool MayBlock()
-	virtual bool MayBlock() {
+	bool MayBlock(managed_callback mcallback) {
 		if (mcallback) {
 			MyMetArgsN args;
 			memset(&args, 0, sizeof(MyMetArgsN));
@@ -9935,22 +9795,15 @@ public:
 		}
 		return false;
 	}
-private:
-	IMPLEMENT_REFCOUNTING(MyCefReadHandler);
-};
+}
 const int MyCefWriteHandler_Write_1 = 1;
 const int MyCefWriteHandler_Seek_2 = 2;
 const int MyCefWriteHandler_Tell_3 = 3;
 const int MyCefWriteHandler_Flush_4 = 4;
 const int MyCefWriteHandler_MayBlock_5 = 5;
-class MyCefWriteHandler :public CefWriteHandler {
-public:
-	managed_callback mcallback;
-	explicit MyCefWriteHandler() {
-		mcallback = NULL;
-	}
+namespace MyCefWriteHandler {
 	//gen! size_t Write(const void* ptr,size_t size,size_t n)
-	virtual size_t Write(const void* ptr, size_t size, size_t n) {
+	size_t Write(managed_callback mcallback, const void* ptr, size_t size, size_t n) {
 		if (mcallback) {
 			MyMetArgsN args;
 			memset(&args, 0, sizeof(MyMetArgsN));
@@ -9966,7 +9819,7 @@ public:
 		return 0;
 	}
 	//gen! int Seek(int64 offset,int whence)
-	virtual int Seek(int64 offset, int whence) {
+	int Seek(managed_callback mcallback, int64 offset, int whence) {
 		if (mcallback) {
 			MyMetArgsN args;
 			memset(&args, 0, sizeof(MyMetArgsN));
@@ -9981,7 +9834,7 @@ public:
 		return 0;
 	}
 	//gen! int64 Tell()
-	virtual int64 Tell() {
+	int64 Tell(managed_callback mcallback) {
 		if (mcallback) {
 			MyMetArgsN args;
 			memset(&args, 0, sizeof(MyMetArgsN));
@@ -9992,7 +9845,7 @@ public:
 		return 0;
 	}
 	//gen! int Flush()
-	virtual int Flush() {
+	int Flush(managed_callback mcallback) {
 		if (mcallback) {
 			MyMetArgsN args;
 			memset(&args, 0, sizeof(MyMetArgsN));
@@ -10003,7 +9856,7 @@ public:
 		return 0;
 	}
 	//gen! bool MayBlock()
-	virtual bool MayBlock() {
+	bool MayBlock(managed_callback mcallback) {
 		if (mcallback) {
 			MyMetArgsN args;
 			memset(&args, 0, sizeof(MyMetArgsN));
@@ -10013,18 +9866,11 @@ public:
 		}
 		return false;
 	}
-private:
-	IMPLEMENT_REFCOUNTING(MyCefWriteHandler);
-};
+}
 const int MyCefV8Handler_Execute_1 = 1;
-class MyCefV8Handler :public CefV8Handler {
-public:
-	managed_callback mcallback;
-	explicit MyCefV8Handler() {
-		mcallback = NULL;
-	}
+namespace MyCefV8Handler {
 	//gen! bool Execute(const CefString& name,CefRefPtr<CefV8Value> object,const CefV8ValueList& arguments,CefRefPtr<CefV8Value>& retval,CefString& exception)
-	virtual bool Execute(const CefString& name, CefRefPtr<CefV8Value> object, const CefV8ValueList& arguments, CefRefPtr<CefV8Value>& retval, CefString& exception) {
+	bool Execute(managed_callback mcallback, const CefString& name, CefRefPtr<CefV8Value> object, const CefV8ValueList& arguments, CefRefPtr<CefV8Value>& retval, CefString& exception) {
 		if (mcallback) {
 			MyMetArgsN args;
 			memset(&args, 0, sizeof(MyMetArgsN));
@@ -10043,9 +9889,7 @@ public:
 		}
 		return false;
 	}
-private:
-	IMPLEMENT_REFCOUNTING(MyCefV8Handler);
-};
+}
 void MyCefMet_CallN(void* me1, int metName, jsvalue* ret, jsvalue* v1, jsvalue* v2, jsvalue* v3, jsvalue* v4, jsvalue* v5, jsvalue* v6, jsvalue* v7) {
 	int cefTypeName = (metName >> 16);
 	switch (cefTypeName)
@@ -10505,7 +10349,7 @@ void* NewInstance(int typeName, managed_callback mcallback, jsvalue* jsvalue) {
 		inst->mcallback = mcallback;
 		return CefRegisterCdmCallbackCppToC::Wrap(inst);
 	}
-	case  CefTypeName_CefAccessibilityHandler: {
+	/*case  CefTypeName_CefAccessibilityHandler: {
 		auto inst = new MyCefAccessibilityHandler();
 		inst->mcallback = mcallback;
 		return CefAccessibilityHandlerCppToC::Wrap(inst);
@@ -10624,8 +10468,9 @@ void* NewInstance(int typeName, managed_callback mcallback, jsvalue* jsvalue) {
 		auto inst = new MyCefV8Handler();
 		inst->mcallback = mcallback;
 		return CefV8HandlerCppToC::Wrap(inst);
-	}
+	}*/
 	}
 	return nullptr;
 }
 /////////////////////////////////////////////////
+//}

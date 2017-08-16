@@ -3,7 +3,7 @@
 //----------------------------------------------------------------------
 //cef msg constant
 //----------------------------------------------------------------------
-
+const int CEF_MSG_RequestForMxCallback = 90;
 const int CEF_MSG_ClientHandler_NotifyBrowserClosing = 100;
 const int CEF_MSG_ClientHandler_NotifyBrowserClosed = 101;
 const int CEF_MSG_ClientHandler_NotifyBrowserCreated = 102;

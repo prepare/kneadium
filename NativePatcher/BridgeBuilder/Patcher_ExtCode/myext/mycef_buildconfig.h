@@ -3,3 +3,4 @@
 
 #define BUILD_TEST 1
 #define BUILD_TEST_ROOT_WINDOW 1
+#define WRAPPING_CEF_SHARED 1

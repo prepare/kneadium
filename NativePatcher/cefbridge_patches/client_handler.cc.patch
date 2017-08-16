@@ -5,6 +5,7 @@
 //###_PRE
 #include <string>
 #include "tests/cefclient/myext/mycef_buildconfig.h" 
+#include "libcef_dll/myext/ExportFuncAuto.h"
 //###_POST
 #include "include/base/cef_bind.h"
 //###_POST
@@ -485,12 +486,15 @@ if (!CURRENTLY_ON_MAIN_THREAD()) {
 }
 //###_APPEND_START 11
 if (this->mcallback_ != NULL) {
+//-------------------
 MethodArgs metArgs;
 memset(&metArgs, 0, sizeof(MethodArgs));
 auto str16 = url.ToString16();
 auto cstr = str16.c_str();
 metArgs.SetArgAsString(0, cstr);
 this->mcallback_(CEF_MSG_ClientHandler_NotifyAddress, &metArgs);
+//-------------------
+
 
 }
 else {
