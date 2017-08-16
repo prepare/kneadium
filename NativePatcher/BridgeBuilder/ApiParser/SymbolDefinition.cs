@@ -48,6 +48,7 @@ namespace BridgeBuilder
 
         }
 #endif
+        public abstract string FullName { get; }
         public abstract TypeSymbolKind TypeSymbolKind { get; }
         public TypeBridgeInfo BridgeInfo { get; set; }
     }
@@ -104,6 +105,20 @@ namespace BridgeBuilder
             }
         }
         //
+        public override string FullName
+        {
+            get
+            {
+                if (_codeTypeDecl != null)
+                {
+                    return _codeTypeDecl.FullName;
+                }
+                else
+                {
+                    return this.Name;
+                }
+            }
+        }
 
         internal CefTypeTxPlan CefTxPlan { get; set; }
     }
@@ -162,6 +177,13 @@ namespace BridgeBuilder
                 _referToTypeSymbol = value;
             }
         }
+        public override string FullName
+        {
+            get
+            {
+                return this.Name;
+            }
+        }
     }
 
 
@@ -176,6 +198,14 @@ namespace BridgeBuilder
         public override string ToString()
         {
             return "std::vector<" + ElementType + ">";
+        }
+        public override string FullName
+        {
+            get
+            {
+                return "std::vector<" + ElementType.FullName + ">";
+            }
+               
         }
     }
     class ReferenceOrPointerTypeSymbol : TypeSymbol
@@ -203,6 +233,27 @@ namespace BridgeBuilder
                 case ContainerTypeKind.CefRawPtr: return "CefRawPtr<" + ElementType.ToString() + ">";
                 default:
                     throw new NotSupportedException();
+            }
+        }
+
+        public override string FullName
+        {
+            get
+            {
+                switch (Kind)
+                {
+                    default:
+                        throw new NotSupportedException();
+                    case ContainerTypeKind.ByRef:
+                        return this.ElementType.FullName + "&";
+                    case ContainerTypeKind.CefRawPtr:
+                        return "CefRawPtr<" + this.ElementType.FullName + ">";
+                    case ContainerTypeKind.CefRefPtr:
+                        return "CefRefPtr<" + this.ElementType.FullName + ">";
+                    case ContainerTypeKind.Pointer:
+                        return this.ElementType.FullName + "*";
+
+                }
             }
         }
     }
@@ -236,6 +287,10 @@ namespace BridgeBuilder
         {
             return Name + "<" + Item0 + ">";
         }
+        public override string FullName
+        {
+            get { return this.ToString(); }
+        }
     }
     class TemplateTypeSymbol2 : TemplateTypeSymbol
     {
@@ -253,6 +308,10 @@ namespace BridgeBuilder
         public override string ToString()
         {
             return Name + "<" + Item0 + "," + Item1 + ">";
+        }
+        public override string FullName
+        {
+            get { return this.ToString(); }
         }
     }
     class TemplateTypeSymbol3 : TemplateTypeSymbol
@@ -273,6 +332,10 @@ namespace BridgeBuilder
         {
             return Name + "<TODO!Imp," + Item1 + "," + Item2 + ">";
         }
+        public override string FullName
+        {
+            get { return this.ToString(); }
+        }
     }
 
     class TemplateParameterTypeSymbol : TypeSymbol
@@ -287,5 +350,10 @@ namespace BridgeBuilder
         public override TypeSymbolKind TypeSymbolKind { get { return TypeSymbolKind.TemplateParameter; } }
         public string NewName { get; set; }
         public string TemplateParameterName { get; set; }
+
+        public override string FullName
+        {
+            get { return templatePar.ParameterName; }
+        }
     }
 }
