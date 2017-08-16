@@ -3080,11 +3080,11 @@ namespace BridgeBuilder
 
                             if (csParTypeName.StartsWith("Cef"))
                             {
-                                stbuilder.Append("return new " + csParTypeName + "(Cef3Binder.MyMetArgGetAsIntPtr(nativePtr," + (i + 1).ToString() + "));");
+                                stbuilder.Append("return new " + csParTypeName + "(Cef3Binder.MyMetArgGetAsIntPtr(nativePtr," + (i).ToString() + "));");
                             }
                             else if (csParTypeName.StartsWith("cef"))
                             {
-                                stbuilder.Append("return " + "(" + csParTypeName + ")" + "Cef3Binder.MyMetArgGetAsInt32(nativePtr," + (i + 1).ToString() + ");");
+                                stbuilder.Append("return " + "(" + csParTypeName + ")" + "Cef3Binder.MyMetArgGetAsInt32(nativePtr," + (i).ToString() + ");");
                             }
                             else
                             {
@@ -3106,60 +3106,60 @@ namespace BridgeBuilder
                         stbuilder.Append("throw new CefNotImplementedException();");
                         break;
                     case "uint":
-                        stbuilder.Append("return " + "Cef3Binder.MyMetArgGetAsUInt32(nativePtr," + (i + 1).ToString() + ");");
+                        stbuilder.Append("return " + "Cef3Binder.MyMetArgGetAsUInt32(nativePtr," + (i).ToString() + ");");
                         break;
                     case "int":
-                        stbuilder.Append("return " + "Cef3Binder.MyMetArgGetAsInt32(nativePtr," + (i + 1).ToString() + ");");
+                        stbuilder.Append("return " + "Cef3Binder.MyMetArgGetAsInt32(nativePtr," + (i).ToString() + ");");
                         break;
                     case "long":
-                        stbuilder.Append("return " + "Cef3Binder.MyMetArgGetAsInt64(nativePtr," + (i + 1).ToString() + ");");
+                        stbuilder.Append("return " + "Cef3Binder.MyMetArgGetAsInt64(nativePtr," + (i).ToString() + ");");
                         break;
                     case "string":
-                        stbuilder.Append("return " + "Cef3Binder.MyMetArgGetAsString(nativePtr," + (i + 1).ToString() + ");");
+                        stbuilder.Append("return " + "Cef3Binder.MyMetArgGetAsString(nativePtr," + (i).ToString() + ");");
                         break;
                     case "bool":
-                        stbuilder.Append("return " + "Cef3Binder.MyMetArgGetAsBool(nativePtr," + (i + 1).ToString() + ");");
+                        stbuilder.Append("return " + "Cef3Binder.MyMetArgGetAsBool(nativePtr," + (i).ToString() + ");");
                         break;
                     case "double":
-                        stbuilder.Append("return " + "Cef3Binder.MyMetArgGetAsDouble(nativePtr," + (i + 1).ToString() + ");");
+                        stbuilder.Append("return " + "Cef3Binder.MyMetArgGetAsDouble(nativePtr," + (i).ToString() + ");");
                         break;
                     case "ref bool":
                         //provide both getter and setter method
                         {
-                            stbuilder.Append("return " + "Cef3Binder.MyMetArgGetAsBool(nativePtr," + (i + 1).ToString() + ");");
+                            stbuilder.Append("return " + "Cef3Binder.MyMetArgGetAsBool(nativePtr," + (i).ToString() + ");");
                             stbuilder.AppendLine("}");
 
                             //method
                             //generate setter part
 
                             stbuilder.AppendLine("public void " + parTx.Name + "(" + csSetterParTypeName + " value){");
-                            stbuilder.AppendLine("Cef3Binder.MyMetArgSetBoolToAddress(nativePtr," + (i + 1).ToString() + ",value);");
+                            stbuilder.AppendLine("Cef3Binder.MyMetArgSetBoolToAddress(nativePtr," + (i).ToString() + ",value);");
                             stbuilder.AppendLine("}");
                             continue;
                         }
 
                     case "ref int":
                         {
-                            stbuilder.Append("return " + "Cef3Binder.MyMetArgGetAsInt32(nativePtr," + (i + 1).ToString() + ");");
+                            stbuilder.Append("return " + "Cef3Binder.MyMetArgGetAsInt32(nativePtr," + (i).ToString() + ");");
                             stbuilder.AppendLine("}");
 
                             //method
                             //generate setter part
                             stbuilder.AppendLine("public void " + parTx.Name + "(" + csSetterParTypeName + " value){");
-                            stbuilder.AppendLine("Cef3Binder.MyMetArgSetInt32ToAddress(nativePtr," + (i + 1).ToString() + ",value);");
+                            stbuilder.AppendLine("Cef3Binder.MyMetArgSetInt32ToAddress(nativePtr," + (i).ToString() + ",value);");
                             stbuilder.AppendLine("}");
                             continue;
                         }
 
                     case "ref uint":
                         {
-                            stbuilder.Append("return " + "Cef3Binder.MyMetArgGetAsUInt32(nativePtr," + (i + 1).ToString() + ");");
+                            stbuilder.Append("return " + "Cef3Binder.MyMetArgGetAsUInt32(nativePtr," + (i).ToString() + ");");
                             stbuilder.AppendLine("}");
 
                             //method
                             //generate setter part
                             stbuilder.AppendLine("public void " + parTx.Name + "(" + csSetterParTypeName + " value){");
-                            stbuilder.AppendLine("Cef3Binder.MyMetArgSetUInt32ToAddress(nativePtr," + (i + 1).ToString() + ",value);");
+                            stbuilder.AppendLine("Cef3Binder.MyMetArgSetUInt32ToAddress(nativePtr," + (i).ToString() + ",value);");
                             stbuilder.AppendLine("}");
                             continue;
                         }
