@@ -77,58 +77,7 @@
 #include "libcef_dll/ctocpp/before_download_callback_ctocpp.h"
 #include "libcef_dll/ctocpp/print_dialog_callback_ctocpp.h"
 #include "libcef_dll/ctocpp/print_job_callback_ctocpp.h"
-//
-#include "libcef_dll/cpptoc/drag_handler_cpptoc.h" 
-#include "libcef_dll/cpptoc/navigation_entry_visitor_cpptoc.h"
-#include "libcef_dll/cpptoc/pdf_print_callback_cpptoc.h"
-#include "libcef_dll/cpptoc/client_cpptoc.h"
-#include "libcef_dll/cpptoc/download_image_callback_cpptoc.h"
-#include "libcef_dll/cpptoc/run_file_dialog_callback_cpptoc.h"
-#include "libcef_dll/cpptoc/domvisitor_cpptoc.h"
-#include "libcef_dll/cpptoc/completion_callback_cpptoc.h"
-#include "libcef_dll/cpptoc/cookie_visitor_cpptoc.h"
-#include "libcef_dll/cpptoc/delete_cookies_callback_cpptoc.h"
-#include "libcef_dll/cpptoc/menu_model_delegate_cpptoc.h"
-#include "libcef_dll/cpptoc/request_context_handler_cpptoc.h"
-#include "libcef_dll/cpptoc/resolve_callback_cpptoc.h"
-#include "libcef_dll/cpptoc/response_filter_cpptoc.h"
-#include "libcef_dll/cpptoc/scheme_handler_factory_cpptoc.h"
-#include "libcef_dll/cpptoc/task_cpptoc.h"
-#include "libcef_dll/cpptoc/set_cookie_callback_cpptoc.h"
-#include "libcef_dll/cpptoc/v8accessor_cpptoc.h"
-#include "libcef_dll/cpptoc/v8handler_cpptoc.h"
-#include "libcef_dll/cpptoc/v8interceptor_cpptoc.h"
-#include "libcef_dll/cpptoc/web_plugin_info_visitor_cpptoc.h"
-#include "libcef_dll/cpptoc/web_plugin_unstable_callback_cpptoc.h"
-#include "libcef_dll/cpptoc/write_handler_cpptoc.h"
-#include "libcef_dll/cpptoc/app_cpptoc.h"
-#include "libcef_dll/cpptoc/urlrequest_client_cpptoc.h"
-#include "libcef_dll/cpptoc/string_visitor_cpptoc.h"
-#include "libcef_dll/cpptoc/get_geolocation_callback_cpptoc.h"
-#include "libcef_dll/cpptoc/end_tracing_callback_cpptoc.h"
-#include "libcef_dll/cpptoc/register_cdm_callback_cpptoc.h"
-#include "libcef_dll/cpptoc/accessibility_handler_cpptoc.h"
 
-//handlers
-#include "libcef_dll/cpptoc/resource_bundle_handler_cpptoc.h"
-#include "libcef_dll/cpptoc/browser_process_handler_cpptoc.h"
-#include "libcef_dll/cpptoc/dialog_handler_cpptoc.h"
-#include "libcef_dll/cpptoc/render_process_handler_cpptoc.h"
-#include "libcef_dll/cpptoc/context_menu_handler_cpptoc.h"
-#include "libcef_dll/cpptoc/display_handler_cpptoc.h"
-#include "libcef_dll/cpptoc/download_handler_cpptoc.h"
-#include "libcef_dll/cpptoc/find_handler_cpptoc.h"
-#include "libcef_dll/cpptoc/focus_handler_cpptoc.h"
-#include "libcef_dll/cpptoc/geolocation_handler_cpptoc.h"
-#include "libcef_dll/cpptoc/jsdialog_handler_cpptoc.h"
-#include "libcef_dll/cpptoc/keyboard_handler_cpptoc.h"
-#include "libcef_dll/cpptoc/life_span_handler_cpptoc.h"
-#include "libcef_dll/cpptoc/load_handler_cpptoc.h"
-#include "libcef_dll/cpptoc/render_handler_cpptoc.h"
-#include "libcef_dll/cpptoc/request_handler_cpptoc.h"
-#include "libcef_dll/cpptoc/resource_handler_cpptoc.h"
-#include "libcef_dll/cpptoc/print_handler_cpptoc.h"
-#include "libcef_dll/cpptoc/read_handler_cpptoc.h"
 
 //
 extern "C" {
@@ -218,8 +167,10 @@ inline void MyCefSetCefPoint(jsvalue* value, CefPoint&data) {
 	value->ptr = cefPoint;
 }
 
+
+
 //AUTOGEN
-namespace MyCefAccessibilityHandler
+namespace CefAccessibilityHandlerExt
 {
 
 	//gen! void OnAccessibilityTreeChange(CefRefPtr<CefValue> value)
@@ -228,7 +179,7 @@ namespace MyCefAccessibilityHandler
 	//gen! void OnAccessibilityLocationChange(CefRefPtr<CefValue> value)
 	void OnAccessibilityLocationChange(managed_callback mcallback, CefRefPtr<CefValue> value);
 }
-namespace MyCefBrowserProcessHandler
+namespace CefBrowserProcessHandlerExt
 {
 
 	//gen! void OnContextInitialized()
@@ -246,7 +197,7 @@ namespace MyCefBrowserProcessHandler
 	//gen! void OnScheduleMessagePumpWork(int64 delay_ms)
 	void OnScheduleMessagePumpWork(managed_callback mcallback, int64 delay_ms);
 }
-namespace MyCefContextMenuHandler
+namespace CefContextMenuHandlerExt
 {
 
 	//gen! void OnBeforeContextMenu(CefRefPtr<CefBrowser> browser,CefRefPtr<CefFrame> frame,CefRefPtr<CefContextMenuParams> params,CefRefPtr<CefMenuModel> model)
@@ -261,13 +212,13 @@ namespace MyCefContextMenuHandler
 	//gen! void OnContextMenuDismissed(CefRefPtr<CefBrowser> browser,CefRefPtr<CefFrame> frame)
 	void OnContextMenuDismissed(managed_callback mcallback, CefRefPtr<CefBrowser> browser, CefRefPtr<CefFrame> frame);
 }
-namespace MyCefDialogHandler
+namespace CefDialogHandlerExt
 {
 
 	//gen! bool OnFileDialog(CefRefPtr<CefBrowser> browser,FileDialogMode mode,const CefString& title,const CefString& default_file_path,const std::vector<CefString>& accept_filters,int selected_accept_filter,CefRefPtr<CefFileDialogCallback> callback)
 	bool OnFileDialog(managed_callback mcallback, CefRefPtr<CefBrowser> browser, cef_file_dialog_mode_t mode, const CefString& title, const CefString& default_file_path, const std::vector<CefString>& accept_filters, int selected_accept_filter, CefRefPtr<CefFileDialogCallback> callback);
 }
-namespace MyCefDisplayHandler
+namespace CefDisplayHandlerExt
 {
 
 	//gen! void OnAddressChange(CefRefPtr<CefBrowser> browser,CefRefPtr<CefFrame> frame,const CefString& url)
@@ -291,7 +242,7 @@ namespace MyCefDisplayHandler
 	//gen! bool OnConsoleMessage(CefRefPtr<CefBrowser> browser,const CefString& message,const CefString& source,int line)
 	bool OnConsoleMessage(managed_callback mcallback, CefRefPtr<CefBrowser> browser, const CefString& message, const CefString& source, int line);
 }
-namespace MyCefDownloadHandler
+namespace CefDownloadHandlerExt
 {
 
 	//gen! void OnBeforeDownload(CefRefPtr<CefBrowser> browser,CefRefPtr<CefDownloadItem> download_item,const CefString& suggested_name,CefRefPtr<CefBeforeDownloadCallback> callback)
@@ -300,7 +251,7 @@ namespace MyCefDownloadHandler
 	//gen! void OnDownloadUpdated(CefRefPtr<CefBrowser> browser,CefRefPtr<CefDownloadItem> download_item,CefRefPtr<CefDownloadItemCallback> callback)
 	void OnDownloadUpdated(managed_callback mcallback, CefRefPtr<CefBrowser> browser, CefRefPtr<CefDownloadItem> download_item, CefRefPtr<CefDownloadItemCallback> callback);
 }
-namespace MyCefDragHandler
+namespace CefDragHandlerExt
 {
 
 	//gen! bool OnDragEnter(CefRefPtr<CefBrowser> browser,CefRefPtr<CefDragData> dragData,DragOperationsMask mask)
@@ -309,13 +260,13 @@ namespace MyCefDragHandler
 	//gen! void OnDraggableRegionsChanged(CefRefPtr<CefBrowser> browser,const std::vector<CefDraggableRegion>& regions)
 	void OnDraggableRegionsChanged(managed_callback mcallback, CefRefPtr<CefBrowser> browser, const std::vector<CefDraggableRegion>& regions);
 }
-namespace MyCefFindHandler
+namespace CefFindHandlerExt
 {
 
 	//gen! void OnFindResult(CefRefPtr<CefBrowser> browser,int identifier,int count,const CefRect& selectionRect,int activeMatchOrdinal,bool finalUpdate)
 	void OnFindResult(managed_callback mcallback, CefRefPtr<CefBrowser> browser, int identifier, int count, const CefRect& selectionRect, int activeMatchOrdinal, bool finalUpdate);
 }
-namespace MyCefFocusHandler
+namespace CefFocusHandlerExt
 {
 
 	//gen! void OnTakeFocus(CefRefPtr<CefBrowser> browser,bool next)
@@ -327,7 +278,7 @@ namespace MyCefFocusHandler
 	//gen! void OnGotFocus(CefRefPtr<CefBrowser> browser)
 	void OnGotFocus(managed_callback mcallback, CefRefPtr<CefBrowser> browser);
 }
-namespace MyCefGeolocationHandler
+namespace CefGeolocationHandlerExt
 {
 
 	//gen! bool OnRequestGeolocationPermission(CefRefPtr<CefBrowser> browser,const CefString& requesting_url,int request_id,CefRefPtr<CefGeolocationCallback> callback)
@@ -336,7 +287,7 @@ namespace MyCefGeolocationHandler
 	//gen! void OnCancelGeolocationPermission(CefRefPtr<CefBrowser> browser,int request_id)
 	void OnCancelGeolocationPermission(managed_callback mcallback, CefRefPtr<CefBrowser> browser, int request_id);
 }
-namespace MyCefJSDialogHandler
+namespace CefJSDialogHandlerExt
 {
 
 	//gen! bool OnJSDialog(CefRefPtr<CefBrowser> browser,const CefString& origin_url,JSDialogType dialog_type,const CefString& message_text,const CefString& default_prompt_text,CefRefPtr<CefJSDialogCallback> callback,bool& suppress_message)
@@ -351,7 +302,7 @@ namespace MyCefJSDialogHandler
 	//gen! void OnDialogClosed(CefRefPtr<CefBrowser> browser)
 	void OnDialogClosed(managed_callback mcallback, CefRefPtr<CefBrowser> browser);
 }
-namespace MyCefKeyboardHandler
+namespace CefKeyboardHandlerExt
 {
 
 	//gen! bool OnPreKeyEvent(CefRefPtr<CefBrowser> browser,const CefKeyEvent& event,CefEventHandle os_event,bool* is_keyboard_shortcut)
@@ -360,7 +311,7 @@ namespace MyCefKeyboardHandler
 	//gen! bool OnKeyEvent(CefRefPtr<CefBrowser> browser,const CefKeyEvent& event,CefEventHandle os_event)
 	bool OnKeyEvent(managed_callback mcallback, CefRefPtr<CefBrowser> browser, const CefKeyEvent& event, CefEventHandle os_event);
 }
-namespace MyCefLifeSpanHandler
+namespace CefLifeSpanHandlerExt
 {
 
 	//gen! bool OnBeforePopup(CefRefPtr<CefBrowser> browser,CefRefPtr<CefFrame> frame,const CefString& target_url,const CefString& target_frame_name,WindowOpenDisposition target_disposition,bool user_gesture,const CefPopupFeatures& popupFeatures,CefWindowInfo& windowInfo,CefRefPtr<CefClient>& client,CefBrowserSettings& settings,bool* no_javascript_access)
@@ -375,7 +326,7 @@ namespace MyCefLifeSpanHandler
 	//gen! void OnBeforeClose(CefRefPtr<CefBrowser> browser)
 	void OnBeforeClose(managed_callback mcallback, CefRefPtr<CefBrowser> browser);
 }
-namespace MyCefLoadHandler
+namespace CefLoadHandlerExt
 {
 
 	//gen! void OnLoadingStateChange(CefRefPtr<CefBrowser> browser,bool isLoading,bool canGoBack,bool canGoForward)
@@ -390,7 +341,7 @@ namespace MyCefLoadHandler
 	//gen! void OnLoadError(CefRefPtr<CefBrowser> browser,CefRefPtr<CefFrame> frame,ErrorCode errorCode,const CefString& errorText,const CefString& failedUrl)
 	void OnLoadError(managed_callback mcallback, CefRefPtr<CefBrowser> browser, CefRefPtr<CefFrame> frame, cef_errorcode_t errorCode, const CefString& errorText, const CefString& failedUrl);
 }
-namespace MyCefPrintHandler
+namespace CefPrintHandlerExt
 {
 
 	//gen! void OnPrintStart(CefRefPtr<CefBrowser> browser)
@@ -411,7 +362,7 @@ namespace MyCefPrintHandler
 	//gen! CefSize GetPdfPaperSize(int device_units_per_inch)
 	CefSize GetPdfPaperSize(managed_callback mcallback, int device_units_per_inch);
 }
-namespace MyCefRenderHandler
+namespace CefRenderHandlerExt
 {
 
 	//gen! CefRefPtr<CefAccessibilityHandler> GetAccessibilityHandler()
@@ -453,7 +404,7 @@ namespace MyCefRenderHandler
 	//gen! void OnImeCompositionRangeChanged(CefRefPtr<CefBrowser> browser,const CefRange& selected_range,const RectList& character_bounds)
 	void OnImeCompositionRangeChanged(managed_callback mcallback, CefRefPtr<CefBrowser> browser, const CefRange& selected_range, const std::vector<CefRect>& character_bounds);
 }
-namespace MyCefRenderProcessHandler
+namespace CefRenderProcessHandlerExt
 {
 
 	//gen! void OnRenderThreadCreated(CefRefPtr<CefListValue> extra_info)
@@ -489,7 +440,7 @@ namespace MyCefRenderProcessHandler
 	//gen! bool OnProcessMessageReceived(CefRefPtr<CefBrowser> browser,CefProcessId source_process,CefRefPtr<CefProcessMessage> message)
 	bool OnProcessMessageReceived(managed_callback mcallback, CefRefPtr<CefBrowser> browser, CefProcessId source_process, CefRefPtr<CefProcessMessage> message);
 }
-namespace MyCefRequestContextHandler
+namespace CefRequestContextHandlerExt
 {
 
 	//gen! CefRefPtr<CefCookieManager> GetCookieManager()
@@ -498,7 +449,7 @@ namespace MyCefRequestContextHandler
 	//gen! bool OnBeforePluginLoad(const CefString& mime_type,const CefString& plugin_url,bool is_main_frame,const CefString& top_origin_url,CefRefPtr<CefWebPluginInfo> plugin_info,PluginPolicy* plugin_policy)
 	bool OnBeforePluginLoad(managed_callback mcallback, const CefString& mime_type, const CefString& plugin_url, bool is_main_frame, const CefString& top_origin_url, CefRefPtr<CefWebPluginInfo> plugin_info, cef_plugin_policy_t* plugin_policy);
 }
-namespace MyCefRequestHandler
+namespace CefRequestHandlerExt
 {
 
 	//gen! bool OnBeforeBrowse(CefRefPtr<CefBrowser> browser,CefRefPtr<CefFrame> frame,CefRefPtr<CefRequest> request,bool is_redirect)
@@ -549,7 +500,7 @@ namespace MyCefRequestHandler
 	//gen! void OnRenderProcessTerminated(CefRefPtr<CefBrowser> browser,TerminationStatus status)
 	void OnRenderProcessTerminated(managed_callback mcallback, CefRefPtr<CefBrowser> browser, cef_termination_status_t status);
 }
-namespace MyCefResourceBundleHandler
+namespace CefResourceBundleHandlerExt
 {
 
 	//gen! bool GetLocalizedString(int string_id,CefString& string)
@@ -561,7 +512,7 @@ namespace MyCefResourceBundleHandler
 	//gen! bool GetDataResourceForScale(int resource_id,ScaleFactor scale_factor,void*& data,size_t& data_size)
 	bool GetDataResourceForScale(managed_callback mcallback, int resource_id, cef_scale_factor_t scale_factor, void*& data, size_t& data_size);
 }
-namespace MyCefResourceHandler
+namespace CefResourceHandlerExt
 {
 
 	//gen! bool ProcessRequest(CefRefPtr<CefRequest> request,CefRefPtr<CefCallback> callback)
@@ -582,7 +533,7 @@ namespace MyCefResourceHandler
 	//gen! void Cancel()
 	void Cancel(managed_callback mcallback);
 }
-namespace MyCefReadHandler
+namespace CefReadHandlerExt
 {
 
 	//gen! size_t Read(void* ptr,size_t size,size_t n)
@@ -600,7 +551,7 @@ namespace MyCefReadHandler
 	//gen! bool MayBlock()
 	bool MayBlock(managed_callback mcallback);
 }
-namespace MyCefWriteHandler
+namespace CefWriteHandlerExt
 {
 
 	//gen! size_t Write(const void* ptr,size_t size,size_t n)
@@ -618,7 +569,7 @@ namespace MyCefWriteHandler
 	//gen! bool MayBlock()
 	bool MayBlock(managed_callback mcallback);
 }
-namespace MyCefV8Handler
+namespace CefV8HandlerExt
 {
 
 	//gen! bool Execute(const CefString& name,CefRefPtr<CefV8Value> object,const CefV8ValueList& arguments,CefRefPtr<CefV8Value>& retval,CefString& exception)

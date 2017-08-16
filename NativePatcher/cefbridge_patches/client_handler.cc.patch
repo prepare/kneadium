@@ -130,7 +130,10 @@ bool ClientHandler::OnConsoleMessage(CefRefPtr<CefBrowser> browser,
 //###_FIND_NEXT_LANDMARK 2
 CEF_REQUIRE_UI_THREAD();
 //###_APPEND_START 2
-if (this->mcallback_) {
+if (this->mcallback_)
+{
+
+CefDisplayHandlerExt::OnConsoleMessage(this->mcallback_, browser, message, source, line);
 
 MethodArgs args;
 memset(&args, 0, sizeof(MethodArgs));
@@ -172,6 +175,9 @@ void ClientHandler::OnBeforeDownload(
 CEF_REQUIRE_UI_THREAD();
 //###_APPEND_START 7
 if (this->mcallback_) {
+
+
+
 MethodArgs metArgs;
 memset(&metArgs, 0, sizeof(MethodArgs));
 metArgs.SetArgAsNativeObject(0, browser);

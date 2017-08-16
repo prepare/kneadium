@@ -580,11 +580,11 @@ namespace BridgeBuilder
                 CodeStringBuilder csCode = new CodeStringBuilder();
                 tx.GenerateCsCode(csCode);
                 csCodeStBuilder.Append(csCode.ToString());
-
                 if (tx.CppImplClassNameId > 0)
                 {
                     customImplClasses.Add(tx);
                 }
+               
             }
 
             // 
@@ -606,11 +606,8 @@ namespace BridgeBuilder
                 stbuilder = new CodeStringBuilder();
                 tx.GenerateCsCode(stbuilder);
                 csCodeStBuilder.Append(stbuilder.ToString());
-
-                if (tx.CppImplClassNameId > 0)
-                {
-                    customImplClasses.Add(tx);
-                }
+                //no default implementation handler class
+                 
             }
 
             CreateCppSwitchTable(cppCodeStBuilder, instanceClassPlans);
