@@ -58,13 +58,13 @@ namespace LayoutFarm.CefBridge
         {
             switch ((MyCefMsg)id)
             {
+                default:
+
+                    break;
                 case MyCefMsg.CEF_MSG_RequestForMxCallback:
                     {
 
-                        //native side asks for managed callback ...
-
-
-
+                        //native side asks for managed callback ... 
                     }
                     break;
                 case MyCefMsg.CEF_MSG_ClientHandler_OnBeforePopup:

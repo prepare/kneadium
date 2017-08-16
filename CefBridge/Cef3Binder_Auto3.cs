@@ -21030,7 +21030,7 @@ namespace LayoutFarm.CefBridge.Auto
         }
     }
     //------ common cef handler swicth table---------
-    public static class CefHandleNativeRequestSwitchHandlers
+    public static class CefNativeRequestHandlers
     {
         public static void HandleNativeReq(object inst, int met_id, IntPtr args)
         {

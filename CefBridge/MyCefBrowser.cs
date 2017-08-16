@@ -2,6 +2,8 @@
 
 using System;
 using System.Collections.Generic;
+using LayoutFarm.CefBridge.Auto;
+
 namespace LayoutFarm.CefBridge
 {
     public class MyCefBrowser
@@ -27,7 +29,7 @@ namespace LayoutFarm.CefBridge
             this.parentControl = parentControl;
             this.topForm = parentControl.GetTopLevelControl() as IWindowForm;
             //ui process ***
-            this.managedCallback = new MyCefCallback(this.MxCallBack);
+            this.managedCallback = new MyCefCallback(this.HandleNativeReq);
             //for specific browser
             if (this.IsOsr = isOsr)
             {
@@ -71,10 +73,69 @@ namespace LayoutFarm.CefBridge
             private set;
         }
 
-        void MxCallBack(int id, IntPtr argsPtr)
+
+        //------------------
+        //multiple req handlers
+        class MyCefBwHandler : CefDisplayHandler.I0
         {
-            switch ((MyCefMsg)id)
+
+            public void OnAddressChange(CefDisplayHandler.OnAddressChangeArgs args)
             {
+                string url = args.url(); 
+            }
+
+            public void OnConsoleMessage(CefDisplayHandler.OnConsoleMessageArgs args)
+            {
+
+            }
+
+            public void OnFaviconURLChange(CefDisplayHandler.OnFaviconURLChangeArgs args)
+            {
+            }
+
+            public void OnFullscreenModeChange(CefDisplayHandler.OnFullscreenModeChangeArgs args)
+            {
+
+            }
+
+            public void OnStatusMessage(CefDisplayHandler.OnStatusMessageArgs args)
+            {
+
+            }
+
+            public void OnTitleChange(CefDisplayHandler.OnTitleChangeArgs args)
+            {
+
+            }
+
+            public void OnTooltip(CefDisplayHandler.OnTooltipArgs args)
+            {
+
+            }
+
+        }
+
+        //this is object that handle native req
+        MyCefBwHandler myBwHandler = new MyCefBwHandler();
+
+        void HandleNativeReq(int met_id, IntPtr argsPtr)
+        {
+
+            //main raw msg switch table 
+            int object_type = met_id >> 16;
+            if (object_type > 0)
+            {
+                //built in object
+                CefNativeRequestHandlers.HandleNativeReq(myBwHandler, met_id, argsPtr);
+                return;
+            }
+            //else this is custom msg
+
+            switch ((MyCefMsg)met_id)
+            {
+                default:
+
+                    break;
                 case MyCefMsg.CEF_MSG_ClientHandler_NotifyBrowserCreated:
                     {
                         IsBrowserCreated = true;
