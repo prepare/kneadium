@@ -15478,7 +15478,7 @@ namespace LayoutFarm.CefBridge.Auto
         //gen! void OnAccessibilityTreeChange(CefRefPtr<CefValue> value)
         public struct OnAccessibilityTreeChangeArgs
         {
-            internal IntPtr nativePtr; //met arg native ptr
+            IntPtr nativePtr; //met arg native ptr
             internal OnAccessibilityTreeChangeArgs(IntPtr nativePtr)
             {
                 this.nativePtr = nativePtr;
@@ -15491,7 +15491,7 @@ namespace LayoutFarm.CefBridge.Auto
         //gen! void OnAccessibilityLocationChange(CefRefPtr<CefValue> value)
         public struct OnAccessibilityLocationChangeArgs
         {
-            internal IntPtr nativePtr; //met arg native ptr
+            IntPtr nativePtr; //met arg native ptr
             internal OnAccessibilityLocationChangeArgs(IntPtr nativePtr)
             {
                 this.nativePtr = nativePtr;
@@ -15568,7 +15568,7 @@ namespace LayoutFarm.CefBridge.Auto
         //gen! void OnContextInitialized()
         public struct OnContextInitializedArgs
         {
-            internal IntPtr nativePtr; //met arg native ptr
+            IntPtr nativePtr; //met arg native ptr
             internal OnContextInitializedArgs(IntPtr nativePtr)
             {
                 this.nativePtr = nativePtr;
@@ -15577,7 +15577,7 @@ namespace LayoutFarm.CefBridge.Auto
         //gen! void OnBeforeChildProcessLaunch(CefRefPtr<CefCommandLine> command_line)
         public struct OnBeforeChildProcessLaunchArgs
         {
-            internal IntPtr nativePtr; //met arg native ptr
+            IntPtr nativePtr; //met arg native ptr
             internal OnBeforeChildProcessLaunchArgs(IntPtr nativePtr)
             {
                 this.nativePtr = nativePtr;
@@ -15590,7 +15590,7 @@ namespace LayoutFarm.CefBridge.Auto
         //gen! void OnRenderProcessThreadCreated(CefRefPtr<CefListValue> extra_info)
         public struct OnRenderProcessThreadCreatedArgs
         {
-            internal IntPtr nativePtr; //met arg native ptr
+            IntPtr nativePtr; //met arg native ptr
             internal OnRenderProcessThreadCreatedArgs(IntPtr nativePtr)
             {
                 this.nativePtr = nativePtr;
@@ -15603,7 +15603,7 @@ namespace LayoutFarm.CefBridge.Auto
         //gen! CefRefPtr<CefPrintHandler> GetPrintHandler()
         public struct GetPrintHandlerArgs
         {
-            internal IntPtr nativePtr; //met arg native ptr
+            IntPtr nativePtr; //met arg native ptr
             internal GetPrintHandlerArgs(IntPtr nativePtr)
             {
                 this.nativePtr = nativePtr;
@@ -15612,7 +15612,7 @@ namespace LayoutFarm.CefBridge.Auto
         //gen! void OnScheduleMessagePumpWork(int64 delay_ms)
         public struct OnScheduleMessagePumpWorkArgs
         {
-            internal IntPtr nativePtr; //met arg native ptr
+            IntPtr nativePtr; //met arg native ptr
             internal OnScheduleMessagePumpWorkArgs(IntPtr nativePtr)
             {
                 this.nativePtr = nativePtr;
@@ -15751,7 +15751,7 @@ namespace LayoutFarm.CefBridge.Auto
         //gen! void OnBeforeContextMenu(CefRefPtr<CefBrowser> browser,CefRefPtr<CefFrame> frame,CefRefPtr<CefContextMenuParams> params,CefRefPtr<CefMenuModel> model)
         public struct OnBeforeContextMenuArgs
         {
-            internal IntPtr nativePtr; //met arg native ptr
+            IntPtr nativePtr; //met arg native ptr
             internal OnBeforeContextMenuArgs(IntPtr nativePtr)
             {
                 this.nativePtr = nativePtr;
@@ -15776,7 +15776,7 @@ namespace LayoutFarm.CefBridge.Auto
         //gen! bool RunContextMenu(CefRefPtr<CefBrowser> browser,CefRefPtr<CefFrame> frame,CefRefPtr<CefContextMenuParams> params,CefRefPtr<CefMenuModel> model,CefRefPtr<CefRunContextMenuCallback> callback)
         public struct RunContextMenuArgs
         {
-            internal IntPtr nativePtr; //met arg native ptr
+            IntPtr nativePtr; //met arg native ptr
             internal RunContextMenuArgs(IntPtr nativePtr)
             {
                 this.nativePtr = nativePtr;
@@ -15805,7 +15805,7 @@ namespace LayoutFarm.CefBridge.Auto
         //gen! bool OnContextMenuCommand(CefRefPtr<CefBrowser> browser,CefRefPtr<CefFrame> frame,CefRefPtr<CefContextMenuParams> params,int command_id,EventFlags event_flags)
         public struct OnContextMenuCommandArgs
         {
-            internal IntPtr nativePtr; //met arg native ptr
+            IntPtr nativePtr; //met arg native ptr
             internal OnContextMenuCommandArgs(IntPtr nativePtr)
             {
                 this.nativePtr = nativePtr;
@@ -15834,7 +15834,7 @@ namespace LayoutFarm.CefBridge.Auto
         //gen! void OnContextMenuDismissed(CefRefPtr<CefBrowser> browser,CefRefPtr<CefFrame> frame)
         public struct OnContextMenuDismissedArgs
         {
-            internal IntPtr nativePtr; //met arg native ptr
+            IntPtr nativePtr; //met arg native ptr
             internal OnContextMenuDismissedArgs(IntPtr nativePtr)
             {
                 this.nativePtr = nativePtr;
@@ -15977,7 +15977,7 @@ namespace LayoutFarm.CefBridge.Auto
         //gen! bool OnFileDialog(CefRefPtr<CefBrowser> browser,FileDialogMode mode,const CefString& title,const CefString& default_file_path,const std::vector<CefString>& accept_filters,int selected_accept_filter,CefRefPtr<CefFileDialogCallback> callback)
         public struct OnFileDialogArgs
         {
-            internal IntPtr nativePtr; //met arg native ptr
+            IntPtr nativePtr; //met arg native ptr
             internal OnFileDialogArgs(IntPtr nativePtr)
             {
                 this.nativePtr = nativePtr;
@@ -16071,7 +16071,7 @@ namespace LayoutFarm.CefBridge.Auto
         //gen! void OnAddressChange(CefRefPtr<CefBrowser> browser,CefRefPtr<CefFrame> frame,const CefString& url)
         public struct OnAddressChangeArgs
         {
-            internal IntPtr nativePtr; //met arg native ptr
+            IntPtr nativePtr; //met arg native ptr
             internal OnAddressChangeArgs(IntPtr nativePtr)
             {
                 this.nativePtr = nativePtr;
@@ -16092,7 +16092,7 @@ namespace LayoutFarm.CefBridge.Auto
         //gen! void OnTitleChange(CefRefPtr<CefBrowser> browser,const CefString& title)
         public struct OnTitleChangeArgs
         {
-            internal IntPtr nativePtr; //met arg native ptr
+            IntPtr nativePtr; //met arg native ptr
             internal OnTitleChangeArgs(IntPtr nativePtr)
             {
                 this.nativePtr = nativePtr;
@@ -16109,7 +16109,7 @@ namespace LayoutFarm.CefBridge.Auto
         //gen! void OnFaviconURLChange(CefRefPtr<CefBrowser> browser,const std::vector<CefString>& icon_urls)
         public struct OnFaviconURLChangeArgs
         {
-            internal IntPtr nativePtr; //met arg native ptr
+            IntPtr nativePtr; //met arg native ptr
             internal OnFaviconURLChangeArgs(IntPtr nativePtr)
             {
                 this.nativePtr = nativePtr;
@@ -16126,7 +16126,7 @@ namespace LayoutFarm.CefBridge.Auto
         //gen! void OnFullscreenModeChange(CefRefPtr<CefBrowser> browser,bool fullscreen)
         public struct OnFullscreenModeChangeArgs
         {
-            internal IntPtr nativePtr; //met arg native ptr
+            IntPtr nativePtr; //met arg native ptr
             internal OnFullscreenModeChangeArgs(IntPtr nativePtr)
             {
                 this.nativePtr = nativePtr;
@@ -16143,7 +16143,7 @@ namespace LayoutFarm.CefBridge.Auto
         //gen! bool OnTooltip(CefRefPtr<CefBrowser> browser,CefString& text)
         public struct OnTooltipArgs
         {
-            internal IntPtr nativePtr; //met arg native ptr
+            IntPtr nativePtr; //met arg native ptr
             internal OnTooltipArgs(IntPtr nativePtr)
             {
                 this.nativePtr = nativePtr;
@@ -16160,7 +16160,7 @@ namespace LayoutFarm.CefBridge.Auto
         //gen! void OnStatusMessage(CefRefPtr<CefBrowser> browser,const CefString& value)
         public struct OnStatusMessageArgs
         {
-            internal IntPtr nativePtr; //met arg native ptr
+            IntPtr nativePtr; //met arg native ptr
             internal OnStatusMessageArgs(IntPtr nativePtr)
             {
                 this.nativePtr = nativePtr;
@@ -16177,7 +16177,7 @@ namespace LayoutFarm.CefBridge.Auto
         //gen! bool OnConsoleMessage(CefRefPtr<CefBrowser> browser,const CefString& message,const CefString& source,int line)
         public struct OnConsoleMessageArgs
         {
-            internal IntPtr nativePtr; //met arg native ptr
+            IntPtr nativePtr; //met arg native ptr
             internal OnConsoleMessageArgs(IntPtr nativePtr)
             {
                 this.nativePtr = nativePtr;
@@ -16388,7 +16388,7 @@ namespace LayoutFarm.CefBridge.Auto
         //gen! void OnBeforeDownload(CefRefPtr<CefBrowser> browser,CefRefPtr<CefDownloadItem> download_item,const CefString& suggested_name,CefRefPtr<CefBeforeDownloadCallback> callback)
         public struct OnBeforeDownloadArgs
         {
-            internal IntPtr nativePtr; //met arg native ptr
+            IntPtr nativePtr; //met arg native ptr
             internal OnBeforeDownloadArgs(IntPtr nativePtr)
             {
                 this.nativePtr = nativePtr;
@@ -16413,7 +16413,7 @@ namespace LayoutFarm.CefBridge.Auto
         //gen! void OnDownloadUpdated(CefRefPtr<CefBrowser> browser,CefRefPtr<CefDownloadItem> download_item,CefRefPtr<CefDownloadItemCallback> callback)
         public struct OnDownloadUpdatedArgs
         {
-            internal IntPtr nativePtr; //met arg native ptr
+            IntPtr nativePtr; //met arg native ptr
             internal OnDownloadUpdatedArgs(IntPtr nativePtr)
             {
                 this.nativePtr = nativePtr;
@@ -16505,7 +16505,7 @@ namespace LayoutFarm.CefBridge.Auto
         //gen! bool OnDragEnter(CefRefPtr<CefBrowser> browser,CefRefPtr<CefDragData> dragData,DragOperationsMask mask)
         public struct OnDragEnterArgs
         {
-            internal IntPtr nativePtr; //met arg native ptr
+            IntPtr nativePtr; //met arg native ptr
             internal OnDragEnterArgs(IntPtr nativePtr)
             {
                 this.nativePtr = nativePtr;
@@ -16526,7 +16526,7 @@ namespace LayoutFarm.CefBridge.Auto
         //gen! void OnDraggableRegionsChanged(CefRefPtr<CefBrowser> browser,const std::vector<CefDraggableRegion>& regions)
         public struct OnDraggableRegionsChangedArgs
         {
-            internal IntPtr nativePtr; //met arg native ptr
+            IntPtr nativePtr; //met arg native ptr
             internal OnDraggableRegionsChangedArgs(IntPtr nativePtr)
             {
                 this.nativePtr = nativePtr;
@@ -16609,7 +16609,7 @@ namespace LayoutFarm.CefBridge.Auto
         //gen! void OnFindResult(CefRefPtr<CefBrowser> browser,int identifier,int count,const CefRect& selectionRect,int activeMatchOrdinal,bool finalUpdate)
         public struct OnFindResultArgs
         {
-            internal IntPtr nativePtr; //met arg native ptr
+            IntPtr nativePtr; //met arg native ptr
             internal OnFindResultArgs(IntPtr nativePtr)
             {
                 this.nativePtr = nativePtr;
@@ -16693,7 +16693,7 @@ namespace LayoutFarm.CefBridge.Auto
         //gen! void OnTakeFocus(CefRefPtr<CefBrowser> browser,bool next)
         public struct OnTakeFocusArgs
         {
-            internal IntPtr nativePtr; //met arg native ptr
+            IntPtr nativePtr; //met arg native ptr
             internal OnTakeFocusArgs(IntPtr nativePtr)
             {
                 this.nativePtr = nativePtr;
@@ -16710,7 +16710,7 @@ namespace LayoutFarm.CefBridge.Auto
         //gen! bool OnSetFocus(CefRefPtr<CefBrowser> browser,FocusSource source)
         public struct OnSetFocusArgs
         {
-            internal IntPtr nativePtr; //met arg native ptr
+            IntPtr nativePtr; //met arg native ptr
             internal OnSetFocusArgs(IntPtr nativePtr)
             {
                 this.nativePtr = nativePtr;
@@ -16727,7 +16727,7 @@ namespace LayoutFarm.CefBridge.Auto
         //gen! void OnGotFocus(CefRefPtr<CefBrowser> browser)
         public struct OnGotFocusArgs
         {
-            internal IntPtr nativePtr; //met arg native ptr
+            IntPtr nativePtr; //met arg native ptr
             internal OnGotFocusArgs(IntPtr nativePtr)
             {
                 this.nativePtr = nativePtr;
@@ -16826,7 +16826,7 @@ namespace LayoutFarm.CefBridge.Auto
         //gen! bool OnRequestGeolocationPermission(CefRefPtr<CefBrowser> browser,const CefString& requesting_url,int request_id,CefRefPtr<CefGeolocationCallback> callback)
         public struct OnRequestGeolocationPermissionArgs
         {
-            internal IntPtr nativePtr; //met arg native ptr
+            IntPtr nativePtr; //met arg native ptr
             internal OnRequestGeolocationPermissionArgs(IntPtr nativePtr)
             {
                 this.nativePtr = nativePtr;
@@ -16851,7 +16851,7 @@ namespace LayoutFarm.CefBridge.Auto
         //gen! void OnCancelGeolocationPermission(CefRefPtr<CefBrowser> browser,int request_id)
         public struct OnCancelGeolocationPermissionArgs
         {
-            internal IntPtr nativePtr; //met arg native ptr
+            IntPtr nativePtr; //met arg native ptr
             internal OnCancelGeolocationPermissionArgs(IntPtr nativePtr)
             {
                 this.nativePtr = nativePtr;
@@ -16939,7 +16939,7 @@ namespace LayoutFarm.CefBridge.Auto
         //gen! bool OnJSDialog(CefRefPtr<CefBrowser> browser,const CefString& origin_url,JSDialogType dialog_type,const CefString& message_text,const CefString& default_prompt_text,CefRefPtr<CefJSDialogCallback> callback,bool& suppress_message)
         public struct OnJSDialogArgs
         {
-            internal IntPtr nativePtr; //met arg native ptr
+            IntPtr nativePtr; //met arg native ptr
             internal OnJSDialogArgs(IntPtr nativePtr)
             {
                 this.nativePtr = nativePtr;
@@ -16980,7 +16980,7 @@ namespace LayoutFarm.CefBridge.Auto
         //gen! bool OnBeforeUnloadDialog(CefRefPtr<CefBrowser> browser,const CefString& message_text,bool is_reload,CefRefPtr<CefJSDialogCallback> callback)
         public struct OnBeforeUnloadDialogArgs
         {
-            internal IntPtr nativePtr; //met arg native ptr
+            IntPtr nativePtr; //met arg native ptr
             internal OnBeforeUnloadDialogArgs(IntPtr nativePtr)
             {
                 this.nativePtr = nativePtr;
@@ -17005,7 +17005,7 @@ namespace LayoutFarm.CefBridge.Auto
         //gen! void OnResetDialogState(CefRefPtr<CefBrowser> browser)
         public struct OnResetDialogStateArgs
         {
-            internal IntPtr nativePtr; //met arg native ptr
+            IntPtr nativePtr; //met arg native ptr
             internal OnResetDialogStateArgs(IntPtr nativePtr)
             {
                 this.nativePtr = nativePtr;
@@ -17018,7 +17018,7 @@ namespace LayoutFarm.CefBridge.Auto
         //gen! void OnDialogClosed(CefRefPtr<CefBrowser> browser)
         public struct OnDialogClosedArgs
         {
-            internal IntPtr nativePtr; //met arg native ptr
+            IntPtr nativePtr; //met arg native ptr
             internal OnDialogClosedArgs(IntPtr nativePtr)
             {
                 this.nativePtr = nativePtr;
@@ -17156,7 +17156,7 @@ namespace LayoutFarm.CefBridge.Auto
         //gen! bool OnPreKeyEvent(CefRefPtr<CefBrowser> browser,const CefKeyEvent& event,CefEventHandle os_event,bool* is_keyboard_shortcut)
         public struct OnPreKeyEventArgs
         {
-            internal IntPtr nativePtr; //met arg native ptr
+            IntPtr nativePtr; //met arg native ptr
             internal OnPreKeyEventArgs(IntPtr nativePtr)
             {
                 this.nativePtr = nativePtr;
@@ -17185,7 +17185,7 @@ namespace LayoutFarm.CefBridge.Auto
         //gen! bool OnKeyEvent(CefRefPtr<CefBrowser> browser,const CefKeyEvent& event,CefEventHandle os_event)
         public struct OnKeyEventArgs
         {
-            internal IntPtr nativePtr; //met arg native ptr
+            IntPtr nativePtr; //met arg native ptr
             internal OnKeyEventArgs(IntPtr nativePtr)
             {
                 this.nativePtr = nativePtr;
@@ -17283,7 +17283,7 @@ namespace LayoutFarm.CefBridge.Auto
         //gen! bool OnBeforePopup(CefRefPtr<CefBrowser> browser,CefRefPtr<CefFrame> frame,const CefString& target_url,const CefString& target_frame_name,WindowOpenDisposition target_disposition,bool user_gesture,const CefPopupFeatures& popupFeatures,CefWindowInfo& windowInfo,CefRefPtr<CefClient>& client,CefBrowserSettings& settings,bool* no_javascript_access)
         public struct OnBeforePopupArgs
         {
-            internal IntPtr nativePtr; //met arg native ptr
+            IntPtr nativePtr; //met arg native ptr
             internal OnBeforePopupArgs(IntPtr nativePtr)
             {
                 this.nativePtr = nativePtr;
@@ -17340,7 +17340,7 @@ namespace LayoutFarm.CefBridge.Auto
         //gen! void OnAfterCreated(CefRefPtr<CefBrowser> browser)
         public struct OnAfterCreatedArgs
         {
-            internal IntPtr nativePtr; //met arg native ptr
+            IntPtr nativePtr; //met arg native ptr
             internal OnAfterCreatedArgs(IntPtr nativePtr)
             {
                 this.nativePtr = nativePtr;
@@ -17353,7 +17353,7 @@ namespace LayoutFarm.CefBridge.Auto
         //gen! bool DoClose(CefRefPtr<CefBrowser> browser)
         public struct DoCloseArgs
         {
-            internal IntPtr nativePtr; //met arg native ptr
+            IntPtr nativePtr; //met arg native ptr
             internal DoCloseArgs(IntPtr nativePtr)
             {
                 this.nativePtr = nativePtr;
@@ -17366,7 +17366,7 @@ namespace LayoutFarm.CefBridge.Auto
         //gen! void OnBeforeClose(CefRefPtr<CefBrowser> browser)
         public struct OnBeforeCloseArgs
         {
-            internal IntPtr nativePtr; //met arg native ptr
+            IntPtr nativePtr; //met arg native ptr
             internal OnBeforeCloseArgs(IntPtr nativePtr)
             {
                 this.nativePtr = nativePtr;
@@ -17508,7 +17508,7 @@ namespace LayoutFarm.CefBridge.Auto
         //gen! void OnLoadingStateChange(CefRefPtr<CefBrowser> browser,bool isLoading,bool canGoBack,bool canGoForward)
         public struct OnLoadingStateChangeArgs
         {
-            internal IntPtr nativePtr; //met arg native ptr
+            IntPtr nativePtr; //met arg native ptr
             internal OnLoadingStateChangeArgs(IntPtr nativePtr)
             {
                 this.nativePtr = nativePtr;
@@ -17533,7 +17533,7 @@ namespace LayoutFarm.CefBridge.Auto
         //gen! void OnLoadStart(CefRefPtr<CefBrowser> browser,CefRefPtr<CefFrame> frame,TransitionType transition_type)
         public struct OnLoadStartArgs
         {
-            internal IntPtr nativePtr; //met arg native ptr
+            IntPtr nativePtr; //met arg native ptr
             internal OnLoadStartArgs(IntPtr nativePtr)
             {
                 this.nativePtr = nativePtr;
@@ -17554,7 +17554,7 @@ namespace LayoutFarm.CefBridge.Auto
         //gen! void OnLoadEnd(CefRefPtr<CefBrowser> browser,CefRefPtr<CefFrame> frame,int httpStatusCode)
         public struct OnLoadEndArgs
         {
-            internal IntPtr nativePtr; //met arg native ptr
+            IntPtr nativePtr; //met arg native ptr
             internal OnLoadEndArgs(IntPtr nativePtr)
             {
                 this.nativePtr = nativePtr;
@@ -17575,7 +17575,7 @@ namespace LayoutFarm.CefBridge.Auto
         //gen! void OnLoadError(CefRefPtr<CefBrowser> browser,CefRefPtr<CefFrame> frame,ErrorCode errorCode,const CefString& errorText,const CefString& failedUrl)
         public struct OnLoadErrorArgs
         {
-            internal IntPtr nativePtr; //met arg native ptr
+            IntPtr nativePtr; //met arg native ptr
             internal OnLoadErrorArgs(IntPtr nativePtr)
             {
                 this.nativePtr = nativePtr;
@@ -17733,7 +17733,7 @@ namespace LayoutFarm.CefBridge.Auto
         //gen! void OnPrintStart(CefRefPtr<CefBrowser> browser)
         public struct OnPrintStartArgs
         {
-            internal IntPtr nativePtr; //met arg native ptr
+            IntPtr nativePtr; //met arg native ptr
             internal OnPrintStartArgs(IntPtr nativePtr)
             {
                 this.nativePtr = nativePtr;
@@ -17746,7 +17746,7 @@ namespace LayoutFarm.CefBridge.Auto
         //gen! void OnPrintSettings(CefRefPtr<CefBrowser> browser,CefRefPtr<CefPrintSettings> settings,bool get_defaults)
         public struct OnPrintSettingsArgs
         {
-            internal IntPtr nativePtr; //met arg native ptr
+            IntPtr nativePtr; //met arg native ptr
             internal OnPrintSettingsArgs(IntPtr nativePtr)
             {
                 this.nativePtr = nativePtr;
@@ -17767,7 +17767,7 @@ namespace LayoutFarm.CefBridge.Auto
         //gen! bool OnPrintDialog(CefRefPtr<CefBrowser> browser,bool has_selection,CefRefPtr<CefPrintDialogCallback> callback)
         public struct OnPrintDialogArgs
         {
-            internal IntPtr nativePtr; //met arg native ptr
+            IntPtr nativePtr; //met arg native ptr
             internal OnPrintDialogArgs(IntPtr nativePtr)
             {
                 this.nativePtr = nativePtr;
@@ -17788,7 +17788,7 @@ namespace LayoutFarm.CefBridge.Auto
         //gen! bool OnPrintJob(CefRefPtr<CefBrowser> browser,const CefString& document_name,const CefString& pdf_file_path,CefRefPtr<CefPrintJobCallback> callback)
         public struct OnPrintJobArgs
         {
-            internal IntPtr nativePtr; //met arg native ptr
+            IntPtr nativePtr; //met arg native ptr
             internal OnPrintJobArgs(IntPtr nativePtr)
             {
                 this.nativePtr = nativePtr;
@@ -17813,7 +17813,7 @@ namespace LayoutFarm.CefBridge.Auto
         //gen! void OnPrintReset(CefRefPtr<CefBrowser> browser)
         public struct OnPrintResetArgs
         {
-            internal IntPtr nativePtr; //met arg native ptr
+            IntPtr nativePtr; //met arg native ptr
             internal OnPrintResetArgs(IntPtr nativePtr)
             {
                 this.nativePtr = nativePtr;
@@ -17826,7 +17826,7 @@ namespace LayoutFarm.CefBridge.Auto
         //gen! CefSize GetPdfPaperSize(int device_units_per_inch)
         public struct GetPdfPaperSizeArgs
         {
-            internal IntPtr nativePtr; //met arg native ptr
+            IntPtr nativePtr; //met arg native ptr
             internal GetPdfPaperSizeArgs(IntPtr nativePtr)
             {
                 this.nativePtr = nativePtr;
@@ -18009,7 +18009,7 @@ namespace LayoutFarm.CefBridge.Auto
         //gen! CefRefPtr<CefAccessibilityHandler> GetAccessibilityHandler()
         public struct GetAccessibilityHandlerArgs
         {
-            internal IntPtr nativePtr; //met arg native ptr
+            IntPtr nativePtr; //met arg native ptr
             internal GetAccessibilityHandlerArgs(IntPtr nativePtr)
             {
                 this.nativePtr = nativePtr;
@@ -18018,7 +18018,7 @@ namespace LayoutFarm.CefBridge.Auto
         //gen! bool GetRootScreenRect(CefRefPtr<CefBrowser> browser,CefRect& rect)
         public struct GetRootScreenRectArgs
         {
-            internal IntPtr nativePtr; //met arg native ptr
+            IntPtr nativePtr; //met arg native ptr
             internal GetRootScreenRectArgs(IntPtr nativePtr)
             {
                 this.nativePtr = nativePtr;
@@ -18035,7 +18035,7 @@ namespace LayoutFarm.CefBridge.Auto
         //gen! bool GetViewRect(CefRefPtr<CefBrowser> browser,CefRect& rect)
         public struct GetViewRectArgs
         {
-            internal IntPtr nativePtr; //met arg native ptr
+            IntPtr nativePtr; //met arg native ptr
             internal GetViewRectArgs(IntPtr nativePtr)
             {
                 this.nativePtr = nativePtr;
@@ -18052,7 +18052,7 @@ namespace LayoutFarm.CefBridge.Auto
         //gen! bool GetScreenPoint(CefRefPtr<CefBrowser> browser,int viewX,int viewY,int& screenX,int& screenY)
         public struct GetScreenPointArgs
         {
-            internal IntPtr nativePtr; //met arg native ptr
+            IntPtr nativePtr; //met arg native ptr
             internal GetScreenPointArgs(IntPtr nativePtr)
             {
                 this.nativePtr = nativePtr;
@@ -18089,7 +18089,7 @@ namespace LayoutFarm.CefBridge.Auto
         //gen! bool GetScreenInfo(CefRefPtr<CefBrowser> browser,CefScreenInfo& screen_info)
         public struct GetScreenInfoArgs
         {
-            internal IntPtr nativePtr; //met arg native ptr
+            IntPtr nativePtr; //met arg native ptr
             internal GetScreenInfoArgs(IntPtr nativePtr)
             {
                 this.nativePtr = nativePtr;
@@ -18106,7 +18106,7 @@ namespace LayoutFarm.CefBridge.Auto
         //gen! void OnPopupShow(CefRefPtr<CefBrowser> browser,bool show)
         public struct OnPopupShowArgs
         {
-            internal IntPtr nativePtr; //met arg native ptr
+            IntPtr nativePtr; //met arg native ptr
             internal OnPopupShowArgs(IntPtr nativePtr)
             {
                 this.nativePtr = nativePtr;
@@ -18123,7 +18123,7 @@ namespace LayoutFarm.CefBridge.Auto
         //gen! void OnPopupSize(CefRefPtr<CefBrowser> browser,const CefRect& rect)
         public struct OnPopupSizeArgs
         {
-            internal IntPtr nativePtr; //met arg native ptr
+            IntPtr nativePtr; //met arg native ptr
             internal OnPopupSizeArgs(IntPtr nativePtr)
             {
                 this.nativePtr = nativePtr;
@@ -18140,7 +18140,7 @@ namespace LayoutFarm.CefBridge.Auto
         //gen! void OnPaint(CefRefPtr<CefBrowser> browser,PaintElementType type,const RectList& dirtyRects,const void* buffer,int width,int height)
         public struct OnPaintArgs
         {
-            internal IntPtr nativePtr; //met arg native ptr
+            IntPtr nativePtr; //met arg native ptr
             internal OnPaintArgs(IntPtr nativePtr)
             {
                 this.nativePtr = nativePtr;
@@ -18173,7 +18173,7 @@ namespace LayoutFarm.CefBridge.Auto
         //gen! void OnCursorChange(CefRefPtr<CefBrowser> browser,CefCursorHandle cursor,CursorType type,const CefCursorInfo& custom_cursor_info)
         public struct OnCursorChangeArgs
         {
-            internal IntPtr nativePtr; //met arg native ptr
+            IntPtr nativePtr; //met arg native ptr
             internal OnCursorChangeArgs(IntPtr nativePtr)
             {
                 this.nativePtr = nativePtr;
@@ -18198,7 +18198,7 @@ namespace LayoutFarm.CefBridge.Auto
         //gen! bool StartDragging(CefRefPtr<CefBrowser> browser,CefRefPtr<CefDragData> drag_data,DragOperationsMask allowed_ops,int x,int y)
         public struct StartDraggingArgs
         {
-            internal IntPtr nativePtr; //met arg native ptr
+            IntPtr nativePtr; //met arg native ptr
             internal StartDraggingArgs(IntPtr nativePtr)
             {
                 this.nativePtr = nativePtr;
@@ -18227,7 +18227,7 @@ namespace LayoutFarm.CefBridge.Auto
         //gen! void UpdateDragCursor(CefRefPtr<CefBrowser> browser,DragOperation operation)
         public struct UpdateDragCursorArgs
         {
-            internal IntPtr nativePtr; //met arg native ptr
+            IntPtr nativePtr; //met arg native ptr
             internal UpdateDragCursorArgs(IntPtr nativePtr)
             {
                 this.nativePtr = nativePtr;
@@ -18244,7 +18244,7 @@ namespace LayoutFarm.CefBridge.Auto
         //gen! void OnScrollOffsetChanged(CefRefPtr<CefBrowser> browser,double x,double y)
         public struct OnScrollOffsetChangedArgs
         {
-            internal IntPtr nativePtr; //met arg native ptr
+            IntPtr nativePtr; //met arg native ptr
             internal OnScrollOffsetChangedArgs(IntPtr nativePtr)
             {
                 this.nativePtr = nativePtr;
@@ -18265,7 +18265,7 @@ namespace LayoutFarm.CefBridge.Auto
         //gen! void OnImeCompositionRangeChanged(CefRefPtr<CefBrowser> browser,const CefRange& selected_range,const RectList& character_bounds)
         public struct OnImeCompositionRangeChangedArgs
         {
-            internal IntPtr nativePtr; //met arg native ptr
+            IntPtr nativePtr; //met arg native ptr
             internal OnImeCompositionRangeChangedArgs(IntPtr nativePtr)
             {
                 this.nativePtr = nativePtr;
@@ -18647,7 +18647,7 @@ namespace LayoutFarm.CefBridge.Auto
         //gen! void OnRenderThreadCreated(CefRefPtr<CefListValue> extra_info)
         public struct OnRenderThreadCreatedArgs
         {
-            internal IntPtr nativePtr; //met arg native ptr
+            IntPtr nativePtr; //met arg native ptr
             internal OnRenderThreadCreatedArgs(IntPtr nativePtr)
             {
                 this.nativePtr = nativePtr;
@@ -18660,7 +18660,7 @@ namespace LayoutFarm.CefBridge.Auto
         //gen! void OnWebKitInitialized()
         public struct OnWebKitInitializedArgs
         {
-            internal IntPtr nativePtr; //met arg native ptr
+            IntPtr nativePtr; //met arg native ptr
             internal OnWebKitInitializedArgs(IntPtr nativePtr)
             {
                 this.nativePtr = nativePtr;
@@ -18669,7 +18669,7 @@ namespace LayoutFarm.CefBridge.Auto
         //gen! void OnBrowserCreated(CefRefPtr<CefBrowser> browser)
         public struct OnBrowserCreatedArgs
         {
-            internal IntPtr nativePtr; //met arg native ptr
+            IntPtr nativePtr; //met arg native ptr
             internal OnBrowserCreatedArgs(IntPtr nativePtr)
             {
                 this.nativePtr = nativePtr;
@@ -18682,7 +18682,7 @@ namespace LayoutFarm.CefBridge.Auto
         //gen! void OnBrowserDestroyed(CefRefPtr<CefBrowser> browser)
         public struct OnBrowserDestroyedArgs
         {
-            internal IntPtr nativePtr; //met arg native ptr
+            IntPtr nativePtr; //met arg native ptr
             internal OnBrowserDestroyedArgs(IntPtr nativePtr)
             {
                 this.nativePtr = nativePtr;
@@ -18695,7 +18695,7 @@ namespace LayoutFarm.CefBridge.Auto
         //gen! CefRefPtr<CefLoadHandler> GetLoadHandler()
         public struct GetLoadHandlerArgs
         {
-            internal IntPtr nativePtr; //met arg native ptr
+            IntPtr nativePtr; //met arg native ptr
             internal GetLoadHandlerArgs(IntPtr nativePtr)
             {
                 this.nativePtr = nativePtr;
@@ -18704,7 +18704,7 @@ namespace LayoutFarm.CefBridge.Auto
         //gen! bool OnBeforeNavigation(CefRefPtr<CefBrowser> browser,CefRefPtr<CefFrame> frame,CefRefPtr<CefRequest> request,NavigationType navigation_type,bool is_redirect)
         public struct OnBeforeNavigationArgs
         {
-            internal IntPtr nativePtr; //met arg native ptr
+            IntPtr nativePtr; //met arg native ptr
             internal OnBeforeNavigationArgs(IntPtr nativePtr)
             {
                 this.nativePtr = nativePtr;
@@ -18733,7 +18733,7 @@ namespace LayoutFarm.CefBridge.Auto
         //gen! void OnContextCreated(CefRefPtr<CefBrowser> browser,CefRefPtr<CefFrame> frame,CefRefPtr<CefV8Context> context)
         public struct OnContextCreatedArgs
         {
-            internal IntPtr nativePtr; //met arg native ptr
+            IntPtr nativePtr; //met arg native ptr
             internal OnContextCreatedArgs(IntPtr nativePtr)
             {
                 this.nativePtr = nativePtr;
@@ -18754,7 +18754,7 @@ namespace LayoutFarm.CefBridge.Auto
         //gen! void OnContextReleased(CefRefPtr<CefBrowser> browser,CefRefPtr<CefFrame> frame,CefRefPtr<CefV8Context> context)
         public struct OnContextReleasedArgs
         {
-            internal IntPtr nativePtr; //met arg native ptr
+            IntPtr nativePtr; //met arg native ptr
             internal OnContextReleasedArgs(IntPtr nativePtr)
             {
                 this.nativePtr = nativePtr;
@@ -18775,7 +18775,7 @@ namespace LayoutFarm.CefBridge.Auto
         //gen! void OnUncaughtException(CefRefPtr<CefBrowser> browser,CefRefPtr<CefFrame> frame,CefRefPtr<CefV8Context> context,CefRefPtr<CefV8Exception> exception,CefRefPtr<CefV8StackTrace> stackTrace)
         public struct OnUncaughtExceptionArgs
         {
-            internal IntPtr nativePtr; //met arg native ptr
+            IntPtr nativePtr; //met arg native ptr
             internal OnUncaughtExceptionArgs(IntPtr nativePtr)
             {
                 this.nativePtr = nativePtr;
@@ -18804,7 +18804,7 @@ namespace LayoutFarm.CefBridge.Auto
         //gen! void OnFocusedNodeChanged(CefRefPtr<CefBrowser> browser,CefRefPtr<CefFrame> frame,CefRefPtr<CefDOMNode> node)
         public struct OnFocusedNodeChangedArgs
         {
-            internal IntPtr nativePtr; //met arg native ptr
+            IntPtr nativePtr; //met arg native ptr
             internal OnFocusedNodeChangedArgs(IntPtr nativePtr)
             {
                 this.nativePtr = nativePtr;
@@ -18825,7 +18825,7 @@ namespace LayoutFarm.CefBridge.Auto
         //gen! bool OnProcessMessageReceived(CefRefPtr<CefBrowser> browser,CefProcessId source_process,CefRefPtr<CefProcessMessage> message)
         public struct OnProcessMessageReceivedArgs
         {
-            internal IntPtr nativePtr; //met arg native ptr
+            IntPtr nativePtr; //met arg native ptr
             internal OnProcessMessageReceivedArgs(IntPtr nativePtr)
             {
                 this.nativePtr = nativePtr;
@@ -19128,7 +19128,7 @@ namespace LayoutFarm.CefBridge.Auto
         //gen! CefRefPtr<CefCookieManager> GetCookieManager()
         public struct GetCookieManagerArgs
         {
-            internal IntPtr nativePtr; //met arg native ptr
+            IntPtr nativePtr; //met arg native ptr
             internal GetCookieManagerArgs(IntPtr nativePtr)
             {
                 this.nativePtr = nativePtr;
@@ -19137,7 +19137,7 @@ namespace LayoutFarm.CefBridge.Auto
         //gen! bool OnBeforePluginLoad(const CefString& mime_type,const CefString& plugin_url,bool is_main_frame,const CefString& top_origin_url,CefRefPtr<CefWebPluginInfo> plugin_info,PluginPolicy* plugin_policy)
         public struct OnBeforePluginLoadArgs
         {
-            internal IntPtr nativePtr; //met arg native ptr
+            IntPtr nativePtr; //met arg native ptr
             internal OnBeforePluginLoadArgs(IntPtr nativePtr)
             {
                 this.nativePtr = nativePtr;
@@ -19255,7 +19255,7 @@ namespace LayoutFarm.CefBridge.Auto
         //gen! bool OnBeforeBrowse(CefRefPtr<CefBrowser> browser,CefRefPtr<CefFrame> frame,CefRefPtr<CefRequest> request,bool is_redirect)
         public struct OnBeforeBrowseArgs
         {
-            internal IntPtr nativePtr; //met arg native ptr
+            IntPtr nativePtr; //met arg native ptr
             internal OnBeforeBrowseArgs(IntPtr nativePtr)
             {
                 this.nativePtr = nativePtr;
@@ -19280,7 +19280,7 @@ namespace LayoutFarm.CefBridge.Auto
         //gen! bool OnOpenURLFromTab(CefRefPtr<CefBrowser> browser,CefRefPtr<CefFrame> frame,const CefString& target_url,WindowOpenDisposition target_disposition,bool user_gesture)
         public struct OnOpenURLFromTabArgs
         {
-            internal IntPtr nativePtr; //met arg native ptr
+            IntPtr nativePtr; //met arg native ptr
             internal OnOpenURLFromTabArgs(IntPtr nativePtr)
             {
                 this.nativePtr = nativePtr;
@@ -19309,7 +19309,7 @@ namespace LayoutFarm.CefBridge.Auto
         //gen! ReturnValue OnBeforeResourceLoad(CefRefPtr<CefBrowser> browser,CefRefPtr<CefFrame> frame,CefRefPtr<CefRequest> request,CefRefPtr<CefRequestCallback> callback)
         public struct OnBeforeResourceLoadArgs
         {
-            internal IntPtr nativePtr; //met arg native ptr
+            IntPtr nativePtr; //met arg native ptr
             internal OnBeforeResourceLoadArgs(IntPtr nativePtr)
             {
                 this.nativePtr = nativePtr;
@@ -19334,7 +19334,7 @@ namespace LayoutFarm.CefBridge.Auto
         //gen! CefRefPtr<CefResourceHandler> GetResourceHandler(CefRefPtr<CefBrowser> browser,CefRefPtr<CefFrame> frame,CefRefPtr<CefRequest> request)
         public struct GetResourceHandlerArgs
         {
-            internal IntPtr nativePtr; //met arg native ptr
+            IntPtr nativePtr; //met arg native ptr
             internal GetResourceHandlerArgs(IntPtr nativePtr)
             {
                 this.nativePtr = nativePtr;
@@ -19355,7 +19355,7 @@ namespace LayoutFarm.CefBridge.Auto
         //gen! void OnResourceRedirect(CefRefPtr<CefBrowser> browser,CefRefPtr<CefFrame> frame,CefRefPtr<CefRequest> request,CefRefPtr<CefResponse> response,CefString& new_url)
         public struct OnResourceRedirectArgs
         {
-            internal IntPtr nativePtr; //met arg native ptr
+            IntPtr nativePtr; //met arg native ptr
             internal OnResourceRedirectArgs(IntPtr nativePtr)
             {
                 this.nativePtr = nativePtr;
@@ -19384,7 +19384,7 @@ namespace LayoutFarm.CefBridge.Auto
         //gen! bool OnResourceResponse(CefRefPtr<CefBrowser> browser,CefRefPtr<CefFrame> frame,CefRefPtr<CefRequest> request,CefRefPtr<CefResponse> response)
         public struct OnResourceResponseArgs
         {
-            internal IntPtr nativePtr; //met arg native ptr
+            IntPtr nativePtr; //met arg native ptr
             internal OnResourceResponseArgs(IntPtr nativePtr)
             {
                 this.nativePtr = nativePtr;
@@ -19409,7 +19409,7 @@ namespace LayoutFarm.CefBridge.Auto
         //gen! CefRefPtr<CefResponseFilter> GetResourceResponseFilter(CefRefPtr<CefBrowser> browser,CefRefPtr<CefFrame> frame,CefRefPtr<CefRequest> request,CefRefPtr<CefResponse> response)
         public struct GetResourceResponseFilterArgs
         {
-            internal IntPtr nativePtr; //met arg native ptr
+            IntPtr nativePtr; //met arg native ptr
             internal GetResourceResponseFilterArgs(IntPtr nativePtr)
             {
                 this.nativePtr = nativePtr;
@@ -19434,7 +19434,7 @@ namespace LayoutFarm.CefBridge.Auto
         //gen! void OnResourceLoadComplete(CefRefPtr<CefBrowser> browser,CefRefPtr<CefFrame> frame,CefRefPtr<CefRequest> request,CefRefPtr<CefResponse> response,URLRequestStatus status,int64 received_content_length)
         public struct OnResourceLoadCompleteArgs
         {
-            internal IntPtr nativePtr; //met arg native ptr
+            IntPtr nativePtr; //met arg native ptr
             internal OnResourceLoadCompleteArgs(IntPtr nativePtr)
             {
                 this.nativePtr = nativePtr;
@@ -19467,7 +19467,7 @@ namespace LayoutFarm.CefBridge.Auto
         //gen! bool GetAuthCredentials(CefRefPtr<CefBrowser> browser,CefRefPtr<CefFrame> frame,bool isProxy,const CefString& host,int port,const CefString& realm,const CefString& scheme,CefRefPtr<CefAuthCallback> callback)
         public struct GetAuthCredentialsArgs
         {
-            internal IntPtr nativePtr; //met arg native ptr
+            IntPtr nativePtr; //met arg native ptr
             internal GetAuthCredentialsArgs(IntPtr nativePtr)
             {
                 this.nativePtr = nativePtr;
@@ -19508,7 +19508,7 @@ namespace LayoutFarm.CefBridge.Auto
         //gen! bool OnQuotaRequest(CefRefPtr<CefBrowser> browser,const CefString& origin_url,int64 new_size,CefRefPtr<CefRequestCallback> callback)
         public struct OnQuotaRequestArgs
         {
-            internal IntPtr nativePtr; //met arg native ptr
+            IntPtr nativePtr; //met arg native ptr
             internal OnQuotaRequestArgs(IntPtr nativePtr)
             {
                 this.nativePtr = nativePtr;
@@ -19533,7 +19533,7 @@ namespace LayoutFarm.CefBridge.Auto
         //gen! void OnProtocolExecution(CefRefPtr<CefBrowser> browser,const CefString& url,bool& allow_os_execution)
         public struct OnProtocolExecutionArgs
         {
-            internal IntPtr nativePtr; //met arg native ptr
+            IntPtr nativePtr; //met arg native ptr
             internal OnProtocolExecutionArgs(IntPtr nativePtr)
             {
                 this.nativePtr = nativePtr;
@@ -19558,7 +19558,7 @@ namespace LayoutFarm.CefBridge.Auto
         //gen! bool OnCertificateError(CefRefPtr<CefBrowser> browser,cef_errorcode_t cert_error,const CefString& request_url,CefRefPtr<CefSSLInfo> ssl_info,CefRefPtr<CefRequestCallback> callback)
         public struct OnCertificateErrorArgs
         {
-            internal IntPtr nativePtr; //met arg native ptr
+            IntPtr nativePtr; //met arg native ptr
             internal OnCertificateErrorArgs(IntPtr nativePtr)
             {
                 this.nativePtr = nativePtr;
@@ -19587,7 +19587,7 @@ namespace LayoutFarm.CefBridge.Auto
         //gen! bool OnSelectClientCertificate(CefRefPtr<CefBrowser> browser,bool isProxy,const CefString& host,int port,const X509CertificateList& certificates,CefRefPtr<CefSelectClientCertificateCallback> callback)
         public struct OnSelectClientCertificateArgs
         {
-            internal IntPtr nativePtr; //met arg native ptr
+            IntPtr nativePtr; //met arg native ptr
             internal OnSelectClientCertificateArgs(IntPtr nativePtr)
             {
                 this.nativePtr = nativePtr;
@@ -19620,7 +19620,7 @@ namespace LayoutFarm.CefBridge.Auto
         //gen! void OnPluginCrashed(CefRefPtr<CefBrowser> browser,const CefString& plugin_path)
         public struct OnPluginCrashedArgs
         {
-            internal IntPtr nativePtr; //met arg native ptr
+            IntPtr nativePtr; //met arg native ptr
             internal OnPluginCrashedArgs(IntPtr nativePtr)
             {
                 this.nativePtr = nativePtr;
@@ -19637,7 +19637,7 @@ namespace LayoutFarm.CefBridge.Auto
         //gen! void OnRenderViewReady(CefRefPtr<CefBrowser> browser)
         public struct OnRenderViewReadyArgs
         {
-            internal IntPtr nativePtr; //met arg native ptr
+            IntPtr nativePtr; //met arg native ptr
             internal OnRenderViewReadyArgs(IntPtr nativePtr)
             {
                 this.nativePtr = nativePtr;
@@ -19650,7 +19650,7 @@ namespace LayoutFarm.CefBridge.Auto
         //gen! void OnRenderProcessTerminated(CefRefPtr<CefBrowser> browser,TerminationStatus status)
         public struct OnRenderProcessTerminatedArgs
         {
-            internal IntPtr nativePtr; //met arg native ptr
+            IntPtr nativePtr; //met arg native ptr
             internal OnRenderProcessTerminatedArgs(IntPtr nativePtr)
             {
                 this.nativePtr = nativePtr;
@@ -20127,7 +20127,7 @@ namespace LayoutFarm.CefBridge.Auto
         //gen! bool GetLocalizedString(int string_id,CefString& string)
         public struct GetLocalizedStringArgs
         {
-            internal IntPtr nativePtr; //met arg native ptr
+            IntPtr nativePtr; //met arg native ptr
             internal GetLocalizedStringArgs(IntPtr nativePtr)
             {
                 this.nativePtr = nativePtr;
@@ -20144,7 +20144,7 @@ namespace LayoutFarm.CefBridge.Auto
         //gen! bool GetDataResource(int resource_id,void*& data,size_t& data_size)
         public struct GetDataResourceArgs
         {
-            internal IntPtr nativePtr; //met arg native ptr
+            IntPtr nativePtr; //met arg native ptr
             internal GetDataResourceArgs(IntPtr nativePtr)
             {
                 this.nativePtr = nativePtr;
@@ -20169,7 +20169,7 @@ namespace LayoutFarm.CefBridge.Auto
         //gen! bool GetDataResourceForScale(int resource_id,ScaleFactor scale_factor,void*& data,size_t& data_size)
         public struct GetDataResourceForScaleArgs
         {
-            internal IntPtr nativePtr; //met arg native ptr
+            IntPtr nativePtr; //met arg native ptr
             internal GetDataResourceForScaleArgs(IntPtr nativePtr)
             {
                 this.nativePtr = nativePtr;
@@ -20304,7 +20304,7 @@ namespace LayoutFarm.CefBridge.Auto
         //gen! bool ProcessRequest(CefRefPtr<CefRequest> request,CefRefPtr<CefCallback> callback)
         public struct ProcessRequestArgs
         {
-            internal IntPtr nativePtr; //met arg native ptr
+            IntPtr nativePtr; //met arg native ptr
             internal ProcessRequestArgs(IntPtr nativePtr)
             {
                 this.nativePtr = nativePtr;
@@ -20321,7 +20321,7 @@ namespace LayoutFarm.CefBridge.Auto
         //gen! void GetResponseHeaders(CefRefPtr<CefResponse> response,int64& response_length,CefString& redirectUrl)
         public struct GetResponseHeadersArgs
         {
-            internal IntPtr nativePtr; //met arg native ptr
+            IntPtr nativePtr; //met arg native ptr
             internal GetResponseHeadersArgs(IntPtr nativePtr)
             {
                 this.nativePtr = nativePtr;
@@ -20342,7 +20342,7 @@ namespace LayoutFarm.CefBridge.Auto
         //gen! bool ReadResponse(void* data_out,int bytes_to_read,int& bytes_read,CefRefPtr<CefCallback> callback)
         public struct ReadResponseArgs
         {
-            internal IntPtr nativePtr; //met arg native ptr
+            IntPtr nativePtr; //met arg native ptr
             internal ReadResponseArgs(IntPtr nativePtr)
             {
                 this.nativePtr = nativePtr;
@@ -20371,7 +20371,7 @@ namespace LayoutFarm.CefBridge.Auto
         //gen! bool CanGetCookie(const CefCookie& cookie)
         public struct CanGetCookieArgs
         {
-            internal IntPtr nativePtr; //met arg native ptr
+            IntPtr nativePtr; //met arg native ptr
             internal CanGetCookieArgs(IntPtr nativePtr)
             {
                 this.nativePtr = nativePtr;
@@ -20384,7 +20384,7 @@ namespace LayoutFarm.CefBridge.Auto
         //gen! bool CanSetCookie(const CefCookie& cookie)
         public struct CanSetCookieArgs
         {
-            internal IntPtr nativePtr; //met arg native ptr
+            IntPtr nativePtr; //met arg native ptr
             internal CanSetCookieArgs(IntPtr nativePtr)
             {
                 this.nativePtr = nativePtr;
@@ -20397,7 +20397,7 @@ namespace LayoutFarm.CefBridge.Auto
         //gen! void Cancel()
         public struct CancelArgs
         {
-            internal IntPtr nativePtr; //met arg native ptr
+            IntPtr nativePtr; //met arg native ptr
             internal CancelArgs(IntPtr nativePtr)
             {
                 this.nativePtr = nativePtr;
@@ -20570,7 +20570,7 @@ namespace LayoutFarm.CefBridge.Auto
         //gen! size_t Read(void* ptr,size_t size,size_t n)
         public struct ReadArgs
         {
-            internal IntPtr nativePtr; //met arg native ptr
+            IntPtr nativePtr; //met arg native ptr
             internal ReadArgs(IntPtr nativePtr)
             {
                 this.nativePtr = nativePtr;
@@ -20591,7 +20591,7 @@ namespace LayoutFarm.CefBridge.Auto
         //gen! int Seek(int64 offset,int whence)
         public struct SeekArgs
         {
-            internal IntPtr nativePtr; //met arg native ptr
+            IntPtr nativePtr; //met arg native ptr
             internal SeekArgs(IntPtr nativePtr)
             {
                 this.nativePtr = nativePtr;
@@ -20608,7 +20608,7 @@ namespace LayoutFarm.CefBridge.Auto
         //gen! int64 Tell()
         public struct TellArgs
         {
-            internal IntPtr nativePtr; //met arg native ptr
+            IntPtr nativePtr; //met arg native ptr
             internal TellArgs(IntPtr nativePtr)
             {
                 this.nativePtr = nativePtr;
@@ -20617,7 +20617,7 @@ namespace LayoutFarm.CefBridge.Auto
         //gen! int Eof()
         public struct EofArgs
         {
-            internal IntPtr nativePtr; //met arg native ptr
+            IntPtr nativePtr; //met arg native ptr
             internal EofArgs(IntPtr nativePtr)
             {
                 this.nativePtr = nativePtr;
@@ -20626,7 +20626,7 @@ namespace LayoutFarm.CefBridge.Auto
         //gen! bool MayBlock()
         public struct MayBlockArgs
         {
-            internal IntPtr nativePtr; //met arg native ptr
+            IntPtr nativePtr; //met arg native ptr
             internal MayBlockArgs(IntPtr nativePtr)
             {
                 this.nativePtr = nativePtr;
@@ -20768,7 +20768,7 @@ namespace LayoutFarm.CefBridge.Auto
         //gen! size_t Write(const void* ptr,size_t size,size_t n)
         public struct WriteArgs
         {
-            internal IntPtr nativePtr; //met arg native ptr
+            IntPtr nativePtr; //met arg native ptr
             internal WriteArgs(IntPtr nativePtr)
             {
                 this.nativePtr = nativePtr;
@@ -20789,7 +20789,7 @@ namespace LayoutFarm.CefBridge.Auto
         //gen! int Seek(int64 offset,int whence)
         public struct SeekArgs
         {
-            internal IntPtr nativePtr; //met arg native ptr
+            IntPtr nativePtr; //met arg native ptr
             internal SeekArgs(IntPtr nativePtr)
             {
                 this.nativePtr = nativePtr;
@@ -20806,7 +20806,7 @@ namespace LayoutFarm.CefBridge.Auto
         //gen! int64 Tell()
         public struct TellArgs
         {
-            internal IntPtr nativePtr; //met arg native ptr
+            IntPtr nativePtr; //met arg native ptr
             internal TellArgs(IntPtr nativePtr)
             {
                 this.nativePtr = nativePtr;
@@ -20815,7 +20815,7 @@ namespace LayoutFarm.CefBridge.Auto
         //gen! int Flush()
         public struct FlushArgs
         {
-            internal IntPtr nativePtr; //met arg native ptr
+            IntPtr nativePtr; //met arg native ptr
             internal FlushArgs(IntPtr nativePtr)
             {
                 this.nativePtr = nativePtr;
@@ -20824,7 +20824,7 @@ namespace LayoutFarm.CefBridge.Auto
         //gen! bool MayBlock()
         public struct MayBlockArgs
         {
-            internal IntPtr nativePtr; //met arg native ptr
+            IntPtr nativePtr; //met arg native ptr
             internal MayBlockArgs(IntPtr nativePtr)
             {
                 this.nativePtr = nativePtr;
@@ -20962,7 +20962,7 @@ namespace LayoutFarm.CefBridge.Auto
         //gen! bool Execute(const CefString& name,CefRefPtr<CefV8Value> object,const CefV8ValueList& arguments,CefRefPtr<CefV8Value>& retval,CefString& exception)
         public struct ExecuteArgs
         {
-            internal IntPtr nativePtr; //met arg native ptr
+            IntPtr nativePtr; //met arg native ptr
             internal ExecuteArgs(IntPtr nativePtr)
             {
                 this.nativePtr = nativePtr;
