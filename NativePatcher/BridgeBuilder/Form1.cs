@@ -621,7 +621,7 @@ namespace BridgeBuilder
             foreach (CefHandlerTxPlan tx in handlerPlans)
             {
                 cef_NativeReqHandlers_Class.AppendLine("case " + tx.OriginalDecl.Name + "._typeNAME:{");
-                cef_NativeReqHandlers_Class.AppendLine(tx.OriginalDecl.Name + ".HandleReq(inst as " + tx.OriginalDecl.Name + ".I0," +
+                cef_NativeReqHandlers_Class.AppendLine(tx.OriginalDecl.Name + ".HandleNativeReq(inst as " + tx.OriginalDecl.Name + ".I0," +
                         " inst as " + tx.OriginalDecl.Name + ".I1,met_id,args);");
                 cef_NativeReqHandlers_Class.AppendLine("}break;");
             }
@@ -681,11 +681,63 @@ namespace BridgeBuilder
             //----------------
             const int MET_Release = 0;
             //----------------  
-            
+            //
+#include ""libcef_dll / cpptoc / drag_handler_cpptoc.h"" 
+#include ""libcef_dll /cpptoc/navigation_entry_visitor_cpptoc.h""
+#include ""libcef_dll /cpptoc/pdf_print_callback_cpptoc.h""
+#include ""libcef_dll/cpptoc/client_cpptoc.h""
+#include ""libcef_dll/cpptoc/download_image_callback_cpptoc.h""
+#include ""libcef_dll/cpptoc/run_file_dialog_callback_cpptoc.h""
+#include ""libcef_dll/cpptoc/domvisitor_cpptoc.h""
+#include ""libcef_dll/cpptoc/completion_callback_cpptoc.h""
+#include ""libcef_dll/cpptoc/cookie_visitor_cpptoc.h""
+#include ""libcef_dll/cpptoc/delete_cookies_callback_cpptoc.h""
+#include ""libcef_dll/cpptoc/menu_model_delegate_cpptoc.h""
+#include ""libcef_dll/cpptoc/request_context_handler_cpptoc.h""
+#include ""libcef_dll/cpptoc/resolve_callback_cpptoc.h""
+#include ""libcef_dll/cpptoc/response_filter_cpptoc.h""
+#include ""libcef_dll/cpptoc/scheme_handler_factory_cpptoc.h""
+#include ""libcef_dll/cpptoc/task_cpptoc.h""
+#include ""libcef_dll/cpptoc/set_cookie_callback_cpptoc.h""
+#include ""libcef_dll/cpptoc/v8accessor_cpptoc.h""
+#include ""libcef_dll/cpptoc/v8handler_cpptoc.h""
+#include ""libcef_dll/cpptoc/v8interceptor_cpptoc.h""
+#include ""libcef_dll/cpptoc/web_plugin_info_visitor_cpptoc.h""
+#include ""libcef_dll/cpptoc/web_plugin_unstable_callback_cpptoc.h""
+#include ""libcef_dll/cpptoc/write_handler_cpptoc.h""
+#include ""libcef_dll/cpptoc/app_cpptoc.h""
+#include ""libcef_dll/cpptoc/urlrequest_client_cpptoc.h""
+#include ""libcef_dll/cpptoc/string_visitor_cpptoc.h""
+#include ""libcef_dll/cpptoc/get_geolocation_callback_cpptoc.h""
+#include ""libcef_dll/cpptoc/end_tracing_callback_cpptoc.h""
+#include ""libcef_dll/cpptoc/register_cdm_callback_cpptoc.h""
+#include ""libcef_dll/cpptoc/accessibility_handler_cpptoc.h""
+
+//handlers
+#include ""libcef_dll/cpptoc/resource_bundle_handler_cpptoc.h""
+#include ""libcef_dll/cpptoc/browser_process_handler_cpptoc.h""
+#include ""libcef_dll/cpptoc/dialog_handler_cpptoc.h""
+#include ""libcef_dll/cpptoc/render_process_handler_cpptoc.h""
+#include ""libcef_dll/cpptoc/context_menu_handler_cpptoc.h""
+#include ""libcef_dll/cpptoc/display_handler_cpptoc.h""
+#include ""libcef_dll/cpptoc/download_handler_cpptoc.h""
+#include ""libcef_dll/cpptoc/find_handler_cpptoc.h""
+#include ""libcef_dll/cpptoc/focus_handler_cpptoc.h""
+#include ""libcef_dll/cpptoc/geolocation_handler_cpptoc.h""
+#include ""libcef_dll/cpptoc/jsdialog_handler_cpptoc.h""
+#include ""libcef_dll/cpptoc/keyboard_handler_cpptoc.h""
+#include ""libcef_dll/cpptoc/life_span_handler_cpptoc.h""
+#include ""libcef_dll/cpptoc/load_handler_cpptoc.h""
+#include ""libcef_dll/cpptoc/render_handler_cpptoc.h""
+#include ""libcef_dll/cpptoc/request_handler_cpptoc.h""
+#include ""libcef_dll/cpptoc/resource_handler_cpptoc.h""
+#include ""libcef_dll/cpptoc/print_handler_cpptoc.h""
+#include ""libcef_dll/cpptoc/read_handler_cpptoc.h""
+
             int32_t MyMetArgGetCount(void* /*MyMetArgsN*/ mymetArgs) {
 	            return ((MyMetArgsN*)mymetArgs)->argCount;
             } 
-            void* MyMetArgGetArgAddressH(void* /*MyMetArgsN*/mymetArgs, int* argCount) {
+            void* MyMetArgGetArgAddressH(void* /*MyMetArgsN*/mymetArgs, int32_t* argCount) {
 	            MyMetArgsN* metArg = (MyMetArgsN*)mymetArgs;
 	            *argCount = metArg->argCount;
 	            return &metArg->vargs;	//return address of arg array 
