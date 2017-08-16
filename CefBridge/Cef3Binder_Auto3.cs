@@ -9070,7 +9070,6 @@ namespace LayoutFarm.CefBridge.Auto
 
             Cef3Binder.MyCefMet_Call0(this.nativePtr, CefRequestContext_GetHandler_4, out ret);
             throw new NotSupportedException();
-            //return new CefRequestContextHandler(ret.Ptr);
         }
 
         // gen! CefString GetCachePath()
@@ -11576,7 +11575,6 @@ namespace LayoutFarm.CefBridge.Auto
             JsValue ret;
 
             Cef3Binder.MyCefMet_Call0(this.nativePtr, CefV8Value_GetFunctionHandler_42, out ret);
-            //return new CefV8Handler(ret.Ptr);
             throw new NotSupportedException();
         }
 
@@ -15481,7 +15479,9 @@ namespace LayoutFarm.CefBridge.Auto
             IntPtr nativePtr; //met arg native ptr
             internal OnAccessibilityTreeChangeArgs(IntPtr nativePtr)
             {
-                this.nativePtr = nativePtr;
+
+                int argCount;
+                this.nativePtr = MyMetArgs.GetArrHead(nativePtr, out argCount);
             }
             public CefValue value()
             {
@@ -15494,7 +15494,9 @@ namespace LayoutFarm.CefBridge.Auto
             IntPtr nativePtr; //met arg native ptr
             internal OnAccessibilityLocationChangeArgs(IntPtr nativePtr)
             {
-                this.nativePtr = nativePtr;
+
+                int argCount;
+                this.nativePtr = MyMetArgs.GetArrHead(nativePtr, out argCount);
             }
             public CefValue value()
             {
@@ -15571,7 +15573,9 @@ namespace LayoutFarm.CefBridge.Auto
             IntPtr nativePtr; //met arg native ptr
             internal OnContextInitializedArgs(IntPtr nativePtr)
             {
-                this.nativePtr = nativePtr;
+
+                int argCount;
+                this.nativePtr = MyMetArgs.GetArrHead(nativePtr, out argCount);
             }
         }
         //gen! void OnBeforeChildProcessLaunch(CefRefPtr<CefCommandLine> command_line)
@@ -15580,11 +15584,13 @@ namespace LayoutFarm.CefBridge.Auto
             IntPtr nativePtr; //met arg native ptr
             internal OnBeforeChildProcessLaunchArgs(IntPtr nativePtr)
             {
-                this.nativePtr = nativePtr;
+
+                int argCount;
+                this.nativePtr = MyMetArgs.GetArrHead(nativePtr, out argCount);
             }
             public CefCommandLine command_line()
             {
-                return new CefCommandLine(Cef3Binder.MyMetArgGetAsIntPtr(nativePtr, 0));
+                return new CefCommandLine(MyMetArgs.GetAsIntPtr(nativePtr, 1));
             }
         }
         //gen! void OnRenderProcessThreadCreated(CefRefPtr<CefListValue> extra_info)
@@ -15593,11 +15599,13 @@ namespace LayoutFarm.CefBridge.Auto
             IntPtr nativePtr; //met arg native ptr
             internal OnRenderProcessThreadCreatedArgs(IntPtr nativePtr)
             {
-                this.nativePtr = nativePtr;
+
+                int argCount;
+                this.nativePtr = MyMetArgs.GetArrHead(nativePtr, out argCount);
             }
             public CefListValue extra_info()
             {
-                return new CefListValue(Cef3Binder.MyMetArgGetAsIntPtr(nativePtr, 0));
+                return new CefListValue(MyMetArgs.GetAsIntPtr(nativePtr, 1));
             }
         }
         //gen! CefRefPtr<CefPrintHandler> GetPrintHandler()
@@ -15606,7 +15614,9 @@ namespace LayoutFarm.CefBridge.Auto
             IntPtr nativePtr; //met arg native ptr
             internal GetPrintHandlerArgs(IntPtr nativePtr)
             {
-                this.nativePtr = nativePtr;
+
+                int argCount;
+                this.nativePtr = MyMetArgs.GetArrHead(nativePtr, out argCount);
             }
         }
         //gen! void OnScheduleMessagePumpWork(int64 delay_ms)
@@ -15615,11 +15625,13 @@ namespace LayoutFarm.CefBridge.Auto
             IntPtr nativePtr; //met arg native ptr
             internal OnScheduleMessagePumpWorkArgs(IntPtr nativePtr)
             {
-                this.nativePtr = nativePtr;
+
+                int argCount;
+                this.nativePtr = MyMetArgs.GetArrHead(nativePtr, out argCount);
             }
             public long delay_ms()
             {
-                return Cef3Binder.MyMetArgGetAsInt64(nativePtr, 0);
+                return MyMetArgs.GetAsInt64(nativePtr, 1);
             }
         }
         public interface I0
@@ -15754,23 +15766,25 @@ namespace LayoutFarm.CefBridge.Auto
             IntPtr nativePtr; //met arg native ptr
             internal OnBeforeContextMenuArgs(IntPtr nativePtr)
             {
-                this.nativePtr = nativePtr;
+
+                int argCount;
+                this.nativePtr = MyMetArgs.GetArrHead(nativePtr, out argCount);
             }
             public CefBrowser browser()
             {
-                return new CefBrowser(Cef3Binder.MyMetArgGetAsIntPtr(nativePtr, 0));
+                return new CefBrowser(MyMetArgs.GetAsIntPtr(nativePtr, 1));
             }
             public CefFrame frame()
             {
-                return new CefFrame(Cef3Binder.MyMetArgGetAsIntPtr(nativePtr, 1));
+                return new CefFrame(MyMetArgs.GetAsIntPtr(nativePtr, 2));
             }
             public CefContextMenuParams _params()
             {
-                return new CefContextMenuParams(Cef3Binder.MyMetArgGetAsIntPtr(nativePtr, 2));
+                return new CefContextMenuParams(MyMetArgs.GetAsIntPtr(nativePtr, 3));
             }
             public CefMenuModel model()
             {
-                return new CefMenuModel(Cef3Binder.MyMetArgGetAsIntPtr(nativePtr, 3));
+                return new CefMenuModel(MyMetArgs.GetAsIntPtr(nativePtr, 4));
             }
         }
         //gen! bool RunContextMenu(CefRefPtr<CefBrowser> browser,CefRefPtr<CefFrame> frame,CefRefPtr<CefContextMenuParams> params,CefRefPtr<CefMenuModel> model,CefRefPtr<CefRunContextMenuCallback> callback)
@@ -15779,27 +15793,29 @@ namespace LayoutFarm.CefBridge.Auto
             IntPtr nativePtr; //met arg native ptr
             internal RunContextMenuArgs(IntPtr nativePtr)
             {
-                this.nativePtr = nativePtr;
+
+                int argCount;
+                this.nativePtr = MyMetArgs.GetArrHead(nativePtr, out argCount);
             }
             public CefBrowser browser()
             {
-                return new CefBrowser(Cef3Binder.MyMetArgGetAsIntPtr(nativePtr, 0));
+                return new CefBrowser(MyMetArgs.GetAsIntPtr(nativePtr, 1));
             }
             public CefFrame frame()
             {
-                return new CefFrame(Cef3Binder.MyMetArgGetAsIntPtr(nativePtr, 1));
+                return new CefFrame(MyMetArgs.GetAsIntPtr(nativePtr, 2));
             }
             public CefContextMenuParams _params()
             {
-                return new CefContextMenuParams(Cef3Binder.MyMetArgGetAsIntPtr(nativePtr, 2));
+                return new CefContextMenuParams(MyMetArgs.GetAsIntPtr(nativePtr, 3));
             }
             public CefMenuModel model()
             {
-                return new CefMenuModel(Cef3Binder.MyMetArgGetAsIntPtr(nativePtr, 3));
+                return new CefMenuModel(MyMetArgs.GetAsIntPtr(nativePtr, 4));
             }
             public CefRunContextMenuCallback callback()
             {
-                return new CefRunContextMenuCallback(Cef3Binder.MyMetArgGetAsIntPtr(nativePtr, 4));
+                return new CefRunContextMenuCallback(MyMetArgs.GetAsIntPtr(nativePtr, 5));
             }
         }
         //gen! bool OnContextMenuCommand(CefRefPtr<CefBrowser> browser,CefRefPtr<CefFrame> frame,CefRefPtr<CefContextMenuParams> params,int command_id,EventFlags event_flags)
@@ -15808,27 +15824,29 @@ namespace LayoutFarm.CefBridge.Auto
             IntPtr nativePtr; //met arg native ptr
             internal OnContextMenuCommandArgs(IntPtr nativePtr)
             {
-                this.nativePtr = nativePtr;
+
+                int argCount;
+                this.nativePtr = MyMetArgs.GetArrHead(nativePtr, out argCount);
             }
             public CefBrowser browser()
             {
-                return new CefBrowser(Cef3Binder.MyMetArgGetAsIntPtr(nativePtr, 0));
+                return new CefBrowser(MyMetArgs.GetAsIntPtr(nativePtr, 1));
             }
             public CefFrame frame()
             {
-                return new CefFrame(Cef3Binder.MyMetArgGetAsIntPtr(nativePtr, 1));
+                return new CefFrame(MyMetArgs.GetAsIntPtr(nativePtr, 2));
             }
             public CefContextMenuParams _params()
             {
-                return new CefContextMenuParams(Cef3Binder.MyMetArgGetAsIntPtr(nativePtr, 2));
+                return new CefContextMenuParams(MyMetArgs.GetAsIntPtr(nativePtr, 3));
             }
             public int command_id()
             {
-                return Cef3Binder.MyMetArgGetAsInt32(nativePtr, 3);
+                return MyMetArgs.GetAsInt32(nativePtr, 4);
             }
             public cef_event_flags_t event_flags()
             {
-                return (cef_event_flags_t)Cef3Binder.MyMetArgGetAsInt32(nativePtr, 4);
+                return (cef_event_flags_t)MyMetArgs.GetAsInt32(nativePtr, 5);
             }
         }
         //gen! void OnContextMenuDismissed(CefRefPtr<CefBrowser> browser,CefRefPtr<CefFrame> frame)
@@ -15837,15 +15855,17 @@ namespace LayoutFarm.CefBridge.Auto
             IntPtr nativePtr; //met arg native ptr
             internal OnContextMenuDismissedArgs(IntPtr nativePtr)
             {
-                this.nativePtr = nativePtr;
+
+                int argCount;
+                this.nativePtr = MyMetArgs.GetArrHead(nativePtr, out argCount);
             }
             public CefBrowser browser()
             {
-                return new CefBrowser(Cef3Binder.MyMetArgGetAsIntPtr(nativePtr, 0));
+                return new CefBrowser(MyMetArgs.GetAsIntPtr(nativePtr, 1));
             }
             public CefFrame frame()
             {
-                return new CefFrame(Cef3Binder.MyMetArgGetAsIntPtr(nativePtr, 1));
+                return new CefFrame(MyMetArgs.GetAsIntPtr(nativePtr, 2));
             }
         }
         public interface I0
@@ -15980,23 +16000,25 @@ namespace LayoutFarm.CefBridge.Auto
             IntPtr nativePtr; //met arg native ptr
             internal OnFileDialogArgs(IntPtr nativePtr)
             {
-                this.nativePtr = nativePtr;
+
+                int argCount;
+                this.nativePtr = MyMetArgs.GetArrHead(nativePtr, out argCount);
             }
             public CefBrowser browser()
             {
-                return new CefBrowser(Cef3Binder.MyMetArgGetAsIntPtr(nativePtr, 0));
+                return new CefBrowser(MyMetArgs.GetAsIntPtr(nativePtr, 1));
             }
             public cef_file_dialog_mode_t mode()
             {
-                return (cef_file_dialog_mode_t)Cef3Binder.MyMetArgGetAsInt32(nativePtr, 1);
+                return (cef_file_dialog_mode_t)MyMetArgs.GetAsInt32(nativePtr, 2);
             }
             public string title()
             {
-                return Cef3Binder.MyMetArgGetAsString(nativePtr, 2);
+                return MyMetArgs.GetAsString(nativePtr, 3);
             }
             public string default_file_path()
             {
-                return Cef3Binder.MyMetArgGetAsString(nativePtr, 3);
+                return MyMetArgs.GetAsString(nativePtr, 4);
             }
             public List<string> accept_filters()
             {
@@ -16004,11 +16026,11 @@ namespace LayoutFarm.CefBridge.Auto
             }
             public int selected_accept_filter()
             {
-                return Cef3Binder.MyMetArgGetAsInt32(nativePtr, 5);
+                return MyMetArgs.GetAsInt32(nativePtr, 6);
             }
             public CefFileDialogCallback callback()
             {
-                return new CefFileDialogCallback(Cef3Binder.MyMetArgGetAsIntPtr(nativePtr, 6));
+                return new CefFileDialogCallback(MyMetArgs.GetAsIntPtr(nativePtr, 7));
             }
         }
         public interface I0
@@ -16074,19 +16096,21 @@ namespace LayoutFarm.CefBridge.Auto
             IntPtr nativePtr; //met arg native ptr
             internal OnAddressChangeArgs(IntPtr nativePtr)
             {
-                this.nativePtr = nativePtr;
+
+                int argCount;
+                this.nativePtr = MyMetArgs.GetArrHead(nativePtr, out argCount);
             }
             public CefBrowser browser()
             {
-                return new CefBrowser(Cef3Binder.MyMetArgGetAsIntPtr(nativePtr, 0));
+                return new CefBrowser(MyMetArgs.GetAsIntPtr(nativePtr, 1));
             }
             public CefFrame frame()
             {
-                return new CefFrame(Cef3Binder.MyMetArgGetAsIntPtr(nativePtr, 1));
+                return new CefFrame(MyMetArgs.GetAsIntPtr(nativePtr, 2));
             }
             public string url()
             {
-                return Cef3Binder.MyMetArgGetAsString(nativePtr, 2);
+                return MyMetArgs.GetAsString(nativePtr, 3);
             }
         }
         //gen! void OnTitleChange(CefRefPtr<CefBrowser> browser,const CefString& title)
@@ -16095,15 +16119,17 @@ namespace LayoutFarm.CefBridge.Auto
             IntPtr nativePtr; //met arg native ptr
             internal OnTitleChangeArgs(IntPtr nativePtr)
             {
-                this.nativePtr = nativePtr;
+
+                int argCount;
+                this.nativePtr = MyMetArgs.GetArrHead(nativePtr, out argCount);
             }
             public CefBrowser browser()
             {
-                return new CefBrowser(Cef3Binder.MyMetArgGetAsIntPtr(nativePtr, 0));
+                return new CefBrowser(MyMetArgs.GetAsIntPtr(nativePtr, 1));
             }
             public string title()
             {
-                return Cef3Binder.MyMetArgGetAsString(nativePtr, 1);
+                return MyMetArgs.GetAsString(nativePtr, 2);
             }
         }
         //gen! void OnFaviconURLChange(CefRefPtr<CefBrowser> browser,const std::vector<CefString>& icon_urls)
@@ -16112,11 +16138,13 @@ namespace LayoutFarm.CefBridge.Auto
             IntPtr nativePtr; //met arg native ptr
             internal OnFaviconURLChangeArgs(IntPtr nativePtr)
             {
-                this.nativePtr = nativePtr;
+
+                int argCount;
+                this.nativePtr = MyMetArgs.GetArrHead(nativePtr, out argCount);
             }
             public CefBrowser browser()
             {
-                return new CefBrowser(Cef3Binder.MyMetArgGetAsIntPtr(nativePtr, 0));
+                return new CefBrowser(MyMetArgs.GetAsIntPtr(nativePtr, 1));
             }
             public List<string> icon_urls()
             {
@@ -16129,15 +16157,17 @@ namespace LayoutFarm.CefBridge.Auto
             IntPtr nativePtr; //met arg native ptr
             internal OnFullscreenModeChangeArgs(IntPtr nativePtr)
             {
-                this.nativePtr = nativePtr;
+
+                int argCount;
+                this.nativePtr = MyMetArgs.GetArrHead(nativePtr, out argCount);
             }
             public CefBrowser browser()
             {
-                return new CefBrowser(Cef3Binder.MyMetArgGetAsIntPtr(nativePtr, 0));
+                return new CefBrowser(MyMetArgs.GetAsIntPtr(nativePtr, 1));
             }
             public bool fullscreen()
             {
-                return Cef3Binder.MyMetArgGetAsBool(nativePtr, 1);
+                return MyMetArgs.GetAsBool(nativePtr, 2);
             }
         }
         //gen! bool OnTooltip(CefRefPtr<CefBrowser> browser,CefString& text)
@@ -16146,15 +16176,17 @@ namespace LayoutFarm.CefBridge.Auto
             IntPtr nativePtr; //met arg native ptr
             internal OnTooltipArgs(IntPtr nativePtr)
             {
-                this.nativePtr = nativePtr;
+
+                int argCount;
+                this.nativePtr = MyMetArgs.GetArrHead(nativePtr, out argCount);
             }
             public CefBrowser browser()
             {
-                return new CefBrowser(Cef3Binder.MyMetArgGetAsIntPtr(nativePtr, 0));
+                return new CefBrowser(MyMetArgs.GetAsIntPtr(nativePtr, 1));
             }
             public string text()
             {
-                return Cef3Binder.MyMetArgGetAsString(nativePtr, 1);
+                return MyMetArgs.GetAsString(nativePtr, 2);
             }
         }
         //gen! void OnStatusMessage(CefRefPtr<CefBrowser> browser,const CefString& value)
@@ -16163,15 +16195,17 @@ namespace LayoutFarm.CefBridge.Auto
             IntPtr nativePtr; //met arg native ptr
             internal OnStatusMessageArgs(IntPtr nativePtr)
             {
-                this.nativePtr = nativePtr;
+
+                int argCount;
+                this.nativePtr = MyMetArgs.GetArrHead(nativePtr, out argCount);
             }
             public CefBrowser browser()
             {
-                return new CefBrowser(Cef3Binder.MyMetArgGetAsIntPtr(nativePtr, 0));
+                return new CefBrowser(MyMetArgs.GetAsIntPtr(nativePtr, 1));
             }
             public string value()
             {
-                return Cef3Binder.MyMetArgGetAsString(nativePtr, 1);
+                return MyMetArgs.GetAsString(nativePtr, 2);
             }
         }
         //gen! bool OnConsoleMessage(CefRefPtr<CefBrowser> browser,const CefString& message,const CefString& source,int line)
@@ -16180,23 +16214,25 @@ namespace LayoutFarm.CefBridge.Auto
             IntPtr nativePtr; //met arg native ptr
             internal OnConsoleMessageArgs(IntPtr nativePtr)
             {
-                this.nativePtr = nativePtr;
+
+                int argCount;
+                this.nativePtr = MyMetArgs.GetArrHead(nativePtr, out argCount);
             }
             public CefBrowser browser()
             {
-                return new CefBrowser(Cef3Binder.MyMetArgGetAsIntPtr(nativePtr, 0));
+                return new CefBrowser(MyMetArgs.GetAsIntPtr(nativePtr, 1));
             }
             public string message()
             {
-                return Cef3Binder.MyMetArgGetAsString(nativePtr, 1);
+                return MyMetArgs.GetAsString(nativePtr, 2);
             }
             public string source()
             {
-                return Cef3Binder.MyMetArgGetAsString(nativePtr, 2);
+                return MyMetArgs.GetAsString(nativePtr, 3);
             }
             public int line()
             {
-                return Cef3Binder.MyMetArgGetAsInt32(nativePtr, 3);
+                return MyMetArgs.GetAsInt32(nativePtr, 4);
             }
         }
         public interface I0
@@ -16391,23 +16427,25 @@ namespace LayoutFarm.CefBridge.Auto
             IntPtr nativePtr; //met arg native ptr
             internal OnBeforeDownloadArgs(IntPtr nativePtr)
             {
-                this.nativePtr = nativePtr;
+
+                int argCount;
+                this.nativePtr = MyMetArgs.GetArrHead(nativePtr, out argCount);
             }
             public CefBrowser browser()
             {
-                return new CefBrowser(Cef3Binder.MyMetArgGetAsIntPtr(nativePtr, 0));
+                return new CefBrowser(MyMetArgs.GetAsIntPtr(nativePtr, 1));
             }
             public CefDownloadItem download_item()
             {
-                return new CefDownloadItem(Cef3Binder.MyMetArgGetAsIntPtr(nativePtr, 1));
+                return new CefDownloadItem(MyMetArgs.GetAsIntPtr(nativePtr, 2));
             }
             public string suggested_name()
             {
-                return Cef3Binder.MyMetArgGetAsString(nativePtr, 2);
+                return MyMetArgs.GetAsString(nativePtr, 3);
             }
             public CefBeforeDownloadCallback callback()
             {
-                return new CefBeforeDownloadCallback(Cef3Binder.MyMetArgGetAsIntPtr(nativePtr, 3));
+                return new CefBeforeDownloadCallback(MyMetArgs.GetAsIntPtr(nativePtr, 4));
             }
         }
         //gen! void OnDownloadUpdated(CefRefPtr<CefBrowser> browser,CefRefPtr<CefDownloadItem> download_item,CefRefPtr<CefDownloadItemCallback> callback)
@@ -16416,19 +16454,21 @@ namespace LayoutFarm.CefBridge.Auto
             IntPtr nativePtr; //met arg native ptr
             internal OnDownloadUpdatedArgs(IntPtr nativePtr)
             {
-                this.nativePtr = nativePtr;
+
+                int argCount;
+                this.nativePtr = MyMetArgs.GetArrHead(nativePtr, out argCount);
             }
             public CefBrowser browser()
             {
-                return new CefBrowser(Cef3Binder.MyMetArgGetAsIntPtr(nativePtr, 0));
+                return new CefBrowser(MyMetArgs.GetAsIntPtr(nativePtr, 1));
             }
             public CefDownloadItem download_item()
             {
-                return new CefDownloadItem(Cef3Binder.MyMetArgGetAsIntPtr(nativePtr, 1));
+                return new CefDownloadItem(MyMetArgs.GetAsIntPtr(nativePtr, 2));
             }
             public CefDownloadItemCallback callback()
             {
-                return new CefDownloadItemCallback(Cef3Binder.MyMetArgGetAsIntPtr(nativePtr, 2));
+                return new CefDownloadItemCallback(MyMetArgs.GetAsIntPtr(nativePtr, 3));
             }
         }
         public interface I0
@@ -16508,19 +16548,21 @@ namespace LayoutFarm.CefBridge.Auto
             IntPtr nativePtr; //met arg native ptr
             internal OnDragEnterArgs(IntPtr nativePtr)
             {
-                this.nativePtr = nativePtr;
+
+                int argCount;
+                this.nativePtr = MyMetArgs.GetArrHead(nativePtr, out argCount);
             }
             public CefBrowser browser()
             {
-                return new CefBrowser(Cef3Binder.MyMetArgGetAsIntPtr(nativePtr, 0));
+                return new CefBrowser(MyMetArgs.GetAsIntPtr(nativePtr, 1));
             }
             public CefDragData dragData()
             {
-                return new CefDragData(Cef3Binder.MyMetArgGetAsIntPtr(nativePtr, 1));
+                return new CefDragData(MyMetArgs.GetAsIntPtr(nativePtr, 2));
             }
             public cef_drag_operations_mask_t mask()
             {
-                return (cef_drag_operations_mask_t)Cef3Binder.MyMetArgGetAsInt32(nativePtr, 2);
+                return (cef_drag_operations_mask_t)MyMetArgs.GetAsInt32(nativePtr, 3);
             }
         }
         //gen! void OnDraggableRegionsChanged(CefRefPtr<CefBrowser> browser,const std::vector<CefDraggableRegion>& regions)
@@ -16529,11 +16571,13 @@ namespace LayoutFarm.CefBridge.Auto
             IntPtr nativePtr; //met arg native ptr
             internal OnDraggableRegionsChangedArgs(IntPtr nativePtr)
             {
-                this.nativePtr = nativePtr;
+
+                int argCount;
+                this.nativePtr = MyMetArgs.GetArrHead(nativePtr, out argCount);
             }
             public CefBrowser browser()
             {
-                return new CefBrowser(Cef3Binder.MyMetArgGetAsIntPtr(nativePtr, 0));
+                return new CefBrowser(MyMetArgs.GetAsIntPtr(nativePtr, 1));
             }
             public List<object> regions()
             {
@@ -16612,31 +16656,33 @@ namespace LayoutFarm.CefBridge.Auto
             IntPtr nativePtr; //met arg native ptr
             internal OnFindResultArgs(IntPtr nativePtr)
             {
-                this.nativePtr = nativePtr;
+
+                int argCount;
+                this.nativePtr = MyMetArgs.GetArrHead(nativePtr, out argCount);
             }
             public CefBrowser browser()
             {
-                return new CefBrowser(Cef3Binder.MyMetArgGetAsIntPtr(nativePtr, 0));
+                return new CefBrowser(MyMetArgs.GetAsIntPtr(nativePtr, 1));
             }
             public int identifier()
             {
-                return Cef3Binder.MyMetArgGetAsInt32(nativePtr, 1);
+                return MyMetArgs.GetAsInt32(nativePtr, 2);
             }
             public int count()
             {
-                return Cef3Binder.MyMetArgGetAsInt32(nativePtr, 2);
+                return MyMetArgs.GetAsInt32(nativePtr, 3);
             }
             public CefRect selectionRect()
             {
-                return new CefRect(Cef3Binder.MyMetArgGetAsIntPtr(nativePtr, 3));
+                return new CefRect(MyMetArgs.GetAsIntPtr(nativePtr, 4));
             }
             public int activeMatchOrdinal()
             {
-                return Cef3Binder.MyMetArgGetAsInt32(nativePtr, 4);
+                return MyMetArgs.GetAsInt32(nativePtr, 5);
             }
             public bool finalUpdate()
             {
-                return Cef3Binder.MyMetArgGetAsBool(nativePtr, 5);
+                return MyMetArgs.GetAsBool(nativePtr, 6);
             }
         }
         public interface I0
@@ -16696,15 +16742,17 @@ namespace LayoutFarm.CefBridge.Auto
             IntPtr nativePtr; //met arg native ptr
             internal OnTakeFocusArgs(IntPtr nativePtr)
             {
-                this.nativePtr = nativePtr;
+
+                int argCount;
+                this.nativePtr = MyMetArgs.GetArrHead(nativePtr, out argCount);
             }
             public CefBrowser browser()
             {
-                return new CefBrowser(Cef3Binder.MyMetArgGetAsIntPtr(nativePtr, 0));
+                return new CefBrowser(MyMetArgs.GetAsIntPtr(nativePtr, 1));
             }
             public bool next()
             {
-                return Cef3Binder.MyMetArgGetAsBool(nativePtr, 1);
+                return MyMetArgs.GetAsBool(nativePtr, 2);
             }
         }
         //gen! bool OnSetFocus(CefRefPtr<CefBrowser> browser,FocusSource source)
@@ -16713,15 +16761,17 @@ namespace LayoutFarm.CefBridge.Auto
             IntPtr nativePtr; //met arg native ptr
             internal OnSetFocusArgs(IntPtr nativePtr)
             {
-                this.nativePtr = nativePtr;
+
+                int argCount;
+                this.nativePtr = MyMetArgs.GetArrHead(nativePtr, out argCount);
             }
             public CefBrowser browser()
             {
-                return new CefBrowser(Cef3Binder.MyMetArgGetAsIntPtr(nativePtr, 0));
+                return new CefBrowser(MyMetArgs.GetAsIntPtr(nativePtr, 1));
             }
             public cef_focus_source_t source()
             {
-                return (cef_focus_source_t)Cef3Binder.MyMetArgGetAsInt32(nativePtr, 1);
+                return (cef_focus_source_t)MyMetArgs.GetAsInt32(nativePtr, 2);
             }
         }
         //gen! void OnGotFocus(CefRefPtr<CefBrowser> browser)
@@ -16730,11 +16780,13 @@ namespace LayoutFarm.CefBridge.Auto
             IntPtr nativePtr; //met arg native ptr
             internal OnGotFocusArgs(IntPtr nativePtr)
             {
-                this.nativePtr = nativePtr;
+
+                int argCount;
+                this.nativePtr = MyMetArgs.GetArrHead(nativePtr, out argCount);
             }
             public CefBrowser browser()
             {
-                return new CefBrowser(Cef3Binder.MyMetArgGetAsIntPtr(nativePtr, 0));
+                return new CefBrowser(MyMetArgs.GetAsIntPtr(nativePtr, 1));
             }
         }
         public interface I0
@@ -16829,23 +16881,25 @@ namespace LayoutFarm.CefBridge.Auto
             IntPtr nativePtr; //met arg native ptr
             internal OnRequestGeolocationPermissionArgs(IntPtr nativePtr)
             {
-                this.nativePtr = nativePtr;
+
+                int argCount;
+                this.nativePtr = MyMetArgs.GetArrHead(nativePtr, out argCount);
             }
             public CefBrowser browser()
             {
-                return new CefBrowser(Cef3Binder.MyMetArgGetAsIntPtr(nativePtr, 0));
+                return new CefBrowser(MyMetArgs.GetAsIntPtr(nativePtr, 1));
             }
             public string requesting_url()
             {
-                return Cef3Binder.MyMetArgGetAsString(nativePtr, 1);
+                return MyMetArgs.GetAsString(nativePtr, 2);
             }
             public int request_id()
             {
-                return Cef3Binder.MyMetArgGetAsInt32(nativePtr, 2);
+                return MyMetArgs.GetAsInt32(nativePtr, 3);
             }
             public CefGeolocationCallback callback()
             {
-                return new CefGeolocationCallback(Cef3Binder.MyMetArgGetAsIntPtr(nativePtr, 3));
+                return new CefGeolocationCallback(MyMetArgs.GetAsIntPtr(nativePtr, 4));
             }
         }
         //gen! void OnCancelGeolocationPermission(CefRefPtr<CefBrowser> browser,int request_id)
@@ -16854,15 +16908,17 @@ namespace LayoutFarm.CefBridge.Auto
             IntPtr nativePtr; //met arg native ptr
             internal OnCancelGeolocationPermissionArgs(IntPtr nativePtr)
             {
-                this.nativePtr = nativePtr;
+
+                int argCount;
+                this.nativePtr = MyMetArgs.GetArrHead(nativePtr, out argCount);
             }
             public CefBrowser browser()
             {
-                return new CefBrowser(Cef3Binder.MyMetArgGetAsIntPtr(nativePtr, 0));
+                return new CefBrowser(MyMetArgs.GetAsIntPtr(nativePtr, 1));
             }
             public int request_id()
             {
-                return Cef3Binder.MyMetArgGetAsInt32(nativePtr, 1);
+                return MyMetArgs.GetAsInt32(nativePtr, 2);
             }
         }
         public interface I0
@@ -16942,39 +16998,41 @@ namespace LayoutFarm.CefBridge.Auto
             IntPtr nativePtr; //met arg native ptr
             internal OnJSDialogArgs(IntPtr nativePtr)
             {
-                this.nativePtr = nativePtr;
+
+                int argCount;
+                this.nativePtr = MyMetArgs.GetArrHead(nativePtr, out argCount);
             }
             public CefBrowser browser()
             {
-                return new CefBrowser(Cef3Binder.MyMetArgGetAsIntPtr(nativePtr, 0));
+                return new CefBrowser(MyMetArgs.GetAsIntPtr(nativePtr, 1));
             }
             public string origin_url()
             {
-                return Cef3Binder.MyMetArgGetAsString(nativePtr, 1);
+                return MyMetArgs.GetAsString(nativePtr, 2);
             }
             public cef_jsdialog_type_t dialog_type()
             {
-                return (cef_jsdialog_type_t)Cef3Binder.MyMetArgGetAsInt32(nativePtr, 2);
+                return (cef_jsdialog_type_t)MyMetArgs.GetAsInt32(nativePtr, 3);
             }
             public string message_text()
             {
-                return Cef3Binder.MyMetArgGetAsString(nativePtr, 3);
+                return MyMetArgs.GetAsString(nativePtr, 4);
             }
             public string default_prompt_text()
             {
-                return Cef3Binder.MyMetArgGetAsString(nativePtr, 4);
+                return MyMetArgs.GetAsString(nativePtr, 5);
             }
             public CefJSDialogCallback callback()
             {
-                return new CefJSDialogCallback(Cef3Binder.MyMetArgGetAsIntPtr(nativePtr, 5));
+                return new CefJSDialogCallback(MyMetArgs.GetAsIntPtr(nativePtr, 6));
             }
             public bool suppress_message()
             {
-                return Cef3Binder.MyMetArgGetAsBool(nativePtr, 6);
+                return MyMetArgs.GetAsBool(nativePtr, 7);
             }
             public void suppress_message(bool value)
             {
-                Cef3Binder.MyMetArgSetBoolToAddress(nativePtr, 6, value);
+                MyMetArgs.SetBoolToAddress(nativePtr, 7, value);
             }
         }
         //gen! bool OnBeforeUnloadDialog(CefRefPtr<CefBrowser> browser,const CefString& message_text,bool is_reload,CefRefPtr<CefJSDialogCallback> callback)
@@ -16983,23 +17041,25 @@ namespace LayoutFarm.CefBridge.Auto
             IntPtr nativePtr; //met arg native ptr
             internal OnBeforeUnloadDialogArgs(IntPtr nativePtr)
             {
-                this.nativePtr = nativePtr;
+
+                int argCount;
+                this.nativePtr = MyMetArgs.GetArrHead(nativePtr, out argCount);
             }
             public CefBrowser browser()
             {
-                return new CefBrowser(Cef3Binder.MyMetArgGetAsIntPtr(nativePtr, 0));
+                return new CefBrowser(MyMetArgs.GetAsIntPtr(nativePtr, 1));
             }
             public string message_text()
             {
-                return Cef3Binder.MyMetArgGetAsString(nativePtr, 1);
+                return MyMetArgs.GetAsString(nativePtr, 2);
             }
             public bool is_reload()
             {
-                return Cef3Binder.MyMetArgGetAsBool(nativePtr, 2);
+                return MyMetArgs.GetAsBool(nativePtr, 3);
             }
             public CefJSDialogCallback callback()
             {
-                return new CefJSDialogCallback(Cef3Binder.MyMetArgGetAsIntPtr(nativePtr, 3));
+                return new CefJSDialogCallback(MyMetArgs.GetAsIntPtr(nativePtr, 4));
             }
         }
         //gen! void OnResetDialogState(CefRefPtr<CefBrowser> browser)
@@ -17008,11 +17068,13 @@ namespace LayoutFarm.CefBridge.Auto
             IntPtr nativePtr; //met arg native ptr
             internal OnResetDialogStateArgs(IntPtr nativePtr)
             {
-                this.nativePtr = nativePtr;
+
+                int argCount;
+                this.nativePtr = MyMetArgs.GetArrHead(nativePtr, out argCount);
             }
             public CefBrowser browser()
             {
-                return new CefBrowser(Cef3Binder.MyMetArgGetAsIntPtr(nativePtr, 0));
+                return new CefBrowser(MyMetArgs.GetAsIntPtr(nativePtr, 1));
             }
         }
         //gen! void OnDialogClosed(CefRefPtr<CefBrowser> browser)
@@ -17021,11 +17083,13 @@ namespace LayoutFarm.CefBridge.Auto
             IntPtr nativePtr; //met arg native ptr
             internal OnDialogClosedArgs(IntPtr nativePtr)
             {
-                this.nativePtr = nativePtr;
+
+                int argCount;
+                this.nativePtr = MyMetArgs.GetArrHead(nativePtr, out argCount);
             }
             public CefBrowser browser()
             {
-                return new CefBrowser(Cef3Binder.MyMetArgGetAsIntPtr(nativePtr, 0));
+                return new CefBrowser(MyMetArgs.GetAsIntPtr(nativePtr, 1));
             }
         }
         public interface I0
@@ -17159,15 +17223,17 @@ namespace LayoutFarm.CefBridge.Auto
             IntPtr nativePtr; //met arg native ptr
             internal OnPreKeyEventArgs(IntPtr nativePtr)
             {
-                this.nativePtr = nativePtr;
+
+                int argCount;
+                this.nativePtr = MyMetArgs.GetArrHead(nativePtr, out argCount);
             }
             public CefBrowser browser()
             {
-                return new CefBrowser(Cef3Binder.MyMetArgGetAsIntPtr(nativePtr, 0));
+                return new CefBrowser(MyMetArgs.GetAsIntPtr(nativePtr, 1));
             }
             public CefKeyEvent _event()
             {
-                return new CefKeyEvent(Cef3Binder.MyMetArgGetAsIntPtr(nativePtr, 1));
+                return new CefKeyEvent(MyMetArgs.GetAsIntPtr(nativePtr, 2));
             }
             public IntPtr os_event()
             {
@@ -17175,11 +17241,11 @@ namespace LayoutFarm.CefBridge.Auto
             }
             public bool is_keyboard_shortcut()
             {
-                return Cef3Binder.MyMetArgGetAsBool(nativePtr, 3);
+                return MyMetArgs.GetAsBool(nativePtr, 4);
             }
             public void is_keyboard_shortcut(bool value)
             {
-                Cef3Binder.MyMetArgSetBoolToAddress(nativePtr, 3, value);
+                MyMetArgs.SetBoolToAddress(nativePtr, 4, value);
             }
         }
         //gen! bool OnKeyEvent(CefRefPtr<CefBrowser> browser,const CefKeyEvent& event,CefEventHandle os_event)
@@ -17188,15 +17254,17 @@ namespace LayoutFarm.CefBridge.Auto
             IntPtr nativePtr; //met arg native ptr
             internal OnKeyEventArgs(IntPtr nativePtr)
             {
-                this.nativePtr = nativePtr;
+
+                int argCount;
+                this.nativePtr = MyMetArgs.GetArrHead(nativePtr, out argCount);
             }
             public CefBrowser browser()
             {
-                return new CefBrowser(Cef3Binder.MyMetArgGetAsIntPtr(nativePtr, 0));
+                return new CefBrowser(MyMetArgs.GetAsIntPtr(nativePtr, 1));
             }
             public CefKeyEvent _event()
             {
-                return new CefKeyEvent(Cef3Binder.MyMetArgGetAsIntPtr(nativePtr, 1));
+                return new CefKeyEvent(MyMetArgs.GetAsIntPtr(nativePtr, 2));
             }
             public IntPtr os_event()
             {
@@ -17286,39 +17354,41 @@ namespace LayoutFarm.CefBridge.Auto
             IntPtr nativePtr; //met arg native ptr
             internal OnBeforePopupArgs(IntPtr nativePtr)
             {
-                this.nativePtr = nativePtr;
+
+                int argCount;
+                this.nativePtr = MyMetArgs.GetArrHead(nativePtr, out argCount);
             }
             public CefBrowser browser()
             {
-                return new CefBrowser(Cef3Binder.MyMetArgGetAsIntPtr(nativePtr, 0));
+                return new CefBrowser(MyMetArgs.GetAsIntPtr(nativePtr, 1));
             }
             public CefFrame frame()
             {
-                return new CefFrame(Cef3Binder.MyMetArgGetAsIntPtr(nativePtr, 1));
+                return new CefFrame(MyMetArgs.GetAsIntPtr(nativePtr, 2));
             }
             public string target_url()
             {
-                return Cef3Binder.MyMetArgGetAsString(nativePtr, 2);
+                return MyMetArgs.GetAsString(nativePtr, 3);
             }
             public string target_frame_name()
             {
-                return Cef3Binder.MyMetArgGetAsString(nativePtr, 3);
+                return MyMetArgs.GetAsString(nativePtr, 4);
             }
             public cef_window_open_disposition_t target_disposition()
             {
-                return (cef_window_open_disposition_t)Cef3Binder.MyMetArgGetAsInt32(nativePtr, 4);
+                return (cef_window_open_disposition_t)MyMetArgs.GetAsInt32(nativePtr, 5);
             }
             public bool user_gesture()
             {
-                return Cef3Binder.MyMetArgGetAsBool(nativePtr, 5);
+                return MyMetArgs.GetAsBool(nativePtr, 6);
             }
             public CefPopupFeatures popupFeatures()
             {
-                return new CefPopupFeatures(Cef3Binder.MyMetArgGetAsIntPtr(nativePtr, 6));
+                return new CefPopupFeatures(MyMetArgs.GetAsIntPtr(nativePtr, 7));
             }
             public CefWindowInfo windowInfo()
             {
-                return new CefWindowInfo(Cef3Binder.MyMetArgGetAsIntPtr(nativePtr, 7));
+                return new CefWindowInfo(MyMetArgs.GetAsIntPtr(nativePtr, 8));
             }
             public IntPtr client()
             {
@@ -17326,15 +17396,15 @@ namespace LayoutFarm.CefBridge.Auto
             }
             public CefBrowserSettings settings()
             {
-                return new CefBrowserSettings(Cef3Binder.MyMetArgGetAsIntPtr(nativePtr, 9));
+                return new CefBrowserSettings(MyMetArgs.GetAsIntPtr(nativePtr, 10));
             }
             public bool no_javascript_access()
             {
-                return Cef3Binder.MyMetArgGetAsBool(nativePtr, 10);
+                return MyMetArgs.GetAsBool(nativePtr, 11);
             }
             public void no_javascript_access(bool value)
             {
-                Cef3Binder.MyMetArgSetBoolToAddress(nativePtr, 10, value);
+                MyMetArgs.SetBoolToAddress(nativePtr, 11, value);
             }
         }
         //gen! void OnAfterCreated(CefRefPtr<CefBrowser> browser)
@@ -17343,11 +17413,13 @@ namespace LayoutFarm.CefBridge.Auto
             IntPtr nativePtr; //met arg native ptr
             internal OnAfterCreatedArgs(IntPtr nativePtr)
             {
-                this.nativePtr = nativePtr;
+
+                int argCount;
+                this.nativePtr = MyMetArgs.GetArrHead(nativePtr, out argCount);
             }
             public CefBrowser browser()
             {
-                return new CefBrowser(Cef3Binder.MyMetArgGetAsIntPtr(nativePtr, 0));
+                return new CefBrowser(MyMetArgs.GetAsIntPtr(nativePtr, 1));
             }
         }
         //gen! bool DoClose(CefRefPtr<CefBrowser> browser)
@@ -17356,11 +17428,13 @@ namespace LayoutFarm.CefBridge.Auto
             IntPtr nativePtr; //met arg native ptr
             internal DoCloseArgs(IntPtr nativePtr)
             {
-                this.nativePtr = nativePtr;
+
+                int argCount;
+                this.nativePtr = MyMetArgs.GetArrHead(nativePtr, out argCount);
             }
             public CefBrowser browser()
             {
-                return new CefBrowser(Cef3Binder.MyMetArgGetAsIntPtr(nativePtr, 0));
+                return new CefBrowser(MyMetArgs.GetAsIntPtr(nativePtr, 1));
             }
         }
         //gen! void OnBeforeClose(CefRefPtr<CefBrowser> browser)
@@ -17369,11 +17443,13 @@ namespace LayoutFarm.CefBridge.Auto
             IntPtr nativePtr; //met arg native ptr
             internal OnBeforeCloseArgs(IntPtr nativePtr)
             {
-                this.nativePtr = nativePtr;
+
+                int argCount;
+                this.nativePtr = MyMetArgs.GetArrHead(nativePtr, out argCount);
             }
             public CefBrowser browser()
             {
-                return new CefBrowser(Cef3Binder.MyMetArgGetAsIntPtr(nativePtr, 0));
+                return new CefBrowser(MyMetArgs.GetAsIntPtr(nativePtr, 1));
             }
         }
         public interface I0
@@ -17511,23 +17587,25 @@ namespace LayoutFarm.CefBridge.Auto
             IntPtr nativePtr; //met arg native ptr
             internal OnLoadingStateChangeArgs(IntPtr nativePtr)
             {
-                this.nativePtr = nativePtr;
+
+                int argCount;
+                this.nativePtr = MyMetArgs.GetArrHead(nativePtr, out argCount);
             }
             public CefBrowser browser()
             {
-                return new CefBrowser(Cef3Binder.MyMetArgGetAsIntPtr(nativePtr, 0));
+                return new CefBrowser(MyMetArgs.GetAsIntPtr(nativePtr, 1));
             }
             public bool isLoading()
             {
-                return Cef3Binder.MyMetArgGetAsBool(nativePtr, 1);
+                return MyMetArgs.GetAsBool(nativePtr, 2);
             }
             public bool canGoBack()
             {
-                return Cef3Binder.MyMetArgGetAsBool(nativePtr, 2);
+                return MyMetArgs.GetAsBool(nativePtr, 3);
             }
             public bool canGoForward()
             {
-                return Cef3Binder.MyMetArgGetAsBool(nativePtr, 3);
+                return MyMetArgs.GetAsBool(nativePtr, 4);
             }
         }
         //gen! void OnLoadStart(CefRefPtr<CefBrowser> browser,CefRefPtr<CefFrame> frame,TransitionType transition_type)
@@ -17536,19 +17614,21 @@ namespace LayoutFarm.CefBridge.Auto
             IntPtr nativePtr; //met arg native ptr
             internal OnLoadStartArgs(IntPtr nativePtr)
             {
-                this.nativePtr = nativePtr;
+
+                int argCount;
+                this.nativePtr = MyMetArgs.GetArrHead(nativePtr, out argCount);
             }
             public CefBrowser browser()
             {
-                return new CefBrowser(Cef3Binder.MyMetArgGetAsIntPtr(nativePtr, 0));
+                return new CefBrowser(MyMetArgs.GetAsIntPtr(nativePtr, 1));
             }
             public CefFrame frame()
             {
-                return new CefFrame(Cef3Binder.MyMetArgGetAsIntPtr(nativePtr, 1));
+                return new CefFrame(MyMetArgs.GetAsIntPtr(nativePtr, 2));
             }
             public cef_transition_type_t transition_type()
             {
-                return (cef_transition_type_t)Cef3Binder.MyMetArgGetAsInt32(nativePtr, 2);
+                return (cef_transition_type_t)MyMetArgs.GetAsInt32(nativePtr, 3);
             }
         }
         //gen! void OnLoadEnd(CefRefPtr<CefBrowser> browser,CefRefPtr<CefFrame> frame,int httpStatusCode)
@@ -17557,19 +17637,21 @@ namespace LayoutFarm.CefBridge.Auto
             IntPtr nativePtr; //met arg native ptr
             internal OnLoadEndArgs(IntPtr nativePtr)
             {
-                this.nativePtr = nativePtr;
+
+                int argCount;
+                this.nativePtr = MyMetArgs.GetArrHead(nativePtr, out argCount);
             }
             public CefBrowser browser()
             {
-                return new CefBrowser(Cef3Binder.MyMetArgGetAsIntPtr(nativePtr, 0));
+                return new CefBrowser(MyMetArgs.GetAsIntPtr(nativePtr, 1));
             }
             public CefFrame frame()
             {
-                return new CefFrame(Cef3Binder.MyMetArgGetAsIntPtr(nativePtr, 1));
+                return new CefFrame(MyMetArgs.GetAsIntPtr(nativePtr, 2));
             }
             public int httpStatusCode()
             {
-                return Cef3Binder.MyMetArgGetAsInt32(nativePtr, 2);
+                return MyMetArgs.GetAsInt32(nativePtr, 3);
             }
         }
         //gen! void OnLoadError(CefRefPtr<CefBrowser> browser,CefRefPtr<CefFrame> frame,ErrorCode errorCode,const CefString& errorText,const CefString& failedUrl)
@@ -17578,27 +17660,29 @@ namespace LayoutFarm.CefBridge.Auto
             IntPtr nativePtr; //met arg native ptr
             internal OnLoadErrorArgs(IntPtr nativePtr)
             {
-                this.nativePtr = nativePtr;
+
+                int argCount;
+                this.nativePtr = MyMetArgs.GetArrHead(nativePtr, out argCount);
             }
             public CefBrowser browser()
             {
-                return new CefBrowser(Cef3Binder.MyMetArgGetAsIntPtr(nativePtr, 0));
+                return new CefBrowser(MyMetArgs.GetAsIntPtr(nativePtr, 1));
             }
             public CefFrame frame()
             {
-                return new CefFrame(Cef3Binder.MyMetArgGetAsIntPtr(nativePtr, 1));
+                return new CefFrame(MyMetArgs.GetAsIntPtr(nativePtr, 2));
             }
             public cef_errorcode_t errorCode()
             {
-                return (cef_errorcode_t)Cef3Binder.MyMetArgGetAsInt32(nativePtr, 2);
+                return (cef_errorcode_t)MyMetArgs.GetAsInt32(nativePtr, 3);
             }
             public string errorText()
             {
-                return Cef3Binder.MyMetArgGetAsString(nativePtr, 3);
+                return MyMetArgs.GetAsString(nativePtr, 4);
             }
             public string failedUrl()
             {
-                return Cef3Binder.MyMetArgGetAsString(nativePtr, 4);
+                return MyMetArgs.GetAsString(nativePtr, 5);
             }
         }
         public interface I0
@@ -17736,11 +17820,13 @@ namespace LayoutFarm.CefBridge.Auto
             IntPtr nativePtr; //met arg native ptr
             internal OnPrintStartArgs(IntPtr nativePtr)
             {
-                this.nativePtr = nativePtr;
+
+                int argCount;
+                this.nativePtr = MyMetArgs.GetArrHead(nativePtr, out argCount);
             }
             public CefBrowser browser()
             {
-                return new CefBrowser(Cef3Binder.MyMetArgGetAsIntPtr(nativePtr, 0));
+                return new CefBrowser(MyMetArgs.GetAsIntPtr(nativePtr, 1));
             }
         }
         //gen! void OnPrintSettings(CefRefPtr<CefBrowser> browser,CefRefPtr<CefPrintSettings> settings,bool get_defaults)
@@ -17749,19 +17835,21 @@ namespace LayoutFarm.CefBridge.Auto
             IntPtr nativePtr; //met arg native ptr
             internal OnPrintSettingsArgs(IntPtr nativePtr)
             {
-                this.nativePtr = nativePtr;
+
+                int argCount;
+                this.nativePtr = MyMetArgs.GetArrHead(nativePtr, out argCount);
             }
             public CefBrowser browser()
             {
-                return new CefBrowser(Cef3Binder.MyMetArgGetAsIntPtr(nativePtr, 0));
+                return new CefBrowser(MyMetArgs.GetAsIntPtr(nativePtr, 1));
             }
             public CefPrintSettings settings()
             {
-                return new CefPrintSettings(Cef3Binder.MyMetArgGetAsIntPtr(nativePtr, 1));
+                return new CefPrintSettings(MyMetArgs.GetAsIntPtr(nativePtr, 2));
             }
             public bool get_defaults()
             {
-                return Cef3Binder.MyMetArgGetAsBool(nativePtr, 2);
+                return MyMetArgs.GetAsBool(nativePtr, 3);
             }
         }
         //gen! bool OnPrintDialog(CefRefPtr<CefBrowser> browser,bool has_selection,CefRefPtr<CefPrintDialogCallback> callback)
@@ -17770,19 +17858,21 @@ namespace LayoutFarm.CefBridge.Auto
             IntPtr nativePtr; //met arg native ptr
             internal OnPrintDialogArgs(IntPtr nativePtr)
             {
-                this.nativePtr = nativePtr;
+
+                int argCount;
+                this.nativePtr = MyMetArgs.GetArrHead(nativePtr, out argCount);
             }
             public CefBrowser browser()
             {
-                return new CefBrowser(Cef3Binder.MyMetArgGetAsIntPtr(nativePtr, 0));
+                return new CefBrowser(MyMetArgs.GetAsIntPtr(nativePtr, 1));
             }
             public bool has_selection()
             {
-                return Cef3Binder.MyMetArgGetAsBool(nativePtr, 1);
+                return MyMetArgs.GetAsBool(nativePtr, 2);
             }
             public CefPrintDialogCallback callback()
             {
-                return new CefPrintDialogCallback(Cef3Binder.MyMetArgGetAsIntPtr(nativePtr, 2));
+                return new CefPrintDialogCallback(MyMetArgs.GetAsIntPtr(nativePtr, 3));
             }
         }
         //gen! bool OnPrintJob(CefRefPtr<CefBrowser> browser,const CefString& document_name,const CefString& pdf_file_path,CefRefPtr<CefPrintJobCallback> callback)
@@ -17791,23 +17881,25 @@ namespace LayoutFarm.CefBridge.Auto
             IntPtr nativePtr; //met arg native ptr
             internal OnPrintJobArgs(IntPtr nativePtr)
             {
-                this.nativePtr = nativePtr;
+
+                int argCount;
+                this.nativePtr = MyMetArgs.GetArrHead(nativePtr, out argCount);
             }
             public CefBrowser browser()
             {
-                return new CefBrowser(Cef3Binder.MyMetArgGetAsIntPtr(nativePtr, 0));
+                return new CefBrowser(MyMetArgs.GetAsIntPtr(nativePtr, 1));
             }
             public string document_name()
             {
-                return Cef3Binder.MyMetArgGetAsString(nativePtr, 1);
+                return MyMetArgs.GetAsString(nativePtr, 2);
             }
             public string pdf_file_path()
             {
-                return Cef3Binder.MyMetArgGetAsString(nativePtr, 2);
+                return MyMetArgs.GetAsString(nativePtr, 3);
             }
             public CefPrintJobCallback callback()
             {
-                return new CefPrintJobCallback(Cef3Binder.MyMetArgGetAsIntPtr(nativePtr, 3));
+                return new CefPrintJobCallback(MyMetArgs.GetAsIntPtr(nativePtr, 4));
             }
         }
         //gen! void OnPrintReset(CefRefPtr<CefBrowser> browser)
@@ -17816,11 +17908,13 @@ namespace LayoutFarm.CefBridge.Auto
             IntPtr nativePtr; //met arg native ptr
             internal OnPrintResetArgs(IntPtr nativePtr)
             {
-                this.nativePtr = nativePtr;
+
+                int argCount;
+                this.nativePtr = MyMetArgs.GetArrHead(nativePtr, out argCount);
             }
             public CefBrowser browser()
             {
-                return new CefBrowser(Cef3Binder.MyMetArgGetAsIntPtr(nativePtr, 0));
+                return new CefBrowser(MyMetArgs.GetAsIntPtr(nativePtr, 1));
             }
         }
         //gen! CefSize GetPdfPaperSize(int device_units_per_inch)
@@ -17829,11 +17923,13 @@ namespace LayoutFarm.CefBridge.Auto
             IntPtr nativePtr; //met arg native ptr
             internal GetPdfPaperSizeArgs(IntPtr nativePtr)
             {
-                this.nativePtr = nativePtr;
+
+                int argCount;
+                this.nativePtr = MyMetArgs.GetArrHead(nativePtr, out argCount);
             }
             public int device_units_per_inch()
             {
-                return Cef3Binder.MyMetArgGetAsInt32(nativePtr, 0);
+                return MyMetArgs.GetAsInt32(nativePtr, 1);
             }
         }
         public interface I0
@@ -18012,7 +18108,9 @@ namespace LayoutFarm.CefBridge.Auto
             IntPtr nativePtr; //met arg native ptr
             internal GetAccessibilityHandlerArgs(IntPtr nativePtr)
             {
-                this.nativePtr = nativePtr;
+
+                int argCount;
+                this.nativePtr = MyMetArgs.GetArrHead(nativePtr, out argCount);
             }
         }
         //gen! bool GetRootScreenRect(CefRefPtr<CefBrowser> browser,CefRect& rect)
@@ -18021,15 +18119,17 @@ namespace LayoutFarm.CefBridge.Auto
             IntPtr nativePtr; //met arg native ptr
             internal GetRootScreenRectArgs(IntPtr nativePtr)
             {
-                this.nativePtr = nativePtr;
+
+                int argCount;
+                this.nativePtr = MyMetArgs.GetArrHead(nativePtr, out argCount);
             }
             public CefBrowser browser()
             {
-                return new CefBrowser(Cef3Binder.MyMetArgGetAsIntPtr(nativePtr, 0));
+                return new CefBrowser(MyMetArgs.GetAsIntPtr(nativePtr, 1));
             }
             public CefRect rect()
             {
-                return new CefRect(Cef3Binder.MyMetArgGetAsIntPtr(nativePtr, 1));
+                return new CefRect(MyMetArgs.GetAsIntPtr(nativePtr, 2));
             }
         }
         //gen! bool GetViewRect(CefRefPtr<CefBrowser> browser,CefRect& rect)
@@ -18038,15 +18138,17 @@ namespace LayoutFarm.CefBridge.Auto
             IntPtr nativePtr; //met arg native ptr
             internal GetViewRectArgs(IntPtr nativePtr)
             {
-                this.nativePtr = nativePtr;
+
+                int argCount;
+                this.nativePtr = MyMetArgs.GetArrHead(nativePtr, out argCount);
             }
             public CefBrowser browser()
             {
-                return new CefBrowser(Cef3Binder.MyMetArgGetAsIntPtr(nativePtr, 0));
+                return new CefBrowser(MyMetArgs.GetAsIntPtr(nativePtr, 1));
             }
             public CefRect rect()
             {
-                return new CefRect(Cef3Binder.MyMetArgGetAsIntPtr(nativePtr, 1));
+                return new CefRect(MyMetArgs.GetAsIntPtr(nativePtr, 2));
             }
         }
         //gen! bool GetScreenPoint(CefRefPtr<CefBrowser> browser,int viewX,int viewY,int& screenX,int& screenY)
@@ -18055,35 +18157,37 @@ namespace LayoutFarm.CefBridge.Auto
             IntPtr nativePtr; //met arg native ptr
             internal GetScreenPointArgs(IntPtr nativePtr)
             {
-                this.nativePtr = nativePtr;
+
+                int argCount;
+                this.nativePtr = MyMetArgs.GetArrHead(nativePtr, out argCount);
             }
             public CefBrowser browser()
             {
-                return new CefBrowser(Cef3Binder.MyMetArgGetAsIntPtr(nativePtr, 0));
+                return new CefBrowser(MyMetArgs.GetAsIntPtr(nativePtr, 1));
             }
             public int viewX()
             {
-                return Cef3Binder.MyMetArgGetAsInt32(nativePtr, 1);
+                return MyMetArgs.GetAsInt32(nativePtr, 2);
             }
             public int viewY()
             {
-                return Cef3Binder.MyMetArgGetAsInt32(nativePtr, 2);
+                return MyMetArgs.GetAsInt32(nativePtr, 3);
             }
             public int screenX()
             {
-                return Cef3Binder.MyMetArgGetAsInt32(nativePtr, 3);
+                return MyMetArgs.GetAsInt32(nativePtr, 4);
             }
             public void screenX(int value)
             {
-                Cef3Binder.MyMetArgSetInt32ToAddress(nativePtr, 3, value);
+                MyMetArgs.SetInt32ToAddress(nativePtr, 4, value);
             }
             public int screenY()
             {
-                return Cef3Binder.MyMetArgGetAsInt32(nativePtr, 4);
+                return MyMetArgs.GetAsInt32(nativePtr, 5);
             }
             public void screenY(int value)
             {
-                Cef3Binder.MyMetArgSetInt32ToAddress(nativePtr, 4, value);
+                MyMetArgs.SetInt32ToAddress(nativePtr, 5, value);
             }
         }
         //gen! bool GetScreenInfo(CefRefPtr<CefBrowser> browser,CefScreenInfo& screen_info)
@@ -18092,15 +18196,17 @@ namespace LayoutFarm.CefBridge.Auto
             IntPtr nativePtr; //met arg native ptr
             internal GetScreenInfoArgs(IntPtr nativePtr)
             {
-                this.nativePtr = nativePtr;
+
+                int argCount;
+                this.nativePtr = MyMetArgs.GetArrHead(nativePtr, out argCount);
             }
             public CefBrowser browser()
             {
-                return new CefBrowser(Cef3Binder.MyMetArgGetAsIntPtr(nativePtr, 0));
+                return new CefBrowser(MyMetArgs.GetAsIntPtr(nativePtr, 1));
             }
             public CefScreenInfo screen_info()
             {
-                return new CefScreenInfo(Cef3Binder.MyMetArgGetAsIntPtr(nativePtr, 1));
+                return new CefScreenInfo(MyMetArgs.GetAsIntPtr(nativePtr, 2));
             }
         }
         //gen! void OnPopupShow(CefRefPtr<CefBrowser> browser,bool show)
@@ -18109,15 +18215,17 @@ namespace LayoutFarm.CefBridge.Auto
             IntPtr nativePtr; //met arg native ptr
             internal OnPopupShowArgs(IntPtr nativePtr)
             {
-                this.nativePtr = nativePtr;
+
+                int argCount;
+                this.nativePtr = MyMetArgs.GetArrHead(nativePtr, out argCount);
             }
             public CefBrowser browser()
             {
-                return new CefBrowser(Cef3Binder.MyMetArgGetAsIntPtr(nativePtr, 0));
+                return new CefBrowser(MyMetArgs.GetAsIntPtr(nativePtr, 1));
             }
             public bool show()
             {
-                return Cef3Binder.MyMetArgGetAsBool(nativePtr, 1);
+                return MyMetArgs.GetAsBool(nativePtr, 2);
             }
         }
         //gen! void OnPopupSize(CefRefPtr<CefBrowser> browser,const CefRect& rect)
@@ -18126,15 +18234,17 @@ namespace LayoutFarm.CefBridge.Auto
             IntPtr nativePtr; //met arg native ptr
             internal OnPopupSizeArgs(IntPtr nativePtr)
             {
-                this.nativePtr = nativePtr;
+
+                int argCount;
+                this.nativePtr = MyMetArgs.GetArrHead(nativePtr, out argCount);
             }
             public CefBrowser browser()
             {
-                return new CefBrowser(Cef3Binder.MyMetArgGetAsIntPtr(nativePtr, 0));
+                return new CefBrowser(MyMetArgs.GetAsIntPtr(nativePtr, 1));
             }
             public CefRect rect()
             {
-                return new CefRect(Cef3Binder.MyMetArgGetAsIntPtr(nativePtr, 1));
+                return new CefRect(MyMetArgs.GetAsIntPtr(nativePtr, 2));
             }
         }
         //gen! void OnPaint(CefRefPtr<CefBrowser> browser,PaintElementType type,const RectList& dirtyRects,const void* buffer,int width,int height)
@@ -18143,15 +18253,17 @@ namespace LayoutFarm.CefBridge.Auto
             IntPtr nativePtr; //met arg native ptr
             internal OnPaintArgs(IntPtr nativePtr)
             {
-                this.nativePtr = nativePtr;
+
+                int argCount;
+                this.nativePtr = MyMetArgs.GetArrHead(nativePtr, out argCount);
             }
             public CefBrowser browser()
             {
-                return new CefBrowser(Cef3Binder.MyMetArgGetAsIntPtr(nativePtr, 0));
+                return new CefBrowser(MyMetArgs.GetAsIntPtr(nativePtr, 1));
             }
             public cef_paint_element_type_t type()
             {
-                return (cef_paint_element_type_t)Cef3Binder.MyMetArgGetAsInt32(nativePtr, 1);
+                return (cef_paint_element_type_t)MyMetArgs.GetAsInt32(nativePtr, 2);
             }
             public List<object> dirtyRects()
             {
@@ -18163,11 +18275,11 @@ namespace LayoutFarm.CefBridge.Auto
             }
             public int width()
             {
-                return Cef3Binder.MyMetArgGetAsInt32(nativePtr, 4);
+                return MyMetArgs.GetAsInt32(nativePtr, 5);
             }
             public int height()
             {
-                return Cef3Binder.MyMetArgGetAsInt32(nativePtr, 5);
+                return MyMetArgs.GetAsInt32(nativePtr, 6);
             }
         }
         //gen! void OnCursorChange(CefRefPtr<CefBrowser> browser,CefCursorHandle cursor,CursorType type,const CefCursorInfo& custom_cursor_info)
@@ -18176,11 +18288,13 @@ namespace LayoutFarm.CefBridge.Auto
             IntPtr nativePtr; //met arg native ptr
             internal OnCursorChangeArgs(IntPtr nativePtr)
             {
-                this.nativePtr = nativePtr;
+
+                int argCount;
+                this.nativePtr = MyMetArgs.GetArrHead(nativePtr, out argCount);
             }
             public CefBrowser browser()
             {
-                return new CefBrowser(Cef3Binder.MyMetArgGetAsIntPtr(nativePtr, 0));
+                return new CefBrowser(MyMetArgs.GetAsIntPtr(nativePtr, 1));
             }
             public IntPtr cursor()
             {
@@ -18188,11 +18302,11 @@ namespace LayoutFarm.CefBridge.Auto
             }
             public cef_cursor_type_t type()
             {
-                return (cef_cursor_type_t)Cef3Binder.MyMetArgGetAsInt32(nativePtr, 2);
+                return (cef_cursor_type_t)MyMetArgs.GetAsInt32(nativePtr, 3);
             }
             public CefCursorInfo custom_cursor_info()
             {
-                return new CefCursorInfo(Cef3Binder.MyMetArgGetAsIntPtr(nativePtr, 3));
+                return new CefCursorInfo(MyMetArgs.GetAsIntPtr(nativePtr, 4));
             }
         }
         //gen! bool StartDragging(CefRefPtr<CefBrowser> browser,CefRefPtr<CefDragData> drag_data,DragOperationsMask allowed_ops,int x,int y)
@@ -18201,27 +18315,29 @@ namespace LayoutFarm.CefBridge.Auto
             IntPtr nativePtr; //met arg native ptr
             internal StartDraggingArgs(IntPtr nativePtr)
             {
-                this.nativePtr = nativePtr;
+
+                int argCount;
+                this.nativePtr = MyMetArgs.GetArrHead(nativePtr, out argCount);
             }
             public CefBrowser browser()
             {
-                return new CefBrowser(Cef3Binder.MyMetArgGetAsIntPtr(nativePtr, 0));
+                return new CefBrowser(MyMetArgs.GetAsIntPtr(nativePtr, 1));
             }
             public CefDragData drag_data()
             {
-                return new CefDragData(Cef3Binder.MyMetArgGetAsIntPtr(nativePtr, 1));
+                return new CefDragData(MyMetArgs.GetAsIntPtr(nativePtr, 2));
             }
             public cef_drag_operations_mask_t allowed_ops()
             {
-                return (cef_drag_operations_mask_t)Cef3Binder.MyMetArgGetAsInt32(nativePtr, 2);
+                return (cef_drag_operations_mask_t)MyMetArgs.GetAsInt32(nativePtr, 3);
             }
             public int x()
             {
-                return Cef3Binder.MyMetArgGetAsInt32(nativePtr, 3);
+                return MyMetArgs.GetAsInt32(nativePtr, 4);
             }
             public int y()
             {
-                return Cef3Binder.MyMetArgGetAsInt32(nativePtr, 4);
+                return MyMetArgs.GetAsInt32(nativePtr, 5);
             }
         }
         //gen! void UpdateDragCursor(CefRefPtr<CefBrowser> browser,DragOperation operation)
@@ -18230,15 +18346,17 @@ namespace LayoutFarm.CefBridge.Auto
             IntPtr nativePtr; //met arg native ptr
             internal UpdateDragCursorArgs(IntPtr nativePtr)
             {
-                this.nativePtr = nativePtr;
+
+                int argCount;
+                this.nativePtr = MyMetArgs.GetArrHead(nativePtr, out argCount);
             }
             public CefBrowser browser()
             {
-                return new CefBrowser(Cef3Binder.MyMetArgGetAsIntPtr(nativePtr, 0));
+                return new CefBrowser(MyMetArgs.GetAsIntPtr(nativePtr, 1));
             }
             public cef_drag_operations_mask_t operation()
             {
-                return (cef_drag_operations_mask_t)Cef3Binder.MyMetArgGetAsInt32(nativePtr, 1);
+                return (cef_drag_operations_mask_t)MyMetArgs.GetAsInt32(nativePtr, 2);
             }
         }
         //gen! void OnScrollOffsetChanged(CefRefPtr<CefBrowser> browser,double x,double y)
@@ -18247,19 +18365,21 @@ namespace LayoutFarm.CefBridge.Auto
             IntPtr nativePtr; //met arg native ptr
             internal OnScrollOffsetChangedArgs(IntPtr nativePtr)
             {
-                this.nativePtr = nativePtr;
+
+                int argCount;
+                this.nativePtr = MyMetArgs.GetArrHead(nativePtr, out argCount);
             }
             public CefBrowser browser()
             {
-                return new CefBrowser(Cef3Binder.MyMetArgGetAsIntPtr(nativePtr, 0));
+                return new CefBrowser(MyMetArgs.GetAsIntPtr(nativePtr, 1));
             }
             public double x()
             {
-                return Cef3Binder.MyMetArgGetAsDouble(nativePtr, 1);
+                return MyMetArgs.GetAsDouble(nativePtr, 2);
             }
             public double y()
             {
-                return Cef3Binder.MyMetArgGetAsDouble(nativePtr, 2);
+                return MyMetArgs.GetAsDouble(nativePtr, 3);
             }
         }
         //gen! void OnImeCompositionRangeChanged(CefRefPtr<CefBrowser> browser,const CefRange& selected_range,const RectList& character_bounds)
@@ -18268,15 +18388,17 @@ namespace LayoutFarm.CefBridge.Auto
             IntPtr nativePtr; //met arg native ptr
             internal OnImeCompositionRangeChangedArgs(IntPtr nativePtr)
             {
-                this.nativePtr = nativePtr;
+
+                int argCount;
+                this.nativePtr = MyMetArgs.GetArrHead(nativePtr, out argCount);
             }
             public CefBrowser browser()
             {
-                return new CefBrowser(Cef3Binder.MyMetArgGetAsIntPtr(nativePtr, 0));
+                return new CefBrowser(MyMetArgs.GetAsIntPtr(nativePtr, 1));
             }
             public CefRange selected_range()
             {
-                return new CefRange(Cef3Binder.MyMetArgGetAsIntPtr(nativePtr, 1));
+                return new CefRange(MyMetArgs.GetAsIntPtr(nativePtr, 2));
             }
             public List<object> character_bounds()
             {
@@ -18650,11 +18772,13 @@ namespace LayoutFarm.CefBridge.Auto
             IntPtr nativePtr; //met arg native ptr
             internal OnRenderThreadCreatedArgs(IntPtr nativePtr)
             {
-                this.nativePtr = nativePtr;
+
+                int argCount;
+                this.nativePtr = MyMetArgs.GetArrHead(nativePtr, out argCount);
             }
             public CefListValue extra_info()
             {
-                return new CefListValue(Cef3Binder.MyMetArgGetAsIntPtr(nativePtr, 0));
+                return new CefListValue(MyMetArgs.GetAsIntPtr(nativePtr, 1));
             }
         }
         //gen! void OnWebKitInitialized()
@@ -18663,7 +18787,9 @@ namespace LayoutFarm.CefBridge.Auto
             IntPtr nativePtr; //met arg native ptr
             internal OnWebKitInitializedArgs(IntPtr nativePtr)
             {
-                this.nativePtr = nativePtr;
+
+                int argCount;
+                this.nativePtr = MyMetArgs.GetArrHead(nativePtr, out argCount);
             }
         }
         //gen! void OnBrowserCreated(CefRefPtr<CefBrowser> browser)
@@ -18672,11 +18798,13 @@ namespace LayoutFarm.CefBridge.Auto
             IntPtr nativePtr; //met arg native ptr
             internal OnBrowserCreatedArgs(IntPtr nativePtr)
             {
-                this.nativePtr = nativePtr;
+
+                int argCount;
+                this.nativePtr = MyMetArgs.GetArrHead(nativePtr, out argCount);
             }
             public CefBrowser browser()
             {
-                return new CefBrowser(Cef3Binder.MyMetArgGetAsIntPtr(nativePtr, 0));
+                return new CefBrowser(MyMetArgs.GetAsIntPtr(nativePtr, 1));
             }
         }
         //gen! void OnBrowserDestroyed(CefRefPtr<CefBrowser> browser)
@@ -18685,11 +18813,13 @@ namespace LayoutFarm.CefBridge.Auto
             IntPtr nativePtr; //met arg native ptr
             internal OnBrowserDestroyedArgs(IntPtr nativePtr)
             {
-                this.nativePtr = nativePtr;
+
+                int argCount;
+                this.nativePtr = MyMetArgs.GetArrHead(nativePtr, out argCount);
             }
             public CefBrowser browser()
             {
-                return new CefBrowser(Cef3Binder.MyMetArgGetAsIntPtr(nativePtr, 0));
+                return new CefBrowser(MyMetArgs.GetAsIntPtr(nativePtr, 1));
             }
         }
         //gen! CefRefPtr<CefLoadHandler> GetLoadHandler()
@@ -18698,7 +18828,9 @@ namespace LayoutFarm.CefBridge.Auto
             IntPtr nativePtr; //met arg native ptr
             internal GetLoadHandlerArgs(IntPtr nativePtr)
             {
-                this.nativePtr = nativePtr;
+
+                int argCount;
+                this.nativePtr = MyMetArgs.GetArrHead(nativePtr, out argCount);
             }
         }
         //gen! bool OnBeforeNavigation(CefRefPtr<CefBrowser> browser,CefRefPtr<CefFrame> frame,CefRefPtr<CefRequest> request,NavigationType navigation_type,bool is_redirect)
@@ -18707,27 +18839,29 @@ namespace LayoutFarm.CefBridge.Auto
             IntPtr nativePtr; //met arg native ptr
             internal OnBeforeNavigationArgs(IntPtr nativePtr)
             {
-                this.nativePtr = nativePtr;
+
+                int argCount;
+                this.nativePtr = MyMetArgs.GetArrHead(nativePtr, out argCount);
             }
             public CefBrowser browser()
             {
-                return new CefBrowser(Cef3Binder.MyMetArgGetAsIntPtr(nativePtr, 0));
+                return new CefBrowser(MyMetArgs.GetAsIntPtr(nativePtr, 1));
             }
             public CefFrame frame()
             {
-                return new CefFrame(Cef3Binder.MyMetArgGetAsIntPtr(nativePtr, 1));
+                return new CefFrame(MyMetArgs.GetAsIntPtr(nativePtr, 2));
             }
             public CefRequest request()
             {
-                return new CefRequest(Cef3Binder.MyMetArgGetAsIntPtr(nativePtr, 2));
+                return new CefRequest(MyMetArgs.GetAsIntPtr(nativePtr, 3));
             }
             public cef_navigation_type_t navigation_type()
             {
-                return (cef_navigation_type_t)Cef3Binder.MyMetArgGetAsInt32(nativePtr, 3);
+                return (cef_navigation_type_t)MyMetArgs.GetAsInt32(nativePtr, 4);
             }
             public bool is_redirect()
             {
-                return Cef3Binder.MyMetArgGetAsBool(nativePtr, 4);
+                return MyMetArgs.GetAsBool(nativePtr, 5);
             }
         }
         //gen! void OnContextCreated(CefRefPtr<CefBrowser> browser,CefRefPtr<CefFrame> frame,CefRefPtr<CefV8Context> context)
@@ -18736,19 +18870,21 @@ namespace LayoutFarm.CefBridge.Auto
             IntPtr nativePtr; //met arg native ptr
             internal OnContextCreatedArgs(IntPtr nativePtr)
             {
-                this.nativePtr = nativePtr;
+
+                int argCount;
+                this.nativePtr = MyMetArgs.GetArrHead(nativePtr, out argCount);
             }
             public CefBrowser browser()
             {
-                return new CefBrowser(Cef3Binder.MyMetArgGetAsIntPtr(nativePtr, 0));
+                return new CefBrowser(MyMetArgs.GetAsIntPtr(nativePtr, 1));
             }
             public CefFrame frame()
             {
-                return new CefFrame(Cef3Binder.MyMetArgGetAsIntPtr(nativePtr, 1));
+                return new CefFrame(MyMetArgs.GetAsIntPtr(nativePtr, 2));
             }
             public CefV8Context context()
             {
-                return new CefV8Context(Cef3Binder.MyMetArgGetAsIntPtr(nativePtr, 2));
+                return new CefV8Context(MyMetArgs.GetAsIntPtr(nativePtr, 3));
             }
         }
         //gen! void OnContextReleased(CefRefPtr<CefBrowser> browser,CefRefPtr<CefFrame> frame,CefRefPtr<CefV8Context> context)
@@ -18757,19 +18893,21 @@ namespace LayoutFarm.CefBridge.Auto
             IntPtr nativePtr; //met arg native ptr
             internal OnContextReleasedArgs(IntPtr nativePtr)
             {
-                this.nativePtr = nativePtr;
+
+                int argCount;
+                this.nativePtr = MyMetArgs.GetArrHead(nativePtr, out argCount);
             }
             public CefBrowser browser()
             {
-                return new CefBrowser(Cef3Binder.MyMetArgGetAsIntPtr(nativePtr, 0));
+                return new CefBrowser(MyMetArgs.GetAsIntPtr(nativePtr, 1));
             }
             public CefFrame frame()
             {
-                return new CefFrame(Cef3Binder.MyMetArgGetAsIntPtr(nativePtr, 1));
+                return new CefFrame(MyMetArgs.GetAsIntPtr(nativePtr, 2));
             }
             public CefV8Context context()
             {
-                return new CefV8Context(Cef3Binder.MyMetArgGetAsIntPtr(nativePtr, 2));
+                return new CefV8Context(MyMetArgs.GetAsIntPtr(nativePtr, 3));
             }
         }
         //gen! void OnUncaughtException(CefRefPtr<CefBrowser> browser,CefRefPtr<CefFrame> frame,CefRefPtr<CefV8Context> context,CefRefPtr<CefV8Exception> exception,CefRefPtr<CefV8StackTrace> stackTrace)
@@ -18778,27 +18916,29 @@ namespace LayoutFarm.CefBridge.Auto
             IntPtr nativePtr; //met arg native ptr
             internal OnUncaughtExceptionArgs(IntPtr nativePtr)
             {
-                this.nativePtr = nativePtr;
+
+                int argCount;
+                this.nativePtr = MyMetArgs.GetArrHead(nativePtr, out argCount);
             }
             public CefBrowser browser()
             {
-                return new CefBrowser(Cef3Binder.MyMetArgGetAsIntPtr(nativePtr, 0));
+                return new CefBrowser(MyMetArgs.GetAsIntPtr(nativePtr, 1));
             }
             public CefFrame frame()
             {
-                return new CefFrame(Cef3Binder.MyMetArgGetAsIntPtr(nativePtr, 1));
+                return new CefFrame(MyMetArgs.GetAsIntPtr(nativePtr, 2));
             }
             public CefV8Context context()
             {
-                return new CefV8Context(Cef3Binder.MyMetArgGetAsIntPtr(nativePtr, 2));
+                return new CefV8Context(MyMetArgs.GetAsIntPtr(nativePtr, 3));
             }
             public CefV8Exception exception()
             {
-                return new CefV8Exception(Cef3Binder.MyMetArgGetAsIntPtr(nativePtr, 3));
+                return new CefV8Exception(MyMetArgs.GetAsIntPtr(nativePtr, 4));
             }
             public CefV8StackTrace stackTrace()
             {
-                return new CefV8StackTrace(Cef3Binder.MyMetArgGetAsIntPtr(nativePtr, 4));
+                return new CefV8StackTrace(MyMetArgs.GetAsIntPtr(nativePtr, 5));
             }
         }
         //gen! void OnFocusedNodeChanged(CefRefPtr<CefBrowser> browser,CefRefPtr<CefFrame> frame,CefRefPtr<CefDOMNode> node)
@@ -18807,19 +18947,21 @@ namespace LayoutFarm.CefBridge.Auto
             IntPtr nativePtr; //met arg native ptr
             internal OnFocusedNodeChangedArgs(IntPtr nativePtr)
             {
-                this.nativePtr = nativePtr;
+
+                int argCount;
+                this.nativePtr = MyMetArgs.GetArrHead(nativePtr, out argCount);
             }
             public CefBrowser browser()
             {
-                return new CefBrowser(Cef3Binder.MyMetArgGetAsIntPtr(nativePtr, 0));
+                return new CefBrowser(MyMetArgs.GetAsIntPtr(nativePtr, 1));
             }
             public CefFrame frame()
             {
-                return new CefFrame(Cef3Binder.MyMetArgGetAsIntPtr(nativePtr, 1));
+                return new CefFrame(MyMetArgs.GetAsIntPtr(nativePtr, 2));
             }
             public CefDOMNode node()
             {
-                return new CefDOMNode(Cef3Binder.MyMetArgGetAsIntPtr(nativePtr, 2));
+                return new CefDOMNode(MyMetArgs.GetAsIntPtr(nativePtr, 3));
             }
         }
         //gen! bool OnProcessMessageReceived(CefRefPtr<CefBrowser> browser,CefProcessId source_process,CefRefPtr<CefProcessMessage> message)
@@ -18828,19 +18970,21 @@ namespace LayoutFarm.CefBridge.Auto
             IntPtr nativePtr; //met arg native ptr
             internal OnProcessMessageReceivedArgs(IntPtr nativePtr)
             {
-                this.nativePtr = nativePtr;
+
+                int argCount;
+                this.nativePtr = MyMetArgs.GetArrHead(nativePtr, out argCount);
             }
             public CefBrowser browser()
             {
-                return new CefBrowser(Cef3Binder.MyMetArgGetAsIntPtr(nativePtr, 0));
+                return new CefBrowser(MyMetArgs.GetAsIntPtr(nativePtr, 1));
             }
             public cef_process_id_t source_process()
             {
-                return (cef_process_id_t)Cef3Binder.MyMetArgGetAsInt32(nativePtr, 1);
+                return (cef_process_id_t)MyMetArgs.GetAsInt32(nativePtr, 2);
             }
             public CefProcessMessage message()
             {
-                return new CefProcessMessage(Cef3Binder.MyMetArgGetAsIntPtr(nativePtr, 2));
+                return new CefProcessMessage(MyMetArgs.GetAsIntPtr(nativePtr, 3));
             }
         }
         public interface I0
@@ -19131,7 +19275,9 @@ namespace LayoutFarm.CefBridge.Auto
             IntPtr nativePtr; //met arg native ptr
             internal GetCookieManagerArgs(IntPtr nativePtr)
             {
-                this.nativePtr = nativePtr;
+
+                int argCount;
+                this.nativePtr = MyMetArgs.GetArrHead(nativePtr, out argCount);
             }
         }
         //gen! bool OnBeforePluginLoad(const CefString& mime_type,const CefString& plugin_url,bool is_main_frame,const CefString& top_origin_url,CefRefPtr<CefWebPluginInfo> plugin_info,PluginPolicy* plugin_policy)
@@ -19140,31 +19286,33 @@ namespace LayoutFarm.CefBridge.Auto
             IntPtr nativePtr; //met arg native ptr
             internal OnBeforePluginLoadArgs(IntPtr nativePtr)
             {
-                this.nativePtr = nativePtr;
+
+                int argCount;
+                this.nativePtr = MyMetArgs.GetArrHead(nativePtr, out argCount);
             }
             public string mime_type()
             {
-                return Cef3Binder.MyMetArgGetAsString(nativePtr, 0);
+                return MyMetArgs.GetAsString(nativePtr, 1);
             }
             public string plugin_url()
             {
-                return Cef3Binder.MyMetArgGetAsString(nativePtr, 1);
+                return MyMetArgs.GetAsString(nativePtr, 2);
             }
             public bool is_main_frame()
             {
-                return Cef3Binder.MyMetArgGetAsBool(nativePtr, 2);
+                return MyMetArgs.GetAsBool(nativePtr, 3);
             }
             public string top_origin_url()
             {
-                return Cef3Binder.MyMetArgGetAsString(nativePtr, 3);
+                return MyMetArgs.GetAsString(nativePtr, 4);
             }
             public CefWebPluginInfo plugin_info()
             {
-                return new CefWebPluginInfo(Cef3Binder.MyMetArgGetAsIntPtr(nativePtr, 4));
+                return new CefWebPluginInfo(MyMetArgs.GetAsIntPtr(nativePtr, 5));
             }
             public cef_plugin_policy_t plugin_policy()
             {
-                return (cef_plugin_policy_t)Cef3Binder.MyMetArgGetAsInt32(nativePtr, 5);
+                return (cef_plugin_policy_t)MyMetArgs.GetAsInt32(nativePtr, 6);
             }
         }
         public interface I0
@@ -19258,23 +19406,25 @@ namespace LayoutFarm.CefBridge.Auto
             IntPtr nativePtr; //met arg native ptr
             internal OnBeforeBrowseArgs(IntPtr nativePtr)
             {
-                this.nativePtr = nativePtr;
+
+                int argCount;
+                this.nativePtr = MyMetArgs.GetArrHead(nativePtr, out argCount);
             }
             public CefBrowser browser()
             {
-                return new CefBrowser(Cef3Binder.MyMetArgGetAsIntPtr(nativePtr, 0));
+                return new CefBrowser(MyMetArgs.GetAsIntPtr(nativePtr, 1));
             }
             public CefFrame frame()
             {
-                return new CefFrame(Cef3Binder.MyMetArgGetAsIntPtr(nativePtr, 1));
+                return new CefFrame(MyMetArgs.GetAsIntPtr(nativePtr, 2));
             }
             public CefRequest request()
             {
-                return new CefRequest(Cef3Binder.MyMetArgGetAsIntPtr(nativePtr, 2));
+                return new CefRequest(MyMetArgs.GetAsIntPtr(nativePtr, 3));
             }
             public bool is_redirect()
             {
-                return Cef3Binder.MyMetArgGetAsBool(nativePtr, 3);
+                return MyMetArgs.GetAsBool(nativePtr, 4);
             }
         }
         //gen! bool OnOpenURLFromTab(CefRefPtr<CefBrowser> browser,CefRefPtr<CefFrame> frame,const CefString& target_url,WindowOpenDisposition target_disposition,bool user_gesture)
@@ -19283,27 +19433,29 @@ namespace LayoutFarm.CefBridge.Auto
             IntPtr nativePtr; //met arg native ptr
             internal OnOpenURLFromTabArgs(IntPtr nativePtr)
             {
-                this.nativePtr = nativePtr;
+
+                int argCount;
+                this.nativePtr = MyMetArgs.GetArrHead(nativePtr, out argCount);
             }
             public CefBrowser browser()
             {
-                return new CefBrowser(Cef3Binder.MyMetArgGetAsIntPtr(nativePtr, 0));
+                return new CefBrowser(MyMetArgs.GetAsIntPtr(nativePtr, 1));
             }
             public CefFrame frame()
             {
-                return new CefFrame(Cef3Binder.MyMetArgGetAsIntPtr(nativePtr, 1));
+                return new CefFrame(MyMetArgs.GetAsIntPtr(nativePtr, 2));
             }
             public string target_url()
             {
-                return Cef3Binder.MyMetArgGetAsString(nativePtr, 2);
+                return MyMetArgs.GetAsString(nativePtr, 3);
             }
             public cef_window_open_disposition_t target_disposition()
             {
-                return (cef_window_open_disposition_t)Cef3Binder.MyMetArgGetAsInt32(nativePtr, 3);
+                return (cef_window_open_disposition_t)MyMetArgs.GetAsInt32(nativePtr, 4);
             }
             public bool user_gesture()
             {
-                return Cef3Binder.MyMetArgGetAsBool(nativePtr, 4);
+                return MyMetArgs.GetAsBool(nativePtr, 5);
             }
         }
         //gen! ReturnValue OnBeforeResourceLoad(CefRefPtr<CefBrowser> browser,CefRefPtr<CefFrame> frame,CefRefPtr<CefRequest> request,CefRefPtr<CefRequestCallback> callback)
@@ -19312,23 +19464,25 @@ namespace LayoutFarm.CefBridge.Auto
             IntPtr nativePtr; //met arg native ptr
             internal OnBeforeResourceLoadArgs(IntPtr nativePtr)
             {
-                this.nativePtr = nativePtr;
+
+                int argCount;
+                this.nativePtr = MyMetArgs.GetArrHead(nativePtr, out argCount);
             }
             public CefBrowser browser()
             {
-                return new CefBrowser(Cef3Binder.MyMetArgGetAsIntPtr(nativePtr, 0));
+                return new CefBrowser(MyMetArgs.GetAsIntPtr(nativePtr, 1));
             }
             public CefFrame frame()
             {
-                return new CefFrame(Cef3Binder.MyMetArgGetAsIntPtr(nativePtr, 1));
+                return new CefFrame(MyMetArgs.GetAsIntPtr(nativePtr, 2));
             }
             public CefRequest request()
             {
-                return new CefRequest(Cef3Binder.MyMetArgGetAsIntPtr(nativePtr, 2));
+                return new CefRequest(MyMetArgs.GetAsIntPtr(nativePtr, 3));
             }
             public CefRequestCallback callback()
             {
-                return new CefRequestCallback(Cef3Binder.MyMetArgGetAsIntPtr(nativePtr, 3));
+                return new CefRequestCallback(MyMetArgs.GetAsIntPtr(nativePtr, 4));
             }
         }
         //gen! CefRefPtr<CefResourceHandler> GetResourceHandler(CefRefPtr<CefBrowser> browser,CefRefPtr<CefFrame> frame,CefRefPtr<CefRequest> request)
@@ -19337,19 +19491,21 @@ namespace LayoutFarm.CefBridge.Auto
             IntPtr nativePtr; //met arg native ptr
             internal GetResourceHandlerArgs(IntPtr nativePtr)
             {
-                this.nativePtr = nativePtr;
+
+                int argCount;
+                this.nativePtr = MyMetArgs.GetArrHead(nativePtr, out argCount);
             }
             public CefBrowser browser()
             {
-                return new CefBrowser(Cef3Binder.MyMetArgGetAsIntPtr(nativePtr, 0));
+                return new CefBrowser(MyMetArgs.GetAsIntPtr(nativePtr, 1));
             }
             public CefFrame frame()
             {
-                return new CefFrame(Cef3Binder.MyMetArgGetAsIntPtr(nativePtr, 1));
+                return new CefFrame(MyMetArgs.GetAsIntPtr(nativePtr, 2));
             }
             public CefRequest request()
             {
-                return new CefRequest(Cef3Binder.MyMetArgGetAsIntPtr(nativePtr, 2));
+                return new CefRequest(MyMetArgs.GetAsIntPtr(nativePtr, 3));
             }
         }
         //gen! void OnResourceRedirect(CefRefPtr<CefBrowser> browser,CefRefPtr<CefFrame> frame,CefRefPtr<CefRequest> request,CefRefPtr<CefResponse> response,CefString& new_url)
@@ -19358,27 +19514,29 @@ namespace LayoutFarm.CefBridge.Auto
             IntPtr nativePtr; //met arg native ptr
             internal OnResourceRedirectArgs(IntPtr nativePtr)
             {
-                this.nativePtr = nativePtr;
+
+                int argCount;
+                this.nativePtr = MyMetArgs.GetArrHead(nativePtr, out argCount);
             }
             public CefBrowser browser()
             {
-                return new CefBrowser(Cef3Binder.MyMetArgGetAsIntPtr(nativePtr, 0));
+                return new CefBrowser(MyMetArgs.GetAsIntPtr(nativePtr, 1));
             }
             public CefFrame frame()
             {
-                return new CefFrame(Cef3Binder.MyMetArgGetAsIntPtr(nativePtr, 1));
+                return new CefFrame(MyMetArgs.GetAsIntPtr(nativePtr, 2));
             }
             public CefRequest request()
             {
-                return new CefRequest(Cef3Binder.MyMetArgGetAsIntPtr(nativePtr, 2));
+                return new CefRequest(MyMetArgs.GetAsIntPtr(nativePtr, 3));
             }
             public CefResponse response()
             {
-                return new CefResponse(Cef3Binder.MyMetArgGetAsIntPtr(nativePtr, 3));
+                return new CefResponse(MyMetArgs.GetAsIntPtr(nativePtr, 4));
             }
             public string new_url()
             {
-                return Cef3Binder.MyMetArgGetAsString(nativePtr, 4);
+                return MyMetArgs.GetAsString(nativePtr, 5);
             }
         }
         //gen! bool OnResourceResponse(CefRefPtr<CefBrowser> browser,CefRefPtr<CefFrame> frame,CefRefPtr<CefRequest> request,CefRefPtr<CefResponse> response)
@@ -19387,23 +19545,25 @@ namespace LayoutFarm.CefBridge.Auto
             IntPtr nativePtr; //met arg native ptr
             internal OnResourceResponseArgs(IntPtr nativePtr)
             {
-                this.nativePtr = nativePtr;
+
+                int argCount;
+                this.nativePtr = MyMetArgs.GetArrHead(nativePtr, out argCount);
             }
             public CefBrowser browser()
             {
-                return new CefBrowser(Cef3Binder.MyMetArgGetAsIntPtr(nativePtr, 0));
+                return new CefBrowser(MyMetArgs.GetAsIntPtr(nativePtr, 1));
             }
             public CefFrame frame()
             {
-                return new CefFrame(Cef3Binder.MyMetArgGetAsIntPtr(nativePtr, 1));
+                return new CefFrame(MyMetArgs.GetAsIntPtr(nativePtr, 2));
             }
             public CefRequest request()
             {
-                return new CefRequest(Cef3Binder.MyMetArgGetAsIntPtr(nativePtr, 2));
+                return new CefRequest(MyMetArgs.GetAsIntPtr(nativePtr, 3));
             }
             public CefResponse response()
             {
-                return new CefResponse(Cef3Binder.MyMetArgGetAsIntPtr(nativePtr, 3));
+                return new CefResponse(MyMetArgs.GetAsIntPtr(nativePtr, 4));
             }
         }
         //gen! CefRefPtr<CefResponseFilter> GetResourceResponseFilter(CefRefPtr<CefBrowser> browser,CefRefPtr<CefFrame> frame,CefRefPtr<CefRequest> request,CefRefPtr<CefResponse> response)
@@ -19412,23 +19572,25 @@ namespace LayoutFarm.CefBridge.Auto
             IntPtr nativePtr; //met arg native ptr
             internal GetResourceResponseFilterArgs(IntPtr nativePtr)
             {
-                this.nativePtr = nativePtr;
+
+                int argCount;
+                this.nativePtr = MyMetArgs.GetArrHead(nativePtr, out argCount);
             }
             public CefBrowser browser()
             {
-                return new CefBrowser(Cef3Binder.MyMetArgGetAsIntPtr(nativePtr, 0));
+                return new CefBrowser(MyMetArgs.GetAsIntPtr(nativePtr, 1));
             }
             public CefFrame frame()
             {
-                return new CefFrame(Cef3Binder.MyMetArgGetAsIntPtr(nativePtr, 1));
+                return new CefFrame(MyMetArgs.GetAsIntPtr(nativePtr, 2));
             }
             public CefRequest request()
             {
-                return new CefRequest(Cef3Binder.MyMetArgGetAsIntPtr(nativePtr, 2));
+                return new CefRequest(MyMetArgs.GetAsIntPtr(nativePtr, 3));
             }
             public CefResponse response()
             {
-                return new CefResponse(Cef3Binder.MyMetArgGetAsIntPtr(nativePtr, 3));
+                return new CefResponse(MyMetArgs.GetAsIntPtr(nativePtr, 4));
             }
         }
         //gen! void OnResourceLoadComplete(CefRefPtr<CefBrowser> browser,CefRefPtr<CefFrame> frame,CefRefPtr<CefRequest> request,CefRefPtr<CefResponse> response,URLRequestStatus status,int64 received_content_length)
@@ -19437,31 +19599,33 @@ namespace LayoutFarm.CefBridge.Auto
             IntPtr nativePtr; //met arg native ptr
             internal OnResourceLoadCompleteArgs(IntPtr nativePtr)
             {
-                this.nativePtr = nativePtr;
+
+                int argCount;
+                this.nativePtr = MyMetArgs.GetArrHead(nativePtr, out argCount);
             }
             public CefBrowser browser()
             {
-                return new CefBrowser(Cef3Binder.MyMetArgGetAsIntPtr(nativePtr, 0));
+                return new CefBrowser(MyMetArgs.GetAsIntPtr(nativePtr, 1));
             }
             public CefFrame frame()
             {
-                return new CefFrame(Cef3Binder.MyMetArgGetAsIntPtr(nativePtr, 1));
+                return new CefFrame(MyMetArgs.GetAsIntPtr(nativePtr, 2));
             }
             public CefRequest request()
             {
-                return new CefRequest(Cef3Binder.MyMetArgGetAsIntPtr(nativePtr, 2));
+                return new CefRequest(MyMetArgs.GetAsIntPtr(nativePtr, 3));
             }
             public CefResponse response()
             {
-                return new CefResponse(Cef3Binder.MyMetArgGetAsIntPtr(nativePtr, 3));
+                return new CefResponse(MyMetArgs.GetAsIntPtr(nativePtr, 4));
             }
             public cef_urlrequest_status_t status()
             {
-                return (cef_urlrequest_status_t)Cef3Binder.MyMetArgGetAsInt32(nativePtr, 4);
+                return (cef_urlrequest_status_t)MyMetArgs.GetAsInt32(nativePtr, 5);
             }
             public long received_content_length()
             {
-                return Cef3Binder.MyMetArgGetAsInt64(nativePtr, 5);
+                return MyMetArgs.GetAsInt64(nativePtr, 6);
             }
         }
         //gen! bool GetAuthCredentials(CefRefPtr<CefBrowser> browser,CefRefPtr<CefFrame> frame,bool isProxy,const CefString& host,int port,const CefString& realm,const CefString& scheme,CefRefPtr<CefAuthCallback> callback)
@@ -19470,39 +19634,41 @@ namespace LayoutFarm.CefBridge.Auto
             IntPtr nativePtr; //met arg native ptr
             internal GetAuthCredentialsArgs(IntPtr nativePtr)
             {
-                this.nativePtr = nativePtr;
+
+                int argCount;
+                this.nativePtr = MyMetArgs.GetArrHead(nativePtr, out argCount);
             }
             public CefBrowser browser()
             {
-                return new CefBrowser(Cef3Binder.MyMetArgGetAsIntPtr(nativePtr, 0));
+                return new CefBrowser(MyMetArgs.GetAsIntPtr(nativePtr, 1));
             }
             public CefFrame frame()
             {
-                return new CefFrame(Cef3Binder.MyMetArgGetAsIntPtr(nativePtr, 1));
+                return new CefFrame(MyMetArgs.GetAsIntPtr(nativePtr, 2));
             }
             public bool isProxy()
             {
-                return Cef3Binder.MyMetArgGetAsBool(nativePtr, 2);
+                return MyMetArgs.GetAsBool(nativePtr, 3);
             }
             public string host()
             {
-                return Cef3Binder.MyMetArgGetAsString(nativePtr, 3);
+                return MyMetArgs.GetAsString(nativePtr, 4);
             }
             public int port()
             {
-                return Cef3Binder.MyMetArgGetAsInt32(nativePtr, 4);
+                return MyMetArgs.GetAsInt32(nativePtr, 5);
             }
             public string realm()
             {
-                return Cef3Binder.MyMetArgGetAsString(nativePtr, 5);
+                return MyMetArgs.GetAsString(nativePtr, 6);
             }
             public string scheme()
             {
-                return Cef3Binder.MyMetArgGetAsString(nativePtr, 6);
+                return MyMetArgs.GetAsString(nativePtr, 7);
             }
             public CefAuthCallback callback()
             {
-                return new CefAuthCallback(Cef3Binder.MyMetArgGetAsIntPtr(nativePtr, 7));
+                return new CefAuthCallback(MyMetArgs.GetAsIntPtr(nativePtr, 8));
             }
         }
         //gen! bool OnQuotaRequest(CefRefPtr<CefBrowser> browser,const CefString& origin_url,int64 new_size,CefRefPtr<CefRequestCallback> callback)
@@ -19511,23 +19677,25 @@ namespace LayoutFarm.CefBridge.Auto
             IntPtr nativePtr; //met arg native ptr
             internal OnQuotaRequestArgs(IntPtr nativePtr)
             {
-                this.nativePtr = nativePtr;
+
+                int argCount;
+                this.nativePtr = MyMetArgs.GetArrHead(nativePtr, out argCount);
             }
             public CefBrowser browser()
             {
-                return new CefBrowser(Cef3Binder.MyMetArgGetAsIntPtr(nativePtr, 0));
+                return new CefBrowser(MyMetArgs.GetAsIntPtr(nativePtr, 1));
             }
             public string origin_url()
             {
-                return Cef3Binder.MyMetArgGetAsString(nativePtr, 1);
+                return MyMetArgs.GetAsString(nativePtr, 2);
             }
             public long new_size()
             {
-                return Cef3Binder.MyMetArgGetAsInt64(nativePtr, 2);
+                return MyMetArgs.GetAsInt64(nativePtr, 3);
             }
             public CefRequestCallback callback()
             {
-                return new CefRequestCallback(Cef3Binder.MyMetArgGetAsIntPtr(nativePtr, 3));
+                return new CefRequestCallback(MyMetArgs.GetAsIntPtr(nativePtr, 4));
             }
         }
         //gen! void OnProtocolExecution(CefRefPtr<CefBrowser> browser,const CefString& url,bool& allow_os_execution)
@@ -19536,23 +19704,25 @@ namespace LayoutFarm.CefBridge.Auto
             IntPtr nativePtr; //met arg native ptr
             internal OnProtocolExecutionArgs(IntPtr nativePtr)
             {
-                this.nativePtr = nativePtr;
+
+                int argCount;
+                this.nativePtr = MyMetArgs.GetArrHead(nativePtr, out argCount);
             }
             public CefBrowser browser()
             {
-                return new CefBrowser(Cef3Binder.MyMetArgGetAsIntPtr(nativePtr, 0));
+                return new CefBrowser(MyMetArgs.GetAsIntPtr(nativePtr, 1));
             }
             public string url()
             {
-                return Cef3Binder.MyMetArgGetAsString(nativePtr, 1);
+                return MyMetArgs.GetAsString(nativePtr, 2);
             }
             public bool allow_os_execution()
             {
-                return Cef3Binder.MyMetArgGetAsBool(nativePtr, 2);
+                return MyMetArgs.GetAsBool(nativePtr, 3);
             }
             public void allow_os_execution(bool value)
             {
-                Cef3Binder.MyMetArgSetBoolToAddress(nativePtr, 2, value);
+                MyMetArgs.SetBoolToAddress(nativePtr, 3, value);
             }
         }
         //gen! bool OnCertificateError(CefRefPtr<CefBrowser> browser,cef_errorcode_t cert_error,const CefString& request_url,CefRefPtr<CefSSLInfo> ssl_info,CefRefPtr<CefRequestCallback> callback)
@@ -19561,27 +19731,29 @@ namespace LayoutFarm.CefBridge.Auto
             IntPtr nativePtr; //met arg native ptr
             internal OnCertificateErrorArgs(IntPtr nativePtr)
             {
-                this.nativePtr = nativePtr;
+
+                int argCount;
+                this.nativePtr = MyMetArgs.GetArrHead(nativePtr, out argCount);
             }
             public CefBrowser browser()
             {
-                return new CefBrowser(Cef3Binder.MyMetArgGetAsIntPtr(nativePtr, 0));
+                return new CefBrowser(MyMetArgs.GetAsIntPtr(nativePtr, 1));
             }
             public cef_errorcode_t cert_error()
             {
-                return (cef_errorcode_t)Cef3Binder.MyMetArgGetAsInt32(nativePtr, 1);
+                return (cef_errorcode_t)MyMetArgs.GetAsInt32(nativePtr, 2);
             }
             public string request_url()
             {
-                return Cef3Binder.MyMetArgGetAsString(nativePtr, 2);
+                return MyMetArgs.GetAsString(nativePtr, 3);
             }
             public CefSSLInfo ssl_info()
             {
-                return new CefSSLInfo(Cef3Binder.MyMetArgGetAsIntPtr(nativePtr, 3));
+                return new CefSSLInfo(MyMetArgs.GetAsIntPtr(nativePtr, 4));
             }
             public CefRequestCallback callback()
             {
-                return new CefRequestCallback(Cef3Binder.MyMetArgGetAsIntPtr(nativePtr, 4));
+                return new CefRequestCallback(MyMetArgs.GetAsIntPtr(nativePtr, 5));
             }
         }
         //gen! bool OnSelectClientCertificate(CefRefPtr<CefBrowser> browser,bool isProxy,const CefString& host,int port,const X509CertificateList& certificates,CefRefPtr<CefSelectClientCertificateCallback> callback)
@@ -19590,23 +19762,25 @@ namespace LayoutFarm.CefBridge.Auto
             IntPtr nativePtr; //met arg native ptr
             internal OnSelectClientCertificateArgs(IntPtr nativePtr)
             {
-                this.nativePtr = nativePtr;
+
+                int argCount;
+                this.nativePtr = MyMetArgs.GetArrHead(nativePtr, out argCount);
             }
             public CefBrowser browser()
             {
-                return new CefBrowser(Cef3Binder.MyMetArgGetAsIntPtr(nativePtr, 0));
+                return new CefBrowser(MyMetArgs.GetAsIntPtr(nativePtr, 1));
             }
             public bool isProxy()
             {
-                return Cef3Binder.MyMetArgGetAsBool(nativePtr, 1);
+                return MyMetArgs.GetAsBool(nativePtr, 2);
             }
             public string host()
             {
-                return Cef3Binder.MyMetArgGetAsString(nativePtr, 2);
+                return MyMetArgs.GetAsString(nativePtr, 3);
             }
             public int port()
             {
-                return Cef3Binder.MyMetArgGetAsInt32(nativePtr, 3);
+                return MyMetArgs.GetAsInt32(nativePtr, 4);
             }
             public List<CefCompositionUnderline> certificates()
             {
@@ -19614,7 +19788,7 @@ namespace LayoutFarm.CefBridge.Auto
             }
             public CefSelectClientCertificateCallback callback()
             {
-                return new CefSelectClientCertificateCallback(Cef3Binder.MyMetArgGetAsIntPtr(nativePtr, 5));
+                return new CefSelectClientCertificateCallback(MyMetArgs.GetAsIntPtr(nativePtr, 6));
             }
         }
         //gen! void OnPluginCrashed(CefRefPtr<CefBrowser> browser,const CefString& plugin_path)
@@ -19623,15 +19797,17 @@ namespace LayoutFarm.CefBridge.Auto
             IntPtr nativePtr; //met arg native ptr
             internal OnPluginCrashedArgs(IntPtr nativePtr)
             {
-                this.nativePtr = nativePtr;
+
+                int argCount;
+                this.nativePtr = MyMetArgs.GetArrHead(nativePtr, out argCount);
             }
             public CefBrowser browser()
             {
-                return new CefBrowser(Cef3Binder.MyMetArgGetAsIntPtr(nativePtr, 0));
+                return new CefBrowser(MyMetArgs.GetAsIntPtr(nativePtr, 1));
             }
             public string plugin_path()
             {
-                return Cef3Binder.MyMetArgGetAsString(nativePtr, 1);
+                return MyMetArgs.GetAsString(nativePtr, 2);
             }
         }
         //gen! void OnRenderViewReady(CefRefPtr<CefBrowser> browser)
@@ -19640,11 +19816,13 @@ namespace LayoutFarm.CefBridge.Auto
             IntPtr nativePtr; //met arg native ptr
             internal OnRenderViewReadyArgs(IntPtr nativePtr)
             {
-                this.nativePtr = nativePtr;
+
+                int argCount;
+                this.nativePtr = MyMetArgs.GetArrHead(nativePtr, out argCount);
             }
             public CefBrowser browser()
             {
-                return new CefBrowser(Cef3Binder.MyMetArgGetAsIntPtr(nativePtr, 0));
+                return new CefBrowser(MyMetArgs.GetAsIntPtr(nativePtr, 1));
             }
         }
         //gen! void OnRenderProcessTerminated(CefRefPtr<CefBrowser> browser,TerminationStatus status)
@@ -19653,15 +19831,17 @@ namespace LayoutFarm.CefBridge.Auto
             IntPtr nativePtr; //met arg native ptr
             internal OnRenderProcessTerminatedArgs(IntPtr nativePtr)
             {
-                this.nativePtr = nativePtr;
+
+                int argCount;
+                this.nativePtr = MyMetArgs.GetArrHead(nativePtr, out argCount);
             }
             public CefBrowser browser()
             {
-                return new CefBrowser(Cef3Binder.MyMetArgGetAsIntPtr(nativePtr, 0));
+                return new CefBrowser(MyMetArgs.GetAsIntPtr(nativePtr, 1));
             }
             public cef_termination_status_t status()
             {
-                return (cef_termination_status_t)Cef3Binder.MyMetArgGetAsInt32(nativePtr, 1);
+                return (cef_termination_status_t)MyMetArgs.GetAsInt32(nativePtr, 2);
             }
         }
         public interface I0
@@ -20130,15 +20310,17 @@ namespace LayoutFarm.CefBridge.Auto
             IntPtr nativePtr; //met arg native ptr
             internal GetLocalizedStringArgs(IntPtr nativePtr)
             {
-                this.nativePtr = nativePtr;
+
+                int argCount;
+                this.nativePtr = MyMetArgs.GetArrHead(nativePtr, out argCount);
             }
             public int string_id()
             {
-                return Cef3Binder.MyMetArgGetAsInt32(nativePtr, 0);
+                return MyMetArgs.GetAsInt32(nativePtr, 1);
             }
             public string _string()
             {
-                return Cef3Binder.MyMetArgGetAsString(nativePtr, 1);
+                return MyMetArgs.GetAsString(nativePtr, 2);
             }
         }
         //gen! bool GetDataResource(int resource_id,void*& data,size_t& data_size)
@@ -20147,11 +20329,13 @@ namespace LayoutFarm.CefBridge.Auto
             IntPtr nativePtr; //met arg native ptr
             internal GetDataResourceArgs(IntPtr nativePtr)
             {
-                this.nativePtr = nativePtr;
+
+                int argCount;
+                this.nativePtr = MyMetArgs.GetArrHead(nativePtr, out argCount);
             }
             public int resource_id()
             {
-                return Cef3Binder.MyMetArgGetAsInt32(nativePtr, 0);
+                return MyMetArgs.GetAsInt32(nativePtr, 1);
             }
             public IntPtr data()
             {
@@ -20159,11 +20343,11 @@ namespace LayoutFarm.CefBridge.Auto
             }
             public uint data_size()
             {
-                return Cef3Binder.MyMetArgGetAsUInt32(nativePtr, 2);
+                return MyMetArgs.GetAsUInt32(nativePtr, 3);
             }
             public void data_size(uint value)
             {
-                Cef3Binder.MyMetArgSetUInt32ToAddress(nativePtr, 2, value);
+                MyMetArgs.SetUInt32ToAddress(nativePtr, 3, value);
             }
         }
         //gen! bool GetDataResourceForScale(int resource_id,ScaleFactor scale_factor,void*& data,size_t& data_size)
@@ -20172,15 +20356,17 @@ namespace LayoutFarm.CefBridge.Auto
             IntPtr nativePtr; //met arg native ptr
             internal GetDataResourceForScaleArgs(IntPtr nativePtr)
             {
-                this.nativePtr = nativePtr;
+
+                int argCount;
+                this.nativePtr = MyMetArgs.GetArrHead(nativePtr, out argCount);
             }
             public int resource_id()
             {
-                return Cef3Binder.MyMetArgGetAsInt32(nativePtr, 0);
+                return MyMetArgs.GetAsInt32(nativePtr, 1);
             }
             public cef_scale_factor_t scale_factor()
             {
-                return (cef_scale_factor_t)Cef3Binder.MyMetArgGetAsInt32(nativePtr, 1);
+                return (cef_scale_factor_t)MyMetArgs.GetAsInt32(nativePtr, 2);
             }
             public IntPtr data()
             {
@@ -20188,11 +20374,11 @@ namespace LayoutFarm.CefBridge.Auto
             }
             public uint data_size()
             {
-                return Cef3Binder.MyMetArgGetAsUInt32(nativePtr, 3);
+                return MyMetArgs.GetAsUInt32(nativePtr, 4);
             }
             public void data_size(uint value)
             {
-                Cef3Binder.MyMetArgSetUInt32ToAddress(nativePtr, 3, value);
+                MyMetArgs.SetUInt32ToAddress(nativePtr, 4, value);
             }
         }
         public interface I0
@@ -20307,15 +20493,17 @@ namespace LayoutFarm.CefBridge.Auto
             IntPtr nativePtr; //met arg native ptr
             internal ProcessRequestArgs(IntPtr nativePtr)
             {
-                this.nativePtr = nativePtr;
+
+                int argCount;
+                this.nativePtr = MyMetArgs.GetArrHead(nativePtr, out argCount);
             }
             public CefRequest request()
             {
-                return new CefRequest(Cef3Binder.MyMetArgGetAsIntPtr(nativePtr, 0));
+                return new CefRequest(MyMetArgs.GetAsIntPtr(nativePtr, 1));
             }
             public CefCallback callback()
             {
-                return new CefCallback(Cef3Binder.MyMetArgGetAsIntPtr(nativePtr, 1));
+                return new CefCallback(MyMetArgs.GetAsIntPtr(nativePtr, 2));
             }
         }
         //gen! void GetResponseHeaders(CefRefPtr<CefResponse> response,int64& response_length,CefString& redirectUrl)
@@ -20324,19 +20512,21 @@ namespace LayoutFarm.CefBridge.Auto
             IntPtr nativePtr; //met arg native ptr
             internal GetResponseHeadersArgs(IntPtr nativePtr)
             {
-                this.nativePtr = nativePtr;
+
+                int argCount;
+                this.nativePtr = MyMetArgs.GetArrHead(nativePtr, out argCount);
             }
             public CefResponse response()
             {
-                return new CefResponse(Cef3Binder.MyMetArgGetAsIntPtr(nativePtr, 0));
+                return new CefResponse(MyMetArgs.GetAsIntPtr(nativePtr, 1));
             }
             public long response_length()
             {
-                return Cef3Binder.MyMetArgGetAsInt64(nativePtr, 1);
+                return MyMetArgs.GetAsInt64(nativePtr, 2);
             }
             public string redirectUrl()
             {
-                return Cef3Binder.MyMetArgGetAsString(nativePtr, 2);
+                return MyMetArgs.GetAsString(nativePtr, 3);
             }
         }
         //gen! bool ReadResponse(void* data_out,int bytes_to_read,int& bytes_read,CefRefPtr<CefCallback> callback)
@@ -20345,7 +20535,9 @@ namespace LayoutFarm.CefBridge.Auto
             IntPtr nativePtr; //met arg native ptr
             internal ReadResponseArgs(IntPtr nativePtr)
             {
-                this.nativePtr = nativePtr;
+
+                int argCount;
+                this.nativePtr = MyMetArgs.GetArrHead(nativePtr, out argCount);
             }
             public IntPtr data_out()
             {
@@ -20353,19 +20545,19 @@ namespace LayoutFarm.CefBridge.Auto
             }
             public int bytes_to_read()
             {
-                return Cef3Binder.MyMetArgGetAsInt32(nativePtr, 1);
+                return MyMetArgs.GetAsInt32(nativePtr, 2);
             }
             public int bytes_read()
             {
-                return Cef3Binder.MyMetArgGetAsInt32(nativePtr, 2);
+                return MyMetArgs.GetAsInt32(nativePtr, 3);
             }
             public void bytes_read(int value)
             {
-                Cef3Binder.MyMetArgSetInt32ToAddress(nativePtr, 2, value);
+                MyMetArgs.SetInt32ToAddress(nativePtr, 3, value);
             }
             public CefCallback callback()
             {
-                return new CefCallback(Cef3Binder.MyMetArgGetAsIntPtr(nativePtr, 3));
+                return new CefCallback(MyMetArgs.GetAsIntPtr(nativePtr, 4));
             }
         }
         //gen! bool CanGetCookie(const CefCookie& cookie)
@@ -20374,11 +20566,13 @@ namespace LayoutFarm.CefBridge.Auto
             IntPtr nativePtr; //met arg native ptr
             internal CanGetCookieArgs(IntPtr nativePtr)
             {
-                this.nativePtr = nativePtr;
+
+                int argCount;
+                this.nativePtr = MyMetArgs.GetArrHead(nativePtr, out argCount);
             }
             public CefCookie cookie()
             {
-                return new CefCookie(Cef3Binder.MyMetArgGetAsIntPtr(nativePtr, 0));
+                return new CefCookie(MyMetArgs.GetAsIntPtr(nativePtr, 1));
             }
         }
         //gen! bool CanSetCookie(const CefCookie& cookie)
@@ -20387,11 +20581,13 @@ namespace LayoutFarm.CefBridge.Auto
             IntPtr nativePtr; //met arg native ptr
             internal CanSetCookieArgs(IntPtr nativePtr)
             {
-                this.nativePtr = nativePtr;
+
+                int argCount;
+                this.nativePtr = MyMetArgs.GetArrHead(nativePtr, out argCount);
             }
             public CefCookie cookie()
             {
-                return new CefCookie(Cef3Binder.MyMetArgGetAsIntPtr(nativePtr, 0));
+                return new CefCookie(MyMetArgs.GetAsIntPtr(nativePtr, 1));
             }
         }
         //gen! void Cancel()
@@ -20400,7 +20596,9 @@ namespace LayoutFarm.CefBridge.Auto
             IntPtr nativePtr; //met arg native ptr
             internal CancelArgs(IntPtr nativePtr)
             {
-                this.nativePtr = nativePtr;
+
+                int argCount;
+                this.nativePtr = MyMetArgs.GetArrHead(nativePtr, out argCount);
             }
         }
         public interface I0
@@ -20573,7 +20771,9 @@ namespace LayoutFarm.CefBridge.Auto
             IntPtr nativePtr; //met arg native ptr
             internal ReadArgs(IntPtr nativePtr)
             {
-                this.nativePtr = nativePtr;
+
+                int argCount;
+                this.nativePtr = MyMetArgs.GetArrHead(nativePtr, out argCount);
             }
             public IntPtr ptr()
             {
@@ -20581,11 +20781,11 @@ namespace LayoutFarm.CefBridge.Auto
             }
             public uint size()
             {
-                return Cef3Binder.MyMetArgGetAsUInt32(nativePtr, 1);
+                return MyMetArgs.GetAsUInt32(nativePtr, 2);
             }
             public uint n()
             {
-                return Cef3Binder.MyMetArgGetAsUInt32(nativePtr, 2);
+                return MyMetArgs.GetAsUInt32(nativePtr, 3);
             }
         }
         //gen! int Seek(int64 offset,int whence)
@@ -20594,15 +20794,17 @@ namespace LayoutFarm.CefBridge.Auto
             IntPtr nativePtr; //met arg native ptr
             internal SeekArgs(IntPtr nativePtr)
             {
-                this.nativePtr = nativePtr;
+
+                int argCount;
+                this.nativePtr = MyMetArgs.GetArrHead(nativePtr, out argCount);
             }
             public long offset()
             {
-                return Cef3Binder.MyMetArgGetAsInt64(nativePtr, 0);
+                return MyMetArgs.GetAsInt64(nativePtr, 1);
             }
             public int whence()
             {
-                return Cef3Binder.MyMetArgGetAsInt32(nativePtr, 1);
+                return MyMetArgs.GetAsInt32(nativePtr, 2);
             }
         }
         //gen! int64 Tell()
@@ -20611,7 +20813,9 @@ namespace LayoutFarm.CefBridge.Auto
             IntPtr nativePtr; //met arg native ptr
             internal TellArgs(IntPtr nativePtr)
             {
-                this.nativePtr = nativePtr;
+
+                int argCount;
+                this.nativePtr = MyMetArgs.GetArrHead(nativePtr, out argCount);
             }
         }
         //gen! int Eof()
@@ -20620,7 +20824,9 @@ namespace LayoutFarm.CefBridge.Auto
             IntPtr nativePtr; //met arg native ptr
             internal EofArgs(IntPtr nativePtr)
             {
-                this.nativePtr = nativePtr;
+
+                int argCount;
+                this.nativePtr = MyMetArgs.GetArrHead(nativePtr, out argCount);
             }
         }
         //gen! bool MayBlock()
@@ -20629,7 +20835,9 @@ namespace LayoutFarm.CefBridge.Auto
             IntPtr nativePtr; //met arg native ptr
             internal MayBlockArgs(IntPtr nativePtr)
             {
-                this.nativePtr = nativePtr;
+
+                int argCount;
+                this.nativePtr = MyMetArgs.GetArrHead(nativePtr, out argCount);
             }
         }
         public interface I0
@@ -20771,7 +20979,9 @@ namespace LayoutFarm.CefBridge.Auto
             IntPtr nativePtr; //met arg native ptr
             internal WriteArgs(IntPtr nativePtr)
             {
-                this.nativePtr = nativePtr;
+
+                int argCount;
+                this.nativePtr = MyMetArgs.GetArrHead(nativePtr, out argCount);
             }
             public IntPtr ptr()
             {
@@ -20779,11 +20989,11 @@ namespace LayoutFarm.CefBridge.Auto
             }
             public uint size()
             {
-                return Cef3Binder.MyMetArgGetAsUInt32(nativePtr, 1);
+                return MyMetArgs.GetAsUInt32(nativePtr, 2);
             }
             public uint n()
             {
-                return Cef3Binder.MyMetArgGetAsUInt32(nativePtr, 2);
+                return MyMetArgs.GetAsUInt32(nativePtr, 3);
             }
         }
         //gen! int Seek(int64 offset,int whence)
@@ -20792,15 +21002,17 @@ namespace LayoutFarm.CefBridge.Auto
             IntPtr nativePtr; //met arg native ptr
             internal SeekArgs(IntPtr nativePtr)
             {
-                this.nativePtr = nativePtr;
+
+                int argCount;
+                this.nativePtr = MyMetArgs.GetArrHead(nativePtr, out argCount);
             }
             public long offset()
             {
-                return Cef3Binder.MyMetArgGetAsInt64(nativePtr, 0);
+                return MyMetArgs.GetAsInt64(nativePtr, 1);
             }
             public int whence()
             {
-                return Cef3Binder.MyMetArgGetAsInt32(nativePtr, 1);
+                return MyMetArgs.GetAsInt32(nativePtr, 2);
             }
         }
         //gen! int64 Tell()
@@ -20809,7 +21021,9 @@ namespace LayoutFarm.CefBridge.Auto
             IntPtr nativePtr; //met arg native ptr
             internal TellArgs(IntPtr nativePtr)
             {
-                this.nativePtr = nativePtr;
+
+                int argCount;
+                this.nativePtr = MyMetArgs.GetArrHead(nativePtr, out argCount);
             }
         }
         //gen! int Flush()
@@ -20818,7 +21032,9 @@ namespace LayoutFarm.CefBridge.Auto
             IntPtr nativePtr; //met arg native ptr
             internal FlushArgs(IntPtr nativePtr)
             {
-                this.nativePtr = nativePtr;
+
+                int argCount;
+                this.nativePtr = MyMetArgs.GetArrHead(nativePtr, out argCount);
             }
         }
         //gen! bool MayBlock()
@@ -20827,7 +21043,9 @@ namespace LayoutFarm.CefBridge.Auto
             IntPtr nativePtr; //met arg native ptr
             internal MayBlockArgs(IntPtr nativePtr)
             {
-                this.nativePtr = nativePtr;
+
+                int argCount;
+                this.nativePtr = MyMetArgs.GetArrHead(nativePtr, out argCount);
             }
         }
         public interface I0
@@ -20965,19 +21183,21 @@ namespace LayoutFarm.CefBridge.Auto
             IntPtr nativePtr; //met arg native ptr
             internal ExecuteArgs(IntPtr nativePtr)
             {
-                this.nativePtr = nativePtr;
+
+                int argCount;
+                this.nativePtr = MyMetArgs.GetArrHead(nativePtr, out argCount);
             }
             public string name()
             {
-                return Cef3Binder.MyMetArgGetAsString(nativePtr, 0);
+                return MyMetArgs.GetAsString(nativePtr, 1);
             }
             public CefV8Value _object()
             {
-                return new CefV8Value(Cef3Binder.MyMetArgGetAsIntPtr(nativePtr, 1));
+                return new CefV8Value(MyMetArgs.GetAsIntPtr(nativePtr, 2));
             }
             public CefV8ValueList arguments()
             {
-                return new CefV8ValueList(Cef3Binder.MyMetArgGetAsIntPtr(nativePtr, 2));
+                return new CefV8ValueList(MyMetArgs.GetAsIntPtr(nativePtr, 3));
             }
             public IntPtr retval()
             {
@@ -20985,7 +21205,7 @@ namespace LayoutFarm.CefBridge.Auto
             }
             public string exception()
             {
-                return Cef3Binder.MyMetArgGetAsString(nativePtr, 4);
+                return MyMetArgs.GetAsString(nativePtr, 5);
             }
         }
         public interface I0

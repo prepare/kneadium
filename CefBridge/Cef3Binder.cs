@@ -595,112 +595,10 @@ namespace LayoutFarm.CefBridge
         public static extern void GetListCount(int listType, IntPtr list, out int count);
         [DllImport(CEF_CLIENT_DLL, CallingConvention = CallingConvention.Cdecl)]
         public static extern void GetListElement(int elemType, IntPtr list, int index, ref JsValue jsvalue);
-        //met args
-        [DllImport(CEF_CLIENT_DLL, CallingConvention = CallingConvention.Cdecl)]
-        public static extern int MyMetArgGetCount(IntPtr myMetArgs);
-        [DllImport(CEF_CLIENT_DLL, CallingConvention = CallingConvention.Cdecl)]
-        static unsafe extern void* MyMetArgGetArgAddress(IntPtr myMetArgs, int index);
-        [DllImport(CEF_CLIENT_DLL, CallingConvention = CallingConvention.Cdecl)]
-        public static unsafe extern void* MyMetArgGetArgAddressH(IntPtr /*MyMetArgsN*/mymetArgs, out int argCount);
-        //--------
 
-        public static string MyMetArgGetAsString(IntPtr myMetArgs, int index)
-        {
-            unsafe
-            {
-                return Cef3Binder.MyCefJsReadString((JsValue*)Cef3Binder.MyMetArgGetArgAddress(myMetArgs, index));
-            }
-        }
-        public static int MyMetArgGetAsInt32(IntPtr myMetArgs, int index)
-        {
-            unsafe
-            {
-                JsValue* jsvalue = (JsValue*)Cef3Binder.MyMetArgGetArgAddress(myMetArgs, index);
-                return jsvalue->I32;
-            }
-        }
-        public static uint MyMetArgGetAsUInt32(IntPtr myMetArgs, int index)
-        {
-            unsafe
-            {
-                JsValue* jsvalue = (JsValue*)Cef3Binder.MyMetArgGetArgAddress(myMetArgs, index);
-                return (uint)jsvalue->I32;
-            }
-        }
-        public static long MyMetArgGetAsInt64(IntPtr myMetArgs, int index)
-        {
-            unsafe
-            {
-                JsValue* jsvalue = (JsValue*)Cef3Binder.MyMetArgGetArgAddress(myMetArgs, index);
-                return jsvalue->I64;
-            }
-        }
-        public static ulong MyMetArgGetAsUInt64(IntPtr myMetArgs, int index)
-        {
-            unsafe
-            {
-                JsValue* jsvalue = (JsValue*)Cef3Binder.MyMetArgGetArgAddress(myMetArgs, index);
-                return (ulong)jsvalue->I64;
-            }
-        }
-        public static bool MyMetArgGetAsBool(IntPtr myMetArgs, int index)
-        {
-            unsafe
-            {
-                JsValue* jsvalue = (JsValue*)Cef3Binder.MyMetArgGetArgAddress(myMetArgs, index);
-                return jsvalue->I32 != 0;
-            }
-        }
-        public static double MyMetArgGetAsDouble(IntPtr myMetArgs, int index)
-        {
-            unsafe
-            {
-                JsValue* jsvalue = (JsValue*)Cef3Binder.MyMetArgGetArgAddress(myMetArgs, index);
-                return jsvalue->Num;
-            }
-        }
-        public static float MyMetArgGetAsFloat(IntPtr myMetArgs, int index)
-        {
-            unsafe
-            {
-                JsValue* jsvalue = (JsValue*)Cef3Binder.MyMetArgGetArgAddress(myMetArgs, index);
-                return (float)jsvalue->Num;
-            }
-        }
-        public static IntPtr MyMetArgGetAsIntPtr(IntPtr myMetArgs, int index)
-        {
-            unsafe
-            {
-                JsValue* jsvalue = (JsValue*)Cef3Binder.MyMetArgGetArgAddress(myMetArgs, index);
-                return jsvalue->Ptr;
-            }
-        }
-        public static void MyMetArgSetBoolToAddress(IntPtr myMetArgs, int index, bool value)
-        {
-            unsafe
-            {
-                JsValue* jsvalue = (JsValue*)Cef3Binder.MyMetArgGetArgAddress(myMetArgs, index);
-                *((bool*)jsvalue->Ptr) = value;
-            }
-        }
-        public static void MyMetArgSetUInt32ToAddress(IntPtr myMetArgs, int index, uint value)
-        {
-            unsafe
-            {
 
-                JsValue* jsvalue = (JsValue*)Cef3Binder.MyMetArgGetArgAddress(myMetArgs, index);
-                *((uint*)jsvalue->Ptr) = value;
-            }
-        }
-        public static void MyMetArgSetInt32ToAddress(IntPtr myMetArgs, int index, int value)
-        {
-            unsafe
-            {
 
-                JsValue* jsvalue = (JsValue*)Cef3Binder.MyMetArgGetArgAddress(myMetArgs, index);
-                *((int*)jsvalue->Ptr) = value;
-            }
-        }
+
         public static string MyCefJsReadString(ref JsValue ret)
         {
             unsafe
@@ -958,5 +856,113 @@ namespace LayoutFarm.CefBridge
             return dlerror();
         }
     }
+
+
+
+    static class MyMetArgs
+    {
+        //TODO: inline?
+        internal static IntPtr GetArrHead(IntPtr nativePtr, out int argCount)
+        {
+            unsafe
+            {
+                void* native_ptr = (void*)(nativePtr);
+                argCount = *((int*)nativePtr);
+                //debug -> check type and argcount to ensure we get correct object   
+                return (IntPtr)((byte*)native_ptr + sizeof(int)); //+4 to (JsValue*)
+            }
+        }
+        internal static string GetAsString(IntPtr myMetArgs, int index)
+        {
+            unsafe
+            {
+                return Cef3Binder.MyCefJsReadString(((JsValue*)myMetArgs + index));
+            }
+        }
+        internal static int GetAsInt32(IntPtr myMetArgs, int index)
+        {
+            unsafe
+            {
+                return ((JsValue*)myMetArgs + index)->I32;
+            }
+        }
+        internal static uint GetAsUInt32(IntPtr myMetArgs, int index)
+        {
+            unsafe
+            {
+
+                return (uint)((JsValue*)myMetArgs + index)->I32;
+            }
+        }
+        internal static long GetAsInt64(IntPtr myMetArgs, int index)
+        {
+            unsafe
+            {
+                return ((JsValue*)myMetArgs + index)->I64;
+            }
+        }
+        internal static ulong GetAsUInt64(IntPtr myMetArgs, int index)
+        {
+            unsafe
+            {
+                return (ulong)((JsValue*)myMetArgs + index)->I64;
+            }
+        }
+        internal static bool GetAsBool(IntPtr myMetArgs, int index)
+        {
+            unsafe
+            {
+                return ((JsValue*)myMetArgs + index)->I32 != 0;
+            }
+        }
+        internal static double GetAsDouble(IntPtr myMetArgs, int index)
+        {
+            unsafe
+            {
+                return ((JsValue*)myMetArgs + index)->Num;
+            }
+        }
+        internal static float GetAsFloat(IntPtr myMetArgs, int index)
+        {
+            unsafe
+            {
+                return (float)((JsValue*)myMetArgs + index)->Num;
+            }
+        }
+        internal static IntPtr GetAsIntPtr(IntPtr myMetArgs, int index)
+        {
+            unsafe
+            {
+                return ((JsValue*)myMetArgs + index)->Ptr;
+            }
+        }
+        internal static void SetBoolToAddress(IntPtr myMetArgs, int index, bool value)
+        {
+            unsafe
+            {
+                JsValue* jsvalue = ((JsValue*)myMetArgs + index);
+                *((bool*)jsvalue->Ptr) = value;
+            }
+        }
+        internal static void SetUInt32ToAddress(IntPtr myMetArgs, int index, uint value)
+        {
+            unsafe
+            {
+
+                JsValue* jsvalue = ((JsValue*)myMetArgs + index);
+                *((uint*)jsvalue->Ptr) = value;
+            }
+        }
+        internal static void SetInt32ToAddress(IntPtr myMetArgs, int index, int value)
+        {
+            unsafe
+            {
+
+                JsValue* jsvalue = ((JsValue*)myMetArgs + index);
+                *((int*)jsvalue->Ptr) = value;
+            }
+        }
+    }
+
 
 }
