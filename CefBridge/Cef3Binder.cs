@@ -23,8 +23,8 @@ namespace LayoutFarm.CefBridge
     //----------------------------------------------------------------------
     //cef msg constant
     //----------------------------------------------------------------------
-     
-         
+
+
 
 
 
@@ -33,7 +33,9 @@ namespace LayoutFarm.CefBridge
     public enum MyCefMsg
     {
         MYCEF_MSG_UNKNOWN = 0,
-
+        //
+        CEF_MSG_RequestForMxCallback = 90,
+        //
         CEF_MSG_ClientHandler_NotifyBrowserClosing = 100,
         CEF_MSG_ClientHandler_NotifyBrowserClosed = 101,
         CEF_MSG_ClientHandler_NotifyBrowserCreated = 102,
@@ -87,7 +89,7 @@ namespace LayoutFarm.CefBridge
         CEF_SETTINGS_LogFile = 18,
         CEF_SETTINGS_LogSeverity = 19,
     }
-     
+
     public struct MyCefFrame
     {
         internal IntPtr nativePtr;
@@ -370,7 +372,7 @@ namespace LayoutFarm.CefBridge
             //----------------------------------------------------------- 
             //check version ...
             //1.
-            int myCefVersion = MyCefGetVersion(); 
+            int myCefVersion = MyCefGetVersion();
             clientApp = cefInitEssential.CreateClientApp();
             return true;
         }
@@ -599,7 +601,7 @@ namespace LayoutFarm.CefBridge
         [DllImport(CEF_CLIENT_DLL, CallingConvention = CallingConvention.Cdecl)]
         public static unsafe extern void* MyMetArgGetArgAddress(IntPtr myMetArgs, int index);
         [DllImport(CEF_CLIENT_DLL, CallingConvention = CallingConvention.Cdecl)]
-        public static unsafe extern void* MyMetArgGetArgAddressH(IntPtr /*MyMetArgsN*/mymetArgs,out int argCount);
+        public static unsafe extern void* MyMetArgGetArgAddressH(IntPtr /*MyMetArgsN*/mymetArgs, out int argCount);
         //--------
 
         public static string MyMetArgGetAsString(IntPtr myMetArgs, int index)

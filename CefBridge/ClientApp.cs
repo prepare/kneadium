@@ -38,12 +38,14 @@ namespace LayoutFarm.CefBridge
                 if (!isInitWithProcessHandle)
                 {
                     isInitWithProcessHandle = true;
-                    //1. register mx callback,
+                    //1) register mx callback,
                     //call-back must be created first (before client app).
                     //
                     Cef3Binder.RegisterManagedCallBack(this.mxCallback = new MyCefCallback(HandleNativeReq), 3);
-                    //2. create client app
+                    //2) create client app
+                    //1 process have 1 client app instance.                                        
                     this.clientAppPtr = Cef3Binder.MyCefCreateClientApp(processHandle);
+                    //the registered callback from previous step(1) was attached to the new client app.
                 }
             }
         }
@@ -56,6 +58,15 @@ namespace LayoutFarm.CefBridge
         {
             switch ((MyCefMsg)id)
             {
+                case MyCefMsg.CEF_MSG_RequestForMxCallback:
+                    {
+
+                        //native side asks for managed callback ...
+
+
+
+                    }
+                    break;
                 case MyCefMsg.CEF_MSG_ClientHandler_OnBeforePopup:
                     {
                         NativeCallArgs args = new NativeCallArgs(argsPtr);
@@ -143,6 +154,51 @@ namespace LayoutFarm.CefBridge
                 cefSettings.SetSubProcessPath(ReferencePaths.SUB_PROCESS_PATH);
             }
             cefSettings.SetCachePath(ReferencePaths.CACHE_PATH);
+        }
+    }
+
+    public struct CefSettings
+    {
+        IntPtr nativePtr;
+        internal CefSettings(IntPtr nativePtr)
+        {
+            this.nativePtr = nativePtr;
+        }
+        public void SetSubProcessPath(string value)
+        {
+            Cef3Binder.MyCefSetInitSettings(this.nativePtr,
+                CefSettingsKey.CEF_SETTINGS_BrowserSubProcessPath, value);
+        }
+        public void SetCachePath(string value)
+        {
+            Cef3Binder.MyCefSetInitSettings(this.nativePtr,
+                CefSettingsKey.CEF_SETTINGS_CachePath, value);
+        }
+        public void SetUserDirPath(string value)
+        {
+            Cef3Binder.MyCefSetInitSettings(this.nativePtr,
+                CefSettingsKey.CEF_SETTINGS_UserDirPath, value);
+        }
+        public void SetLocalDirPath(string value)
+        {
+            Cef3Binder.MyCefSetInitSettings(this.nativePtr,
+                CefSettingsKey.CEF_SETTINGS_LocalDirPath, value);
+        }
+        public void IgnoreCertErrror(bool value)
+        {
+            Cef3Binder.MyCefSetInitSettings(this.nativePtr,
+                CefSettingsKey.CEF_SETTINGS_IgnoreCertError, value ? "1" : "0");
+        }
+        public void SetRemoteDebuggingPort(int portNo)
+        {
+            Cef3Binder.MyCefSetInitSettings(this.nativePtr,
+                CefSettingsKey.CEF_SETTINGS_RemoteDebuggingPort, portNo.ToString());
+        }
+        public void SetLogSeverity(LayoutFarm.CefBridge.Auto.cef_log_severity_t logSeverity)
+        {
+            int severity = (int)logSeverity;
+            Cef3Binder.MyCefSetInitSettings(this.nativePtr,
+               CefSettingsKey.CEF_SETTINGS_LogSeverity, ((int)severity).ToString());
         }
     }
 }

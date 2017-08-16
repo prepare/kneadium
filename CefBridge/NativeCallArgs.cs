@@ -205,48 +205,5 @@ namespace LayoutFarm.CefBridge
         }
     }
 
-    public struct CefSettings
-    {
-        IntPtr nativePtr;
-        internal CefSettings(IntPtr nativePtr)
-        {
-            this.nativePtr = nativePtr;
-        }
-        public void SetSubProcessPath(string value)
-        {
-            Cef3Binder.MyCefSetInitSettings(this.nativePtr,
-                CefSettingsKey.CEF_SETTINGS_BrowserSubProcessPath, value);
-        }
-        public void SetCachePath(string value)
-        {
-            Cef3Binder.MyCefSetInitSettings(this.nativePtr,
-                CefSettingsKey.CEF_SETTINGS_CachePath, value);
-        }
-        public void SetUserDirPath(string value)
-        {
-            Cef3Binder.MyCefSetInitSettings(this.nativePtr,
-                CefSettingsKey.CEF_SETTINGS_UserDirPath, value);
-        }
-        public void SetLocalDirPath(string value)
-        {
-            Cef3Binder.MyCefSetInitSettings(this.nativePtr,
-                CefSettingsKey.CEF_SETTINGS_LocalDirPath, value);
-        }
-        public void IgnoreCertErrror(bool value)
-        {
-            Cef3Binder.MyCefSetInitSettings(this.nativePtr,
-                CefSettingsKey.CEF_SETTINGS_IgnoreCertError, value ? "1" : "0");
-        }
-        public void SetRemoteDebuggingPort(int portNo)
-        {
-            Cef3Binder.MyCefSetInitSettings(this.nativePtr,
-                CefSettingsKey.CEF_SETTINGS_RemoteDebuggingPort, portNo.ToString());
-        }
-        public void SetLogSeverity(LayoutFarm.CefBridge.Auto.cef_log_severity_t logSeverity)
-        {
-            int severity = (int)logSeverity;
-            Cef3Binder.MyCefSetInitSettings(this.nativePtr,
-               CefSettingsKey.CEF_SETTINGS_LogSeverity, ((int)severity).ToString());
-        }
-    }
+   
 }
