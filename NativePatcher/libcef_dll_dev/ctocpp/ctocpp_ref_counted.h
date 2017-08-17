@@ -99,7 +99,7 @@ class CefCToCppRefCounted : public BaseName {
   }
   //###_BEGIN
   managed_callback UnderlyingGetManagedCallBack() const {
-	  return NULL;
+	  return NULL; // CefCToCpp dose not have managed_callback
   }
   //###_END
   CefRefCount ref_count_;
@@ -161,6 +161,7 @@ bool CefCToCppRefCounted<ClassName, BaseName, StructName>::Release() const {
   UnderlyingRelease();
   if (ref_count_.Release()) {
     WrapperStruct* wrapperStruct = GetWrapperStruct(this);
+	
     // Verify that the wrapper offset was calculated correctly.
     DCHECK_EQ(kWrapperType, wrapperStruct->type_);
     delete wrapperStruct;
