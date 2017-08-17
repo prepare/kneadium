@@ -485,13 +485,26 @@ namespace BridgeBuilder
                 }
             }
             //------------
-            //start parse line by line
+            //start parse line-by-line
             //------------
             ParseFileContent();
-            //------------ 
-
+            //------------  
         }
-
+        public void Parse(string filename, IEnumerable<string> lines)
+        {
+#if DEBUG
+            this.dbugCurrentFilename = Path.GetFileName(filename);
+#endif
+            allLines.AddRange(lines);
+            //
+            cu = new CodeCompilationUnit(Path.GetFileNameWithoutExtension(filename));
+            cu.Filename = filename;
+            //------------
+            //start parse line-by-line
+            //------------
+            ParseFileContent();
+            //------------  
+        }
         void ReadUntilEscapeFromBlock()
         {
             int openBraceCount = 0;
@@ -692,11 +705,9 @@ namespace BridgeBuilder
                                         }
                                     }
                                     break;
-
                                 case "typedef":
                                     {
                                         //parse typedef 
-
                                         ParseCTypeDef(globalTypeDecl);
                                     }
                                     break;
@@ -719,6 +730,12 @@ namespace BridgeBuilder
                                                 throw new NotSupportedException();
                                             }
                                         }
+                                    }
+                                    break;
+                                case "namespace":
+                                    {
+                                        //parse namespace
+                                        ParseNamespace(globalTypeDecl);
                                     }
                                     break;
                                 default:
@@ -1096,6 +1113,25 @@ namespace BridgeBuilder
             }
             return typeTemplateNotation;
         }
+        bool ParseNamespace(CodeTypeDeclaration currentTypeDecl)
+        {
+            string namespaceName = ExpectId(); //may be null
+            if (!ExpectPunc("{"))
+            {
+                throw new NotSupportedException();
+            }
+            //we create a typedecl for namespace 
+            CodeTypeDeclaration namespace_as_type = new CodeTypeDeclaration();
+            namespace_as_type.Kind = TypeKind.Namespace;
+            namespace_as_type.Name = namespaceName ?? "";
+            
+            currentTypeDecl.AddMember(namespace_as_type);
+
+            while (ParseTypeMember(namespace_as_type)) ;
+
+
+            return true;
+        }
         bool ParseCTypeDef(CodeTypeDeclaration codeTypeDecl)
         {
             Token[] comments = FlushCollectedLineComments();
@@ -1382,7 +1418,7 @@ namespace BridgeBuilder
 
 #if DEBUG
             dbugCount++;
-            
+
 #endif
 
             //member modifiers
@@ -1466,7 +1502,7 @@ namespace BridgeBuilder
             }
 
             //modifier
-            bool isOperatorMethod = false; 
+            bool isOperatorMethod = false;
             bool isStatic = ExpectId("static");
             bool isVirtual = ExpectId("virtual");
             bool isConst = ExpectId("const");
@@ -1607,7 +1643,7 @@ namespace BridgeBuilder
                             //pointer field name
                             string delFieldName = ExpectId();
 
-                            CodeFunctionPointerTypeRefernce funcPtrType = new CodeFunctionPointerTypeRefernce(delFieldName); 
+                            CodeFunctionPointerTypeRefernce funcPtrType = new CodeFunctionPointerTypeRefernce(delFieldName);
                             funcPtrType.ReturnType = retType;
                             //
                             CodeFieldDeclaration fieldDecl = new CodeFieldDeclaration();

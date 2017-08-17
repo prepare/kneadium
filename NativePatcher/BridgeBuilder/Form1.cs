@@ -56,15 +56,15 @@ namespace BridgeBuilder
             if (srcFolder == targetFolder)
             {
                 throw new NotSupportedException();
-            } 
+            }
             string[] srcFiles = System.IO.Directory.GetFiles(srcFolder);
             foreach (var f in srcFiles)
             {
                 System.IO.File.Copy(f,
                     targetFolder + "\\" + System.IO.Path.GetFileName(f), true);
-            } 
+            }
         }
-        
+
         private void cmdLoadPatchAndApplyPatch_Click(object sender, EventArgs e)
         {
             //cef_binary_3.3071.1647 
@@ -271,6 +271,37 @@ namespace BridgeBuilder
             return dic;
         }
 
+        CodeCompilationUnit ParseCppFile(string filename)
+        {
+            //-----
+            //this is for Cef3 cpp-to-c .cc file only!!!
+            //test_cpptoc_List -> this version we need some pre-precessing step
+            //-----
+
+            List<string> lines = new List<string>(System.IO.File.ReadAllLines(filename));
+            List<string> selectedLines = new List<string>();
+            int j = lines.Count;
+
+            for (int i = 0; i < j; ++i)
+            {
+                string line = lines[i].Trim();
+                if (line.StartsWith("//"))
+                {
+                    //this is comment
+                    //read the comment
+                    if (line.Contains("CONSTRUCTOR"))
+                    {
+                        //stop here
+                        break;
+                    }
+                }
+                selectedLines.Add(line);
+            }
+
+            CodeCompilationUnit cu = ParseWrapper(filename, selectedLines);
+
+            return cu;
+        }
         private void button2_Click(object sender, EventArgs e)
         {
             //cpp-to-c wrapper and c-to-cpp wrapper
@@ -280,6 +311,27 @@ namespace BridgeBuilder
 
             List<CodeCompilationUnit> totalCuList_capi = new List<CodeCompilationUnit>();
             List<CodeCompilationUnit> totalCuList = new List<CodeCompilationUnit>();
+            List<CodeCompilationUnit> test_cpptoc_List = new List<CodeCompilationUnit>();
+
+            {
+
+                string[] onlyCppFiles = System.IO.Directory.GetFiles(cefDir + @"\libcef_dll\cpptoc", "*.cc");
+                //we skip some files
+                Dictionary<string, bool> skipFiles = CreateSkipFiles(new string[] {
+                    "base_ref_counted_cpptoc.cc" ,
+                    "base_scoped_cpptoc.cc" });
+                int j = onlyCppFiles.Length;
+                for (int i = 0; i < j; ++i)
+                {
+                    if (skipFiles.ContainsKey(System.IO.Path.GetFileName(onlyCppFiles[i])))
+                    {
+                        continue;
+                    }
+                    CodeCompilationUnit cu = ParseCppFile(onlyCppFiles[i]);
+                    test_cpptoc_List.Add(cu);                     
+                }
+            }
+
             {
                 //cef capi
                 string[] onlyHeaderFiles = System.IO.Directory.GetFiles(cefDir + @"\include\capi", "*.h");
@@ -790,6 +842,14 @@ namespace BridgeBuilder
             //
             Cef3HeaderFileParser headerParser = new Cef3HeaderFileParser();
             headerParser.Parse(srcFile);
+            return headerParser.Result;
+        }
+        CodeCompilationUnit ParseWrapper(string srcFile, IEnumerable<string> lines)
+        {
+            //string srcFile = @"D:\projects\cef_binary_3.3071.1647.win32\libcef_dll\ctocpp\frame_ctocpp.h";
+            //
+            Cef3HeaderFileParser headerParser = new Cef3HeaderFileParser();
+            headerParser.Parse(srcFile, lines);
             return headerParser.Result;
         }
     }
