@@ -250,15 +250,15 @@ namespace BridgeBuilder
                                         switch (simpleElem.PrimitiveTypeKind)
                                         {
                                             case PrimitiveTypeKind.CefString:
-                                                if(stackBased)
+                                                if (stackBased)
                                                 {
-                                                    par.ArgExtractCode = "SetCefStringToJsValue2(" + destExpression + "," + srcExpression + ");"; 
+                                                    par.ArgExtractCode = "SetCefStringToJsValue2(" + destExpression + "," + srcExpression + ");";
                                                 }
                                                 else
                                                 {
                                                     par.ArgExtractCode = "SetCefStringToJsValue(" + destExpression + "," + srcExpression + ");";
                                                     //need StringHolder cleanup
-                                                    par.ArgPostExtractCode = "DeleteCefStringHolderFromJsValue(" + destExpression + ");"; 
+                                                    par.ArgPostExtractCode = "DeleteCefStringHolderFromJsValue(" + destExpression + ");";
                                                 }
 
                                                 return;
@@ -314,7 +314,7 @@ namespace BridgeBuilder
                                                         //c-to-cpp => from 'raw' pointer to 'smart' pointer
                                                         //cpp-to-c => from 'smart' pointer to 'raw' pointer
 
-                                                        if(stackBased)
+                                                        if (stackBased)
                                                         {
 
                                                             if (implBy.Name.Contains("CToCpp"))
@@ -368,7 +368,7 @@ namespace BridgeBuilder
                                                                 throw new NotSupportedException();
                                                             }
                                                         }
-                                                       
+
                                                     }
                                                 }
                                         }
@@ -423,7 +423,7 @@ namespace BridgeBuilder
                                                 //c-to-cpp => from 'raw' pointer to 'smart' pointer
                                                 //cpp-to-c => from 'smart' pointer to 'raw' pointer
 
-                                                if(stackBased)
+                                                if (stackBased)
                                                 {
 
 
@@ -473,7 +473,7 @@ namespace BridgeBuilder
                                                     }
 
                                                 }
-                                               
+
                                                 return;
                                             }
                                         }
@@ -613,14 +613,14 @@ namespace BridgeBuilder
                                 }
                                 break;
                             case PrimitiveTypeKind.CefString:
-                                if(stackBased)
+                                if (stackBased)
                                 {
                                     par.ArgExtractCode = "SetCefStringToJsValue(" + destExpression + "," + srcExpression + ");";
                                 }
                                 else
                                 {
                                     par.ArgExtractCode = "SetCefStringToJsValue(" + destExpression + "," + srcExpression + ");";
-                                } 
+                                }
                                 return;
                             case PrimitiveTypeKind.NaitveInt:
                                 par.ArgExtractCode = "MyCefSetInt32(" + destExpression + ",(int32_t)" + srcExpression + ");";
@@ -2908,17 +2908,14 @@ namespace BridgeBuilder
             stbuilder.Append("namespace " + className);
             stbuilder.AppendLine("{");
 
-            stbuilder.AppendLine("const int _typeName=" + "CefTypeName_" + orgDecl.Name + ";");
+           
             int nn = callToDotNetMets.Count;
             for (int mm = 0; mm < nn; ++mm)
             {
                 //implement on event notificationi
                 MethodTxInfo met = callToDotNetMets[mm];
-                met.CppMethodSwitchCaseName = className + "_" + met.Name + "_" + (mm + 1);
-                stbuilder.AppendLine("const int " + met.CppMethodSwitchCaseName + "=" + (mm + 1) + ";");
+                met.CppMethodSwitchCaseName = className + "_" + met.Name + "_" + (mm + 1); 
             }
-
-
 
             nn = callToDotNetMets.Count;
             for (int mm = 0; mm < nn; ++mm)
@@ -2933,6 +2930,12 @@ namespace BridgeBuilder
 
             _cppHeaderStBuilder.AppendLine("namespace " + className);
             _cppHeaderStBuilder.AppendLine("{");
+            _cppHeaderStBuilder.AppendLine("const int _typeName=" + "CefTypeName_" + orgDecl.Name + ";");
+            for (int mm = 0; mm < nn; ++mm)
+            {
+                MethodTxInfo met = callToDotNetMets[mm];
+                _cppHeaderStBuilder.AppendLine("const int " + met.CppMethodSwitchCaseName + "=" + (mm + 1) + ";");
+            }
             for (int mm = 0; mm < nn; ++mm)
             {
                 //implement on event notificationi
