@@ -58,21 +58,21 @@ request_handler_on_before_browse(struct _cef_request_handler_t* self,
   if (!request)
     return 0;
   //###_BEGIN 
- /* auto mcallback = CefRequestHandlerCppToC::Get(self)->GetManagedCallBack();
+  auto mcallback = CefRequestHandlerCppToC::Get(self)->GetManagedCallBack();
   if (mcallback) 
   {
 		  MyMetArgsN args;
 		  memset(&args, 0, sizeof(MyMetArgsN));
 		  args.argCount = 4;
-		  jsvalue vargs[4];
+		  jsvalue vargs[5];
 		  args.vargs = vargs;
-		  MyCefSetVoidPtr(&vargs[0], browser);
-		  MyCefSetVoidPtr(&vargs[1], frame);
-		  MyCefSetVoidPtr(&vargs[2], request);
-		  MyCefSetBool(&vargs[3], is_redirect);
+		  MyCefSetVoidPtr(&vargs[1], browser);
+		  MyCefSetVoidPtr(&vargs[2], frame);
+		  MyCefSetVoidPtr(&vargs[3], request);
+		  MyCefSetBool(&vargs[4], is_redirect);
 		  mcallback(MyCefRequestHandler_OnBeforeBrowse_1, &args);
-		  return args.ret.i32 != 0;  
-  }*/
+		  return vargs[0].i32 != 0;
+  } 
    
   //###_END
   bool _retval = CefRequestHandlerCppToC::Get(self)->OnBeforeBrowse(
@@ -451,21 +451,21 @@ request_handler_on_protocol_execution(struct _cef_request_handler_t* self,
   bool allow_os_executionBool =
       (allow_os_execution && *allow_os_execution) ? true : false;
 
-  ////###_BEGIN
-  //auto mcallback = CefRequestHandlerCppToC::Get(self)->GetManagedCallBack();
-  //if (mcallback) {
-	 // MyMetArgsN args;
-	 // memset(&args, 0, sizeof(MyMetArgsN));
-	 // args.argCount = 3;
-	 // jsvalue vargs[3];
-	 // args.vargs = vargs;
-	 // MyCefSetVoidPtr(&vargs[0], browser);
-	 // SetCefStringToJsValue(&vargs[1], url);
-	 // MyCefSetVoidPtr(&vargs[2], allow_os_execution);
-	 // mcallback(MyCefRequestHandler_OnProtocolExecution_11, &args);
-	 // DeleteCefStringHolderFromJsValue(&vargs[1]);
-  //}
-  ////###_END
+  //###_BEGIN
+  auto mcallback = CefRequestHandlerCppToC::Get(self)->GetManagedCallBack();
+  if (mcallback) {
+	  MyMetArgsN args;
+	  memset(&args, 0, sizeof(MyMetArgsN));
+	  args.argCount = 3;
+	  jsvalue vargs[4];
+	  args.vargs = vargs;
+	  MyCefSetVoidPtr(&vargs[1], browser);
+	  SetCefStringToJsValue2(&vargs[2], url);
+	  MyCefSetVoidPtr(&vargs[3], allow_os_execution);
+	  mcallback(MyCefRequestHandler_OnProtocolExecution_11, &args);
+	  
+  }
+  //###_END
 
   // Execute
   CefRequestHandlerCppToC::Get(self)->OnProtocolExecution(
