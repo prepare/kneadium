@@ -561,9 +561,11 @@ namespace BridgeBuilder
             StringBuilder csCodeStBuilder = new StringBuilder();
             AddCppBuiltInBeginCode(cppCodeStBuilder);
 
+            CodeStringBuilder cppHeaderAutogen = new CodeStringBuilder();
+            cppHeaderAutogen.AppendLine("//AUTOGEN");
             foreach (TypeTxInfo txinfo in typeTxInfoList)
             {
-                cppCodeStBuilder.AppendLine("const int CefTypeName_" + txinfo.TypeDecl.Name + " = " + txinfo.CsInterOpTypeNameId.ToString() + ";");
+                cppHeaderAutogen.AppendLine("const int CefTypeName_" + txinfo.TypeDecl.Name + " = " + txinfo.CsInterOpTypeNameId.ToString() + ";");
             }
 
 
@@ -574,19 +576,14 @@ namespace BridgeBuilder
                 "using System.Collections.Generic;\r\n" +
                 "namespace LayoutFarm.CefBridge.Auto{\r\n");
 
-
-
+             
 
             foreach (CefTypeTxPlan tx in enumTxPlans)
             {
                 CodeStringBuilder csCode = new CodeStringBuilder();
                 tx.GenerateCsCode(csCode);
                 csCodeStBuilder.Append(csCode.ToString());
-            }
-
-
-
-
+            } 
 
             //
             foreach (CefInstanceElementTxPlan tx in instanceClassPlans)
@@ -637,8 +634,7 @@ namespace BridgeBuilder
             }
 
             // 
-            CodeStringBuilder cppHeaderAutogen = new CodeStringBuilder();
-            cppHeaderAutogen.AppendLine("//AUTOGEN");
+           
             //create default msg handler
 
 
