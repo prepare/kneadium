@@ -358,27 +358,27 @@ namespace LayoutFarm.CefBridge
                 //        LoadErrorPage(cefBrowser, cefFrame, errorCode, errorText, failedUrl);
                 //    }
                 //    break;
-                case MyCefMsg.CEF_MSG_ClientHandler_OnCertError:
-                    {
-                        var args = new NativeCallArgs(argsPtr);
-                        string certErrMsg = args.GetArgAsString(0);
-                        args.SetOutput(0, 1);//true
-                    }
-                    break;
-                case MyCefMsg.CEF_MSG_ClientHandler_ExecCustomProtocol:
-                    {
-                        //disable all protocol
-                        var args = new NativeCallArgs(argsPtr);
-                        if (browserProcessListener != null)
-                        {
-                            browserProcessListener.OnExecProtocol(args);
-                        }
-                        else
-                        {
-                            args.SetOutput(0, 0);//disable all protocol
-                        }
-                    }
-                    break;
+                //case MyCefMsg.CEF_MSG_ClientHandler_OnCertError:
+                //    {
+                //        var args = new NativeCallArgs(argsPtr);
+                //        string certErrMsg = args.GetArgAsString(0);
+                //        args.SetOutput(0, 1);//true
+                //    }
+                //    break;
+                //case MyCefMsg.CEF_MSG_ClientHandler_ExecCustomProtocol:
+                //    {
+                //        //disable all protocol
+                //        var args = new NativeCallArgs(argsPtr);
+                //        if (browserProcessListener != null)
+                //        {
+                //            browserProcessListener.OnExecProtocol(args);
+                //        }
+                //        else
+                //        {
+                //            args.SetOutput(0, 0);//disable all protocol
+                //        }
+                //    }
+                //    break;
                 case MyCefMsg.CEF_MSG_ClientHandler_SetResourceManager:
                     {
                         //setup resource mx
