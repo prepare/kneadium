@@ -578,6 +578,9 @@ namespace LayoutFarm.CefBridge
         public static extern unsafe void MyCefString_Read(IntPtr cefStr, char* outputBuffer, int outputBufferLen, out int actualLength);
         [DllImport(CEF_CLIENT_DLL, CallingConvention = CallingConvention.Cdecl)]
         public static extern unsafe void MyCefStringHolder_Read(IntPtr mycefStrHolder, char* outputBuffer, int outputBufferLen, out int actualLength);
+        [DllImport(CEF_CLIENT_DLL, CallingConvention = CallingConvention.Cdecl)]
+        public static extern unsafe void MyCefStringGetRawPtr(IntPtr cefstring, out char* outputBuffer, out int actualLength);
+
         [DllImport(CEF_CLIENT_DLL, CallingConvention = CallingConvention.Cdecl, CharSet = CharSet.Unicode)]
         public static extern unsafe void MyCefJs_CefV8Value_ReadAsString(IntPtr cefV8Value, char* outputBuffer, int outputBufferLen, out int actualLength);
         [DllImport(CEF_CLIENT_DLL, CallingConvention = CallingConvention.Cdecl)]
@@ -614,35 +617,7 @@ namespace LayoutFarm.CefBridge
                 return new string(buffHead, 0, actualLen);
             }
         }
-        public unsafe static string MyCefJsReadString(JsValue* ret)
-        {
-            int actualLen;
-            int buffLen = ret->I32 + 1; //string len
-            if (buffLen < 1024)
-            {
-                char* buffHead = stackalloc char[buffLen];
-                Cef3Binder.MyCefStringHolder_Read(ret->Ptr, buffHead, buffLen, out actualLen);
-                if (actualLen > buffLen)
-                {
-                    //read more
-                }
-                return new string(buffHead, 0, actualLen);
-            }
-            else
-            {
-                char[] buffHead = new char[buffLen];
-                fixed (char* h = &buffHead[0])
-                {
-                    Cef3Binder.MyCefStringHolder_Read(ret->Ptr, h, buffLen, out actualLen);
-                    if (actualLen > buffLen)
-                    {
-                        //read more
-                    }
-                }
-                return new string(buffHead, 0, actualLen);
-            }
 
-        }
         public static void MyCefCreateNativeStringHolder(ref JsValue ret, string value)
         {
             unsafe
@@ -881,7 +856,7 @@ namespace LayoutFarm.CefBridge
         //TODO: inline? 
 
         internal static IntPtr GetArrHead(IntPtr nativePtr, out int argCount)
-        {   
+        {
             unsafe
             {
                 //struct MyMetArgsN
@@ -893,14 +868,14 @@ namespace LayoutFarm.CefBridge
                 //return address of vargs
                 argCount = *((int*)nativePtr); //MyMetArgsN
                 IntPtr h1 = (IntPtr)(((byte*)nativePtr) + sizeof(int));
-                return (IntPtr)(*((JsValue**)h1)); 
+                return (IntPtr)(*((JsValue**)h1));
             }
         }
         internal static string GetAsString(IntPtr myMetArgs, int index)
         {
             unsafe
             {
-                return Cef3Binder.MyCefJsReadString((JsValue*)myMetArgs + index);
+                return MyCefJsReadString((JsValue*)myMetArgs + index);
             }
         }
         internal static int GetAsInt32(IntPtr myMetArgs, int index)
@@ -985,6 +960,43 @@ namespace LayoutFarm.CefBridge
                 JsValue* jsvalue = ((JsValue*)myMetArgs + index);
                 *((int*)jsvalue->Ptr) = value;
             }
+        }
+
+        unsafe static string MyCefJsReadString(JsValue* ret)
+        {
+            int actualLen;
+            int buffLen = ret->I32 + 1; //string len
+            //check if string is on method-call's frame stack or heap
+            if (ret->Type == JsValueType.NativeCefString)
+            {
+                char* rawCefString_char16_t;
+                Cef3Binder.MyCefStringGetRawPtr(ret->Ptr, out rawCefString_char16_t, out actualLen);
+                return new string(rawCefString_char16_t, 0, actualLen); 
+            }
+            if (buffLen < 1024)
+            {
+                char* buffHead = stackalloc char[buffLen];
+                Cef3Binder.MyCefStringHolder_Read(ret->Ptr, buffHead, buffLen, out actualLen);
+                if (actualLen > buffLen)
+                {
+                    //read more
+                }
+                return new string(buffHead, 0, actualLen);
+            }
+            else
+            {
+                char[] buffHead = new char[buffLen];
+                fixed (char* h = &buffHead[0])
+                {
+                    Cef3Binder.MyCefStringHolder_Read(ret->Ptr, h, buffLen, out actualLen);
+                    if (actualLen > buffLen)
+                    {
+                        //read more
+                    }
+                }
+                return new string(buffHead, 0, actualLen);
+            }
+
         }
     }
 

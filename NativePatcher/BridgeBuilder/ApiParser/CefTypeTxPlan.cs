@@ -209,7 +209,7 @@ namespace BridgeBuilder
         /// <param name="par"></param>
         /// <param name="destExpression"></param>
         /// <param name="srcExpression"></param>
-        internal static void PrepareDataFromNativeToCs(MethodParameterTxInfo par, string destExpression, string srcExpression)
+        internal static void PrepareDataFromNativeToCs(MethodParameterTxInfo par, string destExpression, string srcExpression, bool userStackForString)
         {
 
             TypeSymbol ret = par.TypeSymbol;
@@ -250,9 +250,16 @@ namespace BridgeBuilder
                                         switch (simpleElem.PrimitiveTypeKind)
                                         {
                                             case PrimitiveTypeKind.CefString:
-                                                par.ArgExtractCode = "SetCefStringToJsValue(" + destExpression + "," + srcExpression + ");";
-                                                //need StringHolder cleanup
-                                                par.ArgPostExtractCode = "DeleteCefStringHolderFromJsValue(" + destExpression + ");";
+                                                if(userStackForString)
+                                                {
+                                                    par.ArgExtractCode = "SetCefStringToJsValue2(" + destExpression + "," + srcExpression + ");"; 
+                                                }
+                                                else
+                                                {
+                                                    par.ArgExtractCode = "SetCefStringToJsValue(" + destExpression + "," + srcExpression + ");";
+                                                    //need StringHolder cleanup
+                                                    par.ArgPostExtractCode = "DeleteCefStringHolderFromJsValue(" + destExpression + ");"; 
+                                                }
 
                                                 return;
                                             case PrimitiveTypeKind.NaitveInt:
@@ -538,7 +545,14 @@ namespace BridgeBuilder
                                 }
                                 break;
                             case PrimitiveTypeKind.CefString:
-                                par.ArgExtractCode = "SetCefStringToJsValue(" + destExpression + "," + srcExpression + ");";
+                                if(userStackForString)
+                                {
+                                    par.ArgExtractCode = "SetCefStringToJsValue(" + destExpression + "," + srcExpression + ");";
+                                }
+                                else
+                                {
+                                    par.ArgExtractCode = "SetCefStringToJsValue(" + destExpression + "," + srcExpression + ");";
+                                } 
                                 return;
                             case PrimitiveTypeKind.NaitveInt:
                                 par.ArgExtractCode = "MyCefSetInt32(" + destExpression + ",(int32_t)" + srcExpression + ");";
@@ -1966,7 +1980,7 @@ namespace BridgeBuilder
             {
                 MethodParameterTxInfo parTx = met.pars[i];
                 parTx.ClearExtractCode();
-                CefTypeTxPlan.PrepareDataFromNativeToCs(parTx, "&vargs[" + (i + 1) + "]", parTx.Name);
+                CefTypeTxPlan.PrepareDataFromNativeToCs(parTx, "&vargs[" + (i + 1) + "]", parTx.Name, true);
             }
 
             CefTypeTxPlan.PrepareCppMetArg(met.ReturnPlan, "vargs[0]");
@@ -2208,7 +2222,7 @@ namespace BridgeBuilder
                 //get pars from parameter .
                 PrepareCppMetArg(pars[i], "v" + (i + 1));
             }
-            PrepareDataFromNativeToCs(met.ReturnPlan, "ret", "ret_result");
+            PrepareDataFromNativeToCs(met.ReturnPlan, "ret", "ret_result", false);
 
 
             //---------------------------
@@ -2518,7 +2532,7 @@ namespace BridgeBuilder
             {
                 MethodParameterTxInfo parTx = met.pars[i];
                 parTx.ClearExtractCode();
-                PrepareDataFromNativeToCs(parTx, "&vargs[" + (i + 1) + "]", parTx.Name);
+                PrepareDataFromNativeToCs(parTx, "&vargs[" + (i + 1) + "]", parTx.Name, true);
             }
 
             PrepareCppMetArg(met.ReturnPlan, "vargs[0]");
@@ -2653,7 +2667,7 @@ namespace BridgeBuilder
             {
                 MethodParameterTxInfo parTx = met.pars[i];
                 parTx.ClearExtractCode();
-                PrepareDataFromNativeToCs(parTx, "&vargs[" + (i + 1) + "]", parTx.Name);
+                PrepareDataFromNativeToCs(parTx, "&vargs[" + (i + 1) + "]", parTx.Name, true);
             }
 
             PrepareCppMetArg(met.ReturnPlan, "vargs[0]");
@@ -2977,7 +2991,7 @@ namespace BridgeBuilder
             stbuilder.AppendLine("internal " + className + "(IntPtr nativePtr){");
 
             stbuilder.AppendLine(@"int argCount;
-                        this.nativePtr = MyMetArgs.GetArrHead(nativePtr,out argCount);");             
+                        this.nativePtr = MyMetArgs.GetArrHead(nativePtr,out argCount);");
             stbuilder.AppendLine("}");
 
             int pos = 0;
@@ -3683,7 +3697,7 @@ namespace BridgeBuilder
             {
                 MethodParameterTxInfo parTx = met.pars[i];
                 parTx.ClearExtractCode();
-                PrepareDataFromNativeToCs(parTx, "&vargs[" + (i + 1) + "]", parTx.Name);
+                PrepareDataFromNativeToCs(parTx, "&vargs[" + (i + 1) + "]", parTx.Name, true);
             }
 
             PrepareCppMetArg(met.ReturnPlan, "vargs[0]");
@@ -3943,7 +3957,7 @@ namespace BridgeBuilder
                 //get pars from parameter .
                 PrepareCppMetArg(pars[i], "v" + (i + 1));
             }
-            PrepareDataFromNativeToCs(ret, "ret", "ret_result");
+            PrepareDataFromNativeToCs(ret, "ret", "ret_result", false);
 
 
             //---------------------------
