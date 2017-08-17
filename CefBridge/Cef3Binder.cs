@@ -25,11 +25,6 @@ namespace LayoutFarm.CefBridge
     //----------------------------------------------------------------------
 
 
-
-
-
-
-
     public enum MyCefMsg
     {
         MYCEF_MSG_UNKNOWN = 0,
@@ -41,17 +36,9 @@ namespace LayoutFarm.CefBridge
         CEF_MSG_ClientHandler_NotifyBrowserCreated = 102,
 
 
-        CEF_MSG_ClientHandler_OnBeforePopup = 104,
-        CEF_MSG_ClientHandler_OnConsoleMessage = 106,
         CEF_MSG_ClientHandler_ShowDevTools = 107,
         CEF_MSG_ClientHandler_CloseDevTools = 108,
-        CEF_MSG_ClientHandler_OnBeforeContextMenu = 109,
-        CEF_MSG_ClientHandler_BeforeDownload = 110,
-        CEF_MSG_ClientHandler_DownloadUpdated = 111,
-        CEF_MSG_ClientHandler_OnLoadError = 119,
-        //
-        CEF_MSG_ClientHandler_OnCertError = 120,
-        CEF_MSG_ClientHandler_ExecCustomProtocol = 121,
+
 
         CEF_MSG_ClientHandler_SetResourceManager = 140,
         CEF_MSG_RequestUrlFilter2 = 142,
@@ -71,7 +58,6 @@ namespace LayoutFarm.CefBridge
         CEF_MSG_MyV8ManagedHandler_Execute = 301,
         CEF_MSG_HereOnRenderer = 303,
 
-        CEF_MSG_ClientHandler_OnPreKeyEvent = 501,
         CEF_MSG_ClientHandler_NotifyTitle = 502,
         CEF_MSG_ClientHandler_NotifyAddress = 503,
     }
@@ -971,7 +957,7 @@ namespace LayoutFarm.CefBridge
             {
                 char* rawCefString_char16_t;
                 Cef3Binder.MyCefStringGetRawPtr(ret->Ptr, out rawCefString_char16_t, out actualLen);
-                return new string(rawCefString_char16_t, 0, actualLen); 
+                return new string(rawCefString_char16_t, 0, actualLen);
             }
             if (buffLen < 1024)
             {

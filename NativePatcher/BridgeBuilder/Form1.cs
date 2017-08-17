@@ -47,8 +47,7 @@ namespace BridgeBuilder
             CopyFileInFolder(
                 srcRootDir + @"\libcef_dll\myext",
                  @"D:\projects\Kneadium\NativePatcher\BridgeBuilder\Patcher_ExtCode\myext");
-            //----------
-
+            //---------- 
 
         }
         static void CopyFileInFolder(string srcFolder, string targetFolder)
@@ -57,17 +56,15 @@ namespace BridgeBuilder
             if (srcFolder == targetFolder)
             {
                 throw new NotSupportedException();
-            }
-
+            } 
             string[] srcFiles = System.IO.Directory.GetFiles(srcFolder);
             foreach (var f in srcFiles)
             {
                 System.IO.File.Copy(f,
                     targetFolder + "\\" + System.IO.Path.GetFileName(f), true);
-            }
-
-
+            } 
         }
+        
         private void cmdLoadPatchAndApplyPatch_Click(object sender, EventArgs e)
         {
             //cef_binary_3.3071.1647 
