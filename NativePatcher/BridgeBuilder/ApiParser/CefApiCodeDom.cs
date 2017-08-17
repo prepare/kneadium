@@ -553,7 +553,7 @@ namespace BridgeBuilder
         public string Name
         {
             get;
-            set;
+            protected set;
         }
         public override string ToString()
         {
@@ -585,10 +585,12 @@ namespace BridgeBuilder
 
     class CodeFunctionPointerTypeRefernce : CodeTypeReference
     {
-        public CodeFunctionPointerTypeRefernce()
+        public CodeFunctionPointerTypeRefernce(string name)
         {
             this.Parameters = new List<CodeMethodParameter>();
+            this.Name = name;
         }
+
         public CodeTypeReference ReturnType { get; set; }
         public List<CodeMethodParameter> Parameters { get; set; }
         public override CodeTypeReferenceKind Kind { get { return CodeTypeReferenceKind.FuncPointer; } }

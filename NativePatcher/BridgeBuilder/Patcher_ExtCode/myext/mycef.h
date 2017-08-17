@@ -32,7 +32,7 @@
 #include "include/cef_base.h" 
 #include "include/cef_v8.h" 
 #include "libcef_dll/myext/myext.h"
-
+#include "libcef_dll/myext/MyCefStringHolder.h"
 
 class MethodArgs
 {

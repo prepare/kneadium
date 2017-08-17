@@ -47,8 +47,7 @@ namespace BridgeBuilder
             CopyFileInFolder(
                 srcRootDir + @"\libcef_dll\myext",
                  @"D:\projects\Kneadium\NativePatcher\BridgeBuilder\Patcher_ExtCode\myext");
-            //----------
-
+            //---------- 
 
         }
         static void CopyFileInFolder(string srcFolder, string targetFolder)
@@ -57,17 +56,15 @@ namespace BridgeBuilder
             if (srcFolder == targetFolder)
             {
                 throw new NotSupportedException();
-            }
-
+            } 
             string[] srcFiles = System.IO.Directory.GetFiles(srcFolder);
             foreach (var f in srcFiles)
             {
                 System.IO.File.Copy(f,
                     targetFolder + "\\" + System.IO.Path.GetFileName(f), true);
-            }
-
-
+            } 
         }
+        
         private void cmdLoadPatchAndApplyPatch_Click(object sender, EventArgs e)
         {
             //cef_binary_3.3071.1647 
@@ -536,7 +533,11 @@ namespace BridgeBuilder
             }
 
 
-            foreach (CefTypeTxPlan tx in instanceClassPlans)
+
+
+
+            //
+            foreach (CefInstanceElementTxPlan tx in instanceClassPlans)
             {
 
                 //pass
@@ -566,7 +567,7 @@ namespace BridgeBuilder
             }
 
 
-            foreach (CefTypeTxPlan tx in callbackPlans)
+            foreach (CefCallbackTxPlan tx in callbackPlans)
             {
                 CodeStringBuilder stbuilder = new CodeStringBuilder();
                 tx.GenerateCppCode(stbuilder);
@@ -576,40 +577,68 @@ namespace BridgeBuilder
                 CodeStringBuilder csCode = new CodeStringBuilder();
                 tx.GenerateCsCode(csCode);
                 csCodeStBuilder.Append(csCode.ToString());
-
                 if (tx.CppImplClassNameId > 0)
                 {
                     customImplClasses.Add(tx);
                 }
-            }
-            // 
 
-            foreach (CefTypeTxPlan tx in handlerPlans)
+            }
+
+            // 
+            CodeStringBuilder cppHeaderAutogen = new CodeStringBuilder();
+            cppHeaderAutogen.AppendLine("//AUTOGEN");
+            //create default msg handler
+
+
+            foreach (CefHandlerTxPlan tx in handlerPlans)
             {
 
                 CodeStringBuilder stbuilder = new CodeStringBuilder();
                 //a handler is created on cpp side, then we attach .net delegate to it
                 //so  we need
                 //1. 
+                tx._cppHeaderStBuilder = cppHeaderAutogen;
+                //
                 tx.GenerateCppCode(stbuilder);
                 cppCodeStBuilder.Append(stbuilder.ToString());
                 //
                 stbuilder = new CodeStringBuilder();
                 tx.GenerateCsCode(stbuilder);
                 csCodeStBuilder.Append(stbuilder.ToString());
-
-                if (tx.CppImplClassNameId > 0)
-                {
-                    customImplClasses.Add(tx);
-                }
+                //no default implementation handler class                 
             }
 
+
+            //---------
+            CodeStringBuilder cef_NativeReqHandlers_Class = new CodeStringBuilder();
+            cef_NativeReqHandlers_Class.AppendLine("//------ common cef handler swicth table---------");
+            cef_NativeReqHandlers_Class.AppendLine("public static class CefNativeRequestHandlers{");
+            cef_NativeReqHandlers_Class.AppendLine("public static void HandleNativeReq(object inst, int met_id,IntPtr args){");
+            cef_NativeReqHandlers_Class.AppendLine("switch((met_id>>16)){");
+            foreach (CefHandlerTxPlan tx in handlerPlans)
+            {
+                cef_NativeReqHandlers_Class.AppendLine("case " + tx.OriginalDecl.Name + "._typeNAME:{");
+                cef_NativeReqHandlers_Class.AppendLine(tx.OriginalDecl.Name + ".HandleNativeReq(inst as " + tx.OriginalDecl.Name + ".I0," +
+                        " inst as " + tx.OriginalDecl.Name + ".I1,met_id,args);");
+                cef_NativeReqHandlers_Class.AppendLine("}break;");
+            }
+            //--------
+            //create handle common switch table
+            cef_NativeReqHandlers_Class.AppendLine("}");//switch
+            cef_NativeReqHandlers_Class.AppendLine("}");//HandleNativeReq()
+            cef_NativeReqHandlers_Class.AppendLine("}");
+
+            //add to cs code
+            csCodeStBuilder.Append(cef_NativeReqHandlers_Class.ToString());
+            //cs...
+            csCodeStBuilder.AppendLine("}"); //end cs
+            //--------
+            //cpp
             CreateCppSwitchTable(cppCodeStBuilder, instanceClassPlans);
             CreateNewInstanceMethod(cppCodeStBuilder, customImplClasses);
-
             AddCppBuiltInEndCode(cppCodeStBuilder);
             //
-            csCodeStBuilder.AppendLine("}");
+
         }
         void CreateNewInstanceMethod(StringBuilder outputStBuilder, List<CefTypeTxPlan> customImplClasses)
         {
@@ -649,19 +678,60 @@ namespace BridgeBuilder
             //----------------
             const int MET_Release = 0;
             //----------------  
+            //
+#include ""libcef_dll/cpptoc/drag_handler_cpptoc.h"" 
+#include ""libcef_dll/cpptoc/navigation_entry_visitor_cpptoc.h""
+#include ""libcef_dll/cpptoc/pdf_print_callback_cpptoc.h""
+#include ""libcef_dll/cpptoc/client_cpptoc.h""
+#include ""libcef_dll/cpptoc/download_image_callback_cpptoc.h""
+#include ""libcef_dll/cpptoc/run_file_dialog_callback_cpptoc.h""
+#include ""libcef_dll/cpptoc/domvisitor_cpptoc.h""
+#include ""libcef_dll/cpptoc/completion_callback_cpptoc.h""
+#include ""libcef_dll/cpptoc/cookie_visitor_cpptoc.h""
+#include ""libcef_dll/cpptoc/delete_cookies_callback_cpptoc.h""
+#include ""libcef_dll/cpptoc/menu_model_delegate_cpptoc.h""
+#include ""libcef_dll/cpptoc/request_context_handler_cpptoc.h""
+#include ""libcef_dll/cpptoc/resolve_callback_cpptoc.h""
+#include ""libcef_dll/cpptoc/response_filter_cpptoc.h""
+#include ""libcef_dll/cpptoc/scheme_handler_factory_cpptoc.h""
+#include ""libcef_dll/cpptoc/task_cpptoc.h""
+#include ""libcef_dll/cpptoc/set_cookie_callback_cpptoc.h""
+#include ""libcef_dll/cpptoc/v8accessor_cpptoc.h""
+#include ""libcef_dll/cpptoc/v8handler_cpptoc.h""
+#include ""libcef_dll/cpptoc/v8interceptor_cpptoc.h""
+#include ""libcef_dll/cpptoc/web_plugin_info_visitor_cpptoc.h""
+#include ""libcef_dll/cpptoc/web_plugin_unstable_callback_cpptoc.h""
+#include ""libcef_dll/cpptoc/write_handler_cpptoc.h""
+#include ""libcef_dll/cpptoc/app_cpptoc.h""
+#include ""libcef_dll/cpptoc/urlrequest_client_cpptoc.h""
+#include ""libcef_dll/cpptoc/string_visitor_cpptoc.h""
+#include ""libcef_dll/cpptoc/get_geolocation_callback_cpptoc.h""
+#include ""libcef_dll/cpptoc/end_tracing_callback_cpptoc.h""
+#include ""libcef_dll/cpptoc/register_cdm_callback_cpptoc.h""
+#include ""libcef_dll/cpptoc/accessibility_handler_cpptoc.h""
+
+//handlers
+#include ""libcef_dll/cpptoc/resource_bundle_handler_cpptoc.h""
+#include ""libcef_dll/cpptoc/browser_process_handler_cpptoc.h""
+#include ""libcef_dll/cpptoc/dialog_handler_cpptoc.h""
+#include ""libcef_dll/cpptoc/render_process_handler_cpptoc.h""
+#include ""libcef_dll/cpptoc/context_menu_handler_cpptoc.h""
+#include ""libcef_dll/cpptoc/display_handler_cpptoc.h""
+#include ""libcef_dll/cpptoc/download_handler_cpptoc.h""
+#include ""libcef_dll/cpptoc/find_handler_cpptoc.h""
+#include ""libcef_dll/cpptoc/focus_handler_cpptoc.h""
+#include ""libcef_dll/cpptoc/geolocation_handler_cpptoc.h""
+#include ""libcef_dll/cpptoc/jsdialog_handler_cpptoc.h""
+#include ""libcef_dll/cpptoc/keyboard_handler_cpptoc.h""
+#include ""libcef_dll/cpptoc/life_span_handler_cpptoc.h""
+#include ""libcef_dll/cpptoc/load_handler_cpptoc.h""
+#include ""libcef_dll/cpptoc/render_handler_cpptoc.h""
+#include ""libcef_dll/cpptoc/request_handler_cpptoc.h""
+#include ""libcef_dll/cpptoc/resource_handler_cpptoc.h""
+#include ""libcef_dll/cpptoc/print_handler_cpptoc.h""
+#include ""libcef_dll/cpptoc/read_handler_cpptoc.h""
+
             
-            int32_t MyMetArgGetCount(void* /*MyMetArgsN*/ mymetArgs) {
-	            return ((MyMetArgsN*)mymetArgs)->argCount;
-            } 
-            void* MyMetArgGetArgAddress(void* /*MyMetArgsN*/mymetArgs, int index) { 
-	            MyMetArgsN* metArg = (MyMetArgsN*)mymetArgs;
-	            if (index > (metArg->argCount)) {
-		            return nullptr;
-	            }
-	            else {
-		            return &metArg->vargs[index];
-	            } 
-            }
             //////////////////////////////////////////////////////////////////";
 
             using (System.IO.StringReader strReader = new System.IO.StringReader(prebuilt1))

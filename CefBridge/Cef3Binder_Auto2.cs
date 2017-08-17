@@ -252,27 +252,7 @@ namespace LayoutFarm.CefBridge
             this.nativePtr = nativePtr;
         }
     }
-
-    public struct MyCefNativeMetArgs
-    {
-        internal IntPtr nativePtr;
-        internal MyCefNativeMetArgs(IntPtr nativePtr)
-        {
-            this.nativePtr = nativePtr;
-        }
-        public int GetArgCount()
-        {
-            return Cef3Binder.MyMetArgGetCount(nativePtr);
-        }
-        public void GetArg(int index, out JsValue value)
-        {
-            unsafe
-            {
-                JsValue* jsvalue = (JsValue*)Cef3Binder.MyMetArgGetArgAddress(nativePtr, index);
-                value = *jsvalue;
-            }
-        }
-    }
+     
 
     class CefNotImplementedException : NotImplementedException
     {
