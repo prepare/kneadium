@@ -58,31 +58,17 @@ namespace LayoutFarm.CefBridge
         {
             switch ((MyCefMsg)id)
             {
+                default:
+
+                    break;
                 case MyCefMsg.CEF_MSG_RequestForMxCallback:
                     {
 
-                        //native side asks for managed callback ...
-
-
-
+                        //native side asks for managed callback ... 
                     }
                     break;
-                case MyCefMsg.CEF_MSG_ClientHandler_OnBeforePopup:
-                    {
-                        NativeCallArgs args = new NativeCallArgs(argsPtr);
-                        string url = args.GetArgAsString(0);
-                        Cef3Binder.SafeUIInvoke(() =>
-                        {
-                            IWindowForm popupWin = Cef3Binder.CreateNewBrowserWindow(600, 450);
-                            popupWin.Show();
-                        });
-                    }
-                    break;
-                case MyCefMsg.CEF_MSG_ClientHandler_BeforeDownload:
-                    {
-
-                    }
-                    break;
+                 
+                
                 case MyCefMsg.CEF_MSG_ClientHandler_ShowDevTools:
                     {
                         //show dev tools

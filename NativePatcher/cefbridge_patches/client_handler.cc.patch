@@ -85,145 +85,119 @@ DCHECK(!console_log_file_.empty());
 this->mcallback_ = NULL;
 this->enableKeyIntercept = 0;//init
 //###_APPEND_STOP
-//###_START 0
-void ClientHandler::OnBeforeContextMenu(CefRefPtr<CefBrowser> browser,
-//###_FIND_NEXT_LANDMARK 0
+//###_BEGIN 0
+//###_PRE
 CefRefPtr<CefMenuModel> model) {
-//###_FIND_NEXT_LANDMARK 0
+//###_PRE
 CEF_REQUIRE_UI_THREAD();
-//###_APPEND_START 0
-if (this->mcallback_)
-{
-//send menu model to managed side
-model->Clear();
-this->mcallback_(CEF_MSG_ClientHandler_OnBeforeContextMenu, NULL);
+if (this->mcallback_) {
+
+CefContextMenuHandlerExt::OnBeforeContextMenu(this->mcallback_,
+browser,
+frame,
+params, model);
+}
+//###_POST
+if ((params->GetTypeFlags() & (CM_TYPEFLAG_PAGE | CM_TYPEFLAG_FRAME)) != 0) {
+//###_POST
+// Add a separator if the menu already has items.
+//###_END 0
+//###_BEGIN 0
+//###_PRE
+EventFlags event_flags) {
+//###_PRE
+CEF_REQUIRE_UI_THREAD();
+if (this->mcallback_) {
+
+CefContextMenuHandlerExt::OnContextMenuCommand(
+this->mcallback_,
+browser,
+frame,
+params,
+command_id,
+event_flags);			 
+return true;
+}
+//###_POST
+switch (command_id) {
+//###_POST
+case CLIENT_ID_SHOW_DEVTOOLS:
+//###_END 0
+//###_BEGIN 0
+//###_PRE
+const CefString& url) {
+//###_PRE
+CEF_REQUIRE_UI_THREAD();
+if (this->mcallback_) {
+CefDisplayHandlerExt::OnAddressChange(this->mcallback_,
+browser, frame, url);
 return;
 }
-//###_APPEND_STOP
-//###_START 1
-bool ClientHandler::OnContextMenuCommand(CefRefPtr<CefBrowser> browser,
-//###_FIND_NEXT_LANDMARK 1
+//###_POST
+// Only update the address for the main (top-level) frame.
+//###_POST
+if (frame->IsMain())
+//###_END 0
+//###_BEGIN 0
+//###_PRE
+const CefString& title) {
+//###_PRE
 CEF_REQUIRE_UI_THREAD();
-//###_APPEND_START 1
 if (this->mcallback_) {
-return true;
+CefDisplayHandlerExt::OnTitleChange(this->mcallback_, browser, title);
+return;
 }
-else {
-switch (command_id) {
-case CLIENT_ID_SHOW_DEVTOOLS:
-ShowDevTools(browser, CefPoint());
-return true;
-case CLIENT_ID_CLOSE_DEVTOOLS:
-CloseDevTools(browser);
-return true;
-case CLIENT_ID_INSPECT_ELEMENT:
-ShowDevTools(browser, CefPoint(params->GetXCoord(), params->GetYCoord()));
-return true;
-default:  // Allow default handling, if any.
-return ExecuteTestMenu(command_id);
+//###_POST
+NotifyTitle(title);
+//###_POST
 }
-}
-//###_APPEND_STOP
-//###_SKIP_UNTIL_PASS 1 }
-//###_START 2
-bool ClientHandler::OnConsoleMessage(CefRefPtr<CefBrowser> browser,
-//###_FIND_NEXT_LANDMARK 2
+//###_END 0
+//###_BEGIN 0
+//###_PRE
+int line) {
+//###_PRE
 CEF_REQUIRE_UI_THREAD();
-//###_APPEND_START 2
 if (this->mcallback_)
 {
-
 CefDisplayHandlerExt::OnConsoleMessage(this->mcallback_, browser, message, source, line);
-
-MethodArgs args;
-memset(&args, 0, sizeof(MethodArgs));
-auto str16 = message.ToString16();
-auto cstr = str16.c_str();
-args.SetArgAsString(0, cstr);
-auto str16_1 = message.ToString16();
-auto cstr_1 = str16_1.c_str();
-args.SetArgAsString(1, cstr_1);
-auto str16_2 = std::to_wstring((long long)line);
-auto cstr_2 = str16_2.c_str();
-args.SetArgAsString(2, cstr_2);
-this->mcallback_(CEF_MSG_ClientHandler_OnConsoleMessage, &args);
-}
-else {
-FILE* file = fopen(console_log_file_.c_str(), "a");
-if (file) {
-std::stringstream ss;
-ss << "Message: " << message.ToString() << NEWLINE <<
-"Source: " << source.ToString() << NEWLINE <<
-"Line: " << line << NEWLINE <<
-"-----------------------" << NEWLINE;
-fputs(ss.str().c_str(), file);
-fclose(file);
-
-if (first_console_message_) {
-test_runner::Alert(
-browser, "Console messages written to " + console_log_file_);
-first_console_message_ = false;
-}
-}
-}
-//###_APPEND_STOP
-//###_SKIP_UNTIL_AND_ACCEPT 2
 return false;
-//###_START 7
-void ClientHandler::OnBeforeDownload(
-//###_FIND_NEXT_LANDMARK 7
-CEF_REQUIRE_UI_THREAD();
-//###_APPEND_START 7
-if (this->mcallback_) {
-
-
-
-MethodArgs metArgs;
-memset(&metArgs, 0, sizeof(MethodArgs));
-metArgs.SetArgAsNativeObject(0, browser);
-metArgs.SetArgAsNativeObject(1, download_item);
-metArgs.SetArgAsString(2, suggested_name.c_str());
-this->mcallback_(CEF_MSG_ClientHandler_BeforeDownload, &metArgs); //tmp
-
-auto downloadPath = metArgs.ReadOutputAsString(0);
-callback->Continue(downloadPath, false);
 }
-else {
+//###_POST
+FILE* file = fopen(console_log_file_.c_str(), "a");
+//###_POST
+if (file) {
+//###_END 0
+//###_BEGIN 0
+//###_PRE
+CefRefPtr<CefBeforeDownloadCallback> callback) {
+//###_PRE
+CEF_REQUIRE_UI_THREAD();
+if (this->mcallback_) {		 
+CefDownloadHandlerExt::OnBeforeDownload(this->mcallback_,
+browser, download_item, suggested_name,
+callback);
+return;
+}
+//###_POST
 // Continue the download and show the "Save As" dialog.
+//###_POST
 callback->Continue(MainContext::Get()->GetDownloadPath(suggested_name), true);
-}
-//###_APPEND_STOP
-//###_SKIP_UNTIL_AND_ACCEPT 7
-}
-//###_START 8
-void ClientHandler::OnDownloadUpdated(
-//###_FIND_NEXT_LANDMARK 8
+//###_END 0
+//###_BEGIN 0
+//###_PRE
+CefRefPtr<CefDownloadItemCallback> callback) {
+//###_PRE
 CEF_REQUIRE_UI_THREAD();
-//###_APPEND_START 8
 if (this->mcallback_) {
-
+CefDownloadHandlerExt::OnDownloadUpdated(this->mcallback_,
+browser, download_item, callback);
+return;
+}
+//###_POST
 if (download_item->IsComplete()) {
-//this version we notify back when complete
-MethodArgs metArgs;
-memset(&metArgs, 0, sizeof(MethodArgs));
-metArgs.SetArgAsNativeObject(0, browser);
-metArgs.SetArgAsNativeObject(1, download_item);
-auto fullPath = download_item->GetFullPath();
-metArgs.SetArgAsString(2, fullPath.c_str());
-this->mcallback_(CEF_MSG_ClientHandler_DownloadUpdated, &metArgs); //tmp	  
-}
-}
-else {
-if (download_item->IsComplete()) {
-test_runner::Alert(
-browser,
-"File \"" + download_item->GetFullPath().ToString() +
-"\" downloaded successfully.");
-}
-}
-//###_APPEND_STOP
-//###_SKIP_UNTIL_AND_ACCEPT 8
-}
+//###_POST
+test_runner::Alert(browser, "File \"" +
+//###_END 0
 //###_START 3
 // Allow geolocation access from all websites.
 //###_APPEND_START 3
@@ -239,13 +213,17 @@ CEF_REQUIRE_UI_THREAD();
 if (this->mcallback_) {
 
 if (this->enableKeyIntercept != 0)
-{
-MethodArgs metArgs;
-memset(&metArgs, 0, sizeof(MethodArgs));
-metArgs.SetArgAsNativeObject(0, &event);
-this->mcallback_(CEF_MSG_ClientHandler_OnPreKeyEvent, &metArgs); //tmp
-int result = metArgs.ReadOutputAsInt32(0);
-return result != 0;
+{	
+//return true or false 
+CefKeyboardHandlerExt::OnPreKeyEvent(
+this->mcallback_,
+browser,
+event,
+os_event,
+is_keyboard_shortcut);
+
+return false; //not handle
+
 }
 return false;
 }
@@ -264,39 +242,36 @@ return true;
 //###_APPEND_STOP
 //###_SKIP_UNTIL_AND_ACCEPT 7
 return false;
-//###_START 4
-bool ClientHandler::OnBeforePopup(
-//###_FIND_NEXT_LANDMARK 4
+//###_BEGIN 0
+//###_PRE
+bool* no_javascript_access) {
+//###_PRE
 CEF_REQUIRE_IO_THREAD();
-//###_APPEND_START 4
 if (this->mcallback_) {
+
 //create popup window
 //with specific url
 //*** on managed side  : please invoke on main process of app ***
-
-//call across process, so create on heap 
-//don't forget to release it
-MethodArgs metArgs;
-memset(&metArgs, 0, sizeof(MethodArgs));
-
-auto str16 = target_url.ToString16();
-auto cstr = str16.c_str();
-
-metArgs.SetArgAsString(0, cstr);
-this->mcallback_(CEF_MSG_ClientHandler_OnBeforePopup, &metArgs);
-
-
+CefLifeSpanHandlerExt::OnBeforePopup(this->mcallback_,
+browser,
+frame,
+target_url,
+target_frame_name,
+target_disposition,
+user_gesture,
+popupFeatures,
+windowInfo,
+client,
+settings,
+no_javascript_access
+);				 
 return true;
 }
-else {
-
+//###_POST
 // Return true to cancel the popup window.
+//###_POST
 return !CreatePopupWindow(browser, false, popupFeatures, windowInfo, client,
-settings);
-}
-//###_APPEND_STOP
-//###_SKIP_UNTIL_AND_ACCEPT 4
-}
+//###_END 0
 //###_START 5
 void ClientHandler::OnAfterCreated(CefRefPtr<CefBrowser> browser) {
 //###_FIND_NEXT_LANDMARK 5
@@ -334,28 +309,14 @@ void ClientHandler::OnLoadError(CefRefPtr<CefBrowser> browser,
 //###_APPEND_START 6
 if (this->mcallback_)
 {
-//TODO: send cmd to managed side
-//create dev window
-//send cef client
-MethodArgs  args;
-memset(&args, 0, sizeof(MethodArgs));
-//send info to managed side 
-args.SetArgAsNativeObject(0, browser.get());
-args.SetArgAsNativeObject(1, frame.get());
-args.SetArgAsInt32(2, errorCode);
-auto str16 = errorText.ToString16();
-auto cstr = str16.c_str();
-args.SetArgAsString(3, cstr);
-
-auto str16_1 = failedUrl.ToString16();
-auto cstr_1 = str16_1.c_str();
-args.SetArgAsString(4, cstr_1);
-//------------------------
-this->mcallback_(CEF_MSG_ClientHandler_OnLoadError, &args);
-//------------------------			 
-//load page error
-
-LoadErrorPage(frame, failedUrl, errorCode, errorText);
+CefLoadHandlerExt::OnLoadError(this->mcallback_,
+browser,
+frame,
+errorCode,
+errorText,
+failedUrl);  
+////load page error 
+//LoadErrorPage(frame, failedUrl, errorCode, errorText);
 }
 else
 {
@@ -376,13 +337,11 @@ CEF_REQUIRE_UI_THREAD();
 //###_APPEND_START 10
 if (this->mcallback_)
 {
-MethodArgs args;
-memset(&args, 0, sizeof(MethodArgs));
-CefString cefStr1 = url;
-args.SetArgAsString(0, cefStr1.c_str());
-this->mcallback_(CEF_MSG_ClientHandler_ExecCustomProtocol, &args);
-//then what to do next
-allow_os_execution = (args.result0.i32 == 1);
+CefRequestHandlerExt::OnProtocolExecution(this->mcallback_,
+browser,
+url,
+allow_os_execution);
+allow_os_execution = false; //force 
 }
 else {
 std::string urlStr = url;
@@ -403,21 +362,17 @@ if (cert.get()) {
 // Load the error page.
 if (this->mcallback_)
 {
-//TODO: send cmd to managed side
-//check if we should continue or not
-MethodArgs args;
-memset(&args, 0, sizeof(MethodArgs));
-
-auto str16 = GetCertificateInformation(cert, ssl_info->GetCertStatus());
-const char* cstr = str16.c_str();
-CefString cefStr1 = cstr;
-args.SetArgAsString(0, cefStr1.c_str());
-this->mcallback_(CEF_MSG_ClientHandler_OnCertError, &args);
-if (args.result0.i32 == 1) {
-//true
+if (CefRequestHandlerExt::OnCertificateError(
+this->mcallback_,
+browser,
+cert_error,
+request_url,
+ssl_info,
+callback
+)) {
 callback->Continue(true);
 return true;
-}
+} 
 }
 else
 {
@@ -549,6 +504,12 @@ void ClientHandler::MyCefSetManagedCallBack(managed_callback m) {
 
 this->mcallback_ = m;
 //add resource mx handler
+
+//
+//
+//
+
+
 
 MethodArgs args;
 memset(&args, 0, sizeof(MethodArgs));
