@@ -96,6 +96,13 @@ inline void SetCefStringToJsValue(jsvalue* value, const CefString&cefstr) {
 	value->ptr = str;
 	value->i32 = str->value.length();
 }
+inline void SetCefStringToJsValue2(jsvalue* value, const CefString&cefstr) {
+		
+	//not need MyCefStringHolder
+	value->type = JSVALUE_TYPE_NATIVE_CEFSTRING;
+	value->ptr = &cefstr;
+	value->i32 = cefstr.length();
+}
 inline void DeleteCefStringHolderFromJsValue(jsvalue* value) {
 	value->i32 = 0;
 	delete value->ptr;
