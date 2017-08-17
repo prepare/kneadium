@@ -46,8 +46,7 @@ extern "C" {
 	MY_DLL_EXPORT void MyCefPrintToPdf(MyBrowser* myBw, CefPdfPrintSettings* setting, wchar_t* filename, managed_callback callback);
 	//----------------------------
 
-
-
+	
 	//----------------------------
 	MY_DLL_EXPORT bool MyCefAddCrossOriginWhitelistEntry(
 		const wchar_t*  sourceOrigin,
@@ -76,5 +75,5 @@ extern "C" {
 	MY_DLL_EXPORT void GetListCount(int elemType, void* list, int32_t* size);
 
 	MY_DLL_EXPORT void GetListElement(int elemType, void* list, int index, jsvalue* jsvalue);
-	 
+
 }

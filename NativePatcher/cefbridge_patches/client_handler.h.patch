@@ -15,6 +15,7 @@ bool is_osr() const { return is_osr_; }
 managed_callback mcallback_;//my extension
 void MyCefSetManagedCallBack(managed_callback m);
 void MyCefEnableKeyIntercept(int enable);
+managed_callback GetManagedCallBack();
 //###_APPEND_STOP
 //###_START 2
 // Set of Handlers registered with the message router.

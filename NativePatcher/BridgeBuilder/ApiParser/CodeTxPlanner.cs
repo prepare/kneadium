@@ -175,6 +175,7 @@ namespace BridgeBuilder
         internal string CppMethodSwitchCaseName { get; set; }
 
         public bool CsLeftMethodBodyBlank { get; set; }
+        internal string CsArgClassName { get; set; }
 #if DEBUG
         public override string ToString()
         {
@@ -214,9 +215,12 @@ namespace BridgeBuilder
         internal string ArgPreExtractCode { get; set; }
         internal string ArgExtractCode { get; set; }
         internal string ArgPostExtractCode { get; set; }
-
+        internal bool ArgByRef { get; set; } //temp
+        internal string InnerTypeName { get; set; } //temp
         internal void ClearExtractCode()
         {
+            ArgByRef = false; //temp
+            InnerTypeName = null;//temp
             ArgPreExtractCode = ArgExtractCode = ArgPostExtractCode = null;
         }
     }
@@ -275,7 +279,7 @@ namespace BridgeBuilder
                 //
                 stbuilder.AppendLine("autogen!: " + met.ToString());
 
-                stbuilder.AppendLine("if(this->mcallback_){");
+                stbuilder.AppendLine("if(mcallback_){");
                 stbuilder.AppendLine("MethodArgs args;");
                 stbuilder.AppendLine("memset(&args,0,sizeof(MethodArgs));");
 
@@ -461,12 +465,9 @@ namespace BridgeBuilder
 
                 //-------
                 //call the delegate
-                stbuilder.AppendLine("this->mcallback_(CEF_MSG_" + met.Name + ",&args);");
+                stbuilder.AppendLine("mcallback_(CEF_MSG_" + met.Name + ",&args);");
 
-                //get some var back 
-
-
-
+                //get some var back  
 
                 TypeSymbol returnType = met.ReturnType.ResolvedType;
                 if (returnType == null)
@@ -737,6 +738,7 @@ namespace BridgeBuilder
             {
                 foreach (CodeMethodDeclaration metDecl in typedecl.GetMethodIter())
                 {
+
                     if (metDecl.MethodKind == MethodKind.Normal)
                     {
                         MethodTxInfo metTx = MakeMethodPlan(metDecl);

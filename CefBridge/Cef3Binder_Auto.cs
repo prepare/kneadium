@@ -86,7 +86,7 @@ namespace LayoutFarm.CefBridge
         [DllImport(CEF_CLIENT_DLL, CallingConvention = CallingConvention.Cdecl)]
         public static extern void MyCefFrameCall2(IntPtr myCefBw, int methodName, out JsValue ret, ref JsValue arg1, ref JsValue arg2);
 
-      
+
 
         [DllImport(CEF_CLIENT_DLL, CallingConvention = CallingConvention.Cdecl)]
         public static extern void MyCefMet_CefBrowser(IntPtr /*cef_browser_t* */ me1, int metName, out JsValue ret, ref JsValue arg1, ref JsValue arg2, ref JsValue arg3, ref JsValue arg4, ref JsValue arg5, ref JsValue arg6);
@@ -95,8 +95,20 @@ namespace LayoutFarm.CefBridge
 
 
         [DllImport(Cef3Binder.CEF_CLIENT_DLL, CallingConvention = CallingConvention.Cdecl)]
+        public static extern IntPtr NewInstance(int typeName, MyCefCallback callback, ref JsValue v1);
+
+        [DllImport(Cef3Binder.CEF_CLIENT_DLL, CallingConvention = CallingConvention.Cdecl)]
         public static extern void MyCefMet_CallN(IntPtr me, int metName, out JsValue ret, ref JsValue v1,
             ref JsValue v2, ref JsValue v3, ref JsValue v4, ref JsValue v5, ref JsValue v6, ref JsValue v7);
+
+
+        public static IntPtr NewInstance(int typeName, MyCefCallback callback)
+        {
+            JsValue not_used = new JsValue();
+            return NewInstance(typeName, callback, ref not_used);
+        }
+
+
 
         public static void MyCefMet_Call0(IntPtr me, int metName, out JsValue ret)
         {
@@ -329,7 +341,7 @@ namespace LayoutFarm.CefBridge
             (int)CefFrameCallMsg.CefFrame_ViewSource, out ret, ref a1, ref a2);
         }
 
-        public void GetSource(CefStringVisitor visitor)
+        public void GetSource(Auto.CefStringVisitor visitor)
         {
 
             //autogen!
@@ -343,7 +355,7 @@ namespace LayoutFarm.CefBridge
             (int)CefFrameCallMsg.CefFrame_GetSource, out ret, ref a1, ref a2);
         }
 
-        public void GetText(CefStringVisitor visitor)
+        public void GetText(Auto.CefStringVisitor visitor)
         {
 
             //autogen!

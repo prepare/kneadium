@@ -2,6 +2,8 @@
 
 using System;
 using System.Collections.Generic;
+using LayoutFarm.CefBridge.Auto;
+
 namespace LayoutFarm.CefBridge
 {
     public class MyCefBrowser
@@ -18,16 +20,19 @@ namespace LayoutFarm.CefBridge
         CefOsrListener cefOsrListener;
         List<MyCefCallback> keepAliveCallBack = new List<MyCefCallback>();
         //----
+        //this is object that handle native req
+        MyCefBwHandler myBwHandler;
 
         public MyCefBrowser(IWindowControl parentControl,
             int x, int y, int w, int h, string initUrl, bool isOsr)
         {
+            myBwHandler = new MyCefBwHandler(this);
             this.currentUrl = initUrl;
             //create cef browser view handler  
             this.parentControl = parentControl;
             this.topForm = parentControl.GetTopLevelControl() as IWindowForm;
             //ui process ***
-            this.managedCallback = new MyCefCallback(this.MxCallBack);
+            this.managedCallback = new MyCefCallback(this.HandleNativeReq);
             //for specific browser
             if (this.IsOsr = isOsr)
             {
@@ -71,10 +76,278 @@ namespace LayoutFarm.CefBridge
             private set;
         }
 
-        void MxCallBack(int id, IntPtr argsPtr)
+
+        //------------------
+        //multiple req handlers
+        class MyCefBwHandler : CefDisplayHandler.I0,
+                               CefLifeSpanHandler.I0,
+                               CefLoadHandler.I0,
+                               CefDownloadHandler.I0,
+                               CefKeyboardHandler.I0,
+                               CefRequestHandler.I0
+
         {
-            switch ((MyCefMsg)id)
+            MyCefBrowser _ownerBrowser;
+            public MyCefBwHandler(MyCefBrowser owner)
             {
+                this._ownerBrowser = owner;
+            }
+
+            void CefLifeSpanHandler.I0.DoClose(CefLifeSpanHandler.DoCloseArgs args)
+            {
+
+            }
+
+            void CefLifeSpanHandler.I0.OnAfterCreated(CefLifeSpanHandler.OnAfterCreatedArgs args)
+            {
+
+            }
+
+            void CefLifeSpanHandler.I0.OnBeforeClose(CefLifeSpanHandler.OnBeforeCloseArgs args)
+            {
+
+            }
+
+            void CefLifeSpanHandler.I0.OnBeforePopup(CefLifeSpanHandler.OnBeforePopupArgs args)
+            {
+                //NativeCallArgs args = new NativeCallArgs(argsPtr);
+                ////open new form with specific url
+                //string url = args.GetArgAsString(0);
+                //Cef3Binder.SafeUIInvoke(() =>
+                //{
+                //    IWindowForm form = Cef3Binder.CreateNewBrowserWindow(800, 600);
+                //    form.Show();
+                //    //and navigate to a specific url 
+                //});
+
+
+                //NativeCallArgs args = new NativeCallArgs(argsPtr);
+                ////open new form with specific url
+                //string url = args.GetArgAsString(0);
+                //Cef3Binder.SafeUIInvoke(() =>
+                //{
+                //    IWindowForm form = Cef3Binder.CreateNewBrowserWindow(800, 600);
+                //    form.Show();
+                //    //and navigate to a specific url 
+                //});
+            }
+            //--------------
+
+            void CefDisplayHandler.I0.OnAddressChange(CefDisplayHandler.OnAddressChangeArgs args)
+            {
+                string url = args.url();
+            }
+
+            void CefDisplayHandler.I0.OnConsoleMessage(CefDisplayHandler.OnConsoleMessageArgs args)
+            {
+
+            }
+
+            void CefDisplayHandler.I0.OnFaviconURLChange(CefDisplayHandler.OnFaviconURLChangeArgs args)
+            {
+
+            }
+
+            void CefDisplayHandler.I0.OnFullscreenModeChange(CefDisplayHandler.OnFullscreenModeChangeArgs args)
+            {
+
+            }
+
+            void CefDisplayHandler.I0.OnStatusMessage(CefDisplayHandler.OnStatusMessageArgs args)
+            {
+            }
+
+            void CefDisplayHandler.I0.OnTitleChange(CefDisplayHandler.OnTitleChangeArgs args)
+            {
+
+            }
+            void CefDisplayHandler.I0.OnTooltip(CefDisplayHandler.OnTooltipArgs args)
+            {
+
+            }
+            //------------------
+            void CefLoadHandler.I0.OnLoadingStateChange(CefLoadHandler.OnLoadingStateChangeArgs args)
+            {
+
+            }
+
+            void CefLoadHandler.I0.OnLoadStart(CefLoadHandler.OnLoadStartArgs args)
+            {
+
+            }
+
+            void CefLoadHandler.I0.OnLoadEnd(CefLoadHandler.OnLoadEndArgs args)
+            {
+
+            }
+
+            void CefLoadHandler.I0.OnLoadError(CefLoadHandler.OnLoadErrorArgs args)
+            {
+
+                ////load page error
+                ////ui process
+                //var args = new NativeCallArgs(argsPtr);
+                //IntPtr cefBrowser = args.GetArgAsNativePtr(0);
+                //IntPtr cefFrame = args.GetArgAsNativePtr(1);
+                //int errorCode = args.GetArgAsInt32(2);//error code
+                //string errorText = args.GetArgAsString(3);//errorText
+                //string failedUrl = args.GetArgAsString(4); //failedUrl
+                //                                           //---------------------------                        
+                //                                           //load error page
+                //LoadErrorPage(cefBrowser, cefFrame, errorCode, errorText, failedUrl); 
+            }
+
+
+            //--------------
+            void CefDownloadHandler.I0.OnBeforeDownload(CefDownloadHandler.OnBeforeDownloadArgs args)
+            {
+
+                // case MyCefMsg.CEF_MSG_ClientHandler_BeforeDownload:
+                //    {
+                //    //handle download path here
+                //    NativeCallArgs metArgs = new NativeCallArgs(argsPtr);
+                //    string pathName = metArgs.GetArgAsString(2);
+
+                //}
+                //break;
+
+                //		MethodArgs metArgs;
+                //		memset(&metArgs, 0, sizeof(MethodArgs));
+                //		metArgs.SetArgAsNativeObject(0, browser);
+                //		metArgs.SetArgAsNativeObject(1, download_item);
+                //		metArgs.SetArgAsString(2, suggested_name.c_str());
+                //		this->mcallback_(CEF_MSG_ClientHandler_BeforeDownload, &metArgs); //tmp
+
+                //		auto downloadPath = metArgs.ReadOutputAsString(0);
+                //		callback->Continue(downloadPath, false);
+
+                //throw new NotImplementedException();
+            }
+            void CefDownloadHandler.I0.OnDownloadUpdated(CefDownloadHandler.OnDownloadUpdatedArgs args)
+            {
+
+                //CefDownloadHandlerExt::OnDownloadUpdated(this->mcallback_, browser, download_item, callback);
+
+                //MethodArgs metArgs;
+                //memset(&metArgs, 0, sizeof(MethodArgs));
+                //metArgs.SetArgAsNativeObject(0, browser);
+                //metArgs.SetArgAsNativeObject(1, download_item);
+                //auto fullPath = download_item->GetFullPath();
+                //metArgs.SetArgAsString(2, fullPath.c_str());
+                //this->mcallback_(CEF_MSG_ClientHandler_DownloadUpdated, &metArgs); //tmp	  
+                //throw new NotImplementedException();
+            }
+
+            void CefKeyboardHandler.I0.OnPreKeyEvent(CefKeyboardHandler.OnPreKeyEventArgs args)
+            {
+
+            }
+
+            void CefKeyboardHandler.I0.OnKeyEvent(CefKeyboardHandler.OnKeyEventArgs args)
+            {
+
+            }
+            //------------------------------------
+            void CefRequestHandler.I0.OnBeforeBrowse(CefRequestHandler.OnBeforeBrowseArgs args)
+            {
+
+            }
+
+            void CefRequestHandler.I0.OnOpenURLFromTab(CefRequestHandler.OnOpenURLFromTabArgs args)
+            {
+
+            }
+
+            void CefRequestHandler.I0.OnBeforeResourceLoad(CefRequestHandler.OnBeforeResourceLoadArgs args)
+            {
+
+            }
+
+            void CefRequestHandler.I0.GetResourceHandler(CefRequestHandler.GetResourceHandlerArgs args)
+            {
+
+            }
+
+            void CefRequestHandler.I0.OnResourceRedirect(CefRequestHandler.OnResourceRedirectArgs args)
+            {
+
+            }
+
+            void CefRequestHandler.I0.OnResourceResponse(CefRequestHandler.OnResourceResponseArgs args)
+            {
+
+            }
+
+            void CefRequestHandler.I0.GetResourceResponseFilter(CefRequestHandler.GetResourceResponseFilterArgs args)
+            {
+
+            }
+
+            void CefRequestHandler.I0.OnResourceLoadComplete(CefRequestHandler.OnResourceLoadCompleteArgs args)
+            {
+
+            }
+
+            void CefRequestHandler.I0.GetAuthCredentials(CefRequestHandler.GetAuthCredentialsArgs args)
+            {
+
+            }
+
+            void CefRequestHandler.I0.OnQuotaRequest(CefRequestHandler.OnQuotaRequestArgs args)
+            {
+
+            }
+
+            void CefRequestHandler.I0.OnProtocolExecution(CefRequestHandler.OnProtocolExecutionArgs args)
+            {
+
+            }
+
+            void CefRequestHandler.I0.OnCertificateError(CefRequestHandler.OnCertificateErrorArgs args)
+            {
+
+            }
+
+            void CefRequestHandler.I0.OnSelectClientCertificate(CefRequestHandler.OnSelectClientCertificateArgs args)
+            {
+
+            }
+
+            void CefRequestHandler.I0.OnPluginCrashed(CefRequestHandler.OnPluginCrashedArgs args)
+            {
+
+            }
+
+            void CefRequestHandler.I0.OnRenderViewReady(CefRequestHandler.OnRenderViewReadyArgs args)
+            {
+
+            }
+
+            void CefRequestHandler.I0.OnRenderProcessTerminated(CefRequestHandler.OnRenderProcessTerminatedArgs args)
+            {
+
+            }
+        }
+
+
+        void HandleNativeReq(int met_id, IntPtr argsPtr)
+        {
+
+            //main raw msg switch table 
+            int object_type = met_id >> 16;
+            if (object_type > 0)
+            {
+                //built in object
+                CefNativeRequestHandlers.HandleNativeReq(myBwHandler, met_id, argsPtr);
+                return;
+            }
+            //else this is custom msg
+
+            switch ((MyCefMsg)met_id)
+            {
+                default:
+
+                    break;
                 case MyCefMsg.CEF_MSG_ClientHandler_NotifyBrowserCreated:
                     {
                         IsBrowserCreated = true;
@@ -101,53 +374,46 @@ namespace LayoutFarm.CefBridge
                         }
                     }
                     break;
-                case MyCefMsg.CEF_MSG_ClientHandler_OnBeforeContextMenu:
-                    {
-                    }
-                    break;
-                case MyCefMsg.CEF_MSG_ClientHandler_BeforeDownload:
-                    {
-                        //handle download path here
-                        NativeCallArgs metArgs = new NativeCallArgs(argsPtr);
-                        string pathName = metArgs.GetArgAsString(2);
+                //case MyCefMsg.CEF_MSG_ClientHandler_OnBeforeContextMenu:
+                //    {
+                //    }
+                //    break;
 
-                    }
-                    break;
-                case MyCefMsg.CEF_MSG_ClientHandler_DownloadUpdated:
-                    {
-                        //this version we notify back 
-                        //when 
-                        NativeCallArgs metArgs = new NativeCallArgs(argsPtr);
-                        if (browserProcessListener != null)
-                        {
-                            browserProcessListener.OnDownloadCompleted(metArgs);
-                        }
-                    }
-                    break;
-                case MyCefMsg.CEF_MSG_ClientHandler_OnBeforePopup:
-                    {
-                        NativeCallArgs args = new NativeCallArgs(argsPtr);
-                        //open new form with specific url
-                        string url = args.GetArgAsString(0);
-                        Cef3Binder.SafeUIInvoke(() =>
-                        {
-                            IWindowForm form = Cef3Binder.CreateNewBrowserWindow(800, 600);
-                            form.Show();
-                            //and navigate to a specific url 
-                        });
-                    }
-                    break;
-                case MyCefMsg.CEF_MSG_ClientHandler_OnConsoleMessage:
-                    {
-                        //console.log ...
+                //case MyCefMsg.CEF_MSG_ClientHandler_DownloadUpdated:
+                //    {
+                //        //this version we notify back 
+                //        //when 
+                //        NativeCallArgs metArgs = new NativeCallArgs(argsPtr);
+                //        if (browserProcessListener != null)
+                //        {
+                //            browserProcessListener.OnDownloadCompleted(metArgs);
+                //        }
+                //    }
+                //    break;
+                //case MyCefMsg.CEF_MSG_ClientHandler_OnBeforePopup:
+                //    {
+                //        NativeCallArgs args = new NativeCallArgs(argsPtr);
+                //        //open new form with specific url
+                //        string url = args.GetArgAsString(0);
+                //        Cef3Binder.SafeUIInvoke(() =>
+                //        {
+                //            IWindowForm form = Cef3Binder.CreateNewBrowserWindow(800, 600);
+                //            form.Show();
+                //            //and navigate to a specific url 
+                //        });
+                //    }
+                //    break;
+                //case MyCefMsg.CEF_MSG_ClientHandler_OnConsoleMessage:
+                //    {
+                //        //console.log ...
 
-                        if (browserProcessListener != null)
-                        {
-                            NativeCallArgs args = new NativeCallArgs(argsPtr);
-                            browserProcessListener.OnConsoleLog(args);
-                        }
-                    }
-                    break;
+                //        if (browserProcessListener != null)
+                //        {
+                //            NativeCallArgs args = new NativeCallArgs(argsPtr);
+                //            browserProcessListener.OnConsoleLog(args);
+                //        }
+                //    }
+                //    break;
                 case MyCefMsg.CEF_MSG_ClientHandler_ShowDevTools:
                     {
                         //show dev tools
@@ -158,42 +424,42 @@ namespace LayoutFarm.CefBridge
                         });
                     }
                     break;
-                case MyCefMsg.CEF_MSG_ClientHandler_OnLoadError:
-                    {
-                        //load page error
-                        //ui process
-                        var args = new NativeCallArgs(argsPtr);
-                        IntPtr cefBrowser = args.GetArgAsNativePtr(0);
-                        IntPtr cefFrame = args.GetArgAsNativePtr(1);
-                        int errorCode = args.GetArgAsInt32(2);//error code
-                        string errorText = args.GetArgAsString(3);//errorText
-                        string failedUrl = args.GetArgAsString(4); //failedUrl
-                        //---------------------------                        
-                        //load error page
-                        LoadErrorPage(cefBrowser, cefFrame, errorCode, errorText, failedUrl);
-                    }
-                    break;
-                case MyCefMsg.CEF_MSG_ClientHandler_OnCertError:
-                    {
-                        var args = new NativeCallArgs(argsPtr);
-                        string certErrMsg = args.GetArgAsString(0);
-                        args.SetOutput(0, 1);//true
-                    }
-                    break;
-                case MyCefMsg.CEF_MSG_ClientHandler_ExecCustomProtocol:
-                    {
-                        //disable all protocol
-                        var args = new NativeCallArgs(argsPtr);
-                        if (browserProcessListener != null)
-                        {
-                            browserProcessListener.OnExecProtocol(args);
-                        }
-                        else
-                        {
-                            args.SetOutput(0, 0);//disable all protocol
-                        }
-                    }
-                    break;
+                //case MyCefMsg.CEF_MSG_ClientHandler_OnLoadError:
+                //    {
+                //        //load page error
+                //        //ui process
+                //        var args = new NativeCallArgs(argsPtr);
+                //        IntPtr cefBrowser = args.GetArgAsNativePtr(0);
+                //        IntPtr cefFrame = args.GetArgAsNativePtr(1);
+                //        int errorCode = args.GetArgAsInt32(2);//error code
+                //        string errorText = args.GetArgAsString(3);//errorText
+                //        string failedUrl = args.GetArgAsString(4); //failedUrl
+                //        //---------------------------                        
+                //        //load error page
+                //        LoadErrorPage(cefBrowser, cefFrame, errorCode, errorText, failedUrl);
+                //    }
+                //    break;
+                //case MyCefMsg.CEF_MSG_ClientHandler_OnCertError:
+                //    {
+                //        var args = new NativeCallArgs(argsPtr);
+                //        string certErrMsg = args.GetArgAsString(0);
+                //        args.SetOutput(0, 1);//true
+                //    }
+                //    break;
+                //case MyCefMsg.CEF_MSG_ClientHandler_ExecCustomProtocol:
+                //    {
+                //        //disable all protocol
+                //        var args = new NativeCallArgs(argsPtr);
+                //        if (browserProcessListener != null)
+                //        {
+                //            browserProcessListener.OnExecProtocol(args);
+                //        }
+                //        else
+                //        {
+                //            args.SetOutput(0, 0);//disable all protocol
+                //        }
+                //    }
+                //    break;
                 case MyCefMsg.CEF_MSG_ClientHandler_SetResourceManager:
                     {
                         //setup resource mx
@@ -237,13 +503,7 @@ namespace LayoutFarm.CefBridge
                         }
                     }
                     break;
-                //------------------------------
-                case MyCefMsg.CEF_MSG_ClientHandler_OnPreKeyEvent: //on PreKey
-                    {
-                        //Console.WriteLine("on pre key");
-                        //NavigateTo("https://html5test.com");
-                    }
-                    break;
+
                 //------------------------------
                 case MyCefMsg.CEF_MSG_ClientHandler_NotifyTitle:
                     {
@@ -366,6 +626,38 @@ namespace LayoutFarm.CefBridge
 
         public void GetText(Action<string> strCallback)
         {
+
+
+            MyCefBw myCefBw = new MyCefBw(this.myCefBrowser);
+            MyCefFrame myframe = myCefBw.GetMainFrame();
+
+            Auto.CefFrame frame1 = new Auto.CefFrame(myframe.nativePtr);
+            Auto.CefBrowser bw = frame1.GetBrowser();
+
+
+            MyCefCallback visitorCallback = (int methodId, IntPtr nativeArgs) =>
+            {
+                //wrap with the specific pars
+                //var pars = new Auto.CefStringVisitor(nativeArgs);
+                //string data = pars._string;
+
+                //MyCefNativeMetArgs metArgs = new MyCefNativeMetArgs(nativeArgs);
+                //if (metArgs.GetArgCount() == 1)
+                //{
+                //    JsValue value;
+                //    metArgs.GetArg(1, out value);
+                //    string data = Cef3Binder.MyCefJsReadString(ref value);
+
+                //}
+            };
+
+            Auto.CefStringVisitor visitor = Auto.CefStringVisitor.New(visitorCallback);
+
+
+            frame1.GetText(visitor);
+
+            bw.Release();
+            frame1.Release();
             //keep alive callback
             InternalGetText((id, nativePtr) =>
             {
@@ -396,12 +688,12 @@ namespace LayoutFarm.CefBridge
         public void LoadText(string text, string url)
         {
             MyCefBw myCefBw = new MyCefBw(this.myCefBrowser);
-            MyCefFrame myframe = myCefBw.GetMainFrame(); 
+            MyCefFrame myframe = myCefBw.GetMainFrame();
 
             Auto.CefFrame frame1 = new Auto.CefFrame(myframe.nativePtr);
             Auto.CefBrowser bw = frame1.GetBrowser();
 
-            
+
             List<string> frameNames = new List<string>();
             bw.GetFrameNames(frameNames);
 
@@ -413,7 +705,7 @@ namespace LayoutFarm.CefBridge
         void InternalGetSource2(MyCefCallback strCallback)
         {
             MyCefBw myCefBw = new MyCefBw(this.myCefBrowser);
-            MyCefStringVisitor visitor = myCefBw.NewStringVisitor((id, ptr) =>
+            Auto.CefStringVisitor visitor = myCefBw.NewStringVisitor((id, ptr) =>
             {
                 NativeCallArgs args = new NativeCallArgs(ptr);
                 var text = args.GetArgAsString(0);
@@ -434,7 +726,7 @@ namespace LayoutFarm.CefBridge
             //MyCefFrame myframe = new MyCefFrame(ret.Ptr);
 
 
-            MyCefStringVisitor visitor2 = myCefBw.NewStringVisitor((id, ptr) =>
+            Auto.CefStringVisitor visitor2 = myCefBw.NewStringVisitor((id, ptr) =>
             {
                 NativeCallArgs args = new NativeCallArgs(ptr);
                 var text = args.GetArgAsString(0);

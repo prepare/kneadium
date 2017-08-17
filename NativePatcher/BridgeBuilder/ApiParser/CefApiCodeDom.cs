@@ -27,7 +27,9 @@ namespace BridgeBuilder
     {
         Class,
         Struct,
-        Enum
+        Enum,
+        FunctionPointer,
+        Namespace, //we temp use static typedecl as namespace
     }
 
     class CodeTypeTemplateNotation
@@ -171,6 +173,18 @@ namespace BridgeBuilder
             return Name;
         }
     }
+
+    class CodeFunctionPointerTypeDecl : CodeTypeDeclaration
+    {
+        public CodeFunctionPointerTypeDecl()
+        {
+            Kind = TypeKind.FunctionPointer;
+        }
+        public CodeFunctionPointerTypeRefernce FuncPointerType { get; set; }
+    }
+
+
+
 
     class CodeTypeDeclaration : CodeMemberDeclaration
     {
@@ -320,6 +334,9 @@ namespace BridgeBuilder
                     break;
                 case TypeKind.Enum:
                     stbuilder.Append("enum ");
+                    break;
+                case TypeKind.Namespace:
+                    stbuilder.Append("namespace ");
                     break;
                 default:
                     throw new NotSupportedException();
@@ -543,7 +560,7 @@ namespace BridgeBuilder
         public string Name
         {
             get;
-            set;
+            protected set;
         }
         public override string ToString()
         {
@@ -575,10 +592,12 @@ namespace BridgeBuilder
 
     class CodeFunctionPointerTypeRefernce : CodeTypeReference
     {
-        public CodeFunctionPointerTypeRefernce()
+        public CodeFunctionPointerTypeRefernce(string name)
         {
             this.Parameters = new List<CodeMethodParameter>();
+            this.Name = name;
         }
+
         public CodeTypeReference ReturnType { get; set; }
         public List<CodeMethodParameter> Parameters { get; set; }
         public override CodeTypeReferenceKind Kind { get { return CodeTypeReferenceKind.FuncPointer; } }
@@ -692,6 +711,7 @@ namespace BridgeBuilder
     abstract class CodeMemberDeclaration
     {
         Token[] _lineComments;
+        string _name;
 #if DEBUG
         static int dbugTotalId;
         public readonly int dbugId = dbugTotalId++;
@@ -700,7 +720,14 @@ namespace BridgeBuilder
 
         }
 #endif
-        public string Name { get; set; }
+        public string Name
+        {
+            get { return _name; }
+            set
+            {
+                _name = value;
+            }
+        }
         public abstract CodeMemberKind MemberKind { get; }
         public MemberAccessibility MemberAccessibility { get; set; }
         public CodeCompilationUnit OriginalCompilationUnit { get; set; }
@@ -709,7 +736,7 @@ namespace BridgeBuilder
             get { return _lineComments; }
             set
             {
-                 
+
 
                 _lineComments = value;
             }
@@ -732,6 +759,8 @@ namespace BridgeBuilder
         Ctor,
         Dtor
     }
+
+
     class CodeFieldDeclaration : CodeMemberDeclaration
     {
         public CodeFieldDeclaration()

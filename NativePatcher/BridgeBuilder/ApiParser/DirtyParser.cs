@@ -30,6 +30,7 @@ namespace BridgeBuilder
     class LineLexer
     {
         public List<Token> tklist = new List<Token>();
+
         public void Lex(string line)
         {
             tklist.Clear();
@@ -83,6 +84,15 @@ namespace BridgeBuilder
                         }
                         break;
                 }
+            }
+        }
+        public void AssignLineNumber(int lineNum)
+        {
+            //we lex line-by-line,
+            //so all token in the list have the same lineNum
+            for (int i = tklist.Count - 1; i >= 0; --i)
+            {
+                tklist[i].LineNo = lineNum;
             }
         }
         void LexPunc(char[] charBuffer, int charCount, ref int currentIndex)
@@ -424,6 +434,7 @@ namespace BridgeBuilder
         public TokenKind TokenKind;
         public bool NumberInHexFormat;
 
+        public int LineNo;
 #if DEBUG
         static int dbugTotalId;
         public readonly int dbugId = dbugTotalId++;
@@ -485,13 +496,26 @@ namespace BridgeBuilder
                 }
             }
             //------------
-            //start parse line by line
+            //start parse line-by-line
             //------------
             ParseFileContent();
-            //------------ 
-
+            //------------  
         }
-
+        public void Parse(string filename, IEnumerable<string> lines)
+        {
+#if DEBUG
+            this.dbugCurrentFilename = Path.GetFileName(filename);
+#endif
+            allLines.AddRange(lines);
+            //
+            cu = new CodeCompilationUnit(Path.GetFileNameWithoutExtension(filename));
+            cu.Filename = filename;
+            //------------
+            //start parse line-by-line
+            //------------
+            ParseFileContent();
+            //------------  
+        }
         void ReadUntilEscapeFromBlock()
         {
             int openBraceCount = 0;
@@ -585,7 +609,9 @@ namespace BridgeBuilder
         {
             LineLexer lineLexer = new LineLexer();
             tokenList.Clear();
-            //lex
+            //-------------------------------------------------------
+            //[1] Lex
+            //-------------------------------------------------------
             int lim = allLines.Count - 1;
             lineNo = 0;
             while (lineNo < lim)
@@ -598,12 +624,13 @@ namespace BridgeBuilder
                     if (line.StartsWith("//"))
                     {
                         //comment
-                        tokenList.Add(new Token() { Content = line, TokenKind = TokenKind.LineComment });
+                        tokenList.Add(new Token() { Content = line, TokenKind = TokenKind.LineComment, LineNo = lineNo });
                     }
                     else if (line.StartsWith("#"))
                     {
                         var token = new Token() { Content = line, TokenKind = TokenKind.PreprocessingDirective };
                         tokenList.Add(token);
+                        token.LineNo = lineNo; //
                         while (line.EndsWith("\\"))
                         {
                             //concat
@@ -617,6 +644,7 @@ namespace BridgeBuilder
                     {
                         //lex the content of this line
                         lineLexer.Lex(line);
+                        lineLexer.AssignLineNumber(lineNo);
                         //parse content of this line 
                         tokenList.AddRange(lineLexer.tklist);
                     }
@@ -624,15 +652,15 @@ namespace BridgeBuilder
 
 
                 lineNo++;
-            }
-            //-------------------------------------------------------
-            int tkcount = tokenList.Count;
+            } 
+
             //-------------------------------------------------------
 #if DEBUG
 
 #endif
 
-
+            //[2] Parse
+            int tkcount = tokenList.Count;
             CodeTypeDeclaration globalTypeDecl = cu.GlobalTypeDecl;
             for (currentTokenIndex = 0; currentTokenIndex < tkcount; ++currentTokenIndex)
             {
@@ -649,10 +677,8 @@ namespace BridgeBuilder
 
                         break;
                     case TokenKind.PreprocessingDirective:
-                        {
-
-                            lineComments.Clear();
-
+                        {   
+                            lineComments.Clear(); 
                             //this version we just skip some pre-processing 
                             if (tk.Content.StartsWith("#include"))
                             {
@@ -692,11 +718,9 @@ namespace BridgeBuilder
                                         }
                                     }
                                     break;
-
                                 case "typedef":
                                     {
                                         //parse typedef 
-
                                         ParseCTypeDef(globalTypeDecl);
                                     }
                                     break;
@@ -719,6 +743,12 @@ namespace BridgeBuilder
                                                 throw new NotSupportedException();
                                             }
                                         }
+                                    }
+                                    break;
+                                case "namespace":
+                                    {
+                                        //parse namespace
+                                        ParseNamespace(globalTypeDecl);
                                     }
                                     break;
                                 default:
@@ -977,6 +1007,7 @@ namespace BridgeBuilder
             //-----------------------------------------------------
             if (ExpectPunc("{"))
             {
+                //struct detail
                 if (par_types != null)
                 {
                     //rename 
@@ -1035,9 +1066,10 @@ namespace BridgeBuilder
                 }
 
             }
+
             else
             {
-                throw new NotSupportedException();
+
             }
 
             //------
@@ -1093,6 +1125,25 @@ namespace BridgeBuilder
                 }
             }
             return typeTemplateNotation;
+        }
+        bool ParseNamespace(CodeTypeDeclaration currentTypeDecl)
+        {
+            string namespaceName = ExpectId(); //may be null
+            if (!ExpectPunc("{"))
+            {
+                throw new NotSupportedException();
+            }
+            //we create a typedecl for namespace 
+            CodeTypeDeclaration namespace_as_type = new CodeTypeDeclaration();
+            namespace_as_type.Kind = TypeKind.Namespace;
+            namespace_as_type.Name = namespaceName ?? "";
+
+            currentTypeDecl.AddMember(namespace_as_type);
+
+            while (ParseTypeMember(namespace_as_type)) ;
+
+
+            return true;
         }
         bool ParseCTypeDef(CodeTypeDeclaration codeTypeDecl)
         {
@@ -1431,8 +1482,9 @@ namespace BridgeBuilder
                 return !ExpectPunc("}");
 
             }
-
+            CodeTypeReference retType = null;
             //---------------------------
+            bool isCefExport = ExpectId("CEF_EXPORT"); //cef specific
             if (ExpectId("class"))
             {
                 //sub class
@@ -1448,12 +1500,22 @@ namespace BridgeBuilder
                 subClass.MemberAccessibility = _currentMemberAccessibilityMode;
                 subClass.Kind = TypeKind.Struct;
                 codeTypeDecl.AddMember(subClass);
-                return !ExpectPunc("}");
+                //after struct decl
+
+                if (ExpectPunc("*"))
+                {
+                    retType = new CodePointerTypeReference(
+                        new CodeSimpleTypeReference(subClass.Name));
+
+                }
+                else
+                {
+                    return !ExpectPunc("}");
+                }
             }
 
             //modifier
             bool isOperatorMethod = false;
-            bool isCefExport = ExpectId("CEF_EXPORT"); //cef specific
             bool isStatic = ExpectId("static");
             bool isVirtual = ExpectId("virtual");
             bool isConst = ExpectId("const");
@@ -1463,7 +1525,10 @@ namespace BridgeBuilder
             bool isDestructor = ExpectPunc("~");
 
             //-------
-            CodeTypeReference retType = ExpectType();
+            if (retType == null)
+            {
+                retType = ExpectType();
+            }
             bool isCallback = ExpectId("CEF_CALLBACK"); //cef specific
             //-------
 
@@ -1559,8 +1624,118 @@ namespace BridgeBuilder
             //-----------------------------------
             if (ExpectPunc("("))
             {
-                //this is method
+                //this may be  method or delegate decl
                 Token[] comments = FlushCollectedLineComments();
+
+                if (name == null)
+                {
+                    //macro/ctor/dtor
+                    if (retType.ToString() == codeTypeDecl.Name)
+                    {
+                        //should be ctor or dtor
+                        //this will be handled later
+                    }
+                    else
+                    {
+                        //macro or delegate decl
+                        //cef3
+                        if (!IsAllUpperLetter(retType.ToString()))
+                        {
+                            //cef 3 : assume this is a func pointer decl
+                            bool isCallback2 = ExpectId("CEF_CALLBACK"); //cef specific
+                            if (!isCallback2)
+                            {
+                                throw new NotSupportedException();
+                            }
+                            //
+                            if (!ExpectPunc("*"))
+                            {
+                                throw new NotSupportedException();
+                            }
+                            //
+                            //pointer field name
+                            string delFieldName = ExpectId();
+
+                            CodeFunctionPointerTypeRefernce funcPtrType = new CodeFunctionPointerTypeRefernce(delFieldName);
+                            funcPtrType.ReturnType = retType;
+                            //
+                            CodeFieldDeclaration fieldDecl = new CodeFieldDeclaration();
+                            fieldDecl.FieldType = funcPtrType;
+                            fieldDecl.Name = delFieldName;
+                            fieldDecl.LineComments = comments;
+
+                            codeTypeDecl.AddMember(fieldDecl);
+
+                            if (!ExpectPunc(")"))
+                            {
+                                throw new NotSupportedException();
+                            }
+                            if (!ExpectPunc("("))
+                            {
+                                throw new NotSupportedException();
+                            }
+                            //begin pars 
+                            //callback ?  
+                            AGAIN2:
+
+                            Token tk2 = ExpectPunc();
+                            if (tk2 != null)
+                            {
+                                //stop
+                                if (tk2.Content == ",")
+                                {
+                                    //next par
+
+                                }
+                                else if (tk2.Content == ")")
+                                {
+                                    //end delegate 
+                                    if (!ExpectPunc(";"))
+                                    {
+                                        throw new NotSupportedException();
+                                    }
+
+                                    return !ExpectPunc("}");
+                                }
+                                else
+                                {
+                                    throw new NotSupportedException();
+                                }
+                            }
+
+                            CodeMethodParameter metPar = new CodeMethodParameter();
+                            bool isConst2 = ExpectId("const");
+
+                            CodeTypeReference parType1 = ExpectType();
+                            if (parType1.Name == "struct")
+                            {
+                                parType1 = ExpectType();
+                            }
+
+                            //before par name
+                            if (ExpectId("const"))
+                            {
+                                if (ExpectPunc("*"))
+                                {
+                                    metPar.IsConstParName = true;
+                                }
+                                else
+                                {
+
+                                }
+                            }
+
+                            metPar.ParameterName = ExpectId();
+                            metPar.ParameterType = parType1;
+                            metPar.IsConstPar = isConst2;
+
+                            funcPtrType.Parameters.Add(metPar);
+                            goto AGAIN2;
+
+                        }
+                    }
+                }
+
                 CodeMethodDeclaration met = new CodeMethodDeclaration();
                 met.IsStatic = isStatic;
                 met.IsVirtual = isVirtual;
@@ -1577,6 +1752,7 @@ namespace BridgeBuilder
                 }
                 else
                 {
+
                     met.IsOperatorMethod = isOperatorMethod;
                     met.Name = name;
                     met.ReturnType = retType;
@@ -1688,6 +1864,8 @@ namespace BridgeBuilder
                 CodeTypeReference typename = ExpectType();//1. 
                 if (ExpectPunc("::"))
                 {
+                    //CodeTypeReference rightPart = ExpectType();
+
                     string typename1 = ExpectId();
                     if (ExpectPunc("*"))
                     {
@@ -1734,7 +1912,7 @@ namespace BridgeBuilder
                 }
                 else if (ExpectPunc("("))
                 {
-                    var funcTypeReference = new CodeFunctionPointerTypeRefernce();
+                    var funcTypeReference = new CodeFunctionPointerTypeRefernce(null);
                     funcTypeReference.ReturnType = typeParameter;
                     //callback ?  
                     AGAIN2:

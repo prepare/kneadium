@@ -135,7 +135,7 @@ namespace LayoutFarm.CefBridge
         {
             return Cef3Binder.MyCefJs_CefV8Value_IsFunc(this.Ptr);
         }
-       
+
     }
 
 
@@ -160,11 +160,9 @@ namespace LayoutFarm.CefBridge
     //2. this is a quite large object, and is designed to be used on stack,
     //pass by reference to native side
     //---------------------------------------
-    /// <summary>
-    /// for internal inter-op only -> always be private,used on stack,pass by reference
-    /// </summary>
+    
     [StructLayout(LayoutKind.Sequential)]
-    struct JsValue
+    public struct JsValue
     {
         /// <summary>
         /// type and flags
@@ -190,7 +188,7 @@ namespace LayoutFarm.CefBridge
         //--------------------------------
 
 
-      
+
     }
 
 

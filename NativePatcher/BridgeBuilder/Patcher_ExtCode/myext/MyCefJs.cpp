@@ -391,16 +391,19 @@ void MyCefString_Read(CefString* cefStr, wchar_t* outputBuffer, int outputBuffer
 	*actualLength = str_len;
 	wcscpy_s(outputBuffer, outputBufferLen, cefStr->c_str());
 }
-void MyCefStringHolder_Read(MyCefStringHolder* mycefStr, wchar_t* outputBuffer, int outputBufferLen, int* actualLength)
+void MyCefStringHolder_Read(MyCefStringHolder* mycefStr, char16_t* outputBuffer, int outputBufferLen, int* actualLength)
 {
 	CefString* cefStr = &mycefStr->value;
 	int str_len = (int)cefStr->length();
 	*actualLength = str_len;
 	auto cef_str = cefStr->c_str();
-
-	wcscpy_s(outputBuffer, outputBufferLen, cef_str);
+	memcpy(outputBuffer, cef_str, str_len); 
 }
-
+void MyCefStringGetRawPtr(void* cefstring, char16_t** outputBuffer, int* actualLength) {
+	CefString* cefStr = (CefString*)cefstring;
+	*actualLength = (int)cefStr->length();
+	*outputBuffer = (char16_t*)cefStr->c_str();;
+}
 //-----------
 MY_DLL_EXPORT void MyCefJs_MetReadArgAsString(const CefV8ValueList* jsArgs, int index, wchar_t* outputBuffer, int outputBufferLen, int* actualLength)
 {
