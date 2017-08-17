@@ -209,7 +209,7 @@ namespace BridgeBuilder
         /// <param name="par"></param>
         /// <param name="destExpression"></param>
         /// <param name="srcExpression"></param>
-        internal static void PrepareDataFromNativeToCs(MethodParameterTxInfo par, string destExpression, string srcExpression, bool userStackForString)
+        internal static void PrepareDataFromNativeToCs(MethodParameterTxInfo par, string destExpression, string srcExpression, bool stackBased)
         {
 
             TypeSymbol ret = par.TypeSymbol;
@@ -250,7 +250,7 @@ namespace BridgeBuilder
                                         switch (simpleElem.PrimitiveTypeKind)
                                         {
                                             case PrimitiveTypeKind.CefString:
-                                                if(userStackForString)
+                                                if(stackBased)
                                                 {
                                                     par.ArgExtractCode = "SetCefStringToJsValue2(" + destExpression + "," + srcExpression + ");"; 
                                                 }
@@ -314,26 +314,61 @@ namespace BridgeBuilder
                                                         //c-to-cpp => from 'raw' pointer to 'smart' pointer
                                                         //cpp-to-c => from 'smart' pointer to 'raw' pointer
 
-                                                        if (implBy.Name.Contains("CToCpp"))
+                                                        if(stackBased)
                                                         {
-                                                            //so if you want to send this to client lib
-                                                            //you need to GET raw pointer , so =>
 
-                                                            par.ArgExtractCode = "MyCefSetVoidPtr(" + destExpression + "," +
-                                                                  implBy.Name + "::Unwrap" + "(" + srcExpression + "));";
-                                                            return;
+                                                            if (implBy.Name.Contains("CToCpp"))
+                                                            {
+                                                                //so if you want to send this to client lib
+                                                                //you need to GET raw pointer , so =>
 
-                                                        }
-                                                        else if (implBy.Name.Contains("CppToC"))
-                                                        {
-                                                            par.ArgExtractCode = "MyCefSetVoidPtr(" + destExpression + "," +
-                                                                implBy.Name + "::Wrap" + "(" + srcExpression + "));";
-                                                            return;
+
+                                                                string auto_p = "p_" + par.Name;
+                                                                par.ArgPreExtractCode = "auto " + auto_p + "=" + implBy.Name + "::Unwrap" + "(" + srcExpression + ");";
+                                                                par.ArgExtractCode = "MyCefSetVoidPtr(" + destExpression + "," + auto_p + "); ";//unwrap 
+                                                                par.ArgPostExtractCode = implBy.Name + "::Wrap" + "(" + auto_p + ");";//wrap
+
+                                                                return;
+
+                                                            }
+                                                            else if (implBy.Name.Contains("CppToC"))
+                                                            {
+                                                                string auto_p = "p_" + par.Name;
+                                                                par.ArgPreExtractCode = "auto " + auto_p + "=" + implBy.Name + "::Wrap" + "(" + srcExpression + ")";//wrap
+                                                                par.ArgExtractCode = "MyCefSetVoidPtr(" + destExpression + "," + auto_p + ");";
+                                                                par.ArgPostExtractCode = implBy.Name + "::Unwrap" + "(" + auto_p + ");";//unwrap
+                                                                return;
+                                                            }
+                                                            else
+                                                            {
+                                                                throw new NotSupportedException();
+                                                            }
                                                         }
                                                         else
                                                         {
-                                                            throw new NotSupportedException();
+
+                                                            if (implBy.Name.Contains("CToCpp"))
+                                                            {
+                                                                //so if you want to send this to client lib
+                                                                //you need to GET raw pointer , so =>
+
+                                                                par.ArgExtractCode = "MyCefSetVoidPtr(" + destExpression + "," +
+                                                                      implBy.Name + "::Unwrap" + "(" + srcExpression + "));";
+                                                                return;
+
+                                                            }
+                                                            else if (implBy.Name.Contains("CppToC"))
+                                                            {
+                                                                par.ArgExtractCode = "MyCefSetVoidPtr(" + destExpression + "," +
+                                                                    implBy.Name + "::Wrap" + "(" + srcExpression + "));";
+                                                                return;
+                                                            }
+                                                            else
+                                                            {
+                                                                throw new NotSupportedException();
+                                                            }
                                                         }
+                                                       
                                                     }
                                                 }
                                         }
@@ -388,24 +423,57 @@ namespace BridgeBuilder
                                                 //c-to-cpp => from 'raw' pointer to 'smart' pointer
                                                 //cpp-to-c => from 'smart' pointer to 'raw' pointer
 
-                                                if (implBy.Name.Contains("CToCpp"))
+                                                if(stackBased)
                                                 {
-                                                    //so if you want to send this to client lib
-                                                    //you need to GET raw pointer , so =>
 
-                                                    par.ArgExtractCode = "MyCefSetVoidPtr(" + destExpression + "," +
-                                                          implBy.Name + "::Unwrap" + "(" + srcExpression + "));";
 
-                                                }
-                                                else if (implBy.Name.Contains("CppToC"))
-                                                {
-                                                    par.ArgExtractCode = "MyCefSetVoidPtr(" + destExpression + "," +
-                                                        implBy.Name + "::Wrap" + "(" + srcExpression + "));";
+
+                                                    if (implBy.Name.Contains("CToCpp"))
+                                                    {
+                                                        //so if you want to send this to client lib
+                                                        //you need to GET raw pointer , so =>
+
+                                                        string auto_p = "p_" + par.Name;
+                                                        par.ArgPreExtractCode = "auto " + auto_p + "=" + implBy.Name + "::Unwrap" + "(" + srcExpression + ");"; //unwrap
+                                                        par.ArgExtractCode = "MyCefSetVoidPtr(" + destExpression + "," + auto_p + ");";
+                                                        par.ArgPostExtractCode = implBy.Name + "::Wrap" + "(" + auto_p + ");"; //wrap 
+
+                                                    }
+                                                    else if (implBy.Name.Contains("CppToC"))
+                                                    {
+                                                        string auto_p = "p_" + par.Name;
+                                                        par.ArgPreExtractCode = "auto " + auto_p + "=" + implBy.Name + "::Wrap" + "(" + srcExpression + ");"; //wrap
+                                                        par.ArgExtractCode = "MyCefSetVoidPtr(" + destExpression + "," + auto_p + ");";
+                                                        par.ArgPostExtractCode = implBy.Name + "::Unwrap" + "(" + auto_p + ");";//unwrap
+                                                    }
+                                                    else
+                                                    {
+                                                        throw new NotSupportedException();
+                                                    }
                                                 }
                                                 else
                                                 {
-                                                    throw new NotSupportedException();
+                                                    if (implBy.Name.Contains("CToCpp"))
+                                                    {
+                                                        //so if you want to send this to client lib
+                                                        //you need to GET raw pointer , so =>
+
+                                                        par.ArgExtractCode = "MyCefSetVoidPtr(" + destExpression + "," +
+                                                              implBy.Name + "::Unwrap" + "(" + srcExpression + "));";
+
+                                                    }
+                                                    else if (implBy.Name.Contains("CppToC"))
+                                                    {
+                                                        par.ArgExtractCode = "MyCefSetVoidPtr(" + destExpression + "," +
+                                                            implBy.Name + "::Wrap" + "(" + srcExpression + "));";
+                                                    }
+                                                    else
+                                                    {
+                                                        throw new NotSupportedException();
+                                                    }
+
                                                 }
+                                               
                                                 return;
                                             }
                                         }
@@ -545,7 +613,7 @@ namespace BridgeBuilder
                                 }
                                 break;
                             case PrimitiveTypeKind.CefString:
-                                if(userStackForString)
+                                if(stackBased)
                                 {
                                     par.ArgExtractCode = "SetCefStringToJsValue(" + destExpression + "," + srcExpression + ");";
                                 }
