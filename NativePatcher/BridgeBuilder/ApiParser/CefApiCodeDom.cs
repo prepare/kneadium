@@ -29,6 +29,7 @@ namespace BridgeBuilder
         Struct,
         Enum,
         FunctionPointer,
+        Namespace, //we temp use static typedecl as namespace
     }
 
     class CodeTypeTemplateNotation
@@ -182,6 +183,9 @@ namespace BridgeBuilder
         public CodeFunctionPointerTypeRefernce FuncPointerType { get; set; }
     }
 
+
+
+
     class CodeTypeDeclaration : CodeMemberDeclaration
     {
         List<CodeMemberDeclaration> _specialImplMacroMembers;
@@ -330,6 +334,9 @@ namespace BridgeBuilder
                     break;
                 case TypeKind.Enum:
                     stbuilder.Append("enum ");
+                    break;
+                case TypeKind.Namespace:
+                    stbuilder.Append("namespace ");
                     break;
                 default:
                     throw new NotSupportedException();

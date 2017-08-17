@@ -35,7 +35,7 @@ class CefCToCppRefCounted : public BaseName {
   bool Release() const;
   bool HasOneRef() const { return UnderlyingHasOneRef(); }
   //###_BEGIN
-  managed_callback GetManagedCallBack() const OVERRIDE { return UnderlyingGetManagedCallBack(); }
+  managed_callback GetManagedCallBack() const { return UnderlyingGetManagedCallBack(); }
   //###_END
 #if DCHECK_IS_ON()
   // Simple tracking of allocated objects.
