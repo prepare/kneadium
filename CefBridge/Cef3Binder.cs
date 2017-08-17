@@ -23,12 +23,7 @@ namespace LayoutFarm.CefBridge
     //----------------------------------------------------------------------
     //cef msg constant
     //----------------------------------------------------------------------
-
-
-
-
-
-
+     
 
     public enum MyCefMsg
     {
@@ -40,14 +35,10 @@ namespace LayoutFarm.CefBridge
         CEF_MSG_ClientHandler_NotifyBrowserClosed = 101,
         CEF_MSG_ClientHandler_NotifyBrowserCreated = 102,
 
-
-        CEF_MSG_ClientHandler_OnBeforePopup = 104,
-        CEF_MSG_ClientHandler_OnConsoleMessage = 106,
+         
         CEF_MSG_ClientHandler_ShowDevTools = 107,
-        CEF_MSG_ClientHandler_CloseDevTools = 108,
-        CEF_MSG_ClientHandler_OnBeforeContextMenu = 109,
-        CEF_MSG_ClientHandler_BeforeDownload = 110,
-        CEF_MSG_ClientHandler_DownloadUpdated = 111,
+        CEF_MSG_ClientHandler_CloseDevTools = 108, 
+         
         CEF_MSG_ClientHandler_OnLoadError = 119,
         //
         CEF_MSG_ClientHandler_OnCertError = 120,
@@ -70,8 +61,7 @@ namespace LayoutFarm.CefBridge
         CEF_MSG_MyCefDomGetTextWalk_Visit = 302,
         CEF_MSG_MyV8ManagedHandler_Execute = 301,
         CEF_MSG_HereOnRenderer = 303,
-
-        CEF_MSG_ClientHandler_OnPreKeyEvent = 501,
+        
         CEF_MSG_ClientHandler_NotifyTitle = 502,
         CEF_MSG_ClientHandler_NotifyAddress = 503,
     }
