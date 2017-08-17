@@ -20,11 +20,12 @@ namespace BridgeBuilder
         {
 
             //1. analyze modified source files, in source folder 
-            string srcRootDir = @"D:\projects\cef_binary_3.3071.1647.win32\tests\cefclient";
+            string srcRootDir = @"D:\projects\cef_binary_3.3071.1647.win32";
+
 
             PatchBuilder builder = new PatchBuilder(new string[]{
-                srcRootDir,
-                @"D:\projects\cef_binary_3.3071.1647.win32\tests\shared"
+                srcRootDir + @"\tests\cefclient",
+                srcRootDir + @"\tests\shared"
             });
             builder.MakePatch();
 
@@ -32,21 +33,23 @@ namespace BridgeBuilder
             string saveFolder = "d:\\WImageTest\\cefbridge_patches";
             builder.Save(saveFolder);
 
-            ////3. test load those patches
-            //PatchBuilder builder2 = new PatchBuilder(srcRootDir);
-            //builder2.LoadPatchesFromFolder(saveFolder);
-
             //----------
             //copy extension code          
             CopyFileInFolder(saveFolder,
                 @"D:\projects\Kneadium\NativePatcher\cefbridge_patches"
                );
             //copy ext from actual src 
-            CopyFileInFolder(srcRootDir + "\\myext",
+            CopyFileInFolder(
+                srcRootDir + @"\tests\cefclient\myext",
                  @"D:\projects\Kneadium\NativePatcher\BridgeBuilder\Patcher_ExtCode\myext");
+            //----------
+            //copy ext from actual src 
+            CopyFileInFolder(
+                srcRootDir + @"\libcef_dll\myext",
+                 @"D:\projects\Kneadium\NativePatcher\BridgeBuilder\Patcher_ExtCode\myext");
+            //---------- 
 
         }
-
         static void CopyFileInFolder(string srcFolder, string targetFolder)
         {
             //not recursive
@@ -54,19 +57,18 @@ namespace BridgeBuilder
             {
                 throw new NotSupportedException();
             }
-
             string[] srcFiles = System.IO.Directory.GetFiles(srcFolder);
             foreach (var f in srcFiles)
             {
                 System.IO.File.Copy(f,
                     targetFolder + "\\" + System.IO.Path.GetFileName(f), true);
             }
-
-
         }
+
         private void cmdLoadPatchAndApplyPatch_Click(object sender, EventArgs e)
         {
             //cef_binary_3.3071.1647 
+            string srcRootDir0 = @"D:\projects\cef_binary_3.3071.1647.win32";
             string srcRootDir = @"D:\projects\cef_binary_3.3071.1647.win32\tests";
             string saveFolder = "d:\\WImageTest\\cefbridge_patches";
 
@@ -116,8 +118,8 @@ namespace BridgeBuilder
 
             string extTargetDir = newPathName + "\\cefclient\\myext";
             manualPatcher.CopyExtensionSources(extTargetDir);
-            manualPatcher.Do_CMake_txt();
-
+            manualPatcher.Do_CefClient_CMake_txt();
+            manualPatcher.Do_LibCefDll_CMake_txt(srcRootDir0 + "\\libcef_dll\\CMakeList.txt");
         }
 
         private void cmdMacBuildPatchesFromSrc_Click(object sender, EventArgs e)
@@ -195,7 +197,7 @@ namespace BridgeBuilder
             ManualPatcher manualPatcher = new ManualPatcher(newPathName);
             string extTargetDir = newPathName + "\\cefclient\\myext";
             manualPatcher.CopyExtensionSources(extTargetDir);
-            manualPatcher.Do_CMake_txt();
+            manualPatcher.Do_CefClient_CMake_txt();
         }
 
         private void button1_Click(object sender, EventArgs e)
@@ -269,6 +271,37 @@ namespace BridgeBuilder
             return dic;
         }
 
+        CodeCompilationUnit ParseCppFile(string filename)
+        {
+            //-----
+            //this is for Cef3 cpp-to-c .cc file only!!!
+            //test_cpptoc_List -> this version we need some pre-precessing step
+            //-----
+
+            List<string> lines = new List<string>(System.IO.File.ReadAllLines(filename));
+            List<string> selectedLines = new List<string>();
+            int j = lines.Count;
+
+            for (int i = 0; i < j; ++i)
+            {
+                string line = lines[i].Trim();
+                if (line.StartsWith("//"))
+                {
+                    //this is comment
+                    //read the comment
+                    if (line.Contains("CONSTRUCTOR"))
+                    {
+                        //stop here
+                        break;
+                    }
+                }
+                selectedLines.Add(line);
+            }
+
+            CodeCompilationUnit cu = ParseWrapper(filename, selectedLines);
+
+            return cu;
+        }
         private void button2_Click(object sender, EventArgs e)
         {
             //cpp-to-c wrapper and c-to-cpp wrapper
@@ -278,6 +311,27 @@ namespace BridgeBuilder
 
             List<CodeCompilationUnit> totalCuList_capi = new List<CodeCompilationUnit>();
             List<CodeCompilationUnit> totalCuList = new List<CodeCompilationUnit>();
+            List<CodeCompilationUnit> test_cpptoc_List = new List<CodeCompilationUnit>();
+
+            {
+
+                string[] onlyCppFiles = System.IO.Directory.GetFiles(cefDir + @"\libcef_dll\cpptoc", "*.cc");
+                //we skip some files
+                Dictionary<string, bool> skipFiles = CreateSkipFiles(new string[] {
+                    "base_ref_counted_cpptoc.cc" ,
+                    "base_scoped_cpptoc.cc" });
+                int j = onlyCppFiles.Length;
+                for (int i = 0; i < j; ++i)
+                {
+                    if (skipFiles.ContainsKey(System.IO.Path.GetFileName(onlyCppFiles[i])))
+                    {
+                        continue;
+                    }
+                    CodeCompilationUnit cu = ParseCppFile(onlyCppFiles[i]);
+                    test_cpptoc_List.Add(cu);                     
+                }
+            }
+
             {
                 //cef capi
                 string[] onlyHeaderFiles = System.IO.Directory.GetFiles(cefDir + @"\include\capi", "*.h");
@@ -310,8 +364,6 @@ namespace BridgeBuilder
             }
 
 
-
-
             {
 
                 //include/internal
@@ -322,7 +374,6 @@ namespace BridgeBuilder
             }
 
 
-          
             {
                 //include folder
                 string[] onlyHeaderFiles = System.IO.Directory.GetFiles(cefDir + @"\include\", "*.h");
@@ -339,8 +390,8 @@ namespace BridgeBuilder
                     CodeCompilationUnit cu = ParseWrapper(onlyHeaderFiles[i]);
                     totalCuList.Add(cu);
                 }
-            } 
-            
+            }
+
             //c to cpp 
             {
                 string[] onlyHeaderFiles = System.IO.Directory.GetFiles(cefDir + @"\libcef_dll\ctocpp", "*.h");
@@ -510,9 +561,11 @@ namespace BridgeBuilder
             StringBuilder csCodeStBuilder = new StringBuilder();
             AddCppBuiltInBeginCode(cppCodeStBuilder);
 
+            CodeStringBuilder cppHeaderAutogen = new CodeStringBuilder();
+            cppHeaderAutogen.AppendLine("//AUTOGEN");
             foreach (TypeTxInfo txinfo in typeTxInfoList)
             {
-                cppCodeStBuilder.AppendLine("const int CefTypeName_" + txinfo.TypeDecl.Name + " = " + txinfo.CsInterOpTypeNameId.ToString() + ";");
+                cppHeaderAutogen.AppendLine("const int CefTypeName_" + txinfo.TypeDecl.Name + " = " + txinfo.CsInterOpTypeNameId.ToString() + ";");
             }
 
 
@@ -523,18 +576,17 @@ namespace BridgeBuilder
                 "using System.Collections.Generic;\r\n" +
                 "namespace LayoutFarm.CefBridge.Auto{\r\n");
 
-
-
+             
 
             foreach (CefTypeTxPlan tx in enumTxPlans)
             {
                 CodeStringBuilder csCode = new CodeStringBuilder();
                 tx.GenerateCsCode(csCode);
                 csCodeStBuilder.Append(csCode.ToString());
-            }
+            } 
 
-
-            foreach (CefTypeTxPlan tx in instanceClassPlans)
+            //
+            foreach (CefInstanceElementTxPlan tx in instanceClassPlans)
             {
 
                 //pass
@@ -564,7 +616,7 @@ namespace BridgeBuilder
             }
 
 
-            foreach (CefTypeTxPlan tx in callbackPlans)
+            foreach (CefCallbackTxPlan tx in callbackPlans)
             {
                 CodeStringBuilder stbuilder = new CodeStringBuilder();
                 tx.GenerateCppCode(stbuilder);
@@ -574,40 +626,67 @@ namespace BridgeBuilder
                 CodeStringBuilder csCode = new CodeStringBuilder();
                 tx.GenerateCsCode(csCode);
                 csCodeStBuilder.Append(csCode.ToString());
-
                 if (tx.CppImplClassNameId > 0)
                 {
                     customImplClasses.Add(tx);
                 }
-            }
-            // 
 
-            foreach (CefTypeTxPlan tx in handlerPlans)
+            }
+
+            // 
+           
+            //create default msg handler
+
+
+            foreach (CefHandlerTxPlan tx in handlerPlans)
             {
 
                 CodeStringBuilder stbuilder = new CodeStringBuilder();
                 //a handler is created on cpp side, then we attach .net delegate to it
                 //so  we need
                 //1. 
+                tx._cppHeaderStBuilder = cppHeaderAutogen;
+                //
                 tx.GenerateCppCode(stbuilder);
                 cppCodeStBuilder.Append(stbuilder.ToString());
                 //
                 stbuilder = new CodeStringBuilder();
                 tx.GenerateCsCode(stbuilder);
                 csCodeStBuilder.Append(stbuilder.ToString());
-
-                if (tx.CppImplClassNameId > 0)
-                {
-                    customImplClasses.Add(tx);
-                }
+                //no default implementation handler class                 
             }
 
+
+            //---------
+            CodeStringBuilder cef_NativeReqHandlers_Class = new CodeStringBuilder();
+            cef_NativeReqHandlers_Class.AppendLine("//------ common cef handler swicth table---------");
+            cef_NativeReqHandlers_Class.AppendLine("public static class CefNativeRequestHandlers{");
+            cef_NativeReqHandlers_Class.AppendLine("public static void HandleNativeReq(object inst, int met_id,IntPtr args){");
+            cef_NativeReqHandlers_Class.AppendLine("switch((met_id>>16)){");
+            foreach (CefHandlerTxPlan tx in handlerPlans)
+            {
+                cef_NativeReqHandlers_Class.AppendLine("case " + tx.OriginalDecl.Name + "._typeNAME:{");
+                cef_NativeReqHandlers_Class.AppendLine(tx.OriginalDecl.Name + ".HandleNativeReq(inst as " + tx.OriginalDecl.Name + ".I0," +
+                        " inst as " + tx.OriginalDecl.Name + ".I1,met_id,args);");
+                cef_NativeReqHandlers_Class.AppendLine("}break;");
+            }
+            //--------
+            //create handle common switch table
+            cef_NativeReqHandlers_Class.AppendLine("}");//switch
+            cef_NativeReqHandlers_Class.AppendLine("}");//HandleNativeReq()
+            cef_NativeReqHandlers_Class.AppendLine("}");
+
+            //add to cs code
+            csCodeStBuilder.Append(cef_NativeReqHandlers_Class.ToString());
+            //cs...
+            csCodeStBuilder.AppendLine("}"); //end cs
+            //--------
+            //cpp
             CreateCppSwitchTable(cppCodeStBuilder, instanceClassPlans);
             CreateNewInstanceMethod(cppCodeStBuilder, customImplClasses);
-
             AddCppBuiltInEndCode(cppCodeStBuilder);
             //
-            csCodeStBuilder.AppendLine("}");
+
         }
         void CreateNewInstanceMethod(StringBuilder outputStBuilder, List<CefTypeTxPlan> customImplClasses)
         {
@@ -646,94 +725,61 @@ namespace BridgeBuilder
             #include ""ExportFuncAuto.h"" 
             //----------------
             const int MET_Release = 0;
-            //---------------- 
+            //----------------  
             //
-            inline void SetCefStringToJsValue(jsvalue* value, const CefString&cefstr) {
+#include ""libcef_dll/cpptoc/drag_handler_cpptoc.h"" 
+#include ""libcef_dll/cpptoc/navigation_entry_visitor_cpptoc.h""
+#include ""libcef_dll/cpptoc/pdf_print_callback_cpptoc.h""
+#include ""libcef_dll/cpptoc/client_cpptoc.h""
+#include ""libcef_dll/cpptoc/download_image_callback_cpptoc.h""
+#include ""libcef_dll/cpptoc/run_file_dialog_callback_cpptoc.h""
+#include ""libcef_dll/cpptoc/domvisitor_cpptoc.h""
+#include ""libcef_dll/cpptoc/completion_callback_cpptoc.h""
+#include ""libcef_dll/cpptoc/cookie_visitor_cpptoc.h""
+#include ""libcef_dll/cpptoc/delete_cookies_callback_cpptoc.h""
+#include ""libcef_dll/cpptoc/menu_model_delegate_cpptoc.h""
+#include ""libcef_dll/cpptoc/request_context_handler_cpptoc.h""
+#include ""libcef_dll/cpptoc/resolve_callback_cpptoc.h""
+#include ""libcef_dll/cpptoc/response_filter_cpptoc.h""
+#include ""libcef_dll/cpptoc/scheme_handler_factory_cpptoc.h""
+#include ""libcef_dll/cpptoc/task_cpptoc.h""
+#include ""libcef_dll/cpptoc/set_cookie_callback_cpptoc.h""
+#include ""libcef_dll/cpptoc/v8accessor_cpptoc.h""
+#include ""libcef_dll/cpptoc/v8handler_cpptoc.h""
+#include ""libcef_dll/cpptoc/v8interceptor_cpptoc.h""
+#include ""libcef_dll/cpptoc/web_plugin_info_visitor_cpptoc.h""
+#include ""libcef_dll/cpptoc/web_plugin_unstable_callback_cpptoc.h""
+#include ""libcef_dll/cpptoc/write_handler_cpptoc.h""
+#include ""libcef_dll/cpptoc/app_cpptoc.h""
+#include ""libcef_dll/cpptoc/urlrequest_client_cpptoc.h""
+#include ""libcef_dll/cpptoc/string_visitor_cpptoc.h""
+#include ""libcef_dll/cpptoc/get_geolocation_callback_cpptoc.h""
+#include ""libcef_dll/cpptoc/end_tracing_callback_cpptoc.h""
+#include ""libcef_dll/cpptoc/register_cdm_callback_cpptoc.h""
+#include ""libcef_dll/cpptoc/accessibility_handler_cpptoc.h""
 
-                MyCefStringHolder* str = new MyCefStringHolder();
-                str->value = cefstr;
-                //
-                value->type = JSVALUE_TYPE_NATIVE_CEFHOLDER_STRING;
-                value->ptr = str;
-                value->i32 = str->value.length();
-            }
-            inline void DeleteCefStringHolderFromJsValue(jsvalue* value) {
-	            value->i32 = 0;
-	            delete value->ptr;  
-            }
-            inline void MyCefSetVoidPtr(jsvalue* value, void* data)
-            {
-                value->type = JSVALUE_TYPE_WRAPPED;
-                value->ptr = data;
-            }
-            inline void MyCefSetVoidPtr2(jsvalue* value,const void* data) {
-                value->type = JSVALUE_TYPE_WRAPPED;
-                value->ptr = data;
-            }
-            inline void MyCefSetInt32(jsvalue* value, int32_t data)
-            {
-                value->type = JSVALUE_TYPE_INTEGER;
-                value->i32 = data;
-            }
-            inline void MyCefSetUInt32(jsvalue* value, uint32_t data)
-            {
-                value->type = JSVALUE_TYPE_INTEGER;
-                value->i32 = (int32_t)data;
-            }
-            inline void MyCefSetInt64(jsvalue* value, int64_t data)
-            {
-                value->type = JSVALUE_TYPE_INTEGER64;
-                value->i64 = data;
-            }
-            inline void MyCefSetUInt64(jsvalue* value, uint64_t data)
-            {
-                value->type = JSVALUE_TYPE_INTEGER64;
-                value->i64 = data;
-            }
-            inline void MyCefSetBool(jsvalue* value, bool data)
-            {
-                value->type = JSVALUE_TYPE_BOOLEAN;
-                value->i32 = data ? 1 : 0;
-            }
-            inline void MyCefSetDouble(jsvalue* value, double data)
-            {
-                value->type = JSVALUE_TYPE_NUMBER;
-                value->num = data;
-            }
-            inline void MyCefSetFloat(jsvalue* value, float data)
-            {
-                value->type = JSVALUE_TYPE_NUMBER;
-                value->num = data;
-            }
-            inline MyCefStringHolder*GetStringHolder(jsvalue * value) {
-                return (MyCefStringHolder*)value->ptr;
-            }
-            inline void MyCefSetCefPoint(jsvalue* value, CefPoint&data) {
+//handlers
+#include ""libcef_dll/cpptoc/resource_bundle_handler_cpptoc.h""
+#include ""libcef_dll/cpptoc/browser_process_handler_cpptoc.h""
+#include ""libcef_dll/cpptoc/dialog_handler_cpptoc.h""
+#include ""libcef_dll/cpptoc/render_process_handler_cpptoc.h""
+#include ""libcef_dll/cpptoc/context_menu_handler_cpptoc.h""
+#include ""libcef_dll/cpptoc/display_handler_cpptoc.h""
+#include ""libcef_dll/cpptoc/download_handler_cpptoc.h""
+#include ""libcef_dll/cpptoc/find_handler_cpptoc.h""
+#include ""libcef_dll/cpptoc/focus_handler_cpptoc.h""
+#include ""libcef_dll/cpptoc/geolocation_handler_cpptoc.h""
+#include ""libcef_dll/cpptoc/jsdialog_handler_cpptoc.h""
+#include ""libcef_dll/cpptoc/keyboard_handler_cpptoc.h""
+#include ""libcef_dll/cpptoc/life_span_handler_cpptoc.h""
+#include ""libcef_dll/cpptoc/load_handler_cpptoc.h""
+#include ""libcef_dll/cpptoc/render_handler_cpptoc.h""
+#include ""libcef_dll/cpptoc/request_handler_cpptoc.h""
+#include ""libcef_dll/cpptoc/resource_handler_cpptoc.h""
+#include ""libcef_dll/cpptoc/print_handler_cpptoc.h""
+#include ""libcef_dll/cpptoc/read_handler_cpptoc.h""
 
-                CefPoint* cefPoint = new CefPoint();
-                value->type = JSVALUE_TYPE_WRAPPED;
-                value->ptr = cefPoint;
-            } 
-              ///------------------------
-            struct MyMetArgsN
-            {
-	            int32_t argCount;
-	            jsvalue ret;
-	            jsvalue* vargs;
-            };
- 
-            int32_t MyMetArgGetCount(void* /*MyMetArgsN*/ mymetArgs) {
-	            return ((MyMetArgsN*)mymetArgs)->argCount;
-            } 
-            void* MyMetArgGetArgAddress(void* /*MyMetArgsN*/mymetArgs, int index) { 
-	            MyMetArgsN* metArg = (MyMetArgsN*)mymetArgs;
-	            if (index > (metArg->argCount)) {
-		            return nullptr;
-	            }
-	            else {
-		            return &metArg->vargs[index];
-	            } 
-            }
+            
             //////////////////////////////////////////////////////////////////";
 
             using (System.IO.StringReader strReader = new System.IO.StringReader(prebuilt1))
@@ -792,6 +838,14 @@ namespace BridgeBuilder
             //
             Cef3HeaderFileParser headerParser = new Cef3HeaderFileParser();
             headerParser.Parse(srcFile);
+            return headerParser.Result;
+        }
+        CodeCompilationUnit ParseWrapper(string srcFile, IEnumerable<string> lines)
+        {
+            //string srcFile = @"D:\projects\cef_binary_3.3071.1647.win32\libcef_dll\ctocpp\frame_ctocpp.h";
+            //
+            Cef3HeaderFileParser headerParser = new Cef3HeaderFileParser();
+            headerParser.Parse(srcFile, lines);
             return headerParser.Result;
         }
     }

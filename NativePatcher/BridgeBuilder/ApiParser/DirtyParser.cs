@@ -30,6 +30,7 @@ namespace BridgeBuilder
     class LineLexer
     {
         public List<Token> tklist = new List<Token>();
+
         public void Lex(string line)
         {
             tklist.Clear();
@@ -83,6 +84,15 @@ namespace BridgeBuilder
                         }
                         break;
                 }
+            }
+        }
+        public void AssignLineNumber(int lineNum)
+        {
+            //we lex line-by-line,
+            //so all token in the list have the same lineNum
+            for (int i = tklist.Count - 1; i >= 0; --i)
+            {
+                tklist[i].LineNo = lineNum;
             }
         }
         void LexPunc(char[] charBuffer, int charCount, ref int currentIndex)
@@ -424,6 +434,7 @@ namespace BridgeBuilder
         public TokenKind TokenKind;
         public bool NumberInHexFormat;
 
+        public int LineNo;
 #if DEBUG
         static int dbugTotalId;
         public readonly int dbugId = dbugTotalId++;
@@ -485,13 +496,26 @@ namespace BridgeBuilder
                 }
             }
             //------------
-            //start parse line by line
+            //start parse line-by-line
             //------------
             ParseFileContent();
-            //------------ 
-
+            //------------  
         }
-
+        public void Parse(string filename, IEnumerable<string> lines)
+        {
+#if DEBUG
+            this.dbugCurrentFilename = Path.GetFileName(filename);
+#endif
+            allLines.AddRange(lines);
+            //
+            cu = new CodeCompilationUnit(Path.GetFileNameWithoutExtension(filename));
+            cu.Filename = filename;
+            //------------
+            //start parse line-by-line
+            //------------
+            ParseFileContent();
+            //------------  
+        }
         void ReadUntilEscapeFromBlock()
         {
             int openBraceCount = 0;
@@ -585,7 +609,9 @@ namespace BridgeBuilder
         {
             LineLexer lineLexer = new LineLexer();
             tokenList.Clear();
-            //lex
+            //-------------------------------------------------------
+            //[1] Lex
+            //-------------------------------------------------------
             int lim = allLines.Count - 1;
             lineNo = 0;
             while (lineNo < lim)
@@ -598,12 +624,13 @@ namespace BridgeBuilder
                     if (line.StartsWith("//"))
                     {
                         //comment
-                        tokenList.Add(new Token() { Content = line, TokenKind = TokenKind.LineComment });
+                        tokenList.Add(new Token() { Content = line, TokenKind = TokenKind.LineComment, LineNo = lineNo });
                     }
                     else if (line.StartsWith("#"))
                     {
                         var token = new Token() { Content = line, TokenKind = TokenKind.PreprocessingDirective };
                         tokenList.Add(token);
+                        token.LineNo = lineNo; //
                         while (line.EndsWith("\\"))
                         {
                             //concat
@@ -617,6 +644,7 @@ namespace BridgeBuilder
                     {
                         //lex the content of this line
                         lineLexer.Lex(line);
+                        lineLexer.AssignLineNumber(lineNo);
                         //parse content of this line 
                         tokenList.AddRange(lineLexer.tklist);
                     }
@@ -624,15 +652,15 @@ namespace BridgeBuilder
 
 
                 lineNo++;
-            }
-            //-------------------------------------------------------
-            int tkcount = tokenList.Count;
+            } 
+
             //-------------------------------------------------------
 #if DEBUG
 
 #endif
 
-
+            //[2] Parse
+            int tkcount = tokenList.Count;
             CodeTypeDeclaration globalTypeDecl = cu.GlobalTypeDecl;
             for (currentTokenIndex = 0; currentTokenIndex < tkcount; ++currentTokenIndex)
             {
@@ -649,10 +677,8 @@ namespace BridgeBuilder
 
                         break;
                     case TokenKind.PreprocessingDirective:
-                        {
-
-                            lineComments.Clear();
-
+                        {   
+                            lineComments.Clear(); 
                             //this version we just skip some pre-processing 
                             if (tk.Content.StartsWith("#include"))
                             {
@@ -692,11 +718,9 @@ namespace BridgeBuilder
                                         }
                                     }
                                     break;
-
                                 case "typedef":
                                     {
                                         //parse typedef 
-
                                         ParseCTypeDef(globalTypeDecl);
                                     }
                                     break;
@@ -719,6 +743,12 @@ namespace BridgeBuilder
                                                 throw new NotSupportedException();
                                             }
                                         }
+                                    }
+                                    break;
+                                case "namespace":
+                                    {
+                                        //parse namespace
+                                        ParseNamespace(globalTypeDecl);
                                     }
                                     break;
                                 default:
@@ -1096,6 +1126,25 @@ namespace BridgeBuilder
             }
             return typeTemplateNotation;
         }
+        bool ParseNamespace(CodeTypeDeclaration currentTypeDecl)
+        {
+            string namespaceName = ExpectId(); //may be null
+            if (!ExpectPunc("{"))
+            {
+                throw new NotSupportedException();
+            }
+            //we create a typedecl for namespace 
+            CodeTypeDeclaration namespace_as_type = new CodeTypeDeclaration();
+            namespace_as_type.Kind = TypeKind.Namespace;
+            namespace_as_type.Name = namespaceName ?? "";
+
+            currentTypeDecl.AddMember(namespace_as_type);
+
+            while (ParseTypeMember(namespace_as_type)) ;
+
+
+            return true;
+        }
         bool ParseCTypeDef(CodeTypeDeclaration codeTypeDecl)
         {
             Token[] comments = FlushCollectedLineComments();
@@ -1382,7 +1431,7 @@ namespace BridgeBuilder
 
 #if DEBUG
             dbugCount++;
-            
+
 #endif
 
             //member modifiers
@@ -1466,7 +1515,7 @@ namespace BridgeBuilder
             }
 
             //modifier
-            bool isOperatorMethod = false; 
+            bool isOperatorMethod = false;
             bool isStatic = ExpectId("static");
             bool isVirtual = ExpectId("virtual");
             bool isConst = ExpectId("const");
@@ -1607,8 +1656,7 @@ namespace BridgeBuilder
                             //pointer field name
                             string delFieldName = ExpectId();
 
-                            CodeFunctionPointerTypeRefernce funcPtrType = new CodeFunctionPointerTypeRefernce();
-                            funcPtrType.Name = delFieldName;
+                            CodeFunctionPointerTypeRefernce funcPtrType = new CodeFunctionPointerTypeRefernce(delFieldName);
                             funcPtrType.ReturnType = retType;
                             //
                             CodeFieldDeclaration fieldDecl = new CodeFieldDeclaration();
@@ -1864,7 +1912,7 @@ namespace BridgeBuilder
                 }
                 else if (ExpectPunc("("))
                 {
-                    var funcTypeReference = new CodeFunctionPointerTypeRefernce();
+                    var funcTypeReference = new CodeFunctionPointerTypeRefernce(null);
                     funcTypeReference.ReturnType = typeParameter;
                     //callback ?  
                     AGAIN2:
