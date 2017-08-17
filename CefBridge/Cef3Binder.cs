@@ -618,13 +618,30 @@ namespace LayoutFarm.CefBridge
         {
             int actualLen;
             int buffLen = ret->I32 + 1; //string len
-            char* buffHead = stackalloc char[buffLen];
-            Cef3Binder.MyCefStringHolder_Read(ret->Ptr, buffHead, buffLen, out actualLen);
-            if (actualLen > buffLen)
+            if (buffLen < 1024)
             {
-                //read more
+                char* buffHead = stackalloc char[buffLen];
+                Cef3Binder.MyCefStringHolder_Read(ret->Ptr, buffHead, buffLen, out actualLen);
+                if (actualLen > buffLen)
+                {
+                    //read more
+                }
+                return new string(buffHead, 0, actualLen);
             }
-            return new string(buffHead, 0, actualLen);
+            else
+            {
+                char[] buffHead = new char[buffLen];
+                fixed (char* h = &buffHead[0])
+                {
+                    Cef3Binder.MyCefStringHolder_Read(ret->Ptr, h, buffLen, out actualLen);
+                    if (actualLen > buffLen)
+                    {
+                        //read more
+                    }
+                }
+                return new string(buffHead, 0, actualLen);
+            }
+
         }
         public static void MyCefCreateNativeStringHolder(ref JsValue ret, string value)
         {
@@ -861,22 +878,25 @@ namespace LayoutFarm.CefBridge
 
     static class MyMetArgs
     {
-        //TODO: inline?
+        //TODO: inline? 
+
         internal static IntPtr GetArrHead(IntPtr nativePtr, out int argCount)
         {
             unsafe
             {
-                void* native_ptr = (void*)(nativePtr);
                 argCount = *((int*)nativePtr);
-                //debug -> check type and argcount to ensure we get correct object   
-                return (IntPtr)((byte*)native_ptr + sizeof(int)); //+4 to (JsValue*)
+                IntPtr h1 = (IntPtr)(((byte*)nativePtr) + sizeof(int));
+                return (IntPtr)(*((JsValue**)h1));
+
+                ////debug -> check type and argcount to ensure we get correct object   
+                //return (IntPtr)((byte*)native_ptr + sizeof(int)); //+4 to (JsValue*)
             }
         }
         internal static string GetAsString(IntPtr myMetArgs, int index)
         {
             unsafe
             {
-                return Cef3Binder.MyCefJsReadString(((JsValue*)myMetArgs + index));
+                return Cef3Binder.MyCefJsReadString((JsValue*)myMetArgs + index);
             }
         }
         internal static int GetAsInt32(IntPtr myMetArgs, int index)
