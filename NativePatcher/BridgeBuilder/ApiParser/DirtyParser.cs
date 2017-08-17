@@ -609,7 +609,9 @@ namespace BridgeBuilder
         {
             LineLexer lineLexer = new LineLexer();
             tokenList.Clear();
-            //lex
+            //-------------------------------------------------------
+            //[1] Lex
+            //-------------------------------------------------------
             int lim = allLines.Count - 1;
             lineNo = 0;
             while (lineNo < lim)
@@ -650,15 +652,15 @@ namespace BridgeBuilder
 
 
                 lineNo++;
-            }
-            //-------------------------------------------------------
-            int tkcount = tokenList.Count;
+            } 
+
             //-------------------------------------------------------
 #if DEBUG
 
 #endif
 
-
+            //[2] Parse
+            int tkcount = tokenList.Count;
             CodeTypeDeclaration globalTypeDecl = cu.GlobalTypeDecl;
             for (currentTokenIndex = 0; currentTokenIndex < tkcount; ++currentTokenIndex)
             {
@@ -675,10 +677,8 @@ namespace BridgeBuilder
 
                         break;
                     case TokenKind.PreprocessingDirective:
-                        {
-
-                            lineComments.Clear();
-
+                        {   
+                            lineComments.Clear(); 
                             //this version we just skip some pre-processing 
                             if (tk.Content.StartsWith("#include"))
                             {
