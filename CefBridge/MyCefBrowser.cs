@@ -83,7 +83,8 @@ namespace LayoutFarm.CefBridge
                                CefLifeSpanHandler.I0,
                                CefLoadHandler.I0,
                                CefDownloadHandler.I0,
-                               CefKeyboardHandler.I0
+                               CefKeyboardHandler.I0,
+                               CefRequestHandler.I0
 
         {
             MyCefBrowser _ownerBrowser;
@@ -239,12 +240,92 @@ namespace LayoutFarm.CefBridge
 
             void CefKeyboardHandler.I0.OnPreKeyEvent(CefKeyboardHandler.OnPreKeyEventArgs args)
             {
-                
+
             }
 
             void CefKeyboardHandler.I0.OnKeyEvent(CefKeyboardHandler.OnKeyEventArgs args)
             {
-                
+
+            }
+            //------------------------------------
+            void CefRequestHandler.I0.OnBeforeBrowse(CefRequestHandler.OnBeforeBrowseArgs args)
+            {
+
+            }
+
+            void CefRequestHandler.I0.OnOpenURLFromTab(CefRequestHandler.OnOpenURLFromTabArgs args)
+            {
+
+            }
+
+            void CefRequestHandler.I0.OnBeforeResourceLoad(CefRequestHandler.OnBeforeResourceLoadArgs args)
+            {
+
+            }
+
+            void CefRequestHandler.I0.GetResourceHandler(CefRequestHandler.GetResourceHandlerArgs args)
+            {
+
+            }
+
+            void CefRequestHandler.I0.OnResourceRedirect(CefRequestHandler.OnResourceRedirectArgs args)
+            {
+
+            }
+
+            void CefRequestHandler.I0.OnResourceResponse(CefRequestHandler.OnResourceResponseArgs args)
+            {
+
+            }
+
+            void CefRequestHandler.I0.GetResourceResponseFilter(CefRequestHandler.GetResourceResponseFilterArgs args)
+            {
+
+            }
+
+            void CefRequestHandler.I0.OnResourceLoadComplete(CefRequestHandler.OnResourceLoadCompleteArgs args)
+            {
+
+            }
+
+            void CefRequestHandler.I0.GetAuthCredentials(CefRequestHandler.GetAuthCredentialsArgs args)
+            {
+
+            }
+
+            void CefRequestHandler.I0.OnQuotaRequest(CefRequestHandler.OnQuotaRequestArgs args)
+            {
+
+            }
+
+            void CefRequestHandler.I0.OnProtocolExecution(CefRequestHandler.OnProtocolExecutionArgs args)
+            {
+
+            }
+
+            void CefRequestHandler.I0.OnCertificateError(CefRequestHandler.OnCertificateErrorArgs args)
+            {
+
+            }
+
+            void CefRequestHandler.I0.OnSelectClientCertificate(CefRequestHandler.OnSelectClientCertificateArgs args)
+            {
+
+            }
+
+            void CefRequestHandler.I0.OnPluginCrashed(CefRequestHandler.OnPluginCrashedArgs args)
+            {
+
+            }
+
+            void CefRequestHandler.I0.OnRenderViewReady(CefRequestHandler.OnRenderViewReadyArgs args)
+            {
+
+            }
+
+            void CefRequestHandler.I0.OnRenderProcessTerminated(CefRequestHandler.OnRenderProcessTerminatedArgs args)
+            {
+
             }
         }
 
@@ -422,7 +503,7 @@ namespace LayoutFarm.CefBridge
                         }
                     }
                     break;
-               
+
                 //------------------------------
                 case MyCefMsg.CEF_MSG_ClientHandler_NotifyTitle:
                     {
