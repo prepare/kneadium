@@ -881,15 +881,19 @@ namespace LayoutFarm.CefBridge
         //TODO: inline? 
 
         internal static IntPtr GetArrHead(IntPtr nativePtr, out int argCount)
-        {
+        {   
             unsafe
             {
-                argCount = *((int*)nativePtr);
-                IntPtr h1 = (IntPtr)(((byte*)nativePtr) + sizeof(int));
-                return (IntPtr)(*((JsValue**)h1));
+                //struct MyMetArgsN
+                //{
+                //    int32_t argCount;
+                //    jsvalue* vargs;
+                //};
 
-                ////debug -> check type and argcount to ensure we get correct object   
-                //return (IntPtr)((byte*)native_ptr + sizeof(int)); //+4 to (JsValue*)
+                //return address of vargs
+                argCount = *((int*)nativePtr); //MyMetArgsN
+                IntPtr h1 = (IntPtr)(((byte*)nativePtr) + sizeof(int));
+                return (IntPtr)(*((JsValue**)h1)); 
             }
         }
         internal static string GetAsString(IntPtr myMetArgs, int index)
