@@ -18,7 +18,7 @@ extern "C" {
 	MY_DLL_EXPORT void MyCefShutDown();
 	//
 	//2. debug
-	MY_DLL_EXPORT void MyCefJsNotifyRenderer(managed_callback callback, MethodArgs* args);
+	MY_DLL_EXPORT void MyCefJsNotifyRenderer(managed_callback callback, MyMetArgsN* args);
 
 
 	//3. create/manipulate browser

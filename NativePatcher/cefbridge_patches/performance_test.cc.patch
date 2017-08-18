@@ -18,9 +18,11 @@ V8_PROPERTY_ATTRIBUTE_READONLY);
 }
 virtual void OnWebKitInitialized(CefRefPtr<ClientAppRenderer> app) {
 if (app->myMxCallback_) {
-MethodArgs metArgs;
-memset(&metArgs, 0, sizeof(MethodArgs));
-metArgs.SetArgAsNativeObject(0, app.get());
+
+//TODO: review here, this is not correct
+//should use wrap/unwrap
+INIT_MY_MET_ARGS(metArgs, 1)
+MyCefSetVoidPtr2(&vargs[1], app.get()); 
 app->myMxCallback_(CEF_MSG_RenderDelegate_OnWebKitInitialized, &metArgs);
 }
 }
@@ -32,13 +34,11 @@ if (app->myMxCallback_)
 {
 //expose all to managed side
 //browser,frame and context ?  
-MethodArgs metArgs;
-memset(&metArgs, 0, sizeof(MethodArgs));
-
-metArgs.SetArgAsNativeObject(0, app.get());
-metArgs.SetArgAsNativeObject(1, browser.get());
-metArgs.SetArgAsNativeObject(2, frame.get());
-metArgs.SetArgAsNativeObject(3, context.get());
+INIT_MY_MET_ARGS(metArgs, 4)
+MyCefSetVoidPtr2(&vargs[1], app.get());
+MyCefSetVoidPtr2(&vargs[2], browser.get());
+MyCefSetVoidPtr2(&vargs[3], browser.get());
+MyCefSetVoidPtr2(&vargs[4], context.get()); 
 
 app->myMxCallback_(CEF_MSG_RenderDelegate_OnContextReleased, &metArgs);
 

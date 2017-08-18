@@ -33,10 +33,10 @@ std::string MainContextImpl::GetConsoleLogPath() {
 //###_APPEND_START 2
 if (this->myMxCallback_) {
 
-MethodArgs args;
-memset(&args, 0, sizeof(MethodArgs));
-this->myMxCallback_(CEF_MSG_MainContext_GetConsoleLogPath, &args);
-CefString cefStr(args.ReadOutputAsString(0));
+INIT_MY_MET_ARGS(metArgs, 0)
+this->myMxCallback_(CEF_MSG_MainContext_GetConsoleLogPath, &metArgs);
+CefString cefStr(GetStringHolder(&vargs[0])->value);
+
 return cefStr;
 }
 else {

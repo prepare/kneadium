@@ -293,11 +293,10 @@ public:
 	virtual void Visit(const CefString& string) OVERRIDE {
 
 		if (mcallback) {
-			MethodArgs metArgs;
-			memset(&metArgs, 0, sizeof(MethodArgs));
-			metArgs.SetArgAsNativeObject(0, &string);
-			metArgs.SetArgType(0, JSVALUE_TYPE_NATIVE_CEFSTRING);
-			this->mcallback(CEF_MSG_MyCefDomGetTextWalk_Visit, &metArgs);
+
+			INIT_MY_MET_ARGS(metArgs, 1)
+				SetCefStringToJsValue2(&vargs[1], string);
+			mcallback(CEF_MSG_MyCefDomGetTextWalk_Visit, &metArgs);
 		}
 	}
 private:
@@ -368,9 +367,9 @@ void MyCefPrintToPdf(MyBrowser* myBw, CefPdfPrintSettings* setting, wchar_t* fil
 		{
 			if (m_callback) {
 				//callback
-				MethodArgs metArgs;
-				metArgs.SetArgAsInt32(0, ok ? 1 : 0);
-				metArgs.SetArgAsString(1, path.c_str());
+				INIT_MY_MET_ARGS(metArgs, 2)
+				MyCefSetBool(&vargs[1], ok);
+				SetCefStringToJsValue2(&vargs[2], path); 
 				m_callback(0, &metArgs);
 			}
 		}
@@ -455,13 +454,13 @@ CefPdfPrintSettings* MyCefCreatePdfPrintSetting(wchar_t* pdfjsonConfig) {
 }
 
 
-void HereOnRenderer(const managed_callback callback, MethodArgs* args)
+void HereOnRenderer(const managed_callback callback, MyMetArgsN* args)
 {
 	callback(CEF_MSG_HereOnRenderer, args);
 }
 
 
-void MyCefJsNotifyRenderer(const managed_callback callback, MethodArgs* args) {
+void MyCefJsNotifyRenderer(const managed_callback callback, MyMetArgsN* args) {
 	CefPostTask(TID_RENDERER, base::Bind(&HereOnRenderer, callback, args));
 }
 
@@ -667,7 +666,7 @@ void MyCefBwCall2(MyBrowser* myBw, int methodName, jsvalue* ret, jsvalue* v1, js
 
 
 		char* buffer1 = new char[v2->i32];
-		memcpy(buffer1, v2->ptr, v2->i32);
+		memcpy_s(buffer1, v2->i32, v2->ptr, v2->i32);
 		postDataElement->SetToBytes(v2->i32, buffer1);
 		//------
 
