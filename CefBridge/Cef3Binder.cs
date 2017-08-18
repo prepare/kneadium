@@ -449,7 +449,7 @@ namespace LayoutFarm.CefBridge
         public static extern int MyCefShutDown();
 
 
-
+        //TODO: review here, send setting as json?
         [DllImport(CEF_CLIENT_DLL, CallingConvention = CallingConvention.Cdecl, CharSet = CharSet.Unicode)]
         public static extern void MyCefSetInitSettings(IntPtr cefSetting, CefSettingsKey keyName, string value);
         //---------------------------------------------------  
@@ -459,9 +459,13 @@ namespace LayoutFarm.CefBridge
 
         [DllImport(CEF_CLIENT_DLL, CallingConvention = CallingConvention.Cdecl)]
         public static extern void MyCefDeletePtr(IntPtr nativePtr);
+
+
+#if DEBUG
         [DllImport(CEF_CLIENT_DLL, CallingConvention = CallingConvention.Cdecl)]
         public static extern unsafe void MyCefDeletePtrArray(JsValue* nativePtr);
-         
+#endif
+        
 
         [DllImport(CEF_CLIENT_DLL, CallingConvention = CallingConvention.Cdecl, CharSet = CharSet.Unicode)]
         public static extern IntPtr MyCefCreatePdfPrintSetting(string pdfJsonConfig);
