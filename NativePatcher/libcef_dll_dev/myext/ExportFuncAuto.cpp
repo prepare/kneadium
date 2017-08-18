@@ -3,7 +3,8 @@
 //AUTOGEN
 
 #pragma once
-#include "ExportFuncAuto.h" 
+#include "ExportFuncAuto.h"  //public
+#include "InternalHeaderForExportFunc.h" 
 //----------------
 const int MET_Release = 0;
 //----------------  

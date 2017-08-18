@@ -79,3 +79,107 @@ typedef void(__cdecl *managed_callback)(int id, void* args);
 	 jsvalue* vargs;
  };
 
+
+
+ inline void MyCefSetVoidPtr(jsvalue* value, void* data)
+ {
+	 value->type = JSVALUE_TYPE_WRAPPED;
+	 value->ptr = data;
+ };
+ inline void MyCefSetVoidPtr2(jsvalue* value, const void* data) {
+	 value->type = JSVALUE_TYPE_WRAPPED;
+	 value->ptr = data;
+ };
+ inline void MyCefSetInt32(jsvalue* value, int32_t data)
+ {
+	 value->type = JSVALUE_TYPE_INTEGER;
+	 value->i32 = data;
+ };
+ inline void MyCefSetUInt32(jsvalue* value, uint32_t data)
+ {
+	 value->type = JSVALUE_TYPE_INTEGER;
+	 value->i32 = (int32_t)data;
+ };
+ inline void MyCefSetInt64(jsvalue* value, int64_t data)
+ {
+	 value->type = JSVALUE_TYPE_INTEGER64;
+	 value->i64 = data;
+ };
+ inline void MyCefSetUInt64(jsvalue* value, uint64_t data)
+ {
+	 value->type = JSVALUE_TYPE_INTEGER64;
+	 value->i64 = data;
+ };
+ inline void MyCefSetBool(jsvalue* value, bool data)
+ {
+	 value->type = JSVALUE_TYPE_BOOLEAN;
+	 value->i32 = data ? 1 : 0;
+ };
+ inline void MyCefSetBool(jsvalue* value, int data)
+ {
+	 value->type = JSVALUE_TYPE_BOOLEAN;
+	 value->i32 = data ? 1 : 0;
+ };
+ inline void MyCefSetDouble(jsvalue* value, double data)
+ {
+	 value->type = JSVALUE_TYPE_NUMBER;
+	 value->num = data;
+ }
+ inline void MyCefSetFloat(jsvalue* value, float data)
+ {
+	 value->type = JSVALUE_TYPE_NUMBER;
+	 value->num = data;
+ };
+
+
+#include "include/internal/cef_string.h"
+
+ class MyCefStringHolder
+ {
+ public:
+	 CefString value;
+ };
+
+ inline MyCefStringHolder*GetStringHolder(jsvalue* value) {
+	 return (MyCefStringHolder*)value->ptr;
+ };
+
+ inline void SetCefStringToJsValue(jsvalue* value, const CefString&cefstr) {
+
+	 MyCefStringHolder* str = new MyCefStringHolder();
+	 str->value = cefstr;
+	 //
+	 value->type = JSVALUE_TYPE_NATIVE_CEFHOLDER_STRING;
+	 value->ptr = str;
+	 value->i32 = str->value.length();
+ };
+ inline void SetCefStringToJsValue2(jsvalue* value, const CefString&cefstr) {
+
+	 //not need MyCefStringHolder
+	 value->type = JSVALUE_TYPE_NATIVE_CEFSTRING;
+	 value->ptr = &cefstr;
+	 value->i32 = cefstr.length();
+ };
+ inline void DeleteCefStringHolderFromJsValue(jsvalue* value) {
+	 value->i32 = 0;
+	 delete value->ptr;
+ };
+
+ //-------------------------------
+ struct MyCefBufferHolder {
+	 int32_t len;
+	 char* buffer;
+ };
+
+ //-------------------------------
+ //MACRO(s)
+
+ //helper macro
+#define INIT_MY_MET_ARGS(args,n)\
+	MyMetArgsN args;\
+	memset(&args,0,sizeof(MyMetArgsN));\
+    args.argCount= n; \
+    jsvalue vargs[n+1];\
+    memset(&vargs, 0, sizeof(jsvalue)*(n+1));\
+	args.vargs= vargs;
+//

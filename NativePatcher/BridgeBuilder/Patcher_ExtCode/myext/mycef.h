@@ -34,42 +34,26 @@
 #include "libcef_dll/myext/myext.h"
 #include "libcef_dll/myext/MyCefStringHolder.h"
 
-class MethodArgs
-{
-public: 
-	struct jsvalue arg0;//this arg for instant method
-	struct jsvalue arg1;
-	struct jsvalue arg2;
-	struct jsvalue arg3;
-	struct jsvalue arg4;
-
-	struct jsvalue result0;//this arg for instant method
-	struct jsvalue result1;
-	struct jsvalue result2;
-	struct jsvalue result3;
-	struct jsvalue result4;
-		 
-	int16_t resultKind;
-	int16_t argCount;
-	int16_t resultCount;
-
-
-
-	void SetArgAsString(int argIndex, const wchar_t* str);
-	void SetArgAsNativeObject(int argIndex, const void* nativeObject);
-	void SetArgAsInt32(int argIndex, const int32_t value);
-	void SetArgType(int argIndex, int type);
-
-	//----------------------------------------------------------------------
-	void SetOutputAsNativeObject(int retIndex, const void* nativeObject);
-	void SetOutputAsInt32(int retIndex, const int32_t value);
-	void SetOutputAsString(int retIndex, const wchar_t* str);
-	//----------------------------------------------------------------------
-
-	const char16* ReadOutputAsString(int resultIndex);
-	int ReadOutputAsInt32(int resultIndex);
-
-};
+//class MethodArgs
+//{
+//public:  
+//	const MyMetArgsN& internalArgs; 
+//	void SetArgAsString(int argIndex, const char16* str);
+//	void SetArgAsNativeObject(int argIndex, const void* nativeObject);
+//	void SetArgAsInt32(int argIndex, const int32_t value);
+//	void SetArgType(int argIndex, int type);
+//
+//	//----------------------------------------------------------------------
+//	void SetOutputAsNativeObject(int retIndex, const void* nativeObject);
+//	void SetOutputAsInt32(int retIndex, const int32_t value);
+//	void SetOutputAsString(int retIndex, const wchar_t* str);
+//	//----------------------------------------------------------------------
+//
+//	const char16* ReadOutputAsString(int resultIndex);
+//	int ReadOutputAsInt32(int resultIndex);
+//
+//};
+//typedef struct MethodArgs MyMetArgsN;
  
  
 namespace mycefmx {

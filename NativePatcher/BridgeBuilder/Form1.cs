@@ -328,7 +328,7 @@ namespace BridgeBuilder
                         continue;
                     }
                     CodeCompilationUnit cu = ParseCppFile(onlyCppFiles[i]);
-                    test_cpptoc_List.Add(cu);                     
+                    test_cpptoc_List.Add(cu);
                 }
             }
 
@@ -561,11 +561,16 @@ namespace BridgeBuilder
             StringBuilder csCodeStBuilder = new StringBuilder();
             AddCppBuiltInBeginCode(cppCodeStBuilder);
 
-            CodeStringBuilder cppHeaderAutogen = new CodeStringBuilder();
-            cppHeaderAutogen.AppendLine("//AUTOGEN");
+            CodeStringBuilder cppHeaderExportFuncAuto = new CodeStringBuilder();
+            CodeStringBuilder cppHeaderInternalForExportFunc = new CodeStringBuilder();
+
+            cppHeaderExportFuncAuto.AppendLine("//AUTOGEN");
+            cppHeaderInternalForExportFunc.AppendLine("//AUTOGEN");
+
+
             foreach (TypeTxInfo txinfo in typeTxInfoList)
             {
-                cppHeaderAutogen.AppendLine("const int CefTypeName_" + txinfo.TypeDecl.Name + " = " + txinfo.CsInterOpTypeNameId.ToString() + ";");
+                cppHeaderInternalForExportFunc.AppendLine("const int CefTypeName_" + txinfo.TypeDecl.Name + " = " + txinfo.CsInterOpTypeNameId.ToString() + ";");
             }
 
 
@@ -576,14 +581,14 @@ namespace BridgeBuilder
                 "using System.Collections.Generic;\r\n" +
                 "namespace LayoutFarm.CefBridge.Auto{\r\n");
 
-             
+
 
             foreach (CefTypeTxPlan tx in enumTxPlans)
             {
                 CodeStringBuilder csCode = new CodeStringBuilder();
                 tx.GenerateCsCode(csCode);
                 csCodeStBuilder.Append(csCode.ToString());
-            } 
+            }
 
             //
             foreach (CefInstanceElementTxPlan tx in instanceClassPlans)
@@ -634,10 +639,8 @@ namespace BridgeBuilder
             }
 
             // 
-           
-            //create default msg handler
 
-
+            //create default msg handler 
             foreach (CefHandlerTxPlan tx in handlerPlans)
             {
 
@@ -645,7 +648,9 @@ namespace BridgeBuilder
                 //a handler is created on cpp side, then we attach .net delegate to it
                 //so  we need
                 //1. 
-                tx._cppHeaderStBuilder = cppHeaderAutogen;
+                tx._cppHeaderExportFuncAuto = cppHeaderExportFuncAuto;
+                tx._cppHeaderInternalForExportFuncAuto = cppHeaderInternalForExportFunc;
+
                 //
                 tx.GenerateCppCode(stbuilder);
                 cppCodeStBuilder.Append(stbuilder.ToString());

@@ -26,6 +26,7 @@
 #include "libcef_dll/ctocpp/x509certificate_ctocpp.h"
 //###_BEGIN  
 #include "libcef_dll/myext/ExportFuncAuto.h"  
+#include "libcef_dll/myext/InternalHeaderForExportFunc.h"
 //###_END
 namespace {
 
