@@ -65,7 +65,7 @@ namespace LayoutFarm.CefBridge
             this._argPtr = MyMetArgs.GetArrHead(argPtr, out argCount);
         }
 
-        
+
         public string GetArgAsString(int index)
         {
             return MyMetArgs.GetAsString(_argPtr, index);
@@ -105,31 +105,20 @@ namespace LayoutFarm.CefBridge
             //Cef3Binder.MyCefMetArgs_GetArgs(_argPtr, index, out v);
             //return v.Ptr;
         }
-
-
         public void SetOutput(int index, string str)
         {
-            Cef3Binder.MyCefMetArgs_SetResultAsString(this._argPtr, index, str, str.Length);
+            //string need to copy to native side 
+            MyMetArgs.SetAsIntPtr(_argPtr, index, Cef3Binder.MyCefCreateCefString(str));
         }
         public void SetOutput(int index, int value)
         {
-            Cef3Binder.MyCefMetArgs_SetResultAsInt32(this._argPtr, index, value);
+            MyMetArgs.SetAsInt32(this._argPtr, index, value);
         }
-        
+
         public void SetOutput(int index, byte[] buffer)
         {
             //output
-
-            unsafe
-            {
-                fixed (byte* b = &buffer[0])
-                {
-                    Cef3Binder.MyCefMetArgs_SetResultAsByteBuffer(this._argPtr,
-                        index,
-                        new IntPtr(b),
-                        buffer.Length);
-                }
-            }
+            CopyToOutput(index, buffer); 
         }
 
         static Encoding asciiEncoding = null;
@@ -138,16 +127,28 @@ namespace LayoutFarm.CefBridge
             if (asciiEncoding == null)
             {
                 asciiEncoding = Encoding.GetEncoding("ASCII");
-            }
-
-            SetOutput(index, asciiEncoding.GetBytes(str.ToCharArray()));
+            } 
+            CopyToOutput(index, asciiEncoding.GetBytes(str.ToCharArray()));
         }
-        public unsafe void UnsafeSetOutput(int index, IntPtr unmangedMemPtr, int len)
+        //public unsafe void UnsafeSetOutput(int index, IntPtr unmangedMemPtr, int len)
+        //{
+        //    Cef3Binder.MyCefMetArgs_SetResultAsByteBuffer(this._argPtr,
+        //        index,
+        //        unmangedMemPtr,
+        //        len);
+        //}
+        public void CopyToOutput(int index, byte[] data)
         {
-            Cef3Binder.MyCefMetArgs_SetResultAsByteBuffer(this._argPtr,
-                index,
-                unmangedMemPtr,
-                len);
+            int len = data.Length;
+            unsafe
+            {
+                IntPtr bufferHolderPtr;
+                fixed (byte* head = &data[0])
+                {
+                    bufferHolderPtr = Cef3Binder.MyCefCreateBufferHolderWithInitData(len, head);
+                }
+                MyMetArgs.SetAsIntPtr(this._argPtr, index, bufferHolderPtr); 
+            } 
         }
     }
     //public struct NativeCallArgs2

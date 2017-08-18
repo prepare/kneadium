@@ -1,7 +1,7 @@
 ﻿//MIT, 2016-2017, WinterDev
 
 using System;
-using System.Text; 
+using System.Text;
 using System.IO;
 using System.Runtime.InteropServices;
 namespace LayoutFarm.CefBridge
@@ -28,18 +28,26 @@ namespace LayoutFarm.CefBridge
         }
         public override void OnRequestForBinaryResource(NativeCallArgs args)
         {
-            string url = args.GetArgAsString(0);
+            //0: bool , return value
+            //1: [in] url
+            //2: [in] request
+            //3: [out] buffer stream
+            //4: [out] stream kind
+            string url = args.GetArgAsString(1);
             if (url == "http://localhost/hello_img" && File.Exists("prepare.jpg"))
             {
                 //load sample image and the send to client
                 byte[] img = File.ReadAllBytes("prepare.jpg");
                 int imgLen = img.Length;
-                //TODO: review here, who will destroy this mem
-                IntPtr unmanagedPtr = Marshal.AllocHGlobal(imgLen);
-                Marshal.Copy(img, 0, unmanagedPtr, imgLen);
-                args.SetOutput(0, 1);
-                args.UnsafeSetOutput(1, unmanagedPtr, imgLen);
-                args.SetOutputAsAsciiString(2, "image/jpeg");
+                //img data will be used on native side
+                //so lets create a space on native side
+                //and let it destroy on native side
+
+                //or we can let native side to load the file
+                //  
+                args.SetOutput(0, 1);// return true to notify that this is handled
+                args.CopyToOutput(3, img);
+                args.SetOutputAsAsciiString(4, "image/jpeg");
             }
             else
             {
