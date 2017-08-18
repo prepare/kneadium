@@ -59,11 +59,11 @@ namespace LayoutFarm.CefBridge
         }
         public override void OnCefQuery(NativeCallArgs args, QueryRequestArgs reqArgs)
         {
-            string frameUrl = reqArgs.GetFrameUrl();
-            string getRequest = reqArgs.GetRequest();
-            string result = "hello!";
-            byte[] resultBuffer = Encoding.UTF8.GetBytes(result);
-            args.SetOutput(0, resultBuffer);
+            //string frameUrl = reqArgs.GetFrameUrl();
+            //string getRequest = reqArgs.GetRequest();
+            //string result = "hello!";
+            //byte[] resultBuffer = Encoding.UTF8.GetBytes(result);
+            //args.SetOutput(0, resultBuffer);
         }
         public override void OnConsoleLog(NativeCallArgs args)
         {

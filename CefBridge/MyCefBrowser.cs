@@ -495,12 +495,36 @@ namespace LayoutFarm.CefBridge
                 //eg. from cefQuery --> 
                 case MyCefMsg.CEF_MSG_OnQuery:
                     {
-                        if (browserProcessListener != null)
-                        {
-                            var args = new NativeCallArgs(argsPtr);
-                            QueryRequestArgs reqArgs = QueryRequestArgs.CreateRequest(args.GetArgAsNativePtr(0));
-                            browserProcessListener.OnCefQuery(args, reqArgs);
-                        }
+                        //if (browserProcessListener != null)
+                        //{
+                        //    var args = new NativeCallArgs(argsPtr);
+                        //    QueryRequestArgs reqArgs = QueryRequestArgs.CreateRequest(args.GetArgAsNativePtr(0));
+                        //    browserProcessListener.OnCefQuery(args, reqArgs);
+                        //}
+
+
+                        //TODO: review here again
+                        //QueryRequestArgs queryReq;
+                        //memset(&queryReq, 0, sizeof(QueryRequestArgs));
+                        //queryReq.browser = browser.get();
+                        //queryReq.frame = frame.get();
+                        //queryReq.query_id = query_id;
+
+
+                        //MyCefStringHolder mystr;
+                        //mystr.value = request;
+                        //queryReq.request = &mystr;
+                        //queryReq.persistent = persistent;
+                        //queryReq.callback = callback.get();
+
+                        //MethodArgs args;
+                        //memset(&args, 0, sizeof(MethodArgs));
+                        //args.SetArgAsNativeObject(0, &queryReq);
+                        //this->mcallback_(CEF_MSG_OnQuery, &args);
+                        ////auto result = args.ReadOutputAsString(0);
+                        //CefString cefstr = args.ReadOutputAsString(0);
+                        //callback->Success(cefstr);
+
                     }
                     break;
 
