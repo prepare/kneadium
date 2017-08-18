@@ -129,14 +129,7 @@ namespace LayoutFarm.CefBridge
                 asciiEncoding = Encoding.GetEncoding("ASCII");
             } 
             CopyToOutput(index, asciiEncoding.GetBytes(str.ToCharArray()));
-        }
-        //public unsafe void UnsafeSetOutput(int index, IntPtr unmangedMemPtr, int len)
-        //{
-        //    Cef3Binder.MyCefMetArgs_SetResultAsByteBuffer(this._argPtr,
-        //        index,
-        //        unmangedMemPtr,
-        //        len);
-        //}
+        } 
         public void CopyToOutput(int index, byte[] data)
         {
             int len = data.Length;
@@ -150,54 +143,5 @@ namespace LayoutFarm.CefBridge
                 MyMetArgs.SetAsIntPtr(this._argPtr, index, bufferHolderPtr); 
             } 
         }
-    }
-    //public struct NativeCallArgs2
-    //{
-    //    IntPtr argPtr;
-    //    public NativeCallArgs2(IntPtr argPtr)
-    //    {
-    //        this.argPtr = argPtr;
-    //    }
-    //    public void SetResult(IntPtr nativePtr)
-    //    {
-    //        //set data to unmanaged side
-    //        unsafe
-    //        {
-    //            JsValue jsvalue = new JsValue();
-    //            jsvalue.Ptr = nativePtr;
-    //            Cef3Binder.MyCefMetArgs_SetResultAsJsValue(this.argPtr, 0, (IntPtr)(&jsvalue));
-    //        }
-    //    }
-    //}
-    //public struct JsMetArgs
-    //{
-    //    IntPtr argPtr;
-    //    public JsMetArgs(IntPtr argPtr)
-    //    {
-    //        this.argPtr = argPtr;
-    //    }
-    //    public string ReadArgAsString(int index)
-    //    {
-    //        //Cef3Binder.MyCefJs_MetReadArgAsString(this.argPtr,index,)
-    //        int acutalLen = 0;
-    //        unsafe
-    //        {
-    //            int BUFF_LEN = 256;
-    //            char* buffHead = stackalloc char[BUFF_LEN];
-    //            Cef3Binder.MyCefJs_MetReadArgAsString(argPtr, index, buffHead, BUFF_LEN, out acutalLen);
-    //            if (acutalLen > BUFF_LEN)
-    //            {
-    //                //read more
-    //            }
-    //            return new string(buffHead, 0, acutalLen);
-    //        }
-    //    }
-    //    public Cef3Func ReadArgsFuncHandler(int index)
-    //    {
-    //        CefV8Value func = new CefV8Value(Cef3Binder.MyCefJs_MetReadArgAsCefV8Value(argPtr, index));
-    //        return new Cef3Func(func.Ptr);
-    //    }
-    //}
-
-
+    } 
 }

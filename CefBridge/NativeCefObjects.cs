@@ -5,16 +5,7 @@ using System.Collections.Generic;
 using System.Runtime.InteropServices;
 namespace LayoutFarm.CefBridge
 {
-    public enum CefV8PropertyAttribute
-    {
-        //from cef_types.h
-        //cef_v8_propertyattribute_t
-        V8_PROPERTY_ATTRIBUTE_NONE = 0, // Writeable, Enumerable,Configurable
-        V8_PROPERTY_ATTRIBUTE_READONLY = 1 << 0, // Not writeable
-        V8_PROPERTY_ATTRIBUTE_DONTENUM = 1 << 1,  // Not enumerable
-        V8_PROPERTY_ATTRIBUTE_DONTDELETE = 1 << 2   // Not configurable
-    }
-
+    
     public abstract class Cef3RefCountingValue : IDisposable
     {
         readonly IntPtr _ptr;
@@ -129,13 +120,12 @@ namespace LayoutFarm.CefBridge
                 this.Ptr,
                 key,
                 cef3Func.Ptr,
-                (int)CefV8PropertyAttribute.V8_PROPERTY_ATTRIBUTE_READONLY);
+                (int)Auto.cef_v8_propertyattribute_t.V8_PROPERTY_ATTRIBUTE_READONLY);
         }
         public bool IsFunc()
         {
             return Cef3Binder.MyCefJs_CefV8Value_IsFunc(this.Ptr);
-        }
-
+        } 
     }
 
 
@@ -194,33 +184,7 @@ namespace LayoutFarm.CefBridge
 
 
     public enum JsValueType
-    {
-
-        //#define JSVALUE_TYPE_UNKNOWN_ERROR  -1
-        //#define JSVALUE_TYPE_EMPTY			 0
-        //#define JSVALUE_TYPE_NULL            1
-        //#define JSVALUE_TYPE_BOOLEAN         2
-        //#define JSVALUE_TYPE_INTEGER         3
-        //#define JSVALUE_TYPE_NUMBER          4
-        //#define JSVALUE_TYPE_STRING          5 //unicode string
-        //#define JSVALUE_TYPE_DATE            6
-        //#define JSVALUE_TYPE_INDEX           7
-        //#define JSVALUE_TYPE_ARRAY          10
-        //#define JSVALUE_TYPE_STRING_ERROR   11
-        //#define JSVALUE_TYPE_MANAGED        12
-        //#define JSVALUE_TYPE_MANAGED_ERROR  13
-        //#define JSVALUE_TYPE_WRAPPED        14
-        //#define JSVALUE_TYPE_DICT           15
-        //#define JSVALUE_TYPE_ERROR          16
-        //#define JSVALUE_TYPE_FUNCTION       17
-
-        //#define JSVALUE_TYPE_JSTYPEDEF      18 //my extension
-        //#define JSVALUE_TYPE_INTEGER64      19 //my extension
-        //#define JSVALUE_TYPE_BUFFER         20 //my extension
-
-        //#define JSVALUE_TYPE_NATIVE_CEFSTRING 30  //my extension
-        //#define JSVALUE_TYPE_MEM_ERROR      50 //my extension
-
+    {   
         UnknownError = -1,
         Empty = 0,
         Null = 1,
