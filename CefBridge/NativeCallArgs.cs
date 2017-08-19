@@ -108,7 +108,7 @@ namespace LayoutFarm.CefBridge
         public void SetOutput(int index, string str)
         {
             //string need to copy to native side 
-            MyMetArgs.SetAsIntPtr(_argPtr, index, Cef3Binder.MyCefCreateCefString(str));
+            MyMetArgs.SetAsIntPtr(_argPtr, index, Cef3Binder.MyCefCreateStringHolder(str));
         }
         public void SetOutput(int index, int value)
         {

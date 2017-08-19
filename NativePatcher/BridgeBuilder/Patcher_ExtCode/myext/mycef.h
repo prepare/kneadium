@@ -32,35 +32,12 @@
 #include "include/cef_base.h" 
 #include "include/cef_v8.h" 
 #include "libcef_dll/myext/myext.h"
-#include "libcef_dll/myext/MyCefStringHolder.h"
+#include "libcef_dll/myext/MyCefStringHolder.h" 
 
-//class MethodArgs
-//{
-//public:  
-//	const MyMetArgsN& internalArgs; 
-//	void SetArgAsString(int argIndex, const char16* str);
-//	void SetArgAsNativeObject(int argIndex, const void* nativeObject);
-//	void SetArgAsInt32(int argIndex, const int32_t value);
-//	void SetArgType(int argIndex, int type);
-//
-//	//----------------------------------------------------------------------
-//	void SetOutputAsNativeObject(int retIndex, const void* nativeObject);
-//	void SetOutputAsInt32(int retIndex, const int32_t value);
-//	void SetOutputAsString(int retIndex, const wchar_t* str);
-//	//----------------------------------------------------------------------
-//
-//	const char16* ReadOutputAsString(int resultIndex);
-//	int ReadOutputAsInt32(int resultIndex);
-//
-//};
-//typedef struct MethodArgs MyMetArgsN;
- 
- 
 namespace mycefmx {
 	managed_callback GetManagedCallback();
 	void SetManagedCallback(managed_callback callback); 
 }
-
 
 extern "C" {
 	 

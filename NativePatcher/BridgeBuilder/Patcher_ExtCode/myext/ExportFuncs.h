@@ -7,17 +7,21 @@
 class MyBrowser; //forward decl
  
 extern "C" {
-
-
-	//1. init
+	
+	//these funcs for C# calling to Native
+	//1. check version
 	MY_DLL_EXPORT int MyCefGetVersion();
+	//2. register global  managed_callback (.net-side event listener/ event handler)
 	MY_DLL_EXPORT int RegisterManagedCallBack(managed_callback callback, int callBackKind);
+	//3.1 create process-based client app. 1 process => 1 client app
 	MY_DLL_EXPORT void* MyCefCreateClientApp(HINSTANCE hInstance);
+	//3.2
 	MY_DLL_EXPORT void MyCefSetInitSettings(CefSettings* cefSetting, int keyName, const wchar_t* value);
 	MY_DLL_EXPORT void MyCefDoMessageLoopWork();
 	MY_DLL_EXPORT void MyCefShutDown();
+
 	//
-	//2. debug
+	//for debug
 	MY_DLL_EXPORT void MyCefJsNotifyRenderer(managed_callback callback, MyMetArgsN* args);
 
 
@@ -35,7 +39,7 @@ extern "C" {
 	MY_DLL_EXPORT void MyCefShowDevTools(MyBrowser* myBw, MyBrowser* myBwDev, HWND parentHwnd);
 	//----------------------------
 
-	//----------------------------
+	 
 	MY_DLL_EXPORT void MyCefDeletePtr(void* ptr);
 	MY_DLL_EXPORT void MyCefDeletePtrArray(jsvalue* ptr);
 

@@ -619,7 +619,7 @@ namespace LayoutFarm.CefBridge
             unsafe
             {
                 ret.Type = JsValueType.NativeCefString;
-                ret.Ptr = Cef3Binder.MyCefCreateCefString(value);
+                ret.Ptr = Cef3Binder.MyCefCreateStringHolder(value);
                 ret.I32 = value.Length;
             }
         }

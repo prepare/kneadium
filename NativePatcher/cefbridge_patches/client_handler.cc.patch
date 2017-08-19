@@ -23,16 +23,6 @@ public:
 managed_callback mcallback_;//my extension
 MyCefJsHandler() {}
 
-struct QueryRequestArgs
-{
-CefBrowser* browser;
-CefFrame* frame;
-MyCefStringHolder* request;
-int64 query_id;
-bool persistent;
-CefMessageRouterBrowserSide::Callback* callback;
-};
-
 
 virtual bool OnQuery(CefRefPtr<CefBrowser> browser,
 CefRefPtr<CefFrame> frame,
@@ -45,28 +35,16 @@ CEF_REQUIRE_UI_THREAD();
 //const std::string& request_str = request;
 if (this->mcallback_)
 {
-//TODO: review here again
-//QueryRequestArgs queryReq;
-//memset(&queryReq, 0, sizeof(QueryRequestArgs));
-//queryReq.browser = browser.get();
-//queryReq.frame = frame.get();
-//queryReq.query_id = query_id;
-
-
-//MyCefStringHolder mystr;
-//mystr.value = request;
-//queryReq.request = &mystr;
-//queryReq.persistent = persistent;
-//queryReq.callback = callback.get();
-
-//MethodArgs args;
-//memset(&args, 0, sizeof(MethodArgs));
-//args.SetArgAsNativeObject(0, &queryReq);
-//this->mcallback_(CEF_MSG_OnQuery, &args);
-////auto result = args.ReadOutputAsString(0);
-//CefString cefstr = args.ReadOutputAsString(0);
-//callback->Success(cefstr);
-
+INIT_MY_MET_ARGS(args, 6);
+//
+MyCefSetVoidPtr2(&vargs[1], browser.get());
+MyCefSetVoidPtr2(&vargs[2], frame.get());
+MyCefSetInt64(&vargs[3], query_id);
+SetCefStringToJsValue2(&vargs[4], request);
+MyCefSetBool(&vargs[5], persistent);
+MyCefSetVoidPtr2(&vargs[6], callback);
+this->mcallback_(CEF_MSG_OnQuery, &args);
+//
 return true;
 }
 return false;
@@ -447,21 +425,10 @@ if (!CURRENTLY_ON_MAIN_THREAD()) {
 }
 //###_APPEND_START 11
 if (this->mcallback_ != NULL) {
-//-------------------
-MyMetArgsN metArgs;
-memset(&metArgs, 0, sizeof(metArgs));
-metArgs.argCount = 2;
-jsvalue vargs[3]; //2+1
-memset(&vargs, 0, sizeof(jsvalue) * 3);
-
-
-/*	MethodArgs metArgs;
-memset(&metArgs, 0, sizeof(MethodArgs));
-auto str16 = url.ToString16();
-auto cstr = str16.c_str();
-metArgs.SetArgAsString(0, cstr);*/
-this->mcallback_(CEF_MSG_ClientHandler_NotifyAddress, &metArgs);
-//
+//------------------- 
+INIT_MY_MET_ARGS(args, 1);
+SetCefStringToJsValue2(&vargs[1], url);
+this->mcallback_(CEF_MSG_ClientHandler_NotifyAddress, &args);
 }
 else {
 if (delegate_)
@@ -480,8 +447,8 @@ if (!CURRENTLY_ON_MAIN_THREAD()) {
 if (this->mcallback_ != NULL) {
 
 INIT_MY_MET_ARGS(metArgs, 1)
-SetCefStringToJsValue2(&vargs[1], title); 
-mcallback_(CEF_MSG_ClientHandler_NotifyTitle, &metArgs);  
+SetCefStringToJsValue2(&vargs[1], title);
+mcallback_(CEF_MSG_ClientHandler_NotifyTitle, &metArgs);
 }
 else {
 if (delegate_)
@@ -512,7 +479,7 @@ this->mcallback_ = m;
 //
 //
 INIT_MY_MET_ARGS(metArgs, 1)
-MyCefSetVoidPtr2(&vargs[1], resource_manager_);   
+MyCefSetVoidPtr2(&vargs[1], resource_manager_);
 m(CEF_MSG_ClientHandler_SetResourceManager, &metArgs);
 
 //1. add url filter

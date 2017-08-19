@@ -12,6 +12,7 @@ namespace LayoutFarm.CefBridge
         static IntPtr tinyFormHandle;
         public static void Start()
         {
+            MyCef3InitEssential.CefDoMessageLoopWork();
             if (tinyForm == null)
             {
                 tinyForm = new Form();
@@ -27,7 +28,7 @@ namespace LayoutFarm.CefBridge
             //it should not too fast or too slow to call  
             bool appIsIdel = true;
             bool looping1 = false;
-            loopTimer.Interval = 30;//30fps
+            loopTimer.Interval = 30;//30ms
             loopTimer.Tick += (s, e) =>
             {
                 if (appIsIdel)

@@ -1,4 +1,4 @@
-﻿//2015-2016, BSD, WinterDev
+﻿//BSD, 2015-2017, WinterDev
 // Copyright © 2010-2014 The CefSharp Authors. All rights reserved. 
 // Use of this source code is governed by a BSD-style license that can be found in the LICENSE file.
 
@@ -6,7 +6,6 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Drawing;
-using System.Drawing.Drawing2D;
 using System.Windows.Forms;
 namespace LayoutFarm.CefBridge
 {
@@ -108,14 +107,14 @@ namespace LayoutFarm.CefBridge
                     bwReadyTimer = null;
                 }
             };
-            
+            bwReadyTimer.Enabled = true;
 
             //---------
             //create cef browser when handle is created 
             MyCefOsrListener osrListener = new MyCefOsrListener();
             //this.cefBrowser = new MyCefBrowser(thisWindowControl, 0, 0, 800, 500, "about:blank", true) { OsrListener = osrListener };
             this.cefBrowser = new MyCefBrowser(thisWindowControl, 0, 0, 800, 500, "about:blank", false);
-            bwReadyTimer.Enabled = true;
+
         }
 
         class MyCefOsrListener : CefOsrListener

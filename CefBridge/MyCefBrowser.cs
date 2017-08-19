@@ -591,7 +591,7 @@ namespace LayoutFarm.CefBridge
                 var cefStr = NativeMyCefStringHolder.CreateHolder(url);
                 a0.Ptr = cefStr.nativePtr;
                 Cef3Binder.MyCefBwCall2(myCefBrowser, (int)CefBwCallMsg.CefBw_GetMainFrame_LoadURL, out ret, ref a0, ref a1);
-                cefStr.Dispose();
+                
 
             }
         }
@@ -823,7 +823,7 @@ namespace LayoutFarm.CefBridge
         public void dbugTest()
         {
 
-
+#if DEBUG
             JsValue ret;
             JsValue a0 = new JsValue();
             JsValue a1 = new JsValue();
@@ -911,6 +911,7 @@ namespace LayoutFarm.CefBridge
             IntPtr pdfSetting = Cef3Binder.MyCefCreatePdfPrintSetting("{\"header_footer_enabled\":true}");
 
             //------------------
+#endif
         }
 
         public void ShowDevTools()

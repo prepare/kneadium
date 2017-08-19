@@ -32,6 +32,4 @@ extern "C" {
 	//
 	MY_DLL_EXPORT MyCefBufferHolder* MyCefCreateBufferHolder(int32_t len);
 	MY_DLL_EXPORT MyCefBufferHolder* MyCefCreateBufferHolderWithInitData(int32_t len, char* initData);
-
-
 }
