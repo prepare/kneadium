@@ -727,7 +727,8 @@ namespace BridgeBuilder
             //AUTOGEN
         
             #pragma once
-            #include ""ExportFuncAuto.h"" 
+            #include ""ExportFuncAuto.h""
+            #include ""InternalHeaderForExportFunc.h""
             //----------------
             const int MET_Release = 0;
             //----------------  
