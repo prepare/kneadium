@@ -118,7 +118,7 @@ namespace LayoutFarm.CefBridge
         public void SetOutput(int index, byte[] buffer)
         {
             //output
-            CopyToOutput(index, buffer); 
+            CopyBufferToBufferHolder(index, buffer); 
         }
 
         static Encoding asciiEncoding = null;
@@ -128,9 +128,9 @@ namespace LayoutFarm.CefBridge
             {
                 asciiEncoding = Encoding.GetEncoding("ASCII");
             } 
-            CopyToOutput(index, asciiEncoding.GetBytes(str.ToCharArray()));
+            CopyBufferToBufferHolder(index, asciiEncoding.GetBytes(str.ToCharArray()));
         } 
-        public void CopyToOutput(int index, byte[] data)
+        public void CopyBufferToBufferHolder(int index, byte[] data)
         {
             int len = data.Length;
             unsafe
@@ -138,6 +138,7 @@ namespace LayoutFarm.CefBridge
                 IntPtr bufferHolderPtr;
                 fixed (byte* head = &data[0])
                 {
+                    //native side copy the managed data and store at the native side
                     bufferHolderPtr = Cef3Binder.MyCefCreateBufferHolderWithInitData(len, head);
                 }
                 MyMetArgs.SetAsIntPtr(this._argPtr, index, bufferHolderPtr); 
