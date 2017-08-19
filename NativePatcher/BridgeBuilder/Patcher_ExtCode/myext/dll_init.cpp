@@ -26,9 +26,9 @@
 
 namespace client {
 
-	namespace init_main { 
-		 
-	 
+	namespace init_main {
+
+
 		client::MainContextImpl* InitDllApp(CefMainArgs& main_args, CefRefPtr<CefApp> app) {
 
 
@@ -79,7 +79,7 @@ namespace client {
 			// Populate the settings based on command line arguments.		    
 
 
-			mainContext->PopulateSettings(&settings); 
+			mainContext->PopulateSettings(&settings);
 			//-------------------------------------------------------------------------------------
 			// Create the main message loop object.
 			/*scoped_ptr<MainMessageLoop> message_loop;
@@ -90,9 +90,9 @@ namespace client {
 			*/
 			//Initialize CEF.
 			mainContext->Initialize(main_args, settings, app, sandbox_info);
-		
-			
-			 
+
+
+
 			// Register scheme handlers.
 			//test_runner::RegisterSchemeHandlers(); //if you don't want to register the scheme handler
 

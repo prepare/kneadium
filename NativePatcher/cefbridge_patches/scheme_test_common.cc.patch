@@ -19,7 +19,7 @@ registrar->AddCustomScheme("client", true, false, false, false, true, false);
 #else
 
 void RegisterCustomSchemes(CefRawPtr<CefSchemeRegistrar> registrar,
-std::vector<CefString>& cookiable_schemes) { 
+std::vector<CefString>& cookiable_schemes) {
 
 }
 

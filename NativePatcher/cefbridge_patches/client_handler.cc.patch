@@ -106,11 +106,11 @@ case CLIENT_ID_SHOW_DEVTOOLS:
 const CefString& url) {
 //###_PRE
 CEF_REQUIRE_UI_THREAD();
-if (this->mcallback_) {
+/*if (this->mcallback_) {
 CefDisplayHandlerExt::OnAddressChange(this->mcallback_,
 browser, frame, url);
 return;
-}
+}*/
 //###_POST
 // Only update the address for the main (top-level) frame.
 //###_POST

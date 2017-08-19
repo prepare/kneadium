@@ -38,7 +38,7 @@ this->myMxCallback_(CEF_MSG_MainContext_GetConsoleLogPath, &metArgs);
 
 auto bufferHolder = GetBufferHolder(&vargs[0]);
 std::string str = std::string(bufferHolder->buffer);
-delete bufferHolder;
+//delete bufferHolder;
 return str;
 }
 else {

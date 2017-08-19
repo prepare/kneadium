@@ -28,7 +28,7 @@ extern "C" {
 	MY_DLL_EXPORT int MyCefJs_MetReadArgAsInt32(const CefV8ValueList* jsArgs, int index);
 	MY_DLL_EXPORT CefV8Value* MyCefJs_MetReadArgAsCefV8Value(const CefV8ValueList* jsArgs, int index);
 	MY_DLL_EXPORT CefV8Handler* MyCefJs_MetReadArgAsV8FuncHandle(const CefV8ValueList* jsArgs, int index);
-	MY_DLL_EXPORT MyCefStringHolder* MyCefCreateStringHolder(const char16*  str);
+	MY_DLL_EXPORT MyCefStringHolder* MyCefCreateStringHolder(const wchar_t*  str);
 	//
 	MY_DLL_EXPORT MyCefBufferHolder* MyCefCreateBufferHolder(int32_t len);
 	MY_DLL_EXPORT MyCefBufferHolder* MyCefCreateBufferHolderWithInitData(int32_t len, char* initData);

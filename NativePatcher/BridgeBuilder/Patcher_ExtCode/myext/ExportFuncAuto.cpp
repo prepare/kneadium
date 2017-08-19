@@ -8405,7 +8405,7 @@ namespace CefDisplayHandlerExt {
 			MyCefSetVoidPtr(&vargs[1], p_browser);
 			SetCefStringToJsValue2(&vargs[2], title);
 			mcallback((_typeName << 16) | CefDisplayHandlerExt_OnTitleChange_2, &args);
-			CefBrowserCToCpp::Wrap(p_browser);
+	 		CefBrowserCToCpp::Wrap(p_browser); 
 		}
 	}
 	//gen! void OnFaviconURLChange(CefRefPtr<CefBrowser> browser,const std::vector<CefString>& icon_urls)
@@ -8421,7 +8421,7 @@ namespace CefDisplayHandlerExt {
 			MyCefSetVoidPtr(&vargs[1], p_browser);
 			MyCefSetVoidPtr2(&vargs[2], &icon_urls);
 			mcallback((_typeName << 16) | CefDisplayHandlerExt_OnFaviconURLChange_3, &args);
-			CefBrowserCToCpp::Wrap(p_browser);
+			CefBrowserCToCpp::Wrap(p_browser); 
 		}
 	}
 	//gen! void OnFullscreenModeChange(CefRefPtr<CefBrowser> browser,bool fullscreen)

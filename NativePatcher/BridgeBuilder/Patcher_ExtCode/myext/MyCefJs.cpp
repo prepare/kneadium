@@ -1,7 +1,7 @@
 #include "mycef_msg_const.h"
 #include "mycef.h"
 #include "MyCefJs.h"
- 
+
 
 CefV8Context* MyCefJsGetCurrentContext() {
 	auto currentContext = CefV8Context::GetCurrentContext();
@@ -14,7 +14,7 @@ CefV8Context* MyCefJs_GetEnteredContext() {
 	return enteredContext.get();
 }
 
-MyCefStringHolder* MyCefCreateStringHolder(const char16*  str) {
+MyCefStringHolder* MyCefCreateStringHolder(const wchar_t* str) {
 	MyCefStringHolder* str_h = new MyCefStringHolder();
 	str_h->value = CefString(str);
 	return str_h;
@@ -28,8 +28,9 @@ MyCefBufferHolder* MyCefCreateBufferHolder(int32_t len) {
 	return holder;
 }
 MyCefBufferHolder* MyCefCreateBufferHolderWithInitData(int32_t len, char* initData) {
-	char* buffer = new char[len];
-	memcpy_s(buffer, len, initData, len);
+	char* buffer = new char[len + 1];
+	memset(buffer, 0, len + 1);
+	memcpy_s(buffer, len + 1, initData, len);
 	MyCefBufferHolder* holder = new MyCefBufferHolder();
 	holder->len = len;
 	holder->buffer = buffer;
@@ -91,10 +92,10 @@ CefV8Handler* MyCefJs_New_V8Handler(managed_callback callback) {
 
 	//-----------------------------------------------
 	class MyV8ManagedHandler : public CefV8Handler {
-	public:		 
+	public:
 		managed_callback callback;
 		MyV8ManagedHandler(managed_callback callback) {
-			 
+
 			this->callback = callback;
 		}
 		virtual bool Execute(const CefString& name,
@@ -102,17 +103,17 @@ CefV8Handler* MyCefJs_New_V8Handler(managed_callback callback) {
 			const CefV8ValueList& arguments,
 			CefRefPtr<CefV8Value>& retval,
 			CefString& exception)
-		{			
+		{
 			if (callback) {
 
-				INIT_MY_MET_ARGS(metArgs,3)  
-				MyCefSetVoidPtr(&vargs[1], object);
+				INIT_MY_MET_ARGS(metArgs, 3)
+					MyCefSetVoidPtr(&vargs[1], object);
 				MyCefSetVoidPtr2(&vargs[2], &arguments);
-				MyCefSetInt32(&vargs[3], (int32_t)arguments.size()); 
+				MyCefSetInt32(&vargs[3], (int32_t)arguments.size());
 				//-------------------------------------------
 				callback(CEF_MSG_MyV8ManagedHandler_Execute, &metArgs);
 				//check result
-				retval = CefV8Value::CreateString(GetStringHolder(&vargs[0])->value); 
+				retval = CefV8Value::CreateString(GetStringHolder(&vargs[0])->value);
 				//retval = CefV8Value::CreateString("Hello, world!");
 			}
 			return true;

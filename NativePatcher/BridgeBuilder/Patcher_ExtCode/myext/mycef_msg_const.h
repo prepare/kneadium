@@ -9,11 +9,11 @@ const int CEF_MSG_RequestForMxCallback = 90;
 const int CEF_MSG_ClientHandler_NotifyBrowserClosing = 100;
 const int CEF_MSG_ClientHandler_NotifyBrowserClosed = 101;
 const int CEF_MSG_ClientHandler_NotifyBrowserCreated = 102;
- 
- 
+
+
 const int CEF_MSG_ClientHandler_ShowDevTools = 107;
-const int CEF_MSG_ClientHandler_CloseDevTools = 108; 
-  
+const int CEF_MSG_ClientHandler_CloseDevTools = 108;
+
 const int CEF_MSG_ClientHandler_SetResourceManager = 140;
 const int CEF_MSG_RequestUrlFilter2 = 142;
 const int CEF_MSG_BinaryResouceProvider_OnRequest = 145;
@@ -28,12 +28,12 @@ const int CEF_MSG_RenderDelegate_OnWebKitInitialized = 201;
 const int CEF_MSG_RenderDelegate_OnContextCreated = 202;
 const int CEF_MSG_RenderDelegate_OnContextReleased = 203;
 const int CEF_MSG_OnQuery = 205;
- 
+
 
 const int CEF_MSG_MyV8ManagedHandler_Execute = 301;
 const int CEF_MSG_MyCefDomGetTextWalk_Visit = 302;
 const int CEF_MSG_HereOnRenderer = 303;
- 
+
 const int CEF_MSG_ClientHandler_NotifyTitle = 502;
 const int CEF_MSG_ClientHandler_NotifyAddress = 503;
 
@@ -44,9 +44,9 @@ const int CEF_MSG_ClientHandler_NotifyAddress = 503;
 const int CEF_SETTINGS_BrowserSubProcessPath = 9;
 const int CEF_SETTINGS_CachePath = 10;
 const int CEF_SETTINGS_ResourcesDirPath = 11;
-const int CEF_SETTINGS_UserDirPath = 12; 
-const int CEF_SETTINGS_LocalDirPath = 14; 
+const int CEF_SETTINGS_UserDirPath = 12;
+const int CEF_SETTINGS_LocalDirPath = 14;
 const int CEF_SETTINGS_IgnoreCertError = 15;
-const int CEF_SETTINGS_RemoteDebuggingPort = 17; 
+const int CEF_SETTINGS_RemoteDebuggingPort = 17;
 const int CEF_SETTINGS_LogFile = 18;
 const int CEF_SETTINGS_LogSeverity = 19;

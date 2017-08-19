@@ -21,7 +21,7 @@ CefRefPtr<CefResponseFilter> GetResourceResponseFilter(
 CefRefPtr<CefBrowser> browser,
 CefRefPtr<CefFrame> frame,
 CefRefPtr<CefRequest> request,
-CefRefPtr<CefResponse> response) { 
+CefRefPtr<CefResponse> response) {
 return NULL;
 }
 #endif

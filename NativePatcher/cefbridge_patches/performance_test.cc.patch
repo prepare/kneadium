@@ -22,7 +22,7 @@ if (app->myMxCallback_) {
 //TODO: review here, this is not correct
 //should use wrap/unwrap
 INIT_MY_MET_ARGS(metArgs, 1)
-MyCefSetVoidPtr2(&vargs[1], app.get()); 
+MyCefSetVoidPtr2(&vargs[1], app.get());
 app->myMxCallback_(CEF_MSG_RenderDelegate_OnWebKitInitialized, &metArgs);
 }
 }
@@ -37,8 +37,8 @@ if (app->myMxCallback_)
 INIT_MY_MET_ARGS(metArgs, 4)
 MyCefSetVoidPtr2(&vargs[1], app.get());
 MyCefSetVoidPtr2(&vargs[2], browser.get());
-MyCefSetVoidPtr2(&vargs[3], browser.get());
-MyCefSetVoidPtr2(&vargs[4], context.get()); 
+MyCefSetVoidPtr2(&vargs[3], frame.get());
+MyCefSetVoidPtr2(&vargs[4], context.get());
 
 app->myMxCallback_(CEF_MSG_RenderDelegate_OnContextReleased, &metArgs);
 

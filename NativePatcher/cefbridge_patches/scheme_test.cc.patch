@@ -17,9 +17,9 @@ new ClientSchemeHandlerFactory());
 //###_PRE
 }
 #else
-void RegisterSchemeHandlers() { 
+void RegisterSchemeHandlers() {
 
-} 
+}
 #endif //BUILD_TEST
 //###_POST
 }  // namespace scheme_test

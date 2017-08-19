@@ -34,7 +34,7 @@ std::string RequestUrlFilter2(const std::string& url) {
 if (client::test_runner::mcallback_)
 {
 
-INIT_MY_MET_ARGS(metArgs, 1)
+INIT_MY_MET_ARGS(metArgs, 2)
 SetCefStringToJsValue2(&vargs[1], url);
 mcallback_(CEF_MSG_RequestUrlFilter2, &metArgs);
 
@@ -48,7 +48,7 @@ else {
 //changed
 //
 std::string s1("");
-s1.append((const char*)vargs[0].ptr, vargs[0].i32);
+s1.append((const char*)vargs[2].ptr, vargs[2].i32);
 return s1;
 }
 
@@ -101,14 +101,14 @@ if (vargs[0].i32 == 0)
 return false; //not handle by this handler
 }
 
-MyCefBufferHolder* bufferHolder = (MyCefBufferHolder*)vargs[3].ptr; 
+MyCefBufferHolder* bufferHolder = (MyCefBufferHolder*)vargs[3].ptr;
 //has resource in managed buffer form
 //so we need to copy to unmanaged form
 CefRefPtr<CefStreamReader> stream = CefStreamReader::CreateForHandler(
 new CefByteReadHandler(
 (const unsigned char*)bufferHolder->buffer,
 (size_t)bufferHolder->len,
-NULL)); 
+NULL));
 CefRefPtr<CefResourceHandler> handler = new CefStreamResourceHandler(
 GetStringHolder(&vargs[4])->value,
 stream);

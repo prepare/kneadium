@@ -368,8 +368,8 @@ void MyCefPrintToPdf(MyBrowser* myBw, CefPdfPrintSettings* setting, wchar_t* fil
 			if (m_callback) {
 				//callback
 				INIT_MY_MET_ARGS(metArgs, 2)
-				MyCefSetBool(&vargs[1], ok);
-				SetCefStringToJsValue2(&vargs[2], path); 
+					MyCefSetBool(&vargs[1], ok);
+				SetCefStringToJsValue2(&vargs[2], path);
 				m_callback(0, &metArgs);
 			}
 		}
@@ -636,7 +636,7 @@ void MyCefBwCall2(MyBrowser* myBw, int methodName, jsvalue* ret, jsvalue* v1, js
 	}break;
 	case CefBw_GetMainFrame_LoadURL: {
 		MyCefStringHolder* strHolder = (MyCefStringHolder*)v1->ptr;
-		bw->GetMainFrame()->LoadURL(strHolder->value);
+		bw->GetMainFrame()->LoadURL(strHolder->value);		 
 	}break;
 	case CefBw_GetMainFrame_GetURL: {
 
