@@ -139,11 +139,18 @@ typedef void(__cdecl *managed_callback)(int id, void* args);
  public:
 	 CefString value;
  };
-
- inline MyCefStringHolder*GetStringHolder(jsvalue* value) {
-	 return (MyCefStringHolder*)value->ptr;
+ struct MyCefBufferHolder {
+	 int32_t len;
+	 char* buffer;
  };
 
+
+ inline MyCefStringHolder* GetStringHolder(jsvalue* value) {
+	 return (MyCefStringHolder*)value->ptr;
+ };
+ inline MyCefBufferHolder* GetBufferHolder(jsvalue* value) {
+	 return (MyCefBufferHolder*)value->ptr;
+ };
  inline void SetCefStringToJsValue(jsvalue* value, const CefString&cefstr) {
 
 	 MyCefStringHolder* str = new MyCefStringHolder();
@@ -164,13 +171,7 @@ typedef void(__cdecl *managed_callback)(int id, void* args);
 	 value->i32 = 0;
 	 delete value->ptr;
  };
-
- //-------------------------------
- struct MyCefBufferHolder {
-	 int32_t len;
-	 char* buffer;
- };
-
+  
  //-------------------------------
  //MACRO(s)
 
