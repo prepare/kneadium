@@ -550,8 +550,19 @@ namespace LayoutFarm.CefBridge
         /// </summary>
         /// <param name="str"></param>
         /// <returns></returns>
+        //[DllImport(CEF_CLIENT_DLL, CallingConvention = CallingConvention.Cdecl, CharSet = CharSet.Unicode)]
+        //internal static extern IntPtr MyCefCreateCefString(string str);
         [DllImport(CEF_CLIENT_DLL, CallingConvention = CallingConvention.Cdecl, CharSet = CharSet.Unicode)]
-        internal static extern IntPtr MyCefCreateCefString(string str);
+        internal static extern IntPtr MyCefCreateStringHolder(string str, int len);
+        [DllImport(CEF_CLIENT_DLL, CallingConvention = CallingConvention.Cdecl, CharSet = CharSet.Unicode)]
+        internal static extern IntPtr MyCefCreateBufferHolder(int len);
+        [DllImport(CEF_CLIENT_DLL, CallingConvention = CallingConvention.Cdecl, CharSet = CharSet.Unicode)]
+        internal static extern IntPtr MyCefCreateBufferHolderWithInitData(int len, byte[] data);
+
+        internal static IntPtr MyCefCreateCefString(string str)
+        {
+            return MyCefCreateStringHolder(str, str.Length);
+        }
 
         [DllImport(CEF_CLIENT_DLL, CallingConvention = CallingConvention.Cdecl, CharSet = CharSet.Unicode)]
         internal static extern IntPtr MyCefJs_CreateFunction(string name, IntPtr handler);
@@ -603,6 +614,17 @@ namespace LayoutFarm.CefBridge
                 return new string(buffHead, 0, actualLen);
             }
         }
+        //    byte[] buffer = null;
+        //        if (asciiEncoding == null)
+        //        {
+        //            asciiEncoding = Encoding.GetEncoding("ASCII");
+        //        }
+        //        CopyBufferToBufferHolder(index, asciiEncoding.GetBytes(str.ToCharArray()));
+
+        //        buffer = asciiEncoding.GetBytes(str.ToCharArray());
+        //        byte[] buffer2 = new byte[buffer.Length + 1];
+        //Buffer.BlockCopy(buffer, 0, buffer2, 0, buffer.Length); 
+        //        CopyBufferToBufferHolder(index, buffer2);
 
         public static void MyCefCreateNativeStringHolder(ref JsValue ret, string value)
         {
