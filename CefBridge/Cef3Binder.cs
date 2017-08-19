@@ -515,8 +515,14 @@ namespace LayoutFarm.CefBridge
         /// </summary>
         /// <param name="str"></param>
         /// <returns></returns>
+
+        internal static IntPtr MyCefCreateStringHolder(string str)
+        {
+            IntPtr nativePtr = MyCefCreateStringHolder(str, str.Length);
+            return nativePtr;
+        }
         [DllImport(CEF_CLIENT_DLL, CallingConvention = CallingConvention.Cdecl, CharSet = CharSet.Unicode)]
-        internal static extern IntPtr MyCefCreateStringHolder(string str);
+        internal static extern IntPtr MyCefCreateStringHolder(string str, int len);
         //
         [DllImport(CEF_CLIENT_DLL, CallingConvention = CallingConvention.Cdecl, CharSet = CharSet.Unicode)]
         internal static extern IntPtr MyCefCreateBufferHolder(int len);
