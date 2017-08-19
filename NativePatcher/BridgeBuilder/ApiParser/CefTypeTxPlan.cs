@@ -1701,7 +1701,7 @@ namespace BridgeBuilder
                                                         {
                                                             //native need cefstring
                                                             //so we create a cef string handle holder
-                                                            par.ArgPreExtractCode = argName + ".Ptr=" + " Cef3Binder.MyCefCreateCefString(" + par.Name + ");\r\n";
+                                                            par.ArgPreExtractCode = argName + ".Ptr=" + " Cef3Binder.MyCefCreateStringHolder(" + par.Name + ");\r\n";
                                                             par.ArgPostExtractCode = "Cef3Binder.MyCefDeletePtr(" + argName + ".Ptr);";
                                                         }
                                                         break;

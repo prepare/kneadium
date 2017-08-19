@@ -279,7 +279,7 @@ namespace LayoutFarm.CefBridge
 
         public static NativeMyCefStringHolder CreateHolder(string str)
         {
-            return new NativeMyCefStringHolder(Cef3Binder.MyCefCreateCefString(str));
+            return new NativeMyCefStringHolder(Cef3Binder.MyCefCreateStringHolder(str));
         }
         public string ReadString(int len)
         {
@@ -516,7 +516,7 @@ namespace LayoutFarm.CefBridge
         /// <param name="str"></param>
         /// <returns></returns>
         [DllImport(CEF_CLIENT_DLL, CallingConvention = CallingConvention.Cdecl, CharSet = CharSet.Unicode)]
-        internal static extern IntPtr MyCefCreateCefString(string str);
+        internal static extern IntPtr MyCefCreateStringHolder(string str);
         //
         [DllImport(CEF_CLIENT_DLL, CallingConvention = CallingConvention.Cdecl, CharSet = CharSet.Unicode)]
         internal static extern IntPtr MyCefCreateBufferHolder(int len);
