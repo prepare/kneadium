@@ -10,7 +10,7 @@ namespace LayoutFarm.CefBridge
     {
         public override void OnFilterUrl(NativeCallArgs args)
         {
-            string reqUrl = args.GetArgAsString(0);
+            string reqUrl = args.GetArgAsString(1);
             if (reqUrl.StartsWith("http://localhost/index2"))
             {
                 //eg. how to fix request url
@@ -18,7 +18,7 @@ namespace LayoutFarm.CefBridge
                 args.SetOutput(0, 1);
                 //return url-in ascii form 
                 var utf8Buffer = Encoding.ASCII.GetBytes("http://localhost/index2.html");
-                args.SetOutput(1, utf8Buffer);
+                args.SetOutput(2, utf8Buffer);
             }
         }
         public override void OnAddResourceMx(NativeResourceMx nativeResourceMx)
@@ -67,14 +67,14 @@ namespace LayoutFarm.CefBridge
         }
         public override void OnConsoleLog(NativeCallArgs args)
         {
-            string msg = args.GetArgAsString(0);
-            string src = args.GetArgAsString(1);
-            string location = args.GetArgAsString(2);
+            string msg = args.GetArgAsString(1);
+            string src = args.GetArgAsString(2);
+            string location = args.GetArgAsString(3);
             Console.WriteLine(msg);
         }
         public override void OnDownloadCompleted(NativeCallArgs args)
         {
-            string downloadFullPath = args.GetArgAsString(2);
+            string downloadFullPath = args.GetArgAsString(3);
             Console.WriteLine("download complete :" + downloadFullPath);
         }
     }

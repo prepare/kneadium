@@ -131,9 +131,14 @@ namespace LayoutFarm.CefBridge
                 if (n > 100) return;
                 //----------------------
 
-                IntPtr rawBitBuffer = args.GetArgAsNativePtr(0);
-                int width = args.GetArgAsInt32(1);
-                int height = args.GetArgAsInt32(2);
+                //INIT_MY_MET_ARGS(metArgs, 3) 
+                //MyCefSetVoidPtr2(&vargs[1], buffer);
+                //MyCefSetInt32(&vargs[2], width);
+                //MyCefSetInt32(&vargs[3], height);
+
+                IntPtr rawBitBuffer = args.GetArgAsNativePtr(1);
+                int width = args.GetArgAsInt32(2);
+                int height = args.GetArgAsInt32(3);
 
                 unsafe
                 {
