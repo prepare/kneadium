@@ -46,7 +46,7 @@ namespace LayoutFarm.CefBridge
                 //or we can let native side to load the file
                 //  
                 args.SetOutput(0, 1);// return true to notify that this is handled
-                args.CopyToOutput(3, img);
+                args.CopyBufferToBufferHolder(3, img);
                 args.SetOutputAsAsciiString(4, "image/jpeg");
             }
             else
