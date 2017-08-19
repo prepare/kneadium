@@ -127,7 +127,7 @@ class CefRefCount {
   managed_callback GetManagedCallBack() const OVERRIDE { return myext_mcallback; } \
                                                                      \
  private:                                                            \
-  managed_callback myext_mcallback;\
+  managed_callback myext_mcallback= NULL;\
   CefRefCount ref_count_;
 
 ///
