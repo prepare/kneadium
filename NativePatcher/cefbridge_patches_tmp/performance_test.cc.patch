@@ -1,0 +1,66 @@
+//###_ORIGINAL D:\projects\cef_binary_3.3071.1647.win32\tests\cefclient\renderer//performance_test.cc
+//###_BEGIN 0
+//###_PRE
+namespace client {
+//###_PRE
+namespace performance_test {
+#include "tests/cefclient/myext/mycef_buildconfig.h"
+#if BUILD_TEST
+//###_POST
+// Use more interations for a Release build.
+//###_POST
+#if DCHECK_IS_ON()
+//###_END 0
+//###_BEGIN 0
+//###_PRE
+V8_PROPERTY_ATTRIBUTE_READONLY);
+//###_PRE
+}
+virtual void OnWebKitInitialized(CefRefPtr<ClientAppRenderer> app) {
+if (app->myMxCallback_) {
+
+//TODO: review here, this is not correct
+//should use wrap/unwrap
+INIT_MY_MET_ARGS(metArgs, 1)
+MyCefSetVoidPtr2(&vargs[1], app.get());
+app->myMxCallback_(CEF_MSG_RenderDelegate_OnWebKitInitialized, &metArgs);
+}
+}
+virtual void OnContextReleased(CefRefPtr<ClientAppRenderer> app,
+CefRefPtr<CefBrowser> browser,
+CefRefPtr<CefFrame> frame,
+CefRefPtr<CefV8Context> context) {
+if (app->myMxCallback_)
+{
+//expose all to managed side
+//browser,frame and context ?  
+INIT_MY_MET_ARGS(metArgs, 4)
+MyCefSetVoidPtr2(&vargs[1], app.get());
+MyCefSetVoidPtr2(&vargs[2], browser.get());
+MyCefSetVoidPtr2(&vargs[3], frame.get());
+MyCefSetVoidPtr2(&vargs[4], context.get());
+
+app->myMxCallback_(CEF_MSG_RenderDelegate_OnContextReleased, &metArgs);
+
+}
+}
+//###_POST
+private:
+//###_POST
+IMPLEMENT_REFCOUNTING(RenderDelegate);
+//###_END 0
+//###_BEGIN 0
+//###_PRE
+delegates.insert(new RenderDelegate);
+//###_PRE
+}
+#else
+void CreateDelegates(ClientAppRenderer::DelegateSet& delegates) {
+
+}
+#endif //BUILD_TEST
+//###_POST
+}  // namespace performance_test
+//###_POST
+}  // namespace client
+//###_END 0

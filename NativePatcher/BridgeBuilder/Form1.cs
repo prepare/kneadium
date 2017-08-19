@@ -119,7 +119,7 @@ namespace BridgeBuilder
             string extTargetDir = newPathName + "\\cefclient\\myext";
             manualPatcher.CopyExtensionSources(extTargetDir);
             manualPatcher.Do_CefClient_CMake_txt();
-            manualPatcher.Do_LibCefDll_CMake_txt(srcRootDir0 + "\\libcef_dll\\CMakeList.txt");
+            //manualPatcher.Do_LibCefDll_CMake_txt(srcRootDir0 + "\\libcef_dll\\CMakeList.txt");
         }
 
         private void cmdMacBuildPatchesFromSrc_Click(object sender, EventArgs e)
