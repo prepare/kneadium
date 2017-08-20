@@ -123,7 +123,6 @@ namespace BridgeBuilder
             if (CheckIfFileWasPatched(input, out patchCode))
             {
                 //can't patch
-
                 throw new NotSupportedException("not patch again in this file");
             }
             else
@@ -482,7 +481,10 @@ namespace BridgeBuilder
             SourceFile sourceFile = new SourceFile(filename, false);
             sourceFile.ReadAllLines();
             int j = sourceFile.LineCount;
+            if (j == 0) return null;
+            //
             PatchTask ptask = null;
+
 
             int i = 0;
             string line = sourceFile.GetLine(0);

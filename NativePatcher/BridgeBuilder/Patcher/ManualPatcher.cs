@@ -24,8 +24,7 @@ namespace BridgeBuilder
             return new PatchFile(RootDir + "\\" + filename);
         }
 
-
-        public void Do_CMake_txt()
+        public void Do_CefClient_CMake_txt()
         {
             //for 3_2704+
 
@@ -44,8 +43,6 @@ namespace BridgeBuilder
   myext/mycef_msg_const.h
   myext/MyCef_Win.cpp
   myext/mycef_buildconfig.h
-  myext/ExportFuncAuto.h
-  myext/ExportFuncAuto.cpp
   )
 source_group(cefclient\\\\myext FILES ${CEFCLIENT_MYCEF_MYCEF_SRCS})
 set(CEFCLIENT_MYCEF_SRCS
@@ -69,43 +66,41 @@ set(CEFCLIENT_MYCEF_SRCS
              .Append("${CEFCLIENT_MYCEF_MYCEF_SRCS}");
 
             patch.PatchContent();
-
-
         }
 
-        public void CopyExtensionSources(string extensionTargetDir)
+        public void Do_LibCefDll_CMake_txt(string cmakeSrc)
         {
+            
+            var patch = new PatchFile(cmakeSrc);
 
+            patch.NewTask("set(CEF_TARGET libcef_dll_wrapper)")
+                .FindNext("source_group(libcef_dll FILES ${LIBCEF_SRCS})")
+                .Append(@"set(LIBCEF_MYEXT_SRCS
+  myext/myext.cpp
+  myext/myext.h
+  myext/ExportFuncAuto.cpp
+  myext/ExportFuncAuto.h
+  )
+ source_group(libcef_dll\\\\myext FILES ${LIBCEF_MYEXT_SRCS})
+ ");
 
-            string extensionSourceDir = @"..\..\Patcher_ExtCode\myext";
+            //===================
+            patch.NewTask("add_library(${CEF_TARGET}")
+                .FindNext("${LIBCEF_WRAPPER_SRCS}")                 
+                .Append("${LIBCEF_MYEXT_SRCS}");
+            //===================
+            patch.NewTask("# Mac OS X configuration.")
+             .FindNext("if(OS_MACOSX)")
+             .FindNext("${LIBCEF_WRAPPER_SRCS}")
+             .Append("${LIBCEF_MYEXT_SRCS}");
+            //===================
+            patch.NewTask("# Linux configuration.")
+             .FindNext("if(OS_MACOSX)")
+             .FindNext("${LIBCEF_WRAPPER_SRCS}")
+             .Append("${LIBCEF_MYEXT_SRCS}");
 
-            if (extensionSourceDir == extensionTargetDir)
-            {
-                throw new NotSupportedException("not copy to the same dir");
-            }
-
-
-            //check extension source dir
-            if (!Directory.Exists(extensionSourceDir))
-            {
-                throw new NotSupportedException("no extension src dir");
-            }
-            if (Directory.Exists(extensionTargetDir))
-            {
-                throw new NotSupportedException("target dir already exists");
-            }
-            //-------------------------------------------------------------
-            //create ext dir
-            Directory.CreateDirectory(extensionTargetDir);
-            //copy 
-            string[] files = Directory.GetFiles(extensionSourceDir);
-            for (int i = files.Length - 1; i >= 0; --i)
-            {
-                File.Copy(files[i],
-                    extensionTargetDir + "\\" + Path.GetFileName(files[i]));
-            }
-            //------------------------------------------------------------- 
-        }
+            patch.PatchContent();
+        } 
 
     }
 }
