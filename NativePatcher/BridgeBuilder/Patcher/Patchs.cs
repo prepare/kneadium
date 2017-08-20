@@ -123,7 +123,6 @@ namespace BridgeBuilder
             if (CheckIfFileWasPatched(input, out patchCode))
             {
                 //can't patch
-
                 throw new NotSupportedException("not patch again in this file");
             }
             else

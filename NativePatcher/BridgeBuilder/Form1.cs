@@ -46,7 +46,9 @@ namespace BridgeBuilder
                 cefSrcRootDir + @"\libcef_dll\myext",
                  @"D:\projects\Kneadium\NativePatcher\BridgeBuilder\Patcher_ExtCode_libcef_dll\myext");
             //---------- 
-            //copy snapshot 
+            //copy cef_base.h 
+            System.IO.File.Copy(cefSrcRootDir + "@\\include\\cef_base.h",
+                @"D:\projects\Kneadium\NativePatcher\BridgeBuilder\Patcher_ExtCode_include");
 
 
         }
@@ -95,8 +97,19 @@ namespace BridgeBuilder
             //cef_binary_3.3071.1647 
             string srcRootDir0 = @"D:\projects\cef_binary_3.3071.1647.win32";
             string saveFolder = "d:\\WImageTest\\cefbridge_patches";
-            string newPathName = srcRootDir0 + "\\test";
+            string newPathName = srcRootDir0 + "\\tests";
 
+            //copy my extension file
+            CopyFolder(@"..\..\Patcher_ExtCode\myext", newPathName + "\\cefclient");
+            //copy my extension file
+            CopyFolder(@"..\..\Patcher_ExtCode_libcef_dll\myext", srcRootDir0 + "\\libcef_dll");
+            //-----------
+            ManualPatcher manualPatcher = new ManualPatcher(newPathName);
+            System.IO.File.Copy(@"..\..\Patcher_ExtCode_include\cef_base.h",
+                 srcRootDir0 + "\\include\\cef_base.h", true);            
+            manualPatcher.Do_LibCefDll_CMake_txt(srcRootDir0 + "\\libcef_dll\\CMakeLists.txt");
+            manualPatcher.Do_CefClient_CMake_txt();
+            //-----------
             PatchBuilder builder2 = new PatchBuilder(new string[]{
                 newPathName,
             });
@@ -135,15 +148,7 @@ namespace BridgeBuilder
                 pfile.PatchContent();
             }
 
-            ManualPatcher manualPatcher = new ManualPatcher(newPathName);
-            //copy my extension file
-            CopyFolder(@"..\..\Patcher_ExtCode\myext", newPathName + "\\cefclient\\myext");
-            //copy my extension file
-            CopyFolder(@"..\..\Patcher_ExtCode_libcef_dll\myext", srcRootDir0 + "\\libcef_dll\\myext");
 
-
-
-            manualPatcher.Do_CefClient_CMake_txt();
 
 
             //TODO: create patch for libcef_dll
@@ -222,9 +227,10 @@ namespace BridgeBuilder
             }
 
 
+            throw new NotSupportedException();
             ManualPatcher manualPatcher = new ManualPatcher(newPathName);
             string extTargetDir = newPathName + "\\cefclient\\myext";
-            manualPatcher.CopyExtensionSources(extTargetDir);
+            //manualPatcher.CopyExtensionSources(extTargetDir);
             manualPatcher.Do_CefClient_CMake_txt();
         }
 
