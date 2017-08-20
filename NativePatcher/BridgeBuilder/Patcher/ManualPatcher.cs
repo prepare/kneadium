@@ -101,40 +101,7 @@ set(CEFCLIENT_MYCEF_SRCS
              .Append("${CEFCLIENT_MYCEF_MYCEF_SRCS}");
 
             patch.PatchContent();
-        }
-        public void CopyExtensionSources(string extensionTargetDir)
-        {
-
-
-            string extensionSourceDir = @"..\..\Patcher_ExtCode\myext";
-
-            if (extensionSourceDir == extensionTargetDir)
-            {
-                throw new NotSupportedException("not copy to the same dir");
-            }
-
-
-            //check extension source dir
-            if (!Directory.Exists(extensionSourceDir))
-            {
-                throw new NotSupportedException("no extension src dir");
-            }
-            if (Directory.Exists(extensionTargetDir))
-            {
-                throw new NotSupportedException("target dir already exists");
-            }
-            //-------------------------------------------------------------
-            //create ext dir
-            Directory.CreateDirectory(extensionTargetDir);
-            //copy 
-            string[] files = Directory.GetFiles(extensionSourceDir);
-            for (int i = files.Length - 1; i >= 0; --i)
-            {
-                File.Copy(files[i],
-                    extensionTargetDir + "\\" + Path.GetFileName(files[i]));
-            }
-            //------------------------------------------------------------- 
-        }
+        } 
 
     }
 }
