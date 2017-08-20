@@ -33,9 +33,9 @@ std::string RequestUrlFilter2(const std::string& url) {
 
 if (client::test_runner::mcallback_)
 {
-
+CefString cefStrUrl = url;
 INIT_MY_MET_ARGS(metArgs, 2)
-SetCefStringToJsValue2(&vargs[1], url);
+SetCefStringToJsValue2(&vargs[1], cefStrUrl);
 mcallback_(CEF_MSG_RequestUrlFilter2, &metArgs);
 
 client::test_runner::mcallback_(CEF_MSG_RequestUrlFilter2, &metArgs);
@@ -82,8 +82,8 @@ CEF_REQUIRE_IO_THREAD();
 if (mcallback)
 {
 
-const std::string& url = request->url();
-CefString cefStr(url);
+
+CefString cefStr(request->url());
 //0: bool , return value
 //1: [in] url
 //2: [in] request
