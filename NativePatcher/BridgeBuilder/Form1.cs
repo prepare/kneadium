@@ -15,12 +15,13 @@ namespace BridgeBuilder
             InitializeComponent();
         }
 
+        string srcRootDir = @"D:\projects\cef_binary_3.3071.1647.win32";
 
         private void cmdCreatePatchFiles_Click(object sender, EventArgs e)
         {
 
             //1. analyze modified source files, in source folder 
-            string srcRootDir = @"D:\projects\cef_binary_3.3071.1647.win32";
+
 
 
             PatchBuilder builder = new PatchBuilder(new string[]{
@@ -49,16 +50,32 @@ namespace BridgeBuilder
                  @"D:\projects\Kneadium\NativePatcher\BridgeBuilder\Patcher_ExtCode\myext");
             //---------- 
             //copy snapshot 
-             
 
-            //----------  
+
         }
         static void CopyFolder(string srcFolder, string intoTargetFolder)
         {
+            //force update
+            //copy files
+            string folderName = System.IO.Path.GetFileName(srcFolder);
+            string targetFolder = intoTargetFolder + "\\" + folderName;
+            if (System.IO.Directory.Exists(targetFolder))
+            {
+                //delete
+                System.IO.Directory.Delete(targetFolder, true);
+            }
+            System.IO.Directory.CreateDirectory(targetFolder);
+            //
+            //copy file
+            CopyFileInFolder(srcFolder, targetFolder);
+            //
+            string[] subDirs = System.IO.Directory.GetDirectories(srcFolder);
 
-
-
-
+            int j = subDirs.Length;
+            for (int i = 0; i < j; ++i)
+            {
+                CopyFolder(subDirs[i], targetFolder);
+            }
         }
 
         static void CopyFileInFolder(string srcFolder, string targetFolder)
@@ -864,6 +881,15 @@ namespace BridgeBuilder
             Cef3HeaderFileParser headerParser = new Cef3HeaderFileParser();
             headerParser.Parse(srcFile, lines);
             return headerParser.Result;
+        }
+
+        private void button3_Click(object sender, EventArgs e)
+        {
+            string snapFolder = @"D:\projects\Kneadium\NativePatcher\dev_snap_win32";
+            CopyFolder(srcRootDir + "\\libcef_dll", snapFolder);
+            CopyFolder(srcRootDir + "\\tests", snapFolder);
+            CopyFolder(srcRootDir + "\\include", snapFolder);
+            //----------  
         }
     }
 }
