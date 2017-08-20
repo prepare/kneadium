@@ -46,10 +46,15 @@ namespace BridgeBuilder
                 cefSrcRootDir + @"\libcef_dll\myext",
                  @"D:\projects\Kneadium\NativePatcher\BridgeBuilder\Patcher_ExtCode_libcef_dll\myext");
             //---------- 
-            //copy cef_base.h 
+            //copy file by file
             System.IO.File.Copy(cefSrcRootDir + "@\\include\\cef_base.h",
-                @"D:\projects\Kneadium\NativePatcher\BridgeBuilder\Patcher_ExtCode_include");
-
+                @"D:\projects\Kneadium\NativePatcher\BridgeBuilder\Patcher_ExtCode_Others");
+            //
+            System.IO.File.Copy(cefSrcRootDir + "@\\libcef_dll\\ctocpp\\ctocpp_ref_counted.h",
+               @"D:\projects\Kneadium\NativePatcher\BridgeBuilder\Patcher_ExtCode_Others");
+            //
+            System.IO.File.Copy(cefSrcRootDir + "@\\libcef_dll\\cpptoc\\cpptoc_ref_counted.h",
+               @"D:\projects\Kneadium\NativePatcher\BridgeBuilder\Patcher_ExtCode_Others");
 
         }
         static void CopyFolder(string srcFolder, string intoTargetFolder)
@@ -105,8 +110,18 @@ namespace BridgeBuilder
             CopyFolder(@"..\..\Patcher_ExtCode_libcef_dll\myext", srcRootDir0 + "\\libcef_dll");
             //-----------
             ManualPatcher manualPatcher = new ManualPatcher(newPathName);
-            System.IO.File.Copy(@"..\..\Patcher_ExtCode_include\cef_base.h",
-                 srcRootDir0 + "\\include\\cef_base.h", true);            
+
+            //1.
+            System.IO.File.Copy(@"..\..\Patcher_ExtCode_Others\cef_base.h",
+                 srcRootDir0 + "\\include\\cef_base.h", true);
+            //2.
+            System.IO.File.Copy(@"..\..\Patcher_ExtCode_Others\cpptoc_ref_counted.h",
+                srcRootDir0 + "\\libcef_dll\\cpptoc\\cpptoc_ref_counted.h", true);
+            //3.
+            System.IO.File.Copy(@"..\..\Patcher_ExtCode_Others\ctocpp_ref_counted.h",
+                srcRootDir0 + "\\libcef_dll\\ctocpp\\ctocpp_ref_counted.h", true);
+            //-----------
+
             manualPatcher.Do_LibCefDll_CMake_txt(srcRootDir0 + "\\libcef_dll\\CMakeLists.txt");
             manualPatcher.Do_CefClient_CMake_txt();
             //-----------
