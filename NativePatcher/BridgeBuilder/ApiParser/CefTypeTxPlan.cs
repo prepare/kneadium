@@ -326,7 +326,7 @@ namespace BridgeBuilder
                                                                 string auto_p = "p_" + par.Name;
                                                                 par.ArgPreExtractCode = "auto " + auto_p + "=" + implBy.Name + "::Unwrap" + "(" + srcExpression + ");";
                                                                 par.ArgExtractCode = "MyCefSetVoidPtr(" + destExpression + "," + auto_p + "); ";//unwrap 
-                                                                par.ArgPostExtractCode = implBy.Name + "::Wrap" + "(" + auto_p + ");";//wrap
+                                                              //  par.ArgPostExtractCode = implBy.Name + "::Wrap" + "(" + auto_p + ");";//wrap
 
                                                                 return;
 
@@ -336,7 +336,7 @@ namespace BridgeBuilder
                                                                 string auto_p = "p_" + par.Name;
                                                                 par.ArgPreExtractCode = "auto " + auto_p + "=" + implBy.Name + "::Wrap" + "(" + srcExpression + ")";//wrap
                                                                 par.ArgExtractCode = "MyCefSetVoidPtr(" + destExpression + "," + auto_p + ");";
-                                                                par.ArgPostExtractCode = implBy.Name + "::Unwrap" + "(" + auto_p + ");";//unwrap
+                                                               // par.ArgPostExtractCode = implBy.Name + "::Unwrap" + "(" + auto_p + ");";//unwrap
                                                                 return;
                                                             }
                                                             else
@@ -436,7 +436,7 @@ namespace BridgeBuilder
                                                         string auto_p = "p_" + par.Name;
                                                         par.ArgPreExtractCode = "auto " + auto_p + "=" + implBy.Name + "::Unwrap" + "(" + srcExpression + ");"; //unwrap
                                                         par.ArgExtractCode = "MyCefSetVoidPtr(" + destExpression + "," + auto_p + ");";
-                                                        par.ArgPostExtractCode = implBy.Name + "::Wrap" + "(" + auto_p + ");"; //wrap 
+                                                      //  par.ArgPostExtractCode = implBy.Name + "::Wrap" + "(" + auto_p + ");"; //wrap 
 
                                                     }
                                                     else if (implBy.Name.Contains("CppToC"))
@@ -444,7 +444,7 @@ namespace BridgeBuilder
                                                         string auto_p = "p_" + par.Name;
                                                         par.ArgPreExtractCode = "auto " + auto_p + "=" + implBy.Name + "::Wrap" + "(" + srcExpression + ");"; //wrap
                                                         par.ArgExtractCode = "MyCefSetVoidPtr(" + destExpression + "," + auto_p + ");";
-                                                        par.ArgPostExtractCode = implBy.Name + "::Unwrap" + "(" + auto_p + ");";//unwrap
+                                                       // par.ArgPostExtractCode = implBy.Name + "::Unwrap" + "(" + auto_p + ");";//unwrap
                                                     }
                                                     else
                                                     {
@@ -1701,7 +1701,7 @@ namespace BridgeBuilder
                                                         {
                                                             //native need cefstring
                                                             //so we create a cef string handle holder
-                                                            par.ArgPreExtractCode = argName + ".Ptr=" + " Cef3Binder.MyCefCreateCefString(" + par.Name + ");\r\n";
+                                                            par.ArgPreExtractCode = argName + ".Ptr=" + " Cef3Binder.MyCefCreateStringHolder(" + par.Name + ");\r\n";
                                                             par.ArgPostExtractCode = "Cef3Binder.MyCefDeletePtr(" + argName + ".Ptr);";
                                                         }
                                                         break;

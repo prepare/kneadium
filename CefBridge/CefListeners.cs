@@ -19,7 +19,7 @@ namespace LayoutFarm.CefBridge
     public abstract class CefOsrListener
     {
         public virtual void OnRender(NativeCallArgs args) { }
-         
+
     }
     /// <summary>
     /// listener for render process
@@ -39,10 +39,15 @@ namespace LayoutFarm.CefBridge
         public readonly NativeJsContext context;
         public MyCefContextArgs(NativeCallArgs args)
         {
-            clientRenderApp = new NativeRendererApp(args.GetArgAsNativePtr(0));
-            browser = new NativeBrowser(args.GetArgAsNativePtr(1));
-            nativeFrame = new NativeFrame(args.GetArgAsNativePtr(2));
-            context = new NativeJsContext(args.GetArgAsNativePtr(3));
+            //MyCefSetVoidPtr2(&vargs[1], app.get());
+            //MyCefSetVoidPtr2(&vargs[2], browser.get());
+            //MyCefSetVoidPtr2(&vargs[3], frame.get());
+            //MyCefSetVoidPtr2(&vargs[4], context.get());
+
+            clientRenderApp = new NativeRendererApp(args.GetArgAsNativePtr(1));
+            browser = new NativeBrowser(args.GetArgAsNativePtr(2));
+            nativeFrame = new NativeFrame(args.GetArgAsNativePtr(3));
+            context = new NativeJsContext(args.GetArgAsNativePtr(4));
         }
     }
 }
