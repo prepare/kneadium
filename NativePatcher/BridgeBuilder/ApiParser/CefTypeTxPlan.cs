@@ -326,7 +326,7 @@ namespace BridgeBuilder
                                                                 string auto_p = "p_" + par.Name;
                                                                 par.ArgPreExtractCode = "auto " + auto_p + "=" + implBy.Name + "::Unwrap" + "(" + srcExpression + ");";
                                                                 par.ArgExtractCode = "MyCefSetVoidPtr(" + destExpression + "," + auto_p + "); ";//unwrap 
-                                                              //  par.ArgPostExtractCode = implBy.Name + "::Wrap" + "(" + auto_p + ");";//wrap
+                                                                par.ArgPostExtractCode = implBy.Name + "::Wrap" + "(" + auto_p + ");";//wrap
 
                                                                 return;
 
@@ -336,7 +336,7 @@ namespace BridgeBuilder
                                                                 string auto_p = "p_" + par.Name;
                                                                 par.ArgPreExtractCode = "auto " + auto_p + "=" + implBy.Name + "::Wrap" + "(" + srcExpression + ")";//wrap
                                                                 par.ArgExtractCode = "MyCefSetVoidPtr(" + destExpression + "," + auto_p + ");";
-                                                               // par.ArgPostExtractCode = implBy.Name + "::Unwrap" + "(" + auto_p + ");";//unwrap
+                                                                par.ArgPostExtractCode = implBy.Name + "::Unwrap" + "(" + auto_p + ");";//unwrap
                                                                 return;
                                                             }
                                                             else
@@ -436,7 +436,7 @@ namespace BridgeBuilder
                                                         string auto_p = "p_" + par.Name;
                                                         par.ArgPreExtractCode = "auto " + auto_p + "=" + implBy.Name + "::Unwrap" + "(" + srcExpression + ");"; //unwrap
                                                         par.ArgExtractCode = "MyCefSetVoidPtr(" + destExpression + "," + auto_p + ");";
-                                                      //  par.ArgPostExtractCode = implBy.Name + "::Wrap" + "(" + auto_p + ");"; //wrap 
+                                                        par.ArgPostExtractCode = implBy.Name + "::Wrap" + "(" + auto_p + ");"; //wrap 
 
                                                     }
                                                     else if (implBy.Name.Contains("CppToC"))
@@ -444,7 +444,7 @@ namespace BridgeBuilder
                                                         string auto_p = "p_" + par.Name;
                                                         par.ArgPreExtractCode = "auto " + auto_p + "=" + implBy.Name + "::Wrap" + "(" + srcExpression + ");"; //wrap
                                                         par.ArgExtractCode = "MyCefSetVoidPtr(" + destExpression + "," + auto_p + ");";
-                                                       // par.ArgPostExtractCode = implBy.Name + "::Unwrap" + "(" + auto_p + ");";//unwrap
+                                                        par.ArgPostExtractCode = implBy.Name + "::Unwrap" + "(" + auto_p + ");";//unwrap
                                                     }
                                                     else
                                                     {
@@ -470,10 +470,8 @@ namespace BridgeBuilder
                                                     else
                                                     {
                                                         throw new NotSupportedException();
-                                                    }
-
-                                                }
-
+                                                    } 
+                                                } 
                                                 return;
                                             }
                                         }
@@ -2909,13 +2907,13 @@ namespace BridgeBuilder
             stbuilder.Append("namespace " + className);
             stbuilder.AppendLine("{");
 
-           
+
             int nn = callToDotNetMets.Count;
             for (int mm = 0; mm < nn; ++mm)
             {
                 //implement on event notificationi
                 MethodTxInfo met = callToDotNetMets[mm];
-                met.CppMethodSwitchCaseName = className + "_" + met.Name + "_" + (mm + 1); 
+                met.CppMethodSwitchCaseName = className + "_" + met.Name + "_" + (mm + 1);
             }
 
             nn = callToDotNetMets.Count;

@@ -141,7 +141,10 @@ namespace BridgeBuilder
             //copy my extension file
             CopyFolder(@"..\..\Patcher_ExtCode_libcef_dll\myext", srcRootDir0 + "\\libcef_dll\\myext");
 
+
+
             manualPatcher.Do_CefClient_CMake_txt();
+
 
             //TODO: create patch for libcef_dll
             //manualPatcher.Do_LibCefDll_CMake_txt(srcRootDir0 + "\\libcef_dll\\CMakeList.txt");
