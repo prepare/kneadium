@@ -80,6 +80,7 @@ set(CEFCLIENT_MYCEF_SRCS
   myext/myext.h
   myext/ExportFuncAuto.cpp
   myext/ExportFuncAuto.h
+  myext/InternalHeaderForExportFunc.h
   )
  source_group(libcef_dll\\\\myext FILES ${LIBCEF_MYEXT_SRCS})
  ");
