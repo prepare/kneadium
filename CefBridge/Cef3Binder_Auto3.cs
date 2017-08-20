@@ -1912,7 +1912,7 @@ namespace LayoutFarm.CefBridge.Auto
         {
             JsValue v1 = new JsValue();
             JsValue ret;
-            v1.Ptr = Cef3Binder.MyCefCreateCefString(name);
+            v1.Ptr = Cef3Binder.MyCefCreateStringHolder(name);
 
             Cef3Binder.MyCefMet_Call1(this.nativePtr, CefBrowser_GetFrame_17, out ret, ref v1);
             Cef3Binder.MyCefDeletePtr(v1.Ptr);
@@ -2307,8 +2307,8 @@ namespace LayoutFarm.CefBridge.Auto
             JsValue v5 = new JsValue();
             JsValue v6 = new JsValue();
             JsValue ret;
-            v2.Ptr = Cef3Binder.MyCefCreateCefString(title);
-            v3.Ptr = Cef3Binder.MyCefCreateCefString(default_file_path);
+            v2.Ptr = Cef3Binder.MyCefCreateStringHolder(title);
+            v3.Ptr = Cef3Binder.MyCefCreateStringHolder(default_file_path);
             v1.I32 = (int)mode;
             v4.Ptr = Cef3Binder.CreateStdList(2);
             v5.I32 = (int)selected_accept_filter;
@@ -2331,7 +2331,7 @@ namespace LayoutFarm.CefBridge.Auto
         {
             JsValue v1 = new JsValue();
             JsValue ret;
-            v1.Ptr = Cef3Binder.MyCefCreateCefString(url);
+            v1.Ptr = Cef3Binder.MyCefCreateStringHolder(url);
 
             Cef3Binder.MyCefMet_Call1(this.nativePtr, CefBrowserHost_StartDownload_13, out ret, ref v1);
             Cef3Binder.MyCefDeletePtr(v1.Ptr);
@@ -2365,7 +2365,7 @@ namespace LayoutFarm.CefBridge.Auto
             JsValue v4 = new JsValue();
             JsValue v5 = new JsValue();
             JsValue ret;
-            v1.Ptr = Cef3Binder.MyCefCreateCefString(image_url);
+            v1.Ptr = Cef3Binder.MyCefCreateStringHolder(image_url);
             v2.I32 = is_favicon ? 1 : 0;
             v3.I32 = (int)max_image_size;
             v4.I32 = bypass_cache ? 1 : 0;
@@ -2407,7 +2407,7 @@ namespace LayoutFarm.CefBridge.Auto
             JsValue v2 = new JsValue();
             JsValue v3 = new JsValue();
             JsValue ret;
-            v1.Ptr = Cef3Binder.MyCefCreateCefString(path);
+            v1.Ptr = Cef3Binder.MyCefCreateStringHolder(path);
             v2.Ptr = settings.nativePtr;
             v3.Ptr = callback.nativePtr;
 
@@ -2442,7 +2442,7 @@ namespace LayoutFarm.CefBridge.Auto
             JsValue v4 = new JsValue();
             JsValue v5 = new JsValue();
             JsValue ret;
-            v2.Ptr = Cef3Binder.MyCefCreateCefString(searchText);
+            v2.Ptr = Cef3Binder.MyCefCreateStringHolder(searchText);
             v1.I32 = (int)identifier;
             v3.I32 = forward ? 1 : 0;
             v4.I32 = matchCase ? 1 : 0;
@@ -2591,7 +2591,7 @@ namespace LayoutFarm.CefBridge.Auto
         {
             JsValue v1 = new JsValue();
             JsValue ret;
-            v1.Ptr = Cef3Binder.MyCefCreateCefString(word);
+            v1.Ptr = Cef3Binder.MyCefCreateStringHolder(word);
 
             Cef3Binder.MyCefMet_Call1(this.nativePtr, CefBrowserHost_ReplaceMisspelling_25, out ret, ref v1);
             Cef3Binder.MyCefDeletePtr(v1.Ptr);
@@ -2608,7 +2608,7 @@ namespace LayoutFarm.CefBridge.Auto
         {
             JsValue v1 = new JsValue();
             JsValue ret;
-            v1.Ptr = Cef3Binder.MyCefCreateCefString(word);
+            v1.Ptr = Cef3Binder.MyCefCreateStringHolder(word);
 
             Cef3Binder.MyCefMet_Call1(this.nativePtr, CefBrowserHost_AddWordToDictionary_26, out ret, ref v1);
             Cef3Binder.MyCefDeletePtr(v1.Ptr);
@@ -2908,7 +2908,7 @@ namespace LayoutFarm.CefBridge.Auto
             JsValue v3 = new JsValue();
             JsValue v4 = new JsValue();
             JsValue ret;
-            v1.Ptr = Cef3Binder.MyCefCreateCefString(text);
+            v1.Ptr = Cef3Binder.MyCefCreateStringHolder(text);
             v2.Ptr = Cef3Binder.CreateStdList(3); ;
             v3.Ptr = replacement_range.nativePtr;
             v4.Ptr = selection_range.nativePtr;
@@ -2938,7 +2938,7 @@ namespace LayoutFarm.CefBridge.Auto
             JsValue v2 = new JsValue();
             JsValue v3 = new JsValue();
             JsValue ret;
-            v1.Ptr = Cef3Binder.MyCefCreateCefString(text);
+            v1.Ptr = Cef3Binder.MyCefCreateStringHolder(text);
             v2.Ptr = replacement_range.nativePtr;
             v3.I32 = (int)relative_cursor_pos;
 
@@ -3323,7 +3323,7 @@ namespace LayoutFarm.CefBridge.Auto
         {
             JsValue v1 = new JsValue();
             JsValue ret;
-            v1.Ptr = Cef3Binder.MyCefCreateCefString(command_line);
+            v1.Ptr = Cef3Binder.MyCefCreateStringHolder(command_line);
 
             Cef3Binder.MyCefMet_Call1(this.nativePtr, CefCommandLine_InitFromString_5, out ret, ref v1);
             Cef3Binder.MyCefDeletePtr(v1.Ptr);
@@ -3402,7 +3402,7 @@ namespace LayoutFarm.CefBridge.Auto
         {
             JsValue v1 = new JsValue();
             JsValue ret;
-            v1.Ptr = Cef3Binder.MyCefCreateCefString(program);
+            v1.Ptr = Cef3Binder.MyCefCreateStringHolder(program);
 
             Cef3Binder.MyCefMet_Call1(this.nativePtr, CefCommandLine_SetProgram_10, out ret, ref v1);
             Cef3Binder.MyCefDeletePtr(v1.Ptr);
@@ -3433,7 +3433,7 @@ namespace LayoutFarm.CefBridge.Auto
         {
             JsValue v1 = new JsValue();
             JsValue ret;
-            v1.Ptr = Cef3Binder.MyCefCreateCefString(name);
+            v1.Ptr = Cef3Binder.MyCefCreateStringHolder(name);
 
             Cef3Binder.MyCefMet_Call1(this.nativePtr, CefCommandLine_HasSwitch_12, out ret, ref v1);
             Cef3Binder.MyCefDeletePtr(v1.Ptr);
@@ -3451,7 +3451,7 @@ namespace LayoutFarm.CefBridge.Auto
         {
             JsValue v1 = new JsValue();
             JsValue ret;
-            v1.Ptr = Cef3Binder.MyCefCreateCefString(name);
+            v1.Ptr = Cef3Binder.MyCefCreateStringHolder(name);
 
             Cef3Binder.MyCefMet_Call1(this.nativePtr, CefCommandLine_GetSwitchValue_13, out ret, ref v1);
             Cef3Binder.MyCefDeletePtr(v1.Ptr);
@@ -3486,7 +3486,7 @@ namespace LayoutFarm.CefBridge.Auto
         {
             JsValue v1 = new JsValue();
             JsValue ret;
-            v1.Ptr = Cef3Binder.MyCefCreateCefString(name);
+            v1.Ptr = Cef3Binder.MyCefCreateStringHolder(name);
 
             Cef3Binder.MyCefMet_Call1(this.nativePtr, CefCommandLine_AppendSwitch_15, out ret, ref v1);
             Cef3Binder.MyCefDeletePtr(v1.Ptr);
@@ -3505,8 +3505,8 @@ namespace LayoutFarm.CefBridge.Auto
             JsValue v1 = new JsValue();
             JsValue v2 = new JsValue();
             JsValue ret;
-            v1.Ptr = Cef3Binder.MyCefCreateCefString(name);
-            v2.Ptr = Cef3Binder.MyCefCreateCefString(value);
+            v1.Ptr = Cef3Binder.MyCefCreateStringHolder(name);
+            v2.Ptr = Cef3Binder.MyCefCreateStringHolder(value);
 
             Cef3Binder.MyCefMet_Call2(this.nativePtr, CefCommandLine_AppendSwitchWithValue_16, out ret, ref v1, ref v2);
             Cef3Binder.MyCefDeletePtr(v1.Ptr);
@@ -3554,7 +3554,7 @@ namespace LayoutFarm.CefBridge.Auto
         {
             JsValue v1 = new JsValue();
             JsValue ret;
-            v1.Ptr = Cef3Binder.MyCefCreateCefString(argument);
+            v1.Ptr = Cef3Binder.MyCefCreateStringHolder(argument);
 
             Cef3Binder.MyCefMet_Call1(this.nativePtr, CefCommandLine_AppendArgument_19, out ret, ref v1);
             Cef3Binder.MyCefDeletePtr(v1.Ptr);
@@ -3572,7 +3572,7 @@ namespace LayoutFarm.CefBridge.Auto
         {
             JsValue v1 = new JsValue();
             JsValue ret;
-            v1.Ptr = Cef3Binder.MyCefCreateCefString(wrapper);
+            v1.Ptr = Cef3Binder.MyCefCreateStringHolder(wrapper);
 
             Cef3Binder.MyCefMet_Call1(this.nativePtr, CefCommandLine_PrependWrapper_20, out ret, ref v1);
             Cef3Binder.MyCefDeletePtr(v1.Ptr);
@@ -4025,7 +4025,7 @@ namespace LayoutFarm.CefBridge.Auto
             JsValue v2 = new JsValue();
             JsValue v3 = new JsValue();
             JsValue ret;
-            v1.Ptr = Cef3Binder.MyCefCreateCefString(url);
+            v1.Ptr = Cef3Binder.MyCefCreateStringHolder(url);
             v2.I32 = includeHttpOnly ? 1 : 0;
             v3.Ptr = visitor.nativePtr;
 
@@ -4054,7 +4054,7 @@ namespace LayoutFarm.CefBridge.Auto
             JsValue v2 = new JsValue();
             JsValue v3 = new JsValue();
             JsValue ret;
-            v1.Ptr = Cef3Binder.MyCefCreateCefString(url);
+            v1.Ptr = Cef3Binder.MyCefCreateStringHolder(url);
             v2.Ptr = cookie.nativePtr;
             v3.Ptr = callback.nativePtr;
 
@@ -4085,8 +4085,8 @@ namespace LayoutFarm.CefBridge.Auto
             JsValue v2 = new JsValue();
             JsValue v3 = new JsValue();
             JsValue ret;
-            v1.Ptr = Cef3Binder.MyCefCreateCefString(url);
-            v2.Ptr = Cef3Binder.MyCefCreateCefString(cookie_name);
+            v1.Ptr = Cef3Binder.MyCefCreateStringHolder(url);
+            v2.Ptr = Cef3Binder.MyCefCreateStringHolder(cookie_name);
             v3.Ptr = callback.nativePtr;
 
             Cef3Binder.MyCefMet_Call3(this.nativePtr, CefCookieManager_DeleteCookies_5, out ret, ref v1, ref v2, ref v3);
@@ -4116,7 +4116,7 @@ namespace LayoutFarm.CefBridge.Auto
             JsValue v2 = new JsValue();
             JsValue v3 = new JsValue();
             JsValue ret;
-            v1.Ptr = Cef3Binder.MyCefCreateCefString(path);
+            v1.Ptr = Cef3Binder.MyCefCreateStringHolder(path);
             v2.I32 = persist_session_cookies ? 1 : 0;
             v3.Ptr = callback.nativePtr;
 
@@ -4319,7 +4319,7 @@ namespace LayoutFarm.CefBridge.Auto
         {
             JsValue v1 = new JsValue();
             JsValue ret;
-            v1.Ptr = Cef3Binder.MyCefCreateCefString(id);
+            v1.Ptr = Cef3Binder.MyCefCreateStringHolder(id);
 
             Cef3Binder.MyCefMet_Call1(this.nativePtr, CefDOMDocument_GetElementById_6, out ret, ref v1);
             Cef3Binder.MyCefDeletePtr(v1.Ptr);
@@ -4435,7 +4435,7 @@ namespace LayoutFarm.CefBridge.Auto
         {
             JsValue v1 = new JsValue();
             JsValue ret;
-            v1.Ptr = Cef3Binder.MyCefCreateCefString(partialURL);
+            v1.Ptr = Cef3Binder.MyCefCreateStringHolder(partialURL);
 
             Cef3Binder.MyCefMet_Call1(this.nativePtr, CefDOMDocument_GetCompleteURL_14, out ret, ref v1);
             Cef3Binder.MyCefDeletePtr(v1.Ptr);
@@ -4631,7 +4631,7 @@ namespace LayoutFarm.CefBridge.Auto
         {
             JsValue v1 = new JsValue();
             JsValue ret;
-            v1.Ptr = Cef3Binder.MyCefCreateCefString(value);
+            v1.Ptr = Cef3Binder.MyCefCreateStringHolder(value);
 
             Cef3Binder.MyCefMet_Call1(this.nativePtr, CefDOMNode_SetValue_10, out ret, ref v1);
             Cef3Binder.MyCefDeletePtr(v1.Ptr);
@@ -4789,7 +4789,7 @@ namespace LayoutFarm.CefBridge.Auto
         {
             JsValue v1 = new JsValue();
             JsValue ret;
-            v1.Ptr = Cef3Binder.MyCefCreateCefString(attrName);
+            v1.Ptr = Cef3Binder.MyCefCreateStringHolder(attrName);
 
             Cef3Binder.MyCefMet_Call1(this.nativePtr, CefDOMNode_HasElementAttribute_21, out ret, ref v1);
             Cef3Binder.MyCefDeletePtr(v1.Ptr);
@@ -4806,7 +4806,7 @@ namespace LayoutFarm.CefBridge.Auto
         {
             JsValue v1 = new JsValue();
             JsValue ret;
-            v1.Ptr = Cef3Binder.MyCefCreateCefString(attrName);
+            v1.Ptr = Cef3Binder.MyCefCreateStringHolder(attrName);
 
             Cef3Binder.MyCefMet_Call1(this.nativePtr, CefDOMNode_GetElementAttribute_22, out ret, ref v1);
             Cef3Binder.MyCefDeletePtr(v1.Ptr);
@@ -4842,8 +4842,8 @@ namespace LayoutFarm.CefBridge.Auto
             JsValue v1 = new JsValue();
             JsValue v2 = new JsValue();
             JsValue ret;
-            v1.Ptr = Cef3Binder.MyCefCreateCefString(attrName);
-            v2.Ptr = Cef3Binder.MyCefCreateCefString(value);
+            v1.Ptr = Cef3Binder.MyCefCreateStringHolder(attrName);
+            v2.Ptr = Cef3Binder.MyCefCreateStringHolder(value);
 
             Cef3Binder.MyCefMet_Call2(this.nativePtr, CefDOMNode_SetElementAttribute_24, out ret, ref v1, ref v2);
             Cef3Binder.MyCefDeletePtr(v1.Ptr);
@@ -5424,7 +5424,7 @@ namespace LayoutFarm.CefBridge.Auto
         {
             JsValue v1 = new JsValue();
             JsValue ret;
-            v1.Ptr = Cef3Binder.MyCefCreateCefString(url);
+            v1.Ptr = Cef3Binder.MyCefCreateStringHolder(url);
 
             Cef3Binder.MyCefMet_Call1(this.nativePtr, CefDragData_SetLinkURL_15, out ret, ref v1);
             Cef3Binder.MyCefDeletePtr(v1.Ptr);
@@ -5441,7 +5441,7 @@ namespace LayoutFarm.CefBridge.Auto
         {
             JsValue v1 = new JsValue();
             JsValue ret;
-            v1.Ptr = Cef3Binder.MyCefCreateCefString(title);
+            v1.Ptr = Cef3Binder.MyCefCreateStringHolder(title);
 
             Cef3Binder.MyCefMet_Call1(this.nativePtr, CefDragData_SetLinkTitle_16, out ret, ref v1);
             Cef3Binder.MyCefDeletePtr(v1.Ptr);
@@ -5458,7 +5458,7 @@ namespace LayoutFarm.CefBridge.Auto
         {
             JsValue v1 = new JsValue();
             JsValue ret;
-            v1.Ptr = Cef3Binder.MyCefCreateCefString(data);
+            v1.Ptr = Cef3Binder.MyCefCreateStringHolder(data);
 
             Cef3Binder.MyCefMet_Call1(this.nativePtr, CefDragData_SetLinkMetadata_17, out ret, ref v1);
             Cef3Binder.MyCefDeletePtr(v1.Ptr);
@@ -5475,7 +5475,7 @@ namespace LayoutFarm.CefBridge.Auto
         {
             JsValue v1 = new JsValue();
             JsValue ret;
-            v1.Ptr = Cef3Binder.MyCefCreateCefString(text);
+            v1.Ptr = Cef3Binder.MyCefCreateStringHolder(text);
 
             Cef3Binder.MyCefMet_Call1(this.nativePtr, CefDragData_SetFragmentText_18, out ret, ref v1);
             Cef3Binder.MyCefDeletePtr(v1.Ptr);
@@ -5492,7 +5492,7 @@ namespace LayoutFarm.CefBridge.Auto
         {
             JsValue v1 = new JsValue();
             JsValue ret;
-            v1.Ptr = Cef3Binder.MyCefCreateCefString(html);
+            v1.Ptr = Cef3Binder.MyCefCreateStringHolder(html);
 
             Cef3Binder.MyCefMet_Call1(this.nativePtr, CefDragData_SetFragmentHtml_19, out ret, ref v1);
             Cef3Binder.MyCefDeletePtr(v1.Ptr);
@@ -5509,7 +5509,7 @@ namespace LayoutFarm.CefBridge.Auto
         {
             JsValue v1 = new JsValue();
             JsValue ret;
-            v1.Ptr = Cef3Binder.MyCefCreateCefString(base_url);
+            v1.Ptr = Cef3Binder.MyCefCreateStringHolder(base_url);
 
             Cef3Binder.MyCefMet_Call1(this.nativePtr, CefDragData_SetFragmentBaseURL_20, out ret, ref v1);
             Cef3Binder.MyCefDeletePtr(v1.Ptr);
@@ -5544,8 +5544,8 @@ namespace LayoutFarm.CefBridge.Auto
             JsValue v1 = new JsValue();
             JsValue v2 = new JsValue();
             JsValue ret;
-            v1.Ptr = Cef3Binder.MyCefCreateCefString(path);
-            v2.Ptr = Cef3Binder.MyCefCreateCefString(display_name);
+            v1.Ptr = Cef3Binder.MyCefCreateStringHolder(path);
+            v2.Ptr = Cef3Binder.MyCefCreateStringHolder(display_name);
 
             Cef3Binder.MyCefMet_Call2(this.nativePtr, CefDragData_AddFile_22, out ret, ref v1, ref v2);
             Cef3Binder.MyCefDeletePtr(v1.Ptr);
@@ -5834,7 +5834,7 @@ namespace LayoutFarm.CefBridge.Auto
         {
             JsValue v1 = new JsValue();
             JsValue ret;
-            v1.Ptr = Cef3Binder.MyCefCreateCefString(url);
+            v1.Ptr = Cef3Binder.MyCefCreateStringHolder(url);
 
             Cef3Binder.MyCefMet_Call1(this.nativePtr, CefFrame_LoadURL_13, out ret, ref v1);
             Cef3Binder.MyCefDeletePtr(v1.Ptr);
@@ -5855,8 +5855,8 @@ namespace LayoutFarm.CefBridge.Auto
             JsValue v1 = new JsValue();
             JsValue v2 = new JsValue();
             JsValue ret;
-            v1.Ptr = Cef3Binder.MyCefCreateCefString(string_val);
-            v2.Ptr = Cef3Binder.MyCefCreateCefString(url);
+            v1.Ptr = Cef3Binder.MyCefCreateStringHolder(string_val);
+            v2.Ptr = Cef3Binder.MyCefCreateStringHolder(url);
 
             Cef3Binder.MyCefMet_Call2(this.nativePtr, CefFrame_LoadString_14, out ret, ref v1, ref v2);
             Cef3Binder.MyCefDeletePtr(v1.Ptr);
@@ -5882,8 +5882,8 @@ namespace LayoutFarm.CefBridge.Auto
             JsValue v2 = new JsValue();
             JsValue v3 = new JsValue();
             JsValue ret;
-            v1.Ptr = Cef3Binder.MyCefCreateCefString(code);
-            v2.Ptr = Cef3Binder.MyCefCreateCefString(script_url);
+            v1.Ptr = Cef3Binder.MyCefCreateStringHolder(code);
+            v2.Ptr = Cef3Binder.MyCefCreateStringHolder(script_url);
             v3.I32 = (int)start_line;
 
             Cef3Binder.MyCefMet_Call3(this.nativePtr, CefFrame_ExecuteJavaScript_15, out ret, ref v1, ref v2, ref v3);
@@ -6524,7 +6524,7 @@ namespace LayoutFarm.CefBridge.Auto
             JsValue v1 = new JsValue();
             JsValue v2 = new JsValue();
             JsValue ret;
-            v2.Ptr = Cef3Binder.MyCefCreateCefString(label);
+            v2.Ptr = Cef3Binder.MyCefCreateStringHolder(label);
             v1.I32 = (int)command_id;
 
             Cef3Binder.MyCefMet_Call2(this.nativePtr, CefMenuModel_AddItem_5, out ret, ref v1, ref v2);
@@ -6544,7 +6544,7 @@ namespace LayoutFarm.CefBridge.Auto
             JsValue v1 = new JsValue();
             JsValue v2 = new JsValue();
             JsValue ret;
-            v2.Ptr = Cef3Binder.MyCefCreateCefString(label);
+            v2.Ptr = Cef3Binder.MyCefCreateStringHolder(label);
             v1.I32 = (int)command_id;
 
             Cef3Binder.MyCefMet_Call2(this.nativePtr, CefMenuModel_AddCheckItem_6, out ret, ref v1, ref v2);
@@ -6567,7 +6567,7 @@ namespace LayoutFarm.CefBridge.Auto
             JsValue v2 = new JsValue();
             JsValue v3 = new JsValue();
             JsValue ret;
-            v2.Ptr = Cef3Binder.MyCefCreateCefString(label);
+            v2.Ptr = Cef3Binder.MyCefCreateStringHolder(label);
             v1.I32 = (int)command_id;
             v3.I32 = (int)group_id;
 
@@ -6588,7 +6588,7 @@ namespace LayoutFarm.CefBridge.Auto
             JsValue v1 = new JsValue();
             JsValue v2 = new JsValue();
             JsValue ret;
-            v2.Ptr = Cef3Binder.MyCefCreateCefString(label);
+            v2.Ptr = Cef3Binder.MyCefCreateStringHolder(label);
             v1.I32 = (int)command_id;
 
             Cef3Binder.MyCefMet_Call2(this.nativePtr, CefMenuModel_AddSubMenu_8, out ret, ref v1, ref v2);
@@ -6628,7 +6628,7 @@ namespace LayoutFarm.CefBridge.Auto
             JsValue v2 = new JsValue();
             JsValue v3 = new JsValue();
             JsValue ret;
-            v3.Ptr = Cef3Binder.MyCefCreateCefString(label);
+            v3.Ptr = Cef3Binder.MyCefCreateStringHolder(label);
             v1.I32 = (int)index;
             v2.I32 = (int)command_id;
 
@@ -6652,7 +6652,7 @@ namespace LayoutFarm.CefBridge.Auto
             JsValue v2 = new JsValue();
             JsValue v3 = new JsValue();
             JsValue ret;
-            v3.Ptr = Cef3Binder.MyCefCreateCefString(label);
+            v3.Ptr = Cef3Binder.MyCefCreateStringHolder(label);
             v1.I32 = (int)index;
             v2.I32 = (int)command_id;
 
@@ -6679,7 +6679,7 @@ namespace LayoutFarm.CefBridge.Auto
             JsValue v3 = new JsValue();
             JsValue v4 = new JsValue();
             JsValue ret;
-            v3.Ptr = Cef3Binder.MyCefCreateCefString(label);
+            v3.Ptr = Cef3Binder.MyCefCreateStringHolder(label);
             v1.I32 = (int)index;
             v2.I32 = (int)command_id;
             v4.I32 = (int)group_id;
@@ -6704,7 +6704,7 @@ namespace LayoutFarm.CefBridge.Auto
             JsValue v2 = new JsValue();
             JsValue v3 = new JsValue();
             JsValue ret;
-            v3.Ptr = Cef3Binder.MyCefCreateCefString(label);
+            v3.Ptr = Cef3Binder.MyCefCreateStringHolder(label);
             v1.I32 = (int)index;
             v2.I32 = (int)command_id;
 
@@ -6843,7 +6843,7 @@ namespace LayoutFarm.CefBridge.Auto
             JsValue v1 = new JsValue();
             JsValue v2 = new JsValue();
             JsValue ret;
-            v2.Ptr = Cef3Binder.MyCefCreateCefString(label);
+            v2.Ptr = Cef3Binder.MyCefCreateStringHolder(label);
             v1.I32 = (int)command_id;
 
             Cef3Binder.MyCefMet_Call2(this.nativePtr, CefMenuModel_SetLabel_21, out ret, ref v1, ref v2);
@@ -6863,7 +6863,7 @@ namespace LayoutFarm.CefBridge.Auto
             JsValue v1 = new JsValue();
             JsValue v2 = new JsValue();
             JsValue ret;
-            v2.Ptr = Cef3Binder.MyCefCreateCefString(label);
+            v2.Ptr = Cef3Binder.MyCefCreateStringHolder(label);
             v1.I32 = (int)index;
 
             Cef3Binder.MyCefMet_Call2(this.nativePtr, CefMenuModel_SetLabelAt_22, out ret, ref v1, ref v2);
@@ -7537,7 +7537,7 @@ namespace LayoutFarm.CefBridge.Auto
             JsValue v1 = new JsValue();
             JsValue v2 = new JsValue();
             JsValue ret;
-            v2.Ptr = Cef3Binder.MyCefCreateCefString(font_list);
+            v2.Ptr = Cef3Binder.MyCefCreateStringHolder(font_list);
             v1.I32 = (int)command_id;
 
             Cef3Binder.MyCefMet_Call2(this.nativePtr, CefMenuModel_SetFontList_55, out ret, ref v1, ref v2);
@@ -7568,7 +7568,7 @@ namespace LayoutFarm.CefBridge.Auto
             JsValue v1 = new JsValue();
             JsValue v2 = new JsValue();
             JsValue ret;
-            v2.Ptr = Cef3Binder.MyCefCreateCefString(font_list);
+            v2.Ptr = Cef3Binder.MyCefCreateStringHolder(font_list);
             v1.I32 = (int)index;
 
             Cef3Binder.MyCefMet_Call2(this.nativePtr, CefMenuModel_SetFontListAt_56, out ret, ref v1, ref v2);
@@ -7938,7 +7938,7 @@ namespace LayoutFarm.CefBridge.Auto
         {
             JsValue v1 = new JsValue();
             JsValue ret;
-            v1.Ptr = Cef3Binder.MyCefCreateCefString(name);
+            v1.Ptr = Cef3Binder.MyCefCreateStringHolder(name);
 
             Cef3Binder.MyCefMet_Call1(this.nativePtr, CefPrintSettings_SetDeviceName_7, out ret, ref v1);
             Cef3Binder.MyCefDeletePtr(v1.Ptr);
@@ -8366,7 +8366,7 @@ namespace LayoutFarm.CefBridge.Auto
         {
             JsValue v1 = new JsValue();
             JsValue ret;
-            v1.Ptr = Cef3Binder.MyCefCreateCefString(url);
+            v1.Ptr = Cef3Binder.MyCefCreateStringHolder(url);
 
             Cef3Binder.MyCefMet_Call1(this.nativePtr, CefRequest_SetURL_3, out ret, ref v1);
             Cef3Binder.MyCefDeletePtr(v1.Ptr);
@@ -8398,7 +8398,7 @@ namespace LayoutFarm.CefBridge.Auto
         {
             JsValue v1 = new JsValue();
             JsValue ret;
-            v1.Ptr = Cef3Binder.MyCefCreateCefString(method);
+            v1.Ptr = Cef3Binder.MyCefCreateStringHolder(method);
 
             Cef3Binder.MyCefMet_Call1(this.nativePtr, CefRequest_SetMethod_5, out ret, ref v1);
             Cef3Binder.MyCefDeletePtr(v1.Ptr);
@@ -8419,7 +8419,7 @@ namespace LayoutFarm.CefBridge.Auto
             JsValue v1 = new JsValue();
             JsValue v2 = new JsValue();
             JsValue ret;
-            v1.Ptr = Cef3Binder.MyCefCreateCefString(referrer_url);
+            v1.Ptr = Cef3Binder.MyCefCreateStringHolder(referrer_url);
             v2.I32 = (int)policy;
 
             Cef3Binder.MyCefMet_Call2(this.nativePtr, CefRequest_SetReferrer_6, out ret, ref v1, ref v2);
@@ -8535,8 +8535,8 @@ namespace LayoutFarm.CefBridge.Auto
             JsValue v3 = new JsValue();
             JsValue v4 = new JsValue();
             JsValue ret;
-            v1.Ptr = Cef3Binder.MyCefCreateCefString(url);
-            v2.Ptr = Cef3Binder.MyCefCreateCefString(method);
+            v1.Ptr = Cef3Binder.MyCefCreateStringHolder(url);
+            v2.Ptr = Cef3Binder.MyCefCreateStringHolder(method);
             v3.Ptr = postData.nativePtr;
             v4.Ptr = headerMap.nativePtr;
 
@@ -8604,7 +8604,7 @@ namespace LayoutFarm.CefBridge.Auto
         {
             JsValue v1 = new JsValue();
             JsValue ret;
-            v1.Ptr = Cef3Binder.MyCefCreateCefString(url);
+            v1.Ptr = Cef3Binder.MyCefCreateStringHolder(url);
 
             Cef3Binder.MyCefMet_Call1(this.nativePtr, CefRequest_SetFirstPartyForCookies_17, out ret, ref v1);
             Cef3Binder.MyCefDeletePtr(v1.Ptr);
@@ -8867,7 +8867,7 @@ namespace LayoutFarm.CefBridge.Auto
         {
             JsValue v1 = new JsValue();
             JsValue ret;
-            v1.Ptr = Cef3Binder.MyCefCreateCefString(fileName);
+            v1.Ptr = Cef3Binder.MyCefCreateStringHolder(fileName);
 
             Cef3Binder.MyCefMet_Call1(this.nativePtr, CefPostDataElement_SetToFile_3, out ret, ref v1);
             Cef3Binder.MyCefDeletePtr(v1.Ptr);
@@ -9132,8 +9132,8 @@ namespace LayoutFarm.CefBridge.Auto
             JsValue v2 = new JsValue();
             JsValue v3 = new JsValue();
             JsValue ret;
-            v1.Ptr = Cef3Binder.MyCefCreateCefString(scheme_name);
-            v2.Ptr = Cef3Binder.MyCefCreateCefString(domain_name);
+            v1.Ptr = Cef3Binder.MyCefCreateStringHolder(scheme_name);
+            v2.Ptr = Cef3Binder.MyCefCreateStringHolder(domain_name);
             v3.Ptr = factory.nativePtr;
 
             Cef3Binder.MyCefMet_Call3(this.nativePtr, CefRequestContext_RegisterSchemeHandlerFactory_7, out ret, ref v1, ref v2, ref v3);
@@ -9187,7 +9187,7 @@ namespace LayoutFarm.CefBridge.Auto
         {
             JsValue v1 = new JsValue();
             JsValue ret;
-            v1.Ptr = Cef3Binder.MyCefCreateCefString(name);
+            v1.Ptr = Cef3Binder.MyCefCreateStringHolder(name);
 
             Cef3Binder.MyCefMet_Call1(this.nativePtr, CefRequestContext_HasPreference_10, out ret, ref v1);
             Cef3Binder.MyCefDeletePtr(v1.Ptr);
@@ -9208,7 +9208,7 @@ namespace LayoutFarm.CefBridge.Auto
         {
             JsValue v1 = new JsValue();
             JsValue ret;
-            v1.Ptr = Cef3Binder.MyCefCreateCefString(name);
+            v1.Ptr = Cef3Binder.MyCefCreateStringHolder(name);
 
             Cef3Binder.MyCefMet_Call1(this.nativePtr, CefRequestContext_GetPreference_11, out ret, ref v1);
             Cef3Binder.MyCefDeletePtr(v1.Ptr);
@@ -9249,7 +9249,7 @@ namespace LayoutFarm.CefBridge.Auto
         {
             JsValue v1 = new JsValue();
             JsValue ret;
-            v1.Ptr = Cef3Binder.MyCefCreateCefString(name);
+            v1.Ptr = Cef3Binder.MyCefCreateStringHolder(name);
 
             Cef3Binder.MyCefMet_Call1(this.nativePtr, CefRequestContext_CanSetPreference_13, out ret, ref v1);
             Cef3Binder.MyCefDeletePtr(v1.Ptr);
@@ -9274,8 +9274,8 @@ namespace LayoutFarm.CefBridge.Auto
             JsValue v2 = new JsValue();
             JsValue v3 = new JsValue();
             JsValue ret;
-            v1.Ptr = Cef3Binder.MyCefCreateCefString(name);
-            v3.Ptr = Cef3Binder.MyCefCreateCefString(error);
+            v1.Ptr = Cef3Binder.MyCefCreateStringHolder(name);
+            v3.Ptr = Cef3Binder.MyCefCreateStringHolder(error);
             v2.Ptr = value.nativePtr;
 
             Cef3Binder.MyCefMet_Call3(this.nativePtr, CefRequestContext_SetPreference_14, out ret, ref v1, ref v2, ref v3);
@@ -9337,7 +9337,7 @@ namespace LayoutFarm.CefBridge.Auto
             JsValue v1 = new JsValue();
             JsValue v2 = new JsValue();
             JsValue ret;
-            v1.Ptr = Cef3Binder.MyCefCreateCefString(origin);
+            v1.Ptr = Cef3Binder.MyCefCreateStringHolder(origin);
             v2.Ptr = callback.nativePtr;
 
             Cef3Binder.MyCefMet_Call2(this.nativePtr, CefRequestContext_ResolveHost_17, out ret, ref v1, ref v2);
@@ -9360,7 +9360,7 @@ namespace LayoutFarm.CefBridge.Auto
             JsValue v1 = new JsValue();
             JsValue v2 = new JsValue();
             JsValue ret;
-            v1.Ptr = Cef3Binder.MyCefCreateCefString(origin);
+            v1.Ptr = Cef3Binder.MyCefCreateStringHolder(origin);
             v2.Ptr = Cef3Binder.CreateStdList(2);
 
             Cef3Binder.MyCefMet_Call2(this.nativePtr, CefRequestContext_ResolveHostCached_18, out ret, ref v1, ref v2);
@@ -9613,7 +9613,7 @@ namespace LayoutFarm.CefBridge.Auto
         {
             JsValue v1 = new JsValue();
             JsValue ret;
-            v1.Ptr = Cef3Binder.MyCefCreateCefString(statusText);
+            v1.Ptr = Cef3Binder.MyCefCreateStringHolder(statusText);
 
             Cef3Binder.MyCefMet_Call1(this.nativePtr, CefResponse_SetStatusText_7, out ret, ref v1);
             Cef3Binder.MyCefDeletePtr(v1.Ptr);
@@ -9644,7 +9644,7 @@ namespace LayoutFarm.CefBridge.Auto
         {
             JsValue v1 = new JsValue();
             JsValue ret;
-            v1.Ptr = Cef3Binder.MyCefCreateCefString(mimeType);
+            v1.Ptr = Cef3Binder.MyCefCreateStringHolder(mimeType);
 
             Cef3Binder.MyCefMet_Call1(this.nativePtr, CefResponse_SetMimeType_9, out ret, ref v1);
             Cef3Binder.MyCefDeletePtr(v1.Ptr);
@@ -9661,7 +9661,7 @@ namespace LayoutFarm.CefBridge.Auto
         {
             JsValue v1 = new JsValue();
             JsValue ret;
-            v1.Ptr = Cef3Binder.MyCefCreateCefString(name);
+            v1.Ptr = Cef3Binder.MyCefCreateStringHolder(name);
 
             Cef3Binder.MyCefMet_Call1(this.nativePtr, CefResponse_GetHeader_10, out ret, ref v1);
             Cef3Binder.MyCefDeletePtr(v1.Ptr);
@@ -10655,8 +10655,8 @@ namespace LayoutFarm.CefBridge.Auto
             JsValue v4 = new JsValue();
             JsValue v5 = new JsValue();
             JsValue ret;
-            v1.Ptr = Cef3Binder.MyCefCreateCefString(code);
-            v2.Ptr = Cef3Binder.MyCefCreateCefString(script_url);
+            v1.Ptr = Cef3Binder.MyCefCreateStringHolder(code);
+            v2.Ptr = Cef3Binder.MyCefCreateStringHolder(script_url);
             v3.I32 = (int)start_line;
             v4.Ptr = retval;
             v5.Ptr = exception;
@@ -11323,7 +11323,7 @@ namespace LayoutFarm.CefBridge.Auto
         {
             JsValue v1 = new JsValue();
             JsValue ret;
-            v1.Ptr = Cef3Binder.MyCefCreateCefString(key);
+            v1.Ptr = Cef3Binder.MyCefCreateStringHolder(key);
 
             Cef3Binder.MyCefMet_Call1(this.nativePtr, CefV8Value_HasValue_26, out ret, ref v1);
             Cef3Binder.MyCefDeletePtr(v1.Ptr);
@@ -11348,7 +11348,7 @@ namespace LayoutFarm.CefBridge.Auto
         {
             JsValue v1 = new JsValue();
             JsValue ret;
-            v1.Ptr = Cef3Binder.MyCefCreateCefString(key);
+            v1.Ptr = Cef3Binder.MyCefCreateStringHolder(key);
 
             Cef3Binder.MyCefMet_Call1(this.nativePtr, CefV8Value_DeleteValue_28, out ret, ref v1);
             Cef3Binder.MyCefDeletePtr(v1.Ptr);
@@ -11373,7 +11373,7 @@ namespace LayoutFarm.CefBridge.Auto
         {
             JsValue v1 = new JsValue();
             JsValue ret;
-            v1.Ptr = Cef3Binder.MyCefCreateCefString(key);
+            v1.Ptr = Cef3Binder.MyCefCreateStringHolder(key);
 
             Cef3Binder.MyCefMet_Call1(this.nativePtr, CefV8Value_GetValue_30, out ret, ref v1);
             Cef3Binder.MyCefDeletePtr(v1.Ptr);
@@ -11402,7 +11402,7 @@ namespace LayoutFarm.CefBridge.Auto
             JsValue v2 = new JsValue();
             JsValue v3 = new JsValue();
             JsValue ret;
-            v1.Ptr = Cef3Binder.MyCefCreateCefString(key);
+            v1.Ptr = Cef3Binder.MyCefCreateStringHolder(key);
             v2.Ptr = value.nativePtr;
             v3.I32 = (int)attribute;
 
@@ -11436,7 +11436,7 @@ namespace LayoutFarm.CefBridge.Auto
             JsValue v2 = new JsValue();
             JsValue v3 = new JsValue();
             JsValue ret;
-            v1.Ptr = Cef3Binder.MyCefCreateCefString(key);
+            v1.Ptr = Cef3Binder.MyCefCreateStringHolder(key);
             v2.I32 = (int)settings;
             v3.I32 = (int)attribute;
 
@@ -12196,7 +12196,7 @@ namespace LayoutFarm.CefBridge.Auto
         {
             JsValue v1 = new JsValue();
             JsValue ret;
-            v1.Ptr = Cef3Binder.MyCefCreateCefString(value);
+            v1.Ptr = Cef3Binder.MyCefCreateStringHolder(value);
 
             Cef3Binder.MyCefMet_Call1(this.nativePtr, CefValue_SetString_19, out ret, ref v1);
             Cef3Binder.MyCefDeletePtr(v1.Ptr);
@@ -12583,7 +12583,7 @@ namespace LayoutFarm.CefBridge.Auto
         {
             JsValue v1 = new JsValue();
             JsValue ret;
-            v1.Ptr = Cef3Binder.MyCefCreateCefString(key);
+            v1.Ptr = Cef3Binder.MyCefCreateStringHolder(key);
 
             Cef3Binder.MyCefMet_Call1(this.nativePtr, CefDictionaryValue_HasKey_9, out ret, ref v1);
             Cef3Binder.MyCefDeletePtr(v1.Ptr);
@@ -12617,7 +12617,7 @@ namespace LayoutFarm.CefBridge.Auto
         {
             JsValue v1 = new JsValue();
             JsValue ret;
-            v1.Ptr = Cef3Binder.MyCefCreateCefString(key);
+            v1.Ptr = Cef3Binder.MyCefCreateStringHolder(key);
 
             Cef3Binder.MyCefMet_Call1(this.nativePtr, CefDictionaryValue_Remove_11, out ret, ref v1);
             Cef3Binder.MyCefDeletePtr(v1.Ptr);
@@ -12634,7 +12634,7 @@ namespace LayoutFarm.CefBridge.Auto
         {
             JsValue v1 = new JsValue();
             JsValue ret;
-            v1.Ptr = Cef3Binder.MyCefCreateCefString(key);
+            v1.Ptr = Cef3Binder.MyCefCreateStringHolder(key);
 
             Cef3Binder.MyCefMet_Call1(this.nativePtr, CefDictionaryValue_GetType_12, out ret, ref v1);
             Cef3Binder.MyCefDeletePtr(v1.Ptr);
@@ -12656,7 +12656,7 @@ namespace LayoutFarm.CefBridge.Auto
         {
             JsValue v1 = new JsValue();
             JsValue ret;
-            v1.Ptr = Cef3Binder.MyCefCreateCefString(key);
+            v1.Ptr = Cef3Binder.MyCefCreateStringHolder(key);
 
             Cef3Binder.MyCefMet_Call1(this.nativePtr, CefDictionaryValue_GetValue_13, out ret, ref v1);
             Cef3Binder.MyCefDeletePtr(v1.Ptr);
@@ -12673,7 +12673,7 @@ namespace LayoutFarm.CefBridge.Auto
         {
             JsValue v1 = new JsValue();
             JsValue ret;
-            v1.Ptr = Cef3Binder.MyCefCreateCefString(key);
+            v1.Ptr = Cef3Binder.MyCefCreateStringHolder(key);
 
             Cef3Binder.MyCefMet_Call1(this.nativePtr, CefDictionaryValue_GetBool_14, out ret, ref v1);
             Cef3Binder.MyCefDeletePtr(v1.Ptr);
@@ -12690,7 +12690,7 @@ namespace LayoutFarm.CefBridge.Auto
         {
             JsValue v1 = new JsValue();
             JsValue ret;
-            v1.Ptr = Cef3Binder.MyCefCreateCefString(key);
+            v1.Ptr = Cef3Binder.MyCefCreateStringHolder(key);
 
             Cef3Binder.MyCefMet_Call1(this.nativePtr, CefDictionaryValue_GetInt_15, out ret, ref v1);
             Cef3Binder.MyCefDeletePtr(v1.Ptr);
@@ -12707,7 +12707,7 @@ namespace LayoutFarm.CefBridge.Auto
         {
             JsValue v1 = new JsValue();
             JsValue ret;
-            v1.Ptr = Cef3Binder.MyCefCreateCefString(key);
+            v1.Ptr = Cef3Binder.MyCefCreateStringHolder(key);
 
             Cef3Binder.MyCefMet_Call1(this.nativePtr, CefDictionaryValue_GetDouble_16, out ret, ref v1);
             Cef3Binder.MyCefDeletePtr(v1.Ptr);
@@ -12724,7 +12724,7 @@ namespace LayoutFarm.CefBridge.Auto
         {
             JsValue v1 = new JsValue();
             JsValue ret;
-            v1.Ptr = Cef3Binder.MyCefCreateCefString(key);
+            v1.Ptr = Cef3Binder.MyCefCreateStringHolder(key);
 
             Cef3Binder.MyCefMet_Call1(this.nativePtr, CefDictionaryValue_GetString_17, out ret, ref v1);
             Cef3Binder.MyCefDeletePtr(v1.Ptr);
@@ -12742,7 +12742,7 @@ namespace LayoutFarm.CefBridge.Auto
         {
             JsValue v1 = new JsValue();
             JsValue ret;
-            v1.Ptr = Cef3Binder.MyCefCreateCefString(key);
+            v1.Ptr = Cef3Binder.MyCefCreateStringHolder(key);
 
             Cef3Binder.MyCefMet_Call1(this.nativePtr, CefDictionaryValue_GetBinary_18, out ret, ref v1);
             Cef3Binder.MyCefDeletePtr(v1.Ptr);
@@ -12761,7 +12761,7 @@ namespace LayoutFarm.CefBridge.Auto
         {
             JsValue v1 = new JsValue();
             JsValue ret;
-            v1.Ptr = Cef3Binder.MyCefCreateCefString(key);
+            v1.Ptr = Cef3Binder.MyCefCreateStringHolder(key);
 
             Cef3Binder.MyCefMet_Call1(this.nativePtr, CefDictionaryValue_GetDictionary_19, out ret, ref v1);
             Cef3Binder.MyCefDeletePtr(v1.Ptr);
@@ -12780,7 +12780,7 @@ namespace LayoutFarm.CefBridge.Auto
         {
             JsValue v1 = new JsValue();
             JsValue ret;
-            v1.Ptr = Cef3Binder.MyCefCreateCefString(key);
+            v1.Ptr = Cef3Binder.MyCefCreateStringHolder(key);
 
             Cef3Binder.MyCefMet_Call1(this.nativePtr, CefDictionaryValue_GetList_20, out ret, ref v1);
             Cef3Binder.MyCefDeletePtr(v1.Ptr);
@@ -12804,7 +12804,7 @@ namespace LayoutFarm.CefBridge.Auto
             JsValue v1 = new JsValue();
             JsValue v2 = new JsValue();
             JsValue ret;
-            v1.Ptr = Cef3Binder.MyCefCreateCefString(key);
+            v1.Ptr = Cef3Binder.MyCefCreateStringHolder(key);
             v2.Ptr = value.nativePtr;
 
             Cef3Binder.MyCefMet_Call2(this.nativePtr, CefDictionaryValue_SetValue_21, out ret, ref v1, ref v2);
@@ -12823,7 +12823,7 @@ namespace LayoutFarm.CefBridge.Auto
         {
             JsValue v1 = new JsValue();
             JsValue ret;
-            v1.Ptr = Cef3Binder.MyCefCreateCefString(key);
+            v1.Ptr = Cef3Binder.MyCefCreateStringHolder(key);
 
             Cef3Binder.MyCefMet_Call1(this.nativePtr, CefDictionaryValue_SetNull_22, out ret, ref v1);
             Cef3Binder.MyCefDeletePtr(v1.Ptr);
@@ -12843,7 +12843,7 @@ namespace LayoutFarm.CefBridge.Auto
             JsValue v1 = new JsValue();
             JsValue v2 = new JsValue();
             JsValue ret;
-            v1.Ptr = Cef3Binder.MyCefCreateCefString(key);
+            v1.Ptr = Cef3Binder.MyCefCreateStringHolder(key);
             v2.I32 = value ? 1 : 0;
 
             Cef3Binder.MyCefMet_Call2(this.nativePtr, CefDictionaryValue_SetBool_23, out ret, ref v1, ref v2);
@@ -12864,7 +12864,7 @@ namespace LayoutFarm.CefBridge.Auto
             JsValue v1 = new JsValue();
             JsValue v2 = new JsValue();
             JsValue ret;
-            v1.Ptr = Cef3Binder.MyCefCreateCefString(key);
+            v1.Ptr = Cef3Binder.MyCefCreateStringHolder(key);
             v2.I32 = (int)value;
 
             Cef3Binder.MyCefMet_Call2(this.nativePtr, CefDictionaryValue_SetInt_24, out ret, ref v1, ref v2);
@@ -12885,7 +12885,7 @@ namespace LayoutFarm.CefBridge.Auto
             JsValue v1 = new JsValue();
             JsValue v2 = new JsValue();
             JsValue ret;
-            v1.Ptr = Cef3Binder.MyCefCreateCefString(key);
+            v1.Ptr = Cef3Binder.MyCefCreateStringHolder(key);
             v2.Num = value;
 
             Cef3Binder.MyCefMet_Call2(this.nativePtr, CefDictionaryValue_SetDouble_25, out ret, ref v1, ref v2);
@@ -12906,8 +12906,8 @@ namespace LayoutFarm.CefBridge.Auto
             JsValue v1 = new JsValue();
             JsValue v2 = new JsValue();
             JsValue ret;
-            v1.Ptr = Cef3Binder.MyCefCreateCefString(key);
-            v2.Ptr = Cef3Binder.MyCefCreateCefString(value);
+            v1.Ptr = Cef3Binder.MyCefCreateStringHolder(key);
+            v2.Ptr = Cef3Binder.MyCefCreateStringHolder(value);
 
             Cef3Binder.MyCefMet_Call2(this.nativePtr, CefDictionaryValue_SetString_26, out ret, ref v1, ref v2);
             Cef3Binder.MyCefDeletePtr(v1.Ptr);
@@ -12931,7 +12931,7 @@ namespace LayoutFarm.CefBridge.Auto
             JsValue v1 = new JsValue();
             JsValue v2 = new JsValue();
             JsValue ret;
-            v1.Ptr = Cef3Binder.MyCefCreateCefString(key);
+            v1.Ptr = Cef3Binder.MyCefCreateStringHolder(key);
             v2.Ptr = value.nativePtr;
 
             Cef3Binder.MyCefMet_Call2(this.nativePtr, CefDictionaryValue_SetBinary_27, out ret, ref v1, ref v2);
@@ -12955,7 +12955,7 @@ namespace LayoutFarm.CefBridge.Auto
             JsValue v1 = new JsValue();
             JsValue v2 = new JsValue();
             JsValue ret;
-            v1.Ptr = Cef3Binder.MyCefCreateCefString(key);
+            v1.Ptr = Cef3Binder.MyCefCreateStringHolder(key);
             v2.Ptr = value.nativePtr;
 
             Cef3Binder.MyCefMet_Call2(this.nativePtr, CefDictionaryValue_SetDictionary_28, out ret, ref v1, ref v2);
@@ -12979,7 +12979,7 @@ namespace LayoutFarm.CefBridge.Auto
             JsValue v1 = new JsValue();
             JsValue v2 = new JsValue();
             JsValue ret;
-            v1.Ptr = Cef3Binder.MyCefCreateCefString(key);
+            v1.Ptr = Cef3Binder.MyCefCreateStringHolder(key);
             v2.Ptr = value.nativePtr;
 
             Cef3Binder.MyCefMet_Call2(this.nativePtr, CefDictionaryValue_SetList_29, out ret, ref v1, ref v2);
@@ -13458,7 +13458,7 @@ namespace LayoutFarm.CefBridge.Auto
             JsValue v1 = new JsValue();
             JsValue v2 = new JsValue();
             JsValue ret;
-            v2.Ptr = Cef3Binder.MyCefCreateCefString(value);
+            v2.Ptr = Cef3Binder.MyCefCreateStringHolder(value);
             v1.I32 = (int)index;
 
             Cef3Binder.MyCefMet_Call2(this.nativePtr, CefListValue_SetString_25, out ret, ref v1, ref v2);
@@ -14321,7 +14321,7 @@ namespace LayoutFarm.CefBridge.Auto
         {
             JsValue v1 = new JsValue();
             JsValue ret;
-            v1.Ptr = Cef3Binder.MyCefCreateCefString(qualifiedName);
+            v1.Ptr = Cef3Binder.MyCefCreateStringHolder(qualifiedName);
 
             Cef3Binder.MyCefMet_Call1(this.nativePtr, CefXmlReader_GetAttribute_19, out ret, ref v1);
             Cef3Binder.MyCefDeletePtr(v1.Ptr);
@@ -14336,8 +14336,8 @@ namespace LayoutFarm.CefBridge.Auto
             JsValue v1 = new JsValue();
             JsValue v2 = new JsValue();
             JsValue ret;
-            v1.Ptr = Cef3Binder.MyCefCreateCefString(localName);
-            v2.Ptr = Cef3Binder.MyCefCreateCefString(namespaceURI);
+            v1.Ptr = Cef3Binder.MyCefCreateStringHolder(localName);
+            v2.Ptr = Cef3Binder.MyCefCreateStringHolder(namespaceURI);
 
             Cef3Binder.MyCefMet_Call2(this.nativePtr, CefXmlReader_GetAttribute_20, out ret, ref v1, ref v2);
             Cef3Binder.MyCefDeletePtr(v1.Ptr);
@@ -14405,7 +14405,7 @@ namespace LayoutFarm.CefBridge.Auto
         {
             JsValue v1 = new JsValue();
             JsValue ret;
-            v1.Ptr = Cef3Binder.MyCefCreateCefString(qualifiedName);
+            v1.Ptr = Cef3Binder.MyCefCreateStringHolder(qualifiedName);
 
             Cef3Binder.MyCefMet_Call1(this.nativePtr, CefXmlReader_MoveToAttribute_25, out ret, ref v1);
             Cef3Binder.MyCefDeletePtr(v1.Ptr);
@@ -14420,8 +14420,8 @@ namespace LayoutFarm.CefBridge.Auto
             JsValue v1 = new JsValue();
             JsValue v2 = new JsValue();
             JsValue ret;
-            v1.Ptr = Cef3Binder.MyCefCreateCefString(localName);
-            v2.Ptr = Cef3Binder.MyCefCreateCefString(namespaceURI);
+            v1.Ptr = Cef3Binder.MyCefCreateStringHolder(localName);
+            v2.Ptr = Cef3Binder.MyCefCreateStringHolder(namespaceURI);
 
             Cef3Binder.MyCefMet_Call2(this.nativePtr, CefXmlReader_MoveToAttribute_26, out ret, ref v1, ref v2);
             Cef3Binder.MyCefDeletePtr(v1.Ptr);
@@ -14553,7 +14553,7 @@ namespace LayoutFarm.CefBridge.Auto
             JsValue v1 = new JsValue();
             JsValue v2 = new JsValue();
             JsValue ret;
-            v1.Ptr = Cef3Binder.MyCefCreateCefString(fileName);
+            v1.Ptr = Cef3Binder.MyCefCreateStringHolder(fileName);
             v2.I32 = caseSensitive ? 1 : 0;
 
             Cef3Binder.MyCefMet_Call2(this.nativePtr, CefZipReader_MoveToFile_3, out ret, ref v1, ref v2);
@@ -14631,7 +14631,7 @@ namespace LayoutFarm.CefBridge.Auto
         {
             JsValue v1 = new JsValue();
             JsValue ret;
-            v1.Ptr = Cef3Binder.MyCefCreateCefString(password);
+            v1.Ptr = Cef3Binder.MyCefCreateStringHolder(password);
 
             Cef3Binder.MyCefMet_Call1(this.nativePtr, CefZipReader_OpenFile_8, out ret, ref v1);
             Cef3Binder.MyCefDeletePtr(v1.Ptr);
@@ -14735,8 +14735,8 @@ namespace LayoutFarm.CefBridge.Auto
             JsValue v1 = new JsValue();
             JsValue v2 = new JsValue();
             JsValue ret;
-            v1.Ptr = Cef3Binder.MyCefCreateCefString(username);
-            v2.Ptr = Cef3Binder.MyCefCreateCefString(password);
+            v1.Ptr = Cef3Binder.MyCefCreateStringHolder(username);
+            v2.Ptr = Cef3Binder.MyCefCreateStringHolder(password);
 
             Cef3Binder.MyCefMet_Call2(this.nativePtr, CefAuthCallbackCToCpp_Continue, out ret, ref v1, ref v2);
             Cef3Binder.MyCefDeletePtr(v1.Ptr);
@@ -15057,7 +15057,7 @@ namespace LayoutFarm.CefBridge.Auto
             JsValue v1 = new JsValue();
             JsValue v2 = new JsValue();
             JsValue ret;
-            v1.Ptr = Cef3Binder.MyCefCreateCefString(download_path);
+            v1.Ptr = Cef3Binder.MyCefCreateStringHolder(download_path);
             v2.I32 = show_dialog ? 1 : 0;
 
             Cef3Binder.MyCefMet_Call2(this.nativePtr, CefBeforeDownloadCallbackCToCpp_Continue, out ret, ref v1, ref v2);
@@ -15212,7 +15212,7 @@ namespace LayoutFarm.CefBridge.Auto
             JsValue v1 = new JsValue();
             JsValue v2 = new JsValue();
             JsValue ret;
-            v2.Ptr = Cef3Binder.MyCefCreateCefString(user_input);
+            v2.Ptr = Cef3Binder.MyCefCreateStringHolder(user_input);
             v1.I32 = success ? 1 : 0;
 
             Cef3Binder.MyCefMet_Call2(this.nativePtr, CefJSDialogCallbackCToCpp_Continue, out ret, ref v1, ref v2);

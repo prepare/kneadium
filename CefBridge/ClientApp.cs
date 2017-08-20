@@ -148,6 +148,7 @@ namespace LayoutFarm.CefBridge
         IntPtr nativePtr;
         internal CefSettings(IntPtr nativePtr)
         {
+            
             this.nativePtr = nativePtr;
         }
         public void SetSubProcessPath(string value)

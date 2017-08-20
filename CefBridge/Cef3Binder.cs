@@ -279,7 +279,7 @@ namespace LayoutFarm.CefBridge
 
         public static NativeMyCefStringHolder CreateHolder(string str)
         {
-            return new NativeMyCefStringHolder(Cef3Binder.MyCefCreateCefString(str));
+            return new NativeMyCefStringHolder(Cef3Binder.MyCefCreateStringHolder(str));
         }
         public string ReadString(int len)
         {
@@ -299,9 +299,6 @@ namespace LayoutFarm.CefBridge
             }
             return new string(buffer);
         }
-
-
-
     }
     static partial class Cef3Binder
     {
@@ -415,107 +412,66 @@ namespace LayoutFarm.CefBridge
         //---------------------------------------------------
         //Cef
         //---------------------------------------------------
-        //part 1: 
-
-
+        //part 1:  
         [DllImport(CEF_CLIENT_DLL)]
         public static extern int MyCefGetVersion();
-
+        //
         [DllImport(CEF_CLIENT_DLL, CallingConvention = CallingConvention.Cdecl)]
         public static extern int RegisterManagedCallBack(MyCefCallback funcPtr, int callbackKind);
-
+        //
         [DllImport(CEF_CLIENT_DLL, CallingConvention = CallingConvention.Cdecl)]
         public static extern IntPtr MyCefCreateClientApp(IntPtr processHandle);
 
-
+        //
 
         [DllImport(CEF_CLIENT_DLL, CallingConvention = CallingConvention.Cdecl)]
         public static extern IntPtr MyCefCreateMyWebBrowser(MyCefCallback mxcallback);
-
+        //
         [DllImport(CEF_CLIENT_DLL, CallingConvention = CallingConvention.Cdecl)]
         public static extern IntPtr MyCefCreateMyWebBrowserOSR(MyCefCallback mxcallback);
-
+        //
         [DllImport(CEF_CLIENT_DLL, CallingConvention = CallingConvention.Cdecl, CharSet = CharSet.Unicode)]
         public static extern void MyCefSetupBrowserHwnd(IntPtr myCefBrowser, IntPtr hWndParent, int x, int y, int width, int height, string initUrl, IntPtr requestContext);
-
+        //
         [DllImport(CEF_CLIENT_DLL, CallingConvention = CallingConvention.Cdecl, CharSet = CharSet.Unicode)]
         public static extern void MyCefSetupBrowserHwndOSR(IntPtr myCefBrowser, IntPtr hWndParent, int x, int y, int width, int height, string initUrl, IntPtr requestContext);
-
-
-
-
+        // 
         [DllImport(CEF_CLIENT_DLL)]
         public static extern void MyCefDoMessageLoopWork();
+        //
         [DllImport(CEF_CLIENT_DLL)]
         public static extern void MyCefQuitMessageLoop();
+        //
         [DllImport(CEF_CLIENT_DLL)]
         public static extern int MyCefShutDown();
-
-
-
+        //TODO: review here, send setting as json?
         [DllImport(CEF_CLIENT_DLL, CallingConvention = CallingConvention.Cdecl, CharSet = CharSet.Unicode)]
         public static extern void MyCefSetInitSettings(IntPtr cefSetting, CefSettingsKey keyName, string value);
-        //--------------------------------------------------- 
-
-
-        [DllImport(CEF_CLIENT_DLL, CallingConvention = CallingConvention.Cdecl)]
-        public static extern void MyCefMetArgs_SetResultAsJsValue(IntPtr nativeMetPtr, int retIndex, IntPtr ptr);
-        [DllImport(CEF_CLIENT_DLL, CallingConvention = CallingConvention.Cdecl)]
-        internal static extern void MyCefMetArgs_GetArgs(IntPtr metArgPtr, int index, out JsValue outputValue);
-        [DllImport(CEF_CLIENT_DLL, CallingConvention = CallingConvention.Cdecl)]
-        internal static extern void MyCefMetArgs_GetResult(IntPtr metArgPtr, int index, out JsValue outputValue);
-
-
-
+        //---------------------------------------------------  
+        //
         [DllImport(CEF_CLIENT_DLL, CallingConvention = CallingConvention.Cdecl)]
         public static extern void MyCefShowDevTools(IntPtr myCefBw, IntPtr myCefDevTool, IntPtr parentWindow);
-
+        //
         [DllImport(CEF_CLIENT_DLL, CallingConvention = CallingConvention.Cdecl)]
         public static extern void MyCefDeletePtr(IntPtr nativePtr);
+        //
+#if DEBUG
         [DllImport(CEF_CLIENT_DLL, CallingConvention = CallingConvention.Cdecl)]
         public static extern unsafe void MyCefDeletePtrArray(JsValue* nativePtr);
-
-
+#endif
         //
-
         [DllImport(CEF_CLIENT_DLL, CallingConvention = CallingConvention.Cdecl, CharSet = CharSet.Unicode)]
         public static extern IntPtr MyCefCreatePdfPrintSetting(string pdfJsonConfig);
         //--------------------------------------------------- 
         [DllImport(CEF_CLIENT_DLL, CallingConvention = CallingConvention.Cdecl, CharSet = CharSet.Unicode)]
         public static extern void MyCefPrintToPdf(IntPtr myCefBw, IntPtr setting, string filename, MyCefCallback callback);
-
-
-
-
+        //
         [DllImport(CEF_CLIENT_DLL, CallingConvention = CallingConvention.Cdecl)]
         public static extern void MyCefDomGetTextWalk(IntPtr myCefBw, MyCefCallback strCallBack);
+        //
         [DllImport(CEF_CLIENT_DLL, CallingConvention = CallingConvention.Cdecl)]
         public static extern void MyCefDomGetSourceWalk(IntPtr myCefBw, MyCefCallback strCallBack);
-        [DllImport(CEF_CLIENT_DLL, CallingConvention = CallingConvention.Cdecl, CharSet = CharSet.Unicode)]
-        public static unsafe extern void MyCefMetArgs_SetInputAsString(
-           IntPtr callArgsPtr,
-           int resultIndex,
-           string str, int strlen);
-        [DllImport(CEF_CLIENT_DLL, CallingConvention = CallingConvention.Cdecl, CharSet = CharSet.Unicode)]
-        public static unsafe extern void MyCefMetArgs_SetInputAsInt32(
-            IntPtr callArgsPtr,
-            int resultIndex,
-            int value);
-        [DllImport(CEF_CLIENT_DLL, CallingConvention = CallingConvention.Cdecl, CharSet = CharSet.Unicode)]
-        public static unsafe extern void MyCefMetArgs_SetResultAsString(
-            IntPtr callArgsPtr,
-            int resultIndex,
-            string str, int strlen);
-        [DllImport(CEF_CLIENT_DLL, CallingConvention = CallingConvention.Cdecl)]
-        public static unsafe extern void MyCefMetArgs_SetResultAsByteBuffer(
-            IntPtr callArgsPtr,
-            int resultIndex,
-            IntPtr str, int len);
-        [DllImport(CEF_CLIENT_DLL, CallingConvention = CallingConvention.Cdecl)]
-        public static extern void MyCefMetArgs_SetResultAsInt32(
-           IntPtr callArgsPtr,
-           int resultIndex,
-           int value);
+        //
         [DllImport(CEF_CLIENT_DLL, CallingConvention = CallingConvention.Cdecl)]
         internal static unsafe extern void MyCef_CefRegisterSchemeHandlerFactory(
            string schemeName,
@@ -524,25 +480,34 @@ namespace LayoutFarm.CefBridge
         //part 4 js binding
         [DllImport(CEF_CLIENT_DLL, CallingConvention = CallingConvention.Cdecl)]
         internal static extern IntPtr MyCefJsGetCurrentContext();
+        //
         [DllImport(CEF_CLIENT_DLL, CallingConvention = CallingConvention.Cdecl)]
         internal static extern void MyCefJsNotifyRenderer(MyCefCallback handler, IntPtr pars);
+        //
         [DllImport(CEF_CLIENT_DLL, CallingConvention = CallingConvention.Cdecl)]
         internal static extern IntPtr MyCefJs_GetEnteredContext();
+        //
         [DllImport(CEF_CLIENT_DLL, CallingConvention = CallingConvention.Cdecl)]
         internal static extern IntPtr MyCefFrame_GetContext(IntPtr nativeFrame);
+        //
         [DllImport(CEF_CLIENT_DLL, CallingConvention = CallingConvention.Cdecl)]
         internal static extern IntPtr MyCefJsGetGlobal(IntPtr jsContext);
+        //
         [DllImport(CEF_CLIENT_DLL, CallingConvention = CallingConvention.Cdecl)]
         internal static extern IntPtr MyCefJs_EnterContext(IntPtr cefV8Context);
+        //
         [DllImport(CEF_CLIENT_DLL, CallingConvention = CallingConvention.Cdecl)]
         internal static extern void MyCefJs_ExitContext(IntPtr cefV8Context);
         //
         [DllImport(CEF_CLIENT_DLL, CallingConvention = CallingConvention.Cdecl)]
         internal static extern IntPtr MyCefJs_New_V8Handler(MyCefCallback managedCallback);
+        //
         [DllImport(CEF_CLIENT_DLL, CallingConvention = CallingConvention.Cdecl, CharSet = CharSet.Unicode)]
         internal static extern void MyCefJs_CefV8Value_SetValue_ByString(IntPtr target, string key, IntPtr value, int setAttr);
+        //
         [DllImport(CEF_CLIENT_DLL, CallingConvention = CallingConvention.Cdecl, CharSet = CharSet.Unicode)]
         internal static extern bool MyCefJs_CefV8Value_IsFunc(IntPtr target);
+        //
         [DllImport(CEF_CLIENT_DLL, CallingConvention = CallingConvention.Cdecl)]
         internal static extern void MyCefJs_CefV8Value_SetValue_ByIndex(IntPtr target, int index, IntPtr value);
         /// <summary>
@@ -550,42 +515,94 @@ namespace LayoutFarm.CefBridge
         /// </summary>
         /// <param name="str"></param>
         /// <returns></returns>
-        [DllImport(CEF_CLIENT_DLL, CallingConvention = CallingConvention.Cdecl, CharSet = CharSet.Unicode)]
-        internal static extern IntPtr MyCefCreateCefString(string str);
 
+        internal static IntPtr MyCefCreateStringHolder(string str)
+        {
+            IntPtr nativePtr = MyCefCreateStringHolder(str, str.Length);
+            return nativePtr;
+        }
+        [DllImport(CEF_CLIENT_DLL, CallingConvention = CallingConvention.Cdecl, CharSet = CharSet.Unicode)]
+        internal static extern IntPtr MyCefCreateStringHolder(string str, int len);
+        //
+        [DllImport(CEF_CLIENT_DLL, CallingConvention = CallingConvention.Cdecl, CharSet = CharSet.Unicode)]
+        internal static extern IntPtr MyCefCreateBufferHolder(int len);
+        //
+        [DllImport(CEF_CLIENT_DLL, CallingConvention = CallingConvention.Cdecl, CharSet = CharSet.Unicode)]
+        internal static extern unsafe IntPtr MyCefCreateBufferHolderWithInitData(int len, byte* initData);
+        //
         [DllImport(CEF_CLIENT_DLL, CallingConvention = CallingConvention.Cdecl, CharSet = CharSet.Unicode)]
         internal static extern IntPtr MyCefJs_CreateFunction(string name, IntPtr handler);
+        //
         [DllImport(CEF_CLIENT_DLL, CallingConvention = CallingConvention.Cdecl, CharSet = CharSet.Unicode)]
         internal static unsafe extern IntPtr MyCefJs_ExecJsFunctionWithContext(IntPtr cefJsFunc, IntPtr context, char* argAsJsonString);
+        //
         [DllImport(CEF_CLIENT_DLL, CallingConvention = CallingConvention.Cdecl, CharSet = CharSet.Unicode)]
         internal static extern bool MyCefJs_CefRegisterExtension(string extensionName, string extensionCode);
-
+        //
         [DllImport(CEF_CLIENT_DLL, CallingConvention = CallingConvention.Cdecl)]
         public static extern unsafe void MyCefString_Read(IntPtr cefStr, char* outputBuffer, int outputBufferLen, out int actualLength);
+        //
         [DllImport(CEF_CLIENT_DLL, CallingConvention = CallingConvention.Cdecl)]
         public static extern unsafe void MyCefStringHolder_Read(IntPtr mycefStrHolder, char* outputBuffer, int outputBufferLen, out int actualLength);
+        //
         [DllImport(CEF_CLIENT_DLL, CallingConvention = CallingConvention.Cdecl)]
         public static extern unsafe void MyCefStringGetRawPtr(IntPtr cefstring, out char* outputBuffer, out int actualLength);
-
+        //
         [DllImport(CEF_CLIENT_DLL, CallingConvention = CallingConvention.Cdecl, CharSet = CharSet.Unicode)]
         public static extern unsafe void MyCefJs_CefV8Value_ReadAsString(IntPtr cefV8Value, char* outputBuffer, int outputBufferLen, out int actualLength);
+        //
         [DllImport(CEF_CLIENT_DLL, CallingConvention = CallingConvention.Cdecl)]
         public static extern int MyCefJs_MetReadArgAsInt32(IntPtr jsArgs, int index);
+        //
         [DllImport(CEF_CLIENT_DLL, CallingConvention = CallingConvention.Cdecl)]
         public static extern unsafe void MyCefJs_MetReadArgAsString(IntPtr jsArgs, int index, char* outputBuffer, int outputBufferLen, out int actualLength);
+        //
         [DllImport(CEF_CLIENT_DLL, CallingConvention = CallingConvention.Cdecl)]
         public static extern IntPtr MyCefJs_MetReadArgAsCefV8Value(IntPtr jsArgs, int index);
+        //
         [DllImport(CEF_CLIENT_DLL, CallingConvention = CallingConvention.Cdecl)]
         public static extern IntPtr MyCefJs_MetReadArgAsV8FuncHandle(IntPtr jsArgs, int index);
         //list func
         [DllImport(CEF_CLIENT_DLL, CallingConvention = CallingConvention.Cdecl)]
         public static extern IntPtr CreateStdList(int listType);
+        //
         [DllImport(CEF_CLIENT_DLL, CallingConvention = CallingConvention.Cdecl)]
         public static extern void GetListCount(int listType, IntPtr list, out int count);
+        //
         [DllImport(CEF_CLIENT_DLL, CallingConvention = CallingConvention.Cdecl)]
         public static extern void GetListElement(int elemType, IntPtr list, int index, ref JsValue jsvalue);
+        //     
+        [DllImport(CEF_CLIENT_DLL, CallingConvention = CallingConvention.Cdecl)]
+        public static extern MyCefCallback MyCefJsValueGetManagedCallback(ref JsValue v);
+        //
+        [DllImport(CEF_CLIENT_DLL, CallingConvention = CallingConvention.Cdecl)]
+        public static extern void MyCefJsValueSetManagedCallback(ref JsValue v, MyCefCallback cb);
+        //
+        [DllImport(CEF_CLIENT_DLL, CallingConvention = CallingConvention.Cdecl)]
+        public static extern void MyCefBwCall2(IntPtr myCefBw, int methodName, out JsValue ret, ref JsValue arg1, ref JsValue arg2);
+        //
+        [DllImport(CEF_CLIENT_DLL, CallingConvention = CallingConvention.Cdecl)]
+        public static extern void MyCefFrameCall2(IntPtr myCefBw, int methodName, out JsValue ret, ref JsValue arg1, ref JsValue arg2);
+        //
+        [DllImport(CEF_CLIENT_DLL, CallingConvention = CallingConvention.Cdecl)]
+        public static extern void MyCefMet_CefBrowser(IntPtr /*cef_browser_t* */ me1, int metName, out JsValue ret, ref JsValue arg1, ref JsValue arg2, ref JsValue arg3, ref JsValue arg4, ref JsValue arg5, ref JsValue arg6);
+        //
+        [DllImport(CEF_CLIENT_DLL, CallingConvention = CallingConvention.Cdecl)]
+        public static extern void MyCefMet_CefFrame(IntPtr /*cef_frame_t**/ me1, int metName, out JsValue ret, ref JsValue arg1, ref JsValue arg2, ref JsValue arg3, ref JsValue arg4, ref JsValue arg5, ref JsValue arg6);
 
 
+        public static void MyCefBwCall(IntPtr myCefBw, CefBwCallMsg methodName, int value)
+        {
+            JsValue ret;
+            //
+            JsValue arg1 = new JsValue();
+            arg1.Type = JsValueType.Integer;
+            arg1.I32 = value;
+            //
+            JsValue arg2 = new JsValue();
+
+            MyCefBwCall2(myCefBw, (int)methodName, out ret, ref arg1, ref arg2);
+        }
 
 
         public static string MyCefJsReadString(ref JsValue ret)
@@ -603,13 +620,12 @@ namespace LayoutFarm.CefBridge
                 return new string(buffHead, 0, actualLen);
             }
         }
-
         public static void MyCefCreateNativeStringHolder(ref JsValue ret, string value)
         {
             unsafe
             {
                 ret.Type = JsValueType.NativeCefString;
-                ret.Ptr = Cef3Binder.MyCefCreateCefString(value);
+                ret.Ptr = Cef3Binder.MyCefCreateStringHolder(value);
                 ret.I32 = value.Length;
             }
         }
@@ -621,8 +637,6 @@ namespace LayoutFarm.CefBridge
             value.Ptr = IntPtr.Zero;
             return str;
         }
-
-
         public static void CopyStdInt64ListAndDestroyNativeSide(IntPtr stdInt64List, System.Collections.Generic.List<long> outputList)
         {
             int listCount;
@@ -648,7 +662,6 @@ namespace LayoutFarm.CefBridge
             }
             Cef3Binder.MyCefDeletePtr(stdStringList);
         }
-
     }
 
 
@@ -658,16 +671,11 @@ namespace LayoutFarm.CefBridge
         {
             return Cef3Binder.MyCefJs_CefRegisterExtension(extensionName, extensionCode);
         }
-
-
-
         public static void NotifyRendererAsync(MyCefCallback callback)
         {
             Cef3Binder.MyCefJsNotifyRenderer(callback, IntPtr.Zero);
         }
     }
-
-
 
 
     enum OsPlatform
@@ -857,93 +865,107 @@ namespace LayoutFarm.CefBridge
                 return (IntPtr)(*((JsValue**)h1));
             }
         }
-        internal static string GetAsString(IntPtr myMetArgs, int index)
+        internal static string GetAsString(IntPtr varr, int index)
         {
             unsafe
             {
-                return MyCefJsReadString((JsValue*)myMetArgs + index);
+                return MyCefJsReadString((JsValue*)varr + index);
             }
         }
-        internal static int GetAsInt32(IntPtr myMetArgs, int index)
+        internal static int GetAsInt32(IntPtr varr, int index)
         {
             unsafe
             {
-                return ((JsValue*)myMetArgs + index)->I32;
+                return ((JsValue*)varr + index)->I32;
             }
         }
-        internal static uint GetAsUInt32(IntPtr myMetArgs, int index)
+        internal static void SetAsInt32(IntPtr varr, int index, int value)
+        {
+            unsafe
+            {
+                ((JsValue*)varr + index)->I32 = value;
+            }
+        }
+        internal static uint GetAsUInt32(IntPtr varr, int index)
         {
             unsafe
             {
 
-                return (uint)((JsValue*)myMetArgs + index)->I32;
+                return (uint)((JsValue*)varr + index)->I32;
             }
         }
-        internal static long GetAsInt64(IntPtr myMetArgs, int index)
+        internal static long GetAsInt64(IntPtr varr, int index)
         {
             unsafe
             {
-                return ((JsValue*)myMetArgs + index)->I64;
+                return ((JsValue*)varr + index)->I64;
             }
         }
-        internal static ulong GetAsUInt64(IntPtr myMetArgs, int index)
+        internal static ulong GetAsUInt64(IntPtr varr, int index)
         {
             unsafe
             {
-                return (ulong)((JsValue*)myMetArgs + index)->I64;
+                return (ulong)((JsValue*)varr + index)->I64;
             }
         }
-        internal static bool GetAsBool(IntPtr myMetArgs, int index)
+        internal static bool GetAsBool(IntPtr varr, int index)
         {
             unsafe
             {
-                return ((JsValue*)myMetArgs + index)->I32 != 0;
+                return ((JsValue*)varr + index)->I32 != 0;
             }
         }
-        internal static double GetAsDouble(IntPtr myMetArgs, int index)
+        internal static double GetAsDouble(IntPtr varr, int index)
         {
             unsafe
             {
-                return ((JsValue*)myMetArgs + index)->Num;
+                return ((JsValue*)varr + index)->Num;
             }
         }
-        internal static float GetAsFloat(IntPtr myMetArgs, int index)
+        internal static float GetAsFloat(IntPtr varr, int index)
         {
             unsafe
             {
-                return (float)((JsValue*)myMetArgs + index)->Num;
+                return (float)((JsValue*)varr + index)->Num;
             }
         }
-        internal static IntPtr GetAsIntPtr(IntPtr myMetArgs, int index)
+        internal static IntPtr GetAsIntPtr(IntPtr varr, int index)
         {
             unsafe
             {
-                return ((JsValue*)myMetArgs + index)->Ptr;
+                return ((JsValue*)varr + index)->Ptr;
             }
         }
-        internal static void SetBoolToAddress(IntPtr myMetArgs, int index, bool value)
+        internal static void SetAsIntPtr(IntPtr varr, int index, IntPtr value)
         {
             unsafe
             {
-                JsValue* jsvalue = ((JsValue*)myMetArgs + index);
+                ((JsValue*)varr + index)->Ptr = value;
+            }
+        }
+        internal static void SetBoolToAddress(IntPtr varr, int index, bool value)
+        {
+            unsafe
+            {
+                JsValue* jsvalue = ((JsValue*)varr + index);
                 *((bool*)jsvalue->Ptr) = value;
             }
         }
-        internal static void SetUInt32ToAddress(IntPtr myMetArgs, int index, uint value)
+        internal static void SetUInt32ToAddress(IntPtr varr, int index, uint value)
         {
             unsafe
             {
 
-                JsValue* jsvalue = ((JsValue*)myMetArgs + index);
+                JsValue* jsvalue = ((JsValue*)varr + index);
                 *((uint*)jsvalue->Ptr) = value;
             }
         }
-        internal static void SetInt32ToAddress(IntPtr myMetArgs, int index, int value)
+        internal static void SetInt32ToAddress(IntPtr varr, int index, int value)
         {
             unsafe
             {
 
-                JsValue* jsvalue = ((JsValue*)myMetArgs + index);
+                JsValue* jsvalue = ((JsValue*)varr + index);
                 *((int*)jsvalue->Ptr) = value;
             }
         }

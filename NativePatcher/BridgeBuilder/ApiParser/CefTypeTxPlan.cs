@@ -470,10 +470,8 @@ namespace BridgeBuilder
                                                     else
                                                     {
                                                         throw new NotSupportedException();
-                                                    }
-
-                                                }
-
+                                                    } 
+                                                } 
                                                 return;
                                             }
                                         }
@@ -1701,7 +1699,7 @@ namespace BridgeBuilder
                                                         {
                                                             //native need cefstring
                                                             //so we create a cef string handle holder
-                                                            par.ArgPreExtractCode = argName + ".Ptr=" + " Cef3Binder.MyCefCreateCefString(" + par.Name + ");\r\n";
+                                                            par.ArgPreExtractCode = argName + ".Ptr=" + " Cef3Binder.MyCefCreateStringHolder(" + par.Name + ");\r\n";
                                                             par.ArgPostExtractCode = "Cef3Binder.MyCefDeletePtr(" + argName + ".Ptr);";
                                                         }
                                                         break;
@@ -2545,7 +2543,8 @@ namespace BridgeBuilder
     class CefHandlerTxPlan : CefTypeTxPlan
     {
         TypeTxInfo _typeTxInfo;
-        internal CodeStringBuilder _cppHeaderStBuilder;
+        internal CodeStringBuilder _cppHeaderExportFuncAuto;
+        internal CodeStringBuilder _cppHeaderInternalForExportFuncAuto;
 
         public CefHandlerTxPlan(CodeTypeDeclaration typedecl)
             : base(typedecl)
@@ -2908,13 +2907,13 @@ namespace BridgeBuilder
             stbuilder.Append("namespace " + className);
             stbuilder.AppendLine("{");
 
-           
+
             int nn = callToDotNetMets.Count;
             for (int mm = 0; mm < nn; ++mm)
             {
                 //implement on event notificationi
                 MethodTxInfo met = callToDotNetMets[mm];
-                met.CppMethodSwitchCaseName = className + "_" + met.Name + "_" + (mm + 1); 
+                met.CppMethodSwitchCaseName = className + "_" + met.Name + "_" + (mm + 1);
             }
 
             nn = callToDotNetMets.Count;
@@ -2928,22 +2927,29 @@ namespace BridgeBuilder
             stbuilder.AppendLine("}");
             //----------------------------------------------
 
-            _cppHeaderStBuilder.AppendLine("namespace " + className);
-            _cppHeaderStBuilder.AppendLine("{");
-            _cppHeaderStBuilder.AppendLine("const int _typeName=" + "CefTypeName_" + orgDecl.Name + ";");
+            //----------------------------------------------
+            //InternalHeaderForExportFunc.h
+            _cppHeaderInternalForExportFuncAuto.AppendLine("namespace " + className);
+            _cppHeaderInternalForExportFuncAuto.AppendLine("{");
+            _cppHeaderInternalForExportFuncAuto.AppendLine("const int _typeName=" + "CefTypeName_" + orgDecl.Name + ";");
             for (int mm = 0; mm < nn; ++mm)
             {
                 MethodTxInfo met = callToDotNetMets[mm];
-                _cppHeaderStBuilder.AppendLine("const int " + met.CppMethodSwitchCaseName + "=" + (mm + 1) + ";");
+                _cppHeaderInternalForExportFuncAuto.AppendLine("const int " + met.CppMethodSwitchCaseName + "=" + (mm + 1) + ";");
             }
+            _cppHeaderInternalForExportFuncAuto.AppendLine("}");
+            //----------------------------------------------
+            //ExportFuncAuto.h
+            _cppHeaderExportFuncAuto.AppendLine("namespace " + className);
+            _cppHeaderExportFuncAuto.AppendLine("{");
             for (int mm = 0; mm < nn; ++mm)
             {
                 //implement on event notificationi
                 MethodTxInfo met = callToDotNetMets[mm];
                 //prepare data and call the callback                 
-                GenerateCppImplMethodDeclarationForNs(met, _cppHeaderStBuilder);
+                GenerateCppImplMethodDeclarationForNs(met, _cppHeaderExportFuncAuto);
             }
-            _cppHeaderStBuilder.AppendLine("}");
+            _cppHeaderExportFuncAuto.AppendLine("}");
 
         }
 
