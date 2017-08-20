@@ -1,0 +1,24 @@
+//###_ORIGINAL D:\projects\cef_binary_3.3071.1647.win32\tests\cefclient\renderer//performance_test_tests.cc
+//###_BEGIN 0
+//###_PRE
+namespace client {
+//###_PRE
+namespace performance_test {
+#include "tests/cefclient/myext/mycef_buildconfig.h"
+#if BUILD_TEST
+//###_POST
+namespace {
+//###_POST
+// Test function implementations.
+//###_END 0
+//###_BEGIN 0
+//###_PRE
+};
+//###_PRE
+const int kPerfTestsCount = (sizeof(kPerfTests) / sizeof(kPerfTests[0]));
+#endif //BUILD_TEST
+//###_POST
+}  // namespace performance_test
+//###_POST
+}  // namespace client
+//###_END 0

@@ -465,8 +465,11 @@ namespace LayoutFarm.CefBridge
                         //setup resource mx
                         if (browserProcessListener != null)
                         {
+                            //INIT_MY_MET_ARGS(metArgs, 1) 
+                            // MyCefSetVoidPtr2(&vargs[1], resource_manager_);
+
                             var args = new NativeCallArgs(argsPtr);
-                            var resourceMx = new NativeResourceMx(args.GetArgAsNativePtr(0));
+                            var resourceMx = new NativeResourceMx(args.GetArgAsNativePtr(1));
                             browserProcessListener.OnAddResourceMx(resourceMx);
                         }
                     }
@@ -495,29 +498,58 @@ namespace LayoutFarm.CefBridge
                 //eg. from cefQuery --> 
                 case MyCefMsg.CEF_MSG_OnQuery:
                     {
-                        if (browserProcessListener != null)
-                        {
-                            var args = new NativeCallArgs(argsPtr);
-                            QueryRequestArgs reqArgs = QueryRequestArgs.CreateRequest(args.GetArgAsNativePtr(0));
-                            browserProcessListener.OnCefQuery(args, reqArgs);
-                        }
+                        //if (browserProcessListener != null)
+                        //{
+                        //    var args = new NativeCallArgs(argsPtr);
+                        //    QueryRequestArgs reqArgs = QueryRequestArgs.CreateRequest(args.GetArgAsNativePtr(0));
+                        //    browserProcessListener.OnCefQuery(args, reqArgs);
+                        //}
+
+
+                        //TODO: review here again
+                        //QueryRequestArgs queryReq;
+                        //memset(&queryReq, 0, sizeof(QueryRequestArgs));
+                        //queryReq.browser = browser.get();
+                        //queryReq.frame = frame.get();
+                        //queryReq.query_id = query_id;
+
+
+                        //MyCefStringHolder mystr;
+                        //mystr.value = request;
+                        //queryReq.request = &mystr;
+                        //queryReq.persistent = persistent;
+                        //queryReq.callback = callback.get();
+
+                        //MethodArgs args;
+                        //memset(&args, 0, sizeof(MethodArgs));
+                        //args.SetArgAsNativeObject(0, &queryReq);
+                        //this->mcallback_(CEF_MSG_OnQuery, &args);
+                        ////auto result = args.ReadOutputAsString(0);
+                        //CefString cefstr = args.ReadOutputAsString(0);
+                        //callback->Success(cefstr);
+
                     }
                     break;
 
                 //------------------------------
                 case MyCefMsg.CEF_MSG_ClientHandler_NotifyTitle:
                     {
+                        //INIT_MY_MET_ARGS(metArgs, 1) 
+                        //SetCefStringToJsValue2(&vargs[1], string);
+
                         //title changed
                         var args = new NativeCallArgs(argsPtr);
-                        string newtitle = args.GetArgAsString(0);
+                        string newtitle = args.GetArgAsString(1);
                         // Console.WriteLine("title changed:" + newtitle);
                     }
                     break;
                 case MyCefMsg.CEF_MSG_ClientHandler_NotifyAddress:
                     {
-                        //address changed
+                        //INIT_MY_MET_ARGS(metArgs, 1) 
+                       //SetCefStringToJsValue2(&vargs[1], string);
+                       //address changed
                         var args = new NativeCallArgs(argsPtr);
-                        string newtitle = args.GetArgAsString(0);
+                        string newtitle = args.GetArgAsString(1);
                         // Console.WriteLine("address changed:" + newtitle);
                     }
                     break;
@@ -567,7 +599,7 @@ namespace LayoutFarm.CefBridge
                 var cefStr = NativeMyCefStringHolder.CreateHolder(url);
                 a0.Ptr = cefStr.nativePtr;
                 Cef3Binder.MyCefBwCall2(myCefBrowser, (int)CefBwCallMsg.CefBw_GetMainFrame_LoadURL, out ret, ref a0, ref a1);
-                cefStr.Dispose();
+                
 
             }
         }
@@ -661,8 +693,11 @@ namespace LayoutFarm.CefBridge
             //keep alive callback
             InternalGetText((id, nativePtr) =>
             {
+                //INIT_MY_MET_ARGS(metArgs, 1) 
+                //SetCefStringToJsValue2(&vargs[1], string);
+
                 var args = new NativeCallArgs(nativePtr);
-                strCallback(args.GetArgAsString(0));
+                strCallback(args.GetArgAsString(1));
             });
             //Cef3Binder.MyCefDomGetTextWalk(this.myCefBrowser, strCallback);
         }
@@ -670,18 +705,22 @@ namespace LayoutFarm.CefBridge
         {
             //keep alive callback
             InternalGetSource((id, nativePtr) =>
-            {
+            {   
+                //INIT_MY_MET_ARGS(metArgs, 1) 
+                //SetCefStringToJsValue2(&vargs[1], string);
                 var args = new NativeCallArgs(nativePtr);
-                strCallback(args.GetArgAsString(0));
+                strCallback(args.GetArgAsString(1));
             });
         }
         public void GetSource2(Action<string> strCallback)
         {
             //keep alive callback
             InternalGetSource2((id, nativePtr) =>
-            {
+            {  
+                //INIT_MY_MET_ARGS(metArgs, 1) 
+                //SetCefStringToJsValue2(&vargs[1], string);
                 var args = new NativeCallArgs(nativePtr);
-                strCallback(args.GetArgAsString(0));
+                strCallback(args.GetArgAsString(1));
             });
         }
 
@@ -707,8 +746,11 @@ namespace LayoutFarm.CefBridge
             MyCefBw myCefBw = new MyCefBw(this.myCefBrowser);
             Auto.CefStringVisitor visitor = myCefBw.NewStringVisitor((id, ptr) =>
             {
+                //INIT_MY_MET_ARGS(metArgs, 1) 
+                //SetCefStringToJsValue2(&vargs[1], string);
+
                 NativeCallArgs args = new NativeCallArgs(ptr);
-                var text = args.GetArgAsString(0);
+                var text = args.GetArgAsString(1);
             });
 
 
@@ -728,8 +770,10 @@ namespace LayoutFarm.CefBridge
 
             Auto.CefStringVisitor visitor2 = myCefBw.NewStringVisitor((id, ptr) =>
             {
+                //INIT_MY_MET_ARGS(metArgs, 1) 
+                //SetCefStringToJsValue2(&vargs[1], string);
                 NativeCallArgs args = new NativeCallArgs(ptr);
-                var text = args.GetArgAsString(0);
+                var text = args.GetArgAsString(1);
             });
 
 
@@ -799,7 +843,7 @@ namespace LayoutFarm.CefBridge
         public void dbugTest()
         {
 
-
+#if DEBUG
             JsValue ret;
             JsValue a0 = new JsValue();
             JsValue a1 = new JsValue();
@@ -887,6 +931,7 @@ namespace LayoutFarm.CefBridge
             IntPtr pdfSetting = Cef3Binder.MyCefCreatePdfPrintSetting("{\"header_footer_enabled\":true}");
 
             //------------------
+#endif
         }
 
         public void ShowDevTools()
@@ -913,7 +958,7 @@ namespace LayoutFarm.CefBridge
             {
                 //remove after finish
                 var metArg = new NativeCallArgs(args);
-                int isOK = metArg.GetArgAsInt32(0);
+                int isOK = metArg.GetArgAsInt32(1);
                 tmpCallbacks.Remove(cb);
             });
             tmpCallbacks.Add(cb);
@@ -929,7 +974,7 @@ namespace LayoutFarm.CefBridge
             {
                 //remove after finish
                 var metArg = new NativeCallArgs(args);
-                int isOK = metArg.GetArgAsInt32(0);
+                int isOK = metArg.GetArgAsInt32(1);
                 tmpCallbacks.Remove(cb);
             });
             tmpCallbacks.Add(cb);

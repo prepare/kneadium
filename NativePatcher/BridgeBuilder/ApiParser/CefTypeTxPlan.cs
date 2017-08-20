@@ -470,10 +470,8 @@ namespace BridgeBuilder
                                                     else
                                                     {
                                                         throw new NotSupportedException();
-                                                    }
-
-                                                }
-
+                                                    } 
+                                                } 
                                                 return;
                                             }
                                         }
@@ -1701,7 +1699,7 @@ namespace BridgeBuilder
                                                         {
                                                             //native need cefstring
                                                             //so we create a cef string handle holder
-                                                            par.ArgPreExtractCode = argName + ".Ptr=" + " Cef3Binder.MyCefCreateCefString(" + par.Name + ");\r\n";
+                                                            par.ArgPreExtractCode = argName + ".Ptr=" + " Cef3Binder.MyCefCreateStringHolder(" + par.Name + ");\r\n";
                                                             par.ArgPostExtractCode = "Cef3Binder.MyCefDeletePtr(" + argName + ".Ptr);";
                                                         }
                                                         break;
@@ -2909,13 +2907,13 @@ namespace BridgeBuilder
             stbuilder.Append("namespace " + className);
             stbuilder.AppendLine("{");
 
-           
+
             int nn = callToDotNetMets.Count;
             for (int mm = 0; mm < nn; ++mm)
             {
                 //implement on event notificationi
                 MethodTxInfo met = callToDotNetMets[mm];
-                met.CppMethodSwitchCaseName = className + "_" + met.Name + "_" + (mm + 1); 
+                met.CppMethodSwitchCaseName = className + "_" + met.Name + "_" + (mm + 1);
             }
 
             nn = callToDotNetMets.Count;
