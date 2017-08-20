@@ -48,8 +48,19 @@ namespace BridgeBuilder
                 srcRootDir + @"\libcef_dll\myext",
                  @"D:\projects\Kneadium\NativePatcher\BridgeBuilder\Patcher_ExtCode\myext");
             //---------- 
+            //copy snapshot 
+             
+
+            //----------  
+        }
+        static void CopyFolder(string srcFolder, string intoTargetFolder)
+        {
+
+
+
 
         }
+
         static void CopyFileInFolder(string srcFolder, string targetFolder)
         {
             //not recursive
