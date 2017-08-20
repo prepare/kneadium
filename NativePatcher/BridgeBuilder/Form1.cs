@@ -21,7 +21,7 @@ namespace BridgeBuilder
         {
 
             //1. analyze modified source files, in source folder 
-
+            
 
 
             PatchBuilder builder = new PatchBuilder(new string[]{
@@ -47,7 +47,7 @@ namespace BridgeBuilder
             //copy ext from actual src 
             CopyFileInFolder(
                 srcRootDir + @"\libcef_dll\myext",
-                 @"D:\projects\Kneadium\NativePatcher\BridgeBuilder\Patcher_ExtCode\myext");
+                 @"D:\projects\Kneadium\NativePatcher\BridgeBuilder\Patcher_ExtCode_libcef_dll\myext");
             //---------- 
             //copy snapshot 
 
