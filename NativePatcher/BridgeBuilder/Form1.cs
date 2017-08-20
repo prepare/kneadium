@@ -15,18 +15,15 @@ namespace BridgeBuilder
             InitializeComponent();
         }
 
-        string srcRootDir = @"D:\projects\cef_binary_3.3071.1647.win32";
+        string cefSrcRootDir = @"D:\projects\cef_binary_3.3071.1647.win32";
 
         private void cmdCreatePatchFiles_Click(object sender, EventArgs e)
         {
 
-            //1. analyze modified source files, in source folder 
-
-
-
+            //1. analyze modified source files, in source folder  
             PatchBuilder builder = new PatchBuilder(new string[]{
-                srcRootDir + @"\tests\cefclient",
-                srcRootDir + @"\tests\shared"
+                cefSrcRootDir + @"\tests\cefclient",
+                cefSrcRootDir + @"\tests\shared"
             });
             builder.MakePatch();
 
@@ -41,16 +38,23 @@ namespace BridgeBuilder
                );
             //copy ext from actual src 
             CopyFileInFolder(
-                srcRootDir + @"\tests\cefclient\myext",
+                cefSrcRootDir + @"\tests\cefclient\myext",
                  @"D:\projects\Kneadium\NativePatcher\BridgeBuilder\Patcher_ExtCode\myext");
             //----------
             //copy ext from actual src 
             CopyFileInFolder(
-                srcRootDir + @"\libcef_dll\myext",
-                 @"D:\projects\Kneadium\NativePatcher\BridgeBuilder\Patcher_ExtCode\myext");
+                cefSrcRootDir + @"\libcef_dll\myext",
+                 @"D:\projects\Kneadium\NativePatcher\BridgeBuilder\Patcher_ExtCode_libcef_dll\myext");
             //---------- 
-            //copy snapshot 
-
+            //copy file by file
+            System.IO.File.Copy(cefSrcRootDir + "@\\include\\cef_base.h",
+                @"D:\projects\Kneadium\NativePatcher\BridgeBuilder\Patcher_ExtCode_Others");
+            //
+            System.IO.File.Copy(cefSrcRootDir + "@\\libcef_dll\\ctocpp\\ctocpp_ref_counted.h",
+               @"D:\projects\Kneadium\NativePatcher\BridgeBuilder\Patcher_ExtCode_Others");
+            //
+            System.IO.File.Copy(cefSrcRootDir + "@\\libcef_dll\\cpptoc\\cpptoc_ref_counted.h",
+               @"D:\projects\Kneadium\NativePatcher\BridgeBuilder\Patcher_ExtCode_Others");
 
         }
         static void CopyFolder(string srcFolder, string intoTargetFolder)
@@ -97,18 +101,38 @@ namespace BridgeBuilder
         {
             //cef_binary_3.3071.1647 
             string srcRootDir0 = @"D:\projects\cef_binary_3.3071.1647.win32";
-            string srcRootDir = @"D:\projects\cef_binary_3.3071.1647.win32\tests";
             string saveFolder = "d:\\WImageTest\\cefbridge_patches";
+            string newPathName = srcRootDir0 + "\\tests";
 
+            //copy my extension file
+            CopyFolder(@"..\..\Patcher_ExtCode\myext", newPathName + "\\cefclient");
+            //copy my extension file
+            CopyFolder(@"..\..\Patcher_ExtCode_libcef_dll\myext", srcRootDir0 + "\\libcef_dll");
+            //-----------
+            ManualPatcher manualPatcher = new ManualPatcher(newPathName);
+
+            //1.
+            System.IO.File.Copy(@"..\..\Patcher_ExtCode_Others\cef_base.h",
+                 srcRootDir0 + "\\include\\cef_base.h", true);
+            //2.
+            System.IO.File.Copy(@"..\..\Patcher_ExtCode_Others\cpptoc_ref_counted.h",
+                srcRootDir0 + "\\libcef_dll\\cpptoc\\cpptoc_ref_counted.h", true);
+            //3.
+            System.IO.File.Copy(@"..\..\Patcher_ExtCode_Others\ctocpp_ref_counted.h",
+                srcRootDir0 + "\\libcef_dll\\ctocpp\\ctocpp_ref_counted.h", true);
+            //-----------
+
+            manualPatcher.Do_LibCefDll_CMake_txt(srcRootDir0 + "\\libcef_dll\\CMakeLists.txt");
+            manualPatcher.Do_CefClient_CMake_txt();
+            //-----------
             PatchBuilder builder2 = new PatchBuilder(new string[]{
-                srcRootDir,
+                newPathName,
             });
             builder2.LoadPatchesFromFolder(saveFolder);
 
             List<PatchFile> pfiles = builder2.GetAllPatchFiles();
-            //string oldPathName = srcRootDir;
+            //string oldPathName = srcRootDir; 
 
-            string newPathName = srcRootDir;
 
             for (int i = pfiles.Count - 1; i >= 0; --i)
             {
@@ -135,18 +159,14 @@ namespace BridgeBuilder
                 string rightSide = onlyPath.Substring(indexOfCefClient);
                 //string replaceName = onlyPath.Replace("D:\\projects\\cef_binary_3.2623.1399\\cefclient", newPathName);
                 string replaceName = newPathName + rightSide;
-
-
                 pfile.OriginalFileName = replaceName + "//" + onlyFileName;
                 pfile.PatchContent();
             }
 
 
-            ManualPatcher manualPatcher = new ManualPatcher(newPathName);
 
-            string extTargetDir = newPathName + "\\cefclient\\myext";
-            manualPatcher.CopyExtensionSources(extTargetDir);
-            manualPatcher.Do_CefClient_CMake_txt();
+
+            //TODO: create patch for libcef_dll
             //manualPatcher.Do_LibCefDll_CMake_txt(srcRootDir0 + "\\libcef_dll\\CMakeList.txt");
         }
 
@@ -222,9 +242,10 @@ namespace BridgeBuilder
             }
 
 
+            throw new NotSupportedException();
             ManualPatcher manualPatcher = new ManualPatcher(newPathName);
             string extTargetDir = newPathName + "\\cefclient\\myext";
-            manualPatcher.CopyExtensionSources(extTargetDir);
+            //manualPatcher.CopyExtensionSources(extTargetDir);
             manualPatcher.Do_CefClient_CMake_txt();
         }
 
@@ -886,9 +907,9 @@ namespace BridgeBuilder
         private void button3_Click(object sender, EventArgs e)
         {
             string snapFolder = @"D:\projects\Kneadium\NativePatcher\dev_snap_win32";
-            CopyFolder(srcRootDir + "\\libcef_dll", snapFolder);
-            CopyFolder(srcRootDir + "\\tests", snapFolder);
-            CopyFolder(srcRootDir + "\\include", snapFolder);
+            CopyFolder(cefSrcRootDir + "\\libcef_dll", snapFolder);
+            CopyFolder(cefSrcRootDir + "\\tests", snapFolder);
+            CopyFolder(cefSrcRootDir + "\\include", snapFolder);
             //----------  
         }
     }
