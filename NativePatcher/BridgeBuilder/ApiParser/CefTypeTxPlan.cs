@@ -203,6 +203,42 @@ namespace BridgeBuilder
             }
 
         }
+
+        //TODO: implement new native args ...
+
+        //      class OnProcessMessageReceivedArgs
+        //      {
+        //          public:
+        //int32_t argCount;
+        //          bool myext_retValue; //0 
+        //          cef_browser_t* browser; //1
+        //          int32_t source_process; //2
+        //          cef_process_message_t* message;//3 
+        //          bool create_FromUnwrap;
+        //          //ctor
+        //          OnProcessMessageReceivedArgs(cef_browser_t* browser, int32_t source_process, cef_process_message_t* message)
+        //              : argCount(3), myext_retValue(false),
+
+        //          browser(browser), source_process(source_process), message(message), create_FromUnwrap(false)
+        //          {//init
+        //          }
+        //          OnProcessMessageReceivedArgs(CefRefPtr<CefBrowser> browser, int32_t source_process, CefRefPtr<CefProcessMessage> message)
+        //              : argCount(3), myext_retValue(false),
+
+        //          browser(CefBrowserCToCpp::Unwrap(browser)), source_process(source_process), message(CefProcessMessageCToCpp::Unwrap(message)), create_FromUnwrap(true)
+        //          {//init
+        //          }
+        //          ~OnProcessMessageReceivedArgs()
+        //          {
+        //              if (create_FromUnwrap)
+        //              {
+        //                  CefBrowserCToCpp::Wrap(browser);
+        //                  CefProcessMessageCToCpp::Wrap(message);
+        //              }
+        //          }
+        //      };
+
+
         /// <summary>
         /// bring data from srcExpression and store to the destExpression
         /// </summary>

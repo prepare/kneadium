@@ -161,13 +161,7 @@ namespace BridgeBuilder
                 string replaceName = newPathName + rightSide;
                 pfile.OriginalFileName = replaceName + "//" + onlyFileName;
                 pfile.PatchContent();
-            }
-
-
-
-
-            //TODO: create patch for libcef_dll
-            //manualPatcher.Do_LibCefDll_CMake_txt(srcRootDir0 + "\\libcef_dll\\CMakeList.txt");
+            } 
         }
 
         private void cmdMacBuildPatchesFromSrc_Click(object sender, EventArgs e)
