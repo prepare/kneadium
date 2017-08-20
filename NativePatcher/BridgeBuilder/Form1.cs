@@ -47,15 +47,23 @@ namespace BridgeBuilder
                  @"D:\projects\Kneadium\NativePatcher\BridgeBuilder\Patcher_ExtCode_libcef_dll\myext");
             //---------- 
             //copy file by file
-            System.IO.File.Copy(cefSrcRootDir + "@\\include\\cef_base.h",
+            CopyFile(cefSrcRootDir + "\\include\\cef_base.h",
+                    @"D:\projects\Kneadium\NativePatcher\BridgeBuilder\Patcher_ExtCode_Others");
+            CopyFile(cefSrcRootDir + "\\libcef_dll\\ctocpp\\ctocpp_ref_counted.h",
                 @"D:\projects\Kneadium\NativePatcher\BridgeBuilder\Patcher_ExtCode_Others");
-            //
-            System.IO.File.Copy(cefSrcRootDir + "@\\libcef_dll\\ctocpp\\ctocpp_ref_counted.h",
-               @"D:\projects\Kneadium\NativePatcher\BridgeBuilder\Patcher_ExtCode_Others");
-            //
-            System.IO.File.Copy(cefSrcRootDir + "@\\libcef_dll\\cpptoc\\cpptoc_ref_counted.h",
-               @"D:\projects\Kneadium\NativePatcher\BridgeBuilder\Patcher_ExtCode_Others");
+            CopyFile(cefSrcRootDir + "\\libcef_dll\\cpptoc\\cpptoc_ref_counted.h",
+                @"D:\projects\Kneadium\NativePatcher\BridgeBuilder\Patcher_ExtCode_Others");
 
+        }
+        /// <summary>
+        /// copy a single file and place (overwrite) into destination target folder
+        /// </summary>
+        /// <param name="filename"></param>
+        /// <param name="destTargetFolder"></param>
+        static void CopyFile(string filename, string destTargetFolder)
+        {
+            string onlyFileName = System.IO.Path.GetFileName(filename);
+            System.IO.File.Copy(filename, destTargetFolder + "//" + onlyFileName, true);
         }
         static void CopyFolder(string srcFolder, string intoTargetFolder)
         {
@@ -161,7 +169,7 @@ namespace BridgeBuilder
                 string replaceName = newPathName + rightSide;
                 pfile.OriginalFileName = replaceName + "//" + onlyFileName;
                 pfile.PatchContent();
-            } 
+            }
         }
 
         private void cmdMacBuildPatchesFromSrc_Click(object sender, EventArgs e)

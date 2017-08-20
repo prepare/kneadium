@@ -24,10 +24,7 @@
 #include "libcef_dll/ctocpp/select_client_certificate_callback_ctocpp.h"
 #include "libcef_dll/ctocpp/sslinfo_ctocpp.h"
 #include "libcef_dll/ctocpp/x509certificate_ctocpp.h"
-//###_BEGIN  
-#include "libcef_dll/myext/ExportFuncAuto.h"  
-#include "libcef_dll/myext/InternalHeaderForExportFunc.h"
-//###_END
+
 namespace {
 
 // MEMBER FUNCTIONS - Body may be edited by hand.
@@ -55,27 +52,8 @@ request_handler_on_before_browse(struct _cef_request_handler_t* self,
   DCHECK(request);
   if (!request)
     return 0;
-   
- auto mcallback = CefRequestHandlerCppToC::Get(self)->GetManagedCallBack();
-  if (mcallback) 
-  {
-	  
-		  MyMetArgsN args;
-		  memset(&args, 0, sizeof(MyMetArgsN));
-		  args.argCount = 4;
-		  jsvalue vargs[5];
-		  args.vargs = vargs;
-		  MyCefSetVoidPtr(&vargs[1], browser);
-		  MyCefSetVoidPtr(&vargs[2], frame);
-		  MyCefSetVoidPtr(&vargs[3], request);
-		  MyCefSetBool(&vargs[4], is_redirect);
-		 
-		  //mcallback(MyCefRequestHandler_OnBeforeBrowse_1, &args);
-		  mcallback(CefRequestHandlerExt::CefRequestHandlerExt_OnBeforeBrowse_1, &args);
-		  return vargs[0].i32 != 0;
-  } 
- 
-   
+
+  // Execute
   bool _retval = CefRequestHandlerCppToC::Get(self)->OnBeforeBrowse(
       CefBrowserCToCpp::Wrap(browser), CefFrameCToCpp::Wrap(frame),
       CefRequestCToCpp::Wrap(request), is_redirect ? true : false);
@@ -108,9 +86,6 @@ int CEF_CALLBACK request_handler_on_open_urlfrom_tab(
   DCHECK(target_url);
   if (!target_url)
     return 0;
-
-
-  
 
   // Execute
   bool _retval = CefRequestHandlerCppToC::Get(self)->OnOpenURLFromTab(
@@ -451,22 +426,6 @@ request_handler_on_protocol_execution(struct _cef_request_handler_t* self,
   // Translate param: allow_os_execution; type: bool_byref
   bool allow_os_executionBool =
       (allow_os_execution && *allow_os_execution) ? true : false;
-
-  ////###_BEGIN
-  //auto mcallback = CefRequestHandlerCppToC::Get(self)->GetManagedCallBack();
-  //if (mcallback) {
-	 // MyMetArgsN args;
-	 // memset(&args, 0, sizeof(MyMetArgsN));
-	 // args.argCount = 3;
-	 // jsvalue vargs[4];
-	 // args.vargs = vargs;
-	 // MyCefSetVoidPtr(&vargs[1], browser);
-	 // SetCefStringToJsValue2(&vargs[2], url);
-	 // MyCefSetVoidPtr(&vargs[3], allow_os_execution);
-	 // mcallback(MyCefRequestHandler_OnProtocolExecution_11, &args);
-	 // 
-  //}
-  ////###_END
 
   // Execute
   CefRequestHandlerCppToC::Get(self)->OnProtocolExecution(

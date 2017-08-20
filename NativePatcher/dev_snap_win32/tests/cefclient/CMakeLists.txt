@@ -18,8 +18,6 @@ set(CEFCLIENT_MYCEF_MYCEF_SRCS
   myext/mycef_msg_const.h
   myext/MyCef_Win.cpp
   myext/mycef_buildconfig.h
-  myext/ExportFuncAuto.h
-  myext/ExportFuncAuto.cpp
   )
 source_group(cefclient\\\\myext FILES ${CEFCLIENT_MYCEF_MYCEF_SRCS})
 set(CEFCLIENT_MYCEF_SRCS

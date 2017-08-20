@@ -24,8 +24,6 @@
 #include "include/cef_request_handler.h"
 #include "libcef_dll/cpptoc/cpptoc_ref_counted.h"
 
-
-
 // Wrap a C++ class with a C structure.
 // This class may be instantiated and accessed wrapper-side only.
 class CefRequestHandlerCppToC
@@ -33,7 +31,6 @@ class CefRequestHandlerCppToC
                                  CefRequestHandler,
                                  cef_request_handler_t> {
  public:
-  
   CefRequestHandlerCppToC();
 };
 
