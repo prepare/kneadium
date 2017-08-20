@@ -707,7 +707,7 @@ namespace LayoutFarm.CefBridge
         public static OsPlatform GetOsName()
         {
             //check platform
-#if NETCORE
+#if NETCOREAPP1_1
             if (System.Runtime.InteropServices.RuntimeInformation.IsOSPlatform(
                 System.Runtime.InteropServices.OSPlatform.OSX))
             {
@@ -727,8 +727,7 @@ namespace LayoutFarm.CefBridge
             else
             {
                 return OsPlatform.Unknown;
-            }
-        }
+            }            
 #else
             OperatingSystem os = Environment.OSVersion;
             switch (os.Platform)
@@ -1007,6 +1006,4 @@ namespace LayoutFarm.CefBridge
 
         }
     }
-
-
 }
