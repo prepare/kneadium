@@ -19,7 +19,11 @@ namespace LayoutFarm.CefBridge
             //------  
             //ReferencePaths.LIB_PATH = @"D:\projects/cef_3_3071.1647/win64";
             //ReferencePaths.LIB_PATH = @"D:\projects\cef_binary_3.3071.1647.win64build\tests\cefclient\Release";
+#if DEBUG
             ReferencePaths.LIB_PATH = @"D:\projects\cef_binary_3.3071.1647.win32build\tests\cefclient\Debug";
+#else
+            ReferencePaths.LIB_PATH = @"D:\projects\cef_binary_3.3071.1647.win32build\tests\cefclient\Release";
+#endif  
             //ReferencePaths.SUB_PROCESS_PATH = ReferencePaths.LIB_PATH + "/CefBwSp.exe";
             ReferencePaths.SUB_PROCESS_PATH = "CefBwSp.exe";
             //---------------
