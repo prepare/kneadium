@@ -2589,6 +2589,10 @@ namespace BridgeBuilder
                 //move this to method
                 CodeMethodParameter par = pars[i];
                 MethodParameterTxInfo parTx = met.pars[i];
+                if (parTx.IsConst)
+                {
+                    stbuilder.Append("const ");
+                }
                 if (parTx.CppUnwrapType != null)
                 {
                     stbuilder.Append(parTx.CppUnwrapType);
@@ -2619,6 +2623,11 @@ namespace BridgeBuilder
                 //move this to method
                 CodeMethodParameter par = pars[i];
                 MethodParameterTxInfo parTx = met.pars[i];
+                if (parTx.IsConst)
+                {
+                    stbuilder.Append("const ");
+                }
+
                 if (parTx.CppUnwrapType != null)
                 {
                     stbuilder.Append(parTx.CppUnwrapType);
@@ -2677,6 +2686,12 @@ namespace BridgeBuilder
                     //move this to method
                     CodeMethodParameter par = pars[i];
                     MethodParameterTxInfo parTx = met.pars[i];
+                    if (parTx.IsConst)
+                    {
+                        stbuilder.Append("const ");
+                    }
+
+
                     stbuilder.Append(parTx.TypeSymbol.ToString());
                     stbuilder.Append(" ");
                     stbuilder.Append(parTx.Name);
