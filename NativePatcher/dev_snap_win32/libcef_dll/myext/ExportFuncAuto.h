@@ -98,9 +98,6 @@ inline void MyCefSetCefPoint(jsvalue* value, CefPoint&data) {
 };
 
 
-
-
-//AUTOGEN 
 //AUTOGEN
 namespace CefAccessibilityHandlerExt
 {
@@ -352,17 +349,17 @@ namespace CefDialogHandlerExt {
 		bool myext_ret_value; //0
 		cef_browser_t* browser;//1
 		cef_file_dialog_mode_t mode;//2
-		CefString& title;//3
-		CefString& default_file_path;//4
-		std::vector<CefString>& accept_filters;//5
+		const CefString& title;//3
+		const CefString& default_file_path;//4
+		const std::vector<CefString>& accept_filters;//5
 		int selected_accept_filter;//6
 		cef_file_dialog_callback_t* callback;//7
 											 //
 		bool myext_created_from_Unwrap;
 		//
-		OnFileDialogArgs(cef_browser_t* browser, cef_file_dialog_mode_t mode, CefString& title, CefString& default_file_path, std::vector<CefString>& accept_filters, int selected_accept_filter, cef_file_dialog_callback_t* callback)
+		OnFileDialogArgs(cef_browser_t* browser, cef_file_dialog_mode_t mode, const CefString& title, const CefString& default_file_path, const std::vector<CefString>& accept_filters, int selected_accept_filter, cef_file_dialog_callback_t* callback)
 			:myext_argCount(7), myext_created_from_Unwrap(false), myext_ret_value(0), browser(browser), mode(mode), title(title), default_file_path(default_file_path), accept_filters(accept_filters), selected_accept_filter(selected_accept_filter), callback(callback) {}
-		OnFileDialogArgs(CefRefPtr<CefBrowser> browser, cef_file_dialog_mode_t mode, CefString& title, CefString& default_file_path, std::vector<CefString>& accept_filters, int selected_accept_filter, CefRefPtr<CefFileDialogCallback> callback)
+		OnFileDialogArgs(CefRefPtr<CefBrowser> browser, cef_file_dialog_mode_t mode, const CefString& title, const CefString& default_file_path, const std::vector<CefString>& accept_filters, int selected_accept_filter, CefRefPtr<CefFileDialogCallback> callback)
 			:myext_argCount(7), myext_created_from_Unwrap(true), myext_ret_value(0), browser(CefBrowserCToCpp::Unwrap(browser)), mode(mode), title(title), default_file_path(default_file_path), accept_filters(accept_filters), selected_accept_filter(selected_accept_filter), callback(CefFileDialogCallbackCToCpp::Unwrap(callback)) {}
 		~OnFileDialogArgs() {
 			if (myext_created_from_Unwrap) {
@@ -402,13 +399,13 @@ namespace CefDisplayHandlerExt {
 		int32_t myext_argCount;
 		cef_browser_t* browser;//1
 		cef_frame_t* frame;//2
-		CefString& url;//3
-					   //
+		const CefString& url;//3
+							 //
 		bool myext_created_from_Unwrap;
 		//
-		OnAddressChangeArgs(cef_browser_t* browser, cef_frame_t* frame, CefString& url)
+		OnAddressChangeArgs(cef_browser_t* browser, cef_frame_t* frame, const CefString& url)
 			:myext_argCount(3), myext_created_from_Unwrap(false), browser(browser), frame(frame), url(url) {}
-		OnAddressChangeArgs(CefRefPtr<CefBrowser> browser, CefRefPtr<CefFrame> frame, CefString& url)
+		OnAddressChangeArgs(CefRefPtr<CefBrowser> browser, CefRefPtr<CefFrame> frame, const CefString& url)
 			:myext_argCount(3), myext_created_from_Unwrap(true), browser(CefBrowserCToCpp::Unwrap(browser)), frame(CefFrameCToCpp::Unwrap(frame)), url(url) {}
 		~OnAddressChangeArgs() {
 			if (myext_created_from_Unwrap) {
@@ -421,13 +418,13 @@ namespace CefDisplayHandlerExt {
 	public:
 		int32_t myext_argCount;
 		cef_browser_t* browser;//1
-		CefString& title;//2
-						 //
+		const CefString& title;//2
+							   //
 		bool myext_created_from_Unwrap;
 		//
-		OnTitleChangeArgs(cef_browser_t* browser, CefString& title)
+		OnTitleChangeArgs(cef_browser_t* browser, const CefString& title)
 			:myext_argCount(2), myext_created_from_Unwrap(false), browser(browser), title(title) {}
-		OnTitleChangeArgs(CefRefPtr<CefBrowser> browser, CefString& title)
+		OnTitleChangeArgs(CefRefPtr<CefBrowser> browser, const CefString& title)
 			:myext_argCount(2), myext_created_from_Unwrap(true), browser(CefBrowserCToCpp::Unwrap(browser)), title(title) {}
 		~OnTitleChangeArgs() {
 			if (myext_created_from_Unwrap) {
@@ -439,13 +436,13 @@ namespace CefDisplayHandlerExt {
 	public:
 		int32_t myext_argCount;
 		cef_browser_t* browser;//1
-		std::vector<CefString>& icon_urls;//2
-										  //
+		const std::vector<CefString>& icon_urls;//2
+												//
 		bool myext_created_from_Unwrap;
 		//
-		OnFaviconURLChangeArgs(cef_browser_t* browser, std::vector<CefString>& icon_urls)
+		OnFaviconURLChangeArgs(cef_browser_t* browser, const std::vector<CefString>& icon_urls)
 			:myext_argCount(2), myext_created_from_Unwrap(false), browser(browser), icon_urls(icon_urls) {}
-		OnFaviconURLChangeArgs(CefRefPtr<CefBrowser> browser, std::vector<CefString>& icon_urls)
+		OnFaviconURLChangeArgs(CefRefPtr<CefBrowser> browser, const std::vector<CefString>& icon_urls)
 			:myext_argCount(2), myext_created_from_Unwrap(true), browser(CefBrowserCToCpp::Unwrap(browser)), icon_urls(icon_urls) {}
 		~OnFaviconURLChangeArgs() {
 			if (myext_created_from_Unwrap) {
@@ -494,13 +491,13 @@ namespace CefDisplayHandlerExt {
 	public:
 		int32_t myext_argCount;
 		cef_browser_t* browser;//1
-		CefString& value;//2
-						 //
+		const CefString& value;//2
+							   //
 		bool myext_created_from_Unwrap;
 		//
-		OnStatusMessageArgs(cef_browser_t* browser, CefString& value)
+		OnStatusMessageArgs(cef_browser_t* browser, const CefString& value)
 			:myext_argCount(2), myext_created_from_Unwrap(false), browser(browser), value(value) {}
-		OnStatusMessageArgs(CefRefPtr<CefBrowser> browser, CefString& value)
+		OnStatusMessageArgs(CefRefPtr<CefBrowser> browser, const CefString& value)
 			:myext_argCount(2), myext_created_from_Unwrap(true), browser(CefBrowserCToCpp::Unwrap(browser)), value(value) {}
 		~OnStatusMessageArgs() {
 			if (myext_created_from_Unwrap) {
@@ -513,15 +510,15 @@ namespace CefDisplayHandlerExt {
 		int32_t myext_argCount;
 		bool myext_ret_value; //0
 		cef_browser_t* browser;//1
-		CefString& message;//2
-		CefString& source;//3
+		const CefString& message;//2
+		const CefString& source;//3
 		int line;//4
 				 //
 		bool myext_created_from_Unwrap;
 		//
-		OnConsoleMessageArgs(cef_browser_t* browser, CefString& message, CefString& source, int line)
+		OnConsoleMessageArgs(cef_browser_t* browser, const CefString& message, const CefString& source, int line)
 			:myext_argCount(4), myext_created_from_Unwrap(false), myext_ret_value(0), browser(browser), message(message), source(source), line(line) {}
-		OnConsoleMessageArgs(CefRefPtr<CefBrowser> browser, CefString& message, CefString& source, int line)
+		OnConsoleMessageArgs(CefRefPtr<CefBrowser> browser, const CefString& message, const CefString& source, int line)
 			:myext_argCount(4), myext_created_from_Unwrap(true), myext_ret_value(0), browser(CefBrowserCToCpp::Unwrap(browser)), message(message), source(source), line(line) {}
 		~OnConsoleMessageArgs() {
 			if (myext_created_from_Unwrap) {
@@ -545,14 +542,14 @@ namespace CefDownloadHandlerExt {
 		int32_t myext_argCount;
 		cef_browser_t* browser;//1
 		cef_download_item_t* download_item;//2
-		CefString& suggested_name;//3
+		const CefString& suggested_name;//3
 		cef_before_download_callback_t* callback;//4
 												 //
 		bool myext_created_from_Unwrap;
 		//
-		OnBeforeDownloadArgs(cef_browser_t* browser, cef_download_item_t* download_item, CefString& suggested_name, cef_before_download_callback_t* callback)
+		OnBeforeDownloadArgs(cef_browser_t* browser, cef_download_item_t* download_item, const CefString& suggested_name, cef_before_download_callback_t* callback)
 			:myext_argCount(4), myext_created_from_Unwrap(false), browser(browser), download_item(download_item), suggested_name(suggested_name), callback(callback) {}
-		OnBeforeDownloadArgs(CefRefPtr<CefBrowser> browser, CefRefPtr<CefDownloadItem> download_item, CefString& suggested_name, CefRefPtr<CefBeforeDownloadCallback> callback)
+		OnBeforeDownloadArgs(CefRefPtr<CefBrowser> browser, CefRefPtr<CefDownloadItem> download_item, const CefString& suggested_name, CefRefPtr<CefBeforeDownloadCallback> callback)
 			:myext_argCount(4), myext_created_from_Unwrap(true), browser(CefBrowserCToCpp::Unwrap(browser)), download_item(CefDownloadItemCToCpp::Unwrap(download_item)), suggested_name(suggested_name), callback(CefBeforeDownloadCallbackCToCpp::Unwrap(callback)) {}
 		~OnBeforeDownloadArgs() {
 			if (myext_created_from_Unwrap) {
@@ -619,13 +616,13 @@ namespace CefDragHandlerExt {
 	public:
 		int32_t myext_argCount;
 		cef_browser_t* browser;//1
-		std::vector<CefDraggableRegion>& regions;//2
-												 //
+		const std::vector<CefDraggableRegion>& regions;//2
+													   //
 		bool myext_created_from_Unwrap;
 		//
-		OnDraggableRegionsChangedArgs(cef_browser_t* browser, std::vector<CefDraggableRegion>& regions)
+		OnDraggableRegionsChangedArgs(cef_browser_t* browser, const std::vector<CefDraggableRegion>& regions)
 			:myext_argCount(2), myext_created_from_Unwrap(false), browser(browser), regions(regions) {}
-		OnDraggableRegionsChangedArgs(CefRefPtr<CefBrowser> browser, std::vector<CefDraggableRegion>& regions)
+		OnDraggableRegionsChangedArgs(CefRefPtr<CefBrowser> browser, const std::vector<CefDraggableRegion>& regions)
 			:myext_argCount(2), myext_created_from_Unwrap(true), browser(CefBrowserCToCpp::Unwrap(browser)), regions(regions) {}
 		~OnDraggableRegionsChangedArgs() {
 			if (myext_created_from_Unwrap) {
@@ -647,15 +644,15 @@ namespace CefFindHandlerExt {
 		cef_browser_t* browser;//1
 		int identifier;//2
 		int count;//3
-		CefRect& selectionRect;//4
+		const CefRect& selectionRect;//4
 		int activeMatchOrdinal;//5
 		bool finalUpdate;//6
 						 //
 		bool myext_created_from_Unwrap;
 		//
-		OnFindResultArgs(cef_browser_t* browser, int identifier, int count, CefRect& selectionRect, int activeMatchOrdinal, bool finalUpdate)
+		OnFindResultArgs(cef_browser_t* browser, int identifier, int count, const CefRect& selectionRect, int activeMatchOrdinal, bool finalUpdate)
 			:myext_argCount(6), myext_created_from_Unwrap(false), browser(browser), identifier(identifier), count(count), selectionRect(selectionRect), activeMatchOrdinal(activeMatchOrdinal), finalUpdate(finalUpdate) {}
-		OnFindResultArgs(CefRefPtr<CefBrowser> browser, int identifier, int count, CefRect& selectionRect, int activeMatchOrdinal, bool finalUpdate)
+		OnFindResultArgs(CefRefPtr<CefBrowser> browser, int identifier, int count, const CefRect& selectionRect, int activeMatchOrdinal, bool finalUpdate)
 			:myext_argCount(6), myext_created_from_Unwrap(true), browser(CefBrowserCToCpp::Unwrap(browser)), identifier(identifier), count(count), selectionRect(selectionRect), activeMatchOrdinal(activeMatchOrdinal), finalUpdate(finalUpdate) {}
 		~OnFindResultArgs() {
 			if (myext_created_from_Unwrap) {
@@ -747,15 +744,15 @@ namespace CefGeolocationHandlerExt {
 		int32_t myext_argCount;
 		bool myext_ret_value; //0
 		cef_browser_t* browser;//1
-		CefString& requesting_url;//2
+		const CefString& requesting_url;//2
 		int request_id;//3
 		cef_geolocation_callback_t* callback;//4
 											 //
 		bool myext_created_from_Unwrap;
 		//
-		OnRequestGeolocationPermissionArgs(cef_browser_t* browser, CefString& requesting_url, int request_id, cef_geolocation_callback_t* callback)
+		OnRequestGeolocationPermissionArgs(cef_browser_t* browser, const CefString& requesting_url, int request_id, cef_geolocation_callback_t* callback)
 			:myext_argCount(4), myext_created_from_Unwrap(false), myext_ret_value(0), browser(browser), requesting_url(requesting_url), request_id(request_id), callback(callback) {}
-		OnRequestGeolocationPermissionArgs(CefRefPtr<CefBrowser> browser, CefString& requesting_url, int request_id, CefRefPtr<CefGeolocationCallback> callback)
+		OnRequestGeolocationPermissionArgs(CefRefPtr<CefBrowser> browser, const CefString& requesting_url, int request_id, CefRefPtr<CefGeolocationCallback> callback)
 			:myext_argCount(4), myext_created_from_Unwrap(true), myext_ret_value(0), browser(CefBrowserCToCpp::Unwrap(browser)), requesting_url(requesting_url), request_id(request_id), callback(CefGeolocationCallbackCToCpp::Unwrap(callback)) {}
 		~OnRequestGeolocationPermissionArgs() {
 			if (myext_created_from_Unwrap) {
@@ -804,18 +801,18 @@ namespace CefJSDialogHandlerExt {
 		int32_t myext_argCount;
 		bool myext_ret_value; //0
 		cef_browser_t* browser;//1
-		CefString& origin_url;//2
+		const CefString& origin_url;//2
 		cef_jsdialog_type_t dialog_type;//3
-		CefString& message_text;//4
-		CefString& default_prompt_text;//5
+		const CefString& message_text;//4
+		const CefString& default_prompt_text;//5
 		cef_jsdialog_callback_t* callback;//6
 		bool& suppress_message;//7
 							   //
 		bool myext_created_from_Unwrap;
 		//
-		OnJSDialogArgs(cef_browser_t* browser, CefString& origin_url, cef_jsdialog_type_t dialog_type, CefString& message_text, CefString& default_prompt_text, cef_jsdialog_callback_t* callback, bool& suppress_message)
+		OnJSDialogArgs(cef_browser_t* browser, const CefString& origin_url, cef_jsdialog_type_t dialog_type, const CefString& message_text, const CefString& default_prompt_text, cef_jsdialog_callback_t* callback, bool& suppress_message)
 			:myext_argCount(7), myext_created_from_Unwrap(false), myext_ret_value(0), browser(browser), origin_url(origin_url), dialog_type(dialog_type), message_text(message_text), default_prompt_text(default_prompt_text), callback(callback), suppress_message(suppress_message) {}
-		OnJSDialogArgs(CefRefPtr<CefBrowser> browser, CefString& origin_url, cef_jsdialog_type_t dialog_type, CefString& message_text, CefString& default_prompt_text, CefRefPtr<CefJSDialogCallback> callback, bool& suppress_message)
+		OnJSDialogArgs(CefRefPtr<CefBrowser> browser, const CefString& origin_url, cef_jsdialog_type_t dialog_type, const CefString& message_text, const CefString& default_prompt_text, CefRefPtr<CefJSDialogCallback> callback, bool& suppress_message)
 			:myext_argCount(7), myext_created_from_Unwrap(true), myext_ret_value(0), browser(CefBrowserCToCpp::Unwrap(browser)), origin_url(origin_url), dialog_type(dialog_type), message_text(message_text), default_prompt_text(default_prompt_text), callback(CefJSDialogCallbackCToCpp::Unwrap(callback)), suppress_message(suppress_message) {}
 		~OnJSDialogArgs() {
 			if (myext_created_from_Unwrap) {
@@ -829,15 +826,15 @@ namespace CefJSDialogHandlerExt {
 		int32_t myext_argCount;
 		bool myext_ret_value; //0
 		cef_browser_t* browser;//1
-		CefString& message_text;//2
+		const CefString& message_text;//2
 		bool is_reload;//3
 		cef_jsdialog_callback_t* callback;//4
 										  //
 		bool myext_created_from_Unwrap;
 		//
-		OnBeforeUnloadDialogArgs(cef_browser_t* browser, CefString& message_text, bool is_reload, cef_jsdialog_callback_t* callback)
+		OnBeforeUnloadDialogArgs(cef_browser_t* browser, const CefString& message_text, bool is_reload, cef_jsdialog_callback_t* callback)
 			:myext_argCount(4), myext_created_from_Unwrap(false), myext_ret_value(0), browser(browser), message_text(message_text), is_reload(is_reload), callback(callback) {}
-		OnBeforeUnloadDialogArgs(CefRefPtr<CefBrowser> browser, CefString& message_text, bool is_reload, CefRefPtr<CefJSDialogCallback> callback)
+		OnBeforeUnloadDialogArgs(CefRefPtr<CefBrowser> browser, const CefString& message_text, bool is_reload, CefRefPtr<CefJSDialogCallback> callback)
 			:myext_argCount(4), myext_created_from_Unwrap(true), myext_ret_value(0), browser(CefBrowserCToCpp::Unwrap(browser)), message_text(message_text), is_reload(is_reload), callback(CefJSDialogCallbackCToCpp::Unwrap(callback)) {}
 		~OnBeforeUnloadDialogArgs() {
 			if (myext_created_from_Unwrap) {
@@ -896,15 +893,15 @@ namespace CefKeyboardHandlerExt {
 		int32_t myext_argCount;
 		bool myext_ret_value; //0
 		cef_browser_t* browser;//1
-		CefKeyEvent& _event;//2
+		const CefKeyEvent& _event;//2
 		CefEventHandle os_event;//3
 		bool* is_keyboard_shortcut;//4
 								   //
 		bool myext_created_from_Unwrap;
 		//
-		OnPreKeyEventArgs(cef_browser_t* browser, CefKeyEvent& _event, CefEventHandle os_event, bool* is_keyboard_shortcut)
+		OnPreKeyEventArgs(cef_browser_t* browser, const CefKeyEvent& _event, CefEventHandle os_event, bool* is_keyboard_shortcut)
 			:myext_argCount(4), myext_created_from_Unwrap(false), myext_ret_value(0), browser(browser), _event(_event), os_event(os_event), is_keyboard_shortcut(is_keyboard_shortcut) {}
-		OnPreKeyEventArgs(CefRefPtr<CefBrowser> browser, CefKeyEvent& _event, CefEventHandle os_event, bool* is_keyboard_shortcut)
+		OnPreKeyEventArgs(CefRefPtr<CefBrowser> browser, const CefKeyEvent& _event, CefEventHandle os_event, bool* is_keyboard_shortcut)
 			:myext_argCount(4), myext_created_from_Unwrap(true), myext_ret_value(0), browser(CefBrowserCToCpp::Unwrap(browser)), _event(_event), os_event(os_event), is_keyboard_shortcut(is_keyboard_shortcut) {}
 		~OnPreKeyEventArgs() {
 			if (myext_created_from_Unwrap) {
@@ -917,14 +914,14 @@ namespace CefKeyboardHandlerExt {
 		int32_t myext_argCount;
 		bool myext_ret_value; //0
 		cef_browser_t* browser;//1
-		CefKeyEvent& _event;//2
+		const CefKeyEvent& _event;//2
 		CefEventHandle os_event;//3
 								//
 		bool myext_created_from_Unwrap;
 		//
-		OnKeyEventArgs(cef_browser_t* browser, CefKeyEvent& _event, CefEventHandle os_event)
+		OnKeyEventArgs(cef_browser_t* browser, const CefKeyEvent& _event, CefEventHandle os_event)
 			:myext_argCount(3), myext_created_from_Unwrap(false), myext_ret_value(0), browser(browser), _event(_event), os_event(os_event) {}
-		OnKeyEventArgs(CefRefPtr<CefBrowser> browser, CefKeyEvent& _event, CefEventHandle os_event)
+		OnKeyEventArgs(CefRefPtr<CefBrowser> browser, const CefKeyEvent& _event, CefEventHandle os_event)
 			:myext_argCount(3), myext_created_from_Unwrap(true), myext_ret_value(0), browser(CefBrowserCToCpp::Unwrap(browser)), _event(_event), os_event(os_event) {}
 		~OnKeyEventArgs() {
 			if (myext_created_from_Unwrap) {
@@ -955,11 +952,11 @@ namespace CefLifeSpanHandlerExt {
 		bool myext_ret_value; //0
 		cef_browser_t* browser;//1
 		cef_frame_t* frame;//2
-		CefString& target_url;//3
-		CefString& target_frame_name;//4
+		const CefString& target_url;//3
+		const CefString& target_frame_name;//4
 		cef_window_open_disposition_t target_disposition;//5
 		bool user_gesture;//6
-		CefPopupFeatures& popupFeatures;//7
+		const CefPopupFeatures& popupFeatures;//7
 		CefWindowInfo& windowInfo;//8
 		CefRefPtr<CefClient>& client;//9
 		CefBrowserSettings& settings;//10
@@ -967,9 +964,9 @@ namespace CefLifeSpanHandlerExt {
 								   //
 		bool myext_created_from_Unwrap;
 		//
-		OnBeforePopupArgs(cef_browser_t* browser, cef_frame_t* frame, CefString& target_url, CefString& target_frame_name, cef_window_open_disposition_t target_disposition, bool user_gesture, CefPopupFeatures& popupFeatures, CefWindowInfo& windowInfo, CefRefPtr<CefClient>& client, CefBrowserSettings& settings, bool* no_javascript_access)
+		OnBeforePopupArgs(cef_browser_t* browser, cef_frame_t* frame, const CefString& target_url, const CefString& target_frame_name, cef_window_open_disposition_t target_disposition, bool user_gesture, const CefPopupFeatures& popupFeatures, CefWindowInfo& windowInfo, CefRefPtr<CefClient>& client, CefBrowserSettings& settings, bool* no_javascript_access)
 			:myext_argCount(11), myext_created_from_Unwrap(false), myext_ret_value(0), browser(browser), frame(frame), target_url(target_url), target_frame_name(target_frame_name), target_disposition(target_disposition), user_gesture(user_gesture), popupFeatures(popupFeatures), windowInfo(windowInfo), client(client), settings(settings), no_javascript_access(no_javascript_access) {}
-		OnBeforePopupArgs(CefRefPtr<CefBrowser> browser, CefRefPtr<CefFrame> frame, CefString& target_url, CefString& target_frame_name, cef_window_open_disposition_t target_disposition, bool user_gesture, CefPopupFeatures& popupFeatures, CefWindowInfo& windowInfo, CefRefPtr<CefClient>& client, CefBrowserSettings& settings, bool* no_javascript_access)
+		OnBeforePopupArgs(CefRefPtr<CefBrowser> browser, CefRefPtr<CefFrame> frame, const CefString& target_url, const CefString& target_frame_name, cef_window_open_disposition_t target_disposition, bool user_gesture, const CefPopupFeatures& popupFeatures, CefWindowInfo& windowInfo, CefRefPtr<CefClient>& client, CefBrowserSettings& settings, bool* no_javascript_access)
 			:myext_argCount(11), myext_created_from_Unwrap(true), myext_ret_value(0), browser(CefBrowserCToCpp::Unwrap(browser)), frame(CefFrameCToCpp::Unwrap(frame)), target_url(target_url), target_frame_name(target_frame_name), target_disposition(target_disposition), user_gesture(user_gesture), popupFeatures(popupFeatures), windowInfo(windowInfo), client(client), settings(settings), no_javascript_access(no_javascript_access) {}
 		~OnBeforePopupArgs() {
 			if (myext_created_from_Unwrap) {
@@ -1113,14 +1110,14 @@ namespace CefLoadHandlerExt {
 		cef_browser_t* browser;//1
 		cef_frame_t* frame;//2
 		cef_errorcode_t errorCode;//3
-		CefString& errorText;//4
-		CefString& failedUrl;//5
-							 //
+		const CefString& errorText;//4
+		const CefString& failedUrl;//5
+								   //
 		bool myext_created_from_Unwrap;
 		//
-		OnLoadErrorArgs(cef_browser_t* browser, cef_frame_t* frame, cef_errorcode_t errorCode, CefString& errorText, CefString& failedUrl)
+		OnLoadErrorArgs(cef_browser_t* browser, cef_frame_t* frame, cef_errorcode_t errorCode, const CefString& errorText, const CefString& failedUrl)
 			:myext_argCount(5), myext_created_from_Unwrap(false), browser(browser), frame(frame), errorCode(errorCode), errorText(errorText), failedUrl(failedUrl) {}
-		OnLoadErrorArgs(CefRefPtr<CefBrowser> browser, CefRefPtr<CefFrame> frame, cef_errorcode_t errorCode, CefString& errorText, CefString& failedUrl)
+		OnLoadErrorArgs(CefRefPtr<CefBrowser> browser, CefRefPtr<CefFrame> frame, cef_errorcode_t errorCode, const CefString& errorText, const CefString& failedUrl)
 			:myext_argCount(5), myext_created_from_Unwrap(true), browser(CefBrowserCToCpp::Unwrap(browser)), frame(CefFrameCToCpp::Unwrap(frame)), errorCode(errorCode), errorText(errorText), failedUrl(failedUrl) {}
 		~OnLoadErrorArgs() {
 			if (myext_created_from_Unwrap) {
@@ -1215,15 +1212,15 @@ namespace CefPrintHandlerExt {
 		int32_t myext_argCount;
 		bool myext_ret_value; //0
 		cef_browser_t* browser;//1
-		CefString& document_name;//2
-		CefString& pdf_file_path;//3
+		const CefString& document_name;//2
+		const CefString& pdf_file_path;//3
 		cef_print_job_callback_t* callback;//4
 										   //
 		bool myext_created_from_Unwrap;
 		//
-		OnPrintJobArgs(cef_browser_t* browser, CefString& document_name, CefString& pdf_file_path, cef_print_job_callback_t* callback)
+		OnPrintJobArgs(cef_browser_t* browser, const CefString& document_name, const CefString& pdf_file_path, cef_print_job_callback_t* callback)
 			:myext_argCount(4), myext_created_from_Unwrap(false), myext_ret_value(0), browser(browser), document_name(document_name), pdf_file_path(pdf_file_path), callback(callback) {}
-		OnPrintJobArgs(CefRefPtr<CefBrowser> browser, CefString& document_name, CefString& pdf_file_path, CefRefPtr<CefPrintJobCallback> callback)
+		OnPrintJobArgs(CefRefPtr<CefBrowser> browser, const CefString& document_name, const CefString& pdf_file_path, CefRefPtr<CefPrintJobCallback> callback)
 			:myext_argCount(4), myext_created_from_Unwrap(true), myext_ret_value(0), browser(CefBrowserCToCpp::Unwrap(browser)), document_name(document_name), pdf_file_path(pdf_file_path), callback(CefPrintJobCallbackCToCpp::Unwrap(callback)) {}
 		~OnPrintJobArgs() {
 			if (myext_created_from_Unwrap) {
@@ -1415,13 +1412,13 @@ namespace CefRenderHandlerExt {
 	public:
 		int32_t myext_argCount;
 		cef_browser_t* browser;//1
-		CefRect& rect;//2
-					  //
+		const CefRect& rect;//2
+							//
 		bool myext_created_from_Unwrap;
 		//
-		OnPopupSizeArgs(cef_browser_t* browser, CefRect& rect)
+		OnPopupSizeArgs(cef_browser_t* browser, const CefRect& rect)
 			:myext_argCount(2), myext_created_from_Unwrap(false), browser(browser), rect(rect) {}
-		OnPopupSizeArgs(CefRefPtr<CefBrowser> browser, CefRect& rect)
+		OnPopupSizeArgs(CefRefPtr<CefBrowser> browser, const CefRect& rect)
 			:myext_argCount(2), myext_created_from_Unwrap(true), browser(CefBrowserCToCpp::Unwrap(browser)), rect(rect) {}
 		~OnPopupSizeArgs() {
 			if (myext_created_from_Unwrap) {
@@ -1434,16 +1431,16 @@ namespace CefRenderHandlerExt {
 		int32_t myext_argCount;
 		cef_browser_t* browser;//1
 		cef_paint_element_type_t type;//2
-		std::vector<CefRect>& dirtyRects;//3
-		void* buffer;//4
+		const std::vector<CefRect>& dirtyRects;//3
+		const void* buffer;//4
 		int width;//5
 		int height;//6
 				   //
 		bool myext_created_from_Unwrap;
 		//
-		OnPaintArgs(cef_browser_t* browser, cef_paint_element_type_t type, std::vector<CefRect>& dirtyRects, void* buffer, int width, int height)
+		OnPaintArgs(cef_browser_t* browser, cef_paint_element_type_t type, const std::vector<CefRect>& dirtyRects, const void* buffer, int width, int height)
 			:myext_argCount(6), myext_created_from_Unwrap(false), browser(browser), type(type), dirtyRects(dirtyRects), buffer(buffer), width(width), height(height) {}
-		OnPaintArgs(CefRefPtr<CefBrowser> browser, cef_paint_element_type_t type, std::vector<CefRect>& dirtyRects, void* buffer, int width, int height)
+		OnPaintArgs(CefRefPtr<CefBrowser> browser, cef_paint_element_type_t type, const std::vector<CefRect>& dirtyRects, const void* buffer, int width, int height)
 			:myext_argCount(6), myext_created_from_Unwrap(true), browser(CefBrowserCToCpp::Unwrap(browser)), type(type), dirtyRects(dirtyRects), buffer(buffer), width(width), height(height) {}
 		~OnPaintArgs() {
 			if (myext_created_from_Unwrap) {
@@ -1457,13 +1454,13 @@ namespace CefRenderHandlerExt {
 		cef_browser_t* browser;//1
 		CefCursorHandle cursor;//2
 		cef_cursor_type_t type;//3
-		CefCursorInfo& custom_cursor_info;//4
-										  //
+		const CefCursorInfo& custom_cursor_info;//4
+												//
 		bool myext_created_from_Unwrap;
 		//
-		OnCursorChangeArgs(cef_browser_t* browser, CefCursorHandle cursor, cef_cursor_type_t type, CefCursorInfo& custom_cursor_info)
+		OnCursorChangeArgs(cef_browser_t* browser, CefCursorHandle cursor, cef_cursor_type_t type, const CefCursorInfo& custom_cursor_info)
 			:myext_argCount(4), myext_created_from_Unwrap(false), browser(browser), cursor(cursor), type(type), custom_cursor_info(custom_cursor_info) {}
-		OnCursorChangeArgs(CefRefPtr<CefBrowser> browser, CefCursorHandle cursor, cef_cursor_type_t type, CefCursorInfo& custom_cursor_info)
+		OnCursorChangeArgs(CefRefPtr<CefBrowser> browser, CefCursorHandle cursor, cef_cursor_type_t type, const CefCursorInfo& custom_cursor_info)
 			:myext_argCount(4), myext_created_from_Unwrap(true), browser(CefBrowserCToCpp::Unwrap(browser)), cursor(cursor), type(type), custom_cursor_info(custom_cursor_info) {}
 		~OnCursorChangeArgs() {
 			if (myext_created_from_Unwrap) {
@@ -1535,14 +1532,14 @@ namespace CefRenderHandlerExt {
 	public:
 		int32_t myext_argCount;
 		cef_browser_t* browser;//1
-		CefRange& selected_range;//2
-		std::vector<CefRect>& character_bounds;//3
-											   //
+		const CefRange& selected_range;//2
+		const std::vector<CefRect>& character_bounds;//3
+													 //
 		bool myext_created_from_Unwrap;
 		//
-		OnImeCompositionRangeChangedArgs(cef_browser_t* browser, CefRange& selected_range, std::vector<CefRect>& character_bounds)
+		OnImeCompositionRangeChangedArgs(cef_browser_t* browser, const CefRange& selected_range, const std::vector<CefRect>& character_bounds)
 			:myext_argCount(3), myext_created_from_Unwrap(false), browser(browser), selected_range(selected_range), character_bounds(character_bounds) {}
-		OnImeCompositionRangeChangedArgs(CefRefPtr<CefBrowser> browser, CefRange& selected_range, std::vector<CefRect>& character_bounds)
+		OnImeCompositionRangeChangedArgs(CefRefPtr<CefBrowser> browser, const CefRange& selected_range, const std::vector<CefRect>& character_bounds)
 			:myext_argCount(3), myext_created_from_Unwrap(true), browser(CefBrowserCToCpp::Unwrap(browser)), selected_range(selected_range), character_bounds(character_bounds) {}
 		~OnImeCompositionRangeChangedArgs() {
 			if (myext_created_from_Unwrap) {
@@ -1816,18 +1813,18 @@ namespace CefRequestContextHandlerExt {
 	public:
 		int32_t myext_argCount;
 		bool myext_ret_value; //0
-		CefString& mime_type;//1
-		CefString& plugin_url;//2
+		const CefString& mime_type;//1
+		const CefString& plugin_url;//2
 		bool is_main_frame;//3
-		CefString& top_origin_url;//4
+		const CefString& top_origin_url;//4
 		cef_web_plugin_info_t* plugin_info;//5
 		cef_plugin_policy_t* plugin_policy;//6
 										   //
 		bool myext_created_from_Unwrap;
 		//
-		OnBeforePluginLoadArgs(CefString& mime_type, CefString& plugin_url, bool is_main_frame, CefString& top_origin_url, cef_web_plugin_info_t* plugin_info, cef_plugin_policy_t* plugin_policy)
+		OnBeforePluginLoadArgs(const CefString& mime_type, const CefString& plugin_url, bool is_main_frame, const CefString& top_origin_url, cef_web_plugin_info_t* plugin_info, cef_plugin_policy_t* plugin_policy)
 			:myext_argCount(6), myext_created_from_Unwrap(false), myext_ret_value(0), mime_type(mime_type), plugin_url(plugin_url), is_main_frame(is_main_frame), top_origin_url(top_origin_url), plugin_info(plugin_info), plugin_policy(plugin_policy) {}
-		OnBeforePluginLoadArgs(CefString& mime_type, CefString& plugin_url, bool is_main_frame, CefString& top_origin_url, CefRefPtr<CefWebPluginInfo> plugin_info, cef_plugin_policy_t* plugin_policy)
+		OnBeforePluginLoadArgs(const CefString& mime_type, const CefString& plugin_url, bool is_main_frame, const CefString& top_origin_url, CefRefPtr<CefWebPluginInfo> plugin_info, cef_plugin_policy_t* plugin_policy)
 			:myext_argCount(6), myext_created_from_Unwrap(true), myext_ret_value(0), mime_type(mime_type), plugin_url(plugin_url), is_main_frame(is_main_frame), top_origin_url(top_origin_url), plugin_info(CefWebPluginInfoCToCpp::Unwrap(plugin_info)), plugin_policy(plugin_policy) {}
 		~OnBeforePluginLoadArgs() {
 			if (myext_created_from_Unwrap) {
@@ -1917,15 +1914,15 @@ namespace CefRequestHandlerExt {
 		bool myext_ret_value; //0
 		cef_browser_t* browser;//1
 		cef_frame_t* frame;//2
-		CefString& target_url;//3
+		const CefString& target_url;//3
 		cef_window_open_disposition_t target_disposition;//4
 		bool user_gesture;//5
 						  //
 		bool myext_created_from_Unwrap;
 		//
-		OnOpenURLFromTabArgs(cef_browser_t* browser, cef_frame_t* frame, CefString& target_url, cef_window_open_disposition_t target_disposition, bool user_gesture)
+		OnOpenURLFromTabArgs(cef_browser_t* browser, cef_frame_t* frame, const CefString& target_url, cef_window_open_disposition_t target_disposition, bool user_gesture)
 			:myext_argCount(5), myext_created_from_Unwrap(false), myext_ret_value(0), browser(browser), frame(frame), target_url(target_url), target_disposition(target_disposition), user_gesture(user_gesture) {}
-		OnOpenURLFromTabArgs(CefRefPtr<CefBrowser> browser, CefRefPtr<CefFrame> frame, CefString& target_url, cef_window_open_disposition_t target_disposition, bool user_gesture)
+		OnOpenURLFromTabArgs(CefRefPtr<CefBrowser> browser, CefRefPtr<CefFrame> frame, const CefString& target_url, cef_window_open_disposition_t target_disposition, bool user_gesture)
 			:myext_argCount(5), myext_created_from_Unwrap(true), myext_ret_value(0), browser(CefBrowserCToCpp::Unwrap(browser)), frame(CefFrameCToCpp::Unwrap(frame)), target_url(target_url), target_disposition(target_disposition), user_gesture(user_gesture) {}
 		~OnOpenURLFromTabArgs() {
 			if (myext_created_from_Unwrap) {
@@ -2084,17 +2081,17 @@ namespace CefRequestHandlerExt {
 		cef_browser_t* browser;//1
 		cef_frame_t* frame;//2
 		bool isProxy;//3
-		CefString& host;//4
+		const CefString& host;//4
 		int port;//5
-		CefString& realm;//6
-		CefString& scheme;//7
+		const CefString& realm;//6
+		const CefString& scheme;//7
 		cef_auth_callback_t* callback;//8
 									  //
 		bool myext_created_from_Unwrap;
 		//
-		GetAuthCredentialsArgs(cef_browser_t* browser, cef_frame_t* frame, bool isProxy, CefString& host, int port, CefString& realm, CefString& scheme, cef_auth_callback_t* callback)
+		GetAuthCredentialsArgs(cef_browser_t* browser, cef_frame_t* frame, bool isProxy, const CefString& host, int port, const CefString& realm, const CefString& scheme, cef_auth_callback_t* callback)
 			:myext_argCount(8), myext_created_from_Unwrap(false), myext_ret_value(0), browser(browser), frame(frame), isProxy(isProxy), host(host), port(port), realm(realm), scheme(scheme), callback(callback) {}
-		GetAuthCredentialsArgs(CefRefPtr<CefBrowser> browser, CefRefPtr<CefFrame> frame, bool isProxy, CefString& host, int port, CefString& realm, CefString& scheme, CefRefPtr<CefAuthCallback> callback)
+		GetAuthCredentialsArgs(CefRefPtr<CefBrowser> browser, CefRefPtr<CefFrame> frame, bool isProxy, const CefString& host, int port, const CefString& realm, const CefString& scheme, CefRefPtr<CefAuthCallback> callback)
 			:myext_argCount(8), myext_created_from_Unwrap(true), myext_ret_value(0), browser(CefBrowserCToCpp::Unwrap(browser)), frame(CefFrameCToCpp::Unwrap(frame)), isProxy(isProxy), host(host), port(port), realm(realm), scheme(scheme), callback(CefAuthCallbackCToCpp::Unwrap(callback)) {}
 		~GetAuthCredentialsArgs() {
 			if (myext_created_from_Unwrap) {
@@ -2109,15 +2106,15 @@ namespace CefRequestHandlerExt {
 		int32_t myext_argCount;
 		bool myext_ret_value; //0
 		cef_browser_t* browser;//1
-		CefString& origin_url;//2
+		const CefString& origin_url;//2
 		int64 new_size;//3
 		cef_request_callback_t* callback;//4
 										 //
 		bool myext_created_from_Unwrap;
 		//
-		OnQuotaRequestArgs(cef_browser_t* browser, CefString& origin_url, int64 new_size, cef_request_callback_t* callback)
+		OnQuotaRequestArgs(cef_browser_t* browser, const CefString& origin_url, int64 new_size, cef_request_callback_t* callback)
 			:myext_argCount(4), myext_created_from_Unwrap(false), myext_ret_value(0), browser(browser), origin_url(origin_url), new_size(new_size), callback(callback) {}
-		OnQuotaRequestArgs(CefRefPtr<CefBrowser> browser, CefString& origin_url, int64 new_size, CefRefPtr<CefRequestCallback> callback)
+		OnQuotaRequestArgs(CefRefPtr<CefBrowser> browser, const CefString& origin_url, int64 new_size, CefRefPtr<CefRequestCallback> callback)
 			:myext_argCount(4), myext_created_from_Unwrap(true), myext_ret_value(0), browser(CefBrowserCToCpp::Unwrap(browser)), origin_url(origin_url), new_size(new_size), callback(CefRequestCallbackCToCpp::Unwrap(callback)) {}
 		~OnQuotaRequestArgs() {
 			if (myext_created_from_Unwrap) {
@@ -2130,14 +2127,14 @@ namespace CefRequestHandlerExt {
 	public:
 		int32_t myext_argCount;
 		cef_browser_t* browser;//1
-		CefString& url;//2
+		const CefString& url;//2
 		bool& allow_os_execution;//3
 								 //
 		bool myext_created_from_Unwrap;
 		//
-		OnProtocolExecutionArgs(cef_browser_t* browser, CefString& url, bool& allow_os_execution)
+		OnProtocolExecutionArgs(cef_browser_t* browser, const CefString& url, bool& allow_os_execution)
 			:myext_argCount(3), myext_created_from_Unwrap(false), browser(browser), url(url), allow_os_execution(allow_os_execution) {}
-		OnProtocolExecutionArgs(CefRefPtr<CefBrowser> browser, CefString& url, bool& allow_os_execution)
+		OnProtocolExecutionArgs(CefRefPtr<CefBrowser> browser, const CefString& url, bool& allow_os_execution)
 			:myext_argCount(3), myext_created_from_Unwrap(true), browser(CefBrowserCToCpp::Unwrap(browser)), url(url), allow_os_execution(allow_os_execution) {}
 		~OnProtocolExecutionArgs() {
 			if (myext_created_from_Unwrap) {
@@ -2151,15 +2148,15 @@ namespace CefRequestHandlerExt {
 		bool myext_ret_value; //0
 		cef_browser_t* browser;//1
 		cef_errorcode_t cert_error;//2
-		CefString& request_url;//3
+		const CefString& request_url;//3
 		cef_sslinfo_t* ssl_info;//4
 		cef_request_callback_t* callback;//5
 										 //
 		bool myext_created_from_Unwrap;
 		//
-		OnCertificateErrorArgs(cef_browser_t* browser, cef_errorcode_t cert_error, CefString& request_url, cef_sslinfo_t* ssl_info, cef_request_callback_t* callback)
+		OnCertificateErrorArgs(cef_browser_t* browser, cef_errorcode_t cert_error, const CefString& request_url, cef_sslinfo_t* ssl_info, cef_request_callback_t* callback)
 			:myext_argCount(5), myext_created_from_Unwrap(false), myext_ret_value(0), browser(browser), cert_error(cert_error), request_url(request_url), ssl_info(ssl_info), callback(callback) {}
-		OnCertificateErrorArgs(CefRefPtr<CefBrowser> browser, cef_errorcode_t cert_error, CefString& request_url, CefRefPtr<CefSSLInfo> ssl_info, CefRefPtr<CefRequestCallback> callback)
+		OnCertificateErrorArgs(CefRefPtr<CefBrowser> browser, cef_errorcode_t cert_error, const CefString& request_url, CefRefPtr<CefSSLInfo> ssl_info, CefRefPtr<CefRequestCallback> callback)
 			:myext_argCount(5), myext_created_from_Unwrap(true), myext_ret_value(0), browser(CefBrowserCToCpp::Unwrap(browser)), cert_error(cert_error), request_url(request_url), ssl_info(CefSSLInfoCToCpp::Unwrap(ssl_info)), callback(CefRequestCallbackCToCpp::Unwrap(callback)) {}
 		~OnCertificateErrorArgs() {
 			if (myext_created_from_Unwrap) {
@@ -2175,16 +2172,16 @@ namespace CefRequestHandlerExt {
 		bool myext_ret_value; //0
 		cef_browser_t* browser;//1
 		bool isProxy;//2
-		CefString& host;//3
+		const CefString& host;//3
 		int port;//4
-		std::vector<CefRefPtr<CefX509Certificate>>& certificates;//5
+		const std::vector<CefRefPtr<CefX509Certificate>>& certificates;//5
 		cef_select_client_certificate_callback_t* callback;//6
 														   //
 		bool myext_created_from_Unwrap;
 		//
-		OnSelectClientCertificateArgs(cef_browser_t* browser, bool isProxy, CefString& host, int port, std::vector<CefRefPtr<CefX509Certificate>>& certificates, cef_select_client_certificate_callback_t* callback)
+		OnSelectClientCertificateArgs(cef_browser_t* browser, bool isProxy, const CefString& host, int port, const std::vector<CefRefPtr<CefX509Certificate>>& certificates, cef_select_client_certificate_callback_t* callback)
 			:myext_argCount(6), myext_created_from_Unwrap(false), myext_ret_value(0), browser(browser), isProxy(isProxy), host(host), port(port), certificates(certificates), callback(callback) {}
-		OnSelectClientCertificateArgs(CefRefPtr<CefBrowser> browser, bool isProxy, CefString& host, int port, std::vector<CefRefPtr<CefX509Certificate>>& certificates, CefRefPtr<CefSelectClientCertificateCallback> callback)
+		OnSelectClientCertificateArgs(CefRefPtr<CefBrowser> browser, bool isProxy, const CefString& host, int port, const std::vector<CefRefPtr<CefX509Certificate>>& certificates, CefRefPtr<CefSelectClientCertificateCallback> callback)
 			:myext_argCount(6), myext_created_from_Unwrap(true), myext_ret_value(0), browser(CefBrowserCToCpp::Unwrap(browser)), isProxy(isProxy), host(host), port(port), certificates(certificates), callback(CefSelectClientCertificateCallbackCToCpp::Unwrap(callback)) {}
 		~OnSelectClientCertificateArgs() {
 			if (myext_created_from_Unwrap) {
@@ -2197,13 +2194,13 @@ namespace CefRequestHandlerExt {
 	public:
 		int32_t myext_argCount;
 		cef_browser_t* browser;//1
-		CefString& plugin_path;//2
-							   //
+		const CefString& plugin_path;//2
+									 //
 		bool myext_created_from_Unwrap;
 		//
-		OnPluginCrashedArgs(cef_browser_t* browser, CefString& plugin_path)
+		OnPluginCrashedArgs(cef_browser_t* browser, const CefString& plugin_path)
 			:myext_argCount(2), myext_created_from_Unwrap(false), browser(browser), plugin_path(plugin_path) {}
-		OnPluginCrashedArgs(CefRefPtr<CefBrowser> browser, CefString& plugin_path)
+		OnPluginCrashedArgs(CefRefPtr<CefBrowser> browser, const CefString& plugin_path)
 			:myext_argCount(2), myext_created_from_Unwrap(true), browser(CefBrowserCToCpp::Unwrap(browser)), plugin_path(plugin_path) {}
 		~OnPluginCrashedArgs() {
 			if (myext_created_from_Unwrap) {
@@ -2386,22 +2383,22 @@ namespace CefResourceHandlerExt {
 	public:
 		int32_t myext_argCount;
 		bool myext_ret_value; //0
-		CefCookie& cookie;//1
-						  //
+		const CefCookie& cookie;//1
+								//
 		bool myext_created_from_Unwrap;
 		//
-		CanGetCookieArgs(CefCookie& cookie)
+		CanGetCookieArgs(const CefCookie& cookie)
 			:myext_argCount(1), myext_created_from_Unwrap(false), myext_ret_value(0), cookie(cookie) {}
 	};
 	class CanSetCookieArgs {
 	public:
 		int32_t myext_argCount;
 		bool myext_ret_value; //0
-		CefCookie& cookie;//1
-						  //
+		const CefCookie& cookie;//1
+								//
 		bool myext_created_from_Unwrap;
 		//
-		CanSetCookieArgs(CefCookie& cookie)
+		CanSetCookieArgs(const CefCookie& cookie)
 			:myext_argCount(1), myext_created_from_Unwrap(false), myext_ret_value(0), cookie(cookie) {}
 	};
 	class CancelArgs {
@@ -2512,13 +2509,13 @@ namespace CefWriteHandlerExt {
 	public:
 		int32_t myext_argCount;
 		size_t myext_ret_value; //0
-		void* ptr;//1
+		const void* ptr;//1
 		size_t size;//2
 		size_t n;//3
 				 //
 		bool myext_created_from_Unwrap;
 		//
-		WriteArgs(void* ptr, size_t size, size_t n)
+		WriteArgs(const void* ptr, size_t size, size_t n)
 			:myext_argCount(3), myext_created_from_Unwrap(false), myext_ret_value(0), ptr(ptr), size(size), n(n) {}
 	};
 	class SeekArgs {
@@ -2575,17 +2572,17 @@ namespace CefV8HandlerExt {
 	public:
 		int32_t myext_argCount;
 		bool myext_ret_value; //0
-		CefString& name;//1
+		const CefString& name;//1
 		cef_v8value_t* _object;//2
-		CefV8ValueList& arguments;//3
+		const CefV8ValueList& arguments;//3
 		CefRefPtr<CefV8Value>& retval;//4
 		CefString& exception;//5
 							 //
 		bool myext_created_from_Unwrap;
 		//
-		ExecuteArgs(CefString& name, cef_v8value_t* _object, CefV8ValueList& arguments, CefRefPtr<CefV8Value>& retval, CefString& exception)
+		ExecuteArgs(const CefString& name, cef_v8value_t* _object, const CefV8ValueList& arguments, CefRefPtr<CefV8Value>& retval, CefString& exception)
 			:myext_argCount(5), myext_created_from_Unwrap(false), myext_ret_value(0), name(name), _object(_object), arguments(arguments), retval(retval), exception(exception) {}
-		ExecuteArgs(CefString& name, CefRefPtr<CefV8Value> _object, CefV8ValueList& arguments, CefRefPtr<CefV8Value>& retval, CefString& exception)
+		ExecuteArgs(const CefString& name, CefRefPtr<CefV8Value> _object, const CefV8ValueList& arguments, CefRefPtr<CefV8Value>& retval, CefString& exception)
 			:myext_argCount(5), myext_created_from_Unwrap(true), myext_ret_value(0), name(name), _object(CefV8ValueCToCpp::Unwrap(_object)), arguments(arguments), retval(retval), exception(exception) {}
 		~ExecuteArgs() {
 			if (myext_created_from_Unwrap) {
