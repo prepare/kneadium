@@ -8145,9 +8145,15 @@ void MyCefMet_CefRegisterCdmCallback(cef_register_cdm_callback_t* me1, int metNa
 	CefRegisterCdmCallbackCppToC::Wrap(me);
 }
 namespace CefAccessibilityHandlerExt {
-	//gen! void OnAccessibilityTreeChange(CefRefPtr<CefValue> value)
+	//gen! void OnAccessibilityTreeChange(CefRefPtr<CefValue> value) 
 	void OnAccessibilityTreeChange(managed_callback mcallback, CefRefPtr<CefValue> value) {
 		if (mcallback) {
+
+			//test 1
+			OnAccessibilityTreeChangeArgs args1(value);
+			mcallback((_typeName << 16) | CefAccessibilityHandlerExt_OnAccessibilityTreeChange_1, &args1);
+			//------------------------
+			//test 2
 			MyMetArgsN args;
 			memset(&args, 0, sizeof(MyMetArgsN));
 			args.argCount = 1;
@@ -8163,6 +8169,11 @@ namespace CefAccessibilityHandlerExt {
 	//gen! void OnAccessibilityLocationChange(CefRefPtr<CefValue> value)
 	void OnAccessibilityLocationChange(managed_callback mcallback, CefRefPtr<CefValue> value) {
 		if (mcallback) {
+
+			//test1			 
+			OnAccessibilityLocationChangeArgs args1(value);
+			mcallback((_typeName << 16) | CefAccessibilityHandlerExt_OnAccessibilityLocationChange_2, &args1);
+			//test2
 			MyMetArgsN args;
 			memset(&args, 0, sizeof(MyMetArgsN));
 			args.argCount = 1;
