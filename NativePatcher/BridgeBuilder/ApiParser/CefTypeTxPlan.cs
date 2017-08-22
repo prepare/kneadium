@@ -429,18 +429,24 @@ namespace BridgeBuilder
 
                                                 if (stackBased)
                                                 {
-
-
-
                                                     if (implBy.Name.Contains("CToCpp"))
                                                     {
                                                         //so if you want to send this to client lib
                                                         //you need to GET raw pointer , so =>
 
+                                                        //find result after extract 
+                                                        string unwrapType = txPlan.UnderlyingCType.ToString();
+                                                        //since this is CefRefPtr
+
+
+                                                        //so after ElementType we should get pointer of the underlying element 
                                                         string auto_p = "p_" + par.Name;
-                                                        par.ArgPreExtractCode = "auto " + auto_p + "=" + implBy.Name + "::Unwrap" + "(" + srcExpression + ");"; //unwrap
+                                                        par.CppUnwrapType = unwrapType + "*";
+                                                        par.CppUnwrapMethod = implBy.Name + "::Unwrap";
+                                                        //
+                                                        par.ArgPreExtractCode = "auto " + auto_p + "=" + par.CppUnwrapMethod + "(" + srcExpression + ");"; //unwrap
                                                         par.ArgExtractCode = "MyCefSetVoidPtr(" + destExpression + "," + auto_p + ");";
-                                                        par.ArgPostExtractCode = implBy.Name + "::Wrap" + "(" + auto_p + ");"; //wrap 
+                                                        par.ArgPostExtractCode = implBy.Name + "::Wrap" + "(" + auto_p + ");"; //wrap                                                        
 
                                                     }
                                                     else if (implBy.Name.Contains("CppToC"))
@@ -2614,7 +2620,14 @@ namespace BridgeBuilder
                 //move this to method
                 CodeMethodParameter par = pars[i];
                 MethodParameterTxInfo parTx = met.pars[i];
-                stbuilder.Append(parTx.TypeSymbol.ToString());
+                if (parTx.CppUnwrapType != null)
+                {
+                    stbuilder.Append(parTx.CppUnwrapType);
+                }
+                else
+                {
+                    stbuilder.Append(parTx.TypeSymbol.ToString());
+                }
                 stbuilder.Append(" ");
                 stbuilder.Append(parTx.Name);
                 stbuilder.AppendLine(";//" + (i + 1));
@@ -2637,7 +2650,14 @@ namespace BridgeBuilder
                 //move this to method
                 CodeMethodParameter par = pars[i];
                 MethodParameterTxInfo parTx = met.pars[i];
-                stbuilder.Append(parTx.TypeSymbol.ToString());
+                if (parTx.CppUnwrapType != null)
+                {
+                    stbuilder.Append(parTx.CppUnwrapType);
+                }
+                else
+                {
+                    stbuilder.Append(parTx.TypeSymbol.ToString());
+                }
                 stbuilder.Append(" ");
                 stbuilder.Append(parTx.Name);
             }
@@ -2645,7 +2665,7 @@ namespace BridgeBuilder
             //ctor's initialization
             stbuilder.Append(":");
             stbuilder.Append("myext_argCount(" + j + ")");
-            stbuilder.Append(",myext_created_from_Unwrap(false)");
+            stbuilder.Append(",myext_created_from_Unwrap(false)"); //not from unwrap
             if (!met.ReturnPlan.IsVoid)
             {
                 //set init return value
@@ -2696,14 +2716,22 @@ namespace BridgeBuilder
                 //
                 CodeMethodParameter par = pars[i];
                 MethodParameterTxInfo parTx = met.pars[i];
-                stbuilder.Append(parTx.Name);
-                stbuilder.Append("(" + parTx.Name + ")");
+                stbuilder.Append(parTx.Name); //same name as field name
+                stbuilder.Append("(");
+
+                if (parTx.CppUnwrapType != null)
+                {
+                    stbuilder.Append(parTx.CppUnwrapMethod + "(" + parTx.Name + ")");
+                }
+                else
+                {
+                    stbuilder.Append(parTx.Name);
+                }
+                stbuilder.Append(")");
             }
             stbuilder.AppendLine("{}");//ctor's body --> empty
 
-
-
-            stbuilder.AppendLine("}"); //struct 
+            stbuilder.AppendLine("};"); //close cpp's class
             return className;
         }
 
@@ -3589,7 +3617,6 @@ namespace BridgeBuilder
             {
                 //implement on event notificationi
                 MethodTxInfo met = callToDotNetMets[mm];
-
                 PrepareCsMetPars(met);
                 stbuilder.AppendLine("const int " + met.CppMethodSwitchCaseName + "= " + (mm + 1) + ";");
             }
@@ -3607,7 +3634,10 @@ namespace BridgeBuilder
                 met.CsArgClassName = argClassName;
                 //GenerateCsSingleArgMethodImpl(argClassName, met, stbuilder); 
 
-                GenerateCppMethodArgsClass(met, stbuilder);
+                CodeStringBuilder metArgStBuilder = new CodeStringBuilder();
+                GenerateCppMethodArgsClass(met, metArgStBuilder);
+
+                stbuilder.Append(metArgStBuilder.ToString());
             }
 
             //------------------------------            
@@ -4159,6 +4189,7 @@ namespace BridgeBuilder
             //-------------------------------------------
             if (callToDotNetMets.Count > 0)
             {
+
                 GenerateCppImplClass(orgDecl, callToDotNetMets, stbuilder);
             }
         }
