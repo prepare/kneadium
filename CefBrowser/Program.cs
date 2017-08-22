@@ -7,38 +7,7 @@ namespace LayoutFarm.CefBridge
 {
     static class Program
     {
-        static void CheckNativeLibs()
-        {
-            //where are native lib/exe. 
-            //set proper dir here
-            //depend on what you want
-            //1. nearest local dir
-            //2. common dir  
-            //string currrentExecPath = System.IO.Path.GetDirectoryName(Application.ExecutablePath);
-            //string commonAppDir = System.IO.Path.GetDirectoryName(Application.CommonAppDataPath);//skip version
-            //------  
-            //ReferencePaths.LIB_PATH = @"D:\projects/cef_3_3071.1647/win64";
-            //ReferencePaths.LIB_PATH = @"D:\projects\cef_binary_3.3071.1647.win64build\tests\cefclient\Release";
-#if DEBUG
-            ReferencePaths.LIB_PATH = @"D:\projects\cef_binary_3.3071.1647.win32build\tests\cefclient\Debug";
-#else
-            ReferencePaths.LIB_PATH = @"D:\projects\cef_binary_3.3071.1647.win32build\tests\cefclient\Release";
-#endif  
-            //ReferencePaths.SUB_PROCESS_PATH = ReferencePaths.LIB_PATH + "/CefBwSp.exe";
-            ReferencePaths.SUB_PROCESS_PATH = "CefBwSp.exe";
-            //---------------
-            ReferencePaths.OUTPUT_DIR = @"../../../_output";//dir
-            ReferencePaths.LOG_PATH = ReferencePaths.OUTPUT_DIR + "/cef_console.log"; //file
-            ReferencePaths.CACHE_PATH = ReferencePaths.OUTPUT_DIR + "/cef_cache"; //dir
-            ReferencePaths.SAVE_IMAGE_PATH = ReferencePaths.OUTPUT_DIR + "/snap02"; //dir
-
-            if (!System.IO.Directory.Exists(ReferencePaths.OUTPUT_DIR))
-            {
-                System.IO.Directory.CreateDirectory(ReferencePaths.OUTPUT_DIR);
-            }
-
-
-        }
+       
 
         /// <summary>
         /// The main entry point for the application.
@@ -51,7 +20,7 @@ namespace LayoutFarm.CefBridge
             //so before load anything we should check  
             //  if essential libs are available
             //------------------------------------------
-            CheckNativeLibs();
+            LibFolderManager.CheckNativeLibs();
             //------------------------------------------
             //1. load cef before OLE init (eg init winform) ***
             //see more detail ...  MyCef3InitEssential

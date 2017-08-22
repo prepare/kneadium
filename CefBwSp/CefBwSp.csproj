@@ -84,6 +84,9 @@
     <Compile Include="..\CefBridge\WindowWrapper.cs">
       <Link>CefBridge\WindowWrapper.cs</Link>
     </Compile>
+    <Compile Include="..\CefBrowser\LibFolderManager.cs">
+      <Link>LibFolderManager.cs</Link>
+    </Compile>
     <Compile Include="CefBw\MyCef3InitEssential.cs" />
     <Compile Include="CefBw\MyCefRenderProcessListener.cs" />
     <Compile Include="Program.cs" />
