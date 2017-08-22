@@ -2745,9 +2745,12 @@ namespace BridgeBuilder
                     }
                 }
                 stbuilder.AppendLine("}");
-                stbuilder.AppendLine("}");
             }
-
+            //-----------------------------
+            //private disallow copy
+            stbuilder.AppendLine("private:");
+            stbuilder.AppendLine("DISALLOW_COPY_AND_ASSIGN(" + className + ");");
+            
             //-----------------------------
             stbuilder.AppendLine("};"); //close cpp's class
             return className;
