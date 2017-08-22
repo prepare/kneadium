@@ -219,6 +219,7 @@ namespace BridgeBuilder
         internal string InnerTypeName { get; set; } //temp
         internal string CppUnwrapType { get; set; }
         internal string CppUnwrapMethod { get; set; }
+        internal string CppWrapMethod { get; set; }
         internal void ClearExtractCode()
         {
             ArgByRef = false; //temp

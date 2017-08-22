@@ -709,7 +709,7 @@ namespace BridgeBuilder
                 stbuilder = new CodeStringBuilder();
                 tx.GenerateCsCode(stbuilder);
                 csCodeStBuilder.Append(stbuilder.ToString());
-                //no default implementation handler class                 
+                //no default implementation handler class       
             }
 
 
