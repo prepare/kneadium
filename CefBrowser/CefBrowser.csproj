@@ -135,6 +135,7 @@
     <Compile Include="CefBridge\CefWebBrowser.cs">
       <SubType>Component</SubType>
     </Compile>
+    <Compile Include="LibFolderManager.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <EmbeddedResource Include="Forms\Form1.resx">
