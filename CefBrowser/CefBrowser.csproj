@@ -120,19 +120,19 @@
     <Compile Include="..\CefBridge\WindowWrapper.cs">
       <Link>CefBridgeCore\WindowWrapper.cs</Link>
     </Compile>
-    <Compile Include="CefBridge\MyCef3InitEssential.cs" />
-    <Compile Include="CefBridge\MyCef3WinForms.cs" />
-    <Compile Include="CefBridge\MyCefRenderProcessListener.cs" />
-    <Compile Include="CefBridge\MyCefUIListener.cs" />
-    <Compile Include="CefBridge\WindowControlImpl.cs" />
-    <Compile Include="CefBridge\WinFormsMsgLoopPump.cs" />
+    <Compile Include="CefImpl\MyCef3InitEssential.cs" />
+    <Compile Include="CefImpl\MyCef3WinForms.cs" />
+    <Compile Include="CefImpl\MyCefRenderProcessListener.cs" />
+    <Compile Include="CefImpl\MyCefUIListener.cs" />
+    <Compile Include="CefImpl\WindowControlImpl.cs" />
+    <Compile Include="CefImpl\WinFormsMsgLoopPump.cs" />
     <Compile Include="Forms\Form1.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="Forms\Form1.Designer.cs">
       <DependentUpon>Form1.cs</DependentUpon>
     </Compile>
-    <Compile Include="CefBridge\CefWebBrowser.cs">
+    <Compile Include="CefImpl\CefWebBrowser.cs">
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="LibFolderManager.cs" />
