@@ -3320,7 +3320,7 @@ namespace BridgeBuilder
 
             stbuilder.AppendLine(@"int arg_flags;
                         this.nativePtr = MyMetArgs.GetNativeObjPtr(nativePtr,out arg_flags);
-                        this._isJsSlot = ((arg_flags >> 18) & 1) ==1;
+                        this._isJsSlot = ((arg_flags >> 18) & 1) ==0;
                         "
                         );
 

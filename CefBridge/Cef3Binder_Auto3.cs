@@ -9070,6 +9070,7 @@ namespace LayoutFarm.CefBridge.Auto
             JsValue ret;
 
             Cef3Binder.MyCefMet_Call0(this.nativePtr, CefRequestContext_GetHandler_4, out ret);
+            // return new CefRequestContextHandler(ret.Ptr);
             throw new NotSupportedException();
         }
 
@@ -11577,6 +11578,7 @@ namespace LayoutFarm.CefBridge.Auto
 
             Cef3Binder.MyCefMet_Call0(this.nativePtr, CefV8Value_GetFunctionHandler_42, out ret);
             throw new NotSupportedException();
+            //return new CefV8Handler(ret.Ptr);
         }
 
         // gen! CefRefPtr<CefV8Value> ExecuteFunction(CefRefPtr<CefV8Value> object,const CefV8ValueList& arguments)
@@ -15483,7 +15485,7 @@ namespace LayoutFarm.CefBridge.Auto
             {
                 int arg_flags;
                 this.nativePtr = MyMetArgs.GetNativeObjPtr(nativePtr, out arg_flags);
-                this._isJsSlot = ((arg_flags >> 18) & 1) == 1;
+                this._isJsSlot = ((arg_flags >> 18) & 1) == 0;
 
             }
             public CefValue value()
@@ -15506,7 +15508,7 @@ namespace LayoutFarm.CefBridge.Auto
             {
                 int arg_flags;
                 this.nativePtr = MyMetArgs.GetNativeObjPtr(nativePtr, out arg_flags);
-                this._isJsSlot = ((arg_flags >> 18) & 1) == 1;
+                this._isJsSlot = ((arg_flags >> 18) & 1) == 0;
 
             }
             public CefValue value()
@@ -15593,7 +15595,7 @@ namespace LayoutFarm.CefBridge.Auto
             {
                 int arg_flags;
                 this.nativePtr = MyMetArgs.GetNativeObjPtr(nativePtr, out arg_flags);
-                this._isJsSlot = ((arg_flags >> 18) & 1) == 1;
+                this._isJsSlot = ((arg_flags >> 18) & 1) == 0;
 
             }
         }
@@ -15611,7 +15613,7 @@ namespace LayoutFarm.CefBridge.Auto
             {
                 int arg_flags;
                 this.nativePtr = MyMetArgs.GetNativeObjPtr(nativePtr, out arg_flags);
-                this._isJsSlot = ((arg_flags >> 18) & 1) == 1;
+                this._isJsSlot = ((arg_flags >> 18) & 1) == 0;
 
             }
             public CefCommandLine command_line()
@@ -15639,7 +15641,7 @@ namespace LayoutFarm.CefBridge.Auto
             {
                 int arg_flags;
                 this.nativePtr = MyMetArgs.GetNativeObjPtr(nativePtr, out arg_flags);
-                this._isJsSlot = ((arg_flags >> 18) & 1) == 1;
+                this._isJsSlot = ((arg_flags >> 18) & 1) == 0;
 
             }
             public CefListValue extra_info()
@@ -15667,7 +15669,7 @@ namespace LayoutFarm.CefBridge.Auto
             {
                 int arg_flags;
                 this.nativePtr = MyMetArgs.GetNativeObjPtr(nativePtr, out arg_flags);
-                this._isJsSlot = ((arg_flags >> 18) & 1) == 1;
+                this._isJsSlot = ((arg_flags >> 18) & 1) == 0;
 
             }
         }
@@ -15685,7 +15687,7 @@ namespace LayoutFarm.CefBridge.Auto
             {
                 int arg_flags;
                 this.nativePtr = MyMetArgs.GetNativeObjPtr(nativePtr, out arg_flags);
-                this._isJsSlot = ((arg_flags >> 18) & 1) == 1;
+                this._isJsSlot = ((arg_flags >> 18) & 1) == 0;
 
             }
             public long delay_ms()
@@ -15839,7 +15841,7 @@ namespace LayoutFarm.CefBridge.Auto
             {
                 int arg_flags;
                 this.nativePtr = MyMetArgs.GetNativeObjPtr(nativePtr, out arg_flags);
-                this._isJsSlot = ((arg_flags >> 18) & 1) == 1;
+                this._isJsSlot = ((arg_flags >> 18) & 1) == 0;
 
             }
             public CefBrowser browser()
@@ -15897,7 +15899,7 @@ namespace LayoutFarm.CefBridge.Auto
             {
                 int arg_flags;
                 this.nativePtr = MyMetArgs.GetNativeObjPtr(nativePtr, out arg_flags);
-                this._isJsSlot = ((arg_flags >> 18) & 1) == 1;
+                this._isJsSlot = ((arg_flags >> 18) & 1) == 0;
 
             }
             public CefBrowser browser()
@@ -15965,7 +15967,7 @@ namespace LayoutFarm.CefBridge.Auto
             {
                 int arg_flags;
                 this.nativePtr = MyMetArgs.GetNativeObjPtr(nativePtr, out arg_flags);
-                this._isJsSlot = ((arg_flags >> 18) & 1) == 1;
+                this._isJsSlot = ((arg_flags >> 18) & 1) == 0;
 
             }
             public CefBrowser browser()
@@ -16033,7 +16035,7 @@ namespace LayoutFarm.CefBridge.Auto
             {
                 int arg_flags;
                 this.nativePtr = MyMetArgs.GetNativeObjPtr(nativePtr, out arg_flags);
-                this._isJsSlot = ((arg_flags >> 18) & 1) == 1;
+                this._isJsSlot = ((arg_flags >> 18) & 1) == 0;
 
             }
             public CefBrowser browser()
@@ -16197,7 +16199,7 @@ namespace LayoutFarm.CefBridge.Auto
             {
                 int arg_flags;
                 this.nativePtr = MyMetArgs.GetNativeObjPtr(nativePtr, out arg_flags);
-                this._isJsSlot = ((arg_flags >> 18) & 1) == 1;
+                this._isJsSlot = ((arg_flags >> 18) & 1) == 0;
 
             }
             public CefBrowser browser()
@@ -16337,7 +16339,7 @@ namespace LayoutFarm.CefBridge.Auto
             {
                 int arg_flags;
                 this.nativePtr = MyMetArgs.GetNativeObjPtr(nativePtr, out arg_flags);
-                this._isJsSlot = ((arg_flags >> 18) & 1) == 1;
+                this._isJsSlot = ((arg_flags >> 18) & 1) == 0;
 
             }
             public CefBrowser browser()
@@ -16385,7 +16387,7 @@ namespace LayoutFarm.CefBridge.Auto
             {
                 int arg_flags;
                 this.nativePtr = MyMetArgs.GetNativeObjPtr(nativePtr, out arg_flags);
-                this._isJsSlot = ((arg_flags >> 18) & 1) == 1;
+                this._isJsSlot = ((arg_flags >> 18) & 1) == 0;
 
             }
             public CefBrowser browser()
@@ -16423,7 +16425,7 @@ namespace LayoutFarm.CefBridge.Auto
             {
                 int arg_flags;
                 this.nativePtr = MyMetArgs.GetNativeObjPtr(nativePtr, out arg_flags);
-                this._isJsSlot = ((arg_flags >> 18) & 1) == 1;
+                this._isJsSlot = ((arg_flags >> 18) & 1) == 0;
 
             }
             public CefBrowser browser()
@@ -16456,7 +16458,7 @@ namespace LayoutFarm.CefBridge.Auto
             {
                 int arg_flags;
                 this.nativePtr = MyMetArgs.GetNativeObjPtr(nativePtr, out arg_flags);
-                this._isJsSlot = ((arg_flags >> 18) & 1) == 1;
+                this._isJsSlot = ((arg_flags >> 18) & 1) == 0;
 
             }
             public CefBrowser browser()
@@ -16494,7 +16496,7 @@ namespace LayoutFarm.CefBridge.Auto
             {
                 int arg_flags;
                 this.nativePtr = MyMetArgs.GetNativeObjPtr(nativePtr, out arg_flags);
-                this._isJsSlot = ((arg_flags >> 18) & 1) == 1;
+                this._isJsSlot = ((arg_flags >> 18) & 1) == 0;
 
             }
             public CefBrowser browser()
@@ -16532,7 +16534,7 @@ namespace LayoutFarm.CefBridge.Auto
             {
                 int arg_flags;
                 this.nativePtr = MyMetArgs.GetNativeObjPtr(nativePtr, out arg_flags);
-                this._isJsSlot = ((arg_flags >> 18) & 1) == 1;
+                this._isJsSlot = ((arg_flags >> 18) & 1) == 0;
 
             }
             public CefBrowser browser()
@@ -16570,7 +16572,7 @@ namespace LayoutFarm.CefBridge.Auto
             {
                 int arg_flags;
                 this.nativePtr = MyMetArgs.GetNativeObjPtr(nativePtr, out arg_flags);
-                this._isJsSlot = ((arg_flags >> 18) & 1) == 1;
+                this._isJsSlot = ((arg_flags >> 18) & 1) == 0;
 
             }
             public CefBrowser browser()
@@ -16814,7 +16816,7 @@ namespace LayoutFarm.CefBridge.Auto
             {
                 int arg_flags;
                 this.nativePtr = MyMetArgs.GetNativeObjPtr(nativePtr, out arg_flags);
-                this._isJsSlot = ((arg_flags >> 18) & 1) == 1;
+                this._isJsSlot = ((arg_flags >> 18) & 1) == 0;
 
             }
             public CefBrowser browser()
@@ -16872,7 +16874,7 @@ namespace LayoutFarm.CefBridge.Auto
             {
                 int arg_flags;
                 this.nativePtr = MyMetArgs.GetNativeObjPtr(nativePtr, out arg_flags);
-                this._isJsSlot = ((arg_flags >> 18) & 1) == 1;
+                this._isJsSlot = ((arg_flags >> 18) & 1) == 0;
 
             }
             public CefBrowser browser()
@@ -16991,7 +16993,7 @@ namespace LayoutFarm.CefBridge.Auto
             {
                 int arg_flags;
                 this.nativePtr = MyMetArgs.GetNativeObjPtr(nativePtr, out arg_flags);
-                this._isJsSlot = ((arg_flags >> 18) & 1) == 1;
+                this._isJsSlot = ((arg_flags >> 18) & 1) == 0;
 
             }
             public CefBrowser browser()
@@ -17039,7 +17041,7 @@ namespace LayoutFarm.CefBridge.Auto
             {
                 int arg_flags;
                 this.nativePtr = MyMetArgs.GetNativeObjPtr(nativePtr, out arg_flags);
-                this._isJsSlot = ((arg_flags >> 18) & 1) == 1;
+                this._isJsSlot = ((arg_flags >> 18) & 1) == 0;
 
             }
             public CefBrowser browser()
@@ -17138,7 +17140,7 @@ namespace LayoutFarm.CefBridge.Auto
             {
                 int arg_flags;
                 this.nativePtr = MyMetArgs.GetNativeObjPtr(nativePtr, out arg_flags);
-                this._isJsSlot = ((arg_flags >> 18) & 1) == 1;
+                this._isJsSlot = ((arg_flags >> 18) & 1) == 0;
 
             }
             public CefBrowser browser()
@@ -17267,7 +17269,7 @@ namespace LayoutFarm.CefBridge.Auto
             {
                 int arg_flags;
                 this.nativePtr = MyMetArgs.GetNativeObjPtr(nativePtr, out arg_flags);
-                this._isJsSlot = ((arg_flags >> 18) & 1) == 1;
+                this._isJsSlot = ((arg_flags >> 18) & 1) == 0;
 
             }
             public CefBrowser browser()
@@ -17305,7 +17307,7 @@ namespace LayoutFarm.CefBridge.Auto
             {
                 int arg_flags;
                 this.nativePtr = MyMetArgs.GetNativeObjPtr(nativePtr, out arg_flags);
-                this._isJsSlot = ((arg_flags >> 18) & 1) == 1;
+                this._isJsSlot = ((arg_flags >> 18) & 1) == 0;
 
             }
             public CefBrowser browser()
@@ -17343,7 +17345,7 @@ namespace LayoutFarm.CefBridge.Auto
             {
                 int arg_flags;
                 this.nativePtr = MyMetArgs.GetNativeObjPtr(nativePtr, out arg_flags);
-                this._isJsSlot = ((arg_flags >> 18) & 1) == 1;
+                this._isJsSlot = ((arg_flags >> 18) & 1) == 0;
 
             }
             public CefBrowser browser()
@@ -17457,7 +17459,7 @@ namespace LayoutFarm.CefBridge.Auto
             {
                 int arg_flags;
                 this.nativePtr = MyMetArgs.GetNativeObjPtr(nativePtr, out arg_flags);
-                this._isJsSlot = ((arg_flags >> 18) & 1) == 1;
+                this._isJsSlot = ((arg_flags >> 18) & 1) == 0;
 
             }
             public CefBrowser browser()
@@ -17515,7 +17517,7 @@ namespace LayoutFarm.CefBridge.Auto
             {
                 int arg_flags;
                 this.nativePtr = MyMetArgs.GetNativeObjPtr(nativePtr, out arg_flags);
-                this._isJsSlot = ((arg_flags >> 18) & 1) == 1;
+                this._isJsSlot = ((arg_flags >> 18) & 1) == 0;
 
             }
             public CefBrowser browser()
@@ -17624,7 +17626,7 @@ namespace LayoutFarm.CefBridge.Auto
             {
                 int arg_flags;
                 this.nativePtr = MyMetArgs.GetNativeObjPtr(nativePtr, out arg_flags);
-                this._isJsSlot = ((arg_flags >> 18) & 1) == 1;
+                this._isJsSlot = ((arg_flags >> 18) & 1) == 0;
 
             }
             public CefBrowser browser()
@@ -17714,7 +17716,7 @@ namespace LayoutFarm.CefBridge.Auto
             {
                 int arg_flags;
                 this.nativePtr = MyMetArgs.GetNativeObjPtr(nativePtr, out arg_flags);
-                this._isJsSlot = ((arg_flags >> 18) & 1) == 1;
+                this._isJsSlot = ((arg_flags >> 18) & 1) == 0;
 
             }
             public CefBrowser browser()
@@ -17772,7 +17774,7 @@ namespace LayoutFarm.CefBridge.Auto
             {
                 int arg_flags;
                 this.nativePtr = MyMetArgs.GetNativeObjPtr(nativePtr, out arg_flags);
-                this._isJsSlot = ((arg_flags >> 18) & 1) == 1;
+                this._isJsSlot = ((arg_flags >> 18) & 1) == 0;
 
             }
             public CefBrowser browser()
@@ -17800,7 +17802,7 @@ namespace LayoutFarm.CefBridge.Auto
             {
                 int arg_flags;
                 this.nativePtr = MyMetArgs.GetNativeObjPtr(nativePtr, out arg_flags);
-                this._isJsSlot = ((arg_flags >> 18) & 1) == 1;
+                this._isJsSlot = ((arg_flags >> 18) & 1) == 0;
 
             }
             public CefBrowser browser()
@@ -17953,7 +17955,7 @@ namespace LayoutFarm.CefBridge.Auto
             {
                 int arg_flags;
                 this.nativePtr = MyMetArgs.GetNativeObjPtr(nativePtr, out arg_flags);
-                this._isJsSlot = ((arg_flags >> 18) & 1) == 1;
+                this._isJsSlot = ((arg_flags >> 18) & 1) == 0;
 
             }
             public CefBrowser browser()
@@ -18008,7 +18010,7 @@ namespace LayoutFarm.CefBridge.Auto
             {
                 int arg_flags;
                 this.nativePtr = MyMetArgs.GetNativeObjPtr(nativePtr, out arg_flags);
-                this._isJsSlot = ((arg_flags >> 18) & 1) == 1;
+                this._isJsSlot = ((arg_flags >> 18) & 1) == 0;
 
             }
             public CefBrowser browser()
@@ -18128,7 +18130,7 @@ namespace LayoutFarm.CefBridge.Auto
             {
                 int arg_flags;
                 this.nativePtr = MyMetArgs.GetNativeObjPtr(nativePtr, out arg_flags);
-                this._isJsSlot = ((arg_flags >> 18) & 1) == 1;
+                this._isJsSlot = ((arg_flags >> 18) & 1) == 0;
 
             }
             public CefBrowser browser()
@@ -18253,7 +18255,7 @@ namespace LayoutFarm.CefBridge.Auto
             {
                 int arg_flags;
                 this.nativePtr = MyMetArgs.GetNativeObjPtr(nativePtr, out arg_flags);
-                this._isJsSlot = ((arg_flags >> 18) & 1) == 1;
+                this._isJsSlot = ((arg_flags >> 18) & 1) == 0;
 
             }
             public CefBrowser browser()
@@ -18281,7 +18283,7 @@ namespace LayoutFarm.CefBridge.Auto
             {
                 int arg_flags;
                 this.nativePtr = MyMetArgs.GetNativeObjPtr(nativePtr, out arg_flags);
-                this._isJsSlot = ((arg_flags >> 18) & 1) == 1;
+                this._isJsSlot = ((arg_flags >> 18) & 1) == 0;
 
             }
             public CefBrowser browser()
@@ -18309,7 +18311,7 @@ namespace LayoutFarm.CefBridge.Auto
             {
                 int arg_flags;
                 this.nativePtr = MyMetArgs.GetNativeObjPtr(nativePtr, out arg_flags);
-                this._isJsSlot = ((arg_flags >> 18) & 1) == 1;
+                this._isJsSlot = ((arg_flags >> 18) & 1) == 0;
 
             }
             public CefBrowser browser()
@@ -18466,7 +18468,7 @@ namespace LayoutFarm.CefBridge.Auto
             {
                 int arg_flags;
                 this.nativePtr = MyMetArgs.GetNativeObjPtr(nativePtr, out arg_flags);
-                this._isJsSlot = ((arg_flags >> 18) & 1) == 1;
+                this._isJsSlot = ((arg_flags >> 18) & 1) == 0;
 
             }
             public CefBrowser browser()
@@ -18524,7 +18526,7 @@ namespace LayoutFarm.CefBridge.Auto
             {
                 int arg_flags;
                 this.nativePtr = MyMetArgs.GetNativeObjPtr(nativePtr, out arg_flags);
-                this._isJsSlot = ((arg_flags >> 18) & 1) == 1;
+                this._isJsSlot = ((arg_flags >> 18) & 1) == 0;
 
             }
             public CefBrowser browser()
@@ -18572,7 +18574,7 @@ namespace LayoutFarm.CefBridge.Auto
             {
                 int arg_flags;
                 this.nativePtr = MyMetArgs.GetNativeObjPtr(nativePtr, out arg_flags);
-                this._isJsSlot = ((arg_flags >> 18) & 1) == 1;
+                this._isJsSlot = ((arg_flags >> 18) & 1) == 0;
 
             }
             public CefBrowser browser()
@@ -18620,7 +18622,7 @@ namespace LayoutFarm.CefBridge.Auto
             {
                 int arg_flags;
                 this.nativePtr = MyMetArgs.GetNativeObjPtr(nativePtr, out arg_flags);
-                this._isJsSlot = ((arg_flags >> 18) & 1) == 1;
+                this._isJsSlot = ((arg_flags >> 18) & 1) == 0;
 
             }
             public CefBrowser browser()
@@ -18817,7 +18819,7 @@ namespace LayoutFarm.CefBridge.Auto
             {
                 int arg_flags;
                 this.nativePtr = MyMetArgs.GetNativeObjPtr(nativePtr, out arg_flags);
-                this._isJsSlot = ((arg_flags >> 18) & 1) == 1;
+                this._isJsSlot = ((arg_flags >> 18) & 1) == 0;
 
             }
             public CefBrowser browser()
@@ -18845,7 +18847,7 @@ namespace LayoutFarm.CefBridge.Auto
             {
                 int arg_flags;
                 this.nativePtr = MyMetArgs.GetNativeObjPtr(nativePtr, out arg_flags);
-                this._isJsSlot = ((arg_flags >> 18) & 1) == 1;
+                this._isJsSlot = ((arg_flags >> 18) & 1) == 0;
 
             }
             public CefBrowser browser()
@@ -18893,7 +18895,7 @@ namespace LayoutFarm.CefBridge.Auto
             {
                 int arg_flags;
                 this.nativePtr = MyMetArgs.GetNativeObjPtr(nativePtr, out arg_flags);
-                this._isJsSlot = ((arg_flags >> 18) & 1) == 1;
+                this._isJsSlot = ((arg_flags >> 18) & 1) == 0;
 
             }
             public CefBrowser browser()
@@ -18941,7 +18943,7 @@ namespace LayoutFarm.CefBridge.Auto
             {
                 int arg_flags;
                 this.nativePtr = MyMetArgs.GetNativeObjPtr(nativePtr, out arg_flags);
-                this._isJsSlot = ((arg_flags >> 18) & 1) == 1;
+                this._isJsSlot = ((arg_flags >> 18) & 1) == 0;
 
             }
             public CefBrowser browser()
@@ -18999,7 +19001,7 @@ namespace LayoutFarm.CefBridge.Auto
             {
                 int arg_flags;
                 this.nativePtr = MyMetArgs.GetNativeObjPtr(nativePtr, out arg_flags);
-                this._isJsSlot = ((arg_flags >> 18) & 1) == 1;
+                this._isJsSlot = ((arg_flags >> 18) & 1) == 0;
 
             }
             public CefBrowser browser()
@@ -19027,7 +19029,7 @@ namespace LayoutFarm.CefBridge.Auto
             {
                 int arg_flags;
                 this.nativePtr = MyMetArgs.GetNativeObjPtr(nativePtr, out arg_flags);
-                this._isJsSlot = ((arg_flags >> 18) & 1) == 1;
+                this._isJsSlot = ((arg_flags >> 18) & 1) == 0;
 
             }
             public int device_units_per_inch()
@@ -19225,7 +19227,7 @@ namespace LayoutFarm.CefBridge.Auto
             {
                 int arg_flags;
                 this.nativePtr = MyMetArgs.GetNativeObjPtr(nativePtr, out arg_flags);
-                this._isJsSlot = ((arg_flags >> 18) & 1) == 1;
+                this._isJsSlot = ((arg_flags >> 18) & 1) == 0;
 
             }
         }
@@ -19243,7 +19245,7 @@ namespace LayoutFarm.CefBridge.Auto
             {
                 int arg_flags;
                 this.nativePtr = MyMetArgs.GetNativeObjPtr(nativePtr, out arg_flags);
-                this._isJsSlot = ((arg_flags >> 18) & 1) == 1;
+                this._isJsSlot = ((arg_flags >> 18) & 1) == 0;
 
             }
             public CefBrowser browser()
@@ -19281,7 +19283,7 @@ namespace LayoutFarm.CefBridge.Auto
             {
                 int arg_flags;
                 this.nativePtr = MyMetArgs.GetNativeObjPtr(nativePtr, out arg_flags);
-                this._isJsSlot = ((arg_flags >> 18) & 1) == 1;
+                this._isJsSlot = ((arg_flags >> 18) & 1) == 0;
 
             }
             public CefBrowser browser()
@@ -19319,7 +19321,7 @@ namespace LayoutFarm.CefBridge.Auto
             {
                 int arg_flags;
                 this.nativePtr = MyMetArgs.GetNativeObjPtr(nativePtr, out arg_flags);
-                this._isJsSlot = ((arg_flags >> 18) & 1) == 1;
+                this._isJsSlot = ((arg_flags >> 18) & 1) == 0;
 
             }
             public CefBrowser browser()
@@ -19385,7 +19387,7 @@ namespace LayoutFarm.CefBridge.Auto
             {
                 int arg_flags;
                 this.nativePtr = MyMetArgs.GetNativeObjPtr(nativePtr, out arg_flags);
-                this._isJsSlot = ((arg_flags >> 18) & 1) == 1;
+                this._isJsSlot = ((arg_flags >> 18) & 1) == 0;
 
             }
             public CefBrowser browser()
@@ -19423,7 +19425,7 @@ namespace LayoutFarm.CefBridge.Auto
             {
                 int arg_flags;
                 this.nativePtr = MyMetArgs.GetNativeObjPtr(nativePtr, out arg_flags);
-                this._isJsSlot = ((arg_flags >> 18) & 1) == 1;
+                this._isJsSlot = ((arg_flags >> 18) & 1) == 0;
 
             }
             public CefBrowser browser()
@@ -19461,7 +19463,7 @@ namespace LayoutFarm.CefBridge.Auto
             {
                 int arg_flags;
                 this.nativePtr = MyMetArgs.GetNativeObjPtr(nativePtr, out arg_flags);
-                this._isJsSlot = ((arg_flags >> 18) & 1) == 1;
+                this._isJsSlot = ((arg_flags >> 18) & 1) == 0;
 
             }
             public CefBrowser browser()
@@ -19499,7 +19501,7 @@ namespace LayoutFarm.CefBridge.Auto
             {
                 int arg_flags;
                 this.nativePtr = MyMetArgs.GetNativeObjPtr(nativePtr, out arg_flags);
-                this._isJsSlot = ((arg_flags >> 18) & 1) == 1;
+                this._isJsSlot = ((arg_flags >> 18) & 1) == 0;
 
             }
             public CefBrowser browser()
@@ -19567,7 +19569,7 @@ namespace LayoutFarm.CefBridge.Auto
             {
                 int arg_flags;
                 this.nativePtr = MyMetArgs.GetNativeObjPtr(nativePtr, out arg_flags);
-                this._isJsSlot = ((arg_flags >> 18) & 1) == 1;
+                this._isJsSlot = ((arg_flags >> 18) & 1) == 0;
 
             }
             public CefBrowser browser()
@@ -19620,7 +19622,7 @@ namespace LayoutFarm.CefBridge.Auto
             {
                 int arg_flags;
                 this.nativePtr = MyMetArgs.GetNativeObjPtr(nativePtr, out arg_flags);
-                this._isJsSlot = ((arg_flags >> 18) & 1) == 1;
+                this._isJsSlot = ((arg_flags >> 18) & 1) == 0;
 
             }
             public CefBrowser browser()
@@ -19688,7 +19690,7 @@ namespace LayoutFarm.CefBridge.Auto
             {
                 int arg_flags;
                 this.nativePtr = MyMetArgs.GetNativeObjPtr(nativePtr, out arg_flags);
-                this._isJsSlot = ((arg_flags >> 18) & 1) == 1;
+                this._isJsSlot = ((arg_flags >> 18) & 1) == 0;
 
             }
             public CefBrowser browser()
@@ -19726,7 +19728,7 @@ namespace LayoutFarm.CefBridge.Auto
             {
                 int arg_flags;
                 this.nativePtr = MyMetArgs.GetNativeObjPtr(nativePtr, out arg_flags);
-                this._isJsSlot = ((arg_flags >> 18) & 1) == 1;
+                this._isJsSlot = ((arg_flags >> 18) & 1) == 0;
 
             }
             public CefBrowser browser()
@@ -19774,7 +19776,7 @@ namespace LayoutFarm.CefBridge.Auto
             {
                 int arg_flags;
                 this.nativePtr = MyMetArgs.GetNativeObjPtr(nativePtr, out arg_flags);
-                this._isJsSlot = ((arg_flags >> 18) & 1) == 1;
+                this._isJsSlot = ((arg_flags >> 18) & 1) == 0;
 
             }
             public CefBrowser browser()
@@ -20178,7 +20180,7 @@ namespace LayoutFarm.CefBridge.Auto
             {
                 int arg_flags;
                 this.nativePtr = MyMetArgs.GetNativeObjPtr(nativePtr, out arg_flags);
-                this._isJsSlot = ((arg_flags >> 18) & 1) == 1;
+                this._isJsSlot = ((arg_flags >> 18) & 1) == 0;
 
             }
             public CefListValue extra_info()
@@ -20206,7 +20208,7 @@ namespace LayoutFarm.CefBridge.Auto
             {
                 int arg_flags;
                 this.nativePtr = MyMetArgs.GetNativeObjPtr(nativePtr, out arg_flags);
-                this._isJsSlot = ((arg_flags >> 18) & 1) == 1;
+                this._isJsSlot = ((arg_flags >> 18) & 1) == 0;
 
             }
         }
@@ -20224,7 +20226,7 @@ namespace LayoutFarm.CefBridge.Auto
             {
                 int arg_flags;
                 this.nativePtr = MyMetArgs.GetNativeObjPtr(nativePtr, out arg_flags);
-                this._isJsSlot = ((arg_flags >> 18) & 1) == 1;
+                this._isJsSlot = ((arg_flags >> 18) & 1) == 0;
 
             }
             public CefBrowser browser()
@@ -20252,7 +20254,7 @@ namespace LayoutFarm.CefBridge.Auto
             {
                 int arg_flags;
                 this.nativePtr = MyMetArgs.GetNativeObjPtr(nativePtr, out arg_flags);
-                this._isJsSlot = ((arg_flags >> 18) & 1) == 1;
+                this._isJsSlot = ((arg_flags >> 18) & 1) == 0;
 
             }
             public CefBrowser browser()
@@ -20280,7 +20282,7 @@ namespace LayoutFarm.CefBridge.Auto
             {
                 int arg_flags;
                 this.nativePtr = MyMetArgs.GetNativeObjPtr(nativePtr, out arg_flags);
-                this._isJsSlot = ((arg_flags >> 18) & 1) == 1;
+                this._isJsSlot = ((arg_flags >> 18) & 1) == 0;
 
             }
         }
@@ -20298,7 +20300,7 @@ namespace LayoutFarm.CefBridge.Auto
             {
                 int arg_flags;
                 this.nativePtr = MyMetArgs.GetNativeObjPtr(nativePtr, out arg_flags);
-                this._isJsSlot = ((arg_flags >> 18) & 1) == 1;
+                this._isJsSlot = ((arg_flags >> 18) & 1) == 0;
 
             }
             public CefBrowser browser()
@@ -20366,7 +20368,7 @@ namespace LayoutFarm.CefBridge.Auto
             {
                 int arg_flags;
                 this.nativePtr = MyMetArgs.GetNativeObjPtr(nativePtr, out arg_flags);
-                this._isJsSlot = ((arg_flags >> 18) & 1) == 1;
+                this._isJsSlot = ((arg_flags >> 18) & 1) == 0;
 
             }
             public CefBrowser browser()
@@ -20414,7 +20416,7 @@ namespace LayoutFarm.CefBridge.Auto
             {
                 int arg_flags;
                 this.nativePtr = MyMetArgs.GetNativeObjPtr(nativePtr, out arg_flags);
-                this._isJsSlot = ((arg_flags >> 18) & 1) == 1;
+                this._isJsSlot = ((arg_flags >> 18) & 1) == 0;
 
             }
             public CefBrowser browser()
@@ -20462,7 +20464,7 @@ namespace LayoutFarm.CefBridge.Auto
             {
                 int arg_flags;
                 this.nativePtr = MyMetArgs.GetNativeObjPtr(nativePtr, out arg_flags);
-                this._isJsSlot = ((arg_flags >> 18) & 1) == 1;
+                this._isJsSlot = ((arg_flags >> 18) & 1) == 0;
 
             }
             public CefBrowser browser()
@@ -20530,7 +20532,7 @@ namespace LayoutFarm.CefBridge.Auto
             {
                 int arg_flags;
                 this.nativePtr = MyMetArgs.GetNativeObjPtr(nativePtr, out arg_flags);
-                this._isJsSlot = ((arg_flags >> 18) & 1) == 1;
+                this._isJsSlot = ((arg_flags >> 18) & 1) == 0;
 
             }
             public CefBrowser browser()
@@ -20578,7 +20580,7 @@ namespace LayoutFarm.CefBridge.Auto
             {
                 int arg_flags;
                 this.nativePtr = MyMetArgs.GetNativeObjPtr(nativePtr, out arg_flags);
-                this._isJsSlot = ((arg_flags >> 18) & 1) == 1;
+                this._isJsSlot = ((arg_flags >> 18) & 1) == 0;
 
             }
             public CefBrowser browser()
@@ -20908,7 +20910,7 @@ namespace LayoutFarm.CefBridge.Auto
             {
                 int arg_flags;
                 this.nativePtr = MyMetArgs.GetNativeObjPtr(nativePtr, out arg_flags);
-                this._isJsSlot = ((arg_flags >> 18) & 1) == 1;
+                this._isJsSlot = ((arg_flags >> 18) & 1) == 0;
 
             }
         }
@@ -20926,7 +20928,7 @@ namespace LayoutFarm.CefBridge.Auto
             {
                 int arg_flags;
                 this.nativePtr = MyMetArgs.GetNativeObjPtr(nativePtr, out arg_flags);
-                this._isJsSlot = ((arg_flags >> 18) & 1) == 1;
+                this._isJsSlot = ((arg_flags >> 18) & 1) == 0;
 
             }
             public string mime_type()
@@ -21089,7 +21091,7 @@ namespace LayoutFarm.CefBridge.Auto
             {
                 int arg_flags;
                 this.nativePtr = MyMetArgs.GetNativeObjPtr(nativePtr, out arg_flags);
-                this._isJsSlot = ((arg_flags >> 18) & 1) == 1;
+                this._isJsSlot = ((arg_flags >> 18) & 1) == 0;
 
             }
             public CefBrowser browser()
@@ -21147,7 +21149,7 @@ namespace LayoutFarm.CefBridge.Auto
             {
                 int arg_flags;
                 this.nativePtr = MyMetArgs.GetNativeObjPtr(nativePtr, out arg_flags);
-                this._isJsSlot = ((arg_flags >> 18) & 1) == 1;
+                this._isJsSlot = ((arg_flags >> 18) & 1) == 0;
 
             }
             public CefBrowser browser()
@@ -21215,7 +21217,7 @@ namespace LayoutFarm.CefBridge.Auto
             {
                 int arg_flags;
                 this.nativePtr = MyMetArgs.GetNativeObjPtr(nativePtr, out arg_flags);
-                this._isJsSlot = ((arg_flags >> 18) & 1) == 1;
+                this._isJsSlot = ((arg_flags >> 18) & 1) == 0;
 
             }
             public CefBrowser browser()
@@ -21273,7 +21275,7 @@ namespace LayoutFarm.CefBridge.Auto
             {
                 int arg_flags;
                 this.nativePtr = MyMetArgs.GetNativeObjPtr(nativePtr, out arg_flags);
-                this._isJsSlot = ((arg_flags >> 18) & 1) == 1;
+                this._isJsSlot = ((arg_flags >> 18) & 1) == 0;
 
             }
             public CefBrowser browser()
@@ -21321,7 +21323,7 @@ namespace LayoutFarm.CefBridge.Auto
             {
                 int arg_flags;
                 this.nativePtr = MyMetArgs.GetNativeObjPtr(nativePtr, out arg_flags);
-                this._isJsSlot = ((arg_flags >> 18) & 1) == 1;
+                this._isJsSlot = ((arg_flags >> 18) & 1) == 0;
 
             }
             public CefBrowser browser()
@@ -21389,7 +21391,7 @@ namespace LayoutFarm.CefBridge.Auto
             {
                 int arg_flags;
                 this.nativePtr = MyMetArgs.GetNativeObjPtr(nativePtr, out arg_flags);
-                this._isJsSlot = ((arg_flags >> 18) & 1) == 1;
+                this._isJsSlot = ((arg_flags >> 18) & 1) == 0;
 
             }
             public CefBrowser browser()
@@ -21447,7 +21449,7 @@ namespace LayoutFarm.CefBridge.Auto
             {
                 int arg_flags;
                 this.nativePtr = MyMetArgs.GetNativeObjPtr(nativePtr, out arg_flags);
-                this._isJsSlot = ((arg_flags >> 18) & 1) == 1;
+                this._isJsSlot = ((arg_flags >> 18) & 1) == 0;
 
             }
             public CefBrowser browser()
@@ -21505,7 +21507,7 @@ namespace LayoutFarm.CefBridge.Auto
             {
                 int arg_flags;
                 this.nativePtr = MyMetArgs.GetNativeObjPtr(nativePtr, out arg_flags);
-                this._isJsSlot = ((arg_flags >> 18) & 1) == 1;
+                this._isJsSlot = ((arg_flags >> 18) & 1) == 0;
 
             }
             public CefBrowser browser()
@@ -21583,7 +21585,7 @@ namespace LayoutFarm.CefBridge.Auto
             {
                 int arg_flags;
                 this.nativePtr = MyMetArgs.GetNativeObjPtr(nativePtr, out arg_flags);
-                this._isJsSlot = ((arg_flags >> 18) & 1) == 1;
+                this._isJsSlot = ((arg_flags >> 18) & 1) == 0;
 
             }
             public CefBrowser browser()
@@ -21681,7 +21683,7 @@ namespace LayoutFarm.CefBridge.Auto
             {
                 int arg_flags;
                 this.nativePtr = MyMetArgs.GetNativeObjPtr(nativePtr, out arg_flags);
-                this._isJsSlot = ((arg_flags >> 18) & 1) == 1;
+                this._isJsSlot = ((arg_flags >> 18) & 1) == 0;
 
             }
             public CefBrowser browser()
@@ -21739,7 +21741,7 @@ namespace LayoutFarm.CefBridge.Auto
             {
                 int arg_flags;
                 this.nativePtr = MyMetArgs.GetNativeObjPtr(nativePtr, out arg_flags);
-                this._isJsSlot = ((arg_flags >> 18) & 1) == 1;
+                this._isJsSlot = ((arg_flags >> 18) & 1) == 0;
 
             }
             public CefBrowser browser()
@@ -21789,7 +21791,7 @@ namespace LayoutFarm.CefBridge.Auto
             {
                 int arg_flags;
                 this.nativePtr = MyMetArgs.GetNativeObjPtr(nativePtr, out arg_flags);
-                this._isJsSlot = ((arg_flags >> 18) & 1) == 1;
+                this._isJsSlot = ((arg_flags >> 18) & 1) == 0;
 
             }
             public CefBrowser browser()
@@ -21857,7 +21859,7 @@ namespace LayoutFarm.CefBridge.Auto
             {
                 int arg_flags;
                 this.nativePtr = MyMetArgs.GetNativeObjPtr(nativePtr, out arg_flags);
-                this._isJsSlot = ((arg_flags >> 18) & 1) == 1;
+                this._isJsSlot = ((arg_flags >> 18) & 1) == 0;
 
             }
             public CefBrowser browser()
@@ -21930,7 +21932,7 @@ namespace LayoutFarm.CefBridge.Auto
             {
                 int arg_flags;
                 this.nativePtr = MyMetArgs.GetNativeObjPtr(nativePtr, out arg_flags);
-                this._isJsSlot = ((arg_flags >> 18) & 1) == 1;
+                this._isJsSlot = ((arg_flags >> 18) & 1) == 0;
 
             }
             public CefBrowser browser()
@@ -21968,7 +21970,7 @@ namespace LayoutFarm.CefBridge.Auto
             {
                 int arg_flags;
                 this.nativePtr = MyMetArgs.GetNativeObjPtr(nativePtr, out arg_flags);
-                this._isJsSlot = ((arg_flags >> 18) & 1) == 1;
+                this._isJsSlot = ((arg_flags >> 18) & 1) == 0;
 
             }
             public CefBrowser browser()
@@ -21996,7 +21998,7 @@ namespace LayoutFarm.CefBridge.Auto
             {
                 int arg_flags;
                 this.nativePtr = MyMetArgs.GetNativeObjPtr(nativePtr, out arg_flags);
-                this._isJsSlot = ((arg_flags >> 18) & 1) == 1;
+                this._isJsSlot = ((arg_flags >> 18) & 1) == 0;
 
             }
             public CefBrowser browser()
@@ -22494,7 +22496,7 @@ namespace LayoutFarm.CefBridge.Auto
             {
                 int arg_flags;
                 this.nativePtr = MyMetArgs.GetNativeObjPtr(nativePtr, out arg_flags);
-                this._isJsSlot = ((arg_flags >> 18) & 1) == 1;
+                this._isJsSlot = ((arg_flags >> 18) & 1) == 0;
 
             }
             public int string_id()
@@ -22532,7 +22534,7 @@ namespace LayoutFarm.CefBridge.Auto
             {
                 int arg_flags;
                 this.nativePtr = MyMetArgs.GetNativeObjPtr(nativePtr, out arg_flags);
-                this._isJsSlot = ((arg_flags >> 18) & 1) == 1;
+                this._isJsSlot = ((arg_flags >> 18) & 1) == 0;
 
             }
             public int resource_id()
@@ -22574,7 +22576,7 @@ namespace LayoutFarm.CefBridge.Auto
             {
                 int arg_flags;
                 this.nativePtr = MyMetArgs.GetNativeObjPtr(nativePtr, out arg_flags);
-                this._isJsSlot = ((arg_flags >> 18) & 1) == 1;
+                this._isJsSlot = ((arg_flags >> 18) & 1) == 0;
 
             }
             public int resource_id()
@@ -22732,7 +22734,7 @@ namespace LayoutFarm.CefBridge.Auto
             {
                 int arg_flags;
                 this.nativePtr = MyMetArgs.GetNativeObjPtr(nativePtr, out arg_flags);
-                this._isJsSlot = ((arg_flags >> 18) & 1) == 1;
+                this._isJsSlot = ((arg_flags >> 18) & 1) == 0;
 
             }
             public CefRequest request()
@@ -22770,7 +22772,7 @@ namespace LayoutFarm.CefBridge.Auto
             {
                 int arg_flags;
                 this.nativePtr = MyMetArgs.GetNativeObjPtr(nativePtr, out arg_flags);
-                this._isJsSlot = ((arg_flags >> 18) & 1) == 1;
+                this._isJsSlot = ((arg_flags >> 18) & 1) == 0;
 
             }
             public CefResponse response()
@@ -22818,7 +22820,7 @@ namespace LayoutFarm.CefBridge.Auto
             {
                 int arg_flags;
                 this.nativePtr = MyMetArgs.GetNativeObjPtr(nativePtr, out arg_flags);
-                this._isJsSlot = ((arg_flags >> 18) & 1) == 1;
+                this._isJsSlot = ((arg_flags >> 18) & 1) == 0;
 
             }
             public IntPtr data_out()
@@ -22870,7 +22872,7 @@ namespace LayoutFarm.CefBridge.Auto
             {
                 int arg_flags;
                 this.nativePtr = MyMetArgs.GetNativeObjPtr(nativePtr, out arg_flags);
-                this._isJsSlot = ((arg_flags >> 18) & 1) == 1;
+                this._isJsSlot = ((arg_flags >> 18) & 1) == 0;
 
             }
             public CefCookie cookie()
@@ -22898,7 +22900,7 @@ namespace LayoutFarm.CefBridge.Auto
             {
                 int arg_flags;
                 this.nativePtr = MyMetArgs.GetNativeObjPtr(nativePtr, out arg_flags);
-                this._isJsSlot = ((arg_flags >> 18) & 1) == 1;
+                this._isJsSlot = ((arg_flags >> 18) & 1) == 0;
 
             }
             public CefCookie cookie()
@@ -22926,7 +22928,7 @@ namespace LayoutFarm.CefBridge.Auto
             {
                 int arg_flags;
                 this.nativePtr = MyMetArgs.GetNativeObjPtr(nativePtr, out arg_flags);
-                this._isJsSlot = ((arg_flags >> 18) & 1) == 1;
+                this._isJsSlot = ((arg_flags >> 18) & 1) == 0;
 
             }
         }
@@ -23108,7 +23110,7 @@ namespace LayoutFarm.CefBridge.Auto
             {
                 int arg_flags;
                 this.nativePtr = MyMetArgs.GetNativeObjPtr(nativePtr, out arg_flags);
-                this._isJsSlot = ((arg_flags >> 18) & 1) == 1;
+                this._isJsSlot = ((arg_flags >> 18) & 1) == 0;
 
             }
             public IntPtr ptr()
@@ -23151,7 +23153,7 @@ namespace LayoutFarm.CefBridge.Auto
             {
                 int arg_flags;
                 this.nativePtr = MyMetArgs.GetNativeObjPtr(nativePtr, out arg_flags);
-                this._isJsSlot = ((arg_flags >> 18) & 1) == 1;
+                this._isJsSlot = ((arg_flags >> 18) & 1) == 0;
 
             }
             public long offset()
@@ -23189,7 +23191,7 @@ namespace LayoutFarm.CefBridge.Auto
             {
                 int arg_flags;
                 this.nativePtr = MyMetArgs.GetNativeObjPtr(nativePtr, out arg_flags);
-                this._isJsSlot = ((arg_flags >> 18) & 1) == 1;
+                this._isJsSlot = ((arg_flags >> 18) & 1) == 0;
 
             }
         }
@@ -23207,7 +23209,7 @@ namespace LayoutFarm.CefBridge.Auto
             {
                 int arg_flags;
                 this.nativePtr = MyMetArgs.GetNativeObjPtr(nativePtr, out arg_flags);
-                this._isJsSlot = ((arg_flags >> 18) & 1) == 1;
+                this._isJsSlot = ((arg_flags >> 18) & 1) == 0;
 
             }
         }
@@ -23225,7 +23227,7 @@ namespace LayoutFarm.CefBridge.Auto
             {
                 int arg_flags;
                 this.nativePtr = MyMetArgs.GetNativeObjPtr(nativePtr, out arg_flags);
-                this._isJsSlot = ((arg_flags >> 18) & 1) == 1;
+                this._isJsSlot = ((arg_flags >> 18) & 1) == 0;
 
             }
         }
@@ -23376,7 +23378,7 @@ namespace LayoutFarm.CefBridge.Auto
             {
                 int arg_flags;
                 this.nativePtr = MyMetArgs.GetNativeObjPtr(nativePtr, out arg_flags);
-                this._isJsSlot = ((arg_flags >> 18) & 1) == 1;
+                this._isJsSlot = ((arg_flags >> 18) & 1) == 0;
 
             }
             public IntPtr ptr()
@@ -23419,7 +23421,7 @@ namespace LayoutFarm.CefBridge.Auto
             {
                 int arg_flags;
                 this.nativePtr = MyMetArgs.GetNativeObjPtr(nativePtr, out arg_flags);
-                this._isJsSlot = ((arg_flags >> 18) & 1) == 1;
+                this._isJsSlot = ((arg_flags >> 18) & 1) == 0;
 
             }
             public long offset()
@@ -23457,7 +23459,7 @@ namespace LayoutFarm.CefBridge.Auto
             {
                 int arg_flags;
                 this.nativePtr = MyMetArgs.GetNativeObjPtr(nativePtr, out arg_flags);
-                this._isJsSlot = ((arg_flags >> 18) & 1) == 1;
+                this._isJsSlot = ((arg_flags >> 18) & 1) == 0;
 
             }
         }
@@ -23475,7 +23477,7 @@ namespace LayoutFarm.CefBridge.Auto
             {
                 int arg_flags;
                 this.nativePtr = MyMetArgs.GetNativeObjPtr(nativePtr, out arg_flags);
-                this._isJsSlot = ((arg_flags >> 18) & 1) == 1;
+                this._isJsSlot = ((arg_flags >> 18) & 1) == 0;
 
             }
         }
@@ -23493,7 +23495,7 @@ namespace LayoutFarm.CefBridge.Auto
             {
                 int arg_flags;
                 this.nativePtr = MyMetArgs.GetNativeObjPtr(nativePtr, out arg_flags);
-                this._isJsSlot = ((arg_flags >> 18) & 1) == 1;
+                this._isJsSlot = ((arg_flags >> 18) & 1) == 0;
 
             }
         }
@@ -23640,7 +23642,7 @@ namespace LayoutFarm.CefBridge.Auto
             {
                 int arg_flags;
                 this.nativePtr = MyMetArgs.GetNativeObjPtr(nativePtr, out arg_flags);
-                this._isJsSlot = ((arg_flags >> 18) & 1) == 1;
+                this._isJsSlot = ((arg_flags >> 18) & 1) == 0;
 
             }
             public string name()

@@ -159,6 +159,7 @@ namespace LayoutFarm.CefBridge
 
             void CefDisplayHandler.I0.OnTitleChange(CefDisplayHandler.OnTitleChangeArgs args)
             {
+                string title = args.title();
 
             }
             void CefDisplayHandler.I0.OnTooltip(CefDisplayHandler.OnTooltipArgs args)
@@ -546,8 +547,8 @@ namespace LayoutFarm.CefBridge
                 case MyCefMsg.CEF_MSG_ClientHandler_NotifyAddress:
                     {
                         //INIT_MY_MET_ARGS(metArgs, 1) 
-                       //SetCefStringToJsValue2(&vargs[1], string);
-                       //address changed
+                        //SetCefStringToJsValue2(&vargs[1], string);
+                        //address changed
                         var args = new NativeCallArgs(argsPtr);
                         string newtitle = args.GetArgAsString(1);
                         // Console.WriteLine("address changed:" + newtitle);
@@ -599,7 +600,7 @@ namespace LayoutFarm.CefBridge
                 var cefStr = NativeMyCefStringHolder.CreateHolder(url);
                 a0.Ptr = cefStr.nativePtr;
                 Cef3Binder.MyCefBwCall2(myCefBrowser, (int)CefBwCallMsg.CefBw_GetMainFrame_LoadURL, out ret, ref a0, ref a1);
-                
+
 
             }
         }
@@ -705,7 +706,7 @@ namespace LayoutFarm.CefBridge
         {
             //keep alive callback
             InternalGetSource((id, nativePtr) =>
-            {   
+            {
                 //INIT_MY_MET_ARGS(metArgs, 1) 
                 //SetCefStringToJsValue2(&vargs[1], string);
                 var args = new NativeCallArgs(nativePtr);
@@ -716,7 +717,7 @@ namespace LayoutFarm.CefBridge
         {
             //keep alive callback
             InternalGetSource2((id, nativePtr) =>
-            {  
+            {
                 //INIT_MY_MET_ARGS(metArgs, 1) 
                 //SetCefStringToJsValue2(&vargs[1], string);
                 var args = new NativeCallArgs(nativePtr);
