@@ -3323,7 +3323,7 @@ namespace BridgeBuilder
                         this._isJsSlot = ((arg_flags >> 18) & 1) ==1;
                         "
                         );
-                        
+
             stbuilder.AppendLine("}");
 
             int pos = 0;
@@ -3384,25 +3384,37 @@ namespace BridgeBuilder
                 stbuilder.Append("()");
                 stbuilder.AppendLine("{");
 
+                string nativeArgClassName = met.Name + "NativeArgs";
+
                 switch (csParTypeName)
                 {
                     default:
                         {
-
+                            stbuilder.AppendLine("unsafe{"); //open unsafe
+                            stbuilder.Append("return _isJsSlot ? ");
+                            //is-js-slot= true
                             if (csParTypeName.StartsWith("Cef"))
                             {
-                                stbuilder.Append("return new " + csParTypeName + "(MyMetArgs.GetAsIntPtr(nativePtr," + pos + "));");
+                                stbuilder.Append("new " + csParTypeName + "(MyMetArgs.GetAsIntPtr(nativePtr," + pos + "))");
+                                //if is not js-slot (this is native arg )
+                                stbuilder.Append(":");
+                                //cast native ptr to specific c-struct and get specific o
+                                stbuilder.Append("new " + csParTypeName + "(((" + nativeArgClassName + "*)this.nativePtr)->" + parTx.Name + ");"); ;
                             }
                             else if (csParTypeName.StartsWith("cef"))
                             {
-                                stbuilder.Append("return " + "(" + csParTypeName + ")" + "MyMetArgs.GetAsInt32(nativePtr," + pos + ");");
+                                stbuilder.Append("(" + csParTypeName + ")" + "MyMetArgs.GetAsInt32(nativePtr," + pos + ")");
+                                //if is not js-slot (this is native arg )
+                                stbuilder.Append(":");
+                                //cast native ptr to specific c-struct and get specific o
+                                stbuilder.Append("(" + csParTypeName + ")" + "(((" + nativeArgClassName + "*)this.nativePtr)->" + parTx.Name + ");");
                             }
                             else
                             {
                                 stbuilder.Append("throw new CefNotImplementedException();");
                             }
+                            stbuilder.AppendLine("}"); //close unsafe context
                         }
-
                         break;
                     case "IntPtr":
                         stbuilder.Append("throw new CefNotImplementedException();");
@@ -3413,33 +3425,71 @@ namespace BridgeBuilder
                         stbuilder.Append("throw new CefNotImplementedException();");
                         break;
                     case "CefValue":
-
                         stbuilder.Append("throw new CefNotImplementedException();");
                         break;
                     case "uint":
-                        stbuilder.Append("return " + "MyMetArgs.GetAsUInt32(nativePtr," + pos + ");");
+                        {
+                            stbuilder.AppendLine("unsafe{");
+                            stbuilder.Append(" return _isJsSlot ? " + "MyMetArgs.GetAsUInt32(nativePtr," + pos + ") : ");
+                            stbuilder.Append("((" + nativeArgClassName + "*)this.nativePtr)->" + parTx.Name);
+                            stbuilder.AppendLine(";");
+                            stbuilder.AppendLine("}"); //close unsafe context
+                        }
                         break;
                     case "int":
-                        stbuilder.Append("return " + "MyMetArgs.GetAsInt32(nativePtr," + pos + ");");
+                        {
+                            stbuilder.AppendLine("unsafe{");
+                            stbuilder.Append("return _isJsSlot?" + "MyMetArgs.GetAsInt32(nativePtr," + pos + "):");
+                            stbuilder.Append("((" + nativeArgClassName + "*)this.nativePtr)->" + parTx.Name);
+                            stbuilder.AppendLine(";");
+                            stbuilder.AppendLine("}"); //close unsafe context
+                        }
                         break;
                     case "long":
-                        stbuilder.Append("return " + "MyMetArgs.GetAsInt64(nativePtr," + pos + ");");
+                        {
+                            stbuilder.AppendLine("unsafe{");
+                            stbuilder.Append("return _isJsSlot?" + "MyMetArgs.GetAsInt64(nativePtr," + pos + "):");
+                            stbuilder.Append("((" + nativeArgClassName + "*)this.nativePtr)->" + parTx.Name);
+                            stbuilder.AppendLine(";");
+                            stbuilder.AppendLine("}"); //close unsafe context 
+                        }
                         break;
                     case "string":
-                        stbuilder.Append("return " + "MyMetArgs.GetAsString(nativePtr," + pos + ");");
+                        {
+                            stbuilder.AppendLine("unsafe{");
+                            stbuilder.Append("return _isJsSlot?" + "MyMetArgs.GetAsString(nativePtr," + pos + "):");
+                            stbuilder.Append("MyMetArgs.GetAsString(((" + nativeArgClassName + "*)this.nativePtr)->" + parTx.Name + ")");
+                            stbuilder.AppendLine(";");
+                            stbuilder.AppendLine("}"); //close unsafe context  
+                        }
                         break;
                     case "bool":
-                        stbuilder.Append("return " + "MyMetArgs.GetAsBool(nativePtr," + pos + ");");
+                        {
+                            stbuilder.AppendLine("unsafe{");
+                            stbuilder.Append("return _isJsSlot?" + "MyMetArgs.GetAsBool(nativePtr," + pos + "):");
+                            stbuilder.Append("((" + nativeArgClassName + "*)this.nativePtr)->" + parTx.Name);
+                            stbuilder.AppendLine(";");
+                            stbuilder.AppendLine("}"); //close unsafe context  
+                        }
                         break;
                     case "double":
-                        stbuilder.Append("return " + "MyMetArgs.GetAsDouble(nativePtr," + pos + ");");
+                        {
+                            stbuilder.AppendLine("unsafe{");
+                            stbuilder.Append("return _isJsSlot?" + "MyMetArgs.GetAsDouble(nativePtr," + pos + "):");
+                            stbuilder.Append("((" + nativeArgClassName + "*)this.nativePtr)->" + parTx.Name);
+                            stbuilder.AppendLine(";");
+                            stbuilder.AppendLine("}"); //close unsafe context  
+                        }
                         break;
                     case "ref bool":
                         //provide both getter and setter method
                         {
+                            stbuilder.AppendLine("unsafe{");
                             stbuilder.Append("return " + "MyMetArgs.GetAsBool(nativePtr," + pos + ");");
-                            stbuilder.AppendLine("}");
+                            stbuilder.Append("}");//close unsafe context  
+                            stbuilder.Append("}"); //close method
 
+                            //----------------------------------------------------------------------------------
                             //method
                             //generate setter part
 
@@ -3466,7 +3516,6 @@ namespace BridgeBuilder
                         {
                             stbuilder.Append("return " + "MyMetArgs.GetAsUInt32(nativePtr," + pos + ");");
                             stbuilder.AppendLine("}");
-
                             //method
                             //generate setter part
                             stbuilder.AppendLine("public void " + parTx.Name + "(" + csSetterParTypeName + " value){");
@@ -3476,8 +3525,6 @@ namespace BridgeBuilder
                         }
 
                 }
-
-
                 stbuilder.AppendLine("}"); //method
             }
             stbuilder.AppendLine("}"); //struct

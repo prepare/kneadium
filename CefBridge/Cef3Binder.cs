@@ -883,6 +883,16 @@ namespace LayoutFarm.CefBridge
                 return MyCefJsReadString((JsValue*)varr + index);
             }
         }
+        internal static string GetAsString(IntPtr cefStringPtr)
+        {
+            unsafe
+            {
+                char* rawCefString_char16_t;
+                int actualLen;
+                Cef3Binder.MyCefStringGetRawPtr(cefStringPtr, out rawCefString_char16_t, out actualLen);
+                return new string(rawCefString_char16_t, 0, actualLen); 
+            }
+        }
         internal static int GetAsInt32(IntPtr varr, int index)
         {
             unsafe

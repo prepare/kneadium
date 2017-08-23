@@ -743,6 +743,8 @@ namespace BridgeBuilder
             CreateNewInstanceMethod(cppCodeStBuilder, customImplClasses);
             AddCppBuiltInEndCode(cppCodeStBuilder);
             //
+
+
         }
         void CreateNewInstanceMethod(StringBuilder outputStBuilder, List<CefTypeTxPlan> customImplClasses)
         {

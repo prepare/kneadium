@@ -9070,8 +9070,8 @@ namespace LayoutFarm.CefBridge.Auto
             JsValue ret;
 
             Cef3Binder.MyCefMet_Call0(this.nativePtr, CefRequestContext_GetHandler_4, out ret);
-            throw new NotSupportedException();
             //return new CefRequestContextHandler(ret.Ptr);
+            throw new NotSupportedException();
         }
 
         // gen! CefString GetCachePath()
@@ -11575,6 +11575,7 @@ namespace LayoutFarm.CefBridge.Auto
         public CefV8Handler GetFunctionHandler()
         {
             JsValue ret;
+
             Cef3Binder.MyCefMet_Call0(this.nativePtr, CefV8Value_GetFunctionHandler_42, out ret);
             throw new NotSupportedException();
             //return new CefV8Handler(ret.Ptr);
@@ -15617,7 +15618,10 @@ namespace LayoutFarm.CefBridge.Auto
             }
             public CefCommandLine command_line()
             {
-                return new CefCommandLine(MyMetArgs.GetAsIntPtr(nativePtr, 1));
+                unsafe
+                {
+                    return _isJsSlot ? new CefCommandLine(MyMetArgs.GetAsIntPtr(nativePtr, 1)) : new CefCommandLine(((OnBeforeChildProcessLaunchNativeArgs*)this.nativePtr)->command_line);
+                }
             }
         }
         [StructLayout(LayoutKind.Sequential)]
@@ -15640,7 +15644,10 @@ namespace LayoutFarm.CefBridge.Auto
             }
             public CefListValue extra_info()
             {
-                return new CefListValue(MyMetArgs.GetAsIntPtr(nativePtr, 1));
+                unsafe
+                {
+                    return _isJsSlot ? new CefListValue(MyMetArgs.GetAsIntPtr(nativePtr, 1)) : new CefListValue(((OnRenderProcessThreadCreatedNativeArgs*)this.nativePtr)->extra_info);
+                }
             }
         }
         [StructLayout(LayoutKind.Sequential)]
@@ -15681,7 +15688,10 @@ namespace LayoutFarm.CefBridge.Auto
             }
             public long delay_ms()
             {
-                return MyMetArgs.GetAsInt64(nativePtr, 1);
+                unsafe
+                {
+                    return _isJsSlot ? MyMetArgs.GetAsInt64(nativePtr, 1) : ((OnScheduleMessagePumpWorkNativeArgs*)this.nativePtr)->delay_ms;
+                }
             }
         }
         [StructLayout(LayoutKind.Sequential)]
@@ -15830,19 +15840,31 @@ namespace LayoutFarm.CefBridge.Auto
             }
             public CefBrowser browser()
             {
-                return new CefBrowser(MyMetArgs.GetAsIntPtr(nativePtr, 1));
+                unsafe
+                {
+                    return _isJsSlot ? new CefBrowser(MyMetArgs.GetAsIntPtr(nativePtr, 1)) : new CefBrowser(((OnBeforeContextMenuNativeArgs*)this.nativePtr)->browser);
+                }
             }
             public CefFrame frame()
             {
-                return new CefFrame(MyMetArgs.GetAsIntPtr(nativePtr, 2));
+                unsafe
+                {
+                    return _isJsSlot ? new CefFrame(MyMetArgs.GetAsIntPtr(nativePtr, 2)) : new CefFrame(((OnBeforeContextMenuNativeArgs*)this.nativePtr)->frame);
+                }
             }
             public CefContextMenuParams _params()
             {
-                return new CefContextMenuParams(MyMetArgs.GetAsIntPtr(nativePtr, 3));
+                unsafe
+                {
+                    return _isJsSlot ? new CefContextMenuParams(MyMetArgs.GetAsIntPtr(nativePtr, 3)) : new CefContextMenuParams(((OnBeforeContextMenuNativeArgs*)this.nativePtr)->_params);
+                }
             }
             public CefMenuModel model()
             {
-                return new CefMenuModel(MyMetArgs.GetAsIntPtr(nativePtr, 4));
+                unsafe
+                {
+                    return _isJsSlot ? new CefMenuModel(MyMetArgs.GetAsIntPtr(nativePtr, 4)) : new CefMenuModel(((OnBeforeContextMenuNativeArgs*)this.nativePtr)->model);
+                }
             }
         }
         [StructLayout(LayoutKind.Sequential)]
@@ -15868,23 +15890,38 @@ namespace LayoutFarm.CefBridge.Auto
             }
             public CefBrowser browser()
             {
-                return new CefBrowser(MyMetArgs.GetAsIntPtr(nativePtr, 1));
+                unsafe
+                {
+                    return _isJsSlot ? new CefBrowser(MyMetArgs.GetAsIntPtr(nativePtr, 1)) : new CefBrowser(((RunContextMenuNativeArgs*)this.nativePtr)->browser);
+                }
             }
             public CefFrame frame()
             {
-                return new CefFrame(MyMetArgs.GetAsIntPtr(nativePtr, 2));
+                unsafe
+                {
+                    return _isJsSlot ? new CefFrame(MyMetArgs.GetAsIntPtr(nativePtr, 2)) : new CefFrame(((RunContextMenuNativeArgs*)this.nativePtr)->frame);
+                }
             }
             public CefContextMenuParams _params()
             {
-                return new CefContextMenuParams(MyMetArgs.GetAsIntPtr(nativePtr, 3));
+                unsafe
+                {
+                    return _isJsSlot ? new CefContextMenuParams(MyMetArgs.GetAsIntPtr(nativePtr, 3)) : new CefContextMenuParams(((RunContextMenuNativeArgs*)this.nativePtr)->_params);
+                }
             }
             public CefMenuModel model()
             {
-                return new CefMenuModel(MyMetArgs.GetAsIntPtr(nativePtr, 4));
+                unsafe
+                {
+                    return _isJsSlot ? new CefMenuModel(MyMetArgs.GetAsIntPtr(nativePtr, 4)) : new CefMenuModel(((RunContextMenuNativeArgs*)this.nativePtr)->model);
+                }
             }
             public CefRunContextMenuCallback callback()
             {
-                return new CefRunContextMenuCallback(MyMetArgs.GetAsIntPtr(nativePtr, 5));
+                unsafe
+                {
+                    return _isJsSlot ? new CefRunContextMenuCallback(MyMetArgs.GetAsIntPtr(nativePtr, 5)) : new CefRunContextMenuCallback(((RunContextMenuNativeArgs*)this.nativePtr)->callback);
+                }
             }
         }
         [StructLayout(LayoutKind.Sequential)]
@@ -15911,23 +15948,38 @@ namespace LayoutFarm.CefBridge.Auto
             }
             public CefBrowser browser()
             {
-                return new CefBrowser(MyMetArgs.GetAsIntPtr(nativePtr, 1));
+                unsafe
+                {
+                    return _isJsSlot ? new CefBrowser(MyMetArgs.GetAsIntPtr(nativePtr, 1)) : new CefBrowser(((OnContextMenuCommandNativeArgs*)this.nativePtr)->browser);
+                }
             }
             public CefFrame frame()
             {
-                return new CefFrame(MyMetArgs.GetAsIntPtr(nativePtr, 2));
+                unsafe
+                {
+                    return _isJsSlot ? new CefFrame(MyMetArgs.GetAsIntPtr(nativePtr, 2)) : new CefFrame(((OnContextMenuCommandNativeArgs*)this.nativePtr)->frame);
+                }
             }
             public CefContextMenuParams _params()
             {
-                return new CefContextMenuParams(MyMetArgs.GetAsIntPtr(nativePtr, 3));
+                unsafe
+                {
+                    return _isJsSlot ? new CefContextMenuParams(MyMetArgs.GetAsIntPtr(nativePtr, 3)) : new CefContextMenuParams(((OnContextMenuCommandNativeArgs*)this.nativePtr)->_params);
+                }
             }
             public int command_id()
             {
-                return MyMetArgs.GetAsInt32(nativePtr, 4);
+                unsafe
+                {
+                    return _isJsSlot ? MyMetArgs.GetAsInt32(nativePtr, 4) : ((OnContextMenuCommandNativeArgs*)this.nativePtr)->command_id;
+                }
             }
             public cef_event_flags_t event_flags()
             {
-                return (cef_event_flags_t)MyMetArgs.GetAsInt32(nativePtr, 5);
+                unsafe
+                {
+                    return _isJsSlot ? (cef_event_flags_t)MyMetArgs.GetAsInt32(nativePtr, 5) : (cef_event_flags_t)(((OnContextMenuCommandNativeArgs*)this.nativePtr)->event_flags);
+                }
             }
         }
         [StructLayout(LayoutKind.Sequential)]
@@ -15954,11 +16006,17 @@ namespace LayoutFarm.CefBridge.Auto
             }
             public CefBrowser browser()
             {
-                return new CefBrowser(MyMetArgs.GetAsIntPtr(nativePtr, 1));
+                unsafe
+                {
+                    return _isJsSlot ? new CefBrowser(MyMetArgs.GetAsIntPtr(nativePtr, 1)) : new CefBrowser(((OnContextMenuDismissedNativeArgs*)this.nativePtr)->browser);
+                }
             }
             public CefFrame frame()
             {
-                return new CefFrame(MyMetArgs.GetAsIntPtr(nativePtr, 2));
+                unsafe
+                {
+                    return _isJsSlot ? new CefFrame(MyMetArgs.GetAsIntPtr(nativePtr, 2)) : new CefFrame(((OnContextMenuDismissedNativeArgs*)this.nativePtr)->frame);
+                }
             }
         }
         [StructLayout(LayoutKind.Sequential)]
@@ -16108,19 +16166,31 @@ namespace LayoutFarm.CefBridge.Auto
             }
             public CefBrowser browser()
             {
-                return new CefBrowser(MyMetArgs.GetAsIntPtr(nativePtr, 1));
+                unsafe
+                {
+                    return _isJsSlot ? new CefBrowser(MyMetArgs.GetAsIntPtr(nativePtr, 1)) : new CefBrowser(((OnFileDialogNativeArgs*)this.nativePtr)->browser);
+                }
             }
             public cef_file_dialog_mode_t mode()
             {
-                return (cef_file_dialog_mode_t)MyMetArgs.GetAsInt32(nativePtr, 2);
+                unsafe
+                {
+                    return _isJsSlot ? (cef_file_dialog_mode_t)MyMetArgs.GetAsInt32(nativePtr, 2) : (cef_file_dialog_mode_t)(((OnFileDialogNativeArgs*)this.nativePtr)->mode);
+                }
             }
             public string title()
             {
-                return MyMetArgs.GetAsString(nativePtr, 3);
+                unsafe
+                {
+                    return _isJsSlot ? MyMetArgs.GetAsString(nativePtr, 3) : MyMetArgs.GetAsString(((OnFileDialogNativeArgs*)this.nativePtr)->title);
+                }
             }
             public string default_file_path()
             {
-                return MyMetArgs.GetAsString(nativePtr, 4);
+                unsafe
+                {
+                    return _isJsSlot ? MyMetArgs.GetAsString(nativePtr, 4) : MyMetArgs.GetAsString(((OnFileDialogNativeArgs*)this.nativePtr)->default_file_path);
+                }
             }
             public List<string> accept_filters()
             {
@@ -16128,11 +16198,17 @@ namespace LayoutFarm.CefBridge.Auto
             }
             public int selected_accept_filter()
             {
-                return MyMetArgs.GetAsInt32(nativePtr, 6);
+                unsafe
+                {
+                    return _isJsSlot ? MyMetArgs.GetAsInt32(nativePtr, 6) : ((OnFileDialogNativeArgs*)this.nativePtr)->selected_accept_filter;
+                }
             }
             public CefFileDialogCallback callback()
             {
-                return new CefFileDialogCallback(MyMetArgs.GetAsIntPtr(nativePtr, 7));
+                unsafe
+                {
+                    return _isJsSlot ? new CefFileDialogCallback(MyMetArgs.GetAsIntPtr(nativePtr, 7)) : new CefFileDialogCallback(((OnFileDialogNativeArgs*)this.nativePtr)->callback);
+                }
             }
         }
         [StructLayout(LayoutKind.Sequential)]
@@ -16218,15 +16294,24 @@ namespace LayoutFarm.CefBridge.Auto
             }
             public CefBrowser browser()
             {
-                return new CefBrowser(MyMetArgs.GetAsIntPtr(nativePtr, 1));
+                unsafe
+                {
+                    return _isJsSlot ? new CefBrowser(MyMetArgs.GetAsIntPtr(nativePtr, 1)) : new CefBrowser(((OnAddressChangeNativeArgs*)this.nativePtr)->browser);
+                }
             }
             public CefFrame frame()
             {
-                return new CefFrame(MyMetArgs.GetAsIntPtr(nativePtr, 2));
+                unsafe
+                {
+                    return _isJsSlot ? new CefFrame(MyMetArgs.GetAsIntPtr(nativePtr, 2)) : new CefFrame(((OnAddressChangeNativeArgs*)this.nativePtr)->frame);
+                }
             }
             public string url()
             {
-                return MyMetArgs.GetAsString(nativePtr, 3);
+                unsafe
+                {
+                    return _isJsSlot ? MyMetArgs.GetAsString(nativePtr, 3) : MyMetArgs.GetAsString(((OnAddressChangeNativeArgs*)this.nativePtr)->url);
+                }
             }
         }
         [StructLayout(LayoutKind.Sequential)]
@@ -16251,11 +16336,17 @@ namespace LayoutFarm.CefBridge.Auto
             }
             public CefBrowser browser()
             {
-                return new CefBrowser(MyMetArgs.GetAsIntPtr(nativePtr, 1));
+                unsafe
+                {
+                    return _isJsSlot ? new CefBrowser(MyMetArgs.GetAsIntPtr(nativePtr, 1)) : new CefBrowser(((OnTitleChangeNativeArgs*)this.nativePtr)->browser);
+                }
             }
             public string title()
             {
-                return MyMetArgs.GetAsString(nativePtr, 2);
+                unsafe
+                {
+                    return _isJsSlot ? MyMetArgs.GetAsString(nativePtr, 2) : MyMetArgs.GetAsString(((OnTitleChangeNativeArgs*)this.nativePtr)->title);
+                }
             }
         }
         [StructLayout(LayoutKind.Sequential)]
@@ -16279,7 +16370,10 @@ namespace LayoutFarm.CefBridge.Auto
             }
             public CefBrowser browser()
             {
-                return new CefBrowser(MyMetArgs.GetAsIntPtr(nativePtr, 1));
+                unsafe
+                {
+                    return _isJsSlot ? new CefBrowser(MyMetArgs.GetAsIntPtr(nativePtr, 1)) : new CefBrowser(((OnFaviconURLChangeNativeArgs*)this.nativePtr)->browser);
+                }
             }
             public List<string> icon_urls()
             {
@@ -16307,11 +16401,17 @@ namespace LayoutFarm.CefBridge.Auto
             }
             public CefBrowser browser()
             {
-                return new CefBrowser(MyMetArgs.GetAsIntPtr(nativePtr, 1));
+                unsafe
+                {
+                    return _isJsSlot ? new CefBrowser(MyMetArgs.GetAsIntPtr(nativePtr, 1)) : new CefBrowser(((OnFullscreenModeChangeNativeArgs*)this.nativePtr)->browser);
+                }
             }
             public bool fullscreen()
             {
-                return MyMetArgs.GetAsBool(nativePtr, 2);
+                unsafe
+                {
+                    return _isJsSlot ? MyMetArgs.GetAsBool(nativePtr, 2) : ((OnFullscreenModeChangeNativeArgs*)this.nativePtr)->fullscreen;
+                }
             }
         }
         [StructLayout(LayoutKind.Sequential)]
@@ -16335,11 +16435,17 @@ namespace LayoutFarm.CefBridge.Auto
             }
             public CefBrowser browser()
             {
-                return new CefBrowser(MyMetArgs.GetAsIntPtr(nativePtr, 1));
+                unsafe
+                {
+                    return _isJsSlot ? new CefBrowser(MyMetArgs.GetAsIntPtr(nativePtr, 1)) : new CefBrowser(((OnTooltipNativeArgs*)this.nativePtr)->browser);
+                }
             }
             public string text()
             {
-                return MyMetArgs.GetAsString(nativePtr, 2);
+                unsafe
+                {
+                    return _isJsSlot ? MyMetArgs.GetAsString(nativePtr, 2) : MyMetArgs.GetAsString(((OnTooltipNativeArgs*)this.nativePtr)->text);
+                }
             }
         }
         [StructLayout(LayoutKind.Sequential)]
@@ -16363,11 +16469,17 @@ namespace LayoutFarm.CefBridge.Auto
             }
             public CefBrowser browser()
             {
-                return new CefBrowser(MyMetArgs.GetAsIntPtr(nativePtr, 1));
+                unsafe
+                {
+                    return _isJsSlot ? new CefBrowser(MyMetArgs.GetAsIntPtr(nativePtr, 1)) : new CefBrowser(((OnStatusMessageNativeArgs*)this.nativePtr)->browser);
+                }
             }
             public string value()
             {
-                return MyMetArgs.GetAsString(nativePtr, 2);
+                unsafe
+                {
+                    return _isJsSlot ? MyMetArgs.GetAsString(nativePtr, 2) : MyMetArgs.GetAsString(((OnStatusMessageNativeArgs*)this.nativePtr)->value);
+                }
             }
         }
         [StructLayout(LayoutKind.Sequential)]
@@ -16391,19 +16503,31 @@ namespace LayoutFarm.CefBridge.Auto
             }
             public CefBrowser browser()
             {
-                return new CefBrowser(MyMetArgs.GetAsIntPtr(nativePtr, 1));
+                unsafe
+                {
+                    return _isJsSlot ? new CefBrowser(MyMetArgs.GetAsIntPtr(nativePtr, 1)) : new CefBrowser(((OnConsoleMessageNativeArgs*)this.nativePtr)->browser);
+                }
             }
             public string message()
             {
-                return MyMetArgs.GetAsString(nativePtr, 2);
+                unsafe
+                {
+                    return _isJsSlot ? MyMetArgs.GetAsString(nativePtr, 2) : MyMetArgs.GetAsString(((OnConsoleMessageNativeArgs*)this.nativePtr)->message);
+                }
             }
             public string source()
             {
-                return MyMetArgs.GetAsString(nativePtr, 3);
+                unsafe
+                {
+                    return _isJsSlot ? MyMetArgs.GetAsString(nativePtr, 3) : MyMetArgs.GetAsString(((OnConsoleMessageNativeArgs*)this.nativePtr)->source);
+                }
             }
             public int line()
             {
-                return MyMetArgs.GetAsInt32(nativePtr, 4);
+                unsafe
+                {
+                    return _isJsSlot ? MyMetArgs.GetAsInt32(nativePtr, 4) : ((OnConsoleMessageNativeArgs*)this.nativePtr)->line;
+                }
             }
         }
         [StructLayout(LayoutKind.Sequential)]
@@ -16615,19 +16739,31 @@ namespace LayoutFarm.CefBridge.Auto
             }
             public CefBrowser browser()
             {
-                return new CefBrowser(MyMetArgs.GetAsIntPtr(nativePtr, 1));
+                unsafe
+                {
+                    return _isJsSlot ? new CefBrowser(MyMetArgs.GetAsIntPtr(nativePtr, 1)) : new CefBrowser(((OnBeforeDownloadNativeArgs*)this.nativePtr)->browser);
+                }
             }
             public CefDownloadItem download_item()
             {
-                return new CefDownloadItem(MyMetArgs.GetAsIntPtr(nativePtr, 2));
+                unsafe
+                {
+                    return _isJsSlot ? new CefDownloadItem(MyMetArgs.GetAsIntPtr(nativePtr, 2)) : new CefDownloadItem(((OnBeforeDownloadNativeArgs*)this.nativePtr)->download_item);
+                }
             }
             public string suggested_name()
             {
-                return MyMetArgs.GetAsString(nativePtr, 3);
+                unsafe
+                {
+                    return _isJsSlot ? MyMetArgs.GetAsString(nativePtr, 3) : MyMetArgs.GetAsString(((OnBeforeDownloadNativeArgs*)this.nativePtr)->suggested_name);
+                }
             }
             public CefBeforeDownloadCallback callback()
             {
-                return new CefBeforeDownloadCallback(MyMetArgs.GetAsIntPtr(nativePtr, 4));
+                unsafe
+                {
+                    return _isJsSlot ? new CefBeforeDownloadCallback(MyMetArgs.GetAsIntPtr(nativePtr, 4)) : new CefBeforeDownloadCallback(((OnBeforeDownloadNativeArgs*)this.nativePtr)->callback);
+                }
             }
         }
         [StructLayout(LayoutKind.Sequential)]
@@ -16653,15 +16789,24 @@ namespace LayoutFarm.CefBridge.Auto
             }
             public CefBrowser browser()
             {
-                return new CefBrowser(MyMetArgs.GetAsIntPtr(nativePtr, 1));
+                unsafe
+                {
+                    return _isJsSlot ? new CefBrowser(MyMetArgs.GetAsIntPtr(nativePtr, 1)) : new CefBrowser(((OnDownloadUpdatedNativeArgs*)this.nativePtr)->browser);
+                }
             }
             public CefDownloadItem download_item()
             {
-                return new CefDownloadItem(MyMetArgs.GetAsIntPtr(nativePtr, 2));
+                unsafe
+                {
+                    return _isJsSlot ? new CefDownloadItem(MyMetArgs.GetAsIntPtr(nativePtr, 2)) : new CefDownloadItem(((OnDownloadUpdatedNativeArgs*)this.nativePtr)->download_item);
+                }
             }
             public CefDownloadItemCallback callback()
             {
-                return new CefDownloadItemCallback(MyMetArgs.GetAsIntPtr(nativePtr, 3));
+                unsafe
+                {
+                    return _isJsSlot ? new CefDownloadItemCallback(MyMetArgs.GetAsIntPtr(nativePtr, 3)) : new CefDownloadItemCallback(((OnDownloadUpdatedNativeArgs*)this.nativePtr)->callback);
+                }
             }
         }
         [StructLayout(LayoutKind.Sequential)]
@@ -16757,15 +16902,24 @@ namespace LayoutFarm.CefBridge.Auto
             }
             public CefBrowser browser()
             {
-                return new CefBrowser(MyMetArgs.GetAsIntPtr(nativePtr, 1));
+                unsafe
+                {
+                    return _isJsSlot ? new CefBrowser(MyMetArgs.GetAsIntPtr(nativePtr, 1)) : new CefBrowser(((OnDragEnterNativeArgs*)this.nativePtr)->browser);
+                }
             }
             public CefDragData dragData()
             {
-                return new CefDragData(MyMetArgs.GetAsIntPtr(nativePtr, 2));
+                unsafe
+                {
+                    return _isJsSlot ? new CefDragData(MyMetArgs.GetAsIntPtr(nativePtr, 2)) : new CefDragData(((OnDragEnterNativeArgs*)this.nativePtr)->dragData);
+                }
             }
             public cef_drag_operations_mask_t mask()
             {
-                return (cef_drag_operations_mask_t)MyMetArgs.GetAsInt32(nativePtr, 3);
+                unsafe
+                {
+                    return _isJsSlot ? (cef_drag_operations_mask_t)MyMetArgs.GetAsInt32(nativePtr, 3) : (cef_drag_operations_mask_t)(((OnDragEnterNativeArgs*)this.nativePtr)->mask);
+                }
             }
         }
         [StructLayout(LayoutKind.Sequential)]
@@ -16790,7 +16944,10 @@ namespace LayoutFarm.CefBridge.Auto
             }
             public CefBrowser browser()
             {
-                return new CefBrowser(MyMetArgs.GetAsIntPtr(nativePtr, 1));
+                unsafe
+                {
+                    return _isJsSlot ? new CefBrowser(MyMetArgs.GetAsIntPtr(nativePtr, 1)) : new CefBrowser(((OnDraggableRegionsChangedNativeArgs*)this.nativePtr)->browser);
+                }
             }
             public List<object> regions()
             {
@@ -16884,27 +17041,45 @@ namespace LayoutFarm.CefBridge.Auto
             }
             public CefBrowser browser()
             {
-                return new CefBrowser(MyMetArgs.GetAsIntPtr(nativePtr, 1));
+                unsafe
+                {
+                    return _isJsSlot ? new CefBrowser(MyMetArgs.GetAsIntPtr(nativePtr, 1)) : new CefBrowser(((OnFindResultNativeArgs*)this.nativePtr)->browser);
+                }
             }
             public int identifier()
             {
-                return MyMetArgs.GetAsInt32(nativePtr, 2);
+                unsafe
+                {
+                    return _isJsSlot ? MyMetArgs.GetAsInt32(nativePtr, 2) : ((OnFindResultNativeArgs*)this.nativePtr)->identifier;
+                }
             }
             public int count()
             {
-                return MyMetArgs.GetAsInt32(nativePtr, 3);
+                unsafe
+                {
+                    return _isJsSlot ? MyMetArgs.GetAsInt32(nativePtr, 3) : ((OnFindResultNativeArgs*)this.nativePtr)->count;
+                }
             }
             public CefRect selectionRect()
             {
-                return new CefRect(MyMetArgs.GetAsIntPtr(nativePtr, 4));
+                unsafe
+                {
+                    return _isJsSlot ? new CefRect(MyMetArgs.GetAsIntPtr(nativePtr, 4)) : new CefRect(((OnFindResultNativeArgs*)this.nativePtr)->selectionRect);
+                }
             }
             public int activeMatchOrdinal()
             {
-                return MyMetArgs.GetAsInt32(nativePtr, 5);
+                unsafe
+                {
+                    return _isJsSlot ? MyMetArgs.GetAsInt32(nativePtr, 5) : ((OnFindResultNativeArgs*)this.nativePtr)->activeMatchOrdinal;
+                }
             }
             public bool finalUpdate()
             {
-                return MyMetArgs.GetAsBool(nativePtr, 6);
+                unsafe
+                {
+                    return _isJsSlot ? MyMetArgs.GetAsBool(nativePtr, 6) : ((OnFindResultNativeArgs*)this.nativePtr)->finalUpdate;
+                }
             }
         }
         [StructLayout(LayoutKind.Sequential)]
@@ -16983,11 +17158,17 @@ namespace LayoutFarm.CefBridge.Auto
             }
             public CefBrowser browser()
             {
-                return new CefBrowser(MyMetArgs.GetAsIntPtr(nativePtr, 1));
+                unsafe
+                {
+                    return _isJsSlot ? new CefBrowser(MyMetArgs.GetAsIntPtr(nativePtr, 1)) : new CefBrowser(((OnTakeFocusNativeArgs*)this.nativePtr)->browser);
+                }
             }
             public bool next()
             {
-                return MyMetArgs.GetAsBool(nativePtr, 2);
+                unsafe
+                {
+                    return _isJsSlot ? MyMetArgs.GetAsBool(nativePtr, 2) : ((OnTakeFocusNativeArgs*)this.nativePtr)->next;
+                }
             }
         }
         [StructLayout(LayoutKind.Sequential)]
@@ -17011,11 +17192,17 @@ namespace LayoutFarm.CefBridge.Auto
             }
             public CefBrowser browser()
             {
-                return new CefBrowser(MyMetArgs.GetAsIntPtr(nativePtr, 1));
+                unsafe
+                {
+                    return _isJsSlot ? new CefBrowser(MyMetArgs.GetAsIntPtr(nativePtr, 1)) : new CefBrowser(((OnSetFocusNativeArgs*)this.nativePtr)->browser);
+                }
             }
             public cef_focus_source_t source()
             {
-                return (cef_focus_source_t)MyMetArgs.GetAsInt32(nativePtr, 2);
+                unsafe
+                {
+                    return _isJsSlot ? (cef_focus_source_t)MyMetArgs.GetAsInt32(nativePtr, 2) : (cef_focus_source_t)(((OnSetFocusNativeArgs*)this.nativePtr)->source);
+                }
             }
         }
         [StructLayout(LayoutKind.Sequential)]
@@ -17039,7 +17226,10 @@ namespace LayoutFarm.CefBridge.Auto
             }
             public CefBrowser browser()
             {
-                return new CefBrowser(MyMetArgs.GetAsIntPtr(nativePtr, 1));
+                unsafe
+                {
+                    return _isJsSlot ? new CefBrowser(MyMetArgs.GetAsIntPtr(nativePtr, 1)) : new CefBrowser(((OnGotFocusNativeArgs*)this.nativePtr)->browser);
+                }
             }
         }
         [StructLayout(LayoutKind.Sequential)]
@@ -17148,19 +17338,31 @@ namespace LayoutFarm.CefBridge.Auto
             }
             public CefBrowser browser()
             {
-                return new CefBrowser(MyMetArgs.GetAsIntPtr(nativePtr, 1));
+                unsafe
+                {
+                    return _isJsSlot ? new CefBrowser(MyMetArgs.GetAsIntPtr(nativePtr, 1)) : new CefBrowser(((OnRequestGeolocationPermissionNativeArgs*)this.nativePtr)->browser);
+                }
             }
             public string requesting_url()
             {
-                return MyMetArgs.GetAsString(nativePtr, 2);
+                unsafe
+                {
+                    return _isJsSlot ? MyMetArgs.GetAsString(nativePtr, 2) : MyMetArgs.GetAsString(((OnRequestGeolocationPermissionNativeArgs*)this.nativePtr)->requesting_url);
+                }
             }
             public int request_id()
             {
-                return MyMetArgs.GetAsInt32(nativePtr, 3);
+                unsafe
+                {
+                    return _isJsSlot ? MyMetArgs.GetAsInt32(nativePtr, 3) : ((OnRequestGeolocationPermissionNativeArgs*)this.nativePtr)->request_id;
+                }
             }
             public CefGeolocationCallback callback()
             {
-                return new CefGeolocationCallback(MyMetArgs.GetAsIntPtr(nativePtr, 4));
+                unsafe
+                {
+                    return _isJsSlot ? new CefGeolocationCallback(MyMetArgs.GetAsIntPtr(nativePtr, 4)) : new CefGeolocationCallback(((OnRequestGeolocationPermissionNativeArgs*)this.nativePtr)->callback);
+                }
             }
         }
         [StructLayout(LayoutKind.Sequential)]
@@ -17186,11 +17388,17 @@ namespace LayoutFarm.CefBridge.Auto
             }
             public CefBrowser browser()
             {
-                return new CefBrowser(MyMetArgs.GetAsIntPtr(nativePtr, 1));
+                unsafe
+                {
+                    return _isJsSlot ? new CefBrowser(MyMetArgs.GetAsIntPtr(nativePtr, 1)) : new CefBrowser(((OnCancelGeolocationPermissionNativeArgs*)this.nativePtr)->browser);
+                }
             }
             public int request_id()
             {
-                return MyMetArgs.GetAsInt32(nativePtr, 2);
+                unsafe
+                {
+                    return _isJsSlot ? MyMetArgs.GetAsInt32(nativePtr, 2) : ((OnCancelGeolocationPermissionNativeArgs*)this.nativePtr)->request_id;
+                }
             }
         }
         [StructLayout(LayoutKind.Sequential)]
@@ -17285,31 +17493,52 @@ namespace LayoutFarm.CefBridge.Auto
             }
             public CefBrowser browser()
             {
-                return new CefBrowser(MyMetArgs.GetAsIntPtr(nativePtr, 1));
+                unsafe
+                {
+                    return _isJsSlot ? new CefBrowser(MyMetArgs.GetAsIntPtr(nativePtr, 1)) : new CefBrowser(((OnJSDialogNativeArgs*)this.nativePtr)->browser);
+                }
             }
             public string origin_url()
             {
-                return MyMetArgs.GetAsString(nativePtr, 2);
+                unsafe
+                {
+                    return _isJsSlot ? MyMetArgs.GetAsString(nativePtr, 2) : MyMetArgs.GetAsString(((OnJSDialogNativeArgs*)this.nativePtr)->origin_url);
+                }
             }
             public cef_jsdialog_type_t dialog_type()
             {
-                return (cef_jsdialog_type_t)MyMetArgs.GetAsInt32(nativePtr, 3);
+                unsafe
+                {
+                    return _isJsSlot ? (cef_jsdialog_type_t)MyMetArgs.GetAsInt32(nativePtr, 3) : (cef_jsdialog_type_t)(((OnJSDialogNativeArgs*)this.nativePtr)->dialog_type);
+                }
             }
             public string message_text()
             {
-                return MyMetArgs.GetAsString(nativePtr, 4);
+                unsafe
+                {
+                    return _isJsSlot ? MyMetArgs.GetAsString(nativePtr, 4) : MyMetArgs.GetAsString(((OnJSDialogNativeArgs*)this.nativePtr)->message_text);
+                }
             }
             public string default_prompt_text()
             {
-                return MyMetArgs.GetAsString(nativePtr, 5);
+                unsafe
+                {
+                    return _isJsSlot ? MyMetArgs.GetAsString(nativePtr, 5) : MyMetArgs.GetAsString(((OnJSDialogNativeArgs*)this.nativePtr)->default_prompt_text);
+                }
             }
             public CefJSDialogCallback callback()
             {
-                return new CefJSDialogCallback(MyMetArgs.GetAsIntPtr(nativePtr, 6));
+                unsafe
+                {
+                    return _isJsSlot ? new CefJSDialogCallback(MyMetArgs.GetAsIntPtr(nativePtr, 6)) : new CefJSDialogCallback(((OnJSDialogNativeArgs*)this.nativePtr)->callback);
+                }
             }
             public bool suppress_message()
             {
-                return MyMetArgs.GetAsBool(nativePtr, 7);
+                unsafe
+                {
+                    return MyMetArgs.GetAsBool(nativePtr, 7);
+                }
             }
             public void suppress_message(bool value)
             {
@@ -17342,19 +17571,31 @@ namespace LayoutFarm.CefBridge.Auto
             }
             public CefBrowser browser()
             {
-                return new CefBrowser(MyMetArgs.GetAsIntPtr(nativePtr, 1));
+                unsafe
+                {
+                    return _isJsSlot ? new CefBrowser(MyMetArgs.GetAsIntPtr(nativePtr, 1)) : new CefBrowser(((OnBeforeUnloadDialogNativeArgs*)this.nativePtr)->browser);
+                }
             }
             public string message_text()
             {
-                return MyMetArgs.GetAsString(nativePtr, 2);
+                unsafe
+                {
+                    return _isJsSlot ? MyMetArgs.GetAsString(nativePtr, 2) : MyMetArgs.GetAsString(((OnBeforeUnloadDialogNativeArgs*)this.nativePtr)->message_text);
+                }
             }
             public bool is_reload()
             {
-                return MyMetArgs.GetAsBool(nativePtr, 3);
+                unsafe
+                {
+                    return _isJsSlot ? MyMetArgs.GetAsBool(nativePtr, 3) : ((OnBeforeUnloadDialogNativeArgs*)this.nativePtr)->is_reload;
+                }
             }
             public CefJSDialogCallback callback()
             {
-                return new CefJSDialogCallback(MyMetArgs.GetAsIntPtr(nativePtr, 4));
+                unsafe
+                {
+                    return _isJsSlot ? new CefJSDialogCallback(MyMetArgs.GetAsIntPtr(nativePtr, 4)) : new CefJSDialogCallback(((OnBeforeUnloadDialogNativeArgs*)this.nativePtr)->callback);
+                }
             }
         }
         [StructLayout(LayoutKind.Sequential)]
@@ -17380,7 +17621,10 @@ namespace LayoutFarm.CefBridge.Auto
             }
             public CefBrowser browser()
             {
-                return new CefBrowser(MyMetArgs.GetAsIntPtr(nativePtr, 1));
+                unsafe
+                {
+                    return _isJsSlot ? new CefBrowser(MyMetArgs.GetAsIntPtr(nativePtr, 1)) : new CefBrowser(((OnResetDialogStateNativeArgs*)this.nativePtr)->browser);
+                }
             }
         }
         [StructLayout(LayoutKind.Sequential)]
@@ -17403,7 +17647,10 @@ namespace LayoutFarm.CefBridge.Auto
             }
             public CefBrowser browser()
             {
-                return new CefBrowser(MyMetArgs.GetAsIntPtr(nativePtr, 1));
+                unsafe
+                {
+                    return _isJsSlot ? new CefBrowser(MyMetArgs.GetAsIntPtr(nativePtr, 1)) : new CefBrowser(((OnDialogClosedNativeArgs*)this.nativePtr)->browser);
+                }
             }
         }
         [StructLayout(LayoutKind.Sequential)]
@@ -17551,11 +17798,17 @@ namespace LayoutFarm.CefBridge.Auto
             }
             public CefBrowser browser()
             {
-                return new CefBrowser(MyMetArgs.GetAsIntPtr(nativePtr, 1));
+                unsafe
+                {
+                    return _isJsSlot ? new CefBrowser(MyMetArgs.GetAsIntPtr(nativePtr, 1)) : new CefBrowser(((OnPreKeyEventNativeArgs*)this.nativePtr)->browser);
+                }
             }
             public CefKeyEvent _event()
             {
-                return new CefKeyEvent(MyMetArgs.GetAsIntPtr(nativePtr, 2));
+                unsafe
+                {
+                    return _isJsSlot ? new CefKeyEvent(MyMetArgs.GetAsIntPtr(nativePtr, 2)) : new CefKeyEvent(((OnPreKeyEventNativeArgs*)this.nativePtr)->_event);
+                }
             }
             public IntPtr os_event()
             {
@@ -17563,7 +17816,10 @@ namespace LayoutFarm.CefBridge.Auto
             }
             public bool is_keyboard_shortcut()
             {
-                return MyMetArgs.GetAsBool(nativePtr, 4);
+                unsafe
+                {
+                    return MyMetArgs.GetAsBool(nativePtr, 4);
+                }
             }
             public void is_keyboard_shortcut(bool value)
             {
@@ -17593,11 +17849,17 @@ namespace LayoutFarm.CefBridge.Auto
             }
             public CefBrowser browser()
             {
-                return new CefBrowser(MyMetArgs.GetAsIntPtr(nativePtr, 1));
+                unsafe
+                {
+                    return _isJsSlot ? new CefBrowser(MyMetArgs.GetAsIntPtr(nativePtr, 1)) : new CefBrowser(((OnKeyEventNativeArgs*)this.nativePtr)->browser);
+                }
             }
             public CefKeyEvent _event()
             {
-                return new CefKeyEvent(MyMetArgs.GetAsIntPtr(nativePtr, 2));
+                unsafe
+                {
+                    return _isJsSlot ? new CefKeyEvent(MyMetArgs.GetAsIntPtr(nativePtr, 2)) : new CefKeyEvent(((OnKeyEventNativeArgs*)this.nativePtr)->_event);
+                }
             }
             public IntPtr os_event()
             {
@@ -17703,35 +17965,59 @@ namespace LayoutFarm.CefBridge.Auto
             }
             public CefBrowser browser()
             {
-                return new CefBrowser(MyMetArgs.GetAsIntPtr(nativePtr, 1));
+                unsafe
+                {
+                    return _isJsSlot ? new CefBrowser(MyMetArgs.GetAsIntPtr(nativePtr, 1)) : new CefBrowser(((OnBeforePopupNativeArgs*)this.nativePtr)->browser);
+                }
             }
             public CefFrame frame()
             {
-                return new CefFrame(MyMetArgs.GetAsIntPtr(nativePtr, 2));
+                unsafe
+                {
+                    return _isJsSlot ? new CefFrame(MyMetArgs.GetAsIntPtr(nativePtr, 2)) : new CefFrame(((OnBeforePopupNativeArgs*)this.nativePtr)->frame);
+                }
             }
             public string target_url()
             {
-                return MyMetArgs.GetAsString(nativePtr, 3);
+                unsafe
+                {
+                    return _isJsSlot ? MyMetArgs.GetAsString(nativePtr, 3) : MyMetArgs.GetAsString(((OnBeforePopupNativeArgs*)this.nativePtr)->target_url);
+                }
             }
             public string target_frame_name()
             {
-                return MyMetArgs.GetAsString(nativePtr, 4);
+                unsafe
+                {
+                    return _isJsSlot ? MyMetArgs.GetAsString(nativePtr, 4) : MyMetArgs.GetAsString(((OnBeforePopupNativeArgs*)this.nativePtr)->target_frame_name);
+                }
             }
             public cef_window_open_disposition_t target_disposition()
             {
-                return (cef_window_open_disposition_t)MyMetArgs.GetAsInt32(nativePtr, 5);
+                unsafe
+                {
+                    return _isJsSlot ? (cef_window_open_disposition_t)MyMetArgs.GetAsInt32(nativePtr, 5) : (cef_window_open_disposition_t)(((OnBeforePopupNativeArgs*)this.nativePtr)->target_disposition);
+                }
             }
             public bool user_gesture()
             {
-                return MyMetArgs.GetAsBool(nativePtr, 6);
+                unsafe
+                {
+                    return _isJsSlot ? MyMetArgs.GetAsBool(nativePtr, 6) : ((OnBeforePopupNativeArgs*)this.nativePtr)->user_gesture;
+                }
             }
             public CefPopupFeatures popupFeatures()
             {
-                return new CefPopupFeatures(MyMetArgs.GetAsIntPtr(nativePtr, 7));
+                unsafe
+                {
+                    return _isJsSlot ? new CefPopupFeatures(MyMetArgs.GetAsIntPtr(nativePtr, 7)) : new CefPopupFeatures(((OnBeforePopupNativeArgs*)this.nativePtr)->popupFeatures);
+                }
             }
             public CefWindowInfo windowInfo()
             {
-                return new CefWindowInfo(MyMetArgs.GetAsIntPtr(nativePtr, 8));
+                unsafe
+                {
+                    return _isJsSlot ? new CefWindowInfo(MyMetArgs.GetAsIntPtr(nativePtr, 8)) : new CefWindowInfo(((OnBeforePopupNativeArgs*)this.nativePtr)->windowInfo);
+                }
             }
             public IntPtr client()
             {
@@ -17739,11 +18025,17 @@ namespace LayoutFarm.CefBridge.Auto
             }
             public CefBrowserSettings settings()
             {
-                return new CefBrowserSettings(MyMetArgs.GetAsIntPtr(nativePtr, 10));
+                unsafe
+                {
+                    return _isJsSlot ? new CefBrowserSettings(MyMetArgs.GetAsIntPtr(nativePtr, 10)) : new CefBrowserSettings(((OnBeforePopupNativeArgs*)this.nativePtr)->settings);
+                }
             }
             public bool no_javascript_access()
             {
-                return MyMetArgs.GetAsBool(nativePtr, 11);
+                unsafe
+                {
+                    return MyMetArgs.GetAsBool(nativePtr, 11);
+                }
             }
             public void no_javascript_access(bool value)
             {
@@ -17780,7 +18072,10 @@ namespace LayoutFarm.CefBridge.Auto
             }
             public CefBrowser browser()
             {
-                return new CefBrowser(MyMetArgs.GetAsIntPtr(nativePtr, 1));
+                unsafe
+                {
+                    return _isJsSlot ? new CefBrowser(MyMetArgs.GetAsIntPtr(nativePtr, 1)) : new CefBrowser(((OnAfterCreatedNativeArgs*)this.nativePtr)->browser);
+                }
             }
         }
         [StructLayout(LayoutKind.Sequential)]
@@ -17803,7 +18098,10 @@ namespace LayoutFarm.CefBridge.Auto
             }
             public CefBrowser browser()
             {
-                return new CefBrowser(MyMetArgs.GetAsIntPtr(nativePtr, 1));
+                unsafe
+                {
+                    return _isJsSlot ? new CefBrowser(MyMetArgs.GetAsIntPtr(nativePtr, 1)) : new CefBrowser(((DoCloseNativeArgs*)this.nativePtr)->browser);
+                }
             }
         }
         [StructLayout(LayoutKind.Sequential)]
@@ -17826,7 +18124,10 @@ namespace LayoutFarm.CefBridge.Auto
             }
             public CefBrowser browser()
             {
-                return new CefBrowser(MyMetArgs.GetAsIntPtr(nativePtr, 1));
+                unsafe
+                {
+                    return _isJsSlot ? new CefBrowser(MyMetArgs.GetAsIntPtr(nativePtr, 1)) : new CefBrowser(((OnBeforeCloseNativeArgs*)this.nativePtr)->browser);
+                }
             }
         }
         [StructLayout(LayoutKind.Sequential)]
@@ -17978,19 +18279,31 @@ namespace LayoutFarm.CefBridge.Auto
             }
             public CefBrowser browser()
             {
-                return new CefBrowser(MyMetArgs.GetAsIntPtr(nativePtr, 1));
+                unsafe
+                {
+                    return _isJsSlot ? new CefBrowser(MyMetArgs.GetAsIntPtr(nativePtr, 1)) : new CefBrowser(((OnLoadingStateChangeNativeArgs*)this.nativePtr)->browser);
+                }
             }
             public bool isLoading()
             {
-                return MyMetArgs.GetAsBool(nativePtr, 2);
+                unsafe
+                {
+                    return _isJsSlot ? MyMetArgs.GetAsBool(nativePtr, 2) : ((OnLoadingStateChangeNativeArgs*)this.nativePtr)->isLoading;
+                }
             }
             public bool canGoBack()
             {
-                return MyMetArgs.GetAsBool(nativePtr, 3);
+                unsafe
+                {
+                    return _isJsSlot ? MyMetArgs.GetAsBool(nativePtr, 3) : ((OnLoadingStateChangeNativeArgs*)this.nativePtr)->canGoBack;
+                }
             }
             public bool canGoForward()
             {
-                return MyMetArgs.GetAsBool(nativePtr, 4);
+                unsafe
+                {
+                    return _isJsSlot ? MyMetArgs.GetAsBool(nativePtr, 4) : ((OnLoadingStateChangeNativeArgs*)this.nativePtr)->canGoForward;
+                }
             }
         }
         [StructLayout(LayoutKind.Sequential)]
@@ -18016,15 +18329,24 @@ namespace LayoutFarm.CefBridge.Auto
             }
             public CefBrowser browser()
             {
-                return new CefBrowser(MyMetArgs.GetAsIntPtr(nativePtr, 1));
+                unsafe
+                {
+                    return _isJsSlot ? new CefBrowser(MyMetArgs.GetAsIntPtr(nativePtr, 1)) : new CefBrowser(((OnLoadStartNativeArgs*)this.nativePtr)->browser);
+                }
             }
             public CefFrame frame()
             {
-                return new CefFrame(MyMetArgs.GetAsIntPtr(nativePtr, 2));
+                unsafe
+                {
+                    return _isJsSlot ? new CefFrame(MyMetArgs.GetAsIntPtr(nativePtr, 2)) : new CefFrame(((OnLoadStartNativeArgs*)this.nativePtr)->frame);
+                }
             }
             public cef_transition_type_t transition_type()
             {
-                return (cef_transition_type_t)MyMetArgs.GetAsInt32(nativePtr, 3);
+                unsafe
+                {
+                    return _isJsSlot ? (cef_transition_type_t)MyMetArgs.GetAsInt32(nativePtr, 3) : (cef_transition_type_t)(((OnLoadStartNativeArgs*)this.nativePtr)->transition_type);
+                }
             }
         }
         [StructLayout(LayoutKind.Sequential)]
@@ -18049,15 +18371,24 @@ namespace LayoutFarm.CefBridge.Auto
             }
             public CefBrowser browser()
             {
-                return new CefBrowser(MyMetArgs.GetAsIntPtr(nativePtr, 1));
+                unsafe
+                {
+                    return _isJsSlot ? new CefBrowser(MyMetArgs.GetAsIntPtr(nativePtr, 1)) : new CefBrowser(((OnLoadEndNativeArgs*)this.nativePtr)->browser);
+                }
             }
             public CefFrame frame()
             {
-                return new CefFrame(MyMetArgs.GetAsIntPtr(nativePtr, 2));
+                unsafe
+                {
+                    return _isJsSlot ? new CefFrame(MyMetArgs.GetAsIntPtr(nativePtr, 2)) : new CefFrame(((OnLoadEndNativeArgs*)this.nativePtr)->frame);
+                }
             }
             public int httpStatusCode()
             {
-                return MyMetArgs.GetAsInt32(nativePtr, 3);
+                unsafe
+                {
+                    return _isJsSlot ? MyMetArgs.GetAsInt32(nativePtr, 3) : ((OnLoadEndNativeArgs*)this.nativePtr)->httpStatusCode;
+                }
             }
         }
         [StructLayout(LayoutKind.Sequential)]
@@ -18082,23 +18413,38 @@ namespace LayoutFarm.CefBridge.Auto
             }
             public CefBrowser browser()
             {
-                return new CefBrowser(MyMetArgs.GetAsIntPtr(nativePtr, 1));
+                unsafe
+                {
+                    return _isJsSlot ? new CefBrowser(MyMetArgs.GetAsIntPtr(nativePtr, 1)) : new CefBrowser(((OnLoadErrorNativeArgs*)this.nativePtr)->browser);
+                }
             }
             public CefFrame frame()
             {
-                return new CefFrame(MyMetArgs.GetAsIntPtr(nativePtr, 2));
+                unsafe
+                {
+                    return _isJsSlot ? new CefFrame(MyMetArgs.GetAsIntPtr(nativePtr, 2)) : new CefFrame(((OnLoadErrorNativeArgs*)this.nativePtr)->frame);
+                }
             }
             public cef_errorcode_t errorCode()
             {
-                return (cef_errorcode_t)MyMetArgs.GetAsInt32(nativePtr, 3);
+                unsafe
+                {
+                    return _isJsSlot ? (cef_errorcode_t)MyMetArgs.GetAsInt32(nativePtr, 3) : (cef_errorcode_t)(((OnLoadErrorNativeArgs*)this.nativePtr)->errorCode);
+                }
             }
             public string errorText()
             {
-                return MyMetArgs.GetAsString(nativePtr, 4);
+                unsafe
+                {
+                    return _isJsSlot ? MyMetArgs.GetAsString(nativePtr, 4) : MyMetArgs.GetAsString(((OnLoadErrorNativeArgs*)this.nativePtr)->errorText);
+                }
             }
             public string failedUrl()
             {
-                return MyMetArgs.GetAsString(nativePtr, 5);
+                unsafe
+                {
+                    return _isJsSlot ? MyMetArgs.GetAsString(nativePtr, 5) : MyMetArgs.GetAsString(((OnLoadErrorNativeArgs*)this.nativePtr)->failedUrl);
+                }
             }
         }
         [StructLayout(LayoutKind.Sequential)]
@@ -18254,7 +18600,10 @@ namespace LayoutFarm.CefBridge.Auto
             }
             public CefBrowser browser()
             {
-                return new CefBrowser(MyMetArgs.GetAsIntPtr(nativePtr, 1));
+                unsafe
+                {
+                    return _isJsSlot ? new CefBrowser(MyMetArgs.GetAsIntPtr(nativePtr, 1)) : new CefBrowser(((OnPrintStartNativeArgs*)this.nativePtr)->browser);
+                }
             }
         }
         [StructLayout(LayoutKind.Sequential)]
@@ -18277,15 +18626,24 @@ namespace LayoutFarm.CefBridge.Auto
             }
             public CefBrowser browser()
             {
-                return new CefBrowser(MyMetArgs.GetAsIntPtr(nativePtr, 1));
+                unsafe
+                {
+                    return _isJsSlot ? new CefBrowser(MyMetArgs.GetAsIntPtr(nativePtr, 1)) : new CefBrowser(((OnPrintSettingsNativeArgs*)this.nativePtr)->browser);
+                }
             }
             public CefPrintSettings settings()
             {
-                return new CefPrintSettings(MyMetArgs.GetAsIntPtr(nativePtr, 2));
+                unsafe
+                {
+                    return _isJsSlot ? new CefPrintSettings(MyMetArgs.GetAsIntPtr(nativePtr, 2)) : new CefPrintSettings(((OnPrintSettingsNativeArgs*)this.nativePtr)->settings);
+                }
             }
             public bool get_defaults()
             {
-                return MyMetArgs.GetAsBool(nativePtr, 3);
+                unsafe
+                {
+                    return _isJsSlot ? MyMetArgs.GetAsBool(nativePtr, 3) : ((OnPrintSettingsNativeArgs*)this.nativePtr)->get_defaults;
+                }
             }
         }
         [StructLayout(LayoutKind.Sequential)]
@@ -18310,15 +18668,24 @@ namespace LayoutFarm.CefBridge.Auto
             }
             public CefBrowser browser()
             {
-                return new CefBrowser(MyMetArgs.GetAsIntPtr(nativePtr, 1));
+                unsafe
+                {
+                    return _isJsSlot ? new CefBrowser(MyMetArgs.GetAsIntPtr(nativePtr, 1)) : new CefBrowser(((OnPrintDialogNativeArgs*)this.nativePtr)->browser);
+                }
             }
             public bool has_selection()
             {
-                return MyMetArgs.GetAsBool(nativePtr, 2);
+                unsafe
+                {
+                    return _isJsSlot ? MyMetArgs.GetAsBool(nativePtr, 2) : ((OnPrintDialogNativeArgs*)this.nativePtr)->has_selection;
+                }
             }
             public CefPrintDialogCallback callback()
             {
-                return new CefPrintDialogCallback(MyMetArgs.GetAsIntPtr(nativePtr, 3));
+                unsafe
+                {
+                    return _isJsSlot ? new CefPrintDialogCallback(MyMetArgs.GetAsIntPtr(nativePtr, 3)) : new CefPrintDialogCallback(((OnPrintDialogNativeArgs*)this.nativePtr)->callback);
+                }
             }
         }
         [StructLayout(LayoutKind.Sequential)]
@@ -18343,19 +18710,31 @@ namespace LayoutFarm.CefBridge.Auto
             }
             public CefBrowser browser()
             {
-                return new CefBrowser(MyMetArgs.GetAsIntPtr(nativePtr, 1));
+                unsafe
+                {
+                    return _isJsSlot ? new CefBrowser(MyMetArgs.GetAsIntPtr(nativePtr, 1)) : new CefBrowser(((OnPrintJobNativeArgs*)this.nativePtr)->browser);
+                }
             }
             public string document_name()
             {
-                return MyMetArgs.GetAsString(nativePtr, 2);
+                unsafe
+                {
+                    return _isJsSlot ? MyMetArgs.GetAsString(nativePtr, 2) : MyMetArgs.GetAsString(((OnPrintJobNativeArgs*)this.nativePtr)->document_name);
+                }
             }
             public string pdf_file_path()
             {
-                return MyMetArgs.GetAsString(nativePtr, 3);
+                unsafe
+                {
+                    return _isJsSlot ? MyMetArgs.GetAsString(nativePtr, 3) : MyMetArgs.GetAsString(((OnPrintJobNativeArgs*)this.nativePtr)->pdf_file_path);
+                }
             }
             public CefPrintJobCallback callback()
             {
-                return new CefPrintJobCallback(MyMetArgs.GetAsIntPtr(nativePtr, 4));
+                unsafe
+                {
+                    return _isJsSlot ? new CefPrintJobCallback(MyMetArgs.GetAsIntPtr(nativePtr, 4)) : new CefPrintJobCallback(((OnPrintJobNativeArgs*)this.nativePtr)->callback);
+                }
             }
         }
         [StructLayout(LayoutKind.Sequential)]
@@ -18381,7 +18760,10 @@ namespace LayoutFarm.CefBridge.Auto
             }
             public CefBrowser browser()
             {
-                return new CefBrowser(MyMetArgs.GetAsIntPtr(nativePtr, 1));
+                unsafe
+                {
+                    return _isJsSlot ? new CefBrowser(MyMetArgs.GetAsIntPtr(nativePtr, 1)) : new CefBrowser(((OnPrintResetNativeArgs*)this.nativePtr)->browser);
+                }
             }
         }
         [StructLayout(LayoutKind.Sequential)]
@@ -18404,7 +18786,10 @@ namespace LayoutFarm.CefBridge.Auto
             }
             public int device_units_per_inch()
             {
-                return MyMetArgs.GetAsInt32(nativePtr, 1);
+                unsafe
+                {
+                    return _isJsSlot ? MyMetArgs.GetAsInt32(nativePtr, 1) : ((GetPdfPaperSizeNativeArgs*)this.nativePtr)->device_units_per_inch;
+                }
             }
         }
         [StructLayout(LayoutKind.Sequential)]
@@ -18615,11 +19000,17 @@ namespace LayoutFarm.CefBridge.Auto
             }
             public CefBrowser browser()
             {
-                return new CefBrowser(MyMetArgs.GetAsIntPtr(nativePtr, 1));
+                unsafe
+                {
+                    return _isJsSlot ? new CefBrowser(MyMetArgs.GetAsIntPtr(nativePtr, 1)) : new CefBrowser(((GetRootScreenRectNativeArgs*)this.nativePtr)->browser);
+                }
             }
             public CefRect rect()
             {
-                return new CefRect(MyMetArgs.GetAsIntPtr(nativePtr, 2));
+                unsafe
+                {
+                    return _isJsSlot ? new CefRect(MyMetArgs.GetAsIntPtr(nativePtr, 2)) : new CefRect(((GetRootScreenRectNativeArgs*)this.nativePtr)->rect);
+                }
             }
         }
         [StructLayout(LayoutKind.Sequential)]
@@ -18643,11 +19034,17 @@ namespace LayoutFarm.CefBridge.Auto
             }
             public CefBrowser browser()
             {
-                return new CefBrowser(MyMetArgs.GetAsIntPtr(nativePtr, 1));
+                unsafe
+                {
+                    return _isJsSlot ? new CefBrowser(MyMetArgs.GetAsIntPtr(nativePtr, 1)) : new CefBrowser(((GetViewRectNativeArgs*)this.nativePtr)->browser);
+                }
             }
             public CefRect rect()
             {
-                return new CefRect(MyMetArgs.GetAsIntPtr(nativePtr, 2));
+                unsafe
+                {
+                    return _isJsSlot ? new CefRect(MyMetArgs.GetAsIntPtr(nativePtr, 2)) : new CefRect(((GetViewRectNativeArgs*)this.nativePtr)->rect);
+                }
             }
         }
         [StructLayout(LayoutKind.Sequential)]
@@ -18671,15 +19068,24 @@ namespace LayoutFarm.CefBridge.Auto
             }
             public CefBrowser browser()
             {
-                return new CefBrowser(MyMetArgs.GetAsIntPtr(nativePtr, 1));
+                unsafe
+                {
+                    return _isJsSlot ? new CefBrowser(MyMetArgs.GetAsIntPtr(nativePtr, 1)) : new CefBrowser(((GetScreenPointNativeArgs*)this.nativePtr)->browser);
+                }
             }
             public int viewX()
             {
-                return MyMetArgs.GetAsInt32(nativePtr, 2);
+                unsafe
+                {
+                    return _isJsSlot ? MyMetArgs.GetAsInt32(nativePtr, 2) : ((GetScreenPointNativeArgs*)this.nativePtr)->viewX;
+                }
             }
             public int viewY()
             {
-                return MyMetArgs.GetAsInt32(nativePtr, 3);
+                unsafe
+                {
+                    return _isJsSlot ? MyMetArgs.GetAsInt32(nativePtr, 3) : ((GetScreenPointNativeArgs*)this.nativePtr)->viewY;
+                }
             }
             public int screenX()
             {
@@ -18722,11 +19128,17 @@ namespace LayoutFarm.CefBridge.Auto
             }
             public CefBrowser browser()
             {
-                return new CefBrowser(MyMetArgs.GetAsIntPtr(nativePtr, 1));
+                unsafe
+                {
+                    return _isJsSlot ? new CefBrowser(MyMetArgs.GetAsIntPtr(nativePtr, 1)) : new CefBrowser(((GetScreenInfoNativeArgs*)this.nativePtr)->browser);
+                }
             }
             public CefScreenInfo screen_info()
             {
-                return new CefScreenInfo(MyMetArgs.GetAsIntPtr(nativePtr, 2));
+                unsafe
+                {
+                    return _isJsSlot ? new CefScreenInfo(MyMetArgs.GetAsIntPtr(nativePtr, 2)) : new CefScreenInfo(((GetScreenInfoNativeArgs*)this.nativePtr)->screen_info);
+                }
             }
         }
         [StructLayout(LayoutKind.Sequential)]
@@ -18750,11 +19162,17 @@ namespace LayoutFarm.CefBridge.Auto
             }
             public CefBrowser browser()
             {
-                return new CefBrowser(MyMetArgs.GetAsIntPtr(nativePtr, 1));
+                unsafe
+                {
+                    return _isJsSlot ? new CefBrowser(MyMetArgs.GetAsIntPtr(nativePtr, 1)) : new CefBrowser(((OnPopupShowNativeArgs*)this.nativePtr)->browser);
+                }
             }
             public bool show()
             {
-                return MyMetArgs.GetAsBool(nativePtr, 2);
+                unsafe
+                {
+                    return _isJsSlot ? MyMetArgs.GetAsBool(nativePtr, 2) : ((OnPopupShowNativeArgs*)this.nativePtr)->show;
+                }
             }
         }
         [StructLayout(LayoutKind.Sequential)]
@@ -18778,11 +19196,17 @@ namespace LayoutFarm.CefBridge.Auto
             }
             public CefBrowser browser()
             {
-                return new CefBrowser(MyMetArgs.GetAsIntPtr(nativePtr, 1));
+                unsafe
+                {
+                    return _isJsSlot ? new CefBrowser(MyMetArgs.GetAsIntPtr(nativePtr, 1)) : new CefBrowser(((OnPopupSizeNativeArgs*)this.nativePtr)->browser);
+                }
             }
             public CefRect rect()
             {
-                return new CefRect(MyMetArgs.GetAsIntPtr(nativePtr, 2));
+                unsafe
+                {
+                    return _isJsSlot ? new CefRect(MyMetArgs.GetAsIntPtr(nativePtr, 2)) : new CefRect(((OnPopupSizeNativeArgs*)this.nativePtr)->rect);
+                }
             }
         }
         [StructLayout(LayoutKind.Sequential)]
@@ -18806,11 +19230,17 @@ namespace LayoutFarm.CefBridge.Auto
             }
             public CefBrowser browser()
             {
-                return new CefBrowser(MyMetArgs.GetAsIntPtr(nativePtr, 1));
+                unsafe
+                {
+                    return _isJsSlot ? new CefBrowser(MyMetArgs.GetAsIntPtr(nativePtr, 1)) : new CefBrowser(((OnPaintNativeArgs*)this.nativePtr)->browser);
+                }
             }
             public cef_paint_element_type_t type()
             {
-                return (cef_paint_element_type_t)MyMetArgs.GetAsInt32(nativePtr, 2);
+                unsafe
+                {
+                    return _isJsSlot ? (cef_paint_element_type_t)MyMetArgs.GetAsInt32(nativePtr, 2) : (cef_paint_element_type_t)(((OnPaintNativeArgs*)this.nativePtr)->type);
+                }
             }
             public List<object> dirtyRects()
             {
@@ -18822,11 +19252,17 @@ namespace LayoutFarm.CefBridge.Auto
             }
             public int width()
             {
-                return MyMetArgs.GetAsInt32(nativePtr, 5);
+                unsafe
+                {
+                    return _isJsSlot ? MyMetArgs.GetAsInt32(nativePtr, 5) : ((OnPaintNativeArgs*)this.nativePtr)->width;
+                }
             }
             public int height()
             {
-                return MyMetArgs.GetAsInt32(nativePtr, 6);
+                unsafe
+                {
+                    return _isJsSlot ? MyMetArgs.GetAsInt32(nativePtr, 6) : ((OnPaintNativeArgs*)this.nativePtr)->height;
+                }
             }
         }
         [StructLayout(LayoutKind.Sequential)]
@@ -18854,7 +19290,10 @@ namespace LayoutFarm.CefBridge.Auto
             }
             public CefBrowser browser()
             {
-                return new CefBrowser(MyMetArgs.GetAsIntPtr(nativePtr, 1));
+                unsafe
+                {
+                    return _isJsSlot ? new CefBrowser(MyMetArgs.GetAsIntPtr(nativePtr, 1)) : new CefBrowser(((OnCursorChangeNativeArgs*)this.nativePtr)->browser);
+                }
             }
             public IntPtr cursor()
             {
@@ -18862,11 +19301,17 @@ namespace LayoutFarm.CefBridge.Auto
             }
             public cef_cursor_type_t type()
             {
-                return (cef_cursor_type_t)MyMetArgs.GetAsInt32(nativePtr, 3);
+                unsafe
+                {
+                    return _isJsSlot ? (cef_cursor_type_t)MyMetArgs.GetAsInt32(nativePtr, 3) : (cef_cursor_type_t)(((OnCursorChangeNativeArgs*)this.nativePtr)->type);
+                }
             }
             public CefCursorInfo custom_cursor_info()
             {
-                return new CefCursorInfo(MyMetArgs.GetAsIntPtr(nativePtr, 4));
+                unsafe
+                {
+                    return _isJsSlot ? new CefCursorInfo(MyMetArgs.GetAsIntPtr(nativePtr, 4)) : new CefCursorInfo(((OnCursorChangeNativeArgs*)this.nativePtr)->custom_cursor_info);
+                }
             }
         }
         [StructLayout(LayoutKind.Sequential)]
@@ -18892,23 +19337,38 @@ namespace LayoutFarm.CefBridge.Auto
             }
             public CefBrowser browser()
             {
-                return new CefBrowser(MyMetArgs.GetAsIntPtr(nativePtr, 1));
+                unsafe
+                {
+                    return _isJsSlot ? new CefBrowser(MyMetArgs.GetAsIntPtr(nativePtr, 1)) : new CefBrowser(((StartDraggingNativeArgs*)this.nativePtr)->browser);
+                }
             }
             public CefDragData drag_data()
             {
-                return new CefDragData(MyMetArgs.GetAsIntPtr(nativePtr, 2));
+                unsafe
+                {
+                    return _isJsSlot ? new CefDragData(MyMetArgs.GetAsIntPtr(nativePtr, 2)) : new CefDragData(((StartDraggingNativeArgs*)this.nativePtr)->drag_data);
+                }
             }
             public cef_drag_operations_mask_t allowed_ops()
             {
-                return (cef_drag_operations_mask_t)MyMetArgs.GetAsInt32(nativePtr, 3);
+                unsafe
+                {
+                    return _isJsSlot ? (cef_drag_operations_mask_t)MyMetArgs.GetAsInt32(nativePtr, 3) : (cef_drag_operations_mask_t)(((StartDraggingNativeArgs*)this.nativePtr)->allowed_ops);
+                }
             }
             public int x()
             {
-                return MyMetArgs.GetAsInt32(nativePtr, 4);
+                unsafe
+                {
+                    return _isJsSlot ? MyMetArgs.GetAsInt32(nativePtr, 4) : ((StartDraggingNativeArgs*)this.nativePtr)->x;
+                }
             }
             public int y()
             {
-                return MyMetArgs.GetAsInt32(nativePtr, 5);
+                unsafe
+                {
+                    return _isJsSlot ? MyMetArgs.GetAsInt32(nativePtr, 5) : ((StartDraggingNativeArgs*)this.nativePtr)->y;
+                }
             }
         }
         [StructLayout(LayoutKind.Sequential)]
@@ -18935,11 +19395,17 @@ namespace LayoutFarm.CefBridge.Auto
             }
             public CefBrowser browser()
             {
-                return new CefBrowser(MyMetArgs.GetAsIntPtr(nativePtr, 1));
+                unsafe
+                {
+                    return _isJsSlot ? new CefBrowser(MyMetArgs.GetAsIntPtr(nativePtr, 1)) : new CefBrowser(((UpdateDragCursorNativeArgs*)this.nativePtr)->browser);
+                }
             }
             public cef_drag_operations_mask_t operation()
             {
-                return (cef_drag_operations_mask_t)MyMetArgs.GetAsInt32(nativePtr, 2);
+                unsafe
+                {
+                    return _isJsSlot ? (cef_drag_operations_mask_t)MyMetArgs.GetAsInt32(nativePtr, 2) : (cef_drag_operations_mask_t)(((UpdateDragCursorNativeArgs*)this.nativePtr)->operation);
+                }
             }
         }
         [StructLayout(LayoutKind.Sequential)]
@@ -18963,15 +19429,24 @@ namespace LayoutFarm.CefBridge.Auto
             }
             public CefBrowser browser()
             {
-                return new CefBrowser(MyMetArgs.GetAsIntPtr(nativePtr, 1));
+                unsafe
+                {
+                    return _isJsSlot ? new CefBrowser(MyMetArgs.GetAsIntPtr(nativePtr, 1)) : new CefBrowser(((OnScrollOffsetChangedNativeArgs*)this.nativePtr)->browser);
+                }
             }
             public double x()
             {
-                return MyMetArgs.GetAsDouble(nativePtr, 2);
+                unsafe
+                {
+                    return _isJsSlot ? MyMetArgs.GetAsDouble(nativePtr, 2) : ((OnScrollOffsetChangedNativeArgs*)this.nativePtr)->x;
+                }
             }
             public double y()
             {
-                return MyMetArgs.GetAsDouble(nativePtr, 3);
+                unsafe
+                {
+                    return _isJsSlot ? MyMetArgs.GetAsDouble(nativePtr, 3) : ((OnScrollOffsetChangedNativeArgs*)this.nativePtr)->y;
+                }
             }
         }
         [StructLayout(LayoutKind.Sequential)]
@@ -18996,11 +19471,17 @@ namespace LayoutFarm.CefBridge.Auto
             }
             public CefBrowser browser()
             {
-                return new CefBrowser(MyMetArgs.GetAsIntPtr(nativePtr, 1));
+                unsafe
+                {
+                    return _isJsSlot ? new CefBrowser(MyMetArgs.GetAsIntPtr(nativePtr, 1)) : new CefBrowser(((OnImeCompositionRangeChangedNativeArgs*)this.nativePtr)->browser);
+                }
             }
             public CefRange selected_range()
             {
-                return new CefRange(MyMetArgs.GetAsIntPtr(nativePtr, 2));
+                unsafe
+                {
+                    return _isJsSlot ? new CefRange(MyMetArgs.GetAsIntPtr(nativePtr, 2)) : new CefRange(((OnImeCompositionRangeChangedNativeArgs*)this.nativePtr)->selected_range);
+                }
             }
             public List<object> character_bounds()
             {
@@ -19390,7 +19871,10 @@ namespace LayoutFarm.CefBridge.Auto
             }
             public CefListValue extra_info()
             {
-                return new CefListValue(MyMetArgs.GetAsIntPtr(nativePtr, 1));
+                unsafe
+                {
+                    return _isJsSlot ? new CefListValue(MyMetArgs.GetAsIntPtr(nativePtr, 1)) : new CefListValue(((OnRenderThreadCreatedNativeArgs*)this.nativePtr)->extra_info);
+                }
             }
         }
         [StructLayout(LayoutKind.Sequential)]
@@ -19431,7 +19915,10 @@ namespace LayoutFarm.CefBridge.Auto
             }
             public CefBrowser browser()
             {
-                return new CefBrowser(MyMetArgs.GetAsIntPtr(nativePtr, 1));
+                unsafe
+                {
+                    return _isJsSlot ? new CefBrowser(MyMetArgs.GetAsIntPtr(nativePtr, 1)) : new CefBrowser(((OnBrowserCreatedNativeArgs*)this.nativePtr)->browser);
+                }
             }
         }
         [StructLayout(LayoutKind.Sequential)]
@@ -19454,7 +19941,10 @@ namespace LayoutFarm.CefBridge.Auto
             }
             public CefBrowser browser()
             {
-                return new CefBrowser(MyMetArgs.GetAsIntPtr(nativePtr, 1));
+                unsafe
+                {
+                    return _isJsSlot ? new CefBrowser(MyMetArgs.GetAsIntPtr(nativePtr, 1)) : new CefBrowser(((OnBrowserDestroyedNativeArgs*)this.nativePtr)->browser);
+                }
             }
         }
         [StructLayout(LayoutKind.Sequential)]
@@ -19495,23 +19985,38 @@ namespace LayoutFarm.CefBridge.Auto
             }
             public CefBrowser browser()
             {
-                return new CefBrowser(MyMetArgs.GetAsIntPtr(nativePtr, 1));
+                unsafe
+                {
+                    return _isJsSlot ? new CefBrowser(MyMetArgs.GetAsIntPtr(nativePtr, 1)) : new CefBrowser(((OnBeforeNavigationNativeArgs*)this.nativePtr)->browser);
+                }
             }
             public CefFrame frame()
             {
-                return new CefFrame(MyMetArgs.GetAsIntPtr(nativePtr, 2));
+                unsafe
+                {
+                    return _isJsSlot ? new CefFrame(MyMetArgs.GetAsIntPtr(nativePtr, 2)) : new CefFrame(((OnBeforeNavigationNativeArgs*)this.nativePtr)->frame);
+                }
             }
             public CefRequest request()
             {
-                return new CefRequest(MyMetArgs.GetAsIntPtr(nativePtr, 3));
+                unsafe
+                {
+                    return _isJsSlot ? new CefRequest(MyMetArgs.GetAsIntPtr(nativePtr, 3)) : new CefRequest(((OnBeforeNavigationNativeArgs*)this.nativePtr)->request);
+                }
             }
             public cef_navigation_type_t navigation_type()
             {
-                return (cef_navigation_type_t)MyMetArgs.GetAsInt32(nativePtr, 4);
+                unsafe
+                {
+                    return _isJsSlot ? (cef_navigation_type_t)MyMetArgs.GetAsInt32(nativePtr, 4) : (cef_navigation_type_t)(((OnBeforeNavigationNativeArgs*)this.nativePtr)->navigation_type);
+                }
             }
             public bool is_redirect()
             {
-                return MyMetArgs.GetAsBool(nativePtr, 5);
+                unsafe
+                {
+                    return _isJsSlot ? MyMetArgs.GetAsBool(nativePtr, 5) : ((OnBeforeNavigationNativeArgs*)this.nativePtr)->is_redirect;
+                }
             }
         }
         [StructLayout(LayoutKind.Sequential)]
@@ -19538,15 +20043,24 @@ namespace LayoutFarm.CefBridge.Auto
             }
             public CefBrowser browser()
             {
-                return new CefBrowser(MyMetArgs.GetAsIntPtr(nativePtr, 1));
+                unsafe
+                {
+                    return _isJsSlot ? new CefBrowser(MyMetArgs.GetAsIntPtr(nativePtr, 1)) : new CefBrowser(((OnContextCreatedNativeArgs*)this.nativePtr)->browser);
+                }
             }
             public CefFrame frame()
             {
-                return new CefFrame(MyMetArgs.GetAsIntPtr(nativePtr, 2));
+                unsafe
+                {
+                    return _isJsSlot ? new CefFrame(MyMetArgs.GetAsIntPtr(nativePtr, 2)) : new CefFrame(((OnContextCreatedNativeArgs*)this.nativePtr)->frame);
+                }
             }
             public CefV8Context context()
             {
-                return new CefV8Context(MyMetArgs.GetAsIntPtr(nativePtr, 3));
+                unsafe
+                {
+                    return _isJsSlot ? new CefV8Context(MyMetArgs.GetAsIntPtr(nativePtr, 3)) : new CefV8Context(((OnContextCreatedNativeArgs*)this.nativePtr)->context);
+                }
             }
         }
         [StructLayout(LayoutKind.Sequential)]
@@ -19571,15 +20085,24 @@ namespace LayoutFarm.CefBridge.Auto
             }
             public CefBrowser browser()
             {
-                return new CefBrowser(MyMetArgs.GetAsIntPtr(nativePtr, 1));
+                unsafe
+                {
+                    return _isJsSlot ? new CefBrowser(MyMetArgs.GetAsIntPtr(nativePtr, 1)) : new CefBrowser(((OnContextReleasedNativeArgs*)this.nativePtr)->browser);
+                }
             }
             public CefFrame frame()
             {
-                return new CefFrame(MyMetArgs.GetAsIntPtr(nativePtr, 2));
+                unsafe
+                {
+                    return _isJsSlot ? new CefFrame(MyMetArgs.GetAsIntPtr(nativePtr, 2)) : new CefFrame(((OnContextReleasedNativeArgs*)this.nativePtr)->frame);
+                }
             }
             public CefV8Context context()
             {
-                return new CefV8Context(MyMetArgs.GetAsIntPtr(nativePtr, 3));
+                unsafe
+                {
+                    return _isJsSlot ? new CefV8Context(MyMetArgs.GetAsIntPtr(nativePtr, 3)) : new CefV8Context(((OnContextReleasedNativeArgs*)this.nativePtr)->context);
+                }
             }
         }
         [StructLayout(LayoutKind.Sequential)]
@@ -19604,23 +20127,38 @@ namespace LayoutFarm.CefBridge.Auto
             }
             public CefBrowser browser()
             {
-                return new CefBrowser(MyMetArgs.GetAsIntPtr(nativePtr, 1));
+                unsafe
+                {
+                    return _isJsSlot ? new CefBrowser(MyMetArgs.GetAsIntPtr(nativePtr, 1)) : new CefBrowser(((OnUncaughtExceptionNativeArgs*)this.nativePtr)->browser);
+                }
             }
             public CefFrame frame()
             {
-                return new CefFrame(MyMetArgs.GetAsIntPtr(nativePtr, 2));
+                unsafe
+                {
+                    return _isJsSlot ? new CefFrame(MyMetArgs.GetAsIntPtr(nativePtr, 2)) : new CefFrame(((OnUncaughtExceptionNativeArgs*)this.nativePtr)->frame);
+                }
             }
             public CefV8Context context()
             {
-                return new CefV8Context(MyMetArgs.GetAsIntPtr(nativePtr, 3));
+                unsafe
+                {
+                    return _isJsSlot ? new CefV8Context(MyMetArgs.GetAsIntPtr(nativePtr, 3)) : new CefV8Context(((OnUncaughtExceptionNativeArgs*)this.nativePtr)->context);
+                }
             }
             public CefV8Exception exception()
             {
-                return new CefV8Exception(MyMetArgs.GetAsIntPtr(nativePtr, 4));
+                unsafe
+                {
+                    return _isJsSlot ? new CefV8Exception(MyMetArgs.GetAsIntPtr(nativePtr, 4)) : new CefV8Exception(((OnUncaughtExceptionNativeArgs*)this.nativePtr)->exception);
+                }
             }
             public CefV8StackTrace stackTrace()
             {
-                return new CefV8StackTrace(MyMetArgs.GetAsIntPtr(nativePtr, 5));
+                unsafe
+                {
+                    return _isJsSlot ? new CefV8StackTrace(MyMetArgs.GetAsIntPtr(nativePtr, 5)) : new CefV8StackTrace(((OnUncaughtExceptionNativeArgs*)this.nativePtr)->stackTrace);
+                }
             }
         }
         [StructLayout(LayoutKind.Sequential)]
@@ -19647,15 +20185,24 @@ namespace LayoutFarm.CefBridge.Auto
             }
             public CefBrowser browser()
             {
-                return new CefBrowser(MyMetArgs.GetAsIntPtr(nativePtr, 1));
+                unsafe
+                {
+                    return _isJsSlot ? new CefBrowser(MyMetArgs.GetAsIntPtr(nativePtr, 1)) : new CefBrowser(((OnFocusedNodeChangedNativeArgs*)this.nativePtr)->browser);
+                }
             }
             public CefFrame frame()
             {
-                return new CefFrame(MyMetArgs.GetAsIntPtr(nativePtr, 2));
+                unsafe
+                {
+                    return _isJsSlot ? new CefFrame(MyMetArgs.GetAsIntPtr(nativePtr, 2)) : new CefFrame(((OnFocusedNodeChangedNativeArgs*)this.nativePtr)->frame);
+                }
             }
             public CefDOMNode node()
             {
-                return new CefDOMNode(MyMetArgs.GetAsIntPtr(nativePtr, 3));
+                unsafe
+                {
+                    return _isJsSlot ? new CefDOMNode(MyMetArgs.GetAsIntPtr(nativePtr, 3)) : new CefDOMNode(((OnFocusedNodeChangedNativeArgs*)this.nativePtr)->node);
+                }
             }
         }
         [StructLayout(LayoutKind.Sequential)]
@@ -19680,15 +20227,24 @@ namespace LayoutFarm.CefBridge.Auto
             }
             public CefBrowser browser()
             {
-                return new CefBrowser(MyMetArgs.GetAsIntPtr(nativePtr, 1));
+                unsafe
+                {
+                    return _isJsSlot ? new CefBrowser(MyMetArgs.GetAsIntPtr(nativePtr, 1)) : new CefBrowser(((OnProcessMessageReceivedNativeArgs*)this.nativePtr)->browser);
+                }
             }
             public cef_process_id_t source_process()
             {
-                return (cef_process_id_t)MyMetArgs.GetAsInt32(nativePtr, 2);
+                unsafe
+                {
+                    return _isJsSlot ? (cef_process_id_t)MyMetArgs.GetAsInt32(nativePtr, 2) : (cef_process_id_t)(((OnProcessMessageReceivedNativeArgs*)this.nativePtr)->source_process);
+                }
             }
             public CefProcessMessage message()
             {
-                return new CefProcessMessage(MyMetArgs.GetAsIntPtr(nativePtr, 3));
+                unsafe
+                {
+                    return _isJsSlot ? new CefProcessMessage(MyMetArgs.GetAsIntPtr(nativePtr, 3)) : new CefProcessMessage(((OnProcessMessageReceivedNativeArgs*)this.nativePtr)->message);
+                }
             }
         }
         [StructLayout(LayoutKind.Sequential)]
@@ -20013,27 +20569,45 @@ namespace LayoutFarm.CefBridge.Auto
             }
             public string mime_type()
             {
-                return MyMetArgs.GetAsString(nativePtr, 1);
+                unsafe
+                {
+                    return _isJsSlot ? MyMetArgs.GetAsString(nativePtr, 1) : MyMetArgs.GetAsString(((OnBeforePluginLoadNativeArgs*)this.nativePtr)->mime_type);
+                }
             }
             public string plugin_url()
             {
-                return MyMetArgs.GetAsString(nativePtr, 2);
+                unsafe
+                {
+                    return _isJsSlot ? MyMetArgs.GetAsString(nativePtr, 2) : MyMetArgs.GetAsString(((OnBeforePluginLoadNativeArgs*)this.nativePtr)->plugin_url);
+                }
             }
             public bool is_main_frame()
             {
-                return MyMetArgs.GetAsBool(nativePtr, 3);
+                unsafe
+                {
+                    return _isJsSlot ? MyMetArgs.GetAsBool(nativePtr, 3) : ((OnBeforePluginLoadNativeArgs*)this.nativePtr)->is_main_frame;
+                }
             }
             public string top_origin_url()
             {
-                return MyMetArgs.GetAsString(nativePtr, 4);
+                unsafe
+                {
+                    return _isJsSlot ? MyMetArgs.GetAsString(nativePtr, 4) : MyMetArgs.GetAsString(((OnBeforePluginLoadNativeArgs*)this.nativePtr)->top_origin_url);
+                }
             }
             public CefWebPluginInfo plugin_info()
             {
-                return new CefWebPluginInfo(MyMetArgs.GetAsIntPtr(nativePtr, 5));
+                unsafe
+                {
+                    return _isJsSlot ? new CefWebPluginInfo(MyMetArgs.GetAsIntPtr(nativePtr, 5)) : new CefWebPluginInfo(((OnBeforePluginLoadNativeArgs*)this.nativePtr)->plugin_info);
+                }
             }
             public cef_plugin_policy_t plugin_policy()
             {
-                return (cef_plugin_policy_t)MyMetArgs.GetAsInt32(nativePtr, 6);
+                unsafe
+                {
+                    return _isJsSlot ? (cef_plugin_policy_t)MyMetArgs.GetAsInt32(nativePtr, 6) : (cef_plugin_policy_t)(((OnBeforePluginLoadNativeArgs*)this.nativePtr)->plugin_policy);
+                }
             }
         }
         [StructLayout(LayoutKind.Sequential)]
@@ -20146,19 +20720,31 @@ namespace LayoutFarm.CefBridge.Auto
             }
             public CefBrowser browser()
             {
-                return new CefBrowser(MyMetArgs.GetAsIntPtr(nativePtr, 1));
+                unsafe
+                {
+                    return _isJsSlot ? new CefBrowser(MyMetArgs.GetAsIntPtr(nativePtr, 1)) : new CefBrowser(((OnBeforeBrowseNativeArgs*)this.nativePtr)->browser);
+                }
             }
             public CefFrame frame()
             {
-                return new CefFrame(MyMetArgs.GetAsIntPtr(nativePtr, 2));
+                unsafe
+                {
+                    return _isJsSlot ? new CefFrame(MyMetArgs.GetAsIntPtr(nativePtr, 2)) : new CefFrame(((OnBeforeBrowseNativeArgs*)this.nativePtr)->frame);
+                }
             }
             public CefRequest request()
             {
-                return new CefRequest(MyMetArgs.GetAsIntPtr(nativePtr, 3));
+                unsafe
+                {
+                    return _isJsSlot ? new CefRequest(MyMetArgs.GetAsIntPtr(nativePtr, 3)) : new CefRequest(((OnBeforeBrowseNativeArgs*)this.nativePtr)->request);
+                }
             }
             public bool is_redirect()
             {
-                return MyMetArgs.GetAsBool(nativePtr, 4);
+                unsafe
+                {
+                    return _isJsSlot ? MyMetArgs.GetAsBool(nativePtr, 4) : ((OnBeforeBrowseNativeArgs*)this.nativePtr)->is_redirect;
+                }
             }
         }
         [StructLayout(LayoutKind.Sequential)]
@@ -20184,23 +20770,38 @@ namespace LayoutFarm.CefBridge.Auto
             }
             public CefBrowser browser()
             {
-                return new CefBrowser(MyMetArgs.GetAsIntPtr(nativePtr, 1));
+                unsafe
+                {
+                    return _isJsSlot ? new CefBrowser(MyMetArgs.GetAsIntPtr(nativePtr, 1)) : new CefBrowser(((OnOpenURLFromTabNativeArgs*)this.nativePtr)->browser);
+                }
             }
             public CefFrame frame()
             {
-                return new CefFrame(MyMetArgs.GetAsIntPtr(nativePtr, 2));
+                unsafe
+                {
+                    return _isJsSlot ? new CefFrame(MyMetArgs.GetAsIntPtr(nativePtr, 2)) : new CefFrame(((OnOpenURLFromTabNativeArgs*)this.nativePtr)->frame);
+                }
             }
             public string target_url()
             {
-                return MyMetArgs.GetAsString(nativePtr, 3);
+                unsafe
+                {
+                    return _isJsSlot ? MyMetArgs.GetAsString(nativePtr, 3) : MyMetArgs.GetAsString(((OnOpenURLFromTabNativeArgs*)this.nativePtr)->target_url);
+                }
             }
             public cef_window_open_disposition_t target_disposition()
             {
-                return (cef_window_open_disposition_t)MyMetArgs.GetAsInt32(nativePtr, 4);
+                unsafe
+                {
+                    return _isJsSlot ? (cef_window_open_disposition_t)MyMetArgs.GetAsInt32(nativePtr, 4) : (cef_window_open_disposition_t)(((OnOpenURLFromTabNativeArgs*)this.nativePtr)->target_disposition);
+                }
             }
             public bool user_gesture()
             {
-                return MyMetArgs.GetAsBool(nativePtr, 5);
+                unsafe
+                {
+                    return _isJsSlot ? MyMetArgs.GetAsBool(nativePtr, 5) : ((OnOpenURLFromTabNativeArgs*)this.nativePtr)->user_gesture;
+                }
             }
         }
         [StructLayout(LayoutKind.Sequential)]
@@ -20227,19 +20828,31 @@ namespace LayoutFarm.CefBridge.Auto
             }
             public CefBrowser browser()
             {
-                return new CefBrowser(MyMetArgs.GetAsIntPtr(nativePtr, 1));
+                unsafe
+                {
+                    return _isJsSlot ? new CefBrowser(MyMetArgs.GetAsIntPtr(nativePtr, 1)) : new CefBrowser(((OnBeforeResourceLoadNativeArgs*)this.nativePtr)->browser);
+                }
             }
             public CefFrame frame()
             {
-                return new CefFrame(MyMetArgs.GetAsIntPtr(nativePtr, 2));
+                unsafe
+                {
+                    return _isJsSlot ? new CefFrame(MyMetArgs.GetAsIntPtr(nativePtr, 2)) : new CefFrame(((OnBeforeResourceLoadNativeArgs*)this.nativePtr)->frame);
+                }
             }
             public CefRequest request()
             {
-                return new CefRequest(MyMetArgs.GetAsIntPtr(nativePtr, 3));
+                unsafe
+                {
+                    return _isJsSlot ? new CefRequest(MyMetArgs.GetAsIntPtr(nativePtr, 3)) : new CefRequest(((OnBeforeResourceLoadNativeArgs*)this.nativePtr)->request);
+                }
             }
             public CefRequestCallback callback()
             {
-                return new CefRequestCallback(MyMetArgs.GetAsIntPtr(nativePtr, 4));
+                unsafe
+                {
+                    return _isJsSlot ? new CefRequestCallback(MyMetArgs.GetAsIntPtr(nativePtr, 4)) : new CefRequestCallback(((OnBeforeResourceLoadNativeArgs*)this.nativePtr)->callback);
+                }
             }
         }
         [StructLayout(LayoutKind.Sequential)]
@@ -20265,15 +20878,24 @@ namespace LayoutFarm.CefBridge.Auto
             }
             public CefBrowser browser()
             {
-                return new CefBrowser(MyMetArgs.GetAsIntPtr(nativePtr, 1));
+                unsafe
+                {
+                    return _isJsSlot ? new CefBrowser(MyMetArgs.GetAsIntPtr(nativePtr, 1)) : new CefBrowser(((GetResourceHandlerNativeArgs*)this.nativePtr)->browser);
+                }
             }
             public CefFrame frame()
             {
-                return new CefFrame(MyMetArgs.GetAsIntPtr(nativePtr, 2));
+                unsafe
+                {
+                    return _isJsSlot ? new CefFrame(MyMetArgs.GetAsIntPtr(nativePtr, 2)) : new CefFrame(((GetResourceHandlerNativeArgs*)this.nativePtr)->frame);
+                }
             }
             public CefRequest request()
             {
-                return new CefRequest(MyMetArgs.GetAsIntPtr(nativePtr, 3));
+                unsafe
+                {
+                    return _isJsSlot ? new CefRequest(MyMetArgs.GetAsIntPtr(nativePtr, 3)) : new CefRequest(((GetResourceHandlerNativeArgs*)this.nativePtr)->request);
+                }
             }
         }
         [StructLayout(LayoutKind.Sequential)]
@@ -20298,23 +20920,38 @@ namespace LayoutFarm.CefBridge.Auto
             }
             public CefBrowser browser()
             {
-                return new CefBrowser(MyMetArgs.GetAsIntPtr(nativePtr, 1));
+                unsafe
+                {
+                    return _isJsSlot ? new CefBrowser(MyMetArgs.GetAsIntPtr(nativePtr, 1)) : new CefBrowser(((OnResourceRedirectNativeArgs*)this.nativePtr)->browser);
+                }
             }
             public CefFrame frame()
             {
-                return new CefFrame(MyMetArgs.GetAsIntPtr(nativePtr, 2));
+                unsafe
+                {
+                    return _isJsSlot ? new CefFrame(MyMetArgs.GetAsIntPtr(nativePtr, 2)) : new CefFrame(((OnResourceRedirectNativeArgs*)this.nativePtr)->frame);
+                }
             }
             public CefRequest request()
             {
-                return new CefRequest(MyMetArgs.GetAsIntPtr(nativePtr, 3));
+                unsafe
+                {
+                    return _isJsSlot ? new CefRequest(MyMetArgs.GetAsIntPtr(nativePtr, 3)) : new CefRequest(((OnResourceRedirectNativeArgs*)this.nativePtr)->request);
+                }
             }
             public CefResponse response()
             {
-                return new CefResponse(MyMetArgs.GetAsIntPtr(nativePtr, 4));
+                unsafe
+                {
+                    return _isJsSlot ? new CefResponse(MyMetArgs.GetAsIntPtr(nativePtr, 4)) : new CefResponse(((OnResourceRedirectNativeArgs*)this.nativePtr)->response);
+                }
             }
             public string new_url()
             {
-                return MyMetArgs.GetAsString(nativePtr, 5);
+                unsafe
+                {
+                    return _isJsSlot ? MyMetArgs.GetAsString(nativePtr, 5) : MyMetArgs.GetAsString(((OnResourceRedirectNativeArgs*)this.nativePtr)->new_url);
+                }
             }
         }
         [StructLayout(LayoutKind.Sequential)]
@@ -20341,19 +20978,31 @@ namespace LayoutFarm.CefBridge.Auto
             }
             public CefBrowser browser()
             {
-                return new CefBrowser(MyMetArgs.GetAsIntPtr(nativePtr, 1));
+                unsafe
+                {
+                    return _isJsSlot ? new CefBrowser(MyMetArgs.GetAsIntPtr(nativePtr, 1)) : new CefBrowser(((OnResourceResponseNativeArgs*)this.nativePtr)->browser);
+                }
             }
             public CefFrame frame()
             {
-                return new CefFrame(MyMetArgs.GetAsIntPtr(nativePtr, 2));
+                unsafe
+                {
+                    return _isJsSlot ? new CefFrame(MyMetArgs.GetAsIntPtr(nativePtr, 2)) : new CefFrame(((OnResourceResponseNativeArgs*)this.nativePtr)->frame);
+                }
             }
             public CefRequest request()
             {
-                return new CefRequest(MyMetArgs.GetAsIntPtr(nativePtr, 3));
+                unsafe
+                {
+                    return _isJsSlot ? new CefRequest(MyMetArgs.GetAsIntPtr(nativePtr, 3)) : new CefRequest(((OnResourceResponseNativeArgs*)this.nativePtr)->request);
+                }
             }
             public CefResponse response()
             {
-                return new CefResponse(MyMetArgs.GetAsIntPtr(nativePtr, 4));
+                unsafe
+                {
+                    return _isJsSlot ? new CefResponse(MyMetArgs.GetAsIntPtr(nativePtr, 4)) : new CefResponse(((OnResourceResponseNativeArgs*)this.nativePtr)->response);
+                }
             }
         }
         [StructLayout(LayoutKind.Sequential)]
@@ -20379,19 +21028,31 @@ namespace LayoutFarm.CefBridge.Auto
             }
             public CefBrowser browser()
             {
-                return new CefBrowser(MyMetArgs.GetAsIntPtr(nativePtr, 1));
+                unsafe
+                {
+                    return _isJsSlot ? new CefBrowser(MyMetArgs.GetAsIntPtr(nativePtr, 1)) : new CefBrowser(((GetResourceResponseFilterNativeArgs*)this.nativePtr)->browser);
+                }
             }
             public CefFrame frame()
             {
-                return new CefFrame(MyMetArgs.GetAsIntPtr(nativePtr, 2));
+                unsafe
+                {
+                    return _isJsSlot ? new CefFrame(MyMetArgs.GetAsIntPtr(nativePtr, 2)) : new CefFrame(((GetResourceResponseFilterNativeArgs*)this.nativePtr)->frame);
+                }
             }
             public CefRequest request()
             {
-                return new CefRequest(MyMetArgs.GetAsIntPtr(nativePtr, 3));
+                unsafe
+                {
+                    return _isJsSlot ? new CefRequest(MyMetArgs.GetAsIntPtr(nativePtr, 3)) : new CefRequest(((GetResourceResponseFilterNativeArgs*)this.nativePtr)->request);
+                }
             }
             public CefResponse response()
             {
-                return new CefResponse(MyMetArgs.GetAsIntPtr(nativePtr, 4));
+                unsafe
+                {
+                    return _isJsSlot ? new CefResponse(MyMetArgs.GetAsIntPtr(nativePtr, 4)) : new CefResponse(((GetResourceResponseFilterNativeArgs*)this.nativePtr)->response);
+                }
             }
         }
         [StructLayout(LayoutKind.Sequential)]
@@ -20417,27 +21078,45 @@ namespace LayoutFarm.CefBridge.Auto
             }
             public CefBrowser browser()
             {
-                return new CefBrowser(MyMetArgs.GetAsIntPtr(nativePtr, 1));
+                unsafe
+                {
+                    return _isJsSlot ? new CefBrowser(MyMetArgs.GetAsIntPtr(nativePtr, 1)) : new CefBrowser(((OnResourceLoadCompleteNativeArgs*)this.nativePtr)->browser);
+                }
             }
             public CefFrame frame()
             {
-                return new CefFrame(MyMetArgs.GetAsIntPtr(nativePtr, 2));
+                unsafe
+                {
+                    return _isJsSlot ? new CefFrame(MyMetArgs.GetAsIntPtr(nativePtr, 2)) : new CefFrame(((OnResourceLoadCompleteNativeArgs*)this.nativePtr)->frame);
+                }
             }
             public CefRequest request()
             {
-                return new CefRequest(MyMetArgs.GetAsIntPtr(nativePtr, 3));
+                unsafe
+                {
+                    return _isJsSlot ? new CefRequest(MyMetArgs.GetAsIntPtr(nativePtr, 3)) : new CefRequest(((OnResourceLoadCompleteNativeArgs*)this.nativePtr)->request);
+                }
             }
             public CefResponse response()
             {
-                return new CefResponse(MyMetArgs.GetAsIntPtr(nativePtr, 4));
+                unsafe
+                {
+                    return _isJsSlot ? new CefResponse(MyMetArgs.GetAsIntPtr(nativePtr, 4)) : new CefResponse(((OnResourceLoadCompleteNativeArgs*)this.nativePtr)->response);
+                }
             }
             public cef_urlrequest_status_t status()
             {
-                return (cef_urlrequest_status_t)MyMetArgs.GetAsInt32(nativePtr, 5);
+                unsafe
+                {
+                    return _isJsSlot ? (cef_urlrequest_status_t)MyMetArgs.GetAsInt32(nativePtr, 5) : (cef_urlrequest_status_t)(((OnResourceLoadCompleteNativeArgs*)this.nativePtr)->status);
+                }
             }
             public long received_content_length()
             {
-                return MyMetArgs.GetAsInt64(nativePtr, 6);
+                unsafe
+                {
+                    return _isJsSlot ? MyMetArgs.GetAsInt64(nativePtr, 6) : ((OnResourceLoadCompleteNativeArgs*)this.nativePtr)->received_content_length;
+                }
             }
         }
         [StructLayout(LayoutKind.Sequential)]
@@ -20465,35 +21144,59 @@ namespace LayoutFarm.CefBridge.Auto
             }
             public CefBrowser browser()
             {
-                return new CefBrowser(MyMetArgs.GetAsIntPtr(nativePtr, 1));
+                unsafe
+                {
+                    return _isJsSlot ? new CefBrowser(MyMetArgs.GetAsIntPtr(nativePtr, 1)) : new CefBrowser(((GetAuthCredentialsNativeArgs*)this.nativePtr)->browser);
+                }
             }
             public CefFrame frame()
             {
-                return new CefFrame(MyMetArgs.GetAsIntPtr(nativePtr, 2));
+                unsafe
+                {
+                    return _isJsSlot ? new CefFrame(MyMetArgs.GetAsIntPtr(nativePtr, 2)) : new CefFrame(((GetAuthCredentialsNativeArgs*)this.nativePtr)->frame);
+                }
             }
             public bool isProxy()
             {
-                return MyMetArgs.GetAsBool(nativePtr, 3);
+                unsafe
+                {
+                    return _isJsSlot ? MyMetArgs.GetAsBool(nativePtr, 3) : ((GetAuthCredentialsNativeArgs*)this.nativePtr)->isProxy;
+                }
             }
             public string host()
             {
-                return MyMetArgs.GetAsString(nativePtr, 4);
+                unsafe
+                {
+                    return _isJsSlot ? MyMetArgs.GetAsString(nativePtr, 4) : MyMetArgs.GetAsString(((GetAuthCredentialsNativeArgs*)this.nativePtr)->host);
+                }
             }
             public int port()
             {
-                return MyMetArgs.GetAsInt32(nativePtr, 5);
+                unsafe
+                {
+                    return _isJsSlot ? MyMetArgs.GetAsInt32(nativePtr, 5) : ((GetAuthCredentialsNativeArgs*)this.nativePtr)->port;
+                }
             }
             public string realm()
             {
-                return MyMetArgs.GetAsString(nativePtr, 6);
+                unsafe
+                {
+                    return _isJsSlot ? MyMetArgs.GetAsString(nativePtr, 6) : MyMetArgs.GetAsString(((GetAuthCredentialsNativeArgs*)this.nativePtr)->realm);
+                }
             }
             public string scheme()
             {
-                return MyMetArgs.GetAsString(nativePtr, 7);
+                unsafe
+                {
+                    return _isJsSlot ? MyMetArgs.GetAsString(nativePtr, 7) : MyMetArgs.GetAsString(((GetAuthCredentialsNativeArgs*)this.nativePtr)->scheme);
+                }
             }
             public CefAuthCallback callback()
             {
-                return new CefAuthCallback(MyMetArgs.GetAsIntPtr(nativePtr, 8));
+                unsafe
+                {
+                    return _isJsSlot ? new CefAuthCallback(MyMetArgs.GetAsIntPtr(nativePtr, 8)) : new CefAuthCallback(((GetAuthCredentialsNativeArgs*)this.nativePtr)->callback);
+                }
             }
         }
         [StructLayout(LayoutKind.Sequential)]
@@ -20523,19 +21226,31 @@ namespace LayoutFarm.CefBridge.Auto
             }
             public CefBrowser browser()
             {
-                return new CefBrowser(MyMetArgs.GetAsIntPtr(nativePtr, 1));
+                unsafe
+                {
+                    return _isJsSlot ? new CefBrowser(MyMetArgs.GetAsIntPtr(nativePtr, 1)) : new CefBrowser(((OnQuotaRequestNativeArgs*)this.nativePtr)->browser);
+                }
             }
             public string origin_url()
             {
-                return MyMetArgs.GetAsString(nativePtr, 2);
+                unsafe
+                {
+                    return _isJsSlot ? MyMetArgs.GetAsString(nativePtr, 2) : MyMetArgs.GetAsString(((OnQuotaRequestNativeArgs*)this.nativePtr)->origin_url);
+                }
             }
             public long new_size()
             {
-                return MyMetArgs.GetAsInt64(nativePtr, 3);
+                unsafe
+                {
+                    return _isJsSlot ? MyMetArgs.GetAsInt64(nativePtr, 3) : ((OnQuotaRequestNativeArgs*)this.nativePtr)->new_size;
+                }
             }
             public CefRequestCallback callback()
             {
-                return new CefRequestCallback(MyMetArgs.GetAsIntPtr(nativePtr, 4));
+                unsafe
+                {
+                    return _isJsSlot ? new CefRequestCallback(MyMetArgs.GetAsIntPtr(nativePtr, 4)) : new CefRequestCallback(((OnQuotaRequestNativeArgs*)this.nativePtr)->callback);
+                }
             }
         }
         [StructLayout(LayoutKind.Sequential)]
@@ -20561,15 +21276,24 @@ namespace LayoutFarm.CefBridge.Auto
             }
             public CefBrowser browser()
             {
-                return new CefBrowser(MyMetArgs.GetAsIntPtr(nativePtr, 1));
+                unsafe
+                {
+                    return _isJsSlot ? new CefBrowser(MyMetArgs.GetAsIntPtr(nativePtr, 1)) : new CefBrowser(((OnProtocolExecutionNativeArgs*)this.nativePtr)->browser);
+                }
             }
             public string url()
             {
-                return MyMetArgs.GetAsString(nativePtr, 2);
+                unsafe
+                {
+                    return _isJsSlot ? MyMetArgs.GetAsString(nativePtr, 2) : MyMetArgs.GetAsString(((OnProtocolExecutionNativeArgs*)this.nativePtr)->url);
+                }
             }
             public bool allow_os_execution()
             {
-                return MyMetArgs.GetAsBool(nativePtr, 3);
+                unsafe
+                {
+                    return MyMetArgs.GetAsBool(nativePtr, 3);
+                }
             }
             public void allow_os_execution(bool value)
             {
@@ -20598,23 +21322,38 @@ namespace LayoutFarm.CefBridge.Auto
             }
             public CefBrowser browser()
             {
-                return new CefBrowser(MyMetArgs.GetAsIntPtr(nativePtr, 1));
+                unsafe
+                {
+                    return _isJsSlot ? new CefBrowser(MyMetArgs.GetAsIntPtr(nativePtr, 1)) : new CefBrowser(((OnCertificateErrorNativeArgs*)this.nativePtr)->browser);
+                }
             }
             public cef_errorcode_t cert_error()
             {
-                return (cef_errorcode_t)MyMetArgs.GetAsInt32(nativePtr, 2);
+                unsafe
+                {
+                    return _isJsSlot ? (cef_errorcode_t)MyMetArgs.GetAsInt32(nativePtr, 2) : (cef_errorcode_t)(((OnCertificateErrorNativeArgs*)this.nativePtr)->cert_error);
+                }
             }
             public string request_url()
             {
-                return MyMetArgs.GetAsString(nativePtr, 3);
+                unsafe
+                {
+                    return _isJsSlot ? MyMetArgs.GetAsString(nativePtr, 3) : MyMetArgs.GetAsString(((OnCertificateErrorNativeArgs*)this.nativePtr)->request_url);
+                }
             }
             public CefSSLInfo ssl_info()
             {
-                return new CefSSLInfo(MyMetArgs.GetAsIntPtr(nativePtr, 4));
+                unsafe
+                {
+                    return _isJsSlot ? new CefSSLInfo(MyMetArgs.GetAsIntPtr(nativePtr, 4)) : new CefSSLInfo(((OnCertificateErrorNativeArgs*)this.nativePtr)->ssl_info);
+                }
             }
             public CefRequestCallback callback()
             {
-                return new CefRequestCallback(MyMetArgs.GetAsIntPtr(nativePtr, 5));
+                unsafe
+                {
+                    return _isJsSlot ? new CefRequestCallback(MyMetArgs.GetAsIntPtr(nativePtr, 5)) : new CefRequestCallback(((OnCertificateErrorNativeArgs*)this.nativePtr)->callback);
+                }
             }
         }
         [StructLayout(LayoutKind.Sequential)]
@@ -20641,19 +21380,31 @@ namespace LayoutFarm.CefBridge.Auto
             }
             public CefBrowser browser()
             {
-                return new CefBrowser(MyMetArgs.GetAsIntPtr(nativePtr, 1));
+                unsafe
+                {
+                    return _isJsSlot ? new CefBrowser(MyMetArgs.GetAsIntPtr(nativePtr, 1)) : new CefBrowser(((OnSelectClientCertificateNativeArgs*)this.nativePtr)->browser);
+                }
             }
             public bool isProxy()
             {
-                return MyMetArgs.GetAsBool(nativePtr, 2);
+                unsafe
+                {
+                    return _isJsSlot ? MyMetArgs.GetAsBool(nativePtr, 2) : ((OnSelectClientCertificateNativeArgs*)this.nativePtr)->isProxy;
+                }
             }
             public string host()
             {
-                return MyMetArgs.GetAsString(nativePtr, 3);
+                unsafe
+                {
+                    return _isJsSlot ? MyMetArgs.GetAsString(nativePtr, 3) : MyMetArgs.GetAsString(((OnSelectClientCertificateNativeArgs*)this.nativePtr)->host);
+                }
             }
             public int port()
             {
-                return MyMetArgs.GetAsInt32(nativePtr, 4);
+                unsafe
+                {
+                    return _isJsSlot ? MyMetArgs.GetAsInt32(nativePtr, 4) : ((OnSelectClientCertificateNativeArgs*)this.nativePtr)->port;
+                }
             }
             public List<CefCompositionUnderline> certificates()
             {
@@ -20661,7 +21412,10 @@ namespace LayoutFarm.CefBridge.Auto
             }
             public CefSelectClientCertificateCallback callback()
             {
-                return new CefSelectClientCertificateCallback(MyMetArgs.GetAsIntPtr(nativePtr, 6));
+                unsafe
+                {
+                    return _isJsSlot ? new CefSelectClientCertificateCallback(MyMetArgs.GetAsIntPtr(nativePtr, 6)) : new CefSelectClientCertificateCallback(((OnSelectClientCertificateNativeArgs*)this.nativePtr)->callback);
+                }
             }
         }
         [StructLayout(LayoutKind.Sequential)]
@@ -20689,11 +21443,17 @@ namespace LayoutFarm.CefBridge.Auto
             }
             public CefBrowser browser()
             {
-                return new CefBrowser(MyMetArgs.GetAsIntPtr(nativePtr, 1));
+                unsafe
+                {
+                    return _isJsSlot ? new CefBrowser(MyMetArgs.GetAsIntPtr(nativePtr, 1)) : new CefBrowser(((OnPluginCrashedNativeArgs*)this.nativePtr)->browser);
+                }
             }
             public string plugin_path()
             {
-                return MyMetArgs.GetAsString(nativePtr, 2);
+                unsafe
+                {
+                    return _isJsSlot ? MyMetArgs.GetAsString(nativePtr, 2) : MyMetArgs.GetAsString(((OnPluginCrashedNativeArgs*)this.nativePtr)->plugin_path);
+                }
             }
         }
         [StructLayout(LayoutKind.Sequential)]
@@ -20717,7 +21477,10 @@ namespace LayoutFarm.CefBridge.Auto
             }
             public CefBrowser browser()
             {
-                return new CefBrowser(MyMetArgs.GetAsIntPtr(nativePtr, 1));
+                unsafe
+                {
+                    return _isJsSlot ? new CefBrowser(MyMetArgs.GetAsIntPtr(nativePtr, 1)) : new CefBrowser(((OnRenderViewReadyNativeArgs*)this.nativePtr)->browser);
+                }
             }
         }
         [StructLayout(LayoutKind.Sequential)]
@@ -20740,11 +21503,17 @@ namespace LayoutFarm.CefBridge.Auto
             }
             public CefBrowser browser()
             {
-                return new CefBrowser(MyMetArgs.GetAsIntPtr(nativePtr, 1));
+                unsafe
+                {
+                    return _isJsSlot ? new CefBrowser(MyMetArgs.GetAsIntPtr(nativePtr, 1)) : new CefBrowser(((OnRenderProcessTerminatedNativeArgs*)this.nativePtr)->browser);
+                }
             }
             public cef_termination_status_t status()
             {
-                return (cef_termination_status_t)MyMetArgs.GetAsInt32(nativePtr, 2);
+                unsafe
+                {
+                    return _isJsSlot ? (cef_termination_status_t)MyMetArgs.GetAsInt32(nativePtr, 2) : (cef_termination_status_t)(((OnRenderProcessTerminatedNativeArgs*)this.nativePtr)->status);
+                }
             }
         }
         [StructLayout(LayoutKind.Sequential)]
@@ -21228,11 +21997,17 @@ namespace LayoutFarm.CefBridge.Auto
             }
             public int string_id()
             {
-                return MyMetArgs.GetAsInt32(nativePtr, 1);
+                unsafe
+                {
+                    return _isJsSlot ? MyMetArgs.GetAsInt32(nativePtr, 1) : ((GetLocalizedStringNativeArgs*)this.nativePtr)->string_id;
+                }
             }
             public string _string()
             {
-                return MyMetArgs.GetAsString(nativePtr, 2);
+                unsafe
+                {
+                    return _isJsSlot ? MyMetArgs.GetAsString(nativePtr, 2) : MyMetArgs.GetAsString(((GetLocalizedStringNativeArgs*)this.nativePtr)->_string);
+                }
             }
         }
         [StructLayout(LayoutKind.Sequential)]
@@ -21256,7 +22031,10 @@ namespace LayoutFarm.CefBridge.Auto
             }
             public int resource_id()
             {
-                return MyMetArgs.GetAsInt32(nativePtr, 1);
+                unsafe
+                {
+                    return _isJsSlot ? MyMetArgs.GetAsInt32(nativePtr, 1) : ((GetDataResourceNativeArgs*)this.nativePtr)->resource_id;
+                }
             }
             public IntPtr data()
             {
@@ -21293,11 +22071,17 @@ namespace LayoutFarm.CefBridge.Auto
             }
             public int resource_id()
             {
-                return MyMetArgs.GetAsInt32(nativePtr, 1);
+                unsafe
+                {
+                    return _isJsSlot ? MyMetArgs.GetAsInt32(nativePtr, 1) : ((GetDataResourceForScaleNativeArgs*)this.nativePtr)->resource_id;
+                }
             }
             public cef_scale_factor_t scale_factor()
             {
-                return (cef_scale_factor_t)MyMetArgs.GetAsInt32(nativePtr, 2);
+                unsafe
+                {
+                    return _isJsSlot ? (cef_scale_factor_t)MyMetArgs.GetAsInt32(nativePtr, 2) : (cef_scale_factor_t)(((GetDataResourceForScaleNativeArgs*)this.nativePtr)->scale_factor);
+                }
             }
             public IntPtr data()
             {
@@ -21441,11 +22225,17 @@ namespace LayoutFarm.CefBridge.Auto
             }
             public CefRequest request()
             {
-                return new CefRequest(MyMetArgs.GetAsIntPtr(nativePtr, 1));
+                unsafe
+                {
+                    return _isJsSlot ? new CefRequest(MyMetArgs.GetAsIntPtr(nativePtr, 1)) : new CefRequest(((ProcessRequestNativeArgs*)this.nativePtr)->request);
+                }
             }
             public CefCallback callback()
             {
-                return new CefCallback(MyMetArgs.GetAsIntPtr(nativePtr, 2));
+                unsafe
+                {
+                    return _isJsSlot ? new CefCallback(MyMetArgs.GetAsIntPtr(nativePtr, 2)) : new CefCallback(((ProcessRequestNativeArgs*)this.nativePtr)->callback);
+                }
             }
         }
         [StructLayout(LayoutKind.Sequential)]
@@ -21469,15 +22259,24 @@ namespace LayoutFarm.CefBridge.Auto
             }
             public CefResponse response()
             {
-                return new CefResponse(MyMetArgs.GetAsIntPtr(nativePtr, 1));
+                unsafe
+                {
+                    return _isJsSlot ? new CefResponse(MyMetArgs.GetAsIntPtr(nativePtr, 1)) : new CefResponse(((GetResponseHeadersNativeArgs*)this.nativePtr)->response);
+                }
             }
             public long response_length()
             {
-                return MyMetArgs.GetAsInt64(nativePtr, 2);
+                unsafe
+                {
+                    return _isJsSlot ? MyMetArgs.GetAsInt64(nativePtr, 2) : ((GetResponseHeadersNativeArgs*)this.nativePtr)->response_length;
+                }
             }
             public string redirectUrl()
             {
-                return MyMetArgs.GetAsString(nativePtr, 3);
+                unsafe
+                {
+                    return _isJsSlot ? MyMetArgs.GetAsString(nativePtr, 3) : MyMetArgs.GetAsString(((GetResponseHeadersNativeArgs*)this.nativePtr)->redirectUrl);
+                }
             }
         }
         [StructLayout(LayoutKind.Sequential)]
@@ -21506,7 +22305,10 @@ namespace LayoutFarm.CefBridge.Auto
             }
             public int bytes_to_read()
             {
-                return MyMetArgs.GetAsInt32(nativePtr, 2);
+                unsafe
+                {
+                    return _isJsSlot ? MyMetArgs.GetAsInt32(nativePtr, 2) : ((ReadResponseNativeArgs*)this.nativePtr)->bytes_to_read;
+                }
             }
             public int bytes_read()
             {
@@ -21518,7 +22320,10 @@ namespace LayoutFarm.CefBridge.Auto
             }
             public CefCallback callback()
             {
-                return new CefCallback(MyMetArgs.GetAsIntPtr(nativePtr, 4));
+                unsafe
+                {
+                    return _isJsSlot ? new CefCallback(MyMetArgs.GetAsIntPtr(nativePtr, 4)) : new CefCallback(((ReadResponseNativeArgs*)this.nativePtr)->callback);
+                }
             }
         }
         [StructLayout(LayoutKind.Sequential)]
@@ -21544,7 +22349,10 @@ namespace LayoutFarm.CefBridge.Auto
             }
             public CefCookie cookie()
             {
-                return new CefCookie(MyMetArgs.GetAsIntPtr(nativePtr, 1));
+                unsafe
+                {
+                    return _isJsSlot ? new CefCookie(MyMetArgs.GetAsIntPtr(nativePtr, 1)) : new CefCookie(((CanGetCookieNativeArgs*)this.nativePtr)->cookie);
+                }
             }
         }
         [StructLayout(LayoutKind.Sequential)]
@@ -21567,7 +22375,10 @@ namespace LayoutFarm.CefBridge.Auto
             }
             public CefCookie cookie()
             {
-                return new CefCookie(MyMetArgs.GetAsIntPtr(nativePtr, 1));
+                unsafe
+                {
+                    return _isJsSlot ? new CefCookie(MyMetArgs.GetAsIntPtr(nativePtr, 1)) : new CefCookie(((CanSetCookieNativeArgs*)this.nativePtr)->cookie);
+                }
             }
         }
         [StructLayout(LayoutKind.Sequential)]
@@ -21776,11 +22587,17 @@ namespace LayoutFarm.CefBridge.Auto
             }
             public uint size()
             {
-                return MyMetArgs.GetAsUInt32(nativePtr, 2);
+                unsafe
+                {
+                    return _isJsSlot ? MyMetArgs.GetAsUInt32(nativePtr, 2) : ((ReadNativeArgs*)this.nativePtr)->size;
+                }
             }
             public uint n()
             {
-                return MyMetArgs.GetAsUInt32(nativePtr, 3);
+                unsafe
+                {
+                    return _isJsSlot ? MyMetArgs.GetAsUInt32(nativePtr, 3) : ((ReadNativeArgs*)this.nativePtr)->n;
+                }
             }
         }
         [StructLayout(LayoutKind.Sequential)]
@@ -21805,11 +22622,17 @@ namespace LayoutFarm.CefBridge.Auto
             }
             public long offset()
             {
-                return MyMetArgs.GetAsInt64(nativePtr, 1);
+                unsafe
+                {
+                    return _isJsSlot ? MyMetArgs.GetAsInt64(nativePtr, 1) : ((SeekNativeArgs*)this.nativePtr)->offset;
+                }
             }
             public int whence()
             {
-                return MyMetArgs.GetAsInt32(nativePtr, 2);
+                unsafe
+                {
+                    return _isJsSlot ? MyMetArgs.GetAsInt32(nativePtr, 2) : ((SeekNativeArgs*)this.nativePtr)->whence;
+                }
             }
         }
         [StructLayout(LayoutKind.Sequential)]
@@ -22024,11 +22847,17 @@ namespace LayoutFarm.CefBridge.Auto
             }
             public uint size()
             {
-                return MyMetArgs.GetAsUInt32(nativePtr, 2);
+                unsafe
+                {
+                    return _isJsSlot ? MyMetArgs.GetAsUInt32(nativePtr, 2) : ((WriteNativeArgs*)this.nativePtr)->size;
+                }
             }
             public uint n()
             {
-                return MyMetArgs.GetAsUInt32(nativePtr, 3);
+                unsafe
+                {
+                    return _isJsSlot ? MyMetArgs.GetAsUInt32(nativePtr, 3) : ((WriteNativeArgs*)this.nativePtr)->n;
+                }
             }
         }
         [StructLayout(LayoutKind.Sequential)]
@@ -22048,15 +22877,22 @@ namespace LayoutFarm.CefBridge.Auto
             {
                 int arg_flags;
                 this.nativePtr = MyMetArgs.GetNativeObjPtr(nativePtr, out arg_flags);
-                this._isJsSlot = ((arg_flags >> 18) & 1) == 1; 
+                this._isJsSlot = ((arg_flags >> 18) & 1) == 1;
+
             }
             public long offset()
             {
-                return MyMetArgs.GetAsInt64(nativePtr, 1);
+                unsafe
+                {
+                    return _isJsSlot ? MyMetArgs.GetAsInt64(nativePtr, 1) : ((SeekNativeArgs*)this.nativePtr)->offset;
+                }
             }
             public int whence()
             {
-                return MyMetArgs.GetAsInt32(nativePtr, 2);
+                unsafe
+                {
+                    return _isJsSlot ? MyMetArgs.GetAsInt32(nativePtr, 2) : ((SeekNativeArgs*)this.nativePtr)->whence;
+                }
             }
         }
         [StructLayout(LayoutKind.Sequential)]
@@ -22263,15 +23099,24 @@ namespace LayoutFarm.CefBridge.Auto
             }
             public string name()
             {
-                return MyMetArgs.GetAsString(nativePtr, 1);
+                unsafe
+                {
+                    return _isJsSlot ? MyMetArgs.GetAsString(nativePtr, 1) : MyMetArgs.GetAsString(((ExecuteNativeArgs*)this.nativePtr)->name);
+                }
             }
             public CefV8Value _object()
             {
-                return new CefV8Value(MyMetArgs.GetAsIntPtr(nativePtr, 2));
+                unsafe
+                {
+                    return _isJsSlot ? new CefV8Value(MyMetArgs.GetAsIntPtr(nativePtr, 2)) : new CefV8Value(((ExecuteNativeArgs*)this.nativePtr)->_object);
+                }
             }
             public CefV8ValueList arguments()
             {
-                return new CefV8ValueList(MyMetArgs.GetAsIntPtr(nativePtr, 3));
+                unsafe
+                {
+                    return _isJsSlot ? new CefV8ValueList(MyMetArgs.GetAsIntPtr(nativePtr, 3)) : new CefV8ValueList(((ExecuteNativeArgs*)this.nativePtr)->arguments);
+                }
             }
             public IntPtr retval()
             {
@@ -22279,7 +23124,10 @@ namespace LayoutFarm.CefBridge.Auto
             }
             public string exception()
             {
-                return MyMetArgs.GetAsString(nativePtr, 5);
+                unsafe
+                {
+                    return _isJsSlot ? MyMetArgs.GetAsString(nativePtr, 5) : MyMetArgs.GetAsString(((ExecuteNativeArgs*)this.nativePtr)->exception);
+                }
             }
         }
         [StructLayout(LayoutKind.Sequential)]
