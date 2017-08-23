@@ -3180,7 +3180,8 @@ namespace BridgeBuilder
             string className = met.Name + "NativeArgs";
             stbuilder.AppendLine("[StructLayout(LayoutKind.Sequential)]");
             stbuilder.AppendLine("struct " + className + "{ "); //this is private struct with explicit layout
-
+            stbuilder.AppendLine("public int argFlags;");
+            //
             for (int i = 0; i < j; ++i)
             {
                 //move this to method
@@ -3313,11 +3314,16 @@ namespace BridgeBuilder
 
             stbuilder.AppendLine("public struct " + className + "{ ");
             stbuilder.AppendLine("IntPtr nativePtr; //met arg native ptr");
+            stbuilder.AppendLine("bool _isJsSlot;");
 
             stbuilder.AppendLine("internal " + className + "(IntPtr nativePtr){");
 
-            stbuilder.AppendLine(@"int argCount;
-                        this.nativePtr = MyMetArgs.GetArrHead(nativePtr,out argCount);");
+            stbuilder.AppendLine(@"int arg_flags;
+                        this.nativePtr = MyMetArgs.GetNativeObjPtr(nativePtr,out arg_flags);
+                        this._isJsSlot = ((arg_flags >> 18) & 1) ==1;
+                        "
+                        );
+                        
             stbuilder.AppendLine("}");
 
             int pos = 0;
