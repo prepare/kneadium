@@ -3391,13 +3391,13 @@ namespace BridgeBuilder
                     default:
                         {
                             stbuilder.AppendLine("unsafe{"); //open unsafe
-                            stbuilder.Append("return _isJsSlot ? ");
+                            stbuilder.Append("return _isJsSlot ? \r\n");
                             //is-js-slot= true
                             if (csParTypeName.StartsWith("Cef"))
                             {
                                 stbuilder.Append("new " + csParTypeName + "(MyMetArgs.GetAsIntPtr(nativePtr," + pos + "))");
                                 //if is not js-slot (this is native arg )
-                                stbuilder.Append(":");
+                                stbuilder.Append(":\r\n");
                                 //cast native ptr to specific c-struct and get specific o
                                 stbuilder.Append("new " + csParTypeName + "(((" + nativeArgClassName + "*)this.nativePtr)->" + parTx.Name + ");"); ;
                             }
@@ -3405,7 +3405,7 @@ namespace BridgeBuilder
                             {
                                 stbuilder.Append("(" + csParTypeName + ")" + "MyMetArgs.GetAsInt32(nativePtr," + pos + ")");
                                 //if is not js-slot (this is native arg )
-                                stbuilder.Append(":");
+                                stbuilder.Append(":\r\n");
                                 //cast native ptr to specific c-struct and get specific o
                                 stbuilder.Append("(" + csParTypeName + ")" + "(((" + nativeArgClassName + "*)this.nativePtr)->" + parTx.Name + ");");
                             }
@@ -3430,7 +3430,7 @@ namespace BridgeBuilder
                     case "uint":
                         {
                             stbuilder.AppendLine("unsafe{");
-                            stbuilder.Append(" return _isJsSlot ? " + "MyMetArgs.GetAsUInt32(nativePtr," + pos + ") : ");
+                            stbuilder.Append(" return _isJsSlot ? \r\n" + "MyMetArgs.GetAsUInt32(nativePtr," + pos + ") :\r\n");
                             stbuilder.Append("((" + nativeArgClassName + "*)this.nativePtr)->" + parTx.Name);
                             stbuilder.AppendLine(";");
                             stbuilder.AppendLine("}"); //close unsafe context
@@ -3439,7 +3439,7 @@ namespace BridgeBuilder
                     case "int":
                         {
                             stbuilder.AppendLine("unsafe{");
-                            stbuilder.Append("return _isJsSlot?" + "MyMetArgs.GetAsInt32(nativePtr," + pos + "):");
+                            stbuilder.Append("return _isJsSlot? \r\n" + "MyMetArgs.GetAsInt32(nativePtr," + pos + "):\r\n");
                             stbuilder.Append("((" + nativeArgClassName + "*)this.nativePtr)->" + parTx.Name);
                             stbuilder.AppendLine(";");
                             stbuilder.AppendLine("}"); //close unsafe context
@@ -3448,7 +3448,7 @@ namespace BridgeBuilder
                     case "long":
                         {
                             stbuilder.AppendLine("unsafe{");
-                            stbuilder.Append("return _isJsSlot?" + "MyMetArgs.GetAsInt64(nativePtr," + pos + "):");
+                            stbuilder.Append("return _isJsSlot ? \r\n" + "MyMetArgs.GetAsInt64(nativePtr," + pos + "):\r\n");
                             stbuilder.Append("((" + nativeArgClassName + "*)this.nativePtr)->" + parTx.Name);
                             stbuilder.AppendLine(";");
                             stbuilder.AppendLine("}"); //close unsafe context 
@@ -3457,7 +3457,7 @@ namespace BridgeBuilder
                     case "string":
                         {
                             stbuilder.AppendLine("unsafe{");
-                            stbuilder.Append("return _isJsSlot?" + "MyMetArgs.GetAsString(nativePtr," + pos + "):");
+                            stbuilder.Append("return _isJsSlot ?\r\n" + "MyMetArgs.GetAsString(nativePtr," + pos + "):\r\n");
                             stbuilder.Append("MyMetArgs.GetAsString(((" + nativeArgClassName + "*)this.nativePtr)->" + parTx.Name + ")");
                             stbuilder.AppendLine(";");
                             stbuilder.AppendLine("}"); //close unsafe context  
@@ -3466,7 +3466,7 @@ namespace BridgeBuilder
                     case "bool":
                         {
                             stbuilder.AppendLine("unsafe{");
-                            stbuilder.Append("return _isJsSlot?" + "MyMetArgs.GetAsBool(nativePtr," + pos + "):");
+                            stbuilder.Append("return _isJsSlot?\r\n" + "MyMetArgs.GetAsBool(nativePtr," + pos + "):\r\n");
                             stbuilder.Append("((" + nativeArgClassName + "*)this.nativePtr)->" + parTx.Name);
                             stbuilder.AppendLine(";");
                             stbuilder.AppendLine("}"); //close unsafe context  
@@ -3475,7 +3475,7 @@ namespace BridgeBuilder
                     case "double":
                         {
                             stbuilder.AppendLine("unsafe{");
-                            stbuilder.Append("return _isJsSlot?" + "MyMetArgs.GetAsDouble(nativePtr," + pos + "):");
+                            stbuilder.Append("return _isJsSlot?\r\n" + "MyMetArgs.GetAsDouble(nativePtr," + pos + "):\r\n");
                             stbuilder.Append("((" + nativeArgClassName + "*)this.nativePtr)->" + parTx.Name);
                             stbuilder.AppendLine(";");
                             stbuilder.AppendLine("}"); //close unsafe context  
