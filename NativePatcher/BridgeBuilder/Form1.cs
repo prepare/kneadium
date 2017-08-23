@@ -630,7 +630,7 @@ namespace BridgeBuilder
                 "//AUTOGEN CONTENT\r\n" +
                 "using System;\r\n" +
                 "using System.Collections.Generic;\r\n" +
-                "using System.Runtime.InteropServices;\r\n"+
+                "using System.Runtime.InteropServices;\r\n" +
                 "namespace LayoutFarm.CefBridge.Auto{\r\n");
 
 
@@ -743,7 +743,6 @@ namespace BridgeBuilder
             CreateNewInstanceMethod(cppCodeStBuilder, customImplClasses);
             AddCppBuiltInEndCode(cppCodeStBuilder);
             //
-
         }
         void CreateNewInstanceMethod(StringBuilder outputStBuilder, List<CefTypeTxPlan> customImplClasses)
         {
