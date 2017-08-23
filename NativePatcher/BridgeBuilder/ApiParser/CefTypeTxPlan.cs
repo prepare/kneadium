@@ -2744,13 +2744,14 @@ namespace BridgeBuilder
                         stbuilder.AppendLine(parTx.CppWrapMethod + "(" + parTx.Name + ");");
                     }
                 }
-                stbuilder.AppendLine("}");
+                stbuilder.AppendLine("}"); //end if(myext_created_from_Unwrap){
+                stbuilder.AppendLine("}");//end class
             }
             //-----------------------------
             //private disallow copy
             stbuilder.AppendLine("private:");
             stbuilder.AppendLine("DISALLOW_COPY_AND_ASSIGN(" + className + ");");
-            
+
             //-----------------------------
             stbuilder.AppendLine("};"); //close cpp's class
             return className;
@@ -2926,9 +2927,22 @@ namespace BridgeBuilder
             }
             stbuilder.AppendLine("){");
             //-----------
+
+
+
             //method body
+
+
             if (!useJsSlot)
             {
+                for (int i = 0; i < j; ++i)
+                {
+                    MethodParameterTxInfo parTx = met.pars[i];
+                    parTx.ClearExtractCode();
+                    PrepareDataFromNativeToCs(parTx, "&vargs[" + (i + 1) + "]", parTx.Name, true);
+                }
+
+
                 string metArgsClassName = metDecl.Name + "Args";
                 stbuilder.AppendLine("if(mcallback){");
                 stbuilder.Append(metArgsClassName + " args1");
