@@ -3306,12 +3306,8 @@ namespace BridgeBuilder
             //temp 
             string className = met.Name + "NativeArgs";
 
-            stbuilder.AppendLine("public struct " + className + "{ ");
-            stbuilder.AppendLine("IntPtr nativePtr; //met arg native ptr");
-            stbuilder.AppendLine("internal " + className + "(IntPtr nativePtr){");
-            //stbuilder.AppendLine(@"int argCount;
-            //            this.nativePtr = MyMetArgs.GetArrHead(nativePtr,out argCount);");
-            stbuilder.AppendLine("}");
+            stbuilder.AppendLine("struct " + className + "{ "); //this is private struct with explicit layout
+
 
             int pos = 0;
             for (int i = 0; i < j; ++i)
@@ -3367,9 +3363,6 @@ namespace BridgeBuilder
 
                 //some cpp name can't be use in C#                 
                 stbuilder.Append(" ");
-                stbuilder.Append(parTx.Name);
-                stbuilder.Append("()");
-                stbuilder.AppendLine("{");
 
                 switch (csParTypeName)
                 {
@@ -3378,94 +3371,65 @@ namespace BridgeBuilder
 
                             if (csParTypeName.StartsWith("Cef"))
                             {
-                                stbuilder.Append("return new " + csParTypeName + "(MyMetArgs.GetAsIntPtr(nativePtr," + pos + "));");
+                                stbuilder.Append("IntPtr");
                             }
                             else if (csParTypeName.StartsWith("cef"))
                             {
-                                stbuilder.Append("return " + "(" + csParTypeName + ")" + "MyMetArgs.GetAsInt32(nativePtr," + pos + ");");
+                                stbuilder.Append(csParTypeName);
                             }
                             else
                             {
-                                stbuilder.Append("throw new CefNotImplementedException();");
+                                stbuilder.Append("??");
+                                //stbuilder.Append("throw new CefNotImplementedException();");
                             }
                         }
-
                         break;
                     case "IntPtr":
-                        stbuilder.Append("throw new CefNotImplementedException();");
+                        stbuilder.Append("??");
+                        //stbuilder.Append("throw new CefNotImplementedException();");
                         break;
                     case "List<object>":
                     case "List<string>":
                     case "List<CefCompositionUnderline>":
-                        stbuilder.Append("throw new CefNotImplementedException();");
+                        // stbuilder.Append("throw new CefNotImplementedException();");
+                        stbuilder.Append("??");
                         break;
                     case "CefValue":
-
-                        stbuilder.Append("throw new CefNotImplementedException();");
+                        stbuilder.Append("??");
+                        //stbuilder.Append("throw new CefNotImplementedException();");
                         break;
                     case "uint":
-                        stbuilder.Append("return " + "MyMetArgs.GetAsUInt32(nativePtr," + pos + ");");
+                        stbuilder.Append("uint");
                         break;
                     case "int":
-                        stbuilder.Append("return " + "MyMetArgs.GetAsInt32(nativePtr," + pos + ");");
+                        stbuilder.Append("int");
                         break;
                     case "long":
-                        stbuilder.Append("return " + "MyMetArgs.GetAsInt64(nativePtr," + pos + ");");
+                        stbuilder.Append("long");
                         break;
                     case "string":
-                        stbuilder.Append("return " + "MyMetArgs.GetAsString(nativePtr," + pos + ");");
+                        stbuilder.Append("IntPtr");
                         break;
                     case "bool":
-                        stbuilder.Append("return " + "MyMetArgs.GetAsBool(nativePtr," + pos + ");");
+                        stbuilder.Append("bool");
                         break;
                     case "double":
-                        stbuilder.Append("return " + "MyMetArgs.GetAsDouble(nativePtr," + pos + ");");
+                        stbuilder.Append("double");
                         break;
                     case "ref bool":
-                        //provide both getter and setter method
-                        {
-                            stbuilder.Append("return " + "MyMetArgs.GetAsBool(nativePtr," + pos + ");");
-                            stbuilder.AppendLine("}");
-
-                            //method
-                            //generate setter part
-
-                            stbuilder.AppendLine("public void " + parTx.Name + "(" + csSetterParTypeName + " value){");
-                            stbuilder.AppendLine("MyMetArgs.SetBoolToAddress(nativePtr," + pos + ",value);");
-                            stbuilder.AppendLine("}");
-                            continue;
-                        }
-
-                    case "ref int":
-                        {
-                            stbuilder.Append("return " + "MyMetArgs.GetAsInt32(nativePtr," + pos + ");");
-                            stbuilder.AppendLine("}");
-
-                            //method
-                            //generate setter part
-                            stbuilder.AppendLine("public void " + parTx.Name + "(" + csSetterParTypeName + " value){");
-                            stbuilder.AppendLine("MyMetArgs.SetInt32ToAddress(nativePtr," + pos + ",value);");
-                            stbuilder.AppendLine("}");
-                            continue;
-                        }
-
+                        //provide both getter and setter method  
+                        stbuilder.Append("double");
+                        break;
+                    case "ref int": 
+                        stbuilder.Append("int");
+                        break; 
                     case "ref uint":
-                        {
-                            stbuilder.Append("return " + "MyMetArgs.GetAsUInt32(nativePtr," + pos + ");");
-                            stbuilder.AppendLine("}");
-
-                            //method
-                            //generate setter part
-                            stbuilder.AppendLine("public void " + parTx.Name + "(" + csSetterParTypeName + " value){");
-                            stbuilder.AppendLine("MyMetArgs.SetUInt32ToAddress(nativePtr," + pos + ",value);");
-                            stbuilder.AppendLine("}");
-                            continue;
-                        }
-
+                        stbuilder.Append("uint");
+                        break; 
                 }
-
-
-                stbuilder.AppendLine("}"); //method
+                stbuilder.Append(" ");
+                stbuilder.Append(parTx.Name);
+                stbuilder.AppendLine(";");
             }
             stbuilder.AppendLine("}"); //struct
 
@@ -3864,8 +3828,10 @@ namespace BridgeBuilder
                 //
                 //GenerateCsExpandedArgsMethodImpl(met, stbuilder);
                 string argClassName = GenerateCsMethodArgsClass_JsSlot(met, stbuilder);
-                GenerateCsMethodArgsClass_Native(met, stbuilder);
+                CodeStringBuilder st2 = new CodeStringBuilder();
+                GenerateCsMethodArgsClass_Native(met, st2);
 
+                stbuilder.Append(st2.ToString());
                 met.CsArgClassName = argClassName;
                 //GenerateCsSingleArgMethodImpl(argClassName, met, stbuilder);                  
             }

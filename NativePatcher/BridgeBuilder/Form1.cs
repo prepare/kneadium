@@ -630,6 +630,7 @@ namespace BridgeBuilder
                 "//AUTOGEN CONTENT\r\n" +
                 "using System;\r\n" +
                 "using System.Collections.Generic;\r\n" +
+                "using System.Runtime.InteropServices;\r\n"+
                 "namespace LayoutFarm.CefBridge.Auto{\r\n");
 
 

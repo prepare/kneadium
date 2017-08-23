@@ -2,6 +2,8 @@
 //AUTOGEN CONTENT
 using System;
 using System.Collections.Generic;
+using System.Runtime.InteropServices;
+
 namespace LayoutFarm.CefBridge.Auto
 {
 
@@ -9069,7 +9071,7 @@ namespace LayoutFarm.CefBridge.Auto
             JsValue ret;
 
             Cef3Binder.MyCefMet_Call0(this.nativePtr, CefRequestContext_GetHandler_4, out ret);
-            throw new NotSupportedException();
+            return new CefRequestContextHandler(ret.Ptr);
         }
 
         // gen! CefString GetCachePath()
@@ -11575,7 +11577,7 @@ namespace LayoutFarm.CefBridge.Auto
             JsValue ret;
 
             Cef3Binder.MyCefMet_Call0(this.nativePtr, CefV8Value_GetFunctionHandler_42, out ret);
-            throw new NotSupportedException();
+            return new CefV8Handler(ret.Ptr);
         }
 
         // gen! CefRefPtr<CefV8Value> ExecuteFunction(CefRefPtr<CefV8Value> object,const CefV8ValueList& arguments)
@@ -15487,6 +15489,10 @@ namespace LayoutFarm.CefBridge.Auto
                 throw new CefNotImplementedException();
             }
         }
+        public struct OnAccessibilityTreeChangeNativeArgs
+        {
+            public CefValue value;
+        }
         //gen! void OnAccessibilityLocationChange(CefRefPtr<CefValue> value)
         public struct OnAccessibilityLocationChangeArgs
         {
@@ -15500,6 +15506,10 @@ namespace LayoutFarm.CefBridge.Auto
             {
                 throw new CefNotImplementedException();
             }
+        }
+        public struct OnAccessibilityLocationChangeNativeArgs
+        {
+            public CefValue value;
         }
         public interface I0
         {
@@ -15575,6 +15585,9 @@ namespace LayoutFarm.CefBridge.Auto
                 this.nativePtr = MyMetArgs.GetArrHead(nativePtr, out argCount);
             }
         }
+        public struct OnContextInitializedNativeArgs
+        {
+        }
         //gen! void OnBeforeChildProcessLaunch(CefRefPtr<CefCommandLine> command_line)
         public struct OnBeforeChildProcessLaunchArgs
         {
@@ -15588,6 +15601,10 @@ namespace LayoutFarm.CefBridge.Auto
             {
                 return new CefCommandLine(MyMetArgs.GetAsIntPtr(nativePtr, 1));
             }
+        }
+        public struct OnBeforeChildProcessLaunchNativeArgs
+        {
+            public CefCommandLine command_line;
         }
         //gen! void OnRenderProcessThreadCreated(CefRefPtr<CefListValue> extra_info)
         public struct OnRenderProcessThreadCreatedArgs
@@ -15603,6 +15620,10 @@ namespace LayoutFarm.CefBridge.Auto
                 return new CefListValue(MyMetArgs.GetAsIntPtr(nativePtr, 1));
             }
         }
+        public struct OnRenderProcessThreadCreatedNativeArgs
+        {
+            public CefListValue extra_info;
+        }
         //gen! CefRefPtr<CefPrintHandler> GetPrintHandler()
         public struct GetPrintHandlerArgs
         {
@@ -15612,6 +15633,9 @@ namespace LayoutFarm.CefBridge.Auto
                 int argCount;
                 this.nativePtr = MyMetArgs.GetArrHead(nativePtr, out argCount);
             }
+        }
+        public struct GetPrintHandlerNativeArgs
+        {
         }
         //gen! void OnScheduleMessagePumpWork(int64 delay_ms)
         public struct OnScheduleMessagePumpWorkArgs
@@ -15626,6 +15650,10 @@ namespace LayoutFarm.CefBridge.Auto
             {
                 return MyMetArgs.GetAsInt64(nativePtr, 1);
             }
+        }
+        public struct OnScheduleMessagePumpWorkNativeArgs
+        {
+            public long delay_ms;
         }
         public interface I0
         {
@@ -15779,6 +15807,13 @@ namespace LayoutFarm.CefBridge.Auto
                 return new CefMenuModel(MyMetArgs.GetAsIntPtr(nativePtr, 4));
             }
         }
+        public struct OnBeforeContextMenuNativeArgs
+        {
+            public CefBrowser browser;
+            public CefFrame frame;
+            public CefContextMenuParams _params;
+            public CefMenuModel model;
+        }
         //gen! bool RunContextMenu(CefRefPtr<CefBrowser> browser,CefRefPtr<CefFrame> frame,CefRefPtr<CefContextMenuParams> params,CefRefPtr<CefMenuModel> model,CefRefPtr<CefRunContextMenuCallback> callback)
         public struct RunContextMenuArgs
         {
@@ -15808,6 +15843,14 @@ namespace LayoutFarm.CefBridge.Auto
             {
                 return new CefRunContextMenuCallback(MyMetArgs.GetAsIntPtr(nativePtr, 5));
             }
+        }
+        public struct RunContextMenuNativeArgs
+        {
+            public CefBrowser browser;
+            public CefFrame frame;
+            public CefContextMenuParams _params;
+            public CefMenuModel model;
+            public CefRunContextMenuCallback callback;
         }
         //gen! bool OnContextMenuCommand(CefRefPtr<CefBrowser> browser,CefRefPtr<CefFrame> frame,CefRefPtr<CefContextMenuParams> params,int command_id,EventFlags event_flags)
         public struct OnContextMenuCommandArgs
@@ -15839,8 +15882,18 @@ namespace LayoutFarm.CefBridge.Auto
                 return (cef_event_flags_t)MyMetArgs.GetAsInt32(nativePtr, 5);
             }
         }
+        public struct OnContextMenuCommandNativeArgs
+        {
+            public CefBrowser browser;
+            public CefFrame frame;
+            public CefContextMenuParams _params;
+            public int command_id;
+            public cef_event_flags_t event_flags;
+        }
         //gen! void OnContextMenuDismissed(CefRefPtr<CefBrowser> browser,CefRefPtr<CefFrame> frame)
-        public struct OnContextMenuDismissedArgs
+
+        
+        struct OnContextMenuDismissedArgs
         {
             IntPtr nativePtr; //met arg native ptr
             internal OnContextMenuDismissedArgs(IntPtr nativePtr)
@@ -15856,6 +15909,13 @@ namespace LayoutFarm.CefBridge.Auto
             {
                 return new CefFrame(MyMetArgs.GetAsIntPtr(nativePtr, 2));
             }
+        }
+        [StructLayout(LayoutKind.Sequential)]
+
+        public struct OnContextMenuDismissedNativeArgs
+        {
+            public CefBrowser browser;
+            public CefFrame frame;
         }
         public interface I0
         {
@@ -16021,6 +16081,16 @@ namespace LayoutFarm.CefBridge.Auto
                 return new CefFileDialogCallback(MyMetArgs.GetAsIntPtr(nativePtr, 7));
             }
         }
+        public struct OnFileDialogNativeArgs
+        {
+            public CefBrowser browser;
+            public cef_file_dialog_mode_t mode;
+            public string title;
+            public string default_file_path;
+            public List<string> accept_filters;
+            public int selected_accept_filter;
+            public CefFileDialogCallback callback;
+        }
         public interface I0
         {
             void OnFileDialog(OnFileDialogArgs args);
@@ -16100,6 +16170,12 @@ namespace LayoutFarm.CefBridge.Auto
                 return MyMetArgs.GetAsString(nativePtr, 3);
             }
         }
+        public struct OnAddressChangeNativeArgs
+        {
+            public CefBrowser browser;
+            public CefFrame frame;
+            public string url;
+        }
         //gen! void OnTitleChange(CefRefPtr<CefBrowser> browser,const CefString& title)
         public struct OnTitleChangeArgs
         {
@@ -16117,6 +16193,11 @@ namespace LayoutFarm.CefBridge.Auto
             {
                 return MyMetArgs.GetAsString(nativePtr, 2);
             }
+        }
+        public struct OnTitleChangeNativeArgs
+        {
+            public CefBrowser browser;
+            public string title;
         }
         //gen! void OnFaviconURLChange(CefRefPtr<CefBrowser> browser,const std::vector<CefString>& icon_urls)
         public struct OnFaviconURLChangeArgs
@@ -16136,6 +16217,11 @@ namespace LayoutFarm.CefBridge.Auto
                 throw new CefNotImplementedException();
             }
         }
+        public struct OnFaviconURLChangeNativeArgs
+        {
+            public CefBrowser browser;
+            public List<string> icon_urls;
+        }
         //gen! void OnFullscreenModeChange(CefRefPtr<CefBrowser> browser,bool fullscreen)
         public struct OnFullscreenModeChangeArgs
         {
@@ -16153,6 +16239,11 @@ namespace LayoutFarm.CefBridge.Auto
             {
                 return MyMetArgs.GetAsBool(nativePtr, 2);
             }
+        }
+        public struct OnFullscreenModeChangeNativeArgs
+        {
+            public CefBrowser browser;
+            public bool fullscreen;
         }
         //gen! bool OnTooltip(CefRefPtr<CefBrowser> browser,CefString& text)
         public struct OnTooltipArgs
@@ -16172,6 +16263,11 @@ namespace LayoutFarm.CefBridge.Auto
                 return MyMetArgs.GetAsString(nativePtr, 2);
             }
         }
+        public struct OnTooltipNativeArgs
+        {
+            public CefBrowser browser;
+            public string text;
+        }
         //gen! void OnStatusMessage(CefRefPtr<CefBrowser> browser,const CefString& value)
         public struct OnStatusMessageArgs
         {
@@ -16189,6 +16285,11 @@ namespace LayoutFarm.CefBridge.Auto
             {
                 return MyMetArgs.GetAsString(nativePtr, 2);
             }
+        }
+        public struct OnStatusMessageNativeArgs
+        {
+            public CefBrowser browser;
+            public string value;
         }
         //gen! bool OnConsoleMessage(CefRefPtr<CefBrowser> browser,const CefString& message,const CefString& source,int line)
         public struct OnConsoleMessageArgs
@@ -16215,6 +16316,13 @@ namespace LayoutFarm.CefBridge.Auto
             {
                 return MyMetArgs.GetAsInt32(nativePtr, 4);
             }
+        }
+        public struct OnConsoleMessageNativeArgs
+        {
+            public CefBrowser browser;
+            public string message;
+            public string source;
+            public int line;
         }
         public interface I0
         {
@@ -16428,6 +16536,13 @@ namespace LayoutFarm.CefBridge.Auto
                 return new CefBeforeDownloadCallback(MyMetArgs.GetAsIntPtr(nativePtr, 4));
             }
         }
+        public struct OnBeforeDownloadNativeArgs
+        {
+            public CefBrowser browser;
+            public CefDownloadItem download_item;
+            public string suggested_name;
+            public CefBeforeDownloadCallback callback;
+        }
         //gen! void OnDownloadUpdated(CefRefPtr<CefBrowser> browser,CefRefPtr<CefDownloadItem> download_item,CefRefPtr<CefDownloadItemCallback> callback)
         public struct OnDownloadUpdatedArgs
         {
@@ -16449,6 +16564,12 @@ namespace LayoutFarm.CefBridge.Auto
             {
                 return new CefDownloadItemCallback(MyMetArgs.GetAsIntPtr(nativePtr, 3));
             }
+        }
+        public struct OnDownloadUpdatedNativeArgs
+        {
+            public CefBrowser browser;
+            public CefDownloadItem download_item;
+            public CefDownloadItemCallback callback;
         }
         public interface I0
         {
@@ -16543,6 +16664,12 @@ namespace LayoutFarm.CefBridge.Auto
                 return (cef_drag_operations_mask_t)MyMetArgs.GetAsInt32(nativePtr, 3);
             }
         }
+        public struct OnDragEnterNativeArgs
+        {
+            public CefBrowser browser;
+            public CefDragData dragData;
+            public cef_drag_operations_mask_t mask;
+        }
         //gen! void OnDraggableRegionsChanged(CefRefPtr<CefBrowser> browser,const std::vector<CefDraggableRegion>& regions)
         public struct OnDraggableRegionsChangedArgs
         {
@@ -16560,6 +16687,11 @@ namespace LayoutFarm.CefBridge.Auto
             {
                 throw new CefNotImplementedException();
             }
+        }
+        public struct OnDraggableRegionsChangedNativeArgs
+        {
+            public CefBrowser browser;
+            public List<object> regions;
         }
         public interface I0
         {
@@ -16661,6 +16793,15 @@ namespace LayoutFarm.CefBridge.Auto
                 return MyMetArgs.GetAsBool(nativePtr, 6);
             }
         }
+        public struct OnFindResultNativeArgs
+        {
+            public CefBrowser browser;
+            public int identifier;
+            public int count;
+            public CefRect selectionRect;
+            public int activeMatchOrdinal;
+            public bool finalUpdate;
+        }
         public interface I0
         {
             void OnFindResult(OnFindResultArgs args);
@@ -16730,6 +16871,11 @@ namespace LayoutFarm.CefBridge.Auto
                 return MyMetArgs.GetAsBool(nativePtr, 2);
             }
         }
+        public struct OnTakeFocusNativeArgs
+        {
+            public CefBrowser browser;
+            public bool next;
+        }
         //gen! bool OnSetFocus(CefRefPtr<CefBrowser> browser,FocusSource source)
         public struct OnSetFocusArgs
         {
@@ -16748,6 +16894,11 @@ namespace LayoutFarm.CefBridge.Auto
                 return (cef_focus_source_t)MyMetArgs.GetAsInt32(nativePtr, 2);
             }
         }
+        public struct OnSetFocusNativeArgs
+        {
+            public CefBrowser browser;
+            public cef_focus_source_t source;
+        }
         //gen! void OnGotFocus(CefRefPtr<CefBrowser> browser)
         public struct OnGotFocusArgs
         {
@@ -16761,6 +16912,10 @@ namespace LayoutFarm.CefBridge.Auto
             {
                 return new CefBrowser(MyMetArgs.GetAsIntPtr(nativePtr, 1));
             }
+        }
+        public struct OnGotFocusNativeArgs
+        {
+            public CefBrowser browser;
         }
         public interface I0
         {
@@ -16874,6 +17029,13 @@ namespace LayoutFarm.CefBridge.Auto
                 return new CefGeolocationCallback(MyMetArgs.GetAsIntPtr(nativePtr, 4));
             }
         }
+        public struct OnRequestGeolocationPermissionNativeArgs
+        {
+            public CefBrowser browser;
+            public string requesting_url;
+            public int request_id;
+            public CefGeolocationCallback callback;
+        }
         //gen! void OnCancelGeolocationPermission(CefRefPtr<CefBrowser> browser,int request_id)
         public struct OnCancelGeolocationPermissionArgs
         {
@@ -16891,6 +17053,11 @@ namespace LayoutFarm.CefBridge.Auto
             {
                 return MyMetArgs.GetAsInt32(nativePtr, 2);
             }
+        }
+        public struct OnCancelGeolocationPermissionNativeArgs
+        {
+            public CefBrowser browser;
+            public int request_id;
         }
         public interface I0
         {
@@ -17005,6 +17172,16 @@ namespace LayoutFarm.CefBridge.Auto
                 MyMetArgs.SetBoolToAddress(nativePtr, 7, value);
             }
         }
+        public struct OnJSDialogNativeArgs
+        {
+            public CefBrowser browser;
+            public string origin_url;
+            public cef_jsdialog_type_t dialog_type;
+            public string message_text;
+            public string default_prompt_text;
+            public CefJSDialogCallback callback;
+            public bool suppress_message;
+        }
         //gen! bool OnBeforeUnloadDialog(CefRefPtr<CefBrowser> browser,const CefString& message_text,bool is_reload,CefRefPtr<CefJSDialogCallback> callback)
         public struct OnBeforeUnloadDialogArgs
         {
@@ -17031,6 +17208,13 @@ namespace LayoutFarm.CefBridge.Auto
                 return new CefJSDialogCallback(MyMetArgs.GetAsIntPtr(nativePtr, 4));
             }
         }
+        public struct OnBeforeUnloadDialogNativeArgs
+        {
+            public CefBrowser browser;
+            public string message_text;
+            public bool is_reload;
+            public CefJSDialogCallback callback;
+        }
         //gen! void OnResetDialogState(CefRefPtr<CefBrowser> browser)
         public struct OnResetDialogStateArgs
         {
@@ -17045,6 +17229,10 @@ namespace LayoutFarm.CefBridge.Auto
                 return new CefBrowser(MyMetArgs.GetAsIntPtr(nativePtr, 1));
             }
         }
+        public struct OnResetDialogStateNativeArgs
+        {
+            public CefBrowser browser;
+        }
         //gen! void OnDialogClosed(CefRefPtr<CefBrowser> browser)
         public struct OnDialogClosedArgs
         {
@@ -17058,6 +17246,10 @@ namespace LayoutFarm.CefBridge.Auto
             {
                 return new CefBrowser(MyMetArgs.GetAsIntPtr(nativePtr, 1));
             }
+        }
+        public struct OnDialogClosedNativeArgs
+        {
+            public CefBrowser browser;
         }
         public interface I0
         {
@@ -17214,6 +17406,13 @@ namespace LayoutFarm.CefBridge.Auto
                 MyMetArgs.SetBoolToAddress(nativePtr, 4, value);
             }
         }
+        public struct OnPreKeyEventNativeArgs
+        {
+            public CefBrowser browser;
+            public CefKeyEvent _event;
+            public IntPtr os_event;
+            public bool is_keyboard_shortcut;
+        }
         //gen! bool OnKeyEvent(CefRefPtr<CefBrowser> browser,const CefKeyEvent& event,CefEventHandle os_event)
         public struct OnKeyEventArgs
         {
@@ -17235,6 +17434,12 @@ namespace LayoutFarm.CefBridge.Auto
             {
                 throw new CefNotImplementedException();
             }
+        }
+        public struct OnKeyEventNativeArgs
+        {
+            public CefBrowser browser;
+            public CefKeyEvent _event;
+            public IntPtr os_event;
         }
         public interface I0
         {
@@ -17371,6 +17576,20 @@ namespace LayoutFarm.CefBridge.Auto
                 MyMetArgs.SetBoolToAddress(nativePtr, 11, value);
             }
         }
+        public struct OnBeforePopupNativeArgs
+        {
+            public CefBrowser browser;
+            public CefFrame frame;
+            public string target_url;
+            public string target_frame_name;
+            public cef_window_open_disposition_t target_disposition;
+            public bool user_gesture;
+            public CefPopupFeatures popupFeatures;
+            public CefWindowInfo windowInfo;
+            public IntPtr client;
+            public CefBrowserSettings settings;
+            public bool no_javascript_access;
+        }
         //gen! void OnAfterCreated(CefRefPtr<CefBrowser> browser)
         public struct OnAfterCreatedArgs
         {
@@ -17384,6 +17603,10 @@ namespace LayoutFarm.CefBridge.Auto
             {
                 return new CefBrowser(MyMetArgs.GetAsIntPtr(nativePtr, 1));
             }
+        }
+        public struct OnAfterCreatedNativeArgs
+        {
+            public CefBrowser browser;
         }
         //gen! bool DoClose(CefRefPtr<CefBrowser> browser)
         public struct DoCloseArgs
@@ -17399,6 +17622,10 @@ namespace LayoutFarm.CefBridge.Auto
                 return new CefBrowser(MyMetArgs.GetAsIntPtr(nativePtr, 1));
             }
         }
+        public struct DoCloseNativeArgs
+        {
+            public CefBrowser browser;
+        }
         //gen! void OnBeforeClose(CefRefPtr<CefBrowser> browser)
         public struct OnBeforeCloseArgs
         {
@@ -17412,6 +17639,10 @@ namespace LayoutFarm.CefBridge.Auto
             {
                 return new CefBrowser(MyMetArgs.GetAsIntPtr(nativePtr, 1));
             }
+        }
+        public struct OnBeforeCloseNativeArgs
+        {
+            public CefBrowser browser;
         }
         public interface I0
         {
@@ -17568,6 +17799,13 @@ namespace LayoutFarm.CefBridge.Auto
                 return MyMetArgs.GetAsBool(nativePtr, 4);
             }
         }
+        public struct OnLoadingStateChangeNativeArgs
+        {
+            public CefBrowser browser;
+            public bool isLoading;
+            public bool canGoBack;
+            public bool canGoForward;
+        }
         //gen! void OnLoadStart(CefRefPtr<CefBrowser> browser,CefRefPtr<CefFrame> frame,TransitionType transition_type)
         public struct OnLoadStartArgs
         {
@@ -17590,6 +17828,12 @@ namespace LayoutFarm.CefBridge.Auto
                 return (cef_transition_type_t)MyMetArgs.GetAsInt32(nativePtr, 3);
             }
         }
+        public struct OnLoadStartNativeArgs
+        {
+            public CefBrowser browser;
+            public CefFrame frame;
+            public cef_transition_type_t transition_type;
+        }
         //gen! void OnLoadEnd(CefRefPtr<CefBrowser> browser,CefRefPtr<CefFrame> frame,int httpStatusCode)
         public struct OnLoadEndArgs
         {
@@ -17611,6 +17855,12 @@ namespace LayoutFarm.CefBridge.Auto
             {
                 return MyMetArgs.GetAsInt32(nativePtr, 3);
             }
+        }
+        public struct OnLoadEndNativeArgs
+        {
+            public CefBrowser browser;
+            public CefFrame frame;
+            public int httpStatusCode;
         }
         //gen! void OnLoadError(CefRefPtr<CefBrowser> browser,CefRefPtr<CefFrame> frame,ErrorCode errorCode,const CefString& errorText,const CefString& failedUrl)
         public struct OnLoadErrorArgs
@@ -17641,6 +17891,14 @@ namespace LayoutFarm.CefBridge.Auto
             {
                 return MyMetArgs.GetAsString(nativePtr, 5);
             }
+        }
+        public struct OnLoadErrorNativeArgs
+        {
+            public CefBrowser browser;
+            public CefFrame frame;
+            public cef_errorcode_t errorCode;
+            public string errorText;
+            public string failedUrl;
         }
         public interface I0
         {
@@ -17785,6 +18043,10 @@ namespace LayoutFarm.CefBridge.Auto
                 return new CefBrowser(MyMetArgs.GetAsIntPtr(nativePtr, 1));
             }
         }
+        public struct OnPrintStartNativeArgs
+        {
+            public CefBrowser browser;
+        }
         //gen! void OnPrintSettings(CefRefPtr<CefBrowser> browser,CefRefPtr<CefPrintSettings> settings,bool get_defaults)
         public struct OnPrintSettingsArgs
         {
@@ -17807,6 +18069,12 @@ namespace LayoutFarm.CefBridge.Auto
                 return MyMetArgs.GetAsBool(nativePtr, 3);
             }
         }
+        public struct OnPrintSettingsNativeArgs
+        {
+            public CefBrowser browser;
+            public CefPrintSettings settings;
+            public bool get_defaults;
+        }
         //gen! bool OnPrintDialog(CefRefPtr<CefBrowser> browser,bool has_selection,CefRefPtr<CefPrintDialogCallback> callback)
         public struct OnPrintDialogArgs
         {
@@ -17828,6 +18096,12 @@ namespace LayoutFarm.CefBridge.Auto
             {
                 return new CefPrintDialogCallback(MyMetArgs.GetAsIntPtr(nativePtr, 3));
             }
+        }
+        public struct OnPrintDialogNativeArgs
+        {
+            public CefBrowser browser;
+            public bool has_selection;
+            public CefPrintDialogCallback callback;
         }
         //gen! bool OnPrintJob(CefRefPtr<CefBrowser> browser,const CefString& document_name,const CefString& pdf_file_path,CefRefPtr<CefPrintJobCallback> callback)
         public struct OnPrintJobArgs
@@ -17855,6 +18129,13 @@ namespace LayoutFarm.CefBridge.Auto
                 return new CefPrintJobCallback(MyMetArgs.GetAsIntPtr(nativePtr, 4));
             }
         }
+        public struct OnPrintJobNativeArgs
+        {
+            public CefBrowser browser;
+            public string document_name;
+            public string pdf_file_path;
+            public CefPrintJobCallback callback;
+        }
         //gen! void OnPrintReset(CefRefPtr<CefBrowser> browser)
         public struct OnPrintResetArgs
         {
@@ -17869,6 +18150,10 @@ namespace LayoutFarm.CefBridge.Auto
                 return new CefBrowser(MyMetArgs.GetAsIntPtr(nativePtr, 1));
             }
         }
+        public struct OnPrintResetNativeArgs
+        {
+            public CefBrowser browser;
+        }
         //gen! CefSize GetPdfPaperSize(int device_units_per_inch)
         public struct GetPdfPaperSizeArgs
         {
@@ -17882,6 +18167,10 @@ namespace LayoutFarm.CefBridge.Auto
             {
                 return MyMetArgs.GetAsInt32(nativePtr, 1);
             }
+        }
+        public struct GetPdfPaperSizeNativeArgs
+        {
+            public int device_units_per_inch;
         }
         public interface I0
         {
@@ -18063,6 +18352,9 @@ namespace LayoutFarm.CefBridge.Auto
                 this.nativePtr = MyMetArgs.GetArrHead(nativePtr, out argCount);
             }
         }
+        public struct GetAccessibilityHandlerNativeArgs
+        {
+        }
         //gen! bool GetRootScreenRect(CefRefPtr<CefBrowser> browser,CefRect& rect)
         public struct GetRootScreenRectArgs
         {
@@ -18081,6 +18373,11 @@ namespace LayoutFarm.CefBridge.Auto
                 return new CefRect(MyMetArgs.GetAsIntPtr(nativePtr, 2));
             }
         }
+        public struct GetRootScreenRectNativeArgs
+        {
+            public CefBrowser browser;
+            public CefRect rect;
+        }
         //gen! bool GetViewRect(CefRefPtr<CefBrowser> browser,CefRect& rect)
         public struct GetViewRectArgs
         {
@@ -18098,6 +18395,11 @@ namespace LayoutFarm.CefBridge.Auto
             {
                 return new CefRect(MyMetArgs.GetAsIntPtr(nativePtr, 2));
             }
+        }
+        public struct GetViewRectNativeArgs
+        {
+            public CefBrowser browser;
+            public CefRect rect;
         }
         //gen! bool GetScreenPoint(CefRefPtr<CefBrowser> browser,int viewX,int viewY,int& screenX,int& screenY)
         public struct GetScreenPointArgs
@@ -18137,6 +18439,14 @@ namespace LayoutFarm.CefBridge.Auto
                 MyMetArgs.SetInt32ToAddress(nativePtr, 5, value);
             }
         }
+        public struct GetScreenPointNativeArgs
+        {
+            public CefBrowser browser;
+            public int viewX;
+            public int viewY;
+            public int screenX;
+            public int screenY;
+        }
         //gen! bool GetScreenInfo(CefRefPtr<CefBrowser> browser,CefScreenInfo& screen_info)
         public struct GetScreenInfoArgs
         {
@@ -18154,6 +18464,11 @@ namespace LayoutFarm.CefBridge.Auto
             {
                 return new CefScreenInfo(MyMetArgs.GetAsIntPtr(nativePtr, 2));
             }
+        }
+        public struct GetScreenInfoNativeArgs
+        {
+            public CefBrowser browser;
+            public CefScreenInfo screen_info;
         }
         //gen! void OnPopupShow(CefRefPtr<CefBrowser> browser,bool show)
         public struct OnPopupShowArgs
@@ -18173,6 +18488,11 @@ namespace LayoutFarm.CefBridge.Auto
                 return MyMetArgs.GetAsBool(nativePtr, 2);
             }
         }
+        public struct OnPopupShowNativeArgs
+        {
+            public CefBrowser browser;
+            public bool show;
+        }
         //gen! void OnPopupSize(CefRefPtr<CefBrowser> browser,const CefRect& rect)
         public struct OnPopupSizeArgs
         {
@@ -18190,6 +18510,11 @@ namespace LayoutFarm.CefBridge.Auto
             {
                 return new CefRect(MyMetArgs.GetAsIntPtr(nativePtr, 2));
             }
+        }
+        public struct OnPopupSizeNativeArgs
+        {
+            public CefBrowser browser;
+            public CefRect rect;
         }
         //gen! void OnPaint(CefRefPtr<CefBrowser> browser,PaintElementType type,const RectList& dirtyRects,const void* buffer,int width,int height)
         public struct OnPaintArgs
@@ -18225,6 +18550,15 @@ namespace LayoutFarm.CefBridge.Auto
                 return MyMetArgs.GetAsInt32(nativePtr, 6);
             }
         }
+        public struct OnPaintNativeArgs
+        {
+            public CefBrowser browser;
+            public cef_paint_element_type_t type;
+            public List<object> dirtyRects;
+            public IntPtr buffer;
+            public int width;
+            public int height;
+        }
         //gen! void OnCursorChange(CefRefPtr<CefBrowser> browser,CefCursorHandle cursor,CursorType type,const CefCursorInfo& custom_cursor_info)
         public struct OnCursorChangeArgs
         {
@@ -18250,6 +18584,13 @@ namespace LayoutFarm.CefBridge.Auto
             {
                 return new CefCursorInfo(MyMetArgs.GetAsIntPtr(nativePtr, 4));
             }
+        }
+        public struct OnCursorChangeNativeArgs
+        {
+            public CefBrowser browser;
+            public IntPtr cursor;
+            public cef_cursor_type_t type;
+            public CefCursorInfo custom_cursor_info;
         }
         //gen! bool StartDragging(CefRefPtr<CefBrowser> browser,CefRefPtr<CefDragData> drag_data,DragOperationsMask allowed_ops,int x,int y)
         public struct StartDraggingArgs
@@ -18281,6 +18622,14 @@ namespace LayoutFarm.CefBridge.Auto
                 return MyMetArgs.GetAsInt32(nativePtr, 5);
             }
         }
+        public struct StartDraggingNativeArgs
+        {
+            public CefBrowser browser;
+            public CefDragData drag_data;
+            public cef_drag_operations_mask_t allowed_ops;
+            public int x;
+            public int y;
+        }
         //gen! void UpdateDragCursor(CefRefPtr<CefBrowser> browser,DragOperation operation)
         public struct UpdateDragCursorArgs
         {
@@ -18298,6 +18647,11 @@ namespace LayoutFarm.CefBridge.Auto
             {
                 return (cef_drag_operations_mask_t)MyMetArgs.GetAsInt32(nativePtr, 2);
             }
+        }
+        public struct UpdateDragCursorNativeArgs
+        {
+            public CefBrowser browser;
+            public cef_drag_operations_mask_t operation;
         }
         //gen! void OnScrollOffsetChanged(CefRefPtr<CefBrowser> browser,double x,double y)
         public struct OnScrollOffsetChangedArgs
@@ -18321,6 +18675,12 @@ namespace LayoutFarm.CefBridge.Auto
                 return MyMetArgs.GetAsDouble(nativePtr, 3);
             }
         }
+        public struct OnScrollOffsetChangedNativeArgs
+        {
+            public CefBrowser browser;
+            public double x;
+            public double y;
+        }
         //gen! void OnImeCompositionRangeChanged(CefRefPtr<CefBrowser> browser,const CefRange& selected_range,const RectList& character_bounds)
         public struct OnImeCompositionRangeChangedArgs
         {
@@ -18342,6 +18702,12 @@ namespace LayoutFarm.CefBridge.Auto
             {
                 throw new CefNotImplementedException();
             }
+        }
+        public struct OnImeCompositionRangeChangedNativeArgs
+        {
+            public CefBrowser browser;
+            public CefRange selected_range;
+            public List<object> character_bounds;
         }
         public interface I0
         {
@@ -18718,6 +19084,10 @@ namespace LayoutFarm.CefBridge.Auto
                 return new CefListValue(MyMetArgs.GetAsIntPtr(nativePtr, 1));
             }
         }
+        public struct OnRenderThreadCreatedNativeArgs
+        {
+            public CefListValue extra_info;
+        }
         //gen! void OnWebKitInitialized()
         public struct OnWebKitInitializedArgs
         {
@@ -18727,6 +19097,9 @@ namespace LayoutFarm.CefBridge.Auto
                 int argCount;
                 this.nativePtr = MyMetArgs.GetArrHead(nativePtr, out argCount);
             }
+        }
+        public struct OnWebKitInitializedNativeArgs
+        {
         }
         //gen! void OnBrowserCreated(CefRefPtr<CefBrowser> browser)
         public struct OnBrowserCreatedArgs
@@ -18742,6 +19115,10 @@ namespace LayoutFarm.CefBridge.Auto
                 return new CefBrowser(MyMetArgs.GetAsIntPtr(nativePtr, 1));
             }
         }
+        public struct OnBrowserCreatedNativeArgs
+        {
+            public CefBrowser browser;
+        }
         //gen! void OnBrowserDestroyed(CefRefPtr<CefBrowser> browser)
         public struct OnBrowserDestroyedArgs
         {
@@ -18756,6 +19133,10 @@ namespace LayoutFarm.CefBridge.Auto
                 return new CefBrowser(MyMetArgs.GetAsIntPtr(nativePtr, 1));
             }
         }
+        public struct OnBrowserDestroyedNativeArgs
+        {
+            public CefBrowser browser;
+        }
         //gen! CefRefPtr<CefLoadHandler> GetLoadHandler()
         public struct GetLoadHandlerArgs
         {
@@ -18765,6 +19146,9 @@ namespace LayoutFarm.CefBridge.Auto
                 int argCount;
                 this.nativePtr = MyMetArgs.GetArrHead(nativePtr, out argCount);
             }
+        }
+        public struct GetLoadHandlerNativeArgs
+        {
         }
         //gen! bool OnBeforeNavigation(CefRefPtr<CefBrowser> browser,CefRefPtr<CefFrame> frame,CefRefPtr<CefRequest> request,NavigationType navigation_type,bool is_redirect)
         public struct OnBeforeNavigationArgs
@@ -18796,6 +19180,14 @@ namespace LayoutFarm.CefBridge.Auto
                 return MyMetArgs.GetAsBool(nativePtr, 5);
             }
         }
+        public struct OnBeforeNavigationNativeArgs
+        {
+            public CefBrowser browser;
+            public CefFrame frame;
+            public CefRequest request;
+            public cef_navigation_type_t navigation_type;
+            public bool is_redirect;
+        }
         //gen! void OnContextCreated(CefRefPtr<CefBrowser> browser,CefRefPtr<CefFrame> frame,CefRefPtr<CefV8Context> context)
         public struct OnContextCreatedArgs
         {
@@ -18818,6 +19210,12 @@ namespace LayoutFarm.CefBridge.Auto
                 return new CefV8Context(MyMetArgs.GetAsIntPtr(nativePtr, 3));
             }
         }
+        public struct OnContextCreatedNativeArgs
+        {
+            public CefBrowser browser;
+            public CefFrame frame;
+            public CefV8Context context;
+        }
         //gen! void OnContextReleased(CefRefPtr<CefBrowser> browser,CefRefPtr<CefFrame> frame,CefRefPtr<CefV8Context> context)
         public struct OnContextReleasedArgs
         {
@@ -18839,6 +19237,12 @@ namespace LayoutFarm.CefBridge.Auto
             {
                 return new CefV8Context(MyMetArgs.GetAsIntPtr(nativePtr, 3));
             }
+        }
+        public struct OnContextReleasedNativeArgs
+        {
+            public CefBrowser browser;
+            public CefFrame frame;
+            public CefV8Context context;
         }
         //gen! void OnUncaughtException(CefRefPtr<CefBrowser> browser,CefRefPtr<CefFrame> frame,CefRefPtr<CefV8Context> context,CefRefPtr<CefV8Exception> exception,CefRefPtr<CefV8StackTrace> stackTrace)
         public struct OnUncaughtExceptionArgs
@@ -18870,6 +19274,14 @@ namespace LayoutFarm.CefBridge.Auto
                 return new CefV8StackTrace(MyMetArgs.GetAsIntPtr(nativePtr, 5));
             }
         }
+        public struct OnUncaughtExceptionNativeArgs
+        {
+            public CefBrowser browser;
+            public CefFrame frame;
+            public CefV8Context context;
+            public CefV8Exception exception;
+            public CefV8StackTrace stackTrace;
+        }
         //gen! void OnFocusedNodeChanged(CefRefPtr<CefBrowser> browser,CefRefPtr<CefFrame> frame,CefRefPtr<CefDOMNode> node)
         public struct OnFocusedNodeChangedArgs
         {
@@ -18892,6 +19304,12 @@ namespace LayoutFarm.CefBridge.Auto
                 return new CefDOMNode(MyMetArgs.GetAsIntPtr(nativePtr, 3));
             }
         }
+        public struct OnFocusedNodeChangedNativeArgs
+        {
+            public CefBrowser browser;
+            public CefFrame frame;
+            public CefDOMNode node;
+        }
         //gen! bool OnProcessMessageReceived(CefRefPtr<CefBrowser> browser,CefProcessId source_process,CefRefPtr<CefProcessMessage> message)
         public struct OnProcessMessageReceivedArgs
         {
@@ -18913,6 +19331,12 @@ namespace LayoutFarm.CefBridge.Auto
             {
                 return new CefProcessMessage(MyMetArgs.GetAsIntPtr(nativePtr, 3));
             }
+        }
+        public struct OnProcessMessageReceivedNativeArgs
+        {
+            public CefBrowser browser;
+            public cef_process_id_t source_process;
+            public CefProcessMessage message;
         }
         public interface I0
         {
@@ -19206,6 +19630,9 @@ namespace LayoutFarm.CefBridge.Auto
                 this.nativePtr = MyMetArgs.GetArrHead(nativePtr, out argCount);
             }
         }
+        public struct GetCookieManagerNativeArgs
+        {
+        }
         //gen! bool OnBeforePluginLoad(const CefString& mime_type,const CefString& plugin_url,bool is_main_frame,const CefString& top_origin_url,CefRefPtr<CefWebPluginInfo> plugin_info,PluginPolicy* plugin_policy)
         public struct OnBeforePluginLoadArgs
         {
@@ -19239,6 +19666,15 @@ namespace LayoutFarm.CefBridge.Auto
             {
                 return (cef_plugin_policy_t)MyMetArgs.GetAsInt32(nativePtr, 6);
             }
+        }
+        public struct OnBeforePluginLoadNativeArgs
+        {
+            public string mime_type;
+            public string plugin_url;
+            public bool is_main_frame;
+            public string top_origin_url;
+            public CefWebPluginInfo plugin_info;
+            public cef_plugin_policy_t plugin_policy;
         }
         public interface I0
         {
@@ -19351,6 +19787,13 @@ namespace LayoutFarm.CefBridge.Auto
                 return MyMetArgs.GetAsBool(nativePtr, 4);
             }
         }
+        public struct OnBeforeBrowseNativeArgs
+        {
+            public CefBrowser browser;
+            public CefFrame frame;
+            public CefRequest request;
+            public bool is_redirect;
+        }
         //gen! bool OnOpenURLFromTab(CefRefPtr<CefBrowser> browser,CefRefPtr<CefFrame> frame,const CefString& target_url,WindowOpenDisposition target_disposition,bool user_gesture)
         public struct OnOpenURLFromTabArgs
         {
@@ -19381,6 +19824,14 @@ namespace LayoutFarm.CefBridge.Auto
                 return MyMetArgs.GetAsBool(nativePtr, 5);
             }
         }
+        public struct OnOpenURLFromTabNativeArgs
+        {
+            public CefBrowser browser;
+            public CefFrame frame;
+            public string target_url;
+            public cef_window_open_disposition_t target_disposition;
+            public bool user_gesture;
+        }
         //gen! ReturnValue OnBeforeResourceLoad(CefRefPtr<CefBrowser> browser,CefRefPtr<CefFrame> frame,CefRefPtr<CefRequest> request,CefRefPtr<CefRequestCallback> callback)
         public struct OnBeforeResourceLoadArgs
         {
@@ -19407,6 +19858,13 @@ namespace LayoutFarm.CefBridge.Auto
                 return new CefRequestCallback(MyMetArgs.GetAsIntPtr(nativePtr, 4));
             }
         }
+        public struct OnBeforeResourceLoadNativeArgs
+        {
+            public CefBrowser browser;
+            public CefFrame frame;
+            public CefRequest request;
+            public CefRequestCallback callback;
+        }
         //gen! CefRefPtr<CefResourceHandler> GetResourceHandler(CefRefPtr<CefBrowser> browser,CefRefPtr<CefFrame> frame,CefRefPtr<CefRequest> request)
         public struct GetResourceHandlerArgs
         {
@@ -19428,6 +19886,12 @@ namespace LayoutFarm.CefBridge.Auto
             {
                 return new CefRequest(MyMetArgs.GetAsIntPtr(nativePtr, 3));
             }
+        }
+        public struct GetResourceHandlerNativeArgs
+        {
+            public CefBrowser browser;
+            public CefFrame frame;
+            public CefRequest request;
         }
         //gen! void OnResourceRedirect(CefRefPtr<CefBrowser> browser,CefRefPtr<CefFrame> frame,CefRefPtr<CefRequest> request,CefRefPtr<CefResponse> response,CefString& new_url)
         public struct OnResourceRedirectArgs
@@ -19459,6 +19923,14 @@ namespace LayoutFarm.CefBridge.Auto
                 return MyMetArgs.GetAsString(nativePtr, 5);
             }
         }
+        public struct OnResourceRedirectNativeArgs
+        {
+            public CefBrowser browser;
+            public CefFrame frame;
+            public CefRequest request;
+            public CefResponse response;
+            public string new_url;
+        }
         //gen! bool OnResourceResponse(CefRefPtr<CefBrowser> browser,CefRefPtr<CefFrame> frame,CefRefPtr<CefRequest> request,CefRefPtr<CefResponse> response)
         public struct OnResourceResponseArgs
         {
@@ -19485,6 +19957,13 @@ namespace LayoutFarm.CefBridge.Auto
                 return new CefResponse(MyMetArgs.GetAsIntPtr(nativePtr, 4));
             }
         }
+        public struct OnResourceResponseNativeArgs
+        {
+            public CefBrowser browser;
+            public CefFrame frame;
+            public CefRequest request;
+            public CefResponse response;
+        }
         //gen! CefRefPtr<CefResponseFilter> GetResourceResponseFilter(CefRefPtr<CefBrowser> browser,CefRefPtr<CefFrame> frame,CefRefPtr<CefRequest> request,CefRefPtr<CefResponse> response)
         public struct GetResourceResponseFilterArgs
         {
@@ -19510,6 +19989,13 @@ namespace LayoutFarm.CefBridge.Auto
             {
                 return new CefResponse(MyMetArgs.GetAsIntPtr(nativePtr, 4));
             }
+        }
+        public struct GetResourceResponseFilterNativeArgs
+        {
+            public CefBrowser browser;
+            public CefFrame frame;
+            public CefRequest request;
+            public CefResponse response;
         }
         //gen! void OnResourceLoadComplete(CefRefPtr<CefBrowser> browser,CefRefPtr<CefFrame> frame,CefRefPtr<CefRequest> request,CefRefPtr<CefResponse> response,URLRequestStatus status,int64 received_content_length)
         public struct OnResourceLoadCompleteArgs
@@ -19544,6 +20030,15 @@ namespace LayoutFarm.CefBridge.Auto
             {
                 return MyMetArgs.GetAsInt64(nativePtr, 6);
             }
+        }
+        public struct OnResourceLoadCompleteNativeArgs
+        {
+            public CefBrowser browser;
+            public CefFrame frame;
+            public CefRequest request;
+            public CefResponse response;
+            public cef_urlrequest_status_t status;
+            public long received_content_length;
         }
         //gen! bool GetAuthCredentials(CefRefPtr<CefBrowser> browser,CefRefPtr<CefFrame> frame,bool isProxy,const CefString& host,int port,const CefString& realm,const CefString& scheme,CefRefPtr<CefAuthCallback> callback)
         public struct GetAuthCredentialsArgs
@@ -19587,6 +20082,17 @@ namespace LayoutFarm.CefBridge.Auto
                 return new CefAuthCallback(MyMetArgs.GetAsIntPtr(nativePtr, 8));
             }
         }
+        public struct GetAuthCredentialsNativeArgs
+        {
+            public CefBrowser browser;
+            public CefFrame frame;
+            public bool isProxy;
+            public string host;
+            public int port;
+            public string realm;
+            public string scheme;
+            public CefAuthCallback callback;
+        }
         //gen! bool OnQuotaRequest(CefRefPtr<CefBrowser> browser,const CefString& origin_url,int64 new_size,CefRefPtr<CefRequestCallback> callback)
         public struct OnQuotaRequestArgs
         {
@@ -19613,6 +20119,13 @@ namespace LayoutFarm.CefBridge.Auto
                 return new CefRequestCallback(MyMetArgs.GetAsIntPtr(nativePtr, 4));
             }
         }
+        public struct OnQuotaRequestNativeArgs
+        {
+            public CefBrowser browser;
+            public string origin_url;
+            public long new_size;
+            public CefRequestCallback callback;
+        }
         //gen! void OnProtocolExecution(CefRefPtr<CefBrowser> browser,const CefString& url,bool& allow_os_execution)
         public struct OnProtocolExecutionArgs
         {
@@ -19638,6 +20151,12 @@ namespace LayoutFarm.CefBridge.Auto
             {
                 MyMetArgs.SetBoolToAddress(nativePtr, 3, value);
             }
+        }
+        public struct OnProtocolExecutionNativeArgs
+        {
+            public CefBrowser browser;
+            public string url;
+            public bool allow_os_execution;
         }
         //gen! bool OnCertificateError(CefRefPtr<CefBrowser> browser,cef_errorcode_t cert_error,const CefString& request_url,CefRefPtr<CefSSLInfo> ssl_info,CefRefPtr<CefRequestCallback> callback)
         public struct OnCertificateErrorArgs
@@ -19668,6 +20187,14 @@ namespace LayoutFarm.CefBridge.Auto
             {
                 return new CefRequestCallback(MyMetArgs.GetAsIntPtr(nativePtr, 5));
             }
+        }
+        public struct OnCertificateErrorNativeArgs
+        {
+            public CefBrowser browser;
+            public cef_errorcode_t cert_error;
+            public string request_url;
+            public CefSSLInfo ssl_info;
+            public CefRequestCallback callback;
         }
         //gen! bool OnSelectClientCertificate(CefRefPtr<CefBrowser> browser,bool isProxy,const CefString& host,int port,const X509CertificateList& certificates,CefRefPtr<CefSelectClientCertificateCallback> callback)
         public struct OnSelectClientCertificateArgs
@@ -19703,6 +20230,15 @@ namespace LayoutFarm.CefBridge.Auto
                 return new CefSelectClientCertificateCallback(MyMetArgs.GetAsIntPtr(nativePtr, 6));
             }
         }
+        public struct OnSelectClientCertificateNativeArgs
+        {
+            public CefBrowser browser;
+            public bool isProxy;
+            public string host;
+            public int port;
+            public List<CefCompositionUnderline> certificates;
+            public CefSelectClientCertificateCallback callback;
+        }
         //gen! void OnPluginCrashed(CefRefPtr<CefBrowser> browser,const CefString& plugin_path)
         public struct OnPluginCrashedArgs
         {
@@ -19721,6 +20257,11 @@ namespace LayoutFarm.CefBridge.Auto
                 return MyMetArgs.GetAsString(nativePtr, 2);
             }
         }
+        public struct OnPluginCrashedNativeArgs
+        {
+            public CefBrowser browser;
+            public string plugin_path;
+        }
         //gen! void OnRenderViewReady(CefRefPtr<CefBrowser> browser)
         public struct OnRenderViewReadyArgs
         {
@@ -19734,6 +20275,10 @@ namespace LayoutFarm.CefBridge.Auto
             {
                 return new CefBrowser(MyMetArgs.GetAsIntPtr(nativePtr, 1));
             }
+        }
+        public struct OnRenderViewReadyNativeArgs
+        {
+            public CefBrowser browser;
         }
         //gen! void OnRenderProcessTerminated(CefRefPtr<CefBrowser> browser,TerminationStatus status)
         public struct OnRenderProcessTerminatedArgs
@@ -19752,6 +20297,11 @@ namespace LayoutFarm.CefBridge.Auto
             {
                 return (cef_termination_status_t)MyMetArgs.GetAsInt32(nativePtr, 2);
             }
+        }
+        public struct OnRenderProcessTerminatedNativeArgs
+        {
+            public CefBrowser browser;
+            public cef_termination_status_t status;
         }
         public interface I0
         {
@@ -20231,6 +20781,11 @@ namespace LayoutFarm.CefBridge.Auto
                 return MyMetArgs.GetAsString(nativePtr, 2);
             }
         }
+        public struct GetLocalizedStringNativeArgs
+        {
+            public int string_id;
+            public string _string;
+        }
         //gen! bool GetDataResource(int resource_id,void*& data,size_t& data_size)
         public struct GetDataResourceArgs
         {
@@ -20256,6 +20811,12 @@ namespace LayoutFarm.CefBridge.Auto
             {
                 MyMetArgs.SetUInt32ToAddress(nativePtr, 3, value);
             }
+        }
+        public struct GetDataResourceNativeArgs
+        {
+            public int resource_id;
+            public IntPtr data;
+            public uint data_size;
         }
         //gen! bool GetDataResourceForScale(int resource_id,ScaleFactor scale_factor,void*& data,size_t& data_size)
         public struct GetDataResourceForScaleArgs
@@ -20286,6 +20847,13 @@ namespace LayoutFarm.CefBridge.Auto
             {
                 MyMetArgs.SetUInt32ToAddress(nativePtr, 4, value);
             }
+        }
+        public struct GetDataResourceForScaleNativeArgs
+        {
+            public int resource_id;
+            public cef_scale_factor_t scale_factor;
+            public IntPtr data;
+            public uint data_size;
         }
         public interface I0
         {
@@ -20411,6 +20979,11 @@ namespace LayoutFarm.CefBridge.Auto
                 return new CefCallback(MyMetArgs.GetAsIntPtr(nativePtr, 2));
             }
         }
+        public struct ProcessRequestNativeArgs
+        {
+            public CefRequest request;
+            public CefCallback callback;
+        }
         //gen! void GetResponseHeaders(CefRefPtr<CefResponse> response,int64& response_length,CefString& redirectUrl)
         public struct GetResponseHeadersArgs
         {
@@ -20432,6 +21005,12 @@ namespace LayoutFarm.CefBridge.Auto
             {
                 return MyMetArgs.GetAsString(nativePtr, 3);
             }
+        }
+        public struct GetResponseHeadersNativeArgs
+        {
+            public CefResponse response;
+            public long response_length;
+            public string redirectUrl;
         }
         //gen! bool ReadResponse(void* data_out,int bytes_to_read,int& bytes_read,CefRefPtr<CefCallback> callback)
         public struct ReadResponseArgs
@@ -20463,6 +21042,13 @@ namespace LayoutFarm.CefBridge.Auto
                 return new CefCallback(MyMetArgs.GetAsIntPtr(nativePtr, 4));
             }
         }
+        public struct ReadResponseNativeArgs
+        {
+            public IntPtr data_out;
+            public int bytes_to_read;
+            public int bytes_read;
+            public CefCallback callback;
+        }
         //gen! bool CanGetCookie(const CefCookie& cookie)
         public struct CanGetCookieArgs
         {
@@ -20476,6 +21062,10 @@ namespace LayoutFarm.CefBridge.Auto
             {
                 return new CefCookie(MyMetArgs.GetAsIntPtr(nativePtr, 1));
             }
+        }
+        public struct CanGetCookieNativeArgs
+        {
+            public CefCookie cookie;
         }
         //gen! bool CanSetCookie(const CefCookie& cookie)
         public struct CanSetCookieArgs
@@ -20491,6 +21081,10 @@ namespace LayoutFarm.CefBridge.Auto
                 return new CefCookie(MyMetArgs.GetAsIntPtr(nativePtr, 1));
             }
         }
+        public struct CanSetCookieNativeArgs
+        {
+            public CefCookie cookie;
+        }
         //gen! void Cancel()
         public struct CancelArgs
         {
@@ -20500,6 +21094,9 @@ namespace LayoutFarm.CefBridge.Auto
                 int argCount;
                 this.nativePtr = MyMetArgs.GetArrHead(nativePtr, out argCount);
             }
+        }
+        public struct CancelNativeArgs
+        {
         }
         public interface I0
         {
@@ -20687,6 +21284,12 @@ namespace LayoutFarm.CefBridge.Auto
                 return MyMetArgs.GetAsUInt32(nativePtr, 3);
             }
         }
+        public struct ReadNativeArgs
+        {
+            public IntPtr ptr;
+            public uint size;
+            public uint n;
+        }
         //gen! int Seek(int64 offset,int whence)
         public struct SeekArgs
         {
@@ -20705,6 +21308,11 @@ namespace LayoutFarm.CefBridge.Auto
                 return MyMetArgs.GetAsInt32(nativePtr, 2);
             }
         }
+        public struct SeekNativeArgs
+        {
+            public long offset;
+            public int whence;
+        }
         //gen! int64 Tell()
         public struct TellArgs
         {
@@ -20714,6 +21322,9 @@ namespace LayoutFarm.CefBridge.Auto
                 int argCount;
                 this.nativePtr = MyMetArgs.GetArrHead(nativePtr, out argCount);
             }
+        }
+        public struct TellNativeArgs
+        {
         }
         //gen! int Eof()
         public struct EofArgs
@@ -20725,6 +21336,9 @@ namespace LayoutFarm.CefBridge.Auto
                 this.nativePtr = MyMetArgs.GetArrHead(nativePtr, out argCount);
             }
         }
+        public struct EofNativeArgs
+        {
+        }
         //gen! bool MayBlock()
         public struct MayBlockArgs
         {
@@ -20734,6 +21348,9 @@ namespace LayoutFarm.CefBridge.Auto
                 int argCount;
                 this.nativePtr = MyMetArgs.GetArrHead(nativePtr, out argCount);
             }
+        }
+        public struct MayBlockNativeArgs
+        {
         }
         public interface I0
         {
@@ -20890,6 +21507,12 @@ namespace LayoutFarm.CefBridge.Auto
                 return MyMetArgs.GetAsUInt32(nativePtr, 3);
             }
         }
+        public struct WriteNativeArgs
+        {
+            public IntPtr ptr;
+            public uint size;
+            public uint n;
+        }
         //gen! int Seek(int64 offset,int whence)
         public struct SeekArgs
         {
@@ -20908,6 +21531,11 @@ namespace LayoutFarm.CefBridge.Auto
                 return MyMetArgs.GetAsInt32(nativePtr, 2);
             }
         }
+        public struct SeekNativeArgs
+        {
+            public long offset;
+            public int whence;
+        }
         //gen! int64 Tell()
         public struct TellArgs
         {
@@ -20917,6 +21545,9 @@ namespace LayoutFarm.CefBridge.Auto
                 int argCount;
                 this.nativePtr = MyMetArgs.GetArrHead(nativePtr, out argCount);
             }
+        }
+        public struct TellNativeArgs
+        {
         }
         //gen! int Flush()
         public struct FlushArgs
@@ -20928,6 +21559,9 @@ namespace LayoutFarm.CefBridge.Auto
                 this.nativePtr = MyMetArgs.GetArrHead(nativePtr, out argCount);
             }
         }
+        public struct FlushNativeArgs
+        {
+        }
         //gen! bool MayBlock()
         public struct MayBlockArgs
         {
@@ -20937,6 +21571,9 @@ namespace LayoutFarm.CefBridge.Auto
                 int argCount;
                 this.nativePtr = MyMetArgs.GetArrHead(nativePtr, out argCount);
             }
+        }
+        public struct MayBlockNativeArgs
+        {
         }
         public interface I0
         {
@@ -21096,6 +21733,14 @@ namespace LayoutFarm.CefBridge.Auto
             {
                 return MyMetArgs.GetAsString(nativePtr, 5);
             }
+        }
+        public struct ExecuteNativeArgs
+        {
+            public string name;
+            public CefV8Value _object;
+            public CefV8ValueList arguments;
+            public IntPtr retval;
+            public string exception;
         }
         public interface I0
         {
