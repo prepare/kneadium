@@ -11575,7 +11575,6 @@ namespace LayoutFarm.CefBridge.Auto
         public CefV8Handler GetFunctionHandler()
         {
             JsValue ret;
-
             Cef3Binder.MyCefMet_Call0(this.nativePtr, CefV8Value_GetFunctionHandler_42, out ret);
             throw new NotSupportedException();
             //return new CefV8Handler(ret.Ptr);
@@ -15480,10 +15479,13 @@ namespace LayoutFarm.CefBridge.Auto
         public struct OnAccessibilityTreeChangeArgs
         {
             IntPtr nativePtr; //met arg native ptr
+            bool _isJsSlot;
             internal OnAccessibilityTreeChangeArgs(IntPtr nativePtr)
             {
-                int argCount;
-                this.nativePtr = MyMetArgs.GetArrHead(nativePtr, out argCount);
+                int arg_flags;
+                this.nativePtr = MyMetArgs.GetNativeObjPtr(nativePtr, out arg_flags);
+                this._isJsSlot = ((arg_flags >> 18) & 1) == 1;
+
             }
             public CefValue value()
             {
@@ -15493,16 +15495,20 @@ namespace LayoutFarm.CefBridge.Auto
         [StructLayout(LayoutKind.Sequential)]
         struct OnAccessibilityTreeChangeNativeArgs
         {
+            public int argFlags;
             public IntPtr value;
         }
         //gen! void OnAccessibilityLocationChange(CefRefPtr<CefValue> value)
         public struct OnAccessibilityLocationChangeArgs
         {
             IntPtr nativePtr; //met arg native ptr
+            bool _isJsSlot;
             internal OnAccessibilityLocationChangeArgs(IntPtr nativePtr)
             {
-                int argCount;
-                this.nativePtr = MyMetArgs.GetArrHead(nativePtr, out argCount);
+                int arg_flags;
+                this.nativePtr = MyMetArgs.GetNativeObjPtr(nativePtr, out arg_flags);
+                this._isJsSlot = ((arg_flags >> 18) & 1) == 1;
+
             }
             public CefValue value()
             {
@@ -15512,6 +15518,7 @@ namespace LayoutFarm.CefBridge.Auto
         [StructLayout(LayoutKind.Sequential)]
         struct OnAccessibilityLocationChangeNativeArgs
         {
+            public int argFlags;
             public IntPtr value;
         }
         public interface I0
@@ -15582,24 +15589,31 @@ namespace LayoutFarm.CefBridge.Auto
         public struct OnContextInitializedArgs
         {
             IntPtr nativePtr; //met arg native ptr
+            bool _isJsSlot;
             internal OnContextInitializedArgs(IntPtr nativePtr)
             {
-                int argCount;
-                this.nativePtr = MyMetArgs.GetArrHead(nativePtr, out argCount);
+                int arg_flags;
+                this.nativePtr = MyMetArgs.GetNativeObjPtr(nativePtr, out arg_flags);
+                this._isJsSlot = ((arg_flags >> 18) & 1) == 1;
+
             }
         }
         [StructLayout(LayoutKind.Sequential)]
         struct OnContextInitializedNativeArgs
         {
+            public int argFlags;
         }
         //gen! void OnBeforeChildProcessLaunch(CefRefPtr<CefCommandLine> command_line)
         public struct OnBeforeChildProcessLaunchArgs
         {
             IntPtr nativePtr; //met arg native ptr
+            bool _isJsSlot;
             internal OnBeforeChildProcessLaunchArgs(IntPtr nativePtr)
             {
-                int argCount;
-                this.nativePtr = MyMetArgs.GetArrHead(nativePtr, out argCount);
+                int arg_flags;
+                this.nativePtr = MyMetArgs.GetNativeObjPtr(nativePtr, out arg_flags);
+                this._isJsSlot = ((arg_flags >> 18) & 1) == 1;
+
             }
             public CefCommandLine command_line()
             {
@@ -15609,16 +15623,20 @@ namespace LayoutFarm.CefBridge.Auto
         [StructLayout(LayoutKind.Sequential)]
         struct OnBeforeChildProcessLaunchNativeArgs
         {
+            public int argFlags;
             public IntPtr command_line;
         }
         //gen! void OnRenderProcessThreadCreated(CefRefPtr<CefListValue> extra_info)
         public struct OnRenderProcessThreadCreatedArgs
         {
             IntPtr nativePtr; //met arg native ptr
+            bool _isJsSlot;
             internal OnRenderProcessThreadCreatedArgs(IntPtr nativePtr)
             {
-                int argCount;
-                this.nativePtr = MyMetArgs.GetArrHead(nativePtr, out argCount);
+                int arg_flags;
+                this.nativePtr = MyMetArgs.GetNativeObjPtr(nativePtr, out arg_flags);
+                this._isJsSlot = ((arg_flags >> 18) & 1) == 1;
+
             }
             public CefListValue extra_info()
             {
@@ -15628,30 +15646,38 @@ namespace LayoutFarm.CefBridge.Auto
         [StructLayout(LayoutKind.Sequential)]
         struct OnRenderProcessThreadCreatedNativeArgs
         {
+            public int argFlags;
             public IntPtr extra_info;
         }
         //gen! CefRefPtr<CefPrintHandler> GetPrintHandler()
         public struct GetPrintHandlerArgs
         {
             IntPtr nativePtr; //met arg native ptr
+            bool _isJsSlot;
             internal GetPrintHandlerArgs(IntPtr nativePtr)
             {
-                int argCount;
-                this.nativePtr = MyMetArgs.GetArrHead(nativePtr, out argCount);
+                int arg_flags;
+                this.nativePtr = MyMetArgs.GetNativeObjPtr(nativePtr, out arg_flags);
+                this._isJsSlot = ((arg_flags >> 18) & 1) == 1;
+
             }
         }
         [StructLayout(LayoutKind.Sequential)]
         struct GetPrintHandlerNativeArgs
         {
+            public int argFlags;
         }
         //gen! void OnScheduleMessagePumpWork(int64 delay_ms)
         public struct OnScheduleMessagePumpWorkArgs
         {
             IntPtr nativePtr; //met arg native ptr
+            bool _isJsSlot;
             internal OnScheduleMessagePumpWorkArgs(IntPtr nativePtr)
             {
-                int argCount;
-                this.nativePtr = MyMetArgs.GetArrHead(nativePtr, out argCount);
+                int arg_flags;
+                this.nativePtr = MyMetArgs.GetNativeObjPtr(nativePtr, out arg_flags);
+                this._isJsSlot = ((arg_flags >> 18) & 1) == 1;
+
             }
             public long delay_ms()
             {
@@ -15661,6 +15687,7 @@ namespace LayoutFarm.CefBridge.Auto
         [StructLayout(LayoutKind.Sequential)]
         struct OnScheduleMessagePumpWorkNativeArgs
         {
+            public int argFlags;
             public long delay_ms;
         }
         public interface I0
@@ -15793,10 +15820,13 @@ namespace LayoutFarm.CefBridge.Auto
         public struct OnBeforeContextMenuArgs
         {
             IntPtr nativePtr; //met arg native ptr
+            bool _isJsSlot;
             internal OnBeforeContextMenuArgs(IntPtr nativePtr)
             {
-                int argCount;
-                this.nativePtr = MyMetArgs.GetArrHead(nativePtr, out argCount);
+                int arg_flags;
+                this.nativePtr = MyMetArgs.GetNativeObjPtr(nativePtr, out arg_flags);
+                this._isJsSlot = ((arg_flags >> 18) & 1) == 1;
+
             }
             public CefBrowser browser()
             {
@@ -15818,6 +15848,7 @@ namespace LayoutFarm.CefBridge.Auto
         [StructLayout(LayoutKind.Sequential)]
         struct OnBeforeContextMenuNativeArgs
         {
+            public int argFlags;
             public IntPtr browser;
             public IntPtr frame;
             public IntPtr _params;
@@ -15827,10 +15858,13 @@ namespace LayoutFarm.CefBridge.Auto
         public struct RunContextMenuArgs
         {
             IntPtr nativePtr; //met arg native ptr
+            bool _isJsSlot;
             internal RunContextMenuArgs(IntPtr nativePtr)
             {
-                int argCount;
-                this.nativePtr = MyMetArgs.GetArrHead(nativePtr, out argCount);
+                int arg_flags;
+                this.nativePtr = MyMetArgs.GetNativeObjPtr(nativePtr, out arg_flags);
+                this._isJsSlot = ((arg_flags >> 18) & 1) == 1;
+
             }
             public CefBrowser browser()
             {
@@ -15856,6 +15890,7 @@ namespace LayoutFarm.CefBridge.Auto
         [StructLayout(LayoutKind.Sequential)]
         struct RunContextMenuNativeArgs
         {
+            public int argFlags;
             public IntPtr browser;
             public IntPtr frame;
             public IntPtr _params;
@@ -15866,10 +15901,13 @@ namespace LayoutFarm.CefBridge.Auto
         public struct OnContextMenuCommandArgs
         {
             IntPtr nativePtr; //met arg native ptr
+            bool _isJsSlot;
             internal OnContextMenuCommandArgs(IntPtr nativePtr)
             {
-                int argCount;
-                this.nativePtr = MyMetArgs.GetArrHead(nativePtr, out argCount);
+                int arg_flags;
+                this.nativePtr = MyMetArgs.GetNativeObjPtr(nativePtr, out arg_flags);
+                this._isJsSlot = ((arg_flags >> 18) & 1) == 1;
+
             }
             public CefBrowser browser()
             {
@@ -15895,6 +15933,7 @@ namespace LayoutFarm.CefBridge.Auto
         [StructLayout(LayoutKind.Sequential)]
         struct OnContextMenuCommandNativeArgs
         {
+            public int argFlags;
             public IntPtr browser;
             public IntPtr frame;
             public IntPtr _params;
@@ -15905,10 +15944,13 @@ namespace LayoutFarm.CefBridge.Auto
         public struct OnContextMenuDismissedArgs
         {
             IntPtr nativePtr; //met arg native ptr
+            bool _isJsSlot;
             internal OnContextMenuDismissedArgs(IntPtr nativePtr)
             {
-                int argCount;
-                this.nativePtr = MyMetArgs.GetArrHead(nativePtr, out argCount);
+                int arg_flags;
+                this.nativePtr = MyMetArgs.GetNativeObjPtr(nativePtr, out arg_flags);
+                this._isJsSlot = ((arg_flags >> 18) & 1) == 1;
+
             }
             public CefBrowser browser()
             {
@@ -15922,6 +15964,7 @@ namespace LayoutFarm.CefBridge.Auto
         [StructLayout(LayoutKind.Sequential)]
         struct OnContextMenuDismissedNativeArgs
         {
+            public int argFlags;
             public IntPtr browser;
             public IntPtr frame;
         }
@@ -16055,10 +16098,13 @@ namespace LayoutFarm.CefBridge.Auto
         public struct OnFileDialogArgs
         {
             IntPtr nativePtr; //met arg native ptr
+            bool _isJsSlot;
             internal OnFileDialogArgs(IntPtr nativePtr)
             {
-                int argCount;
-                this.nativePtr = MyMetArgs.GetArrHead(nativePtr, out argCount);
+                int arg_flags;
+                this.nativePtr = MyMetArgs.GetNativeObjPtr(nativePtr, out arg_flags);
+                this._isJsSlot = ((arg_flags >> 18) & 1) == 1;
+
             }
             public CefBrowser browser()
             {
@@ -16092,6 +16138,7 @@ namespace LayoutFarm.CefBridge.Auto
         [StructLayout(LayoutKind.Sequential)]
         struct OnFileDialogNativeArgs
         {
+            public int argFlags;
             public IntPtr browser;
             public cef_file_dialog_mode_t mode;
             public IntPtr title;
@@ -16161,10 +16208,13 @@ namespace LayoutFarm.CefBridge.Auto
         public struct OnAddressChangeArgs
         {
             IntPtr nativePtr; //met arg native ptr
+            bool _isJsSlot;
             internal OnAddressChangeArgs(IntPtr nativePtr)
             {
-                int argCount;
-                this.nativePtr = MyMetArgs.GetArrHead(nativePtr, out argCount);
+                int arg_flags;
+                this.nativePtr = MyMetArgs.GetNativeObjPtr(nativePtr, out arg_flags);
+                this._isJsSlot = ((arg_flags >> 18) & 1) == 1;
+
             }
             public CefBrowser browser()
             {
@@ -16182,6 +16232,7 @@ namespace LayoutFarm.CefBridge.Auto
         [StructLayout(LayoutKind.Sequential)]
         struct OnAddressChangeNativeArgs
         {
+            public int argFlags;
             public IntPtr browser;
             public IntPtr frame;
             public IntPtr url;
@@ -16190,10 +16241,13 @@ namespace LayoutFarm.CefBridge.Auto
         public struct OnTitleChangeArgs
         {
             IntPtr nativePtr; //met arg native ptr
+            bool _isJsSlot;
             internal OnTitleChangeArgs(IntPtr nativePtr)
             {
-                int argCount;
-                this.nativePtr = MyMetArgs.GetArrHead(nativePtr, out argCount);
+                int arg_flags;
+                this.nativePtr = MyMetArgs.GetNativeObjPtr(nativePtr, out arg_flags);
+                this._isJsSlot = ((arg_flags >> 18) & 1) == 1;
+
             }
             public CefBrowser browser()
             {
@@ -16207,6 +16261,7 @@ namespace LayoutFarm.CefBridge.Auto
         [StructLayout(LayoutKind.Sequential)]
         struct OnTitleChangeNativeArgs
         {
+            public int argFlags;
             public IntPtr browser;
             public IntPtr title;
         }
@@ -16214,10 +16269,13 @@ namespace LayoutFarm.CefBridge.Auto
         public struct OnFaviconURLChangeArgs
         {
             IntPtr nativePtr; //met arg native ptr
+            bool _isJsSlot;
             internal OnFaviconURLChangeArgs(IntPtr nativePtr)
             {
-                int argCount;
-                this.nativePtr = MyMetArgs.GetArrHead(nativePtr, out argCount);
+                int arg_flags;
+                this.nativePtr = MyMetArgs.GetNativeObjPtr(nativePtr, out arg_flags);
+                this._isJsSlot = ((arg_flags >> 18) & 1) == 1;
+
             }
             public CefBrowser browser()
             {
@@ -16231,6 +16289,7 @@ namespace LayoutFarm.CefBridge.Auto
         [StructLayout(LayoutKind.Sequential)]
         struct OnFaviconURLChangeNativeArgs
         {
+            public int argFlags;
             public IntPtr browser;
             public IntPtr icon_urls;
         }
@@ -16238,10 +16297,13 @@ namespace LayoutFarm.CefBridge.Auto
         public struct OnFullscreenModeChangeArgs
         {
             IntPtr nativePtr; //met arg native ptr
+            bool _isJsSlot;
             internal OnFullscreenModeChangeArgs(IntPtr nativePtr)
             {
-                int argCount;
-                this.nativePtr = MyMetArgs.GetArrHead(nativePtr, out argCount);
+                int arg_flags;
+                this.nativePtr = MyMetArgs.GetNativeObjPtr(nativePtr, out arg_flags);
+                this._isJsSlot = ((arg_flags >> 18) & 1) == 1;
+
             }
             public CefBrowser browser()
             {
@@ -16255,6 +16317,7 @@ namespace LayoutFarm.CefBridge.Auto
         [StructLayout(LayoutKind.Sequential)]
         struct OnFullscreenModeChangeNativeArgs
         {
+            public int argFlags;
             public IntPtr browser;
             public bool fullscreen;
         }
@@ -16262,10 +16325,13 @@ namespace LayoutFarm.CefBridge.Auto
         public struct OnTooltipArgs
         {
             IntPtr nativePtr; //met arg native ptr
+            bool _isJsSlot;
             internal OnTooltipArgs(IntPtr nativePtr)
             {
-                int argCount;
-                this.nativePtr = MyMetArgs.GetArrHead(nativePtr, out argCount);
+                int arg_flags;
+                this.nativePtr = MyMetArgs.GetNativeObjPtr(nativePtr, out arg_flags);
+                this._isJsSlot = ((arg_flags >> 18) & 1) == 1;
+
             }
             public CefBrowser browser()
             {
@@ -16279,6 +16345,7 @@ namespace LayoutFarm.CefBridge.Auto
         [StructLayout(LayoutKind.Sequential)]
         struct OnTooltipNativeArgs
         {
+            public int argFlags;
             public IntPtr browser;
             public IntPtr text;
         }
@@ -16286,10 +16353,13 @@ namespace LayoutFarm.CefBridge.Auto
         public struct OnStatusMessageArgs
         {
             IntPtr nativePtr; //met arg native ptr
+            bool _isJsSlot;
             internal OnStatusMessageArgs(IntPtr nativePtr)
             {
-                int argCount;
-                this.nativePtr = MyMetArgs.GetArrHead(nativePtr, out argCount);
+                int arg_flags;
+                this.nativePtr = MyMetArgs.GetNativeObjPtr(nativePtr, out arg_flags);
+                this._isJsSlot = ((arg_flags >> 18) & 1) == 1;
+
             }
             public CefBrowser browser()
             {
@@ -16303,6 +16373,7 @@ namespace LayoutFarm.CefBridge.Auto
         [StructLayout(LayoutKind.Sequential)]
         struct OnStatusMessageNativeArgs
         {
+            public int argFlags;
             public IntPtr browser;
             public IntPtr value;
         }
@@ -16310,10 +16381,13 @@ namespace LayoutFarm.CefBridge.Auto
         public struct OnConsoleMessageArgs
         {
             IntPtr nativePtr; //met arg native ptr
+            bool _isJsSlot;
             internal OnConsoleMessageArgs(IntPtr nativePtr)
             {
-                int argCount;
-                this.nativePtr = MyMetArgs.GetArrHead(nativePtr, out argCount);
+                int arg_flags;
+                this.nativePtr = MyMetArgs.GetNativeObjPtr(nativePtr, out arg_flags);
+                this._isJsSlot = ((arg_flags >> 18) & 1) == 1;
+
             }
             public CefBrowser browser()
             {
@@ -16335,6 +16409,7 @@ namespace LayoutFarm.CefBridge.Auto
         [StructLayout(LayoutKind.Sequential)]
         struct OnConsoleMessageNativeArgs
         {
+            public int argFlags;
             public IntPtr browser;
             public IntPtr message;
             public IntPtr source;
@@ -16530,10 +16605,13 @@ namespace LayoutFarm.CefBridge.Auto
         public struct OnBeforeDownloadArgs
         {
             IntPtr nativePtr; //met arg native ptr
+            bool _isJsSlot;
             internal OnBeforeDownloadArgs(IntPtr nativePtr)
             {
-                int argCount;
-                this.nativePtr = MyMetArgs.GetArrHead(nativePtr, out argCount);
+                int arg_flags;
+                this.nativePtr = MyMetArgs.GetNativeObjPtr(nativePtr, out arg_flags);
+                this._isJsSlot = ((arg_flags >> 18) & 1) == 1;
+
             }
             public CefBrowser browser()
             {
@@ -16555,6 +16633,7 @@ namespace LayoutFarm.CefBridge.Auto
         [StructLayout(LayoutKind.Sequential)]
         struct OnBeforeDownloadNativeArgs
         {
+            public int argFlags;
             public IntPtr browser;
             public IntPtr download_item;
             public IntPtr suggested_name;
@@ -16564,10 +16643,13 @@ namespace LayoutFarm.CefBridge.Auto
         public struct OnDownloadUpdatedArgs
         {
             IntPtr nativePtr; //met arg native ptr
+            bool _isJsSlot;
             internal OnDownloadUpdatedArgs(IntPtr nativePtr)
             {
-                int argCount;
-                this.nativePtr = MyMetArgs.GetArrHead(nativePtr, out argCount);
+                int arg_flags;
+                this.nativePtr = MyMetArgs.GetNativeObjPtr(nativePtr, out arg_flags);
+                this._isJsSlot = ((arg_flags >> 18) & 1) == 1;
+
             }
             public CefBrowser browser()
             {
@@ -16585,6 +16667,7 @@ namespace LayoutFarm.CefBridge.Auto
         [StructLayout(LayoutKind.Sequential)]
         struct OnDownloadUpdatedNativeArgs
         {
+            public int argFlags;
             public IntPtr browser;
             public IntPtr download_item;
             public IntPtr callback;
@@ -16664,10 +16747,13 @@ namespace LayoutFarm.CefBridge.Auto
         public struct OnDragEnterArgs
         {
             IntPtr nativePtr; //met arg native ptr
+            bool _isJsSlot;
             internal OnDragEnterArgs(IntPtr nativePtr)
             {
-                int argCount;
-                this.nativePtr = MyMetArgs.GetArrHead(nativePtr, out argCount);
+                int arg_flags;
+                this.nativePtr = MyMetArgs.GetNativeObjPtr(nativePtr, out arg_flags);
+                this._isJsSlot = ((arg_flags >> 18) & 1) == 1;
+
             }
             public CefBrowser browser()
             {
@@ -16685,6 +16771,7 @@ namespace LayoutFarm.CefBridge.Auto
         [StructLayout(LayoutKind.Sequential)]
         struct OnDragEnterNativeArgs
         {
+            public int argFlags;
             public IntPtr browser;
             public IntPtr dragData;
             public cef_drag_operations_mask_t mask;
@@ -16693,10 +16780,13 @@ namespace LayoutFarm.CefBridge.Auto
         public struct OnDraggableRegionsChangedArgs
         {
             IntPtr nativePtr; //met arg native ptr
+            bool _isJsSlot;
             internal OnDraggableRegionsChangedArgs(IntPtr nativePtr)
             {
-                int argCount;
-                this.nativePtr = MyMetArgs.GetArrHead(nativePtr, out argCount);
+                int arg_flags;
+                this.nativePtr = MyMetArgs.GetNativeObjPtr(nativePtr, out arg_flags);
+                this._isJsSlot = ((arg_flags >> 18) & 1) == 1;
+
             }
             public CefBrowser browser()
             {
@@ -16710,6 +16800,7 @@ namespace LayoutFarm.CefBridge.Auto
         [StructLayout(LayoutKind.Sequential)]
         struct OnDraggableRegionsChangedNativeArgs
         {
+            public int argFlags;
             public IntPtr browser;
             public IntPtr regions;
         }
@@ -16783,10 +16874,13 @@ namespace LayoutFarm.CefBridge.Auto
         public struct OnFindResultArgs
         {
             IntPtr nativePtr; //met arg native ptr
+            bool _isJsSlot;
             internal OnFindResultArgs(IntPtr nativePtr)
             {
-                int argCount;
-                this.nativePtr = MyMetArgs.GetArrHead(nativePtr, out argCount);
+                int arg_flags;
+                this.nativePtr = MyMetArgs.GetNativeObjPtr(nativePtr, out arg_flags);
+                this._isJsSlot = ((arg_flags >> 18) & 1) == 1;
+
             }
             public CefBrowser browser()
             {
@@ -16816,6 +16910,7 @@ namespace LayoutFarm.CefBridge.Auto
         [StructLayout(LayoutKind.Sequential)]
         struct OnFindResultNativeArgs
         {
+            public int argFlags;
             public IntPtr browser;
             public int identifier;
             public int count;
@@ -16878,10 +16973,13 @@ namespace LayoutFarm.CefBridge.Auto
         public struct OnTakeFocusArgs
         {
             IntPtr nativePtr; //met arg native ptr
+            bool _isJsSlot;
             internal OnTakeFocusArgs(IntPtr nativePtr)
             {
-                int argCount;
-                this.nativePtr = MyMetArgs.GetArrHead(nativePtr, out argCount);
+                int arg_flags;
+                this.nativePtr = MyMetArgs.GetNativeObjPtr(nativePtr, out arg_flags);
+                this._isJsSlot = ((arg_flags >> 18) & 1) == 1;
+
             }
             public CefBrowser browser()
             {
@@ -16895,6 +16993,7 @@ namespace LayoutFarm.CefBridge.Auto
         [StructLayout(LayoutKind.Sequential)]
         struct OnTakeFocusNativeArgs
         {
+            public int argFlags;
             public IntPtr browser;
             public bool next;
         }
@@ -16902,10 +17001,13 @@ namespace LayoutFarm.CefBridge.Auto
         public struct OnSetFocusArgs
         {
             IntPtr nativePtr; //met arg native ptr
+            bool _isJsSlot;
             internal OnSetFocusArgs(IntPtr nativePtr)
             {
-                int argCount;
-                this.nativePtr = MyMetArgs.GetArrHead(nativePtr, out argCount);
+                int arg_flags;
+                this.nativePtr = MyMetArgs.GetNativeObjPtr(nativePtr, out arg_flags);
+                this._isJsSlot = ((arg_flags >> 18) & 1) == 1;
+
             }
             public CefBrowser browser()
             {
@@ -16919,6 +17021,7 @@ namespace LayoutFarm.CefBridge.Auto
         [StructLayout(LayoutKind.Sequential)]
         struct OnSetFocusNativeArgs
         {
+            public int argFlags;
             public IntPtr browser;
             public cef_focus_source_t source;
         }
@@ -16926,10 +17029,13 @@ namespace LayoutFarm.CefBridge.Auto
         public struct OnGotFocusArgs
         {
             IntPtr nativePtr; //met arg native ptr
+            bool _isJsSlot;
             internal OnGotFocusArgs(IntPtr nativePtr)
             {
-                int argCount;
-                this.nativePtr = MyMetArgs.GetArrHead(nativePtr, out argCount);
+                int arg_flags;
+                this.nativePtr = MyMetArgs.GetNativeObjPtr(nativePtr, out arg_flags);
+                this._isJsSlot = ((arg_flags >> 18) & 1) == 1;
+
             }
             public CefBrowser browser()
             {
@@ -16939,6 +17045,7 @@ namespace LayoutFarm.CefBridge.Auto
         [StructLayout(LayoutKind.Sequential)]
         struct OnGotFocusNativeArgs
         {
+            public int argFlags;
             public IntPtr browser;
         }
         public interface I0
@@ -17031,10 +17138,13 @@ namespace LayoutFarm.CefBridge.Auto
         public struct OnRequestGeolocationPermissionArgs
         {
             IntPtr nativePtr; //met arg native ptr
+            bool _isJsSlot;
             internal OnRequestGeolocationPermissionArgs(IntPtr nativePtr)
             {
-                int argCount;
-                this.nativePtr = MyMetArgs.GetArrHead(nativePtr, out argCount);
+                int arg_flags;
+                this.nativePtr = MyMetArgs.GetNativeObjPtr(nativePtr, out arg_flags);
+                this._isJsSlot = ((arg_flags >> 18) & 1) == 1;
+
             }
             public CefBrowser browser()
             {
@@ -17056,6 +17166,7 @@ namespace LayoutFarm.CefBridge.Auto
         [StructLayout(LayoutKind.Sequential)]
         struct OnRequestGeolocationPermissionNativeArgs
         {
+            public int argFlags;
             public IntPtr browser;
             public IntPtr requesting_url;
             public int request_id;
@@ -17065,10 +17176,13 @@ namespace LayoutFarm.CefBridge.Auto
         public struct OnCancelGeolocationPermissionArgs
         {
             IntPtr nativePtr; //met arg native ptr
+            bool _isJsSlot;
             internal OnCancelGeolocationPermissionArgs(IntPtr nativePtr)
             {
-                int argCount;
-                this.nativePtr = MyMetArgs.GetArrHead(nativePtr, out argCount);
+                int arg_flags;
+                this.nativePtr = MyMetArgs.GetNativeObjPtr(nativePtr, out arg_flags);
+                this._isJsSlot = ((arg_flags >> 18) & 1) == 1;
+
             }
             public CefBrowser browser()
             {
@@ -17082,6 +17196,7 @@ namespace LayoutFarm.CefBridge.Auto
         [StructLayout(LayoutKind.Sequential)]
         struct OnCancelGeolocationPermissionNativeArgs
         {
+            public int argFlags;
             public IntPtr browser;
             public int request_id;
         }
@@ -17160,10 +17275,13 @@ namespace LayoutFarm.CefBridge.Auto
         public struct OnJSDialogArgs
         {
             IntPtr nativePtr; //met arg native ptr
+            bool _isJsSlot;
             internal OnJSDialogArgs(IntPtr nativePtr)
             {
-                int argCount;
-                this.nativePtr = MyMetArgs.GetArrHead(nativePtr, out argCount);
+                int arg_flags;
+                this.nativePtr = MyMetArgs.GetNativeObjPtr(nativePtr, out arg_flags);
+                this._isJsSlot = ((arg_flags >> 18) & 1) == 1;
+
             }
             public CefBrowser browser()
             {
@@ -17201,6 +17319,7 @@ namespace LayoutFarm.CefBridge.Auto
         [StructLayout(LayoutKind.Sequential)]
         struct OnJSDialogNativeArgs
         {
+            public int argFlags;
             public IntPtr browser;
             public IntPtr origin_url;
             public cef_jsdialog_type_t dialog_type;
@@ -17213,10 +17332,13 @@ namespace LayoutFarm.CefBridge.Auto
         public struct OnBeforeUnloadDialogArgs
         {
             IntPtr nativePtr; //met arg native ptr
+            bool _isJsSlot;
             internal OnBeforeUnloadDialogArgs(IntPtr nativePtr)
             {
-                int argCount;
-                this.nativePtr = MyMetArgs.GetArrHead(nativePtr, out argCount);
+                int arg_flags;
+                this.nativePtr = MyMetArgs.GetNativeObjPtr(nativePtr, out arg_flags);
+                this._isJsSlot = ((arg_flags >> 18) & 1) == 1;
+
             }
             public CefBrowser browser()
             {
@@ -17238,6 +17360,7 @@ namespace LayoutFarm.CefBridge.Auto
         [StructLayout(LayoutKind.Sequential)]
         struct OnBeforeUnloadDialogNativeArgs
         {
+            public int argFlags;
             public IntPtr browser;
             public IntPtr message_text;
             public bool is_reload;
@@ -17247,10 +17370,13 @@ namespace LayoutFarm.CefBridge.Auto
         public struct OnResetDialogStateArgs
         {
             IntPtr nativePtr; //met arg native ptr
+            bool _isJsSlot;
             internal OnResetDialogStateArgs(IntPtr nativePtr)
             {
-                int argCount;
-                this.nativePtr = MyMetArgs.GetArrHead(nativePtr, out argCount);
+                int arg_flags;
+                this.nativePtr = MyMetArgs.GetNativeObjPtr(nativePtr, out arg_flags);
+                this._isJsSlot = ((arg_flags >> 18) & 1) == 1;
+
             }
             public CefBrowser browser()
             {
@@ -17260,16 +17386,20 @@ namespace LayoutFarm.CefBridge.Auto
         [StructLayout(LayoutKind.Sequential)]
         struct OnResetDialogStateNativeArgs
         {
+            public int argFlags;
             public IntPtr browser;
         }
         //gen! void OnDialogClosed(CefRefPtr<CefBrowser> browser)
         public struct OnDialogClosedArgs
         {
             IntPtr nativePtr; //met arg native ptr
+            bool _isJsSlot;
             internal OnDialogClosedArgs(IntPtr nativePtr)
             {
-                int argCount;
-                this.nativePtr = MyMetArgs.GetArrHead(nativePtr, out argCount);
+                int arg_flags;
+                this.nativePtr = MyMetArgs.GetNativeObjPtr(nativePtr, out arg_flags);
+                this._isJsSlot = ((arg_flags >> 18) & 1) == 1;
+
             }
             public CefBrowser browser()
             {
@@ -17279,6 +17409,7 @@ namespace LayoutFarm.CefBridge.Auto
         [StructLayout(LayoutKind.Sequential)]
         struct OnDialogClosedNativeArgs
         {
+            public int argFlags;
             public IntPtr browser;
         }
         public interface I0
@@ -17410,10 +17541,13 @@ namespace LayoutFarm.CefBridge.Auto
         public struct OnPreKeyEventArgs
         {
             IntPtr nativePtr; //met arg native ptr
+            bool _isJsSlot;
             internal OnPreKeyEventArgs(IntPtr nativePtr)
             {
-                int argCount;
-                this.nativePtr = MyMetArgs.GetArrHead(nativePtr, out argCount);
+                int arg_flags;
+                this.nativePtr = MyMetArgs.GetNativeObjPtr(nativePtr, out arg_flags);
+                this._isJsSlot = ((arg_flags >> 18) & 1) == 1;
+
             }
             public CefBrowser browser()
             {
@@ -17439,6 +17573,7 @@ namespace LayoutFarm.CefBridge.Auto
         [StructLayout(LayoutKind.Sequential)]
         struct OnPreKeyEventNativeArgs
         {
+            public int argFlags;
             public IntPtr browser;
             public IntPtr _event;
             public IntPtr os_event;
@@ -17448,10 +17583,13 @@ namespace LayoutFarm.CefBridge.Auto
         public struct OnKeyEventArgs
         {
             IntPtr nativePtr; //met arg native ptr
+            bool _isJsSlot;
             internal OnKeyEventArgs(IntPtr nativePtr)
             {
-                int argCount;
-                this.nativePtr = MyMetArgs.GetArrHead(nativePtr, out argCount);
+                int arg_flags;
+                this.nativePtr = MyMetArgs.GetNativeObjPtr(nativePtr, out arg_flags);
+                this._isJsSlot = ((arg_flags >> 18) & 1) == 1;
+
             }
             public CefBrowser browser()
             {
@@ -17469,6 +17607,7 @@ namespace LayoutFarm.CefBridge.Auto
         [StructLayout(LayoutKind.Sequential)]
         struct OnKeyEventNativeArgs
         {
+            public int argFlags;
             public IntPtr browser;
             public IntPtr _event;
             public IntPtr os_event;
@@ -17554,10 +17693,13 @@ namespace LayoutFarm.CefBridge.Auto
         public struct OnBeforePopupArgs
         {
             IntPtr nativePtr; //met arg native ptr
+            bool _isJsSlot;
             internal OnBeforePopupArgs(IntPtr nativePtr)
             {
-                int argCount;
-                this.nativePtr = MyMetArgs.GetArrHead(nativePtr, out argCount);
+                int arg_flags;
+                this.nativePtr = MyMetArgs.GetNativeObjPtr(nativePtr, out arg_flags);
+                this._isJsSlot = ((arg_flags >> 18) & 1) == 1;
+
             }
             public CefBrowser browser()
             {
@@ -17611,6 +17753,7 @@ namespace LayoutFarm.CefBridge.Auto
         [StructLayout(LayoutKind.Sequential)]
         struct OnBeforePopupNativeArgs
         {
+            public int argFlags;
             public IntPtr browser;
             public IntPtr frame;
             public IntPtr target_url;
@@ -17627,10 +17770,13 @@ namespace LayoutFarm.CefBridge.Auto
         public struct OnAfterCreatedArgs
         {
             IntPtr nativePtr; //met arg native ptr
+            bool _isJsSlot;
             internal OnAfterCreatedArgs(IntPtr nativePtr)
             {
-                int argCount;
-                this.nativePtr = MyMetArgs.GetArrHead(nativePtr, out argCount);
+                int arg_flags;
+                this.nativePtr = MyMetArgs.GetNativeObjPtr(nativePtr, out arg_flags);
+                this._isJsSlot = ((arg_flags >> 18) & 1) == 1;
+
             }
             public CefBrowser browser()
             {
@@ -17640,16 +17786,20 @@ namespace LayoutFarm.CefBridge.Auto
         [StructLayout(LayoutKind.Sequential)]
         struct OnAfterCreatedNativeArgs
         {
+            public int argFlags;
             public IntPtr browser;
         }
         //gen! bool DoClose(CefRefPtr<CefBrowser> browser)
         public struct DoCloseArgs
         {
             IntPtr nativePtr; //met arg native ptr
+            bool _isJsSlot;
             internal DoCloseArgs(IntPtr nativePtr)
             {
-                int argCount;
-                this.nativePtr = MyMetArgs.GetArrHead(nativePtr, out argCount);
+                int arg_flags;
+                this.nativePtr = MyMetArgs.GetNativeObjPtr(nativePtr, out arg_flags);
+                this._isJsSlot = ((arg_flags >> 18) & 1) == 1;
+
             }
             public CefBrowser browser()
             {
@@ -17659,16 +17809,20 @@ namespace LayoutFarm.CefBridge.Auto
         [StructLayout(LayoutKind.Sequential)]
         struct DoCloseNativeArgs
         {
+            public int argFlags;
             public IntPtr browser;
         }
         //gen! void OnBeforeClose(CefRefPtr<CefBrowser> browser)
         public struct OnBeforeCloseArgs
         {
             IntPtr nativePtr; //met arg native ptr
+            bool _isJsSlot;
             internal OnBeforeCloseArgs(IntPtr nativePtr)
             {
-                int argCount;
-                this.nativePtr = MyMetArgs.GetArrHead(nativePtr, out argCount);
+                int arg_flags;
+                this.nativePtr = MyMetArgs.GetNativeObjPtr(nativePtr, out arg_flags);
+                this._isJsSlot = ((arg_flags >> 18) & 1) == 1;
+
             }
             public CefBrowser browser()
             {
@@ -17678,6 +17832,7 @@ namespace LayoutFarm.CefBridge.Auto
         [StructLayout(LayoutKind.Sequential)]
         struct OnBeforeCloseNativeArgs
         {
+            public int argFlags;
             public IntPtr browser;
         }
         public interface I0
@@ -17813,10 +17968,13 @@ namespace LayoutFarm.CefBridge.Auto
         public struct OnLoadingStateChangeArgs
         {
             IntPtr nativePtr; //met arg native ptr
+            bool _isJsSlot;
             internal OnLoadingStateChangeArgs(IntPtr nativePtr)
             {
-                int argCount;
-                this.nativePtr = MyMetArgs.GetArrHead(nativePtr, out argCount);
+                int arg_flags;
+                this.nativePtr = MyMetArgs.GetNativeObjPtr(nativePtr, out arg_flags);
+                this._isJsSlot = ((arg_flags >> 18) & 1) == 1;
+
             }
             public CefBrowser browser()
             {
@@ -17838,6 +17996,7 @@ namespace LayoutFarm.CefBridge.Auto
         [StructLayout(LayoutKind.Sequential)]
         struct OnLoadingStateChangeNativeArgs
         {
+            public int argFlags;
             public IntPtr browser;
             public bool isLoading;
             public bool canGoBack;
@@ -17847,10 +18006,13 @@ namespace LayoutFarm.CefBridge.Auto
         public struct OnLoadStartArgs
         {
             IntPtr nativePtr; //met arg native ptr
+            bool _isJsSlot;
             internal OnLoadStartArgs(IntPtr nativePtr)
             {
-                int argCount;
-                this.nativePtr = MyMetArgs.GetArrHead(nativePtr, out argCount);
+                int arg_flags;
+                this.nativePtr = MyMetArgs.GetNativeObjPtr(nativePtr, out arg_flags);
+                this._isJsSlot = ((arg_flags >> 18) & 1) == 1;
+
             }
             public CefBrowser browser()
             {
@@ -17868,6 +18030,7 @@ namespace LayoutFarm.CefBridge.Auto
         [StructLayout(LayoutKind.Sequential)]
         struct OnLoadStartNativeArgs
         {
+            public int argFlags;
             public IntPtr browser;
             public IntPtr frame;
             public cef_transition_type_t transition_type;
@@ -17876,10 +18039,13 @@ namespace LayoutFarm.CefBridge.Auto
         public struct OnLoadEndArgs
         {
             IntPtr nativePtr; //met arg native ptr
+            bool _isJsSlot;
             internal OnLoadEndArgs(IntPtr nativePtr)
             {
-                int argCount;
-                this.nativePtr = MyMetArgs.GetArrHead(nativePtr, out argCount);
+                int arg_flags;
+                this.nativePtr = MyMetArgs.GetNativeObjPtr(nativePtr, out arg_flags);
+                this._isJsSlot = ((arg_flags >> 18) & 1) == 1;
+
             }
             public CefBrowser browser()
             {
@@ -17897,6 +18063,7 @@ namespace LayoutFarm.CefBridge.Auto
         [StructLayout(LayoutKind.Sequential)]
         struct OnLoadEndNativeArgs
         {
+            public int argFlags;
             public IntPtr browser;
             public IntPtr frame;
             public int httpStatusCode;
@@ -17905,10 +18072,13 @@ namespace LayoutFarm.CefBridge.Auto
         public struct OnLoadErrorArgs
         {
             IntPtr nativePtr; //met arg native ptr
+            bool _isJsSlot;
             internal OnLoadErrorArgs(IntPtr nativePtr)
             {
-                int argCount;
-                this.nativePtr = MyMetArgs.GetArrHead(nativePtr, out argCount);
+                int arg_flags;
+                this.nativePtr = MyMetArgs.GetNativeObjPtr(nativePtr, out arg_flags);
+                this._isJsSlot = ((arg_flags >> 18) & 1) == 1;
+
             }
             public CefBrowser browser()
             {
@@ -17934,6 +18104,7 @@ namespace LayoutFarm.CefBridge.Auto
         [StructLayout(LayoutKind.Sequential)]
         struct OnLoadErrorNativeArgs
         {
+            public int argFlags;
             public IntPtr browser;
             public IntPtr frame;
             public cef_errorcode_t errorCode;
@@ -18073,10 +18244,13 @@ namespace LayoutFarm.CefBridge.Auto
         public struct OnPrintStartArgs
         {
             IntPtr nativePtr; //met arg native ptr
+            bool _isJsSlot;
             internal OnPrintStartArgs(IntPtr nativePtr)
             {
-                int argCount;
-                this.nativePtr = MyMetArgs.GetArrHead(nativePtr, out argCount);
+                int arg_flags;
+                this.nativePtr = MyMetArgs.GetNativeObjPtr(nativePtr, out arg_flags);
+                this._isJsSlot = ((arg_flags >> 18) & 1) == 1;
+
             }
             public CefBrowser browser()
             {
@@ -18086,16 +18260,20 @@ namespace LayoutFarm.CefBridge.Auto
         [StructLayout(LayoutKind.Sequential)]
         struct OnPrintStartNativeArgs
         {
+            public int argFlags;
             public IntPtr browser;
         }
         //gen! void OnPrintSettings(CefRefPtr<CefBrowser> browser,CefRefPtr<CefPrintSettings> settings,bool get_defaults)
         public struct OnPrintSettingsArgs
         {
             IntPtr nativePtr; //met arg native ptr
+            bool _isJsSlot;
             internal OnPrintSettingsArgs(IntPtr nativePtr)
             {
-                int argCount;
-                this.nativePtr = MyMetArgs.GetArrHead(nativePtr, out argCount);
+                int arg_flags;
+                this.nativePtr = MyMetArgs.GetNativeObjPtr(nativePtr, out arg_flags);
+                this._isJsSlot = ((arg_flags >> 18) & 1) == 1;
+
             }
             public CefBrowser browser()
             {
@@ -18113,6 +18291,7 @@ namespace LayoutFarm.CefBridge.Auto
         [StructLayout(LayoutKind.Sequential)]
         struct OnPrintSettingsNativeArgs
         {
+            public int argFlags;
             public IntPtr browser;
             public IntPtr settings;
             public bool get_defaults;
@@ -18121,10 +18300,13 @@ namespace LayoutFarm.CefBridge.Auto
         public struct OnPrintDialogArgs
         {
             IntPtr nativePtr; //met arg native ptr
+            bool _isJsSlot;
             internal OnPrintDialogArgs(IntPtr nativePtr)
             {
-                int argCount;
-                this.nativePtr = MyMetArgs.GetArrHead(nativePtr, out argCount);
+                int arg_flags;
+                this.nativePtr = MyMetArgs.GetNativeObjPtr(nativePtr, out arg_flags);
+                this._isJsSlot = ((arg_flags >> 18) & 1) == 1;
+
             }
             public CefBrowser browser()
             {
@@ -18142,6 +18324,7 @@ namespace LayoutFarm.CefBridge.Auto
         [StructLayout(LayoutKind.Sequential)]
         struct OnPrintDialogNativeArgs
         {
+            public int argFlags;
             public IntPtr browser;
             public bool has_selection;
             public IntPtr callback;
@@ -18150,10 +18333,13 @@ namespace LayoutFarm.CefBridge.Auto
         public struct OnPrintJobArgs
         {
             IntPtr nativePtr; //met arg native ptr
+            bool _isJsSlot;
             internal OnPrintJobArgs(IntPtr nativePtr)
             {
-                int argCount;
-                this.nativePtr = MyMetArgs.GetArrHead(nativePtr, out argCount);
+                int arg_flags;
+                this.nativePtr = MyMetArgs.GetNativeObjPtr(nativePtr, out arg_flags);
+                this._isJsSlot = ((arg_flags >> 18) & 1) == 1;
+
             }
             public CefBrowser browser()
             {
@@ -18175,6 +18361,7 @@ namespace LayoutFarm.CefBridge.Auto
         [StructLayout(LayoutKind.Sequential)]
         struct OnPrintJobNativeArgs
         {
+            public int argFlags;
             public IntPtr browser;
             public IntPtr document_name;
             public IntPtr pdf_file_path;
@@ -18184,10 +18371,13 @@ namespace LayoutFarm.CefBridge.Auto
         public struct OnPrintResetArgs
         {
             IntPtr nativePtr; //met arg native ptr
+            bool _isJsSlot;
             internal OnPrintResetArgs(IntPtr nativePtr)
             {
-                int argCount;
-                this.nativePtr = MyMetArgs.GetArrHead(nativePtr, out argCount);
+                int arg_flags;
+                this.nativePtr = MyMetArgs.GetNativeObjPtr(nativePtr, out arg_flags);
+                this._isJsSlot = ((arg_flags >> 18) & 1) == 1;
+
             }
             public CefBrowser browser()
             {
@@ -18197,16 +18387,20 @@ namespace LayoutFarm.CefBridge.Auto
         [StructLayout(LayoutKind.Sequential)]
         struct OnPrintResetNativeArgs
         {
+            public int argFlags;
             public IntPtr browser;
         }
         //gen! CefSize GetPdfPaperSize(int device_units_per_inch)
         public struct GetPdfPaperSizeArgs
         {
             IntPtr nativePtr; //met arg native ptr
+            bool _isJsSlot;
             internal GetPdfPaperSizeArgs(IntPtr nativePtr)
             {
-                int argCount;
-                this.nativePtr = MyMetArgs.GetArrHead(nativePtr, out argCount);
+                int arg_flags;
+                this.nativePtr = MyMetArgs.GetNativeObjPtr(nativePtr, out arg_flags);
+                this._isJsSlot = ((arg_flags >> 18) & 1) == 1;
+
             }
             public int device_units_per_inch()
             {
@@ -18216,6 +18410,7 @@ namespace LayoutFarm.CefBridge.Auto
         [StructLayout(LayoutKind.Sequential)]
         struct GetPdfPaperSizeNativeArgs
         {
+            public int argFlags;
             public int device_units_per_inch;
         }
         public interface I0
@@ -18392,24 +18587,31 @@ namespace LayoutFarm.CefBridge.Auto
         public struct GetAccessibilityHandlerArgs
         {
             IntPtr nativePtr; //met arg native ptr
+            bool _isJsSlot;
             internal GetAccessibilityHandlerArgs(IntPtr nativePtr)
             {
-                int argCount;
-                this.nativePtr = MyMetArgs.GetArrHead(nativePtr, out argCount);
+                int arg_flags;
+                this.nativePtr = MyMetArgs.GetNativeObjPtr(nativePtr, out arg_flags);
+                this._isJsSlot = ((arg_flags >> 18) & 1) == 1;
+
             }
         }
         [StructLayout(LayoutKind.Sequential)]
         struct GetAccessibilityHandlerNativeArgs
         {
+            public int argFlags;
         }
         //gen! bool GetRootScreenRect(CefRefPtr<CefBrowser> browser,CefRect& rect)
         public struct GetRootScreenRectArgs
         {
             IntPtr nativePtr; //met arg native ptr
+            bool _isJsSlot;
             internal GetRootScreenRectArgs(IntPtr nativePtr)
             {
-                int argCount;
-                this.nativePtr = MyMetArgs.GetArrHead(nativePtr, out argCount);
+                int arg_flags;
+                this.nativePtr = MyMetArgs.GetNativeObjPtr(nativePtr, out arg_flags);
+                this._isJsSlot = ((arg_flags >> 18) & 1) == 1;
+
             }
             public CefBrowser browser()
             {
@@ -18423,6 +18625,7 @@ namespace LayoutFarm.CefBridge.Auto
         [StructLayout(LayoutKind.Sequential)]
         struct GetRootScreenRectNativeArgs
         {
+            public int argFlags;
             public IntPtr browser;
             public IntPtr rect;
         }
@@ -18430,10 +18633,13 @@ namespace LayoutFarm.CefBridge.Auto
         public struct GetViewRectArgs
         {
             IntPtr nativePtr; //met arg native ptr
+            bool _isJsSlot;
             internal GetViewRectArgs(IntPtr nativePtr)
             {
-                int argCount;
-                this.nativePtr = MyMetArgs.GetArrHead(nativePtr, out argCount);
+                int arg_flags;
+                this.nativePtr = MyMetArgs.GetNativeObjPtr(nativePtr, out arg_flags);
+                this._isJsSlot = ((arg_flags >> 18) & 1) == 1;
+
             }
             public CefBrowser browser()
             {
@@ -18447,6 +18653,7 @@ namespace LayoutFarm.CefBridge.Auto
         [StructLayout(LayoutKind.Sequential)]
         struct GetViewRectNativeArgs
         {
+            public int argFlags;
             public IntPtr browser;
             public IntPtr rect;
         }
@@ -18454,10 +18661,13 @@ namespace LayoutFarm.CefBridge.Auto
         public struct GetScreenPointArgs
         {
             IntPtr nativePtr; //met arg native ptr
+            bool _isJsSlot;
             internal GetScreenPointArgs(IntPtr nativePtr)
             {
-                int argCount;
-                this.nativePtr = MyMetArgs.GetArrHead(nativePtr, out argCount);
+                int arg_flags;
+                this.nativePtr = MyMetArgs.GetNativeObjPtr(nativePtr, out arg_flags);
+                this._isJsSlot = ((arg_flags >> 18) & 1) == 1;
+
             }
             public CefBrowser browser()
             {
@@ -18491,6 +18701,7 @@ namespace LayoutFarm.CefBridge.Auto
         [StructLayout(LayoutKind.Sequential)]
         struct GetScreenPointNativeArgs
         {
+            public int argFlags;
             public IntPtr browser;
             public int viewX;
             public int viewY;
@@ -18501,10 +18712,13 @@ namespace LayoutFarm.CefBridge.Auto
         public struct GetScreenInfoArgs
         {
             IntPtr nativePtr; //met arg native ptr
+            bool _isJsSlot;
             internal GetScreenInfoArgs(IntPtr nativePtr)
             {
-                int argCount;
-                this.nativePtr = MyMetArgs.GetArrHead(nativePtr, out argCount);
+                int arg_flags;
+                this.nativePtr = MyMetArgs.GetNativeObjPtr(nativePtr, out arg_flags);
+                this._isJsSlot = ((arg_flags >> 18) & 1) == 1;
+
             }
             public CefBrowser browser()
             {
@@ -18518,6 +18732,7 @@ namespace LayoutFarm.CefBridge.Auto
         [StructLayout(LayoutKind.Sequential)]
         struct GetScreenInfoNativeArgs
         {
+            public int argFlags;
             public IntPtr browser;
             public IntPtr screen_info;
         }
@@ -18525,10 +18740,13 @@ namespace LayoutFarm.CefBridge.Auto
         public struct OnPopupShowArgs
         {
             IntPtr nativePtr; //met arg native ptr
+            bool _isJsSlot;
             internal OnPopupShowArgs(IntPtr nativePtr)
             {
-                int argCount;
-                this.nativePtr = MyMetArgs.GetArrHead(nativePtr, out argCount);
+                int arg_flags;
+                this.nativePtr = MyMetArgs.GetNativeObjPtr(nativePtr, out arg_flags);
+                this._isJsSlot = ((arg_flags >> 18) & 1) == 1;
+
             }
             public CefBrowser browser()
             {
@@ -18542,6 +18760,7 @@ namespace LayoutFarm.CefBridge.Auto
         [StructLayout(LayoutKind.Sequential)]
         struct OnPopupShowNativeArgs
         {
+            public int argFlags;
             public IntPtr browser;
             public bool show;
         }
@@ -18549,10 +18768,13 @@ namespace LayoutFarm.CefBridge.Auto
         public struct OnPopupSizeArgs
         {
             IntPtr nativePtr; //met arg native ptr
+            bool _isJsSlot;
             internal OnPopupSizeArgs(IntPtr nativePtr)
             {
-                int argCount;
-                this.nativePtr = MyMetArgs.GetArrHead(nativePtr, out argCount);
+                int arg_flags;
+                this.nativePtr = MyMetArgs.GetNativeObjPtr(nativePtr, out arg_flags);
+                this._isJsSlot = ((arg_flags >> 18) & 1) == 1;
+
             }
             public CefBrowser browser()
             {
@@ -18566,6 +18788,7 @@ namespace LayoutFarm.CefBridge.Auto
         [StructLayout(LayoutKind.Sequential)]
         struct OnPopupSizeNativeArgs
         {
+            public int argFlags;
             public IntPtr browser;
             public IntPtr rect;
         }
@@ -18573,10 +18796,13 @@ namespace LayoutFarm.CefBridge.Auto
         public struct OnPaintArgs
         {
             IntPtr nativePtr; //met arg native ptr
+            bool _isJsSlot;
             internal OnPaintArgs(IntPtr nativePtr)
             {
-                int argCount;
-                this.nativePtr = MyMetArgs.GetArrHead(nativePtr, out argCount);
+                int arg_flags;
+                this.nativePtr = MyMetArgs.GetNativeObjPtr(nativePtr, out arg_flags);
+                this._isJsSlot = ((arg_flags >> 18) & 1) == 1;
+
             }
             public CefBrowser browser()
             {
@@ -18606,6 +18832,7 @@ namespace LayoutFarm.CefBridge.Auto
         [StructLayout(LayoutKind.Sequential)]
         struct OnPaintNativeArgs
         {
+            public int argFlags;
             public IntPtr browser;
             public cef_paint_element_type_t type;
             public IntPtr dirtyRects;
@@ -18617,10 +18844,13 @@ namespace LayoutFarm.CefBridge.Auto
         public struct OnCursorChangeArgs
         {
             IntPtr nativePtr; //met arg native ptr
+            bool _isJsSlot;
             internal OnCursorChangeArgs(IntPtr nativePtr)
             {
-                int argCount;
-                this.nativePtr = MyMetArgs.GetArrHead(nativePtr, out argCount);
+                int arg_flags;
+                this.nativePtr = MyMetArgs.GetNativeObjPtr(nativePtr, out arg_flags);
+                this._isJsSlot = ((arg_flags >> 18) & 1) == 1;
+
             }
             public CefBrowser browser()
             {
@@ -18642,6 +18872,7 @@ namespace LayoutFarm.CefBridge.Auto
         [StructLayout(LayoutKind.Sequential)]
         struct OnCursorChangeNativeArgs
         {
+            public int argFlags;
             public IntPtr browser;
             public IntPtr cursor;
             public cef_cursor_type_t type;
@@ -18651,10 +18882,13 @@ namespace LayoutFarm.CefBridge.Auto
         public struct StartDraggingArgs
         {
             IntPtr nativePtr; //met arg native ptr
+            bool _isJsSlot;
             internal StartDraggingArgs(IntPtr nativePtr)
             {
-                int argCount;
-                this.nativePtr = MyMetArgs.GetArrHead(nativePtr, out argCount);
+                int arg_flags;
+                this.nativePtr = MyMetArgs.GetNativeObjPtr(nativePtr, out arg_flags);
+                this._isJsSlot = ((arg_flags >> 18) & 1) == 1;
+
             }
             public CefBrowser browser()
             {
@@ -18680,6 +18914,7 @@ namespace LayoutFarm.CefBridge.Auto
         [StructLayout(LayoutKind.Sequential)]
         struct StartDraggingNativeArgs
         {
+            public int argFlags;
             public IntPtr browser;
             public IntPtr drag_data;
             public cef_drag_operations_mask_t allowed_ops;
@@ -18690,10 +18925,13 @@ namespace LayoutFarm.CefBridge.Auto
         public struct UpdateDragCursorArgs
         {
             IntPtr nativePtr; //met arg native ptr
+            bool _isJsSlot;
             internal UpdateDragCursorArgs(IntPtr nativePtr)
             {
-                int argCount;
-                this.nativePtr = MyMetArgs.GetArrHead(nativePtr, out argCount);
+                int arg_flags;
+                this.nativePtr = MyMetArgs.GetNativeObjPtr(nativePtr, out arg_flags);
+                this._isJsSlot = ((arg_flags >> 18) & 1) == 1;
+
             }
             public CefBrowser browser()
             {
@@ -18707,6 +18945,7 @@ namespace LayoutFarm.CefBridge.Auto
         [StructLayout(LayoutKind.Sequential)]
         struct UpdateDragCursorNativeArgs
         {
+            public int argFlags;
             public IntPtr browser;
             public cef_drag_operations_mask_t operation;
         }
@@ -18714,10 +18953,13 @@ namespace LayoutFarm.CefBridge.Auto
         public struct OnScrollOffsetChangedArgs
         {
             IntPtr nativePtr; //met arg native ptr
+            bool _isJsSlot;
             internal OnScrollOffsetChangedArgs(IntPtr nativePtr)
             {
-                int argCount;
-                this.nativePtr = MyMetArgs.GetArrHead(nativePtr, out argCount);
+                int arg_flags;
+                this.nativePtr = MyMetArgs.GetNativeObjPtr(nativePtr, out arg_flags);
+                this._isJsSlot = ((arg_flags >> 18) & 1) == 1;
+
             }
             public CefBrowser browser()
             {
@@ -18735,6 +18977,7 @@ namespace LayoutFarm.CefBridge.Auto
         [StructLayout(LayoutKind.Sequential)]
         struct OnScrollOffsetChangedNativeArgs
         {
+            public int argFlags;
             public IntPtr browser;
             public double x;
             public double y;
@@ -18743,10 +18986,13 @@ namespace LayoutFarm.CefBridge.Auto
         public struct OnImeCompositionRangeChangedArgs
         {
             IntPtr nativePtr; //met arg native ptr
+            bool _isJsSlot;
             internal OnImeCompositionRangeChangedArgs(IntPtr nativePtr)
             {
-                int argCount;
-                this.nativePtr = MyMetArgs.GetArrHead(nativePtr, out argCount);
+                int arg_flags;
+                this.nativePtr = MyMetArgs.GetNativeObjPtr(nativePtr, out arg_flags);
+                this._isJsSlot = ((arg_flags >> 18) & 1) == 1;
+
             }
             public CefBrowser browser()
             {
@@ -18764,6 +19010,7 @@ namespace LayoutFarm.CefBridge.Auto
         [StructLayout(LayoutKind.Sequential)]
         struct OnImeCompositionRangeChangedNativeArgs
         {
+            public int argFlags;
             public IntPtr browser;
             public IntPtr selected_range;
             public IntPtr character_bounds;
@@ -19133,10 +19380,13 @@ namespace LayoutFarm.CefBridge.Auto
         public struct OnRenderThreadCreatedArgs
         {
             IntPtr nativePtr; //met arg native ptr
+            bool _isJsSlot;
             internal OnRenderThreadCreatedArgs(IntPtr nativePtr)
             {
-                int argCount;
-                this.nativePtr = MyMetArgs.GetArrHead(nativePtr, out argCount);
+                int arg_flags;
+                this.nativePtr = MyMetArgs.GetNativeObjPtr(nativePtr, out arg_flags);
+                this._isJsSlot = ((arg_flags >> 18) & 1) == 1;
+
             }
             public CefListValue extra_info()
             {
@@ -19146,30 +19396,38 @@ namespace LayoutFarm.CefBridge.Auto
         [StructLayout(LayoutKind.Sequential)]
         struct OnRenderThreadCreatedNativeArgs
         {
+            public int argFlags;
             public IntPtr extra_info;
         }
         //gen! void OnWebKitInitialized()
         public struct OnWebKitInitializedArgs
         {
             IntPtr nativePtr; //met arg native ptr
+            bool _isJsSlot;
             internal OnWebKitInitializedArgs(IntPtr nativePtr)
             {
-                int argCount;
-                this.nativePtr = MyMetArgs.GetArrHead(nativePtr, out argCount);
+                int arg_flags;
+                this.nativePtr = MyMetArgs.GetNativeObjPtr(nativePtr, out arg_flags);
+                this._isJsSlot = ((arg_flags >> 18) & 1) == 1;
+
             }
         }
         [StructLayout(LayoutKind.Sequential)]
         struct OnWebKitInitializedNativeArgs
         {
+            public int argFlags;
         }
         //gen! void OnBrowserCreated(CefRefPtr<CefBrowser> browser)
         public struct OnBrowserCreatedArgs
         {
             IntPtr nativePtr; //met arg native ptr
+            bool _isJsSlot;
             internal OnBrowserCreatedArgs(IntPtr nativePtr)
             {
-                int argCount;
-                this.nativePtr = MyMetArgs.GetArrHead(nativePtr, out argCount);
+                int arg_flags;
+                this.nativePtr = MyMetArgs.GetNativeObjPtr(nativePtr, out arg_flags);
+                this._isJsSlot = ((arg_flags >> 18) & 1) == 1;
+
             }
             public CefBrowser browser()
             {
@@ -19179,16 +19437,20 @@ namespace LayoutFarm.CefBridge.Auto
         [StructLayout(LayoutKind.Sequential)]
         struct OnBrowserCreatedNativeArgs
         {
+            public int argFlags;
             public IntPtr browser;
         }
         //gen! void OnBrowserDestroyed(CefRefPtr<CefBrowser> browser)
         public struct OnBrowserDestroyedArgs
         {
             IntPtr nativePtr; //met arg native ptr
+            bool _isJsSlot;
             internal OnBrowserDestroyedArgs(IntPtr nativePtr)
             {
-                int argCount;
-                this.nativePtr = MyMetArgs.GetArrHead(nativePtr, out argCount);
+                int arg_flags;
+                this.nativePtr = MyMetArgs.GetNativeObjPtr(nativePtr, out arg_flags);
+                this._isJsSlot = ((arg_flags >> 18) & 1) == 1;
+
             }
             public CefBrowser browser()
             {
@@ -19198,30 +19460,38 @@ namespace LayoutFarm.CefBridge.Auto
         [StructLayout(LayoutKind.Sequential)]
         struct OnBrowserDestroyedNativeArgs
         {
+            public int argFlags;
             public IntPtr browser;
         }
         //gen! CefRefPtr<CefLoadHandler> GetLoadHandler()
         public struct GetLoadHandlerArgs
         {
             IntPtr nativePtr; //met arg native ptr
+            bool _isJsSlot;
             internal GetLoadHandlerArgs(IntPtr nativePtr)
             {
-                int argCount;
-                this.nativePtr = MyMetArgs.GetArrHead(nativePtr, out argCount);
+                int arg_flags;
+                this.nativePtr = MyMetArgs.GetNativeObjPtr(nativePtr, out arg_flags);
+                this._isJsSlot = ((arg_flags >> 18) & 1) == 1;
+
             }
         }
         [StructLayout(LayoutKind.Sequential)]
         struct GetLoadHandlerNativeArgs
         {
+            public int argFlags;
         }
         //gen! bool OnBeforeNavigation(CefRefPtr<CefBrowser> browser,CefRefPtr<CefFrame> frame,CefRefPtr<CefRequest> request,NavigationType navigation_type,bool is_redirect)
         public struct OnBeforeNavigationArgs
         {
             IntPtr nativePtr; //met arg native ptr
+            bool _isJsSlot;
             internal OnBeforeNavigationArgs(IntPtr nativePtr)
             {
-                int argCount;
-                this.nativePtr = MyMetArgs.GetArrHead(nativePtr, out argCount);
+                int arg_flags;
+                this.nativePtr = MyMetArgs.GetNativeObjPtr(nativePtr, out arg_flags);
+                this._isJsSlot = ((arg_flags >> 18) & 1) == 1;
+
             }
             public CefBrowser browser()
             {
@@ -19247,6 +19517,7 @@ namespace LayoutFarm.CefBridge.Auto
         [StructLayout(LayoutKind.Sequential)]
         struct OnBeforeNavigationNativeArgs
         {
+            public int argFlags;
             public IntPtr browser;
             public IntPtr frame;
             public IntPtr request;
@@ -19257,10 +19528,13 @@ namespace LayoutFarm.CefBridge.Auto
         public struct OnContextCreatedArgs
         {
             IntPtr nativePtr; //met arg native ptr
+            bool _isJsSlot;
             internal OnContextCreatedArgs(IntPtr nativePtr)
             {
-                int argCount;
-                this.nativePtr = MyMetArgs.GetArrHead(nativePtr, out argCount);
+                int arg_flags;
+                this.nativePtr = MyMetArgs.GetNativeObjPtr(nativePtr, out arg_flags);
+                this._isJsSlot = ((arg_flags >> 18) & 1) == 1;
+
             }
             public CefBrowser browser()
             {
@@ -19278,6 +19552,7 @@ namespace LayoutFarm.CefBridge.Auto
         [StructLayout(LayoutKind.Sequential)]
         struct OnContextCreatedNativeArgs
         {
+            public int argFlags;
             public IntPtr browser;
             public IntPtr frame;
             public IntPtr context;
@@ -19286,10 +19561,13 @@ namespace LayoutFarm.CefBridge.Auto
         public struct OnContextReleasedArgs
         {
             IntPtr nativePtr; //met arg native ptr
+            bool _isJsSlot;
             internal OnContextReleasedArgs(IntPtr nativePtr)
             {
-                int argCount;
-                this.nativePtr = MyMetArgs.GetArrHead(nativePtr, out argCount);
+                int arg_flags;
+                this.nativePtr = MyMetArgs.GetNativeObjPtr(nativePtr, out arg_flags);
+                this._isJsSlot = ((arg_flags >> 18) & 1) == 1;
+
             }
             public CefBrowser browser()
             {
@@ -19307,6 +19585,7 @@ namespace LayoutFarm.CefBridge.Auto
         [StructLayout(LayoutKind.Sequential)]
         struct OnContextReleasedNativeArgs
         {
+            public int argFlags;
             public IntPtr browser;
             public IntPtr frame;
             public IntPtr context;
@@ -19315,10 +19594,13 @@ namespace LayoutFarm.CefBridge.Auto
         public struct OnUncaughtExceptionArgs
         {
             IntPtr nativePtr; //met arg native ptr
+            bool _isJsSlot;
             internal OnUncaughtExceptionArgs(IntPtr nativePtr)
             {
-                int argCount;
-                this.nativePtr = MyMetArgs.GetArrHead(nativePtr, out argCount);
+                int arg_flags;
+                this.nativePtr = MyMetArgs.GetNativeObjPtr(nativePtr, out arg_flags);
+                this._isJsSlot = ((arg_flags >> 18) & 1) == 1;
+
             }
             public CefBrowser browser()
             {
@@ -19344,6 +19626,7 @@ namespace LayoutFarm.CefBridge.Auto
         [StructLayout(LayoutKind.Sequential)]
         struct OnUncaughtExceptionNativeArgs
         {
+            public int argFlags;
             public IntPtr browser;
             public IntPtr frame;
             public IntPtr context;
@@ -19354,10 +19637,13 @@ namespace LayoutFarm.CefBridge.Auto
         public struct OnFocusedNodeChangedArgs
         {
             IntPtr nativePtr; //met arg native ptr
+            bool _isJsSlot;
             internal OnFocusedNodeChangedArgs(IntPtr nativePtr)
             {
-                int argCount;
-                this.nativePtr = MyMetArgs.GetArrHead(nativePtr, out argCount);
+                int arg_flags;
+                this.nativePtr = MyMetArgs.GetNativeObjPtr(nativePtr, out arg_flags);
+                this._isJsSlot = ((arg_flags >> 18) & 1) == 1;
+
             }
             public CefBrowser browser()
             {
@@ -19375,6 +19661,7 @@ namespace LayoutFarm.CefBridge.Auto
         [StructLayout(LayoutKind.Sequential)]
         struct OnFocusedNodeChangedNativeArgs
         {
+            public int argFlags;
             public IntPtr browser;
             public IntPtr frame;
             public IntPtr node;
@@ -19383,10 +19670,13 @@ namespace LayoutFarm.CefBridge.Auto
         public struct OnProcessMessageReceivedArgs
         {
             IntPtr nativePtr; //met arg native ptr
+            bool _isJsSlot;
             internal OnProcessMessageReceivedArgs(IntPtr nativePtr)
             {
-                int argCount;
-                this.nativePtr = MyMetArgs.GetArrHead(nativePtr, out argCount);
+                int arg_flags;
+                this.nativePtr = MyMetArgs.GetNativeObjPtr(nativePtr, out arg_flags);
+                this._isJsSlot = ((arg_flags >> 18) & 1) == 1;
+
             }
             public CefBrowser browser()
             {
@@ -19404,6 +19694,7 @@ namespace LayoutFarm.CefBridge.Auto
         [StructLayout(LayoutKind.Sequential)]
         struct OnProcessMessageReceivedNativeArgs
         {
+            public int argFlags;
             public IntPtr browser;
             public cef_process_id_t source_process;
             public IntPtr message;
@@ -19694,24 +19985,31 @@ namespace LayoutFarm.CefBridge.Auto
         public struct GetCookieManagerArgs
         {
             IntPtr nativePtr; //met arg native ptr
+            bool _isJsSlot;
             internal GetCookieManagerArgs(IntPtr nativePtr)
             {
-                int argCount;
-                this.nativePtr = MyMetArgs.GetArrHead(nativePtr, out argCount);
+                int arg_flags;
+                this.nativePtr = MyMetArgs.GetNativeObjPtr(nativePtr, out arg_flags);
+                this._isJsSlot = ((arg_flags >> 18) & 1) == 1;
+
             }
         }
         [StructLayout(LayoutKind.Sequential)]
         struct GetCookieManagerNativeArgs
         {
+            public int argFlags;
         }
         //gen! bool OnBeforePluginLoad(const CefString& mime_type,const CefString& plugin_url,bool is_main_frame,const CefString& top_origin_url,CefRefPtr<CefWebPluginInfo> plugin_info,PluginPolicy* plugin_policy)
         public struct OnBeforePluginLoadArgs
         {
             IntPtr nativePtr; //met arg native ptr
+            bool _isJsSlot;
             internal OnBeforePluginLoadArgs(IntPtr nativePtr)
             {
-                int argCount;
-                this.nativePtr = MyMetArgs.GetArrHead(nativePtr, out argCount);
+                int arg_flags;
+                this.nativePtr = MyMetArgs.GetNativeObjPtr(nativePtr, out arg_flags);
+                this._isJsSlot = ((arg_flags >> 18) & 1) == 1;
+
             }
             public string mime_type()
             {
@@ -19741,6 +20039,7 @@ namespace LayoutFarm.CefBridge.Auto
         [StructLayout(LayoutKind.Sequential)]
         struct OnBeforePluginLoadNativeArgs
         {
+            public int argFlags;
             public IntPtr mime_type;
             public IntPtr plugin_url;
             public bool is_main_frame;
@@ -19837,10 +20136,13 @@ namespace LayoutFarm.CefBridge.Auto
         public struct OnBeforeBrowseArgs
         {
             IntPtr nativePtr; //met arg native ptr
+            bool _isJsSlot;
             internal OnBeforeBrowseArgs(IntPtr nativePtr)
             {
-                int argCount;
-                this.nativePtr = MyMetArgs.GetArrHead(nativePtr, out argCount);
+                int arg_flags;
+                this.nativePtr = MyMetArgs.GetNativeObjPtr(nativePtr, out arg_flags);
+                this._isJsSlot = ((arg_flags >> 18) & 1) == 1;
+
             }
             public CefBrowser browser()
             {
@@ -19862,6 +20164,7 @@ namespace LayoutFarm.CefBridge.Auto
         [StructLayout(LayoutKind.Sequential)]
         struct OnBeforeBrowseNativeArgs
         {
+            public int argFlags;
             public IntPtr browser;
             public IntPtr frame;
             public IntPtr request;
@@ -19871,10 +20174,13 @@ namespace LayoutFarm.CefBridge.Auto
         public struct OnOpenURLFromTabArgs
         {
             IntPtr nativePtr; //met arg native ptr
+            bool _isJsSlot;
             internal OnOpenURLFromTabArgs(IntPtr nativePtr)
             {
-                int argCount;
-                this.nativePtr = MyMetArgs.GetArrHead(nativePtr, out argCount);
+                int arg_flags;
+                this.nativePtr = MyMetArgs.GetNativeObjPtr(nativePtr, out arg_flags);
+                this._isJsSlot = ((arg_flags >> 18) & 1) == 1;
+
             }
             public CefBrowser browser()
             {
@@ -19900,6 +20206,7 @@ namespace LayoutFarm.CefBridge.Auto
         [StructLayout(LayoutKind.Sequential)]
         struct OnOpenURLFromTabNativeArgs
         {
+            public int argFlags;
             public IntPtr browser;
             public IntPtr frame;
             public IntPtr target_url;
@@ -19910,10 +20217,13 @@ namespace LayoutFarm.CefBridge.Auto
         public struct OnBeforeResourceLoadArgs
         {
             IntPtr nativePtr; //met arg native ptr
+            bool _isJsSlot;
             internal OnBeforeResourceLoadArgs(IntPtr nativePtr)
             {
-                int argCount;
-                this.nativePtr = MyMetArgs.GetArrHead(nativePtr, out argCount);
+                int arg_flags;
+                this.nativePtr = MyMetArgs.GetNativeObjPtr(nativePtr, out arg_flags);
+                this._isJsSlot = ((arg_flags >> 18) & 1) == 1;
+
             }
             public CefBrowser browser()
             {
@@ -19935,6 +20245,7 @@ namespace LayoutFarm.CefBridge.Auto
         [StructLayout(LayoutKind.Sequential)]
         struct OnBeforeResourceLoadNativeArgs
         {
+            public int argFlags;
             public IntPtr browser;
             public IntPtr frame;
             public IntPtr request;
@@ -19944,10 +20255,13 @@ namespace LayoutFarm.CefBridge.Auto
         public struct GetResourceHandlerArgs
         {
             IntPtr nativePtr; //met arg native ptr
+            bool _isJsSlot;
             internal GetResourceHandlerArgs(IntPtr nativePtr)
             {
-                int argCount;
-                this.nativePtr = MyMetArgs.GetArrHead(nativePtr, out argCount);
+                int arg_flags;
+                this.nativePtr = MyMetArgs.GetNativeObjPtr(nativePtr, out arg_flags);
+                this._isJsSlot = ((arg_flags >> 18) & 1) == 1;
+
             }
             public CefBrowser browser()
             {
@@ -19965,6 +20279,7 @@ namespace LayoutFarm.CefBridge.Auto
         [StructLayout(LayoutKind.Sequential)]
         struct GetResourceHandlerNativeArgs
         {
+            public int argFlags;
             public IntPtr browser;
             public IntPtr frame;
             public IntPtr request;
@@ -19973,10 +20288,13 @@ namespace LayoutFarm.CefBridge.Auto
         public struct OnResourceRedirectArgs
         {
             IntPtr nativePtr; //met arg native ptr
+            bool _isJsSlot;
             internal OnResourceRedirectArgs(IntPtr nativePtr)
             {
-                int argCount;
-                this.nativePtr = MyMetArgs.GetArrHead(nativePtr, out argCount);
+                int arg_flags;
+                this.nativePtr = MyMetArgs.GetNativeObjPtr(nativePtr, out arg_flags);
+                this._isJsSlot = ((arg_flags >> 18) & 1) == 1;
+
             }
             public CefBrowser browser()
             {
@@ -20002,6 +20320,7 @@ namespace LayoutFarm.CefBridge.Auto
         [StructLayout(LayoutKind.Sequential)]
         struct OnResourceRedirectNativeArgs
         {
+            public int argFlags;
             public IntPtr browser;
             public IntPtr frame;
             public IntPtr request;
@@ -20012,10 +20331,13 @@ namespace LayoutFarm.CefBridge.Auto
         public struct OnResourceResponseArgs
         {
             IntPtr nativePtr; //met arg native ptr
+            bool _isJsSlot;
             internal OnResourceResponseArgs(IntPtr nativePtr)
             {
-                int argCount;
-                this.nativePtr = MyMetArgs.GetArrHead(nativePtr, out argCount);
+                int arg_flags;
+                this.nativePtr = MyMetArgs.GetNativeObjPtr(nativePtr, out arg_flags);
+                this._isJsSlot = ((arg_flags >> 18) & 1) == 1;
+
             }
             public CefBrowser browser()
             {
@@ -20037,6 +20359,7 @@ namespace LayoutFarm.CefBridge.Auto
         [StructLayout(LayoutKind.Sequential)]
         struct OnResourceResponseNativeArgs
         {
+            public int argFlags;
             public IntPtr browser;
             public IntPtr frame;
             public IntPtr request;
@@ -20046,10 +20369,13 @@ namespace LayoutFarm.CefBridge.Auto
         public struct GetResourceResponseFilterArgs
         {
             IntPtr nativePtr; //met arg native ptr
+            bool _isJsSlot;
             internal GetResourceResponseFilterArgs(IntPtr nativePtr)
             {
-                int argCount;
-                this.nativePtr = MyMetArgs.GetArrHead(nativePtr, out argCount);
+                int arg_flags;
+                this.nativePtr = MyMetArgs.GetNativeObjPtr(nativePtr, out arg_flags);
+                this._isJsSlot = ((arg_flags >> 18) & 1) == 1;
+
             }
             public CefBrowser browser()
             {
@@ -20071,6 +20397,7 @@ namespace LayoutFarm.CefBridge.Auto
         [StructLayout(LayoutKind.Sequential)]
         struct GetResourceResponseFilterNativeArgs
         {
+            public int argFlags;
             public IntPtr browser;
             public IntPtr frame;
             public IntPtr request;
@@ -20080,10 +20407,13 @@ namespace LayoutFarm.CefBridge.Auto
         public struct OnResourceLoadCompleteArgs
         {
             IntPtr nativePtr; //met arg native ptr
+            bool _isJsSlot;
             internal OnResourceLoadCompleteArgs(IntPtr nativePtr)
             {
-                int argCount;
-                this.nativePtr = MyMetArgs.GetArrHead(nativePtr, out argCount);
+                int arg_flags;
+                this.nativePtr = MyMetArgs.GetNativeObjPtr(nativePtr, out arg_flags);
+                this._isJsSlot = ((arg_flags >> 18) & 1) == 1;
+
             }
             public CefBrowser browser()
             {
@@ -20113,6 +20443,7 @@ namespace LayoutFarm.CefBridge.Auto
         [StructLayout(LayoutKind.Sequential)]
         struct OnResourceLoadCompleteNativeArgs
         {
+            public int argFlags;
             public IntPtr browser;
             public IntPtr frame;
             public IntPtr request;
@@ -20124,10 +20455,13 @@ namespace LayoutFarm.CefBridge.Auto
         public struct GetAuthCredentialsArgs
         {
             IntPtr nativePtr; //met arg native ptr
+            bool _isJsSlot;
             internal GetAuthCredentialsArgs(IntPtr nativePtr)
             {
-                int argCount;
-                this.nativePtr = MyMetArgs.GetArrHead(nativePtr, out argCount);
+                int arg_flags;
+                this.nativePtr = MyMetArgs.GetNativeObjPtr(nativePtr, out arg_flags);
+                this._isJsSlot = ((arg_flags >> 18) & 1) == 1;
+
             }
             public CefBrowser browser()
             {
@@ -20165,6 +20499,7 @@ namespace LayoutFarm.CefBridge.Auto
         [StructLayout(LayoutKind.Sequential)]
         struct GetAuthCredentialsNativeArgs
         {
+            public int argFlags;
             public IntPtr browser;
             public IntPtr frame;
             public bool isProxy;
@@ -20178,10 +20513,13 @@ namespace LayoutFarm.CefBridge.Auto
         public struct OnQuotaRequestArgs
         {
             IntPtr nativePtr; //met arg native ptr
+            bool _isJsSlot;
             internal OnQuotaRequestArgs(IntPtr nativePtr)
             {
-                int argCount;
-                this.nativePtr = MyMetArgs.GetArrHead(nativePtr, out argCount);
+                int arg_flags;
+                this.nativePtr = MyMetArgs.GetNativeObjPtr(nativePtr, out arg_flags);
+                this._isJsSlot = ((arg_flags >> 18) & 1) == 1;
+
             }
             public CefBrowser browser()
             {
@@ -20203,6 +20541,7 @@ namespace LayoutFarm.CefBridge.Auto
         [StructLayout(LayoutKind.Sequential)]
         struct OnQuotaRequestNativeArgs
         {
+            public int argFlags;
             public IntPtr browser;
             public IntPtr origin_url;
             public long new_size;
@@ -20212,10 +20551,13 @@ namespace LayoutFarm.CefBridge.Auto
         public struct OnProtocolExecutionArgs
         {
             IntPtr nativePtr; //met arg native ptr
+            bool _isJsSlot;
             internal OnProtocolExecutionArgs(IntPtr nativePtr)
             {
-                int argCount;
-                this.nativePtr = MyMetArgs.GetArrHead(nativePtr, out argCount);
+                int arg_flags;
+                this.nativePtr = MyMetArgs.GetNativeObjPtr(nativePtr, out arg_flags);
+                this._isJsSlot = ((arg_flags >> 18) & 1) == 1;
+
             }
             public CefBrowser browser()
             {
@@ -20237,6 +20579,7 @@ namespace LayoutFarm.CefBridge.Auto
         [StructLayout(LayoutKind.Sequential)]
         struct OnProtocolExecutionNativeArgs
         {
+            public int argFlags;
             public IntPtr browser;
             public IntPtr url;
             public double allow_os_execution;
@@ -20245,10 +20588,13 @@ namespace LayoutFarm.CefBridge.Auto
         public struct OnCertificateErrorArgs
         {
             IntPtr nativePtr; //met arg native ptr
+            bool _isJsSlot;
             internal OnCertificateErrorArgs(IntPtr nativePtr)
             {
-                int argCount;
-                this.nativePtr = MyMetArgs.GetArrHead(nativePtr, out argCount);
+                int arg_flags;
+                this.nativePtr = MyMetArgs.GetNativeObjPtr(nativePtr, out arg_flags);
+                this._isJsSlot = ((arg_flags >> 18) & 1) == 1;
+
             }
             public CefBrowser browser()
             {
@@ -20274,6 +20620,7 @@ namespace LayoutFarm.CefBridge.Auto
         [StructLayout(LayoutKind.Sequential)]
         struct OnCertificateErrorNativeArgs
         {
+            public int argFlags;
             public IntPtr browser;
             public cef_errorcode_t cert_error;
             public IntPtr request_url;
@@ -20284,10 +20631,13 @@ namespace LayoutFarm.CefBridge.Auto
         public struct OnSelectClientCertificateArgs
         {
             IntPtr nativePtr; //met arg native ptr
+            bool _isJsSlot;
             internal OnSelectClientCertificateArgs(IntPtr nativePtr)
             {
-                int argCount;
-                this.nativePtr = MyMetArgs.GetArrHead(nativePtr, out argCount);
+                int arg_flags;
+                this.nativePtr = MyMetArgs.GetNativeObjPtr(nativePtr, out arg_flags);
+                this._isJsSlot = ((arg_flags >> 18) & 1) == 1;
+
             }
             public CefBrowser browser()
             {
@@ -20317,6 +20667,7 @@ namespace LayoutFarm.CefBridge.Auto
         [StructLayout(LayoutKind.Sequential)]
         struct OnSelectClientCertificateNativeArgs
         {
+            public int argFlags;
             public IntPtr browser;
             public bool isProxy;
             public IntPtr host;
@@ -20328,10 +20679,13 @@ namespace LayoutFarm.CefBridge.Auto
         public struct OnPluginCrashedArgs
         {
             IntPtr nativePtr; //met arg native ptr
+            bool _isJsSlot;
             internal OnPluginCrashedArgs(IntPtr nativePtr)
             {
-                int argCount;
-                this.nativePtr = MyMetArgs.GetArrHead(nativePtr, out argCount);
+                int arg_flags;
+                this.nativePtr = MyMetArgs.GetNativeObjPtr(nativePtr, out arg_flags);
+                this._isJsSlot = ((arg_flags >> 18) & 1) == 1;
+
             }
             public CefBrowser browser()
             {
@@ -20345,6 +20699,7 @@ namespace LayoutFarm.CefBridge.Auto
         [StructLayout(LayoutKind.Sequential)]
         struct OnPluginCrashedNativeArgs
         {
+            public int argFlags;
             public IntPtr browser;
             public IntPtr plugin_path;
         }
@@ -20352,10 +20707,13 @@ namespace LayoutFarm.CefBridge.Auto
         public struct OnRenderViewReadyArgs
         {
             IntPtr nativePtr; //met arg native ptr
+            bool _isJsSlot;
             internal OnRenderViewReadyArgs(IntPtr nativePtr)
             {
-                int argCount;
-                this.nativePtr = MyMetArgs.GetArrHead(nativePtr, out argCount);
+                int arg_flags;
+                this.nativePtr = MyMetArgs.GetNativeObjPtr(nativePtr, out arg_flags);
+                this._isJsSlot = ((arg_flags >> 18) & 1) == 1;
+
             }
             public CefBrowser browser()
             {
@@ -20365,16 +20723,20 @@ namespace LayoutFarm.CefBridge.Auto
         [StructLayout(LayoutKind.Sequential)]
         struct OnRenderViewReadyNativeArgs
         {
+            public int argFlags;
             public IntPtr browser;
         }
         //gen! void OnRenderProcessTerminated(CefRefPtr<CefBrowser> browser,TerminationStatus status)
         public struct OnRenderProcessTerminatedArgs
         {
             IntPtr nativePtr; //met arg native ptr
+            bool _isJsSlot;
             internal OnRenderProcessTerminatedArgs(IntPtr nativePtr)
             {
-                int argCount;
-                this.nativePtr = MyMetArgs.GetArrHead(nativePtr, out argCount);
+                int arg_flags;
+                this.nativePtr = MyMetArgs.GetNativeObjPtr(nativePtr, out arg_flags);
+                this._isJsSlot = ((arg_flags >> 18) & 1) == 1;
+
             }
             public CefBrowser browser()
             {
@@ -20388,6 +20750,7 @@ namespace LayoutFarm.CefBridge.Auto
         [StructLayout(LayoutKind.Sequential)]
         struct OnRenderProcessTerminatedNativeArgs
         {
+            public int argFlags;
             public IntPtr browser;
             public cef_termination_status_t status;
         }
@@ -20855,10 +21218,13 @@ namespace LayoutFarm.CefBridge.Auto
         public struct GetLocalizedStringArgs
         {
             IntPtr nativePtr; //met arg native ptr
+            bool _isJsSlot;
             internal GetLocalizedStringArgs(IntPtr nativePtr)
             {
-                int argCount;
-                this.nativePtr = MyMetArgs.GetArrHead(nativePtr, out argCount);
+                int arg_flags;
+                this.nativePtr = MyMetArgs.GetNativeObjPtr(nativePtr, out arg_flags);
+                this._isJsSlot = ((arg_flags >> 18) & 1) == 1;
+
             }
             public int string_id()
             {
@@ -20872,6 +21238,7 @@ namespace LayoutFarm.CefBridge.Auto
         [StructLayout(LayoutKind.Sequential)]
         struct GetLocalizedStringNativeArgs
         {
+            public int argFlags;
             public int string_id;
             public IntPtr _string;
         }
@@ -20879,10 +21246,13 @@ namespace LayoutFarm.CefBridge.Auto
         public struct GetDataResourceArgs
         {
             IntPtr nativePtr; //met arg native ptr
+            bool _isJsSlot;
             internal GetDataResourceArgs(IntPtr nativePtr)
             {
-                int argCount;
-                this.nativePtr = MyMetArgs.GetArrHead(nativePtr, out argCount);
+                int arg_flags;
+                this.nativePtr = MyMetArgs.GetNativeObjPtr(nativePtr, out arg_flags);
+                this._isJsSlot = ((arg_flags >> 18) & 1) == 1;
+
             }
             public int resource_id()
             {
@@ -20904,6 +21274,7 @@ namespace LayoutFarm.CefBridge.Auto
         [StructLayout(LayoutKind.Sequential)]
         struct GetDataResourceNativeArgs
         {
+            public int argFlags;
             public int resource_id;
             public IntPtr data;
             public uint data_size;
@@ -20912,10 +21283,13 @@ namespace LayoutFarm.CefBridge.Auto
         public struct GetDataResourceForScaleArgs
         {
             IntPtr nativePtr; //met arg native ptr
+            bool _isJsSlot;
             internal GetDataResourceForScaleArgs(IntPtr nativePtr)
             {
-                int argCount;
-                this.nativePtr = MyMetArgs.GetArrHead(nativePtr, out argCount);
+                int arg_flags;
+                this.nativePtr = MyMetArgs.GetNativeObjPtr(nativePtr, out arg_flags);
+                this._isJsSlot = ((arg_flags >> 18) & 1) == 1;
+
             }
             public int resource_id()
             {
@@ -20941,6 +21315,7 @@ namespace LayoutFarm.CefBridge.Auto
         [StructLayout(LayoutKind.Sequential)]
         struct GetDataResourceForScaleNativeArgs
         {
+            public int argFlags;
             public int resource_id;
             public cef_scale_factor_t scale_factor;
             public IntPtr data;
@@ -21056,10 +21431,13 @@ namespace LayoutFarm.CefBridge.Auto
         public struct ProcessRequestArgs
         {
             IntPtr nativePtr; //met arg native ptr
+            bool _isJsSlot;
             internal ProcessRequestArgs(IntPtr nativePtr)
             {
-                int argCount;
-                this.nativePtr = MyMetArgs.GetArrHead(nativePtr, out argCount);
+                int arg_flags;
+                this.nativePtr = MyMetArgs.GetNativeObjPtr(nativePtr, out arg_flags);
+                this._isJsSlot = ((arg_flags >> 18) & 1) == 1;
+
             }
             public CefRequest request()
             {
@@ -21073,6 +21451,7 @@ namespace LayoutFarm.CefBridge.Auto
         [StructLayout(LayoutKind.Sequential)]
         struct ProcessRequestNativeArgs
         {
+            public int argFlags;
             public IntPtr request;
             public IntPtr callback;
         }
@@ -21080,10 +21459,13 @@ namespace LayoutFarm.CefBridge.Auto
         public struct GetResponseHeadersArgs
         {
             IntPtr nativePtr; //met arg native ptr
+            bool _isJsSlot;
             internal GetResponseHeadersArgs(IntPtr nativePtr)
             {
-                int argCount;
-                this.nativePtr = MyMetArgs.GetArrHead(nativePtr, out argCount);
+                int arg_flags;
+                this.nativePtr = MyMetArgs.GetNativeObjPtr(nativePtr, out arg_flags);
+                this._isJsSlot = ((arg_flags >> 18) & 1) == 1;
+
             }
             public CefResponse response()
             {
@@ -21101,6 +21483,7 @@ namespace LayoutFarm.CefBridge.Auto
         [StructLayout(LayoutKind.Sequential)]
         struct GetResponseHeadersNativeArgs
         {
+            public int argFlags;
             public IntPtr response;
             public long response_length;
             public IntPtr redirectUrl;
@@ -21109,10 +21492,13 @@ namespace LayoutFarm.CefBridge.Auto
         public struct ReadResponseArgs
         {
             IntPtr nativePtr; //met arg native ptr
+            bool _isJsSlot;
             internal ReadResponseArgs(IntPtr nativePtr)
             {
-                int argCount;
-                this.nativePtr = MyMetArgs.GetArrHead(nativePtr, out argCount);
+                int arg_flags;
+                this.nativePtr = MyMetArgs.GetNativeObjPtr(nativePtr, out arg_flags);
+                this._isJsSlot = ((arg_flags >> 18) & 1) == 1;
+
             }
             public IntPtr data_out()
             {
@@ -21138,6 +21524,7 @@ namespace LayoutFarm.CefBridge.Auto
         [StructLayout(LayoutKind.Sequential)]
         struct ReadResponseNativeArgs
         {
+            public int argFlags;
             public IntPtr data_out;
             public int bytes_to_read;
             public int bytes_read;
@@ -21147,10 +21534,13 @@ namespace LayoutFarm.CefBridge.Auto
         public struct CanGetCookieArgs
         {
             IntPtr nativePtr; //met arg native ptr
+            bool _isJsSlot;
             internal CanGetCookieArgs(IntPtr nativePtr)
             {
-                int argCount;
-                this.nativePtr = MyMetArgs.GetArrHead(nativePtr, out argCount);
+                int arg_flags;
+                this.nativePtr = MyMetArgs.GetNativeObjPtr(nativePtr, out arg_flags);
+                this._isJsSlot = ((arg_flags >> 18) & 1) == 1;
+
             }
             public CefCookie cookie()
             {
@@ -21160,16 +21550,20 @@ namespace LayoutFarm.CefBridge.Auto
         [StructLayout(LayoutKind.Sequential)]
         struct CanGetCookieNativeArgs
         {
+            public int argFlags;
             public IntPtr cookie;
         }
         //gen! bool CanSetCookie(const CefCookie& cookie)
         public struct CanSetCookieArgs
         {
             IntPtr nativePtr; //met arg native ptr
+            bool _isJsSlot;
             internal CanSetCookieArgs(IntPtr nativePtr)
             {
-                int argCount;
-                this.nativePtr = MyMetArgs.GetArrHead(nativePtr, out argCount);
+                int arg_flags;
+                this.nativePtr = MyMetArgs.GetNativeObjPtr(nativePtr, out arg_flags);
+                this._isJsSlot = ((arg_flags >> 18) & 1) == 1;
+
             }
             public CefCookie cookie()
             {
@@ -21179,21 +21573,26 @@ namespace LayoutFarm.CefBridge.Auto
         [StructLayout(LayoutKind.Sequential)]
         struct CanSetCookieNativeArgs
         {
+            public int argFlags;
             public IntPtr cookie;
         }
         //gen! void Cancel()
         public struct CancelArgs
         {
             IntPtr nativePtr; //met arg native ptr
+            bool _isJsSlot;
             internal CancelArgs(IntPtr nativePtr)
             {
-                int argCount;
-                this.nativePtr = MyMetArgs.GetArrHead(nativePtr, out argCount);
+                int arg_flags;
+                this.nativePtr = MyMetArgs.GetNativeObjPtr(nativePtr, out arg_flags);
+                this._isJsSlot = ((arg_flags >> 18) & 1) == 1;
+
             }
         }
         [StructLayout(LayoutKind.Sequential)]
         struct CancelNativeArgs
         {
+            public int argFlags;
         }
         public interface I0
         {
@@ -21363,10 +21762,13 @@ namespace LayoutFarm.CefBridge.Auto
         public struct ReadArgs
         {
             IntPtr nativePtr; //met arg native ptr
+            bool _isJsSlot;
             internal ReadArgs(IntPtr nativePtr)
             {
-                int argCount;
-                this.nativePtr = MyMetArgs.GetArrHead(nativePtr, out argCount);
+                int arg_flags;
+                this.nativePtr = MyMetArgs.GetNativeObjPtr(nativePtr, out arg_flags);
+                this._isJsSlot = ((arg_flags >> 18) & 1) == 1;
+
             }
             public IntPtr ptr()
             {
@@ -21384,6 +21786,7 @@ namespace LayoutFarm.CefBridge.Auto
         [StructLayout(LayoutKind.Sequential)]
         struct ReadNativeArgs
         {
+            public int argFlags;
             public IntPtr ptr;
             public uint size;
             public uint n;
@@ -21392,10 +21795,13 @@ namespace LayoutFarm.CefBridge.Auto
         public struct SeekArgs
         {
             IntPtr nativePtr; //met arg native ptr
+            bool _isJsSlot;
             internal SeekArgs(IntPtr nativePtr)
             {
-                int argCount;
-                this.nativePtr = MyMetArgs.GetArrHead(nativePtr, out argCount);
+                int arg_flags;
+                this.nativePtr = MyMetArgs.GetNativeObjPtr(nativePtr, out arg_flags);
+                this._isJsSlot = ((arg_flags >> 18) & 1) == 1;
+
             }
             public long offset()
             {
@@ -21409,6 +21815,7 @@ namespace LayoutFarm.CefBridge.Auto
         [StructLayout(LayoutKind.Sequential)]
         struct SeekNativeArgs
         {
+            public int argFlags;
             public long offset;
             public int whence;
         }
@@ -21416,43 +21823,55 @@ namespace LayoutFarm.CefBridge.Auto
         public struct TellArgs
         {
             IntPtr nativePtr; //met arg native ptr
+            bool _isJsSlot;
             internal TellArgs(IntPtr nativePtr)
             {
-                int argCount;
-                this.nativePtr = MyMetArgs.GetArrHead(nativePtr, out argCount);
+                int arg_flags;
+                this.nativePtr = MyMetArgs.GetNativeObjPtr(nativePtr, out arg_flags);
+                this._isJsSlot = ((arg_flags >> 18) & 1) == 1;
+
             }
         }
         [StructLayout(LayoutKind.Sequential)]
         struct TellNativeArgs
         {
+            public int argFlags;
         }
         //gen! int Eof()
         public struct EofArgs
         {
             IntPtr nativePtr; //met arg native ptr
+            bool _isJsSlot;
             internal EofArgs(IntPtr nativePtr)
             {
-                int argCount;
-                this.nativePtr = MyMetArgs.GetArrHead(nativePtr, out argCount);
+                int arg_flags;
+                this.nativePtr = MyMetArgs.GetNativeObjPtr(nativePtr, out arg_flags);
+                this._isJsSlot = ((arg_flags >> 18) & 1) == 1;
+
             }
         }
         [StructLayout(LayoutKind.Sequential)]
         struct EofNativeArgs
         {
+            public int argFlags;
         }
         //gen! bool MayBlock()
         public struct MayBlockArgs
         {
             IntPtr nativePtr; //met arg native ptr
+            bool _isJsSlot;
             internal MayBlockArgs(IntPtr nativePtr)
             {
-                int argCount;
-                this.nativePtr = MyMetArgs.GetArrHead(nativePtr, out argCount);
+                int arg_flags;
+                this.nativePtr = MyMetArgs.GetNativeObjPtr(nativePtr, out arg_flags);
+                this._isJsSlot = ((arg_flags >> 18) & 1) == 1;
+
             }
         }
         [StructLayout(LayoutKind.Sequential)]
         struct MayBlockNativeArgs
         {
+            public int argFlags;
         }
         public interface I0
         {
@@ -21591,10 +22010,13 @@ namespace LayoutFarm.CefBridge.Auto
         public struct WriteArgs
         {
             IntPtr nativePtr; //met arg native ptr
+            bool _isJsSlot;
             internal WriteArgs(IntPtr nativePtr)
             {
-                int argCount;
-                this.nativePtr = MyMetArgs.GetArrHead(nativePtr, out argCount);
+                int arg_flags;
+                this.nativePtr = MyMetArgs.GetNativeObjPtr(nativePtr, out arg_flags);
+                this._isJsSlot = ((arg_flags >> 18) & 1) == 1;
+
             }
             public IntPtr ptr()
             {
@@ -21612,6 +22034,7 @@ namespace LayoutFarm.CefBridge.Auto
         [StructLayout(LayoutKind.Sequential)]
         struct WriteNativeArgs
         {
+            public int argFlags;
             public IntPtr ptr;
             public uint size;
             public uint n;
@@ -21620,10 +22043,12 @@ namespace LayoutFarm.CefBridge.Auto
         public struct SeekArgs
         {
             IntPtr nativePtr; //met arg native ptr
+            bool _isJsSlot;
             internal SeekArgs(IntPtr nativePtr)
             {
-                int argCount;
-                this.nativePtr = MyMetArgs.GetArrHead(nativePtr, out argCount);
+                int arg_flags;
+                this.nativePtr = MyMetArgs.GetNativeObjPtr(nativePtr, out arg_flags);
+                this._isJsSlot = ((arg_flags >> 18) & 1) == 1; 
             }
             public long offset()
             {
@@ -21637,6 +22062,7 @@ namespace LayoutFarm.CefBridge.Auto
         [StructLayout(LayoutKind.Sequential)]
         struct SeekNativeArgs
         {
+            public int argFlags;
             public long offset;
             public int whence;
         }
@@ -21644,43 +22070,55 @@ namespace LayoutFarm.CefBridge.Auto
         public struct TellArgs
         {
             IntPtr nativePtr; //met arg native ptr
+            bool _isJsSlot;
             internal TellArgs(IntPtr nativePtr)
             {
-                int argCount;
-                this.nativePtr = MyMetArgs.GetArrHead(nativePtr, out argCount);
+                int arg_flags;
+                this.nativePtr = MyMetArgs.GetNativeObjPtr(nativePtr, out arg_flags);
+                this._isJsSlot = ((arg_flags >> 18) & 1) == 1;
+
             }
         }
         [StructLayout(LayoutKind.Sequential)]
         struct TellNativeArgs
         {
+            public int argFlags;
         }
         //gen! int Flush()
         public struct FlushArgs
         {
             IntPtr nativePtr; //met arg native ptr
+            bool _isJsSlot;
             internal FlushArgs(IntPtr nativePtr)
             {
-                int argCount;
-                this.nativePtr = MyMetArgs.GetArrHead(nativePtr, out argCount);
+                int arg_flags;
+                this.nativePtr = MyMetArgs.GetNativeObjPtr(nativePtr, out arg_flags);
+                this._isJsSlot = ((arg_flags >> 18) & 1) == 1;
+
             }
         }
         [StructLayout(LayoutKind.Sequential)]
         struct FlushNativeArgs
         {
+            public int argFlags;
         }
         //gen! bool MayBlock()
         public struct MayBlockArgs
         {
             IntPtr nativePtr; //met arg native ptr
+            bool _isJsSlot;
             internal MayBlockArgs(IntPtr nativePtr)
             {
-                int argCount;
-                this.nativePtr = MyMetArgs.GetArrHead(nativePtr, out argCount);
+                int arg_flags;
+                this.nativePtr = MyMetArgs.GetNativeObjPtr(nativePtr, out arg_flags);
+                this._isJsSlot = ((arg_flags >> 18) & 1) == 1;
+
             }
         }
         [StructLayout(LayoutKind.Sequential)]
         struct MayBlockNativeArgs
         {
+            public int argFlags;
         }
         public interface I0
         {
@@ -21815,10 +22253,13 @@ namespace LayoutFarm.CefBridge.Auto
         public struct ExecuteArgs
         {
             IntPtr nativePtr; //met arg native ptr
+            bool _isJsSlot;
             internal ExecuteArgs(IntPtr nativePtr)
             {
-                int argCount;
-                this.nativePtr = MyMetArgs.GetArrHead(nativePtr, out argCount);
+                int arg_flags;
+                this.nativePtr = MyMetArgs.GetNativeObjPtr(nativePtr, out arg_flags);
+                this._isJsSlot = ((arg_flags >> 18) & 1) == 1;
+
             }
             public string name()
             {
@@ -21844,6 +22285,7 @@ namespace LayoutFarm.CefBridge.Auto
         [StructLayout(LayoutKind.Sequential)]
         struct ExecuteNativeArgs
         {
+            public int argFlags;
             public IntPtr name;
             public IntPtr _object;
             public IntPtr arguments;
