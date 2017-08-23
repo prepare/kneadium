@@ -3,7 +3,6 @@
 using System;
 using System.Collections.Generic;
 using System.Runtime.InteropServices;
-
 namespace LayoutFarm.CefBridge.Auto
 {
 
@@ -9071,7 +9070,8 @@ namespace LayoutFarm.CefBridge.Auto
             JsValue ret;
 
             Cef3Binder.MyCefMet_Call0(this.nativePtr, CefRequestContext_GetHandler_4, out ret);
-            return new CefRequestContextHandler(ret.Ptr);
+            throw new NotSupportedException();
+            //return new CefRequestContextHandler(ret.Ptr);
         }
 
         // gen! CefString GetCachePath()
@@ -11577,7 +11577,8 @@ namespace LayoutFarm.CefBridge.Auto
             JsValue ret;
 
             Cef3Binder.MyCefMet_Call0(this.nativePtr, CefV8Value_GetFunctionHandler_42, out ret);
-            return new CefV8Handler(ret.Ptr);
+            throw new NotSupportedException();
+            //return new CefV8Handler(ret.Ptr);
         }
 
         // gen! CefRefPtr<CefV8Value> ExecuteFunction(CefRefPtr<CefV8Value> object,const CefV8ValueList& arguments)
@@ -15489,9 +15490,10 @@ namespace LayoutFarm.CefBridge.Auto
                 throw new CefNotImplementedException();
             }
         }
-        public struct OnAccessibilityTreeChangeNativeArgs
+        [StructLayout(LayoutKind.Sequential)]
+        struct OnAccessibilityTreeChangeNativeArgs
         {
-            public CefValue value;
+            public IntPtr value;
         }
         //gen! void OnAccessibilityLocationChange(CefRefPtr<CefValue> value)
         public struct OnAccessibilityLocationChangeArgs
@@ -15507,9 +15509,10 @@ namespace LayoutFarm.CefBridge.Auto
                 throw new CefNotImplementedException();
             }
         }
-        public struct OnAccessibilityLocationChangeNativeArgs
+        [StructLayout(LayoutKind.Sequential)]
+        struct OnAccessibilityLocationChangeNativeArgs
         {
-            public CefValue value;
+            public IntPtr value;
         }
         public interface I0
         {
@@ -15585,7 +15588,8 @@ namespace LayoutFarm.CefBridge.Auto
                 this.nativePtr = MyMetArgs.GetArrHead(nativePtr, out argCount);
             }
         }
-        public struct OnContextInitializedNativeArgs
+        [StructLayout(LayoutKind.Sequential)]
+        struct OnContextInitializedNativeArgs
         {
         }
         //gen! void OnBeforeChildProcessLaunch(CefRefPtr<CefCommandLine> command_line)
@@ -15602,9 +15606,10 @@ namespace LayoutFarm.CefBridge.Auto
                 return new CefCommandLine(MyMetArgs.GetAsIntPtr(nativePtr, 1));
             }
         }
-        public struct OnBeforeChildProcessLaunchNativeArgs
+        [StructLayout(LayoutKind.Sequential)]
+        struct OnBeforeChildProcessLaunchNativeArgs
         {
-            public CefCommandLine command_line;
+            public IntPtr command_line;
         }
         //gen! void OnRenderProcessThreadCreated(CefRefPtr<CefListValue> extra_info)
         public struct OnRenderProcessThreadCreatedArgs
@@ -15620,9 +15625,10 @@ namespace LayoutFarm.CefBridge.Auto
                 return new CefListValue(MyMetArgs.GetAsIntPtr(nativePtr, 1));
             }
         }
-        public struct OnRenderProcessThreadCreatedNativeArgs
+        [StructLayout(LayoutKind.Sequential)]
+        struct OnRenderProcessThreadCreatedNativeArgs
         {
-            public CefListValue extra_info;
+            public IntPtr extra_info;
         }
         //gen! CefRefPtr<CefPrintHandler> GetPrintHandler()
         public struct GetPrintHandlerArgs
@@ -15634,7 +15640,8 @@ namespace LayoutFarm.CefBridge.Auto
                 this.nativePtr = MyMetArgs.GetArrHead(nativePtr, out argCount);
             }
         }
-        public struct GetPrintHandlerNativeArgs
+        [StructLayout(LayoutKind.Sequential)]
+        struct GetPrintHandlerNativeArgs
         {
         }
         //gen! void OnScheduleMessagePumpWork(int64 delay_ms)
@@ -15651,7 +15658,8 @@ namespace LayoutFarm.CefBridge.Auto
                 return MyMetArgs.GetAsInt64(nativePtr, 1);
             }
         }
-        public struct OnScheduleMessagePumpWorkNativeArgs
+        [StructLayout(LayoutKind.Sequential)]
+        struct OnScheduleMessagePumpWorkNativeArgs
         {
             public long delay_ms;
         }
@@ -15807,12 +15815,13 @@ namespace LayoutFarm.CefBridge.Auto
                 return new CefMenuModel(MyMetArgs.GetAsIntPtr(nativePtr, 4));
             }
         }
-        public struct OnBeforeContextMenuNativeArgs
+        [StructLayout(LayoutKind.Sequential)]
+        struct OnBeforeContextMenuNativeArgs
         {
-            public CefBrowser browser;
-            public CefFrame frame;
-            public CefContextMenuParams _params;
-            public CefMenuModel model;
+            public IntPtr browser;
+            public IntPtr frame;
+            public IntPtr _params;
+            public IntPtr model;
         }
         //gen! bool RunContextMenu(CefRefPtr<CefBrowser> browser,CefRefPtr<CefFrame> frame,CefRefPtr<CefContextMenuParams> params,CefRefPtr<CefMenuModel> model,CefRefPtr<CefRunContextMenuCallback> callback)
         public struct RunContextMenuArgs
@@ -15844,13 +15853,14 @@ namespace LayoutFarm.CefBridge.Auto
                 return new CefRunContextMenuCallback(MyMetArgs.GetAsIntPtr(nativePtr, 5));
             }
         }
-        public struct RunContextMenuNativeArgs
+        [StructLayout(LayoutKind.Sequential)]
+        struct RunContextMenuNativeArgs
         {
-            public CefBrowser browser;
-            public CefFrame frame;
-            public CefContextMenuParams _params;
-            public CefMenuModel model;
-            public CefRunContextMenuCallback callback;
+            public IntPtr browser;
+            public IntPtr frame;
+            public IntPtr _params;
+            public IntPtr model;
+            public IntPtr callback;
         }
         //gen! bool OnContextMenuCommand(CefRefPtr<CefBrowser> browser,CefRefPtr<CefFrame> frame,CefRefPtr<CefContextMenuParams> params,int command_id,EventFlags event_flags)
         public struct OnContextMenuCommandArgs
@@ -15882,18 +15892,17 @@ namespace LayoutFarm.CefBridge.Auto
                 return (cef_event_flags_t)MyMetArgs.GetAsInt32(nativePtr, 5);
             }
         }
-        public struct OnContextMenuCommandNativeArgs
+        [StructLayout(LayoutKind.Sequential)]
+        struct OnContextMenuCommandNativeArgs
         {
-            public CefBrowser browser;
-            public CefFrame frame;
-            public CefContextMenuParams _params;
+            public IntPtr browser;
+            public IntPtr frame;
+            public IntPtr _params;
             public int command_id;
             public cef_event_flags_t event_flags;
         }
         //gen! void OnContextMenuDismissed(CefRefPtr<CefBrowser> browser,CefRefPtr<CefFrame> frame)
-
-        
-        struct OnContextMenuDismissedArgs
+        public struct OnContextMenuDismissedArgs
         {
             IntPtr nativePtr; //met arg native ptr
             internal OnContextMenuDismissedArgs(IntPtr nativePtr)
@@ -15911,11 +15920,10 @@ namespace LayoutFarm.CefBridge.Auto
             }
         }
         [StructLayout(LayoutKind.Sequential)]
-
-        public struct OnContextMenuDismissedNativeArgs
+        struct OnContextMenuDismissedNativeArgs
         {
-            public CefBrowser browser;
-            public CefFrame frame;
+            public IntPtr browser;
+            public IntPtr frame;
         }
         public interface I0
         {
@@ -16081,15 +16089,16 @@ namespace LayoutFarm.CefBridge.Auto
                 return new CefFileDialogCallback(MyMetArgs.GetAsIntPtr(nativePtr, 7));
             }
         }
-        public struct OnFileDialogNativeArgs
+        [StructLayout(LayoutKind.Sequential)]
+        struct OnFileDialogNativeArgs
         {
-            public CefBrowser browser;
+            public IntPtr browser;
             public cef_file_dialog_mode_t mode;
-            public string title;
-            public string default_file_path;
-            public List<string> accept_filters;
+            public IntPtr title;
+            public IntPtr default_file_path;
+            public IntPtr accept_filters;
             public int selected_accept_filter;
-            public CefFileDialogCallback callback;
+            public IntPtr callback;
         }
         public interface I0
         {
@@ -16170,11 +16179,12 @@ namespace LayoutFarm.CefBridge.Auto
                 return MyMetArgs.GetAsString(nativePtr, 3);
             }
         }
-        public struct OnAddressChangeNativeArgs
+        [StructLayout(LayoutKind.Sequential)]
+        struct OnAddressChangeNativeArgs
         {
-            public CefBrowser browser;
-            public CefFrame frame;
-            public string url;
+            public IntPtr browser;
+            public IntPtr frame;
+            public IntPtr url;
         }
         //gen! void OnTitleChange(CefRefPtr<CefBrowser> browser,const CefString& title)
         public struct OnTitleChangeArgs
@@ -16194,10 +16204,11 @@ namespace LayoutFarm.CefBridge.Auto
                 return MyMetArgs.GetAsString(nativePtr, 2);
             }
         }
-        public struct OnTitleChangeNativeArgs
+        [StructLayout(LayoutKind.Sequential)]
+        struct OnTitleChangeNativeArgs
         {
-            public CefBrowser browser;
-            public string title;
+            public IntPtr browser;
+            public IntPtr title;
         }
         //gen! void OnFaviconURLChange(CefRefPtr<CefBrowser> browser,const std::vector<CefString>& icon_urls)
         public struct OnFaviconURLChangeArgs
@@ -16217,10 +16228,11 @@ namespace LayoutFarm.CefBridge.Auto
                 throw new CefNotImplementedException();
             }
         }
-        public struct OnFaviconURLChangeNativeArgs
+        [StructLayout(LayoutKind.Sequential)]
+        struct OnFaviconURLChangeNativeArgs
         {
-            public CefBrowser browser;
-            public List<string> icon_urls;
+            public IntPtr browser;
+            public IntPtr icon_urls;
         }
         //gen! void OnFullscreenModeChange(CefRefPtr<CefBrowser> browser,bool fullscreen)
         public struct OnFullscreenModeChangeArgs
@@ -16240,9 +16252,10 @@ namespace LayoutFarm.CefBridge.Auto
                 return MyMetArgs.GetAsBool(nativePtr, 2);
             }
         }
-        public struct OnFullscreenModeChangeNativeArgs
+        [StructLayout(LayoutKind.Sequential)]
+        struct OnFullscreenModeChangeNativeArgs
         {
-            public CefBrowser browser;
+            public IntPtr browser;
             public bool fullscreen;
         }
         //gen! bool OnTooltip(CefRefPtr<CefBrowser> browser,CefString& text)
@@ -16263,10 +16276,11 @@ namespace LayoutFarm.CefBridge.Auto
                 return MyMetArgs.GetAsString(nativePtr, 2);
             }
         }
-        public struct OnTooltipNativeArgs
+        [StructLayout(LayoutKind.Sequential)]
+        struct OnTooltipNativeArgs
         {
-            public CefBrowser browser;
-            public string text;
+            public IntPtr browser;
+            public IntPtr text;
         }
         //gen! void OnStatusMessage(CefRefPtr<CefBrowser> browser,const CefString& value)
         public struct OnStatusMessageArgs
@@ -16286,10 +16300,11 @@ namespace LayoutFarm.CefBridge.Auto
                 return MyMetArgs.GetAsString(nativePtr, 2);
             }
         }
-        public struct OnStatusMessageNativeArgs
+        [StructLayout(LayoutKind.Sequential)]
+        struct OnStatusMessageNativeArgs
         {
-            public CefBrowser browser;
-            public string value;
+            public IntPtr browser;
+            public IntPtr value;
         }
         //gen! bool OnConsoleMessage(CefRefPtr<CefBrowser> browser,const CefString& message,const CefString& source,int line)
         public struct OnConsoleMessageArgs
@@ -16317,11 +16332,12 @@ namespace LayoutFarm.CefBridge.Auto
                 return MyMetArgs.GetAsInt32(nativePtr, 4);
             }
         }
-        public struct OnConsoleMessageNativeArgs
+        [StructLayout(LayoutKind.Sequential)]
+        struct OnConsoleMessageNativeArgs
         {
-            public CefBrowser browser;
-            public string message;
-            public string source;
+            public IntPtr browser;
+            public IntPtr message;
+            public IntPtr source;
             public int line;
         }
         public interface I0
@@ -16536,12 +16552,13 @@ namespace LayoutFarm.CefBridge.Auto
                 return new CefBeforeDownloadCallback(MyMetArgs.GetAsIntPtr(nativePtr, 4));
             }
         }
-        public struct OnBeforeDownloadNativeArgs
+        [StructLayout(LayoutKind.Sequential)]
+        struct OnBeforeDownloadNativeArgs
         {
-            public CefBrowser browser;
-            public CefDownloadItem download_item;
-            public string suggested_name;
-            public CefBeforeDownloadCallback callback;
+            public IntPtr browser;
+            public IntPtr download_item;
+            public IntPtr suggested_name;
+            public IntPtr callback;
         }
         //gen! void OnDownloadUpdated(CefRefPtr<CefBrowser> browser,CefRefPtr<CefDownloadItem> download_item,CefRefPtr<CefDownloadItemCallback> callback)
         public struct OnDownloadUpdatedArgs
@@ -16565,11 +16582,12 @@ namespace LayoutFarm.CefBridge.Auto
                 return new CefDownloadItemCallback(MyMetArgs.GetAsIntPtr(nativePtr, 3));
             }
         }
-        public struct OnDownloadUpdatedNativeArgs
+        [StructLayout(LayoutKind.Sequential)]
+        struct OnDownloadUpdatedNativeArgs
         {
-            public CefBrowser browser;
-            public CefDownloadItem download_item;
-            public CefDownloadItemCallback callback;
+            public IntPtr browser;
+            public IntPtr download_item;
+            public IntPtr callback;
         }
         public interface I0
         {
@@ -16664,10 +16682,11 @@ namespace LayoutFarm.CefBridge.Auto
                 return (cef_drag_operations_mask_t)MyMetArgs.GetAsInt32(nativePtr, 3);
             }
         }
-        public struct OnDragEnterNativeArgs
+        [StructLayout(LayoutKind.Sequential)]
+        struct OnDragEnterNativeArgs
         {
-            public CefBrowser browser;
-            public CefDragData dragData;
+            public IntPtr browser;
+            public IntPtr dragData;
             public cef_drag_operations_mask_t mask;
         }
         //gen! void OnDraggableRegionsChanged(CefRefPtr<CefBrowser> browser,const std::vector<CefDraggableRegion>& regions)
@@ -16688,10 +16707,11 @@ namespace LayoutFarm.CefBridge.Auto
                 throw new CefNotImplementedException();
             }
         }
-        public struct OnDraggableRegionsChangedNativeArgs
+        [StructLayout(LayoutKind.Sequential)]
+        struct OnDraggableRegionsChangedNativeArgs
         {
-            public CefBrowser browser;
-            public List<object> regions;
+            public IntPtr browser;
+            public IntPtr regions;
         }
         public interface I0
         {
@@ -16793,12 +16813,13 @@ namespace LayoutFarm.CefBridge.Auto
                 return MyMetArgs.GetAsBool(nativePtr, 6);
             }
         }
-        public struct OnFindResultNativeArgs
+        [StructLayout(LayoutKind.Sequential)]
+        struct OnFindResultNativeArgs
         {
-            public CefBrowser browser;
+            public IntPtr browser;
             public int identifier;
             public int count;
-            public CefRect selectionRect;
+            public IntPtr selectionRect;
             public int activeMatchOrdinal;
             public bool finalUpdate;
         }
@@ -16871,9 +16892,10 @@ namespace LayoutFarm.CefBridge.Auto
                 return MyMetArgs.GetAsBool(nativePtr, 2);
             }
         }
-        public struct OnTakeFocusNativeArgs
+        [StructLayout(LayoutKind.Sequential)]
+        struct OnTakeFocusNativeArgs
         {
-            public CefBrowser browser;
+            public IntPtr browser;
             public bool next;
         }
         //gen! bool OnSetFocus(CefRefPtr<CefBrowser> browser,FocusSource source)
@@ -16894,9 +16916,10 @@ namespace LayoutFarm.CefBridge.Auto
                 return (cef_focus_source_t)MyMetArgs.GetAsInt32(nativePtr, 2);
             }
         }
-        public struct OnSetFocusNativeArgs
+        [StructLayout(LayoutKind.Sequential)]
+        struct OnSetFocusNativeArgs
         {
-            public CefBrowser browser;
+            public IntPtr browser;
             public cef_focus_source_t source;
         }
         //gen! void OnGotFocus(CefRefPtr<CefBrowser> browser)
@@ -16913,9 +16936,10 @@ namespace LayoutFarm.CefBridge.Auto
                 return new CefBrowser(MyMetArgs.GetAsIntPtr(nativePtr, 1));
             }
         }
-        public struct OnGotFocusNativeArgs
+        [StructLayout(LayoutKind.Sequential)]
+        struct OnGotFocusNativeArgs
         {
-            public CefBrowser browser;
+            public IntPtr browser;
         }
         public interface I0
         {
@@ -17029,12 +17053,13 @@ namespace LayoutFarm.CefBridge.Auto
                 return new CefGeolocationCallback(MyMetArgs.GetAsIntPtr(nativePtr, 4));
             }
         }
-        public struct OnRequestGeolocationPermissionNativeArgs
+        [StructLayout(LayoutKind.Sequential)]
+        struct OnRequestGeolocationPermissionNativeArgs
         {
-            public CefBrowser browser;
-            public string requesting_url;
+            public IntPtr browser;
+            public IntPtr requesting_url;
             public int request_id;
-            public CefGeolocationCallback callback;
+            public IntPtr callback;
         }
         //gen! void OnCancelGeolocationPermission(CefRefPtr<CefBrowser> browser,int request_id)
         public struct OnCancelGeolocationPermissionArgs
@@ -17054,9 +17079,10 @@ namespace LayoutFarm.CefBridge.Auto
                 return MyMetArgs.GetAsInt32(nativePtr, 2);
             }
         }
-        public struct OnCancelGeolocationPermissionNativeArgs
+        [StructLayout(LayoutKind.Sequential)]
+        struct OnCancelGeolocationPermissionNativeArgs
         {
-            public CefBrowser browser;
+            public IntPtr browser;
             public int request_id;
         }
         public interface I0
@@ -17172,15 +17198,16 @@ namespace LayoutFarm.CefBridge.Auto
                 MyMetArgs.SetBoolToAddress(nativePtr, 7, value);
             }
         }
-        public struct OnJSDialogNativeArgs
+        [StructLayout(LayoutKind.Sequential)]
+        struct OnJSDialogNativeArgs
         {
-            public CefBrowser browser;
-            public string origin_url;
+            public IntPtr browser;
+            public IntPtr origin_url;
             public cef_jsdialog_type_t dialog_type;
-            public string message_text;
-            public string default_prompt_text;
-            public CefJSDialogCallback callback;
-            public bool suppress_message;
+            public IntPtr message_text;
+            public IntPtr default_prompt_text;
+            public IntPtr callback;
+            public double suppress_message;
         }
         //gen! bool OnBeforeUnloadDialog(CefRefPtr<CefBrowser> browser,const CefString& message_text,bool is_reload,CefRefPtr<CefJSDialogCallback> callback)
         public struct OnBeforeUnloadDialogArgs
@@ -17208,12 +17235,13 @@ namespace LayoutFarm.CefBridge.Auto
                 return new CefJSDialogCallback(MyMetArgs.GetAsIntPtr(nativePtr, 4));
             }
         }
-        public struct OnBeforeUnloadDialogNativeArgs
+        [StructLayout(LayoutKind.Sequential)]
+        struct OnBeforeUnloadDialogNativeArgs
         {
-            public CefBrowser browser;
-            public string message_text;
+            public IntPtr browser;
+            public IntPtr message_text;
             public bool is_reload;
-            public CefJSDialogCallback callback;
+            public IntPtr callback;
         }
         //gen! void OnResetDialogState(CefRefPtr<CefBrowser> browser)
         public struct OnResetDialogStateArgs
@@ -17229,9 +17257,10 @@ namespace LayoutFarm.CefBridge.Auto
                 return new CefBrowser(MyMetArgs.GetAsIntPtr(nativePtr, 1));
             }
         }
-        public struct OnResetDialogStateNativeArgs
+        [StructLayout(LayoutKind.Sequential)]
+        struct OnResetDialogStateNativeArgs
         {
-            public CefBrowser browser;
+            public IntPtr browser;
         }
         //gen! void OnDialogClosed(CefRefPtr<CefBrowser> browser)
         public struct OnDialogClosedArgs
@@ -17247,9 +17276,10 @@ namespace LayoutFarm.CefBridge.Auto
                 return new CefBrowser(MyMetArgs.GetAsIntPtr(nativePtr, 1));
             }
         }
-        public struct OnDialogClosedNativeArgs
+        [StructLayout(LayoutKind.Sequential)]
+        struct OnDialogClosedNativeArgs
         {
-            public CefBrowser browser;
+            public IntPtr browser;
         }
         public interface I0
         {
@@ -17406,12 +17436,13 @@ namespace LayoutFarm.CefBridge.Auto
                 MyMetArgs.SetBoolToAddress(nativePtr, 4, value);
             }
         }
-        public struct OnPreKeyEventNativeArgs
+        [StructLayout(LayoutKind.Sequential)]
+        struct OnPreKeyEventNativeArgs
         {
-            public CefBrowser browser;
-            public CefKeyEvent _event;
+            public IntPtr browser;
+            public IntPtr _event;
             public IntPtr os_event;
-            public bool is_keyboard_shortcut;
+            public double is_keyboard_shortcut;
         }
         //gen! bool OnKeyEvent(CefRefPtr<CefBrowser> browser,const CefKeyEvent& event,CefEventHandle os_event)
         public struct OnKeyEventArgs
@@ -17435,10 +17466,11 @@ namespace LayoutFarm.CefBridge.Auto
                 throw new CefNotImplementedException();
             }
         }
-        public struct OnKeyEventNativeArgs
+        [StructLayout(LayoutKind.Sequential)]
+        struct OnKeyEventNativeArgs
         {
-            public CefBrowser browser;
-            public CefKeyEvent _event;
+            public IntPtr browser;
+            public IntPtr _event;
             public IntPtr os_event;
         }
         public interface I0
@@ -17576,19 +17608,20 @@ namespace LayoutFarm.CefBridge.Auto
                 MyMetArgs.SetBoolToAddress(nativePtr, 11, value);
             }
         }
-        public struct OnBeforePopupNativeArgs
+        [StructLayout(LayoutKind.Sequential)]
+        struct OnBeforePopupNativeArgs
         {
-            public CefBrowser browser;
-            public CefFrame frame;
-            public string target_url;
-            public string target_frame_name;
+            public IntPtr browser;
+            public IntPtr frame;
+            public IntPtr target_url;
+            public IntPtr target_frame_name;
             public cef_window_open_disposition_t target_disposition;
             public bool user_gesture;
-            public CefPopupFeatures popupFeatures;
-            public CefWindowInfo windowInfo;
+            public IntPtr popupFeatures;
+            public IntPtr windowInfo;
             public IntPtr client;
-            public CefBrowserSettings settings;
-            public bool no_javascript_access;
+            public IntPtr settings;
+            public double no_javascript_access;
         }
         //gen! void OnAfterCreated(CefRefPtr<CefBrowser> browser)
         public struct OnAfterCreatedArgs
@@ -17604,9 +17637,10 @@ namespace LayoutFarm.CefBridge.Auto
                 return new CefBrowser(MyMetArgs.GetAsIntPtr(nativePtr, 1));
             }
         }
-        public struct OnAfterCreatedNativeArgs
+        [StructLayout(LayoutKind.Sequential)]
+        struct OnAfterCreatedNativeArgs
         {
-            public CefBrowser browser;
+            public IntPtr browser;
         }
         //gen! bool DoClose(CefRefPtr<CefBrowser> browser)
         public struct DoCloseArgs
@@ -17622,9 +17656,10 @@ namespace LayoutFarm.CefBridge.Auto
                 return new CefBrowser(MyMetArgs.GetAsIntPtr(nativePtr, 1));
             }
         }
-        public struct DoCloseNativeArgs
+        [StructLayout(LayoutKind.Sequential)]
+        struct DoCloseNativeArgs
         {
-            public CefBrowser browser;
+            public IntPtr browser;
         }
         //gen! void OnBeforeClose(CefRefPtr<CefBrowser> browser)
         public struct OnBeforeCloseArgs
@@ -17640,9 +17675,10 @@ namespace LayoutFarm.CefBridge.Auto
                 return new CefBrowser(MyMetArgs.GetAsIntPtr(nativePtr, 1));
             }
         }
-        public struct OnBeforeCloseNativeArgs
+        [StructLayout(LayoutKind.Sequential)]
+        struct OnBeforeCloseNativeArgs
         {
-            public CefBrowser browser;
+            public IntPtr browser;
         }
         public interface I0
         {
@@ -17799,9 +17835,10 @@ namespace LayoutFarm.CefBridge.Auto
                 return MyMetArgs.GetAsBool(nativePtr, 4);
             }
         }
-        public struct OnLoadingStateChangeNativeArgs
+        [StructLayout(LayoutKind.Sequential)]
+        struct OnLoadingStateChangeNativeArgs
         {
-            public CefBrowser browser;
+            public IntPtr browser;
             public bool isLoading;
             public bool canGoBack;
             public bool canGoForward;
@@ -17828,10 +17865,11 @@ namespace LayoutFarm.CefBridge.Auto
                 return (cef_transition_type_t)MyMetArgs.GetAsInt32(nativePtr, 3);
             }
         }
-        public struct OnLoadStartNativeArgs
+        [StructLayout(LayoutKind.Sequential)]
+        struct OnLoadStartNativeArgs
         {
-            public CefBrowser browser;
-            public CefFrame frame;
+            public IntPtr browser;
+            public IntPtr frame;
             public cef_transition_type_t transition_type;
         }
         //gen! void OnLoadEnd(CefRefPtr<CefBrowser> browser,CefRefPtr<CefFrame> frame,int httpStatusCode)
@@ -17856,10 +17894,11 @@ namespace LayoutFarm.CefBridge.Auto
                 return MyMetArgs.GetAsInt32(nativePtr, 3);
             }
         }
-        public struct OnLoadEndNativeArgs
+        [StructLayout(LayoutKind.Sequential)]
+        struct OnLoadEndNativeArgs
         {
-            public CefBrowser browser;
-            public CefFrame frame;
+            public IntPtr browser;
+            public IntPtr frame;
             public int httpStatusCode;
         }
         //gen! void OnLoadError(CefRefPtr<CefBrowser> browser,CefRefPtr<CefFrame> frame,ErrorCode errorCode,const CefString& errorText,const CefString& failedUrl)
@@ -17892,13 +17931,14 @@ namespace LayoutFarm.CefBridge.Auto
                 return MyMetArgs.GetAsString(nativePtr, 5);
             }
         }
-        public struct OnLoadErrorNativeArgs
+        [StructLayout(LayoutKind.Sequential)]
+        struct OnLoadErrorNativeArgs
         {
-            public CefBrowser browser;
-            public CefFrame frame;
+            public IntPtr browser;
+            public IntPtr frame;
             public cef_errorcode_t errorCode;
-            public string errorText;
-            public string failedUrl;
+            public IntPtr errorText;
+            public IntPtr failedUrl;
         }
         public interface I0
         {
@@ -18043,9 +18083,10 @@ namespace LayoutFarm.CefBridge.Auto
                 return new CefBrowser(MyMetArgs.GetAsIntPtr(nativePtr, 1));
             }
         }
-        public struct OnPrintStartNativeArgs
+        [StructLayout(LayoutKind.Sequential)]
+        struct OnPrintStartNativeArgs
         {
-            public CefBrowser browser;
+            public IntPtr browser;
         }
         //gen! void OnPrintSettings(CefRefPtr<CefBrowser> browser,CefRefPtr<CefPrintSettings> settings,bool get_defaults)
         public struct OnPrintSettingsArgs
@@ -18069,10 +18110,11 @@ namespace LayoutFarm.CefBridge.Auto
                 return MyMetArgs.GetAsBool(nativePtr, 3);
             }
         }
-        public struct OnPrintSettingsNativeArgs
+        [StructLayout(LayoutKind.Sequential)]
+        struct OnPrintSettingsNativeArgs
         {
-            public CefBrowser browser;
-            public CefPrintSettings settings;
+            public IntPtr browser;
+            public IntPtr settings;
             public bool get_defaults;
         }
         //gen! bool OnPrintDialog(CefRefPtr<CefBrowser> browser,bool has_selection,CefRefPtr<CefPrintDialogCallback> callback)
@@ -18097,11 +18139,12 @@ namespace LayoutFarm.CefBridge.Auto
                 return new CefPrintDialogCallback(MyMetArgs.GetAsIntPtr(nativePtr, 3));
             }
         }
-        public struct OnPrintDialogNativeArgs
+        [StructLayout(LayoutKind.Sequential)]
+        struct OnPrintDialogNativeArgs
         {
-            public CefBrowser browser;
+            public IntPtr browser;
             public bool has_selection;
-            public CefPrintDialogCallback callback;
+            public IntPtr callback;
         }
         //gen! bool OnPrintJob(CefRefPtr<CefBrowser> browser,const CefString& document_name,const CefString& pdf_file_path,CefRefPtr<CefPrintJobCallback> callback)
         public struct OnPrintJobArgs
@@ -18129,12 +18172,13 @@ namespace LayoutFarm.CefBridge.Auto
                 return new CefPrintJobCallback(MyMetArgs.GetAsIntPtr(nativePtr, 4));
             }
         }
-        public struct OnPrintJobNativeArgs
+        [StructLayout(LayoutKind.Sequential)]
+        struct OnPrintJobNativeArgs
         {
-            public CefBrowser browser;
-            public string document_name;
-            public string pdf_file_path;
-            public CefPrintJobCallback callback;
+            public IntPtr browser;
+            public IntPtr document_name;
+            public IntPtr pdf_file_path;
+            public IntPtr callback;
         }
         //gen! void OnPrintReset(CefRefPtr<CefBrowser> browser)
         public struct OnPrintResetArgs
@@ -18150,9 +18194,10 @@ namespace LayoutFarm.CefBridge.Auto
                 return new CefBrowser(MyMetArgs.GetAsIntPtr(nativePtr, 1));
             }
         }
-        public struct OnPrintResetNativeArgs
+        [StructLayout(LayoutKind.Sequential)]
+        struct OnPrintResetNativeArgs
         {
-            public CefBrowser browser;
+            public IntPtr browser;
         }
         //gen! CefSize GetPdfPaperSize(int device_units_per_inch)
         public struct GetPdfPaperSizeArgs
@@ -18168,7 +18213,8 @@ namespace LayoutFarm.CefBridge.Auto
                 return MyMetArgs.GetAsInt32(nativePtr, 1);
             }
         }
-        public struct GetPdfPaperSizeNativeArgs
+        [StructLayout(LayoutKind.Sequential)]
+        struct GetPdfPaperSizeNativeArgs
         {
             public int device_units_per_inch;
         }
@@ -18352,7 +18398,8 @@ namespace LayoutFarm.CefBridge.Auto
                 this.nativePtr = MyMetArgs.GetArrHead(nativePtr, out argCount);
             }
         }
-        public struct GetAccessibilityHandlerNativeArgs
+        [StructLayout(LayoutKind.Sequential)]
+        struct GetAccessibilityHandlerNativeArgs
         {
         }
         //gen! bool GetRootScreenRect(CefRefPtr<CefBrowser> browser,CefRect& rect)
@@ -18373,10 +18420,11 @@ namespace LayoutFarm.CefBridge.Auto
                 return new CefRect(MyMetArgs.GetAsIntPtr(nativePtr, 2));
             }
         }
-        public struct GetRootScreenRectNativeArgs
+        [StructLayout(LayoutKind.Sequential)]
+        struct GetRootScreenRectNativeArgs
         {
-            public CefBrowser browser;
-            public CefRect rect;
+            public IntPtr browser;
+            public IntPtr rect;
         }
         //gen! bool GetViewRect(CefRefPtr<CefBrowser> browser,CefRect& rect)
         public struct GetViewRectArgs
@@ -18396,10 +18444,11 @@ namespace LayoutFarm.CefBridge.Auto
                 return new CefRect(MyMetArgs.GetAsIntPtr(nativePtr, 2));
             }
         }
-        public struct GetViewRectNativeArgs
+        [StructLayout(LayoutKind.Sequential)]
+        struct GetViewRectNativeArgs
         {
-            public CefBrowser browser;
-            public CefRect rect;
+            public IntPtr browser;
+            public IntPtr rect;
         }
         //gen! bool GetScreenPoint(CefRefPtr<CefBrowser> browser,int viewX,int viewY,int& screenX,int& screenY)
         public struct GetScreenPointArgs
@@ -18439,9 +18488,10 @@ namespace LayoutFarm.CefBridge.Auto
                 MyMetArgs.SetInt32ToAddress(nativePtr, 5, value);
             }
         }
-        public struct GetScreenPointNativeArgs
+        [StructLayout(LayoutKind.Sequential)]
+        struct GetScreenPointNativeArgs
         {
-            public CefBrowser browser;
+            public IntPtr browser;
             public int viewX;
             public int viewY;
             public int screenX;
@@ -18465,10 +18515,11 @@ namespace LayoutFarm.CefBridge.Auto
                 return new CefScreenInfo(MyMetArgs.GetAsIntPtr(nativePtr, 2));
             }
         }
-        public struct GetScreenInfoNativeArgs
+        [StructLayout(LayoutKind.Sequential)]
+        struct GetScreenInfoNativeArgs
         {
-            public CefBrowser browser;
-            public CefScreenInfo screen_info;
+            public IntPtr browser;
+            public IntPtr screen_info;
         }
         //gen! void OnPopupShow(CefRefPtr<CefBrowser> browser,bool show)
         public struct OnPopupShowArgs
@@ -18488,9 +18539,10 @@ namespace LayoutFarm.CefBridge.Auto
                 return MyMetArgs.GetAsBool(nativePtr, 2);
             }
         }
-        public struct OnPopupShowNativeArgs
+        [StructLayout(LayoutKind.Sequential)]
+        struct OnPopupShowNativeArgs
         {
-            public CefBrowser browser;
+            public IntPtr browser;
             public bool show;
         }
         //gen! void OnPopupSize(CefRefPtr<CefBrowser> browser,const CefRect& rect)
@@ -18511,10 +18563,11 @@ namespace LayoutFarm.CefBridge.Auto
                 return new CefRect(MyMetArgs.GetAsIntPtr(nativePtr, 2));
             }
         }
-        public struct OnPopupSizeNativeArgs
+        [StructLayout(LayoutKind.Sequential)]
+        struct OnPopupSizeNativeArgs
         {
-            public CefBrowser browser;
-            public CefRect rect;
+            public IntPtr browser;
+            public IntPtr rect;
         }
         //gen! void OnPaint(CefRefPtr<CefBrowser> browser,PaintElementType type,const RectList& dirtyRects,const void* buffer,int width,int height)
         public struct OnPaintArgs
@@ -18550,11 +18603,12 @@ namespace LayoutFarm.CefBridge.Auto
                 return MyMetArgs.GetAsInt32(nativePtr, 6);
             }
         }
-        public struct OnPaintNativeArgs
+        [StructLayout(LayoutKind.Sequential)]
+        struct OnPaintNativeArgs
         {
-            public CefBrowser browser;
+            public IntPtr browser;
             public cef_paint_element_type_t type;
-            public List<object> dirtyRects;
+            public IntPtr dirtyRects;
             public IntPtr buffer;
             public int width;
             public int height;
@@ -18585,12 +18639,13 @@ namespace LayoutFarm.CefBridge.Auto
                 return new CefCursorInfo(MyMetArgs.GetAsIntPtr(nativePtr, 4));
             }
         }
-        public struct OnCursorChangeNativeArgs
+        [StructLayout(LayoutKind.Sequential)]
+        struct OnCursorChangeNativeArgs
         {
-            public CefBrowser browser;
+            public IntPtr browser;
             public IntPtr cursor;
             public cef_cursor_type_t type;
-            public CefCursorInfo custom_cursor_info;
+            public IntPtr custom_cursor_info;
         }
         //gen! bool StartDragging(CefRefPtr<CefBrowser> browser,CefRefPtr<CefDragData> drag_data,DragOperationsMask allowed_ops,int x,int y)
         public struct StartDraggingArgs
@@ -18622,10 +18677,11 @@ namespace LayoutFarm.CefBridge.Auto
                 return MyMetArgs.GetAsInt32(nativePtr, 5);
             }
         }
-        public struct StartDraggingNativeArgs
+        [StructLayout(LayoutKind.Sequential)]
+        struct StartDraggingNativeArgs
         {
-            public CefBrowser browser;
-            public CefDragData drag_data;
+            public IntPtr browser;
+            public IntPtr drag_data;
             public cef_drag_operations_mask_t allowed_ops;
             public int x;
             public int y;
@@ -18648,9 +18704,10 @@ namespace LayoutFarm.CefBridge.Auto
                 return (cef_drag_operations_mask_t)MyMetArgs.GetAsInt32(nativePtr, 2);
             }
         }
-        public struct UpdateDragCursorNativeArgs
+        [StructLayout(LayoutKind.Sequential)]
+        struct UpdateDragCursorNativeArgs
         {
-            public CefBrowser browser;
+            public IntPtr browser;
             public cef_drag_operations_mask_t operation;
         }
         //gen! void OnScrollOffsetChanged(CefRefPtr<CefBrowser> browser,double x,double y)
@@ -18675,9 +18732,10 @@ namespace LayoutFarm.CefBridge.Auto
                 return MyMetArgs.GetAsDouble(nativePtr, 3);
             }
         }
-        public struct OnScrollOffsetChangedNativeArgs
+        [StructLayout(LayoutKind.Sequential)]
+        struct OnScrollOffsetChangedNativeArgs
         {
-            public CefBrowser browser;
+            public IntPtr browser;
             public double x;
             public double y;
         }
@@ -18703,11 +18761,12 @@ namespace LayoutFarm.CefBridge.Auto
                 throw new CefNotImplementedException();
             }
         }
-        public struct OnImeCompositionRangeChangedNativeArgs
+        [StructLayout(LayoutKind.Sequential)]
+        struct OnImeCompositionRangeChangedNativeArgs
         {
-            public CefBrowser browser;
-            public CefRange selected_range;
-            public List<object> character_bounds;
+            public IntPtr browser;
+            public IntPtr selected_range;
+            public IntPtr character_bounds;
         }
         public interface I0
         {
@@ -19084,9 +19143,10 @@ namespace LayoutFarm.CefBridge.Auto
                 return new CefListValue(MyMetArgs.GetAsIntPtr(nativePtr, 1));
             }
         }
-        public struct OnRenderThreadCreatedNativeArgs
+        [StructLayout(LayoutKind.Sequential)]
+        struct OnRenderThreadCreatedNativeArgs
         {
-            public CefListValue extra_info;
+            public IntPtr extra_info;
         }
         //gen! void OnWebKitInitialized()
         public struct OnWebKitInitializedArgs
@@ -19098,7 +19158,8 @@ namespace LayoutFarm.CefBridge.Auto
                 this.nativePtr = MyMetArgs.GetArrHead(nativePtr, out argCount);
             }
         }
-        public struct OnWebKitInitializedNativeArgs
+        [StructLayout(LayoutKind.Sequential)]
+        struct OnWebKitInitializedNativeArgs
         {
         }
         //gen! void OnBrowserCreated(CefRefPtr<CefBrowser> browser)
@@ -19115,9 +19176,10 @@ namespace LayoutFarm.CefBridge.Auto
                 return new CefBrowser(MyMetArgs.GetAsIntPtr(nativePtr, 1));
             }
         }
-        public struct OnBrowserCreatedNativeArgs
+        [StructLayout(LayoutKind.Sequential)]
+        struct OnBrowserCreatedNativeArgs
         {
-            public CefBrowser browser;
+            public IntPtr browser;
         }
         //gen! void OnBrowserDestroyed(CefRefPtr<CefBrowser> browser)
         public struct OnBrowserDestroyedArgs
@@ -19133,9 +19195,10 @@ namespace LayoutFarm.CefBridge.Auto
                 return new CefBrowser(MyMetArgs.GetAsIntPtr(nativePtr, 1));
             }
         }
-        public struct OnBrowserDestroyedNativeArgs
+        [StructLayout(LayoutKind.Sequential)]
+        struct OnBrowserDestroyedNativeArgs
         {
-            public CefBrowser browser;
+            public IntPtr browser;
         }
         //gen! CefRefPtr<CefLoadHandler> GetLoadHandler()
         public struct GetLoadHandlerArgs
@@ -19147,7 +19210,8 @@ namespace LayoutFarm.CefBridge.Auto
                 this.nativePtr = MyMetArgs.GetArrHead(nativePtr, out argCount);
             }
         }
-        public struct GetLoadHandlerNativeArgs
+        [StructLayout(LayoutKind.Sequential)]
+        struct GetLoadHandlerNativeArgs
         {
         }
         //gen! bool OnBeforeNavigation(CefRefPtr<CefBrowser> browser,CefRefPtr<CefFrame> frame,CefRefPtr<CefRequest> request,NavigationType navigation_type,bool is_redirect)
@@ -19180,11 +19244,12 @@ namespace LayoutFarm.CefBridge.Auto
                 return MyMetArgs.GetAsBool(nativePtr, 5);
             }
         }
-        public struct OnBeforeNavigationNativeArgs
+        [StructLayout(LayoutKind.Sequential)]
+        struct OnBeforeNavigationNativeArgs
         {
-            public CefBrowser browser;
-            public CefFrame frame;
-            public CefRequest request;
+            public IntPtr browser;
+            public IntPtr frame;
+            public IntPtr request;
             public cef_navigation_type_t navigation_type;
             public bool is_redirect;
         }
@@ -19210,11 +19275,12 @@ namespace LayoutFarm.CefBridge.Auto
                 return new CefV8Context(MyMetArgs.GetAsIntPtr(nativePtr, 3));
             }
         }
-        public struct OnContextCreatedNativeArgs
+        [StructLayout(LayoutKind.Sequential)]
+        struct OnContextCreatedNativeArgs
         {
-            public CefBrowser browser;
-            public CefFrame frame;
-            public CefV8Context context;
+            public IntPtr browser;
+            public IntPtr frame;
+            public IntPtr context;
         }
         //gen! void OnContextReleased(CefRefPtr<CefBrowser> browser,CefRefPtr<CefFrame> frame,CefRefPtr<CefV8Context> context)
         public struct OnContextReleasedArgs
@@ -19238,11 +19304,12 @@ namespace LayoutFarm.CefBridge.Auto
                 return new CefV8Context(MyMetArgs.GetAsIntPtr(nativePtr, 3));
             }
         }
-        public struct OnContextReleasedNativeArgs
+        [StructLayout(LayoutKind.Sequential)]
+        struct OnContextReleasedNativeArgs
         {
-            public CefBrowser browser;
-            public CefFrame frame;
-            public CefV8Context context;
+            public IntPtr browser;
+            public IntPtr frame;
+            public IntPtr context;
         }
         //gen! void OnUncaughtException(CefRefPtr<CefBrowser> browser,CefRefPtr<CefFrame> frame,CefRefPtr<CefV8Context> context,CefRefPtr<CefV8Exception> exception,CefRefPtr<CefV8StackTrace> stackTrace)
         public struct OnUncaughtExceptionArgs
@@ -19274,13 +19341,14 @@ namespace LayoutFarm.CefBridge.Auto
                 return new CefV8StackTrace(MyMetArgs.GetAsIntPtr(nativePtr, 5));
             }
         }
-        public struct OnUncaughtExceptionNativeArgs
+        [StructLayout(LayoutKind.Sequential)]
+        struct OnUncaughtExceptionNativeArgs
         {
-            public CefBrowser browser;
-            public CefFrame frame;
-            public CefV8Context context;
-            public CefV8Exception exception;
-            public CefV8StackTrace stackTrace;
+            public IntPtr browser;
+            public IntPtr frame;
+            public IntPtr context;
+            public IntPtr exception;
+            public IntPtr stackTrace;
         }
         //gen! void OnFocusedNodeChanged(CefRefPtr<CefBrowser> browser,CefRefPtr<CefFrame> frame,CefRefPtr<CefDOMNode> node)
         public struct OnFocusedNodeChangedArgs
@@ -19304,11 +19372,12 @@ namespace LayoutFarm.CefBridge.Auto
                 return new CefDOMNode(MyMetArgs.GetAsIntPtr(nativePtr, 3));
             }
         }
-        public struct OnFocusedNodeChangedNativeArgs
+        [StructLayout(LayoutKind.Sequential)]
+        struct OnFocusedNodeChangedNativeArgs
         {
-            public CefBrowser browser;
-            public CefFrame frame;
-            public CefDOMNode node;
+            public IntPtr browser;
+            public IntPtr frame;
+            public IntPtr node;
         }
         //gen! bool OnProcessMessageReceived(CefRefPtr<CefBrowser> browser,CefProcessId source_process,CefRefPtr<CefProcessMessage> message)
         public struct OnProcessMessageReceivedArgs
@@ -19332,11 +19401,12 @@ namespace LayoutFarm.CefBridge.Auto
                 return new CefProcessMessage(MyMetArgs.GetAsIntPtr(nativePtr, 3));
             }
         }
-        public struct OnProcessMessageReceivedNativeArgs
+        [StructLayout(LayoutKind.Sequential)]
+        struct OnProcessMessageReceivedNativeArgs
         {
-            public CefBrowser browser;
+            public IntPtr browser;
             public cef_process_id_t source_process;
-            public CefProcessMessage message;
+            public IntPtr message;
         }
         public interface I0
         {
@@ -19630,7 +19700,8 @@ namespace LayoutFarm.CefBridge.Auto
                 this.nativePtr = MyMetArgs.GetArrHead(nativePtr, out argCount);
             }
         }
-        public struct GetCookieManagerNativeArgs
+        [StructLayout(LayoutKind.Sequential)]
+        struct GetCookieManagerNativeArgs
         {
         }
         //gen! bool OnBeforePluginLoad(const CefString& mime_type,const CefString& plugin_url,bool is_main_frame,const CefString& top_origin_url,CefRefPtr<CefWebPluginInfo> plugin_info,PluginPolicy* plugin_policy)
@@ -19667,13 +19738,14 @@ namespace LayoutFarm.CefBridge.Auto
                 return (cef_plugin_policy_t)MyMetArgs.GetAsInt32(nativePtr, 6);
             }
         }
-        public struct OnBeforePluginLoadNativeArgs
+        [StructLayout(LayoutKind.Sequential)]
+        struct OnBeforePluginLoadNativeArgs
         {
-            public string mime_type;
-            public string plugin_url;
+            public IntPtr mime_type;
+            public IntPtr plugin_url;
             public bool is_main_frame;
-            public string top_origin_url;
-            public CefWebPluginInfo plugin_info;
+            public IntPtr top_origin_url;
+            public IntPtr plugin_info;
             public cef_plugin_policy_t plugin_policy;
         }
         public interface I0
@@ -19787,11 +19859,12 @@ namespace LayoutFarm.CefBridge.Auto
                 return MyMetArgs.GetAsBool(nativePtr, 4);
             }
         }
-        public struct OnBeforeBrowseNativeArgs
+        [StructLayout(LayoutKind.Sequential)]
+        struct OnBeforeBrowseNativeArgs
         {
-            public CefBrowser browser;
-            public CefFrame frame;
-            public CefRequest request;
+            public IntPtr browser;
+            public IntPtr frame;
+            public IntPtr request;
             public bool is_redirect;
         }
         //gen! bool OnOpenURLFromTab(CefRefPtr<CefBrowser> browser,CefRefPtr<CefFrame> frame,const CefString& target_url,WindowOpenDisposition target_disposition,bool user_gesture)
@@ -19824,11 +19897,12 @@ namespace LayoutFarm.CefBridge.Auto
                 return MyMetArgs.GetAsBool(nativePtr, 5);
             }
         }
-        public struct OnOpenURLFromTabNativeArgs
+        [StructLayout(LayoutKind.Sequential)]
+        struct OnOpenURLFromTabNativeArgs
         {
-            public CefBrowser browser;
-            public CefFrame frame;
-            public string target_url;
+            public IntPtr browser;
+            public IntPtr frame;
+            public IntPtr target_url;
             public cef_window_open_disposition_t target_disposition;
             public bool user_gesture;
         }
@@ -19858,12 +19932,13 @@ namespace LayoutFarm.CefBridge.Auto
                 return new CefRequestCallback(MyMetArgs.GetAsIntPtr(nativePtr, 4));
             }
         }
-        public struct OnBeforeResourceLoadNativeArgs
+        [StructLayout(LayoutKind.Sequential)]
+        struct OnBeforeResourceLoadNativeArgs
         {
-            public CefBrowser browser;
-            public CefFrame frame;
-            public CefRequest request;
-            public CefRequestCallback callback;
+            public IntPtr browser;
+            public IntPtr frame;
+            public IntPtr request;
+            public IntPtr callback;
         }
         //gen! CefRefPtr<CefResourceHandler> GetResourceHandler(CefRefPtr<CefBrowser> browser,CefRefPtr<CefFrame> frame,CefRefPtr<CefRequest> request)
         public struct GetResourceHandlerArgs
@@ -19887,11 +19962,12 @@ namespace LayoutFarm.CefBridge.Auto
                 return new CefRequest(MyMetArgs.GetAsIntPtr(nativePtr, 3));
             }
         }
-        public struct GetResourceHandlerNativeArgs
+        [StructLayout(LayoutKind.Sequential)]
+        struct GetResourceHandlerNativeArgs
         {
-            public CefBrowser browser;
-            public CefFrame frame;
-            public CefRequest request;
+            public IntPtr browser;
+            public IntPtr frame;
+            public IntPtr request;
         }
         //gen! void OnResourceRedirect(CefRefPtr<CefBrowser> browser,CefRefPtr<CefFrame> frame,CefRefPtr<CefRequest> request,CefRefPtr<CefResponse> response,CefString& new_url)
         public struct OnResourceRedirectArgs
@@ -19923,13 +19999,14 @@ namespace LayoutFarm.CefBridge.Auto
                 return MyMetArgs.GetAsString(nativePtr, 5);
             }
         }
-        public struct OnResourceRedirectNativeArgs
+        [StructLayout(LayoutKind.Sequential)]
+        struct OnResourceRedirectNativeArgs
         {
-            public CefBrowser browser;
-            public CefFrame frame;
-            public CefRequest request;
-            public CefResponse response;
-            public string new_url;
+            public IntPtr browser;
+            public IntPtr frame;
+            public IntPtr request;
+            public IntPtr response;
+            public IntPtr new_url;
         }
         //gen! bool OnResourceResponse(CefRefPtr<CefBrowser> browser,CefRefPtr<CefFrame> frame,CefRefPtr<CefRequest> request,CefRefPtr<CefResponse> response)
         public struct OnResourceResponseArgs
@@ -19957,12 +20034,13 @@ namespace LayoutFarm.CefBridge.Auto
                 return new CefResponse(MyMetArgs.GetAsIntPtr(nativePtr, 4));
             }
         }
-        public struct OnResourceResponseNativeArgs
+        [StructLayout(LayoutKind.Sequential)]
+        struct OnResourceResponseNativeArgs
         {
-            public CefBrowser browser;
-            public CefFrame frame;
-            public CefRequest request;
-            public CefResponse response;
+            public IntPtr browser;
+            public IntPtr frame;
+            public IntPtr request;
+            public IntPtr response;
         }
         //gen! CefRefPtr<CefResponseFilter> GetResourceResponseFilter(CefRefPtr<CefBrowser> browser,CefRefPtr<CefFrame> frame,CefRefPtr<CefRequest> request,CefRefPtr<CefResponse> response)
         public struct GetResourceResponseFilterArgs
@@ -19990,12 +20068,13 @@ namespace LayoutFarm.CefBridge.Auto
                 return new CefResponse(MyMetArgs.GetAsIntPtr(nativePtr, 4));
             }
         }
-        public struct GetResourceResponseFilterNativeArgs
+        [StructLayout(LayoutKind.Sequential)]
+        struct GetResourceResponseFilterNativeArgs
         {
-            public CefBrowser browser;
-            public CefFrame frame;
-            public CefRequest request;
-            public CefResponse response;
+            public IntPtr browser;
+            public IntPtr frame;
+            public IntPtr request;
+            public IntPtr response;
         }
         //gen! void OnResourceLoadComplete(CefRefPtr<CefBrowser> browser,CefRefPtr<CefFrame> frame,CefRefPtr<CefRequest> request,CefRefPtr<CefResponse> response,URLRequestStatus status,int64 received_content_length)
         public struct OnResourceLoadCompleteArgs
@@ -20031,12 +20110,13 @@ namespace LayoutFarm.CefBridge.Auto
                 return MyMetArgs.GetAsInt64(nativePtr, 6);
             }
         }
-        public struct OnResourceLoadCompleteNativeArgs
+        [StructLayout(LayoutKind.Sequential)]
+        struct OnResourceLoadCompleteNativeArgs
         {
-            public CefBrowser browser;
-            public CefFrame frame;
-            public CefRequest request;
-            public CefResponse response;
+            public IntPtr browser;
+            public IntPtr frame;
+            public IntPtr request;
+            public IntPtr response;
             public cef_urlrequest_status_t status;
             public long received_content_length;
         }
@@ -20082,16 +20162,17 @@ namespace LayoutFarm.CefBridge.Auto
                 return new CefAuthCallback(MyMetArgs.GetAsIntPtr(nativePtr, 8));
             }
         }
-        public struct GetAuthCredentialsNativeArgs
+        [StructLayout(LayoutKind.Sequential)]
+        struct GetAuthCredentialsNativeArgs
         {
-            public CefBrowser browser;
-            public CefFrame frame;
+            public IntPtr browser;
+            public IntPtr frame;
             public bool isProxy;
-            public string host;
+            public IntPtr host;
             public int port;
-            public string realm;
-            public string scheme;
-            public CefAuthCallback callback;
+            public IntPtr realm;
+            public IntPtr scheme;
+            public IntPtr callback;
         }
         //gen! bool OnQuotaRequest(CefRefPtr<CefBrowser> browser,const CefString& origin_url,int64 new_size,CefRefPtr<CefRequestCallback> callback)
         public struct OnQuotaRequestArgs
@@ -20119,12 +20200,13 @@ namespace LayoutFarm.CefBridge.Auto
                 return new CefRequestCallback(MyMetArgs.GetAsIntPtr(nativePtr, 4));
             }
         }
-        public struct OnQuotaRequestNativeArgs
+        [StructLayout(LayoutKind.Sequential)]
+        struct OnQuotaRequestNativeArgs
         {
-            public CefBrowser browser;
-            public string origin_url;
+            public IntPtr browser;
+            public IntPtr origin_url;
             public long new_size;
-            public CefRequestCallback callback;
+            public IntPtr callback;
         }
         //gen! void OnProtocolExecution(CefRefPtr<CefBrowser> browser,const CefString& url,bool& allow_os_execution)
         public struct OnProtocolExecutionArgs
@@ -20152,11 +20234,12 @@ namespace LayoutFarm.CefBridge.Auto
                 MyMetArgs.SetBoolToAddress(nativePtr, 3, value);
             }
         }
-        public struct OnProtocolExecutionNativeArgs
+        [StructLayout(LayoutKind.Sequential)]
+        struct OnProtocolExecutionNativeArgs
         {
-            public CefBrowser browser;
-            public string url;
-            public bool allow_os_execution;
+            public IntPtr browser;
+            public IntPtr url;
+            public double allow_os_execution;
         }
         //gen! bool OnCertificateError(CefRefPtr<CefBrowser> browser,cef_errorcode_t cert_error,const CefString& request_url,CefRefPtr<CefSSLInfo> ssl_info,CefRefPtr<CefRequestCallback> callback)
         public struct OnCertificateErrorArgs
@@ -20188,13 +20271,14 @@ namespace LayoutFarm.CefBridge.Auto
                 return new CefRequestCallback(MyMetArgs.GetAsIntPtr(nativePtr, 5));
             }
         }
-        public struct OnCertificateErrorNativeArgs
+        [StructLayout(LayoutKind.Sequential)]
+        struct OnCertificateErrorNativeArgs
         {
-            public CefBrowser browser;
+            public IntPtr browser;
             public cef_errorcode_t cert_error;
-            public string request_url;
-            public CefSSLInfo ssl_info;
-            public CefRequestCallback callback;
+            public IntPtr request_url;
+            public IntPtr ssl_info;
+            public IntPtr callback;
         }
         //gen! bool OnSelectClientCertificate(CefRefPtr<CefBrowser> browser,bool isProxy,const CefString& host,int port,const X509CertificateList& certificates,CefRefPtr<CefSelectClientCertificateCallback> callback)
         public struct OnSelectClientCertificateArgs
@@ -20230,14 +20314,15 @@ namespace LayoutFarm.CefBridge.Auto
                 return new CefSelectClientCertificateCallback(MyMetArgs.GetAsIntPtr(nativePtr, 6));
             }
         }
-        public struct OnSelectClientCertificateNativeArgs
+        [StructLayout(LayoutKind.Sequential)]
+        struct OnSelectClientCertificateNativeArgs
         {
-            public CefBrowser browser;
+            public IntPtr browser;
             public bool isProxy;
-            public string host;
+            public IntPtr host;
             public int port;
-            public List<CefCompositionUnderline> certificates;
-            public CefSelectClientCertificateCallback callback;
+            public IntPtr certificates;
+            public IntPtr callback;
         }
         //gen! void OnPluginCrashed(CefRefPtr<CefBrowser> browser,const CefString& plugin_path)
         public struct OnPluginCrashedArgs
@@ -20257,10 +20342,11 @@ namespace LayoutFarm.CefBridge.Auto
                 return MyMetArgs.GetAsString(nativePtr, 2);
             }
         }
-        public struct OnPluginCrashedNativeArgs
+        [StructLayout(LayoutKind.Sequential)]
+        struct OnPluginCrashedNativeArgs
         {
-            public CefBrowser browser;
-            public string plugin_path;
+            public IntPtr browser;
+            public IntPtr plugin_path;
         }
         //gen! void OnRenderViewReady(CefRefPtr<CefBrowser> browser)
         public struct OnRenderViewReadyArgs
@@ -20276,9 +20362,10 @@ namespace LayoutFarm.CefBridge.Auto
                 return new CefBrowser(MyMetArgs.GetAsIntPtr(nativePtr, 1));
             }
         }
-        public struct OnRenderViewReadyNativeArgs
+        [StructLayout(LayoutKind.Sequential)]
+        struct OnRenderViewReadyNativeArgs
         {
-            public CefBrowser browser;
+            public IntPtr browser;
         }
         //gen! void OnRenderProcessTerminated(CefRefPtr<CefBrowser> browser,TerminationStatus status)
         public struct OnRenderProcessTerminatedArgs
@@ -20298,9 +20385,10 @@ namespace LayoutFarm.CefBridge.Auto
                 return (cef_termination_status_t)MyMetArgs.GetAsInt32(nativePtr, 2);
             }
         }
-        public struct OnRenderProcessTerminatedNativeArgs
+        [StructLayout(LayoutKind.Sequential)]
+        struct OnRenderProcessTerminatedNativeArgs
         {
-            public CefBrowser browser;
+            public IntPtr browser;
             public cef_termination_status_t status;
         }
         public interface I0
@@ -20781,10 +20869,11 @@ namespace LayoutFarm.CefBridge.Auto
                 return MyMetArgs.GetAsString(nativePtr, 2);
             }
         }
-        public struct GetLocalizedStringNativeArgs
+        [StructLayout(LayoutKind.Sequential)]
+        struct GetLocalizedStringNativeArgs
         {
             public int string_id;
-            public string _string;
+            public IntPtr _string;
         }
         //gen! bool GetDataResource(int resource_id,void*& data,size_t& data_size)
         public struct GetDataResourceArgs
@@ -20812,7 +20901,8 @@ namespace LayoutFarm.CefBridge.Auto
                 MyMetArgs.SetUInt32ToAddress(nativePtr, 3, value);
             }
         }
-        public struct GetDataResourceNativeArgs
+        [StructLayout(LayoutKind.Sequential)]
+        struct GetDataResourceNativeArgs
         {
             public int resource_id;
             public IntPtr data;
@@ -20848,7 +20938,8 @@ namespace LayoutFarm.CefBridge.Auto
                 MyMetArgs.SetUInt32ToAddress(nativePtr, 4, value);
             }
         }
-        public struct GetDataResourceForScaleNativeArgs
+        [StructLayout(LayoutKind.Sequential)]
+        struct GetDataResourceForScaleNativeArgs
         {
             public int resource_id;
             public cef_scale_factor_t scale_factor;
@@ -20979,10 +21070,11 @@ namespace LayoutFarm.CefBridge.Auto
                 return new CefCallback(MyMetArgs.GetAsIntPtr(nativePtr, 2));
             }
         }
-        public struct ProcessRequestNativeArgs
+        [StructLayout(LayoutKind.Sequential)]
+        struct ProcessRequestNativeArgs
         {
-            public CefRequest request;
-            public CefCallback callback;
+            public IntPtr request;
+            public IntPtr callback;
         }
         //gen! void GetResponseHeaders(CefRefPtr<CefResponse> response,int64& response_length,CefString& redirectUrl)
         public struct GetResponseHeadersArgs
@@ -21006,11 +21098,12 @@ namespace LayoutFarm.CefBridge.Auto
                 return MyMetArgs.GetAsString(nativePtr, 3);
             }
         }
-        public struct GetResponseHeadersNativeArgs
+        [StructLayout(LayoutKind.Sequential)]
+        struct GetResponseHeadersNativeArgs
         {
-            public CefResponse response;
+            public IntPtr response;
             public long response_length;
-            public string redirectUrl;
+            public IntPtr redirectUrl;
         }
         //gen! bool ReadResponse(void* data_out,int bytes_to_read,int& bytes_read,CefRefPtr<CefCallback> callback)
         public struct ReadResponseArgs
@@ -21042,12 +21135,13 @@ namespace LayoutFarm.CefBridge.Auto
                 return new CefCallback(MyMetArgs.GetAsIntPtr(nativePtr, 4));
             }
         }
-        public struct ReadResponseNativeArgs
+        [StructLayout(LayoutKind.Sequential)]
+        struct ReadResponseNativeArgs
         {
             public IntPtr data_out;
             public int bytes_to_read;
             public int bytes_read;
-            public CefCallback callback;
+            public IntPtr callback;
         }
         //gen! bool CanGetCookie(const CefCookie& cookie)
         public struct CanGetCookieArgs
@@ -21063,9 +21157,10 @@ namespace LayoutFarm.CefBridge.Auto
                 return new CefCookie(MyMetArgs.GetAsIntPtr(nativePtr, 1));
             }
         }
-        public struct CanGetCookieNativeArgs
+        [StructLayout(LayoutKind.Sequential)]
+        struct CanGetCookieNativeArgs
         {
-            public CefCookie cookie;
+            public IntPtr cookie;
         }
         //gen! bool CanSetCookie(const CefCookie& cookie)
         public struct CanSetCookieArgs
@@ -21081,9 +21176,10 @@ namespace LayoutFarm.CefBridge.Auto
                 return new CefCookie(MyMetArgs.GetAsIntPtr(nativePtr, 1));
             }
         }
-        public struct CanSetCookieNativeArgs
+        [StructLayout(LayoutKind.Sequential)]
+        struct CanSetCookieNativeArgs
         {
-            public CefCookie cookie;
+            public IntPtr cookie;
         }
         //gen! void Cancel()
         public struct CancelArgs
@@ -21095,7 +21191,8 @@ namespace LayoutFarm.CefBridge.Auto
                 this.nativePtr = MyMetArgs.GetArrHead(nativePtr, out argCount);
             }
         }
-        public struct CancelNativeArgs
+        [StructLayout(LayoutKind.Sequential)]
+        struct CancelNativeArgs
         {
         }
         public interface I0
@@ -21284,7 +21381,8 @@ namespace LayoutFarm.CefBridge.Auto
                 return MyMetArgs.GetAsUInt32(nativePtr, 3);
             }
         }
-        public struct ReadNativeArgs
+        [StructLayout(LayoutKind.Sequential)]
+        struct ReadNativeArgs
         {
             public IntPtr ptr;
             public uint size;
@@ -21308,7 +21406,8 @@ namespace LayoutFarm.CefBridge.Auto
                 return MyMetArgs.GetAsInt32(nativePtr, 2);
             }
         }
-        public struct SeekNativeArgs
+        [StructLayout(LayoutKind.Sequential)]
+        struct SeekNativeArgs
         {
             public long offset;
             public int whence;
@@ -21323,7 +21422,8 @@ namespace LayoutFarm.CefBridge.Auto
                 this.nativePtr = MyMetArgs.GetArrHead(nativePtr, out argCount);
             }
         }
-        public struct TellNativeArgs
+        [StructLayout(LayoutKind.Sequential)]
+        struct TellNativeArgs
         {
         }
         //gen! int Eof()
@@ -21336,7 +21436,8 @@ namespace LayoutFarm.CefBridge.Auto
                 this.nativePtr = MyMetArgs.GetArrHead(nativePtr, out argCount);
             }
         }
-        public struct EofNativeArgs
+        [StructLayout(LayoutKind.Sequential)]
+        struct EofNativeArgs
         {
         }
         //gen! bool MayBlock()
@@ -21349,7 +21450,8 @@ namespace LayoutFarm.CefBridge.Auto
                 this.nativePtr = MyMetArgs.GetArrHead(nativePtr, out argCount);
             }
         }
-        public struct MayBlockNativeArgs
+        [StructLayout(LayoutKind.Sequential)]
+        struct MayBlockNativeArgs
         {
         }
         public interface I0
@@ -21507,7 +21609,8 @@ namespace LayoutFarm.CefBridge.Auto
                 return MyMetArgs.GetAsUInt32(nativePtr, 3);
             }
         }
-        public struct WriteNativeArgs
+        [StructLayout(LayoutKind.Sequential)]
+        struct WriteNativeArgs
         {
             public IntPtr ptr;
             public uint size;
@@ -21531,7 +21634,8 @@ namespace LayoutFarm.CefBridge.Auto
                 return MyMetArgs.GetAsInt32(nativePtr, 2);
             }
         }
-        public struct SeekNativeArgs
+        [StructLayout(LayoutKind.Sequential)]
+        struct SeekNativeArgs
         {
             public long offset;
             public int whence;
@@ -21546,7 +21650,8 @@ namespace LayoutFarm.CefBridge.Auto
                 this.nativePtr = MyMetArgs.GetArrHead(nativePtr, out argCount);
             }
         }
-        public struct TellNativeArgs
+        [StructLayout(LayoutKind.Sequential)]
+        struct TellNativeArgs
         {
         }
         //gen! int Flush()
@@ -21559,7 +21664,8 @@ namespace LayoutFarm.CefBridge.Auto
                 this.nativePtr = MyMetArgs.GetArrHead(nativePtr, out argCount);
             }
         }
-        public struct FlushNativeArgs
+        [StructLayout(LayoutKind.Sequential)]
+        struct FlushNativeArgs
         {
         }
         //gen! bool MayBlock()
@@ -21572,7 +21678,8 @@ namespace LayoutFarm.CefBridge.Auto
                 this.nativePtr = MyMetArgs.GetArrHead(nativePtr, out argCount);
             }
         }
-        public struct MayBlockNativeArgs
+        [StructLayout(LayoutKind.Sequential)]
+        struct MayBlockNativeArgs
         {
         }
         public interface I0
@@ -21734,13 +21841,14 @@ namespace LayoutFarm.CefBridge.Auto
                 return MyMetArgs.GetAsString(nativePtr, 5);
             }
         }
-        public struct ExecuteNativeArgs
+        [StructLayout(LayoutKind.Sequential)]
+        struct ExecuteNativeArgs
         {
-            public string name;
-            public CefV8Value _object;
-            public CefV8ValueList arguments;
+            public IntPtr name;
+            public IntPtr _object;
+            public IntPtr arguments;
             public IntPtr retval;
-            public string exception;
+            public IntPtr exception;
         }
         public interface I0
         {

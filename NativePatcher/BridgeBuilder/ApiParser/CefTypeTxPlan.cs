@@ -3305,15 +3305,11 @@ namespace BridgeBuilder
             int j = pars.Count;
             //temp 
             string className = met.Name + "NativeArgs";
-
+            stbuilder.AppendLine("[StructLayout(LayoutKind.Sequential)]");
             stbuilder.AppendLine("struct " + className + "{ "); //this is private struct with explicit layout
 
-
-            int pos = 0;
             for (int i = 0; i < j; ++i)
             {
-                pos = i + 1; //*** 
-
                 //move this to method
                 CodeMethodParameter par = pars[i];
                 MethodParameterTxInfo parTx = met.pars[i];
@@ -3341,22 +3337,22 @@ namespace BridgeBuilder
                 {
                     case "ref bool":
                         //provide both getter and setter method
-                        stbuilder.Append("bool");
+                        //stbuilder.Append("bool");
                         parTx.ArgByRef = true;//temp
                         parTx.InnerTypeName = csSetterParTypeName = "bool";
                         break;
                     case "ref int":
-                        stbuilder.Append("int");
+                        //stbuilder.Append("int");
                         parTx.ArgByRef = true;//temp
                         parTx.InnerTypeName = csSetterParTypeName = "int";
                         break;
                     case "ref uint":
-                        stbuilder.Append("uint");
+                        //stbuilder.Append("uint");
                         parTx.ArgByRef = true;//temp
                         parTx.InnerTypeName = csSetterParTypeName = "uint";
                         break;
                     default:
-                        stbuilder.Append(csParTypeName);
+                        //stbuilder.Append(csParTypeName);
                         csSetterParTypeName = csParTypeName;
                         break;
                 }
@@ -3379,24 +3375,22 @@ namespace BridgeBuilder
                             }
                             else
                             {
-                                stbuilder.Append("??");
-                                //stbuilder.Append("throw new CefNotImplementedException();");
+                                stbuilder.AppendLine(csParTypeName.ToString());
+                                stbuilder.Append("IntPtr");
                             }
                         }
                         break;
                     case "IntPtr":
-                        stbuilder.Append("??");
-                        //stbuilder.Append("throw new CefNotImplementedException();");
+                        stbuilder.Append("IntPtr");
                         break;
                     case "List<object>":
                     case "List<string>":
                     case "List<CefCompositionUnderline>":
-                        // stbuilder.Append("throw new CefNotImplementedException();");
-                        stbuilder.Append("??");
+                        stbuilder.Append("IntPtr");
                         break;
                     case "CefValue":
-                        stbuilder.Append("??");
-                        //stbuilder.Append("throw new CefNotImplementedException();");
+                        stbuilder.Append("IntPtr");
+
                         break;
                     case "uint":
                         stbuilder.Append("uint");
@@ -3420,12 +3414,12 @@ namespace BridgeBuilder
                         //provide both getter and setter method  
                         stbuilder.Append("double");
                         break;
-                    case "ref int": 
+                    case "ref int":
                         stbuilder.Append("int");
-                        break; 
+                        break;
                     case "ref uint":
                         stbuilder.Append("uint");
-                        break; 
+                        break;
                 }
                 stbuilder.Append(" ");
                 stbuilder.Append(parTx.Name);
