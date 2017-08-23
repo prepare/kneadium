@@ -429,18 +429,25 @@ namespace BridgeBuilder
 
                                                 if (stackBased)
                                                 {
-
-
-
                                                     if (implBy.Name.Contains("CToCpp"))
                                                     {
                                                         //so if you want to send this to client lib
                                                         //you need to GET raw pointer , so =>
 
+                                                        //find result after extract 
+                                                        string unwrapType = txPlan.UnderlyingCType.ToString();
+                                                        //since this is CefRefPtr
+
+
+                                                        //so after ElementType we should get pointer of the underlying element 
                                                         string auto_p = "p_" + par.Name;
-                                                        par.ArgPreExtractCode = "auto " + auto_p + "=" + implBy.Name + "::Unwrap" + "(" + srcExpression + ");"; //unwrap
+                                                        par.CppUnwrapType = unwrapType + "*";
+                                                        par.CppUnwrapMethod = implBy.Name + "::Unwrap";
+                                                        par.CppWrapMethod = implBy.Name + "::Wrap";
+                                                        //
+                                                        par.ArgPreExtractCode = "auto " + auto_p + "=" + par.CppUnwrapMethod + "(" + srcExpression + ");"; //unwrap
                                                         par.ArgExtractCode = "MyCefSetVoidPtr(" + destExpression + "," + auto_p + ");";
-                                                        par.ArgPostExtractCode = implBy.Name + "::Wrap" + "(" + auto_p + ");"; //wrap 
+                                                        par.ArgPostExtractCode = implBy.Name + "::Wrap" + "(" + auto_p + ");"; //wrap                                                        
 
                                                     }
                                                     else if (implBy.Name.Contains("CppToC"))
@@ -2555,39 +2562,7 @@ namespace BridgeBuilder
         {
 
         }
-        //TODO: implement new native args ...
 
-        //      class OnProcessMessageReceivedArgs
-        //      {
-        //          public:
-        //int32_t argCount;
-        //          bool myext_retValue; //0 
-        //          cef_browser_t* browser; //1
-        //          int32_t source_process; //2
-        //          cef_process_message_t* message;//3 
-        //          bool create_FromUnwrap;
-        //          //ctor
-        //          OnProcessMessageReceivedArgs(cef_browser_t* browser, int32_t source_process, cef_process_message_t* message)
-        //              : argCount(3), myext_retValue(false),
-
-        //          browser(browser), source_process(source_process), message(message), create_FromUnwrap(false)
-        //          {//init
-        //          }
-        //          OnProcessMessageReceivedArgs(CefRefPtr<CefBrowser> browser, int32_t source_process, CefRefPtr<CefProcessMessage> message)
-        //              : argCount(3), myext_retValue(false),
-
-        //          browser(CefBrowserCToCpp::Unwrap(browser)), source_process(source_process), message(CefProcessMessageCToCpp::Unwrap(message)), create_FromUnwrap(true)
-        //          {//init
-        //          }
-        //          ~OnProcessMessageReceivedArgs()
-        //          {
-        //              if (create_FromUnwrap)
-        //              {
-        //                  CefBrowserCToCpp::Wrap(browser);
-        //                  CefProcessMessageCToCpp::Wrap(message);
-        //              }
-        //          }
-        //      };
         string GenerateCppMethodArgsClass(MethodTxInfo met, CodeStringBuilder stbuilder)
         {
             //generate cs method pars
@@ -2614,7 +2589,18 @@ namespace BridgeBuilder
                 //move this to method
                 CodeMethodParameter par = pars[i];
                 MethodParameterTxInfo parTx = met.pars[i];
-                stbuilder.Append(parTx.TypeSymbol.ToString());
+                if (parTx.IsConst)
+                {
+                    stbuilder.Append("const ");
+                }
+                if (parTx.CppUnwrapType != null)
+                {
+                    stbuilder.Append(parTx.CppUnwrapType);
+                }
+                else
+                {
+                    stbuilder.Append(parTx.TypeSymbol.ToString());
+                }
                 stbuilder.Append(" ");
                 stbuilder.Append(parTx.Name);
                 stbuilder.AppendLine(";//" + (i + 1));
@@ -2637,7 +2623,19 @@ namespace BridgeBuilder
                 //move this to method
                 CodeMethodParameter par = pars[i];
                 MethodParameterTxInfo parTx = met.pars[i];
-                stbuilder.Append(parTx.TypeSymbol.ToString());
+                if (parTx.IsConst)
+                {
+                    stbuilder.Append("const ");
+                }
+
+                if (parTx.CppUnwrapType != null)
+                {
+                    stbuilder.Append(parTx.CppUnwrapType);
+                }
+                else
+                {
+                    stbuilder.Append(parTx.TypeSymbol.ToString());
+                }
                 stbuilder.Append(" ");
                 stbuilder.Append(parTx.Name);
             }
@@ -2645,13 +2643,15 @@ namespace BridgeBuilder
             //ctor's initialization
             stbuilder.Append(":");
             stbuilder.Append("myext_argCount(" + j + ")");
-            stbuilder.Append(",myext_created_from_Unwrap(false)");
+            stbuilder.Append(",myext_created_from_Unwrap(false)"); //not from unwrap
             if (!met.ReturnPlan.IsVoid)
             {
                 //set init return value
                 //with default value 
                 stbuilder.Append(",myext_ret_value(0)");
             }
+
+            bool need_unwrapMethodAndCtor = false;
             for (int i = 0; i < j; ++i)
             {
                 stbuilder.Append(",");
@@ -2660,186 +2660,236 @@ namespace BridgeBuilder
                 MethodParameterTxInfo parTx = met.pars[i];
                 stbuilder.Append(parTx.Name);
                 stbuilder.Append("(" + parTx.Name + ")");
+
+                if (parTx.CppUnwrapType != null)
+                {
+                    need_unwrapMethodAndCtor = true;
+                }
             }
             stbuilder.AppendLine("{}");//ctor's body --> empty
             //-----------------------------
             //ctor style 2
-            stbuilder.Append(className);
-            stbuilder.Append("(");
-            for (int i = 0; i < j; ++i)
+            if (!need_unwrapMethodAndCtor)
             {
-                if (i > 0)
-                {
-                    stbuilder.Append(",");
-                }
-                //move this to method
-                CodeMethodParameter par = pars[i];
-                MethodParameterTxInfo parTx = met.pars[i];
-                stbuilder.Append(parTx.TypeSymbol.ToString());
-                stbuilder.Append(" ");
-                stbuilder.Append(parTx.Name);
-            }
-            stbuilder.AppendLine(")");
-            //ctor's initialization
-            stbuilder.Append(":");
-            stbuilder.Append("myext_argCount(" + j + ")");
-            stbuilder.Append(",myext_created_from_Unwrap(true)"); //created from unwrap (true)
-            if (!met.ReturnPlan.IsVoid)
-            {
-                //set init return value
-                //with default value 
-                stbuilder.Append(",myext_ret_value(0)");
-            }
-            for (int i = 0; i < j; ++i)
-            {
-                stbuilder.Append(",");
-                //
-                CodeMethodParameter par = pars[i];
-                MethodParameterTxInfo parTx = met.pars[i];
-                stbuilder.Append(parTx.Name);
-                stbuilder.Append("(" + parTx.Name + ")");
-            }
-            stbuilder.AppendLine("{}");//ctor's body --> empty
 
-
-
-            stbuilder.AppendLine("}"); //struct 
-            return className;
-        }
-
-        void GenerateCppImplMethod(MethodTxInfo met, CodeStringBuilder stbuilder)
-        {
-            CodeMethodDeclaration metDecl = met.metDecl;
-            stbuilder.AppendLine("//gen! " + metDecl.ToString());
-            //temp
-            if (metDecl.ReturnType.ToString() == "FilterStatus")
-            {
-                stbuilder.Append("virtual " + metDecl.ReturnType.ResolvedType + " " + metDecl.Name + "(");
             }
             else
             {
-                stbuilder.Append("virtual " + metDecl.ReturnType + " " + metDecl.Name + "(");
-            }
+                stbuilder.Append(className);
+                stbuilder.Append("(");
+                for (int i = 0; i < j; ++i)
+                {
+                    if (i > 0)
+                    {
+                        stbuilder.Append(",");
+                    }
+                    //move this to method
+                    CodeMethodParameter par = pars[i];
+                    MethodParameterTxInfo parTx = met.pars[i];
+                    if (parTx.IsConst)
+                    {
+                        stbuilder.Append("const ");
+                    }
 
 
-            List<CodeMethodParameter> pars = metDecl.Parameters;
-            int j = pars.Count;
-            for (int i = 0; i < j; ++i)
-            {
-                if (i > 0)
+                    stbuilder.Append(parTx.TypeSymbol.ToString());
+                    stbuilder.Append(" ");
+                    stbuilder.Append(parTx.Name);
+
+                }
+                stbuilder.AppendLine(")");
+                //ctor's initialization
+                stbuilder.Append(":");
+                stbuilder.Append("myext_argCount(" + j + ")");
+                stbuilder.Append(",myext_created_from_Unwrap(true)"); //created from unwrap (true)
+                if (!met.ReturnPlan.IsVoid)
+                {
+                    //set init return value
+                    //with default value 
+                    stbuilder.Append(",myext_ret_value(0)");
+                }
+                for (int i = 0; i < j; ++i)
                 {
                     stbuilder.Append(",");
-                }
-                CodeMethodParameter par = pars[i];
+                    //
+                    CodeMethodParameter par = pars[i];
+                    MethodParameterTxInfo parTx = met.pars[i];
+                    stbuilder.Append(parTx.Name); //same name as field name
+                    stbuilder.Append("(");
 
-                if (par.IsConstPar)
-                {
-                    stbuilder.Append("const ");
-                }
-                stbuilder.Append(par.ParameterType.ToString() + " ");
-                stbuilder.Append(par.ParameterName);
-            }
-            stbuilder.AppendLine("){");
-            //-----------
-            stbuilder.AppendLine("if(mcallback){");
-            //call to managed 
-            stbuilder.AppendLine("MyMetArgsN args;");
-            stbuilder.AppendLine("memset(&args, 0, sizeof(MyMetArgsN));");
-            stbuilder.AppendLine("args.argCount=" + j + ";");
-            int arrLen = j + 1;
-            stbuilder.AppendLine("jsvalue vargs[" + arrLen + "];");
-            stbuilder.AppendLine("memset(&vargs, 0, sizeof(jsvalue) * " + arrLen + ");");
-            stbuilder.AppendLine("args.vargs=vargs;");
-
-            for (int i = 0; i < j; ++i)
-            {
-                MethodParameterTxInfo parTx = met.pars[i];
-                parTx.ClearExtractCode();
-                PrepareDataFromNativeToCs(parTx, "&vargs[" + (i + 1) + "]", parTx.Name, true);
-            }
-
-            PrepareCppMetArg(met.ReturnPlan, "vargs[0]");
-            //
-            for (int i = 0; i < j; ++i)
-            {
-                MethodParameterTxInfo parTx = met.pars[i];
-                if (parTx.ArgPreExtractCode != null)
-                {
-                    stbuilder.AppendLine(parTx.ArgPreExtractCode);
-                }
-            }
-            for (int i = 0; i < j; ++i)
-            {
-                MethodParameterTxInfo parTx = met.pars[i];
-                stbuilder.AppendLine(parTx.ArgExtractCode);
-            }
-            //
-            //call a method and get some result back 
-            //
-            stbuilder.AppendLine("mcallback(" + met.CppMethodSwitchCaseName + ",&args);");
-
-            //post call
-            for (int i = 0; i < j; ++i)
-            {
-                MethodParameterTxInfo parTx = met.pars[i];
-                if (parTx.ArgPostExtractCode != null)
-                {
-                    stbuilder.AppendLine(parTx.ArgPostExtractCode);
-                }
-            }
-
-            //temp fix, arg extract code 
-            if (!met.ReturnPlan.IsVoid)
-            {
-                stbuilder.AppendLine("return " + met.ReturnPlan.ArgExtractCode.Replace("->", ".") + ";");
-            }
-            //and return value
-            stbuilder.AppendLine("}"); //if(this->mcallback){
-
-            //-----------
-
-            if (!met.ReturnPlan.IsVoid)
-            {
-                string retTypeName = metDecl.ReturnType.ToString();
-                if (retTypeName.StartsWith("CefRefPtr<"))
-                {
-                    stbuilder.Append("return nullptr;");
-                }
-                else
-                {
-                    switch (metDecl.ReturnType.ToString())
+                    if (parTx.CppUnwrapType != null)
                     {
-                        case "bool":
-                            stbuilder.Append("return false;");
-                            break;
-                        case "FilterStatus": //TODO: revisit here
-                            stbuilder.Append("return (FilterStatus)0;");
-                            break;
-                        case "ReturnValue":
-                            stbuilder.Append("return (ReturnValue)0;");
-                            break;
-                        case "CefSize":
-                            stbuilder.Append("throw new CefNotImplementException();");
-                            break;
-                        case "size_t":
-                            stbuilder.Append("return 0;");
-                            break;
-                        case "int":
-                            stbuilder.Append("return 0;");
-                            break;
-                        case "int64":
-                            stbuilder.Append("return 0;");
-                            break;
-                        default:
-                            throw new NotSupportedException();
-
+                        stbuilder.Append(parTx.CppUnwrapMethod + "(" + parTx.Name + ")");
+                    }
+                    else
+                    {
+                        stbuilder.Append(parTx.Name);
+                    }
+                    stbuilder.Append(")");
+                }
+                stbuilder.AppendLine("{}");//ctor's body --> empty 
+                //-----------------------------
+                //dtor 
+                stbuilder.Append("~");
+                stbuilder.Append(className);
+                stbuilder.Append("()");
+                stbuilder.AppendLine("{");
+                stbuilder.AppendLine("if(myext_created_from_Unwrap){");
+                for (int i = 0; i < j; ++i)
+                {
+                    CodeMethodParameter par = pars[i];
+                    MethodParameterTxInfo parTx = met.pars[i];
+                    if (parTx.CppUnwrapType != null)
+                    {
+                        stbuilder.AppendLine(parTx.CppWrapMethod + "(" + parTx.Name + ");");
                     }
                 }
+                stbuilder.AppendLine("}");
             }
-
-            stbuilder.AppendLine("}"); //method
+            //-----------------------------
+            //private disallow copy
+            stbuilder.AppendLine("private:");
+            stbuilder.AppendLine("DISALLOW_COPY_AND_ASSIGN(" + className + ");");
+            
+            //-----------------------------
+            stbuilder.AppendLine("};"); //close cpp's class
+            return className;
         }
-        void GenerateCppImplMethodForNs(MethodTxInfo met, CodeStringBuilder stbuilder)
+
+        //void GenerateCppImplMethod_JsValueSlotBased(MethodTxInfo met, CodeStringBuilder stbuilder)
+        //{
+        //    CodeMethodDeclaration metDecl = met.metDecl;
+        //    stbuilder.AppendLine("//gen! " + metDecl.ToString());
+        //    //temp
+        //    if (metDecl.ReturnType.ToString() == "FilterStatus")
+        //    {
+        //        stbuilder.Append("virtual " + metDecl.ReturnType.ResolvedType + " " + metDecl.Name + "(");
+        //    }
+        //    else
+        //    {
+        //        stbuilder.Append("virtual " + metDecl.ReturnType + " " + metDecl.Name + "(");
+        //    }
+
+
+        //    List<CodeMethodParameter> pars = metDecl.Parameters;
+        //    int j = pars.Count;
+        //    for (int i = 0; i < j; ++i)
+        //    {
+        //        if (i > 0)
+        //        {
+        //            stbuilder.Append(",");
+        //        }
+        //        CodeMethodParameter par = pars[i];
+
+        //        if (par.IsConstPar)
+        //        {
+        //            stbuilder.Append("const ");
+        //        }
+        //        stbuilder.Append(par.ParameterType.ToString() + " ");
+        //        stbuilder.Append(par.ParameterName);
+        //    }
+        //    stbuilder.AppendLine("){");
+        //    //-----------
+        //    stbuilder.AppendLine("if(mcallback){");
+        //    //call to managed 
+        //    stbuilder.AppendLine("MyMetArgsN args;");
+        //    stbuilder.AppendLine("memset(&args, 0, sizeof(MyMetArgsN));");
+        //    stbuilder.AppendLine("args.argCount=" + j + ";");
+        //    int arrLen = j + 1;
+        //    stbuilder.AppendLine("jsvalue vargs[" + arrLen + "];");
+        //    stbuilder.AppendLine("memset(&vargs, 0, sizeof(jsvalue) * " + arrLen + ");");
+        //    stbuilder.AppendLine("args.vargs=vargs;");
+
+        //    for (int i = 0; i < j; ++i)
+        //    {
+        //        MethodParameterTxInfo parTx = met.pars[i];
+        //        parTx.ClearExtractCode();
+        //        PrepareDataFromNativeToCs(parTx, "&vargs[" + (i + 1) + "]", parTx.Name, true);
+        //    }
+
+        //    PrepareCppMetArg(met.ReturnPlan, "vargs[0]");
+        //    //
+        //    for (int i = 0; i < j; ++i)
+        //    {
+        //        MethodParameterTxInfo parTx = met.pars[i];
+        //        if (parTx.ArgPreExtractCode != null)
+        //        {
+        //            stbuilder.AppendLine(parTx.ArgPreExtractCode);
+        //        }
+        //    }
+        //    for (int i = 0; i < j; ++i)
+        //    {
+        //        MethodParameterTxInfo parTx = met.pars[i];
+        //        stbuilder.AppendLine(parTx.ArgExtractCode);
+        //    }
+        //    //
+        //    //call a method and get some result back 
+        //    //
+        //    stbuilder.AppendLine("mcallback(" + met.CppMethodSwitchCaseName + ",&args);");
+
+        //    //post call
+        //    for (int i = 0; i < j; ++i)
+        //    {
+        //        MethodParameterTxInfo parTx = met.pars[i];
+        //        if (parTx.ArgPostExtractCode != null)
+        //        {
+        //            stbuilder.AppendLine(parTx.ArgPostExtractCode);
+        //        }
+        //    }
+
+        //    //temp fix, arg extract code 
+        //    if (!met.ReturnPlan.IsVoid)
+        //    {
+        //        stbuilder.AppendLine("return " + met.ReturnPlan.ArgExtractCode.Replace("->", ".") + ";");
+        //    }
+        //    //and return value
+        //    stbuilder.AppendLine("}"); //if(this->mcallback){
+
+        //    //-----------
+
+        //    if (!met.ReturnPlan.IsVoid)
+        //    {
+        //        string retTypeName = metDecl.ReturnType.ToString();
+        //        if (retTypeName.StartsWith("CefRefPtr<"))
+        //        {
+        //            stbuilder.Append("return nullptr;");
+        //        }
+        //        else
+        //        {
+        //            switch (metDecl.ReturnType.ToString())
+        //            {
+        //                case "bool":
+        //                    stbuilder.Append("return false;");
+        //                    break;
+        //                case "FilterStatus": //TODO: revisit here
+        //                    stbuilder.Append("return (FilterStatus)0;");
+        //                    break;
+        //                case "ReturnValue":
+        //                    stbuilder.Append("return (ReturnValue)0;");
+        //                    break;
+        //                case "CefSize":
+        //                    stbuilder.Append("throw new CefNotImplementException();");
+        //                    break;
+        //                case "size_t":
+        //                    stbuilder.Append("return 0;");
+        //                    break;
+        //                case "int":
+        //                    stbuilder.Append("return 0;");
+        //                    break;
+        //                case "int64":
+        //                    stbuilder.Append("return 0;");
+        //                    break;
+        //                default:
+        //                    throw new NotSupportedException();
+
+        //            }
+        //        }
+        //    }
+
+        //    stbuilder.AppendLine("}"); //method
+        //}
+
+        void GenerateCppImplMethodForNs(MethodTxInfo met, CodeStringBuilder stbuilder, bool useJsSlot)
         {
             CodeMethodDeclaration metDecl = met.metDecl;
             stbuilder.AppendLine("//gen! " + metDecl.ToString());
@@ -2876,62 +2926,92 @@ namespace BridgeBuilder
             }
             stbuilder.AppendLine("){");
             //-----------
-            stbuilder.AppendLine("if(mcallback){");
-            //call to managed 
-            stbuilder.AppendLine("MyMetArgsN args;");
-            stbuilder.AppendLine("memset(&args, 0, sizeof(MyMetArgsN));");
-            stbuilder.AppendLine("args.argCount=" + j + ";");
-            int arrLen = j + 1;
-            stbuilder.AppendLine("jsvalue vargs[" + arrLen + "];");
-            stbuilder.AppendLine("memset(&vargs, 0, sizeof(jsvalue) * " + arrLen + ");");
-            stbuilder.AppendLine("args.vargs=vargs;");
-
-            for (int i = 0; i < j; ++i)
+            //method body
+            if (!useJsSlot)
             {
-                MethodParameterTxInfo parTx = met.pars[i];
-                parTx.ClearExtractCode();
-                PrepareDataFromNativeToCs(parTx, "&vargs[" + (i + 1) + "]", parTx.Name, true);
-            }
-
-            PrepareCppMetArg(met.ReturnPlan, "vargs[0]");
-            //
-            for (int i = 0; i < j; ++i)
-            {
-                MethodParameterTxInfo parTx = met.pars[i];
-                if (parTx.ArgPreExtractCode != null)
+                string metArgsClassName = metDecl.Name + "Args";
+                stbuilder.AppendLine("if(mcallback){");
+                stbuilder.Append(metArgsClassName + " args1");
+                //with ctors
+                if (j == 0)
                 {
-                    stbuilder.AppendLine(parTx.ArgPreExtractCode);
+                    stbuilder.AppendLine(";");
                 }
-            }
-            for (int i = 0; i < j; ++i)
-            {
-                MethodParameterTxInfo parTx = met.pars[i];
-                stbuilder.AppendLine(parTx.ArgExtractCode);
-            }
-            //
-            //call a method and get some result back 
-            //
-            stbuilder.AppendLine("mcallback( (_typeName << 16) | " + met.CppMethodSwitchCaseName + ",&args);");
-
-            //post call
-            for (int i = 0; i < j; ++i)
-            {
-                MethodParameterTxInfo parTx = met.pars[i];
-                if (parTx.ArgPostExtractCode != null)
+                else
                 {
-                    stbuilder.AppendLine(parTx.ArgPostExtractCode);
+                    stbuilder.Append("(");
+                    for (int i = 0; i < j; ++i)
+                    {
+                        MethodParameterTxInfo par = met.pars[i];
+                        if (i > 0) { stbuilder.Append(","); }
+                        //
+                        stbuilder.Append(par.Name);
+                    }
+                    stbuilder.AppendLine(");");
                 }
+                stbuilder.AppendLine("mcallback( (_typeName << 16) | " + met.CppMethodSwitchCaseName + ",&args1);");
+                stbuilder.AppendLine("}"); //if(this->mcallback){
             }
-
-            //temp fix, arg extract code 
-            if (!met.ReturnPlan.IsVoid)
+            else
             {
-                stbuilder.AppendLine("return " + met.ReturnPlan.ArgExtractCode.Replace("->", ".") + ";");
-            }
-            //and return value
-            stbuilder.AppendLine("}"); //if(this->mcallback){
+                stbuilder.AppendLine("if(mcallback){");
+                //call to managed 
+                stbuilder.AppendLine("MyMetArgsN args;");
+                stbuilder.AppendLine("memset(&args, 0, sizeof(MyMetArgsN));");
+                stbuilder.AppendLine("args.argCount=" + j + ";");
+                int arrLen = j + 1;
+                stbuilder.AppendLine("jsvalue vargs[" + arrLen + "];");
+                stbuilder.AppendLine("memset(&vargs, 0, sizeof(jsvalue) * " + arrLen + ");");
+                stbuilder.AppendLine("args.vargs=vargs;");
 
-            //-----------
+                for (int i = 0; i < j; ++i)
+                {
+                    MethodParameterTxInfo parTx = met.pars[i];
+                    parTx.ClearExtractCode();
+                    PrepareDataFromNativeToCs(parTx, "&vargs[" + (i + 1) + "]", parTx.Name, true);
+                }
+
+                PrepareCppMetArg(met.ReturnPlan, "vargs[0]");
+                //
+                for (int i = 0; i < j; ++i)
+                {
+                    MethodParameterTxInfo parTx = met.pars[i];
+                    if (parTx.ArgPreExtractCode != null)
+                    {
+                        stbuilder.AppendLine(parTx.ArgPreExtractCode);
+                    }
+                }
+                for (int i = 0; i < j; ++i)
+                {
+                    MethodParameterTxInfo parTx = met.pars[i];
+                    stbuilder.AppendLine(parTx.ArgExtractCode);
+                }
+                //
+                //call a method and get some result back 
+                //
+                stbuilder.AppendLine("mcallback( (_typeName << 16) | " + met.CppMethodSwitchCaseName + ",&args);");
+
+                //post call
+                for (int i = 0; i < j; ++i)
+                {
+                    MethodParameterTxInfo parTx = met.pars[i];
+                    if (parTx.ArgPostExtractCode != null)
+                    {
+                        stbuilder.AppendLine(parTx.ArgPostExtractCode);
+                    }
+                }
+
+                //temp fix, arg extract code 
+                if (!met.ReturnPlan.IsVoid)
+                {
+                    stbuilder.AppendLine("return " + met.ReturnPlan.ArgExtractCode.Replace("->", ".") + ";");
+                }
+                //and return value
+                stbuilder.AppendLine("}"); //if(this->mcallback){
+
+                //-----------
+            }
+
 
             if (!met.ReturnPlan.IsVoid)
             {
@@ -3010,48 +3090,48 @@ namespace BridgeBuilder
             }
             stbuilder.AppendLine(");");
         }
-        void GenerateCppImplClass(CodeTypeDeclaration orgDecl, List<MethodTxInfo> callToDotNetMets, CodeStringBuilder stbuilder)
-        {
+        //void GenerateCppImplClass(CodeTypeDeclaration orgDecl, List<MethodTxInfo> callToDotNetMets, CodeStringBuilder stbuilder)
+        //{
 
-            string className = "My" + orgDecl.Name;
-            int nn = callToDotNetMets.Count;
-            for (int mm = 0; mm < nn; ++mm)
-            {
-                //implement on event notificationi
-                MethodTxInfo met = callToDotNetMets[mm];
-                met.CppMethodSwitchCaseName = className + "_" + met.Name + "_" + (mm + 1);
-                stbuilder.AppendLine("const int " + met.CppMethodSwitchCaseName + "=" + (mm + 1) + ";");
-            }
+        //    string className = "My" + orgDecl.Name;
+        //    int nn = callToDotNetMets.Count;
+        //    for (int mm = 0; mm < nn; ++mm)
+        //    {
+        //        //implement on event notificationi
+        //        MethodTxInfo met = callToDotNetMets[mm];
+        //        met.CppMethodSwitchCaseName = className + "_" + met.Name + "_" + (mm + 1);
+        //        stbuilder.AppendLine("const int " + met.CppMethodSwitchCaseName + "=" + (mm + 1) + ";");
+        //    }
 
-            //create a cpp class              
-            stbuilder.Append("class " + className);
-            stbuilder.Append(":public " + orgDecl.Name);
-            stbuilder.AppendLine("{");
-            //members
-            stbuilder.AppendLine("public:");
-            stbuilder.AppendLine("managed_callback mcallback;");
-            stbuilder.AppendLine("explicit " + className + "(){");
-            stbuilder.AppendLine("mcallback= NULL;");
-            stbuilder.AppendLine("}");
-            //stbuilder.AppendLine("managed_callback GetManagedCallBack() const OVERRIDE { return mcallback; }");
+        //    //create a cpp class              
+        //    stbuilder.Append("class " + className);
+        //    stbuilder.Append(":public " + orgDecl.Name);
+        //    stbuilder.AppendLine("{");
+        //    //members
+        //    stbuilder.AppendLine("public:");
+        //    stbuilder.AppendLine("managed_callback mcallback;");
+        //    stbuilder.AppendLine("explicit " + className + "(){");
+        //    stbuilder.AppendLine("mcallback= NULL;");
+        //    stbuilder.AppendLine("}");
+        //    //stbuilder.AppendLine("managed_callback GetManagedCallBack() const OVERRIDE { return mcallback; }");
 
-            //
-            this.CppImplClassNameId = _typeTxInfo.CsInterOpTypeNameId;
-            this.CppImplClassName = className;
+        //    //
+        //    this.CppImplClassNameId = _typeTxInfo.CsInterOpTypeNameId;
+        //    this.CppImplClassName = className;
 
-            nn = callToDotNetMets.Count;
-            for (int mm = 0; mm < nn; ++mm)
-            {
-                //implement on event notificationi
-                MethodTxInfo met = callToDotNetMets[mm];
-                //prepare data and call the callback
-                GenerateCppImplMethod(met, stbuilder);
-            }
-            //private member
-            stbuilder.AppendLine("private:");
-            stbuilder.AppendLine("IMPLEMENT_REFCOUNTING(" + className + ");");
-            stbuilder.AppendLine("};");
-        }
+        //    nn = callToDotNetMets.Count;
+        //    for (int mm = 0; mm < nn; ++mm)
+        //    {
+        //        //implement on event notificationi
+        //        MethodTxInfo met = callToDotNetMets[mm];
+        //        //prepare data and call the callback
+        //        GenerateCppImplMethod_JsValueSlotBased(met, stbuilder);
+        //    }
+        //    //private member
+        //    stbuilder.AppendLine("private:");
+        //    stbuilder.AppendLine("IMPLEMENT_REFCOUNTING(" + className + ");");
+        //    stbuilder.AppendLine("};");
+        //}
         void GenerateCppImplNamespace(CodeTypeDeclaration orgDecl, List<MethodTxInfo> callToDotNetMets, CodeStringBuilder stbuilder)
         {
 
@@ -3071,14 +3151,13 @@ namespace BridgeBuilder
                 MethodTxInfo met = callToDotNetMets[mm];
                 met.CppMethodSwitchCaseName = className + "_" + met.Name + "_" + (mm + 1);
             }
-
             nn = callToDotNetMets.Count;
             for (int mm = 0; mm < nn; ++mm)
             {
                 //implement on event notificationi
                 MethodTxInfo met = callToDotNetMets[mm];
                 //prepare data and call the callback
-                GenerateCppImplMethodForNs(met, stbuilder);
+                GenerateCppImplMethodForNs(met, stbuilder, false);
             }
             stbuilder.AppendLine("}");
             //----------------------------------------------
@@ -3150,10 +3229,7 @@ namespace BridgeBuilder
                 const_methodNames.AppendLine("const int " + metTx.CppMethodSwitchCaseName + "=" + (i + 1) + ";");
             }
             totalTypeMethod.AppendLine(const_methodNames.ToString());
-            //-----------------------------------------------------------------------
-
-
-
+            //----------------------------------------------------------------------- 
             if (callToDotNetMets.Count > 0)
             {
                 GenerateCppImplNamespace(orgDecl, callToDotNetMets, stbuilder);
@@ -3197,12 +3273,21 @@ namespace BridgeBuilder
                 }
             }
 
-
-
             if (callToDotNetMets.Count > 0)
             {
                 GenerateCsImplClass(orgDecl, callToDotNetMets, stbuilder);
             }
+
+            //
+            CodeStringBuilder cppArgClassStBuilder = new CodeStringBuilder();
+            cppArgClassStBuilder.AppendLine("namespace " + orgDecl.Name + "Ext{");
+            for (int i = 0; i < j; ++i)
+            {
+                MethodTxInfo met = _typeTxInfo.methods[i];
+                GenerateCppMethodArgsClass(met, cppArgClassStBuilder);
+            }
+            cppArgClassStBuilder.AppendLine("}");
+            _cppHeaderExportFuncAuto.Append(cppArgClassStBuilder.ToString());
 
         }
 
@@ -3589,7 +3674,6 @@ namespace BridgeBuilder
             {
                 //implement on event notificationi
                 MethodTxInfo met = callToDotNetMets[mm];
-
                 PrepareCsMetPars(met);
                 stbuilder.AppendLine("const int " + met.CppMethodSwitchCaseName + "= " + (mm + 1) + ";");
             }
@@ -3605,9 +3689,7 @@ namespace BridgeBuilder
                 //GenerateCsExpandedArgsMethodImpl(met, stbuilder);
                 string argClassName = GenerateCsMethodArgsClass(met, stbuilder);
                 met.CsArgClassName = argClassName;
-                //GenerateCsSingleArgMethodImpl(argClassName, met, stbuilder); 
-
-                GenerateCppMethodArgsClass(met, stbuilder);
+                //GenerateCsSingleArgMethodImpl(argClassName, met, stbuilder);                  
             }
 
             //------------------------------            
@@ -4159,6 +4241,7 @@ namespace BridgeBuilder
             //-------------------------------------------
             if (callToDotNetMets.Count > 0)
             {
+
                 GenerateCppImplClass(orgDecl, callToDotNetMets, stbuilder);
             }
         }

@@ -1,5 +1,5 @@
 Hello! 
-This is my Cef3 to .Net Bridge project.
+This is my C# <==> Cef3 project.
 
 under construction...
  
