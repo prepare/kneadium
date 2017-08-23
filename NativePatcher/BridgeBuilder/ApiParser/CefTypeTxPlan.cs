@@ -2930,7 +2930,7 @@ namespace BridgeBuilder
 
 
 
-           
+
 
             for (int i = 0; i < j; ++i)
             {
@@ -2940,7 +2940,7 @@ namespace BridgeBuilder
             }
             //method body
             if (!useJsSlot)
-            { 
+            {
 
                 string metArgsClassName = metDecl.Name + "Args";
                 stbuilder.AppendLine("if(mcallback){");
@@ -2975,7 +2975,7 @@ namespace BridgeBuilder
                 int arrLen = j + 1;
                 stbuilder.AppendLine("jsvalue vargs[" + arrLen + "];");
                 stbuilder.AppendLine("memset(&vargs, 0, sizeof(jsvalue) * " + arrLen + ");");
-                stbuilder.AppendLine("args.vargs=vargs;"); 
+                stbuilder.AppendLine("args.vargs=vargs;");
                 PrepareCppMetArg(met.ReturnPlan, "vargs[0]");
                 //
                 for (int i = 0; i < j; ++i)
@@ -3296,15 +3296,187 @@ namespace BridgeBuilder
 
         }
 
-        string GenerateCsMethodArgsClass(MethodTxInfo met, CodeStringBuilder stbuilder)
+
+        string GenerateCsMethodArgsClass_Native(MethodTxInfo met, CodeStringBuilder stbuilder)
         {
             //generate cs method pars
             CodeMethodDeclaration metDecl = (CodeMethodDeclaration)met.metDecl;
             List<CodeMethodParameter> pars = metDecl.Parameters;
             int j = pars.Count;
+            //temp 
+            string className = met.Name + "NativeArgs";
+
+            stbuilder.AppendLine("public struct " + className + "{ ");
+            stbuilder.AppendLine("IntPtr nativePtr; //met arg native ptr");
+            stbuilder.AppendLine("internal " + className + "(IntPtr nativePtr){");
+            //stbuilder.AppendLine(@"int argCount;
+            //            this.nativePtr = MyMetArgs.GetArrHead(nativePtr,out argCount);");
+            stbuilder.AppendLine("}");
+
+            int pos = 0;
+            for (int i = 0; i < j; ++i)
+            {
+                pos = i + 1; //*** 
+
+                //move this to method
+                CodeMethodParameter par = pars[i];
+                MethodParameterTxInfo parTx = met.pars[i];
+                switch (parTx.Name)
+                {
+                    case "params":
+                        parTx.Name = "_params";
+                        break;
+                    case "string":
+                        parTx.Name = "_string";
+                        break;
+                    case "object":
+                        parTx.Name = "_object";
+                        break;
+                    case "event":
+                        parTx.Name = "_event";
+                        break;
+                }
+                //
+                stbuilder.Append("public ");
+
+                string csParTypeName = GetCsRetName(parTx.TypeSymbol);
+                string csSetterParTypeName = null;
+                switch (csParTypeName)
+                {
+                    case "ref bool":
+                        //provide both getter and setter method
+                        stbuilder.Append("bool");
+                        parTx.ArgByRef = true;//temp
+                        parTx.InnerTypeName = csSetterParTypeName = "bool";
+                        break;
+                    case "ref int":
+                        stbuilder.Append("int");
+                        parTx.ArgByRef = true;//temp
+                        parTx.InnerTypeName = csSetterParTypeName = "int";
+                        break;
+                    case "ref uint":
+                        stbuilder.Append("uint");
+                        parTx.ArgByRef = true;//temp
+                        parTx.InnerTypeName = csSetterParTypeName = "uint";
+                        break;
+                    default:
+                        stbuilder.Append(csParTypeName);
+                        csSetterParTypeName = csParTypeName;
+                        break;
+                }
+
+                //some cpp name can't be use in C#                 
+                stbuilder.Append(" ");
+                stbuilder.Append(parTx.Name);
+                stbuilder.Append("()");
+                stbuilder.AppendLine("{");
+
+                switch (csParTypeName)
+                {
+                    default:
+                        {
+
+                            if (csParTypeName.StartsWith("Cef"))
+                            {
+                                stbuilder.Append("return new " + csParTypeName + "(MyMetArgs.GetAsIntPtr(nativePtr," + pos + "));");
+                            }
+                            else if (csParTypeName.StartsWith("cef"))
+                            {
+                                stbuilder.Append("return " + "(" + csParTypeName + ")" + "MyMetArgs.GetAsInt32(nativePtr," + pos + ");");
+                            }
+                            else
+                            {
+                                stbuilder.Append("throw new CefNotImplementedException();");
+                            }
+                        }
+
+                        break;
+                    case "IntPtr":
+                        stbuilder.Append("throw new CefNotImplementedException();");
+                        break;
+                    case "List<object>":
+                    case "List<string>":
+                    case "List<CefCompositionUnderline>":
+                        stbuilder.Append("throw new CefNotImplementedException();");
+                        break;
+                    case "CefValue":
+
+                        stbuilder.Append("throw new CefNotImplementedException();");
+                        break;
+                    case "uint":
+                        stbuilder.Append("return " + "MyMetArgs.GetAsUInt32(nativePtr," + pos + ");");
+                        break;
+                    case "int":
+                        stbuilder.Append("return " + "MyMetArgs.GetAsInt32(nativePtr," + pos + ");");
+                        break;
+                    case "long":
+                        stbuilder.Append("return " + "MyMetArgs.GetAsInt64(nativePtr," + pos + ");");
+                        break;
+                    case "string":
+                        stbuilder.Append("return " + "MyMetArgs.GetAsString(nativePtr," + pos + ");");
+                        break;
+                    case "bool":
+                        stbuilder.Append("return " + "MyMetArgs.GetAsBool(nativePtr," + pos + ");");
+                        break;
+                    case "double":
+                        stbuilder.Append("return " + "MyMetArgs.GetAsDouble(nativePtr," + pos + ");");
+                        break;
+                    case "ref bool":
+                        //provide both getter and setter method
+                        {
+                            stbuilder.Append("return " + "MyMetArgs.GetAsBool(nativePtr," + pos + ");");
+                            stbuilder.AppendLine("}");
+
+                            //method
+                            //generate setter part
+
+                            stbuilder.AppendLine("public void " + parTx.Name + "(" + csSetterParTypeName + " value){");
+                            stbuilder.AppendLine("MyMetArgs.SetBoolToAddress(nativePtr," + pos + ",value);");
+                            stbuilder.AppendLine("}");
+                            continue;
+                        }
+
+                    case "ref int":
+                        {
+                            stbuilder.Append("return " + "MyMetArgs.GetAsInt32(nativePtr," + pos + ");");
+                            stbuilder.AppendLine("}");
+
+                            //method
+                            //generate setter part
+                            stbuilder.AppendLine("public void " + parTx.Name + "(" + csSetterParTypeName + " value){");
+                            stbuilder.AppendLine("MyMetArgs.SetInt32ToAddress(nativePtr," + pos + ",value);");
+                            stbuilder.AppendLine("}");
+                            continue;
+                        }
+
+                    case "ref uint":
+                        {
+                            stbuilder.Append("return " + "MyMetArgs.GetAsUInt32(nativePtr," + pos + ");");
+                            stbuilder.AppendLine("}");
+
+                            //method
+                            //generate setter part
+                            stbuilder.AppendLine("public void " + parTx.Name + "(" + csSetterParTypeName + " value){");
+                            stbuilder.AppendLine("MyMetArgs.SetUInt32ToAddress(nativePtr," + pos + ",value);");
+                            stbuilder.AppendLine("}");
+                            continue;
+                        }
+
+                }
 
 
+                stbuilder.AppendLine("}"); //method
+            }
+            stbuilder.AppendLine("}"); //struct
 
+            return className;
+        }
+        string GenerateCsMethodArgsClass_JsSlot(MethodTxInfo met, CodeStringBuilder stbuilder)
+        {
+            //generate cs method pars
+            CodeMethodDeclaration metDecl = (CodeMethodDeclaration)met.metDecl;
+            List<CodeMethodParameter> pars = metDecl.Parameters;
+            int j = pars.Count;
             //temp 
             string className = met.Name + "Args";
 
@@ -3374,7 +3546,6 @@ namespace BridgeBuilder
                 stbuilder.Append(parTx.Name);
                 stbuilder.Append("()");
                 stbuilder.AppendLine("{");
-
 
                 switch (csParTypeName)
                 {
@@ -3692,7 +3863,9 @@ namespace BridgeBuilder
                 stbuilder.AppendLine("//gen! " + met.metDecl.ToString());
                 //
                 //GenerateCsExpandedArgsMethodImpl(met, stbuilder);
-                string argClassName = GenerateCsMethodArgsClass(met, stbuilder);
+                string argClassName = GenerateCsMethodArgsClass_JsSlot(met, stbuilder);
+                GenerateCsMethodArgsClass_Native(met, stbuilder);
+
                 met.CsArgClassName = argClassName;
                 //GenerateCsSingleArgMethodImpl(argClassName, met, stbuilder);                  
             }
