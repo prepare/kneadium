@@ -2930,18 +2930,17 @@ namespace BridgeBuilder
 
 
 
-            //method body
+           
 
-
-            if (!useJsSlot)
+            for (int i = 0; i < j; ++i)
             {
-                for (int i = 0; i < j; ++i)
-                {
-                    MethodParameterTxInfo parTx = met.pars[i];
-                    parTx.ClearExtractCode();
-                    PrepareDataFromNativeToCs(parTx, "&vargs[" + (i + 1) + "]", parTx.Name, true);
-                }
-
+                MethodParameterTxInfo parTx = met.pars[i];
+                parTx.ClearExtractCode();
+                PrepareDataFromNativeToCs(parTx, "&vargs[" + (i + 1) + "]", parTx.Name, true);
+            }
+            //method body
+            if (!useJsSlot)
+            { 
 
                 string metArgsClassName = metDecl.Name + "Args";
                 stbuilder.AppendLine("if(mcallback){");
@@ -2976,15 +2975,7 @@ namespace BridgeBuilder
                 int arrLen = j + 1;
                 stbuilder.AppendLine("jsvalue vargs[" + arrLen + "];");
                 stbuilder.AppendLine("memset(&vargs, 0, sizeof(jsvalue) * " + arrLen + ");");
-                stbuilder.AppendLine("args.vargs=vargs;");
-
-                for (int i = 0; i < j; ++i)
-                {
-                    MethodParameterTxInfo parTx = met.pars[i];
-                    parTx.ClearExtractCode();
-                    PrepareDataFromNativeToCs(parTx, "&vargs[" + (i + 1) + "]", parTx.Name, true);
-                }
-
+                stbuilder.AppendLine("args.vargs=vargs;"); 
                 PrepareCppMetArg(met.ReturnPlan, "vargs[0]");
                 //
                 for (int i = 0; i < j; ++i)
