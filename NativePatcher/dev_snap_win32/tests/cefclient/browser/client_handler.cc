@@ -1097,13 +1097,13 @@ namespace client {
 			<< "<table border=1><tr><th>Field</th><th>Value</th></tr>";
 
 		CefURLParts urlparts;
-		if (CefParseURL(nav->GetURL(), urlparts)) {
+		/*if (CefParseURL(nav->GetURL(), urlparts)) {
 			CefString port(&urlparts.port);
 			ss << "<tr><td>Server</td><td>" << CefString(&urlparts.host).ToString();
 			if (!port.empty())
 				ss << ":" << port.ToString();
 			ss << "</td></tr>";
-		}
+		}*/
 
 		ss << "<tr><td>SSL Version</td><td>"
 			<< GetSSLVersionString(ssl->GetSSLVersion()) << "</td></tr>";
