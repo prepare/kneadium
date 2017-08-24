@@ -2836,11 +2836,8 @@ namespace BridgeBuilder
             }
             //method body
             if (!useJsSlot)
-            {
-
-
-                stbuilder.AppendLine("if(mcallback){");
-
+            {   
+                stbuilder.AppendLine("if(mcallback){"); 
                 string metArgsClassName = metDecl.Name + "Args";
                 stbuilder.Append(metArgsClassName + " args1");
                 //with ctors
@@ -2854,9 +2851,7 @@ namespace BridgeBuilder
                     for (int i = 0; i < j; ++i)
                     {
                         MethodParameterTxInfo par = met.pars[i];
-                        if (i > 0) { stbuilder.Append(","); }
-
-
+                        if (i > 0) { stbuilder.Append(","); } 
                         //temp
                         string parType = par.TypeSymbol.ToString();
                         if (parType.EndsWith("&"))

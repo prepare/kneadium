@@ -676,6 +676,9 @@ namespace BridgeBuilder
             foreach (CefCallbackTxPlan tx in callbackPlans)
             {
                 CodeStringBuilder stbuilder = new CodeStringBuilder();
+                tx._cppHeaderExportFuncAuto = cppHeaderExportFuncAuto;
+                tx._cppHeaderInternalForExportFuncAuto = cppHeaderInternalForExportFunc;
+                //
                 tx.GenerateCppCode(stbuilder);
                 cppCodeStBuilder.Append(stbuilder.ToString());
 
@@ -690,27 +693,20 @@ namespace BridgeBuilder
 
             }
 
-            // 
-
-            //create default msg handler 
+            
             foreach (CefHandlerTxPlan tx in handlerPlans)
-            {
-
+            { 
                 CodeStringBuilder stbuilder = new CodeStringBuilder();
-                //a handler is created on cpp side, then we attach .net delegate to it
-                //so  we need
-                //1. 
+                
                 tx._cppHeaderExportFuncAuto = cppHeaderExportFuncAuto;
-                tx._cppHeaderInternalForExportFuncAuto = cppHeaderInternalForExportFunc;
-
+                tx._cppHeaderInternalForExportFuncAuto = cppHeaderInternalForExportFunc; 
                 //
                 tx.GenerateCppCode(stbuilder);
                 cppCodeStBuilder.Append(stbuilder.ToString());
                 //
                 stbuilder = new CodeStringBuilder();
                 tx.GenerateCsCode(stbuilder);
-                csCodeStBuilder.Append(stbuilder.ToString());
-                //no default implementation handler class       
+                csCodeStBuilder.Append(stbuilder.ToString()); 
             }
 
 
