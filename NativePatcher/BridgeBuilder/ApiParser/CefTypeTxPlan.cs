@@ -2862,7 +2862,7 @@ namespace BridgeBuilder
                     }
                     stbuilder.AppendLine(");");
                 }
-                stbuilder.AppendLine("mcallback( (_typeName << 16) | " + met.CppMethodSwitchCaseName + ",&args1);");
+                stbuilder.AppendLine("mcallback( (_typeName << 16) | " + met.CppMethodSwitchCaseName + ",&args1.arg);");
                 stbuilder.AppendLine("}"); //if(this->mcallback){
             }
             else
