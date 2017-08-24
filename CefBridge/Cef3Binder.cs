@@ -861,9 +861,8 @@ namespace LayoutFarm.CefBridge
                 //return address of vargs
                 argCountAndFlags = *((int*)nativePtr); //MyMetArgsN
                 //check flags
-                int argFlags = argCountAndFlags >> 16;
-                //check if this is n 
-                if (((argFlags >> 18) & 1) == 1)
+                 
+                if (((argCountAndFlags >> 18) & 1) == 1)
                 {
                     //this native
                     return nativePtr;
