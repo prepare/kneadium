@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
-VisualStudioVersion = 15.0.26430.15
+VisualStudioVersion = 15.0.26730.8
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CefBrowser", "CefBrowser.csproj", "{ECB77D05-7BF7-4B8C-892A-59254A968863}"
 EndProject
@@ -46,17 +46,18 @@ Global
 		{5644E410-6385-46A7-835B-B3CE36408CC4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{5644E410-6385-46A7-835B-B3CE36408CC4}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{5644E410-6385-46A7-835B-B3CE36408CC4}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
-		{5644E410-6385-46A7-835B-B3CE36408CC4}.Debug|Mixed Platforms.Build.0 = Debug|Any CPU
 		{5644E410-6385-46A7-835B-B3CE36408CC4}.Debug|x86.ActiveCfg = Debug|Any CPU
 		{5644E410-6385-46A7-835B-B3CE36408CC4}.Debug|x86.Build.0 = Debug|Any CPU
 		{5644E410-6385-46A7-835B-B3CE36408CC4}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{5644E410-6385-46A7-835B-B3CE36408CC4}.Release|Any CPU.Build.0 = Release|Any CPU
 		{5644E410-6385-46A7-835B-B3CE36408CC4}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
-		{5644E410-6385-46A7-835B-B3CE36408CC4}.Release|Mixed Platforms.Build.0 = Release|Any CPU
 		{5644E410-6385-46A7-835B-B3CE36408CC4}.Release|x86.ActiveCfg = Release|Any CPU
 		{5644E410-6385-46A7-835B-B3CE36408CC4}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {05DCF914-34C8-4C75-B229-FF2981F12FA4}
 	EndGlobalSection
 EndGlobal

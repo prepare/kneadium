@@ -90,9 +90,6 @@
     <Compile Include="..\CefBridge\CefListeners.cs">
       <Link>CefBridgeCore\CefListeners.cs</Link>
     </Compile>
-    <Compile Include="..\CefBridge\CefPdf.cs">
-      <Link>CefBridgeCore\CefPdf.cs</Link>
-    </Compile>
     <Compile Include="..\CefBridge\CefStartArgs.cs">
       <Link>CefBridgeCore\CefStartArgs.cs</Link>
     </Compile>

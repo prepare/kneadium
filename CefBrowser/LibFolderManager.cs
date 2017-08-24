@@ -9,17 +9,14 @@ namespace LayoutFarm.CefBridge
             //where are native lib/exe. 
             //set proper dir here
             //depend on what you want
-            //1. nearest local dir
-            //2. common dir  
-            //string currrentExecPath = System.IO.Path.GetDirectoryName(Application.ExecutablePath);
-            //string commonAppDir = System.IO.Path.GetDirectoryName(Application.CommonAppDataPath);//skip version
+            
             //------   
 #if DEBUG
             ReferencePaths.LIB_PATH = @"D:\projects\cef_binary_3.3071.1647.win32build\tests\cefclient\Debug";
 #else
             ReferencePaths.LIB_PATH = @"D:\projects\cef_binary_3.3071.1647.win32build\tests\cefclient\Release";
 #endif
-            ReferencePaths.LIB_PATH = @"D:\projects\kneadium\bin\Release"; //test
+            //ReferencePaths.LIB_PATH = @"D:\projects\kneadium\bin\Release"; //test
             ReferencePaths.SUB_PROCESS_PATH = "CefBwSp.exe";
             ReferencePaths.OUTPUT_DIR = @"_output";//dir
             ReferencePaths.LOG_PATH = ReferencePaths.OUTPUT_DIR + "/cef_console.log"; //file

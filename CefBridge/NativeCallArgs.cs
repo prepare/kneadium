@@ -62,7 +62,7 @@ namespace LayoutFarm.CefBridge
         public NativeCallArgs(IntPtr argPtr)
         {
             int argCount;
-            this._argPtr = MyMetArgs.GetArrHead(argPtr, out argCount);
+            this._argPtr = MyMetArgs.GetNativeObjPtr(argPtr, out argCount);
         }
         public string GetArgAsString(int index)
         {

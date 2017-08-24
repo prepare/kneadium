@@ -630,6 +630,7 @@ namespace BridgeBuilder
                 "//AUTOGEN CONTENT\r\n" +
                 "using System;\r\n" +
                 "using System.Collections.Generic;\r\n" +
+                "using System.Runtime.InteropServices;\r\n" +
                 "namespace LayoutFarm.CefBridge.Auto{\r\n");
 
 
@@ -709,7 +710,7 @@ namespace BridgeBuilder
                 stbuilder = new CodeStringBuilder();
                 tx.GenerateCsCode(stbuilder);
                 csCodeStBuilder.Append(stbuilder.ToString());
-                //no default implementation handler class                 
+                //no default implementation handler class       
             }
 
 
@@ -742,6 +743,7 @@ namespace BridgeBuilder
             CreateNewInstanceMethod(cppCodeStBuilder, customImplClasses);
             AddCppBuiltInEndCode(cppCodeStBuilder);
             //
+
 
         }
         void CreateNewInstanceMethod(StringBuilder outputStBuilder, List<CefTypeTxPlan> customImplClasses)
