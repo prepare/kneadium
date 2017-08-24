@@ -707,7 +707,7 @@ namespace LayoutFarm.CefBridge
         public static OsPlatform GetOsName()
         {
             //check platform
-#if NETCORE
+#if NETCOREAPP1_1
             if (System.Runtime.InteropServices.RuntimeInformation.IsOSPlatform(
                 System.Runtime.InteropServices.OSPlatform.OSX))
             {
@@ -727,8 +727,7 @@ namespace LayoutFarm.CefBridge
             else
             {
                 return OsPlatform.Unknown;
-            }
-        }
+            }            
 #else
             OperatingSystem os = Environment.OSVersion;
             switch (os.Platform)
@@ -849,20 +848,31 @@ namespace LayoutFarm.CefBridge
     {
         //TODO: inline? 
 
-        internal static IntPtr GetArrHead(IntPtr nativePtr, out int argCount)
+        internal static IntPtr GetNativeObjPtr(IntPtr nativePtr, out int argCountAndFlags)
         {
             unsafe
             {
+
                 //struct MyMetArgsN
                 //{
                 //    int32_t argCount;
                 //    jsvalue* vargs;
-                //};
-
+                //}; 
                 //return address of vargs
-                argCount = *((int*)nativePtr); //MyMetArgsN
-                IntPtr h1 = (IntPtr)(((byte*)nativePtr) + sizeof(int));
-                return (IntPtr)(*((JsValue**)h1));
+                argCountAndFlags = *((int*)nativePtr); //MyMetArgsN
+                //check flags
+                 
+                if (((argCountAndFlags >> 18) & 1) == 1)
+                {
+                    //this native
+                    return nativePtr;
+                }
+                else
+                {
+                    IntPtr h1 = (IntPtr)(((byte*)nativePtr) + sizeof(int));
+                    return (IntPtr)(*((JsValue**)h1));
+                }
+
             }
         }
         internal static string GetAsString(IntPtr varr, int index)
@@ -870,6 +880,16 @@ namespace LayoutFarm.CefBridge
             unsafe
             {
                 return MyCefJsReadString((JsValue*)varr + index);
+            }
+        }
+        internal static string GetAsString(IntPtr cefStringPtr)
+        {
+            unsafe
+            {
+                char* rawCefString_char16_t;
+                int actualLen;
+                Cef3Binder.MyCefStringGetRawPtr(cefStringPtr, out rawCefString_char16_t, out actualLen);
+                return new string(rawCefString_char16_t, 0, actualLen); 
             }
         }
         internal static int GetAsInt32(IntPtr varr, int index)
@@ -1007,6 +1027,4 @@ namespace LayoutFarm.CefBridge
 
         }
     }
-
-
 }

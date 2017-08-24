@@ -7,6 +7,7 @@
 
 //###_BEGIN
 #include "tests/cefclient/myext/mycef_buildconfig.h"
+#include "myext/mycef.h"
 #if BUILD_TEST_ROOT_WINDOW
 //###_END
 
@@ -124,6 +125,19 @@ int RunMain(HINSTANCE hInstance, int nCmdShow) {
 }  // namespace
 }  // namespace client
 
+//###_BEGIN 
+void MyCefStringGetRawPtr1(void* cefstring, char16** outputBuffer, int* actualLength) {
+	CefString* cefStr = (CefString*)cefstring;
+	*actualLength = (int)cefStr->length();
+	*outputBuffer = (char16*)cefStr->c_str();;
+}
+void TestSetArgs(MyMetArgsN* metArgs) {
+	jsvalue* a1 = &metArgs->vargs[1];
+	char16* tmpArr = NULL;
+	int actualLen = 0; 
+	MyCefStringGetRawPtr1((void*)a1->ptr, &tmpArr, &actualLen);
+}
+//###_END
 // Program entry point function.
 int APIENTRY wWinMain(HINSTANCE hInstance,
                       HINSTANCE hPrevInstance,
@@ -131,6 +145,16 @@ int APIENTRY wWinMain(HINSTANCE hInstance,
                       int nCmdShow) {
   UNREFERENCED_PARAMETER(hPrevInstance);
   UNREFERENCED_PARAMETER(lpCmdLine);
+  
+  //###_BEGIN 
+  //simple test args
+  INIT_MY_MET_ARGS(args, 1);
+  std::string tt = "hello!";
+  CefString t2 = tt;
+  SetCefStringToJsValue2(&vargs[1], t2);
+  TestSetArgs(&args);
+  //###_END
+
   return client::RunMain(hInstance, nCmdShow);
 }
 //###_BEGIN

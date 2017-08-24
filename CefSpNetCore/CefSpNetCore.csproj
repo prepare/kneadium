@@ -18,6 +18,9 @@
 
   <ItemGroup>
     <Compile Include="..\CefBridge\Cef3Binder.cs" Link="CefBridge\Cef3Binder.cs" />
+    <Compile Include="..\CefBridge\Cef3Binder_Auto.cs" Link="CefBridge\Cef3Binder_Auto.cs" />
+    <Compile Include="..\CefBridge\Cef3Binder_Auto2.cs" Link="CefBridge\Cef3Binder_Auto2.cs" />
+    <Compile Include="..\CefBridge\Cef3Binder_Auto3.cs" Link="CefBridge\Cef3Binder_Auto3.cs" />
     <Compile Include="..\CefBridge\Cef3InitEssential.cs" Link="CefBridge\Cef3InitEssential.cs" />
     <Compile Include="..\CefBridge\Cef3WinForms.cs" Link="CefBridge\Cef3WinForms.cs" />
     <Compile Include="..\CefBridge\CefListeners.cs" Link="CefBridge\CefListeners.cs" />

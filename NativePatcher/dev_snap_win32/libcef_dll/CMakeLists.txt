@@ -1,3 +1,4 @@
+# PATCH  D:\projects\cef_binary_3.3071.1647.win32\libcef_dll\CMakeLists.txt
 # Copyright (c) 2014 The Chromium Embedded Framework Authors. All rights
 # reserved. Use of this source code is governed by a BSD-style license that
 # can be found in the LICENSE file.
@@ -23,7 +24,17 @@ set(LIBCEF_SRCS
   transfer_util.h
   wrapper_types.h
   )
+# //###_FIND_NEXT_LANDMARK 0
 source_group(libcef_dll FILES ${LIBCEF_SRCS})
+# //###_APPEND_START 0
+set(LIBCEF_MYEXT_SRCS
+  myext/myext.cpp
+  myext/myext.h
+  myext/ExportFuncAuto.cpp
+  myext/ExportFuncAuto.h
+  )
+ source_group(libcef_dll\\\\myext FILES ${LIBCEF_MYEXT_SRCS})
+# //###_APPEND_STOP
 
 set(LIBCEF_BASE_SRCS
   base/cef_atomicops_x86_gcc.cc
@@ -683,7 +694,11 @@ add_library(${CEF_TARGET}
   ${LIBCEF_INCLUDE_TEST_SRCS}
   ${LIBCEF_INCLUDE_VIEWS_SRCS}
   ${LIBCEF_INCLUDE_WRAPPER_SRCS}
+# //###_FIND_NEXT_LANDMARK 1
   ${LIBCEF_WRAPPER_SRCS}
+# //###_APPEND_START 1
+${LIBCEF_MYEXT_SRCS}
+# //###_APPEND_STOP
   )
 SET_LIBRARY_TARGET_PROPERTIES(${CEF_TARGET})
 

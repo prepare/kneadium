@@ -51,7 +51,7 @@
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
-    <Optimize>true</Optimize>
+    <Optimize>false</Optimize>
     <OutputPath>..\bin\Release\</OutputPath>
     <DefineConstants>TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
@@ -69,21 +69,70 @@
     <Reference Include="System.Windows.Forms" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="CefBridge\MyCef3InitEssential.cs" />
-    <Compile Include="CefBridge\MyCef3WinForms.cs" />
-    <Compile Include="CefBridge\MyCefRenderProcessListener.cs" />
-    <Compile Include="CefBridge\MyCefUIListener.cs" />
-    <Compile Include="CefBridge\WindowControlImpl.cs" />
-    <Compile Include="CefBridge\WinFormsMsgLoopPump.cs" />
+    <Compile Include="..\CefBridge\Cef3Binder.cs">
+      <Link>CefBridgeCore\Cef3Binder.cs</Link>
+    </Compile>
+    <Compile Include="..\CefBridge\Cef3Binder_Auto.cs">
+      <Link>CefBridgeCore\Cef3Binder_Auto.cs</Link>
+    </Compile>
+    <Compile Include="..\CefBridge\Cef3Binder_Auto2.cs">
+      <Link>CefBridgeCore\Cef3Binder_Auto2.cs</Link>
+    </Compile>
+    <Compile Include="..\CefBridge\Cef3Binder_Auto3.cs">
+      <Link>CefBridgeCore\Cef3Binder_Auto3.cs</Link>
+    </Compile>
+    <Compile Include="..\CefBridge\Cef3InitEssential.cs">
+      <Link>CefBridgeCore\Cef3InitEssential.cs</Link>
+    </Compile>
+    <Compile Include="..\CefBridge\Cef3WinForms.cs">
+      <Link>CefBridgeCore\Cef3WinForms.cs</Link>
+    </Compile>
+    <Compile Include="..\CefBridge\CefListeners.cs">
+      <Link>CefBridgeCore\CefListeners.cs</Link>
+    </Compile>
+    <Compile Include="..\CefBridge\CefStartArgs.cs">
+      <Link>CefBridgeCore\CefStartArgs.cs</Link>
+    </Compile>
+    <Compile Include="..\CefBridge\ClientApp.cs">
+      <Link>CefBridgeCore\ClientApp.cs</Link>
+    </Compile>
+    <Compile Include="..\CefBridge\CustomSchemeAgent.cs">
+      <Link>CefBridgeCore\CustomSchemeAgent.cs</Link>
+    </Compile>
+    <Compile Include="..\CefBridge\MyCefBrowser.cs">
+      <Link>CefBridgeCore\MyCefBrowser.cs</Link>
+    </Compile>
+    <Compile Include="..\CefBridge\MyCefDevWindow.cs">
+      <Link>CefBridgeCore\MyCefDevWindow.cs</Link>
+    </Compile>
+    <Compile Include="..\CefBridge\NativeCallArgs.cs">
+      <Link>CefBridgeCore\NativeCallArgs.cs</Link>
+    </Compile>
+    <Compile Include="..\CefBridge\NativeCefObjects.cs">
+      <Link>CefBridgeCore\NativeCefObjects.cs</Link>
+    </Compile>
+    <Compile Include="..\CefBridge\ReferencePaths.cs">
+      <Link>CefBridgeCore\ReferencePaths.cs</Link>
+    </Compile>
+    <Compile Include="..\CefBridge\WindowWrapper.cs">
+      <Link>CefBridgeCore\WindowWrapper.cs</Link>
+    </Compile>
+    <Compile Include="CefImpl\MyCef3InitEssential.cs" />
+    <Compile Include="CefImpl\MyCef3WinForms.cs" />
+    <Compile Include="CefImpl\MyCefRenderProcessListener.cs" />
+    <Compile Include="CefImpl\MyCefUIListener.cs" />
+    <Compile Include="CefImpl\WindowControlImpl.cs" />
+    <Compile Include="CefImpl\WinFormsMsgLoopPump.cs" />
     <Compile Include="Forms\Form1.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="Forms\Form1.Designer.cs">
       <DependentUpon>Form1.cs</DependentUpon>
     </Compile>
-    <Compile Include="CefBridge\CefWebBrowser.cs">
+    <Compile Include="CefImpl\CefWebBrowser.cs">
       <SubType>Component</SubType>
     </Compile>
+    <Compile Include="LibFolderManager.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <EmbeddedResource Include="Forms\Form1.resx">
@@ -125,12 +174,6 @@
       <ProductName>Windows Installer 3.1</ProductName>
       <Install>true</Install>
     </BootstrapperPackage>
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\CefBridge\CefBridge.csproj">
-      <Project>{92688da6-2690-485b-96b6-c99b8c4490ec}</Project>
-      <Name>CefBridge</Name>
-    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

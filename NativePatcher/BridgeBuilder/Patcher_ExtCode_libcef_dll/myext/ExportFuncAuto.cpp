@@ -9073,7 +9073,7 @@ namespace CefPrintHandlerExt {
 			args.vargs = vargs;
 			MyCefSetInt32(&vargs[1], (int32_t)device_units_per_inch);
 			mcallback((_typeName << 16) | CefPrintHandlerExt_GetPdfPaperSize_6, &args);
-		 
+
 		}
 		CefSize s;
 		return s;
@@ -9500,9 +9500,12 @@ namespace CefRenderProcessHandlerExt {
 			CefDOMNodeCToCpp::Wrap(p_node);
 		}
 	}
+	 
 	//gen! bool OnProcessMessageReceived(CefRefPtr<CefBrowser> browser,CefProcessId source_process,CefRefPtr<CefProcessMessage> message)
 	bool OnProcessMessageReceived(managed_callback mcallback, CefRefPtr<CefBrowser> browser, CefProcessId source_process, CefRefPtr<CefProcessMessage> message) {
-		if (mcallback) {
+		
+
+		if (mcallback) {  
 			MyMetArgsN args;
 			memset(&args, 0, sizeof(MyMetArgsN));
 			args.argCount = 3;
