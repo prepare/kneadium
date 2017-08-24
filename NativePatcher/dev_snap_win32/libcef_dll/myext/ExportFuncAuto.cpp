@@ -1,3 +1,4 @@
+
 //MIT, 2017, WinterDev
 //AUTOGEN
 
@@ -8148,14 +8149,14 @@ namespace CefAccessibilityHandlerExt {
 	void OnAccessibilityTreeChange(managed_callback mcallback, CefRefPtr<CefValue> value) {
 		if (mcallback) {
 			OnAccessibilityTreeChangeArgs args1(value);
-			mcallback((_typeName << 16) | CefAccessibilityHandlerExt_OnAccessibilityTreeChange_1, &args1);
+			mcallback((_typeName << 16) | CefAccessibilityHandlerExt_OnAccessibilityTreeChange_1, &args1.arg);
 		}
 	}
 	//gen! void OnAccessibilityLocationChange(CefRefPtr<CefValue> value)
 	void OnAccessibilityLocationChange(managed_callback mcallback, CefRefPtr<CefValue> value) {
 		if (mcallback) {
 			OnAccessibilityLocationChangeArgs args1(value);
-			mcallback((_typeName << 16) | CefAccessibilityHandlerExt_OnAccessibilityLocationChange_2, &args1);
+			mcallback((_typeName << 16) | CefAccessibilityHandlerExt_OnAccessibilityLocationChange_2, &args1.arg);
 		}
 	}
 }
@@ -8164,28 +8165,28 @@ namespace CefBrowserProcessHandlerExt {
 	void OnContextInitialized(managed_callback mcallback) {
 		if (mcallback) {
 			OnContextInitializedArgs args1;
-			mcallback((_typeName << 16) | CefBrowserProcessHandlerExt_OnContextInitialized_1, &args1);
+			mcallback((_typeName << 16) | CefBrowserProcessHandlerExt_OnContextInitialized_1, &args1.arg);
 		}
 	}
 	//gen! void OnBeforeChildProcessLaunch(CefRefPtr<CefCommandLine> command_line)
 	void OnBeforeChildProcessLaunch(managed_callback mcallback, CefRefPtr<CefCommandLine> command_line) {
 		if (mcallback) {
 			OnBeforeChildProcessLaunchArgs args1(command_line);
-			mcallback((_typeName << 16) | CefBrowserProcessHandlerExt_OnBeforeChildProcessLaunch_2, &args1);
+			mcallback((_typeName << 16) | CefBrowserProcessHandlerExt_OnBeforeChildProcessLaunch_2, &args1.arg);
 		}
 	}
 	//gen! void OnRenderProcessThreadCreated(CefRefPtr<CefListValue> extra_info)
 	void OnRenderProcessThreadCreated(managed_callback mcallback, CefRefPtr<CefListValue> extra_info) {
 		if (mcallback) {
 			OnRenderProcessThreadCreatedArgs args1(extra_info);
-			mcallback((_typeName << 16) | CefBrowserProcessHandlerExt_OnRenderProcessThreadCreated_3, &args1);
+			mcallback((_typeName << 16) | CefBrowserProcessHandlerExt_OnRenderProcessThreadCreated_3, &args1.arg);
 		}
 	}
 	//gen! CefRefPtr<CefPrintHandler> GetPrintHandler()
 	CefRefPtr<CefPrintHandler> GetPrintHandler(managed_callback mcallback) {
 		if (mcallback) {
 			GetPrintHandlerArgs args1;
-			mcallback((_typeName << 16) | CefBrowserProcessHandlerExt_GetPrintHandler_4, &args1);
+			mcallback((_typeName << 16) | CefBrowserProcessHandlerExt_GetPrintHandler_4, &args1.arg);
 		}
 		return nullptr;
 	}
@@ -8193,7 +8194,7 @@ namespace CefBrowserProcessHandlerExt {
 	void OnScheduleMessagePumpWork(managed_callback mcallback, int64 delay_ms) {
 		if (mcallback) {
 			OnScheduleMessagePumpWorkArgs args1(delay_ms);
-			mcallback((_typeName << 16) | CefBrowserProcessHandlerExt_OnScheduleMessagePumpWork_5, &args1);
+			mcallback((_typeName << 16) | CefBrowserProcessHandlerExt_OnScheduleMessagePumpWork_5, &args1.arg);
 		}
 	}
 }
@@ -8202,14 +8203,14 @@ namespace CefContextMenuHandlerExt {
 	void OnBeforeContextMenu(managed_callback mcallback, CefRefPtr<CefBrowser> browser, CefRefPtr<CefFrame> frame, CefRefPtr<CefContextMenuParams> params, CefRefPtr<CefMenuModel> model) {
 		if (mcallback) {
 			OnBeforeContextMenuArgs args1(browser, frame, params, model);
-			mcallback((_typeName << 16) | CefContextMenuHandlerExt_OnBeforeContextMenu_1, &args1);
+			mcallback((_typeName << 16) | CefContextMenuHandlerExt_OnBeforeContextMenu_1, &args1.arg);
 		}
 	}
 	//gen! bool RunContextMenu(CefRefPtr<CefBrowser> browser,CefRefPtr<CefFrame> frame,CefRefPtr<CefContextMenuParams> params,CefRefPtr<CefMenuModel> model,CefRefPtr<CefRunContextMenuCallback> callback)
 	bool RunContextMenu(managed_callback mcallback, CefRefPtr<CefBrowser> browser, CefRefPtr<CefFrame> frame, CefRefPtr<CefContextMenuParams> params, CefRefPtr<CefMenuModel> model, CefRefPtr<CefRunContextMenuCallback> callback) {
 		if (mcallback) {
 			RunContextMenuArgs args1(browser, frame, params, model, callback);
-			mcallback((_typeName << 16) | CefContextMenuHandlerExt_RunContextMenu_2, &args1);
+			mcallback((_typeName << 16) | CefContextMenuHandlerExt_RunContextMenu_2, &args1.arg);
 		}
 		return false;
 	}
@@ -8217,7 +8218,7 @@ namespace CefContextMenuHandlerExt {
 	bool OnContextMenuCommand(managed_callback mcallback, CefRefPtr<CefBrowser> browser, CefRefPtr<CefFrame> frame, CefRefPtr<CefContextMenuParams> params, int command_id, cef_event_flags_t event_flags) {
 		if (mcallback) {
 			OnContextMenuCommandArgs args1(browser, frame, params, command_id, event_flags);
-			mcallback((_typeName << 16) | CefContextMenuHandlerExt_OnContextMenuCommand_3, &args1);
+			mcallback((_typeName << 16) | CefContextMenuHandlerExt_OnContextMenuCommand_3, &args1.arg);
 		}
 		return false;
 	}
@@ -8225,7 +8226,7 @@ namespace CefContextMenuHandlerExt {
 	void OnContextMenuDismissed(managed_callback mcallback, CefRefPtr<CefBrowser> browser, CefRefPtr<CefFrame> frame) {
 		if (mcallback) {
 			OnContextMenuDismissedArgs args1(browser, frame);
-			mcallback((_typeName << 16) | CefContextMenuHandlerExt_OnContextMenuDismissed_4, &args1);
+			mcallback((_typeName << 16) | CefContextMenuHandlerExt_OnContextMenuDismissed_4, &args1.arg);
 		}
 	}
 }
@@ -8234,7 +8235,7 @@ namespace CefDialogHandlerExt {
 	bool OnFileDialog(managed_callback mcallback, CefRefPtr<CefBrowser> browser, cef_file_dialog_mode_t mode, const CefString& title, const CefString& default_file_path, const std::vector<CefString>& accept_filters, int selected_accept_filter, CefRefPtr<CefFileDialogCallback> callback) {
 		if (mcallback) {
 			OnFileDialogArgs args1(browser, mode, &title, &default_file_path, &accept_filters, selected_accept_filter, callback);
-			mcallback((_typeName << 16) | CefDialogHandlerExt_OnFileDialog_1, &args1);
+			mcallback((_typeName << 16) | CefDialogHandlerExt_OnFileDialog_1, &args1.arg);
 		}
 		return false;
 	}
@@ -8244,35 +8245,35 @@ namespace CefDisplayHandlerExt {
 	void OnAddressChange(managed_callback mcallback, CefRefPtr<CefBrowser> browser, CefRefPtr<CefFrame> frame, const CefString& url) {
 		if (mcallback) {
 			OnAddressChangeArgs args1(browser, frame, &url);
-			mcallback((_typeName << 16) | CefDisplayHandlerExt_OnAddressChange_1, &args1);
+			mcallback((_typeName << 16) | CefDisplayHandlerExt_OnAddressChange_1, &args1.arg);
 		}
 	}
 	//gen! void OnTitleChange(CefRefPtr<CefBrowser> browser,const CefString& title)
 	void OnTitleChange(managed_callback mcallback, CefRefPtr<CefBrowser> browser, const CefString& title) {
 		if (mcallback) {
 			OnTitleChangeArgs args1(browser, &title);
-			mcallback((_typeName << 16) | CefDisplayHandlerExt_OnTitleChange_2, &args1);
+			mcallback((_typeName << 16) | CefDisplayHandlerExt_OnTitleChange_2, &args1.arg);
 		}
 	}
 	//gen! void OnFaviconURLChange(CefRefPtr<CefBrowser> browser,const std::vector<CefString>& icon_urls)
 	void OnFaviconURLChange(managed_callback mcallback, CefRefPtr<CefBrowser> browser, const std::vector<CefString>& icon_urls) {
 		if (mcallback) {
 			OnFaviconURLChangeArgs args1(browser, &icon_urls);
-			mcallback((_typeName << 16) | CefDisplayHandlerExt_OnFaviconURLChange_3, &args1);
+			mcallback((_typeName << 16) | CefDisplayHandlerExt_OnFaviconURLChange_3, &args1.arg);
 		}
 	}
 	//gen! void OnFullscreenModeChange(CefRefPtr<CefBrowser> browser,bool fullscreen)
 	void OnFullscreenModeChange(managed_callback mcallback, CefRefPtr<CefBrowser> browser, bool fullscreen) {
 		if (mcallback) {
 			OnFullscreenModeChangeArgs args1(browser, fullscreen);
-			mcallback((_typeName << 16) | CefDisplayHandlerExt_OnFullscreenModeChange_4, &args1);
+			mcallback((_typeName << 16) | CefDisplayHandlerExt_OnFullscreenModeChange_4, &args1.arg);
 		}
 	}
 	//gen! bool OnTooltip(CefRefPtr<CefBrowser> browser,CefString& text)
 	bool OnTooltip(managed_callback mcallback, CefRefPtr<CefBrowser> browser, CefString& text) {
 		if (mcallback) {
 			OnTooltipArgs args1(browser, &text);
-			mcallback((_typeName << 16) | CefDisplayHandlerExt_OnTooltip_5, &args1);
+			mcallback((_typeName << 16) | CefDisplayHandlerExt_OnTooltip_5, &args1.arg);
 		}
 		return false;
 	}
@@ -8280,14 +8281,14 @@ namespace CefDisplayHandlerExt {
 	void OnStatusMessage(managed_callback mcallback, CefRefPtr<CefBrowser> browser, const CefString& value) {
 		if (mcallback) {
 			OnStatusMessageArgs args1(browser, &value);
-			mcallback((_typeName << 16) | CefDisplayHandlerExt_OnStatusMessage_6, &args1);
+			mcallback((_typeName << 16) | CefDisplayHandlerExt_OnStatusMessage_6, &args1.arg);
 		}
 	}
 	//gen! bool OnConsoleMessage(CefRefPtr<CefBrowser> browser,const CefString& message,const CefString& source,int line)
 	bool OnConsoleMessage(managed_callback mcallback, CefRefPtr<CefBrowser> browser, const CefString& message, const CefString& source, int line) {
 		if (mcallback) {
 			OnConsoleMessageArgs args1(browser, &message, &source, line);
-			mcallback((_typeName << 16) | CefDisplayHandlerExt_OnConsoleMessage_7, &args1);
+			mcallback((_typeName << 16) | CefDisplayHandlerExt_OnConsoleMessage_7, &args1.arg);
 		}
 		return false;
 	}
@@ -8297,14 +8298,14 @@ namespace CefDownloadHandlerExt {
 	void OnBeforeDownload(managed_callback mcallback, CefRefPtr<CefBrowser> browser, CefRefPtr<CefDownloadItem> download_item, const CefString& suggested_name, CefRefPtr<CefBeforeDownloadCallback> callback) {
 		if (mcallback) {
 			OnBeforeDownloadArgs args1(browser, download_item, &suggested_name, callback);
-			mcallback((_typeName << 16) | CefDownloadHandlerExt_OnBeforeDownload_1, &args1);
+			mcallback((_typeName << 16) | CefDownloadHandlerExt_OnBeforeDownload_1, &args1.arg);
 		}
 	}
 	//gen! void OnDownloadUpdated(CefRefPtr<CefBrowser> browser,CefRefPtr<CefDownloadItem> download_item,CefRefPtr<CefDownloadItemCallback> callback)
 	void OnDownloadUpdated(managed_callback mcallback, CefRefPtr<CefBrowser> browser, CefRefPtr<CefDownloadItem> download_item, CefRefPtr<CefDownloadItemCallback> callback) {
 		if (mcallback) {
 			OnDownloadUpdatedArgs args1(browser, download_item, callback);
-			mcallback((_typeName << 16) | CefDownloadHandlerExt_OnDownloadUpdated_2, &args1);
+			mcallback((_typeName << 16) | CefDownloadHandlerExt_OnDownloadUpdated_2, &args1.arg);
 		}
 	}
 }
@@ -8313,7 +8314,7 @@ namespace CefDragHandlerExt {
 	bool OnDragEnter(managed_callback mcallback, CefRefPtr<CefBrowser> browser, CefRefPtr<CefDragData> dragData, cef_drag_operations_mask_t mask) {
 		if (mcallback) {
 			OnDragEnterArgs args1(browser, dragData, mask);
-			mcallback((_typeName << 16) | CefDragHandlerExt_OnDragEnter_1, &args1);
+			mcallback((_typeName << 16) | CefDragHandlerExt_OnDragEnter_1, &args1.arg);
 		}
 		return false;
 	}
@@ -8321,7 +8322,7 @@ namespace CefDragHandlerExt {
 	void OnDraggableRegionsChanged(managed_callback mcallback, CefRefPtr<CefBrowser> browser, const std::vector<CefDraggableRegion>& regions) {
 		if (mcallback) {
 			OnDraggableRegionsChangedArgs args1(browser, &regions);
-			mcallback((_typeName << 16) | CefDragHandlerExt_OnDraggableRegionsChanged_2, &args1);
+			mcallback((_typeName << 16) | CefDragHandlerExt_OnDraggableRegionsChanged_2, &args1.arg);
 		}
 	}
 }
@@ -8330,7 +8331,7 @@ namespace CefFindHandlerExt {
 	void OnFindResult(managed_callback mcallback, CefRefPtr<CefBrowser> browser, int identifier, int count, const CefRect& selectionRect, int activeMatchOrdinal, bool finalUpdate) {
 		if (mcallback) {
 			OnFindResultArgs args1(browser, identifier, count, &selectionRect, activeMatchOrdinal, finalUpdate);
-			mcallback((_typeName << 16) | CefFindHandlerExt_OnFindResult_1, &args1);
+			mcallback((_typeName << 16) | CefFindHandlerExt_OnFindResult_1, &args1.arg);
 		}
 	}
 }
@@ -8339,14 +8340,14 @@ namespace CefFocusHandlerExt {
 	void OnTakeFocus(managed_callback mcallback, CefRefPtr<CefBrowser> browser, bool next) {
 		if (mcallback) {
 			OnTakeFocusArgs args1(browser, next);
-			mcallback((_typeName << 16) | CefFocusHandlerExt_OnTakeFocus_1, &args1);
+			mcallback((_typeName << 16) | CefFocusHandlerExt_OnTakeFocus_1, &args1.arg);
 		}
 	}
 	//gen! bool OnSetFocus(CefRefPtr<CefBrowser> browser,FocusSource source)
 	bool OnSetFocus(managed_callback mcallback, CefRefPtr<CefBrowser> browser, cef_focus_source_t source) {
 		if (mcallback) {
 			OnSetFocusArgs args1(browser, source);
-			mcallback((_typeName << 16) | CefFocusHandlerExt_OnSetFocus_2, &args1);
+			mcallback((_typeName << 16) | CefFocusHandlerExt_OnSetFocus_2, &args1.arg);
 		}
 		return false;
 	}
@@ -8354,7 +8355,7 @@ namespace CefFocusHandlerExt {
 	void OnGotFocus(managed_callback mcallback, CefRefPtr<CefBrowser> browser) {
 		if (mcallback) {
 			OnGotFocusArgs args1(browser);
-			mcallback((_typeName << 16) | CefFocusHandlerExt_OnGotFocus_3, &args1);
+			mcallback((_typeName << 16) | CefFocusHandlerExt_OnGotFocus_3, &args1.arg);
 		}
 	}
 }
@@ -8363,7 +8364,7 @@ namespace CefGeolocationHandlerExt {
 	bool OnRequestGeolocationPermission(managed_callback mcallback, CefRefPtr<CefBrowser> browser, const CefString& requesting_url, int request_id, CefRefPtr<CefGeolocationCallback> callback) {
 		if (mcallback) {
 			OnRequestGeolocationPermissionArgs args1(browser, &requesting_url, request_id, callback);
-			mcallback((_typeName << 16) | CefGeolocationHandlerExt_OnRequestGeolocationPermission_1, &args1);
+			mcallback((_typeName << 16) | CefGeolocationHandlerExt_OnRequestGeolocationPermission_1, &args1.arg);
 		}
 		return false;
 	}
@@ -8371,7 +8372,7 @@ namespace CefGeolocationHandlerExt {
 	void OnCancelGeolocationPermission(managed_callback mcallback, CefRefPtr<CefBrowser> browser, int request_id) {
 		if (mcallback) {
 			OnCancelGeolocationPermissionArgs args1(browser, request_id);
-			mcallback((_typeName << 16) | CefGeolocationHandlerExt_OnCancelGeolocationPermission_2, &args1);
+			mcallback((_typeName << 16) | CefGeolocationHandlerExt_OnCancelGeolocationPermission_2, &args1.arg);
 		}
 	}
 }
@@ -8380,7 +8381,7 @@ namespace CefJSDialogHandlerExt {
 	bool OnJSDialog(managed_callback mcallback, CefRefPtr<CefBrowser> browser, const CefString& origin_url, cef_jsdialog_type_t dialog_type, const CefString& message_text, const CefString& default_prompt_text, CefRefPtr<CefJSDialogCallback> callback, bool& suppress_message) {
 		if (mcallback) {
 			OnJSDialogArgs args1(browser, &origin_url, dialog_type, &message_text, &default_prompt_text, callback, &suppress_message);
-			mcallback((_typeName << 16) | CefJSDialogHandlerExt_OnJSDialog_1, &args1);
+			mcallback((_typeName << 16) | CefJSDialogHandlerExt_OnJSDialog_1, &args1.arg);
 		}
 		return false;
 	}
@@ -8388,7 +8389,7 @@ namespace CefJSDialogHandlerExt {
 	bool OnBeforeUnloadDialog(managed_callback mcallback, CefRefPtr<CefBrowser> browser, const CefString& message_text, bool is_reload, CefRefPtr<CefJSDialogCallback> callback) {
 		if (mcallback) {
 			OnBeforeUnloadDialogArgs args1(browser, &message_text, is_reload, callback);
-			mcallback((_typeName << 16) | CefJSDialogHandlerExt_OnBeforeUnloadDialog_2, &args1);
+			mcallback((_typeName << 16) | CefJSDialogHandlerExt_OnBeforeUnloadDialog_2, &args1.arg);
 		}
 		return false;
 	}
@@ -8396,14 +8397,14 @@ namespace CefJSDialogHandlerExt {
 	void OnResetDialogState(managed_callback mcallback, CefRefPtr<CefBrowser> browser) {
 		if (mcallback) {
 			OnResetDialogStateArgs args1(browser);
-			mcallback((_typeName << 16) | CefJSDialogHandlerExt_OnResetDialogState_3, &args1);
+			mcallback((_typeName << 16) | CefJSDialogHandlerExt_OnResetDialogState_3, &args1.arg);
 		}
 	}
 	//gen! void OnDialogClosed(CefRefPtr<CefBrowser> browser)
 	void OnDialogClosed(managed_callback mcallback, CefRefPtr<CefBrowser> browser) {
 		if (mcallback) {
 			OnDialogClosedArgs args1(browser);
-			mcallback((_typeName << 16) | CefJSDialogHandlerExt_OnDialogClosed_4, &args1);
+			mcallback((_typeName << 16) | CefJSDialogHandlerExt_OnDialogClosed_4, &args1.arg);
 		}
 	}
 }
@@ -8412,7 +8413,7 @@ namespace CefKeyboardHandlerExt {
 	bool OnPreKeyEvent(managed_callback mcallback, CefRefPtr<CefBrowser> browser, const CefKeyEvent& event, CefEventHandle os_event, bool* is_keyboard_shortcut) {
 		if (mcallback) {
 			OnPreKeyEventArgs args1(browser, &event, os_event, is_keyboard_shortcut);
-			mcallback((_typeName << 16) | CefKeyboardHandlerExt_OnPreKeyEvent_1, &args1);
+			mcallback((_typeName << 16) | CefKeyboardHandlerExt_OnPreKeyEvent_1, &args1.arg);
 		}
 		return false;
 	}
@@ -8420,7 +8421,7 @@ namespace CefKeyboardHandlerExt {
 	bool OnKeyEvent(managed_callback mcallback, CefRefPtr<CefBrowser> browser, const CefKeyEvent& event, CefEventHandle os_event) {
 		if (mcallback) {
 			OnKeyEventArgs args1(browser, &event, os_event);
-			mcallback((_typeName << 16) | CefKeyboardHandlerExt_OnKeyEvent_2, &args1);
+			mcallback((_typeName << 16) | CefKeyboardHandlerExt_OnKeyEvent_2, &args1.arg);
 		}
 		return false;
 	}
@@ -8430,7 +8431,7 @@ namespace CefLifeSpanHandlerExt {
 	bool OnBeforePopup(managed_callback mcallback, CefRefPtr<CefBrowser> browser, CefRefPtr<CefFrame> frame, const CefString& target_url, const CefString& target_frame_name, cef_window_open_disposition_t target_disposition, bool user_gesture, const CefPopupFeatures& popupFeatures, CefWindowInfo& windowInfo, CefRefPtr<CefClient>& client, CefBrowserSettings& settings, bool* no_javascript_access) {
 		if (mcallback) {
 			OnBeforePopupArgs args1(browser, frame, &target_url, &target_frame_name, target_disposition, user_gesture, &popupFeatures, &windowInfo, &client, &settings, no_javascript_access);
-			mcallback((_typeName << 16) | CefLifeSpanHandlerExt_OnBeforePopup_1, &args1);
+			mcallback((_typeName << 16) | CefLifeSpanHandlerExt_OnBeforePopup_1, &args1.arg);
 		}
 		return false;
 	}
@@ -8438,14 +8439,14 @@ namespace CefLifeSpanHandlerExt {
 	void OnAfterCreated(managed_callback mcallback, CefRefPtr<CefBrowser> browser) {
 		if (mcallback) {
 			OnAfterCreatedArgs args1(browser);
-			mcallback((_typeName << 16) | CefLifeSpanHandlerExt_OnAfterCreated_2, &args1);
+			mcallback((_typeName << 16) | CefLifeSpanHandlerExt_OnAfterCreated_2, &args1.arg);
 		}
 	}
 	//gen! bool DoClose(CefRefPtr<CefBrowser> browser)
 	bool DoClose(managed_callback mcallback, CefRefPtr<CefBrowser> browser) {
 		if (mcallback) {
 			DoCloseArgs args1(browser);
-			mcallback((_typeName << 16) | CefLifeSpanHandlerExt_DoClose_3, &args1);
+			mcallback((_typeName << 16) | CefLifeSpanHandlerExt_DoClose_3, &args1.arg);
 		}
 		return false;
 	}
@@ -8453,7 +8454,7 @@ namespace CefLifeSpanHandlerExt {
 	void OnBeforeClose(managed_callback mcallback, CefRefPtr<CefBrowser> browser) {
 		if (mcallback) {
 			OnBeforeCloseArgs args1(browser);
-			mcallback((_typeName << 16) | CefLifeSpanHandlerExt_OnBeforeClose_4, &args1);
+			mcallback((_typeName << 16) | CefLifeSpanHandlerExt_OnBeforeClose_4, &args1.arg);
 		}
 	}
 }
@@ -8462,28 +8463,28 @@ namespace CefLoadHandlerExt {
 	void OnLoadingStateChange(managed_callback mcallback, CefRefPtr<CefBrowser> browser, bool isLoading, bool canGoBack, bool canGoForward) {
 		if (mcallback) {
 			OnLoadingStateChangeArgs args1(browser, isLoading, canGoBack, canGoForward);
-			mcallback((_typeName << 16) | CefLoadHandlerExt_OnLoadingStateChange_1, &args1);
+			mcallback((_typeName << 16) | CefLoadHandlerExt_OnLoadingStateChange_1, &args1.arg);
 		}
 	}
 	//gen! void OnLoadStart(CefRefPtr<CefBrowser> browser,CefRefPtr<CefFrame> frame,TransitionType transition_type)
 	void OnLoadStart(managed_callback mcallback, CefRefPtr<CefBrowser> browser, CefRefPtr<CefFrame> frame, cef_transition_type_t transition_type) {
 		if (mcallback) {
 			OnLoadStartArgs args1(browser, frame, transition_type);
-			mcallback((_typeName << 16) | CefLoadHandlerExt_OnLoadStart_2, &args1);
+			mcallback((_typeName << 16) | CefLoadHandlerExt_OnLoadStart_2, &args1.arg);
 		}
 	}
 	//gen! void OnLoadEnd(CefRefPtr<CefBrowser> browser,CefRefPtr<CefFrame> frame,int httpStatusCode)
 	void OnLoadEnd(managed_callback mcallback, CefRefPtr<CefBrowser> browser, CefRefPtr<CefFrame> frame, int httpStatusCode) {
 		if (mcallback) {
 			OnLoadEndArgs args1(browser, frame, httpStatusCode);
-			mcallback((_typeName << 16) | CefLoadHandlerExt_OnLoadEnd_3, &args1);
+			mcallback((_typeName << 16) | CefLoadHandlerExt_OnLoadEnd_3, &args1.arg);
 		}
 	}
 	//gen! void OnLoadError(CefRefPtr<CefBrowser> browser,CefRefPtr<CefFrame> frame,ErrorCode errorCode,const CefString& errorText,const CefString& failedUrl)
 	void OnLoadError(managed_callback mcallback, CefRefPtr<CefBrowser> browser, CefRefPtr<CefFrame> frame, cef_errorcode_t errorCode, const CefString& errorText, const CefString& failedUrl) {
 		if (mcallback) {
 			OnLoadErrorArgs args1(browser, frame, errorCode, &errorText, &failedUrl);
-			mcallback((_typeName << 16) | CefLoadHandlerExt_OnLoadError_4, &args1);
+			mcallback((_typeName << 16) | CefLoadHandlerExt_OnLoadError_4, &args1.arg);
 		}
 	}
 }
@@ -8492,21 +8493,21 @@ namespace CefPrintHandlerExt {
 	void OnPrintStart(managed_callback mcallback, CefRefPtr<CefBrowser> browser) {
 		if (mcallback) {
 			OnPrintStartArgs args1(browser);
-			mcallback((_typeName << 16) | CefPrintHandlerExt_OnPrintStart_1, &args1);
+			mcallback((_typeName << 16) | CefPrintHandlerExt_OnPrintStart_1, &args1.arg);
 		}
 	}
 	//gen! void OnPrintSettings(CefRefPtr<CefBrowser> browser,CefRefPtr<CefPrintSettings> settings,bool get_defaults)
 	void OnPrintSettings(managed_callback mcallback, CefRefPtr<CefBrowser> browser, CefRefPtr<CefPrintSettings> settings, bool get_defaults) {
 		if (mcallback) {
 			OnPrintSettingsArgs args1(browser, settings, get_defaults);
-			mcallback((_typeName << 16) | CefPrintHandlerExt_OnPrintSettings_2, &args1);
+			mcallback((_typeName << 16) | CefPrintHandlerExt_OnPrintSettings_2, &args1.arg);
 		}
 	}
 	//gen! bool OnPrintDialog(CefRefPtr<CefBrowser> browser,bool has_selection,CefRefPtr<CefPrintDialogCallback> callback)
 	bool OnPrintDialog(managed_callback mcallback, CefRefPtr<CefBrowser> browser, bool has_selection, CefRefPtr<CefPrintDialogCallback> callback) {
 		if (mcallback) {
 			OnPrintDialogArgs args1(browser, has_selection, callback);
-			mcallback((_typeName << 16) | CefPrintHandlerExt_OnPrintDialog_3, &args1);
+			mcallback((_typeName << 16) | CefPrintHandlerExt_OnPrintDialog_3, &args1.arg);
 		}
 		return false;
 	}
@@ -8514,7 +8515,7 @@ namespace CefPrintHandlerExt {
 	bool OnPrintJob(managed_callback mcallback, CefRefPtr<CefBrowser> browser, const CefString& document_name, const CefString& pdf_file_path, CefRefPtr<CefPrintJobCallback> callback) {
 		if (mcallback) {
 			OnPrintJobArgs args1(browser, &document_name, &pdf_file_path, callback);
-			mcallback((_typeName << 16) | CefPrintHandlerExt_OnPrintJob_4, &args1);
+			mcallback((_typeName << 16) | CefPrintHandlerExt_OnPrintJob_4, &args1.arg);
 		}
 		return false;
 	}
@@ -8522,14 +8523,14 @@ namespace CefPrintHandlerExt {
 	void OnPrintReset(managed_callback mcallback, CefRefPtr<CefBrowser> browser) {
 		if (mcallback) {
 			OnPrintResetArgs args1(browser);
-			mcallback((_typeName << 16) | CefPrintHandlerExt_OnPrintReset_5, &args1);
+			mcallback((_typeName << 16) | CefPrintHandlerExt_OnPrintReset_5, &args1.arg);
 		}
 	}
 	//gen! CefSize GetPdfPaperSize(int device_units_per_inch)
 	CefSize GetPdfPaperSize(managed_callback mcallback, int device_units_per_inch) {
 		if (mcallback) {
 			GetPdfPaperSizeArgs args1(device_units_per_inch);
-			mcallback((_typeName << 16) | CefPrintHandlerExt_GetPdfPaperSize_6, &args1);
+			mcallback((_typeName << 16) | CefPrintHandlerExt_GetPdfPaperSize_6, &args1.arg);
 		}
 		return CefSize();
 	}
@@ -8539,7 +8540,7 @@ namespace CefRenderHandlerExt {
 	CefRefPtr<CefAccessibilityHandler> GetAccessibilityHandler(managed_callback mcallback) {
 		if (mcallback) {
 			GetAccessibilityHandlerArgs args1;
-			mcallback((_typeName << 16) | CefRenderHandlerExt_GetAccessibilityHandler_1, &args1);
+			mcallback((_typeName << 16) | CefRenderHandlerExt_GetAccessibilityHandler_1, &args1.arg);
 		}
 		return nullptr;
 	}
@@ -8547,7 +8548,7 @@ namespace CefRenderHandlerExt {
 	bool GetRootScreenRect(managed_callback mcallback, CefRefPtr<CefBrowser> browser, CefRect& rect) {
 		if (mcallback) {
 			GetRootScreenRectArgs args1(browser, &rect);
-			mcallback((_typeName << 16) | CefRenderHandlerExt_GetRootScreenRect_2, &args1);
+			mcallback((_typeName << 16) | CefRenderHandlerExt_GetRootScreenRect_2, &args1.arg);
 		}
 		return false;
 	}
@@ -8555,7 +8556,7 @@ namespace CefRenderHandlerExt {
 	bool GetViewRect(managed_callback mcallback, CefRefPtr<CefBrowser> browser, CefRect& rect) {
 		if (mcallback) {
 			GetViewRectArgs args1(browser, &rect);
-			mcallback((_typeName << 16) | CefRenderHandlerExt_GetViewRect_3, &args1);
+			mcallback((_typeName << 16) | CefRenderHandlerExt_GetViewRect_3, &args1.arg);
 		}
 		return false;
 	}
@@ -8563,7 +8564,7 @@ namespace CefRenderHandlerExt {
 	bool GetScreenPoint(managed_callback mcallback, CefRefPtr<CefBrowser> browser, int viewX, int viewY, int& screenX, int& screenY) {
 		if (mcallback) {
 			GetScreenPointArgs args1(browser, viewX, viewY, &screenX, &screenY);
-			mcallback((_typeName << 16) | CefRenderHandlerExt_GetScreenPoint_4, &args1);
+			mcallback((_typeName << 16) | CefRenderHandlerExt_GetScreenPoint_4, &args1.arg);
 		}
 		return false;
 	}
@@ -8571,7 +8572,7 @@ namespace CefRenderHandlerExt {
 	bool GetScreenInfo(managed_callback mcallback, CefRefPtr<CefBrowser> browser, CefScreenInfo& screen_info) {
 		if (mcallback) {
 			GetScreenInfoArgs args1(browser, &screen_info);
-			mcallback((_typeName << 16) | CefRenderHandlerExt_GetScreenInfo_5, &args1);
+			mcallback((_typeName << 16) | CefRenderHandlerExt_GetScreenInfo_5, &args1.arg);
 		}
 		return false;
 	}
@@ -8579,35 +8580,35 @@ namespace CefRenderHandlerExt {
 	void OnPopupShow(managed_callback mcallback, CefRefPtr<CefBrowser> browser, bool show) {
 		if (mcallback) {
 			OnPopupShowArgs args1(browser, show);
-			mcallback((_typeName << 16) | CefRenderHandlerExt_OnPopupShow_6, &args1);
+			mcallback((_typeName << 16) | CefRenderHandlerExt_OnPopupShow_6, &args1.arg);
 		}
 	}
 	//gen! void OnPopupSize(CefRefPtr<CefBrowser> browser,const CefRect& rect)
 	void OnPopupSize(managed_callback mcallback, CefRefPtr<CefBrowser> browser, const CefRect& rect) {
 		if (mcallback) {
 			OnPopupSizeArgs args1(browser, &rect);
-			mcallback((_typeName << 16) | CefRenderHandlerExt_OnPopupSize_7, &args1);
+			mcallback((_typeName << 16) | CefRenderHandlerExt_OnPopupSize_7, &args1.arg);
 		}
 	}
 	//gen! void OnPaint(CefRefPtr<CefBrowser> browser,PaintElementType type,const RectList& dirtyRects,const void* buffer,int width,int height)
 	void OnPaint(managed_callback mcallback, CefRefPtr<CefBrowser> browser, cef_paint_element_type_t type, const std::vector<CefRect>& dirtyRects, const void* buffer, int width, int height) {
 		if (mcallback) {
 			OnPaintArgs args1(browser, type, &dirtyRects, buffer, width, height);
-			mcallback((_typeName << 16) | CefRenderHandlerExt_OnPaint_8, &args1);
+			mcallback((_typeName << 16) | CefRenderHandlerExt_OnPaint_8, &args1.arg);
 		}
 	}
 	//gen! void OnCursorChange(CefRefPtr<CefBrowser> browser,CefCursorHandle cursor,CursorType type,const CefCursorInfo& custom_cursor_info)
 	void OnCursorChange(managed_callback mcallback, CefRefPtr<CefBrowser> browser, CefCursorHandle cursor, cef_cursor_type_t type, const CefCursorInfo& custom_cursor_info) {
 		if (mcallback) {
 			OnCursorChangeArgs args1(browser, cursor, type, &custom_cursor_info);
-			mcallback((_typeName << 16) | CefRenderHandlerExt_OnCursorChange_9, &args1);
+			mcallback((_typeName << 16) | CefRenderHandlerExt_OnCursorChange_9, &args1.arg);
 		}
 	}
 	//gen! bool StartDragging(CefRefPtr<CefBrowser> browser,CefRefPtr<CefDragData> drag_data,DragOperationsMask allowed_ops,int x,int y)
 	bool StartDragging(managed_callback mcallback, CefRefPtr<CefBrowser> browser, CefRefPtr<CefDragData> drag_data, cef_drag_operations_mask_t allowed_ops, int x, int y) {
 		if (mcallback) {
 			StartDraggingArgs args1(browser, drag_data, allowed_ops, x, y);
-			mcallback((_typeName << 16) | CefRenderHandlerExt_StartDragging_10, &args1);
+			mcallback((_typeName << 16) | CefRenderHandlerExt_StartDragging_10, &args1.arg);
 		}
 		return false;
 	}
@@ -8615,21 +8616,21 @@ namespace CefRenderHandlerExt {
 	void UpdateDragCursor(managed_callback mcallback, CefRefPtr<CefBrowser> browser, cef_drag_operations_mask_t operation) {
 		if (mcallback) {
 			UpdateDragCursorArgs args1(browser, operation);
-			mcallback((_typeName << 16) | CefRenderHandlerExt_UpdateDragCursor_11, &args1);
+			mcallback((_typeName << 16) | CefRenderHandlerExt_UpdateDragCursor_11, &args1.arg);
 		}
 	}
 	//gen! void OnScrollOffsetChanged(CefRefPtr<CefBrowser> browser,double x,double y)
 	void OnScrollOffsetChanged(managed_callback mcallback, CefRefPtr<CefBrowser> browser, double x, double y) {
 		if (mcallback) {
 			OnScrollOffsetChangedArgs args1(browser, x, y);
-			mcallback((_typeName << 16) | CefRenderHandlerExt_OnScrollOffsetChanged_12, &args1);
+			mcallback((_typeName << 16) | CefRenderHandlerExt_OnScrollOffsetChanged_12, &args1.arg);
 		}
 	}
 	//gen! void OnImeCompositionRangeChanged(CefRefPtr<CefBrowser> browser,const CefRange& selected_range,const RectList& character_bounds)
 	void OnImeCompositionRangeChanged(managed_callback mcallback, CefRefPtr<CefBrowser> browser, const CefRange& selected_range, const std::vector<CefRect>& character_bounds) {
 		if (mcallback) {
 			OnImeCompositionRangeChangedArgs args1(browser, &selected_range, &character_bounds);
-			mcallback((_typeName << 16) | CefRenderHandlerExt_OnImeCompositionRangeChanged_13, &args1);
+			mcallback((_typeName << 16) | CefRenderHandlerExt_OnImeCompositionRangeChanged_13, &args1.arg);
 		}
 	}
 }
@@ -8638,35 +8639,35 @@ namespace CefRenderProcessHandlerExt {
 	void OnRenderThreadCreated(managed_callback mcallback, CefRefPtr<CefListValue> extra_info) {
 		if (mcallback) {
 			OnRenderThreadCreatedArgs args1(extra_info);
-			mcallback((_typeName << 16) | CefRenderProcessHandlerExt_OnRenderThreadCreated_1, &args1);
+			mcallback((_typeName << 16) | CefRenderProcessHandlerExt_OnRenderThreadCreated_1, &args1.arg);
 		}
 	}
 	//gen! void OnWebKitInitialized()
 	void OnWebKitInitialized(managed_callback mcallback) {
 		if (mcallback) {
 			OnWebKitInitializedArgs args1;
-			mcallback((_typeName << 16) | CefRenderProcessHandlerExt_OnWebKitInitialized_2, &args1);
+			mcallback((_typeName << 16) | CefRenderProcessHandlerExt_OnWebKitInitialized_2, &args1.arg);
 		}
 	}
 	//gen! void OnBrowserCreated(CefRefPtr<CefBrowser> browser)
 	void OnBrowserCreated(managed_callback mcallback, CefRefPtr<CefBrowser> browser) {
 		if (mcallback) {
 			OnBrowserCreatedArgs args1(browser);
-			mcallback((_typeName << 16) | CefRenderProcessHandlerExt_OnBrowserCreated_3, &args1);
+			mcallback((_typeName << 16) | CefRenderProcessHandlerExt_OnBrowserCreated_3, &args1.arg);
 		}
 	}
 	//gen! void OnBrowserDestroyed(CefRefPtr<CefBrowser> browser)
 	void OnBrowserDestroyed(managed_callback mcallback, CefRefPtr<CefBrowser> browser) {
 		if (mcallback) {
 			OnBrowserDestroyedArgs args1(browser);
-			mcallback((_typeName << 16) | CefRenderProcessHandlerExt_OnBrowserDestroyed_4, &args1);
+			mcallback((_typeName << 16) | CefRenderProcessHandlerExt_OnBrowserDestroyed_4, &args1.arg);
 		}
 	}
 	//gen! CefRefPtr<CefLoadHandler> GetLoadHandler()
 	CefRefPtr<CefLoadHandler> GetLoadHandler(managed_callback mcallback) {
 		if (mcallback) {
 			GetLoadHandlerArgs args1;
-			mcallback((_typeName << 16) | CefRenderProcessHandlerExt_GetLoadHandler_5, &args1);
+			mcallback((_typeName << 16) | CefRenderProcessHandlerExt_GetLoadHandler_5, &args1.arg);
 		}
 		return nullptr;
 	}
@@ -8674,7 +8675,7 @@ namespace CefRenderProcessHandlerExt {
 	bool OnBeforeNavigation(managed_callback mcallback, CefRefPtr<CefBrowser> browser, CefRefPtr<CefFrame> frame, CefRefPtr<CefRequest> request, cef_navigation_type_t navigation_type, bool is_redirect) {
 		if (mcallback) {
 			OnBeforeNavigationArgs args1(browser, frame, request, navigation_type, is_redirect);
-			mcallback((_typeName << 16) | CefRenderProcessHandlerExt_OnBeforeNavigation_6, &args1);
+			mcallback((_typeName << 16) | CefRenderProcessHandlerExt_OnBeforeNavigation_6, &args1.arg);
 		}
 		return false;
 	}
@@ -8682,35 +8683,35 @@ namespace CefRenderProcessHandlerExt {
 	void OnContextCreated(managed_callback mcallback, CefRefPtr<CefBrowser> browser, CefRefPtr<CefFrame> frame, CefRefPtr<CefV8Context> context) {
 		if (mcallback) {
 			OnContextCreatedArgs args1(browser, frame, context);
-			mcallback((_typeName << 16) | CefRenderProcessHandlerExt_OnContextCreated_7, &args1);
+			mcallback((_typeName << 16) | CefRenderProcessHandlerExt_OnContextCreated_7, &args1.arg);
 		}
 	}
 	//gen! void OnContextReleased(CefRefPtr<CefBrowser> browser,CefRefPtr<CefFrame> frame,CefRefPtr<CefV8Context> context)
 	void OnContextReleased(managed_callback mcallback, CefRefPtr<CefBrowser> browser, CefRefPtr<CefFrame> frame, CefRefPtr<CefV8Context> context) {
 		if (mcallback) {
 			OnContextReleasedArgs args1(browser, frame, context);
-			mcallback((_typeName << 16) | CefRenderProcessHandlerExt_OnContextReleased_8, &args1);
+			mcallback((_typeName << 16) | CefRenderProcessHandlerExt_OnContextReleased_8, &args1.arg);
 		}
 	}
 	//gen! void OnUncaughtException(CefRefPtr<CefBrowser> browser,CefRefPtr<CefFrame> frame,CefRefPtr<CefV8Context> context,CefRefPtr<CefV8Exception> exception,CefRefPtr<CefV8StackTrace> stackTrace)
 	void OnUncaughtException(managed_callback mcallback, CefRefPtr<CefBrowser> browser, CefRefPtr<CefFrame> frame, CefRefPtr<CefV8Context> context, CefRefPtr<CefV8Exception> exception, CefRefPtr<CefV8StackTrace> stackTrace) {
 		if (mcallback) {
 			OnUncaughtExceptionArgs args1(browser, frame, context, exception, stackTrace);
-			mcallback((_typeName << 16) | CefRenderProcessHandlerExt_OnUncaughtException_9, &args1);
+			mcallback((_typeName << 16) | CefRenderProcessHandlerExt_OnUncaughtException_9, &args1.arg);
 		}
 	}
 	//gen! void OnFocusedNodeChanged(CefRefPtr<CefBrowser> browser,CefRefPtr<CefFrame> frame,CefRefPtr<CefDOMNode> node)
 	void OnFocusedNodeChanged(managed_callback mcallback, CefRefPtr<CefBrowser> browser, CefRefPtr<CefFrame> frame, CefRefPtr<CefDOMNode> node) {
 		if (mcallback) {
 			OnFocusedNodeChangedArgs args1(browser, frame, node);
-			mcallback((_typeName << 16) | CefRenderProcessHandlerExt_OnFocusedNodeChanged_10, &args1);
+			mcallback((_typeName << 16) | CefRenderProcessHandlerExt_OnFocusedNodeChanged_10, &args1.arg);
 		}
 	}
 	//gen! bool OnProcessMessageReceived(CefRefPtr<CefBrowser> browser,CefProcessId source_process,CefRefPtr<CefProcessMessage> message)
 	bool OnProcessMessageReceived(managed_callback mcallback, CefRefPtr<CefBrowser> browser, CefProcessId source_process, CefRefPtr<CefProcessMessage> message) {
 		if (mcallback) {
 			OnProcessMessageReceivedArgs args1(browser, source_process, message);
-			mcallback((_typeName << 16) | CefRenderProcessHandlerExt_OnProcessMessageReceived_11, &args1);
+			mcallback((_typeName << 16) | CefRenderProcessHandlerExt_OnProcessMessageReceived_11, &args1.arg);
 		}
 		return false;
 	}
@@ -8720,7 +8721,7 @@ namespace CefRequestContextHandlerExt {
 	CefRefPtr<CefCookieManager> GetCookieManager(managed_callback mcallback) {
 		if (mcallback) {
 			GetCookieManagerArgs args1;
-			mcallback((_typeName << 16) | CefRequestContextHandlerExt_GetCookieManager_1, &args1);
+			mcallback((_typeName << 16) | CefRequestContextHandlerExt_GetCookieManager_1, &args1.arg);
 		}
 		return nullptr;
 	}
@@ -8728,7 +8729,7 @@ namespace CefRequestContextHandlerExt {
 	bool OnBeforePluginLoad(managed_callback mcallback, const CefString& mime_type, const CefString& plugin_url, bool is_main_frame, const CefString& top_origin_url, CefRefPtr<CefWebPluginInfo> plugin_info, cef_plugin_policy_t* plugin_policy) {
 		if (mcallback) {
 			OnBeforePluginLoadArgs args1(&mime_type, &plugin_url, is_main_frame, &top_origin_url, plugin_info, plugin_policy);
-			mcallback((_typeName << 16) | CefRequestContextHandlerExt_OnBeforePluginLoad_2, &args1);
+			mcallback((_typeName << 16) | CefRequestContextHandlerExt_OnBeforePluginLoad_2, &args1.arg);
 		}
 		return false;
 	}
@@ -8738,7 +8739,7 @@ namespace CefRequestHandlerExt {
 	bool OnBeforeBrowse(managed_callback mcallback, CefRefPtr<CefBrowser> browser, CefRefPtr<CefFrame> frame, CefRefPtr<CefRequest> request, bool is_redirect) {
 		if (mcallback) {
 			OnBeforeBrowseArgs args1(browser, frame, request, is_redirect);
-			mcallback((_typeName << 16) | CefRequestHandlerExt_OnBeforeBrowse_1, &args1);
+			mcallback((_typeName << 16) | CefRequestHandlerExt_OnBeforeBrowse_1, &args1.arg);
 		}
 		return false;
 	}
@@ -8746,7 +8747,7 @@ namespace CefRequestHandlerExt {
 	bool OnOpenURLFromTab(managed_callback mcallback, CefRefPtr<CefBrowser> browser, CefRefPtr<CefFrame> frame, const CefString& target_url, cef_window_open_disposition_t target_disposition, bool user_gesture) {
 		if (mcallback) {
 			OnOpenURLFromTabArgs args1(browser, frame, &target_url, target_disposition, user_gesture);
-			mcallback((_typeName << 16) | CefRequestHandlerExt_OnOpenURLFromTab_2, &args1);
+			mcallback((_typeName << 16) | CefRequestHandlerExt_OnOpenURLFromTab_2, &args1.arg);
 		}
 		return false;
 	}
@@ -8754,7 +8755,7 @@ namespace CefRequestHandlerExt {
 	CefRequestHandler::ReturnValue OnBeforeResourceLoad(managed_callback mcallback, CefRefPtr<CefBrowser> browser, CefRefPtr<CefFrame> frame, CefRefPtr<CefRequest> request, CefRefPtr<CefRequestCallback> callback) {
 		if (mcallback) {
 			OnBeforeResourceLoadArgs args1(browser, frame, request, callback);
-			mcallback((_typeName << 16) | CefRequestHandlerExt_OnBeforeResourceLoad_3, &args1);
+			mcallback((_typeName << 16) | CefRequestHandlerExt_OnBeforeResourceLoad_3, &args1.arg);
 		}
 		return (CefRequestHandler::ReturnValue)0;
 	}
@@ -8762,7 +8763,7 @@ namespace CefRequestHandlerExt {
 	CefRefPtr<CefResourceHandler> GetResourceHandler(managed_callback mcallback, CefRefPtr<CefBrowser> browser, CefRefPtr<CefFrame> frame, CefRefPtr<CefRequest> request) {
 		if (mcallback) {
 			GetResourceHandlerArgs args1(browser, frame, request);
-			mcallback((_typeName << 16) | CefRequestHandlerExt_GetResourceHandler_4, &args1);
+			mcallback((_typeName << 16) | CefRequestHandlerExt_GetResourceHandler_4, &args1.arg);
 		}
 		return nullptr;
 	}
@@ -8770,14 +8771,14 @@ namespace CefRequestHandlerExt {
 	void OnResourceRedirect(managed_callback mcallback, CefRefPtr<CefBrowser> browser, CefRefPtr<CefFrame> frame, CefRefPtr<CefRequest> request, CefRefPtr<CefResponse> response, CefString& new_url) {
 		if (mcallback) {
 			OnResourceRedirectArgs args1(browser, frame, request, response, &new_url);
-			mcallback((_typeName << 16) | CefRequestHandlerExt_OnResourceRedirect_5, &args1);
+			mcallback((_typeName << 16) | CefRequestHandlerExt_OnResourceRedirect_5, &args1.arg);
 		}
 	}
 	//gen! bool OnResourceResponse(CefRefPtr<CefBrowser> browser,CefRefPtr<CefFrame> frame,CefRefPtr<CefRequest> request,CefRefPtr<CefResponse> response)
 	bool OnResourceResponse(managed_callback mcallback, CefRefPtr<CefBrowser> browser, CefRefPtr<CefFrame> frame, CefRefPtr<CefRequest> request, CefRefPtr<CefResponse> response) {
 		if (mcallback) {
 			OnResourceResponseArgs args1(browser, frame, request, response);
-			mcallback((_typeName << 16) | CefRequestHandlerExt_OnResourceResponse_6, &args1);
+			mcallback((_typeName << 16) | CefRequestHandlerExt_OnResourceResponse_6, &args1.arg);
 		}
 		return false;
 	}
@@ -8785,7 +8786,7 @@ namespace CefRequestHandlerExt {
 	CefRefPtr<CefResponseFilter> GetResourceResponseFilter(managed_callback mcallback, CefRefPtr<CefBrowser> browser, CefRefPtr<CefFrame> frame, CefRefPtr<CefRequest> request, CefRefPtr<CefResponse> response) {
 		if (mcallback) {
 			GetResourceResponseFilterArgs args1(browser, frame, request, response);
-			mcallback((_typeName << 16) | CefRequestHandlerExt_GetResourceResponseFilter_7, &args1);
+			mcallback((_typeName << 16) | CefRequestHandlerExt_GetResourceResponseFilter_7, &args1.arg);
 		}
 		return nullptr;
 	}
@@ -8793,14 +8794,14 @@ namespace CefRequestHandlerExt {
 	void OnResourceLoadComplete(managed_callback mcallback, CefRefPtr<CefBrowser> browser, CefRefPtr<CefFrame> frame, CefRefPtr<CefRequest> request, CefRefPtr<CefResponse> response, cef_urlrequest_status_t status, int64 received_content_length) {
 		if (mcallback) {
 			OnResourceLoadCompleteArgs args1(browser, frame, request, response, status, received_content_length);
-			mcallback((_typeName << 16) | CefRequestHandlerExt_OnResourceLoadComplete_8, &args1);
+			mcallback((_typeName << 16) | CefRequestHandlerExt_OnResourceLoadComplete_8, &args1.arg);
 		}
 	}
 	//gen! bool GetAuthCredentials(CefRefPtr<CefBrowser> browser,CefRefPtr<CefFrame> frame,bool isProxy,const CefString& host,int port,const CefString& realm,const CefString& scheme,CefRefPtr<CefAuthCallback> callback)
 	bool GetAuthCredentials(managed_callback mcallback, CefRefPtr<CefBrowser> browser, CefRefPtr<CefFrame> frame, bool isProxy, const CefString& host, int port, const CefString& realm, const CefString& scheme, CefRefPtr<CefAuthCallback> callback) {
 		if (mcallback) {
 			GetAuthCredentialsArgs args1(browser, frame, isProxy, &host, port, &realm, &scheme, callback);
-			mcallback((_typeName << 16) | CefRequestHandlerExt_GetAuthCredentials_9, &args1);
+			mcallback((_typeName << 16) | CefRequestHandlerExt_GetAuthCredentials_9, &args1.arg);
 		}
 		return false;
 	}
@@ -8808,7 +8809,7 @@ namespace CefRequestHandlerExt {
 	bool OnQuotaRequest(managed_callback mcallback, CefRefPtr<CefBrowser> browser, const CefString& origin_url, int64 new_size, CefRefPtr<CefRequestCallback> callback) {
 		if (mcallback) {
 			OnQuotaRequestArgs args1(browser, &origin_url, new_size, callback);
-			mcallback((_typeName << 16) | CefRequestHandlerExt_OnQuotaRequest_10, &args1);
+			mcallback((_typeName << 16) | CefRequestHandlerExt_OnQuotaRequest_10, &args1.arg);
 		}
 		return false;
 	}
@@ -8816,14 +8817,14 @@ namespace CefRequestHandlerExt {
 	void OnProtocolExecution(managed_callback mcallback, CefRefPtr<CefBrowser> browser, const CefString& url, bool& allow_os_execution) {
 		if (mcallback) {
 			OnProtocolExecutionArgs args1(browser, &url, &allow_os_execution);
-			mcallback((_typeName << 16) | CefRequestHandlerExt_OnProtocolExecution_11, &args1);
+			mcallback((_typeName << 16) | CefRequestHandlerExt_OnProtocolExecution_11, &args1.arg);
 		}
 	}
 	//gen! bool OnCertificateError(CefRefPtr<CefBrowser> browser,cef_errorcode_t cert_error,const CefString& request_url,CefRefPtr<CefSSLInfo> ssl_info,CefRefPtr<CefRequestCallback> callback)
 	bool OnCertificateError(managed_callback mcallback, CefRefPtr<CefBrowser> browser, cef_errorcode_t cert_error, const CefString& request_url, CefRefPtr<CefSSLInfo> ssl_info, CefRefPtr<CefRequestCallback> callback) {
 		if (mcallback) {
 			OnCertificateErrorArgs args1(browser, cert_error, &request_url, ssl_info, callback);
-			mcallback((_typeName << 16) | CefRequestHandlerExt_OnCertificateError_12, &args1);
+			mcallback((_typeName << 16) | CefRequestHandlerExt_OnCertificateError_12, &args1.arg);
 		}
 		return false;
 	}
@@ -8831,7 +8832,7 @@ namespace CefRequestHandlerExt {
 	bool OnSelectClientCertificate(managed_callback mcallback, CefRefPtr<CefBrowser> browser, bool isProxy, const CefString& host, int port, const std::vector<CefRefPtr<CefX509Certificate>>& certificates, CefRefPtr<CefSelectClientCertificateCallback> callback) {
 		if (mcallback) {
 			OnSelectClientCertificateArgs args1(browser, isProxy, &host, port, &certificates, callback);
-			mcallback((_typeName << 16) | CefRequestHandlerExt_OnSelectClientCertificate_13, &args1);
+			mcallback((_typeName << 16) | CefRequestHandlerExt_OnSelectClientCertificate_13, &args1.arg);
 		}
 		return false;
 	}
@@ -8839,21 +8840,21 @@ namespace CefRequestHandlerExt {
 	void OnPluginCrashed(managed_callback mcallback, CefRefPtr<CefBrowser> browser, const CefString& plugin_path) {
 		if (mcallback) {
 			OnPluginCrashedArgs args1(browser, &plugin_path);
-			mcallback((_typeName << 16) | CefRequestHandlerExt_OnPluginCrashed_14, &args1);
+			mcallback((_typeName << 16) | CefRequestHandlerExt_OnPluginCrashed_14, &args1.arg);
 		}
 	}
 	//gen! void OnRenderViewReady(CefRefPtr<CefBrowser> browser)
 	void OnRenderViewReady(managed_callback mcallback, CefRefPtr<CefBrowser> browser) {
 		if (mcallback) {
 			OnRenderViewReadyArgs args1(browser);
-			mcallback((_typeName << 16) | CefRequestHandlerExt_OnRenderViewReady_15, &args1);
+			mcallback((_typeName << 16) | CefRequestHandlerExt_OnRenderViewReady_15, &args1.arg);
 		}
 	}
 	//gen! void OnRenderProcessTerminated(CefRefPtr<CefBrowser> browser,TerminationStatus status)
 	void OnRenderProcessTerminated(managed_callback mcallback, CefRefPtr<CefBrowser> browser, cef_termination_status_t status) {
 		if (mcallback) {
 			OnRenderProcessTerminatedArgs args1(browser, status);
-			mcallback((_typeName << 16) | CefRequestHandlerExt_OnRenderProcessTerminated_16, &args1);
+			mcallback((_typeName << 16) | CefRequestHandlerExt_OnRenderProcessTerminated_16, &args1.arg);
 		}
 	}
 }
@@ -8862,7 +8863,7 @@ namespace CefResourceBundleHandlerExt {
 	bool GetLocalizedString(managed_callback mcallback, int string_id, CefString& string) {
 		if (mcallback) {
 			GetLocalizedStringArgs args1(string_id, &string);
-			mcallback((_typeName << 16) | CefResourceBundleHandlerExt_GetLocalizedString_1, &args1);
+			mcallback((_typeName << 16) | CefResourceBundleHandlerExt_GetLocalizedString_1, &args1.arg);
 		}
 		return false;
 	}
@@ -8870,7 +8871,7 @@ namespace CefResourceBundleHandlerExt {
 	bool GetDataResource(managed_callback mcallback, int resource_id, void*& data, size_t& data_size) {
 		if (mcallback) {
 			GetDataResourceArgs args1(resource_id, &data, &data_size);
-			mcallback((_typeName << 16) | CefResourceBundleHandlerExt_GetDataResource_2, &args1);
+			mcallback((_typeName << 16) | CefResourceBundleHandlerExt_GetDataResource_2, &args1.arg);
 		}
 		return false;
 	}
@@ -8878,7 +8879,7 @@ namespace CefResourceBundleHandlerExt {
 	bool GetDataResourceForScale(managed_callback mcallback, int resource_id, cef_scale_factor_t scale_factor, void*& data, size_t& data_size) {
 		if (mcallback) {
 			GetDataResourceForScaleArgs args1(resource_id, scale_factor, &data, &data_size);
-			mcallback((_typeName << 16) | CefResourceBundleHandlerExt_GetDataResourceForScale_3, &args1);
+			mcallback((_typeName << 16) | CefResourceBundleHandlerExt_GetDataResourceForScale_3, &args1.arg);
 		}
 		return false;
 	}
@@ -8888,7 +8889,7 @@ namespace CefResourceHandlerExt {
 	bool ProcessRequest(managed_callback mcallback, CefRefPtr<CefRequest> request, CefRefPtr<CefCallback> callback) {
 		if (mcallback) {
 			ProcessRequestArgs args1(request, callback);
-			mcallback((_typeName << 16) | CefResourceHandlerExt_ProcessRequest_1, &args1);
+			mcallback((_typeName << 16) | CefResourceHandlerExt_ProcessRequest_1, &args1.arg);
 		}
 		return false;
 	}
@@ -8896,14 +8897,14 @@ namespace CefResourceHandlerExt {
 	void GetResponseHeaders(managed_callback mcallback, CefRefPtr<CefResponse> response, int64& response_length, CefString& redirectUrl) {
 		if (mcallback) {
 			GetResponseHeadersArgs args1(response, &response_length, &redirectUrl);
-			mcallback((_typeName << 16) | CefResourceHandlerExt_GetResponseHeaders_2, &args1);
+			mcallback((_typeName << 16) | CefResourceHandlerExt_GetResponseHeaders_2, &args1.arg);
 		}
 	}
 	//gen! bool ReadResponse(void* data_out,int bytes_to_read,int& bytes_read,CefRefPtr<CefCallback> callback)
 	bool ReadResponse(managed_callback mcallback, void* data_out, int bytes_to_read, int& bytes_read, CefRefPtr<CefCallback> callback) {
 		if (mcallback) {
 			ReadResponseArgs args1(data_out, bytes_to_read, &bytes_read, callback);
-			mcallback((_typeName << 16) | CefResourceHandlerExt_ReadResponse_3, &args1);
+			mcallback((_typeName << 16) | CefResourceHandlerExt_ReadResponse_3, &args1.arg);
 		}
 		return false;
 	}
@@ -8911,7 +8912,7 @@ namespace CefResourceHandlerExt {
 	bool CanGetCookie(managed_callback mcallback, const CefCookie& cookie) {
 		if (mcallback) {
 			CanGetCookieArgs args1(&cookie);
-			mcallback((_typeName << 16) | CefResourceHandlerExt_CanGetCookie_4, &args1);
+			mcallback((_typeName << 16) | CefResourceHandlerExt_CanGetCookie_4, &args1.arg);
 		}
 		return false;
 	}
@@ -8919,7 +8920,7 @@ namespace CefResourceHandlerExt {
 	bool CanSetCookie(managed_callback mcallback, const CefCookie& cookie) {
 		if (mcallback) {
 			CanSetCookieArgs args1(&cookie);
-			mcallback((_typeName << 16) | CefResourceHandlerExt_CanSetCookie_5, &args1);
+			mcallback((_typeName << 16) | CefResourceHandlerExt_CanSetCookie_5, &args1.arg);
 		}
 		return false;
 	}
@@ -8927,7 +8928,7 @@ namespace CefResourceHandlerExt {
 	void Cancel(managed_callback mcallback) {
 		if (mcallback) {
 			CancelArgs args1;
-			mcallback((_typeName << 16) | CefResourceHandlerExt_Cancel_6, &args1);
+			mcallback((_typeName << 16) | CefResourceHandlerExt_Cancel_6, &args1.arg);
 		}
 	}
 }
@@ -8936,7 +8937,7 @@ namespace CefReadHandlerExt {
 	size_t Read(managed_callback mcallback, void* ptr, size_t size, size_t n) {
 		if (mcallback) {
 			ReadArgs args1(ptr, size, n);
-			mcallback((_typeName << 16) | CefReadHandlerExt_Read_1, &args1);
+			mcallback((_typeName << 16) | CefReadHandlerExt_Read_1, &args1.arg);
 		}
 		return 0;
 	}
@@ -8944,7 +8945,7 @@ namespace CefReadHandlerExt {
 	int Seek(managed_callback mcallback, int64 offset, int whence) {
 		if (mcallback) {
 			SeekArgs args1(offset, whence);
-			mcallback((_typeName << 16) | CefReadHandlerExt_Seek_2, &args1);
+			mcallback((_typeName << 16) | CefReadHandlerExt_Seek_2, &args1.arg);
 		}
 		return 0;
 	}
@@ -8952,7 +8953,7 @@ namespace CefReadHandlerExt {
 	int64 Tell(managed_callback mcallback) {
 		if (mcallback) {
 			TellArgs args1;
-			mcallback((_typeName << 16) | CefReadHandlerExt_Tell_3, &args1);
+			mcallback((_typeName << 16) | CefReadHandlerExt_Tell_3, &args1.arg);
 		}
 		return 0;
 	}
@@ -8960,7 +8961,7 @@ namespace CefReadHandlerExt {
 	int Eof(managed_callback mcallback) {
 		if (mcallback) {
 			EofArgs args1;
-			mcallback((_typeName << 16) | CefReadHandlerExt_Eof_4, &args1);
+			mcallback((_typeName << 16) | CefReadHandlerExt_Eof_4, &args1.arg);
 		}
 		return 0;
 	}
@@ -8968,7 +8969,7 @@ namespace CefReadHandlerExt {
 	bool MayBlock(managed_callback mcallback) {
 		if (mcallback) {
 			MayBlockArgs args1;
-			mcallback((_typeName << 16) | CefReadHandlerExt_MayBlock_5, &args1);
+			mcallback((_typeName << 16) | CefReadHandlerExt_MayBlock_5, &args1.arg);
 		}
 		return false;
 	}
@@ -8978,7 +8979,7 @@ namespace CefWriteHandlerExt {
 	size_t Write(managed_callback mcallback, const void* ptr, size_t size, size_t n) {
 		if (mcallback) {
 			WriteArgs args1(ptr, size, n);
-			mcallback((_typeName << 16) | CefWriteHandlerExt_Write_1, &args1);
+			mcallback((_typeName << 16) | CefWriteHandlerExt_Write_1, &args1.arg);
 		}
 		return 0;
 	}
@@ -8986,7 +8987,7 @@ namespace CefWriteHandlerExt {
 	int Seek(managed_callback mcallback, int64 offset, int whence) {
 		if (mcallback) {
 			SeekArgs args1(offset, whence);
-			mcallback((_typeName << 16) | CefWriteHandlerExt_Seek_2, &args1);
+			mcallback((_typeName << 16) | CefWriteHandlerExt_Seek_2, &args1.arg);
 		}
 		return 0;
 	}
@@ -8994,7 +8995,7 @@ namespace CefWriteHandlerExt {
 	int64 Tell(managed_callback mcallback) {
 		if (mcallback) {
 			TellArgs args1;
-			mcallback((_typeName << 16) | CefWriteHandlerExt_Tell_3, &args1);
+			mcallback((_typeName << 16) | CefWriteHandlerExt_Tell_3, &args1.arg);
 		}
 		return 0;
 	}
@@ -9002,7 +9003,7 @@ namespace CefWriteHandlerExt {
 	int Flush(managed_callback mcallback) {
 		if (mcallback) {
 			FlushArgs args1;
-			mcallback((_typeName << 16) | CefWriteHandlerExt_Flush_4, &args1);
+			mcallback((_typeName << 16) | CefWriteHandlerExt_Flush_4, &args1.arg);
 		}
 		return 0;
 	}
@@ -9010,7 +9011,7 @@ namespace CefWriteHandlerExt {
 	bool MayBlock(managed_callback mcallback) {
 		if (mcallback) {
 			MayBlockArgs args1;
-			mcallback((_typeName << 16) | CefWriteHandlerExt_MayBlock_5, &args1);
+			mcallback((_typeName << 16) | CefWriteHandlerExt_MayBlock_5, &args1.arg);
 		}
 		return false;
 	}
@@ -9020,7 +9021,7 @@ namespace CefV8HandlerExt {
 	bool Execute(managed_callback mcallback, const CefString& name, CefRefPtr<CefV8Value> object, const CefV8ValueList& arguments, CefRefPtr<CefV8Value>& retval, CefString& exception) {
 		if (mcallback) {
 			ExecuteArgs args1(&name, object, &arguments, &retval, &exception);
-			mcallback((_typeName << 16) | CefV8HandlerExt_Execute_1, &args1);
+			mcallback((_typeName << 16) | CefV8HandlerExt_Execute_1, &args1.arg);
 		}
 		return false;
 	}
