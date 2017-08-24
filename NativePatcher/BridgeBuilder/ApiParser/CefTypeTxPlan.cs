@@ -65,6 +65,7 @@ namespace BridgeBuilder
     abstract class CefTypeTxPlan : TypeTxPlan
     {
         CodeTypeDeclaration _implDecl;
+       
 
 #if DEBUG
         protected int _dbug_cpp_count = 0;
@@ -2548,22 +2549,9 @@ namespace BridgeBuilder
 
     }
 
-    /// <summary>
-    /// tx plan for handler class
-    /// </summary>
-    class CefHandlerTxPlan : CefTypeTxPlan
+    class NativeToCsMethodArgsClassGen
     {
-        TypeTxInfo _typeTxInfo;
-        internal CodeStringBuilder _cppHeaderExportFuncAuto;
-        internal CodeStringBuilder _cppHeaderInternalForExportFuncAuto;
-
-        public CefHandlerTxPlan(CodeTypeDeclaration typedecl)
-            : base(typedecl)
-        {
-
-        }
-
-        string GenerateCppMethodArgsClass(MethodTxInfo met, CodeStringBuilder stbuilder)
+        public string GenerateCppMethodArgsClass(MethodTxInfo met, CodeStringBuilder stbuilder)
         {
             //
 
@@ -2781,6 +2769,23 @@ namespace BridgeBuilder
             return className;
         }
 
+    }
+
+    /// <summary>
+    /// tx plan for handler class
+    /// </summary>
+    class CefHandlerTxPlan : CefTypeTxPlan
+    {
+        TypeTxInfo _typeTxInfo;
+        internal CodeStringBuilder _cppHeaderExportFuncAuto;
+        internal CodeStringBuilder _cppHeaderInternalForExportFuncAuto;
+        public CefHandlerTxPlan(CodeTypeDeclaration typedecl)
+            : base(typedecl)
+        {
+
+        }
+
+
         void GenerateCppImplMethodForNs(MethodTxInfo met, CodeStringBuilder stbuilder, bool useJsSlot)
         {
             CodeMethodDeclaration metDecl = met.metDecl;
@@ -2995,7 +3000,7 @@ namespace BridgeBuilder
             }
             stbuilder.AppendLine(");");
         }
-        
+
         void GenerateCppImplNamespace(CodeTypeDeclaration orgDecl, List<MethodTxInfo> callToDotNetMets, CodeStringBuilder stbuilder)
         {
 
@@ -3142,13 +3147,14 @@ namespace BridgeBuilder
                 GenerateCsImplClass(orgDecl, callToDotNetMets, stbuilder);
             }
 
-            //
+            NativeToCsMethodArgsClassGen cppMetArgClassGen = new NativeToCsMethodArgsClassGen();
+            //----------------------
             CodeStringBuilder cppArgClassStBuilder = new CodeStringBuilder();
             cppArgClassStBuilder.AppendLine("namespace " + orgDecl.Name + "Ext{");
             for (int i = 0; i < j; ++i)
             {
                 MethodTxInfo met = _typeTxInfo.methods[i];
-                GenerateCppMethodArgsClass(met, cppArgClassStBuilder);
+                cppMetArgClassGen.GenerateCppMethodArgsClass(met, cppArgClassStBuilder);
             }
             cppArgClassStBuilder.AppendLine("}");
             _cppHeaderExportFuncAuto.Append(cppArgClassStBuilder.ToString());
