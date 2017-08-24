@@ -2565,6 +2565,8 @@ namespace BridgeBuilder
 
         string GenerateCppMethodArgsClass(MethodTxInfo met, CodeStringBuilder stbuilder)
         {
+            //
+
             //generate cs method pars
             CodeMethodDeclaration metDecl = met.metDecl;
             List<CodeMethodParameter> pars = metDecl.Parameters;
@@ -2574,6 +2576,10 @@ namespace BridgeBuilder
             string className = met.Name + "Args";
             stbuilder.AppendLine("class " + className + "{ ");
             stbuilder.AppendLine("public:");
+            //
+            //inner c POD struct
+            //see https://stackoverflow.com/questions/26939609/how-is-the-memory-layout-of-a-class-vs-a-struct
+            stbuilder.AppendLine("struct argData{");
             //fields
             stbuilder.AppendLine("int32_t myext_flags;");
             if (!met.ReturnPlan.IsVoid)
@@ -2584,27 +2590,46 @@ namespace BridgeBuilder
                 stbuilder.AppendLine("myext_ret_value; //0");
             }
             //met args  => fields
+            List<string> field_types = new List<string>();
+
             for (int i = 0; i < j; ++i)
             {
                 //move this to method
                 CodeMethodParameter par = pars[i];
                 MethodParameterTxInfo parTx = met.pars[i];
+
+                string fieldType = null;
+                if (parTx.CppUnwrapType != null)
+                {
+                    fieldType = parTx.CppUnwrapType;
+                }
+                else
+                {
+                    fieldType = parTx.TypeSymbol.ToString();
+                }
+
+                if (fieldType.EndsWith("&"))
+                {
+                    //temp here
+                    fieldType = fieldType.Substring(0, fieldType.Length - 1) + "*";
+                }
+
+                field_types.Add(fieldType);
+
                 if (parTx.IsConst)
                 {
                     stbuilder.Append("const ");
                 }
-                if (parTx.CppUnwrapType != null)
-                {
-                    stbuilder.Append(parTx.CppUnwrapType);
-                }
-                else
-                {
-                    stbuilder.Append(parTx.TypeSymbol.ToString());
-                }
+                stbuilder.Append(fieldType);
+
+
                 stbuilder.Append(" ");
                 stbuilder.Append(parTx.Name);
                 stbuilder.AppendLine(";//" + (i + 1));
             }
+            stbuilder.AppendLine("};"); //close struct
+            //args field,
+            stbuilder.Append("argData arg;");
             //private class's flags
             stbuilder.AppendLine("//");
 
@@ -2635,45 +2660,34 @@ namespace BridgeBuilder
                 {
                     stbuilder.Append("const ");
                 }
-
-                if (parTx.CppUnwrapType != null)
-                {
-                    stbuilder.Append(parTx.CppUnwrapType);
-                }
-                else
-                {
-                    stbuilder.Append(parTx.TypeSymbol.ToString());
-                }
+                stbuilder.Append(field_types[i]);
                 stbuilder.Append(" ");
                 stbuilder.Append(parTx.Name);
             }
             stbuilder.AppendLine(")");
-            //ctor's initialization
-            stbuilder.Append(":");
-            stbuilder.Append("myext_flags(" + flags + " | " + j + ")\r\n"); //not wrap/unwrap
+            stbuilder.AppendLine("{");
+            stbuilder.AppendLine("arg.myext_flags = (" + flags + " | " + j + ");"); //not wrap/unwrap
             if (!met.ReturnPlan.IsVoid)
             {
                 //set init return value
                 //with default value 
-                stbuilder.Append(",myext_ret_value(0)");
+                stbuilder.AppendLine("arg.myext_ret_value=0;");
             }
 
             bool need_unwrapMethodAndCtor = false;
             for (int i = 0; i < j; ++i)
             {
-                stbuilder.Append(",");
-                //
                 CodeMethodParameter par = pars[i];
                 MethodParameterTxInfo parTx = met.pars[i];
-                stbuilder.Append(parTx.Name);
-                stbuilder.Append("(" + parTx.Name + ")");
+                stbuilder.Append("arg." + parTx.Name + "=");
+                stbuilder.AppendLine(parTx.Name + ";");
 
                 if (parTx.CppUnwrapType != null)
                 {
                     need_unwrapMethodAndCtor = true;
                 }
             }
-            stbuilder.AppendLine("{}");//ctor's body --> empty
+            stbuilder.AppendLine("}");//ctor's body --> empty
             //-----------------------------
             //ctor style 2
             if (!need_unwrapMethodAndCtor)
@@ -2698,30 +2712,34 @@ namespace BridgeBuilder
                         stbuilder.Append("const ");
                     }
 
-
-                    stbuilder.Append(parTx.TypeSymbol.ToString());
+                    string fieldType = parTx.TypeSymbol.ToString();
+                    if (fieldType.EndsWith("&"))
+                    {
+                        //temp 
+                        fieldType = fieldType.Substring(0, fieldType.Length - 1) + "*";
+                    }
+                    stbuilder.Append(fieldType);
                     stbuilder.Append(" ");
                     stbuilder.Append(parTx.Name);
-
                 }
                 stbuilder.AppendLine(")");
                 //ctor's initialization
-                stbuilder.Append(":");
-                stbuilder.Append("myext_flags(" + flags + " | (1<<20) | " + j + ")\r\n");//wrap
+                stbuilder.Append("{");
+                stbuilder.AppendLine("arg.myext_flags = (" + flags + " | (1<<20) | " + j + ");");//wrap
                 if (!met.ReturnPlan.IsVoid)
                 {
                     //set init return value
                     //with default value 
-                    stbuilder.Append(",myext_ret_value(0)");
+                    stbuilder.AppendLine("arg.myext_ret_value=0;");
                 }
                 for (int i = 0; i < j; ++i)
                 {
-                    stbuilder.Append(",");
                     //
                     CodeMethodParameter par = pars[i];
                     MethodParameterTxInfo parTx = met.pars[i];
+                    stbuilder.Append("arg.");
                     stbuilder.Append(parTx.Name); //same name as field name
-                    stbuilder.Append("(");
+                    stbuilder.Append("=");
 
                     if (parTx.CppUnwrapType != null)
                     {
@@ -2731,23 +2749,23 @@ namespace BridgeBuilder
                     {
                         stbuilder.Append(parTx.Name);
                     }
-                    stbuilder.Append(")");
+                    stbuilder.AppendLine(";");
                 }
-                stbuilder.AppendLine("{}");//ctor's body --> empty 
+                stbuilder.AppendLine("}");//ctor's body --> empty 
                 //-----------------------------
                 //dtor 
                 stbuilder.Append("~");
                 stbuilder.Append(className);
                 stbuilder.Append("()");
                 stbuilder.AppendLine("{");
-                stbuilder.AppendLine("if( ((myext_flags >> 20) &1)  ==1){");
+                stbuilder.AppendLine("if( ((arg.myext_flags >> 20) &1)  ==1){");
                 for (int i = 0; i < j; ++i)
                 {
                     CodeMethodParameter par = pars[i];
                     MethodParameterTxInfo parTx = met.pars[i];
                     if (parTx.CppUnwrapType != null)
                     {
-                        stbuilder.AppendLine(parTx.CppWrapMethod + "(" + parTx.Name + ");");
+                        stbuilder.AppendLine(parTx.CppWrapMethod + "(arg." + parTx.Name + ");");
                     }
                 }
                 stbuilder.AppendLine("}"); //end if(myext_created_from_Unwrap){
@@ -2815,8 +2833,10 @@ namespace BridgeBuilder
             if (!useJsSlot)
             {
 
-                string metArgsClassName = metDecl.Name + "Args";
+
                 stbuilder.AppendLine("if(mcallback){");
+
+                string metArgsClassName = metDecl.Name + "Args";
                 stbuilder.Append(metArgsClassName + " args1");
                 //with ctors
                 if (j == 0)
@@ -2830,12 +2850,19 @@ namespace BridgeBuilder
                     {
                         MethodParameterTxInfo par = met.pars[i];
                         if (i > 0) { stbuilder.Append(","); }
-                        //
+
+
+                        //temp
+                        string parType = par.TypeSymbol.ToString();
+                        if (parType.EndsWith("&"))
+                        {
+                            stbuilder.Append("&");
+                        }
                         stbuilder.Append(par.Name);
                     }
                     stbuilder.AppendLine(");");
                 }
-                stbuilder.AppendLine("mcallback( (_typeName << 16) | " + met.CppMethodSwitchCaseName + ",&args1);");
+                stbuilder.AppendLine("mcallback( (_typeName << 16) | " + met.CppMethodSwitchCaseName + ",&args1.arg);");
                 stbuilder.AppendLine("}"); //if(this->mcallback){
             }
             else
