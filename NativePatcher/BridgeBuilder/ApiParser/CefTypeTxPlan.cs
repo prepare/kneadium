@@ -65,7 +65,8 @@ namespace BridgeBuilder
     abstract class CefTypeTxPlan : TypeTxPlan
     {
         CodeTypeDeclaration _implDecl;
-       
+        internal CodeStringBuilder _cppHeaderExportFuncAuto;
+        internal CodeStringBuilder _cppHeaderInternalForExportFuncAuto;
 
 #if DEBUG
         protected int _dbug_cpp_count = 0;
@@ -2777,8 +2778,7 @@ namespace BridgeBuilder
     class CefHandlerTxPlan : CefTypeTxPlan
     {
         TypeTxInfo _typeTxInfo;
-        internal CodeStringBuilder _cppHeaderExportFuncAuto;
-        internal CodeStringBuilder _cppHeaderInternalForExportFuncAuto;
+        
         public CefHandlerTxPlan(CodeTypeDeclaration typedecl)
             : base(typedecl)
         {
