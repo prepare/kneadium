@@ -2995,48 +2995,7 @@ namespace BridgeBuilder
             }
             stbuilder.AppendLine(");");
         }
-        //void GenerateCppImplClass(CodeTypeDeclaration orgDecl, List<MethodTxInfo> callToDotNetMets, CodeStringBuilder stbuilder)
-        //{
-
-        //    string className = "My" + orgDecl.Name;
-        //    int nn = callToDotNetMets.Count;
-        //    for (int mm = 0; mm < nn; ++mm)
-        //    {
-        //        //implement on event notificationi
-        //        MethodTxInfo met = callToDotNetMets[mm];
-        //        met.CppMethodSwitchCaseName = className + "_" + met.Name + "_" + (mm + 1);
-        //        stbuilder.AppendLine("const int " + met.CppMethodSwitchCaseName + "=" + (mm + 1) + ";");
-        //    }
-
-        //    //create a cpp class              
-        //    stbuilder.Append("class " + className);
-        //    stbuilder.Append(":public " + orgDecl.Name);
-        //    stbuilder.AppendLine("{");
-        //    //members
-        //    stbuilder.AppendLine("public:");
-        //    stbuilder.AppendLine("managed_callback mcallback;");
-        //    stbuilder.AppendLine("explicit " + className + "(){");
-        //    stbuilder.AppendLine("mcallback= NULL;");
-        //    stbuilder.AppendLine("}");
-        //    //stbuilder.AppendLine("managed_callback GetManagedCallBack() const OVERRIDE { return mcallback; }");
-
-        //    //
-        //    this.CppImplClassNameId = _typeTxInfo.CsInterOpTypeNameId;
-        //    this.CppImplClassName = className;
-
-        //    nn = callToDotNetMets.Count;
-        //    for (int mm = 0; mm < nn; ++mm)
-        //    {
-        //        //implement on event notificationi
-        //        MethodTxInfo met = callToDotNetMets[mm];
-        //        //prepare data and call the callback
-        //        GenerateCppImplMethod_JsValueSlotBased(met, stbuilder);
-        //    }
-        //    //private member
-        //    stbuilder.AppendLine("private:");
-        //    stbuilder.AppendLine("IMPLEMENT_REFCOUNTING(" + className + ");");
-        //    stbuilder.AppendLine("};");
-        //}
+        
         void GenerateCppImplNamespace(CodeTypeDeclaration orgDecl, List<MethodTxInfo> callToDotNetMets, CodeStringBuilder stbuilder)
         {
 

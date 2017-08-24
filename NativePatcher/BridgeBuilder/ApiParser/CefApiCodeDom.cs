@@ -877,12 +877,7 @@ namespace BridgeBuilder
             stbuilder.Append(')');
             return stbuilder.ToString();
         }
-
-        ////
-        //public CodeCtorInitilizer CtorInit { get; set; }
-        //public bool IsOperatorMethod { get; set; }
-        //public bool IsInline { get; set; }
-
+         
         //transformation 
 
         internal MethodTxInfo methodTxInfo { get; set; }
