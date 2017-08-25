@@ -250,66 +250,7 @@ namespace BridgeBuilder
             //manualPatcher.CopyExtensionSources(extTargetDir);
             manualPatcher.Do_CefClient_CMake_txt();
         }
-
-        private void button1_Click(object sender, EventArgs e)
-        {
-            //string srcFile = @"D:\projects\cef_binary_3.3071.1647.win32\include\cef_browser.h";
-            //string srcFile = @"D:\projects\cef_binary_3.3071.1647.win32\include\cef_request_handler.h";
-            //string srcFile = @"D:\projects\cef_binary_3.3071.1647.win32\include\internal\cef_time.h";
-            //
-            string srcFile = @"D:\projects\cef_binary_3.3071.1647.win32\libcef_dll\ctocpp\ctocpp_ref_counted.h"; //pass,parse only
-            //string srcFile = @"D:\projects\cef_binary_3.3071.1647.win32\libcef_dll\ctocpp\ctocpp_scoped.h"; //pass,parse only
-            //string srcFile = @"D:\projects\cef_binary_3.3071.1647.win32\libcef_dll\cpptoc\cpptoc_ref_counted.h"; //pass,parse only
-            //string srcFile = @"D:\projects\cef_binary_3.3071.1647.win32\libcef_dll\cpptoc\cpptoc_scoped.h"; //pass,parse only
-            //string srcFile = @"D:\projects\cef_binary_3.3071.1647.win32\include\cef_base.h"; //pass,parse only
-
-            //
-            Cef3HeaderFileParser headerParser = new Cef3HeaderFileParser();
-            headerParser.Parse(srcFile);
-            CodeCompilationUnit cu = headerParser.Result;
-
-            //
-            List<CodeCompilationUnit> culist = new List<CodeCompilationUnit>();
-            culist.Add(cu);
-            CefTypeCollection cefTypeCollection = new CefTypeCollection();
-            cefTypeCollection.RootFolder = @"D:\projects\cef_binary_3.3071.1647.win32";
-
-            cefTypeCollection.SetTypeSystem(culist);
-            //-----------
-
-            TypeTranformPlanner txPlanner = new TypeTranformPlanner();
-            txPlanner.CefTypeCollection = cefTypeCollection;
-
-            ApiBuilderCsPart apiBuilderCs = new ApiBuilderCsPart();
-            ApiBuilderCppPart apiBuilderCpp = new ApiBuilderCppPart();
-
-            CodeTypeDeclaration globalType = cu.GlobalTypeDecl;
-            if (globalType.MemberCount > 0)
-            {
-                //TODO: review global type
-            }
-            //
-            int j = cu.TypeCount;
-            for (int i = 0; i < j; ++i)
-            {
-                CodeTypeDeclaration typedecl = cu.GetTypeDeclaration(i);
-                if (typedecl.Name == null)
-                {
-                    continue;
-                }
-                if (typedecl.Name.Contains("Callback"))
-                {
-                    continue;
-                }
-
-                StringBuilder stbuilder = new StringBuilder();
-                TypeTxInfo typeTxPlan = txPlanner.MakeTransformPlan(typedecl);
-                apiBuilderCs.GenerateCsType(typeTxPlan, stbuilder);
-                //
-                StringBuilder cppPart = new StringBuilder();
-                apiBuilderCpp.GenerateCppPart(typeTxPlan, cppPart);
-            }
-        }
+         
 
 
         static Dictionary<string, bool> CreateSkipFiles(string[] filenames)
@@ -478,8 +419,8 @@ namespace BridgeBuilder
             }
 
             //
-            ApiBuilderCsPart apiBuilderCsPart = new ApiBuilderCsPart();
-            ApiBuilderCppPart apiBuilderCppPart = new ApiBuilderCppPart();
+            //ApiBuilderCsPart apiBuilderCsPart = new ApiBuilderCsPart();
+            //ApiBuilderCppPart apiBuilderCppPart = new ApiBuilderCppPart();
 
             //
             CefTypeCollection cefTypeCollection = new CefTypeCollection();
