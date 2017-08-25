@@ -634,35 +634,28 @@ namespace BridgeBuilder
                 "namespace LayoutFarm.CefBridge.Auto{\r\n");
 
 
-
+            CefCodeGenOutput codeGenOutput = new CefCodeGenOutput();
             foreach (CefTypeTxPlan tx in enumTxPlans)
             {
-                CodeStringBuilder csCode = new CodeStringBuilder();
-                tx.GenerateCsCode(csCode);
-                csCodeStBuilder.Append(csCode.ToString());
+                tx.GenerateCode(codeGenOutput);
+                //get cs output
+                csCodeStBuilder.Append(codeGenOutput._csCode.ToString());
             }
+            //-------------------------
 
-            //
             foreach (CefInstanceElementTxPlan tx in instanceClassPlans)
             {
-
-                //pass
-                //CefRequest ,21
-                CodeStringBuilder cppCode = new CodeStringBuilder();
-                tx.GenerateCppCode(cppCode);
+                codeGenOutput = new CefCodeGenOutput();
+                tx.GenerateCode(codeGenOutput);
                 //---------------------------------------------------- 
-                CodeStringBuilder csCode = new CodeStringBuilder();
-                tx.GenerateCsCode(csCode);
-                //----------------------------------------------------  
-                //
                 cppCodeStBuilder.AppendLine();
                 cppCodeStBuilder.AppendLine("// " + tx.OriginalDecl.ToString());
-                cppCodeStBuilder.Append(cppCode.ToString());
+                cppCodeStBuilder.Append(codeGenOutput._cppCode.ToString());
                 cppCodeStBuilder.AppendLine();
                 //---------------------------------------------------- 
                 csCodeStBuilder.AppendLine();
                 csCodeStBuilder.AppendLine("// " + tx.OriginalDecl.ToString());
-                csCodeStBuilder.Append(csCode.ToString());
+                csCodeStBuilder.Append(codeGenOutput._csCode.ToString());
                 csCodeStBuilder.AppendLine();
 
                 if (tx.CppImplClassNameId > 0)
@@ -675,38 +668,35 @@ namespace BridgeBuilder
 
             foreach (CefCallbackTxPlan tx in callbackPlans)
             {
-                CodeStringBuilder stbuilder = new CodeStringBuilder();
-                tx._cppHeaderExportFuncAuto = cppHeaderExportFuncAuto;
-                tx._cppHeaderInternalForExportFuncAuto = cppHeaderInternalForExportFunc;
-                //
-                tx.GenerateCppCode(stbuilder);
-                cppCodeStBuilder.Append(stbuilder.ToString());
+                 
+                codeGenOutput = new CefCodeGenOutput();
+                tx.GenerateCode(codeGenOutput);
 
-                //
-                CodeStringBuilder csCode = new CodeStringBuilder();
-                tx.GenerateCsCode(csCode);
-                csCodeStBuilder.Append(csCode.ToString());
+                cppCodeStBuilder.Append(codeGenOutput._cppCode.ToString());
+                csCodeStBuilder.Append(codeGenOutput._csCode.ToString());
+                //----------
+                cppHeaderExportFuncAuto.Append(codeGenOutput._cppHeaderExportFuncAuto.ToString());
+                cppHeaderInternalForExportFunc.Append(codeGenOutput._cppHeaderInternalForExportFuncAuto.ToString());
+                //----------
                 if (tx.CppImplClassNameId > 0)
                 {
                     customImplClasses.Add(tx);
                 }
-
             }
 
-            
+
             foreach (CefHandlerTxPlan tx in handlerPlans)
-            { 
-                CodeStringBuilder stbuilder = new CodeStringBuilder();
-                
-                tx._cppHeaderExportFuncAuto = cppHeaderExportFuncAuto;
-                tx._cppHeaderInternalForExportFuncAuto = cppHeaderInternalForExportFunc; 
-                //
-                tx.GenerateCppCode(stbuilder);
-                cppCodeStBuilder.Append(stbuilder.ToString());
-                //
-                stbuilder = new CodeStringBuilder();
-                tx.GenerateCsCode(stbuilder);
-                csCodeStBuilder.Append(stbuilder.ToString()); 
+            {
+                codeGenOutput = new CefCodeGenOutput();
+                tx.GenerateCode(codeGenOutput);
+
+                cppCodeStBuilder.Append(codeGenOutput._cppCode.ToString());
+                csCodeStBuilder.Append(codeGenOutput._csCode.ToString());
+                //----------
+                cppHeaderExportFuncAuto.Append(codeGenOutput._cppHeaderExportFuncAuto.ToString());
+                cppHeaderInternalForExportFunc.Append(codeGenOutput._cppHeaderInternalForExportFuncAuto.ToString());
+                //----------
+                // 
             }
 
 

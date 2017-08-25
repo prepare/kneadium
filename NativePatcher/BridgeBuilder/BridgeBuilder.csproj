@@ -48,6 +48,10 @@
     <Compile Include="ApiParser\SymbolDefinition.cs" />
     <Compile Include="ApiParser\TypeSymbolWalk.cs" />
     <Compile Include="ApiParser\CefTypeTxPlan.cs" />
+    <Compile Include="CefCodeGen\CppCodeGen.cs" />
+    <Compile Include="CefCodeGen\CsCodeGen.cs" />
+    <Compile Include="CefCodeGen\CodeGen.cs" />
+    <Compile Include="CefCodeGen\CodeStringBuilder.cs" />
     <Compile Include="Patcher\ManualPatcher.cs" />
     <Compile Include="Patcher\PatchBuilder.cs" />
     <Compile Include="Patcher\Patchs.cs" />
