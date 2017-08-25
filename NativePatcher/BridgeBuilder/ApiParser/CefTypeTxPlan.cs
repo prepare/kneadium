@@ -24,8 +24,6 @@ namespace BridgeBuilder
     abstract class CefTypeTxPlan : TypeTxPlan
     {
         CodeTypeDeclaration _implDecl;
-
-
 #if DEBUG
         protected int _dbug_cpp_count = 0;
 #endif
@@ -60,15 +58,6 @@ namespace BridgeBuilder
         public int CsInterOpTypeNameId { get; set; }
 
         public abstract void GenerateCode(CefCodeGenOutput output);
-
-        //public virtual void GenerateCppCode(CodeStringBuilder stbuilder)
-        //{
-
-        //}
-        //public virtual void GenerateCsCode(CodeStringBuilder stbuilder)
-        //{
-
-        //}
 
         public string CppImplClassName { get; set; }
         public int CppImplClassNameId { get; set; }
@@ -165,9 +154,6 @@ namespace BridgeBuilder
             }
 
         }
-
-
-
 
         /// <summary>
         /// bring data from srcExpression and store to the destExpression
@@ -1577,7 +1563,6 @@ namespace BridgeBuilder
     }
 
 
-
     /// <summary>
     /// tx plan for callback class
     /// </summary>
@@ -1585,13 +1570,9 @@ namespace BridgeBuilder
     {
         TypeTxInfo _typeTxInfo;
         CodeTypeDeclaration _currentCodeTypeDecl;
-
-
         public CefCallbackTxPlan(CodeTypeDeclaration typedecl)
             : base(typedecl)
         {
-            //this is call back
-
         }
         public override void GenerateCode(CefCodeGenOutput output)
         {
@@ -2771,99 +2752,7 @@ namespace BridgeBuilder
             }
             stbuilder.AppendLine(");");
         }
-        void GenerateCsExpandedArgsMethodImpl(MethodTxInfo met, CodeStringBuilder stbuilder)
-        {
-            CodeMethodDeclaration metDecl = (CodeMethodDeclaration)met.metDecl;
-
-            //temp 
-            stbuilder.Append("public virtual ");
-            stbuilder.Append(GetCsRetName(met.ReturnPlan.TypeSymbol));
-            stbuilder.Append(" ");
-            stbuilder.Append(met.Name);
-            stbuilder.Append("(");
-
-            List<CodeMethodParameter> pars = metDecl.Parameters;
-            int j = pars.Count;
-            for (int i = 0; i < j; ++i)
-            {
-                if (i > 0)
-                {
-                    stbuilder.Append(",");
-                }
-
-                MethodParameterTxInfo parTx = met.pars[i];
-                string parTypeName = GetCsRetName(parTx.TypeSymbol);
-                stbuilder.Append(parTypeName);
-
-
-
-                //some cpp name can't be use in C#
-                stbuilder.Append(" ");
-                stbuilder.Append(parTx.Name);
-            }
-            stbuilder.AppendLine("){");
-
-
-
-            if (!met.ReturnPlan.IsVoid)
-            {
-                string retTypeName = metDecl.ReturnType.ToString();
-                if (retTypeName.StartsWith("CefRefPtr<"))
-                {
-                    stbuilder.Append("throw new CefNotImplementedException();");
-                }
-                else
-                {
-                    switch (metDecl.ReturnType.ToString())
-                    {
-                        case "bool":
-                            stbuilder.Append("return false;");
-                            break;
-                        case "FilterStatus": //TODO: revisit here
-                            stbuilder.Append("return (FilterStatus)0;");
-                            break;
-                        case "ReturnValue":
-                            stbuilder.Append("return (ReturnValue)0;");
-                            break;
-                        case "CefSize":
-                            stbuilder.Append("throw new CefNotImplementedException();");
-                            break;
-                        case "size_t":
-                            stbuilder.Append("return 0;");
-                            break;
-                        case "int":
-                            stbuilder.Append("return 0;");
-                            break;
-                        case "int64":
-                            stbuilder.Append("return 0;");
-                            break;
-                        default:
-                            throw new NotSupportedException();
-
-                    }
-                }
-            }
-
-            stbuilder.AppendLine("}"); //method
-        }
-
-
-
-        void GenerateCsSingleArgMethodImpl(string argClassName, MethodTxInfo met, CodeStringBuilder stbuilder)
-        {
-            CodeMethodDeclaration metDecl = (CodeMethodDeclaration)met.metDecl;
-            //temp 
-            List<MethodParameterTxInfo> pars = met.pars;
-
-            stbuilder.Append("public virtual void");
-            stbuilder.Append(" ");
-
-            stbuilder.Append(met.Name);
-            stbuilder.Append("(");
-            stbuilder.Append(argClassName + " args");
-            stbuilder.AppendLine("){}");
-
-        }
+        
         void GenerateCsSingleArgMethodImplForI1(string argClassName, MethodTxInfo met, CodeStringBuilder stbuilder)
         {
             CodeMethodDeclaration metDecl = (CodeMethodDeclaration)met.metDecl;
@@ -2956,21 +2845,6 @@ namespace BridgeBuilder
                 GenerateCsExpandedArgsMethodForInterface(met, stbuilder);
             }
             stbuilder.AppendLine("}");
-            //-----------------
-
-            //create sample impl 
-            //-----------------
-            //string abClassName = "B0";
-            //stbuilder.AppendLine("public abstract class " + abClassName + ":I0 {"); //
-            //stbuilder.AppendLine("//sample base class");
-            //for (int mm = 0; mm < nn; ++mm)
-            //{
-            //    //implement on event notification
-            //    MethodTxInfo met = callToDotNetMets[mm];
-            //    string argClassName = met.CsArgClassName;
-            //    GenerateCsSingleArgMethodImpl(argClassName, met, stbuilder);
-            //}
-            //stbuilder.AppendLine("}");
             //-----------------
 
 
