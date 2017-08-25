@@ -62,6 +62,12 @@ namespace BridgeBuilder
     }
 
 
+    enum ImplWrapDirection
+    {
+        None,
+        CppToC,
+        CToCpp,
+    }
     abstract class CefTypeTxPlan : TypeTxPlan
     {
         CodeTypeDeclaration _implDecl;
@@ -2000,6 +2006,104 @@ namespace BridgeBuilder
     }
 
 
+    class CefEnumTxPlan : CefTypeTxPlan
+    {
+        TypeTxInfo _typeTxInfo;
+        CodeTypeDeclaration _currentCodeTypeDecl;
+
+        string enum_base = "";
+        public CefEnumTxPlan(CodeTypeDeclaration typedecl)
+            : base(typedecl)
+        {
+            //check each field for proper enum base type
+
+            foreach (CodeFieldDeclaration field in this.OriginalDecl.GetFieldIter())
+            {
+                if (field.InitExpression != null)
+                {
+                    //cef specific
+                    //some init expression need special treatment
+                    string initExprString = field.InitExpression.ToString();
+
+                    if (initExprString == "UINT_MAX")
+                    {
+                        enum_base = ":uint";
+                        break;
+                    }
+                    else
+                    {
+                        initExprString = initExprString.ToLower();
+                        if (initExprString.StartsWith("0x"))
+                        {
+                            uint uint1 = Convert.ToUInt32(initExprString.Substring(2), 16);
+                            if (uint1 >= int.MaxValue)
+                            {
+                                enum_base = ":uint";
+                                break;
+                            }
+                        }
+
+                    }
+
+                }
+            }
+        }
+
+        public override void GenerateCsCode(CodeStringBuilder stbuilder)
+        {
+            CodeStringBuilder codeBuilder = new CodeStringBuilder();
+            CodeTypeDeclaration orgDecl = this.OriginalDecl;
+            _typeTxInfo = orgDecl.TypeTxInfo;
+            _currentCodeTypeDecl = orgDecl;
+            //
+            AddComment(orgDecl.LineComments, codeBuilder);
+
+            //for cef, if enum class end with flags_t 
+            //we add FlagsAttribute to this enum type
+
+            if (orgDecl.Name.EndsWith("flags_t"))
+            {
+                codeBuilder.AppendLine("[Flags]");
+            }
+
+            codeBuilder.AppendLine("public enum " + orgDecl.Name + enum_base + "{");
+            //transform enum
+            int i = 0;
+            foreach (FieldTxInfo fieldTx in _typeTxInfo.fields)
+            {
+
+                if (i > 0)
+                {
+                    codeBuilder.AppendLine(",");
+                }
+                i++;
+                CodeFieldDeclaration codeFieldDecl = fieldTx.fieldDecl;
+                //
+                AddComment(codeFieldDecl.LineComments, codeBuilder);
+                //
+                if (codeFieldDecl.InitExpression != null)
+                {
+                    string initExpr = codeFieldDecl.InitExpression.ToString();
+                    //cef specific
+                    if (initExpr == "UINT_MAX")
+                    {
+                        codeBuilder.Append(codeFieldDecl.Name + "=uint.MaxValue");
+                    }
+                    else
+                    {
+                        codeBuilder.Append(codeFieldDecl.Name + "=" + codeFieldDecl.InitExpression.ToString());
+                    }
+                }
+                else
+                {
+                    codeBuilder.Append(codeFieldDecl.Name);
+                }
+            }
+            codeBuilder.AppendLine("}");
+            //
+            stbuilder.Append(codeBuilder.ToString());
+        }
+    }
 
 
 
@@ -2021,8 +2125,6 @@ namespace BridgeBuilder
 
         void GenerateCppImplMethod(MethodTxInfo met, CodeStringBuilder stbuilder)
         {
-
-
             CodeMethodDeclaration metDecl = (CodeMethodDeclaration)met.metDecl;
             stbuilder.AppendLine("//gen! " + metDecl.ToString());
             stbuilder.Append("virtual " + metDecl.ReturnType + " " + metDecl.Name + "(");
@@ -2100,7 +2202,7 @@ namespace BridgeBuilder
             //-----------
             stbuilder.AppendLine("}"); //method
         }
-        void GenerateImplClass(
+        void GenerateCppImplClass(
           CodeTypeDeclaration orgDecl,
           List<MethodTxInfo> onEventMethods,
           CodeStringBuilder stbuilder)
@@ -2193,7 +2295,7 @@ namespace BridgeBuilder
 
             if (onEventMethods.Count > 0)
             {
-                GenerateImplClass(
+                GenerateCppImplClass(
                     orgDecl,
                     onEventMethods,
                     stbuilder);
@@ -2418,10 +2520,13 @@ namespace BridgeBuilder
                 csStruct.Append(met_stbuilder.ToString());
             }
 
-            csStruct.AppendLine("}");  //close struct
-
-            //
+            csStruct.AppendLine("}");  //close struct 
             stbuilder.Append(csStruct.ToString());
+
+            //-----------------------------------------------------------
+           
+
+
         }
         void GenerateCsMethod(MethodTxInfo met, CodeStringBuilder stbuilder)
         {
@@ -2550,227 +2655,6 @@ namespace BridgeBuilder
 
     }
 
-    class NativeToCsMethodArgsClassGen
-    {
-        public string GenerateCppMethodArgsClass(MethodTxInfo met, CodeStringBuilder stbuilder)
-        {
-            //
-
-            //generate cs method pars
-            CodeMethodDeclaration metDecl = met.metDecl;
-            List<CodeMethodParameter> pars = metDecl.Parameters;
-            int j = pars.Count;
-
-            //temp 
-            string className = met.Name + "Args";
-            stbuilder.AppendLine("class " + className + "{ ");
-            stbuilder.AppendLine("public:");
-            //
-            //inner c POD struct
-            //see https://stackoverflow.com/questions/26939609/how-is-the-memory-layout-of-a-class-vs-a-struct
-            stbuilder.AppendLine("struct argData{");
-            //fields
-            stbuilder.AppendLine("int32_t myext_flags;");
-            if (!met.ReturnPlan.IsVoid)
-            {
-                //return fields              
-                stbuilder.Append(met.ReturnPlan.TypeSymbol.ToString());
-                stbuilder.Append(" ");
-                stbuilder.AppendLine("myext_ret_value; //0");
-            }
-            //met args  => fields
-            List<string> field_types = new List<string>();
-
-            for (int i = 0; i < j; ++i)
-            {
-                //move this to method
-                CodeMethodParameter par = pars[i];
-                MethodParameterTxInfo parTx = met.pars[i];
-
-                string fieldType = null;
-                if (parTx.CppUnwrapType != null)
-                {
-                    fieldType = parTx.CppUnwrapType;
-                }
-                else
-                {
-                    fieldType = parTx.TypeSymbol.ToString();
-                }
-
-                if (fieldType.EndsWith("&"))
-                {
-                    //temp here
-                    fieldType = fieldType.Substring(0, fieldType.Length - 1) + "*";
-                }
-
-                field_types.Add(fieldType);
-
-                if (parTx.IsConst)
-                {
-                    stbuilder.Append("const ");
-                }
-                stbuilder.Append(fieldType);
-
-
-                stbuilder.Append(" ");
-                stbuilder.Append(parTx.Name);
-                stbuilder.AppendLine(";//" + (i + 1));
-            }
-            stbuilder.AppendLine("};"); //close struct
-            //args field,
-            stbuilder.Append("argData arg;");
-            //private class's flags
-            stbuilder.AppendLine("//");
-
-            //arg's common flags
-            string flags = "(1<<18)";//this is special args
-            if (!met.ReturnPlan.IsVoid)
-            {
-                //not void
-                flags += "|(1<< 19)";
-            }
-
-            //-----------------------------
-            //ctor style 1 not wrap (1<<20) = 0
-            //or wrap (1<<20) =1
-            //-----------------------------
-            stbuilder.Append(className);
-            stbuilder.Append("(");
-            for (int i = 0; i < j; ++i)
-            {
-                if (i > 0)
-                {
-                    stbuilder.Append(",");
-                }
-                //move this to method
-                CodeMethodParameter par = pars[i];
-                MethodParameterTxInfo parTx = met.pars[i];
-                if (parTx.IsConst)
-                {
-                    stbuilder.Append("const ");
-                }
-                stbuilder.Append(field_types[i]);
-                stbuilder.Append(" ");
-                stbuilder.Append(parTx.Name);
-            }
-            stbuilder.AppendLine(")");
-            stbuilder.AppendLine("{");
-            stbuilder.AppendLine("arg.myext_flags = (" + flags + " | " + j + ");"); //not wrap/unwrap
-            if (!met.ReturnPlan.IsVoid)
-            {
-                //set init return value
-                //with default value 
-                stbuilder.AppendLine("arg.myext_ret_value=0;");
-            }
-
-            bool need_unwrapMethodAndCtor = false;
-            for (int i = 0; i < j; ++i)
-            {
-                CodeMethodParameter par = pars[i];
-                MethodParameterTxInfo parTx = met.pars[i];
-                stbuilder.Append("arg." + parTx.Name + "=");
-                stbuilder.AppendLine(parTx.Name + ";");
-
-                if (parTx.CppUnwrapType != null)
-                {
-                    need_unwrapMethodAndCtor = true;
-                }
-            }
-            stbuilder.AppendLine("}");//ctor's body --> empty
-            //-----------------------------
-            //ctor style 2
-            if (!need_unwrapMethodAndCtor)
-            {
-
-            }
-            else
-            {
-                stbuilder.Append(className);
-                stbuilder.Append("(");
-                for (int i = 0; i < j; ++i)
-                {
-                    if (i > 0)
-                    {
-                        stbuilder.Append(",");
-                    }
-                    //move this to method
-                    CodeMethodParameter par = pars[i];
-                    MethodParameterTxInfo parTx = met.pars[i];
-                    if (parTx.IsConst)
-                    {
-                        stbuilder.Append("const ");
-                    }
-
-                    string fieldType = parTx.TypeSymbol.ToString();
-                    if (fieldType.EndsWith("&"))
-                    {
-                        //temp 
-                        fieldType = fieldType.Substring(0, fieldType.Length - 1) + "*";
-                    }
-                    stbuilder.Append(fieldType);
-                    stbuilder.Append(" ");
-                    stbuilder.Append(parTx.Name);
-                }
-                stbuilder.AppendLine(")");
-                //ctor's initialization
-                stbuilder.Append("{");
-                stbuilder.AppendLine("arg.myext_flags = (" + flags + " | (1<<20) | " + j + ");");//wrap
-                if (!met.ReturnPlan.IsVoid)
-                {
-                    //set init return value
-                    //with default value 
-                    stbuilder.AppendLine("arg.myext_ret_value=0;");
-                }
-                for (int i = 0; i < j; ++i)
-                {
-                    //
-                    CodeMethodParameter par = pars[i];
-                    MethodParameterTxInfo parTx = met.pars[i];
-                    stbuilder.Append("arg.");
-                    stbuilder.Append(parTx.Name); //same name as field name
-                    stbuilder.Append("=");
-
-                    if (parTx.CppUnwrapType != null)
-                    {
-                        stbuilder.Append(parTx.CppUnwrapMethod + "(" + parTx.Name + ")");
-                    }
-                    else
-                    {
-                        stbuilder.Append(parTx.Name);
-                    }
-                    stbuilder.AppendLine(";");
-                }
-                stbuilder.AppendLine("}");//ctor's body --> empty 
-                //-----------------------------
-                //dtor 
-                stbuilder.Append("~");
-                stbuilder.Append(className);
-                stbuilder.Append("()");
-                stbuilder.AppendLine("{");
-                stbuilder.AppendLine("if( ((arg.myext_flags >> 20) &1)  ==1){");
-                for (int i = 0; i < j; ++i)
-                {
-                    CodeMethodParameter par = pars[i];
-                    MethodParameterTxInfo parTx = met.pars[i];
-                    if (parTx.CppUnwrapType != null)
-                    {
-                        stbuilder.AppendLine(parTx.CppWrapMethod + "(arg." + parTx.Name + ");");
-                    }
-                }
-                stbuilder.AppendLine("}"); //end if(myext_created_from_Unwrap){
-                stbuilder.AppendLine("}");//end class
-            }
-            //-----------------------------
-            //private disallow copy
-            stbuilder.AppendLine("private:");
-            stbuilder.AppendLine("DISALLOW_COPY_AND_ASSIGN(" + className + ");");
-
-            //-----------------------------
-            stbuilder.AppendLine("};"); //close cpp's class
-            return className;
-        }
-
-    }
 
     /// <summary>
     /// tx plan for handler class
@@ -2778,7 +2662,7 @@ namespace BridgeBuilder
     class CefHandlerTxPlan : CefTypeTxPlan
     {
         TypeTxInfo _typeTxInfo;
-        
+
         public CefHandlerTxPlan(CodeTypeDeclaration typedecl)
             : base(typedecl)
         {
@@ -2822,11 +2706,7 @@ namespace BridgeBuilder
                 stbuilder.Append(par.ParameterName);
             }
             stbuilder.AppendLine("){");
-            //-----------
-
-
-
-
+            //----------- 
 
             for (int i = 0; i < j; ++i)
             {
@@ -2836,8 +2716,8 @@ namespace BridgeBuilder
             }
             //method body
             if (!useJsSlot)
-            {   
-                stbuilder.AppendLine("if(mcallback){"); 
+            {
+                stbuilder.AppendLine("if(mcallback){");
                 string metArgsClassName = metDecl.Name + "Args";
                 stbuilder.Append(metArgsClassName + " args1");
                 //with ctors
@@ -2851,7 +2731,7 @@ namespace BridgeBuilder
                     for (int i = 0; i < j; ++i)
                     {
                         MethodParameterTxInfo par = met.pars[i];
-                        if (i > 0) { stbuilder.Append(","); } 
+                        if (i > 0) { stbuilder.Append(","); }
                         //temp
                         string parType = par.TypeSymbol.ToString();
                         if (parType.EndsWith("&"))
@@ -2863,7 +2743,7 @@ namespace BridgeBuilder
                     stbuilder.AppendLine(");");
                 }
                 stbuilder.AppendLine("mcallback( (_typeName << 16) | " + met.CppMethodSwitchCaseName + ",&args1.arg);");
-                stbuilder.AppendLine("}"); //if(this->mcallback){
+                stbuilder.AppendLine("}"); //if(this->mcallback){ 
             }
             else
             {
@@ -2917,7 +2797,8 @@ namespace BridgeBuilder
                 //-----------
             }
 
-
+            //-------------------
+            //default return if no managed callback
             if (!met.ReturnPlan.IsVoid)
             {
                 string retTypeName = metDecl.ReturnType.ToString();
@@ -2952,7 +2833,6 @@ namespace BridgeBuilder
                             break;
                         default:
                             throw new NotSupportedException();
-
                     }
                 }
             }
@@ -3142,8 +3022,8 @@ namespace BridgeBuilder
                 GenerateCsImplClass(orgDecl, callToDotNetMets, stbuilder);
             }
 
-            NativeToCsMethodArgsClassGen cppMetArgClassGen = new NativeToCsMethodArgsClassGen();
-            //----------------------
+            CppToCsMethodArgsClassGen cppMetArgClassGen = new CppToCsMethodArgsClassGen();
+            //------------------------------------------------------------------
             CodeStringBuilder cppArgClassStBuilder = new CodeStringBuilder();
             cppArgClassStBuilder.AppendLine("namespace " + orgDecl.Name + "Ext{");
             for (int i = 0; i < j; ++i)
@@ -3155,8 +3035,6 @@ namespace BridgeBuilder
             _cppHeaderExportFuncAuto.Append(cppArgClassStBuilder.ToString());
 
         }
-
-
         string GenerateCsMethodArgsClass_Native(MethodTxInfo met, CodeStringBuilder stbuilder)
         {
             //generate cs method pars
@@ -3890,124 +3768,12 @@ namespace BridgeBuilder
     }
 
 
-    enum ImplWrapDirection
-    {
-        None,
-        CppToC,
-        CToCpp,
-    }
-
-    class CefEnumTxPlan : CefTypeTxPlan
-    {
-        TypeTxInfo _typeTxInfo;
-        CodeTypeDeclaration _currentCodeTypeDecl;
-
-        string enum_base = "";
-        public CefEnumTxPlan(CodeTypeDeclaration typedecl)
-            : base(typedecl)
-        {
-            //check each field for proper enum base type
-
-            foreach (CodeFieldDeclaration field in this.OriginalDecl.GetFieldIter())
-            {
-                if (field.InitExpression != null)
-                {
-                    //cef specific
-                    //some init expression need special treatment
-                    string initExprString = field.InitExpression.ToString();
-
-                    if (initExprString == "UINT_MAX")
-                    {
-                        enum_base = ":uint";
-                        break;
-                    }
-                    else
-                    {
-                        initExprString = initExprString.ToLower();
-                        if (initExprString.StartsWith("0x"))
-                        {
-                            uint uint1 = Convert.ToUInt32(initExprString.Substring(2), 16);
-                            if (uint1 >= int.MaxValue)
-                            {
-                                enum_base = ":uint";
-                                break;
-                            }
-                        }
-
-                    }
-
-                }
-            }
-        }
-
-        public override void GenerateCsCode(CodeStringBuilder stbuilder)
-        {
-            CodeStringBuilder codeBuilder = new CodeStringBuilder();
-            CodeTypeDeclaration orgDecl = this.OriginalDecl;
-            _typeTxInfo = orgDecl.TypeTxInfo;
-            _currentCodeTypeDecl = orgDecl;
-            //
-            AddComment(orgDecl.LineComments, codeBuilder);
-
-            //for cef, if enum class end with flags_t 
-            //we add FlagsAttribute to this enum type
-
-            if (orgDecl.Name.EndsWith("flags_t"))
-            {
-                codeBuilder.AppendLine("[Flags]");
-            }
-
-            codeBuilder.AppendLine("public enum " + orgDecl.Name + enum_base + "{");
-            //transform enum
-            int i = 0;
-            foreach (FieldTxInfo fieldTx in _typeTxInfo.fields)
-            {
-
-                if (i > 0)
-                {
-                    codeBuilder.AppendLine(",");
-                }
-                i++;
-                CodeFieldDeclaration codeFieldDecl = fieldTx.fieldDecl;
-                //
-                AddComment(codeFieldDecl.LineComments, codeBuilder);
-                //
-                if (codeFieldDecl.InitExpression != null)
-                {
-                    string initExpr = codeFieldDecl.InitExpression.ToString();
-                    //cef specific
-                    if (initExpr == "UINT_MAX")
-                    {
-                        codeBuilder.Append(codeFieldDecl.Name + "=uint.MaxValue");
-                    }
-                    else
-                    {
-                        codeBuilder.Append(codeFieldDecl.Name + "=" + codeFieldDecl.InitExpression.ToString());
-                    }
-                }
-                else
-                {
-                    codeBuilder.Append(codeFieldDecl.Name);
-                }
-            }
-            codeBuilder.AppendLine("}");
-            //
-            stbuilder.Append(codeBuilder.ToString());
-        }
-    }
-
-
-
-
-
     /// <summary>
     /// tx plan for instance element
     /// </summary>
     class CefInstanceElementTxPlan : CefTypeTxPlan
     {
         TypeTxInfo _typeTxInfo;
-
-
         public CefInstanceElementTxPlan(CodeTypeDeclaration typedecl)
             : base(typedecl)
         {
@@ -4381,49 +4147,13 @@ namespace BridgeBuilder
         }
 
         //---------------------------------------------------
-        void AddComments(CodeTypeDeclaration orgDecl, CodeTypeDeclaration implTypeDecl)
-        {
 
-            //copy comment from orgDecl to implTypeDecl 
-            List<CodeMethodDeclaration> results = new List<CodeMethodDeclaration>();
-            foreach (CodeMethodDeclaration orgMet in orgDecl.GetMethodIter())
-            {
-                Token[] lineComments = orgMet.LineComments;
-
-                if (lineComments != null)
-                {
-                    results.Clear();
-                    implTypeDecl.FindMethod(orgMet.Name, results);
-                    switch (results.Count)
-                    {
-                        case 0://not found
-                            break;
-                        case 1:
-                            //found 1
-                            {
-                                CodeMethodDeclaration implMethodDecl = results[0];
-                                if (implMethodDecl.LineComments == null)
-                                {
-                                    implMethodDecl.LineComments = lineComments;
-                                }
-                                else
-                                {
-                                }
-
-                            }
-                            break;
-                        default:
-                            break;
-                    }
-                }
-            }
-        }
         public override void GenerateCsCode(CodeStringBuilder stbuilder)
         {
             CodeTypeDeclaration orgDecl = this.OriginalDecl;
             CodeTypeDeclaration implTypeDecl = this.ImplTypeDecl;
 
-            AddComments(orgDecl, implTypeDecl);
+            CodeGenUtils.AddComments(orgDecl, implTypeDecl);
             //-----------------------------------------------------------------------
             _typeTxInfo = implTypeDecl.TypeTxInfo;
 
@@ -4625,4 +4355,291 @@ namespace BridgeBuilder
     }
 
 
+    /// <summary>
+    /// other utils
+    /// </summary>
+    static class CodeGenUtils
+    {
+
+        public static void AddComments(CodeTypeDeclaration orgDecl, CodeTypeDeclaration implTypeDecl)
+        {
+
+            //copy comment from orgDecl to implTypeDecl 
+            List<CodeMethodDeclaration> results = new List<CodeMethodDeclaration>();
+            foreach (CodeMethodDeclaration orgMet in orgDecl.GetMethodIter())
+            {
+                Token[] lineComments = orgMet.LineComments;
+
+                if (lineComments != null)
+                {
+                    results.Clear();
+                    implTypeDecl.FindMethod(orgMet.Name, results);
+                    switch (results.Count)
+                    {
+                        case 0://not found
+                            break;
+                        case 1:
+                            //found 1
+                            {
+                                CodeMethodDeclaration implMethodDecl = results[0];
+                                if (implMethodDecl.LineComments == null)
+                                {
+                                    implMethodDecl.LineComments = lineComments;
+                                }
+                                else
+                                {
+                                }
+
+                            }
+                            break;
+                        default:
+                            break;
+                    }
+                }
+            }
+        }
+    }
+
+
+    abstract class CppCodeGen
+    {
+
+    }
+    class CppToCsMethodArgsClassGen : CppCodeGen
+    {
+        /// <summary>
+        /// generate native method args class
+        /// </summary>
+        /// <param name="met"></param>
+        /// <param name="stbuilder"></param>
+        /// <returns></returns>
+        public string GenerateCppMethodArgsClass(MethodTxInfo met, CodeStringBuilder stbuilder)
+        {
+            //
+
+            //generate cs method pars
+            CodeMethodDeclaration metDecl = met.metDecl;
+            List<CodeMethodParameter> pars = metDecl.Parameters;
+            int j = pars.Count;
+
+            //temp 
+            string className = met.Name + "Args";
+            stbuilder.AppendLine("class " + className + "{ ");
+            stbuilder.AppendLine("public:");
+            //
+            //inner c POD struct
+            //see https://stackoverflow.com/questions/26939609/how-is-the-memory-layout-of-a-class-vs-a-struct
+            stbuilder.AppendLine("struct argData{");
+            //fields
+            stbuilder.AppendLine("int32_t myext_flags;");
+            if (!met.ReturnPlan.IsVoid)
+            {
+                //return fields              
+                stbuilder.Append(met.ReturnPlan.TypeSymbol.ToString());
+                stbuilder.Append(" ");
+                stbuilder.AppendLine("myext_ret_value; //0");
+            }
+            //met args  => fields
+            List<string> field_types = new List<string>();
+
+            for (int i = 0; i < j; ++i)
+            {
+                //move this to method
+                CodeMethodParameter par = pars[i];
+                MethodParameterTxInfo parTx = met.pars[i];
+
+                string fieldType = null;
+                if (parTx.CppUnwrapType != null)
+                {
+                    fieldType = parTx.CppUnwrapType;
+                }
+                else
+                {
+                    fieldType = parTx.TypeSymbol.ToString();
+                }
+
+                if (fieldType.EndsWith("&"))
+                {
+                    //temp here
+                    fieldType = fieldType.Substring(0, fieldType.Length - 1) + "*";
+                }
+
+                field_types.Add(fieldType);
+
+                if (parTx.IsConst)
+                {
+                    stbuilder.Append("const ");
+                }
+                stbuilder.Append(fieldType);
+
+
+                stbuilder.Append(" ");
+                stbuilder.Append(parTx.Name);
+                stbuilder.AppendLine(";//" + (i + 1));
+            }
+            stbuilder.AppendLine("};"); //close struct
+            //args field,
+            stbuilder.Append("argData arg;");
+            //private class's flags
+            stbuilder.AppendLine("//");
+
+            //arg's common flags
+            string flags = "(1<<18)";//this is special args
+            if (!met.ReturnPlan.IsVoid)
+            {
+                //not void
+                flags += "|(1<< 19)";
+            }
+
+            //-----------------------------
+            //ctor style 1 not wrap (1<<20) = 0
+            //or wrap (1<<20) =1
+            //-----------------------------
+            stbuilder.Append(className);
+            stbuilder.Append("(");
+            for (int i = 0; i < j; ++i)
+            {
+                if (i > 0)
+                {
+                    stbuilder.Append(",");
+                }
+                //move this to method
+                CodeMethodParameter par = pars[i];
+                MethodParameterTxInfo parTx = met.pars[i];
+                if (parTx.IsConst)
+                {
+                    stbuilder.Append("const ");
+                }
+                stbuilder.Append(field_types[i]);
+                stbuilder.Append(" ");
+                stbuilder.Append(parTx.Name);
+            }
+            stbuilder.AppendLine(")");
+            stbuilder.AppendLine("{");
+            stbuilder.AppendLine("arg.myext_flags = (" + flags + " | " + j + ");"); //not wrap/unwrap
+            if (!met.ReturnPlan.IsVoid)
+            {
+                //set init return value
+                //with default value 
+                stbuilder.AppendLine("arg.myext_ret_value=0;");
+            }
+
+            bool need_unwrapMethodAndCtor = false;
+            for (int i = 0; i < j; ++i)
+            {
+                CodeMethodParameter par = pars[i];
+                MethodParameterTxInfo parTx = met.pars[i];
+                stbuilder.Append("arg." + parTx.Name + "=");
+                stbuilder.AppendLine(parTx.Name + ";");
+
+                if (parTx.CppUnwrapType != null)
+                {
+                    need_unwrapMethodAndCtor = true;
+                }
+            }
+            stbuilder.AppendLine("}");//ctor's body --> empty
+            //-----------------------------
+            //ctor style 2
+            if (!need_unwrapMethodAndCtor)
+            {
+
+            }
+            else
+            {
+                stbuilder.Append(className);
+                stbuilder.Append("(");
+                for (int i = 0; i < j; ++i)
+                {
+                    if (i > 0)
+                    {
+                        stbuilder.Append(",");
+                    }
+                    //move this to method
+                    CodeMethodParameter par = pars[i];
+                    MethodParameterTxInfo parTx = met.pars[i];
+                    if (parTx.IsConst)
+                    {
+                        stbuilder.Append("const ");
+                    }
+
+                    string fieldType = parTx.TypeSymbol.ToString();
+                    if (fieldType.EndsWith("&"))
+                    {
+                        //temp 
+                        fieldType = fieldType.Substring(0, fieldType.Length - 1) + "*";
+                    }
+                    stbuilder.Append(fieldType);
+                    stbuilder.Append(" ");
+                    stbuilder.Append(parTx.Name);
+                }
+                stbuilder.AppendLine(")");
+                //ctor's initialization
+                stbuilder.Append("{");
+                stbuilder.AppendLine("arg.myext_flags = (" + flags + " | (1<<20) | " + j + ");");//wrap
+                if (!met.ReturnPlan.IsVoid)
+                {
+                    //set init return value
+                    //with default value 
+                    stbuilder.AppendLine("arg.myext_ret_value=0;");
+                }
+                for (int i = 0; i < j; ++i)
+                {
+                    //
+                    CodeMethodParameter par = pars[i];
+                    MethodParameterTxInfo parTx = met.pars[i];
+                    stbuilder.Append("arg.");
+                    stbuilder.Append(parTx.Name); //same name as field name
+                    stbuilder.Append("=");
+
+                    if (parTx.CppUnwrapType != null)
+                    {
+                        stbuilder.Append(parTx.CppUnwrapMethod + "(" + parTx.Name + ")");
+                    }
+                    else
+                    {
+                        stbuilder.Append(parTx.Name);
+                    }
+                    stbuilder.AppendLine(";");
+                }
+                stbuilder.AppendLine("}");//ctor's body --> empty 
+                //-----------------------------
+                //dtor 
+                stbuilder.Append("~");
+                stbuilder.Append(className);
+                stbuilder.Append("()");
+                stbuilder.AppendLine("{");
+                stbuilder.AppendLine("if( ((arg.myext_flags >> 20) &1)  ==1){");
+                for (int i = 0; i < j; ++i)
+                {
+                    CodeMethodParameter par = pars[i];
+                    MethodParameterTxInfo parTx = met.pars[i];
+                    if (parTx.CppUnwrapType != null)
+                    {
+                        stbuilder.AppendLine(parTx.CppWrapMethod + "(arg." + parTx.Name + ");");
+                    }
+                }
+                stbuilder.AppendLine("}"); //end if(myext_created_from_Unwrap){
+                stbuilder.AppendLine("}");//end class
+            }
+            //-----------------------------
+            //private disallow copy
+            stbuilder.AppendLine("private:");
+            stbuilder.AppendLine("DISALLOW_COPY_AND_ASSIGN(" + className + ");");
+
+            //-----------------------------
+            stbuilder.AppendLine("};"); //close cpp's class
+            return className;
+        }
+
+    }
+
+    abstract class CsCodeGen
+    {
+
+    }
+
+    class CsNativeEventListenerClassGen : CsCodeGen
+    {
+
+    }
 }
