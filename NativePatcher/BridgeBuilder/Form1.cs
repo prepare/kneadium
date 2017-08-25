@@ -417,11 +417,7 @@ namespace BridgeBuilder
                     totalCuList.Add(cu);
                 }
             }
-
-            //
-            //ApiBuilderCsPart apiBuilderCsPart = new ApiBuilderCsPart();
-            //ApiBuilderCppPart apiBuilderCppPart = new ApiBuilderCppPart();
-
+ 
             //
             CefTypeCollection cefTypeCollection = new CefTypeCollection();
             cefTypeCollection.RootFolder = cefDir;
