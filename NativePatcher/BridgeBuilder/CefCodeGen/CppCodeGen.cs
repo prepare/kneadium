@@ -167,20 +167,7 @@ namespace BridgeBuilder
                             stbuilder.Append("return (FilterStatus)0;");
                             break;
                         default:
-                            throw new NotSupportedException();
-                        //case "int":
-                        //    stbuilder.AppendLine("//int-- TODO:");
-                        //    stbuilder.AppendLine("return 0;");
-                        //    break;
-                        //case "size_t":
-                        //    stbuilder.AppendLine("//int-- TODO:");
-                        //    stbuilder.AppendLine("return 0;");
-                        //    break;
-                        //default:
-                        //    stbuilder.AppendLine("//TODO:");
-                        //    break;
-                        //    //throw new NotSupportedException();
-
+                            throw new NotSupportedException(); 
                     }
                 }
             }
