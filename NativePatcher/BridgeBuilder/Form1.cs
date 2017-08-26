@@ -251,65 +251,6 @@ namespace BridgeBuilder
             manualPatcher.Do_CefClient_CMake_txt();
         }
 
-        private void button1_Click(object sender, EventArgs e)
-        {
-            //string srcFile = @"D:\projects\cef_binary_3.3071.1647.win32\include\cef_browser.h";
-            //string srcFile = @"D:\projects\cef_binary_3.3071.1647.win32\include\cef_request_handler.h";
-            //string srcFile = @"D:\projects\cef_binary_3.3071.1647.win32\include\internal\cef_time.h";
-            //
-            string srcFile = @"D:\projects\cef_binary_3.3071.1647.win32\libcef_dll\ctocpp\ctocpp_ref_counted.h"; //pass,parse only
-            //string srcFile = @"D:\projects\cef_binary_3.3071.1647.win32\libcef_dll\ctocpp\ctocpp_scoped.h"; //pass,parse only
-            //string srcFile = @"D:\projects\cef_binary_3.3071.1647.win32\libcef_dll\cpptoc\cpptoc_ref_counted.h"; //pass,parse only
-            //string srcFile = @"D:\projects\cef_binary_3.3071.1647.win32\libcef_dll\cpptoc\cpptoc_scoped.h"; //pass,parse only
-            //string srcFile = @"D:\projects\cef_binary_3.3071.1647.win32\include\cef_base.h"; //pass,parse only
-
-            //
-            Cef3HeaderFileParser headerParser = new Cef3HeaderFileParser();
-            headerParser.Parse(srcFile);
-            CodeCompilationUnit cu = headerParser.Result;
-
-            //
-            List<CodeCompilationUnit> culist = new List<CodeCompilationUnit>();
-            culist.Add(cu);
-            CefTypeCollection cefTypeCollection = new CefTypeCollection();
-            cefTypeCollection.RootFolder = @"D:\projects\cef_binary_3.3071.1647.win32";
-
-            cefTypeCollection.SetTypeSystem(culist);
-            //-----------
-
-            TypeTranformPlanner txPlanner = new TypeTranformPlanner();
-            txPlanner.CefTypeCollection = cefTypeCollection;
-
-            ApiBuilderCsPart apiBuilderCs = new ApiBuilderCsPart();
-            ApiBuilderCppPart apiBuilderCpp = new ApiBuilderCppPart();
-
-            CodeTypeDeclaration globalType = cu.GlobalTypeDecl;
-            if (globalType.MemberCount > 0)
-            {
-                //TODO: review global type
-            }
-            //
-            int j = cu.TypeCount;
-            for (int i = 0; i < j; ++i)
-            {
-                CodeTypeDeclaration typedecl = cu.GetTypeDeclaration(i);
-                if (typedecl.Name == null)
-                {
-                    continue;
-                }
-                if (typedecl.Name.Contains("Callback"))
-                {
-                    continue;
-                }
-
-                StringBuilder stbuilder = new StringBuilder();
-                TypeTxInfo typeTxPlan = txPlanner.MakeTransformPlan(typedecl);
-                apiBuilderCs.GenerateCsType(typeTxPlan, stbuilder);
-                //
-                StringBuilder cppPart = new StringBuilder();
-                apiBuilderCpp.GenerateCppPart(typeTxPlan, cppPart);
-            }
-        }
 
 
         static Dictionary<string, bool> CreateSkipFiles(string[] filenames)
@@ -478,10 +419,6 @@ namespace BridgeBuilder
             }
 
             //
-            ApiBuilderCsPart apiBuilderCsPart = new ApiBuilderCsPart();
-            ApiBuilderCppPart apiBuilderCppPart = new ApiBuilderCppPart();
-
-            //
             CefTypeCollection cefTypeCollection = new CefTypeCollection();
             cefTypeCollection.RootFolder = cefDir;
             cefTypeCollection.SetTypeSystem(totalCuList);
@@ -504,6 +441,7 @@ namespace BridgeBuilder
 
             foreach (CodeTypeDeclaration typedecl in cefTypeCollection._v_instanceClasses)
             {
+                //eg. CefApp, CefBrowser, CefCommandLine, CefFrame
                 CefInstanceElementTxPlan instanceClassPlan = new CefInstanceElementTxPlan(typedecl);
                 instanceClassPlans.Add(instanceClassPlan);
                 allTxPlans.Add(typedecl.Name, instanceClassPlan);
@@ -517,7 +455,7 @@ namespace BridgeBuilder
 
             foreach (CodeTypeDeclaration typedecl in cefTypeCollection._v_handlerClasses)
             {
-
+                //eg. CefDisplayHandler, CefDownloadHandler
                 CefHandlerTxPlan handlerPlan = new CefHandlerTxPlan(typedecl);
                 handlerPlans.Add(handlerPlan);
                 allTxPlans.Add(typedecl.Name, handlerPlan);
@@ -528,7 +466,7 @@ namespace BridgeBuilder
             }
             foreach (CodeTypeDeclaration typedecl in cefTypeCollection._v_callBackClasses)
             {
-
+                //eg. CefAuthenCallback, CefPdfCallback
                 CefCallbackTxPlan callbackPlan = new CefCallbackTxPlan(typedecl);
                 callbackPlans.Add(callbackPlan);
                 allTxPlans.Add(typedecl.Name, callbackPlan);
@@ -634,35 +572,29 @@ namespace BridgeBuilder
                 "namespace LayoutFarm.CefBridge.Auto{\r\n");
 
 
-
+            CefCodeGenOutput codeGenOutput = null;
             foreach (CefTypeTxPlan tx in enumTxPlans)
             {
-                CodeStringBuilder csCode = new CodeStringBuilder();
-                tx.GenerateCsCode(csCode);
-                csCodeStBuilder.Append(csCode.ToString());
+                codeGenOutput = new CefCodeGenOutput();
+                tx.GenerateCode(codeGenOutput);
+                //get cs output
+                csCodeStBuilder.Append(codeGenOutput._csCode.ToString());
             }
+            //-------------------------
 
-            //
             foreach (CefInstanceElementTxPlan tx in instanceClassPlans)
             {
-
-                //pass
-                //CefRequest ,21
-                CodeStringBuilder cppCode = new CodeStringBuilder();
-                tx.GenerateCppCode(cppCode);
+                codeGenOutput = new CefCodeGenOutput();
+                tx.GenerateCode(codeGenOutput);
                 //---------------------------------------------------- 
-                CodeStringBuilder csCode = new CodeStringBuilder();
-                tx.GenerateCsCode(csCode);
-                //----------------------------------------------------  
-                //
                 cppCodeStBuilder.AppendLine();
                 cppCodeStBuilder.AppendLine("// " + tx.OriginalDecl.ToString());
-                cppCodeStBuilder.Append(cppCode.ToString());
+                cppCodeStBuilder.Append(codeGenOutput._cppCode.ToString());
                 cppCodeStBuilder.AppendLine();
                 //---------------------------------------------------- 
                 csCodeStBuilder.AppendLine();
                 csCodeStBuilder.AppendLine("// " + tx.OriginalDecl.ToString());
-                csCodeStBuilder.Append(csCode.ToString());
+                csCodeStBuilder.Append(codeGenOutput._csCode.ToString());
                 csCodeStBuilder.AppendLine();
 
                 if (tx.CppImplClassNameId > 0)
@@ -675,38 +607,34 @@ namespace BridgeBuilder
 
             foreach (CefCallbackTxPlan tx in callbackPlans)
             {
-                CodeStringBuilder stbuilder = new CodeStringBuilder();
-                tx._cppHeaderExportFuncAuto = cppHeaderExportFuncAuto;
-                tx._cppHeaderInternalForExportFuncAuto = cppHeaderInternalForExportFunc;
-                //
-                tx.GenerateCppCode(stbuilder);
-                cppCodeStBuilder.Append(stbuilder.ToString());
 
-                //
-                CodeStringBuilder csCode = new CodeStringBuilder();
-                tx.GenerateCsCode(csCode);
-                csCodeStBuilder.Append(csCode.ToString());
+                codeGenOutput = new CefCodeGenOutput();
+                tx.GenerateCode(codeGenOutput);
+
+                cppCodeStBuilder.Append(codeGenOutput._cppCode.ToString());
+                csCodeStBuilder.Append(codeGenOutput._csCode.ToString());
+                //----------
+                cppHeaderExportFuncAuto.Append(codeGenOutput._cppHeaderExportFuncAuto.ToString());
+                cppHeaderInternalForExportFunc.Append(codeGenOutput._cppHeaderInternalForExportFuncAuto.ToString());
+                //----------
                 if (tx.CppImplClassNameId > 0)
                 {
                     customImplClasses.Add(tx);
                 }
-
             }
 
-            
+
             foreach (CefHandlerTxPlan tx in handlerPlans)
-            { 
-                CodeStringBuilder stbuilder = new CodeStringBuilder();
-                
-                tx._cppHeaderExportFuncAuto = cppHeaderExportFuncAuto;
-                tx._cppHeaderInternalForExportFuncAuto = cppHeaderInternalForExportFunc; 
-                //
-                tx.GenerateCppCode(stbuilder);
-                cppCodeStBuilder.Append(stbuilder.ToString());
-                //
-                stbuilder = new CodeStringBuilder();
-                tx.GenerateCsCode(stbuilder);
-                csCodeStBuilder.Append(stbuilder.ToString()); 
+            {
+                codeGenOutput = new CefCodeGenOutput();
+                tx.GenerateCode(codeGenOutput);
+
+                cppCodeStBuilder.Append(codeGenOutput._cppCode.ToString());
+                csCodeStBuilder.Append(codeGenOutput._csCode.ToString());
+                //----------
+                cppHeaderExportFuncAuto.Append(codeGenOutput._cppHeaderExportFuncAuto.ToString());
+                cppHeaderInternalForExportFunc.Append(codeGenOutput._cppHeaderInternalForExportFuncAuto.ToString());
+                //---------- 
             }
 
 
@@ -738,9 +666,7 @@ namespace BridgeBuilder
             CreateCppSwitchTable(cppCodeStBuilder, instanceClassPlans);
             CreateNewInstanceMethod(cppCodeStBuilder, customImplClasses);
             AddCppBuiltInEndCode(cppCodeStBuilder);
-            //
-
-
+            // 
         }
         void CreateNewInstanceMethod(StringBuilder outputStBuilder, List<CefTypeTxPlan> customImplClasses)
         {
