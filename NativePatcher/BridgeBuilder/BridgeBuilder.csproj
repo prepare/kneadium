@@ -45,7 +45,7 @@
     <Compile Include="ApiParser\DirtyParser.cs" />
     <Compile Include="ApiParser\SymbolDefinition.cs" />
     <Compile Include="ApiParser\TypeSymbolWalk.cs" />
-    <Compile Include="ApiParser\CefTypeTxPlan.cs" />
+    <Compile Include="ApiParser\CefTypeTx.cs" />
     <Compile Include="CefCodeGen\CppCodeGen.cs" />
     <Compile Include="CefCodeGen\CsCodeGen.cs" />
     <Compile Include="CefCodeGen\CodeGen.cs" />
