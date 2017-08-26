@@ -1455,16 +1455,17 @@ namespace BridgeBuilder
     /// cef enum type transofmrer
     /// </summary>
     class CefEnumTx : CefTypeTx
-    {
-        TypeTxInfo _typeTxInfo;
-
-
+    { 
         string enum_base = "";
         public CefEnumTx(CodeTypeDeclaration typedecl)
             : base(typedecl)
         {
-            //check each field for proper enum base type
-             
+            
+        }
+        public override void GenerateCode(CefCodeGenOutput output)
+        {
+            //only CS 
+            //check each field for proper enum base type 
             foreach (CodeFieldDeclaration field in this.OriginalDecl.GetFieldIter())
             {
                 if (field.InitExpression != null)
@@ -1489,15 +1490,11 @@ namespace BridgeBuilder
                                 enum_base = ":uint";
                                 break;
                             }
-                        }
-
-                    }
-
+                        } 
+                    } 
                 }
             }
-        }
-        public override void GenerateCode(CefCodeGenOutput output)
-        {
+
             GenerateCsCode(output._csCode);
         }
         void GenerateCsCode(CodeStringBuilder stbuilder)
@@ -1505,8 +1502,8 @@ namespace BridgeBuilder
 
             CodeStringBuilder codeBuilder = new CodeStringBuilder();
             CodeTypeDeclaration orgDecl = this.OriginalDecl;
-            _typeTxInfo = orgDecl.TypeTxInfo;
-           
+            TypeTxInfo _typeTxInfo = orgDecl.TypeTxInfo;
+
             //
             AddComment(orgDecl.LineComments, codeBuilder);
 
@@ -1590,11 +1587,11 @@ namespace BridgeBuilder
 
             _typeTxInfo = orgDecl.TypeTxInfo;
 
-            int j = _typeTxInfo.methods.Count;
+            
             //-----------------------------------------------------------------------
             List<MethodTxInfo> onEventMethods = new List<MethodTxInfo>();
 
-
+            int j = _typeTxInfo.methods.Count;
             int maxPar = 0;
             for (int i = 0; i < j; ++i)
             {
