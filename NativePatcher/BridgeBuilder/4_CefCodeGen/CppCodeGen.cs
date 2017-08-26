@@ -9,7 +9,7 @@ namespace BridgeBuilder
         //this create a impl in cpp side
 
         public void GenerateCppImplClass(
-            CefTypeTxPlan cefTypeTxPlan,
+            CefTypeTx cefTypeTxPlan,
             TypeTxInfo typeTxInfo,
             List<MethodTxInfo> callToDotNetMets,
             CodeTypeDeclaration orgDecl,
@@ -106,10 +106,10 @@ namespace BridgeBuilder
             {
                 MethodParameterTxInfo parTx = met.pars[i];
                 parTx.ClearExtractCode();
-                CefTypeTxPlan.PrepareDataFromNativeToCs(parTx, "&vargs[" + (i + 1) + "]", parTx.Name, true);
+                CefTypeTx.PrepareDataFromNativeToCs(parTx, "&vargs[" + (i + 1) + "]", parTx.Name, true);
             }
 
-            CefTypeTxPlan.PrepareCppMetArg(met.ReturnPlan, "vargs[0]");
+            CefTypeTx.PrepareCppMetArg(met.ReturnPlan, "vargs[0]");
             //
             for (int i = 0; i < j; ++i)
             {
@@ -216,10 +216,10 @@ namespace BridgeBuilder
             {
                 MethodParameterTxInfo parTx = met.pars[i];
                 parTx.ClearExtractCode();
-                CefTypeTxPlan.PrepareDataFromNativeToCs(parTx, "&vargs[" + (i + 1) + "]", parTx.Name, true);
+                CefTypeTx.PrepareDataFromNativeToCs(parTx, "&vargs[" + (i + 1) + "]", parTx.Name, true);
             }
 
-            CefTypeTxPlan.PrepareCppMetArg(met.ReturnPlan, "vargs[0]");
+            CefTypeTx.PrepareCppMetArg(met.ReturnPlan, "vargs[0]");
             //
             for (int i = 0; i < j; ++i)
             {
@@ -258,7 +258,7 @@ namespace BridgeBuilder
             stbuilder.AppendLine("}"); //method
         }
         public void GenerateCppImplClass(
-            CefTypeTxPlan cefTypeTxPlan,
+            CefTypeTx cefTypeTxPlan,
             TypeTxInfo typeTxInfo,
             CodeTypeDeclaration orgDecl,
             List<MethodTxInfo> onEventMethods,
@@ -320,7 +320,7 @@ namespace BridgeBuilder
         SimpleTypeSymbol _underlyingType;
         internal List<MethodTxInfo> callToDotNetMets;
         public void GenerateCppCode(
-            CefTypeTxPlan cefTx,
+            CefTypeTx cefTx,
             CodeTypeDeclaration codeTypeDecl,
             CodeTypeDeclaration impl,
             SimpleTypeSymbol underlyingType,
@@ -401,7 +401,7 @@ namespace BridgeBuilder
                 implWrapDirection = ImplWrapDirection.None;
             }
 
-            totalTypeMethod.AppendLine("auto me=" + implTypeDecl.Name + "::" + CefTypeTxPlan.GetSmartPointerMet(implWrapDirection) + "(me1);");
+            totalTypeMethod.AppendLine("auto me=" + implTypeDecl.Name + "::" + CefTypeTx.GetSmartPointerMet(implWrapDirection) + "(me1);");
             //swicth table is a way that this instance'smethod is called
             //through the bridge 
 
@@ -428,7 +428,7 @@ namespace BridgeBuilder
             totalTypeMethod.AppendLine("}"); //end switch table
                                              //
 
-            totalTypeMethod.AppendLine(implTypeDecl.Name + "::" + CefTypeTxPlan.GetRawPtrMet(implWrapDirection) + "(me);");
+            totalTypeMethod.AppendLine(implTypeDecl.Name + "::" + CefTypeTx.GetRawPtrMet(implWrapDirection) + "(me);");
 
             totalTypeMethod.AppendLine("}");
             stbuilder.Append(totalTypeMethod.ToString());
@@ -460,9 +460,9 @@ namespace BridgeBuilder
             {
                 //prepare some method args
                 //get pars from parameter .
-                CefTypeTxPlan.PrepareCppMetArg(pars[i], "v" + (i + 1));
+                CefTypeTx.PrepareCppMetArg(pars[i], "v" + (i + 1));
             }
-            CefTypeTxPlan.PrepareDataFromNativeToCs(ret, "ret", "ret_result", false);
+            CefTypeTx.PrepareDataFromNativeToCs(ret, "ret", "ret_result", false);
 
 
             //---------------------------

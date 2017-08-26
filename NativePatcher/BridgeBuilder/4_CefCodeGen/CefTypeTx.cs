@@ -1,7 +1,6 @@
 ﻿//MIT, 2016-2017 ,WinterDev
 using System;
 using System.Collections.Generic;
-using System.Text;
 namespace BridgeBuilder
 {
 
@@ -12,13 +11,16 @@ namespace BridgeBuilder
         CToCpp,
     }
 
-    abstract class CefTypeTxPlan : TypeTxPlan
+    /// <summary>
+    /// cef type transformer
+    /// </summary>
+    abstract class CefTypeTx
     {
         CodeTypeDeclaration _implDecl;
 #if DEBUG
         protected int _dbug_cpp_count = 0;
 #endif
-        public CefTypeTxPlan(CodeTypeDeclaration originalDecl)
+        public CefTypeTx(CodeTypeDeclaration originalDecl)
         {
             this.OriginalDecl = originalDecl;
         }
@@ -236,7 +238,7 @@ namespace BridgeBuilder
                                                 return;
                                             case PrimitiveTypeKind.NotPrimitiveType:
                                                 {
-                                                    CefTypeTxPlan txPlan = simpleElem.CefTxPlan;
+                                                    CefTypeTx txPlan = simpleElem.CefTxPlan;
                                                     if (txPlan == null)
                                                     {
                                                         if (par.IsConst)
@@ -346,7 +348,7 @@ namespace BridgeBuilder
                                         SimpleTypeSymbol simpleElem = (SimpleTypeSymbol)elemType;
                                         if (simpleElem.PrimitiveTypeKind == PrimitiveTypeKind.NotPrimitiveType)
                                         {
-                                            CefTypeTxPlan txPlan = simpleElem.CefTxPlan;
+                                            CefTypeTx txPlan = simpleElem.CefTxPlan;
                                             if (txPlan == null)
                                             {
 
@@ -753,7 +755,7 @@ namespace BridgeBuilder
                                     TypeSymbol elemtType = refOrPtr.ElementType;
                                     if (elemtType is SimpleTypeSymbol)
                                     {
-                                        CefTypeTxPlan txplan = ((SimpleTypeSymbol)elemtType).CefTxPlan;
+                                        CefTypeTx txplan = ((SimpleTypeSymbol)elemtType).CefTxPlan;
                                         if (txplan == null)
                                         {
                                             if (elemtType.ToString() == "CefBaseRefCounted")
@@ -1449,14 +1451,16 @@ namespace BridgeBuilder
         }
     }
 
-
-    class CefEnumTxPlan : CefTypeTxPlan
+    /// <summary>
+    /// cef enum type transofmrer
+    /// </summary>
+    class CefEnumTx : CefTypeTx
     {
         TypeTxInfo _typeTxInfo;
         CodeTypeDeclaration _currentCodeTypeDecl;
 
         string enum_base = "";
-        public CefEnumTxPlan(CodeTypeDeclaration typedecl)
+        public CefEnumTx(CodeTypeDeclaration typedecl)
             : base(typedecl)
         {
             //check each field for proper enum base type
@@ -1555,13 +1559,13 @@ namespace BridgeBuilder
 
 
     /// <summary>
-    /// tx plan for callback class
+    /// tx for callback class
     /// </summary>
-    class CefCallbackTxPlan : CefTypeTxPlan
+    class CefCallbackTx : CefTypeTx
     {
         TypeTxInfo _typeTxInfo;
         CodeTypeDeclaration _currentCodeTypeDecl;
-        public CefCallbackTxPlan(CodeTypeDeclaration typedecl)
+        public CefCallbackTx(CodeTypeDeclaration typedecl)
             : base(typedecl)
         {
         }
@@ -1673,12 +1677,12 @@ namespace BridgeBuilder
 
     }
     /// <summary>
-    /// tx plan for instance element
+    /// tx for instance element
     /// </summary>
-    class CefInstanceElementTxPlan : CefTypeTxPlan
+    class CefInstanceElementTx : CefTypeTx
     {
         TypeTxInfo _typeTxInfo;
-        public CefInstanceElementTxPlan(CodeTypeDeclaration typedecl)
+        public CefInstanceElementTx(CodeTypeDeclaration typedecl)
             : base(typedecl)
         {
 
@@ -1742,19 +1746,16 @@ namespace BridgeBuilder
     }
 
     /// <summary>
-    /// tx plan for handler class
+    /// tx for handler class
     /// </summary>
-    class CefHandlerTxPlan : CefTypeTxPlan
+    class CefHandlerTx : CefTypeTx
     {
-        TypeTxInfo _typeTxInfo;
-
-        public CefHandlerTxPlan(CodeTypeDeclaration typedecl)
+        TypeTxInfo _typeTxInfo; 
+        public CefHandlerTx(CodeTypeDeclaration typedecl)
             : base(typedecl)
         {
 
-        }
-
-
+        } 
         void GenerateCppImplMethodForNs(MethodTxInfo met, CodeStringBuilder stbuilder, bool useJsSlot)
         {
             CodeMethodDeclaration metDecl = met.metDecl;
@@ -2756,10 +2757,6 @@ namespace BridgeBuilder
         }
 
     }
-
-
-
-
 
 
 }
