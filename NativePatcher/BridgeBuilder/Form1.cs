@@ -554,7 +554,10 @@ namespace BridgeBuilder
             CodeStringBuilder cppHeaderInternalForExportFunc = new CodeStringBuilder();
 
             cppHeaderExportFuncAuto.AppendLine("//AUTOGEN");
-            cppHeaderInternalForExportFunc.AppendLine("//AUTOGEN");
+            //
+            cppHeaderInternalForExportFunc.AppendLine(
+                "//MIT, 2017, WinterDev\r\n" +
+                "//AUTOGEN");
 
 
             foreach (TypeTxInfo txinfo in typeTxInfoList)
@@ -637,28 +640,9 @@ namespace BridgeBuilder
                 //---------- 
             }
 
+            CsNativeHandlerSwitchTableCodeGen csNativeHandlerSwitchTableCodeGen = new CsNativeHandlerSwitchTableCodeGen();
+            csNativeHandlerSwitchTableCodeGen.GenerateCefNativeRequestHandlers(handlerPlans, csCodeStBuilder);
 
-            //---------
-            CodeStringBuilder cef_NativeReqHandlers_Class = new CodeStringBuilder();
-            cef_NativeReqHandlers_Class.AppendLine("//------ common cef handler swicth table---------");
-            cef_NativeReqHandlers_Class.AppendLine("public static class CefNativeRequestHandlers{");
-            cef_NativeReqHandlers_Class.AppendLine("public static void HandleNativeReq(object inst, int met_id,IntPtr args){");
-            cef_NativeReqHandlers_Class.AppendLine("switch((met_id>>16)){");
-            foreach (CefHandlerTxPlan tx in handlerPlans)
-            {
-                cef_NativeReqHandlers_Class.AppendLine("case " + tx.OriginalDecl.Name + "._typeNAME:{");
-                cef_NativeReqHandlers_Class.AppendLine(tx.OriginalDecl.Name + ".HandleNativeReq(inst as " + tx.OriginalDecl.Name + ".I0," +
-                        " inst as " + tx.OriginalDecl.Name + ".I1,met_id,args);");
-                cef_NativeReqHandlers_Class.AppendLine("}break;");
-            }
-            //--------
-            //create handle common switch table
-            cef_NativeReqHandlers_Class.AppendLine("}");//switch
-            cef_NativeReqHandlers_Class.AppendLine("}");//HandleNativeReq()
-            cef_NativeReqHandlers_Class.AppendLine("}");
-
-            //add to cs code
-            csCodeStBuilder.Append(cef_NativeReqHandlers_Class.ToString());
             //cs...
             csCodeStBuilder.AppendLine("}"); //end cs
             //--------

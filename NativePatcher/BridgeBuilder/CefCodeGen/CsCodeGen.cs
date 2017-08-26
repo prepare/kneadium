@@ -8,6 +8,10 @@ namespace BridgeBuilder
 
     class CsCallToNativeCodeGen : CsCodeGen
     {
+        //generate cs code
+        //call from cs to native side
+        //------------------------------
+
         CodeTypeDeclaration _currentCodeTypeDecl;
         TypeTxInfo _typeTxInfo;
         CodeTypeDeclaration _orgDecl;
@@ -649,130 +653,33 @@ namespace BridgeBuilder
 
             stbuilder.AppendLine("}");
         }
-        //void GenerateCsMethod(MethodTxInfo met, CodeStringBuilder stbuilder)
-        //{
 
-        //    if (met.CsLeftMethodBodyBlank) return;  //temp here 
-        //    //---------------------------------------
-        //    //extract managed args and then call native c++ method 
-        //    MethodParameterTxInfo ret = met.ReturnPlan;
-        //    List<MethodParameterTxInfo> pars = met.pars;
-        //    int parCount = pars.Count;
-        //    if (parCount > 15)
-        //    {
-        //        throw new NotSupportedException();
-        //    }
-        //    //--------------------------- 
-        //    //generate method sig 
-        //    //--------------------------- 
+    }
+    class CsNativeHandlerSwitchTableCodeGen : CsCodeGen
+    {
+        public void GenerateCefNativeRequestHandlers(List<CefHandlerTxPlan> handlerPlans, StringBuilder stbuilder)
+        {
+            CodeStringBuilder cef_NativeReqHandlers_Class = new CodeStringBuilder();
+            cef_NativeReqHandlers_Class.AppendLine("//------ common cef handler swicth table---------");
+            cef_NativeReqHandlers_Class.AppendLine("public static class CefNativeRequestHandlers{");
+            cef_NativeReqHandlers_Class.AppendLine("public static void HandleNativeReq(object inst, int met_id,IntPtr args){");
+            cef_NativeReqHandlers_Class.AppendLine("switch((met_id>>16)){");
+            foreach (CefHandlerTxPlan tx in handlerPlans)
+            {
+                cef_NativeReqHandlers_Class.AppendLine("case " + tx.OriginalDecl.Name + "._typeNAME:{");
+                cef_NativeReqHandlers_Class.AppendLine(tx.OriginalDecl.Name + ".HandleNativeReq(inst as " + tx.OriginalDecl.Name + ".I0," +
+                        " inst as " + tx.OriginalDecl.Name + ".I1,met_id,args);");
+                cef_NativeReqHandlers_Class.AppendLine("}break;");
+            }
+            //--------
+            //create handle common switch table
+            cef_NativeReqHandlers_Class.AppendLine("}");//switch
+            cef_NativeReqHandlers_Class.AppendLine("}");//HandleNativeReq()
+            cef_NativeReqHandlers_Class.AppendLine("}");
 
-        //    stbuilder.Append(
-        //        "\r\n" +
-        //        "// gen! " + met.ToString() + "\r\n"
-        //        );
-        //    //---------------------------
-        //    AddComment(met.metDecl.LineComments, stbuilder);
-
-        //    for (int i = 0; i < parCount; ++i)
-        //    {
-        //        //prepare some method args
-        //        //get pars from parameter .                 
-        //        PrepareCsMetArg(pars[i], "v" + (i + 1));
-        //    }
-
-        //    ret.ArgExtractCode = PrepareDataFromNativeToCs(ret.TypeSymbol, "ret", "ret_result");
-        //    stbuilder.AppendLine();
-        //    //------------------
-        //    stbuilder.Append("public ");
-        //    stbuilder.Append(GetCsRetName(ret.TypeSymbol));
-        //    stbuilder.Append(" ");
-
-        //    //some method name should be renamed
-        //    if (met.Name == "GetType")
-        //    {
-        //        stbuilder.Append("_" + met.Name);
-        //    }
-        //    else
-        //    {
-        //        stbuilder.Append(met.Name);
-        //    }
-        //    stbuilder.Append("(");
-        //    //---------------------------
-
-        //    for (int i = 0; i < parCount; ++i)
-        //    {
-        //        if (i > 0)
-        //        {
-        //            stbuilder.AppendLine(",");
-        //        }
-        //        MethodParameterTxInfo parTx = pars[i];
-        //        stbuilder.Append(GetCsRetName(parTx.TypeSymbol));
-        //        stbuilder.Append(" ");
-        //        stbuilder.Append(parTx.Name);
-        //    }
-        //    stbuilder.Append(")");
-        //    stbuilder.AppendLine("{");
-
-
-        //    StringBuilder argList = new StringBuilder();
-        //    for (int i = 0; i < parCount; ++i)
-        //    {
-        //        argList.AppendLine("JsValue " + "v" + (i + 1) + "=new JsValue();");
-        //    }
-        //    argList.AppendLine("JsValue ret;");
-        //    stbuilder.Append(argList.ToString());
-
-        //    //---------------------------
-        //    for (int i = 0; i < parCount; ++i)
-        //    {
-        //        MethodParameterTxInfo parTx = pars[i];
-        //        if (!string.IsNullOrEmpty(parTx.ArgPreExtractCode))
-        //        {
-        //            stbuilder.Append(parTx.ArgPreExtractCode);
-        //        }
-        //    }
-        //    //---------------------------
-        //    for (int i = 0; i < parCount; ++i)
-        //    {
-        //        MethodParameterTxInfo parTx = pars[i];
-        //        if (!string.IsNullOrEmpty(parTx.ArgExtractCode))
-        //        {
-        //            stbuilder.Append(parTx.ArgExtractCode);
-        //            stbuilder.AppendLine(";");
-        //        }
-        //    }
-        //    string orgDeclName = this.OriginalDecl.Name;
-        //    stbuilder.AppendLine();//marker
-
-        //    stbuilder.Append("Cef3Binder.MyCefMet_Call" + parCount + "(");
-        //    stbuilder.Append("this.nativePtr," + met.CppMethodSwitchCaseName + ",out ret");
-        //    for (int i = 0; i < parCount; ++i)
-        //    {
-        //        stbuilder.Append(",ref " + "v" + (i + 1));
-        //    }
-        //    stbuilder.Append(");\r\n");
-
-
-        //    //clean up input arg
-        //    //--------------------
-        //    for (int i = 0; i < parCount; ++i)
-        //    {
-        //        MethodParameterTxInfo parTx = pars[i];
-        //        if (parTx.ArgPostExtractCode != null)
-        //        {
-        //            stbuilder.AppendLine(parTx.ArgPostExtractCode);
-        //        }
-        //    }
-        //    //--------------------
-
-        //    stbuilder.AppendLine(ret.ArgExtractCode);
-        //    //if (!met.ReturnPlan.IsVoid)
-        //    //{
-        //    //    stbuilder.AppendLine("return ret_result;");
-        //    //}
-
-        //    stbuilder.AppendLine("}");
-        //}
+            //add to cs code
+            stbuilder.Append(cef_NativeReqHandlers_Class.ToString());
+        }
 
     }
 }
