@@ -1626,8 +1626,8 @@ namespace BridgeBuilder
             if (onEventMethods.Count > 0)
             {
                 //the callback need some method to call to C# side
-                var eventListnerCodeGen = new CppEventListnerInstanceImplCodeGen();
-                eventListnerCodeGen.GenerateCppImplClass(
+                var eventListenerCodeGen = new CppEventListenerInstanceImplCodeGen();
+                eventListenerCodeGen.GenerateCppImplClass(
                     this,
                     _typeTxInfo,
                     orgDecl,
@@ -1712,6 +1712,7 @@ namespace BridgeBuilder
                     cppHandlerReqCodeGen.callToDotNetMets,
                     orgDecl,
                     stbuilder);
+                //
 
             }
 
@@ -1944,15 +1945,17 @@ namespace BridgeBuilder
             stbuilder.AppendLine(");");
         }
 
-        void GenerateCppImplNamespace(CodeTypeDeclaration orgDecl, List<MethodTxInfo> callToDotNetMets, CodeStringBuilder stbuilder)
+        void GenerateCppImplNamespace(CodeTypeDeclaration orgDecl,
+            List<MethodTxInfo> callToDotNetMets, 
+            CodeStringBuilder stbuilder)
         {
 
-            string className = orgDecl.Name + "Ext";
+            string namespaceName = orgDecl.Name + "Ext"; //namespace
             this.CppImplClassNameId = _typeTxInfo.CsInterOpTypeNameId;
-            this.CppImplClassName = className;
+            this.CppImplClassName = namespaceName;
             //----------------------------------------------
             //create a cpp namespace      
-            stbuilder.Append("namespace " + className);
+            stbuilder.Append("namespace " + namespaceName);
             stbuilder.AppendLine("{");
 
 
@@ -1961,7 +1964,7 @@ namespace BridgeBuilder
             {
                 //implement on event notificationi
                 MethodTxInfo met = callToDotNetMets[mm];
-                met.CppMethodSwitchCaseName = className + "_" + met.Name + "_" + (mm + 1);
+                met.CppMethodSwitchCaseName = namespaceName + "_" + met.Name + "_" + (mm + 1);
             }
             nn = callToDotNetMets.Count;
             for (int mm = 0; mm < nn; ++mm)
@@ -1976,7 +1979,7 @@ namespace BridgeBuilder
 
             //----------------------------------------------
             //InternalHeaderForExportFunc.h
-            _cppHeaderInternalForExportFuncAuto.AppendLine("namespace " + className);
+            _cppHeaderInternalForExportFuncAuto.AppendLine("namespace " + namespaceName);
             _cppHeaderInternalForExportFuncAuto.AppendLine("{");
             _cppHeaderInternalForExportFuncAuto.AppendLine("const int _typeName=" + "CefTypeName_" + orgDecl.Name + ";");
             for (int mm = 0; mm < nn; ++mm)
@@ -1987,7 +1990,7 @@ namespace BridgeBuilder
             _cppHeaderInternalForExportFuncAuto.AppendLine("}");
             //----------------------------------------------
             //ExportFuncAuto.h
-            _cppHeaderExportFuncAuto.AppendLine("namespace " + className);
+            _cppHeaderExportFuncAuto.AppendLine("namespace " + namespaceName);
             _cppHeaderExportFuncAuto.AppendLine("{");
             for (int mm = 0; mm < nn; ++mm)
             {
