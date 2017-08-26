@@ -544,6 +544,298 @@ namespace BridgeBuilder
         }
 
     }
+
+    class CppHandleCsMethodRequestCodeGen2 : CppCodeGen
+    {
+        //-------------------------
+        //code from callback plan
+        //-------------------------
+
+        //when C# call to Cef native side
+        //these code will handle those CS request
+        //
+        //we use cpp's switch table to handle this
+        TypeTxInfo _typeTxInfo;
+        int MaxMethodParCount;
+        SimpleTypeSymbol _underlyingType;
+
+        public void GenerateCppCode(
+            CodeTypeDeclaration codeTypeDecl,
+            CodeTypeDeclaration impl,
+            SimpleTypeSymbol underlyingType,
+            CodeStringBuilder stbuilder)
+        {
+
+            _underlyingType = underlyingType;
+            //
+            //create switch table for C#-interop
+            //
+            CodeTypeDeclaration orgDecl = codeTypeDecl;
+            CodeTypeDeclaration implTypeDecl = impl;
+            CodeStringBuilder totalTypeMethod = new CodeStringBuilder();
+
+
+            if (implTypeDecl.Name.Contains("CppToC"))
+            {
+                _typeTxInfo = orgDecl.TypeTxInfo;
+            }
+            else
+            {
+                _typeTxInfo = implTypeDecl.TypeTxInfo;
+            }
+            int j = _typeTxInfo.methods.Count;
+            //-----------------------------------------------------------------------
+            CodeStringBuilder const_methodNames = new CodeStringBuilder();
+            List<MethodTxInfo> callToDotNetMets = new List<MethodTxInfo>();
+            int maxPar = 0;
+            for (int i = 0; i < j; ++i)
+            {
+                MethodTxInfo metTx = _typeTxInfo.methods[i];
+
+                metTx.CppMethodSwitchCaseName = orgDecl.Name + "_" + metTx.Name + "_" + (i + 1);
+                //-----------------
+                CodeMethodDeclaration codeMethodDecl = metTx.metDecl;
+                if (codeMethodDecl.IsAbstract || codeMethodDecl.IsVirtual)
+                {
+                    callToDotNetMets.Add(metTx);
+                }
+                //-----------------
+                if (metTx.pars.Count > maxPar)
+                {
+                    maxPar = metTx.pars.Count;
+                }
+                const_methodNames.AppendLine("const int " + metTx.CppMethodSwitchCaseName + "=" + (i + 1) + ";");
+            }
+            MaxMethodParCount = maxPar;
+            totalTypeMethod.AppendLine(const_methodNames.ToString());
+            //-----------------------------------------------------------------------
+            {
+                StringBuilder met_sig = new StringBuilder();
+                met_sig.Append("void MyCefMet_" + orgDecl.Name + "(" +
+                    _underlyingType.Name + "* me1,int metName,jsvalue* ret");
+                for (int i = 0; i < maxPar; ++i)
+                {
+                    met_sig.Append(",jsvalue* v" + (i + 1));
+                }
+                met_sig.AppendLine("){");
+                totalTypeMethod.Append(met_sig.ToString());
+            }
+
+            if (implTypeDecl == null)
+            {
+                throw new NotSupportedException();
+            }
+            totalTypeMethod.AppendLine("ret->type = JSVALUE_TYPE_EMPTY;");
+            ImplWrapDirection implWrapDirection = ImplWrapDirection.None;
+            if (implTypeDecl.Name.Contains("CToCpp"))
+            {
+                implWrapDirection = ImplWrapDirection.CToCpp;
+            }
+            else if (implTypeDecl.Name.Contains("CppToC"))
+            {
+                implWrapDirection = ImplWrapDirection.CppToC;
+            }
+            else
+            {
+                implWrapDirection = ImplWrapDirection.None;
+            }
+
+            totalTypeMethod.AppendLine("auto me=" + implTypeDecl.Name + "::" + CefTypeTxPlan.GetSmartPointerMet(implWrapDirection) + "(me1);");
+            //swicth table is a way that this instance'smethod is called
+            //through the bridge 
+
+
+            totalTypeMethod.AppendLine("switch(metName){");
+            totalTypeMethod.AppendLine("case MET_Release:return; //yes, just return");
+
+
+            for (int i = 0; i < j; ++i)
+            {
+                CodeStringBuilder met_stbuilder = new CodeStringBuilder();
+                //create each method,
+                //in our convention we dont generate 
+                MethodTxInfo metTx = _typeTxInfo.methods[i];
+                met_stbuilder.AppendLine("case " + metTx.CppMethodSwitchCaseName + ":{");
+
+                GenerateCppMethod(_typeTxInfo.methods[i], met_stbuilder);
+
+                met_stbuilder.AppendLine("} break;");
+
+                totalTypeMethod.Append(met_stbuilder.ToString());
+            }
+
+            totalTypeMethod.AppendLine("}"); //end switch table
+                                             //
+
+            totalTypeMethod.AppendLine(implTypeDecl.Name + "::" + CefTypeTxPlan.GetRawPtrMet(implWrapDirection) + "(me);");
+
+            totalTypeMethod.AppendLine("}");
+            stbuilder.Append(totalTypeMethod.ToString());
+
+            ////-------------------------------------------
+            //if (callToDotNetMets.Count > 0)
+            //{
+            //    GenerateCppImplClass(orgDecl, callToDotNetMets, stbuilder);
+            //}
+        }
+
+
+
+//        CodeStringBuilder totalTypeMethod = new CodeStringBuilder();
+//        totalTypeMethod.AppendLine(const_methodNames.ToString());
+//            {
+//                StringBuilder met_sig = new StringBuilder();
+//        met_sig.Append("void MyCefMet_" + orgDecl.Name + "(" +
+//                    this.UnderlyingCType.Name + "* me1,int metName,jsvalue* ret");
+//                for (int i = 0; i<maxPar; ++i)
+//                {
+//                    met_sig.Append(",jsvalue* v" + (i + 1));
+//                }
+//    met_sig.AppendLine("){");
+//                totalTypeMethod.Append(met_sig.ToString());
+//            }
+
+//            if (implTypeDecl == null)
+//            {
+//                throw new NotSupportedException();
+//            }
+//            totalTypeMethod.AppendLine("ret->type = JSVALUE_TYPE_EMPTY;");
+//            ImplWrapDirection implWrapDirection = ImplWrapDirection.None;
+//            if (implTypeDecl.Name.Contains("CToCpp"))
+//            {
+//                implWrapDirection = ImplWrapDirection.CToCpp;
+//            }
+//            else if (implTypeDecl.Name.Contains("CppToC"))
+//            {
+//                implWrapDirection = ImplWrapDirection.CppToC;
+//            }
+//            else
+//            {
+//                implWrapDirection = ImplWrapDirection.None;
+//            }
+
+//            totalTypeMethod.AppendLine("auto me=" + implTypeDecl.Name + "::" + GetSmartPointerMet(implWrapDirection) + "(me1);");
+//            //swicth table is a way that this instance's method is called
+//            //through the bridge   
+//            totalTypeMethod.AppendLine("switch(metName){");
+//            totalTypeMethod.AppendLine("case MET_Release:return; //yes, just return");
+//            for (int i = 0; i<j; ++i)
+//            {
+//                CodeStringBuilder met_stbuilder = new CodeStringBuilder();
+////create each method,
+////in our convention we dont generate 
+//MethodTxInfo metTx = _typeTxInfo.methods[i];
+//                if (metTx.Name.StartsWith("On"))
+//                {
+//                    //cef convention
+//                    continue;
+//                }
+//                met_stbuilder.AppendLine("case " + metTx.CppMethodSwitchCaseName + ":{");
+
+//                GenerateCppMethod(_typeTxInfo.methods[i], met_stbuilder);
+
+//met_stbuilder.AppendLine("} break;");
+
+//                totalTypeMethod.Append(met_stbuilder.ToString());
+//            }
+
+//            totalTypeMethod.AppendLine("}"); //end switch table
+//                                             //
+
+//            totalTypeMethod.AppendLine(implTypeDecl.Name + "::" + GetRawPtrMet(implWrapDirection) + "(me);");
+
+//            totalTypeMethod.AppendLine("}");
+
+//            //
+//            stbuilder.Append(totalTypeMethod.ToString());
+        void GenerateCppMethod(MethodTxInfo met, CodeStringBuilder stbuilder)
+        {
+            if (met.CsLeftMethodBodyBlank) return;  //temp here
+                                                    //---------------------------------------
+
+            //extract managed args and then call native c++ method
+            //----
+            MethodParameterTxInfo ret = met.ReturnPlan;
+            //----
+            List<MethodParameterTxInfo> pars = met.pars;
+            int parCount = pars.Count;
+            if (parCount > 15)
+            {
+                throw new NotSupportedException();
+            }
+
+            //--------------------------- 
+            stbuilder.AppendLine();
+            stbuilder.Append(
+                "\r\n" +
+                "// gen! " + met.ToString() + "\r\n"
+                );
+            //---------------------------
+            for (int i = 0; i < parCount; ++i)
+            {
+                //prepare some method args
+                //get pars from parameter .
+                CefTypeTxPlan.PrepareCppMetArg(pars[i], "v" + (i + 1));
+            }
+            CefTypeTxPlan.PrepareDataFromNativeToCs(ret, "ret", "ret_result", false);
+
+
+            //---------------------------
+            for (int i = 0; i < parCount; ++i)
+            {
+                MethodParameterTxInfo parTx = pars[i];
+                if (!string.IsNullOrEmpty(parTx.ArgPreExtractCode))
+                {
+                    stbuilder.Append(parTx.ArgPreExtractCode);
+                }
+            }
+            //---------------------------
+            StringBuilder arglistBuilder = new StringBuilder();
+            for (int i = 0; i < parCount; ++i)
+            {
+                MethodParameterTxInfo parTx = pars[i];
+                if (i > 0)
+                {
+                    arglistBuilder.AppendLine(",");
+                }
+                arglistBuilder.Append(parTx.ArgExtractCode);
+            }
+
+            string instThis = "me";
+            if (ret.IsVoid)
+            {
+                //call, no return result
+                stbuilder.Append(instThis + "->" + met.Name + "(");
+                stbuilder.Append(arglistBuilder.ToString());
+                stbuilder.Append(");\r\n");
+
+            }
+            else
+            {
+                stbuilder.Append("auto ret_result=");
+                stbuilder.Append(instThis + "->" + met.Name + "(");
+                stbuilder.Append(arglistBuilder.ToString());
+                stbuilder.Append(");\r\n");
+            }
+
+
+            for (int i = 0; i < parCount; ++i)
+            {
+                MethodParameterTxInfo parTx = pars[i];
+                if (parTx.ArgPostExtractCode != null)
+                {
+                    stbuilder.AppendLine(parTx.ArgPostExtractCode);
+                }
+            }
+            stbuilder.AppendLine(ret.ArgExtractCode);
+            //clean up 
+        }
+
+    }
+
+
+
+
     class CppToCsMethodArgsClassGen : CppCodeGen
     {
         /// <summary>
