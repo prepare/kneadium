@@ -197,6 +197,139 @@ namespace BridgeBuilder
         }
     }
 
+    class CppEventListnerInstanceImplCodeGen : CppCodeGen
+    {
+        void GenerateCppImplMethod(MethodTxInfo met, CodeStringBuilder stbuilder)
+        {
+            CodeMethodDeclaration metDecl = (CodeMethodDeclaration)met.metDecl;
+            stbuilder.AppendLine("//gen! " + metDecl.ToString());
+            stbuilder.Append("virtual " + metDecl.ReturnType + " " + metDecl.Name + "(");
+            List<CodeMethodParameter> pars = metDecl.Parameters;
+            int j = pars.Count;
+            for (int i = 0; i < j; ++i)
+            {
+                if (i > 0)
+                {
+                    stbuilder.Append(",");
+                }
+                CodeMethodParameter par = pars[i];
+
+                if (par.IsConstPar)
+                {
+                    stbuilder.Append("const ");
+                }
+                stbuilder.Append(par.ParameterType.ToString() + " ");
+                stbuilder.Append(par.ParameterName);
+            }
+            stbuilder.AppendLine("){");
+            //-----------
+            stbuilder.AppendLine("if(mcallback){");
+            //call to managed 
+            stbuilder.AppendLine("MyMetArgsN args;");
+            stbuilder.AppendLine("memset(&args, 0, sizeof(MyMetArgsN));");
+            stbuilder.AppendLine("args.argCount=" + j + ";");
+            int arrLen = j + 1;
+            stbuilder.AppendLine("jsvalue vargs[" + arrLen + "];");
+            stbuilder.AppendLine("memset(&vargs, 0, sizeof(jsvalue) * " + arrLen + ");");
+            stbuilder.AppendLine("args.vargs=vargs;");
+
+            for (int i = 0; i < j; ++i)
+            {
+                MethodParameterTxInfo parTx = met.pars[i];
+                parTx.ClearExtractCode();
+                CefTypeTxPlan.PrepareDataFromNativeToCs(parTx, "&vargs[" + (i + 1) + "]", parTx.Name, true);
+            }
+
+            CefTypeTxPlan.PrepareCppMetArg(met.ReturnPlan, "vargs[0]");
+            //
+            for (int i = 0; i < j; ++i)
+            {
+                MethodParameterTxInfo parTx = met.pars[i];
+                if (parTx.ArgPreExtractCode != null)
+                {
+                    stbuilder.AppendLine(parTx.ArgPreExtractCode);
+                }
+            }
+            for (int i = 0; i < j; ++i)
+            {
+                MethodParameterTxInfo parTx = met.pars[i];
+                stbuilder.AppendLine(parTx.ArgExtractCode);
+            }
+            //
+            //call a method and get some result back 
+            //
+            stbuilder.AppendLine("mcallback(" + met.CppMethodSwitchCaseName + ",&args);");
+            //post call
+            for (int i = 0; i < j; ++i)
+            {
+                MethodParameterTxInfo parTx = met.pars[i];
+                if (parTx.ArgPostExtractCode != null)
+                {
+                    stbuilder.AppendLine(parTx.ArgPostExtractCode);
+                }
+            }
+            if (!met.ReturnPlan.IsVoid)
+            {
+
+            }
+
+            //and return value
+            stbuilder.AppendLine("}"); //if(this->mcallback){
+            //-----------
+            stbuilder.AppendLine("}"); //method
+        }
+        public void GenerateCppImplClass(
+            CefTypeTxPlan cefTypeTxPlan,
+            TypeTxInfo typeTxInfo,
+            CodeTypeDeclaration orgDecl,
+            List<MethodTxInfo> onEventMethods,
+            CodeStringBuilder stbuilder)
+        {
+
+            string className = "My" + orgDecl.Name;
+            int nn = onEventMethods.Count;
+            for (int mm = 0; mm < nn; ++mm)
+            {
+                //implement on event notificationi
+                MethodTxInfo met = onEventMethods[mm];
+                met.CppMethodSwitchCaseName = className + "_" + met.Name + "_" + (mm + 1);
+                stbuilder.AppendLine("const int " + met.CppMethodSwitchCaseName + "=" + (mm + 1) + ";");
+            }
+
+            cefTypeTxPlan.CppImplClassNameId = typeTxInfo.CsInterOpTypeNameId;
+            cefTypeTxPlan.CppImplClassName = className;
+
+            //create a cpp class              
+            stbuilder.Append("class " + className);
+            stbuilder.Append(":public " + orgDecl.Name);
+            stbuilder.AppendLine("{");
+            //members
+            stbuilder.AppendLine("public:");
+            stbuilder.AppendLine("managed_callback mcallback;");
+            stbuilder.AppendLine("explicit " + className + "(){");
+            stbuilder.AppendLine("mcallback= NULL;");
+            stbuilder.AppendLine("}");
+            //stbuilder.AppendLine("managed_callback GetManagedCallBack() const OVERRIDE { return mcallback; }");
+
+            // 
+            nn = onEventMethods.Count;
+            for (int mm = 0; mm < nn; ++mm)
+            {
+                //implement on event notificationi
+                MethodTxInfo met = onEventMethods[mm];
+                //prepare data and call the callback
+                GenerateCppImplMethod(met, stbuilder);
+            }
+
+            stbuilder.AppendLine("private:");
+            stbuilder.AppendLine("IMPLEMENT_REFCOUNTING(" + className + ");");
+
+            stbuilder.AppendLine("};");
+        }
+
+    }
+
+
     class CppHandleCsMethodRequestCodeGen : CppCodeGen
     {
 
@@ -638,4 +771,6 @@ namespace BridgeBuilder
         }
 
     }
+
+
 }
