@@ -10,7 +10,7 @@ namespace BridgeBuilder
         None,
         CppToC,
         CToCpp,
-    } 
+    }
 
     abstract class CefTypeTxPlan : TypeTxPlan
     {
@@ -1583,7 +1583,7 @@ namespace BridgeBuilder
             //
             CodeTypeDeclaration orgDecl = this.OriginalDecl;
             CodeTypeDeclaration implTypeDecl = this.ImplTypeDecl;
-          
+
             _typeTxInfo = orgDecl.TypeTxInfo;
             _currentCodeTypeDecl = orgDecl;
             int j = _typeTxInfo.methods.Count;
@@ -1612,7 +1612,7 @@ namespace BridgeBuilder
 
             MaxMethodParCount = maxPar;
             //----------
-            CppHandleCsMethodRequestCodeGen2 cppHandleCsMetCodeGen2 = new CppHandleCsMethodRequestCodeGen2(); 
+            CppHandleCsMethodRequestCodeGen2 cppHandleCsMetCodeGen2 = new CppHandleCsMethodRequestCodeGen2();
             cppHandleCsMetCodeGen2.GenerateCppCode(
                 orgDecl,
                 ImplTypeDecl,
@@ -1635,7 +1635,7 @@ namespace BridgeBuilder
             //and if the callback has method that can be called by C# side
             //we need to create 
 
-          
+
             //CodeStringBuilder const_methodNames = new CodeStringBuilder();
             //for (int i = 0; i < j; ++i)
             //{
@@ -1644,7 +1644,7 @@ namespace BridgeBuilder
             //}
 
 
-        } 
+        }
         CodeStringBuilder _cppHeaderExportFuncAuto;
         void GenerateCsCode(CodeStringBuilder stbuilder)
         {
@@ -1685,7 +1685,7 @@ namespace BridgeBuilder
         public override void GenerateCode(CefCodeGenOutput output)
         {
             CodeTypeDeclaration orgDecl = this.OriginalDecl;
-            CodeTypeDeclaration implTypeDecl = this.ImplTypeDecl; 
+            CodeTypeDeclaration implTypeDecl = this.ImplTypeDecl;
             if (implTypeDecl.Name.Contains("CppToC"))
             {
                 _typeTxInfo = orgDecl.TypeTxInfo;
@@ -1710,16 +1710,20 @@ namespace BridgeBuilder
             CodeTypeDeclaration orgDecl = this.OriginalDecl;
             CodeTypeDeclaration implTypeDecl = this.ImplTypeDecl;
             //CodeStringBuilder totalTypeMethod = new CodeStringBuilder();
-             
+
             CppHandleCsMethodRequestCodeGen cppHandlerReqCodeGen = new CppHandleCsMethodRequestCodeGen();
-            cppHandlerReqCodeGen.GenerateCppCode(this,orgDecl, implTypeDecl, this.UnderlyingCType, stbuilder);
+            cppHandlerReqCodeGen.GenerateCppCode(this, orgDecl, implTypeDecl, this.UnderlyingCType, stbuilder);
             //
-            CppInstanceImplCodeGen instanceImplCodeGen = new CppInstanceImplCodeGen();
-            instanceImplCodeGen.GenerateCppImplClass(this, 
-                this._typeTxInfo,
-                cppHandlerReqCodeGen.callToDotNetMets,
-                orgDecl, 
-                stbuilder);
+            if (cppHandlerReqCodeGen.callToDotNetMets.Count > 0)
+            {
+                CppInstanceImplCodeGen instanceImplCodeGen = new CppInstanceImplCodeGen();
+                instanceImplCodeGen.GenerateCppImplClass(this,
+                    this._typeTxInfo,
+                    cppHandlerReqCodeGen.callToDotNetMets,
+                    orgDecl,
+                    stbuilder);
+
+            }
 
         }
         void GenerateCsCode(CodeStringBuilder stbuilder)
@@ -2753,7 +2757,7 @@ namespace BridgeBuilder
     }
 
 
-    
+
 
 
 

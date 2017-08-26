@@ -633,8 +633,7 @@ namespace BridgeBuilder
                 //----------
                 cppHeaderExportFuncAuto.Append(codeGenOutput._cppHeaderExportFuncAuto.ToString());
                 cppHeaderInternalForExportFunc.Append(codeGenOutput._cppHeaderInternalForExportFuncAuto.ToString());
-                //----------
-                // 
+                //---------- 
             }
 
 
@@ -666,9 +665,7 @@ namespace BridgeBuilder
             CreateCppSwitchTable(cppCodeStBuilder, instanceClassPlans);
             CreateNewInstanceMethod(cppCodeStBuilder, customImplClasses);
             AddCppBuiltInEndCode(cppCodeStBuilder);
-            //
-
-
+            // 
         }
         void CreateNewInstanceMethod(StringBuilder outputStBuilder, List<CefTypeTxPlan> customImplClasses)
         {
