@@ -142,15 +142,7 @@ namespace BridgeBuilder
             //temp fix, arg extract code 
             if (!met.ReturnPlan.IsVoid)
             {
-                if (met.ReturnPlan.ArgExtractCode == null)
-                {
-                    stbuilder.AppendLine("///?");
-                }
-                else
-                {
-                    stbuilder.AppendLine("return " + met.ReturnPlan.ArgExtractCode.Replace("->", ".") + ";");
-                }
-
+                stbuilder.AppendLine("return " + met.ReturnPlan.ArgExtractCode.Replace("->", ".") + ";"); 
             }
             //and return value
             stbuilder.AppendLine("}"); //if(this->mcallback){
@@ -174,18 +166,20 @@ namespace BridgeBuilder
                         case "FilterStatus":
                             stbuilder.Append("return (FilterStatus)0;");
                             break;
-                        case "int":
-                            stbuilder.AppendLine("//int-- TODO:");
-                            stbuilder.AppendLine("return 0;");
-                            break;
-                        case "size_t":
-                            stbuilder.AppendLine("//int-- TODO:");
-                            stbuilder.AppendLine("return 0;");
-                            break;
                         default:
-                            stbuilder.AppendLine("//TODO:");
-                            break;
-                            //throw new NotSupportedException();
+                            throw new NotSupportedException();
+                        //case "int":
+                        //    stbuilder.AppendLine("//int-- TODO:");
+                        //    stbuilder.AppendLine("return 0;");
+                        //    break;
+                        //case "size_t":
+                        //    stbuilder.AppendLine("//int-- TODO:");
+                        //    stbuilder.AppendLine("return 0;");
+                        //    break;
+                        //default:
+                        //    stbuilder.AppendLine("//TODO:");
+                        //    break;
+                        //    //throw new NotSupportedException();
 
                     }
                 }
