@@ -1612,8 +1612,9 @@ namespace BridgeBuilder
 
             MaxMethodParCount = maxPar;
             //----------
-            CppHandleCsMethodRequestCodeGen2 cppHandleCsMetCodeGen2 = new CppHandleCsMethodRequestCodeGen2();
+            CppHandleCsMethodRequestCodeGen cppHandleCsMetCodeGen2 = new CppHandleCsMethodRequestCodeGen();
             cppHandleCsMetCodeGen2.GenerateCppCode(
+                this,
                 orgDecl,
                 ImplTypeDecl,
                 this.UnderlyingCType,
