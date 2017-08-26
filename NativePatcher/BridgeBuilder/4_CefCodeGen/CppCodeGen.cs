@@ -142,7 +142,7 @@ namespace BridgeBuilder
             //temp fix, arg extract code 
             if (!met.ReturnPlan.IsVoid)
             {
-                stbuilder.AppendLine("return " + met.ReturnPlan.ArgExtractCode.Replace("->", ".") + ";"); 
+                stbuilder.AppendLine("return " + met.ReturnPlan.ArgExtractCode.Replace("->", ".") + ";");
             }
             //and return value
             stbuilder.AppendLine("}"); //if(this->mcallback){
@@ -167,7 +167,7 @@ namespace BridgeBuilder
                             stbuilder.Append("return (FilterStatus)0;");
                             break;
                         default:
-                            throw new NotSupportedException(); 
+                            throw new NotSupportedException();
                     }
                 }
             }
@@ -316,8 +316,8 @@ namespace BridgeBuilder
         //these code will handle those CS request
         //
         //we use cpp's switch table to handle this
-        TypeTxInfo _typeTxInfo;
-        SimpleTypeSymbol _underlyingType;
+
+
         internal List<MethodTxInfo> callToDotNetMets;
         public void GenerateCppCode(
             CefTypeTx cefTx,
@@ -327,7 +327,7 @@ namespace BridgeBuilder
             CodeStringBuilder stbuilder)
         {
 
-            _underlyingType = underlyingType;
+           
             //
             //create switch table for C#-interop
             //
@@ -335,23 +335,23 @@ namespace BridgeBuilder
             CodeTypeDeclaration implTypeDecl = impl;
             CodeStringBuilder totalTypeMethod = new CodeStringBuilder();
 
-
+            TypeTxInfo typeTxInfo;
             if (implTypeDecl.Name.Contains("CppToC"))
             {
-                _typeTxInfo = orgDecl.TypeTxInfo;
+                typeTxInfo = orgDecl.TypeTxInfo;
             }
             else
             {
-                _typeTxInfo = implTypeDecl.TypeTxInfo;
+                typeTxInfo = implTypeDecl.TypeTxInfo;
             }
-            int j = _typeTxInfo.methods.Count;
+            int j = typeTxInfo.methods.Count;
             //-----------------------------------------------------------------------
             CodeStringBuilder const_methodNames = new CodeStringBuilder();
             callToDotNetMets = new List<MethodTxInfo>();
             int maxPar = 0;
             for (int i = 0; i < j; ++i)
             {
-                MethodTxInfo metTx = _typeTxInfo.methods[i];
+                MethodTxInfo metTx = typeTxInfo.methods[i];
 
                 metTx.CppMethodSwitchCaseName = orgDecl.Name + "_" + metTx.Name + "_" + (i + 1);
                 //-----------------
@@ -373,7 +373,7 @@ namespace BridgeBuilder
             {
                 StringBuilder met_sig = new StringBuilder();
                 met_sig.Append("void MyCefMet_" + orgDecl.Name + "(" +
-                    _underlyingType.Name + "* me1,int metName,jsvalue* ret");
+                    underlyingType.Name + "* me1,int metName,jsvalue* ret");
                 for (int i = 0; i < maxPar; ++i)
                 {
                     met_sig.Append(",jsvalue* v" + (i + 1));
@@ -415,10 +415,10 @@ namespace BridgeBuilder
                 CodeStringBuilder met_stbuilder = new CodeStringBuilder();
                 //create each method,
                 //in our convention we dont generate 
-                MethodTxInfo metTx = _typeTxInfo.methods[i];
+                MethodTxInfo metTx = typeTxInfo.methods[i];
                 met_stbuilder.AppendLine("case " + metTx.CppMethodSwitchCaseName + ":{");
 
-                GenerateCppMethod(_typeTxInfo.methods[i], met_stbuilder);
+                GenerateCppMethod(typeTxInfo.methods[i], met_stbuilder);
 
                 met_stbuilder.AppendLine("} break;");
 
@@ -518,7 +518,7 @@ namespace BridgeBuilder
 
     }
 
-    
+
 
 
 
