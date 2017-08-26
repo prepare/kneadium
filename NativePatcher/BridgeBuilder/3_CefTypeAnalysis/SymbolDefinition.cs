@@ -120,7 +120,7 @@ namespace BridgeBuilder
             }
         }
 
-        internal CefTypeTxPlan CefTxPlan { get; set; }
+        internal CefTypeTx CefTxPlan { get; set; }
     }
     public enum PrimitiveTypeKind
     {

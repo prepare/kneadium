@@ -39,15 +39,19 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="ApiParser\ApiBuilderCppPart.cs" />
-    <Compile Include="ApiParser\ApiBuilderCsPart.cs" />
-    <Compile Include="ApiParser\CefApiCodeDom.cs" />
-    <Compile Include="ApiParser\CefTypeCollection.cs" />
-    <Compile Include="ApiParser\CodeTxPlanner.cs" />
-    <Compile Include="ApiParser\DirtyParser.cs" />
-    <Compile Include="ApiParser\SymbolDefinition.cs" />
-    <Compile Include="ApiParser\TypeSymbolWalk.cs" />
-    <Compile Include="ApiParser\CefTypeTxPlan.cs" />
+    <Compile Include="1_CefCppCodeDom\CefApiCodeDom.cs" />
+    <Compile Include="3_CefTypeAnalysis\CefTypeCollection.cs" />
+    <Compile Include="2_CefApiParser\CefCppLexer.cs" />
+    <Compile Include="2_CefApiParser\CefToken.cs" />
+    <Compile Include="3_CefTypeAnalysis\CefTxInfo.cs" />
+    <Compile Include="2_CefApiParser\CefCppParser.cs" />
+    <Compile Include="3_CefTypeAnalysis\SymbolDefinition.cs" />
+    <Compile Include="3_CefTypeAnalysis\TypeSymbolWalk.cs" />
+    <Compile Include="4_CefCodeGen\CefTypeTx.cs" />
+    <Compile Include="4_CefCodeGen\CppCodeGen.cs" />
+    <Compile Include="4_CefCodeGen\CsCodeGen.cs" />
+    <Compile Include="4_CefCodeGen\CodeGen.cs" />
+    <Compile Include="4_CefCodeGen\CodeStringBuilder.cs" />
     <Compile Include="Patcher\ManualPatcher.cs" />
     <Compile Include="Patcher\PatchBuilder.cs" />
     <Compile Include="Patcher\Patchs.cs" />

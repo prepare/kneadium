@@ -98,7 +98,530 @@ inline void MyCefSetCefPoint(jsvalue* value, CefPoint&data) {
 };
 
 
-//AUTOGEN
+//AUTOGEN 
+namespace CefAuthCallbackExt {
+	class ContinueArgs {
+	public:
+		struct argData {
+			int32_t myext_flags;
+			const CefString* username;//1
+			const CefString* password;//2
+		};
+		argData arg;//
+		ContinueArgs(const CefString* username, const CefString* password)
+		{
+			arg.myext_flags = ((1 << 18) | 2);
+			arg.username = username;
+			arg.password = password;
+		}
+	private:
+		DISALLOW_COPY_AND_ASSIGN(ContinueArgs);
+	};
+	class CancelArgs {
+	public:
+		struct argData {
+			int32_t myext_flags;
+		};
+		argData arg;//
+		CancelArgs()
+		{
+			arg.myext_flags = ((1 << 18) | 0);
+		}
+	private:
+		DISALLOW_COPY_AND_ASSIGN(CancelArgs);
+	};
+}
+namespace CefRunFileDialogCallbackExt {
+	class OnFileDialogDismissedArgs {
+	public:
+		struct argData {
+			int32_t myext_flags;
+			int selected_accept_filter;//1
+			const std::vector<CefString>* file_paths;//2
+		};
+		argData arg;//
+		OnFileDialogDismissedArgs(int selected_accept_filter, const std::vector<CefString>* file_paths)
+		{
+			arg.myext_flags = ((1 << 18) | 2);
+			arg.selected_accept_filter = selected_accept_filter;
+			arg.file_paths = file_paths;
+		}
+	private:
+		DISALLOW_COPY_AND_ASSIGN(OnFileDialogDismissedArgs);
+	};
+}
+namespace CefPdfPrintCallbackExt {
+	class OnPdfPrintFinishedArgs {
+	public:
+		struct argData {
+			int32_t myext_flags;
+			const CefString* path;//1
+			bool ok;//2
+		};
+		argData arg;//
+		OnPdfPrintFinishedArgs(const CefString* path, bool ok)
+		{
+			arg.myext_flags = ((1 << 18) | 2);
+			arg.path = path;
+			arg.ok = ok;
+		}
+	private:
+		DISALLOW_COPY_AND_ASSIGN(OnPdfPrintFinishedArgs);
+	};
+}
+namespace CefDownloadImageCallbackExt {
+	class OnDownloadImageFinishedArgs {
+	public:
+		struct argData {
+			int32_t myext_flags;
+			const CefString* image_url;//1
+			int http_status_code;//2
+			cef_image_t* image;//3
+		};
+		argData arg;//
+		OnDownloadImageFinishedArgs(const CefString* image_url, int http_status_code, cef_image_t* image)
+		{
+			arg.myext_flags = ((1 << 18) | 3);
+			arg.image_url = image_url;
+			arg.http_status_code = http_status_code;
+			arg.image = image;
+		}
+		OnDownloadImageFinishedArgs(const CefString* image_url, int http_status_code, CefRefPtr<CefImage> image)
+		{
+			arg.myext_flags = ((1 << 18) | (1 << 20) | 3);
+			arg.image_url = image_url;
+			arg.http_status_code = http_status_code;
+			arg.image = CefImageCToCpp::Unwrap(image);
+		}
+		~OnDownloadImageFinishedArgs() {
+			if (((arg.myext_flags >> 20) & 1) == 1) {
+				CefImageCToCpp::Wrap(arg.image);
+			}
+		}
+	private:
+		DISALLOW_COPY_AND_ASSIGN(OnDownloadImageFinishedArgs);
+	};
+}
+namespace CefCallbackExt {
+	class ContinueArgs {
+	public:
+		struct argData {
+			int32_t myext_flags;
+		};
+		argData arg;//
+		ContinueArgs()
+		{
+			arg.myext_flags = ((1 << 18) | 0);
+		}
+	private:
+		DISALLOW_COPY_AND_ASSIGN(ContinueArgs);
+	};
+	class CancelArgs {
+	public:
+		struct argData {
+			int32_t myext_flags;
+		};
+		argData arg;//
+		CancelArgs()
+		{
+			arg.myext_flags = ((1 << 18) | 0);
+		}
+	private:
+		DISALLOW_COPY_AND_ASSIGN(CancelArgs);
+	};
+}
+namespace CefCompletionCallbackExt {
+	class OnCompleteArgs {
+	public:
+		struct argData {
+			int32_t myext_flags;
+		};
+		argData arg;//
+		OnCompleteArgs()
+		{
+			arg.myext_flags = ((1 << 18) | 0);
+		}
+	private:
+		DISALLOW_COPY_AND_ASSIGN(OnCompleteArgs);
+	};
+}
+namespace CefRunContextMenuCallbackExt {
+	class ContinueArgs {
+	public:
+		struct argData {
+			int32_t myext_flags;
+			int command_id;//1
+			cef_event_flags_t event_flags;//2
+		};
+		argData arg;//
+		ContinueArgs(int command_id, cef_event_flags_t event_flags)
+		{
+			arg.myext_flags = ((1 << 18) | 2);
+			arg.command_id = command_id;
+			arg.event_flags = event_flags;
+		}
+	private:
+		DISALLOW_COPY_AND_ASSIGN(ContinueArgs);
+	};
+	class CancelArgs {
+	public:
+		struct argData {
+			int32_t myext_flags;
+		};
+		argData arg;//
+		CancelArgs()
+		{
+			arg.myext_flags = ((1 << 18) | 0);
+		}
+	private:
+		DISALLOW_COPY_AND_ASSIGN(CancelArgs);
+	};
+}
+namespace CefSetCookieCallbackExt {
+	class OnCompleteArgs {
+	public:
+		struct argData {
+			int32_t myext_flags;
+			bool success;//1
+		};
+		argData arg;//
+		OnCompleteArgs(bool success)
+		{
+			arg.myext_flags = ((1 << 18) | 1);
+			arg.success = success;
+		}
+	private:
+		DISALLOW_COPY_AND_ASSIGN(OnCompleteArgs);
+	};
+}
+namespace CefDeleteCookiesCallbackExt {
+	class OnCompleteArgs {
+	public:
+		struct argData {
+			int32_t myext_flags;
+			int num_deleted;//1
+		};
+		argData arg;//
+		OnCompleteArgs(int num_deleted)
+		{
+			arg.myext_flags = ((1 << 18) | 1);
+			arg.num_deleted = num_deleted;
+		}
+	private:
+		DISALLOW_COPY_AND_ASSIGN(OnCompleteArgs);
+	};
+}
+namespace CefFileDialogCallbackExt {
+	class ContinueArgs {
+	public:
+		struct argData {
+			int32_t myext_flags;
+			int selected_accept_filter;//1
+			const std::vector<CefString>* file_paths;//2
+		};
+		argData arg;//
+		ContinueArgs(int selected_accept_filter, const std::vector<CefString>* file_paths)
+		{
+			arg.myext_flags = ((1 << 18) | 2);
+			arg.selected_accept_filter = selected_accept_filter;
+			arg.file_paths = file_paths;
+		}
+	private:
+		DISALLOW_COPY_AND_ASSIGN(ContinueArgs);
+	};
+	class CancelArgs {
+	public:
+		struct argData {
+			int32_t myext_flags;
+		};
+		argData arg;//
+		CancelArgs()
+		{
+			arg.myext_flags = ((1 << 18) | 0);
+		}
+	private:
+		DISALLOW_COPY_AND_ASSIGN(CancelArgs);
+	};
+}
+namespace CefBeforeDownloadCallbackExt {
+	class ContinueArgs {
+	public:
+		struct argData {
+			int32_t myext_flags;
+			const CefString* download_path;//1
+			bool show_dialog;//2
+		};
+		argData arg;//
+		ContinueArgs(const CefString* download_path, bool show_dialog)
+		{
+			arg.myext_flags = ((1 << 18) | 2);
+			arg.download_path = download_path;
+			arg.show_dialog = show_dialog;
+		}
+	private:
+		DISALLOW_COPY_AND_ASSIGN(ContinueArgs);
+	};
+}
+namespace CefDownloadItemCallbackExt {
+	class CancelArgs {
+	public:
+		struct argData {
+			int32_t myext_flags;
+		};
+		argData arg;//
+		CancelArgs()
+		{
+			arg.myext_flags = ((1 << 18) | 0);
+		}
+	private:
+		DISALLOW_COPY_AND_ASSIGN(CancelArgs);
+	};
+	class PauseArgs {
+	public:
+		struct argData {
+			int32_t myext_flags;
+		};
+		argData arg;//
+		PauseArgs()
+		{
+			arg.myext_flags = ((1 << 18) | 0);
+		}
+	private:
+		DISALLOW_COPY_AND_ASSIGN(PauseArgs);
+	};
+	class ResumeArgs {
+	public:
+		struct argData {
+			int32_t myext_flags;
+		};
+		argData arg;//
+		ResumeArgs()
+		{
+			arg.myext_flags = ((1 << 18) | 0);
+		}
+	private:
+		DISALLOW_COPY_AND_ASSIGN(ResumeArgs);
+	};
+}
+namespace CefGetGeolocationCallbackExt {
+	class OnLocationUpdateArgs {
+	public:
+		struct argData {
+			int32_t myext_flags;
+			const CefGeoposition* position;//1
+		};
+		argData arg;//
+		OnLocationUpdateArgs(const CefGeoposition* position)
+		{
+			arg.myext_flags = ((1 << 18) | 1);
+			arg.position = position;
+		}
+	private:
+		DISALLOW_COPY_AND_ASSIGN(OnLocationUpdateArgs);
+	};
+}
+namespace CefGeolocationCallbackExt {
+	class ContinueArgs {
+	public:
+		struct argData {
+			int32_t myext_flags;
+			bool allow;//1
+		};
+		argData arg;//
+		ContinueArgs(bool allow)
+		{
+			arg.myext_flags = ((1 << 18) | 1);
+			arg.allow = allow;
+		}
+	private:
+		DISALLOW_COPY_AND_ASSIGN(ContinueArgs);
+	};
+}
+namespace CefJSDialogCallbackExt {
+	class ContinueArgs {
+	public:
+		struct argData {
+			int32_t myext_flags;
+			bool success;//1
+			const CefString* user_input;//2
+		};
+		argData arg;//
+		ContinueArgs(bool success, const CefString* user_input)
+		{
+			arg.myext_flags = ((1 << 18) | 2);
+			arg.success = success;
+			arg.user_input = user_input;
+		}
+	private:
+		DISALLOW_COPY_AND_ASSIGN(ContinueArgs);
+	};
+}
+namespace CefPrintDialogCallbackExt {
+	class ContinueArgs {
+	public:
+		struct argData {
+			int32_t myext_flags;
+			CefRefPtr<CefPrintSettings> settings;//1
+		};
+		argData arg;//
+		ContinueArgs(CefRefPtr<CefPrintSettings> settings)
+		{
+			arg.myext_flags = ((1 << 18) | 1);
+			arg.settings = settings;
+		}
+	private:
+		DISALLOW_COPY_AND_ASSIGN(ContinueArgs);
+	};
+	class CancelArgs {
+	public:
+		struct argData {
+			int32_t myext_flags;
+		};
+		argData arg;//
+		CancelArgs()
+		{
+			arg.myext_flags = ((1 << 18) | 0);
+		}
+	private:
+		DISALLOW_COPY_AND_ASSIGN(CancelArgs);
+	};
+}
+namespace CefPrintJobCallbackExt {
+	class ContinueArgs {
+	public:
+		struct argData {
+			int32_t myext_flags;
+		};
+		argData arg;//
+		ContinueArgs()
+		{
+			arg.myext_flags = ((1 << 18) | 0);
+		}
+	private:
+		DISALLOW_COPY_AND_ASSIGN(ContinueArgs);
+	};
+}
+namespace CefResolveCallbackExt {
+	class OnResolveCompletedArgs {
+	public:
+		struct argData {
+			int32_t myext_flags;
+			cef_errorcode_t result;//1
+			const std::vector<CefString>* resolved_ips;//2
+		};
+		argData arg;//
+		OnResolveCompletedArgs(cef_errorcode_t result, const std::vector<CefString>* resolved_ips)
+		{
+			arg.myext_flags = ((1 << 18) | 2);
+			arg.result = result;
+			arg.resolved_ips = resolved_ips;
+		}
+	private:
+		DISALLOW_COPY_AND_ASSIGN(OnResolveCompletedArgs);
+	};
+}
+namespace CefRequestCallbackExt {
+	class ContinueArgs {
+	public:
+		struct argData {
+			int32_t myext_flags;
+			bool allow;//1
+		};
+		argData arg;//
+		ContinueArgs(bool allow)
+		{
+			arg.myext_flags = ((1 << 18) | 1);
+			arg.allow = allow;
+		}
+	private:
+		DISALLOW_COPY_AND_ASSIGN(ContinueArgs);
+	};
+	class CancelArgs {
+	public:
+		struct argData {
+			int32_t myext_flags;
+		};
+		argData arg;//
+		CancelArgs()
+		{
+			arg.myext_flags = ((1 << 18) | 0);
+		}
+	private:
+		DISALLOW_COPY_AND_ASSIGN(CancelArgs);
+	};
+}
+namespace CefSelectClientCertificateCallbackExt {
+	class SelectArgs {
+	public:
+		struct argData {
+			int32_t myext_flags;
+			CefRefPtr<CefX509Certificate> cert;//1
+		};
+		argData arg;//
+		SelectArgs(CefRefPtr<CefX509Certificate> cert)
+		{
+			arg.myext_flags = ((1 << 18) | 1);
+			arg.cert = cert;
+		}
+	private:
+		DISALLOW_COPY_AND_ASSIGN(SelectArgs);
+	};
+}
+namespace CefEndTracingCallbackExt {
+	class OnEndTracingCompleteArgs {
+	public:
+		struct argData {
+			int32_t myext_flags;
+			const CefString* tracing_file;//1
+		};
+		argData arg;//
+		OnEndTracingCompleteArgs(const CefString* tracing_file)
+		{
+			arg.myext_flags = ((1 << 18) | 1);
+			arg.tracing_file = tracing_file;
+		}
+	private:
+		DISALLOW_COPY_AND_ASSIGN(OnEndTracingCompleteArgs);
+	};
+}
+namespace CefWebPluginUnstableCallbackExt {
+	class IsUnstableArgs {
+	public:
+		struct argData {
+			int32_t myext_flags;
+			const CefString* path;//1
+			bool unstable;//2
+		};
+		argData arg;//
+		IsUnstableArgs(const CefString* path, bool unstable)
+		{
+			arg.myext_flags = ((1 << 18) | 2);
+			arg.path = path;
+			arg.unstable = unstable;
+		}
+	private:
+		DISALLOW_COPY_AND_ASSIGN(IsUnstableArgs);
+	};
+}
+namespace CefRegisterCdmCallbackExt {
+	class OnCdmRegistrationCompleteArgs {
+	public:
+		struct argData {
+			int32_t myext_flags;
+			cef_cdm_registration_error_t result;//1
+			const CefString* error_message;//2
+		};
+		argData arg;//
+		OnCdmRegistrationCompleteArgs(cef_cdm_registration_error_t result, const CefString* error_message)
+		{
+			arg.myext_flags = ((1 << 18) | 2);
+			arg.result = result;
+			arg.error_message = error_message;
+		}
+	private:
+		DISALLOW_COPY_AND_ASSIGN(OnCdmRegistrationCompleteArgs);
+	};
+}
 namespace CefAccessibilityHandlerExt
 {
 

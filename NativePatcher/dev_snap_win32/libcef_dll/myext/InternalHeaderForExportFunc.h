@@ -1,4 +1,3 @@
-#pragma once
 //AUTOGEN
 const int CefTypeName_CefApp = 1;
 const int CefTypeName_CefBrowser = 2;

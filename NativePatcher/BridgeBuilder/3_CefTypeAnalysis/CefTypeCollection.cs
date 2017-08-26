@@ -997,7 +997,7 @@ namespace BridgeBuilder
             {
                 foreach (CodeMethodDeclaration metDecl in typedecl.GetMethodIter())
                 {
-                    
+
 
                     switch (metDecl.MethodKind)
                     {
