@@ -1457,14 +1457,14 @@ namespace BridgeBuilder
     class CefEnumTx : CefTypeTx
     {
         TypeTxInfo _typeTxInfo;
-        CodeTypeDeclaration _currentCodeTypeDecl;
+
 
         string enum_base = "";
         public CefEnumTx(CodeTypeDeclaration typedecl)
             : base(typedecl)
         {
             //check each field for proper enum base type
-
+             
             foreach (CodeFieldDeclaration field in this.OriginalDecl.GetFieldIter())
             {
                 if (field.InitExpression != null)
@@ -1506,7 +1506,7 @@ namespace BridgeBuilder
             CodeStringBuilder codeBuilder = new CodeStringBuilder();
             CodeTypeDeclaration orgDecl = this.OriginalDecl;
             _typeTxInfo = orgDecl.TypeTxInfo;
-            _currentCodeTypeDecl = orgDecl;
+           
             //
             AddComment(orgDecl.LineComments, codeBuilder);
 
@@ -1636,7 +1636,7 @@ namespace BridgeBuilder
                     orgDecl,
                     onEventMethods,
                     stbuilder);
-            } 
+            }
         }
         CodeStringBuilder _cppHeaderExportFuncAuto;
         void GenerateCsCode(CodeStringBuilder stbuilder)
