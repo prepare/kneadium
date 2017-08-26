@@ -23,12 +23,13 @@ namespace BridgeBuilder
                 MethodTxInfo metTx = typeTxInfo.methods[i];
                 metTx.CppMethodSwitchCaseName = orgDecl.Name + "_" + metTx.Name + "_" + (i + 1);
                 //-----------------
-                CodeMethodDeclaration codeMethodDecl = metTx.metDecl;
-                if (codeMethodDecl.IsAbstract || codeMethodDecl.IsVirtual)
-                {
-                    callToDotNetMets.Add(metTx);
-                }
-                //-----------------
+                //CodeMethodDeclaration codeMethodDecl = metTx.metDecl;
+                //if (codeMethodDecl.IsAbstract || codeMethodDecl.IsVirtual)
+                //{
+                //    callToDotNetMets.Add(metTx);
+                //}
+                ////-----------------
+                callToDotNetMets.Add(metTx);
                 if (metTx.pars.Count > maxPar)
                 {
                     maxPar = metTx.pars.Count;
@@ -162,7 +163,15 @@ namespace BridgeBuilder
             //temp fix, arg extract code 
             if (!met.ReturnPlan.IsVoid)
             {
-                stbuilder.AppendLine("return " + met.ReturnPlan.ArgExtractCode.Replace("->", ".") + ";");
+                if (met.ReturnPlan.ArgExtractCode == null)
+                {
+                    stbuilder.AppendLine("///?");
+                }
+                else
+                {
+                    stbuilder.AppendLine("return " + met.ReturnPlan.ArgExtractCode.Replace("->", ".") + ";");
+                }
+
             }
             //and return value
             stbuilder.AppendLine("}"); //if(this->mcallback){
@@ -186,8 +195,18 @@ namespace BridgeBuilder
                         case "FilterStatus":
                             stbuilder.Append("return (FilterStatus)0;");
                             break;
+                        case "int":
+                            stbuilder.AppendLine("//int-- TODO:");
+                            stbuilder.AppendLine("return 0;");
+                            break;
+                        case "size_t":
+                            stbuilder.AppendLine("//int-- TODO:");
+                            stbuilder.AppendLine("return 0;");
+                            break;
                         default:
-                            throw new NotSupportedException();
+                            stbuilder.AppendLine("//TODO:");
+                            break;
+                            //throw new NotSupportedException();
 
                     }
                 }
@@ -338,10 +357,10 @@ namespace BridgeBuilder
         //
         //we use cpp's switch table to handle this
         TypeTxInfo _typeTxInfo;
-        int MaxMethodParCount;
         SimpleTypeSymbol _underlyingType;
 
         public void GenerateCppCode(
+            CefTypeTxPlan cefTx,
             CodeTypeDeclaration codeTypeDecl,
             CodeTypeDeclaration impl,
             SimpleTypeSymbol underlyingType,
@@ -388,7 +407,7 @@ namespace BridgeBuilder
                 }
                 const_methodNames.AppendLine("const int " + metTx.CppMethodSwitchCaseName + "=" + (i + 1) + ";");
             }
-            MaxMethodParCount = maxPar;
+            cefTx.MaxMethodParCount = maxPar;
             totalTypeMethod.AppendLine(const_methodNames.ToString());
             //-----------------------------------------------------------------------
             {
@@ -681,73 +700,73 @@ namespace BridgeBuilder
 
 
 
-//        CodeStringBuilder totalTypeMethod = new CodeStringBuilder();
-//        totalTypeMethod.AppendLine(const_methodNames.ToString());
-//            {
-//                StringBuilder met_sig = new StringBuilder();
-//        met_sig.Append("void MyCefMet_" + orgDecl.Name + "(" +
-//                    this.UnderlyingCType.Name + "* me1,int metName,jsvalue* ret");
-//                for (int i = 0; i<maxPar; ++i)
-//                {
-//                    met_sig.Append(",jsvalue* v" + (i + 1));
-//                }
-//    met_sig.AppendLine("){");
-//                totalTypeMethod.Append(met_sig.ToString());
-//            }
+        //        CodeStringBuilder totalTypeMethod = new CodeStringBuilder();
+        //        totalTypeMethod.AppendLine(const_methodNames.ToString());
+        //            {
+        //                StringBuilder met_sig = new StringBuilder();
+        //        met_sig.Append("void MyCefMet_" + orgDecl.Name + "(" +
+        //                    this.UnderlyingCType.Name + "* me1,int metName,jsvalue* ret");
+        //                for (int i = 0; i<maxPar; ++i)
+        //                {
+        //                    met_sig.Append(",jsvalue* v" + (i + 1));
+        //                }
+        //    met_sig.AppendLine("){");
+        //                totalTypeMethod.Append(met_sig.ToString());
+        //            }
 
-//            if (implTypeDecl == null)
-//            {
-//                throw new NotSupportedException();
-//            }
-//            totalTypeMethod.AppendLine("ret->type = JSVALUE_TYPE_EMPTY;");
-//            ImplWrapDirection implWrapDirection = ImplWrapDirection.None;
-//            if (implTypeDecl.Name.Contains("CToCpp"))
-//            {
-//                implWrapDirection = ImplWrapDirection.CToCpp;
-//            }
-//            else if (implTypeDecl.Name.Contains("CppToC"))
-//            {
-//                implWrapDirection = ImplWrapDirection.CppToC;
-//            }
-//            else
-//            {
-//                implWrapDirection = ImplWrapDirection.None;
-//            }
+        //            if (implTypeDecl == null)
+        //            {
+        //                throw new NotSupportedException();
+        //            }
+        //            totalTypeMethod.AppendLine("ret->type = JSVALUE_TYPE_EMPTY;");
+        //            ImplWrapDirection implWrapDirection = ImplWrapDirection.None;
+        //            if (implTypeDecl.Name.Contains("CToCpp"))
+        //            {
+        //                implWrapDirection = ImplWrapDirection.CToCpp;
+        //            }
+        //            else if (implTypeDecl.Name.Contains("CppToC"))
+        //            {
+        //                implWrapDirection = ImplWrapDirection.CppToC;
+        //            }
+        //            else
+        //            {
+        //                implWrapDirection = ImplWrapDirection.None;
+        //            }
 
-//            totalTypeMethod.AppendLine("auto me=" + implTypeDecl.Name + "::" + GetSmartPointerMet(implWrapDirection) + "(me1);");
-//            //swicth table is a way that this instance's method is called
-//            //through the bridge   
-//            totalTypeMethod.AppendLine("switch(metName){");
-//            totalTypeMethod.AppendLine("case MET_Release:return; //yes, just return");
-//            for (int i = 0; i<j; ++i)
-//            {
-//                CodeStringBuilder met_stbuilder = new CodeStringBuilder();
-////create each method,
-////in our convention we dont generate 
-//MethodTxInfo metTx = _typeTxInfo.methods[i];
-//                if (metTx.Name.StartsWith("On"))
-//                {
-//                    //cef convention
-//                    continue;
-//                }
-//                met_stbuilder.AppendLine("case " + metTx.CppMethodSwitchCaseName + ":{");
+        //            totalTypeMethod.AppendLine("auto me=" + implTypeDecl.Name + "::" + GetSmartPointerMet(implWrapDirection) + "(me1);");
+        //            //swicth table is a way that this instance's method is called
+        //            //through the bridge   
+        //            totalTypeMethod.AppendLine("switch(metName){");
+        //            totalTypeMethod.AppendLine("case MET_Release:return; //yes, just return");
+        //            for (int i = 0; i<j; ++i)
+        //            {
+        //                CodeStringBuilder met_stbuilder = new CodeStringBuilder();
+        ////create each method,
+        ////in our convention we dont generate 
+        //MethodTxInfo metTx = _typeTxInfo.methods[i];
+        //                if (metTx.Name.StartsWith("On"))
+        //                {
+        //                    //cef convention
+        //                    continue;
+        //                }
+        //                met_stbuilder.AppendLine("case " + metTx.CppMethodSwitchCaseName + ":{");
 
-//                GenerateCppMethod(_typeTxInfo.methods[i], met_stbuilder);
+        //                GenerateCppMethod(_typeTxInfo.methods[i], met_stbuilder);
 
-//met_stbuilder.AppendLine("} break;");
+        //met_stbuilder.AppendLine("} break;");
 
-//                totalTypeMethod.Append(met_stbuilder.ToString());
-//            }
+        //                totalTypeMethod.Append(met_stbuilder.ToString());
+        //            }
 
-//            totalTypeMethod.AppendLine("}"); //end switch table
-//                                             //
+        //            totalTypeMethod.AppendLine("}"); //end switch table
+        //                                             //
 
-//            totalTypeMethod.AppendLine(implTypeDecl.Name + "::" + GetRawPtrMet(implWrapDirection) + "(me);");
+        //            totalTypeMethod.AppendLine(implTypeDecl.Name + "::" + GetRawPtrMet(implWrapDirection) + "(me);");
 
-//            totalTypeMethod.AppendLine("}");
+        //            totalTypeMethod.AppendLine("}");
 
-//            //
-//            stbuilder.Append(totalTypeMethod.ToString());
+        //            //
+        //            stbuilder.Append(totalTypeMethod.ToString());
         void GenerateCppMethod(MethodTxInfo met, CodeStringBuilder stbuilder)
         {
             if (met.CsLeftMethodBodyBlank) return;  //temp here

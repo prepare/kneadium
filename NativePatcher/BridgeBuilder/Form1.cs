@@ -250,7 +250,7 @@ namespace BridgeBuilder
             //manualPatcher.CopyExtensionSources(extTargetDir);
             manualPatcher.Do_CefClient_CMake_txt();
         }
-         
+
 
 
         static Dictionary<string, bool> CreateSkipFiles(string[] filenames)
@@ -417,7 +417,7 @@ namespace BridgeBuilder
                     totalCuList.Add(cu);
                 }
             }
- 
+
             //
             CefTypeCollection cefTypeCollection = new CefTypeCollection();
             cefTypeCollection.RootFolder = cefDir;
@@ -441,6 +441,7 @@ namespace BridgeBuilder
 
             foreach (CodeTypeDeclaration typedecl in cefTypeCollection._v_instanceClasses)
             {
+                //eg. CefApp, CefBrowser, CefCommandLine, CefFrame
                 CefInstanceElementTxPlan instanceClassPlan = new CefInstanceElementTxPlan(typedecl);
                 instanceClassPlans.Add(instanceClassPlan);
                 allTxPlans.Add(typedecl.Name, instanceClassPlan);
@@ -454,7 +455,7 @@ namespace BridgeBuilder
 
             foreach (CodeTypeDeclaration typedecl in cefTypeCollection._v_handlerClasses)
             {
-
+                //eg. CefDisplayHandler, CefDownloadHandler
                 CefHandlerTxPlan handlerPlan = new CefHandlerTxPlan(typedecl);
                 handlerPlans.Add(handlerPlan);
                 allTxPlans.Add(typedecl.Name, handlerPlan);
@@ -465,7 +466,7 @@ namespace BridgeBuilder
             }
             foreach (CodeTypeDeclaration typedecl in cefTypeCollection._v_callBackClasses)
             {
-
+                //eg. CefAuthenCallback, CefPdfCallback
                 CefCallbackTxPlan callbackPlan = new CefCallbackTxPlan(typedecl);
                 callbackPlans.Add(callbackPlan);
                 allTxPlans.Add(typedecl.Name, callbackPlan);
@@ -605,7 +606,7 @@ namespace BridgeBuilder
 
             foreach (CefCallbackTxPlan tx in callbackPlans)
             {
-                 
+
                 codeGenOutput = new CefCodeGenOutput();
                 tx.GenerateCode(codeGenOutput);
 

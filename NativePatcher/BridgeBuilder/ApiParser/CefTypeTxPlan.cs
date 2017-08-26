@@ -10,9 +10,7 @@ namespace BridgeBuilder
         None,
         CppToC,
         CToCpp,
-    }
-
-
+    } 
 
     abstract class CefTypeTxPlan : TypeTxPlan
     {
@@ -1646,90 +1644,7 @@ namespace BridgeBuilder
             //}
 
 
-        }
-        //void GenerateCppMethod(MethodTxInfo met, CodeStringBuilder stbuilder)
-        //{
-        //    if (met.CsLeftMethodBodyBlank) return;  //temp here
-        //                                            //---------------------------------------
-
-        //    //extract managed args and then call native c++ method
-        //    //----
-        //    MethodParameterTxInfo ret = met.ReturnPlan;
-        //    //----
-        //    List<MethodParameterTxInfo> pars = met.pars;
-        //    int parCount = pars.Count;
-        //    if (parCount > 15)
-        //    {
-        //        throw new NotSupportedException();
-        //    }
-
-        //    //--------------------------- 
-        //    stbuilder.AppendLine();
-        //    stbuilder.Append(
-        //        "\r\n" +
-        //        "// gen! " + met.ToString() + "\r\n"
-        //        );
-        //    //---------------------------
-        //    for (int i = 0; i < parCount; ++i)
-        //    {
-        //        //prepare some method args
-        //        //get pars from parameter .
-        //        PrepareCppMetArg(pars[i], "v" + (i + 1));
-        //    }
-        //    PrepareDataFromNativeToCs(met.ReturnPlan, "ret", "ret_result", false);
-
-
-        //    //---------------------------
-        //    for (int i = 0; i < parCount; ++i)
-        //    {
-        //        MethodParameterTxInfo parTx = pars[i];
-        //        if (!string.IsNullOrEmpty(parTx.ArgPreExtractCode))
-        //        {
-        //            stbuilder.Append(parTx.ArgPreExtractCode);
-        //        }
-        //    }
-        //    //---------------------------
-        //    StringBuilder arglistBuilder = new StringBuilder();
-        //    for (int i = 0; i < parCount; ++i)
-        //    {
-        //        MethodParameterTxInfo parTx = pars[i];
-        //        if (i > 0)
-        //        {
-        //            arglistBuilder.AppendLine(",");
-        //        }
-        //        arglistBuilder.Append(parTx.ArgExtractCode);
-        //    }
-
-        //    string instThis = "me";
-        //    if (ret.IsVoid)
-        //    {
-        //        //call, no return result
-        //        stbuilder.Append(instThis + "->" + met.Name + "(");
-        //        stbuilder.Append(arglistBuilder.ToString());
-        //        stbuilder.Append(");\r\n");
-
-        //    }
-        //    else
-        //    {
-        //        stbuilder.Append("auto ret_result=");
-        //        stbuilder.Append(instThis + "->" + met.Name + "(");
-        //        stbuilder.Append(arglistBuilder.ToString());
-        //        stbuilder.Append(");\r\n");
-        //    }
-
-
-        //    for (int i = 0; i < parCount; ++i)
-        //    {
-        //        MethodParameterTxInfo parTx = pars[i];
-        //        if (parTx.ArgPostExtractCode != null)
-        //        {
-        //            stbuilder.AppendLine(parTx.ArgPostExtractCode);
-        //        }
-        //    }
-        //    stbuilder.AppendLine(ret.ArgExtractCode);
-        //    //clean up 
-        //}
-
+        } 
         CodeStringBuilder _cppHeaderExportFuncAuto;
         void GenerateCsCode(CodeStringBuilder stbuilder)
         {
@@ -1769,6 +1684,17 @@ namespace BridgeBuilder
         }
         public override void GenerateCode(CefCodeGenOutput output)
         {
+            CodeTypeDeclaration orgDecl = this.OriginalDecl;
+            CodeTypeDeclaration implTypeDecl = this.ImplTypeDecl; 
+            if (implTypeDecl.Name.Contains("CppToC"))
+            {
+                _typeTxInfo = orgDecl.TypeTxInfo;
+            }
+            else
+            {
+                _typeTxInfo = implTypeDecl.TypeTxInfo;
+            }
+
             GenerateCppCode(output._cppCode);
             GenerateCsCode(output._csCode);
         }
@@ -1784,9 +1710,9 @@ namespace BridgeBuilder
             CodeTypeDeclaration orgDecl = this.OriginalDecl;
             CodeTypeDeclaration implTypeDecl = this.ImplTypeDecl;
             CodeStringBuilder totalTypeMethod = new CodeStringBuilder();
-            _typeTxInfo = implTypeDecl.TypeTxInfo;
+             
             CppHandleCsMethodRequestCodeGen cppHandlerReqCodeGen = new CppHandleCsMethodRequestCodeGen();
-            cppHandlerReqCodeGen.GenerateCppCode(orgDecl, implTypeDecl, this.UnderlyingCType, stbuilder);
+            cppHandlerReqCodeGen.GenerateCppCode(this,orgDecl, implTypeDecl, this.UnderlyingCType, stbuilder);
             //
             CppInstanceImplCodeGen instanceImplCodeGen = new CppInstanceImplCodeGen();
             instanceImplCodeGen.GenerateCppImplClass(this, this._typeTxInfo, orgDecl, stbuilder);
