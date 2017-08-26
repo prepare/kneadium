@@ -1709,13 +1709,17 @@ namespace BridgeBuilder
             //
             CodeTypeDeclaration orgDecl = this.OriginalDecl;
             CodeTypeDeclaration implTypeDecl = this.ImplTypeDecl;
-            CodeStringBuilder totalTypeMethod = new CodeStringBuilder();
+            //CodeStringBuilder totalTypeMethod = new CodeStringBuilder();
              
             CppHandleCsMethodRequestCodeGen cppHandlerReqCodeGen = new CppHandleCsMethodRequestCodeGen();
             cppHandlerReqCodeGen.GenerateCppCode(this,orgDecl, implTypeDecl, this.UnderlyingCType, stbuilder);
             //
             CppInstanceImplCodeGen instanceImplCodeGen = new CppInstanceImplCodeGen();
-            instanceImplCodeGen.GenerateCppImplClass(this, this._typeTxInfo, orgDecl, stbuilder);
+            instanceImplCodeGen.GenerateCppImplClass(this, 
+                this._typeTxInfo,
+                cppHandlerReqCodeGen.callToDotNetMets,
+                orgDecl, 
+                stbuilder);
 
         }
         void GenerateCsCode(CodeStringBuilder stbuilder)

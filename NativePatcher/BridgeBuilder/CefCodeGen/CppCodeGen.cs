@@ -11,32 +11,11 @@ namespace BridgeBuilder
         public void GenerateCppImplClass(
             CefTypeTxPlan cefTypeTxPlan,
             TypeTxInfo typeTxInfo,
+            List<MethodTxInfo> callToDotNetMets,
             CodeTypeDeclaration orgDecl,
             CodeStringBuilder stbuilder)
         {
 
-            List<MethodTxInfo> callToDotNetMets = new List<MethodTxInfo>();
-            int maxPar = 0;
-            int j = typeTxInfo.methods.Count;
-            for (int i = 0; i < j; ++i)
-            {
-                MethodTxInfo metTx = typeTxInfo.methods[i];
-                metTx.CppMethodSwitchCaseName = orgDecl.Name + "_" + metTx.Name + "_" + (i + 1);
-                //-----------------
-                //CodeMethodDeclaration codeMethodDecl = metTx.metDecl;
-                //if (codeMethodDecl.IsAbstract || codeMethodDecl.IsVirtual)
-                //{
-                //    callToDotNetMets.Add(metTx);
-                //}
-                ////-----------------
-                callToDotNetMets.Add(metTx);
-                if (metTx.pars.Count > maxPar)
-                {
-                    maxPar = metTx.pars.Count;
-                }
-            }
-
-            //--------------------------------------------
             string className = "My" + orgDecl.Name;
             int nn = callToDotNetMets.Count;
             for (int mm = 0; mm < nn; ++mm)
@@ -358,7 +337,7 @@ namespace BridgeBuilder
         //we use cpp's switch table to handle this
         TypeTxInfo _typeTxInfo;
         SimpleTypeSymbol _underlyingType;
-
+        internal List<MethodTxInfo> callToDotNetMets;
         public void GenerateCppCode(
             CefTypeTxPlan cefTx,
             CodeTypeDeclaration codeTypeDecl,
@@ -387,7 +366,7 @@ namespace BridgeBuilder
             int j = _typeTxInfo.methods.Count;
             //-----------------------------------------------------------------------
             CodeStringBuilder const_methodNames = new CodeStringBuilder();
-            List<MethodTxInfo> callToDotNetMets = new List<MethodTxInfo>();
+            callToDotNetMets = new List<MethodTxInfo>();
             int maxPar = 0;
             for (int i = 0; i < j; ++i)
             {
@@ -472,12 +451,6 @@ namespace BridgeBuilder
 
             totalTypeMethod.AppendLine("}");
             stbuilder.Append(totalTypeMethod.ToString());
-
-            ////-------------------------------------------
-            //if (callToDotNetMets.Count > 0)
-            //{
-            //    GenerateCppImplClass(orgDecl, callToDotNetMets, stbuilder);
-            //}
         }
         void GenerateCppMethod(MethodTxInfo met, CodeStringBuilder stbuilder)
         {
