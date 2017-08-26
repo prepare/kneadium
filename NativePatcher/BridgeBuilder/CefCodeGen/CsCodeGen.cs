@@ -5,10 +5,7 @@ using System.Text;
 namespace BridgeBuilder
 {
 
-    class CsNativeEventListenerClassGen : CsCodeGen
-    {
 
-    }
     class CsCallToNativeCodeGen : CsCodeGen
     {
         CodeTypeDeclaration _currentCodeTypeDecl;
@@ -453,7 +450,9 @@ namespace BridgeBuilder
 
         }
 
-        public void GenerateCsCode(CodeTypeDeclaration orgDecl, CodeTypeDeclaration implTypeDecl, CodeStringBuilder stbuilder)
+        public void GenerateCsCode(
+            CefTypeTxPlan txplan,
+            CodeTypeDeclaration orgDecl, CodeTypeDeclaration implTypeDecl, CodeStringBuilder stbuilder)
         {
 
             //-----------------------------------------------------------------------
@@ -509,7 +508,15 @@ namespace BridgeBuilder
                 GenerateCsMethod(metTx, met_stbuilder);
                 csStruct.Append(met_stbuilder.ToString());
             }
-
+            //-----------------------------------------------------------------------
+            if (txplan.CppImplClassName != null)
+            {
+                csStruct.AppendLine("public static " + orgDecl.Name + " New(MyCefCallback callback){");
+                csStruct.AppendLine("JsValue not_used= new JsValue();");
+                csStruct.AppendLine("return new " + orgDecl.Name + "(Cef3Binder.NewInstance(_typeNAME,callback,ref not_used));");
+                csStruct.AppendLine("}");
+            }
+            //-----------------------------------------------------------------------
             csStruct.AppendLine("}");  //close struct 
             //add to stbuilder
             stbuilder.Append(csStruct.ToString());

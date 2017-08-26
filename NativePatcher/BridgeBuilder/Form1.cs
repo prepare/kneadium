@@ -572,9 +572,10 @@ namespace BridgeBuilder
                 "namespace LayoutFarm.CefBridge.Auto{\r\n");
 
 
-            CefCodeGenOutput codeGenOutput = new CefCodeGenOutput();
+            CefCodeGenOutput codeGenOutput = null;
             foreach (CefTypeTxPlan tx in enumTxPlans)
             {
+                codeGenOutput = new CefCodeGenOutput();
                 tx.GenerateCode(codeGenOutput);
                 //get cs output
                 csCodeStBuilder.Append(codeGenOutput._csCode.ToString());
