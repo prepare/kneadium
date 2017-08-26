@@ -1564,7 +1564,7 @@ namespace BridgeBuilder
     class CefCallbackTx : CefTypeTx
     {
         TypeTxInfo _typeTxInfo;
-        CodeTypeDeclaration _currentCodeTypeDecl;
+
         public CefCallbackTx(CodeTypeDeclaration typedecl)
             : base(typedecl)
         {
@@ -1589,7 +1589,7 @@ namespace BridgeBuilder
             CodeTypeDeclaration implTypeDecl = this.ImplTypeDecl;
 
             _typeTxInfo = orgDecl.TypeTxInfo;
-            _currentCodeTypeDecl = orgDecl;
+
             int j = _typeTxInfo.methods.Count;
             //-----------------------------------------------------------------------
             List<MethodTxInfo> onEventMethods = new List<MethodTxInfo>();
@@ -1636,19 +1636,7 @@ namespace BridgeBuilder
                     orgDecl,
                     onEventMethods,
                     stbuilder);
-            }
-            //and if the callback has method that can be called by C# side
-            //we need to create 
-
-
-            //CodeStringBuilder const_methodNames = new CodeStringBuilder();
-            //for (int i = 0; i < j; ++i)
-            //{
-            //    MethodTxInfo metTx = _typeTxInfo.methods[i];
-            //    const_methodNames.AppendLine("const int " + metTx.CppMethodSwitchCaseName + "=" + (i + 1) + ";");
-            //}
-
-
+            } 
         }
         CodeStringBuilder _cppHeaderExportFuncAuto;
         void GenerateCsCode(CodeStringBuilder stbuilder)
@@ -1681,7 +1669,7 @@ namespace BridgeBuilder
     /// </summary>
     class CefInstanceElementTx : CefTypeTx
     {
-        TypeTxInfo _typeTxInfo;
+
         public CefInstanceElementTx(CodeTypeDeclaration typedecl)
             : base(typedecl)
         {
@@ -1689,16 +1677,7 @@ namespace BridgeBuilder
         }
         public override void GenerateCode(CefCodeGenOutput output)
         {
-            CodeTypeDeclaration orgDecl = this.OriginalDecl;
-            CodeTypeDeclaration implTypeDecl = this.ImplTypeDecl;
-            if (implTypeDecl.Name.Contains("CppToC"))
-            {
-                _typeTxInfo = orgDecl.TypeTxInfo;
-            }
-            else
-            {
-                _typeTxInfo = implTypeDecl.TypeTxInfo;
-            }
+
 
             GenerateCppCode(output._cppCode);
             GenerateCsCode(output._csCode);
@@ -1714,7 +1693,16 @@ namespace BridgeBuilder
             //
             CodeTypeDeclaration orgDecl = this.OriginalDecl;
             CodeTypeDeclaration implTypeDecl = this.ImplTypeDecl;
-            //CodeStringBuilder totalTypeMethod = new CodeStringBuilder();
+            TypeTxInfo typeTxInfo;
+            if (implTypeDecl.Name.Contains("CppToC"))
+            {
+                typeTxInfo = orgDecl.TypeTxInfo;
+            }
+            else
+            {
+                typeTxInfo = implTypeDecl.TypeTxInfo;
+            }
+
 
             CppHandleCsMethodRequestCodeGen cppHandlerReqCodeGen = new CppHandleCsMethodRequestCodeGen();
             cppHandlerReqCodeGen.GenerateCppCode(this, orgDecl, implTypeDecl, this.UnderlyingCType, stbuilder);
@@ -1723,7 +1711,7 @@ namespace BridgeBuilder
             {
                 CppInstanceImplCodeGen instanceImplCodeGen = new CppInstanceImplCodeGen();
                 instanceImplCodeGen.GenerateCppImplClass(this,
-                    this._typeTxInfo,
+                    typeTxInfo,
                     cppHandlerReqCodeGen.callToDotNetMets,
                     orgDecl,
                     stbuilder);
@@ -1737,9 +1725,6 @@ namespace BridgeBuilder
             CodeTypeDeclaration implTypeDecl = this.ImplTypeDecl;
 
             CodeGenUtils.AddComments(orgDecl, implTypeDecl);
-            //-----------------------------------------------------------------------
-            _typeTxInfo = implTypeDecl.TypeTxInfo;
-            //-----------------------------------------------------------------------
             CsCallToNativeCodeGen callToNativeCs = new CsCallToNativeCodeGen();
             callToNativeCs.GenerateCsCode(this, orgDecl, implTypeDecl, true, stbuilder);
         }
@@ -1750,12 +1735,12 @@ namespace BridgeBuilder
     /// </summary>
     class CefHandlerTx : CefTypeTx
     {
-        TypeTxInfo _typeTxInfo; 
+        TypeTxInfo _typeTxInfo;
         public CefHandlerTx(CodeTypeDeclaration typedecl)
             : base(typedecl)
         {
 
-        } 
+        }
         void GenerateCppImplMethodForNs(MethodTxInfo met, CodeStringBuilder stbuilder, bool useJsSlot)
         {
             CodeMethodDeclaration metDecl = met.metDecl;
