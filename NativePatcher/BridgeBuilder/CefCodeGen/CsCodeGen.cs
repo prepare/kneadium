@@ -183,7 +183,7 @@ namespace BridgeBuilder
                                     TypeSymbol elemtType = refOrPtr.ElementType;
                                     if (elemtType is SimpleTypeSymbol)
                                     {
-                                        CefTypeTxPlan txplan = ((SimpleTypeSymbol)elemtType).CefTxPlan;
+                                        CefTypeTx txplan = ((SimpleTypeSymbol)elemtType).CefTxPlan;
                                         if (txplan == null)
                                         {
                                             if (elemtType.ToString() == "CefBaseRefCounted")
@@ -212,7 +212,7 @@ namespace BridgeBuilder
                                             else
                                             {
                                                 implWrapDirection = ImplWrapDirection.None;
-                                                string met = CefTypeTxPlan.GetSmartPointerMet(implWrapDirection);
+                                                string met = CefTypeTx.GetSmartPointerMet(implWrapDirection);
                                                 string slotName = bridge.CefCppSlotName.ToString();
                                                 par.ArgExtractCode = implTypeDecl.Name + "::" + met + "(" + (argName + "->" + slotName) + ")";
 
@@ -455,7 +455,7 @@ namespace BridgeBuilder
         }
 
         public void GenerateCsCode(
-            CefTypeTxPlan txplan,
+            CefTypeTx txplan,
             CodeTypeDeclaration orgDecl,
             CodeTypeDeclaration implTypeDecl,
             bool withNewMethod,
@@ -560,11 +560,11 @@ namespace BridgeBuilder
                 PrepareCsMetArg(pars[i], "v" + (i + 1));
             }
 
-            ret.ArgExtractCode = CefTypeTxPlan.PrepareDataFromNativeToCs(ret.TypeSymbol, "ret", "ret_result");
+            ret.ArgExtractCode = CefTypeTx.PrepareDataFromNativeToCs(ret.TypeSymbol, "ret", "ret_result");
             stbuilder.AppendLine();
             //------------------
             stbuilder.Append("public ");
-            stbuilder.Append(CefTypeTxPlan.GetCsRetName(ret.TypeSymbol));
+            stbuilder.Append(CefTypeTx.GetCsRetName(ret.TypeSymbol));
             stbuilder.Append(" ");
 
             //some method name should be renamed
@@ -586,7 +586,7 @@ namespace BridgeBuilder
                     stbuilder.AppendLine(",");
                 }
                 MethodParameterTxInfo parTx = pars[i];
-                stbuilder.Append(CefTypeTxPlan.GetCsRetName(parTx.TypeSymbol));
+                stbuilder.Append(CefTypeTx.GetCsRetName(parTx.TypeSymbol));
                 stbuilder.Append(" ");
                 stbuilder.Append(parTx.Name);
             }
@@ -657,14 +657,14 @@ namespace BridgeBuilder
     }
     class CsNativeHandlerSwitchTableCodeGen : CsCodeGen
     {
-        public void GenerateCefNativeRequestHandlers(List<CefHandlerTxPlan> handlerPlans, StringBuilder stbuilder)
+        public void GenerateCefNativeRequestHandlers(List<CefHandlerTx> handlerPlans, StringBuilder stbuilder)
         {
             CodeStringBuilder cef_NativeReqHandlers_Class = new CodeStringBuilder();
             cef_NativeReqHandlers_Class.AppendLine("//------ common cef handler swicth table---------");
             cef_NativeReqHandlers_Class.AppendLine("public static class CefNativeRequestHandlers{");
             cef_NativeReqHandlers_Class.AppendLine("public static void HandleNativeReq(object inst, int met_id,IntPtr args){");
             cef_NativeReqHandlers_Class.AppendLine("switch((met_id>>16)){");
-            foreach (CefHandlerTxPlan tx in handlerPlans)
+            foreach (CefHandlerTx tx in handlerPlans)
             {
                 cef_NativeReqHandlers_Class.AppendLine("case " + tx.OriginalDecl.Name + "._typeNAME:{");
                 cef_NativeReqHandlers_Class.AppendLine(tx.OriginalDecl.Name + ".HandleNativeReq(inst as " + tx.OriginalDecl.Name + ".I0," +

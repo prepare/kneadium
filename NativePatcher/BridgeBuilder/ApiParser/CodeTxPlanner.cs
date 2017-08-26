@@ -45,10 +45,7 @@ namespace BridgeBuilder
     }
 
 
-    abstract class TypeTxPlan
-    {
-
-    }
+    
 
 
 
