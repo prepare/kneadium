@@ -1654,7 +1654,7 @@ namespace BridgeBuilder
             CodeTypeDeclaration implTypeDecl = this.ImplTypeDecl;
 
             CsCallToNativeCodeGen csCallToNativeCodeGen = new CsCallToNativeCodeGen();
-            csCallToNativeCodeGen.GenerateCsCode(this, orgDecl, implTypeDecl, stbuilder);
+            csCallToNativeCodeGen.GenerateCsCode(this, orgDecl, implTypeDecl, false, stbuilder);
 
             //-----------------------------------------------------------
             CppToCsMethodArgsClassGen cppMetArgClassGen = new CppToCsMethodArgsClassGen();
@@ -1737,7 +1737,7 @@ namespace BridgeBuilder
             _typeTxInfo = implTypeDecl.TypeTxInfo;
             //-----------------------------------------------------------------------
             CsCallToNativeCodeGen callToNativeCs = new CsCallToNativeCodeGen();
-            callToNativeCs.GenerateCsCode(this, orgDecl, implTypeDecl, stbuilder);
+            callToNativeCs.GenerateCsCode(this, orgDecl, implTypeDecl, true, stbuilder);
         }
     }
 

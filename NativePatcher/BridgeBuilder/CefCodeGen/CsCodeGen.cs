@@ -452,7 +452,10 @@ namespace BridgeBuilder
 
         public void GenerateCsCode(
             CefTypeTxPlan txplan,
-            CodeTypeDeclaration orgDecl, CodeTypeDeclaration implTypeDecl, CodeStringBuilder stbuilder)
+            CodeTypeDeclaration orgDecl,
+            CodeTypeDeclaration implTypeDecl,
+            bool withNewMethod,
+            CodeStringBuilder stbuilder)
         {
 
             //-----------------------------------------------------------------------
@@ -509,7 +512,7 @@ namespace BridgeBuilder
                 csStruct.Append(met_stbuilder.ToString());
             }
             //-----------------------------------------------------------------------
-            if (txplan.CppImplClassName != null)
+            if (withNewMethod && txplan.CppImplClassName != null)
             {
                 csStruct.AppendLine("public static " + orgDecl.Name + " New(MyCefCallback callback){");
                 csStruct.AppendLine("JsValue not_used= new JsValue();");

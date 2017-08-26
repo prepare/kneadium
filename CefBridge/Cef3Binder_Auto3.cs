@@ -9070,7 +9070,6 @@ namespace LayoutFarm.CefBridge.Auto
             JsValue ret;
 
             Cef3Binder.MyCefMet_Call0(this.nativePtr, CefRequestContext_GetHandler_4, out ret);
-            // return new CefRequestContextHandler(ret.Ptr);
             throw new NotSupportedException();
         }
 
@@ -11578,7 +11577,6 @@ namespace LayoutFarm.CefBridge.Auto
 
             Cef3Binder.MyCefMet_Call0(this.nativePtr, CefV8Value_GetFunctionHandler_42, out ret);
             throw new NotSupportedException();
-            //return new CefV8Handler(ret.Ptr);
         }
 
         // gen! CefRefPtr<CefV8Value> ExecuteFunction(CefRefPtr<CefV8Value> object,const CefV8ValueList& arguments)
@@ -14713,8 +14711,8 @@ namespace LayoutFarm.CefBridge.Auto
     {
         const int _typeNAME = 80;
         const int CefAuthCallback_Release_0 = (_typeNAME << 16) | 0;
-        const int CefAuthCallbackCToCpp_Continue = (_typeNAME << 16) | 1;
-        const int CefAuthCallbackCToCpp_Cancel = (_typeNAME << 16) | 2;
+        const int CefAuthCallback_Continue_1 = (_typeNAME << 16) | 1;
+        const int CefAuthCallback_Cancel_2 = (_typeNAME << 16) | 2;
         internal IntPtr nativePtr;
         internal CefAuthCallback(IntPtr nativePtr)
         {
@@ -14741,7 +14739,7 @@ namespace LayoutFarm.CefBridge.Auto
             v1.Ptr = Cef3Binder.MyCefCreateStringHolder(username);
             v2.Ptr = Cef3Binder.MyCefCreateStringHolder(password);
 
-            Cef3Binder.MyCefMet_Call2(this.nativePtr, CefAuthCallbackCToCpp_Continue, out ret, ref v1, ref v2);
+            Cef3Binder.MyCefMet_Call2(this.nativePtr, CefAuthCallback_Continue_1, out ret, ref v1, ref v2);
             Cef3Binder.MyCefDeletePtr(v1.Ptr);
             Cef3Binder.MyCefDeletePtr(v2.Ptr);
 
@@ -14753,7 +14751,7 @@ namespace LayoutFarm.CefBridge.Auto
         {
             JsValue ret;
 
-            Cef3Binder.MyCefMet_Call0(this.nativePtr, CefAuthCallbackCToCpp_Cancel, out ret);
+            Cef3Binder.MyCefMet_Call0(this.nativePtr, CefAuthCallback_Cancel_2, out ret);
 
         }
     }
@@ -14828,8 +14826,8 @@ namespace LayoutFarm.CefBridge.Auto
     {
         const int _typeNAME = 84;
         const int CefCallback_Release_0 = (_typeNAME << 16) | 0;
-        const int CefCallbackCToCpp_Continue = (_typeNAME << 16) | 1;
-        const int CefCallbackCToCpp_Cancel = (_typeNAME << 16) | 2;
+        const int CefCallback_Continue_1 = (_typeNAME << 16) | 1;
+        const int CefCallback_Cancel_2 = (_typeNAME << 16) | 2;
         internal IntPtr nativePtr;
         internal CefCallback(IntPtr nativePtr)
         {
@@ -14851,7 +14849,7 @@ namespace LayoutFarm.CefBridge.Auto
         {
             JsValue ret;
 
-            Cef3Binder.MyCefMet_Call0(this.nativePtr, CefCallbackCToCpp_Continue, out ret);
+            Cef3Binder.MyCefMet_Call0(this.nativePtr, CefCallback_Continue_1, out ret);
 
         }
 
@@ -14861,7 +14859,7 @@ namespace LayoutFarm.CefBridge.Auto
         {
             JsValue ret;
 
-            Cef3Binder.MyCefMet_Call0(this.nativePtr, CefCallbackCToCpp_Cancel, out ret);
+            Cef3Binder.MyCefMet_Call0(this.nativePtr, CefCallback_Cancel_2, out ret);
 
         }
     }
@@ -14893,8 +14891,8 @@ namespace LayoutFarm.CefBridge.Auto
     {
         const int _typeNAME = 86;
         const int CefRunContextMenuCallback_Release_0 = (_typeNAME << 16) | 0;
-        const int CefRunContextMenuCallbackCToCpp_Continue = (_typeNAME << 16) | 1;
-        const int CefRunContextMenuCallbackCToCpp_Cancel = (_typeNAME << 16) | 2;
+        const int CefRunContextMenuCallback_Continue_1 = (_typeNAME << 16) | 1;
+        const int CefRunContextMenuCallback_Cancel_2 = (_typeNAME << 16) | 2;
         internal IntPtr nativePtr;
         internal CefRunContextMenuCallback(IntPtr nativePtr)
         {
@@ -14921,7 +14919,7 @@ namespace LayoutFarm.CefBridge.Auto
             v1.I32 = (int)command_id;
             v2.I32 = (int)event_flags;
 
-            Cef3Binder.MyCefMet_Call2(this.nativePtr, CefRunContextMenuCallbackCToCpp_Continue, out ret, ref v1, ref v2);
+            Cef3Binder.MyCefMet_Call2(this.nativePtr, CefRunContextMenuCallback_Continue_1, out ret, ref v1, ref v2);
 
         }
 
@@ -14931,7 +14929,7 @@ namespace LayoutFarm.CefBridge.Auto
         {
             JsValue ret;
 
-            Cef3Binder.MyCefMet_Call0(this.nativePtr, CefRunContextMenuCallbackCToCpp_Cancel, out ret);
+            Cef3Binder.MyCefMet_Call0(this.nativePtr, CefRunContextMenuCallback_Cancel_2, out ret);
 
         }
     }
@@ -14985,8 +14983,8 @@ namespace LayoutFarm.CefBridge.Auto
     {
         const int _typeNAME = 89;
         const int CefFileDialogCallback_Release_0 = (_typeNAME << 16) | 0;
-        const int CefFileDialogCallbackCToCpp_Continue = (_typeNAME << 16) | 1;
-        const int CefFileDialogCallbackCToCpp_Cancel = (_typeNAME << 16) | 2;
+        const int CefFileDialogCallback_Continue_1 = (_typeNAME << 16) | 1;
+        const int CefFileDialogCallback_Cancel_2 = (_typeNAME << 16) | 2;
         internal IntPtr nativePtr;
         internal CefFileDialogCallback(IntPtr nativePtr)
         {
@@ -15013,7 +15011,7 @@ namespace LayoutFarm.CefBridge.Auto
             v1.I32 = (int)selected_accept_filter;
             v2.Ptr = Cef3Binder.CreateStdList(2);
 
-            Cef3Binder.MyCefMet_Call2(this.nativePtr, CefFileDialogCallbackCToCpp_Continue, out ret, ref v1, ref v2);
+            Cef3Binder.MyCefMet_Call2(this.nativePtr, CefFileDialogCallback_Continue_1, out ret, ref v1, ref v2);
             Cef3Binder.CopyStdStringListAndDestroyNativeSide(v2.Ptr, file_paths);
 
         }
@@ -15024,7 +15022,7 @@ namespace LayoutFarm.CefBridge.Auto
         {
             JsValue ret;
 
-            Cef3Binder.MyCefMet_Call0(this.nativePtr, CefFileDialogCallbackCToCpp_Cancel, out ret);
+            Cef3Binder.MyCefMet_Call0(this.nativePtr, CefFileDialogCallback_Cancel_2, out ret);
 
         }
     }
@@ -15036,7 +15034,7 @@ namespace LayoutFarm.CefBridge.Auto
     {
         const int _typeNAME = 90;
         const int CefBeforeDownloadCallback_Release_0 = (_typeNAME << 16) | 0;
-        const int CefBeforeDownloadCallbackCToCpp_Continue = (_typeNAME << 16) | 1;
+        const int CefBeforeDownloadCallback_Continue_1 = (_typeNAME << 16) | 1;
         internal IntPtr nativePtr;
         internal CefBeforeDownloadCallback(IntPtr nativePtr)
         {
@@ -15063,7 +15061,7 @@ namespace LayoutFarm.CefBridge.Auto
             v1.Ptr = Cef3Binder.MyCefCreateStringHolder(download_path);
             v2.I32 = show_dialog ? 1 : 0;
 
-            Cef3Binder.MyCefMet_Call2(this.nativePtr, CefBeforeDownloadCallbackCToCpp_Continue, out ret, ref v1, ref v2);
+            Cef3Binder.MyCefMet_Call2(this.nativePtr, CefBeforeDownloadCallback_Continue_1, out ret, ref v1, ref v2);
             Cef3Binder.MyCefDeletePtr(v1.Ptr);
 
         }
@@ -15076,9 +15074,9 @@ namespace LayoutFarm.CefBridge.Auto
     {
         const int _typeNAME = 91;
         const int CefDownloadItemCallback_Release_0 = (_typeNAME << 16) | 0;
-        const int CefDownloadItemCallbackCToCpp_Cancel = (_typeNAME << 16) | 1;
-        const int CefDownloadItemCallbackCToCpp_Pause = (_typeNAME << 16) | 2;
-        const int CefDownloadItemCallbackCToCpp_Resume = (_typeNAME << 16) | 3;
+        const int CefDownloadItemCallback_Cancel_1 = (_typeNAME << 16) | 1;
+        const int CefDownloadItemCallback_Pause_2 = (_typeNAME << 16) | 2;
+        const int CefDownloadItemCallback_Resume_3 = (_typeNAME << 16) | 3;
         internal IntPtr nativePtr;
         internal CefDownloadItemCallback(IntPtr nativePtr)
         {
@@ -15100,7 +15098,7 @@ namespace LayoutFarm.CefBridge.Auto
         {
             JsValue ret;
 
-            Cef3Binder.MyCefMet_Call0(this.nativePtr, CefDownloadItemCallbackCToCpp_Cancel, out ret);
+            Cef3Binder.MyCefMet_Call0(this.nativePtr, CefDownloadItemCallback_Cancel_1, out ret);
 
         }
 
@@ -15110,7 +15108,7 @@ namespace LayoutFarm.CefBridge.Auto
         {
             JsValue ret;
 
-            Cef3Binder.MyCefMet_Call0(this.nativePtr, CefDownloadItemCallbackCToCpp_Pause, out ret);
+            Cef3Binder.MyCefMet_Call0(this.nativePtr, CefDownloadItemCallback_Pause_2, out ret);
 
         }
 
@@ -15120,7 +15118,7 @@ namespace LayoutFarm.CefBridge.Auto
         {
             JsValue ret;
 
-            Cef3Binder.MyCefMet_Call0(this.nativePtr, CefDownloadItemCallbackCToCpp_Resume, out ret);
+            Cef3Binder.MyCefMet_Call0(this.nativePtr, CefDownloadItemCallback_Resume_3, out ret);
 
         }
     }
@@ -15154,7 +15152,7 @@ namespace LayoutFarm.CefBridge.Auto
     {
         const int _typeNAME = 93;
         const int CefGeolocationCallback_Release_0 = (_typeNAME << 16) | 0;
-        const int CefGeolocationCallbackCToCpp_Continue = (_typeNAME << 16) | 1;
+        const int CefGeolocationCallback_Continue_1 = (_typeNAME << 16) | 1;
         internal IntPtr nativePtr;
         internal CefGeolocationCallback(IntPtr nativePtr)
         {
@@ -15178,7 +15176,7 @@ namespace LayoutFarm.CefBridge.Auto
             JsValue ret;
             v1.I32 = allow ? 1 : 0;
 
-            Cef3Binder.MyCefMet_Call1(this.nativePtr, CefGeolocationCallbackCToCpp_Continue, out ret, ref v1);
+            Cef3Binder.MyCefMet_Call1(this.nativePtr, CefGeolocationCallback_Continue_1, out ret, ref v1);
 
         }
     }
@@ -15191,7 +15189,7 @@ namespace LayoutFarm.CefBridge.Auto
     {
         const int _typeNAME = 94;
         const int CefJSDialogCallback_Release_0 = (_typeNAME << 16) | 0;
-        const int CefJSDialogCallbackCToCpp_Continue = (_typeNAME << 16) | 1;
+        const int CefJSDialogCallback_Continue_1 = (_typeNAME << 16) | 1;
         internal IntPtr nativePtr;
         internal CefJSDialogCallback(IntPtr nativePtr)
         {
@@ -15218,7 +15216,7 @@ namespace LayoutFarm.CefBridge.Auto
             v2.Ptr = Cef3Binder.MyCefCreateStringHolder(user_input);
             v1.I32 = success ? 1 : 0;
 
-            Cef3Binder.MyCefMet_Call2(this.nativePtr, CefJSDialogCallbackCToCpp_Continue, out ret, ref v1, ref v2);
+            Cef3Binder.MyCefMet_Call2(this.nativePtr, CefJSDialogCallback_Continue_1, out ret, ref v1, ref v2);
             Cef3Binder.MyCefDeletePtr(v2.Ptr);
 
         }
@@ -15231,8 +15229,8 @@ namespace LayoutFarm.CefBridge.Auto
     {
         const int _typeNAME = 95;
         const int CefPrintDialogCallback_Release_0 = (_typeNAME << 16) | 0;
-        const int CefPrintDialogCallbackCToCpp_Continue = (_typeNAME << 16) | 1;
-        const int CefPrintDialogCallbackCToCpp_Cancel = (_typeNAME << 16) | 2;
+        const int CefPrintDialogCallback_Continue_1 = (_typeNAME << 16) | 1;
+        const int CefPrintDialogCallback_Cancel_2 = (_typeNAME << 16) | 2;
         internal IntPtr nativePtr;
         internal CefPrintDialogCallback(IntPtr nativePtr)
         {
@@ -15256,7 +15254,7 @@ namespace LayoutFarm.CefBridge.Auto
             JsValue ret;
             v1.Ptr = settings.nativePtr;
 
-            Cef3Binder.MyCefMet_Call1(this.nativePtr, CefPrintDialogCallbackCToCpp_Continue, out ret, ref v1);
+            Cef3Binder.MyCefMet_Call1(this.nativePtr, CefPrintDialogCallback_Continue_1, out ret, ref v1);
 
         }
 
@@ -15266,7 +15264,7 @@ namespace LayoutFarm.CefBridge.Auto
         {
             JsValue ret;
 
-            Cef3Binder.MyCefMet_Call0(this.nativePtr, CefPrintDialogCallbackCToCpp_Cancel, out ret);
+            Cef3Binder.MyCefMet_Call0(this.nativePtr, CefPrintDialogCallback_Cancel_2, out ret);
 
         }
     }
@@ -15278,7 +15276,7 @@ namespace LayoutFarm.CefBridge.Auto
     {
         const int _typeNAME = 96;
         const int CefPrintJobCallback_Release_0 = (_typeNAME << 16) | 0;
-        const int CefPrintJobCallbackCToCpp_Continue = (_typeNAME << 16) | 1;
+        const int CefPrintJobCallback_Continue_1 = (_typeNAME << 16) | 1;
         internal IntPtr nativePtr;
         internal CefPrintJobCallback(IntPtr nativePtr)
         {
@@ -15300,7 +15298,7 @@ namespace LayoutFarm.CefBridge.Auto
         {
             JsValue ret;
 
-            Cef3Binder.MyCefMet_Call0(this.nativePtr, CefPrintJobCallbackCToCpp_Continue, out ret);
+            Cef3Binder.MyCefMet_Call0(this.nativePtr, CefPrintJobCallback_Continue_1, out ret);
 
         }
     }
@@ -15332,8 +15330,8 @@ namespace LayoutFarm.CefBridge.Auto
     {
         const int _typeNAME = 98;
         const int CefRequestCallback_Release_0 = (_typeNAME << 16) | 0;
-        const int CefRequestCallbackCToCpp_Continue = (_typeNAME << 16) | 1;
-        const int CefRequestCallbackCToCpp_Cancel = (_typeNAME << 16) | 2;
+        const int CefRequestCallback_Continue_1 = (_typeNAME << 16) | 1;
+        const int CefRequestCallback_Cancel_2 = (_typeNAME << 16) | 2;
         internal IntPtr nativePtr;
         internal CefRequestCallback(IntPtr nativePtr)
         {
@@ -15357,7 +15355,7 @@ namespace LayoutFarm.CefBridge.Auto
             JsValue ret;
             v1.I32 = allow ? 1 : 0;
 
-            Cef3Binder.MyCefMet_Call1(this.nativePtr, CefRequestCallbackCToCpp_Continue, out ret, ref v1);
+            Cef3Binder.MyCefMet_Call1(this.nativePtr, CefRequestCallback_Continue_1, out ret, ref v1);
 
         }
 
@@ -15367,7 +15365,7 @@ namespace LayoutFarm.CefBridge.Auto
         {
             JsValue ret;
 
-            Cef3Binder.MyCefMet_Call0(this.nativePtr, CefRequestCallbackCToCpp_Cancel, out ret);
+            Cef3Binder.MyCefMet_Call0(this.nativePtr, CefRequestCallback_Cancel_2, out ret);
 
         }
     }
@@ -15379,7 +15377,7 @@ namespace LayoutFarm.CefBridge.Auto
     {
         const int _typeNAME = 99;
         const int CefSelectClientCertificateCallback_Release_0 = (_typeNAME << 16) | 0;
-        const int CefSelectClientCertificateCallbackCToCpp_Select = (_typeNAME << 16) | 1;
+        const int CefSelectClientCertificateCallback_Select_1 = (_typeNAME << 16) | 1;
         internal IntPtr nativePtr;
         internal CefSelectClientCertificateCallback(IntPtr nativePtr)
         {
@@ -15403,7 +15401,7 @@ namespace LayoutFarm.CefBridge.Auto
             JsValue ret;
             v1.Ptr = cert.nativePtr;
 
-            Cef3Binder.MyCefMet_Call1(this.nativePtr, CefSelectClientCertificateCallbackCToCpp_Select, out ret, ref v1);
+            Cef3Binder.MyCefMet_Call1(this.nativePtr, CefSelectClientCertificateCallback_Select_1, out ret, ref v1);
 
         }
     }
