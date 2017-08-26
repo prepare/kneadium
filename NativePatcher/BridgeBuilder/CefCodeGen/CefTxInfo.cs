@@ -43,11 +43,7 @@ namespace BridgeBuilder
         }
 #endif
     }
-
-
-    
-
-
+     
 
     enum CefTypeModel
     {
@@ -233,10 +229,7 @@ namespace BridgeBuilder
         InOut
     }
 
-
-
-
-
+     
     class TypeTranformPlanner
     {
         CodeTypeDeclaration typedecl; //current type decl
