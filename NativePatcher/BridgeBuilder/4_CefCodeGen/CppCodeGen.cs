@@ -15,7 +15,7 @@ namespace BridgeBuilder
             CodeTypeDeclaration orgDecl,
             CodeStringBuilder stbuilder)
         {
-
+            stbuilder.AppendLine("//!codegen: GenerateCppImplClass \r\n");
             string className = "My" + orgDecl.Name;
             int nn = callToDotNetMets.Count;
             for (int mm = 0; mm < nn; ++mm)
@@ -264,7 +264,7 @@ namespace BridgeBuilder
             List<MethodTxInfo> onEventMethods,
             CodeStringBuilder stbuilder)
         {
-
+            stbuilder.AppendLine("//!codegen: CppEventListenerInstanceImplCodeGen \r\n");
             string className = "My" + orgDecl.Name;
             int nn = onEventMethods.Count;
             for (int mm = 0; mm < nn; ++mm)
@@ -327,7 +327,7 @@ namespace BridgeBuilder
             CodeStringBuilder stbuilder)
         {
 
-           
+            stbuilder.AppendLine("//!codegen: CppHandleCsMethodRequestCodeGen \r\n");
             //
             //create switch table for C#-interop
             //
@@ -532,7 +532,7 @@ namespace BridgeBuilder
         /// <returns></returns>
         public string GenerateCppMethodArgsClass(MethodTxInfo met, CodeStringBuilder stbuilder)
         {
-            //
+            stbuilder.AppendLine("//!codegen: CppToCsMethodArgsClassGen \r\n");
 
             //generate cs method pars
             CodeMethodDeclaration metDecl = met.metDecl;
