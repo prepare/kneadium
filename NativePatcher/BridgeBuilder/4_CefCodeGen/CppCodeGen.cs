@@ -176,7 +176,7 @@ namespace BridgeBuilder
         }
     }
 
-    class CppEventListnerInstanceImplCodeGen : CppCodeGen
+    class CppEventListenerInstanceImplCodeGen : CppCodeGen
     {
         void GenerateCppImplMethod(MethodTxInfo met, CodeStringBuilder stbuilder)
         {
