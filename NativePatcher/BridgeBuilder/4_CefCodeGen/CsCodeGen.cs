@@ -12,7 +12,7 @@ namespace BridgeBuilder
         //call from cs to native side
         //------------------------------
 
-        CodeTypeDeclaration _currentCodeTypeDecl;
+       
         TypeTxInfo _typeTxInfo;
         CodeTypeDeclaration _orgDecl;
         internal static void PrepareCsMetArg(MethodParameterTxInfo par, string argName)
@@ -464,8 +464,8 @@ namespace BridgeBuilder
 
             //-----------------------------------------------------------------------
             _orgDecl = orgDecl;
-            _typeTxInfo = implTypeDecl.TypeTxInfo;
-            _currentCodeTypeDecl = implTypeDecl;
+            _typeTxInfo = implTypeDecl.TypeTxInfo;//tx = tye
+            
 
             int j = _typeTxInfo.methods.Count;
             //-----------------------------------------------------------------------
@@ -487,7 +487,7 @@ namespace BridgeBuilder
                 }
                 if (metTx.CppMethodSwitchCaseName == null)
                 {
-                    metTx.CppMethodSwitchCaseName = _currentCodeTypeDecl.Name + "_" + metTx.Name;
+                    metTx.CppMethodSwitchCaseName = implTypeDecl.Name + "_" + metTx.Name;
                     //throw new NotSupportedException();
                 }
                 csStruct.AppendLine("const int " + metTx.CppMethodSwitchCaseName + "= (_typeNAME <<16) |" + (i + 1) + ";");
@@ -655,6 +655,7 @@ namespace BridgeBuilder
         }
 
     }
+
     class CsNativeHandlerSwitchTableCodeGen : CsCodeGen
     {
         public void GenerateCefNativeRequestHandlers(List<CefHandlerTx> handlerPlans, StringBuilder stbuilder)

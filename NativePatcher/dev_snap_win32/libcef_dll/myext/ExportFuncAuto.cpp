@@ -65,6 +65,8 @@ const int MET_Release = 0;
 //////////////////////////////////////////////////////////////////
 
 // [virtual] class CefApp
+//!codegen: CppHandleCsMethodRequestCodeGen 
+
 const int CefApp_OnBeforeCommandLineProcessing_1 = 1;
 const int CefApp_OnRegisterCustomSchemes_2 = 2;
 const int CefApp_GetResourceBundleHandler_3 = 3;
@@ -115,6 +117,8 @@ void MyCefMet_CefApp(cef_app_t* me1, int metName, jsvalue* ret, jsvalue* v1, jsv
 	}
 	CefAppCppToC::Wrap(me);
 }
+//!codegen: GenerateCppImplClass 
+
 const int MyCefApp_OnBeforeCommandLineProcessing_1 = 1;
 const int MyCefApp_OnRegisterCustomSchemes_2 = 2;
 const int MyCefApp_GetResourceBundleHandler_3 = 3;
@@ -203,6 +207,8 @@ private:
 
 
 // [virtual] class CefBrowser
+//!codegen: CppHandleCsMethodRequestCodeGen 
+
 const int CefBrowser_GetHost_1 = 1;
 const int CefBrowser_CanGoBack_2 = 2;
 const int CefBrowser_GoBack_3 = 3;
@@ -384,6 +390,8 @@ void MyCefMet_CefBrowser(cef_browser_t* me1, int metName, jsvalue* ret, jsvalue*
 
 
 // [virtual] class CefNavigationEntryVisitor
+//!codegen: CppHandleCsMethodRequestCodeGen 
+
 const int CefNavigationEntryVisitor_Visit_1 = 1;
 
 void MyCefMet_CefNavigationEntryVisitor(cef_navigation_entry_visitor_t* me1, int metName, jsvalue* ret, jsvalue* v1, jsvalue* v2, jsvalue* v3, jsvalue* v4) {
@@ -404,6 +412,8 @@ void MyCefMet_CefNavigationEntryVisitor(cef_navigation_entry_visitor_t* me1, int
 	}
 	CefNavigationEntryVisitorCppToC::Wrap(me);
 }
+//!codegen: GenerateCppImplClass 
+
 const int MyCefNavigationEntryVisitor_Visit_1 = 1;
 class MyCefNavigationEntryVisitor :public CefNavigationEntryVisitor {
 public:
@@ -437,6 +447,8 @@ private:
 
 
 // [virtual] class CefBrowserHost
+//!codegen: CppHandleCsMethodRequestCodeGen 
+
 const int CefBrowserHost_GetBrowser_1 = 1;
 const int CefBrowserHost_CloseBrowser_2 = 2;
 const int CefBrowserHost_TryCloseBrowser_3 = 3;
@@ -900,6 +912,8 @@ void MyCefMet_CefBrowserHost(cef_browser_host_t* me1, int metName, jsvalue* ret,
 
 
 // [virtual] class CefClient
+//!codegen: CppHandleCsMethodRequestCodeGen 
+
 const int CefClient_GetContextMenuHandler_1 = 1;
 const int CefClient_GetDialogHandler_2 = 2;
 const int CefClient_GetDisplayHandler_3 = 3;
@@ -1031,6 +1045,8 @@ void MyCefMet_CefClient(cef_client_t* me1, int metName, jsvalue* ret, jsvalue* v
 	}
 	CefClientCppToC::Wrap(me);
 }
+//!codegen: GenerateCppImplClass 
+
 const int MyCefClient_GetContextMenuHandler_1 = 1;
 const int MyCefClient_GetDialogHandler_2 = 2;
 const int MyCefClient_GetDisplayHandler_3 = 3;
@@ -1275,6 +1291,8 @@ private:
 
 
 // [virtual] class CefCommandLine
+//!codegen: CppHandleCsMethodRequestCodeGen 
+
 const int CefCommandLine_IsValid_1 = 1;
 const int CefCommandLine_IsReadOnly_2 = 2;
 const int CefCommandLine_Copy_3 = 3;
@@ -1449,6 +1467,8 @@ void MyCefMet_CefCommandLine(cef_command_line_t* me1, int metName, jsvalue* ret,
 
 
 // [virtual] class CefContextMenuParams
+//!codegen: CppHandleCsMethodRequestCodeGen 
+
 const int CefContextMenuParams_GetXCoord_1 = 1;
 const int CefContextMenuParams_GetYCoord_2 = 2;
 const int CefContextMenuParams_GetTypeFlags_3 = 3;
@@ -1629,6 +1649,8 @@ void MyCefMet_CefContextMenuParams(cef_context_menu_params_t* me1, int metName, 
 
 
 // [virtual] class CefCookieManager
+//!codegen: CppHandleCsMethodRequestCodeGen 
+
 const int CefCookieManager_SetSupportedSchemes_1 = 1;
 const int CefCookieManager_VisitAllCookies_2 = 2;
 const int CefCookieManager_VisitUrlCookies_3 = 3;
@@ -1706,6 +1728,8 @@ void MyCefMet_CefCookieManager(cef_cookie_manager_t* me1, int metName, jsvalue* 
 
 
 // [virtual] class CefCookieVisitor
+//!codegen: CppHandleCsMethodRequestCodeGen 
+
 const int CefCookieVisitor_Visit_1 = 1;
 
 void MyCefMet_CefCookieVisitor(cef_cookie_visitor_t* me1, int metName, jsvalue* ret, jsvalue* v1, jsvalue* v2, jsvalue* v3, jsvalue* v4) {
@@ -1726,6 +1750,8 @@ void MyCefMet_CefCookieVisitor(cef_cookie_visitor_t* me1, int metName, jsvalue* 
 	}
 	CefCookieVisitorCppToC::Wrap(me);
 }
+//!codegen: GenerateCppImplClass 
+
 const int MyCefCookieVisitor_Visit_1 = 1;
 class MyCefCookieVisitor :public CefCookieVisitor {
 public:
@@ -1757,6 +1783,8 @@ private:
 
 
 // [virtual] class CefDOMVisitor
+//!codegen: CppHandleCsMethodRequestCodeGen 
+
 const int CefDOMVisitor_Visit_1 = 1;
 
 void MyCefMet_CefDOMVisitor(cef_domvisitor_t* me1, int metName, jsvalue* ret, jsvalue* v1) {
@@ -1774,6 +1802,8 @@ void MyCefMet_CefDOMVisitor(cef_domvisitor_t* me1, int metName, jsvalue* ret, js
 	}
 	CefDOMVisitorCppToC::Wrap(me);
 }
+//!codegen: GenerateCppImplClass 
+
 const int MyCefDOMVisitor_Visit_1 = 1;
 class MyCefDOMVisitor :public CefDOMVisitor {
 public:
@@ -1802,6 +1832,8 @@ private:
 
 
 // [virtual] class CefDOMDocument
+//!codegen: CppHandleCsMethodRequestCodeGen 
+
 const int CefDOMDocument_GetType_1 = 1;
 const int CefDOMDocument_GetDocument_2 = 2;
 const int CefDOMDocument_GetBody_3 = 3;
@@ -1926,6 +1958,8 @@ void MyCefMet_CefDOMDocument(cef_domdocument_t* me1, int metName, jsvalue* ret, 
 
 
 // [virtual] class CefDOMNode
+//!codegen: CppHandleCsMethodRequestCodeGen 
+
 const int CefDOMNode_GetType_1 = 1;
 const int CefDOMNode_IsText_2 = 2;
 const int CefDOMNode_IsElement_3 = 3;
@@ -2149,6 +2183,8 @@ void MyCefMet_CefDOMNode(cef_domnode_t* me1, int metName, jsvalue* ret, jsvalue*
 
 
 // [virtual] class CefDownloadItem
+//!codegen: CppHandleCsMethodRequestCodeGen 
+
 const int CefDownloadItem_IsValid_1 = 1;
 const int CefDownloadItem_IsInProgress_2 = 2;
 const int CefDownloadItem_IsComplete_3 = 3;
@@ -2301,6 +2337,8 @@ void MyCefMet_CefDownloadItem(cef_download_item_t* me1, int metName, jsvalue* re
 
 
 // [virtual] class CefDragData
+//!codegen: CppHandleCsMethodRequestCodeGen 
+
 const int CefDragData_Clone_1 = 1;
 const int CefDragData_IsReadOnly_2 = 2;
 const int CefDragData_IsLink_3 = 3;
@@ -2516,6 +2554,8 @@ void MyCefMet_CefDragData(cef_drag_data_t* me1, int metName, jsvalue* ret, jsval
 
 
 // [virtual] class CefFrame
+//!codegen: CppHandleCsMethodRequestCodeGen 
+
 const int CefFrame_IsValid_1 = 1;
 const int CefFrame_Undo_2 = 2;
 const int CefFrame_Redo_3 = 3;
@@ -2723,6 +2763,8 @@ void MyCefMet_CefFrame(cef_frame_t* me1, int metName, jsvalue* ret, jsvalue* v1,
 
 
 // [virtual] class CefImage
+//!codegen: CppHandleCsMethodRequestCodeGen 
+
 const int CefImage_IsEmpty_1 = 1;
 const int CefImage_IsSame_2 = 2;
 const int CefImage_AddBitmap_3 = 3;
@@ -2862,6 +2904,8 @@ void MyCefMet_CefImage(cef_image_t* me1, int metName, jsvalue* ret, jsvalue* v1,
 
 
 // [virtual] class CefMenuModel
+//!codegen: CppHandleCsMethodRequestCodeGen 
+
 const int CefMenuModel_IsSubMenu_1 = 1;
 const int CefMenuModel_Clear_2 = 2;
 const int CefMenuModel_GetCount_3 = 3;
@@ -3373,6 +3417,8 @@ void MyCefMet_CefMenuModel(cef_menu_model_t* me1, int metName, jsvalue* ret, jsv
 
 
 // [virtual] class CefMenuModelDelegate
+//!codegen: CppHandleCsMethodRequestCodeGen 
+
 const int CefMenuModelDelegate_ExecuteCommand_1 = 1;
 const int CefMenuModelDelegate_MouseOutsideMenu_2 = 2;
 const int CefMenuModelDelegate_UnhandledOpenSubmenu_3 = 3;
@@ -3444,6 +3490,8 @@ void MyCefMet_CefMenuModelDelegate(cef_menu_model_delegate_t* me1, int metName, 
 	}
 	CefMenuModelDelegateCppToC::Wrap(me);
 }
+//!codegen: GenerateCppImplClass 
+
 const int MyCefMenuModelDelegate_ExecuteCommand_1 = 1;
 const int MyCefMenuModelDelegate_MouseOutsideMenu_2 = 2;
 const int MyCefMenuModelDelegate_UnhandledOpenSubmenu_3 = 3;
@@ -3576,6 +3624,8 @@ private:
 
 
 // [virtual] class CefNavigationEntry
+//!codegen: CppHandleCsMethodRequestCodeGen 
+
 const int CefNavigationEntry_IsValid_1 = 1;
 const int CefNavigationEntry_GetURL_2 = 2;
 const int CefNavigationEntry_GetDisplayURL_3 = 3;
@@ -3670,6 +3720,8 @@ void MyCefMet_CefNavigationEntry(cef_navigation_entry_t* me1, int metName, jsval
 
 
 // [virtual] class CefPrintSettings
+//!codegen: CppHandleCsMethodRequestCodeGen 
+
 const int CefPrintSettings_IsValid_1 = 1;
 const int CefPrintSettings_IsReadOnly_2 = 2;
 const int CefPrintSettings_Copy_3 = 3;
@@ -3868,6 +3920,8 @@ void MyCefMet_CefPrintSettings(cef_print_settings_t* me1, int metName, jsvalue* 
 
 
 // [virtual] class CefProcessMessage
+//!codegen: CppHandleCsMethodRequestCodeGen 
+
 const int CefProcessMessage_IsValid_1 = 1;
 const int CefProcessMessage_IsReadOnly_2 = 2;
 const int CefProcessMessage_Copy_3 = 3;
@@ -3920,6 +3974,8 @@ void MyCefMet_CefProcessMessage(cef_process_message_t* me1, int metName, jsvalue
 
 
 // [virtual] class CefRequest
+//!codegen: CppHandleCsMethodRequestCodeGen 
+
 const int CefRequest_IsReadOnly_1 = 1;
 const int CefRequest_GetURL_2 = 2;
 const int CefRequest_SetURL_3 = 3;
@@ -4096,6 +4152,8 @@ void MyCefMet_CefRequest(cef_request_t* me1, int metName, jsvalue* ret, jsvalue*
 
 
 // [virtual] class CefPostData
+//!codegen: CppHandleCsMethodRequestCodeGen 
+
 const int CefPostData_IsReadOnly_1 = 1;
 const int CefPostData_HasExcludedElements_2 = 2;
 const int CefPostData_GetElementCount_3 = 3;
@@ -4164,6 +4222,8 @@ void MyCefMet_CefPostData(cef_post_data_t* me1, int metName, jsvalue* ret, jsval
 
 
 // [virtual] class CefPostDataElement
+//!codegen: CppHandleCsMethodRequestCodeGen 
+
 const int CefPostDataElement_IsReadOnly_1 = 1;
 const int CefPostDataElement_SetToEmpty_2 = 2;
 const int CefPostDataElement_SetToFile_3 = 3;
@@ -4242,6 +4302,8 @@ void MyCefMet_CefPostDataElement(cef_post_data_element_t* me1, int metName, jsva
 
 
 // [virtual] class CefRequestContext
+//!codegen: CppHandleCsMethodRequestCodeGen 
+
 const int CefRequestContext_IsSame_1 = 1;
 const int CefRequestContext_IsSharingWith_2 = 2;
 const int CefRequestContext_IsGlobal_3 = 3;
@@ -4404,6 +4466,8 @@ void MyCefMet_CefRequestContext(cef_request_context_t* me1, int metName, jsvalue
 
 
 // [virtual] class CefResourceBundle
+//!codegen: CppHandleCsMethodRequestCodeGen 
+
 const int CefResourceBundle_GetLocalizedString_1 = 1;
 const int CefResourceBundle_GetDataResource_2 = 2;
 const int CefResourceBundle_GetDataResourceForScale_3 = 3;
@@ -4445,6 +4509,8 @@ void MyCefMet_CefResourceBundle(cef_resource_bundle_t* me1, int metName, jsvalue
 
 
 // [virtual] class CefResponse
+//!codegen: CppHandleCsMethodRequestCodeGen 
+
 const int CefResponse_IsReadOnly_1 = 1;
 const int CefResponse_GetError_2 = 2;
 const int CefResponse_SetError_3 = 3;
@@ -4553,6 +4619,8 @@ void MyCefMet_CefResponse(cef_response_t* me1, int metName, jsvalue* ret, jsvalu
 
 
 // [virtual] class CefResponseFilter
+//!codegen: CppHandleCsMethodRequestCodeGen 
+
 const int CefResponseFilter_InitFilter_1 = 1;
 const int CefResponseFilter_Filter_2 = 2;
 
@@ -4583,6 +4651,8 @@ void MyCefMet_CefResponseFilter(cef_response_filter_t* me1, int metName, jsvalue
 	}
 	CefResponseFilterCppToC::Wrap(me);
 }
+//!codegen: GenerateCppImplClass 
+
 const int MyCefResponseFilter_InitFilter_1 = 1;
 const int MyCefResponseFilter_Filter_2 = 2;
 class MyCefResponseFilter :public CefResponseFilter {
@@ -4631,6 +4701,8 @@ private:
 
 
 // [virtual] class CefSchemeHandlerFactory
+//!codegen: CppHandleCsMethodRequestCodeGen 
+
 const int CefSchemeHandlerFactory_Create_1 = 1;
 
 void MyCefMet_CefSchemeHandlerFactory(cef_scheme_handler_factory_t* me1, int metName, jsvalue* ret, jsvalue* v1, jsvalue* v2, jsvalue* v3, jsvalue* v4) {
@@ -4651,6 +4723,8 @@ void MyCefMet_CefSchemeHandlerFactory(cef_scheme_handler_factory_t* me1, int met
 	}
 	CefSchemeHandlerFactoryCppToC::Wrap(me);
 }
+//!codegen: GenerateCppImplClass 
+
 const int MyCefSchemeHandlerFactory_Create_1 = 1;
 class MyCefSchemeHandlerFactory :public CefSchemeHandlerFactory {
 public:
@@ -4688,6 +4762,8 @@ private:
 
 
 // [virtual] class CefSSLInfo
+//!codegen: CppHandleCsMethodRequestCodeGen 
+
 const int CefSSLInfo_GetCertStatus_1 = 1;
 const int CefSSLInfo_GetX509Certificate_2 = 2;
 
@@ -4716,6 +4792,8 @@ void MyCefMet_CefSSLInfo(cef_sslinfo_t* me1, int metName, jsvalue* ret) {
 
 
 // [virtual] class CefSSLStatus
+//!codegen: CppHandleCsMethodRequestCodeGen 
+
 const int CefSSLStatus_IsSecureConnection_1 = 1;
 const int CefSSLStatus_GetCertStatus_2 = 2;
 const int CefSSLStatus_GetSSLVersion_3 = 3;
@@ -4768,6 +4846,8 @@ void MyCefMet_CefSSLStatus(cef_sslstatus_t* me1, int metName, jsvalue* ret) {
 
 
 // [virtual] class CefStreamReader
+//!codegen: CppHandleCsMethodRequestCodeGen 
+
 const int CefStreamReader_Read_1 = 1;
 const int CefStreamReader_Seek_2 = 2;
 const int CefStreamReader_Tell_3 = 3;
@@ -4823,6 +4903,8 @@ void MyCefMet_CefStreamReader(cef_stream_reader_t* me1, int metName, jsvalue* re
 
 
 // [virtual] class CefStreamWriter
+//!codegen: CppHandleCsMethodRequestCodeGen 
+
 const int CefStreamWriter_Write_1 = 1;
 const int CefStreamWriter_Seek_2 = 2;
 const int CefStreamWriter_Tell_3 = 3;
@@ -4878,6 +4960,8 @@ void MyCefMet_CefStreamWriter(cef_stream_writer_t* me1, int metName, jsvalue* re
 
 
 // [virtual] class CefStringVisitor
+//!codegen: CppHandleCsMethodRequestCodeGen 
+
 const int CefStringVisitor_Visit_1 = 1;
 
 void MyCefMet_CefStringVisitor(cef_string_visitor_t* me1, int metName, jsvalue* ret, jsvalue* v1) {
@@ -4895,6 +4979,8 @@ void MyCefMet_CefStringVisitor(cef_string_visitor_t* me1, int metName, jsvalue* 
 	}
 	CefStringVisitorCppToC::Wrap(me);
 }
+//!codegen: GenerateCppImplClass 
+
 const int MyCefStringVisitor_Visit_1 = 1;
 class MyCefStringVisitor :public CefStringVisitor {
 public:
@@ -4921,6 +5007,8 @@ private:
 
 
 // [virtual] class CefTask
+//!codegen: CppHandleCsMethodRequestCodeGen 
+
 const int CefTask_Execute_1 = 1;
 
 void MyCefMet_CefTask(cef_task_t* me1, int metName, jsvalue* ret) {
@@ -4938,6 +5026,8 @@ void MyCefMet_CefTask(cef_task_t* me1, int metName, jsvalue* ret) {
 	}
 	CefTaskCppToC::Wrap(me);
 }
+//!codegen: GenerateCppImplClass 
+
 const int MyCefTask_Execute_1 = 1;
 class MyCefTask :public CefTask {
 public:
@@ -4963,6 +5053,8 @@ private:
 
 
 // [virtual] class CefTaskRunner
+//!codegen: CppHandleCsMethodRequestCodeGen 
+
 const int CefTaskRunner_IsSame_1 = 1;
 const int CefTaskRunner_BelongsToCurrentThread_2 = 2;
 const int CefTaskRunner_BelongsToThread_3 = 3;
@@ -5016,6 +5108,8 @@ void MyCefMet_CefTaskRunner(cef_task_runner_t* me1, int metName, jsvalue* ret, j
 
 
 // [virtual] class CefURLRequest
+//!codegen: CppHandleCsMethodRequestCodeGen 
+
 const int CefURLRequest_GetRequest_1 = 1;
 const int CefURLRequest_GetClient_2 = 2;
 const int CefURLRequest_GetRequestStatus_3 = 3;
@@ -5076,6 +5170,8 @@ void MyCefMet_CefURLRequest(cef_urlrequest_t* me1, int metName, jsvalue* ret) {
 
 
 // [virtual] class CefURLRequestClient
+//!codegen: CppHandleCsMethodRequestCodeGen 
+
 const int CefURLRequestClient_OnRequestComplete_1 = 1;
 const int CefURLRequestClient_OnUploadProgress_2 = 2;
 const int CefURLRequestClient_OnDownloadProgress_3 = 3;
@@ -5136,6 +5232,8 @@ void MyCefMet_CefURLRequestClient(cef_urlrequest_client_t* me1, int metName, jsv
 	}
 	CefURLRequestClientCppToC::Wrap(me);
 }
+//!codegen: GenerateCppImplClass 
+
 const int MyCefURLRequestClient_OnRequestComplete_1 = 1;
 const int MyCefURLRequestClient_OnUploadProgress_2 = 2;
 const int MyCefURLRequestClient_OnDownloadProgress_3 = 3;
@@ -5241,6 +5339,8 @@ private:
 
 
 // [virtual] class CefV8Context
+//!codegen: CppHandleCsMethodRequestCodeGen 
+
 const int CefV8Context_GetTaskRunner_1 = 1;
 const int CefV8Context_IsValid_2 = 2;
 const int CefV8Context_GetBrowser_3 = 3;
@@ -5329,6 +5429,8 @@ void MyCefMet_CefV8Context(cef_v8context_t* me1, int metName, jsvalue* ret, jsva
 
 
 // [virtual] class CefV8Accessor
+//!codegen: CppHandleCsMethodRequestCodeGen 
+
 const int CefV8Accessor_Get_1 = 1;
 const int CefV8Accessor_Set_2 = 2;
 
@@ -5360,6 +5462,8 @@ void MyCefMet_CefV8Accessor(cef_v8accessor_t* me1, int metName, jsvalue* ret, js
 	}
 	CefV8AccessorCppToC::Wrap(me);
 }
+//!codegen: GenerateCppImplClass 
+
 const int MyCefV8Accessor_Get_1 = 1;
 const int MyCefV8Accessor_Set_2 = 2;
 class MyCefV8Accessor :public CefV8Accessor {
@@ -5416,6 +5520,8 @@ private:
 
 
 // [virtual] class CefV8Interceptor
+//!codegen: CppHandleCsMethodRequestCodeGen 
+
 const int CefV8Interceptor_Get_1 = 1;
 const int CefV8Interceptor_Get_2 = 2;
 const int CefV8Interceptor_Set_3 = 3;
@@ -5469,6 +5575,8 @@ void MyCefMet_CefV8Interceptor(cef_v8interceptor_t* me1, int metName, jsvalue* r
 	}
 	CefV8InterceptorCppToC::Wrap(me);
 }
+//!codegen: GenerateCppImplClass 
+
 const int MyCefV8Interceptor_Get_1 = 1;
 const int MyCefV8Interceptor_Get_2 = 2;
 const int MyCefV8Interceptor_Set_3 = 3;
@@ -5569,6 +5677,8 @@ private:
 
 
 // [virtual] class CefV8Exception
+//!codegen: CppHandleCsMethodRequestCodeGen 
+
 const int CefV8Exception_GetMessage_1 = 1;
 const int CefV8Exception_GetSourceLine_2 = 2;
 const int CefV8Exception_GetScriptResourceName_3 = 3;
@@ -5645,6 +5755,8 @@ void MyCefMet_CefV8Exception(cef_v8exception_t* me1, int metName, jsvalue* ret) 
 
 
 // [virtual] class CefV8Value
+//!codegen: CppHandleCsMethodRequestCodeGen 
+
 const int CefV8Value_IsValid_1 = 1;
 const int CefV8Value_IsUndefined_2 = 2;
 const int CefV8Value_IsNull_3 = 3;
@@ -6019,6 +6131,8 @@ void MyCefMet_CefV8Value(cef_v8value_t* me1, int metName, jsvalue* ret, jsvalue*
 
 
 // [virtual] class CefV8StackTrace
+//!codegen: CppHandleCsMethodRequestCodeGen 
+
 const int CefV8StackTrace_IsValid_1 = 1;
 const int CefV8StackTrace_GetFrameCount_2 = 2;
 const int CefV8StackTrace_GetFrame_3 = 3;
@@ -6055,6 +6169,8 @@ void MyCefMet_CefV8StackTrace(cef_v8stack_trace_t* me1, int metName, jsvalue* re
 
 
 // [virtual] class CefV8StackFrame
+//!codegen: CppHandleCsMethodRequestCodeGen 
+
 const int CefV8StackFrame_IsValid_1 = 1;
 const int CefV8StackFrame_GetScriptName_2 = 2;
 const int CefV8StackFrame_GetScriptNameOrSourceURL_3 = 3;
@@ -6131,6 +6247,8 @@ void MyCefMet_CefV8StackFrame(cef_v8stack_frame_t* me1, int metName, jsvalue* re
 
 
 // [virtual] class CefValue
+//!codegen: CppHandleCsMethodRequestCodeGen 
+
 const int CefValue_IsValid_1 = 1;
 const int CefValue_IsOwned_2 = 2;
 const int CefValue_IsReadOnly_3 = 3;
@@ -6319,6 +6437,8 @@ void MyCefMet_CefValue(cef_value_t* me1, int metName, jsvalue* ret, jsvalue* v1)
 
 
 // [virtual] class CefBinaryValue
+//!codegen: CppHandleCsMethodRequestCodeGen 
+
 const int CefBinaryValue_IsValid_1 = 1;
 const int CefBinaryValue_IsOwned_2 = 2;
 const int CefBinaryValue_IsSame_3 = 3;
@@ -6389,6 +6509,8 @@ void MyCefMet_CefBinaryValue(cef_binary_value_t* me1, int metName, jsvalue* ret,
 
 
 // [virtual] class CefDictionaryValue
+//!codegen: CppHandleCsMethodRequestCodeGen 
+
 const int CefDictionaryValue_IsValid_1 = 1;
 const int CefDictionaryValue_IsOwned_2 = 2;
 const int CefDictionaryValue_IsReadOnly_3 = 3;
@@ -6641,6 +6763,8 @@ void MyCefMet_CefDictionaryValue(cef_dictionary_value_t* me1, int metName, jsval
 
 
 // [virtual] class CefListValue
+//!codegen: CppHandleCsMethodRequestCodeGen 
+
 const int CefListValue_IsValid_1 = 1;
 const int CefListValue_IsOwned_2 = 2;
 const int CefListValue_IsReadOnly_3 = 3;
@@ -6885,6 +7009,8 @@ void MyCefMet_CefListValue(cef_list_value_t* me1, int metName, jsvalue* ret, jsv
 
 
 // [virtual] class CefWebPluginInfo
+//!codegen: CppHandleCsMethodRequestCodeGen 
+
 const int CefWebPluginInfo_GetName_1 = 1;
 const int CefWebPluginInfo_GetPath_2 = 2;
 const int CefWebPluginInfo_GetVersion_3 = 3;
@@ -6929,6 +7055,8 @@ void MyCefMet_CefWebPluginInfo(cef_web_plugin_info_t* me1, int metName, jsvalue*
 
 
 // [virtual] class CefWebPluginInfoVisitor
+//!codegen: CppHandleCsMethodRequestCodeGen 
+
 const int CefWebPluginInfoVisitor_Visit_1 = 1;
 
 void MyCefMet_CefWebPluginInfoVisitor(cef_web_plugin_info_visitor_t* me1, int metName, jsvalue* ret, jsvalue* v1, jsvalue* v2, jsvalue* v3) {
@@ -6948,6 +7076,8 @@ void MyCefMet_CefWebPluginInfoVisitor(cef_web_plugin_info_visitor_t* me1, int me
 	}
 	CefWebPluginInfoVisitorCppToC::Wrap(me);
 }
+//!codegen: GenerateCppImplClass 
+
 const int MyCefWebPluginInfoVisitor_Visit_1 = 1;
 class MyCefWebPluginInfoVisitor :public CefWebPluginInfoVisitor {
 public:
@@ -6980,6 +7110,8 @@ private:
 
 
 // [virtual] class CefX509CertPrincipal
+//!codegen: CppHandleCsMethodRequestCodeGen 
+
 const int CefX509CertPrincipal_GetDisplayName_1 = 1;
 const int CefX509CertPrincipal_GetCommonName_2 = 2;
 const int CefX509CertPrincipal_GetLocalityName_3 = 3;
@@ -7064,6 +7196,8 @@ void MyCefMet_CefX509CertPrincipal(cef_x509cert_principal_t* me1, int metName, j
 
 
 // [virtual] class CefX509Certificate
+//!codegen: CppHandleCsMethodRequestCodeGen 
+
 const int CefX509Certificate_GetSubject_1 = 1;
 const int CefX509Certificate_GetIssuer_2 = 2;
 const int CefX509Certificate_GetSerialNumber_3 = 3;
@@ -7160,6 +7294,8 @@ void MyCefMet_CefX509Certificate(cef_x509certificate_t* me1, int metName, jsvalu
 
 
 // [virtual] class CefXmlReader
+//!codegen: CppHandleCsMethodRequestCodeGen 
+
 const int CefXmlReader_MoveToNextNode_1 = 1;
 const int CefXmlReader_Close_2 = 2;
 const int CefXmlReader_HasError_3 = 3;
@@ -7406,6 +7542,8 @@ void MyCefMet_CefXmlReader(cef_xml_reader_t* me1, int metName, jsvalue* ret, jsv
 
 
 // [virtual] class CefZipReader
+//!codegen: CppHandleCsMethodRequestCodeGen 
+
 const int CefZipReader_MoveToFirstFile_1 = 1;
 const int CefZipReader_MoveToNextFile_2 = 2;
 const int CefZipReader_MoveToFile_3 = 3;
@@ -7516,6 +7654,8 @@ void MyCefMet_CefZipReader(cef_zip_reader_t* me1, int metName, jsvalue* ret, jsv
 	CefZipReaderCToCpp::Unwrap(me);
 }
 
+//!codegen: CppHandleCsMethodRequestCodeGen 
+
 const int CefAuthCallback_Continue_1 = 1;
 const int CefAuthCallback_Cancel_2 = 2;
 
@@ -7542,6 +7682,8 @@ void MyCefMet_CefAuthCallback(cef_auth_callback_t* me1, int metName, jsvalue* re
 	}
 	CefAuthCallbackCToCpp::Unwrap(me);
 }
+//!codegen: CppHandleCsMethodRequestCodeGen 
+
 const int CefRunFileDialogCallback_OnFileDialogDismissed_1 = 1;
 
 void MyCefMet_CefRunFileDialogCallback(cef_run_file_dialog_callback_t* me1, int metName, jsvalue* ret, jsvalue* v1, jsvalue* v2) {
@@ -7560,6 +7702,8 @@ void MyCefMet_CefRunFileDialogCallback(cef_run_file_dialog_callback_t* me1, int 
 	}
 	CefRunFileDialogCallbackCppToC::Wrap(me);
 }
+//!codegen: CppEventListenerInstanceImplCodeGen 
+
 const int MyCefRunFileDialogCallback_OnFileDialogDismissed_1 = 1;
 class MyCefRunFileDialogCallback :public CefRunFileDialogCallback {
 public:
@@ -7570,20 +7714,15 @@ public:
 	//gen! void OnFileDialogDismissed(int selected_accept_filter,const std::vector<CefString>& file_paths)
 	virtual void OnFileDialogDismissed(int selected_accept_filter, const std::vector<CefString>& file_paths) {
 		if (mcallback) {
-			MyMetArgsN args;
-			memset(&args, 0, sizeof(MyMetArgsN));
-			args.argCount = 2;
-			jsvalue vargs[3];
-			memset(&vargs, 0, sizeof(jsvalue) * 3);
-			args.vargs = vargs;
-			MyCefSetInt32(&vargs[1], (int32_t)selected_accept_filter);
-			MyCefSetVoidPtr2(&vargs[2], &file_paths);
-			mcallback(MyCefRunFileDialogCallback_OnFileDialogDismissed_1, &args);
+			CefRunFileDialogCallbackExt::OnFileDialogDismissedArgs args1(selected_accept_filter, &file_paths);
+			mcallback((CefRunFileDialogCallbackExt::_typeName << 16) | MyCefRunFileDialogCallback_OnFileDialogDismissed_1, &args1.arg);
 		}
 	}
 private:
 	IMPLEMENT_REFCOUNTING(MyCefRunFileDialogCallback);
 };
+//!codegen: CppHandleCsMethodRequestCodeGen 
+
 const int CefPdfPrintCallback_OnPdfPrintFinished_1 = 1;
 
 void MyCefMet_CefPdfPrintCallback(cef_pdf_print_callback_t* me1, int metName, jsvalue* ret, jsvalue* v1, jsvalue* v2) {
@@ -7602,6 +7741,8 @@ void MyCefMet_CefPdfPrintCallback(cef_pdf_print_callback_t* me1, int metName, js
 	}
 	CefPdfPrintCallbackCppToC::Wrap(me);
 }
+//!codegen: CppEventListenerInstanceImplCodeGen 
+
 const int MyCefPdfPrintCallback_OnPdfPrintFinished_1 = 1;
 class MyCefPdfPrintCallback :public CefPdfPrintCallback {
 public:
@@ -7612,20 +7753,15 @@ public:
 	//gen! void OnPdfPrintFinished(const CefString& path,bool ok)
 	virtual void OnPdfPrintFinished(const CefString& path, bool ok) {
 		if (mcallback) {
-			MyMetArgsN args;
-			memset(&args, 0, sizeof(MyMetArgsN));
-			args.argCount = 2;
-			jsvalue vargs[3];
-			memset(&vargs, 0, sizeof(jsvalue) * 3);
-			args.vargs = vargs;
-			SetCefStringToJsValue2(&vargs[1], path);
-			MyCefSetBool(&vargs[2], ok);
-			mcallback(MyCefPdfPrintCallback_OnPdfPrintFinished_1, &args);
+			CefPdfPrintCallbackExt::OnPdfPrintFinishedArgs args1(&path, ok);
+			mcallback((CefPdfPrintCallbackExt::_typeName << 16) | MyCefPdfPrintCallback_OnPdfPrintFinished_1, &args1.arg);
 		}
 	}
 private:
 	IMPLEMENT_REFCOUNTING(MyCefPdfPrintCallback);
 };
+//!codegen: CppHandleCsMethodRequestCodeGen 
+
 const int CefDownloadImageCallback_OnDownloadImageFinished_1 = 1;
 
 void MyCefMet_CefDownloadImageCallback(cef_download_image_callback_t* me1, int metName, jsvalue* ret, jsvalue* v1, jsvalue* v2, jsvalue* v3) {
@@ -7645,6 +7781,8 @@ void MyCefMet_CefDownloadImageCallback(cef_download_image_callback_t* me1, int m
 	}
 	CefDownloadImageCallbackCppToC::Wrap(me);
 }
+//!codegen: CppEventListenerInstanceImplCodeGen 
+
 const int MyCefDownloadImageCallback_OnDownloadImageFinished_1 = 1;
 class MyCefDownloadImageCallback :public CefDownloadImageCallback {
 public:
@@ -7655,23 +7793,15 @@ public:
 	//gen! void OnDownloadImageFinished(const CefString& image_url,int http_status_code,CefRefPtr<CefImage> image)
 	virtual void OnDownloadImageFinished(const CefString& image_url, int http_status_code, CefRefPtr<CefImage> image) {
 		if (mcallback) {
-			MyMetArgsN args;
-			memset(&args, 0, sizeof(MyMetArgsN));
-			args.argCount = 3;
-			jsvalue vargs[4];
-			memset(&vargs, 0, sizeof(jsvalue) * 4);
-			args.vargs = vargs;
-			auto p_image = CefImageCToCpp::Unwrap(image);
-			SetCefStringToJsValue2(&vargs[1], image_url);
-			MyCefSetInt32(&vargs[2], (int32_t)http_status_code);
-			MyCefSetVoidPtr(&vargs[3], p_image);
-			mcallback(MyCefDownloadImageCallback_OnDownloadImageFinished_1, &args);
-			CefImageCToCpp::Wrap(p_image);
+			CefDownloadImageCallbackExt::OnDownloadImageFinishedArgs args1(&image_url, http_status_code, image);
+			mcallback((CefDownloadImageCallbackExt::_typeName << 16) | MyCefDownloadImageCallback_OnDownloadImageFinished_1, &args1.arg);
 		}
 	}
 private:
 	IMPLEMENT_REFCOUNTING(MyCefDownloadImageCallback);
 };
+//!codegen: CppHandleCsMethodRequestCodeGen 
+
 const int CefCallback_Continue_1 = 1;
 const int CefCallback_Cancel_2 = 2;
 
@@ -7697,6 +7827,8 @@ void MyCefMet_CefCallback(cef_callback_t* me1, int metName, jsvalue* ret) {
 	}
 	CefCallbackCToCpp::Unwrap(me);
 }
+//!codegen: CppHandleCsMethodRequestCodeGen 
+
 const int CefCompletionCallback_OnComplete_1 = 1;
 
 void MyCefMet_CefCompletionCallback(cef_completion_callback_t* me1, int metName, jsvalue* ret) {
@@ -7714,6 +7846,8 @@ void MyCefMet_CefCompletionCallback(cef_completion_callback_t* me1, int metName,
 	}
 	CefCompletionCallbackCppToC::Wrap(me);
 }
+//!codegen: CppEventListenerInstanceImplCodeGen 
+
 const int MyCefCompletionCallback_OnComplete_1 = 1;
 class MyCefCompletionCallback :public CefCompletionCallback {
 public:
@@ -7724,18 +7858,15 @@ public:
 	//gen! void OnComplete()
 	virtual void OnComplete() {
 		if (mcallback) {
-			MyMetArgsN args;
-			memset(&args, 0, sizeof(MyMetArgsN));
-			args.argCount = 0;
-			jsvalue vargs[1];
-			memset(&vargs, 0, sizeof(jsvalue) * 1);
-			args.vargs = vargs;
-			mcallback(MyCefCompletionCallback_OnComplete_1, &args);
+			CefCompletionCallbackExt::OnCompleteArgs args1;
+			mcallback((CefCompletionCallbackExt::_typeName << 16) | MyCefCompletionCallback_OnComplete_1, &args1.arg);
 		}
 	}
 private:
 	IMPLEMENT_REFCOUNTING(MyCefCompletionCallback);
 };
+//!codegen: CppHandleCsMethodRequestCodeGen 
+
 const int CefRunContextMenuCallback_Continue_1 = 1;
 const int CefRunContextMenuCallback_Cancel_2 = 2;
 
@@ -7762,6 +7893,8 @@ void MyCefMet_CefRunContextMenuCallback(cef_run_context_menu_callback_t* me1, in
 	}
 	CefRunContextMenuCallbackCToCpp::Unwrap(me);
 }
+//!codegen: CppHandleCsMethodRequestCodeGen 
+
 const int CefSetCookieCallback_OnComplete_1 = 1;
 
 void MyCefMet_CefSetCookieCallback(cef_set_cookie_callback_t* me1, int metName, jsvalue* ret, jsvalue* v1) {
@@ -7779,6 +7912,8 @@ void MyCefMet_CefSetCookieCallback(cef_set_cookie_callback_t* me1, int metName, 
 	}
 	CefSetCookieCallbackCppToC::Wrap(me);
 }
+//!codegen: CppEventListenerInstanceImplCodeGen 
+
 const int MyCefSetCookieCallback_OnComplete_1 = 1;
 class MyCefSetCookieCallback :public CefSetCookieCallback {
 public:
@@ -7789,19 +7924,15 @@ public:
 	//gen! void OnComplete(bool success)
 	virtual void OnComplete(bool success) {
 		if (mcallback) {
-			MyMetArgsN args;
-			memset(&args, 0, sizeof(MyMetArgsN));
-			args.argCount = 1;
-			jsvalue vargs[2];
-			memset(&vargs, 0, sizeof(jsvalue) * 2);
-			args.vargs = vargs;
-			MyCefSetBool(&vargs[1], success);
-			mcallback(MyCefSetCookieCallback_OnComplete_1, &args);
+			CefSetCookieCallbackExt::OnCompleteArgs args1(success);
+			mcallback((CefSetCookieCallbackExt::_typeName << 16) | MyCefSetCookieCallback_OnComplete_1, &args1.arg);
 		}
 	}
 private:
 	IMPLEMENT_REFCOUNTING(MyCefSetCookieCallback);
 };
+//!codegen: CppHandleCsMethodRequestCodeGen 
+
 const int CefDeleteCookiesCallback_OnComplete_1 = 1;
 
 void MyCefMet_CefDeleteCookiesCallback(cef_delete_cookies_callback_t* me1, int metName, jsvalue* ret, jsvalue* v1) {
@@ -7819,6 +7950,8 @@ void MyCefMet_CefDeleteCookiesCallback(cef_delete_cookies_callback_t* me1, int m
 	}
 	CefDeleteCookiesCallbackCppToC::Wrap(me);
 }
+//!codegen: CppEventListenerInstanceImplCodeGen 
+
 const int MyCefDeleteCookiesCallback_OnComplete_1 = 1;
 class MyCefDeleteCookiesCallback :public CefDeleteCookiesCallback {
 public:
@@ -7829,19 +7962,15 @@ public:
 	//gen! void OnComplete(int num_deleted)
 	virtual void OnComplete(int num_deleted) {
 		if (mcallback) {
-			MyMetArgsN args;
-			memset(&args, 0, sizeof(MyMetArgsN));
-			args.argCount = 1;
-			jsvalue vargs[2];
-			memset(&vargs, 0, sizeof(jsvalue) * 2);
-			args.vargs = vargs;
-			MyCefSetInt32(&vargs[1], (int32_t)num_deleted);
-			mcallback(MyCefDeleteCookiesCallback_OnComplete_1, &args);
+			CefDeleteCookiesCallbackExt::OnCompleteArgs args1(num_deleted);
+			mcallback((CefDeleteCookiesCallbackExt::_typeName << 16) | MyCefDeleteCookiesCallback_OnComplete_1, &args1.arg);
 		}
 	}
 private:
 	IMPLEMENT_REFCOUNTING(MyCefDeleteCookiesCallback);
 };
+//!codegen: CppHandleCsMethodRequestCodeGen 
+
 const int CefFileDialogCallback_Continue_1 = 1;
 const int CefFileDialogCallback_Cancel_2 = 2;
 
@@ -7868,6 +7997,8 @@ void MyCefMet_CefFileDialogCallback(cef_file_dialog_callback_t* me1, int metName
 	}
 	CefFileDialogCallbackCToCpp::Unwrap(me);
 }
+//!codegen: CppHandleCsMethodRequestCodeGen 
+
 const int CefBeforeDownloadCallback_Continue_1 = 1;
 
 void MyCefMet_CefBeforeDownloadCallback(cef_before_download_callback_t* me1, int metName, jsvalue* ret, jsvalue* v1, jsvalue* v2) {
@@ -7886,6 +8017,8 @@ void MyCefMet_CefBeforeDownloadCallback(cef_before_download_callback_t* me1, int
 	}
 	CefBeforeDownloadCallbackCToCpp::Unwrap(me);
 }
+//!codegen: CppHandleCsMethodRequestCodeGen 
+
 const int CefDownloadItemCallback_Cancel_1 = 1;
 const int CefDownloadItemCallback_Pause_2 = 2;
 const int CefDownloadItemCallback_Resume_3 = 3;
@@ -7919,6 +8052,8 @@ void MyCefMet_CefDownloadItemCallback(cef_download_item_callback_t* me1, int met
 	}
 	CefDownloadItemCallbackCToCpp::Unwrap(me);
 }
+//!codegen: CppHandleCsMethodRequestCodeGen 
+
 const int CefGetGeolocationCallback_OnLocationUpdate_1 = 1;
 
 void MyCefMet_CefGetGeolocationCallback(cef_get_geolocation_callback_t* me1, int metName, jsvalue* ret, jsvalue* v1) {
@@ -7936,6 +8071,8 @@ void MyCefMet_CefGetGeolocationCallback(cef_get_geolocation_callback_t* me1, int
 	}
 	CefGetGeolocationCallbackCppToC::Wrap(me);
 }
+//!codegen: CppEventListenerInstanceImplCodeGen 
+
 const int MyCefGetGeolocationCallback_OnLocationUpdate_1 = 1;
 class MyCefGetGeolocationCallback :public CefGetGeolocationCallback {
 public:
@@ -7946,19 +8083,15 @@ public:
 	//gen! void OnLocationUpdate(const CefGeoposition& position)
 	virtual void OnLocationUpdate(const CefGeoposition& position) {
 		if (mcallback) {
-			MyMetArgsN args;
-			memset(&args, 0, sizeof(MyMetArgsN));
-			args.argCount = 1;
-			jsvalue vargs[2];
-			memset(&vargs, 0, sizeof(jsvalue) * 2);
-			args.vargs = vargs;
-			MyCefSetVoidPtr2(&vargs[1], &position);
-			mcallback(MyCefGetGeolocationCallback_OnLocationUpdate_1, &args);
+			CefGetGeolocationCallbackExt::OnLocationUpdateArgs args1(&position);
+			mcallback((CefGetGeolocationCallbackExt::_typeName << 16) | MyCefGetGeolocationCallback_OnLocationUpdate_1, &args1.arg);
 		}
 	}
 private:
 	IMPLEMENT_REFCOUNTING(MyCefGetGeolocationCallback);
 };
+//!codegen: CppHandleCsMethodRequestCodeGen 
+
 const int CefGeolocationCallback_Continue_1 = 1;
 
 void MyCefMet_CefGeolocationCallback(cef_geolocation_callback_t* me1, int metName, jsvalue* ret, jsvalue* v1) {
@@ -7976,6 +8109,8 @@ void MyCefMet_CefGeolocationCallback(cef_geolocation_callback_t* me1, int metNam
 	}
 	CefGeolocationCallbackCToCpp::Unwrap(me);
 }
+//!codegen: CppHandleCsMethodRequestCodeGen 
+
 const int CefJSDialogCallback_Continue_1 = 1;
 
 void MyCefMet_CefJSDialogCallback(cef_jsdialog_callback_t* me1, int metName, jsvalue* ret, jsvalue* v1, jsvalue* v2) {
@@ -7994,6 +8129,8 @@ void MyCefMet_CefJSDialogCallback(cef_jsdialog_callback_t* me1, int metName, jsv
 	}
 	CefJSDialogCallbackCToCpp::Unwrap(me);
 }
+//!codegen: CppHandleCsMethodRequestCodeGen 
+
 const int CefPrintDialogCallback_Continue_1 = 1;
 const int CefPrintDialogCallback_Cancel_2 = 2;
 
@@ -8019,6 +8156,8 @@ void MyCefMet_CefPrintDialogCallback(cef_print_dialog_callback_t* me1, int metNa
 	}
 	CefPrintDialogCallbackCToCpp::Unwrap(me);
 }
+//!codegen: CppHandleCsMethodRequestCodeGen 
+
 const int CefPrintJobCallback_Continue_1 = 1;
 
 void MyCefMet_CefPrintJobCallback(cef_print_job_callback_t* me1, int metName, jsvalue* ret) {
@@ -8036,6 +8175,8 @@ void MyCefMet_CefPrintJobCallback(cef_print_job_callback_t* me1, int metName, js
 	}
 	CefPrintJobCallbackCToCpp::Unwrap(me);
 }
+//!codegen: CppHandleCsMethodRequestCodeGen 
+
 const int CefResolveCallback_OnResolveCompleted_1 = 1;
 
 void MyCefMet_CefResolveCallback(cef_resolve_callback_t* me1, int metName, jsvalue* ret, jsvalue* v1, jsvalue* v2) {
@@ -8054,6 +8195,8 @@ void MyCefMet_CefResolveCallback(cef_resolve_callback_t* me1, int metName, jsval
 	}
 	CefResolveCallbackCppToC::Wrap(me);
 }
+//!codegen: CppEventListenerInstanceImplCodeGen 
+
 const int MyCefResolveCallback_OnResolveCompleted_1 = 1;
 class MyCefResolveCallback :public CefResolveCallback {
 public:
@@ -8064,20 +8207,15 @@ public:
 	//gen! void OnResolveCompleted(cef_errorcode_t result,const std::vector<CefString>& resolved_ips)
 	virtual void OnResolveCompleted(cef_errorcode_t result, const std::vector<CefString>& resolved_ips) {
 		if (mcallback) {
-			MyMetArgsN args;
-			memset(&args, 0, sizeof(MyMetArgsN));
-			args.argCount = 2;
-			jsvalue vargs[3];
-			memset(&vargs, 0, sizeof(jsvalue) * 3);
-			args.vargs = vargs;
-			MyCefSetInt32(&vargs[1], (int32_t)result);
-			MyCefSetVoidPtr2(&vargs[2], &resolved_ips);
-			mcallback(MyCefResolveCallback_OnResolveCompleted_1, &args);
+			CefResolveCallbackExt::OnResolveCompletedArgs args1(result, &resolved_ips);
+			mcallback((CefResolveCallbackExt::_typeName << 16) | MyCefResolveCallback_OnResolveCompleted_1, &args1.arg);
 		}
 	}
 private:
 	IMPLEMENT_REFCOUNTING(MyCefResolveCallback);
 };
+//!codegen: CppHandleCsMethodRequestCodeGen 
+
 const int CefRequestCallback_Continue_1 = 1;
 const int CefRequestCallback_Cancel_2 = 2;
 
@@ -8103,6 +8241,8 @@ void MyCefMet_CefRequestCallback(cef_request_callback_t* me1, int metName, jsval
 	}
 	CefRequestCallbackCToCpp::Unwrap(me);
 }
+//!codegen: CppHandleCsMethodRequestCodeGen 
+
 const int CefSelectClientCertificateCallback_Select_1 = 1;
 
 void MyCefMet_CefSelectClientCertificateCallback(cef_select_client_certificate_callback_t* me1, int metName, jsvalue* ret, jsvalue* v1) {
@@ -8120,6 +8260,8 @@ void MyCefMet_CefSelectClientCertificateCallback(cef_select_client_certificate_c
 	}
 	CefSelectClientCertificateCallbackCToCpp::Unwrap(me);
 }
+//!codegen: CppHandleCsMethodRequestCodeGen 
+
 const int CefEndTracingCallback_OnEndTracingComplete_1 = 1;
 
 void MyCefMet_CefEndTracingCallback(cef_end_tracing_callback_t* me1, int metName, jsvalue* ret, jsvalue* v1) {
@@ -8137,6 +8279,8 @@ void MyCefMet_CefEndTracingCallback(cef_end_tracing_callback_t* me1, int metName
 	}
 	CefEndTracingCallbackCppToC::Wrap(me);
 }
+//!codegen: CppEventListenerInstanceImplCodeGen 
+
 const int MyCefEndTracingCallback_OnEndTracingComplete_1 = 1;
 class MyCefEndTracingCallback :public CefEndTracingCallback {
 public:
@@ -8147,19 +8291,15 @@ public:
 	//gen! void OnEndTracingComplete(const CefString& tracing_file)
 	virtual void OnEndTracingComplete(const CefString& tracing_file) {
 		if (mcallback) {
-			MyMetArgsN args;
-			memset(&args, 0, sizeof(MyMetArgsN));
-			args.argCount = 1;
-			jsvalue vargs[2];
-			memset(&vargs, 0, sizeof(jsvalue) * 2);
-			args.vargs = vargs;
-			SetCefStringToJsValue2(&vargs[1], tracing_file);
-			mcallback(MyCefEndTracingCallback_OnEndTracingComplete_1, &args);
+			CefEndTracingCallbackExt::OnEndTracingCompleteArgs args1(&tracing_file);
+			mcallback((CefEndTracingCallbackExt::_typeName << 16) | MyCefEndTracingCallback_OnEndTracingComplete_1, &args1.arg);
 		}
 	}
 private:
 	IMPLEMENT_REFCOUNTING(MyCefEndTracingCallback);
 };
+//!codegen: CppHandleCsMethodRequestCodeGen 
+
 const int CefWebPluginUnstableCallback_IsUnstable_1 = 1;
 
 void MyCefMet_CefWebPluginUnstableCallback(cef_web_plugin_unstable_callback_t* me1, int metName, jsvalue* ret, jsvalue* v1, jsvalue* v2) {
@@ -8178,6 +8318,8 @@ void MyCefMet_CefWebPluginUnstableCallback(cef_web_plugin_unstable_callback_t* m
 	}
 	CefWebPluginUnstableCallbackCppToC::Wrap(me);
 }
+//!codegen: CppHandleCsMethodRequestCodeGen 
+
 const int CefRegisterCdmCallback_OnCdmRegistrationComplete_1 = 1;
 
 void MyCefMet_CefRegisterCdmCallback(cef_register_cdm_callback_t* me1, int metName, jsvalue* ret, jsvalue* v1, jsvalue* v2) {
@@ -8196,6 +8338,8 @@ void MyCefMet_CefRegisterCdmCallback(cef_register_cdm_callback_t* me1, int metNa
 	}
 	CefRegisterCdmCallbackCppToC::Wrap(me);
 }
+//!codegen: CppEventListenerInstanceImplCodeGen 
+
 const int MyCefRegisterCdmCallback_OnCdmRegistrationComplete_1 = 1;
 class MyCefRegisterCdmCallback :public CefRegisterCdmCallback {
 public:
@@ -8206,15 +8350,8 @@ public:
 	//gen! void OnCdmRegistrationComplete(cef_cdm_registration_error_t result,const CefString& error_message)
 	virtual void OnCdmRegistrationComplete(cef_cdm_registration_error_t result, const CefString& error_message) {
 		if (mcallback) {
-			MyMetArgsN args;
-			memset(&args, 0, sizeof(MyMetArgsN));
-			args.argCount = 2;
-			jsvalue vargs[3];
-			memset(&vargs, 0, sizeof(jsvalue) * 3);
-			args.vargs = vargs;
-			MyCefSetInt32(&vargs[1], (int32_t)result);
-			SetCefStringToJsValue2(&vargs[2], error_message);
-			mcallback(MyCefRegisterCdmCallback_OnCdmRegistrationComplete_1, &args);
+			CefRegisterCdmCallbackExt::OnCdmRegistrationCompleteArgs args1(result, &error_message);
+			mcallback((CefRegisterCdmCallbackExt::_typeName << 16) | MyCefRegisterCdmCallback_OnCdmRegistrationComplete_1, &args1.arg);
 		}
 	}
 private:
