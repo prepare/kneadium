@@ -178,7 +178,9 @@ namespace BridgeBuilder
 
     class CppEventListenerInstanceImplCodeGen : CppCodeGen
     {
-        void GenerateCppImplMethod(MethodTxInfo met, CodeStringBuilder stbuilder)
+        void GenerateCppImplMethod(
+            CodeTypeDeclaration orgDecl,
+            MethodTxInfo met, CodeStringBuilder stbuilder, bool useJsSlot)
         {
             CodeMethodDeclaration metDecl = (CodeMethodDeclaration)met.metDecl;
             stbuilder.AppendLine("//gen! " + metDecl.ToString());
@@ -202,58 +204,94 @@ namespace BridgeBuilder
             }
             stbuilder.AppendLine("){");
             //-----------
-            stbuilder.AppendLine("if(mcallback){");
-            //call to managed 
-            stbuilder.AppendLine("MyMetArgsN args;");
-            stbuilder.AppendLine("memset(&args, 0, sizeof(MyMetArgsN));");
-            stbuilder.AppendLine("args.argCount=" + j + ";");
-            int arrLen = j + 1;
-            stbuilder.AppendLine("jsvalue vargs[" + arrLen + "];");
-            stbuilder.AppendLine("memset(&vargs, 0, sizeof(jsvalue) * " + arrLen + ");");
-            stbuilder.AppendLine("args.vargs=vargs;");
 
-            for (int i = 0; i < j; ++i)
+            if (!useJsSlot)
             {
-                MethodParameterTxInfo parTx = met.pars[i];
-                parTx.ClearExtractCode();
-                CefTypeTx.PrepareDataFromNativeToCs(parTx, "&vargs[" + (i + 1) + "]", parTx.Name, true);
-            }
-
-            CefTypeTx.PrepareCppMetArg(met.ReturnPlan, "vargs[0]");
-            //
-            for (int i = 0; i < j; ++i)
-            {
-                MethodParameterTxInfo parTx = met.pars[i];
-                if (parTx.ArgPreExtractCode != null)
+                stbuilder.AppendLine("if(mcallback){");
+                string metArgsClassName = orgDecl.Name + "Ext::" + metDecl.Name + "Args";
+                stbuilder.Append(metArgsClassName + " args1");
+                //with ctors
+                if (j == 0)
                 {
-                    stbuilder.AppendLine(parTx.ArgPreExtractCode);
+                    stbuilder.AppendLine(";");
                 }
-            }
-            for (int i = 0; i < j; ++i)
-            {
-                MethodParameterTxInfo parTx = met.pars[i];
-                stbuilder.AppendLine(parTx.ArgExtractCode);
-            }
-            //
-            //call a method and get some result back 
-            //
-            stbuilder.AppendLine("mcallback(" + met.CppMethodSwitchCaseName + ",&args);");
-            //post call
-            for (int i = 0; i < j; ++i)
-            {
-                MethodParameterTxInfo parTx = met.pars[i];
-                if (parTx.ArgPostExtractCode != null)
+                else
                 {
-                    stbuilder.AppendLine(parTx.ArgPostExtractCode);
+                    stbuilder.Append("(");
+                    for (int i = 0; i < j; ++i)
+                    {
+                        MethodParameterTxInfo par = met.pars[i];
+                        if (i > 0) { stbuilder.Append(","); }
+                        //temp
+                        string parType = par.TypeSymbol.ToString();
+                        if (parType.EndsWith("&"))
+                        {
+                            stbuilder.Append("&");
+                        }
+                        stbuilder.Append(par.Name);
+                    }
+                    stbuilder.AppendLine(");");
                 }
+                stbuilder.AppendLine("mcallback( (" + orgDecl.Name + "Ext::" + "_typeName << 16) | " + met.CppMethodSwitchCaseName + ",&args1.arg);");
+                stbuilder.AppendLine("}"); //if(this->mcallback){ 
             }
-            if (!met.ReturnPlan.IsVoid)
+            else
             {
+                stbuilder.AppendLine("if(mcallback){");
+                //call to managed 
+                stbuilder.AppendLine("MyMetArgsN args;");
+                stbuilder.AppendLine("memset(&args, 0, sizeof(MyMetArgsN));");
+                stbuilder.AppendLine("args.argCount=" + j + ";");
+                int arrLen = j + 1;
+                stbuilder.AppendLine("jsvalue vargs[" + arrLen + "];");
+                stbuilder.AppendLine("memset(&vargs, 0, sizeof(jsvalue) * " + arrLen + ");");
+                stbuilder.AppendLine("args.vargs=vargs;");
 
+                for (int i = 0; i < j; ++i)
+                {
+                    MethodParameterTxInfo parTx = met.pars[i];
+                    parTx.ClearExtractCode();
+                    CefTypeTx.PrepareDataFromNativeToCs(parTx, "&vargs[" + (i + 1) + "]", parTx.Name, true);
+                }
+
+                CefTypeTx.PrepareCppMetArg(met.ReturnPlan, "vargs[0]");
+                //
+                for (int i = 0; i < j; ++i)
+                {
+                    MethodParameterTxInfo parTx = met.pars[i];
+                    if (parTx.ArgPreExtractCode != null)
+                    {
+                        stbuilder.AppendLine(parTx.ArgPreExtractCode);
+                    }
+                }
+                for (int i = 0; i < j; ++i)
+                {
+                    MethodParameterTxInfo parTx = met.pars[i];
+                    stbuilder.AppendLine(parTx.ArgExtractCode);
+                }
+                //
+                //call a method and get some result back 
+                //
+                stbuilder.AppendLine("mcallback(" + met.CppMethodSwitchCaseName + ",&args);");
+                //post call
+                for (int i = 0; i < j; ++i)
+                {
+                    MethodParameterTxInfo parTx = met.pars[i];
+                    if (parTx.ArgPostExtractCode != null)
+                    {
+                        stbuilder.AppendLine(parTx.ArgPostExtractCode);
+                    }
+                }
+                if (!met.ReturnPlan.IsVoid)
+                {
+
+                }
+                //and return value
+                stbuilder.AppendLine("}"); //if(this->mcallback){
             }
 
-            //and return value
-            stbuilder.AppendLine("}"); //if(this->mcallback){
+
+
             //-----------
             stbuilder.AppendLine("}"); //method
         }
@@ -288,16 +326,12 @@ namespace BridgeBuilder
             stbuilder.AppendLine("explicit " + className + "(){");
             stbuilder.AppendLine("mcallback= NULL;");
             stbuilder.AppendLine("}");
-            //stbuilder.AppendLine("managed_callback GetManagedCallBack() const OVERRIDE { return mcallback; }");
 
             // 
             nn = onEventMethods.Count;
             for (int mm = 0; mm < nn; ++mm)
             {
-                //implement on event notificationi
-                MethodTxInfo met = onEventMethods[mm];
-                //prepare data and call the callback
-                GenerateCppImplMethod(met, stbuilder);
+                GenerateCppImplMethod(orgDecl, onEventMethods[mm], stbuilder, false);
             }
 
             stbuilder.AppendLine("private:");

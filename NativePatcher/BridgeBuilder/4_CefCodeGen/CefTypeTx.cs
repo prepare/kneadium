@@ -1569,9 +1569,9 @@ namespace BridgeBuilder
         public override void GenerateCode(CefCodeGenOutput output)
         {
             CodeStringBuilder _cppHeaderExportFuncAuto = output._cppHeaderExportFuncAuto;
-             
+
             CodeTypeDeclaration orgDecl = this.OriginalDecl;
-            CodeTypeDeclaration implTypeDecl = this.ImplTypeDecl; 
+            CodeTypeDeclaration implTypeDecl = this.ImplTypeDecl;
 
             GenerateCppCode(output._cppCode);
             GenerateCsCode(output._csCode);
@@ -1589,8 +1589,18 @@ namespace BridgeBuilder
             }
             cppArgClassStBuilder.AppendLine("}");
             _cppHeaderExportFuncAuto.Append(cppArgClassStBuilder.ToString());
-        }
 
+            //----------------------------------------------
+            //InternalHeaderForExportFunc.h
+            string namespaceName = orgDecl.Name + "Ext";
+            var internalHeader = output._cppHeaderInternalForExportFuncAuto;
+            internalHeader.AppendLine("namespace " + namespaceName);
+            internalHeader.AppendLine("{");
+            internalHeader.AppendLine("const int _typeName=" + "CefTypeName_" + orgDecl.Name + ";");
+            internalHeader.AppendLine("}");
+            //---------------------------------------------- 
+
+        }
         void GenerateCppCode(CodeStringBuilder stbuilder)
         {
 
@@ -1649,6 +1659,7 @@ namespace BridgeBuilder
                     onEventMethods,
                     stbuilder);
             }
+
         }
 
         void GenerateCsCode(CodeStringBuilder stbuilder)
