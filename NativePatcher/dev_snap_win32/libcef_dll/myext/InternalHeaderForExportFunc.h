@@ -1,4 +1,5 @@
-//AUTOGEN
+//MIT, 2017, WinterDev
+ //AUTOGEN
 const int CefTypeName_CefApp = 1;
 const int CefTypeName_CefBrowser = 2;
 const int CefTypeName_CefNavigationEntryVisitor = 3;
@@ -101,6 +102,98 @@ const int CefTypeName_CefSelectClientCertificateCallback = 99;
 const int CefTypeName_CefEndTracingCallback = 100;
 const int CefTypeName_CefWebPluginUnstableCallback = 101;
 const int CefTypeName_CefRegisterCdmCallback = 102;
+namespace CefAuthCallbackExt
+{
+	const int _typeName = CefTypeName_CefAuthCallback;
+}
+namespace CefRunFileDialogCallbackExt
+{
+	const int _typeName = CefTypeName_CefRunFileDialogCallback;
+}
+namespace CefPdfPrintCallbackExt
+{
+	const int _typeName = CefTypeName_CefPdfPrintCallback;
+}
+namespace CefDownloadImageCallbackExt
+{
+	const int _typeName = CefTypeName_CefDownloadImageCallback;
+}
+namespace CefCallbackExt
+{
+	const int _typeName = CefTypeName_CefCallback;
+}
+namespace CefCompletionCallbackExt
+{
+	const int _typeName = CefTypeName_CefCompletionCallback;
+}
+namespace CefRunContextMenuCallbackExt
+{
+	const int _typeName = CefTypeName_CefRunContextMenuCallback;
+}
+namespace CefSetCookieCallbackExt
+{
+	const int _typeName = CefTypeName_CefSetCookieCallback;
+}
+namespace CefDeleteCookiesCallbackExt
+{
+	const int _typeName = CefTypeName_CefDeleteCookiesCallback;
+}
+namespace CefFileDialogCallbackExt
+{
+	const int _typeName = CefTypeName_CefFileDialogCallback;
+}
+namespace CefBeforeDownloadCallbackExt
+{
+	const int _typeName = CefTypeName_CefBeforeDownloadCallback;
+}
+namespace CefDownloadItemCallbackExt
+{
+	const int _typeName = CefTypeName_CefDownloadItemCallback;
+}
+namespace CefGetGeolocationCallbackExt
+{
+	const int _typeName = CefTypeName_CefGetGeolocationCallback;
+}
+namespace CefGeolocationCallbackExt
+{
+	const int _typeName = CefTypeName_CefGeolocationCallback;
+}
+namespace CefJSDialogCallbackExt
+{
+	const int _typeName = CefTypeName_CefJSDialogCallback;
+}
+namespace CefPrintDialogCallbackExt
+{
+	const int _typeName = CefTypeName_CefPrintDialogCallback;
+}
+namespace CefPrintJobCallbackExt
+{
+	const int _typeName = CefTypeName_CefPrintJobCallback;
+}
+namespace CefResolveCallbackExt
+{
+	const int _typeName = CefTypeName_CefResolveCallback;
+}
+namespace CefRequestCallbackExt
+{
+	const int _typeName = CefTypeName_CefRequestCallback;
+}
+namespace CefSelectClientCertificateCallbackExt
+{
+	const int _typeName = CefTypeName_CefSelectClientCertificateCallback;
+}
+namespace CefEndTracingCallbackExt
+{
+	const int _typeName = CefTypeName_CefEndTracingCallback;
+}
+namespace CefWebPluginUnstableCallbackExt
+{
+	const int _typeName = CefTypeName_CefWebPluginUnstableCallback;
+}
+namespace CefRegisterCdmCallbackExt
+{
+	const int _typeName = CefTypeName_CefRegisterCdmCallback;
+}
 namespace CefAccessibilityHandlerExt
 {
 	const int _typeName = CefTypeName_CefAccessibilityHandler;
