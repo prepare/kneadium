@@ -1569,8 +1569,28 @@ namespace BridgeBuilder
         public override void GenerateCode(CefCodeGenOutput output)
         {
             _cppHeaderExportFuncAuto = output._cppHeaderExportFuncAuto;
+
+
+            CodeTypeDeclaration orgDecl = this.OriginalDecl;
+            CodeTypeDeclaration implTypeDecl = this.ImplTypeDecl;
+
+
             GenerateCppCode(output._cppCode);
             GenerateCsCode(output._csCode);
+
+            //-----------------------------------------------------------
+            CppToCsMethodArgsClassGen cppMetArgClassGen = new CppToCsMethodArgsClassGen();
+            //
+            CodeStringBuilder cppArgClassStBuilder = new CodeStringBuilder();
+            cppArgClassStBuilder.AppendLine("namespace " + orgDecl.Name + "Ext{");
+            int j = _typeTxInfo.methods.Count;
+            for (int i = 0; i < j; ++i)
+            {
+                MethodTxInfo met = _typeTxInfo.methods[i];
+                cppMetArgClassGen.GenerateCppMethodArgsClass(met, cppArgClassStBuilder);
+            }
+            cppArgClassStBuilder.AppendLine("}");
+            _cppHeaderExportFuncAuto.Append(cppArgClassStBuilder.ToString());
         }
 
         void GenerateCppCode(CodeStringBuilder stbuilder)
@@ -1645,19 +1665,7 @@ namespace BridgeBuilder
             CsCallToNativeCodeGen csCallToNativeCodeGen = new CsCallToNativeCodeGen();
             csCallToNativeCodeGen.GenerateCsCode(this, orgDecl, implTypeDecl, false, stbuilder);
 
-            //-----------------------------------------------------------
-            CppToCsMethodArgsClassGen cppMetArgClassGen = new CppToCsMethodArgsClassGen();
-            //
-            CodeStringBuilder cppArgClassStBuilder = new CodeStringBuilder();
-            cppArgClassStBuilder.AppendLine("namespace " + orgDecl.Name + "Ext{");
-            int j = _typeTxInfo.methods.Count;
-            for (int i = 0; i < j; ++i)
-            {
-                MethodTxInfo met = _typeTxInfo.methods[i];
-                cppMetArgClassGen.GenerateCppMethodArgsClass(met, cppArgClassStBuilder);
-            }
-            cppArgClassStBuilder.AppendLine("}");
-            _cppHeaderExportFuncAuto.Append(cppArgClassStBuilder.ToString());
+         
         }
 
     }

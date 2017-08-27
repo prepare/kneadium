@@ -655,6 +655,7 @@ namespace BridgeBuilder
         }
 
     }
+
     class CsNativeHandlerSwitchTableCodeGen : CsCodeGen
     {
         public void GenerateCefNativeRequestHandlers(List<CefHandlerTx> handlerPlans, StringBuilder stbuilder)
