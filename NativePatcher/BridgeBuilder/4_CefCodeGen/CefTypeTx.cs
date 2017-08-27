@@ -1455,12 +1455,12 @@ namespace BridgeBuilder
     /// cef enum type transofmrer
     /// </summary>
     class CefEnumTx : CefTypeTx
-    { 
+    {
         string enum_base = "";
         public CefEnumTx(CodeTypeDeclaration typedecl)
             : base(typedecl)
         {
-            
+
         }
         public override void GenerateCode(CefCodeGenOutput output)
         {
@@ -1490,8 +1490,8 @@ namespace BridgeBuilder
                                 enum_base = ":uint";
                                 break;
                             }
-                        } 
-                    } 
+                        }
+                    }
                 }
             }
 
@@ -1568,12 +1568,10 @@ namespace BridgeBuilder
         }
         public override void GenerateCode(CefCodeGenOutput output)
         {
-            _cppHeaderExportFuncAuto = output._cppHeaderExportFuncAuto;
-
-
+            CodeStringBuilder _cppHeaderExportFuncAuto = output._cppHeaderExportFuncAuto;
+             
             CodeTypeDeclaration orgDecl = this.OriginalDecl;
-            CodeTypeDeclaration implTypeDecl = this.ImplTypeDecl;
-
+            CodeTypeDeclaration implTypeDecl = this.ImplTypeDecl; 
 
             GenerateCppCode(output._cppCode);
             GenerateCsCode(output._csCode);
@@ -1604,10 +1602,7 @@ namespace BridgeBuilder
             //
             CodeTypeDeclaration orgDecl = this.OriginalDecl;
             CodeTypeDeclaration implTypeDecl = this.ImplTypeDecl;
-
             _typeTxInfo = orgDecl.TypeTxInfo;
-
-            
             //-----------------------------------------------------------------------
             List<MethodTxInfo> onEventMethods = new List<MethodTxInfo>();
 
@@ -1655,7 +1650,7 @@ namespace BridgeBuilder
                     stbuilder);
             }
         }
-        CodeStringBuilder _cppHeaderExportFuncAuto;
+
         void GenerateCsCode(CodeStringBuilder stbuilder)
         {
 
@@ -1664,8 +1659,6 @@ namespace BridgeBuilder
 
             CsCallToNativeCodeGen csCallToNativeCodeGen = new CsCallToNativeCodeGen();
             csCallToNativeCodeGen.GenerateCsCode(this, orgDecl, implTypeDecl, false, stbuilder);
-
-         
         }
 
     }
@@ -1954,7 +1947,7 @@ namespace BridgeBuilder
         }
 
         void GenerateCppImplNamespace(CodeTypeDeclaration orgDecl,
-            List<MethodTxInfo> callToDotNetMets, 
+            List<MethodTxInfo> callToDotNetMets,
             CodeStringBuilder stbuilder)
         {
 
