@@ -1724,8 +1724,6 @@ namespace BridgeBuilder
                     cppHandlerReqCodeGen.callToDotNetMets,
                     orgDecl,
                     stbuilder);
-                //
-
             }
 
         }
@@ -2023,17 +2021,11 @@ namespace BridgeBuilder
             _cppHeaderExportFuncAuto = output._cppHeaderExportFuncAuto;
             _cppHeaderInternalForExportFuncAuto = output._cppHeaderInternalForExportFuncAuto;
 
-            GenerateCppCode(output._cppCode);
-            GenerateCsCode(output._csCode);
 
-        }
-        void GenerateCppCode(CodeStringBuilder stbuilder)
-        {
+            //cpp
             CodeTypeDeclaration orgDecl = this.OriginalDecl;
             CodeTypeDeclaration implTypeDecl = this.ImplTypeDecl;
             CodeStringBuilder totalTypeMethod = new CodeStringBuilder();
-
-
             if (implTypeDecl.Name.Contains("CppToC"))
             {
                 _typeTxInfo = orgDecl.TypeTxInfo;
@@ -2071,50 +2063,15 @@ namespace BridgeBuilder
             //----------------------------------------------------------------------- 
             if (callToDotNetMets.Count > 0)
             {
-                GenerateCppImplNamespace(orgDecl, callToDotNetMets, stbuilder);
+                GenerateCppImplNamespace(orgDecl, callToDotNetMets, output._cppCode);
             }
+            //----------------------------------------------------------------------- 
 
-        }
-
-        void GenerateCsCode(CodeStringBuilder stbuilder)
-        {
-            CodeTypeDeclaration orgDecl = this.OriginalDecl;
-            CodeTypeDeclaration implTypeDecl = this.ImplTypeDecl;
-
-
-            if (implTypeDecl.Name.Contains("CppToC"))
-            {
-                _typeTxInfo = orgDecl.TypeTxInfo;
-            }
-            else
-            {
-                _typeTxInfo = implTypeDecl.TypeTxInfo;
-            }
-
-            //-----------------------------------------------------------------------
-            List<MethodTxInfo> callToDotNetMets = new List<MethodTxInfo>();
-
-            int maxPar = 0;
-            int j = _typeTxInfo.methods.Count;
-
-            for (int i = 0; i < j; ++i)
-            {
-                MethodTxInfo metTx = _typeTxInfo.methods[i];
-                //-----------------
-                CodeMethodDeclaration codeMethodDecl = metTx.metDecl;
-                if (codeMethodDecl.IsAbstract || codeMethodDecl.IsVirtual)
-                {
-                    callToDotNetMets.Add(metTx);
-                }
-                if (metTx.pars.Count > maxPar)
-                {
-                    maxPar = metTx.pars.Count;
-                }
-            }
+            //C# part
 
             if (callToDotNetMets.Count > 0)
             {
-                GenerateCsImplClass(orgDecl, callToDotNetMets, stbuilder);
+                GenerateCsStructClass(orgDecl, callToDotNetMets, output._csCode);
             }
 
             CppToCsMethodArgsClassGen cppMetArgClassGen = new CppToCsMethodArgsClassGen();
@@ -2128,8 +2085,10 @@ namespace BridgeBuilder
             }
             cppArgClassStBuilder.AppendLine("}");
             _cppHeaderExportFuncAuto.Append(cppArgClassStBuilder.ToString());
-
+            //------------------------------------------------------------------
         }
+         
+         
         string GenerateCsMethodArgsClass_Native(MethodTxInfo met, CodeStringBuilder stbuilder)
         {
             //generate cs method pars
@@ -2564,7 +2523,7 @@ namespace BridgeBuilder
             stbuilder.Append("(I1 i1,");
             stbuilder.Append(argClassName + " args");
             stbuilder.AppendLine("){");
-            GenerateExpandMethodContent(met, stbuilder);
+            GenerateCsExpandMethodContent(met, stbuilder);
             stbuilder.AppendLine("}"); //method
         }
         void GenerateCsSingleArgMethodImplForInterface(string argClassName, MethodTxInfo met, CodeStringBuilder stbuilder)
@@ -2581,17 +2540,16 @@ namespace BridgeBuilder
             stbuilder.Append(argClassName + " args");
             stbuilder.AppendLine(");");
         }
-        void GenerateCsImplClass(CodeTypeDeclaration orgDecl, List<MethodTxInfo> callToDotNetMets, CodeStringBuilder stbuilder)
+
+        void GenerateCsStructClass(CodeTypeDeclaration orgDecl, List<MethodTxInfo> callToDotNetMets, CodeStringBuilder stbuilder)
         {
+
             int nn = callToDotNetMets.Count;
             //create interface for this handler
             //we provide 2 interfaces
             //1. singles arg interface
-            //2. expanded args interface
-
-            string className = orgDecl.Name;
-
-
+            //2. expanded args interface 
+            string className = orgDecl.Name; 
             //create a cpp class              
             stbuilder.Append("public struct " + className);
             stbuilder.AppendLine("{");
@@ -2665,7 +2623,7 @@ namespace BridgeBuilder
                 stbuilder.AppendLine("}");
                 //i1 expand interface
                 stbuilder.AppendLine("if(i1 != null){");
-                GenerateExpandMethodContent(met, stbuilder);
+                GenerateCsExpandMethodContent(met, stbuilder);
                 stbuilder.AppendLine("}");
                 stbuilder.AppendLine("}break;");//case 
             }
@@ -2686,7 +2644,7 @@ namespace BridgeBuilder
 
             stbuilder.AppendLine("}"); //end class
         }
-        void GenerateExpandMethodContent(MethodTxInfo met, CodeStringBuilder stbuilder)
+        void GenerateCsExpandMethodContent(MethodTxInfo met, CodeStringBuilder stbuilder)
         {
 
             //temp 
