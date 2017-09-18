@@ -53,7 +53,7 @@ namespace BridgeBuilder
 
             CodeStringBuilder codeBuilder = new CodeStringBuilder();
             CodeTypeDeclaration orgDecl = this.OriginalDecl;
-            TypeTxInfo _typeTxInfo = orgDecl.TypeTxInfo;
+            TypePlan _typeTxInfo = orgDecl.TypeTxInfo;
 
             //
             AddComment(orgDecl.LineComments, codeBuilder);
@@ -69,7 +69,7 @@ namespace BridgeBuilder
             codeBuilder.AppendLine("public enum " + orgDecl.Name + enum_base + "{");
             //transform enum
             int i = 0;
-            foreach (FieldTxInfo fieldTx in _typeTxInfo.fields)
+            foreach (FieldPlan fieldTx in _typeTxInfo.fields)
             {
 
                 if (i > 0)

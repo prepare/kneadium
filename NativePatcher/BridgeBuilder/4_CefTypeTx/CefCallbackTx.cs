@@ -9,7 +9,7 @@ namespace BridgeBuilder
     /// </summary>
     class CefCallbackTx : CefTypeTx
     {
-        TypeTxInfo _typeTxInfo;
+        TypePlan _typeTxInfo;
 
         public CefCallbackTx(CodeTypeDeclaration typedecl)
             : base(typedecl)
@@ -33,7 +33,7 @@ namespace BridgeBuilder
             int j = _typeTxInfo.methods.Count;
             for (int i = 0; i < j; ++i)
             {
-                MethodTxInfo met = _typeTxInfo.methods[i];
+                MethodPlan met = _typeTxInfo.methods[i];
                 cppMetArgClassGen.GenerateCppMethodArgsClass(met, cppArgClassStBuilder);
             }
             cppArgClassStBuilder.AppendLine("}");
@@ -64,13 +64,13 @@ namespace BridgeBuilder
             CodeTypeDeclaration implTypeDecl = this.ImplTypeDecl;
             _typeTxInfo = orgDecl.TypeTxInfo;
             //-----------------------------------------------------------------------
-            List<MethodTxInfo> onEventMethods = new List<MethodTxInfo>();
+            List<MethodPlan> onEventMethods = new List<MethodPlan>();
 
             int j = _typeTxInfo.methods.Count;
             int maxPar = 0;
             for (int i = 0; i < j; ++i)
             {
-                MethodTxInfo metTx = _typeTxInfo.methods[i];
+                MethodPlan metTx = _typeTxInfo.methods[i];
                 if (metTx.metDecl.IsVirtual)
                 {
                     //this method need a callback to .net side (.net-side event listener)

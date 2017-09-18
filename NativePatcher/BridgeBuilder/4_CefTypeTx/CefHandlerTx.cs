@@ -8,13 +8,13 @@ namespace BridgeBuilder
     /// </summary>
     class CefHandlerTx : CefTypeTx
     {
-        TypeTxInfo _typeTxInfo;
+        TypePlan _typeTxInfo;
         public CefHandlerTx(CodeTypeDeclaration typedecl)
             : base(typedecl)
         {
 
         }
-        void GenerateCppImplMethodForNs(MethodTxInfo met, CodeStringBuilder stbuilder, bool useJsSlot)
+        void GenerateCppImplMethodForNs(MethodPlan met, CodeStringBuilder stbuilder, bool useJsSlot)
         {
             CodeMethodDeclaration metDecl = met.metDecl;
             stbuilder.AppendLine("//gen! " + metDecl.ToString());
@@ -54,7 +54,7 @@ namespace BridgeBuilder
 
             for (int i = 0; i < j; ++i)
             {
-                MethodParameterTxInfo parTx = met.pars[i];
+                MethodParameter parTx = met.pars[i];
                 parTx.ClearExtractCode();
                 PrepareDataFromNativeToCs(parTx, "&vargs[" + (i + 1) + "]", parTx.Name, true);
             }
@@ -74,7 +74,7 @@ namespace BridgeBuilder
                     stbuilder.Append("(");
                     for (int i = 0; i < j; ++i)
                     {
-                        MethodParameterTxInfo par = met.pars[i];
+                        MethodParameter par = met.pars[i];
                         if (i > 0) { stbuilder.Append(","); }
                         //temp
                         string parType = par.TypeSymbol.ToString();
@@ -104,7 +104,7 @@ namespace BridgeBuilder
                 //
                 for (int i = 0; i < j; ++i)
                 {
-                    MethodParameterTxInfo parTx = met.pars[i];
+                    MethodParameter parTx = met.pars[i];
                     if (parTx.ArgPreExtractCode != null)
                     {
                         stbuilder.AppendLine(parTx.ArgPreExtractCode);
@@ -112,7 +112,7 @@ namespace BridgeBuilder
                 }
                 for (int i = 0; i < j; ++i)
                 {
-                    MethodParameterTxInfo parTx = met.pars[i];
+                    MethodParameter parTx = met.pars[i];
                     stbuilder.AppendLine(parTx.ArgExtractCode);
                 }
                 //
@@ -123,7 +123,7 @@ namespace BridgeBuilder
                 //post call
                 for (int i = 0; i < j; ++i)
                 {
-                    MethodParameterTxInfo parTx = met.pars[i];
+                    MethodParameter parTx = met.pars[i];
                     if (parTx.ArgPostExtractCode != null)
                     {
                         stbuilder.AppendLine(parTx.ArgPostExtractCode);
@@ -184,7 +184,7 @@ namespace BridgeBuilder
             stbuilder.AppendLine("}"); //method
         }
 
-        void GenerateCppImplMethodDeclarationForNs(MethodTxInfo met, CodeStringBuilder stbuilder)
+        void GenerateCppImplMethodDeclarationForNs(MethodPlan met, CodeStringBuilder stbuilder)
         {
             CodeMethodDeclaration metDecl = met.metDecl;
             stbuilder.AppendLine();
@@ -221,7 +221,7 @@ namespace BridgeBuilder
         }
 
         void GenerateCppImplNamespace(CodeTypeDeclaration orgDecl,
-            List<MethodTxInfo> callToDotNetMets,
+            List<MethodPlan> callToDotNetMets,
             CodeStringBuilder stbuilder)
         {
 
@@ -238,14 +238,14 @@ namespace BridgeBuilder
             for (int mm = 0; mm < nn; ++mm)
             {
                 //implement on event notificationi
-                MethodTxInfo met = callToDotNetMets[mm];
+                MethodPlan met = callToDotNetMets[mm];
                 met.CppMethodSwitchCaseName = namespaceName + "_" + met.Name + "_" + (mm + 1);
             }
             nn = callToDotNetMets.Count;
             for (int mm = 0; mm < nn; ++mm)
             {
                 //implement on event notificationi
-                MethodTxInfo met = callToDotNetMets[mm];
+                MethodPlan met = callToDotNetMets[mm];
                 //prepare data and call the callback
                 GenerateCppImplMethodForNs(met, stbuilder, false);
             }
@@ -259,7 +259,7 @@ namespace BridgeBuilder
             _cppHeaderInternalForExportFuncAuto.AppendLine("const int _typeName=" + "CefTypeName_" + orgDecl.Name + ";");
             for (int mm = 0; mm < nn; ++mm)
             {
-                MethodTxInfo met = callToDotNetMets[mm];
+                MethodPlan met = callToDotNetMets[mm];
                 _cppHeaderInternalForExportFuncAuto.AppendLine("const int " + met.CppMethodSwitchCaseName + "=" + (mm + 1) + ";");
             }
             _cppHeaderInternalForExportFuncAuto.AppendLine("}");
@@ -270,7 +270,7 @@ namespace BridgeBuilder
             for (int mm = 0; mm < nn; ++mm)
             {
                 //implement on event notificationi
-                MethodTxInfo met = callToDotNetMets[mm];
+                MethodPlan met = callToDotNetMets[mm];
                 //prepare data and call the callback                 
                 GenerateCppImplMethodDeclarationForNs(met, _cppHeaderExportFuncAuto);
             }
@@ -301,14 +301,14 @@ namespace BridgeBuilder
             }
 
             //-----------------------------------------------------------------------
-            List<MethodTxInfo> callToDotNetMets = new List<MethodTxInfo>();
+            List<MethodPlan> callToDotNetMets = new List<MethodPlan>();
             CodeStringBuilder const_methodNames = new CodeStringBuilder();
             int maxPar = 0;
             int j = _typeTxInfo.methods.Count;
 
             for (int i = 0; i < j; ++i)
             {
-                MethodTxInfo metTx = _typeTxInfo.methods[i];
+                MethodPlan metTx = _typeTxInfo.methods[i];
                 metTx.CppMethodSwitchCaseName = orgDecl.Name + "_" + metTx.Name + "_" + (i + 1);
                 //-----------------
                 CodeMethodDeclaration codeMethodDecl = metTx.metDecl;
@@ -346,7 +346,7 @@ namespace BridgeBuilder
             cppArgClassStBuilder.AppendLine("namespace " + orgDecl.Name + "Ext{");
             for (int i = 0; i < j; ++i)
             {
-                MethodTxInfo met = _typeTxInfo.methods[i];
+                MethodPlan met = _typeTxInfo.methods[i];
                 cppMetArgClassGen.GenerateCppMethodArgsClass(met, cppArgClassStBuilder);
             }
             cppArgClassStBuilder.AppendLine("}");

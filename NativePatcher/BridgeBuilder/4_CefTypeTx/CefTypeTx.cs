@@ -154,7 +154,7 @@ namespace BridgeBuilder
         /// <param name="par"></param>
         /// <param name="destExpression"></param>
         /// <param name="srcExpression"></param>
-        internal static void PrepareDataFromNativeToCs(MethodParameterTxInfo par, string destExpression, string srcExpression, bool stackBased)
+        internal static void PrepareDataFromNativeToCs(MethodParameter par, string destExpression, string srcExpression, bool stackBased)
         {
 
             TypeSymbol ret = par.TypeSymbol;
@@ -607,7 +607,7 @@ namespace BridgeBuilder
 
         }
 
-        internal static void PrepareCppMetArg(MethodParameterTxInfo par, string argName)
+        internal static void PrepareCppMetArg(MethodParameter par, string argName)
         {
             par.ClearExtractCode();
             TypeSymbol typeSymbol = par.TypeSymbol;

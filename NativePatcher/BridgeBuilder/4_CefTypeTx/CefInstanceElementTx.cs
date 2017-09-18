@@ -17,8 +17,6 @@ namespace BridgeBuilder
         }
         public override void GenerateCode(CefCodeGenOutput output)
         {
-
-
             GenerateCppCode(output._cppCode);
             GenerateCsCode(output._csCode);
         }
@@ -33,7 +31,7 @@ namespace BridgeBuilder
             //
             CodeTypeDeclaration orgDecl = this.OriginalDecl;
             CodeTypeDeclaration implTypeDecl = this.ImplTypeDecl;
-            TypeTxInfo typeTxInfo;
+            TypePlan typeTxInfo;
             if (implTypeDecl.Name.Contains("CppToC"))
             {
                 typeTxInfo = orgDecl.TypeTxInfo;
@@ -49,6 +47,7 @@ namespace BridgeBuilder
             //
             if (cppHandlerReqCodeGen.callToDotNetMets.Count > 0)
             {
+                
                 CppInstanceImplCodeGen instanceImplCodeGen = new CppInstanceImplCodeGen();
                 instanceImplCodeGen.GenerateCppImplClass(this,
                     typeTxInfo,

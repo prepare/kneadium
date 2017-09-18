@@ -437,7 +437,7 @@ namespace BridgeBuilder
 
             int typeName = 1;
 
-            List<TypeTxInfo> typeTxInfoList = new List<TypeTxInfo>();
+            List<TypePlan> typeTxInfoList = new List<TypePlan>();
 
             foreach (CodeTypeDeclaration typedecl in cefTypeCollection._v_instanceClasses)
             {
@@ -445,7 +445,7 @@ namespace BridgeBuilder
                 CefInstanceElementTx instanceClassPlan = new CefInstanceElementTx(typedecl);
                 instanceClassPlans.Add(instanceClassPlan);
                 allTxPlans.Add(typedecl.Name, instanceClassPlan);
-                TypeTxInfo typeTxPlan = txPlanner.MakeTransformPlan(typedecl);
+                TypePlan typeTxPlan = txPlanner.MakeTransformPlan(typedecl);
                 instanceClassPlan.CsInterOpTypeNameId = typeTxPlan.CsInterOpTypeNameId = typeName++;
                 typedecl.TypeTxInfo = typeTxPlan;
                 typeTxInfoList.Add(typeTxPlan);
@@ -459,7 +459,7 @@ namespace BridgeBuilder
                 CefHandlerTx handlerPlan = new CefHandlerTx(typedecl);
                 handlerPlans.Add(handlerPlan);
                 allTxPlans.Add(typedecl.Name, handlerPlan);
-                TypeTxInfo typeTxPlan = txPlanner.MakeTransformPlan(typedecl);
+                TypePlan typeTxPlan = txPlanner.MakeTransformPlan(typedecl);
                 handlerPlan.CsInterOpTypeNameId = typeTxPlan.CsInterOpTypeNameId = typeName++;
                 typedecl.TypeTxInfo = typeTxPlan;
                 typeTxInfoList.Add(typeTxPlan);
@@ -471,7 +471,7 @@ namespace BridgeBuilder
                 callbackPlans.Add(callbackPlan);
                 allTxPlans.Add(typedecl.Name, callbackPlan);
                 ////
-                TypeTxInfo typeTxPlan = txPlanner.MakeTransformPlan(typedecl);
+                TypePlan typeTxPlan = txPlanner.MakeTransformPlan(typedecl);
                 callbackPlan.CsInterOpTypeNameId = typeTxPlan.CsInterOpTypeNameId = typeName++;
                 typedecl.TypeTxInfo = typeTxPlan;
                 typeTxInfoList.Add(typeTxPlan);
@@ -482,7 +482,7 @@ namespace BridgeBuilder
                 CefEnumTx enumTxPlan = new CefEnumTx(typedecl);
                 enumTxPlans.Add(enumTxPlan);
                 allTxPlans.Add(typedecl.Name, enumTxPlan);
-                TypeTxInfo typeTxPlan = txPlanner.MakeTransformPlan(typedecl);
+                TypePlan typeTxPlan = txPlanner.MakeTransformPlan(typedecl);
                 enumTxPlan.CsInterOpTypeNameId = typeTxPlan.CsInterOpTypeNameId = typeName++;
                 typedecl.TypeTxInfo = typeTxPlan;
 
@@ -492,7 +492,7 @@ namespace BridgeBuilder
 
             foreach (CodeTypeDeclaration typedecl in cefTypeCollection.cToCppClasses)
             {
-                TypeTxInfo typeTxPlan = txPlanner.MakeTransformPlan(typedecl);
+                TypePlan typeTxPlan = txPlanner.MakeTransformPlan(typedecl);
                 typeTxPlan.CsInterOpTypeNameId = typeName++;
                 typedecl.TypeTxInfo = typeTxPlan;
 
@@ -518,7 +518,7 @@ namespace BridgeBuilder
             foreach (CodeTypeDeclaration typedecl in cefTypeCollection.cppToCClasses)
             {
                 //callback, handle, visitor etc
-                TypeTxInfo typeTxPlan = txPlanner.MakeTransformPlan(typedecl);
+                TypePlan typeTxPlan = txPlanner.MakeTransformPlan(typedecl);
                 typeTxPlan.CsInterOpTypeNameId = typeName++;
                 typedecl.TypeTxInfo = typeTxPlan;
                 //cef -specific
@@ -558,7 +558,7 @@ namespace BridgeBuilder
                 "//AUTOGEN");
 
 
-            foreach (TypeTxInfo txinfo in typeTxInfoList)
+            foreach (TypePlan txinfo in typeTxInfoList)
             {
                 cppHeaderInternalForExportFunc.AppendLine("const int CefTypeName_" + txinfo.TypeDecl.Name + " = " + txinfo.CsInterOpTypeNameId.ToString() + ";");
             }

@@ -13,9 +13,9 @@ namespace BridgeBuilder
         //------------------------------
 
 
-        TypeTxInfo _typeTxInfo;
+        TypePlan _typeTxInfo;
         CodeTypeDeclaration _orgDecl;
-        internal static void PrepareCsMetArg(MethodParameterTxInfo par, string argName)
+        internal static void PrepareCsMetArg(MethodParameter par, string argName)
         {
             par.ClearExtractCode();
             TypeSymbol typeSymbol = par.TypeSymbol;
@@ -480,7 +480,7 @@ namespace BridgeBuilder
 
             for (int i = 0; i < j; ++i)
             {
-                MethodTxInfo metTx = _typeTxInfo.methods[i];
+                MethodPlan metTx = _typeTxInfo.methods[i];
                 if (metTx.pars.Count > maxPar)
                 {
                     maxPar = metTx.pars.Count;
@@ -511,7 +511,7 @@ namespace BridgeBuilder
             {
                 CodeStringBuilder met_stbuilder = new CodeStringBuilder();
 
-                MethodTxInfo metTx = _typeTxInfo.methods[i];
+                MethodPlan metTx = _typeTxInfo.methods[i];
                 GenerateCsMethod(metTx, met_stbuilder);
                 csStruct.Append(met_stbuilder.ToString());
             }
@@ -529,14 +529,14 @@ namespace BridgeBuilder
             stbuilder.Append(csStruct.ToString());
 
         }
-        void GenerateCsMethod(MethodTxInfo met, CodeStringBuilder stbuilder)
+        void GenerateCsMethod(MethodPlan met, CodeStringBuilder stbuilder)
         {
 
             if (met.CsLeftMethodBodyBlank) return;  //temp here 
             //---------------------------------------
             //extract managed args and then call native c++ method 
-            MethodParameterTxInfo ret = met.ReturnPlan;
-            List<MethodParameterTxInfo> pars = met.pars;
+            MethodParameter ret = met.ReturnPlan;
+            List<MethodParameter> pars = met.pars;
             int parCount = pars.Count;
             if (parCount > 15)
             {
@@ -585,7 +585,7 @@ namespace BridgeBuilder
                 {
                     stbuilder.AppendLine(",");
                 }
-                MethodParameterTxInfo parTx = pars[i];
+                MethodParameter parTx = pars[i];
                 stbuilder.Append(CefTypeTx.GetCsRetName(parTx.TypeSymbol));
                 stbuilder.Append(" ");
                 stbuilder.Append(parTx.Name);
@@ -605,7 +605,7 @@ namespace BridgeBuilder
             //---------------------------
             for (int i = 0; i < parCount; ++i)
             {
-                MethodParameterTxInfo parTx = pars[i];
+                MethodParameter parTx = pars[i];
                 if (!string.IsNullOrEmpty(parTx.ArgPreExtractCode))
                 {
                     stbuilder.Append(parTx.ArgPreExtractCode);
@@ -614,7 +614,7 @@ namespace BridgeBuilder
             //---------------------------
             for (int i = 0; i < parCount; ++i)
             {
-                MethodParameterTxInfo parTx = pars[i];
+                MethodParameter parTx = pars[i];
                 if (!string.IsNullOrEmpty(parTx.ArgExtractCode))
                 {
                     stbuilder.Append(parTx.ArgExtractCode);
@@ -637,7 +637,7 @@ namespace BridgeBuilder
             //--------------------
             for (int i = 0; i < parCount; ++i)
             {
-                MethodParameterTxInfo parTx = pars[i];
+                MethodParameter parTx = pars[i];
                 if (parTx.ArgPostExtractCode != null)
                 {
                     stbuilder.AppendLine(parTx.ArgPostExtractCode);
@@ -685,12 +685,12 @@ namespace BridgeBuilder
 
     class CsStructModuleCodeGen : CsCodeGen
     {
-        void PrepareCsMetPars(MethodTxInfo met)
+        void PrepareCsMetPars(MethodPlan met)
         {
             int j = met.pars.Count;
             for (int i = 0; i < j; ++i)
             {
-                MethodParameterTxInfo parTx = met.pars[i];
+                MethodParameter parTx = met.pars[i];
                 switch (parTx.Name)
                 {
                     case "params":
@@ -717,7 +717,7 @@ namespace BridgeBuilder
             }
 
         }
-        public void GenerateCsStructClass(CodeTypeDeclaration orgDecl, List<MethodTxInfo> callToDotNetMets, CodeStringBuilder stbuilder)
+        public void GenerateCsStructClass(CodeTypeDeclaration orgDecl, List<MethodPlan> callToDotNetMets, CodeStringBuilder stbuilder)
         {
 
             int nn = callToDotNetMets.Count;
@@ -735,7 +735,7 @@ namespace BridgeBuilder
             for (int mm = 0; mm < nn; ++mm)
             {
                 //implement on event notificationi
-                MethodTxInfo met = callToDotNetMets[mm];
+                MethodPlan met = callToDotNetMets[mm];
                 PrepareCsMetPars(met);
                 stbuilder.AppendLine("const int " + met.CppMethodSwitchCaseName + "= " + (mm + 1) + ";");
             }
@@ -744,7 +744,7 @@ namespace BridgeBuilder
             for (int mm = 0; mm < nn; ++mm)
             {
                 //implement on event notificationi
-                MethodTxInfo met = callToDotNetMets[mm];
+                MethodPlan met = callToDotNetMets[mm];
                 //prepare data and call the callback                
                 stbuilder.AppendLine("//gen! " + met.metDecl.ToString());
                 //
@@ -764,7 +764,7 @@ namespace BridgeBuilder
             for (int mm = 0; mm < nn; ++mm)
             {
                 //implement on event notificationi
-                MethodTxInfo met = callToDotNetMets[mm];
+                MethodPlan met = callToDotNetMets[mm];
                 GenerateCsSingleArgMethodImplForInterface(met.CsArgClassName, met, stbuilder);
             }
             stbuilder.AppendLine("}");
@@ -775,7 +775,7 @@ namespace BridgeBuilder
             for (int mm = 0; mm < nn; ++mm)
             {
                 //implement on event notificationi
-                MethodTxInfo met = callToDotNetMets[mm];
+                MethodPlan met = callToDotNetMets[mm];
                 GenerateCsExpandedArgsMethodForInterface(met, stbuilder);
             }
             stbuilder.AppendLine("}");
@@ -790,7 +790,7 @@ namespace BridgeBuilder
             for (int mm = 0; mm < nn; ++mm)
             {
                 //implement on event notificationi
-                MethodTxInfo met = callToDotNetMets[mm];
+                MethodPlan met = callToDotNetMets[mm];
                 stbuilder.AppendLine("case " + met.CppMethodSwitchCaseName + ":{");
                 stbuilder.AppendLine("var args=new " + met.CsArgClassName + "(nativeArgPtr);");
                 //i0
@@ -813,17 +813,17 @@ namespace BridgeBuilder
             for (int mm = 0; mm < nn; ++mm)
             {
                 //implement on event notificationi
-                MethodTxInfo met = callToDotNetMets[mm];
+                MethodPlan met = callToDotNetMets[mm];
                 GenerateCsSingleArgMethodImplForI1(met.CsArgClassName, met, stbuilder);
             } 
             stbuilder.AppendLine("}"); //end class
         } 
          
-        void GenerateCsSingleArgMethodImplForI1(string argClassName, MethodTxInfo met, CodeStringBuilder stbuilder)
+        void GenerateCsSingleArgMethodImplForI1(string argClassName, MethodPlan met, CodeStringBuilder stbuilder)
         {
             CodeMethodDeclaration metDecl = (CodeMethodDeclaration)met.metDecl;
             //temp 
-            List<MethodParameterTxInfo> pars = met.pars;
+            List<MethodParameter> pars = met.pars;
             stbuilder.Append("public static void");
             stbuilder.Append(" ");
             stbuilder.Append(met.Name);
@@ -833,11 +833,11 @@ namespace BridgeBuilder
             GenerateCsExpandMethodContent(met, stbuilder);
             stbuilder.AppendLine("}"); //method
         } 
-        void GenerateCsExpandMethodContent(MethodTxInfo met, CodeStringBuilder stbuilder)
+        void GenerateCsExpandMethodContent(MethodPlan met, CodeStringBuilder stbuilder)
         {
 
             //temp 
-            List<MethodParameterTxInfo> pars = met.pars;
+            List<MethodParameter> pars = met.pars;
             //call 
             stbuilder.AppendLine("//expand args");
             int j = pars.Count;
@@ -846,7 +846,7 @@ namespace BridgeBuilder
                 //arg expansion   
                 for (int i = 0; i < j; ++i)
                 {
-                    MethodParameterTxInfo par = pars[i];
+                    MethodParameter par = pars[i];
                     if (par.ArgByRef)
                     {
                         stbuilder.Append(par.InnerTypeName + " " + par.Name);
@@ -875,7 +875,7 @@ namespace BridgeBuilder
                     {
                         stbuilder.Append(",\r\n");
                     }
-                    MethodParameterTxInfo par = pars[i];
+                    MethodParameter par = pars[i];
                     if (par.ArgByRef)
                     {
                         stbuilder.Append("ref " + par.Name);
@@ -891,7 +891,7 @@ namespace BridgeBuilder
             {
                 for (int i = 0; i < j; ++i)
                 {
-                    MethodParameterTxInfo par = pars[i];
+                    MethodParameter par = pars[i];
                     if (par.ArgByRef)
                     {
                         stbuilder.AppendLine("args." + par.Name + "(" + par.Name + ");");
@@ -900,12 +900,12 @@ namespace BridgeBuilder
             }
         }
 
-        void GenerateCsSingleArgMethodImplForInterface(string argClassName, MethodTxInfo met, CodeStringBuilder stbuilder)
+        void GenerateCsSingleArgMethodImplForInterface(string argClassName, MethodPlan met, CodeStringBuilder stbuilder)
         {
 
             CodeMethodDeclaration metDecl = (CodeMethodDeclaration)met.metDecl;
             //temp 
-            List<MethodParameterTxInfo> pars = met.pars;
+            List<MethodParameter> pars = met.pars;
 
             stbuilder.Append("void");
             stbuilder.Append(" ");
@@ -915,7 +915,7 @@ namespace BridgeBuilder
             stbuilder.Append(argClassName + " args");
             stbuilder.AppendLine(");");
         }
-        void GenerateCsExpandedArgsMethodForInterface(MethodTxInfo met, CodeStringBuilder stbuilder)
+        void GenerateCsExpandedArgsMethodForInterface(MethodPlan met, CodeStringBuilder stbuilder)
         {
             CodeMethodDeclaration metDecl = (CodeMethodDeclaration)met.metDecl;
 
@@ -934,7 +934,7 @@ namespace BridgeBuilder
                     stbuilder.Append(",");
                 }
 
-                MethodParameterTxInfo parTx = met.pars[i];
+                MethodParameter parTx = met.pars[i];
                 string parTypeName = CefTypeTx.GetCsRetName(parTx.TypeSymbol);
                 stbuilder.Append(parTypeName);
                 //some cpp name can't be use in C#
@@ -944,7 +944,7 @@ namespace BridgeBuilder
             stbuilder.AppendLine(");");
         }
 
-        string GenerateCsMethodArgsClass_Native(MethodTxInfo met, CodeStringBuilder stbuilder)
+        string GenerateCsMethodArgsClass_Native(MethodPlan met, CodeStringBuilder stbuilder)
         {
             //generate cs method pars
             CodeMethodDeclaration metDecl = (CodeMethodDeclaration)met.metDecl;
@@ -960,7 +960,7 @@ namespace BridgeBuilder
             {
                 //move this to method
                 CodeMethodParameter par = pars[i];
-                MethodParameterTxInfo parTx = met.pars[i];
+                MethodParameter parTx = met.pars[i];
                 switch (parTx.Name)
                 {
                     case "params":
@@ -1080,7 +1080,7 @@ namespace BridgeBuilder
 
 
 
-        string GenerateCsMethodArgsClass_JsSlot(MethodTxInfo met, CodeStringBuilder stbuilder)
+        string GenerateCsMethodArgsClass_JsSlot(MethodPlan met, CodeStringBuilder stbuilder)
         {
             //generate cs method pars
             CodeMethodDeclaration metDecl = (CodeMethodDeclaration)met.metDecl;
@@ -1110,7 +1110,7 @@ namespace BridgeBuilder
 
                 //move this to method
                 CodeMethodParameter par = pars[i];
-                MethodParameterTxInfo parTx = met.pars[i];
+                MethodParameter parTx = met.pars[i];
                 switch (parTx.Name)
                 {
                     case "params":
