@@ -655,7 +655,6 @@ namespace BridgeBuilder
         void CreateNewInstanceMethod(StringBuilder outputStBuilder, List<CefTypeTx> customImplClasses)
         {
             CodeStringBuilder stbuilder = new CodeStringBuilder();
-            //void* NewInstance(int typeName, managed_callback mcallback, jsvalue* jsvalue);
             stbuilder.AppendLine("void* NewInstance(int typeName, managed_callback mcallback, jsvalue* jsvalue){");
             stbuilder.AppendLine("switch(typeName){");
             int j = customImplClasses.Count;
