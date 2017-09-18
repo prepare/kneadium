@@ -47,7 +47,11 @@
     <Compile Include="2_CefApiParser\CefCppParser.cs" />
     <Compile Include="3_CefTypeAnalysis\SymbolDefinition.cs" />
     <Compile Include="3_CefTypeAnalysis\TypeSymbolWalk.cs" />
-    <Compile Include="4_CefCodeGen\CefTypeTx.cs" />
+    <Compile Include="4_CefTypeTx\CefCallbackTx.cs" />
+    <Compile Include="4_CefTypeTx\CefEnumTx.cs" />
+    <Compile Include="4_CefTypeTx\CefHandlerTx.cs" />
+    <Compile Include="4_CefTypeTx\CefInstanceElementTx.cs" />
+    <Compile Include="4_CefTypeTx\CefTypeTx.cs" />
     <Compile Include="4_CefCodeGen\CppCodeGen.cs" />
     <Compile Include="4_CefCodeGen\CsCodeGen.cs" />
     <Compile Include="4_CefCodeGen\CodeGen.cs" />

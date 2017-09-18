@@ -785,4 +785,67 @@ namespace BridgeBuilder
     }
 
 
+    class CppInstanceMethodCodeGen : CppCodeGen
+    {
+        public void CreateCppNewInstanceMethod(StringBuilder outputStBuilder, List<CefTypeTx> customImplClasses)
+        {
+            CodeStringBuilder stbuilder = new CodeStringBuilder();
+            stbuilder.AppendLine("void* NewInstance(int typeName, managed_callback mcallback, jsvalue* jsvalue){");
+            stbuilder.AppendLine("switch(typeName){");
+            int j = customImplClasses.Count;
+            for (int i = 0; i < j; ++i)
+            {
+                CefTypeTx tx = customImplClasses[i];
+                CodeTypeDeclaration typedecl = tx.OriginalDecl;
+                stbuilder.AppendLine("case  CefTypeName_" + typedecl.Name + ":{");
+                CodeTypeDeclaration implTypeDecl = tx.ImplTypeDecl;
+                stbuilder.AppendLine("auto inst =new " + tx.CppImplClassName + "();");
+                stbuilder.AppendLine("inst->mcallback = mcallback;");
+                stbuilder.AppendLine("return " + tx.ImplTypeDecl.Name + "::Wrap(inst);");
+                stbuilder.AppendLine("}");
+            }
+            stbuilder.AppendLine("}");//end switch
+            stbuilder.AppendLine("return nullptr;");
+            stbuilder.AppendLine("}");
+            //
+            outputStBuilder.Append(stbuilder.ToString());
+
+        }
+    }
+
+    class CppSwicthTableCodeGen : CppCodeGen
+    {
+        public void CreateCppSwitchTable(StringBuilder stbuilder, List<CefInstanceElementTx> instanceClassPlans)
+        {
+            CodeStringBuilder cppStBuilder = new CodeStringBuilder();
+            //------
+            cppStBuilder.AppendLine("void MyCefMet_CallN(void* me1, int metName, jsvalue* ret, jsvalue* v1, jsvalue* v2, jsvalue* v3, jsvalue* v4, jsvalue* v5, jsvalue* v6, jsvalue* v7){");
+            cppStBuilder.AppendLine(" int cefTypeName = (metName >> 16);");
+            cppStBuilder.AppendLine(" switch (cefTypeName)");
+            cppStBuilder.AppendLine(" {");
+            cppStBuilder.AppendLine(" default: break;");
+
+            int j = instanceClassPlans.Count;
+            for (int i = 0; i < j; ++i)
+            {
+                CefInstanceElementTx instanceClassPlan = instanceClassPlans[i];
+                cppStBuilder.AppendLine("case " + "CefTypeName_" + instanceClassPlan.OriginalDecl.Name + ":");
+                cppStBuilder.AppendLine("{");
+                cppStBuilder.AppendLine("MyCefMet_" + instanceClassPlan.OriginalDecl.Name + "((" + instanceClassPlan.UnderlyingCType + "*)me1,metName & 0xffff,ret");
+                int nn = instanceClassPlan.MaxMethodParCount;
+                for (int m = 0; m < nn; ++m)
+                {
+                    cppStBuilder.Append(",v" + (m + 1));
+                }
+
+                cppStBuilder.AppendLine(");");
+                cppStBuilder.AppendLine("break;");
+                cppStBuilder.AppendLine("}");
+            }
+            cppStBuilder.AppendLine("}");
+            cppStBuilder.AppendLine("}");
+
+            stbuilder.Append(cppStBuilder.ToString());
+        }
+    }
 }
