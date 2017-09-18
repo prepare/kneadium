@@ -550,11 +550,9 @@ namespace BridgeBuilder
             StringBuilder csCodeStBuilder = new StringBuilder();
             AddCppBuiltInBeginCode(cppCodeStBuilder);
 
-            CodeStringBuilder cppHeaderExportFuncAuto = new CodeStringBuilder();
-            CodeStringBuilder cppHeaderInternalForExportFunc = new CodeStringBuilder();
+    
 
-            cppHeaderExportFuncAuto.AppendLine("//AUTOGEN");
-            //
+            CodeStringBuilder cppHeaderInternalForExportFunc = new CodeStringBuilder(); 
             cppHeaderInternalForExportFunc.AppendLine(
                 "//MIT, 2017, WinterDev\r\n" +
                 "//AUTOGEN");
@@ -606,6 +604,9 @@ namespace BridgeBuilder
                 }
                 tt_count++;
             }
+
+            CodeStringBuilder cppHeaderExportFuncAuto = new CodeStringBuilder();
+            cppHeaderExportFuncAuto.AppendLine("//AUTOGEN");
 
 
             foreach (CefCallbackTx tx in callbackPlans)
