@@ -235,6 +235,7 @@ namespace BridgeBuilder
         CodeTypeDeclaration typedecl; //current type decl
         TypePlan typeTxInfo; //current type tx          
         TemplateTypeSymbol3 tt3;
+        static int codeGenNum;
 
         public TypeTranformPlanner()
         {
@@ -270,6 +271,7 @@ namespace BridgeBuilder
                 StringBuilder stbuilder = new StringBuilder();
                 int j = met.Parameters.Count;
                 //
+                stbuilder.AppendLine("//TypeTranformPlanner::GenerateMethodCallFromCppToCs , " + (++codeGenNum));
                 stbuilder.AppendLine("autogen!: " + met.ToString());
 
                 stbuilder.AppendLine("if(mcallback_){");

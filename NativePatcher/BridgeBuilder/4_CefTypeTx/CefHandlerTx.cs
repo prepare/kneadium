@@ -9,15 +9,22 @@ namespace BridgeBuilder
     class CefHandlerTx : CefTypeTx
     {
         TypePlan _typePlan;
+
+        static int codeGenNum;
+
         public CefHandlerTx(CodeTypeDeclaration typedecl)
             : base(typedecl)
         {
-            
+
         }
         void GenerateCppImplMethodForNs(MethodPlan met, CodeStringBuilder stbuilder, bool useJsSlot)
         {
+
             CodeMethodDeclaration metDecl = met.metDecl;
+            stbuilder.AppendLine("//CefHandlerTx::GenerateCppImplMethodForNs ," + (++codeGenNum)); 
             stbuilder.AppendLine("//gen! " + metDecl.ToString());
+            //--------------------------- 
+
             //temp
             if (metDecl.ReturnType.ToString() == "FilterStatus")
             {
@@ -87,7 +94,13 @@ namespace BridgeBuilder
                     stbuilder.AppendLine(");");
                 }
                 stbuilder.AppendLine("mcallback( (_typeName << 16) | " + met.CppMethodSwitchCaseName + ",&args1.arg);");
-                stbuilder.AppendLine("}"); //if(this->mcallback){ 
+                //temp fix, arg extract code 
+                if (!met.ReturnPlan.IsVoid)
+                {
+                    stbuilder.AppendLine("return args1.arg.myext_ret_value;");                     
+                }
+
+                stbuilder.AppendLine("}");  
             }
             else
             {
@@ -187,8 +200,10 @@ namespace BridgeBuilder
         void GenerateCppImplMethodDeclarationForNs(MethodPlan met, CodeStringBuilder stbuilder)
         {
             CodeMethodDeclaration metDecl = met.metDecl;
-            stbuilder.AppendLine();
+            stbuilder.AppendLine("//CefHandlerTx::GenerateCppImplMethodDeclarationForNs ," + (++codeGenNum));
             stbuilder.AppendLine("//gen! " + metDecl.ToString());
+            //--------------------------- 
+           
             //temp
             if (metDecl.ReturnType.ToString() == "FilterStatus")
             {

@@ -8,6 +8,8 @@ namespace BridgeBuilder
     {
         //this create a impl in cpp side
 
+        static int codeGenNum1;
+        static int codeGenNum2;
         public void GenerateCppImplClass(
             CefTypeTx cefTypeTxPlan,
             TypePlan typeTxInfo,
@@ -15,7 +17,7 @@ namespace BridgeBuilder
             CodeTypeDeclaration orgDecl,
             CodeStringBuilder stbuilder)
         {
-            stbuilder.AppendLine("//!codegen: GenerateCppImplClass \r\n");
+            stbuilder.AppendLine("//CppInstanceImplCodeGen::GenerateCppImplClass, " + (++codeGenNum1) + "  \r\n");
             string className = "My" + orgDecl.Name;
             int nn = callToDotNetMets.Count;
             for (int mm = 0; mm < nn; ++mm)
@@ -60,6 +62,9 @@ namespace BridgeBuilder
 
 
             CodeMethodDeclaration metDecl = (CodeMethodDeclaration)met.metDecl;
+            //--------------------------- 
+
+            stbuilder.AppendLine("//CppInstanceImplCodeGen::GenerateCppImplMethod, " + (++codeGenNum2));
             stbuilder.AppendLine("//gen! " + metDecl.ToString());
 
             //temp
@@ -183,6 +188,8 @@ namespace BridgeBuilder
             MethodPlan met, CodeStringBuilder stbuilder, bool useJsSlot)
         {
             CodeMethodDeclaration metDecl = (CodeMethodDeclaration)met.metDecl;
+
+            stbuilder.AppendLine("//CppEventListenerInstanceImplCodeGen");
             stbuilder.AppendLine("//gen! " + metDecl.ToString());
             stbuilder.Append("virtual " + metDecl.ReturnType + " " + metDecl.Name + "(");
             List<CodeMethodParameter> pars = metDecl.Parameters;
@@ -483,8 +490,8 @@ namespace BridgeBuilder
                 throw new NotSupportedException();
             }
 
-            //--------------------------- 
-            stbuilder.AppendLine();
+
+            stbuilder.AppendLine("//CppHandleCsMethodRequestCodeGen");
             stbuilder.Append(
                 "\r\n" +
                 "// gen! " + met.ToString() + "\r\n"

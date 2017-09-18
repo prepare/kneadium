@@ -526,12 +526,13 @@ namespace BridgeBuilder
             //-----------------------------------------------------------------------
             csStruct.AppendLine("}");  //close struct 
             //add to stbuilder
-            stbuilder.Append(csStruct.ToString());
-
+            stbuilder.Append(csStruct.ToString()); 
         }
+
+        static int codeGenNum;
         void GenerateCsMethod(MethodPlan met, CodeStringBuilder stbuilder)
         {
-
+             
             if (met.CsLeftMethodBodyBlank) return;  //temp here 
             //---------------------------------------
             //extract managed args and then call native c++ method 
@@ -545,11 +546,11 @@ namespace BridgeBuilder
             //--------------------------- 
             //generate method sig 
             //--------------------------- 
-
+            stbuilder.AppendLine("//CsCallToNativeCodeGen::GenerateCsMethod , "+ (++codeGenNum));
             stbuilder.Append(
-                "\r\n" +
-                "// gen! " + met.ToString() + "\r\n"
-                );
+                 "\r\n" +
+                 "// gen! " + met.ToString() + "\r\n"
+                 );
             //---------------------------
             CodeGenUtils.AddComment(met.metDecl.LineComments, stbuilder);
 
@@ -747,7 +748,7 @@ namespace BridgeBuilder
                 MethodPlan met = callToDotNetMets[mm];
                 //prepare data and call the callback                
                 stbuilder.AppendLine("//gen! " + met.metDecl.ToString());
-                //
+               
                 //GenerateCsExpandedArgsMethodImpl(met, stbuilder);
                 string argClassName = GenerateCsMethodArgsClass_JsSlot(met, stbuilder);
                 CodeStringBuilder st2 = new CodeStringBuilder();
@@ -815,10 +816,10 @@ namespace BridgeBuilder
                 //implement on event notificationi
                 MethodPlan met = callToDotNetMets[mm];
                 GenerateCsSingleArgMethodImplForI1(met.CsArgClassName, met, stbuilder);
-            } 
+            }
             stbuilder.AppendLine("}"); //end class
-        } 
-         
+        }
+
         void GenerateCsSingleArgMethodImplForI1(string argClassName, MethodPlan met, CodeStringBuilder stbuilder)
         {
             CodeMethodDeclaration metDecl = (CodeMethodDeclaration)met.metDecl;
@@ -832,7 +833,7 @@ namespace BridgeBuilder
             stbuilder.AppendLine("){");
             GenerateCsExpandMethodContent(met, stbuilder);
             stbuilder.AppendLine("}"); //method
-        } 
+        }
         void GenerateCsExpandMethodContent(MethodPlan met, CodeStringBuilder stbuilder)
         {
 
