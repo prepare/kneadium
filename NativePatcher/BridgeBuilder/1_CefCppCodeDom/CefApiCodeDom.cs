@@ -440,7 +440,7 @@ namespace BridgeBuilder
         }
         //
         //transformation 
-        internal TypePlan TypeTxInfo { get; set; }
+        internal TypePlan TypePlan { get; set; }
 
     }
 

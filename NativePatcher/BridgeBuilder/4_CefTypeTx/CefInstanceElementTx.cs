@@ -34,11 +34,11 @@ namespace BridgeBuilder
             TypePlan typeTxInfo;
             if (implTypeDecl.Name.Contains("CppToC"))
             {
-                typeTxInfo = orgDecl.TypeTxInfo;
+                typeTxInfo = orgDecl.TypePlan;
             }
             else
             {
-                typeTxInfo = implTypeDecl.TypeTxInfo;
+                typeTxInfo = implTypeDecl.TypePlan;
             }
 
 

@@ -53,7 +53,7 @@ namespace BridgeBuilder
 
             CodeStringBuilder codeBuilder = new CodeStringBuilder();
             CodeTypeDeclaration orgDecl = this.OriginalDecl;
-            TypePlan _typeTxInfo = orgDecl.TypeTxInfo;
+            TypePlan _typeTxInfo = orgDecl.TypePlan;
 
             //
             AddComment(orgDecl.LineComments, codeBuilder);

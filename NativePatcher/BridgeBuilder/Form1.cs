@@ -447,7 +447,7 @@ namespace BridgeBuilder
                 allTxPlans.Add(typedecl.Name, instanceClassPlan);
                 TypePlan typeTxPlan = txPlanner.MakeTransformPlan(typedecl);
                 instanceClassPlan.CsInterOpTypeNameId = typeTxPlan.CsInterOpTypeNameId = typeName++;
-                typedecl.TypeTxInfo = typeTxPlan;
+                typedecl.TypePlan = typeTxPlan;
                 typeTxInfoList.Add(typeTxPlan);
 
             }
@@ -461,7 +461,7 @@ namespace BridgeBuilder
                 allTxPlans.Add(typedecl.Name, handlerPlan);
                 TypePlan typeTxPlan = txPlanner.MakeTransformPlan(typedecl);
                 handlerPlan.CsInterOpTypeNameId = typeTxPlan.CsInterOpTypeNameId = typeName++;
-                typedecl.TypeTxInfo = typeTxPlan;
+                typedecl.TypePlan = typeTxPlan;
                 typeTxInfoList.Add(typeTxPlan);
             }
             foreach (CodeTypeDeclaration typedecl in cefTypeCollection._v_callBackClasses)
@@ -473,7 +473,7 @@ namespace BridgeBuilder
                 ////
                 TypePlan typeTxPlan = txPlanner.MakeTransformPlan(typedecl);
                 callbackPlan.CsInterOpTypeNameId = typeTxPlan.CsInterOpTypeNameId = typeName++;
-                typedecl.TypeTxInfo = typeTxPlan;
+                typedecl.TypePlan = typeTxPlan;
                 typeTxInfoList.Add(typeTxPlan);
             }
             //
@@ -484,7 +484,7 @@ namespace BridgeBuilder
                 allTxPlans.Add(typedecl.Name, enumTxPlan);
                 TypePlan typeTxPlan = txPlanner.MakeTransformPlan(typedecl);
                 enumTxPlan.CsInterOpTypeNameId = typeTxPlan.CsInterOpTypeNameId = typeName++;
-                typedecl.TypeTxInfo = typeTxPlan;
+                typedecl.TypePlan = typeTxPlan;
 
             }
 
@@ -494,7 +494,7 @@ namespace BridgeBuilder
             {
                 TypePlan typeTxPlan = txPlanner.MakeTransformPlan(typedecl);
                 typeTxPlan.CsInterOpTypeNameId = typeName++;
-                typedecl.TypeTxInfo = typeTxPlan;
+                typedecl.TypePlan = typeTxPlan;
 
                 //cef -specific
                 TemplateTypeSymbol3 baseType0 = (TemplateTypeSymbol3)typedecl.BaseTypes[0].ResolvedType;
@@ -520,7 +520,7 @@ namespace BridgeBuilder
                 //callback, handle, visitor etc
                 TypePlan typeTxPlan = txPlanner.MakeTransformPlan(typedecl);
                 typeTxPlan.CsInterOpTypeNameId = typeName++;
-                typedecl.TypeTxInfo = typeTxPlan;
+                typedecl.TypePlan = typeTxPlan;
                 //cef -specific
                 TemplateTypeSymbol3 baseType0 = (TemplateTypeSymbol3)typedecl.BaseTypes[0].ResolvedType;
                 SimpleTypeSymbol abstractType = (SimpleTypeSymbol)baseType0.Item1;

@@ -263,7 +263,7 @@ namespace BridgeBuilder
                 throw new NotSupportedException();
             }
             //this is type plan
-            TypePlan orgTypeTxInfo = codeTypeDecl.TypeTxInfo;
+            TypePlan orgTypeTxInfo = codeTypeDecl.TypePlan;
             //create injected code for managed code
             foreach (CodeMethodDeclaration met in codeTypeDecl.GetMethodIter())
             {
@@ -605,7 +605,7 @@ namespace BridgeBuilder
             this.typedecl = typedecl;
             //---------------------------------------------
             this.typeTxInfo = new TypePlan(typedecl);
-            typedecl.TypeTxInfo = this.typeTxInfo;
+            typedecl.TypePlan = this.typeTxInfo;
             //---------------------------------------------
             this.tt3 = null; //for hint
 

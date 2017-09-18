@@ -9,7 +9,7 @@ namespace BridgeBuilder
     /// </summary>
     class CefCallbackTx : CefTypeTx
     {
-        TypePlan _typeTxInfo;
+        TypePlan _typePlan;
 
         public CefCallbackTx(CodeTypeDeclaration typedecl)
             : base(typedecl)
@@ -30,10 +30,10 @@ namespace BridgeBuilder
             //
             CodeStringBuilder cppArgClassStBuilder = new CodeStringBuilder();
             cppArgClassStBuilder.AppendLine("namespace " + orgDecl.Name + "Ext{");
-            int j = _typeTxInfo.methods.Count;
+            int j = _typePlan.methods.Count;
             for (int i = 0; i < j; ++i)
             {
-                MethodPlan met = _typeTxInfo.methods[i];
+                MethodPlan met = _typePlan.methods[i];
                 cppMetArgClassGen.GenerateCppMethodArgsClass(met, cppArgClassStBuilder);
             }
             cppArgClassStBuilder.AppendLine("}");
@@ -62,15 +62,15 @@ namespace BridgeBuilder
             //
             CodeTypeDeclaration orgDecl = this.OriginalDecl;
             CodeTypeDeclaration implTypeDecl = this.ImplTypeDecl;
-            _typeTxInfo = orgDecl.TypeTxInfo;
+            _typePlan = orgDecl.TypePlan;
             //-----------------------------------------------------------------------
             List<MethodPlan> onEventMethods = new List<MethodPlan>();
 
-            int j = _typeTxInfo.methods.Count;
+            int j = _typePlan.methods.Count;
             int maxPar = 0;
             for (int i = 0; i < j; ++i)
             {
-                MethodPlan metTx = _typeTxInfo.methods[i];
+                MethodPlan metTx = _typePlan.methods[i];
                 if (metTx.metDecl.IsVirtual)
                 {
                     //this method need a callback to .net side (.net-side event listener)
@@ -104,7 +104,7 @@ namespace BridgeBuilder
                 var eventListenerCodeGen = new CppEventListenerInstanceImplCodeGen();
                 eventListenerCodeGen.GenerateCppImplClass(
                     this,
-                    _typeTxInfo,
+                    _typePlan,
                     orgDecl,
                     onEventMethods,
                     stbuilder);

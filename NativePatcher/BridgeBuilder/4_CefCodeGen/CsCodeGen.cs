@@ -464,7 +464,7 @@ namespace BridgeBuilder
 
             //-----------------------------------------------------------------------
             _orgDecl = orgDecl;
-            _typeTxInfo = implTypeDecl.TypeTxInfo;//tx = tye
+            _typeTxInfo = implTypeDecl.TypePlan;//tx = tye
 
 
             int j = _typeTxInfo.methods.Count;
@@ -474,7 +474,7 @@ namespace BridgeBuilder
             CodeGenUtils.AddComment(orgDecl.LineComments, csStruct);
             //
             csStruct.AppendLine("public struct " + orgDecl.Name + "{");
-            csStruct.AppendLine("const int _typeNAME=" + orgDecl.TypeTxInfo.CsInterOpTypeNameId + ";");
+            csStruct.AppendLine("const int _typeNAME=" + orgDecl.TypePlan.CsInterOpTypeNameId + ";");
             string releaseMetName = orgDecl.Name + "_Release_0";
             csStruct.AppendLine("const int " + releaseMetName + "= (_typeNAME <<16) | 0;");
 
@@ -729,7 +729,7 @@ namespace BridgeBuilder
             //create a cpp class              
             stbuilder.Append("public struct " + className);
             stbuilder.AppendLine("{");
-            stbuilder.AppendLine("public const int _typeNAME=" + orgDecl.TypeTxInfo.CsInterOpTypeNameId + ";");
+            stbuilder.AppendLine("public const int _typeNAME=" + orgDecl.TypePlan.CsInterOpTypeNameId + ";");
 
 
             for (int mm = 0; mm < nn; ++mm)

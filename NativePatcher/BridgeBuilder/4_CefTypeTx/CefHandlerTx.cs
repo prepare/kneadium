@@ -8,11 +8,11 @@ namespace BridgeBuilder
     /// </summary>
     class CefHandlerTx : CefTypeTx
     {
-        TypePlan _typeTxInfo;
+        TypePlan _typePlan;
         public CefHandlerTx(CodeTypeDeclaration typedecl)
             : base(typedecl)
         {
-
+            
         }
         void GenerateCppImplMethodForNs(MethodPlan met, CodeStringBuilder stbuilder, bool useJsSlot)
         {
@@ -226,7 +226,7 @@ namespace BridgeBuilder
         {
 
             string namespaceName = orgDecl.Name + "Ext"; //namespace
-            this.CppImplClassNameId = _typeTxInfo.CsInterOpTypeNameId;
+            this.CppImplClassNameId = _typePlan.CsInterOpTypeNameId;
             this.CppImplClassName = namespaceName;
             //----------------------------------------------
             //create a cpp namespace      
@@ -293,22 +293,22 @@ namespace BridgeBuilder
             CodeStringBuilder totalTypeMethod = new CodeStringBuilder();
             if (implTypeDecl.Name.Contains("CppToC"))
             {
-                _typeTxInfo = orgDecl.TypeTxInfo;
+                _typePlan = orgDecl.TypePlan;
             }
             else
             {
-                _typeTxInfo = implTypeDecl.TypeTxInfo;
+                _typePlan = implTypeDecl.TypePlan;
             }
 
             //-----------------------------------------------------------------------
             List<MethodPlan> callToDotNetMets = new List<MethodPlan>();
             CodeStringBuilder const_methodNames = new CodeStringBuilder();
             int maxPar = 0;
-            int j = _typeTxInfo.methods.Count;
+            int j = _typePlan.methods.Count;
 
             for (int i = 0; i < j; ++i)
             {
-                MethodPlan metTx = _typeTxInfo.methods[i];
+                MethodPlan metTx = _typePlan.methods[i];
                 metTx.CppMethodSwitchCaseName = orgDecl.Name + "_" + metTx.Name + "_" + (i + 1);
                 //-----------------
                 CodeMethodDeclaration codeMethodDecl = metTx.metDecl;
@@ -346,7 +346,7 @@ namespace BridgeBuilder
             cppArgClassStBuilder.AppendLine("namespace " + orgDecl.Name + "Ext{");
             for (int i = 0; i < j; ++i)
             {
-                MethodPlan met = _typeTxInfo.methods[i];
+                MethodPlan met = _typePlan.methods[i];
                 cppMetArgClassGen.GenerateCppMethodArgsClass(met, cppArgClassStBuilder);
             }
             cppArgClassStBuilder.AppendLine("}");
