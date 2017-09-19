@@ -21,7 +21,7 @@ namespace BridgeBuilder
         {
 
             CodeMethodDeclaration metDecl = met.metDecl;
-             
+
             stbuilder.AppendLine("//CefHandlerTx::GenerateCppImplMethodForNs ," + (++codeGenNum));
             stbuilder.AppendLine("//gen! " + metDecl.ToString());
             //--------------------------- 
@@ -214,14 +214,20 @@ namespace BridgeBuilder
             //--------------------------- 
 
             //temp
-            if (metDecl.ReturnType.ToString() == "FilterStatus")
+            switch (metDecl.ReturnType.ToString())
             {
-                stbuilder.Append(metDecl.ReturnType.ResolvedType + " " + metDecl.Name + "(");
+                case "FilterStatus":
+                    stbuilder.Append(metDecl.ReturnType.ResolvedType + " " + metDecl.Name + "(");
+                    break;
+                case "ReturnValue":
+                    string ownerType = met.metDecl.OwnerTypeDecl.Name;
+                    stbuilder.Append(ownerType + "::" + metDecl.ReturnType + " " + metDecl.Name + "(");
+                    break;
+                default:
+                    stbuilder.Append(metDecl.ReturnType + " " + metDecl.Name + "(");
+                    break;
             }
-            else
-            {
-                stbuilder.Append(metDecl.ReturnType + " " + metDecl.Name + "(");
-            }
+
             List<CodeMethodParameter> pars = metDecl.Parameters;
             //first par is managed callback
             stbuilder.Append("managed_callback mcallback");

@@ -590,6 +590,7 @@ namespace BridgeBuilder
 
     class CppToCsMethodArgsClassGen : CppCodeGen
     {
+        static int codeGenNum;
         /// <summary>
         /// generate native method args class
         /// </summary>
@@ -598,7 +599,8 @@ namespace BridgeBuilder
         /// <returns></returns>
         public string GenerateCppMethodArgsClass(MethodPlan met, CodeStringBuilder stbuilder)
         {
-            stbuilder.AppendLine("//!codegen: CppToCsMethodArgsClassGen \r\n");
+
+            stbuilder.AppendLine("//CppToCsMethodArgsClassGen::GenerateCppMethodArgsClass ," + (++codeGenNum) + " \r\n");
 
             //generate cs method pars
             CodeMethodDeclaration metDecl = met.metDecl;
@@ -615,12 +617,22 @@ namespace BridgeBuilder
             stbuilder.AppendLine("struct argData{");
             //fields
             stbuilder.AppendLine("int32_t myext_flags;");
+            string explicitRet = null;
             if (!met.ReturnPlan.IsVoid)
             {
                 //return fields              
                 stbuilder.Append(met.ReturnPlan.TypeSymbol.ToString());
                 stbuilder.Append(" ");
                 stbuilder.AppendLine("myext_ret_value; //0");
+                switch (met.ReturnPlan.TypeSymbol.ToString())
+                {
+                    case "cef_return_value_t":
+                        explicitRet = "(cef_return_value_t)0";
+                        break;
+                    case "CefSize":
+                        explicitRet = "CefSize()";
+                        break;
+                }
             }
             //met args  => fields
             List<string> field_types = new List<string>();
@@ -704,7 +716,14 @@ namespace BridgeBuilder
             {
                 //set init return value
                 //with default value 
-                stbuilder.AppendLine("arg.myext_ret_value=0;");
+                if (explicitRet != null)
+                {
+                    stbuilder.AppendLine("arg.myext_ret_value=" + explicitRet + ";");
+                }
+                else
+                {
+                    stbuilder.AppendLine("arg.myext_ret_value=0;");
+                }
             }
 
             bool need_unwrapMethodAndCtor = false;
@@ -763,7 +782,15 @@ namespace BridgeBuilder
                 {
                     //set init return value
                     //with default value 
-                    stbuilder.AppendLine("arg.myext_ret_value=0;");
+                    if (explicitRet != null)
+                    {
+                        stbuilder.AppendLine("arg.myext_ret_value=" + explicitRet + ";");
+                    }
+                    else
+                    {
+                        stbuilder.AppendLine("arg.myext_ret_value=0;");
+                    }
+
                 }
                 for (int i = 0; i < j; ++i)
                 {
