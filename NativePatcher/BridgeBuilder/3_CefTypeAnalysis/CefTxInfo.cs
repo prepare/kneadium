@@ -167,6 +167,9 @@ namespace BridgeBuilder
 
         internal string CppMethodSwitchCaseName { get; set; }
 
+        internal bool HasDuplicatedMethodName { get; set; }
+        internal string NewOverloadName { get; set; }
+
         public bool CsLeftMethodBodyBlank { get; set; }
         internal string CsArgClassName { get; set; }
 #if DEBUG
