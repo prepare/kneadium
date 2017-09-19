@@ -5,11 +5,11 @@ using System.Text;
 
 namespace BridgeBuilder
 {
-    class TypeTxInfo
+    class TypePlan
     {
-        public List<MethodTxInfo> methods = new List<MethodTxInfo>();
-        public List<FieldTxInfo> fields;
-        public TypeTxInfo(CodeTypeDeclaration typedecl)
+        public List<MethodPlan> methods = new List<MethodPlan>();
+        public List<FieldPlan> fields;
+        public TypePlan(CodeTypeDeclaration typedecl)
         {
             this.TypeDecl = typedecl;
         }
@@ -21,15 +21,15 @@ namespace BridgeBuilder
             get;
             set;
         }
-        public void AddMethod(MethodTxInfo met)
+        public void AddMethod(MethodPlan met)
         {
             methods.Add(met);
         }
-        public void AddField(FieldTxInfo field)
+        public void AddField(FieldPlan field)
         {
             if (fields == null)
             {
-                fields = new List<FieldTxInfo>();
+                fields = new List<FieldPlan>();
             }
             //
             fields.Add(field);
@@ -127,10 +127,10 @@ namespace BridgeBuilder
         //class CefCToCppRefCounted : public BaseName { 
     }
 
-    class FieldTxInfo
+    class FieldPlan
     {
         public CodeFieldDeclaration fieldDecl;
-        public FieldTxInfo(CodeFieldDeclaration fieldDecl)
+        public FieldPlan(CodeFieldDeclaration fieldDecl)
         {
             this.fieldDecl = fieldDecl;
             this.Name = fieldDecl.Name;
@@ -145,21 +145,21 @@ namespace BridgeBuilder
 #endif
     }
 
-    class MethodTxInfo
+    class MethodPlan
     {
         internal CodeMethodDeclaration metDecl;
-        public List<MethodParameterTxInfo> pars = new List<MethodParameterTxInfo>();
-        public MethodTxInfo(CodeMethodDeclaration metDecl)
+        public List<MethodParameter> pars = new List<MethodParameter>();
+        public MethodPlan(CodeMethodDeclaration metDecl)
         {
             this.metDecl = metDecl;
             this.Name = metDecl.Name;
         }
         public string Name { get; set; }
-        public void AddMethodParameterTx(MethodParameterTxInfo par)
+        public void AddMethodParameterTx(MethodParameter par)
         {
             pars.Add(par);
         }
-        public MethodParameterTxInfo ReturnPlan
+        public MethodParameter ReturnPlan
         {
             get;
             set;
@@ -177,10 +177,10 @@ namespace BridgeBuilder
 #endif
     }
 
-    class MethodParameterTxInfo
+    class MethodParameter
     {
 
-        public MethodParameterTxInfo(string name, TypeSymbol typeSymbol)
+        public MethodParameter(string name, TypeSymbol typeSymbol)
         {
             this.Name = name;
             this.TypeSymbol = typeSymbol;
@@ -203,7 +203,7 @@ namespace BridgeBuilder
         {
             return "";
         }
-        public TxParameterDirection Direction { get; set; }
+        public ParameterDirection Direction { get; set; }
 
         internal string ArgPreExtractCode { get; set; }
         internal string ArgExtractCode { get; set; }
@@ -221,7 +221,7 @@ namespace BridgeBuilder
         }
     }
 
-    enum TxParameterDirection
+    enum ParameterDirection
     {
         Return,
         In,
@@ -233,8 +233,9 @@ namespace BridgeBuilder
     class TypeTranformPlanner
     {
         CodeTypeDeclaration typedecl; //current type decl
-        TypeTxInfo typeTxInfo; //current type tx          
+        TypePlan typeTxInfo; //current type tx          
         TemplateTypeSymbol3 tt3;
+        static int codeGenNum;
 
         public TypeTranformPlanner()
         {
@@ -263,20 +264,21 @@ namespace BridgeBuilder
                 throw new NotSupportedException();
             }
             //this is type plan
-            TypeTxInfo orgTypeTxInfo = codeTypeDecl.TypeTxInfo;
+            TypePlan orgTypeTxInfo = codeTypeDecl.TypePlan;
             //create injected code for managed code
             foreach (CodeMethodDeclaration met in codeTypeDecl.GetMethodIter())
             {
                 StringBuilder stbuilder = new StringBuilder();
                 int j = met.Parameters.Count;
                 //
+                stbuilder.AppendLine("//TypeTranformPlanner::GenerateMethodCallFromCppToCs , " + (++codeGenNum));
                 stbuilder.AppendLine("autogen!: " + met.ToString());
 
                 stbuilder.AppendLine("if(mcallback_){");
                 stbuilder.AppendLine("MethodArgs args;");
                 stbuilder.AppendLine("memset(&args,0,sizeof(MethodArgs));");
 
-                MethodTxInfo metTx = met.methodTxInfo;
+                MethodPlan metTx = met.methodTxInfo;
 
                 for (int i = 0; i < j; ++i)
                 {
@@ -600,12 +602,12 @@ namespace BridgeBuilder
 
             }
         }
-        public TypeTxInfo MakeTransformPlan(CodeTypeDeclaration typedecl)
+        public TypePlan MakeTransformPlan(CodeTypeDeclaration typedecl)
         {
             this.typedecl = typedecl;
             //---------------------------------------------
-            this.typeTxInfo = new TypeTxInfo(typedecl);
-            typedecl.TypeTxInfo = this.typeTxInfo;
+            this.typeTxInfo = new TypePlan(typedecl);
+            typedecl.TypePlan = this.typeTxInfo;
             //---------------------------------------------
             this.tt3 = null; //for hint
 
@@ -723,7 +725,7 @@ namespace BridgeBuilder
                 //enum
                 foreach (CodeFieldDeclaration fieldDecl in typedecl.GetFieldIter())
                 {
-                    FieldTxInfo fieldTx = MakeFieldPlan(fieldDecl);
+                    FieldPlan fieldTx = MakeFieldPlan(fieldDecl);
                     typeTxInfo.AddField(fieldTx);
                 }
             }
@@ -734,7 +736,7 @@ namespace BridgeBuilder
 
                     if (metDecl.MethodKind == MethodKind.Normal)
                     {
-                        MethodTxInfo metTx = MakeMethodPlan(metDecl);
+                        MethodPlan metTx = MakeMethodPlan(metDecl);
                         if (metTx == null)
                         {
                             throw new NotSupportedException();
@@ -752,19 +754,19 @@ namespace BridgeBuilder
             return typeTxInfo;
         }
 
-        FieldTxInfo MakeFieldPlan(CodeFieldDeclaration fieldDecl)
+        FieldPlan MakeFieldPlan(CodeFieldDeclaration fieldDecl)
         {
-            FieldTxInfo fieldTx = new FieldTxInfo(fieldDecl);
+            FieldPlan fieldTx = new FieldPlan(fieldDecl);
             return fieldTx;
         }
-        MethodTxInfo MakeMethodPlan(CodeMethodDeclaration metDecl)
+        MethodPlan MakeMethodPlan(CodeMethodDeclaration metDecl)
         {
-            MethodTxInfo metTx = new MethodTxInfo(metDecl);
+            MethodPlan metTx = new MethodPlan(metDecl);
             //make return type plan 
 
             //1. return
-            MethodParameterTxInfo retTxInfo = new MethodParameterTxInfo(null, metDecl.ReturnType.ResolvedType) { IsMethodReturnParameter = true };
-            retTxInfo.Direction = TxParameterDirection.Return;
+            MethodParameter retTxInfo = new MethodParameter(null, metDecl.ReturnType.ResolvedType) { IsMethodReturnParameter = true };
+            retTxInfo.Direction = ParameterDirection.Return;
 
             AddMethodParameterTypeTxInfo(retTxInfo, metDecl.ReturnType.ResolvedType);
             metTx.ReturnPlan = retTxInfo;
@@ -775,9 +777,9 @@ namespace BridgeBuilder
             {
                 CodeMethodParameter metPar = metDecl.Parameters[i];
 
-                MethodParameterTxInfo parTxInfo = new MethodParameterTxInfo(metPar.ParameterName, metPar.ParameterType.ResolvedType);
+                MethodParameter parTxInfo = new MethodParameter(metPar.ParameterName, metPar.ParameterType.ResolvedType);
                 parTxInfo.IsConst = metPar.IsConstPar;
-                parTxInfo.Direction = TxParameterDirection.In;
+                parTxInfo.Direction = ParameterDirection.In;
                 //TODO: review Out,InOut direction 
 
                 TypeSymbol parTypeSymbol = metPar.ParameterType.ResolvedType;
@@ -789,7 +791,7 @@ namespace BridgeBuilder
             return metTx;
         }
 
-        void AddMethodParameterTypeTxInfo(MethodParameterTxInfo parPlan, TypeSymbol resolvedParType)
+        void AddMethodParameterTypeTxInfo(MethodParameter parPlan, TypeSymbol resolvedParType)
         {
             TypeBridgeInfo bridgeInfo = resolvedParType.BridgeInfo;
             if (bridgeInfo == null)

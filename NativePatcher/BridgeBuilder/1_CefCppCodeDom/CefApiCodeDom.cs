@@ -440,7 +440,7 @@ namespace BridgeBuilder
         }
         //
         //transformation 
-        internal TypeTxInfo TypeTxInfo { get; set; }
+        internal TypePlan TypePlan { get; set; }
 
     }
 
@@ -880,7 +880,7 @@ namespace BridgeBuilder
          
         //transformation 
 
-        internal MethodTxInfo methodTxInfo { get; set; }
+        internal MethodPlan methodTxInfo { get; set; }
 
 
         public CodeTypeReference CppExplicitOwnerType
@@ -945,7 +945,7 @@ namespace BridgeBuilder
         }
 
         //transformation phase
-        internal MethodParameterTxInfo ParameterTxInfo { get; set; }
+        internal MethodParameter ParameterTxInfo { get; set; }
     }
 
 }
