@@ -15,8 +15,11 @@ namespace BridgeBuilder
         {
 
         }
+        CefCodeGenOutput _output;
         public override void GenerateCode(CefCodeGenOutput output)
         {
+            _output = output;
+
             GenerateCppCode(output._cppCode);
             GenerateCsCode(output._csCode);
         }
@@ -47,13 +50,59 @@ namespace BridgeBuilder
             //
             if (cppHandlerReqCodeGen.callToDotNetMets.Count > 0)
             {
-                
+                int j = cppHandlerReqCodeGen.callToDotNetMets.Count;
+                //check if method has duplicate name or not
+                Dictionary<string, MethodPlan> uniqueNames = new Dictionary<string, MethodPlan>();
+                for (int i = 0; i < j; ++i)
+                {
+                    MethodPlan met = cppHandlerReqCodeGen.callToDotNetMets[i];
+                    
+                    MethodPlan existingPlan;
+                    if (uniqueNames.TryGetValue(met.Name, out existingPlan))
+                    {
+                        //has some duplicate name 
+                        met.NewOverloadName = met.Name + i;
+                        met.HasDuplicatedMethodName = true;                        
+                    }
+                    else
+                    {
+                        uniqueNames.Add(met.Name, met);
+                    }
+                }
+
                 CppInstanceImplCodeGen instanceImplCodeGen = new CppInstanceImplCodeGen();
                 instanceImplCodeGen.GenerateCppImplClass(this,
                     typeTxInfo,
                     cppHandlerReqCodeGen.callToDotNetMets,
                     orgDecl,
                     stbuilder);
+
+
+                //-----------------------------------------------------------
+                CppToCsMethodArgsClassGen cppMetArgClassGen = new CppToCsMethodArgsClassGen();
+                //
+                CodeStringBuilder cppArgClassStBuilder = new CodeStringBuilder();
+                cppArgClassStBuilder.AppendLine("namespace " + orgDecl.Name + "Ext{");
+
+                for (int i = 0; i < j; ++i)
+                {
+                    MethodPlan met = cppHandlerReqCodeGen.callToDotNetMets[i];
+                    cppMetArgClassGen.GenerateCppMethodArgsClass(met, cppArgClassStBuilder);
+                }
+                cppArgClassStBuilder.AppendLine("}");
+
+                //----------------------------------------------
+                _output._cppHeaderExportFuncAuto.Append(cppArgClassStBuilder.ToString());
+
+                //----------------------------------------------
+                //InternalHeaderForExportFunc.h
+                string namespaceName = orgDecl.Name + "Ext";
+                CodeStringBuilder internalHeader = _output._cppHeaderInternalForExportFuncAuto;
+                internalHeader.AppendLine("namespace " + namespaceName);
+                internalHeader.AppendLine("{");
+                internalHeader.AppendLine("const int _typeName=" + "CefTypeName_" + orgDecl.Name + ";");
+                internalHeader.AppendLine("}");
+                //----------------------------------------------   
             }
 
         }

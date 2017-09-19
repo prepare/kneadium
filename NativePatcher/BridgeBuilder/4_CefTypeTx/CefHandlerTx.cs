@@ -74,6 +74,8 @@ namespace BridgeBuilder
             //method body
             if (!useJsSlot)
             {
+                //use explicit data slot
+
                 stbuilder.AppendLine("if(mcallback){");
                 string metArgsClassName = metDecl.Name + "Args";
                 stbuilder.Append(metArgsClassName + " args1");

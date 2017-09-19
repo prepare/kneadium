@@ -582,6 +582,8 @@ namespace BridgeBuilder
                 csCodeStBuilder.Append(codeGenOutput._csCode.ToString());
             }
             //-------------------------
+            CodeStringBuilder cppHeaderExportFuncAuto = new CodeStringBuilder();
+            cppHeaderExportFuncAuto.AppendLine("//AUTOGEN");
 
             foreach (CefInstanceElementTx tx in instanceClassPlans)
             {
@@ -597,7 +599,11 @@ namespace BridgeBuilder
                 csCodeStBuilder.AppendLine("// " + tx.OriginalDecl.ToString());
                 csCodeStBuilder.Append(codeGenOutput._csCode.ToString());
                 csCodeStBuilder.AppendLine();
-
+                //--------------------------------------------
+               
+                cppHeaderExportFuncAuto.Append(codeGenOutput._cppHeaderExportFuncAuto.ToString());
+                cppHeaderInternalForExportFunc.Append(codeGenOutput._cppHeaderInternalForExportFuncAuto.ToString());
+                //----------
                 if (tx.CppImplClassNameId > 0)
                 {
                     customImplClasses.Add(tx);
@@ -605,8 +611,7 @@ namespace BridgeBuilder
                 tt_count++;
             }
 
-            CodeStringBuilder cppHeaderExportFuncAuto = new CodeStringBuilder();
-            cppHeaderExportFuncAuto.AppendLine("//AUTOGEN");
+         
 
 
             foreach (CefCallbackTx tx in callbackPlans)
