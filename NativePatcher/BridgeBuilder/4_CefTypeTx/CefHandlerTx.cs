@@ -21,7 +21,8 @@ namespace BridgeBuilder
         {
 
             CodeMethodDeclaration metDecl = met.metDecl;
-            stbuilder.AppendLine("//CefHandlerTx::GenerateCppImplMethodForNs ," + (++codeGenNum)); 
+             
+            stbuilder.AppendLine("//CefHandlerTx::GenerateCppImplMethodForNs ," + (++codeGenNum));
             stbuilder.AppendLine("//gen! " + metDecl.ToString());
             //--------------------------- 
 
@@ -29,6 +30,11 @@ namespace BridgeBuilder
             if (metDecl.ReturnType.ToString() == "FilterStatus")
             {
                 stbuilder.Append(metDecl.ReturnType.ResolvedType + " " + metDecl.Name + "(");
+            }
+            else if (metDecl.ReturnType.ToString() == "ReturnValue")
+            {
+                string ownerName = metDecl.OwnerTypeDecl.Name;
+                stbuilder.Append(ownerName + "::" + metDecl.ReturnType + " " + metDecl.Name + "(");
             }
             else
             {
@@ -97,10 +103,10 @@ namespace BridgeBuilder
                 //temp fix, arg extract code 
                 if (!met.ReturnPlan.IsVoid)
                 {
-                    stbuilder.AppendLine("return args1.arg.myext_ret_value;");                     
+                    stbuilder.AppendLine("return args1.arg.myext_ret_value;");
                 }
 
-                stbuilder.AppendLine("}");  
+                stbuilder.AppendLine("}");
             }
             else
             {
@@ -174,10 +180,13 @@ namespace BridgeBuilder
                             stbuilder.Append("return (FilterStatus)0;");
                             break;
                         case "ReturnValue":
-                            stbuilder.Append("return (ReturnValue)0;");
+                            {
+                                string ownerName = metDecl.OwnerTypeDecl.Name;
+                                stbuilder.Append("return (" + ownerName + "::ReturnValue)0;");
+                            }
                             break;
                         case "CefSize":
-                            stbuilder.Append("throw new CefNotImplementException();");
+                            stbuilder.Append("return CefSize();");
                             break;
                         case "size_t":
                             stbuilder.Append("return 0;");
@@ -203,7 +212,7 @@ namespace BridgeBuilder
             stbuilder.AppendLine("//CefHandlerTx::GenerateCppImplMethodDeclarationForNs ," + (++codeGenNum));
             stbuilder.AppendLine("//gen! " + metDecl.ToString());
             //--------------------------- 
-           
+
             //temp
             if (metDecl.ReturnType.ToString() == "FilterStatus")
             {

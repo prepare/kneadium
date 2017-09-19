@@ -368,7 +368,7 @@ namespace BridgeBuilder
             CodeStringBuilder stbuilder)
         {
 
-            stbuilder.AppendLine("//!codegen: CppHandleCsMethodRequestCodeGen \r\n");
+            stbuilder.AppendLine("//CppHandleCsMethodRequestCodeGen::GenerateCppCode \r\n");
             //
             //create switch table for C#-interop
             //
@@ -459,7 +459,29 @@ namespace BridgeBuilder
                 MethodPlan metTx = typeTxInfo.methods[i];
                 met_stbuilder.AppendLine("case " + metTx.CppMethodSwitchCaseName + ":{");
 
-                GenerateCppMethod(typeTxInfo.methods[i], met_stbuilder);
+
+
+                //TODO: review here 
+                //in this version we skip 3 methods
+                //1. CefCommandLine_InitFromArgv_4
+                //2. CefV8Value_SetUserData_36
+                //3. CefV8Value_GetUserData_37
+                string caseName = metTx.CppMethodSwitchCaseName;
+                switch (metTx.CppMethodSwitchCaseName)
+                {
+                    case "CefCommandLine_InitFromArgv_4":
+                    case "CefV8Value_SetUserData_36":
+                    case "CefV8Value_GetUserData_37":
+                        {
+                            met_stbuilder.Append("\r\n //SKIP \r\n");
+                        }
+                        break;
+                    default:
+                        {
+                            GenerateCppMethod(typeTxInfo.methods[i], met_stbuilder);
+                        }
+                        break;
+                }
 
                 met_stbuilder.AppendLine("} break;");
 
@@ -474,6 +496,9 @@ namespace BridgeBuilder
             totalTypeMethod.AppendLine("}");
             stbuilder.Append(totalTypeMethod.ToString());
         }
+
+        static int autoGenNum;
+
         void GenerateCppMethod(MethodPlan met, CodeStringBuilder stbuilder)
         {
             if (met.CsLeftMethodBodyBlank) return;  //temp here
@@ -491,7 +516,7 @@ namespace BridgeBuilder
             }
 
 
-            stbuilder.AppendLine("//CppHandleCsMethodRequestCodeGen");
+            stbuilder.AppendLine("//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ," + (++autoGenNum));
             stbuilder.Append(
                 "\r\n" +
                 "// gen! " + met.ToString() + "\r\n"
