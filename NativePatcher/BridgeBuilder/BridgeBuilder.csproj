@@ -14,7 +14,7 @@
     <FileAlignment>512</FileAlignment>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|x86' ">
-    <PlatformTarget>x86</PlatformTarget>
+    <PlatformTarget>AnyCPU</PlatformTarget>
     <DebugSymbols>true</DebugSymbols>
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
@@ -47,10 +47,16 @@
     <Compile Include="2_CefApiParser\CefCppParser.cs" />
     <Compile Include="3_CefTypeAnalysis\SymbolDefinition.cs" />
     <Compile Include="3_CefTypeAnalysis\TypeSymbolWalk.cs" />
-    <Compile Include="4_CefCodeGen\CefTypeTx.cs" />
+    <Compile Include="4_CefCodeGen\CefCodeGenOutput.cs" />
+    <Compile Include="4_CefCodeGen\CodeGenUtils.cs" />
+    <Compile Include="4_CefTypeTx\CefCallbackTx.cs" />
+    <Compile Include="4_CefTypeTx\CefEnumTx.cs" />
+    <Compile Include="4_CefTypeTx\CefHandlerTx.cs" />
+    <Compile Include="4_CefTypeTx\CefInstanceElementTx.cs" />
+    <Compile Include="4_CefTypeTx\CefTypeTx.cs" />
     <Compile Include="4_CefCodeGen\CppCodeGen.cs" />
     <Compile Include="4_CefCodeGen\CsCodeGen.cs" />
-    <Compile Include="4_CefCodeGen\CodeGen.cs" />
+    <Compile Include="4_CefCodeGen\CodeGenBase.cs" />
     <Compile Include="4_CefCodeGen\CodeStringBuilder.cs" />
     <Compile Include="Patcher\ManualPatcher.cs" />
     <Compile Include="Patcher\PatchBuilder.cs" />
