@@ -2301,6 +2301,15 @@ namespace CefDisplayHandlerExt {
 			arg.source = source;
 			arg.line = line;
 		}
+		OnConsoleMessageArgs(cef_browser_t* browser, const CefString& message, const CefString& source, int line)
+		{
+			arg.myext_flags = ((1 << 18) | (1 << 19) | 4);
+			arg.myext_ret_value = 0;
+			arg.browser = browser;
+			arg.message = &message;
+			arg.source = &source;
+			arg.line = line;
+		}
 		OnConsoleMessageArgs(CefRefPtr<CefBrowser> browser, const CefString* message, const CefString* source, int line)
 		{
 			arg.myext_flags = ((1 << 18) | (1 << 19) | (1 << 20) | 4);
