@@ -6,10 +6,19 @@ using System.Text;
 
 namespace BridgeBuilder
 {
+
+
+
     class CppToCsImplCodeGen
     {
         CodeCompilationUnit cu;
         List<CodeMethodDeclaration> methods;
+        List<string> simpleLineList = new List<string>();
+
+        public CppToCsImplCodeGen()
+        {
+
+        }
         public void Analyze(CodeCompilationUnit cu)
         {
 
@@ -22,14 +31,18 @@ namespace BridgeBuilder
             string onlyFileName = Path.GetFileName(cu.Filename);
             if (onlyFileName == "display_handler_cpptoc.cc")
             {
+                simpleLineList.Clear();
+                simpleLineList.AddRange(File.ReadAllLines(cu.Filename));
+                //
+
                 int classCutAt = onlyFileName.IndexOf("_cpptoc.");
                 string c_className = onlyFileName.Substring(0, classCutAt);
                 int c_classNameLen = c_className.Length;
                 string cppClassName = "Cef" + ConvertToCppName(c_className);
                 string cppExtNamespaceName = cppClassName + "Ext";
 
-                int j = methods.Count;
-                for (int i = 0; i < j; ++i)
+
+                for (int i = methods.Count - 1; i >= 0; --i) //backward, since we are going to insert a new line to the line list
                 {
                     StringBuilder newCodeStBuilder = new StringBuilder();
 
@@ -52,16 +65,29 @@ namespace BridgeBuilder
                         //start at 1
                         CodeMethodParameter par = metDecl.Parameters[a];
                         string parType = par.ParameterType.ToString();
-                        if (parType == "cef_string_t*")
+                        switch (parType)
                         {
-                            string newArgName = "tmp_arg" + a;
-                            newCodeStBuilder.AppendLine("CefString " + newArgName + " (" + par.ParameterName + ");");
-                            argCodeList.Add(newArgName);
+                            default:
+                                {
+                                    argCodeList.Add(par.ParameterName);
+                                }
+                                break;
+                            case "cef_string_list_t":
+                                {
+                                    //cef-specific
+                                    //new var name
+                                    argCodeList.Add("&" + par.ParameterName + "List");
+                                }
+                                break;
+                            case "cef_string_t*":
+                                {
+                                    string newArgName = "tmp_arg" + a;
+                                    newCodeStBuilder.AppendLine("CefString " + newArgName + " (" + par.ParameterName + ");");
+                                    argCodeList.Add(newArgName);
+                                }
+                                break;
                         }
-                        else
-                        {
-                            argCodeList.Add(par.ParameterName);
-                        }
+
                     }
 
                     //prepare cpp' method args
@@ -75,7 +101,7 @@ namespace BridgeBuilder
                         }
                         //start at 1
                         CodeMethodParameter par = metDecl.Parameters[a];
-                        newCodeStBuilder.Append(argCodeList[a - 1]);                         
+                        newCodeStBuilder.Append(argCodeList[a - 1]);
                     }
                     newCodeStBuilder.AppendLine(");");
                     //
@@ -90,10 +116,33 @@ namespace BridgeBuilder
                     //method return value may need special preparation.
                     newCodeStBuilder.AppendLine("}"); //TODO: + method filter
                     newCodeStBuilder.AppendLine("//-----");
+                    //-----
+                    //find insert point
+                    if (!metDecl.HasMethodBody)
+                    {
+                        throw new NotSupportedException();
+                    }
+
+                    int insertAtLine = FindProperInsertPoint(simpleLineList, metDecl.MethodBodyStartAt, metDecl.MethodBodyEndAt);
+
+                    //-----
                 }
             }
         }
+        static int FindProperInsertPoint(List<string> lines, int begin, int end)
+        {
+            for (int i = begin; i <= end; ++i)
+            {
+                //easy, we insert before //EXECUTION comment
+                string line = lines[i].Trim();
+                if (line.StartsWith("// Execute"))
+                {
+                    return i;
+                }
+            }
 
+            return -1; //not found
+        }
         static string ConvertToCppName(string c_className)
         {
             string[] splits = c_className.Split('_');
@@ -101,9 +150,24 @@ namespace BridgeBuilder
             int j = splits.Length;
             for (int i = 0; i < j; ++i)
             {
-                stbuilder.Append(MakeFirstLetterUpperCase(splits[i]));
+
+                string split = MakeFirstLetterUpperCase(splits[i]); 
+                //cef-specific
+                ModifySomeCefSpecificName(ref split); 
+                stbuilder.Append(split);
             }
             return stbuilder.ToString();
+        }
+
+        static void ModifySomeCefSpecificName(ref string cefName)
+        {
+            if (cefName.StartsWith("Url"))
+            {
+                if (cefName.Length > 3)
+                {
+                    cefName = "URL" + MakeFirstLetterUpperCase(cefName.Substring(3));
+                }
+            }
         }
         static string MakeFirstLetterUpperCase(string name)
         {
