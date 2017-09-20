@@ -69,7 +69,7 @@ namespace BridgeBuilder
             //--------------------------- 
 
             stbuilder.AppendLine("//CppInstanceImplCodeGen::GenerateCppImplMethod, " + (++codeGenNum2));
-             
+
             stbuilder.AppendLine("//gen! " + metDecl.ToString());
 
 
@@ -671,10 +671,6 @@ namespace BridgeBuilder
 
             stbuilder.AppendLine("//CppToCsMethodArgsClassGen::GenerateCppMethodArgsClass ," + (++codeGenNum) + " \r\n");
 
-            if (codeGenNum >= 42)
-            {
-
-            }
 
             //generate cs method pars
             CodeMethodDeclaration metDecl = met.metDecl;
@@ -706,7 +702,10 @@ namespace BridgeBuilder
                 switch (met.ReturnPlan.TypeSymbol.ToString())
                 {
                     case "cef_return_value_t":
-                        explicitRet = "(cef_return_value_t)0";
+                        explicitRet = "(cef_return_value_t)0";//temp, from c enum
+                        break;
+                    case "cef_response_filter_status_t":
+                        explicitRet = "(cef_response_filter_status_t)0";//temp, from c enum
                         break;
                     case "CefSize":
                         explicitRet = "CefSize()";
