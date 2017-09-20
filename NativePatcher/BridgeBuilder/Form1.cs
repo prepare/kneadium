@@ -437,7 +437,7 @@ namespace BridgeBuilder
 
             int typeName = 1;
 
-            List<TypeTxInfo> typeTxInfoList = new List<TypeTxInfo>();
+            List<TypePlan> typeTxInfoList = new List<TypePlan>();
 
             foreach (CodeTypeDeclaration typedecl in cefTypeCollection._v_instanceClasses)
             {
@@ -445,9 +445,9 @@ namespace BridgeBuilder
                 CefInstanceElementTx instanceClassPlan = new CefInstanceElementTx(typedecl);
                 instanceClassPlans.Add(instanceClassPlan);
                 allTxPlans.Add(typedecl.Name, instanceClassPlan);
-                TypeTxInfo typeTxPlan = txPlanner.MakeTransformPlan(typedecl);
+                TypePlan typeTxPlan = txPlanner.MakeTransformPlan(typedecl);
                 instanceClassPlan.CsInterOpTypeNameId = typeTxPlan.CsInterOpTypeNameId = typeName++;
-                typedecl.TypeTxInfo = typeTxPlan;
+                typedecl.TypePlan = typeTxPlan;
                 typeTxInfoList.Add(typeTxPlan);
 
             }
@@ -459,9 +459,9 @@ namespace BridgeBuilder
                 CefHandlerTx handlerPlan = new CefHandlerTx(typedecl);
                 handlerPlans.Add(handlerPlan);
                 allTxPlans.Add(typedecl.Name, handlerPlan);
-                TypeTxInfo typeTxPlan = txPlanner.MakeTransformPlan(typedecl);
+                TypePlan typeTxPlan = txPlanner.MakeTransformPlan(typedecl);
                 handlerPlan.CsInterOpTypeNameId = typeTxPlan.CsInterOpTypeNameId = typeName++;
-                typedecl.TypeTxInfo = typeTxPlan;
+                typedecl.TypePlan = typeTxPlan;
                 typeTxInfoList.Add(typeTxPlan);
             }
             foreach (CodeTypeDeclaration typedecl in cefTypeCollection._v_callBackClasses)
@@ -471,9 +471,9 @@ namespace BridgeBuilder
                 callbackPlans.Add(callbackPlan);
                 allTxPlans.Add(typedecl.Name, callbackPlan);
                 ////
-                TypeTxInfo typeTxPlan = txPlanner.MakeTransformPlan(typedecl);
+                TypePlan typeTxPlan = txPlanner.MakeTransformPlan(typedecl);
                 callbackPlan.CsInterOpTypeNameId = typeTxPlan.CsInterOpTypeNameId = typeName++;
-                typedecl.TypeTxInfo = typeTxPlan;
+                typedecl.TypePlan = typeTxPlan;
                 typeTxInfoList.Add(typeTxPlan);
             }
             //
@@ -482,9 +482,9 @@ namespace BridgeBuilder
                 CefEnumTx enumTxPlan = new CefEnumTx(typedecl);
                 enumTxPlans.Add(enumTxPlan);
                 allTxPlans.Add(typedecl.Name, enumTxPlan);
-                TypeTxInfo typeTxPlan = txPlanner.MakeTransformPlan(typedecl);
+                TypePlan typeTxPlan = txPlanner.MakeTransformPlan(typedecl);
                 enumTxPlan.CsInterOpTypeNameId = typeTxPlan.CsInterOpTypeNameId = typeName++;
-                typedecl.TypeTxInfo = typeTxPlan;
+                typedecl.TypePlan = typeTxPlan;
 
             }
 
@@ -492,9 +492,9 @@ namespace BridgeBuilder
 
             foreach (CodeTypeDeclaration typedecl in cefTypeCollection.cToCppClasses)
             {
-                TypeTxInfo typeTxPlan = txPlanner.MakeTransformPlan(typedecl);
+                TypePlan typeTxPlan = txPlanner.MakeTransformPlan(typedecl);
                 typeTxPlan.CsInterOpTypeNameId = typeName++;
-                typedecl.TypeTxInfo = typeTxPlan;
+                typedecl.TypePlan = typeTxPlan;
 
                 //cef -specific
                 TemplateTypeSymbol3 baseType0 = (TemplateTypeSymbol3)typedecl.BaseTypes[0].ResolvedType;
@@ -518,9 +518,9 @@ namespace BridgeBuilder
             foreach (CodeTypeDeclaration typedecl in cefTypeCollection.cppToCClasses)
             {
                 //callback, handle, visitor etc
-                TypeTxInfo typeTxPlan = txPlanner.MakeTransformPlan(typedecl);
+                TypePlan typeTxPlan = txPlanner.MakeTransformPlan(typedecl);
                 typeTxPlan.CsInterOpTypeNameId = typeName++;
-                typedecl.TypeTxInfo = typeTxPlan;
+                typedecl.TypePlan = typeTxPlan;
                 //cef -specific
                 TemplateTypeSymbol3 baseType0 = (TemplateTypeSymbol3)typedecl.BaseTypes[0].ResolvedType;
                 SimpleTypeSymbol abstractType = (SimpleTypeSymbol)baseType0.Item1;
@@ -550,17 +550,15 @@ namespace BridgeBuilder
             StringBuilder csCodeStBuilder = new StringBuilder();
             AddCppBuiltInBeginCode(cppCodeStBuilder);
 
-            CodeStringBuilder cppHeaderExportFuncAuto = new CodeStringBuilder();
-            CodeStringBuilder cppHeaderInternalForExportFunc = new CodeStringBuilder();
+    
 
-            cppHeaderExportFuncAuto.AppendLine("//AUTOGEN");
-            //
+            CodeStringBuilder cppHeaderInternalForExportFunc = new CodeStringBuilder(); 
             cppHeaderInternalForExportFunc.AppendLine(
                 "//MIT, 2017, WinterDev\r\n" +
                 "//AUTOGEN");
 
 
-            foreach (TypeTxInfo txinfo in typeTxInfoList)
+            foreach (TypePlan txinfo in typeTxInfoList)
             {
                 cppHeaderInternalForExportFunc.AppendLine("const int CefTypeName_" + txinfo.TypeDecl.Name + " = " + txinfo.CsInterOpTypeNameId.ToString() + ";");
             }
@@ -584,6 +582,8 @@ namespace BridgeBuilder
                 csCodeStBuilder.Append(codeGenOutput._csCode.ToString());
             }
             //-------------------------
+            CodeStringBuilder cppHeaderExportFuncAuto = new CodeStringBuilder();
+            cppHeaderExportFuncAuto.AppendLine("//AUTOGEN");
 
             foreach (CefInstanceElementTx tx in instanceClassPlans)
             {
@@ -599,13 +599,19 @@ namespace BridgeBuilder
                 csCodeStBuilder.AppendLine("// " + tx.OriginalDecl.ToString());
                 csCodeStBuilder.Append(codeGenOutput._csCode.ToString());
                 csCodeStBuilder.AppendLine();
-
+                //--------------------------------------------
+               
+                cppHeaderExportFuncAuto.Append(codeGenOutput._cppHeaderExportFuncAuto.ToString());
+                cppHeaderInternalForExportFunc.Append(codeGenOutput._cppHeaderInternalForExportFuncAuto.ToString());
+                //----------
                 if (tx.CppImplClassNameId > 0)
                 {
                     customImplClasses.Add(tx);
                 }
                 tt_count++;
             }
+
+         
 
 
             foreach (CefCallbackTx tx in callbackPlans)
@@ -647,36 +653,16 @@ namespace BridgeBuilder
             csCodeStBuilder.AppendLine("}"); //end cs
             //--------
             //cpp
-            CreateCppSwitchTable(cppCodeStBuilder, instanceClassPlans);
-            CreateNewInstanceMethod(cppCodeStBuilder, customImplClasses);
-            AddCppBuiltInEndCode(cppCodeStBuilder);
+            CppSwicthTableCodeGen cppSwitchTableCodeGen = new CppSwicthTableCodeGen();
+            cppSwitchTableCodeGen.CreateCppSwitchTable(cppCodeStBuilder, instanceClassPlans);
+            //
+            CppInstanceMethodCodeGen instanceMetCodeGen = new CppInstanceMethodCodeGen();
+            instanceMetCodeGen.CreateCppNewInstanceMethod(cppCodeStBuilder, customImplClasses);
+            //--------
+            cppCodeStBuilder.AppendLine("/////////////////////////////////////////////////");
             // 
         }
-        void CreateNewInstanceMethod(StringBuilder outputStBuilder, List<CefTypeTx> customImplClasses)
-        {
-            CodeStringBuilder stbuilder = new CodeStringBuilder();
-            //void* NewInstance(int typeName, managed_callback mcallback, jsvalue* jsvalue);
-            stbuilder.AppendLine("void* NewInstance(int typeName, managed_callback mcallback, jsvalue* jsvalue){");
-            stbuilder.AppendLine("switch(typeName){");
-            int j = customImplClasses.Count;
-            for (int i = 0; i < j; ++i)
-            {
-                CefTypeTx tx = customImplClasses[i];
-                CodeTypeDeclaration typedecl = tx.OriginalDecl;
-                stbuilder.AppendLine("case  CefTypeName_" + typedecl.Name + ":{");
-                CodeTypeDeclaration implTypeDecl = tx.ImplTypeDecl;
-                stbuilder.AppendLine("auto inst =new " + tx.CppImplClassName + "();");
-                stbuilder.AppendLine("inst->mcallback = mcallback;");
-                stbuilder.AppendLine("return " + tx.ImplTypeDecl.Name + "::Wrap(inst);");
-                stbuilder.AppendLine("}");
-            }
-            stbuilder.AppendLine("}");//end switch
-            stbuilder.AppendLine("return nullptr;");
-            stbuilder.AppendLine("}");
-            //
-            outputStBuilder.Append(stbuilder.ToString());
 
-        }
         void AddCppBuiltInBeginCode(StringBuilder cppStBuilder)
         {
 
@@ -760,42 +746,8 @@ namespace BridgeBuilder
                 }
             }
         }
-        void AddCppBuiltInEndCode(StringBuilder cppStBuilder)
-        {
-            cppStBuilder.AppendLine("/////////////////////////////////////////////////");
-        }
-        void CreateCppSwitchTable(StringBuilder stbuilder, List<CefInstanceElementTx> instanceClassPlans)
-        {
-            CodeStringBuilder cppStBuilder = new CodeStringBuilder();
-            //------
-            cppStBuilder.AppendLine("void MyCefMet_CallN(void* me1, int metName, jsvalue* ret, jsvalue* v1, jsvalue* v2, jsvalue* v3, jsvalue* v4, jsvalue* v5, jsvalue* v6, jsvalue* v7){");
-            cppStBuilder.AppendLine(" int cefTypeName = (metName >> 16);");
-            cppStBuilder.AppendLine(" switch (cefTypeName)");
-            cppStBuilder.AppendLine(" {");
-            cppStBuilder.AppendLine(" default: break;");
+       
 
-            int j = instanceClassPlans.Count;
-            for (int i = 0; i < j; ++i)
-            {
-                CefInstanceElementTx instanceClassPlan = instanceClassPlans[i];
-                cppStBuilder.AppendLine("case " + "CefTypeName_" + instanceClassPlan.OriginalDecl.Name + ":");
-                cppStBuilder.AppendLine("{");
-                cppStBuilder.AppendLine("MyCefMet_" + instanceClassPlan.OriginalDecl.Name + "((" + instanceClassPlan.UnderlyingCType + "*)me1,metName & 0xffff,ret");
-                int nn = instanceClassPlan.MaxMethodParCount;
-                for (int m = 0; m < nn; ++m)
-                {
-                    cppStBuilder.Append(",v" + (m + 1));
-                }
-
-                cppStBuilder.AppendLine(");");
-                cppStBuilder.AppendLine("break;");
-                cppStBuilder.AppendLine("}");
-            }
-            cppStBuilder.AppendLine("}");
-            cppStBuilder.AppendLine("}");
-
-            stbuilder.Append(cppStBuilder.ToString());
-        }
 
         CodeCompilationUnit ParseWrapper(string srcFile)
         {
