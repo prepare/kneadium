@@ -1343,22 +1343,22 @@ namespace BridgeBuilder
                     ParseCtorInitializer(met);
                 }
                 //----------------
+              
 
                 if (ExpectPunc("{"))
                 {
-                    Token openBraceTk = tokenList[currentTokenIndex]; 
+                    Token openBraceTk = tokenList[currentTokenIndex];
                     //this version we not parse method body
                     ReadUntilEscapeFromBlock();
-                    bool expectClose = !ExpectPunc("}");
-                    if (expectClose)
-                    {
-                        Token closeBraceTk = tokenList[currentTokenIndex];
-                        met.HasMethodBody = true;
-                        met.MethodBodyStartAt = openBraceTk.LineNo;
-                        met.MethodBodyEndAt = closeBraceTk.LineNo;
-                    }
-                    return expectClose;
+                    bool endPunc = !ExpectPunc("}");
 
+                    //----
+                    Token closeBraceTk = tokenList[currentTokenIndex];
+                    met.HasMethodBody = true;
+                    met.MethodBodyStartAt = openBraceTk.LineNo;
+                    met.MethodBodyEndAt = closeBraceTk.LineNo;
+                    //----
+                    return endPunc; 
                 }
                 else if (ExpectPunc("="))
                 {
