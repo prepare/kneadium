@@ -17,7 +17,7 @@
 #include "libcef_dll/ctocpp/frame_ctocpp.h"
 #include "libcef_dll/transfer_util.h"
 
-#include "../myext/ExportFuncAuto.h" //
+#include "../myext/ExportFuncAuto.h"
 #include "../myext/InternalHeaderForExportFunc.h"
 
 namespace {
@@ -48,32 +48,17 @@ display_handler_on_address_change(struct _cef_display_handler_t* self,
     return; 
  
   auto me = CefDisplayHandlerCppToC::Get(self);
-  auto m_callback= me->GetManagedCallBack();
+  auto m_callback = me->GetManagedCallBack();
   if (m_callback) {
-	   
-	  CefString m_url(url);
-	  CefDisplayHandlerExt::OnAddressChangeArgs args1(browser, frame, m_url);
+	  CefString tmp_arg3(url);
+	  CefDisplayHandlerExt::OnAddressChangeArgs args1(browser, frame, tmp_arg3);
 	  m_callback((CefDisplayHandlerExt::_typeName << 16) | CefDisplayHandlerExt::CefDisplayHandlerExt_OnAddressChange_1, &args1.arg);
-	  
-  } 
+  }
 
   // Execute
-  me->OnAddressChange(
+  CefDisplayHandlerCppToC::Get(self)->OnAddressChange(
       CefBrowserCToCpp::Wrap(browser), CefFrameCToCpp::Wrap(frame),
-      CefString(url));
-
-  ////
-  //auto a1 = CefDisplayHandlerCppToC::Get(self);
-  //auto callback = CefDisplayHandlerCppToC::Get(self)->GetManagedCallBack();
-  //if (callback) {
-	 // CefString cefstr = url;
-	 // CefDisplayHandlerExt::OnAddressChangeArgs a1(browser, frame, &cefstr);
-  //}
-
-  //// Execute
-  //CefDisplayHandlerCppToC::Get(self)->OnAddressChange(
-	 // CefBrowserCToCpp::Wrap(browser), CefFrameCToCpp::Wrap(frame),
-	 // CefString(url));
+      CefString(url)); 
 }
 
 void CEF_CALLBACK
@@ -90,7 +75,15 @@ display_handler_on_title_change(struct _cef_display_handler_t* self,
   if (!browser)
     return;
   // Unverified params: title
-
+  //-----------
+  auto me = CefDisplayHandlerCppToC::Get(self);
+  auto m_callback = me->GetManagedCallBack();
+  if (m_callback) {
+	  CefString tmp_arg2(title);
+	  CefDisplayHandlerExt::OnTitleChangeArgs args1(browser, tmp_arg2);
+	  m_callback((CefDisplayHandlerExt::_typeName << 16) | CefDisplayHandlerExt::CefDisplayHandlerExt_OnTitleChange_2, &args1.arg);
+  }
+  //-----------
   // Execute
   CefDisplayHandlerCppToC::Get(self)->OnTitleChange(
       CefBrowserCToCpp::Wrap(browser), CefString(title));
@@ -115,6 +108,14 @@ display_handler_on_favicon_urlchange(struct _cef_display_handler_t* self,
   std::vector<CefString> icon_urlsList;
   transfer_string_list_contents(icon_urls, icon_urlsList);
 
+  //-----------
+  auto me = CefDisplayHandlerCppToC::Get(self);
+  auto m_callback = me->GetManagedCallBack();
+  if (m_callback) {
+	  CefDisplayHandlerExt::OnFaviconURLChangeArgs args1(browser, &icon_urlsList);
+	  m_callback((CefDisplayHandlerExt::_typeName << 16) | CefDisplayHandlerExt::CefDisplayHandlerExt_OnFaviconURLChange_3, &args1.arg);
+  }
+  //-----------
   // Execute
   CefDisplayHandlerCppToC::Get(self)->OnFaviconURLChange(
       CefBrowserCToCpp::Wrap(browser), icon_urlsList);
@@ -133,7 +134,14 @@ display_handler_on_fullscreen_mode_change(struct _cef_display_handler_t* self,
   DCHECK(browser);
   if (!browser)
     return;
-
+  //-----
+  auto me = CefDisplayHandlerCppToC::Get(self);
+  auto m_callback = me->GetManagedCallBack();
+  if (m_callback) {
+	  CefDisplayHandlerExt::OnFullscreenModeChangeArgs args1(browser, fullscreen ? true : false);
+	  m_callback((CefDisplayHandlerExt::_typeName << 16) | CefDisplayHandlerExt::CefDisplayHandlerExt_OnFullscreenModeChange_4, &args1.arg);
+  }
+  //-----
   // Execute
   CefDisplayHandlerCppToC::Get(self)->OnFullscreenModeChange(
       CefBrowserCToCpp::Wrap(browser), fullscreen ? true : false);
@@ -155,6 +163,16 @@ int CEF_CALLBACK display_handler_on_tooltip(struct _cef_display_handler_t* self,
 
   // Translate param: text; type: string_byref
   CefString textStr(text);
+
+  //-----
+  auto me = CefDisplayHandlerCppToC::Get(self);
+  auto m_callback = me->GetManagedCallBack();
+  if (m_callback) {
+	  CefString tmp_arg2(text);
+	  CefDisplayHandlerExt::OnTooltipArgs args1(browser, tmp_arg2);
+	  m_callback((CefDisplayHandlerExt::_typeName << 16) | CefDisplayHandlerExt::CefDisplayHandlerExt_OnTooltip_5, &args1.arg);
+  }
+  //-----
 
   // Execute
   bool _retval = CefDisplayHandlerCppToC::Get(self)->OnTooltip(
@@ -178,7 +196,15 @@ display_handler_on_status_message(struct _cef_display_handler_t* self,
   if (!browser)
     return;
   // Unverified params: value
-
+  //-----
+  auto me = CefDisplayHandlerCppToC::Get(self);
+  auto m_callback = me->GetManagedCallBack();
+  if (m_callback) {
+	  CefString tmp_arg2(value);
+	  CefDisplayHandlerExt::OnStatusMessageArgs args1(browser, tmp_arg2);
+	  m_callback((CefDisplayHandlerExt::_typeName << 16) | CefDisplayHandlerExt::CefDisplayHandlerExt_OnStatusMessage_6, &args1.arg);
+  }
+  //-----
   // Execute
   CefDisplayHandlerCppToC::Get(self)->OnStatusMessage(
       CefBrowserCToCpp::Wrap(browser), CefString(value));
@@ -200,7 +226,16 @@ display_handler_on_console_message(struct _cef_display_handler_t* self,
   if (!browser)
     return 0;
   // Unverified params: message, source
-
+  //-----
+  auto me = CefDisplayHandlerCppToC::Get(self);
+  auto m_callback = me->GetManagedCallBack();
+  if (m_callback) {
+	  CefString tmp_arg2(message);
+	  CefString tmp_arg3(source);
+	  CefDisplayHandlerExt::OnConsoleMessageArgs args1(browser, tmp_arg2, tmp_arg3, line);
+	  m_callback((CefDisplayHandlerExt::_typeName << 16) | CefDisplayHandlerExt::CefDisplayHandlerExt_OnConsoleMessage_7, &args1.arg);
+  }
+  //-----
   // Execute
   bool _retval = CefDisplayHandlerCppToC::Get(self)->OnConsoleMessage(
       CefBrowserCToCpp::Wrap(browser), CefString(message), CefString(source),

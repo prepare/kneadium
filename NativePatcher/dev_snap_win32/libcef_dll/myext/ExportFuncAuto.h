@@ -2130,11 +2130,11 @@ namespace CefDisplayHandlerExt {
 			const CefString* title;//2
 		};
 		argData arg;//
-		OnTitleChangeArgs(cef_browser_t* browser, const CefString* title)
+		OnTitleChangeArgs(cef_browser_t* browser, const CefString& title)
 		{
 			arg.myext_flags = ((1 << 18) | 2);
 			arg.browser = browser;
-			arg.title = title;
+			arg.title = &title;
 		}
 		OnTitleChangeArgs(CefRefPtr<CefBrowser> browser, const CefString* title)
 		{
@@ -2218,15 +2218,15 @@ namespace CefDisplayHandlerExt {
 			int32_t myext_flags;
 			bool myext_ret_value; //0
 			cef_browser_t* browser;//1
-			CefString* text;//2
+			const CefString* text;//2
 		};
 		argData arg;//
-		OnTooltipArgs(cef_browser_t* browser, CefString* text)
+		OnTooltipArgs(cef_browser_t* browser, const CefString& text)
 		{
 			arg.myext_flags = ((1 << 18) | (1 << 19) | 2);
 			arg.myext_ret_value = 0;
 			arg.browser = browser;
-			arg.text = text;
+			arg.text = &text;
 		}
 		OnTooltipArgs(CefRefPtr<CefBrowser> browser, CefString* text)
 		{
@@ -2258,6 +2258,12 @@ namespace CefDisplayHandlerExt {
 			arg.myext_flags = ((1 << 18) | 2);
 			arg.browser = browser;
 			arg.value = value;
+		}
+		OnStatusMessageArgs(cef_browser_t* browser, const CefString& value)
+		{
+			arg.myext_flags = ((1 << 18) | 2);
+			arg.browser = browser;
+			arg.value = &value;
 		}
 		OnStatusMessageArgs(CefRefPtr<CefBrowser> browser, const CefString* value)
 		{
