@@ -20,7 +20,7 @@
 #include "include/capi/cef_command_line_capi.h"
 #include "include/capi/cef_urlrequest_capi.h"
 #include "include/capi/cef_app_capi.h"
- 
+
 //for auto gen content  
 //
 #include "libcef_dll/ctocpp/frame_ctocpp.h"
@@ -98,6 +98,7 @@ inline void MyCefSetCefPoint(jsvalue* value, CefPoint&data) {
 	value->type = JSVALUE_TYPE_WRAPPED;
 	value->ptr = cefPoint;
 };
+
 
 
 

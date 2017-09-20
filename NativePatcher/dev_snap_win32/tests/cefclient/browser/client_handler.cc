@@ -443,7 +443,14 @@ namespace client {
 		}*/
 		//###_END
 
-		  // Only update the address for the main (top-level) frame.
+		if (this->mcallback_) {
+			CefDisplayHandlerExt::OnAddressChange(this->mcallback_,
+				browser,
+				frame,
+				url);
+		}
+
+		// Only update the address for the main (top-level) frame.
 		if (frame->IsMain())
 			NotifyAddress(url);
 	}
