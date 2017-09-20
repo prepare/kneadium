@@ -131,6 +131,25 @@ class CefRefCount {
   CefRefCount ref_count_;
  
 ///
+// Macro that provides a reference counting implementation for classes extending
+// CefBase.
+///
+#define IMPLEMENT_REFCOUNTING_NOCALLBACK(ClassName)                  \
+ public:                                                             \
+  void AddRef() const OVERRIDE { ref_count_.AddRef(); }              \
+  bool Release() const OVERRIDE {                                    \
+    if (ref_count_.Release()) {                                      \
+      delete static_cast<const ClassName*>(this);                    \
+      return true;                                                   \
+    }                                                                \
+    return false;                                                    \
+  }                                                                  \
+  bool HasOneRef() const OVERRIDE { return ref_count_.HasOneRef(); } \
+                                                                     \
+ private:                                                            \
+  CefRefCount ref_count_;
+
+///
 // Macro that provides a locking implementation. Use the Lock() and Unlock()
 // methods to protect a section of code from simultaneous access by multiple
 // threads. The AutoLock class is a helper that will hold the lock while in

@@ -2097,12 +2097,12 @@ namespace CefDisplayHandlerExt {
 			const CefString* url;//3
 		};
 		argData arg;//
-		OnAddressChangeArgs(cef_browser_t* browser, cef_frame_t* frame, const CefString* url)
+		OnAddressChangeArgs(cef_browser_t* browser, cef_frame_t* frame, const CefString& url)
 		{
 			arg.myext_flags = ((1 << 18) | 3);
 			arg.browser = browser;
 			arg.frame = frame;
-			arg.url = url;
+			arg.url = &url;
 		}
 		OnAddressChangeArgs(CefRefPtr<CefBrowser> browser, CefRefPtr<CefFrame> frame, const CefString* url)
 		{

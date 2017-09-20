@@ -17,6 +17,9 @@
 #include "libcef_dll/ctocpp/frame_ctocpp.h"
 #include "libcef_dll/transfer_util.h"
 
+#include "../myext/ExportFuncAuto.h" //
+#include "../myext/InternalHeaderForExportFunc.h"
+
 namespace {
 
 // MEMBER FUNCTIONS - Body may be edited by hand.
@@ -42,12 +45,35 @@ display_handler_on_address_change(struct _cef_display_handler_t* self,
   // Verify param: url; type: string_byref_const
   DCHECK(url);
   if (!url)
-    return;
+    return; 
+ 
+  auto me = CefDisplayHandlerCppToC::Get(self);
+  auto m_callback= me->GetManagedCallBack();
+  if (m_callback) {
+	   
+	  CefString m_url(url);
+	  CefDisplayHandlerExt::OnAddressChangeArgs args1(browser, frame, m_url);
+	  m_callback((CefDisplayHandlerExt::_typeName << 16) | CefDisplayHandlerExt::CefDisplayHandlerExt_OnAddressChange_1, &args1.arg);
+	  
+  } 
 
   // Execute
-  CefDisplayHandlerCppToC::Get(self)->OnAddressChange(
+  me->OnAddressChange(
       CefBrowserCToCpp::Wrap(browser), CefFrameCToCpp::Wrap(frame),
       CefString(url));
+
+  ////
+  //auto a1 = CefDisplayHandlerCppToC::Get(self);
+  //auto callback = CefDisplayHandlerCppToC::Get(self)->GetManagedCallBack();
+  //if (callback) {
+	 // CefString cefstr = url;
+	 // CefDisplayHandlerExt::OnAddressChangeArgs a1(browser, frame, &cefstr);
+  //}
+
+  //// Execute
+  //CefDisplayHandlerCppToC::Get(self)->OnAddressChange(
+	 // CefBrowserCToCpp::Wrap(browser), CefFrameCToCpp::Wrap(frame),
+	 // CefString(url));
 }
 
 void CEF_CALLBACK

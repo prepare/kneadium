@@ -442,13 +442,13 @@ namespace client {
 		return;
 		}*/
 		//###_END
-
+/*
 		if (this->mcallback_) {
 			CefDisplayHandlerExt::OnAddressChange(this->mcallback_,
 				browser,
 				frame,
 				url);
-		}
+		}*/
 
 		// Only update the address for the main (top-level) frame.
 		if (frame->IsMain())
@@ -1357,12 +1357,16 @@ namespace client {
 	//###_APPEND_START 10
 	//my extension ***
 
-	managed_callback ClientHandler::GetManagedCallBack() { return NULL; }
+	//this is an essential of autocallback
+	/*managed_callback ClientHandler::GetManagedCallBack() {
+		return this->mcallback_;
+	}*/
 
 	void ClientHandler::MyCefSetManagedCallBack(managed_callback m) {
 
+		
 		this->mcallback_ = m;
-
+		
 		//add resource mx handler 
 		//
 		//
