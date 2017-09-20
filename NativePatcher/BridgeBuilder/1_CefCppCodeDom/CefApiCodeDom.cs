@@ -882,6 +882,9 @@ namespace BridgeBuilder
 
         internal MethodPlan methodTxInfo { get; set; }
 
+        internal bool HasMethodBody;
+        internal int MethodBodyStartAt;
+        internal int MethodBodyEndAt;        
 
         public CodeTypeReference CppExplicitOwnerType
         {

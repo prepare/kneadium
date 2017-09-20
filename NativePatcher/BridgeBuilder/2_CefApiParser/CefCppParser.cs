@@ -11,7 +11,7 @@ namespace BridgeBuilder
     /// for cef-3 api only
     /// </summary>
     class Cef3HeaderFileParser
-    {   
+    {
         List<string> allLines = new List<string>();
         List<Token> tokenList = new List<Token>();
         int lineNo = -1;
@@ -204,7 +204,7 @@ namespace BridgeBuilder
 
 
                 lineNo++;
-            } 
+            }
 
             //-------------------------------------------------------
 #if DEBUG
@@ -229,8 +229,8 @@ namespace BridgeBuilder
 
                         break;
                     case TokenKind.PreprocessingDirective:
-                        {   
-                            lineComments.Clear(); 
+                        {
+                            lineComments.Clear();
                             //this version we just skip some pre-processing 
                             if (tk.Content.StartsWith("#include"))
                             {
@@ -1346,9 +1346,19 @@ namespace BridgeBuilder
 
                 if (ExpectPunc("{"))
                 {
+                    Token openBraceTk = tokenList[currentTokenIndex]; 
                     //this version we not parse method body
                     ReadUntilEscapeFromBlock();
-                    return !ExpectPunc("}");
+                    bool expectClose = !ExpectPunc("}");
+                    if (expectClose)
+                    {
+                        Token closeBraceTk = tokenList[currentTokenIndex];
+                        met.HasMethodBody = true;
+                        met.MethodBodyStartAt = openBraceTk.LineNo;
+                        met.MethodBodyEndAt = closeBraceTk.LineNo;
+                    }
+                    return expectClose;
+
                 }
                 else if (ExpectPunc("="))
                 {
