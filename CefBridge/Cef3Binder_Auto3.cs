@@ -24408,6 +24408,12 @@ namespace LayoutFarm.CefBridge.Auto
             args.retval(),
             args.exception());
         }
+
+        IntPtr nativeHandler;
+        public CefV8Handler(IntPtr nativeHandler)
+        {
+            this.nativeHandler = nativeHandler;
+        }
     }
     //------ common cef handler swicth table---------
     public static class CefNativeRequestHandlers
