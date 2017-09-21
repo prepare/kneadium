@@ -252,6 +252,13 @@ namespace BridgeBuilder
                     cefName = "DOM" + MakeFirstLetterUpperCase(cefName.Substring(3));
                 }
             }
+            else if (cefName.StartsWith("Js"))
+            {
+                if (cefName.Length > 2)
+                {
+                    cefName = "JS" + MakeFirstLetterUpperCase(cefName.Substring(2));
+                }
+            }
         }
         static string MakeFirstLetterUpperCase(string name)
         {
