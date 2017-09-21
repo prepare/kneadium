@@ -620,10 +620,7 @@ namespace BridgeBuilder
                     customImplClasses.Add(tx);
                 }
                 tt_count++;
-            }
-
-
-
+            } 
 
             foreach (CefCallbackTx tx in callbackPlans)
             {
