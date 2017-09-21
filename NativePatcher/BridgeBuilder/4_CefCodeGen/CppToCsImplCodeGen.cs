@@ -329,7 +329,7 @@ namespace BridgeBuilder
 
                 int parCount = metDecl.Parameters.Count;
                 List<string> argCodeList = new List<string>();
-                 
+
                 for (int a = 1; a < parCount; ++a)
                 {
                     //start at 1
@@ -413,11 +413,24 @@ namespace BridgeBuilder
                     //some object need wrapping
                     //from ctocpp
 
+                    //check some special value
+
                     if (retType.EndsWith("_t*"))
                     {
                         //
                         string cppNm = ConvertToCppName(retType.Substring(0, retType.Length - 3));
-                        newCodeStBuilder.AppendLine(" return " + cppNm + "CppToC::Wrap(args1.arg.myext_ret_value);");
+
+                        //temp fix, TODO: review here again
+                        //CefCookieManager 
+                        if (cppNm == "CefCookieManager")
+                        {
+                            newCodeStBuilder.AppendLine(" return " + cppNm + "CToCpp::Unwrap(args1.arg.myext_ret_value);");
+                        }
+                        else
+                        {
+                            newCodeStBuilder.AppendLine(" return " + cppNm + "CppToC::Wrap(args1.arg.myext_ret_value);");
+                        }
+
                     }
                     else
                     {
