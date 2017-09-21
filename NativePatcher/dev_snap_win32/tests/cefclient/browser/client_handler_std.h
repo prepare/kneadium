@@ -16,7 +16,7 @@ class ClientHandlerStd : public ClientHandler {
  public:
   ClientHandlerStd(Delegate* delegate, const std::string& startup_url);
   
-  managed_callback GetManagedCallBack() const OVERRIDE { return this->mcallback_; }
+  managed_callback GetManagedCallBack(int callerCode) const OVERRIDE { return this->mcallback_; }
 
  private:
   // Include the default reference counting implementation.

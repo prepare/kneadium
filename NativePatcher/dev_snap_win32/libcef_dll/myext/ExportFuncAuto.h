@@ -2196,6 +2196,12 @@ namespace CefDisplayHandlerExt {
 			arg.browser = browser;
 			arg.fullscreen = fullscreen;
 		}
+		OnFullscreenModeChangeArgs(cef_browser_t* browser, int fullscreen)
+		{
+			arg.myext_flags = ((1 << 18) | 2);
+			arg.browser = browser;
+			arg.fullscreen = fullscreen ? 1 : 0;
+		}
 		OnFullscreenModeChangeArgs(CefRefPtr<CefBrowser> browser, bool fullscreen)
 		{
 			arg.myext_flags = ((1 << 18) | (1 << 20) | 2);
