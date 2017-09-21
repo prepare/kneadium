@@ -670,10 +670,7 @@ namespace BridgeBuilder
         {
 
             stbuilder.AppendLine("//CppToCsMethodArgsClassGen::GenerateCppMethodArgsClass ," + (++codeGenNum) + " \r\n");
-            if (codeGenNum == 162)
-            {
-
-            }
+            
 
             //generate cs method pars
             CodeMethodDeclaration metDecl = met.metDecl;
