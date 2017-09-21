@@ -7,6 +7,131 @@ using System.Text;
 namespace BridgeBuilder
 {
 
+    class CodeMethodBodyCodePart
+    {
+        public MethodBodyCodePartKind PartKind { get; set; }
+        public int beginAtLine;
+        public string ParamName { get; set; }
+        public string ParamType { get; set; }
+        public string ReplacedParExpression { get; set; }
+        //
+        public string ReturnType { get; set; }
+        public List<string> PartLines = new List<string>();
+
+        public string GetStringBlock()
+        {
+            StringBuilder stbuilder = new StringBuilder();
+            int j = PartLines.Count;
+            for (int i = 0; i < j; ++i)
+            {
+                stbuilder.AppendLine(PartLines[i]);
+            }
+            return stbuilder.ToString();
+        }
+        public override string ToString()
+        {
+            return this.GetStringBlock();
+        }
+    }
+    enum MethodBodyCodePartKind
+    {
+        Other,
+        TranslateParam,
+        RestoreParam,
+        VerifyParam,
+        Execute,
+        Return
+    }
+
+    class MultiPartCodeMethodBody
+    {
+        List<CodeMethodBodyCodePart> codeParts;
+        Dictionary<string, CodeMethodBodyCodePart> translateParts;
+        Dictionary<string, CodeMethodBodyCodePart> restoreParts;
+
+        public MultiPartCodeMethodBody(List<CodeMethodBodyCodePart> codeParts)
+        {
+            this.codeParts = codeParts;
+            //analyze detail
+            int j = codeParts.Count;
+            for (int i = 0; i < j; ++i)
+            {
+                CodeMethodBodyCodePart p = codeParts[i];
+                switch (p.PartKind)
+                {
+                    case MethodBodyCodePartKind.TranslateParam:
+                        {
+                            if (translateParts == null) translateParts = new Dictionary<string, CodeMethodBodyCodePart>();
+                            //
+                            translateParts.Add(p.ParamName, p);
+                            //analyze new name
+                            switch (p.ParamType)
+                            {
+                                default:
+
+                                    break;
+                                case "refptr_same_byref":
+                                    p.ReplacedParExpression = "&" + p.ParamName + "Struct";
+                                    break;
+                                case "simple_byref": 
+                                case "simple_byref_const":
+                                    p.ReplacedParExpression = "&" + p.ParamName + "Val";
+                                    break;
+                                case "string_byref":
+                                    p.ReplacedParExpression = "&" + p.ParamName + "Str";
+                                    break;
+                                case "simple_vec_byref_const":
+                                case "string_vec_byref_const":
+                                case "refptr_vec_diff_byref_const":
+                                    p.ReplacedParExpression = "&" + p.ParamName + "List";
+                                    break;
+                                case "bool_byref":
+                                case "bool_byaddr":
+                                    p.ReplacedParExpression = "&" + p.ParamName + "Bool";
+                                    break;
+                                case "struct_byref":
+                                case "struct_byref_const":
+                                    p.ReplacedParExpression = "&" + p.ParamName + "Obj";
+                                    break;
+                                case "rawptr_diff":
+                                case "refptr_diff_byref":
+                                    p.ReplacedParExpression = "&" + p.ParamName + "Ptr";
+                                    break;
+                            }
+
+                        }
+                        break;
+                    case MethodBodyCodePartKind.RestoreParam:
+                        {
+                            if (restoreParts == null) restoreParts = new Dictionary<string, CodeMethodBodyCodePart>();
+                            //
+                            restoreParts.Add(p.ParamName, p);
+                        }
+                        break;
+                }
+
+            }
+        }
+        public bool TryGetTranslateParameter(string parName, out CodeMethodBodyCodePart found)
+        {
+            if (translateParts != null)
+            {
+                return translateParts.TryGetValue(parName, out found);
+            }
+            found = null;
+            return false;
+        }
+        public bool TryGetRestoreParameter(string parName, out CodeMethodBodyCodePart found)
+        {
+            if (restoreParts != null)
+            {
+                return restoreParts.TryGetValue(parName, out found);
+            }
+            found = null;
+            return false;
+        }
+    }
+
     class CppToCsImplCodeGen
     {
         CodeCompilationUnit cu;
@@ -15,7 +140,99 @@ namespace BridgeBuilder
         int firstNamespaceStartAt;
         public CppToCsImplCodeGen()
         {
+        }
+        static void AddPartParameterDetail(CodeMethodBodyCodePart part, string line)
+        {
+            int indexOfParam = line.IndexOf("param:");
+            if (indexOfParam > -1)
+            {
+                int indexOfType = line.IndexOf("type:", indexOfParam);
+                string paramName = line.Substring(indexOfParam + 6 /*"param:"*/,
+                    indexOfType - (indexOfParam + 6)).Trim();
+                paramName = paramName.Substring(0, paramName.Length - 1);
+                //-------------------------------------------------------------
+                string typeName = line.Substring(indexOfType + 5/*"type:"*/).Trim();
+                part.ParamName = paramName;
+                part.ParamType = typeName;
+            }
+        }
+        static void AddPartReturnDetail(CodeMethodBodyCodePart part, string line)
+        {
+            int indexOfType = line.IndexOf("type:");
+            if (indexOfType > -1)
+            {
+                part.ReturnType = line.Substring(indexOfType + 5/*"type:"*/).Trim();
+            }
+        }
+        MultiPartCodeMethodBody ParseCppMethodBody(CodeMethodDeclaration metDecl)
+        {
+            List<CodeMethodBodyCodePart> codeParts = new List<CodeMethodBodyCodePart>();
+            int endAt = metDecl.EndAtLine;
+            CodeMethodBodyCodePart currentPart = null;
 
+            for (int lineNo = metDecl.StartAtLine + 1; lineNo <= endAt; ++lineNo)
+            {
+                string line = simpleLineList[lineNo].Trim();
+                //parse special mx parameter
+                if (line.StartsWith("// Translate param:"))
+                {
+                    //begin new
+                    currentPart = new CodeMethodBodyCodePart() { PartKind = MethodBodyCodePartKind.TranslateParam, beginAtLine = lineNo };
+                    AddPartParameterDetail(currentPart, line);
+                    currentPart.PartLines.Add(line);
+                    codeParts.Add(currentPart);
+                }
+                else if (line.StartsWith("// Restore param:"))
+                {
+                    //begin new
+                    currentPart = new CodeMethodBodyCodePart() { PartKind = MethodBodyCodePartKind.RestoreParam, beginAtLine = lineNo };
+                    AddPartParameterDetail(currentPart, line);
+                    currentPart.PartLines.Add(line);
+                    codeParts.Add(currentPart);
+                }
+                else if (line.StartsWith("// Verify param:"))
+                {
+                    //begin new
+                    currentPart = new CodeMethodBodyCodePart() { PartKind = MethodBodyCodePartKind.VerifyParam, beginAtLine = lineNo };
+                    AddPartParameterDetail(currentPart, line);
+                    currentPart.PartLines.Add(line);
+                    codeParts.Add(currentPart);
+                }
+                else if (line.StartsWith("// Return type:"))
+                {
+                    //begin new
+                    currentPart = new CodeMethodBodyCodePart() { PartKind = MethodBodyCodePartKind.Return, beginAtLine = lineNo };
+                    AddPartReturnDetail(currentPart, line);
+                    currentPart.PartLines.Add(line);
+                    codeParts.Add(currentPart);
+                }
+                else if (line.StartsWith("// Execute"))
+                {
+                    //begin new
+                    currentPart = new CodeMethodBodyCodePart() { PartKind = MethodBodyCodePartKind.Execute, beginAtLine = lineNo };
+                    currentPart.PartLines.Add(line);
+                    codeParts.Add(currentPart);
+                }
+                else if (line.StartsWith("//"))
+                {
+                    //other block
+                    currentPart = new CodeMethodBodyCodePart() { PartKind = MethodBodyCodePartKind.Other, beginAtLine = lineNo };
+                    currentPart.PartLines.Add(line);
+                    codeParts.Add(currentPart);
+                }
+                else
+                {
+                    //other 
+                    if (currentPart == null)
+                    {
+                        currentPart = new CodeMethodBodyCodePart() { PartKind = MethodBodyCodePartKind.Other, beginAtLine = lineNo };
+                        codeParts.Add(currentPart);
+                    }
+                    currentPart.PartLines.Add(line);
+                }
+            }
+
+            return new MultiPartCodeMethodBody(codeParts);
         }
         public void PatchCppMethod(CodeCompilationUnit cu, string writeNewCodeToFile, string backupFolder)
         {
@@ -46,9 +263,12 @@ namespace BridgeBuilder
 
             for (int i = methods.Count - 1; i >= 0; --i) //backward, since we are going to insert a new line to the line list
             {
-                StringBuilder newCodeStBuilder = new StringBuilder();
-
                 CodeMethodDeclaration metDecl = methods[i];
+                MultiPartCodeMethodBody metBody = ParseCppMethodBody(metDecl);
+                //
+
+
+                StringBuilder newCodeStBuilder = new StringBuilder();
                 int methodCutAt = c_classNameLen + 1;
                 string c_methodName = metDecl.Name.Substring(methodCutAt);
                 string cppMethodName = ConvertToCppName(c_methodName);
@@ -73,11 +293,22 @@ namespace BridgeBuilder
                     //start at 1
                     CodeMethodParameter par = metDecl.Parameters[a];
                     string parType = par.ParameterType.ToString();
+
+                    //check if we need parameter translation
+
                     switch (parType)
                     {
                         default:
                             {
-                                argCodeList.Add(par.ParameterName);
+                                CodeMethodBodyCodePart found;
+                                if (metBody.TryGetTranslateParameter(par.ParameterName, out found))
+                                {
+                                    argCodeList.Add(found.ReplacedParExpression);
+                                }
+                                else
+                                {
+                                    argCodeList.Add(par.ParameterName);
+                                }
                             }
                             break;
                         case "cef_string_list_t":
@@ -137,13 +368,13 @@ namespace BridgeBuilder
                     {
                         //
                         string cppNm = ConvertToCppName(retType.Substring(0, retType.Length - 3));
-                        newCodeStBuilder.AppendLine(" return "+ cppNm+ "CppToC::Wrap(args1.arg.myext_ret_value);");
+                        newCodeStBuilder.AppendLine(" return " + cppNm + "CppToC::Wrap(args1.arg.myext_ret_value);");
                     }
                     else
                     {
                         newCodeStBuilder.AppendLine(" return args1.arg.myext_ret_value;");
                     }
-                    
+
                 }
                 else
                 {
