@@ -49,7 +49,7 @@ namespace BridgeBuilder
     {
         List<CodeMethodBodyCodePart> codeParts;
         Dictionary<string, CodeMethodBodyCodePart> translateParts;
-        Dictionary<string, CodeMethodBodyCodePart> restoreParts;
+        List<CodeMethodBodyCodePart> restoreParts;
 
         static void GetCppVarTypeAndName(string line, out string varType, out string varName)
         {
@@ -145,9 +145,12 @@ namespace BridgeBuilder
                         break;
                     case MethodBodyCodePartKind.RestoreParam:
                         {
-                            if (restoreParts == null) restoreParts = new Dictionary<string, CodeMethodBodyCodePart>();
-                            //
-                            restoreParts.Add(p.ParamName, p);
+                            if (restoreParts == null)
+                            {
+                                restoreParts = new List<CodeMethodBodyCodePart>();
+                            }
+
+                            restoreParts.Add(p);
                         }
                         break;
                 }
@@ -163,14 +166,11 @@ namespace BridgeBuilder
             found = null;
             return false;
         }
-        public bool TryGetRestoreParameter(string parName, out CodeMethodBodyCodePart found)
+
+
+        public List<CodeMethodBodyCodePart> GetRestoreParts()
         {
-            if (restoreParts != null)
-            {
-                return restoreParts.TryGetValue(parName, out found);
-            }
-            found = null;
-            return false;
+            return this.restoreParts;
         }
     }
 
@@ -356,6 +356,12 @@ namespace BridgeBuilder
                                 {
                                     argCodeList.Add(par.ParameterName);
                                 }
+                                //-----------------
+
+
+
+
+                                //-----------------
                             }
                             break;
                         case "cef_string_list_t":
@@ -405,16 +411,27 @@ namespace BridgeBuilder
 
                 newCodeStBuilder.Append("m_callback(CALLER_CODE, &args1.arg);");
                 newCodeStBuilder.AppendLine();
-                //
+                //----------------------------------------------------------------------------
                 newCodeStBuilder.AppendLine(" if (((args1.arg.myext_flags >> 21) & 1) == 1){");
                 string retType = metDecl.ReturnType.ToString();
                 if (retType != "void")
                 {
-                    //some object need wrapping
-                    //from ctocpp
+
+                    //the event is handled by user code
+                    //before return we must check some restore parts
+
+                    List<CodeMethodBodyCodePart> restoreParts = metBody.GetRestoreParts();
+                    if (restoreParts != null)
+                    {
+                        int rcount = restoreParts.Count;
+                        for (int r = 0; r < rcount; ++r)
+                        {
+                            newCodeStBuilder.AppendLine(restoreParts[r].GetStringBlock());
+                        }
+                    }
+
 
                     //check some special value
-
                     if (retType.EndsWith("_t*"))
                     {
                         //
