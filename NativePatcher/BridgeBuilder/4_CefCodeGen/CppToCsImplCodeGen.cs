@@ -6,17 +6,17 @@ using System.Text;
 
 namespace BridgeBuilder
 {
-     
+
     class CppToCsImplCodeGen
     {
         CodeCompilationUnit cu;
         List<CodeMethodDeclaration> methods;
         List<string> simpleLineList = new List<string>();
-        int firstNamespaceStartAt; 
+        int firstNamespaceStartAt;
         public CppToCsImplCodeGen()
         {
 
-        } 
+        }
         public void PatchCppMethod(CodeCompilationUnit cu, string writeNewCodeToFile, string backupFolder)
         {
 
@@ -99,19 +99,26 @@ namespace BridgeBuilder
                 }
 
                 //prepare cpp' method args
-                //convention                     
-                newCodeStBuilder.Append(cppExtNamespaceName + "::" + cppMethodName + "Args args1(");
-                for (int a = 1; a < parCount; ++a)
+                //convention                
+                if (parCount < 2)
                 {
-                    if (a > 1)
-                    {
-                        newCodeStBuilder.Append(',');
-                    }
-                    //start at 1
-                    CodeMethodParameter par = metDecl.Parameters[a];
-                    newCodeStBuilder.Append(argCodeList[a - 1]);
+                    newCodeStBuilder.AppendLine(cppExtNamespaceName + "::" + cppMethodName + "Args args1;");
                 }
-                newCodeStBuilder.AppendLine(");");
+                else
+                {
+                    newCodeStBuilder.Append(cppExtNamespaceName + "::" + cppMethodName + "Args args1(");
+                    for (int a = 1; a < parCount; ++a)
+                    {
+                        if (a > 1)
+                        {
+                            newCodeStBuilder.Append(',');
+                        }
+                        //start at 1
+                        CodeMethodParameter par = metDecl.Parameters[a];
+                        newCodeStBuilder.Append(argCodeList[a - 1]);
+                    }
+                    newCodeStBuilder.AppendLine(");");
+                }
                 //
                 //invoke managed del
                 //cef-specific
@@ -236,6 +243,13 @@ namespace BridgeBuilder
                 if (cefName.Length > 3)
                 {
                     cefName = "URL" + MakeFirstLetterUpperCase(cefName.Substring(3));
+                }
+            }
+            else if (cefName.StartsWith("Dom"))
+            {
+                if (cefName.Length > 3)
+                {
+                    cefName = "DOM" + MakeFirstLetterUpperCase(cefName.Substring(3));
                 }
             }
         }
