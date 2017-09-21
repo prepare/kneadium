@@ -14,6 +14,8 @@ namespace BridgeBuilder
         public string ParamName { get; set; }
         public string ParamType { get; set; }
         public string ReplacedParExpression { get; set; }
+
+        internal bool IsList { get; set; }
         //
         public string ReturnType { get; set; }
         public List<string> PartLines = new List<string>();
@@ -49,6 +51,22 @@ namespace BridgeBuilder
         Dictionary<string, CodeMethodBodyCodePart> translateParts;
         Dictionary<string, CodeMethodBodyCodePart> restoreParts;
 
+        static void GetCppVarTypeAndName(string line, out string varType, out string varName)
+        {
+            //cef -specific
+            string[] splits = line.Split(' ');
+            varName = splits[1].Trim();
+            if (varName.EndsWith(";"))
+            {
+                varName = varName.Substring(0, varName.Length - 1);
+            }
+            else if (varName.EndsWith("("))
+            {
+                varName = varName.Substring(0, varName.Length - 1);
+            }
+            //----
+            varType = splits[0].Trim();
+        }
         public MultiPartCodeMethodBody(List<CodeMethodBodyCodePart> codeParts)
         {
             this.codeParts = codeParts;
@@ -68,12 +86,18 @@ namespace BridgeBuilder
                             switch (p.ParamType)
                             {
                                 default:
+                                    throw new NotSupportedException();
+                                case "refptr_same_byref": //refptr_same_byref
+                                    {
 
+                                        string v_name, v_type;
+                                        GetCppVarTypeAndName(p.PartLines[1], out v_type, out v_name);
+                                        //cef-specific
+                                        //get exact var name                                         
+                                        p.ReplacedParExpression = "&" + v_name;
+                                    }
                                     break;
-                                case "refptr_same_byref":
-                                    p.ReplacedParExpression = "&" + p.ParamName + "Struct";
-                                    break;
-                                case "simple_byref": 
+                                case "simple_byref":
                                 case "simple_byref_const":
                                     p.ReplacedParExpression = "&" + p.ParamName + "Val";
                                     break;
@@ -83,6 +107,8 @@ namespace BridgeBuilder
                                 case "simple_vec_byref_const":
                                 case "string_vec_byref_const":
                                 case "refptr_vec_diff_byref_const":
+                                    //cef-specific
+                                    p.IsList = true;
                                     p.ReplacedParExpression = "&" + p.ParamName + "List";
                                     break;
                                 case "bool_byref":
@@ -94,6 +120,22 @@ namespace BridgeBuilder
                                     p.ReplacedParExpression = "&" + p.ParamName + "Obj";
                                     break;
                                 case "rawptr_diff":
+                                    {
+                                        string v_name, v_type;
+                                        GetCppVarTypeAndName(p.PartLines[1], out v_type, out v_name);
+                                        if (v_name == "registrarPtr")
+                                        {
+                                            //cef-specific
+                                            //TODO: check the type instead of var name
+                                            p.ReplacedParExpression = v_name + ".get()";
+                                        }
+                                        else
+                                        {
+                                            p.ReplacedParExpression = "&" + p.ParamName + "Ptr";
+                                        }
+
+                                    }
+                                    break;
                                 case "refptr_diff_byref":
                                     p.ReplacedParExpression = "&" + p.ParamName + "Ptr";
                                     break;
@@ -287,15 +329,13 @@ namespace BridgeBuilder
 
                 int parCount = metDecl.Parameters.Count;
                 List<string> argCodeList = new List<string>();
-
+                 
                 for (int a = 1; a < parCount; ++a)
                 {
                     //start at 1
                     CodeMethodParameter par = metDecl.Parameters[a];
                     string parType = par.ParameterType.ToString();
-
                     //check if we need parameter translation
-
                     switch (parType)
                     {
                         default:
@@ -303,6 +343,13 @@ namespace BridgeBuilder
                                 CodeMethodBodyCodePart found;
                                 if (metBody.TryGetTranslateParameter(par.ParameterName, out found))
                                 {
+                                    if (found.IsList)
+                                    {
+                                        //cef-specific
+                                        //note the prev var
+                                        CodeMethodParameter prev_par = metDecl.Parameters[a - 1];
+                                        prev_par.SkipCodeGen = true;
+                                    }
                                     argCodeList.Add(found.ReplacedParExpression);
                                 }
                                 else
@@ -340,12 +387,14 @@ namespace BridgeBuilder
                     newCodeStBuilder.Append(cppExtNamespaceName + "::" + cppMethodName + "Args args1(");
                     for (int a = 1; a < parCount; ++a)
                     {
+                        CodeMethodParameter par = metDecl.Parameters[a];
+                        if (par.SkipCodeGen) { continue; }
+                        //
                         if (a > 1)
                         {
                             newCodeStBuilder.Append(',');
                         }
                         //start at 1
-                        CodeMethodParameter par = metDecl.Parameters[a];
                         newCodeStBuilder.Append(argCodeList[a - 1]);
                     }
                     newCodeStBuilder.AppendLine(");");
