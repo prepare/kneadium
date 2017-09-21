@@ -330,6 +330,10 @@ namespace BridgeBuilder
                     //
                     CppToCsImplCodeGen cppToCsImplCodeGen = new CppToCsImplCodeGen();
                     string onlyFileName = System.IO.Path.GetFileName(cu.Filename);
+                    if(onlyFileName == "v8interceptor_cpptoc.cc")
+                    {
+                        continue;
+                    }
                     cppToCsImplCodeGen.PatchCppMethod(cu, cefDir + @"\libcef_dll\cpptoc\" + onlyFileName, cefDir + @"\cpptoc");
                 }
 
