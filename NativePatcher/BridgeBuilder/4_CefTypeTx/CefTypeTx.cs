@@ -778,13 +778,24 @@ namespace BridgeBuilder
                                         {
                                             CodeTypeDeclaration implTypeDecl = txplan.ImplTypeDecl;
                                             ImplWrapDirection implWrapDirection = ImplWrapDirection.None;
+                                            CodeTypeDeclaration implBy = txplan.ImplTypeDecl;
                                             if (implTypeDecl.Name.Contains("CToCpp"))
-                                            {
+                                            {   
+                                                //so if you want to send this to client lib
+                                                //you need to GET raw pointer , so =>
+                                                string unwrapType = txplan.UnderlyingCType.ToString();
+                                                //since this is CefRefPtr 
+                                                //so after ElementType we should get pointer of the underlying element 
+                                                string auto_p = "p_" + par.Name;
+                                                par.CppUnwrapType = unwrapType + "*";
+                                                par.CppUnwrapMethod = implBy.Name + "::Unwrap";
+                                                par.CppWrapMethod = implBy.Name + "::Wrap";
+
                                                 implWrapDirection = ImplWrapDirection.CToCpp;
                                                 string met = GetSmartPointerMet(implWrapDirection);
                                                 string slotName = bridge.CefCppSlotName.ToString();
                                                 par.ArgExtractCode = implTypeDecl.Name + "::" + met + "(" + "(" + txplan.UnderlyingCType + "*)" + (argName + "->" + slotName) + ")";
-
+                                               
                                             }
                                             else if (implTypeDecl.Name.Contains("CppToC"))
                                             {
