@@ -1,3 +1,4 @@
+//---THIS-FILE-IS-PATCHED , org=D:\projects\cef_binary_3.3071.1647.win32\cpptoc\completion_callback_cpptoc.cc
 // Copyright (c) 2017 The Chromium Embedded Framework Authors. All rights
 // reserved. Use of this source code is governed by a BSD-style license that
 // can be found in the LICENSE file.
@@ -14,6 +15,11 @@
 
 #include "libcef_dll/cpptoc/completion_callback_cpptoc.h"
 
+//---kneadium-ext-begin
+#include "../myext/ExportFuncAuto.h"
+#include "../myext/InternalHeaderForExportFunc.h"
+//---kneadium-ext-end
+
 namespace {
 
 // MEMBER FUNCTIONS - Body may be edited by hand.
@@ -25,6 +31,19 @@ completion_callback_on_complete(struct _cef_completion_callback_t* self) {
   DCHECK(self);
   if (!self)
     return;
+
+//---kneadium-ext-begin
+auto me = CefCompletionCallbackCppToC::Get(self);
+const int CALLER_CODE=(CefCompletionCallbackExt::_typeName << 16) | CefCompletionCallbackExt::CefCompletionCallbackExt_OnComplete_1;
+auto m_callback= me->GetManagedCallBack(CALLER_CODE);
+if(m_callback){
+CefCompletionCallbackExt::OnCompleteArgs args1;
+m_callback(CALLER_CODE, &args1.arg);
+ if (((args1.arg.myext_flags >> 21) & 1) == 1){
+return;
+}
+}
+//---kneadium-ext-end
 
   // Execute
   CefCompletionCallbackCppToC::Get(self)->OnComplete();

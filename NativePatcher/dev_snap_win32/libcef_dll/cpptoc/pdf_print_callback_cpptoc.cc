@@ -1,3 +1,4 @@
+//---THIS-FILE-IS-PATCHED , org=D:\projects\cef_binary_3.3071.1647.win32\cpptoc\pdf_print_callback_cpptoc.cc
 // Copyright (c) 2017 The Chromium Embedded Framework Authors. All rights
 // reserved. Use of this source code is governed by a BSD-style license that
 // can be found in the LICENSE file.
@@ -13,6 +14,11 @@
 //
 
 #include "libcef_dll/cpptoc/pdf_print_callback_cpptoc.h"
+
+//---kneadium-ext-begin
+#include "../myext/ExportFuncAuto.h"
+#include "../myext/InternalHeaderForExportFunc.h"
+//---kneadium-ext-end
 
 namespace {
 
@@ -31,6 +37,20 @@ pdf_print_callback_on_pdf_print_finished(struct _cef_pdf_print_callback_t* self,
   DCHECK(path);
   if (!path)
     return;
+
+//---kneadium-ext-begin
+auto me = CefPdfPrintCallbackCppToC::Get(self);
+const int CALLER_CODE=(CefPdfPrintCallbackExt::_typeName << 16) | CefPdfPrintCallbackExt::CefPdfPrintCallbackExt_OnPdfPrintFinished_1;
+auto m_callback= me->GetManagedCallBack(CALLER_CODE);
+if(m_callback){
+CefString tmp_arg1 (path);
+CefPdfPrintCallbackExt::OnPdfPrintFinishedArgs args1(tmp_arg1,ok);
+m_callback(CALLER_CODE, &args1.arg);
+ if (((args1.arg.myext_flags >> 21) & 1) == 1){
+return;
+}
+}
+//---kneadium-ext-end
 
   // Execute
   CefPdfPrintCallbackCppToC::Get(self)->OnPdfPrintFinished(CefString(path),

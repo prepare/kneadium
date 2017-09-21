@@ -1,3 +1,4 @@
+//---THIS-FILE-IS-PATCHED , org=D:\projects\cef_binary_3.3071.1647.win32\cpptoc\client_cpptoc.cc
 // Copyright (c) 2017 The Chromium Embedded Framework Authors. All rights
 // reserved. Use of this source code is governed by a BSD-style license that
 // can be found in the LICENSE file.
@@ -30,6 +31,11 @@
 #include "libcef_dll/ctocpp/browser_ctocpp.h"
 #include "libcef_dll/ctocpp/process_message_ctocpp.h"
 
+//---kneadium-ext-begin
+#include "../myext/ExportFuncAuto.h"
+#include "../myext/InternalHeaderForExportFunc.h"
+//---kneadium-ext-end
+
 namespace {
 
 // MEMBER FUNCTIONS - Body may be edited by hand.
@@ -41,6 +47,19 @@ client_get_context_menu_handler(struct _cef_client_t* self) {
   DCHECK(self);
   if (!self)
     return NULL;
+
+//---kneadium-ext-begin
+auto me = CefClientCppToC::Get(self);
+const int CALLER_CODE=(CefClientExt::_typeName << 16) | CefClientExt::CefClientExt_GetContextMenuHandler_1;
+auto m_callback= me->GetManagedCallBack(CALLER_CODE);
+if(m_callback){
+CefClientExt::GetContextMenuHandlerArgs args1;
+m_callback(CALLER_CODE, &args1.arg);
+ if (((args1.arg.myext_flags >> 21) & 1) == 1){
+ return CefContextMenuHandlerCppToC::Wrap(args1.arg.myext_ret_value);
+}
+}
+//---kneadium-ext-end
 
   // Execute
   CefRefPtr<CefContextMenuHandler> _retval =
@@ -58,6 +77,19 @@ client_get_dialog_handler(struct _cef_client_t* self) {
   if (!self)
     return NULL;
 
+//---kneadium-ext-begin
+auto me = CefClientCppToC::Get(self);
+const int CALLER_CODE=(CefClientExt::_typeName << 16) | CefClientExt::CefClientExt_GetDialogHandler_2;
+auto m_callback= me->GetManagedCallBack(CALLER_CODE);
+if(m_callback){
+CefClientExt::GetDialogHandlerArgs args1;
+m_callback(CALLER_CODE, &args1.arg);
+ if (((args1.arg.myext_flags >> 21) & 1) == 1){
+ return CefDialogHandlerCppToC::Wrap(args1.arg.myext_ret_value);
+}
+}
+//---kneadium-ext-end
+
   // Execute
   CefRefPtr<CefDialogHandler> _retval =
       CefClientCppToC::Get(self)->GetDialogHandler();
@@ -73,6 +105,19 @@ client_get_display_handler(struct _cef_client_t* self) {
   DCHECK(self);
   if (!self)
     return NULL;
+
+//---kneadium-ext-begin
+auto me = CefClientCppToC::Get(self);
+const int CALLER_CODE=(CefClientExt::_typeName << 16) | CefClientExt::CefClientExt_GetDisplayHandler_3;
+auto m_callback= me->GetManagedCallBack(CALLER_CODE);
+if(m_callback){
+CefClientExt::GetDisplayHandlerArgs args1;
+m_callback(CALLER_CODE, &args1.arg);
+ if (((args1.arg.myext_flags >> 21) & 1) == 1){
+ return CefDisplayHandlerCppToC::Wrap(args1.arg.myext_ret_value);
+}
+}
+//---kneadium-ext-end
 
   // Execute
   CefRefPtr<CefDisplayHandler> _retval =
@@ -90,6 +135,19 @@ client_get_download_handler(struct _cef_client_t* self) {
   if (!self)
     return NULL;
 
+//---kneadium-ext-begin
+auto me = CefClientCppToC::Get(self);
+const int CALLER_CODE=(CefClientExt::_typeName << 16) | CefClientExt::CefClientExt_GetDownloadHandler_4;
+auto m_callback= me->GetManagedCallBack(CALLER_CODE);
+if(m_callback){
+CefClientExt::GetDownloadHandlerArgs args1;
+m_callback(CALLER_CODE, &args1.arg);
+ if (((args1.arg.myext_flags >> 21) & 1) == 1){
+ return CefDownloadHandlerCppToC::Wrap(args1.arg.myext_ret_value);
+}
+}
+//---kneadium-ext-end
+
   // Execute
   CefRefPtr<CefDownloadHandler> _retval =
       CefClientCppToC::Get(self)->GetDownloadHandler();
@@ -105,6 +163,19 @@ client_get_drag_handler(struct _cef_client_t* self) {
   DCHECK(self);
   if (!self)
     return NULL;
+
+//---kneadium-ext-begin
+auto me = CefClientCppToC::Get(self);
+const int CALLER_CODE=(CefClientExt::_typeName << 16) | CefClientExt::CefClientExt_GetDragHandler_5;
+auto m_callback= me->GetManagedCallBack(CALLER_CODE);
+if(m_callback){
+CefClientExt::GetDragHandlerArgs args1;
+m_callback(CALLER_CODE, &args1.arg);
+ if (((args1.arg.myext_flags >> 21) & 1) == 1){
+ return CefDragHandlerCppToC::Wrap(args1.arg.myext_ret_value);
+}
+}
+//---kneadium-ext-end
 
   // Execute
   CefRefPtr<CefDragHandler> _retval =
@@ -122,6 +193,19 @@ client_get_find_handler(struct _cef_client_t* self) {
   if (!self)
     return NULL;
 
+//---kneadium-ext-begin
+auto me = CefClientCppToC::Get(self);
+const int CALLER_CODE=(CefClientExt::_typeName << 16) | CefClientExt::CefClientExt_GetFindHandler_6;
+auto m_callback= me->GetManagedCallBack(CALLER_CODE);
+if(m_callback){
+CefClientExt::GetFindHandlerArgs args1;
+m_callback(CALLER_CODE, &args1.arg);
+ if (((args1.arg.myext_flags >> 21) & 1) == 1){
+ return CefFindHandlerCppToC::Wrap(args1.arg.myext_ret_value);
+}
+}
+//---kneadium-ext-end
+
   // Execute
   CefRefPtr<CefFindHandler> _retval =
       CefClientCppToC::Get(self)->GetFindHandler();
@@ -137,6 +221,19 @@ client_get_focus_handler(struct _cef_client_t* self) {
   DCHECK(self);
   if (!self)
     return NULL;
+
+//---kneadium-ext-begin
+auto me = CefClientCppToC::Get(self);
+const int CALLER_CODE=(CefClientExt::_typeName << 16) | CefClientExt::CefClientExt_GetFocusHandler_7;
+auto m_callback= me->GetManagedCallBack(CALLER_CODE);
+if(m_callback){
+CefClientExt::GetFocusHandlerArgs args1;
+m_callback(CALLER_CODE, &args1.arg);
+ if (((args1.arg.myext_flags >> 21) & 1) == 1){
+ return CefFocusHandlerCppToC::Wrap(args1.arg.myext_ret_value);
+}
+}
+//---kneadium-ext-end
 
   // Execute
   CefRefPtr<CefFocusHandler> _retval =
@@ -154,6 +251,19 @@ client_get_geolocation_handler(struct _cef_client_t* self) {
   if (!self)
     return NULL;
 
+//---kneadium-ext-begin
+auto me = CefClientCppToC::Get(self);
+const int CALLER_CODE=(CefClientExt::_typeName << 16) | CefClientExt::CefClientExt_GetGeolocationHandler_8;
+auto m_callback= me->GetManagedCallBack(CALLER_CODE);
+if(m_callback){
+CefClientExt::GetGeolocationHandlerArgs args1;
+m_callback(CALLER_CODE, &args1.arg);
+ if (((args1.arg.myext_flags >> 21) & 1) == 1){
+ return CefGeolocationHandlerCppToC::Wrap(args1.arg.myext_ret_value);
+}
+}
+//---kneadium-ext-end
+
   // Execute
   CefRefPtr<CefGeolocationHandler> _retval =
       CefClientCppToC::Get(self)->GetGeolocationHandler();
@@ -169,6 +279,19 @@ client_get_jsdialog_handler(struct _cef_client_t* self) {
   DCHECK(self);
   if (!self)
     return NULL;
+
+//---kneadium-ext-begin
+auto me = CefClientCppToC::Get(self);
+const int CALLER_CODE=(CefClientExt::_typeName << 16) | CefClientExt::CefClientExt_GetJSDialogHandler_9;
+auto m_callback= me->GetManagedCallBack(CALLER_CODE);
+if(m_callback){
+CefClientExt::GetJSDialogHandlerArgs args1;
+m_callback(CALLER_CODE, &args1.arg);
+ if (((args1.arg.myext_flags >> 21) & 1) == 1){
+ return CefJSDialogHandlerCppToC::Wrap(args1.arg.myext_ret_value);
+}
+}
+//---kneadium-ext-end
 
   // Execute
   CefRefPtr<CefJSDialogHandler> _retval =
@@ -186,6 +309,19 @@ client_get_keyboard_handler(struct _cef_client_t* self) {
   if (!self)
     return NULL;
 
+//---kneadium-ext-begin
+auto me = CefClientCppToC::Get(self);
+const int CALLER_CODE=(CefClientExt::_typeName << 16) | CefClientExt::CefClientExt_GetKeyboardHandler_10;
+auto m_callback= me->GetManagedCallBack(CALLER_CODE);
+if(m_callback){
+CefClientExt::GetKeyboardHandlerArgs args1;
+m_callback(CALLER_CODE, &args1.arg);
+ if (((args1.arg.myext_flags >> 21) & 1) == 1){
+ return CefKeyboardHandlerCppToC::Wrap(args1.arg.myext_ret_value);
+}
+}
+//---kneadium-ext-end
+
   // Execute
   CefRefPtr<CefKeyboardHandler> _retval =
       CefClientCppToC::Get(self)->GetKeyboardHandler();
@@ -201,6 +337,19 @@ client_get_life_span_handler(struct _cef_client_t* self) {
   DCHECK(self);
   if (!self)
     return NULL;
+
+//---kneadium-ext-begin
+auto me = CefClientCppToC::Get(self);
+const int CALLER_CODE=(CefClientExt::_typeName << 16) | CefClientExt::CefClientExt_GetLifeSpanHandler_11;
+auto m_callback= me->GetManagedCallBack(CALLER_CODE);
+if(m_callback){
+CefClientExt::GetLifeSpanHandlerArgs args1;
+m_callback(CALLER_CODE, &args1.arg);
+ if (((args1.arg.myext_flags >> 21) & 1) == 1){
+ return CefLifeSpanHandlerCppToC::Wrap(args1.arg.myext_ret_value);
+}
+}
+//---kneadium-ext-end
 
   // Execute
   CefRefPtr<CefLifeSpanHandler> _retval =
@@ -218,6 +367,19 @@ client_get_load_handler(struct _cef_client_t* self) {
   if (!self)
     return NULL;
 
+//---kneadium-ext-begin
+auto me = CefClientCppToC::Get(self);
+const int CALLER_CODE=(CefClientExt::_typeName << 16) | CefClientExt::CefClientExt_GetLoadHandler_12;
+auto m_callback= me->GetManagedCallBack(CALLER_CODE);
+if(m_callback){
+CefClientExt::GetLoadHandlerArgs args1;
+m_callback(CALLER_CODE, &args1.arg);
+ if (((args1.arg.myext_flags >> 21) & 1) == 1){
+ return CefLoadHandlerCppToC::Wrap(args1.arg.myext_ret_value);
+}
+}
+//---kneadium-ext-end
+
   // Execute
   CefRefPtr<CefLoadHandler> _retval =
       CefClientCppToC::Get(self)->GetLoadHandler();
@@ -234,6 +396,19 @@ client_get_render_handler(struct _cef_client_t* self) {
   if (!self)
     return NULL;
 
+//---kneadium-ext-begin
+auto me = CefClientCppToC::Get(self);
+const int CALLER_CODE=(CefClientExt::_typeName << 16) | CefClientExt::CefClientExt_GetRenderHandler_13;
+auto m_callback= me->GetManagedCallBack(CALLER_CODE);
+if(m_callback){
+CefClientExt::GetRenderHandlerArgs args1;
+m_callback(CALLER_CODE, &args1.arg);
+ if (((args1.arg.myext_flags >> 21) & 1) == 1){
+ return CefRenderHandlerCppToC::Wrap(args1.arg.myext_ret_value);
+}
+}
+//---kneadium-ext-end
+
   // Execute
   CefRefPtr<CefRenderHandler> _retval =
       CefClientCppToC::Get(self)->GetRenderHandler();
@@ -249,6 +424,19 @@ client_get_request_handler(struct _cef_client_t* self) {
   DCHECK(self);
   if (!self)
     return NULL;
+
+//---kneadium-ext-begin
+auto me = CefClientCppToC::Get(self);
+const int CALLER_CODE=(CefClientExt::_typeName << 16) | CefClientExt::CefClientExt_GetRequestHandler_14;
+auto m_callback= me->GetManagedCallBack(CALLER_CODE);
+if(m_callback){
+CefClientExt::GetRequestHandlerArgs args1;
+m_callback(CALLER_CODE, &args1.arg);
+ if (((args1.arg.myext_flags >> 21) & 1) == 1){
+ return CefRequestHandlerCppToC::Wrap(args1.arg.myext_ret_value);
+}
+}
+//---kneadium-ext-end
 
   // Execute
   CefRefPtr<CefRequestHandler> _retval =
@@ -276,6 +464,19 @@ client_on_process_message_received(struct _cef_client_t* self,
   DCHECK(message);
   if (!message)
     return 0;
+
+//---kneadium-ext-begin
+auto me = CefClientCppToC::Get(self);
+const int CALLER_CODE=(CefClientExt::_typeName << 16) | CefClientExt::CefClientExt_OnProcessMessageReceived_15;
+auto m_callback= me->GetManagedCallBack(CALLER_CODE);
+if(m_callback){
+CefClientExt::OnProcessMessageReceivedArgs args1(browser,source_process,message);
+m_callback(CALLER_CODE, &args1.arg);
+ if (((args1.arg.myext_flags >> 21) & 1) == 1){
+ return args1.arg.myext_ret_value;
+}
+}
+//---kneadium-ext-end
 
   // Execute
   bool _retval = CefClientCppToC::Get(self)->OnProcessMessageReceived(

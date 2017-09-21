@@ -1,3 +1,4 @@
+//---THIS-FILE-IS-PATCHED , org=D:\projects\cef_binary_3.3071.1647.win32\cpptoc\scheme_handler_factory_cpptoc.cc
 // Copyright (c) 2017 The Chromium Embedded Framework Authors. All rights
 // reserved. Use of this source code is governed by a BSD-style license that
 // can be found in the LICENSE file.
@@ -17,6 +18,11 @@
 #include "libcef_dll/ctocpp/browser_ctocpp.h"
 #include "libcef_dll/ctocpp/frame_ctocpp.h"
 #include "libcef_dll/ctocpp/request_ctocpp.h"
+
+//---kneadium-ext-begin
+#include "../myext/ExportFuncAuto.h"
+#include "../myext/InternalHeaderForExportFunc.h"
+//---kneadium-ext-end
 
 namespace {
 
@@ -42,6 +48,20 @@ scheme_handler_factory_create(struct _cef_scheme_handler_factory_t* self,
   if (!request)
     return NULL;
   // Unverified params: browser, frame
+
+//---kneadium-ext-begin
+auto me = CefSchemeHandlerFactoryCppToC::Get(self);
+const int CALLER_CODE=(CefSchemeHandlerFactoryExt::_typeName << 16) | CefSchemeHandlerFactoryExt::CefSchemeHandlerFactoryExt_Create_1;
+auto m_callback= me->GetManagedCallBack(CALLER_CODE);
+if(m_callback){
+CefString tmp_arg3 (scheme_name);
+CefSchemeHandlerFactoryExt::CreateArgs args1(browser,frame,tmp_arg3,request);
+m_callback(CALLER_CODE, &args1.arg);
+ if (((args1.arg.myext_flags >> 21) & 1) == 1){
+ return CefResourceHandlerCppToC::Wrap(args1.arg.myext_ret_value);
+}
+}
+//---kneadium-ext-end
 
   // Execute
   CefRefPtr<CefResourceHandler> _retval =

@@ -1,3 +1,4 @@
+//---THIS-FILE-IS-PATCHED , org=D:\projects\cef_binary_3.3071.1647.win32\cpptoc\accessibility_handler_cpptoc.cc
 // Copyright (c) 2017 The Chromium Embedded Framework Authors. All rights
 // reserved. Use of this source code is governed by a BSD-style license that
 // can be found in the LICENSE file.
@@ -14,6 +15,11 @@
 
 #include "libcef_dll/cpptoc/accessibility_handler_cpptoc.h"
 #include "libcef_dll/ctocpp/value_ctocpp.h"
+
+//---kneadium-ext-begin
+#include "../myext/ExportFuncAuto.h"
+#include "../myext/InternalHeaderForExportFunc.h"
+//---kneadium-ext-end
 
 namespace {
 
@@ -32,6 +38,19 @@ void CEF_CALLBACK accessibility_handler_on_accessibility_tree_change(
   if (!value)
     return;
 
+//---kneadium-ext-begin
+auto me = CefAccessibilityHandlerCppToC::Get(self);
+const int CALLER_CODE=(CefAccessibilityHandlerExt::_typeName << 16) | CefAccessibilityHandlerExt::CefAccessibilityHandlerExt_OnAccessibilityTreeChange_1;
+auto m_callback= me->GetManagedCallBack(CALLER_CODE);
+if(m_callback){
+CefAccessibilityHandlerExt::OnAccessibilityTreeChangeArgs args1(value);
+m_callback(CALLER_CODE, &args1.arg);
+ if (((args1.arg.myext_flags >> 21) & 1) == 1){
+return;
+}
+}
+//---kneadium-ext-end
+
   // Execute
   CefAccessibilityHandlerCppToC::Get(self)->OnAccessibilityTreeChange(
       CefValueCToCpp::Wrap(value));
@@ -49,6 +68,19 @@ void CEF_CALLBACK accessibility_handler_on_accessibility_location_change(
   DCHECK(value);
   if (!value)
     return;
+
+//---kneadium-ext-begin
+auto me = CefAccessibilityHandlerCppToC::Get(self);
+const int CALLER_CODE=(CefAccessibilityHandlerExt::_typeName << 16) | CefAccessibilityHandlerExt::CefAccessibilityHandlerExt_OnAccessibilityLocationChange_2;
+auto m_callback= me->GetManagedCallBack(CALLER_CODE);
+if(m_callback){
+CefAccessibilityHandlerExt::OnAccessibilityLocationChangeArgs args1(value);
+m_callback(CALLER_CODE, &args1.arg);
+ if (((args1.arg.myext_flags >> 21) & 1) == 1){
+return;
+}
+}
+//---kneadium-ext-end
 
   // Execute
   CefAccessibilityHandlerCppToC::Get(self)->OnAccessibilityLocationChange(

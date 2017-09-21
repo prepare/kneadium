@@ -1,3 +1,4 @@
+//---THIS-FILE-IS-PATCHED , org=D:\projects\cef_binary_3.3071.1647.win32\cpptoc\context_menu_handler_cpptoc.cc
 // Copyright (c) 2017 The Chromium Embedded Framework Authors. All rights
 // reserved. Use of this source code is governed by a BSD-style license that
 // can be found in the LICENSE file.
@@ -18,6 +19,11 @@
 #include "libcef_dll/ctocpp/frame_ctocpp.h"
 #include "libcef_dll/ctocpp/menu_model_ctocpp.h"
 #include "libcef_dll/ctocpp/run_context_menu_callback_ctocpp.h"
+
+//---kneadium-ext-begin
+#include "../myext/ExportFuncAuto.h"
+#include "../myext/InternalHeaderForExportFunc.h"
+//---kneadium-ext-end
 
 namespace {
 
@@ -50,6 +56,19 @@ void CEF_CALLBACK context_menu_handler_on_before_context_menu(
   DCHECK(model);
   if (!model)
     return;
+
+//---kneadium-ext-begin
+auto me = CefContextMenuHandlerCppToC::Get(self);
+const int CALLER_CODE=(CefContextMenuHandlerExt::_typeName << 16) | CefContextMenuHandlerExt::CefContextMenuHandlerExt_OnBeforeContextMenu_1;
+auto m_callback= me->GetManagedCallBack(CALLER_CODE);
+if(m_callback){
+CefContextMenuHandlerExt::OnBeforeContextMenuArgs args1(browser,frame,params,model);
+m_callback(CALLER_CODE, &args1.arg);
+ if (((args1.arg.myext_flags >> 21) & 1) == 1){
+return;
+}
+}
+//---kneadium-ext-end
 
   // Execute
   CefContextMenuHandlerCppToC::Get(self)->OnBeforeContextMenu(
@@ -91,6 +110,19 @@ int CEF_CALLBACK context_menu_handler_run_context_menu(
   if (!callback)
     return 0;
 
+//---kneadium-ext-begin
+auto me = CefContextMenuHandlerCppToC::Get(self);
+const int CALLER_CODE=(CefContextMenuHandlerExt::_typeName << 16) | CefContextMenuHandlerExt::CefContextMenuHandlerExt_RunContextMenu_2;
+auto m_callback= me->GetManagedCallBack(CALLER_CODE);
+if(m_callback){
+CefContextMenuHandlerExt::RunContextMenuArgs args1(browser,frame,params,model,callback);
+m_callback(CALLER_CODE, &args1.arg);
+ if (((args1.arg.myext_flags >> 21) & 1) == 1){
+ return args1.arg.myext_ret_value;
+}
+}
+//---kneadium-ext-end
+
   // Execute
   bool _retval = CefContextMenuHandlerCppToC::Get(self)->RunContextMenu(
       CefBrowserCToCpp::Wrap(browser), CefFrameCToCpp::Wrap(frame),
@@ -126,6 +158,19 @@ int CEF_CALLBACK context_menu_handler_on_context_menu_command(
   if (!params)
     return 0;
 
+//---kneadium-ext-begin
+auto me = CefContextMenuHandlerCppToC::Get(self);
+const int CALLER_CODE=(CefContextMenuHandlerExt::_typeName << 16) | CefContextMenuHandlerExt::CefContextMenuHandlerExt_OnContextMenuCommand_3;
+auto m_callback= me->GetManagedCallBack(CALLER_CODE);
+if(m_callback){
+CefContextMenuHandlerExt::OnContextMenuCommandArgs args1(browser,frame,params,command_id,event_flags);
+m_callback(CALLER_CODE, &args1.arg);
+ if (((args1.arg.myext_flags >> 21) & 1) == 1){
+ return args1.arg.myext_ret_value;
+}
+}
+//---kneadium-ext-end
+
   // Execute
   bool _retval = CefContextMenuHandlerCppToC::Get(self)->OnContextMenuCommand(
       CefBrowserCToCpp::Wrap(browser), CefFrameCToCpp::Wrap(frame),
@@ -152,6 +197,19 @@ void CEF_CALLBACK context_menu_handler_on_context_menu_dismissed(
   DCHECK(frame);
   if (!frame)
     return;
+
+//---kneadium-ext-begin
+auto me = CefContextMenuHandlerCppToC::Get(self);
+const int CALLER_CODE=(CefContextMenuHandlerExt::_typeName << 16) | CefContextMenuHandlerExt::CefContextMenuHandlerExt_OnContextMenuDismissed_4;
+auto m_callback= me->GetManagedCallBack(CALLER_CODE);
+if(m_callback){
+CefContextMenuHandlerExt::OnContextMenuDismissedArgs args1(browser,frame);
+m_callback(CALLER_CODE, &args1.arg);
+ if (((args1.arg.myext_flags >> 21) & 1) == 1){
+return;
+}
+}
+//---kneadium-ext-end
 
   // Execute
   CefContextMenuHandlerCppToC::Get(self)->OnContextMenuDismissed(

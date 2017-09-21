@@ -1,3 +1,4 @@
+//---THIS-FILE-IS-PATCHED , org=D:\projects\cef_binary_3.3071.1647.win32\cpptoc\find_handler_cpptoc.cc
 // Copyright (c) 2017 The Chromium Embedded Framework Authors. All rights
 // reserved. Use of this source code is governed by a BSD-style license that
 // can be found in the LICENSE file.
@@ -15,65 +16,83 @@
 #include "libcef_dll/cpptoc/find_handler_cpptoc.h"
 #include "libcef_dll/ctocpp/browser_ctocpp.h"
 
+//---kneadium-ext-begin
+#include "../myext/ExportFuncAuto.h"
+#include "../myext/InternalHeaderForExportFunc.h"
+//---kneadium-ext-end
+
 namespace {
 
-// MEMBER FUNCTIONS - Body may be edited by hand.
+	// MEMBER FUNCTIONS - Body may be edited by hand.
 
-void CEF_CALLBACK find_handler_on_find_result(struct _cef_find_handler_t* self,
-                                              cef_browser_t* browser,
-                                              int identifier,
-                                              int count,
-                                              const cef_rect_t* selectionRect,
-                                              int activeMatchOrdinal,
-                                              int finalUpdate) {
-  // AUTO-GENERATED CONTENT - DELETE THIS COMMENT BEFORE MODIFYING
+	void CEF_CALLBACK find_handler_on_find_result(struct _cef_find_handler_t* self,
+		cef_browser_t* browser,
+		int identifier,
+		int count,
+		const cef_rect_t* selectionRect,
+		int activeMatchOrdinal,
+		int finalUpdate) {
+		// AUTO-GENERATED CONTENT - DELETE THIS COMMENT BEFORE MODIFYING
 
-  DCHECK(self);
-  if (!self)
-    return;
-  // Verify param: browser; type: refptr_diff
-  DCHECK(browser);
-  if (!browser)
-    return;
-  // Verify param: selectionRect; type: simple_byref_const
-  DCHECK(selectionRect);
-  if (!selectionRect)
-    return;
+		DCHECK(self);
+		if (!self)
+			return;
+		// Verify param: browser; type: refptr_diff
+		DCHECK(browser);
+		if (!browser)
+			return;
+		// Verify param: selectionRect; type: simple_byref_const
+		DCHECK(selectionRect);
+		if (!selectionRect)
+			return;
 
-  // Translate param: selectionRect; type: simple_byref_const
-  CefRect selectionRectVal = selectionRect ? *selectionRect : CefRect();
+		// Translate param: selectionRect; type: simple_byref_const
+		CefRect selectionRectVal = selectionRect ? *selectionRect : CefRect();
 
-  // Execute
-  CefFindHandlerCppToC::Get(self)->OnFindResult(
-      CefBrowserCToCpp::Wrap(browser), identifier, count, selectionRectVal,
-      activeMatchOrdinal, finalUpdate ? true : false);
-}
+		//---kneadium-ext-begin
+		auto me = CefFindHandlerCppToC::Get(self);
+		const int CALLER_CODE = (CefFindHandlerExt::_typeName << 16) | CefFindHandlerExt::CefFindHandlerExt_OnFindResult_1;
+		auto m_callback = me->GetManagedCallBack(CALLER_CODE);
+		if (m_callback) {
+			CefFindHandlerExt::OnFindResultArgs args1(browser, identifier, count, &selectionRectVal, activeMatchOrdinal, finalUpdate);
+			m_callback(CALLER_CODE, &args1.arg);
+			if (((args1.arg.myext_flags >> 21) & 1) == 1) {
+				return;
+			}
+		}
+		//---kneadium-ext-end
+
+		  // Execute
+		CefFindHandlerCppToC::Get(self)->OnFindResult(
+			CefBrowserCToCpp::Wrap(browser), identifier, count, selectionRectVal,
+			activeMatchOrdinal, finalUpdate ? true : false);
+	}
 
 }  // namespace
 
 // CONSTRUCTOR - Do not edit by hand.
 
 CefFindHandlerCppToC::CefFindHandlerCppToC() {
-  GetStruct()->on_find_result = find_handler_on_find_result;
+	GetStruct()->on_find_result = find_handler_on_find_result;
 }
 
 template <>
 CefRefPtr<CefFindHandler>
 CefCppToCRefCounted<CefFindHandlerCppToC, CefFindHandler, cef_find_handler_t>::
-    UnwrapDerived(CefWrapperType type, cef_find_handler_t* s) {
-  NOTREACHED() << "Unexpected class type: " << type;
-  return NULL;
+UnwrapDerived(CefWrapperType type, cef_find_handler_t* s) {
+	NOTREACHED() << "Unexpected class type: " << type;
+	return NULL;
 }
 
 #if DCHECK_IS_ON()
 template <>
 base::AtomicRefCount CefCppToCRefCounted<CefFindHandlerCppToC,
-                                         CefFindHandler,
-                                         cef_find_handler_t>::DebugObjCt = 0;
+	CefFindHandler,
+	cef_find_handler_t>::DebugObjCt = 0;
 #endif
 
 template <>
 CefWrapperType CefCppToCRefCounted<CefFindHandlerCppToC,
-                                   CefFindHandler,
-                                   cef_find_handler_t>::kWrapperType =
-    WT_FIND_HANDLER;
+	CefFindHandler,
+	cef_find_handler_t>::kWrapperType =
+	WT_FIND_HANDLER;

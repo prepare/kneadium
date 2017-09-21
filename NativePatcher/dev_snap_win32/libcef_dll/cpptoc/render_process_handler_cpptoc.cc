@@ -1,3 +1,4 @@
+//---THIS-FILE-IS-PATCHED , org=D:\projects\cef_binary_3.3071.1647.win32\cpptoc\render_process_handler_cpptoc.cc
 // Copyright (c) 2017 The Chromium Embedded Framework Authors. All rights
 // reserved. Use of this source code is governed by a BSD-style license that
 // can be found in the LICENSE file.
@@ -24,6 +25,11 @@
 #include "libcef_dll/ctocpp/v8exception_ctocpp.h"
 #include "libcef_dll/ctocpp/v8stack_trace_ctocpp.h"
 
+//---kneadium-ext-begin
+#include "../myext/ExportFuncAuto.h"
+#include "../myext/InternalHeaderForExportFunc.h"
+//---kneadium-ext-end
+
 namespace {
 
 // MEMBER FUNCTIONS - Body may be edited by hand.
@@ -41,6 +47,19 @@ void CEF_CALLBACK render_process_handler_on_render_thread_created(
   if (!extra_info)
     return;
 
+//---kneadium-ext-begin
+auto me = CefRenderProcessHandlerCppToC::Get(self);
+const int CALLER_CODE=(CefRenderProcessHandlerExt::_typeName << 16) | CefRenderProcessHandlerExt::CefRenderProcessHandlerExt_OnRenderThreadCreated_1;
+auto m_callback= me->GetManagedCallBack(CALLER_CODE);
+if(m_callback){
+CefRenderProcessHandlerExt::OnRenderThreadCreatedArgs args1(extra_info);
+m_callback(CALLER_CODE, &args1.arg);
+ if (((args1.arg.myext_flags >> 21) & 1) == 1){
+return;
+}
+}
+//---kneadium-ext-end
+
   // Execute
   CefRenderProcessHandlerCppToC::Get(self)->OnRenderThreadCreated(
       CefListValueCToCpp::Wrap(extra_info));
@@ -53,6 +72,19 @@ void CEF_CALLBACK render_process_handler_on_web_kit_initialized(
   DCHECK(self);
   if (!self)
     return;
+
+//---kneadium-ext-begin
+auto me = CefRenderProcessHandlerCppToC::Get(self);
+const int CALLER_CODE=(CefRenderProcessHandlerExt::_typeName << 16) | CefRenderProcessHandlerExt::CefRenderProcessHandlerExt_OnWebKitInitialized_2;
+auto m_callback= me->GetManagedCallBack(CALLER_CODE);
+if(m_callback){
+CefRenderProcessHandlerExt::OnWebKitInitializedArgs args1;
+m_callback(CALLER_CODE, &args1.arg);
+ if (((args1.arg.myext_flags >> 21) & 1) == 1){
+return;
+}
+}
+//---kneadium-ext-end
 
   // Execute
   CefRenderProcessHandlerCppToC::Get(self)->OnWebKitInitialized();
@@ -70,6 +102,19 @@ void CEF_CALLBACK render_process_handler_on_browser_created(
   DCHECK(browser);
   if (!browser)
     return;
+
+//---kneadium-ext-begin
+auto me = CefRenderProcessHandlerCppToC::Get(self);
+const int CALLER_CODE=(CefRenderProcessHandlerExt::_typeName << 16) | CefRenderProcessHandlerExt::CefRenderProcessHandlerExt_OnBrowserCreated_3;
+auto m_callback= me->GetManagedCallBack(CALLER_CODE);
+if(m_callback){
+CefRenderProcessHandlerExt::OnBrowserCreatedArgs args1(browser);
+m_callback(CALLER_CODE, &args1.arg);
+ if (((args1.arg.myext_flags >> 21) & 1) == 1){
+return;
+}
+}
+//---kneadium-ext-end
 
   // Execute
   CefRenderProcessHandlerCppToC::Get(self)->OnBrowserCreated(
@@ -89,6 +134,19 @@ void CEF_CALLBACK render_process_handler_on_browser_destroyed(
   if (!browser)
     return;
 
+//---kneadium-ext-begin
+auto me = CefRenderProcessHandlerCppToC::Get(self);
+const int CALLER_CODE=(CefRenderProcessHandlerExt::_typeName << 16) | CefRenderProcessHandlerExt::CefRenderProcessHandlerExt_OnBrowserDestroyed_4;
+auto m_callback= me->GetManagedCallBack(CALLER_CODE);
+if(m_callback){
+CefRenderProcessHandlerExt::OnBrowserDestroyedArgs args1(browser);
+m_callback(CALLER_CODE, &args1.arg);
+ if (((args1.arg.myext_flags >> 21) & 1) == 1){
+return;
+}
+}
+//---kneadium-ext-end
+
   // Execute
   CefRenderProcessHandlerCppToC::Get(self)->OnBrowserDestroyed(
       CefBrowserCToCpp::Wrap(browser));
@@ -101,6 +159,19 @@ cef_load_handler_t* CEF_CALLBACK render_process_handler_get_load_handler(
   DCHECK(self);
   if (!self)
     return NULL;
+
+//---kneadium-ext-begin
+auto me = CefRenderProcessHandlerCppToC::Get(self);
+const int CALLER_CODE=(CefRenderProcessHandlerExt::_typeName << 16) | CefRenderProcessHandlerExt::CefRenderProcessHandlerExt_GetLoadHandler_5;
+auto m_callback= me->GetManagedCallBack(CALLER_CODE);
+if(m_callback){
+CefRenderProcessHandlerExt::GetLoadHandlerArgs args1;
+m_callback(CALLER_CODE, &args1.arg);
+ if (((args1.arg.myext_flags >> 21) & 1) == 1){
+ return CefLoadHandlerCppToC::Wrap(args1.arg.myext_ret_value);
+}
+}
+//---kneadium-ext-end
 
   // Execute
   CefRefPtr<CefLoadHandler> _retval =
@@ -135,6 +206,19 @@ int CEF_CALLBACK render_process_handler_on_before_navigation(
   if (!request)
     return 0;
 
+//---kneadium-ext-begin
+auto me = CefRenderProcessHandlerCppToC::Get(self);
+const int CALLER_CODE=(CefRenderProcessHandlerExt::_typeName << 16) | CefRenderProcessHandlerExt::CefRenderProcessHandlerExt_OnBeforeNavigation_6;
+auto m_callback= me->GetManagedCallBack(CALLER_CODE);
+if(m_callback){
+CefRenderProcessHandlerExt::OnBeforeNavigationArgs args1(browser,frame,request,navigation_type,is_redirect);
+m_callback(CALLER_CODE, &args1.arg);
+ if (((args1.arg.myext_flags >> 21) & 1) == 1){
+ return args1.arg.myext_ret_value;
+}
+}
+//---kneadium-ext-end
+
   // Execute
   bool _retval = CefRenderProcessHandlerCppToC::Get(self)->OnBeforeNavigation(
       CefBrowserCToCpp::Wrap(browser), CefFrameCToCpp::Wrap(frame),
@@ -168,6 +252,19 @@ void CEF_CALLBACK render_process_handler_on_context_created(
   if (!context)
     return;
 
+//---kneadium-ext-begin
+auto me = CefRenderProcessHandlerCppToC::Get(self);
+const int CALLER_CODE=(CefRenderProcessHandlerExt::_typeName << 16) | CefRenderProcessHandlerExt::CefRenderProcessHandlerExt_OnContextCreated_7;
+auto m_callback= me->GetManagedCallBack(CALLER_CODE);
+if(m_callback){
+CefRenderProcessHandlerExt::OnContextCreatedArgs args1(browser,frame,context);
+m_callback(CALLER_CODE, &args1.arg);
+ if (((args1.arg.myext_flags >> 21) & 1) == 1){
+return;
+}
+}
+//---kneadium-ext-end
+
   // Execute
   CefRenderProcessHandlerCppToC::Get(self)->OnContextCreated(
       CefBrowserCToCpp::Wrap(browser), CefFrameCToCpp::Wrap(frame),
@@ -196,6 +293,19 @@ void CEF_CALLBACK render_process_handler_on_context_released(
   DCHECK(context);
   if (!context)
     return;
+
+//---kneadium-ext-begin
+auto me = CefRenderProcessHandlerCppToC::Get(self);
+const int CALLER_CODE=(CefRenderProcessHandlerExt::_typeName << 16) | CefRenderProcessHandlerExt::CefRenderProcessHandlerExt_OnContextReleased_8;
+auto m_callback= me->GetManagedCallBack(CALLER_CODE);
+if(m_callback){
+CefRenderProcessHandlerExt::OnContextReleasedArgs args1(browser,frame,context);
+m_callback(CALLER_CODE, &args1.arg);
+ if (((args1.arg.myext_flags >> 21) & 1) == 1){
+return;
+}
+}
+//---kneadium-ext-end
 
   // Execute
   CefRenderProcessHandlerCppToC::Get(self)->OnContextReleased(
@@ -236,6 +346,19 @@ void CEF_CALLBACK render_process_handler_on_uncaught_exception(
   if (!stackTrace)
     return;
 
+//---kneadium-ext-begin
+auto me = CefRenderProcessHandlerCppToC::Get(self);
+const int CALLER_CODE=(CefRenderProcessHandlerExt::_typeName << 16) | CefRenderProcessHandlerExt::CefRenderProcessHandlerExt_OnUncaughtException_9;
+auto m_callback= me->GetManagedCallBack(CALLER_CODE);
+if(m_callback){
+CefRenderProcessHandlerExt::OnUncaughtExceptionArgs args1(browser,frame,context,exception,stackTrace);
+m_callback(CALLER_CODE, &args1.arg);
+ if (((args1.arg.myext_flags >> 21) & 1) == 1){
+return;
+}
+}
+//---kneadium-ext-end
+
   // Execute
   CefRenderProcessHandlerCppToC::Get(self)->OnUncaughtException(
       CefBrowserCToCpp::Wrap(browser), CefFrameCToCpp::Wrap(frame),
@@ -258,6 +381,19 @@ void CEF_CALLBACK render_process_handler_on_focused_node_changed(
   if (!browser)
     return;
   // Unverified params: frame, node
+
+//---kneadium-ext-begin
+auto me = CefRenderProcessHandlerCppToC::Get(self);
+const int CALLER_CODE=(CefRenderProcessHandlerExt::_typeName << 16) | CefRenderProcessHandlerExt::CefRenderProcessHandlerExt_OnFocusedNodeChanged_10;
+auto m_callback= me->GetManagedCallBack(CALLER_CODE);
+if(m_callback){
+CefRenderProcessHandlerExt::OnFocusedNodeChangedArgs args1(browser,frame,node);
+m_callback(CALLER_CODE, &args1.arg);
+ if (((args1.arg.myext_flags >> 21) & 1) == 1){
+return;
+}
+}
+//---kneadium-ext-end
 
   // Execute
   CefRenderProcessHandlerCppToC::Get(self)->OnFocusedNodeChanged(
@@ -283,6 +419,19 @@ int CEF_CALLBACK render_process_handler_on_process_message_received(
   DCHECK(message);
   if (!message)
     return 0;
+
+//---kneadium-ext-begin
+auto me = CefRenderProcessHandlerCppToC::Get(self);
+const int CALLER_CODE=(CefRenderProcessHandlerExt::_typeName << 16) | CefRenderProcessHandlerExt::CefRenderProcessHandlerExt_OnProcessMessageReceived_11;
+auto m_callback= me->GetManagedCallBack(CALLER_CODE);
+if(m_callback){
+CefRenderProcessHandlerExt::OnProcessMessageReceivedArgs args1(browser,source_process,message);
+m_callback(CALLER_CODE, &args1.arg);
+ if (((args1.arg.myext_flags >> 21) & 1) == 1){
+ return args1.arg.myext_ret_value;
+}
+}
+//---kneadium-ext-end
 
   // Execute
   bool _retval =

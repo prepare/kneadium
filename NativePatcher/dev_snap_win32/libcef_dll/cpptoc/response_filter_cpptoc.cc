@@ -1,3 +1,4 @@
+//---THIS-FILE-IS-PATCHED , org=D:\projects\cef_binary_3.3071.1647.win32\cpptoc\response_filter_cpptoc.cc
 // Copyright (c) 2017 The Chromium Embedded Framework Authors. All rights
 // reserved. Use of this source code is governed by a BSD-style license that
 // can be found in the LICENSE file.
@@ -14,6 +15,11 @@
 
 #include "libcef_dll/cpptoc/response_filter_cpptoc.h"
 
+//---kneadium-ext-begin
+#include "../myext/ExportFuncAuto.h"
+#include "../myext/InternalHeaderForExportFunc.h"
+//---kneadium-ext-end
+
 namespace {
 
 // MEMBER FUNCTIONS - Body may be edited by hand.
@@ -25,6 +31,19 @@ response_filter_init_filter(struct _cef_response_filter_t* self) {
   DCHECK(self);
   if (!self)
     return 0;
+
+//---kneadium-ext-begin
+auto me = CefResponseFilterCppToC::Get(self);
+const int CALLER_CODE=(CefResponseFilterExt::_typeName << 16) | CefResponseFilterExt::CefResponseFilterExt_InitFilter_1;
+auto m_callback= me->GetManagedCallBack(CALLER_CODE);
+if(m_callback){
+CefResponseFilterExt::InitFilterArgs args1;
+m_callback(CALLER_CODE, &args1.arg);
+ if (((args1.arg.myext_flags >> 21) & 1) == 1){
+ return args1.arg.myext_ret_value;
+}
+}
+//---kneadium-ext-end
 
   // Execute
   bool _retval = CefResponseFilterCppToC::Get(self)->InitFilter();
@@ -64,6 +83,19 @@ response_filter_filter(struct _cef_response_filter_t* self,
   size_t data_in_readVal = data_in_read ? *data_in_read : 0;
   // Translate param: data_out_written; type: simple_byref
   size_t data_out_writtenVal = data_out_written ? *data_out_written : 0;
+
+//---kneadium-ext-begin
+auto me = CefResponseFilterCppToC::Get(self);
+const int CALLER_CODE=(CefResponseFilterExt::_typeName << 16) | CefResponseFilterExt::CefResponseFilterExt_Filter_2;
+auto m_callback= me->GetManagedCallBack(CALLER_CODE);
+if(m_callback){
+CefResponseFilterExt::FilterArgs args1(data_in,data_in_size,data_in_read,data_out,data_out_size,data_out_written);
+m_callback(CALLER_CODE, &args1.arg);
+ if (((args1.arg.myext_flags >> 21) & 1) == 1){
+ return args1.arg.myext_ret_value;
+}
+}
+//---kneadium-ext-end
 
   // Execute
   cef_response_filter_status_t _retval =

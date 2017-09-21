@@ -1,3 +1,4 @@
+//---THIS-FILE-IS-PATCHED , org=D:\projects\cef_binary_3.3071.1647.win32\cpptoc\web_plugin_unstable_callback_cpptoc.cc
 // Copyright (c) 2017 The Chromium Embedded Framework Authors. All rights
 // reserved. Use of this source code is governed by a BSD-style license that
 // can be found in the LICENSE file.
@@ -13,6 +14,11 @@
 //
 
 #include "libcef_dll/cpptoc/web_plugin_unstable_callback_cpptoc.h"
+
+//---kneadium-ext-begin
+#include "../myext/ExportFuncAuto.h"
+#include "../myext/InternalHeaderForExportFunc.h"
+//---kneadium-ext-end
 
 namespace {
 
@@ -31,6 +37,20 @@ void CEF_CALLBACK web_plugin_unstable_callback_is_unstable(
   DCHECK(path);
   if (!path)
     return;
+
+//---kneadium-ext-begin
+auto me = CefWebPluginUnstableCallbackCppToC::Get(self);
+const int CALLER_CODE=(CefWebPluginUnstableCallbackExt::_typeName << 16) | CefWebPluginUnstableCallbackExt::CefWebPluginUnstableCallbackExt_IsUnstable_1;
+auto m_callback= me->GetManagedCallBack(CALLER_CODE);
+if(m_callback){
+CefString tmp_arg1 (path);
+CefWebPluginUnstableCallbackExt::IsUnstableArgs args1(tmp_arg1,unstable);
+m_callback(CALLER_CODE, &args1.arg);
+ if (((args1.arg.myext_flags >> 21) & 1) == 1){
+return;
+}
+}
+//---kneadium-ext-end
 
   // Execute
   CefWebPluginUnstableCallbackCppToC::Get(self)->IsUnstable(

@@ -1,3 +1,4 @@
+//---THIS-FILE-IS-PATCHED , org=D:\projects\cef_binary_3.3071.1647.win32\cpptoc\urlrequest_client_cpptoc.cc
 // Copyright (c) 2017 The Chromium Embedded Framework Authors. All rights
 // reserved. Use of this source code is governed by a BSD-style license that
 // can be found in the LICENSE file.
@@ -16,6 +17,11 @@
 #include "libcef_dll/ctocpp/auth_callback_ctocpp.h"
 #include "libcef_dll/ctocpp/urlrequest_ctocpp.h"
 
+//---kneadium-ext-begin
+#include "../myext/ExportFuncAuto.h"
+#include "../myext/InternalHeaderForExportFunc.h"
+//---kneadium-ext-end
+
 namespace {
 
 // MEMBER FUNCTIONS - Body may be edited by hand.
@@ -32,6 +38,19 @@ urlrequest_client_on_request_complete(struct _cef_urlrequest_client_t* self,
   DCHECK(request);
   if (!request)
     return;
+
+//---kneadium-ext-begin
+auto me = CefURLRequestClientCppToC::Get(self);
+const int CALLER_CODE=(CefURLRequestClientExt::_typeName << 16) | CefURLRequestClientExt::CefURLRequestClientExt_OnRequestComplete_1;
+auto m_callback= me->GetManagedCallBack(CALLER_CODE);
+if(m_callback){
+CefURLRequestClientExt::OnRequestCompleteArgs args1(request);
+m_callback(CALLER_CODE, &args1.arg);
+ if (((args1.arg.myext_flags >> 21) & 1) == 1){
+return;
+}
+}
+//---kneadium-ext-end
 
   // Execute
   CefURLRequestClientCppToC::Get(self)->OnRequestComplete(
@@ -53,6 +72,19 @@ urlrequest_client_on_upload_progress(struct _cef_urlrequest_client_t* self,
   if (!request)
     return;
 
+//---kneadium-ext-begin
+auto me = CefURLRequestClientCppToC::Get(self);
+const int CALLER_CODE=(CefURLRequestClientExt::_typeName << 16) | CefURLRequestClientExt::CefURLRequestClientExt_OnUploadProgress_2;
+auto m_callback= me->GetManagedCallBack(CALLER_CODE);
+if(m_callback){
+CefURLRequestClientExt::OnUploadProgressArgs args1(request,current,total);
+m_callback(CALLER_CODE, &args1.arg);
+ if (((args1.arg.myext_flags >> 21) & 1) == 1){
+return;
+}
+}
+//---kneadium-ext-end
+
   // Execute
   CefURLRequestClientCppToC::Get(self)->OnUploadProgress(
       CefURLRequestCToCpp::Wrap(request), current, total);
@@ -72,6 +104,19 @@ urlrequest_client_on_download_progress(struct _cef_urlrequest_client_t* self,
   DCHECK(request);
   if (!request)
     return;
+
+//---kneadium-ext-begin
+auto me = CefURLRequestClientCppToC::Get(self);
+const int CALLER_CODE=(CefURLRequestClientExt::_typeName << 16) | CefURLRequestClientExt::CefURLRequestClientExt_OnDownloadProgress_3;
+auto m_callback= me->GetManagedCallBack(CALLER_CODE);
+if(m_callback){
+CefURLRequestClientExt::OnDownloadProgressArgs args1(request,current,total);
+m_callback(CALLER_CODE, &args1.arg);
+ if (((args1.arg.myext_flags >> 21) & 1) == 1){
+return;
+}
+}
+//---kneadium-ext-end
 
   // Execute
   CefURLRequestClientCppToC::Get(self)->OnDownloadProgress(
@@ -96,6 +141,19 @@ urlrequest_client_on_download_data(struct _cef_urlrequest_client_t* self,
   DCHECK(data);
   if (!data)
     return;
+
+//---kneadium-ext-begin
+auto me = CefURLRequestClientCppToC::Get(self);
+const int CALLER_CODE=(CefURLRequestClientExt::_typeName << 16) | CefURLRequestClientExt::CefURLRequestClientExt_OnDownloadData_4;
+auto m_callback= me->GetManagedCallBack(CALLER_CODE);
+if(m_callback){
+CefURLRequestClientExt::OnDownloadDataArgs args1(request,data,data_length);
+m_callback(CALLER_CODE, &args1.arg);
+ if (((args1.arg.myext_flags >> 21) & 1) == 1){
+return;
+}
+}
+//---kneadium-ext-end
 
   // Execute
   CefURLRequestClientCppToC::Get(self)->OnDownloadData(
@@ -128,6 +186,22 @@ urlrequest_client_get_auth_credentials(struct _cef_urlrequest_client_t* self,
   if (!callback)
     return 0;
   // Unverified params: realm
+
+//---kneadium-ext-begin
+auto me = CefURLRequestClientCppToC::Get(self);
+const int CALLER_CODE=(CefURLRequestClientExt::_typeName << 16) | CefURLRequestClientExt::CefURLRequestClientExt_GetAuthCredentials_5;
+auto m_callback= me->GetManagedCallBack(CALLER_CODE);
+if(m_callback){
+CefString tmp_arg2 (host);
+CefString tmp_arg4 (realm);
+CefString tmp_arg5 (scheme);
+CefURLRequestClientExt::GetAuthCredentialsArgs args1(isProxy,tmp_arg2,port,tmp_arg4,tmp_arg5,callback);
+m_callback(CALLER_CODE, &args1.arg);
+ if (((args1.arg.myext_flags >> 21) & 1) == 1){
+ return args1.arg.myext_ret_value;
+}
+}
+//---kneadium-ext-end
 
   // Execute
   bool _retval = CefURLRequestClientCppToC::Get(self)->GetAuthCredentials(

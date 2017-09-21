@@ -1,3 +1,4 @@
+//---THIS-FILE-IS-PATCHED , org=D:\projects\cef_binary_3.3071.1647.win32\cpptoc\end_tracing_callback_cpptoc.cc
 // Copyright (c) 2017 The Chromium Embedded Framework Authors. All rights
 // reserved. Use of this source code is governed by a BSD-style license that
 // can be found in the LICENSE file.
@@ -13,6 +14,11 @@
 //
 
 #include "libcef_dll/cpptoc/end_tracing_callback_cpptoc.h"
+
+//---kneadium-ext-begin
+#include "../myext/ExportFuncAuto.h"
+#include "../myext/InternalHeaderForExportFunc.h"
+//---kneadium-ext-end
 
 namespace {
 
@@ -30,6 +36,20 @@ void CEF_CALLBACK end_tracing_callback_on_end_tracing_complete(
   DCHECK(tracing_file);
   if (!tracing_file)
     return;
+
+//---kneadium-ext-begin
+auto me = CefEndTracingCallbackCppToC::Get(self);
+const int CALLER_CODE=(CefEndTracingCallbackExt::_typeName << 16) | CefEndTracingCallbackExt::CefEndTracingCallbackExt_OnEndTracingComplete_1;
+auto m_callback= me->GetManagedCallBack(CALLER_CODE);
+if(m_callback){
+CefString tmp_arg1 (tracing_file);
+CefEndTracingCallbackExt::OnEndTracingCompleteArgs args1(tmp_arg1);
+m_callback(CALLER_CODE, &args1.arg);
+ if (((args1.arg.myext_flags >> 21) & 1) == 1){
+return;
+}
+}
+//---kneadium-ext-end
 
   // Execute
   CefEndTracingCallbackCppToC::Get(self)->OnEndTracingComplete(

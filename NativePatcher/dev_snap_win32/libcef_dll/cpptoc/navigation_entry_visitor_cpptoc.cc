@@ -1,3 +1,4 @@
+//---THIS-FILE-IS-PATCHED , org=D:\projects\cef_binary_3.3071.1647.win32\cpptoc\navigation_entry_visitor_cpptoc.cc
 // Copyright (c) 2017 The Chromium Embedded Framework Authors. All rights
 // reserved. Use of this source code is governed by a BSD-style license that
 // can be found in the LICENSE file.
@@ -14,6 +15,11 @@
 
 #include "libcef_dll/cpptoc/navigation_entry_visitor_cpptoc.h"
 #include "libcef_dll/ctocpp/navigation_entry_ctocpp.h"
+
+//---kneadium-ext-begin
+#include "../myext/ExportFuncAuto.h"
+#include "../myext/InternalHeaderForExportFunc.h"
+//---kneadium-ext-end
 
 namespace {
 
@@ -34,6 +40,19 @@ navigation_entry_visitor_visit(struct _cef_navigation_entry_visitor_t* self,
   DCHECK(entry);
   if (!entry)
     return 0;
+
+//---kneadium-ext-begin
+auto me = CefNavigationEntryVisitorCppToC::Get(self);
+const int CALLER_CODE=(CefNavigationEntryVisitorExt::_typeName << 16) | CefNavigationEntryVisitorExt::CefNavigationEntryVisitorExt_Visit_1;
+auto m_callback= me->GetManagedCallBack(CALLER_CODE);
+if(m_callback){
+CefNavigationEntryVisitorExt::VisitArgs args1(entry,current,index,total);
+m_callback(CALLER_CODE, &args1.arg);
+ if (((args1.arg.myext_flags >> 21) & 1) == 1){
+ return args1.arg.myext_ret_value;
+}
+}
+//---kneadium-ext-end
 
   // Execute
   bool _retval = CefNavigationEntryVisitorCppToC::Get(self)->Visit(

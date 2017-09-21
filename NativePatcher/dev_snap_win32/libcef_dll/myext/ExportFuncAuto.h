@@ -102,8 +102,6 @@ inline void MyCefSetCefPoint(jsvalue* value, CefPoint&data) {
 
 
 
-
-
 //AUTOGEN
 namespace CefAppExt {
 	//CppToCsMethodArgsClassGen::GenerateCppMethodArgsClass ,1 
@@ -113,14 +111,31 @@ namespace CefAppExt {
 		struct argData {
 			int32_t myext_flags;
 			const CefString* process_type;//1
-			CefRefPtr<CefCommandLine> command_line;//2
+			cef_command_line_t* command_line;//2
 		};
 		argData arg;//
-		OnBeforeCommandLineProcessingArgs(const CefString* process_type, CefRefPtr<CefCommandLine> command_line)
+		OnBeforeCommandLineProcessingArgs(const CefString* process_type, cef_command_line_t* command_line)
 		{
 			arg.myext_flags = ((1 << 18) | 2);
 			arg.process_type = process_type;
 			arg.command_line = command_line;
+		}
+		OnBeforeCommandLineProcessingArgs(const CefString& process_type, cef_command_line_t* command_line)
+		{
+			arg.myext_flags = ((1 << 18) | 2);
+			arg.process_type = &process_type;
+			arg.command_line = command_line;
+		}
+		OnBeforeCommandLineProcessingArgs(const CefString* process_type, CefRefPtr<CefCommandLine> command_line)
+		{
+			arg.myext_flags = ((1 << 18) | (1 << 20) | 2);
+			arg.process_type = process_type;
+			arg.command_line = CefCommandLineCToCpp::Unwrap(command_line);
+		}
+		~OnBeforeCommandLineProcessingArgs() {
+			if (((arg.myext_flags >> 20) & 1) == 1) {
+				CefCommandLineCToCpp::Wrap(arg.command_line);
+			}
 		}
 	private:
 		DISALLOW_COPY_AND_ASSIGN(OnBeforeCommandLineProcessingArgs);
@@ -202,13 +217,13 @@ namespace CefNavigationEntryVisitorExt {
 		struct argData {
 			int32_t myext_flags;
 			bool myext_ret_value; //0
-			CefRefPtr<CefNavigationEntry> entry;//1
+			cef_navigation_entry_t* entry;//1
 			bool current;//2
 			int index;//3
 			int total;//4
 		};
 		argData arg;//
-		VisitArgs(CefRefPtr<CefNavigationEntry> entry, bool current, int index, int total)
+		VisitArgs(cef_navigation_entry_t* entry, bool current, int index, int total)
 		{
 			arg.myext_flags = ((1 << 18) | (1 << 19) | 4);
 			arg.myext_ret_value = 0;
@@ -216,6 +231,29 @@ namespace CefNavigationEntryVisitorExt {
 			arg.current = current;
 			arg.index = index;
 			arg.total = total;
+		}
+		VisitArgs(cef_navigation_entry_t* entry, int current, int index, int total)
+		{
+			arg.myext_flags = ((1 << 18) | (1 << 19) | 4);
+			arg.myext_ret_value = 0;
+			arg.entry = entry;
+			arg.current = current ? true : false;
+			arg.index = index;
+			arg.total = total;
+		}
+		VisitArgs(CefRefPtr<CefNavigationEntry> entry, bool current, int index, int total)
+		{
+			arg.myext_flags = ((1 << 18) | (1 << 19) | (1 << 20) | 4);
+			arg.myext_ret_value = 0;
+			arg.entry = CefNavigationEntryCToCpp::Unwrap(entry);
+			arg.current = current;
+			arg.index = index;
+			arg.total = total;
+		}
+		~VisitArgs() {
+			if (((arg.myext_flags >> 20) & 1) == 1) {
+				CefNavigationEntryCToCpp::Wrap(arg.entry);
+			}
 		}
 	private:
 		DISALLOW_COPY_AND_ASSIGN(VisitArgs);
@@ -467,18 +505,32 @@ namespace CefClientExt {
 		struct argData {
 			int32_t myext_flags;
 			bool myext_ret_value; //0
-			CefRefPtr<CefBrowser> browser;//1
+			cef_browser_t* browser;//1
 			CefProcessId source_process;//2
-			CefRefPtr<CefProcessMessage> message;//3
+			cef_process_message_t* message;//3
 		};
 		argData arg;//
-		OnProcessMessageReceivedArgs(CefRefPtr<CefBrowser> browser, CefProcessId source_process, CefRefPtr<CefProcessMessage> message)
+		OnProcessMessageReceivedArgs(cef_browser_t* browser, CefProcessId source_process, cef_process_message_t* message)
 		{
 			arg.myext_flags = ((1 << 18) | (1 << 19) | 3);
 			arg.myext_ret_value = 0;
 			arg.browser = browser;
 			arg.source_process = source_process;
 			arg.message = message;
+		}
+		OnProcessMessageReceivedArgs(CefRefPtr<CefBrowser> browser, CefProcessId source_process, CefRefPtr<CefProcessMessage> message)
+		{
+			arg.myext_flags = ((1 << 18) | (1 << 19) | (1 << 20) | 3);
+			arg.myext_ret_value = 0;
+			arg.browser = CefBrowserCToCpp::Unwrap(browser);
+			arg.source_process = source_process;
+			arg.message = CefProcessMessageCToCpp::Unwrap(message);
+		}
+		~OnProcessMessageReceivedArgs() {
+			if (((arg.myext_flags >> 20) & 1) == 1) {
+				CefBrowserCToCpp::Wrap(arg.browser);
+				CefProcessMessageCToCpp::Wrap(arg.message);
+			}
 		}
 	private:
 		DISALLOW_COPY_AND_ASSIGN(OnProcessMessageReceivedArgs);
@@ -518,13 +570,23 @@ namespace CefDOMVisitorExt {
 	public:
 		struct argData {
 			int32_t myext_flags;
-			CefRefPtr<CefDOMDocument> document;//1
+			cef_domdocument_t* document;//1
 		};
 		argData arg;//
-		VisitArgs(CefRefPtr<CefDOMDocument> document)
+		VisitArgs(cef_domdocument_t* document)
 		{
 			arg.myext_flags = ((1 << 18) | 1);
 			arg.document = document;
+		}
+		VisitArgs(CefRefPtr<CefDOMDocument> document)
+		{
+			arg.myext_flags = ((1 << 18) | (1 << 20) | 1);
+			arg.document = CefDOMDocumentCToCpp::Unwrap(document);
+		}
+		~VisitArgs() {
+			if (((arg.myext_flags >> 20) & 1) == 1) {
+				CefDOMDocumentCToCpp::Wrap(arg.document);
+			}
 		}
 	private:
 		DISALLOW_COPY_AND_ASSIGN(VisitArgs);
@@ -537,17 +599,29 @@ namespace CefMenuModelDelegateExt {
 	public:
 		struct argData {
 			int32_t myext_flags;
-			CefRefPtr<CefMenuModel> menu_model;//1
+			cef_menu_model_t* menu_model;//1
 			int command_id;//2
 			cef_event_flags_t event_flags;//3
 		};
 		argData arg;//
-		ExecuteCommandArgs(CefRefPtr<CefMenuModel> menu_model, int command_id, cef_event_flags_t event_flags)
+		ExecuteCommandArgs(cef_menu_model_t* menu_model, int command_id, cef_event_flags_t event_flags)
 		{
 			arg.myext_flags = ((1 << 18) | 3);
 			arg.menu_model = menu_model;
 			arg.command_id = command_id;
 			arg.event_flags = event_flags;
+		}
+		ExecuteCommandArgs(CefRefPtr<CefMenuModel> menu_model, int command_id, cef_event_flags_t event_flags)
+		{
+			arg.myext_flags = ((1 << 18) | (1 << 20) | 3);
+			arg.menu_model = CefMenuModelCToCpp::Unwrap(menu_model);
+			arg.command_id = command_id;
+			arg.event_flags = event_flags;
+		}
+		~ExecuteCommandArgs() {
+			if (((arg.myext_flags >> 20) & 1) == 1) {
+				CefMenuModelCToCpp::Wrap(arg.menu_model);
+			}
 		}
 	private:
 		DISALLOW_COPY_AND_ASSIGN(ExecuteCommandArgs);
@@ -558,15 +632,26 @@ namespace CefMenuModelDelegateExt {
 	public:
 		struct argData {
 			int32_t myext_flags;
-			CefRefPtr<CefMenuModel> menu_model;//1
+			cef_menu_model_t* menu_model;//1
 			const CefPoint* screen_point;//2
 		};
 		argData arg;//
-		MouseOutsideMenuArgs(CefRefPtr<CefMenuModel> menu_model, const CefPoint* screen_point)
+		MouseOutsideMenuArgs(cef_menu_model_t* menu_model, const CefPoint* screen_point)
 		{
 			arg.myext_flags = ((1 << 18) | 2);
 			arg.menu_model = menu_model;
 			arg.screen_point = screen_point;
+		}
+		MouseOutsideMenuArgs(CefRefPtr<CefMenuModel> menu_model, const CefPoint* screen_point)
+		{
+			arg.myext_flags = ((1 << 18) | (1 << 20) | 2);
+			arg.menu_model = CefMenuModelCToCpp::Unwrap(menu_model);
+			arg.screen_point = screen_point;
+		}
+		~MouseOutsideMenuArgs() {
+			if (((arg.myext_flags >> 20) & 1) == 1) {
+				CefMenuModelCToCpp::Wrap(arg.menu_model);
+			}
 		}
 	private:
 		DISALLOW_COPY_AND_ASSIGN(MouseOutsideMenuArgs);
@@ -577,15 +662,32 @@ namespace CefMenuModelDelegateExt {
 	public:
 		struct argData {
 			int32_t myext_flags;
-			CefRefPtr<CefMenuModel> menu_model;//1
+			cef_menu_model_t* menu_model;//1
 			bool is_rtl;//2
 		};
 		argData arg;//
-		UnhandledOpenSubmenuArgs(CefRefPtr<CefMenuModel> menu_model, bool is_rtl)
+		UnhandledOpenSubmenuArgs(cef_menu_model_t* menu_model, bool is_rtl)
 		{
 			arg.myext_flags = ((1 << 18) | 2);
 			arg.menu_model = menu_model;
 			arg.is_rtl = is_rtl;
+		}
+		UnhandledOpenSubmenuArgs(cef_menu_model_t* menu_model, int is_rtl)
+		{
+			arg.myext_flags = ((1 << 18) | 2);
+			arg.menu_model = menu_model;
+			arg.is_rtl = is_rtl ? true : false;
+		}
+		UnhandledOpenSubmenuArgs(CefRefPtr<CefMenuModel> menu_model, bool is_rtl)
+		{
+			arg.myext_flags = ((1 << 18) | (1 << 20) | 2);
+			arg.menu_model = CefMenuModelCToCpp::Unwrap(menu_model);
+			arg.is_rtl = is_rtl;
+		}
+		~UnhandledOpenSubmenuArgs() {
+			if (((arg.myext_flags >> 20) & 1) == 1) {
+				CefMenuModelCToCpp::Wrap(arg.menu_model);
+			}
 		}
 	private:
 		DISALLOW_COPY_AND_ASSIGN(UnhandledOpenSubmenuArgs);
@@ -596,15 +698,32 @@ namespace CefMenuModelDelegateExt {
 	public:
 		struct argData {
 			int32_t myext_flags;
-			CefRefPtr<CefMenuModel> menu_model;//1
+			cef_menu_model_t* menu_model;//1
 			bool is_rtl;//2
 		};
 		argData arg;//
-		UnhandledCloseSubmenuArgs(CefRefPtr<CefMenuModel> menu_model, bool is_rtl)
+		UnhandledCloseSubmenuArgs(cef_menu_model_t* menu_model, bool is_rtl)
 		{
 			arg.myext_flags = ((1 << 18) | 2);
 			arg.menu_model = menu_model;
 			arg.is_rtl = is_rtl;
+		}
+		UnhandledCloseSubmenuArgs(cef_menu_model_t* menu_model, int is_rtl)
+		{
+			arg.myext_flags = ((1 << 18) | 2);
+			arg.menu_model = menu_model;
+			arg.is_rtl = is_rtl ? true : false;
+		}
+		UnhandledCloseSubmenuArgs(CefRefPtr<CefMenuModel> menu_model, bool is_rtl)
+		{
+			arg.myext_flags = ((1 << 18) | (1 << 20) | 2);
+			arg.menu_model = CefMenuModelCToCpp::Unwrap(menu_model);
+			arg.is_rtl = is_rtl;
+		}
+		~UnhandledCloseSubmenuArgs() {
+			if (((arg.myext_flags >> 20) & 1) == 1) {
+				CefMenuModelCToCpp::Wrap(arg.menu_model);
+			}
 		}
 	private:
 		DISALLOW_COPY_AND_ASSIGN(UnhandledCloseSubmenuArgs);
@@ -615,13 +734,23 @@ namespace CefMenuModelDelegateExt {
 	public:
 		struct argData {
 			int32_t myext_flags;
-			CefRefPtr<CefMenuModel> menu_model;//1
+			cef_menu_model_t* menu_model;//1
 		};
 		argData arg;//
-		MenuWillShowArgs(CefRefPtr<CefMenuModel> menu_model)
+		MenuWillShowArgs(cef_menu_model_t* menu_model)
 		{
 			arg.myext_flags = ((1 << 18) | 1);
 			arg.menu_model = menu_model;
+		}
+		MenuWillShowArgs(CefRefPtr<CefMenuModel> menu_model)
+		{
+			arg.myext_flags = ((1 << 18) | (1 << 20) | 1);
+			arg.menu_model = CefMenuModelCToCpp::Unwrap(menu_model);
+		}
+		~MenuWillShowArgs() {
+			if (((arg.myext_flags >> 20) & 1) == 1) {
+				CefMenuModelCToCpp::Wrap(arg.menu_model);
+			}
 		}
 	private:
 		DISALLOW_COPY_AND_ASSIGN(MenuWillShowArgs);
@@ -632,13 +761,23 @@ namespace CefMenuModelDelegateExt {
 	public:
 		struct argData {
 			int32_t myext_flags;
-			CefRefPtr<CefMenuModel> menu_model;//1
+			cef_menu_model_t* menu_model;//1
 		};
 		argData arg;//
-		MenuClosedArgs(CefRefPtr<CefMenuModel> menu_model)
+		MenuClosedArgs(cef_menu_model_t* menu_model)
 		{
 			arg.myext_flags = ((1 << 18) | 1);
 			arg.menu_model = menu_model;
+		}
+		MenuClosedArgs(CefRefPtr<CefMenuModel> menu_model)
+		{
+			arg.myext_flags = ((1 << 18) | (1 << 20) | 1);
+			arg.menu_model = CefMenuModelCToCpp::Unwrap(menu_model);
+		}
+		~MenuClosedArgs() {
+			if (((arg.myext_flags >> 20) & 1) == 1) {
+				CefMenuModelCToCpp::Wrap(arg.menu_model);
+			}
 		}
 	private:
 		DISALLOW_COPY_AND_ASSIGN(MenuClosedArgs);
@@ -650,16 +789,35 @@ namespace CefMenuModelDelegateExt {
 		struct argData {
 			int32_t myext_flags;
 			bool myext_ret_value; //0
-			CefRefPtr<CefMenuModel> menu_model;//1
+			cef_menu_model_t* menu_model;//1
 			CefString* label;//2
 		};
 		argData arg;//
-		FormatLabelArgs(CefRefPtr<CefMenuModel> menu_model, CefString* label)
+		FormatLabelArgs(cef_menu_model_t* menu_model, CefString* label)
 		{
 			arg.myext_flags = ((1 << 18) | (1 << 19) | 2);
 			arg.myext_ret_value = 0;
 			arg.menu_model = menu_model;
 			arg.label = label;
+		}
+		FormatLabelArgs(cef_menu_model_t* menu_model, CefString& label)
+		{
+			arg.myext_flags = ((1 << 18) | (1 << 19) | 2);
+			arg.myext_ret_value = 0;
+			arg.menu_model = menu_model;
+			arg.label = &label;
+		}
+		FormatLabelArgs(CefRefPtr<CefMenuModel> menu_model, CefString* label)
+		{
+			arg.myext_flags = ((1 << 18) | (1 << 19) | (1 << 20) | 2);
+			arg.myext_ret_value = 0;
+			arg.menu_model = CefMenuModelCToCpp::Unwrap(menu_model);
+			arg.label = label;
+		}
+		~FormatLabelArgs() {
+			if (((arg.myext_flags >> 20) & 1) == 1) {
+				CefMenuModelCToCpp::Wrap(arg.menu_model);
+			}
 		}
 	private:
 		DISALLOW_COPY_AND_ASSIGN(FormatLabelArgs);
@@ -721,13 +879,13 @@ namespace CefSchemeHandlerFactoryExt {
 		struct argData {
 			int32_t myext_flags;
 			CefRefPtr<CefResourceHandler> myext_ret_value; //0
-			CefRefPtr<CefBrowser> browser;//1
-			CefRefPtr<CefFrame> frame;//2
+			cef_browser_t* browser;//1
+			cef_frame_t* frame;//2
 			const CefString* scheme_name;//3
-			CefRefPtr<CefRequest> request;//4
+			cef_request_t* request;//4
 		};
 		argData arg;//
-		CreateArgs(CefRefPtr<CefBrowser> browser, CefRefPtr<CefFrame> frame, const CefString* scheme_name, CefRefPtr<CefRequest> request)
+		CreateArgs(cef_browser_t* browser, cef_frame_t* frame, const CefString* scheme_name, cef_request_t* request)
 		{
 			arg.myext_flags = ((1 << 18) | (1 << 19) | 4);
 			arg.myext_ret_value = 0;
@@ -735,6 +893,31 @@ namespace CefSchemeHandlerFactoryExt {
 			arg.frame = frame;
 			arg.scheme_name = scheme_name;
 			arg.request = request;
+		}
+		CreateArgs(cef_browser_t* browser, cef_frame_t* frame, const CefString& scheme_name, cef_request_t* request)
+		{
+			arg.myext_flags = ((1 << 18) | (1 << 19) | 4);
+			arg.myext_ret_value = 0;
+			arg.browser = browser;
+			arg.frame = frame;
+			arg.scheme_name = &scheme_name;
+			arg.request = request;
+		}
+		CreateArgs(CefRefPtr<CefBrowser> browser, CefRefPtr<CefFrame> frame, const CefString* scheme_name, CefRefPtr<CefRequest> request)
+		{
+			arg.myext_flags = ((1 << 18) | (1 << 19) | (1 << 20) | 4);
+			arg.myext_ret_value = 0;
+			arg.browser = CefBrowserCToCpp::Unwrap(browser);
+			arg.frame = CefFrameCToCpp::Unwrap(frame);
+			arg.scheme_name = scheme_name;
+			arg.request = CefRequestCToCpp::Unwrap(request);
+		}
+		~CreateArgs() {
+			if (((arg.myext_flags >> 20) & 1) == 1) {
+				CefBrowserCToCpp::Wrap(arg.browser);
+				CefFrameCToCpp::Wrap(arg.frame);
+				CefRequestCToCpp::Wrap(arg.request);
+			}
 		}
 	private:
 		DISALLOW_COPY_AND_ASSIGN(CreateArgs);
@@ -754,6 +937,11 @@ namespace CefStringVisitorExt {
 		{
 			arg.myext_flags = ((1 << 18) | 1);
 			arg.string = string;
+		}
+		VisitArgs(const CefString& string)
+		{
+			arg.myext_flags = ((1 << 18) | 1);
+			arg.string = &string;
 		}
 	private:
 		DISALLOW_COPY_AND_ASSIGN(VisitArgs);
@@ -783,13 +971,23 @@ namespace CefURLRequestClientExt {
 	public:
 		struct argData {
 			int32_t myext_flags;
-			CefRefPtr<CefURLRequest> request;//1
+			cef_urlrequest_t* request;//1
 		};
 		argData arg;//
-		OnRequestCompleteArgs(CefRefPtr<CefURLRequest> request)
+		OnRequestCompleteArgs(cef_urlrequest_t* request)
 		{
 			arg.myext_flags = ((1 << 18) | 1);
 			arg.request = request;
+		}
+		OnRequestCompleteArgs(CefRefPtr<CefURLRequest> request)
+		{
+			arg.myext_flags = ((1 << 18) | (1 << 20) | 1);
+			arg.request = CefURLRequestCToCpp::Unwrap(request);
+		}
+		~OnRequestCompleteArgs() {
+			if (((arg.myext_flags >> 20) & 1) == 1) {
+				CefURLRequestCToCpp::Wrap(arg.request);
+			}
 		}
 	private:
 		DISALLOW_COPY_AND_ASSIGN(OnRequestCompleteArgs);
@@ -800,17 +998,29 @@ namespace CefURLRequestClientExt {
 	public:
 		struct argData {
 			int32_t myext_flags;
-			CefRefPtr<CefURLRequest> request;//1
+			cef_urlrequest_t* request;//1
 			int64 current;//2
 			int64 total;//3
 		};
 		argData arg;//
-		OnUploadProgressArgs(CefRefPtr<CefURLRequest> request, int64 current, int64 total)
+		OnUploadProgressArgs(cef_urlrequest_t* request, int64 current, int64 total)
 		{
 			arg.myext_flags = ((1 << 18) | 3);
 			arg.request = request;
 			arg.current = current;
 			arg.total = total;
+		}
+		OnUploadProgressArgs(CefRefPtr<CefURLRequest> request, int64 current, int64 total)
+		{
+			arg.myext_flags = ((1 << 18) | (1 << 20) | 3);
+			arg.request = CefURLRequestCToCpp::Unwrap(request);
+			arg.current = current;
+			arg.total = total;
+		}
+		~OnUploadProgressArgs() {
+			if (((arg.myext_flags >> 20) & 1) == 1) {
+				CefURLRequestCToCpp::Wrap(arg.request);
+			}
 		}
 	private:
 		DISALLOW_COPY_AND_ASSIGN(OnUploadProgressArgs);
@@ -821,17 +1031,29 @@ namespace CefURLRequestClientExt {
 	public:
 		struct argData {
 			int32_t myext_flags;
-			CefRefPtr<CefURLRequest> request;//1
+			cef_urlrequest_t* request;//1
 			int64 current;//2
 			int64 total;//3
 		};
 		argData arg;//
-		OnDownloadProgressArgs(CefRefPtr<CefURLRequest> request, int64 current, int64 total)
+		OnDownloadProgressArgs(cef_urlrequest_t* request, int64 current, int64 total)
 		{
 			arg.myext_flags = ((1 << 18) | 3);
 			arg.request = request;
 			arg.current = current;
 			arg.total = total;
+		}
+		OnDownloadProgressArgs(CefRefPtr<CefURLRequest> request, int64 current, int64 total)
+		{
+			arg.myext_flags = ((1 << 18) | (1 << 20) | 3);
+			arg.request = CefURLRequestCToCpp::Unwrap(request);
+			arg.current = current;
+			arg.total = total;
+		}
+		~OnDownloadProgressArgs() {
+			if (((arg.myext_flags >> 20) & 1) == 1) {
+				CefURLRequestCToCpp::Wrap(arg.request);
+			}
 		}
 	private:
 		DISALLOW_COPY_AND_ASSIGN(OnDownloadProgressArgs);
@@ -842,17 +1064,29 @@ namespace CefURLRequestClientExt {
 	public:
 		struct argData {
 			int32_t myext_flags;
-			CefRefPtr<CefURLRequest> request;//1
+			cef_urlrequest_t* request;//1
 			const void* data;//2
 			size_t data_length;//3
 		};
 		argData arg;//
-		OnDownloadDataArgs(CefRefPtr<CefURLRequest> request, const void* data, size_t data_length)
+		OnDownloadDataArgs(cef_urlrequest_t* request, const void* data, size_t data_length)
 		{
 			arg.myext_flags = ((1 << 18) | 3);
 			arg.request = request;
 			arg.data = data;
 			arg.data_length = data_length;
+		}
+		OnDownloadDataArgs(CefRefPtr<CefURLRequest> request, const void* data, size_t data_length)
+		{
+			arg.myext_flags = ((1 << 18) | (1 << 20) | 3);
+			arg.request = CefURLRequestCToCpp::Unwrap(request);
+			arg.data = data;
+			arg.data_length = data_length;
+		}
+		~OnDownloadDataArgs() {
+			if (((arg.myext_flags >> 20) & 1) == 1) {
+				CefURLRequestCToCpp::Wrap(arg.request);
+			}
 		}
 	private:
 		DISALLOW_COPY_AND_ASSIGN(OnDownloadDataArgs);
@@ -869,10 +1103,10 @@ namespace CefURLRequestClientExt {
 			int port;//3
 			const CefString* realm;//4
 			const CefString* scheme;//5
-			CefRefPtr<CefAuthCallback> callback;//6
+			cef_auth_callback_t* callback;//6
 		};
 		argData arg;//
-		GetAuthCredentialsArgs(bool isProxy, const CefString* host, int port, const CefString* realm, const CefString* scheme, CefRefPtr<CefAuthCallback> callback)
+		GetAuthCredentialsArgs(bool isProxy, const CefString* host, int port, const CefString* realm, const CefString* scheme, cef_auth_callback_t* callback)
 		{
 			arg.myext_flags = ((1 << 18) | (1 << 19) | 6);
 			arg.myext_ret_value = 0;
@@ -882,6 +1116,33 @@ namespace CefURLRequestClientExt {
 			arg.realm = realm;
 			arg.scheme = scheme;
 			arg.callback = callback;
+		}
+		GetAuthCredentialsArgs(int isProxy, const CefString& host, int port, const CefString& realm, const CefString& scheme, cef_auth_callback_t* callback)
+		{
+			arg.myext_flags = ((1 << 18) | (1 << 19) | 6);
+			arg.myext_ret_value = 0;
+			arg.isProxy = isProxy ? true : false;
+			arg.host = &host;
+			arg.port = port;
+			arg.realm = &realm;
+			arg.scheme = &scheme;
+			arg.callback = callback;
+		}
+		GetAuthCredentialsArgs(bool isProxy, const CefString* host, int port, const CefString* realm, const CefString* scheme, CefRefPtr<CefAuthCallback> callback)
+		{
+			arg.myext_flags = ((1 << 18) | (1 << 19) | (1 << 20) | 6);
+			arg.myext_ret_value = 0;
+			arg.isProxy = isProxy;
+			arg.host = host;
+			arg.port = port;
+			arg.realm = realm;
+			arg.scheme = scheme;
+			arg.callback = CefAuthCallbackCToCpp::Unwrap(callback);
+		}
+		~GetAuthCredentialsArgs() {
+			if (((arg.myext_flags >> 20) & 1) == 1) {
+				CefAuthCallbackCToCpp::Wrap(arg.callback);
+			}
 		}
 	private:
 		DISALLOW_COPY_AND_ASSIGN(GetAuthCredentialsArgs);
@@ -896,12 +1157,12 @@ namespace CefV8AccessorExt {
 			int32_t myext_flags;
 			bool myext_ret_value; //0
 			const CefString* name;//1
-			CefRefPtr<CefV8Value> object;//2
+			const cef_v8value_t* object;//2
 			CefRefPtr<CefV8Value>* retval;//3
 			CefString* exception;//4
 		};
 		argData arg;//
-		GetArgs(const CefString* name, const CefRefPtr<CefV8Value> object, CefRefPtr<CefV8Value>* retval, CefString* exception)
+		GetArgs(const CefString* name, const cef_v8value_t* object, CefRefPtr<CefV8Value>* retval, CefString* exception)
 		{
 			arg.myext_flags = ((1 << 18) | (1 << 19) | 4);
 			arg.myext_ret_value = 0;
@@ -909,6 +1170,29 @@ namespace CefV8AccessorExt {
 			arg.object = object;
 			arg.retval = retval;
 			arg.exception = exception;
+		}
+		GetArgs(const CefString& name, const cef_v8value_t* object, CefRefPtr<CefV8Value>* retval, CefString& exception)
+		{
+			arg.myext_flags = ((1 << 18) | (1 << 19) | 4);
+			arg.myext_ret_value = 0;
+			arg.name = &name;
+			arg.object = object;
+			arg.retval = retval;
+			arg.exception = &exception;
+		}
+		GetArgs(const CefString* name, const CefRefPtr<CefV8Value> object, CefRefPtr<CefV8Value>* retval, CefString* exception)
+		{
+			arg.myext_flags = ((1 << 18) | (1 << 19) | (1 << 20) | 4);
+			arg.myext_ret_value = 0;
+			arg.name = name;
+			arg.object = CefV8ValueCToCpp::Unwrap(object);
+			arg.retval = retval;
+			arg.exception = exception;
+		}
+		~GetArgs() {
+			if (((arg.myext_flags >> 20) & 1) == 1) {
+				CefV8ValueCToCpp::Wrap((cef_v8value_t*)arg.object);
+			}
 		}
 	private:
 		DISALLOW_COPY_AND_ASSIGN(GetArgs);
@@ -921,12 +1205,12 @@ namespace CefV8AccessorExt {
 			int32_t myext_flags;
 			bool myext_ret_value; //0
 			const CefString* name;//1
-			CefRefPtr<CefV8Value> object;//2
-			CefRefPtr<CefV8Value> value;//3
+			const cef_v8value_t* object;//2
+			const cef_v8value_t* value;//3
 			CefString* exception;//4
 		};
 		argData arg;//
-		SetArgs(const CefString* name, const CefRefPtr<CefV8Value> object, const CefRefPtr<CefV8Value> value, CefString* exception)
+		SetArgs(const CefString* name, const cef_v8value_t* object, const cef_v8value_t* value, CefString* exception)
 		{
 			arg.myext_flags = ((1 << 18) | (1 << 19) | 4);
 			arg.myext_ret_value = 0;
@@ -934,6 +1218,30 @@ namespace CefV8AccessorExt {
 			arg.object = object;
 			arg.value = value;
 			arg.exception = exception;
+		}
+		SetArgs(const CefString& name, const cef_v8value_t* object, const cef_v8value_t* value, CefString& exception)
+		{
+			arg.myext_flags = ((1 << 18) | (1 << 19) | 4);
+			arg.myext_ret_value = 0;
+			arg.name = &name;
+			arg.object = object;
+			arg.value = value;
+			arg.exception = &exception;
+		}
+		SetArgs(const CefString* name, const CefRefPtr<CefV8Value> object, const CefRefPtr<CefV8Value> value, CefString* exception)
+		{
+			arg.myext_flags = ((1 << 18) | (1 << 19) | (1 << 20) | 4);
+			arg.myext_ret_value = 0;
+			arg.name = name;
+			arg.object = CefV8ValueCToCpp::Unwrap(object);
+			arg.value = CefV8ValueCToCpp::Unwrap(value);
+			arg.exception = exception;
+		}
+		~SetArgs() {
+			if (((arg.myext_flags >> 20) & 1) == 1) {
+				CefV8ValueCToCpp::Wrap((cef_v8value_t*)arg.object);
+				CefV8ValueCToCpp::Wrap((cef_v8value_t*)arg.value);
+			}
 		}
 	private:
 		DISALLOW_COPY_AND_ASSIGN(SetArgs);
@@ -948,12 +1256,12 @@ namespace CefV8InterceptorExt {
 			int32_t myext_flags;
 			bool myext_ret_value; //0
 			const CefString* name;//1
-			CefRefPtr<CefV8Value> object;//2
+			const cef_v8value_t* object;//2
 			CefRefPtr<CefV8Value>* retval;//3
 			CefString* exception;//4
 		};
 		argData arg;//
-		GetArgs(const CefString* name, const CefRefPtr<CefV8Value> object, CefRefPtr<CefV8Value>* retval, CefString* exception)
+		GetArgs(const CefString* name, const cef_v8value_t* object, CefRefPtr<CefV8Value>* retval, CefString* exception)
 		{
 			arg.myext_flags = ((1 << 18) | (1 << 19) | 4);
 			arg.myext_ret_value = 0;
@@ -961,6 +1269,29 @@ namespace CefV8InterceptorExt {
 			arg.object = object;
 			arg.retval = retval;
 			arg.exception = exception;
+		}
+		GetArgs(const CefString& name, const cef_v8value_t* object, CefRefPtr<CefV8Value>* retval, CefString& exception)
+		{
+			arg.myext_flags = ((1 << 18) | (1 << 19) | 4);
+			arg.myext_ret_value = 0;
+			arg.name = &name;
+			arg.object = object;
+			arg.retval = retval;
+			arg.exception = &exception;
+		}
+		GetArgs(const CefString* name, const CefRefPtr<CefV8Value> object, CefRefPtr<CefV8Value>* retval, CefString* exception)
+		{
+			arg.myext_flags = ((1 << 18) | (1 << 19) | (1 << 20) | 4);
+			arg.myext_ret_value = 0;
+			arg.name = name;
+			arg.object = CefV8ValueCToCpp::Unwrap(object);
+			arg.retval = retval;
+			arg.exception = exception;
+		}
+		~GetArgs() {
+			if (((arg.myext_flags >> 20) & 1) == 1) {
+				CefV8ValueCToCpp::Wrap((cef_v8value_t*)arg.object);
+			}
 		}
 	private:
 		DISALLOW_COPY_AND_ASSIGN(GetArgs);
@@ -973,12 +1304,12 @@ namespace CefV8InterceptorExt {
 			int32_t myext_flags;
 			bool myext_ret_value; //0
 			int index;//1
-			CefRefPtr<CefV8Value> object;//2
+			const cef_v8value_t* object;//2
 			CefRefPtr<CefV8Value>* retval;//3
 			CefString* exception;//4
 		};
 		argData arg;//
-		Get1Args(int index, const CefRefPtr<CefV8Value> object, CefRefPtr<CefV8Value>* retval, CefString* exception)
+		Get1Args(int index, const cef_v8value_t* object, CefRefPtr<CefV8Value>* retval, CefString* exception)
 		{
 			arg.myext_flags = ((1 << 18) | (1 << 19) | 4);
 			arg.myext_ret_value = 0;
@@ -986,6 +1317,29 @@ namespace CefV8InterceptorExt {
 			arg.object = object;
 			arg.retval = retval;
 			arg.exception = exception;
+		}
+		Get1Args(int index, const cef_v8value_t* object, CefRefPtr<CefV8Value>* retval, CefString& exception)
+		{
+			arg.myext_flags = ((1 << 18) | (1 << 19) | 4);
+			arg.myext_ret_value = 0;
+			arg.index = index;
+			arg.object = object;
+			arg.retval = retval;
+			arg.exception = &exception;
+		}
+		Get1Args(int index, const CefRefPtr<CefV8Value> object, CefRefPtr<CefV8Value>* retval, CefString* exception)
+		{
+			arg.myext_flags = ((1 << 18) | (1 << 19) | (1 << 20) | 4);
+			arg.myext_ret_value = 0;
+			arg.index = index;
+			arg.object = CefV8ValueCToCpp::Unwrap(object);
+			arg.retval = retval;
+			arg.exception = exception;
+		}
+		~Get1Args() {
+			if (((arg.myext_flags >> 20) & 1) == 1) {
+				CefV8ValueCToCpp::Wrap((cef_v8value_t*)arg.object);
+			}
 		}
 	private:
 		DISALLOW_COPY_AND_ASSIGN(Get1Args);
@@ -998,12 +1352,12 @@ namespace CefV8InterceptorExt {
 			int32_t myext_flags;
 			bool myext_ret_value; //0
 			const CefString* name;//1
-			CefRefPtr<CefV8Value> object;//2
-			CefRefPtr<CefV8Value> value;//3
+			const cef_v8value_t* object;//2
+			const cef_v8value_t* value;//3
 			CefString* exception;//4
 		};
 		argData arg;//
-		SetArgs(const CefString* name, const CefRefPtr<CefV8Value> object, const CefRefPtr<CefV8Value> value, CefString* exception)
+		SetArgs(const CefString* name, const cef_v8value_t* object, const cef_v8value_t* value, CefString* exception)
 		{
 			arg.myext_flags = ((1 << 18) | (1 << 19) | 4);
 			arg.myext_ret_value = 0;
@@ -1011,6 +1365,30 @@ namespace CefV8InterceptorExt {
 			arg.object = object;
 			arg.value = value;
 			arg.exception = exception;
+		}
+		SetArgs(const CefString& name, const cef_v8value_t* object, const cef_v8value_t* value, CefString& exception)
+		{
+			arg.myext_flags = ((1 << 18) | (1 << 19) | 4);
+			arg.myext_ret_value = 0;
+			arg.name = &name;
+			arg.object = object;
+			arg.value = value;
+			arg.exception = &exception;
+		}
+		SetArgs(const CefString* name, const CefRefPtr<CefV8Value> object, const CefRefPtr<CefV8Value> value, CefString* exception)
+		{
+			arg.myext_flags = ((1 << 18) | (1 << 19) | (1 << 20) | 4);
+			arg.myext_ret_value = 0;
+			arg.name = name;
+			arg.object = CefV8ValueCToCpp::Unwrap(object);
+			arg.value = CefV8ValueCToCpp::Unwrap(value);
+			arg.exception = exception;
+		}
+		~SetArgs() {
+			if (((arg.myext_flags >> 20) & 1) == 1) {
+				CefV8ValueCToCpp::Wrap((cef_v8value_t*)arg.object);
+				CefV8ValueCToCpp::Wrap((cef_v8value_t*)arg.value);
+			}
 		}
 	private:
 		DISALLOW_COPY_AND_ASSIGN(SetArgs);
@@ -1023,12 +1401,12 @@ namespace CefV8InterceptorExt {
 			int32_t myext_flags;
 			bool myext_ret_value; //0
 			int index;//1
-			CefRefPtr<CefV8Value> object;//2
-			CefRefPtr<CefV8Value> value;//3
+			const cef_v8value_t* object;//2
+			const cef_v8value_t* value;//3
 			CefString* exception;//4
 		};
 		argData arg;//
-		Set3Args(int index, const CefRefPtr<CefV8Value> object, const CefRefPtr<CefV8Value> value, CefString* exception)
+		Set3Args(int index, const cef_v8value_t* object, const cef_v8value_t* value, CefString* exception)
 		{
 			arg.myext_flags = ((1 << 18) | (1 << 19) | 4);
 			arg.myext_ret_value = 0;
@@ -1036,6 +1414,30 @@ namespace CefV8InterceptorExt {
 			arg.object = object;
 			arg.value = value;
 			arg.exception = exception;
+		}
+		Set3Args(int index, const cef_v8value_t* object, const cef_v8value_t* value, CefString& exception)
+		{
+			arg.myext_flags = ((1 << 18) | (1 << 19) | 4);
+			arg.myext_ret_value = 0;
+			arg.index = index;
+			arg.object = object;
+			arg.value = value;
+			arg.exception = &exception;
+		}
+		Set3Args(int index, const CefRefPtr<CefV8Value> object, const CefRefPtr<CefV8Value> value, CefString* exception)
+		{
+			arg.myext_flags = ((1 << 18) | (1 << 19) | (1 << 20) | 4);
+			arg.myext_ret_value = 0;
+			arg.index = index;
+			arg.object = CefV8ValueCToCpp::Unwrap(object);
+			arg.value = CefV8ValueCToCpp::Unwrap(value);
+			arg.exception = exception;
+		}
+		~Set3Args() {
+			if (((arg.myext_flags >> 20) & 1) == 1) {
+				CefV8ValueCToCpp::Wrap((cef_v8value_t*)arg.object);
+				CefV8ValueCToCpp::Wrap((cef_v8value_t*)arg.value);
+			}
 		}
 	private:
 		DISALLOW_COPY_AND_ASSIGN(Set3Args);
@@ -1049,18 +1451,31 @@ namespace CefWebPluginInfoVisitorExt {
 		struct argData {
 			int32_t myext_flags;
 			bool myext_ret_value; //0
-			CefRefPtr<CefWebPluginInfo> info;//1
+			cef_web_plugin_info_t* info;//1
 			int count;//2
 			int total;//3
 		};
 		argData arg;//
-		VisitArgs(CefRefPtr<CefWebPluginInfo> info, int count, int total)
+		VisitArgs(cef_web_plugin_info_t* info, int count, int total)
 		{
 			arg.myext_flags = ((1 << 18) | (1 << 19) | 3);
 			arg.myext_ret_value = 0;
 			arg.info = info;
 			arg.count = count;
 			arg.total = total;
+		}
+		VisitArgs(CefRefPtr<CefWebPluginInfo> info, int count, int total)
+		{
+			arg.myext_flags = ((1 << 18) | (1 << 19) | (1 << 20) | 3);
+			arg.myext_ret_value = 0;
+			arg.info = CefWebPluginInfoCToCpp::Unwrap(info);
+			arg.count = count;
+			arg.total = total;
+		}
+		~VisitArgs() {
+			if (((arg.myext_flags >> 20) & 1) == 1) {
+				CefWebPluginInfoCToCpp::Wrap(arg.info);
+			}
 		}
 	private:
 		DISALLOW_COPY_AND_ASSIGN(VisitArgs);
@@ -1082,6 +1497,12 @@ namespace CefAuthCallbackExt {
 			arg.myext_flags = ((1 << 18) | 2);
 			arg.username = username;
 			arg.password = password;
+		}
+		ContinueArgs(const CefString& username, const CefString& password)
+		{
+			arg.myext_flags = ((1 << 18) | 2);
+			arg.username = &username;
+			arg.password = &password;
 		}
 	private:
 		DISALLOW_COPY_AND_ASSIGN(ContinueArgs);
@@ -1140,6 +1561,12 @@ namespace CefPdfPrintCallbackExt {
 			arg.path = path;
 			arg.ok = ok;
 		}
+		OnPdfPrintFinishedArgs(const CefString& path, int ok)
+		{
+			arg.myext_flags = ((1 << 18) | 2);
+			arg.path = &path;
+			arg.ok = ok ? true : false;
+		}
 	private:
 		DISALLOW_COPY_AND_ASSIGN(OnPdfPrintFinishedArgs);
 	};
@@ -1153,15 +1580,34 @@ namespace CefDownloadImageCallbackExt {
 			int32_t myext_flags;
 			const CefString* image_url;//1
 			int http_status_code;//2
-			CefRefPtr<CefImage> image;//3
+			cef_image_t* image;//3
 		};
 		argData arg;//
-		OnDownloadImageFinishedArgs(const CefString* image_url, int http_status_code, CefRefPtr<CefImage> image)
+		OnDownloadImageFinishedArgs(const CefString* image_url, int http_status_code, cef_image_t* image)
 		{
 			arg.myext_flags = ((1 << 18) | 3);
 			arg.image_url = image_url;
 			arg.http_status_code = http_status_code;
 			arg.image = image;
+		}
+		OnDownloadImageFinishedArgs(const CefString& image_url, int http_status_code, cef_image_t* image)
+		{
+			arg.myext_flags = ((1 << 18) | 3);
+			arg.image_url = &image_url;
+			arg.http_status_code = http_status_code;
+			arg.image = image;
+		}
+		OnDownloadImageFinishedArgs(const CefString* image_url, int http_status_code, CefRefPtr<CefImage> image)
+		{
+			arg.myext_flags = ((1 << 18) | (1 << 20) | 3);
+			arg.image_url = image_url;
+			arg.http_status_code = http_status_code;
+			arg.image = CefImageCToCpp::Unwrap(image);
+		}
+		~OnDownloadImageFinishedArgs() {
+			if (((arg.myext_flags >> 20) & 1) == 1) {
+				CefImageCToCpp::Wrap(arg.image);
+			}
 		}
 	private:
 		DISALLOW_COPY_AND_ASSIGN(OnDownloadImageFinishedArgs);
@@ -1267,6 +1713,11 @@ namespace CefSetCookieCallbackExt {
 			arg.myext_flags = ((1 << 18) | 1);
 			arg.success = success;
 		}
+		OnCompleteArgs(int success)
+		{
+			arg.myext_flags = ((1 << 18) | 1);
+			arg.success = success ? true : false;
+		}
 	private:
 		DISALLOW_COPY_AND_ASSIGN(OnCompleteArgs);
 	};
@@ -1342,6 +1793,12 @@ namespace CefBeforeDownloadCallbackExt {
 			arg.myext_flags = ((1 << 18) | 2);
 			arg.download_path = download_path;
 			arg.show_dialog = show_dialog;
+		}
+		ContinueArgs(const CefString& download_path, int show_dialog)
+		{
+			arg.myext_flags = ((1 << 18) | 2);
+			arg.download_path = &download_path;
+			arg.show_dialog = show_dialog ? true : false;
 		}
 	private:
 		DISALLOW_COPY_AND_ASSIGN(ContinueArgs);
@@ -1428,6 +1885,11 @@ namespace CefGeolocationCallbackExt {
 			arg.myext_flags = ((1 << 18) | 1);
 			arg.allow = allow;
 		}
+		ContinueArgs(int allow)
+		{
+			arg.myext_flags = ((1 << 18) | 1);
+			arg.allow = allow ? true : false;
+		}
 	private:
 		DISALLOW_COPY_AND_ASSIGN(ContinueArgs);
 	};
@@ -1448,6 +1910,12 @@ namespace CefJSDialogCallbackExt {
 			arg.myext_flags = ((1 << 18) | 2);
 			arg.success = success;
 			arg.user_input = user_input;
+		}
+		ContinueArgs(int success, const CefString& user_input)
+		{
+			arg.myext_flags = ((1 << 18) | 2);
+			arg.success = success ? true : false;
+			arg.user_input = &user_input;
 		}
 	private:
 		DISALLOW_COPY_AND_ASSIGN(ContinueArgs);
@@ -1540,6 +2008,11 @@ namespace CefRequestCallbackExt {
 			arg.myext_flags = ((1 << 18) | 1);
 			arg.allow = allow;
 		}
+		ContinueArgs(int allow)
+		{
+			arg.myext_flags = ((1 << 18) | 1);
+			arg.allow = allow ? true : false;
+		}
 	private:
 		DISALLOW_COPY_AND_ASSIGN(ContinueArgs);
 	};
@@ -1593,6 +2066,11 @@ namespace CefEndTracingCallbackExt {
 			arg.myext_flags = ((1 << 18) | 1);
 			arg.tracing_file = tracing_file;
 		}
+		OnEndTracingCompleteArgs(const CefString& tracing_file)
+		{
+			arg.myext_flags = ((1 << 18) | 1);
+			arg.tracing_file = &tracing_file;
+		}
 	private:
 		DISALLOW_COPY_AND_ASSIGN(OnEndTracingCompleteArgs);
 	};
@@ -1614,6 +2092,12 @@ namespace CefWebPluginUnstableCallbackExt {
 			arg.path = path;
 			arg.unstable = unstable;
 		}
+		IsUnstableArgs(const CefString& path, int unstable)
+		{
+			arg.myext_flags = ((1 << 18) | 2);
+			arg.path = &path;
+			arg.unstable = unstable ? true : false;
+		}
 	private:
 		DISALLOW_COPY_AND_ASSIGN(IsUnstableArgs);
 	};
@@ -1634,6 +2118,12 @@ namespace CefRegisterCdmCallbackExt {
 			arg.myext_flags = ((1 << 18) | 2);
 			arg.result = result;
 			arg.error_message = error_message;
+		}
+		OnCdmRegistrationCompleteArgs(cef_cdm_registration_error_t result, const CefString& error_message)
+		{
+			arg.myext_flags = ((1 << 18) | 2);
+			arg.result = result;
+			arg.error_message = &error_message;
 		}
 	private:
 		DISALLOW_COPY_AND_ASSIGN(OnCdmRegistrationCompleteArgs);
@@ -2039,6 +2529,18 @@ namespace CefDialogHandlerExt {
 			arg.selected_accept_filter = selected_accept_filter;
 			arg.callback = callback;
 		}
+		OnFileDialogArgs(cef_browser_t* browser, cef_file_dialog_mode_t mode, const CefString& title, const CefString& default_file_path, const std::vector<CefString>* accept_filters, int selected_accept_filter, cef_file_dialog_callback_t* callback)
+		{
+			arg.myext_flags = ((1 << 18) | (1 << 19) | 7);
+			arg.myext_ret_value = 0;
+			arg.browser = browser;
+			arg.mode = mode;
+			arg.title = &title;
+			arg.default_file_path = &default_file_path;
+			arg.accept_filters = accept_filters;
+			arg.selected_accept_filter = selected_accept_filter;
+			arg.callback = callback;
+		}
 		OnFileDialogArgs(CefRefPtr<CefBrowser> browser, cef_file_dialog_mode_t mode, const CefString* title, const CefString* default_file_path, const std::vector<CefString>* accept_filters, int selected_accept_filter, CefRefPtr<CefFileDialogCallback> callback)
 		{
 			arg.myext_flags = ((1 << 18) | (1 << 19) | (1 << 20) | 7);
@@ -2097,6 +2599,13 @@ namespace CefDisplayHandlerExt {
 			const CefString* url;//3
 		};
 		argData arg;//
+		OnAddressChangeArgs(cef_browser_t* browser, cef_frame_t* frame, const CefString* url)
+		{
+			arg.myext_flags = ((1 << 18) | 3);
+			arg.browser = browser;
+			arg.frame = frame;
+			arg.url = url;
+		}
 		OnAddressChangeArgs(cef_browser_t* browser, cef_frame_t* frame, const CefString& url)
 		{
 			arg.myext_flags = ((1 << 18) | 3);
@@ -2130,6 +2639,12 @@ namespace CefDisplayHandlerExt {
 			const CefString* title;//2
 		};
 		argData arg;//
+		OnTitleChangeArgs(cef_browser_t* browser, const CefString* title)
+		{
+			arg.myext_flags = ((1 << 18) | 2);
+			arg.browser = browser;
+			arg.title = title;
+		}
 		OnTitleChangeArgs(cef_browser_t* browser, const CefString& title)
 		{
 			arg.myext_flags = ((1 << 18) | 2);
@@ -2200,7 +2715,7 @@ namespace CefDisplayHandlerExt {
 		{
 			arg.myext_flags = ((1 << 18) | 2);
 			arg.browser = browser;
-			arg.fullscreen = fullscreen ? 1 : 0;
+			arg.fullscreen = fullscreen ? true : false;
 		}
 		OnFullscreenModeChangeArgs(CefRefPtr<CefBrowser> browser, bool fullscreen)
 		{
@@ -2224,10 +2739,17 @@ namespace CefDisplayHandlerExt {
 			int32_t myext_flags;
 			bool myext_ret_value; //0
 			cef_browser_t* browser;//1
-			const CefString* text;//2
+			CefString* text;//2
 		};
 		argData arg;//
-		OnTooltipArgs(cef_browser_t* browser, const CefString& text)
+		OnTooltipArgs(cef_browser_t* browser, CefString* text)
+		{
+			arg.myext_flags = ((1 << 18) | (1 << 19) | 2);
+			arg.myext_ret_value = 0;
+			arg.browser = browser;
+			arg.text = text;
+		}
+		OnTooltipArgs(cef_browser_t* browser, CefString& text)
 		{
 			arg.myext_flags = ((1 << 18) | (1 << 19) | 2);
 			arg.myext_ret_value = 0;
@@ -2362,6 +2884,14 @@ namespace CefDownloadHandlerExt {
 			arg.browser = browser;
 			arg.download_item = download_item;
 			arg.suggested_name = suggested_name;
+			arg.callback = callback;
+		}
+		OnBeforeDownloadArgs(cef_browser_t* browser, cef_download_item_t* download_item, const CefString& suggested_name, cef_before_download_callback_t* callback)
+		{
+			arg.myext_flags = ((1 << 18) | 4);
+			arg.browser = browser;
+			arg.download_item = download_item;
+			arg.suggested_name = &suggested_name;
 			arg.callback = callback;
 		}
 		OnBeforeDownloadArgs(CefRefPtr<CefBrowser> browser, CefRefPtr<CefDownloadItem> download_item, const CefString* suggested_name, CefRefPtr<CefBeforeDownloadCallback> callback)
@@ -2527,6 +3057,16 @@ namespace CefFindHandlerExt {
 			arg.activeMatchOrdinal = activeMatchOrdinal;
 			arg.finalUpdate = finalUpdate;
 		}
+		OnFindResultArgs(cef_browser_t* browser, int identifier, int count, const CefRect* selectionRect, int activeMatchOrdinal, int finalUpdate)
+		{
+			arg.myext_flags = ((1 << 18) | 6);
+			arg.browser = browser;
+			arg.identifier = identifier;
+			arg.count = count;
+			arg.selectionRect = selectionRect;
+			arg.activeMatchOrdinal = activeMatchOrdinal;
+			arg.finalUpdate = finalUpdate ? true : false;
+		}
 		OnFindResultArgs(CefRefPtr<CefBrowser> browser, int identifier, int count, const CefRect* selectionRect, int activeMatchOrdinal, bool finalUpdate)
 		{
 			arg.myext_flags = ((1 << 18) | (1 << 20) | 6);
@@ -2574,6 +3114,12 @@ namespace CefFocusHandlerExt {
 			arg.myext_flags = ((1 << 18) | 2);
 			arg.browser = browser;
 			arg.next = next;
+		}
+		OnTakeFocusArgs(cef_browser_t* browser, int next)
+		{
+			arg.myext_flags = ((1 << 18) | 2);
+			arg.browser = browser;
+			arg.next = next ? true : false;
 		}
 		OnTakeFocusArgs(CefRefPtr<CefBrowser> browser, bool next)
 		{
@@ -2682,6 +3228,15 @@ namespace CefGeolocationHandlerExt {
 			arg.request_id = request_id;
 			arg.callback = callback;
 		}
+		OnRequestGeolocationPermissionArgs(cef_browser_t* browser, const CefString& requesting_url, int request_id, cef_geolocation_callback_t* callback)
+		{
+			arg.myext_flags = ((1 << 18) | (1 << 19) | 4);
+			arg.myext_ret_value = 0;
+			arg.browser = browser;
+			arg.requesting_url = &requesting_url;
+			arg.request_id = request_id;
+			arg.callback = callback;
+		}
 		OnRequestGeolocationPermissionArgs(CefRefPtr<CefBrowser> browser, const CefString* requesting_url, int request_id, CefRefPtr<CefGeolocationCallback> callback)
 		{
 			arg.myext_flags = ((1 << 18) | (1 << 19) | (1 << 20) | 4);
@@ -2775,6 +3330,18 @@ namespace CefJSDialogHandlerExt {
 			arg.callback = callback;
 			arg.suppress_message = suppress_message;
 		}
+		OnJSDialogArgs(cef_browser_t* browser, const CefString& origin_url, cef_jsdialog_type_t dialog_type, const CefString& message_text, const CefString& default_prompt_text, cef_jsdialog_callback_t* callback, bool* suppress_message)
+		{
+			arg.myext_flags = ((1 << 18) | (1 << 19) | 7);
+			arg.myext_ret_value = 0;
+			arg.browser = browser;
+			arg.origin_url = &origin_url;
+			arg.dialog_type = dialog_type;
+			arg.message_text = &message_text;
+			arg.default_prompt_text = &default_prompt_text;
+			arg.callback = callback;
+			arg.suppress_message = suppress_message;
+		}
 		OnJSDialogArgs(CefRefPtr<CefBrowser> browser, const CefString* origin_url, cef_jsdialog_type_t dialog_type, const CefString* message_text, const CefString* default_prompt_text, CefRefPtr<CefJSDialogCallback> callback, bool* suppress_message)
 		{
 			arg.myext_flags = ((1 << 18) | (1 << 19) | (1 << 20) | 7);
@@ -2816,6 +3383,15 @@ namespace CefJSDialogHandlerExt {
 			arg.browser = browser;
 			arg.message_text = message_text;
 			arg.is_reload = is_reload;
+			arg.callback = callback;
+		}
+		OnBeforeUnloadDialogArgs(cef_browser_t* browser, const CefString& message_text, int is_reload, cef_jsdialog_callback_t* callback)
+		{
+			arg.myext_flags = ((1 << 18) | (1 << 19) | 4);
+			arg.myext_ret_value = 0;
+			arg.browser = browser;
+			arg.message_text = &message_text;
+			arg.is_reload = is_reload ? true : false;
 			arg.callback = callback;
 		}
 		OnBeforeUnloadDialogArgs(CefRefPtr<CefBrowser> browser, const CefString* message_text, bool is_reload, CefRefPtr<CefJSDialogCallback> callback)
@@ -3029,6 +3605,22 @@ namespace CefLifeSpanHandlerExt {
 			arg.settings = settings;
 			arg.no_javascript_access = no_javascript_access;
 		}
+		OnBeforePopupArgs(cef_browser_t* browser, cef_frame_t* frame, const CefString& target_url, const CefString& target_frame_name, cef_window_open_disposition_t target_disposition, int user_gesture, const CefPopupFeatures* popupFeatures, CefWindowInfo* windowInfo, CefRefPtr<CefClient>* client, CefBrowserSettings* settings, bool* no_javascript_access)
+		{
+			arg.myext_flags = ((1 << 18) | (1 << 19) | 11);
+			arg.myext_ret_value = 0;
+			arg.browser = browser;
+			arg.frame = frame;
+			arg.target_url = &target_url;
+			arg.target_frame_name = &target_frame_name;
+			arg.target_disposition = target_disposition;
+			arg.user_gesture = user_gesture ? true : false;
+			arg.popupFeatures = popupFeatures;
+			arg.windowInfo = windowInfo;
+			arg.client = client;
+			arg.settings = settings;
+			arg.no_javascript_access = no_javascript_access;
+		}
 		OnBeforePopupArgs(CefRefPtr<CefBrowser> browser, CefRefPtr<CefFrame> frame, const CefString* target_url, const CefString* target_frame_name, cef_window_open_disposition_t target_disposition, bool user_gesture, const CefPopupFeatures* popupFeatures, CefWindowInfo* windowInfo, CefRefPtr<CefClient>* client, CefBrowserSettings* settings, bool* no_javascript_access)
 		{
 			arg.myext_flags = ((1 << 18) | (1 << 19) | (1 << 20) | 11);
@@ -3175,6 +3767,14 @@ namespace CefLoadHandlerExt {
 			arg.canGoBack = canGoBack;
 			arg.canGoForward = canGoForward;
 		}
+		OnLoadingStateChangeArgs(cef_browser_t* browser, int isLoading, int canGoBack, int canGoForward)
+		{
+			arg.myext_flags = ((1 << 18) | 4);
+			arg.browser = browser;
+			arg.isLoading = isLoading ? true : false;
+			arg.canGoBack = canGoBack ? true : false;
+			arg.canGoForward = canGoForward ? true : false;
+		}
 		OnLoadingStateChangeArgs(CefRefPtr<CefBrowser> browser, bool isLoading, bool canGoBack, bool canGoForward)
 		{
 			arg.myext_flags = ((1 << 18) | (1 << 20) | 4);
@@ -3281,6 +3881,15 @@ namespace CefLoadHandlerExt {
 			arg.errorText = errorText;
 			arg.failedUrl = failedUrl;
 		}
+		OnLoadErrorArgs(cef_browser_t* browser, cef_frame_t* frame, cef_errorcode_t errorCode, const CefString& errorText, const CefString& failedUrl)
+		{
+			arg.myext_flags = ((1 << 18) | 5);
+			arg.browser = browser;
+			arg.frame = frame;
+			arg.errorCode = errorCode;
+			arg.errorText = &errorText;
+			arg.failedUrl = &failedUrl;
+		}
 		OnLoadErrorArgs(CefRefPtr<CefBrowser> browser, CefRefPtr<CefFrame> frame, cef_errorcode_t errorCode, const CefString* errorText, const CefString* failedUrl)
 		{
 			arg.myext_flags = ((1 << 18) | (1 << 20) | 5);
@@ -3367,6 +3976,13 @@ namespace CefPrintHandlerExt {
 			arg.settings = settings;
 			arg.get_defaults = get_defaults;
 		}
+		OnPrintSettingsArgs(cef_browser_t* browser, cef_print_settings_t* settings, int get_defaults)
+		{
+			arg.myext_flags = ((1 << 18) | 3);
+			arg.browser = browser;
+			arg.settings = settings;
+			arg.get_defaults = get_defaults ? true : false;
+		}
 		OnPrintSettingsArgs(CefRefPtr<CefBrowser> browser, CefRefPtr<CefPrintSettings> settings, bool get_defaults)
 		{
 			arg.myext_flags = ((1 << 18) | (1 << 20) | 3);
@@ -3401,6 +4017,14 @@ namespace CefPrintHandlerExt {
 			arg.myext_ret_value = 0;
 			arg.browser = browser;
 			arg.has_selection = has_selection;
+			arg.callback = callback;
+		}
+		OnPrintDialogArgs(cef_browser_t* browser, int has_selection, cef_print_dialog_callback_t* callback)
+		{
+			arg.myext_flags = ((1 << 18) | (1 << 19) | 3);
+			arg.myext_ret_value = 0;
+			arg.browser = browser;
+			arg.has_selection = has_selection ? true : false;
 			arg.callback = callback;
 		}
 		OnPrintDialogArgs(CefRefPtr<CefBrowser> browser, bool has_selection, CefRefPtr<CefPrintDialogCallback> callback)
@@ -3440,6 +4064,15 @@ namespace CefPrintHandlerExt {
 			arg.browser = browser;
 			arg.document_name = document_name;
 			arg.pdf_file_path = pdf_file_path;
+			arg.callback = callback;
+		}
+		OnPrintJobArgs(cef_browser_t* browser, const CefString& document_name, const CefString& pdf_file_path, cef_print_job_callback_t* callback)
+		{
+			arg.myext_flags = ((1 << 18) | (1 << 19) | 4);
+			arg.myext_ret_value = 0;
+			arg.browser = browser;
+			arg.document_name = &document_name;
+			arg.pdf_file_path = &pdf_file_path;
 			arg.callback = callback;
 		}
 		OnPrintJobArgs(CefRefPtr<CefBrowser> browser, const CefString* document_name, const CefString* pdf_file_path, CefRefPtr<CefPrintJobCallback> callback)
@@ -3723,6 +4356,12 @@ namespace CefRenderHandlerExt {
 			arg.myext_flags = ((1 << 18) | 2);
 			arg.browser = browser;
 			arg.show = show;
+		}
+		OnPopupShowArgs(cef_browser_t* browser, int show)
+		{
+			arg.myext_flags = ((1 << 18) | 2);
+			arg.browser = browser;
+			arg.show = show ? true : false;
 		}
 		OnPopupShowArgs(CefRefPtr<CefBrowser> browser, bool show)
 		{
@@ -4160,6 +4799,16 @@ namespace CefRenderProcessHandlerExt {
 			arg.navigation_type = navigation_type;
 			arg.is_redirect = is_redirect;
 		}
+		OnBeforeNavigationArgs(cef_browser_t* browser, cef_frame_t* frame, cef_request_t* request, cef_navigation_type_t navigation_type, int is_redirect)
+		{
+			arg.myext_flags = ((1 << 18) | (1 << 19) | 5);
+			arg.myext_ret_value = 0;
+			arg.browser = browser;
+			arg.frame = frame;
+			arg.request = request;
+			arg.navigation_type = navigation_type;
+			arg.is_redirect = is_redirect ? true : false;
+		}
 		OnBeforeNavigationArgs(CefRefPtr<CefBrowser> browser, CefRefPtr<CefFrame> frame, CefRefPtr<CefRequest> request, cef_navigation_type_t navigation_type, bool is_redirect)
 		{
 			arg.myext_flags = ((1 << 18) | (1 << 19) | (1 << 20) | 5);
@@ -4419,6 +5068,17 @@ namespace CefRequestContextHandlerExt {
 			arg.plugin_info = plugin_info;
 			arg.plugin_policy = plugin_policy;
 		}
+		OnBeforePluginLoadArgs(const CefString& mime_type, const CefString& plugin_url, int is_main_frame, const CefString& top_origin_url, cef_web_plugin_info_t* plugin_info, cef_plugin_policy_t* plugin_policy)
+		{
+			arg.myext_flags = ((1 << 18) | (1 << 19) | 6);
+			arg.myext_ret_value = 0;
+			arg.mime_type = &mime_type;
+			arg.plugin_url = &plugin_url;
+			arg.is_main_frame = is_main_frame ? true : false;
+			arg.top_origin_url = &top_origin_url;
+			arg.plugin_info = plugin_info;
+			arg.plugin_policy = plugin_policy;
+		}
 		OnBeforePluginLoadArgs(const CefString* mime_type, const CefString* plugin_url, bool is_main_frame, const CefString* top_origin_url, CefRefPtr<CefWebPluginInfo> plugin_info, cef_plugin_policy_t* plugin_policy)
 		{
 			arg.myext_flags = ((1 << 18) | (1 << 19) | (1 << 20) | 6);
@@ -4513,6 +5173,15 @@ namespace CefRequestHandlerExt {
 			arg.request = request;
 			arg.is_redirect = is_redirect;
 		}
+		OnBeforeBrowseArgs(cef_browser_t* browser, cef_frame_t* frame, cef_request_t* request, int is_redirect)
+		{
+			arg.myext_flags = ((1 << 18) | (1 << 19) | 4);
+			arg.myext_ret_value = 0;
+			arg.browser = browser;
+			arg.frame = frame;
+			arg.request = request;
+			arg.is_redirect = is_redirect ? true : false;
+		}
 		OnBeforeBrowseArgs(CefRefPtr<CefBrowser> browser, CefRefPtr<CefFrame> frame, CefRefPtr<CefRequest> request, bool is_redirect)
 		{
 			arg.myext_flags = ((1 << 18) | (1 << 19) | (1 << 20) | 4);
@@ -4555,6 +5224,16 @@ namespace CefRequestHandlerExt {
 			arg.target_url = target_url;
 			arg.target_disposition = target_disposition;
 			arg.user_gesture = user_gesture;
+		}
+		OnOpenURLFromTabArgs(cef_browser_t* browser, cef_frame_t* frame, const CefString& target_url, cef_window_open_disposition_t target_disposition, int user_gesture)
+		{
+			arg.myext_flags = ((1 << 18) | (1 << 19) | 5);
+			arg.myext_ret_value = 0;
+			arg.browser = browser;
+			arg.frame = frame;
+			arg.target_url = &target_url;
+			arg.target_disposition = target_disposition;
+			arg.user_gesture = user_gesture ? true : false;
 		}
 		OnOpenURLFromTabArgs(CefRefPtr<CefBrowser> browser, CefRefPtr<CefFrame> frame, const CefString* target_url, cef_window_open_disposition_t target_disposition, bool user_gesture)
 		{
@@ -4676,6 +5355,15 @@ namespace CefRequestHandlerExt {
 			arg.request = request;
 			arg.response = response;
 			arg.new_url = new_url;
+		}
+		OnResourceRedirectArgs(cef_browser_t* browser, cef_frame_t* frame, cef_request_t* request, cef_response_t* response, CefString& new_url)
+		{
+			arg.myext_flags = ((1 << 18) | 5);
+			arg.browser = browser;
+			arg.frame = frame;
+			arg.request = request;
+			arg.response = response;
+			arg.new_url = &new_url;
 		}
 		OnResourceRedirectArgs(CefRefPtr<CefBrowser> browser, CefRefPtr<CefFrame> frame, CefRefPtr<CefRequest> request, CefRefPtr<CefResponse> response, CefString* new_url)
 		{
@@ -4856,6 +5544,19 @@ namespace CefRequestHandlerExt {
 			arg.scheme = scheme;
 			arg.callback = callback;
 		}
+		GetAuthCredentialsArgs(cef_browser_t* browser, cef_frame_t* frame, int isProxy, const CefString& host, int port, const CefString& realm, const CefString& scheme, cef_auth_callback_t* callback)
+		{
+			arg.myext_flags = ((1 << 18) | (1 << 19) | 8);
+			arg.myext_ret_value = 0;
+			arg.browser = browser;
+			arg.frame = frame;
+			arg.isProxy = isProxy ? true : false;
+			arg.host = &host;
+			arg.port = port;
+			arg.realm = &realm;
+			arg.scheme = &scheme;
+			arg.callback = callback;
+		}
 		GetAuthCredentialsArgs(CefRefPtr<CefBrowser> browser, CefRefPtr<CefFrame> frame, bool isProxy, const CefString* host, int port, const CefString* realm, const CefString* scheme, CefRefPtr<CefAuthCallback> callback)
 		{
 			arg.myext_flags = ((1 << 18) | (1 << 19) | (1 << 20) | 8);
@@ -4901,6 +5602,15 @@ namespace CefRequestHandlerExt {
 			arg.new_size = new_size;
 			arg.callback = callback;
 		}
+		OnQuotaRequestArgs(cef_browser_t* browser, const CefString& origin_url, int64 new_size, cef_request_callback_t* callback)
+		{
+			arg.myext_flags = ((1 << 18) | (1 << 19) | 4);
+			arg.myext_ret_value = 0;
+			arg.browser = browser;
+			arg.origin_url = &origin_url;
+			arg.new_size = new_size;
+			arg.callback = callback;
+		}
 		OnQuotaRequestArgs(CefRefPtr<CefBrowser> browser, const CefString* origin_url, int64 new_size, CefRefPtr<CefRequestCallback> callback)
 		{
 			arg.myext_flags = ((1 << 18) | (1 << 19) | (1 << 20) | 4);
@@ -4935,6 +5645,13 @@ namespace CefRequestHandlerExt {
 			arg.myext_flags = ((1 << 18) | 3);
 			arg.browser = browser;
 			arg.url = url;
+			arg.allow_os_execution = allow_os_execution;
+		}
+		OnProtocolExecutionArgs(cef_browser_t* browser, const CefString& url, bool* allow_os_execution)
+		{
+			arg.myext_flags = ((1 << 18) | 3);
+			arg.browser = browser;
+			arg.url = &url;
 			arg.allow_os_execution = allow_os_execution;
 		}
 		OnProtocolExecutionArgs(CefRefPtr<CefBrowser> browser, const CefString* url, bool* allow_os_execution)
@@ -4973,6 +5690,16 @@ namespace CefRequestHandlerExt {
 			arg.browser = browser;
 			arg.cert_error = cert_error;
 			arg.request_url = request_url;
+			arg.ssl_info = ssl_info;
+			arg.callback = callback;
+		}
+		OnCertificateErrorArgs(cef_browser_t* browser, cef_errorcode_t cert_error, const CefString& request_url, cef_sslinfo_t* ssl_info, cef_request_callback_t* callback)
+		{
+			arg.myext_flags = ((1 << 18) | (1 << 19) | 5);
+			arg.myext_ret_value = 0;
+			arg.browser = browser;
+			arg.cert_error = cert_error;
+			arg.request_url = &request_url;
 			arg.ssl_info = ssl_info;
 			arg.callback = callback;
 		}
@@ -5022,6 +5749,17 @@ namespace CefRequestHandlerExt {
 			arg.certificates = certificates;
 			arg.callback = callback;
 		}
+		OnSelectClientCertificateArgs(cef_browser_t* browser, int isProxy, const CefString& host, int port, const std::vector<CefRefPtr<CefX509Certificate>>* certificates, cef_select_client_certificate_callback_t* callback)
+		{
+			arg.myext_flags = ((1 << 18) | (1 << 19) | 6);
+			arg.myext_ret_value = 0;
+			arg.browser = browser;
+			arg.isProxy = isProxy ? true : false;
+			arg.host = &host;
+			arg.port = port;
+			arg.certificates = certificates;
+			arg.callback = callback;
+		}
 		OnSelectClientCertificateArgs(CefRefPtr<CefBrowser> browser, bool isProxy, const CefString* host, int port, const std::vector<CefRefPtr<CefX509Certificate>>* certificates, CefRefPtr<CefSelectClientCertificateCallback> callback)
 		{
 			arg.myext_flags = ((1 << 18) | (1 << 19) | (1 << 20) | 6);
@@ -5057,6 +5795,12 @@ namespace CefRequestHandlerExt {
 			arg.myext_flags = ((1 << 18) | 2);
 			arg.browser = browser;
 			arg.plugin_path = plugin_path;
+		}
+		OnPluginCrashedArgs(cef_browser_t* browser, const CefString& plugin_path)
+		{
+			arg.myext_flags = ((1 << 18) | 2);
+			arg.browser = browser;
+			arg.plugin_path = &plugin_path;
 		}
 		OnPluginCrashedArgs(CefRefPtr<CefBrowser> browser, const CefString* plugin_path)
 		{
@@ -5160,6 +5904,13 @@ namespace CefResourceBundleHandlerExt {
 			arg.myext_ret_value = 0;
 			arg.string_id = string_id;
 			arg._string = _string;
+		}
+		GetLocalizedStringArgs(int string_id, CefString& _string)
+		{
+			arg.myext_flags = ((1 << 18) | (1 << 19) | 2);
+			arg.myext_ret_value = 0;
+			arg.string_id = string_id;
+			arg._string = &_string;
 		}
 	private:
 		DISALLOW_COPY_AND_ASSIGN(GetLocalizedStringArgs);
@@ -5286,6 +6037,13 @@ namespace CefResourceHandlerExt {
 			arg.response = response;
 			arg.response_length = response_length;
 			arg.redirectUrl = redirectUrl;
+		}
+		GetResponseHeadersArgs(cef_response_t* response, int64* response_length, CefString& redirectUrl)
+		{
+			arg.myext_flags = ((1 << 18) | 3);
+			arg.response = response;
+			arg.response_length = response_length;
+			arg.redirectUrl = &redirectUrl;
 		}
 		GetResponseHeadersArgs(CefRefPtr<CefResponse> response, int64* response_length, CefString* redirectUrl)
 		{
@@ -5656,6 +6414,16 @@ namespace CefV8HandlerExt {
 			arg.retval = retval;
 			arg.exception = exception;
 		}
+		ExecuteArgs(const CefString& name, cef_v8value_t* _object, const CefV8ValueList* arguments, CefRefPtr<CefV8Value>* retval, CefString& exception)
+		{
+			arg.myext_flags = ((1 << 18) | (1 << 19) | 5);
+			arg.myext_ret_value = 0;
+			arg.name = &name;
+			arg._object = _object;
+			arg.arguments = arguments;
+			arg.retval = retval;
+			arg.exception = &exception;
+		}
 		ExecuteArgs(const CefString* name, CefRefPtr<CefV8Value> _object, const CefV8ValueList* arguments, CefRefPtr<CefV8Value>* retval, CefString* exception)
 		{
 			arg.myext_flags = ((1 << 18) | (1 << 19) | (1 << 20) | 5);
@@ -5675,3 +6443,6 @@ namespace CefV8HandlerExt {
 		DISALLOW_COPY_AND_ASSIGN(ExecuteArgs);
 	};
 }
+
+
+
