@@ -1,4 +1,4 @@
-//---THIS-FILE-IS-PATCHED , org=D:\projects\cef_binary_3.3071.1647.win32\cpptoc\drag_handler_cpptoc.cc
+//---THIS-FILE-WAS-PATCHED , org=D:\projects\cef_binary_3.3071.1647.win32\cpptoc\drag_handler_cpptoc.cc
 // Copyright (c) 2017 The Chromium Embedded Framework Authors. All rights
 // reserved. Use of this source code is governed by a BSD-style license that
 // can be found in the LICENSE file.
@@ -24,120 +24,120 @@
 
 namespace {
 
-	// MEMBER FUNCTIONS - Body may be edited by hand.
+// MEMBER FUNCTIONS - Body may be edited by hand.
 
-	int CEF_CALLBACK drag_handler_on_drag_enter(struct _cef_drag_handler_t* self,
-		cef_browser_t* browser,
-		cef_drag_data_t* dragData,
-		cef_drag_operations_mask_t mask) {
-		// AUTO-GENERATED CONTENT - DELETE THIS COMMENT BEFORE MODIFYING
+int CEF_CALLBACK drag_handler_on_drag_enter(struct _cef_drag_handler_t* self,
+                                            cef_browser_t* browser,
+                                            cef_drag_data_t* dragData,
+                                            cef_drag_operations_mask_t mask) {
+  // AUTO-GENERATED CONTENT - DELETE THIS COMMENT BEFORE MODIFYING
 
-		DCHECK(self);
-		if (!self)
-			return 0;
-		// Verify param: browser; type: refptr_diff
-		DCHECK(browser);
-		if (!browser)
-			return 0;
-		// Verify param: dragData; type: refptr_diff
-		DCHECK(dragData);
-		if (!dragData)
-			return 0;
+  DCHECK(self);
+  if (!self)
+    return 0;
+  // Verify param: browser; type: refptr_diff
+  DCHECK(browser);
+  if (!browser)
+    return 0;
+  // Verify param: dragData; type: refptr_diff
+  DCHECK(dragData);
+  if (!dragData)
+    return 0;
 
-		//---kneadium-ext-begin
-		auto me = CefDragHandlerCppToC::Get(self);
-		const int CALLER_CODE = (CefDragHandlerExt::_typeName << 16) | CefDragHandlerExt::CefDragHandlerExt_OnDragEnter_1;
-		auto m_callback = me->GetManagedCallBack(CALLER_CODE);
-		if (m_callback) {
-			CefDragHandlerExt::OnDragEnterArgs args1(browser, dragData, mask);
-			m_callback(CALLER_CODE, &args1.arg);
-			if (((args1.arg.myext_flags >> 21) & 1) == 1) {
-				return args1.arg.myext_ret_value;
-			}
-		}
-		//---kneadium-ext-end
+//---kneadium-ext-begin
+auto me = CefDragHandlerCppToC::Get(self);
+const int CALLER_CODE=(CefDragHandlerExt::_typeName << 16) | CefDragHandlerExt::CefDragHandlerExt_OnDragEnter_1;
+auto m_callback= me->GetManagedCallBack(CALLER_CODE);
+if(m_callback){
+CefDragHandlerExt::OnDragEnterArgs args1(browser,dragData,mask);
+m_callback(CALLER_CODE, &args1.arg);
+ if (((args1.arg.myext_flags >> 21) & 1) == 1){
+ return args1.arg.myext_ret_value;
+}
+}
+//---kneadium-ext-end
 
-		  // Execute
-		bool _retval = CefDragHandlerCppToC::Get(self)->OnDragEnter(
-			CefBrowserCToCpp::Wrap(browser), CefDragDataCToCpp::Wrap(dragData), mask);
+  // Execute
+  bool _retval = CefDragHandlerCppToC::Get(self)->OnDragEnter(
+      CefBrowserCToCpp::Wrap(browser), CefDragDataCToCpp::Wrap(dragData), mask);
 
-		// Return type: bool
-		return _retval;
-	}
+  // Return type: bool
+  return _retval;
+}
 
-	void CEF_CALLBACK drag_handler_on_draggable_regions_changed(
-		struct _cef_drag_handler_t* self,
-		cef_browser_t* browser,
-		size_t regionsCount,
-		cef_draggable_region_t const* regions) {
-		// AUTO-GENERATED CONTENT - DELETE THIS COMMENT BEFORE MODIFYING
+void CEF_CALLBACK drag_handler_on_draggable_regions_changed(
+    struct _cef_drag_handler_t* self,
+    cef_browser_t* browser,
+    size_t regionsCount,
+    cef_draggable_region_t const* regions) {
+  // AUTO-GENERATED CONTENT - DELETE THIS COMMENT BEFORE MODIFYING
 
-		DCHECK(self);
-		if (!self)
-			return;
-		// Verify param: browser; type: refptr_diff
-		DCHECK(browser);
-		if (!browser)
-			return;
-		// Verify param: regions; type: simple_vec_byref_const
-		DCHECK(regionsCount == 0 || regions);
-		if (regionsCount > 0 && !regions)
-			return;
+  DCHECK(self);
+  if (!self)
+    return;
+  // Verify param: browser; type: refptr_diff
+  DCHECK(browser);
+  if (!browser)
+    return;
+  // Verify param: regions; type: simple_vec_byref_const
+  DCHECK(regionsCount == 0 || regions);
+  if (regionsCount > 0 && !regions)
+    return;
 
-		// Translate param: regions; type: simple_vec_byref_const
-		std::vector<CefDraggableRegion> regionsList;
-		if (regionsCount > 0) {
-			for (size_t i = 0; i < regionsCount; ++i) {
-				CefDraggableRegion regionsVal = regions[i];
-				regionsList.push_back(regionsVal);
-			}
-		}
+  // Translate param: regions; type: simple_vec_byref_const
+  std::vector<CefDraggableRegion> regionsList;
+  if (regionsCount > 0) {
+    for (size_t i = 0; i < regionsCount; ++i) {
+      CefDraggableRegion regionsVal = regions[i];
+      regionsList.push_back(regionsVal);
+    }
+  }
 
-		//---kneadium-ext-begin
-		auto me = CefDragHandlerCppToC::Get(self);
-		const int CALLER_CODE = (CefDragHandlerExt::_typeName << 16) | CefDragHandlerExt::CefDragHandlerExt_OnDraggableRegionsChanged_2;
-		auto m_callback = me->GetManagedCallBack(CALLER_CODE);
-		if (m_callback) {
-			CefDragHandlerExt::OnDraggableRegionsChangedArgs args1(browser, &regionsList);
-			m_callback(CALLER_CODE, &args1.arg);
-			if (((args1.arg.myext_flags >> 21) & 1) == 1) {
-				return;
-			}
-		}
-		//---kneadium-ext-end
+//---kneadium-ext-begin
+auto me = CefDragHandlerCppToC::Get(self);
+const int CALLER_CODE=(CefDragHandlerExt::_typeName << 16) | CefDragHandlerExt::CefDragHandlerExt_OnDraggableRegionsChanged_2;
+auto m_callback= me->GetManagedCallBack(CALLER_CODE);
+if(m_callback){
+CefDragHandlerExt::OnDraggableRegionsChangedArgs args1(browser,&regionsList);
+m_callback(CALLER_CODE, &args1.arg);
+ if (((args1.arg.myext_flags >> 21) & 1) == 1){
+return;
+}
+}
+//---kneadium-ext-end
 
-		  // Execute
-		CefDragHandlerCppToC::Get(self)->OnDraggableRegionsChanged(
-			CefBrowserCToCpp::Wrap(browser), regionsList);
-	}
+  // Execute
+  CefDragHandlerCppToC::Get(self)->OnDraggableRegionsChanged(
+      CefBrowserCToCpp::Wrap(browser), regionsList);
+}
 
 }  // namespace
 
 // CONSTRUCTOR - Do not edit by hand.
 
 CefDragHandlerCppToC::CefDragHandlerCppToC() {
-	GetStruct()->on_drag_enter = drag_handler_on_drag_enter;
-	GetStruct()->on_draggable_regions_changed =
-		drag_handler_on_draggable_regions_changed;
+  GetStruct()->on_drag_enter = drag_handler_on_drag_enter;
+  GetStruct()->on_draggable_regions_changed =
+      drag_handler_on_draggable_regions_changed;
 }
 
 template <>
 CefRefPtr<CefDragHandler>
 CefCppToCRefCounted<CefDragHandlerCppToC, CefDragHandler, cef_drag_handler_t>::
-UnwrapDerived(CefWrapperType type, cef_drag_handler_t* s) {
-	NOTREACHED() << "Unexpected class type: " << type;
-	return NULL;
+    UnwrapDerived(CefWrapperType type, cef_drag_handler_t* s) {
+  NOTREACHED() << "Unexpected class type: " << type;
+  return NULL;
 }
 
 #if DCHECK_IS_ON()
 template <>
 base::AtomicRefCount CefCppToCRefCounted<CefDragHandlerCppToC,
-	CefDragHandler,
-	cef_drag_handler_t>::DebugObjCt = 0;
+                                         CefDragHandler,
+                                         cef_drag_handler_t>::DebugObjCt = 0;
 #endif
 
 template <>
 CefWrapperType CefCppToCRefCounted<CefDragHandlerCppToC,
-	CefDragHandler,
-	cef_drag_handler_t>::kWrapperType =
-	WT_DRAG_HANDLER;
+                                   CefDragHandler,
+                                   cef_drag_handler_t>::kWrapperType =
+    WT_DRAG_HANDLER;

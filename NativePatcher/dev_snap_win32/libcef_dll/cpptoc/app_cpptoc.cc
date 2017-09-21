@@ -1,4 +1,4 @@
-//---THIS-FILE-IS-PATCHED , org=D:\projects\cef_binary_3.3071.1647.win32\cpptoc\app_cpptoc.cc
+//---THIS-FILE-WAS-PATCHED , org=D:\projects\cef_binary_3.3071.1647.win32\cpptoc\app_cpptoc.cc
 // Copyright (c) 2017 The Chromium Embedded Framework Authors. All rights
 // reserved. Use of this source code is governed by a BSD-style license that
 // can be found in the LICENSE file.
@@ -27,191 +27,191 @@
 
 namespace {
 
-	// MEMBER FUNCTIONS - Body may be edited by hand.
+// MEMBER FUNCTIONS - Body may be edited by hand.
 
-	void CEF_CALLBACK app_on_before_command_line_processing(
-		struct _cef_app_t* self,
-		const cef_string_t* process_type,
-		struct _cef_command_line_t* command_line) {
-		// AUTO-GENERATED CONTENT - DELETE THIS COMMENT BEFORE MODIFYING
+void CEF_CALLBACK app_on_before_command_line_processing(
+    struct _cef_app_t* self,
+    const cef_string_t* process_type,
+    struct _cef_command_line_t* command_line) {
+  // AUTO-GENERATED CONTENT - DELETE THIS COMMENT BEFORE MODIFYING
 
-		DCHECK(self);
-		if (!self)
-			return;
-		// Verify param: command_line; type: refptr_diff
-		DCHECK(command_line);
-		if (!command_line)
-			return;
-		// Unverified params: process_type
+  DCHECK(self);
+  if (!self)
+    return;
+  // Verify param: command_line; type: refptr_diff
+  DCHECK(command_line);
+  if (!command_line)
+    return;
+  // Unverified params: process_type
 
-	  //---kneadium-ext-begin
-		auto me = CefAppCppToC::Get(self);
-		const int CALLER_CODE = (CefAppExt::_typeName << 16) | CefAppExt::CefAppExt_OnBeforeCommandLineProcessing_1;
-		auto m_callback = me->GetManagedCallBack(CALLER_CODE);
-		if (m_callback) {
-			CefString tmp_arg1(process_type);
-			CefAppExt::OnBeforeCommandLineProcessingArgs args1(tmp_arg1, command_line);
-			m_callback(CALLER_CODE, &args1.arg);
-			if (((args1.arg.myext_flags >> 21) & 1) == 1) {
-				return;
-			}
-		}
-		//---kneadium-ext-end
+//---kneadium-ext-begin
+auto me = CefAppCppToC::Get(self);
+const int CALLER_CODE=(CefAppExt::_typeName << 16) | CefAppExt::CefAppExt_OnBeforeCommandLineProcessing_1;
+auto m_callback= me->GetManagedCallBack(CALLER_CODE);
+if(m_callback){
+CefString tmp_arg1 (process_type);
+CefAppExt::OnBeforeCommandLineProcessingArgs args1(tmp_arg1,command_line);
+m_callback(CALLER_CODE, &args1.arg);
+ if (((args1.arg.myext_flags >> 21) & 1) == 1){
+return;
+}
+}
+//---kneadium-ext-end
 
-		  // Execute
-		CefAppCppToC::Get(self)->OnBeforeCommandLineProcessing(
-			CefString(process_type), CefCommandLineCToCpp::Wrap(command_line));
-	}
+  // Execute
+  CefAppCppToC::Get(self)->OnBeforeCommandLineProcessing(
+      CefString(process_type), CefCommandLineCToCpp::Wrap(command_line));
+}
 
-	void CEF_CALLBACK
-		app_on_register_custom_schemes(struct _cef_app_t* self,
-			struct _cef_scheme_registrar_t* registrar) {
-		// AUTO-GENERATED CONTENT - DELETE THIS COMMENT BEFORE MODIFYING
+void CEF_CALLBACK
+app_on_register_custom_schemes(struct _cef_app_t* self,
+                               struct _cef_scheme_registrar_t* registrar) {
+  // AUTO-GENERATED CONTENT - DELETE THIS COMMENT BEFORE MODIFYING
 
-		DCHECK(self);
-		if (!self)
-			return;
-		// Verify param: registrar; type: rawptr_diff
-		DCHECK(registrar);
-		if (!registrar)
-			return;
+  DCHECK(self);
+  if (!self)
+    return;
+  // Verify param: registrar; type: rawptr_diff
+  DCHECK(registrar);
+  if (!registrar)
+    return;
 
-		// Translate param: registrar; type: rawptr_diff
-		CefOwnPtr<CefSchemeRegistrar> registrarPtr(
-			CefSchemeRegistrarCToCpp::Wrap(registrar));
+  // Translate param: registrar; type: rawptr_diff
+  CefOwnPtr<CefSchemeRegistrar> registrarPtr(
+      CefSchemeRegistrarCToCpp::Wrap(registrar));
 
-		////---kneadium-ext-begin
-		//auto me = CefAppCppToC::Get(self);
-		//const int CALLER_CODE = (CefAppExt::_typeName << 16) | CefAppExt::CefAppExt_OnRegisterCustomSchemes_2;
-		//auto m_callback = me->GetManagedCallBack(CALLER_CODE);
-		//if (m_callback) {
-		//	CefAppExt::OnRegisterCustomSchemesArgs args1(&registrarPtr);
-		//	m_callback(CALLER_CODE, &args1.arg);
-		//	if (((args1.arg.myext_flags >> 21) & 1) == 1) {
-		//		return;
-		//	}
-		//}
-		////---kneadium-ext-end
+//---kneadium-ext-begin
+auto me = CefAppCppToC::Get(self);
+const int CALLER_CODE=(CefAppExt::_typeName << 16) | CefAppExt::CefAppExt_OnRegisterCustomSchemes_2;
+auto m_callback= me->GetManagedCallBack(CALLER_CODE);
+if(m_callback){
+CefAppExt::OnRegisterCustomSchemesArgs args1(registrarPtr.get());
+m_callback(CALLER_CODE, &args1.arg);
+ if (((args1.arg.myext_flags >> 21) & 1) == 1){
+return;
+}
+}
+//---kneadium-ext-end
 
-		  // Execute
-		CefAppCppToC::Get(self)->OnRegisterCustomSchemes(registrarPtr.get());
-	}
+  // Execute
+  CefAppCppToC::Get(self)->OnRegisterCustomSchemes(registrarPtr.get());
+}
 
-	struct _cef_resource_bundle_handler_t* CEF_CALLBACK
-		app_get_resource_bundle_handler(struct _cef_app_t* self) {
-		// AUTO-GENERATED CONTENT - DELETE THIS COMMENT BEFORE MODIFYING
+struct _cef_resource_bundle_handler_t* CEF_CALLBACK
+app_get_resource_bundle_handler(struct _cef_app_t* self) {
+  // AUTO-GENERATED CONTENT - DELETE THIS COMMENT BEFORE MODIFYING
 
-		DCHECK(self);
-		if (!self)
-			return NULL;
+  DCHECK(self);
+  if (!self)
+    return NULL;
 
-		//---kneadium-ext-begin
-		auto me = CefAppCppToC::Get(self);
-		const int CALLER_CODE = (CefAppExt::_typeName << 16) | CefAppExt::CefAppExt_GetResourceBundleHandler_3;
-		auto m_callback = me->GetManagedCallBack(CALLER_CODE);
-		if (m_callback) {
-			CefAppExt::GetResourceBundleHandlerArgs args1;
-			m_callback(CALLER_CODE, &args1.arg);
-			if (((args1.arg.myext_flags >> 21) & 1) == 1) {
-				return CefResourceBundleHandlerCppToC::Wrap(args1.arg.myext_ret_value);
-			}
-		}
-		//---kneadium-ext-end
+//---kneadium-ext-begin
+auto me = CefAppCppToC::Get(self);
+const int CALLER_CODE=(CefAppExt::_typeName << 16) | CefAppExt::CefAppExt_GetResourceBundleHandler_3;
+auto m_callback= me->GetManagedCallBack(CALLER_CODE);
+if(m_callback){
+CefAppExt::GetResourceBundleHandlerArgs args1;
+m_callback(CALLER_CODE, &args1.arg);
+ if (((args1.arg.myext_flags >> 21) & 1) == 1){
+ return CefResourceBundleHandlerCppToC::Wrap(args1.arg.myext_ret_value);
+}
+}
+//---kneadium-ext-end
 
-		  // Execute
-		CefRefPtr<CefResourceBundleHandler> _retval =
-			CefAppCppToC::Get(self)->GetResourceBundleHandler();
+  // Execute
+  CefRefPtr<CefResourceBundleHandler> _retval =
+      CefAppCppToC::Get(self)->GetResourceBundleHandler();
 
-		// Return type: refptr_same
-		return CefResourceBundleHandlerCppToC::Wrap(_retval);
-	}
+  // Return type: refptr_same
+  return CefResourceBundleHandlerCppToC::Wrap(_retval);
+}
 
-	struct _cef_browser_process_handler_t* CEF_CALLBACK
-		app_get_browser_process_handler(struct _cef_app_t* self) {
-		// AUTO-GENERATED CONTENT - DELETE THIS COMMENT BEFORE MODIFYING
+struct _cef_browser_process_handler_t* CEF_CALLBACK
+app_get_browser_process_handler(struct _cef_app_t* self) {
+  // AUTO-GENERATED CONTENT - DELETE THIS COMMENT BEFORE MODIFYING
 
-		DCHECK(self);
-		if (!self)
-			return NULL;
+  DCHECK(self);
+  if (!self)
+    return NULL;
 
-		//---kneadium-ext-begin
-		auto me = CefAppCppToC::Get(self);
-		const int CALLER_CODE = (CefAppExt::_typeName << 16) | CefAppExt::CefAppExt_GetBrowserProcessHandler_4;
-		auto m_callback = me->GetManagedCallBack(CALLER_CODE);
-		if (m_callback) {
-			CefAppExt::GetBrowserProcessHandlerArgs args1;
-			m_callback(CALLER_CODE, &args1.arg);
-			if (((args1.arg.myext_flags >> 21) & 1) == 1) {
-				return CefBrowserProcessHandlerCppToC::Wrap(args1.arg.myext_ret_value);
-			}
-		}
-		//---kneadium-ext-end
+//---kneadium-ext-begin
+auto me = CefAppCppToC::Get(self);
+const int CALLER_CODE=(CefAppExt::_typeName << 16) | CefAppExt::CefAppExt_GetBrowserProcessHandler_4;
+auto m_callback= me->GetManagedCallBack(CALLER_CODE);
+if(m_callback){
+CefAppExt::GetBrowserProcessHandlerArgs args1;
+m_callback(CALLER_CODE, &args1.arg);
+ if (((args1.arg.myext_flags >> 21) & 1) == 1){
+ return CefBrowserProcessHandlerCppToC::Wrap(args1.arg.myext_ret_value);
+}
+}
+//---kneadium-ext-end
 
-		  // Execute
-		CefRefPtr<CefBrowserProcessHandler> _retval =
-			CefAppCppToC::Get(self)->GetBrowserProcessHandler();
+  // Execute
+  CefRefPtr<CefBrowserProcessHandler> _retval =
+      CefAppCppToC::Get(self)->GetBrowserProcessHandler();
 
-		// Return type: refptr_same
-		return CefBrowserProcessHandlerCppToC::Wrap(_retval);
-	}
+  // Return type: refptr_same
+  return CefBrowserProcessHandlerCppToC::Wrap(_retval);
+}
 
-	struct _cef_render_process_handler_t* CEF_CALLBACK
-		app_get_render_process_handler(struct _cef_app_t* self) {
-		// AUTO-GENERATED CONTENT - DELETE THIS COMMENT BEFORE MODIFYING
+struct _cef_render_process_handler_t* CEF_CALLBACK
+app_get_render_process_handler(struct _cef_app_t* self) {
+  // AUTO-GENERATED CONTENT - DELETE THIS COMMENT BEFORE MODIFYING
 
-		DCHECK(self);
-		if (!self)
-			return NULL;
+  DCHECK(self);
+  if (!self)
+    return NULL;
 
-		//---kneadium-ext-begin
-		auto me = CefAppCppToC::Get(self);
-		const int CALLER_CODE = (CefAppExt::_typeName << 16) | CefAppExt::CefAppExt_GetRenderProcessHandler_5;
-		auto m_callback = me->GetManagedCallBack(CALLER_CODE);
-		if (m_callback) {
-			CefAppExt::GetRenderProcessHandlerArgs args1;
-			m_callback(CALLER_CODE, &args1.arg);
-			if (((args1.arg.myext_flags >> 21) & 1) == 1) {
-				return CefRenderProcessHandlerCppToC::Wrap(args1.arg.myext_ret_value);
-			}
-		}
-		//---kneadium-ext-end
+//---kneadium-ext-begin
+auto me = CefAppCppToC::Get(self);
+const int CALLER_CODE=(CefAppExt::_typeName << 16) | CefAppExt::CefAppExt_GetRenderProcessHandler_5;
+auto m_callback= me->GetManagedCallBack(CALLER_CODE);
+if(m_callback){
+CefAppExt::GetRenderProcessHandlerArgs args1;
+m_callback(CALLER_CODE, &args1.arg);
+ if (((args1.arg.myext_flags >> 21) & 1) == 1){
+ return CefRenderProcessHandlerCppToC::Wrap(args1.arg.myext_ret_value);
+}
+}
+//---kneadium-ext-end
 
-		  // Execute
-		CefRefPtr<CefRenderProcessHandler> _retval =
-			CefAppCppToC::Get(self)->GetRenderProcessHandler();
+  // Execute
+  CefRefPtr<CefRenderProcessHandler> _retval =
+      CefAppCppToC::Get(self)->GetRenderProcessHandler();
 
-		// Return type: refptr_same
-		return CefRenderProcessHandlerCppToC::Wrap(_retval);
-	}
+  // Return type: refptr_same
+  return CefRenderProcessHandlerCppToC::Wrap(_retval);
+}
 
 }  // namespace
 
 // CONSTRUCTOR - Do not edit by hand.
 
 CefAppCppToC::CefAppCppToC() {
-	GetStruct()->on_before_command_line_processing =
-		app_on_before_command_line_processing;
-	GetStruct()->on_register_custom_schemes = app_on_register_custom_schemes;
-	GetStruct()->get_resource_bundle_handler = app_get_resource_bundle_handler;
-	GetStruct()->get_browser_process_handler = app_get_browser_process_handler;
-	GetStruct()->get_render_process_handler = app_get_render_process_handler;
+  GetStruct()->on_before_command_line_processing =
+      app_on_before_command_line_processing;
+  GetStruct()->on_register_custom_schemes = app_on_register_custom_schemes;
+  GetStruct()->get_resource_bundle_handler = app_get_resource_bundle_handler;
+  GetStruct()->get_browser_process_handler = app_get_browser_process_handler;
+  GetStruct()->get_render_process_handler = app_get_render_process_handler;
 }
 
 template <>
 CefRefPtr<CefApp>
 CefCppToCRefCounted<CefAppCppToC, CefApp, cef_app_t>::UnwrapDerived(
-	CefWrapperType type,
-	cef_app_t* s) {
-	NOTREACHED() << "Unexpected class type: " << type;
-	return NULL;
+    CefWrapperType type,
+    cef_app_t* s) {
+  NOTREACHED() << "Unexpected class type: " << type;
+  return NULL;
 }
 
 #if DCHECK_IS_ON()
 template <>
 base::AtomicRefCount
-CefCppToCRefCounted<CefAppCppToC, CefApp, cef_app_t>::DebugObjCt = 0;
+    CefCppToCRefCounted<CefAppCppToC, CefApp, cef_app_t>::DebugObjCt = 0;
 #endif
 
 template <>
 CefWrapperType
-CefCppToCRefCounted<CefAppCppToC, CefApp, cef_app_t>::kWrapperType = WT_APP;
+    CefCppToCRefCounted<CefAppCppToC, CefApp, cef_app_t>::kWrapperType = WT_APP;
