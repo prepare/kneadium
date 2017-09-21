@@ -33,6 +33,7 @@ response_filter_init_filter(struct _cef_response_filter_t* self) {
     return 0;
 
 //---kneadium-ext-begin
+#if ENABLE_KNEADIUM_EXT
 auto me = CefResponseFilterCppToC::Get(self);
 const int CALLER_CODE=(CefResponseFilterExt::_typeName << 16) | CefResponseFilterExt::CefResponseFilterExt_InitFilter_1;
 auto m_callback= me->GetManagedCallBack(CALLER_CODE);
@@ -43,6 +44,7 @@ m_callback(CALLER_CODE, &args1.arg);
  return args1.arg.myext_ret_value;
 }
 }
+#endif
 //---kneadium-ext-end
 
   // Execute
@@ -85,6 +87,7 @@ response_filter_filter(struct _cef_response_filter_t* self,
   size_t data_out_writtenVal = data_out_written ? *data_out_written : 0;
 
 //---kneadium-ext-begin
+#if ENABLE_KNEADIUM_EXT
 auto me = CefResponseFilterCppToC::Get(self);
 const int CALLER_CODE=(CefResponseFilterExt::_typeName << 16) | CefResponseFilterExt::CefResponseFilterExt_Filter_2;
 auto m_callback= me->GetManagedCallBack(CALLER_CODE);
@@ -104,6 +107,7 @@ if (data_out_written)
  return args1.arg.myext_ret_value;
 }
 }
+#endif
 //---kneadium-ext-end
 
   // Execute

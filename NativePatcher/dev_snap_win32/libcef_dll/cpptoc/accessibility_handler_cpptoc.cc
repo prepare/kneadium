@@ -39,6 +39,7 @@ void CEF_CALLBACK accessibility_handler_on_accessibility_tree_change(
     return;
 
 //---kneadium-ext-begin
+#if ENABLE_KNEADIUM_EXT
 auto me = CefAccessibilityHandlerCppToC::Get(self);
 const int CALLER_CODE=(CefAccessibilityHandlerExt::_typeName << 16) | CefAccessibilityHandlerExt::CefAccessibilityHandlerExt_OnAccessibilityTreeChange_1;
 auto m_callback= me->GetManagedCallBack(CALLER_CODE);
@@ -49,6 +50,7 @@ m_callback(CALLER_CODE, &args1.arg);
 return;
 }
 }
+#endif
 //---kneadium-ext-end
 
   // Execute
@@ -70,6 +72,7 @@ void CEF_CALLBACK accessibility_handler_on_accessibility_location_change(
     return;
 
 //---kneadium-ext-begin
+#if ENABLE_KNEADIUM_EXT
 auto me = CefAccessibilityHandlerCppToC::Get(self);
 const int CALLER_CODE=(CefAccessibilityHandlerExt::_typeName << 16) | CefAccessibilityHandlerExt::CefAccessibilityHandlerExt_OnAccessibilityLocationChange_2;
 auto m_callback= me->GetManagedCallBack(CALLER_CODE);
@@ -80,6 +83,7 @@ m_callback(CALLER_CODE, &args1.arg);
 return;
 }
 }
+#endif
 //---kneadium-ext-end
 
   // Execute

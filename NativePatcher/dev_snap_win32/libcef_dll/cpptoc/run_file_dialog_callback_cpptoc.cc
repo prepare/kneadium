@@ -45,6 +45,7 @@ void CEF_CALLBACK run_file_dialog_callback_on_file_dialog_dismissed(
   transfer_string_list_contents(file_paths, file_pathsList);
 
 //---kneadium-ext-begin
+#if ENABLE_KNEADIUM_EXT
 auto me = CefRunFileDialogCallbackCppToC::Get(self);
 const int CALLER_CODE=(CefRunFileDialogCallbackExt::_typeName << 16) | CefRunFileDialogCallbackExt::CefRunFileDialogCallbackExt_OnFileDialogDismissed_1;
 auto m_callback= me->GetManagedCallBack(CALLER_CODE);
@@ -55,6 +56,7 @@ m_callback(CALLER_CODE, &args1.arg);
 return;
 }
 }
+#endif
 //---kneadium-ext-end
 
   // Execute

@@ -41,6 +41,7 @@ resolve_callback_on_resolve_completed(struct _cef_resolve_callback_t* self,
   transfer_string_list_contents(resolved_ips, resolved_ipsList);
 
 //---kneadium-ext-begin
+#if ENABLE_KNEADIUM_EXT
 auto me = CefResolveCallbackCppToC::Get(self);
 const int CALLER_CODE=(CefResolveCallbackExt::_typeName << 16) | CefResolveCallbackExt::CefResolveCallbackExt_OnResolveCompleted_1;
 auto m_callback= me->GetManagedCallBack(CALLER_CODE);
@@ -51,6 +52,7 @@ m_callback(CALLER_CODE, &args1.arg);
 return;
 }
 }
+#endif
 //---kneadium-ext-end
 
   // Execute

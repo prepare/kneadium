@@ -43,6 +43,7 @@ void CEF_CALLBACK get_geolocation_callback_on_location_update(
     positionObj.Set(*position, false);
 
 //---kneadium-ext-begin
+#if ENABLE_KNEADIUM_EXT
 auto me = CefGetGeolocationCallbackCppToC::Get(self);
 const int CALLER_CODE=(CefGetGeolocationCallbackExt::_typeName << 16) | CefGetGeolocationCallbackExt::CefGetGeolocationCallbackExt_OnLocationUpdate_1;
 auto m_callback= me->GetManagedCallBack(CALLER_CODE);
@@ -53,6 +54,7 @@ m_callback(CALLER_CODE, &args1.arg);
 return;
 }
 }
+#endif
 //---kneadium-ext-end
 
   // Execute

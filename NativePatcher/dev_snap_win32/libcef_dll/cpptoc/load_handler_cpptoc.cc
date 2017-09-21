@@ -43,6 +43,7 @@ load_handler_on_loading_state_change(struct _cef_load_handler_t* self,
     return;
 
 //---kneadium-ext-begin
+#if ENABLE_KNEADIUM_EXT
 auto me = CefLoadHandlerCppToC::Get(self);
 const int CALLER_CODE=(CefLoadHandlerExt::_typeName << 16) | CefLoadHandlerExt::CefLoadHandlerExt_OnLoadingStateChange_1;
 auto m_callback= me->GetManagedCallBack(CALLER_CODE);
@@ -53,6 +54,7 @@ m_callback(CALLER_CODE, &args1.arg);
 return;
 }
 }
+#endif
 //---kneadium-ext-end
 
   // Execute
@@ -81,6 +83,7 @@ load_handler_on_load_start(struct _cef_load_handler_t* self,
     return;
 
 //---kneadium-ext-begin
+#if ENABLE_KNEADIUM_EXT
 auto me = CefLoadHandlerCppToC::Get(self);
 const int CALLER_CODE=(CefLoadHandlerExt::_typeName << 16) | CefLoadHandlerExt::CefLoadHandlerExt_OnLoadStart_2;
 auto m_callback= me->GetManagedCallBack(CALLER_CODE);
@@ -91,6 +94,7 @@ m_callback(CALLER_CODE, &args1.arg);
 return;
 }
 }
+#endif
 //---kneadium-ext-end
 
   // Execute
@@ -118,6 +122,7 @@ void CEF_CALLBACK load_handler_on_load_end(struct _cef_load_handler_t* self,
     return;
 
 //---kneadium-ext-begin
+#if ENABLE_KNEADIUM_EXT
 auto me = CefLoadHandlerCppToC::Get(self);
 const int CALLER_CODE=(CefLoadHandlerExt::_typeName << 16) | CefLoadHandlerExt::CefLoadHandlerExt_OnLoadEnd_3;
 auto m_callback= me->GetManagedCallBack(CALLER_CODE);
@@ -128,6 +133,7 @@ m_callback(CALLER_CODE, &args1.arg);
 return;
 }
 }
+#endif
 //---kneadium-ext-end
 
   // Execute
@@ -162,6 +168,7 @@ void CEF_CALLBACK load_handler_on_load_error(struct _cef_load_handler_t* self,
   // Unverified params: errorText
 
 //---kneadium-ext-begin
+#if ENABLE_KNEADIUM_EXT
 auto me = CefLoadHandlerCppToC::Get(self);
 const int CALLER_CODE=(CefLoadHandlerExt::_typeName << 16) | CefLoadHandlerExt::CefLoadHandlerExt_OnLoadError_4;
 auto m_callback= me->GetManagedCallBack(CALLER_CODE);
@@ -174,6 +181,7 @@ m_callback(CALLER_CODE, &args1.arg);
 return;
 }
 }
+#endif
 //---kneadium-ext-end
 
   // Execute

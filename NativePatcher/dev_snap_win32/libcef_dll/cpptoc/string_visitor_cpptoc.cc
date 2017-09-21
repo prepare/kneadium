@@ -34,6 +34,7 @@ void CEF_CALLBACK string_visitor_visit(struct _cef_string_visitor_t* self,
   // Unverified params: string
 
 //---kneadium-ext-begin
+#if ENABLE_KNEADIUM_EXT
 auto me = CefStringVisitorCppToC::Get(self);
 const int CALLER_CODE=(CefStringVisitorExt::_typeName << 16) | CefStringVisitorExt::CefStringVisitorExt_Visit_1;
 auto m_callback= me->GetManagedCallBack(CALLER_CODE);
@@ -45,6 +46,7 @@ m_callback(CALLER_CODE, &args1.arg);
 return;
 }
 }
+#endif
 //---kneadium-ext-end
 
   // Execute

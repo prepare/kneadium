@@ -39,6 +39,7 @@ size_t CEF_CALLBACK read_handler_read(struct _cef_read_handler_t* self,
     return 0;
 
 //---kneadium-ext-begin
+#if ENABLE_KNEADIUM_EXT
 auto me = CefReadHandlerCppToC::Get(self);
 const int CALLER_CODE=(CefReadHandlerExt::_typeName << 16) | CefReadHandlerExt::CefReadHandlerExt_Read_1;
 auto m_callback= me->GetManagedCallBack(CALLER_CODE);
@@ -49,6 +50,7 @@ m_callback(CALLER_CODE, &args1.arg);
  return args1.arg.myext_ret_value;
 }
 }
+#endif
 //---kneadium-ext-end
 
   // Execute
@@ -68,6 +70,7 @@ int CEF_CALLBACK read_handler_seek(struct _cef_read_handler_t* self,
     return 0;
 
 //---kneadium-ext-begin
+#if ENABLE_KNEADIUM_EXT
 auto me = CefReadHandlerCppToC::Get(self);
 const int CALLER_CODE=(CefReadHandlerExt::_typeName << 16) | CefReadHandlerExt::CefReadHandlerExt_Seek_2;
 auto m_callback= me->GetManagedCallBack(CALLER_CODE);
@@ -78,6 +81,7 @@ m_callback(CALLER_CODE, &args1.arg);
  return args1.arg.myext_ret_value;
 }
 }
+#endif
 //---kneadium-ext-end
 
   // Execute
@@ -95,6 +99,7 @@ int64 CEF_CALLBACK read_handler_tell(struct _cef_read_handler_t* self) {
     return 0;
 
 //---kneadium-ext-begin
+#if ENABLE_KNEADIUM_EXT
 auto me = CefReadHandlerCppToC::Get(self);
 const int CALLER_CODE=(CefReadHandlerExt::_typeName << 16) | CefReadHandlerExt::CefReadHandlerExt_Tell_3;
 auto m_callback= me->GetManagedCallBack(CALLER_CODE);
@@ -105,6 +110,7 @@ m_callback(CALLER_CODE, &args1.arg);
  return args1.arg.myext_ret_value;
 }
 }
+#endif
 //---kneadium-ext-end
 
   // Execute
@@ -122,6 +128,7 @@ int CEF_CALLBACK read_handler_eof(struct _cef_read_handler_t* self) {
     return 0;
 
 //---kneadium-ext-begin
+#if ENABLE_KNEADIUM_EXT
 auto me = CefReadHandlerCppToC::Get(self);
 const int CALLER_CODE=(CefReadHandlerExt::_typeName << 16) | CefReadHandlerExt::CefReadHandlerExt_Eof_4;
 auto m_callback= me->GetManagedCallBack(CALLER_CODE);
@@ -132,6 +139,7 @@ m_callback(CALLER_CODE, &args1.arg);
  return args1.arg.myext_ret_value;
 }
 }
+#endif
 //---kneadium-ext-end
 
   // Execute
@@ -149,6 +157,7 @@ int CEF_CALLBACK read_handler_may_block(struct _cef_read_handler_t* self) {
     return 0;
 
 //---kneadium-ext-begin
+#if ENABLE_KNEADIUM_EXT
 auto me = CefReadHandlerCppToC::Get(self);
 const int CALLER_CODE=(CefReadHandlerExt::_typeName << 16) | CefReadHandlerExt::CefReadHandlerExt_MayBlock_5;
 auto m_callback= me->GetManagedCallBack(CALLER_CODE);
@@ -159,6 +168,7 @@ m_callback(CALLER_CODE, &args1.arg);
  return args1.arg.myext_ret_value;
 }
 }
+#endif
 //---kneadium-ext-end
 
   // Execute

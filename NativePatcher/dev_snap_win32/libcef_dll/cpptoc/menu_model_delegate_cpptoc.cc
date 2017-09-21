@@ -41,6 +41,7 @@ menu_model_delegate_execute_command(struct _cef_menu_model_delegate_t* self,
     return;
 
 //---kneadium-ext-begin
+#if ENABLE_KNEADIUM_EXT
 auto me = CefMenuModelDelegateCppToC::Get(self);
 const int CALLER_CODE=(CefMenuModelDelegateExt::_typeName << 16) | CefMenuModelDelegateExt::CefMenuModelDelegateExt_ExecuteCommand_1;
 auto m_callback= me->GetManagedCallBack(CALLER_CODE);
@@ -51,6 +52,7 @@ m_callback(CALLER_CODE, &args1.arg);
 return;
 }
 }
+#endif
 //---kneadium-ext-end
 
   // Execute
@@ -80,6 +82,7 @@ menu_model_delegate_mouse_outside_menu(struct _cef_menu_model_delegate_t* self,
   CefPoint screen_pointVal = screen_point ? *screen_point : CefPoint();
 
 //---kneadium-ext-begin
+#if ENABLE_KNEADIUM_EXT
 auto me = CefMenuModelDelegateCppToC::Get(self);
 const int CALLER_CODE=(CefMenuModelDelegateExt::_typeName << 16) | CefMenuModelDelegateExt::CefMenuModelDelegateExt_MouseOutsideMenu_2;
 auto m_callback= me->GetManagedCallBack(CALLER_CODE);
@@ -90,6 +93,7 @@ m_callback(CALLER_CODE, &args1.arg);
 return;
 }
 }
+#endif
 //---kneadium-ext-end
 
   // Execute
@@ -112,6 +116,7 @@ void CEF_CALLBACK menu_model_delegate_unhandled_open_submenu(
     return;
 
 //---kneadium-ext-begin
+#if ENABLE_KNEADIUM_EXT
 auto me = CefMenuModelDelegateCppToC::Get(self);
 const int CALLER_CODE=(CefMenuModelDelegateExt::_typeName << 16) | CefMenuModelDelegateExt::CefMenuModelDelegateExt_UnhandledOpenSubmenu_3;
 auto m_callback= me->GetManagedCallBack(CALLER_CODE);
@@ -122,6 +127,7 @@ m_callback(CALLER_CODE, &args1.arg);
 return;
 }
 }
+#endif
 //---kneadium-ext-end
 
   // Execute
@@ -144,6 +150,7 @@ void CEF_CALLBACK menu_model_delegate_unhandled_close_submenu(
     return;
 
 //---kneadium-ext-begin
+#if ENABLE_KNEADIUM_EXT
 auto me = CefMenuModelDelegateCppToC::Get(self);
 const int CALLER_CODE=(CefMenuModelDelegateExt::_typeName << 16) | CefMenuModelDelegateExt::CefMenuModelDelegateExt_UnhandledCloseSubmenu_4;
 auto m_callback= me->GetManagedCallBack(CALLER_CODE);
@@ -154,6 +161,7 @@ m_callback(CALLER_CODE, &args1.arg);
 return;
 }
 }
+#endif
 //---kneadium-ext-end
 
   // Execute
@@ -175,6 +183,7 @@ menu_model_delegate_menu_will_show(struct _cef_menu_model_delegate_t* self,
     return;
 
 //---kneadium-ext-begin
+#if ENABLE_KNEADIUM_EXT
 auto me = CefMenuModelDelegateCppToC::Get(self);
 const int CALLER_CODE=(CefMenuModelDelegateExt::_typeName << 16) | CefMenuModelDelegateExt::CefMenuModelDelegateExt_MenuWillShow_5;
 auto m_callback= me->GetManagedCallBack(CALLER_CODE);
@@ -185,6 +194,7 @@ m_callback(CALLER_CODE, &args1.arg);
 return;
 }
 }
+#endif
 //---kneadium-ext-end
 
   // Execute
@@ -206,6 +216,7 @@ menu_model_delegate_menu_closed(struct _cef_menu_model_delegate_t* self,
     return;
 
 //---kneadium-ext-begin
+#if ENABLE_KNEADIUM_EXT
 auto me = CefMenuModelDelegateCppToC::Get(self);
 const int CALLER_CODE=(CefMenuModelDelegateExt::_typeName << 16) | CefMenuModelDelegateExt::CefMenuModelDelegateExt_MenuClosed_6;
 auto m_callback= me->GetManagedCallBack(CALLER_CODE);
@@ -216,6 +227,7 @@ m_callback(CALLER_CODE, &args1.arg);
 return;
 }
 }
+#endif
 //---kneadium-ext-end
 
   // Execute
@@ -245,6 +257,7 @@ menu_model_delegate_format_label(struct _cef_menu_model_delegate_t* self,
   CefString labelStr(label);
 
 //---kneadium-ext-begin
+#if ENABLE_KNEADIUM_EXT
 auto me = CefMenuModelDelegateCppToC::Get(self);
 const int CALLER_CODE=(CefMenuModelDelegateExt::_typeName << 16) | CefMenuModelDelegateExt::CefMenuModelDelegateExt_FormatLabel_7;
 auto m_callback= me->GetManagedCallBack(CALLER_CODE);
@@ -256,6 +269,7 @@ m_callback(CALLER_CODE, &args1.arg);
  return args1.arg.myext_ret_value;
 }
 }
+#endif
 //---kneadium-ext-end
 
   // Execute

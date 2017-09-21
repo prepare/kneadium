@@ -38,6 +38,7 @@ void CEF_CALLBACK end_tracing_callback_on_end_tracing_complete(
     return;
 
 //---kneadium-ext-begin
+#if ENABLE_KNEADIUM_EXT
 auto me = CefEndTracingCallbackCppToC::Get(self);
 const int CALLER_CODE=(CefEndTracingCallbackExt::_typeName << 16) | CefEndTracingCallbackExt::CefEndTracingCallbackExt_OnEndTracingComplete_1;
 auto m_callback= me->GetManagedCallBack(CALLER_CODE);
@@ -49,6 +50,7 @@ m_callback(CALLER_CODE, &args1.arg);
 return;
 }
 }
+#endif
 //---kneadium-ext-end
 
   // Execute

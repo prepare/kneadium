@@ -50,6 +50,7 @@ scheme_handler_factory_create(struct _cef_scheme_handler_factory_t* self,
   // Unverified params: browser, frame
 
 //---kneadium-ext-begin
+#if ENABLE_KNEADIUM_EXT
 auto me = CefSchemeHandlerFactoryCppToC::Get(self);
 const int CALLER_CODE=(CefSchemeHandlerFactoryExt::_typeName << 16) | CefSchemeHandlerFactoryExt::CefSchemeHandlerFactoryExt_Create_1;
 auto m_callback= me->GetManagedCallBack(CALLER_CODE);
@@ -61,6 +62,7 @@ m_callback(CALLER_CODE, &args1.arg);
  return CefResourceHandlerCppToC::Wrap(args1.arg.myext_ret_value);
 }
 }
+#endif
 //---kneadium-ext-end
 
   // Execute

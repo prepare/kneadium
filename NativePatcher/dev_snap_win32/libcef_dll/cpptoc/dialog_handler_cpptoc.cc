@@ -60,6 +60,7 @@ dialog_handler_on_file_dialog(struct _cef_dialog_handler_t* self,
   transfer_string_list_contents(accept_filters, accept_filtersList);
 
 //---kneadium-ext-begin
+#if ENABLE_KNEADIUM_EXT
 auto me = CefDialogHandlerCppToC::Get(self);
 const int CALLER_CODE=(CefDialogHandlerExt::_typeName << 16) | CefDialogHandlerExt::CefDialogHandlerExt_OnFileDialog_1;
 auto m_callback= me->GetManagedCallBack(CALLER_CODE);
@@ -72,6 +73,7 @@ m_callback(CALLER_CODE, &args1.arg);
  return args1.arg.myext_ret_value;
 }
 }
+#endif
 //---kneadium-ext-end
 
   // Execute

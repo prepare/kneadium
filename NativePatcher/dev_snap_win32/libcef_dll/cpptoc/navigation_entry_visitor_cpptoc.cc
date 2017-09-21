@@ -42,6 +42,7 @@ navigation_entry_visitor_visit(struct _cef_navigation_entry_visitor_t* self,
     return 0;
 
 //---kneadium-ext-begin
+#if ENABLE_KNEADIUM_EXT
 auto me = CefNavigationEntryVisitorCppToC::Get(self);
 const int CALLER_CODE=(CefNavigationEntryVisitorExt::_typeName << 16) | CefNavigationEntryVisitorExt::CefNavigationEntryVisitorExt_Visit_1;
 auto m_callback= me->GetManagedCallBack(CALLER_CODE);
@@ -52,6 +53,7 @@ m_callback(CALLER_CODE, &args1.arg);
  return args1.arg.myext_ret_value;
 }
 }
+#endif
 //---kneadium-ext-end
 
   // Execute

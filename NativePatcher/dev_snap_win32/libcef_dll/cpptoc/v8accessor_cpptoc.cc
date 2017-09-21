@@ -61,6 +61,7 @@ int CEF_CALLBACK v8accessor_get(struct _cef_v8accessor_t* self,
   CefString exceptionStr(exception);
 
 //---kneadium-ext-begin
+#if ENABLE_KNEADIUM_EXT
 auto me = CefV8AccessorCppToC::Get(self);
 const int CALLER_CODE=(CefV8AccessorExt::_typeName << 16) | CefV8AccessorExt::CefV8AccessorExt_Get_1;
 auto m_callback= me->GetManagedCallBack(CALLER_CODE);
@@ -85,6 +86,7 @@ if (retvalPtr.get() != retvalOrig) {
  return args1.arg.myext_ret_value;
 }
 }
+#endif
 //---kneadium-ext-end
 
   // Execute
@@ -137,6 +139,7 @@ int CEF_CALLBACK v8accessor_set(struct _cef_v8accessor_t* self,
   CefString exceptionStr(exception);
 
 //---kneadium-ext-begin
+#if ENABLE_KNEADIUM_EXT
 auto me = CefV8AccessorCppToC::Get(self);
 const int CALLER_CODE=(CefV8AccessorExt::_typeName << 16) | CefV8AccessorExt::CefV8AccessorExt_Set_2;
 auto m_callback= me->GetManagedCallBack(CALLER_CODE);
@@ -149,6 +152,7 @@ m_callback(CALLER_CODE, &args1.arg);
  return args1.arg.myext_ret_value;
 }
 }
+#endif
 //---kneadium-ext-end
 
   // Execute

@@ -40,6 +40,7 @@ urlrequest_client_on_request_complete(struct _cef_urlrequest_client_t* self,
     return;
 
 //---kneadium-ext-begin
+#if ENABLE_KNEADIUM_EXT
 auto me = CefURLRequestClientCppToC::Get(self);
 const int CALLER_CODE=(CefURLRequestClientExt::_typeName << 16) | CefURLRequestClientExt::CefURLRequestClientExt_OnRequestComplete_1;
 auto m_callback= me->GetManagedCallBack(CALLER_CODE);
@@ -50,6 +51,7 @@ m_callback(CALLER_CODE, &args1.arg);
 return;
 }
 }
+#endif
 //---kneadium-ext-end
 
   // Execute
@@ -73,6 +75,7 @@ urlrequest_client_on_upload_progress(struct _cef_urlrequest_client_t* self,
     return;
 
 //---kneadium-ext-begin
+#if ENABLE_KNEADIUM_EXT
 auto me = CefURLRequestClientCppToC::Get(self);
 const int CALLER_CODE=(CefURLRequestClientExt::_typeName << 16) | CefURLRequestClientExt::CefURLRequestClientExt_OnUploadProgress_2;
 auto m_callback= me->GetManagedCallBack(CALLER_CODE);
@@ -83,6 +86,7 @@ m_callback(CALLER_CODE, &args1.arg);
 return;
 }
 }
+#endif
 //---kneadium-ext-end
 
   // Execute
@@ -106,6 +110,7 @@ urlrequest_client_on_download_progress(struct _cef_urlrequest_client_t* self,
     return;
 
 //---kneadium-ext-begin
+#if ENABLE_KNEADIUM_EXT
 auto me = CefURLRequestClientCppToC::Get(self);
 const int CALLER_CODE=(CefURLRequestClientExt::_typeName << 16) | CefURLRequestClientExt::CefURLRequestClientExt_OnDownloadProgress_3;
 auto m_callback= me->GetManagedCallBack(CALLER_CODE);
@@ -116,6 +121,7 @@ m_callback(CALLER_CODE, &args1.arg);
 return;
 }
 }
+#endif
 //---kneadium-ext-end
 
   // Execute
@@ -143,6 +149,7 @@ urlrequest_client_on_download_data(struct _cef_urlrequest_client_t* self,
     return;
 
 //---kneadium-ext-begin
+#if ENABLE_KNEADIUM_EXT
 auto me = CefURLRequestClientCppToC::Get(self);
 const int CALLER_CODE=(CefURLRequestClientExt::_typeName << 16) | CefURLRequestClientExt::CefURLRequestClientExt_OnDownloadData_4;
 auto m_callback= me->GetManagedCallBack(CALLER_CODE);
@@ -153,6 +160,7 @@ m_callback(CALLER_CODE, &args1.arg);
 return;
 }
 }
+#endif
 //---kneadium-ext-end
 
   // Execute
@@ -188,6 +196,7 @@ urlrequest_client_get_auth_credentials(struct _cef_urlrequest_client_t* self,
   // Unverified params: realm
 
 //---kneadium-ext-begin
+#if ENABLE_KNEADIUM_EXT
 auto me = CefURLRequestClientCppToC::Get(self);
 const int CALLER_CODE=(CefURLRequestClientExt::_typeName << 16) | CefURLRequestClientExt::CefURLRequestClientExt_GetAuthCredentials_5;
 auto m_callback= me->GetManagedCallBack(CALLER_CODE);
@@ -201,6 +210,7 @@ m_callback(CALLER_CODE, &args1.arg);
  return args1.arg.myext_ret_value;
 }
 }
+#endif
 //---kneadium-ext-end
 
   // Execute

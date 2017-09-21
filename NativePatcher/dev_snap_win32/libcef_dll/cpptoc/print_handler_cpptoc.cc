@@ -42,6 +42,7 @@ print_handler_on_print_start(struct _cef_print_handler_t* self,
     return;
 
 //---kneadium-ext-begin
+#if ENABLE_KNEADIUM_EXT
 auto me = CefPrintHandlerCppToC::Get(self);
 const int CALLER_CODE=(CefPrintHandlerExt::_typeName << 16) | CefPrintHandlerExt::CefPrintHandlerExt_OnPrintStart_1;
 auto m_callback= me->GetManagedCallBack(CALLER_CODE);
@@ -52,6 +53,7 @@ m_callback(CALLER_CODE, &args1.arg);
 return;
 }
 }
+#endif
 //---kneadium-ext-end
 
   // Execute
@@ -79,6 +81,7 @@ print_handler_on_print_settings(struct _cef_print_handler_t* self,
     return;
 
 //---kneadium-ext-begin
+#if ENABLE_KNEADIUM_EXT
 auto me = CefPrintHandlerCppToC::Get(self);
 const int CALLER_CODE=(CefPrintHandlerExt::_typeName << 16) | CefPrintHandlerExt::CefPrintHandlerExt_OnPrintSettings_2;
 auto m_callback= me->GetManagedCallBack(CALLER_CODE);
@@ -89,6 +92,7 @@ m_callback(CALLER_CODE, &args1.arg);
 return;
 }
 }
+#endif
 //---kneadium-ext-end
 
   // Execute
@@ -117,6 +121,7 @@ print_handler_on_print_dialog(struct _cef_print_handler_t* self,
     return 0;
 
 //---kneadium-ext-begin
+#if ENABLE_KNEADIUM_EXT
 auto me = CefPrintHandlerCppToC::Get(self);
 const int CALLER_CODE=(CefPrintHandlerExt::_typeName << 16) | CefPrintHandlerExt::CefPrintHandlerExt_OnPrintDialog_3;
 auto m_callback= me->GetManagedCallBack(CALLER_CODE);
@@ -127,6 +132,7 @@ m_callback(CALLER_CODE, &args1.arg);
  return args1.arg.myext_ret_value;
 }
 }
+#endif
 //---kneadium-ext-end
 
   // Execute
@@ -167,6 +173,7 @@ print_handler_on_print_job(struct _cef_print_handler_t* self,
     return 0;
 
 //---kneadium-ext-begin
+#if ENABLE_KNEADIUM_EXT
 auto me = CefPrintHandlerCppToC::Get(self);
 const int CALLER_CODE=(CefPrintHandlerExt::_typeName << 16) | CefPrintHandlerExt::CefPrintHandlerExt_OnPrintJob_4;
 auto m_callback= me->GetManagedCallBack(CALLER_CODE);
@@ -179,6 +186,7 @@ m_callback(CALLER_CODE, &args1.arg);
  return args1.arg.myext_ret_value;
 }
 }
+#endif
 //---kneadium-ext-end
 
   // Execute
@@ -204,6 +212,7 @@ print_handler_on_print_reset(struct _cef_print_handler_t* self,
     return;
 
 //---kneadium-ext-begin
+#if ENABLE_KNEADIUM_EXT
 auto me = CefPrintHandlerCppToC::Get(self);
 const int CALLER_CODE=(CefPrintHandlerExt::_typeName << 16) | CefPrintHandlerExt::CefPrintHandlerExt_OnPrintReset_5;
 auto m_callback= me->GetManagedCallBack(CALLER_CODE);
@@ -214,6 +223,7 @@ m_callback(CALLER_CODE, &args1.arg);
 return;
 }
 }
+#endif
 //---kneadium-ext-end
 
   // Execute
@@ -231,6 +241,7 @@ print_handler_get_pdf_paper_size(struct _cef_print_handler_t* self,
     return CefSize();
 
 //---kneadium-ext-begin
+#if ENABLE_KNEADIUM_EXT
 auto me = CefPrintHandlerCppToC::Get(self);
 const int CALLER_CODE=(CefPrintHandlerExt::_typeName << 16) | CefPrintHandlerExt::CefPrintHandlerExt_GetPdfPaperSize_6;
 auto m_callback= me->GetManagedCallBack(CALLER_CODE);
@@ -241,6 +252,7 @@ m_callback(CALLER_CODE, &args1.arg);
  return args1.arg.myext_ret_value;
 }
 }
+#endif
 //---kneadium-ext-end
 
   // Execute

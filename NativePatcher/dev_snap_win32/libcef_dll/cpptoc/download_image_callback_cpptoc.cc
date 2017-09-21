@@ -42,6 +42,7 @@ void CEF_CALLBACK download_image_callback_on_download_image_finished(
   // Unverified params: image
 
 //---kneadium-ext-begin
+#if ENABLE_KNEADIUM_EXT
 auto me = CefDownloadImageCallbackCppToC::Get(self);
 const int CALLER_CODE=(CefDownloadImageCallbackExt::_typeName << 16) | CefDownloadImageCallbackExt::CefDownloadImageCallbackExt_OnDownloadImageFinished_1;
 auto m_callback= me->GetManagedCallBack(CALLER_CODE);
@@ -53,6 +54,7 @@ m_callback(CALLER_CODE, &args1.arg);
 return;
 }
 }
+#endif
 //---kneadium-ext-end
 
   // Execute

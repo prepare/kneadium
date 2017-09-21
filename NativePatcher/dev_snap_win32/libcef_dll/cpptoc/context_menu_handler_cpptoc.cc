@@ -58,6 +58,7 @@ void CEF_CALLBACK context_menu_handler_on_before_context_menu(
     return;
 
 //---kneadium-ext-begin
+#if ENABLE_KNEADIUM_EXT
 auto me = CefContextMenuHandlerCppToC::Get(self);
 const int CALLER_CODE=(CefContextMenuHandlerExt::_typeName << 16) | CefContextMenuHandlerExt::CefContextMenuHandlerExt_OnBeforeContextMenu_1;
 auto m_callback= me->GetManagedCallBack(CALLER_CODE);
@@ -68,6 +69,7 @@ m_callback(CALLER_CODE, &args1.arg);
 return;
 }
 }
+#endif
 //---kneadium-ext-end
 
   // Execute
@@ -111,6 +113,7 @@ int CEF_CALLBACK context_menu_handler_run_context_menu(
     return 0;
 
 //---kneadium-ext-begin
+#if ENABLE_KNEADIUM_EXT
 auto me = CefContextMenuHandlerCppToC::Get(self);
 const int CALLER_CODE=(CefContextMenuHandlerExt::_typeName << 16) | CefContextMenuHandlerExt::CefContextMenuHandlerExt_RunContextMenu_2;
 auto m_callback= me->GetManagedCallBack(CALLER_CODE);
@@ -121,6 +124,7 @@ m_callback(CALLER_CODE, &args1.arg);
  return args1.arg.myext_ret_value;
 }
 }
+#endif
 //---kneadium-ext-end
 
   // Execute
@@ -159,6 +163,7 @@ int CEF_CALLBACK context_menu_handler_on_context_menu_command(
     return 0;
 
 //---kneadium-ext-begin
+#if ENABLE_KNEADIUM_EXT
 auto me = CefContextMenuHandlerCppToC::Get(self);
 const int CALLER_CODE=(CefContextMenuHandlerExt::_typeName << 16) | CefContextMenuHandlerExt::CefContextMenuHandlerExt_OnContextMenuCommand_3;
 auto m_callback= me->GetManagedCallBack(CALLER_CODE);
@@ -169,6 +174,7 @@ m_callback(CALLER_CODE, &args1.arg);
  return args1.arg.myext_ret_value;
 }
 }
+#endif
 //---kneadium-ext-end
 
   // Execute
@@ -199,6 +205,7 @@ void CEF_CALLBACK context_menu_handler_on_context_menu_dismissed(
     return;
 
 //---kneadium-ext-begin
+#if ENABLE_KNEADIUM_EXT
 auto me = CefContextMenuHandlerCppToC::Get(self);
 const int CALLER_CODE=(CefContextMenuHandlerExt::_typeName << 16) | CefContextMenuHandlerExt::CefContextMenuHandlerExt_OnContextMenuDismissed_4;
 auto m_callback= me->GetManagedCallBack(CALLER_CODE);
@@ -209,6 +216,7 @@ m_callback(CALLER_CODE, &args1.arg);
 return;
 }
 }
+#endif
 //---kneadium-ext-end
 
   // Execute
