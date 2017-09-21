@@ -681,6 +681,8 @@ namespace BridgeBuilder
         bool ParseNamespace(CodeTypeDeclaration currentTypeDecl)
         {
             string namespaceName = ExpectId(); //may be null
+            Token ns_tk = tokenList[currentTokenIndex];
+
             if (!ExpectPunc("{"))
             {
                 throw new NotSupportedException();
@@ -689,6 +691,7 @@ namespace BridgeBuilder
             CodeTypeDeclaration namespace_as_type = new CodeTypeDeclaration();
             namespace_as_type.Kind = TypeKind.Namespace;
             namespace_as_type.Name = namespaceName ?? "";
+            namespace_as_type.StartAtLine = ns_tk.LineNo;
 
             currentTypeDecl.AddMember(namespace_as_type);
 

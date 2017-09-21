@@ -14,6 +14,7 @@ namespace BridgeBuilder
         CodeCompilationUnit cu;
         List<CodeMethodDeclaration> methods;
         List<string> simpleLineList = new List<string>();
+        int firstNamespaceStartAt;
 
         public CppToCsImplCodeGen()
         {
@@ -23,7 +24,7 @@ namespace BridgeBuilder
         {
 
             //cef specific code
-
+            firstNamespaceStartAt = 0;
             this.cu = cu;
             methods = new List<CodeMethodDeclaration>();
             CollectImplMethods();
@@ -51,10 +52,16 @@ namespace BridgeBuilder
                     string c_methodName = metDecl.Name.Substring(methodCutAt);
                     string cppMethodName = ConvertToCppName(c_methodName);
 
-                    newCodeStBuilder.AppendLine("//-----");
+                    //eg.
+                    //(CefDisplayHandlerExt::_typeName << 16) | CefDisplayHandlerExt::CefDisplayHandlerExt_OnAddressChange_1, &args1.arg);
+                    string metNameConst = "(" + cppExtNamespaceName + "::_typeName << 16) | " + cppExtNamespaceName + "::" + cppExtNamespaceName + "_" + cppMethodName + "_" + (i + 1);
+
+
+                    newCodeStBuilder.AppendLine("//---kneadium-ext-begin");
                     //some method parameters may need special preparation.
                     newCodeStBuilder.AppendLine("auto me = " + cppClassName + "CppToC::Get(self);");
-                    newCodeStBuilder.AppendLine("auto m_callback= me->GetManagedCallBack();");
+                    newCodeStBuilder.AppendLine("const int CALLER_CODE=" + metNameConst + ";");
+                    newCodeStBuilder.AppendLine("auto m_callback= me->GetManagedCallBack(CALLER_CODE);");
                     newCodeStBuilder.AppendLine("if(m_callback){"); //TODO: + method filter                  
 
                     int parCount = metDecl.Parameters.Count;
@@ -107,15 +114,27 @@ namespace BridgeBuilder
                     //
                     //invoke managed del
                     //cef-specific
-                    //m_callback((CefDisplayHandlerExt::_typeName << 16) | CefDisplayHandlerExt::CefDisplayHandlerExt_OnAddressChange_1, &args1.arg);
-                    newCodeStBuilder.Append("m_callback((" + cppExtNamespaceName + "::_typeName <<16) | " + cppExtNamespaceName + "::" + cppExtNamespaceName + "_" + cppMethodName + "_" + (i + 1));
-                    newCodeStBuilder.Append(", &args1.arg);");
+
+                    newCodeStBuilder.Append("m_callback(CALLER_CODE, &args1.arg);");
                     newCodeStBuilder.AppendLine();
                     //
+                    newCodeStBuilder.AppendLine(" if (((args1.arg.myext_flags >> 21) & 1) == 1){");
+                    string retType = metDecl.ReturnType.ToString();
+                    if (retType != "void")
+                    {
+                        newCodeStBuilder.AppendLine(" return args1.arg.myext_ret_value;");
+                    }
+                    else
+                    {
+                        newCodeStBuilder.AppendLine("return;");
+                    }
+                    newCodeStBuilder.AppendLine("}"); 
+                    
+
 
                     //method return value may need special preparation.
                     newCodeStBuilder.AppendLine("}"); //TODO: + method filter
-                    newCodeStBuilder.AppendLine("//-----");
+                    newCodeStBuilder.AppendLine("//---kneadium-ext-end");
                     //-----
                     //find insert point
                     if (!metDecl.HasMethodBody)
@@ -132,6 +151,15 @@ namespace BridgeBuilder
                     //-----
                 }
 
+                //insert header
+                simpleLineList.Insert(firstNamespaceStartAt,
+                    "//---kneadium-ext-begin\r\n" +
+                    "#include \"../myext/ExportFuncAuto.h\"\r\n" +
+                    "#include \"../myext/InternalHeaderForExportFunc.h\"\r\n" +
+                    "//---kneadium-ext-end\r\n");
+
+
+
 
                 //save the modified file
                 using (FileStream fs = new FileStream("d:\\WImageTest\\test001_01.cpp", FileMode.Create))
@@ -144,10 +172,7 @@ namespace BridgeBuilder
                     }
                     w.Close();
                 }
-
             }
-
-
         }
         static int FindProperInsertPoint(List<string> lines, int begin, int end)
         {
@@ -215,6 +240,10 @@ namespace BridgeBuilder
                             CodeTypeDeclaration typedecl = (CodeTypeDeclaration)mb;
                             if (typedecl.Kind == TypeKind.Namespace)
                             {
+                                if (firstNamespaceStartAt == 0)
+                                {
+                                    firstNamespaceStartAt = typedecl.StartAtLine;
+                                }
                                 foreach (CodeMemberDeclaration mb_1 in typedecl.GetMemberIter())
                                 {
                                     //check 
