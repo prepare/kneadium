@@ -295,7 +295,7 @@ namespace BridgeBuilder
             return cu;
         }
 
-    
+
 
 
         private void button2_Click(object sender, EventArgs e)
@@ -309,9 +309,9 @@ namespace BridgeBuilder
             List<CodeCompilationUnit> totalCuList = new List<CodeCompilationUnit>();
             List<CodeCompilationUnit> test_cpptoc_List = new List<CodeCompilationUnit>();
 
-            {
-
-                string[] onlyCppFiles = System.IO.Directory.GetFiles(cefDir + @"\libcef_dll\cpptoc", "*.cc");
+            {   
+                //
+                string[] onlyCppFiles = System.IO.Directory.GetFiles(cefDir + @"\cpptoc", "*.cc");
                 //we skip some files
                 Dictionary<string, bool> skipFiles = CreateSkipFiles(new string[] {
                     "base_ref_counted_cpptoc.cc" ,
@@ -329,8 +329,8 @@ namespace BridgeBuilder
 
                     //
                     CppToCsImplCodeGen cppToCsImplCodeGen = new CppToCsImplCodeGen();
-                    cppToCsImplCodeGen.Analyze(cu);
-
+                    string onlyFileName = System.IO.Path.GetFileName(cu.Filename); 
+                    cppToCsImplCodeGen.PatchCppMethod(cu, cefDir + @"\libcef_dll\cpptoc\" + onlyFileName);
                 }
 
             }

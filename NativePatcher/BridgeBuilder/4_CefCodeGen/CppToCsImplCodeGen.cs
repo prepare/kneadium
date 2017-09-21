@@ -20,7 +20,8 @@ namespace BridgeBuilder
         {
 
         }
-        public void Analyze(CodeCompilationUnit cu)
+
+        public void PatchCppMethod(CodeCompilationUnit cu, string writeNewCodeToFile, string backupFolder)
         {
 
             //cef specific code
@@ -35,6 +36,13 @@ namespace BridgeBuilder
                 simpleLineList.Clear();
                 simpleLineList.AddRange(File.ReadAllLines(cu.Filename));
                 //
+                //check if this file is patched or not
+                if (CheckIfThisFileIsPatched(simpleLineList))
+                {
+                    throw new NotSupportedException();
+                }
+                //
+
 
                 int classCutAt = onlyFileName.IndexOf("_cpptoc.");
                 string c_className = onlyFileName.Substring(0, classCutAt);
@@ -128,8 +136,8 @@ namespace BridgeBuilder
                     {
                         newCodeStBuilder.AppendLine("return;");
                     }
-                    newCodeStBuilder.AppendLine("}"); 
-                    
+                    newCodeStBuilder.AppendLine("}");
+
 
 
                     //method return value may need special preparation.
@@ -158,21 +166,45 @@ namespace BridgeBuilder
                     "#include \"../myext/InternalHeaderForExportFunc.h\"\r\n" +
                     "//---kneadium-ext-end\r\n");
 
+                simpleLineList.Insert(0, "//---THIS-FILE-IS-PATCHED , org=" + cu.Filename);
 
-
-
-                //save the modified file
-                using (FileStream fs = new FileStream("d:\\WImageTest\\test001_01.cpp", FileMode.Create))
-                using (StreamWriter w = new StreamWriter(fs))
+                ////save the modified file
+                if (writeNewCodeToFile != null)
                 {
-                    int j = simpleLineList.Count;
-                    for (int i = 0; i < j; ++i)
+                    //target must exist
+                    if (!File.Exists(writeNewCodeToFile))
                     {
-                        w.WriteLine(simpleLineList[i]);
+                        throw new NotSupportedException();
                     }
-                    w.Close();
+                    //backup org file
+                    File.Copy(writeNewCodeToFile, backupFolder + "\\" + onlyFileName + ".backup.txt", true);
+                    //then write the new one
+                    using (FileStream fs = new FileStream(writeNewCodeToFile, FileMode.Create))
+                    using (StreamWriter w = new StreamWriter(fs))
+                    {
+                        int j = simpleLineList.Count;
+                        for (int i = 0; i < j; ++i)
+                        {
+                            w.WriteLine(simpleLineList[i]);
+                        }
+                        w.Close();
+                    }
                 }
             }
+        }
+        static bool CheckIfThisFileIsPatched(List<string> lines)
+        {
+            //---THIS-FILE-IS-PATCHED
+            int count = lines.Count;
+            for (int i = 0; i < count; ++i)
+            {
+                string firstNotEmptyLine = lines[i].Trim();
+                if (!string.IsNullOrEmpty(firstNotEmptyLine))
+                {
+                    return firstNotEmptyLine.StartsWith("//---THIS-FILE-IS-PATCHED");
+                }
+            }
+            return false;
         }
         static int FindProperInsertPoint(List<string> lines, int begin, int end)
         {
