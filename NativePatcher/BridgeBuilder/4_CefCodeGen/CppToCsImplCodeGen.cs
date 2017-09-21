@@ -179,7 +179,7 @@ namespace BridgeBuilder
                 "#include \"../myext/InternalHeaderForExportFunc.h\"\r\n" +
                 "//---kneadium-ext-end\r\n");
 
-            simpleLineList.Insert(0, "//---THIS-FILE-IS-PATCHED , org=" + cu.Filename);
+            simpleLineList.Insert(0, "//---THIS-FILE-WAS-PATCHED , org=" + cu.Filename);
 
             ////save the modified file
             if (writeNewCodeToFile != null)
@@ -207,14 +207,14 @@ namespace BridgeBuilder
         }
         static bool CheckIfThisFileIsPatched(List<string> lines)
         {
-            //---THIS-FILE-IS-PATCHED
+            //---THIS-FILE-WAS-PATCHED
             int count = lines.Count;
             for (int i = 0; i < count; ++i)
             {
                 string firstNotEmptyLine = lines[i].Trim();
                 if (!string.IsNullOrEmpty(firstNotEmptyLine))
                 {
-                    return firstNotEmptyLine.StartsWith("//---THIS-FILE-IS-PATCHED");
+                    return firstNotEmptyLine.StartsWith("//---THIS-FILE-WAS-PATCHED");
                 }
             }
             return false;
