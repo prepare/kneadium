@@ -951,6 +951,7 @@ namespace BridgeBuilder
 
         //transformation phase
         internal MethodParameter ParameterTxInfo { get; set; }
+        internal bool SkipCodeGen { get; set; }
     }
 
 }
