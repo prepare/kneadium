@@ -130,7 +130,20 @@ namespace BridgeBuilder
                 string retType = metDecl.ReturnType.ToString();
                 if (retType != "void")
                 {
-                    newCodeStBuilder.AppendLine(" return args1.arg.myext_ret_value;");
+                    //some object need wrapping
+                    //from ctocpp
+
+                    if (retType.EndsWith("_t*"))
+                    {
+                        //
+                        string cppNm = ConvertToCppName(retType.Substring(0, retType.Length - 3));
+                        newCodeStBuilder.AppendLine(" return "+ cppNm+ "CppToC::Wrap(args1.arg.myext_ret_value);");
+                    }
+                    else
+                    {
+                        newCodeStBuilder.AppendLine(" return args1.arg.myext_ret_value;");
+                    }
+                    
                 }
                 else
                 {
@@ -269,7 +282,12 @@ namespace BridgeBuilder
         }
         static string MakeFirstLetterUpperCase(string name)
         {
-            return char.ToUpper(name[0]) + name.Substring(1);
+            switch (name.Length)
+            {
+                case 0: return "";
+                case 1: return char.ToUpper(name[0]).ToString();
+                default: return char.ToUpper(name[0]) + name.Substring(1);
+            }
         }
         void CollectImplMethods()
         {

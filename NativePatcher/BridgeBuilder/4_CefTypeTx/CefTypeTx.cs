@@ -373,13 +373,10 @@ namespace BridgeBuilder
                                                     if (implBy.Name.Contains("CToCpp"))
                                                     {
                                                         //so if you want to send this to client lib
-                                                        //you need to GET raw pointer , so =>
-
+                                                        //you need to GET raw pointer , so => 
                                                         //find result after extract 
                                                         string unwrapType = txPlan.UnderlyingCType.ToString();
-                                                        //since this is CefRefPtr
-
-
+                                                        //since this is CefRefPtr 
                                                         //so after ElementType we should get pointer of the underlying element 
                                                         string auto_p = "p_" + par.Name;
                                                         par.CppUnwrapType = unwrapType + "*";
@@ -409,6 +406,13 @@ namespace BridgeBuilder
                                                     {
                                                         //so if you want to send this to client lib
                                                         //you need to GET raw pointer , so =>
+                                                        string unwrapType = txPlan.UnderlyingCType.ToString();
+                                                        //since this is CefRefPtr 
+                                                        //so after ElementType we should get pointer of the underlying element 
+                                                        string auto_p = "p_" + par.Name;
+                                                        par.CppUnwrapType = unwrapType + "*";
+                                                        par.CppUnwrapMethod = implBy.Name + "::Unwrap";
+                                                        par.CppWrapMethod = implBy.Name + "::Wrap";
 
                                                         par.ArgExtractCode = "MyCefSetVoidPtr(" + destExpression + "," +
                                                               implBy.Name + "::Unwrap" + "(" + srcExpression + "));";

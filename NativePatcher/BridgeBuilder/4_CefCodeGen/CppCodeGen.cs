@@ -670,7 +670,7 @@ namespace BridgeBuilder
         {
 
             stbuilder.AppendLine("//CppToCsMethodArgsClassGen::GenerateCppMethodArgsClass ," + (++codeGenNum) + " \r\n");
-            if (codeGenNum == 96)
+            if (codeGenNum == 162)
             {
 
             }
@@ -742,10 +742,16 @@ namespace BridgeBuilder
                 }
 
                 field_types.Add(fieldType);
+                //------------------
                 if (fieldType == "bool")
                 {
                     generate_special_ctor = true;
                 }
+                else if (fieldType == "CefString*")
+                {
+                    generate_special_ctor = true;
+                }
+
                 if (parTx.IsConst)
                 {
                     //temp
@@ -853,6 +859,10 @@ namespace BridgeBuilder
                     {
                         fieldType = "int";
                     }
+                    else if (fieldType == "CefString*")
+                    {
+                        fieldType = "CefString&";
+                    }
                     stbuilder.Append(fieldType);
                     stbuilder.Append(" ");
                     stbuilder.Append(parTx.Name);
@@ -882,6 +892,10 @@ namespace BridgeBuilder
                     if (fieldType == "bool")
                     {
                         stbuilder.AppendLine(parTx.Name + "?true:false;");
+                    }
+                    else if (fieldType == "CefString*")
+                    {
+                        stbuilder.AppendLine("&" + parTx.Name + ";");
                     }
                     else
                     {
