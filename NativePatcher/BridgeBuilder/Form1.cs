@@ -309,7 +309,7 @@ namespace BridgeBuilder
             List<CodeCompilationUnit> totalCuList = new List<CodeCompilationUnit>();
             List<CodeCompilationUnit> test_cpptoc_List = new List<CodeCompilationUnit>();
 
-            {   
+            {
                 //
                 string[] onlyCppFiles = System.IO.Directory.GetFiles(cefDir + @"\cpptoc", "*.cc");
                 //we skip some files
@@ -329,8 +329,8 @@ namespace BridgeBuilder
 
                     //
                     CppToCsImplCodeGen cppToCsImplCodeGen = new CppToCsImplCodeGen();
-                    string onlyFileName = System.IO.Path.GetFileName(cu.Filename); 
-                    cppToCsImplCodeGen.PatchCppMethod(cu, cefDir + @"\libcef_dll\cpptoc\" + onlyFileName);
+                    string onlyFileName = System.IO.Path.GetFileName(cu.Filename);
+                    cppToCsImplCodeGen.PatchCppMethod(cu, cefDir + @"\libcef_dll\cpptoc\" + onlyFileName, cefDir + @"\cpptoc");
                 }
 
             }
