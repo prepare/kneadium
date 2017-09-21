@@ -742,7 +742,10 @@ namespace BridgeBuilder
             }
         }
         public CodeTypeReference OwnerTypeDecl { get; set; }
-
+        //--------------------------
+        //syntax notes
+        internal int StartAtLine;
+        internal int EndAtLine;
     }
 
     enum CodeMemberKind
@@ -883,8 +886,7 @@ namespace BridgeBuilder
         internal MethodPlan methodTxInfo { get; set; }
 
         internal bool HasMethodBody;
-        internal int MethodBodyStartAt;
-        internal int MethodBodyEndAt;        
+       
 
         public CodeTypeReference CppExplicitOwnerType
         {

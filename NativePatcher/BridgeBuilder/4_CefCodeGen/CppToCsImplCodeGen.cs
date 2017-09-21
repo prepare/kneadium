@@ -123,11 +123,31 @@ namespace BridgeBuilder
                         throw new NotSupportedException();
                     }
 
-                    int insertAtLine = FindProperInsertPoint(simpleLineList, metDecl.MethodBodyStartAt, metDecl.MethodBodyEndAt);
-
+                    int insertAtLine = FindProperInsertPoint(simpleLineList, metDecl.StartAtLine, metDecl.EndAtLine);
+                    if (insertAtLine > 0)
+                    {
+                        //just replace
+                        simpleLineList.Insert(insertAtLine, newCodeStBuilder.ToString());
+                    }
                     //-----
                 }
+
+
+                //save the modified file
+                using (FileStream fs = new FileStream("d:\\WImageTest\\test001_01.cpp", FileMode.Create))
+                using (StreamWriter w = new StreamWriter(fs))
+                {
+                    int j = simpleLineList.Count;
+                    for (int i = 0; i < j; ++i)
+                    {
+                        w.WriteLine(simpleLineList[i]);
+                    }
+                    w.Close();
+                }
+
             }
+
+
         }
         static int FindProperInsertPoint(List<string> lines, int begin, int end)
         {
@@ -151,9 +171,9 @@ namespace BridgeBuilder
             for (int i = 0; i < j; ++i)
             {
 
-                string split = MakeFirstLetterUpperCase(splits[i]); 
+                string split = MakeFirstLetterUpperCase(splits[i]);
                 //cef-specific
-                ModifySomeCefSpecificName(ref split); 
+                ModifySomeCefSpecificName(ref split);
                 stbuilder.Append(split);
             }
             return stbuilder.ToString();

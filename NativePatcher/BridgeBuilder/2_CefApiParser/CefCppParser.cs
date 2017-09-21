@@ -1355,8 +1355,8 @@ namespace BridgeBuilder
                     //----
                     Token closeBraceTk = tokenList[currentTokenIndex];
                     met.HasMethodBody = true;
-                    met.MethodBodyStartAt = openBraceTk.LineNo;
-                    met.MethodBodyEndAt = closeBraceTk.LineNo;
+                    met.StartAtLine = openBraceTk.LineNo;
+                    met.EndAtLine = closeBraceTk.LineNo;
                     //----
                     return endPunc; 
                 }
