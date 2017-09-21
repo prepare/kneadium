@@ -670,7 +670,7 @@ namespace BridgeBuilder
         {
 
             stbuilder.AppendLine("//CppToCsMethodArgsClassGen::GenerateCppMethodArgsClass ," + (++codeGenNum) + " \r\n");
-            if (codeGenNum == 103)
+            if (codeGenNum == 96)
             {
 
             }
@@ -717,7 +717,7 @@ namespace BridgeBuilder
             }
             //met args  => fields
             List<string> field_types = new List<string>();
-            bool generate_int_to_bool_ctor = false;
+            bool generate_special_ctor = false;
 
             for (int i = 0; i < j; ++i)
             {
@@ -744,7 +744,7 @@ namespace BridgeBuilder
                 field_types.Add(fieldType);
                 if (fieldType == "bool")
                 {
-                    generate_int_to_bool_ctor = true;
+                    generate_special_ctor = true;
                 }
                 if (parTx.IsConst)
                 {
@@ -831,7 +831,7 @@ namespace BridgeBuilder
             //-----------------------------
             //
             //ctor style 1.2 int to bool 
-            if (generate_int_to_bool_ctor)
+            if (generate_special_ctor)
             {
                 stbuilder.Append(className);
                 stbuilder.Append("(");
