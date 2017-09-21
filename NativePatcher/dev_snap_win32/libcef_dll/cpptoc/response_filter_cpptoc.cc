@@ -1,4 +1,4 @@
-//---THIS-FILE-IS-PATCHED , org=D:\projects\cef_binary_3.3071.1647.win32\cpptoc\response_filter_cpptoc.cc
+//---THIS-FILE-WAS-PATCHED , org=D:\projects\cef_binary_3.3071.1647.win32\cpptoc\response_filter_cpptoc.cc
 // Copyright (c) 2017 The Chromium Embedded Framework Authors. All rights
 // reserved. Use of this source code is governed by a BSD-style license that
 // can be found in the LICENSE file.
@@ -89,9 +89,18 @@ auto me = CefResponseFilterCppToC::Get(self);
 const int CALLER_CODE=(CefResponseFilterExt::_typeName << 16) | CefResponseFilterExt::CefResponseFilterExt_Filter_2;
 auto m_callback= me->GetManagedCallBack(CALLER_CODE);
 if(m_callback){
-CefResponseFilterExt::FilterArgs args1(data_in,data_in_size,data_in_read,data_out,data_out_size,data_out_written);
+CefResponseFilterExt::FilterArgs args1(data_in,data_in_size,&data_in_readVal,data_out,data_out_size,&data_out_writtenVal);
 m_callback(CALLER_CODE, &args1.arg);
  if (((args1.arg.myext_flags >> 21) & 1) == 1){
+// Restore param: data_in_read; type: simple_byref
+if (data_in_read)
+*data_in_read = data_in_readVal;
+
+// Restore param: data_out_written; type: simple_byref
+if (data_out_written)
+*data_out_written = data_out_writtenVal;
+
+
  return args1.arg.myext_ret_value;
 }
 }

@@ -1,4 +1,4 @@
-//---THIS-FILE-IS-PATCHED , org=D:\projects\cef_binary_3.3071.1647.win32\cpptoc\resource_bundle_handler_cpptoc.cc
+//---THIS-FILE-WAS-PATCHED , org=D:\projects\cef_binary_3.3071.1647.win32\cpptoc\resource_bundle_handler_cpptoc.cc
 // Copyright (c) 2017 The Chromium Embedded Framework Authors. All rights
 // reserved. Use of this source code is governed by a BSD-style license that
 // can be found in the LICENSE file.
@@ -92,9 +92,18 @@ auto me = CefResourceBundleHandlerCppToC::Get(self);
 const int CALLER_CODE=(CefResourceBundleHandlerExt::_typeName << 16) | CefResourceBundleHandlerExt::CefResourceBundleHandlerExt_GetDataResource_2;
 auto m_callback= me->GetManagedCallBack(CALLER_CODE);
 if(m_callback){
-CefResourceBundleHandlerExt::GetDataResourceArgs args1(resource_id,data,data_size);
+CefResourceBundleHandlerExt::GetDataResourceArgs args1(resource_id,&dataVal,&data_sizeVal);
 m_callback(CALLER_CODE, &args1.arg);
  if (((args1.arg.myext_flags >> 21) & 1) == 1){
+// Restore param: data; type: simple_byref
+if (data)
+*data = dataVal;
+
+// Restore param: data_size; type: simple_byref
+if (data_size)
+*data_size = data_sizeVal;
+
+
  return args1.arg.myext_ret_value;
 }
 }
@@ -145,9 +154,18 @@ auto me = CefResourceBundleHandlerCppToC::Get(self);
 const int CALLER_CODE=(CefResourceBundleHandlerExt::_typeName << 16) | CefResourceBundleHandlerExt::CefResourceBundleHandlerExt_GetDataResourceForScale_3;
 auto m_callback= me->GetManagedCallBack(CALLER_CODE);
 if(m_callback){
-CefResourceBundleHandlerExt::GetDataResourceForScaleArgs args1(resource_id,scale_factor,data,data_size);
+CefResourceBundleHandlerExt::GetDataResourceForScaleArgs args1(resource_id,scale_factor,&dataVal,&data_sizeVal);
 m_callback(CALLER_CODE, &args1.arg);
  if (((args1.arg.myext_flags >> 21) & 1) == 1){
+// Restore param: data; type: simple_byref
+if (data)
+*data = dataVal;
+
+// Restore param: data_size; type: simple_byref
+if (data_size)
+*data_size = data_sizeVal;
+
+
  return args1.arg.myext_ret_value;
 }
 }

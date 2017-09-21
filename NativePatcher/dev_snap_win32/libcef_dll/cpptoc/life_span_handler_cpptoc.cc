@@ -1,4 +1,4 @@
-//---THIS-FILE-IS-PATCHED , org=D:\projects\cef_binary_3.3071.1647.win32\cpptoc\life_span_handler_cpptoc.cc
+//---THIS-FILE-WAS-PATCHED , org=D:\projects\cef_binary_3.3071.1647.win32\cpptoc\life_span_handler_cpptoc.cc
 // Copyright (c) 2017 The Chromium Embedded Framework Authors. All rights
 // reserved. Use of this source code is governed by a BSD-style license that
 // can be found in the LICENSE file.
@@ -103,18 +103,34 @@ namespace {
 		if (m_callback) {
 			CefString tmp_arg3(target_url);
 			CefString tmp_arg4(target_frame_name);
-			//cef_browser_t* browser, cef_frame_t* frame, const CefString* target_url, const CefString* target_frame_name, cef_window_open_disposition_t target_disposition, 
-			//bool user_gesture, const CefPopupFeatures* popupFeatures, CefWindowInfo* windowInfo, CefRefPtr<CefClient>* client, CefBrowserSettings* settings, bool* no_javascript_access
-			CefLifeSpanHandlerExt::OnBeforePopupArgs args1(browser, frame, &tmp_arg3, &tmp_arg4,
-				target_disposition,
-				user_gesture ? true : false,
-				&popupFeaturesObj, 
-				&windowInfoObj, 
-				&clientPtr,
-				&settingsObj,
-				&no_javascript_accessBool);
+			CefLifeSpanHandlerExt::OnBeforePopupArgs args1(browser, frame, tmp_arg3, tmp_arg4, target_disposition, user_gesture, &popupFeaturesObj, &windowInfoObj, &clientPtr, &settingsObj, &no_javascript_accessBool);
 			m_callback(CALLER_CODE, &args1.arg);
 			if (((args1.arg.myext_flags >> 21) & 1) == 1) {
+				// Restore param: windowInfo; type: struct_byref
+				if (windowInfo)
+					windowInfoObj.DetachTo(*windowInfo);
+
+				// Restore param: client; type: refptr_same_byref
+				if (client) {
+					if (clientPtr.get()) {
+						if (clientPtr.get() != clientOrig) {
+							*client = CefClientCppToC::Wrap(clientPtr);
+						}
+					}
+					else {
+						*client = NULL;
+					}
+				}
+
+				// Restore param: settings; type: struct_byref
+				if (settings)
+					settingsObj.DetachTo(*settings);
+
+				// Restore param: no_javascript_access; type: bool_byaddr
+				if (no_javascript_access)
+					*no_javascript_access = no_javascript_accessBool ? true : false;
+
+
 				return args1.arg.myext_ret_value;
 			}
 		}
