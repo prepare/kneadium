@@ -1,3 +1,4 @@
+//---THIS-FILE-IS-PATCHED , org=D:\projects\cef_binary_3.3071.1647.win32\cpptoc\resolve_callback_cpptoc.cc
 // Copyright (c) 2017 The Chromium Embedded Framework Authors. All rights
 // reserved. Use of this source code is governed by a BSD-style license that
 // can be found in the LICENSE file.
@@ -14,6 +15,11 @@
 
 #include "libcef_dll/cpptoc/resolve_callback_cpptoc.h"
 #include "libcef_dll/transfer_util.h"
+
+//---kneadium-ext-begin
+#include "../myext/ExportFuncAuto.h"
+#include "../myext/InternalHeaderForExportFunc.h"
+//---kneadium-ext-end
 
 namespace {
 
@@ -33,6 +39,19 @@ resolve_callback_on_resolve_completed(struct _cef_resolve_callback_t* self,
   // Translate param: resolved_ips; type: string_vec_byref_const
   std::vector<CefString> resolved_ipsList;
   transfer_string_list_contents(resolved_ips, resolved_ipsList);
+
+//---kneadium-ext-begin
+auto me = CefResolveCallbackCppToC::Get(self);
+const int CALLER_CODE=(CefResolveCallbackExt::_typeName << 16) | CefResolveCallbackExt::CefResolveCallbackExt_OnResolveCompleted_1;
+auto m_callback= me->GetManagedCallBack(CALLER_CODE);
+if(m_callback){
+CefResolveCallbackExt::OnResolveCompletedArgs args1(result,&resolved_ipsList);
+m_callback(CALLER_CODE, &args1.arg);
+ if (((args1.arg.myext_flags >> 21) & 1) == 1){
+return;
+}
+}
+//---kneadium-ext-end
 
   // Execute
   CefResolveCallbackCppToC::Get(self)->OnResolveCompleted(result,

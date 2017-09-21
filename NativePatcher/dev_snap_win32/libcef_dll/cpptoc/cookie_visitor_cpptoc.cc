@@ -1,3 +1,4 @@
+//---THIS-FILE-IS-PATCHED , org=D:\projects\cef_binary_3.3071.1647.win32\cpptoc\cookie_visitor_cpptoc.cc
 // Copyright (c) 2017 The Chromium Embedded Framework Authors. All rights
 // reserved. Use of this source code is governed by a BSD-style license that
 // can be found in the LICENSE file.
@@ -14,75 +15,93 @@
 
 #include "libcef_dll/cpptoc/cookie_visitor_cpptoc.h"
 
+//---kneadium-ext-begin
+#include "../myext/ExportFuncAuto.h"
+#include "../myext/InternalHeaderForExportFunc.h"
+//---kneadium-ext-end
+
 namespace {
 
-// MEMBER FUNCTIONS - Body may be edited by hand.
+	// MEMBER FUNCTIONS - Body may be edited by hand.
 
-int CEF_CALLBACK cookie_visitor_visit(struct _cef_cookie_visitor_t* self,
-                                      const struct _cef_cookie_t* cookie,
-                                      int count,
-                                      int total,
-                                      int* deleteCookie) {
-  // AUTO-GENERATED CONTENT - DELETE THIS COMMENT BEFORE MODIFYING
+	int CEF_CALLBACK cookie_visitor_visit(struct _cef_cookie_visitor_t* self,
+		const struct _cef_cookie_t* cookie,
+		int count,
+		int total,
+		int* deleteCookie) {
+		// AUTO-GENERATED CONTENT - DELETE THIS COMMENT BEFORE MODIFYING
 
-  DCHECK(self);
-  if (!self)
-    return 0;
-  // Verify param: cookie; type: struct_byref_const
-  DCHECK(cookie);
-  if (!cookie)
-    return 0;
-  // Verify param: deleteCookie; type: bool_byref
-  DCHECK(deleteCookie);
-  if (!deleteCookie)
-    return 0;
+		DCHECK(self);
+		if (!self)
+			return 0;
+		// Verify param: cookie; type: struct_byref_const
+		DCHECK(cookie);
+		if (!cookie)
+			return 0;
+		// Verify param: deleteCookie; type: bool_byref
+		DCHECK(deleteCookie);
+		if (!deleteCookie)
+			return 0;
 
-  // Translate param: cookie; type: struct_byref_const
-  CefCookie cookieObj;
-  if (cookie)
-    cookieObj.Set(*cookie, false);
-  // Translate param: deleteCookie; type: bool_byref
-  bool deleteCookieBool = (deleteCookie && *deleteCookie) ? true : false;
+		// Translate param: cookie; type: struct_byref_const
+		CefCookie cookieObj;
+		if (cookie)
+			cookieObj.Set(*cookie, false);
+		// Translate param: deleteCookie; type: bool_byref
+		bool deleteCookieBool = (deleteCookie && *deleteCookie) ? true : false;
 
-  // Execute
-  bool _retval = CefCookieVisitorCppToC::Get(self)->Visit(
-      cookieObj, count, total, deleteCookieBool);
+		//---kneadium-ext-begin
+		auto me = CefCookieVisitorCppToC::Get(self);
+		const int CALLER_CODE = (CefCookieVisitorExt::_typeName << 16) | CefCookieVisitorExt::CefCookieVisitorExt_Visit_1;
+		auto m_callback = me->GetManagedCallBack(CALLER_CODE);
+		if (m_callback) {
+			CefCookieVisitorExt::VisitArgs args1(&cookieObj, count, total, &deleteCookieBool);
+			m_callback(CALLER_CODE, &args1.arg);
+			if (((args1.arg.myext_flags >> 21) & 1) == 1) {
+				return args1.arg.myext_ret_value;
+			}
+		}
+		//---kneadium-ext-end
 
-  // Restore param: deleteCookie; type: bool_byref
-  if (deleteCookie)
-    *deleteCookie = deleteCookieBool ? true : false;
+		  // Execute
+		bool _retval = CefCookieVisitorCppToC::Get(self)->Visit(
+			cookieObj, count, total, deleteCookieBool);
 
-  // Return type: bool
-  return _retval;
-}
+		// Restore param: deleteCookie; type: bool_byref
+		if (deleteCookie)
+			*deleteCookie = deleteCookieBool ? true : false;
+
+		// Return type: bool
+		return _retval;
+	}
 
 }  // namespace
 
 // CONSTRUCTOR - Do not edit by hand.
 
 CefCookieVisitorCppToC::CefCookieVisitorCppToC() {
-  GetStruct()->visit = cookie_visitor_visit;
+	GetStruct()->visit = cookie_visitor_visit;
 }
 
 template <>
 CefRefPtr<CefCookieVisitor> CefCppToCRefCounted<
-    CefCookieVisitorCppToC,
-    CefCookieVisitor,
-    cef_cookie_visitor_t>::UnwrapDerived(CefWrapperType type,
-                                         cef_cookie_visitor_t* s) {
-  NOTREACHED() << "Unexpected class type: " << type;
-  return NULL;
+	CefCookieVisitorCppToC,
+	CefCookieVisitor,
+	cef_cookie_visitor_t>::UnwrapDerived(CefWrapperType type,
+		cef_cookie_visitor_t* s) {
+	NOTREACHED() << "Unexpected class type: " << type;
+	return NULL;
 }
 
 #if DCHECK_IS_ON()
 template <>
 base::AtomicRefCount CefCppToCRefCounted<CefCookieVisitorCppToC,
-                                         CefCookieVisitor,
-                                         cef_cookie_visitor_t>::DebugObjCt = 0;
+	CefCookieVisitor,
+	cef_cookie_visitor_t>::DebugObjCt = 0;
 #endif
 
 template <>
 CefWrapperType CefCppToCRefCounted<CefCookieVisitorCppToC,
-                                   CefCookieVisitor,
-                                   cef_cookie_visitor_t>::kWrapperType =
-    WT_COOKIE_VISITOR;
+	CefCookieVisitor,
+	cef_cookie_visitor_t>::kWrapperType =
+	WT_COOKIE_VISITOR;

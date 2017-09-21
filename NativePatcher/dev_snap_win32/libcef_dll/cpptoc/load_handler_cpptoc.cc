@@ -1,3 +1,4 @@
+//---THIS-FILE-IS-PATCHED , org=D:\projects\cef_binary_3.3071.1647.win32\cpptoc\load_handler_cpptoc.cc
 // Copyright (c) 2017 The Chromium Embedded Framework Authors. All rights
 // reserved. Use of this source code is governed by a BSD-style license that
 // can be found in the LICENSE file.
@@ -15,6 +16,11 @@
 #include "libcef_dll/cpptoc/load_handler_cpptoc.h"
 #include "libcef_dll/ctocpp/browser_ctocpp.h"
 #include "libcef_dll/ctocpp/frame_ctocpp.h"
+
+//---kneadium-ext-begin
+#include "../myext/ExportFuncAuto.h"
+#include "../myext/InternalHeaderForExportFunc.h"
+//---kneadium-ext-end
 
 namespace {
 
@@ -35,6 +41,19 @@ load_handler_on_loading_state_change(struct _cef_load_handler_t* self,
   DCHECK(browser);
   if (!browser)
     return;
+
+//---kneadium-ext-begin
+auto me = CefLoadHandlerCppToC::Get(self);
+const int CALLER_CODE=(CefLoadHandlerExt::_typeName << 16) | CefLoadHandlerExt::CefLoadHandlerExt_OnLoadingStateChange_1;
+auto m_callback= me->GetManagedCallBack(CALLER_CODE);
+if(m_callback){
+CefLoadHandlerExt::OnLoadingStateChangeArgs args1(browser,isLoading,canGoBack,canGoForward);
+m_callback(CALLER_CODE, &args1.arg);
+ if (((args1.arg.myext_flags >> 21) & 1) == 1){
+return;
+}
+}
+//---kneadium-ext-end
 
   // Execute
   CefLoadHandlerCppToC::Get(self)->OnLoadingStateChange(
@@ -61,6 +80,19 @@ load_handler_on_load_start(struct _cef_load_handler_t* self,
   if (!frame)
     return;
 
+//---kneadium-ext-begin
+auto me = CefLoadHandlerCppToC::Get(self);
+const int CALLER_CODE=(CefLoadHandlerExt::_typeName << 16) | CefLoadHandlerExt::CefLoadHandlerExt_OnLoadStart_2;
+auto m_callback= me->GetManagedCallBack(CALLER_CODE);
+if(m_callback){
+CefLoadHandlerExt::OnLoadStartArgs args1(browser,frame,transition_type);
+m_callback(CALLER_CODE, &args1.arg);
+ if (((args1.arg.myext_flags >> 21) & 1) == 1){
+return;
+}
+}
+//---kneadium-ext-end
+
   // Execute
   CefLoadHandlerCppToC::Get(self)->OnLoadStart(CefBrowserCToCpp::Wrap(browser),
                                                CefFrameCToCpp::Wrap(frame),
@@ -84,6 +116,19 @@ void CEF_CALLBACK load_handler_on_load_end(struct _cef_load_handler_t* self,
   DCHECK(frame);
   if (!frame)
     return;
+
+//---kneadium-ext-begin
+auto me = CefLoadHandlerCppToC::Get(self);
+const int CALLER_CODE=(CefLoadHandlerExt::_typeName << 16) | CefLoadHandlerExt::CefLoadHandlerExt_OnLoadEnd_3;
+auto m_callback= me->GetManagedCallBack(CALLER_CODE);
+if(m_callback){
+CefLoadHandlerExt::OnLoadEndArgs args1(browser,frame,httpStatusCode);
+m_callback(CALLER_CODE, &args1.arg);
+ if (((args1.arg.myext_flags >> 21) & 1) == 1){
+return;
+}
+}
+//---kneadium-ext-end
 
   // Execute
   CefLoadHandlerCppToC::Get(self)->OnLoadEnd(CefBrowserCToCpp::Wrap(browser),
@@ -115,6 +160,21 @@ void CEF_CALLBACK load_handler_on_load_error(struct _cef_load_handler_t* self,
   if (!failedUrl)
     return;
   // Unverified params: errorText
+
+//---kneadium-ext-begin
+auto me = CefLoadHandlerCppToC::Get(self);
+const int CALLER_CODE=(CefLoadHandlerExt::_typeName << 16) | CefLoadHandlerExt::CefLoadHandlerExt_OnLoadError_4;
+auto m_callback= me->GetManagedCallBack(CALLER_CODE);
+if(m_callback){
+CefString tmp_arg4 (errorText);
+CefString tmp_arg5 (failedUrl);
+CefLoadHandlerExt::OnLoadErrorArgs args1(browser,frame,errorCode,tmp_arg4,tmp_arg5);
+m_callback(CALLER_CODE, &args1.arg);
+ if (((args1.arg.myext_flags >> 21) & 1) == 1){
+return;
+}
+}
+//---kneadium-ext-end
 
   // Execute
   CefLoadHandlerCppToC::Get(self)->OnLoadError(

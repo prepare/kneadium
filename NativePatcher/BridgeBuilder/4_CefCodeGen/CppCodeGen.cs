@@ -670,7 +670,7 @@ namespace BridgeBuilder
         {
 
             stbuilder.AppendLine("//CppToCsMethodArgsClassGen::GenerateCppMethodArgsClass ," + (++codeGenNum) + " \r\n");
-
+            
 
             //generate cs method pars
             CodeMethodDeclaration metDecl = met.metDecl;
@@ -714,6 +714,7 @@ namespace BridgeBuilder
             }
             //met args  => fields
             List<string> field_types = new List<string>();
+            bool generate_special_ctor = false;
 
             for (int i = 0; i < j; ++i)
             {
@@ -738,6 +739,15 @@ namespace BridgeBuilder
                 }
 
                 field_types.Add(fieldType);
+                //------------------
+                if (fieldType == "bool")
+                {
+                    generate_special_ctor = true;
+                }
+                else if (fieldType == "CefString*")
+                {
+                    generate_special_ctor = true;
+                }
 
                 if (parTx.IsConst)
                 {
@@ -748,8 +758,6 @@ namespace BridgeBuilder
                     }
                 }
                 stbuilder.Append(fieldType);
-
-
                 stbuilder.Append(" ");
                 stbuilder.Append(parTx.Name);
                 stbuilder.AppendLine(";//" + (i + 1));
@@ -822,6 +830,83 @@ namespace BridgeBuilder
                 }
             }
             stbuilder.AppendLine("}");//ctor's body --> empty
+
+            //-----------------------------
+            //
+            //ctor style 1.2 int to bool 
+            if (generate_special_ctor)
+            {
+                stbuilder.Append(className);
+                stbuilder.Append("(");
+                for (int i = 0; i < j; ++i)
+                {
+                    if (i > 0)
+                    {
+                        stbuilder.Append(",");
+                    }
+                    //move this to method
+                    CodeMethodParameter par = pars[i];
+                    MethodParameter parTx = met.pars[i];
+                    if (parTx.IsConst)
+                    {
+                        stbuilder.Append("const ");
+                    }
+                    string fieldType = field_types[i];
+                    if (fieldType == "bool")
+                    {
+                        fieldType = "int";
+                    }
+                    else if (fieldType == "CefString*")
+                    {
+                        fieldType = "CefString&";
+                    }
+                    stbuilder.Append(fieldType);
+                    stbuilder.Append(" ");
+                    stbuilder.Append(parTx.Name);
+                }
+                stbuilder.AppendLine(")");
+                stbuilder.AppendLine("{");
+                stbuilder.AppendLine("arg.myext_flags = (" + flags + " | " + j + ");"); //not wrap/unwrap
+                if (!met.ReturnPlan.IsVoid)
+                {
+                    //set init return value
+                    //with default value 
+                    if (explicitRet != null)
+                    {
+                        stbuilder.AppendLine("arg.myext_ret_value=" + explicitRet + ";");
+                    }
+                    else
+                    {
+                        stbuilder.AppendLine("arg.myext_ret_value=0;");
+                    }
+                }
+                for (int i = 0; i < j; ++i)
+                {
+                    CodeMethodParameter par = pars[i];
+                    MethodParameter parTx = met.pars[i];
+                    string fieldType = field_types[i];
+                    stbuilder.Append("arg." + parTx.Name + "=");
+                    if (fieldType == "bool")
+                    {
+                        stbuilder.AppendLine(parTx.Name + "?true:false;");
+                    }
+                    else if (fieldType == "CefString*")
+                    {
+                        stbuilder.AppendLine("&" + parTx.Name + ";");
+                    }
+                    else
+                    {
+                        stbuilder.AppendLine(parTx.Name + ";");
+                    }
+                    if (parTx.CppUnwrapType != null)
+                    {
+                        need_unwrapMethodAndCtor = true;
+                    }
+                }
+                stbuilder.AppendLine("}");//ctor's body --> empty
+            }
+            //
+
             //-----------------------------
             //ctor style 2
             if (!need_unwrapMethodAndCtor)

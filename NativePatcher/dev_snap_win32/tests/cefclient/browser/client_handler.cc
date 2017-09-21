@@ -1356,11 +1356,7 @@ namespace client {
 	}
 	//###_APPEND_START 10
 	//my extension ***
-
-	//this is an essential of autocallback
-	/*managed_callback ClientHandler::GetManagedCallBack() {
-		return this->mcallback_;
-	}*/
+ 
 
 	void ClientHandler::MyCefSetManagedCallBack(managed_callback m) {
 

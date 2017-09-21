@@ -1,4 +1,3 @@
-//---THIS-FILE-IS-PATCHED , org=D:\projects\cef_binary_3.3071.1647.win32\cpptoc\display_handler_cpptoc.cc
 // Copyright (c) 2017 The Chromium Embedded Framework Authors. All rights
 // reserved. Use of this source code is governed by a BSD-style license that
 // can be found in the LICENSE file.
@@ -18,11 +17,6 @@
 #include "libcef_dll/ctocpp/frame_ctocpp.h"
 #include "libcef_dll/transfer_util.h"
  
-
-//---kneadium-ext-begin
-#include "../myext/ExportFuncAuto.h"
-#include "../myext/InternalHeaderForExportFunc.h"
-//---kneadium-ext-end
 
 namespace {
 
@@ -54,20 +48,6 @@ namespace {
 
  
 
-//---kneadium-ext-begin
-auto me = CefDisplayHandlerCppToC::Get(self);
-const int CALLER_CODE=(CefDisplayHandlerExt::_typeName << 16) | CefDisplayHandlerExt::CefDisplayHandlerExt_OnAddressChange_1;
-auto m_callback= me->GetManagedCallBack(CALLER_CODE);
-if(m_callback){
-CefString tmp_arg3 (url);
-CefDisplayHandlerExt::OnAddressChangeArgs args1(browser,frame,tmp_arg3);
-m_callback(CALLER_CODE, &args1.arg);
- if (((args1.arg.myext_flags >> 21) & 1) == 1){
-return;
-}
-}
-//---kneadium-ext-end
-
 		// Execute
 		CefDisplayHandlerCppToC::Get(self)->OnAddressChange(
 			CefBrowserCToCpp::Wrap(browser), CefFrameCToCpp::Wrap(frame),
@@ -88,20 +68,6 @@ return;
 		if (!browser)
 			return;
 		// Unverified params: title 
-
-//---kneadium-ext-begin
-auto me = CefDisplayHandlerCppToC::Get(self);
-const int CALLER_CODE=(CefDisplayHandlerExt::_typeName << 16) | CefDisplayHandlerExt::CefDisplayHandlerExt_OnTitleChange_2;
-auto m_callback= me->GetManagedCallBack(CALLER_CODE);
-if(m_callback){
-CefString tmp_arg2 (title);
-CefDisplayHandlerExt::OnTitleChangeArgs args1(browser,tmp_arg2);
-m_callback(CALLER_CODE, &args1.arg);
- if (((args1.arg.myext_flags >> 21) & 1) == 1){
-return;
-}
-}
-//---kneadium-ext-end
 
 		// Execute
 		CefDisplayHandlerCppToC::Get(self)->OnTitleChange(
@@ -130,19 +96,6 @@ return;
 
  
 
-//---kneadium-ext-begin
-auto me = CefDisplayHandlerCppToC::Get(self);
-const int CALLER_CODE=(CefDisplayHandlerExt::_typeName << 16) | CefDisplayHandlerExt::CefDisplayHandlerExt_OnFaviconURLChange_3;
-auto m_callback= me->GetManagedCallBack(CALLER_CODE);
-if(m_callback){
-CefDisplayHandlerExt::OnFaviconURLChangeArgs args1(browser,&icon_urlsList);
-m_callback(CALLER_CODE, &args1.arg);
- if (((args1.arg.myext_flags >> 21) & 1) == 1){
-return;
-}
-}
-//---kneadium-ext-end
-
 		// Execute
 		CefDisplayHandlerCppToC::Get(self)->OnFaviconURLChange(
 			CefBrowserCToCpp::Wrap(browser), icon_urlsList);
@@ -164,19 +117,6 @@ return;
 
 
  
-
-//---kneadium-ext-begin
-auto me = CefDisplayHandlerCppToC::Get(self);
-const int CALLER_CODE=(CefDisplayHandlerExt::_typeName << 16) | CefDisplayHandlerExt::CefDisplayHandlerExt_OnFullscreenModeChange_4;
-auto m_callback= me->GetManagedCallBack(CALLER_CODE);
-if(m_callback){
-CefDisplayHandlerExt::OnFullscreenModeChangeArgs args1(browser,fullscreen);
-m_callback(CALLER_CODE, &args1.arg);
- if (((args1.arg.myext_flags >> 21) & 1) == 1){
-return;
-}
-}
-//---kneadium-ext-end
 
 		// Execute
 		CefDisplayHandlerCppToC::Get(self)->OnFullscreenModeChange(
@@ -203,20 +143,6 @@ return;
 
  
 
-//---kneadium-ext-begin
-auto me = CefDisplayHandlerCppToC::Get(self);
-const int CALLER_CODE=(CefDisplayHandlerExt::_typeName << 16) | CefDisplayHandlerExt::CefDisplayHandlerExt_OnTooltip_5;
-auto m_callback= me->GetManagedCallBack(CALLER_CODE);
-if(m_callback){
-CefString tmp_arg2 (text);
-CefDisplayHandlerExt::OnTooltipArgs args1(browser,tmp_arg2);
-m_callback(CALLER_CODE, &args1.arg);
- if (((args1.arg.myext_flags >> 21) & 1) == 1){
- return args1.arg.myext_ret_value;
-}
-}
-//---kneadium-ext-end
-
 		// Execute
 		bool _retval = CefDisplayHandlerCppToC::Get(self)->OnTooltip(
 			CefBrowserCToCpp::Wrap(browser), textStr);
@@ -242,20 +168,6 @@ m_callback(CALLER_CODE, &args1.arg);
 
 	 
 
-//---kneadium-ext-begin
-auto me = CefDisplayHandlerCppToC::Get(self);
-const int CALLER_CODE=(CefDisplayHandlerExt::_typeName << 16) | CefDisplayHandlerExt::CefDisplayHandlerExt_OnStatusMessage_6;
-auto m_callback= me->GetManagedCallBack(CALLER_CODE);
-if(m_callback){
-CefString tmp_arg2 (value);
-CefDisplayHandlerExt::OnStatusMessageArgs args1(browser,tmp_arg2);
-m_callback(CALLER_CODE, &args1.arg);
- if (((args1.arg.myext_flags >> 21) & 1) == 1){
-return;
-}
-}
-//---kneadium-ext-end
-
 		// Execute
 		CefDisplayHandlerCppToC::Get(self)->OnStatusMessage(
 			CefBrowserCToCpp::Wrap(browser), CefString(value));
@@ -279,21 +191,6 @@ return;
 		// Unverified params: message, source
 
  
-//---kneadium-ext-begin
-auto me = CefDisplayHandlerCppToC::Get(self);
-const int CALLER_CODE=(CefDisplayHandlerExt::_typeName << 16) | CefDisplayHandlerExt::CefDisplayHandlerExt_OnConsoleMessage_7;
-auto m_callback= me->GetManagedCallBack(CALLER_CODE);
-if(m_callback){
-CefString tmp_arg2 (message);
-CefString tmp_arg3 (source);
-CefDisplayHandlerExt::OnConsoleMessageArgs args1(browser,tmp_arg2,tmp_arg3,line);
-m_callback(CALLER_CODE, &args1.arg);
- if (((args1.arg.myext_flags >> 21) & 1) == 1){
- return args1.arg.myext_ret_value;
-}
-}
-//---kneadium-ext-end
-
 		// Execute
 		bool _retval = CefDisplayHandlerCppToC::Get(self)->OnConsoleMessage(
 			CefBrowserCToCpp::Wrap(browser), CefString(message), CefString(source),

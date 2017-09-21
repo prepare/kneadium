@@ -1,3 +1,4 @@
+//---THIS-FILE-IS-PATCHED , org=D:\projects\cef_binary_3.3071.1647.win32\cpptoc\focus_handler_cpptoc.cc
 // Copyright (c) 2017 The Chromium Embedded Framework Authors. All rights
 // reserved. Use of this source code is governed by a BSD-style license that
 // can be found in the LICENSE file.
@@ -14,6 +15,11 @@
 
 #include "libcef_dll/cpptoc/focus_handler_cpptoc.h"
 #include "libcef_dll/ctocpp/browser_ctocpp.h"
+
+//---kneadium-ext-begin
+#include "../myext/ExportFuncAuto.h"
+#include "../myext/InternalHeaderForExportFunc.h"
+//---kneadium-ext-end
 
 namespace {
 
@@ -32,6 +38,19 @@ void CEF_CALLBACK focus_handler_on_take_focus(struct _cef_focus_handler_t* self,
   if (!browser)
     return;
 
+//---kneadium-ext-begin
+auto me = CefFocusHandlerCppToC::Get(self);
+const int CALLER_CODE=(CefFocusHandlerExt::_typeName << 16) | CefFocusHandlerExt::CefFocusHandlerExt_OnTakeFocus_1;
+auto m_callback= me->GetManagedCallBack(CALLER_CODE);
+if(m_callback){
+CefFocusHandlerExt::OnTakeFocusArgs args1(browser,next);
+m_callback(CALLER_CODE, &args1.arg);
+ if (((args1.arg.myext_flags >> 21) & 1) == 1){
+return;
+}
+}
+//---kneadium-ext-end
+
   // Execute
   CefFocusHandlerCppToC::Get(self)->OnTakeFocus(CefBrowserCToCpp::Wrap(browser),
                                                 next ? true : false);
@@ -49,6 +68,19 @@ int CEF_CALLBACK focus_handler_on_set_focus(struct _cef_focus_handler_t* self,
   DCHECK(browser);
   if (!browser)
     return 0;
+
+//---kneadium-ext-begin
+auto me = CefFocusHandlerCppToC::Get(self);
+const int CALLER_CODE=(CefFocusHandlerExt::_typeName << 16) | CefFocusHandlerExt::CefFocusHandlerExt_OnSetFocus_2;
+auto m_callback= me->GetManagedCallBack(CALLER_CODE);
+if(m_callback){
+CefFocusHandlerExt::OnSetFocusArgs args1(browser,source);
+m_callback(CALLER_CODE, &args1.arg);
+ if (((args1.arg.myext_flags >> 21) & 1) == 1){
+ return args1.arg.myext_ret_value;
+}
+}
+//---kneadium-ext-end
 
   // Execute
   bool _retval = CefFocusHandlerCppToC::Get(self)->OnSetFocus(
@@ -69,6 +101,19 @@ void CEF_CALLBACK focus_handler_on_got_focus(struct _cef_focus_handler_t* self,
   DCHECK(browser);
   if (!browser)
     return;
+
+//---kneadium-ext-begin
+auto me = CefFocusHandlerCppToC::Get(self);
+const int CALLER_CODE=(CefFocusHandlerExt::_typeName << 16) | CefFocusHandlerExt::CefFocusHandlerExt_OnGotFocus_3;
+auto m_callback= me->GetManagedCallBack(CALLER_CODE);
+if(m_callback){
+CefFocusHandlerExt::OnGotFocusArgs args1(browser);
+m_callback(CALLER_CODE, &args1.arg);
+ if (((args1.arg.myext_flags >> 21) & 1) == 1){
+return;
+}
+}
+//---kneadium-ext-end
 
   // Execute
   CefFocusHandlerCppToC::Get(self)->OnGotFocus(CefBrowserCToCpp::Wrap(browser));

@@ -1,3 +1,4 @@
+//---THIS-FILE-IS-PATCHED , org=D:\projects\cef_binary_3.3071.1647.win32\cpptoc\download_image_callback_cpptoc.cc
 // Copyright (c) 2017 The Chromium Embedded Framework Authors. All rights
 // reserved. Use of this source code is governed by a BSD-style license that
 // can be found in the LICENSE file.
@@ -14,6 +15,11 @@
 
 #include "libcef_dll/cpptoc/download_image_callback_cpptoc.h"
 #include "libcef_dll/ctocpp/image_ctocpp.h"
+
+//---kneadium-ext-begin
+#include "../myext/ExportFuncAuto.h"
+#include "../myext/InternalHeaderForExportFunc.h"
+//---kneadium-ext-end
 
 namespace {
 
@@ -34,6 +40,20 @@ void CEF_CALLBACK download_image_callback_on_download_image_finished(
   if (!image_url)
     return;
   // Unverified params: image
+
+//---kneadium-ext-begin
+auto me = CefDownloadImageCallbackCppToC::Get(self);
+const int CALLER_CODE=(CefDownloadImageCallbackExt::_typeName << 16) | CefDownloadImageCallbackExt::CefDownloadImageCallbackExt_OnDownloadImageFinished_1;
+auto m_callback= me->GetManagedCallBack(CALLER_CODE);
+if(m_callback){
+CefString tmp_arg1 (image_url);
+CefDownloadImageCallbackExt::OnDownloadImageFinishedArgs args1(tmp_arg1,http_status_code,image);
+m_callback(CALLER_CODE, &args1.arg);
+ if (((args1.arg.myext_flags >> 21) & 1) == 1){
+return;
+}
+}
+//---kneadium-ext-end
 
   // Execute
   CefDownloadImageCallbackCppToC::Get(self)->OnDownloadImageFinished(

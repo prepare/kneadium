@@ -294,6 +294,10 @@ namespace BridgeBuilder
 
             return cu;
         }
+
+
+
+
         private void button2_Click(object sender, EventArgs e)
         {
             //cpp-to-c wrapper and c-to-cpp wrapper
@@ -306,13 +310,14 @@ namespace BridgeBuilder
             List<CodeCompilationUnit> test_cpptoc_List = new List<CodeCompilationUnit>();
 
             {
-
-                string[] onlyCppFiles = System.IO.Directory.GetFiles(cefDir + @"\libcef_dll\cpptoc", "*.cc");
+                //
+                string[] onlyCppFiles = System.IO.Directory.GetFiles(cefDir + @"\cpptoc", "*.cc");
                 //we skip some files
                 Dictionary<string, bool> skipFiles = CreateSkipFiles(new string[] {
                     "base_ref_counted_cpptoc.cc" ,
                     "base_scoped_cpptoc.cc" });
                 int j = onlyCppFiles.Length;
+
                 for (int i = 0; i < j; ++i)
                 {
                     if (skipFiles.ContainsKey(System.IO.Path.GetFileName(onlyCppFiles[i])))
@@ -321,7 +326,17 @@ namespace BridgeBuilder
                     }
                     CodeCompilationUnit cu = ParseCppFile(onlyCppFiles[i]);
                     test_cpptoc_List.Add(cu);
+
+                    //
+                    CppToCsImplCodeGen cppToCsImplCodeGen = new CppToCsImplCodeGen();
+                    string onlyFileName = System.IO.Path.GetFileName(cu.Filename);
+                    if(onlyFileName == "v8interceptor_cpptoc.cc")
+                    {
+                        continue;
+                    }
+                    cppToCsImplCodeGen.PatchCppMethod(cu, cefDir + @"\libcef_dll\cpptoc\" + onlyFileName, cefDir + @"\cpptoc");
                 }
+
             }
 
             {
@@ -550,9 +565,9 @@ namespace BridgeBuilder
             StringBuilder csCodeStBuilder = new StringBuilder();
             AddCppBuiltInBeginCode(cppCodeStBuilder);
 
-    
 
-            CodeStringBuilder cppHeaderInternalForExportFunc = new CodeStringBuilder(); 
+
+            CodeStringBuilder cppHeaderInternalForExportFunc = new CodeStringBuilder();
             cppHeaderInternalForExportFunc.AppendLine(
                 "//MIT, 2017, WinterDev\r\n" +
                 "//AUTOGEN");
@@ -600,7 +615,7 @@ namespace BridgeBuilder
                 csCodeStBuilder.Append(codeGenOutput._csCode.ToString());
                 csCodeStBuilder.AppendLine();
                 //--------------------------------------------
-               
+
                 cppHeaderExportFuncAuto.Append(codeGenOutput._cppHeaderExportFuncAuto.ToString());
                 cppHeaderInternalForExportFunc.Append(codeGenOutput._cppHeaderInternalForExportFuncAuto.ToString());
                 //----------
@@ -609,10 +624,7 @@ namespace BridgeBuilder
                     customImplClasses.Add(tx);
                 }
                 tt_count++;
-            }
-
-         
-
+            } 
 
             foreach (CefCallbackTx tx in callbackPlans)
             {
@@ -746,7 +758,7 @@ namespace BridgeBuilder
                 }
             }
         }
-       
+
 
 
         CodeCompilationUnit ParseWrapper(string srcFile)

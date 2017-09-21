@@ -68,7 +68,7 @@ class CefBaseRefCounted {
   // Returns true if the reference count is 1.
   ///
   virtual bool HasOneRef() const = 0;
-  virtual managed_callback GetManagedCallBack() const = 0;
+  virtual managed_callback GetManagedCallBack(int callerCode) const = 0;
 
  protected:
   virtual ~CefBaseRefCounted() {}
@@ -124,7 +124,7 @@ class CefRefCount {
     return false;                                                    \
   }                                                                  \
   bool HasOneRef() const OVERRIDE { return ref_count_.HasOneRef(); } \
-  managed_callback GetManagedCallBack() const OVERRIDE { return myext_mcallback; } \
+  managed_callback GetManagedCallBack(int callerCode) const OVERRIDE { return myext_mcallback; } \
                                                                      \
  private:                                                            \
   managed_callback myext_mcallback= NULL;\

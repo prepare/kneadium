@@ -1,3 +1,4 @@
+//---THIS-FILE-IS-PATCHED , org=D:\projects\cef_binary_3.3071.1647.win32\cpptoc\download_handler_cpptoc.cc
 // Copyright (c) 2017 The Chromium Embedded Framework Authors. All rights
 // reserved. Use of this source code is governed by a BSD-style license that
 // can be found in the LICENSE file.
@@ -17,6 +18,11 @@
 #include "libcef_dll/ctocpp/browser_ctocpp.h"
 #include "libcef_dll/ctocpp/download_item_callback_ctocpp.h"
 #include "libcef_dll/ctocpp/download_item_ctocpp.h"
+
+//---kneadium-ext-begin
+#include "../myext/ExportFuncAuto.h"
+#include "../myext/InternalHeaderForExportFunc.h"
+//---kneadium-ext-end
 
 namespace {
 
@@ -50,6 +56,20 @@ download_handler_on_before_download(struct _cef_download_handler_t* self,
   if (!callback)
     return;
 
+//---kneadium-ext-begin
+auto me = CefDownloadHandlerCppToC::Get(self);
+const int CALLER_CODE=(CefDownloadHandlerExt::_typeName << 16) | CefDownloadHandlerExt::CefDownloadHandlerExt_OnBeforeDownload_1;
+auto m_callback= me->GetManagedCallBack(CALLER_CODE);
+if(m_callback){
+CefString tmp_arg3 (suggested_name);
+CefDownloadHandlerExt::OnBeforeDownloadArgs args1(browser,download_item,tmp_arg3,callback);
+m_callback(CALLER_CODE, &args1.arg);
+ if (((args1.arg.myext_flags >> 21) & 1) == 1){
+return;
+}
+}
+//---kneadium-ext-end
+
   // Execute
   CefDownloadHandlerCppToC::Get(self)->OnBeforeDownload(
       CefBrowserCToCpp::Wrap(browser),
@@ -79,6 +99,19 @@ download_handler_on_download_updated(struct _cef_download_handler_t* self,
   DCHECK(callback);
   if (!callback)
     return;
+
+//---kneadium-ext-begin
+auto me = CefDownloadHandlerCppToC::Get(self);
+const int CALLER_CODE=(CefDownloadHandlerExt::_typeName << 16) | CefDownloadHandlerExt::CefDownloadHandlerExt_OnDownloadUpdated_2;
+auto m_callback= me->GetManagedCallBack(CALLER_CODE);
+if(m_callback){
+CefDownloadHandlerExt::OnDownloadUpdatedArgs args1(browser,download_item,callback);
+m_callback(CALLER_CODE, &args1.arg);
+ if (((args1.arg.myext_flags >> 21) & 1) == 1){
+return;
+}
+}
+//---kneadium-ext-end
 
   // Execute
   CefDownloadHandlerCppToC::Get(self)->OnDownloadUpdated(

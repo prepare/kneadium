@@ -1,3 +1,4 @@
+//---THIS-FILE-IS-PATCHED , org=D:\projects\cef_binary_3.3071.1647.win32\cpptoc\print_handler_cpptoc.cc
 // Copyright (c) 2017 The Chromium Embedded Framework Authors. All rights
 // reserved. Use of this source code is governed by a BSD-style license that
 // can be found in the LICENSE file.
@@ -18,6 +19,11 @@
 #include "libcef_dll/ctocpp/print_job_callback_ctocpp.h"
 #include "libcef_dll/ctocpp/print_settings_ctocpp.h"
 
+//---kneadium-ext-begin
+#include "../myext/ExportFuncAuto.h"
+#include "../myext/InternalHeaderForExportFunc.h"
+//---kneadium-ext-end
+
 namespace {
 
 // MEMBER FUNCTIONS - Body may be edited by hand.
@@ -34,6 +40,19 @@ print_handler_on_print_start(struct _cef_print_handler_t* self,
   DCHECK(browser);
   if (!browser)
     return;
+
+//---kneadium-ext-begin
+auto me = CefPrintHandlerCppToC::Get(self);
+const int CALLER_CODE=(CefPrintHandlerExt::_typeName << 16) | CefPrintHandlerExt::CefPrintHandlerExt_OnPrintStart_1;
+auto m_callback= me->GetManagedCallBack(CALLER_CODE);
+if(m_callback){
+CefPrintHandlerExt::OnPrintStartArgs args1(browser);
+m_callback(CALLER_CODE, &args1.arg);
+ if (((args1.arg.myext_flags >> 21) & 1) == 1){
+return;
+}
+}
+//---kneadium-ext-end
 
   // Execute
   CefPrintHandlerCppToC::Get(self)->OnPrintStart(
@@ -59,6 +78,19 @@ print_handler_on_print_settings(struct _cef_print_handler_t* self,
   if (!settings)
     return;
 
+//---kneadium-ext-begin
+auto me = CefPrintHandlerCppToC::Get(self);
+const int CALLER_CODE=(CefPrintHandlerExt::_typeName << 16) | CefPrintHandlerExt::CefPrintHandlerExt_OnPrintSettings_2;
+auto m_callback= me->GetManagedCallBack(CALLER_CODE);
+if(m_callback){
+CefPrintHandlerExt::OnPrintSettingsArgs args1(browser,settings,get_defaults);
+m_callback(CALLER_CODE, &args1.arg);
+ if (((args1.arg.myext_flags >> 21) & 1) == 1){
+return;
+}
+}
+//---kneadium-ext-end
+
   // Execute
   CefPrintHandlerCppToC::Get(self)->OnPrintSettings(
       CefBrowserCToCpp::Wrap(browser), CefPrintSettingsCToCpp::Wrap(settings),
@@ -83,6 +115,19 @@ print_handler_on_print_dialog(struct _cef_print_handler_t* self,
   DCHECK(callback);
   if (!callback)
     return 0;
+
+//---kneadium-ext-begin
+auto me = CefPrintHandlerCppToC::Get(self);
+const int CALLER_CODE=(CefPrintHandlerExt::_typeName << 16) | CefPrintHandlerExt::CefPrintHandlerExt_OnPrintDialog_3;
+auto m_callback= me->GetManagedCallBack(CALLER_CODE);
+if(m_callback){
+CefPrintHandlerExt::OnPrintDialogArgs args1(browser,has_selection,callback);
+m_callback(CALLER_CODE, &args1.arg);
+ if (((args1.arg.myext_flags >> 21) & 1) == 1){
+ return args1.arg.myext_ret_value;
+}
+}
+//---kneadium-ext-end
 
   // Execute
   bool _retval = CefPrintHandlerCppToC::Get(self)->OnPrintDialog(
@@ -121,6 +166,21 @@ print_handler_on_print_job(struct _cef_print_handler_t* self,
   if (!callback)
     return 0;
 
+//---kneadium-ext-begin
+auto me = CefPrintHandlerCppToC::Get(self);
+const int CALLER_CODE=(CefPrintHandlerExt::_typeName << 16) | CefPrintHandlerExt::CefPrintHandlerExt_OnPrintJob_4;
+auto m_callback= me->GetManagedCallBack(CALLER_CODE);
+if(m_callback){
+CefString tmp_arg2 (document_name);
+CefString tmp_arg3 (pdf_file_path);
+CefPrintHandlerExt::OnPrintJobArgs args1(browser,tmp_arg2,tmp_arg3,callback);
+m_callback(CALLER_CODE, &args1.arg);
+ if (((args1.arg.myext_flags >> 21) & 1) == 1){
+ return args1.arg.myext_ret_value;
+}
+}
+//---kneadium-ext-end
+
   // Execute
   bool _retval = CefPrintHandlerCppToC::Get(self)->OnPrintJob(
       CefBrowserCToCpp::Wrap(browser), CefString(document_name),
@@ -143,6 +203,19 @@ print_handler_on_print_reset(struct _cef_print_handler_t* self,
   if (!browser)
     return;
 
+//---kneadium-ext-begin
+auto me = CefPrintHandlerCppToC::Get(self);
+const int CALLER_CODE=(CefPrintHandlerExt::_typeName << 16) | CefPrintHandlerExt::CefPrintHandlerExt_OnPrintReset_5;
+auto m_callback= me->GetManagedCallBack(CALLER_CODE);
+if(m_callback){
+CefPrintHandlerExt::OnPrintResetArgs args1(browser);
+m_callback(CALLER_CODE, &args1.arg);
+ if (((args1.arg.myext_flags >> 21) & 1) == 1){
+return;
+}
+}
+//---kneadium-ext-end
+
   // Execute
   CefPrintHandlerCppToC::Get(self)->OnPrintReset(
       CefBrowserCToCpp::Wrap(browser));
@@ -156,6 +229,19 @@ print_handler_get_pdf_paper_size(struct _cef_print_handler_t* self,
   DCHECK(self);
   if (!self)
     return CefSize();
+
+//---kneadium-ext-begin
+auto me = CefPrintHandlerCppToC::Get(self);
+const int CALLER_CODE=(CefPrintHandlerExt::_typeName << 16) | CefPrintHandlerExt::CefPrintHandlerExt_GetPdfPaperSize_6;
+auto m_callback= me->GetManagedCallBack(CALLER_CODE);
+if(m_callback){
+CefPrintHandlerExt::GetPdfPaperSizeArgs args1(device_units_per_inch);
+m_callback(CALLER_CODE, &args1.arg);
+ if (((args1.arg.myext_flags >> 21) & 1) == 1){
+ return args1.arg.myext_ret_value;
+}
+}
+//---kneadium-ext-end
 
   // Execute
   cef_size_t _retval =

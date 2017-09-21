@@ -1,3 +1,4 @@
+//---THIS-FILE-IS-PATCHED , org=D:\projects\cef_binary_3.3071.1647.win32\cpptoc\domvisitor_cpptoc.cc
 // Copyright (c) 2017 The Chromium Embedded Framework Authors. All rights
 // reserved. Use of this source code is governed by a BSD-style license that
 // can be found in the LICENSE file.
@@ -15,6 +16,11 @@
 #include "libcef_dll/cpptoc/domvisitor_cpptoc.h"
 #include "libcef_dll/ctocpp/domdocument_ctocpp.h"
 
+//---kneadium-ext-begin
+#include "../myext/ExportFuncAuto.h"
+#include "../myext/InternalHeaderForExportFunc.h"
+//---kneadium-ext-end
+
 namespace {
 
 // MEMBER FUNCTIONS - Body may be edited by hand.
@@ -30,6 +36,19 @@ void CEF_CALLBACK domvisitor_visit(struct _cef_domvisitor_t* self,
   DCHECK(document);
   if (!document)
     return;
+
+//---kneadium-ext-begin
+auto me = CefDOMVisitorCppToC::Get(self);
+const int CALLER_CODE=(CefDOMVisitorExt::_typeName << 16) | CefDOMVisitorExt::CefDOMVisitorExt_Visit_1;
+auto m_callback= me->GetManagedCallBack(CALLER_CODE);
+if(m_callback){
+CefDOMVisitorExt::VisitArgs args1(document);
+m_callback(CALLER_CODE, &args1.arg);
+ if (((args1.arg.myext_flags >> 21) & 1) == 1){
+return;
+}
+}
+//---kneadium-ext-end
 
   // Execute
   CefDOMVisitorCppToC::Get(self)->Visit(CefDOMDocumentCToCpp::Wrap(document));

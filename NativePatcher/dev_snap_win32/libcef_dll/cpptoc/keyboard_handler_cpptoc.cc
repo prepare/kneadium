@@ -1,3 +1,4 @@
+//---THIS-FILE-IS-PATCHED , org=D:\projects\cef_binary_3.3071.1647.win32\cpptoc\keyboard_handler_cpptoc.cc
 // Copyright (c) 2017 The Chromium Embedded Framework Authors. All rights
 // reserved. Use of this source code is governed by a BSD-style license that
 // can be found in the LICENSE file.
@@ -15,116 +16,147 @@
 #include "libcef_dll/cpptoc/keyboard_handler_cpptoc.h"
 #include "libcef_dll/ctocpp/browser_ctocpp.h"
 
+//---kneadium-ext-begin
+#include "../myext/ExportFuncAuto.h"
+#include "../myext/InternalHeaderForExportFunc.h"
+//---kneadium-ext-end
+
 namespace {
 
-// MEMBER FUNCTIONS - Body may be edited by hand.
+	// MEMBER FUNCTIONS - Body may be edited by hand.
 
-int CEF_CALLBACK
-keyboard_handler_on_pre_key_event(struct _cef_keyboard_handler_t* self,
-                                  cef_browser_t* browser,
-                                  const struct _cef_key_event_t* event,
-                                  cef_event_handle_t os_event,
-                                  int* is_keyboard_shortcut) {
-  // AUTO-GENERATED CONTENT - DELETE THIS COMMENT BEFORE MODIFYING
+	int CEF_CALLBACK
+		keyboard_handler_on_pre_key_event(struct _cef_keyboard_handler_t* self,
+			cef_browser_t* browser,
+			const struct _cef_key_event_t* event,
+			cef_event_handle_t os_event,
+			int* is_keyboard_shortcut) {
+		// AUTO-GENERATED CONTENT - DELETE THIS COMMENT BEFORE MODIFYING
 
-  DCHECK(self);
-  if (!self)
-    return 0;
-  // Verify param: browser; type: refptr_diff
-  DCHECK(browser);
-  if (!browser)
-    return 0;
-  // Verify param: event; type: struct_byref_const
-  DCHECK(event);
-  if (!event)
-    return 0;
-  // Verify param: is_keyboard_shortcut; type: bool_byaddr
-  DCHECK(is_keyboard_shortcut);
-  if (!is_keyboard_shortcut)
-    return 0;
+		DCHECK(self);
+		if (!self)
+			return 0;
+		// Verify param: browser; type: refptr_diff
+		DCHECK(browser);
+		if (!browser)
+			return 0;
+		// Verify param: event; type: struct_byref_const
+		DCHECK(event);
+		if (!event)
+			return 0;
+		// Verify param: is_keyboard_shortcut; type: bool_byaddr
+		DCHECK(is_keyboard_shortcut);
+		if (!is_keyboard_shortcut)
+			return 0;
 
-  // Translate param: event; type: struct_byref_const
-  CefKeyEvent eventObj;
-  if (event)
-    eventObj.Set(*event, false);
-  // Translate param: is_keyboard_shortcut; type: bool_byaddr
-  bool is_keyboard_shortcutBool =
-      (is_keyboard_shortcut && *is_keyboard_shortcut) ? true : false;
+		// Translate param: event; type: struct_byref_const
+		CefKeyEvent eventObj;
+		if (event)
+			eventObj.Set(*event, false);
+		// Translate param: is_keyboard_shortcut; type: bool_byaddr
+		bool is_keyboard_shortcutBool =
+			(is_keyboard_shortcut && *is_keyboard_shortcut) ? true : false;
 
-  // Execute
-  bool _retval = CefKeyboardHandlerCppToC::Get(self)->OnPreKeyEvent(
-      CefBrowserCToCpp::Wrap(browser), eventObj, os_event,
-      &is_keyboard_shortcutBool);
+		//---kneadium-ext-begin
+		auto me = CefKeyboardHandlerCppToC::Get(self);
+		const int CALLER_CODE = (CefKeyboardHandlerExt::_typeName << 16) | CefKeyboardHandlerExt::CefKeyboardHandlerExt_OnPreKeyEvent_1;
+		auto m_callback = me->GetManagedCallBack(CALLER_CODE);
+		if (m_callback) {
+			CefKeyboardHandlerExt::OnPreKeyEventArgs args1(browser, &eventObj, os_event, &is_keyboard_shortcutBool);
+			m_callback(CALLER_CODE, &args1.arg);
+			if (((args1.arg.myext_flags >> 21) & 1) == 1) {
+				return args1.arg.myext_ret_value;
+			}
+		}
+		//---kneadium-ext-end
 
-  // Restore param: is_keyboard_shortcut; type: bool_byaddr
-  if (is_keyboard_shortcut)
-    *is_keyboard_shortcut = is_keyboard_shortcutBool ? true : false;
+		  // Execute
+		bool _retval = CefKeyboardHandlerCppToC::Get(self)->OnPreKeyEvent(
+			CefBrowserCToCpp::Wrap(browser), eventObj, os_event,
+			&is_keyboard_shortcutBool);
 
-  // Return type: bool
-  return _retval;
-}
+		// Restore param: is_keyboard_shortcut; type: bool_byaddr
+		if (is_keyboard_shortcut)
+			*is_keyboard_shortcut = is_keyboard_shortcutBool ? true : false;
 
-int CEF_CALLBACK
-keyboard_handler_on_key_event(struct _cef_keyboard_handler_t* self,
-                              cef_browser_t* browser,
-                              const struct _cef_key_event_t* event,
-                              cef_event_handle_t os_event) {
-  // AUTO-GENERATED CONTENT - DELETE THIS COMMENT BEFORE MODIFYING
+		// Return type: bool
+		return _retval;
+	}
 
-  DCHECK(self);
-  if (!self)
-    return 0;
-  // Verify param: browser; type: refptr_diff
-  DCHECK(browser);
-  if (!browser)
-    return 0;
-  // Verify param: event; type: struct_byref_const
-  DCHECK(event);
-  if (!event)
-    return 0;
+	int CEF_CALLBACK
+		keyboard_handler_on_key_event(struct _cef_keyboard_handler_t* self,
+			cef_browser_t* browser,
+			const struct _cef_key_event_t* event,
+			cef_event_handle_t os_event) {
+		// AUTO-GENERATED CONTENT - DELETE THIS COMMENT BEFORE MODIFYING
 
-  // Translate param: event; type: struct_byref_const
-  CefKeyEvent eventObj;
-  if (event)
-    eventObj.Set(*event, false);
+		DCHECK(self);
+		if (!self)
+			return 0;
+		// Verify param: browser; type: refptr_diff
+		DCHECK(browser);
+		if (!browser)
+			return 0;
+		// Verify param: event; type: struct_byref_const
+		DCHECK(event);
+		if (!event)
+			return 0;
 
-  // Execute
-  bool _retval = CefKeyboardHandlerCppToC::Get(self)->OnKeyEvent(
-      CefBrowserCToCpp::Wrap(browser), eventObj, os_event);
+		// Translate param: event; type: struct_byref_const
+		CefKeyEvent eventObj;
+		if (event)
+			eventObj.Set(*event, false);
 
-  // Return type: bool
-  return _retval;
-}
+		//---kneadium-ext-begin
+		auto me = CefKeyboardHandlerCppToC::Get(self);
+		const int CALLER_CODE = (CefKeyboardHandlerExt::_typeName << 16) | CefKeyboardHandlerExt::CefKeyboardHandlerExt_OnKeyEvent_2;
+		auto m_callback = me->GetManagedCallBack(CALLER_CODE);
+		if (m_callback) {
+			CefKeyboardHandlerExt::OnKeyEventArgs args1(browser, &eventObj, os_event);
+			m_callback(CALLER_CODE, &args1.arg);
+			if (((args1.arg.myext_flags >> 21) & 1) == 1) {
+				return args1.arg.myext_ret_value;
+			}
+		}
+		//---kneadium-ext-end
+
+		  // Execute
+		bool _retval = CefKeyboardHandlerCppToC::Get(self)->OnKeyEvent(
+			CefBrowserCToCpp::Wrap(browser), eventObj, os_event);
+
+		// Return type: bool
+		return _retval;
+	}
 
 }  // namespace
 
 // CONSTRUCTOR - Do not edit by hand.
 
 CefKeyboardHandlerCppToC::CefKeyboardHandlerCppToC() {
-  GetStruct()->on_pre_key_event = keyboard_handler_on_pre_key_event;
-  GetStruct()->on_key_event = keyboard_handler_on_key_event;
+	GetStruct()->on_pre_key_event = keyboard_handler_on_pre_key_event;
+	GetStruct()->on_key_event = keyboard_handler_on_key_event;
 }
 
 template <>
 CefRefPtr<CefKeyboardHandler> CefCppToCRefCounted<
-    CefKeyboardHandlerCppToC,
-    CefKeyboardHandler,
-    cef_keyboard_handler_t>::UnwrapDerived(CefWrapperType type,
-                                           cef_keyboard_handler_t* s) {
-  NOTREACHED() << "Unexpected class type: " << type;
-  return NULL;
+	CefKeyboardHandlerCppToC,
+	CefKeyboardHandler,
+	cef_keyboard_handler_t>::UnwrapDerived(CefWrapperType type,
+		cef_keyboard_handler_t* s) {
+	NOTREACHED() << "Unexpected class type: " << type;
+	return NULL;
 }
 
 #if DCHECK_IS_ON()
 template <>
 base::AtomicRefCount CefCppToCRefCounted<CefKeyboardHandlerCppToC,
-                                         CefKeyboardHandler,
-                                         cef_keyboard_handler_t>::DebugObjCt =
-    0;
+	CefKeyboardHandler,
+	cef_keyboard_handler_t>::DebugObjCt =
+	0;
 #endif
 
 template <>
 CefWrapperType CefCppToCRefCounted<CefKeyboardHandlerCppToC,
-                                   CefKeyboardHandler,
-                                   cef_keyboard_handler_t>::kWrapperType =
-    WT_KEYBOARD_HANDLER;
+	CefKeyboardHandler,
+	cef_keyboard_handler_t>::kWrapperType =
+	WT_KEYBOARD_HANDLER;
