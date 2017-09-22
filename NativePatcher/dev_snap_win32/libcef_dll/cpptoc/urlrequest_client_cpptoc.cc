@@ -24,236 +24,236 @@
 
 namespace {
 
-// MEMBER FUNCTIONS - Body may be edited by hand.
+	// MEMBER FUNCTIONS - Body may be edited by hand.
 
-void CEF_CALLBACK
-urlrequest_client_on_request_complete(struct _cef_urlrequest_client_t* self,
-                                      cef_urlrequest_t* request) {
-  // AUTO-GENERATED CONTENT - DELETE THIS COMMENT BEFORE MODIFYING
+	void CEF_CALLBACK
+		urlrequest_client_on_request_complete(struct _cef_urlrequest_client_t* self,
+			cef_urlrequest_t* request) {
+		// AUTO-GENERATED CONTENT - DELETE THIS COMMENT BEFORE MODIFYING
 
-  DCHECK(self);
-  if (!self)
-    return;
-  // Verify param: request; type: refptr_diff
-  DCHECK(request);
-  if (!request)
-    return;
+		DCHECK(self);
+		if (!self)
+			return;
+		// Verify param: request; type: refptr_diff
+		DCHECK(request);
+		if (!request)
+			return;
 
-//---kneadium-ext-begin
+		//---kneadium-ext-begin
 #if ENABLE_KNEADIUM_EXT
-auto me = CefURLRequestClientCppToC::Get(self);
-const int CALLER_CODE=(CefURLRequestClientExt::_typeName << 16) | CefURLRequestClientExt::CefURLRequestClientExt_OnRequestComplete_1;
-auto m_callback= me->GetManagedCallBack(CALLER_CODE);
-if(m_callback){
-CefURLRequestClientExt::OnRequestCompleteArgs args1(request);
-m_callback(CALLER_CODE, &args1.arg);
- if (((args1.arg.myext_flags >> 21) & 1) == 1){
-return;
-}
-}
+		auto me = CefURLRequestClientCppToC::Get(self);
+		const int CALLER_CODE = (CefURLRequestClientExt::_typeName << 16) | CefURLRequestClientExt::CefURLRequestClientExt_OnRequestComplete_1;
+		auto m_callback = me->GetManagedCallBack(CALLER_CODE);
+		if (m_callback) {
+			CefURLRequestClientExt::OnRequestCompleteArgs args1(request);
+			m_callback(CALLER_CODE, &args1.arg);
+			if (((args1.arg.myext_flags >> 21) & 1) == 1) {
+				return;
+			}
+		}
 #endif
-//---kneadium-ext-end
+		//---kneadium-ext-end
 
-  // Execute
-  CefURLRequestClientCppToC::Get(self)->OnRequestComplete(
-      CefURLRequestCToCpp::Wrap(request));
-}
+		  // Execute
+		CefURLRequestClientCppToC::Get(self)->OnRequestComplete(
+			CefURLRequestCToCpp::Wrap(request));
+	}
 
-void CEF_CALLBACK
-urlrequest_client_on_upload_progress(struct _cef_urlrequest_client_t* self,
-                                     cef_urlrequest_t* request,
-                                     int64 current,
-                                     int64 total) {
-  // AUTO-GENERATED CONTENT - DELETE THIS COMMENT BEFORE MODIFYING
+	void CEF_CALLBACK
+		urlrequest_client_on_upload_progress(struct _cef_urlrequest_client_t* self,
+			cef_urlrequest_t* request,
+			int64 current,
+			int64 total) {
+		// AUTO-GENERATED CONTENT - DELETE THIS COMMENT BEFORE MODIFYING
 
-  DCHECK(self);
-  if (!self)
-    return;
-  // Verify param: request; type: refptr_diff
-  DCHECK(request);
-  if (!request)
-    return;
+		DCHECK(self);
+		if (!self)
+			return;
+		// Verify param: request; type: refptr_diff
+		DCHECK(request);
+		if (!request)
+			return;
 
-//---kneadium-ext-begin
+		//---kneadium-ext-begin
 #if ENABLE_KNEADIUM_EXT
-auto me = CefURLRequestClientCppToC::Get(self);
-const int CALLER_CODE=(CefURLRequestClientExt::_typeName << 16) | CefURLRequestClientExt::CefURLRequestClientExt_OnUploadProgress_2;
-auto m_callback= me->GetManagedCallBack(CALLER_CODE);
-if(m_callback){
-CefURLRequestClientExt::OnUploadProgressArgs args1(request,current,total);
-m_callback(CALLER_CODE, &args1.arg);
- if (((args1.arg.myext_flags >> 21) & 1) == 1){
-return;
-}
-}
+		auto me = CefURLRequestClientCppToC::Get(self);
+		const int CALLER_CODE = (CefURLRequestClientExt::_typeName << 16) | CefURLRequestClientExt::CefURLRequestClientExt_OnUploadProgress_2;
+		auto m_callback = me->GetManagedCallBack(CALLER_CODE);
+		if (m_callback) {
+			CefURLRequestClientExt::OnUploadProgressArgs args1(request, current, total);
+			m_callback(CALLER_CODE, &args1.arg);
+			if (((args1.arg.myext_flags >> 21) & 1) == 1) {
+				return;
+			}
+		}
 #endif
-//---kneadium-ext-end
+		//---kneadium-ext-end
 
-  // Execute
-  CefURLRequestClientCppToC::Get(self)->OnUploadProgress(
-      CefURLRequestCToCpp::Wrap(request), current, total);
-}
+		  // Execute
+		CefURLRequestClientCppToC::Get(self)->OnUploadProgress(
+			CefURLRequestCToCpp::Wrap(request), current, total);
+	}
 
-void CEF_CALLBACK
-urlrequest_client_on_download_progress(struct _cef_urlrequest_client_t* self,
-                                       cef_urlrequest_t* request,
-                                       int64 current,
-                                       int64 total) {
-  // AUTO-GENERATED CONTENT - DELETE THIS COMMENT BEFORE MODIFYING
+	void CEF_CALLBACK
+		urlrequest_client_on_download_progress(struct _cef_urlrequest_client_t* self,
+			cef_urlrequest_t* request,
+			int64 current,
+			int64 total) {
+		// AUTO-GENERATED CONTENT - DELETE THIS COMMENT BEFORE MODIFYING
 
-  DCHECK(self);
-  if (!self)
-    return;
-  // Verify param: request; type: refptr_diff
-  DCHECK(request);
-  if (!request)
-    return;
+		DCHECK(self);
+		if (!self)
+			return;
+		// Verify param: request; type: refptr_diff
+		DCHECK(request);
+		if (!request)
+			return;
 
-//---kneadium-ext-begin
+		//---kneadium-ext-begin
 #if ENABLE_KNEADIUM_EXT
-auto me = CefURLRequestClientCppToC::Get(self);
-const int CALLER_CODE=(CefURLRequestClientExt::_typeName << 16) | CefURLRequestClientExt::CefURLRequestClientExt_OnDownloadProgress_3;
-auto m_callback= me->GetManagedCallBack(CALLER_CODE);
-if(m_callback){
-CefURLRequestClientExt::OnDownloadProgressArgs args1(request,current,total);
-m_callback(CALLER_CODE, &args1.arg);
- if (((args1.arg.myext_flags >> 21) & 1) == 1){
-return;
-}
-}
+		auto me = CefURLRequestClientCppToC::Get(self);
+		const int CALLER_CODE = (CefURLRequestClientExt::_typeName << 16) | CefURLRequestClientExt::CefURLRequestClientExt_OnDownloadProgress_3;
+		auto m_callback = me->GetManagedCallBack(CALLER_CODE);
+		if (m_callback) {
+			CefURLRequestClientExt::OnDownloadProgressArgs args1(request, current, total);
+			m_callback(CALLER_CODE, &args1.arg);
+			if (((args1.arg.myext_flags >> 21) & 1) == 1) {
+				return;
+			}
+		}
 #endif
-//---kneadium-ext-end
+		//---kneadium-ext-end
 
-  // Execute
-  CefURLRequestClientCppToC::Get(self)->OnDownloadProgress(
-      CefURLRequestCToCpp::Wrap(request), current, total);
-}
+		  // Execute
+		CefURLRequestClientCppToC::Get(self)->OnDownloadProgress(
+			CefURLRequestCToCpp::Wrap(request), current, total);
+	}
 
-void CEF_CALLBACK
-urlrequest_client_on_download_data(struct _cef_urlrequest_client_t* self,
-                                   cef_urlrequest_t* request,
-                                   const void* data,
-                                   size_t data_length) {
-  // AUTO-GENERATED CONTENT - DELETE THIS COMMENT BEFORE MODIFYING
+	void CEF_CALLBACK
+		urlrequest_client_on_download_data(struct _cef_urlrequest_client_t* self,
+			cef_urlrequest_t* request,
+			const void* data,
+			size_t data_length) {
+		// AUTO-GENERATED CONTENT - DELETE THIS COMMENT BEFORE MODIFYING
 
-  DCHECK(self);
-  if (!self)
-    return;
-  // Verify param: request; type: refptr_diff
-  DCHECK(request);
-  if (!request)
-    return;
-  // Verify param: data; type: simple_byaddr
-  DCHECK(data);
-  if (!data)
-    return;
+		DCHECK(self);
+		if (!self)
+			return;
+		// Verify param: request; type: refptr_diff
+		DCHECK(request);
+		if (!request)
+			return;
+		// Verify param: data; type: simple_byaddr
+		DCHECK(data);
+		if (!data)
+			return;
 
-//---kneadium-ext-begin
+		//---kneadium-ext-begin
 #if ENABLE_KNEADIUM_EXT
-auto me = CefURLRequestClientCppToC::Get(self);
-const int CALLER_CODE=(CefURLRequestClientExt::_typeName << 16) | CefURLRequestClientExt::CefURLRequestClientExt_OnDownloadData_4;
-auto m_callback= me->GetManagedCallBack(CALLER_CODE);
-if(m_callback){
-CefURLRequestClientExt::OnDownloadDataArgs args1(request,data,data_length);
-m_callback(CALLER_CODE, &args1.arg);
- if (((args1.arg.myext_flags >> 21) & 1) == 1){
-return;
-}
-}
+		auto me = CefURLRequestClientCppToC::Get(self);
+		const int CALLER_CODE = (CefURLRequestClientExt::_typeName << 16) | CefURLRequestClientExt::CefURLRequestClientExt_OnDownloadData_4;
+		auto m_callback = me->GetManagedCallBack(CALLER_CODE);
+		if (m_callback) {
+			CefURLRequestClientExt::OnDownloadDataArgs args1(request, data, data_length);
+			m_callback(CALLER_CODE, &args1.arg);
+			if (((args1.arg.myext_flags >> 21) & 1) == 1) {
+				return;
+			}
+		}
 #endif
-//---kneadium-ext-end
+		//---kneadium-ext-end
 
-  // Execute
-  CefURLRequestClientCppToC::Get(self)->OnDownloadData(
-      CefURLRequestCToCpp::Wrap(request), data, data_length);
-}
+		  // Execute
+		CefURLRequestClientCppToC::Get(self)->OnDownloadData(
+			CefURLRequestCToCpp::Wrap(request), data, data_length);
+	}
 
-int CEF_CALLBACK
-urlrequest_client_get_auth_credentials(struct _cef_urlrequest_client_t* self,
-                                       int isProxy,
-                                       const cef_string_t* host,
-                                       int port,
-                                       const cef_string_t* realm,
-                                       const cef_string_t* scheme,
-                                       cef_auth_callback_t* callback) {
-  // AUTO-GENERATED CONTENT - DELETE THIS COMMENT BEFORE MODIFYING
+	int CEF_CALLBACK
+		urlrequest_client_get_auth_credentials(struct _cef_urlrequest_client_t* self,
+			int isProxy,
+			const cef_string_t* host,
+			int port,
+			const cef_string_t* realm,
+			const cef_string_t* scheme,
+			cef_auth_callback_t* callback) {
+		// AUTO-GENERATED CONTENT - DELETE THIS COMMENT BEFORE MODIFYING
 
-  DCHECK(self);
-  if (!self)
-    return 0;
-  // Verify param: host; type: string_byref_const
-  DCHECK(host);
-  if (!host)
-    return 0;
-  // Verify param: scheme; type: string_byref_const
-  DCHECK(scheme);
-  if (!scheme)
-    return 0;
-  // Verify param: callback; type: refptr_diff
-  DCHECK(callback);
-  if (!callback)
-    return 0;
-  // Unverified params: realm
+		DCHECK(self);
+		if (!self)
+			return 0;
+		// Verify param: host; type: string_byref_const
+		DCHECK(host);
+		if (!host)
+			return 0;
+		// Verify param: scheme; type: string_byref_const
+		DCHECK(scheme);
+		if (!scheme)
+			return 0;
+		// Verify param: callback; type: refptr_diff
+		DCHECK(callback);
+		if (!callback)
+			return 0;
+		// Unverified params: realm
 
-//---kneadium-ext-begin
+	  //---kneadium-ext-begin
 #if ENABLE_KNEADIUM_EXT
-auto me = CefURLRequestClientCppToC::Get(self);
-const int CALLER_CODE=(CefURLRequestClientExt::_typeName << 16) | CefURLRequestClientExt::CefURLRequestClientExt_GetAuthCredentials_5;
-auto m_callback= me->GetManagedCallBack(CALLER_CODE);
-if(m_callback){
-CefString tmp_arg2 (host);
-CefString tmp_arg4 (realm);
-CefString tmp_arg5 (scheme);
-CefURLRequestClientExt::GetAuthCredentialsArgs args1(isProxy,tmp_arg2,port,tmp_arg4,tmp_arg5,callback);
-m_callback(CALLER_CODE, &args1.arg);
- if (((args1.arg.myext_flags >> 21) & 1) == 1){
- return args1.arg.myext_ret_value;
-}
-}
+		auto me = CefURLRequestClientCppToC::Get(self);
+		const int CALLER_CODE = (CefURLRequestClientExt::_typeName << 16) | CefURLRequestClientExt::CefURLRequestClientExt_GetAuthCredentials_5;
+		auto m_callback = me->GetManagedCallBack(CALLER_CODE);
+		if (m_callback) {
+			CefString tmp_arg2(host);
+			CefString tmp_arg4(realm);
+			CefString tmp_arg5(scheme);
+			CefURLRequestClientExt::GetAuthCredentialsArgs args1(isProxy, tmp_arg2, port, tmp_arg4, tmp_arg5, callback);
+			m_callback(CALLER_CODE, &args1.arg);
+			if (((args1.arg.myext_flags >> 21) & 1) == 1) {
+				return args1.arg.myext_ret_value;
+			}
+		}
 #endif
-//---kneadium-ext-end
+		//---kneadium-ext-end
 
-  // Execute
-  bool _retval = CefURLRequestClientCppToC::Get(self)->GetAuthCredentials(
-      isProxy ? true : false, CefString(host), port, CefString(realm),
-      CefString(scheme), CefAuthCallbackCToCpp::Wrap(callback));
+		  // Execute
+		bool _retval = CefURLRequestClientCppToC::Get(self)->GetAuthCredentials(
+			isProxy ? true : false, CefString(host), port, CefString(realm),
+			CefString(scheme), CefAuthCallbackCToCpp::Wrap(callback));
 
-  // Return type: bool
-  return _retval;
-}
+		// Return type: bool
+		return _retval;
+	}
 
 }  // namespace
 
 // CONSTRUCTOR - Do not edit by hand.
 
 CefURLRequestClientCppToC::CefURLRequestClientCppToC() {
-  GetStruct()->on_request_complete = urlrequest_client_on_request_complete;
-  GetStruct()->on_upload_progress = urlrequest_client_on_upload_progress;
-  GetStruct()->on_download_progress = urlrequest_client_on_download_progress;
-  GetStruct()->on_download_data = urlrequest_client_on_download_data;
-  GetStruct()->get_auth_credentials = urlrequest_client_get_auth_credentials;
+	GetStruct()->on_request_complete = urlrequest_client_on_request_complete;
+	GetStruct()->on_upload_progress = urlrequest_client_on_upload_progress;
+	GetStruct()->on_download_progress = urlrequest_client_on_download_progress;
+	GetStruct()->on_download_data = urlrequest_client_on_download_data;
+	GetStruct()->get_auth_credentials = urlrequest_client_get_auth_credentials;
 }
 
 template <>
 CefRefPtr<CefURLRequestClient> CefCppToCRefCounted<
-    CefURLRequestClientCppToC,
-    CefURLRequestClient,
-    cef_urlrequest_client_t>::UnwrapDerived(CefWrapperType type,
-                                            cef_urlrequest_client_t* s) {
-  NOTREACHED() << "Unexpected class type: " << type;
-  return NULL;
+	CefURLRequestClientCppToC,
+	CefURLRequestClient,
+	cef_urlrequest_client_t>::UnwrapDerived(CefWrapperType type,
+		cef_urlrequest_client_t* s) {
+	NOTREACHED() << "Unexpected class type: " << type;
+	return NULL;
 }
 
 #if DCHECK_IS_ON()
 template <>
 base::AtomicRefCount CefCppToCRefCounted<CefURLRequestClientCppToC,
-                                         CefURLRequestClient,
-                                         cef_urlrequest_client_t>::DebugObjCt =
-    0;
+	CefURLRequestClient,
+	cef_urlrequest_client_t>::DebugObjCt =
+	0;
 #endif
 
 template <>
 CefWrapperType CefCppToCRefCounted<CefURLRequestClientCppToC,
-                                   CefURLRequestClient,
-                                   cef_urlrequest_client_t>::kWrapperType =
-    WT_URLREQUEST_CLIENT;
+	CefURLRequestClient,
+	cef_urlrequest_client_t>::kWrapperType =
+	WT_URLREQUEST_CLIENT;
