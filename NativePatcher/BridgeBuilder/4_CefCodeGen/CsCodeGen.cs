@@ -661,28 +661,49 @@ namespace BridgeBuilder
     {
         public void GenerateCefNativeRequestHandlers(List<CefHandlerTx> handlerPlans, StringBuilder stbuilder)
         {
-            CodeStringBuilder cef_NativeReqHandlers_Class = new CodeStringBuilder();
-            cef_NativeReqHandlers_Class.AppendLine("//CsNativeHandlerSwitchTableCodeGen::GenerateCefNativeRequestHandlers");
+            CodeStringBuilder csCodeBuilder = new CodeStringBuilder();
+            csCodeBuilder.AppendLine("//CsNativeHandlerSwitchTableCodeGen::GenerateCefNativeRequestHandlers");
             //
-            cef_NativeReqHandlers_Class.AppendLine("//------ common cef handler swicth table---------");
-            cef_NativeReqHandlers_Class.AppendLine("public static class CefNativeRequestHandlers{");
-            cef_NativeReqHandlers_Class.AppendLine("public static void HandleNativeReq(object inst, int met_id,IntPtr args){");
-            cef_NativeReqHandlers_Class.AppendLine("switch((met_id>>16)){");
+            csCodeBuilder.AppendLine("//------ common cef handler swicth table---------");
+            csCodeBuilder.AppendLine("public static class CefNativeRequestHandlers{");
+            //--------------------------------------------------
+            GenerateHandleNativeReq(handlerPlans, csCodeBuilder);
+            GenerateHandleNativeReq_I0(handlerPlans, csCodeBuilder);
+            //--------------------------------------------------
+
+            csCodeBuilder.AppendLine("}");
+            //add to cs code
+            stbuilder.Append(csCodeBuilder.ToString());
+        }
+        void GenerateHandleNativeReq(List<CefHandlerTx> handlerPlans, CodeStringBuilder codeBuilder)
+        {
+            codeBuilder.AppendLine("//CsNativeHandlerSwitchTableCodeGen::GenerateHandleNativeReq");
+            codeBuilder.AppendLine("public static void HandleNativeReq(object inst, int met_id,IntPtr args){");
+            codeBuilder.AppendLine("switch((met_id>>16)){");
             foreach (CefHandlerTx tx in handlerPlans)
             {
-                cef_NativeReqHandlers_Class.AppendLine("case " + tx.OriginalDecl.Name + "._typeNAME:{");
-                cef_NativeReqHandlers_Class.AppendLine(tx.OriginalDecl.Name + ".HandleNativeReq(inst as " + tx.OriginalDecl.Name + ".I0," +
+                codeBuilder.AppendLine("case " + tx.OriginalDecl.Name + "._typeNAME:");
+                codeBuilder.AppendLine(tx.OriginalDecl.Name + ".HandleNativeReq(inst as " + tx.OriginalDecl.Name + ".I0," +
                         " inst as " + tx.OriginalDecl.Name + ".I1,met_id,args);");
-                cef_NativeReqHandlers_Class.AppendLine("}break;");
+                codeBuilder.AppendLine("break;");
             }
-            //--------
-            //create handle common switch table
-            cef_NativeReqHandlers_Class.AppendLine("}");//switch
-            cef_NativeReqHandlers_Class.AppendLine("}");//HandleNativeReq()
-            cef_NativeReqHandlers_Class.AppendLine("}");
-
-            //add to cs code
-            stbuilder.Append(cef_NativeReqHandlers_Class.ToString());
+            codeBuilder.AppendLine("}");//switch
+            codeBuilder.AppendLine("}");//HandleNativeReq()
+        }
+        void GenerateHandleNativeReq_I0(List<CefHandlerTx> handlerPlans, CodeStringBuilder codeBuilder)
+        {
+            codeBuilder.AppendLine("//CsNativeHandlerSwitchTableCodeGen::GenerateHandleNativeReq_I0");
+            codeBuilder.AppendLine("public static void HandleNativeReq_I0(object inst, int met_id,IntPtr args){");
+            codeBuilder.AppendLine("switch((met_id>>16)){");
+            foreach (CefHandlerTx tx in handlerPlans)
+            {
+                codeBuilder.AppendLine("case " + tx.OriginalDecl.Name + "._typeNAME:");
+                codeBuilder.AppendLine(tx.OriginalDecl.Name + ".HandleNativeReq_I0(inst as " + tx.OriginalDecl.Name + ".I0," +
+                        "met_id,args);");
+                codeBuilder.AppendLine("break;");
+            }
+            codeBuilder.AppendLine("}");//switch
+            codeBuilder.AppendLine("}");//HandleNativeReq()
         }
     }
 
