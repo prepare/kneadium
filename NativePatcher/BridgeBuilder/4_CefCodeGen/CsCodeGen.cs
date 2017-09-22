@@ -1208,12 +1208,22 @@ namespace BridgeBuilder
             string nativeArgClassName = met.Name + "NativeArgs";
             stbuilder.AppendLine("public void myext_finish(){");
             stbuilder.AppendLine("unsafe{");
-            stbuilder.AppendLine("((" + nativeArgClassName + "*)this.nativePtr)->argFlags |=CefInternalConst.FINISH_FLAGS;");
+            stbuilder.AppendLine("((" + nativeArgClassName + "*)this.nativePtr)->argFlags |= MyCefArgsHelper.FINISH_FLAGS;");
             stbuilder.AppendLine("}");
             stbuilder.AppendLine("}");
             //--------------
-
-
+            stbuilder.AppendLine("public bool myext_isDone(){");
+            stbuilder.AppendLine("unsafe{");
+            stbuilder.AppendLine("return MyCefArgsHelper.IsDone(((" + nativeArgClassName + "*)this.nativePtr)->argFlags);");
+            stbuilder.AppendLine("}");
+            stbuilder.AppendLine("}");
+            //public bool myext_isDone()
+            //{
+            //    unsafe
+            //    {
+            //        return ((((OnAccessibilityTreeChangeNativeArgs*)this.nativePtr)->argFlags >> 21) & 1) == 1;
+            //    }
+            //}
             //----------------------
             //set return value method
             //public void myext_setReturnType(bool ret)

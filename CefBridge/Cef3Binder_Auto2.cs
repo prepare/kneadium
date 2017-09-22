@@ -3,9 +3,15 @@
 using System;
 namespace LayoutFarm.CefBridge
 {
-    static class CefInternalConst
+    static class MyCefArgsHelper
     {
         public static int FINISH_FLAGS = 1 << 21;
+
+        public static bool IsDone(int flags)
+        {
+            //TODO: inline method
+            return ((flags >> 21) & 1) == 1;
+        }
     }
     public struct CefCursorInfo
     {
