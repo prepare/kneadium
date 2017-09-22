@@ -50,3 +50,5 @@ const int CEF_SETTINGS_IgnoreCertError = 15;
 const int CEF_SETTINGS_RemoteDebuggingPort = 17;
 const int CEF_SETTINGS_LogFile = 18;
 const int CEF_SETTINGS_LogSeverity = 19;
+
+//---------------------------------------------------------------------------------
