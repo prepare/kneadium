@@ -891,7 +891,7 @@ namespace BridgeBuilder
             if (setRetValueToo)
             {
                 stbuilder.Append("args.myext_setRetValue(");
-            } 
+            }
 
             stbuilder.Append("i1.");//instant name
             stbuilder.Append(met.Name);
@@ -1165,11 +1165,8 @@ namespace BridgeBuilder
             stbuilder.AppendLine("IntPtr nativePtr; //met arg native ptr");
 
             stbuilder.AppendLine("internal " + className + "(IntPtr nativePtr){");
+            stbuilder.AppendLine("this.nativePtr = nativePtr;");
 
-            stbuilder.AppendLine(@"int arg_flags;
-                        this.nativePtr = MyMetArgs.GetNativeObjPtr(nativePtr,out arg_flags); 
-                        "
-                        );
             stbuilder.AppendLine("}");
 
             string nativeArgClassName = met.Name + "NativeArgs";
