@@ -3,7 +3,16 @@
 using System;
 namespace LayoutFarm.CefBridge
 {
-     
+    static class MyCefArgsHelper
+    {
+        public static int FINISH_FLAGS = 1 << 21;
+
+        public static bool IsDone(int flags)
+        {
+            //TODO: inline method
+            return ((flags >> 21) & 1) == 1;
+        }
+    }
     public struct CefCursorInfo
     {
         internal IntPtr nativePtr;
@@ -21,7 +30,7 @@ namespace LayoutFarm.CefBridge
             this.nativePtr = nativePtr;
         }
     }
-   
+
     public struct ReturnValue
     {
         internal IntPtr nativePtr;
@@ -252,7 +261,7 @@ namespace LayoutFarm.CefBridge
             this.nativePtr = nativePtr;
         }
     }
-     
+
 
     class CefNotImplementedException : NotImplementedException
     {
