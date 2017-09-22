@@ -140,6 +140,7 @@ namespace LayoutFarm.CefBridge
 
             void CefDisplayHandler.I0.OnConsoleMessage(CefDisplayHandler.OnConsoleMessageArgs args)
             {
+                string msg = args.message();
 
             }
 

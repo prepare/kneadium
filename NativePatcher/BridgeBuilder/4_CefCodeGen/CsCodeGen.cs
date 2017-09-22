@@ -526,13 +526,13 @@ namespace BridgeBuilder
             //-----------------------------------------------------------------------
             csStruct.AppendLine("}");  //close struct 
             //add to stbuilder
-            stbuilder.Append(csStruct.ToString()); 
+            stbuilder.Append(csStruct.ToString());
         }
 
         static int codeGenNum;
         void GenerateCsMethod(MethodPlan met, CodeStringBuilder stbuilder)
         {
-             
+
             if (met.CsLeftMethodBodyBlank) return;  //temp here 
             //---------------------------------------
             //extract managed args and then call native c++ method 
@@ -546,7 +546,7 @@ namespace BridgeBuilder
             //--------------------------- 
             //generate method sig 
             //--------------------------- 
-            stbuilder.AppendLine("//CsCallToNativeCodeGen::GenerateCsMethod , "+ (++codeGenNum));
+            stbuilder.AppendLine("//CsCallToNativeCodeGen::GenerateCsMethod , " + (++codeGenNum));
             stbuilder.Append(
                  "\r\n" +
                  "// gen! " + met.ToString() + "\r\n"
@@ -686,7 +686,9 @@ namespace BridgeBuilder
 
     class CsStructModuleCodeGen : CsCodeGen
     {
-        void PrepareCsMetPars(MethodPlan met)
+        static int codeGenNum;
+
+        static void PrepareCsMetPars(MethodPlan met)
         {
             int j = met.pars.Count;
             for (int i = 0; i < j; ++i)
@@ -718,6 +720,8 @@ namespace BridgeBuilder
             }
 
         }
+
+
         public void GenerateCsStructClass(CodeTypeDeclaration orgDecl, List<MethodPlan> callToDotNetMets, CodeStringBuilder stbuilder)
         {
 
@@ -727,7 +731,10 @@ namespace BridgeBuilder
             //1. singles arg interface
             //2. expanded args interface 
             string className = orgDecl.Name;
-            //create a cpp class              
+            //create a cpp class            
+
+            stbuilder.AppendLine("//CsStructModuleCodeGen:: GenerateCsStructClass ," + (++codeGenNum));
+            //
             stbuilder.Append("public struct " + className);
             stbuilder.AppendLine("{");
             stbuilder.AppendLine("public const int _typeNAME=" + orgDecl.TypePlan.CsInterOpTypeNameId + ";");
@@ -747,8 +754,10 @@ namespace BridgeBuilder
                 //implement on event notificationi
                 MethodPlan met = callToDotNetMets[mm];
                 //prepare data and call the callback                
+
+
                 stbuilder.AppendLine("//gen! " + met.metDecl.ToString());
-               
+
                 //GenerateCsExpandedArgsMethodImpl(met, stbuilder);
                 string argClassName = GenerateCsMethodArgsClass_JsSlot(met, stbuilder);
                 CodeStringBuilder st2 = new CodeStringBuilder();
@@ -766,6 +775,7 @@ namespace BridgeBuilder
             {
                 //implement on event notificationi
                 MethodPlan met = callToDotNetMets[mm];
+                stbuilder.AppendLine("//CsStructModuleCodeGen:: GenerateCsStructClass ," + (++codeGenNum));
                 GenerateCsSingleArgMethodImplForInterface(met.CsArgClassName, met, stbuilder);
             }
             stbuilder.AppendLine("}");
@@ -777,6 +787,7 @@ namespace BridgeBuilder
             {
                 //implement on event notificationi
                 MethodPlan met = callToDotNetMets[mm];
+                stbuilder.AppendLine("//CsStructModuleCodeGen:: GenerateCsStructClass ," + (++codeGenNum));
                 GenerateCsExpandedArgsMethodForInterface(met, stbuilder);
             }
             stbuilder.AppendLine("}");
@@ -790,6 +801,7 @@ namespace BridgeBuilder
             //
             for (int mm = 0; mm < nn; ++mm)
             {
+                stbuilder.AppendLine("//CsStructModuleCodeGen:: GenerateCsStructClass ," + (++codeGenNum));
                 //implement on event notificationi
                 MethodPlan met = callToDotNetMets[mm];
                 stbuilder.AppendLine("case " + met.CppMethodSwitchCaseName + ":{");
@@ -815,6 +827,7 @@ namespace BridgeBuilder
             {
                 //implement on event notificationi
                 MethodPlan met = callToDotNetMets[mm];
+                stbuilder.AppendLine("//CsStructModuleCodeGen:: GenerateCsStructClass ," + (++codeGenNum));
                 GenerateCsSingleArgMethodImplForI1(met.CsArgClassName, met, stbuilder);
             }
             stbuilder.AppendLine("}"); //end class
@@ -947,6 +960,8 @@ namespace BridgeBuilder
 
         string GenerateCsMethodArgsClass_Native(MethodPlan met, CodeStringBuilder stbuilder)
         {
+            stbuilder.AppendLine("//CsStructModuleCodeGen:: GenerateCsMethodArgsClass_Native ," + (++codeGenNum));
+
             //generate cs method pars
             CodeMethodDeclaration metDecl = (CodeMethodDeclaration)met.metDecl;
             List<CodeMethodParameter> pars = metDecl.Parameters;
@@ -956,6 +971,39 @@ namespace BridgeBuilder
             stbuilder.AppendLine("[StructLayout(LayoutKind.Sequential)]");
             stbuilder.AppendLine("struct " + className + "{ "); //this is private struct with explicit layout
             stbuilder.AppendLine("public int argFlags;");
+            //
+            switch (metDecl.ReturnType.Name)
+            {
+                case "void": //no field for void return result
+                    break;
+                default:
+
+                    break;
+                case "int64":
+                    stbuilder.AppendLine("long myext_ret_value;");
+                    break;
+                case "int":
+                case "size_t":
+                    stbuilder.AppendLine("int myext_ret_value;");
+                    break;
+                case "ReturnValue":
+                    //TODO: review here
+                    //temp fix
+                    stbuilder.AppendLine("int myext_ret_value;");
+                    break;
+                case "CefRefPtr":
+                    //return as native handle
+                    stbuilder.AppendLine("IntPtr myext_ret_value;");
+                    break;
+                case "CefSize":
+                    stbuilder.AppendLine("int myext_ret_value_w;"); //width
+                    stbuilder.AppendLine("int myext_ret_value_h;"); //height
+                    break;
+                case "bool":
+                    stbuilder.AppendLine("bool myext_ret_value;");
+                    break;
+            }
+            //-------------------------------------------------
             //
             for (int i = 0; i < j; ++i)
             {
@@ -1083,6 +1131,7 @@ namespace BridgeBuilder
 
         string GenerateCsMethodArgsClass_JsSlot(MethodPlan met, CodeStringBuilder stbuilder)
         {
+            stbuilder.AppendLine("//CsStructModuleCodeGen:: GenerateCsMethodArgsClass_JsSlot ," + (++codeGenNum));
             //generate cs method pars
             CodeMethodDeclaration metDecl = (CodeMethodDeclaration)met.metDecl;
             List<CodeMethodParameter> pars = metDecl.Parameters;
