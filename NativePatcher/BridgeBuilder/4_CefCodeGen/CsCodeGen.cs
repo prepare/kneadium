@@ -774,8 +774,7 @@ namespace BridgeBuilder
             for (int mm = 0; mm < nn; ++mm)
             {
                 //implement on event notificationi
-                MethodPlan met = callToDotNetMets[mm];
-                stbuilder.AppendLine("//CsStructModuleCodeGen:: GenerateCsStructClass ," + (++codeGenNum));
+                MethodPlan met = callToDotNetMets[mm]; 
                 GenerateCsSingleArgMethodImplForInterface(met.CsArgClassName, met, stbuilder);
             }
             stbuilder.AppendLine("}");
@@ -786,8 +785,7 @@ namespace BridgeBuilder
             for (int mm = 0; mm < nn; ++mm)
             {
                 //implement on event notificationi
-                MethodPlan met = callToDotNetMets[mm];
-                stbuilder.AppendLine("//CsStructModuleCodeGen:: GenerateCsStructClass ," + (++codeGenNum));
+                MethodPlan met = callToDotNetMets[mm]; 
                 GenerateCsExpandedArgsMethodForInterface(met, stbuilder);
             }
             stbuilder.AppendLine("}");
@@ -801,7 +799,7 @@ namespace BridgeBuilder
             //
             for (int mm = 0; mm < nn; ++mm)
             {
-                stbuilder.AppendLine("//CsStructModuleCodeGen:: GenerateCsStructClass ," + (++codeGenNum));
+                stbuilder.AppendLine("//CsStructModuleCodeGen:: HandleNativeReq ," + (++codeGenNum));
                 //implement on event notificationi
                 MethodPlan met = callToDotNetMets[mm];
                 stbuilder.AppendLine("case " + met.CppMethodSwitchCaseName + ":{");
@@ -827,7 +825,7 @@ namespace BridgeBuilder
             {
                 //implement on event notificationi
                 MethodPlan met = callToDotNetMets[mm];
-                stbuilder.AppendLine("//CsStructModuleCodeGen:: GenerateCsStructClass ," + (++codeGenNum));
+               
                 GenerateCsSingleArgMethodImplForI1(met.CsArgClassName, met, stbuilder);
             }
             stbuilder.AppendLine("}"); //end class
@@ -835,6 +833,7 @@ namespace BridgeBuilder
 
         void GenerateCsSingleArgMethodImplForI1(string argClassName, MethodPlan met, CodeStringBuilder stbuilder)
         {
+            stbuilder.AppendLine("//CsStructModuleCodeGen:: GenerateCsSingleArgMethodImplForI1 ," + (++codeGenNum));
             CodeMethodDeclaration metDecl = (CodeMethodDeclaration)met.metDecl;
             //temp 
             List<MethodParameter> pars = met.pars;
@@ -849,7 +848,7 @@ namespace BridgeBuilder
         }
         void GenerateCsExpandMethodContent(MethodPlan met, CodeStringBuilder stbuilder)
         {
-
+            stbuilder.AppendLine("//CsStructModuleCodeGen:: GenerateCsExpandMethodContent ," + (++codeGenNum));
             //temp 
             List<MethodParameter> pars = met.pars;
             //call 
@@ -916,7 +915,7 @@ namespace BridgeBuilder
 
         void GenerateCsSingleArgMethodImplForInterface(string argClassName, MethodPlan met, CodeStringBuilder stbuilder)
         {
-
+            stbuilder.AppendLine("//CsStructModuleCodeGen:: GenerateCsSingleArgMethodImplForInterface ," + (++codeGenNum));
             CodeMethodDeclaration metDecl = (CodeMethodDeclaration)met.metDecl;
             //temp 
             List<MethodParameter> pars = met.pars;
@@ -931,6 +930,7 @@ namespace BridgeBuilder
         }
         void GenerateCsExpandedArgsMethodForInterface(MethodPlan met, CodeStringBuilder stbuilder)
         {
+            stbuilder.AppendLine("//CsStructModuleCodeGen:: GenerateCsExpandedArgsMethodForInterface ," + (++codeGenNum));
             CodeMethodDeclaration metDecl = (CodeMethodDeclaration)met.metDecl;
 
             //temp             
