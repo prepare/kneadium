@@ -807,7 +807,7 @@ namespace BridgeBuilder
                 stbuilder.AppendLine("}");
                 //i1 expand interface
                 stbuilder.AppendLine("if(i1 != null){");
-                GenerateCsExpandMethodContent(met, stbuilder);
+                stbuilder.AppendLine(met.Name + "(i1,args);");
                 stbuilder.AppendLine("}");
                 stbuilder.AppendLine("}break;");//case 
             }
@@ -846,10 +846,10 @@ namespace BridgeBuilder
         void GenerateCsExpandMethodContent(MethodPlan met, CodeStringBuilder stbuilder)
         {
             stbuilder.AppendLine("//CsStructModuleCodeGen:: GenerateCsExpandMethodContent ," + (++codeGenNum));
+
             //temp 
             List<MethodParameter> pars = met.pars;
-            //call 
-            stbuilder.AppendLine("//expand args");
+
             int j = pars.Count;
             if (j > 0)
             {
@@ -1165,7 +1165,7 @@ namespace BridgeBuilder
             stbuilder.AppendLine("IntPtr nativePtr; //met arg native ptr");
 
             stbuilder.AppendLine("internal " + className + "(IntPtr nativePtr){");
-            stbuilder.AppendLine("this.nativePtr = nativePtr;"); 
+            stbuilder.AppendLine("this.nativePtr = nativePtr;");
             stbuilder.AppendLine("}");
 
             //--------------
@@ -1177,7 +1177,7 @@ namespace BridgeBuilder
             stbuilder.AppendLine("}");
             //--------------
 
-         
+
             //----------------------
             //set return value method
             //public void myext_setReturnType(bool ret)
