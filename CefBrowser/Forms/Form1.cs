@@ -18,7 +18,7 @@ namespace LayoutFarm.CefBridge
         }
         private void Form1_Load(object sender, EventArgs e)
         {
-            this.cefWebBrowser1.Agent.Listener = new MyCefUIProcessListener();
+            
             this.splitContainer1.SplitterMoved += SplitContainer1_SplitterMoved;
         }
         private void SplitContainer1_SplitterMoved(object sender, SplitterEventArgs e)

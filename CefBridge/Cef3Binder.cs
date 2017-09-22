@@ -7,30 +7,22 @@ namespace System.Runtime.CompilerServices
 {
     public partial class ExtensionAttribute : Attribute { }
 }
-#endif
-
-
+#endif  
 namespace LayoutFarm.CefBridge
 {
 
     public delegate void SimpleDel();
 
     [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-    public delegate void MyCefCallback(int id, IntPtr args);
-
-
-
+    public delegate void MyCefCallback(int id, IntPtr args); 
     //----------------------------------------------------------------------
     //cef msg constant
-    //----------------------------------------------------------------------
-
+    //---------------------------------------------------------------------- 
 
     public enum MyCefMsg
     {
         MYCEF_MSG_UNKNOWN = 0,
-        //
-        CEF_MSG_RequestForMxCallback = 90,
-        //
+        
         CEF_MSG_ClientHandler_NotifyBrowserClosing = 100,
         CEF_MSG_ClientHandler_NotifyBrowserClosed = 101,
         CEF_MSG_ClientHandler_NotifyBrowserCreated = 102,

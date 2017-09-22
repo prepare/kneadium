@@ -60,15 +60,7 @@ namespace LayoutFarm.CefBridge
             {
                 default:
 
-                    break;
-                case MyCefMsg.CEF_MSG_RequestForMxCallback:
-                    {
-
-                        //native side asks for managed callback ... 
-                    }
-                    break;
-                 
-                
+                    break;  
                 case MyCefMsg.CEF_MSG_ClientHandler_ShowDevTools:
                     {
                         //show dev tools
