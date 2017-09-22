@@ -662,6 +662,8 @@ namespace BridgeBuilder
         public void GenerateCefNativeRequestHandlers(List<CefHandlerTx> handlerPlans, StringBuilder stbuilder)
         {
             CodeStringBuilder cef_NativeReqHandlers_Class = new CodeStringBuilder();
+            cef_NativeReqHandlers_Class.AppendLine("//CsNativeHandlerSwitchTableCodeGen::GenerateCefNativeRequestHandlers");
+            //
             cef_NativeReqHandlers_Class.AppendLine("//------ common cef handler swicth table---------");
             cef_NativeReqHandlers_Class.AppendLine("public static class CefNativeRequestHandlers{");
             cef_NativeReqHandlers_Class.AppendLine("public static void HandleNativeReq(object inst, int met_id,IntPtr args){");
@@ -788,6 +790,27 @@ namespace BridgeBuilder
             stbuilder.AppendLine("}");
             //-----------------
 
+            //I0 and I1
+            GenerateHandleNativeReqTable(stbuilder, callToDotNetMets);
+            //I0 only
+            GenerateHandleNativeReqTable_I0(stbuilder, callToDotNetMets);
+            //-----------------
+            //expansion version for i1
+
+            for (int mm = 0; mm < nn; ++mm)
+            {
+                //implement on event notificationi
+                MethodPlan met = callToDotNetMets[mm];
+
+                GenerateCsSingleArgMethodImplForI1(met.CsArgClassName, met, stbuilder);
+            }
+            stbuilder.AppendLine("}"); //end class
+        }
+
+        void GenerateHandleNativeReqTable(CodeStringBuilder stbuilder, List<MethodPlan> callToDotNetMets)
+        {
+            int nn = callToDotNetMets.Count;
+            stbuilder.AppendLine("//CsStructModuleCodeGen::GenerateHandleNativeReqTable ," + (++codeGenNum));
 
             stbuilder.AppendLine("public static void HandleNativeReq(I0 i0, I1 i1, int met_id, IntPtr nativeArgPtr)");
             stbuilder.AppendLine("{");
@@ -814,20 +837,33 @@ namespace BridgeBuilder
 
             stbuilder.AppendLine("}"); //end switch
             stbuilder.AppendLine("}"); //end method
+        }
+        void GenerateHandleNativeReqTable_I0(CodeStringBuilder stbuilder, List<MethodPlan> callToDotNetMets)
+        {
+            int nn = callToDotNetMets.Count;
+            stbuilder.AppendLine("//CsStructModuleCodeGen::GenerateHandleNativeReqTable_I0 ," + (++codeGenNum));
 
-            //-----------------
-            //expansion version for i1
+            stbuilder.AppendLine("public static void HandleNativeReq_I0(I0 i0, int met_id, IntPtr nativeArgPtr)");
+            stbuilder.AppendLine("{");
+            stbuilder.AppendLine("int met_name = met_id & 0xffff;");
 
+            stbuilder.AppendLine("if(i0== null)return;");
+
+            stbuilder.AppendLine("switch (met_name){");
+            //
             for (int mm = 0; mm < nn; ++mm)
             {
                 //implement on event notificationi
                 MethodPlan met = callToDotNetMets[mm];
-
-                GenerateCsSingleArgMethodImplForI1(met.CsArgClassName, met, stbuilder);
+                stbuilder.AppendLine("case " + met.CppMethodSwitchCaseName + ":");
+                //i0 
+                stbuilder.AppendLine("i0." + met.Name + "(new " + met.CsArgClassName + "(nativeArgPtr));");
+                stbuilder.AppendLine("break;");//case 
             }
-            stbuilder.AppendLine("}"); //end class
-        }
 
+            stbuilder.AppendLine("}"); //end switch
+            stbuilder.AppendLine("}"); //end method
+        }
         void GenerateCsSingleArgMethodImplForI1(string argClassName, MethodPlan met, CodeStringBuilder stbuilder)
         {
             stbuilder.AppendLine("//CsStructModuleCodeGen:: GenerateCsSingleArgMethodImplForI1 ," + (++codeGenNum));
@@ -1190,7 +1226,7 @@ namespace BridgeBuilder
             string metReturnTypeName = metDecl.ReturnType.Name;
             if (metReturnTypeName != "void")
             {
-                stbuilder.AppendLine("public void myext_setRetValue(");
+                stbuilder.Append("public void myext_setRetValue(");
 
                 switch (metDecl.ReturnType.Name)
                 {
