@@ -1,3 +1,4 @@
+//---THIS-FILE-WAS-PATCHED , org=D:\projects\cef_binary_3.3071.1647.win32\cpptoc\app_cpptoc.cc
 // Copyright (c) 2017 The Chromium Embedded Framework Authors. All rights
 // reserved. Use of this source code is governed by a BSD-style license that
 // can be found in the LICENSE file.
@@ -19,6 +20,11 @@
 #include "libcef_dll/ctocpp/command_line_ctocpp.h"
 #include "libcef_dll/ctocpp/scheme_registrar_ctocpp.h"
 
+//---kneadium-ext-begin
+#include "../myext/ExportFuncAuto.h"
+#include "../myext/InternalHeaderForExportFunc.h"
+//---kneadium-ext-end
+
 namespace {
 
 // MEMBER FUNCTIONS - Body may be edited by hand.
@@ -37,6 +43,22 @@ void CEF_CALLBACK app_on_before_command_line_processing(
   if (!command_line)
     return;
   // Unverified params: process_type
+
+//---kneadium-ext-begin
+#if ENABLE_KNEADIUM_EXT
+auto me = CefAppCppToC::Get(self);
+const int CALLER_CODE=(CefAppExt::_typeName << 16) | CefAppExt::CefAppExt_OnBeforeCommandLineProcessing_1;
+auto m_callback= me->GetManagedCallBack(CALLER_CODE);
+if(m_callback){
+CefString tmp_arg1 (process_type);
+CefAppExt::OnBeforeCommandLineProcessingArgs args1(tmp_arg1,command_line);
+m_callback(CALLER_CODE, &args1.arg);
+ if (((args1.arg.myext_flags >> 21) & 1) == 1){
+return;
+}
+}
+#endif
+//---kneadium-ext-end
 
   // Execute
   CefAppCppToC::Get(self)->OnBeforeCommandLineProcessing(
@@ -60,6 +82,21 @@ app_on_register_custom_schemes(struct _cef_app_t* self,
   CefOwnPtr<CefSchemeRegistrar> registrarPtr(
       CefSchemeRegistrarCToCpp::Wrap(registrar));
 
+//---kneadium-ext-begin
+#if ENABLE_KNEADIUM_EXT
+auto me = CefAppCppToC::Get(self);
+const int CALLER_CODE=(CefAppExt::_typeName << 16) | CefAppExt::CefAppExt_OnRegisterCustomSchemes_2;
+auto m_callback= me->GetManagedCallBack(CALLER_CODE);
+if(m_callback){
+CefAppExt::OnRegisterCustomSchemesArgs args1(registrarPtr.get());
+m_callback(CALLER_CODE, &args1.arg);
+ if (((args1.arg.myext_flags >> 21) & 1) == 1){
+return;
+}
+}
+#endif
+//---kneadium-ext-end
+
   // Execute
   CefAppCppToC::Get(self)->OnRegisterCustomSchemes(registrarPtr.get());
 }
@@ -71,6 +108,21 @@ app_get_resource_bundle_handler(struct _cef_app_t* self) {
   DCHECK(self);
   if (!self)
     return NULL;
+
+//---kneadium-ext-begin
+#if ENABLE_KNEADIUM_EXT
+auto me = CefAppCppToC::Get(self);
+const int CALLER_CODE=(CefAppExt::_typeName << 16) | CefAppExt::CefAppExt_GetResourceBundleHandler_3;
+auto m_callback= me->GetManagedCallBack(CALLER_CODE);
+if(m_callback){
+CefAppExt::GetResourceBundleHandlerArgs args1;
+m_callback(CALLER_CODE, &args1.arg);
+ if (((args1.arg.myext_flags >> 21) & 1) == 1){
+ return CefResourceBundleHandlerCppToC::Wrap(args1.arg.myext_ret_value);
+}
+}
+#endif
+//---kneadium-ext-end
 
   // Execute
   CefRefPtr<CefResourceBundleHandler> _retval =
@@ -88,6 +140,21 @@ app_get_browser_process_handler(struct _cef_app_t* self) {
   if (!self)
     return NULL;
 
+//---kneadium-ext-begin
+#if ENABLE_KNEADIUM_EXT
+auto me = CefAppCppToC::Get(self);
+const int CALLER_CODE=(CefAppExt::_typeName << 16) | CefAppExt::CefAppExt_GetBrowserProcessHandler_4;
+auto m_callback= me->GetManagedCallBack(CALLER_CODE);
+if(m_callback){
+CefAppExt::GetBrowserProcessHandlerArgs args1;
+m_callback(CALLER_CODE, &args1.arg);
+ if (((args1.arg.myext_flags >> 21) & 1) == 1){
+ return CefBrowserProcessHandlerCppToC::Wrap(args1.arg.myext_ret_value);
+}
+}
+#endif
+//---kneadium-ext-end
+
   // Execute
   CefRefPtr<CefBrowserProcessHandler> _retval =
       CefAppCppToC::Get(self)->GetBrowserProcessHandler();
@@ -103,6 +170,21 @@ app_get_render_process_handler(struct _cef_app_t* self) {
   DCHECK(self);
   if (!self)
     return NULL;
+
+//---kneadium-ext-begin
+#if ENABLE_KNEADIUM_EXT
+auto me = CefAppCppToC::Get(self);
+const int CALLER_CODE=(CefAppExt::_typeName << 16) | CefAppExt::CefAppExt_GetRenderProcessHandler_5;
+auto m_callback= me->GetManagedCallBack(CALLER_CODE);
+if(m_callback){
+CefAppExt::GetRenderProcessHandlerArgs args1;
+m_callback(CALLER_CODE, &args1.arg);
+ if (((args1.arg.myext_flags >> 21) & 1) == 1){
+ return CefRenderProcessHandlerCppToC::Wrap(args1.arg.myext_ret_value);
+}
+}
+#endif
+//---kneadium-ext-end
 
   // Execute
   CefRefPtr<CefRenderProcessHandler> _retval =

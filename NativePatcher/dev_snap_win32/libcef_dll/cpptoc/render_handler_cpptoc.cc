@@ -1,3 +1,4 @@
+//---THIS-FILE-WAS-PATCHED , org=D:\projects\cef_binary_3.3071.1647.win32\cpptoc\render_handler_cpptoc.cc
 // Copyright (c) 2017 The Chromium Embedded Framework Authors. All rights
 // reserved. Use of this source code is governed by a BSD-style license that
 // can be found in the LICENSE file.
@@ -17,6 +18,11 @@
 #include "libcef_dll/ctocpp/browser_ctocpp.h"
 #include "libcef_dll/ctocpp/drag_data_ctocpp.h"
 
+//---kneadium-ext-begin
+#include "../myext/ExportFuncAuto.h"
+#include "../myext/InternalHeaderForExportFunc.h"
+//---kneadium-ext-end
+
 namespace {
 
 // MEMBER FUNCTIONS - Body may be edited by hand.
@@ -28,6 +34,21 @@ render_handler_get_accessibility_handler(struct _cef_render_handler_t* self) {
   DCHECK(self);
   if (!self)
     return NULL;
+
+//---kneadium-ext-begin
+#if ENABLE_KNEADIUM_EXT
+auto me = CefRenderHandlerCppToC::Get(self);
+const int CALLER_CODE=(CefRenderHandlerExt::_typeName << 16) | CefRenderHandlerExt::CefRenderHandlerExt_GetAccessibilityHandler_1;
+auto m_callback= me->GetManagedCallBack(CALLER_CODE);
+if(m_callback){
+CefRenderHandlerExt::GetAccessibilityHandlerArgs args1;
+m_callback(CALLER_CODE, &args1.arg);
+ if (((args1.arg.myext_flags >> 21) & 1) == 1){
+ return CefAccessibilityHandlerCppToC::Wrap(args1.arg.myext_ret_value);
+}
+}
+#endif
+//---kneadium-ext-end
 
   // Execute
   CefRefPtr<CefAccessibilityHandler> _retval =
@@ -57,6 +78,26 @@ render_handler_get_root_screen_rect(struct _cef_render_handler_t* self,
 
   // Translate param: rect; type: simple_byref
   CefRect rectVal = rect ? *rect : CefRect();
+
+//---kneadium-ext-begin
+#if ENABLE_KNEADIUM_EXT
+auto me = CefRenderHandlerCppToC::Get(self);
+const int CALLER_CODE=(CefRenderHandlerExt::_typeName << 16) | CefRenderHandlerExt::CefRenderHandlerExt_GetRootScreenRect_2;
+auto m_callback= me->GetManagedCallBack(CALLER_CODE);
+if(m_callback){
+CefRenderHandlerExt::GetRootScreenRectArgs args1(browser,&rectVal);
+m_callback(CALLER_CODE, &args1.arg);
+ if (((args1.arg.myext_flags >> 21) & 1) == 1){
+// Restore param: rect; type: simple_byref
+if (rect)
+*rect = rectVal;
+
+
+ return args1.arg.myext_ret_value;
+}
+}
+#endif
+//---kneadium-ext-end
 
   // Execute
   bool _retval = CefRenderHandlerCppToC::Get(self)->GetRootScreenRect(
@@ -90,6 +131,26 @@ render_handler_get_view_rect(struct _cef_render_handler_t* self,
 
   // Translate param: rect; type: simple_byref
   CefRect rectVal = rect ? *rect : CefRect();
+
+//---kneadium-ext-begin
+#if ENABLE_KNEADIUM_EXT
+auto me = CefRenderHandlerCppToC::Get(self);
+const int CALLER_CODE=(CefRenderHandlerExt::_typeName << 16) | CefRenderHandlerExt::CefRenderHandlerExt_GetViewRect_3;
+auto m_callback= me->GetManagedCallBack(CALLER_CODE);
+if(m_callback){
+CefRenderHandlerExt::GetViewRectArgs args1(browser,&rectVal);
+m_callback(CALLER_CODE, &args1.arg);
+ if (((args1.arg.myext_flags >> 21) & 1) == 1){
+// Restore param: rect; type: simple_byref
+if (rect)
+*rect = rectVal;
+
+
+ return args1.arg.myext_ret_value;
+}
+}
+#endif
+//---kneadium-ext-end
 
   // Execute
   bool _retval = CefRenderHandlerCppToC::Get(self)->GetViewRect(
@@ -133,6 +194,30 @@ render_handler_get_screen_point(struct _cef_render_handler_t* self,
   // Translate param: screenY; type: simple_byref
   int screenYVal = screenY ? *screenY : 0;
 
+//---kneadium-ext-begin
+#if ENABLE_KNEADIUM_EXT
+auto me = CefRenderHandlerCppToC::Get(self);
+const int CALLER_CODE=(CefRenderHandlerExt::_typeName << 16) | CefRenderHandlerExt::CefRenderHandlerExt_GetScreenPoint_4;
+auto m_callback= me->GetManagedCallBack(CALLER_CODE);
+if(m_callback){
+CefRenderHandlerExt::GetScreenPointArgs args1(browser,viewX,viewY,&screenXVal,&screenYVal);
+m_callback(CALLER_CODE, &args1.arg);
+ if (((args1.arg.myext_flags >> 21) & 1) == 1){
+// Restore param: screenX; type: simple_byref
+if (screenX)
+*screenX = screenXVal;
+
+// Restore param: screenY; type: simple_byref
+if (screenY)
+*screenY = screenYVal;
+
+
+ return args1.arg.myext_ret_value;
+}
+}
+#endif
+//---kneadium-ext-end
+
   // Execute
   bool _retval = CefRenderHandlerCppToC::Get(self)->GetScreenPoint(
       CefBrowserCToCpp::Wrap(browser), viewX, viewY, screenXVal, screenYVal);
@@ -171,6 +256,26 @@ render_handler_get_screen_info(struct _cef_render_handler_t* self,
   if (screen_info)
     screen_infoObj.AttachTo(*screen_info);
 
+//---kneadium-ext-begin
+#if ENABLE_KNEADIUM_EXT
+auto me = CefRenderHandlerCppToC::Get(self);
+const int CALLER_CODE=(CefRenderHandlerExt::_typeName << 16) | CefRenderHandlerExt::CefRenderHandlerExt_GetScreenInfo_5;
+auto m_callback= me->GetManagedCallBack(CALLER_CODE);
+if(m_callback){
+CefRenderHandlerExt::GetScreenInfoArgs args1(browser,&screen_infoObj);
+m_callback(CALLER_CODE, &args1.arg);
+ if (((args1.arg.myext_flags >> 21) & 1) == 1){
+// Restore param: screen_info; type: struct_byref
+if (screen_info)
+screen_infoObj.DetachTo(*screen_info);
+
+
+ return args1.arg.myext_ret_value;
+}
+}
+#endif
+//---kneadium-ext-end
+
   // Execute
   bool _retval = CefRenderHandlerCppToC::Get(self)->GetScreenInfo(
       CefBrowserCToCpp::Wrap(browser), screen_infoObj);
@@ -197,6 +302,21 @@ render_handler_on_popup_show(struct _cef_render_handler_t* self,
   if (!browser)
     return;
 
+//---kneadium-ext-begin
+#if ENABLE_KNEADIUM_EXT
+auto me = CefRenderHandlerCppToC::Get(self);
+const int CALLER_CODE=(CefRenderHandlerExt::_typeName << 16) | CefRenderHandlerExt::CefRenderHandlerExt_OnPopupShow_6;
+auto m_callback= me->GetManagedCallBack(CALLER_CODE);
+if(m_callback){
+CefRenderHandlerExt::OnPopupShowArgs args1(browser,show);
+m_callback(CALLER_CODE, &args1.arg);
+ if (((args1.arg.myext_flags >> 21) & 1) == 1){
+return;
+}
+}
+#endif
+//---kneadium-ext-end
+
   // Execute
   CefRenderHandlerCppToC::Get(self)->OnPopupShow(
       CefBrowserCToCpp::Wrap(browser), show ? true : false);
@@ -222,6 +342,21 @@ render_handler_on_popup_size(struct _cef_render_handler_t* self,
 
   // Translate param: rect; type: simple_byref_const
   CefRect rectVal = rect ? *rect : CefRect();
+
+//---kneadium-ext-begin
+#if ENABLE_KNEADIUM_EXT
+auto me = CefRenderHandlerCppToC::Get(self);
+const int CALLER_CODE=(CefRenderHandlerExt::_typeName << 16) | CefRenderHandlerExt::CefRenderHandlerExt_OnPopupSize_7;
+auto m_callback= me->GetManagedCallBack(CALLER_CODE);
+if(m_callback){
+CefRenderHandlerExt::OnPopupSizeArgs args1(browser,&rectVal);
+m_callback(CALLER_CODE, &args1.arg);
+ if (((args1.arg.myext_flags >> 21) & 1) == 1){
+return;
+}
+}
+#endif
+//---kneadium-ext-end
 
   // Execute
   CefRenderHandlerCppToC::Get(self)->OnPopupSize(
@@ -263,6 +398,21 @@ void CEF_CALLBACK render_handler_on_paint(struct _cef_render_handler_t* self,
     }
   }
 
+//---kneadium-ext-begin
+#if ENABLE_KNEADIUM_EXT
+auto me = CefRenderHandlerCppToC::Get(self);
+const int CALLER_CODE=(CefRenderHandlerExt::_typeName << 16) | CefRenderHandlerExt::CefRenderHandlerExt_OnPaint_8;
+auto m_callback= me->GetManagedCallBack(CALLER_CODE);
+if(m_callback){
+CefRenderHandlerExt::OnPaintArgs args1(browser,type,&dirtyRectsList,buffer,width,height);
+m_callback(CALLER_CODE, &args1.arg);
+ if (((args1.arg.myext_flags >> 21) & 1) == 1){
+return;
+}
+}
+#endif
+//---kneadium-ext-end
+
   // Execute
   CefRenderHandlerCppToC::Get(self)->OnPaint(CefBrowserCToCpp::Wrap(browser),
                                              type, dirtyRectsList, buffer,
@@ -294,6 +444,21 @@ void CEF_CALLBACK render_handler_on_cursor_change(
   if (custom_cursor_info)
     custom_cursor_infoObj.Set(*custom_cursor_info, false);
 
+//---kneadium-ext-begin
+#if ENABLE_KNEADIUM_EXT
+auto me = CefRenderHandlerCppToC::Get(self);
+const int CALLER_CODE=(CefRenderHandlerExt::_typeName << 16) | CefRenderHandlerExt::CefRenderHandlerExt_OnCursorChange_9;
+auto m_callback= me->GetManagedCallBack(CALLER_CODE);
+if(m_callback){
+CefRenderHandlerExt::OnCursorChangeArgs args1(browser,cursor,type,&custom_cursor_infoObj);
+m_callback(CALLER_CODE, &args1.arg);
+ if (((args1.arg.myext_flags >> 21) & 1) == 1){
+return;
+}
+}
+#endif
+//---kneadium-ext-end
+
   // Execute
   CefRenderHandlerCppToC::Get(self)->OnCursorChange(
       CefBrowserCToCpp::Wrap(browser), cursor, type, custom_cursor_infoObj);
@@ -320,6 +485,21 @@ render_handler_start_dragging(struct _cef_render_handler_t* self,
   if (!drag_data)
     return 0;
 
+//---kneadium-ext-begin
+#if ENABLE_KNEADIUM_EXT
+auto me = CefRenderHandlerCppToC::Get(self);
+const int CALLER_CODE=(CefRenderHandlerExt::_typeName << 16) | CefRenderHandlerExt::CefRenderHandlerExt_StartDragging_10;
+auto m_callback= me->GetManagedCallBack(CALLER_CODE);
+if(m_callback){
+CefRenderHandlerExt::StartDraggingArgs args1(browser,drag_data,allowed_ops,x,y);
+m_callback(CALLER_CODE, &args1.arg);
+ if (((args1.arg.myext_flags >> 21) & 1) == 1){
+ return args1.arg.myext_ret_value;
+}
+}
+#endif
+//---kneadium-ext-end
+
   // Execute
   bool _retval = CefRenderHandlerCppToC::Get(self)->StartDragging(
       CefBrowserCToCpp::Wrap(browser), CefDragDataCToCpp::Wrap(drag_data),
@@ -343,6 +523,21 @@ render_handler_update_drag_cursor(struct _cef_render_handler_t* self,
   if (!browser)
     return;
 
+//---kneadium-ext-begin
+#if ENABLE_KNEADIUM_EXT
+auto me = CefRenderHandlerCppToC::Get(self);
+const int CALLER_CODE=(CefRenderHandlerExt::_typeName << 16) | CefRenderHandlerExt::CefRenderHandlerExt_UpdateDragCursor_11;
+auto m_callback= me->GetManagedCallBack(CALLER_CODE);
+if(m_callback){
+CefRenderHandlerExt::UpdateDragCursorArgs args1(browser,operation);
+m_callback(CALLER_CODE, &args1.arg);
+ if (((args1.arg.myext_flags >> 21) & 1) == 1){
+return;
+}
+}
+#endif
+//---kneadium-ext-end
+
   // Execute
   CefRenderHandlerCppToC::Get(self)->UpdateDragCursor(
       CefBrowserCToCpp::Wrap(browser), operation);
@@ -362,6 +557,21 @@ render_handler_on_scroll_offset_changed(struct _cef_render_handler_t* self,
   DCHECK(browser);
   if (!browser)
     return;
+
+//---kneadium-ext-begin
+#if ENABLE_KNEADIUM_EXT
+auto me = CefRenderHandlerCppToC::Get(self);
+const int CALLER_CODE=(CefRenderHandlerExt::_typeName << 16) | CefRenderHandlerExt::CefRenderHandlerExt_OnScrollOffsetChanged_12;
+auto m_callback= me->GetManagedCallBack(CALLER_CODE);
+if(m_callback){
+CefRenderHandlerExt::OnScrollOffsetChangedArgs args1(browser,x,y);
+m_callback(CALLER_CODE, &args1.arg);
+ if (((args1.arg.myext_flags >> 21) & 1) == 1){
+return;
+}
+}
+#endif
+//---kneadium-ext-end
 
   // Execute
   CefRenderHandlerCppToC::Get(self)->OnScrollOffsetChanged(
@@ -402,6 +612,21 @@ void CEF_CALLBACK render_handler_on_ime_composition_range_changed(
       character_boundsList.push_back(character_boundsVal);
     }
   }
+
+//---kneadium-ext-begin
+#if ENABLE_KNEADIUM_EXT
+auto me = CefRenderHandlerCppToC::Get(self);
+const int CALLER_CODE=(CefRenderHandlerExt::_typeName << 16) | CefRenderHandlerExt::CefRenderHandlerExt_OnImeCompositionRangeChanged_13;
+auto m_callback= me->GetManagedCallBack(CALLER_CODE);
+if(m_callback){
+CefRenderHandlerExt::OnImeCompositionRangeChangedArgs args1(browser,&selected_rangeVal,&character_boundsList);
+m_callback(CALLER_CODE, &args1.arg);
+ if (((args1.arg.myext_flags >> 21) & 1) == 1){
+return;
+}
+}
+#endif
+//---kneadium-ext-end
 
   // Execute
   CefRenderHandlerCppToC::Get(self)->OnImeCompositionRangeChanged(

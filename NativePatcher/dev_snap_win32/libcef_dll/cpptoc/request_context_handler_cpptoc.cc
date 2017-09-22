@@ -1,3 +1,4 @@
+//---THIS-FILE-WAS-PATCHED , org=D:\projects\cef_binary_3.3071.1647.win32\cpptoc\request_context_handler_cpptoc.cc
 // Copyright (c) 2017 The Chromium Embedded Framework Authors. All rights
 // reserved. Use of this source code is governed by a BSD-style license that
 // can be found in the LICENSE file.
@@ -16,6 +17,11 @@
 #include "libcef_dll/ctocpp/cookie_manager_ctocpp.h"
 #include "libcef_dll/ctocpp/web_plugin_info_ctocpp.h"
 
+//---kneadium-ext-begin
+#include "../myext/ExportFuncAuto.h"
+#include "../myext/InternalHeaderForExportFunc.h"
+//---kneadium-ext-end
+
 namespace {
 
 // MEMBER FUNCTIONS - Body may be edited by hand.
@@ -27,6 +33,21 @@ cef_cookie_manager_t* CEF_CALLBACK request_context_handler_get_cookie_manager(
   DCHECK(self);
   if (!self)
     return NULL;
+
+//---kneadium-ext-begin
+#if ENABLE_KNEADIUM_EXT
+auto me = CefRequestContextHandlerCppToC::Get(self);
+const int CALLER_CODE=(CefRequestContextHandlerExt::_typeName << 16) | CefRequestContextHandlerExt::CefRequestContextHandlerExt_GetCookieManager_1;
+auto m_callback= me->GetManagedCallBack(CALLER_CODE);
+if(m_callback){
+CefRequestContextHandlerExt::GetCookieManagerArgs args1;
+m_callback(CALLER_CODE, &args1.arg);
+ if (((args1.arg.myext_flags >> 21) & 1) == 1){
+ return CefCookieManagerCToCpp::Unwrap(args1.arg.myext_ret_value);
+}
+}
+#endif
+//---kneadium-ext-end
 
   // Execute
   CefRefPtr<CefCookieManager> _retval =
@@ -62,6 +83,24 @@ int CEF_CALLBACK request_context_handler_on_before_plugin_load(
   if (!plugin_policy)
     return 0;
   // Unverified params: plugin_url, top_origin_url
+
+//---kneadium-ext-begin
+#if ENABLE_KNEADIUM_EXT
+auto me = CefRequestContextHandlerCppToC::Get(self);
+const int CALLER_CODE=(CefRequestContextHandlerExt::_typeName << 16) | CefRequestContextHandlerExt::CefRequestContextHandlerExt_OnBeforePluginLoad_2;
+auto m_callback= me->GetManagedCallBack(CALLER_CODE);
+if(m_callback){
+CefString tmp_arg1 (mime_type);
+CefString tmp_arg2 (plugin_url);
+CefString tmp_arg4 (top_origin_url);
+CefRequestContextHandlerExt::OnBeforePluginLoadArgs args1(tmp_arg1,tmp_arg2,is_main_frame,tmp_arg4,plugin_info,plugin_policy);
+m_callback(CALLER_CODE, &args1.arg);
+ if (((args1.arg.myext_flags >> 21) & 1) == 1){
+ return args1.arg.myext_ret_value;
+}
+}
+#endif
+//---kneadium-ext-end
 
   // Execute
   bool _retval = CefRequestContextHandlerCppToC::Get(self)->OnBeforePluginLoad(

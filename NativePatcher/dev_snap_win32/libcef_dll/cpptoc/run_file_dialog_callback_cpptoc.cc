@@ -1,3 +1,4 @@
+//---THIS-FILE-WAS-PATCHED , org=D:\projects\cef_binary_3.3071.1647.win32\cpptoc\run_file_dialog_callback_cpptoc.cc
 // Copyright (c) 2017 The Chromium Embedded Framework Authors. All rights
 // reserved. Use of this source code is governed by a BSD-style license that
 // can be found in the LICENSE file.
@@ -14,6 +15,11 @@
 
 #include "libcef_dll/cpptoc/run_file_dialog_callback_cpptoc.h"
 #include "libcef_dll/transfer_util.h"
+
+//---kneadium-ext-begin
+#include "../myext/ExportFuncAuto.h"
+#include "../myext/InternalHeaderForExportFunc.h"
+//---kneadium-ext-end
 
 namespace {
 
@@ -37,6 +43,21 @@ void CEF_CALLBACK run_file_dialog_callback_on_file_dialog_dismissed(
   // Translate param: file_paths; type: string_vec_byref_const
   std::vector<CefString> file_pathsList;
   transfer_string_list_contents(file_paths, file_pathsList);
+
+//---kneadium-ext-begin
+#if ENABLE_KNEADIUM_EXT
+auto me = CefRunFileDialogCallbackCppToC::Get(self);
+const int CALLER_CODE=(CefRunFileDialogCallbackExt::_typeName << 16) | CefRunFileDialogCallbackExt::CefRunFileDialogCallbackExt_OnFileDialogDismissed_1;
+auto m_callback= me->GetManagedCallBack(CALLER_CODE);
+if(m_callback){
+CefRunFileDialogCallbackExt::OnFileDialogDismissedArgs args1(selected_accept_filter,&file_pathsList);
+m_callback(CALLER_CODE, &args1.arg);
+ if (((args1.arg.myext_flags >> 21) & 1) == 1){
+return;
+}
+}
+#endif
+//---kneadium-ext-end
 
   // Execute
   CefRunFileDialogCallbackCppToC::Get(self)->OnFileDialogDismissed(

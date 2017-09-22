@@ -15,10 +15,12 @@ namespace client {
 class ClientHandlerStd : public ClientHandler {
  public:
   ClientHandlerStd(Delegate* delegate, const std::string& startup_url);
+  
+  managed_callback GetManagedCallBack(int callerCode) const OVERRIDE { return this->mcallback_; }
 
  private:
   // Include the default reference counting implementation.
-  IMPLEMENT_REFCOUNTING(ClientHandlerStd);
+  IMPLEMENT_REFCOUNTING_NOCALLBACK(ClientHandlerStd);
   DISALLOW_COPY_AND_ASSIGN(ClientHandlerStd);
 };
 

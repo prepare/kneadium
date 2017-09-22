@@ -1,3 +1,4 @@
+//---THIS-FILE-WAS-PATCHED , org=D:\projects\cef_binary_3.3071.1647.win32\cpptoc\life_span_handler_cpptoc.cc
 // Copyright (c) 2017 The Chromium Embedded Framework Authors. All rights
 // reserved. Use of this source code is governed by a BSD-style license that
 // can be found in the LICENSE file.
@@ -16,6 +17,11 @@
 #include "libcef_dll/cpptoc/client_cpptoc.h"
 #include "libcef_dll/ctocpp/browser_ctocpp.h"
 #include "libcef_dll/ctocpp/frame_ctocpp.h"
+
+//---kneadium-ext-begin
+#include "../myext/ExportFuncAuto.h"
+#include "../myext/InternalHeaderForExportFunc.h"
+//---kneadium-ext-end
 
 namespace {
 
@@ -90,6 +96,47 @@ int CEF_CALLBACK life_span_handler_on_before_popup(
   bool no_javascript_accessBool =
       (no_javascript_access && *no_javascript_access) ? true : false;
 
+//---kneadium-ext-begin
+#if ENABLE_KNEADIUM_EXT
+auto me = CefLifeSpanHandlerCppToC::Get(self);
+const int CALLER_CODE=(CefLifeSpanHandlerExt::_typeName << 16) | CefLifeSpanHandlerExt::CefLifeSpanHandlerExt_OnBeforePopup_1;
+auto m_callback= me->GetManagedCallBack(CALLER_CODE);
+if(m_callback){
+CefString tmp_arg3 (target_url);
+CefString tmp_arg4 (target_frame_name);
+CefLifeSpanHandlerExt::OnBeforePopupArgs args1(browser,frame,tmp_arg3,tmp_arg4,target_disposition,user_gesture,&popupFeaturesObj,&windowInfoObj,&clientPtr,&settingsObj,&no_javascript_accessBool);
+m_callback(CALLER_CODE, &args1.arg);
+ if (((args1.arg.myext_flags >> 21) & 1) == 1){
+// Restore param: windowInfo; type: struct_byref
+if (windowInfo)
+windowInfoObj.DetachTo(*windowInfo);
+
+// Restore param: client; type: refptr_same_byref
+if (client) {
+if (clientPtr.get()) {
+if (clientPtr.get() != clientOrig) {
+*client = CefClientCppToC::Wrap(clientPtr);
+}
+} else {
+*client = NULL;
+}
+}
+
+// Restore param: settings; type: struct_byref
+if (settings)
+settingsObj.DetachTo(*settings);
+
+// Restore param: no_javascript_access; type: bool_byaddr
+if (no_javascript_access)
+*no_javascript_access = no_javascript_accessBool ? true : false;
+
+
+ return args1.arg.myext_ret_value;
+}
+}
+#endif
+//---kneadium-ext-end
+
   // Execute
   bool _retval = CefLifeSpanHandlerCppToC::Get(self)->OnBeforePopup(
       CefBrowserCToCpp::Wrap(browser), CefFrameCToCpp::Wrap(frame),
@@ -134,6 +181,21 @@ life_span_handler_on_after_created(struct _cef_life_span_handler_t* self,
   if (!browser)
     return;
 
+//---kneadium-ext-begin
+#if ENABLE_KNEADIUM_EXT
+auto me = CefLifeSpanHandlerCppToC::Get(self);
+const int CALLER_CODE=(CefLifeSpanHandlerExt::_typeName << 16) | CefLifeSpanHandlerExt::CefLifeSpanHandlerExt_OnAfterCreated_2;
+auto m_callback= me->GetManagedCallBack(CALLER_CODE);
+if(m_callback){
+CefLifeSpanHandlerExt::OnAfterCreatedArgs args1(browser);
+m_callback(CALLER_CODE, &args1.arg);
+ if (((args1.arg.myext_flags >> 21) & 1) == 1){
+return;
+}
+}
+#endif
+//---kneadium-ext-end
+
   // Execute
   CefLifeSpanHandlerCppToC::Get(self)->OnAfterCreated(
       CefBrowserCToCpp::Wrap(browser));
@@ -151,6 +213,21 @@ life_span_handler_do_close(struct _cef_life_span_handler_t* self,
   DCHECK(browser);
   if (!browser)
     return 0;
+
+//---kneadium-ext-begin
+#if ENABLE_KNEADIUM_EXT
+auto me = CefLifeSpanHandlerCppToC::Get(self);
+const int CALLER_CODE=(CefLifeSpanHandlerExt::_typeName << 16) | CefLifeSpanHandlerExt::CefLifeSpanHandlerExt_DoClose_3;
+auto m_callback= me->GetManagedCallBack(CALLER_CODE);
+if(m_callback){
+CefLifeSpanHandlerExt::DoCloseArgs args1(browser);
+m_callback(CALLER_CODE, &args1.arg);
+ if (((args1.arg.myext_flags >> 21) & 1) == 1){
+ return args1.arg.myext_ret_value;
+}
+}
+#endif
+//---kneadium-ext-end
 
   // Execute
   bool _retval = CefLifeSpanHandlerCppToC::Get(self)->DoClose(
@@ -172,6 +249,21 @@ life_span_handler_on_before_close(struct _cef_life_span_handler_t* self,
   DCHECK(browser);
   if (!browser)
     return;
+
+//---kneadium-ext-begin
+#if ENABLE_KNEADIUM_EXT
+auto me = CefLifeSpanHandlerCppToC::Get(self);
+const int CALLER_CODE=(CefLifeSpanHandlerExt::_typeName << 16) | CefLifeSpanHandlerExt::CefLifeSpanHandlerExt_OnBeforeClose_4;
+auto m_callback= me->GetManagedCallBack(CALLER_CODE);
+if(m_callback){
+CefLifeSpanHandlerExt::OnBeforeCloseArgs args1(browser);
+m_callback(CALLER_CODE, &args1.arg);
+ if (((args1.arg.myext_flags >> 21) & 1) == 1){
+return;
+}
+}
+#endif
+//---kneadium-ext-end
 
   // Execute
   CefLifeSpanHandlerCppToC::Get(self)->OnBeforeClose(

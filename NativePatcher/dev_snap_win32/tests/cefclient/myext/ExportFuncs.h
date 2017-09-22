@@ -81,3 +81,4 @@ extern "C" {
 	MY_DLL_EXPORT void GetListElement(int elemType, void* list, int index, jsvalue* jsvalue);
 
 }
+

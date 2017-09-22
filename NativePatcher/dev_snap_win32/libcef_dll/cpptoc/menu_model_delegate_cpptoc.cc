@@ -1,3 +1,4 @@
+//---THIS-FILE-WAS-PATCHED , org=D:\projects\cef_binary_3.3071.1647.win32\cpptoc\menu_model_delegate_cpptoc.cc
 // Copyright (c) 2017 The Chromium Embedded Framework Authors. All rights
 // reserved. Use of this source code is governed by a BSD-style license that
 // can be found in the LICENSE file.
@@ -14,6 +15,11 @@
 
 #include "libcef_dll/cpptoc/menu_model_delegate_cpptoc.h"
 #include "libcef_dll/ctocpp/menu_model_ctocpp.h"
+
+//---kneadium-ext-begin
+#include "../myext/ExportFuncAuto.h"
+#include "../myext/InternalHeaderForExportFunc.h"
+//---kneadium-ext-end
 
 namespace {
 
@@ -33,6 +39,21 @@ menu_model_delegate_execute_command(struct _cef_menu_model_delegate_t* self,
   DCHECK(menu_model);
   if (!menu_model)
     return;
+
+//---kneadium-ext-begin
+#if ENABLE_KNEADIUM_EXT
+auto me = CefMenuModelDelegateCppToC::Get(self);
+const int CALLER_CODE=(CefMenuModelDelegateExt::_typeName << 16) | CefMenuModelDelegateExt::CefMenuModelDelegateExt_ExecuteCommand_1;
+auto m_callback= me->GetManagedCallBack(CALLER_CODE);
+if(m_callback){
+CefMenuModelDelegateExt::ExecuteCommandArgs args1(menu_model,command_id,event_flags);
+m_callback(CALLER_CODE, &args1.arg);
+ if (((args1.arg.myext_flags >> 21) & 1) == 1){
+return;
+}
+}
+#endif
+//---kneadium-ext-end
 
   // Execute
   CefMenuModelDelegateCppToC::Get(self)->ExecuteCommand(
@@ -60,6 +81,21 @@ menu_model_delegate_mouse_outside_menu(struct _cef_menu_model_delegate_t* self,
   // Translate param: screen_point; type: simple_byref_const
   CefPoint screen_pointVal = screen_point ? *screen_point : CefPoint();
 
+//---kneadium-ext-begin
+#if ENABLE_KNEADIUM_EXT
+auto me = CefMenuModelDelegateCppToC::Get(self);
+const int CALLER_CODE=(CefMenuModelDelegateExt::_typeName << 16) | CefMenuModelDelegateExt::CefMenuModelDelegateExt_MouseOutsideMenu_2;
+auto m_callback= me->GetManagedCallBack(CALLER_CODE);
+if(m_callback){
+CefMenuModelDelegateExt::MouseOutsideMenuArgs args1(menu_model,&screen_pointVal);
+m_callback(CALLER_CODE, &args1.arg);
+ if (((args1.arg.myext_flags >> 21) & 1) == 1){
+return;
+}
+}
+#endif
+//---kneadium-ext-end
+
   // Execute
   CefMenuModelDelegateCppToC::Get(self)->MouseOutsideMenu(
       CefMenuModelCToCpp::Wrap(menu_model), screen_pointVal);
@@ -78,6 +114,21 @@ void CEF_CALLBACK menu_model_delegate_unhandled_open_submenu(
   DCHECK(menu_model);
   if (!menu_model)
     return;
+
+//---kneadium-ext-begin
+#if ENABLE_KNEADIUM_EXT
+auto me = CefMenuModelDelegateCppToC::Get(self);
+const int CALLER_CODE=(CefMenuModelDelegateExt::_typeName << 16) | CefMenuModelDelegateExt::CefMenuModelDelegateExt_UnhandledOpenSubmenu_3;
+auto m_callback= me->GetManagedCallBack(CALLER_CODE);
+if(m_callback){
+CefMenuModelDelegateExt::UnhandledOpenSubmenuArgs args1(menu_model,is_rtl);
+m_callback(CALLER_CODE, &args1.arg);
+ if (((args1.arg.myext_flags >> 21) & 1) == 1){
+return;
+}
+}
+#endif
+//---kneadium-ext-end
 
   // Execute
   CefMenuModelDelegateCppToC::Get(self)->UnhandledOpenSubmenu(
@@ -98,6 +149,21 @@ void CEF_CALLBACK menu_model_delegate_unhandled_close_submenu(
   if (!menu_model)
     return;
 
+//---kneadium-ext-begin
+#if ENABLE_KNEADIUM_EXT
+auto me = CefMenuModelDelegateCppToC::Get(self);
+const int CALLER_CODE=(CefMenuModelDelegateExt::_typeName << 16) | CefMenuModelDelegateExt::CefMenuModelDelegateExt_UnhandledCloseSubmenu_4;
+auto m_callback= me->GetManagedCallBack(CALLER_CODE);
+if(m_callback){
+CefMenuModelDelegateExt::UnhandledCloseSubmenuArgs args1(menu_model,is_rtl);
+m_callback(CALLER_CODE, &args1.arg);
+ if (((args1.arg.myext_flags >> 21) & 1) == 1){
+return;
+}
+}
+#endif
+//---kneadium-ext-end
+
   // Execute
   CefMenuModelDelegateCppToC::Get(self)->UnhandledCloseSubmenu(
       CefMenuModelCToCpp::Wrap(menu_model), is_rtl ? true : false);
@@ -116,6 +182,21 @@ menu_model_delegate_menu_will_show(struct _cef_menu_model_delegate_t* self,
   if (!menu_model)
     return;
 
+//---kneadium-ext-begin
+#if ENABLE_KNEADIUM_EXT
+auto me = CefMenuModelDelegateCppToC::Get(self);
+const int CALLER_CODE=(CefMenuModelDelegateExt::_typeName << 16) | CefMenuModelDelegateExt::CefMenuModelDelegateExt_MenuWillShow_5;
+auto m_callback= me->GetManagedCallBack(CALLER_CODE);
+if(m_callback){
+CefMenuModelDelegateExt::MenuWillShowArgs args1(menu_model);
+m_callback(CALLER_CODE, &args1.arg);
+ if (((args1.arg.myext_flags >> 21) & 1) == 1){
+return;
+}
+}
+#endif
+//---kneadium-ext-end
+
   // Execute
   CefMenuModelDelegateCppToC::Get(self)->MenuWillShow(
       CefMenuModelCToCpp::Wrap(menu_model));
@@ -133,6 +214,21 @@ menu_model_delegate_menu_closed(struct _cef_menu_model_delegate_t* self,
   DCHECK(menu_model);
   if (!menu_model)
     return;
+
+//---kneadium-ext-begin
+#if ENABLE_KNEADIUM_EXT
+auto me = CefMenuModelDelegateCppToC::Get(self);
+const int CALLER_CODE=(CefMenuModelDelegateExt::_typeName << 16) | CefMenuModelDelegateExt::CefMenuModelDelegateExt_MenuClosed_6;
+auto m_callback= me->GetManagedCallBack(CALLER_CODE);
+if(m_callback){
+CefMenuModelDelegateExt::MenuClosedArgs args1(menu_model);
+m_callback(CALLER_CODE, &args1.arg);
+ if (((args1.arg.myext_flags >> 21) & 1) == 1){
+return;
+}
+}
+#endif
+//---kneadium-ext-end
 
   // Execute
   CefMenuModelDelegateCppToC::Get(self)->MenuClosed(
@@ -159,6 +255,22 @@ menu_model_delegate_format_label(struct _cef_menu_model_delegate_t* self,
 
   // Translate param: label; type: string_byref
   CefString labelStr(label);
+
+//---kneadium-ext-begin
+#if ENABLE_KNEADIUM_EXT
+auto me = CefMenuModelDelegateCppToC::Get(self);
+const int CALLER_CODE=(CefMenuModelDelegateExt::_typeName << 16) | CefMenuModelDelegateExt::CefMenuModelDelegateExt_FormatLabel_7;
+auto m_callback= me->GetManagedCallBack(CALLER_CODE);
+if(m_callback){
+CefString tmp_arg2 (label);
+CefMenuModelDelegateExt::FormatLabelArgs args1(menu_model,tmp_arg2);
+m_callback(CALLER_CODE, &args1.arg);
+ if (((args1.arg.myext_flags >> 21) & 1) == 1){
+ return args1.arg.myext_ret_value;
+}
+}
+#endif
+//---kneadium-ext-end
 
   // Execute
   bool _retval = CefMenuModelDelegateCppToC::Get(self)->FormatLabel(

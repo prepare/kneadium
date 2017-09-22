@@ -73,12 +73,6 @@ typedef void(__cdecl *managed_callback)(int id, void* args);
 		int64_t i64;
  };
 
- struct MyMetArgsN
- {
-	 int32_t argCount;
-	 jsvalue* vargs;
- };
-
 
 
  inline void MyCefSetVoidPtr(jsvalue* value, void* data)
@@ -172,15 +166,3 @@ typedef void(__cdecl *managed_callback)(int id, void* args);
 	 delete value->ptr;
  };
   
- //-------------------------------
- //MACRO(s)
-
- //helper macro
-#define INIT_MY_MET_ARGS(args,n)\
-	MyMetArgsN args;\
-	memset(&args,0,sizeof(MyMetArgsN));\
-    args.argCount= n; \
-    jsvalue vargs[n+1];\
-    memset(&vargs, 0, sizeof(jsvalue)*(n+1));\
-	args.vargs= vargs;
-//

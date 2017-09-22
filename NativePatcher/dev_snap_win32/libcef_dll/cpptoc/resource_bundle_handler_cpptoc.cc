@@ -1,3 +1,4 @@
+//---THIS-FILE-WAS-PATCHED , org=D:\projects\cef_binary_3.3071.1647.win32\cpptoc\resource_bundle_handler_cpptoc.cc
 // Copyright (c) 2017 The Chromium Embedded Framework Authors. All rights
 // reserved. Use of this source code is governed by a BSD-style license that
 // can be found in the LICENSE file.
@@ -13,6 +14,11 @@
 //
 
 #include "libcef_dll/cpptoc/resource_bundle_handler_cpptoc.h"
+
+//---kneadium-ext-begin
+#include "../myext/ExportFuncAuto.h"
+#include "../myext/InternalHeaderForExportFunc.h"
+//---kneadium-ext-end
 
 namespace {
 
@@ -34,6 +40,22 @@ int CEF_CALLBACK resource_bundle_handler_get_localized_string(
 
   // Translate param: string; type: string_byref
   CefString stringStr(string);
+
+//---kneadium-ext-begin
+#if ENABLE_KNEADIUM_EXT
+auto me = CefResourceBundleHandlerCppToC::Get(self);
+const int CALLER_CODE=(CefResourceBundleHandlerExt::_typeName << 16) | CefResourceBundleHandlerExt::CefResourceBundleHandlerExt_GetLocalizedString_1;
+auto m_callback= me->GetManagedCallBack(CALLER_CODE);
+if(m_callback){
+CefString tmp_arg2 (string);
+CefResourceBundleHandlerExt::GetLocalizedStringArgs args1(string_id,tmp_arg2);
+m_callback(CALLER_CODE, &args1.arg);
+ if (((args1.arg.myext_flags >> 21) & 1) == 1){
+ return args1.arg.myext_ret_value;
+}
+}
+#endif
+//---kneadium-ext-end
 
   // Execute
   bool _retval = CefResourceBundleHandlerCppToC::Get(self)->GetLocalizedString(
@@ -66,6 +88,30 @@ int CEF_CALLBACK resource_bundle_handler_get_data_resource(
   void* dataVal = data ? *data : NULL;
   // Translate param: data_size; type: simple_byref
   size_t data_sizeVal = data_size ? *data_size : 0;
+
+//---kneadium-ext-begin
+#if ENABLE_KNEADIUM_EXT
+auto me = CefResourceBundleHandlerCppToC::Get(self);
+const int CALLER_CODE=(CefResourceBundleHandlerExt::_typeName << 16) | CefResourceBundleHandlerExt::CefResourceBundleHandlerExt_GetDataResource_2;
+auto m_callback= me->GetManagedCallBack(CALLER_CODE);
+if(m_callback){
+CefResourceBundleHandlerExt::GetDataResourceArgs args1(resource_id,&dataVal,&data_sizeVal);
+m_callback(CALLER_CODE, &args1.arg);
+ if (((args1.arg.myext_flags >> 21) & 1) == 1){
+// Restore param: data; type: simple_byref
+if (data)
+*data = dataVal;
+
+// Restore param: data_size; type: simple_byref
+if (data_size)
+*data_size = data_sizeVal;
+
+
+ return args1.arg.myext_ret_value;
+}
+}
+#endif
+//---kneadium-ext-end
 
   // Execute
   bool _retval = CefResourceBundleHandlerCppToC::Get(self)->GetDataResource(
@@ -106,6 +152,30 @@ int CEF_CALLBACK resource_bundle_handler_get_data_resource_for_scale(
   void* dataVal = data ? *data : NULL;
   // Translate param: data_size; type: simple_byref
   size_t data_sizeVal = data_size ? *data_size : 0;
+
+//---kneadium-ext-begin
+#if ENABLE_KNEADIUM_EXT
+auto me = CefResourceBundleHandlerCppToC::Get(self);
+const int CALLER_CODE=(CefResourceBundleHandlerExt::_typeName << 16) | CefResourceBundleHandlerExt::CefResourceBundleHandlerExt_GetDataResourceForScale_3;
+auto m_callback= me->GetManagedCallBack(CALLER_CODE);
+if(m_callback){
+CefResourceBundleHandlerExt::GetDataResourceForScaleArgs args1(resource_id,scale_factor,&dataVal,&data_sizeVal);
+m_callback(CALLER_CODE, &args1.arg);
+ if (((args1.arg.myext_flags >> 21) & 1) == 1){
+// Restore param: data; type: simple_byref
+if (data)
+*data = dataVal;
+
+// Restore param: data_size; type: simple_byref
+if (data_size)
+*data_size = data_sizeVal;
+
+
+ return args1.arg.myext_ret_value;
+}
+}
+#endif
+//---kneadium-ext-end
 
   // Execute
   bool _retval =

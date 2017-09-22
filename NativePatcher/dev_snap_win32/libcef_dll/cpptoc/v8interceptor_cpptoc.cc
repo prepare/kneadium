@@ -1,3 +1,4 @@
+//---THIS-FILE-WAS-PATCHED , org=D:\projects\cef_binary_3.3071.1647.win32\cpptoc\v8interceptor_cpptoc.cc
 // Copyright (c) 2017 The Chromium Embedded Framework Authors. All rights
 // reserved. Use of this source code is governed by a BSD-style license that
 // can be found in the LICENSE file.
@@ -14,6 +15,11 @@
 
 #include "libcef_dll/cpptoc/v8interceptor_cpptoc.h"
 #include "libcef_dll/ctocpp/v8value_ctocpp.h"
+
+//---kneadium-ext-begin
+#include "../myext/ExportFuncAuto.h"
+#include "../myext/InternalHeaderForExportFunc.h"
+//---kneadium-ext-end
 
 namespace {
 
@@ -52,7 +58,7 @@ int CEF_CALLBACK v8interceptor_get_byname(struct _cef_v8interceptor_t* self,
     retvalPtr = CefV8ValueCToCpp::Wrap(*retval);
   CefV8Value* retvalOrig = retvalPtr.get();
   // Translate param: exception; type: string_byref
-  CefString exceptionStr(exception);
+  CefString exceptionStr(exception); 
 
   // Execute
   bool _retval = CefV8InterceptorCppToC::Get(self)->Get(
@@ -106,7 +112,7 @@ int CEF_CALLBACK v8interceptor_get_byindex(struct _cef_v8interceptor_t* self,
     retvalPtr = CefV8ValueCToCpp::Wrap(*retval);
   CefV8Value* retvalOrig = retvalPtr.get();
   // Translate param: exception; type: string_byref
-  CefString exceptionStr(exception);
+  CefString exceptionStr(exception); 
 
   // Execute
   bool _retval = CefV8InterceptorCppToC::Get(self)->Get(
@@ -156,7 +162,7 @@ int CEF_CALLBACK v8interceptor_set_byname(struct _cef_v8interceptor_t* self,
 
   // Translate param: exception; type: string_byref
   CefString exceptionStr(exception);
-
+   
   // Execute
   bool _retval = CefV8InterceptorCppToC::Get(self)->Set(
       CefString(name), CefV8ValueCToCpp::Wrap(object),
@@ -195,6 +201,7 @@ int CEF_CALLBACK v8interceptor_set_byindex(struct _cef_v8interceptor_t* self,
 
   // Translate param: exception; type: string_byref
   CefString exceptionStr(exception);
+   
 
   // Execute
   bool _retval = CefV8InterceptorCppToC::Get(self)->Set(
