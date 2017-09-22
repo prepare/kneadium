@@ -1,3 +1,4 @@
+//---THIS-FILE-WAS-PATCHED , org=D:\projects\cef_binary_3.3071.1647.win32\cpptoc\dialog_handler_cpptoc.cc
 // Copyright (c) 2017 The Chromium Embedded Framework Authors. All rights
 // reserved. Use of this source code is governed by a BSD-style license that
 // can be found in the LICENSE file.
@@ -16,6 +17,11 @@
 #include "libcef_dll/ctocpp/browser_ctocpp.h"
 #include "libcef_dll/ctocpp/file_dialog_callback_ctocpp.h"
 #include "libcef_dll/transfer_util.h"
+
+//---kneadium-ext-begin
+#include "../myext/ExportFuncAuto.h"
+#include "../myext/InternalHeaderForExportFunc.h"
+//---kneadium-ext-end
 
 namespace {
 
@@ -52,6 +58,23 @@ dialog_handler_on_file_dialog(struct _cef_dialog_handler_t* self,
   // Translate param: accept_filters; type: string_vec_byref_const
   std::vector<CefString> accept_filtersList;
   transfer_string_list_contents(accept_filters, accept_filtersList);
+
+//---kneadium-ext-begin
+#if ENABLE_KNEADIUM_EXT
+auto me = CefDialogHandlerCppToC::Get(self);
+const int CALLER_CODE=(CefDialogHandlerExt::_typeName << 16) | CefDialogHandlerExt::CefDialogHandlerExt_OnFileDialog_1;
+auto m_callback= me->GetManagedCallBack(CALLER_CODE);
+if(m_callback){
+CefString tmp_arg3 (title);
+CefString tmp_arg4 (default_file_path);
+CefDialogHandlerExt::OnFileDialogArgs args1(browser,mode,tmp_arg3,tmp_arg4,&accept_filtersList,selected_accept_filter,callback);
+m_callback(CALLER_CODE, &args1.arg);
+ if (((args1.arg.myext_flags >> 21) & 1) == 1){
+ return args1.arg.myext_ret_value;
+}
+}
+#endif
+//---kneadium-ext-end
 
   // Execute
   bool _retval = CefDialogHandlerCppToC::Get(self)->OnFileDialog(

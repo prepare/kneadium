@@ -1,3 +1,4 @@
+//---THIS-FILE-WAS-PATCHED , org=D:\projects\cef_binary_3.3071.1647.win32\cpptoc\find_handler_cpptoc.cc
 // Copyright (c) 2017 The Chromium Embedded Framework Authors. All rights
 // reserved. Use of this source code is governed by a BSD-style license that
 // can be found in the LICENSE file.
@@ -14,6 +15,11 @@
 
 #include "libcef_dll/cpptoc/find_handler_cpptoc.h"
 #include "libcef_dll/ctocpp/browser_ctocpp.h"
+
+//---kneadium-ext-begin
+#include "../myext/ExportFuncAuto.h"
+#include "../myext/InternalHeaderForExportFunc.h"
+//---kneadium-ext-end
 
 namespace {
 
@@ -42,6 +48,21 @@ void CEF_CALLBACK find_handler_on_find_result(struct _cef_find_handler_t* self,
 
   // Translate param: selectionRect; type: simple_byref_const
   CefRect selectionRectVal = selectionRect ? *selectionRect : CefRect();
+
+//---kneadium-ext-begin
+#if ENABLE_KNEADIUM_EXT
+auto me = CefFindHandlerCppToC::Get(self);
+const int CALLER_CODE=(CefFindHandlerExt::_typeName << 16) | CefFindHandlerExt::CefFindHandlerExt_OnFindResult_1;
+auto m_callback= me->GetManagedCallBack(CALLER_CODE);
+if(m_callback){
+CefFindHandlerExt::OnFindResultArgs args1(browser,identifier,count,&selectionRectVal,activeMatchOrdinal,finalUpdate);
+m_callback(CALLER_CODE, &args1.arg);
+ if (((args1.arg.myext_flags >> 21) & 1) == 1){
+return;
+}
+}
+#endif
+//---kneadium-ext-end
 
   // Execute
   CefFindHandlerCppToC::Get(self)->OnFindResult(

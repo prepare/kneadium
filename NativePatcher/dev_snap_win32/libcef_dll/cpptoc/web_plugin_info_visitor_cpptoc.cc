@@ -1,3 +1,4 @@
+//---THIS-FILE-WAS-PATCHED , org=D:\projects\cef_binary_3.3071.1647.win32\cpptoc\web_plugin_info_visitor_cpptoc.cc
 // Copyright (c) 2017 The Chromium Embedded Framework Authors. All rights
 // reserved. Use of this source code is governed by a BSD-style license that
 // can be found in the LICENSE file.
@@ -14,6 +15,11 @@
 
 #include "libcef_dll/cpptoc/web_plugin_info_visitor_cpptoc.h"
 #include "libcef_dll/ctocpp/web_plugin_info_ctocpp.h"
+
+//---kneadium-ext-begin
+#include "../myext/ExportFuncAuto.h"
+#include "../myext/InternalHeaderForExportFunc.h"
+//---kneadium-ext-end
 
 namespace {
 
@@ -33,6 +39,21 @@ web_plugin_info_visitor_visit(struct _cef_web_plugin_info_visitor_t* self,
   DCHECK(info);
   if (!info)
     return 0;
+
+//---kneadium-ext-begin
+#if ENABLE_KNEADIUM_EXT
+auto me = CefWebPluginInfoVisitorCppToC::Get(self);
+const int CALLER_CODE=(CefWebPluginInfoVisitorExt::_typeName << 16) | CefWebPluginInfoVisitorExt::CefWebPluginInfoVisitorExt_Visit_1;
+auto m_callback= me->GetManagedCallBack(CALLER_CODE);
+if(m_callback){
+CefWebPluginInfoVisitorExt::VisitArgs args1(info,count,total);
+m_callback(CALLER_CODE, &args1.arg);
+ if (((args1.arg.myext_flags >> 21) & 1) == 1){
+ return args1.arg.myext_ret_value;
+}
+}
+#endif
+//---kneadium-ext-end
 
   // Execute
   bool _retval = CefWebPluginInfoVisitorCppToC::Get(self)->Visit(

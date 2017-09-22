@@ -1,3 +1,4 @@
+//---THIS-FILE-WAS-PATCHED , org=D:\projects\cef_binary_3.3071.1647.win32\cpptoc\browser_process_handler_cpptoc.cc
 // Copyright (c) 2017 The Chromium Embedded Framework Authors. All rights
 // reserved. Use of this source code is governed by a BSD-style license that
 // can be found in the LICENSE file.
@@ -17,6 +18,11 @@
 #include "libcef_dll/ctocpp/command_line_ctocpp.h"
 #include "libcef_dll/ctocpp/list_value_ctocpp.h"
 
+//---kneadium-ext-begin
+#include "../myext/ExportFuncAuto.h"
+#include "../myext/InternalHeaderForExportFunc.h"
+//---kneadium-ext-end
+
 namespace {
 
 // MEMBER FUNCTIONS - Body may be edited by hand.
@@ -28,6 +34,21 @@ void CEF_CALLBACK browser_process_handler_on_context_initialized(
   DCHECK(self);
   if (!self)
     return;
+
+//---kneadium-ext-begin
+#if ENABLE_KNEADIUM_EXT
+auto me = CefBrowserProcessHandlerCppToC::Get(self);
+const int CALLER_CODE=(CefBrowserProcessHandlerExt::_typeName << 16) | CefBrowserProcessHandlerExt::CefBrowserProcessHandlerExt_OnContextInitialized_1;
+auto m_callback= me->GetManagedCallBack(CALLER_CODE);
+if(m_callback){
+CefBrowserProcessHandlerExt::OnContextInitializedArgs args1;
+m_callback(CALLER_CODE, &args1.arg);
+ if (((args1.arg.myext_flags >> 21) & 1) == 1){
+return;
+}
+}
+#endif
+//---kneadium-ext-end
 
   // Execute
   CefBrowserProcessHandlerCppToC::Get(self)->OnContextInitialized();
@@ -45,6 +66,21 @@ void CEF_CALLBACK browser_process_handler_on_before_child_process_launch(
   DCHECK(command_line);
   if (!command_line)
     return;
+
+//---kneadium-ext-begin
+#if ENABLE_KNEADIUM_EXT
+auto me = CefBrowserProcessHandlerCppToC::Get(self);
+const int CALLER_CODE=(CefBrowserProcessHandlerExt::_typeName << 16) | CefBrowserProcessHandlerExt::CefBrowserProcessHandlerExt_OnBeforeChildProcessLaunch_2;
+auto m_callback= me->GetManagedCallBack(CALLER_CODE);
+if(m_callback){
+CefBrowserProcessHandlerExt::OnBeforeChildProcessLaunchArgs args1(command_line);
+m_callback(CALLER_CODE, &args1.arg);
+ if (((args1.arg.myext_flags >> 21) & 1) == 1){
+return;
+}
+}
+#endif
+//---kneadium-ext-end
 
   // Execute
   CefBrowserProcessHandlerCppToC::Get(self)->OnBeforeChildProcessLaunch(
@@ -64,6 +100,21 @@ void CEF_CALLBACK browser_process_handler_on_render_process_thread_created(
   if (!extra_info)
     return;
 
+//---kneadium-ext-begin
+#if ENABLE_KNEADIUM_EXT
+auto me = CefBrowserProcessHandlerCppToC::Get(self);
+const int CALLER_CODE=(CefBrowserProcessHandlerExt::_typeName << 16) | CefBrowserProcessHandlerExt::CefBrowserProcessHandlerExt_OnRenderProcessThreadCreated_3;
+auto m_callback= me->GetManagedCallBack(CALLER_CODE);
+if(m_callback){
+CefBrowserProcessHandlerExt::OnRenderProcessThreadCreatedArgs args1(extra_info);
+m_callback(CALLER_CODE, &args1.arg);
+ if (((args1.arg.myext_flags >> 21) & 1) == 1){
+return;
+}
+}
+#endif
+//---kneadium-ext-end
+
   // Execute
   CefBrowserProcessHandlerCppToC::Get(self)->OnRenderProcessThreadCreated(
       CefListValueCToCpp::Wrap(extra_info));
@@ -77,6 +128,21 @@ browser_process_handler_get_print_handler(
   DCHECK(self);
   if (!self)
     return NULL;
+
+//---kneadium-ext-begin
+#if ENABLE_KNEADIUM_EXT
+auto me = CefBrowserProcessHandlerCppToC::Get(self);
+const int CALLER_CODE=(CefBrowserProcessHandlerExt::_typeName << 16) | CefBrowserProcessHandlerExt::CefBrowserProcessHandlerExt_GetPrintHandler_4;
+auto m_callback= me->GetManagedCallBack(CALLER_CODE);
+if(m_callback){
+CefBrowserProcessHandlerExt::GetPrintHandlerArgs args1;
+m_callback(CALLER_CODE, &args1.arg);
+ if (((args1.arg.myext_flags >> 21) & 1) == 1){
+ return CefPrintHandlerCppToC::Wrap(args1.arg.myext_ret_value);
+}
+}
+#endif
+//---kneadium-ext-end
 
   // Execute
   CefRefPtr<CefPrintHandler> _retval =
@@ -94,6 +160,21 @@ void CEF_CALLBACK browser_process_handler_on_schedule_message_pump_work(
   DCHECK(self);
   if (!self)
     return;
+
+//---kneadium-ext-begin
+#if ENABLE_KNEADIUM_EXT
+auto me = CefBrowserProcessHandlerCppToC::Get(self);
+const int CALLER_CODE=(CefBrowserProcessHandlerExt::_typeName << 16) | CefBrowserProcessHandlerExt::CefBrowserProcessHandlerExt_OnScheduleMessagePumpWork_5;
+auto m_callback= me->GetManagedCallBack(CALLER_CODE);
+if(m_callback){
+CefBrowserProcessHandlerExt::OnScheduleMessagePumpWorkArgs args1(delay_ms);
+m_callback(CALLER_CODE, &args1.arg);
+ if (((args1.arg.myext_flags >> 21) & 1) == 1){
+return;
+}
+}
+#endif
+//---kneadium-ext-end
 
   // Execute
   CefBrowserProcessHandlerCppToC::Get(self)->OnScheduleMessagePumpWork(

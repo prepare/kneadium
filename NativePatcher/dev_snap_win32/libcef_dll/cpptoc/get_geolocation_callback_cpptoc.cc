@@ -1,3 +1,4 @@
+//---THIS-FILE-WAS-PATCHED , org=D:\projects\cef_binary_3.3071.1647.win32\cpptoc\get_geolocation_callback_cpptoc.cc
 // Copyright (c) 2017 The Chromium Embedded Framework Authors. All rights
 // reserved. Use of this source code is governed by a BSD-style license that
 // can be found in the LICENSE file.
@@ -13,6 +14,11 @@
 //
 
 #include "libcef_dll/cpptoc/get_geolocation_callback_cpptoc.h"
+
+//---kneadium-ext-begin
+#include "../myext/ExportFuncAuto.h"
+#include "../myext/InternalHeaderForExportFunc.h"
+//---kneadium-ext-end
 
 namespace {
 
@@ -35,6 +41,21 @@ void CEF_CALLBACK get_geolocation_callback_on_location_update(
   CefGeoposition positionObj;
   if (position)
     positionObj.Set(*position, false);
+
+//---kneadium-ext-begin
+#if ENABLE_KNEADIUM_EXT
+auto me = CefGetGeolocationCallbackCppToC::Get(self);
+const int CALLER_CODE=(CefGetGeolocationCallbackExt::_typeName << 16) | CefGetGeolocationCallbackExt::CefGetGeolocationCallbackExt_OnLocationUpdate_1;
+auto m_callback= me->GetManagedCallBack(CALLER_CODE);
+if(m_callback){
+CefGetGeolocationCallbackExt::OnLocationUpdateArgs args1(&positionObj);
+m_callback(CALLER_CODE, &args1.arg);
+ if (((args1.arg.myext_flags >> 21) & 1) == 1){
+return;
+}
+}
+#endif
+//---kneadium-ext-end
 
   // Execute
   CefGetGeolocationCallbackCppToC::Get(self)->OnLocationUpdate(positionObj);

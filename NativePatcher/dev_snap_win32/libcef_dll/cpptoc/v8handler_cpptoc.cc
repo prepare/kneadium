@@ -1,3 +1,4 @@
+//---THIS-FILE-WAS-PATCHED , org=D:\projects\cef_binary_3.3071.1647.win32\cpptoc\v8handler_cpptoc.cc
 // Copyright (c) 2017 The Chromium Embedded Framework Authors. All rights
 // reserved. Use of this source code is governed by a BSD-style license that
 // can be found in the LICENSE file.
@@ -14,6 +15,11 @@
 
 #include "libcef_dll/cpptoc/v8handler_cpptoc.h"
 #include "libcef_dll/ctocpp/v8value_ctocpp.h"
+
+//---kneadium-ext-begin
+#include "../myext/ExportFuncAuto.h"
+#include "../myext/InternalHeaderForExportFunc.h"
+//---kneadium-ext-end
 
 namespace {
 
@@ -67,6 +73,35 @@ int CEF_CALLBACK v8handler_execute(struct _cef_v8handler_t* self,
   CefV8Value* retvalOrig = retvalPtr.get();
   // Translate param: exception; type: string_byref
   CefString exceptionStr(exception);
+
+//---kneadium-ext-begin
+#if ENABLE_KNEADIUM_EXT
+auto me = CefV8HandlerCppToC::Get(self);
+const int CALLER_CODE=(CefV8HandlerExt::_typeName << 16) | CefV8HandlerExt::CefV8HandlerExt_Execute_1;
+auto m_callback= me->GetManagedCallBack(CALLER_CODE);
+if(m_callback){
+CefString tmp_arg1 (name);
+CefString tmp_arg6 (exception);
+CefV8HandlerExt::ExecuteArgs args1(tmp_arg1,object,&argumentsList,&retvalPtr,tmp_arg6);
+m_callback(CALLER_CODE, &args1.arg);
+ if (((args1.arg.myext_flags >> 21) & 1) == 1){
+// Restore param: retval; type: refptr_diff_byref
+if (retval) {
+if (retvalPtr.get()) {
+if (retvalPtr.get() != retvalOrig) {
+*retval = CefV8ValueCToCpp::Unwrap(retvalPtr);
+}
+} else {
+*retval = NULL;
+}
+}
+
+
+ return args1.arg.myext_ret_value;
+}
+}
+#endif
+//---kneadium-ext-end
 
   // Execute
   bool _retval = CefV8HandlerCppToC::Get(self)->Execute(

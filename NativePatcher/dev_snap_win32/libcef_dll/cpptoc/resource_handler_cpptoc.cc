@@ -1,3 +1,4 @@
+//---THIS-FILE-WAS-PATCHED , org=D:\projects\cef_binary_3.3071.1647.win32\cpptoc\resource_handler_cpptoc.cc
 // Copyright (c) 2017 The Chromium Embedded Framework Authors. All rights
 // reserved. Use of this source code is governed by a BSD-style license that
 // can be found in the LICENSE file.
@@ -16,6 +17,11 @@
 #include "libcef_dll/ctocpp/callback_ctocpp.h"
 #include "libcef_dll/ctocpp/request_ctocpp.h"
 #include "libcef_dll/ctocpp/response_ctocpp.h"
+
+//---kneadium-ext-begin
+#include "../myext/ExportFuncAuto.h"
+#include "../myext/InternalHeaderForExportFunc.h"
+//---kneadium-ext-end
 
 namespace {
 
@@ -38,6 +44,21 @@ resource_handler_process_request(struct _cef_resource_handler_t* self,
   DCHECK(callback);
   if (!callback)
     return 0;
+
+//---kneadium-ext-begin
+#if ENABLE_KNEADIUM_EXT
+auto me = CefResourceHandlerCppToC::Get(self);
+const int CALLER_CODE=(CefResourceHandlerExt::_typeName << 16) | CefResourceHandlerExt::CefResourceHandlerExt_ProcessRequest_1;
+auto m_callback= me->GetManagedCallBack(CALLER_CODE);
+if(m_callback){
+CefResourceHandlerExt::ProcessRequestArgs args1(request,callback);
+m_callback(CALLER_CODE, &args1.arg);
+ if (((args1.arg.myext_flags >> 21) & 1) == 1){
+ return args1.arg.myext_ret_value;
+}
+}
+#endif
+//---kneadium-ext-end
 
   // Execute
   bool _retval = CefResourceHandlerCppToC::Get(self)->ProcessRequest(
@@ -75,6 +96,22 @@ resource_handler_get_response_headers(struct _cef_resource_handler_t* self,
   // Translate param: redirectUrl; type: string_byref
   CefString redirectUrlStr(redirectUrl);
 
+//---kneadium-ext-begin
+#if ENABLE_KNEADIUM_EXT
+auto me = CefResourceHandlerCppToC::Get(self);
+const int CALLER_CODE=(CefResourceHandlerExt::_typeName << 16) | CefResourceHandlerExt::CefResourceHandlerExt_GetResponseHeaders_2;
+auto m_callback= me->GetManagedCallBack(CALLER_CODE);
+if(m_callback){
+CefString tmp_arg3 (redirectUrl);
+CefResourceHandlerExt::GetResponseHeadersArgs args1(response,&response_lengthVal,tmp_arg3);
+m_callback(CALLER_CODE, &args1.arg);
+ if (((args1.arg.myext_flags >> 21) & 1) == 1){
+return;
+}
+}
+#endif
+//---kneadium-ext-end
+
   // Execute
   CefResourceHandlerCppToC::Get(self)->GetResponseHeaders(
       CefResponseCToCpp::Wrap(response), response_lengthVal, redirectUrlStr);
@@ -111,6 +148,26 @@ resource_handler_read_response(struct _cef_resource_handler_t* self,
   // Translate param: bytes_read; type: simple_byref
   int bytes_readVal = bytes_read ? *bytes_read : 0;
 
+//---kneadium-ext-begin
+#if ENABLE_KNEADIUM_EXT
+auto me = CefResourceHandlerCppToC::Get(self);
+const int CALLER_CODE=(CefResourceHandlerExt::_typeName << 16) | CefResourceHandlerExt::CefResourceHandlerExt_ReadResponse_3;
+auto m_callback= me->GetManagedCallBack(CALLER_CODE);
+if(m_callback){
+CefResourceHandlerExt::ReadResponseArgs args1(data_out,bytes_to_read,&bytes_readVal,callback);
+m_callback(CALLER_CODE, &args1.arg);
+ if (((args1.arg.myext_flags >> 21) & 1) == 1){
+// Restore param: bytes_read; type: simple_byref
+if (bytes_read)
+*bytes_read = bytes_readVal;
+
+
+ return args1.arg.myext_ret_value;
+}
+}
+#endif
+//---kneadium-ext-end
+
   // Execute
   bool _retval = CefResourceHandlerCppToC::Get(self)->ReadResponse(
       data_out, bytes_to_read, bytes_readVal,
@@ -142,6 +199,21 @@ resource_handler_can_get_cookie(struct _cef_resource_handler_t* self,
   if (cookie)
     cookieObj.Set(*cookie, false);
 
+//---kneadium-ext-begin
+#if ENABLE_KNEADIUM_EXT
+auto me = CefResourceHandlerCppToC::Get(self);
+const int CALLER_CODE=(CefResourceHandlerExt::_typeName << 16) | CefResourceHandlerExt::CefResourceHandlerExt_CanGetCookie_4;
+auto m_callback= me->GetManagedCallBack(CALLER_CODE);
+if(m_callback){
+CefResourceHandlerExt::CanGetCookieArgs args1(&cookieObj);
+m_callback(CALLER_CODE, &args1.arg);
+ if (((args1.arg.myext_flags >> 21) & 1) == 1){
+ return args1.arg.myext_ret_value;
+}
+}
+#endif
+//---kneadium-ext-end
+
   // Execute
   bool _retval = CefResourceHandlerCppToC::Get(self)->CanGetCookie(cookieObj);
 
@@ -167,6 +239,21 @@ resource_handler_can_set_cookie(struct _cef_resource_handler_t* self,
   if (cookie)
     cookieObj.Set(*cookie, false);
 
+//---kneadium-ext-begin
+#if ENABLE_KNEADIUM_EXT
+auto me = CefResourceHandlerCppToC::Get(self);
+const int CALLER_CODE=(CefResourceHandlerExt::_typeName << 16) | CefResourceHandlerExt::CefResourceHandlerExt_CanSetCookie_5;
+auto m_callback= me->GetManagedCallBack(CALLER_CODE);
+if(m_callback){
+CefResourceHandlerExt::CanSetCookieArgs args1(&cookieObj);
+m_callback(CALLER_CODE, &args1.arg);
+ if (((args1.arg.myext_flags >> 21) & 1) == 1){
+ return args1.arg.myext_ret_value;
+}
+}
+#endif
+//---kneadium-ext-end
+
   // Execute
   bool _retval = CefResourceHandlerCppToC::Get(self)->CanSetCookie(cookieObj);
 
@@ -181,6 +268,21 @@ resource_handler_cancel(struct _cef_resource_handler_t* self) {
   DCHECK(self);
   if (!self)
     return;
+
+//---kneadium-ext-begin
+#if ENABLE_KNEADIUM_EXT
+auto me = CefResourceHandlerCppToC::Get(self);
+const int CALLER_CODE=(CefResourceHandlerExt::_typeName << 16) | CefResourceHandlerExt::CefResourceHandlerExt_Cancel_6;
+auto m_callback= me->GetManagedCallBack(CALLER_CODE);
+if(m_callback){
+CefResourceHandlerExt::CancelArgs args1;
+m_callback(CALLER_CODE, &args1.arg);
+ if (((args1.arg.myext_flags >> 21) & 1) == 1){
+return;
+}
+}
+#endif
+//---kneadium-ext-end
 
   // Execute
   CefResourceHandlerCppToC::Get(self)->Cancel();

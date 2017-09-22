@@ -1,3 +1,4 @@
+//---THIS-FILE-WAS-PATCHED , org=D:\projects\cef_binary_3.3071.1647.win32\cpptoc\drag_handler_cpptoc.cc
 // Copyright (c) 2017 The Chromium Embedded Framework Authors. All rights
 // reserved. Use of this source code is governed by a BSD-style license that
 // can be found in the LICENSE file.
@@ -15,6 +16,11 @@
 #include "libcef_dll/cpptoc/drag_handler_cpptoc.h"
 #include "libcef_dll/ctocpp/browser_ctocpp.h"
 #include "libcef_dll/ctocpp/drag_data_ctocpp.h"
+
+//---kneadium-ext-begin
+#include "../myext/ExportFuncAuto.h"
+#include "../myext/InternalHeaderForExportFunc.h"
+//---kneadium-ext-end
 
 namespace {
 
@@ -37,6 +43,21 @@ int CEF_CALLBACK drag_handler_on_drag_enter(struct _cef_drag_handler_t* self,
   DCHECK(dragData);
   if (!dragData)
     return 0;
+
+//---kneadium-ext-begin
+#if ENABLE_KNEADIUM_EXT
+auto me = CefDragHandlerCppToC::Get(self);
+const int CALLER_CODE=(CefDragHandlerExt::_typeName << 16) | CefDragHandlerExt::CefDragHandlerExt_OnDragEnter_1;
+auto m_callback= me->GetManagedCallBack(CALLER_CODE);
+if(m_callback){
+CefDragHandlerExt::OnDragEnterArgs args1(browser,dragData,mask);
+m_callback(CALLER_CODE, &args1.arg);
+ if (((args1.arg.myext_flags >> 21) & 1) == 1){
+ return args1.arg.myext_ret_value;
+}
+}
+#endif
+//---kneadium-ext-end
 
   // Execute
   bool _retval = CefDragHandlerCppToC::Get(self)->OnDragEnter(
@@ -73,6 +94,21 @@ void CEF_CALLBACK drag_handler_on_draggable_regions_changed(
       regionsList.push_back(regionsVal);
     }
   }
+
+//---kneadium-ext-begin
+#if ENABLE_KNEADIUM_EXT
+auto me = CefDragHandlerCppToC::Get(self);
+const int CALLER_CODE=(CefDragHandlerExt::_typeName << 16) | CefDragHandlerExt::CefDragHandlerExt_OnDraggableRegionsChanged_2;
+auto m_callback= me->GetManagedCallBack(CALLER_CODE);
+if(m_callback){
+CefDragHandlerExt::OnDraggableRegionsChangedArgs args1(browser,&regionsList);
+m_callback(CALLER_CODE, &args1.arg);
+ if (((args1.arg.myext_flags >> 21) & 1) == 1){
+return;
+}
+}
+#endif
+//---kneadium-ext-end
 
   // Execute
   CefDragHandlerCppToC::Get(self)->OnDraggableRegionsChanged(

@@ -8,6 +8,6 @@ namespace client {
 
 ClientHandlerStd::ClientHandlerStd(Delegate* delegate,
                                    const std::string& startup_url)
-    : ClientHandler(delegate, false, startup_url) {}
-
-}  // namespace client
+    : ClientHandler(delegate, false, startup_url) {} 
+}
+// namespace client
