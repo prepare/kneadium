@@ -17,7 +17,7 @@ namespace BridgeBuilder
         {
 
         }
-        void GenerateCppImplMethodForNs(MethodPlan met, CodeStringBuilder stbuilder, bool useJsSlot)
+        void GenerateCppImplMethodForNs(MethodPlan met, CodeStringBuilder stbuilder )
         {
 
             CodeMethodDeclaration metDecl = met.metDecl;
@@ -226,7 +226,7 @@ namespace BridgeBuilder
                 //implement on event notificationi
                 MethodPlan met = callToDotNetMets[mm];
                 //prepare data and call the callback
-                GenerateCppImplMethodForNs(met, stbuilder, false);
+                GenerateCppImplMethodForNs(met, stbuilder);
             }
             stbuilder.AppendLine("}");
             //----------------------------------------------
