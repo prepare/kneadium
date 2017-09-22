@@ -526,13 +526,13 @@ namespace BridgeBuilder
             //-----------------------------------------------------------------------
             csStruct.AppendLine("}");  //close struct 
             //add to stbuilder
-            stbuilder.Append(csStruct.ToString()); 
+            stbuilder.Append(csStruct.ToString());
         }
 
         static int codeGenNum;
         void GenerateCsMethod(MethodPlan met, CodeStringBuilder stbuilder)
         {
-             
+
             if (met.CsLeftMethodBodyBlank) return;  //temp here 
             //---------------------------------------
             //extract managed args and then call native c++ method 
@@ -546,7 +546,7 @@ namespace BridgeBuilder
             //--------------------------- 
             //generate method sig 
             //--------------------------- 
-            stbuilder.AppendLine("//CsCallToNativeCodeGen::GenerateCsMethod , "+ (++codeGenNum));
+            stbuilder.AppendLine("//CsCallToNativeCodeGen::GenerateCsMethod , " + (++codeGenNum));
             stbuilder.Append(
                  "\r\n" +
                  "// gen! " + met.ToString() + "\r\n"
@@ -686,7 +686,9 @@ namespace BridgeBuilder
 
     class CsStructModuleCodeGen : CsCodeGen
     {
-        void PrepareCsMetPars(MethodPlan met)
+        static int codeGenNum;
+
+        static void PrepareCsMetPars(MethodPlan met)
         {
             int j = met.pars.Count;
             for (int i = 0; i < j; ++i)
@@ -718,6 +720,8 @@ namespace BridgeBuilder
             }
 
         }
+
+
         public void GenerateCsStructClass(CodeTypeDeclaration orgDecl, List<MethodPlan> callToDotNetMets, CodeStringBuilder stbuilder)
         {
 
@@ -727,7 +731,10 @@ namespace BridgeBuilder
             //1. singles arg interface
             //2. expanded args interface 
             string className = orgDecl.Name;
-            //create a cpp class              
+            //create a cpp class            
+
+            stbuilder.AppendLine("//CsStructModuleCodeGen:: GenerateCsStructClass ," + (++codeGenNum));
+            //
             stbuilder.Append("public struct " + className);
             stbuilder.AppendLine("{");
             stbuilder.AppendLine("public const int _typeNAME=" + orgDecl.TypePlan.CsInterOpTypeNameId + ";");
@@ -746,11 +753,10 @@ namespace BridgeBuilder
             {
                 //implement on event notificationi
                 MethodPlan met = callToDotNetMets[mm];
-                //prepare data and call the callback                
+                //prepare data and call the callback      
                 stbuilder.AppendLine("//gen! " + met.metDecl.ToString());
-               
                 //GenerateCsExpandedArgsMethodImpl(met, stbuilder);
-                string argClassName = GenerateCsMethodArgsClass_JsSlot(met, stbuilder);
+                string argClassName = GenerateCsMethodArgsClass(met, stbuilder);
                 CodeStringBuilder st2 = new CodeStringBuilder();
                 GenerateCsMethodArgsClass_Native(met, st2);
 
@@ -790,6 +796,7 @@ namespace BridgeBuilder
             //
             for (int mm = 0; mm < nn; ++mm)
             {
+                stbuilder.AppendLine("//CsStructModuleCodeGen:: HandleNativeReq ," + (++codeGenNum));
                 //implement on event notificationi
                 MethodPlan met = callToDotNetMets[mm];
                 stbuilder.AppendLine("case " + met.CppMethodSwitchCaseName + ":{");
@@ -815,6 +822,7 @@ namespace BridgeBuilder
             {
                 //implement on event notificationi
                 MethodPlan met = callToDotNetMets[mm];
+
                 GenerateCsSingleArgMethodImplForI1(met.CsArgClassName, met, stbuilder);
             }
             stbuilder.AppendLine("}"); //end class
@@ -822,6 +830,7 @@ namespace BridgeBuilder
 
         void GenerateCsSingleArgMethodImplForI1(string argClassName, MethodPlan met, CodeStringBuilder stbuilder)
         {
+            stbuilder.AppendLine("//CsStructModuleCodeGen:: GenerateCsSingleArgMethodImplForI1 ," + (++codeGenNum));
             CodeMethodDeclaration metDecl = (CodeMethodDeclaration)met.metDecl;
             //temp 
             List<MethodParameter> pars = met.pars;
@@ -836,7 +845,7 @@ namespace BridgeBuilder
         }
         void GenerateCsExpandMethodContent(MethodPlan met, CodeStringBuilder stbuilder)
         {
-
+            stbuilder.AppendLine("//CsStructModuleCodeGen:: GenerateCsExpandMethodContent ," + (++codeGenNum));
             //temp 
             List<MethodParameter> pars = met.pars;
             //call 
@@ -864,6 +873,26 @@ namespace BridgeBuilder
                 }
             }
             //-------
+            string retTypeName = met.metDecl.ReturnType.Name;
+            bool setRetValueToo = false;
+            switch (retTypeName)
+            {
+                case "void":
+                    //not set 
+                    break;
+                case "int":
+                case "int64":
+                case "bool":
+                    setRetValueToo = true;
+                    break;
+                    //TODO: support other return type   
+
+            }
+            if (setRetValueToo)
+            {
+                stbuilder.Append("args.myext_setRetValue(");
+            }
+
             stbuilder.Append("i1.");//instant name
             stbuilder.Append(met.Name);
             stbuilder.Append("(");
@@ -887,7 +916,13 @@ namespace BridgeBuilder
                     }
                 }
             }
-            stbuilder.AppendLine(");");
+            stbuilder.Append(")");
+            if (setRetValueToo)
+            {
+                stbuilder.Append(")");
+            }
+            stbuilder.AppendLine(";");
+
             if (j > 0)
             {
                 for (int i = 0; i < j; ++i)
@@ -903,7 +938,7 @@ namespace BridgeBuilder
 
         void GenerateCsSingleArgMethodImplForInterface(string argClassName, MethodPlan met, CodeStringBuilder stbuilder)
         {
-
+            stbuilder.AppendLine("//CsStructModuleCodeGen:: GenerateCsSingleArgMethodImplForInterface ," + (++codeGenNum));
             CodeMethodDeclaration metDecl = (CodeMethodDeclaration)met.metDecl;
             //temp 
             List<MethodParameter> pars = met.pars;
@@ -918,6 +953,7 @@ namespace BridgeBuilder
         }
         void GenerateCsExpandedArgsMethodForInterface(MethodPlan met, CodeStringBuilder stbuilder)
         {
+            stbuilder.AppendLine("//CsStructModuleCodeGen:: GenerateCsExpandedArgsMethodForInterface ," + (++codeGenNum));
             CodeMethodDeclaration metDecl = (CodeMethodDeclaration)met.metDecl;
 
             //temp             
@@ -947,6 +983,8 @@ namespace BridgeBuilder
 
         string GenerateCsMethodArgsClass_Native(MethodPlan met, CodeStringBuilder stbuilder)
         {
+            stbuilder.AppendLine("//CsStructModuleCodeGen:: GenerateCsMethodArgsClass_Native ," + (++codeGenNum));
+
             //generate cs method pars
             CodeMethodDeclaration metDecl = (CodeMethodDeclaration)met.metDecl;
             List<CodeMethodParameter> pars = metDecl.Parameters;
@@ -956,6 +994,38 @@ namespace BridgeBuilder
             stbuilder.AppendLine("[StructLayout(LayoutKind.Sequential)]");
             stbuilder.AppendLine("struct " + className + "{ "); //this is private struct with explicit layout
             stbuilder.AppendLine("public int argFlags;");
+            //
+            switch (metDecl.ReturnType.Name)
+            {
+                case "void": //no field for void return result
+                    break;
+                default:
+                    throw new NotSupportedException();
+                case "int64":
+                    stbuilder.AppendLine("public long myext_ret_value;");
+                    break;
+                case "int":
+                case "size_t":
+                    stbuilder.AppendLine("public int myext_ret_value;");
+                    break;
+                case "ReturnValue":
+                    //TODO: review here
+                    //temp fix
+                    stbuilder.AppendLine("public int myext_ret_value;");
+                    break;
+                case "CefRefPtr":
+                    //return as native handle
+                    stbuilder.AppendLine("public IntPtr myext_ret_value;");
+                    break;
+                case "CefSize":
+                    stbuilder.AppendLine("public int myext_ret_value_w;"); //width
+                    stbuilder.AppendLine("public int myext_ret_value_h;"); //height
+                    break;
+                case "bool":
+                    stbuilder.AppendLine("public bool myext_ret_value;");
+                    break;
+            }
+            //-------------------------------------------------
             //
             for (int i = 0; i < j; ++i)
             {
@@ -1081,8 +1151,9 @@ namespace BridgeBuilder
 
 
 
-        string GenerateCsMethodArgsClass_JsSlot(MethodPlan met, CodeStringBuilder stbuilder)
+        string GenerateCsMethodArgsClass(MethodPlan met, CodeStringBuilder stbuilder)
         {
+            stbuilder.AppendLine("//CsStructModuleCodeGen:: GenerateCsMethodArgsClass ," + (++codeGenNum));
             //generate cs method pars
             CodeMethodDeclaration metDecl = (CodeMethodDeclaration)met.metDecl;
             List<CodeMethodParameter> pars = metDecl.Parameters;
@@ -1092,18 +1163,76 @@ namespace BridgeBuilder
 
             stbuilder.AppendLine("public struct " + className + "{ ");
             stbuilder.AppendLine("IntPtr nativePtr; //met arg native ptr");
-            stbuilder.AppendLine("bool _isJsSlot;");
 
             stbuilder.AppendLine("internal " + className + "(IntPtr nativePtr){");
-
-            stbuilder.AppendLine(@"int arg_flags;
-                        this.nativePtr = MyMetArgs.GetNativeObjPtr(nativePtr,out arg_flags);
-                        this._isJsSlot = ((arg_flags >> 18) & 1) ==0;
-                        "
-                        );
+            stbuilder.AppendLine("this.nativePtr = nativePtr;");
 
             stbuilder.AppendLine("}");
 
+            string nativeArgClassName = met.Name + "NativeArgs";
+            //----------------------
+            //set return value method
+            //public void myext_setReturnType(bool ret)
+            //{
+            //    unsafe
+            //    {
+            //        ((OnTooltipNativeArgs*)this.nativePtr)->myext_ret_value = ret;
+            //    }
+            //}
+            string metReturnTypeName = metDecl.ReturnType.Name;
+            if (metReturnTypeName != "void")
+            {
+                stbuilder.AppendLine("public void myext_setRetValue(");
+
+                switch (metDecl.ReturnType.Name)
+                {
+
+                    default:
+                        throw new NotSupportedException();
+                    case "int64":
+                        stbuilder.AppendLine("long value){");
+                        stbuilder.AppendLine("unsafe{");
+                        stbuilder.AppendLine("((" + nativeArgClassName + "*)this.nativePtr)->myext_ret_value=value;");
+                        break;
+                    case "int":
+                    case "size_t":
+                        stbuilder.AppendLine("int value){");
+                        stbuilder.AppendLine("unsafe{");
+                        stbuilder.AppendLine("((" + nativeArgClassName + "*)this.nativePtr)->myext_ret_value=value;");
+                        break;
+                    case "ReturnValue":
+                        //TODO: review here
+                        //temp fix
+                        stbuilder.AppendLine("int value){");
+                        stbuilder.AppendLine("unsafe{");
+                        stbuilder.AppendLine("((" + nativeArgClassName + "*)this.nativePtr)->myext_ret_value=value;");
+                        break;
+                    case "CefRefPtr":
+                        //return as native handle
+                        stbuilder.AppendLine("IntPtr value){");
+                        stbuilder.AppendLine("unsafe{");
+                        stbuilder.AppendLine("((" + nativeArgClassName + "*)this.nativePtr)->myext_ret_value=value;");
+                        break;
+                    case "CefSize":
+                        stbuilder.AppendLine("int value_w,"); //width
+                        stbuilder.AppendLine("int value_h){"); //height
+                        stbuilder.AppendLine("unsafe{");
+                        stbuilder.AppendLine("((" + nativeArgClassName + "*)this.nativePtr)->myext_ret_value_w=value_w;");
+                        stbuilder.AppendLine("((" + nativeArgClassName + "*)this.nativePtr)->myext_ret_value_h=value_h;");
+                        break;
+                    case "bool":
+                        stbuilder.AppendLine("bool value){");
+                        stbuilder.AppendLine("unsafe{");
+                        stbuilder.AppendLine("((" + nativeArgClassName + "*)this.nativePtr)->myext_ret_value=value;");
+
+                        break;
+                }
+                stbuilder.AppendLine("}"); //unsafe
+                stbuilder.AppendLine("}");
+            }
+
+
+            //----------------------
             int pos = 0;
             for (int i = 0; i < j; ++i)
             {
@@ -1162,29 +1291,21 @@ namespace BridgeBuilder
                 stbuilder.Append("()");
                 stbuilder.AppendLine("{");
 
-                string nativeArgClassName = met.Name + "NativeArgs";
+
 
                 switch (csParTypeName)
                 {
                     default:
                         {
-                            stbuilder.AppendLine("unsafe{"); //open unsafe
-                            stbuilder.Append("return _isJsSlot ? \r\n");
+                            stbuilder.AppendLine("unsafe{"); //open unsafe 
+                            stbuilder.Append("return ");
                             //is-js-slot= true
                             if (csParTypeName.StartsWith("Cef"))
                             {
-                                stbuilder.Append("new " + csParTypeName + "(MyMetArgs.GetAsIntPtr(nativePtr," + pos + "))");
-                                //if is not js-slot (this is native arg )
-                                stbuilder.Append(":\r\n");
-                                //cast native ptr to specific c-struct and get specific o
                                 stbuilder.Append("new " + csParTypeName + "(((" + nativeArgClassName + "*)this.nativePtr)->" + parTx.Name + ");"); ;
                             }
                             else if (csParTypeName.StartsWith("cef"))
                             {
-                                stbuilder.Append("(" + csParTypeName + ")" + "MyMetArgs.GetAsInt32(nativePtr," + pos + ")");
-                                //if is not js-slot (this is native arg )
-                                stbuilder.Append(":\r\n");
-                                //cast native ptr to specific c-struct and get specific o
                                 stbuilder.Append("(" + csParTypeName + ")" + "(((" + nativeArgClassName + "*)this.nativePtr)->" + parTx.Name + ");");
                             }
                             else
@@ -1208,7 +1329,8 @@ namespace BridgeBuilder
                     case "uint":
                         {
                             stbuilder.AppendLine("unsafe{");
-                            stbuilder.Append(" return _isJsSlot ? \r\n" + "MyMetArgs.GetAsUInt32(nativePtr," + pos + ") :\r\n");
+
+                            stbuilder.Append(" return ");
                             stbuilder.Append("((" + nativeArgClassName + "*)this.nativePtr)->" + parTx.Name);
                             stbuilder.AppendLine(";");
                             stbuilder.AppendLine("}"); //close unsafe context
@@ -1217,7 +1339,7 @@ namespace BridgeBuilder
                     case "int":
                         {
                             stbuilder.AppendLine("unsafe{");
-                            stbuilder.Append("return _isJsSlot? \r\n" + "MyMetArgs.GetAsInt32(nativePtr," + pos + "):\r\n");
+                            stbuilder.Append("return ");
                             stbuilder.Append("((" + nativeArgClassName + "*)this.nativePtr)->" + parTx.Name);
                             stbuilder.AppendLine(";");
                             stbuilder.AppendLine("}"); //close unsafe context
@@ -1226,7 +1348,7 @@ namespace BridgeBuilder
                     case "long":
                         {
                             stbuilder.AppendLine("unsafe{");
-                            stbuilder.Append("return _isJsSlot ? \r\n" + "MyMetArgs.GetAsInt64(nativePtr," + pos + "):\r\n");
+                            stbuilder.Append("return ");
                             stbuilder.Append("((" + nativeArgClassName + "*)this.nativePtr)->" + parTx.Name);
                             stbuilder.AppendLine(";");
                             stbuilder.AppendLine("}"); //close unsafe context 
@@ -1235,7 +1357,7 @@ namespace BridgeBuilder
                     case "string":
                         {
                             stbuilder.AppendLine("unsafe{");
-                            stbuilder.Append("return _isJsSlot ?\r\n" + "MyMetArgs.GetAsString(nativePtr," + pos + "):\r\n");
+                            stbuilder.Append("return ");
                             stbuilder.Append("MyMetArgs.GetAsString(((" + nativeArgClassName + "*)this.nativePtr)->" + parTx.Name + ")");
                             stbuilder.AppendLine(";");
                             stbuilder.AppendLine("}"); //close unsafe context  
@@ -1244,7 +1366,7 @@ namespace BridgeBuilder
                     case "bool":
                         {
                             stbuilder.AppendLine("unsafe{");
-                            stbuilder.Append("return _isJsSlot?\r\n" + "MyMetArgs.GetAsBool(nativePtr," + pos + "):\r\n");
+                            stbuilder.Append("return ");
                             stbuilder.Append("((" + nativeArgClassName + "*)this.nativePtr)->" + parTx.Name);
                             stbuilder.AppendLine(";");
                             stbuilder.AppendLine("}"); //close unsafe context  
@@ -1253,7 +1375,7 @@ namespace BridgeBuilder
                     case "double":
                         {
                             stbuilder.AppendLine("unsafe{");
-                            stbuilder.Append("return _isJsSlot?\r\n" + "MyMetArgs.GetAsDouble(nativePtr," + pos + "):\r\n");
+                            stbuilder.Append("return ");
                             stbuilder.Append("((" + nativeArgClassName + "*)this.nativePtr)->" + parTx.Name);
                             stbuilder.AppendLine(";");
                             stbuilder.AppendLine("}"); //close unsafe context  

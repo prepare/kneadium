@@ -11,7 +11,7 @@ namespace BridgeBuilder
     /// for cef-3 api only
     /// </summary>
     class Cef3HeaderFileParser
-    {   
+    {
         List<string> allLines = new List<string>();
         List<Token> tokenList = new List<Token>();
         int lineNo = -1;
@@ -204,7 +204,7 @@ namespace BridgeBuilder
 
 
                 lineNo++;
-            } 
+            }
 
             //-------------------------------------------------------
 #if DEBUG
@@ -229,8 +229,8 @@ namespace BridgeBuilder
 
                         break;
                     case TokenKind.PreprocessingDirective:
-                        {   
-                            lineComments.Clear(); 
+                        {
+                            lineComments.Clear();
                             //this version we just skip some pre-processing 
                             if (tk.Content.StartsWith("#include"))
                             {
@@ -681,6 +681,8 @@ namespace BridgeBuilder
         bool ParseNamespace(CodeTypeDeclaration currentTypeDecl)
         {
             string namespaceName = ExpectId(); //may be null
+            Token ns_tk = tokenList[currentTokenIndex];
+
             if (!ExpectPunc("{"))
             {
                 throw new NotSupportedException();
@@ -689,6 +691,7 @@ namespace BridgeBuilder
             CodeTypeDeclaration namespace_as_type = new CodeTypeDeclaration();
             namespace_as_type.Kind = TypeKind.Namespace;
             namespace_as_type.Name = namespaceName ?? "";
+            namespace_as_type.StartAtLine = ns_tk.LineNo;
 
             currentTypeDecl.AddMember(namespace_as_type);
 
@@ -1343,12 +1346,22 @@ namespace BridgeBuilder
                     ParseCtorInitializer(met);
                 }
                 //----------------
+              
 
                 if (ExpectPunc("{"))
                 {
+                    Token openBraceTk = tokenList[currentTokenIndex];
                     //this version we not parse method body
                     ReadUntilEscapeFromBlock();
-                    return !ExpectPunc("}");
+                    bool endPunc = !ExpectPunc("}");
+
+                    //----
+                    Token closeBraceTk = tokenList[currentTokenIndex];
+                    met.HasMethodBody = true;
+                    met.StartAtLine = openBraceTk.LineNo;
+                    met.EndAtLine = closeBraceTk.LineNo;
+                    //----
+                    return endPunc; 
                 }
                 else if (ExpectPunc("="))
                 {

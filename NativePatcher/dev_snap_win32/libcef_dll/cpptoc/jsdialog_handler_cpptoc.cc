@@ -1,3 +1,4 @@
+//---THIS-FILE-WAS-PATCHED , org=D:\projects\cef_binary_3.3071.1647.win32\cpptoc\jsdialog_handler_cpptoc.cc
 // Copyright (c) 2017 The Chromium Embedded Framework Authors. All rights
 // reserved. Use of this source code is governed by a BSD-style license that
 // can be found in the LICENSE file.
@@ -15,6 +16,11 @@
 #include "libcef_dll/cpptoc/jsdialog_handler_cpptoc.h"
 #include "libcef_dll/ctocpp/browser_ctocpp.h"
 #include "libcef_dll/ctocpp/jsdialog_callback_ctocpp.h"
+
+//---kneadium-ext-begin
+#include "../myext/ExportFuncAuto.h"
+#include "../myext/InternalHeaderForExportFunc.h"
+//---kneadium-ext-end
 
 namespace {
 
@@ -52,6 +58,29 @@ jsdialog_handler_on_jsdialog(struct _cef_jsdialog_handler_t* self,
   bool suppress_messageBool =
       (suppress_message && *suppress_message) ? true : false;
 
+//---kneadium-ext-begin
+#if ENABLE_KNEADIUM_EXT
+auto me = CefJSDialogHandlerCppToC::Get(self);
+const int CALLER_CODE=(CefJSDialogHandlerExt::_typeName << 16) | CefJSDialogHandlerExt::CefJSDialogHandlerExt_OnJSDialog_1;
+auto m_callback= me->GetManagedCallBack(CALLER_CODE);
+if(m_callback){
+CefString tmp_arg2 (origin_url);
+CefString tmp_arg4 (message_text);
+CefString tmp_arg5 (default_prompt_text);
+CefJSDialogHandlerExt::OnJSDialogArgs args1(browser,tmp_arg2,dialog_type,tmp_arg4,tmp_arg5,callback,&suppress_messageBool);
+m_callback(CALLER_CODE, &args1.arg);
+ if (((args1.arg.myext_flags >> 21) & 1) == 1){
+// Restore param: suppress_message; type: bool_byref
+if (suppress_message)
+*suppress_message = suppress_messageBool ? true : false;
+
+
+ return args1.arg.myext_ret_value;
+}
+}
+#endif
+//---kneadium-ext-end
+
   // Execute
   bool _retval = CefJSDialogHandlerCppToC::Get(self)->OnJSDialog(
       CefBrowserCToCpp::Wrap(browser), CefString(origin_url), dialog_type,
@@ -87,6 +116,22 @@ jsdialog_handler_on_before_unload_dialog(struct _cef_jsdialog_handler_t* self,
     return 0;
   // Unverified params: message_text
 
+//---kneadium-ext-begin
+#if ENABLE_KNEADIUM_EXT
+auto me = CefJSDialogHandlerCppToC::Get(self);
+const int CALLER_CODE=(CefJSDialogHandlerExt::_typeName << 16) | CefJSDialogHandlerExt::CefJSDialogHandlerExt_OnBeforeUnloadDialog_2;
+auto m_callback= me->GetManagedCallBack(CALLER_CODE);
+if(m_callback){
+CefString tmp_arg2 (message_text);
+CefJSDialogHandlerExt::OnBeforeUnloadDialogArgs args1(browser,tmp_arg2,is_reload,callback);
+m_callback(CALLER_CODE, &args1.arg);
+ if (((args1.arg.myext_flags >> 21) & 1) == 1){
+ return args1.arg.myext_ret_value;
+}
+}
+#endif
+//---kneadium-ext-end
+
   // Execute
   bool _retval = CefJSDialogHandlerCppToC::Get(self)->OnBeforeUnloadDialog(
       CefBrowserCToCpp::Wrap(browser), CefString(message_text),
@@ -109,6 +154,21 @@ jsdialog_handler_on_reset_dialog_state(struct _cef_jsdialog_handler_t* self,
   if (!browser)
     return;
 
+//---kneadium-ext-begin
+#if ENABLE_KNEADIUM_EXT
+auto me = CefJSDialogHandlerCppToC::Get(self);
+const int CALLER_CODE=(CefJSDialogHandlerExt::_typeName << 16) | CefJSDialogHandlerExt::CefJSDialogHandlerExt_OnResetDialogState_3;
+auto m_callback= me->GetManagedCallBack(CALLER_CODE);
+if(m_callback){
+CefJSDialogHandlerExt::OnResetDialogStateArgs args1(browser);
+m_callback(CALLER_CODE, &args1.arg);
+ if (((args1.arg.myext_flags >> 21) & 1) == 1){
+return;
+}
+}
+#endif
+//---kneadium-ext-end
+
   // Execute
   CefJSDialogHandlerCppToC::Get(self)->OnResetDialogState(
       CefBrowserCToCpp::Wrap(browser));
@@ -126,6 +186,21 @@ jsdialog_handler_on_dialog_closed(struct _cef_jsdialog_handler_t* self,
   DCHECK(browser);
   if (!browser)
     return;
+
+//---kneadium-ext-begin
+#if ENABLE_KNEADIUM_EXT
+auto me = CefJSDialogHandlerCppToC::Get(self);
+const int CALLER_CODE=(CefJSDialogHandlerExt::_typeName << 16) | CefJSDialogHandlerExt::CefJSDialogHandlerExt_OnDialogClosed_4;
+auto m_callback= me->GetManagedCallBack(CALLER_CODE);
+if(m_callback){
+CefJSDialogHandlerExt::OnDialogClosedArgs args1(browser);
+m_callback(CALLER_CODE, &args1.arg);
+ if (((args1.arg.myext_flags >> 21) & 1) == 1){
+return;
+}
+}
+#endif
+//---kneadium-ext-end
 
   // Execute
   CefJSDialogHandlerCppToC::Get(self)->OnDialogClosed(

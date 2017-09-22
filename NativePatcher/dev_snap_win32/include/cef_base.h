@@ -68,7 +68,7 @@ class CefBaseRefCounted {
   // Returns true if the reference count is 1.
   ///
   virtual bool HasOneRef() const = 0;
-  virtual managed_callback GetManagedCallBack() const = 0;
+  virtual managed_callback GetManagedCallBack(int callerCode) const = 0;
 
  protected:
   virtual ~CefBaseRefCounted() {}
@@ -124,12 +124,31 @@ class CefRefCount {
     return false;                                                    \
   }                                                                  \
   bool HasOneRef() const OVERRIDE { return ref_count_.HasOneRef(); } \
-  managed_callback GetManagedCallBack() const OVERRIDE { return myext_mcallback; } \
+  managed_callback GetManagedCallBack(int callerCode) const OVERRIDE { return myext_mcallback; } \
                                                                      \
  private:                                                            \
   managed_callback myext_mcallback= NULL;\
   CefRefCount ref_count_;
  
+///
+// Macro that provides a reference counting implementation for classes extending
+// CefBase.
+///
+#define IMPLEMENT_REFCOUNTING_NOCALLBACK(ClassName)                  \
+ public:                                                             \
+  void AddRef() const OVERRIDE { ref_count_.AddRef(); }              \
+  bool Release() const OVERRIDE {                                    \
+    if (ref_count_.Release()) {                                      \
+      delete static_cast<const ClassName*>(this);                    \
+      return true;                                                   \
+    }                                                                \
+    return false;                                                    \
+  }                                                                  \
+  bool HasOneRef() const OVERRIDE { return ref_count_.HasOneRef(); } \
+                                                                     \
+ private:                                                            \
+  CefRefCount ref_count_;
+
 ///
 // Macro that provides a locking implementation. Use the Lock() and Unlock()
 // methods to protect a section of code from simultaneous access by multiple

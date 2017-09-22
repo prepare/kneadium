@@ -26,6 +26,8 @@ namespace BridgeBuilder
             GenerateCsCode(output._csCode);
 
             //-----------------------------------------------------------
+            string namespaceName = orgDecl.Name + "Ext";
+            CodeStringBuilder const_methodNames = new CodeStringBuilder();
             CppToCsMethodArgsClassGen cppMetArgClassGen = new CppToCsMethodArgsClassGen();
             //
             CodeStringBuilder cppArgClassStBuilder = new CodeStringBuilder();
@@ -35,6 +37,7 @@ namespace BridgeBuilder
             {
                 MethodPlan met = _typePlan.methods[i];
                 cppMetArgClassGen.GenerateCppMethodArgsClass(met, cppArgClassStBuilder);
+                const_methodNames.AppendLine("const int " + namespaceName + "_" + met.Name + "_" + (i + 1) + "=" + (i + 1) + ";");
             }
             cppArgClassStBuilder.AppendLine("}");
 
@@ -43,11 +46,12 @@ namespace BridgeBuilder
 
             //----------------------------------------------
             //InternalHeaderForExportFunc.h
-            string namespaceName = orgDecl.Name + "Ext";
+
             CodeStringBuilder internalHeader = output._cppHeaderInternalForExportFuncAuto;
             internalHeader.AppendLine("namespace " + namespaceName);
             internalHeader.AppendLine("{");
             internalHeader.AppendLine("const int _typeName=" + "CefTypeName_" + orgDecl.Name + ";");
+            internalHeader.AppendLine(const_methodNames.ToString());
             internalHeader.AppendLine("}");
             //----------------------------------------------  
         }

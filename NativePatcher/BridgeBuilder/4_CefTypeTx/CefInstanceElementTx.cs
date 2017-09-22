@@ -51,22 +51,27 @@ namespace BridgeBuilder
             if (cppHandlerReqCodeGen.callToDotNetMets.Count > 0)
             {
                 int j = cppHandlerReqCodeGen.callToDotNetMets.Count;
+                string namespaceName = orgDecl.Name + "Ext";
+
+                CodeStringBuilder const_methodNames = new CodeStringBuilder();
                 //check if method has duplicate name or not
                 Dictionary<string, MethodPlan> uniqueNames = new Dictionary<string, MethodPlan>();
                 for (int i = 0; i < j; ++i)
                 {
                     MethodPlan met = cppHandlerReqCodeGen.callToDotNetMets[i];
-                    
+
                     MethodPlan existingPlan;
                     if (uniqueNames.TryGetValue(met.Name, out existingPlan))
                     {
                         //has some duplicate name 
                         met.NewOverloadName = met.Name + i;
-                        met.HasDuplicatedMethodName = true;                        
+                        met.HasDuplicatedMethodName = true;
+                        const_methodNames.AppendLine("const int " + namespaceName + "_" + met.NewOverloadName + "_" + (i + 1) + "=" + (i + 1) + ";");
                     }
                     else
                     {
                         uniqueNames.Add(met.Name, met);
+                        const_methodNames.AppendLine("const int " + namespaceName + "_" + met.Name + "_" + (i + 1) + "=" + (i + 1) + ";");
                     }
                 }
 
@@ -96,11 +101,12 @@ namespace BridgeBuilder
 
                 //----------------------------------------------
                 //InternalHeaderForExportFunc.h
-                string namespaceName = orgDecl.Name + "Ext";
+
                 CodeStringBuilder internalHeader = _output._cppHeaderInternalForExportFuncAuto;
                 internalHeader.AppendLine("namespace " + namespaceName);
                 internalHeader.AppendLine("{");
                 internalHeader.AppendLine("const int _typeName=" + "CefTypeName_" + orgDecl.Name + ";");
+                internalHeader.AppendLine(const_methodNames.ToString());
                 internalHeader.AppendLine("}");
                 //----------------------------------------------   
             }

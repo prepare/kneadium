@@ -1,3 +1,4 @@
+//---THIS-FILE-WAS-PATCHED , org=D:\projects\cef_binary_3.3071.1647.win32\cpptoc\keyboard_handler_cpptoc.cc
 // Copyright (c) 2017 The Chromium Embedded Framework Authors. All rights
 // reserved. Use of this source code is governed by a BSD-style license that
 // can be found in the LICENSE file.
@@ -14,6 +15,11 @@
 
 #include "libcef_dll/cpptoc/keyboard_handler_cpptoc.h"
 #include "libcef_dll/ctocpp/browser_ctocpp.h"
+
+//---kneadium-ext-begin
+#include "../myext/ExportFuncAuto.h"
+#include "../myext/InternalHeaderForExportFunc.h"
+//---kneadium-ext-end
 
 namespace {
 
@@ -51,6 +57,26 @@ keyboard_handler_on_pre_key_event(struct _cef_keyboard_handler_t* self,
   bool is_keyboard_shortcutBool =
       (is_keyboard_shortcut && *is_keyboard_shortcut) ? true : false;
 
+//---kneadium-ext-begin
+#if ENABLE_KNEADIUM_EXT
+auto me = CefKeyboardHandlerCppToC::Get(self);
+const int CALLER_CODE=(CefKeyboardHandlerExt::_typeName << 16) | CefKeyboardHandlerExt::CefKeyboardHandlerExt_OnPreKeyEvent_1;
+auto m_callback= me->GetManagedCallBack(CALLER_CODE);
+if(m_callback){
+CefKeyboardHandlerExt::OnPreKeyEventArgs args1(browser,&eventObj,os_event,&is_keyboard_shortcutBool);
+m_callback(CALLER_CODE, &args1.arg);
+ if (((args1.arg.myext_flags >> 21) & 1) == 1){
+// Restore param: is_keyboard_shortcut; type: bool_byaddr
+if (is_keyboard_shortcut)
+*is_keyboard_shortcut = is_keyboard_shortcutBool ? true : false;
+
+
+ return args1.arg.myext_ret_value;
+}
+}
+#endif
+//---kneadium-ext-end
+
   // Execute
   bool _retval = CefKeyboardHandlerCppToC::Get(self)->OnPreKeyEvent(
       CefBrowserCToCpp::Wrap(browser), eventObj, os_event,
@@ -87,6 +113,21 @@ keyboard_handler_on_key_event(struct _cef_keyboard_handler_t* self,
   CefKeyEvent eventObj;
   if (event)
     eventObj.Set(*event, false);
+
+//---kneadium-ext-begin
+#if ENABLE_KNEADIUM_EXT
+auto me = CefKeyboardHandlerCppToC::Get(self);
+const int CALLER_CODE=(CefKeyboardHandlerExt::_typeName << 16) | CefKeyboardHandlerExt::CefKeyboardHandlerExt_OnKeyEvent_2;
+auto m_callback= me->GetManagedCallBack(CALLER_CODE);
+if(m_callback){
+CefKeyboardHandlerExt::OnKeyEventArgs args1(browser,&eventObj,os_event);
+m_callback(CALLER_CODE, &args1.arg);
+ if (((args1.arg.myext_flags >> 21) & 1) == 1){
+ return args1.arg.myext_ret_value;
+}
+}
+#endif
+//---kneadium-ext-end
 
   // Execute
   bool _retval = CefKeyboardHandlerCppToC::Get(self)->OnKeyEvent(

@@ -1,3 +1,4 @@
+//---THIS-FILE-WAS-PATCHED , org=D:\projects\cef_binary_3.3071.1647.win32\cpptoc\request_handler_cpptoc.cc
 // Copyright (c) 2017 The Chromium Embedded Framework Authors. All rights
 // reserved. Use of this source code is governed by a BSD-style license that
 // can be found in the LICENSE file.
@@ -24,6 +25,11 @@
 #include "libcef_dll/ctocpp/select_client_certificate_callback_ctocpp.h"
 #include "libcef_dll/ctocpp/sslinfo_ctocpp.h"
 #include "libcef_dll/ctocpp/x509certificate_ctocpp.h"
+
+//---kneadium-ext-begin
+#include "../myext/ExportFuncAuto.h"
+#include "../myext/InternalHeaderForExportFunc.h"
+//---kneadium-ext-end
 
 namespace {
 
@@ -52,6 +58,21 @@ request_handler_on_before_browse(struct _cef_request_handler_t* self,
   DCHECK(request);
   if (!request)
     return 0;
+
+//---kneadium-ext-begin
+#if ENABLE_KNEADIUM_EXT
+auto me = CefRequestHandlerCppToC::Get(self);
+const int CALLER_CODE=(CefRequestHandlerExt::_typeName << 16) | CefRequestHandlerExt::CefRequestHandlerExt_OnBeforeBrowse_1;
+auto m_callback= me->GetManagedCallBack(CALLER_CODE);
+if(m_callback){
+CefRequestHandlerExt::OnBeforeBrowseArgs args1(browser,frame,request,is_redirect);
+m_callback(CALLER_CODE, &args1.arg);
+ if (((args1.arg.myext_flags >> 21) & 1) == 1){
+ return args1.arg.myext_ret_value;
+}
+}
+#endif
+//---kneadium-ext-end
 
   // Execute
   bool _retval = CefRequestHandlerCppToC::Get(self)->OnBeforeBrowse(
@@ -86,6 +107,22 @@ int CEF_CALLBACK request_handler_on_open_urlfrom_tab(
   DCHECK(target_url);
   if (!target_url)
     return 0;
+
+//---kneadium-ext-begin
+#if ENABLE_KNEADIUM_EXT
+auto me = CefRequestHandlerCppToC::Get(self);
+const int CALLER_CODE=(CefRequestHandlerExt::_typeName << 16) | CefRequestHandlerExt::CefRequestHandlerExt_OnOpenURLFromTab_2;
+auto m_callback= me->GetManagedCallBack(CALLER_CODE);
+if(m_callback){
+CefString tmp_arg3 (target_url);
+CefRequestHandlerExt::OnOpenURLFromTabArgs args1(browser,frame,tmp_arg3,target_disposition,user_gesture);
+m_callback(CALLER_CODE, &args1.arg);
+ if (((args1.arg.myext_flags >> 21) & 1) == 1){
+ return args1.arg.myext_ret_value;
+}
+}
+#endif
+//---kneadium-ext-end
 
   // Execute
   bool _retval = CefRequestHandlerCppToC::Get(self)->OnOpenURLFromTab(
@@ -124,6 +161,21 @@ request_handler_on_before_resource_load(struct _cef_request_handler_t* self,
   if (!callback)
     return RV_CONTINUE;
 
+//---kneadium-ext-begin
+#if ENABLE_KNEADIUM_EXT
+auto me = CefRequestHandlerCppToC::Get(self);
+const int CALLER_CODE=(CefRequestHandlerExt::_typeName << 16) | CefRequestHandlerExt::CefRequestHandlerExt_OnBeforeResourceLoad_3;
+auto m_callback= me->GetManagedCallBack(CALLER_CODE);
+if(m_callback){
+CefRequestHandlerExt::OnBeforeResourceLoadArgs args1(browser,frame,request,callback);
+m_callback(CALLER_CODE, &args1.arg);
+ if (((args1.arg.myext_flags >> 21) & 1) == 1){
+ return args1.arg.myext_ret_value;
+}
+}
+#endif
+//---kneadium-ext-end
+
   // Execute
   cef_return_value_t _retval =
       CefRequestHandlerCppToC::Get(self)->OnBeforeResourceLoad(
@@ -157,6 +209,21 @@ request_handler_get_resource_handler(struct _cef_request_handler_t* self,
   DCHECK(request);
   if (!request)
     return NULL;
+
+//---kneadium-ext-begin
+#if ENABLE_KNEADIUM_EXT
+auto me = CefRequestHandlerCppToC::Get(self);
+const int CALLER_CODE=(CefRequestHandlerExt::_typeName << 16) | CefRequestHandlerExt::CefRequestHandlerExt_GetResourceHandler_4;
+auto m_callback= me->GetManagedCallBack(CALLER_CODE);
+if(m_callback){
+CefRequestHandlerExt::GetResourceHandlerArgs args1(browser,frame,request);
+m_callback(CALLER_CODE, &args1.arg);
+ if (((args1.arg.myext_flags >> 21) & 1) == 1){
+ return CefResourceHandlerCppToC::Wrap(args1.arg.myext_ret_value);
+}
+}
+#endif
+//---kneadium-ext-end
 
   // Execute
   CefRefPtr<CefResourceHandler> _retval =
@@ -204,6 +271,22 @@ request_handler_on_resource_redirect(struct _cef_request_handler_t* self,
   // Translate param: new_url; type: string_byref
   CefString new_urlStr(new_url);
 
+//---kneadium-ext-begin
+#if ENABLE_KNEADIUM_EXT
+auto me = CefRequestHandlerCppToC::Get(self);
+const int CALLER_CODE=(CefRequestHandlerExt::_typeName << 16) | CefRequestHandlerExt::CefRequestHandlerExt_OnResourceRedirect_5;
+auto m_callback= me->GetManagedCallBack(CALLER_CODE);
+if(m_callback){
+CefString tmp_arg5 (new_url);
+CefRequestHandlerExt::OnResourceRedirectArgs args1(browser,frame,request,response,tmp_arg5);
+m_callback(CALLER_CODE, &args1.arg);
+ if (((args1.arg.myext_flags >> 21) & 1) == 1){
+return;
+}
+}
+#endif
+//---kneadium-ext-end
+
   // Execute
   CefRequestHandlerCppToC::Get(self)->OnResourceRedirect(
       CefBrowserCToCpp::Wrap(browser), CefFrameCToCpp::Wrap(frame),
@@ -238,6 +321,21 @@ request_handler_on_resource_response(struct _cef_request_handler_t* self,
   DCHECK(response);
   if (!response)
     return 0;
+
+//---kneadium-ext-begin
+#if ENABLE_KNEADIUM_EXT
+auto me = CefRequestHandlerCppToC::Get(self);
+const int CALLER_CODE=(CefRequestHandlerExt::_typeName << 16) | CefRequestHandlerExt::CefRequestHandlerExt_OnResourceResponse_6;
+auto m_callback= me->GetManagedCallBack(CALLER_CODE);
+if(m_callback){
+CefRequestHandlerExt::OnResourceResponseArgs args1(browser,frame,request,response);
+m_callback(CALLER_CODE, &args1.arg);
+ if (((args1.arg.myext_flags >> 21) & 1) == 1){
+ return args1.arg.myext_ret_value;
+}
+}
+#endif
+//---kneadium-ext-end
 
   // Execute
   bool _retval = CefRequestHandlerCppToC::Get(self)->OnResourceResponse(
@@ -276,6 +374,21 @@ request_handler_get_resource_response_filter(
   DCHECK(response);
   if (!response)
     return NULL;
+
+//---kneadium-ext-begin
+#if ENABLE_KNEADIUM_EXT
+auto me = CefRequestHandlerCppToC::Get(self);
+const int CALLER_CODE=(CefRequestHandlerExt::_typeName << 16) | CefRequestHandlerExt::CefRequestHandlerExt_GetResourceResponseFilter_7;
+auto m_callback= me->GetManagedCallBack(CALLER_CODE);
+if(m_callback){
+CefRequestHandlerExt::GetResourceResponseFilterArgs args1(browser,frame,request,response);
+m_callback(CALLER_CODE, &args1.arg);
+ if (((args1.arg.myext_flags >> 21) & 1) == 1){
+ return CefResponseFilterCppToC::Wrap(args1.arg.myext_ret_value);
+}
+}
+#endif
+//---kneadium-ext-end
 
   // Execute
   CefRefPtr<CefResponseFilter> _retval =
@@ -317,6 +430,21 @@ request_handler_on_resource_load_complete(struct _cef_request_handler_t* self,
   if (!response)
     return;
 
+//---kneadium-ext-begin
+#if ENABLE_KNEADIUM_EXT
+auto me = CefRequestHandlerCppToC::Get(self);
+const int CALLER_CODE=(CefRequestHandlerExt::_typeName << 16) | CefRequestHandlerExt::CefRequestHandlerExt_OnResourceLoadComplete_8;
+auto m_callback= me->GetManagedCallBack(CALLER_CODE);
+if(m_callback){
+CefRequestHandlerExt::OnResourceLoadCompleteArgs args1(browser,frame,request,response,status,received_content_length);
+m_callback(CALLER_CODE, &args1.arg);
+ if (((args1.arg.myext_flags >> 21) & 1) == 1){
+return;
+}
+}
+#endif
+//---kneadium-ext-end
+
   // Execute
   CefRequestHandlerCppToC::Get(self)->OnResourceLoadComplete(
       CefBrowserCToCpp::Wrap(browser), CefFrameCToCpp::Wrap(frame),
@@ -357,6 +485,24 @@ request_handler_get_auth_credentials(struct _cef_request_handler_t* self,
     return 0;
   // Unverified params: realm, scheme
 
+//---kneadium-ext-begin
+#if ENABLE_KNEADIUM_EXT
+auto me = CefRequestHandlerCppToC::Get(self);
+const int CALLER_CODE=(CefRequestHandlerExt::_typeName << 16) | CefRequestHandlerExt::CefRequestHandlerExt_GetAuthCredentials_9;
+auto m_callback= me->GetManagedCallBack(CALLER_CODE);
+if(m_callback){
+CefString tmp_arg4 (host);
+CefString tmp_arg6 (realm);
+CefString tmp_arg7 (scheme);
+CefRequestHandlerExt::GetAuthCredentialsArgs args1(browser,frame,isProxy,tmp_arg4,port,tmp_arg6,tmp_arg7,callback);
+m_callback(CALLER_CODE, &args1.arg);
+ if (((args1.arg.myext_flags >> 21) & 1) == 1){
+ return args1.arg.myext_ret_value;
+}
+}
+#endif
+//---kneadium-ext-end
+
   // Execute
   bool _retval = CefRequestHandlerCppToC::Get(self)->GetAuthCredentials(
       CefBrowserCToCpp::Wrap(browser), CefFrameCToCpp::Wrap(frame),
@@ -390,6 +536,22 @@ request_handler_on_quota_request(struct _cef_request_handler_t* self,
   DCHECK(callback);
   if (!callback)
     return 0;
+
+//---kneadium-ext-begin
+#if ENABLE_KNEADIUM_EXT
+auto me = CefRequestHandlerCppToC::Get(self);
+const int CALLER_CODE=(CefRequestHandlerExt::_typeName << 16) | CefRequestHandlerExt::CefRequestHandlerExt_OnQuotaRequest_10;
+auto m_callback= me->GetManagedCallBack(CALLER_CODE);
+if(m_callback){
+CefString tmp_arg2 (origin_url);
+CefRequestHandlerExt::OnQuotaRequestArgs args1(browser,tmp_arg2,new_size,callback);
+m_callback(CALLER_CODE, &args1.arg);
+ if (((args1.arg.myext_flags >> 21) & 1) == 1){
+ return args1.arg.myext_ret_value;
+}
+}
+#endif
+//---kneadium-ext-end
 
   // Execute
   bool _retval = CefRequestHandlerCppToC::Get(self)->OnQuotaRequest(
@@ -426,6 +588,22 @@ request_handler_on_protocol_execution(struct _cef_request_handler_t* self,
   // Translate param: allow_os_execution; type: bool_byref
   bool allow_os_executionBool =
       (allow_os_execution && *allow_os_execution) ? true : false;
+
+//---kneadium-ext-begin
+#if ENABLE_KNEADIUM_EXT
+auto me = CefRequestHandlerCppToC::Get(self);
+const int CALLER_CODE=(CefRequestHandlerExt::_typeName << 16) | CefRequestHandlerExt::CefRequestHandlerExt_OnProtocolExecution_11;
+auto m_callback= me->GetManagedCallBack(CALLER_CODE);
+if(m_callback){
+CefString tmp_arg2 (url);
+CefRequestHandlerExt::OnProtocolExecutionArgs args1(browser,tmp_arg2,&allow_os_executionBool);
+m_callback(CALLER_CODE, &args1.arg);
+ if (((args1.arg.myext_flags >> 21) & 1) == 1){
+return;
+}
+}
+#endif
+//---kneadium-ext-end
 
   // Execute
   CefRequestHandlerCppToC::Get(self)->OnProtocolExecution(
@@ -464,6 +642,22 @@ request_handler_on_certificate_error(struct _cef_request_handler_t* self,
   DCHECK(callback);
   if (!callback)
     return 0;
+
+//---kneadium-ext-begin
+#if ENABLE_KNEADIUM_EXT
+auto me = CefRequestHandlerCppToC::Get(self);
+const int CALLER_CODE=(CefRequestHandlerExt::_typeName << 16) | CefRequestHandlerExt::CefRequestHandlerExt_OnCertificateError_12;
+auto m_callback= me->GetManagedCallBack(CALLER_CODE);
+if(m_callback){
+CefString tmp_arg3 (request_url);
+CefRequestHandlerExt::OnCertificateErrorArgs args1(browser,cert_error,tmp_arg3,ssl_info,callback);
+m_callback(CALLER_CODE, &args1.arg);
+ if (((args1.arg.myext_flags >> 21) & 1) == 1){
+ return args1.arg.myext_ret_value;
+}
+}
+#endif
+//---kneadium-ext-end
 
   // Execute
   bool _retval = CefRequestHandlerCppToC::Get(self)->OnCertificateError(
@@ -516,6 +710,22 @@ int CEF_CALLBACK request_handler_on_select_client_certificate(
     }
   }
 
+//---kneadium-ext-begin
+#if ENABLE_KNEADIUM_EXT
+auto me = CefRequestHandlerCppToC::Get(self);
+const int CALLER_CODE=(CefRequestHandlerExt::_typeName << 16) | CefRequestHandlerExt::CefRequestHandlerExt_OnSelectClientCertificate_13;
+auto m_callback= me->GetManagedCallBack(CALLER_CODE);
+if(m_callback){
+CefString tmp_arg3 (host);
+CefRequestHandlerExt::OnSelectClientCertificateArgs args1(browser,isProxy,tmp_arg3,port,&certificatesList,callback);
+m_callback(CALLER_CODE, &args1.arg);
+ if (((args1.arg.myext_flags >> 21) & 1) == 1){
+ return args1.arg.myext_ret_value;
+}
+}
+#endif
+//---kneadium-ext-end
+
   // Execute
   bool _retval = CefRequestHandlerCppToC::Get(self)->OnSelectClientCertificate(
       CefBrowserCToCpp::Wrap(browser), isProxy ? true : false, CefString(host),
@@ -544,6 +754,22 @@ request_handler_on_plugin_crashed(struct _cef_request_handler_t* self,
   if (!plugin_path)
     return;
 
+//---kneadium-ext-begin
+#if ENABLE_KNEADIUM_EXT
+auto me = CefRequestHandlerCppToC::Get(self);
+const int CALLER_CODE=(CefRequestHandlerExt::_typeName << 16) | CefRequestHandlerExt::CefRequestHandlerExt_OnPluginCrashed_14;
+auto m_callback= me->GetManagedCallBack(CALLER_CODE);
+if(m_callback){
+CefString tmp_arg2 (plugin_path);
+CefRequestHandlerExt::OnPluginCrashedArgs args1(browser,tmp_arg2);
+m_callback(CALLER_CODE, &args1.arg);
+ if (((args1.arg.myext_flags >> 21) & 1) == 1){
+return;
+}
+}
+#endif
+//---kneadium-ext-end
+
   // Execute
   CefRequestHandlerCppToC::Get(self)->OnPluginCrashed(
       CefBrowserCToCpp::Wrap(browser), CefString(plugin_path));
@@ -561,6 +787,21 @@ request_handler_on_render_view_ready(struct _cef_request_handler_t* self,
   DCHECK(browser);
   if (!browser)
     return;
+
+//---kneadium-ext-begin
+#if ENABLE_KNEADIUM_EXT
+auto me = CefRequestHandlerCppToC::Get(self);
+const int CALLER_CODE=(CefRequestHandlerExt::_typeName << 16) | CefRequestHandlerExt::CefRequestHandlerExt_OnRenderViewReady_15;
+auto m_callback= me->GetManagedCallBack(CALLER_CODE);
+if(m_callback){
+CefRequestHandlerExt::OnRenderViewReadyArgs args1(browser);
+m_callback(CALLER_CODE, &args1.arg);
+ if (((args1.arg.myext_flags >> 21) & 1) == 1){
+return;
+}
+}
+#endif
+//---kneadium-ext-end
 
   // Execute
   CefRequestHandlerCppToC::Get(self)->OnRenderViewReady(
@@ -580,6 +821,21 @@ void CEF_CALLBACK request_handler_on_render_process_terminated(
   DCHECK(browser);
   if (!browser)
     return;
+
+//---kneadium-ext-begin
+#if ENABLE_KNEADIUM_EXT
+auto me = CefRequestHandlerCppToC::Get(self);
+const int CALLER_CODE=(CefRequestHandlerExt::_typeName << 16) | CefRequestHandlerExt::CefRequestHandlerExt_OnRenderProcessTerminated_16;
+auto m_callback= me->GetManagedCallBack(CALLER_CODE);
+if(m_callback){
+CefRequestHandlerExt::OnRenderProcessTerminatedArgs args1(browser,status);
+m_callback(CALLER_CODE, &args1.arg);
+ if (((args1.arg.myext_flags >> 21) & 1) == 1){
+return;
+}
+}
+#endif
+//---kneadium-ext-end
 
   // Execute
   CefRequestHandlerCppToC::Get(self)->OnRenderProcessTerminated(

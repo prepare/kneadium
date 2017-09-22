@@ -1,3 +1,4 @@
+//---THIS-FILE-WAS-PATCHED , org=D:\projects\cef_binary_3.3071.1647.win32\cpptoc\geolocation_handler_cpptoc.cc
 // Copyright (c) 2017 The Chromium Embedded Framework Authors. All rights
 // reserved. Use of this source code is governed by a BSD-style license that
 // can be found in the LICENSE file.
@@ -15,6 +16,11 @@
 #include "libcef_dll/cpptoc/geolocation_handler_cpptoc.h"
 #include "libcef_dll/ctocpp/browser_ctocpp.h"
 #include "libcef_dll/ctocpp/geolocation_callback_ctocpp.h"
+
+//---kneadium-ext-begin
+#include "../myext/ExportFuncAuto.h"
+#include "../myext/InternalHeaderForExportFunc.h"
+//---kneadium-ext-end
 
 namespace {
 
@@ -44,6 +50,22 @@ int CEF_CALLBACK geolocation_handler_on_request_geolocation_permission(
   if (!callback)
     return 0;
 
+//---kneadium-ext-begin
+#if ENABLE_KNEADIUM_EXT
+auto me = CefGeolocationHandlerCppToC::Get(self);
+const int CALLER_CODE=(CefGeolocationHandlerExt::_typeName << 16) | CefGeolocationHandlerExt::CefGeolocationHandlerExt_OnRequestGeolocationPermission_1;
+auto m_callback= me->GetManagedCallBack(CALLER_CODE);
+if(m_callback){
+CefString tmp_arg2 (requesting_url);
+CefGeolocationHandlerExt::OnRequestGeolocationPermissionArgs args1(browser,tmp_arg2,request_id,callback);
+m_callback(CALLER_CODE, &args1.arg);
+ if (((args1.arg.myext_flags >> 21) & 1) == 1){
+ return args1.arg.myext_ret_value;
+}
+}
+#endif
+//---kneadium-ext-end
+
   // Execute
   bool _retval =
       CefGeolocationHandlerCppToC::Get(self)->OnRequestGeolocationPermission(
@@ -67,6 +89,21 @@ void CEF_CALLBACK geolocation_handler_on_cancel_geolocation_permission(
   DCHECK(browser);
   if (!browser)
     return;
+
+//---kneadium-ext-begin
+#if ENABLE_KNEADIUM_EXT
+auto me = CefGeolocationHandlerCppToC::Get(self);
+const int CALLER_CODE=(CefGeolocationHandlerExt::_typeName << 16) | CefGeolocationHandlerExt::CefGeolocationHandlerExt_OnCancelGeolocationPermission_2;
+auto m_callback= me->GetManagedCallBack(CALLER_CODE);
+if(m_callback){
+CefGeolocationHandlerExt::OnCancelGeolocationPermissionArgs args1(browser,request_id);
+m_callback(CALLER_CODE, &args1.arg);
+ if (((args1.arg.myext_flags >> 21) & 1) == 1){
+return;
+}
+}
+#endif
+//---kneadium-ext-end
 
   // Execute
   CefGeolocationHandlerCppToC::Get(self)->OnCancelGeolocationPermission(

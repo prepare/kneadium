@@ -296,7 +296,7 @@ class ClientHandler : public CefClient,
 managed_callback mcallback_;//my extension
 void MyCefSetManagedCallBack(managed_callback m);
 void MyCefEnableKeyIntercept(int enable);
-managed_callback GetManagedCallBack();
+managed_callback GetManagedCallBack(int callerCode);
 //###_APPEND_STOP
 
   // Set/get whether the client should download favicon images. Only safe to

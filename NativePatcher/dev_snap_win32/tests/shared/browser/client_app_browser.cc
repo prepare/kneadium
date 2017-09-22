@@ -47,6 +47,11 @@ void ClientAppBrowser::OnBeforeCommandLineProcessing(
       // MaterialDesignController::IsModeMaterial() in Chromium code.
       command_line->AppendSwitchWithValue("top-chrome-md", "non-material");
     }
+	//if (this->myMxCallback_)
+	//{
+	//	 
+	//}
+	//command_line->AppendSwitch("no-proxy-server");
 
     DelegateSet::iterator it = delegates_.begin();
     for (; it != delegates_.end(); ++it)
