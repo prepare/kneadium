@@ -42,6 +42,7 @@ int CEF_CALLBACK resource_bundle_handler_get_localized_string(
   CefString stringStr(string);
 
 //---kneadium-ext-begin
+#if ENABLE_KNEADIUM_EXT
 auto me = CefResourceBundleHandlerCppToC::Get(self);
 const int CALLER_CODE=(CefResourceBundleHandlerExt::_typeName << 16) | CefResourceBundleHandlerExt::CefResourceBundleHandlerExt_GetLocalizedString_1;
 auto m_callback= me->GetManagedCallBack(CALLER_CODE);
@@ -53,6 +54,7 @@ m_callback(CALLER_CODE, &args1.arg);
  return args1.arg.myext_ret_value;
 }
 }
+#endif
 //---kneadium-ext-end
 
   // Execute
@@ -88,6 +90,7 @@ int CEF_CALLBACK resource_bundle_handler_get_data_resource(
   size_t data_sizeVal = data_size ? *data_size : 0;
 
 //---kneadium-ext-begin
+#if ENABLE_KNEADIUM_EXT
 auto me = CefResourceBundleHandlerCppToC::Get(self);
 const int CALLER_CODE=(CefResourceBundleHandlerExt::_typeName << 16) | CefResourceBundleHandlerExt::CefResourceBundleHandlerExt_GetDataResource_2;
 auto m_callback= me->GetManagedCallBack(CALLER_CODE);
@@ -107,6 +110,7 @@ if (data_size)
  return args1.arg.myext_ret_value;
 }
 }
+#endif
 //---kneadium-ext-end
 
   // Execute
@@ -150,6 +154,7 @@ int CEF_CALLBACK resource_bundle_handler_get_data_resource_for_scale(
   size_t data_sizeVal = data_size ? *data_size : 0;
 
 //---kneadium-ext-begin
+#if ENABLE_KNEADIUM_EXT
 auto me = CefResourceBundleHandlerCppToC::Get(self);
 const int CALLER_CODE=(CefResourceBundleHandlerExt::_typeName << 16) | CefResourceBundleHandlerExt::CefResourceBundleHandlerExt_GetDataResourceForScale_3;
 auto m_callback= me->GetManagedCallBack(CALLER_CODE);
@@ -169,6 +174,7 @@ if (data_size)
  return args1.arg.myext_ret_value;
 }
 }
+#endif
 //---kneadium-ext-end
 
   // Execute

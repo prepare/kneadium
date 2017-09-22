@@ -57,6 +57,7 @@ download_handler_on_before_download(struct _cef_download_handler_t* self,
     return;
 
 //---kneadium-ext-begin
+#if ENABLE_KNEADIUM_EXT
 auto me = CefDownloadHandlerCppToC::Get(self);
 const int CALLER_CODE=(CefDownloadHandlerExt::_typeName << 16) | CefDownloadHandlerExt::CefDownloadHandlerExt_OnBeforeDownload_1;
 auto m_callback= me->GetManagedCallBack(CALLER_CODE);
@@ -68,6 +69,7 @@ m_callback(CALLER_CODE, &args1.arg);
 return;
 }
 }
+#endif
 //---kneadium-ext-end
 
   // Execute
@@ -101,6 +103,7 @@ download_handler_on_download_updated(struct _cef_download_handler_t* self,
     return;
 
 //---kneadium-ext-begin
+#if ENABLE_KNEADIUM_EXT
 auto me = CefDownloadHandlerCppToC::Get(self);
 const int CALLER_CODE=(CefDownloadHandlerExt::_typeName << 16) | CefDownloadHandlerExt::CefDownloadHandlerExt_OnDownloadUpdated_2;
 auto m_callback= me->GetManagedCallBack(CALLER_CODE);
@@ -111,6 +114,7 @@ m_callback(CALLER_CODE, &args1.arg);
 return;
 }
 }
+#endif
 //---kneadium-ext-end
 
   // Execute

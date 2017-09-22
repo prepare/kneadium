@@ -1,6 +1,6 @@
 //MIT, 2015-2017, WinterDev
 #pragma once
-
+#define ENABLE_KNEADIUM_EXT 1
 //for auto gen content
 
 #include "myext.h"

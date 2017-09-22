@@ -58,6 +58,7 @@ keyboard_handler_on_pre_key_event(struct _cef_keyboard_handler_t* self,
       (is_keyboard_shortcut && *is_keyboard_shortcut) ? true : false;
 
 //---kneadium-ext-begin
+#if ENABLE_KNEADIUM_EXT
 auto me = CefKeyboardHandlerCppToC::Get(self);
 const int CALLER_CODE=(CefKeyboardHandlerExt::_typeName << 16) | CefKeyboardHandlerExt::CefKeyboardHandlerExt_OnPreKeyEvent_1;
 auto m_callback= me->GetManagedCallBack(CALLER_CODE);
@@ -73,6 +74,7 @@ if (is_keyboard_shortcut)
  return args1.arg.myext_ret_value;
 }
 }
+#endif
 //---kneadium-ext-end
 
   // Execute
@@ -113,6 +115,7 @@ keyboard_handler_on_key_event(struct _cef_keyboard_handler_t* self,
     eventObj.Set(*event, false);
 
 //---kneadium-ext-begin
+#if ENABLE_KNEADIUM_EXT
 auto me = CefKeyboardHandlerCppToC::Get(self);
 const int CALLER_CODE=(CefKeyboardHandlerExt::_typeName << 16) | CefKeyboardHandlerExt::CefKeyboardHandlerExt_OnKeyEvent_2;
 auto m_callback= me->GetManagedCallBack(CALLER_CODE);
@@ -123,6 +126,7 @@ m_callback(CALLER_CODE, &args1.arg);
  return args1.arg.myext_ret_value;
 }
 }
+#endif
 //---kneadium-ext-end
 
   // Execute

@@ -321,6 +321,7 @@ namespace BridgeBuilder
 
 
                 newCodeStBuilder.AppendLine("//---kneadium-ext-begin");
+                newCodeStBuilder.AppendLine("#if ENABLE_KNEADIUM_EXT");
                 //some method parameters may need special preparation.
                 newCodeStBuilder.AppendLine("auto me = " + cppClassName + "CppToC::Get(self);");
                 newCodeStBuilder.AppendLine("const int CALLER_CODE=" + metNameConst + ";");
@@ -416,7 +417,7 @@ namespace BridgeBuilder
                 string retType = metDecl.ReturnType.ToString();
                 if (retType != "void")
                 {
-
+ 
                     //the event is handled by user code
                     //before return we must check some restore parts
 
@@ -461,10 +462,12 @@ namespace BridgeBuilder
                 }
                 newCodeStBuilder.AppendLine("}");
 
+ 
 
 
                 //method return value may need special preparation.
                 newCodeStBuilder.AppendLine("}"); //TODO: + method filter
+                newCodeStBuilder.AppendLine("#endif");//#if ENABLE_KNEADIUM_EXT");
                 newCodeStBuilder.AppendLine("//---kneadium-ext-end");
                 //-----
                 //find insert point

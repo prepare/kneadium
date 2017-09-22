@@ -51,6 +51,7 @@ int CEF_CALLBACK geolocation_handler_on_request_geolocation_permission(
     return 0;
 
 //---kneadium-ext-begin
+#if ENABLE_KNEADIUM_EXT
 auto me = CefGeolocationHandlerCppToC::Get(self);
 const int CALLER_CODE=(CefGeolocationHandlerExt::_typeName << 16) | CefGeolocationHandlerExt::CefGeolocationHandlerExt_OnRequestGeolocationPermission_1;
 auto m_callback= me->GetManagedCallBack(CALLER_CODE);
@@ -62,6 +63,7 @@ m_callback(CALLER_CODE, &args1.arg);
  return args1.arg.myext_ret_value;
 }
 }
+#endif
 //---kneadium-ext-end
 
   // Execute
@@ -89,6 +91,7 @@ void CEF_CALLBACK geolocation_handler_on_cancel_geolocation_permission(
     return;
 
 //---kneadium-ext-begin
+#if ENABLE_KNEADIUM_EXT
 auto me = CefGeolocationHandlerCppToC::Get(self);
 const int CALLER_CODE=(CefGeolocationHandlerExt::_typeName << 16) | CefGeolocationHandlerExt::CefGeolocationHandlerExt_OnCancelGeolocationPermission_2;
 auto m_callback= me->GetManagedCallBack(CALLER_CODE);
@@ -99,6 +102,7 @@ m_callback(CALLER_CODE, &args1.arg);
 return;
 }
 }
+#endif
 //---kneadium-ext-end
 
   // Execute

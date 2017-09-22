@@ -59,6 +59,7 @@ jsdialog_handler_on_jsdialog(struct _cef_jsdialog_handler_t* self,
       (suppress_message && *suppress_message) ? true : false;
 
 //---kneadium-ext-begin
+#if ENABLE_KNEADIUM_EXT
 auto me = CefJSDialogHandlerCppToC::Get(self);
 const int CALLER_CODE=(CefJSDialogHandlerExt::_typeName << 16) | CefJSDialogHandlerExt::CefJSDialogHandlerExt_OnJSDialog_1;
 auto m_callback= me->GetManagedCallBack(CALLER_CODE);
@@ -77,6 +78,7 @@ if (suppress_message)
  return args1.arg.myext_ret_value;
 }
 }
+#endif
 //---kneadium-ext-end
 
   // Execute
@@ -115,6 +117,7 @@ jsdialog_handler_on_before_unload_dialog(struct _cef_jsdialog_handler_t* self,
   // Unverified params: message_text
 
 //---kneadium-ext-begin
+#if ENABLE_KNEADIUM_EXT
 auto me = CefJSDialogHandlerCppToC::Get(self);
 const int CALLER_CODE=(CefJSDialogHandlerExt::_typeName << 16) | CefJSDialogHandlerExt::CefJSDialogHandlerExt_OnBeforeUnloadDialog_2;
 auto m_callback= me->GetManagedCallBack(CALLER_CODE);
@@ -126,6 +129,7 @@ m_callback(CALLER_CODE, &args1.arg);
  return args1.arg.myext_ret_value;
 }
 }
+#endif
 //---kneadium-ext-end
 
   // Execute
@@ -151,6 +155,7 @@ jsdialog_handler_on_reset_dialog_state(struct _cef_jsdialog_handler_t* self,
     return;
 
 //---kneadium-ext-begin
+#if ENABLE_KNEADIUM_EXT
 auto me = CefJSDialogHandlerCppToC::Get(self);
 const int CALLER_CODE=(CefJSDialogHandlerExt::_typeName << 16) | CefJSDialogHandlerExt::CefJSDialogHandlerExt_OnResetDialogState_3;
 auto m_callback= me->GetManagedCallBack(CALLER_CODE);
@@ -161,6 +166,7 @@ m_callback(CALLER_CODE, &args1.arg);
 return;
 }
 }
+#endif
 //---kneadium-ext-end
 
   // Execute
@@ -182,6 +188,7 @@ jsdialog_handler_on_dialog_closed(struct _cef_jsdialog_handler_t* self,
     return;
 
 //---kneadium-ext-begin
+#if ENABLE_KNEADIUM_EXT
 auto me = CefJSDialogHandlerCppToC::Get(self);
 const int CALLER_CODE=(CefJSDialogHandlerExt::_typeName << 16) | CefJSDialogHandlerExt::CefJSDialogHandlerExt_OnDialogClosed_4;
 auto m_callback= me->GetManagedCallBack(CALLER_CODE);
@@ -192,6 +199,7 @@ m_callback(CALLER_CODE, &args1.arg);
 return;
 }
 }
+#endif
 //---kneadium-ext-end
 
   // Execute

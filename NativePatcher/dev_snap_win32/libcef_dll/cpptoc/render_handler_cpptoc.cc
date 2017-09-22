@@ -36,6 +36,7 @@ render_handler_get_accessibility_handler(struct _cef_render_handler_t* self) {
     return NULL;
 
 //---kneadium-ext-begin
+#if ENABLE_KNEADIUM_EXT
 auto me = CefRenderHandlerCppToC::Get(self);
 const int CALLER_CODE=(CefRenderHandlerExt::_typeName << 16) | CefRenderHandlerExt::CefRenderHandlerExt_GetAccessibilityHandler_1;
 auto m_callback= me->GetManagedCallBack(CALLER_CODE);
@@ -46,6 +47,7 @@ m_callback(CALLER_CODE, &args1.arg);
  return CefAccessibilityHandlerCppToC::Wrap(args1.arg.myext_ret_value);
 }
 }
+#endif
 //---kneadium-ext-end
 
   // Execute
@@ -78,6 +80,7 @@ render_handler_get_root_screen_rect(struct _cef_render_handler_t* self,
   CefRect rectVal = rect ? *rect : CefRect();
 
 //---kneadium-ext-begin
+#if ENABLE_KNEADIUM_EXT
 auto me = CefRenderHandlerCppToC::Get(self);
 const int CALLER_CODE=(CefRenderHandlerExt::_typeName << 16) | CefRenderHandlerExt::CefRenderHandlerExt_GetRootScreenRect_2;
 auto m_callback= me->GetManagedCallBack(CALLER_CODE);
@@ -93,6 +96,7 @@ if (rect)
  return args1.arg.myext_ret_value;
 }
 }
+#endif
 //---kneadium-ext-end
 
   // Execute
@@ -129,6 +133,7 @@ render_handler_get_view_rect(struct _cef_render_handler_t* self,
   CefRect rectVal = rect ? *rect : CefRect();
 
 //---kneadium-ext-begin
+#if ENABLE_KNEADIUM_EXT
 auto me = CefRenderHandlerCppToC::Get(self);
 const int CALLER_CODE=(CefRenderHandlerExt::_typeName << 16) | CefRenderHandlerExt::CefRenderHandlerExt_GetViewRect_3;
 auto m_callback= me->GetManagedCallBack(CALLER_CODE);
@@ -144,6 +149,7 @@ if (rect)
  return args1.arg.myext_ret_value;
 }
 }
+#endif
 //---kneadium-ext-end
 
   // Execute
@@ -189,6 +195,7 @@ render_handler_get_screen_point(struct _cef_render_handler_t* self,
   int screenYVal = screenY ? *screenY : 0;
 
 //---kneadium-ext-begin
+#if ENABLE_KNEADIUM_EXT
 auto me = CefRenderHandlerCppToC::Get(self);
 const int CALLER_CODE=(CefRenderHandlerExt::_typeName << 16) | CefRenderHandlerExt::CefRenderHandlerExt_GetScreenPoint_4;
 auto m_callback= me->GetManagedCallBack(CALLER_CODE);
@@ -208,6 +215,7 @@ if (screenY)
  return args1.arg.myext_ret_value;
 }
 }
+#endif
 //---kneadium-ext-end
 
   // Execute
@@ -249,6 +257,7 @@ render_handler_get_screen_info(struct _cef_render_handler_t* self,
     screen_infoObj.AttachTo(*screen_info);
 
 //---kneadium-ext-begin
+#if ENABLE_KNEADIUM_EXT
 auto me = CefRenderHandlerCppToC::Get(self);
 const int CALLER_CODE=(CefRenderHandlerExt::_typeName << 16) | CefRenderHandlerExt::CefRenderHandlerExt_GetScreenInfo_5;
 auto m_callback= me->GetManagedCallBack(CALLER_CODE);
@@ -264,6 +273,7 @@ screen_infoObj.DetachTo(*screen_info);
  return args1.arg.myext_ret_value;
 }
 }
+#endif
 //---kneadium-ext-end
 
   // Execute
@@ -293,6 +303,7 @@ render_handler_on_popup_show(struct _cef_render_handler_t* self,
     return;
 
 //---kneadium-ext-begin
+#if ENABLE_KNEADIUM_EXT
 auto me = CefRenderHandlerCppToC::Get(self);
 const int CALLER_CODE=(CefRenderHandlerExt::_typeName << 16) | CefRenderHandlerExt::CefRenderHandlerExt_OnPopupShow_6;
 auto m_callback= me->GetManagedCallBack(CALLER_CODE);
@@ -303,6 +314,7 @@ m_callback(CALLER_CODE, &args1.arg);
 return;
 }
 }
+#endif
 //---kneadium-ext-end
 
   // Execute
@@ -332,6 +344,7 @@ render_handler_on_popup_size(struct _cef_render_handler_t* self,
   CefRect rectVal = rect ? *rect : CefRect();
 
 //---kneadium-ext-begin
+#if ENABLE_KNEADIUM_EXT
 auto me = CefRenderHandlerCppToC::Get(self);
 const int CALLER_CODE=(CefRenderHandlerExt::_typeName << 16) | CefRenderHandlerExt::CefRenderHandlerExt_OnPopupSize_7;
 auto m_callback= me->GetManagedCallBack(CALLER_CODE);
@@ -342,6 +355,7 @@ m_callback(CALLER_CODE, &args1.arg);
 return;
 }
 }
+#endif
 //---kneadium-ext-end
 
   // Execute
@@ -385,6 +399,7 @@ void CEF_CALLBACK render_handler_on_paint(struct _cef_render_handler_t* self,
   }
 
 //---kneadium-ext-begin
+#if ENABLE_KNEADIUM_EXT
 auto me = CefRenderHandlerCppToC::Get(self);
 const int CALLER_CODE=(CefRenderHandlerExt::_typeName << 16) | CefRenderHandlerExt::CefRenderHandlerExt_OnPaint_8;
 auto m_callback= me->GetManagedCallBack(CALLER_CODE);
@@ -395,6 +410,7 @@ m_callback(CALLER_CODE, &args1.arg);
 return;
 }
 }
+#endif
 //---kneadium-ext-end
 
   // Execute
@@ -429,6 +445,7 @@ void CEF_CALLBACK render_handler_on_cursor_change(
     custom_cursor_infoObj.Set(*custom_cursor_info, false);
 
 //---kneadium-ext-begin
+#if ENABLE_KNEADIUM_EXT
 auto me = CefRenderHandlerCppToC::Get(self);
 const int CALLER_CODE=(CefRenderHandlerExt::_typeName << 16) | CefRenderHandlerExt::CefRenderHandlerExt_OnCursorChange_9;
 auto m_callback= me->GetManagedCallBack(CALLER_CODE);
@@ -439,6 +456,7 @@ m_callback(CALLER_CODE, &args1.arg);
 return;
 }
 }
+#endif
 //---kneadium-ext-end
 
   // Execute
@@ -468,6 +486,7 @@ render_handler_start_dragging(struct _cef_render_handler_t* self,
     return 0;
 
 //---kneadium-ext-begin
+#if ENABLE_KNEADIUM_EXT
 auto me = CefRenderHandlerCppToC::Get(self);
 const int CALLER_CODE=(CefRenderHandlerExt::_typeName << 16) | CefRenderHandlerExt::CefRenderHandlerExt_StartDragging_10;
 auto m_callback= me->GetManagedCallBack(CALLER_CODE);
@@ -478,6 +497,7 @@ m_callback(CALLER_CODE, &args1.arg);
  return args1.arg.myext_ret_value;
 }
 }
+#endif
 //---kneadium-ext-end
 
   // Execute
@@ -504,6 +524,7 @@ render_handler_update_drag_cursor(struct _cef_render_handler_t* self,
     return;
 
 //---kneadium-ext-begin
+#if ENABLE_KNEADIUM_EXT
 auto me = CefRenderHandlerCppToC::Get(self);
 const int CALLER_CODE=(CefRenderHandlerExt::_typeName << 16) | CefRenderHandlerExt::CefRenderHandlerExt_UpdateDragCursor_11;
 auto m_callback= me->GetManagedCallBack(CALLER_CODE);
@@ -514,6 +535,7 @@ m_callback(CALLER_CODE, &args1.arg);
 return;
 }
 }
+#endif
 //---kneadium-ext-end
 
   // Execute
@@ -537,6 +559,7 @@ render_handler_on_scroll_offset_changed(struct _cef_render_handler_t* self,
     return;
 
 //---kneadium-ext-begin
+#if ENABLE_KNEADIUM_EXT
 auto me = CefRenderHandlerCppToC::Get(self);
 const int CALLER_CODE=(CefRenderHandlerExt::_typeName << 16) | CefRenderHandlerExt::CefRenderHandlerExt_OnScrollOffsetChanged_12;
 auto m_callback= me->GetManagedCallBack(CALLER_CODE);
@@ -547,6 +570,7 @@ m_callback(CALLER_CODE, &args1.arg);
 return;
 }
 }
+#endif
 //---kneadium-ext-end
 
   // Execute
@@ -590,6 +614,7 @@ void CEF_CALLBACK render_handler_on_ime_composition_range_changed(
   }
 
 //---kneadium-ext-begin
+#if ENABLE_KNEADIUM_EXT
 auto me = CefRenderHandlerCppToC::Get(self);
 const int CALLER_CODE=(CefRenderHandlerExt::_typeName << 16) | CefRenderHandlerExt::CefRenderHandlerExt_OnImeCompositionRangeChanged_13;
 auto m_callback= me->GetManagedCallBack(CALLER_CODE);
@@ -600,6 +625,7 @@ m_callback(CALLER_CODE, &args1.arg);
 return;
 }
 }
+#endif
 //---kneadium-ext-end
 
   // Execute

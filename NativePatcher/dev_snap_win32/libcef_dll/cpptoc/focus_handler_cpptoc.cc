@@ -39,6 +39,7 @@ void CEF_CALLBACK focus_handler_on_take_focus(struct _cef_focus_handler_t* self,
     return;
 
 //---kneadium-ext-begin
+#if ENABLE_KNEADIUM_EXT
 auto me = CefFocusHandlerCppToC::Get(self);
 const int CALLER_CODE=(CefFocusHandlerExt::_typeName << 16) | CefFocusHandlerExt::CefFocusHandlerExt_OnTakeFocus_1;
 auto m_callback= me->GetManagedCallBack(CALLER_CODE);
@@ -49,6 +50,7 @@ m_callback(CALLER_CODE, &args1.arg);
 return;
 }
 }
+#endif
 //---kneadium-ext-end
 
   // Execute
@@ -70,6 +72,7 @@ int CEF_CALLBACK focus_handler_on_set_focus(struct _cef_focus_handler_t* self,
     return 0;
 
 //---kneadium-ext-begin
+#if ENABLE_KNEADIUM_EXT
 auto me = CefFocusHandlerCppToC::Get(self);
 const int CALLER_CODE=(CefFocusHandlerExt::_typeName << 16) | CefFocusHandlerExt::CefFocusHandlerExt_OnSetFocus_2;
 auto m_callback= me->GetManagedCallBack(CALLER_CODE);
@@ -80,6 +83,7 @@ m_callback(CALLER_CODE, &args1.arg);
  return args1.arg.myext_ret_value;
 }
 }
+#endif
 //---kneadium-ext-end
 
   // Execute
@@ -103,6 +107,7 @@ void CEF_CALLBACK focus_handler_on_got_focus(struct _cef_focus_handler_t* self,
     return;
 
 //---kneadium-ext-begin
+#if ENABLE_KNEADIUM_EXT
 auto me = CefFocusHandlerCppToC::Get(self);
 const int CALLER_CODE=(CefFocusHandlerExt::_typeName << 16) | CefFocusHandlerExt::CefFocusHandlerExt_OnGotFocus_3;
 auto m_callback= me->GetManagedCallBack(CALLER_CODE);
@@ -113,6 +118,7 @@ m_callback(CALLER_CODE, &args1.arg);
 return;
 }
 }
+#endif
 //---kneadium-ext-end
 
   // Execute

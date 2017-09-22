@@ -35,6 +35,7 @@ cef_cookie_manager_t* CEF_CALLBACK request_context_handler_get_cookie_manager(
     return NULL;
 
 //---kneadium-ext-begin
+#if ENABLE_KNEADIUM_EXT
 auto me = CefRequestContextHandlerCppToC::Get(self);
 const int CALLER_CODE=(CefRequestContextHandlerExt::_typeName << 16) | CefRequestContextHandlerExt::CefRequestContextHandlerExt_GetCookieManager_1;
 auto m_callback= me->GetManagedCallBack(CALLER_CODE);
@@ -45,6 +46,7 @@ m_callback(CALLER_CODE, &args1.arg);
  return CefCookieManagerCToCpp::Unwrap(args1.arg.myext_ret_value);
 }
 }
+#endif
 //---kneadium-ext-end
 
   // Execute
@@ -83,6 +85,7 @@ int CEF_CALLBACK request_context_handler_on_before_plugin_load(
   // Unverified params: plugin_url, top_origin_url
 
 //---kneadium-ext-begin
+#if ENABLE_KNEADIUM_EXT
 auto me = CefRequestContextHandlerCppToC::Get(self);
 const int CALLER_CODE=(CefRequestContextHandlerExt::_typeName << 16) | CefRequestContextHandlerExt::CefRequestContextHandlerExt_OnBeforePluginLoad_2;
 auto m_callback= me->GetManagedCallBack(CALLER_CODE);
@@ -96,6 +99,7 @@ m_callback(CALLER_CODE, &args1.arg);
  return args1.arg.myext_ret_value;
 }
 }
+#endif
 //---kneadium-ext-end
 
   // Execute

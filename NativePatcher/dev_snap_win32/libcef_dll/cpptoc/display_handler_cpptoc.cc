@@ -55,6 +55,7 @@ namespace {
  
 
 //---kneadium-ext-begin
+#if ENABLE_KNEADIUM_EXT
 auto me = CefDisplayHandlerCppToC::Get(self);
 const int CALLER_CODE=(CefDisplayHandlerExt::_typeName << 16) | CefDisplayHandlerExt::CefDisplayHandlerExt_OnAddressChange_1;
 auto m_callback= me->GetManagedCallBack(CALLER_CODE);
@@ -66,6 +67,7 @@ m_callback(CALLER_CODE, &args1.arg);
 return;
 }
 }
+#endif
 //---kneadium-ext-end
 
 		// Execute
@@ -90,6 +92,7 @@ return;
 		// Unverified params: title 
 
 //---kneadium-ext-begin
+#if ENABLE_KNEADIUM_EXT
 auto me = CefDisplayHandlerCppToC::Get(self);
 const int CALLER_CODE=(CefDisplayHandlerExt::_typeName << 16) | CefDisplayHandlerExt::CefDisplayHandlerExt_OnTitleChange_2;
 auto m_callback= me->GetManagedCallBack(CALLER_CODE);
@@ -101,6 +104,7 @@ m_callback(CALLER_CODE, &args1.arg);
 return;
 }
 }
+#endif
 //---kneadium-ext-end
 
 		// Execute
@@ -131,6 +135,7 @@ return;
  
 
 //---kneadium-ext-begin
+#if ENABLE_KNEADIUM_EXT
 auto me = CefDisplayHandlerCppToC::Get(self);
 const int CALLER_CODE=(CefDisplayHandlerExt::_typeName << 16) | CefDisplayHandlerExt::CefDisplayHandlerExt_OnFaviconURLChange_3;
 auto m_callback= me->GetManagedCallBack(CALLER_CODE);
@@ -141,6 +146,7 @@ m_callback(CALLER_CODE, &args1.arg);
 return;
 }
 }
+#endif
 //---kneadium-ext-end
 
 		// Execute
@@ -166,6 +172,7 @@ return;
  
 
 //---kneadium-ext-begin
+#if ENABLE_KNEADIUM_EXT
 auto me = CefDisplayHandlerCppToC::Get(self);
 const int CALLER_CODE=(CefDisplayHandlerExt::_typeName << 16) | CefDisplayHandlerExt::CefDisplayHandlerExt_OnFullscreenModeChange_4;
 auto m_callback= me->GetManagedCallBack(CALLER_CODE);
@@ -176,6 +183,7 @@ m_callback(CALLER_CODE, &args1.arg);
 return;
 }
 }
+#endif
 //---kneadium-ext-end
 
 		// Execute
@@ -204,6 +212,7 @@ return;
  
 
 //---kneadium-ext-begin
+#if ENABLE_KNEADIUM_EXT
 auto me = CefDisplayHandlerCppToC::Get(self);
 const int CALLER_CODE=(CefDisplayHandlerExt::_typeName << 16) | CefDisplayHandlerExt::CefDisplayHandlerExt_OnTooltip_5;
 auto m_callback= me->GetManagedCallBack(CALLER_CODE);
@@ -215,6 +224,7 @@ m_callback(CALLER_CODE, &args1.arg);
  return args1.arg.myext_ret_value;
 }
 }
+#endif
 //---kneadium-ext-end
 
 		// Execute
@@ -243,6 +253,7 @@ m_callback(CALLER_CODE, &args1.arg);
 	 
 
 //---kneadium-ext-begin
+#if ENABLE_KNEADIUM_EXT
 auto me = CefDisplayHandlerCppToC::Get(self);
 const int CALLER_CODE=(CefDisplayHandlerExt::_typeName << 16) | CefDisplayHandlerExt::CefDisplayHandlerExt_OnStatusMessage_6;
 auto m_callback= me->GetManagedCallBack(CALLER_CODE);
@@ -254,6 +265,7 @@ m_callback(CALLER_CODE, &args1.arg);
 return;
 }
 }
+#endif
 //---kneadium-ext-end
 
 		// Execute
@@ -280,6 +292,7 @@ return;
 
  
 //---kneadium-ext-begin
+#if ENABLE_KNEADIUM_EXT
 auto me = CefDisplayHandlerCppToC::Get(self);
 const int CALLER_CODE=(CefDisplayHandlerExt::_typeName << 16) | CefDisplayHandlerExt::CefDisplayHandlerExt_OnConsoleMessage_7;
 auto m_callback= me->GetManagedCallBack(CALLER_CODE);
@@ -292,6 +305,7 @@ m_callback(CALLER_CODE, &args1.arg);
  return args1.arg.myext_ret_value;
 }
 }
+#endif
 //---kneadium-ext-end
 
 		// Execute

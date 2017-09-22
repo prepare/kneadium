@@ -34,6 +34,7 @@ set_cookie_callback_on_complete(struct _cef_set_cookie_callback_t* self,
     return;
 
 //---kneadium-ext-begin
+#if ENABLE_KNEADIUM_EXT
 auto me = CefSetCookieCallbackCppToC::Get(self);
 const int CALLER_CODE=(CefSetCookieCallbackExt::_typeName << 16) | CefSetCookieCallbackExt::CefSetCookieCallbackExt_OnComplete_1;
 auto m_callback= me->GetManagedCallBack(CALLER_CODE);
@@ -44,6 +45,7 @@ m_callback(CALLER_CODE, &args1.arg);
 return;
 }
 }
+#endif
 //---kneadium-ext-end
 
   // Execute

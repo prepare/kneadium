@@ -58,22 +58,7 @@ int CEF_CALLBACK v8interceptor_get_byname(struct _cef_v8interceptor_t* self,
     retvalPtr = CefV8ValueCToCpp::Wrap(*retval);
   CefV8Value* retvalOrig = retvalPtr.get();
   // Translate param: exception; type: string_byref
-  CefString exceptionStr(exception);
-
-////---kneadium-ext-begin
-//auto me = CefV8InterceptorCppToC::Get(self);
-//const int CALLER_CODE=(CefV8InterceptorExt::_typeName << 16) | CefV8InterceptorExt::CefV8InterceptorExt_GetByname_1;
-//auto m_callback= me->GetManagedCallBack(CALLER_CODE);
-//if(m_callback){
-//CefString tmp_arg1 (name);
-//CefString tmp_arg4 (exception);
-//CefV8InterceptorExt::GetBynameArgs args1(tmp_arg1,object,&retvalPtr,tmp_arg4);
-//m_callback(CALLER_CODE, &args1.arg);
-// if (((args1.arg.myext_flags >> 21) & 1) == 1){
-// return args1.arg.myext_ret_value;
-//}
-//}
-////---kneadium-ext-end
+  CefString exceptionStr(exception); 
 
   // Execute
   bool _retval = CefV8InterceptorCppToC::Get(self)->Get(
@@ -127,21 +112,7 @@ int CEF_CALLBACK v8interceptor_get_byindex(struct _cef_v8interceptor_t* self,
     retvalPtr = CefV8ValueCToCpp::Wrap(*retval);
   CefV8Value* retvalOrig = retvalPtr.get();
   // Translate param: exception; type: string_byref
-  CefString exceptionStr(exception);
-
-////---kneadium-ext-begin
-//auto me = CefV8InterceptorCppToC::Get(self);
-//const int CALLER_CODE=(CefV8InterceptorExt::_typeName << 16) | CefV8InterceptorExt::CefV8InterceptorExt_GetByindex_2;
-//auto m_callback= me->GetManagedCallBack(CALLER_CODE);
-//if(m_callback){
-//CefString tmp_arg4 (exception);
-//CefV8InterceptorExt::GetByindexArgs args1(index,object,&retvalPtr,tmp_arg4);
-//m_callback(CALLER_CODE, &args1.arg);
-// if (((args1.arg.myext_flags >> 21) & 1) == 1){
-// return args1.arg.myext_ret_value;
-//}
-//}
-////---kneadium-ext-end
+  CefString exceptionStr(exception); 
 
   // Execute
   bool _retval = CefV8InterceptorCppToC::Get(self)->Get(
@@ -191,22 +162,7 @@ int CEF_CALLBACK v8interceptor_set_byname(struct _cef_v8interceptor_t* self,
 
   // Translate param: exception; type: string_byref
   CefString exceptionStr(exception);
-
-////---kneadium-ext-begin
-//auto me = CefV8InterceptorCppToC::Get(self);
-//const int CALLER_CODE=(CefV8InterceptorExt::_typeName << 16) | CefV8InterceptorExt::CefV8InterceptorExt_SetByname_3;
-//auto m_callback= me->GetManagedCallBack(CALLER_CODE);
-//if(m_callback){
-//CefString tmp_arg1 (name);
-//CefString tmp_arg4 (exception);
-//CefV8InterceptorExt::SetBynameArgs args1(tmp_arg1,object,value,tmp_arg4);
-//m_callback(CALLER_CODE, &args1.arg);
-// if (((args1.arg.myext_flags >> 21) & 1) == 1){
-// return args1.arg.myext_ret_value;
-//}
-//}
-////---kneadium-ext-end
-
+   
   // Execute
   bool _retval = CefV8InterceptorCppToC::Get(self)->Set(
       CefString(name), CefV8ValueCToCpp::Wrap(object),
@@ -245,20 +201,7 @@ int CEF_CALLBACK v8interceptor_set_byindex(struct _cef_v8interceptor_t* self,
 
   // Translate param: exception; type: string_byref
   CefString exceptionStr(exception);
-
-////---kneadium-ext-begin
-//auto me = CefV8InterceptorCppToC::Get(self);
-//const int CALLER_CODE=(CefV8InterceptorExt::_typeName << 16) | CefV8InterceptorExt::CefV8InterceptorExt_SetByindex_4;
-//auto m_callback= me->GetManagedCallBack(CALLER_CODE);
-//if(m_callback){
-//CefString tmp_arg4 (exception);
-//CefV8InterceptorExt::SetByindexArgs args1(index,object,value,tmp_arg4);
-//m_callback(CALLER_CODE, &args1.arg);
-// if (((args1.arg.myext_flags >> 21) & 1) == 1){
-// return args1.arg.myext_ret_value;
-//}
-//}
-////---kneadium-ext-end
+   
 
   // Execute
   bool _retval = CefV8InterceptorCppToC::Get(self)->Set(

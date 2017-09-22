@@ -49,6 +49,7 @@ client_get_context_menu_handler(struct _cef_client_t* self) {
     return NULL;
 
 //---kneadium-ext-begin
+#if ENABLE_KNEADIUM_EXT
 auto me = CefClientCppToC::Get(self);
 const int CALLER_CODE=(CefClientExt::_typeName << 16) | CefClientExt::CefClientExt_GetContextMenuHandler_1;
 auto m_callback= me->GetManagedCallBack(CALLER_CODE);
@@ -59,6 +60,7 @@ m_callback(CALLER_CODE, &args1.arg);
  return CefContextMenuHandlerCppToC::Wrap(args1.arg.myext_ret_value);
 }
 }
+#endif
 //---kneadium-ext-end
 
   // Execute
@@ -78,6 +80,7 @@ client_get_dialog_handler(struct _cef_client_t* self) {
     return NULL;
 
 //---kneadium-ext-begin
+#if ENABLE_KNEADIUM_EXT
 auto me = CefClientCppToC::Get(self);
 const int CALLER_CODE=(CefClientExt::_typeName << 16) | CefClientExt::CefClientExt_GetDialogHandler_2;
 auto m_callback= me->GetManagedCallBack(CALLER_CODE);
@@ -88,6 +91,7 @@ m_callback(CALLER_CODE, &args1.arg);
  return CefDialogHandlerCppToC::Wrap(args1.arg.myext_ret_value);
 }
 }
+#endif
 //---kneadium-ext-end
 
   // Execute
@@ -107,6 +111,7 @@ client_get_display_handler(struct _cef_client_t* self) {
     return NULL;
 
 //---kneadium-ext-begin
+#if ENABLE_KNEADIUM_EXT
 auto me = CefClientCppToC::Get(self);
 const int CALLER_CODE=(CefClientExt::_typeName << 16) | CefClientExt::CefClientExt_GetDisplayHandler_3;
 auto m_callback= me->GetManagedCallBack(CALLER_CODE);
@@ -117,6 +122,7 @@ m_callback(CALLER_CODE, &args1.arg);
  return CefDisplayHandlerCppToC::Wrap(args1.arg.myext_ret_value);
 }
 }
+#endif
 //---kneadium-ext-end
 
   // Execute
@@ -136,6 +142,7 @@ client_get_download_handler(struct _cef_client_t* self) {
     return NULL;
 
 //---kneadium-ext-begin
+#if ENABLE_KNEADIUM_EXT
 auto me = CefClientCppToC::Get(self);
 const int CALLER_CODE=(CefClientExt::_typeName << 16) | CefClientExt::CefClientExt_GetDownloadHandler_4;
 auto m_callback= me->GetManagedCallBack(CALLER_CODE);
@@ -146,6 +153,7 @@ m_callback(CALLER_CODE, &args1.arg);
  return CefDownloadHandlerCppToC::Wrap(args1.arg.myext_ret_value);
 }
 }
+#endif
 //---kneadium-ext-end
 
   // Execute
@@ -165,6 +173,7 @@ client_get_drag_handler(struct _cef_client_t* self) {
     return NULL;
 
 //---kneadium-ext-begin
+#if ENABLE_KNEADIUM_EXT
 auto me = CefClientCppToC::Get(self);
 const int CALLER_CODE=(CefClientExt::_typeName << 16) | CefClientExt::CefClientExt_GetDragHandler_5;
 auto m_callback= me->GetManagedCallBack(CALLER_CODE);
@@ -175,6 +184,7 @@ m_callback(CALLER_CODE, &args1.arg);
  return CefDragHandlerCppToC::Wrap(args1.arg.myext_ret_value);
 }
 }
+#endif
 //---kneadium-ext-end
 
   // Execute
@@ -194,6 +204,7 @@ client_get_find_handler(struct _cef_client_t* self) {
     return NULL;
 
 //---kneadium-ext-begin
+#if ENABLE_KNEADIUM_EXT
 auto me = CefClientCppToC::Get(self);
 const int CALLER_CODE=(CefClientExt::_typeName << 16) | CefClientExt::CefClientExt_GetFindHandler_6;
 auto m_callback= me->GetManagedCallBack(CALLER_CODE);
@@ -204,6 +215,7 @@ m_callback(CALLER_CODE, &args1.arg);
  return CefFindHandlerCppToC::Wrap(args1.arg.myext_ret_value);
 }
 }
+#endif
 //---kneadium-ext-end
 
   // Execute
@@ -223,6 +235,7 @@ client_get_focus_handler(struct _cef_client_t* self) {
     return NULL;
 
 //---kneadium-ext-begin
+#if ENABLE_KNEADIUM_EXT
 auto me = CefClientCppToC::Get(self);
 const int CALLER_CODE=(CefClientExt::_typeName << 16) | CefClientExt::CefClientExt_GetFocusHandler_7;
 auto m_callback= me->GetManagedCallBack(CALLER_CODE);
@@ -233,6 +246,7 @@ m_callback(CALLER_CODE, &args1.arg);
  return CefFocusHandlerCppToC::Wrap(args1.arg.myext_ret_value);
 }
 }
+#endif
 //---kneadium-ext-end
 
   // Execute
@@ -252,6 +266,7 @@ client_get_geolocation_handler(struct _cef_client_t* self) {
     return NULL;
 
 //---kneadium-ext-begin
+#if ENABLE_KNEADIUM_EXT
 auto me = CefClientCppToC::Get(self);
 const int CALLER_CODE=(CefClientExt::_typeName << 16) | CefClientExt::CefClientExt_GetGeolocationHandler_8;
 auto m_callback= me->GetManagedCallBack(CALLER_CODE);
@@ -262,6 +277,7 @@ m_callback(CALLER_CODE, &args1.arg);
  return CefGeolocationHandlerCppToC::Wrap(args1.arg.myext_ret_value);
 }
 }
+#endif
 //---kneadium-ext-end
 
   // Execute
@@ -281,6 +297,7 @@ client_get_jsdialog_handler(struct _cef_client_t* self) {
     return NULL;
 
 //---kneadium-ext-begin
+#if ENABLE_KNEADIUM_EXT
 auto me = CefClientCppToC::Get(self);
 const int CALLER_CODE=(CefClientExt::_typeName << 16) | CefClientExt::CefClientExt_GetJSDialogHandler_9;
 auto m_callback= me->GetManagedCallBack(CALLER_CODE);
@@ -291,6 +308,7 @@ m_callback(CALLER_CODE, &args1.arg);
  return CefJSDialogHandlerCppToC::Wrap(args1.arg.myext_ret_value);
 }
 }
+#endif
 //---kneadium-ext-end
 
   // Execute
@@ -310,6 +328,7 @@ client_get_keyboard_handler(struct _cef_client_t* self) {
     return NULL;
 
 //---kneadium-ext-begin
+#if ENABLE_KNEADIUM_EXT
 auto me = CefClientCppToC::Get(self);
 const int CALLER_CODE=(CefClientExt::_typeName << 16) | CefClientExt::CefClientExt_GetKeyboardHandler_10;
 auto m_callback= me->GetManagedCallBack(CALLER_CODE);
@@ -320,6 +339,7 @@ m_callback(CALLER_CODE, &args1.arg);
  return CefKeyboardHandlerCppToC::Wrap(args1.arg.myext_ret_value);
 }
 }
+#endif
 //---kneadium-ext-end
 
   // Execute
@@ -339,6 +359,7 @@ client_get_life_span_handler(struct _cef_client_t* self) {
     return NULL;
 
 //---kneadium-ext-begin
+#if ENABLE_KNEADIUM_EXT
 auto me = CefClientCppToC::Get(self);
 const int CALLER_CODE=(CefClientExt::_typeName << 16) | CefClientExt::CefClientExt_GetLifeSpanHandler_11;
 auto m_callback= me->GetManagedCallBack(CALLER_CODE);
@@ -349,6 +370,7 @@ m_callback(CALLER_CODE, &args1.arg);
  return CefLifeSpanHandlerCppToC::Wrap(args1.arg.myext_ret_value);
 }
 }
+#endif
 //---kneadium-ext-end
 
   // Execute
@@ -368,6 +390,7 @@ client_get_load_handler(struct _cef_client_t* self) {
     return NULL;
 
 //---kneadium-ext-begin
+#if ENABLE_KNEADIUM_EXT
 auto me = CefClientCppToC::Get(self);
 const int CALLER_CODE=(CefClientExt::_typeName << 16) | CefClientExt::CefClientExt_GetLoadHandler_12;
 auto m_callback= me->GetManagedCallBack(CALLER_CODE);
@@ -378,6 +401,7 @@ m_callback(CALLER_CODE, &args1.arg);
  return CefLoadHandlerCppToC::Wrap(args1.arg.myext_ret_value);
 }
 }
+#endif
 //---kneadium-ext-end
 
   // Execute
@@ -397,6 +421,7 @@ client_get_render_handler(struct _cef_client_t* self) {
     return NULL;
 
 //---kneadium-ext-begin
+#if ENABLE_KNEADIUM_EXT
 auto me = CefClientCppToC::Get(self);
 const int CALLER_CODE=(CefClientExt::_typeName << 16) | CefClientExt::CefClientExt_GetRenderHandler_13;
 auto m_callback= me->GetManagedCallBack(CALLER_CODE);
@@ -407,6 +432,7 @@ m_callback(CALLER_CODE, &args1.arg);
  return CefRenderHandlerCppToC::Wrap(args1.arg.myext_ret_value);
 }
 }
+#endif
 //---kneadium-ext-end
 
   // Execute
@@ -426,6 +452,7 @@ client_get_request_handler(struct _cef_client_t* self) {
     return NULL;
 
 //---kneadium-ext-begin
+#if ENABLE_KNEADIUM_EXT
 auto me = CefClientCppToC::Get(self);
 const int CALLER_CODE=(CefClientExt::_typeName << 16) | CefClientExt::CefClientExt_GetRequestHandler_14;
 auto m_callback= me->GetManagedCallBack(CALLER_CODE);
@@ -436,6 +463,7 @@ m_callback(CALLER_CODE, &args1.arg);
  return CefRequestHandlerCppToC::Wrap(args1.arg.myext_ret_value);
 }
 }
+#endif
 //---kneadium-ext-end
 
   // Execute
@@ -466,6 +494,7 @@ client_on_process_message_received(struct _cef_client_t* self,
     return 0;
 
 //---kneadium-ext-begin
+#if ENABLE_KNEADIUM_EXT
 auto me = CefClientCppToC::Get(self);
 const int CALLER_CODE=(CefClientExt::_typeName << 16) | CefClientExt::CefClientExt_OnProcessMessageReceived_15;
 auto m_callback= me->GetManagedCallBack(CALLER_CODE);
@@ -476,6 +505,7 @@ m_callback(CALLER_CODE, &args1.arg);
  return args1.arg.myext_ret_value;
 }
 }
+#endif
 //---kneadium-ext-end
 
   // Execute

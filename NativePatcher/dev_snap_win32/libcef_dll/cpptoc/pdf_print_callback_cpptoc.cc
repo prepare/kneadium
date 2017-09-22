@@ -39,6 +39,7 @@ pdf_print_callback_on_pdf_print_finished(struct _cef_pdf_print_callback_t* self,
     return;
 
 //---kneadium-ext-begin
+#if ENABLE_KNEADIUM_EXT
 auto me = CefPdfPrintCallbackCppToC::Get(self);
 const int CALLER_CODE=(CefPdfPrintCallbackExt::_typeName << 16) | CefPdfPrintCallbackExt::CefPdfPrintCallbackExt_OnPdfPrintFinished_1;
 auto m_callback= me->GetManagedCallBack(CALLER_CODE);
@@ -50,6 +51,7 @@ m_callback(CALLER_CODE, &args1.arg);
 return;
 }
 }
+#endif
 //---kneadium-ext-end
 
   // Execute

@@ -41,6 +41,7 @@ web_plugin_info_visitor_visit(struct _cef_web_plugin_info_visitor_t* self,
     return 0;
 
 //---kneadium-ext-begin
+#if ENABLE_KNEADIUM_EXT
 auto me = CefWebPluginInfoVisitorCppToC::Get(self);
 const int CALLER_CODE=(CefWebPluginInfoVisitorExt::_typeName << 16) | CefWebPluginInfoVisitorExt::CefWebPluginInfoVisitorExt_Visit_1;
 auto m_callback= me->GetManagedCallBack(CALLER_CODE);
@@ -51,6 +52,7 @@ m_callback(CALLER_CODE, &args1.arg);
  return args1.arg.myext_ret_value;
 }
 }
+#endif
 //---kneadium-ext-end
 
   // Execute

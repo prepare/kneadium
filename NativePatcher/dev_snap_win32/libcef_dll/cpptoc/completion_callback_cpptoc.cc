@@ -33,6 +33,7 @@ completion_callback_on_complete(struct _cef_completion_callback_t* self) {
     return;
 
 //---kneadium-ext-begin
+#if ENABLE_KNEADIUM_EXT
 auto me = CefCompletionCallbackCppToC::Get(self);
 const int CALLER_CODE=(CefCompletionCallbackExt::_typeName << 16) | CefCompletionCallbackExt::CefCompletionCallbackExt_OnComplete_1;
 auto m_callback= me->GetManagedCallBack(CALLER_CODE);
@@ -43,6 +44,7 @@ m_callback(CALLER_CODE, &args1.arg);
 return;
 }
 }
+#endif
 //---kneadium-ext-end
 
   // Execute

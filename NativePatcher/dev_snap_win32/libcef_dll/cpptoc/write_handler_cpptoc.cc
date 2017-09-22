@@ -39,6 +39,7 @@ size_t CEF_CALLBACK write_handler_write(struct _cef_write_handler_t* self,
     return 0;
 
 //---kneadium-ext-begin
+#if ENABLE_KNEADIUM_EXT
 auto me = CefWriteHandlerCppToC::Get(self);
 const int CALLER_CODE=(CefWriteHandlerExt::_typeName << 16) | CefWriteHandlerExt::CefWriteHandlerExt_Write_1;
 auto m_callback= me->GetManagedCallBack(CALLER_CODE);
@@ -49,6 +50,7 @@ m_callback(CALLER_CODE, &args1.arg);
  return args1.arg.myext_ret_value;
 }
 }
+#endif
 //---kneadium-ext-end
 
   // Execute
@@ -68,6 +70,7 @@ int CEF_CALLBACK write_handler_seek(struct _cef_write_handler_t* self,
     return 0;
 
 //---kneadium-ext-begin
+#if ENABLE_KNEADIUM_EXT
 auto me = CefWriteHandlerCppToC::Get(self);
 const int CALLER_CODE=(CefWriteHandlerExt::_typeName << 16) | CefWriteHandlerExt::CefWriteHandlerExt_Seek_2;
 auto m_callback= me->GetManagedCallBack(CALLER_CODE);
@@ -78,6 +81,7 @@ m_callback(CALLER_CODE, &args1.arg);
  return args1.arg.myext_ret_value;
 }
 }
+#endif
 //---kneadium-ext-end
 
   // Execute
@@ -95,6 +99,7 @@ int64 CEF_CALLBACK write_handler_tell(struct _cef_write_handler_t* self) {
     return 0;
 
 //---kneadium-ext-begin
+#if ENABLE_KNEADIUM_EXT
 auto me = CefWriteHandlerCppToC::Get(self);
 const int CALLER_CODE=(CefWriteHandlerExt::_typeName << 16) | CefWriteHandlerExt::CefWriteHandlerExt_Tell_3;
 auto m_callback= me->GetManagedCallBack(CALLER_CODE);
@@ -105,6 +110,7 @@ m_callback(CALLER_CODE, &args1.arg);
  return args1.arg.myext_ret_value;
 }
 }
+#endif
 //---kneadium-ext-end
 
   // Execute
@@ -122,6 +128,7 @@ int CEF_CALLBACK write_handler_flush(struct _cef_write_handler_t* self) {
     return 0;
 
 //---kneadium-ext-begin
+#if ENABLE_KNEADIUM_EXT
 auto me = CefWriteHandlerCppToC::Get(self);
 const int CALLER_CODE=(CefWriteHandlerExt::_typeName << 16) | CefWriteHandlerExt::CefWriteHandlerExt_Flush_4;
 auto m_callback= me->GetManagedCallBack(CALLER_CODE);
@@ -132,6 +139,7 @@ m_callback(CALLER_CODE, &args1.arg);
  return args1.arg.myext_ret_value;
 }
 }
+#endif
 //---kneadium-ext-end
 
   // Execute
@@ -149,6 +157,7 @@ int CEF_CALLBACK write_handler_may_block(struct _cef_write_handler_t* self) {
     return 0;
 
 //---kneadium-ext-begin
+#if ENABLE_KNEADIUM_EXT
 auto me = CefWriteHandlerCppToC::Get(self);
 const int CALLER_CODE=(CefWriteHandlerExt::_typeName << 16) | CefWriteHandlerExt::CefWriteHandlerExt_MayBlock_5;
 auto m_callback= me->GetManagedCallBack(CALLER_CODE);
@@ -159,6 +168,7 @@ m_callback(CALLER_CODE, &args1.arg);
  return args1.arg.myext_ret_value;
 }
 }
+#endif
 //---kneadium-ext-end
 
   // Execute

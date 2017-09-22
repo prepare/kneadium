@@ -45,6 +45,7 @@ void CEF_CALLBACK app_on_before_command_line_processing(
   // Unverified params: process_type
 
 //---kneadium-ext-begin
+#if ENABLE_KNEADIUM_EXT
 auto me = CefAppCppToC::Get(self);
 const int CALLER_CODE=(CefAppExt::_typeName << 16) | CefAppExt::CefAppExt_OnBeforeCommandLineProcessing_1;
 auto m_callback= me->GetManagedCallBack(CALLER_CODE);
@@ -56,6 +57,7 @@ m_callback(CALLER_CODE, &args1.arg);
 return;
 }
 }
+#endif
 //---kneadium-ext-end
 
   // Execute
@@ -81,6 +83,7 @@ app_on_register_custom_schemes(struct _cef_app_t* self,
       CefSchemeRegistrarCToCpp::Wrap(registrar));
 
 //---kneadium-ext-begin
+#if ENABLE_KNEADIUM_EXT
 auto me = CefAppCppToC::Get(self);
 const int CALLER_CODE=(CefAppExt::_typeName << 16) | CefAppExt::CefAppExt_OnRegisterCustomSchemes_2;
 auto m_callback= me->GetManagedCallBack(CALLER_CODE);
@@ -91,6 +94,7 @@ m_callback(CALLER_CODE, &args1.arg);
 return;
 }
 }
+#endif
 //---kneadium-ext-end
 
   // Execute
@@ -106,6 +110,7 @@ app_get_resource_bundle_handler(struct _cef_app_t* self) {
     return NULL;
 
 //---kneadium-ext-begin
+#if ENABLE_KNEADIUM_EXT
 auto me = CefAppCppToC::Get(self);
 const int CALLER_CODE=(CefAppExt::_typeName << 16) | CefAppExt::CefAppExt_GetResourceBundleHandler_3;
 auto m_callback= me->GetManagedCallBack(CALLER_CODE);
@@ -116,6 +121,7 @@ m_callback(CALLER_CODE, &args1.arg);
  return CefResourceBundleHandlerCppToC::Wrap(args1.arg.myext_ret_value);
 }
 }
+#endif
 //---kneadium-ext-end
 
   // Execute
@@ -135,6 +141,7 @@ app_get_browser_process_handler(struct _cef_app_t* self) {
     return NULL;
 
 //---kneadium-ext-begin
+#if ENABLE_KNEADIUM_EXT
 auto me = CefAppCppToC::Get(self);
 const int CALLER_CODE=(CefAppExt::_typeName << 16) | CefAppExt::CefAppExt_GetBrowserProcessHandler_4;
 auto m_callback= me->GetManagedCallBack(CALLER_CODE);
@@ -145,6 +152,7 @@ m_callback(CALLER_CODE, &args1.arg);
  return CefBrowserProcessHandlerCppToC::Wrap(args1.arg.myext_ret_value);
 }
 }
+#endif
 //---kneadium-ext-end
 
   // Execute
@@ -164,6 +172,7 @@ app_get_render_process_handler(struct _cef_app_t* self) {
     return NULL;
 
 //---kneadium-ext-begin
+#if ENABLE_KNEADIUM_EXT
 auto me = CefAppCppToC::Get(self);
 const int CALLER_CODE=(CefAppExt::_typeName << 16) | CefAppExt::CefAppExt_GetRenderProcessHandler_5;
 auto m_callback= me->GetManagedCallBack(CALLER_CODE);
@@ -174,6 +183,7 @@ m_callback(CALLER_CODE, &args1.arg);
  return CefRenderProcessHandlerCppToC::Wrap(args1.arg.myext_ret_value);
 }
 }
+#endif
 //---kneadium-ext-end
 
   // Execute

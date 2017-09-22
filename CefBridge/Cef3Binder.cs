@@ -851,13 +851,7 @@ namespace LayoutFarm.CefBridge
         internal static IntPtr GetNativeObjPtr(IntPtr nativePtr, out int argCountAndFlags)
         {
             unsafe
-            {
-
-                //struct MyMetArgsN
-                //{
-                //    int32_t argCount;
-                //    jsvalue* vargs;
-                //}; 
+            {   
                 //return address of vargs
                 argCountAndFlags = *((int*)nativePtr); //MyMetArgsN
                 //check flags
@@ -868,7 +862,11 @@ namespace LayoutFarm.CefBridge
                     return nativePtr;
                 }
                 else
-                {
+                {     //struct MyMetArgsN
+                      //{
+                      //    int32_t argCount;
+                      //    jsvalue* vargs;
+                      //}; 
                     IntPtr h1 = (IntPtr)(((byte*)nativePtr) + sizeof(int));
                     return (IntPtr)(*((JsValue**)h1));
                 }

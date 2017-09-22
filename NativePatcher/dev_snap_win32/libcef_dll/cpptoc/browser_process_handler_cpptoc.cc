@@ -36,6 +36,7 @@ void CEF_CALLBACK browser_process_handler_on_context_initialized(
     return;
 
 //---kneadium-ext-begin
+#if ENABLE_KNEADIUM_EXT
 auto me = CefBrowserProcessHandlerCppToC::Get(self);
 const int CALLER_CODE=(CefBrowserProcessHandlerExt::_typeName << 16) | CefBrowserProcessHandlerExt::CefBrowserProcessHandlerExt_OnContextInitialized_1;
 auto m_callback= me->GetManagedCallBack(CALLER_CODE);
@@ -46,6 +47,7 @@ m_callback(CALLER_CODE, &args1.arg);
 return;
 }
 }
+#endif
 //---kneadium-ext-end
 
   // Execute
@@ -66,6 +68,7 @@ void CEF_CALLBACK browser_process_handler_on_before_child_process_launch(
     return;
 
 //---kneadium-ext-begin
+#if ENABLE_KNEADIUM_EXT
 auto me = CefBrowserProcessHandlerCppToC::Get(self);
 const int CALLER_CODE=(CefBrowserProcessHandlerExt::_typeName << 16) | CefBrowserProcessHandlerExt::CefBrowserProcessHandlerExt_OnBeforeChildProcessLaunch_2;
 auto m_callback= me->GetManagedCallBack(CALLER_CODE);
@@ -76,6 +79,7 @@ m_callback(CALLER_CODE, &args1.arg);
 return;
 }
 }
+#endif
 //---kneadium-ext-end
 
   // Execute
@@ -97,6 +101,7 @@ void CEF_CALLBACK browser_process_handler_on_render_process_thread_created(
     return;
 
 //---kneadium-ext-begin
+#if ENABLE_KNEADIUM_EXT
 auto me = CefBrowserProcessHandlerCppToC::Get(self);
 const int CALLER_CODE=(CefBrowserProcessHandlerExt::_typeName << 16) | CefBrowserProcessHandlerExt::CefBrowserProcessHandlerExt_OnRenderProcessThreadCreated_3;
 auto m_callback= me->GetManagedCallBack(CALLER_CODE);
@@ -107,6 +112,7 @@ m_callback(CALLER_CODE, &args1.arg);
 return;
 }
 }
+#endif
 //---kneadium-ext-end
 
   // Execute
@@ -124,6 +130,7 @@ browser_process_handler_get_print_handler(
     return NULL;
 
 //---kneadium-ext-begin
+#if ENABLE_KNEADIUM_EXT
 auto me = CefBrowserProcessHandlerCppToC::Get(self);
 const int CALLER_CODE=(CefBrowserProcessHandlerExt::_typeName << 16) | CefBrowserProcessHandlerExt::CefBrowserProcessHandlerExt_GetPrintHandler_4;
 auto m_callback= me->GetManagedCallBack(CALLER_CODE);
@@ -134,6 +141,7 @@ m_callback(CALLER_CODE, &args1.arg);
  return CefPrintHandlerCppToC::Wrap(args1.arg.myext_ret_value);
 }
 }
+#endif
 //---kneadium-ext-end
 
   // Execute
@@ -154,6 +162,7 @@ void CEF_CALLBACK browser_process_handler_on_schedule_message_pump_work(
     return;
 
 //---kneadium-ext-begin
+#if ENABLE_KNEADIUM_EXT
 auto me = CefBrowserProcessHandlerCppToC::Get(self);
 const int CALLER_CODE=(CefBrowserProcessHandlerExt::_typeName << 16) | CefBrowserProcessHandlerExt::CefBrowserProcessHandlerExt_OnScheduleMessagePumpWork_5;
 auto m_callback= me->GetManagedCallBack(CALLER_CODE);
@@ -164,6 +173,7 @@ m_callback(CALLER_CODE, &args1.arg);
 return;
 }
 }
+#endif
 //---kneadium-ext-end
 
   // Execute
