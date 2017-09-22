@@ -1165,11 +1165,19 @@ namespace BridgeBuilder
             stbuilder.AppendLine("IntPtr nativePtr; //met arg native ptr");
 
             stbuilder.AppendLine("internal " + className + "(IntPtr nativePtr){");
-            stbuilder.AppendLine("this.nativePtr = nativePtr;");
-
+            stbuilder.AppendLine("this.nativePtr = nativePtr;"); 
             stbuilder.AppendLine("}");
 
+            //--------------
             string nativeArgClassName = met.Name + "NativeArgs";
+            stbuilder.AppendLine("public void myext_finish(){");
+            stbuilder.AppendLine("unsafe{");
+            stbuilder.AppendLine("((" + nativeArgClassName + "*)this.nativePtr)->argFlags |=CefInternalConst.FINISH_FLAGS;");
+            stbuilder.AppendLine("}");
+            stbuilder.AppendLine("}");
+            //--------------
+
+         
             //----------------------
             //set return value method
             //public void myext_setReturnType(bool ret)

@@ -16156,6 +16156,13 @@ namespace LayoutFarm.CefBridge.Auto
             {
                 this.nativePtr = nativePtr;
             }
+            public void myext_finish()
+            {
+                unsafe
+                {
+                    ((OnAccessibilityTreeChangeNativeArgs*)this.nativePtr)->argFlags |= CefInternalConst.FINISH_FLAGS;
+                }
+            }
             public CefValue value()
             {
                 throw new CefNotImplementedException();
@@ -16176,6 +16183,13 @@ namespace LayoutFarm.CefBridge.Auto
             internal OnAccessibilityLocationChangeArgs(IntPtr nativePtr)
             {
                 this.nativePtr = nativePtr;
+            }
+            public void myext_finish()
+            {
+                unsafe
+                {
+                    ((OnAccessibilityLocationChangeNativeArgs*)this.nativePtr)->argFlags |= CefInternalConst.FINISH_FLAGS;
+                }
             }
             public CefValue value()
             {
@@ -16275,6 +16289,13 @@ namespace LayoutFarm.CefBridge.Auto
             {
                 this.nativePtr = nativePtr;
             }
+            public void myext_finish()
+            {
+                unsafe
+                {
+                    ((OnContextInitializedNativeArgs*)this.nativePtr)->argFlags |= CefInternalConst.FINISH_FLAGS;
+                }
+            }
         }
         //CsStructModuleCodeGen:: GenerateCsMethodArgsClass_Native ,20
         [StructLayout(LayoutKind.Sequential)]
@@ -16290,6 +16311,13 @@ namespace LayoutFarm.CefBridge.Auto
             internal OnBeforeChildProcessLaunchArgs(IntPtr nativePtr)
             {
                 this.nativePtr = nativePtr;
+            }
+            public void myext_finish()
+            {
+                unsafe
+                {
+                    ((OnBeforeChildProcessLaunchNativeArgs*)this.nativePtr)->argFlags |= CefInternalConst.FINISH_FLAGS;
+                }
             }
             public CefCommandLine command_line()
             {
@@ -16315,6 +16343,13 @@ namespace LayoutFarm.CefBridge.Auto
             {
                 this.nativePtr = nativePtr;
             }
+            public void myext_finish()
+            {
+                unsafe
+                {
+                    ((OnRenderProcessThreadCreatedNativeArgs*)this.nativePtr)->argFlags |= CefInternalConst.FINISH_FLAGS;
+                }
+            }
             public CefListValue extra_info()
             {
                 unsafe
@@ -16338,6 +16373,13 @@ namespace LayoutFarm.CefBridge.Auto
             internal GetPrintHandlerArgs(IntPtr nativePtr)
             {
                 this.nativePtr = nativePtr;
+            }
+            public void myext_finish()
+            {
+                unsafe
+                {
+                    ((GetPrintHandlerNativeArgs*)this.nativePtr)->argFlags |= CefInternalConst.FINISH_FLAGS;
+                }
             }
             public void myext_setRetValue(
             IntPtr value)
@@ -16363,6 +16405,13 @@ namespace LayoutFarm.CefBridge.Auto
             internal OnScheduleMessagePumpWorkArgs(IntPtr nativePtr)
             {
                 this.nativePtr = nativePtr;
+            }
+            public void myext_finish()
+            {
+                unsafe
+                {
+                    ((OnScheduleMessagePumpWorkNativeArgs*)this.nativePtr)->argFlags |= CefInternalConst.FINISH_FLAGS;
+                }
             }
             public long delay_ms()
             {
@@ -16545,6 +16594,13 @@ namespace LayoutFarm.CefBridge.Auto
             {
                 this.nativePtr = nativePtr;
             }
+            public void myext_finish()
+            {
+                unsafe
+                {
+                    ((OnBeforeContextMenuNativeArgs*)this.nativePtr)->argFlags |= CefInternalConst.FINISH_FLAGS;
+                }
+            }
             public CefBrowser browser()
             {
                 unsafe
@@ -16592,6 +16648,13 @@ namespace LayoutFarm.CefBridge.Auto
             internal RunContextMenuArgs(IntPtr nativePtr)
             {
                 this.nativePtr = nativePtr;
+            }
+            public void myext_finish()
+            {
+                unsafe
+                {
+                    ((RunContextMenuNativeArgs*)this.nativePtr)->argFlags |= CefInternalConst.FINISH_FLAGS;
+                }
             }
             public void myext_setRetValue(
             bool value)
@@ -16658,6 +16721,13 @@ namespace LayoutFarm.CefBridge.Auto
             {
                 this.nativePtr = nativePtr;
             }
+            public void myext_finish()
+            {
+                unsafe
+                {
+                    ((OnContextMenuCommandNativeArgs*)this.nativePtr)->argFlags |= CefInternalConst.FINISH_FLAGS;
+                }
+            }
             public void myext_setRetValue(
             bool value)
             {
@@ -16722,6 +16792,13 @@ namespace LayoutFarm.CefBridge.Auto
             internal OnContextMenuDismissedArgs(IntPtr nativePtr)
             {
                 this.nativePtr = nativePtr;
+            }
+            public void myext_finish()
+            {
+                unsafe
+                {
+                    ((OnContextMenuDismissedNativeArgs*)this.nativePtr)->argFlags |= CefInternalConst.FINISH_FLAGS;
+                }
             }
             public CefBrowser browser()
             {
@@ -16906,6 +16983,13 @@ namespace LayoutFarm.CefBridge.Auto
             {
                 this.nativePtr = nativePtr;
             }
+            public void myext_finish()
+            {
+                unsafe
+                {
+                    ((OnFileDialogNativeArgs*)this.nativePtr)->argFlags |= CefInternalConst.FINISH_FLAGS;
+                }
+            }
             public void myext_setRetValue(
             bool value)
             {
@@ -17048,6 +17132,13 @@ namespace LayoutFarm.CefBridge.Auto
             {
                 this.nativePtr = nativePtr;
             }
+            public void myext_finish()
+            {
+                unsafe
+                {
+                    ((OnAddressChangeNativeArgs*)this.nativePtr)->argFlags |= CefInternalConst.FINISH_FLAGS;
+                }
+            }
             public CefBrowser browser()
             {
                 unsafe
@@ -17088,6 +17179,13 @@ namespace LayoutFarm.CefBridge.Auto
             {
                 this.nativePtr = nativePtr;
             }
+            public void myext_finish()
+            {
+                unsafe
+                {
+                    ((OnTitleChangeNativeArgs*)this.nativePtr)->argFlags |= CefInternalConst.FINISH_FLAGS;
+                }
+            }
             public CefBrowser browser()
             {
                 unsafe
@@ -17120,6 +17218,13 @@ namespace LayoutFarm.CefBridge.Auto
             {
                 this.nativePtr = nativePtr;
             }
+            public void myext_finish()
+            {
+                unsafe
+                {
+                    ((OnFaviconURLChangeNativeArgs*)this.nativePtr)->argFlags |= CefInternalConst.FINISH_FLAGS;
+                }
+            }
             public CefBrowser browser()
             {
                 unsafe
@@ -17148,6 +17253,13 @@ namespace LayoutFarm.CefBridge.Auto
             internal OnFullscreenModeChangeArgs(IntPtr nativePtr)
             {
                 this.nativePtr = nativePtr;
+            }
+            public void myext_finish()
+            {
+                unsafe
+                {
+                    ((OnFullscreenModeChangeNativeArgs*)this.nativePtr)->argFlags |= CefInternalConst.FINISH_FLAGS;
+                }
             }
             public CefBrowser browser()
             {
@@ -17180,6 +17292,13 @@ namespace LayoutFarm.CefBridge.Auto
             internal OnTooltipArgs(IntPtr nativePtr)
             {
                 this.nativePtr = nativePtr;
+            }
+            public void myext_finish()
+            {
+                unsafe
+                {
+                    ((OnTooltipNativeArgs*)this.nativePtr)->argFlags |= CefInternalConst.FINISH_FLAGS;
+                }
             }
             public void myext_setRetValue(
             bool value)
@@ -17222,6 +17341,13 @@ namespace LayoutFarm.CefBridge.Auto
             {
                 this.nativePtr = nativePtr;
             }
+            public void myext_finish()
+            {
+                unsafe
+                {
+                    ((OnStatusMessageNativeArgs*)this.nativePtr)->argFlags |= CefInternalConst.FINISH_FLAGS;
+                }
+            }
             public CefBrowser browser()
             {
                 unsafe
@@ -17253,6 +17379,13 @@ namespace LayoutFarm.CefBridge.Auto
             internal OnConsoleMessageArgs(IntPtr nativePtr)
             {
                 this.nativePtr = nativePtr;
+            }
+            public void myext_finish()
+            {
+                unsafe
+                {
+                    ((OnConsoleMessageNativeArgs*)this.nativePtr)->argFlags |= CefInternalConst.FINISH_FLAGS;
+                }
             }
             public void myext_setRetValue(
             bool value)
@@ -17540,6 +17673,13 @@ namespace LayoutFarm.CefBridge.Auto
             {
                 this.nativePtr = nativePtr;
             }
+            public void myext_finish()
+            {
+                unsafe
+                {
+                    ((OnBeforeDownloadNativeArgs*)this.nativePtr)->argFlags |= CefInternalConst.FINISH_FLAGS;
+                }
+            }
             public CefBrowser browser()
             {
                 unsafe
@@ -17587,6 +17727,13 @@ namespace LayoutFarm.CefBridge.Auto
             internal OnDownloadUpdatedArgs(IntPtr nativePtr)
             {
                 this.nativePtr = nativePtr;
+            }
+            public void myext_finish()
+            {
+                unsafe
+                {
+                    ((OnDownloadUpdatedNativeArgs*)this.nativePtr)->argFlags |= CefInternalConst.FINISH_FLAGS;
+                }
             }
             public CefBrowser browser()
             {
@@ -17712,6 +17859,13 @@ namespace LayoutFarm.CefBridge.Auto
             {
                 this.nativePtr = nativePtr;
             }
+            public void myext_finish()
+            {
+                unsafe
+                {
+                    ((OnDragEnterNativeArgs*)this.nativePtr)->argFlags |= CefInternalConst.FINISH_FLAGS;
+                }
+            }
             public void myext_setRetValue(
             bool value)
             {
@@ -17760,6 +17914,13 @@ namespace LayoutFarm.CefBridge.Auto
             internal OnDraggableRegionsChangedArgs(IntPtr nativePtr)
             {
                 this.nativePtr = nativePtr;
+            }
+            public void myext_finish()
+            {
+                unsafe
+                {
+                    ((OnDraggableRegionsChangedNativeArgs*)this.nativePtr)->argFlags |= CefInternalConst.FINISH_FLAGS;
+                }
             }
             public CefBrowser browser()
             {
@@ -17868,6 +18029,13 @@ namespace LayoutFarm.CefBridge.Auto
             internal OnFindResultArgs(IntPtr nativePtr)
             {
                 this.nativePtr = nativePtr;
+            }
+            public void myext_finish()
+            {
+                unsafe
+                {
+                    ((OnFindResultNativeArgs*)this.nativePtr)->argFlags |= CefInternalConst.FINISH_FLAGS;
+                }
             }
             public CefBrowser browser()
             {
@@ -17991,6 +18159,13 @@ namespace LayoutFarm.CefBridge.Auto
             {
                 this.nativePtr = nativePtr;
             }
+            public void myext_finish()
+            {
+                unsafe
+                {
+                    ((OnTakeFocusNativeArgs*)this.nativePtr)->argFlags |= CefInternalConst.FINISH_FLAGS;
+                }
+            }
             public CefBrowser browser()
             {
                 unsafe
@@ -18022,6 +18197,13 @@ namespace LayoutFarm.CefBridge.Auto
             internal OnSetFocusArgs(IntPtr nativePtr)
             {
                 this.nativePtr = nativePtr;
+            }
+            public void myext_finish()
+            {
+                unsafe
+                {
+                    ((OnSetFocusNativeArgs*)this.nativePtr)->argFlags |= CefInternalConst.FINISH_FLAGS;
+                }
             }
             public void myext_setRetValue(
             bool value)
@@ -18063,6 +18245,13 @@ namespace LayoutFarm.CefBridge.Auto
             internal OnGotFocusArgs(IntPtr nativePtr)
             {
                 this.nativePtr = nativePtr;
+            }
+            public void myext_finish()
+            {
+                unsafe
+                {
+                    ((OnGotFocusNativeArgs*)this.nativePtr)->argFlags |= CefInternalConst.FINISH_FLAGS;
+                }
             }
             public CefBrowser browser()
             {
@@ -18193,6 +18382,13 @@ namespace LayoutFarm.CefBridge.Auto
             {
                 this.nativePtr = nativePtr;
             }
+            public void myext_finish()
+            {
+                unsafe
+                {
+                    ((OnRequestGeolocationPermissionNativeArgs*)this.nativePtr)->argFlags |= CefInternalConst.FINISH_FLAGS;
+                }
+            }
             public void myext_setRetValue(
             bool value)
             {
@@ -18249,6 +18445,13 @@ namespace LayoutFarm.CefBridge.Auto
             internal OnCancelGeolocationPermissionArgs(IntPtr nativePtr)
             {
                 this.nativePtr = nativePtr;
+            }
+            public void myext_finish()
+            {
+                unsafe
+                {
+                    ((OnCancelGeolocationPermissionNativeArgs*)this.nativePtr)->argFlags |= CefInternalConst.FINISH_FLAGS;
+                }
             }
             public CefBrowser browser()
             {
@@ -18366,6 +18569,13 @@ namespace LayoutFarm.CefBridge.Auto
             {
                 this.nativePtr = nativePtr;
             }
+            public void myext_finish()
+            {
+                unsafe
+                {
+                    ((OnJSDialogNativeArgs*)this.nativePtr)->argFlags |= CefInternalConst.FINISH_FLAGS;
+                }
+            }
             public void myext_setRetValue(
             bool value)
             {
@@ -18451,6 +18661,13 @@ namespace LayoutFarm.CefBridge.Auto
             {
                 this.nativePtr = nativePtr;
             }
+            public void myext_finish()
+            {
+                unsafe
+                {
+                    ((OnBeforeUnloadDialogNativeArgs*)this.nativePtr)->argFlags |= CefInternalConst.FINISH_FLAGS;
+                }
+            }
             public void myext_setRetValue(
             bool value)
             {
@@ -18508,6 +18725,13 @@ namespace LayoutFarm.CefBridge.Auto
             {
                 this.nativePtr = nativePtr;
             }
+            public void myext_finish()
+            {
+                unsafe
+                {
+                    ((OnResetDialogStateNativeArgs*)this.nativePtr)->argFlags |= CefInternalConst.FINISH_FLAGS;
+                }
+            }
             public CefBrowser browser()
             {
                 unsafe
@@ -18531,6 +18755,13 @@ namespace LayoutFarm.CefBridge.Auto
             internal OnDialogClosedArgs(IntPtr nativePtr)
             {
                 this.nativePtr = nativePtr;
+            }
+            public void myext_finish()
+            {
+                unsafe
+                {
+                    ((OnDialogClosedNativeArgs*)this.nativePtr)->argFlags |= CefInternalConst.FINISH_FLAGS;
+                }
             }
             public CefBrowser browser()
             {
@@ -18706,6 +18937,13 @@ namespace LayoutFarm.CefBridge.Auto
             {
                 this.nativePtr = nativePtr;
             }
+            public void myext_finish()
+            {
+                unsafe
+                {
+                    ((OnPreKeyEventNativeArgs*)this.nativePtr)->argFlags |= CefInternalConst.FINISH_FLAGS;
+                }
+            }
             public void myext_setRetValue(
             bool value)
             {
@@ -18763,6 +19001,13 @@ namespace LayoutFarm.CefBridge.Auto
             internal OnKeyEventArgs(IntPtr nativePtr)
             {
                 this.nativePtr = nativePtr;
+            }
+            public void myext_finish()
+            {
+                unsafe
+                {
+                    ((OnKeyEventNativeArgs*)this.nativePtr)->argFlags |= CefInternalConst.FINISH_FLAGS;
+                }
             }
             public void myext_setRetValue(
             bool value)
@@ -18900,6 +19145,13 @@ namespace LayoutFarm.CefBridge.Auto
             {
                 this.nativePtr = nativePtr;
             }
+            public void myext_finish()
+            {
+                unsafe
+                {
+                    ((OnBeforePopupNativeArgs*)this.nativePtr)->argFlags |= CefInternalConst.FINISH_FLAGS;
+                }
+            }
             public void myext_setRetValue(
             bool value)
             {
@@ -19014,6 +19266,13 @@ namespace LayoutFarm.CefBridge.Auto
             {
                 this.nativePtr = nativePtr;
             }
+            public void myext_finish()
+            {
+                unsafe
+                {
+                    ((OnAfterCreatedNativeArgs*)this.nativePtr)->argFlags |= CefInternalConst.FINISH_FLAGS;
+                }
+            }
             public CefBrowser browser()
             {
                 unsafe
@@ -19037,6 +19296,13 @@ namespace LayoutFarm.CefBridge.Auto
             internal DoCloseArgs(IntPtr nativePtr)
             {
                 this.nativePtr = nativePtr;
+            }
+            public void myext_finish()
+            {
+                unsafe
+                {
+                    ((DoCloseNativeArgs*)this.nativePtr)->argFlags |= CefInternalConst.FINISH_FLAGS;
+                }
             }
             public void myext_setRetValue(
             bool value)
@@ -19070,6 +19336,13 @@ namespace LayoutFarm.CefBridge.Auto
             internal OnBeforeCloseArgs(IntPtr nativePtr)
             {
                 this.nativePtr = nativePtr;
+            }
+            public void myext_finish()
+            {
+                unsafe
+                {
+                    ((OnBeforeCloseNativeArgs*)this.nativePtr)->argFlags |= CefInternalConst.FINISH_FLAGS;
+                }
             }
             public CefBrowser browser()
             {
@@ -19249,6 +19522,13 @@ namespace LayoutFarm.CefBridge.Auto
             {
                 this.nativePtr = nativePtr;
             }
+            public void myext_finish()
+            {
+                unsafe
+                {
+                    ((OnLoadingStateChangeNativeArgs*)this.nativePtr)->argFlags |= CefInternalConst.FINISH_FLAGS;
+                }
+            }
             public CefBrowser browser()
             {
                 unsafe
@@ -19297,6 +19577,13 @@ namespace LayoutFarm.CefBridge.Auto
             {
                 this.nativePtr = nativePtr;
             }
+            public void myext_finish()
+            {
+                unsafe
+                {
+                    ((OnLoadStartNativeArgs*)this.nativePtr)->argFlags |= CefInternalConst.FINISH_FLAGS;
+                }
+            }
             public CefBrowser browser()
             {
                 unsafe
@@ -19337,6 +19624,13 @@ namespace LayoutFarm.CefBridge.Auto
             {
                 this.nativePtr = nativePtr;
             }
+            public void myext_finish()
+            {
+                unsafe
+                {
+                    ((OnLoadEndNativeArgs*)this.nativePtr)->argFlags |= CefInternalConst.FINISH_FLAGS;
+                }
+            }
             public CefBrowser browser()
             {
                 unsafe
@@ -19376,6 +19670,13 @@ namespace LayoutFarm.CefBridge.Auto
             internal OnLoadErrorArgs(IntPtr nativePtr)
             {
                 this.nativePtr = nativePtr;
+            }
+            public void myext_finish()
+            {
+                unsafe
+                {
+                    ((OnLoadErrorNativeArgs*)this.nativePtr)->argFlags |= CefInternalConst.FINISH_FLAGS;
+                }
             }
             public CefBrowser browser()
             {
@@ -19587,6 +19888,13 @@ namespace LayoutFarm.CefBridge.Auto
             {
                 this.nativePtr = nativePtr;
             }
+            public void myext_finish()
+            {
+                unsafe
+                {
+                    ((OnPrintStartNativeArgs*)this.nativePtr)->argFlags |= CefInternalConst.FINISH_FLAGS;
+                }
+            }
             public CefBrowser browser()
             {
                 unsafe
@@ -19610,6 +19918,13 @@ namespace LayoutFarm.CefBridge.Auto
             internal OnPrintSettingsArgs(IntPtr nativePtr)
             {
                 this.nativePtr = nativePtr;
+            }
+            public void myext_finish()
+            {
+                unsafe
+                {
+                    ((OnPrintSettingsNativeArgs*)this.nativePtr)->argFlags |= CefInternalConst.FINISH_FLAGS;
+                }
             }
             public CefBrowser browser()
             {
@@ -19650,6 +19965,13 @@ namespace LayoutFarm.CefBridge.Auto
             internal OnPrintDialogArgs(IntPtr nativePtr)
             {
                 this.nativePtr = nativePtr;
+            }
+            public void myext_finish()
+            {
+                unsafe
+                {
+                    ((OnPrintDialogNativeArgs*)this.nativePtr)->argFlags |= CefInternalConst.FINISH_FLAGS;
+                }
             }
             public void myext_setRetValue(
             bool value)
@@ -19699,6 +20021,13 @@ namespace LayoutFarm.CefBridge.Auto
             internal OnPrintJobArgs(IntPtr nativePtr)
             {
                 this.nativePtr = nativePtr;
+            }
+            public void myext_finish()
+            {
+                unsafe
+                {
+                    ((OnPrintJobNativeArgs*)this.nativePtr)->argFlags |= CefInternalConst.FINISH_FLAGS;
+                }
             }
             public void myext_setRetValue(
             bool value)
@@ -19757,6 +20086,13 @@ namespace LayoutFarm.CefBridge.Auto
             {
                 this.nativePtr = nativePtr;
             }
+            public void myext_finish()
+            {
+                unsafe
+                {
+                    ((OnPrintResetNativeArgs*)this.nativePtr)->argFlags |= CefInternalConst.FINISH_FLAGS;
+                }
+            }
             public CefBrowser browser()
             {
                 unsafe
@@ -19780,6 +20116,13 @@ namespace LayoutFarm.CefBridge.Auto
             internal GetPdfPaperSizeArgs(IntPtr nativePtr)
             {
                 this.nativePtr = nativePtr;
+            }
+            public void myext_finish()
+            {
+                unsafe
+                {
+                    ((GetPdfPaperSizeNativeArgs*)this.nativePtr)->argFlags |= CefInternalConst.FINISH_FLAGS;
+                }
             }
             public void myext_setRetValue(
             int value_w,
@@ -20024,6 +20367,13 @@ namespace LayoutFarm.CefBridge.Auto
             {
                 this.nativePtr = nativePtr;
             }
+            public void myext_finish()
+            {
+                unsafe
+                {
+                    ((GetAccessibilityHandlerNativeArgs*)this.nativePtr)->argFlags |= CefInternalConst.FINISH_FLAGS;
+                }
+            }
             public void myext_setRetValue(
             IntPtr value)
             {
@@ -20048,6 +20398,13 @@ namespace LayoutFarm.CefBridge.Auto
             internal GetRootScreenRectArgs(IntPtr nativePtr)
             {
                 this.nativePtr = nativePtr;
+            }
+            public void myext_finish()
+            {
+                unsafe
+                {
+                    ((GetRootScreenRectNativeArgs*)this.nativePtr)->argFlags |= CefInternalConst.FINISH_FLAGS;
+                }
             }
             public void myext_setRetValue(
             bool value)
@@ -20090,6 +20447,13 @@ namespace LayoutFarm.CefBridge.Auto
             {
                 this.nativePtr = nativePtr;
             }
+            public void myext_finish()
+            {
+                unsafe
+                {
+                    ((GetViewRectNativeArgs*)this.nativePtr)->argFlags |= CefInternalConst.FINISH_FLAGS;
+                }
+            }
             public void myext_setRetValue(
             bool value)
             {
@@ -20130,6 +20494,13 @@ namespace LayoutFarm.CefBridge.Auto
             internal GetScreenPointArgs(IntPtr nativePtr)
             {
                 this.nativePtr = nativePtr;
+            }
+            public void myext_finish()
+            {
+                unsafe
+                {
+                    ((GetScreenPointNativeArgs*)this.nativePtr)->argFlags |= CefInternalConst.FINISH_FLAGS;
+                }
             }
             public void myext_setRetValue(
             bool value)
@@ -20198,6 +20569,13 @@ namespace LayoutFarm.CefBridge.Auto
             {
                 this.nativePtr = nativePtr;
             }
+            public void myext_finish()
+            {
+                unsafe
+                {
+                    ((GetScreenInfoNativeArgs*)this.nativePtr)->argFlags |= CefInternalConst.FINISH_FLAGS;
+                }
+            }
             public void myext_setRetValue(
             bool value)
             {
@@ -20239,6 +20617,13 @@ namespace LayoutFarm.CefBridge.Auto
             {
                 this.nativePtr = nativePtr;
             }
+            public void myext_finish()
+            {
+                unsafe
+                {
+                    ((OnPopupShowNativeArgs*)this.nativePtr)->argFlags |= CefInternalConst.FINISH_FLAGS;
+                }
+            }
             public CefBrowser browser()
             {
                 unsafe
@@ -20271,6 +20656,13 @@ namespace LayoutFarm.CefBridge.Auto
             {
                 this.nativePtr = nativePtr;
             }
+            public void myext_finish()
+            {
+                unsafe
+                {
+                    ((OnPopupSizeNativeArgs*)this.nativePtr)->argFlags |= CefInternalConst.FINISH_FLAGS;
+                }
+            }
             public CefBrowser browser()
             {
                 unsafe
@@ -20302,6 +20694,13 @@ namespace LayoutFarm.CefBridge.Auto
             internal OnPaintArgs(IntPtr nativePtr)
             {
                 this.nativePtr = nativePtr;
+            }
+            public void myext_finish()
+            {
+                unsafe
+                {
+                    ((OnPaintNativeArgs*)this.nativePtr)->argFlags |= CefInternalConst.FINISH_FLAGS;
+                }
             }
             public CefBrowser browser()
             {
@@ -20361,6 +20760,13 @@ namespace LayoutFarm.CefBridge.Auto
             {
                 this.nativePtr = nativePtr;
             }
+            public void myext_finish()
+            {
+                unsafe
+                {
+                    ((OnCursorChangeNativeArgs*)this.nativePtr)->argFlags |= CefInternalConst.FINISH_FLAGS;
+                }
+            }
             public CefBrowser browser()
             {
                 unsafe
@@ -20405,6 +20811,13 @@ namespace LayoutFarm.CefBridge.Auto
             internal StartDraggingArgs(IntPtr nativePtr)
             {
                 this.nativePtr = nativePtr;
+            }
+            public void myext_finish()
+            {
+                unsafe
+                {
+                    ((StartDraggingNativeArgs*)this.nativePtr)->argFlags |= CefInternalConst.FINISH_FLAGS;
+                }
             }
             public void myext_setRetValue(
             bool value)
@@ -20471,6 +20884,13 @@ namespace LayoutFarm.CefBridge.Auto
             {
                 this.nativePtr = nativePtr;
             }
+            public void myext_finish()
+            {
+                unsafe
+                {
+                    ((UpdateDragCursorNativeArgs*)this.nativePtr)->argFlags |= CefInternalConst.FINISH_FLAGS;
+                }
+            }
             public CefBrowser browser()
             {
                 unsafe
@@ -20502,6 +20922,13 @@ namespace LayoutFarm.CefBridge.Auto
             internal OnScrollOffsetChangedArgs(IntPtr nativePtr)
             {
                 this.nativePtr = nativePtr;
+            }
+            public void myext_finish()
+            {
+                unsafe
+                {
+                    ((OnScrollOffsetChangedNativeArgs*)this.nativePtr)->argFlags |= CefInternalConst.FINISH_FLAGS;
+                }
             }
             public CefBrowser browser()
             {
@@ -20542,6 +20969,13 @@ namespace LayoutFarm.CefBridge.Auto
             internal OnImeCompositionRangeChangedArgs(IntPtr nativePtr)
             {
                 this.nativePtr = nativePtr;
+            }
+            public void myext_finish()
+            {
+                unsafe
+                {
+                    ((OnImeCompositionRangeChangedNativeArgs*)this.nativePtr)->argFlags |= CefInternalConst.FINISH_FLAGS;
+                }
             }
             public CefBrowser browser()
             {
@@ -21020,6 +21454,13 @@ namespace LayoutFarm.CefBridge.Auto
             {
                 this.nativePtr = nativePtr;
             }
+            public void myext_finish()
+            {
+                unsafe
+                {
+                    ((OnRenderThreadCreatedNativeArgs*)this.nativePtr)->argFlags |= CefInternalConst.FINISH_FLAGS;
+                }
+            }
             public CefListValue extra_info()
             {
                 unsafe
@@ -21044,6 +21485,13 @@ namespace LayoutFarm.CefBridge.Auto
             {
                 this.nativePtr = nativePtr;
             }
+            public void myext_finish()
+            {
+                unsafe
+                {
+                    ((OnWebKitInitializedNativeArgs*)this.nativePtr)->argFlags |= CefInternalConst.FINISH_FLAGS;
+                }
+            }
         }
         //CsStructModuleCodeGen:: GenerateCsMethodArgsClass_Native ,517
         [StructLayout(LayoutKind.Sequential)]
@@ -21059,6 +21507,13 @@ namespace LayoutFarm.CefBridge.Auto
             internal OnBrowserCreatedArgs(IntPtr nativePtr)
             {
                 this.nativePtr = nativePtr;
+            }
+            public void myext_finish()
+            {
+                unsafe
+                {
+                    ((OnBrowserCreatedNativeArgs*)this.nativePtr)->argFlags |= CefInternalConst.FINISH_FLAGS;
+                }
             }
             public CefBrowser browser()
             {
@@ -21084,6 +21539,13 @@ namespace LayoutFarm.CefBridge.Auto
             {
                 this.nativePtr = nativePtr;
             }
+            public void myext_finish()
+            {
+                unsafe
+                {
+                    ((OnBrowserDestroyedNativeArgs*)this.nativePtr)->argFlags |= CefInternalConst.FINISH_FLAGS;
+                }
+            }
             public CefBrowser browser()
             {
                 unsafe
@@ -21107,6 +21569,13 @@ namespace LayoutFarm.CefBridge.Auto
             internal GetLoadHandlerArgs(IntPtr nativePtr)
             {
                 this.nativePtr = nativePtr;
+            }
+            public void myext_finish()
+            {
+                unsafe
+                {
+                    ((GetLoadHandlerNativeArgs*)this.nativePtr)->argFlags |= CefInternalConst.FINISH_FLAGS;
+                }
             }
             public void myext_setRetValue(
             IntPtr value)
@@ -21132,6 +21601,13 @@ namespace LayoutFarm.CefBridge.Auto
             internal OnBeforeNavigationArgs(IntPtr nativePtr)
             {
                 this.nativePtr = nativePtr;
+            }
+            public void myext_finish()
+            {
+                unsafe
+                {
+                    ((OnBeforeNavigationNativeArgs*)this.nativePtr)->argFlags |= CefInternalConst.FINISH_FLAGS;
+                }
             }
             public void myext_setRetValue(
             bool value)
@@ -21198,6 +21674,13 @@ namespace LayoutFarm.CefBridge.Auto
             {
                 this.nativePtr = nativePtr;
             }
+            public void myext_finish()
+            {
+                unsafe
+                {
+                    ((OnContextCreatedNativeArgs*)this.nativePtr)->argFlags |= CefInternalConst.FINISH_FLAGS;
+                }
+            }
             public CefBrowser browser()
             {
                 unsafe
@@ -21238,6 +21721,13 @@ namespace LayoutFarm.CefBridge.Auto
             {
                 this.nativePtr = nativePtr;
             }
+            public void myext_finish()
+            {
+                unsafe
+                {
+                    ((OnContextReleasedNativeArgs*)this.nativePtr)->argFlags |= CefInternalConst.FINISH_FLAGS;
+                }
+            }
             public CefBrowser browser()
             {
                 unsafe
@@ -21277,6 +21767,13 @@ namespace LayoutFarm.CefBridge.Auto
             internal OnUncaughtExceptionArgs(IntPtr nativePtr)
             {
                 this.nativePtr = nativePtr;
+            }
+            public void myext_finish()
+            {
+                unsafe
+                {
+                    ((OnUncaughtExceptionNativeArgs*)this.nativePtr)->argFlags |= CefInternalConst.FINISH_FLAGS;
+                }
             }
             public CefBrowser browser()
             {
@@ -21334,6 +21831,13 @@ namespace LayoutFarm.CefBridge.Auto
             {
                 this.nativePtr = nativePtr;
             }
+            public void myext_finish()
+            {
+                unsafe
+                {
+                    ((OnFocusedNodeChangedNativeArgs*)this.nativePtr)->argFlags |= CefInternalConst.FINISH_FLAGS;
+                }
+            }
             public CefBrowser browser()
             {
                 unsafe
@@ -21373,6 +21877,13 @@ namespace LayoutFarm.CefBridge.Auto
             internal OnProcessMessageReceivedArgs(IntPtr nativePtr)
             {
                 this.nativePtr = nativePtr;
+            }
+            public void myext_finish()
+            {
+                unsafe
+                {
+                    ((OnProcessMessageReceivedNativeArgs*)this.nativePtr)->argFlags |= CefInternalConst.FINISH_FLAGS;
+                }
             }
             public void myext_setRetValue(
             bool value)
@@ -21772,6 +22283,13 @@ namespace LayoutFarm.CefBridge.Auto
             {
                 this.nativePtr = nativePtr;
             }
+            public void myext_finish()
+            {
+                unsafe
+                {
+                    ((GetCookieManagerNativeArgs*)this.nativePtr)->argFlags |= CefInternalConst.FINISH_FLAGS;
+                }
+            }
             public void myext_setRetValue(
             IntPtr value)
             {
@@ -21796,6 +22314,13 @@ namespace LayoutFarm.CefBridge.Auto
             internal OnBeforePluginLoadArgs(IntPtr nativePtr)
             {
                 this.nativePtr = nativePtr;
+            }
+            public void myext_finish()
+            {
+                unsafe
+                {
+                    ((OnBeforePluginLoadNativeArgs*)this.nativePtr)->argFlags |= CefInternalConst.FINISH_FLAGS;
+                }
             }
             public void myext_setRetValue(
             bool value)
@@ -21968,6 +22493,13 @@ namespace LayoutFarm.CefBridge.Auto
             {
                 this.nativePtr = nativePtr;
             }
+            public void myext_finish()
+            {
+                unsafe
+                {
+                    ((OnBeforeBrowseNativeArgs*)this.nativePtr)->argFlags |= CefInternalConst.FINISH_FLAGS;
+                }
+            }
             public void myext_setRetValue(
             bool value)
             {
@@ -22024,6 +22556,13 @@ namespace LayoutFarm.CefBridge.Auto
             internal OnOpenURLFromTabArgs(IntPtr nativePtr)
             {
                 this.nativePtr = nativePtr;
+            }
+            public void myext_finish()
+            {
+                unsafe
+                {
+                    ((OnOpenURLFromTabNativeArgs*)this.nativePtr)->argFlags |= CefInternalConst.FINISH_FLAGS;
+                }
             }
             public void myext_setRetValue(
             bool value)
@@ -22090,6 +22629,13 @@ namespace LayoutFarm.CefBridge.Auto
             {
                 this.nativePtr = nativePtr;
             }
+            public void myext_finish()
+            {
+                unsafe
+                {
+                    ((OnBeforeResourceLoadNativeArgs*)this.nativePtr)->argFlags |= CefInternalConst.FINISH_FLAGS;
+                }
+            }
             public void myext_setRetValue(
             int value)
             {
@@ -22147,6 +22693,13 @@ namespace LayoutFarm.CefBridge.Auto
             {
                 this.nativePtr = nativePtr;
             }
+            public void myext_finish()
+            {
+                unsafe
+                {
+                    ((GetResourceHandlerNativeArgs*)this.nativePtr)->argFlags |= CefInternalConst.FINISH_FLAGS;
+                }
+            }
             public void myext_setRetValue(
             IntPtr value)
             {
@@ -22195,6 +22748,13 @@ namespace LayoutFarm.CefBridge.Auto
             internal OnResourceRedirectArgs(IntPtr nativePtr)
             {
                 this.nativePtr = nativePtr;
+            }
+            public void myext_finish()
+            {
+                unsafe
+                {
+                    ((OnResourceRedirectNativeArgs*)this.nativePtr)->argFlags |= CefInternalConst.FINISH_FLAGS;
+                }
             }
             public CefBrowser browser()
             {
@@ -22251,6 +22811,13 @@ namespace LayoutFarm.CefBridge.Auto
             internal OnResourceResponseArgs(IntPtr nativePtr)
             {
                 this.nativePtr = nativePtr;
+            }
+            public void myext_finish()
+            {
+                unsafe
+                {
+                    ((OnResourceResponseNativeArgs*)this.nativePtr)->argFlags |= CefInternalConst.FINISH_FLAGS;
+                }
             }
             public void myext_setRetValue(
             bool value)
@@ -22309,6 +22876,13 @@ namespace LayoutFarm.CefBridge.Auto
             {
                 this.nativePtr = nativePtr;
             }
+            public void myext_finish()
+            {
+                unsafe
+                {
+                    ((GetResourceResponseFilterNativeArgs*)this.nativePtr)->argFlags |= CefInternalConst.FINISH_FLAGS;
+                }
+            }
             public void myext_setRetValue(
             IntPtr value)
             {
@@ -22365,6 +22939,13 @@ namespace LayoutFarm.CefBridge.Auto
             internal OnResourceLoadCompleteArgs(IntPtr nativePtr)
             {
                 this.nativePtr = nativePtr;
+            }
+            public void myext_finish()
+            {
+                unsafe
+                {
+                    ((OnResourceLoadCompleteNativeArgs*)this.nativePtr)->argFlags |= CefInternalConst.FINISH_FLAGS;
+                }
             }
             public CefBrowser browser()
             {
@@ -22429,6 +23010,13 @@ namespace LayoutFarm.CefBridge.Auto
             internal GetAuthCredentialsArgs(IntPtr nativePtr)
             {
                 this.nativePtr = nativePtr;
+            }
+            public void myext_finish()
+            {
+                unsafe
+                {
+                    ((GetAuthCredentialsNativeArgs*)this.nativePtr)->argFlags |= CefInternalConst.FINISH_FLAGS;
+                }
             }
             public void myext_setRetValue(
             bool value)
@@ -22519,6 +23107,13 @@ namespace LayoutFarm.CefBridge.Auto
             {
                 this.nativePtr = nativePtr;
             }
+            public void myext_finish()
+            {
+                unsafe
+                {
+                    ((OnQuotaRequestNativeArgs*)this.nativePtr)->argFlags |= CefInternalConst.FINISH_FLAGS;
+                }
+            }
             public void myext_setRetValue(
             bool value)
             {
@@ -22576,6 +23171,13 @@ namespace LayoutFarm.CefBridge.Auto
             {
                 this.nativePtr = nativePtr;
             }
+            public void myext_finish()
+            {
+                unsafe
+                {
+                    ((OnProtocolExecutionNativeArgs*)this.nativePtr)->argFlags |= CefInternalConst.FINISH_FLAGS;
+                }
+            }
             public CefBrowser browser()
             {
                 unsafe
@@ -22619,6 +23221,13 @@ namespace LayoutFarm.CefBridge.Auto
             internal OnCertificateErrorArgs(IntPtr nativePtr)
             {
                 this.nativePtr = nativePtr;
+            }
+            public void myext_finish()
+            {
+                unsafe
+                {
+                    ((OnCertificateErrorNativeArgs*)this.nativePtr)->argFlags |= CefInternalConst.FINISH_FLAGS;
+                }
             }
             public void myext_setRetValue(
             bool value)
@@ -22684,6 +23293,13 @@ namespace LayoutFarm.CefBridge.Auto
             internal OnSelectClientCertificateArgs(IntPtr nativePtr)
             {
                 this.nativePtr = nativePtr;
+            }
+            public void myext_finish()
+            {
+                unsafe
+                {
+                    ((OnSelectClientCertificateNativeArgs*)this.nativePtr)->argFlags |= CefInternalConst.FINISH_FLAGS;
+                }
             }
             public void myext_setRetValue(
             bool value)
@@ -22755,6 +23371,13 @@ namespace LayoutFarm.CefBridge.Auto
             {
                 this.nativePtr = nativePtr;
             }
+            public void myext_finish()
+            {
+                unsafe
+                {
+                    ((OnPluginCrashedNativeArgs*)this.nativePtr)->argFlags |= CefInternalConst.FINISH_FLAGS;
+                }
+            }
             public CefBrowser browser()
             {
                 unsafe
@@ -22787,6 +23410,13 @@ namespace LayoutFarm.CefBridge.Auto
             {
                 this.nativePtr = nativePtr;
             }
+            public void myext_finish()
+            {
+                unsafe
+                {
+                    ((OnRenderViewReadyNativeArgs*)this.nativePtr)->argFlags |= CefInternalConst.FINISH_FLAGS;
+                }
+            }
             public CefBrowser browser()
             {
                 unsafe
@@ -22810,6 +23440,13 @@ namespace LayoutFarm.CefBridge.Auto
             internal OnRenderProcessTerminatedArgs(IntPtr nativePtr)
             {
                 this.nativePtr = nativePtr;
+            }
+            public void myext_finish()
+            {
+                unsafe
+                {
+                    ((OnRenderProcessTerminatedNativeArgs*)this.nativePtr)->argFlags |= CefInternalConst.FINISH_FLAGS;
+                }
             }
             public CefBrowser browser()
             {
@@ -23400,6 +24037,13 @@ namespace LayoutFarm.CefBridge.Auto
             {
                 this.nativePtr = nativePtr;
             }
+            public void myext_finish()
+            {
+                unsafe
+                {
+                    ((GetLocalizedStringNativeArgs*)this.nativePtr)->argFlags |= CefInternalConst.FINISH_FLAGS;
+                }
+            }
             public void myext_setRetValue(
             bool value)
             {
@@ -23440,6 +24084,13 @@ namespace LayoutFarm.CefBridge.Auto
             internal GetDataResourceArgs(IntPtr nativePtr)
             {
                 this.nativePtr = nativePtr;
+            }
+            public void myext_finish()
+            {
+                unsafe
+                {
+                    ((GetDataResourceNativeArgs*)this.nativePtr)->argFlags |= CefInternalConst.FINISH_FLAGS;
+                }
             }
             public void myext_setRetValue(
             bool value)
@@ -23487,6 +24138,13 @@ namespace LayoutFarm.CefBridge.Auto
             internal GetDataResourceForScaleArgs(IntPtr nativePtr)
             {
                 this.nativePtr = nativePtr;
+            }
+            public void myext_finish()
+            {
+                unsafe
+                {
+                    ((GetDataResourceForScaleNativeArgs*)this.nativePtr)->argFlags |= CefInternalConst.FINISH_FLAGS;
+                }
             }
             public void myext_setRetValue(
             bool value)
@@ -23668,6 +24326,13 @@ namespace LayoutFarm.CefBridge.Auto
             {
                 this.nativePtr = nativePtr;
             }
+            public void myext_finish()
+            {
+                unsafe
+                {
+                    ((ProcessRequestNativeArgs*)this.nativePtr)->argFlags |= CefInternalConst.FINISH_FLAGS;
+                }
+            }
             public void myext_setRetValue(
             bool value)
             {
@@ -23709,6 +24374,13 @@ namespace LayoutFarm.CefBridge.Auto
             {
                 this.nativePtr = nativePtr;
             }
+            public void myext_finish()
+            {
+                unsafe
+                {
+                    ((GetResponseHeadersNativeArgs*)this.nativePtr)->argFlags |= CefInternalConst.FINISH_FLAGS;
+                }
+            }
             public CefResponse response()
             {
                 unsafe
@@ -23748,6 +24420,13 @@ namespace LayoutFarm.CefBridge.Auto
             internal ReadResponseArgs(IntPtr nativePtr)
             {
                 this.nativePtr = nativePtr;
+            }
+            public void myext_finish()
+            {
+                unsafe
+                {
+                    ((ReadResponseNativeArgs*)this.nativePtr)->argFlags |= CefInternalConst.FINISH_FLAGS;
+                }
             }
             public void myext_setRetValue(
             bool value)
@@ -23804,6 +24483,13 @@ namespace LayoutFarm.CefBridge.Auto
             {
                 this.nativePtr = nativePtr;
             }
+            public void myext_finish()
+            {
+                unsafe
+                {
+                    ((CanGetCookieNativeArgs*)this.nativePtr)->argFlags |= CefInternalConst.FINISH_FLAGS;
+                }
+            }
             public void myext_setRetValue(
             bool value)
             {
@@ -23837,6 +24523,13 @@ namespace LayoutFarm.CefBridge.Auto
             {
                 this.nativePtr = nativePtr;
             }
+            public void myext_finish()
+            {
+                unsafe
+                {
+                    ((CanSetCookieNativeArgs*)this.nativePtr)->argFlags |= CefInternalConst.FINISH_FLAGS;
+                }
+            }
             public void myext_setRetValue(
             bool value)
             {
@@ -23869,6 +24562,13 @@ namespace LayoutFarm.CefBridge.Auto
             internal CancelArgs(IntPtr nativePtr)
             {
                 this.nativePtr = nativePtr;
+            }
+            public void myext_finish()
+            {
+                unsafe
+                {
+                    ((CancelNativeArgs*)this.nativePtr)->argFlags |= CefInternalConst.FINISH_FLAGS;
+                }
             }
         }
         //CsStructModuleCodeGen:: GenerateCsMethodArgsClass_Native ,785
@@ -24087,6 +24787,13 @@ namespace LayoutFarm.CefBridge.Auto
             {
                 this.nativePtr = nativePtr;
             }
+            public void myext_finish()
+            {
+                unsafe
+                {
+                    ((ReadNativeArgs*)this.nativePtr)->argFlags |= CefInternalConst.FINISH_FLAGS;
+                }
+            }
             public void myext_setRetValue(
             int value)
             {
@@ -24133,6 +24840,13 @@ namespace LayoutFarm.CefBridge.Auto
             {
                 this.nativePtr = nativePtr;
             }
+            public void myext_finish()
+            {
+                unsafe
+                {
+                    ((SeekNativeArgs*)this.nativePtr)->argFlags |= CefInternalConst.FINISH_FLAGS;
+                }
+            }
             public void myext_setRetValue(
             int value)
             {
@@ -24174,6 +24888,13 @@ namespace LayoutFarm.CefBridge.Auto
             {
                 this.nativePtr = nativePtr;
             }
+            public void myext_finish()
+            {
+                unsafe
+                {
+                    ((TellNativeArgs*)this.nativePtr)->argFlags |= CefInternalConst.FINISH_FLAGS;
+                }
+            }
             public void myext_setRetValue(
             long value)
             {
@@ -24199,6 +24920,13 @@ namespace LayoutFarm.CefBridge.Auto
             {
                 this.nativePtr = nativePtr;
             }
+            public void myext_finish()
+            {
+                unsafe
+                {
+                    ((EofNativeArgs*)this.nativePtr)->argFlags |= CefInternalConst.FINISH_FLAGS;
+                }
+            }
             public void myext_setRetValue(
             int value)
             {
@@ -24223,6 +24951,13 @@ namespace LayoutFarm.CefBridge.Auto
             internal MayBlockArgs(IntPtr nativePtr)
             {
                 this.nativePtr = nativePtr;
+            }
+            public void myext_finish()
+            {
+                unsafe
+                {
+                    ((MayBlockNativeArgs*)this.nativePtr)->argFlags |= CefInternalConst.FINISH_FLAGS;
+                }
             }
             public void myext_setRetValue(
             bool value)
@@ -24413,6 +25148,13 @@ namespace LayoutFarm.CefBridge.Auto
             {
                 this.nativePtr = nativePtr;
             }
+            public void myext_finish()
+            {
+                unsafe
+                {
+                    ((WriteNativeArgs*)this.nativePtr)->argFlags |= CefInternalConst.FINISH_FLAGS;
+                }
+            }
             public void myext_setRetValue(
             int value)
             {
@@ -24459,6 +25201,13 @@ namespace LayoutFarm.CefBridge.Auto
             {
                 this.nativePtr = nativePtr;
             }
+            public void myext_finish()
+            {
+                unsafe
+                {
+                    ((SeekNativeArgs*)this.nativePtr)->argFlags |= CefInternalConst.FINISH_FLAGS;
+                }
+            }
             public void myext_setRetValue(
             int value)
             {
@@ -24500,6 +25249,13 @@ namespace LayoutFarm.CefBridge.Auto
             {
                 this.nativePtr = nativePtr;
             }
+            public void myext_finish()
+            {
+                unsafe
+                {
+                    ((TellNativeArgs*)this.nativePtr)->argFlags |= CefInternalConst.FINISH_FLAGS;
+                }
+            }
             public void myext_setRetValue(
             long value)
             {
@@ -24525,6 +25281,13 @@ namespace LayoutFarm.CefBridge.Auto
             {
                 this.nativePtr = nativePtr;
             }
+            public void myext_finish()
+            {
+                unsafe
+                {
+                    ((FlushNativeArgs*)this.nativePtr)->argFlags |= CefInternalConst.FINISH_FLAGS;
+                }
+            }
             public void myext_setRetValue(
             int value)
             {
@@ -24549,6 +25312,13 @@ namespace LayoutFarm.CefBridge.Auto
             internal MayBlockArgs(IntPtr nativePtr)
             {
                 this.nativePtr = nativePtr;
+            }
+            public void myext_finish()
+            {
+                unsafe
+                {
+                    ((MayBlockNativeArgs*)this.nativePtr)->argFlags |= CefInternalConst.FINISH_FLAGS;
+                }
             }
             public void myext_setRetValue(
             bool value)
@@ -24734,6 +25504,13 @@ namespace LayoutFarm.CefBridge.Auto
             internal ExecuteArgs(IntPtr nativePtr)
             {
                 this.nativePtr = nativePtr;
+            }
+            public void myext_finish()
+            {
+                unsafe
+                {
+                    ((ExecuteNativeArgs*)this.nativePtr)->argFlags |= CefInternalConst.FINISH_FLAGS;
+                }
             }
             public void myext_setRetValue(
             bool value)
