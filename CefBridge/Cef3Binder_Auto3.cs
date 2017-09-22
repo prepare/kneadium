@@ -16148,16 +16148,14 @@ namespace LayoutFarm.CefBridge.Auto
         const int CefAccessibilityHandlerExt_OnAccessibilityTreeChange_1 = 1;
         const int CefAccessibilityHandlerExt_OnAccessibilityLocationChange_2 = 2;
         //gen! void OnAccessibilityTreeChange(CefRefPtr<CefValue> value)
-        //CsStructModuleCodeGen:: GenerateCsMethodArgsClass_JsSlot ,2
+        //CsStructModuleCodeGen:: GenerateCsMethodArgsClass ,2
         public struct OnAccessibilityTreeChangeArgs
         {
             IntPtr nativePtr; //met arg native ptr
-            bool _isJsSlot;
             internal OnAccessibilityTreeChangeArgs(IntPtr nativePtr)
             {
                 int arg_flags;
                 this.nativePtr = MyMetArgs.GetNativeObjPtr(nativePtr, out arg_flags);
-                this._isJsSlot = ((arg_flags >> 18) & 1) == 0;
 
             }
             public CefValue value()
@@ -16173,16 +16171,14 @@ namespace LayoutFarm.CefBridge.Auto
             public IntPtr value;
         }
         //gen! void OnAccessibilityLocationChange(CefRefPtr<CefValue> value)
-        //CsStructModuleCodeGen:: GenerateCsMethodArgsClass_JsSlot ,4
+        //CsStructModuleCodeGen:: GenerateCsMethodArgsClass ,4
         public struct OnAccessibilityLocationChangeArgs
         {
             IntPtr nativePtr; //met arg native ptr
-            bool _isJsSlot;
             internal OnAccessibilityLocationChangeArgs(IntPtr nativePtr)
             {
                 int arg_flags;
                 this.nativePtr = MyMetArgs.GetNativeObjPtr(nativePtr, out arg_flags);
-                this._isJsSlot = ((arg_flags >> 18) & 1) == 0;
 
             }
             public CefValue value()
@@ -16275,16 +16271,14 @@ namespace LayoutFarm.CefBridge.Auto
         const int CefBrowserProcessHandlerExt_GetPrintHandler_4 = 4;
         const int CefBrowserProcessHandlerExt_OnScheduleMessagePumpWork_5 = 5;
         //gen! void OnContextInitialized()
-        //CsStructModuleCodeGen:: GenerateCsMethodArgsClass_JsSlot ,19
+        //CsStructModuleCodeGen:: GenerateCsMethodArgsClass ,19
         public struct OnContextInitializedArgs
         {
             IntPtr nativePtr; //met arg native ptr
-            bool _isJsSlot;
             internal OnContextInitializedArgs(IntPtr nativePtr)
             {
                 int arg_flags;
                 this.nativePtr = MyMetArgs.GetNativeObjPtr(nativePtr, out arg_flags);
-                this._isJsSlot = ((arg_flags >> 18) & 1) == 0;
 
             }
         }
@@ -16295,25 +16289,21 @@ namespace LayoutFarm.CefBridge.Auto
             public int argFlags;
         }
         //gen! void OnBeforeChildProcessLaunch(CefRefPtr<CefCommandLine> command_line)
-        //CsStructModuleCodeGen:: GenerateCsMethodArgsClass_JsSlot ,21
+        //CsStructModuleCodeGen:: GenerateCsMethodArgsClass ,21
         public struct OnBeforeChildProcessLaunchArgs
         {
             IntPtr nativePtr; //met arg native ptr
-            bool _isJsSlot;
             internal OnBeforeChildProcessLaunchArgs(IntPtr nativePtr)
             {
                 int arg_flags;
                 this.nativePtr = MyMetArgs.GetNativeObjPtr(nativePtr, out arg_flags);
-                this._isJsSlot = ((arg_flags >> 18) & 1) == 0;
 
             }
             public CefCommandLine command_line()
             {
                 unsafe
                 {
-                    return _isJsSlot ?
-                    new CefCommandLine(MyMetArgs.GetAsIntPtr(nativePtr, 1)) :
-                    new CefCommandLine(((OnBeforeChildProcessLaunchNativeArgs*)this.nativePtr)->command_line);
+                    return new CefCommandLine(((OnBeforeChildProcessLaunchNativeArgs*)this.nativePtr)->command_line);
                 }
             }
         }
@@ -16325,25 +16315,21 @@ namespace LayoutFarm.CefBridge.Auto
             public IntPtr command_line;
         }
         //gen! void OnRenderProcessThreadCreated(CefRefPtr<CefListValue> extra_info)
-        //CsStructModuleCodeGen:: GenerateCsMethodArgsClass_JsSlot ,23
+        //CsStructModuleCodeGen:: GenerateCsMethodArgsClass ,23
         public struct OnRenderProcessThreadCreatedArgs
         {
             IntPtr nativePtr; //met arg native ptr
-            bool _isJsSlot;
             internal OnRenderProcessThreadCreatedArgs(IntPtr nativePtr)
             {
                 int arg_flags;
                 this.nativePtr = MyMetArgs.GetNativeObjPtr(nativePtr, out arg_flags);
-                this._isJsSlot = ((arg_flags >> 18) & 1) == 0;
 
             }
             public CefListValue extra_info()
             {
                 unsafe
                 {
-                    return _isJsSlot ?
-                    new CefListValue(MyMetArgs.GetAsIntPtr(nativePtr, 1)) :
-                    new CefListValue(((OnRenderProcessThreadCreatedNativeArgs*)this.nativePtr)->extra_info);
+                    return new CefListValue(((OnRenderProcessThreadCreatedNativeArgs*)this.nativePtr)->extra_info);
                 }
             }
         }
@@ -16355,16 +16341,14 @@ namespace LayoutFarm.CefBridge.Auto
             public IntPtr extra_info;
         }
         //gen! CefRefPtr<CefPrintHandler> GetPrintHandler()
-        //CsStructModuleCodeGen:: GenerateCsMethodArgsClass_JsSlot ,25
+        //CsStructModuleCodeGen:: GenerateCsMethodArgsClass ,25
         public struct GetPrintHandlerArgs
         {
             IntPtr nativePtr; //met arg native ptr
-            bool _isJsSlot;
             internal GetPrintHandlerArgs(IntPtr nativePtr)
             {
                 int arg_flags;
                 this.nativePtr = MyMetArgs.GetNativeObjPtr(nativePtr, out arg_flags);
-                this._isJsSlot = ((arg_flags >> 18) & 1) == 0;
 
             }
         }
@@ -16376,25 +16360,21 @@ namespace LayoutFarm.CefBridge.Auto
             IntPtr myext_ret_value;
         }
         //gen! void OnScheduleMessagePumpWork(int64 delay_ms)
-        //CsStructModuleCodeGen:: GenerateCsMethodArgsClass_JsSlot ,27
+        //CsStructModuleCodeGen:: GenerateCsMethodArgsClass ,27
         public struct OnScheduleMessagePumpWorkArgs
         {
             IntPtr nativePtr; //met arg native ptr
-            bool _isJsSlot;
             internal OnScheduleMessagePumpWorkArgs(IntPtr nativePtr)
             {
                 int arg_flags;
                 this.nativePtr = MyMetArgs.GetNativeObjPtr(nativePtr, out arg_flags);
-                this._isJsSlot = ((arg_flags >> 18) & 1) == 0;
 
             }
             public long delay_ms()
             {
                 unsafe
                 {
-                    return _isJsSlot ?
-                    MyMetArgs.GetAsInt64(nativePtr, 1) :
-                    ((OnScheduleMessagePumpWorkNativeArgs*)this.nativePtr)->delay_ms;
+                    return ((OnScheduleMessagePumpWorkNativeArgs*)this.nativePtr)->delay_ms;
                 }
             }
         }
@@ -16563,52 +16543,42 @@ namespace LayoutFarm.CefBridge.Auto
         const int CefContextMenuHandlerExt_OnContextMenuCommand_3 = 3;
         const int CefContextMenuHandlerExt_OnContextMenuDismissed_4 = 4;
         //gen! void OnBeforeContextMenu(CefRefPtr<CefBrowser> browser,CefRefPtr<CefFrame> frame,CefRefPtr<CefContextMenuParams> params,CefRefPtr<CefMenuModel> model)
-        //CsStructModuleCodeGen:: GenerateCsMethodArgsClass_JsSlot ,60
+        //CsStructModuleCodeGen:: GenerateCsMethodArgsClass ,60
         public struct OnBeforeContextMenuArgs
         {
             IntPtr nativePtr; //met arg native ptr
-            bool _isJsSlot;
             internal OnBeforeContextMenuArgs(IntPtr nativePtr)
             {
                 int arg_flags;
                 this.nativePtr = MyMetArgs.GetNativeObjPtr(nativePtr, out arg_flags);
-                this._isJsSlot = ((arg_flags >> 18) & 1) == 0;
 
             }
             public CefBrowser browser()
             {
                 unsafe
                 {
-                    return _isJsSlot ?
-                    new CefBrowser(MyMetArgs.GetAsIntPtr(nativePtr, 1)) :
-                    new CefBrowser(((OnBeforeContextMenuNativeArgs*)this.nativePtr)->browser);
+                    return new CefBrowser(((OnBeforeContextMenuNativeArgs*)this.nativePtr)->browser);
                 }
             }
             public CefFrame frame()
             {
                 unsafe
                 {
-                    return _isJsSlot ?
-                    new CefFrame(MyMetArgs.GetAsIntPtr(nativePtr, 2)) :
-                    new CefFrame(((OnBeforeContextMenuNativeArgs*)this.nativePtr)->frame);
+                    return new CefFrame(((OnBeforeContextMenuNativeArgs*)this.nativePtr)->frame);
                 }
             }
             public CefContextMenuParams _params()
             {
                 unsafe
                 {
-                    return _isJsSlot ?
-                    new CefContextMenuParams(MyMetArgs.GetAsIntPtr(nativePtr, 3)) :
-                    new CefContextMenuParams(((OnBeforeContextMenuNativeArgs*)this.nativePtr)->_params);
+                    return new CefContextMenuParams(((OnBeforeContextMenuNativeArgs*)this.nativePtr)->_params);
                 }
             }
             public CefMenuModel model()
             {
                 unsafe
                 {
-                    return _isJsSlot ?
-                    new CefMenuModel(MyMetArgs.GetAsIntPtr(nativePtr, 4)) :
-                    new CefMenuModel(((OnBeforeContextMenuNativeArgs*)this.nativePtr)->model);
+                    return new CefMenuModel(((OnBeforeContextMenuNativeArgs*)this.nativePtr)->model);
                 }
             }
         }
@@ -16623,61 +16593,49 @@ namespace LayoutFarm.CefBridge.Auto
             public IntPtr model;
         }
         //gen! bool RunContextMenu(CefRefPtr<CefBrowser> browser,CefRefPtr<CefFrame> frame,CefRefPtr<CefContextMenuParams> params,CefRefPtr<CefMenuModel> model,CefRefPtr<CefRunContextMenuCallback> callback)
-        //CsStructModuleCodeGen:: GenerateCsMethodArgsClass_JsSlot ,62
+        //CsStructModuleCodeGen:: GenerateCsMethodArgsClass ,62
         public struct RunContextMenuArgs
         {
             IntPtr nativePtr; //met arg native ptr
-            bool _isJsSlot;
             internal RunContextMenuArgs(IntPtr nativePtr)
             {
                 int arg_flags;
                 this.nativePtr = MyMetArgs.GetNativeObjPtr(nativePtr, out arg_flags);
-                this._isJsSlot = ((arg_flags >> 18) & 1) == 0;
 
             }
             public CefBrowser browser()
             {
                 unsafe
                 {
-                    return _isJsSlot ?
-                    new CefBrowser(MyMetArgs.GetAsIntPtr(nativePtr, 1)) :
-                    new CefBrowser(((RunContextMenuNativeArgs*)this.nativePtr)->browser);
+                    return new CefBrowser(((RunContextMenuNativeArgs*)this.nativePtr)->browser);
                 }
             }
             public CefFrame frame()
             {
                 unsafe
                 {
-                    return _isJsSlot ?
-                    new CefFrame(MyMetArgs.GetAsIntPtr(nativePtr, 2)) :
-                    new CefFrame(((RunContextMenuNativeArgs*)this.nativePtr)->frame);
+                    return new CefFrame(((RunContextMenuNativeArgs*)this.nativePtr)->frame);
                 }
             }
             public CefContextMenuParams _params()
             {
                 unsafe
                 {
-                    return _isJsSlot ?
-                    new CefContextMenuParams(MyMetArgs.GetAsIntPtr(nativePtr, 3)) :
-                    new CefContextMenuParams(((RunContextMenuNativeArgs*)this.nativePtr)->_params);
+                    return new CefContextMenuParams(((RunContextMenuNativeArgs*)this.nativePtr)->_params);
                 }
             }
             public CefMenuModel model()
             {
                 unsafe
                 {
-                    return _isJsSlot ?
-                    new CefMenuModel(MyMetArgs.GetAsIntPtr(nativePtr, 4)) :
-                    new CefMenuModel(((RunContextMenuNativeArgs*)this.nativePtr)->model);
+                    return new CefMenuModel(((RunContextMenuNativeArgs*)this.nativePtr)->model);
                 }
             }
             public CefRunContextMenuCallback callback()
             {
                 unsafe
                 {
-                    return _isJsSlot ?
-                    new CefRunContextMenuCallback(MyMetArgs.GetAsIntPtr(nativePtr, 5)) :
-                    new CefRunContextMenuCallback(((RunContextMenuNativeArgs*)this.nativePtr)->callback);
+                    return new CefRunContextMenuCallback(((RunContextMenuNativeArgs*)this.nativePtr)->callback);
                 }
             }
         }
@@ -16694,61 +16652,49 @@ namespace LayoutFarm.CefBridge.Auto
             public IntPtr callback;
         }
         //gen! bool OnContextMenuCommand(CefRefPtr<CefBrowser> browser,CefRefPtr<CefFrame> frame,CefRefPtr<CefContextMenuParams> params,int command_id,EventFlags event_flags)
-        //CsStructModuleCodeGen:: GenerateCsMethodArgsClass_JsSlot ,64
+        //CsStructModuleCodeGen:: GenerateCsMethodArgsClass ,64
         public struct OnContextMenuCommandArgs
         {
             IntPtr nativePtr; //met arg native ptr
-            bool _isJsSlot;
             internal OnContextMenuCommandArgs(IntPtr nativePtr)
             {
                 int arg_flags;
                 this.nativePtr = MyMetArgs.GetNativeObjPtr(nativePtr, out arg_flags);
-                this._isJsSlot = ((arg_flags >> 18) & 1) == 0;
 
             }
             public CefBrowser browser()
             {
                 unsafe
                 {
-                    return _isJsSlot ?
-                    new CefBrowser(MyMetArgs.GetAsIntPtr(nativePtr, 1)) :
-                    new CefBrowser(((OnContextMenuCommandNativeArgs*)this.nativePtr)->browser);
+                    return new CefBrowser(((OnContextMenuCommandNativeArgs*)this.nativePtr)->browser);
                 }
             }
             public CefFrame frame()
             {
                 unsafe
                 {
-                    return _isJsSlot ?
-                    new CefFrame(MyMetArgs.GetAsIntPtr(nativePtr, 2)) :
-                    new CefFrame(((OnContextMenuCommandNativeArgs*)this.nativePtr)->frame);
+                    return new CefFrame(((OnContextMenuCommandNativeArgs*)this.nativePtr)->frame);
                 }
             }
             public CefContextMenuParams _params()
             {
                 unsafe
                 {
-                    return _isJsSlot ?
-                    new CefContextMenuParams(MyMetArgs.GetAsIntPtr(nativePtr, 3)) :
-                    new CefContextMenuParams(((OnContextMenuCommandNativeArgs*)this.nativePtr)->_params);
+                    return new CefContextMenuParams(((OnContextMenuCommandNativeArgs*)this.nativePtr)->_params);
                 }
             }
             public int command_id()
             {
                 unsafe
                 {
-                    return _isJsSlot ?
-                    MyMetArgs.GetAsInt32(nativePtr, 4) :
-                    ((OnContextMenuCommandNativeArgs*)this.nativePtr)->command_id;
+                    return ((OnContextMenuCommandNativeArgs*)this.nativePtr)->command_id;
                 }
             }
             public cef_event_flags_t event_flags()
             {
                 unsafe
                 {
-                    return _isJsSlot ?
-                    (cef_event_flags_t)MyMetArgs.GetAsInt32(nativePtr, 5) :
-                    (cef_event_flags_t)(((OnContextMenuCommandNativeArgs*)this.nativePtr)->event_flags);
+                    return (cef_event_flags_t)(((OnContextMenuCommandNativeArgs*)this.nativePtr)->event_flags);
                 }
             }
         }
@@ -16765,34 +16711,28 @@ namespace LayoutFarm.CefBridge.Auto
             public cef_event_flags_t event_flags;
         }
         //gen! void OnContextMenuDismissed(CefRefPtr<CefBrowser> browser,CefRefPtr<CefFrame> frame)
-        //CsStructModuleCodeGen:: GenerateCsMethodArgsClass_JsSlot ,66
+        //CsStructModuleCodeGen:: GenerateCsMethodArgsClass ,66
         public struct OnContextMenuDismissedArgs
         {
             IntPtr nativePtr; //met arg native ptr
-            bool _isJsSlot;
             internal OnContextMenuDismissedArgs(IntPtr nativePtr)
             {
                 int arg_flags;
                 this.nativePtr = MyMetArgs.GetNativeObjPtr(nativePtr, out arg_flags);
-                this._isJsSlot = ((arg_flags >> 18) & 1) == 0;
 
             }
             public CefBrowser browser()
             {
                 unsafe
                 {
-                    return _isJsSlot ?
-                    new CefBrowser(MyMetArgs.GetAsIntPtr(nativePtr, 1)) :
-                    new CefBrowser(((OnContextMenuDismissedNativeArgs*)this.nativePtr)->browser);
+                    return new CefBrowser(((OnContextMenuDismissedNativeArgs*)this.nativePtr)->browser);
                 }
             }
             public CefFrame frame()
             {
                 unsafe
                 {
-                    return _isJsSlot ?
-                    new CefFrame(MyMetArgs.GetAsIntPtr(nativePtr, 2)) :
-                    new CefFrame(((OnContextMenuDismissedNativeArgs*)this.nativePtr)->frame);
+                    return new CefFrame(((OnContextMenuDismissedNativeArgs*)this.nativePtr)->frame);
                 }
             }
         }
@@ -16956,52 +16896,42 @@ namespace LayoutFarm.CefBridge.Auto
         public const int _typeNAME = 59;
         const int CefDialogHandlerExt_OnFileDialog_1 = 1;
         //gen! bool OnFileDialog(CefRefPtr<CefBrowser> browser,FileDialogMode mode,const CefString& title,const CefString& default_file_path,const std::vector<CefString>& accept_filters,int selected_accept_filter,CefRefPtr<CefFileDialogCallback> callback)
-        //CsStructModuleCodeGen:: GenerateCsMethodArgsClass_JsSlot ,93
+        //CsStructModuleCodeGen:: GenerateCsMethodArgsClass ,93
         public struct OnFileDialogArgs
         {
             IntPtr nativePtr; //met arg native ptr
-            bool _isJsSlot;
             internal OnFileDialogArgs(IntPtr nativePtr)
             {
                 int arg_flags;
                 this.nativePtr = MyMetArgs.GetNativeObjPtr(nativePtr, out arg_flags);
-                this._isJsSlot = ((arg_flags >> 18) & 1) == 0;
 
             }
             public CefBrowser browser()
             {
                 unsafe
                 {
-                    return _isJsSlot ?
-                    new CefBrowser(MyMetArgs.GetAsIntPtr(nativePtr, 1)) :
-                    new CefBrowser(((OnFileDialogNativeArgs*)this.nativePtr)->browser);
+                    return new CefBrowser(((OnFileDialogNativeArgs*)this.nativePtr)->browser);
                 }
             }
             public cef_file_dialog_mode_t mode()
             {
                 unsafe
                 {
-                    return _isJsSlot ?
-                    (cef_file_dialog_mode_t)MyMetArgs.GetAsInt32(nativePtr, 2) :
-                    (cef_file_dialog_mode_t)(((OnFileDialogNativeArgs*)this.nativePtr)->mode);
+                    return (cef_file_dialog_mode_t)(((OnFileDialogNativeArgs*)this.nativePtr)->mode);
                 }
             }
             public string title()
             {
                 unsafe
                 {
-                    return _isJsSlot ?
-                    MyMetArgs.GetAsString(nativePtr, 3) :
-                    MyMetArgs.GetAsString(((OnFileDialogNativeArgs*)this.nativePtr)->title);
+                    return MyMetArgs.GetAsString(((OnFileDialogNativeArgs*)this.nativePtr)->title);
                 }
             }
             public string default_file_path()
             {
                 unsafe
                 {
-                    return _isJsSlot ?
-                    MyMetArgs.GetAsString(nativePtr, 4) :
-                    MyMetArgs.GetAsString(((OnFileDialogNativeArgs*)this.nativePtr)->default_file_path);
+                    return MyMetArgs.GetAsString(((OnFileDialogNativeArgs*)this.nativePtr)->default_file_path);
                 }
             }
             public List<string> accept_filters()
@@ -17012,18 +16942,14 @@ namespace LayoutFarm.CefBridge.Auto
             {
                 unsafe
                 {
-                    return _isJsSlot ?
-                    MyMetArgs.GetAsInt32(nativePtr, 6) :
-                    ((OnFileDialogNativeArgs*)this.nativePtr)->selected_accept_filter;
+                    return ((OnFileDialogNativeArgs*)this.nativePtr)->selected_accept_filter;
                 }
             }
             public CefFileDialogCallback callback()
             {
                 unsafe
                 {
-                    return _isJsSlot ?
-                    new CefFileDialogCallback(MyMetArgs.GetAsIntPtr(nativePtr, 7)) :
-                    new CefFileDialogCallback(((OnFileDialogNativeArgs*)this.nativePtr)->callback);
+                    return new CefFileDialogCallback(((OnFileDialogNativeArgs*)this.nativePtr)->callback);
                 }
             }
         }
@@ -17106,43 +17032,35 @@ namespace LayoutFarm.CefBridge.Auto
         const int CefDisplayHandlerExt_OnStatusMessage_6 = 6;
         const int CefDisplayHandlerExt_OnConsoleMessage_7 = 7;
         //gen! void OnAddressChange(CefRefPtr<CefBrowser> browser,CefRefPtr<CefFrame> frame,const CefString& url)
-        //CsStructModuleCodeGen:: GenerateCsMethodArgsClass_JsSlot ,102
+        //CsStructModuleCodeGen:: GenerateCsMethodArgsClass ,102
         public struct OnAddressChangeArgs
         {
             IntPtr nativePtr; //met arg native ptr
-            bool _isJsSlot;
             internal OnAddressChangeArgs(IntPtr nativePtr)
             {
                 int arg_flags;
                 this.nativePtr = MyMetArgs.GetNativeObjPtr(nativePtr, out arg_flags);
-                this._isJsSlot = ((arg_flags >> 18) & 1) == 0;
 
             }
             public CefBrowser browser()
             {
                 unsafe
                 {
-                    return _isJsSlot ?
-                    new CefBrowser(MyMetArgs.GetAsIntPtr(nativePtr, 1)) :
-                    new CefBrowser(((OnAddressChangeNativeArgs*)this.nativePtr)->browser);
+                    return new CefBrowser(((OnAddressChangeNativeArgs*)this.nativePtr)->browser);
                 }
             }
             public CefFrame frame()
             {
                 unsafe
                 {
-                    return _isJsSlot ?
-                    new CefFrame(MyMetArgs.GetAsIntPtr(nativePtr, 2)) :
-                    new CefFrame(((OnAddressChangeNativeArgs*)this.nativePtr)->frame);
+                    return new CefFrame(((OnAddressChangeNativeArgs*)this.nativePtr)->frame);
                 }
             }
             public string url()
             {
                 unsafe
                 {
-                    return _isJsSlot ?
-                    MyMetArgs.GetAsString(nativePtr, 3) :
-                    MyMetArgs.GetAsString(((OnAddressChangeNativeArgs*)this.nativePtr)->url);
+                    return MyMetArgs.GetAsString(((OnAddressChangeNativeArgs*)this.nativePtr)->url);
                 }
             }
         }
@@ -17156,34 +17074,28 @@ namespace LayoutFarm.CefBridge.Auto
             public IntPtr url;
         }
         //gen! void OnTitleChange(CefRefPtr<CefBrowser> browser,const CefString& title)
-        //CsStructModuleCodeGen:: GenerateCsMethodArgsClass_JsSlot ,104
+        //CsStructModuleCodeGen:: GenerateCsMethodArgsClass ,104
         public struct OnTitleChangeArgs
         {
             IntPtr nativePtr; //met arg native ptr
-            bool _isJsSlot;
             internal OnTitleChangeArgs(IntPtr nativePtr)
             {
                 int arg_flags;
                 this.nativePtr = MyMetArgs.GetNativeObjPtr(nativePtr, out arg_flags);
-                this._isJsSlot = ((arg_flags >> 18) & 1) == 0;
 
             }
             public CefBrowser browser()
             {
                 unsafe
                 {
-                    return _isJsSlot ?
-                    new CefBrowser(MyMetArgs.GetAsIntPtr(nativePtr, 1)) :
-                    new CefBrowser(((OnTitleChangeNativeArgs*)this.nativePtr)->browser);
+                    return new CefBrowser(((OnTitleChangeNativeArgs*)this.nativePtr)->browser);
                 }
             }
             public string title()
             {
                 unsafe
                 {
-                    return _isJsSlot ?
-                    MyMetArgs.GetAsString(nativePtr, 2) :
-                    MyMetArgs.GetAsString(((OnTitleChangeNativeArgs*)this.nativePtr)->title);
+                    return MyMetArgs.GetAsString(((OnTitleChangeNativeArgs*)this.nativePtr)->title);
                 }
             }
         }
@@ -17196,25 +17108,21 @@ namespace LayoutFarm.CefBridge.Auto
             public IntPtr title;
         }
         //gen! void OnFaviconURLChange(CefRefPtr<CefBrowser> browser,const std::vector<CefString>& icon_urls)
-        //CsStructModuleCodeGen:: GenerateCsMethodArgsClass_JsSlot ,106
+        //CsStructModuleCodeGen:: GenerateCsMethodArgsClass ,106
         public struct OnFaviconURLChangeArgs
         {
             IntPtr nativePtr; //met arg native ptr
-            bool _isJsSlot;
             internal OnFaviconURLChangeArgs(IntPtr nativePtr)
             {
                 int arg_flags;
                 this.nativePtr = MyMetArgs.GetNativeObjPtr(nativePtr, out arg_flags);
-                this._isJsSlot = ((arg_flags >> 18) & 1) == 0;
 
             }
             public CefBrowser browser()
             {
                 unsafe
                 {
-                    return _isJsSlot ?
-                    new CefBrowser(MyMetArgs.GetAsIntPtr(nativePtr, 1)) :
-                    new CefBrowser(((OnFaviconURLChangeNativeArgs*)this.nativePtr)->browser);
+                    return new CefBrowser(((OnFaviconURLChangeNativeArgs*)this.nativePtr)->browser);
                 }
             }
             public List<string> icon_urls()
@@ -17231,34 +17139,28 @@ namespace LayoutFarm.CefBridge.Auto
             public IntPtr icon_urls;
         }
         //gen! void OnFullscreenModeChange(CefRefPtr<CefBrowser> browser,bool fullscreen)
-        //CsStructModuleCodeGen:: GenerateCsMethodArgsClass_JsSlot ,108
+        //CsStructModuleCodeGen:: GenerateCsMethodArgsClass ,108
         public struct OnFullscreenModeChangeArgs
         {
             IntPtr nativePtr; //met arg native ptr
-            bool _isJsSlot;
             internal OnFullscreenModeChangeArgs(IntPtr nativePtr)
             {
                 int arg_flags;
                 this.nativePtr = MyMetArgs.GetNativeObjPtr(nativePtr, out arg_flags);
-                this._isJsSlot = ((arg_flags >> 18) & 1) == 0;
 
             }
             public CefBrowser browser()
             {
                 unsafe
                 {
-                    return _isJsSlot ?
-                    new CefBrowser(MyMetArgs.GetAsIntPtr(nativePtr, 1)) :
-                    new CefBrowser(((OnFullscreenModeChangeNativeArgs*)this.nativePtr)->browser);
+                    return new CefBrowser(((OnFullscreenModeChangeNativeArgs*)this.nativePtr)->browser);
                 }
             }
             public bool fullscreen()
             {
                 unsafe
                 {
-                    return _isJsSlot ?
-                    MyMetArgs.GetAsBool(nativePtr, 2) :
-                    ((OnFullscreenModeChangeNativeArgs*)this.nativePtr)->fullscreen;
+                    return ((OnFullscreenModeChangeNativeArgs*)this.nativePtr)->fullscreen;
                 }
             }
         }
@@ -17271,34 +17173,28 @@ namespace LayoutFarm.CefBridge.Auto
             public bool fullscreen;
         }
         //gen! bool OnTooltip(CefRefPtr<CefBrowser> browser,CefString& text)
-        //CsStructModuleCodeGen:: GenerateCsMethodArgsClass_JsSlot ,110
+        //CsStructModuleCodeGen:: GenerateCsMethodArgsClass ,110
         public struct OnTooltipArgs
         {
             IntPtr nativePtr; //met arg native ptr
-            bool _isJsSlot;
             internal OnTooltipArgs(IntPtr nativePtr)
             {
                 int arg_flags;
                 this.nativePtr = MyMetArgs.GetNativeObjPtr(nativePtr, out arg_flags);
-                this._isJsSlot = ((arg_flags >> 18) & 1) == 0;
 
             }
             public CefBrowser browser()
             {
                 unsafe
                 {
-                    return _isJsSlot ?
-                    new CefBrowser(MyMetArgs.GetAsIntPtr(nativePtr, 1)) :
-                    new CefBrowser(((OnTooltipNativeArgs*)this.nativePtr)->browser);
+                    return new CefBrowser(((OnTooltipNativeArgs*)this.nativePtr)->browser);
                 }
             }
             public string text()
             {
                 unsafe
                 {
-                    return _isJsSlot ?
-                    MyMetArgs.GetAsString(nativePtr, 2) :
-                    MyMetArgs.GetAsString(((OnTooltipNativeArgs*)this.nativePtr)->text);
+                    return MyMetArgs.GetAsString(((OnTooltipNativeArgs*)this.nativePtr)->text);
                 }
             }
         }
@@ -17312,34 +17208,28 @@ namespace LayoutFarm.CefBridge.Auto
             public IntPtr text;
         }
         //gen! void OnStatusMessage(CefRefPtr<CefBrowser> browser,const CefString& value)
-        //CsStructModuleCodeGen:: GenerateCsMethodArgsClass_JsSlot ,112
+        //CsStructModuleCodeGen:: GenerateCsMethodArgsClass ,112
         public struct OnStatusMessageArgs
         {
             IntPtr nativePtr; //met arg native ptr
-            bool _isJsSlot;
             internal OnStatusMessageArgs(IntPtr nativePtr)
             {
                 int arg_flags;
                 this.nativePtr = MyMetArgs.GetNativeObjPtr(nativePtr, out arg_flags);
-                this._isJsSlot = ((arg_flags >> 18) & 1) == 0;
 
             }
             public CefBrowser browser()
             {
                 unsafe
                 {
-                    return _isJsSlot ?
-                    new CefBrowser(MyMetArgs.GetAsIntPtr(nativePtr, 1)) :
-                    new CefBrowser(((OnStatusMessageNativeArgs*)this.nativePtr)->browser);
+                    return new CefBrowser(((OnStatusMessageNativeArgs*)this.nativePtr)->browser);
                 }
             }
             public string value()
             {
                 unsafe
                 {
-                    return _isJsSlot ?
-                    MyMetArgs.GetAsString(nativePtr, 2) :
-                    MyMetArgs.GetAsString(((OnStatusMessageNativeArgs*)this.nativePtr)->value);
+                    return MyMetArgs.GetAsString(((OnStatusMessageNativeArgs*)this.nativePtr)->value);
                 }
             }
         }
@@ -17352,52 +17242,42 @@ namespace LayoutFarm.CefBridge.Auto
             public IntPtr value;
         }
         //gen! bool OnConsoleMessage(CefRefPtr<CefBrowser> browser,const CefString& message,const CefString& source,int line)
-        //CsStructModuleCodeGen:: GenerateCsMethodArgsClass_JsSlot ,114
+        //CsStructModuleCodeGen:: GenerateCsMethodArgsClass ,114
         public struct OnConsoleMessageArgs
         {
             IntPtr nativePtr; //met arg native ptr
-            bool _isJsSlot;
             internal OnConsoleMessageArgs(IntPtr nativePtr)
             {
                 int arg_flags;
                 this.nativePtr = MyMetArgs.GetNativeObjPtr(nativePtr, out arg_flags);
-                this._isJsSlot = ((arg_flags >> 18) & 1) == 0;
 
             }
             public CefBrowser browser()
             {
                 unsafe
                 {
-                    return _isJsSlot ?
-                    new CefBrowser(MyMetArgs.GetAsIntPtr(nativePtr, 1)) :
-                    new CefBrowser(((OnConsoleMessageNativeArgs*)this.nativePtr)->browser);
+                    return new CefBrowser(((OnConsoleMessageNativeArgs*)this.nativePtr)->browser);
                 }
             }
             public string message()
             {
                 unsafe
                 {
-                    return _isJsSlot ?
-                    MyMetArgs.GetAsString(nativePtr, 2) :
-                    MyMetArgs.GetAsString(((OnConsoleMessageNativeArgs*)this.nativePtr)->message);
+                    return MyMetArgs.GetAsString(((OnConsoleMessageNativeArgs*)this.nativePtr)->message);
                 }
             }
             public string source()
             {
                 unsafe
                 {
-                    return _isJsSlot ?
-                    MyMetArgs.GetAsString(nativePtr, 3) :
-                    MyMetArgs.GetAsString(((OnConsoleMessageNativeArgs*)this.nativePtr)->source);
+                    return MyMetArgs.GetAsString(((OnConsoleMessageNativeArgs*)this.nativePtr)->source);
                 }
             }
             public int line()
             {
                 unsafe
                 {
-                    return _isJsSlot ?
-                    MyMetArgs.GetAsInt32(nativePtr, 4) :
-                    ((OnConsoleMessageNativeArgs*)this.nativePtr)->line;
+                    return ((OnConsoleMessageNativeArgs*)this.nativePtr)->line;
                 }
             }
         }
@@ -17445,7 +17325,7 @@ namespace LayoutFarm.CefBridge.Auto
             void OnStatusMessage(CefBrowser browser, string value);
             //CsStructModuleCodeGen:: GenerateCsExpandedArgsMethodForInterface ,129
             bool OnConsoleMessage(CefBrowser browser, string message, string source, int line);
-        } 
+        }
         public static void HandleNativeReq(I0 i0, I1 i1, int met_id, IntPtr nativeArgPtr)
         {
             int met_name = met_id & 0xffff;
@@ -17642,52 +17522,42 @@ namespace LayoutFarm.CefBridge.Auto
         const int CefDownloadHandlerExt_OnBeforeDownload_1 = 1;
         const int CefDownloadHandlerExt_OnDownloadUpdated_2 = 2;
         //gen! void OnBeforeDownload(CefRefPtr<CefBrowser> browser,CefRefPtr<CefDownloadItem> download_item,const CefString& suggested_name,CefRefPtr<CefBeforeDownloadCallback> callback)
-        //CsStructModuleCodeGen:: GenerateCsMethodArgsClass_JsSlot ,159
+        //CsStructModuleCodeGen:: GenerateCsMethodArgsClass ,159
         public struct OnBeforeDownloadArgs
         {
             IntPtr nativePtr; //met arg native ptr
-            bool _isJsSlot;
             internal OnBeforeDownloadArgs(IntPtr nativePtr)
             {
                 int arg_flags;
                 this.nativePtr = MyMetArgs.GetNativeObjPtr(nativePtr, out arg_flags);
-                this._isJsSlot = ((arg_flags >> 18) & 1) == 0;
 
             }
             public CefBrowser browser()
             {
                 unsafe
                 {
-                    return _isJsSlot ?
-                    new CefBrowser(MyMetArgs.GetAsIntPtr(nativePtr, 1)) :
-                    new CefBrowser(((OnBeforeDownloadNativeArgs*)this.nativePtr)->browser);
+                    return new CefBrowser(((OnBeforeDownloadNativeArgs*)this.nativePtr)->browser);
                 }
             }
             public CefDownloadItem download_item()
             {
                 unsafe
                 {
-                    return _isJsSlot ?
-                    new CefDownloadItem(MyMetArgs.GetAsIntPtr(nativePtr, 2)) :
-                    new CefDownloadItem(((OnBeforeDownloadNativeArgs*)this.nativePtr)->download_item);
+                    return new CefDownloadItem(((OnBeforeDownloadNativeArgs*)this.nativePtr)->download_item);
                 }
             }
             public string suggested_name()
             {
                 unsafe
                 {
-                    return _isJsSlot ?
-                    MyMetArgs.GetAsString(nativePtr, 3) :
-                    MyMetArgs.GetAsString(((OnBeforeDownloadNativeArgs*)this.nativePtr)->suggested_name);
+                    return MyMetArgs.GetAsString(((OnBeforeDownloadNativeArgs*)this.nativePtr)->suggested_name);
                 }
             }
             public CefBeforeDownloadCallback callback()
             {
                 unsafe
                 {
-                    return _isJsSlot ?
-                    new CefBeforeDownloadCallback(MyMetArgs.GetAsIntPtr(nativePtr, 4)) :
-                    new CefBeforeDownloadCallback(((OnBeforeDownloadNativeArgs*)this.nativePtr)->callback);
+                    return new CefBeforeDownloadCallback(((OnBeforeDownloadNativeArgs*)this.nativePtr)->callback);
                 }
             }
         }
@@ -17702,43 +17572,35 @@ namespace LayoutFarm.CefBridge.Auto
             public IntPtr callback;
         }
         //gen! void OnDownloadUpdated(CefRefPtr<CefBrowser> browser,CefRefPtr<CefDownloadItem> download_item,CefRefPtr<CefDownloadItemCallback> callback)
-        //CsStructModuleCodeGen:: GenerateCsMethodArgsClass_JsSlot ,161
+        //CsStructModuleCodeGen:: GenerateCsMethodArgsClass ,161
         public struct OnDownloadUpdatedArgs
         {
             IntPtr nativePtr; //met arg native ptr
-            bool _isJsSlot;
             internal OnDownloadUpdatedArgs(IntPtr nativePtr)
             {
                 int arg_flags;
                 this.nativePtr = MyMetArgs.GetNativeObjPtr(nativePtr, out arg_flags);
-                this._isJsSlot = ((arg_flags >> 18) & 1) == 0;
 
             }
             public CefBrowser browser()
             {
                 unsafe
                 {
-                    return _isJsSlot ?
-                    new CefBrowser(MyMetArgs.GetAsIntPtr(nativePtr, 1)) :
-                    new CefBrowser(((OnDownloadUpdatedNativeArgs*)this.nativePtr)->browser);
+                    return new CefBrowser(((OnDownloadUpdatedNativeArgs*)this.nativePtr)->browser);
                 }
             }
             public CefDownloadItem download_item()
             {
                 unsafe
                 {
-                    return _isJsSlot ?
-                    new CefDownloadItem(MyMetArgs.GetAsIntPtr(nativePtr, 2)) :
-                    new CefDownloadItem(((OnDownloadUpdatedNativeArgs*)this.nativePtr)->download_item);
+                    return new CefDownloadItem(((OnDownloadUpdatedNativeArgs*)this.nativePtr)->download_item);
                 }
             }
             public CefDownloadItemCallback callback()
             {
                 unsafe
                 {
-                    return _isJsSlot ?
-                    new CefDownloadItemCallback(MyMetArgs.GetAsIntPtr(nativePtr, 3)) :
-                    new CefDownloadItemCallback(((OnDownloadUpdatedNativeArgs*)this.nativePtr)->callback);
+                    return new CefDownloadItemCallback(((OnDownloadUpdatedNativeArgs*)this.nativePtr)->callback);
                 }
             }
         }
@@ -17836,43 +17698,35 @@ namespace LayoutFarm.CefBridge.Auto
         const int CefDragHandlerExt_OnDragEnter_1 = 1;
         const int CefDragHandlerExt_OnDraggableRegionsChanged_2 = 2;
         //gen! bool OnDragEnter(CefRefPtr<CefBrowser> browser,CefRefPtr<CefDragData> dragData,DragOperationsMask mask)
-        //CsStructModuleCodeGen:: GenerateCsMethodArgsClass_JsSlot ,176
+        //CsStructModuleCodeGen:: GenerateCsMethodArgsClass ,176
         public struct OnDragEnterArgs
         {
             IntPtr nativePtr; //met arg native ptr
-            bool _isJsSlot;
             internal OnDragEnterArgs(IntPtr nativePtr)
             {
                 int arg_flags;
                 this.nativePtr = MyMetArgs.GetNativeObjPtr(nativePtr, out arg_flags);
-                this._isJsSlot = ((arg_flags >> 18) & 1) == 0;
 
             }
             public CefBrowser browser()
             {
                 unsafe
                 {
-                    return _isJsSlot ?
-                    new CefBrowser(MyMetArgs.GetAsIntPtr(nativePtr, 1)) :
-                    new CefBrowser(((OnDragEnterNativeArgs*)this.nativePtr)->browser);
+                    return new CefBrowser(((OnDragEnterNativeArgs*)this.nativePtr)->browser);
                 }
             }
             public CefDragData dragData()
             {
                 unsafe
                 {
-                    return _isJsSlot ?
-                    new CefDragData(MyMetArgs.GetAsIntPtr(nativePtr, 2)) :
-                    new CefDragData(((OnDragEnterNativeArgs*)this.nativePtr)->dragData);
+                    return new CefDragData(((OnDragEnterNativeArgs*)this.nativePtr)->dragData);
                 }
             }
             public cef_drag_operations_mask_t mask()
             {
                 unsafe
                 {
-                    return _isJsSlot ?
-                    (cef_drag_operations_mask_t)MyMetArgs.GetAsInt32(nativePtr, 3) :
-                    (cef_drag_operations_mask_t)(((OnDragEnterNativeArgs*)this.nativePtr)->mask);
+                    return (cef_drag_operations_mask_t)(((OnDragEnterNativeArgs*)this.nativePtr)->mask);
                 }
             }
         }
@@ -17887,25 +17741,21 @@ namespace LayoutFarm.CefBridge.Auto
             public cef_drag_operations_mask_t mask;
         }
         //gen! void OnDraggableRegionsChanged(CefRefPtr<CefBrowser> browser,const std::vector<CefDraggableRegion>& regions)
-        //CsStructModuleCodeGen:: GenerateCsMethodArgsClass_JsSlot ,178
+        //CsStructModuleCodeGen:: GenerateCsMethodArgsClass ,178
         public struct OnDraggableRegionsChangedArgs
         {
             IntPtr nativePtr; //met arg native ptr
-            bool _isJsSlot;
             internal OnDraggableRegionsChangedArgs(IntPtr nativePtr)
             {
                 int arg_flags;
                 this.nativePtr = MyMetArgs.GetNativeObjPtr(nativePtr, out arg_flags);
-                this._isJsSlot = ((arg_flags >> 18) & 1) == 0;
 
             }
             public CefBrowser browser()
             {
                 unsafe
                 {
-                    return _isJsSlot ?
-                    new CefBrowser(MyMetArgs.GetAsIntPtr(nativePtr, 1)) :
-                    new CefBrowser(((OnDraggableRegionsChangedNativeArgs*)this.nativePtr)->browser);
+                    return new CefBrowser(((OnDraggableRegionsChangedNativeArgs*)this.nativePtr)->browser);
                 }
             }
             public List<object> regions()
@@ -18001,70 +17851,56 @@ namespace LayoutFarm.CefBridge.Auto
         public const int _typeNAME = 63;
         const int CefFindHandlerExt_OnFindResult_1 = 1;
         //gen! void OnFindResult(CefRefPtr<CefBrowser> browser,int identifier,int count,const CefRect& selectionRect,int activeMatchOrdinal,bool finalUpdate)
-        //CsStructModuleCodeGen:: GenerateCsMethodArgsClass_JsSlot ,193
+        //CsStructModuleCodeGen:: GenerateCsMethodArgsClass ,193
         public struct OnFindResultArgs
         {
             IntPtr nativePtr; //met arg native ptr
-            bool _isJsSlot;
             internal OnFindResultArgs(IntPtr nativePtr)
             {
                 int arg_flags;
                 this.nativePtr = MyMetArgs.GetNativeObjPtr(nativePtr, out arg_flags);
-                this._isJsSlot = ((arg_flags >> 18) & 1) == 0;
 
             }
             public CefBrowser browser()
             {
                 unsafe
                 {
-                    return _isJsSlot ?
-                    new CefBrowser(MyMetArgs.GetAsIntPtr(nativePtr, 1)) :
-                    new CefBrowser(((OnFindResultNativeArgs*)this.nativePtr)->browser);
+                    return new CefBrowser(((OnFindResultNativeArgs*)this.nativePtr)->browser);
                 }
             }
             public int identifier()
             {
                 unsafe
                 {
-                    return _isJsSlot ?
-                    MyMetArgs.GetAsInt32(nativePtr, 2) :
-                    ((OnFindResultNativeArgs*)this.nativePtr)->identifier;
+                    return ((OnFindResultNativeArgs*)this.nativePtr)->identifier;
                 }
             }
             public int count()
             {
                 unsafe
                 {
-                    return _isJsSlot ?
-                    MyMetArgs.GetAsInt32(nativePtr, 3) :
-                    ((OnFindResultNativeArgs*)this.nativePtr)->count;
+                    return ((OnFindResultNativeArgs*)this.nativePtr)->count;
                 }
             }
             public CefRect selectionRect()
             {
                 unsafe
                 {
-                    return _isJsSlot ?
-                    new CefRect(MyMetArgs.GetAsIntPtr(nativePtr, 4)) :
-                    new CefRect(((OnFindResultNativeArgs*)this.nativePtr)->selectionRect);
+                    return new CefRect(((OnFindResultNativeArgs*)this.nativePtr)->selectionRect);
                 }
             }
             public int activeMatchOrdinal()
             {
                 unsafe
                 {
-                    return _isJsSlot ?
-                    MyMetArgs.GetAsInt32(nativePtr, 5) :
-                    ((OnFindResultNativeArgs*)this.nativePtr)->activeMatchOrdinal;
+                    return ((OnFindResultNativeArgs*)this.nativePtr)->activeMatchOrdinal;
                 }
             }
             public bool finalUpdate()
             {
                 unsafe
                 {
-                    return _isJsSlot ?
-                    MyMetArgs.GetAsBool(nativePtr, 6) :
-                    ((OnFindResultNativeArgs*)this.nativePtr)->finalUpdate;
+                    return ((OnFindResultNativeArgs*)this.nativePtr)->finalUpdate;
                 }
             }
         }
@@ -18139,34 +17975,28 @@ namespace LayoutFarm.CefBridge.Auto
         const int CefFocusHandlerExt_OnSetFocus_2 = 2;
         const int CefFocusHandlerExt_OnGotFocus_3 = 3;
         //gen! void OnTakeFocus(CefRefPtr<CefBrowser> browser,bool next)
-        //CsStructModuleCodeGen:: GenerateCsMethodArgsClass_JsSlot ,202
+        //CsStructModuleCodeGen:: GenerateCsMethodArgsClass ,202
         public struct OnTakeFocusArgs
         {
             IntPtr nativePtr; //met arg native ptr
-            bool _isJsSlot;
             internal OnTakeFocusArgs(IntPtr nativePtr)
             {
                 int arg_flags;
                 this.nativePtr = MyMetArgs.GetNativeObjPtr(nativePtr, out arg_flags);
-                this._isJsSlot = ((arg_flags >> 18) & 1) == 0;
 
             }
             public CefBrowser browser()
             {
                 unsafe
                 {
-                    return _isJsSlot ?
-                    new CefBrowser(MyMetArgs.GetAsIntPtr(nativePtr, 1)) :
-                    new CefBrowser(((OnTakeFocusNativeArgs*)this.nativePtr)->browser);
+                    return new CefBrowser(((OnTakeFocusNativeArgs*)this.nativePtr)->browser);
                 }
             }
             public bool next()
             {
                 unsafe
                 {
-                    return _isJsSlot ?
-                    MyMetArgs.GetAsBool(nativePtr, 2) :
-                    ((OnTakeFocusNativeArgs*)this.nativePtr)->next;
+                    return ((OnTakeFocusNativeArgs*)this.nativePtr)->next;
                 }
             }
         }
@@ -18179,34 +18009,28 @@ namespace LayoutFarm.CefBridge.Auto
             public bool next;
         }
         //gen! bool OnSetFocus(CefRefPtr<CefBrowser> browser,FocusSource source)
-        //CsStructModuleCodeGen:: GenerateCsMethodArgsClass_JsSlot ,204
+        //CsStructModuleCodeGen:: GenerateCsMethodArgsClass ,204
         public struct OnSetFocusArgs
         {
             IntPtr nativePtr; //met arg native ptr
-            bool _isJsSlot;
             internal OnSetFocusArgs(IntPtr nativePtr)
             {
                 int arg_flags;
                 this.nativePtr = MyMetArgs.GetNativeObjPtr(nativePtr, out arg_flags);
-                this._isJsSlot = ((arg_flags >> 18) & 1) == 0;
 
             }
             public CefBrowser browser()
             {
                 unsafe
                 {
-                    return _isJsSlot ?
-                    new CefBrowser(MyMetArgs.GetAsIntPtr(nativePtr, 1)) :
-                    new CefBrowser(((OnSetFocusNativeArgs*)this.nativePtr)->browser);
+                    return new CefBrowser(((OnSetFocusNativeArgs*)this.nativePtr)->browser);
                 }
             }
             public cef_focus_source_t source()
             {
                 unsafe
                 {
-                    return _isJsSlot ?
-                    (cef_focus_source_t)MyMetArgs.GetAsInt32(nativePtr, 2) :
-                    (cef_focus_source_t)(((OnSetFocusNativeArgs*)this.nativePtr)->source);
+                    return (cef_focus_source_t)(((OnSetFocusNativeArgs*)this.nativePtr)->source);
                 }
             }
         }
@@ -18220,25 +18044,21 @@ namespace LayoutFarm.CefBridge.Auto
             public cef_focus_source_t source;
         }
         //gen! void OnGotFocus(CefRefPtr<CefBrowser> browser)
-        //CsStructModuleCodeGen:: GenerateCsMethodArgsClass_JsSlot ,206
+        //CsStructModuleCodeGen:: GenerateCsMethodArgsClass ,206
         public struct OnGotFocusArgs
         {
             IntPtr nativePtr; //met arg native ptr
-            bool _isJsSlot;
             internal OnGotFocusArgs(IntPtr nativePtr)
             {
                 int arg_flags;
                 this.nativePtr = MyMetArgs.GetNativeObjPtr(nativePtr, out arg_flags);
-                this._isJsSlot = ((arg_flags >> 18) & 1) == 0;
 
             }
             public CefBrowser browser()
             {
                 unsafe
                 {
-                    return _isJsSlot ?
-                    new CefBrowser(MyMetArgs.GetAsIntPtr(nativePtr, 1)) :
-                    new CefBrowser(((OnGotFocusNativeArgs*)this.nativePtr)->browser);
+                    return new CefBrowser(((OnGotFocusNativeArgs*)this.nativePtr)->browser);
                 }
             }
         }
@@ -18355,52 +18175,42 @@ namespace LayoutFarm.CefBridge.Auto
         const int CefGeolocationHandlerExt_OnRequestGeolocationPermission_1 = 1;
         const int CefGeolocationHandlerExt_OnCancelGeolocationPermission_2 = 2;
         //gen! bool OnRequestGeolocationPermission(CefRefPtr<CefBrowser> browser,const CefString& requesting_url,int request_id,CefRefPtr<CefGeolocationCallback> callback)
-        //CsStructModuleCodeGen:: GenerateCsMethodArgsClass_JsSlot ,227
+        //CsStructModuleCodeGen:: GenerateCsMethodArgsClass ,227
         public struct OnRequestGeolocationPermissionArgs
         {
             IntPtr nativePtr; //met arg native ptr
-            bool _isJsSlot;
             internal OnRequestGeolocationPermissionArgs(IntPtr nativePtr)
             {
                 int arg_flags;
                 this.nativePtr = MyMetArgs.GetNativeObjPtr(nativePtr, out arg_flags);
-                this._isJsSlot = ((arg_flags >> 18) & 1) == 0;
 
             }
             public CefBrowser browser()
             {
                 unsafe
                 {
-                    return _isJsSlot ?
-                    new CefBrowser(MyMetArgs.GetAsIntPtr(nativePtr, 1)) :
-                    new CefBrowser(((OnRequestGeolocationPermissionNativeArgs*)this.nativePtr)->browser);
+                    return new CefBrowser(((OnRequestGeolocationPermissionNativeArgs*)this.nativePtr)->browser);
                 }
             }
             public string requesting_url()
             {
                 unsafe
                 {
-                    return _isJsSlot ?
-                    MyMetArgs.GetAsString(nativePtr, 2) :
-                    MyMetArgs.GetAsString(((OnRequestGeolocationPermissionNativeArgs*)this.nativePtr)->requesting_url);
+                    return MyMetArgs.GetAsString(((OnRequestGeolocationPermissionNativeArgs*)this.nativePtr)->requesting_url);
                 }
             }
             public int request_id()
             {
                 unsafe
                 {
-                    return _isJsSlot ?
-                    MyMetArgs.GetAsInt32(nativePtr, 3) :
-                    ((OnRequestGeolocationPermissionNativeArgs*)this.nativePtr)->request_id;
+                    return ((OnRequestGeolocationPermissionNativeArgs*)this.nativePtr)->request_id;
                 }
             }
             public CefGeolocationCallback callback()
             {
                 unsafe
                 {
-                    return _isJsSlot ?
-                    new CefGeolocationCallback(MyMetArgs.GetAsIntPtr(nativePtr, 4)) :
-                    new CefGeolocationCallback(((OnRequestGeolocationPermissionNativeArgs*)this.nativePtr)->callback);
+                    return new CefGeolocationCallback(((OnRequestGeolocationPermissionNativeArgs*)this.nativePtr)->callback);
                 }
             }
         }
@@ -18416,34 +18226,28 @@ namespace LayoutFarm.CefBridge.Auto
             public IntPtr callback;
         }
         //gen! void OnCancelGeolocationPermission(CefRefPtr<CefBrowser> browser,int request_id)
-        //CsStructModuleCodeGen:: GenerateCsMethodArgsClass_JsSlot ,229
+        //CsStructModuleCodeGen:: GenerateCsMethodArgsClass ,229
         public struct OnCancelGeolocationPermissionArgs
         {
             IntPtr nativePtr; //met arg native ptr
-            bool _isJsSlot;
             internal OnCancelGeolocationPermissionArgs(IntPtr nativePtr)
             {
                 int arg_flags;
                 this.nativePtr = MyMetArgs.GetNativeObjPtr(nativePtr, out arg_flags);
-                this._isJsSlot = ((arg_flags >> 18) & 1) == 0;
 
             }
             public CefBrowser browser()
             {
                 unsafe
                 {
-                    return _isJsSlot ?
-                    new CefBrowser(MyMetArgs.GetAsIntPtr(nativePtr, 1)) :
-                    new CefBrowser(((OnCancelGeolocationPermissionNativeArgs*)this.nativePtr)->browser);
+                    return new CefBrowser(((OnCancelGeolocationPermissionNativeArgs*)this.nativePtr)->browser);
                 }
             }
             public int request_id()
             {
                 unsafe
                 {
-                    return _isJsSlot ?
-                    MyMetArgs.GetAsInt32(nativePtr, 2) :
-                    ((OnCancelGeolocationPermissionNativeArgs*)this.nativePtr)->request_id;
+                    return ((OnCancelGeolocationPermissionNativeArgs*)this.nativePtr)->request_id;
                 }
             }
         }
@@ -18540,70 +18344,56 @@ namespace LayoutFarm.CefBridge.Auto
         const int CefJSDialogHandlerExt_OnResetDialogState_3 = 3;
         const int CefJSDialogHandlerExt_OnDialogClosed_4 = 4;
         //gen! bool OnJSDialog(CefRefPtr<CefBrowser> browser,const CefString& origin_url,JSDialogType dialog_type,const CefString& message_text,const CefString& default_prompt_text,CefRefPtr<CefJSDialogCallback> callback,bool& suppress_message)
-        //CsStructModuleCodeGen:: GenerateCsMethodArgsClass_JsSlot ,244
+        //CsStructModuleCodeGen:: GenerateCsMethodArgsClass ,244
         public struct OnJSDialogArgs
         {
             IntPtr nativePtr; //met arg native ptr
-            bool _isJsSlot;
             internal OnJSDialogArgs(IntPtr nativePtr)
             {
                 int arg_flags;
                 this.nativePtr = MyMetArgs.GetNativeObjPtr(nativePtr, out arg_flags);
-                this._isJsSlot = ((arg_flags >> 18) & 1) == 0;
 
             }
             public CefBrowser browser()
             {
                 unsafe
                 {
-                    return _isJsSlot ?
-                    new CefBrowser(MyMetArgs.GetAsIntPtr(nativePtr, 1)) :
-                    new CefBrowser(((OnJSDialogNativeArgs*)this.nativePtr)->browser);
+                    return new CefBrowser(((OnJSDialogNativeArgs*)this.nativePtr)->browser);
                 }
             }
             public string origin_url()
             {
                 unsafe
                 {
-                    return _isJsSlot ?
-                    MyMetArgs.GetAsString(nativePtr, 2) :
-                    MyMetArgs.GetAsString(((OnJSDialogNativeArgs*)this.nativePtr)->origin_url);
+                    return MyMetArgs.GetAsString(((OnJSDialogNativeArgs*)this.nativePtr)->origin_url);
                 }
             }
             public cef_jsdialog_type_t dialog_type()
             {
                 unsafe
                 {
-                    return _isJsSlot ?
-                    (cef_jsdialog_type_t)MyMetArgs.GetAsInt32(nativePtr, 3) :
-                    (cef_jsdialog_type_t)(((OnJSDialogNativeArgs*)this.nativePtr)->dialog_type);
+                    return (cef_jsdialog_type_t)(((OnJSDialogNativeArgs*)this.nativePtr)->dialog_type);
                 }
             }
             public string message_text()
             {
                 unsafe
                 {
-                    return _isJsSlot ?
-                    MyMetArgs.GetAsString(nativePtr, 4) :
-                    MyMetArgs.GetAsString(((OnJSDialogNativeArgs*)this.nativePtr)->message_text);
+                    return MyMetArgs.GetAsString(((OnJSDialogNativeArgs*)this.nativePtr)->message_text);
                 }
             }
             public string default_prompt_text()
             {
                 unsafe
                 {
-                    return _isJsSlot ?
-                    MyMetArgs.GetAsString(nativePtr, 5) :
-                    MyMetArgs.GetAsString(((OnJSDialogNativeArgs*)this.nativePtr)->default_prompt_text);
+                    return MyMetArgs.GetAsString(((OnJSDialogNativeArgs*)this.nativePtr)->default_prompt_text);
                 }
             }
             public CefJSDialogCallback callback()
             {
                 unsafe
                 {
-                    return _isJsSlot ?
-                    new CefJSDialogCallback(MyMetArgs.GetAsIntPtr(nativePtr, 6)) :
-                    new CefJSDialogCallback(((OnJSDialogNativeArgs*)this.nativePtr)->callback);
+                    return new CefJSDialogCallback(((OnJSDialogNativeArgs*)this.nativePtr)->callback);
                 }
             }
             public bool suppress_message()
@@ -18633,52 +18423,42 @@ namespace LayoutFarm.CefBridge.Auto
             public double suppress_message;
         }
         //gen! bool OnBeforeUnloadDialog(CefRefPtr<CefBrowser> browser,const CefString& message_text,bool is_reload,CefRefPtr<CefJSDialogCallback> callback)
-        //CsStructModuleCodeGen:: GenerateCsMethodArgsClass_JsSlot ,246
+        //CsStructModuleCodeGen:: GenerateCsMethodArgsClass ,246
         public struct OnBeforeUnloadDialogArgs
         {
             IntPtr nativePtr; //met arg native ptr
-            bool _isJsSlot;
             internal OnBeforeUnloadDialogArgs(IntPtr nativePtr)
             {
                 int arg_flags;
                 this.nativePtr = MyMetArgs.GetNativeObjPtr(nativePtr, out arg_flags);
-                this._isJsSlot = ((arg_flags >> 18) & 1) == 0;
 
             }
             public CefBrowser browser()
             {
                 unsafe
                 {
-                    return _isJsSlot ?
-                    new CefBrowser(MyMetArgs.GetAsIntPtr(nativePtr, 1)) :
-                    new CefBrowser(((OnBeforeUnloadDialogNativeArgs*)this.nativePtr)->browser);
+                    return new CefBrowser(((OnBeforeUnloadDialogNativeArgs*)this.nativePtr)->browser);
                 }
             }
             public string message_text()
             {
                 unsafe
                 {
-                    return _isJsSlot ?
-                    MyMetArgs.GetAsString(nativePtr, 2) :
-                    MyMetArgs.GetAsString(((OnBeforeUnloadDialogNativeArgs*)this.nativePtr)->message_text);
+                    return MyMetArgs.GetAsString(((OnBeforeUnloadDialogNativeArgs*)this.nativePtr)->message_text);
                 }
             }
             public bool is_reload()
             {
                 unsafe
                 {
-                    return _isJsSlot ?
-                    MyMetArgs.GetAsBool(nativePtr, 3) :
-                    ((OnBeforeUnloadDialogNativeArgs*)this.nativePtr)->is_reload;
+                    return ((OnBeforeUnloadDialogNativeArgs*)this.nativePtr)->is_reload;
                 }
             }
             public CefJSDialogCallback callback()
             {
                 unsafe
                 {
-                    return _isJsSlot ?
-                    new CefJSDialogCallback(MyMetArgs.GetAsIntPtr(nativePtr, 4)) :
-                    new CefJSDialogCallback(((OnBeforeUnloadDialogNativeArgs*)this.nativePtr)->callback);
+                    return new CefJSDialogCallback(((OnBeforeUnloadDialogNativeArgs*)this.nativePtr)->callback);
                 }
             }
         }
@@ -18694,25 +18474,21 @@ namespace LayoutFarm.CefBridge.Auto
             public IntPtr callback;
         }
         //gen! void OnResetDialogState(CefRefPtr<CefBrowser> browser)
-        //CsStructModuleCodeGen:: GenerateCsMethodArgsClass_JsSlot ,248
+        //CsStructModuleCodeGen:: GenerateCsMethodArgsClass ,248
         public struct OnResetDialogStateArgs
         {
             IntPtr nativePtr; //met arg native ptr
-            bool _isJsSlot;
             internal OnResetDialogStateArgs(IntPtr nativePtr)
             {
                 int arg_flags;
                 this.nativePtr = MyMetArgs.GetNativeObjPtr(nativePtr, out arg_flags);
-                this._isJsSlot = ((arg_flags >> 18) & 1) == 0;
 
             }
             public CefBrowser browser()
             {
                 unsafe
                 {
-                    return _isJsSlot ?
-                    new CefBrowser(MyMetArgs.GetAsIntPtr(nativePtr, 1)) :
-                    new CefBrowser(((OnResetDialogStateNativeArgs*)this.nativePtr)->browser);
+                    return new CefBrowser(((OnResetDialogStateNativeArgs*)this.nativePtr)->browser);
                 }
             }
         }
@@ -18724,25 +18500,21 @@ namespace LayoutFarm.CefBridge.Auto
             public IntPtr browser;
         }
         //gen! void OnDialogClosed(CefRefPtr<CefBrowser> browser)
-        //CsStructModuleCodeGen:: GenerateCsMethodArgsClass_JsSlot ,250
+        //CsStructModuleCodeGen:: GenerateCsMethodArgsClass ,250
         public struct OnDialogClosedArgs
         {
             IntPtr nativePtr; //met arg native ptr
-            bool _isJsSlot;
             internal OnDialogClosedArgs(IntPtr nativePtr)
             {
                 int arg_flags;
                 this.nativePtr = MyMetArgs.GetNativeObjPtr(nativePtr, out arg_flags);
-                this._isJsSlot = ((arg_flags >> 18) & 1) == 0;
 
             }
             public CefBrowser browser()
             {
                 unsafe
                 {
-                    return _isJsSlot ?
-                    new CefBrowser(MyMetArgs.GetAsIntPtr(nativePtr, 1)) :
-                    new CefBrowser(((OnDialogClosedNativeArgs*)this.nativePtr)->browser);
+                    return new CefBrowser(((OnDialogClosedNativeArgs*)this.nativePtr)->browser);
                 }
             }
         }
@@ -18904,34 +18676,28 @@ namespace LayoutFarm.CefBridge.Auto
         const int CefKeyboardHandlerExt_OnPreKeyEvent_1 = 1;
         const int CefKeyboardHandlerExt_OnKeyEvent_2 = 2;
         //gen! bool OnPreKeyEvent(CefRefPtr<CefBrowser> browser,const CefKeyEvent& event,CefEventHandle os_event,bool* is_keyboard_shortcut)
-        //CsStructModuleCodeGen:: GenerateCsMethodArgsClass_JsSlot ,277
+        //CsStructModuleCodeGen:: GenerateCsMethodArgsClass ,277
         public struct OnPreKeyEventArgs
         {
             IntPtr nativePtr; //met arg native ptr
-            bool _isJsSlot;
             internal OnPreKeyEventArgs(IntPtr nativePtr)
             {
                 int arg_flags;
                 this.nativePtr = MyMetArgs.GetNativeObjPtr(nativePtr, out arg_flags);
-                this._isJsSlot = ((arg_flags >> 18) & 1) == 0;
 
             }
             public CefBrowser browser()
             {
                 unsafe
                 {
-                    return _isJsSlot ?
-                    new CefBrowser(MyMetArgs.GetAsIntPtr(nativePtr, 1)) :
-                    new CefBrowser(((OnPreKeyEventNativeArgs*)this.nativePtr)->browser);
+                    return new CefBrowser(((OnPreKeyEventNativeArgs*)this.nativePtr)->browser);
                 }
             }
             public CefKeyEvent _event()
             {
                 unsafe
                 {
-                    return _isJsSlot ?
-                    new CefKeyEvent(MyMetArgs.GetAsIntPtr(nativePtr, 2)) :
-                    new CefKeyEvent(((OnPreKeyEventNativeArgs*)this.nativePtr)->_event);
+                    return new CefKeyEvent(((OnPreKeyEventNativeArgs*)this.nativePtr)->_event);
                 }
             }
             public IntPtr os_event()
@@ -18962,34 +18728,28 @@ namespace LayoutFarm.CefBridge.Auto
             public double is_keyboard_shortcut;
         }
         //gen! bool OnKeyEvent(CefRefPtr<CefBrowser> browser,const CefKeyEvent& event,CefEventHandle os_event)
-        //CsStructModuleCodeGen:: GenerateCsMethodArgsClass_JsSlot ,279
+        //CsStructModuleCodeGen:: GenerateCsMethodArgsClass ,279
         public struct OnKeyEventArgs
         {
             IntPtr nativePtr; //met arg native ptr
-            bool _isJsSlot;
             internal OnKeyEventArgs(IntPtr nativePtr)
             {
                 int arg_flags;
                 this.nativePtr = MyMetArgs.GetNativeObjPtr(nativePtr, out arg_flags);
-                this._isJsSlot = ((arg_flags >> 18) & 1) == 0;
 
             }
             public CefBrowser browser()
             {
                 unsafe
                 {
-                    return _isJsSlot ?
-                    new CefBrowser(MyMetArgs.GetAsIntPtr(nativePtr, 1)) :
-                    new CefBrowser(((OnKeyEventNativeArgs*)this.nativePtr)->browser);
+                    return new CefBrowser(((OnKeyEventNativeArgs*)this.nativePtr)->browser);
                 }
             }
             public CefKeyEvent _event()
             {
                 unsafe
                 {
-                    return _isJsSlot ?
-                    new CefKeyEvent(MyMetArgs.GetAsIntPtr(nativePtr, 2)) :
-                    new CefKeyEvent(((OnKeyEventNativeArgs*)this.nativePtr)->_event);
+                    return new CefKeyEvent(((OnKeyEventNativeArgs*)this.nativePtr)->_event);
                 }
             }
             public IntPtr os_event()
@@ -19098,88 +18858,70 @@ namespace LayoutFarm.CefBridge.Auto
         const int CefLifeSpanHandlerExt_DoClose_3 = 3;
         const int CefLifeSpanHandlerExt_OnBeforeClose_4 = 4;
         //gen! bool OnBeforePopup(CefRefPtr<CefBrowser> browser,CefRefPtr<CefFrame> frame,const CefString& target_url,const CefString& target_frame_name,WindowOpenDisposition target_disposition,bool user_gesture,const CefPopupFeatures& popupFeatures,CefWindowInfo& windowInfo,CefRefPtr<CefClient>& client,CefBrowserSettings& settings,bool* no_javascript_access)
-        //CsStructModuleCodeGen:: GenerateCsMethodArgsClass_JsSlot ,294
+        //CsStructModuleCodeGen:: GenerateCsMethodArgsClass ,294
         public struct OnBeforePopupArgs
         {
             IntPtr nativePtr; //met arg native ptr
-            bool _isJsSlot;
             internal OnBeforePopupArgs(IntPtr nativePtr)
             {
                 int arg_flags;
                 this.nativePtr = MyMetArgs.GetNativeObjPtr(nativePtr, out arg_flags);
-                this._isJsSlot = ((arg_flags >> 18) & 1) == 0;
 
             }
             public CefBrowser browser()
             {
                 unsafe
                 {
-                    return _isJsSlot ?
-                    new CefBrowser(MyMetArgs.GetAsIntPtr(nativePtr, 1)) :
-                    new CefBrowser(((OnBeforePopupNativeArgs*)this.nativePtr)->browser);
+                    return new CefBrowser(((OnBeforePopupNativeArgs*)this.nativePtr)->browser);
                 }
             }
             public CefFrame frame()
             {
                 unsafe
                 {
-                    return _isJsSlot ?
-                    new CefFrame(MyMetArgs.GetAsIntPtr(nativePtr, 2)) :
-                    new CefFrame(((OnBeforePopupNativeArgs*)this.nativePtr)->frame);
+                    return new CefFrame(((OnBeforePopupNativeArgs*)this.nativePtr)->frame);
                 }
             }
             public string target_url()
             {
                 unsafe
                 {
-                    return _isJsSlot ?
-                    MyMetArgs.GetAsString(nativePtr, 3) :
-                    MyMetArgs.GetAsString(((OnBeforePopupNativeArgs*)this.nativePtr)->target_url);
+                    return MyMetArgs.GetAsString(((OnBeforePopupNativeArgs*)this.nativePtr)->target_url);
                 }
             }
             public string target_frame_name()
             {
                 unsafe
                 {
-                    return _isJsSlot ?
-                    MyMetArgs.GetAsString(nativePtr, 4) :
-                    MyMetArgs.GetAsString(((OnBeforePopupNativeArgs*)this.nativePtr)->target_frame_name);
+                    return MyMetArgs.GetAsString(((OnBeforePopupNativeArgs*)this.nativePtr)->target_frame_name);
                 }
             }
             public cef_window_open_disposition_t target_disposition()
             {
                 unsafe
                 {
-                    return _isJsSlot ?
-                    (cef_window_open_disposition_t)MyMetArgs.GetAsInt32(nativePtr, 5) :
-                    (cef_window_open_disposition_t)(((OnBeforePopupNativeArgs*)this.nativePtr)->target_disposition);
+                    return (cef_window_open_disposition_t)(((OnBeforePopupNativeArgs*)this.nativePtr)->target_disposition);
                 }
             }
             public bool user_gesture()
             {
                 unsafe
                 {
-                    return _isJsSlot ?
-                    MyMetArgs.GetAsBool(nativePtr, 6) :
-                    ((OnBeforePopupNativeArgs*)this.nativePtr)->user_gesture;
+                    return ((OnBeforePopupNativeArgs*)this.nativePtr)->user_gesture;
                 }
             }
             public CefPopupFeatures popupFeatures()
             {
                 unsafe
                 {
-                    return _isJsSlot ?
-                    new CefPopupFeatures(MyMetArgs.GetAsIntPtr(nativePtr, 7)) :
-                    new CefPopupFeatures(((OnBeforePopupNativeArgs*)this.nativePtr)->popupFeatures);
+                    return new CefPopupFeatures(((OnBeforePopupNativeArgs*)this.nativePtr)->popupFeatures);
                 }
             }
             public CefWindowInfo windowInfo()
             {
                 unsafe
                 {
-                    return _isJsSlot ?
-                    new CefWindowInfo(MyMetArgs.GetAsIntPtr(nativePtr, 8)) :
-                    new CefWindowInfo(((OnBeforePopupNativeArgs*)this.nativePtr)->windowInfo);
+                    return new CefWindowInfo(((OnBeforePopupNativeArgs*)this.nativePtr)->windowInfo);
                 }
             }
             public IntPtr client()
@@ -19190,9 +18932,7 @@ namespace LayoutFarm.CefBridge.Auto
             {
                 unsafe
                 {
-                    return _isJsSlot ?
-                    new CefBrowserSettings(MyMetArgs.GetAsIntPtr(nativePtr, 10)) :
-                    new CefBrowserSettings(((OnBeforePopupNativeArgs*)this.nativePtr)->settings);
+                    return new CefBrowserSettings(((OnBeforePopupNativeArgs*)this.nativePtr)->settings);
                 }
             }
             public bool no_javascript_access()
@@ -19226,25 +18966,21 @@ namespace LayoutFarm.CefBridge.Auto
             public double no_javascript_access;
         }
         //gen! void OnAfterCreated(CefRefPtr<CefBrowser> browser)
-        //CsStructModuleCodeGen:: GenerateCsMethodArgsClass_JsSlot ,296
+        //CsStructModuleCodeGen:: GenerateCsMethodArgsClass ,296
         public struct OnAfterCreatedArgs
         {
             IntPtr nativePtr; //met arg native ptr
-            bool _isJsSlot;
             internal OnAfterCreatedArgs(IntPtr nativePtr)
             {
                 int arg_flags;
                 this.nativePtr = MyMetArgs.GetNativeObjPtr(nativePtr, out arg_flags);
-                this._isJsSlot = ((arg_flags >> 18) & 1) == 0;
 
             }
             public CefBrowser browser()
             {
                 unsafe
                 {
-                    return _isJsSlot ?
-                    new CefBrowser(MyMetArgs.GetAsIntPtr(nativePtr, 1)) :
-                    new CefBrowser(((OnAfterCreatedNativeArgs*)this.nativePtr)->browser);
+                    return new CefBrowser(((OnAfterCreatedNativeArgs*)this.nativePtr)->browser);
                 }
             }
         }
@@ -19256,25 +18992,21 @@ namespace LayoutFarm.CefBridge.Auto
             public IntPtr browser;
         }
         //gen! bool DoClose(CefRefPtr<CefBrowser> browser)
-        //CsStructModuleCodeGen:: GenerateCsMethodArgsClass_JsSlot ,298
+        //CsStructModuleCodeGen:: GenerateCsMethodArgsClass ,298
         public struct DoCloseArgs
         {
             IntPtr nativePtr; //met arg native ptr
-            bool _isJsSlot;
             internal DoCloseArgs(IntPtr nativePtr)
             {
                 int arg_flags;
                 this.nativePtr = MyMetArgs.GetNativeObjPtr(nativePtr, out arg_flags);
-                this._isJsSlot = ((arg_flags >> 18) & 1) == 0;
 
             }
             public CefBrowser browser()
             {
                 unsafe
                 {
-                    return _isJsSlot ?
-                    new CefBrowser(MyMetArgs.GetAsIntPtr(nativePtr, 1)) :
-                    new CefBrowser(((DoCloseNativeArgs*)this.nativePtr)->browser);
+                    return new CefBrowser(((DoCloseNativeArgs*)this.nativePtr)->browser);
                 }
             }
         }
@@ -19287,25 +19019,21 @@ namespace LayoutFarm.CefBridge.Auto
             public IntPtr browser;
         }
         //gen! void OnBeforeClose(CefRefPtr<CefBrowser> browser)
-        //CsStructModuleCodeGen:: GenerateCsMethodArgsClass_JsSlot ,300
+        //CsStructModuleCodeGen:: GenerateCsMethodArgsClass ,300
         public struct OnBeforeCloseArgs
         {
             IntPtr nativePtr; //met arg native ptr
-            bool _isJsSlot;
             internal OnBeforeCloseArgs(IntPtr nativePtr)
             {
                 int arg_flags;
                 this.nativePtr = MyMetArgs.GetNativeObjPtr(nativePtr, out arg_flags);
-                this._isJsSlot = ((arg_flags >> 18) & 1) == 0;
 
             }
             public CefBrowser browser()
             {
                 unsafe
                 {
-                    return _isJsSlot ?
-                    new CefBrowser(MyMetArgs.GetAsIntPtr(nativePtr, 1)) :
-                    new CefBrowser(((OnBeforeCloseNativeArgs*)this.nativePtr)->browser);
+                    return new CefBrowser(((OnBeforeCloseNativeArgs*)this.nativePtr)->browser);
                 }
             }
         }
@@ -19471,52 +19199,42 @@ namespace LayoutFarm.CefBridge.Auto
         const int CefLoadHandlerExt_OnLoadEnd_3 = 3;
         const int CefLoadHandlerExt_OnLoadError_4 = 4;
         //gen! void OnLoadingStateChange(CefRefPtr<CefBrowser> browser,bool isLoading,bool canGoBack,bool canGoForward)
-        //CsStructModuleCodeGen:: GenerateCsMethodArgsClass_JsSlot ,327
+        //CsStructModuleCodeGen:: GenerateCsMethodArgsClass ,327
         public struct OnLoadingStateChangeArgs
         {
             IntPtr nativePtr; //met arg native ptr
-            bool _isJsSlot;
             internal OnLoadingStateChangeArgs(IntPtr nativePtr)
             {
                 int arg_flags;
                 this.nativePtr = MyMetArgs.GetNativeObjPtr(nativePtr, out arg_flags);
-                this._isJsSlot = ((arg_flags >> 18) & 1) == 0;
 
             }
             public CefBrowser browser()
             {
                 unsafe
                 {
-                    return _isJsSlot ?
-                    new CefBrowser(MyMetArgs.GetAsIntPtr(nativePtr, 1)) :
-                    new CefBrowser(((OnLoadingStateChangeNativeArgs*)this.nativePtr)->browser);
+                    return new CefBrowser(((OnLoadingStateChangeNativeArgs*)this.nativePtr)->browser);
                 }
             }
             public bool isLoading()
             {
                 unsafe
                 {
-                    return _isJsSlot ?
-                    MyMetArgs.GetAsBool(nativePtr, 2) :
-                    ((OnLoadingStateChangeNativeArgs*)this.nativePtr)->isLoading;
+                    return ((OnLoadingStateChangeNativeArgs*)this.nativePtr)->isLoading;
                 }
             }
             public bool canGoBack()
             {
                 unsafe
                 {
-                    return _isJsSlot ?
-                    MyMetArgs.GetAsBool(nativePtr, 3) :
-                    ((OnLoadingStateChangeNativeArgs*)this.nativePtr)->canGoBack;
+                    return ((OnLoadingStateChangeNativeArgs*)this.nativePtr)->canGoBack;
                 }
             }
             public bool canGoForward()
             {
                 unsafe
                 {
-                    return _isJsSlot ?
-                    MyMetArgs.GetAsBool(nativePtr, 4) :
-                    ((OnLoadingStateChangeNativeArgs*)this.nativePtr)->canGoForward;
+                    return ((OnLoadingStateChangeNativeArgs*)this.nativePtr)->canGoForward;
                 }
             }
         }
@@ -19531,43 +19249,35 @@ namespace LayoutFarm.CefBridge.Auto
             public bool canGoForward;
         }
         //gen! void OnLoadStart(CefRefPtr<CefBrowser> browser,CefRefPtr<CefFrame> frame,TransitionType transition_type)
-        //CsStructModuleCodeGen:: GenerateCsMethodArgsClass_JsSlot ,329
+        //CsStructModuleCodeGen:: GenerateCsMethodArgsClass ,329
         public struct OnLoadStartArgs
         {
             IntPtr nativePtr; //met arg native ptr
-            bool _isJsSlot;
             internal OnLoadStartArgs(IntPtr nativePtr)
             {
                 int arg_flags;
                 this.nativePtr = MyMetArgs.GetNativeObjPtr(nativePtr, out arg_flags);
-                this._isJsSlot = ((arg_flags >> 18) & 1) == 0;
 
             }
             public CefBrowser browser()
             {
                 unsafe
                 {
-                    return _isJsSlot ?
-                    new CefBrowser(MyMetArgs.GetAsIntPtr(nativePtr, 1)) :
-                    new CefBrowser(((OnLoadStartNativeArgs*)this.nativePtr)->browser);
+                    return new CefBrowser(((OnLoadStartNativeArgs*)this.nativePtr)->browser);
                 }
             }
             public CefFrame frame()
             {
                 unsafe
                 {
-                    return _isJsSlot ?
-                    new CefFrame(MyMetArgs.GetAsIntPtr(nativePtr, 2)) :
-                    new CefFrame(((OnLoadStartNativeArgs*)this.nativePtr)->frame);
+                    return new CefFrame(((OnLoadStartNativeArgs*)this.nativePtr)->frame);
                 }
             }
             public cef_transition_type_t transition_type()
             {
                 unsafe
                 {
-                    return _isJsSlot ?
-                    (cef_transition_type_t)MyMetArgs.GetAsInt32(nativePtr, 3) :
-                    (cef_transition_type_t)(((OnLoadStartNativeArgs*)this.nativePtr)->transition_type);
+                    return (cef_transition_type_t)(((OnLoadStartNativeArgs*)this.nativePtr)->transition_type);
                 }
             }
         }
@@ -19581,43 +19291,35 @@ namespace LayoutFarm.CefBridge.Auto
             public cef_transition_type_t transition_type;
         }
         //gen! void OnLoadEnd(CefRefPtr<CefBrowser> browser,CefRefPtr<CefFrame> frame,int httpStatusCode)
-        //CsStructModuleCodeGen:: GenerateCsMethodArgsClass_JsSlot ,331
+        //CsStructModuleCodeGen:: GenerateCsMethodArgsClass ,331
         public struct OnLoadEndArgs
         {
             IntPtr nativePtr; //met arg native ptr
-            bool _isJsSlot;
             internal OnLoadEndArgs(IntPtr nativePtr)
             {
                 int arg_flags;
                 this.nativePtr = MyMetArgs.GetNativeObjPtr(nativePtr, out arg_flags);
-                this._isJsSlot = ((arg_flags >> 18) & 1) == 0;
 
             }
             public CefBrowser browser()
             {
                 unsafe
                 {
-                    return _isJsSlot ?
-                    new CefBrowser(MyMetArgs.GetAsIntPtr(nativePtr, 1)) :
-                    new CefBrowser(((OnLoadEndNativeArgs*)this.nativePtr)->browser);
+                    return new CefBrowser(((OnLoadEndNativeArgs*)this.nativePtr)->browser);
                 }
             }
             public CefFrame frame()
             {
                 unsafe
                 {
-                    return _isJsSlot ?
-                    new CefFrame(MyMetArgs.GetAsIntPtr(nativePtr, 2)) :
-                    new CefFrame(((OnLoadEndNativeArgs*)this.nativePtr)->frame);
+                    return new CefFrame(((OnLoadEndNativeArgs*)this.nativePtr)->frame);
                 }
             }
             public int httpStatusCode()
             {
                 unsafe
                 {
-                    return _isJsSlot ?
-                    MyMetArgs.GetAsInt32(nativePtr, 3) :
-                    ((OnLoadEndNativeArgs*)this.nativePtr)->httpStatusCode;
+                    return ((OnLoadEndNativeArgs*)this.nativePtr)->httpStatusCode;
                 }
             }
         }
@@ -19631,61 +19333,49 @@ namespace LayoutFarm.CefBridge.Auto
             public int httpStatusCode;
         }
         //gen! void OnLoadError(CefRefPtr<CefBrowser> browser,CefRefPtr<CefFrame> frame,ErrorCode errorCode,const CefString& errorText,const CefString& failedUrl)
-        //CsStructModuleCodeGen:: GenerateCsMethodArgsClass_JsSlot ,333
+        //CsStructModuleCodeGen:: GenerateCsMethodArgsClass ,333
         public struct OnLoadErrorArgs
         {
             IntPtr nativePtr; //met arg native ptr
-            bool _isJsSlot;
             internal OnLoadErrorArgs(IntPtr nativePtr)
             {
                 int arg_flags;
                 this.nativePtr = MyMetArgs.GetNativeObjPtr(nativePtr, out arg_flags);
-                this._isJsSlot = ((arg_flags >> 18) & 1) == 0;
 
             }
             public CefBrowser browser()
             {
                 unsafe
                 {
-                    return _isJsSlot ?
-                    new CefBrowser(MyMetArgs.GetAsIntPtr(nativePtr, 1)) :
-                    new CefBrowser(((OnLoadErrorNativeArgs*)this.nativePtr)->browser);
+                    return new CefBrowser(((OnLoadErrorNativeArgs*)this.nativePtr)->browser);
                 }
             }
             public CefFrame frame()
             {
                 unsafe
                 {
-                    return _isJsSlot ?
-                    new CefFrame(MyMetArgs.GetAsIntPtr(nativePtr, 2)) :
-                    new CefFrame(((OnLoadErrorNativeArgs*)this.nativePtr)->frame);
+                    return new CefFrame(((OnLoadErrorNativeArgs*)this.nativePtr)->frame);
                 }
             }
             public cef_errorcode_t errorCode()
             {
                 unsafe
                 {
-                    return _isJsSlot ?
-                    (cef_errorcode_t)MyMetArgs.GetAsInt32(nativePtr, 3) :
-                    (cef_errorcode_t)(((OnLoadErrorNativeArgs*)this.nativePtr)->errorCode);
+                    return (cef_errorcode_t)(((OnLoadErrorNativeArgs*)this.nativePtr)->errorCode);
                 }
             }
             public string errorText()
             {
                 unsafe
                 {
-                    return _isJsSlot ?
-                    MyMetArgs.GetAsString(nativePtr, 4) :
-                    MyMetArgs.GetAsString(((OnLoadErrorNativeArgs*)this.nativePtr)->errorText);
+                    return MyMetArgs.GetAsString(((OnLoadErrorNativeArgs*)this.nativePtr)->errorText);
                 }
             }
             public string failedUrl()
             {
                 unsafe
                 {
-                    return _isJsSlot ?
-                    MyMetArgs.GetAsString(nativePtr, 5) :
-                    MyMetArgs.GetAsString(((OnLoadErrorNativeArgs*)this.nativePtr)->failedUrl);
+                    return MyMetArgs.GetAsString(((OnLoadErrorNativeArgs*)this.nativePtr)->failedUrl);
                 }
             }
         }
@@ -19855,25 +19545,21 @@ namespace LayoutFarm.CefBridge.Auto
         const int CefPrintHandlerExt_OnPrintReset_5 = 5;
         const int CefPrintHandlerExt_GetPdfPaperSize_6 = 6;
         //gen! void OnPrintStart(CefRefPtr<CefBrowser> browser)
-        //CsStructModuleCodeGen:: GenerateCsMethodArgsClass_JsSlot ,360
+        //CsStructModuleCodeGen:: GenerateCsMethodArgsClass ,360
         public struct OnPrintStartArgs
         {
             IntPtr nativePtr; //met arg native ptr
-            bool _isJsSlot;
             internal OnPrintStartArgs(IntPtr nativePtr)
             {
                 int arg_flags;
                 this.nativePtr = MyMetArgs.GetNativeObjPtr(nativePtr, out arg_flags);
-                this._isJsSlot = ((arg_flags >> 18) & 1) == 0;
 
             }
             public CefBrowser browser()
             {
                 unsafe
                 {
-                    return _isJsSlot ?
-                    new CefBrowser(MyMetArgs.GetAsIntPtr(nativePtr, 1)) :
-                    new CefBrowser(((OnPrintStartNativeArgs*)this.nativePtr)->browser);
+                    return new CefBrowser(((OnPrintStartNativeArgs*)this.nativePtr)->browser);
                 }
             }
         }
@@ -19885,43 +19571,35 @@ namespace LayoutFarm.CefBridge.Auto
             public IntPtr browser;
         }
         //gen! void OnPrintSettings(CefRefPtr<CefBrowser> browser,CefRefPtr<CefPrintSettings> settings,bool get_defaults)
-        //CsStructModuleCodeGen:: GenerateCsMethodArgsClass_JsSlot ,362
+        //CsStructModuleCodeGen:: GenerateCsMethodArgsClass ,362
         public struct OnPrintSettingsArgs
         {
             IntPtr nativePtr; //met arg native ptr
-            bool _isJsSlot;
             internal OnPrintSettingsArgs(IntPtr nativePtr)
             {
                 int arg_flags;
                 this.nativePtr = MyMetArgs.GetNativeObjPtr(nativePtr, out arg_flags);
-                this._isJsSlot = ((arg_flags >> 18) & 1) == 0;
 
             }
             public CefBrowser browser()
             {
                 unsafe
                 {
-                    return _isJsSlot ?
-                    new CefBrowser(MyMetArgs.GetAsIntPtr(nativePtr, 1)) :
-                    new CefBrowser(((OnPrintSettingsNativeArgs*)this.nativePtr)->browser);
+                    return new CefBrowser(((OnPrintSettingsNativeArgs*)this.nativePtr)->browser);
                 }
             }
             public CefPrintSettings settings()
             {
                 unsafe
                 {
-                    return _isJsSlot ?
-                    new CefPrintSettings(MyMetArgs.GetAsIntPtr(nativePtr, 2)) :
-                    new CefPrintSettings(((OnPrintSettingsNativeArgs*)this.nativePtr)->settings);
+                    return new CefPrintSettings(((OnPrintSettingsNativeArgs*)this.nativePtr)->settings);
                 }
             }
             public bool get_defaults()
             {
                 unsafe
                 {
-                    return _isJsSlot ?
-                    MyMetArgs.GetAsBool(nativePtr, 3) :
-                    ((OnPrintSettingsNativeArgs*)this.nativePtr)->get_defaults;
+                    return ((OnPrintSettingsNativeArgs*)this.nativePtr)->get_defaults;
                 }
             }
         }
@@ -19935,43 +19613,35 @@ namespace LayoutFarm.CefBridge.Auto
             public bool get_defaults;
         }
         //gen! bool OnPrintDialog(CefRefPtr<CefBrowser> browser,bool has_selection,CefRefPtr<CefPrintDialogCallback> callback)
-        //CsStructModuleCodeGen:: GenerateCsMethodArgsClass_JsSlot ,364
+        //CsStructModuleCodeGen:: GenerateCsMethodArgsClass ,364
         public struct OnPrintDialogArgs
         {
             IntPtr nativePtr; //met arg native ptr
-            bool _isJsSlot;
             internal OnPrintDialogArgs(IntPtr nativePtr)
             {
                 int arg_flags;
                 this.nativePtr = MyMetArgs.GetNativeObjPtr(nativePtr, out arg_flags);
-                this._isJsSlot = ((arg_flags >> 18) & 1) == 0;
 
             }
             public CefBrowser browser()
             {
                 unsafe
                 {
-                    return _isJsSlot ?
-                    new CefBrowser(MyMetArgs.GetAsIntPtr(nativePtr, 1)) :
-                    new CefBrowser(((OnPrintDialogNativeArgs*)this.nativePtr)->browser);
+                    return new CefBrowser(((OnPrintDialogNativeArgs*)this.nativePtr)->browser);
                 }
             }
             public bool has_selection()
             {
                 unsafe
                 {
-                    return _isJsSlot ?
-                    MyMetArgs.GetAsBool(nativePtr, 2) :
-                    ((OnPrintDialogNativeArgs*)this.nativePtr)->has_selection;
+                    return ((OnPrintDialogNativeArgs*)this.nativePtr)->has_selection;
                 }
             }
             public CefPrintDialogCallback callback()
             {
                 unsafe
                 {
-                    return _isJsSlot ?
-                    new CefPrintDialogCallback(MyMetArgs.GetAsIntPtr(nativePtr, 3)) :
-                    new CefPrintDialogCallback(((OnPrintDialogNativeArgs*)this.nativePtr)->callback);
+                    return new CefPrintDialogCallback(((OnPrintDialogNativeArgs*)this.nativePtr)->callback);
                 }
             }
         }
@@ -19986,52 +19656,42 @@ namespace LayoutFarm.CefBridge.Auto
             public IntPtr callback;
         }
         //gen! bool OnPrintJob(CefRefPtr<CefBrowser> browser,const CefString& document_name,const CefString& pdf_file_path,CefRefPtr<CefPrintJobCallback> callback)
-        //CsStructModuleCodeGen:: GenerateCsMethodArgsClass_JsSlot ,366
+        //CsStructModuleCodeGen:: GenerateCsMethodArgsClass ,366
         public struct OnPrintJobArgs
         {
             IntPtr nativePtr; //met arg native ptr
-            bool _isJsSlot;
             internal OnPrintJobArgs(IntPtr nativePtr)
             {
                 int arg_flags;
                 this.nativePtr = MyMetArgs.GetNativeObjPtr(nativePtr, out arg_flags);
-                this._isJsSlot = ((arg_flags >> 18) & 1) == 0;
 
             }
             public CefBrowser browser()
             {
                 unsafe
                 {
-                    return _isJsSlot ?
-                    new CefBrowser(MyMetArgs.GetAsIntPtr(nativePtr, 1)) :
-                    new CefBrowser(((OnPrintJobNativeArgs*)this.nativePtr)->browser);
+                    return new CefBrowser(((OnPrintJobNativeArgs*)this.nativePtr)->browser);
                 }
             }
             public string document_name()
             {
                 unsafe
                 {
-                    return _isJsSlot ?
-                    MyMetArgs.GetAsString(nativePtr, 2) :
-                    MyMetArgs.GetAsString(((OnPrintJobNativeArgs*)this.nativePtr)->document_name);
+                    return MyMetArgs.GetAsString(((OnPrintJobNativeArgs*)this.nativePtr)->document_name);
                 }
             }
             public string pdf_file_path()
             {
                 unsafe
                 {
-                    return _isJsSlot ?
-                    MyMetArgs.GetAsString(nativePtr, 3) :
-                    MyMetArgs.GetAsString(((OnPrintJobNativeArgs*)this.nativePtr)->pdf_file_path);
+                    return MyMetArgs.GetAsString(((OnPrintJobNativeArgs*)this.nativePtr)->pdf_file_path);
                 }
             }
             public CefPrintJobCallback callback()
             {
                 unsafe
                 {
-                    return _isJsSlot ?
-                    new CefPrintJobCallback(MyMetArgs.GetAsIntPtr(nativePtr, 4)) :
-                    new CefPrintJobCallback(((OnPrintJobNativeArgs*)this.nativePtr)->callback);
+                    return new CefPrintJobCallback(((OnPrintJobNativeArgs*)this.nativePtr)->callback);
                 }
             }
         }
@@ -20047,25 +19707,21 @@ namespace LayoutFarm.CefBridge.Auto
             public IntPtr callback;
         }
         //gen! void OnPrintReset(CefRefPtr<CefBrowser> browser)
-        //CsStructModuleCodeGen:: GenerateCsMethodArgsClass_JsSlot ,368
+        //CsStructModuleCodeGen:: GenerateCsMethodArgsClass ,368
         public struct OnPrintResetArgs
         {
             IntPtr nativePtr; //met arg native ptr
-            bool _isJsSlot;
             internal OnPrintResetArgs(IntPtr nativePtr)
             {
                 int arg_flags;
                 this.nativePtr = MyMetArgs.GetNativeObjPtr(nativePtr, out arg_flags);
-                this._isJsSlot = ((arg_flags >> 18) & 1) == 0;
 
             }
             public CefBrowser browser()
             {
                 unsafe
                 {
-                    return _isJsSlot ?
-                    new CefBrowser(MyMetArgs.GetAsIntPtr(nativePtr, 1)) :
-                    new CefBrowser(((OnPrintResetNativeArgs*)this.nativePtr)->browser);
+                    return new CefBrowser(((OnPrintResetNativeArgs*)this.nativePtr)->browser);
                 }
             }
         }
@@ -20077,25 +19733,21 @@ namespace LayoutFarm.CefBridge.Auto
             public IntPtr browser;
         }
         //gen! CefSize GetPdfPaperSize(int device_units_per_inch)
-        //CsStructModuleCodeGen:: GenerateCsMethodArgsClass_JsSlot ,370
+        //CsStructModuleCodeGen:: GenerateCsMethodArgsClass ,370
         public struct GetPdfPaperSizeArgs
         {
             IntPtr nativePtr; //met arg native ptr
-            bool _isJsSlot;
             internal GetPdfPaperSizeArgs(IntPtr nativePtr)
             {
                 int arg_flags;
                 this.nativePtr = MyMetArgs.GetNativeObjPtr(nativePtr, out arg_flags);
-                this._isJsSlot = ((arg_flags >> 18) & 1) == 0;
 
             }
             public int device_units_per_inch()
             {
                 unsafe
                 {
-                    return _isJsSlot ?
-                    MyMetArgs.GetAsInt32(nativePtr, 1) :
-                    ((GetPdfPaperSizeNativeArgs*)this.nativePtr)->device_units_per_inch;
+                    return ((GetPdfPaperSizeNativeArgs*)this.nativePtr)->device_units_per_inch;
                 }
             }
         }
@@ -20316,16 +19968,14 @@ namespace LayoutFarm.CefBridge.Auto
         const int CefRenderHandlerExt_OnScrollOffsetChanged_12 = 12;
         const int CefRenderHandlerExt_OnImeCompositionRangeChanged_13 = 13;
         //gen! CefRefPtr<CefAccessibilityHandler> GetAccessibilityHandler()
-        //CsStructModuleCodeGen:: GenerateCsMethodArgsClass_JsSlot ,409
+        //CsStructModuleCodeGen:: GenerateCsMethodArgsClass ,409
         public struct GetAccessibilityHandlerArgs
         {
             IntPtr nativePtr; //met arg native ptr
-            bool _isJsSlot;
             internal GetAccessibilityHandlerArgs(IntPtr nativePtr)
             {
                 int arg_flags;
                 this.nativePtr = MyMetArgs.GetNativeObjPtr(nativePtr, out arg_flags);
-                this._isJsSlot = ((arg_flags >> 18) & 1) == 0;
 
             }
         }
@@ -20337,34 +19987,28 @@ namespace LayoutFarm.CefBridge.Auto
             IntPtr myext_ret_value;
         }
         //gen! bool GetRootScreenRect(CefRefPtr<CefBrowser> browser,CefRect& rect)
-        //CsStructModuleCodeGen:: GenerateCsMethodArgsClass_JsSlot ,411
+        //CsStructModuleCodeGen:: GenerateCsMethodArgsClass ,411
         public struct GetRootScreenRectArgs
         {
             IntPtr nativePtr; //met arg native ptr
-            bool _isJsSlot;
             internal GetRootScreenRectArgs(IntPtr nativePtr)
             {
                 int arg_flags;
                 this.nativePtr = MyMetArgs.GetNativeObjPtr(nativePtr, out arg_flags);
-                this._isJsSlot = ((arg_flags >> 18) & 1) == 0;
 
             }
             public CefBrowser browser()
             {
                 unsafe
                 {
-                    return _isJsSlot ?
-                    new CefBrowser(MyMetArgs.GetAsIntPtr(nativePtr, 1)) :
-                    new CefBrowser(((GetRootScreenRectNativeArgs*)this.nativePtr)->browser);
+                    return new CefBrowser(((GetRootScreenRectNativeArgs*)this.nativePtr)->browser);
                 }
             }
             public CefRect rect()
             {
                 unsafe
                 {
-                    return _isJsSlot ?
-                    new CefRect(MyMetArgs.GetAsIntPtr(nativePtr, 2)) :
-                    new CefRect(((GetRootScreenRectNativeArgs*)this.nativePtr)->rect);
+                    return new CefRect(((GetRootScreenRectNativeArgs*)this.nativePtr)->rect);
                 }
             }
         }
@@ -20378,34 +20022,28 @@ namespace LayoutFarm.CefBridge.Auto
             public IntPtr rect;
         }
         //gen! bool GetViewRect(CefRefPtr<CefBrowser> browser,CefRect& rect)
-        //CsStructModuleCodeGen:: GenerateCsMethodArgsClass_JsSlot ,413
+        //CsStructModuleCodeGen:: GenerateCsMethodArgsClass ,413
         public struct GetViewRectArgs
         {
             IntPtr nativePtr; //met arg native ptr
-            bool _isJsSlot;
             internal GetViewRectArgs(IntPtr nativePtr)
             {
                 int arg_flags;
                 this.nativePtr = MyMetArgs.GetNativeObjPtr(nativePtr, out arg_flags);
-                this._isJsSlot = ((arg_flags >> 18) & 1) == 0;
 
             }
             public CefBrowser browser()
             {
                 unsafe
                 {
-                    return _isJsSlot ?
-                    new CefBrowser(MyMetArgs.GetAsIntPtr(nativePtr, 1)) :
-                    new CefBrowser(((GetViewRectNativeArgs*)this.nativePtr)->browser);
+                    return new CefBrowser(((GetViewRectNativeArgs*)this.nativePtr)->browser);
                 }
             }
             public CefRect rect()
             {
                 unsafe
                 {
-                    return _isJsSlot ?
-                    new CefRect(MyMetArgs.GetAsIntPtr(nativePtr, 2)) :
-                    new CefRect(((GetViewRectNativeArgs*)this.nativePtr)->rect);
+                    return new CefRect(((GetViewRectNativeArgs*)this.nativePtr)->rect);
                 }
             }
         }
@@ -20419,43 +20057,35 @@ namespace LayoutFarm.CefBridge.Auto
             public IntPtr rect;
         }
         //gen! bool GetScreenPoint(CefRefPtr<CefBrowser> browser,int viewX,int viewY,int& screenX,int& screenY)
-        //CsStructModuleCodeGen:: GenerateCsMethodArgsClass_JsSlot ,415
+        //CsStructModuleCodeGen:: GenerateCsMethodArgsClass ,415
         public struct GetScreenPointArgs
         {
             IntPtr nativePtr; //met arg native ptr
-            bool _isJsSlot;
             internal GetScreenPointArgs(IntPtr nativePtr)
             {
                 int arg_flags;
                 this.nativePtr = MyMetArgs.GetNativeObjPtr(nativePtr, out arg_flags);
-                this._isJsSlot = ((arg_flags >> 18) & 1) == 0;
 
             }
             public CefBrowser browser()
             {
                 unsafe
                 {
-                    return _isJsSlot ?
-                    new CefBrowser(MyMetArgs.GetAsIntPtr(nativePtr, 1)) :
-                    new CefBrowser(((GetScreenPointNativeArgs*)this.nativePtr)->browser);
+                    return new CefBrowser(((GetScreenPointNativeArgs*)this.nativePtr)->browser);
                 }
             }
             public int viewX()
             {
                 unsafe
                 {
-                    return _isJsSlot ?
-                    MyMetArgs.GetAsInt32(nativePtr, 2) :
-                    ((GetScreenPointNativeArgs*)this.nativePtr)->viewX;
+                    return ((GetScreenPointNativeArgs*)this.nativePtr)->viewX;
                 }
             }
             public int viewY()
             {
                 unsafe
                 {
-                    return _isJsSlot ?
-                    MyMetArgs.GetAsInt32(nativePtr, 3) :
-                    ((GetScreenPointNativeArgs*)this.nativePtr)->viewY;
+                    return ((GetScreenPointNativeArgs*)this.nativePtr)->viewY;
                 }
             }
             public int screenX()
@@ -20488,34 +20118,28 @@ namespace LayoutFarm.CefBridge.Auto
             public int screenY;
         }
         //gen! bool GetScreenInfo(CefRefPtr<CefBrowser> browser,CefScreenInfo& screen_info)
-        //CsStructModuleCodeGen:: GenerateCsMethodArgsClass_JsSlot ,417
+        //CsStructModuleCodeGen:: GenerateCsMethodArgsClass ,417
         public struct GetScreenInfoArgs
         {
             IntPtr nativePtr; //met arg native ptr
-            bool _isJsSlot;
             internal GetScreenInfoArgs(IntPtr nativePtr)
             {
                 int arg_flags;
                 this.nativePtr = MyMetArgs.GetNativeObjPtr(nativePtr, out arg_flags);
-                this._isJsSlot = ((arg_flags >> 18) & 1) == 0;
 
             }
             public CefBrowser browser()
             {
                 unsafe
                 {
-                    return _isJsSlot ?
-                    new CefBrowser(MyMetArgs.GetAsIntPtr(nativePtr, 1)) :
-                    new CefBrowser(((GetScreenInfoNativeArgs*)this.nativePtr)->browser);
+                    return new CefBrowser(((GetScreenInfoNativeArgs*)this.nativePtr)->browser);
                 }
             }
             public CefScreenInfo screen_info()
             {
                 unsafe
                 {
-                    return _isJsSlot ?
-                    new CefScreenInfo(MyMetArgs.GetAsIntPtr(nativePtr, 2)) :
-                    new CefScreenInfo(((GetScreenInfoNativeArgs*)this.nativePtr)->screen_info);
+                    return new CefScreenInfo(((GetScreenInfoNativeArgs*)this.nativePtr)->screen_info);
                 }
             }
         }
@@ -20529,34 +20153,28 @@ namespace LayoutFarm.CefBridge.Auto
             public IntPtr screen_info;
         }
         //gen! void OnPopupShow(CefRefPtr<CefBrowser> browser,bool show)
-        //CsStructModuleCodeGen:: GenerateCsMethodArgsClass_JsSlot ,419
+        //CsStructModuleCodeGen:: GenerateCsMethodArgsClass ,419
         public struct OnPopupShowArgs
         {
             IntPtr nativePtr; //met arg native ptr
-            bool _isJsSlot;
             internal OnPopupShowArgs(IntPtr nativePtr)
             {
                 int arg_flags;
                 this.nativePtr = MyMetArgs.GetNativeObjPtr(nativePtr, out arg_flags);
-                this._isJsSlot = ((arg_flags >> 18) & 1) == 0;
 
             }
             public CefBrowser browser()
             {
                 unsafe
                 {
-                    return _isJsSlot ?
-                    new CefBrowser(MyMetArgs.GetAsIntPtr(nativePtr, 1)) :
-                    new CefBrowser(((OnPopupShowNativeArgs*)this.nativePtr)->browser);
+                    return new CefBrowser(((OnPopupShowNativeArgs*)this.nativePtr)->browser);
                 }
             }
             public bool show()
             {
                 unsafe
                 {
-                    return _isJsSlot ?
-                    MyMetArgs.GetAsBool(nativePtr, 2) :
-                    ((OnPopupShowNativeArgs*)this.nativePtr)->show;
+                    return ((OnPopupShowNativeArgs*)this.nativePtr)->show;
                 }
             }
         }
@@ -20569,34 +20187,28 @@ namespace LayoutFarm.CefBridge.Auto
             public bool show;
         }
         //gen! void OnPopupSize(CefRefPtr<CefBrowser> browser,const CefRect& rect)
-        //CsStructModuleCodeGen:: GenerateCsMethodArgsClass_JsSlot ,421
+        //CsStructModuleCodeGen:: GenerateCsMethodArgsClass ,421
         public struct OnPopupSizeArgs
         {
             IntPtr nativePtr; //met arg native ptr
-            bool _isJsSlot;
             internal OnPopupSizeArgs(IntPtr nativePtr)
             {
                 int arg_flags;
                 this.nativePtr = MyMetArgs.GetNativeObjPtr(nativePtr, out arg_flags);
-                this._isJsSlot = ((arg_flags >> 18) & 1) == 0;
 
             }
             public CefBrowser browser()
             {
                 unsafe
                 {
-                    return _isJsSlot ?
-                    new CefBrowser(MyMetArgs.GetAsIntPtr(nativePtr, 1)) :
-                    new CefBrowser(((OnPopupSizeNativeArgs*)this.nativePtr)->browser);
+                    return new CefBrowser(((OnPopupSizeNativeArgs*)this.nativePtr)->browser);
                 }
             }
             public CefRect rect()
             {
                 unsafe
                 {
-                    return _isJsSlot ?
-                    new CefRect(MyMetArgs.GetAsIntPtr(nativePtr, 2)) :
-                    new CefRect(((OnPopupSizeNativeArgs*)this.nativePtr)->rect);
+                    return new CefRect(((OnPopupSizeNativeArgs*)this.nativePtr)->rect);
                 }
             }
         }
@@ -20609,34 +20221,28 @@ namespace LayoutFarm.CefBridge.Auto
             public IntPtr rect;
         }
         //gen! void OnPaint(CefRefPtr<CefBrowser> browser,PaintElementType type,const RectList& dirtyRects,const void* buffer,int width,int height)
-        //CsStructModuleCodeGen:: GenerateCsMethodArgsClass_JsSlot ,423
+        //CsStructModuleCodeGen:: GenerateCsMethodArgsClass ,423
         public struct OnPaintArgs
         {
             IntPtr nativePtr; //met arg native ptr
-            bool _isJsSlot;
             internal OnPaintArgs(IntPtr nativePtr)
             {
                 int arg_flags;
                 this.nativePtr = MyMetArgs.GetNativeObjPtr(nativePtr, out arg_flags);
-                this._isJsSlot = ((arg_flags >> 18) & 1) == 0;
 
             }
             public CefBrowser browser()
             {
                 unsafe
                 {
-                    return _isJsSlot ?
-                    new CefBrowser(MyMetArgs.GetAsIntPtr(nativePtr, 1)) :
-                    new CefBrowser(((OnPaintNativeArgs*)this.nativePtr)->browser);
+                    return new CefBrowser(((OnPaintNativeArgs*)this.nativePtr)->browser);
                 }
             }
             public cef_paint_element_type_t type()
             {
                 unsafe
                 {
-                    return _isJsSlot ?
-                    (cef_paint_element_type_t)MyMetArgs.GetAsInt32(nativePtr, 2) :
-                    (cef_paint_element_type_t)(((OnPaintNativeArgs*)this.nativePtr)->type);
+                    return (cef_paint_element_type_t)(((OnPaintNativeArgs*)this.nativePtr)->type);
                 }
             }
             public List<object> dirtyRects()
@@ -20651,18 +20257,14 @@ namespace LayoutFarm.CefBridge.Auto
             {
                 unsafe
                 {
-                    return _isJsSlot ?
-                    MyMetArgs.GetAsInt32(nativePtr, 5) :
-                    ((OnPaintNativeArgs*)this.nativePtr)->width;
+                    return ((OnPaintNativeArgs*)this.nativePtr)->width;
                 }
             }
             public int height()
             {
                 unsafe
                 {
-                    return _isJsSlot ?
-                    MyMetArgs.GetAsInt32(nativePtr, 6) :
-                    ((OnPaintNativeArgs*)this.nativePtr)->height;
+                    return ((OnPaintNativeArgs*)this.nativePtr)->height;
                 }
             }
         }
@@ -20679,25 +20281,21 @@ namespace LayoutFarm.CefBridge.Auto
             public int height;
         }
         //gen! void OnCursorChange(CefRefPtr<CefBrowser> browser,CefCursorHandle cursor,CursorType type,const CefCursorInfo& custom_cursor_info)
-        //CsStructModuleCodeGen:: GenerateCsMethodArgsClass_JsSlot ,425
+        //CsStructModuleCodeGen:: GenerateCsMethodArgsClass ,425
         public struct OnCursorChangeArgs
         {
             IntPtr nativePtr; //met arg native ptr
-            bool _isJsSlot;
             internal OnCursorChangeArgs(IntPtr nativePtr)
             {
                 int arg_flags;
                 this.nativePtr = MyMetArgs.GetNativeObjPtr(nativePtr, out arg_flags);
-                this._isJsSlot = ((arg_flags >> 18) & 1) == 0;
 
             }
             public CefBrowser browser()
             {
                 unsafe
                 {
-                    return _isJsSlot ?
-                    new CefBrowser(MyMetArgs.GetAsIntPtr(nativePtr, 1)) :
-                    new CefBrowser(((OnCursorChangeNativeArgs*)this.nativePtr)->browser);
+                    return new CefBrowser(((OnCursorChangeNativeArgs*)this.nativePtr)->browser);
                 }
             }
             public IntPtr cursor()
@@ -20708,18 +20306,14 @@ namespace LayoutFarm.CefBridge.Auto
             {
                 unsafe
                 {
-                    return _isJsSlot ?
-                    (cef_cursor_type_t)MyMetArgs.GetAsInt32(nativePtr, 3) :
-                    (cef_cursor_type_t)(((OnCursorChangeNativeArgs*)this.nativePtr)->type);
+                    return (cef_cursor_type_t)(((OnCursorChangeNativeArgs*)this.nativePtr)->type);
                 }
             }
             public CefCursorInfo custom_cursor_info()
             {
                 unsafe
                 {
-                    return _isJsSlot ?
-                    new CefCursorInfo(MyMetArgs.GetAsIntPtr(nativePtr, 4)) :
-                    new CefCursorInfo(((OnCursorChangeNativeArgs*)this.nativePtr)->custom_cursor_info);
+                    return new CefCursorInfo(((OnCursorChangeNativeArgs*)this.nativePtr)->custom_cursor_info);
                 }
             }
         }
@@ -20734,61 +20328,49 @@ namespace LayoutFarm.CefBridge.Auto
             public IntPtr custom_cursor_info;
         }
         //gen! bool StartDragging(CefRefPtr<CefBrowser> browser,CefRefPtr<CefDragData> drag_data,DragOperationsMask allowed_ops,int x,int y)
-        //CsStructModuleCodeGen:: GenerateCsMethodArgsClass_JsSlot ,427
+        //CsStructModuleCodeGen:: GenerateCsMethodArgsClass ,427
         public struct StartDraggingArgs
         {
             IntPtr nativePtr; //met arg native ptr
-            bool _isJsSlot;
             internal StartDraggingArgs(IntPtr nativePtr)
             {
                 int arg_flags;
                 this.nativePtr = MyMetArgs.GetNativeObjPtr(nativePtr, out arg_flags);
-                this._isJsSlot = ((arg_flags >> 18) & 1) == 0;
 
             }
             public CefBrowser browser()
             {
                 unsafe
                 {
-                    return _isJsSlot ?
-                    new CefBrowser(MyMetArgs.GetAsIntPtr(nativePtr, 1)) :
-                    new CefBrowser(((StartDraggingNativeArgs*)this.nativePtr)->browser);
+                    return new CefBrowser(((StartDraggingNativeArgs*)this.nativePtr)->browser);
                 }
             }
             public CefDragData drag_data()
             {
                 unsafe
                 {
-                    return _isJsSlot ?
-                    new CefDragData(MyMetArgs.GetAsIntPtr(nativePtr, 2)) :
-                    new CefDragData(((StartDraggingNativeArgs*)this.nativePtr)->drag_data);
+                    return new CefDragData(((StartDraggingNativeArgs*)this.nativePtr)->drag_data);
                 }
             }
             public cef_drag_operations_mask_t allowed_ops()
             {
                 unsafe
                 {
-                    return _isJsSlot ?
-                    (cef_drag_operations_mask_t)MyMetArgs.GetAsInt32(nativePtr, 3) :
-                    (cef_drag_operations_mask_t)(((StartDraggingNativeArgs*)this.nativePtr)->allowed_ops);
+                    return (cef_drag_operations_mask_t)(((StartDraggingNativeArgs*)this.nativePtr)->allowed_ops);
                 }
             }
             public int x()
             {
                 unsafe
                 {
-                    return _isJsSlot ?
-                    MyMetArgs.GetAsInt32(nativePtr, 4) :
-                    ((StartDraggingNativeArgs*)this.nativePtr)->x;
+                    return ((StartDraggingNativeArgs*)this.nativePtr)->x;
                 }
             }
             public int y()
             {
                 unsafe
                 {
-                    return _isJsSlot ?
-                    MyMetArgs.GetAsInt32(nativePtr, 5) :
-                    ((StartDraggingNativeArgs*)this.nativePtr)->y;
+                    return ((StartDraggingNativeArgs*)this.nativePtr)->y;
                 }
             }
         }
@@ -20805,34 +20387,28 @@ namespace LayoutFarm.CefBridge.Auto
             public int y;
         }
         //gen! void UpdateDragCursor(CefRefPtr<CefBrowser> browser,DragOperation operation)
-        //CsStructModuleCodeGen:: GenerateCsMethodArgsClass_JsSlot ,429
+        //CsStructModuleCodeGen:: GenerateCsMethodArgsClass ,429
         public struct UpdateDragCursorArgs
         {
             IntPtr nativePtr; //met arg native ptr
-            bool _isJsSlot;
             internal UpdateDragCursorArgs(IntPtr nativePtr)
             {
                 int arg_flags;
                 this.nativePtr = MyMetArgs.GetNativeObjPtr(nativePtr, out arg_flags);
-                this._isJsSlot = ((arg_flags >> 18) & 1) == 0;
 
             }
             public CefBrowser browser()
             {
                 unsafe
                 {
-                    return _isJsSlot ?
-                    new CefBrowser(MyMetArgs.GetAsIntPtr(nativePtr, 1)) :
-                    new CefBrowser(((UpdateDragCursorNativeArgs*)this.nativePtr)->browser);
+                    return new CefBrowser(((UpdateDragCursorNativeArgs*)this.nativePtr)->browser);
                 }
             }
             public cef_drag_operations_mask_t operation()
             {
                 unsafe
                 {
-                    return _isJsSlot ?
-                    (cef_drag_operations_mask_t)MyMetArgs.GetAsInt32(nativePtr, 2) :
-                    (cef_drag_operations_mask_t)(((UpdateDragCursorNativeArgs*)this.nativePtr)->operation);
+                    return (cef_drag_operations_mask_t)(((UpdateDragCursorNativeArgs*)this.nativePtr)->operation);
                 }
             }
         }
@@ -20845,43 +20421,35 @@ namespace LayoutFarm.CefBridge.Auto
             public cef_drag_operations_mask_t operation;
         }
         //gen! void OnScrollOffsetChanged(CefRefPtr<CefBrowser> browser,double x,double y)
-        //CsStructModuleCodeGen:: GenerateCsMethodArgsClass_JsSlot ,431
+        //CsStructModuleCodeGen:: GenerateCsMethodArgsClass ,431
         public struct OnScrollOffsetChangedArgs
         {
             IntPtr nativePtr; //met arg native ptr
-            bool _isJsSlot;
             internal OnScrollOffsetChangedArgs(IntPtr nativePtr)
             {
                 int arg_flags;
                 this.nativePtr = MyMetArgs.GetNativeObjPtr(nativePtr, out arg_flags);
-                this._isJsSlot = ((arg_flags >> 18) & 1) == 0;
 
             }
             public CefBrowser browser()
             {
                 unsafe
                 {
-                    return _isJsSlot ?
-                    new CefBrowser(MyMetArgs.GetAsIntPtr(nativePtr, 1)) :
-                    new CefBrowser(((OnScrollOffsetChangedNativeArgs*)this.nativePtr)->browser);
+                    return new CefBrowser(((OnScrollOffsetChangedNativeArgs*)this.nativePtr)->browser);
                 }
             }
             public double x()
             {
                 unsafe
                 {
-                    return _isJsSlot ?
-                    MyMetArgs.GetAsDouble(nativePtr, 2) :
-                    ((OnScrollOffsetChangedNativeArgs*)this.nativePtr)->x;
+                    return ((OnScrollOffsetChangedNativeArgs*)this.nativePtr)->x;
                 }
             }
             public double y()
             {
                 unsafe
                 {
-                    return _isJsSlot ?
-                    MyMetArgs.GetAsDouble(nativePtr, 3) :
-                    ((OnScrollOffsetChangedNativeArgs*)this.nativePtr)->y;
+                    return ((OnScrollOffsetChangedNativeArgs*)this.nativePtr)->y;
                 }
             }
         }
@@ -20895,34 +20463,28 @@ namespace LayoutFarm.CefBridge.Auto
             public double y;
         }
         //gen! void OnImeCompositionRangeChanged(CefRefPtr<CefBrowser> browser,const CefRange& selected_range,const RectList& character_bounds)
-        //CsStructModuleCodeGen:: GenerateCsMethodArgsClass_JsSlot ,433
+        //CsStructModuleCodeGen:: GenerateCsMethodArgsClass ,433
         public struct OnImeCompositionRangeChangedArgs
         {
             IntPtr nativePtr; //met arg native ptr
-            bool _isJsSlot;
             internal OnImeCompositionRangeChangedArgs(IntPtr nativePtr)
             {
                 int arg_flags;
                 this.nativePtr = MyMetArgs.GetNativeObjPtr(nativePtr, out arg_flags);
-                this._isJsSlot = ((arg_flags >> 18) & 1) == 0;
 
             }
             public CefBrowser browser()
             {
                 unsafe
                 {
-                    return _isJsSlot ?
-                    new CefBrowser(MyMetArgs.GetAsIntPtr(nativePtr, 1)) :
-                    new CefBrowser(((OnImeCompositionRangeChangedNativeArgs*)this.nativePtr)->browser);
+                    return new CefBrowser(((OnImeCompositionRangeChangedNativeArgs*)this.nativePtr)->browser);
                 }
             }
             public CefRange selected_range()
             {
                 unsafe
                 {
-                    return _isJsSlot ?
-                    new CefRange(MyMetArgs.GetAsIntPtr(nativePtr, 2)) :
-                    new CefRange(((OnImeCompositionRangeChangedNativeArgs*)this.nativePtr)->selected_range);
+                    return new CefRange(((OnImeCompositionRangeChangedNativeArgs*)this.nativePtr)->selected_range);
                 }
             }
             public List<object> character_bounds()
@@ -21380,25 +20942,21 @@ namespace LayoutFarm.CefBridge.Auto
         const int CefRenderProcessHandlerExt_OnFocusedNodeChanged_10 = 10;
         const int CefRenderProcessHandlerExt_OnProcessMessageReceived_11 = 11;
         //gen! void OnRenderThreadCreated(CefRefPtr<CefListValue> extra_info)
-        //CsStructModuleCodeGen:: GenerateCsMethodArgsClass_JsSlot ,514
+        //CsStructModuleCodeGen:: GenerateCsMethodArgsClass ,514
         public struct OnRenderThreadCreatedArgs
         {
             IntPtr nativePtr; //met arg native ptr
-            bool _isJsSlot;
             internal OnRenderThreadCreatedArgs(IntPtr nativePtr)
             {
                 int arg_flags;
                 this.nativePtr = MyMetArgs.GetNativeObjPtr(nativePtr, out arg_flags);
-                this._isJsSlot = ((arg_flags >> 18) & 1) == 0;
 
             }
             public CefListValue extra_info()
             {
                 unsafe
                 {
-                    return _isJsSlot ?
-                    new CefListValue(MyMetArgs.GetAsIntPtr(nativePtr, 1)) :
-                    new CefListValue(((OnRenderThreadCreatedNativeArgs*)this.nativePtr)->extra_info);
+                    return new CefListValue(((OnRenderThreadCreatedNativeArgs*)this.nativePtr)->extra_info);
                 }
             }
         }
@@ -21410,16 +20968,14 @@ namespace LayoutFarm.CefBridge.Auto
             public IntPtr extra_info;
         }
         //gen! void OnWebKitInitialized()
-        //CsStructModuleCodeGen:: GenerateCsMethodArgsClass_JsSlot ,516
+        //CsStructModuleCodeGen:: GenerateCsMethodArgsClass ,516
         public struct OnWebKitInitializedArgs
         {
             IntPtr nativePtr; //met arg native ptr
-            bool _isJsSlot;
             internal OnWebKitInitializedArgs(IntPtr nativePtr)
             {
                 int arg_flags;
                 this.nativePtr = MyMetArgs.GetNativeObjPtr(nativePtr, out arg_flags);
-                this._isJsSlot = ((arg_flags >> 18) & 1) == 0;
 
             }
         }
@@ -21430,25 +20986,21 @@ namespace LayoutFarm.CefBridge.Auto
             public int argFlags;
         }
         //gen! void OnBrowserCreated(CefRefPtr<CefBrowser> browser)
-        //CsStructModuleCodeGen:: GenerateCsMethodArgsClass_JsSlot ,518
+        //CsStructModuleCodeGen:: GenerateCsMethodArgsClass ,518
         public struct OnBrowserCreatedArgs
         {
             IntPtr nativePtr; //met arg native ptr
-            bool _isJsSlot;
             internal OnBrowserCreatedArgs(IntPtr nativePtr)
             {
                 int arg_flags;
                 this.nativePtr = MyMetArgs.GetNativeObjPtr(nativePtr, out arg_flags);
-                this._isJsSlot = ((arg_flags >> 18) & 1) == 0;
 
             }
             public CefBrowser browser()
             {
                 unsafe
                 {
-                    return _isJsSlot ?
-                    new CefBrowser(MyMetArgs.GetAsIntPtr(nativePtr, 1)) :
-                    new CefBrowser(((OnBrowserCreatedNativeArgs*)this.nativePtr)->browser);
+                    return new CefBrowser(((OnBrowserCreatedNativeArgs*)this.nativePtr)->browser);
                 }
             }
         }
@@ -21460,25 +21012,21 @@ namespace LayoutFarm.CefBridge.Auto
             public IntPtr browser;
         }
         //gen! void OnBrowserDestroyed(CefRefPtr<CefBrowser> browser)
-        //CsStructModuleCodeGen:: GenerateCsMethodArgsClass_JsSlot ,520
+        //CsStructModuleCodeGen:: GenerateCsMethodArgsClass ,520
         public struct OnBrowserDestroyedArgs
         {
             IntPtr nativePtr; //met arg native ptr
-            bool _isJsSlot;
             internal OnBrowserDestroyedArgs(IntPtr nativePtr)
             {
                 int arg_flags;
                 this.nativePtr = MyMetArgs.GetNativeObjPtr(nativePtr, out arg_flags);
-                this._isJsSlot = ((arg_flags >> 18) & 1) == 0;
 
             }
             public CefBrowser browser()
             {
                 unsafe
                 {
-                    return _isJsSlot ?
-                    new CefBrowser(MyMetArgs.GetAsIntPtr(nativePtr, 1)) :
-                    new CefBrowser(((OnBrowserDestroyedNativeArgs*)this.nativePtr)->browser);
+                    return new CefBrowser(((OnBrowserDestroyedNativeArgs*)this.nativePtr)->browser);
                 }
             }
         }
@@ -21490,16 +21038,14 @@ namespace LayoutFarm.CefBridge.Auto
             public IntPtr browser;
         }
         //gen! CefRefPtr<CefLoadHandler> GetLoadHandler()
-        //CsStructModuleCodeGen:: GenerateCsMethodArgsClass_JsSlot ,522
+        //CsStructModuleCodeGen:: GenerateCsMethodArgsClass ,522
         public struct GetLoadHandlerArgs
         {
             IntPtr nativePtr; //met arg native ptr
-            bool _isJsSlot;
             internal GetLoadHandlerArgs(IntPtr nativePtr)
             {
                 int arg_flags;
                 this.nativePtr = MyMetArgs.GetNativeObjPtr(nativePtr, out arg_flags);
-                this._isJsSlot = ((arg_flags >> 18) & 1) == 0;
 
             }
         }
@@ -21511,61 +21057,49 @@ namespace LayoutFarm.CefBridge.Auto
             IntPtr myext_ret_value;
         }
         //gen! bool OnBeforeNavigation(CefRefPtr<CefBrowser> browser,CefRefPtr<CefFrame> frame,CefRefPtr<CefRequest> request,NavigationType navigation_type,bool is_redirect)
-        //CsStructModuleCodeGen:: GenerateCsMethodArgsClass_JsSlot ,524
+        //CsStructModuleCodeGen:: GenerateCsMethodArgsClass ,524
         public struct OnBeforeNavigationArgs
         {
             IntPtr nativePtr; //met arg native ptr
-            bool _isJsSlot;
             internal OnBeforeNavigationArgs(IntPtr nativePtr)
             {
                 int arg_flags;
                 this.nativePtr = MyMetArgs.GetNativeObjPtr(nativePtr, out arg_flags);
-                this._isJsSlot = ((arg_flags >> 18) & 1) == 0;
 
             }
             public CefBrowser browser()
             {
                 unsafe
                 {
-                    return _isJsSlot ?
-                    new CefBrowser(MyMetArgs.GetAsIntPtr(nativePtr, 1)) :
-                    new CefBrowser(((OnBeforeNavigationNativeArgs*)this.nativePtr)->browser);
+                    return new CefBrowser(((OnBeforeNavigationNativeArgs*)this.nativePtr)->browser);
                 }
             }
             public CefFrame frame()
             {
                 unsafe
                 {
-                    return _isJsSlot ?
-                    new CefFrame(MyMetArgs.GetAsIntPtr(nativePtr, 2)) :
-                    new CefFrame(((OnBeforeNavigationNativeArgs*)this.nativePtr)->frame);
+                    return new CefFrame(((OnBeforeNavigationNativeArgs*)this.nativePtr)->frame);
                 }
             }
             public CefRequest request()
             {
                 unsafe
                 {
-                    return _isJsSlot ?
-                    new CefRequest(MyMetArgs.GetAsIntPtr(nativePtr, 3)) :
-                    new CefRequest(((OnBeforeNavigationNativeArgs*)this.nativePtr)->request);
+                    return new CefRequest(((OnBeforeNavigationNativeArgs*)this.nativePtr)->request);
                 }
             }
             public cef_navigation_type_t navigation_type()
             {
                 unsafe
                 {
-                    return _isJsSlot ?
-                    (cef_navigation_type_t)MyMetArgs.GetAsInt32(nativePtr, 4) :
-                    (cef_navigation_type_t)(((OnBeforeNavigationNativeArgs*)this.nativePtr)->navigation_type);
+                    return (cef_navigation_type_t)(((OnBeforeNavigationNativeArgs*)this.nativePtr)->navigation_type);
                 }
             }
             public bool is_redirect()
             {
                 unsafe
                 {
-                    return _isJsSlot ?
-                    MyMetArgs.GetAsBool(nativePtr, 5) :
-                    ((OnBeforeNavigationNativeArgs*)this.nativePtr)->is_redirect;
+                    return ((OnBeforeNavigationNativeArgs*)this.nativePtr)->is_redirect;
                 }
             }
         }
@@ -21582,43 +21116,35 @@ namespace LayoutFarm.CefBridge.Auto
             public bool is_redirect;
         }
         //gen! void OnContextCreated(CefRefPtr<CefBrowser> browser,CefRefPtr<CefFrame> frame,CefRefPtr<CefV8Context> context)
-        //CsStructModuleCodeGen:: GenerateCsMethodArgsClass_JsSlot ,526
+        //CsStructModuleCodeGen:: GenerateCsMethodArgsClass ,526
         public struct OnContextCreatedArgs
         {
             IntPtr nativePtr; //met arg native ptr
-            bool _isJsSlot;
             internal OnContextCreatedArgs(IntPtr nativePtr)
             {
                 int arg_flags;
                 this.nativePtr = MyMetArgs.GetNativeObjPtr(nativePtr, out arg_flags);
-                this._isJsSlot = ((arg_flags >> 18) & 1) == 0;
 
             }
             public CefBrowser browser()
             {
                 unsafe
                 {
-                    return _isJsSlot ?
-                    new CefBrowser(MyMetArgs.GetAsIntPtr(nativePtr, 1)) :
-                    new CefBrowser(((OnContextCreatedNativeArgs*)this.nativePtr)->browser);
+                    return new CefBrowser(((OnContextCreatedNativeArgs*)this.nativePtr)->browser);
                 }
             }
             public CefFrame frame()
             {
                 unsafe
                 {
-                    return _isJsSlot ?
-                    new CefFrame(MyMetArgs.GetAsIntPtr(nativePtr, 2)) :
-                    new CefFrame(((OnContextCreatedNativeArgs*)this.nativePtr)->frame);
+                    return new CefFrame(((OnContextCreatedNativeArgs*)this.nativePtr)->frame);
                 }
             }
             public CefV8Context context()
             {
                 unsafe
                 {
-                    return _isJsSlot ?
-                    new CefV8Context(MyMetArgs.GetAsIntPtr(nativePtr, 3)) :
-                    new CefV8Context(((OnContextCreatedNativeArgs*)this.nativePtr)->context);
+                    return new CefV8Context(((OnContextCreatedNativeArgs*)this.nativePtr)->context);
                 }
             }
         }
@@ -21632,43 +21158,35 @@ namespace LayoutFarm.CefBridge.Auto
             public IntPtr context;
         }
         //gen! void OnContextReleased(CefRefPtr<CefBrowser> browser,CefRefPtr<CefFrame> frame,CefRefPtr<CefV8Context> context)
-        //CsStructModuleCodeGen:: GenerateCsMethodArgsClass_JsSlot ,528
+        //CsStructModuleCodeGen:: GenerateCsMethodArgsClass ,528
         public struct OnContextReleasedArgs
         {
             IntPtr nativePtr; //met arg native ptr
-            bool _isJsSlot;
             internal OnContextReleasedArgs(IntPtr nativePtr)
             {
                 int arg_flags;
                 this.nativePtr = MyMetArgs.GetNativeObjPtr(nativePtr, out arg_flags);
-                this._isJsSlot = ((arg_flags >> 18) & 1) == 0;
 
             }
             public CefBrowser browser()
             {
                 unsafe
                 {
-                    return _isJsSlot ?
-                    new CefBrowser(MyMetArgs.GetAsIntPtr(nativePtr, 1)) :
-                    new CefBrowser(((OnContextReleasedNativeArgs*)this.nativePtr)->browser);
+                    return new CefBrowser(((OnContextReleasedNativeArgs*)this.nativePtr)->browser);
                 }
             }
             public CefFrame frame()
             {
                 unsafe
                 {
-                    return _isJsSlot ?
-                    new CefFrame(MyMetArgs.GetAsIntPtr(nativePtr, 2)) :
-                    new CefFrame(((OnContextReleasedNativeArgs*)this.nativePtr)->frame);
+                    return new CefFrame(((OnContextReleasedNativeArgs*)this.nativePtr)->frame);
                 }
             }
             public CefV8Context context()
             {
                 unsafe
                 {
-                    return _isJsSlot ?
-                    new CefV8Context(MyMetArgs.GetAsIntPtr(nativePtr, 3)) :
-                    new CefV8Context(((OnContextReleasedNativeArgs*)this.nativePtr)->context);
+                    return new CefV8Context(((OnContextReleasedNativeArgs*)this.nativePtr)->context);
                 }
             }
         }
@@ -21682,61 +21200,49 @@ namespace LayoutFarm.CefBridge.Auto
             public IntPtr context;
         }
         //gen! void OnUncaughtException(CefRefPtr<CefBrowser> browser,CefRefPtr<CefFrame> frame,CefRefPtr<CefV8Context> context,CefRefPtr<CefV8Exception> exception,CefRefPtr<CefV8StackTrace> stackTrace)
-        //CsStructModuleCodeGen:: GenerateCsMethodArgsClass_JsSlot ,530
+        //CsStructModuleCodeGen:: GenerateCsMethodArgsClass ,530
         public struct OnUncaughtExceptionArgs
         {
             IntPtr nativePtr; //met arg native ptr
-            bool _isJsSlot;
             internal OnUncaughtExceptionArgs(IntPtr nativePtr)
             {
                 int arg_flags;
                 this.nativePtr = MyMetArgs.GetNativeObjPtr(nativePtr, out arg_flags);
-                this._isJsSlot = ((arg_flags >> 18) & 1) == 0;
 
             }
             public CefBrowser browser()
             {
                 unsafe
                 {
-                    return _isJsSlot ?
-                    new CefBrowser(MyMetArgs.GetAsIntPtr(nativePtr, 1)) :
-                    new CefBrowser(((OnUncaughtExceptionNativeArgs*)this.nativePtr)->browser);
+                    return new CefBrowser(((OnUncaughtExceptionNativeArgs*)this.nativePtr)->browser);
                 }
             }
             public CefFrame frame()
             {
                 unsafe
                 {
-                    return _isJsSlot ?
-                    new CefFrame(MyMetArgs.GetAsIntPtr(nativePtr, 2)) :
-                    new CefFrame(((OnUncaughtExceptionNativeArgs*)this.nativePtr)->frame);
+                    return new CefFrame(((OnUncaughtExceptionNativeArgs*)this.nativePtr)->frame);
                 }
             }
             public CefV8Context context()
             {
                 unsafe
                 {
-                    return _isJsSlot ?
-                    new CefV8Context(MyMetArgs.GetAsIntPtr(nativePtr, 3)) :
-                    new CefV8Context(((OnUncaughtExceptionNativeArgs*)this.nativePtr)->context);
+                    return new CefV8Context(((OnUncaughtExceptionNativeArgs*)this.nativePtr)->context);
                 }
             }
             public CefV8Exception exception()
             {
                 unsafe
                 {
-                    return _isJsSlot ?
-                    new CefV8Exception(MyMetArgs.GetAsIntPtr(nativePtr, 4)) :
-                    new CefV8Exception(((OnUncaughtExceptionNativeArgs*)this.nativePtr)->exception);
+                    return new CefV8Exception(((OnUncaughtExceptionNativeArgs*)this.nativePtr)->exception);
                 }
             }
             public CefV8StackTrace stackTrace()
             {
                 unsafe
                 {
-                    return _isJsSlot ?
-                    new CefV8StackTrace(MyMetArgs.GetAsIntPtr(nativePtr, 5)) :
-                    new CefV8StackTrace(((OnUncaughtExceptionNativeArgs*)this.nativePtr)->stackTrace);
+                    return new CefV8StackTrace(((OnUncaughtExceptionNativeArgs*)this.nativePtr)->stackTrace);
                 }
             }
         }
@@ -21752,43 +21258,35 @@ namespace LayoutFarm.CefBridge.Auto
             public IntPtr stackTrace;
         }
         //gen! void OnFocusedNodeChanged(CefRefPtr<CefBrowser> browser,CefRefPtr<CefFrame> frame,CefRefPtr<CefDOMNode> node)
-        //CsStructModuleCodeGen:: GenerateCsMethodArgsClass_JsSlot ,532
+        //CsStructModuleCodeGen:: GenerateCsMethodArgsClass ,532
         public struct OnFocusedNodeChangedArgs
         {
             IntPtr nativePtr; //met arg native ptr
-            bool _isJsSlot;
             internal OnFocusedNodeChangedArgs(IntPtr nativePtr)
             {
                 int arg_flags;
                 this.nativePtr = MyMetArgs.GetNativeObjPtr(nativePtr, out arg_flags);
-                this._isJsSlot = ((arg_flags >> 18) & 1) == 0;
 
             }
             public CefBrowser browser()
             {
                 unsafe
                 {
-                    return _isJsSlot ?
-                    new CefBrowser(MyMetArgs.GetAsIntPtr(nativePtr, 1)) :
-                    new CefBrowser(((OnFocusedNodeChangedNativeArgs*)this.nativePtr)->browser);
+                    return new CefBrowser(((OnFocusedNodeChangedNativeArgs*)this.nativePtr)->browser);
                 }
             }
             public CefFrame frame()
             {
                 unsafe
                 {
-                    return _isJsSlot ?
-                    new CefFrame(MyMetArgs.GetAsIntPtr(nativePtr, 2)) :
-                    new CefFrame(((OnFocusedNodeChangedNativeArgs*)this.nativePtr)->frame);
+                    return new CefFrame(((OnFocusedNodeChangedNativeArgs*)this.nativePtr)->frame);
                 }
             }
             public CefDOMNode node()
             {
                 unsafe
                 {
-                    return _isJsSlot ?
-                    new CefDOMNode(MyMetArgs.GetAsIntPtr(nativePtr, 3)) :
-                    new CefDOMNode(((OnFocusedNodeChangedNativeArgs*)this.nativePtr)->node);
+                    return new CefDOMNode(((OnFocusedNodeChangedNativeArgs*)this.nativePtr)->node);
                 }
             }
         }
@@ -21802,43 +21300,35 @@ namespace LayoutFarm.CefBridge.Auto
             public IntPtr node;
         }
         //gen! bool OnProcessMessageReceived(CefRefPtr<CefBrowser> browser,CefProcessId source_process,CefRefPtr<CefProcessMessage> message)
-        //CsStructModuleCodeGen:: GenerateCsMethodArgsClass_JsSlot ,534
+        //CsStructModuleCodeGen:: GenerateCsMethodArgsClass ,534
         public struct OnProcessMessageReceivedArgs
         {
             IntPtr nativePtr; //met arg native ptr
-            bool _isJsSlot;
             internal OnProcessMessageReceivedArgs(IntPtr nativePtr)
             {
                 int arg_flags;
                 this.nativePtr = MyMetArgs.GetNativeObjPtr(nativePtr, out arg_flags);
-                this._isJsSlot = ((arg_flags >> 18) & 1) == 0;
 
             }
             public CefBrowser browser()
             {
                 unsafe
                 {
-                    return _isJsSlot ?
-                    new CefBrowser(MyMetArgs.GetAsIntPtr(nativePtr, 1)) :
-                    new CefBrowser(((OnProcessMessageReceivedNativeArgs*)this.nativePtr)->browser);
+                    return new CefBrowser(((OnProcessMessageReceivedNativeArgs*)this.nativePtr)->browser);
                 }
             }
             public cef_process_id_t source_process()
             {
                 unsafe
                 {
-                    return _isJsSlot ?
-                    (cef_process_id_t)MyMetArgs.GetAsInt32(nativePtr, 2) :
-                    (cef_process_id_t)(((OnProcessMessageReceivedNativeArgs*)this.nativePtr)->source_process);
+                    return (cef_process_id_t)(((OnProcessMessageReceivedNativeArgs*)this.nativePtr)->source_process);
                 }
             }
             public CefProcessMessage message()
             {
                 unsafe
                 {
-                    return _isJsSlot ?
-                    new CefProcessMessage(MyMetArgs.GetAsIntPtr(nativePtr, 3)) :
-                    new CefProcessMessage(((OnProcessMessageReceivedNativeArgs*)this.nativePtr)->message);
+                    return new CefProcessMessage(((OnProcessMessageReceivedNativeArgs*)this.nativePtr)->message);
                 }
             }
         }
@@ -22202,16 +21692,14 @@ namespace LayoutFarm.CefBridge.Auto
         const int CefRequestContextHandlerExt_GetCookieManager_1 = 1;
         const int CefRequestContextHandlerExt_OnBeforePluginLoad_2 = 2;
         //gen! CefRefPtr<CefCookieManager> GetCookieManager()
-        //CsStructModuleCodeGen:: GenerateCsMethodArgsClass_JsSlot ,603
+        //CsStructModuleCodeGen:: GenerateCsMethodArgsClass ,603
         public struct GetCookieManagerArgs
         {
             IntPtr nativePtr; //met arg native ptr
-            bool _isJsSlot;
             internal GetCookieManagerArgs(IntPtr nativePtr)
             {
                 int arg_flags;
                 this.nativePtr = MyMetArgs.GetNativeObjPtr(nativePtr, out arg_flags);
-                this._isJsSlot = ((arg_flags >> 18) & 1) == 0;
 
             }
         }
@@ -22223,70 +21711,56 @@ namespace LayoutFarm.CefBridge.Auto
             IntPtr myext_ret_value;
         }
         //gen! bool OnBeforePluginLoad(const CefString& mime_type,const CefString& plugin_url,bool is_main_frame,const CefString& top_origin_url,CefRefPtr<CefWebPluginInfo> plugin_info,PluginPolicy* plugin_policy)
-        //CsStructModuleCodeGen:: GenerateCsMethodArgsClass_JsSlot ,605
+        //CsStructModuleCodeGen:: GenerateCsMethodArgsClass ,605
         public struct OnBeforePluginLoadArgs
         {
             IntPtr nativePtr; //met arg native ptr
-            bool _isJsSlot;
             internal OnBeforePluginLoadArgs(IntPtr nativePtr)
             {
                 int arg_flags;
                 this.nativePtr = MyMetArgs.GetNativeObjPtr(nativePtr, out arg_flags);
-                this._isJsSlot = ((arg_flags >> 18) & 1) == 0;
 
             }
             public string mime_type()
             {
                 unsafe
                 {
-                    return _isJsSlot ?
-                    MyMetArgs.GetAsString(nativePtr, 1) :
-                    MyMetArgs.GetAsString(((OnBeforePluginLoadNativeArgs*)this.nativePtr)->mime_type);
+                    return MyMetArgs.GetAsString(((OnBeforePluginLoadNativeArgs*)this.nativePtr)->mime_type);
                 }
             }
             public string plugin_url()
             {
                 unsafe
                 {
-                    return _isJsSlot ?
-                    MyMetArgs.GetAsString(nativePtr, 2) :
-                    MyMetArgs.GetAsString(((OnBeforePluginLoadNativeArgs*)this.nativePtr)->plugin_url);
+                    return MyMetArgs.GetAsString(((OnBeforePluginLoadNativeArgs*)this.nativePtr)->plugin_url);
                 }
             }
             public bool is_main_frame()
             {
                 unsafe
                 {
-                    return _isJsSlot ?
-                    MyMetArgs.GetAsBool(nativePtr, 3) :
-                    ((OnBeforePluginLoadNativeArgs*)this.nativePtr)->is_main_frame;
+                    return ((OnBeforePluginLoadNativeArgs*)this.nativePtr)->is_main_frame;
                 }
             }
             public string top_origin_url()
             {
                 unsafe
                 {
-                    return _isJsSlot ?
-                    MyMetArgs.GetAsString(nativePtr, 4) :
-                    MyMetArgs.GetAsString(((OnBeforePluginLoadNativeArgs*)this.nativePtr)->top_origin_url);
+                    return MyMetArgs.GetAsString(((OnBeforePluginLoadNativeArgs*)this.nativePtr)->top_origin_url);
                 }
             }
             public CefWebPluginInfo plugin_info()
             {
                 unsafe
                 {
-                    return _isJsSlot ?
-                    new CefWebPluginInfo(MyMetArgs.GetAsIntPtr(nativePtr, 5)) :
-                    new CefWebPluginInfo(((OnBeforePluginLoadNativeArgs*)this.nativePtr)->plugin_info);
+                    return new CefWebPluginInfo(((OnBeforePluginLoadNativeArgs*)this.nativePtr)->plugin_info);
                 }
             }
             public cef_plugin_policy_t plugin_policy()
             {
                 unsafe
                 {
-                    return _isJsSlot ?
-                    (cef_plugin_policy_t)MyMetArgs.GetAsInt32(nativePtr, 6) :
-                    (cef_plugin_policy_t)(((OnBeforePluginLoadNativeArgs*)this.nativePtr)->plugin_policy);
+                    return (cef_plugin_policy_t)(((OnBeforePluginLoadNativeArgs*)this.nativePtr)->plugin_policy);
                 }
             }
         }
@@ -22402,52 +21876,42 @@ namespace LayoutFarm.CefBridge.Auto
         const int CefRequestHandlerExt_OnRenderViewReady_15 = 15;
         const int CefRequestHandlerExt_OnRenderProcessTerminated_16 = 16;
         //gen! bool OnBeforeBrowse(CefRefPtr<CefBrowser> browser,CefRefPtr<CefFrame> frame,CefRefPtr<CefRequest> request,bool is_redirect)
-        //CsStructModuleCodeGen:: GenerateCsMethodArgsClass_JsSlot ,620
+        //CsStructModuleCodeGen:: GenerateCsMethodArgsClass ,620
         public struct OnBeforeBrowseArgs
         {
             IntPtr nativePtr; //met arg native ptr
-            bool _isJsSlot;
             internal OnBeforeBrowseArgs(IntPtr nativePtr)
             {
                 int arg_flags;
                 this.nativePtr = MyMetArgs.GetNativeObjPtr(nativePtr, out arg_flags);
-                this._isJsSlot = ((arg_flags >> 18) & 1) == 0;
 
             }
             public CefBrowser browser()
             {
                 unsafe
                 {
-                    return _isJsSlot ?
-                    new CefBrowser(MyMetArgs.GetAsIntPtr(nativePtr, 1)) :
-                    new CefBrowser(((OnBeforeBrowseNativeArgs*)this.nativePtr)->browser);
+                    return new CefBrowser(((OnBeforeBrowseNativeArgs*)this.nativePtr)->browser);
                 }
             }
             public CefFrame frame()
             {
                 unsafe
                 {
-                    return _isJsSlot ?
-                    new CefFrame(MyMetArgs.GetAsIntPtr(nativePtr, 2)) :
-                    new CefFrame(((OnBeforeBrowseNativeArgs*)this.nativePtr)->frame);
+                    return new CefFrame(((OnBeforeBrowseNativeArgs*)this.nativePtr)->frame);
                 }
             }
             public CefRequest request()
             {
                 unsafe
                 {
-                    return _isJsSlot ?
-                    new CefRequest(MyMetArgs.GetAsIntPtr(nativePtr, 3)) :
-                    new CefRequest(((OnBeforeBrowseNativeArgs*)this.nativePtr)->request);
+                    return new CefRequest(((OnBeforeBrowseNativeArgs*)this.nativePtr)->request);
                 }
             }
             public bool is_redirect()
             {
                 unsafe
                 {
-                    return _isJsSlot ?
-                    MyMetArgs.GetAsBool(nativePtr, 4) :
-                    ((OnBeforeBrowseNativeArgs*)this.nativePtr)->is_redirect;
+                    return ((OnBeforeBrowseNativeArgs*)this.nativePtr)->is_redirect;
                 }
             }
         }
@@ -22463,61 +21927,49 @@ namespace LayoutFarm.CefBridge.Auto
             public bool is_redirect;
         }
         //gen! bool OnOpenURLFromTab(CefRefPtr<CefBrowser> browser,CefRefPtr<CefFrame> frame,const CefString& target_url,WindowOpenDisposition target_disposition,bool user_gesture)
-        //CsStructModuleCodeGen:: GenerateCsMethodArgsClass_JsSlot ,622
+        //CsStructModuleCodeGen:: GenerateCsMethodArgsClass ,622
         public struct OnOpenURLFromTabArgs
         {
             IntPtr nativePtr; //met arg native ptr
-            bool _isJsSlot;
             internal OnOpenURLFromTabArgs(IntPtr nativePtr)
             {
                 int arg_flags;
                 this.nativePtr = MyMetArgs.GetNativeObjPtr(nativePtr, out arg_flags);
-                this._isJsSlot = ((arg_flags >> 18) & 1) == 0;
 
             }
             public CefBrowser browser()
             {
                 unsafe
                 {
-                    return _isJsSlot ?
-                    new CefBrowser(MyMetArgs.GetAsIntPtr(nativePtr, 1)) :
-                    new CefBrowser(((OnOpenURLFromTabNativeArgs*)this.nativePtr)->browser);
+                    return new CefBrowser(((OnOpenURLFromTabNativeArgs*)this.nativePtr)->browser);
                 }
             }
             public CefFrame frame()
             {
                 unsafe
                 {
-                    return _isJsSlot ?
-                    new CefFrame(MyMetArgs.GetAsIntPtr(nativePtr, 2)) :
-                    new CefFrame(((OnOpenURLFromTabNativeArgs*)this.nativePtr)->frame);
+                    return new CefFrame(((OnOpenURLFromTabNativeArgs*)this.nativePtr)->frame);
                 }
             }
             public string target_url()
             {
                 unsafe
                 {
-                    return _isJsSlot ?
-                    MyMetArgs.GetAsString(nativePtr, 3) :
-                    MyMetArgs.GetAsString(((OnOpenURLFromTabNativeArgs*)this.nativePtr)->target_url);
+                    return MyMetArgs.GetAsString(((OnOpenURLFromTabNativeArgs*)this.nativePtr)->target_url);
                 }
             }
             public cef_window_open_disposition_t target_disposition()
             {
                 unsafe
                 {
-                    return _isJsSlot ?
-                    (cef_window_open_disposition_t)MyMetArgs.GetAsInt32(nativePtr, 4) :
-                    (cef_window_open_disposition_t)(((OnOpenURLFromTabNativeArgs*)this.nativePtr)->target_disposition);
+                    return (cef_window_open_disposition_t)(((OnOpenURLFromTabNativeArgs*)this.nativePtr)->target_disposition);
                 }
             }
             public bool user_gesture()
             {
                 unsafe
                 {
-                    return _isJsSlot ?
-                    MyMetArgs.GetAsBool(nativePtr, 5) :
-                    ((OnOpenURLFromTabNativeArgs*)this.nativePtr)->user_gesture;
+                    return ((OnOpenURLFromTabNativeArgs*)this.nativePtr)->user_gesture;
                 }
             }
         }
@@ -22534,52 +21986,42 @@ namespace LayoutFarm.CefBridge.Auto
             public bool user_gesture;
         }
         //gen! ReturnValue OnBeforeResourceLoad(CefRefPtr<CefBrowser> browser,CefRefPtr<CefFrame> frame,CefRefPtr<CefRequest> request,CefRefPtr<CefRequestCallback> callback)
-        //CsStructModuleCodeGen:: GenerateCsMethodArgsClass_JsSlot ,624
+        //CsStructModuleCodeGen:: GenerateCsMethodArgsClass ,624
         public struct OnBeforeResourceLoadArgs
         {
             IntPtr nativePtr; //met arg native ptr
-            bool _isJsSlot;
             internal OnBeforeResourceLoadArgs(IntPtr nativePtr)
             {
                 int arg_flags;
                 this.nativePtr = MyMetArgs.GetNativeObjPtr(nativePtr, out arg_flags);
-                this._isJsSlot = ((arg_flags >> 18) & 1) == 0;
 
             }
             public CefBrowser browser()
             {
                 unsafe
                 {
-                    return _isJsSlot ?
-                    new CefBrowser(MyMetArgs.GetAsIntPtr(nativePtr, 1)) :
-                    new CefBrowser(((OnBeforeResourceLoadNativeArgs*)this.nativePtr)->browser);
+                    return new CefBrowser(((OnBeforeResourceLoadNativeArgs*)this.nativePtr)->browser);
                 }
             }
             public CefFrame frame()
             {
                 unsafe
                 {
-                    return _isJsSlot ?
-                    new CefFrame(MyMetArgs.GetAsIntPtr(nativePtr, 2)) :
-                    new CefFrame(((OnBeforeResourceLoadNativeArgs*)this.nativePtr)->frame);
+                    return new CefFrame(((OnBeforeResourceLoadNativeArgs*)this.nativePtr)->frame);
                 }
             }
             public CefRequest request()
             {
                 unsafe
                 {
-                    return _isJsSlot ?
-                    new CefRequest(MyMetArgs.GetAsIntPtr(nativePtr, 3)) :
-                    new CefRequest(((OnBeforeResourceLoadNativeArgs*)this.nativePtr)->request);
+                    return new CefRequest(((OnBeforeResourceLoadNativeArgs*)this.nativePtr)->request);
                 }
             }
             public CefRequestCallback callback()
             {
                 unsafe
                 {
-                    return _isJsSlot ?
-                    new CefRequestCallback(MyMetArgs.GetAsIntPtr(nativePtr, 4)) :
-                    new CefRequestCallback(((OnBeforeResourceLoadNativeArgs*)this.nativePtr)->callback);
+                    return new CefRequestCallback(((OnBeforeResourceLoadNativeArgs*)this.nativePtr)->callback);
                 }
             }
         }
@@ -22595,43 +22037,35 @@ namespace LayoutFarm.CefBridge.Auto
             public IntPtr callback;
         }
         //gen! CefRefPtr<CefResourceHandler> GetResourceHandler(CefRefPtr<CefBrowser> browser,CefRefPtr<CefFrame> frame,CefRefPtr<CefRequest> request)
-        //CsStructModuleCodeGen:: GenerateCsMethodArgsClass_JsSlot ,626
+        //CsStructModuleCodeGen:: GenerateCsMethodArgsClass ,626
         public struct GetResourceHandlerArgs
         {
             IntPtr nativePtr; //met arg native ptr
-            bool _isJsSlot;
             internal GetResourceHandlerArgs(IntPtr nativePtr)
             {
                 int arg_flags;
                 this.nativePtr = MyMetArgs.GetNativeObjPtr(nativePtr, out arg_flags);
-                this._isJsSlot = ((arg_flags >> 18) & 1) == 0;
 
             }
             public CefBrowser browser()
             {
                 unsafe
                 {
-                    return _isJsSlot ?
-                    new CefBrowser(MyMetArgs.GetAsIntPtr(nativePtr, 1)) :
-                    new CefBrowser(((GetResourceHandlerNativeArgs*)this.nativePtr)->browser);
+                    return new CefBrowser(((GetResourceHandlerNativeArgs*)this.nativePtr)->browser);
                 }
             }
             public CefFrame frame()
             {
                 unsafe
                 {
-                    return _isJsSlot ?
-                    new CefFrame(MyMetArgs.GetAsIntPtr(nativePtr, 2)) :
-                    new CefFrame(((GetResourceHandlerNativeArgs*)this.nativePtr)->frame);
+                    return new CefFrame(((GetResourceHandlerNativeArgs*)this.nativePtr)->frame);
                 }
             }
             public CefRequest request()
             {
                 unsafe
                 {
-                    return _isJsSlot ?
-                    new CefRequest(MyMetArgs.GetAsIntPtr(nativePtr, 3)) :
-                    new CefRequest(((GetResourceHandlerNativeArgs*)this.nativePtr)->request);
+                    return new CefRequest(((GetResourceHandlerNativeArgs*)this.nativePtr)->request);
                 }
             }
         }
@@ -22646,61 +22080,49 @@ namespace LayoutFarm.CefBridge.Auto
             public IntPtr request;
         }
         //gen! void OnResourceRedirect(CefRefPtr<CefBrowser> browser,CefRefPtr<CefFrame> frame,CefRefPtr<CefRequest> request,CefRefPtr<CefResponse> response,CefString& new_url)
-        //CsStructModuleCodeGen:: GenerateCsMethodArgsClass_JsSlot ,628
+        //CsStructModuleCodeGen:: GenerateCsMethodArgsClass ,628
         public struct OnResourceRedirectArgs
         {
             IntPtr nativePtr; //met arg native ptr
-            bool _isJsSlot;
             internal OnResourceRedirectArgs(IntPtr nativePtr)
             {
                 int arg_flags;
                 this.nativePtr = MyMetArgs.GetNativeObjPtr(nativePtr, out arg_flags);
-                this._isJsSlot = ((arg_flags >> 18) & 1) == 0;
 
             }
             public CefBrowser browser()
             {
                 unsafe
                 {
-                    return _isJsSlot ?
-                    new CefBrowser(MyMetArgs.GetAsIntPtr(nativePtr, 1)) :
-                    new CefBrowser(((OnResourceRedirectNativeArgs*)this.nativePtr)->browser);
+                    return new CefBrowser(((OnResourceRedirectNativeArgs*)this.nativePtr)->browser);
                 }
             }
             public CefFrame frame()
             {
                 unsafe
                 {
-                    return _isJsSlot ?
-                    new CefFrame(MyMetArgs.GetAsIntPtr(nativePtr, 2)) :
-                    new CefFrame(((OnResourceRedirectNativeArgs*)this.nativePtr)->frame);
+                    return new CefFrame(((OnResourceRedirectNativeArgs*)this.nativePtr)->frame);
                 }
             }
             public CefRequest request()
             {
                 unsafe
                 {
-                    return _isJsSlot ?
-                    new CefRequest(MyMetArgs.GetAsIntPtr(nativePtr, 3)) :
-                    new CefRequest(((OnResourceRedirectNativeArgs*)this.nativePtr)->request);
+                    return new CefRequest(((OnResourceRedirectNativeArgs*)this.nativePtr)->request);
                 }
             }
             public CefResponse response()
             {
                 unsafe
                 {
-                    return _isJsSlot ?
-                    new CefResponse(MyMetArgs.GetAsIntPtr(nativePtr, 4)) :
-                    new CefResponse(((OnResourceRedirectNativeArgs*)this.nativePtr)->response);
+                    return new CefResponse(((OnResourceRedirectNativeArgs*)this.nativePtr)->response);
                 }
             }
             public string new_url()
             {
                 unsafe
                 {
-                    return _isJsSlot ?
-                    MyMetArgs.GetAsString(nativePtr, 5) :
-                    MyMetArgs.GetAsString(((OnResourceRedirectNativeArgs*)this.nativePtr)->new_url);
+                    return MyMetArgs.GetAsString(((OnResourceRedirectNativeArgs*)this.nativePtr)->new_url);
                 }
             }
         }
@@ -22716,52 +22138,42 @@ namespace LayoutFarm.CefBridge.Auto
             public IntPtr new_url;
         }
         //gen! bool OnResourceResponse(CefRefPtr<CefBrowser> browser,CefRefPtr<CefFrame> frame,CefRefPtr<CefRequest> request,CefRefPtr<CefResponse> response)
-        //CsStructModuleCodeGen:: GenerateCsMethodArgsClass_JsSlot ,630
+        //CsStructModuleCodeGen:: GenerateCsMethodArgsClass ,630
         public struct OnResourceResponseArgs
         {
             IntPtr nativePtr; //met arg native ptr
-            bool _isJsSlot;
             internal OnResourceResponseArgs(IntPtr nativePtr)
             {
                 int arg_flags;
                 this.nativePtr = MyMetArgs.GetNativeObjPtr(nativePtr, out arg_flags);
-                this._isJsSlot = ((arg_flags >> 18) & 1) == 0;
 
             }
             public CefBrowser browser()
             {
                 unsafe
                 {
-                    return _isJsSlot ?
-                    new CefBrowser(MyMetArgs.GetAsIntPtr(nativePtr, 1)) :
-                    new CefBrowser(((OnResourceResponseNativeArgs*)this.nativePtr)->browser);
+                    return new CefBrowser(((OnResourceResponseNativeArgs*)this.nativePtr)->browser);
                 }
             }
             public CefFrame frame()
             {
                 unsafe
                 {
-                    return _isJsSlot ?
-                    new CefFrame(MyMetArgs.GetAsIntPtr(nativePtr, 2)) :
-                    new CefFrame(((OnResourceResponseNativeArgs*)this.nativePtr)->frame);
+                    return new CefFrame(((OnResourceResponseNativeArgs*)this.nativePtr)->frame);
                 }
             }
             public CefRequest request()
             {
                 unsafe
                 {
-                    return _isJsSlot ?
-                    new CefRequest(MyMetArgs.GetAsIntPtr(nativePtr, 3)) :
-                    new CefRequest(((OnResourceResponseNativeArgs*)this.nativePtr)->request);
+                    return new CefRequest(((OnResourceResponseNativeArgs*)this.nativePtr)->request);
                 }
             }
             public CefResponse response()
             {
                 unsafe
                 {
-                    return _isJsSlot ?
-                    new CefResponse(MyMetArgs.GetAsIntPtr(nativePtr, 4)) :
-                    new CefResponse(((OnResourceResponseNativeArgs*)this.nativePtr)->response);
+                    return new CefResponse(((OnResourceResponseNativeArgs*)this.nativePtr)->response);
                 }
             }
         }
@@ -22777,52 +22189,42 @@ namespace LayoutFarm.CefBridge.Auto
             public IntPtr response;
         }
         //gen! CefRefPtr<CefResponseFilter> GetResourceResponseFilter(CefRefPtr<CefBrowser> browser,CefRefPtr<CefFrame> frame,CefRefPtr<CefRequest> request,CefRefPtr<CefResponse> response)
-        //CsStructModuleCodeGen:: GenerateCsMethodArgsClass_JsSlot ,632
+        //CsStructModuleCodeGen:: GenerateCsMethodArgsClass ,632
         public struct GetResourceResponseFilterArgs
         {
             IntPtr nativePtr; //met arg native ptr
-            bool _isJsSlot;
             internal GetResourceResponseFilterArgs(IntPtr nativePtr)
             {
                 int arg_flags;
                 this.nativePtr = MyMetArgs.GetNativeObjPtr(nativePtr, out arg_flags);
-                this._isJsSlot = ((arg_flags >> 18) & 1) == 0;
 
             }
             public CefBrowser browser()
             {
                 unsafe
                 {
-                    return _isJsSlot ?
-                    new CefBrowser(MyMetArgs.GetAsIntPtr(nativePtr, 1)) :
-                    new CefBrowser(((GetResourceResponseFilterNativeArgs*)this.nativePtr)->browser);
+                    return new CefBrowser(((GetResourceResponseFilterNativeArgs*)this.nativePtr)->browser);
                 }
             }
             public CefFrame frame()
             {
                 unsafe
                 {
-                    return _isJsSlot ?
-                    new CefFrame(MyMetArgs.GetAsIntPtr(nativePtr, 2)) :
-                    new CefFrame(((GetResourceResponseFilterNativeArgs*)this.nativePtr)->frame);
+                    return new CefFrame(((GetResourceResponseFilterNativeArgs*)this.nativePtr)->frame);
                 }
             }
             public CefRequest request()
             {
                 unsafe
                 {
-                    return _isJsSlot ?
-                    new CefRequest(MyMetArgs.GetAsIntPtr(nativePtr, 3)) :
-                    new CefRequest(((GetResourceResponseFilterNativeArgs*)this.nativePtr)->request);
+                    return new CefRequest(((GetResourceResponseFilterNativeArgs*)this.nativePtr)->request);
                 }
             }
             public CefResponse response()
             {
                 unsafe
                 {
-                    return _isJsSlot ?
-                    new CefResponse(MyMetArgs.GetAsIntPtr(nativePtr, 4)) :
-                    new CefResponse(((GetResourceResponseFilterNativeArgs*)this.nativePtr)->response);
+                    return new CefResponse(((GetResourceResponseFilterNativeArgs*)this.nativePtr)->response);
                 }
             }
         }
@@ -22838,70 +22240,56 @@ namespace LayoutFarm.CefBridge.Auto
             public IntPtr response;
         }
         //gen! void OnResourceLoadComplete(CefRefPtr<CefBrowser> browser,CefRefPtr<CefFrame> frame,CefRefPtr<CefRequest> request,CefRefPtr<CefResponse> response,URLRequestStatus status,int64 received_content_length)
-        //CsStructModuleCodeGen:: GenerateCsMethodArgsClass_JsSlot ,634
+        //CsStructModuleCodeGen:: GenerateCsMethodArgsClass ,634
         public struct OnResourceLoadCompleteArgs
         {
             IntPtr nativePtr; //met arg native ptr
-            bool _isJsSlot;
             internal OnResourceLoadCompleteArgs(IntPtr nativePtr)
             {
                 int arg_flags;
                 this.nativePtr = MyMetArgs.GetNativeObjPtr(nativePtr, out arg_flags);
-                this._isJsSlot = ((arg_flags >> 18) & 1) == 0;
 
             }
             public CefBrowser browser()
             {
                 unsafe
                 {
-                    return _isJsSlot ?
-                    new CefBrowser(MyMetArgs.GetAsIntPtr(nativePtr, 1)) :
-                    new CefBrowser(((OnResourceLoadCompleteNativeArgs*)this.nativePtr)->browser);
+                    return new CefBrowser(((OnResourceLoadCompleteNativeArgs*)this.nativePtr)->browser);
                 }
             }
             public CefFrame frame()
             {
                 unsafe
                 {
-                    return _isJsSlot ?
-                    new CefFrame(MyMetArgs.GetAsIntPtr(nativePtr, 2)) :
-                    new CefFrame(((OnResourceLoadCompleteNativeArgs*)this.nativePtr)->frame);
+                    return new CefFrame(((OnResourceLoadCompleteNativeArgs*)this.nativePtr)->frame);
                 }
             }
             public CefRequest request()
             {
                 unsafe
                 {
-                    return _isJsSlot ?
-                    new CefRequest(MyMetArgs.GetAsIntPtr(nativePtr, 3)) :
-                    new CefRequest(((OnResourceLoadCompleteNativeArgs*)this.nativePtr)->request);
+                    return new CefRequest(((OnResourceLoadCompleteNativeArgs*)this.nativePtr)->request);
                 }
             }
             public CefResponse response()
             {
                 unsafe
                 {
-                    return _isJsSlot ?
-                    new CefResponse(MyMetArgs.GetAsIntPtr(nativePtr, 4)) :
-                    new CefResponse(((OnResourceLoadCompleteNativeArgs*)this.nativePtr)->response);
+                    return new CefResponse(((OnResourceLoadCompleteNativeArgs*)this.nativePtr)->response);
                 }
             }
             public cef_urlrequest_status_t status()
             {
                 unsafe
                 {
-                    return _isJsSlot ?
-                    (cef_urlrequest_status_t)MyMetArgs.GetAsInt32(nativePtr, 5) :
-                    (cef_urlrequest_status_t)(((OnResourceLoadCompleteNativeArgs*)this.nativePtr)->status);
+                    return (cef_urlrequest_status_t)(((OnResourceLoadCompleteNativeArgs*)this.nativePtr)->status);
                 }
             }
             public long received_content_length()
             {
                 unsafe
                 {
-                    return _isJsSlot ?
-                    MyMetArgs.GetAsInt64(nativePtr, 6) :
-                    ((OnResourceLoadCompleteNativeArgs*)this.nativePtr)->received_content_length;
+                    return ((OnResourceLoadCompleteNativeArgs*)this.nativePtr)->received_content_length;
                 }
             }
         }
@@ -22918,88 +22306,70 @@ namespace LayoutFarm.CefBridge.Auto
             public long received_content_length;
         }
         //gen! bool GetAuthCredentials(CefRefPtr<CefBrowser> browser,CefRefPtr<CefFrame> frame,bool isProxy,const CefString& host,int port,const CefString& realm,const CefString& scheme,CefRefPtr<CefAuthCallback> callback)
-        //CsStructModuleCodeGen:: GenerateCsMethodArgsClass_JsSlot ,636
+        //CsStructModuleCodeGen:: GenerateCsMethodArgsClass ,636
         public struct GetAuthCredentialsArgs
         {
             IntPtr nativePtr; //met arg native ptr
-            bool _isJsSlot;
             internal GetAuthCredentialsArgs(IntPtr nativePtr)
             {
                 int arg_flags;
                 this.nativePtr = MyMetArgs.GetNativeObjPtr(nativePtr, out arg_flags);
-                this._isJsSlot = ((arg_flags >> 18) & 1) == 0;
 
             }
             public CefBrowser browser()
             {
                 unsafe
                 {
-                    return _isJsSlot ?
-                    new CefBrowser(MyMetArgs.GetAsIntPtr(nativePtr, 1)) :
-                    new CefBrowser(((GetAuthCredentialsNativeArgs*)this.nativePtr)->browser);
+                    return new CefBrowser(((GetAuthCredentialsNativeArgs*)this.nativePtr)->browser);
                 }
             }
             public CefFrame frame()
             {
                 unsafe
                 {
-                    return _isJsSlot ?
-                    new CefFrame(MyMetArgs.GetAsIntPtr(nativePtr, 2)) :
-                    new CefFrame(((GetAuthCredentialsNativeArgs*)this.nativePtr)->frame);
+                    return new CefFrame(((GetAuthCredentialsNativeArgs*)this.nativePtr)->frame);
                 }
             }
             public bool isProxy()
             {
                 unsafe
                 {
-                    return _isJsSlot ?
-                    MyMetArgs.GetAsBool(nativePtr, 3) :
-                    ((GetAuthCredentialsNativeArgs*)this.nativePtr)->isProxy;
+                    return ((GetAuthCredentialsNativeArgs*)this.nativePtr)->isProxy;
                 }
             }
             public string host()
             {
                 unsafe
                 {
-                    return _isJsSlot ?
-                    MyMetArgs.GetAsString(nativePtr, 4) :
-                    MyMetArgs.GetAsString(((GetAuthCredentialsNativeArgs*)this.nativePtr)->host);
+                    return MyMetArgs.GetAsString(((GetAuthCredentialsNativeArgs*)this.nativePtr)->host);
                 }
             }
             public int port()
             {
                 unsafe
                 {
-                    return _isJsSlot ?
-                    MyMetArgs.GetAsInt32(nativePtr, 5) :
-                    ((GetAuthCredentialsNativeArgs*)this.nativePtr)->port;
+                    return ((GetAuthCredentialsNativeArgs*)this.nativePtr)->port;
                 }
             }
             public string realm()
             {
                 unsafe
                 {
-                    return _isJsSlot ?
-                    MyMetArgs.GetAsString(nativePtr, 6) :
-                    MyMetArgs.GetAsString(((GetAuthCredentialsNativeArgs*)this.nativePtr)->realm);
+                    return MyMetArgs.GetAsString(((GetAuthCredentialsNativeArgs*)this.nativePtr)->realm);
                 }
             }
             public string scheme()
             {
                 unsafe
                 {
-                    return _isJsSlot ?
-                    MyMetArgs.GetAsString(nativePtr, 7) :
-                    MyMetArgs.GetAsString(((GetAuthCredentialsNativeArgs*)this.nativePtr)->scheme);
+                    return MyMetArgs.GetAsString(((GetAuthCredentialsNativeArgs*)this.nativePtr)->scheme);
                 }
             }
             public CefAuthCallback callback()
             {
                 unsafe
                 {
-                    return _isJsSlot ?
-                    new CefAuthCallback(MyMetArgs.GetAsIntPtr(nativePtr, 8)) :
-                    new CefAuthCallback(((GetAuthCredentialsNativeArgs*)this.nativePtr)->callback);
+                    return new CefAuthCallback(((GetAuthCredentialsNativeArgs*)this.nativePtr)->callback);
                 }
             }
         }
@@ -23019,52 +22389,42 @@ namespace LayoutFarm.CefBridge.Auto
             public IntPtr callback;
         }
         //gen! bool OnQuotaRequest(CefRefPtr<CefBrowser> browser,const CefString& origin_url,int64 new_size,CefRefPtr<CefRequestCallback> callback)
-        //CsStructModuleCodeGen:: GenerateCsMethodArgsClass_JsSlot ,638
+        //CsStructModuleCodeGen:: GenerateCsMethodArgsClass ,638
         public struct OnQuotaRequestArgs
         {
             IntPtr nativePtr; //met arg native ptr
-            bool _isJsSlot;
             internal OnQuotaRequestArgs(IntPtr nativePtr)
             {
                 int arg_flags;
                 this.nativePtr = MyMetArgs.GetNativeObjPtr(nativePtr, out arg_flags);
-                this._isJsSlot = ((arg_flags >> 18) & 1) == 0;
 
             }
             public CefBrowser browser()
             {
                 unsafe
                 {
-                    return _isJsSlot ?
-                    new CefBrowser(MyMetArgs.GetAsIntPtr(nativePtr, 1)) :
-                    new CefBrowser(((OnQuotaRequestNativeArgs*)this.nativePtr)->browser);
+                    return new CefBrowser(((OnQuotaRequestNativeArgs*)this.nativePtr)->browser);
                 }
             }
             public string origin_url()
             {
                 unsafe
                 {
-                    return _isJsSlot ?
-                    MyMetArgs.GetAsString(nativePtr, 2) :
-                    MyMetArgs.GetAsString(((OnQuotaRequestNativeArgs*)this.nativePtr)->origin_url);
+                    return MyMetArgs.GetAsString(((OnQuotaRequestNativeArgs*)this.nativePtr)->origin_url);
                 }
             }
             public long new_size()
             {
                 unsafe
                 {
-                    return _isJsSlot ?
-                    MyMetArgs.GetAsInt64(nativePtr, 3) :
-                    ((OnQuotaRequestNativeArgs*)this.nativePtr)->new_size;
+                    return ((OnQuotaRequestNativeArgs*)this.nativePtr)->new_size;
                 }
             }
             public CefRequestCallback callback()
             {
                 unsafe
                 {
-                    return _isJsSlot ?
-                    new CefRequestCallback(MyMetArgs.GetAsIntPtr(nativePtr, 4)) :
-                    new CefRequestCallback(((OnQuotaRequestNativeArgs*)this.nativePtr)->callback);
+                    return new CefRequestCallback(((OnQuotaRequestNativeArgs*)this.nativePtr)->callback);
                 }
             }
         }
@@ -23080,34 +22440,28 @@ namespace LayoutFarm.CefBridge.Auto
             public IntPtr callback;
         }
         //gen! void OnProtocolExecution(CefRefPtr<CefBrowser> browser,const CefString& url,bool& allow_os_execution)
-        //CsStructModuleCodeGen:: GenerateCsMethodArgsClass_JsSlot ,640
+        //CsStructModuleCodeGen:: GenerateCsMethodArgsClass ,640
         public struct OnProtocolExecutionArgs
         {
             IntPtr nativePtr; //met arg native ptr
-            bool _isJsSlot;
             internal OnProtocolExecutionArgs(IntPtr nativePtr)
             {
                 int arg_flags;
                 this.nativePtr = MyMetArgs.GetNativeObjPtr(nativePtr, out arg_flags);
-                this._isJsSlot = ((arg_flags >> 18) & 1) == 0;
 
             }
             public CefBrowser browser()
             {
                 unsafe
                 {
-                    return _isJsSlot ?
-                    new CefBrowser(MyMetArgs.GetAsIntPtr(nativePtr, 1)) :
-                    new CefBrowser(((OnProtocolExecutionNativeArgs*)this.nativePtr)->browser);
+                    return new CefBrowser(((OnProtocolExecutionNativeArgs*)this.nativePtr)->browser);
                 }
             }
             public string url()
             {
                 unsafe
                 {
-                    return _isJsSlot ?
-                    MyMetArgs.GetAsString(nativePtr, 2) :
-                    MyMetArgs.GetAsString(((OnProtocolExecutionNativeArgs*)this.nativePtr)->url);
+                    return MyMetArgs.GetAsString(((OnProtocolExecutionNativeArgs*)this.nativePtr)->url);
                 }
             }
             public bool allow_os_execution()
@@ -23132,61 +22486,49 @@ namespace LayoutFarm.CefBridge.Auto
             public double allow_os_execution;
         }
         //gen! bool OnCertificateError(CefRefPtr<CefBrowser> browser,cef_errorcode_t cert_error,const CefString& request_url,CefRefPtr<CefSSLInfo> ssl_info,CefRefPtr<CefRequestCallback> callback)
-        //CsStructModuleCodeGen:: GenerateCsMethodArgsClass_JsSlot ,642
+        //CsStructModuleCodeGen:: GenerateCsMethodArgsClass ,642
         public struct OnCertificateErrorArgs
         {
             IntPtr nativePtr; //met arg native ptr
-            bool _isJsSlot;
             internal OnCertificateErrorArgs(IntPtr nativePtr)
             {
                 int arg_flags;
                 this.nativePtr = MyMetArgs.GetNativeObjPtr(nativePtr, out arg_flags);
-                this._isJsSlot = ((arg_flags >> 18) & 1) == 0;
 
             }
             public CefBrowser browser()
             {
                 unsafe
                 {
-                    return _isJsSlot ?
-                    new CefBrowser(MyMetArgs.GetAsIntPtr(nativePtr, 1)) :
-                    new CefBrowser(((OnCertificateErrorNativeArgs*)this.nativePtr)->browser);
+                    return new CefBrowser(((OnCertificateErrorNativeArgs*)this.nativePtr)->browser);
                 }
             }
             public cef_errorcode_t cert_error()
             {
                 unsafe
                 {
-                    return _isJsSlot ?
-                    (cef_errorcode_t)MyMetArgs.GetAsInt32(nativePtr, 2) :
-                    (cef_errorcode_t)(((OnCertificateErrorNativeArgs*)this.nativePtr)->cert_error);
+                    return (cef_errorcode_t)(((OnCertificateErrorNativeArgs*)this.nativePtr)->cert_error);
                 }
             }
             public string request_url()
             {
                 unsafe
                 {
-                    return _isJsSlot ?
-                    MyMetArgs.GetAsString(nativePtr, 3) :
-                    MyMetArgs.GetAsString(((OnCertificateErrorNativeArgs*)this.nativePtr)->request_url);
+                    return MyMetArgs.GetAsString(((OnCertificateErrorNativeArgs*)this.nativePtr)->request_url);
                 }
             }
             public CefSSLInfo ssl_info()
             {
                 unsafe
                 {
-                    return _isJsSlot ?
-                    new CefSSLInfo(MyMetArgs.GetAsIntPtr(nativePtr, 4)) :
-                    new CefSSLInfo(((OnCertificateErrorNativeArgs*)this.nativePtr)->ssl_info);
+                    return new CefSSLInfo(((OnCertificateErrorNativeArgs*)this.nativePtr)->ssl_info);
                 }
             }
             public CefRequestCallback callback()
             {
                 unsafe
                 {
-                    return _isJsSlot ?
-                    new CefRequestCallback(MyMetArgs.GetAsIntPtr(nativePtr, 5)) :
-                    new CefRequestCallback(((OnCertificateErrorNativeArgs*)this.nativePtr)->callback);
+                    return new CefRequestCallback(((OnCertificateErrorNativeArgs*)this.nativePtr)->callback);
                 }
             }
         }
@@ -23203,52 +22545,42 @@ namespace LayoutFarm.CefBridge.Auto
             public IntPtr callback;
         }
         //gen! bool OnSelectClientCertificate(CefRefPtr<CefBrowser> browser,bool isProxy,const CefString& host,int port,const X509CertificateList& certificates,CefRefPtr<CefSelectClientCertificateCallback> callback)
-        //CsStructModuleCodeGen:: GenerateCsMethodArgsClass_JsSlot ,644
+        //CsStructModuleCodeGen:: GenerateCsMethodArgsClass ,644
         public struct OnSelectClientCertificateArgs
         {
             IntPtr nativePtr; //met arg native ptr
-            bool _isJsSlot;
             internal OnSelectClientCertificateArgs(IntPtr nativePtr)
             {
                 int arg_flags;
                 this.nativePtr = MyMetArgs.GetNativeObjPtr(nativePtr, out arg_flags);
-                this._isJsSlot = ((arg_flags >> 18) & 1) == 0;
 
             }
             public CefBrowser browser()
             {
                 unsafe
                 {
-                    return _isJsSlot ?
-                    new CefBrowser(MyMetArgs.GetAsIntPtr(nativePtr, 1)) :
-                    new CefBrowser(((OnSelectClientCertificateNativeArgs*)this.nativePtr)->browser);
+                    return new CefBrowser(((OnSelectClientCertificateNativeArgs*)this.nativePtr)->browser);
                 }
             }
             public bool isProxy()
             {
                 unsafe
                 {
-                    return _isJsSlot ?
-                    MyMetArgs.GetAsBool(nativePtr, 2) :
-                    ((OnSelectClientCertificateNativeArgs*)this.nativePtr)->isProxy;
+                    return ((OnSelectClientCertificateNativeArgs*)this.nativePtr)->isProxy;
                 }
             }
             public string host()
             {
                 unsafe
                 {
-                    return _isJsSlot ?
-                    MyMetArgs.GetAsString(nativePtr, 3) :
-                    MyMetArgs.GetAsString(((OnSelectClientCertificateNativeArgs*)this.nativePtr)->host);
+                    return MyMetArgs.GetAsString(((OnSelectClientCertificateNativeArgs*)this.nativePtr)->host);
                 }
             }
             public int port()
             {
                 unsafe
                 {
-                    return _isJsSlot ?
-                    MyMetArgs.GetAsInt32(nativePtr, 4) :
-                    ((OnSelectClientCertificateNativeArgs*)this.nativePtr)->port;
+                    return ((OnSelectClientCertificateNativeArgs*)this.nativePtr)->port;
                 }
             }
             public List<CefCompositionUnderline> certificates()
@@ -23259,9 +22591,7 @@ namespace LayoutFarm.CefBridge.Auto
             {
                 unsafe
                 {
-                    return _isJsSlot ?
-                    new CefSelectClientCertificateCallback(MyMetArgs.GetAsIntPtr(nativePtr, 6)) :
-                    new CefSelectClientCertificateCallback(((OnSelectClientCertificateNativeArgs*)this.nativePtr)->callback);
+                    return new CefSelectClientCertificateCallback(((OnSelectClientCertificateNativeArgs*)this.nativePtr)->callback);
                 }
             }
         }
@@ -23279,34 +22609,28 @@ namespace LayoutFarm.CefBridge.Auto
             public IntPtr callback;
         }
         //gen! void OnPluginCrashed(CefRefPtr<CefBrowser> browser,const CefString& plugin_path)
-        //CsStructModuleCodeGen:: GenerateCsMethodArgsClass_JsSlot ,646
+        //CsStructModuleCodeGen:: GenerateCsMethodArgsClass ,646
         public struct OnPluginCrashedArgs
         {
             IntPtr nativePtr; //met arg native ptr
-            bool _isJsSlot;
             internal OnPluginCrashedArgs(IntPtr nativePtr)
             {
                 int arg_flags;
                 this.nativePtr = MyMetArgs.GetNativeObjPtr(nativePtr, out arg_flags);
-                this._isJsSlot = ((arg_flags >> 18) & 1) == 0;
 
             }
             public CefBrowser browser()
             {
                 unsafe
                 {
-                    return _isJsSlot ?
-                    new CefBrowser(MyMetArgs.GetAsIntPtr(nativePtr, 1)) :
-                    new CefBrowser(((OnPluginCrashedNativeArgs*)this.nativePtr)->browser);
+                    return new CefBrowser(((OnPluginCrashedNativeArgs*)this.nativePtr)->browser);
                 }
             }
             public string plugin_path()
             {
                 unsafe
                 {
-                    return _isJsSlot ?
-                    MyMetArgs.GetAsString(nativePtr, 2) :
-                    MyMetArgs.GetAsString(((OnPluginCrashedNativeArgs*)this.nativePtr)->plugin_path);
+                    return MyMetArgs.GetAsString(((OnPluginCrashedNativeArgs*)this.nativePtr)->plugin_path);
                 }
             }
         }
@@ -23319,25 +22643,21 @@ namespace LayoutFarm.CefBridge.Auto
             public IntPtr plugin_path;
         }
         //gen! void OnRenderViewReady(CefRefPtr<CefBrowser> browser)
-        //CsStructModuleCodeGen:: GenerateCsMethodArgsClass_JsSlot ,648
+        //CsStructModuleCodeGen:: GenerateCsMethodArgsClass ,648
         public struct OnRenderViewReadyArgs
         {
             IntPtr nativePtr; //met arg native ptr
-            bool _isJsSlot;
             internal OnRenderViewReadyArgs(IntPtr nativePtr)
             {
                 int arg_flags;
                 this.nativePtr = MyMetArgs.GetNativeObjPtr(nativePtr, out arg_flags);
-                this._isJsSlot = ((arg_flags >> 18) & 1) == 0;
 
             }
             public CefBrowser browser()
             {
                 unsafe
                 {
-                    return _isJsSlot ?
-                    new CefBrowser(MyMetArgs.GetAsIntPtr(nativePtr, 1)) :
-                    new CefBrowser(((OnRenderViewReadyNativeArgs*)this.nativePtr)->browser);
+                    return new CefBrowser(((OnRenderViewReadyNativeArgs*)this.nativePtr)->browser);
                 }
             }
         }
@@ -23349,34 +22669,28 @@ namespace LayoutFarm.CefBridge.Auto
             public IntPtr browser;
         }
         //gen! void OnRenderProcessTerminated(CefRefPtr<CefBrowser> browser,TerminationStatus status)
-        //CsStructModuleCodeGen:: GenerateCsMethodArgsClass_JsSlot ,650
+        //CsStructModuleCodeGen:: GenerateCsMethodArgsClass ,650
         public struct OnRenderProcessTerminatedArgs
         {
             IntPtr nativePtr; //met arg native ptr
-            bool _isJsSlot;
             internal OnRenderProcessTerminatedArgs(IntPtr nativePtr)
             {
                 int arg_flags;
                 this.nativePtr = MyMetArgs.GetNativeObjPtr(nativePtr, out arg_flags);
-                this._isJsSlot = ((arg_flags >> 18) & 1) == 0;
 
             }
             public CefBrowser browser()
             {
                 unsafe
                 {
-                    return _isJsSlot ?
-                    new CefBrowser(MyMetArgs.GetAsIntPtr(nativePtr, 1)) :
-                    new CefBrowser(((OnRenderProcessTerminatedNativeArgs*)this.nativePtr)->browser);
+                    return new CefBrowser(((OnRenderProcessTerminatedNativeArgs*)this.nativePtr)->browser);
                 }
             }
             public cef_termination_status_t status()
             {
                 unsafe
                 {
-                    return _isJsSlot ?
-                    (cef_termination_status_t)MyMetArgs.GetAsInt32(nativePtr, 2) :
-                    (cef_termination_status_t)(((OnRenderProcessTerminatedNativeArgs*)this.nativePtr)->status);
+                    return (cef_termination_status_t)(((OnRenderProcessTerminatedNativeArgs*)this.nativePtr)->status);
                 }
             }
         }
@@ -23946,34 +23260,28 @@ namespace LayoutFarm.CefBridge.Auto
         const int CefResourceBundleHandlerExt_GetDataResource_2 = 2;
         const int CefResourceBundleHandlerExt_GetDataResourceForScale_3 = 3;
         //gen! bool GetLocalizedString(int string_id,CefString& string)
-        //CsStructModuleCodeGen:: GenerateCsMethodArgsClass_JsSlot ,749
+        //CsStructModuleCodeGen:: GenerateCsMethodArgsClass ,749
         public struct GetLocalizedStringArgs
         {
             IntPtr nativePtr; //met arg native ptr
-            bool _isJsSlot;
             internal GetLocalizedStringArgs(IntPtr nativePtr)
             {
                 int arg_flags;
                 this.nativePtr = MyMetArgs.GetNativeObjPtr(nativePtr, out arg_flags);
-                this._isJsSlot = ((arg_flags >> 18) & 1) == 0;
 
             }
             public int string_id()
             {
                 unsafe
                 {
-                    return _isJsSlot ?
-                    MyMetArgs.GetAsInt32(nativePtr, 1) :
-                    ((GetLocalizedStringNativeArgs*)this.nativePtr)->string_id;
+                    return ((GetLocalizedStringNativeArgs*)this.nativePtr)->string_id;
                 }
             }
             public string _string()
             {
                 unsafe
                 {
-                    return _isJsSlot ?
-                    MyMetArgs.GetAsString(nativePtr, 2) :
-                    MyMetArgs.GetAsString(((GetLocalizedStringNativeArgs*)this.nativePtr)->_string);
+                    return MyMetArgs.GetAsString(((GetLocalizedStringNativeArgs*)this.nativePtr)->_string);
                 }
             }
         }
@@ -23987,25 +23295,21 @@ namespace LayoutFarm.CefBridge.Auto
             public IntPtr _string;
         }
         //gen! bool GetDataResource(int resource_id,void*& data,size_t& data_size)
-        //CsStructModuleCodeGen:: GenerateCsMethodArgsClass_JsSlot ,751
+        //CsStructModuleCodeGen:: GenerateCsMethodArgsClass ,751
         public struct GetDataResourceArgs
         {
             IntPtr nativePtr; //met arg native ptr
-            bool _isJsSlot;
             internal GetDataResourceArgs(IntPtr nativePtr)
             {
                 int arg_flags;
                 this.nativePtr = MyMetArgs.GetNativeObjPtr(nativePtr, out arg_flags);
-                this._isJsSlot = ((arg_flags >> 18) & 1) == 0;
 
             }
             public int resource_id()
             {
                 unsafe
                 {
-                    return _isJsSlot ?
-                    MyMetArgs.GetAsInt32(nativePtr, 1) :
-                    ((GetDataResourceNativeArgs*)this.nativePtr)->resource_id;
+                    return ((GetDataResourceNativeArgs*)this.nativePtr)->resource_id;
                 }
             }
             public IntPtr data()
@@ -24032,34 +23336,28 @@ namespace LayoutFarm.CefBridge.Auto
             public uint data_size;
         }
         //gen! bool GetDataResourceForScale(int resource_id,ScaleFactor scale_factor,void*& data,size_t& data_size)
-        //CsStructModuleCodeGen:: GenerateCsMethodArgsClass_JsSlot ,753
+        //CsStructModuleCodeGen:: GenerateCsMethodArgsClass ,753
         public struct GetDataResourceForScaleArgs
         {
             IntPtr nativePtr; //met arg native ptr
-            bool _isJsSlot;
             internal GetDataResourceForScaleArgs(IntPtr nativePtr)
             {
                 int arg_flags;
                 this.nativePtr = MyMetArgs.GetNativeObjPtr(nativePtr, out arg_flags);
-                this._isJsSlot = ((arg_flags >> 18) & 1) == 0;
 
             }
             public int resource_id()
             {
                 unsafe
                 {
-                    return _isJsSlot ?
-                    MyMetArgs.GetAsInt32(nativePtr, 1) :
-                    ((GetDataResourceForScaleNativeArgs*)this.nativePtr)->resource_id;
+                    return ((GetDataResourceForScaleNativeArgs*)this.nativePtr)->resource_id;
                 }
             }
             public cef_scale_factor_t scale_factor()
             {
                 unsafe
                 {
-                    return _isJsSlot ?
-                    (cef_scale_factor_t)MyMetArgs.GetAsInt32(nativePtr, 2) :
-                    (cef_scale_factor_t)(((GetDataResourceForScaleNativeArgs*)this.nativePtr)->scale_factor);
+                    return (cef_scale_factor_t)(((GetDataResourceForScaleNativeArgs*)this.nativePtr)->scale_factor);
                 }
             }
             public IntPtr data()
@@ -24212,34 +23510,28 @@ namespace LayoutFarm.CefBridge.Auto
         const int CefResourceHandlerExt_CanSetCookie_5 = 5;
         const int CefResourceHandlerExt_Cancel_6 = 6;
         //gen! bool ProcessRequest(CefRefPtr<CefRequest> request,CefRefPtr<CefCallback> callback)
-        //CsStructModuleCodeGen:: GenerateCsMethodArgsClass_JsSlot ,774
+        //CsStructModuleCodeGen:: GenerateCsMethodArgsClass ,774
         public struct ProcessRequestArgs
         {
             IntPtr nativePtr; //met arg native ptr
-            bool _isJsSlot;
             internal ProcessRequestArgs(IntPtr nativePtr)
             {
                 int arg_flags;
                 this.nativePtr = MyMetArgs.GetNativeObjPtr(nativePtr, out arg_flags);
-                this._isJsSlot = ((arg_flags >> 18) & 1) == 0;
 
             }
             public CefRequest request()
             {
                 unsafe
                 {
-                    return _isJsSlot ?
-                    new CefRequest(MyMetArgs.GetAsIntPtr(nativePtr, 1)) :
-                    new CefRequest(((ProcessRequestNativeArgs*)this.nativePtr)->request);
+                    return new CefRequest(((ProcessRequestNativeArgs*)this.nativePtr)->request);
                 }
             }
             public CefCallback callback()
             {
                 unsafe
                 {
-                    return _isJsSlot ?
-                    new CefCallback(MyMetArgs.GetAsIntPtr(nativePtr, 2)) :
-                    new CefCallback(((ProcessRequestNativeArgs*)this.nativePtr)->callback);
+                    return new CefCallback(((ProcessRequestNativeArgs*)this.nativePtr)->callback);
                 }
             }
         }
@@ -24253,43 +23545,35 @@ namespace LayoutFarm.CefBridge.Auto
             public IntPtr callback;
         }
         //gen! void GetResponseHeaders(CefRefPtr<CefResponse> response,int64& response_length,CefString& redirectUrl)
-        //CsStructModuleCodeGen:: GenerateCsMethodArgsClass_JsSlot ,776
+        //CsStructModuleCodeGen:: GenerateCsMethodArgsClass ,776
         public struct GetResponseHeadersArgs
         {
             IntPtr nativePtr; //met arg native ptr
-            bool _isJsSlot;
             internal GetResponseHeadersArgs(IntPtr nativePtr)
             {
                 int arg_flags;
                 this.nativePtr = MyMetArgs.GetNativeObjPtr(nativePtr, out arg_flags);
-                this._isJsSlot = ((arg_flags >> 18) & 1) == 0;
 
             }
             public CefResponse response()
             {
                 unsafe
                 {
-                    return _isJsSlot ?
-                    new CefResponse(MyMetArgs.GetAsIntPtr(nativePtr, 1)) :
-                    new CefResponse(((GetResponseHeadersNativeArgs*)this.nativePtr)->response);
+                    return new CefResponse(((GetResponseHeadersNativeArgs*)this.nativePtr)->response);
                 }
             }
             public long response_length()
             {
                 unsafe
                 {
-                    return _isJsSlot ?
-                    MyMetArgs.GetAsInt64(nativePtr, 2) :
-                    ((GetResponseHeadersNativeArgs*)this.nativePtr)->response_length;
+                    return ((GetResponseHeadersNativeArgs*)this.nativePtr)->response_length;
                 }
             }
             public string redirectUrl()
             {
                 unsafe
                 {
-                    return _isJsSlot ?
-                    MyMetArgs.GetAsString(nativePtr, 3) :
-                    MyMetArgs.GetAsString(((GetResponseHeadersNativeArgs*)this.nativePtr)->redirectUrl);
+                    return MyMetArgs.GetAsString(((GetResponseHeadersNativeArgs*)this.nativePtr)->redirectUrl);
                 }
             }
         }
@@ -24303,16 +23587,14 @@ namespace LayoutFarm.CefBridge.Auto
             public IntPtr redirectUrl;
         }
         //gen! bool ReadResponse(void* data_out,int bytes_to_read,int& bytes_read,CefRefPtr<CefCallback> callback)
-        //CsStructModuleCodeGen:: GenerateCsMethodArgsClass_JsSlot ,778
+        //CsStructModuleCodeGen:: GenerateCsMethodArgsClass ,778
         public struct ReadResponseArgs
         {
             IntPtr nativePtr; //met arg native ptr
-            bool _isJsSlot;
             internal ReadResponseArgs(IntPtr nativePtr)
             {
                 int arg_flags;
                 this.nativePtr = MyMetArgs.GetNativeObjPtr(nativePtr, out arg_flags);
-                this._isJsSlot = ((arg_flags >> 18) & 1) == 0;
 
             }
             public IntPtr data_out()
@@ -24323,9 +23605,7 @@ namespace LayoutFarm.CefBridge.Auto
             {
                 unsafe
                 {
-                    return _isJsSlot ?
-                    MyMetArgs.GetAsInt32(nativePtr, 2) :
-                    ((ReadResponseNativeArgs*)this.nativePtr)->bytes_to_read;
+                    return ((ReadResponseNativeArgs*)this.nativePtr)->bytes_to_read;
                 }
             }
             public int bytes_read()
@@ -24340,9 +23620,7 @@ namespace LayoutFarm.CefBridge.Auto
             {
                 unsafe
                 {
-                    return _isJsSlot ?
-                    new CefCallback(MyMetArgs.GetAsIntPtr(nativePtr, 4)) :
-                    new CefCallback(((ReadResponseNativeArgs*)this.nativePtr)->callback);
+                    return new CefCallback(((ReadResponseNativeArgs*)this.nativePtr)->callback);
                 }
             }
         }
@@ -24358,25 +23636,21 @@ namespace LayoutFarm.CefBridge.Auto
             public IntPtr callback;
         }
         //gen! bool CanGetCookie(const CefCookie& cookie)
-        //CsStructModuleCodeGen:: GenerateCsMethodArgsClass_JsSlot ,780
+        //CsStructModuleCodeGen:: GenerateCsMethodArgsClass ,780
         public struct CanGetCookieArgs
         {
             IntPtr nativePtr; //met arg native ptr
-            bool _isJsSlot;
             internal CanGetCookieArgs(IntPtr nativePtr)
             {
                 int arg_flags;
                 this.nativePtr = MyMetArgs.GetNativeObjPtr(nativePtr, out arg_flags);
-                this._isJsSlot = ((arg_flags >> 18) & 1) == 0;
 
             }
             public CefCookie cookie()
             {
                 unsafe
                 {
-                    return _isJsSlot ?
-                    new CefCookie(MyMetArgs.GetAsIntPtr(nativePtr, 1)) :
-                    new CefCookie(((CanGetCookieNativeArgs*)this.nativePtr)->cookie);
+                    return new CefCookie(((CanGetCookieNativeArgs*)this.nativePtr)->cookie);
                 }
             }
         }
@@ -24389,25 +23663,21 @@ namespace LayoutFarm.CefBridge.Auto
             public IntPtr cookie;
         }
         //gen! bool CanSetCookie(const CefCookie& cookie)
-        //CsStructModuleCodeGen:: GenerateCsMethodArgsClass_JsSlot ,782
+        //CsStructModuleCodeGen:: GenerateCsMethodArgsClass ,782
         public struct CanSetCookieArgs
         {
             IntPtr nativePtr; //met arg native ptr
-            bool _isJsSlot;
             internal CanSetCookieArgs(IntPtr nativePtr)
             {
                 int arg_flags;
                 this.nativePtr = MyMetArgs.GetNativeObjPtr(nativePtr, out arg_flags);
-                this._isJsSlot = ((arg_flags >> 18) & 1) == 0;
 
             }
             public CefCookie cookie()
             {
                 unsafe
                 {
-                    return _isJsSlot ?
-                    new CefCookie(MyMetArgs.GetAsIntPtr(nativePtr, 1)) :
-                    new CefCookie(((CanSetCookieNativeArgs*)this.nativePtr)->cookie);
+                    return new CefCookie(((CanSetCookieNativeArgs*)this.nativePtr)->cookie);
                 }
             }
         }
@@ -24420,16 +23690,14 @@ namespace LayoutFarm.CefBridge.Auto
             public IntPtr cookie;
         }
         //gen! void Cancel()
-        //CsStructModuleCodeGen:: GenerateCsMethodArgsClass_JsSlot ,784
+        //CsStructModuleCodeGen:: GenerateCsMethodArgsClass ,784
         public struct CancelArgs
         {
             IntPtr nativePtr; //met arg native ptr
-            bool _isJsSlot;
             internal CancelArgs(IntPtr nativePtr)
             {
                 int arg_flags;
                 this.nativePtr = MyMetArgs.GetNativeObjPtr(nativePtr, out arg_flags);
-                this._isJsSlot = ((arg_flags >> 18) & 1) == 0;
 
             }
         }
@@ -24641,16 +23909,14 @@ namespace LayoutFarm.CefBridge.Auto
         const int CefReadHandlerExt_Eof_4 = 4;
         const int CefReadHandlerExt_MayBlock_5 = 5;
         //gen! size_t Read(void* ptr,size_t size,size_t n)
-        //CsStructModuleCodeGen:: GenerateCsMethodArgsClass_JsSlot ,823
+        //CsStructModuleCodeGen:: GenerateCsMethodArgsClass ,823
         public struct ReadArgs
         {
             IntPtr nativePtr; //met arg native ptr
-            bool _isJsSlot;
             internal ReadArgs(IntPtr nativePtr)
             {
                 int arg_flags;
                 this.nativePtr = MyMetArgs.GetNativeObjPtr(nativePtr, out arg_flags);
-                this._isJsSlot = ((arg_flags >> 18) & 1) == 0;
 
             }
             public IntPtr ptr()
@@ -24661,18 +23927,14 @@ namespace LayoutFarm.CefBridge.Auto
             {
                 unsafe
                 {
-                    return _isJsSlot ?
-                   MyMetArgs.GetAsUInt32(nativePtr, 2) :
-                   ((ReadNativeArgs*)this.nativePtr)->size;
+                    return ((ReadNativeArgs*)this.nativePtr)->size;
                 }
             }
             public uint n()
             {
                 unsafe
                 {
-                    return _isJsSlot ?
-                   MyMetArgs.GetAsUInt32(nativePtr, 3) :
-                   ((ReadNativeArgs*)this.nativePtr)->n;
+                    return ((ReadNativeArgs*)this.nativePtr)->n;
                 }
             }
         }
@@ -24687,34 +23949,28 @@ namespace LayoutFarm.CefBridge.Auto
             public uint n;
         }
         //gen! int Seek(int64 offset,int whence)
-        //CsStructModuleCodeGen:: GenerateCsMethodArgsClass_JsSlot ,825
+        //CsStructModuleCodeGen:: GenerateCsMethodArgsClass ,825
         public struct SeekArgs
         {
             IntPtr nativePtr; //met arg native ptr
-            bool _isJsSlot;
             internal SeekArgs(IntPtr nativePtr)
             {
                 int arg_flags;
                 this.nativePtr = MyMetArgs.GetNativeObjPtr(nativePtr, out arg_flags);
-                this._isJsSlot = ((arg_flags >> 18) & 1) == 0;
 
             }
             public long offset()
             {
                 unsafe
                 {
-                    return _isJsSlot ?
-                    MyMetArgs.GetAsInt64(nativePtr, 1) :
-                    ((SeekNativeArgs*)this.nativePtr)->offset;
+                    return ((SeekNativeArgs*)this.nativePtr)->offset;
                 }
             }
             public int whence()
             {
                 unsafe
                 {
-                    return _isJsSlot ?
-                    MyMetArgs.GetAsInt32(nativePtr, 2) :
-                    ((SeekNativeArgs*)this.nativePtr)->whence;
+                    return ((SeekNativeArgs*)this.nativePtr)->whence;
                 }
             }
         }
@@ -24728,16 +23984,14 @@ namespace LayoutFarm.CefBridge.Auto
             public int whence;
         }
         //gen! int64 Tell()
-        //CsStructModuleCodeGen:: GenerateCsMethodArgsClass_JsSlot ,827
+        //CsStructModuleCodeGen:: GenerateCsMethodArgsClass ,827
         public struct TellArgs
         {
             IntPtr nativePtr; //met arg native ptr
-            bool _isJsSlot;
             internal TellArgs(IntPtr nativePtr)
             {
                 int arg_flags;
                 this.nativePtr = MyMetArgs.GetNativeObjPtr(nativePtr, out arg_flags);
-                this._isJsSlot = ((arg_flags >> 18) & 1) == 0;
 
             }
         }
@@ -24749,16 +24003,14 @@ namespace LayoutFarm.CefBridge.Auto
             long myext_ret_value;
         }
         //gen! int Eof()
-        //CsStructModuleCodeGen:: GenerateCsMethodArgsClass_JsSlot ,829
+        //CsStructModuleCodeGen:: GenerateCsMethodArgsClass ,829
         public struct EofArgs
         {
             IntPtr nativePtr; //met arg native ptr
-            bool _isJsSlot;
             internal EofArgs(IntPtr nativePtr)
             {
                 int arg_flags;
                 this.nativePtr = MyMetArgs.GetNativeObjPtr(nativePtr, out arg_flags);
-                this._isJsSlot = ((arg_flags >> 18) & 1) == 0;
 
             }
         }
@@ -24770,16 +24022,14 @@ namespace LayoutFarm.CefBridge.Auto
             int myext_ret_value;
         }
         //gen! bool MayBlock()
-        //CsStructModuleCodeGen:: GenerateCsMethodArgsClass_JsSlot ,831
+        //CsStructModuleCodeGen:: GenerateCsMethodArgsClass ,831
         public struct MayBlockArgs
         {
             IntPtr nativePtr; //met arg native ptr
-            bool _isJsSlot;
             internal MayBlockArgs(IntPtr nativePtr)
             {
                 int arg_flags;
                 this.nativePtr = MyMetArgs.GetNativeObjPtr(nativePtr, out arg_flags);
-                this._isJsSlot = ((arg_flags >> 18) & 1) == 0;
 
             }
         }
@@ -24955,16 +24205,14 @@ namespace LayoutFarm.CefBridge.Auto
         const int CefWriteHandlerExt_Flush_4 = 4;
         const int CefWriteHandlerExt_MayBlock_5 = 5;
         //gen! size_t Write(const void* ptr,size_t size,size_t n)
-        //CsStructModuleCodeGen:: GenerateCsMethodArgsClass_JsSlot ,864
+        //CsStructModuleCodeGen:: GenerateCsMethodArgsClass ,864
         public struct WriteArgs
         {
             IntPtr nativePtr; //met arg native ptr
-            bool _isJsSlot;
             internal WriteArgs(IntPtr nativePtr)
             {
                 int arg_flags;
                 this.nativePtr = MyMetArgs.GetNativeObjPtr(nativePtr, out arg_flags);
-                this._isJsSlot = ((arg_flags >> 18) & 1) == 0;
 
             }
             public IntPtr ptr()
@@ -24975,18 +24223,14 @@ namespace LayoutFarm.CefBridge.Auto
             {
                 unsafe
                 {
-                    return _isJsSlot ?
-                   MyMetArgs.GetAsUInt32(nativePtr, 2) :
-                   ((WriteNativeArgs*)this.nativePtr)->size;
+                    return ((WriteNativeArgs*)this.nativePtr)->size;
                 }
             }
             public uint n()
             {
                 unsafe
                 {
-                    return _isJsSlot ?
-                   MyMetArgs.GetAsUInt32(nativePtr, 3) :
-                   ((WriteNativeArgs*)this.nativePtr)->n;
+                    return ((WriteNativeArgs*)this.nativePtr)->n;
                 }
             }
         }
@@ -25001,34 +24245,28 @@ namespace LayoutFarm.CefBridge.Auto
             public uint n;
         }
         //gen! int Seek(int64 offset,int whence)
-        //CsStructModuleCodeGen:: GenerateCsMethodArgsClass_JsSlot ,866
+        //CsStructModuleCodeGen:: GenerateCsMethodArgsClass ,866
         public struct SeekArgs
         {
             IntPtr nativePtr; //met arg native ptr
-            bool _isJsSlot;
             internal SeekArgs(IntPtr nativePtr)
             {
                 int arg_flags;
                 this.nativePtr = MyMetArgs.GetNativeObjPtr(nativePtr, out arg_flags);
-                this._isJsSlot = ((arg_flags >> 18) & 1) == 0;
 
             }
             public long offset()
             {
                 unsafe
                 {
-                    return _isJsSlot ?
-                    MyMetArgs.GetAsInt64(nativePtr, 1) :
-                    ((SeekNativeArgs*)this.nativePtr)->offset;
+                    return ((SeekNativeArgs*)this.nativePtr)->offset;
                 }
             }
             public int whence()
             {
                 unsafe
                 {
-                    return _isJsSlot ?
-                    MyMetArgs.GetAsInt32(nativePtr, 2) :
-                    ((SeekNativeArgs*)this.nativePtr)->whence;
+                    return ((SeekNativeArgs*)this.nativePtr)->whence;
                 }
             }
         }
@@ -25042,16 +24280,14 @@ namespace LayoutFarm.CefBridge.Auto
             public int whence;
         }
         //gen! int64 Tell()
-        //CsStructModuleCodeGen:: GenerateCsMethodArgsClass_JsSlot ,868
+        //CsStructModuleCodeGen:: GenerateCsMethodArgsClass ,868
         public struct TellArgs
         {
             IntPtr nativePtr; //met arg native ptr
-            bool _isJsSlot;
             internal TellArgs(IntPtr nativePtr)
             {
                 int arg_flags;
                 this.nativePtr = MyMetArgs.GetNativeObjPtr(nativePtr, out arg_flags);
-                this._isJsSlot = ((arg_flags >> 18) & 1) == 0;
 
             }
         }
@@ -25063,16 +24299,14 @@ namespace LayoutFarm.CefBridge.Auto
             long myext_ret_value;
         }
         //gen! int Flush()
-        //CsStructModuleCodeGen:: GenerateCsMethodArgsClass_JsSlot ,870
+        //CsStructModuleCodeGen:: GenerateCsMethodArgsClass ,870
         public struct FlushArgs
         {
             IntPtr nativePtr; //met arg native ptr
-            bool _isJsSlot;
             internal FlushArgs(IntPtr nativePtr)
             {
                 int arg_flags;
                 this.nativePtr = MyMetArgs.GetNativeObjPtr(nativePtr, out arg_flags);
-                this._isJsSlot = ((arg_flags >> 18) & 1) == 0;
 
             }
         }
@@ -25084,16 +24318,14 @@ namespace LayoutFarm.CefBridge.Auto
             int myext_ret_value;
         }
         //gen! bool MayBlock()
-        //CsStructModuleCodeGen:: GenerateCsMethodArgsClass_JsSlot ,872
+        //CsStructModuleCodeGen:: GenerateCsMethodArgsClass ,872
         public struct MayBlockArgs
         {
             IntPtr nativePtr; //met arg native ptr
-            bool _isJsSlot;
             internal MayBlockArgs(IntPtr nativePtr)
             {
                 int arg_flags;
                 this.nativePtr = MyMetArgs.GetNativeObjPtr(nativePtr, out arg_flags);
-                this._isJsSlot = ((arg_flags >> 18) & 1) == 0;
 
             }
         }
@@ -25265,43 +24497,35 @@ namespace LayoutFarm.CefBridge.Auto
         public const int _typeNAME = 79;
         const int CefV8HandlerExt_Execute_1 = 1;
         //gen! bool Execute(const CefString& name,CefRefPtr<CefV8Value> object,const CefV8ValueList& arguments,CefRefPtr<CefV8Value>& retval,CefString& exception)
-        //CsStructModuleCodeGen:: GenerateCsMethodArgsClass_JsSlot ,905
+        //CsStructModuleCodeGen:: GenerateCsMethodArgsClass ,905
         public struct ExecuteArgs
         {
             IntPtr nativePtr; //met arg native ptr
-            bool _isJsSlot;
             internal ExecuteArgs(IntPtr nativePtr)
             {
                 int arg_flags;
                 this.nativePtr = MyMetArgs.GetNativeObjPtr(nativePtr, out arg_flags);
-                this._isJsSlot = ((arg_flags >> 18) & 1) == 0;
 
             }
             public string name()
             {
                 unsafe
                 {
-                    return _isJsSlot ?
-                    MyMetArgs.GetAsString(nativePtr, 1) :
-                    MyMetArgs.GetAsString(((ExecuteNativeArgs*)this.nativePtr)->name);
+                    return MyMetArgs.GetAsString(((ExecuteNativeArgs*)this.nativePtr)->name);
                 }
             }
             public CefV8Value _object()
             {
                 unsafe
                 {
-                    return _isJsSlot ?
-                    new CefV8Value(MyMetArgs.GetAsIntPtr(nativePtr, 2)) :
-                    new CefV8Value(((ExecuteNativeArgs*)this.nativePtr)->_object);
+                    return new CefV8Value(((ExecuteNativeArgs*)this.nativePtr)->_object);
                 }
             }
             public CefV8ValueList arguments()
             {
                 unsafe
                 {
-                    return _isJsSlot ?
-                    new CefV8ValueList(MyMetArgs.GetAsIntPtr(nativePtr, 3)) :
-                    new CefV8ValueList(((ExecuteNativeArgs*)this.nativePtr)->arguments);
+                    return new CefV8ValueList(((ExecuteNativeArgs*)this.nativePtr)->arguments);
                 }
             }
             public IntPtr retval()
@@ -25312,9 +24536,7 @@ namespace LayoutFarm.CefBridge.Auto
             {
                 unsafe
                 {
-                    return _isJsSlot ?
-                    MyMetArgs.GetAsString(nativePtr, 5) :
-                    MyMetArgs.GetAsString(((ExecuteNativeArgs*)this.nativePtr)->exception);
+                    return MyMetArgs.GetAsString(((ExecuteNativeArgs*)this.nativePtr)->exception);
                 }
             }
         }
