@@ -9443,7 +9443,7 @@ namespace LayoutFarm.CefBridge.Auto
             JsValue ret;
 
             Cef3Binder.MyCefMet_Call0(this.nativePtr, CefRequestContext_GetHandler_4, out ret);
-            return new CefRequestContextHandler();
+            return new CefRequestContextHandler(ret.Ptr);
         }
         //CsCallToNativeCodeGen::GenerateCsMethod , 374
 
@@ -16141,12 +16141,14 @@ namespace LayoutFarm.CefBridge.Auto
             this.nativePtr = IntPtr.Zero;
         }
     }
+    //CsStructModuleCodeGen:: GenerateCsStructClass ,1
     public struct CefAccessibilityHandler
     {
         public const int _typeNAME = 56;
         const int CefAccessibilityHandlerExt_OnAccessibilityTreeChange_1 = 1;
         const int CefAccessibilityHandlerExt_OnAccessibilityLocationChange_2 = 2;
         //gen! void OnAccessibilityTreeChange(CefRefPtr<CefValue> value)
+        //CsStructModuleCodeGen:: GenerateCsMethodArgsClass_JsSlot ,2
         public struct OnAccessibilityTreeChangeArgs
         {
             IntPtr nativePtr; //met arg native ptr
@@ -16163,6 +16165,7 @@ namespace LayoutFarm.CefBridge.Auto
                 throw new CefNotImplementedException();
             }
         }
+        //CsStructModuleCodeGen:: GenerateCsMethodArgsClass_Native ,3
         [StructLayout(LayoutKind.Sequential)]
         struct OnAccessibilityTreeChangeNativeArgs
         {
@@ -16170,6 +16173,7 @@ namespace LayoutFarm.CefBridge.Auto
             public IntPtr value;
         }
         //gen! void OnAccessibilityLocationChange(CefRefPtr<CefValue> value)
+        //CsStructModuleCodeGen:: GenerateCsMethodArgsClass_JsSlot ,4
         public struct OnAccessibilityLocationChangeArgs
         {
             IntPtr nativePtr; //met arg native ptr
@@ -16186,6 +16190,7 @@ namespace LayoutFarm.CefBridge.Auto
                 throw new CefNotImplementedException();
             }
         }
+        //CsStructModuleCodeGen:: GenerateCsMethodArgsClass_Native ,5
         [StructLayout(LayoutKind.Sequential)]
         struct OnAccessibilityLocationChangeNativeArgs
         {
@@ -16194,12 +16199,16 @@ namespace LayoutFarm.CefBridge.Auto
         }
         public interface I0
         {
+            //CsStructModuleCodeGen:: GenerateCsStructClass ,6
             void OnAccessibilityTreeChange(OnAccessibilityTreeChangeArgs args);
+            //CsStructModuleCodeGen:: GenerateCsStructClass ,7
             void OnAccessibilityLocationChange(OnAccessibilityLocationChangeArgs args);
         }
         public interface I1
         {
+            //CsStructModuleCodeGen:: GenerateCsStructClass ,8
             void OnAccessibilityTreeChange(CefValue value);
+            //CsStructModuleCodeGen:: GenerateCsStructClass ,9
             void OnAccessibilityLocationChange(CefValue value);
         }
         public static void HandleNativeReq(I0 i0, I1 i1, int met_id, IntPtr nativeArgPtr)
@@ -16207,6 +16216,7 @@ namespace LayoutFarm.CefBridge.Auto
             int met_name = met_id & 0xffff;
             switch (met_name)
             {
+                //CsStructModuleCodeGen:: GenerateCsStructClass ,10
                 case CefAccessibilityHandlerExt_OnAccessibilityTreeChange_1:
                     {
                         var args = new OnAccessibilityTreeChangeArgs(nativeArgPtr);
@@ -16221,6 +16231,7 @@ namespace LayoutFarm.CefBridge.Auto
                         }
                     }
                     break;
+                //CsStructModuleCodeGen:: GenerateCsStructClass ,11
                 case CefAccessibilityHandlerExt_OnAccessibilityLocationChange_2:
                     {
                         var args = new OnAccessibilityLocationChangeArgs(nativeArgPtr);
@@ -16237,17 +16248,20 @@ namespace LayoutFarm.CefBridge.Auto
                     break;
             }
         }
+        //CsStructModuleCodeGen:: GenerateCsStructClass ,12
         public static void OnAccessibilityTreeChange(I1 i1, OnAccessibilityTreeChangeArgs args)
         {
             //expand args
             i1.OnAccessibilityTreeChange(args.value());
         }
+        //CsStructModuleCodeGen:: GenerateCsStructClass ,13
         public static void OnAccessibilityLocationChange(I1 i1, OnAccessibilityLocationChangeArgs args)
         {
             //expand args
             i1.OnAccessibilityLocationChange(args.value());
         }
     }
+    //CsStructModuleCodeGen:: GenerateCsStructClass ,14
     public struct CefBrowserProcessHandler
     {
         public const int _typeNAME = 57;
@@ -16257,6 +16271,7 @@ namespace LayoutFarm.CefBridge.Auto
         const int CefBrowserProcessHandlerExt_GetPrintHandler_4 = 4;
         const int CefBrowserProcessHandlerExt_OnScheduleMessagePumpWork_5 = 5;
         //gen! void OnContextInitialized()
+        //CsStructModuleCodeGen:: GenerateCsMethodArgsClass_JsSlot ,15
         public struct OnContextInitializedArgs
         {
             IntPtr nativePtr; //met arg native ptr
@@ -16269,12 +16284,14 @@ namespace LayoutFarm.CefBridge.Auto
 
             }
         }
+        //CsStructModuleCodeGen:: GenerateCsMethodArgsClass_Native ,16
         [StructLayout(LayoutKind.Sequential)]
         struct OnContextInitializedNativeArgs
         {
             public int argFlags;
         }
         //gen! void OnBeforeChildProcessLaunch(CefRefPtr<CefCommandLine> command_line)
+        //CsStructModuleCodeGen:: GenerateCsMethodArgsClass_JsSlot ,17
         public struct OnBeforeChildProcessLaunchArgs
         {
             IntPtr nativePtr; //met arg native ptr
@@ -16296,6 +16313,7 @@ namespace LayoutFarm.CefBridge.Auto
                 }
             }
         }
+        //CsStructModuleCodeGen:: GenerateCsMethodArgsClass_Native ,18
         [StructLayout(LayoutKind.Sequential)]
         struct OnBeforeChildProcessLaunchNativeArgs
         {
@@ -16303,6 +16321,7 @@ namespace LayoutFarm.CefBridge.Auto
             public IntPtr command_line;
         }
         //gen! void OnRenderProcessThreadCreated(CefRefPtr<CefListValue> extra_info)
+        //CsStructModuleCodeGen:: GenerateCsMethodArgsClass_JsSlot ,19
         public struct OnRenderProcessThreadCreatedArgs
         {
             IntPtr nativePtr; //met arg native ptr
@@ -16324,6 +16343,7 @@ namespace LayoutFarm.CefBridge.Auto
                 }
             }
         }
+        //CsStructModuleCodeGen:: GenerateCsMethodArgsClass_Native ,20
         [StructLayout(LayoutKind.Sequential)]
         struct OnRenderProcessThreadCreatedNativeArgs
         {
@@ -16331,6 +16351,7 @@ namespace LayoutFarm.CefBridge.Auto
             public IntPtr extra_info;
         }
         //gen! CefRefPtr<CefPrintHandler> GetPrintHandler()
+        //CsStructModuleCodeGen:: GenerateCsMethodArgsClass_JsSlot ,21
         public struct GetPrintHandlerArgs
         {
             IntPtr nativePtr; //met arg native ptr
@@ -16343,12 +16364,15 @@ namespace LayoutFarm.CefBridge.Auto
 
             }
         }
+        //CsStructModuleCodeGen:: GenerateCsMethodArgsClass_Native ,22
         [StructLayout(LayoutKind.Sequential)]
         struct GetPrintHandlerNativeArgs
         {
             public int argFlags;
+            IntPtr myext_ret_value;
         }
         //gen! void OnScheduleMessagePumpWork(int64 delay_ms)
+        //CsStructModuleCodeGen:: GenerateCsMethodArgsClass_JsSlot ,23
         public struct OnScheduleMessagePumpWorkArgs
         {
             IntPtr nativePtr; //met arg native ptr
@@ -16370,6 +16394,7 @@ namespace LayoutFarm.CefBridge.Auto
                 }
             }
         }
+        //CsStructModuleCodeGen:: GenerateCsMethodArgsClass_Native ,24
         [StructLayout(LayoutKind.Sequential)]
         struct OnScheduleMessagePumpWorkNativeArgs
         {
@@ -16378,18 +16403,28 @@ namespace LayoutFarm.CefBridge.Auto
         }
         public interface I0
         {
+            //CsStructModuleCodeGen:: GenerateCsStructClass ,25
             void OnContextInitialized(OnContextInitializedArgs args);
+            //CsStructModuleCodeGen:: GenerateCsStructClass ,26
             void OnBeforeChildProcessLaunch(OnBeforeChildProcessLaunchArgs args);
+            //CsStructModuleCodeGen:: GenerateCsStructClass ,27
             void OnRenderProcessThreadCreated(OnRenderProcessThreadCreatedArgs args);
+            //CsStructModuleCodeGen:: GenerateCsStructClass ,28
             void GetPrintHandler(GetPrintHandlerArgs args);
+            //CsStructModuleCodeGen:: GenerateCsStructClass ,29
             void OnScheduleMessagePumpWork(OnScheduleMessagePumpWorkArgs args);
         }
         public interface I1
         {
+            //CsStructModuleCodeGen:: GenerateCsStructClass ,30
             void OnContextInitialized();
+            //CsStructModuleCodeGen:: GenerateCsStructClass ,31
             void OnBeforeChildProcessLaunch(CefCommandLine command_line);
+            //CsStructModuleCodeGen:: GenerateCsStructClass ,32
             void OnRenderProcessThreadCreated(CefListValue extra_info);
+            //CsStructModuleCodeGen:: GenerateCsStructClass ,33
             CefPrintHandler GetPrintHandler();
+            //CsStructModuleCodeGen:: GenerateCsStructClass ,34
             void OnScheduleMessagePumpWork(long delay_ms);
         }
         public static void HandleNativeReq(I0 i0, I1 i1, int met_id, IntPtr nativeArgPtr)
@@ -16397,6 +16432,7 @@ namespace LayoutFarm.CefBridge.Auto
             int met_name = met_id & 0xffff;
             switch (met_name)
             {
+                //CsStructModuleCodeGen:: GenerateCsStructClass ,35
                 case CefBrowserProcessHandlerExt_OnContextInitialized_1:
                     {
                         var args = new OnContextInitializedArgs(nativeArgPtr);
@@ -16411,6 +16447,7 @@ namespace LayoutFarm.CefBridge.Auto
                         }
                     }
                     break;
+                //CsStructModuleCodeGen:: GenerateCsStructClass ,36
                 case CefBrowserProcessHandlerExt_OnBeforeChildProcessLaunch_2:
                     {
                         var args = new OnBeforeChildProcessLaunchArgs(nativeArgPtr);
@@ -16425,6 +16462,7 @@ namespace LayoutFarm.CefBridge.Auto
                         }
                     }
                     break;
+                //CsStructModuleCodeGen:: GenerateCsStructClass ,37
                 case CefBrowserProcessHandlerExt_OnRenderProcessThreadCreated_3:
                     {
                         var args = new OnRenderProcessThreadCreatedArgs(nativeArgPtr);
@@ -16439,6 +16477,7 @@ namespace LayoutFarm.CefBridge.Auto
                         }
                     }
                     break;
+                //CsStructModuleCodeGen:: GenerateCsStructClass ,38
                 case CefBrowserProcessHandlerExt_GetPrintHandler_4:
                     {
                         var args = new GetPrintHandlerArgs(nativeArgPtr);
@@ -16453,6 +16492,7 @@ namespace LayoutFarm.CefBridge.Auto
                         }
                     }
                     break;
+                //CsStructModuleCodeGen:: GenerateCsStructClass ,39
                 case CefBrowserProcessHandlerExt_OnScheduleMessagePumpWork_5:
                     {
                         var args = new OnScheduleMessagePumpWorkArgs(nativeArgPtr);
@@ -16469,32 +16509,38 @@ namespace LayoutFarm.CefBridge.Auto
                     break;
             }
         }
+        //CsStructModuleCodeGen:: GenerateCsStructClass ,40
         public static void OnContextInitialized(I1 i1, OnContextInitializedArgs args)
         {
             //expand args
             i1.OnContextInitialized();
         }
+        //CsStructModuleCodeGen:: GenerateCsStructClass ,41
         public static void OnBeforeChildProcessLaunch(I1 i1, OnBeforeChildProcessLaunchArgs args)
         {
             //expand args
             i1.OnBeforeChildProcessLaunch(args.command_line());
         }
+        //CsStructModuleCodeGen:: GenerateCsStructClass ,42
         public static void OnRenderProcessThreadCreated(I1 i1, OnRenderProcessThreadCreatedArgs args)
         {
             //expand args
             i1.OnRenderProcessThreadCreated(args.extra_info());
         }
+        //CsStructModuleCodeGen:: GenerateCsStructClass ,43
         public static void GetPrintHandler(I1 i1, GetPrintHandlerArgs args)
         {
             //expand args
             i1.GetPrintHandler();
         }
+        //CsStructModuleCodeGen:: GenerateCsStructClass ,44
         public static void OnScheduleMessagePumpWork(I1 i1, OnScheduleMessagePumpWorkArgs args)
         {
             //expand args
             i1.OnScheduleMessagePumpWork(args.delay_ms());
         }
     }
+    //CsStructModuleCodeGen:: GenerateCsStructClass ,45
     public struct CefContextMenuHandler
     {
         public const int _typeNAME = 58;
@@ -16503,6 +16549,7 @@ namespace LayoutFarm.CefBridge.Auto
         const int CefContextMenuHandlerExt_OnContextMenuCommand_3 = 3;
         const int CefContextMenuHandlerExt_OnContextMenuDismissed_4 = 4;
         //gen! void OnBeforeContextMenu(CefRefPtr<CefBrowser> browser,CefRefPtr<CefFrame> frame,CefRefPtr<CefContextMenuParams> params,CefRefPtr<CefMenuModel> model)
+        //CsStructModuleCodeGen:: GenerateCsMethodArgsClass_JsSlot ,46
         public struct OnBeforeContextMenuArgs
         {
             IntPtr nativePtr; //met arg native ptr
@@ -16551,6 +16598,7 @@ namespace LayoutFarm.CefBridge.Auto
                 }
             }
         }
+        //CsStructModuleCodeGen:: GenerateCsMethodArgsClass_Native ,47
         [StructLayout(LayoutKind.Sequential)]
         struct OnBeforeContextMenuNativeArgs
         {
@@ -16561,6 +16609,7 @@ namespace LayoutFarm.CefBridge.Auto
             public IntPtr model;
         }
         //gen! bool RunContextMenu(CefRefPtr<CefBrowser> browser,CefRefPtr<CefFrame> frame,CefRefPtr<CefContextMenuParams> params,CefRefPtr<CefMenuModel> model,CefRefPtr<CefRunContextMenuCallback> callback)
+        //CsStructModuleCodeGen:: GenerateCsMethodArgsClass_JsSlot ,48
         public struct RunContextMenuArgs
         {
             IntPtr nativePtr; //met arg native ptr
@@ -16618,10 +16667,12 @@ namespace LayoutFarm.CefBridge.Auto
                 }
             }
         }
+        //CsStructModuleCodeGen:: GenerateCsMethodArgsClass_Native ,49
         [StructLayout(LayoutKind.Sequential)]
         struct RunContextMenuNativeArgs
         {
             public int argFlags;
+            bool myext_ret_value;
             public IntPtr browser;
             public IntPtr frame;
             public IntPtr _params;
@@ -16629,6 +16680,7 @@ namespace LayoutFarm.CefBridge.Auto
             public IntPtr callback;
         }
         //gen! bool OnContextMenuCommand(CefRefPtr<CefBrowser> browser,CefRefPtr<CefFrame> frame,CefRefPtr<CefContextMenuParams> params,int command_id,EventFlags event_flags)
+        //CsStructModuleCodeGen:: GenerateCsMethodArgsClass_JsSlot ,50
         public struct OnContextMenuCommandArgs
         {
             IntPtr nativePtr; //met arg native ptr
@@ -16686,10 +16738,12 @@ namespace LayoutFarm.CefBridge.Auto
                 }
             }
         }
+        //CsStructModuleCodeGen:: GenerateCsMethodArgsClass_Native ,51
         [StructLayout(LayoutKind.Sequential)]
         struct OnContextMenuCommandNativeArgs
         {
             public int argFlags;
+            bool myext_ret_value;
             public IntPtr browser;
             public IntPtr frame;
             public IntPtr _params;
@@ -16697,6 +16751,7 @@ namespace LayoutFarm.CefBridge.Auto
             public cef_event_flags_t event_flags;
         }
         //gen! void OnContextMenuDismissed(CefRefPtr<CefBrowser> browser,CefRefPtr<CefFrame> frame)
+        //CsStructModuleCodeGen:: GenerateCsMethodArgsClass_JsSlot ,52
         public struct OnContextMenuDismissedArgs
         {
             IntPtr nativePtr; //met arg native ptr
@@ -16727,6 +16782,7 @@ namespace LayoutFarm.CefBridge.Auto
                 }
             }
         }
+        //CsStructModuleCodeGen:: GenerateCsMethodArgsClass_Native ,53
         [StructLayout(LayoutKind.Sequential)]
         struct OnContextMenuDismissedNativeArgs
         {
@@ -16736,16 +16792,24 @@ namespace LayoutFarm.CefBridge.Auto
         }
         public interface I0
         {
+            //CsStructModuleCodeGen:: GenerateCsStructClass ,54
             void OnBeforeContextMenu(OnBeforeContextMenuArgs args);
+            //CsStructModuleCodeGen:: GenerateCsStructClass ,55
             void RunContextMenu(RunContextMenuArgs args);
+            //CsStructModuleCodeGen:: GenerateCsStructClass ,56
             void OnContextMenuCommand(OnContextMenuCommandArgs args);
+            //CsStructModuleCodeGen:: GenerateCsStructClass ,57
             void OnContextMenuDismissed(OnContextMenuDismissedArgs args);
         }
         public interface I1
         {
+            //CsStructModuleCodeGen:: GenerateCsStructClass ,58
             void OnBeforeContextMenu(CefBrowser browser, CefFrame frame, CefContextMenuParams _params, CefMenuModel model);
+            //CsStructModuleCodeGen:: GenerateCsStructClass ,59
             bool RunContextMenu(CefBrowser browser, CefFrame frame, CefContextMenuParams _params, CefMenuModel model, CefRunContextMenuCallback callback);
+            //CsStructModuleCodeGen:: GenerateCsStructClass ,60
             bool OnContextMenuCommand(CefBrowser browser, CefFrame frame, CefContextMenuParams _params, int command_id, cef_event_flags_t event_flags);
+            //CsStructModuleCodeGen:: GenerateCsStructClass ,61
             void OnContextMenuDismissed(CefBrowser browser, CefFrame frame);
         }
         public static void HandleNativeReq(I0 i0, I1 i1, int met_id, IntPtr nativeArgPtr)
@@ -16753,6 +16817,7 @@ namespace LayoutFarm.CefBridge.Auto
             int met_name = met_id & 0xffff;
             switch (met_name)
             {
+                //CsStructModuleCodeGen:: GenerateCsStructClass ,62
                 case CefContextMenuHandlerExt_OnBeforeContextMenu_1:
                     {
                         var args = new OnBeforeContextMenuArgs(nativeArgPtr);
@@ -16770,6 +16835,7 @@ namespace LayoutFarm.CefBridge.Auto
                         }
                     }
                     break;
+                //CsStructModuleCodeGen:: GenerateCsStructClass ,63
                 case CefContextMenuHandlerExt_RunContextMenu_2:
                     {
                         var args = new RunContextMenuArgs(nativeArgPtr);
@@ -16788,6 +16854,7 @@ namespace LayoutFarm.CefBridge.Auto
                         }
                     }
                     break;
+                //CsStructModuleCodeGen:: GenerateCsStructClass ,64
                 case CefContextMenuHandlerExt_OnContextMenuCommand_3:
                     {
                         var args = new OnContextMenuCommandArgs(nativeArgPtr);
@@ -16806,6 +16873,7 @@ namespace LayoutFarm.CefBridge.Auto
                         }
                     }
                     break;
+                //CsStructModuleCodeGen:: GenerateCsStructClass ,65
                 case CefContextMenuHandlerExt_OnContextMenuDismissed_4:
                     {
                         var args = new OnContextMenuDismissedArgs(nativeArgPtr);
@@ -16823,6 +16891,7 @@ namespace LayoutFarm.CefBridge.Auto
                     break;
             }
         }
+        //CsStructModuleCodeGen:: GenerateCsStructClass ,66
         public static void OnBeforeContextMenu(I1 i1, OnBeforeContextMenuArgs args)
         {
             //expand args
@@ -16831,6 +16900,7 @@ namespace LayoutFarm.CefBridge.Auto
             args._params(),
             args.model());
         }
+        //CsStructModuleCodeGen:: GenerateCsStructClass ,67
         public static void RunContextMenu(I1 i1, RunContextMenuArgs args)
         {
             //expand args
@@ -16840,6 +16910,7 @@ namespace LayoutFarm.CefBridge.Auto
             args.model(),
             args.callback());
         }
+        //CsStructModuleCodeGen:: GenerateCsStructClass ,68
         public static void OnContextMenuCommand(I1 i1, OnContextMenuCommandArgs args)
         {
             //expand args
@@ -16849,6 +16920,7 @@ namespace LayoutFarm.CefBridge.Auto
             args.command_id(),
             args.event_flags());
         }
+        //CsStructModuleCodeGen:: GenerateCsStructClass ,69
         public static void OnContextMenuDismissed(I1 i1, OnContextMenuDismissedArgs args)
         {
             //expand args
@@ -16856,11 +16928,13 @@ namespace LayoutFarm.CefBridge.Auto
             args.frame());
         }
     }
+    //CsStructModuleCodeGen:: GenerateCsStructClass ,70
     public struct CefDialogHandler
     {
         public const int _typeNAME = 59;
         const int CefDialogHandlerExt_OnFileDialog_1 = 1;
         //gen! bool OnFileDialog(CefRefPtr<CefBrowser> browser,FileDialogMode mode,const CefString& title,const CefString& default_file_path,const std::vector<CefString>& accept_filters,int selected_accept_filter,CefRefPtr<CefFileDialogCallback> callback)
+        //CsStructModuleCodeGen:: GenerateCsMethodArgsClass_JsSlot ,71
         public struct OnFileDialogArgs
         {
             IntPtr nativePtr; //met arg native ptr
@@ -16931,10 +17005,12 @@ namespace LayoutFarm.CefBridge.Auto
                 }
             }
         }
+        //CsStructModuleCodeGen:: GenerateCsMethodArgsClass_Native ,72
         [StructLayout(LayoutKind.Sequential)]
         struct OnFileDialogNativeArgs
         {
             public int argFlags;
+            bool myext_ret_value;
             public IntPtr browser;
             public cef_file_dialog_mode_t mode;
             public IntPtr title;
@@ -16945,10 +17021,12 @@ namespace LayoutFarm.CefBridge.Auto
         }
         public interface I0
         {
+            //CsStructModuleCodeGen:: GenerateCsStructClass ,73
             void OnFileDialog(OnFileDialogArgs args);
         }
         public interface I1
         {
+            //CsStructModuleCodeGen:: GenerateCsStructClass ,74
             bool OnFileDialog(CefBrowser browser, cef_file_dialog_mode_t mode, string title, string default_file_path, List<string> accept_filters, int selected_accept_filter, CefFileDialogCallback callback);
         }
         public static void HandleNativeReq(I0 i0, I1 i1, int met_id, IntPtr nativeArgPtr)
@@ -16956,6 +17034,7 @@ namespace LayoutFarm.CefBridge.Auto
             int met_name = met_id & 0xffff;
             switch (met_name)
             {
+                //CsStructModuleCodeGen:: GenerateCsStructClass ,75
                 case CefDialogHandlerExt_OnFileDialog_1:
                     {
                         var args = new OnFileDialogArgs(nativeArgPtr);
@@ -16978,6 +17057,7 @@ namespace LayoutFarm.CefBridge.Auto
                     break;
             }
         }
+        //CsStructModuleCodeGen:: GenerateCsStructClass ,76
         public static void OnFileDialog(I1 i1, OnFileDialogArgs args)
         {
             //expand args
@@ -16990,6 +17070,7 @@ namespace LayoutFarm.CefBridge.Auto
             args.callback());
         }
     }
+    //CsStructModuleCodeGen:: GenerateCsStructClass ,77
     public struct CefDisplayHandler
     {
         public const int _typeNAME = 60;
@@ -17001,6 +17082,7 @@ namespace LayoutFarm.CefBridge.Auto
         const int CefDisplayHandlerExt_OnStatusMessage_6 = 6;
         const int CefDisplayHandlerExt_OnConsoleMessage_7 = 7;
         //gen! void OnAddressChange(CefRefPtr<CefBrowser> browser,CefRefPtr<CefFrame> frame,const CefString& url)
+        //CsStructModuleCodeGen:: GenerateCsMethodArgsClass_JsSlot ,78
         public struct OnAddressChangeArgs
         {
             IntPtr nativePtr; //met arg native ptr
@@ -17040,6 +17122,7 @@ namespace LayoutFarm.CefBridge.Auto
                 }
             }
         }
+        //CsStructModuleCodeGen:: GenerateCsMethodArgsClass_Native ,79
         [StructLayout(LayoutKind.Sequential)]
         struct OnAddressChangeNativeArgs
         {
@@ -17049,6 +17132,7 @@ namespace LayoutFarm.CefBridge.Auto
             public IntPtr url;
         }
         //gen! void OnTitleChange(CefRefPtr<CefBrowser> browser,const CefString& title)
+        //CsStructModuleCodeGen:: GenerateCsMethodArgsClass_JsSlot ,80
         public struct OnTitleChangeArgs
         {
             IntPtr nativePtr; //met arg native ptr
@@ -17079,6 +17163,7 @@ namespace LayoutFarm.CefBridge.Auto
                 }
             }
         }
+        //CsStructModuleCodeGen:: GenerateCsMethodArgsClass_Native ,81
         [StructLayout(LayoutKind.Sequential)]
         struct OnTitleChangeNativeArgs
         {
@@ -17087,6 +17172,7 @@ namespace LayoutFarm.CefBridge.Auto
             public IntPtr title;
         }
         //gen! void OnFaviconURLChange(CefRefPtr<CefBrowser> browser,const std::vector<CefString>& icon_urls)
+        //CsStructModuleCodeGen:: GenerateCsMethodArgsClass_JsSlot ,82
         public struct OnFaviconURLChangeArgs
         {
             IntPtr nativePtr; //met arg native ptr
@@ -17112,6 +17198,7 @@ namespace LayoutFarm.CefBridge.Auto
                 throw new CefNotImplementedException();
             }
         }
+        //CsStructModuleCodeGen:: GenerateCsMethodArgsClass_Native ,83
         [StructLayout(LayoutKind.Sequential)]
         struct OnFaviconURLChangeNativeArgs
         {
@@ -17120,6 +17207,7 @@ namespace LayoutFarm.CefBridge.Auto
             public IntPtr icon_urls;
         }
         //gen! void OnFullscreenModeChange(CefRefPtr<CefBrowser> browser,bool fullscreen)
+        //CsStructModuleCodeGen:: GenerateCsMethodArgsClass_JsSlot ,84
         public struct OnFullscreenModeChangeArgs
         {
             IntPtr nativePtr; //met arg native ptr
@@ -17150,6 +17238,7 @@ namespace LayoutFarm.CefBridge.Auto
                 }
             }
         }
+        //CsStructModuleCodeGen:: GenerateCsMethodArgsClass_Native ,85
         [StructLayout(LayoutKind.Sequential)]
         struct OnFullscreenModeChangeNativeArgs
         {
@@ -17158,6 +17247,7 @@ namespace LayoutFarm.CefBridge.Auto
             public bool fullscreen;
         }
         //gen! bool OnTooltip(CefRefPtr<CefBrowser> browser,CefString& text)
+        //CsStructModuleCodeGen:: GenerateCsMethodArgsClass_JsSlot ,86
         public struct OnTooltipArgs
         {
             IntPtr nativePtr; //met arg native ptr
@@ -17188,14 +17278,17 @@ namespace LayoutFarm.CefBridge.Auto
                 }
             }
         }
+        //CsStructModuleCodeGen:: GenerateCsMethodArgsClass_Native ,87
         [StructLayout(LayoutKind.Sequential)]
         struct OnTooltipNativeArgs
         {
             public int argFlags;
+            bool myext_ret_value;
             public IntPtr browser;
             public IntPtr text;
         }
         //gen! void OnStatusMessage(CefRefPtr<CefBrowser> browser,const CefString& value)
+        //CsStructModuleCodeGen:: GenerateCsMethodArgsClass_JsSlot ,88
         public struct OnStatusMessageArgs
         {
             IntPtr nativePtr; //met arg native ptr
@@ -17226,6 +17319,7 @@ namespace LayoutFarm.CefBridge.Auto
                 }
             }
         }
+        //CsStructModuleCodeGen:: GenerateCsMethodArgsClass_Native ,89
         [StructLayout(LayoutKind.Sequential)]
         struct OnStatusMessageNativeArgs
         {
@@ -17234,6 +17328,7 @@ namespace LayoutFarm.CefBridge.Auto
             public IntPtr value;
         }
         //gen! bool OnConsoleMessage(CefRefPtr<CefBrowser> browser,const CefString& message,const CefString& source,int line)
+        //CsStructModuleCodeGen:: GenerateCsMethodArgsClass_JsSlot ,90
         public struct OnConsoleMessageArgs
         {
             IntPtr nativePtr; //met arg native ptr
@@ -17282,10 +17377,12 @@ namespace LayoutFarm.CefBridge.Auto
                 }
             }
         }
+        //CsStructModuleCodeGen:: GenerateCsMethodArgsClass_Native ,91
         [StructLayout(LayoutKind.Sequential)]
         struct OnConsoleMessageNativeArgs
         {
             public int argFlags;
+            bool myext_ret_value;
             public IntPtr browser;
             public IntPtr message;
             public IntPtr source;
@@ -17293,22 +17390,36 @@ namespace LayoutFarm.CefBridge.Auto
         }
         public interface I0
         {
+            //CsStructModuleCodeGen:: GenerateCsStructClass ,92
             void OnAddressChange(OnAddressChangeArgs args);
+            //CsStructModuleCodeGen:: GenerateCsStructClass ,93
             void OnTitleChange(OnTitleChangeArgs args);
+            //CsStructModuleCodeGen:: GenerateCsStructClass ,94
             void OnFaviconURLChange(OnFaviconURLChangeArgs args);
+            //CsStructModuleCodeGen:: GenerateCsStructClass ,95
             void OnFullscreenModeChange(OnFullscreenModeChangeArgs args);
+            //CsStructModuleCodeGen:: GenerateCsStructClass ,96
             void OnTooltip(OnTooltipArgs args);
+            //CsStructModuleCodeGen:: GenerateCsStructClass ,97
             void OnStatusMessage(OnStatusMessageArgs args);
+            //CsStructModuleCodeGen:: GenerateCsStructClass ,98
             void OnConsoleMessage(OnConsoleMessageArgs args);
         }
         public interface I1
         {
+            //CsStructModuleCodeGen:: GenerateCsStructClass ,99
             void OnAddressChange(CefBrowser browser, CefFrame frame, string url);
+            //CsStructModuleCodeGen:: GenerateCsStructClass ,100
             void OnTitleChange(CefBrowser browser, string title);
+            //CsStructModuleCodeGen:: GenerateCsStructClass ,101
             void OnFaviconURLChange(CefBrowser browser, List<string> icon_urls);
+            //CsStructModuleCodeGen:: GenerateCsStructClass ,102
             void OnFullscreenModeChange(CefBrowser browser, bool fullscreen);
+            //CsStructModuleCodeGen:: GenerateCsStructClass ,103
             bool OnTooltip(CefBrowser browser, string text);
+            //CsStructModuleCodeGen:: GenerateCsStructClass ,104
             void OnStatusMessage(CefBrowser browser, string value);
+            //CsStructModuleCodeGen:: GenerateCsStructClass ,105
             bool OnConsoleMessage(CefBrowser browser, string message, string source, int line);
         }
         public static void HandleNativeReq(I0 i0, I1 i1, int met_id, IntPtr nativeArgPtr)
@@ -17316,6 +17427,7 @@ namespace LayoutFarm.CefBridge.Auto
             int met_name = met_id & 0xffff;
             switch (met_name)
             {
+                //CsStructModuleCodeGen:: GenerateCsStructClass ,106
                 case CefDisplayHandlerExt_OnAddressChange_1:
                     {
                         var args = new OnAddressChangeArgs(nativeArgPtr);
@@ -17332,6 +17444,7 @@ namespace LayoutFarm.CefBridge.Auto
                         }
                     }
                     break;
+                //CsStructModuleCodeGen:: GenerateCsStructClass ,107
                 case CefDisplayHandlerExt_OnTitleChange_2:
                     {
                         var args = new OnTitleChangeArgs(nativeArgPtr);
@@ -17347,6 +17460,7 @@ namespace LayoutFarm.CefBridge.Auto
                         }
                     }
                     break;
+                //CsStructModuleCodeGen:: GenerateCsStructClass ,108
                 case CefDisplayHandlerExt_OnFaviconURLChange_3:
                     {
                         var args = new OnFaviconURLChangeArgs(nativeArgPtr);
@@ -17362,6 +17476,7 @@ namespace LayoutFarm.CefBridge.Auto
                         }
                     }
                     break;
+                //CsStructModuleCodeGen:: GenerateCsStructClass ,109
                 case CefDisplayHandlerExt_OnFullscreenModeChange_4:
                     {
                         var args = new OnFullscreenModeChangeArgs(nativeArgPtr);
@@ -17377,6 +17492,7 @@ namespace LayoutFarm.CefBridge.Auto
                         }
                     }
                     break;
+                //CsStructModuleCodeGen:: GenerateCsStructClass ,110
                 case CefDisplayHandlerExt_OnTooltip_5:
                     {
                         var args = new OnTooltipArgs(nativeArgPtr);
@@ -17392,6 +17508,7 @@ namespace LayoutFarm.CefBridge.Auto
                         }
                     }
                     break;
+                //CsStructModuleCodeGen:: GenerateCsStructClass ,111
                 case CefDisplayHandlerExt_OnStatusMessage_6:
                     {
                         var args = new OnStatusMessageArgs(nativeArgPtr);
@@ -17407,6 +17524,7 @@ namespace LayoutFarm.CefBridge.Auto
                         }
                     }
                     break;
+                //CsStructModuleCodeGen:: GenerateCsStructClass ,112
                 case CefDisplayHandlerExt_OnConsoleMessage_7:
                     {
                         var args = new OnConsoleMessageArgs(nativeArgPtr);
@@ -17426,6 +17544,7 @@ namespace LayoutFarm.CefBridge.Auto
                     break;
             }
         }
+        //CsStructModuleCodeGen:: GenerateCsStructClass ,113
         public static void OnAddressChange(I1 i1, OnAddressChangeArgs args)
         {
             //expand args
@@ -17433,36 +17552,42 @@ namespace LayoutFarm.CefBridge.Auto
             args.frame(),
             args.url());
         }
+        //CsStructModuleCodeGen:: GenerateCsStructClass ,114
         public static void OnTitleChange(I1 i1, OnTitleChangeArgs args)
         {
             //expand args
             i1.OnTitleChange(args.browser(),
             args.title());
         }
+        //CsStructModuleCodeGen:: GenerateCsStructClass ,115
         public static void OnFaviconURLChange(I1 i1, OnFaviconURLChangeArgs args)
         {
             //expand args
             i1.OnFaviconURLChange(args.browser(),
             args.icon_urls());
         }
+        //CsStructModuleCodeGen:: GenerateCsStructClass ,116
         public static void OnFullscreenModeChange(I1 i1, OnFullscreenModeChangeArgs args)
         {
             //expand args
             i1.OnFullscreenModeChange(args.browser(),
             args.fullscreen());
         }
+        //CsStructModuleCodeGen:: GenerateCsStructClass ,117
         public static void OnTooltip(I1 i1, OnTooltipArgs args)
         {
             //expand args
             i1.OnTooltip(args.browser(),
             args.text());
         }
+        //CsStructModuleCodeGen:: GenerateCsStructClass ,118
         public static void OnStatusMessage(I1 i1, OnStatusMessageArgs args)
         {
             //expand args
             i1.OnStatusMessage(args.browser(),
             args.value());
         }
+        //CsStructModuleCodeGen:: GenerateCsStructClass ,119
         public static void OnConsoleMessage(I1 i1, OnConsoleMessageArgs args)
         {
             //expand args
@@ -17472,12 +17597,14 @@ namespace LayoutFarm.CefBridge.Auto
             args.line());
         }
     }
+    //CsStructModuleCodeGen:: GenerateCsStructClass ,120
     public struct CefDownloadHandler
     {
         public const int _typeNAME = 61;
         const int CefDownloadHandlerExt_OnBeforeDownload_1 = 1;
         const int CefDownloadHandlerExt_OnDownloadUpdated_2 = 2;
         //gen! void OnBeforeDownload(CefRefPtr<CefBrowser> browser,CefRefPtr<CefDownloadItem> download_item,const CefString& suggested_name,CefRefPtr<CefBeforeDownloadCallback> callback)
+        //CsStructModuleCodeGen:: GenerateCsMethodArgsClass_JsSlot ,121
         public struct OnBeforeDownloadArgs
         {
             IntPtr nativePtr; //met arg native ptr
@@ -17526,6 +17653,7 @@ namespace LayoutFarm.CefBridge.Auto
                 }
             }
         }
+        //CsStructModuleCodeGen:: GenerateCsMethodArgsClass_Native ,122
         [StructLayout(LayoutKind.Sequential)]
         struct OnBeforeDownloadNativeArgs
         {
@@ -17536,6 +17664,7 @@ namespace LayoutFarm.CefBridge.Auto
             public IntPtr callback;
         }
         //gen! void OnDownloadUpdated(CefRefPtr<CefBrowser> browser,CefRefPtr<CefDownloadItem> download_item,CefRefPtr<CefDownloadItemCallback> callback)
+        //CsStructModuleCodeGen:: GenerateCsMethodArgsClass_JsSlot ,123
         public struct OnDownloadUpdatedArgs
         {
             IntPtr nativePtr; //met arg native ptr
@@ -17575,6 +17704,7 @@ namespace LayoutFarm.CefBridge.Auto
                 }
             }
         }
+        //CsStructModuleCodeGen:: GenerateCsMethodArgsClass_Native ,124
         [StructLayout(LayoutKind.Sequential)]
         struct OnDownloadUpdatedNativeArgs
         {
@@ -17585,12 +17715,16 @@ namespace LayoutFarm.CefBridge.Auto
         }
         public interface I0
         {
+            //CsStructModuleCodeGen:: GenerateCsStructClass ,125
             void OnBeforeDownload(OnBeforeDownloadArgs args);
+            //CsStructModuleCodeGen:: GenerateCsStructClass ,126
             void OnDownloadUpdated(OnDownloadUpdatedArgs args);
         }
         public interface I1
         {
+            //CsStructModuleCodeGen:: GenerateCsStructClass ,127
             void OnBeforeDownload(CefBrowser browser, CefDownloadItem download_item, string suggested_name, CefBeforeDownloadCallback callback);
+            //CsStructModuleCodeGen:: GenerateCsStructClass ,128
             void OnDownloadUpdated(CefBrowser browser, CefDownloadItem download_item, CefDownloadItemCallback callback);
         }
         public static void HandleNativeReq(I0 i0, I1 i1, int met_id, IntPtr nativeArgPtr)
@@ -17598,6 +17732,7 @@ namespace LayoutFarm.CefBridge.Auto
             int met_name = met_id & 0xffff;
             switch (met_name)
             {
+                //CsStructModuleCodeGen:: GenerateCsStructClass ,129
                 case CefDownloadHandlerExt_OnBeforeDownload_1:
                     {
                         var args = new OnBeforeDownloadArgs(nativeArgPtr);
@@ -17615,6 +17750,7 @@ namespace LayoutFarm.CefBridge.Auto
                         }
                     }
                     break;
+                //CsStructModuleCodeGen:: GenerateCsStructClass ,130
                 case CefDownloadHandlerExt_OnDownloadUpdated_2:
                     {
                         var args = new OnDownloadUpdatedArgs(nativeArgPtr);
@@ -17633,6 +17769,7 @@ namespace LayoutFarm.CefBridge.Auto
                     break;
             }
         }
+        //CsStructModuleCodeGen:: GenerateCsStructClass ,131
         public static void OnBeforeDownload(I1 i1, OnBeforeDownloadArgs args)
         {
             //expand args
@@ -17641,6 +17778,7 @@ namespace LayoutFarm.CefBridge.Auto
             args.suggested_name(),
             args.callback());
         }
+        //CsStructModuleCodeGen:: GenerateCsStructClass ,132
         public static void OnDownloadUpdated(I1 i1, OnDownloadUpdatedArgs args)
         {
             //expand args
@@ -17649,12 +17787,14 @@ namespace LayoutFarm.CefBridge.Auto
             args.callback());
         }
     }
+    //CsStructModuleCodeGen:: GenerateCsStructClass ,133
     public struct CefDragHandler
     {
         public const int _typeNAME = 62;
         const int CefDragHandlerExt_OnDragEnter_1 = 1;
         const int CefDragHandlerExt_OnDraggableRegionsChanged_2 = 2;
         //gen! bool OnDragEnter(CefRefPtr<CefBrowser> browser,CefRefPtr<CefDragData> dragData,DragOperationsMask mask)
+        //CsStructModuleCodeGen:: GenerateCsMethodArgsClass_JsSlot ,134
         public struct OnDragEnterArgs
         {
             IntPtr nativePtr; //met arg native ptr
@@ -17694,15 +17834,18 @@ namespace LayoutFarm.CefBridge.Auto
                 }
             }
         }
+        //CsStructModuleCodeGen:: GenerateCsMethodArgsClass_Native ,135
         [StructLayout(LayoutKind.Sequential)]
         struct OnDragEnterNativeArgs
         {
             public int argFlags;
+            bool myext_ret_value;
             public IntPtr browser;
             public IntPtr dragData;
             public cef_drag_operations_mask_t mask;
         }
         //gen! void OnDraggableRegionsChanged(CefRefPtr<CefBrowser> browser,const std::vector<CefDraggableRegion>& regions)
+        //CsStructModuleCodeGen:: GenerateCsMethodArgsClass_JsSlot ,136
         public struct OnDraggableRegionsChangedArgs
         {
             IntPtr nativePtr; //met arg native ptr
@@ -17728,6 +17871,7 @@ namespace LayoutFarm.CefBridge.Auto
                 throw new CefNotImplementedException();
             }
         }
+        //CsStructModuleCodeGen:: GenerateCsMethodArgsClass_Native ,137
         [StructLayout(LayoutKind.Sequential)]
         struct OnDraggableRegionsChangedNativeArgs
         {
@@ -17737,12 +17881,16 @@ namespace LayoutFarm.CefBridge.Auto
         }
         public interface I0
         {
+            //CsStructModuleCodeGen:: GenerateCsStructClass ,138
             void OnDragEnter(OnDragEnterArgs args);
+            //CsStructModuleCodeGen:: GenerateCsStructClass ,139
             void OnDraggableRegionsChanged(OnDraggableRegionsChangedArgs args);
         }
         public interface I1
         {
+            //CsStructModuleCodeGen:: GenerateCsStructClass ,140
             bool OnDragEnter(CefBrowser browser, CefDragData dragData, cef_drag_operations_mask_t mask);
+            //CsStructModuleCodeGen:: GenerateCsStructClass ,141
             void OnDraggableRegionsChanged(CefBrowser browser, List<object> regions);
         }
         public static void HandleNativeReq(I0 i0, I1 i1, int met_id, IntPtr nativeArgPtr)
@@ -17750,6 +17898,7 @@ namespace LayoutFarm.CefBridge.Auto
             int met_name = met_id & 0xffff;
             switch (met_name)
             {
+                //CsStructModuleCodeGen:: GenerateCsStructClass ,142
                 case CefDragHandlerExt_OnDragEnter_1:
                     {
                         var args = new OnDragEnterArgs(nativeArgPtr);
@@ -17766,6 +17915,7 @@ namespace LayoutFarm.CefBridge.Auto
                         }
                     }
                     break;
+                //CsStructModuleCodeGen:: GenerateCsStructClass ,143
                 case CefDragHandlerExt_OnDraggableRegionsChanged_2:
                     {
                         var args = new OnDraggableRegionsChangedArgs(nativeArgPtr);
@@ -17783,6 +17933,7 @@ namespace LayoutFarm.CefBridge.Auto
                     break;
             }
         }
+        //CsStructModuleCodeGen:: GenerateCsStructClass ,144
         public static void OnDragEnter(I1 i1, OnDragEnterArgs args)
         {
             //expand args
@@ -17790,6 +17941,7 @@ namespace LayoutFarm.CefBridge.Auto
             args.dragData(),
             args.mask());
         }
+        //CsStructModuleCodeGen:: GenerateCsStructClass ,145
         public static void OnDraggableRegionsChanged(I1 i1, OnDraggableRegionsChangedArgs args)
         {
             //expand args
@@ -17797,11 +17949,13 @@ namespace LayoutFarm.CefBridge.Auto
             args.regions());
         }
     }
+    //CsStructModuleCodeGen:: GenerateCsStructClass ,146
     public struct CefFindHandler
     {
         public const int _typeNAME = 63;
         const int CefFindHandlerExt_OnFindResult_1 = 1;
         //gen! void OnFindResult(CefRefPtr<CefBrowser> browser,int identifier,int count,const CefRect& selectionRect,int activeMatchOrdinal,bool finalUpdate)
+        //CsStructModuleCodeGen:: GenerateCsMethodArgsClass_JsSlot ,147
         public struct OnFindResultArgs
         {
             IntPtr nativePtr; //met arg native ptr
@@ -17868,6 +18022,7 @@ namespace LayoutFarm.CefBridge.Auto
                 }
             }
         }
+        //CsStructModuleCodeGen:: GenerateCsMethodArgsClass_Native ,148
         [StructLayout(LayoutKind.Sequential)]
         struct OnFindResultNativeArgs
         {
@@ -17881,10 +18036,12 @@ namespace LayoutFarm.CefBridge.Auto
         }
         public interface I0
         {
+            //CsStructModuleCodeGen:: GenerateCsStructClass ,149
             void OnFindResult(OnFindResultArgs args);
         }
         public interface I1
         {
+            //CsStructModuleCodeGen:: GenerateCsStructClass ,150
             void OnFindResult(CefBrowser browser, int identifier, int count, CefRect selectionRect, int activeMatchOrdinal, bool finalUpdate);
         }
         public static void HandleNativeReq(I0 i0, I1 i1, int met_id, IntPtr nativeArgPtr)
@@ -17892,6 +18049,7 @@ namespace LayoutFarm.CefBridge.Auto
             int met_name = met_id & 0xffff;
             switch (met_name)
             {
+                //CsStructModuleCodeGen:: GenerateCsStructClass ,151
                 case CefFindHandlerExt_OnFindResult_1:
                     {
                         var args = new OnFindResultArgs(nativeArgPtr);
@@ -17913,6 +18071,7 @@ namespace LayoutFarm.CefBridge.Auto
                     break;
             }
         }
+        //CsStructModuleCodeGen:: GenerateCsStructClass ,152
         public static void OnFindResult(I1 i1, OnFindResultArgs args)
         {
             //expand args
@@ -17924,6 +18083,7 @@ namespace LayoutFarm.CefBridge.Auto
             args.finalUpdate());
         }
     }
+    //CsStructModuleCodeGen:: GenerateCsStructClass ,153
     public struct CefFocusHandler
     {
         public const int _typeNAME = 64;
@@ -17931,6 +18091,7 @@ namespace LayoutFarm.CefBridge.Auto
         const int CefFocusHandlerExt_OnSetFocus_2 = 2;
         const int CefFocusHandlerExt_OnGotFocus_3 = 3;
         //gen! void OnTakeFocus(CefRefPtr<CefBrowser> browser,bool next)
+        //CsStructModuleCodeGen:: GenerateCsMethodArgsClass_JsSlot ,154
         public struct OnTakeFocusArgs
         {
             IntPtr nativePtr; //met arg native ptr
@@ -17961,6 +18122,7 @@ namespace LayoutFarm.CefBridge.Auto
                 }
             }
         }
+        //CsStructModuleCodeGen:: GenerateCsMethodArgsClass_Native ,155
         [StructLayout(LayoutKind.Sequential)]
         struct OnTakeFocusNativeArgs
         {
@@ -17969,6 +18131,7 @@ namespace LayoutFarm.CefBridge.Auto
             public bool next;
         }
         //gen! bool OnSetFocus(CefRefPtr<CefBrowser> browser,FocusSource source)
+        //CsStructModuleCodeGen:: GenerateCsMethodArgsClass_JsSlot ,156
         public struct OnSetFocusArgs
         {
             IntPtr nativePtr; //met arg native ptr
@@ -17999,14 +18162,17 @@ namespace LayoutFarm.CefBridge.Auto
                 }
             }
         }
+        //CsStructModuleCodeGen:: GenerateCsMethodArgsClass_Native ,157
         [StructLayout(LayoutKind.Sequential)]
         struct OnSetFocusNativeArgs
         {
             public int argFlags;
+            bool myext_ret_value;
             public IntPtr browser;
             public cef_focus_source_t source;
         }
         //gen! void OnGotFocus(CefRefPtr<CefBrowser> browser)
+        //CsStructModuleCodeGen:: GenerateCsMethodArgsClass_JsSlot ,158
         public struct OnGotFocusArgs
         {
             IntPtr nativePtr; //met arg native ptr
@@ -18028,6 +18194,7 @@ namespace LayoutFarm.CefBridge.Auto
                 }
             }
         }
+        //CsStructModuleCodeGen:: GenerateCsMethodArgsClass_Native ,159
         [StructLayout(LayoutKind.Sequential)]
         struct OnGotFocusNativeArgs
         {
@@ -18036,14 +18203,20 @@ namespace LayoutFarm.CefBridge.Auto
         }
         public interface I0
         {
+            //CsStructModuleCodeGen:: GenerateCsStructClass ,160
             void OnTakeFocus(OnTakeFocusArgs args);
+            //CsStructModuleCodeGen:: GenerateCsStructClass ,161
             void OnSetFocus(OnSetFocusArgs args);
+            //CsStructModuleCodeGen:: GenerateCsStructClass ,162
             void OnGotFocus(OnGotFocusArgs args);
         }
         public interface I1
         {
+            //CsStructModuleCodeGen:: GenerateCsStructClass ,163
             void OnTakeFocus(CefBrowser browser, bool next);
+            //CsStructModuleCodeGen:: GenerateCsStructClass ,164
             bool OnSetFocus(CefBrowser browser, cef_focus_source_t source);
+            //CsStructModuleCodeGen:: GenerateCsStructClass ,165
             void OnGotFocus(CefBrowser browser);
         }
         public static void HandleNativeReq(I0 i0, I1 i1, int met_id, IntPtr nativeArgPtr)
@@ -18051,6 +18224,7 @@ namespace LayoutFarm.CefBridge.Auto
             int met_name = met_id & 0xffff;
             switch (met_name)
             {
+                //CsStructModuleCodeGen:: GenerateCsStructClass ,166
                 case CefFocusHandlerExt_OnTakeFocus_1:
                     {
                         var args = new OnTakeFocusArgs(nativeArgPtr);
@@ -18066,6 +18240,7 @@ namespace LayoutFarm.CefBridge.Auto
                         }
                     }
                     break;
+                //CsStructModuleCodeGen:: GenerateCsStructClass ,167
                 case CefFocusHandlerExt_OnSetFocus_2:
                     {
                         var args = new OnSetFocusArgs(nativeArgPtr);
@@ -18081,6 +18256,7 @@ namespace LayoutFarm.CefBridge.Auto
                         }
                     }
                     break;
+                //CsStructModuleCodeGen:: GenerateCsStructClass ,168
                 case CefFocusHandlerExt_OnGotFocus_3:
                     {
                         var args = new OnGotFocusArgs(nativeArgPtr);
@@ -18097,30 +18273,35 @@ namespace LayoutFarm.CefBridge.Auto
                     break;
             }
         }
+        //CsStructModuleCodeGen:: GenerateCsStructClass ,169
         public static void OnTakeFocus(I1 i1, OnTakeFocusArgs args)
         {
             //expand args
             i1.OnTakeFocus(args.browser(),
             args.next());
         }
+        //CsStructModuleCodeGen:: GenerateCsStructClass ,170
         public static void OnSetFocus(I1 i1, OnSetFocusArgs args)
         {
             //expand args
             i1.OnSetFocus(args.browser(),
             args.source());
         }
+        //CsStructModuleCodeGen:: GenerateCsStructClass ,171
         public static void OnGotFocus(I1 i1, OnGotFocusArgs args)
         {
             //expand args
             i1.OnGotFocus(args.browser());
         }
     }
+    //CsStructModuleCodeGen:: GenerateCsStructClass ,172
     public struct CefGeolocationHandler
     {
         public const int _typeNAME = 65;
         const int CefGeolocationHandlerExt_OnRequestGeolocationPermission_1 = 1;
         const int CefGeolocationHandlerExt_OnCancelGeolocationPermission_2 = 2;
         //gen! bool OnRequestGeolocationPermission(CefRefPtr<CefBrowser> browser,const CefString& requesting_url,int request_id,CefRefPtr<CefGeolocationCallback> callback)
+        //CsStructModuleCodeGen:: GenerateCsMethodArgsClass_JsSlot ,173
         public struct OnRequestGeolocationPermissionArgs
         {
             IntPtr nativePtr; //met arg native ptr
@@ -18169,16 +18350,19 @@ namespace LayoutFarm.CefBridge.Auto
                 }
             }
         }
+        //CsStructModuleCodeGen:: GenerateCsMethodArgsClass_Native ,174
         [StructLayout(LayoutKind.Sequential)]
         struct OnRequestGeolocationPermissionNativeArgs
         {
             public int argFlags;
+            bool myext_ret_value;
             public IntPtr browser;
             public IntPtr requesting_url;
             public int request_id;
             public IntPtr callback;
         }
         //gen! void OnCancelGeolocationPermission(CefRefPtr<CefBrowser> browser,int request_id)
+        //CsStructModuleCodeGen:: GenerateCsMethodArgsClass_JsSlot ,175
         public struct OnCancelGeolocationPermissionArgs
         {
             IntPtr nativePtr; //met arg native ptr
@@ -18209,6 +18393,7 @@ namespace LayoutFarm.CefBridge.Auto
                 }
             }
         }
+        //CsStructModuleCodeGen:: GenerateCsMethodArgsClass_Native ,176
         [StructLayout(LayoutKind.Sequential)]
         struct OnCancelGeolocationPermissionNativeArgs
         {
@@ -18218,12 +18403,16 @@ namespace LayoutFarm.CefBridge.Auto
         }
         public interface I0
         {
+            //CsStructModuleCodeGen:: GenerateCsStructClass ,177
             void OnRequestGeolocationPermission(OnRequestGeolocationPermissionArgs args);
+            //CsStructModuleCodeGen:: GenerateCsStructClass ,178
             void OnCancelGeolocationPermission(OnCancelGeolocationPermissionArgs args);
         }
         public interface I1
         {
+            //CsStructModuleCodeGen:: GenerateCsStructClass ,179
             bool OnRequestGeolocationPermission(CefBrowser browser, string requesting_url, int request_id, CefGeolocationCallback callback);
+            //CsStructModuleCodeGen:: GenerateCsStructClass ,180
             void OnCancelGeolocationPermission(CefBrowser browser, int request_id);
         }
         public static void HandleNativeReq(I0 i0, I1 i1, int met_id, IntPtr nativeArgPtr)
@@ -18231,6 +18420,7 @@ namespace LayoutFarm.CefBridge.Auto
             int met_name = met_id & 0xffff;
             switch (met_name)
             {
+                //CsStructModuleCodeGen:: GenerateCsStructClass ,181
                 case CefGeolocationHandlerExt_OnRequestGeolocationPermission_1:
                     {
                         var args = new OnRequestGeolocationPermissionArgs(nativeArgPtr);
@@ -18248,6 +18438,7 @@ namespace LayoutFarm.CefBridge.Auto
                         }
                     }
                     break;
+                //CsStructModuleCodeGen:: GenerateCsStructClass ,182
                 case CefGeolocationHandlerExt_OnCancelGeolocationPermission_2:
                     {
                         var args = new OnCancelGeolocationPermissionArgs(nativeArgPtr);
@@ -18265,6 +18456,7 @@ namespace LayoutFarm.CefBridge.Auto
                     break;
             }
         }
+        //CsStructModuleCodeGen:: GenerateCsStructClass ,183
         public static void OnRequestGeolocationPermission(I1 i1, OnRequestGeolocationPermissionArgs args)
         {
             //expand args
@@ -18273,6 +18465,7 @@ namespace LayoutFarm.CefBridge.Auto
             args.request_id(),
             args.callback());
         }
+        //CsStructModuleCodeGen:: GenerateCsStructClass ,184
         public static void OnCancelGeolocationPermission(I1 i1, OnCancelGeolocationPermissionArgs args)
         {
             //expand args
@@ -18280,6 +18473,7 @@ namespace LayoutFarm.CefBridge.Auto
             args.request_id());
         }
     }
+    //CsStructModuleCodeGen:: GenerateCsStructClass ,185
     public struct CefJSDialogHandler
     {
         public const int _typeNAME = 66;
@@ -18288,6 +18482,7 @@ namespace LayoutFarm.CefBridge.Auto
         const int CefJSDialogHandlerExt_OnResetDialogState_3 = 3;
         const int CefJSDialogHandlerExt_OnDialogClosed_4 = 4;
         //gen! bool OnJSDialog(CefRefPtr<CefBrowser> browser,const CefString& origin_url,JSDialogType dialog_type,const CefString& message_text,const CefString& default_prompt_text,CefRefPtr<CefJSDialogCallback> callback,bool& suppress_message)
+        //CsStructModuleCodeGen:: GenerateCsMethodArgsClass_JsSlot ,186
         public struct OnJSDialogArgs
         {
             IntPtr nativePtr; //met arg native ptr
@@ -18365,10 +18560,12 @@ namespace LayoutFarm.CefBridge.Auto
                 MyMetArgs.SetBoolToAddress(nativePtr, 7, value);
             }
         }
+        //CsStructModuleCodeGen:: GenerateCsMethodArgsClass_Native ,187
         [StructLayout(LayoutKind.Sequential)]
         struct OnJSDialogNativeArgs
         {
             public int argFlags;
+            bool myext_ret_value;
             public IntPtr browser;
             public IntPtr origin_url;
             public cef_jsdialog_type_t dialog_type;
@@ -18378,6 +18575,7 @@ namespace LayoutFarm.CefBridge.Auto
             public double suppress_message;
         }
         //gen! bool OnBeforeUnloadDialog(CefRefPtr<CefBrowser> browser,const CefString& message_text,bool is_reload,CefRefPtr<CefJSDialogCallback> callback)
+        //CsStructModuleCodeGen:: GenerateCsMethodArgsClass_JsSlot ,188
         public struct OnBeforeUnloadDialogArgs
         {
             IntPtr nativePtr; //met arg native ptr
@@ -18426,16 +18624,19 @@ namespace LayoutFarm.CefBridge.Auto
                 }
             }
         }
+        //CsStructModuleCodeGen:: GenerateCsMethodArgsClass_Native ,189
         [StructLayout(LayoutKind.Sequential)]
         struct OnBeforeUnloadDialogNativeArgs
         {
             public int argFlags;
+            bool myext_ret_value;
             public IntPtr browser;
             public IntPtr message_text;
             public bool is_reload;
             public IntPtr callback;
         }
         //gen! void OnResetDialogState(CefRefPtr<CefBrowser> browser)
+        //CsStructModuleCodeGen:: GenerateCsMethodArgsClass_JsSlot ,190
         public struct OnResetDialogStateArgs
         {
             IntPtr nativePtr; //met arg native ptr
@@ -18457,6 +18658,7 @@ namespace LayoutFarm.CefBridge.Auto
                 }
             }
         }
+        //CsStructModuleCodeGen:: GenerateCsMethodArgsClass_Native ,191
         [StructLayout(LayoutKind.Sequential)]
         struct OnResetDialogStateNativeArgs
         {
@@ -18464,6 +18666,7 @@ namespace LayoutFarm.CefBridge.Auto
             public IntPtr browser;
         }
         //gen! void OnDialogClosed(CefRefPtr<CefBrowser> browser)
+        //CsStructModuleCodeGen:: GenerateCsMethodArgsClass_JsSlot ,192
         public struct OnDialogClosedArgs
         {
             IntPtr nativePtr; //met arg native ptr
@@ -18485,6 +18688,7 @@ namespace LayoutFarm.CefBridge.Auto
                 }
             }
         }
+        //CsStructModuleCodeGen:: GenerateCsMethodArgsClass_Native ,193
         [StructLayout(LayoutKind.Sequential)]
         struct OnDialogClosedNativeArgs
         {
@@ -18493,16 +18697,24 @@ namespace LayoutFarm.CefBridge.Auto
         }
         public interface I0
         {
+            //CsStructModuleCodeGen:: GenerateCsStructClass ,194
             void OnJSDialog(OnJSDialogArgs args);
+            //CsStructModuleCodeGen:: GenerateCsStructClass ,195
             void OnBeforeUnloadDialog(OnBeforeUnloadDialogArgs args);
+            //CsStructModuleCodeGen:: GenerateCsStructClass ,196
             void OnResetDialogState(OnResetDialogStateArgs args);
+            //CsStructModuleCodeGen:: GenerateCsStructClass ,197
             void OnDialogClosed(OnDialogClosedArgs args);
         }
         public interface I1
         {
+            //CsStructModuleCodeGen:: GenerateCsStructClass ,198
             bool OnJSDialog(CefBrowser browser, string origin_url, cef_jsdialog_type_t dialog_type, string message_text, string default_prompt_text, CefJSDialogCallback callback, ref bool suppress_message);
+            //CsStructModuleCodeGen:: GenerateCsStructClass ,199
             bool OnBeforeUnloadDialog(CefBrowser browser, string message_text, bool is_reload, CefJSDialogCallback callback);
+            //CsStructModuleCodeGen:: GenerateCsStructClass ,200
             void OnResetDialogState(CefBrowser browser);
+            //CsStructModuleCodeGen:: GenerateCsStructClass ,201
             void OnDialogClosed(CefBrowser browser);
         }
         public static void HandleNativeReq(I0 i0, I1 i1, int met_id, IntPtr nativeArgPtr)
@@ -18510,6 +18722,7 @@ namespace LayoutFarm.CefBridge.Auto
             int met_name = met_id & 0xffff;
             switch (met_name)
             {
+                //CsStructModuleCodeGen:: GenerateCsStructClass ,202
                 case CefJSDialogHandlerExt_OnJSDialog_1:
                     {
                         var args = new OnJSDialogArgs(nativeArgPtr);
@@ -18532,6 +18745,7 @@ namespace LayoutFarm.CefBridge.Auto
                         }
                     }
                     break;
+                //CsStructModuleCodeGen:: GenerateCsStructClass ,203
                 case CefJSDialogHandlerExt_OnBeforeUnloadDialog_2:
                     {
                         var args = new OnBeforeUnloadDialogArgs(nativeArgPtr);
@@ -18549,6 +18763,7 @@ namespace LayoutFarm.CefBridge.Auto
                         }
                     }
                     break;
+                //CsStructModuleCodeGen:: GenerateCsStructClass ,204
                 case CefJSDialogHandlerExt_OnResetDialogState_3:
                     {
                         var args = new OnResetDialogStateArgs(nativeArgPtr);
@@ -18563,6 +18778,7 @@ namespace LayoutFarm.CefBridge.Auto
                         }
                     }
                     break;
+                //CsStructModuleCodeGen:: GenerateCsStructClass ,205
                 case CefJSDialogHandlerExt_OnDialogClosed_4:
                     {
                         var args = new OnDialogClosedArgs(nativeArgPtr);
@@ -18579,6 +18795,7 @@ namespace LayoutFarm.CefBridge.Auto
                     break;
             }
         }
+        //CsStructModuleCodeGen:: GenerateCsStructClass ,206
         public static void OnJSDialog(I1 i1, OnJSDialogArgs args)
         {
             //expand args
@@ -18592,6 +18809,7 @@ namespace LayoutFarm.CefBridge.Auto
             ref suppress_message);
             args.suppress_message(suppress_message);
         }
+        //CsStructModuleCodeGen:: GenerateCsStructClass ,207
         public static void OnBeforeUnloadDialog(I1 i1, OnBeforeUnloadDialogArgs args)
         {
             //expand args
@@ -18600,23 +18818,27 @@ namespace LayoutFarm.CefBridge.Auto
             args.is_reload(),
             args.callback());
         }
+        //CsStructModuleCodeGen:: GenerateCsStructClass ,208
         public static void OnResetDialogState(I1 i1, OnResetDialogStateArgs args)
         {
             //expand args
             i1.OnResetDialogState(args.browser());
         }
+        //CsStructModuleCodeGen:: GenerateCsStructClass ,209
         public static void OnDialogClosed(I1 i1, OnDialogClosedArgs args)
         {
             //expand args
             i1.OnDialogClosed(args.browser());
         }
     }
+    //CsStructModuleCodeGen:: GenerateCsStructClass ,210
     public struct CefKeyboardHandler
     {
         public const int _typeNAME = 67;
         const int CefKeyboardHandlerExt_OnPreKeyEvent_1 = 1;
         const int CefKeyboardHandlerExt_OnKeyEvent_2 = 2;
         //gen! bool OnPreKeyEvent(CefRefPtr<CefBrowser> browser,const CefKeyEvent& event,CefEventHandle os_event,bool* is_keyboard_shortcut)
+        //CsStructModuleCodeGen:: GenerateCsMethodArgsClass_JsSlot ,211
         public struct OnPreKeyEventArgs
         {
             IntPtr nativePtr; //met arg native ptr
@@ -18662,16 +18884,19 @@ namespace LayoutFarm.CefBridge.Auto
                 MyMetArgs.SetBoolToAddress(nativePtr, 4, value);
             }
         }
+        //CsStructModuleCodeGen:: GenerateCsMethodArgsClass_Native ,212
         [StructLayout(LayoutKind.Sequential)]
         struct OnPreKeyEventNativeArgs
         {
             public int argFlags;
+            bool myext_ret_value;
             public IntPtr browser;
             public IntPtr _event;
             public IntPtr os_event;
             public double is_keyboard_shortcut;
         }
         //gen! bool OnKeyEvent(CefRefPtr<CefBrowser> browser,const CefKeyEvent& event,CefEventHandle os_event)
+        //CsStructModuleCodeGen:: GenerateCsMethodArgsClass_JsSlot ,213
         public struct OnKeyEventArgs
         {
             IntPtr nativePtr; //met arg native ptr
@@ -18706,22 +18931,28 @@ namespace LayoutFarm.CefBridge.Auto
                 throw new CefNotImplementedException();
             }
         }
+        //CsStructModuleCodeGen:: GenerateCsMethodArgsClass_Native ,214
         [StructLayout(LayoutKind.Sequential)]
         struct OnKeyEventNativeArgs
         {
             public int argFlags;
+            bool myext_ret_value;
             public IntPtr browser;
             public IntPtr _event;
             public IntPtr os_event;
         }
         public interface I0
         {
+            //CsStructModuleCodeGen:: GenerateCsStructClass ,215
             void OnPreKeyEvent(OnPreKeyEventArgs args);
+            //CsStructModuleCodeGen:: GenerateCsStructClass ,216
             void OnKeyEvent(OnKeyEventArgs args);
         }
         public interface I1
         {
+            //CsStructModuleCodeGen:: GenerateCsStructClass ,217
             bool OnPreKeyEvent(CefBrowser browser, CefKeyEvent _event, IntPtr os_event, ref bool is_keyboard_shortcut);
+            //CsStructModuleCodeGen:: GenerateCsStructClass ,218
             bool OnKeyEvent(CefBrowser browser, CefKeyEvent _event, IntPtr os_event);
         }
         public static void HandleNativeReq(I0 i0, I1 i1, int met_id, IntPtr nativeArgPtr)
@@ -18729,6 +18960,7 @@ namespace LayoutFarm.CefBridge.Auto
             int met_name = met_id & 0xffff;
             switch (met_name)
             {
+                //CsStructModuleCodeGen:: GenerateCsStructClass ,219
                 case CefKeyboardHandlerExt_OnPreKeyEvent_1:
                     {
                         var args = new OnPreKeyEventArgs(nativeArgPtr);
@@ -18748,6 +18980,7 @@ namespace LayoutFarm.CefBridge.Auto
                         }
                     }
                     break;
+                //CsStructModuleCodeGen:: GenerateCsStructClass ,220
                 case CefKeyboardHandlerExt_OnKeyEvent_2:
                     {
                         var args = new OnKeyEventArgs(nativeArgPtr);
@@ -18766,6 +18999,7 @@ namespace LayoutFarm.CefBridge.Auto
                     break;
             }
         }
+        //CsStructModuleCodeGen:: GenerateCsStructClass ,221
         public static void OnPreKeyEvent(I1 i1, OnPreKeyEventArgs args)
         {
             //expand args
@@ -18776,6 +19010,7 @@ namespace LayoutFarm.CefBridge.Auto
             ref is_keyboard_shortcut);
             args.is_keyboard_shortcut(is_keyboard_shortcut);
         }
+        //CsStructModuleCodeGen:: GenerateCsStructClass ,222
         public static void OnKeyEvent(I1 i1, OnKeyEventArgs args)
         {
             //expand args
@@ -18784,6 +19019,7 @@ namespace LayoutFarm.CefBridge.Auto
             args.os_event());
         }
     }
+    //CsStructModuleCodeGen:: GenerateCsStructClass ,223
     public struct CefLifeSpanHandler
     {
         public const int _typeNAME = 68;
@@ -18792,6 +19028,7 @@ namespace LayoutFarm.CefBridge.Auto
         const int CefLifeSpanHandlerExt_DoClose_3 = 3;
         const int CefLifeSpanHandlerExt_OnBeforeClose_4 = 4;
         //gen! bool OnBeforePopup(CefRefPtr<CefBrowser> browser,CefRefPtr<CefFrame> frame,const CefString& target_url,const CefString& target_frame_name,WindowOpenDisposition target_disposition,bool user_gesture,const CefPopupFeatures& popupFeatures,CefWindowInfo& windowInfo,CefRefPtr<CefClient>& client,CefBrowserSettings& settings,bool* no_javascript_access)
+        //CsStructModuleCodeGen:: GenerateCsMethodArgsClass_JsSlot ,224
         public struct OnBeforePopupArgs
         {
             IntPtr nativePtr; //met arg native ptr
@@ -18900,10 +19137,12 @@ namespace LayoutFarm.CefBridge.Auto
                 MyMetArgs.SetBoolToAddress(nativePtr, 11, value);
             }
         }
+        //CsStructModuleCodeGen:: GenerateCsMethodArgsClass_Native ,225
         [StructLayout(LayoutKind.Sequential)]
         struct OnBeforePopupNativeArgs
         {
             public int argFlags;
+            bool myext_ret_value;
             public IntPtr browser;
             public IntPtr frame;
             public IntPtr target_url;
@@ -18917,6 +19156,7 @@ namespace LayoutFarm.CefBridge.Auto
             public double no_javascript_access;
         }
         //gen! void OnAfterCreated(CefRefPtr<CefBrowser> browser)
+        //CsStructModuleCodeGen:: GenerateCsMethodArgsClass_JsSlot ,226
         public struct OnAfterCreatedArgs
         {
             IntPtr nativePtr; //met arg native ptr
@@ -18938,6 +19178,7 @@ namespace LayoutFarm.CefBridge.Auto
                 }
             }
         }
+        //CsStructModuleCodeGen:: GenerateCsMethodArgsClass_Native ,227
         [StructLayout(LayoutKind.Sequential)]
         struct OnAfterCreatedNativeArgs
         {
@@ -18945,6 +19186,7 @@ namespace LayoutFarm.CefBridge.Auto
             public IntPtr browser;
         }
         //gen! bool DoClose(CefRefPtr<CefBrowser> browser)
+        //CsStructModuleCodeGen:: GenerateCsMethodArgsClass_JsSlot ,228
         public struct DoCloseArgs
         {
             IntPtr nativePtr; //met arg native ptr
@@ -18966,13 +19208,16 @@ namespace LayoutFarm.CefBridge.Auto
                 }
             }
         }
+        //CsStructModuleCodeGen:: GenerateCsMethodArgsClass_Native ,229
         [StructLayout(LayoutKind.Sequential)]
         struct DoCloseNativeArgs
         {
             public int argFlags;
+            bool myext_ret_value;
             public IntPtr browser;
         }
         //gen! void OnBeforeClose(CefRefPtr<CefBrowser> browser)
+        //CsStructModuleCodeGen:: GenerateCsMethodArgsClass_JsSlot ,230
         public struct OnBeforeCloseArgs
         {
             IntPtr nativePtr; //met arg native ptr
@@ -18994,6 +19239,7 @@ namespace LayoutFarm.CefBridge.Auto
                 }
             }
         }
+        //CsStructModuleCodeGen:: GenerateCsMethodArgsClass_Native ,231
         [StructLayout(LayoutKind.Sequential)]
         struct OnBeforeCloseNativeArgs
         {
@@ -19002,16 +19248,24 @@ namespace LayoutFarm.CefBridge.Auto
         }
         public interface I0
         {
+            //CsStructModuleCodeGen:: GenerateCsStructClass ,232
             void OnBeforePopup(OnBeforePopupArgs args);
+            //CsStructModuleCodeGen:: GenerateCsStructClass ,233
             void OnAfterCreated(OnAfterCreatedArgs args);
+            //CsStructModuleCodeGen:: GenerateCsStructClass ,234
             void DoClose(DoCloseArgs args);
+            //CsStructModuleCodeGen:: GenerateCsStructClass ,235
             void OnBeforeClose(OnBeforeCloseArgs args);
         }
         public interface I1
         {
+            //CsStructModuleCodeGen:: GenerateCsStructClass ,236
             bool OnBeforePopup(CefBrowser browser, CefFrame frame, string target_url, string target_frame_name, cef_window_open_disposition_t target_disposition, bool user_gesture, CefPopupFeatures popupFeatures, CefWindowInfo windowInfo, IntPtr client, CefBrowserSettings settings, ref bool no_javascript_access);
+            //CsStructModuleCodeGen:: GenerateCsStructClass ,237
             void OnAfterCreated(CefBrowser browser);
+            //CsStructModuleCodeGen:: GenerateCsStructClass ,238
             bool DoClose(CefBrowser browser);
+            //CsStructModuleCodeGen:: GenerateCsStructClass ,239
             void OnBeforeClose(CefBrowser browser);
         }
         public static void HandleNativeReq(I0 i0, I1 i1, int met_id, IntPtr nativeArgPtr)
@@ -19019,6 +19273,7 @@ namespace LayoutFarm.CefBridge.Auto
             int met_name = met_id & 0xffff;
             switch (met_name)
             {
+                //CsStructModuleCodeGen:: GenerateCsStructClass ,240
                 case CefLifeSpanHandlerExt_OnBeforePopup_1:
                     {
                         var args = new OnBeforePopupArgs(nativeArgPtr);
@@ -19045,6 +19300,7 @@ namespace LayoutFarm.CefBridge.Auto
                         }
                     }
                     break;
+                //CsStructModuleCodeGen:: GenerateCsStructClass ,241
                 case CefLifeSpanHandlerExt_OnAfterCreated_2:
                     {
                         var args = new OnAfterCreatedArgs(nativeArgPtr);
@@ -19059,6 +19315,7 @@ namespace LayoutFarm.CefBridge.Auto
                         }
                     }
                     break;
+                //CsStructModuleCodeGen:: GenerateCsStructClass ,242
                 case CefLifeSpanHandlerExt_DoClose_3:
                     {
                         var args = new DoCloseArgs(nativeArgPtr);
@@ -19073,6 +19330,7 @@ namespace LayoutFarm.CefBridge.Auto
                         }
                     }
                     break;
+                //CsStructModuleCodeGen:: GenerateCsStructClass ,243
                 case CefLifeSpanHandlerExt_OnBeforeClose_4:
                     {
                         var args = new OnBeforeCloseArgs(nativeArgPtr);
@@ -19089,6 +19347,7 @@ namespace LayoutFarm.CefBridge.Auto
                     break;
             }
         }
+        //CsStructModuleCodeGen:: GenerateCsStructClass ,244
         public static void OnBeforePopup(I1 i1, OnBeforePopupArgs args)
         {
             //expand args
@@ -19106,22 +19365,26 @@ namespace LayoutFarm.CefBridge.Auto
             ref no_javascript_access);
             args.no_javascript_access(no_javascript_access);
         }
+        //CsStructModuleCodeGen:: GenerateCsStructClass ,245
         public static void OnAfterCreated(I1 i1, OnAfterCreatedArgs args)
         {
             //expand args
             i1.OnAfterCreated(args.browser());
         }
+        //CsStructModuleCodeGen:: GenerateCsStructClass ,246
         public static void DoClose(I1 i1, DoCloseArgs args)
         {
             //expand args
             i1.DoClose(args.browser());
         }
+        //CsStructModuleCodeGen:: GenerateCsStructClass ,247
         public static void OnBeforeClose(I1 i1, OnBeforeCloseArgs args)
         {
             //expand args
             i1.OnBeforeClose(args.browser());
         }
     }
+    //CsStructModuleCodeGen:: GenerateCsStructClass ,248
     public struct CefLoadHandler
     {
         public const int _typeNAME = 69;
@@ -19130,6 +19393,7 @@ namespace LayoutFarm.CefBridge.Auto
         const int CefLoadHandlerExt_OnLoadEnd_3 = 3;
         const int CefLoadHandlerExt_OnLoadError_4 = 4;
         //gen! void OnLoadingStateChange(CefRefPtr<CefBrowser> browser,bool isLoading,bool canGoBack,bool canGoForward)
+        //CsStructModuleCodeGen:: GenerateCsMethodArgsClass_JsSlot ,249
         public struct OnLoadingStateChangeArgs
         {
             IntPtr nativePtr; //met arg native ptr
@@ -19178,6 +19442,7 @@ namespace LayoutFarm.CefBridge.Auto
                 }
             }
         }
+        //CsStructModuleCodeGen:: GenerateCsMethodArgsClass_Native ,250
         [StructLayout(LayoutKind.Sequential)]
         struct OnLoadingStateChangeNativeArgs
         {
@@ -19188,6 +19453,7 @@ namespace LayoutFarm.CefBridge.Auto
             public bool canGoForward;
         }
         //gen! void OnLoadStart(CefRefPtr<CefBrowser> browser,CefRefPtr<CefFrame> frame,TransitionType transition_type)
+        //CsStructModuleCodeGen:: GenerateCsMethodArgsClass_JsSlot ,251
         public struct OnLoadStartArgs
         {
             IntPtr nativePtr; //met arg native ptr
@@ -19227,6 +19493,7 @@ namespace LayoutFarm.CefBridge.Auto
                 }
             }
         }
+        //CsStructModuleCodeGen:: GenerateCsMethodArgsClass_Native ,252
         [StructLayout(LayoutKind.Sequential)]
         struct OnLoadStartNativeArgs
         {
@@ -19236,6 +19503,7 @@ namespace LayoutFarm.CefBridge.Auto
             public cef_transition_type_t transition_type;
         }
         //gen! void OnLoadEnd(CefRefPtr<CefBrowser> browser,CefRefPtr<CefFrame> frame,int httpStatusCode)
+        //CsStructModuleCodeGen:: GenerateCsMethodArgsClass_JsSlot ,253
         public struct OnLoadEndArgs
         {
             IntPtr nativePtr; //met arg native ptr
@@ -19275,6 +19543,7 @@ namespace LayoutFarm.CefBridge.Auto
                 }
             }
         }
+        //CsStructModuleCodeGen:: GenerateCsMethodArgsClass_Native ,254
         [StructLayout(LayoutKind.Sequential)]
         struct OnLoadEndNativeArgs
         {
@@ -19284,6 +19553,7 @@ namespace LayoutFarm.CefBridge.Auto
             public int httpStatusCode;
         }
         //gen! void OnLoadError(CefRefPtr<CefBrowser> browser,CefRefPtr<CefFrame> frame,ErrorCode errorCode,const CefString& errorText,const CefString& failedUrl)
+        //CsStructModuleCodeGen:: GenerateCsMethodArgsClass_JsSlot ,255
         public struct OnLoadErrorArgs
         {
             IntPtr nativePtr; //met arg native ptr
@@ -19341,6 +19611,7 @@ namespace LayoutFarm.CefBridge.Auto
                 }
             }
         }
+        //CsStructModuleCodeGen:: GenerateCsMethodArgsClass_Native ,256
         [StructLayout(LayoutKind.Sequential)]
         struct OnLoadErrorNativeArgs
         {
@@ -19353,16 +19624,24 @@ namespace LayoutFarm.CefBridge.Auto
         }
         public interface I0
         {
+            //CsStructModuleCodeGen:: GenerateCsStructClass ,257
             void OnLoadingStateChange(OnLoadingStateChangeArgs args);
+            //CsStructModuleCodeGen:: GenerateCsStructClass ,258
             void OnLoadStart(OnLoadStartArgs args);
+            //CsStructModuleCodeGen:: GenerateCsStructClass ,259
             void OnLoadEnd(OnLoadEndArgs args);
+            //CsStructModuleCodeGen:: GenerateCsStructClass ,260
             void OnLoadError(OnLoadErrorArgs args);
         }
         public interface I1
         {
+            //CsStructModuleCodeGen:: GenerateCsStructClass ,261
             void OnLoadingStateChange(CefBrowser browser, bool isLoading, bool canGoBack, bool canGoForward);
+            //CsStructModuleCodeGen:: GenerateCsStructClass ,262
             void OnLoadStart(CefBrowser browser, CefFrame frame, cef_transition_type_t transition_type);
+            //CsStructModuleCodeGen:: GenerateCsStructClass ,263
             void OnLoadEnd(CefBrowser browser, CefFrame frame, int httpStatusCode);
+            //CsStructModuleCodeGen:: GenerateCsStructClass ,264
             void OnLoadError(CefBrowser browser, CefFrame frame, cef_errorcode_t errorCode, string errorText, string failedUrl);
         }
         public static void HandleNativeReq(I0 i0, I1 i1, int met_id, IntPtr nativeArgPtr)
@@ -19370,6 +19649,7 @@ namespace LayoutFarm.CefBridge.Auto
             int met_name = met_id & 0xffff;
             switch (met_name)
             {
+                //CsStructModuleCodeGen:: GenerateCsStructClass ,265
                 case CefLoadHandlerExt_OnLoadingStateChange_1:
                     {
                         var args = new OnLoadingStateChangeArgs(nativeArgPtr);
@@ -19387,6 +19667,7 @@ namespace LayoutFarm.CefBridge.Auto
                         }
                     }
                     break;
+                //CsStructModuleCodeGen:: GenerateCsStructClass ,266
                 case CefLoadHandlerExt_OnLoadStart_2:
                     {
                         var args = new OnLoadStartArgs(nativeArgPtr);
@@ -19403,6 +19684,7 @@ namespace LayoutFarm.CefBridge.Auto
                         }
                     }
                     break;
+                //CsStructModuleCodeGen:: GenerateCsStructClass ,267
                 case CefLoadHandlerExt_OnLoadEnd_3:
                     {
                         var args = new OnLoadEndArgs(nativeArgPtr);
@@ -19419,6 +19701,7 @@ namespace LayoutFarm.CefBridge.Auto
                         }
                     }
                     break;
+                //CsStructModuleCodeGen:: GenerateCsStructClass ,268
                 case CefLoadHandlerExt_OnLoadError_4:
                     {
                         var args = new OnLoadErrorArgs(nativeArgPtr);
@@ -19439,6 +19722,7 @@ namespace LayoutFarm.CefBridge.Auto
                     break;
             }
         }
+        //CsStructModuleCodeGen:: GenerateCsStructClass ,269
         public static void OnLoadingStateChange(I1 i1, OnLoadingStateChangeArgs args)
         {
             //expand args
@@ -19447,6 +19731,7 @@ namespace LayoutFarm.CefBridge.Auto
             args.canGoBack(),
             args.canGoForward());
         }
+        //CsStructModuleCodeGen:: GenerateCsStructClass ,270
         public static void OnLoadStart(I1 i1, OnLoadStartArgs args)
         {
             //expand args
@@ -19454,6 +19739,7 @@ namespace LayoutFarm.CefBridge.Auto
             args.frame(),
             args.transition_type());
         }
+        //CsStructModuleCodeGen:: GenerateCsStructClass ,271
         public static void OnLoadEnd(I1 i1, OnLoadEndArgs args)
         {
             //expand args
@@ -19461,6 +19747,7 @@ namespace LayoutFarm.CefBridge.Auto
             args.frame(),
             args.httpStatusCode());
         }
+        //CsStructModuleCodeGen:: GenerateCsStructClass ,272
         public static void OnLoadError(I1 i1, OnLoadErrorArgs args)
         {
             //expand args
@@ -19471,6 +19758,7 @@ namespace LayoutFarm.CefBridge.Auto
             args.failedUrl());
         }
     }
+    //CsStructModuleCodeGen:: GenerateCsStructClass ,273
     public struct CefPrintHandler
     {
         public const int _typeNAME = 70;
@@ -19481,6 +19769,7 @@ namespace LayoutFarm.CefBridge.Auto
         const int CefPrintHandlerExt_OnPrintReset_5 = 5;
         const int CefPrintHandlerExt_GetPdfPaperSize_6 = 6;
         //gen! void OnPrintStart(CefRefPtr<CefBrowser> browser)
+        //CsStructModuleCodeGen:: GenerateCsMethodArgsClass_JsSlot ,274
         public struct OnPrintStartArgs
         {
             IntPtr nativePtr; //met arg native ptr
@@ -19502,6 +19791,7 @@ namespace LayoutFarm.CefBridge.Auto
                 }
             }
         }
+        //CsStructModuleCodeGen:: GenerateCsMethodArgsClass_Native ,275
         [StructLayout(LayoutKind.Sequential)]
         struct OnPrintStartNativeArgs
         {
@@ -19509,6 +19799,7 @@ namespace LayoutFarm.CefBridge.Auto
             public IntPtr browser;
         }
         //gen! void OnPrintSettings(CefRefPtr<CefBrowser> browser,CefRefPtr<CefPrintSettings> settings,bool get_defaults)
+        //CsStructModuleCodeGen:: GenerateCsMethodArgsClass_JsSlot ,276
         public struct OnPrintSettingsArgs
         {
             IntPtr nativePtr; //met arg native ptr
@@ -19548,6 +19839,7 @@ namespace LayoutFarm.CefBridge.Auto
                 }
             }
         }
+        //CsStructModuleCodeGen:: GenerateCsMethodArgsClass_Native ,277
         [StructLayout(LayoutKind.Sequential)]
         struct OnPrintSettingsNativeArgs
         {
@@ -19557,6 +19849,7 @@ namespace LayoutFarm.CefBridge.Auto
             public bool get_defaults;
         }
         //gen! bool OnPrintDialog(CefRefPtr<CefBrowser> browser,bool has_selection,CefRefPtr<CefPrintDialogCallback> callback)
+        //CsStructModuleCodeGen:: GenerateCsMethodArgsClass_JsSlot ,278
         public struct OnPrintDialogArgs
         {
             IntPtr nativePtr; //met arg native ptr
@@ -19596,15 +19889,18 @@ namespace LayoutFarm.CefBridge.Auto
                 }
             }
         }
+        //CsStructModuleCodeGen:: GenerateCsMethodArgsClass_Native ,279
         [StructLayout(LayoutKind.Sequential)]
         struct OnPrintDialogNativeArgs
         {
             public int argFlags;
+            bool myext_ret_value;
             public IntPtr browser;
             public bool has_selection;
             public IntPtr callback;
         }
         //gen! bool OnPrintJob(CefRefPtr<CefBrowser> browser,const CefString& document_name,const CefString& pdf_file_path,CefRefPtr<CefPrintJobCallback> callback)
+        //CsStructModuleCodeGen:: GenerateCsMethodArgsClass_JsSlot ,280
         public struct OnPrintJobArgs
         {
             IntPtr nativePtr; //met arg native ptr
@@ -19653,16 +19949,19 @@ namespace LayoutFarm.CefBridge.Auto
                 }
             }
         }
+        //CsStructModuleCodeGen:: GenerateCsMethodArgsClass_Native ,281
         [StructLayout(LayoutKind.Sequential)]
         struct OnPrintJobNativeArgs
         {
             public int argFlags;
+            bool myext_ret_value;
             public IntPtr browser;
             public IntPtr document_name;
             public IntPtr pdf_file_path;
             public IntPtr callback;
         }
         //gen! void OnPrintReset(CefRefPtr<CefBrowser> browser)
+        //CsStructModuleCodeGen:: GenerateCsMethodArgsClass_JsSlot ,282
         public struct OnPrintResetArgs
         {
             IntPtr nativePtr; //met arg native ptr
@@ -19684,6 +19983,7 @@ namespace LayoutFarm.CefBridge.Auto
                 }
             }
         }
+        //CsStructModuleCodeGen:: GenerateCsMethodArgsClass_Native ,283
         [StructLayout(LayoutKind.Sequential)]
         struct OnPrintResetNativeArgs
         {
@@ -19691,6 +19991,7 @@ namespace LayoutFarm.CefBridge.Auto
             public IntPtr browser;
         }
         //gen! CefSize GetPdfPaperSize(int device_units_per_inch)
+        //CsStructModuleCodeGen:: GenerateCsMethodArgsClass_JsSlot ,284
         public struct GetPdfPaperSizeArgs
         {
             IntPtr nativePtr; //met arg native ptr
@@ -19712,28 +20013,43 @@ namespace LayoutFarm.CefBridge.Auto
                 }
             }
         }
+        //CsStructModuleCodeGen:: GenerateCsMethodArgsClass_Native ,285
         [StructLayout(LayoutKind.Sequential)]
         struct GetPdfPaperSizeNativeArgs
         {
             public int argFlags;
+            int myext_ret_value_w;
+            int myext_ret_value_h;
             public int device_units_per_inch;
         }
         public interface I0
         {
+            //CsStructModuleCodeGen:: GenerateCsStructClass ,286
             void OnPrintStart(OnPrintStartArgs args);
+            //CsStructModuleCodeGen:: GenerateCsStructClass ,287
             void OnPrintSettings(OnPrintSettingsArgs args);
+            //CsStructModuleCodeGen:: GenerateCsStructClass ,288
             void OnPrintDialog(OnPrintDialogArgs args);
+            //CsStructModuleCodeGen:: GenerateCsStructClass ,289
             void OnPrintJob(OnPrintJobArgs args);
+            //CsStructModuleCodeGen:: GenerateCsStructClass ,290
             void OnPrintReset(OnPrintResetArgs args);
+            //CsStructModuleCodeGen:: GenerateCsStructClass ,291
             void GetPdfPaperSize(GetPdfPaperSizeArgs args);
         }
         public interface I1
         {
+            //CsStructModuleCodeGen:: GenerateCsStructClass ,292
             void OnPrintStart(CefBrowser browser);
+            //CsStructModuleCodeGen:: GenerateCsStructClass ,293
             void OnPrintSettings(CefBrowser browser, CefPrintSettings settings, bool get_defaults);
+            //CsStructModuleCodeGen:: GenerateCsStructClass ,294
             bool OnPrintDialog(CefBrowser browser, bool has_selection, CefPrintDialogCallback callback);
+            //CsStructModuleCodeGen:: GenerateCsStructClass ,295
             bool OnPrintJob(CefBrowser browser, string document_name, string pdf_file_path, CefPrintJobCallback callback);
+            //CsStructModuleCodeGen:: GenerateCsStructClass ,296
             void OnPrintReset(CefBrowser browser);
+            //CsStructModuleCodeGen:: GenerateCsStructClass ,297
             CefSize GetPdfPaperSize(int device_units_per_inch);
         }
         public static void HandleNativeReq(I0 i0, I1 i1, int met_id, IntPtr nativeArgPtr)
@@ -19741,6 +20057,7 @@ namespace LayoutFarm.CefBridge.Auto
             int met_name = met_id & 0xffff;
             switch (met_name)
             {
+                //CsStructModuleCodeGen:: GenerateCsStructClass ,298
                 case CefPrintHandlerExt_OnPrintStart_1:
                     {
                         var args = new OnPrintStartArgs(nativeArgPtr);
@@ -19755,6 +20072,7 @@ namespace LayoutFarm.CefBridge.Auto
                         }
                     }
                     break;
+                //CsStructModuleCodeGen:: GenerateCsStructClass ,299
                 case CefPrintHandlerExt_OnPrintSettings_2:
                     {
                         var args = new OnPrintSettingsArgs(nativeArgPtr);
@@ -19771,6 +20089,7 @@ namespace LayoutFarm.CefBridge.Auto
                         }
                     }
                     break;
+                //CsStructModuleCodeGen:: GenerateCsStructClass ,300
                 case CefPrintHandlerExt_OnPrintDialog_3:
                     {
                         var args = new OnPrintDialogArgs(nativeArgPtr);
@@ -19787,6 +20106,7 @@ namespace LayoutFarm.CefBridge.Auto
                         }
                     }
                     break;
+                //CsStructModuleCodeGen:: GenerateCsStructClass ,301
                 case CefPrintHandlerExt_OnPrintJob_4:
                     {
                         var args = new OnPrintJobArgs(nativeArgPtr);
@@ -19804,6 +20124,7 @@ namespace LayoutFarm.CefBridge.Auto
                         }
                     }
                     break;
+                //CsStructModuleCodeGen:: GenerateCsStructClass ,302
                 case CefPrintHandlerExt_OnPrintReset_5:
                     {
                         var args = new OnPrintResetArgs(nativeArgPtr);
@@ -19818,6 +20139,7 @@ namespace LayoutFarm.CefBridge.Auto
                         }
                     }
                     break;
+                //CsStructModuleCodeGen:: GenerateCsStructClass ,303
                 case CefPrintHandlerExt_GetPdfPaperSize_6:
                     {
                         var args = new GetPdfPaperSizeArgs(nativeArgPtr);
@@ -19834,11 +20156,13 @@ namespace LayoutFarm.CefBridge.Auto
                     break;
             }
         }
+        //CsStructModuleCodeGen:: GenerateCsStructClass ,304
         public static void OnPrintStart(I1 i1, OnPrintStartArgs args)
         {
             //expand args
             i1.OnPrintStart(args.browser());
         }
+        //CsStructModuleCodeGen:: GenerateCsStructClass ,305
         public static void OnPrintSettings(I1 i1, OnPrintSettingsArgs args)
         {
             //expand args
@@ -19846,6 +20170,7 @@ namespace LayoutFarm.CefBridge.Auto
             args.settings(),
             args.get_defaults());
         }
+        //CsStructModuleCodeGen:: GenerateCsStructClass ,306
         public static void OnPrintDialog(I1 i1, OnPrintDialogArgs args)
         {
             //expand args
@@ -19853,6 +20178,7 @@ namespace LayoutFarm.CefBridge.Auto
             args.has_selection(),
             args.callback());
         }
+        //CsStructModuleCodeGen:: GenerateCsStructClass ,307
         public static void OnPrintJob(I1 i1, OnPrintJobArgs args)
         {
             //expand args
@@ -19861,17 +20187,20 @@ namespace LayoutFarm.CefBridge.Auto
             args.pdf_file_path(),
             args.callback());
         }
+        //CsStructModuleCodeGen:: GenerateCsStructClass ,308
         public static void OnPrintReset(I1 i1, OnPrintResetArgs args)
         {
             //expand args
             i1.OnPrintReset(args.browser());
         }
+        //CsStructModuleCodeGen:: GenerateCsStructClass ,309
         public static void GetPdfPaperSize(I1 i1, GetPdfPaperSizeArgs args)
         {
             //expand args
             i1.GetPdfPaperSize(args.device_units_per_inch());
         }
     }
+    //CsStructModuleCodeGen:: GenerateCsStructClass ,310
     public struct CefRenderHandler
     {
         public const int _typeNAME = 71;
@@ -19889,6 +20218,7 @@ namespace LayoutFarm.CefBridge.Auto
         const int CefRenderHandlerExt_OnScrollOffsetChanged_12 = 12;
         const int CefRenderHandlerExt_OnImeCompositionRangeChanged_13 = 13;
         //gen! CefRefPtr<CefAccessibilityHandler> GetAccessibilityHandler()
+        //CsStructModuleCodeGen:: GenerateCsMethodArgsClass_JsSlot ,311
         public struct GetAccessibilityHandlerArgs
         {
             IntPtr nativePtr; //met arg native ptr
@@ -19901,12 +20231,15 @@ namespace LayoutFarm.CefBridge.Auto
 
             }
         }
+        //CsStructModuleCodeGen:: GenerateCsMethodArgsClass_Native ,312
         [StructLayout(LayoutKind.Sequential)]
         struct GetAccessibilityHandlerNativeArgs
         {
             public int argFlags;
+            IntPtr myext_ret_value;
         }
         //gen! bool GetRootScreenRect(CefRefPtr<CefBrowser> browser,CefRect& rect)
+        //CsStructModuleCodeGen:: GenerateCsMethodArgsClass_JsSlot ,313
         public struct GetRootScreenRectArgs
         {
             IntPtr nativePtr; //met arg native ptr
@@ -19937,14 +20270,17 @@ namespace LayoutFarm.CefBridge.Auto
                 }
             }
         }
+        //CsStructModuleCodeGen:: GenerateCsMethodArgsClass_Native ,314
         [StructLayout(LayoutKind.Sequential)]
         struct GetRootScreenRectNativeArgs
         {
             public int argFlags;
+            bool myext_ret_value;
             public IntPtr browser;
             public IntPtr rect;
         }
         //gen! bool GetViewRect(CefRefPtr<CefBrowser> browser,CefRect& rect)
+        //CsStructModuleCodeGen:: GenerateCsMethodArgsClass_JsSlot ,315
         public struct GetViewRectArgs
         {
             IntPtr nativePtr; //met arg native ptr
@@ -19975,14 +20311,17 @@ namespace LayoutFarm.CefBridge.Auto
                 }
             }
         }
+        //CsStructModuleCodeGen:: GenerateCsMethodArgsClass_Native ,316
         [StructLayout(LayoutKind.Sequential)]
         struct GetViewRectNativeArgs
         {
             public int argFlags;
+            bool myext_ret_value;
             public IntPtr browser;
             public IntPtr rect;
         }
         //gen! bool GetScreenPoint(CefRefPtr<CefBrowser> browser,int viewX,int viewY,int& screenX,int& screenY)
+        //CsStructModuleCodeGen:: GenerateCsMethodArgsClass_JsSlot ,317
         public struct GetScreenPointArgs
         {
             IntPtr nativePtr; //met arg native ptr
@@ -20038,10 +20377,12 @@ namespace LayoutFarm.CefBridge.Auto
                 MyMetArgs.SetInt32ToAddress(nativePtr, 5, value);
             }
         }
+        //CsStructModuleCodeGen:: GenerateCsMethodArgsClass_Native ,318
         [StructLayout(LayoutKind.Sequential)]
         struct GetScreenPointNativeArgs
         {
             public int argFlags;
+            bool myext_ret_value;
             public IntPtr browser;
             public int viewX;
             public int viewY;
@@ -20049,6 +20390,7 @@ namespace LayoutFarm.CefBridge.Auto
             public int screenY;
         }
         //gen! bool GetScreenInfo(CefRefPtr<CefBrowser> browser,CefScreenInfo& screen_info)
+        //CsStructModuleCodeGen:: GenerateCsMethodArgsClass_JsSlot ,319
         public struct GetScreenInfoArgs
         {
             IntPtr nativePtr; //met arg native ptr
@@ -20079,14 +20421,17 @@ namespace LayoutFarm.CefBridge.Auto
                 }
             }
         }
+        //CsStructModuleCodeGen:: GenerateCsMethodArgsClass_Native ,320
         [StructLayout(LayoutKind.Sequential)]
         struct GetScreenInfoNativeArgs
         {
             public int argFlags;
+            bool myext_ret_value;
             public IntPtr browser;
             public IntPtr screen_info;
         }
         //gen! void OnPopupShow(CefRefPtr<CefBrowser> browser,bool show)
+        //CsStructModuleCodeGen:: GenerateCsMethodArgsClass_JsSlot ,321
         public struct OnPopupShowArgs
         {
             IntPtr nativePtr; //met arg native ptr
@@ -20117,6 +20462,7 @@ namespace LayoutFarm.CefBridge.Auto
                 }
             }
         }
+        //CsStructModuleCodeGen:: GenerateCsMethodArgsClass_Native ,322
         [StructLayout(LayoutKind.Sequential)]
         struct OnPopupShowNativeArgs
         {
@@ -20125,6 +20471,7 @@ namespace LayoutFarm.CefBridge.Auto
             public bool show;
         }
         //gen! void OnPopupSize(CefRefPtr<CefBrowser> browser,const CefRect& rect)
+        //CsStructModuleCodeGen:: GenerateCsMethodArgsClass_JsSlot ,323
         public struct OnPopupSizeArgs
         {
             IntPtr nativePtr; //met arg native ptr
@@ -20155,6 +20502,7 @@ namespace LayoutFarm.CefBridge.Auto
                 }
             }
         }
+        //CsStructModuleCodeGen:: GenerateCsMethodArgsClass_Native ,324
         [StructLayout(LayoutKind.Sequential)]
         struct OnPopupSizeNativeArgs
         {
@@ -20163,6 +20511,7 @@ namespace LayoutFarm.CefBridge.Auto
             public IntPtr rect;
         }
         //gen! void OnPaint(CefRefPtr<CefBrowser> browser,PaintElementType type,const RectList& dirtyRects,const void* buffer,int width,int height)
+        //CsStructModuleCodeGen:: GenerateCsMethodArgsClass_JsSlot ,325
         public struct OnPaintArgs
         {
             IntPtr nativePtr; //met arg native ptr
@@ -20219,6 +20568,7 @@ namespace LayoutFarm.CefBridge.Auto
                 }
             }
         }
+        //CsStructModuleCodeGen:: GenerateCsMethodArgsClass_Native ,326
         [StructLayout(LayoutKind.Sequential)]
         struct OnPaintNativeArgs
         {
@@ -20231,6 +20581,7 @@ namespace LayoutFarm.CefBridge.Auto
             public int height;
         }
         //gen! void OnCursorChange(CefRefPtr<CefBrowser> browser,CefCursorHandle cursor,CursorType type,const CefCursorInfo& custom_cursor_info)
+        //CsStructModuleCodeGen:: GenerateCsMethodArgsClass_JsSlot ,327
         public struct OnCursorChangeArgs
         {
             IntPtr nativePtr; //met arg native ptr
@@ -20274,6 +20625,7 @@ namespace LayoutFarm.CefBridge.Auto
                 }
             }
         }
+        //CsStructModuleCodeGen:: GenerateCsMethodArgsClass_Native ,328
         [StructLayout(LayoutKind.Sequential)]
         struct OnCursorChangeNativeArgs
         {
@@ -20284,6 +20636,7 @@ namespace LayoutFarm.CefBridge.Auto
             public IntPtr custom_cursor_info;
         }
         //gen! bool StartDragging(CefRefPtr<CefBrowser> browser,CefRefPtr<CefDragData> drag_data,DragOperationsMask allowed_ops,int x,int y)
+        //CsStructModuleCodeGen:: GenerateCsMethodArgsClass_JsSlot ,329
         public struct StartDraggingArgs
         {
             IntPtr nativePtr; //met arg native ptr
@@ -20341,10 +20694,12 @@ namespace LayoutFarm.CefBridge.Auto
                 }
             }
         }
+        //CsStructModuleCodeGen:: GenerateCsMethodArgsClass_Native ,330
         [StructLayout(LayoutKind.Sequential)]
         struct StartDraggingNativeArgs
         {
             public int argFlags;
+            bool myext_ret_value;
             public IntPtr browser;
             public IntPtr drag_data;
             public cef_drag_operations_mask_t allowed_ops;
@@ -20352,6 +20707,7 @@ namespace LayoutFarm.CefBridge.Auto
             public int y;
         }
         //gen! void UpdateDragCursor(CefRefPtr<CefBrowser> browser,DragOperation operation)
+        //CsStructModuleCodeGen:: GenerateCsMethodArgsClass_JsSlot ,331
         public struct UpdateDragCursorArgs
         {
             IntPtr nativePtr; //met arg native ptr
@@ -20382,6 +20738,7 @@ namespace LayoutFarm.CefBridge.Auto
                 }
             }
         }
+        //CsStructModuleCodeGen:: GenerateCsMethodArgsClass_Native ,332
         [StructLayout(LayoutKind.Sequential)]
         struct UpdateDragCursorNativeArgs
         {
@@ -20390,6 +20747,7 @@ namespace LayoutFarm.CefBridge.Auto
             public cef_drag_operations_mask_t operation;
         }
         //gen! void OnScrollOffsetChanged(CefRefPtr<CefBrowser> browser,double x,double y)
+        //CsStructModuleCodeGen:: GenerateCsMethodArgsClass_JsSlot ,333
         public struct OnScrollOffsetChangedArgs
         {
             IntPtr nativePtr; //met arg native ptr
@@ -20429,6 +20787,7 @@ namespace LayoutFarm.CefBridge.Auto
                 }
             }
         }
+        //CsStructModuleCodeGen:: GenerateCsMethodArgsClass_Native ,334
         [StructLayout(LayoutKind.Sequential)]
         struct OnScrollOffsetChangedNativeArgs
         {
@@ -20438,6 +20797,7 @@ namespace LayoutFarm.CefBridge.Auto
             public double y;
         }
         //gen! void OnImeCompositionRangeChanged(CefRefPtr<CefBrowser> browser,const CefRange& selected_range,const RectList& character_bounds)
+        //CsStructModuleCodeGen:: GenerateCsMethodArgsClass_JsSlot ,335
         public struct OnImeCompositionRangeChangedArgs
         {
             IntPtr nativePtr; //met arg native ptr
@@ -20472,6 +20832,7 @@ namespace LayoutFarm.CefBridge.Auto
                 throw new CefNotImplementedException();
             }
         }
+        //CsStructModuleCodeGen:: GenerateCsMethodArgsClass_Native ,336
         [StructLayout(LayoutKind.Sequential)]
         struct OnImeCompositionRangeChangedNativeArgs
         {
@@ -20482,34 +20843,60 @@ namespace LayoutFarm.CefBridge.Auto
         }
         public interface I0
         {
+            //CsStructModuleCodeGen:: GenerateCsStructClass ,337
             void GetAccessibilityHandler(GetAccessibilityHandlerArgs args);
+            //CsStructModuleCodeGen:: GenerateCsStructClass ,338
             void GetRootScreenRect(GetRootScreenRectArgs args);
+            //CsStructModuleCodeGen:: GenerateCsStructClass ,339
             void GetViewRect(GetViewRectArgs args);
+            //CsStructModuleCodeGen:: GenerateCsStructClass ,340
             void GetScreenPoint(GetScreenPointArgs args);
+            //CsStructModuleCodeGen:: GenerateCsStructClass ,341
             void GetScreenInfo(GetScreenInfoArgs args);
+            //CsStructModuleCodeGen:: GenerateCsStructClass ,342
             void OnPopupShow(OnPopupShowArgs args);
+            //CsStructModuleCodeGen:: GenerateCsStructClass ,343
             void OnPopupSize(OnPopupSizeArgs args);
+            //CsStructModuleCodeGen:: GenerateCsStructClass ,344
             void OnPaint(OnPaintArgs args);
+            //CsStructModuleCodeGen:: GenerateCsStructClass ,345
             void OnCursorChange(OnCursorChangeArgs args);
+            //CsStructModuleCodeGen:: GenerateCsStructClass ,346
             void StartDragging(StartDraggingArgs args);
+            //CsStructModuleCodeGen:: GenerateCsStructClass ,347
             void UpdateDragCursor(UpdateDragCursorArgs args);
+            //CsStructModuleCodeGen:: GenerateCsStructClass ,348
             void OnScrollOffsetChanged(OnScrollOffsetChangedArgs args);
+            //CsStructModuleCodeGen:: GenerateCsStructClass ,349
             void OnImeCompositionRangeChanged(OnImeCompositionRangeChangedArgs args);
         }
         public interface I1
         {
+            //CsStructModuleCodeGen:: GenerateCsStructClass ,350
             CefAccessibilityHandler GetAccessibilityHandler();
+            //CsStructModuleCodeGen:: GenerateCsStructClass ,351
             bool GetRootScreenRect(CefBrowser browser, CefRect rect);
+            //CsStructModuleCodeGen:: GenerateCsStructClass ,352
             bool GetViewRect(CefBrowser browser, CefRect rect);
+            //CsStructModuleCodeGen:: GenerateCsStructClass ,353
             bool GetScreenPoint(CefBrowser browser, int viewX, int viewY, ref int screenX, ref int screenY);
+            //CsStructModuleCodeGen:: GenerateCsStructClass ,354
             bool GetScreenInfo(CefBrowser browser, CefScreenInfo screen_info);
+            //CsStructModuleCodeGen:: GenerateCsStructClass ,355
             void OnPopupShow(CefBrowser browser, bool show);
+            //CsStructModuleCodeGen:: GenerateCsStructClass ,356
             void OnPopupSize(CefBrowser browser, CefRect rect);
+            //CsStructModuleCodeGen:: GenerateCsStructClass ,357
             void OnPaint(CefBrowser browser, cef_paint_element_type_t type, List<object> dirtyRects, IntPtr buffer, int width, int height);
+            //CsStructModuleCodeGen:: GenerateCsStructClass ,358
             void OnCursorChange(CefBrowser browser, IntPtr cursor, cef_cursor_type_t type, CefCursorInfo custom_cursor_info);
+            //CsStructModuleCodeGen:: GenerateCsStructClass ,359
             bool StartDragging(CefBrowser browser, CefDragData drag_data, cef_drag_operations_mask_t allowed_ops, int x, int y);
+            //CsStructModuleCodeGen:: GenerateCsStructClass ,360
             void UpdateDragCursor(CefBrowser browser, cef_drag_operations_mask_t operation);
+            //CsStructModuleCodeGen:: GenerateCsStructClass ,361
             void OnScrollOffsetChanged(CefBrowser browser, double x, double y);
+            //CsStructModuleCodeGen:: GenerateCsStructClass ,362
             void OnImeCompositionRangeChanged(CefBrowser browser, CefRange selected_range, List<object> character_bounds);
         }
         public static void HandleNativeReq(I0 i0, I1 i1, int met_id, IntPtr nativeArgPtr)
@@ -20517,6 +20904,7 @@ namespace LayoutFarm.CefBridge.Auto
             int met_name = met_id & 0xffff;
             switch (met_name)
             {
+                //CsStructModuleCodeGen:: GenerateCsStructClass ,363
                 case CefRenderHandlerExt_GetAccessibilityHandler_1:
                     {
                         var args = new GetAccessibilityHandlerArgs(nativeArgPtr);
@@ -20531,6 +20919,7 @@ namespace LayoutFarm.CefBridge.Auto
                         }
                     }
                     break;
+                //CsStructModuleCodeGen:: GenerateCsStructClass ,364
                 case CefRenderHandlerExt_GetRootScreenRect_2:
                     {
                         var args = new GetRootScreenRectArgs(nativeArgPtr);
@@ -20546,6 +20935,7 @@ namespace LayoutFarm.CefBridge.Auto
                         }
                     }
                     break;
+                //CsStructModuleCodeGen:: GenerateCsStructClass ,365
                 case CefRenderHandlerExt_GetViewRect_3:
                     {
                         var args = new GetViewRectArgs(nativeArgPtr);
@@ -20561,6 +20951,7 @@ namespace LayoutFarm.CefBridge.Auto
                         }
                     }
                     break;
+                //CsStructModuleCodeGen:: GenerateCsStructClass ,366
                 case CefRenderHandlerExt_GetScreenPoint_4:
                     {
                         var args = new GetScreenPointArgs(nativeArgPtr);
@@ -20583,6 +20974,7 @@ namespace LayoutFarm.CefBridge.Auto
                         }
                     }
                     break;
+                //CsStructModuleCodeGen:: GenerateCsStructClass ,367
                 case CefRenderHandlerExt_GetScreenInfo_5:
                     {
                         var args = new GetScreenInfoArgs(nativeArgPtr);
@@ -20598,6 +20990,7 @@ namespace LayoutFarm.CefBridge.Auto
                         }
                     }
                     break;
+                //CsStructModuleCodeGen:: GenerateCsStructClass ,368
                 case CefRenderHandlerExt_OnPopupShow_6:
                     {
                         var args = new OnPopupShowArgs(nativeArgPtr);
@@ -20613,6 +21006,7 @@ namespace LayoutFarm.CefBridge.Auto
                         }
                     }
                     break;
+                //CsStructModuleCodeGen:: GenerateCsStructClass ,369
                 case CefRenderHandlerExt_OnPopupSize_7:
                     {
                         var args = new OnPopupSizeArgs(nativeArgPtr);
@@ -20628,6 +21022,7 @@ namespace LayoutFarm.CefBridge.Auto
                         }
                     }
                     break;
+                //CsStructModuleCodeGen:: GenerateCsStructClass ,370
                 case CefRenderHandlerExt_OnPaint_8:
                     {
                         var args = new OnPaintArgs(nativeArgPtr);
@@ -20647,6 +21042,7 @@ namespace LayoutFarm.CefBridge.Auto
                         }
                     }
                     break;
+                //CsStructModuleCodeGen:: GenerateCsStructClass ,371
                 case CefRenderHandlerExt_OnCursorChange_9:
                     {
                         var args = new OnCursorChangeArgs(nativeArgPtr);
@@ -20664,6 +21060,7 @@ namespace LayoutFarm.CefBridge.Auto
                         }
                     }
                     break;
+                //CsStructModuleCodeGen:: GenerateCsStructClass ,372
                 case CefRenderHandlerExt_StartDragging_10:
                     {
                         var args = new StartDraggingArgs(nativeArgPtr);
@@ -20682,6 +21079,7 @@ namespace LayoutFarm.CefBridge.Auto
                         }
                     }
                     break;
+                //CsStructModuleCodeGen:: GenerateCsStructClass ,373
                 case CefRenderHandlerExt_UpdateDragCursor_11:
                     {
                         var args = new UpdateDragCursorArgs(nativeArgPtr);
@@ -20697,6 +21095,7 @@ namespace LayoutFarm.CefBridge.Auto
                         }
                     }
                     break;
+                //CsStructModuleCodeGen:: GenerateCsStructClass ,374
                 case CefRenderHandlerExt_OnScrollOffsetChanged_12:
                     {
                         var args = new OnScrollOffsetChangedArgs(nativeArgPtr);
@@ -20713,6 +21112,7 @@ namespace LayoutFarm.CefBridge.Auto
                         }
                     }
                     break;
+                //CsStructModuleCodeGen:: GenerateCsStructClass ,375
                 case CefRenderHandlerExt_OnImeCompositionRangeChanged_13:
                     {
                         var args = new OnImeCompositionRangeChangedArgs(nativeArgPtr);
@@ -20731,23 +21131,27 @@ namespace LayoutFarm.CefBridge.Auto
                     break;
             }
         }
+        //CsStructModuleCodeGen:: GenerateCsStructClass ,376
         public static void GetAccessibilityHandler(I1 i1, GetAccessibilityHandlerArgs args)
         {
             //expand args
             i1.GetAccessibilityHandler();
         }
+        //CsStructModuleCodeGen:: GenerateCsStructClass ,377
         public static void GetRootScreenRect(I1 i1, GetRootScreenRectArgs args)
         {
             //expand args
             i1.GetRootScreenRect(args.browser(),
             args.rect());
         }
+        //CsStructModuleCodeGen:: GenerateCsStructClass ,378
         public static void GetViewRect(I1 i1, GetViewRectArgs args)
         {
             //expand args
             i1.GetViewRect(args.browser(),
             args.rect());
         }
+        //CsStructModuleCodeGen:: GenerateCsStructClass ,379
         public static void GetScreenPoint(I1 i1, GetScreenPointArgs args)
         {
             //expand args
@@ -20761,24 +21165,28 @@ namespace LayoutFarm.CefBridge.Auto
             args.screenX(screenX);
             args.screenY(screenY);
         }
+        //CsStructModuleCodeGen:: GenerateCsStructClass ,380
         public static void GetScreenInfo(I1 i1, GetScreenInfoArgs args)
         {
             //expand args
             i1.GetScreenInfo(args.browser(),
             args.screen_info());
         }
+        //CsStructModuleCodeGen:: GenerateCsStructClass ,381
         public static void OnPopupShow(I1 i1, OnPopupShowArgs args)
         {
             //expand args
             i1.OnPopupShow(args.browser(),
             args.show());
         }
+        //CsStructModuleCodeGen:: GenerateCsStructClass ,382
         public static void OnPopupSize(I1 i1, OnPopupSizeArgs args)
         {
             //expand args
             i1.OnPopupSize(args.browser(),
             args.rect());
         }
+        //CsStructModuleCodeGen:: GenerateCsStructClass ,383
         public static void OnPaint(I1 i1, OnPaintArgs args)
         {
             //expand args
@@ -20789,6 +21197,7 @@ namespace LayoutFarm.CefBridge.Auto
             args.width(),
             args.height());
         }
+        //CsStructModuleCodeGen:: GenerateCsStructClass ,384
         public static void OnCursorChange(I1 i1, OnCursorChangeArgs args)
         {
             //expand args
@@ -20797,6 +21206,7 @@ namespace LayoutFarm.CefBridge.Auto
             args.type(),
             args.custom_cursor_info());
         }
+        //CsStructModuleCodeGen:: GenerateCsStructClass ,385
         public static void StartDragging(I1 i1, StartDraggingArgs args)
         {
             //expand args
@@ -20806,12 +21216,14 @@ namespace LayoutFarm.CefBridge.Auto
             args.x(),
             args.y());
         }
+        //CsStructModuleCodeGen:: GenerateCsStructClass ,386
         public static void UpdateDragCursor(I1 i1, UpdateDragCursorArgs args)
         {
             //expand args
             i1.UpdateDragCursor(args.browser(),
             args.operation());
         }
+        //CsStructModuleCodeGen:: GenerateCsStructClass ,387
         public static void OnScrollOffsetChanged(I1 i1, OnScrollOffsetChangedArgs args)
         {
             //expand args
@@ -20819,6 +21231,7 @@ namespace LayoutFarm.CefBridge.Auto
             args.x(),
             args.y());
         }
+        //CsStructModuleCodeGen:: GenerateCsStructClass ,388
         public static void OnImeCompositionRangeChanged(I1 i1, OnImeCompositionRangeChangedArgs args)
         {
             //expand args
@@ -20827,6 +21240,7 @@ namespace LayoutFarm.CefBridge.Auto
             args.character_bounds());
         }
     }
+    //CsStructModuleCodeGen:: GenerateCsStructClass ,389
     public struct CefRenderProcessHandler
     {
         public const int _typeNAME = 72;
@@ -20842,6 +21256,7 @@ namespace LayoutFarm.CefBridge.Auto
         const int CefRenderProcessHandlerExt_OnFocusedNodeChanged_10 = 10;
         const int CefRenderProcessHandlerExt_OnProcessMessageReceived_11 = 11;
         //gen! void OnRenderThreadCreated(CefRefPtr<CefListValue> extra_info)
+        //CsStructModuleCodeGen:: GenerateCsMethodArgsClass_JsSlot ,390
         public struct OnRenderThreadCreatedArgs
         {
             IntPtr nativePtr; //met arg native ptr
@@ -20863,6 +21278,7 @@ namespace LayoutFarm.CefBridge.Auto
                 }
             }
         }
+        //CsStructModuleCodeGen:: GenerateCsMethodArgsClass_Native ,391
         [StructLayout(LayoutKind.Sequential)]
         struct OnRenderThreadCreatedNativeArgs
         {
@@ -20870,6 +21286,7 @@ namespace LayoutFarm.CefBridge.Auto
             public IntPtr extra_info;
         }
         //gen! void OnWebKitInitialized()
+        //CsStructModuleCodeGen:: GenerateCsMethodArgsClass_JsSlot ,392
         public struct OnWebKitInitializedArgs
         {
             IntPtr nativePtr; //met arg native ptr
@@ -20882,12 +21299,14 @@ namespace LayoutFarm.CefBridge.Auto
 
             }
         }
+        //CsStructModuleCodeGen:: GenerateCsMethodArgsClass_Native ,393
         [StructLayout(LayoutKind.Sequential)]
         struct OnWebKitInitializedNativeArgs
         {
             public int argFlags;
         }
         //gen! void OnBrowserCreated(CefRefPtr<CefBrowser> browser)
+        //CsStructModuleCodeGen:: GenerateCsMethodArgsClass_JsSlot ,394
         public struct OnBrowserCreatedArgs
         {
             IntPtr nativePtr; //met arg native ptr
@@ -20909,6 +21328,7 @@ namespace LayoutFarm.CefBridge.Auto
                 }
             }
         }
+        //CsStructModuleCodeGen:: GenerateCsMethodArgsClass_Native ,395
         [StructLayout(LayoutKind.Sequential)]
         struct OnBrowserCreatedNativeArgs
         {
@@ -20916,6 +21336,7 @@ namespace LayoutFarm.CefBridge.Auto
             public IntPtr browser;
         }
         //gen! void OnBrowserDestroyed(CefRefPtr<CefBrowser> browser)
+        //CsStructModuleCodeGen:: GenerateCsMethodArgsClass_JsSlot ,396
         public struct OnBrowserDestroyedArgs
         {
             IntPtr nativePtr; //met arg native ptr
@@ -20937,6 +21358,7 @@ namespace LayoutFarm.CefBridge.Auto
                 }
             }
         }
+        //CsStructModuleCodeGen:: GenerateCsMethodArgsClass_Native ,397
         [StructLayout(LayoutKind.Sequential)]
         struct OnBrowserDestroyedNativeArgs
         {
@@ -20944,6 +21366,7 @@ namespace LayoutFarm.CefBridge.Auto
             public IntPtr browser;
         }
         //gen! CefRefPtr<CefLoadHandler> GetLoadHandler()
+        //CsStructModuleCodeGen:: GenerateCsMethodArgsClass_JsSlot ,398
         public struct GetLoadHandlerArgs
         {
             IntPtr nativePtr; //met arg native ptr
@@ -20956,12 +21379,15 @@ namespace LayoutFarm.CefBridge.Auto
 
             }
         }
+        //CsStructModuleCodeGen:: GenerateCsMethodArgsClass_Native ,399
         [StructLayout(LayoutKind.Sequential)]
         struct GetLoadHandlerNativeArgs
         {
             public int argFlags;
+            IntPtr myext_ret_value;
         }
         //gen! bool OnBeforeNavigation(CefRefPtr<CefBrowser> browser,CefRefPtr<CefFrame> frame,CefRefPtr<CefRequest> request,NavigationType navigation_type,bool is_redirect)
+        //CsStructModuleCodeGen:: GenerateCsMethodArgsClass_JsSlot ,400
         public struct OnBeforeNavigationArgs
         {
             IntPtr nativePtr; //met arg native ptr
@@ -21019,10 +21445,12 @@ namespace LayoutFarm.CefBridge.Auto
                 }
             }
         }
+        //CsStructModuleCodeGen:: GenerateCsMethodArgsClass_Native ,401
         [StructLayout(LayoutKind.Sequential)]
         struct OnBeforeNavigationNativeArgs
         {
             public int argFlags;
+            bool myext_ret_value;
             public IntPtr browser;
             public IntPtr frame;
             public IntPtr request;
@@ -21030,6 +21458,7 @@ namespace LayoutFarm.CefBridge.Auto
             public bool is_redirect;
         }
         //gen! void OnContextCreated(CefRefPtr<CefBrowser> browser,CefRefPtr<CefFrame> frame,CefRefPtr<CefV8Context> context)
+        //CsStructModuleCodeGen:: GenerateCsMethodArgsClass_JsSlot ,402
         public struct OnContextCreatedArgs
         {
             IntPtr nativePtr; //met arg native ptr
@@ -21069,6 +21498,7 @@ namespace LayoutFarm.CefBridge.Auto
                 }
             }
         }
+        //CsStructModuleCodeGen:: GenerateCsMethodArgsClass_Native ,403
         [StructLayout(LayoutKind.Sequential)]
         struct OnContextCreatedNativeArgs
         {
@@ -21078,6 +21508,7 @@ namespace LayoutFarm.CefBridge.Auto
             public IntPtr context;
         }
         //gen! void OnContextReleased(CefRefPtr<CefBrowser> browser,CefRefPtr<CefFrame> frame,CefRefPtr<CefV8Context> context)
+        //CsStructModuleCodeGen:: GenerateCsMethodArgsClass_JsSlot ,404
         public struct OnContextReleasedArgs
         {
             IntPtr nativePtr; //met arg native ptr
@@ -21117,6 +21548,7 @@ namespace LayoutFarm.CefBridge.Auto
                 }
             }
         }
+        //CsStructModuleCodeGen:: GenerateCsMethodArgsClass_Native ,405
         [StructLayout(LayoutKind.Sequential)]
         struct OnContextReleasedNativeArgs
         {
@@ -21126,6 +21558,7 @@ namespace LayoutFarm.CefBridge.Auto
             public IntPtr context;
         }
         //gen! void OnUncaughtException(CefRefPtr<CefBrowser> browser,CefRefPtr<CefFrame> frame,CefRefPtr<CefV8Context> context,CefRefPtr<CefV8Exception> exception,CefRefPtr<CefV8StackTrace> stackTrace)
+        //CsStructModuleCodeGen:: GenerateCsMethodArgsClass_JsSlot ,406
         public struct OnUncaughtExceptionArgs
         {
             IntPtr nativePtr; //met arg native ptr
@@ -21183,6 +21616,7 @@ namespace LayoutFarm.CefBridge.Auto
                 }
             }
         }
+        //CsStructModuleCodeGen:: GenerateCsMethodArgsClass_Native ,407
         [StructLayout(LayoutKind.Sequential)]
         struct OnUncaughtExceptionNativeArgs
         {
@@ -21194,6 +21628,7 @@ namespace LayoutFarm.CefBridge.Auto
             public IntPtr stackTrace;
         }
         //gen! void OnFocusedNodeChanged(CefRefPtr<CefBrowser> browser,CefRefPtr<CefFrame> frame,CefRefPtr<CefDOMNode> node)
+        //CsStructModuleCodeGen:: GenerateCsMethodArgsClass_JsSlot ,408
         public struct OnFocusedNodeChangedArgs
         {
             IntPtr nativePtr; //met arg native ptr
@@ -21233,6 +21668,7 @@ namespace LayoutFarm.CefBridge.Auto
                 }
             }
         }
+        //CsStructModuleCodeGen:: GenerateCsMethodArgsClass_Native ,409
         [StructLayout(LayoutKind.Sequential)]
         struct OnFocusedNodeChangedNativeArgs
         {
@@ -21242,6 +21678,7 @@ namespace LayoutFarm.CefBridge.Auto
             public IntPtr node;
         }
         //gen! bool OnProcessMessageReceived(CefRefPtr<CefBrowser> browser,CefProcessId source_process,CefRefPtr<CefProcessMessage> message)
+        //CsStructModuleCodeGen:: GenerateCsMethodArgsClass_JsSlot ,410
         public struct OnProcessMessageReceivedArgs
         {
             IntPtr nativePtr; //met arg native ptr
@@ -21281,40 +21718,64 @@ namespace LayoutFarm.CefBridge.Auto
                 }
             }
         }
+        //CsStructModuleCodeGen:: GenerateCsMethodArgsClass_Native ,411
         [StructLayout(LayoutKind.Sequential)]
         struct OnProcessMessageReceivedNativeArgs
         {
             public int argFlags;
+            bool myext_ret_value;
             public IntPtr browser;
             public cef_process_id_t source_process;
             public IntPtr message;
         }
         public interface I0
         {
+            //CsStructModuleCodeGen:: GenerateCsStructClass ,412
             void OnRenderThreadCreated(OnRenderThreadCreatedArgs args);
+            //CsStructModuleCodeGen:: GenerateCsStructClass ,413
             void OnWebKitInitialized(OnWebKitInitializedArgs args);
+            //CsStructModuleCodeGen:: GenerateCsStructClass ,414
             void OnBrowserCreated(OnBrowserCreatedArgs args);
+            //CsStructModuleCodeGen:: GenerateCsStructClass ,415
             void OnBrowserDestroyed(OnBrowserDestroyedArgs args);
+            //CsStructModuleCodeGen:: GenerateCsStructClass ,416
             void GetLoadHandler(GetLoadHandlerArgs args);
+            //CsStructModuleCodeGen:: GenerateCsStructClass ,417
             void OnBeforeNavigation(OnBeforeNavigationArgs args);
+            //CsStructModuleCodeGen:: GenerateCsStructClass ,418
             void OnContextCreated(OnContextCreatedArgs args);
+            //CsStructModuleCodeGen:: GenerateCsStructClass ,419
             void OnContextReleased(OnContextReleasedArgs args);
+            //CsStructModuleCodeGen:: GenerateCsStructClass ,420
             void OnUncaughtException(OnUncaughtExceptionArgs args);
+            //CsStructModuleCodeGen:: GenerateCsStructClass ,421
             void OnFocusedNodeChanged(OnFocusedNodeChangedArgs args);
+            //CsStructModuleCodeGen:: GenerateCsStructClass ,422
             void OnProcessMessageReceived(OnProcessMessageReceivedArgs args);
         }
         public interface I1
         {
+            //CsStructModuleCodeGen:: GenerateCsStructClass ,423
             void OnRenderThreadCreated(CefListValue extra_info);
+            //CsStructModuleCodeGen:: GenerateCsStructClass ,424
             void OnWebKitInitialized();
+            //CsStructModuleCodeGen:: GenerateCsStructClass ,425
             void OnBrowserCreated(CefBrowser browser);
+            //CsStructModuleCodeGen:: GenerateCsStructClass ,426
             void OnBrowserDestroyed(CefBrowser browser);
+            //CsStructModuleCodeGen:: GenerateCsStructClass ,427
             CefLoadHandler GetLoadHandler();
+            //CsStructModuleCodeGen:: GenerateCsStructClass ,428
             bool OnBeforeNavigation(CefBrowser browser, CefFrame frame, CefRequest request, cef_navigation_type_t navigation_type, bool is_redirect);
+            //CsStructModuleCodeGen:: GenerateCsStructClass ,429
             void OnContextCreated(CefBrowser browser, CefFrame frame, CefV8Context context);
+            //CsStructModuleCodeGen:: GenerateCsStructClass ,430
             void OnContextReleased(CefBrowser browser, CefFrame frame, CefV8Context context);
+            //CsStructModuleCodeGen:: GenerateCsStructClass ,431
             void OnUncaughtException(CefBrowser browser, CefFrame frame, CefV8Context context, CefV8Exception exception, CefV8StackTrace stackTrace);
+            //CsStructModuleCodeGen:: GenerateCsStructClass ,432
             void OnFocusedNodeChanged(CefBrowser browser, CefFrame frame, CefDOMNode node);
+            //CsStructModuleCodeGen:: GenerateCsStructClass ,433
             bool OnProcessMessageReceived(CefBrowser browser, cef_process_id_t source_process, CefProcessMessage message);
         }
         public static void HandleNativeReq(I0 i0, I1 i1, int met_id, IntPtr nativeArgPtr)
@@ -21322,6 +21783,7 @@ namespace LayoutFarm.CefBridge.Auto
             int met_name = met_id & 0xffff;
             switch (met_name)
             {
+                //CsStructModuleCodeGen:: GenerateCsStructClass ,434
                 case CefRenderProcessHandlerExt_OnRenderThreadCreated_1:
                     {
                         var args = new OnRenderThreadCreatedArgs(nativeArgPtr);
@@ -21336,6 +21798,7 @@ namespace LayoutFarm.CefBridge.Auto
                         }
                     }
                     break;
+                //CsStructModuleCodeGen:: GenerateCsStructClass ,435
                 case CefRenderProcessHandlerExt_OnWebKitInitialized_2:
                     {
                         var args = new OnWebKitInitializedArgs(nativeArgPtr);
@@ -21350,6 +21813,7 @@ namespace LayoutFarm.CefBridge.Auto
                         }
                     }
                     break;
+                //CsStructModuleCodeGen:: GenerateCsStructClass ,436
                 case CefRenderProcessHandlerExt_OnBrowserCreated_3:
                     {
                         var args = new OnBrowserCreatedArgs(nativeArgPtr);
@@ -21364,6 +21828,7 @@ namespace LayoutFarm.CefBridge.Auto
                         }
                     }
                     break;
+                //CsStructModuleCodeGen:: GenerateCsStructClass ,437
                 case CefRenderProcessHandlerExt_OnBrowserDestroyed_4:
                     {
                         var args = new OnBrowserDestroyedArgs(nativeArgPtr);
@@ -21378,6 +21843,7 @@ namespace LayoutFarm.CefBridge.Auto
                         }
                     }
                     break;
+                //CsStructModuleCodeGen:: GenerateCsStructClass ,438
                 case CefRenderProcessHandlerExt_GetLoadHandler_5:
                     {
                         var args = new GetLoadHandlerArgs(nativeArgPtr);
@@ -21392,6 +21858,7 @@ namespace LayoutFarm.CefBridge.Auto
                         }
                     }
                     break;
+                //CsStructModuleCodeGen:: GenerateCsStructClass ,439
                 case CefRenderProcessHandlerExt_OnBeforeNavigation_6:
                     {
                         var args = new OnBeforeNavigationArgs(nativeArgPtr);
@@ -21410,6 +21877,7 @@ namespace LayoutFarm.CefBridge.Auto
                         }
                     }
                     break;
+                //CsStructModuleCodeGen:: GenerateCsStructClass ,440
                 case CefRenderProcessHandlerExt_OnContextCreated_7:
                     {
                         var args = new OnContextCreatedArgs(nativeArgPtr);
@@ -21426,6 +21894,7 @@ namespace LayoutFarm.CefBridge.Auto
                         }
                     }
                     break;
+                //CsStructModuleCodeGen:: GenerateCsStructClass ,441
                 case CefRenderProcessHandlerExt_OnContextReleased_8:
                     {
                         var args = new OnContextReleasedArgs(nativeArgPtr);
@@ -21442,6 +21911,7 @@ namespace LayoutFarm.CefBridge.Auto
                         }
                     }
                     break;
+                //CsStructModuleCodeGen:: GenerateCsStructClass ,442
                 case CefRenderProcessHandlerExt_OnUncaughtException_9:
                     {
                         var args = new OnUncaughtExceptionArgs(nativeArgPtr);
@@ -21460,6 +21930,7 @@ namespace LayoutFarm.CefBridge.Auto
                         }
                     }
                     break;
+                //CsStructModuleCodeGen:: GenerateCsStructClass ,443
                 case CefRenderProcessHandlerExt_OnFocusedNodeChanged_10:
                     {
                         var args = new OnFocusedNodeChangedArgs(nativeArgPtr);
@@ -21476,6 +21947,7 @@ namespace LayoutFarm.CefBridge.Auto
                         }
                     }
                     break;
+                //CsStructModuleCodeGen:: GenerateCsStructClass ,444
                 case CefRenderProcessHandlerExt_OnProcessMessageReceived_11:
                     {
                         var args = new OnProcessMessageReceivedArgs(nativeArgPtr);
@@ -21494,31 +21966,37 @@ namespace LayoutFarm.CefBridge.Auto
                     break;
             }
         }
+        //CsStructModuleCodeGen:: GenerateCsStructClass ,445
         public static void OnRenderThreadCreated(I1 i1, OnRenderThreadCreatedArgs args)
         {
             //expand args
             i1.OnRenderThreadCreated(args.extra_info());
         }
+        //CsStructModuleCodeGen:: GenerateCsStructClass ,446
         public static void OnWebKitInitialized(I1 i1, OnWebKitInitializedArgs args)
         {
             //expand args
             i1.OnWebKitInitialized();
         }
+        //CsStructModuleCodeGen:: GenerateCsStructClass ,447
         public static void OnBrowserCreated(I1 i1, OnBrowserCreatedArgs args)
         {
             //expand args
             i1.OnBrowserCreated(args.browser());
         }
+        //CsStructModuleCodeGen:: GenerateCsStructClass ,448
         public static void OnBrowserDestroyed(I1 i1, OnBrowserDestroyedArgs args)
         {
             //expand args
             i1.OnBrowserDestroyed(args.browser());
         }
+        //CsStructModuleCodeGen:: GenerateCsStructClass ,449
         public static void GetLoadHandler(I1 i1, GetLoadHandlerArgs args)
         {
             //expand args
             i1.GetLoadHandler();
         }
+        //CsStructModuleCodeGen:: GenerateCsStructClass ,450
         public static void OnBeforeNavigation(I1 i1, OnBeforeNavigationArgs args)
         {
             //expand args
@@ -21528,6 +22006,7 @@ namespace LayoutFarm.CefBridge.Auto
             args.navigation_type(),
             args.is_redirect());
         }
+        //CsStructModuleCodeGen:: GenerateCsStructClass ,451
         public static void OnContextCreated(I1 i1, OnContextCreatedArgs args)
         {
             //expand args
@@ -21535,6 +22014,7 @@ namespace LayoutFarm.CefBridge.Auto
             args.frame(),
             args.context());
         }
+        //CsStructModuleCodeGen:: GenerateCsStructClass ,452
         public static void OnContextReleased(I1 i1, OnContextReleasedArgs args)
         {
             //expand args
@@ -21542,6 +22022,7 @@ namespace LayoutFarm.CefBridge.Auto
             args.frame(),
             args.context());
         }
+        //CsStructModuleCodeGen:: GenerateCsStructClass ,453
         public static void OnUncaughtException(I1 i1, OnUncaughtExceptionArgs args)
         {
             //expand args
@@ -21551,6 +22032,7 @@ namespace LayoutFarm.CefBridge.Auto
             args.exception(),
             args.stackTrace());
         }
+        //CsStructModuleCodeGen:: GenerateCsStructClass ,454
         public static void OnFocusedNodeChanged(I1 i1, OnFocusedNodeChangedArgs args)
         {
             //expand args
@@ -21558,6 +22040,7 @@ namespace LayoutFarm.CefBridge.Auto
             args.frame(),
             args.node());
         }
+        //CsStructModuleCodeGen:: GenerateCsStructClass ,455
         public static void OnProcessMessageReceived(I1 i1, OnProcessMessageReceivedArgs args)
         {
             //expand args
@@ -21566,12 +22049,14 @@ namespace LayoutFarm.CefBridge.Auto
             args.message());
         }
     }
+    //CsStructModuleCodeGen:: GenerateCsStructClass ,456
     public struct CefRequestContextHandler
     {
         public const int _typeNAME = 73;
         const int CefRequestContextHandlerExt_GetCookieManager_1 = 1;
         const int CefRequestContextHandlerExt_OnBeforePluginLoad_2 = 2;
         //gen! CefRefPtr<CefCookieManager> GetCookieManager()
+        //CsStructModuleCodeGen:: GenerateCsMethodArgsClass_JsSlot ,457
         public struct GetCookieManagerArgs
         {
             IntPtr nativePtr; //met arg native ptr
@@ -21584,12 +22069,15 @@ namespace LayoutFarm.CefBridge.Auto
 
             }
         }
+        //CsStructModuleCodeGen:: GenerateCsMethodArgsClass_Native ,458
         [StructLayout(LayoutKind.Sequential)]
         struct GetCookieManagerNativeArgs
         {
             public int argFlags;
+            IntPtr myext_ret_value;
         }
         //gen! bool OnBeforePluginLoad(const CefString& mime_type,const CefString& plugin_url,bool is_main_frame,const CefString& top_origin_url,CefRefPtr<CefWebPluginInfo> plugin_info,PluginPolicy* plugin_policy)
+        //CsStructModuleCodeGen:: GenerateCsMethodArgsClass_JsSlot ,459
         public struct OnBeforePluginLoadArgs
         {
             IntPtr nativePtr; //met arg native ptr
@@ -21656,10 +22144,12 @@ namespace LayoutFarm.CefBridge.Auto
                 }
             }
         }
+        //CsStructModuleCodeGen:: GenerateCsMethodArgsClass_Native ,460
         [StructLayout(LayoutKind.Sequential)]
         struct OnBeforePluginLoadNativeArgs
         {
             public int argFlags;
+            bool myext_ret_value;
             public IntPtr mime_type;
             public IntPtr plugin_url;
             public bool is_main_frame;
@@ -21669,12 +22159,16 @@ namespace LayoutFarm.CefBridge.Auto
         }
         public interface I0
         {
+            //CsStructModuleCodeGen:: GenerateCsStructClass ,461
             void GetCookieManager(GetCookieManagerArgs args);
+            //CsStructModuleCodeGen:: GenerateCsStructClass ,462
             void OnBeforePluginLoad(OnBeforePluginLoadArgs args);
         }
         public interface I1
         {
+            //CsStructModuleCodeGen:: GenerateCsStructClass ,463
             CefCookieManager GetCookieManager();
+            //CsStructModuleCodeGen:: GenerateCsStructClass ,464
             bool OnBeforePluginLoad(string mime_type, string plugin_url, bool is_main_frame, string top_origin_url, CefWebPluginInfo plugin_info, cef_plugin_policy_t plugin_policy);
         }
         public static void HandleNativeReq(I0 i0, I1 i1, int met_id, IntPtr nativeArgPtr)
@@ -21682,6 +22176,7 @@ namespace LayoutFarm.CefBridge.Auto
             int met_name = met_id & 0xffff;
             switch (met_name)
             {
+                //CsStructModuleCodeGen:: GenerateCsStructClass ,465
                 case CefRequestContextHandlerExt_GetCookieManager_1:
                     {
                         var args = new GetCookieManagerArgs(nativeArgPtr);
@@ -21696,6 +22191,7 @@ namespace LayoutFarm.CefBridge.Auto
                         }
                     }
                     break;
+                //CsStructModuleCodeGen:: GenerateCsStructClass ,466
                 case CefRequestContextHandlerExt_OnBeforePluginLoad_2:
                     {
                         var args = new OnBeforePluginLoadArgs(nativeArgPtr);
@@ -21717,11 +22213,13 @@ namespace LayoutFarm.CefBridge.Auto
                     break;
             }
         }
+        //CsStructModuleCodeGen:: GenerateCsStructClass ,467
         public static void GetCookieManager(I1 i1, GetCookieManagerArgs args)
         {
             //expand args
             i1.GetCookieManager();
         }
+        //CsStructModuleCodeGen:: GenerateCsStructClass ,468
         public static void OnBeforePluginLoad(I1 i1, OnBeforePluginLoadArgs args)
         {
             //expand args
@@ -21733,6 +22231,7 @@ namespace LayoutFarm.CefBridge.Auto
             args.plugin_policy());
         }
     }
+    //CsStructModuleCodeGen:: GenerateCsStructClass ,469
     public struct CefRequestHandler
     {
         public const int _typeNAME = 74;
@@ -21753,6 +22252,7 @@ namespace LayoutFarm.CefBridge.Auto
         const int CefRequestHandlerExt_OnRenderViewReady_15 = 15;
         const int CefRequestHandlerExt_OnRenderProcessTerminated_16 = 16;
         //gen! bool OnBeforeBrowse(CefRefPtr<CefBrowser> browser,CefRefPtr<CefFrame> frame,CefRefPtr<CefRequest> request,bool is_redirect)
+        //CsStructModuleCodeGen:: GenerateCsMethodArgsClass_JsSlot ,470
         public struct OnBeforeBrowseArgs
         {
             IntPtr nativePtr; //met arg native ptr
@@ -21801,16 +22301,19 @@ namespace LayoutFarm.CefBridge.Auto
                 }
             }
         }
+        //CsStructModuleCodeGen:: GenerateCsMethodArgsClass_Native ,471
         [StructLayout(LayoutKind.Sequential)]
         struct OnBeforeBrowseNativeArgs
         {
             public int argFlags;
+            bool myext_ret_value;
             public IntPtr browser;
             public IntPtr frame;
             public IntPtr request;
             public bool is_redirect;
         }
         //gen! bool OnOpenURLFromTab(CefRefPtr<CefBrowser> browser,CefRefPtr<CefFrame> frame,const CefString& target_url,WindowOpenDisposition target_disposition,bool user_gesture)
+        //CsStructModuleCodeGen:: GenerateCsMethodArgsClass_JsSlot ,472
         public struct OnOpenURLFromTabArgs
         {
             IntPtr nativePtr; //met arg native ptr
@@ -21868,10 +22371,12 @@ namespace LayoutFarm.CefBridge.Auto
                 }
             }
         }
+        //CsStructModuleCodeGen:: GenerateCsMethodArgsClass_Native ,473
         [StructLayout(LayoutKind.Sequential)]
         struct OnOpenURLFromTabNativeArgs
         {
             public int argFlags;
+            bool myext_ret_value;
             public IntPtr browser;
             public IntPtr frame;
             public IntPtr target_url;
@@ -21879,6 +22384,7 @@ namespace LayoutFarm.CefBridge.Auto
             public bool user_gesture;
         }
         //gen! ReturnValue OnBeforeResourceLoad(CefRefPtr<CefBrowser> browser,CefRefPtr<CefFrame> frame,CefRefPtr<CefRequest> request,CefRefPtr<CefRequestCallback> callback)
+        //CsStructModuleCodeGen:: GenerateCsMethodArgsClass_JsSlot ,474
         public struct OnBeforeResourceLoadArgs
         {
             IntPtr nativePtr; //met arg native ptr
@@ -21927,16 +22433,19 @@ namespace LayoutFarm.CefBridge.Auto
                 }
             }
         }
+        //CsStructModuleCodeGen:: GenerateCsMethodArgsClass_Native ,475
         [StructLayout(LayoutKind.Sequential)]
         struct OnBeforeResourceLoadNativeArgs
         {
             public int argFlags;
+            int myext_ret_value;
             public IntPtr browser;
             public IntPtr frame;
             public IntPtr request;
             public IntPtr callback;
         }
         //gen! CefRefPtr<CefResourceHandler> GetResourceHandler(CefRefPtr<CefBrowser> browser,CefRefPtr<CefFrame> frame,CefRefPtr<CefRequest> request)
+        //CsStructModuleCodeGen:: GenerateCsMethodArgsClass_JsSlot ,476
         public struct GetResourceHandlerArgs
         {
             IntPtr nativePtr; //met arg native ptr
@@ -21976,15 +22485,18 @@ namespace LayoutFarm.CefBridge.Auto
                 }
             }
         }
+        //CsStructModuleCodeGen:: GenerateCsMethodArgsClass_Native ,477
         [StructLayout(LayoutKind.Sequential)]
         struct GetResourceHandlerNativeArgs
         {
             public int argFlags;
+            IntPtr myext_ret_value;
             public IntPtr browser;
             public IntPtr frame;
             public IntPtr request;
         }
         //gen! void OnResourceRedirect(CefRefPtr<CefBrowser> browser,CefRefPtr<CefFrame> frame,CefRefPtr<CefRequest> request,CefRefPtr<CefResponse> response,CefString& new_url)
+        //CsStructModuleCodeGen:: GenerateCsMethodArgsClass_JsSlot ,478
         public struct OnResourceRedirectArgs
         {
             IntPtr nativePtr; //met arg native ptr
@@ -22042,6 +22554,7 @@ namespace LayoutFarm.CefBridge.Auto
                 }
             }
         }
+        //CsStructModuleCodeGen:: GenerateCsMethodArgsClass_Native ,479
         [StructLayout(LayoutKind.Sequential)]
         struct OnResourceRedirectNativeArgs
         {
@@ -22053,6 +22566,7 @@ namespace LayoutFarm.CefBridge.Auto
             public IntPtr new_url;
         }
         //gen! bool OnResourceResponse(CefRefPtr<CefBrowser> browser,CefRefPtr<CefFrame> frame,CefRefPtr<CefRequest> request,CefRefPtr<CefResponse> response)
+        //CsStructModuleCodeGen:: GenerateCsMethodArgsClass_JsSlot ,480
         public struct OnResourceResponseArgs
         {
             IntPtr nativePtr; //met arg native ptr
@@ -22101,16 +22615,19 @@ namespace LayoutFarm.CefBridge.Auto
                 }
             }
         }
+        //CsStructModuleCodeGen:: GenerateCsMethodArgsClass_Native ,481
         [StructLayout(LayoutKind.Sequential)]
         struct OnResourceResponseNativeArgs
         {
             public int argFlags;
+            bool myext_ret_value;
             public IntPtr browser;
             public IntPtr frame;
             public IntPtr request;
             public IntPtr response;
         }
         //gen! CefRefPtr<CefResponseFilter> GetResourceResponseFilter(CefRefPtr<CefBrowser> browser,CefRefPtr<CefFrame> frame,CefRefPtr<CefRequest> request,CefRefPtr<CefResponse> response)
+        //CsStructModuleCodeGen:: GenerateCsMethodArgsClass_JsSlot ,482
         public struct GetResourceResponseFilterArgs
         {
             IntPtr nativePtr; //met arg native ptr
@@ -22159,16 +22676,19 @@ namespace LayoutFarm.CefBridge.Auto
                 }
             }
         }
+        //CsStructModuleCodeGen:: GenerateCsMethodArgsClass_Native ,483
         [StructLayout(LayoutKind.Sequential)]
         struct GetResourceResponseFilterNativeArgs
         {
             public int argFlags;
+            IntPtr myext_ret_value;
             public IntPtr browser;
             public IntPtr frame;
             public IntPtr request;
             public IntPtr response;
         }
         //gen! void OnResourceLoadComplete(CefRefPtr<CefBrowser> browser,CefRefPtr<CefFrame> frame,CefRefPtr<CefRequest> request,CefRefPtr<CefResponse> response,URLRequestStatus status,int64 received_content_length)
+        //CsStructModuleCodeGen:: GenerateCsMethodArgsClass_JsSlot ,484
         public struct OnResourceLoadCompleteArgs
         {
             IntPtr nativePtr; //met arg native ptr
@@ -22235,6 +22755,7 @@ namespace LayoutFarm.CefBridge.Auto
                 }
             }
         }
+        //CsStructModuleCodeGen:: GenerateCsMethodArgsClass_Native ,485
         [StructLayout(LayoutKind.Sequential)]
         struct OnResourceLoadCompleteNativeArgs
         {
@@ -22247,6 +22768,7 @@ namespace LayoutFarm.CefBridge.Auto
             public long received_content_length;
         }
         //gen! bool GetAuthCredentials(CefRefPtr<CefBrowser> browser,CefRefPtr<CefFrame> frame,bool isProxy,const CefString& host,int port,const CefString& realm,const CefString& scheme,CefRefPtr<CefAuthCallback> callback)
+        //CsStructModuleCodeGen:: GenerateCsMethodArgsClass_JsSlot ,486
         public struct GetAuthCredentialsArgs
         {
             IntPtr nativePtr; //met arg native ptr
@@ -22331,10 +22853,12 @@ namespace LayoutFarm.CefBridge.Auto
                 }
             }
         }
+        //CsStructModuleCodeGen:: GenerateCsMethodArgsClass_Native ,487
         [StructLayout(LayoutKind.Sequential)]
         struct GetAuthCredentialsNativeArgs
         {
             public int argFlags;
+            bool myext_ret_value;
             public IntPtr browser;
             public IntPtr frame;
             public bool isProxy;
@@ -22345,6 +22869,7 @@ namespace LayoutFarm.CefBridge.Auto
             public IntPtr callback;
         }
         //gen! bool OnQuotaRequest(CefRefPtr<CefBrowser> browser,const CefString& origin_url,int64 new_size,CefRefPtr<CefRequestCallback> callback)
+        //CsStructModuleCodeGen:: GenerateCsMethodArgsClass_JsSlot ,488
         public struct OnQuotaRequestArgs
         {
             IntPtr nativePtr; //met arg native ptr
@@ -22393,16 +22918,19 @@ namespace LayoutFarm.CefBridge.Auto
                 }
             }
         }
+        //CsStructModuleCodeGen:: GenerateCsMethodArgsClass_Native ,489
         [StructLayout(LayoutKind.Sequential)]
         struct OnQuotaRequestNativeArgs
         {
             public int argFlags;
+            bool myext_ret_value;
             public IntPtr browser;
             public IntPtr origin_url;
             public long new_size;
             public IntPtr callback;
         }
         //gen! void OnProtocolExecution(CefRefPtr<CefBrowser> browser,const CefString& url,bool& allow_os_execution)
+        //CsStructModuleCodeGen:: GenerateCsMethodArgsClass_JsSlot ,490
         public struct OnProtocolExecutionArgs
         {
             IntPtr nativePtr; //met arg native ptr
@@ -22444,6 +22972,7 @@ namespace LayoutFarm.CefBridge.Auto
                 MyMetArgs.SetBoolToAddress(nativePtr, 3, value);
             }
         }
+        //CsStructModuleCodeGen:: GenerateCsMethodArgsClass_Native ,491
         [StructLayout(LayoutKind.Sequential)]
         struct OnProtocolExecutionNativeArgs
         {
@@ -22453,6 +22982,7 @@ namespace LayoutFarm.CefBridge.Auto
             public double allow_os_execution;
         }
         //gen! bool OnCertificateError(CefRefPtr<CefBrowser> browser,cef_errorcode_t cert_error,const CefString& request_url,CefRefPtr<CefSSLInfo> ssl_info,CefRefPtr<CefRequestCallback> callback)
+        //CsStructModuleCodeGen:: GenerateCsMethodArgsClass_JsSlot ,492
         public struct OnCertificateErrorArgs
         {
             IntPtr nativePtr; //met arg native ptr
@@ -22510,10 +23040,12 @@ namespace LayoutFarm.CefBridge.Auto
                 }
             }
         }
+        //CsStructModuleCodeGen:: GenerateCsMethodArgsClass_Native ,493
         [StructLayout(LayoutKind.Sequential)]
         struct OnCertificateErrorNativeArgs
         {
             public int argFlags;
+            bool myext_ret_value;
             public IntPtr browser;
             public cef_errorcode_t cert_error;
             public IntPtr request_url;
@@ -22521,6 +23053,7 @@ namespace LayoutFarm.CefBridge.Auto
             public IntPtr callback;
         }
         //gen! bool OnSelectClientCertificate(CefRefPtr<CefBrowser> browser,bool isProxy,const CefString& host,int port,const X509CertificateList& certificates,CefRefPtr<CefSelectClientCertificateCallback> callback)
+        //CsStructModuleCodeGen:: GenerateCsMethodArgsClass_JsSlot ,494
         public struct OnSelectClientCertificateArgs
         {
             IntPtr nativePtr; //met arg native ptr
@@ -22582,10 +23115,12 @@ namespace LayoutFarm.CefBridge.Auto
                 }
             }
         }
+        //CsStructModuleCodeGen:: GenerateCsMethodArgsClass_Native ,495
         [StructLayout(LayoutKind.Sequential)]
         struct OnSelectClientCertificateNativeArgs
         {
             public int argFlags;
+            bool myext_ret_value;
             public IntPtr browser;
             public bool isProxy;
             public IntPtr host;
@@ -22594,6 +23129,7 @@ namespace LayoutFarm.CefBridge.Auto
             public IntPtr callback;
         }
         //gen! void OnPluginCrashed(CefRefPtr<CefBrowser> browser,const CefString& plugin_path)
+        //CsStructModuleCodeGen:: GenerateCsMethodArgsClass_JsSlot ,496
         public struct OnPluginCrashedArgs
         {
             IntPtr nativePtr; //met arg native ptr
@@ -22624,6 +23160,7 @@ namespace LayoutFarm.CefBridge.Auto
                 }
             }
         }
+        //CsStructModuleCodeGen:: GenerateCsMethodArgsClass_Native ,497
         [StructLayout(LayoutKind.Sequential)]
         struct OnPluginCrashedNativeArgs
         {
@@ -22632,6 +23169,7 @@ namespace LayoutFarm.CefBridge.Auto
             public IntPtr plugin_path;
         }
         //gen! void OnRenderViewReady(CefRefPtr<CefBrowser> browser)
+        //CsStructModuleCodeGen:: GenerateCsMethodArgsClass_JsSlot ,498
         public struct OnRenderViewReadyArgs
         {
             IntPtr nativePtr; //met arg native ptr
@@ -22653,6 +23191,7 @@ namespace LayoutFarm.CefBridge.Auto
                 }
             }
         }
+        //CsStructModuleCodeGen:: GenerateCsMethodArgsClass_Native ,499
         [StructLayout(LayoutKind.Sequential)]
         struct OnRenderViewReadyNativeArgs
         {
@@ -22660,6 +23199,7 @@ namespace LayoutFarm.CefBridge.Auto
             public IntPtr browser;
         }
         //gen! void OnRenderProcessTerminated(CefRefPtr<CefBrowser> browser,TerminationStatus status)
+        //CsStructModuleCodeGen:: GenerateCsMethodArgsClass_JsSlot ,500
         public struct OnRenderProcessTerminatedArgs
         {
             IntPtr nativePtr; //met arg native ptr
@@ -22690,6 +23230,7 @@ namespace LayoutFarm.CefBridge.Auto
                 }
             }
         }
+        //CsStructModuleCodeGen:: GenerateCsMethodArgsClass_Native ,501
         [StructLayout(LayoutKind.Sequential)]
         struct OnRenderProcessTerminatedNativeArgs
         {
@@ -22699,40 +23240,72 @@ namespace LayoutFarm.CefBridge.Auto
         }
         public interface I0
         {
+            //CsStructModuleCodeGen:: GenerateCsStructClass ,502
             void OnBeforeBrowse(OnBeforeBrowseArgs args);
+            //CsStructModuleCodeGen:: GenerateCsStructClass ,503
             void OnOpenURLFromTab(OnOpenURLFromTabArgs args);
+            //CsStructModuleCodeGen:: GenerateCsStructClass ,504
             void OnBeforeResourceLoad(OnBeforeResourceLoadArgs args);
+            //CsStructModuleCodeGen:: GenerateCsStructClass ,505
             void GetResourceHandler(GetResourceHandlerArgs args);
+            //CsStructModuleCodeGen:: GenerateCsStructClass ,506
             void OnResourceRedirect(OnResourceRedirectArgs args);
+            //CsStructModuleCodeGen:: GenerateCsStructClass ,507
             void OnResourceResponse(OnResourceResponseArgs args);
+            //CsStructModuleCodeGen:: GenerateCsStructClass ,508
             void GetResourceResponseFilter(GetResourceResponseFilterArgs args);
+            //CsStructModuleCodeGen:: GenerateCsStructClass ,509
             void OnResourceLoadComplete(OnResourceLoadCompleteArgs args);
+            //CsStructModuleCodeGen:: GenerateCsStructClass ,510
             void GetAuthCredentials(GetAuthCredentialsArgs args);
+            //CsStructModuleCodeGen:: GenerateCsStructClass ,511
             void OnQuotaRequest(OnQuotaRequestArgs args);
+            //CsStructModuleCodeGen:: GenerateCsStructClass ,512
             void OnProtocolExecution(OnProtocolExecutionArgs args);
+            //CsStructModuleCodeGen:: GenerateCsStructClass ,513
             void OnCertificateError(OnCertificateErrorArgs args);
+            //CsStructModuleCodeGen:: GenerateCsStructClass ,514
             void OnSelectClientCertificate(OnSelectClientCertificateArgs args);
+            //CsStructModuleCodeGen:: GenerateCsStructClass ,515
             void OnPluginCrashed(OnPluginCrashedArgs args);
+            //CsStructModuleCodeGen:: GenerateCsStructClass ,516
             void OnRenderViewReady(OnRenderViewReadyArgs args);
+            //CsStructModuleCodeGen:: GenerateCsStructClass ,517
             void OnRenderProcessTerminated(OnRenderProcessTerminatedArgs args);
         }
         public interface I1
         {
+            //CsStructModuleCodeGen:: GenerateCsStructClass ,518
             bool OnBeforeBrowse(CefBrowser browser, CefFrame frame, CefRequest request, bool is_redirect);
+            //CsStructModuleCodeGen:: GenerateCsStructClass ,519
             bool OnOpenURLFromTab(CefBrowser browser, CefFrame frame, string target_url, cef_window_open_disposition_t target_disposition, bool user_gesture);
+            //CsStructModuleCodeGen:: GenerateCsStructClass ,520
             cef_return_value_t OnBeforeResourceLoad(CefBrowser browser, CefFrame frame, CefRequest request, CefRequestCallback callback);
+            //CsStructModuleCodeGen:: GenerateCsStructClass ,521
             CefResourceHandler GetResourceHandler(CefBrowser browser, CefFrame frame, CefRequest request);
+            //CsStructModuleCodeGen:: GenerateCsStructClass ,522
             void OnResourceRedirect(CefBrowser browser, CefFrame frame, CefRequest request, CefResponse response, string new_url);
+            //CsStructModuleCodeGen:: GenerateCsStructClass ,523
             bool OnResourceResponse(CefBrowser browser, CefFrame frame, CefRequest request, CefResponse response);
+            //CsStructModuleCodeGen:: GenerateCsStructClass ,524
             CefResponseFilter GetResourceResponseFilter(CefBrowser browser, CefFrame frame, CefRequest request, CefResponse response);
+            //CsStructModuleCodeGen:: GenerateCsStructClass ,525
             void OnResourceLoadComplete(CefBrowser browser, CefFrame frame, CefRequest request, CefResponse response, cef_urlrequest_status_t status, long received_content_length);
+            //CsStructModuleCodeGen:: GenerateCsStructClass ,526
             bool GetAuthCredentials(CefBrowser browser, CefFrame frame, bool isProxy, string host, int port, string realm, string scheme, CefAuthCallback callback);
+            //CsStructModuleCodeGen:: GenerateCsStructClass ,527
             bool OnQuotaRequest(CefBrowser browser, string origin_url, long new_size, CefRequestCallback callback);
+            //CsStructModuleCodeGen:: GenerateCsStructClass ,528
             void OnProtocolExecution(CefBrowser browser, string url, ref bool allow_os_execution);
+            //CsStructModuleCodeGen:: GenerateCsStructClass ,529
             bool OnCertificateError(CefBrowser browser, cef_errorcode_t cert_error, string request_url, CefSSLInfo ssl_info, CefRequestCallback callback);
+            //CsStructModuleCodeGen:: GenerateCsStructClass ,530
             bool OnSelectClientCertificate(CefBrowser browser, bool isProxy, string host, int port, List<CefCompositionUnderline> certificates, CefSelectClientCertificateCallback callback);
+            //CsStructModuleCodeGen:: GenerateCsStructClass ,531
             void OnPluginCrashed(CefBrowser browser, string plugin_path);
+            //CsStructModuleCodeGen:: GenerateCsStructClass ,532
             void OnRenderViewReady(CefBrowser browser);
+            //CsStructModuleCodeGen:: GenerateCsStructClass ,533
             void OnRenderProcessTerminated(CefBrowser browser, cef_termination_status_t status);
         }
         public static void HandleNativeReq(I0 i0, I1 i1, int met_id, IntPtr nativeArgPtr)
@@ -22740,6 +23313,7 @@ namespace LayoutFarm.CefBridge.Auto
             int met_name = met_id & 0xffff;
             switch (met_name)
             {
+                //CsStructModuleCodeGen:: GenerateCsStructClass ,534
                 case CefRequestHandlerExt_OnBeforeBrowse_1:
                     {
                         var args = new OnBeforeBrowseArgs(nativeArgPtr);
@@ -22757,6 +23331,7 @@ namespace LayoutFarm.CefBridge.Auto
                         }
                     }
                     break;
+                //CsStructModuleCodeGen:: GenerateCsStructClass ,535
                 case CefRequestHandlerExt_OnOpenURLFromTab_2:
                     {
                         var args = new OnOpenURLFromTabArgs(nativeArgPtr);
@@ -22775,6 +23350,7 @@ namespace LayoutFarm.CefBridge.Auto
                         }
                     }
                     break;
+                //CsStructModuleCodeGen:: GenerateCsStructClass ,536
                 case CefRequestHandlerExt_OnBeforeResourceLoad_3:
                     {
                         var args = new OnBeforeResourceLoadArgs(nativeArgPtr);
@@ -22792,6 +23368,7 @@ namespace LayoutFarm.CefBridge.Auto
                         }
                     }
                     break;
+                //CsStructModuleCodeGen:: GenerateCsStructClass ,537
                 case CefRequestHandlerExt_GetResourceHandler_4:
                     {
                         var args = new GetResourceHandlerArgs(nativeArgPtr);
@@ -22808,6 +23385,7 @@ namespace LayoutFarm.CefBridge.Auto
                         }
                     }
                     break;
+                //CsStructModuleCodeGen:: GenerateCsStructClass ,538
                 case CefRequestHandlerExt_OnResourceRedirect_5:
                     {
                         var args = new OnResourceRedirectArgs(nativeArgPtr);
@@ -22826,6 +23404,7 @@ namespace LayoutFarm.CefBridge.Auto
                         }
                     }
                     break;
+                //CsStructModuleCodeGen:: GenerateCsStructClass ,539
                 case CefRequestHandlerExt_OnResourceResponse_6:
                     {
                         var args = new OnResourceResponseArgs(nativeArgPtr);
@@ -22843,6 +23422,7 @@ namespace LayoutFarm.CefBridge.Auto
                         }
                     }
                     break;
+                //CsStructModuleCodeGen:: GenerateCsStructClass ,540
                 case CefRequestHandlerExt_GetResourceResponseFilter_7:
                     {
                         var args = new GetResourceResponseFilterArgs(nativeArgPtr);
@@ -22860,6 +23440,7 @@ namespace LayoutFarm.CefBridge.Auto
                         }
                     }
                     break;
+                //CsStructModuleCodeGen:: GenerateCsStructClass ,541
                 case CefRequestHandlerExt_OnResourceLoadComplete_8:
                     {
                         var args = new OnResourceLoadCompleteArgs(nativeArgPtr);
@@ -22879,6 +23460,7 @@ namespace LayoutFarm.CefBridge.Auto
                         }
                     }
                     break;
+                //CsStructModuleCodeGen:: GenerateCsStructClass ,542
                 case CefRequestHandlerExt_GetAuthCredentials_9:
                     {
                         var args = new GetAuthCredentialsArgs(nativeArgPtr);
@@ -22900,6 +23482,7 @@ namespace LayoutFarm.CefBridge.Auto
                         }
                     }
                     break;
+                //CsStructModuleCodeGen:: GenerateCsStructClass ,543
                 case CefRequestHandlerExt_OnQuotaRequest_10:
                     {
                         var args = new OnQuotaRequestArgs(nativeArgPtr);
@@ -22917,6 +23500,7 @@ namespace LayoutFarm.CefBridge.Auto
                         }
                     }
                     break;
+                //CsStructModuleCodeGen:: GenerateCsStructClass ,544
                 case CefRequestHandlerExt_OnProtocolExecution_11:
                     {
                         var args = new OnProtocolExecutionArgs(nativeArgPtr);
@@ -22935,6 +23519,7 @@ namespace LayoutFarm.CefBridge.Auto
                         }
                     }
                     break;
+                //CsStructModuleCodeGen:: GenerateCsStructClass ,545
                 case CefRequestHandlerExt_OnCertificateError_12:
                     {
                         var args = new OnCertificateErrorArgs(nativeArgPtr);
@@ -22953,6 +23538,7 @@ namespace LayoutFarm.CefBridge.Auto
                         }
                     }
                     break;
+                //CsStructModuleCodeGen:: GenerateCsStructClass ,546
                 case CefRequestHandlerExt_OnSelectClientCertificate_13:
                     {
                         var args = new OnSelectClientCertificateArgs(nativeArgPtr);
@@ -22972,6 +23558,7 @@ namespace LayoutFarm.CefBridge.Auto
                         }
                     }
                     break;
+                //CsStructModuleCodeGen:: GenerateCsStructClass ,547
                 case CefRequestHandlerExt_OnPluginCrashed_14:
                     {
                         var args = new OnPluginCrashedArgs(nativeArgPtr);
@@ -22987,6 +23574,7 @@ namespace LayoutFarm.CefBridge.Auto
                         }
                     }
                     break;
+                //CsStructModuleCodeGen:: GenerateCsStructClass ,548
                 case CefRequestHandlerExt_OnRenderViewReady_15:
                     {
                         var args = new OnRenderViewReadyArgs(nativeArgPtr);
@@ -23001,6 +23589,7 @@ namespace LayoutFarm.CefBridge.Auto
                         }
                     }
                     break;
+                //CsStructModuleCodeGen:: GenerateCsStructClass ,549
                 case CefRequestHandlerExt_OnRenderProcessTerminated_16:
                     {
                         var args = new OnRenderProcessTerminatedArgs(nativeArgPtr);
@@ -23018,6 +23607,7 @@ namespace LayoutFarm.CefBridge.Auto
                     break;
             }
         }
+        //CsStructModuleCodeGen:: GenerateCsStructClass ,550
         public static void OnBeforeBrowse(I1 i1, OnBeforeBrowseArgs args)
         {
             //expand args
@@ -23026,6 +23616,7 @@ namespace LayoutFarm.CefBridge.Auto
             args.request(),
             args.is_redirect());
         }
+        //CsStructModuleCodeGen:: GenerateCsStructClass ,551
         public static void OnOpenURLFromTab(I1 i1, OnOpenURLFromTabArgs args)
         {
             //expand args
@@ -23035,6 +23626,7 @@ namespace LayoutFarm.CefBridge.Auto
             args.target_disposition(),
             args.user_gesture());
         }
+        //CsStructModuleCodeGen:: GenerateCsStructClass ,552
         public static void OnBeforeResourceLoad(I1 i1, OnBeforeResourceLoadArgs args)
         {
             //expand args
@@ -23043,6 +23635,7 @@ namespace LayoutFarm.CefBridge.Auto
             args.request(),
             args.callback());
         }
+        //CsStructModuleCodeGen:: GenerateCsStructClass ,553
         public static void GetResourceHandler(I1 i1, GetResourceHandlerArgs args)
         {
             //expand args
@@ -23050,6 +23643,7 @@ namespace LayoutFarm.CefBridge.Auto
             args.frame(),
             args.request());
         }
+        //CsStructModuleCodeGen:: GenerateCsStructClass ,554
         public static void OnResourceRedirect(I1 i1, OnResourceRedirectArgs args)
         {
             //expand args
@@ -23059,6 +23653,7 @@ namespace LayoutFarm.CefBridge.Auto
             args.response(),
             args.new_url());
         }
+        //CsStructModuleCodeGen:: GenerateCsStructClass ,555
         public static void OnResourceResponse(I1 i1, OnResourceResponseArgs args)
         {
             //expand args
@@ -23067,6 +23662,7 @@ namespace LayoutFarm.CefBridge.Auto
             args.request(),
             args.response());
         }
+        //CsStructModuleCodeGen:: GenerateCsStructClass ,556
         public static void GetResourceResponseFilter(I1 i1, GetResourceResponseFilterArgs args)
         {
             //expand args
@@ -23075,6 +23671,7 @@ namespace LayoutFarm.CefBridge.Auto
             args.request(),
             args.response());
         }
+        //CsStructModuleCodeGen:: GenerateCsStructClass ,557
         public static void OnResourceLoadComplete(I1 i1, OnResourceLoadCompleteArgs args)
         {
             //expand args
@@ -23085,6 +23682,7 @@ namespace LayoutFarm.CefBridge.Auto
             args.status(),
             args.received_content_length());
         }
+        //CsStructModuleCodeGen:: GenerateCsStructClass ,558
         public static void GetAuthCredentials(I1 i1, GetAuthCredentialsArgs args)
         {
             //expand args
@@ -23097,6 +23695,7 @@ namespace LayoutFarm.CefBridge.Auto
             args.scheme(),
             args.callback());
         }
+        //CsStructModuleCodeGen:: GenerateCsStructClass ,559
         public static void OnQuotaRequest(I1 i1, OnQuotaRequestArgs args)
         {
             //expand args
@@ -23105,6 +23704,7 @@ namespace LayoutFarm.CefBridge.Auto
             args.new_size(),
             args.callback());
         }
+        //CsStructModuleCodeGen:: GenerateCsStructClass ,560
         public static void OnProtocolExecution(I1 i1, OnProtocolExecutionArgs args)
         {
             //expand args
@@ -23114,6 +23714,7 @@ namespace LayoutFarm.CefBridge.Auto
             ref allow_os_execution);
             args.allow_os_execution(allow_os_execution);
         }
+        //CsStructModuleCodeGen:: GenerateCsStructClass ,561
         public static void OnCertificateError(I1 i1, OnCertificateErrorArgs args)
         {
             //expand args
@@ -23123,6 +23724,7 @@ namespace LayoutFarm.CefBridge.Auto
             args.ssl_info(),
             args.callback());
         }
+        //CsStructModuleCodeGen:: GenerateCsStructClass ,562
         public static void OnSelectClientCertificate(I1 i1, OnSelectClientCertificateArgs args)
         {
             //expand args
@@ -23133,17 +23735,20 @@ namespace LayoutFarm.CefBridge.Auto
             args.certificates(),
             args.callback());
         }
+        //CsStructModuleCodeGen:: GenerateCsStructClass ,563
         public static void OnPluginCrashed(I1 i1, OnPluginCrashedArgs args)
         {
             //expand args
             i1.OnPluginCrashed(args.browser(),
             args.plugin_path());
         }
+        //CsStructModuleCodeGen:: GenerateCsStructClass ,564
         public static void OnRenderViewReady(I1 i1, OnRenderViewReadyArgs args)
         {
             //expand args
             i1.OnRenderViewReady(args.browser());
         }
+        //CsStructModuleCodeGen:: GenerateCsStructClass ,565
         public static void OnRenderProcessTerminated(I1 i1, OnRenderProcessTerminatedArgs args)
         {
             //expand args
@@ -23151,6 +23756,7 @@ namespace LayoutFarm.CefBridge.Auto
             args.status());
         }
     }
+    //CsStructModuleCodeGen:: GenerateCsStructClass ,566
     public struct CefResourceBundleHandler
     {
         public const int _typeNAME = 75;
@@ -23158,6 +23764,7 @@ namespace LayoutFarm.CefBridge.Auto
         const int CefResourceBundleHandlerExt_GetDataResource_2 = 2;
         const int CefResourceBundleHandlerExt_GetDataResourceForScale_3 = 3;
         //gen! bool GetLocalizedString(int string_id,CefString& string)
+        //CsStructModuleCodeGen:: GenerateCsMethodArgsClass_JsSlot ,567
         public struct GetLocalizedStringArgs
         {
             IntPtr nativePtr; //met arg native ptr
@@ -23188,14 +23795,17 @@ namespace LayoutFarm.CefBridge.Auto
                 }
             }
         }
+        //CsStructModuleCodeGen:: GenerateCsMethodArgsClass_Native ,568
         [StructLayout(LayoutKind.Sequential)]
         struct GetLocalizedStringNativeArgs
         {
             public int argFlags;
+            bool myext_ret_value;
             public int string_id;
             public IntPtr _string;
         }
         //gen! bool GetDataResource(int resource_id,void*& data,size_t& data_size)
+        //CsStructModuleCodeGen:: GenerateCsMethodArgsClass_JsSlot ,569
         public struct GetDataResourceArgs
         {
             IntPtr nativePtr; //met arg native ptr
@@ -23229,15 +23839,18 @@ namespace LayoutFarm.CefBridge.Auto
                 MyMetArgs.SetUInt32ToAddress(nativePtr, 3, value);
             }
         }
+        //CsStructModuleCodeGen:: GenerateCsMethodArgsClass_Native ,570
         [StructLayout(LayoutKind.Sequential)]
         struct GetDataResourceNativeArgs
         {
             public int argFlags;
+            bool myext_ret_value;
             public int resource_id;
             public IntPtr data;
             public uint data_size;
         }
         //gen! bool GetDataResourceForScale(int resource_id,ScaleFactor scale_factor,void*& data,size_t& data_size)
+        //CsStructModuleCodeGen:: GenerateCsMethodArgsClass_JsSlot ,571
         public struct GetDataResourceForScaleArgs
         {
             IntPtr nativePtr; //met arg native ptr
@@ -23280,10 +23893,12 @@ namespace LayoutFarm.CefBridge.Auto
                 MyMetArgs.SetUInt32ToAddress(nativePtr, 4, value);
             }
         }
+        //CsStructModuleCodeGen:: GenerateCsMethodArgsClass_Native ,572
         [StructLayout(LayoutKind.Sequential)]
         struct GetDataResourceForScaleNativeArgs
         {
             public int argFlags;
+            bool myext_ret_value;
             public int resource_id;
             public cef_scale_factor_t scale_factor;
             public IntPtr data;
@@ -23291,14 +23906,20 @@ namespace LayoutFarm.CefBridge.Auto
         }
         public interface I0
         {
+            //CsStructModuleCodeGen:: GenerateCsStructClass ,573
             void GetLocalizedString(GetLocalizedStringArgs args);
+            //CsStructModuleCodeGen:: GenerateCsStructClass ,574
             void GetDataResource(GetDataResourceArgs args);
+            //CsStructModuleCodeGen:: GenerateCsStructClass ,575
             void GetDataResourceForScale(GetDataResourceForScaleArgs args);
         }
         public interface I1
         {
+            //CsStructModuleCodeGen:: GenerateCsStructClass ,576
             bool GetLocalizedString(int string_id, string _string);
+            //CsStructModuleCodeGen:: GenerateCsStructClass ,577
             bool GetDataResource(int resource_id, IntPtr data, ref uint data_size);
+            //CsStructModuleCodeGen:: GenerateCsStructClass ,578
             bool GetDataResourceForScale(int resource_id, cef_scale_factor_t scale_factor, IntPtr data, ref uint data_size);
         }
         public static void HandleNativeReq(I0 i0, I1 i1, int met_id, IntPtr nativeArgPtr)
@@ -23306,6 +23927,7 @@ namespace LayoutFarm.CefBridge.Auto
             int met_name = met_id & 0xffff;
             switch (met_name)
             {
+                //CsStructModuleCodeGen:: GenerateCsStructClass ,579
                 case CefResourceBundleHandlerExt_GetLocalizedString_1:
                     {
                         var args = new GetLocalizedStringArgs(nativeArgPtr);
@@ -23321,6 +23943,7 @@ namespace LayoutFarm.CefBridge.Auto
                         }
                     }
                     break;
+                //CsStructModuleCodeGen:: GenerateCsStructClass ,580
                 case CefResourceBundleHandlerExt_GetDataResource_2:
                     {
                         var args = new GetDataResourceArgs(nativeArgPtr);
@@ -23339,6 +23962,7 @@ namespace LayoutFarm.CefBridge.Auto
                         }
                     }
                     break;
+                //CsStructModuleCodeGen:: GenerateCsStructClass ,581
                 case CefResourceBundleHandlerExt_GetDataResourceForScale_3:
                     {
                         var args = new GetDataResourceForScaleArgs(nativeArgPtr);
@@ -23360,12 +23984,14 @@ namespace LayoutFarm.CefBridge.Auto
                     break;
             }
         }
+        //CsStructModuleCodeGen:: GenerateCsStructClass ,582
         public static void GetLocalizedString(I1 i1, GetLocalizedStringArgs args)
         {
             //expand args
             i1.GetLocalizedString(args.string_id(),
             args._string());
         }
+        //CsStructModuleCodeGen:: GenerateCsStructClass ,583
         public static void GetDataResource(I1 i1, GetDataResourceArgs args)
         {
             //expand args
@@ -23375,6 +24001,7 @@ namespace LayoutFarm.CefBridge.Auto
             ref data_size);
             args.data_size(data_size);
         }
+        //CsStructModuleCodeGen:: GenerateCsStructClass ,584
         public static void GetDataResourceForScale(I1 i1, GetDataResourceForScaleArgs args)
         {
             //expand args
@@ -23386,6 +24013,7 @@ namespace LayoutFarm.CefBridge.Auto
             args.data_size(data_size);
         }
     }
+    //CsStructModuleCodeGen:: GenerateCsStructClass ,585
     public struct CefResourceHandler
     {
         public const int _typeNAME = 76;
@@ -23396,6 +24024,7 @@ namespace LayoutFarm.CefBridge.Auto
         const int CefResourceHandlerExt_CanSetCookie_5 = 5;
         const int CefResourceHandlerExt_Cancel_6 = 6;
         //gen! bool ProcessRequest(CefRefPtr<CefRequest> request,CefRefPtr<CefCallback> callback)
+        //CsStructModuleCodeGen:: GenerateCsMethodArgsClass_JsSlot ,586
         public struct ProcessRequestArgs
         {
             IntPtr nativePtr; //met arg native ptr
@@ -23426,14 +24055,17 @@ namespace LayoutFarm.CefBridge.Auto
                 }
             }
         }
+        //CsStructModuleCodeGen:: GenerateCsMethodArgsClass_Native ,587
         [StructLayout(LayoutKind.Sequential)]
         struct ProcessRequestNativeArgs
         {
             public int argFlags;
+            bool myext_ret_value;
             public IntPtr request;
             public IntPtr callback;
         }
         //gen! void GetResponseHeaders(CefRefPtr<CefResponse> response,int64& response_length,CefString& redirectUrl)
+        //CsStructModuleCodeGen:: GenerateCsMethodArgsClass_JsSlot ,588
         public struct GetResponseHeadersArgs
         {
             IntPtr nativePtr; //met arg native ptr
@@ -23473,6 +24105,7 @@ namespace LayoutFarm.CefBridge.Auto
                 }
             }
         }
+        //CsStructModuleCodeGen:: GenerateCsMethodArgsClass_Native ,589
         [StructLayout(LayoutKind.Sequential)]
         struct GetResponseHeadersNativeArgs
         {
@@ -23482,6 +24115,7 @@ namespace LayoutFarm.CefBridge.Auto
             public IntPtr redirectUrl;
         }
         //gen! bool ReadResponse(void* data_out,int bytes_to_read,int& bytes_read,CefRefPtr<CefCallback> callback)
+        //CsStructModuleCodeGen:: GenerateCsMethodArgsClass_JsSlot ,590
         public struct ReadResponseArgs
         {
             IntPtr nativePtr; //met arg native ptr
@@ -23524,16 +24158,19 @@ namespace LayoutFarm.CefBridge.Auto
                 }
             }
         }
+        //CsStructModuleCodeGen:: GenerateCsMethodArgsClass_Native ,591
         [StructLayout(LayoutKind.Sequential)]
         struct ReadResponseNativeArgs
         {
             public int argFlags;
+            bool myext_ret_value;
             public IntPtr data_out;
             public int bytes_to_read;
             public int bytes_read;
             public IntPtr callback;
         }
         //gen! bool CanGetCookie(const CefCookie& cookie)
+        //CsStructModuleCodeGen:: GenerateCsMethodArgsClass_JsSlot ,592
         public struct CanGetCookieArgs
         {
             IntPtr nativePtr; //met arg native ptr
@@ -23555,13 +24192,16 @@ namespace LayoutFarm.CefBridge.Auto
                 }
             }
         }
+        //CsStructModuleCodeGen:: GenerateCsMethodArgsClass_Native ,593
         [StructLayout(LayoutKind.Sequential)]
         struct CanGetCookieNativeArgs
         {
             public int argFlags;
+            bool myext_ret_value;
             public IntPtr cookie;
         }
         //gen! bool CanSetCookie(const CefCookie& cookie)
+        //CsStructModuleCodeGen:: GenerateCsMethodArgsClass_JsSlot ,594
         public struct CanSetCookieArgs
         {
             IntPtr nativePtr; //met arg native ptr
@@ -23583,13 +24223,16 @@ namespace LayoutFarm.CefBridge.Auto
                 }
             }
         }
+        //CsStructModuleCodeGen:: GenerateCsMethodArgsClass_Native ,595
         [StructLayout(LayoutKind.Sequential)]
         struct CanSetCookieNativeArgs
         {
             public int argFlags;
+            bool myext_ret_value;
             public IntPtr cookie;
         }
         //gen! void Cancel()
+        //CsStructModuleCodeGen:: GenerateCsMethodArgsClass_JsSlot ,596
         public struct CancelArgs
         {
             IntPtr nativePtr; //met arg native ptr
@@ -23602,6 +24245,7 @@ namespace LayoutFarm.CefBridge.Auto
 
             }
         }
+        //CsStructModuleCodeGen:: GenerateCsMethodArgsClass_Native ,597
         [StructLayout(LayoutKind.Sequential)]
         struct CancelNativeArgs
         {
@@ -23609,20 +24253,32 @@ namespace LayoutFarm.CefBridge.Auto
         }
         public interface I0
         {
+            //CsStructModuleCodeGen:: GenerateCsStructClass ,598
             void ProcessRequest(ProcessRequestArgs args);
+            //CsStructModuleCodeGen:: GenerateCsStructClass ,599
             void GetResponseHeaders(GetResponseHeadersArgs args);
+            //CsStructModuleCodeGen:: GenerateCsStructClass ,600
             void ReadResponse(ReadResponseArgs args);
+            //CsStructModuleCodeGen:: GenerateCsStructClass ,601
             void CanGetCookie(CanGetCookieArgs args);
+            //CsStructModuleCodeGen:: GenerateCsStructClass ,602
             void CanSetCookie(CanSetCookieArgs args);
+            //CsStructModuleCodeGen:: GenerateCsStructClass ,603
             void Cancel(CancelArgs args);
         }
         public interface I1
         {
+            //CsStructModuleCodeGen:: GenerateCsStructClass ,604
             bool ProcessRequest(CefRequest request, CefCallback callback);
+            //CsStructModuleCodeGen:: GenerateCsStructClass ,605
             void GetResponseHeaders(CefResponse response, long response_length, string redirectUrl);
+            //CsStructModuleCodeGen:: GenerateCsStructClass ,606
             bool ReadResponse(IntPtr data_out, int bytes_to_read, ref int bytes_read, CefCallback callback);
+            //CsStructModuleCodeGen:: GenerateCsStructClass ,607
             bool CanGetCookie(CefCookie cookie);
+            //CsStructModuleCodeGen:: GenerateCsStructClass ,608
             bool CanSetCookie(CefCookie cookie);
+            //CsStructModuleCodeGen:: GenerateCsStructClass ,609
             void Cancel();
         }
         public static void HandleNativeReq(I0 i0, I1 i1, int met_id, IntPtr nativeArgPtr)
@@ -23630,6 +24286,7 @@ namespace LayoutFarm.CefBridge.Auto
             int met_name = met_id & 0xffff;
             switch (met_name)
             {
+                //CsStructModuleCodeGen:: GenerateCsStructClass ,610
                 case CefResourceHandlerExt_ProcessRequest_1:
                     {
                         var args = new ProcessRequestArgs(nativeArgPtr);
@@ -23645,6 +24302,7 @@ namespace LayoutFarm.CefBridge.Auto
                         }
                     }
                     break;
+                //CsStructModuleCodeGen:: GenerateCsStructClass ,611
                 case CefResourceHandlerExt_GetResponseHeaders_2:
                     {
                         var args = new GetResponseHeadersArgs(nativeArgPtr);
@@ -23661,6 +24319,7 @@ namespace LayoutFarm.CefBridge.Auto
                         }
                     }
                     break;
+                //CsStructModuleCodeGen:: GenerateCsStructClass ,612
                 case CefResourceHandlerExt_ReadResponse_3:
                     {
                         var args = new ReadResponseArgs(nativeArgPtr);
@@ -23680,6 +24339,7 @@ namespace LayoutFarm.CefBridge.Auto
                         }
                     }
                     break;
+                //CsStructModuleCodeGen:: GenerateCsStructClass ,613
                 case CefResourceHandlerExt_CanGetCookie_4:
                     {
                         var args = new CanGetCookieArgs(nativeArgPtr);
@@ -23694,6 +24354,7 @@ namespace LayoutFarm.CefBridge.Auto
                         }
                     }
                     break;
+                //CsStructModuleCodeGen:: GenerateCsStructClass ,614
                 case CefResourceHandlerExt_CanSetCookie_5:
                     {
                         var args = new CanSetCookieArgs(nativeArgPtr);
@@ -23708,6 +24369,7 @@ namespace LayoutFarm.CefBridge.Auto
                         }
                     }
                     break;
+                //CsStructModuleCodeGen:: GenerateCsStructClass ,615
                 case CefResourceHandlerExt_Cancel_6:
                     {
                         var args = new CancelArgs(nativeArgPtr);
@@ -23724,12 +24386,14 @@ namespace LayoutFarm.CefBridge.Auto
                     break;
             }
         }
+        //CsStructModuleCodeGen:: GenerateCsStructClass ,616
         public static void ProcessRequest(I1 i1, ProcessRequestArgs args)
         {
             //expand args
             i1.ProcessRequest(args.request(),
             args.callback());
         }
+        //CsStructModuleCodeGen:: GenerateCsStructClass ,617
         public static void GetResponseHeaders(I1 i1, GetResponseHeadersArgs args)
         {
             //expand args
@@ -23737,6 +24401,7 @@ namespace LayoutFarm.CefBridge.Auto
             args.response_length(),
             args.redirectUrl());
         }
+        //CsStructModuleCodeGen:: GenerateCsStructClass ,618
         public static void ReadResponse(I1 i1, ReadResponseArgs args)
         {
             //expand args
@@ -23747,22 +24412,26 @@ namespace LayoutFarm.CefBridge.Auto
             args.callback());
             args.bytes_read(bytes_read);
         }
+        //CsStructModuleCodeGen:: GenerateCsStructClass ,619
         public static void CanGetCookie(I1 i1, CanGetCookieArgs args)
         {
             //expand args
             i1.CanGetCookie(args.cookie());
         }
+        //CsStructModuleCodeGen:: GenerateCsStructClass ,620
         public static void CanSetCookie(I1 i1, CanSetCookieArgs args)
         {
             //expand args
             i1.CanSetCookie(args.cookie());
         }
+        //CsStructModuleCodeGen:: GenerateCsStructClass ,621
         public static void Cancel(I1 i1, CancelArgs args)
         {
             //expand args
             i1.Cancel();
         }
     }
+    //CsStructModuleCodeGen:: GenerateCsStructClass ,622
     public struct CefReadHandler
     {
         public const int _typeNAME = 77;
@@ -23772,6 +24441,7 @@ namespace LayoutFarm.CefBridge.Auto
         const int CefReadHandlerExt_Eof_4 = 4;
         const int CefReadHandlerExt_MayBlock_5 = 5;
         //gen! size_t Read(void* ptr,size_t size,size_t n)
+        //CsStructModuleCodeGen:: GenerateCsMethodArgsClass_JsSlot ,623
         public struct ReadArgs
         {
             IntPtr nativePtr; //met arg native ptr
@@ -23806,15 +24476,18 @@ namespace LayoutFarm.CefBridge.Auto
                 }
             }
         }
+        //CsStructModuleCodeGen:: GenerateCsMethodArgsClass_Native ,624
         [StructLayout(LayoutKind.Sequential)]
         struct ReadNativeArgs
         {
             public int argFlags;
+            int myext_ret_value;
             public IntPtr ptr;
             public uint size;
             public uint n;
         }
         //gen! int Seek(int64 offset,int whence)
+        //CsStructModuleCodeGen:: GenerateCsMethodArgsClass_JsSlot ,625
         public struct SeekArgs
         {
             IntPtr nativePtr; //met arg native ptr
@@ -23845,14 +24518,17 @@ namespace LayoutFarm.CefBridge.Auto
                 }
             }
         }
+        //CsStructModuleCodeGen:: GenerateCsMethodArgsClass_Native ,626
         [StructLayout(LayoutKind.Sequential)]
         struct SeekNativeArgs
         {
             public int argFlags;
+            int myext_ret_value;
             public long offset;
             public int whence;
         }
         //gen! int64 Tell()
+        //CsStructModuleCodeGen:: GenerateCsMethodArgsClass_JsSlot ,627
         public struct TellArgs
         {
             IntPtr nativePtr; //met arg native ptr
@@ -23865,12 +24541,15 @@ namespace LayoutFarm.CefBridge.Auto
 
             }
         }
+        //CsStructModuleCodeGen:: GenerateCsMethodArgsClass_Native ,628
         [StructLayout(LayoutKind.Sequential)]
         struct TellNativeArgs
         {
             public int argFlags;
+            long myext_ret_value;
         }
         //gen! int Eof()
+        //CsStructModuleCodeGen:: GenerateCsMethodArgsClass_JsSlot ,629
         public struct EofArgs
         {
             IntPtr nativePtr; //met arg native ptr
@@ -23883,12 +24562,15 @@ namespace LayoutFarm.CefBridge.Auto
 
             }
         }
+        //CsStructModuleCodeGen:: GenerateCsMethodArgsClass_Native ,630
         [StructLayout(LayoutKind.Sequential)]
         struct EofNativeArgs
         {
             public int argFlags;
+            int myext_ret_value;
         }
         //gen! bool MayBlock()
+        //CsStructModuleCodeGen:: GenerateCsMethodArgsClass_JsSlot ,631
         public struct MayBlockArgs
         {
             IntPtr nativePtr; //met arg native ptr
@@ -23901,25 +24583,37 @@ namespace LayoutFarm.CefBridge.Auto
 
             }
         }
+        //CsStructModuleCodeGen:: GenerateCsMethodArgsClass_Native ,632
         [StructLayout(LayoutKind.Sequential)]
         struct MayBlockNativeArgs
         {
             public int argFlags;
+            bool myext_ret_value;
         }
         public interface I0
         {
+            //CsStructModuleCodeGen:: GenerateCsStructClass ,633
             void Read(ReadArgs args);
+            //CsStructModuleCodeGen:: GenerateCsStructClass ,634
             void Seek(SeekArgs args);
+            //CsStructModuleCodeGen:: GenerateCsStructClass ,635
             void Tell(TellArgs args);
+            //CsStructModuleCodeGen:: GenerateCsStructClass ,636
             void Eof(EofArgs args);
+            //CsStructModuleCodeGen:: GenerateCsStructClass ,637
             void MayBlock(MayBlockArgs args);
         }
         public interface I1
         {
+            //CsStructModuleCodeGen:: GenerateCsStructClass ,638
             uint Read(IntPtr ptr, uint size, uint n);
+            //CsStructModuleCodeGen:: GenerateCsStructClass ,639
             int Seek(long offset, int whence);
+            //CsStructModuleCodeGen:: GenerateCsStructClass ,640
             long Tell();
+            //CsStructModuleCodeGen:: GenerateCsStructClass ,641
             int Eof();
+            //CsStructModuleCodeGen:: GenerateCsStructClass ,642
             bool MayBlock();
         }
         public static void HandleNativeReq(I0 i0, I1 i1, int met_id, IntPtr nativeArgPtr)
@@ -23927,6 +24621,7 @@ namespace LayoutFarm.CefBridge.Auto
             int met_name = met_id & 0xffff;
             switch (met_name)
             {
+                //CsStructModuleCodeGen:: GenerateCsStructClass ,643
                 case CefReadHandlerExt_Read_1:
                     {
                         var args = new ReadArgs(nativeArgPtr);
@@ -23943,6 +24638,7 @@ namespace LayoutFarm.CefBridge.Auto
                         }
                     }
                     break;
+                //CsStructModuleCodeGen:: GenerateCsStructClass ,644
                 case CefReadHandlerExt_Seek_2:
                     {
                         var args = new SeekArgs(nativeArgPtr);
@@ -23958,6 +24654,7 @@ namespace LayoutFarm.CefBridge.Auto
                         }
                     }
                     break;
+                //CsStructModuleCodeGen:: GenerateCsStructClass ,645
                 case CefReadHandlerExt_Tell_3:
                     {
                         var args = new TellArgs(nativeArgPtr);
@@ -23972,6 +24669,7 @@ namespace LayoutFarm.CefBridge.Auto
                         }
                     }
                     break;
+                //CsStructModuleCodeGen:: GenerateCsStructClass ,646
                 case CefReadHandlerExt_Eof_4:
                     {
                         var args = new EofArgs(nativeArgPtr);
@@ -23986,6 +24684,7 @@ namespace LayoutFarm.CefBridge.Auto
                         }
                     }
                     break;
+                //CsStructModuleCodeGen:: GenerateCsStructClass ,647
                 case CefReadHandlerExt_MayBlock_5:
                     {
                         var args = new MayBlockArgs(nativeArgPtr);
@@ -24002,6 +24701,7 @@ namespace LayoutFarm.CefBridge.Auto
                     break;
             }
         }
+        //CsStructModuleCodeGen:: GenerateCsStructClass ,648
         public static void Read(I1 i1, ReadArgs args)
         {
             //expand args
@@ -24009,28 +24709,33 @@ namespace LayoutFarm.CefBridge.Auto
             args.size(),
             args.n());
         }
+        //CsStructModuleCodeGen:: GenerateCsStructClass ,649
         public static void Seek(I1 i1, SeekArgs args)
         {
             //expand args
             i1.Seek(args.offset(),
             args.whence());
         }
+        //CsStructModuleCodeGen:: GenerateCsStructClass ,650
         public static void Tell(I1 i1, TellArgs args)
         {
             //expand args
             i1.Tell();
         }
+        //CsStructModuleCodeGen:: GenerateCsStructClass ,651
         public static void Eof(I1 i1, EofArgs args)
         {
             //expand args
             i1.Eof();
         }
+        //CsStructModuleCodeGen:: GenerateCsStructClass ,652
         public static void MayBlock(I1 i1, MayBlockArgs args)
         {
             //expand args
             i1.MayBlock();
         }
     }
+    //CsStructModuleCodeGen:: GenerateCsStructClass ,653
     public struct CefWriteHandler
     {
         public const int _typeNAME = 78;
@@ -24040,6 +24745,7 @@ namespace LayoutFarm.CefBridge.Auto
         const int CefWriteHandlerExt_Flush_4 = 4;
         const int CefWriteHandlerExt_MayBlock_5 = 5;
         //gen! size_t Write(const void* ptr,size_t size,size_t n)
+        //CsStructModuleCodeGen:: GenerateCsMethodArgsClass_JsSlot ,654
         public struct WriteArgs
         {
             IntPtr nativePtr; //met arg native ptr
@@ -24074,15 +24780,18 @@ namespace LayoutFarm.CefBridge.Auto
                 }
             }
         }
+        //CsStructModuleCodeGen:: GenerateCsMethodArgsClass_Native ,655
         [StructLayout(LayoutKind.Sequential)]
         struct WriteNativeArgs
         {
             public int argFlags;
+            int myext_ret_value;
             public IntPtr ptr;
             public uint size;
             public uint n;
         }
         //gen! int Seek(int64 offset,int whence)
+        //CsStructModuleCodeGen:: GenerateCsMethodArgsClass_JsSlot ,656
         public struct SeekArgs
         {
             IntPtr nativePtr; //met arg native ptr
@@ -24113,14 +24822,17 @@ namespace LayoutFarm.CefBridge.Auto
                 }
             }
         }
+        //CsStructModuleCodeGen:: GenerateCsMethodArgsClass_Native ,657
         [StructLayout(LayoutKind.Sequential)]
         struct SeekNativeArgs
         {
             public int argFlags;
+            int myext_ret_value;
             public long offset;
             public int whence;
         }
         //gen! int64 Tell()
+        //CsStructModuleCodeGen:: GenerateCsMethodArgsClass_JsSlot ,658
         public struct TellArgs
         {
             IntPtr nativePtr; //met arg native ptr
@@ -24133,12 +24845,15 @@ namespace LayoutFarm.CefBridge.Auto
 
             }
         }
+        //CsStructModuleCodeGen:: GenerateCsMethodArgsClass_Native ,659
         [StructLayout(LayoutKind.Sequential)]
         struct TellNativeArgs
         {
             public int argFlags;
+            long myext_ret_value;
         }
         //gen! int Flush()
+        //CsStructModuleCodeGen:: GenerateCsMethodArgsClass_JsSlot ,660
         public struct FlushArgs
         {
             IntPtr nativePtr; //met arg native ptr
@@ -24151,12 +24866,15 @@ namespace LayoutFarm.CefBridge.Auto
 
             }
         }
+        //CsStructModuleCodeGen:: GenerateCsMethodArgsClass_Native ,661
         [StructLayout(LayoutKind.Sequential)]
         struct FlushNativeArgs
         {
             public int argFlags;
+            int myext_ret_value;
         }
         //gen! bool MayBlock()
+        //CsStructModuleCodeGen:: GenerateCsMethodArgsClass_JsSlot ,662
         public struct MayBlockArgs
         {
             IntPtr nativePtr; //met arg native ptr
@@ -24169,25 +24887,37 @@ namespace LayoutFarm.CefBridge.Auto
 
             }
         }
+        //CsStructModuleCodeGen:: GenerateCsMethodArgsClass_Native ,663
         [StructLayout(LayoutKind.Sequential)]
         struct MayBlockNativeArgs
         {
             public int argFlags;
+            bool myext_ret_value;
         }
         public interface I0
         {
+            //CsStructModuleCodeGen:: GenerateCsStructClass ,664
             void Write(WriteArgs args);
+            //CsStructModuleCodeGen:: GenerateCsStructClass ,665
             void Seek(SeekArgs args);
+            //CsStructModuleCodeGen:: GenerateCsStructClass ,666
             void Tell(TellArgs args);
+            //CsStructModuleCodeGen:: GenerateCsStructClass ,667
             void Flush(FlushArgs args);
+            //CsStructModuleCodeGen:: GenerateCsStructClass ,668
             void MayBlock(MayBlockArgs args);
         }
         public interface I1
         {
+            //CsStructModuleCodeGen:: GenerateCsStructClass ,669
             uint Write(IntPtr ptr, uint size, uint n);
+            //CsStructModuleCodeGen:: GenerateCsStructClass ,670
             int Seek(long offset, int whence);
+            //CsStructModuleCodeGen:: GenerateCsStructClass ,671
             long Tell();
+            //CsStructModuleCodeGen:: GenerateCsStructClass ,672
             int Flush();
+            //CsStructModuleCodeGen:: GenerateCsStructClass ,673
             bool MayBlock();
         }
         public static void HandleNativeReq(I0 i0, I1 i1, int met_id, IntPtr nativeArgPtr)
@@ -24195,6 +24925,7 @@ namespace LayoutFarm.CefBridge.Auto
             int met_name = met_id & 0xffff;
             switch (met_name)
             {
+                //CsStructModuleCodeGen:: GenerateCsStructClass ,674
                 case CefWriteHandlerExt_Write_1:
                     {
                         var args = new WriteArgs(nativeArgPtr);
@@ -24211,6 +24942,7 @@ namespace LayoutFarm.CefBridge.Auto
                         }
                     }
                     break;
+                //CsStructModuleCodeGen:: GenerateCsStructClass ,675
                 case CefWriteHandlerExt_Seek_2:
                     {
                         var args = new SeekArgs(nativeArgPtr);
@@ -24226,6 +24958,7 @@ namespace LayoutFarm.CefBridge.Auto
                         }
                     }
                     break;
+                //CsStructModuleCodeGen:: GenerateCsStructClass ,676
                 case CefWriteHandlerExt_Tell_3:
                     {
                         var args = new TellArgs(nativeArgPtr);
@@ -24240,6 +24973,7 @@ namespace LayoutFarm.CefBridge.Auto
                         }
                     }
                     break;
+                //CsStructModuleCodeGen:: GenerateCsStructClass ,677
                 case CefWriteHandlerExt_Flush_4:
                     {
                         var args = new FlushArgs(nativeArgPtr);
@@ -24254,6 +24988,7 @@ namespace LayoutFarm.CefBridge.Auto
                         }
                     }
                     break;
+                //CsStructModuleCodeGen:: GenerateCsStructClass ,678
                 case CefWriteHandlerExt_MayBlock_5:
                     {
                         var args = new MayBlockArgs(nativeArgPtr);
@@ -24270,6 +25005,7 @@ namespace LayoutFarm.CefBridge.Auto
                     break;
             }
         }
+        //CsStructModuleCodeGen:: GenerateCsStructClass ,679
         public static void Write(I1 i1, WriteArgs args)
         {
             //expand args
@@ -24277,33 +25013,39 @@ namespace LayoutFarm.CefBridge.Auto
             args.size(),
             args.n());
         }
+        //CsStructModuleCodeGen:: GenerateCsStructClass ,680
         public static void Seek(I1 i1, SeekArgs args)
         {
             //expand args
             i1.Seek(args.offset(),
             args.whence());
         }
+        //CsStructModuleCodeGen:: GenerateCsStructClass ,681
         public static void Tell(I1 i1, TellArgs args)
         {
             //expand args
             i1.Tell();
         }
+        //CsStructModuleCodeGen:: GenerateCsStructClass ,682
         public static void Flush(I1 i1, FlushArgs args)
         {
             //expand args
             i1.Flush();
         }
+        //CsStructModuleCodeGen:: GenerateCsStructClass ,683
         public static void MayBlock(I1 i1, MayBlockArgs args)
         {
             //expand args
             i1.MayBlock();
         }
     }
+    //CsStructModuleCodeGen:: GenerateCsStructClass ,684
     public struct CefV8Handler
     {
         public const int _typeNAME = 79;
         const int CefV8HandlerExt_Execute_1 = 1;
         //gen! bool Execute(const CefString& name,CefRefPtr<CefV8Value> object,const CefV8ValueList& arguments,CefRefPtr<CefV8Value>& retval,CefString& exception)
+        //CsStructModuleCodeGen:: GenerateCsMethodArgsClass_JsSlot ,685
         public struct ExecuteArgs
         {
             IntPtr nativePtr; //met arg native ptr
@@ -24356,10 +25098,12 @@ namespace LayoutFarm.CefBridge.Auto
                 }
             }
         }
+        //CsStructModuleCodeGen:: GenerateCsMethodArgsClass_Native ,686
         [StructLayout(LayoutKind.Sequential)]
         struct ExecuteNativeArgs
         {
             public int argFlags;
+            bool myext_ret_value;
             public IntPtr name;
             public IntPtr _object;
             public IntPtr arguments;
@@ -24368,10 +25112,12 @@ namespace LayoutFarm.CefBridge.Auto
         }
         public interface I0
         {
+            //CsStructModuleCodeGen:: GenerateCsStructClass ,687
             void Execute(ExecuteArgs args);
         }
         public interface I1
         {
+            //CsStructModuleCodeGen:: GenerateCsStructClass ,688
             bool Execute(string name, CefV8Value _object, CefV8ValueList arguments, IntPtr retval, string exception);
         }
         public static void HandleNativeReq(I0 i0, I1 i1, int met_id, IntPtr nativeArgPtr)
@@ -24379,6 +25125,7 @@ namespace LayoutFarm.CefBridge.Auto
             int met_name = met_id & 0xffff;
             switch (met_name)
             {
+                //CsStructModuleCodeGen:: GenerateCsStructClass ,689
                 case CefV8HandlerExt_Execute_1:
                     {
                         var args = new ExecuteArgs(nativeArgPtr);
@@ -24399,6 +25146,7 @@ namespace LayoutFarm.CefBridge.Auto
                     break;
             }
         }
+        //CsStructModuleCodeGen:: GenerateCsStructClass ,690
         public static void Execute(I1 i1, ExecuteArgs args)
         {
             //expand args
@@ -24407,12 +25155,6 @@ namespace LayoutFarm.CefBridge.Auto
             args.arguments(),
             args.retval(),
             args.exception());
-        }
-
-        IntPtr nativeHandler;
-        public CefV8Handler(IntPtr nativeHandler)
-        {
-            this.nativeHandler = nativeHandler;
         }
     }
     //------ common cef handler swicth table---------
