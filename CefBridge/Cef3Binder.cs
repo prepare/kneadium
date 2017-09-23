@@ -138,20 +138,31 @@ namespace LayoutFarm.CefBridge
         public string ReadString(int len)
         {
             //--------
-            if (len == 0) return string.Empty;
-            //--------
-            int buff_len = len + 1;
-
-            char[] buffer = new char[buff_len];
-            unsafe
+            if (len <= 0) return string.Empty;
+            //-------- 
+            if (len < 256)
             {
-                fixed (char* h = &buffer[0])
+                unsafe
                 {
+                    char* h = stackalloc char[len];
                     int actualLen = 0;
-                    Cef3Binder.MyCefStringHolder_Read(this.nativePtr, h, buff_len, out actualLen);
-                }
+                    Cef3Binder.MyCefStringHolder_Read(this.nativePtr, h, len, out actualLen);
+                    return new string(h);
+                } 
             }
-            return new string(buffer);
+            else
+            {
+                char[] buffer = new char[len];
+                unsafe
+                {
+                    fixed (char* h = &buffer[0])
+                    {
+                        int actualLen = 0;
+                        Cef3Binder.MyCefStringHolder_Read(this.nativePtr, h, len, out actualLen);
+                    }
+                }
+                return new string(buffer);
+            }
         }
     }
     static partial class Cef3Binder
