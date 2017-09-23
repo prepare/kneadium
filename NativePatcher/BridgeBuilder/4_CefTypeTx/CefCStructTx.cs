@@ -26,7 +26,12 @@ namespace BridgeBuilder
             {
                 if (mb.MemberKind == CodeMemberKind.Field)
                 {
+
                     CodeFieldDeclaration fieldDecl = (CodeFieldDeclaration)mb;
+                    //
+                    AddComment(fieldDecl.LineComments, csCode);
+                    //
+
                     string fieldTypeName = fieldDecl.FieldType.ToString();
                     //field type
                     switch (fieldTypeName)
@@ -39,7 +44,7 @@ namespace BridgeBuilder
                                 }
                                 else
                                 {
-
+                                    throw new NotSupportedException();
                                 }
                             }
                             break;
