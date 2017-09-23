@@ -9,7 +9,7 @@ namespace LayoutFarm.CefBridge
     public class MyCefBrowser
     {
         public event EventHandler BrowserDisposed;
-        
+
         MyCefCallback managedCallback;
         string currentUrl = "about:blank";
         IWindowControl parentControl;
@@ -55,7 +55,7 @@ namespace LayoutFarm.CefBridge
                 Cef3Binder.MyCefSetupBrowserHwnd(_myCefBw.ptr, parentControl.GetHandle(), x, y, w, h, initUrl, IntPtr.Zero);
             }
 
-            
+
             Cef3Binder.MyCefBwCall(this._myCefBw.ptr, CefBwCallMsg.CefBw_MyCef_EnableKeyIntercept, 1);
 
             //register mycef browser
@@ -71,7 +71,7 @@ namespace LayoutFarm.CefBridge
             get { return cefOsrListener; }
             set { cefOsrListener = value; }
         }
-         
+
         public IWindowControl ParentControl { get { return this.parentControl; } }
         public IWindowForm ParentForm { get { return this.topForm; } }
 
@@ -93,6 +93,7 @@ namespace LayoutFarm.CefBridge
                 CefNativeRequestHandlers.HandleNativeReq_I0(myBwHandler, met_id, argsPtr);
                 return;
             }
+
             //else this is custom msg
 
             switch ((MyCefMsg)met_id)
@@ -412,7 +413,7 @@ namespace LayoutFarm.CefBridge
 
         public void GetText(Action<string> strCallback)
         {
-             
+
             MyCefFrame myframe = _myCefBw.GetMainFrame();
 
             Auto.CefFrame frame1 = new Auto.CefFrame(myframe.nativePtr);
@@ -478,7 +479,7 @@ namespace LayoutFarm.CefBridge
 
         public void LoadText(string text, string url)
         {
-             
+
             MyCefFrame myframe = _myCefBw.GetMainFrame();
 
             Auto.CefFrame frame1 = new Auto.CefFrame(myframe.nativePtr);
@@ -495,7 +496,7 @@ namespace LayoutFarm.CefBridge
         }
         void InternalGetSource2(MyCefCallback strCallback)
         {
-       
+
             Auto.CefStringVisitor visitor = _myCefBw.NewStringVisitor((id, ptr) =>
             {
                 //INIT_MY_MET_ARGS(metArgs, 1) 
@@ -686,20 +687,30 @@ namespace LayoutFarm.CefBridge
 #endif
         }
 
+
         public void ShowDevTools()
         {
+            if (devForm == null)
+            {
+                devForm = Cef3Binder.CreateBlankForm(800, 600);
+                devForm.Text = "Developer Tool";
+                devForm.Show();
+                devForm.FormClosed += DevForm_FormClosed;
+            }
             if (cefDevWindow == null)
             {
                 cefDevWindow = new MyCefDevWindow();
-                IWindowForm devForm = Cef3Binder.CreateBlankForm(800, 600);
-                devForm.Text = "Developer Tool";
-                devForm.Show();
                 Cef3Binder.MyCefShowDevTools(_myCefBw.ptr,
                     cefDevWindow.GetMyCefBrowser(),
                     devForm.GetHandle());
             }
         }
 
+        private void DevForm_FormClosed(object sender, EventArgs e)
+        {
+            devForm = null;
+            cefDevWindow = null;
+        }
 
         List<MyCefCallback> tmpCallbacks = new List<MyCefCallback>();
 

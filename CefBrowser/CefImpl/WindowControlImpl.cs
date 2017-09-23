@@ -120,8 +120,16 @@ namespace LayoutFarm.CefBridge
             myForm.FormClosing += Form_FormClosing;
             myForm.FormClosed += Form_FormClosed;
         }
+        public event EventHandler FormClosed;
+
         void Form_FormClosed(object sender, FormClosedEventArgs e)
         {
+             
+            if (FormClosed != null)
+            {
+                FormClosed(sender, e);
+            }
+            //--------------------
             //form has closed
             ((IWindowForm)this).MarkAsDisposed();
         }
