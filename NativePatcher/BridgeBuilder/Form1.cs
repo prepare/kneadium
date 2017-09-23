@@ -308,9 +308,9 @@ namespace BridgeBuilder
             List<CodeCompilationUnit> totalCuList_capi = new List<CodeCompilationUnit>();
             List<CodeCompilationUnit> totalCuList = new List<CodeCompilationUnit>();
             List<CodeCompilationUnit> test_cpptoc_List = new List<CodeCompilationUnit>();
-
+            //-----------------------------
             {
-                //
+                //cpptoc folder
                 string[] onlyCppFiles = System.IO.Directory.GetFiles(cefDir + @"\cpptoc", "*.cc");
                 //we skip some files
                 Dictionary<string, bool> skipFiles = CreateSkipFiles(new string[] {
@@ -339,7 +339,9 @@ namespace BridgeBuilder
                 }
 
             }
+            //-----------------------------
 
+            //-----------------------------
             {
                 //cef capi
                 string[] onlyHeaderFiles = System.IO.Directory.GetFiles(cefDir + @"\include\capi", "*.h");
@@ -351,7 +353,7 @@ namespace BridgeBuilder
                     {
                         continue;
                     }
-                    CodeCompilationUnit cu = ParseWrapper(onlyHeaderFiles[i]);
+                    CodeCompilationUnit cu = Parse(onlyHeaderFiles[i]);
                     totalCuList_capi.Add(cu);
                 }
             }
@@ -366,7 +368,7 @@ namespace BridgeBuilder
                     {
                         continue;
                     }
-                    CodeCompilationUnit cu = ParseWrapper(onlyHeaderFiles[i]);
+                    CodeCompilationUnit cu = Parse(onlyHeaderFiles[i]);
                     totalCuList_capi.Add(cu);
                 }
             }
@@ -375,9 +377,9 @@ namespace BridgeBuilder
             {
 
                 //include/internal
-                totalCuList.Add(ParseWrapper(cefDir + @"\include\internal\cef_types.h"));
-                totalCuList.Add(ParseWrapper(cefDir + @"\include\internal\cef_types_wrappers.h"));
-                totalCuList.Add(ParseWrapper(cefDir + @"\include\internal\cef_win.h")); //for windows
+                totalCuList.Add(Parse(cefDir + @"\include\internal\cef_types.h"));
+                totalCuList.Add(Parse(cefDir + @"\include\internal\cef_types_wrappers.h"));
+                totalCuList.Add(Parse(cefDir + @"\include\internal\cef_win.h")); //for windows
 
             }
 
@@ -395,7 +397,7 @@ namespace BridgeBuilder
                         continue;
                     }
 
-                    CodeCompilationUnit cu = ParseWrapper(onlyHeaderFiles[i]);
+                    CodeCompilationUnit cu = Parse(onlyHeaderFiles[i]);
                     totalCuList.Add(cu);
                 }
             }
@@ -412,7 +414,7 @@ namespace BridgeBuilder
                     {
                         continue;
                     }
-                    CodeCompilationUnit cu = ParseWrapper(onlyHeaderFiles[i]);
+                    CodeCompilationUnit cu = Parse(onlyHeaderFiles[i]);
                     totalCuList.Add(cu);
                 }
             }
@@ -429,7 +431,7 @@ namespace BridgeBuilder
                     {
                         continue;
                     }
-                    CodeCompilationUnit cu = ParseWrapper(onlyHeaderFiles[i]);
+                    CodeCompilationUnit cu = Parse(onlyHeaderFiles[i]);
                     totalCuList.Add(cu);
                 }
             }
@@ -449,11 +451,13 @@ namespace BridgeBuilder
             List<CefCallbackTx> callbackPlans = new List<CefCallbackTx>();
             List<CefInstanceElementTx> instanceClassPlans = new List<CefInstanceElementTx>();
             List<CefEnumTx> enumTxPlans = new List<CefEnumTx>();
+            List<CefCStructTx> cstructPlans = new List<CefCStructTx>();
+            //--
 
-
+            //--
             int typeName = 1;
-
             List<TypePlan> typeTxInfoList = new List<TypePlan>();
+
 
             foreach (CodeTypeDeclaration typedecl in cefTypeCollection._v_instanceClasses)
             {
@@ -557,7 +561,29 @@ namespace BridgeBuilder
 
             }
             //--------
+
+            foreach (CodeTypeDeclaration typedecl in cefTypeCollection._plainCStructs)
+            {
+                //create raw type
+                if (!typedecl.Name.EndsWith("Traits") &&
+                   typedecl.Name.StartsWith("_"))
+                {
+                    //
+                    CefCStructTx cstructTx = new CefCStructTx(typedecl);
+                    cstructPlans.Add(cstructTx);
+                    TypePlan typeTxPlan = txPlanner.MakeTransformPlan(typedecl);
+                    cstructTx.CsInterOpTypeNameId = typeTxPlan.CsInterOpTypeNameId = typeName++;
+                    typedecl.TypePlan = typeTxPlan;
+                    //
+                    typeTxInfoList.Add(typeTxPlan);
+                }
+                else
+                {
+                }
+            }
+            //--------
             //code gen
+
 
             List<CefTypeTx> customImplClasses = new List<CefTypeTx>();
 
@@ -658,6 +684,15 @@ namespace BridgeBuilder
                 cppHeaderInternalForExportFunc.Append(codeGenOutput._cppHeaderInternalForExportFuncAuto.ToString());
                 //---------- 
             }
+
+
+            foreach (CefCStructTx tx in cstructPlans)
+            {
+                codeGenOutput = new CefCodeGenOutput();
+                tx.GenerateCode(codeGenOutput);
+                csCodeStBuilder.Append(codeGenOutput._csCode.ToString());
+            }
+
 
             CsNativeHandlerSwitchTableCodeGen csNativeHandlerSwitchTableCodeGen = new CsNativeHandlerSwitchTableCodeGen();
             csNativeHandlerSwitchTableCodeGen.GenerateCefNativeRequestHandlers(handlerPlans, csCodeStBuilder);
@@ -762,11 +797,11 @@ namespace BridgeBuilder
 
 
 
-        CodeCompilationUnit ParseWrapper(string srcFile)
+        CodeCompilationUnit Parse(string srcFile)
         {
             //string srcFile = @"D:\projects\cef_binary_3.3071.1647.win32\libcef_dll\ctocpp\frame_ctocpp.h";
             //
-            Cef3HeaderFileParser headerParser = new Cef3HeaderFileParser();
+            Cef3FileParser headerParser = new Cef3FileParser();
             headerParser.Parse(srcFile);
             return headerParser.Result;
         }
@@ -774,7 +809,7 @@ namespace BridgeBuilder
         {
             //string srcFile = @"D:\projects\cef_binary_3.3071.1647.win32\libcef_dll\ctocpp\frame_ctocpp.h";
             //
-            Cef3HeaderFileParser headerParser = new Cef3HeaderFileParser();
+            Cef3FileParser headerParser = new Cef3FileParser();
             headerParser.Parse(srcFile, lines);
             return headerParser.Result;
         }

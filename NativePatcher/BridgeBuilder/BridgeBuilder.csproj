@@ -74,6 +74,7 @@
     <Compile Include="4_CefCodeGen\CodeGenUtils.cs" />
     <Compile Include="4_CefCodeGen\CppToCsImplCodeGen.cs" />
     <Compile Include="4_CefTypeTx\CefCallbackTx.cs" />
+    <Compile Include="4_CefTypeTx\CefCStructTx.cs" />
     <Compile Include="4_CefTypeTx\CefEnumTx.cs" />
     <Compile Include="4_CefTypeTx\CefHandlerTx.cs" />
     <Compile Include="4_CefTypeTx\CefInstanceElementTx.cs" />

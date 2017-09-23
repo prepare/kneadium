@@ -385,6 +385,63 @@ namespace LayoutFarm.CefBridge
 
             v_url.Dispose();
         }
+        public void PostData2(string url, byte[] data, int len)
+        {
+
+            //CefRefPtr<CefRequest> request(CefRequest::Create());
+            //MyCefStringHolder* url = (MyCefStringHolder*)v1->ptr;
+            //request->SetURL(url->value);
+            ////Add post data to request, the correct method and content-type header will be set by CEF 
+            //CefRefPtr<CefPostDataElement> postDataElement(CefPostDataElement::Create());
+
+
+            //char* buffer1 = new char[v2->i32];
+            //memcpy_s(buffer1, v2->i32, v2->ptr, v2->i32);
+            //postDataElement->SetToBytes(v2->i32, buffer1);
+            ////------
+
+            //CefRefPtr<CefPostData> postData(CefPostData::Create());
+            //postData->AddElement(postDataElement);
+            //request->SetPostData(postData);
+
+            ////add custom header (for test)
+            //CefRequest::HeaderMap headerMap;
+            //headerMap.insert(
+            //    std::make_pair("X-My-Header", "My Header Value"));
+            //request->SetHeaderMap(headerMap);
+
+            ////load request
+            //myBw->bwWindow->GetBrowser()->GetMainFrame()->LoadRequest(request);
+
+            //delete buffer1;
+
+            
+
+
+
+
+            JsValue a0 = new JsValue();
+            JsValue a1 = new JsValue();
+            JsValue ret;
+
+            var v_url = NativeMyCefStringHolder.CreateHolder(url);
+            a0.Ptr = v_url.nativePtr;
+            //
+            unsafe
+            {
+
+                fixed (byte* buffer = &data[0])
+                {
+                    a1.Ptr = new IntPtr(buffer);
+                    a1.I32 = data.Length;
+
+                    Cef3Binder.MyCefBwCall2(_myCefBw.ptr, (int)CefBwCallMsg.CefBw_PostData, out ret, ref a0, ref a1);
+                }
+            }
+
+
+            v_url.Dispose();
+        }
         public void SetSize(int w, int h)
         {
 
@@ -463,7 +520,10 @@ namespace LayoutFarm.CefBridge
                 strCallback(args.GetArgAsString(1));
             });
         }
-
+        public Auto.CefBrowser GetNativeBw()
+        {
+            return _myCefBw.GetBrowser();
+        }
         public void LoadText(string text, string url)
         {
             using (var bw = _myCefBw.GetBrowser())
