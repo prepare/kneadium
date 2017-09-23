@@ -347,21 +347,19 @@ namespace LayoutFarm.CefBridge
             currentUrl = url;
             if (IsBrowserCreated)
             {
-                JsValue a0 = new JsValue();
-                JsValue a1 = new JsValue();
-                JsValue ret;
-                //
-                var cefStr = NativeMyCefStringHolder.CreateHolder(url);
-                a0.Ptr = cefStr.nativePtr;
-                Cef3Binder.MyCefBwCall2(_myCefBw.ptr, (int)CefBwCallMsg.CefBw_GetMainFrame_LoadURL, out ret, ref a0, ref a1);
-
-
+                using (var bw = _myCefBw.GetBrowser())
+                using (var fr = bw.GetMainFrame())
+                {
+                    fr.LoadURL(url);
+                }
             }
         }
         public void ExecJavascript(string src, string scriptUrl)
         {
-            var mainFrame = _myCefBw.GetMainFrame();
-            mainFrame.ExecuteJavaScript(src, scriptUrl, 0);
+            using (var fr = _myCefBw.GetMainFrame())
+            {
+                fr.ExecuteJavaScript(src, scriptUrl, 0);
+            }
         }
         public void PostData(string url, byte[] data, int len)
         {
@@ -496,7 +494,7 @@ namespace LayoutFarm.CefBridge
                 });
 
                 myframe.GetSource(visitor2);
-            } 
+            }
         }
         void InternalGetSource(MyCefCallback strCallback)
         {
@@ -513,136 +511,131 @@ namespace LayoutFarm.CefBridge
 
         public void Stop()
         {
-            JsValue v1 = new JsValue();
-            JsValue v2 = new JsValue();
-            JsValue ret;
-
-            Cef3Binder.MyCefBwCall2(_myCefBw.ptr, (int)CefBwCallMsg.CefBw_StopLoad, out ret, ref v1, ref v2);
+            using (var bw = _myCefBw.GetBrowser())
+            {
+                bw.StopLoad();
+            }
         }
         public void GoBack()
         {
-            JsValue v1 = new JsValue();
-            JsValue v2 = new JsValue();
-            JsValue ret;
-
-            Cef3Binder.MyCefBwCall2(_myCefBw.ptr, (int)CefBwCallMsg.CefBw_GoBack, out ret, ref v1, ref v2);
+            using (var bw = _myCefBw.GetBrowser())
+            {
+                bw.GoBack();
+            }
         }
         public void GoForward()
         {
-            JsValue v1 = new JsValue();
-            JsValue v2 = new JsValue();
-            JsValue ret;
-
-            Cef3Binder.MyCefBwCall2(_myCefBw.ptr, (int)CefBwCallMsg.CefBw_GoForward, out ret, ref v1, ref v2);
+            using (var bw = _myCefBw.GetBrowser())
+            {
+                bw.GoForward();
+            }
         }
         public void Reload()
         {
-            JsValue v1 = new JsValue();
-            JsValue v2 = new JsValue();
-            JsValue ret;
-
-            Cef3Binder.MyCefBwCall2(_myCefBw.ptr, (int)CefBwCallMsg.CefBw_Reload, out ret, ref v1, ref v2);
+            using (var bw = _myCefBw.GetBrowser())
+            {
+                bw.Reload();
+            }
         }
         public void ReloadIgnoreCache()
         {
-            JsValue v1 = new JsValue();
-            JsValue v2 = new JsValue();
-            JsValue ret;
-
-            Cef3Binder.MyCefBwCall2(_myCefBw.ptr, (int)CefBwCallMsg.CefBw_ReloadIgnoreCache, out ret, ref v1, ref v2);
+            using (var bw = _myCefBw.GetBrowser())
+            {
+                bw.ReloadIgnoreCache();
+            }
         }
         public void dbugTest()
         {
 
 #if DEBUG
-            JsValue ret;
-            JsValue a0 = new JsValue();
-            JsValue a1 = new JsValue();
+            //JsValue ret;
+            //JsValue a0 = new JsValue();
+            //JsValue a1 = new JsValue();
 
-            Cef3Binder.MyCefBwCall2(_myCefBw.ptr, 2, out ret, ref a0, ref a1);
+            //Cef3Binder.MyCefBwCall2(_myCefBw.ptr, 2, out ret, ref a0, ref a1);
 
-            //----------- 
-            Cef3Binder.MyCefBwCall2(_myCefBw.ptr, 4, out ret, ref a0, ref a1);
-            int frameCount = ret.I32;
+            ////----------- 
+            //Cef3Binder.MyCefBwCall2(_myCefBw.ptr, 4, out ret, ref a0, ref a1);
+            //int frameCount = ret.I32;
 
-            ////-----------
-            ////get CefBrowser
-            //Cef3Binder.MyCefBwCall2(myCefBrowser, 5, out ret, ref a0, ref a1);
-            //IntPtr cefBw = ret.Ptr;
+            //////-----------
+            //////get CefBrowser
+            ////Cef3Binder.MyCefBwCall2(myCefBrowser, 5, out ret, ref a0, ref a1);
+            ////IntPtr cefBw = ret.Ptr;
 
-            //a0.Ptr = cefBw;
-            //a0.Type = JsValueType.Wrapped;
-            //Cef3Binder.MyCefBwCall2(myCefBrowser, 6, out ret, ref a0, ref a1);
-            ////-----------
-            //create native list 
-            //Cef3Binder.MyCefBwCall2(myCefBrowser, 8, out ret, ref a0, ref a1);
+            ////a0.Ptr = cefBw;
+            ////a0.Type = JsValueType.Wrapped;
+            ////Cef3Binder.MyCefBwCall2(myCefBrowser, 6, out ret, ref a0, ref a1);
+            //////-----------
+            ////create native list 
+            ////Cef3Binder.MyCefBwCall2(myCefBrowser, 8, out ret, ref a0, ref a1);
 
-            ////get framename
+            //////get framename
+            ////a0.Ptr = nativelist;
+            ////
+            //Cef3Binder.MyCefBwCall2(_myCefBw.ptr, 7, out ret, ref a0, ref a1);
+            //IntPtr nativelist = a0.Ptr;
+
+            ////get list
+            //unsafe
+            //{
+            //    int len = ret.I32;
+            //    JsValue* unsafe_arr = (JsValue*)a0.Ptr;
+            //    JsValue[] arr = new JsValue[len];
+            //    for (int i = 0; i < len; ++i)
+            //    {
+            //        arr[i] = unsafe_arr[i];
+            //    }
+            //    //delete array result 
+            //    Cef3Binder.MyCefDeletePtrArray(unsafe_arr);
+            //}
+            ////------------------
+
+
+            ////list count
             //a0.Ptr = nativelist;
-            //
-            Cef3Binder.MyCefBwCall2(_myCefBw.ptr, 7, out ret, ref a0, ref a1);
-            IntPtr nativelist = a0.Ptr;
+            //a0.Type = JsValueType.Wrapped;
+            //Cef3Binder.MyCefBwCall2(_myCefBw.ptr, 9, out ret, ref a0, ref a1);
+            ////list count
+            //int list_count = ret.I32;
+            ////delete native ptr
+            ////Cef3Binder.MyCefDeletePtr(nativelist);
+            ////
+            ////list count
+            //a0.Ptr = nativelist;
+            //a0.Type = JsValueType.Wrapped;
+            ////GetFrameIdentifiers
+            //Cef3Binder.MyCefBwCall2(_myCefBw.ptr, 10, out ret, ref a0, ref a1);
+            ////get list
+            //unsafe
+            //{
+            //    int len = a0.I32;
+            //    JsValue* unsafe_arr = (JsValue*)a0.Ptr;
+            //    JsValue[] arr = new JsValue[len];
+            //    for (int i = 0; i < len; ++i)
+            //    {
+            //        arr[i] = unsafe_arr[i];
+            //    }
+            //    //delete array result 
+            //    Cef3Binder.MyCefDeletePtrArray(unsafe_arr);
+            //}
 
-            //get list
-            unsafe
-            {
-                int len = ret.I32;
-                JsValue* unsafe_arr = (JsValue*)a0.Ptr;
-                JsValue[] arr = new JsValue[len];
-                for (int i = 0; i < len; ++i)
-                {
-                    arr[i] = unsafe_arr[i];
-                }
-                //delete array result 
-                Cef3Binder.MyCefDeletePtrArray(unsafe_arr);
-            }
-            //------------------
+            //Cef3Binder.MyCefBwCall2(_myCefBw.ptr, 21, out ret, ref a0, ref a1);
 
-
-            //list count
-            a0.Ptr = nativelist;
-            a0.Type = JsValueType.Wrapped;
-            Cef3Binder.MyCefBwCall2(_myCefBw.ptr, 9, out ret, ref a0, ref a1);
-            //list count
-            int list_count = ret.I32;
-            //delete native ptr
-            //Cef3Binder.MyCefDeletePtr(nativelist);
-            //
-            //list count
-            a0.Ptr = nativelist;
-            a0.Type = JsValueType.Wrapped;
-            //GetFrameIdentifiers
-            Cef3Binder.MyCefBwCall2(_myCefBw.ptr, 10, out ret, ref a0, ref a1);
-            //get list
-            unsafe
-            {
-                int len = a0.I32;
-                JsValue* unsafe_arr = (JsValue*)a0.Ptr;
-                JsValue[] arr = new JsValue[len];
-                for (int i = 0; i < len; ++i)
-                {
-                    arr[i] = unsafe_arr[i];
-                }
-                //delete array result 
-                Cef3Binder.MyCefDeletePtrArray(unsafe_arr);
-            }
-
-            Cef3Binder.MyCefBwCall2(_myCefBw.ptr, 21, out ret, ref a0, ref a1);
-
-            unsafe
-            {
-                int len = ret.I32 + 1; //+1 for null terminated string
-                char* buff = stackalloc char[len];
-                int actualLen = 0;
-                Cef3Binder.MyCefStringHolder_Read(ret.Ptr, buff, len, out actualLen);
-                string value = new string(buff);
-                Cef3Binder.MyCefDeletePtr(ret.Ptr);
-            }
+            //unsafe
+            //{
+            //    int len = ret.I32 + 1; //+1 for null terminated string
+            //    char* buff = stackalloc char[len];
+            //    int actualLen = 0;
+            //    Cef3Binder.MyCefStringHolder_Read(ret.Ptr, buff, len, out actualLen);
+            //    string value = new string(buff);
+            //    Cef3Binder.MyCefDeletePtr(ret.Ptr);
+            //}
 
 
-            IntPtr pdfSetting = Cef3Binder.MyCefCreatePdfPrintSetting("{\"header_footer_enabled\":true}");
+            //IntPtr pdfSetting = Cef3Binder.MyCefCreatePdfPrintSetting("{\"header_footer_enabled\":true}");
 
-            //------------------
+            ////------------------
 #endif
         }
 

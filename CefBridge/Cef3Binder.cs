@@ -445,17 +445,7 @@ namespace LayoutFarm.CefBridge
         //
         [DllImport(CEF_CLIENT_DLL, CallingConvention = CallingConvention.Cdecl)]
         public static extern void MyCefBwCall2(IntPtr myCefBw, int methodName, out JsValue ret, ref JsValue arg1, ref JsValue arg2);
-        //
-        [DllImport(CEF_CLIENT_DLL, CallingConvention = CallingConvention.Cdecl)]
-        public static extern void MyCefFrameCall2(IntPtr myCefBw, int methodName, out JsValue ret, ref JsValue arg1, ref JsValue arg2);
-        //
-        [DllImport(CEF_CLIENT_DLL, CallingConvention = CallingConvention.Cdecl)]
-        public static extern void MyCefMet_CefBrowser(IntPtr /*cef_browser_t* */ me1, int metName, out JsValue ret, ref JsValue arg1, ref JsValue arg2, ref JsValue arg3, ref JsValue arg4, ref JsValue arg5, ref JsValue arg6);
-        //
-        [DllImport(CEF_CLIENT_DLL, CallingConvention = CallingConvention.Cdecl)]
-        public static extern void MyCefMet_CefFrame(IntPtr /*cef_frame_t**/ me1, int metName, out JsValue ret, ref JsValue arg1, ref JsValue arg2, ref JsValue arg3, ref JsValue arg4, ref JsValue arg5, ref JsValue arg6);
-
-
+        
         public static void MyCefBwCall(IntPtr myCefBw, CefBwCallMsg methodName, int value)
         {
             JsValue ret;
@@ -469,22 +459,7 @@ namespace LayoutFarm.CefBridge
             MyCefBwCall2(myCefBw, (int)methodName, out ret, ref arg1, ref arg2);
         }
 
-
-        public static string MyCefJsReadString(ref JsValue ret)
-        {
-            unsafe
-            {
-                int actualLen;
-                int buffLen = ret.I32 + 1; //string len
-                char* buffHead = stackalloc char[buffLen];
-                Cef3Binder.MyCefStringHolder_Read(ret.Ptr, buffHead, buffLen, out actualLen);
-                if (actualLen > buffLen)
-                {
-                    //read more
-                }
-                return new string(buffHead, 0, actualLen);
-            }
-        }
+         
         public static void MyCefCreateNativeStringHolder(ref JsValue ret, string value)
         {
             unsafe
