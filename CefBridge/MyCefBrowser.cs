@@ -55,7 +55,7 @@ namespace LayoutFarm.CefBridge
                 Cef3Binder.MyCefSetupBrowserHwnd(_myCefBw.ptr, parentControl.GetHandle(), x, y, w, h, initUrl, IntPtr.Zero);
             }
 
-
+            
             Cef3Binder.MyCefBwCall(this._myCefBw.ptr, CefBwCallMsg.CefBw_MyCef_EnableKeyIntercept, 1);
 
             //register mycef browser
@@ -71,13 +71,7 @@ namespace LayoutFarm.CefBridge
             get { return cefOsrListener; }
             set { cefOsrListener = value; }
         }
-
-        //public CefUIProcessListener Listener
-        //{
-        //    get { return browserProcessListener; }
-        //    set { browserProcessListener = value; }
-        //}
-
+         
         public IWindowControl ParentControl { get { return this.parentControl; } }
         public IWindowForm ParentForm { get { return this.topForm; } }
 
