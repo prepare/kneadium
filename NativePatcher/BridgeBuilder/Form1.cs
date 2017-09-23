@@ -308,9 +308,9 @@ namespace BridgeBuilder
             List<CodeCompilationUnit> totalCuList_capi = new List<CodeCompilationUnit>();
             List<CodeCompilationUnit> totalCuList = new List<CodeCompilationUnit>();
             List<CodeCompilationUnit> test_cpptoc_List = new List<CodeCompilationUnit>();
-
+            //-----------------------------
             {
-                //
+                //cpptoc folder
                 string[] onlyCppFiles = System.IO.Directory.GetFiles(cefDir + @"\cpptoc", "*.cc");
                 //we skip some files
                 Dictionary<string, bool> skipFiles = CreateSkipFiles(new string[] {
@@ -339,7 +339,14 @@ namespace BridgeBuilder
                 }
 
             }
+            //-----------------------------
+            {
+                //wrapper folder
 
+
+
+            }
+            //-----------------------------
             {
                 //cef capi
                 string[] onlyHeaderFiles = System.IO.Directory.GetFiles(cefDir + @"\include\capi", "*.h");

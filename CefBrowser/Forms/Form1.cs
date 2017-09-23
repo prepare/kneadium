@@ -18,7 +18,7 @@ namespace LayoutFarm.CefBridge
         }
         private void Form1_Load(object sender, EventArgs e)
         {
-            
+
             this.splitContainer1.SplitterMoved += SplitContainer1_SplitterMoved;
         }
         private void SplitContainer1_SplitterMoved(object sender, SplitterEventArgs e)
@@ -170,5 +170,24 @@ namespace LayoutFarm.CefBridge
             this.cefWebBrowser1.Agent.LoadText("<html><head><body><h1>hello!</h1></body></html>", "http://localhost");
 
         }
+
+        private void button18_Click(object sender, EventArgs e)
+        {
+            string data = "arg1=val1&arg2=val2";
+            byte[] dataBuffer = Encoding.UTF8.GetBytes(data);
+            var nativeBw = cefWebBrowser1.Agent.GetNativeBw();
+            var fr = nativeBw.GetMainFrame();
+            //
+            
+            Auto.CefRequest req = new Auto.CefRequest();
+            req.SetURL("http://tests/request");
+           
+            fr.LoadRequest(req);
+            //cefWebBrowser1.Agent.PostData(
+            //    "http://tests/request",
+            //    dataBuffer,
+            //    dataBuffer.Length);
+        }
     }
 }
+;

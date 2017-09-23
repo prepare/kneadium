@@ -3,6 +3,7 @@
 using System;
 namespace LayoutFarm.CefBridge
 {
+
     static class MyCefArgsHelper
     {
         public static int FINISH_FLAGS = 1 << 21;
@@ -12,6 +13,10 @@ namespace LayoutFarm.CefBridge
             //TODO: inline method
             return ((flags >> 21) & 1) == 1;
         }
+    }
+    class CefNotImplementedException : NotImplementedException
+    {
+
     }
     public struct CefCursorInfo
     {
@@ -31,14 +36,7 @@ namespace LayoutFarm.CefBridge
         }
     }
 
-    public struct ReturnValue
-    {
-        internal IntPtr nativePtr;
-        public ReturnValue(IntPtr nativePtr)
-        {
-            this.nativePtr = nativePtr;
-        }
-    }
+
     public struct CefScreenInfo
     {
         internal IntPtr nativePtr;
@@ -136,22 +134,6 @@ namespace LayoutFarm.CefBridge
             this.nativePtr = nativePtr;
         }
     }
-    public struct CefWriteHandler
-    {
-        internal IntPtr nativePtr;
-        public CefWriteHandler(IntPtr nativePtr)
-        {
-            this.nativePtr = nativePtr;
-        }
-    }
-    public struct CefResourceBundleHandler
-    {
-        internal IntPtr nativePtr;
-        public CefResourceBundleHandler(IntPtr nativePtr)
-        {
-            this.nativePtr = nativePtr;
-        }
-    }
     public struct ArgumentList
     {
         internal IntPtr nativePtr;
@@ -176,30 +158,13 @@ namespace LayoutFarm.CefBridge
             this.nativePtr = nativePtr;
         }
     }
+
     public struct HeaderMap
     {
+        //cef header map
+        //implement with typedef std::multimap<CefString, CefString> HeaderMap;
         internal IntPtr nativePtr;
-    }
-    //--------------
-    public struct CefCompletionCallback
-    {
-        internal IntPtr nativePtr;
-    }
-    public struct CefSetCookieCallback
-    {
-        internal IntPtr nativePtr;
-    }
-    public struct CefDeleteCookiesCallback
-    {
-        internal IntPtr nativePtr;
-    }
-    public struct CefRunFileDialogCallback
-    {
-        internal IntPtr nativePtr;
-    }
-    public struct CefResolveCallback
-    {
-        internal IntPtr nativePtr;
+
     }
     public struct CefBaseRefCounted
     {
@@ -209,26 +174,11 @@ namespace LayoutFarm.CefBridge
             this.nativePtr = nativePtr;
         }
     }
-    public struct CefPdfPrintCallback
-    {
-        internal IntPtr nativePtr;
-    }
-    public struct CefDownloadImageCallback
-    {
-        internal IntPtr nativePtr;
-    }
     public struct KeyList
     {
         internal IntPtr nativePtr;
     }
-    public struct CefRequestContextHandler
-    {
-        internal IntPtr nativePtr;
-        public CefRequestContextHandler(IntPtr nativePtr)
-        {
-            this.nativePtr = nativePtr;
-        }
-    }
+
     public struct IssuerChainBinaryList
     {
         internal IntPtr nativePtr;
@@ -245,14 +195,7 @@ namespace LayoutFarm.CefBridge
     {
         internal IntPtr nativePtr;
     }
-    public struct CefV8Handler
-    {
-        internal IntPtr nativePtr;
-        public CefV8Handler(IntPtr nativePtr)
-        {
-            this.nativePtr = nativePtr;
-        }
-    }
+
     public struct CefV8ValueList
     {
         internal IntPtr nativePtr;
@@ -262,10 +205,5 @@ namespace LayoutFarm.CefBridge
         }
     }
 
-
-    class CefNotImplementedException : NotImplementedException
-    {
-
-    }
 
 }

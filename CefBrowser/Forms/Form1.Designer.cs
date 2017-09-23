@@ -49,6 +49,7 @@
             this.button16 = new System.Windows.Forms.Button();
             this.button17 = new System.Windows.Forms.Button();
             this.cefWebBrowser1 = new LayoutFarm.CefBridge.CefWebBrowserControl();
+            this.button18 = new System.Windows.Forms.Button();
             this.splitContainer1.Panel2.SuspendLayout();
             this.splitContainer1.SuspendLayout();
             this.SuspendLayout();
@@ -85,7 +86,7 @@
             // 
             // button3
             // 
-            this.button3.Location = new System.Drawing.Point(12, 280);
+            this.button3.Location = new System.Drawing.Point(12, 324);
             this.button3.Name = "button3";
             this.button3.Size = new System.Drawing.Size(132, 37);
             this.button3.TabIndex = 11;
@@ -255,11 +256,22 @@
             this.cefWebBrowser1.TabIndex = 7;
             this.cefWebBrowser1.Text = "cefWebBrowser1";
             // 
+            // button18
+            // 
+            this.button18.Location = new System.Drawing.Point(12, 281);
+            this.button18.Name = "button18";
+            this.button18.Size = new System.Drawing.Size(132, 37);
+            this.button18.TabIndex = 29;
+            this.button18.Text = "PostData2";
+            this.button18.UseVisualStyleBackColor = true;
+            this.button18.Click += new System.EventHandler(this.button18_Click);
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1565, 762);
+            this.Controls.Add(this.button18);
             this.Controls.Add(this.button17);
             this.Controls.Add(this.button16);
             this.Controls.Add(this.button15);
@@ -309,6 +321,7 @@
         private System.Windows.Forms.Button button15;
         private System.Windows.Forms.Button button16;
         private System.Windows.Forms.Button button17;
+        private System.Windows.Forms.Button button18;
         //  private LayoutFarm.CefBridge.CefWebBrowserControl cefWebBrowser2;
     }
 }
