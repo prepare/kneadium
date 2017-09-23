@@ -387,6 +387,7 @@ namespace LayoutFarm.CefBridge
         }
         public void SetSize(int w, int h)
         {
+            
             JsValue a0 = new JsValue();
             a0.I32 = w;
             JsValue a1 = new JsValue();

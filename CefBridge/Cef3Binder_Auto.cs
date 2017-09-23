@@ -7,20 +7,8 @@ namespace LayoutFarm.CefBridge
 
     public enum CefBwCallMsg
     {
-        CefBw_GoBack = 1,
-        CefBw_Reload = 2,
-        CefBw_ReloadIgnoreCache = 3,
-        CefBw_GetFrameCount = 4,
-        CefBw_IsSame = 6,
-        CefBw_GetFrameNames = 7,
-        //
-        CefBw_GetFrameIdentifiers = 10,
-        CefBw_MyCef_EnableKeyIntercept = 11,
-        //
-        CefBw_GetMainFrame_GetURL = 21,
-        CefBw_StopLoad = 22,
-        CefBw_GoForward = 23,
-        CefBw_GetMainFrame_LoadURL = 24,
+ 
+        CefBw_MyCef_EnableKeyIntercept = 11, 
         CefBw_SetSize = 25,
         CefBw_PostData = 27,
         CefBw_CloseBw = 28,
