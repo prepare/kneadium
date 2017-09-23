@@ -67,13 +67,24 @@ namespace LayoutFarm.CefBridge
         CEF_SETTINGS_LogFile = 18,
         CEF_SETTINGS_LogSeverity = 19,
     }
-     
+
     public struct MyCefBw
     {
         internal readonly IntPtr ptr;
         internal MyCefBw(IntPtr ptr)
         {
             this.ptr = ptr;
+        }
+        public Auto.CefBrowser GetBrowser()
+        {
+            JsValue ret;
+            JsValue a1 = new JsValue();
+            JsValue a2 = new JsValue();
+
+            Cef3Binder.MyCefBwCall2(ptr,
+                (int)CefBwCallMsg.CefBw_GetCefBrowser,
+                out ret, ref a1, ref a2);
+            return new Auto.CefBrowser(ret.Ptr);
         }
         public Auto.CefFrame GetMainFrame()
         {

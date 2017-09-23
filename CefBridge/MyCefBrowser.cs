@@ -360,22 +360,8 @@ namespace LayoutFarm.CefBridge
         }
         public void ExecJavascript(string src, string scriptUrl)
         {
-            JsValue a0 = new JsValue();
-            JsValue a1 = new JsValue();
-            JsValue ret;
-
-
-            var v_url = NativeMyCefStringHolder.CreateHolder(scriptUrl);
-            var v_src = NativeMyCefStringHolder.CreateHolder(src);
-
-            a0.Ptr = v_src.nativePtr;
-            a1.Ptr = v_url.nativePtr;
-
-            Cef3Binder.MyCefBwCall2(_myCefBw.ptr, (int)CefBwCallMsg.CefBw_ExecJs, out ret, ref a0, ref a1);
-
-            v_url.Dispose();
-            v_src.Dispose();
-
+            var mainFrame = _myCefBw.GetMainFrame();
+            mainFrame.ExecuteJavaScript(src, scriptUrl, 0); 
         }
         public void PostData(string url, byte[] data, int len)
         {
@@ -414,10 +400,8 @@ namespace LayoutFarm.CefBridge
         public void GetText(Action<string> strCallback)
         {
 
-            var frame1 = _myCefBw.GetMainFrame(); 
-            Auto.CefBrowser bw = frame1.GetBrowser();
-
-
+            var frame1 = _myCefBw.GetMainFrame();
+            Auto.CefBrowser bw = frame1.GetBrowser(); 
             MyCefCallback visitorCallback = (int methodId, IntPtr nativeArgs) =>
             {
                 //wrap with the specific pars
@@ -478,7 +462,7 @@ namespace LayoutFarm.CefBridge
         public void LoadText(string text, string url)
         {
 
-            Auto.CefFrame frame1 = _myCefBw.GetMainFrame(); 
+            Auto.CefFrame frame1 = _myCefBw.GetMainFrame();
             Auto.CefBrowser bw = frame1.GetBrowser();
 
 

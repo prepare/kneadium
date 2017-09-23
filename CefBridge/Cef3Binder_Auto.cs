@@ -22,11 +22,11 @@ namespace LayoutFarm.CefBridge
         CefBw_GoForward = 23,
         CefBw_GetMainFrame_LoadURL = 24,
         CefBw_SetSize = 25,
-        CefBw_ExecJs = 26,
         CefBw_PostData = 27,
         CefBw_CloseBw = 28,
         CefBw_GetMainFrame = 29,
         CefBw_NewStringVisitor = 30,
+        CefBw_GetCefBrowser = 31,
     }
     public enum CefFrameCallMsg
     {
@@ -60,7 +60,7 @@ namespace LayoutFarm.CefBridge
     }
     static partial class Cef3Binder
     {
-       
+
 
         [DllImport(Cef3Binder.CEF_CLIENT_DLL, CallingConvention = CallingConvention.Cdecl)]
         public static extern IntPtr NewInstance(int typeName, MyCefCallback callback, ref JsValue v1);
@@ -191,7 +191,7 @@ namespace LayoutFarm.CefBridge
         {
             this.nativePtr = nativePtr;
         }
-    } 
+    }
 
 
 }

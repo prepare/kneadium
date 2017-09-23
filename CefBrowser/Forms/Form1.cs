@@ -41,10 +41,10 @@ namespace LayoutFarm.CefBridge
         }
         private void button1_Click(object sender, EventArgs e)
         {
-            cefWebBrowser1.Agent.ExecJavascript(
-                 "window.open('https://html5test.com');", "about:blank");
             //cefWebBrowser1.Agent.ExecJavascript(
-            //    "alert('test!');", "about:blank");
+            //     "window.open('https://html5test.com');", "about:blank");
+            cefWebBrowser1.Agent.ExecJavascript(
+              "alert('test!');", "about:blank");
         }
 
         private void button2_Click(object sender, EventArgs e)
