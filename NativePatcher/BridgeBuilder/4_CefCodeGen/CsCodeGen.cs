@@ -460,8 +460,9 @@ namespace BridgeBuilder
             CodeTypeDeclaration implTypeDecl,
             bool withNewMethod,
             CodeStringBuilder stbuilder)
-        {
-
+        {   
+            
+            stbuilder.AppendLine("//CsCallToNativeCodeGen::GenerateCsCode , " + (++codeGenNum));
             //-----------------------------------------------------------------------
             _orgDecl = orgDecl;
             _typeTxInfo = implTypeDecl.TypePlan;//tx = tye
@@ -473,7 +474,7 @@ namespace BridgeBuilder
             int maxPar = 0;
             CodeGenUtils.AddComment(orgDecl.LineComments, csStruct);
             //
-            csStruct.AppendLine("public struct " + orgDecl.Name + "{");
+            csStruct.AppendLine("public struct " + orgDecl.Name + ":IDisposable{");
             csStruct.AppendLine("const int _typeNAME=" + orgDecl.TypePlan.CsInterOpTypeNameId + ";");
             string releaseMetName = orgDecl.Name + "_Release_0";
             csStruct.AppendLine("const int " + releaseMetName + "= (_typeNAME <<16) | 0;");
@@ -499,8 +500,8 @@ namespace BridgeBuilder
             csStruct.AppendLine("this.nativePtr= nativePtr;");
             csStruct.AppendLine("}");
             //-----------------------------------------------------------------------
-            //release method for cef instance object
-            csStruct.AppendLine("public void Release(){");
+            //Dispose method for cef instance object
+            csStruct.AppendLine("public void Dispose(){");
             csStruct.AppendLine("JsValue ret;");
             csStruct.AppendLine("Cef3Binder.MyCefMet_Call0(this.nativePtr, " + releaseMetName + ", out ret);");
             csStruct.AppendLine("this.nativePtr= IntPtr.Zero;");

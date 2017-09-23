@@ -361,7 +361,7 @@ namespace LayoutFarm.CefBridge
         public void ExecJavascript(string src, string scriptUrl)
         {
             var mainFrame = _myCefBw.GetMainFrame();
-            mainFrame.ExecuteJavaScript(src, scriptUrl, 0); 
+            mainFrame.ExecuteJavaScript(src, scriptUrl, 0);
         }
         public void PostData(string url, byte[] data, int len)
         {
@@ -401,7 +401,7 @@ namespace LayoutFarm.CefBridge
         {
 
             var frame1 = _myCefBw.GetMainFrame();
-            Auto.CefBrowser bw = frame1.GetBrowser(); 
+            Auto.CefBrowser bw = frame1.GetBrowser();
             MyCefCallback visitorCallback = (int methodId, IntPtr nativeArgs) =>
             {
                 //wrap with the specific pars
@@ -485,12 +485,15 @@ namespace LayoutFarm.CefBridge
                 NativeCallArgs args = new NativeCallArgs(ptr);
                 var text = args.GetArgAsString(1);
             });
+             
+            Auto.CefBrowser bw = _myCefBw.GetBrowser();
+            Auto.CefFrame myframe = bw.GetMainFrame();
 
-
-            //
-            var myframe = _myCefBw.GetMainFrame();
             myframe.GetText(visitor);
-            //
+            ////
+            //var myframe = _myCefBw.GetMainFrame();
+            //myframe.GetText(visitor);
+            ////
 
             //JsValue ret;
             //JsValue a1 = new JsValue();
@@ -511,8 +514,9 @@ namespace LayoutFarm.CefBridge
 
 
             myframe.GetSource(visitor2);
+            //
             myframe.Release();
-
+            bw.Release();
 
 
             //myCefBw.ContextMainFrame(myframe =>
