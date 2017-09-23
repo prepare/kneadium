@@ -387,7 +387,7 @@ namespace LayoutFarm.CefBridge
         }
         public void SetSize(int w, int h)
         {
-            
+
             JsValue a0 = new JsValue();
             a0.I32 = w;
             JsValue a1 = new JsValue();
@@ -402,6 +402,9 @@ namespace LayoutFarm.CefBridge
             using (var bw = _myCefBw.GetBrowser())
             using (var frame1 = bw.GetMainFrame())
             {
+                List<long> idens = new List<long>();
+                bw.GetFrameIdentifiers(idens);
+
                 MyCefCallback visitorCallback = (int methodId, IntPtr nativeArgs) =>
                 {
                     //wrap with the specific pars
