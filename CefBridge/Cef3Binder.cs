@@ -70,6 +70,7 @@ namespace LayoutFarm.CefBridge
 
     public struct MyCefBw
     {
+        //this is my custom class
         internal readonly IntPtr ptr;
         internal MyCefBw(IntPtr ptr)
         {
@@ -96,26 +97,8 @@ namespace LayoutFarm.CefBridge
                 (int)CefBwCallMsg.CefBw_GetMainFrame,
                 out ret, ref a1, ref a2);
             return new Auto.CefFrame(ret.Ptr);
-
         }
-        public Auto.CefStringVisitor NewStringVisitor(MyCefCallback cb)
-        {
-            JsValue ret;
-            JsValue a1 = new JsValue();
-            JsValue a2 = new JsValue();
-            Cef3Binder.MyCefJsValueSetManagedCallback(ref a1, cb);
-            Cef3Binder.MyCefBwCall2(ptr,
-               (int)CefBwCallMsg.CefBw_NewStringVisitor,
-               out ret, ref a1, ref a2);
-            return new Auto.CefStringVisitor(ret.Ptr);
-        }
-
     }
-
-
-
-
-
 
 
     public struct NativeMyCefStringHolder
@@ -148,7 +131,7 @@ namespace LayoutFarm.CefBridge
                     int actualLen = 0;
                     Cef3Binder.MyCefStringHolder_Read(this.nativePtr, h, len, out actualLen);
                     return new string(h);
-                } 
+                }
             }
             else
             {
@@ -445,7 +428,7 @@ namespace LayoutFarm.CefBridge
         //
         [DllImport(CEF_CLIENT_DLL, CallingConvention = CallingConvention.Cdecl)]
         public static extern void MyCefBwCall2(IntPtr myCefBw, int methodName, out JsValue ret, ref JsValue arg1, ref JsValue arg2);
-        
+
         public static void MyCefBwCall(IntPtr myCefBw, CefBwCallMsg methodName, int value)
         {
             JsValue ret;
@@ -459,7 +442,7 @@ namespace LayoutFarm.CefBridge
             MyCefBwCall2(myCefBw, (int)methodName, out ret, ref arg1, ref arg2);
         }
 
-         
+
         public static void MyCefCreateNativeStringHolder(ref JsValue ret, string value)
         {
             unsafe

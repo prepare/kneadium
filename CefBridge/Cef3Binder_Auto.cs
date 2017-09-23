@@ -7,16 +7,16 @@ namespace LayoutFarm.CefBridge
 
     public enum CefBwCallMsg
     {
- 
-        CefBw_MyCef_EnableKeyIntercept = 11, 
+        //custom msg
+        CefBw_MyCef_EnableKeyIntercept = 11,
         CefBw_SetSize = 25,
         CefBw_PostData = 27,
         CefBw_CloseBw = 28,
         CefBw_GetMainFrame = 29,
-        CefBw_NewStringVisitor = 30,
+
         CefBw_GetCefBrowser = 31,
     }
-    
+
     static partial class Cef3Binder
     {
 
@@ -25,7 +25,7 @@ namespace LayoutFarm.CefBridge
         public static extern IntPtr NewInstance(int typeName, MyCefCallback callback, ref JsValue v1);
 
         [System.Security.SuppressUnmanagedCodeSecurity]
-        [DllImport(Cef3Binder.CEF_CLIENT_DLL, CallingConvention = CallingConvention.Cdecl)]         
+        [DllImport(Cef3Binder.CEF_CLIENT_DLL, CallingConvention = CallingConvention.Cdecl)]
         public static extern void MyCefMet_CallN(IntPtr me, int metName, out JsValue ret, ref JsValue v1,
             ref JsValue v2, ref JsValue v3, ref JsValue v4, ref JsValue v5, ref JsValue v6, ref JsValue v7);
 
@@ -125,7 +125,7 @@ namespace LayoutFarm.CefBridge
             , ref v1, ref v2, ref v3, ref v4, ref v5, ref v6, ref v7
             );
         }
-    } 
+    }
 
 
 }

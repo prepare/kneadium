@@ -475,7 +475,8 @@ namespace LayoutFarm.CefBridge
         void InternalGetSource2(MyCefCallback strCallback)
         {
 
-            Auto.CefStringVisitor visitor = _myCefBw.NewStringVisitor((id, ptr) =>
+            
+            Auto.CefStringVisitor visitor = Auto.CefStringVisitor.New((id, ptr) =>
             {
                 //INIT_MY_MET_ARGS(metArgs, 1) 
                 //SetCefStringToJsValue2(&vargs[1], string);
@@ -489,7 +490,8 @@ namespace LayoutFarm.CefBridge
             {
                 string url = myframe.GetURL();
                 myframe.GetText(visitor);
-                Auto.CefStringVisitor visitor2 = _myCefBw.NewStringVisitor((id, ptr) =>
+              
+                Auto.CefStringVisitor visitor2 = Auto.CefStringVisitor.New((id, ptr) =>
                 {
                     //INIT_MY_MET_ARGS(metArgs, 1) 
                     //SetCefStringToJsValue2(&vargs[1], string);
