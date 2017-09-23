@@ -543,7 +543,6 @@ const int CefBw_SetSize = 25;
 const int CefBw_PostData = 27;
 const int CefBw_CloseBw = 28;
 const int CefBw_GetMainFrame = 29;
-const int CefBw_NewStringVisitor = 30;
 const int CefBw_GetCefBrowser = 31;
 //----------------
 
@@ -578,7 +577,10 @@ void MyCefBwCall2(MyBrowser* myBw, int methodName, jsvalue* ret, jsvalue* v1, js
 		myBw->bwWindow->SetBounds(0, 0, v1->i32, v2->i32);
 	}break;
 	case CefBw_PostData: {
-		//create request
+
+		//create request:
+		//
+
 		CefRefPtr<CefRequest> request(CefRequest::Create());
 		MyCefStringHolder* url = (MyCefStringHolder*)v1->ptr;
 		request->SetURL(url->value);
@@ -605,14 +607,6 @@ void MyCefBwCall2(MyBrowser* myBw, int methodName, jsvalue* ret, jsvalue* v1, js
 		myBw->bwWindow->GetBrowser()->GetMainFrame()->LoadRequest(request);
 
 		delete buffer1;
-	}break;
-	case CefBw_NewStringVisitor: {
-
-		auto stringVisitor = new MyCefStringVisitor();
-		stringVisitor->mcallback = MyCefJsValueGetManagedCallback(v1);
-		ret->type = JSVALUE_TYPE_WRAPPED;
-		ret->ptr = CefStringVisitorCppToC::Wrap(stringVisitor);
-
 	}break;
 	}
 }
