@@ -485,6 +485,7 @@ namespace LayoutFarm.CefBridge
             using (var bw = _myCefBw.GetBrowser())
             using (var myframe = bw.GetMainFrame())
             {
+                string url = myframe.GetURL();
                 myframe.GetText(visitor);
                 Auto.CefStringVisitor visitor2 = _myCefBw.NewStringVisitor((id, ptr) =>
                 {
@@ -578,10 +579,11 @@ namespace LayoutFarm.CefBridge
             JsValue ret;
             JsValue a0 = new JsValue();
             JsValue a1 = new JsValue();
-            Cef3Binder.MyCefBwCall2(myCefBrowser, 2, out ret, ref a0, ref a1);
+
+            Cef3Binder.MyCefBwCall2(_myCefBw.ptr, 2, out ret, ref a0, ref a1);
 
             //----------- 
-            Cef3Binder.MyCefBwCall2(myCefBrowser, 4, out ret, ref a0, ref a1);
+            Cef3Binder.MyCefBwCall2(_myCefBw.ptr, 4, out ret, ref a0, ref a1);
             int frameCount = ret.I32;
 
             ////-----------
@@ -599,7 +601,7 @@ namespace LayoutFarm.CefBridge
             ////get framename
             //a0.Ptr = nativelist;
             //
-            Cef3Binder.MyCefBwCall2(myCefBrowser, 7, out ret, ref a0, ref a1);
+            Cef3Binder.MyCefBwCall2(_myCefBw.ptr, 7, out ret, ref a0, ref a1);
             IntPtr nativelist = a0.Ptr;
 
             //get list
@@ -621,7 +623,7 @@ namespace LayoutFarm.CefBridge
             //list count
             a0.Ptr = nativelist;
             a0.Type = JsValueType.Wrapped;
-            Cef3Binder.MyCefBwCall2(myCefBrowser, 9, out ret, ref a0, ref a1);
+            Cef3Binder.MyCefBwCall2(_myCefBw.ptr, 9, out ret, ref a0, ref a1);
             //list count
             int list_count = ret.I32;
             //delete native ptr
@@ -631,7 +633,7 @@ namespace LayoutFarm.CefBridge
             a0.Ptr = nativelist;
             a0.Type = JsValueType.Wrapped;
             //GetFrameIdentifiers
-            Cef3Binder.MyCefBwCall2(myCefBrowser, 10, out ret, ref a0, ref a1);
+            Cef3Binder.MyCefBwCall2(_myCefBw.ptr, 10, out ret, ref a0, ref a1);
             //get list
             unsafe
             {
@@ -646,7 +648,7 @@ namespace LayoutFarm.CefBridge
                 Cef3Binder.MyCefDeletePtrArray(unsafe_arr);
             }
 
-            Cef3Binder.MyCefBwCall2(myCefBrowser, 21, out ret, ref a0, ref a1);
+            Cef3Binder.MyCefBwCall2(_myCefBw.ptr, 21, out ret, ref a0, ref a1);
 
             unsafe
             {
