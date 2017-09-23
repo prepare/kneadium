@@ -61,11 +61,12 @@ namespace LayoutFarm.CefBridge
     static partial class Cef3Binder
     {
 
-
+        [System.Security.SuppressUnmanagedCodeSecurity]
         [DllImport(Cef3Binder.CEF_CLIENT_DLL, CallingConvention = CallingConvention.Cdecl)]
         public static extern IntPtr NewInstance(int typeName, MyCefCallback callback, ref JsValue v1);
 
-        [DllImport(Cef3Binder.CEF_CLIENT_DLL, CallingConvention = CallingConvention.Cdecl)]
+        [System.Security.SuppressUnmanagedCodeSecurity]
+        [DllImport(Cef3Binder.CEF_CLIENT_DLL, CallingConvention = CallingConvention.Cdecl)]         
         public static extern void MyCefMet_CallN(IntPtr me, int metName, out JsValue ret, ref JsValue v1,
             ref JsValue v2, ref JsValue v3, ref JsValue v4, ref JsValue v5, ref JsValue v6, ref JsValue v7);
 
@@ -165,33 +166,7 @@ namespace LayoutFarm.CefBridge
             , ref v1, ref v2, ref v3, ref v4, ref v5, ref v6, ref v7
             );
         }
-    }
-
-
-    public partial class CefBrowser
-    {
-        public IntPtr nativePtr;
-        internal CefBrowser(IntPtr nativePtr)
-        {
-            this.nativePtr = nativePtr;
-        }
-    }
-    public partial class CefV8Context
-    {
-        public IntPtr nativePtr;
-        internal CefV8Context(IntPtr nativePtr)
-        {
-            this.nativePtr = nativePtr;
-        }
-    }
-    public partial class CefDOMVisitor
-    {
-        public IntPtr nativePtr;
-        internal CefDOMVisitor(IntPtr nativePtr)
-        {
-            this.nativePtr = nativePtr;
-        }
-    }
+    } 
 
 
 }
