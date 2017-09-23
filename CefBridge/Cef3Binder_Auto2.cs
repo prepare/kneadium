@@ -312,52 +312,36 @@ namespace LayoutFarm.CefBridge.Auto
         internal IntPtr nativePtr;
     }
     public struct CefTime
-    {
-        /////
-        //// Time information. Values should always be in UTC.
-        /////
-        //typedef struct _cef_time_t
-        //{
-        //    int year;          // Four or five digit year "2007" (1601 to 30827 on
-        //                       //   Windows, 1970 to 2038 on 32-bit POSIX)
-        //    int month;         // 1-based month (values 1 = January, etc.)
-        //    int day_of_week;   // 0-based day of week (0 = Sunday, etc.)
-        //    int day_of_month;  // 1-based day of month (1-31)
-        //    int hour;          // Hour within the current day (0-23)
-        //    int minute;        // Minute within the current hour (0-59)
-        //    int second;        // Second within the current minute (0-59 plus leap
-        //                       //   seconds which may take it up to 60).
-        //    int millisecond;   // Milliseconds within the current second (0-999)
-        //}
-        //cef_time_t;
-
-        //struct CefTimeTraits
-        //{
-        //    typedef cef_time_t struct_type;
-        //class CefTime : public CefStructBase<CefTimeTraits> {
-        //public:
-
+    {   
         IntPtr nativePtr;
         public CefTime(IntPtr nativePtr)
         {
             this.nativePtr = nativePtr;
         }
+        internal cef_time_t CopyToManagedStruct()
+        {
+            return MarshalHelper.CopyToManaged<cef_time_t>(this.nativePtr);
+        }
     }
+    /// <summary>
+    /// Class representing a cookie.
+    /// </summary>
     public struct CefCookie
     {
         //struct CefCookieTraits
         //{
         //    typedef cef_cookie_t struct_type;
-        //-----------
-        /////
-        //// Class representing a cookie.
-        /////
+        //----------- 
         //typedef CefStructBase<CefCookieTraits> CefCookie; 
 
         internal IntPtr nativePtr;
         public CefCookie(IntPtr nativePtr)
         {
             this.nativePtr = nativePtr;
+        }
+        internal _cef_cookie_t CopyToManagedStruct()
+        {
+            return MarshalHelper.CopyToManaged<_cef_cookie_t>(this.nativePtr);
         }
     }
 
