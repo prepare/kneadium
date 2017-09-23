@@ -14,7 +14,7 @@ namespace LayoutFarm.CefBridge
     public delegate void SimpleDel();
 
     [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-    public delegate void MyCefCallback(int id, IntPtr args); 
+    public delegate void MyCefCallback(int id, IntPtr args);
     //----------------------------------------------------------------------
     //cef msg constant
     //---------------------------------------------------------------------- 
@@ -22,7 +22,7 @@ namespace LayoutFarm.CefBridge
     public enum MyCefMsg
     {
         MYCEF_MSG_UNKNOWN = 0,
-        
+
         CEF_MSG_ClientHandler_NotifyBrowserClosing = 100,
         CEF_MSG_ClientHandler_NotifyBrowserClosed = 101,
         CEF_MSG_ClientHandler_NotifyBrowserCreated = 102,
@@ -219,7 +219,7 @@ namespace LayoutFarm.CefBridge
 
     public struct MyCefBw
     {
-        internal IntPtr ptr;
+        internal readonly IntPtr ptr;
         internal MyCefBw(IntPtr ptr)
         {
             this.ptr = ptr;
@@ -843,11 +843,11 @@ namespace LayoutFarm.CefBridge
         internal static IntPtr GetNativeObjPtr(IntPtr nativePtr, out int argCountAndFlags)
         {
             unsafe
-            {   
+            {
                 //return address of vargs
                 argCountAndFlags = *((int*)nativePtr); //MyMetArgsN
-                //check flags
-                 
+                                                       //check flags
+
                 if (((argCountAndFlags >> 18) & 1) == 1)
                 {
                     //this native
@@ -879,7 +879,7 @@ namespace LayoutFarm.CefBridge
                 char* rawCefString_char16_t;
                 int actualLen;
                 Cef3Binder.MyCefStringGetRawPtr(cefStringPtr, out rawCefString_char16_t, out actualLen);
-                return new string(rawCefString_char16_t, 0, actualLen); 
+                return new string(rawCefString_char16_t, 0, actualLen);
             }
         }
         internal static int GetAsInt32(IntPtr varr, int index)

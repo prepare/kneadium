@@ -9,7 +9,7 @@ namespace LayoutFarm.CefBridge
     public class MyCefBrowser
     {
         public event EventHandler BrowserDisposed;
-        IntPtr myCefBrowser;
+        
         MyCefCallback managedCallback;
         string currentUrl = "about:blank";
         IWindowControl parentControl;
@@ -23,6 +23,10 @@ namespace LayoutFarm.CefBridge
         //this is object that handle native req
         MyCefBwHandler myBwHandler;
 
+        /// <summary>
+        /// my custom MyCefBw
+        /// </summary>
+        readonly MyCefBw _myCefBw;
         public MyCefBrowser(IWindowControl parentControl,
             int x, int y, int w, int h, string initUrl, bool isOsr)
         {
@@ -41,17 +45,18 @@ namespace LayoutFarm.CefBridge
             //for specific browser
             if (this.IsOsr = isOsr)
             {
-                this.myCefBrowser = Cef3Binder.MyCefCreateMyWebBrowserOSR(managedCallback);
-                Cef3Binder.MyCefSetupBrowserHwndOSR(myCefBrowser, parentControl.GetHandle(), x, y, w, h, initUrl, IntPtr.Zero);
+
+                _myCefBw = new MyCefBw(Cef3Binder.MyCefCreateMyWebBrowserOSR(managedCallback));
+                Cef3Binder.MyCefSetupBrowserHwndOSR(_myCefBw.ptr, parentControl.GetHandle(), x, y, w, h, initUrl, IntPtr.Zero);
             }
             else
             {
-                this.myCefBrowser = Cef3Binder.MyCefCreateMyWebBrowser(managedCallback);
-                Cef3Binder.MyCefSetupBrowserHwnd(myCefBrowser, parentControl.GetHandle(), x, y, w, h, initUrl, IntPtr.Zero);
+                _myCefBw = new MyCefBw(Cef3Binder.MyCefCreateMyWebBrowser(managedCallback));
+                Cef3Binder.MyCefSetupBrowserHwnd(_myCefBw.ptr, parentControl.GetHandle(), x, y, w, h, initUrl, IntPtr.Zero);
             }
 
 
-            Cef3Binder.MyCefBwCall(this.myCefBrowser, CefBwCallMsg.CefBw_MyCef_EnableKeyIntercept, 1);
+            Cef3Binder.MyCefBwCall(this._myCefBw.ptr, CefBwCallMsg.CefBw_MyCef_EnableKeyIntercept, 1);
 
             //register mycef browser
             RegisterCefWbControl(this);
@@ -66,7 +71,7 @@ namespace LayoutFarm.CefBridge
             get { return cefOsrListener; }
             set { cefOsrListener = value; }
         }
-         
+
         //public CefUIProcessListener Listener
         //{
         //    get { return browserProcessListener; }
@@ -353,7 +358,7 @@ namespace LayoutFarm.CefBridge
                 //
                 var cefStr = NativeMyCefStringHolder.CreateHolder(url);
                 a0.Ptr = cefStr.nativePtr;
-                Cef3Binder.MyCefBwCall2(myCefBrowser, (int)CefBwCallMsg.CefBw_GetMainFrame_LoadURL, out ret, ref a0, ref a1);
+                Cef3Binder.MyCefBwCall2(_myCefBw.ptr, (int)CefBwCallMsg.CefBw_GetMainFrame_LoadURL, out ret, ref a0, ref a1);
 
 
             }
@@ -371,7 +376,7 @@ namespace LayoutFarm.CefBridge
             a0.Ptr = v_src.nativePtr;
             a1.Ptr = v_url.nativePtr;
 
-            Cef3Binder.MyCefBwCall2(this.myCefBrowser, (int)CefBwCallMsg.CefBw_ExecJs, out ret, ref a0, ref a1);
+            Cef3Binder.MyCefBwCall2(_myCefBw.ptr, (int)CefBwCallMsg.CefBw_ExecJs, out ret, ref a0, ref a1);
 
             v_url.Dispose();
             v_src.Dispose();
@@ -394,7 +399,7 @@ namespace LayoutFarm.CefBridge
                     a1.Ptr = new IntPtr(buffer);
                     a1.I32 = data.Length;
 
-                    Cef3Binder.MyCefBwCall2(this.myCefBrowser, (int)CefBwCallMsg.CefBw_PostData, out ret, ref a0, ref a1);
+                    Cef3Binder.MyCefBwCall2(_myCefBw.ptr, (int)CefBwCallMsg.CefBw_PostData, out ret, ref a0, ref a1);
                 }
             }
 
@@ -408,15 +413,13 @@ namespace LayoutFarm.CefBridge
             JsValue a1 = new JsValue();
             a1.I32 = h;
             JsValue ret;
-            Cef3Binder.MyCefBwCall2(myCefBrowser, (int)CefBwCallMsg.CefBw_SetSize, out ret, ref a0, ref a1);
+            Cef3Binder.MyCefBwCall2(_myCefBw.ptr, (int)CefBwCallMsg.CefBw_SetSize, out ret, ref a0, ref a1);
         }
 
         public void GetText(Action<string> strCallback)
         {
-
-
-            MyCefBw myCefBw = new MyCefBw(this.myCefBrowser);
-            MyCefFrame myframe = myCefBw.GetMainFrame();
+             
+            MyCefFrame myframe = _myCefBw.GetMainFrame();
 
             Auto.CefFrame frame1 = new Auto.CefFrame(myframe.nativePtr);
             Auto.CefBrowser bw = frame1.GetBrowser();
@@ -481,15 +484,15 @@ namespace LayoutFarm.CefBridge
 
         public void LoadText(string text, string url)
         {
-            MyCefBw myCefBw = new MyCefBw(this.myCefBrowser);
-            MyCefFrame myframe = myCefBw.GetMainFrame();
+             
+            MyCefFrame myframe = _myCefBw.GetMainFrame();
 
             Auto.CefFrame frame1 = new Auto.CefFrame(myframe.nativePtr);
             Auto.CefBrowser bw = frame1.GetBrowser();
 
 
-            List<string> frameNames = new List<string>();
-            bw.GetFrameNames(frameNames);
+            //List<string> frameNames = new List<string>();
+            //bw.GetFrameNames(frameNames);
 
             frame1.LoadString(text, url);
             bw.Release();
@@ -498,8 +501,8 @@ namespace LayoutFarm.CefBridge
         }
         void InternalGetSource2(MyCefCallback strCallback)
         {
-            MyCefBw myCefBw = new MyCefBw(this.myCefBrowser);
-            Auto.CefStringVisitor visitor = myCefBw.NewStringVisitor((id, ptr) =>
+       
+            Auto.CefStringVisitor visitor = _myCefBw.NewStringVisitor((id, ptr) =>
             {
                 //INIT_MY_MET_ARGS(metArgs, 1) 
                 //SetCefStringToJsValue2(&vargs[1], string);
@@ -510,7 +513,7 @@ namespace LayoutFarm.CefBridge
 
 
             //
-            MyCefFrame myframe = myCefBw.GetMainFrame();
+            MyCefFrame myframe = _myCefBw.GetMainFrame();
             myframe.GetText(visitor);
             //
 
@@ -523,7 +526,7 @@ namespace LayoutFarm.CefBridge
             //MyCefFrame myframe = new MyCefFrame(ret.Ptr);
 
 
-            Auto.CefStringVisitor visitor2 = myCefBw.NewStringVisitor((id, ptr) =>
+            Auto.CefStringVisitor visitor2 = _myCefBw.NewStringVisitor((id, ptr) =>
             {
                 //INIT_MY_MET_ARGS(metArgs, 1) 
                 //SetCefStringToJsValue2(&vargs[1], string);
@@ -546,13 +549,13 @@ namespace LayoutFarm.CefBridge
         {
             //keep alive callback
             keepAliveCallBack.Add(strCallback);
-            Cef3Binder.MyCefDomGetSourceWalk(this.myCefBrowser, strCallback);
+            Cef3Binder.MyCefDomGetSourceWalk(_myCefBw.ptr, strCallback);
         }
         void InternalGetText(MyCefCallback strCallback)
         {
             //keep alive callback
             keepAliveCallBack.Add(strCallback);
-            Cef3Binder.MyCefDomGetTextWalk(this.myCefBrowser, strCallback);
+            Cef3Binder.MyCefDomGetTextWalk(_myCefBw.ptr, strCallback);
         }
 
         public void Stop()
@@ -561,7 +564,7 @@ namespace LayoutFarm.CefBridge
             JsValue v2 = new JsValue();
             JsValue ret;
 
-            Cef3Binder.MyCefBwCall2(myCefBrowser, (int)CefBwCallMsg.CefBw_StopLoad, out ret, ref v1, ref v2);
+            Cef3Binder.MyCefBwCall2(_myCefBw.ptr, (int)CefBwCallMsg.CefBw_StopLoad, out ret, ref v1, ref v2);
         }
         public void GoBack()
         {
@@ -569,7 +572,7 @@ namespace LayoutFarm.CefBridge
             JsValue v2 = new JsValue();
             JsValue ret;
 
-            Cef3Binder.MyCefBwCall2(myCefBrowser, (int)CefBwCallMsg.CefBw_GoBack, out ret, ref v1, ref v2);
+            Cef3Binder.MyCefBwCall2(_myCefBw.ptr, (int)CefBwCallMsg.CefBw_GoBack, out ret, ref v1, ref v2);
         }
         public void GoForward()
         {
@@ -577,7 +580,7 @@ namespace LayoutFarm.CefBridge
             JsValue v2 = new JsValue();
             JsValue ret;
 
-            Cef3Binder.MyCefBwCall2(myCefBrowser, (int)CefBwCallMsg.CefBw_GoForward, out ret, ref v1, ref v2);
+            Cef3Binder.MyCefBwCall2(_myCefBw.ptr, (int)CefBwCallMsg.CefBw_GoForward, out ret, ref v1, ref v2);
         }
         public void Reload()
         {
@@ -585,7 +588,7 @@ namespace LayoutFarm.CefBridge
             JsValue v2 = new JsValue();
             JsValue ret;
 
-            Cef3Binder.MyCefBwCall2(myCefBrowser, (int)CefBwCallMsg.CefBw_Reload, out ret, ref v1, ref v2);
+            Cef3Binder.MyCefBwCall2(_myCefBw.ptr, (int)CefBwCallMsg.CefBw_Reload, out ret, ref v1, ref v2);
         }
         public void ReloadIgnoreCache()
         {
@@ -593,7 +596,7 @@ namespace LayoutFarm.CefBridge
             JsValue v2 = new JsValue();
             JsValue ret;
 
-            Cef3Binder.MyCefBwCall2(myCefBrowser, (int)CefBwCallMsg.CefBw_ReloadIgnoreCache, out ret, ref v1, ref v2);
+            Cef3Binder.MyCefBwCall2(_myCefBw.ptr, (int)CefBwCallMsg.CefBw_ReloadIgnoreCache, out ret, ref v1, ref v2);
         }
         public void dbugTest()
         {
@@ -697,7 +700,7 @@ namespace LayoutFarm.CefBridge
                 IWindowForm devForm = Cef3Binder.CreateBlankForm(800, 600);
                 devForm.Text = "Developer Tool";
                 devForm.Show();
-                Cef3Binder.MyCefShowDevTools(this.myCefBrowser,
+                Cef3Binder.MyCefShowDevTools(_myCefBw.ptr,
                     cefDevWindow.GetMyCefBrowser(),
                     devForm.GetHandle());
             }
@@ -718,7 +721,7 @@ namespace LayoutFarm.CefBridge
             });
             tmpCallbacks.Add(cb);
             //
-            Cef3Binder.MyCefPrintToPdf(this.myCefBrowser, IntPtr.Zero, filename, cb);
+            Cef3Binder.MyCefPrintToPdf(_myCefBw.ptr, IntPtr.Zero, filename, cb);
 
         }
         public void PrintToPdf(string pdfConfig, string filename)
@@ -734,7 +737,7 @@ namespace LayoutFarm.CefBridge
             });
             tmpCallbacks.Add(cb);
             //
-            Cef3Binder.MyCefPrintToPdf(this.myCefBrowser, nativePdfConfig, filename, cb);
+            Cef3Binder.MyCefPrintToPdf(_myCefBw.ptr, nativePdfConfig, filename, cb);
         }
         internal void NotifyCloseBw()
         {
@@ -743,7 +746,7 @@ namespace LayoutFarm.CefBridge
             JsValue ret;
             JsValue a0 = new JsValue();
             JsValue a1 = new JsValue();
-            Cef3Binder.MyCefBwCall2(this.myCefBrowser, (int)CefBwCallMsg.CefBw_CloseBw, out ret, ref a0, ref a1);
+            Cef3Binder.MyCefBwCall2(_myCefBw.ptr, (int)CefBwCallMsg.CefBw_CloseBw, out ret, ref a0, ref a1);
         }
 
         static Dictionary<IWindowForm, List<MyCefBrowser>> registerTopWindowForms =
