@@ -26426,6 +26426,268 @@ namespace LayoutFarm.CefBridge.Auto
             args.exception()));
         }
     }
+    [StructLayout(LayoutKind.Sequential)]
+    struct _cef_settings_t
+    {
+        public int size;
+        public int single_process;
+        public int no_sandbox;
+        public _cef_string_utf16_t browser_subprocess_path;
+        public _cef_string_utf16_t framework_dir_path;
+        public int multi_threaded_message_loop;
+        public int external_message_pump;
+        public int windowless_rendering_enabled;
+        public int command_line_args_disabled;
+        public _cef_string_utf16_t cache_path;
+        public _cef_string_utf16_t user_data_path;
+        public int persist_session_cookies;
+        public int persist_user_preferences;
+        public _cef_string_utf16_t user_agent;
+        public _cef_string_utf16_t product_version;
+        public _cef_string_utf16_t locale;
+        public _cef_string_utf16_t log_file;
+        public cef_log_severity_t log_severity;
+        public _cef_string_utf16_t javascript_flags;
+        public _cef_string_utf16_t resources_dir_path;
+        public _cef_string_utf16_t locales_dir_path;
+        public int pack_loading_disabled;
+        public int remote_debugging_port;
+        public int uncaught_exception_stack_size;
+        public int ignore_certificate_errors;
+        public int enable_net_security_expiration;
+        public cef_color_t background_color;
+        public _cef_string_utf16_t accept_language_list;
+    }
+    [StructLayout(LayoutKind.Sequential)]
+    struct _cef_request_context_settings_t
+    {
+        public int size;
+        public _cef_string_utf16_t cache_path;
+        public int persist_session_cookies;
+        public int persist_user_preferences;
+        public int ignore_certificate_errors;
+        public int enable_net_security_expiration;
+        public _cef_string_utf16_t accept_language_list;
+    }
+    [StructLayout(LayoutKind.Sequential)]
+    struct _cef_browser_settings_t
+    {
+        public int size;
+        public int windowless_frame_rate;
+        public _cef_string_utf16_t standard_font_family;
+        public _cef_string_utf16_t fixed_font_family;
+        public _cef_string_utf16_t serif_font_family;
+        public _cef_string_utf16_t sans_serif_font_family;
+        public _cef_string_utf16_t cursive_font_family;
+        public _cef_string_utf16_t fantasy_font_family;
+        public int default_font_size;
+        public int default_fixed_font_size;
+        public int minimum_font_size;
+        public int minimum_logical_font_size;
+        public _cef_string_utf16_t default_encoding;
+        public cef_state_t remote_fonts;
+        public cef_state_t javascript;
+        public cef_state_t javascript_open_windows;
+        public cef_state_t javascript_close_windows;
+        public cef_state_t javascript_access_clipboard;
+        public cef_state_t javascript_dom_paste;
+        public cef_state_t plugins;
+        public cef_state_t universal_access_from_file_urls;
+        public cef_state_t file_access_from_file_urls;
+        public cef_state_t web_security;
+        public cef_state_t image_loading;
+        public cef_state_t image_shrink_standalone_to_fit;
+        public cef_state_t text_area_resize;
+        public cef_state_t tab_to_links;
+        public cef_state_t local_storage;
+        public cef_state_t databases;
+        public cef_state_t application_cache;
+        public cef_state_t webgl;
+        public cef_color_t background_color;
+        public _cef_string_utf16_t accept_language_list;
+    }
+    [StructLayout(LayoutKind.Sequential)]
+    struct _cef_urlparts_t
+    {
+        public _cef_string_utf16_t spec;
+        public _cef_string_utf16_t scheme;
+        public _cef_string_utf16_t username;
+        public _cef_string_utf16_t password;
+        public _cef_string_utf16_t host;
+        public _cef_string_utf16_t port;
+        public _cef_string_utf16_t origin;
+        public _cef_string_utf16_t path;
+        public _cef_string_utf16_t query;
+    }
+    [StructLayout(LayoutKind.Sequential)]
+    struct _cef_cookie_t
+    {
+        public _cef_string_utf16_t name;
+        public _cef_string_utf16_t value;
+        public _cef_string_utf16_t domain;
+        public _cef_string_utf16_t path;
+        public int secure;
+        public int httponly;
+        public cef_time_t creation;
+        public cef_time_t last_access;
+        public int has_expires;
+        public cef_time_t expires;
+    }
+    [StructLayout(LayoutKind.Sequential)]
+    struct _cef_point_t
+    {
+        public int x;
+        public int y;
+    }
+    [StructLayout(LayoutKind.Sequential)]
+    struct _cef_rect_t
+    {
+        public int x;
+        public int y;
+        public int width;
+        public int height;
+    }
+    [StructLayout(LayoutKind.Sequential)]
+    struct _cef_size_t
+    {
+        public int width;
+        public int height;
+    }
+    [StructLayout(LayoutKind.Sequential)]
+    struct _cef_range_t
+    {
+        public int from;
+        public int to;
+    }
+    [StructLayout(LayoutKind.Sequential)]
+    struct _cef_insets_t
+    {
+        public int top;
+        public int left;
+        public int bottom;
+        public int right;
+    }
+    [StructLayout(LayoutKind.Sequential)]
+    struct _cef_draggable_region_t
+    {
+        public cef_rect_t bounds;
+        public int draggable;
+    }
+    [StructLayout(LayoutKind.Sequential)]
+    struct _cef_screen_info_t
+    {
+        public float device_scale_factor;
+        public int depth;
+        public int depth_per_component;
+        public int is_monochrome;
+        public cef_rect_t rect;
+        public cef_rect_t available_rect;
+    }
+    [StructLayout(LayoutKind.Sequential)]
+    struct _cef_mouse_event_t
+    {
+        public int x;
+        public int y;
+        public uint modifiers;
+    }
+    [StructLayout(LayoutKind.Sequential)]
+    struct _cef_key_event_t
+    {
+        public cef_key_event_type_t type;
+        public uint modifiers;
+        public int windows_key_code;
+        public int native_key_code;
+        public int is_system_key;
+        public char character;
+        public char unmodified_character;
+        public int focus_on_editable_field;
+    }
+    [StructLayout(LayoutKind.Sequential)]
+    struct _cef_popup_features_t
+    {
+        public int x;
+        public int xSet;
+        public int y;
+        public int ySet;
+        public int width;
+        public int widthSet;
+        public int height;
+        public int heightSet;
+        public int menuBarVisible;
+        public int statusBarVisible;
+        public int toolBarVisible;
+        public int locationBarVisible;
+        public int scrollbarsVisible;
+        public int resizable;
+        public int fullscreen;
+        public int dialog;
+    }
+    [StructLayout(LayoutKind.Sequential)]
+    struct _cef_geoposition_t
+    {
+        public double latitude;
+        public double longitude;
+        public double altitude;
+        public double accuracy;
+        public double altitude_accuracy;
+        public double heading;
+        public double speed;
+        public cef_time_t timestamp;
+        public cef_geoposition_error_code_t error_code;
+        public _cef_string_utf16_t error_message;
+    }
+    [StructLayout(LayoutKind.Sequential)]
+    struct _cef_cursor_info_t
+    {
+        public cef_point_t hotspot;
+        public float image_scale_factor;
+        public IntPtr buffer;
+        public cef_size_t size;
+    }
+    [StructLayout(LayoutKind.Sequential)]
+    struct _cef_pdf_print_settings_t
+    {
+        public _cef_string_utf16_t header_footer_title;
+        public _cef_string_utf16_t header_footer_url;
+        public int page_width;
+        public int page_height;
+        public int scale_factor;
+        public double margin_top;
+        public double margin_right;
+        public double margin_bottom;
+        public double margin_left;
+        public cef_pdf_print_margin_type_t margin_type;
+        public int header_footer_enabled;
+        public int selection_only;
+        public int landscape;
+        public int backgrounds_enabled;
+    }
+    [StructLayout(LayoutKind.Sequential)]
+    struct _cef_box_layout_settings_t
+    {
+        public int horizontal;
+        public int inside_border_horizontal_spacing;
+        public int inside_border_vertical_spacing;
+        public cef_insets_t inside_border_insets;
+        public int between_child_spacing;
+        public cef_main_axis_alignment_t main_axis_alignment;
+        public cef_cross_axis_alignment_t cross_axis_alignment;
+        public int minimum_cross_axis_size;
+        public int default_flex;
+    }
+    [StructLayout(LayoutKind.Sequential)]
+    struct _cef_composition_underline_t
+    {
+        public cef_range_t range;
+        public cef_color_t color;
+        public cef_color_t background_color;
+        public int thick;
+    }
+
+
+
+
+
     //CsNativeHandlerSwitchTableCodeGen::GenerateCefNativeRequestHandlers
     //------ common cef handler swicth table---------
     public static class CefNativeRequestHandlers

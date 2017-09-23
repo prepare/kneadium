@@ -33,6 +33,78 @@ namespace LayoutFarm.CefBridge.Auto
         public int length; //length;
         public IntPtr dtor;//pointer to dtor, void (* dtor) (char16* str);
     }
+
+    [System.Runtime.InteropServices.StructLayout(System.Runtime.InteropServices.LayoutKind.Sequential)]
+    struct cef_time_t
+    {
+        public int year;          // Four or five digit year "2007" (1601 to 30827 on
+                                  //   Windows, 1970 to 2038 on 32-bit POSIX)
+        public int month;         // 1-based month (values 1 = January, etc.)
+        public int day_of_week;   // 0-based day of week (0 = Sunday, etc.)
+        public int day_of_month;  // 1-based day of month (1-31)
+        public int hour;          // Hour within the current day (0-23)
+        public int minute;        // Minute within the current hour (0-59)
+        public int second;        // Second within the current minute (0-59 plus leap
+                                  //   seconds which may take it up to 60).
+        public int millisecond;   // Milliseconds within the current second (0-999)
+    }
+
+
+    ///
+    /// Structure representing a rectangle.
+    ///
+    [System.Runtime.InteropServices.StructLayout(System.Runtime.InteropServices.LayoutKind.Sequential)]
+    struct cef_rect_t
+    {
+        public int x;
+        public int y;
+        public int width;
+        public int height;
+    }
+
+
+    ///
+    /// Structure representing a size.
+    ///
+    [System.Runtime.InteropServices.StructLayout(System.Runtime.InteropServices.LayoutKind.Sequential)]
+    struct cef_size_t
+    {
+        public int width;
+        public int height;
+    }
+
+
+    ///
+    // Structure representing a range.
+    ///
+    [System.Runtime.InteropServices.StructLayout(System.Runtime.InteropServices.LayoutKind.Sequential)]
+    struct cef_range_t
+    {
+        public int from;
+        public int to;
+    }
+
+    ///
+    /// Structure representing insets.
+    ///
+    [System.Runtime.InteropServices.StructLayout(System.Runtime.InteropServices.LayoutKind.Sequential)]
+    struct cef_insets_t
+    {
+        int top;
+        int left;
+        int bottom;
+        int right;
+    } 
+    ///
+    /// Structure representing a point.
+    ///
+    [System.Runtime.InteropServices.StructLayout(System.Runtime.InteropServices.LayoutKind.Sequential)]
+    struct cef_point_t
+    {
+        public int x;
+        public int y;
+    }
+
     public struct CefCursorInfo
     {
         internal IntPtr nativePtr;

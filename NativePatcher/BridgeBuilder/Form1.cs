@@ -690,6 +690,7 @@ namespace BridgeBuilder
             {
                 codeGenOutput = new CefCodeGenOutput();
                 tx.GenerateCode(codeGenOutput);
+                csCodeStBuilder.Append(codeGenOutput._csCode.ToString());
             }
 
 
