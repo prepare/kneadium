@@ -10,7 +10,7 @@ namespace BridgeBuilder
     /// <summary>
     /// for cef-3 api only
     /// </summary>
-    class Cef3HeaderFileParser
+    class Cef3FileParser
     {
         List<string> allLines = new List<string>();
         List<Token> tokenList = new List<Token>();
@@ -23,7 +23,7 @@ namespace BridgeBuilder
 #if DEBUG
         string dbugCurrentFilename = null;
 #endif
-        public Cef3HeaderFileParser()
+        public Cef3FileParser()
         {
         }
         public CodeCompilationUnit Result
@@ -610,6 +610,7 @@ namespace BridgeBuilder
 
                 if (ExpectPunc("{"))
                 {
+                     
                     while (ParseTypeMember(codeTypeDecl)) ;
                     if (ExpectPunc(";"))
                     {
@@ -1346,7 +1347,7 @@ namespace BridgeBuilder
                     ParseCtorInitializer(met);
                 }
                 //----------------
-              
+
 
                 if (ExpectPunc("{"))
                 {
@@ -1361,7 +1362,7 @@ namespace BridgeBuilder
                     met.StartAtLine = openBraceTk.LineNo;
                     met.EndAtLine = closeBraceTk.LineNo;
                     //----
-                    return endPunc; 
+                    return endPunc;
                 }
                 else if (ExpectPunc("="))
                 {

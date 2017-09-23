@@ -1,7 +1,7 @@
 ﻿//MIT, 2015-2017, WinterDev
 
 using System;
-namespace LayoutFarm.CefBridge
+namespace LayoutFarm.CefBridge.Auto
 {
 
     static class MyCefArgsHelper
@@ -17,6 +17,21 @@ namespace LayoutFarm.CefBridge
     class CefNotImplementedException : NotImplementedException
     {
 
+    }
+
+    //[System.Runtime.InteropServices.StructLayout(System.Runtime.InteropServices.LayoutKind.Sequential)]
+    //struct _cef_string_utf16_t
+    //{
+    //    char16* str;
+    //    size_t length;
+    //    void (* dtor) (char16* str);
+    //}
+    [System.Runtime.InteropServices.StructLayout(System.Runtime.InteropServices.LayoutKind.Sequential)]
+    struct _cef_string_utf16_t
+    {
+        public IntPtr str; // char16* str, intptr to char*
+        public int length; //length;
+        public IntPtr dtor;//pointer to dtor, void (* dtor) (char16* str);
     }
     public struct CefCursorInfo
     {
@@ -35,6 +50,8 @@ namespace LayoutFarm.CefBridge
             this.nativePtr = nativePtr;
         }
     }
+
+
 
 
     public struct CefScreenInfo
@@ -197,12 +214,12 @@ namespace LayoutFarm.CefBridge
         //{
         //    typedef cef_window_info_t struct_type;
 
- //       ///
- //       // Class representing window information.
- //       ///
- //       class CefWindowInfo : public CefStructBase<CefWindowInfoTraits> {
- //public:
- // typedef CefStructBase<CefWindowInfoTraits> parent;
+        //       ///
+        //       // Class representing window information.
+        //       ///
+        //       class CefWindowInfo : public CefStructBase<CefWindowInfoTraits> {
+        //public:
+        // typedef CefStructBase<CefWindowInfoTraits> parent;
         internal IntPtr nativePtr;
         public CefWindowInfo(IntPtr nativePtr)
         {
@@ -483,7 +500,7 @@ namespace LayoutFarm.CefBridge
         //    // useful for determining if standard key events should be intercepted.
         //    ///
         //    int focus_on_editable_field;
-        //}
+        //}ifoif
         //cef_key_event_t;
 
         //struct CefKeyEventTraits
