@@ -400,41 +400,44 @@ namespace LayoutFarm.CefBridge
         public void GetText(Action<string> strCallback)
         {
 
-            var frame1 = _myCefBw.GetMainFrame();
-            Auto.CefBrowser bw = frame1.GetBrowser();
-            MyCefCallback visitorCallback = (int methodId, IntPtr nativeArgs) =>
+            using (var bw = _myCefBw.GetBrowser())
+            using (var frame1 = bw.GetMainFrame())
             {
-                //wrap with the specific pars
-                //var pars = new Auto.CefStringVisitor(nativeArgs);
-                //string data = pars._string;
+                MyCefCallback visitorCallback = (int methodId, IntPtr nativeArgs) =>
+                {
+                    //wrap with the specific pars
+                    //var pars = new Auto.CefStringVisitor(nativeArgs);
+                    //string data = pars._string;
 
-                //MyCefNativeMetArgs metArgs = new MyCefNativeMetArgs(nativeArgs);
-                //if (metArgs.GetArgCount() == 1)
-                //{
-                //    JsValue value;
-                //    metArgs.GetArg(1, out value);
-                //    string data = Cef3Binder.MyCefJsReadString(ref value);
+                    //MyCefNativeMetArgs metArgs = new MyCefNativeMetArgs(nativeArgs);
+                    //if (metArgs.GetArgCount() == 1)
+                    //{
+                    //    JsValue value;
+                    //    metArgs.GetArg(1, out value);
+                    //    string data = Cef3Binder.MyCefJsReadString(ref value);
 
-                //}
-            };
+                    //}
+                };
+                Auto.CefStringVisitor visitor = Auto.CefStringVisitor.New(visitorCallback);
 
-            Auto.CefStringVisitor visitor = Auto.CefStringVisitor.New(visitorCallback);
+
+                frame1.GetText(visitor);
+
+                //keep alive callback
+                InternalGetText((id, nativePtr) =>
+                {
+                    //INIT_MY_MET_ARGS(metArgs, 1) 
+                    //SetCefStringToJsValue2(&vargs[1], string);
+
+                    var args = new NativeCallArgs(nativePtr);
+                    strCallback(args.GetArgAsString(1));
+                });
+                //Cef3Binder.MyCefDomGetTextWalk(this.myCefBrowser, strCallback);
+            }
 
 
-            frame1.GetText(visitor);
 
-            bw.Release();
-            frame1.Release();
-            //keep alive callback
-            InternalGetText((id, nativePtr) =>
-            {
-                //INIT_MY_MET_ARGS(metArgs, 1) 
-                //SetCefStringToJsValue2(&vargs[1], string);
 
-                var args = new NativeCallArgs(nativePtr);
-                strCallback(args.GetArgAsString(1));
-            });
-            //Cef3Binder.MyCefDomGetTextWalk(this.myCefBrowser, strCallback);
         }
         public void GetSource(Action<string> strCallback)
         {
@@ -461,18 +464,11 @@ namespace LayoutFarm.CefBridge
 
         public void LoadText(string text, string url)
         {
-
-            Auto.CefFrame frame1 = _myCefBw.GetMainFrame();
-            Auto.CefBrowser bw = frame1.GetBrowser();
-
-
-            //List<string> frameNames = new List<string>();
-            //bw.GetFrameNames(frameNames);
-
-            frame1.LoadString(text, url);
-            bw.Release();
-            frame1.Release();
-
+            using (var bw = _myCefBw.GetBrowser())
+            using (var frame1 = bw.GetMainFrame())
+            {
+                frame1.LoadString(text, url);
+            }
         }
         void InternalGetSource2(MyCefCallback strCallback)
         {
@@ -485,40 +481,38 @@ namespace LayoutFarm.CefBridge
                 NativeCallArgs args = new NativeCallArgs(ptr);
                 var text = args.GetArgAsString(1);
             });
-             
-            Auto.CefBrowser bw = _myCefBw.GetBrowser();
-            Auto.CefFrame myframe = bw.GetMainFrame();
 
-            myframe.GetText(visitor);
-            ////
-            //var myframe = _myCefBw.GetMainFrame();
-            //myframe.GetText(visitor);
-            ////
-
-            //JsValue ret;
-            //JsValue a1 = new JsValue();
-            //JsValue a2 = new JsValue();
-            //Cef3Binder.MyCefBwCall2(myCefBrowser,
-            //    (int)CefBwCallMsg.CefBw_GetMainFrame,
-            //    out ret, ref a1, ref a2);
-            //MyCefFrame myframe = new MyCefFrame(ret.Ptr);
-
-
-            Auto.CefStringVisitor visitor2 = _myCefBw.NewStringVisitor((id, ptr) =>
+            using (var bw = _myCefBw.GetBrowser())
+            using (var myframe = bw.GetMainFrame())
             {
-                //INIT_MY_MET_ARGS(metArgs, 1) 
-                //SetCefStringToJsValue2(&vargs[1], string);
-                NativeCallArgs args = new NativeCallArgs(ptr);
-                var text = args.GetArgAsString(1);
-            });
+                myframe.GetText(visitor);
+                Auto.CefStringVisitor visitor2 = _myCefBw.NewStringVisitor((id, ptr) =>
+                {
+                    //INIT_MY_MET_ARGS(metArgs, 1) 
+                    //SetCefStringToJsValue2(&vargs[1], string);
+                    NativeCallArgs args = new NativeCallArgs(ptr);
+                    var text = args.GetArgAsString(1);
+                });
+
+                myframe.GetSource(visitor2);
+            }
 
 
-            myframe.GetSource(visitor2);
-            //
-            myframe.Release();
-            bw.Release();
+            //////
+            ////var myframe = _myCefBw.GetMainFrame();
+            ////myframe.GetText(visitor);
+            //////
 
-
+            ////JsValue ret;
+            ////JsValue a1 = new JsValue();
+            ////JsValue a2 = new JsValue();
+            ////Cef3Binder.MyCefBwCall2(myCefBrowser,
+            ////    (int)CefBwCallMsg.CefBw_GetMainFrame,
+            ////    out ret, ref a1, ref a2);
+            ////MyCefFrame myframe = new MyCefFrame(ret.Ptr); 
+            ////
+            //myframe.Release();
+            //bw.Release(); 
             //myCefBw.ContextMainFrame(myframe =>
             //{
             //    myframe.GetSource(strCallback);

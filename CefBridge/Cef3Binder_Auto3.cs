@@ -1616,7 +1616,7 @@ namespace LayoutFarm.CefBridge.Auto
     /// called by the process and/or thread indicated.
     /// /*cef(source=client,no_debugct_check)*/
     /// </summary>
-    public struct CefAppIDisposable
+    public struct CefApp : IDisposable
     {
         const int _typeNAME = 1;
         const int CefApp_Release_0 = (_typeNAME << 16) | 0;
@@ -1648,7 +1648,7 @@ namespace LayoutFarm.CefBridge.Auto
     /// this class may only be called on the main thread.
     /// /*(source=library)*/
     /// </summary>
-    public struct CefBrowserIDisposable
+    public struct CefBrowser : IDisposable
     {
         const int _typeNAME = 2;
         const int CefBrowser_Release_0 = (_typeNAME << 16) | 0;
@@ -2020,7 +2020,7 @@ namespace LayoutFarm.CefBridge.Auto
     /// this class will be called on the browser process UI thread.
     /// /*(source=client)*/
     /// </summary>
-    public struct CefNavigationEntryVisitorIDisposable
+    public struct CefNavigationEntryVisitor : IDisposable
     {
         const int _typeNAME = 3;
         const int CefNavigationEntryVisitor_Release_0 = (_typeNAME << 16) | 0;
@@ -2052,7 +2052,7 @@ namespace LayoutFarm.CefBridge.Auto
     /// comments.
     /// /*(source=library)*/
     /// </summary>
-    public struct CefBrowserHostIDisposable
+    public struct CefBrowserHost : IDisposable
     {
         const int _typeNAME = 4;
         const int CefBrowserHost_Release_0 = (_typeNAME << 16) | 0;
@@ -3257,7 +3257,7 @@ namespace LayoutFarm.CefBridge.Auto
     /// Implement this interface to provide handler implementations.
     /// /*(source=client,no_debugct_check)*/
     /// </summary>
-    public struct CefClientIDisposable
+    public struct CefClient : IDisposable
     {
         const int _typeNAME = 5;
         const int CefClient_Release_0 = (_typeNAME << 16) | 0;
@@ -3293,7 +3293,7 @@ namespace LayoutFarm.CefBridge.Auto
     /// used before CefInitialize() is called.
     /// /*(source=library,no_debugct_check)*/
     /// </summary>
-    public struct CefCommandLineIDisposable
+    public struct CefCommandLine : IDisposable
     {
         const int _typeNAME = 6;
         const int CefCommandLine_Release_0 = (_typeNAME << 16) | 0;
@@ -3688,7 +3688,7 @@ namespace LayoutFarm.CefBridge.Auto
     /// can only be accessed on browser process the UI thread.
     /// /*(source=library)*/
     /// </summary>
-    public struct CefContextMenuParamsIDisposable
+    public struct CefContextMenuParams : IDisposable
     {
         const int _typeNAME = 7;
         const int CefContextMenuParams_Release_0 = (_typeNAME << 16) | 0;
@@ -4070,7 +4070,7 @@ namespace LayoutFarm.CefBridge.Auto
     /// any thread unless otherwise indicated.
     /// /*(source=library,no_debugct_check)*/
     /// </summary>
-    public struct CefCookieManagerIDisposable
+    public struct CefCookieManager : IDisposable
     {
         const int _typeNAME = 8;
         const int CefCookieManager_Release_0 = (_typeNAME << 16) | 0;
@@ -4282,7 +4282,7 @@ namespace LayoutFarm.CefBridge.Auto
     /// will always be called on the IO thread.
     /// /*(source=client)*/
     /// </summary>
-    public struct CefCookieVisitorIDisposable
+    public struct CefCookieVisitor : IDisposable
     {
         const int _typeNAME = 9;
         const int CefCookieVisitor_Release_0 = (_typeNAME << 16) | 0;
@@ -4312,7 +4312,7 @@ namespace LayoutFarm.CefBridge.Auto
     /// be called on the render process main thread.
     /// /*(source=client)*/
     /// </summary>
-    public struct CefDOMVisitorIDisposable
+    public struct CefDOMVisitor : IDisposable
     {
         const int _typeNAME = 10;
         const int CefDOMVisitor_Release_0 = (_typeNAME << 16) | 0;
@@ -4342,7 +4342,7 @@ namespace LayoutFarm.CefBridge.Auto
     /// be called on the render process main thread thread.
     /// /*(source=library)*/
     /// </summary>
-    public struct CefDOMDocumentIDisposable
+    public struct CefDOMDocument : IDisposable
     {
         const int _typeNAME = 11;
         const int CefDOMDocument_Release_0 = (_typeNAME << 16) | 0;
@@ -4598,7 +4598,7 @@ namespace LayoutFarm.CefBridge.Auto
     /// called on the render process main thread.
     /// /*(source=library)*/
     /// </summary>
-    public struct CefDOMNodeIDisposable
+    public struct CefDOMNode : IDisposable
     {
         const int _typeNAME = 12;
         const int CefDOMNode_Release_0 = (_typeNAME << 16) | 0;
@@ -5062,7 +5062,7 @@ namespace LayoutFarm.CefBridge.Auto
     /// Class used to represent a download item.
     /// /*(source=library)*/
     /// </summary>
-    public struct CefDownloadItemIDisposable
+    public struct CefDownloadItem : IDisposable
     {
         const int _typeNAME = 13;
         const int CefDownloadItem_Release_0 = (_typeNAME << 16) | 0;
@@ -5361,7 +5361,7 @@ namespace LayoutFarm.CefBridge.Auto
     /// on any thread.
     /// /*(source=library)*/
     /// </summary>
-    public struct CefDragDataIDisposable
+    public struct CefDragData : IDisposable
     {
         const int _typeNAME = 14;
         const int CefDragData_Release_0 = (_typeNAME << 16) | 0;
@@ -5826,7 +5826,7 @@ namespace LayoutFarm.CefBridge.Auto
     /// methods of this class may only be called on the main thread.
     /// /*(source=library)*/
     /// </summary>
-    public struct CefFrameIDisposable
+    public struct CefFrame : IDisposable
     {
         const int _typeNAME = 15;
         const int CefFrame_Release_0 = (_typeNAME << 16) | 0;
@@ -6284,7 +6284,7 @@ namespace LayoutFarm.CefBridge.Auto
     /// be called on the browser process UI thread.
     /// /*(source=library)*/
     /// </summary>
-    public struct CefImageIDisposable
+    public struct CefImage : IDisposable
     {
         const int _typeNAME = 16;
         const int CefImage_Release_0 = (_typeNAME << 16) | 0;
@@ -6643,7 +6643,7 @@ namespace LayoutFarm.CefBridge.Auto
     /// this class can only be accessed on the browser process the UI thread.
     /// /*(source=library)*/
     /// </summary>
-    public struct CefMenuModelIDisposable
+    public struct CefMenuModel : IDisposable
     {
         const int _typeNAME = 17;
         const int CefMenuModel_Release_0 = (_typeNAME << 16) | 0;
@@ -7900,7 +7900,7 @@ namespace LayoutFarm.CefBridge.Auto
     /// indicated.
     /// /*(source=client)*/
     /// </summary>
-    public struct CefMenuModelDelegateIDisposable
+    public struct CefMenuModelDelegate : IDisposable
     {
         const int _typeNAME = 18;
         const int CefMenuModelDelegate_Release_0 = (_typeNAME << 16) | 0;
@@ -7929,7 +7929,7 @@ namespace LayoutFarm.CefBridge.Auto
     /// Class used to represent an entry in navigation history.
     /// /*(source=library)*/
     /// </summary>
-    public struct CefNavigationEntryIDisposable
+    public struct CefNavigationEntry : IDisposable
     {
         const int _typeNAME = 19;
         const int CefNavigationEntry_Release_0 = (_typeNAME << 16) | 0;
@@ -8120,7 +8120,7 @@ namespace LayoutFarm.CefBridge.Auto
     /// Class representing print settings.
     /// /*(source=library)*/
     /// </summary>
-    public struct CefPrintSettingsIDisposable
+    public struct CefPrintSettings : IDisposable
     {
         const int _typeNAME = 20;
         const int CefPrintSettings_Release_0 = (_typeNAME << 16) | 0;
@@ -8545,7 +8545,7 @@ namespace LayoutFarm.CefBridge.Auto
     /// Class representing a message. Can be used on any process and thread.
     /// /*cef(source=library)*/
     /// </summary>
-    public struct CefProcessMessageIDisposable
+    public struct CefProcessMessage : IDisposable
     {
         const int _typeNAME = 21;
         const int CefProcessMessage_Release_0 = (_typeNAME << 16) | 0;
@@ -8650,7 +8650,7 @@ namespace LayoutFarm.CefBridge.Auto
     /// called on any thread.
     /// /*(source=library,no_debugct_check)*/
     /// </summary>
-    public struct CefRequestIDisposable
+    public struct CefRequest : IDisposable
     {
         const int _typeNAME = 22;
         const int CefRequest_Release_0 = (_typeNAME << 16) | 0;
@@ -9046,7 +9046,7 @@ namespace LayoutFarm.CefBridge.Auto
     /// class may be called on any thread.
     /// /*(source=library,no_debugct_check)*/
     /// </summary>
-    public struct CefPostDataIDisposable
+    public struct CefPostData : IDisposable
     {
         const int _typeNAME = 23;
         const int CefPostData_Release_0 = (_typeNAME << 16) | 0;
@@ -9192,7 +9192,7 @@ namespace LayoutFarm.CefBridge.Auto
     /// methods of this class may be called on any thread.
     /// /*(source=library,no_debugct_check)*/
     /// </summary>
-    public struct CefPostDataElementIDisposable
+    public struct CefPostDataElement : IDisposable
     {
         const int _typeNAME = 24;
         const int CefPostDataElement_Release_0 = (_typeNAME << 16) | 0;
@@ -9372,7 +9372,7 @@ namespace LayoutFarm.CefBridge.Auto
     /// all other request context objects will be ignored.
     /// /*(source=library,no_debugct_check)*/
     /// </summary>
-    public struct CefRequestContextIDisposable
+    public struct CefRequestContext : IDisposable
     {
         const int _typeNAME = 25;
         const int CefRequestContext_Release_0 = (_typeNAME << 16) | 0;
@@ -9468,7 +9468,7 @@ namespace LayoutFarm.CefBridge.Auto
             JsValue ret;
 
             Cef3Binder.MyCefMet_Call0(this.nativePtr, CefRequestContext_GetHandler_4, out ret);
-            return new CefRequestContextHandler(ret.Ptr);
+            return new CefRequestContextHandler();
         }
         //CsCallToNativeCodeGen::GenerateCsMethod , 399
 
@@ -9795,7 +9795,7 @@ namespace LayoutFarm.CefBridge.Auto
     /// on any thread unless otherwise indicated.
     /// /*(source=library,no_debugct_check)*/
     /// </summary>
-    public struct CefResourceBundleIDisposable
+    public struct CefResourceBundle : IDisposable
     {
         const int _typeNAME = 26;
         const int CefResourceBundle_Release_0 = (_typeNAME << 16) | 0;
@@ -9904,7 +9904,7 @@ namespace LayoutFarm.CefBridge.Auto
     /// called on any thread.
     /// /*(source=library,no_debugct_check)*/
     /// </summary>
-    public struct CefResponseIDisposable
+    public struct CefResponse : IDisposable
     {
         const int _typeNAME = 27;
         const int CefResponse_Release_0 = (_typeNAME << 16) | 0;
@@ -10139,7 +10139,7 @@ namespace LayoutFarm.CefBridge.Auto
     /// this class will be called on the browser process IO thread.
     /// /*(source=client)*/
     /// </summary>
-    public struct CefResponseFilterIDisposable
+    public struct CefResponseFilter : IDisposable
     {
         const int _typeNAME = 28;
         const int CefResponseFilter_Release_0 = (_typeNAME << 16) | 0;
@@ -10169,7 +10169,7 @@ namespace LayoutFarm.CefBridge.Auto
     /// The methods of this class will always be called on the IO thread.
     /// /*(source=client)*/
     /// </summary>
-    public struct CefSchemeHandlerFactoryIDisposable
+    public struct CefSchemeHandlerFactory : IDisposable
     {
         const int _typeNAME = 29;
         const int CefSchemeHandlerFactory_Release_0 = (_typeNAME << 16) | 0;
@@ -10198,7 +10198,7 @@ namespace LayoutFarm.CefBridge.Auto
     /// Class representing SSL information.
     /// /*(source=library)*/
     /// </summary>
-    public struct CefSSLInfoIDisposable
+    public struct CefSSLInfo : IDisposable
     {
         const int _typeNAME = 30;
         const int CefSSLInfo_Release_0 = (_typeNAME << 16) | 0;
@@ -10254,7 +10254,7 @@ namespace LayoutFarm.CefBridge.Auto
     /// Class representing the SSL information for a navigation entry.
     /// /*(source=library)*/
     /// </summary>
-    public struct CefSSLStatusIDisposable
+    public struct CefSSLStatus : IDisposable
     {
         const int _typeNAME = 31;
         const int CefSSLStatus_Release_0 = (_typeNAME << 16) | 0;
@@ -10362,7 +10362,7 @@ namespace LayoutFarm.CefBridge.Auto
     /// called on any thread.
     /// /*(source=library)*/
     /// </summary>
-    public struct CefStreamReaderIDisposable
+    public struct CefStreamReader : IDisposable
     {
         const int _typeNAME = 32;
         const int CefStreamReader_Release_0 = (_typeNAME << 16) | 0;
@@ -10483,7 +10483,7 @@ namespace LayoutFarm.CefBridge.Auto
     /// on any thread.
     /// /*(source=library)*/
     /// </summary>
-    public struct CefStreamWriterIDisposable
+    public struct CefStreamWriter : IDisposable
     {
         const int _typeNAME = 33;
         const int CefStreamWriter_Release_0 = (_typeNAME << 16) | 0;
@@ -10603,7 +10603,7 @@ namespace LayoutFarm.CefBridge.Auto
     /// Implement this interface to receive string values asynchronously.
     /// /*(source=client)*/
     /// </summary>
-    public struct CefStringVisitorIDisposable
+    public struct CefStringVisitor : IDisposable
     {
         const int _typeNAME = 34;
         const int CefStringVisitor_Release_0 = (_typeNAME << 16) | 0;
@@ -10637,7 +10637,7 @@ namespace LayoutFarm.CefBridge.Auto
     /// task object destructor.
     /// /*cef(source=client)*/
     /// </summary>
-    public struct CefTaskIDisposable
+    public struct CefTask : IDisposable
     {
         const int _typeNAME = 35;
         const int CefTask_Release_0 = (_typeNAME << 16) | 0;
@@ -10672,7 +10672,7 @@ namespace LayoutFarm.CefBridge.Auto
     /// other CEF threads as appropriate (for example, V8 WebWorker threads).
     /// /*(source=library)*/
     /// </summary>
-    public struct CefTaskRunnerIDisposable
+    public struct CefTaskRunner : IDisposable
     {
         const int _typeNAME = 36;
         const int CefTaskRunner_Release_0 = (_typeNAME << 16) | 0;
@@ -10794,7 +10794,7 @@ namespace LayoutFarm.CefBridge.Auto
     /// on the same thread that created it.
     /// /*(source=library)*/
     /// </summary>
-    public struct CefURLRequestIDisposable
+    public struct CefURLRequest : IDisposable
     {
         const int _typeNAME = 37;
         const int CefURLRequest_Release_0 = (_typeNAME << 16) | 0;
@@ -10920,7 +10920,7 @@ namespace LayoutFarm.CefBridge.Auto
     /// request unless otherwise documented.
     /// /*(source=client)*/
     /// </summary>
-    public struct CefURLRequestClientIDisposable
+    public struct CefURLRequestClient : IDisposable
     {
         const int _typeNAME = 38;
         const int CefURLRequestClient_Release_0 = (_typeNAME << 16) | 0;
@@ -10953,7 +10953,7 @@ namespace LayoutFarm.CefBridge.Auto
     /// the CefV8Context::GetTaskRunner() method.
     /// /*cef(source=library)*/
     /// </summary>
-    public struct CefV8ContextIDisposable
+    public struct CefV8Context : IDisposable
     {
         const int _typeNAME = 39;
         const int CefV8Context_Release_0 = (_typeNAME << 16) | 0;
@@ -11158,7 +11158,7 @@ namespace LayoutFarm.CefBridge.Auto
     /// of this class will be called on the thread associated with the V8 accessor.
     /// /*(source=client)*/
     /// </summary>
-    public struct CefV8AccessorIDisposable
+    public struct CefV8Accessor : IDisposable
     {
         const int _typeNAME = 40;
         const int CefV8Accessor_Release_0 = (_typeNAME << 16) | 0;
@@ -11192,7 +11192,7 @@ namespace LayoutFarm.CefBridge.Auto
     /// by integer.
     /// /*(source=client)*/
     /// </summary>
-    public struct CefV8InterceptorIDisposable
+    public struct CefV8Interceptor : IDisposable
     {
         const int _typeNAME = 41;
         const int CefV8Interceptor_Release_0 = (_typeNAME << 16) | 0;
@@ -11222,7 +11222,7 @@ namespace LayoutFarm.CefBridge.Auto
     /// any render process thread.
     /// /*(source=library)*/
     /// </summary>
-    public struct CefV8ExceptionIDisposable
+    public struct CefV8Exception : IDisposable
     {
         const int _typeNAME = 42;
         const int CefV8Exception_Release_0 = (_typeNAME << 16) | 0;
@@ -11383,7 +11383,7 @@ namespace LayoutFarm.CefBridge.Auto
     /// the CefV8Context::GetTaskRunner() method.
     /// /*(source=library)*/
     /// </summary>
-    public struct CefV8ValueIDisposable
+    public struct CefV8Value : IDisposable
     {
         const int _typeNAME = 43;
         const int CefV8Value_Release_0 = (_typeNAME << 16) | 0;
@@ -12108,7 +12108,7 @@ namespace LayoutFarm.CefBridge.Auto
             JsValue ret;
 
             Cef3Binder.MyCefMet_Call0(this.nativePtr, CefV8Value_GetFunctionHandler_42, out ret);
-            return new CefV8Handler(ret.Ptr);
+            return new CefV8Handler();
         }
         //CsCallToNativeCodeGen::GenerateCsMethod , 533
 
@@ -12178,7 +12178,7 @@ namespace LayoutFarm.CefBridge.Auto
     /// retrieved via the CefV8Context::GetTaskRunner() method.
     /// /*(source=library)*/
     /// </summary>
-    public struct CefV8StackTraceIDisposable
+    public struct CefV8StackTrace : IDisposable
     {
         const int _typeNAME = 44;
         const int CefV8StackTrace_Release_0 = (_typeNAME << 16) | 0;
@@ -12255,7 +12255,7 @@ namespace LayoutFarm.CefBridge.Auto
     /// retrieved via the CefV8Context::GetTaskRunner() method.
     /// /*(source=library)*/
     /// </summary>
-    public struct CefV8StackFrameIDisposable
+    public struct CefV8StackFrame : IDisposable
     {
         const int _typeNAME = 45;
         const int CefV8StackFrame_Release_0 = (_typeNAME << 16) | 0;
@@ -12411,7 +12411,7 @@ namespace LayoutFarm.CefBridge.Auto
     /// process and thread.
     /// /*cef(source=library)*/
     /// </summary>
-    public struct CefValueIDisposable
+    public struct CefValue : IDisposable
     {
         const int _typeNAME = 46;
         const int CefValue_Release_0 = (_typeNAME << 16) | 0;
@@ -12836,7 +12836,7 @@ namespace LayoutFarm.CefBridge.Auto
     /// Class representing a binary value. Can be used on any process and thread.
     /// /*(source=library)*/
     /// </summary>
-    public struct CefBinaryValueIDisposable
+    public struct CefBinaryValue : IDisposable
     {
         const int _typeNAME = 47;
         const int CefBinaryValue_Release_0 = (_typeNAME << 16) | 0;
@@ -12986,7 +12986,7 @@ namespace LayoutFarm.CefBridge.Auto
     /// Class representing a dictionary value. Can be used on any process and thread.
     /// /*(source=library)*/
     /// </summary>
-    public struct CefDictionaryValueIDisposable
+    public struct CefDictionaryValue : IDisposable
     {
         const int _typeNAME = 48;
         const int CefDictionaryValue_Release_0 = (_typeNAME << 16) | 0;
@@ -13604,7 +13604,7 @@ namespace LayoutFarm.CefBridge.Auto
     /// Class representing a list value. Can be used on any process and thread.
     /// /*(source=library)*/
     /// </summary>
-    public struct CefListValueIDisposable
+    public struct CefListValue : IDisposable
     {
         const int _typeNAME = 49;
         const int CefListValue_Release_0 = (_typeNAME << 16) | 0;
@@ -14181,7 +14181,7 @@ namespace LayoutFarm.CefBridge.Auto
     /// Information about a specific web plugin.
     /// /*(source=library)*/
     /// </summary>
-    public struct CefWebPluginInfoIDisposable
+    public struct CefWebPluginInfo : IDisposable
     {
         const int _typeNAME = 50;
         const int CefWebPluginInfo_Release_0 = (_typeNAME << 16) | 0;
@@ -14269,7 +14269,7 @@ namespace LayoutFarm.CefBridge.Auto
     /// this class will be called on the browser process UI thread.
     /// /*(source=client)*/
     /// </summary>
-    public struct CefWebPluginInfoVisitorIDisposable
+    public struct CefWebPluginInfoVisitor : IDisposable
     {
         const int _typeNAME = 51;
         const int CefWebPluginInfoVisitor_Release_0 = (_typeNAME << 16) | 0;
@@ -14298,7 +14298,7 @@ namespace LayoutFarm.CefBridge.Auto
     /// Class representing the issuer or subject field of an X.509 certificate.
     /// /*(source=library)*/
     /// </summary>
-    public struct CefX509CertPrincipalIDisposable
+    public struct CefX509CertPrincipal : IDisposable
     {
         const int _typeNAME = 52;
         const int CefX509CertPrincipal_Release_0 = (_typeNAME << 16) | 0;
@@ -14477,7 +14477,7 @@ namespace LayoutFarm.CefBridge.Auto
     /// Class representing a X.509 certificate.
     /// /*(source=library)*/
     /// </summary>
-    public struct CefX509CertificateIDisposable
+    public struct CefX509Certificate : IDisposable
     {
         const int _typeNAME = 53;
         const int CefX509Certificate_Release_0 = (_typeNAME << 16) | 0;
@@ -14676,7 +14676,7 @@ namespace LayoutFarm.CefBridge.Auto
     /// the object.
     /// /*(source=library)*/
     /// </summary>
-    public struct CefXmlReaderIDisposable
+    public struct CefXmlReader : IDisposable
     {
         const int _typeNAME = 54;
         const int CefXmlReader_Release_0 = (_typeNAME << 16) | 0;
@@ -15179,7 +15179,7 @@ namespace LayoutFarm.CefBridge.Auto
     /// the object.
     /// /*(source=library)*/
     /// </summary>
-    public struct CefZipReaderIDisposable
+    public struct CefZipReader : IDisposable
     {
         const int _typeNAME = 55;
         const int CefZipReader_Release_0 = (_typeNAME << 16) | 0;
@@ -15415,7 +15415,7 @@ namespace LayoutFarm.CefBridge.Auto
     /// requests.
     /// /*(source=library)*/
     /// </summary>
-    public struct CefAuthCallbackIDisposable
+    public struct CefAuthCallback : IDisposable
     {
         const int _typeNAME = 80;
         const int CefAuthCallback_Release_0 = (_typeNAME << 16) | 0;
@@ -15471,7 +15471,7 @@ namespace LayoutFarm.CefBridge.Auto
     /// class will be called on the browser process UI thread.
     /// /*(source=client)*/
     /// </summary>
-    public struct CefRunFileDialogCallbackIDisposable
+    public struct CefRunFileDialogCallback : IDisposable
     {
         const int _typeNAME = 81;
         const int CefRunFileDialogCallback_Release_0 = (_typeNAME << 16) | 0;
@@ -15493,7 +15493,7 @@ namespace LayoutFarm.CefBridge.Auto
     /// will be called on the browser process UI thread.
     /// /*(source=client)*/
     /// </summary>
-    public struct CefPdfPrintCallbackIDisposable
+    public struct CefPdfPrintCallback : IDisposable
     {
         const int _typeNAME = 82;
         const int CefPdfPrintCallback_Release_0 = (_typeNAME << 16) | 0;
@@ -15515,7 +15515,7 @@ namespace LayoutFarm.CefBridge.Auto
     /// class will be called on the browser process UI thread.
     /// /*(source=client)*/
     /// </summary>
-    public struct CefDownloadImageCallbackIDisposable
+    public struct CefDownloadImageCallback : IDisposable
     {
         const int _typeNAME = 83;
         const int CefDownloadImageCallback_Release_0 = (_typeNAME << 16) | 0;
@@ -15536,7 +15536,7 @@ namespace LayoutFarm.CefBridge.Auto
     /// Generic callback interface used for asynchronous continuation.
     /// /*(source=library)*/
     /// </summary>
-    public struct CefCallbackIDisposable
+    public struct CefCallback : IDisposable
     {
         const int _typeNAME = 84;
         const int CefCallback_Release_0 = (_typeNAME << 16) | 0;
@@ -15584,7 +15584,7 @@ namespace LayoutFarm.CefBridge.Auto
     /// Generic callback interface used for asynchronous completion.
     /// /*(source=client)*/
     /// </summary>
-    public struct CefCompletionCallbackIDisposable
+    public struct CefCompletionCallback : IDisposable
     {
         const int _typeNAME = 85;
         const int CefCompletionCallback_Release_0 = (_typeNAME << 16) | 0;
@@ -15605,7 +15605,7 @@ namespace LayoutFarm.CefBridge.Auto
     /// Callback interface used for continuation of custom context menu display.
     /// /*(source=library)*/
     /// </summary>
-    public struct CefRunContextMenuCallbackIDisposable
+    public struct CefRunContextMenuCallback : IDisposable
     {
         const int _typeNAME = 86;
         const int CefRunContextMenuCallback_Release_0 = (_typeNAME << 16) | 0;
@@ -15659,7 +15659,7 @@ namespace LayoutFarm.CefBridge.Auto
     /// CefCookieManager::SetCookie().
     /// /*(source=client)*/
     /// </summary>
-    public struct CefSetCookieCallbackIDisposable
+    public struct CefSetCookieCallback : IDisposable
     {
         const int _typeNAME = 87;
         const int CefSetCookieCallback_Release_0 = (_typeNAME << 16) | 0;
@@ -15681,7 +15681,7 @@ namespace LayoutFarm.CefBridge.Auto
     /// CefCookieManager::DeleteCookies().
     /// /*(source=client)*/
     /// </summary>
-    public struct CefDeleteCookiesCallbackIDisposable
+    public struct CefDeleteCookiesCallback : IDisposable
     {
         const int _typeNAME = 88;
         const int CefDeleteCookiesCallback_Release_0 = (_typeNAME << 16) | 0;
@@ -15702,7 +15702,7 @@ namespace LayoutFarm.CefBridge.Auto
     /// Callback interface for asynchronous continuation of file dialog requests.
     /// /*(source=library)*/
     /// </summary>
-    public struct CefFileDialogCallbackIDisposable
+    public struct CefFileDialogCallback : IDisposable
     {
         const int _typeNAME = 89;
         const int CefFileDialogCallback_Release_0 = (_typeNAME << 16) | 0;
@@ -15756,7 +15756,7 @@ namespace LayoutFarm.CefBridge.Auto
     /// Callback interface used to asynchronously continue a download.
     /// /*(source=library)*/
     /// </summary>
-    public struct CefBeforeDownloadCallbackIDisposable
+    public struct CefBeforeDownloadCallback : IDisposable
     {
         const int _typeNAME = 90;
         const int CefBeforeDownloadCallback_Release_0 = (_typeNAME << 16) | 0;
@@ -15798,7 +15798,7 @@ namespace LayoutFarm.CefBridge.Auto
     /// Callback interface used to asynchronously cancel a download.
     /// /*(source=library)*/
     /// </summary>
-    public struct CefDownloadItemCallbackIDisposable
+    public struct CefDownloadItemCallback : IDisposable
     {
         const int _typeNAME = 91;
         const int CefDownloadItemCallback_Release_0 = (_typeNAME << 16) | 0;
@@ -15859,7 +15859,7 @@ namespace LayoutFarm.CefBridge.Auto
     /// class will be called on the browser process UI thread.
     /// /*(source=client)*/
     /// </summary>
-    public struct CefGetGeolocationCallbackIDisposable
+    public struct CefGetGeolocationCallback : IDisposable
     {
         const int _typeNAME = 92;
         const int CefGetGeolocationCallback_Release_0 = (_typeNAME << 16) | 0;
@@ -15881,7 +15881,7 @@ namespace LayoutFarm.CefBridge.Auto
     /// permission requests.
     /// /*(source=library)*/
     /// </summary>
-    public struct CefGeolocationCallbackIDisposable
+    public struct CefGeolocationCallback : IDisposable
     {
         const int _typeNAME = 93;
         const int CefGeolocationCallback_Release_0 = (_typeNAME << 16) | 0;
@@ -15920,7 +15920,7 @@ namespace LayoutFarm.CefBridge.Auto
     /// requests.
     /// /*(source=library)*/
     /// </summary>
-    public struct CefJSDialogCallbackIDisposable
+    public struct CefJSDialogCallback : IDisposable
     {
         const int _typeNAME = 94;
         const int CefJSDialogCallback_Release_0 = (_typeNAME << 16) | 0;
@@ -15962,7 +15962,7 @@ namespace LayoutFarm.CefBridge.Auto
     /// Callback interface for asynchronous continuation of print dialog requests.
     /// /*(source=library)*/
     /// </summary>
-    public struct CefPrintDialogCallbackIDisposable
+    public struct CefPrintDialogCallback : IDisposable
     {
         const int _typeNAME = 95;
         const int CefPrintDialogCallback_Release_0 = (_typeNAME << 16) | 0;
@@ -16012,7 +16012,7 @@ namespace LayoutFarm.CefBridge.Auto
     /// Callback interface for asynchronous continuation of print job requests.
     /// /*(source=library)*/
     /// </summary>
-    public struct CefPrintJobCallbackIDisposable
+    public struct CefPrintJobCallback : IDisposable
     {
         const int _typeNAME = 96;
         const int CefPrintJobCallback_Release_0 = (_typeNAME << 16) | 0;
@@ -16048,7 +16048,7 @@ namespace LayoutFarm.CefBridge.Auto
     /// Callback interface for CefRequestContext::ResolveHost.
     /// /*(source=client)*/
     /// </summary>
-    public struct CefResolveCallbackIDisposable
+    public struct CefResolveCallback : IDisposable
     {
         const int _typeNAME = 97;
         const int CefResolveCallback_Release_0 = (_typeNAME << 16) | 0;
@@ -16069,7 +16069,7 @@ namespace LayoutFarm.CefBridge.Auto
     /// Callback interface used for asynchronous continuation of url requests.
     /// /*(source=library)*/
     /// </summary>
-    public struct CefRequestCallbackIDisposable
+    public struct CefRequestCallback : IDisposable
     {
         const int _typeNAME = 98;
         const int CefRequestCallback_Release_0 = (_typeNAME << 16) | 0;
@@ -16119,7 +16119,7 @@ namespace LayoutFarm.CefBridge.Auto
     /// Callback interface used to select a client certificate for authentication.
     /// /*(source=library)*/
     /// </summary>
-    public struct CefSelectClientCertificateCallbackIDisposable
+    public struct CefSelectClientCertificateCallback : IDisposable
     {
         const int _typeNAME = 99;
         const int CefSelectClientCertificateCallback_Release_0 = (_typeNAME << 16) | 0;
@@ -16158,7 +16158,7 @@ namespace LayoutFarm.CefBridge.Auto
     /// The methods of this class will be called on the browser process UI thread.
     /// /*(source=client)*/
     /// </summary>
-    public struct CefEndTracingCallbackIDisposable
+    public struct CefEndTracingCallback : IDisposable
     {
         const int _typeNAME = 100;
         const int CefEndTracingCallback_Release_0 = (_typeNAME << 16) | 0;
@@ -16180,7 +16180,7 @@ namespace LayoutFarm.CefBridge.Auto
     /// of this class will be called on the browser process IO thread.
     /// /*cef(source=client)*/
     /// </summary>
-    public struct CefWebPluginUnstableCallbackIDisposable
+    public struct CefWebPluginUnstableCallback : IDisposable
     {
         const int _typeNAME = 101;
         const int CefWebPluginUnstableCallback_Release_0 = (_typeNAME << 16) | 0;
@@ -16203,7 +16203,7 @@ namespace LayoutFarm.CefBridge.Auto
     /// UI thread.
     /// /*cef(source=client)*/
     /// </summary>
-    public struct CefRegisterCdmCallbackIDisposable
+    public struct CefRegisterCdmCallback : IDisposable
     {
         const int _typeNAME = 102;
         const int CefRegisterCdmCallback_Release_0 = (_typeNAME << 16) | 0;
