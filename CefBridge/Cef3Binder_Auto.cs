@@ -28,36 +28,7 @@ namespace LayoutFarm.CefBridge
         CefBw_NewStringVisitor = 30,
         CefBw_GetCefBrowser = 31,
     }
-    public enum CefFrameCallMsg
-    {
-        CefFrame_Release = 0,
-        CefFrame_IsValid = 1,
-        CefFrame_Undo = 2,
-        CefFrame_Redo = 3,
-        CefFrame_Cut = 4,
-        CefFrame_Copy = 5,
-        CefFrame_Paste = 6,
-        CefFrame_Delete = 7,
-        CefFrame_SelectAll = 8,
-        CefFrame_ViewSource = 9,
-
-        CefFrame_GetSource = 10,
-        CefFrame_GetSource_Ext = 30,
-        CefFrame_GetURL = 11,
-        CefFrame_GetText = 12,
-        CefFrame_LoadRequest = 13,
-        CefFrame_LoadURL = 14,
-        CefFrame_LoadString = 15,
-        CefFrame_ExecuteJavaScript = 16,
-        CefFrame_IsMain = 17,
-        CefFrame_IsFocused = 18,
-        CefFrame_GetName = 19,
-        CefFrame_GetIdentifier = 20,
-        CefFrame_GetParent = 21,
-        CefFrame_GetBrowser = 22,
-        CefFrame_GetV8Context = 23,
-        CefFrame_VisitDOM = 24
-    }
+    
     static partial class Cef3Binder
     {
 
