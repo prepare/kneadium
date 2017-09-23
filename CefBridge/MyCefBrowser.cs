@@ -496,28 +496,7 @@ namespace LayoutFarm.CefBridge
                 });
 
                 myframe.GetSource(visitor2);
-            }
-
-
-            //////
-            ////var myframe = _myCefBw.GetMainFrame();
-            ////myframe.GetText(visitor);
-            //////
-
-            ////JsValue ret;
-            ////JsValue a1 = new JsValue();
-            ////JsValue a2 = new JsValue();
-            ////Cef3Binder.MyCefBwCall2(myCefBrowser,
-            ////    (int)CefBwCallMsg.CefBw_GetMainFrame,
-            ////    out ret, ref a1, ref a2);
-            ////MyCefFrame myframe = new MyCefFrame(ret.Ptr); 
-            ////
-            //myframe.Release();
-            //bw.Release(); 
-            //myCefBw.ContextMainFrame(myframe =>
-            //{
-            //    myframe.GetSource(strCallback);
-            //});
+            } 
         }
         void InternalGetSource(MyCefCallback strCallback)
         {

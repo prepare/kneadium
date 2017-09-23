@@ -26,12 +26,7 @@ namespace LayoutFarm.CefBridge
             Marshal.PtrToStructure(nativeIntPtr, req);
             return req;
         }
-
-        public string GetFrameUrl()
-        {
-            var fr = new NativeFrame(_frame_ptr);
-            return fr.GetUrl();
-        }
+         
         public long GetQueryId()
         {
             return _query_id;
