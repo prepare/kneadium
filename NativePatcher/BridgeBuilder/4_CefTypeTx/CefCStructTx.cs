@@ -5,6 +5,9 @@ namespace BridgeBuilder
 
     class CefCStructTx : CefTypeTx
     {
+
+        static int codeNum;
+
         public CefCStructTx(CodeTypeDeclaration typedecl)
             : base(typedecl)
         {
@@ -15,9 +18,15 @@ namespace BridgeBuilder
         }
         void GenerateCsCode(CefCodeGenOutput output)
         {
-            CodeStringBuilder csCode = new CodeStringBuilder();
+           
+
+            CodeStringBuilder csCode = new CodeStringBuilder(); 
+
             CodeTypeDeclaration typedecl = this.OriginalDecl;
             //-------
+            csCode.AppendLine("//CefCStructTx::GenerateCsCode, "+(++codeNum));
+            //-------
+
             csCode.AppendLine("[StructLayout(LayoutKind.Sequential)]");
             csCode.AppendLine("struct " + typedecl.Name + "{");
 
@@ -26,7 +35,9 @@ namespace BridgeBuilder
             {
                 if (mb.MemberKind == CodeMemberKind.Field)
                 {
-
+                    //-------
+                    csCode.AppendLine("//CefCStructTx::GenerateCsCode-Field, " + (++codeNum));
+                    //-------
                     CodeFieldDeclaration fieldDecl = (CodeFieldDeclaration)mb;
                     //
                     AddComment(fieldDecl.LineComments, csCode);
