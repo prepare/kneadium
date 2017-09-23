@@ -67,156 +67,7 @@ namespace LayoutFarm.CefBridge
         CEF_SETTINGS_LogFile = 18,
         CEF_SETTINGS_LogSeverity = 19,
     }
-
-    public struct MyCefFrame
-    {
-        internal IntPtr nativePtr;
-        internal MyCefFrame(IntPtr nativePtr)
-        {
-            this.nativePtr = nativePtr;
-        }
-
-        public bool IsValid()
-        {
-
-            JsValue a1 = new JsValue();
-            JsValue a2 = new JsValue();
-            JsValue ret;
-            Cef3Binder.MyCefFrameCall2(this.nativePtr,
-            (int)CefFrameCallMsg.CefFrame_IsValid, out ret, ref a1, ref a2);
-            return ret.I32 != 0;
-        }
-        public void Undo()
-        {
-            JsValue a1 = new JsValue();
-            JsValue a2 = new JsValue();
-            JsValue ret;
-            Cef3Binder.MyCefFrameCall2(this.nativePtr,
-            (int)CefFrameCallMsg.CefFrame_Undo, out ret, ref a1, ref a2);
-        }
-        public void Cut()
-        {
-
-            JsValue a1 = new JsValue();
-            JsValue a2 = new JsValue();
-            JsValue ret;
-            Cef3Binder.MyCefFrameCall2(this.nativePtr,
-            (int)CefFrameCallMsg.CefFrame_Cut, out ret, ref a1, ref a2);
-        }
-        //public void GetSource(CefStringVisitor visitor)
-        //{
-
-        //    JsValue a1 = new JsValue();
-        //    JsValue a2 = new JsValue();
-        //    JsValue ret;
-        //    a1.Type = JsValueType.Wrapped;
-        //    a1.Ptr = visitor.nativePtr;
-        //    Cef3Binder.MyCefFrameCall2(this.nativePtr,
-        //    (int)CefFrameCallMsg.CefFrame_GetSource, out ret, ref a1, ref a2);
-        //}
-        public string GetUrl()
-        {
-            JsValue a1 = new JsValue();
-            JsValue a2 = new JsValue();
-            JsValue ret;
-            Cef3Binder.MyCefFrameCall2(this.nativePtr,
-            (int)CefFrameCallMsg.CefFrame_GetURL, out ret, ref a1, ref a2);
-            //
-
-            unsafe
-            {
-                int actualLen;
-                int buffLen = ret.I32; //string len
-                char* buffHead = stackalloc char[buffLen];
-
-                Cef3Binder.MyCefStringHolder_Read(ret.Ptr, buffHead, buffLen, out actualLen);
-                if (actualLen > buffLen)
-                {
-                    //read more
-                }
-                return new string(buffHead, 0, actualLen);
-            }
-        }
-
-        //public void GetSource(MyCefStringVisitor stringVisitor)
-        //{
-        //    JsValue a1 = new JsValue();
-        //    JsValue a2 = new JsValue();
-        //    JsValue ret;
-
-        //    a1.Ptr = stringVisitor.nativePtr;
-        //    Cef3Binder.MyCefFrameCall2(this.nativePtr,
-        //        (int)CefFrameCallMsg.CefFrame_GetSource, out ret, ref a1, ref a2);
-        //}
-        public void GetText(Auto.CefStringVisitor stringVisitor)
-        {
-            JsValue a1 = new JsValue();
-            JsValue a2 = new JsValue();
-            JsValue a3 = new JsValue();
-            JsValue a4 = new JsValue();
-            JsValue a5 = new JsValue();
-            JsValue a6 = new JsValue();
-            JsValue ret;
-
-            a1.Ptr = stringVisitor.nativePtr;
-
-            CefBridge.Auto.CefFrame ff = new Auto.CefFrame(this.nativePtr);
-            ff.GetText(new Auto.CefStringVisitor(stringVisitor.nativePtr));
-
-
-            //Cef3Binder.MyCefMet_CefFrame(this.nativePtr,
-            //  11, out ret, ref a1, ref a2,
-            //   ref a3, ref a4, ref a5, ref a6);
-        }
-        public void GetSource(Auto.CefStringVisitor stringVisitor)
-        {
-            JsValue a1 = new JsValue();
-            JsValue a2 = new JsValue();
-            JsValue a3 = new JsValue();
-            JsValue a4 = new JsValue();
-            JsValue a5 = new JsValue();
-            JsValue a6 = new JsValue();
-            a1.Ptr = stringVisitor.nativePtr;
-            JsValue ret;
-
-            Cef3Binder.MyCefMet_CefFrame(this.nativePtr,
-              10, out ret, ref a1, ref a2,
-               ref a3, ref a4, ref a5, ref a6);
-        }
-
-        public void LoadString(string string_val, string url)
-        {
-            JsValue a1 = new JsValue();
-            JsValue a2 = new JsValue();
-            JsValue ret;
-            //
-            Cef3Binder.MyCefCreateNativeStringHolder(ref a1, string_val);
-            Cef3Binder.MyCefCreateNativeStringHolder(ref a2, url);
-
-            Cef3Binder.MyCefFrameCall2(this.nativePtr,
-            (int)CefFrameCallMsg.CefFrame_LoadString, out ret, ref a1, ref a2);
-
-
-
-
-
-
-
-
-            //need string clean up
-        }
-        public void Release()
-        {
-            JsValue a1 = new JsValue();
-            JsValue a2 = new JsValue();
-            JsValue ret;
-
-            Cef3Binder.MyCefFrameCall2(this.nativePtr,
-                (int)CefFrameCallMsg.CefFrame_Release, out ret, ref a1, ref a2);
-        }
-
-    }
-
+     
     public struct MyCefBw
     {
         internal readonly IntPtr ptr;
@@ -224,7 +75,7 @@ namespace LayoutFarm.CefBridge
         {
             this.ptr = ptr;
         }
-        public MyCefFrame GetMainFrame()
+        public Auto.CefFrame GetMainFrame()
         {
             JsValue ret;
             JsValue a1 = new JsValue();
@@ -233,7 +84,7 @@ namespace LayoutFarm.CefBridge
             Cef3Binder.MyCefBwCall2(ptr,
                 (int)CefBwCallMsg.CefBw_GetMainFrame,
                 out ret, ref a1, ref a2);
-            return new MyCefFrame(ret.Ptr);
+            return new Auto.CefFrame(ret.Ptr);
 
         }
         public Auto.CefStringVisitor NewStringVisitor(MyCefCallback cb)

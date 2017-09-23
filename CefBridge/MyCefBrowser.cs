@@ -414,9 +414,7 @@ namespace LayoutFarm.CefBridge
         public void GetText(Action<string> strCallback)
         {
 
-            MyCefFrame myframe = _myCefBw.GetMainFrame();
-
-            Auto.CefFrame frame1 = new Auto.CefFrame(myframe.nativePtr);
+            var frame1 = _myCefBw.GetMainFrame(); 
             Auto.CefBrowser bw = frame1.GetBrowser();
 
 
@@ -480,9 +478,7 @@ namespace LayoutFarm.CefBridge
         public void LoadText(string text, string url)
         {
 
-            MyCefFrame myframe = _myCefBw.GetMainFrame();
-
-            Auto.CefFrame frame1 = new Auto.CefFrame(myframe.nativePtr);
+            Auto.CefFrame frame1 = _myCefBw.GetMainFrame(); 
             Auto.CefBrowser bw = frame1.GetBrowser();
 
 
@@ -508,7 +504,7 @@ namespace LayoutFarm.CefBridge
 
 
             //
-            MyCefFrame myframe = _myCefBw.GetMainFrame();
+            var myframe = _myCefBw.GetMainFrame();
             myframe.GetText(visitor);
             //
 
