@@ -413,13 +413,7 @@ namespace LayoutFarm.CefBridge
             ////load request
             //myBw->bwWindow->GetBrowser()->GetMainFrame()->LoadRequest(request);
 
-            //delete buffer1;
-
-            
-
-
-
-
+            //delete buffer1; 
             JsValue a0 = new JsValue();
             JsValue a1 = new JsValue();
             JsValue ret;
@@ -459,8 +453,8 @@ namespace LayoutFarm.CefBridge
             using (var bw = _myCefBw.GetBrowser())
             using (var frame1 = bw.GetMainFrame())
             {
-                List<long> idens = new List<long>();
-                bw.GetFrameIdentifiers(idens);
+                //List<long> idens = new List<long>();
+                //bw.GetFrameIdentifiers(idens); //test only
 
                 MyCefCallback visitorCallback = (int methodId, IntPtr nativeArgs) =>
                 {
@@ -511,14 +505,27 @@ namespace LayoutFarm.CefBridge
         }
         public void GetSource2(Action<string> strCallback)
         {
-            //keep alive callback
-            InternalGetSource2((id, nativePtr) =>
+            Auto.CefStringVisitor visitor = Auto.CefStringVisitor.New((id, ptr) =>
             {
-                //INIT_MY_MET_ARGS(metArgs, 1) 
-                //SetCefStringToJsValue2(&vargs[1], string);
-                var args = new NativeCallArgs(nativePtr);
-                strCallback(args.GetArgAsString(1));
+                NativeCallArgs args = new NativeCallArgs(ptr);
+                var text = args.GetArgAsString(1);
             });
+
+            using (var bw = _myCefBw.GetBrowser())
+            using (var myframe = bw.GetMainFrame())
+            {
+                string url = myframe.GetURL();
+                myframe.GetText(visitor);
+
+                Auto.CefStringVisitor visitor2 = Auto.CefStringVisitor.New((id, ptr) =>
+                {
+                    NativeCallArgs args = new NativeCallArgs(ptr);
+                    var text = args.GetArgAsString(1);
+                });
+
+                myframe.GetSource(visitor2);
+            }
+
         }
         public Auto.CefBrowser GetNativeBw()
         {
@@ -532,36 +539,7 @@ namespace LayoutFarm.CefBridge
                 frame1.LoadString(text, url);
             }
         }
-        void InternalGetSource2(MyCefCallback strCallback)
-        {
 
-            
-            Auto.CefStringVisitor visitor = Auto.CefStringVisitor.New((id, ptr) =>
-            {
-                //INIT_MY_MET_ARGS(metArgs, 1) 
-                //SetCefStringToJsValue2(&vargs[1], string);
-
-                NativeCallArgs args = new NativeCallArgs(ptr);
-                var text = args.GetArgAsString(1);
-            });
-
-            using (var bw = _myCefBw.GetBrowser())
-            using (var myframe = bw.GetMainFrame())
-            {
-                string url = myframe.GetURL();
-                myframe.GetText(visitor);
-              
-                Auto.CefStringVisitor visitor2 = Auto.CefStringVisitor.New((id, ptr) =>
-                {
-                    //INIT_MY_MET_ARGS(metArgs, 1) 
-                    //SetCefStringToJsValue2(&vargs[1], string);
-                    NativeCallArgs args = new NativeCallArgs(ptr);
-                    var text = args.GetArgAsString(1);
-                });
-
-                myframe.GetSource(visitor2);
-            }
-        }
         void InternalGetSource(MyCefCallback strCallback)
         {
             //keep alive callback
