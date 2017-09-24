@@ -95,7 +95,14 @@ namespace BridgeBuilder
                 CodeMethodParameter par = pars[i];
 
                 string parTypeName = par.ParameterType.ToString();
-                if (parTypeName.StartsWith("CefRefPtr"))
+                if (parTypeName == "CefRefPtr<CefV8Value>")
+                {
+                    if (par.IsConstPar)
+                    {
+                        stbuilder.Append("const ");
+                    }
+                }
+                else if (parTypeName.StartsWith("CefRefPtr"))
                 {
 
                 }
@@ -305,6 +312,117 @@ namespace BridgeBuilder
 
 
         internal List<MethodPlan> callToDotNetMets;
+
+        public void GenerateCppCodeStatic(
+           List<MethodPlan> staticMethods,
+            CodeTypeDeclaration codeTypeDecl,
+            CodeTypeDeclaration impl,
+            CodeStringBuilder stbuilder)
+        {
+
+            stbuilder.AppendLine("//CppHandleCsMethodRequestCodeGen::GenerateCppCode \r\n");
+            //
+            //create switch table for C#-interop
+            //
+            CodeTypeDeclaration orgDecl = codeTypeDecl;
+            CodeTypeDeclaration implTypeDecl = impl;
+            CodeStringBuilder totalTypeMethod = new CodeStringBuilder();
+
+            int j = staticMethods.Count;
+            //-----------------------------------------------------------------------
+            CodeStringBuilder const_methodNames = new CodeStringBuilder();
+            callToDotNetMets = new List<MethodPlan>();
+            int maxPar = 0;
+            for (int i = 0; i < j; ++i)
+            {
+                MethodPlan metTx = staticMethods[i];
+
+                metTx.CppMethodSwitchCaseName = orgDecl.Name + "_S_" + metTx.Name + "_" + (i + 1);
+                //-----------------
+                CodeMethodDeclaration codeMethodDecl = metTx.metDecl;
+                if (codeMethodDecl.IsAbstract || codeMethodDecl.IsVirtual)
+                {
+                    callToDotNetMets.Add(metTx);
+                }
+                //-----------------
+                if (metTx.pars.Count > maxPar)
+                {
+                    maxPar = metTx.pars.Count;
+                }
+                const_methodNames.AppendLine("const int " + metTx.CppMethodSwitchCaseName + "=" + (i + 1) + ";");
+            }
+
+            totalTypeMethod.AppendLine(const_methodNames.ToString());
+            //-----------------------------------------------------------------------
+            {
+                StringBuilder met_sig = new StringBuilder();
+                met_sig.Append("void MyCefMet_S_" + orgDecl.Name + "(int metName, jsvalue * ret");
+                for (int i = 0; i < maxPar; ++i)
+                {
+                    met_sig.Append(",jsvalue* v" + (i + 1));
+                }
+                met_sig.AppendLine("){");
+                totalTypeMethod.Append(met_sig.ToString());
+            }
+            //-----------------------------------------------------------------------
+            if (implTypeDecl == null)
+            {
+                throw new NotSupportedException();
+            }
+
+            totalTypeMethod.AppendLine("ret->type = JSVALUE_TYPE_EMPTY;");
+            //swicth table is a way that this instance'smethod is called
+            //through the bridge  
+            totalTypeMethod.AppendLine("switch(metName){");
+            totalTypeMethod.AppendLine("case MET_Release:return; //yes, just return");
+
+
+            for (int i = 0; i < j; ++i)
+            {
+                CodeStringBuilder met_stbuilder = new CodeStringBuilder();
+                //create each method,
+                //in our convention we dont generate 
+                MethodPlan metTx = staticMethods[i];
+                met_stbuilder.AppendLine("case " + metTx.CppMethodSwitchCaseName + ":{");
+
+
+
+                //TODO: review here 
+                //in this version we skip 3 methods
+                //1. CefCommandLine_InitFromArgv_4
+                //2. CefV8Value_SetUserData_36
+                //3. CefV8Value_GetUserData_37
+                string caseName = metTx.CppMethodSwitchCaseName;
+                switch (metTx.CppMethodSwitchCaseName)
+                {
+                    case "CefCommandLine_InitFromArgv_4":
+                    case "CefV8Value_SetUserData_36":
+                    case "CefV8Value_GetUserData_37":
+                        {
+                            met_stbuilder.Append("\r\n //SKIP \r\n");
+                        }
+                        break;
+                    default:
+                        {
+                            GenerateCppMethod(staticMethods[i], met_stbuilder);
+                        }
+                        break;
+                }
+
+                met_stbuilder.AppendLine("} break;");
+
+                totalTypeMethod.Append(met_stbuilder.ToString());
+            }
+
+            totalTypeMethod.AppendLine("}"); //end switch table
+                                             //
+
+
+            totalTypeMethod.AppendLine("}");
+            stbuilder.Append(totalTypeMethod.ToString());
+        }
+
+
         public void GenerateCppCode(
             CefTypeTx cefTx,
             CodeTypeDeclaration codeTypeDecl,
@@ -367,11 +485,12 @@ namespace BridgeBuilder
                 met_sig.AppendLine("){");
                 totalTypeMethod.Append(met_sig.ToString());
             }
-
+            //-----------------------------------------------------------------------
             if (implTypeDecl == null)
             {
                 throw new NotSupportedException();
             }
+
             totalTypeMethod.AppendLine("ret->type = JSVALUE_TYPE_EMPTY;");
             ImplWrapDirection implWrapDirection = ImplWrapDirection.None;
             if (implTypeDecl.Name.Contains("CToCpp"))
@@ -462,6 +581,7 @@ namespace BridgeBuilder
 
 
             stbuilder.AppendLine("//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ," + (++autoGenNum));
+
             stbuilder.Append(
                 "\r\n" +
                 "// gen! " + met.ToString() + "\r\n"
@@ -497,22 +617,47 @@ namespace BridgeBuilder
                 arglistBuilder.Append(parTx.ArgExtractCode);
             }
 
-            string instThis = "me";
-            if (ret.IsVoid)
+            if (met.metDecl.IsStatic)
             {
-                //call, no return result
-                stbuilder.Append(instThis + "->" + met.Name + "(");
-                stbuilder.Append(arglistBuilder.ToString());
-                stbuilder.Append(");\r\n");
+                var ownerTypeDeclName = met.metDecl.OwnerTypeDecl.Name;
 
+
+                if (ret.IsVoid)
+                {
+                    //call, no return result
+                    stbuilder.Append(ownerTypeDeclName + "::" + met.Name + "(");
+                    stbuilder.Append(arglistBuilder.ToString());
+                    stbuilder.Append(");\r\n");
+
+                }
+                else
+                {
+                    stbuilder.Append("auto ret_result=");
+                    stbuilder.Append(ownerTypeDeclName + "::" + met.Name + "(");
+                    stbuilder.Append(arglistBuilder.ToString());
+                    stbuilder.Append(");\r\n");
+                }
             }
             else
             {
-                stbuilder.Append("auto ret_result=");
-                stbuilder.Append(instThis + "->" + met.Name + "(");
-                stbuilder.Append(arglistBuilder.ToString());
-                stbuilder.Append(");\r\n");
+                string instThis = "me";
+                if (ret.IsVoid)
+                {
+                    //call, no return result
+                    stbuilder.Append(instThis + "->" + met.Name + "(");
+                    stbuilder.Append(arglistBuilder.ToString());
+                    stbuilder.Append(");\r\n");
+
+                }
+                else
+                {
+                    stbuilder.Append("auto ret_result=");
+                    stbuilder.Append(instThis + "->" + met.Name + "(");
+                    stbuilder.Append(arglistBuilder.ToString());
+                    stbuilder.Append(");\r\n");
+                }
             }
+
 
 
             for (int i = 0; i < parCount; ++i)
@@ -546,7 +691,6 @@ namespace BridgeBuilder
         {
 
             stbuilder.AppendLine("//CppToCsMethodArgsClassGen::GenerateCppMethodArgsClass ," + (++codeGenNum) + " \r\n");
-
 
             //generate cs method pars
             CodeMethodDeclaration metDecl = met.metDecl;
@@ -628,7 +772,12 @@ namespace BridgeBuilder
                 if (parTx.IsConst)
                 {
                     //temp
-                    if (!fieldType.StartsWith("CefRefPtr"))
+                    if (fieldType.StartsWith("CefRefPtr") ||
+                        fieldType == "cef_v8value_t*")
+                    {
+
+                    }
+                    else
                     {
                         stbuilder.Append("const ");
                     }
@@ -698,8 +847,14 @@ namespace BridgeBuilder
                 CodeMethodParameter par = pars[i];
                 MethodParameter parTx = met.pars[i];
                 stbuilder.Append("arg." + parTx.Name + "=");
-                stbuilder.AppendLine(parTx.Name + ";");
-
+                if (field_types[i] == "cef_v8value_t*")
+                {
+                    stbuilder.AppendLine("(cef_v8value_t*)" + parTx.Name + "; ");
+                }
+                else
+                {
+                    stbuilder.AppendLine(parTx.Name + ";");
+                }
                 if (parTx.CppUnwrapType != null)
                 {
                     need_unwrapMethodAndCtor = true;
@@ -709,7 +864,7 @@ namespace BridgeBuilder
 
             //-----------------------------
             //
-            //ctor style 1.2 int to bool 
+            //ctor style 1.2 generate_special_ctor 
             if (generate_special_ctor)
             {
                 stbuilder.Append(className);
@@ -762,7 +917,11 @@ namespace BridgeBuilder
                     MethodParameter parTx = met.pars[i];
                     string fieldType = field_types[i];
                     stbuilder.Append("arg." + parTx.Name + "=");
-                    if (fieldType == "bool")
+                    if (fieldType == "cef_v8value_t*")
+                    {
+                        stbuilder.AppendLine("(cef_v8value_t*)" + parTx.Name + ";");
+                    }
+                    else if (fieldType == "bool")
                     {
                         stbuilder.AppendLine(parTx.Name + "?true:false;");
                     }
@@ -917,10 +1076,11 @@ namespace BridgeBuilder
 
     class CppSwicthTableCodeGen : CppCodeGen
     {
-        public void CreateCppSwitchTable(StringBuilder stbuilder, List<CefInstanceElementTx> instanceClassPlans)
+        public void CreateCppSwitchTableForInstanceMethod(StringBuilder stbuilder, List<CefInstanceElementTx> instanceClassPlans)
         {
             CodeStringBuilder cppStBuilder = new CodeStringBuilder();
             //------
+            cppStBuilder.AppendLine("//CppSwicthTableCodeGen::CreateCppSwitchTableForInstanceMethod");
             cppStBuilder.AppendLine("void MyCefMet_CallN(void* me1, int metName, jsvalue* ret, jsvalue* v1, jsvalue* v2, jsvalue* v3, jsvalue* v4, jsvalue* v5, jsvalue* v6, jsvalue* v7){");
             cppStBuilder.AppendLine(" int cefTypeName = (metName >> 16);");
             cppStBuilder.AppendLine(" switch (cefTypeName)");
@@ -949,5 +1109,45 @@ namespace BridgeBuilder
 
             stbuilder.Append(cppStBuilder.ToString());
         }
+        public void CreateCppSwitchTableForStaticMethod(StringBuilder stbuilder, List<CefInstanceElementTx> instanceClassPlans)
+        {
+            CodeStringBuilder cppStBuilder = new CodeStringBuilder();
+            //------
+            cppStBuilder.AppendLine("//CppSwicthTableCodeGen::CreateCppSwitchTableForStaticMethod");
+            cppStBuilder.AppendLine("void MyCefMet_S_CallN(int metName, jsvalue* ret, jsvalue* v1, jsvalue* v2, jsvalue* v3, jsvalue* v4, jsvalue* v5, jsvalue* v6, jsvalue* v7){");
+            cppStBuilder.AppendLine(" int cefTypeName = (metName >> 16);");
+            cppStBuilder.AppendLine(" switch (cefTypeName)");
+            cppStBuilder.AppendLine(" {");
+            cppStBuilder.AppendLine(" default: break;");
+
+            int j = instanceClassPlans.Count;
+
+            for (int i = 0; i < j; ++i)
+            {
+                CefInstanceElementTx instanceClassPlan = instanceClassPlans[i];
+                if (instanceClassPlan.staticMethods == null) continue;
+                //----------------------
+
+                cppStBuilder.AppendLine("case " + "CefTypeName_" + instanceClassPlan.OriginalDecl.Name + ":");
+                cppStBuilder.AppendLine("{");
+                cppStBuilder.AppendLine("MyCefMet_S_" + instanceClassPlan.OriginalDecl.Name + "(metName & 0xffff,ret");
+
+
+                int maxStaticParCount = instanceClassPlan.max_staticMethodParCount;
+                for (int m = 0; m < maxStaticParCount; ++m)
+                {
+                    cppStBuilder.Append(",v" + (m + 1));
+                }
+
+                cppStBuilder.AppendLine(");");
+                cppStBuilder.AppendLine("break;");
+                cppStBuilder.AppendLine("}");
+            }
+            cppStBuilder.AppendLine("}");
+            cppStBuilder.AppendLine("}");
+
+            stbuilder.Append(cppStBuilder.ToString());
+        }
+
     }
 }

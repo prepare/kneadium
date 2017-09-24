@@ -43,7 +43,6 @@
     <Compile Include="CefListeners.cs" />
     <Compile Include="CefStartArgs.cs" />
     <Compile Include="ClientApp.cs" />
-    <Compile Include="CustomSchemeAgent.cs" />
     <Compile Include="MyCefBrowser.cs" />
     <Compile Include="MyCefDevWindow.cs" />
     <Compile Include="NativeCallArgs.cs" />

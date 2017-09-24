@@ -874,6 +874,39 @@ void MyCefMet_CefBrowserHost(cef_browser_host_t* me1, int metName, jsvalue* ret,
 	}
 	CefBrowserHostCToCpp::Unwrap(me);
 }
+//CppHandleCsMethodRequestCodeGen::GenerateCppCode 
+
+const int CefBrowserHost_S_CreateBrowser_1 = 1;
+const int CefBrowserHost_S_CreateBrowserSync_2 = 2;
+
+void MyCefMet_S_CefBrowserHost(int metName, jsvalue * ret, jsvalue* v1, jsvalue* v2, jsvalue* v3, jsvalue* v4, jsvalue* v5) {
+	ret->type = JSVALUE_TYPE_EMPTY;
+	switch (metName) {
+	case MET_Release:return; //yes, just return
+	case CefBrowserHost_S_CreateBrowser_1: {
+		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,80
+
+		// gen! bool CreateBrowser(const CefWindowInfo& windowInfo,CefRefPtr<CefClient> client,const CefString& url,const CefBrowserSettings& settings,CefRefPtr<CefRequestContext> request_context)
+		auto ret_result = CefBrowserHost::CreateBrowser(*((CefWindowInfo*)v1->ptr),
+			CefClientCppToC::Unwrap((cef_client_t*)v2->ptr),
+			GetStringHolder(v3)->value,
+			*((CefBrowserSettings*)v4->ptr),
+			CefRequestContextCToCpp::Wrap((cef_request_context_t*)v5->ptr));
+		MyCefSetBool(ret, ret_result);
+	} break;
+	case CefBrowserHost_S_CreateBrowserSync_2: {
+		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,81
+
+		// gen! CefRefPtr<CefBrowser> CreateBrowserSync(const CefWindowInfo& windowInfo,CefRefPtr<CefClient> client,const CefString& url,const CefBrowserSettings& settings,CefRefPtr<CefRequestContext> request_context)
+		auto ret_result = CefBrowserHost::CreateBrowserSync(*((CefWindowInfo*)v1->ptr),
+			CefClientCppToC::Unwrap((cef_client_t*)v2->ptr),
+			GetStringHolder(v3)->value,
+			*((CefBrowserSettings*)v4->ptr),
+			CefRequestContextCToCpp::Wrap((cef_request_context_t*)v5->ptr));
+		MyCefSetVoidPtr(ret, CefBrowserCToCpp::Unwrap(ret_result));
+	} break;
+	}
+}
 
 
 // [virtual] class CefClient
@@ -901,105 +934,105 @@ void MyCefMet_CefClient(cef_client_t* me1, int metName, jsvalue* ret, jsvalue* v
 	switch (metName) {
 	case MET_Release:return; //yes, just return
 	case CefClient_GetContextMenuHandler_1: {
-		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,80
+		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,82
 
 		// gen! CefRefPtr<CefContextMenuHandler> GetContextMenuHandler()
 		auto ret_result = me->GetContextMenuHandler();
 		MyCefSetVoidPtr(ret, CefContextMenuHandlerCppToC::Wrap(ret_result));
 	} break;
 	case CefClient_GetDialogHandler_2: {
-		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,81
+		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,83
 
 		// gen! CefRefPtr<CefDialogHandler> GetDialogHandler()
 		auto ret_result = me->GetDialogHandler();
 		MyCefSetVoidPtr(ret, CefDialogHandlerCppToC::Wrap(ret_result));
 	} break;
 	case CefClient_GetDisplayHandler_3: {
-		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,82
+		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,84
 
 		// gen! CefRefPtr<CefDisplayHandler> GetDisplayHandler()
 		auto ret_result = me->GetDisplayHandler();
 		MyCefSetVoidPtr(ret, CefDisplayHandlerCppToC::Wrap(ret_result));
 	} break;
 	case CefClient_GetDownloadHandler_4: {
-		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,83
+		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,85
 
 		// gen! CefRefPtr<CefDownloadHandler> GetDownloadHandler()
 		auto ret_result = me->GetDownloadHandler();
 		MyCefSetVoidPtr(ret, CefDownloadHandlerCppToC::Wrap(ret_result));
 	} break;
 	case CefClient_GetDragHandler_5: {
-		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,84
+		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,86
 
 		// gen! CefRefPtr<CefDragHandler> GetDragHandler()
 		auto ret_result = me->GetDragHandler();
 		MyCefSetVoidPtr(ret, CefDragHandlerCppToC::Wrap(ret_result));
 	} break;
 	case CefClient_GetFindHandler_6: {
-		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,85
+		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,87
 
 		// gen! CefRefPtr<CefFindHandler> GetFindHandler()
 		auto ret_result = me->GetFindHandler();
 		MyCefSetVoidPtr(ret, CefFindHandlerCppToC::Wrap(ret_result));
 	} break;
 	case CefClient_GetFocusHandler_7: {
-		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,86
+		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,88
 
 		// gen! CefRefPtr<CefFocusHandler> GetFocusHandler()
 		auto ret_result = me->GetFocusHandler();
 		MyCefSetVoidPtr(ret, CefFocusHandlerCppToC::Wrap(ret_result));
 	} break;
 	case CefClient_GetGeolocationHandler_8: {
-		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,87
+		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,89
 
 		// gen! CefRefPtr<CefGeolocationHandler> GetGeolocationHandler()
 		auto ret_result = me->GetGeolocationHandler();
 		MyCefSetVoidPtr(ret, CefGeolocationHandlerCppToC::Wrap(ret_result));
 	} break;
 	case CefClient_GetJSDialogHandler_9: {
-		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,88
+		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,90
 
 		// gen! CefRefPtr<CefJSDialogHandler> GetJSDialogHandler()
 		auto ret_result = me->GetJSDialogHandler();
 		MyCefSetVoidPtr(ret, CefJSDialogHandlerCppToC::Wrap(ret_result));
 	} break;
 	case CefClient_GetKeyboardHandler_10: {
-		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,89
+		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,91
 
 		// gen! CefRefPtr<CefKeyboardHandler> GetKeyboardHandler()
 		auto ret_result = me->GetKeyboardHandler();
 		MyCefSetVoidPtr(ret, CefKeyboardHandlerCppToC::Wrap(ret_result));
 	} break;
 	case CefClient_GetLifeSpanHandler_11: {
-		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,90
+		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,92
 
 		// gen! CefRefPtr<CefLifeSpanHandler> GetLifeSpanHandler()
 		auto ret_result = me->GetLifeSpanHandler();
 		MyCefSetVoidPtr(ret, CefLifeSpanHandlerCppToC::Wrap(ret_result));
 	} break;
 	case CefClient_GetLoadHandler_12: {
-		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,91
+		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,93
 
 		// gen! CefRefPtr<CefLoadHandler> GetLoadHandler()
 		auto ret_result = me->GetLoadHandler();
 		MyCefSetVoidPtr(ret, CefLoadHandlerCppToC::Wrap(ret_result));
 	} break;
 	case CefClient_GetRenderHandler_13: {
-		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,92
+		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,94
 
 		// gen! CefRefPtr<CefRenderHandler> GetRenderHandler()
 		auto ret_result = me->GetRenderHandler();
 		MyCefSetVoidPtr(ret, CefRenderHandlerCppToC::Wrap(ret_result));
 	} break;
 	case CefClient_GetRequestHandler_14: {
-		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,93
+		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,95
 
 		// gen! CefRefPtr<CefRequestHandler> GetRequestHandler()
 		auto ret_result = me->GetRequestHandler();
 		MyCefSetVoidPtr(ret, CefRequestHandlerCppToC::Wrap(ret_result));
 	} break;
 	case CefClient_OnProcessMessageReceived_15: {
-		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,94
+		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,96
 
 		// gen! bool OnProcessMessageReceived(CefRefPtr<CefBrowser> browser,CefProcessId source_process,CefRefPtr<CefProcessMessage> message)
 		auto ret_result = me->OnProcessMessageReceived(CefBrowserCToCpp::Wrap((cef_browser_t*)v1->ptr),
@@ -1218,21 +1251,21 @@ void MyCefMet_CefCommandLine(cef_command_line_t* me1, int metName, jsvalue* ret,
 	switch (metName) {
 	case MET_Release:return; //yes, just return
 	case CefCommandLine_IsValid_1: {
-		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,95
+		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,97
 
 		// gen! bool IsValid()
 		auto ret_result = me->IsValid();
 		MyCefSetBool(ret, ret_result);
 	} break;
 	case CefCommandLine_IsReadOnly_2: {
-		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,96
+		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,98
 
 		// gen! bool IsReadOnly()
 		auto ret_result = me->IsReadOnly();
 		MyCefSetBool(ret, ret_result);
 	} break;
 	case CefCommandLine_Copy_3: {
-		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,97
+		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,99
 
 		// gen! CefRefPtr<CefCommandLine> Copy()
 		auto ret_result = me->Copy();
@@ -1243,84 +1276,84 @@ void MyCefMet_CefCommandLine(cef_command_line_t* me1, int metName, jsvalue* ret,
 		//SKIP 
 	} break;
 	case CefCommandLine_InitFromString_5: {
-		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,98
+		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,100
 
 		// gen! void InitFromString(const CefString& command_line)
 		me->InitFromString(GetStringHolder(v1)->value);
 
 	} break;
 	case CefCommandLine_Reset_6: {
-		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,99
+		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,101
 
 		// gen! void Reset()
 		me->Reset();
 
 	} break;
 	case CefCommandLine_GetArgv_7: {
-		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,100
+		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,102
 
 		// gen! void GetArgv(std::vector<CefString>& argv)
 		me->GetArgv(*((std::vector<CefString>*)v1->ptr));
 
 	} break;
 	case CefCommandLine_GetCommandLineString_8: {
-		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,101
+		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,103
 
 		// gen! CefString GetCommandLineString()
 		auto ret_result = me->GetCommandLineString();
 		SetCefStringToJsValue(ret, ret_result);
 	} break;
 	case CefCommandLine_GetProgram_9: {
-		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,102
+		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,104
 
 		// gen! CefString GetProgram()
 		auto ret_result = me->GetProgram();
 		SetCefStringToJsValue(ret, ret_result);
 	} break;
 	case CefCommandLine_SetProgram_10: {
-		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,103
+		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,105
 
 		// gen! void SetProgram(const CefString& program)
 		me->SetProgram(GetStringHolder(v1)->value);
 
 	} break;
 	case CefCommandLine_HasSwitches_11: {
-		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,104
+		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,106
 
 		// gen! bool HasSwitches()
 		auto ret_result = me->HasSwitches();
 		MyCefSetBool(ret, ret_result);
 	} break;
 	case CefCommandLine_HasSwitch_12: {
-		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,105
+		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,107
 
 		// gen! bool HasSwitch(const CefString& name)
 		auto ret_result = me->HasSwitch(GetStringHolder(v1)->value);
 		MyCefSetBool(ret, ret_result);
 	} break;
 	case CefCommandLine_GetSwitchValue_13: {
-		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,106
+		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,108
 
 		// gen! CefString GetSwitchValue(const CefString& name)
 		auto ret_result = me->GetSwitchValue(GetStringHolder(v1)->value);
 		SetCefStringToJsValue(ret, ret_result);
 	} break;
 	case CefCommandLine_GetSwitches_14: {
-		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,107
+		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,109
 
 		// gen! void GetSwitches(SwitchMap& switches)
 		me->GetSwitches(*((CefCommandLine::SwitchMap*)v1->ptr));
 
 	} break;
 	case CefCommandLine_AppendSwitch_15: {
-		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,108
+		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,110
 
 		// gen! void AppendSwitch(const CefString& name)
 		me->AppendSwitch(GetStringHolder(v1)->value);
 
 	} break;
 	case CefCommandLine_AppendSwitchWithValue_16: {
-		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,109
+		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,111
 
 		// gen! void AppendSwitchWithValue(const CefString& name,const CefString& value)
 		me->AppendSwitchWithValue(GetStringHolder(v1)->value,
@@ -1328,28 +1361,28 @@ void MyCefMet_CefCommandLine(cef_command_line_t* me1, int metName, jsvalue* ret,
 
 	} break;
 	case CefCommandLine_HasArguments_17: {
-		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,110
+		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,112
 
 		// gen! bool HasArguments()
 		auto ret_result = me->HasArguments();
 		MyCefSetBool(ret, ret_result);
 	} break;
 	case CefCommandLine_GetArguments_18: {
-		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,111
+		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,113
 
 		// gen! void GetArguments(ArgumentList& arguments)
 		me->GetArguments(*((CefCommandLine::ArgumentList*)v1->ptr));
 
 	} break;
 	case CefCommandLine_AppendArgument_19: {
-		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,112
+		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,114
 
 		// gen! void AppendArgument(const CefString& argument)
 		me->AppendArgument(GetStringHolder(v1)->value);
 
 	} break;
 	case CefCommandLine_PrependWrapper_20: {
-		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,113
+		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,115
 
 		// gen! void PrependWrapper(const CefString& wrapper)
 		me->PrependWrapper(GetStringHolder(v1)->value);
@@ -1357,6 +1390,31 @@ void MyCefMet_CefCommandLine(cef_command_line_t* me1, int metName, jsvalue* ret,
 	} break;
 	}
 	CefCommandLineCToCpp::Unwrap(me);
+}
+//CppHandleCsMethodRequestCodeGen::GenerateCppCode 
+
+const int CefCommandLine_S_CreateCommandLine_1 = 1;
+const int CefCommandLine_S_GetGlobalCommandLine_2 = 2;
+
+void MyCefMet_S_CefCommandLine(int metName, jsvalue * ret) {
+	ret->type = JSVALUE_TYPE_EMPTY;
+	switch (metName) {
+	case MET_Release:return; //yes, just return
+	case CefCommandLine_S_CreateCommandLine_1: {
+		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,116
+
+		// gen! CefRefPtr<CefCommandLine> CreateCommandLine()
+		auto ret_result = CefCommandLine::CreateCommandLine();
+		MyCefSetVoidPtr(ret, CefCommandLineCToCpp::Unwrap(ret_result));
+	} break;
+	case CefCommandLine_S_GetGlobalCommandLine_2: {
+		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,117
+
+		// gen! CefRefPtr<CefCommandLine> GetGlobalCommandLine()
+		auto ret_result = CefCommandLine::GetGlobalCommandLine();
+		MyCefSetVoidPtr(ret, CefCommandLineCToCpp::Unwrap(ret_result));
+	} break;
+	}
 }
 
 
@@ -1391,147 +1449,147 @@ void MyCefMet_CefContextMenuParams(cef_context_menu_params_t* me1, int metName, 
 	switch (metName) {
 	case MET_Release:return; //yes, just return
 	case CefContextMenuParams_GetXCoord_1: {
-		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,114
+		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,118
 
 		// gen! int GetXCoord()
 		auto ret_result = me->GetXCoord();
 		MyCefSetInt32(ret, (int32_t)ret_result);
 	} break;
 	case CefContextMenuParams_GetYCoord_2: {
-		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,115
+		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,119
 
 		// gen! int GetYCoord()
 		auto ret_result = me->GetYCoord();
 		MyCefSetInt32(ret, (int32_t)ret_result);
 	} break;
 	case CefContextMenuParams_GetTypeFlags_3: {
-		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,116
+		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,120
 
 		// gen! TypeFlags GetTypeFlags()
 		auto ret_result = me->GetTypeFlags();
 		MyCefSetInt32(ret, (int32_t)ret_result);
 	} break;
 	case CefContextMenuParams_GetLinkUrl_4: {
-		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,117
+		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,121
 
 		// gen! CefString GetLinkUrl()
 		auto ret_result = me->GetLinkUrl();
 		SetCefStringToJsValue(ret, ret_result);
 	} break;
 	case CefContextMenuParams_GetUnfilteredLinkUrl_5: {
-		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,118
+		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,122
 
 		// gen! CefString GetUnfilteredLinkUrl()
 		auto ret_result = me->GetUnfilteredLinkUrl();
 		SetCefStringToJsValue(ret, ret_result);
 	} break;
 	case CefContextMenuParams_GetSourceUrl_6: {
-		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,119
+		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,123
 
 		// gen! CefString GetSourceUrl()
 		auto ret_result = me->GetSourceUrl();
 		SetCefStringToJsValue(ret, ret_result);
 	} break;
 	case CefContextMenuParams_HasImageContents_7: {
-		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,120
+		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,124
 
 		// gen! bool HasImageContents()
 		auto ret_result = me->HasImageContents();
 		MyCefSetBool(ret, ret_result);
 	} break;
 	case CefContextMenuParams_GetTitleText_8: {
-		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,121
+		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,125
 
 		// gen! CefString GetTitleText()
 		auto ret_result = me->GetTitleText();
 		SetCefStringToJsValue(ret, ret_result);
 	} break;
 	case CefContextMenuParams_GetPageUrl_9: {
-		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,122
+		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,126
 
 		// gen! CefString GetPageUrl()
 		auto ret_result = me->GetPageUrl();
 		SetCefStringToJsValue(ret, ret_result);
 	} break;
 	case CefContextMenuParams_GetFrameUrl_10: {
-		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,123
+		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,127
 
 		// gen! CefString GetFrameUrl()
 		auto ret_result = me->GetFrameUrl();
 		SetCefStringToJsValue(ret, ret_result);
 	} break;
 	case CefContextMenuParams_GetFrameCharset_11: {
-		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,124
+		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,128
 
 		// gen! CefString GetFrameCharset()
 		auto ret_result = me->GetFrameCharset();
 		SetCefStringToJsValue(ret, ret_result);
 	} break;
 	case CefContextMenuParams_GetMediaType_12: {
-		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,125
+		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,129
 
 		// gen! MediaType GetMediaType()
 		auto ret_result = me->GetMediaType();
 		MyCefSetInt32(ret, (int32_t)ret_result);
 	} break;
 	case CefContextMenuParams_GetMediaStateFlags_13: {
-		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,126
+		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,130
 
 		// gen! MediaStateFlags GetMediaStateFlags()
 		auto ret_result = me->GetMediaStateFlags();
 		MyCefSetInt32(ret, (int32_t)ret_result);
 	} break;
 	case CefContextMenuParams_GetSelectionText_14: {
-		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,127
+		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,131
 
 		// gen! CefString GetSelectionText()
 		auto ret_result = me->GetSelectionText();
 		SetCefStringToJsValue(ret, ret_result);
 	} break;
 	case CefContextMenuParams_GetMisspelledWord_15: {
-		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,128
+		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,132
 
 		// gen! CefString GetMisspelledWord()
 		auto ret_result = me->GetMisspelledWord();
 		SetCefStringToJsValue(ret, ret_result);
 	} break;
 	case CefContextMenuParams_GetDictionarySuggestions_16: {
-		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,129
+		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,133
 
 		// gen! bool GetDictionarySuggestions(std::vector<CefString>& suggestions)
 		auto ret_result = me->GetDictionarySuggestions(*((std::vector<CefString>*)v1->ptr));
 		MyCefSetBool(ret, ret_result);
 	} break;
 	case CefContextMenuParams_IsEditable_17: {
-		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,130
+		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,134
 
 		// gen! bool IsEditable()
 		auto ret_result = me->IsEditable();
 		MyCefSetBool(ret, ret_result);
 	} break;
 	case CefContextMenuParams_IsSpellCheckEnabled_18: {
-		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,131
+		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,135
 
 		// gen! bool IsSpellCheckEnabled()
 		auto ret_result = me->IsSpellCheckEnabled();
 		MyCefSetBool(ret, ret_result);
 	} break;
 	case CefContextMenuParams_GetEditStateFlags_19: {
-		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,132
+		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,136
 
 		// gen! EditStateFlags GetEditStateFlags()
 		auto ret_result = me->GetEditStateFlags();
 		MyCefSetInt32(ret, (int32_t)ret_result);
 	} break;
 	case CefContextMenuParams_IsCustomMenu_20: {
-		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,133
+		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,137
 
 		// gen! bool IsCustomMenu()
 		auto ret_result = me->IsCustomMenu();
 		MyCefSetBool(ret, ret_result);
 	} break;
 	case CefContextMenuParams_IsPepperMenu_21: {
-		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,134
+		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,138
 
 		// gen! bool IsPepperMenu()
 		auto ret_result = me->IsPepperMenu();
@@ -1559,7 +1617,7 @@ void MyCefMet_CefCookieManager(cef_cookie_manager_t* me1, int metName, jsvalue* 
 	switch (metName) {
 	case MET_Release:return; //yes, just return
 	case CefCookieManager_SetSupportedSchemes_1: {
-		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,135
+		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,139
 
 		// gen! void SetSupportedSchemes(const std::vector<CefString>& schemes,CefRefPtr<CefCompletionCallback> callback)
 		me->SetSupportedSchemes(*((std::vector<CefString>*)v1->ptr),
@@ -1567,14 +1625,14 @@ void MyCefMet_CefCookieManager(cef_cookie_manager_t* me1, int metName, jsvalue* 
 
 	} break;
 	case CefCookieManager_VisitAllCookies_2: {
-		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,136
+		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,140
 
 		// gen! bool VisitAllCookies(CefRefPtr<CefCookieVisitor> visitor)
 		auto ret_result = me->VisitAllCookies(CefCookieVisitorCppToC::Unwrap((cef_cookie_visitor_t*)v1->ptr));
 		MyCefSetBool(ret, ret_result);
 	} break;
 	case CefCookieManager_VisitUrlCookies_3: {
-		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,137
+		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,141
 
 		// gen! bool VisitUrlCookies(const CefString& url,bool includeHttpOnly,CefRefPtr<CefCookieVisitor> visitor)
 		auto ret_result = me->VisitUrlCookies(GetStringHolder(v1)->value,
@@ -1583,7 +1641,7 @@ void MyCefMet_CefCookieManager(cef_cookie_manager_t* me1, int metName, jsvalue* 
 		MyCefSetBool(ret, ret_result);
 	} break;
 	case CefCookieManager_SetCookie_4: {
-		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,138
+		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,142
 
 		// gen! bool SetCookie(const CefString& url,const CefCookie& cookie,CefRefPtr<CefSetCookieCallback> callback)
 		auto ret_result = me->SetCookie(GetStringHolder(v1)->value,
@@ -1592,7 +1650,7 @@ void MyCefMet_CefCookieManager(cef_cookie_manager_t* me1, int metName, jsvalue* 
 		MyCefSetBool(ret, ret_result);
 	} break;
 	case CefCookieManager_DeleteCookies_5: {
-		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,139
+		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,143
 
 		// gen! bool DeleteCookies(const CefString& url,const CefString& cookie_name,CefRefPtr<CefDeleteCookiesCallback> callback)
 		auto ret_result = me->DeleteCookies(GetStringHolder(v1)->value,
@@ -1601,7 +1659,7 @@ void MyCefMet_CefCookieManager(cef_cookie_manager_t* me1, int metName, jsvalue* 
 		MyCefSetBool(ret, ret_result);
 	} break;
 	case CefCookieManager_SetStoragePath_6: {
-		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,140
+		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,144
 
 		// gen! bool SetStoragePath(const CefString& path,bool persist_session_cookies,CefRefPtr<CefCompletionCallback> callback)
 		auto ret_result = me->SetStoragePath(GetStringHolder(v1)->value,
@@ -1610,7 +1668,7 @@ void MyCefMet_CefCookieManager(cef_cookie_manager_t* me1, int metName, jsvalue* 
 		MyCefSetBool(ret, ret_result);
 	} break;
 	case CefCookieManager_FlushStore_7: {
-		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,141
+		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,145
 
 		// gen! bool FlushStore(CefRefPtr<CefCompletionCallback> callback)
 		auto ret_result = me->FlushStore(CefCompletionCallbackCppToC::Unwrap((cef_completion_callback_t*)v1->ptr));
@@ -1618,6 +1676,33 @@ void MyCefMet_CefCookieManager(cef_cookie_manager_t* me1, int metName, jsvalue* 
 	} break;
 	}
 	CefCookieManagerCToCpp::Unwrap(me);
+}
+//CppHandleCsMethodRequestCodeGen::GenerateCppCode 
+
+const int CefCookieManager_S_GetGlobalManager_1 = 1;
+const int CefCookieManager_S_CreateManager_2 = 2;
+
+void MyCefMet_S_CefCookieManager(int metName, jsvalue * ret, jsvalue* v1, jsvalue* v2, jsvalue* v3) {
+	ret->type = JSVALUE_TYPE_EMPTY;
+	switch (metName) {
+	case MET_Release:return; //yes, just return
+	case CefCookieManager_S_GetGlobalManager_1: {
+		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,146
+
+		// gen! CefRefPtr<CefCookieManager> GetGlobalManager(CefRefPtr<CefCompletionCallback> callback)
+		auto ret_result = CefCookieManager::GetGlobalManager(CefCompletionCallbackCppToC::Unwrap((cef_completion_callback_t*)v1->ptr));
+		MyCefSetVoidPtr(ret, CefCookieManagerCToCpp::Unwrap(ret_result));
+	} break;
+	case CefCookieManager_S_CreateManager_2: {
+		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,147
+
+		// gen! CefRefPtr<CefCookieManager> CreateManager(const CefString& path,bool persist_session_cookies,CefRefPtr<CefCompletionCallback> callback)
+		auto ret_result = CefCookieManager::CreateManager(GetStringHolder(v1)->value,
+			v2->i32 != 0,
+			CefCompletionCallbackCppToC::Unwrap((cef_completion_callback_t*)v3->ptr));
+		MyCefSetVoidPtr(ret, CefCookieManagerCToCpp::Unwrap(ret_result));
+	} break;
+	}
 }
 
 
@@ -1632,7 +1717,7 @@ void MyCefMet_CefCookieVisitor(cef_cookie_visitor_t* me1, int metName, jsvalue* 
 	switch (metName) {
 	case MET_Release:return; //yes, just return
 	case CefCookieVisitor_Visit_1: {
-		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,142
+		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,148
 
 		// gen! bool Visit(const CefCookie& cookie,int count,int total,bool& deleteCookie)
 		auto ret_result = me->Visit(*((CefCookie*)v1->ptr),
@@ -1679,7 +1764,7 @@ void MyCefMet_CefDOMVisitor(cef_domvisitor_t* me1, int metName, jsvalue* ret, js
 	switch (metName) {
 	case MET_Release:return; //yes, just return
 	case CefDOMVisitor_Visit_1: {
-		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,143
+		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,149
 
 		// gen! void Visit(CefRefPtr<CefDOMDocument> document)
 		me->Visit(CefDOMDocumentCToCpp::Wrap((cef_domdocument_t*)v1->ptr));
@@ -1734,98 +1819,98 @@ void MyCefMet_CefDOMDocument(cef_domdocument_t* me1, int metName, jsvalue* ret, 
 	switch (metName) {
 	case MET_Release:return; //yes, just return
 	case CefDOMDocument_GetType_1: {
-		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,144
+		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,150
 
 		// gen! Type GetType()
 		auto ret_result = me->GetType();
 		MyCefSetInt32(ret, (int32_t)ret_result);
 	} break;
 	case CefDOMDocument_GetDocument_2: {
-		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,145
+		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,151
 
 		// gen! CefRefPtr<CefDOMNode> GetDocument()
 		auto ret_result = me->GetDocument();
 		MyCefSetVoidPtr(ret, CefDOMNodeCToCpp::Unwrap(ret_result));
 	} break;
 	case CefDOMDocument_GetBody_3: {
-		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,146
+		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,152
 
 		// gen! CefRefPtr<CefDOMNode> GetBody()
 		auto ret_result = me->GetBody();
 		MyCefSetVoidPtr(ret, CefDOMNodeCToCpp::Unwrap(ret_result));
 	} break;
 	case CefDOMDocument_GetHead_4: {
-		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,147
+		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,153
 
 		// gen! CefRefPtr<CefDOMNode> GetHead()
 		auto ret_result = me->GetHead();
 		MyCefSetVoidPtr(ret, CefDOMNodeCToCpp::Unwrap(ret_result));
 	} break;
 	case CefDOMDocument_GetTitle_5: {
-		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,148
+		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,154
 
 		// gen! CefString GetTitle()
 		auto ret_result = me->GetTitle();
 		SetCefStringToJsValue(ret, ret_result);
 	} break;
 	case CefDOMDocument_GetElementById_6: {
-		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,149
+		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,155
 
 		// gen! CefRefPtr<CefDOMNode> GetElementById(const CefString& id)
 		auto ret_result = me->GetElementById(GetStringHolder(v1)->value);
 		MyCefSetVoidPtr(ret, CefDOMNodeCToCpp::Unwrap(ret_result));
 	} break;
 	case CefDOMDocument_GetFocusedNode_7: {
-		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,150
+		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,156
 
 		// gen! CefRefPtr<CefDOMNode> GetFocusedNode()
 		auto ret_result = me->GetFocusedNode();
 		MyCefSetVoidPtr(ret, CefDOMNodeCToCpp::Unwrap(ret_result));
 	} break;
 	case CefDOMDocument_HasSelection_8: {
-		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,151
+		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,157
 
 		// gen! bool HasSelection()
 		auto ret_result = me->HasSelection();
 		MyCefSetBool(ret, ret_result);
 	} break;
 	case CefDOMDocument_GetSelectionStartOffset_9: {
-		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,152
+		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,158
 
 		// gen! int GetSelectionStartOffset()
 		auto ret_result = me->GetSelectionStartOffset();
 		MyCefSetInt32(ret, (int32_t)ret_result);
 	} break;
 	case CefDOMDocument_GetSelectionEndOffset_10: {
-		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,153
+		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,159
 
 		// gen! int GetSelectionEndOffset()
 		auto ret_result = me->GetSelectionEndOffset();
 		MyCefSetInt32(ret, (int32_t)ret_result);
 	} break;
 	case CefDOMDocument_GetSelectionAsMarkup_11: {
-		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,154
+		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,160
 
 		// gen! CefString GetSelectionAsMarkup()
 		auto ret_result = me->GetSelectionAsMarkup();
 		SetCefStringToJsValue(ret, ret_result);
 	} break;
 	case CefDOMDocument_GetSelectionAsText_12: {
-		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,155
+		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,161
 
 		// gen! CefString GetSelectionAsText()
 		auto ret_result = me->GetSelectionAsText();
 		SetCefStringToJsValue(ret, ret_result);
 	} break;
 	case CefDOMDocument_GetBaseURL_13: {
-		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,156
+		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,162
 
 		// gen! CefString GetBaseURL()
 		auto ret_result = me->GetBaseURL();
 		SetCefStringToJsValue(ret, ret_result);
 	} break;
 	case CefDOMDocument_GetCompleteURL_14: {
-		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,157
+		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,163
 
 		// gen! CefString GetCompleteURL(const CefString& partialURL)
 		auto ret_result = me->GetCompleteURL(GetStringHolder(v1)->value);
@@ -1872,168 +1957,168 @@ void MyCefMet_CefDOMNode(cef_domnode_t* me1, int metName, jsvalue* ret, jsvalue*
 	switch (metName) {
 	case MET_Release:return; //yes, just return
 	case CefDOMNode_GetType_1: {
-		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,158
+		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,164
 
 		// gen! Type GetType()
 		auto ret_result = me->GetType();
 		MyCefSetInt32(ret, (int32_t)ret_result);
 	} break;
 	case CefDOMNode_IsText_2: {
-		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,159
+		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,165
 
 		// gen! bool IsText()
 		auto ret_result = me->IsText();
 		MyCefSetBool(ret, ret_result);
 	} break;
 	case CefDOMNode_IsElement_3: {
-		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,160
+		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,166
 
 		// gen! bool IsElement()
 		auto ret_result = me->IsElement();
 		MyCefSetBool(ret, ret_result);
 	} break;
 	case CefDOMNode_IsEditable_4: {
-		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,161
+		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,167
 
 		// gen! bool IsEditable()
 		auto ret_result = me->IsEditable();
 		MyCefSetBool(ret, ret_result);
 	} break;
 	case CefDOMNode_IsFormControlElement_5: {
-		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,162
+		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,168
 
 		// gen! bool IsFormControlElement()
 		auto ret_result = me->IsFormControlElement();
 		MyCefSetBool(ret, ret_result);
 	} break;
 	case CefDOMNode_GetFormControlElementType_6: {
-		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,163
+		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,169
 
 		// gen! CefString GetFormControlElementType()
 		auto ret_result = me->GetFormControlElementType();
 		SetCefStringToJsValue(ret, ret_result);
 	} break;
 	case CefDOMNode_IsSame_7: {
-		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,164
+		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,170
 
 		// gen! bool IsSame(CefRefPtr<CefDOMNode> that)
 		auto ret_result = me->IsSame(CefDOMNodeCToCpp::Wrap((cef_domnode_t*)v1->ptr));
 		MyCefSetBool(ret, ret_result);
 	} break;
 	case CefDOMNode_GetName_8: {
-		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,165
+		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,171
 
 		// gen! CefString GetName()
 		auto ret_result = me->GetName();
 		SetCefStringToJsValue(ret, ret_result);
 	} break;
 	case CefDOMNode_GetValue_9: {
-		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,166
+		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,172
 
 		// gen! CefString GetValue()
 		auto ret_result = me->GetValue();
 		SetCefStringToJsValue(ret, ret_result);
 	} break;
 	case CefDOMNode_SetValue_10: {
-		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,167
+		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,173
 
 		// gen! bool SetValue(const CefString& value)
 		auto ret_result = me->SetValue(GetStringHolder(v1)->value);
 		MyCefSetBool(ret, ret_result);
 	} break;
 	case CefDOMNode_GetAsMarkup_11: {
-		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,168
+		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,174
 
 		// gen! CefString GetAsMarkup()
 		auto ret_result = me->GetAsMarkup();
 		SetCefStringToJsValue(ret, ret_result);
 	} break;
 	case CefDOMNode_GetDocument_12: {
-		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,169
+		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,175
 
 		// gen! CefRefPtr<CefDOMDocument> GetDocument()
 		auto ret_result = me->GetDocument();
 		MyCefSetVoidPtr(ret, CefDOMDocumentCToCpp::Unwrap(ret_result));
 	} break;
 	case CefDOMNode_GetParent_13: {
-		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,170
+		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,176
 
 		// gen! CefRefPtr<CefDOMNode> GetParent()
 		auto ret_result = me->GetParent();
 		MyCefSetVoidPtr(ret, CefDOMNodeCToCpp::Unwrap(ret_result));
 	} break;
 	case CefDOMNode_GetPreviousSibling_14: {
-		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,171
+		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,177
 
 		// gen! CefRefPtr<CefDOMNode> GetPreviousSibling()
 		auto ret_result = me->GetPreviousSibling();
 		MyCefSetVoidPtr(ret, CefDOMNodeCToCpp::Unwrap(ret_result));
 	} break;
 	case CefDOMNode_GetNextSibling_15: {
-		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,172
+		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,178
 
 		// gen! CefRefPtr<CefDOMNode> GetNextSibling()
 		auto ret_result = me->GetNextSibling();
 		MyCefSetVoidPtr(ret, CefDOMNodeCToCpp::Unwrap(ret_result));
 	} break;
 	case CefDOMNode_HasChildren_16: {
-		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,173
+		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,179
 
 		// gen! bool HasChildren()
 		auto ret_result = me->HasChildren();
 		MyCefSetBool(ret, ret_result);
 	} break;
 	case CefDOMNode_GetFirstChild_17: {
-		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,174
+		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,180
 
 		// gen! CefRefPtr<CefDOMNode> GetFirstChild()
 		auto ret_result = me->GetFirstChild();
 		MyCefSetVoidPtr(ret, CefDOMNodeCToCpp::Unwrap(ret_result));
 	} break;
 	case CefDOMNode_GetLastChild_18: {
-		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,175
+		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,181
 
 		// gen! CefRefPtr<CefDOMNode> GetLastChild()
 		auto ret_result = me->GetLastChild();
 		MyCefSetVoidPtr(ret, CefDOMNodeCToCpp::Unwrap(ret_result));
 	} break;
 	case CefDOMNode_GetElementTagName_19: {
-		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,176
+		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,182
 
 		// gen! CefString GetElementTagName()
 		auto ret_result = me->GetElementTagName();
 		SetCefStringToJsValue(ret, ret_result);
 	} break;
 	case CefDOMNode_HasElementAttributes_20: {
-		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,177
+		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,183
 
 		// gen! bool HasElementAttributes()
 		auto ret_result = me->HasElementAttributes();
 		MyCefSetBool(ret, ret_result);
 	} break;
 	case CefDOMNode_HasElementAttribute_21: {
-		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,178
+		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,184
 
 		// gen! bool HasElementAttribute(const CefString& attrName)
 		auto ret_result = me->HasElementAttribute(GetStringHolder(v1)->value);
 		MyCefSetBool(ret, ret_result);
 	} break;
 	case CefDOMNode_GetElementAttribute_22: {
-		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,179
+		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,185
 
 		// gen! CefString GetElementAttribute(const CefString& attrName)
 		auto ret_result = me->GetElementAttribute(GetStringHolder(v1)->value);
 		SetCefStringToJsValue(ret, ret_result);
 	} break;
 	case CefDOMNode_GetElementAttributes_23: {
-		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,180
+		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,186
 
 		// gen! void GetElementAttributes(AttributeMap& attrMap)
 		me->GetElementAttributes(*((CefDOMNode::AttributeMap*)v1->ptr));
 
 	} break;
 	case CefDOMNode_SetElementAttribute_24: {
-		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,181
+		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,187
 
 		// gen! bool SetElementAttribute(const CefString& attrName,const CefString& value)
 		auto ret_result = me->SetElementAttribute(GetStringHolder(v1)->value,
@@ -2041,14 +2126,14 @@ void MyCefMet_CefDOMNode(cef_domnode_t* me1, int metName, jsvalue* ret, jsvalue*
 		MyCefSetBool(ret, ret_result);
 	} break;
 	case CefDOMNode_GetElementInnerText_25: {
-		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,182
+		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,188
 
 		// gen! CefString GetElementInnerText()
 		auto ret_result = me->GetElementInnerText();
 		SetCefStringToJsValue(ret, ret_result);
 	} break;
 	case CefDOMNode_GetElementBounds_26: {
-		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,183
+		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,189
 
 		// gen! CefRect GetElementBounds()
 		auto ret_result = me->GetElementBounds();
@@ -2088,63 +2173,63 @@ void MyCefMet_CefDownloadItem(cef_download_item_t* me1, int metName, jsvalue* re
 	switch (metName) {
 	case MET_Release:return; //yes, just return
 	case CefDownloadItem_IsValid_1: {
-		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,184
+		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,190
 
 		// gen! bool IsValid()
 		auto ret_result = me->IsValid();
 		MyCefSetBool(ret, ret_result);
 	} break;
 	case CefDownloadItem_IsInProgress_2: {
-		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,185
+		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,191
 
 		// gen! bool IsInProgress()
 		auto ret_result = me->IsInProgress();
 		MyCefSetBool(ret, ret_result);
 	} break;
 	case CefDownloadItem_IsComplete_3: {
-		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,186
+		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,192
 
 		// gen! bool IsComplete()
 		auto ret_result = me->IsComplete();
 		MyCefSetBool(ret, ret_result);
 	} break;
 	case CefDownloadItem_IsCanceled_4: {
-		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,187
+		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,193
 
 		// gen! bool IsCanceled()
 		auto ret_result = me->IsCanceled();
 		MyCefSetBool(ret, ret_result);
 	} break;
 	case CefDownloadItem_GetCurrentSpeed_5: {
-		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,188
+		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,194
 
 		// gen! int64 GetCurrentSpeed()
 		auto ret_result = me->GetCurrentSpeed();
 		MyCefSetInt64(ret, ret_result);
 	} break;
 	case CefDownloadItem_GetPercentComplete_6: {
-		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,189
+		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,195
 
 		// gen! int GetPercentComplete()
 		auto ret_result = me->GetPercentComplete();
 		MyCefSetInt32(ret, (int32_t)ret_result);
 	} break;
 	case CefDownloadItem_GetTotalBytes_7: {
-		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,190
+		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,196
 
 		// gen! int64 GetTotalBytes()
 		auto ret_result = me->GetTotalBytes();
 		MyCefSetInt64(ret, ret_result);
 	} break;
 	case CefDownloadItem_GetReceivedBytes_8: {
-		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,191
+		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,197
 
 		// gen! int64 GetReceivedBytes()
 		auto ret_result = me->GetReceivedBytes();
 		MyCefSetInt64(ret, ret_result);
 	} break;
 	case CefDownloadItem_GetStartTime_9: {
-		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,192
+		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,198
 
 		// gen! CefTime GetStartTime()
 		auto ret_result = me->GetStartTime();
@@ -2153,7 +2238,7 @@ void MyCefMet_CefDownloadItem(cef_download_item_t* me1, int metName, jsvalue* re
 
 	} break;
 	case CefDownloadItem_GetEndTime_10: {
-		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,193
+		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,199
 
 		// gen! CefTime GetEndTime()
 		auto ret_result = me->GetEndTime();
@@ -2162,49 +2247,49 @@ void MyCefMet_CefDownloadItem(cef_download_item_t* me1, int metName, jsvalue* re
 
 	} break;
 	case CefDownloadItem_GetFullPath_11: {
-		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,194
+		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,200
 
 		// gen! CefString GetFullPath()
 		auto ret_result = me->GetFullPath();
 		SetCefStringToJsValue(ret, ret_result);
 	} break;
 	case CefDownloadItem_GetId_12: {
-		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,195
+		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,201
 
 		// gen! uint32 GetId()
 		auto ret_result = me->GetId();
 		MyCefSetUInt32(ret, ret_result);
 	} break;
 	case CefDownloadItem_GetURL_13: {
-		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,196
+		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,202
 
 		// gen! CefString GetURL()
 		auto ret_result = me->GetURL();
 		SetCefStringToJsValue(ret, ret_result);
 	} break;
 	case CefDownloadItem_GetOriginalUrl_14: {
-		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,197
+		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,203
 
 		// gen! CefString GetOriginalUrl()
 		auto ret_result = me->GetOriginalUrl();
 		SetCefStringToJsValue(ret, ret_result);
 	} break;
 	case CefDownloadItem_GetSuggestedFileName_15: {
-		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,198
+		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,204
 
 		// gen! CefString GetSuggestedFileName()
 		auto ret_result = me->GetSuggestedFileName();
 		SetCefStringToJsValue(ret, ret_result);
 	} break;
 	case CefDownloadItem_GetContentDisposition_16: {
-		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,199
+		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,205
 
 		// gen! CefString GetContentDisposition()
 		auto ret_result = me->GetContentDisposition();
 		SetCefStringToJsValue(ret, ret_result);
 	} break;
 	case CefDownloadItem_GetMimeType_17: {
-		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,200
+		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,206
 
 		// gen! CefString GetMimeType()
 		auto ret_result = me->GetMimeType();
@@ -2250,154 +2335,154 @@ void MyCefMet_CefDragData(cef_drag_data_t* me1, int metName, jsvalue* ret, jsval
 	switch (metName) {
 	case MET_Release:return; //yes, just return
 	case CefDragData_Clone_1: {
-		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,201
+		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,207
 
 		// gen! CefRefPtr<CefDragData> Clone()
 		auto ret_result = me->Clone();
 		MyCefSetVoidPtr(ret, CefDragDataCToCpp::Unwrap(ret_result));
 	} break;
 	case CefDragData_IsReadOnly_2: {
-		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,202
+		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,208
 
 		// gen! bool IsReadOnly()
 		auto ret_result = me->IsReadOnly();
 		MyCefSetBool(ret, ret_result);
 	} break;
 	case CefDragData_IsLink_3: {
-		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,203
+		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,209
 
 		// gen! bool IsLink()
 		auto ret_result = me->IsLink();
 		MyCefSetBool(ret, ret_result);
 	} break;
 	case CefDragData_IsFragment_4: {
-		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,204
+		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,210
 
 		// gen! bool IsFragment()
 		auto ret_result = me->IsFragment();
 		MyCefSetBool(ret, ret_result);
 	} break;
 	case CefDragData_IsFile_5: {
-		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,205
+		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,211
 
 		// gen! bool IsFile()
 		auto ret_result = me->IsFile();
 		MyCefSetBool(ret, ret_result);
 	} break;
 	case CefDragData_GetLinkURL_6: {
-		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,206
+		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,212
 
 		// gen! CefString GetLinkURL()
 		auto ret_result = me->GetLinkURL();
 		SetCefStringToJsValue(ret, ret_result);
 	} break;
 	case CefDragData_GetLinkTitle_7: {
-		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,207
+		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,213
 
 		// gen! CefString GetLinkTitle()
 		auto ret_result = me->GetLinkTitle();
 		SetCefStringToJsValue(ret, ret_result);
 	} break;
 	case CefDragData_GetLinkMetadata_8: {
-		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,208
+		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,214
 
 		// gen! CefString GetLinkMetadata()
 		auto ret_result = me->GetLinkMetadata();
 		SetCefStringToJsValue(ret, ret_result);
 	} break;
 	case CefDragData_GetFragmentText_9: {
-		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,209
+		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,215
 
 		// gen! CefString GetFragmentText()
 		auto ret_result = me->GetFragmentText();
 		SetCefStringToJsValue(ret, ret_result);
 	} break;
 	case CefDragData_GetFragmentHtml_10: {
-		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,210
+		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,216
 
 		// gen! CefString GetFragmentHtml()
 		auto ret_result = me->GetFragmentHtml();
 		SetCefStringToJsValue(ret, ret_result);
 	} break;
 	case CefDragData_GetFragmentBaseURL_11: {
-		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,211
+		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,217
 
 		// gen! CefString GetFragmentBaseURL()
 		auto ret_result = me->GetFragmentBaseURL();
 		SetCefStringToJsValue(ret, ret_result);
 	} break;
 	case CefDragData_GetFileName_12: {
-		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,212
+		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,218
 
 		// gen! CefString GetFileName()
 		auto ret_result = me->GetFileName();
 		SetCefStringToJsValue(ret, ret_result);
 	} break;
 	case CefDragData_GetFileContents_13: {
-		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,213
+		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,219
 
 		// gen! size_t GetFileContents(CefRefPtr<CefStreamWriter> writer)
 		auto ret_result = me->GetFileContents(CefStreamWriterCToCpp::Wrap((cef_stream_writer_t*)v1->ptr));
 		MyCefSetInt32(ret, (int32_t)ret_result);
 	} break;
 	case CefDragData_GetFileNames_14: {
-		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,214
+		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,220
 
 		// gen! bool GetFileNames(std::vector<CefString>& names)
 		auto ret_result = me->GetFileNames(*((std::vector<CefString>*)v1->ptr));
 		MyCefSetBool(ret, ret_result);
 	} break;
 	case CefDragData_SetLinkURL_15: {
-		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,215
+		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,221
 
 		// gen! void SetLinkURL(const CefString& url)
 		me->SetLinkURL(GetStringHolder(v1)->value);
 
 	} break;
 	case CefDragData_SetLinkTitle_16: {
-		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,216
+		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,222
 
 		// gen! void SetLinkTitle(const CefString& title)
 		me->SetLinkTitle(GetStringHolder(v1)->value);
 
 	} break;
 	case CefDragData_SetLinkMetadata_17: {
-		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,217
+		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,223
 
 		// gen! void SetLinkMetadata(const CefString& data)
 		me->SetLinkMetadata(GetStringHolder(v1)->value);
 
 	} break;
 	case CefDragData_SetFragmentText_18: {
-		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,218
+		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,224
 
 		// gen! void SetFragmentText(const CefString& text)
 		me->SetFragmentText(GetStringHolder(v1)->value);
 
 	} break;
 	case CefDragData_SetFragmentHtml_19: {
-		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,219
+		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,225
 
 		// gen! void SetFragmentHtml(const CefString& html)
 		me->SetFragmentHtml(GetStringHolder(v1)->value);
 
 	} break;
 	case CefDragData_SetFragmentBaseURL_20: {
-		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,220
+		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,226
 
 		// gen! void SetFragmentBaseURL(const CefString& base_url)
 		me->SetFragmentBaseURL(GetStringHolder(v1)->value);
 
 	} break;
 	case CefDragData_ResetFileContents_21: {
-		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,221
+		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,227
 
 		// gen! void ResetFileContents()
 		me->ResetFileContents();
 
 	} break;
 	case CefDragData_AddFile_22: {
-		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,222
+		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,228
 
 		// gen! void AddFile(const CefString& path,const CefString& display_name)
 		me->AddFile(GetStringHolder(v1)->value,
@@ -2405,14 +2490,14 @@ void MyCefMet_CefDragData(cef_drag_data_t* me1, int metName, jsvalue* ret, jsval
 
 	} break;
 	case CefDragData_GetImage_23: {
-		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,223
+		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,229
 
 		// gen! CefRefPtr<CefImage> GetImage()
 		auto ret_result = me->GetImage();
 		MyCefSetVoidPtr(ret, CefImageCToCpp::Unwrap(ret_result));
 	} break;
 	case CefDragData_GetImageHotspot_24: {
-		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,224
+		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,230
 
 		// gen! CefPoint GetImageHotspot()
 		auto ret_result = me->GetImageHotspot();
@@ -2421,7 +2506,7 @@ void MyCefMet_CefDragData(cef_drag_data_t* me1, int metName, jsvalue* ret, jsval
 
 	} break;
 	case CefDragData_HasImage_25: {
-		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,225
+		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,231
 
 		// gen! bool HasImage()
 		auto ret_result = me->HasImage();
@@ -2429,6 +2514,23 @@ void MyCefMet_CefDragData(cef_drag_data_t* me1, int metName, jsvalue* ret, jsval
 	} break;
 	}
 	CefDragDataCToCpp::Unwrap(me);
+}
+//CppHandleCsMethodRequestCodeGen::GenerateCppCode 
+
+const int CefDragData_S_Create_1 = 1;
+
+void MyCefMet_S_CefDragData(int metName, jsvalue * ret) {
+	ret->type = JSVALUE_TYPE_EMPTY;
+	switch (metName) {
+	case MET_Release:return; //yes, just return
+	case CefDragData_S_Create_1: {
+		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,232
+
+		// gen! CefRefPtr<CefDragData> Create()
+		auto ret_result = CefDragData::Create();
+		MyCefSetVoidPtr(ret, CefDragDataCToCpp::Unwrap(ret_result));
+	} break;
+	}
 }
 
 
@@ -2466,98 +2568,98 @@ void MyCefMet_CefFrame(cef_frame_t* me1, int metName, jsvalue* ret, jsvalue* v1,
 	switch (metName) {
 	case MET_Release:return; //yes, just return
 	case CefFrame_IsValid_1: {
-		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,226
+		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,233
 
 		// gen! bool IsValid()
 		auto ret_result = me->IsValid();
 		MyCefSetBool(ret, ret_result);
 	} break;
 	case CefFrame_Undo_2: {
-		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,227
+		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,234
 
 		// gen! void Undo()
 		me->Undo();
 
 	} break;
 	case CefFrame_Redo_3: {
-		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,228
+		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,235
 
 		// gen! void Redo()
 		me->Redo();
 
 	} break;
 	case CefFrame_Cut_4: {
-		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,229
+		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,236
 
 		// gen! void Cut()
 		me->Cut();
 
 	} break;
 	case CefFrame_Copy_5: {
-		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,230
+		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,237
 
 		// gen! void Copy()
 		me->Copy();
 
 	} break;
 	case CefFrame_Paste_6: {
-		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,231
+		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,238
 
 		// gen! void Paste()
 		me->Paste();
 
 	} break;
 	case CefFrame_Delete_7: {
-		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,232
+		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,239
 
 		// gen! void Delete()
 		me->Delete();
 
 	} break;
 	case CefFrame_SelectAll_8: {
-		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,233
+		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,240
 
 		// gen! void SelectAll()
 		me->SelectAll();
 
 	} break;
 	case CefFrame_ViewSource_9: {
-		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,234
+		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,241
 
 		// gen! void ViewSource()
 		me->ViewSource();
 
 	} break;
 	case CefFrame_GetSource_10: {
-		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,235
+		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,242
 
 		// gen! void GetSource(CefRefPtr<CefStringVisitor> visitor)
 		me->GetSource(CefStringVisitorCppToC::Unwrap((cef_string_visitor_t*)v1->ptr));
 
 	} break;
 	case CefFrame_GetText_11: {
-		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,236
+		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,243
 
 		// gen! void GetText(CefRefPtr<CefStringVisitor> visitor)
 		me->GetText(CefStringVisitorCppToC::Unwrap((cef_string_visitor_t*)v1->ptr));
 
 	} break;
 	case CefFrame_LoadRequest_12: {
-		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,237
+		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,244
 
 		// gen! void LoadRequest(CefRefPtr<CefRequest> request)
 		me->LoadRequest(CefRequestCToCpp::Wrap((cef_request_t*)v1->ptr));
 
 	} break;
 	case CefFrame_LoadURL_13: {
-		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,238
+		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,245
 
 		// gen! void LoadURL(const CefString& url)
 		me->LoadURL(GetStringHolder(v1)->value);
 
 	} break;
 	case CefFrame_LoadString_14: {
-		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,239
+		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,246
 
 		// gen! void LoadString(const CefString& string_val,const CefString& url)
 		me->LoadString(GetStringHolder(v1)->value,
@@ -2565,7 +2667,7 @@ void MyCefMet_CefFrame(cef_frame_t* me1, int metName, jsvalue* ret, jsvalue* v1,
 
 	} break;
 	case CefFrame_ExecuteJavaScript_15: {
-		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,240
+		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,247
 
 		// gen! void ExecuteJavaScript(const CefString& code,const CefString& script_url,int start_line)
 		me->ExecuteJavaScript(GetStringHolder(v1)->value,
@@ -2574,63 +2676,63 @@ void MyCefMet_CefFrame(cef_frame_t* me1, int metName, jsvalue* ret, jsvalue* v1,
 
 	} break;
 	case CefFrame_IsMain_16: {
-		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,241
+		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,248
 
 		// gen! bool IsMain()
 		auto ret_result = me->IsMain();
 		MyCefSetBool(ret, ret_result);
 	} break;
 	case CefFrame_IsFocused_17: {
-		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,242
+		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,249
 
 		// gen! bool IsFocused()
 		auto ret_result = me->IsFocused();
 		MyCefSetBool(ret, ret_result);
 	} break;
 	case CefFrame_GetName_18: {
-		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,243
+		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,250
 
 		// gen! CefString GetName()
 		auto ret_result = me->GetName();
 		SetCefStringToJsValue(ret, ret_result);
 	} break;
 	case CefFrame_GetIdentifier_19: {
-		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,244
+		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,251
 
 		// gen! int64 GetIdentifier()
 		auto ret_result = me->GetIdentifier();
 		MyCefSetInt64(ret, ret_result);
 	} break;
 	case CefFrame_GetParent_20: {
-		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,245
+		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,252
 
 		// gen! CefRefPtr<CefFrame> GetParent()
 		auto ret_result = me->GetParent();
 		MyCefSetVoidPtr(ret, CefFrameCToCpp::Unwrap(ret_result));
 	} break;
 	case CefFrame_GetURL_21: {
-		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,246
+		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,253
 
 		// gen! CefString GetURL()
 		auto ret_result = me->GetURL();
 		SetCefStringToJsValue(ret, ret_result);
 	} break;
 	case CefFrame_GetBrowser_22: {
-		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,247
+		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,254
 
 		// gen! CefRefPtr<CefBrowser> GetBrowser()
 		auto ret_result = me->GetBrowser();
 		MyCefSetVoidPtr(ret, CefBrowserCToCpp::Unwrap(ret_result));
 	} break;
 	case CefFrame_GetV8Context_23: {
-		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,248
+		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,255
 
 		// gen! CefRefPtr<CefV8Context> GetV8Context()
 		auto ret_result = me->GetV8Context();
 		MyCefSetVoidPtr(ret, CefV8ContextCToCpp::Unwrap(ret_result));
 	} break;
 	case CefFrame_VisitDOM_24: {
-		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,249
+		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,256
 
 		// gen! void VisitDOM(CefRefPtr<CefDOMVisitor> visitor)
 		me->VisitDOM(CefDOMVisitorCppToC::Unwrap((cef_domvisitor_t*)v1->ptr));
@@ -2664,21 +2766,21 @@ void MyCefMet_CefImage(cef_image_t* me1, int metName, jsvalue* ret, jsvalue* v1,
 	switch (metName) {
 	case MET_Release:return; //yes, just return
 	case CefImage_IsEmpty_1: {
-		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,250
+		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,257
 
 		// gen! bool IsEmpty()
 		auto ret_result = me->IsEmpty();
 		MyCefSetBool(ret, ret_result);
 	} break;
 	case CefImage_IsSame_2: {
-		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,251
+		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,258
 
 		// gen! bool IsSame(CefRefPtr<CefImage> that)
 		auto ret_result = me->IsSame(CefImageCToCpp::Wrap((cef_image_t*)v1->ptr));
 		MyCefSetBool(ret, ret_result);
 	} break;
 	case CefImage_AddBitmap_3: {
-		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,252
+		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,259
 
 		// gen! bool AddBitmap(float scale_factor,int pixel_width,int pixel_height,cef_color_type_t color_type,cef_alpha_type_t alpha_type,const void* pixel_data,size_t pixel_data_size)
 		auto ret_result = me->AddBitmap(v1->num,
@@ -2691,7 +2793,7 @@ void MyCefMet_CefImage(cef_image_t* me1, int metName, jsvalue* ret, jsvalue* v1,
 		MyCefSetBool(ret, ret_result);
 	} break;
 	case CefImage_AddPNG_4: {
-		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,253
+		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,260
 
 		// gen! bool AddPNG(float scale_factor,const void* png_data,size_t png_data_size)
 		auto ret_result = me->AddPNG(v1->num,
@@ -2700,7 +2802,7 @@ void MyCefMet_CefImage(cef_image_t* me1, int metName, jsvalue* ret, jsvalue* v1,
 		MyCefSetBool(ret, ret_result);
 	} break;
 	case CefImage_AddJPEG_5: {
-		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,254
+		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,261
 
 		// gen! bool AddJPEG(float scale_factor,const void* jpeg_data,size_t jpeg_data_size)
 		auto ret_result = me->AddJPEG(v1->num,
@@ -2709,35 +2811,35 @@ void MyCefMet_CefImage(cef_image_t* me1, int metName, jsvalue* ret, jsvalue* v1,
 		MyCefSetBool(ret, ret_result);
 	} break;
 	case CefImage_GetWidth_6: {
-		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,255
+		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,262
 
 		// gen! size_t GetWidth()
 		auto ret_result = me->GetWidth();
 		MyCefSetInt32(ret, (int32_t)ret_result);
 	} break;
 	case CefImage_GetHeight_7: {
-		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,256
+		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,263
 
 		// gen! size_t GetHeight()
 		auto ret_result = me->GetHeight();
 		MyCefSetInt32(ret, (int32_t)ret_result);
 	} break;
 	case CefImage_HasRepresentation_8: {
-		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,257
+		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,264
 
 		// gen! bool HasRepresentation(float scale_factor)
 		auto ret_result = me->HasRepresentation(v1->num);
 		MyCefSetBool(ret, ret_result);
 	} break;
 	case CefImage_RemoveRepresentation_9: {
-		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,258
+		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,265
 
 		// gen! bool RemoveRepresentation(float scale_factor)
 		auto ret_result = me->RemoveRepresentation(v1->num);
 		MyCefSetBool(ret, ret_result);
 	} break;
 	case CefImage_GetRepresentationInfo_10: {
-		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,259
+		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,266
 
 		// gen! bool GetRepresentationInfo(float scale_factor,float& actual_scale_factor,int& pixel_width,int& pixel_height)
 		auto ret_result = me->GetRepresentationInfo(v1->num,
@@ -2747,7 +2849,7 @@ void MyCefMet_CefImage(cef_image_t* me1, int metName, jsvalue* ret, jsvalue* v1,
 		MyCefSetBool(ret, ret_result);
 	} break;
 	case CefImage_GetAsBitmap_11: {
-		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,260
+		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,267
 
 		// gen! CefRefPtr<CefBinaryValue> GetAsBitmap(float scale_factor,cef_color_type_t color_type,cef_alpha_type_t alpha_type,int& pixel_width,int& pixel_height)
 		auto ret_result = me->GetAsBitmap(v1->num,
@@ -2758,7 +2860,7 @@ void MyCefMet_CefImage(cef_image_t* me1, int metName, jsvalue* ret, jsvalue* v1,
 		MyCefSetVoidPtr(ret, CefBinaryValueCToCpp::Unwrap(ret_result));
 	} break;
 	case CefImage_GetAsPNG_12: {
-		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,261
+		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,268
 
 		// gen! CefRefPtr<CefBinaryValue> GetAsPNG(float scale_factor,bool with_transparency,int& pixel_width,int& pixel_height)
 		auto ret_result = me->GetAsPNG(v1->num,
@@ -2768,7 +2870,7 @@ void MyCefMet_CefImage(cef_image_t* me1, int metName, jsvalue* ret, jsvalue* v1,
 		MyCefSetVoidPtr(ret, CefBinaryValueCToCpp::Unwrap(ret_result));
 	} break;
 	case CefImage_GetAsJPEG_13: {
-		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,262
+		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,269
 
 		// gen! CefRefPtr<CefBinaryValue> GetAsJPEG(float scale_factor,int quality,int& pixel_width,int& pixel_height)
 		auto ret_result = me->GetAsJPEG(v1->num,
@@ -2779,6 +2881,23 @@ void MyCefMet_CefImage(cef_image_t* me1, int metName, jsvalue* ret, jsvalue* v1,
 	} break;
 	}
 	CefImageCToCpp::Unwrap(me);
+}
+//CppHandleCsMethodRequestCodeGen::GenerateCppCode 
+
+const int CefImage_S_CreateImage_1 = 1;
+
+void MyCefMet_S_CefImage(int metName, jsvalue * ret) {
+	ret->type = JSVALUE_TYPE_EMPTY;
+	switch (metName) {
+	case MET_Release:return; //yes, just return
+	case CefImage_S_CreateImage_1: {
+		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,270
+
+		// gen! CefRefPtr<CefImage> CreateImage()
+		auto ret_result = CefImage::CreateImage();
+		MyCefSetVoidPtr(ret, CefImageCToCpp::Unwrap(ret_result));
+	} break;
+	}
 }
 
 
@@ -2848,35 +2967,35 @@ void MyCefMet_CefMenuModel(cef_menu_model_t* me1, int metName, jsvalue* ret, jsv
 	switch (metName) {
 	case MET_Release:return; //yes, just return
 	case CefMenuModel_IsSubMenu_1: {
-		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,263
+		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,271
 
 		// gen! bool IsSubMenu()
 		auto ret_result = me->IsSubMenu();
 		MyCefSetBool(ret, ret_result);
 	} break;
 	case CefMenuModel_Clear_2: {
-		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,264
+		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,272
 
 		// gen! bool Clear()
 		auto ret_result = me->Clear();
 		MyCefSetBool(ret, ret_result);
 	} break;
 	case CefMenuModel_GetCount_3: {
-		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,265
+		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,273
 
 		// gen! int GetCount()
 		auto ret_result = me->GetCount();
 		MyCefSetInt32(ret, (int32_t)ret_result);
 	} break;
 	case CefMenuModel_AddSeparator_4: {
-		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,266
+		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,274
 
 		// gen! bool AddSeparator()
 		auto ret_result = me->AddSeparator();
 		MyCefSetBool(ret, ret_result);
 	} break;
 	case CefMenuModel_AddItem_5: {
-		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,267
+		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,275
 
 		// gen! bool AddItem(int command_id,const CefString& label)
 		auto ret_result = me->AddItem(v1->i32,
@@ -2884,7 +3003,7 @@ void MyCefMet_CefMenuModel(cef_menu_model_t* me1, int metName, jsvalue* ret, jsv
 		MyCefSetBool(ret, ret_result);
 	} break;
 	case CefMenuModel_AddCheckItem_6: {
-		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,268
+		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,276
 
 		// gen! bool AddCheckItem(int command_id,const CefString& label)
 		auto ret_result = me->AddCheckItem(v1->i32,
@@ -2892,7 +3011,7 @@ void MyCefMet_CefMenuModel(cef_menu_model_t* me1, int metName, jsvalue* ret, jsv
 		MyCefSetBool(ret, ret_result);
 	} break;
 	case CefMenuModel_AddRadioItem_7: {
-		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,269
+		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,277
 
 		// gen! bool AddRadioItem(int command_id,const CefString& label,int group_id)
 		auto ret_result = me->AddRadioItem(v1->i32,
@@ -2901,7 +3020,7 @@ void MyCefMet_CefMenuModel(cef_menu_model_t* me1, int metName, jsvalue* ret, jsv
 		MyCefSetBool(ret, ret_result);
 	} break;
 	case CefMenuModel_AddSubMenu_8: {
-		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,270
+		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,278
 
 		// gen! CefRefPtr<CefMenuModel> AddSubMenu(int command_id,const CefString& label)
 		auto ret_result = me->AddSubMenu(v1->i32,
@@ -2909,14 +3028,14 @@ void MyCefMet_CefMenuModel(cef_menu_model_t* me1, int metName, jsvalue* ret, jsv
 		MyCefSetVoidPtr(ret, CefMenuModelCToCpp::Unwrap(ret_result));
 	} break;
 	case CefMenuModel_InsertSeparatorAt_9: {
-		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,271
+		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,279
 
 		// gen! bool InsertSeparatorAt(int index)
 		auto ret_result = me->InsertSeparatorAt(v1->i32);
 		MyCefSetBool(ret, ret_result);
 	} break;
 	case CefMenuModel_InsertItemAt_10: {
-		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,272
+		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,280
 
 		// gen! bool InsertItemAt(int index,int command_id,const CefString& label)
 		auto ret_result = me->InsertItemAt(v1->i32,
@@ -2925,7 +3044,7 @@ void MyCefMet_CefMenuModel(cef_menu_model_t* me1, int metName, jsvalue* ret, jsv
 		MyCefSetBool(ret, ret_result);
 	} break;
 	case CefMenuModel_InsertCheckItemAt_11: {
-		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,273
+		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,281
 
 		// gen! bool InsertCheckItemAt(int index,int command_id,const CefString& label)
 		auto ret_result = me->InsertCheckItemAt(v1->i32,
@@ -2934,7 +3053,7 @@ void MyCefMet_CefMenuModel(cef_menu_model_t* me1, int metName, jsvalue* ret, jsv
 		MyCefSetBool(ret, ret_result);
 	} break;
 	case CefMenuModel_InsertRadioItemAt_12: {
-		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,274
+		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,282
 
 		// gen! bool InsertRadioItemAt(int index,int command_id,const CefString& label,int group_id)
 		auto ret_result = me->InsertRadioItemAt(v1->i32,
@@ -2944,7 +3063,7 @@ void MyCefMet_CefMenuModel(cef_menu_model_t* me1, int metName, jsvalue* ret, jsv
 		MyCefSetBool(ret, ret_result);
 	} break;
 	case CefMenuModel_InsertSubMenuAt_13: {
-		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,275
+		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,283
 
 		// gen! CefRefPtr<CefMenuModel> InsertSubMenuAt(int index,int command_id,const CefString& label)
 		auto ret_result = me->InsertSubMenuAt(v1->i32,
@@ -2953,35 +3072,35 @@ void MyCefMet_CefMenuModel(cef_menu_model_t* me1, int metName, jsvalue* ret, jsv
 		MyCefSetVoidPtr(ret, CefMenuModelCToCpp::Unwrap(ret_result));
 	} break;
 	case CefMenuModel_Remove_14: {
-		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,276
+		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,284
 
 		// gen! bool Remove(int command_id)
 		auto ret_result = me->Remove(v1->i32);
 		MyCefSetBool(ret, ret_result);
 	} break;
 	case CefMenuModel_RemoveAt_15: {
-		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,277
+		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,285
 
 		// gen! bool RemoveAt(int index)
 		auto ret_result = me->RemoveAt(v1->i32);
 		MyCefSetBool(ret, ret_result);
 	} break;
 	case CefMenuModel_GetIndexOf_16: {
-		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,278
+		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,286
 
 		// gen! int GetIndexOf(int command_id)
 		auto ret_result = me->GetIndexOf(v1->i32);
 		MyCefSetInt32(ret, (int32_t)ret_result);
 	} break;
 	case CefMenuModel_GetCommandIdAt_17: {
-		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,279
+		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,287
 
 		// gen! int GetCommandIdAt(int index)
 		auto ret_result = me->GetCommandIdAt(v1->i32);
 		MyCefSetInt32(ret, (int32_t)ret_result);
 	} break;
 	case CefMenuModel_SetCommandIdAt_18: {
-		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,280
+		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,288
 
 		// gen! bool SetCommandIdAt(int index,int command_id)
 		auto ret_result = me->SetCommandIdAt(v1->i32,
@@ -2989,21 +3108,21 @@ void MyCefMet_CefMenuModel(cef_menu_model_t* me1, int metName, jsvalue* ret, jsv
 		MyCefSetBool(ret, ret_result);
 	} break;
 	case CefMenuModel_GetLabel_19: {
-		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,281
+		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,289
 
 		// gen! CefString GetLabel(int command_id)
 		auto ret_result = me->GetLabel(v1->i32);
 		SetCefStringToJsValue(ret, ret_result);
 	} break;
 	case CefMenuModel_GetLabelAt_20: {
-		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,282
+		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,290
 
 		// gen! CefString GetLabelAt(int index)
 		auto ret_result = me->GetLabelAt(v1->i32);
 		SetCefStringToJsValue(ret, ret_result);
 	} break;
 	case CefMenuModel_SetLabel_21: {
-		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,283
+		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,291
 
 		// gen! bool SetLabel(int command_id,const CefString& label)
 		auto ret_result = me->SetLabel(v1->i32,
@@ -3011,7 +3130,7 @@ void MyCefMet_CefMenuModel(cef_menu_model_t* me1, int metName, jsvalue* ret, jsv
 		MyCefSetBool(ret, ret_result);
 	} break;
 	case CefMenuModel_SetLabelAt_22: {
-		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,284
+		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,292
 
 		// gen! bool SetLabelAt(int index,const CefString& label)
 		auto ret_result = me->SetLabelAt(v1->i32,
@@ -3019,35 +3138,35 @@ void MyCefMet_CefMenuModel(cef_menu_model_t* me1, int metName, jsvalue* ret, jsv
 		MyCefSetBool(ret, ret_result);
 	} break;
 	case CefMenuModel_GetType_23: {
-		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,285
+		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,293
 
 		// gen! MenuItemType GetType(int command_id)
 		auto ret_result = me->GetType(v1->i32);
 		MyCefSetInt32(ret, (int32_t)ret_result);
 	} break;
 	case CefMenuModel_GetTypeAt_24: {
-		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,286
+		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,294
 
 		// gen! MenuItemType GetTypeAt(int index)
 		auto ret_result = me->GetTypeAt(v1->i32);
 		MyCefSetInt32(ret, (int32_t)ret_result);
 	} break;
 	case CefMenuModel_GetGroupId_25: {
-		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,287
+		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,295
 
 		// gen! int GetGroupId(int command_id)
 		auto ret_result = me->GetGroupId(v1->i32);
 		MyCefSetInt32(ret, (int32_t)ret_result);
 	} break;
 	case CefMenuModel_GetGroupIdAt_26: {
-		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,288
+		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,296
 
 		// gen! int GetGroupIdAt(int index)
 		auto ret_result = me->GetGroupIdAt(v1->i32);
 		MyCefSetInt32(ret, (int32_t)ret_result);
 	} break;
 	case CefMenuModel_SetGroupId_27: {
-		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,289
+		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,297
 
 		// gen! bool SetGroupId(int command_id,int group_id)
 		auto ret_result = me->SetGroupId(v1->i32,
@@ -3055,7 +3174,7 @@ void MyCefMet_CefMenuModel(cef_menu_model_t* me1, int metName, jsvalue* ret, jsv
 		MyCefSetBool(ret, ret_result);
 	} break;
 	case CefMenuModel_SetGroupIdAt_28: {
-		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,290
+		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,298
 
 		// gen! bool SetGroupIdAt(int index,int group_id)
 		auto ret_result = me->SetGroupIdAt(v1->i32,
@@ -3063,35 +3182,35 @@ void MyCefMet_CefMenuModel(cef_menu_model_t* me1, int metName, jsvalue* ret, jsv
 		MyCefSetBool(ret, ret_result);
 	} break;
 	case CefMenuModel_GetSubMenu_29: {
-		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,291
+		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,299
 
 		// gen! CefRefPtr<CefMenuModel> GetSubMenu(int command_id)
 		auto ret_result = me->GetSubMenu(v1->i32);
 		MyCefSetVoidPtr(ret, CefMenuModelCToCpp::Unwrap(ret_result));
 	} break;
 	case CefMenuModel_GetSubMenuAt_30: {
-		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,292
+		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,300
 
 		// gen! CefRefPtr<CefMenuModel> GetSubMenuAt(int index)
 		auto ret_result = me->GetSubMenuAt(v1->i32);
 		MyCefSetVoidPtr(ret, CefMenuModelCToCpp::Unwrap(ret_result));
 	} break;
 	case CefMenuModel_IsVisible_31: {
-		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,293
+		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,301
 
 		// gen! bool IsVisible(int command_id)
 		auto ret_result = me->IsVisible(v1->i32);
 		MyCefSetBool(ret, ret_result);
 	} break;
 	case CefMenuModel_IsVisibleAt_32: {
-		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,294
+		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,302
 
 		// gen! bool IsVisibleAt(int index)
 		auto ret_result = me->IsVisibleAt(v1->i32);
 		MyCefSetBool(ret, ret_result);
 	} break;
 	case CefMenuModel_SetVisible_33: {
-		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,295
+		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,303
 
 		// gen! bool SetVisible(int command_id,bool visible)
 		auto ret_result = me->SetVisible(v1->i32,
@@ -3099,7 +3218,7 @@ void MyCefMet_CefMenuModel(cef_menu_model_t* me1, int metName, jsvalue* ret, jsv
 		MyCefSetBool(ret, ret_result);
 	} break;
 	case CefMenuModel_SetVisibleAt_34: {
-		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,296
+		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,304
 
 		// gen! bool SetVisibleAt(int index,bool visible)
 		auto ret_result = me->SetVisibleAt(v1->i32,
@@ -3107,21 +3226,21 @@ void MyCefMet_CefMenuModel(cef_menu_model_t* me1, int metName, jsvalue* ret, jsv
 		MyCefSetBool(ret, ret_result);
 	} break;
 	case CefMenuModel_IsEnabled_35: {
-		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,297
+		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,305
 
 		// gen! bool IsEnabled(int command_id)
 		auto ret_result = me->IsEnabled(v1->i32);
 		MyCefSetBool(ret, ret_result);
 	} break;
 	case CefMenuModel_IsEnabledAt_36: {
-		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,298
+		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,306
 
 		// gen! bool IsEnabledAt(int index)
 		auto ret_result = me->IsEnabledAt(v1->i32);
 		MyCefSetBool(ret, ret_result);
 	} break;
 	case CefMenuModel_SetEnabled_37: {
-		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,299
+		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,307
 
 		// gen! bool SetEnabled(int command_id,bool enabled)
 		auto ret_result = me->SetEnabled(v1->i32,
@@ -3129,7 +3248,7 @@ void MyCefMet_CefMenuModel(cef_menu_model_t* me1, int metName, jsvalue* ret, jsv
 		MyCefSetBool(ret, ret_result);
 	} break;
 	case CefMenuModel_SetEnabledAt_38: {
-		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,300
+		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,308
 
 		// gen! bool SetEnabledAt(int index,bool enabled)
 		auto ret_result = me->SetEnabledAt(v1->i32,
@@ -3137,21 +3256,21 @@ void MyCefMet_CefMenuModel(cef_menu_model_t* me1, int metName, jsvalue* ret, jsv
 		MyCefSetBool(ret, ret_result);
 	} break;
 	case CefMenuModel_IsChecked_39: {
-		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,301
+		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,309
 
 		// gen! bool IsChecked(int command_id)
 		auto ret_result = me->IsChecked(v1->i32);
 		MyCefSetBool(ret, ret_result);
 	} break;
 	case CefMenuModel_IsCheckedAt_40: {
-		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,302
+		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,310
 
 		// gen! bool IsCheckedAt(int index)
 		auto ret_result = me->IsCheckedAt(v1->i32);
 		MyCefSetBool(ret, ret_result);
 	} break;
 	case CefMenuModel_SetChecked_41: {
-		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,303
+		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,311
 
 		// gen! bool SetChecked(int command_id,bool checked)
 		auto ret_result = me->SetChecked(v1->i32,
@@ -3159,7 +3278,7 @@ void MyCefMet_CefMenuModel(cef_menu_model_t* me1, int metName, jsvalue* ret, jsv
 		MyCefSetBool(ret, ret_result);
 	} break;
 	case CefMenuModel_SetCheckedAt_42: {
-		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,304
+		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,312
 
 		// gen! bool SetCheckedAt(int index,bool checked)
 		auto ret_result = me->SetCheckedAt(v1->i32,
@@ -3167,21 +3286,21 @@ void MyCefMet_CefMenuModel(cef_menu_model_t* me1, int metName, jsvalue* ret, jsv
 		MyCefSetBool(ret, ret_result);
 	} break;
 	case CefMenuModel_HasAccelerator_43: {
-		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,305
+		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,313
 
 		// gen! bool HasAccelerator(int command_id)
 		auto ret_result = me->HasAccelerator(v1->i32);
 		MyCefSetBool(ret, ret_result);
 	} break;
 	case CefMenuModel_HasAcceleratorAt_44: {
-		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,306
+		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,314
 
 		// gen! bool HasAcceleratorAt(int index)
 		auto ret_result = me->HasAcceleratorAt(v1->i32);
 		MyCefSetBool(ret, ret_result);
 	} break;
 	case CefMenuModel_SetAccelerator_45: {
-		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,307
+		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,315
 
 		// gen! bool SetAccelerator(int command_id,int key_code,bool shift_pressed,bool ctrl_pressed,bool alt_pressed)
 		auto ret_result = me->SetAccelerator(v1->i32,
@@ -3192,7 +3311,7 @@ void MyCefMet_CefMenuModel(cef_menu_model_t* me1, int metName, jsvalue* ret, jsv
 		MyCefSetBool(ret, ret_result);
 	} break;
 	case CefMenuModel_SetAcceleratorAt_46: {
-		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,308
+		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,316
 
 		// gen! bool SetAcceleratorAt(int index,int key_code,bool shift_pressed,bool ctrl_pressed,bool alt_pressed)
 		auto ret_result = me->SetAcceleratorAt(v1->i32,
@@ -3203,21 +3322,21 @@ void MyCefMet_CefMenuModel(cef_menu_model_t* me1, int metName, jsvalue* ret, jsv
 		MyCefSetBool(ret, ret_result);
 	} break;
 	case CefMenuModel_RemoveAccelerator_47: {
-		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,309
+		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,317
 
 		// gen! bool RemoveAccelerator(int command_id)
 		auto ret_result = me->RemoveAccelerator(v1->i32);
 		MyCefSetBool(ret, ret_result);
 	} break;
 	case CefMenuModel_RemoveAcceleratorAt_48: {
-		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,310
+		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,318
 
 		// gen! bool RemoveAcceleratorAt(int index)
 		auto ret_result = me->RemoveAcceleratorAt(v1->i32);
 		MyCefSetBool(ret, ret_result);
 	} break;
 	case CefMenuModel_GetAccelerator_49: {
-		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,311
+		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,319
 
 		// gen! bool GetAccelerator(int command_id,int& key_code,bool& shift_pressed,bool& ctrl_pressed,bool& alt_pressed)
 		auto ret_result = me->GetAccelerator(v1->i32,
@@ -3228,7 +3347,7 @@ void MyCefMet_CefMenuModel(cef_menu_model_t* me1, int metName, jsvalue* ret, jsv
 		MyCefSetBool(ret, ret_result);
 	} break;
 	case CefMenuModel_GetAcceleratorAt_50: {
-		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,312
+		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,320
 
 		// gen! bool GetAcceleratorAt(int index,int& key_code,bool& shift_pressed,bool& ctrl_pressed,bool& alt_pressed)
 		auto ret_result = me->GetAcceleratorAt(v1->i32,
@@ -3239,7 +3358,7 @@ void MyCefMet_CefMenuModel(cef_menu_model_t* me1, int metName, jsvalue* ret, jsv
 		MyCefSetBool(ret, ret_result);
 	} break;
 	case CefMenuModel_SetColor_51: {
-		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,313
+		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,321
 
 		// gen! bool SetColor(int command_id,cef_menu_color_type_t color_type,cef_color_t color)
 		auto ret_result = me->SetColor(v1->i32,
@@ -3248,7 +3367,7 @@ void MyCefMet_CefMenuModel(cef_menu_model_t* me1, int metName, jsvalue* ret, jsv
 		MyCefSetBool(ret, ret_result);
 	} break;
 	case CefMenuModel_SetColorAt_52: {
-		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,314
+		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,322
 
 		// gen! bool SetColorAt(int index,cef_menu_color_type_t color_type,cef_color_t color)
 		auto ret_result = me->SetColorAt(v1->i32,
@@ -3257,7 +3376,7 @@ void MyCefMet_CefMenuModel(cef_menu_model_t* me1, int metName, jsvalue* ret, jsv
 		MyCefSetBool(ret, ret_result);
 	} break;
 	case CefMenuModel_GetColor_53: {
-		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,315
+		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,323
 
 		// gen! bool GetColor(int command_id,cef_menu_color_type_t color_type,cef_color_t& color)
 		auto ret_result = me->GetColor(v1->i32,
@@ -3266,7 +3385,7 @@ void MyCefMet_CefMenuModel(cef_menu_model_t* me1, int metName, jsvalue* ret, jsv
 		MyCefSetBool(ret, ret_result);
 	} break;
 	case CefMenuModel_GetColorAt_54: {
-		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,316
+		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,324
 
 		// gen! bool GetColorAt(int index,cef_menu_color_type_t color_type,cef_color_t& color)
 		auto ret_result = me->GetColorAt(v1->i32,
@@ -3275,7 +3394,7 @@ void MyCefMet_CefMenuModel(cef_menu_model_t* me1, int metName, jsvalue* ret, jsv
 		MyCefSetBool(ret, ret_result);
 	} break;
 	case CefMenuModel_SetFontList_55: {
-		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,317
+		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,325
 
 		// gen! bool SetFontList(int command_id,const CefString& font_list)
 		auto ret_result = me->SetFontList(v1->i32,
@@ -3283,7 +3402,7 @@ void MyCefMet_CefMenuModel(cef_menu_model_t* me1, int metName, jsvalue* ret, jsv
 		MyCefSetBool(ret, ret_result);
 	} break;
 	case CefMenuModel_SetFontListAt_56: {
-		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,318
+		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,326
 
 		// gen! bool SetFontListAt(int index,const CefString& font_list)
 		auto ret_result = me->SetFontListAt(v1->i32,
@@ -3292,6 +3411,23 @@ void MyCefMet_CefMenuModel(cef_menu_model_t* me1, int metName, jsvalue* ret, jsv
 	} break;
 	}
 	CefMenuModelCToCpp::Unwrap(me);
+}
+//CppHandleCsMethodRequestCodeGen::GenerateCppCode 
+
+const int CefMenuModel_S_CreateMenuModel_1 = 1;
+
+void MyCefMet_S_CefMenuModel(int metName, jsvalue * ret, jsvalue* v1) {
+	ret->type = JSVALUE_TYPE_EMPTY;
+	switch (metName) {
+	case MET_Release:return; //yes, just return
+	case CefMenuModel_S_CreateMenuModel_1: {
+		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,327
+
+		// gen! CefRefPtr<CefMenuModel> CreateMenuModel(CefRefPtr<CefMenuModelDelegate> delegate)
+		auto ret_result = CefMenuModel::CreateMenuModel(CefMenuModelDelegateCppToC::Unwrap((cef_menu_model_delegate_t*)v1->ptr));
+		MyCefSetVoidPtr(ret, CefMenuModelCToCpp::Unwrap(ret_result));
+	} break;
+	}
 }
 
 
@@ -3312,7 +3448,7 @@ void MyCefMet_CefMenuModelDelegate(cef_menu_model_delegate_t* me1, int metName, 
 	switch (metName) {
 	case MET_Release:return; //yes, just return
 	case CefMenuModelDelegate_ExecuteCommand_1: {
-		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,319
+		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,328
 
 		// gen! void ExecuteCommand(CefRefPtr<CefMenuModel> menu_model,int command_id,cef_event_flags_t event_flags)
 		me->ExecuteCommand(CefMenuModelCToCpp::Wrap((cef_menu_model_t*)v1->ptr),
@@ -3321,7 +3457,7 @@ void MyCefMet_CefMenuModelDelegate(cef_menu_model_delegate_t* me1, int metName, 
 
 	} break;
 	case CefMenuModelDelegate_MouseOutsideMenu_2: {
-		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,320
+		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,329
 
 		// gen! void MouseOutsideMenu(CefRefPtr<CefMenuModel> menu_model,const CefPoint& screen_point)
 		me->MouseOutsideMenu(CefMenuModelCToCpp::Wrap((cef_menu_model_t*)v1->ptr),
@@ -3329,7 +3465,7 @@ void MyCefMet_CefMenuModelDelegate(cef_menu_model_delegate_t* me1, int metName, 
 
 	} break;
 	case CefMenuModelDelegate_UnhandledOpenSubmenu_3: {
-		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,321
+		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,330
 
 		// gen! void UnhandledOpenSubmenu(CefRefPtr<CefMenuModel> menu_model,bool is_rtl)
 		me->UnhandledOpenSubmenu(CefMenuModelCToCpp::Wrap((cef_menu_model_t*)v1->ptr),
@@ -3337,7 +3473,7 @@ void MyCefMet_CefMenuModelDelegate(cef_menu_model_delegate_t* me1, int metName, 
 
 	} break;
 	case CefMenuModelDelegate_UnhandledCloseSubmenu_4: {
-		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,322
+		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,331
 
 		// gen! void UnhandledCloseSubmenu(CefRefPtr<CefMenuModel> menu_model,bool is_rtl)
 		me->UnhandledCloseSubmenu(CefMenuModelCToCpp::Wrap((cef_menu_model_t*)v1->ptr),
@@ -3345,21 +3481,21 @@ void MyCefMet_CefMenuModelDelegate(cef_menu_model_delegate_t* me1, int metName, 
 
 	} break;
 	case CefMenuModelDelegate_MenuWillShow_5: {
-		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,323
+		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,332
 
 		// gen! void MenuWillShow(CefRefPtr<CefMenuModel> menu_model)
 		me->MenuWillShow(CefMenuModelCToCpp::Wrap((cef_menu_model_t*)v1->ptr));
 
 	} break;
 	case CefMenuModelDelegate_MenuClosed_6: {
-		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,324
+		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,333
 
 		// gen! void MenuClosed(CefRefPtr<CefMenuModel> menu_model)
 		me->MenuClosed(CefMenuModelCToCpp::Wrap((cef_menu_model_t*)v1->ptr));
 
 	} break;
 	case CefMenuModelDelegate_FormatLabel_7: {
-		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,325
+		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,334
 
 		// gen! bool FormatLabel(CefRefPtr<CefMenuModel> menu_model,CefString& label)
 		auto ret_result = me->FormatLabel(CefMenuModelCToCpp::Wrap((cef_menu_model_t*)v1->ptr),
@@ -3467,56 +3603,56 @@ void MyCefMet_CefNavigationEntry(cef_navigation_entry_t* me1, int metName, jsval
 	switch (metName) {
 	case MET_Release:return; //yes, just return
 	case CefNavigationEntry_IsValid_1: {
-		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,326
+		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,335
 
 		// gen! bool IsValid()
 		auto ret_result = me->IsValid();
 		MyCefSetBool(ret, ret_result);
 	} break;
 	case CefNavigationEntry_GetURL_2: {
-		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,327
+		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,336
 
 		// gen! CefString GetURL()
 		auto ret_result = me->GetURL();
 		SetCefStringToJsValue(ret, ret_result);
 	} break;
 	case CefNavigationEntry_GetDisplayURL_3: {
-		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,328
+		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,337
 
 		// gen! CefString GetDisplayURL()
 		auto ret_result = me->GetDisplayURL();
 		SetCefStringToJsValue(ret, ret_result);
 	} break;
 	case CefNavigationEntry_GetOriginalURL_4: {
-		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,329
+		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,338
 
 		// gen! CefString GetOriginalURL()
 		auto ret_result = me->GetOriginalURL();
 		SetCefStringToJsValue(ret, ret_result);
 	} break;
 	case CefNavigationEntry_GetTitle_5: {
-		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,330
+		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,339
 
 		// gen! CefString GetTitle()
 		auto ret_result = me->GetTitle();
 		SetCefStringToJsValue(ret, ret_result);
 	} break;
 	case CefNavigationEntry_GetTransitionType_6: {
-		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,331
+		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,340
 
 		// gen! TransitionType GetTransitionType()
 		auto ret_result = me->GetTransitionType();
 		MyCefSetInt32(ret, (int32_t)ret_result);
 	} break;
 	case CefNavigationEntry_HasPostData_7: {
-		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,332
+		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,341
 
 		// gen! bool HasPostData()
 		auto ret_result = me->HasPostData();
 		MyCefSetBool(ret, ret_result);
 	} break;
 	case CefNavigationEntry_GetCompletionTime_8: {
-		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,333
+		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,342
 
 		// gen! CefTime GetCompletionTime()
 		auto ret_result = me->GetCompletionTime();
@@ -3525,14 +3661,14 @@ void MyCefMet_CefNavigationEntry(cef_navigation_entry_t* me1, int metName, jsval
 
 	} break;
 	case CefNavigationEntry_GetHttpStatusCode_9: {
-		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,334
+		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,343
 
 		// gen! int GetHttpStatusCode()
 		auto ret_result = me->GetHttpStatusCode();
 		MyCefSetInt32(ret, (int32_t)ret_result);
 	} break;
 	case CefNavigationEntry_GetSSLStatus_10: {
-		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,335
+		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,344
 
 		// gen! CefRefPtr<CefSSLStatus> GetSSLStatus()
 		auto ret_result = me->GetSSLStatus();
@@ -3576,42 +3712,42 @@ void MyCefMet_CefPrintSettings(cef_print_settings_t* me1, int metName, jsvalue* 
 	switch (metName) {
 	case MET_Release:return; //yes, just return
 	case CefPrintSettings_IsValid_1: {
-		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,336
+		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,345
 
 		// gen! bool IsValid()
 		auto ret_result = me->IsValid();
 		MyCefSetBool(ret, ret_result);
 	} break;
 	case CefPrintSettings_IsReadOnly_2: {
-		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,337
+		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,346
 
 		// gen! bool IsReadOnly()
 		auto ret_result = me->IsReadOnly();
 		MyCefSetBool(ret, ret_result);
 	} break;
 	case CefPrintSettings_Copy_3: {
-		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,338
+		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,347
 
 		// gen! CefRefPtr<CefPrintSettings> Copy()
 		auto ret_result = me->Copy();
 		MyCefSetVoidPtr(ret, CefPrintSettingsCToCpp::Unwrap(ret_result));
 	} break;
 	case CefPrintSettings_SetOrientation_4: {
-		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,339
+		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,348
 
 		// gen! void SetOrientation(bool landscape)
 		me->SetOrientation(v1->i32 != 0);
 
 	} break;
 	case CefPrintSettings_IsLandscape_5: {
-		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,340
+		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,349
 
 		// gen! bool IsLandscape()
 		auto ret_result = me->IsLandscape();
 		MyCefSetBool(ret, ret_result);
 	} break;
 	case CefPrintSettings_SetPrinterPrintableArea_6: {
-		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,341
+		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,350
 
 		// gen! void SetPrinterPrintableArea(const CefSize& physical_size_device_units,const CefRect& printable_area_device_units,bool landscape_needs_flip)
 		me->SetPrinterPrintableArea(*((CefSize*)v1->ptr),
@@ -3620,119 +3756,119 @@ void MyCefMet_CefPrintSettings(cef_print_settings_t* me1, int metName, jsvalue* 
 
 	} break;
 	case CefPrintSettings_SetDeviceName_7: {
-		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,342
+		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,351
 
 		// gen! void SetDeviceName(const CefString& name)
 		me->SetDeviceName(GetStringHolder(v1)->value);
 
 	} break;
 	case CefPrintSettings_GetDeviceName_8: {
-		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,343
+		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,352
 
 		// gen! CefString GetDeviceName()
 		auto ret_result = me->GetDeviceName();
 		SetCefStringToJsValue(ret, ret_result);
 	} break;
 	case CefPrintSettings_SetDPI_9: {
-		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,344
+		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,353
 
 		// gen! void SetDPI(int dpi)
 		me->SetDPI(v1->i32);
 
 	} break;
 	case CefPrintSettings_GetDPI_10: {
-		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,345
+		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,354
 
 		// gen! int GetDPI()
 		auto ret_result = me->GetDPI();
 		MyCefSetInt32(ret, (int32_t)ret_result);
 	} break;
 	case CefPrintSettings_SetPageRanges_11: {
-		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,346
+		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,355
 
 		// gen! void SetPageRanges(const PageRangeList& ranges)
 		me->SetPageRanges(*((CefPrintSettings::PageRangeList*)v1->ptr));
 
 	} break;
 	case CefPrintSettings_GetPageRangesCount_12: {
-		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,347
+		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,356
 
 		// gen! size_t GetPageRangesCount()
 		auto ret_result = me->GetPageRangesCount();
 		MyCefSetInt32(ret, (int32_t)ret_result);
 	} break;
 	case CefPrintSettings_GetPageRanges_13: {
-		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,348
+		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,357
 
 		// gen! void GetPageRanges(PageRangeList& ranges)
 		me->GetPageRanges(*((CefPrintSettings::PageRangeList*)v1->ptr));
 
 	} break;
 	case CefPrintSettings_SetSelectionOnly_14: {
-		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,349
+		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,358
 
 		// gen! void SetSelectionOnly(bool selection_only)
 		me->SetSelectionOnly(v1->i32 != 0);
 
 	} break;
 	case CefPrintSettings_IsSelectionOnly_15: {
-		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,350
+		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,359
 
 		// gen! bool IsSelectionOnly()
 		auto ret_result = me->IsSelectionOnly();
 		MyCefSetBool(ret, ret_result);
 	} break;
 	case CefPrintSettings_SetCollate_16: {
-		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,351
+		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,360
 
 		// gen! void SetCollate(bool collate)
 		me->SetCollate(v1->i32 != 0);
 
 	} break;
 	case CefPrintSettings_WillCollate_17: {
-		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,352
+		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,361
 
 		// gen! bool WillCollate()
 		auto ret_result = me->WillCollate();
 		MyCefSetBool(ret, ret_result);
 	} break;
 	case CefPrintSettings_SetColorModel_18: {
-		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,353
+		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,362
 
 		// gen! void SetColorModel(ColorModel model)
 		me->SetColorModel((CefPrintSettings::ColorModel)v1->i32);
 
 	} break;
 	case CefPrintSettings_GetColorModel_19: {
-		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,354
+		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,363
 
 		// gen! ColorModel GetColorModel()
 		auto ret_result = me->GetColorModel();
 		MyCefSetInt32(ret, (int32_t)ret_result);
 	} break;
 	case CefPrintSettings_SetCopies_20: {
-		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,355
+		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,364
 
 		// gen! void SetCopies(int copies)
 		me->SetCopies(v1->i32);
 
 	} break;
 	case CefPrintSettings_GetCopies_21: {
-		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,356
+		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,365
 
 		// gen! int GetCopies()
 		auto ret_result = me->GetCopies();
 		MyCefSetInt32(ret, (int32_t)ret_result);
 	} break;
 	case CefPrintSettings_SetDuplexMode_22: {
-		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,357
+		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,366
 
 		// gen! void SetDuplexMode(DuplexMode mode)
 		me->SetDuplexMode((CefPrintSettings::DuplexMode)v1->i32);
 
 	} break;
 	case CefPrintSettings_GetDuplexMode_23: {
-		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,358
+		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,367
 
 		// gen! DuplexMode GetDuplexMode()
 		auto ret_result = me->GetDuplexMode();
@@ -3740,6 +3876,23 @@ void MyCefMet_CefPrintSettings(cef_print_settings_t* me1, int metName, jsvalue* 
 	} break;
 	}
 	CefPrintSettingsCToCpp::Unwrap(me);
+}
+//CppHandleCsMethodRequestCodeGen::GenerateCppCode 
+
+const int CefPrintSettings_S_Create_1 = 1;
+
+void MyCefMet_S_CefPrintSettings(int metName, jsvalue * ret) {
+	ret->type = JSVALUE_TYPE_EMPTY;
+	switch (metName) {
+	case MET_Release:return; //yes, just return
+	case CefPrintSettings_S_Create_1: {
+		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,368
+
+		// gen! CefRefPtr<CefPrintSettings> Create()
+		auto ret_result = CefPrintSettings::Create();
+		MyCefSetVoidPtr(ret, CefPrintSettingsCToCpp::Unwrap(ret_result));
+	} break;
+	}
 }
 
 
@@ -3758,35 +3911,35 @@ void MyCefMet_CefProcessMessage(cef_process_message_t* me1, int metName, jsvalue
 	switch (metName) {
 	case MET_Release:return; //yes, just return
 	case CefProcessMessage_IsValid_1: {
-		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,359
+		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,369
 
 		// gen! bool IsValid()
 		auto ret_result = me->IsValid();
 		MyCefSetBool(ret, ret_result);
 	} break;
 	case CefProcessMessage_IsReadOnly_2: {
-		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,360
+		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,370
 
 		// gen! bool IsReadOnly()
 		auto ret_result = me->IsReadOnly();
 		MyCefSetBool(ret, ret_result);
 	} break;
 	case CefProcessMessage_Copy_3: {
-		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,361
+		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,371
 
 		// gen! CefRefPtr<CefProcessMessage> Copy()
 		auto ret_result = me->Copy();
 		MyCefSetVoidPtr(ret, CefProcessMessageCToCpp::Unwrap(ret_result));
 	} break;
 	case CefProcessMessage_GetName_4: {
-		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,362
+		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,372
 
 		// gen! CefString GetName()
 		auto ret_result = me->GetName();
 		SetCefStringToJsValue(ret, ret_result);
 	} break;
 	case CefProcessMessage_GetArgumentList_5: {
-		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,363
+		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,373
 
 		// gen! CefRefPtr<CefListValue> GetArgumentList()
 		auto ret_result = me->GetArgumentList();
@@ -3794,6 +3947,23 @@ void MyCefMet_CefProcessMessage(cef_process_message_t* me1, int metName, jsvalue
 	} break;
 	}
 	CefProcessMessageCToCpp::Unwrap(me);
+}
+//CppHandleCsMethodRequestCodeGen::GenerateCppCode 
+
+const int CefProcessMessage_S_Create_1 = 1;
+
+void MyCefMet_S_CefProcessMessage(int metName, jsvalue * ret, jsvalue* v1) {
+	ret->type = JSVALUE_TYPE_EMPTY;
+	switch (metName) {
+	case MET_Release:return; //yes, just return
+	case CefProcessMessage_S_Create_1: {
+		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,374
+
+		// gen! CefRefPtr<CefProcessMessage> Create(const CefString& name)
+		auto ret_result = CefProcessMessage::Create(GetStringHolder(v1)->value);
+		MyCefSetVoidPtr(ret, CefProcessMessageCToCpp::Unwrap(ret_result));
+	} break;
+	}
 }
 
 
@@ -3827,42 +3997,42 @@ void MyCefMet_CefRequest(cef_request_t* me1, int metName, jsvalue* ret, jsvalue*
 	switch (metName) {
 	case MET_Release:return; //yes, just return
 	case CefRequest_IsReadOnly_1: {
-		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,364
+		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,375
 
 		// gen! bool IsReadOnly()
 		auto ret_result = me->IsReadOnly();
 		MyCefSetBool(ret, ret_result);
 	} break;
 	case CefRequest_GetURL_2: {
-		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,365
+		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,376
 
 		// gen! CefString GetURL()
 		auto ret_result = me->GetURL();
 		SetCefStringToJsValue(ret, ret_result);
 	} break;
 	case CefRequest_SetURL_3: {
-		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,366
+		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,377
 
 		// gen! void SetURL(const CefString& url)
 		me->SetURL(GetStringHolder(v1)->value);
 
 	} break;
 	case CefRequest_GetMethod_4: {
-		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,367
+		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,378
 
 		// gen! CefString GetMethod()
 		auto ret_result = me->GetMethod();
 		SetCefStringToJsValue(ret, ret_result);
 	} break;
 	case CefRequest_SetMethod_5: {
-		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,368
+		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,379
 
 		// gen! void SetMethod(const CefString& method)
 		me->SetMethod(GetStringHolder(v1)->value);
 
 	} break;
 	case CefRequest_SetReferrer_6: {
-		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,369
+		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,380
 
 		// gen! void SetReferrer(const CefString& referrer_url,ReferrerPolicy policy)
 		me->SetReferrer(GetStringHolder(v1)->value,
@@ -3870,49 +4040,49 @@ void MyCefMet_CefRequest(cef_request_t* me1, int metName, jsvalue* ret, jsvalue*
 
 	} break;
 	case CefRequest_GetReferrerURL_7: {
-		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,370
+		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,381
 
 		// gen! CefString GetReferrerURL()
 		auto ret_result = me->GetReferrerURL();
 		SetCefStringToJsValue(ret, ret_result);
 	} break;
 	case CefRequest_GetReferrerPolicy_8: {
-		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,371
+		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,382
 
 		// gen! ReferrerPolicy GetReferrerPolicy()
 		auto ret_result = me->GetReferrerPolicy();
 		MyCefSetInt32(ret, (int32_t)ret_result);
 	} break;
 	case CefRequest_GetPostData_9: {
-		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,372
+		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,383
 
 		// gen! CefRefPtr<CefPostData> GetPostData()
 		auto ret_result = me->GetPostData();
 		MyCefSetVoidPtr(ret, CefPostDataCToCpp::Unwrap(ret_result));
 	} break;
 	case CefRequest_SetPostData_10: {
-		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,373
+		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,384
 
 		// gen! void SetPostData(CefRefPtr<CefPostData> postData)
 		me->SetPostData(CefPostDataCToCpp::Wrap((cef_post_data_t*)v1->ptr));
 
 	} break;
 	case CefRequest_GetHeaderMap_11: {
-		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,374
+		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,385
 
 		// gen! void GetHeaderMap(HeaderMap& headerMap)
 		me->GetHeaderMap(*((CefRequest::HeaderMap*)v1->ptr));
 
 	} break;
 	case CefRequest_SetHeaderMap_12: {
-		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,375
+		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,386
 
 		// gen! void SetHeaderMap(const HeaderMap& headerMap)
 		me->SetHeaderMap(*((CefRequest::HeaderMap*)v1->ptr));
 
 	} break;
 	case CefRequest_Set_13: {
-		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,376
+		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,387
 
 		// gen! void Set(const CefString& url,const CefString& method,CefRefPtr<CefPostData> postData,const HeaderMap& headerMap)
 		me->Set(GetStringHolder(v1)->value,
@@ -3922,49 +4092,49 @@ void MyCefMet_CefRequest(cef_request_t* me1, int metName, jsvalue* ret, jsvalue*
 
 	} break;
 	case CefRequest_GetFlags_14: {
-		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,377
+		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,388
 
 		// gen! int GetFlags()
 		auto ret_result = me->GetFlags();
 		MyCefSetInt32(ret, (int32_t)ret_result);
 	} break;
 	case CefRequest_SetFlags_15: {
-		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,378
+		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,389
 
 		// gen! void SetFlags(int flags)
 		me->SetFlags(v1->i32);
 
 	} break;
 	case CefRequest_GetFirstPartyForCookies_16: {
-		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,379
+		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,390
 
 		// gen! CefString GetFirstPartyForCookies()
 		auto ret_result = me->GetFirstPartyForCookies();
 		SetCefStringToJsValue(ret, ret_result);
 	} break;
 	case CefRequest_SetFirstPartyForCookies_17: {
-		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,380
+		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,391
 
 		// gen! void SetFirstPartyForCookies(const CefString& url)
 		me->SetFirstPartyForCookies(GetStringHolder(v1)->value);
 
 	} break;
 	case CefRequest_GetResourceType_18: {
-		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,381
+		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,392
 
 		// gen! ResourceType GetResourceType()
 		auto ret_result = me->GetResourceType();
 		MyCefSetInt32(ret, (int32_t)ret_result);
 	} break;
 	case CefRequest_GetTransitionType_19: {
-		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,382
+		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,393
 
 		// gen! TransitionType GetTransitionType()
 		auto ret_result = me->GetTransitionType();
 		MyCefSetInt32(ret, (int32_t)ret_result);
 	} break;
 	case CefRequest_GetIdentifier_20: {
-		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,383
+		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,394
 
 		// gen! uint64 GetIdentifier()
 		auto ret_result = me->GetIdentifier();
@@ -3972,6 +4142,23 @@ void MyCefMet_CefRequest(cef_request_t* me1, int metName, jsvalue* ret, jsvalue*
 	} break;
 	}
 	CefRequestCToCpp::Unwrap(me);
+}
+//CppHandleCsMethodRequestCodeGen::GenerateCppCode 
+
+const int CefRequest_S_Create_1 = 1;
+
+void MyCefMet_S_CefRequest(int metName, jsvalue * ret) {
+	ret->type = JSVALUE_TYPE_EMPTY;
+	switch (metName) {
+	case MET_Release:return; //yes, just return
+	case CefRequest_S_Create_1: {
+		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,395
+
+		// gen! CefRefPtr<CefRequest> Create()
+		auto ret_result = CefRequest::Create();
+		MyCefSetVoidPtr(ret, CefRequestCToCpp::Unwrap(ret_result));
+	} break;
+	}
 }
 
 
@@ -3992,49 +4179,49 @@ void MyCefMet_CefPostData(cef_post_data_t* me1, int metName, jsvalue* ret, jsval
 	switch (metName) {
 	case MET_Release:return; //yes, just return
 	case CefPostData_IsReadOnly_1: {
-		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,384
+		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,396
 
 		// gen! bool IsReadOnly()
 		auto ret_result = me->IsReadOnly();
 		MyCefSetBool(ret, ret_result);
 	} break;
 	case CefPostData_HasExcludedElements_2: {
-		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,385
+		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,397
 
 		// gen! bool HasExcludedElements()
 		auto ret_result = me->HasExcludedElements();
 		MyCefSetBool(ret, ret_result);
 	} break;
 	case CefPostData_GetElementCount_3: {
-		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,386
+		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,398
 
 		// gen! size_t GetElementCount()
 		auto ret_result = me->GetElementCount();
 		MyCefSetInt32(ret, (int32_t)ret_result);
 	} break;
 	case CefPostData_GetElements_4: {
-		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,387
+		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,399
 
 		// gen! void GetElements(ElementVector& elements)
 		me->GetElements(*((CefPostData::ElementVector*)v1->ptr));
 
 	} break;
 	case CefPostData_RemoveElement_5: {
-		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,388
+		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,400
 
 		// gen! bool RemoveElement(CefRefPtr<CefPostDataElement> element)
 		auto ret_result = me->RemoveElement(CefPostDataElementCToCpp::Wrap((cef_post_data_element_t*)v1->ptr));
 		MyCefSetBool(ret, ret_result);
 	} break;
 	case CefPostData_AddElement_6: {
-		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,389
+		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,401
 
 		// gen! bool AddElement(CefRefPtr<CefPostDataElement> element)
 		auto ret_result = me->AddElement(CefPostDataElementCToCpp::Wrap((cef_post_data_element_t*)v1->ptr));
 		MyCefSetBool(ret, ret_result);
 	} break;
 	case CefPostData_RemoveElements_7: {
-		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,390
+		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,402
 
 		// gen! void RemoveElements()
 		me->RemoveElements();
@@ -4042,6 +4229,23 @@ void MyCefMet_CefPostData(cef_post_data_t* me1, int metName, jsvalue* ret, jsval
 	} break;
 	}
 	CefPostDataCToCpp::Unwrap(me);
+}
+//CppHandleCsMethodRequestCodeGen::GenerateCppCode 
+
+const int CefPostData_S_Create_1 = 1;
+
+void MyCefMet_S_CefPostData(int metName, jsvalue * ret) {
+	ret->type = JSVALUE_TYPE_EMPTY;
+	switch (metName) {
+	case MET_Release:return; //yes, just return
+	case CefPostData_S_Create_1: {
+		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,403
+
+		// gen! CefRefPtr<CefPostData> Create()
+		auto ret_result = CefPostData::Create();
+		MyCefSetVoidPtr(ret, CefPostDataCToCpp::Unwrap(ret_result));
+	} break;
+	}
 }
 
 
@@ -4063,28 +4267,28 @@ void MyCefMet_CefPostDataElement(cef_post_data_element_t* me1, int metName, jsva
 	switch (metName) {
 	case MET_Release:return; //yes, just return
 	case CefPostDataElement_IsReadOnly_1: {
-		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,391
+		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,404
 
 		// gen! bool IsReadOnly()
 		auto ret_result = me->IsReadOnly();
 		MyCefSetBool(ret, ret_result);
 	} break;
 	case CefPostDataElement_SetToEmpty_2: {
-		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,392
+		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,405
 
 		// gen! void SetToEmpty()
 		me->SetToEmpty();
 
 	} break;
 	case CefPostDataElement_SetToFile_3: {
-		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,393
+		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,406
 
 		// gen! void SetToFile(const CefString& fileName)
 		me->SetToFile(GetStringHolder(v1)->value);
 
 	} break;
 	case CefPostDataElement_SetToBytes_4: {
-		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,394
+		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,407
 
 		// gen! void SetToBytes(size_t size,const void* bytes)
 		me->SetToBytes(v1->i64,
@@ -4092,28 +4296,28 @@ void MyCefMet_CefPostDataElement(cef_post_data_element_t* me1, int metName, jsva
 
 	} break;
 	case CefPostDataElement_GetType_5: {
-		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,395
+		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,408
 
 		// gen! Type GetType()
 		auto ret_result = me->GetType();
 		MyCefSetInt32(ret, (int32_t)ret_result);
 	} break;
 	case CefPostDataElement_GetFile_6: {
-		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,396
+		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,409
 
 		// gen! CefString GetFile()
 		auto ret_result = me->GetFile();
 		SetCefStringToJsValue(ret, ret_result);
 	} break;
 	case CefPostDataElement_GetBytesCount_7: {
-		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,397
+		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,410
 
 		// gen! size_t GetBytesCount()
 		auto ret_result = me->GetBytesCount();
 		MyCefSetInt32(ret, (int32_t)ret_result);
 	} break;
 	case CefPostDataElement_GetBytes_8: {
-		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,398
+		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,411
 
 		// gen! size_t GetBytes(size_t size,void* bytes)
 		auto ret_result = me->GetBytes(v1->i64,
@@ -4122,6 +4326,23 @@ void MyCefMet_CefPostDataElement(cef_post_data_element_t* me1, int metName, jsva
 	} break;
 	}
 	CefPostDataElementCToCpp::Unwrap(me);
+}
+//CppHandleCsMethodRequestCodeGen::GenerateCppCode 
+
+const int CefPostDataElement_S_Create_1 = 1;
+
+void MyCefMet_S_CefPostDataElement(int metName, jsvalue * ret) {
+	ret->type = JSVALUE_TYPE_EMPTY;
+	switch (metName) {
+	case MET_Release:return; //yes, just return
+	case CefPostDataElement_S_Create_1: {
+		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,412
+
+		// gen! CefRefPtr<CefPostDataElement> Create()
+		auto ret_result = CefPostDataElement::Create();
+		MyCefSetVoidPtr(ret, CefPostDataElementCToCpp::Unwrap(ret_result));
+	} break;
+	}
 }
 
 
@@ -4153,49 +4374,49 @@ void MyCefMet_CefRequestContext(cef_request_context_t* me1, int metName, jsvalue
 	switch (metName) {
 	case MET_Release:return; //yes, just return
 	case CefRequestContext_IsSame_1: {
-		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,399
+		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,413
 
 		// gen! bool IsSame(CefRefPtr<CefRequestContext> other)
 		auto ret_result = me->IsSame(CefRequestContextCToCpp::Wrap((cef_request_context_t*)v1->ptr));
 		MyCefSetBool(ret, ret_result);
 	} break;
 	case CefRequestContext_IsSharingWith_2: {
-		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,400
+		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,414
 
 		// gen! bool IsSharingWith(CefRefPtr<CefRequestContext> other)
 		auto ret_result = me->IsSharingWith(CefRequestContextCToCpp::Wrap((cef_request_context_t*)v1->ptr));
 		MyCefSetBool(ret, ret_result);
 	} break;
 	case CefRequestContext_IsGlobal_3: {
-		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,401
+		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,415
 
 		// gen! bool IsGlobal()
 		auto ret_result = me->IsGlobal();
 		MyCefSetBool(ret, ret_result);
 	} break;
 	case CefRequestContext_GetHandler_4: {
-		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,402
+		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,416
 
 		// gen! CefRefPtr<CefRequestContextHandler> GetHandler()
 		auto ret_result = me->GetHandler();
 		MyCefSetVoidPtr(ret, CefRequestContextHandlerCppToC::Wrap(ret_result));
 	} break;
 	case CefRequestContext_GetCachePath_5: {
-		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,403
+		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,417
 
 		// gen! CefString GetCachePath()
 		auto ret_result = me->GetCachePath();
 		SetCefStringToJsValue(ret, ret_result);
 	} break;
 	case CefRequestContext_GetDefaultCookieManager_6: {
-		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,404
+		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,418
 
 		// gen! CefRefPtr<CefCookieManager> GetDefaultCookieManager(CefRefPtr<CefCompletionCallback> callback)
 		auto ret_result = me->GetDefaultCookieManager(CefCompletionCallbackCppToC::Unwrap((cef_completion_callback_t*)v1->ptr));
 		MyCefSetVoidPtr(ret, CefCookieManagerCToCpp::Unwrap(ret_result));
 	} break;
 	case CefRequestContext_RegisterSchemeHandlerFactory_7: {
-		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,405
+		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,419
 
 		// gen! bool RegisterSchemeHandlerFactory(const CefString& scheme_name,const CefString& domain_name,CefRefPtr<CefSchemeHandlerFactory> factory)
 		auto ret_result = me->RegisterSchemeHandlerFactory(GetStringHolder(v1)->value,
@@ -4204,49 +4425,49 @@ void MyCefMet_CefRequestContext(cef_request_context_t* me1, int metName, jsvalue
 		MyCefSetBool(ret, ret_result);
 	} break;
 	case CefRequestContext_ClearSchemeHandlerFactories_8: {
-		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,406
+		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,420
 
 		// gen! bool ClearSchemeHandlerFactories()
 		auto ret_result = me->ClearSchemeHandlerFactories();
 		MyCefSetBool(ret, ret_result);
 	} break;
 	case CefRequestContext_PurgePluginListCache_9: {
-		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,407
+		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,421
 
 		// gen! void PurgePluginListCache(bool reload_pages)
 		me->PurgePluginListCache(v1->i32 != 0);
 
 	} break;
 	case CefRequestContext_HasPreference_10: {
-		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,408
+		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,422
 
 		// gen! bool HasPreference(const CefString& name)
 		auto ret_result = me->HasPreference(GetStringHolder(v1)->value);
 		MyCefSetBool(ret, ret_result);
 	} break;
 	case CefRequestContext_GetPreference_11: {
-		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,409
+		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,423
 
 		// gen! CefRefPtr<CefValue> GetPreference(const CefString& name)
 		auto ret_result = me->GetPreference(GetStringHolder(v1)->value);
 		MyCefSetVoidPtr(ret, CefValueCToCpp::Unwrap(ret_result));
 	} break;
 	case CefRequestContext_GetAllPreferences_12: {
-		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,410
+		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,424
 
 		// gen! CefRefPtr<CefDictionaryValue> GetAllPreferences(bool include_defaults)
 		auto ret_result = me->GetAllPreferences(v1->i32 != 0);
 		MyCefSetVoidPtr(ret, CefDictionaryValueCToCpp::Unwrap(ret_result));
 	} break;
 	case CefRequestContext_CanSetPreference_13: {
-		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,411
+		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,425
 
 		// gen! bool CanSetPreference(const CefString& name)
 		auto ret_result = me->CanSetPreference(GetStringHolder(v1)->value);
 		MyCefSetBool(ret, ret_result);
 	} break;
 	case CefRequestContext_SetPreference_14: {
-		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,412
+		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,426
 
 		// gen! bool SetPreference(const CefString& name,CefRefPtr<CefValue> value,CefString& error)
 		auto ret_result = me->SetPreference(GetStringHolder(v1)->value,
@@ -4255,21 +4476,21 @@ void MyCefMet_CefRequestContext(cef_request_context_t* me1, int metName, jsvalue
 		MyCefSetBool(ret, ret_result);
 	} break;
 	case CefRequestContext_ClearCertificateExceptions_15: {
-		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,413
+		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,427
 
 		// gen! void ClearCertificateExceptions(CefRefPtr<CefCompletionCallback> callback)
 		me->ClearCertificateExceptions(CefCompletionCallbackCppToC::Unwrap((cef_completion_callback_t*)v1->ptr));
 
 	} break;
 	case CefRequestContext_CloseAllConnections_16: {
-		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,414
+		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,428
 
 		// gen! void CloseAllConnections(CefRefPtr<CefCompletionCallback> callback)
 		me->CloseAllConnections(CefCompletionCallbackCppToC::Unwrap((cef_completion_callback_t*)v1->ptr));
 
 	} break;
 	case CefRequestContext_ResolveHost_17: {
-		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,415
+		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,429
 
 		// gen! void ResolveHost(const CefString& origin,CefRefPtr<CefResolveCallback> callback)
 		me->ResolveHost(GetStringHolder(v1)->value,
@@ -4277,7 +4498,7 @@ void MyCefMet_CefRequestContext(cef_request_context_t* me1, int metName, jsvalue
 
 	} break;
 	case CefRequestContext_ResolveHostCached_18: {
-		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,416
+		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,430
 
 		// gen! cef_errorcode_t ResolveHostCached(const CefString& origin,std::vector<CefString>& resolved_ips)
 		auto ret_result = me->ResolveHostCached(GetStringHolder(v1)->value,
@@ -4286,6 +4507,41 @@ void MyCefMet_CefRequestContext(cef_request_context_t* me1, int metName, jsvalue
 	} break;
 	}
 	CefRequestContextCToCpp::Unwrap(me);
+}
+//CppHandleCsMethodRequestCodeGen::GenerateCppCode 
+
+const int CefRequestContext_S_GetGlobalContext_1 = 1;
+const int CefRequestContext_S_CreateContext_2 = 2;
+const int CefRequestContext_S_CreateContext_3 = 3;
+
+void MyCefMet_S_CefRequestContext(int metName, jsvalue * ret, jsvalue* v1, jsvalue* v2) {
+	ret->type = JSVALUE_TYPE_EMPTY;
+	switch (metName) {
+	case MET_Release:return; //yes, just return
+	case CefRequestContext_S_GetGlobalContext_1: {
+		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,431
+
+		// gen! CefRefPtr<CefRequestContext> GetGlobalContext()
+		auto ret_result = CefRequestContext::GetGlobalContext();
+		MyCefSetVoidPtr(ret, CefRequestContextCToCpp::Unwrap(ret_result));
+	} break;
+	case CefRequestContext_S_CreateContext_2: {
+		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,432
+
+		// gen! CefRefPtr<CefRequestContext> CreateContext(const CefRequestContextSettings& settings,CefRefPtr<CefRequestContextHandler> handler)
+		auto ret_result = CefRequestContext::CreateContext(*((CefRequestContextSettings*)v1->ptr),
+			CefRequestContextHandlerCppToC::Unwrap((cef_request_context_handler_t*)v2->ptr));
+		MyCefSetVoidPtr(ret, CefRequestContextCToCpp::Unwrap(ret_result));
+	} break;
+	case CefRequestContext_S_CreateContext_3: {
+		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,433
+
+		// gen! CefRefPtr<CefRequestContext> CreateContext(CefRefPtr<CefRequestContext> other,CefRefPtr<CefRequestContextHandler> handler)
+		auto ret_result = CefRequestContext::CreateContext(CefRequestContextCToCpp::Wrap((cef_request_context_t*)v1->ptr),
+			CefRequestContextHandlerCppToC::Unwrap((cef_request_context_handler_t*)v2->ptr));
+		MyCefSetVoidPtr(ret, CefRequestContextCToCpp::Unwrap(ret_result));
+	} break;
+	}
 }
 
 
@@ -4302,14 +4558,14 @@ void MyCefMet_CefResourceBundle(cef_resource_bundle_t* me1, int metName, jsvalue
 	switch (metName) {
 	case MET_Release:return; //yes, just return
 	case CefResourceBundle_GetLocalizedString_1: {
-		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,417
+		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,434
 
 		// gen! CefString GetLocalizedString(int string_id)
 		auto ret_result = me->GetLocalizedString(v1->i32);
 		SetCefStringToJsValue(ret, ret_result);
 	} break;
 	case CefResourceBundle_GetDataResource_2: {
-		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,418
+		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,435
 
 		// gen! bool GetDataResource(int resource_id,void*& data,size_t& data_size)
 		auto ret_result = me->GetDataResource(v1->i32,
@@ -4318,7 +4574,7 @@ void MyCefMet_CefResourceBundle(cef_resource_bundle_t* me1, int metName, jsvalue
 		MyCefSetBool(ret, ret_result);
 	} break;
 	case CefResourceBundle_GetDataResourceForScale_3: {
-		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,419
+		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,436
 
 		// gen! bool GetDataResourceForScale(int resource_id,ScaleFactor scale_factor,void*& data,size_t& data_size)
 		auto ret_result = me->GetDataResourceForScale(v1->i32,
@@ -4329,6 +4585,23 @@ void MyCefMet_CefResourceBundle(cef_resource_bundle_t* me1, int metName, jsvalue
 	} break;
 	}
 	CefResourceBundleCToCpp::Unwrap(me);
+}
+//CppHandleCsMethodRequestCodeGen::GenerateCppCode 
+
+const int CefResourceBundle_S_GetGlobal_1 = 1;
+
+void MyCefMet_S_CefResourceBundle(int metName, jsvalue * ret) {
+	ret->type = JSVALUE_TYPE_EMPTY;
+	switch (metName) {
+	case MET_Release:return; //yes, just return
+	case CefResourceBundle_S_GetGlobal_1: {
+		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,437
+
+		// gen! CefRefPtr<CefResourceBundle> GetGlobal()
+		auto ret_result = CefResourceBundle::GetGlobal();
+		MyCefSetVoidPtr(ret, CefResourceBundleCToCpp::Unwrap(ret_result));
+	} break;
+	}
 }
 
 
@@ -4354,84 +4627,84 @@ void MyCefMet_CefResponse(cef_response_t* me1, int metName, jsvalue* ret, jsvalu
 	switch (metName) {
 	case MET_Release:return; //yes, just return
 	case CefResponse_IsReadOnly_1: {
-		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,420
+		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,438
 
 		// gen! bool IsReadOnly()
 		auto ret_result = me->IsReadOnly();
 		MyCefSetBool(ret, ret_result);
 	} break;
 	case CefResponse_GetError_2: {
-		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,421
+		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,439
 
 		// gen! cef_errorcode_t GetError()
 		auto ret_result = me->GetError();
 		MyCefSetInt32(ret, (int32_t)ret_result);
 	} break;
 	case CefResponse_SetError_3: {
-		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,422
+		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,440
 
 		// gen! void SetError(cef_errorcode_t error)
 		me->SetError((cef_errorcode_t)v1->i32);
 
 	} break;
 	case CefResponse_GetStatus_4: {
-		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,423
+		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,441
 
 		// gen! int GetStatus()
 		auto ret_result = me->GetStatus();
 		MyCefSetInt32(ret, (int32_t)ret_result);
 	} break;
 	case CefResponse_SetStatus_5: {
-		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,424
+		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,442
 
 		// gen! void SetStatus(int status)
 		me->SetStatus(v1->i32);
 
 	} break;
 	case CefResponse_GetStatusText_6: {
-		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,425
+		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,443
 
 		// gen! CefString GetStatusText()
 		auto ret_result = me->GetStatusText();
 		SetCefStringToJsValue(ret, ret_result);
 	} break;
 	case CefResponse_SetStatusText_7: {
-		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,426
+		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,444
 
 		// gen! void SetStatusText(const CefString& statusText)
 		me->SetStatusText(GetStringHolder(v1)->value);
 
 	} break;
 	case CefResponse_GetMimeType_8: {
-		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,427
+		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,445
 
 		// gen! CefString GetMimeType()
 		auto ret_result = me->GetMimeType();
 		SetCefStringToJsValue(ret, ret_result);
 	} break;
 	case CefResponse_SetMimeType_9: {
-		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,428
+		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,446
 
 		// gen! void SetMimeType(const CefString& mimeType)
 		me->SetMimeType(GetStringHolder(v1)->value);
 
 	} break;
 	case CefResponse_GetHeader_10: {
-		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,429
+		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,447
 
 		// gen! CefString GetHeader(const CefString& name)
 		auto ret_result = me->GetHeader(GetStringHolder(v1)->value);
 		SetCefStringToJsValue(ret, ret_result);
 	} break;
 	case CefResponse_GetHeaderMap_11: {
-		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,430
+		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,448
 
 		// gen! void GetHeaderMap(HeaderMap& headerMap)
 		me->GetHeaderMap(*((CefResponse::HeaderMap*)v1->ptr));
 
 	} break;
 	case CefResponse_SetHeaderMap_12: {
-		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,431
+		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,449
 
 		// gen! void SetHeaderMap(const HeaderMap& headerMap)
 		me->SetHeaderMap(*((CefResponse::HeaderMap*)v1->ptr));
@@ -4439,6 +4712,23 @@ void MyCefMet_CefResponse(cef_response_t* me1, int metName, jsvalue* ret, jsvalu
 	} break;
 	}
 	CefResponseCToCpp::Unwrap(me);
+}
+//CppHandleCsMethodRequestCodeGen::GenerateCppCode 
+
+const int CefResponse_S_Create_1 = 1;
+
+void MyCefMet_S_CefResponse(int metName, jsvalue * ret) {
+	ret->type = JSVALUE_TYPE_EMPTY;
+	switch (metName) {
+	case MET_Release:return; //yes, just return
+	case CefResponse_S_Create_1: {
+		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,450
+
+		// gen! CefRefPtr<CefResponse> Create()
+		auto ret_result = CefResponse::Create();
+		MyCefSetVoidPtr(ret, CefResponseCToCpp::Unwrap(ret_result));
+	} break;
+	}
 }
 
 
@@ -4454,14 +4744,14 @@ void MyCefMet_CefResponseFilter(cef_response_filter_t* me1, int metName, jsvalue
 	switch (metName) {
 	case MET_Release:return; //yes, just return
 	case CefResponseFilter_InitFilter_1: {
-		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,432
+		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,451
 
 		// gen! bool InitFilter()
 		auto ret_result = me->InitFilter();
 		MyCefSetBool(ret, ret_result);
 	} break;
 	case CefResponseFilter_Filter_2: {
-		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,433
+		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,452
 
 		// gen! FilterStatus Filter(void* data_in,size_t data_in_size,size_t& data_in_read,void* data_out,size_t data_out_size,size_t& data_out_written)
 		auto ret_result = me->Filter((void*)v1->ptr,
@@ -4521,7 +4811,7 @@ void MyCefMet_CefSchemeHandlerFactory(cef_scheme_handler_factory_t* me1, int met
 	switch (metName) {
 	case MET_Release:return; //yes, just return
 	case CefSchemeHandlerFactory_Create_1: {
-		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,434
+		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,453
 
 		// gen! CefRefPtr<CefResourceHandler> Create(CefRefPtr<CefBrowser> browser,CefRefPtr<CefFrame> frame,const CefString& scheme_name,CefRefPtr<CefRequest> request)
 		auto ret_result = me->Create(CefBrowserCToCpp::Wrap((cef_browser_t*)v1->ptr),
@@ -4569,14 +4859,14 @@ void MyCefMet_CefSSLInfo(cef_sslinfo_t* me1, int metName, jsvalue* ret) {
 	switch (metName) {
 	case MET_Release:return; //yes, just return
 	case CefSSLInfo_GetCertStatus_1: {
-		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,435
+		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,454
 
 		// gen! cef_cert_status_t GetCertStatus()
 		auto ret_result = me->GetCertStatus();
 		MyCefSetInt32(ret, (int32_t)ret_result);
 	} break;
 	case CefSSLInfo_GetX509Certificate_2: {
-		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,436
+		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,455
 
 		// gen! CefRefPtr<CefX509Certificate> GetX509Certificate()
 		auto ret_result = me->GetX509Certificate();
@@ -4602,35 +4892,35 @@ void MyCefMet_CefSSLStatus(cef_sslstatus_t* me1, int metName, jsvalue* ret) {
 	switch (metName) {
 	case MET_Release:return; //yes, just return
 	case CefSSLStatus_IsSecureConnection_1: {
-		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,437
+		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,456
 
 		// gen! bool IsSecureConnection()
 		auto ret_result = me->IsSecureConnection();
 		MyCefSetBool(ret, ret_result);
 	} break;
 	case CefSSLStatus_GetCertStatus_2: {
-		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,438
+		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,457
 
 		// gen! cef_cert_status_t GetCertStatus()
 		auto ret_result = me->GetCertStatus();
 		MyCefSetInt32(ret, (int32_t)ret_result);
 	} break;
 	case CefSSLStatus_GetSSLVersion_3: {
-		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,439
+		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,458
 
 		// gen! cef_ssl_version_t GetSSLVersion()
 		auto ret_result = me->GetSSLVersion();
 		MyCefSetInt32(ret, (int32_t)ret_result);
 	} break;
 	case CefSSLStatus_GetContentStatus_4: {
-		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,440
+		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,459
 
 		// gen! cef_ssl_content_status_t GetContentStatus()
 		auto ret_result = me->GetContentStatus();
 		MyCefSetInt32(ret, (int32_t)ret_result);
 	} break;
 	case CefSSLStatus_GetX509Certificate_5: {
-		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,441
+		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,460
 
 		// gen! CefRefPtr<CefX509Certificate> GetX509Certificate()
 		auto ret_result = me->GetX509Certificate();
@@ -4656,7 +4946,7 @@ void MyCefMet_CefStreamReader(cef_stream_reader_t* me1, int metName, jsvalue* re
 	switch (metName) {
 	case MET_Release:return; //yes, just return
 	case CefStreamReader_Read_1: {
-		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,442
+		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,461
 
 		// gen! size_t Read(void* ptr,size_t size,size_t n)
 		auto ret_result = me->Read((void*)v1->ptr,
@@ -4665,7 +4955,7 @@ void MyCefMet_CefStreamReader(cef_stream_reader_t* me1, int metName, jsvalue* re
 		MyCefSetInt32(ret, (int32_t)ret_result);
 	} break;
 	case CefStreamReader_Seek_2: {
-		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,443
+		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,462
 
 		// gen! int Seek(int64 offset,int whence)
 		auto ret_result = me->Seek(v1->i64,
@@ -4673,21 +4963,21 @@ void MyCefMet_CefStreamReader(cef_stream_reader_t* me1, int metName, jsvalue* re
 		MyCefSetInt32(ret, (int32_t)ret_result);
 	} break;
 	case CefStreamReader_Tell_3: {
-		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,444
+		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,463
 
 		// gen! int64 Tell()
 		auto ret_result = me->Tell();
 		MyCefSetInt64(ret, ret_result);
 	} break;
 	case CefStreamReader_Eof_4: {
-		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,445
+		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,464
 
 		// gen! int Eof()
 		auto ret_result = me->Eof();
 		MyCefSetInt32(ret, (int32_t)ret_result);
 	} break;
 	case CefStreamReader_MayBlock_5: {
-		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,446
+		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,465
 
 		// gen! bool MayBlock()
 		auto ret_result = me->MayBlock();
@@ -4695,6 +4985,40 @@ void MyCefMet_CefStreamReader(cef_stream_reader_t* me1, int metName, jsvalue* re
 	} break;
 	}
 	CefStreamReaderCToCpp::Unwrap(me);
+}
+//CppHandleCsMethodRequestCodeGen::GenerateCppCode 
+
+const int CefStreamReader_S_CreateForFile_1 = 1;
+const int CefStreamReader_S_CreateForData_2 = 2;
+const int CefStreamReader_S_CreateForHandler_3 = 3;
+
+void MyCefMet_S_CefStreamReader(int metName, jsvalue * ret, jsvalue* v1, jsvalue* v2) {
+	ret->type = JSVALUE_TYPE_EMPTY;
+	switch (metName) {
+	case MET_Release:return; //yes, just return
+	case CefStreamReader_S_CreateForFile_1: {
+		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,466
+
+		// gen! CefRefPtr<CefStreamReader> CreateForFile(const CefString& fileName)
+		auto ret_result = CefStreamReader::CreateForFile(GetStringHolder(v1)->value);
+		MyCefSetVoidPtr(ret, CefStreamReaderCToCpp::Unwrap(ret_result));
+	} break;
+	case CefStreamReader_S_CreateForData_2: {
+		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,467
+
+		// gen! CefRefPtr<CefStreamReader> CreateForData(void* data,size_t size)
+		auto ret_result = CefStreamReader::CreateForData((void*)v1->ptr,
+			v2->i64);
+		MyCefSetVoidPtr(ret, CefStreamReaderCToCpp::Unwrap(ret_result));
+	} break;
+	case CefStreamReader_S_CreateForHandler_3: {
+		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,468
+
+		// gen! CefRefPtr<CefStreamReader> CreateForHandler(CefRefPtr<CefReadHandler> handler)
+		auto ret_result = CefStreamReader::CreateForHandler(CefReadHandlerCppToC::Unwrap((cef_read_handler_t*)v1->ptr));
+		MyCefSetVoidPtr(ret, CefStreamReaderCToCpp::Unwrap(ret_result));
+	} break;
+	}
 }
 
 
@@ -4713,7 +5037,7 @@ void MyCefMet_CefStreamWriter(cef_stream_writer_t* me1, int metName, jsvalue* re
 	switch (metName) {
 	case MET_Release:return; //yes, just return
 	case CefStreamWriter_Write_1: {
-		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,447
+		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,469
 
 		// gen! size_t Write(const void* ptr,size_t size,size_t n)
 		auto ret_result = me->Write((void*)v1->ptr,
@@ -4722,7 +5046,7 @@ void MyCefMet_CefStreamWriter(cef_stream_writer_t* me1, int metName, jsvalue* re
 		MyCefSetInt32(ret, (int32_t)ret_result);
 	} break;
 	case CefStreamWriter_Seek_2: {
-		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,448
+		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,470
 
 		// gen! int Seek(int64 offset,int whence)
 		auto ret_result = me->Seek(v1->i64,
@@ -4730,21 +5054,21 @@ void MyCefMet_CefStreamWriter(cef_stream_writer_t* me1, int metName, jsvalue* re
 		MyCefSetInt32(ret, (int32_t)ret_result);
 	} break;
 	case CefStreamWriter_Tell_3: {
-		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,449
+		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,471
 
 		// gen! int64 Tell()
 		auto ret_result = me->Tell();
 		MyCefSetInt64(ret, ret_result);
 	} break;
 	case CefStreamWriter_Flush_4: {
-		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,450
+		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,472
 
 		// gen! int Flush()
 		auto ret_result = me->Flush();
 		MyCefSetInt32(ret, (int32_t)ret_result);
 	} break;
 	case CefStreamWriter_MayBlock_5: {
-		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,451
+		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,473
 
 		// gen! bool MayBlock()
 		auto ret_result = me->MayBlock();
@@ -4752,6 +5076,31 @@ void MyCefMet_CefStreamWriter(cef_stream_writer_t* me1, int metName, jsvalue* re
 	} break;
 	}
 	CefStreamWriterCToCpp::Unwrap(me);
+}
+//CppHandleCsMethodRequestCodeGen::GenerateCppCode 
+
+const int CefStreamWriter_S_CreateForFile_1 = 1;
+const int CefStreamWriter_S_CreateForHandler_2 = 2;
+
+void MyCefMet_S_CefStreamWriter(int metName, jsvalue * ret, jsvalue* v1) {
+	ret->type = JSVALUE_TYPE_EMPTY;
+	switch (metName) {
+	case MET_Release:return; //yes, just return
+	case CefStreamWriter_S_CreateForFile_1: {
+		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,474
+
+		// gen! CefRefPtr<CefStreamWriter> CreateForFile(const CefString& fileName)
+		auto ret_result = CefStreamWriter::CreateForFile(GetStringHolder(v1)->value);
+		MyCefSetVoidPtr(ret, CefStreamWriterCToCpp::Unwrap(ret_result));
+	} break;
+	case CefStreamWriter_S_CreateForHandler_2: {
+		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,475
+
+		// gen! CefRefPtr<CefStreamWriter> CreateForHandler(CefRefPtr<CefWriteHandler> handler)
+		auto ret_result = CefStreamWriter::CreateForHandler(CefWriteHandlerCppToC::Unwrap((cef_write_handler_t*)v1->ptr));
+		MyCefSetVoidPtr(ret, CefStreamWriterCToCpp::Unwrap(ret_result));
+	} break;
+	}
 }
 
 
@@ -4766,7 +5115,7 @@ void MyCefMet_CefStringVisitor(cef_string_visitor_t* me1, int metName, jsvalue* 
 	switch (metName) {
 	case MET_Release:return; //yes, just return
 	case CefStringVisitor_Visit_1: {
-		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,452
+		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,476
 
 		// gen! void Visit(const CefString& string)
 		me->Visit(GetStringHolder(v1)->value);
@@ -4808,7 +5157,7 @@ void MyCefMet_CefTask(cef_task_t* me1, int metName, jsvalue* ret) {
 	switch (metName) {
 	case MET_Release:return; //yes, just return
 	case CefTask_Execute_1: {
-		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,453
+		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,477
 
 		// gen! void Execute()
 		me->Execute();
@@ -4854,35 +5203,35 @@ void MyCefMet_CefTaskRunner(cef_task_runner_t* me1, int metName, jsvalue* ret, j
 	switch (metName) {
 	case MET_Release:return; //yes, just return
 	case CefTaskRunner_IsSame_1: {
-		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,454
+		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,478
 
 		// gen! bool IsSame(CefRefPtr<CefTaskRunner> that)
 		auto ret_result = me->IsSame(CefTaskRunnerCToCpp::Wrap((cef_task_runner_t*)v1->ptr));
 		MyCefSetBool(ret, ret_result);
 	} break;
 	case CefTaskRunner_BelongsToCurrentThread_2: {
-		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,455
+		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,479
 
 		// gen! bool BelongsToCurrentThread()
 		auto ret_result = me->BelongsToCurrentThread();
 		MyCefSetBool(ret, ret_result);
 	} break;
 	case CefTaskRunner_BelongsToThread_3: {
-		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,456
+		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,480
 
 		// gen! bool BelongsToThread(CefThreadId threadId)
 		auto ret_result = me->BelongsToThread((CefThreadId)v1->i32);
 		MyCefSetBool(ret, ret_result);
 	} break;
 	case CefTaskRunner_PostTask_4: {
-		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,457
+		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,481
 
 		// gen! bool PostTask(CefRefPtr<CefTask> task)
 		auto ret_result = me->PostTask(CefTaskCppToC::Unwrap((cef_task_t*)v1->ptr));
 		MyCefSetBool(ret, ret_result);
 	} break;
 	case CefTaskRunner_PostDelayedTask_5: {
-		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,458
+		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,482
 
 		// gen! bool PostDelayedTask(CefRefPtr<CefTask> task,int64 delay_ms)
 		auto ret_result = me->PostDelayedTask(CefTaskCppToC::Unwrap((cef_task_t*)v1->ptr),
@@ -4891,6 +5240,31 @@ void MyCefMet_CefTaskRunner(cef_task_runner_t* me1, int metName, jsvalue* ret, j
 	} break;
 	}
 	CefTaskRunnerCToCpp::Unwrap(me);
+}
+//CppHandleCsMethodRequestCodeGen::GenerateCppCode 
+
+const int CefTaskRunner_S_GetForCurrentThread_1 = 1;
+const int CefTaskRunner_S_GetForThread_2 = 2;
+
+void MyCefMet_S_CefTaskRunner(int metName, jsvalue * ret, jsvalue* v1) {
+	ret->type = JSVALUE_TYPE_EMPTY;
+	switch (metName) {
+	case MET_Release:return; //yes, just return
+	case CefTaskRunner_S_GetForCurrentThread_1: {
+		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,483
+
+		// gen! CefRefPtr<CefTaskRunner> GetForCurrentThread()
+		auto ret_result = CefTaskRunner::GetForCurrentThread();
+		MyCefSetVoidPtr(ret, CefTaskRunnerCToCpp::Unwrap(ret_result));
+	} break;
+	case CefTaskRunner_S_GetForThread_2: {
+		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,484
+
+		// gen! CefRefPtr<CefTaskRunner> GetForThread(CefThreadId threadId)
+		auto ret_result = CefTaskRunner::GetForThread((CefThreadId)v1->i32);
+		MyCefSetVoidPtr(ret, CefTaskRunnerCToCpp::Unwrap(ret_result));
+	} break;
+	}
 }
 
 
@@ -4910,42 +5284,42 @@ void MyCefMet_CefURLRequest(cef_urlrequest_t* me1, int metName, jsvalue* ret) {
 	switch (metName) {
 	case MET_Release:return; //yes, just return
 	case CefURLRequest_GetRequest_1: {
-		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,459
+		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,485
 
 		// gen! CefRefPtr<CefRequest> GetRequest()
 		auto ret_result = me->GetRequest();
 		MyCefSetVoidPtr(ret, CefRequestCToCpp::Unwrap(ret_result));
 	} break;
 	case CefURLRequest_GetClient_2: {
-		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,460
+		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,486
 
 		// gen! CefRefPtr<CefURLRequestClient> GetClient()
 		auto ret_result = me->GetClient();
 		MyCefSetVoidPtr(ret, CefURLRequestClientCppToC::Wrap(ret_result));
 	} break;
 	case CefURLRequest_GetRequestStatus_3: {
-		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,461
+		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,487
 
 		// gen! Status GetRequestStatus()
 		auto ret_result = me->GetRequestStatus();
 		MyCefSetInt32(ret, (int32_t)ret_result);
 	} break;
 	case CefURLRequest_GetRequestError_4: {
-		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,462
+		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,488
 
 		// gen! ErrorCode GetRequestError()
 		auto ret_result = me->GetRequestError();
 		MyCefSetInt32(ret, (int32_t)ret_result);
 	} break;
 	case CefURLRequest_GetResponse_5: {
-		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,463
+		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,489
 
 		// gen! CefRefPtr<CefResponse> GetResponse()
 		auto ret_result = me->GetResponse();
 		MyCefSetVoidPtr(ret, CefResponseCToCpp::Unwrap(ret_result));
 	} break;
 	case CefURLRequest_Cancel_6: {
-		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,464
+		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,490
 
 		// gen! void Cancel()
 		me->Cancel();
@@ -4953,6 +5327,25 @@ void MyCefMet_CefURLRequest(cef_urlrequest_t* me1, int metName, jsvalue* ret) {
 	} break;
 	}
 	CefURLRequestCToCpp::Unwrap(me);
+}
+//CppHandleCsMethodRequestCodeGen::GenerateCppCode 
+
+const int CefURLRequest_S_Create_1 = 1;
+
+void MyCefMet_S_CefURLRequest(int metName, jsvalue * ret, jsvalue* v1, jsvalue* v2, jsvalue* v3) {
+	ret->type = JSVALUE_TYPE_EMPTY;
+	switch (metName) {
+	case MET_Release:return; //yes, just return
+	case CefURLRequest_S_Create_1: {
+		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,491
+
+		// gen! CefRefPtr<CefURLRequest> Create(CefRefPtr<CefRequest> request,CefRefPtr<CefURLRequestClient> client,CefRefPtr<CefRequestContext> request_context)
+		auto ret_result = CefURLRequest::Create(CefRequestCToCpp::Wrap((cef_request_t*)v1->ptr),
+			CefURLRequestClientCppToC::Unwrap((cef_urlrequest_client_t*)v2->ptr),
+			CefRequestContextCToCpp::Wrap((cef_request_context_t*)v3->ptr));
+		MyCefSetVoidPtr(ret, CefURLRequestCToCpp::Unwrap(ret_result));
+	} break;
+	}
 }
 
 
@@ -4971,14 +5364,14 @@ void MyCefMet_CefURLRequestClient(cef_urlrequest_client_t* me1, int metName, jsv
 	switch (metName) {
 	case MET_Release:return; //yes, just return
 	case CefURLRequestClient_OnRequestComplete_1: {
-		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,465
+		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,492
 
 		// gen! void OnRequestComplete(CefRefPtr<CefURLRequest> request)
 		me->OnRequestComplete(CefURLRequestCToCpp::Wrap((cef_urlrequest_t*)v1->ptr));
 
 	} break;
 	case CefURLRequestClient_OnUploadProgress_2: {
-		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,466
+		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,493
 
 		// gen! void OnUploadProgress(CefRefPtr<CefURLRequest> request,int64 current,int64 total)
 		me->OnUploadProgress(CefURLRequestCToCpp::Wrap((cef_urlrequest_t*)v1->ptr),
@@ -4987,7 +5380,7 @@ void MyCefMet_CefURLRequestClient(cef_urlrequest_client_t* me1, int metName, jsv
 
 	} break;
 	case CefURLRequestClient_OnDownloadProgress_3: {
-		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,467
+		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,494
 
 		// gen! void OnDownloadProgress(CefRefPtr<CefURLRequest> request,int64 current,int64 total)
 		me->OnDownloadProgress(CefURLRequestCToCpp::Wrap((cef_urlrequest_t*)v1->ptr),
@@ -4996,7 +5389,7 @@ void MyCefMet_CefURLRequestClient(cef_urlrequest_client_t* me1, int metName, jsv
 
 	} break;
 	case CefURLRequestClient_OnDownloadData_4: {
-		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,468
+		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,495
 
 		// gen! void OnDownloadData(CefRefPtr<CefURLRequest> request,const void* data,size_t data_length)
 		me->OnDownloadData(CefURLRequestCToCpp::Wrap((cef_urlrequest_t*)v1->ptr),
@@ -5005,7 +5398,7 @@ void MyCefMet_CefURLRequestClient(cef_urlrequest_client_t* me1, int metName, jsv
 
 	} break;
 	case CefURLRequestClient_GetAuthCredentials_5: {
-		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,469
+		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,496
 
 		// gen! bool GetAuthCredentials(bool isProxy,const CefString& host,int port,const CefString& realm,const CefString& scheme,CefRefPtr<CefAuthCallback> callback)
 		auto ret_result = me->GetAuthCredentials(v1->i32 != 0,
@@ -5098,63 +5491,63 @@ void MyCefMet_CefV8Context(cef_v8context_t* me1, int metName, jsvalue* ret, jsva
 	switch (metName) {
 	case MET_Release:return; //yes, just return
 	case CefV8Context_GetTaskRunner_1: {
-		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,470
+		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,497
 
 		// gen! CefRefPtr<CefTaskRunner> GetTaskRunner()
 		auto ret_result = me->GetTaskRunner();
 		MyCefSetVoidPtr(ret, CefTaskRunnerCToCpp::Unwrap(ret_result));
 	} break;
 	case CefV8Context_IsValid_2: {
-		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,471
+		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,498
 
 		// gen! bool IsValid()
 		auto ret_result = me->IsValid();
 		MyCefSetBool(ret, ret_result);
 	} break;
 	case CefV8Context_GetBrowser_3: {
-		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,472
+		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,499
 
 		// gen! CefRefPtr<CefBrowser> GetBrowser()
 		auto ret_result = me->GetBrowser();
 		MyCefSetVoidPtr(ret, CefBrowserCToCpp::Unwrap(ret_result));
 	} break;
 	case CefV8Context_GetFrame_4: {
-		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,473
+		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,500
 
 		// gen! CefRefPtr<CefFrame> GetFrame()
 		auto ret_result = me->GetFrame();
 		MyCefSetVoidPtr(ret, CefFrameCToCpp::Unwrap(ret_result));
 	} break;
 	case CefV8Context_GetGlobal_5: {
-		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,474
+		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,501
 
 		// gen! CefRefPtr<CefV8Value> GetGlobal()
 		auto ret_result = me->GetGlobal();
 		MyCefSetVoidPtr(ret, CefV8ValueCToCpp::Unwrap(ret_result));
 	} break;
 	case CefV8Context_Enter_6: {
-		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,475
+		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,502
 
 		// gen! bool Enter()
 		auto ret_result = me->Enter();
 		MyCefSetBool(ret, ret_result);
 	} break;
 	case CefV8Context_Exit_7: {
-		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,476
+		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,503
 
 		// gen! bool Exit()
 		auto ret_result = me->Exit();
 		MyCefSetBool(ret, ret_result);
 	} break;
 	case CefV8Context_IsSame_8: {
-		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,477
+		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,504
 
 		// gen! bool IsSame(CefRefPtr<CefV8Context> that)
 		auto ret_result = me->IsSame(CefV8ContextCToCpp::Wrap((cef_v8context_t*)v1->ptr));
 		MyCefSetBool(ret, ret_result);
 	} break;
 	case CefV8Context_Eval_9: {
-		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,478
+		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,505
 
 		// gen! bool Eval(const CefString& code,const CefString& script_url,int start_line,CefRefPtr<CefV8Value>& retval,CefRefPtr<CefV8Exception>& exception)
 		auto ret_result = me->Eval(GetStringHolder(v1)->value,
@@ -5166,6 +5559,39 @@ void MyCefMet_CefV8Context(cef_v8context_t* me1, int metName, jsvalue* ret, jsva
 	} break;
 	}
 	CefV8ContextCToCpp::Unwrap(me);
+}
+//CppHandleCsMethodRequestCodeGen::GenerateCppCode 
+
+const int CefV8Context_S_GetCurrentContext_1 = 1;
+const int CefV8Context_S_GetEnteredContext_2 = 2;
+const int CefV8Context_S_InContext_3 = 3;
+
+void MyCefMet_S_CefV8Context(int metName, jsvalue * ret) {
+	ret->type = JSVALUE_TYPE_EMPTY;
+	switch (metName) {
+	case MET_Release:return; //yes, just return
+	case CefV8Context_S_GetCurrentContext_1: {
+		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,506
+
+		// gen! CefRefPtr<CefV8Context> GetCurrentContext()
+		auto ret_result = CefV8Context::GetCurrentContext();
+		MyCefSetVoidPtr(ret, CefV8ContextCToCpp::Unwrap(ret_result));
+	} break;
+	case CefV8Context_S_GetEnteredContext_2: {
+		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,507
+
+		// gen! CefRefPtr<CefV8Context> GetEnteredContext()
+		auto ret_result = CefV8Context::GetEnteredContext();
+		MyCefSetVoidPtr(ret, CefV8ContextCToCpp::Unwrap(ret_result));
+	} break;
+	case CefV8Context_S_InContext_3: {
+		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,508
+
+		// gen! bool InContext()
+		auto ret_result = CefV8Context::InContext();
+		MyCefSetBool(ret, ret_result);
+	} break;
+	}
 }
 
 
@@ -5181,7 +5607,7 @@ void MyCefMet_CefV8Accessor(cef_v8accessor_t* me1, int metName, jsvalue* ret, js
 	switch (metName) {
 	case MET_Release:return; //yes, just return
 	case CefV8Accessor_Get_1: {
-		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,479
+		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,509
 
 		// gen! bool Get(const CefString& name,const CefRefPtr<CefV8Value> object,CefRefPtr<CefV8Value>& retval,CefString& exception)
 		auto ret_result = me->Get(GetStringHolder(v1)->value,
@@ -5191,7 +5617,7 @@ void MyCefMet_CefV8Accessor(cef_v8accessor_t* me1, int metName, jsvalue* ret, js
 		MyCefSetBool(ret, ret_result);
 	} break;
 	case CefV8Accessor_Set_2: {
-		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,480
+		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,510
 
 		// gen! bool Set(const CefString& name,const CefRefPtr<CefV8Value> object,const CefRefPtr<CefV8Value> value,CefString& exception)
 		auto ret_result = me->Set(GetStringHolder(v1)->value,
@@ -5252,7 +5678,7 @@ void MyCefMet_CefV8Interceptor(cef_v8interceptor_t* me1, int metName, jsvalue* r
 	switch (metName) {
 	case MET_Release:return; //yes, just return
 	case CefV8Interceptor_Get_1: {
-		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,481
+		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,511
 
 		// gen! bool Get(const CefString& name,const CefRefPtr<CefV8Value> object,CefRefPtr<CefV8Value>& retval,CefString& exception)
 		auto ret_result = me->Get(GetStringHolder(v1)->value,
@@ -5262,7 +5688,7 @@ void MyCefMet_CefV8Interceptor(cef_v8interceptor_t* me1, int metName, jsvalue* r
 		MyCefSetBool(ret, ret_result);
 	} break;
 	case CefV8Interceptor_Get_2: {
-		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,482
+		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,512
 
 		// gen! bool Get(int index,const CefRefPtr<CefV8Value> object,CefRefPtr<CefV8Value>& retval,CefString& exception)
 		auto ret_result = me->Get(v1->i32,
@@ -5272,7 +5698,7 @@ void MyCefMet_CefV8Interceptor(cef_v8interceptor_t* me1, int metName, jsvalue* r
 		MyCefSetBool(ret, ret_result);
 	} break;
 	case CefV8Interceptor_Set_3: {
-		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,483
+		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,513
 
 		// gen! bool Set(const CefString& name,const CefRefPtr<CefV8Value> object,const CefRefPtr<CefV8Value> value,CefString& exception)
 		auto ret_result = me->Set(GetStringHolder(v1)->value,
@@ -5282,7 +5708,7 @@ void MyCefMet_CefV8Interceptor(cef_v8interceptor_t* me1, int metName, jsvalue* r
 		MyCefSetBool(ret, ret_result);
 	} break;
 	case CefV8Interceptor_Set_4: {
-		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,484
+		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,514
 
 		// gen! bool Set(int index,const CefRefPtr<CefV8Value> object,const CefRefPtr<CefV8Value> value,CefString& exception)
 		auto ret_result = me->Set(v1->i32,
@@ -5369,56 +5795,56 @@ void MyCefMet_CefV8Exception(cef_v8exception_t* me1, int metName, jsvalue* ret) 
 	switch (metName) {
 	case MET_Release:return; //yes, just return
 	case CefV8Exception_GetMessage_1: {
-		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,485
+		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,515
 
 		// gen! CefString GetMessage()
 		auto ret_result = me->GetMessage();
 		SetCefStringToJsValue(ret, ret_result);
 	} break;
 	case CefV8Exception_GetSourceLine_2: {
-		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,486
+		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,516
 
 		// gen! CefString GetSourceLine()
 		auto ret_result = me->GetSourceLine();
 		SetCefStringToJsValue(ret, ret_result);
 	} break;
 	case CefV8Exception_GetScriptResourceName_3: {
-		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,487
+		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,517
 
 		// gen! CefString GetScriptResourceName()
 		auto ret_result = me->GetScriptResourceName();
 		SetCefStringToJsValue(ret, ret_result);
 	} break;
 	case CefV8Exception_GetLineNumber_4: {
-		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,488
+		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,518
 
 		// gen! int GetLineNumber()
 		auto ret_result = me->GetLineNumber();
 		MyCefSetInt32(ret, (int32_t)ret_result);
 	} break;
 	case CefV8Exception_GetStartPosition_5: {
-		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,489
+		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,519
 
 		// gen! int GetStartPosition()
 		auto ret_result = me->GetStartPosition();
 		MyCefSetInt32(ret, (int32_t)ret_result);
 	} break;
 	case CefV8Exception_GetEndPosition_6: {
-		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,490
+		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,520
 
 		// gen! int GetEndPosition()
 		auto ret_result = me->GetEndPosition();
 		MyCefSetInt32(ret, (int32_t)ret_result);
 	} break;
 	case CefV8Exception_GetStartColumn_7: {
-		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,491
+		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,521
 
 		// gen! int GetStartColumn()
 		auto ret_result = me->GetStartColumn();
 		MyCefSetInt32(ret, (int32_t)ret_result);
 	} break;
 	case CefV8Exception_GetEndColumn_8: {
-		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,492
+		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,522
 
 		// gen! int GetEndColumn()
 		auto ret_result = me->GetEndColumn();
@@ -5483,126 +5909,126 @@ void MyCefMet_CefV8Value(cef_v8value_t* me1, int metName, jsvalue* ret, jsvalue*
 	switch (metName) {
 	case MET_Release:return; //yes, just return
 	case CefV8Value_IsValid_1: {
-		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,493
+		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,523
 
 		// gen! bool IsValid()
 		auto ret_result = me->IsValid();
 		MyCefSetBool(ret, ret_result);
 	} break;
 	case CefV8Value_IsUndefined_2: {
-		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,494
+		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,524
 
 		// gen! bool IsUndefined()
 		auto ret_result = me->IsUndefined();
 		MyCefSetBool(ret, ret_result);
 	} break;
 	case CefV8Value_IsNull_3: {
-		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,495
+		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,525
 
 		// gen! bool IsNull()
 		auto ret_result = me->IsNull();
 		MyCefSetBool(ret, ret_result);
 	} break;
 	case CefV8Value_IsBool_4: {
-		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,496
+		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,526
 
 		// gen! bool IsBool()
 		auto ret_result = me->IsBool();
 		MyCefSetBool(ret, ret_result);
 	} break;
 	case CefV8Value_IsInt_5: {
-		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,497
+		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,527
 
 		// gen! bool IsInt()
 		auto ret_result = me->IsInt();
 		MyCefSetBool(ret, ret_result);
 	} break;
 	case CefV8Value_IsUInt_6: {
-		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,498
+		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,528
 
 		// gen! bool IsUInt()
 		auto ret_result = me->IsUInt();
 		MyCefSetBool(ret, ret_result);
 	} break;
 	case CefV8Value_IsDouble_7: {
-		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,499
+		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,529
 
 		// gen! bool IsDouble()
 		auto ret_result = me->IsDouble();
 		MyCefSetBool(ret, ret_result);
 	} break;
 	case CefV8Value_IsDate_8: {
-		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,500
+		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,530
 
 		// gen! bool IsDate()
 		auto ret_result = me->IsDate();
 		MyCefSetBool(ret, ret_result);
 	} break;
 	case CefV8Value_IsString_9: {
-		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,501
+		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,531
 
 		// gen! bool IsString()
 		auto ret_result = me->IsString();
 		MyCefSetBool(ret, ret_result);
 	} break;
 	case CefV8Value_IsObject_10: {
-		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,502
+		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,532
 
 		// gen! bool IsObject()
 		auto ret_result = me->IsObject();
 		MyCefSetBool(ret, ret_result);
 	} break;
 	case CefV8Value_IsArray_11: {
-		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,503
+		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,533
 
 		// gen! bool IsArray()
 		auto ret_result = me->IsArray();
 		MyCefSetBool(ret, ret_result);
 	} break;
 	case CefV8Value_IsFunction_12: {
-		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,504
+		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,534
 
 		// gen! bool IsFunction()
 		auto ret_result = me->IsFunction();
 		MyCefSetBool(ret, ret_result);
 	} break;
 	case CefV8Value_IsSame_13: {
-		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,505
+		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,535
 
 		// gen! bool IsSame(CefRefPtr<CefV8Value> that)
 		auto ret_result = me->IsSame(CefV8ValueCToCpp::Wrap((cef_v8value_t*)v1->ptr));
 		MyCefSetBool(ret, ret_result);
 	} break;
 	case CefV8Value_GetBoolValue_14: {
-		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,506
+		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,536
 
 		// gen! bool GetBoolValue()
 		auto ret_result = me->GetBoolValue();
 		MyCefSetBool(ret, ret_result);
 	} break;
 	case CefV8Value_GetIntValue_15: {
-		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,507
+		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,537
 
 		// gen! int32 GetIntValue()
 		auto ret_result = me->GetIntValue();
 		MyCefSetInt32(ret, ret_result);
 	} break;
 	case CefV8Value_GetUIntValue_16: {
-		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,508
+		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,538
 
 		// gen! uint32 GetUIntValue()
 		auto ret_result = me->GetUIntValue();
 		MyCefSetUInt32(ret, ret_result);
 	} break;
 	case CefV8Value_GetDoubleValue_17: {
-		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,509
+		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,539
 
 		// gen! double GetDoubleValue()
 		auto ret_result = me->GetDoubleValue();
 		MyCefSetDouble(ret, ret_result);
 	} break;
 	case CefV8Value_GetDateValue_18: {
-		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,510
+		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,540
 
 		// gen! CefTime GetDateValue()
 		auto ret_result = me->GetDateValue();
@@ -5611,98 +6037,98 @@ void MyCefMet_CefV8Value(cef_v8value_t* me1, int metName, jsvalue* ret, jsvalue*
 
 	} break;
 	case CefV8Value_GetStringValue_19: {
-		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,511
+		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,541
 
 		// gen! CefString GetStringValue()
 		auto ret_result = me->GetStringValue();
 		SetCefStringToJsValue(ret, ret_result);
 	} break;
 	case CefV8Value_IsUserCreated_20: {
-		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,512
+		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,542
 
 		// gen! bool IsUserCreated()
 		auto ret_result = me->IsUserCreated();
 		MyCefSetBool(ret, ret_result);
 	} break;
 	case CefV8Value_HasException_21: {
-		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,513
+		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,543
 
 		// gen! bool HasException()
 		auto ret_result = me->HasException();
 		MyCefSetBool(ret, ret_result);
 	} break;
 	case CefV8Value_GetException_22: {
-		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,514
+		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,544
 
 		// gen! CefRefPtr<CefV8Exception> GetException()
 		auto ret_result = me->GetException();
 		MyCefSetVoidPtr(ret, CefV8ExceptionCToCpp::Unwrap(ret_result));
 	} break;
 	case CefV8Value_ClearException_23: {
-		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,515
+		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,545
 
 		// gen! bool ClearException()
 		auto ret_result = me->ClearException();
 		MyCefSetBool(ret, ret_result);
 	} break;
 	case CefV8Value_WillRethrowExceptions_24: {
-		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,516
+		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,546
 
 		// gen! bool WillRethrowExceptions()
 		auto ret_result = me->WillRethrowExceptions();
 		MyCefSetBool(ret, ret_result);
 	} break;
 	case CefV8Value_SetRethrowExceptions_25: {
-		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,517
+		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,547
 
 		// gen! bool SetRethrowExceptions(bool rethrow)
 		auto ret_result = me->SetRethrowExceptions(v1->i32 != 0);
 		MyCefSetBool(ret, ret_result);
 	} break;
 	case CefV8Value_HasValue_26: {
-		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,518
+		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,548
 
 		// gen! bool HasValue(const CefString& key)
 		auto ret_result = me->HasValue(GetStringHolder(v1)->value);
 		MyCefSetBool(ret, ret_result);
 	} break;
 	case CefV8Value_HasValue_27: {
-		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,519
+		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,549
 
 		// gen! bool HasValue(int index)
 		auto ret_result = me->HasValue(v1->i32);
 		MyCefSetBool(ret, ret_result);
 	} break;
 	case CefV8Value_DeleteValue_28: {
-		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,520
+		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,550
 
 		// gen! bool DeleteValue(const CefString& key)
 		auto ret_result = me->DeleteValue(GetStringHolder(v1)->value);
 		MyCefSetBool(ret, ret_result);
 	} break;
 	case CefV8Value_DeleteValue_29: {
-		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,521
+		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,551
 
 		// gen! bool DeleteValue(int index)
 		auto ret_result = me->DeleteValue(v1->i32);
 		MyCefSetBool(ret, ret_result);
 	} break;
 	case CefV8Value_GetValue_30: {
-		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,522
+		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,552
 
 		// gen! CefRefPtr<CefV8Value> GetValue(const CefString& key)
 		auto ret_result = me->GetValue(GetStringHolder(v1)->value);
 		MyCefSetVoidPtr(ret, CefV8ValueCToCpp::Unwrap(ret_result));
 	} break;
 	case CefV8Value_GetValue_31: {
-		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,523
+		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,553
 
 		// gen! CefRefPtr<CefV8Value> GetValue(int index)
 		auto ret_result = me->GetValue(v1->i32);
 		MyCefSetVoidPtr(ret, CefV8ValueCToCpp::Unwrap(ret_result));
 	} break;
 	case CefV8Value_SetValue_32: {
-		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,524
+		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,554
 
 		// gen! bool SetValue(const CefString& key,CefRefPtr<CefV8Value> value,PropertyAttribute attribute)
 		auto ret_result = me->SetValue(GetStringHolder(v1)->value,
@@ -5711,7 +6137,7 @@ void MyCefMet_CefV8Value(cef_v8value_t* me1, int metName, jsvalue* ret, jsvalue*
 		MyCefSetBool(ret, ret_result);
 	} break;
 	case CefV8Value_SetValue_33: {
-		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,525
+		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,555
 
 		// gen! bool SetValue(int index,CefRefPtr<CefV8Value> value)
 		auto ret_result = me->SetValue(v1->i32,
@@ -5719,7 +6145,7 @@ void MyCefMet_CefV8Value(cef_v8value_t* me1, int metName, jsvalue* ret, jsvalue*
 		MyCefSetBool(ret, ret_result);
 	} break;
 	case CefV8Value_SetValue_34: {
-		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,526
+		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,556
 
 		// gen! bool SetValue(const CefString& key,AccessControl settings,PropertyAttribute attribute)
 		auto ret_result = me->SetValue(GetStringHolder(v1)->value,
@@ -5728,7 +6154,7 @@ void MyCefMet_CefV8Value(cef_v8value_t* me1, int metName, jsvalue* ret, jsvalue*
 		MyCefSetBool(ret, ret_result);
 	} break;
 	case CefV8Value_GetKeys_35: {
-		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,527
+		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,557
 
 		// gen! bool GetKeys(std::vector<CefString>& keys)
 		auto ret_result = me->GetKeys(*((std::vector<CefString>*)v1->ptr));
@@ -5743,42 +6169,42 @@ void MyCefMet_CefV8Value(cef_v8value_t* me1, int metName, jsvalue* ret, jsvalue*
 		//SKIP 
 	} break;
 	case CefV8Value_GetExternallyAllocatedMemory_38: {
-		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,528
+		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,558
 
 		// gen! int GetExternallyAllocatedMemory()
 		auto ret_result = me->GetExternallyAllocatedMemory();
 		MyCefSetInt32(ret, (int32_t)ret_result);
 	} break;
 	case CefV8Value_AdjustExternallyAllocatedMemory_39: {
-		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,529
+		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,559
 
 		// gen! int AdjustExternallyAllocatedMemory(int change_in_bytes)
 		auto ret_result = me->AdjustExternallyAllocatedMemory(v1->i32);
 		MyCefSetInt32(ret, (int32_t)ret_result);
 	} break;
 	case CefV8Value_GetArrayLength_40: {
-		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,530
+		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,560
 
 		// gen! int GetArrayLength()
 		auto ret_result = me->GetArrayLength();
 		MyCefSetInt32(ret, (int32_t)ret_result);
 	} break;
 	case CefV8Value_GetFunctionName_41: {
-		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,531
+		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,561
 
 		// gen! CefString GetFunctionName()
 		auto ret_result = me->GetFunctionName();
 		SetCefStringToJsValue(ret, ret_result);
 	} break;
 	case CefV8Value_GetFunctionHandler_42: {
-		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,532
+		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,562
 
 		// gen! CefRefPtr<CefV8Handler> GetFunctionHandler()
 		auto ret_result = me->GetFunctionHandler();
 		MyCefSetVoidPtr(ret, CefV8HandlerCppToC::Wrap(ret_result));
 	} break;
 	case CefV8Value_ExecuteFunction_43: {
-		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,533
+		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,563
 
 		// gen! CefRefPtr<CefV8Value> ExecuteFunction(CefRefPtr<CefV8Value> object,const CefV8ValueList& arguments)
 		auto ret_result = me->ExecuteFunction(CefV8ValueCToCpp::Wrap((cef_v8value_t*)v1->ptr),
@@ -5786,7 +6212,7 @@ void MyCefMet_CefV8Value(cef_v8value_t* me1, int metName, jsvalue* ret, jsvalue*
 		MyCefSetVoidPtr(ret, CefV8ValueCToCpp::Unwrap(ret_result));
 	} break;
 	case CefV8Value_ExecuteFunctionWithContext_44: {
-		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,534
+		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,564
 
 		// gen! CefRefPtr<CefV8Value> ExecuteFunctionWithContext(CefRefPtr<CefV8Context> context,CefRefPtr<CefV8Value> object,const CefV8ValueList& arguments)
 		auto ret_result = me->ExecuteFunctionWithContext(CefV8ContextCToCpp::Wrap((cef_v8context_t*)v1->ptr),
@@ -5796,6 +6222,105 @@ void MyCefMet_CefV8Value(cef_v8value_t* me1, int metName, jsvalue* ret, jsvalue*
 	} break;
 	}
 	CefV8ValueCToCpp::Unwrap(me);
+}
+//CppHandleCsMethodRequestCodeGen::GenerateCppCode 
+
+const int CefV8Value_S_CreateUndefined_1 = 1;
+const int CefV8Value_S_CreateNull_2 = 2;
+const int CefV8Value_S_CreateBool_3 = 3;
+const int CefV8Value_S_CreateInt_4 = 4;
+const int CefV8Value_S_CreateUInt_5 = 5;
+const int CefV8Value_S_CreateDouble_6 = 6;
+const int CefV8Value_S_CreateDate_7 = 7;
+const int CefV8Value_S_CreateString_8 = 8;
+const int CefV8Value_S_CreateObject_9 = 9;
+const int CefV8Value_S_CreateArray_10 = 10;
+const int CefV8Value_S_CreateFunction_11 = 11;
+
+void MyCefMet_S_CefV8Value(int metName, jsvalue * ret, jsvalue* v1, jsvalue* v2) {
+	ret->type = JSVALUE_TYPE_EMPTY;
+	switch (metName) {
+	case MET_Release:return; //yes, just return
+	case CefV8Value_S_CreateUndefined_1: {
+		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,565
+
+		// gen! CefRefPtr<CefV8Value> CreateUndefined()
+		auto ret_result = CefV8Value::CreateUndefined();
+		MyCefSetVoidPtr(ret, CefV8ValueCToCpp::Unwrap(ret_result));
+	} break;
+	case CefV8Value_S_CreateNull_2: {
+		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,566
+
+		// gen! CefRefPtr<CefV8Value> CreateNull()
+		auto ret_result = CefV8Value::CreateNull();
+		MyCefSetVoidPtr(ret, CefV8ValueCToCpp::Unwrap(ret_result));
+	} break;
+	case CefV8Value_S_CreateBool_3: {
+		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,567
+
+		// gen! CefRefPtr<CefV8Value> CreateBool(bool value)
+		auto ret_result = CefV8Value::CreateBool(v1->i32 != 0);
+		MyCefSetVoidPtr(ret, CefV8ValueCToCpp::Unwrap(ret_result));
+	} break;
+	case CefV8Value_S_CreateInt_4: {
+		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,568
+
+		// gen! CefRefPtr<CefV8Value> CreateInt(int32 value)
+		auto ret_result = CefV8Value::CreateInt(v1->i32);
+		MyCefSetVoidPtr(ret, CefV8ValueCToCpp::Unwrap(ret_result));
+	} break;
+	case CefV8Value_S_CreateUInt_5: {
+		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,569
+
+		// gen! CefRefPtr<CefV8Value> CreateUInt(uint32 value)
+		auto ret_result = CefV8Value::CreateUInt(v1->i32);
+		MyCefSetVoidPtr(ret, CefV8ValueCToCpp::Unwrap(ret_result));
+	} break;
+	case CefV8Value_S_CreateDouble_6: {
+		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,570
+
+		// gen! CefRefPtr<CefV8Value> CreateDouble(double value)
+		auto ret_result = CefV8Value::CreateDouble(v1->num);
+		MyCefSetVoidPtr(ret, CefV8ValueCToCpp::Unwrap(ret_result));
+	} break;
+	case CefV8Value_S_CreateDate_7: {
+		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,571
+
+		// gen! CefRefPtr<CefV8Value> CreateDate(const CefTime& date)
+		auto ret_result = CefV8Value::CreateDate(*((CefTime*)v1->ptr));
+		MyCefSetVoidPtr(ret, CefV8ValueCToCpp::Unwrap(ret_result));
+	} break;
+	case CefV8Value_S_CreateString_8: {
+		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,572
+
+		// gen! CefRefPtr<CefV8Value> CreateString(const CefString& value)
+		auto ret_result = CefV8Value::CreateString(GetStringHolder(v1)->value);
+		MyCefSetVoidPtr(ret, CefV8ValueCToCpp::Unwrap(ret_result));
+	} break;
+	case CefV8Value_S_CreateObject_9: {
+		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,573
+
+		// gen! CefRefPtr<CefV8Value> CreateObject(CefRefPtr<CefV8Accessor> accessor,CefRefPtr<CefV8Interceptor> interceptor)
+		auto ret_result = CefV8Value::CreateObject(CefV8AccessorCppToC::Unwrap((cef_v8accessor_t*)v1->ptr),
+			CefV8InterceptorCppToC::Unwrap((cef_v8interceptor_t*)v2->ptr));
+		MyCefSetVoidPtr(ret, CefV8ValueCToCpp::Unwrap(ret_result));
+	} break;
+	case CefV8Value_S_CreateArray_10: {
+		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,574
+
+		// gen! CefRefPtr<CefV8Value> CreateArray(int length)
+		auto ret_result = CefV8Value::CreateArray(v1->i32);
+		MyCefSetVoidPtr(ret, CefV8ValueCToCpp::Unwrap(ret_result));
+	} break;
+	case CefV8Value_S_CreateFunction_11: {
+		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,575
+
+		// gen! CefRefPtr<CefV8Value> CreateFunction(const CefString& name,CefRefPtr<CefV8Handler> handler)
+		auto ret_result = CefV8Value::CreateFunction(GetStringHolder(v1)->value,
+			CefV8HandlerCppToC::Unwrap((cef_v8handler_t*)v2->ptr));
+		MyCefSetVoidPtr(ret, CefV8ValueCToCpp::Unwrap(ret_result));
+	} break;
+	}
 }
 
 
@@ -5812,21 +6337,21 @@ void MyCefMet_CefV8StackTrace(cef_v8stack_trace_t* me1, int metName, jsvalue* re
 	switch (metName) {
 	case MET_Release:return; //yes, just return
 	case CefV8StackTrace_IsValid_1: {
-		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,535
+		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,576
 
 		// gen! bool IsValid()
 		auto ret_result = me->IsValid();
 		MyCefSetBool(ret, ret_result);
 	} break;
 	case CefV8StackTrace_GetFrameCount_2: {
-		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,536
+		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,577
 
 		// gen! int GetFrameCount()
 		auto ret_result = me->GetFrameCount();
 		MyCefSetInt32(ret, (int32_t)ret_result);
 	} break;
 	case CefV8StackTrace_GetFrame_3: {
-		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,537
+		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,578
 
 		// gen! CefRefPtr<CefV8StackFrame> GetFrame(int index)
 		auto ret_result = me->GetFrame(v1->i32);
@@ -5834,6 +6359,23 @@ void MyCefMet_CefV8StackTrace(cef_v8stack_trace_t* me1, int metName, jsvalue* re
 	} break;
 	}
 	CefV8StackTraceCToCpp::Unwrap(me);
+}
+//CppHandleCsMethodRequestCodeGen::GenerateCppCode 
+
+const int CefV8StackTrace_S_GetCurrent_1 = 1;
+
+void MyCefMet_S_CefV8StackTrace(int metName, jsvalue * ret, jsvalue* v1) {
+	ret->type = JSVALUE_TYPE_EMPTY;
+	switch (metName) {
+	case MET_Release:return; //yes, just return
+	case CefV8StackTrace_S_GetCurrent_1: {
+		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,579
+
+		// gen! CefRefPtr<CefV8StackTrace> GetCurrent(int frame_limit)
+		auto ret_result = CefV8StackTrace::GetCurrent(v1->i32);
+		MyCefSetVoidPtr(ret, CefV8StackTraceCToCpp::Unwrap(ret_result));
+	} break;
+	}
 }
 
 
@@ -5855,56 +6397,56 @@ void MyCefMet_CefV8StackFrame(cef_v8stack_frame_t* me1, int metName, jsvalue* re
 	switch (metName) {
 	case MET_Release:return; //yes, just return
 	case CefV8StackFrame_IsValid_1: {
-		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,538
+		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,580
 
 		// gen! bool IsValid()
 		auto ret_result = me->IsValid();
 		MyCefSetBool(ret, ret_result);
 	} break;
 	case CefV8StackFrame_GetScriptName_2: {
-		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,539
+		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,581
 
 		// gen! CefString GetScriptName()
 		auto ret_result = me->GetScriptName();
 		SetCefStringToJsValue(ret, ret_result);
 	} break;
 	case CefV8StackFrame_GetScriptNameOrSourceURL_3: {
-		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,540
+		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,582
 
 		// gen! CefString GetScriptNameOrSourceURL()
 		auto ret_result = me->GetScriptNameOrSourceURL();
 		SetCefStringToJsValue(ret, ret_result);
 	} break;
 	case CefV8StackFrame_GetFunctionName_4: {
-		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,541
+		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,583
 
 		// gen! CefString GetFunctionName()
 		auto ret_result = me->GetFunctionName();
 		SetCefStringToJsValue(ret, ret_result);
 	} break;
 	case CefV8StackFrame_GetLineNumber_5: {
-		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,542
+		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,584
 
 		// gen! int GetLineNumber()
 		auto ret_result = me->GetLineNumber();
 		MyCefSetInt32(ret, (int32_t)ret_result);
 	} break;
 	case CefV8StackFrame_GetColumn_6: {
-		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,543
+		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,585
 
 		// gen! int GetColumn()
 		auto ret_result = me->GetColumn();
 		MyCefSetInt32(ret, (int32_t)ret_result);
 	} break;
 	case CefV8StackFrame_IsEval_7: {
-		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,544
+		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,586
 
 		// gen! bool IsEval()
 		auto ret_result = me->IsEval();
 		MyCefSetBool(ret, ret_result);
 	} break;
 	case CefV8StackFrame_IsConstructor_8: {
-		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,545
+		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,587
 
 		// gen! bool IsConstructor()
 		auto ret_result = me->IsConstructor();
@@ -5947,154 +6489,154 @@ void MyCefMet_CefValue(cef_value_t* me1, int metName, jsvalue* ret, jsvalue* v1)
 	switch (metName) {
 	case MET_Release:return; //yes, just return
 	case CefValue_IsValid_1: {
-		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,546
+		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,588
 
 		// gen! bool IsValid()
 		auto ret_result = me->IsValid();
 		MyCefSetBool(ret, ret_result);
 	} break;
 	case CefValue_IsOwned_2: {
-		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,547
+		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,589
 
 		// gen! bool IsOwned()
 		auto ret_result = me->IsOwned();
 		MyCefSetBool(ret, ret_result);
 	} break;
 	case CefValue_IsReadOnly_3: {
-		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,548
+		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,590
 
 		// gen! bool IsReadOnly()
 		auto ret_result = me->IsReadOnly();
 		MyCefSetBool(ret, ret_result);
 	} break;
 	case CefValue_IsSame_4: {
-		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,549
+		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,591
 
 		// gen! bool IsSame(CefRefPtr<CefValue> that)
 		auto ret_result = me->IsSame(CefValueCToCpp::Wrap((cef_value_t*)v1->ptr));
 		MyCefSetBool(ret, ret_result);
 	} break;
 	case CefValue_IsEqual_5: {
-		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,550
+		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,592
 
 		// gen! bool IsEqual(CefRefPtr<CefValue> that)
 		auto ret_result = me->IsEqual(CefValueCToCpp::Wrap((cef_value_t*)v1->ptr));
 		MyCefSetBool(ret, ret_result);
 	} break;
 	case CefValue_Copy_6: {
-		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,551
+		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,593
 
 		// gen! CefRefPtr<CefValue> Copy()
 		auto ret_result = me->Copy();
 		MyCefSetVoidPtr(ret, CefValueCToCpp::Unwrap(ret_result));
 	} break;
 	case CefValue_GetType_7: {
-		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,552
+		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,594
 
 		// gen! CefValueType GetType()
 		auto ret_result = me->GetType();
 		MyCefSetInt32(ret, (int32_t)ret_result);
 	} break;
 	case CefValue_GetBool_8: {
-		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,553
+		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,595
 
 		// gen! bool GetBool()
 		auto ret_result = me->GetBool();
 		MyCefSetBool(ret, ret_result);
 	} break;
 	case CefValue_GetInt_9: {
-		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,554
+		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,596
 
 		// gen! int GetInt()
 		auto ret_result = me->GetInt();
 		MyCefSetInt32(ret, (int32_t)ret_result);
 	} break;
 	case CefValue_GetDouble_10: {
-		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,555
+		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,597
 
 		// gen! double GetDouble()
 		auto ret_result = me->GetDouble();
 		MyCefSetDouble(ret, ret_result);
 	} break;
 	case CefValue_GetString_11: {
-		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,556
+		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,598
 
 		// gen! CefString GetString()
 		auto ret_result = me->GetString();
 		SetCefStringToJsValue(ret, ret_result);
 	} break;
 	case CefValue_GetBinary_12: {
-		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,557
+		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,599
 
 		// gen! CefRefPtr<CefBinaryValue> GetBinary()
 		auto ret_result = me->GetBinary();
 		MyCefSetVoidPtr(ret, CefBinaryValueCToCpp::Unwrap(ret_result));
 	} break;
 	case CefValue_GetDictionary_13: {
-		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,558
+		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,600
 
 		// gen! CefRefPtr<CefDictionaryValue> GetDictionary()
 		auto ret_result = me->GetDictionary();
 		MyCefSetVoidPtr(ret, CefDictionaryValueCToCpp::Unwrap(ret_result));
 	} break;
 	case CefValue_GetList_14: {
-		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,559
+		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,601
 
 		// gen! CefRefPtr<CefListValue> GetList()
 		auto ret_result = me->GetList();
 		MyCefSetVoidPtr(ret, CefListValueCToCpp::Unwrap(ret_result));
 	} break;
 	case CefValue_SetNull_15: {
-		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,560
+		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,602
 
 		// gen! bool SetNull()
 		auto ret_result = me->SetNull();
 		MyCefSetBool(ret, ret_result);
 	} break;
 	case CefValue_SetBool_16: {
-		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,561
+		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,603
 
 		// gen! bool SetBool(bool value)
 		auto ret_result = me->SetBool(v1->i32 != 0);
 		MyCefSetBool(ret, ret_result);
 	} break;
 	case CefValue_SetInt_17: {
-		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,562
+		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,604
 
 		// gen! bool SetInt(int value)
 		auto ret_result = me->SetInt(v1->i32);
 		MyCefSetBool(ret, ret_result);
 	} break;
 	case CefValue_SetDouble_18: {
-		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,563
+		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,605
 
 		// gen! bool SetDouble(double value)
 		auto ret_result = me->SetDouble(v1->num);
 		MyCefSetBool(ret, ret_result);
 	} break;
 	case CefValue_SetString_19: {
-		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,564
+		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,606
 
 		// gen! bool SetString(const CefString& value)
 		auto ret_result = me->SetString(GetStringHolder(v1)->value);
 		MyCefSetBool(ret, ret_result);
 	} break;
 	case CefValue_SetBinary_20: {
-		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,565
+		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,607
 
 		// gen! bool SetBinary(CefRefPtr<CefBinaryValue> value)
 		auto ret_result = me->SetBinary(CefBinaryValueCToCpp::Wrap((cef_binary_value_t*)v1->ptr));
 		MyCefSetBool(ret, ret_result);
 	} break;
 	case CefValue_SetDictionary_21: {
-		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,566
+		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,608
 
 		// gen! bool SetDictionary(CefRefPtr<CefDictionaryValue> value)
 		auto ret_result = me->SetDictionary(CefDictionaryValueCToCpp::Wrap((cef_dictionary_value_t*)v1->ptr));
 		MyCefSetBool(ret, ret_result);
 	} break;
 	case CefValue_SetList_22: {
-		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,567
+		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,609
 
 		// gen! bool SetList(CefRefPtr<CefListValue> value)
 		auto ret_result = me->SetList(CefListValueCToCpp::Wrap((cef_list_value_t*)v1->ptr));
@@ -6102,6 +6644,23 @@ void MyCefMet_CefValue(cef_value_t* me1, int metName, jsvalue* ret, jsvalue* v1)
 	} break;
 	}
 	CefValueCToCpp::Unwrap(me);
+}
+//CppHandleCsMethodRequestCodeGen::GenerateCppCode 
+
+const int CefValue_S_Create_1 = 1;
+
+void MyCefMet_S_CefValue(int metName, jsvalue * ret) {
+	ret->type = JSVALUE_TYPE_EMPTY;
+	switch (metName) {
+	case MET_Release:return; //yes, just return
+	case CefValue_S_Create_1: {
+		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,610
+
+		// gen! CefRefPtr<CefValue> Create()
+		auto ret_result = CefValue::Create();
+		MyCefSetVoidPtr(ret, CefValueCToCpp::Unwrap(ret_result));
+	} break;
+	}
 }
 
 
@@ -6122,49 +6681,49 @@ void MyCefMet_CefBinaryValue(cef_binary_value_t* me1, int metName, jsvalue* ret,
 	switch (metName) {
 	case MET_Release:return; //yes, just return
 	case CefBinaryValue_IsValid_1: {
-		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,568
+		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,611
 
 		// gen! bool IsValid()
 		auto ret_result = me->IsValid();
 		MyCefSetBool(ret, ret_result);
 	} break;
 	case CefBinaryValue_IsOwned_2: {
-		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,569
+		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,612
 
 		// gen! bool IsOwned()
 		auto ret_result = me->IsOwned();
 		MyCefSetBool(ret, ret_result);
 	} break;
 	case CefBinaryValue_IsSame_3: {
-		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,570
+		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,613
 
 		// gen! bool IsSame(CefRefPtr<CefBinaryValue> that)
 		auto ret_result = me->IsSame(CefBinaryValueCToCpp::Wrap((cef_binary_value_t*)v1->ptr));
 		MyCefSetBool(ret, ret_result);
 	} break;
 	case CefBinaryValue_IsEqual_4: {
-		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,571
+		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,614
 
 		// gen! bool IsEqual(CefRefPtr<CefBinaryValue> that)
 		auto ret_result = me->IsEqual(CefBinaryValueCToCpp::Wrap((cef_binary_value_t*)v1->ptr));
 		MyCefSetBool(ret, ret_result);
 	} break;
 	case CefBinaryValue_Copy_5: {
-		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,572
+		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,615
 
 		// gen! CefRefPtr<CefBinaryValue> Copy()
 		auto ret_result = me->Copy();
 		MyCefSetVoidPtr(ret, CefBinaryValueCToCpp::Unwrap(ret_result));
 	} break;
 	case CefBinaryValue_GetSize_6: {
-		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,573
+		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,616
 
 		// gen! size_t GetSize()
 		auto ret_result = me->GetSize();
 		MyCefSetInt32(ret, (int32_t)ret_result);
 	} break;
 	case CefBinaryValue_GetData_7: {
-		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,574
+		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,617
 
 		// gen! size_t GetData(void* buffer,size_t buffer_size,size_t data_offset)
 		auto ret_result = me->GetData((void*)v1->ptr,
@@ -6174,6 +6733,24 @@ void MyCefMet_CefBinaryValue(cef_binary_value_t* me1, int metName, jsvalue* ret,
 	} break;
 	}
 	CefBinaryValueCToCpp::Unwrap(me);
+}
+//CppHandleCsMethodRequestCodeGen::GenerateCppCode 
+
+const int CefBinaryValue_S_Create_1 = 1;
+
+void MyCefMet_S_CefBinaryValue(int metName, jsvalue * ret, jsvalue* v1, jsvalue* v2) {
+	ret->type = JSVALUE_TYPE_EMPTY;
+	switch (metName) {
+	case MET_Release:return; //yes, just return
+	case CefBinaryValue_S_Create_1: {
+		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,618
+
+		// gen! CefRefPtr<CefBinaryValue> Create(const void* data,size_t data_size)
+		auto ret_result = CefBinaryValue::Create((void*)v1->ptr,
+			v2->i64);
+		MyCefSetVoidPtr(ret, CefBinaryValueCToCpp::Unwrap(ret_result));
+	} break;
+	}
 }
 
 
@@ -6216,147 +6793,147 @@ void MyCefMet_CefDictionaryValue(cef_dictionary_value_t* me1, int metName, jsval
 	switch (metName) {
 	case MET_Release:return; //yes, just return
 	case CefDictionaryValue_IsValid_1: {
-		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,575
+		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,619
 
 		// gen! bool IsValid()
 		auto ret_result = me->IsValid();
 		MyCefSetBool(ret, ret_result);
 	} break;
 	case CefDictionaryValue_IsOwned_2: {
-		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,576
+		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,620
 
 		// gen! bool IsOwned()
 		auto ret_result = me->IsOwned();
 		MyCefSetBool(ret, ret_result);
 	} break;
 	case CefDictionaryValue_IsReadOnly_3: {
-		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,577
+		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,621
 
 		// gen! bool IsReadOnly()
 		auto ret_result = me->IsReadOnly();
 		MyCefSetBool(ret, ret_result);
 	} break;
 	case CefDictionaryValue_IsSame_4: {
-		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,578
+		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,622
 
 		// gen! bool IsSame(CefRefPtr<CefDictionaryValue> that)
 		auto ret_result = me->IsSame(CefDictionaryValueCToCpp::Wrap((cef_dictionary_value_t*)v1->ptr));
 		MyCefSetBool(ret, ret_result);
 	} break;
 	case CefDictionaryValue_IsEqual_5: {
-		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,579
+		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,623
 
 		// gen! bool IsEqual(CefRefPtr<CefDictionaryValue> that)
 		auto ret_result = me->IsEqual(CefDictionaryValueCToCpp::Wrap((cef_dictionary_value_t*)v1->ptr));
 		MyCefSetBool(ret, ret_result);
 	} break;
 	case CefDictionaryValue_Copy_6: {
-		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,580
+		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,624
 
 		// gen! CefRefPtr<CefDictionaryValue> Copy(bool exclude_empty_children)
 		auto ret_result = me->Copy(v1->i32 != 0);
 		MyCefSetVoidPtr(ret, CefDictionaryValueCToCpp::Unwrap(ret_result));
 	} break;
 	case CefDictionaryValue_GetSize_7: {
-		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,581
+		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,625
 
 		// gen! size_t GetSize()
 		auto ret_result = me->GetSize();
 		MyCefSetInt32(ret, (int32_t)ret_result);
 	} break;
 	case CefDictionaryValue_Clear_8: {
-		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,582
+		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,626
 
 		// gen! bool Clear()
 		auto ret_result = me->Clear();
 		MyCefSetBool(ret, ret_result);
 	} break;
 	case CefDictionaryValue_HasKey_9: {
-		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,583
+		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,627
 
 		// gen! bool HasKey(const CefString& key)
 		auto ret_result = me->HasKey(GetStringHolder(v1)->value);
 		MyCefSetBool(ret, ret_result);
 	} break;
 	case CefDictionaryValue_GetKeys_10: {
-		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,584
+		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,628
 
 		// gen! bool GetKeys(KeyList& keys)
 		auto ret_result = me->GetKeys(*((CefDictionaryValue::KeyList*)v1->ptr));
 		MyCefSetBool(ret, ret_result);
 	} break;
 	case CefDictionaryValue_Remove_11: {
-		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,585
+		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,629
 
 		// gen! bool Remove(const CefString& key)
 		auto ret_result = me->Remove(GetStringHolder(v1)->value);
 		MyCefSetBool(ret, ret_result);
 	} break;
 	case CefDictionaryValue_GetType_12: {
-		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,586
+		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,630
 
 		// gen! CefValueType GetType(const CefString& key)
 		auto ret_result = me->GetType(GetStringHolder(v1)->value);
 		MyCefSetInt32(ret, (int32_t)ret_result);
 	} break;
 	case CefDictionaryValue_GetValue_13: {
-		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,587
+		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,631
 
 		// gen! CefRefPtr<CefValue> GetValue(const CefString& key)
 		auto ret_result = me->GetValue(GetStringHolder(v1)->value);
 		MyCefSetVoidPtr(ret, CefValueCToCpp::Unwrap(ret_result));
 	} break;
 	case CefDictionaryValue_GetBool_14: {
-		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,588
+		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,632
 
 		// gen! bool GetBool(const CefString& key)
 		auto ret_result = me->GetBool(GetStringHolder(v1)->value);
 		MyCefSetBool(ret, ret_result);
 	} break;
 	case CefDictionaryValue_GetInt_15: {
-		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,589
+		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,633
 
 		// gen! int GetInt(const CefString& key)
 		auto ret_result = me->GetInt(GetStringHolder(v1)->value);
 		MyCefSetInt32(ret, (int32_t)ret_result);
 	} break;
 	case CefDictionaryValue_GetDouble_16: {
-		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,590
+		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,634
 
 		// gen! double GetDouble(const CefString& key)
 		auto ret_result = me->GetDouble(GetStringHolder(v1)->value);
 		MyCefSetDouble(ret, ret_result);
 	} break;
 	case CefDictionaryValue_GetString_17: {
-		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,591
+		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,635
 
 		// gen! CefString GetString(const CefString& key)
 		auto ret_result = me->GetString(GetStringHolder(v1)->value);
 		SetCefStringToJsValue(ret, ret_result);
 	} break;
 	case CefDictionaryValue_GetBinary_18: {
-		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,592
+		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,636
 
 		// gen! CefRefPtr<CefBinaryValue> GetBinary(const CefString& key)
 		auto ret_result = me->GetBinary(GetStringHolder(v1)->value);
 		MyCefSetVoidPtr(ret, CefBinaryValueCToCpp::Unwrap(ret_result));
 	} break;
 	case CefDictionaryValue_GetDictionary_19: {
-		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,593
+		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,637
 
 		// gen! CefRefPtr<CefDictionaryValue> GetDictionary(const CefString& key)
 		auto ret_result = me->GetDictionary(GetStringHolder(v1)->value);
 		MyCefSetVoidPtr(ret, CefDictionaryValueCToCpp::Unwrap(ret_result));
 	} break;
 	case CefDictionaryValue_GetList_20: {
-		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,594
+		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,638
 
 		// gen! CefRefPtr<CefListValue> GetList(const CefString& key)
 		auto ret_result = me->GetList(GetStringHolder(v1)->value);
 		MyCefSetVoidPtr(ret, CefListValueCToCpp::Unwrap(ret_result));
 	} break;
 	case CefDictionaryValue_SetValue_21: {
-		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,595
+		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,639
 
 		// gen! bool SetValue(const CefString& key,CefRefPtr<CefValue> value)
 		auto ret_result = me->SetValue(GetStringHolder(v1)->value,
@@ -6364,14 +6941,14 @@ void MyCefMet_CefDictionaryValue(cef_dictionary_value_t* me1, int metName, jsval
 		MyCefSetBool(ret, ret_result);
 	} break;
 	case CefDictionaryValue_SetNull_22: {
-		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,596
+		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,640
 
 		// gen! bool SetNull(const CefString& key)
 		auto ret_result = me->SetNull(GetStringHolder(v1)->value);
 		MyCefSetBool(ret, ret_result);
 	} break;
 	case CefDictionaryValue_SetBool_23: {
-		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,597
+		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,641
 
 		// gen! bool SetBool(const CefString& key,bool value)
 		auto ret_result = me->SetBool(GetStringHolder(v1)->value,
@@ -6379,7 +6956,7 @@ void MyCefMet_CefDictionaryValue(cef_dictionary_value_t* me1, int metName, jsval
 		MyCefSetBool(ret, ret_result);
 	} break;
 	case CefDictionaryValue_SetInt_24: {
-		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,598
+		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,642
 
 		// gen! bool SetInt(const CefString& key,int value)
 		auto ret_result = me->SetInt(GetStringHolder(v1)->value,
@@ -6387,7 +6964,7 @@ void MyCefMet_CefDictionaryValue(cef_dictionary_value_t* me1, int metName, jsval
 		MyCefSetBool(ret, ret_result);
 	} break;
 	case CefDictionaryValue_SetDouble_25: {
-		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,599
+		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,643
 
 		// gen! bool SetDouble(const CefString& key,double value)
 		auto ret_result = me->SetDouble(GetStringHolder(v1)->value,
@@ -6395,7 +6972,7 @@ void MyCefMet_CefDictionaryValue(cef_dictionary_value_t* me1, int metName, jsval
 		MyCefSetBool(ret, ret_result);
 	} break;
 	case CefDictionaryValue_SetString_26: {
-		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,600
+		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,644
 
 		// gen! bool SetString(const CefString& key,const CefString& value)
 		auto ret_result = me->SetString(GetStringHolder(v1)->value,
@@ -6403,7 +6980,7 @@ void MyCefMet_CefDictionaryValue(cef_dictionary_value_t* me1, int metName, jsval
 		MyCefSetBool(ret, ret_result);
 	} break;
 	case CefDictionaryValue_SetBinary_27: {
-		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,601
+		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,645
 
 		// gen! bool SetBinary(const CefString& key,CefRefPtr<CefBinaryValue> value)
 		auto ret_result = me->SetBinary(GetStringHolder(v1)->value,
@@ -6411,7 +6988,7 @@ void MyCefMet_CefDictionaryValue(cef_dictionary_value_t* me1, int metName, jsval
 		MyCefSetBool(ret, ret_result);
 	} break;
 	case CefDictionaryValue_SetDictionary_28: {
-		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,602
+		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,646
 
 		// gen! bool SetDictionary(const CefString& key,CefRefPtr<CefDictionaryValue> value)
 		auto ret_result = me->SetDictionary(GetStringHolder(v1)->value,
@@ -6419,7 +6996,7 @@ void MyCefMet_CefDictionaryValue(cef_dictionary_value_t* me1, int metName, jsval
 		MyCefSetBool(ret, ret_result);
 	} break;
 	case CefDictionaryValue_SetList_29: {
-		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,603
+		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,647
 
 		// gen! bool SetList(const CefString& key,CefRefPtr<CefListValue> value)
 		auto ret_result = me->SetList(GetStringHolder(v1)->value,
@@ -6428,6 +7005,23 @@ void MyCefMet_CefDictionaryValue(cef_dictionary_value_t* me1, int metName, jsval
 	} break;
 	}
 	CefDictionaryValueCToCpp::Unwrap(me);
+}
+//CppHandleCsMethodRequestCodeGen::GenerateCppCode 
+
+const int CefDictionaryValue_S_Create_1 = 1;
+
+void MyCefMet_S_CefDictionaryValue(int metName, jsvalue * ret) {
+	ret->type = JSVALUE_TYPE_EMPTY;
+	switch (metName) {
+	case MET_Release:return; //yes, just return
+	case CefDictionaryValue_S_Create_1: {
+		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,648
+
+		// gen! CefRefPtr<CefDictionaryValue> Create()
+		auto ret_result = CefDictionaryValue::Create();
+		MyCefSetVoidPtr(ret, CefDictionaryValueCToCpp::Unwrap(ret_result));
+	} break;
+	}
 }
 
 
@@ -6469,140 +7063,140 @@ void MyCefMet_CefListValue(cef_list_value_t* me1, int metName, jsvalue* ret, jsv
 	switch (metName) {
 	case MET_Release:return; //yes, just return
 	case CefListValue_IsValid_1: {
-		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,604
+		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,649
 
 		// gen! bool IsValid()
 		auto ret_result = me->IsValid();
 		MyCefSetBool(ret, ret_result);
 	} break;
 	case CefListValue_IsOwned_2: {
-		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,605
+		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,650
 
 		// gen! bool IsOwned()
 		auto ret_result = me->IsOwned();
 		MyCefSetBool(ret, ret_result);
 	} break;
 	case CefListValue_IsReadOnly_3: {
-		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,606
+		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,651
 
 		// gen! bool IsReadOnly()
 		auto ret_result = me->IsReadOnly();
 		MyCefSetBool(ret, ret_result);
 	} break;
 	case CefListValue_IsSame_4: {
-		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,607
+		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,652
 
 		// gen! bool IsSame(CefRefPtr<CefListValue> that)
 		auto ret_result = me->IsSame(CefListValueCToCpp::Wrap((cef_list_value_t*)v1->ptr));
 		MyCefSetBool(ret, ret_result);
 	} break;
 	case CefListValue_IsEqual_5: {
-		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,608
+		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,653
 
 		// gen! bool IsEqual(CefRefPtr<CefListValue> that)
 		auto ret_result = me->IsEqual(CefListValueCToCpp::Wrap((cef_list_value_t*)v1->ptr));
 		MyCefSetBool(ret, ret_result);
 	} break;
 	case CefListValue_Copy_6: {
-		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,609
+		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,654
 
 		// gen! CefRefPtr<CefListValue> Copy()
 		auto ret_result = me->Copy();
 		MyCefSetVoidPtr(ret, CefListValueCToCpp::Unwrap(ret_result));
 	} break;
 	case CefListValue_SetSize_7: {
-		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,610
+		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,655
 
 		// gen! bool SetSize(size_t size)
 		auto ret_result = me->SetSize(v1->i64);
 		MyCefSetBool(ret, ret_result);
 	} break;
 	case CefListValue_GetSize_8: {
-		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,611
+		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,656
 
 		// gen! size_t GetSize()
 		auto ret_result = me->GetSize();
 		MyCefSetInt32(ret, (int32_t)ret_result);
 	} break;
 	case CefListValue_Clear_9: {
-		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,612
+		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,657
 
 		// gen! bool Clear()
 		auto ret_result = me->Clear();
 		MyCefSetBool(ret, ret_result);
 	} break;
 	case CefListValue_Remove_10: {
-		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,613
+		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,658
 
 		// gen! bool Remove(size_t index)
 		auto ret_result = me->Remove(v1->i64);
 		MyCefSetBool(ret, ret_result);
 	} break;
 	case CefListValue_GetType_11: {
-		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,614
+		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,659
 
 		// gen! CefValueType GetType(size_t index)
 		auto ret_result = me->GetType(v1->i64);
 		MyCefSetInt32(ret, (int32_t)ret_result);
 	} break;
 	case CefListValue_GetValue_12: {
-		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,615
+		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,660
 
 		// gen! CefRefPtr<CefValue> GetValue(size_t index)
 		auto ret_result = me->GetValue(v1->i64);
 		MyCefSetVoidPtr(ret, CefValueCToCpp::Unwrap(ret_result));
 	} break;
 	case CefListValue_GetBool_13: {
-		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,616
+		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,661
 
 		// gen! bool GetBool(size_t index)
 		auto ret_result = me->GetBool(v1->i64);
 		MyCefSetBool(ret, ret_result);
 	} break;
 	case CefListValue_GetInt_14: {
-		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,617
+		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,662
 
 		// gen! int GetInt(size_t index)
 		auto ret_result = me->GetInt(v1->i64);
 		MyCefSetInt32(ret, (int32_t)ret_result);
 	} break;
 	case CefListValue_GetDouble_15: {
-		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,618
+		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,663
 
 		// gen! double GetDouble(size_t index)
 		auto ret_result = me->GetDouble(v1->i64);
 		MyCefSetDouble(ret, ret_result);
 	} break;
 	case CefListValue_GetString_16: {
-		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,619
+		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,664
 
 		// gen! CefString GetString(size_t index)
 		auto ret_result = me->GetString(v1->i64);
 		SetCefStringToJsValue(ret, ret_result);
 	} break;
 	case CefListValue_GetBinary_17: {
-		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,620
+		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,665
 
 		// gen! CefRefPtr<CefBinaryValue> GetBinary(size_t index)
 		auto ret_result = me->GetBinary(v1->i64);
 		MyCefSetVoidPtr(ret, CefBinaryValueCToCpp::Unwrap(ret_result));
 	} break;
 	case CefListValue_GetDictionary_18: {
-		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,621
+		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,666
 
 		// gen! CefRefPtr<CefDictionaryValue> GetDictionary(size_t index)
 		auto ret_result = me->GetDictionary(v1->i64);
 		MyCefSetVoidPtr(ret, CefDictionaryValueCToCpp::Unwrap(ret_result));
 	} break;
 	case CefListValue_GetList_19: {
-		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,622
+		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,667
 
 		// gen! CefRefPtr<CefListValue> GetList(size_t index)
 		auto ret_result = me->GetList(v1->i64);
 		MyCefSetVoidPtr(ret, CefListValueCToCpp::Unwrap(ret_result));
 	} break;
 	case CefListValue_SetValue_20: {
-		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,623
+		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,668
 
 		// gen! bool SetValue(size_t index,CefRefPtr<CefValue> value)
 		auto ret_result = me->SetValue(v1->i64,
@@ -6610,14 +7204,14 @@ void MyCefMet_CefListValue(cef_list_value_t* me1, int metName, jsvalue* ret, jsv
 		MyCefSetBool(ret, ret_result);
 	} break;
 	case CefListValue_SetNull_21: {
-		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,624
+		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,669
 
 		// gen! bool SetNull(size_t index)
 		auto ret_result = me->SetNull(v1->i64);
 		MyCefSetBool(ret, ret_result);
 	} break;
 	case CefListValue_SetBool_22: {
-		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,625
+		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,670
 
 		// gen! bool SetBool(size_t index,bool value)
 		auto ret_result = me->SetBool(v1->i64,
@@ -6625,7 +7219,7 @@ void MyCefMet_CefListValue(cef_list_value_t* me1, int metName, jsvalue* ret, jsv
 		MyCefSetBool(ret, ret_result);
 	} break;
 	case CefListValue_SetInt_23: {
-		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,626
+		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,671
 
 		// gen! bool SetInt(size_t index,int value)
 		auto ret_result = me->SetInt(v1->i64,
@@ -6633,7 +7227,7 @@ void MyCefMet_CefListValue(cef_list_value_t* me1, int metName, jsvalue* ret, jsv
 		MyCefSetBool(ret, ret_result);
 	} break;
 	case CefListValue_SetDouble_24: {
-		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,627
+		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,672
 
 		// gen! bool SetDouble(size_t index,double value)
 		auto ret_result = me->SetDouble(v1->i64,
@@ -6641,7 +7235,7 @@ void MyCefMet_CefListValue(cef_list_value_t* me1, int metName, jsvalue* ret, jsv
 		MyCefSetBool(ret, ret_result);
 	} break;
 	case CefListValue_SetString_25: {
-		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,628
+		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,673
 
 		// gen! bool SetString(size_t index,const CefString& value)
 		auto ret_result = me->SetString(v1->i64,
@@ -6649,7 +7243,7 @@ void MyCefMet_CefListValue(cef_list_value_t* me1, int metName, jsvalue* ret, jsv
 		MyCefSetBool(ret, ret_result);
 	} break;
 	case CefListValue_SetBinary_26: {
-		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,629
+		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,674
 
 		// gen! bool SetBinary(size_t index,CefRefPtr<CefBinaryValue> value)
 		auto ret_result = me->SetBinary(v1->i64,
@@ -6657,7 +7251,7 @@ void MyCefMet_CefListValue(cef_list_value_t* me1, int metName, jsvalue* ret, jsv
 		MyCefSetBool(ret, ret_result);
 	} break;
 	case CefListValue_SetDictionary_27: {
-		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,630
+		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,675
 
 		// gen! bool SetDictionary(size_t index,CefRefPtr<CefDictionaryValue> value)
 		auto ret_result = me->SetDictionary(v1->i64,
@@ -6665,7 +7259,7 @@ void MyCefMet_CefListValue(cef_list_value_t* me1, int metName, jsvalue* ret, jsv
 		MyCefSetBool(ret, ret_result);
 	} break;
 	case CefListValue_SetList_28: {
-		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,631
+		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,676
 
 		// gen! bool SetList(size_t index,CefRefPtr<CefListValue> value)
 		auto ret_result = me->SetList(v1->i64,
@@ -6674,6 +7268,23 @@ void MyCefMet_CefListValue(cef_list_value_t* me1, int metName, jsvalue* ret, jsv
 	} break;
 	}
 	CefListValueCToCpp::Unwrap(me);
+}
+//CppHandleCsMethodRequestCodeGen::GenerateCppCode 
+
+const int CefListValue_S_Create_1 = 1;
+
+void MyCefMet_S_CefListValue(int metName, jsvalue * ret) {
+	ret->type = JSVALUE_TYPE_EMPTY;
+	switch (metName) {
+	case MET_Release:return; //yes, just return
+	case CefListValue_S_Create_1: {
+		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,677
+
+		// gen! CefRefPtr<CefListValue> Create()
+		auto ret_result = CefListValue::Create();
+		MyCefSetVoidPtr(ret, CefListValueCToCpp::Unwrap(ret_result));
+	} break;
+	}
 }
 
 
@@ -6691,28 +7302,28 @@ void MyCefMet_CefWebPluginInfo(cef_web_plugin_info_t* me1, int metName, jsvalue*
 	switch (metName) {
 	case MET_Release:return; //yes, just return
 	case CefWebPluginInfo_GetName_1: {
-		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,632
+		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,678
 
 		// gen! CefString GetName()
 		auto ret_result = me->GetName();
 		SetCefStringToJsValue(ret, ret_result);
 	} break;
 	case CefWebPluginInfo_GetPath_2: {
-		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,633
+		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,679
 
 		// gen! CefString GetPath()
 		auto ret_result = me->GetPath();
 		SetCefStringToJsValue(ret, ret_result);
 	} break;
 	case CefWebPluginInfo_GetVersion_3: {
-		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,634
+		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,680
 
 		// gen! CefString GetVersion()
 		auto ret_result = me->GetVersion();
 		SetCefStringToJsValue(ret, ret_result);
 	} break;
 	case CefWebPluginInfo_GetDescription_4: {
-		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,635
+		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,681
 
 		// gen! CefString GetDescription()
 		auto ret_result = me->GetDescription();
@@ -6734,7 +7345,7 @@ void MyCefMet_CefWebPluginInfoVisitor(cef_web_plugin_info_visitor_t* me1, int me
 	switch (metName) {
 	case MET_Release:return; //yes, just return
 	case CefWebPluginInfoVisitor_Visit_1: {
-		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,636
+		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,682
 
 		// gen! bool Visit(CefRefPtr<CefWebPluginInfo> info,int count,int total)
 		auto ret_result = me->Visit(CefWebPluginInfoCToCpp::Wrap((cef_web_plugin_info_t*)v1->ptr),
@@ -6788,63 +7399,63 @@ void MyCefMet_CefX509CertPrincipal(cef_x509cert_principal_t* me1, int metName, j
 	switch (metName) {
 	case MET_Release:return; //yes, just return
 	case CefX509CertPrincipal_GetDisplayName_1: {
-		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,637
+		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,683
 
 		// gen! CefString GetDisplayName()
 		auto ret_result = me->GetDisplayName();
 		SetCefStringToJsValue(ret, ret_result);
 	} break;
 	case CefX509CertPrincipal_GetCommonName_2: {
-		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,638
+		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,684
 
 		// gen! CefString GetCommonName()
 		auto ret_result = me->GetCommonName();
 		SetCefStringToJsValue(ret, ret_result);
 	} break;
 	case CefX509CertPrincipal_GetLocalityName_3: {
-		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,639
+		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,685
 
 		// gen! CefString GetLocalityName()
 		auto ret_result = me->GetLocalityName();
 		SetCefStringToJsValue(ret, ret_result);
 	} break;
 	case CefX509CertPrincipal_GetStateOrProvinceName_4: {
-		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,640
+		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,686
 
 		// gen! CefString GetStateOrProvinceName()
 		auto ret_result = me->GetStateOrProvinceName();
 		SetCefStringToJsValue(ret, ret_result);
 	} break;
 	case CefX509CertPrincipal_GetCountryName_5: {
-		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,641
+		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,687
 
 		// gen! CefString GetCountryName()
 		auto ret_result = me->GetCountryName();
 		SetCefStringToJsValue(ret, ret_result);
 	} break;
 	case CefX509CertPrincipal_GetStreetAddresses_6: {
-		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,642
+		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,688
 
 		// gen! void GetStreetAddresses(std::vector<CefString>& addresses)
 		me->GetStreetAddresses(*((std::vector<CefString>*)v1->ptr));
 
 	} break;
 	case CefX509CertPrincipal_GetOrganizationNames_7: {
-		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,643
+		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,689
 
 		// gen! void GetOrganizationNames(std::vector<CefString>& names)
 		me->GetOrganizationNames(*((std::vector<CefString>*)v1->ptr));
 
 	} break;
 	case CefX509CertPrincipal_GetOrganizationUnitNames_8: {
-		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,644
+		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,690
 
 		// gen! void GetOrganizationUnitNames(std::vector<CefString>& names)
 		me->GetOrganizationUnitNames(*((std::vector<CefString>*)v1->ptr));
 
 	} break;
 	case CefX509CertPrincipal_GetDomainComponents_9: {
-		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,645
+		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,691
 
 		// gen! void GetDomainComponents(std::vector<CefString>& components)
 		me->GetDomainComponents(*((std::vector<CefString>*)v1->ptr));
@@ -6875,28 +7486,28 @@ void MyCefMet_CefX509Certificate(cef_x509certificate_t* me1, int metName, jsvalu
 	switch (metName) {
 	case MET_Release:return; //yes, just return
 	case CefX509Certificate_GetSubject_1: {
-		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,646
+		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,692
 
 		// gen! CefRefPtr<CefX509CertPrincipal> GetSubject()
 		auto ret_result = me->GetSubject();
 		MyCefSetVoidPtr(ret, CefX509CertPrincipalCToCpp::Unwrap(ret_result));
 	} break;
 	case CefX509Certificate_GetIssuer_2: {
-		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,647
+		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,693
 
 		// gen! CefRefPtr<CefX509CertPrincipal> GetIssuer()
 		auto ret_result = me->GetIssuer();
 		MyCefSetVoidPtr(ret, CefX509CertPrincipalCToCpp::Unwrap(ret_result));
 	} break;
 	case CefX509Certificate_GetSerialNumber_3: {
-		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,648
+		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,694
 
 		// gen! CefRefPtr<CefBinaryValue> GetSerialNumber()
 		auto ret_result = me->GetSerialNumber();
 		MyCefSetVoidPtr(ret, CefBinaryValueCToCpp::Unwrap(ret_result));
 	} break;
 	case CefX509Certificate_GetValidStart_4: {
-		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,649
+		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,695
 
 		// gen! CefTime GetValidStart()
 		auto ret_result = me->GetValidStart();
@@ -6905,7 +7516,7 @@ void MyCefMet_CefX509Certificate(cef_x509certificate_t* me1, int metName, jsvalu
 
 	} break;
 	case CefX509Certificate_GetValidExpiry_5: {
-		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,650
+		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,696
 
 		// gen! CefTime GetValidExpiry()
 		auto ret_result = me->GetValidExpiry();
@@ -6914,35 +7525,35 @@ void MyCefMet_CefX509Certificate(cef_x509certificate_t* me1, int metName, jsvalu
 
 	} break;
 	case CefX509Certificate_GetDEREncoded_6: {
-		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,651
+		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,697
 
 		// gen! CefRefPtr<CefBinaryValue> GetDEREncoded()
 		auto ret_result = me->GetDEREncoded();
 		MyCefSetVoidPtr(ret, CefBinaryValueCToCpp::Unwrap(ret_result));
 	} break;
 	case CefX509Certificate_GetPEMEncoded_7: {
-		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,652
+		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,698
 
 		// gen! CefRefPtr<CefBinaryValue> GetPEMEncoded()
 		auto ret_result = me->GetPEMEncoded();
 		MyCefSetVoidPtr(ret, CefBinaryValueCToCpp::Unwrap(ret_result));
 	} break;
 	case CefX509Certificate_GetIssuerChainSize_8: {
-		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,653
+		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,699
 
 		// gen! size_t GetIssuerChainSize()
 		auto ret_result = me->GetIssuerChainSize();
 		MyCefSetInt32(ret, (int32_t)ret_result);
 	} break;
 	case CefX509Certificate_GetDEREncodedIssuerChain_9: {
-		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,654
+		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,700
 
 		// gen! void GetDEREncodedIssuerChain(IssuerChainBinaryList& chain)
 		me->GetDEREncodedIssuerChain(*((CefX509Certificate::IssuerChainBinaryList*)v1->ptr));
 
 	} break;
 	case CefX509Certificate_GetPEMEncodedIssuerChain_10: {
-		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,655
+		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,701
 
 		// gen! void GetPEMEncodedIssuerChain(IssuerChainBinaryList& chain)
 		me->GetPEMEncodedIssuerChain(*((CefX509Certificate::IssuerChainBinaryList*)v1->ptr));
@@ -6992,140 +7603,140 @@ void MyCefMet_CefXmlReader(cef_xml_reader_t* me1, int metName, jsvalue* ret, jsv
 	switch (metName) {
 	case MET_Release:return; //yes, just return
 	case CefXmlReader_MoveToNextNode_1: {
-		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,656
+		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,702
 
 		// gen! bool MoveToNextNode()
 		auto ret_result = me->MoveToNextNode();
 		MyCefSetBool(ret, ret_result);
 	} break;
 	case CefXmlReader_Close_2: {
-		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,657
+		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,703
 
 		// gen! bool Close()
 		auto ret_result = me->Close();
 		MyCefSetBool(ret, ret_result);
 	} break;
 	case CefXmlReader_HasError_3: {
-		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,658
+		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,704
 
 		// gen! bool HasError()
 		auto ret_result = me->HasError();
 		MyCefSetBool(ret, ret_result);
 	} break;
 	case CefXmlReader_GetError_4: {
-		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,659
+		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,705
 
 		// gen! CefString GetError()
 		auto ret_result = me->GetError();
 		SetCefStringToJsValue(ret, ret_result);
 	} break;
 	case CefXmlReader_GetType_5: {
-		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,660
+		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,706
 
 		// gen! NodeType GetType()
 		auto ret_result = me->GetType();
 		MyCefSetInt32(ret, (int32_t)ret_result);
 	} break;
 	case CefXmlReader_GetDepth_6: {
-		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,661
+		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,707
 
 		// gen! int GetDepth()
 		auto ret_result = me->GetDepth();
 		MyCefSetInt32(ret, (int32_t)ret_result);
 	} break;
 	case CefXmlReader_GetLocalName_7: {
-		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,662
+		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,708
 
 		// gen! CefString GetLocalName()
 		auto ret_result = me->GetLocalName();
 		SetCefStringToJsValue(ret, ret_result);
 	} break;
 	case CefXmlReader_GetPrefix_8: {
-		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,663
+		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,709
 
 		// gen! CefString GetPrefix()
 		auto ret_result = me->GetPrefix();
 		SetCefStringToJsValue(ret, ret_result);
 	} break;
 	case CefXmlReader_GetQualifiedName_9: {
-		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,664
+		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,710
 
 		// gen! CefString GetQualifiedName()
 		auto ret_result = me->GetQualifiedName();
 		SetCefStringToJsValue(ret, ret_result);
 	} break;
 	case CefXmlReader_GetNamespaceURI_10: {
-		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,665
+		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,711
 
 		// gen! CefString GetNamespaceURI()
 		auto ret_result = me->GetNamespaceURI();
 		SetCefStringToJsValue(ret, ret_result);
 	} break;
 	case CefXmlReader_GetBaseURI_11: {
-		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,666
+		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,712
 
 		// gen! CefString GetBaseURI()
 		auto ret_result = me->GetBaseURI();
 		SetCefStringToJsValue(ret, ret_result);
 	} break;
 	case CefXmlReader_GetXmlLang_12: {
-		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,667
+		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,713
 
 		// gen! CefString GetXmlLang()
 		auto ret_result = me->GetXmlLang();
 		SetCefStringToJsValue(ret, ret_result);
 	} break;
 	case CefXmlReader_IsEmptyElement_13: {
-		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,668
+		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,714
 
 		// gen! bool IsEmptyElement()
 		auto ret_result = me->IsEmptyElement();
 		MyCefSetBool(ret, ret_result);
 	} break;
 	case CefXmlReader_HasValue_14: {
-		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,669
+		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,715
 
 		// gen! bool HasValue()
 		auto ret_result = me->HasValue();
 		MyCefSetBool(ret, ret_result);
 	} break;
 	case CefXmlReader_GetValue_15: {
-		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,670
+		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,716
 
 		// gen! CefString GetValue()
 		auto ret_result = me->GetValue();
 		SetCefStringToJsValue(ret, ret_result);
 	} break;
 	case CefXmlReader_HasAttributes_16: {
-		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,671
+		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,717
 
 		// gen! bool HasAttributes()
 		auto ret_result = me->HasAttributes();
 		MyCefSetBool(ret, ret_result);
 	} break;
 	case CefXmlReader_GetAttributeCount_17: {
-		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,672
+		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,718
 
 		// gen! size_t GetAttributeCount()
 		auto ret_result = me->GetAttributeCount();
 		MyCefSetInt32(ret, (int32_t)ret_result);
 	} break;
 	case CefXmlReader_GetAttribute_18: {
-		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,673
+		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,719
 
 		// gen! CefString GetAttribute(int index)
 		auto ret_result = me->GetAttribute(v1->i32);
 		SetCefStringToJsValue(ret, ret_result);
 	} break;
 	case CefXmlReader_GetAttribute_19: {
-		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,674
+		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,720
 
 		// gen! CefString GetAttribute(const CefString& qualifiedName)
 		auto ret_result = me->GetAttribute(GetStringHolder(v1)->value);
 		SetCefStringToJsValue(ret, ret_result);
 	} break;
 	case CefXmlReader_GetAttribute_20: {
-		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,675
+		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,721
 
 		// gen! CefString GetAttribute(const CefString& localName,const CefString& namespaceURI)
 		auto ret_result = me->GetAttribute(GetStringHolder(v1)->value,
@@ -7133,42 +7744,42 @@ void MyCefMet_CefXmlReader(cef_xml_reader_t* me1, int metName, jsvalue* ret, jsv
 		SetCefStringToJsValue(ret, ret_result);
 	} break;
 	case CefXmlReader_GetInnerXml_21: {
-		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,676
+		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,722
 
 		// gen! CefString GetInnerXml()
 		auto ret_result = me->GetInnerXml();
 		SetCefStringToJsValue(ret, ret_result);
 	} break;
 	case CefXmlReader_GetOuterXml_22: {
-		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,677
+		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,723
 
 		// gen! CefString GetOuterXml()
 		auto ret_result = me->GetOuterXml();
 		SetCefStringToJsValue(ret, ret_result);
 	} break;
 	case CefXmlReader_GetLineNumber_23: {
-		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,678
+		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,724
 
 		// gen! int GetLineNumber()
 		auto ret_result = me->GetLineNumber();
 		MyCefSetInt32(ret, (int32_t)ret_result);
 	} break;
 	case CefXmlReader_MoveToAttribute_24: {
-		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,679
+		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,725
 
 		// gen! bool MoveToAttribute(int index)
 		auto ret_result = me->MoveToAttribute(v1->i32);
 		MyCefSetBool(ret, ret_result);
 	} break;
 	case CefXmlReader_MoveToAttribute_25: {
-		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,680
+		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,726
 
 		// gen! bool MoveToAttribute(const CefString& qualifiedName)
 		auto ret_result = me->MoveToAttribute(GetStringHolder(v1)->value);
 		MyCefSetBool(ret, ret_result);
 	} break;
 	case CefXmlReader_MoveToAttribute_26: {
-		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,681
+		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,727
 
 		// gen! bool MoveToAttribute(const CefString& localName,const CefString& namespaceURI)
 		auto ret_result = me->MoveToAttribute(GetStringHolder(v1)->value,
@@ -7176,21 +7787,21 @@ void MyCefMet_CefXmlReader(cef_xml_reader_t* me1, int metName, jsvalue* ret, jsv
 		MyCefSetBool(ret, ret_result);
 	} break;
 	case CefXmlReader_MoveToFirstAttribute_27: {
-		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,682
+		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,728
 
 		// gen! bool MoveToFirstAttribute()
 		auto ret_result = me->MoveToFirstAttribute();
 		MyCefSetBool(ret, ret_result);
 	} break;
 	case CefXmlReader_MoveToNextAttribute_28: {
-		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,683
+		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,729
 
 		// gen! bool MoveToNextAttribute()
 		auto ret_result = me->MoveToNextAttribute();
 		MyCefSetBool(ret, ret_result);
 	} break;
 	case CefXmlReader_MoveToCarryingElement_29: {
-		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,684
+		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,730
 
 		// gen! bool MoveToCarryingElement()
 		auto ret_result = me->MoveToCarryingElement();
@@ -7198,6 +7809,25 @@ void MyCefMet_CefXmlReader(cef_xml_reader_t* me1, int metName, jsvalue* ret, jsv
 	} break;
 	}
 	CefXmlReaderCToCpp::Unwrap(me);
+}
+//CppHandleCsMethodRequestCodeGen::GenerateCppCode 
+
+const int CefXmlReader_S_Create_1 = 1;
+
+void MyCefMet_S_CefXmlReader(int metName, jsvalue * ret, jsvalue* v1, jsvalue* v2, jsvalue* v3) {
+	ret->type = JSVALUE_TYPE_EMPTY;
+	switch (metName) {
+	case MET_Release:return; //yes, just return
+	case CefXmlReader_S_Create_1: {
+		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,731
+
+		// gen! CefRefPtr<CefXmlReader> Create(CefRefPtr<CefStreamReader> stream,EncodingType encodingType,const CefString& URI)
+		auto ret_result = CefXmlReader::Create(CefStreamReaderCToCpp::Wrap((cef_stream_reader_t*)v1->ptr),
+			(cef_xml_encoding_type_t)v2->i32,
+			GetStringHolder(v3)->value);
+		MyCefSetVoidPtr(ret, CefXmlReaderCToCpp::Unwrap(ret_result));
+	} break;
+	}
 }
 
 
@@ -7223,21 +7853,21 @@ void MyCefMet_CefZipReader(cef_zip_reader_t* me1, int metName, jsvalue* ret, jsv
 	switch (metName) {
 	case MET_Release:return; //yes, just return
 	case CefZipReader_MoveToFirstFile_1: {
-		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,685
+		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,732
 
 		// gen! bool MoveToFirstFile()
 		auto ret_result = me->MoveToFirstFile();
 		MyCefSetBool(ret, ret_result);
 	} break;
 	case CefZipReader_MoveToNextFile_2: {
-		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,686
+		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,733
 
 		// gen! bool MoveToNextFile()
 		auto ret_result = me->MoveToNextFile();
 		MyCefSetBool(ret, ret_result);
 	} break;
 	case CefZipReader_MoveToFile_3: {
-		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,687
+		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,734
 
 		// gen! bool MoveToFile(const CefString& fileName,bool caseSensitive)
 		auto ret_result = me->MoveToFile(GetStringHolder(v1)->value,
@@ -7245,28 +7875,28 @@ void MyCefMet_CefZipReader(cef_zip_reader_t* me1, int metName, jsvalue* ret, jsv
 		MyCefSetBool(ret, ret_result);
 	} break;
 	case CefZipReader_Close_4: {
-		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,688
+		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,735
 
 		// gen! bool Close()
 		auto ret_result = me->Close();
 		MyCefSetBool(ret, ret_result);
 	} break;
 	case CefZipReader_GetFileName_5: {
-		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,689
+		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,736
 
 		// gen! CefString GetFileName()
 		auto ret_result = me->GetFileName();
 		SetCefStringToJsValue(ret, ret_result);
 	} break;
 	case CefZipReader_GetFileSize_6: {
-		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,690
+		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,737
 
 		// gen! int64 GetFileSize()
 		auto ret_result = me->GetFileSize();
 		MyCefSetInt64(ret, ret_result);
 	} break;
 	case CefZipReader_GetFileLastModified_7: {
-		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,691
+		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,738
 
 		// gen! CefTime GetFileLastModified()
 		auto ret_result = me->GetFileLastModified();
@@ -7275,21 +7905,21 @@ void MyCefMet_CefZipReader(cef_zip_reader_t* me1, int metName, jsvalue* ret, jsv
 
 	} break;
 	case CefZipReader_OpenFile_8: {
-		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,692
+		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,739
 
 		// gen! bool OpenFile(const CefString& password)
 		auto ret_result = me->OpenFile(GetStringHolder(v1)->value);
 		MyCefSetBool(ret, ret_result);
 	} break;
 	case CefZipReader_CloseFile_9: {
-		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,693
+		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,740
 
 		// gen! bool CloseFile()
 		auto ret_result = me->CloseFile();
 		MyCefSetBool(ret, ret_result);
 	} break;
 	case CefZipReader_ReadFile_10: {
-		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,694
+		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,741
 
 		// gen! int ReadFile(void* buffer,size_t bufferSize)
 		auto ret_result = me->ReadFile((void*)v1->ptr,
@@ -7297,14 +7927,14 @@ void MyCefMet_CefZipReader(cef_zip_reader_t* me1, int metName, jsvalue* ret, jsv
 		MyCefSetInt32(ret, (int32_t)ret_result);
 	} break;
 	case CefZipReader_Tell_11: {
-		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,695
+		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,742
 
 		// gen! int64 Tell()
 		auto ret_result = me->Tell();
 		MyCefSetInt64(ret, ret_result);
 	} break;
 	case CefZipReader_Eof_12: {
-		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,696
+		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,743
 
 		// gen! bool Eof()
 		auto ret_result = me->Eof();
@@ -7312,6 +7942,23 @@ void MyCefMet_CefZipReader(cef_zip_reader_t* me1, int metName, jsvalue* ret, jsv
 	} break;
 	}
 	CefZipReaderCToCpp::Unwrap(me);
+}
+//CppHandleCsMethodRequestCodeGen::GenerateCppCode 
+
+const int CefZipReader_S_Create_1 = 1;
+
+void MyCefMet_S_CefZipReader(int metName, jsvalue * ret, jsvalue* v1) {
+	ret->type = JSVALUE_TYPE_EMPTY;
+	switch (metName) {
+	case MET_Release:return; //yes, just return
+	case CefZipReader_S_Create_1: {
+		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,744
+
+		// gen! CefRefPtr<CefZipReader> Create(CefRefPtr<CefStreamReader> stream)
+		auto ret_result = CefZipReader::Create(CefStreamReaderCToCpp::Wrap((cef_stream_reader_t*)v1->ptr));
+		MyCefSetVoidPtr(ret, CefZipReaderCToCpp::Unwrap(ret_result));
+	} break;
+	}
 }
 
 //CppHandleCsMethodRequestCodeGen::GenerateCppCode 
@@ -7325,7 +7972,7 @@ void MyCefMet_CefAuthCallback(cef_auth_callback_t* me1, int metName, jsvalue* re
 	switch (metName) {
 	case MET_Release:return; //yes, just return
 	case CefAuthCallback_Continue_1: {
-		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,697
+		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,745
 
 		// gen! void Continue(const CefString& username,const CefString& password)
 		me->Continue(GetStringHolder(v1)->value,
@@ -7333,7 +7980,7 @@ void MyCefMet_CefAuthCallback(cef_auth_callback_t* me1, int metName, jsvalue* re
 
 	} break;
 	case CefAuthCallback_Cancel_2: {
-		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,698
+		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,746
 
 		// gen! void Cancel()
 		me->Cancel();
@@ -7352,7 +7999,7 @@ void MyCefMet_CefRunFileDialogCallback(cef_run_file_dialog_callback_t* me1, int 
 	switch (metName) {
 	case MET_Release:return; //yes, just return
 	case CefRunFileDialogCallback_OnFileDialogDismissed_1: {
-		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,699
+		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,747
 
 		// gen! void OnFileDialogDismissed(int selected_accept_filter,const std::vector<CefString>& file_paths)
 		me->OnFileDialogDismissed(v1->i32,
@@ -7392,7 +8039,7 @@ void MyCefMet_CefPdfPrintCallback(cef_pdf_print_callback_t* me1, int metName, js
 	switch (metName) {
 	case MET_Release:return; //yes, just return
 	case CefPdfPrintCallback_OnPdfPrintFinished_1: {
-		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,700
+		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,748
 
 		// gen! void OnPdfPrintFinished(const CefString& path,bool ok)
 		me->OnPdfPrintFinished(GetStringHolder(v1)->value,
@@ -7432,7 +8079,7 @@ void MyCefMet_CefDownloadImageCallback(cef_download_image_callback_t* me1, int m
 	switch (metName) {
 	case MET_Release:return; //yes, just return
 	case CefDownloadImageCallback_OnDownloadImageFinished_1: {
-		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,701
+		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,749
 
 		// gen! void OnDownloadImageFinished(const CefString& image_url,int http_status_code,CefRefPtr<CefImage> image)
 		me->OnDownloadImageFinished(GetStringHolder(v1)->value,
@@ -7474,14 +8121,14 @@ void MyCefMet_CefCallback(cef_callback_t* me1, int metName, jsvalue* ret) {
 	switch (metName) {
 	case MET_Release:return; //yes, just return
 	case CefCallback_Continue_1: {
-		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,702
+		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,750
 
 		// gen! void Continue()
 		me->Continue();
 
 	} break;
 	case CefCallback_Cancel_2: {
-		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,703
+		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,751
 
 		// gen! void Cancel()
 		me->Cancel();
@@ -7500,7 +8147,7 @@ void MyCefMet_CefCompletionCallback(cef_completion_callback_t* me1, int metName,
 	switch (metName) {
 	case MET_Release:return; //yes, just return
 	case CefCompletionCallback_OnComplete_1: {
-		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,704
+		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,752
 
 		// gen! void OnComplete()
 		me->OnComplete();
@@ -7540,7 +8187,7 @@ void MyCefMet_CefRunContextMenuCallback(cef_run_context_menu_callback_t* me1, in
 	switch (metName) {
 	case MET_Release:return; //yes, just return
 	case CefRunContextMenuCallback_Continue_1: {
-		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,705
+		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,753
 
 		// gen! void Continue(int command_id,EventFlags event_flags)
 		me->Continue(v1->i32,
@@ -7548,7 +8195,7 @@ void MyCefMet_CefRunContextMenuCallback(cef_run_context_menu_callback_t* me1, in
 
 	} break;
 	case CefRunContextMenuCallback_Cancel_2: {
-		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,706
+		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,754
 
 		// gen! void Cancel()
 		me->Cancel();
@@ -7567,7 +8214,7 @@ void MyCefMet_CefSetCookieCallback(cef_set_cookie_callback_t* me1, int metName, 
 	switch (metName) {
 	case MET_Release:return; //yes, just return
 	case CefSetCookieCallback_OnComplete_1: {
-		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,707
+		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,755
 
 		// gen! void OnComplete(bool success)
 		me->OnComplete(v1->i32 != 0);
@@ -7606,7 +8253,7 @@ void MyCefMet_CefDeleteCookiesCallback(cef_delete_cookies_callback_t* me1, int m
 	switch (metName) {
 	case MET_Release:return; //yes, just return
 	case CefDeleteCookiesCallback_OnComplete_1: {
-		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,708
+		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,756
 
 		// gen! void OnComplete(int num_deleted)
 		me->OnComplete(v1->i32);
@@ -7646,7 +8293,7 @@ void MyCefMet_CefFileDialogCallback(cef_file_dialog_callback_t* me1, int metName
 	switch (metName) {
 	case MET_Release:return; //yes, just return
 	case CefFileDialogCallback_Continue_1: {
-		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,709
+		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,757
 
 		// gen! void Continue(int selected_accept_filter,const std::vector<CefString>& file_paths)
 		me->Continue(v1->i32,
@@ -7654,7 +8301,7 @@ void MyCefMet_CefFileDialogCallback(cef_file_dialog_callback_t* me1, int metName
 
 	} break;
 	case CefFileDialogCallback_Cancel_2: {
-		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,710
+		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,758
 
 		// gen! void Cancel()
 		me->Cancel();
@@ -7673,7 +8320,7 @@ void MyCefMet_CefBeforeDownloadCallback(cef_before_download_callback_t* me1, int
 	switch (metName) {
 	case MET_Release:return; //yes, just return
 	case CefBeforeDownloadCallback_Continue_1: {
-		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,711
+		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,759
 
 		// gen! void Continue(const CefString& download_path,bool show_dialog)
 		me->Continue(GetStringHolder(v1)->value,
@@ -7695,21 +8342,21 @@ void MyCefMet_CefDownloadItemCallback(cef_download_item_callback_t* me1, int met
 	switch (metName) {
 	case MET_Release:return; //yes, just return
 	case CefDownloadItemCallback_Cancel_1: {
-		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,712
+		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,760
 
 		// gen! void Cancel()
 		me->Cancel();
 
 	} break;
 	case CefDownloadItemCallback_Pause_2: {
-		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,713
+		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,761
 
 		// gen! void Pause()
 		me->Pause();
 
 	} break;
 	case CefDownloadItemCallback_Resume_3: {
-		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,714
+		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,762
 
 		// gen! void Resume()
 		me->Resume();
@@ -7728,7 +8375,7 @@ void MyCefMet_CefGetGeolocationCallback(cef_get_geolocation_callback_t* me1, int
 	switch (metName) {
 	case MET_Release:return; //yes, just return
 	case CefGetGeolocationCallback_OnLocationUpdate_1: {
-		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,715
+		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,763
 
 		// gen! void OnLocationUpdate(const CefGeoposition& position)
 		me->OnLocationUpdate(*((CefGeoposition*)v1->ptr));
@@ -7767,7 +8414,7 @@ void MyCefMet_CefGeolocationCallback(cef_geolocation_callback_t* me1, int metNam
 	switch (metName) {
 	case MET_Release:return; //yes, just return
 	case CefGeolocationCallback_Continue_1: {
-		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,716
+		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,764
 
 		// gen! void Continue(bool allow)
 		me->Continue(v1->i32 != 0);
@@ -7786,7 +8433,7 @@ void MyCefMet_CefJSDialogCallback(cef_jsdialog_callback_t* me1, int metName, jsv
 	switch (metName) {
 	case MET_Release:return; //yes, just return
 	case CefJSDialogCallback_Continue_1: {
-		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,717
+		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,765
 
 		// gen! void Continue(bool success,const CefString& user_input)
 		me->Continue(v1->i32 != 0,
@@ -7807,14 +8454,14 @@ void MyCefMet_CefPrintDialogCallback(cef_print_dialog_callback_t* me1, int metNa
 	switch (metName) {
 	case MET_Release:return; //yes, just return
 	case CefPrintDialogCallback_Continue_1: {
-		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,718
+		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,766
 
 		// gen! void Continue(CefRefPtr<CefPrintSettings> settings)
 		me->Continue(CefPrintSettingsCToCpp::Wrap((cef_print_settings_t*)v1->ptr));
 
 	} break;
 	case CefPrintDialogCallback_Cancel_2: {
-		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,719
+		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,767
 
 		// gen! void Cancel()
 		me->Cancel();
@@ -7833,7 +8480,7 @@ void MyCefMet_CefPrintJobCallback(cef_print_job_callback_t* me1, int metName, js
 	switch (metName) {
 	case MET_Release:return; //yes, just return
 	case CefPrintJobCallback_Continue_1: {
-		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,720
+		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,768
 
 		// gen! void Continue()
 		me->Continue();
@@ -7852,7 +8499,7 @@ void MyCefMet_CefResolveCallback(cef_resolve_callback_t* me1, int metName, jsval
 	switch (metName) {
 	case MET_Release:return; //yes, just return
 	case CefResolveCallback_OnResolveCompleted_1: {
-		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,721
+		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,769
 
 		// gen! void OnResolveCompleted(cef_errorcode_t result,const std::vector<CefString>& resolved_ips)
 		me->OnResolveCompleted((cef_errorcode_t)v1->i32,
@@ -7893,14 +8540,14 @@ void MyCefMet_CefRequestCallback(cef_request_callback_t* me1, int metName, jsval
 	switch (metName) {
 	case MET_Release:return; //yes, just return
 	case CefRequestCallback_Continue_1: {
-		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,722
+		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,770
 
 		// gen! void Continue(bool allow)
 		me->Continue(v1->i32 != 0);
 
 	} break;
 	case CefRequestCallback_Cancel_2: {
-		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,723
+		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,771
 
 		// gen! void Cancel()
 		me->Cancel();
@@ -7919,7 +8566,7 @@ void MyCefMet_CefSelectClientCertificateCallback(cef_select_client_certificate_c
 	switch (metName) {
 	case MET_Release:return; //yes, just return
 	case CefSelectClientCertificateCallback_Select_1: {
-		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,724
+		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,772
 
 		// gen! void Select(CefRefPtr<CefX509Certificate> cert)
 		me->Select(CefX509CertificateCToCpp::Wrap((cef_x509certificate_t*)v1->ptr));
@@ -7938,7 +8585,7 @@ void MyCefMet_CefEndTracingCallback(cef_end_tracing_callback_t* me1, int metName
 	switch (metName) {
 	case MET_Release:return; //yes, just return
 	case CefEndTracingCallback_OnEndTracingComplete_1: {
-		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,725
+		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,773
 
 		// gen! void OnEndTracingComplete(const CefString& tracing_file)
 		me->OnEndTracingComplete(GetStringHolder(v1)->value);
@@ -7977,7 +8624,7 @@ void MyCefMet_CefWebPluginUnstableCallback(cef_web_plugin_unstable_callback_t* m
 	switch (metName) {
 	case MET_Release:return; //yes, just return
 	case CefWebPluginUnstableCallback_IsUnstable_1: {
-		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,726
+		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,774
 
 		// gen! void IsUnstable(const CefString& path,bool unstable)
 		me->IsUnstable(GetStringHolder(v1)->value,
@@ -7997,7 +8644,7 @@ void MyCefMet_CefRegisterCdmCallback(cef_register_cdm_callback_t* me1, int metNa
 	switch (metName) {
 	case MET_Release:return; //yes, just return
 	case CefRegisterCdmCallback_OnCdmRegistrationComplete_1: {
-		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,727
+		//CppHandleCsMethodRequestCodeGen::GenerateCppMethod ,775
 
 		// gen! void OnCdmRegistrationComplete(cef_cdm_registration_error_t result,const CefString& error_message)
 		me->OnCdmRegistrationComplete((cef_cdm_registration_error_t)v1->i32,
@@ -9077,6 +9724,7 @@ namespace CefV8HandlerExt {
 		return false;
 	}
 }
+//CppSwicthTableCodeGen::CreateCppSwitchTableForInstanceMethod
 void MyCefMet_CallN(void* me1, int metName, jsvalue* ret, jsvalue* v1, jsvalue* v2, jsvalue* v3, jsvalue* v4, jsvalue* v5, jsvalue* v6, jsvalue* v7) {
 	int cefTypeName = (metName >> 16);
 	switch (cefTypeName)
@@ -9410,6 +10058,176 @@ void MyCefMet_CallN(void* me1, int metName, jsvalue* ret, jsvalue* v1, jsvalue* 
 	{
 		MyCefMet_CefZipReader((cef_zip_reader_t*)me1, metName & 0xffff, ret
 			, v1, v2);
+		break;
+	}
+	}
+}
+//CppSwicthTableCodeGen::CreateCppSwitchTableForStaticMethod
+void MyCefMet_S_CallN(int metName, jsvalue* ret, jsvalue* v1, jsvalue* v2, jsvalue* v3, jsvalue* v4, jsvalue* v5, jsvalue* v6, jsvalue* v7) {
+	int cefTypeName = (metName >> 16);
+	switch (cefTypeName)
+	{
+	default: break;
+	case CefTypeName_CefBrowserHost:
+	{
+		MyCefMet_S_CefBrowserHost(metName & 0xffff, ret
+			, v1, v2, v3, v4, v5);
+		break;
+	}
+	case CefTypeName_CefCommandLine:
+	{
+		MyCefMet_S_CefCommandLine(metName & 0xffff, ret
+		);
+		break;
+	}
+	case CefTypeName_CefCookieManager:
+	{
+		MyCefMet_S_CefCookieManager(metName & 0xffff, ret
+			, v1, v2, v3);
+		break;
+	}
+	case CefTypeName_CefDragData:
+	{
+		MyCefMet_S_CefDragData(metName & 0xffff, ret
+		);
+		break;
+	}
+	case CefTypeName_CefImage:
+	{
+		MyCefMet_S_CefImage(metName & 0xffff, ret
+		);
+		break;
+	}
+	case CefTypeName_CefMenuModel:
+	{
+		MyCefMet_S_CefMenuModel(metName & 0xffff, ret
+			, v1);
+		break;
+	}
+	case CefTypeName_CefPrintSettings:
+	{
+		MyCefMet_S_CefPrintSettings(metName & 0xffff, ret
+		);
+		break;
+	}
+	case CefTypeName_CefProcessMessage:
+	{
+		MyCefMet_S_CefProcessMessage(metName & 0xffff, ret
+			, v1);
+		break;
+	}
+	case CefTypeName_CefRequest:
+	{
+		MyCefMet_S_CefRequest(metName & 0xffff, ret
+		);
+		break;
+	}
+	case CefTypeName_CefPostData:
+	{
+		MyCefMet_S_CefPostData(metName & 0xffff, ret
+		);
+		break;
+	}
+	case CefTypeName_CefPostDataElement:
+	{
+		MyCefMet_S_CefPostDataElement(metName & 0xffff, ret
+		);
+		break;
+	}
+	case CefTypeName_CefRequestContext:
+	{
+		MyCefMet_S_CefRequestContext(metName & 0xffff, ret
+			, v1, v2);
+		break;
+	}
+	case CefTypeName_CefResourceBundle:
+	{
+		MyCefMet_S_CefResourceBundle(metName & 0xffff, ret
+		);
+		break;
+	}
+	case CefTypeName_CefResponse:
+	{
+		MyCefMet_S_CefResponse(metName & 0xffff, ret
+		);
+		break;
+	}
+	case CefTypeName_CefStreamReader:
+	{
+		MyCefMet_S_CefStreamReader(metName & 0xffff, ret
+			, v1, v2);
+		break;
+	}
+	case CefTypeName_CefStreamWriter:
+	{
+		MyCefMet_S_CefStreamWriter(metName & 0xffff, ret
+			, v1);
+		break;
+	}
+	case CefTypeName_CefTaskRunner:
+	{
+		MyCefMet_S_CefTaskRunner(metName & 0xffff, ret
+			, v1);
+		break;
+	}
+	case CefTypeName_CefURLRequest:
+	{
+		MyCefMet_S_CefURLRequest(metName & 0xffff, ret
+			, v1, v2, v3);
+		break;
+	}
+	case CefTypeName_CefV8Context:
+	{
+		MyCefMet_S_CefV8Context(metName & 0xffff, ret
+		);
+		break;
+	}
+	case CefTypeName_CefV8Value:
+	{
+		MyCefMet_S_CefV8Value(metName & 0xffff, ret
+			, v1, v2);
+		break;
+	}
+	case CefTypeName_CefV8StackTrace:
+	{
+		MyCefMet_S_CefV8StackTrace(metName & 0xffff, ret
+			, v1);
+		break;
+	}
+	case CefTypeName_CefValue:
+	{
+		MyCefMet_S_CefValue(metName & 0xffff, ret
+		);
+		break;
+	}
+	case CefTypeName_CefBinaryValue:
+	{
+		MyCefMet_S_CefBinaryValue(metName & 0xffff, ret
+			, v1, v2);
+		break;
+	}
+	case CefTypeName_CefDictionaryValue:
+	{
+		MyCefMet_S_CefDictionaryValue(metName & 0xffff, ret
+		);
+		break;
+	}
+	case CefTypeName_CefListValue:
+	{
+		MyCefMet_S_CefListValue(metName & 0xffff, ret
+		);
+		break;
+	}
+	case CefTypeName_CefXmlReader:
+	{
+		MyCefMet_S_CefXmlReader(metName & 0xffff, ret
+			, v1, v2, v3);
+		break;
+	}
+	case CefTypeName_CefZipReader:
+	{
+		MyCefMet_S_CefZipReader(metName & 0xffff, ret
+			, v1);
 		break;
 	}
 	}

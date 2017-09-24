@@ -6,27 +6,22 @@ namespace LayoutFarm.CefBridge
 {
     public class MyCefDevWindow
     {
-        IntPtr myCefBrowser;
-        MyCefCallback managedCallback;
+
+        readonly MyCefBw _myCefBw;
+        readonly MyCefCallback managedCallback;
         public MyCefDevWindow()
         {
             //create cef browser view handler  
             this.managedCallback = new MyCefCallback(this.MxCallBack);
-            this.myCefBrowser = Cef3Binder.MyCefCreateMyWebBrowser(managedCallback);
+            _myCefBw = new MyCefBw(Cef3Binder.MyCefCreateMyWebBrowser(managedCallback));
         }
         public IntPtr GetMyCefBrowser()
         {
-            return this.myCefBrowser;
+            return _myCefBw.ptr;
         }
         void MxCallBack(int id, IntPtr argsPtr)
         {
-            switch (id)
-            {
-                case 100:
-                    {
-                    }
-                    break;
-            }
+
         }
     }
 }

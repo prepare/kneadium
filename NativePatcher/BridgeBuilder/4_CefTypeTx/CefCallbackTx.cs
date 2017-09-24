@@ -115,7 +115,6 @@ namespace BridgeBuilder
             }
 
         }
-
         void GenerateCsCode(CodeStringBuilder stbuilder)
         {
 
@@ -123,7 +122,7 @@ namespace BridgeBuilder
             CodeTypeDeclaration implTypeDecl = this.ImplTypeDecl;
 
             CsCallToNativeCodeGen csCallToNativeCodeGen = new CsCallToNativeCodeGen();
-            csCallToNativeCodeGen.GenerateCsCode(this, orgDecl, implTypeDecl, false, stbuilder);
+            csCallToNativeCodeGen.GenerateCsCode(this, orgDecl, implTypeDecl, false, null, stbuilder);
         }
 
     }

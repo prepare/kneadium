@@ -96,9 +96,6 @@
     <Compile Include="..\CefBridge\ClientApp.cs">
       <Link>CefBridgeCore\ClientApp.cs</Link>
     </Compile>
-    <Compile Include="..\CefBridge\CustomSchemeAgent.cs">
-      <Link>CefBridgeCore\CustomSchemeAgent.cs</Link>
-    </Compile>
     <Compile Include="..\CefBridge\MyCefBrowser.cs">
       <Link>CefBridgeCore\MyCefBrowser.cs</Link>
     </Compile>
