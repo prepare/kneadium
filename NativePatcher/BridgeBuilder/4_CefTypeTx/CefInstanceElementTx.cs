@@ -16,6 +16,8 @@ namespace BridgeBuilder
 
         }
         CefCodeGenOutput _output;
+        internal List<MethodPlan> staticMethods;
+        internal int max_staticMethodParCount;
         public override void GenerateCode(CefCodeGenOutput output)
         {
             _output = output;
@@ -23,10 +25,10 @@ namespace BridgeBuilder
             GenerateCppCode(output._cppCode);
             GenerateCsCode(output._csCode);
         }
-        static List<MethodPlan> FindStaticMethods(TypePlan typeplan)
+        void FindStaticMethods(TypePlan typeplan)
         {
+            max_staticMethodParCount = 0;
             List<MethodPlan> allStaticCreateMethods = new List<MethodPlan>();
-
             List<MethodPlan> plans = typeplan.methods;
             int j = plans.Count;
             for (int i = 0; i < j; ++i)
@@ -35,11 +37,22 @@ namespace BridgeBuilder
                 if (m.metDecl.IsStatic)
                 {
                     allStaticCreateMethods.Add(m);
+                    if (m.pars.Count > max_staticMethodParCount)
+                    {
+                        max_staticMethodParCount = m.pars.Count;
+                    }
+
                 }
             }
+            if (allStaticCreateMethods.Count == 0)
+            {
+                this.staticMethods = null;
+            }
+            else
+            {
+                this.staticMethods = allStaticCreateMethods;
+            }
 
-            if (allStaticCreateMethods.Count == 0) { return null; }
-            return allStaticCreateMethods;
         }
         void GenerateCppCode(CodeStringBuilder stbuilder)
         {
@@ -54,13 +67,15 @@ namespace BridgeBuilder
             CodeTypeDeclaration implTypeDecl = this.ImplTypeDecl;
             TypePlan typeTxInfo = implTypeDecl.Name.Contains("CppToC") ? orgDecl.TypePlan : implTypeDecl.TypePlan;
             //
-            List<MethodPlan> staticMethods = FindStaticMethods(orgDecl.TypePlan);
-            // 
+            FindStaticMethods(orgDecl.TypePlan);
+            //  
             CppHandleCsMethodRequestCodeGen cppHandlerReqCodeGen = new CppHandleCsMethodRequestCodeGen();
             cppHandlerReqCodeGen.GenerateCppCode(this, orgDecl, implTypeDecl, this.UnderlyingCType, stbuilder);
 
             string namespaceName = orgDecl.Name + "Ext";
             int j = cppHandlerReqCodeGen.callToDotNetMets.Count;
+
+
             if (j > 0)
             {
 
@@ -108,7 +123,6 @@ namespace BridgeBuilder
                 cppArgClassStBuilder.AppendLine("}");
                 //----------------------------------------------
                 _output._cppHeaderExportFuncAuto.Append(cppArgClassStBuilder.ToString());
-
                 //----------------------------------------------
                 //InternalHeaderForExportFunc.h
                 CodeStringBuilder internalHeader = _output._cppHeaderInternalForExportFuncAuto;
@@ -121,6 +135,19 @@ namespace BridgeBuilder
             }
             if (staticMethods != null)
             {
+                CppHandleCsMethodRequestCodeGen cppHandlerReqCodeGen2 = new CppHandleCsMethodRequestCodeGen();
+                cppHandlerReqCodeGen2.GenerateCppCodeStatic(staticMethods, orgDecl, implTypeDecl, stbuilder);
+
+
+                CodeStringBuilder const_methodNames = new CodeStringBuilder();
+                //check if method has duplicate name or not
+
+                for (int i = 0; i < j; ++i)
+                {
+                    MethodPlan met = cppHandlerReqCodeGen.callToDotNetMets[i];
+                    const_methodNames.AppendLine("const int " + namespaceName + "_" + met.Name + "_" + (i + 1) + "=" + (i + 1) + ";");
+                }
+
                 //create static method for cpp type
                 //in this version we don't create an custom impl of the class
                 //-----------------------------------------------------------
@@ -137,12 +164,7 @@ namespace BridgeBuilder
                 }
                 cppArgClassStBuilder.AppendLine("}");
                 //----------------------------------------------
-                //generate cpp class
-
-            }
-            else
-            {
-
+                //generate cpp class 
             }
 
         }
@@ -152,8 +174,11 @@ namespace BridgeBuilder
             CodeTypeDeclaration implTypeDecl = this.ImplTypeDecl;
             CodeGenUtils.AddComments(orgDecl, implTypeDecl);
             CsCallToNativeCodeGen callToNativeCs = new CsCallToNativeCodeGen();
-            callToNativeCs.GenerateCsCode(this, orgDecl, implTypeDecl, true, stbuilder);
+            callToNativeCs.GenerateCsCode(this, orgDecl, implTypeDecl, true, staticMethods, stbuilder);
+
+            //--------------------------------------------------------
         }
+
     }
 
 }
