@@ -5651,7 +5651,7 @@ public:
 	}
 	//CppInstanceImplCodeGen::GenerateCppImplMethod, 42
 	//gen! bool Set(const CefString& name,const CefRefPtr<CefV8Value> object,const CefRefPtr<CefV8Value> value,CefString& exception)
-	virtual bool Set(const CefString& name, const  CefRefPtr<CefV8Value> object, const CefRefPtr<CefV8Value> value, CefString& exception) {
+	virtual bool Set(const CefString& name, const CefRefPtr<CefV8Value> object, const CefRefPtr<CefV8Value> value, CefString& exception) {
 		if (mcallback) {
 			CefV8AccessorExt::SetArgs args1(&name, object, value, &exception);
 			mcallback((CefV8AccessorExt::_typeName << 16) | MyCefV8Accessor_Set_2, &args1.arg);
@@ -10074,10 +10074,28 @@ void MyCefMet_S_CallN(int metName, jsvalue* ret, jsvalue* v1, jsvalue* v2, jsval
 			, v1, v2, v3, v4, v5);
 		break;
 	}
+	case CefTypeName_CefCommandLine:
+	{
+		MyCefMet_S_CefCommandLine(metName & 0xffff, ret
+		);
+		break;
+	}
 	case CefTypeName_CefCookieManager:
 	{
 		MyCefMet_S_CefCookieManager(metName & 0xffff, ret
 			, v1, v2, v3);
+		break;
+	}
+	case CefTypeName_CefDragData:
+	{
+		MyCefMet_S_CefDragData(metName & 0xffff, ret
+		);
+		break;
+	}
+	case CefTypeName_CefImage:
+	{
+		MyCefMet_S_CefImage(metName & 0xffff, ret
+		);
 		break;
 	}
 	case CefTypeName_CefMenuModel:
@@ -10086,16 +10104,52 @@ void MyCefMet_S_CallN(int metName, jsvalue* ret, jsvalue* v1, jsvalue* v2, jsval
 			, v1);
 		break;
 	}
+	case CefTypeName_CefPrintSettings:
+	{
+		MyCefMet_S_CefPrintSettings(metName & 0xffff, ret
+		);
+		break;
+	}
 	case CefTypeName_CefProcessMessage:
 	{
 		MyCefMet_S_CefProcessMessage(metName & 0xffff, ret
 			, v1);
 		break;
 	}
+	case CefTypeName_CefRequest:
+	{
+		MyCefMet_S_CefRequest(metName & 0xffff, ret
+		);
+		break;
+	}
+	case CefTypeName_CefPostData:
+	{
+		MyCefMet_S_CefPostData(metName & 0xffff, ret
+		);
+		break;
+	}
+	case CefTypeName_CefPostDataElement:
+	{
+		MyCefMet_S_CefPostDataElement(metName & 0xffff, ret
+		);
+		break;
+	}
 	case CefTypeName_CefRequestContext:
 	{
 		MyCefMet_S_CefRequestContext(metName & 0xffff, ret
 			, v1, v2);
+		break;
+	}
+	case CefTypeName_CefResourceBundle:
+	{
+		MyCefMet_S_CefResourceBundle(metName & 0xffff, ret
+		);
+		break;
+	}
+	case CefTypeName_CefResponse:
+	{
+		MyCefMet_S_CefResponse(metName & 0xffff, ret
+		);
 		break;
 	}
 	case CefTypeName_CefStreamReader:
@@ -10122,6 +10176,12 @@ void MyCefMet_S_CallN(int metName, jsvalue* ret, jsvalue* v1, jsvalue* v2, jsval
 			, v1, v2, v3);
 		break;
 	}
+	case CefTypeName_CefV8Context:
+	{
+		MyCefMet_S_CefV8Context(metName & 0xffff, ret
+		);
+		break;
+	}
 	case CefTypeName_CefV8Value:
 	{
 		MyCefMet_S_CefV8Value(metName & 0xffff, ret
@@ -10134,10 +10194,28 @@ void MyCefMet_S_CallN(int metName, jsvalue* ret, jsvalue* v1, jsvalue* v2, jsval
 			, v1);
 		break;
 	}
+	case CefTypeName_CefValue:
+	{
+		MyCefMet_S_CefValue(metName & 0xffff, ret
+		);
+		break;
+	}
 	case CefTypeName_CefBinaryValue:
 	{
 		MyCefMet_S_CefBinaryValue(metName & 0xffff, ret
 			, v1, v2);
+		break;
+	}
+	case CefTypeName_CefDictionaryValue:
+	{
+		MyCefMet_S_CefDictionaryValue(metName & 0xffff, ret
+		);
+		break;
+	}
+	case CefTypeName_CefListValue:
+	{
+		MyCefMet_S_CefListValue(metName & 0xffff, ret
+		);
 		break;
 	}
 	case CefTypeName_CefXmlReader:
