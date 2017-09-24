@@ -728,7 +728,7 @@ namespace BridgeBuilder
             ret.ArgExtractCode = CefTypeTx.PrepareDataFromNativeToCs(ret.TypeSymbol, "ret", "ret_result");
             stbuilder.AppendLine();
             //------------------
-            stbuilder.Append("public ");
+            stbuilder.Append("public static ");
             stbuilder.Append(CefTypeTx.GetCsRetName(ret.TypeSymbol));
             stbuilder.Append(" ");
 

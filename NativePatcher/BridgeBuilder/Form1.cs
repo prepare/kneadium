@@ -1,8 +1,6 @@
 ﻿//MIT, 2016-2017 ,WinterDev
 using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Drawing;
+using System.Collections.Generic; 
 using System.Text;
 using System.Windows.Forms;
 
@@ -54,6 +52,31 @@ namespace BridgeBuilder
             CopyFile(cefSrcRootDir + "\\libcef_dll\\cpptoc\\cpptoc_ref_counted.h",
                 @"D:\projects\Kneadium\NativePatcher\BridgeBuilder\Patcher_ExtCode_Others");
 
+        }
+        CodeCompilationUnit Parse(string srcFile)
+        {
+            //string srcFile = @"D:\projects\cef_binary_3.3071.1647.win32\libcef_dll\ctocpp\frame_ctocpp.h";
+            //
+            Cef3FileParser headerParser = new Cef3FileParser();
+            headerParser.Parse(srcFile);
+            return headerParser.Result;
+        }
+        CodeCompilationUnit Parse(string srcFile, IEnumerable<string> lines)
+        {
+            //string srcFile = @"D:\projects\cef_binary_3.3071.1647.win32\libcef_dll\ctocpp\frame_ctocpp.h";
+            //
+            Cef3FileParser headerParser = new Cef3FileParser();
+            headerParser.Parse(srcFile, lines);
+            return headerParser.Result;
+        }
+
+        private void button3_Click(object sender, EventArgs e)
+        {
+            string snapFolder = @"D:\projects\Kneadium\NativePatcher\dev_snap_win32";
+            CopyFolder(cefSrcRootDir + "\\libcef_dll", snapFolder);
+            CopyFolder(cefSrcRootDir + "\\tests", snapFolder);
+            CopyFolder(cefSrcRootDir + "\\include", snapFolder);
+            //----------  
         }
         /// <summary>
         /// copy a single file and place (overwrite) into destination target folder
@@ -290,7 +313,7 @@ namespace BridgeBuilder
                 selectedLines.Add(line);
             }
 
-            CodeCompilationUnit cu = ParseWrapper(filename, selectedLines);
+            CodeCompilationUnit cu = Parse(filename, selectedLines);
 
             return cu;
         }
@@ -799,30 +822,6 @@ namespace BridgeBuilder
 
 
 
-        CodeCompilationUnit Parse(string srcFile)
-        {
-            //string srcFile = @"D:\projects\cef_binary_3.3071.1647.win32\libcef_dll\ctocpp\frame_ctocpp.h";
-            //
-            Cef3FileParser headerParser = new Cef3FileParser();
-            headerParser.Parse(srcFile);
-            return headerParser.Result;
-        }
-        CodeCompilationUnit ParseWrapper(string srcFile, IEnumerable<string> lines)
-        {
-            //string srcFile = @"D:\projects\cef_binary_3.3071.1647.win32\libcef_dll\ctocpp\frame_ctocpp.h";
-            //
-            Cef3FileParser headerParser = new Cef3FileParser();
-            headerParser.Parse(srcFile, lines);
-            return headerParser.Result;
-        }
-
-        private void button3_Click(object sender, EventArgs e)
-        {
-            string snapFolder = @"D:\projects\Kneadium\NativePatcher\dev_snap_win32";
-            CopyFolder(cefSrcRootDir + "\\libcef_dll", snapFolder);
-            CopyFolder(cefSrcRootDir + "\\tests", snapFolder);
-            CopyFolder(cefSrcRootDir + "\\include", snapFolder);
-            //----------  
-        }
+    
     }
 }
