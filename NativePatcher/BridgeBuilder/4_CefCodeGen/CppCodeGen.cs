@@ -95,7 +95,14 @@ namespace BridgeBuilder
                 CodeMethodParameter par = pars[i];
 
                 string parTypeName = par.ParameterType.ToString();
-                if (parTypeName.StartsWith("CefRefPtr"))
+                if (parTypeName == "CefRefPtr<CefV8Value>")
+                {
+                    if (par.IsConstPar)
+                    {
+                        stbuilder.Append("const ");
+                    }
+                }
+                else if (parTypeName.StartsWith("CefRefPtr"))
                 {
 
                 }
@@ -1107,7 +1114,7 @@ namespace BridgeBuilder
             CodeStringBuilder cppStBuilder = new CodeStringBuilder();
             //------
             cppStBuilder.AppendLine("//CppSwicthTableCodeGen::CreateCppSwitchTableForStaticMethod");
-            cppStBuilder.AppendLine("void MyCefMet_S_CallN(void* me1, int metName, jsvalue* ret, jsvalue* v1, jsvalue* v2, jsvalue* v3, jsvalue* v4, jsvalue* v5, jsvalue* v6, jsvalue* v7){");
+            cppStBuilder.AppendLine("void MyCefMet_S_CallN(int metName, jsvalue* ret, jsvalue* v1, jsvalue* v2, jsvalue* v3, jsvalue* v4, jsvalue* v5, jsvalue* v6, jsvalue* v7){");
             cppStBuilder.AppendLine(" int cefTypeName = (metName >> 16);");
             cppStBuilder.AppendLine(" switch (cefTypeName)");
             cppStBuilder.AppendLine(" {");
