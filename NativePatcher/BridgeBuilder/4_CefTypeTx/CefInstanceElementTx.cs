@@ -23,6 +23,24 @@ namespace BridgeBuilder
             GenerateCppCode(output._cppCode);
             GenerateCsCode(output._csCode);
         }
+        static List<MethodPlan> FindStaticMethods(TypePlan typeplan)
+        {
+            List<MethodPlan> allStaticCreateMethods = new List<MethodPlan>();
+
+            List<MethodPlan> plans = typeplan.methods;
+            int j = plans.Count;
+            for (int i = 0; i < j; ++i)
+            {
+                MethodPlan m = plans[i];
+                if (m.metDecl.IsStatic)
+                {
+                    allStaticCreateMethods.Add(m);
+                }
+            }
+
+            if (allStaticCreateMethods.Count == 0) { return null; }
+            return allStaticCreateMethods;
+        }
         void GenerateCppCode(CodeStringBuilder stbuilder)
         {
 
@@ -34,24 +52,17 @@ namespace BridgeBuilder
             //
             CodeTypeDeclaration orgDecl = this.OriginalDecl;
             CodeTypeDeclaration implTypeDecl = this.ImplTypeDecl;
-            TypePlan typeTxInfo;
-            if (implTypeDecl.Name.Contains("CppToC"))
-            {
-                typeTxInfo = orgDecl.TypePlan;
-            }
-            else
-            {
-                typeTxInfo = implTypeDecl.TypePlan;
-            }
-
-
+            TypePlan typeTxInfo = implTypeDecl.Name.Contains("CppToC") ? orgDecl.TypePlan : implTypeDecl.TypePlan;
+            //
+            List<MethodPlan> staticMethods = FindStaticMethods(orgDecl.TypePlan);
+            // 
             CppHandleCsMethodRequestCodeGen cppHandlerReqCodeGen = new CppHandleCsMethodRequestCodeGen();
             cppHandlerReqCodeGen.GenerateCppCode(this, orgDecl, implTypeDecl, this.UnderlyingCType, stbuilder);
-            //
-            if (cppHandlerReqCodeGen.callToDotNetMets.Count > 0)
+
+            string namespaceName = orgDecl.Name + "Ext";
+            int j = cppHandlerReqCodeGen.callToDotNetMets.Count;
+            if (j > 0)
             {
-                int j = cppHandlerReqCodeGen.callToDotNetMets.Count;
-                string namespaceName = orgDecl.Name + "Ext";
 
                 CodeStringBuilder const_methodNames = new CodeStringBuilder();
                 //check if method has duplicate name or not
@@ -59,11 +70,11 @@ namespace BridgeBuilder
                 for (int i = 0; i < j; ++i)
                 {
                     MethodPlan met = cppHandlerReqCodeGen.callToDotNetMets[i];
-
                     MethodPlan existingPlan;
                     if (uniqueNames.TryGetValue(met.Name, out existingPlan))
                     {
                         //has some duplicate name 
+                        //TODO: review here again*** 
                         met.NewOverloadName = met.Name + i;
                         met.HasDuplicatedMethodName = true;
                         const_methodNames.AppendLine("const int " + namespaceName + "_" + met.NewOverloadName + "_" + (i + 1) + "=" + (i + 1) + ";");
@@ -75,6 +86,7 @@ namespace BridgeBuilder
                     }
                 }
 
+                //--------------
                 CppInstanceImplCodeGen instanceImplCodeGen = new CppInstanceImplCodeGen();
                 instanceImplCodeGen.GenerateCppImplClass(this,
                     typeTxInfo,
@@ -82,12 +94,11 @@ namespace BridgeBuilder
                     orgDecl,
                     stbuilder);
 
-
                 //-----------------------------------------------------------
                 CppToCsMethodArgsClassGen cppMetArgClassGen = new CppToCsMethodArgsClassGen();
                 //
                 CodeStringBuilder cppArgClassStBuilder = new CodeStringBuilder();
-                cppArgClassStBuilder.AppendLine("namespace " + orgDecl.Name + "Ext{");
+                cppArgClassStBuilder.AppendLine("namespace " + namespaceName + "{");
 
                 for (int i = 0; i < j; ++i)
                 {
@@ -95,13 +106,11 @@ namespace BridgeBuilder
                     cppMetArgClassGen.GenerateCppMethodArgsClass(met, cppArgClassStBuilder);
                 }
                 cppArgClassStBuilder.AppendLine("}");
-
                 //----------------------------------------------
                 _output._cppHeaderExportFuncAuto.Append(cppArgClassStBuilder.ToString());
 
                 //----------------------------------------------
                 //InternalHeaderForExportFunc.h
-
                 CodeStringBuilder internalHeader = _output._cppHeaderInternalForExportFuncAuto;
                 internalHeader.AppendLine("namespace " + namespaceName);
                 internalHeader.AppendLine("{");
@@ -110,13 +119,37 @@ namespace BridgeBuilder
                 internalHeader.AppendLine("}");
                 //----------------------------------------------   
             }
+            if (staticMethods != null)
+            {
+                //create static method for cpp type
+                //in this version we don't create an custom impl of the class
+                //-----------------------------------------------------------
+                CppToCsMethodArgsClassGen cppMetArgClassGen = new CppToCsMethodArgsClassGen();
+                //
+                CodeStringBuilder cppArgClassStBuilder = new CodeStringBuilder();
+                cppArgClassStBuilder.AppendLine("namespace " + namespaceName + "{");
+
+                j = staticMethods.Count;
+                for (int i = 0; i < j; ++i)
+                {
+                    MethodPlan met = staticMethods[i];
+                    cppMetArgClassGen.GenerateCppMethodArgsClass(met, cppArgClassStBuilder);
+                }
+                cppArgClassStBuilder.AppendLine("}");
+                //----------------------------------------------
+                //generate cpp class
+
+            }
+            else
+            {
+
+            }
 
         }
         void GenerateCsCode(CodeStringBuilder stbuilder)
         {
             CodeTypeDeclaration orgDecl = this.OriginalDecl;
             CodeTypeDeclaration implTypeDecl = this.ImplTypeDecl;
-
             CodeGenUtils.AddComments(orgDecl, implTypeDecl);
             CsCallToNativeCodeGen callToNativeCs = new CsCallToNativeCodeGen();
             callToNativeCs.GenerateCsCode(this, orgDecl, implTypeDecl, true, stbuilder);
