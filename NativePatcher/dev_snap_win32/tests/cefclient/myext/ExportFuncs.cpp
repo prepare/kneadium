@@ -579,8 +579,7 @@ void MyCefBwCall2(MyBrowser* myBw, int methodName, jsvalue* ret, jsvalue* v1, js
 	case CefBw_PostData: {
 
 		//create request:
-		//
-
+		// 
 		CefRefPtr<CefRequest> request(CefRequest::Create());
 		MyCefStringHolder* url = (MyCefStringHolder*)v1->ptr;
 		request->SetURL(url->value);
@@ -611,7 +610,7 @@ void MyCefBwCall2(MyBrowser* myBw, int methodName, jsvalue* ret, jsvalue* v1, js
 	}
 }
 
-
+ 
 
 void* CreateStdList(int elemType) {
 	switch (elemType) {
