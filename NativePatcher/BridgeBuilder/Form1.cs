@@ -357,8 +357,10 @@ namespace BridgeBuilder
                     {
                         continue;
                     }
-                    cppToCsImplCodeGen.PatchCppMethod(cu, cefDir + @"\libcef_dll\cpptoc\" + onlyFileName, cefDir + @"\cpptoc");
-                    //cppToCsImplCodeGen.PatchCppMethod(cu, null, cefDir + @"\cpptoc");
+
+                    
+                    //cppToCsImplCodeGen.PatchCppMethod(cu, cefDir + @"\libcef_dll\cpptoc\" + onlyFileName, cefDir + @"\cpptoc");
+                    cppToCsImplCodeGen.PatchCppMethod(cu, null, cefDir + @"\cpptoc");
                 }
 
             }
