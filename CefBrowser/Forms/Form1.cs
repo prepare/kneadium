@@ -180,7 +180,7 @@ namespace LayoutFarm.CefBridge
             {
                  
                 Auto.CefRequest req = Auto.CefRequest.Create();
-                req.SetURL("http://tests/request"); 
+                req.SetURL("http://localhost"); 
                 fr.LoadRequest(req);
             }
             //
