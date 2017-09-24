@@ -144,6 +144,7 @@ namespace client {
 	}
 
 	void MainContextImpl::PopulateSettings(CefSettings* settings) {
+
 #if defined(OS_WIN)
 		settings->multi_threaded_message_loop =
 			command_line_->HasSwitch(switches::kMultiThreadedMessageLoop);

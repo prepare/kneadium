@@ -31,11 +31,9 @@ client::MainMessageLoop* message_loop;  //essential for mainloop checking
 managed_callback myMxCallback_ = NULL;
 
 
-
-class MyCefRootWindow :public client::BrowserWindow::Delegate {
-
-	//this class is used in this module only
-	//
+//for handling a comment browser window msg
+class MyCefBrowserWindowDelegate :public client::BrowserWindow::Delegate {
+	//this class is used in this module only 
 public:
 	void OnBrowserCreated(CefRefPtr<CefBrowser> browser) OVERRIDE {
 
@@ -63,10 +61,9 @@ public:
 };
 
 
-class MyBrowser
+class MyBrowserWindowWrapper
 {
 public:
-	MyCefRootWindow* rootWin;
 	client::BrowserWindow* bwWindow;
 };
 
@@ -193,19 +190,21 @@ void MyCefShutDown() {
 //--------------------------------------
 //browser instance...
 //--------------------------------------
-MyBrowser* MyCefCreateMyWebBrowser(managed_callback callback)
+MyBrowserWindowWrapper* MyCefCreateMyWebBrowser(managed_callback callback)
 {
-	auto myBw = new MyBrowser();
-
-	auto rootWindow = new MyCefRootWindow();//new client::RootWindowWin();
-	myBw->rootWin = rootWindow;
+	//my custom browser window wrapper
+	auto myBw = new MyBrowserWindowWrapper();
 
 	//1. create browser window handler
-	//TODO: review here again, don't store at this module!
-	auto bwWindow = new client::BrowserWindowStdWin(rootWindow, "");
+	auto bwWindowEventHandler = new MyCefBrowserWindowDelegate();//new client::RootWindowWin();
+
+
+	//2. create browser window  (for Windows) 
+	//(this will create a built-in CefClientHandler-> will be used in next step)	 
+	auto bwWindow = new client::BrowserWindowStdWin(bwWindowEventHandler, "");
 	myBw->bwWindow = bwWindow;
 
-	//2. browser event handler	 
+	//3. set managed callback to the CefClientHandler 
 	auto clientHandler = bwWindow->GetClientHandler();
 	clientHandler->MyCefSetManagedCallBack(callback);
 
@@ -213,30 +212,30 @@ MyBrowser* MyCefCreateMyWebBrowser(managed_callback callback)
 }
 
 
-MyBrowser* MyCefCreateMyWebBrowserOSR(managed_callback callback)
+MyBrowserWindowWrapper* MyCefCreateMyWebBrowserOSR(managed_callback callback)
 {
-	auto myBw = new MyBrowser();
+	//my custom browser window wrapper
+	auto myBw = new MyBrowserWindowWrapper();
+	//1. create browser window handler
+	auto bwWindowEventHandler = new MyCefBrowserWindowDelegate(); //new client::RootWindowWin(); 
 
-	auto rootWindow = new MyCefRootWindow(); //new client::RootWindowWin();
-	myBw->rootWin = rootWindow;
-
-
+	//2.1 setting for OSR window
 	client::OsrRenderer::Settings settings;
 	client::MainContext::Get()->PopulateOsrSettings(&settings);
 
-	//1. create browser window handler
-	//TODO: review here again, don't store at this module!
-	auto bwWindow = new client::BrowserWindowOsrWin(rootWindow, "", settings);
+	//2.2 create OSR window (for Windows) 
+	auto bwWindow = new client::BrowserWindowOsrWin(bwWindowEventHandler, "", settings);
 	myBw->bwWindow = bwWindow;
 
-	//2. browser event handler
+	//3. set managed callback to the CefClientHandler 
 	auto clientHandler = bwWindow->GetClientHandler();
 	clientHandler->MyCefSetManagedCallBack(callback);
+
 	return myBw;
 }
 
 
-int MyCefSetupBrowserHwnd(MyBrowser* myBw, HWND surfaceHwnd, int x, int y, int w, int h, const wchar_t* url, CefRequestContext* cefRefContext)
+int MyCefSetupBrowserHwnd(MyBrowserWindowWrapper* myBw, HWND surfaceHwnd, int x, int y, int w, int h, const wchar_t* url, CefRequestContext* cefRefContext)
 {
 	RECT r;
 	r.left = x;
@@ -267,7 +266,7 @@ int MyCefSetupBrowserHwnd(MyBrowser* myBw, HWND surfaceHwnd, int x, int y, int w
 }
 
 
-int MyCefSetupBrowserHwndOSR(MyBrowser* myBw, HWND surfaceHwnd, int x, int y, int w, int h, const wchar_t* url, CefRequestContext* cefRefContext)
+int MyCefSetupBrowserHwndOSR(MyBrowserWindowWrapper* myBw, HWND surfaceHwnd, int x, int y, int w, int h, const wchar_t* url, CefRequestContext* cefRefContext)
 {
 
 	////--off-screen-rendering-enabled 
@@ -303,7 +302,7 @@ private:
 	IMPLEMENT_REFCOUNTING(MyCefStringVisitor);
 };
 
-void MyCefDomGetTextWalk(MyBrowser* myBw, managed_callback strCallBack)
+void MyCefDomGetTextWalk(MyBrowserWindowWrapper* myBw, managed_callback strCallBack)
 {
 	auto bw = myBw->bwWindow->GetBrowser();
 	auto bwVisitor = new MyCefStringVisitor();
@@ -312,7 +311,7 @@ void MyCefDomGetTextWalk(MyBrowser* myBw, managed_callback strCallBack)
 	//this is not blocking method, so=> need to create visitor on heap
 
 }
-void MyCefDomGetSourceWalk(MyBrowser* myBw, managed_callback strCallBack)
+void MyCefDomGetSourceWalk(MyBrowserWindowWrapper* myBw, managed_callback strCallBack)
 {
 	auto bw = myBw->bwWindow->GetBrowser();
 	auto bwVisitor = new MyCefStringVisitor();
@@ -324,7 +323,7 @@ void MyCefDomGetSourceWalk(MyBrowser* myBw, managed_callback strCallBack)
 
 
 //4. 
-void MyCefShowDevTools(MyBrowser* myBw, MyBrowser* myBwDev, HWND parentWindow)
+void MyCefShowDevTools(MyBrowserWindowWrapper* myBw, MyBrowserWindowWrapper* myBwDev, HWND parentWindow)
 {
 
 	//TODO : fine tune here
@@ -356,7 +355,7 @@ void MyCefShowDevTools(MyBrowser* myBw, MyBrowser* myBwDev, HWND parentWindow)
 }
 
 
-void MyCefPrintToPdf(MyBrowser* myBw, CefPdfPrintSettings* setting, wchar_t* filename, managed_callback callback) {
+void MyCefPrintToPdf(MyBrowserWindowWrapper* myBw, CefPdfPrintSettings* setting, wchar_t* filename, managed_callback callback) {
 
 
 	//
@@ -368,7 +367,7 @@ void MyCefPrintToPdf(MyBrowser* myBw, CefPdfPrintSettings* setting, wchar_t* fil
 			if (m_callback) {
 				//callback
 				INIT_MY_MET_ARGS(metArgs, 2)
-					MyCefSetBool(&vargs[1], ok);
+				MyCefSetBool(&vargs[1], ok);
 				SetCefStringToJsValue2(&vargs[2], path);
 				m_callback(0, &metArgs);
 			}
@@ -546,7 +545,7 @@ const int CefBw_GetMainFrame = 29;
 const int CefBw_GetCefBrowser = 31;
 //----------------
 
-void MyCefBwCall2(MyBrowser* myBw, int methodName, jsvalue* ret, jsvalue* v1, jsvalue* v2) {
+void MyCefBwCall2(MyBrowserWindowWrapper* myBw, int methodName, jsvalue* ret, jsvalue* v1, jsvalue* v2) {
 
 	auto bw = myBw->bwWindow->GetBrowser();
 	ret->type = JSVALUE_TYPE_EMPTY;
@@ -610,7 +609,7 @@ void MyCefBwCall2(MyBrowser* myBw, int methodName, jsvalue* ret, jsvalue* v1, js
 	}
 }
 
- 
+
 
 void* CreateStdList(int elemType) {
 	switch (elemType) {
