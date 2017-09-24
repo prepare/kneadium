@@ -1,5 +1,5 @@
 //MIT, 2017, WinterDev
- //AUTOGEN
+//AUTOGEN
 const int CefTypeName_CefApp = 1;
 const int CefTypeName_CefBrowser = 2;
 const int CefTypeName_CefNavigationEntryVisitor = 3;
@@ -102,97 +102,268 @@ const int CefTypeName_CefSelectClientCertificateCallback = 99;
 const int CefTypeName_CefEndTracingCallback = 100;
 const int CefTypeName_CefWebPluginUnstableCallback = 101;
 const int CefTypeName_CefRegisterCdmCallback = 102;
+namespace CefAppExt
+{
+	const int _typeName = CefTypeName_CefApp;
+	const int CefAppExt_OnBeforeCommandLineProcessing_1 = 1;
+	const int CefAppExt_OnRegisterCustomSchemes_2 = 2;
+	const int CefAppExt_GetResourceBundleHandler_3 = 3;
+	const int CefAppExt_GetBrowserProcessHandler_4 = 4;
+	const int CefAppExt_GetRenderProcessHandler_5 = 5;
+
+}
+namespace CefNavigationEntryVisitorExt
+{
+	const int _typeName = CefTypeName_CefNavigationEntryVisitor;
+	const int CefNavigationEntryVisitorExt_Visit_1 = 1;
+
+}
+namespace CefClientExt
+{
+	const int _typeName = CefTypeName_CefClient;
+	const int CefClientExt_GetContextMenuHandler_1 = 1;
+	const int CefClientExt_GetDialogHandler_2 = 2;
+	const int CefClientExt_GetDisplayHandler_3 = 3;
+	const int CefClientExt_GetDownloadHandler_4 = 4;
+	const int CefClientExt_GetDragHandler_5 = 5;
+	const int CefClientExt_GetFindHandler_6 = 6;
+	const int CefClientExt_GetFocusHandler_7 = 7;
+	const int CefClientExt_GetGeolocationHandler_8 = 8;
+	const int CefClientExt_GetJSDialogHandler_9 = 9;
+	const int CefClientExt_GetKeyboardHandler_10 = 10;
+	const int CefClientExt_GetLifeSpanHandler_11 = 11;
+	const int CefClientExt_GetLoadHandler_12 = 12;
+	const int CefClientExt_GetRenderHandler_13 = 13;
+	const int CefClientExt_GetRequestHandler_14 = 14;
+	const int CefClientExt_OnProcessMessageReceived_15 = 15;
+
+}
+namespace CefCookieVisitorExt
+{
+	const int _typeName = CefTypeName_CefCookieVisitor;
+	const int CefCookieVisitorExt_Visit_1 = 1;
+
+}
+namespace CefDOMVisitorExt
+{
+	const int _typeName = CefTypeName_CefDOMVisitor;
+	const int CefDOMVisitorExt_Visit_1 = 1;
+
+}
+namespace CefMenuModelDelegateExt
+{
+	const int _typeName = CefTypeName_CefMenuModelDelegate;
+	const int CefMenuModelDelegateExt_ExecuteCommand_1 = 1;
+	const int CefMenuModelDelegateExt_MouseOutsideMenu_2 = 2;
+	const int CefMenuModelDelegateExt_UnhandledOpenSubmenu_3 = 3;
+	const int CefMenuModelDelegateExt_UnhandledCloseSubmenu_4 = 4;
+	const int CefMenuModelDelegateExt_MenuWillShow_5 = 5;
+	const int CefMenuModelDelegateExt_MenuClosed_6 = 6;
+	const int CefMenuModelDelegateExt_FormatLabel_7 = 7;
+
+}
+namespace CefResponseFilterExt
+{
+	const int _typeName = CefTypeName_CefResponseFilter;
+	const int CefResponseFilterExt_InitFilter_1 = 1;
+	const int CefResponseFilterExt_Filter_2 = 2;
+
+}
+namespace CefSchemeHandlerFactoryExt
+{
+	const int _typeName = CefTypeName_CefSchemeHandlerFactory;
+	const int CefSchemeHandlerFactoryExt_Create_1 = 1;
+
+}
+namespace CefStringVisitorExt
+{
+	const int _typeName = CefTypeName_CefStringVisitor;
+	const int CefStringVisitorExt_Visit_1 = 1;
+
+}
+namespace CefTaskExt
+{
+	const int _typeName = CefTypeName_CefTask;
+	const int CefTaskExt_Execute_1 = 1;
+
+}
+namespace CefURLRequestClientExt
+{
+	const int _typeName = CefTypeName_CefURLRequestClient;
+	const int CefURLRequestClientExt_OnRequestComplete_1 = 1;
+	const int CefURLRequestClientExt_OnUploadProgress_2 = 2;
+	const int CefURLRequestClientExt_OnDownloadProgress_3 = 3;
+	const int CefURLRequestClientExt_OnDownloadData_4 = 4;
+	const int CefURLRequestClientExt_GetAuthCredentials_5 = 5;
+
+}
+namespace CefV8AccessorExt
+{
+	const int _typeName = CefTypeName_CefV8Accessor;
+	const int CefV8AccessorExt_Get_1 = 1;
+	const int CefV8AccessorExt_Set_2 = 2;
+
+}
+namespace CefV8InterceptorExt
+{
+	const int _typeName = CefTypeName_CefV8Interceptor;
+	const int CefV8InterceptorExt_Get_1 = 1;
+	const int CefV8InterceptorExt_Get1_2 = 2;
+	const int CefV8InterceptorExt_Set_3 = 3;
+	const int CefV8InterceptorExt_Set3_4 = 4;
+
+}
+namespace CefWebPluginInfoVisitorExt
+{
+	const int _typeName = CefTypeName_CefWebPluginInfoVisitor;
+	const int CefWebPluginInfoVisitorExt_Visit_1 = 1;
+
+}
 namespace CefAuthCallbackExt
 {
 	const int _typeName = CefTypeName_CefAuthCallback;
+	const int CefAuthCallbackExt_Continue_1 = 1;
+	const int CefAuthCallbackExt_Cancel_2 = 2;
+
 }
 namespace CefRunFileDialogCallbackExt
 {
 	const int _typeName = CefTypeName_CefRunFileDialogCallback;
+	const int CefRunFileDialogCallbackExt_OnFileDialogDismissed_1 = 1;
+
 }
 namespace CefPdfPrintCallbackExt
 {
 	const int _typeName = CefTypeName_CefPdfPrintCallback;
+	const int CefPdfPrintCallbackExt_OnPdfPrintFinished_1 = 1;
+
 }
 namespace CefDownloadImageCallbackExt
 {
 	const int _typeName = CefTypeName_CefDownloadImageCallback;
+	const int CefDownloadImageCallbackExt_OnDownloadImageFinished_1 = 1;
+
 }
 namespace CefCallbackExt
 {
 	const int _typeName = CefTypeName_CefCallback;
+	const int CefCallbackExt_Continue_1 = 1;
+	const int CefCallbackExt_Cancel_2 = 2;
+
 }
 namespace CefCompletionCallbackExt
 {
 	const int _typeName = CefTypeName_CefCompletionCallback;
+	const int CefCompletionCallbackExt_OnComplete_1 = 1;
+
 }
 namespace CefRunContextMenuCallbackExt
 {
 	const int _typeName = CefTypeName_CefRunContextMenuCallback;
+	const int CefRunContextMenuCallbackExt_Continue_1 = 1;
+	const int CefRunContextMenuCallbackExt_Cancel_2 = 2;
+
 }
 namespace CefSetCookieCallbackExt
 {
 	const int _typeName = CefTypeName_CefSetCookieCallback;
+	const int CefSetCookieCallbackExt_OnComplete_1 = 1;
+
 }
 namespace CefDeleteCookiesCallbackExt
 {
 	const int _typeName = CefTypeName_CefDeleteCookiesCallback;
+	const int CefDeleteCookiesCallbackExt_OnComplete_1 = 1;
+
 }
 namespace CefFileDialogCallbackExt
 {
 	const int _typeName = CefTypeName_CefFileDialogCallback;
+	const int CefFileDialogCallbackExt_Continue_1 = 1;
+	const int CefFileDialogCallbackExt_Cancel_2 = 2;
+
 }
 namespace CefBeforeDownloadCallbackExt
 {
 	const int _typeName = CefTypeName_CefBeforeDownloadCallback;
+	const int CefBeforeDownloadCallbackExt_Continue_1 = 1;
+
 }
 namespace CefDownloadItemCallbackExt
 {
 	const int _typeName = CefTypeName_CefDownloadItemCallback;
+	const int CefDownloadItemCallbackExt_Cancel_1 = 1;
+	const int CefDownloadItemCallbackExt_Pause_2 = 2;
+	const int CefDownloadItemCallbackExt_Resume_3 = 3;
+
 }
 namespace CefGetGeolocationCallbackExt
 {
 	const int _typeName = CefTypeName_CefGetGeolocationCallback;
+	const int CefGetGeolocationCallbackExt_OnLocationUpdate_1 = 1;
+
 }
 namespace CefGeolocationCallbackExt
 {
 	const int _typeName = CefTypeName_CefGeolocationCallback;
+	const int CefGeolocationCallbackExt_Continue_1 = 1;
+
 }
 namespace CefJSDialogCallbackExt
 {
 	const int _typeName = CefTypeName_CefJSDialogCallback;
+	const int CefJSDialogCallbackExt_Continue_1 = 1;
+
 }
 namespace CefPrintDialogCallbackExt
 {
 	const int _typeName = CefTypeName_CefPrintDialogCallback;
+	const int CefPrintDialogCallbackExt_Continue_1 = 1;
+	const int CefPrintDialogCallbackExt_Cancel_2 = 2;
+
 }
 namespace CefPrintJobCallbackExt
 {
 	const int _typeName = CefTypeName_CefPrintJobCallback;
+	const int CefPrintJobCallbackExt_Continue_1 = 1;
+
 }
 namespace CefResolveCallbackExt
 {
 	const int _typeName = CefTypeName_CefResolveCallback;
+	const int CefResolveCallbackExt_OnResolveCompleted_1 = 1;
+
 }
 namespace CefRequestCallbackExt
 {
 	const int _typeName = CefTypeName_CefRequestCallback;
+	const int CefRequestCallbackExt_Continue_1 = 1;
+	const int CefRequestCallbackExt_Cancel_2 = 2;
+
 }
 namespace CefSelectClientCertificateCallbackExt
 {
 	const int _typeName = CefTypeName_CefSelectClientCertificateCallback;
+	const int CefSelectClientCertificateCallbackExt_Select_1 = 1;
+
 }
 namespace CefEndTracingCallbackExt
 {
 	const int _typeName = CefTypeName_CefEndTracingCallback;
+	const int CefEndTracingCallbackExt_OnEndTracingComplete_1 = 1;
+
 }
 namespace CefWebPluginUnstableCallbackExt
 {
 	const int _typeName = CefTypeName_CefWebPluginUnstableCallback;
+	const int CefWebPluginUnstableCallbackExt_IsUnstable_1 = 1;
+
 }
 namespace CefRegisterCdmCallbackExt
 {
 	const int _typeName = CefTypeName_CefRegisterCdmCallback;
+	const int CefRegisterCdmCallbackExt_OnCdmRegistrationComplete_1 = 1;
+
 }
 namespace CefAccessibilityHandlerExt
 {

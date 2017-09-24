@@ -181,7 +181,8 @@ void MyCefStringHolder_Read(MyCefStringHolder* mycefStr, char16* outputBuffer, i
 	int str_len = (int)cefStr->length();
 	*actualLength = str_len;
 	auto cef_str = cefStr->c_str();
-	memcpy_s(outputBuffer, str_len, cef_str, str_len);
+	//copy utf16 char buff, copy in byte unit
+	memcpy_s(outputBuffer, outputBufferLen * 2, cef_str, str_len * 2);
 }
 void MyCefStringGetRawPtr(void* cefstring, char16** outputBuffer, int* actualLength) {
 	CefString* cefStr = (CefString*)cefstring;

@@ -29,6 +29,11 @@ namespace LayoutFarm.CefBridge
         public static extern void MyCefMet_CallN(IntPtr me, int metName, out JsValue ret, ref JsValue v1,
             ref JsValue v2, ref JsValue v3, ref JsValue v4, ref JsValue v5, ref JsValue v6, ref JsValue v7);
 
+        [System.Security.SuppressUnmanagedCodeSecurity]
+        [DllImport(Cef3Binder.CEF_CLIENT_DLL, CallingConvention = CallingConvention.Cdecl)]
+        public static extern void MyCefMet_S_CallN(int metName, out JsValue ret, ref JsValue v1,
+           ref JsValue v2, ref JsValue v3, ref JsValue v4, ref JsValue v5, ref JsValue v6, ref JsValue v7);
+
 
         public static IntPtr NewInstance(int typeName, MyCefCallback callback)
         {
@@ -122,6 +127,94 @@ namespace LayoutFarm.CefBridge
         {
             MyCefMet_CallN(
             me, metName, out ret
+            , ref v1, ref v2, ref v3, ref v4, ref v5, ref v6, ref v7
+            );
+        }
+        //----------
+        public static void MyCefMet_S_Call0( int metName, out JsValue ret)
+        {
+
+            JsValue v_notUsed = new JsValue();
+
+            MyCefMet_S_CallN(
+            metName, out ret
+            , ref v_notUsed, ref v_notUsed, ref v_notUsed, ref v_notUsed, ref v_notUsed, ref v_notUsed, ref v_notUsed
+            );
+        }
+
+        public static void MyCefMet_S_Call1(int metName, out JsValue ret
+        , ref JsValue v1
+        )
+        {
+            JsValue v_notUsed = new JsValue();
+            MyCefMet_S_CallN(
+             metName, out ret
+            , ref v1, ref v_notUsed, ref v_notUsed, ref v_notUsed, ref v_notUsed, ref v_notUsed, ref v_notUsed
+            );
+        }
+        public static void MyCefMet_S_Call2(int metName, out JsValue ret
+        , ref JsValue v1, ref JsValue v2
+        )
+        {
+            JsValue v_notUsed = new JsValue();
+            MyCefMet_S_CallN(
+            metName, out ret
+            , ref v1, ref v2,
+            ref v_notUsed, ref v_notUsed, ref v_notUsed, ref v_notUsed, ref v_notUsed
+            );
+        }
+        public static void MyCefMet_S_Call3(int metName, out JsValue ret
+        , ref JsValue v1, ref JsValue v2, ref JsValue v3
+        )
+        {
+            JsValue v_notUsed = new JsValue();
+            MyCefMet_S_CallN(
+            metName, out ret
+            , ref v1, ref v2, ref v3,
+            ref v_notUsed, ref v_notUsed, ref v_notUsed, ref v_notUsed
+            );
+        }
+        public static void MyCefMet_S_Call4(int metName, out JsValue ret
+        , ref JsValue v1, ref JsValue v2, ref JsValue v3, ref JsValue v4/*5117*/
+        )
+        {
+            JsValue v_notUsed = new JsValue();
+            MyCefMet_S_CallN(
+            metName, out ret
+            , ref v1, ref v2, ref v3, ref v4,
+            ref v_notUsed, ref v_notUsed, ref v_notUsed
+            );
+        }
+
+        public static void MyCefMet_S_Call5(int metName, out JsValue ret
+        , ref JsValue v1, ref JsValue v2, ref JsValue v3, ref JsValue v4, ref JsValue v5
+        )
+        {
+
+            JsValue v_notUsed = new JsValue();
+            MyCefMet_S_CallN(
+            metName, out ret
+            , ref v1, ref v2, ref v3, ref v4, ref v5,
+            ref v_notUsed, ref v_notUsed
+            );
+        }
+        public static void MyCefMet_S_Call6(int metName, out JsValue ret
+        , ref JsValue v1, ref JsValue v2, ref JsValue v3, ref JsValue v4, ref JsValue v5, ref JsValue v6
+        )
+        {
+            JsValue v_notUsed = new JsValue();
+            MyCefMet_S_CallN(
+            metName, out ret
+            , ref v1, ref v2, ref v3, ref v4, ref v5, ref v6,
+            ref v_notUsed
+            );
+        }
+        public static void MyCefMet_S_Call7(int metName, out JsValue ret
+      , ref JsValue v1, ref JsValue v2, ref JsValue v3, ref JsValue v4, ref JsValue v5, ref JsValue v6, ref JsValue v7
+      )
+        {
+            MyCefMet_S_CallN(
+            metName, out ret
             , ref v1, ref v2, ref v3, ref v4, ref v5, ref v6, ref v7
             );
         }

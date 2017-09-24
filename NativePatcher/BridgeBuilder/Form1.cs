@@ -469,7 +469,6 @@ namespace BridgeBuilder
                 instanceClassPlan.CsInterOpTypeNameId = typeTxPlan.CsInterOpTypeNameId = typeName++;
                 typedecl.TypePlan = typeTxPlan;
                 typeTxInfoList.Add(typeTxPlan);
-
             }
 
 
@@ -627,8 +626,10 @@ namespace BridgeBuilder
             CodeStringBuilder cppHeaderExportFuncAuto = new CodeStringBuilder();
             cppHeaderExportFuncAuto.AppendLine("//AUTOGEN");
 
+            tt_count = 0;
             foreach (CefInstanceElementTx tx in instanceClassPlans)
             {
+
                 codeGenOutput = new CefCodeGenOutput();
                 tx.GenerateCode(codeGenOutput);
                 //---------------------------------------------------- 
@@ -702,7 +703,8 @@ namespace BridgeBuilder
             //--------
             //cpp
             CppSwicthTableCodeGen cppSwitchTableCodeGen = new CppSwicthTableCodeGen();
-            cppSwitchTableCodeGen.CreateCppSwitchTable(cppCodeStBuilder, instanceClassPlans);
+            cppSwitchTableCodeGen.CreateCppSwitchTableForInstanceMethod(cppCodeStBuilder, instanceClassPlans);
+            cppSwitchTableCodeGen.CreateCppSwitchTableForStaticMethod(cppCodeStBuilder, instanceClassPlans);
             //
             CppInstanceMethodCodeGen instanceMetCodeGen = new CppInstanceMethodCodeGen();
             instanceMetCodeGen.CreateCppNewInstanceMethod(cppCodeStBuilder, customImplClasses);

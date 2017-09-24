@@ -780,7 +780,7 @@ namespace BridgeBuilder
                                             ImplWrapDirection implWrapDirection = ImplWrapDirection.None;
                                             CodeTypeDeclaration implBy = txplan.ImplTypeDecl;
                                             if (implTypeDecl.Name.Contains("CToCpp"))
-                                            {   
+                                            {
                                                 //so if you want to send this to client lib
                                                 //you need to GET raw pointer , so =>
                                                 string unwrapType = txplan.UnderlyingCType.ToString();
@@ -795,7 +795,7 @@ namespace BridgeBuilder
                                                 string met = GetSmartPointerMet(implWrapDirection);
                                                 string slotName = bridge.CefCppSlotName.ToString();
                                                 par.ArgExtractCode = implTypeDecl.Name + "::" + met + "(" + "(" + txplan.UnderlyingCType + "*)" + (argName + "->" + slotName) + ")";
-                                               
+
                                             }
                                             else if (implTypeDecl.Name.Contains("CppToC"))
                                             {
@@ -835,12 +835,17 @@ namespace BridgeBuilder
                                                 switch (elem_typename)
                                                 {
                                                     default:
+                                                        throw new NotSupportedException();                                                         
+                                                    case "CefTime":
+                                                        {
+                                                            string slotName = bridge.CefCppSlotName.ToString();
+                                                            par.ArgExtractCode = "*((CefTime*)" + argName + "->" + slotName + ")";
+
+                                                        }
                                                         break;
                                                     case "bool"://bool&
                                                         {
                                                             //eg. bool GetAccelerator(int command_id,int& key_code,bool& shift_pressed,bool& ctrl_pressed,bool& alt_pressed)
-
-
                                                             string slotName = bridge.CefCppSlotName.ToString();
                                                             par.ArgExtractCode = "*((bool*)" + argName + "->" + slotName + ")";
 
@@ -1218,6 +1223,7 @@ namespace BridgeBuilder
                                         case "CefV8ValueList":
                                         case "KeyList":
                                         case "IssuerChainBinaryList":
+                                        case "CefRequestContextSettings":
                                             return typedef.Name;
                                     }
 
@@ -1466,7 +1472,7 @@ namespace BridgeBuilder
         }
     }
 
- 
-  
+
+
 
 }

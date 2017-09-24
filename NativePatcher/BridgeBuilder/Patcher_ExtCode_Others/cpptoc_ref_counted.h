@@ -93,9 +93,12 @@ class CefCppToCRefCounted : public CefBaseRefCounted {
     return false;
   }
   bool HasOneRef() const { return UnderlyingHasOneRef(); }
-  managed_callback GetManagedCallBack() const {
-	  return UnderlyingGetManagedCallback();
+  //////////
+  //kneadium extension
+  managed_callback GetManagedCallBack(int callerCode) const {
+	  return UnderlyingGetManagedCallback(callerCode);
   }
+  //////////   
 
 #if DCHECK_IS_ON()
   // Simple tracking of allocated objects.
@@ -155,9 +158,12 @@ class CefCppToCRefCounted : public CefBaseRefCounted {
   bool UnderlyingHasOneRef() const {
     return wrapper_struct_.object_->HasOneRef();
   }
-  managed_callback UnderlyingGetManagedCallback() const {
-	  return wrapper_struct_.object_->GetManagedCallBack();
+  //////////
+  //kneadium extension
+  managed_callback UnderlyingGetManagedCallback(int callerCode) const {
+	  return wrapper_struct_.object_->GetManagedCallBack(callerCode);
   }
+  //////////
   static void CEF_CALLBACK struct_add_ref(cef_base_ref_counted_t* base) {
     DCHECK(base);
     if (!base)

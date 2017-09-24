@@ -2108,6 +2108,9 @@ namespace LayoutFarm.CefBridge.Auto
         const int CefBrowserHost_DragSourceSystemDragEnded_50 = (_typeNAME << 16) | 50;
         const int CefBrowserHost_GetVisibleNavigationEntry_51 = (_typeNAME << 16) | 51;
         const int CefBrowserHost_SetAccessibilityState_52 = (_typeNAME << 16) | 52;
+        //
+        const int CefBrowserHost_S_CreateBrowser_1 = (_typeNAME << 16) | 1;
+        const int CefBrowserHost_S_CreateBrowserSync_2 = (_typeNAME << 16) | 2;
         internal IntPtr nativePtr;
         internal CefBrowserHost(IntPtr nativePtr)
         {
@@ -3248,11 +3251,79 @@ namespace LayoutFarm.CefBridge.Auto
             Cef3Binder.MyCefMet_Call1(this.nativePtr, CefBrowserHost_SetAccessibilityState_52, out ret, ref v1);
 
         }
+        //
+        //CsCallToNativeCodeGen::GenerateCs_S_Method , 78
+
+        // gen! bool CreateBrowser(const CefWindowInfo& windowInfo,CefRefPtr<CefClient> client,const CefString& url,const CefBrowserSettings& settings,CefRefPtr<CefRequestContext> request_context)
+        /// <summary>
+        /// Create a new browser window using the window parameters specified by
+        /// |windowInfo|. All values will be copied internally and the actual window
+        /// will be created on the UI thread. If |request_context| is empty the
+        /// global request context will be used. This method can be called on any
+        /// browser process thread and will not block.
+        /// /*cef(optional_param=client,optional_param=url,optional_param=request_context)*/
+        /// </summary>
+
+        public bool CreateBrowser(CefWindowInfo windowInfo,
+        CefClient client,
+        string url,
+        CefBrowserSettings settings,
+        CefRequestContext request_context)
+        {
+            JsValue v1 = new JsValue();
+            JsValue v2 = new JsValue();
+            JsValue v3 = new JsValue();
+            JsValue v4 = new JsValue();
+            JsValue v5 = new JsValue();
+            JsValue ret;
+            v3.Ptr = Cef3Binder.MyCefCreateStringHolder(url);
+            v1.Ptr = windowInfo.nativePtr;
+            v2.Ptr = client.nativePtr;
+            v4.Ptr = settings.nativePtr;
+            v5.Ptr = request_context.nativePtr;
+
+            Cef3Binder.MyCefMet_S_Call5(CefBrowserHost_S_CreateBrowser_1, out ret, ref v1, ref v2, ref v3, ref v4, ref v5);
+            Cef3Binder.MyCefDeletePtr(v3.Ptr);
+            return ret.I32 != 0;
+        }
+        //CsCallToNativeCodeGen::GenerateCs_S_Method , 79
+
+        // gen! CefRefPtr<CefBrowser> CreateBrowserSync(const CefWindowInfo& windowInfo,CefRefPtr<CefClient> client,const CefString& url,const CefBrowserSettings& settings,CefRefPtr<CefRequestContext> request_context)
+        /// <summary>
+        /// Create a new browser window using the window parameters specified by
+        /// |windowInfo|. If |request_context| is empty the global request context
+        /// will be used. This method can only be called on the browser process UI
+        /// thread.
+        /// /*cef(optional_param=client,optional_param=url,optional_param=request_context)*/
+        /// </summary>
+
+        public CefBrowser CreateBrowserSync(CefWindowInfo windowInfo,
+        CefClient client,
+        string url,
+        CefBrowserSettings settings,
+        CefRequestContext request_context)
+        {
+            JsValue v1 = new JsValue();
+            JsValue v2 = new JsValue();
+            JsValue v3 = new JsValue();
+            JsValue v4 = new JsValue();
+            JsValue v5 = new JsValue();
+            JsValue ret;
+            v3.Ptr = Cef3Binder.MyCefCreateStringHolder(url);
+            v1.Ptr = windowInfo.nativePtr;
+            v2.Ptr = client.nativePtr;
+            v4.Ptr = settings.nativePtr;
+            v5.Ptr = request_context.nativePtr;
+
+            Cef3Binder.MyCefMet_S_Call5(CefBrowserHost_S_CreateBrowserSync_2, out ret, ref v1, ref v2, ref v3, ref v4, ref v5);
+            Cef3Binder.MyCefDeletePtr(v3.Ptr);
+            return new CefBrowser(ret.Ptr);
+        }
     }
 
 
     // [virtual] class CefClient
-    //CsCallToNativeCodeGen::GenerateCsCode , 78
+    //CsCallToNativeCodeGen::GenerateCsCode , 80
     /// <summary>
     /// Implement this interface to provide handler implementations.
     /// /*(source=client,no_debugct_check)*/
@@ -3281,7 +3352,7 @@ namespace LayoutFarm.CefBridge.Auto
 
 
     // [virtual] class CefCommandLine
-    //CsCallToNativeCodeGen::GenerateCsCode , 79
+    //CsCallToNativeCodeGen::GenerateCsCode , 81
     /// <summary>
     /// Class used to create and/or parse command line arguments. Arguments with
     /// '--', '-' and, on Windows, '/' prefixes are considered switches. Switches
@@ -3317,6 +3388,9 @@ namespace LayoutFarm.CefBridge.Auto
         const int CefCommandLine_GetArguments_18 = (_typeNAME << 16) | 18;
         const int CefCommandLine_AppendArgument_19 = (_typeNAME << 16) | 19;
         const int CefCommandLine_PrependWrapper_20 = (_typeNAME << 16) | 20;
+        //
+        const int CefCommandLine_S_CreateCommandLine_1 = (_typeNAME << 16) | 1;
+        const int CefCommandLine_S_GetGlobalCommandLine_2 = (_typeNAME << 16) | 2;
         internal IntPtr nativePtr;
         internal CefCommandLine(IntPtr nativePtr)
         {
@@ -3328,7 +3402,7 @@ namespace LayoutFarm.CefBridge.Auto
             Cef3Binder.MyCefMet_Call0(this.nativePtr, CefCommandLine_Release_0, out ret);
             this.nativePtr = IntPtr.Zero;
         }
-        //CsCallToNativeCodeGen::GenerateCsMethod , 80
+        //CsCallToNativeCodeGen::GenerateCsMethod , 82
 
         // gen! bool IsValid()
         /// <summary>
@@ -3342,7 +3416,7 @@ namespace LayoutFarm.CefBridge.Auto
             Cef3Binder.MyCefMet_Call0(this.nativePtr, CefCommandLine_IsValid_1, out ret);
             return ret.I32 != 0;
         }
-        //CsCallToNativeCodeGen::GenerateCsMethod , 81
+        //CsCallToNativeCodeGen::GenerateCsMethod , 83
 
         // gen! bool IsReadOnly()
         /// <summary>
@@ -3358,7 +3432,7 @@ namespace LayoutFarm.CefBridge.Auto
             Cef3Binder.MyCefMet_Call0(this.nativePtr, CefCommandLine_IsReadOnly_2, out ret);
             return ret.I32 != 0;
         }
-        //CsCallToNativeCodeGen::GenerateCsMethod , 82
+        //CsCallToNativeCodeGen::GenerateCsMethod , 84
 
         // gen! CefRefPtr<CefCommandLine> Copy()
         /// <summary>
@@ -3373,7 +3447,7 @@ namespace LayoutFarm.CefBridge.Auto
             Cef3Binder.MyCefMet_Call0(this.nativePtr, CefCommandLine_Copy_3, out ret);
             return new CefCommandLine(ret.Ptr);
         }
-        //CsCallToNativeCodeGen::GenerateCsMethod , 83
+        //CsCallToNativeCodeGen::GenerateCsMethod , 85
 
         // gen! void InitFromArgv(int argc,const char* const* argv)
         /// <summary>
@@ -3395,7 +3469,7 @@ namespace LayoutFarm.CefBridge.Auto
             Cef3Binder.MyCefMet_Call2(this.nativePtr, CefCommandLine_InitFromArgv_4, out ret, ref v1, ref v2);
 
         }
-        //CsCallToNativeCodeGen::GenerateCsMethod , 84
+        //CsCallToNativeCodeGen::GenerateCsMethod , 86
 
         // gen! void InitFromString(const CefString& command_line)
         /// <summary>
@@ -3414,7 +3488,7 @@ namespace LayoutFarm.CefBridge.Auto
             Cef3Binder.MyCefDeletePtr(v1.Ptr);
 
         }
-        //CsCallToNativeCodeGen::GenerateCsMethod , 85
+        //CsCallToNativeCodeGen::GenerateCsMethod , 87
 
         // gen! void Reset()
         /// <summary>
@@ -3430,7 +3504,7 @@ namespace LayoutFarm.CefBridge.Auto
             Cef3Binder.MyCefMet_Call0(this.nativePtr, CefCommandLine_Reset_6, out ret);
 
         }
-        //CsCallToNativeCodeGen::GenerateCsMethod , 86
+        //CsCallToNativeCodeGen::GenerateCsMethod , 88
 
         // gen! void GetArgv(std::vector<CefString>& argv)
         /// <summary>
@@ -3449,7 +3523,7 @@ namespace LayoutFarm.CefBridge.Auto
             Cef3Binder.CopyStdStringListAndDestroyNativeSide(v1.Ptr, argv);
 
         }
-        //CsCallToNativeCodeGen::GenerateCsMethod , 87
+        //CsCallToNativeCodeGen::GenerateCsMethod , 89
 
         // gen! CefString GetCommandLineString()
         /// <summary>
@@ -3465,7 +3539,7 @@ namespace LayoutFarm.CefBridge.Auto
             Cef3Binder.MyCefMet_Call0(this.nativePtr, CefCommandLine_GetCommandLineString_8, out ret);
             return Cef3Binder.CopyStringAndDestroyNativeSide(ref ret);
         }
-        //CsCallToNativeCodeGen::GenerateCsMethod , 88
+        //CsCallToNativeCodeGen::GenerateCsMethod , 90
 
         // gen! CefString GetProgram()
         /// <summary>
@@ -3480,7 +3554,7 @@ namespace LayoutFarm.CefBridge.Auto
             Cef3Binder.MyCefMet_Call0(this.nativePtr, CefCommandLine_GetProgram_9, out ret);
             return Cef3Binder.CopyStringAndDestroyNativeSide(ref ret);
         }
-        //CsCallToNativeCodeGen::GenerateCsMethod , 89
+        //CsCallToNativeCodeGen::GenerateCsMethod , 91
 
         // gen! void SetProgram(const CefString& program)
         /// <summary>
@@ -3498,7 +3572,7 @@ namespace LayoutFarm.CefBridge.Auto
             Cef3Binder.MyCefDeletePtr(v1.Ptr);
 
         }
-        //CsCallToNativeCodeGen::GenerateCsMethod , 90
+        //CsCallToNativeCodeGen::GenerateCsMethod , 92
 
         // gen! bool HasSwitches()
         /// <summary>
@@ -3513,7 +3587,7 @@ namespace LayoutFarm.CefBridge.Auto
             Cef3Binder.MyCefMet_Call0(this.nativePtr, CefCommandLine_HasSwitches_11, out ret);
             return ret.I32 != 0;
         }
-        //CsCallToNativeCodeGen::GenerateCsMethod , 91
+        //CsCallToNativeCodeGen::GenerateCsMethod , 93
 
         // gen! bool HasSwitch(const CefString& name)
         /// <summary>
@@ -3531,7 +3605,7 @@ namespace LayoutFarm.CefBridge.Auto
             Cef3Binder.MyCefDeletePtr(v1.Ptr);
             return ret.I32 != 0;
         }
-        //CsCallToNativeCodeGen::GenerateCsMethod , 92
+        //CsCallToNativeCodeGen::GenerateCsMethod , 94
 
         // gen! CefString GetSwitchValue(const CefString& name)
         /// <summary>
@@ -3550,7 +3624,7 @@ namespace LayoutFarm.CefBridge.Auto
             Cef3Binder.MyCefDeletePtr(v1.Ptr);
             return Cef3Binder.CopyStringAndDestroyNativeSide(ref ret);
         }
-        //CsCallToNativeCodeGen::GenerateCsMethod , 93
+        //CsCallToNativeCodeGen::GenerateCsMethod , 95
 
         // gen! void GetSwitches(SwitchMap& switches)
         /// <summary>
@@ -3568,7 +3642,7 @@ namespace LayoutFarm.CefBridge.Auto
             Cef3Binder.MyCefMet_Call1(this.nativePtr, CefCommandLine_GetSwitches_14, out ret, ref v1);
 
         }
-        //CsCallToNativeCodeGen::GenerateCsMethod , 94
+        //CsCallToNativeCodeGen::GenerateCsMethod , 96
 
         // gen! void AppendSwitch(const CefString& name)
         /// <summary>
@@ -3587,7 +3661,7 @@ namespace LayoutFarm.CefBridge.Auto
             Cef3Binder.MyCefDeletePtr(v1.Ptr);
 
         }
-        //CsCallToNativeCodeGen::GenerateCsMethod , 95
+        //CsCallToNativeCodeGen::GenerateCsMethod , 97
 
         // gen! void AppendSwitchWithValue(const CefString& name,const CefString& value)
         /// <summary>
@@ -3609,7 +3683,7 @@ namespace LayoutFarm.CefBridge.Auto
             Cef3Binder.MyCefDeletePtr(v2.Ptr);
 
         }
-        //CsCallToNativeCodeGen::GenerateCsMethod , 96
+        //CsCallToNativeCodeGen::GenerateCsMethod , 98
 
         // gen! bool HasArguments()
         /// <summary>
@@ -3624,7 +3698,7 @@ namespace LayoutFarm.CefBridge.Auto
             Cef3Binder.MyCefMet_Call0(this.nativePtr, CefCommandLine_HasArguments_17, out ret);
             return ret.I32 != 0;
         }
-        //CsCallToNativeCodeGen::GenerateCsMethod , 97
+        //CsCallToNativeCodeGen::GenerateCsMethod , 99
 
         // gen! void GetArguments(ArgumentList& arguments)
         /// <summary>
@@ -3641,7 +3715,7 @@ namespace LayoutFarm.CefBridge.Auto
             Cef3Binder.MyCefMet_Call1(this.nativePtr, CefCommandLine_GetArguments_18, out ret, ref v1);
 
         }
-        //CsCallToNativeCodeGen::GenerateCsMethod , 98
+        //CsCallToNativeCodeGen::GenerateCsMethod , 100
 
         // gen! void AppendArgument(const CefString& argument)
         /// <summary>
@@ -3659,7 +3733,7 @@ namespace LayoutFarm.CefBridge.Auto
             Cef3Binder.MyCefDeletePtr(v1.Ptr);
 
         }
-        //CsCallToNativeCodeGen::GenerateCsMethod , 99
+        //CsCallToNativeCodeGen::GenerateCsMethod , 101
 
         // gen! void PrependWrapper(const CefString& wrapper)
         /// <summary>
@@ -3678,11 +3752,43 @@ namespace LayoutFarm.CefBridge.Auto
             Cef3Binder.MyCefDeletePtr(v1.Ptr);
 
         }
+        //
+        //CsCallToNativeCodeGen::GenerateCs_S_Method , 102
+
+        // gen! CefRefPtr<CefCommandLine> CreateCommandLine()
+        /// <summary>
+        /// Create a new CefCommandLine instance.
+        /// /*cef(api_hash_check)*/
+        /// </summary>
+
+        public CefCommandLine CreateCommandLine()
+        {
+            JsValue ret;
+
+            Cef3Binder.MyCefMet_S_Call0(CefCommandLine_S_CreateCommandLine_1, out ret);
+            return new CefCommandLine(ret.Ptr);
+        }
+        //CsCallToNativeCodeGen::GenerateCs_S_Method , 103
+
+        // gen! CefRefPtr<CefCommandLine> GetGlobalCommandLine()
+        /// <summary>
+        /// Returns the singleton global CefCommandLine object. The returned object
+        /// will be read-only.
+        /// /*cef(api_hash_check)*/
+        /// </summary>
+
+        public CefCommandLine GetGlobalCommandLine()
+        {
+            JsValue ret;
+
+            Cef3Binder.MyCefMet_S_Call0(CefCommandLine_S_GetGlobalCommandLine_2, out ret);
+            return new CefCommandLine(ret.Ptr);
+        }
     }
 
 
     // [virtual] class CefContextMenuParams
-    //CsCallToNativeCodeGen::GenerateCsCode , 100
+    //CsCallToNativeCodeGen::GenerateCsCode , 104
     /// <summary>
     /// Provides information about the context menu state. The ethods of this class
     /// can only be accessed on browser process the UI thread.
@@ -3724,7 +3830,7 @@ namespace LayoutFarm.CefBridge.Auto
             Cef3Binder.MyCefMet_Call0(this.nativePtr, CefContextMenuParams_Release_0, out ret);
             this.nativePtr = IntPtr.Zero;
         }
-        //CsCallToNativeCodeGen::GenerateCsMethod , 101
+        //CsCallToNativeCodeGen::GenerateCsMethod , 105
 
         // gen! int GetXCoord()
         /// <summary>
@@ -3738,7 +3844,7 @@ namespace LayoutFarm.CefBridge.Auto
             Cef3Binder.MyCefMet_Call0(this.nativePtr, CefContextMenuParams_GetXCoord_1, out ret);
             return ret.I32;
         }
-        //CsCallToNativeCodeGen::GenerateCsMethod , 102
+        //CsCallToNativeCodeGen::GenerateCsMethod , 106
 
         // gen! int GetYCoord()
         /// <summary>
@@ -3754,7 +3860,7 @@ namespace LayoutFarm.CefBridge.Auto
             Cef3Binder.MyCefMet_Call0(this.nativePtr, CefContextMenuParams_GetYCoord_2, out ret);
             return ret.I32;
         }
-        //CsCallToNativeCodeGen::GenerateCsMethod , 103
+        //CsCallToNativeCodeGen::GenerateCsMethod , 107
 
         // gen! TypeFlags GetTypeFlags()
         /// <summary>
@@ -3771,7 +3877,7 @@ namespace LayoutFarm.CefBridge.Auto
             return (cef_context_menu_type_flags_t)ret.I32;
 
         }
-        //CsCallToNativeCodeGen::GenerateCsMethod , 104
+        //CsCallToNativeCodeGen::GenerateCsMethod , 108
 
         // gen! CefString GetLinkUrl()
         /// <summary>
@@ -3787,7 +3893,7 @@ namespace LayoutFarm.CefBridge.Auto
             Cef3Binder.MyCefMet_Call0(this.nativePtr, CefContextMenuParams_GetLinkUrl_4, out ret);
             return Cef3Binder.CopyStringAndDestroyNativeSide(ref ret);
         }
-        //CsCallToNativeCodeGen::GenerateCsMethod , 105
+        //CsCallToNativeCodeGen::GenerateCsMethod , 109
 
         // gen! CefString GetUnfilteredLinkUrl()
         /// <summary>
@@ -3803,7 +3909,7 @@ namespace LayoutFarm.CefBridge.Auto
             Cef3Binder.MyCefMet_Call0(this.nativePtr, CefContextMenuParams_GetUnfilteredLinkUrl_5, out ret);
             return Cef3Binder.CopyStringAndDestroyNativeSide(ref ret);
         }
-        //CsCallToNativeCodeGen::GenerateCsMethod , 106
+        //CsCallToNativeCodeGen::GenerateCsMethod , 110
 
         // gen! CefString GetSourceUrl()
         /// <summary>
@@ -3819,7 +3925,7 @@ namespace LayoutFarm.CefBridge.Auto
             Cef3Binder.MyCefMet_Call0(this.nativePtr, CefContextMenuParams_GetSourceUrl_6, out ret);
             return Cef3Binder.CopyStringAndDestroyNativeSide(ref ret);
         }
-        //CsCallToNativeCodeGen::GenerateCsMethod , 107
+        //CsCallToNativeCodeGen::GenerateCsMethod , 111
 
         // gen! bool HasImageContents()
         /// <summary>
@@ -3835,7 +3941,7 @@ namespace LayoutFarm.CefBridge.Auto
             Cef3Binder.MyCefMet_Call0(this.nativePtr, CefContextMenuParams_HasImageContents_7, out ret);
             return ret.I32 != 0;
         }
-        //CsCallToNativeCodeGen::GenerateCsMethod , 108
+        //CsCallToNativeCodeGen::GenerateCsMethod , 112
 
         // gen! CefString GetTitleText()
         /// <summary>
@@ -3851,7 +3957,7 @@ namespace LayoutFarm.CefBridge.Auto
             Cef3Binder.MyCefMet_Call0(this.nativePtr, CefContextMenuParams_GetTitleText_8, out ret);
             return Cef3Binder.CopyStringAndDestroyNativeSide(ref ret);
         }
-        //CsCallToNativeCodeGen::GenerateCsMethod , 109
+        //CsCallToNativeCodeGen::GenerateCsMethod , 113
 
         // gen! CefString GetPageUrl()
         /// <summary>
@@ -3866,7 +3972,7 @@ namespace LayoutFarm.CefBridge.Auto
             Cef3Binder.MyCefMet_Call0(this.nativePtr, CefContextMenuParams_GetPageUrl_9, out ret);
             return Cef3Binder.CopyStringAndDestroyNativeSide(ref ret);
         }
-        //CsCallToNativeCodeGen::GenerateCsMethod , 110
+        //CsCallToNativeCodeGen::GenerateCsMethod , 114
 
         // gen! CefString GetFrameUrl()
         /// <summary>
@@ -3881,7 +3987,7 @@ namespace LayoutFarm.CefBridge.Auto
             Cef3Binder.MyCefMet_Call0(this.nativePtr, CefContextMenuParams_GetFrameUrl_10, out ret);
             return Cef3Binder.CopyStringAndDestroyNativeSide(ref ret);
         }
-        //CsCallToNativeCodeGen::GenerateCsMethod , 111
+        //CsCallToNativeCodeGen::GenerateCsMethod , 115
 
         // gen! CefString GetFrameCharset()
         /// <summary>
@@ -3897,7 +4003,7 @@ namespace LayoutFarm.CefBridge.Auto
             Cef3Binder.MyCefMet_Call0(this.nativePtr, CefContextMenuParams_GetFrameCharset_11, out ret);
             return Cef3Binder.CopyStringAndDestroyNativeSide(ref ret);
         }
-        //CsCallToNativeCodeGen::GenerateCsMethod , 112
+        //CsCallToNativeCodeGen::GenerateCsMethod , 116
 
         // gen! MediaType GetMediaType()
         /// <summary>
@@ -3913,7 +4019,7 @@ namespace LayoutFarm.CefBridge.Auto
             return (cef_context_menu_media_type_t)ret.I32;
 
         }
-        //CsCallToNativeCodeGen::GenerateCsMethod , 113
+        //CsCallToNativeCodeGen::GenerateCsMethod , 117
 
         // gen! MediaStateFlags GetMediaStateFlags()
         /// <summary>
@@ -3930,7 +4036,7 @@ namespace LayoutFarm.CefBridge.Auto
             return (cef_context_menu_media_state_flags_t)ret.I32;
 
         }
-        //CsCallToNativeCodeGen::GenerateCsMethod , 114
+        //CsCallToNativeCodeGen::GenerateCsMethod , 118
 
         // gen! CefString GetSelectionText()
         /// <summary>
@@ -3946,7 +4052,7 @@ namespace LayoutFarm.CefBridge.Auto
             Cef3Binder.MyCefMet_Call0(this.nativePtr, CefContextMenuParams_GetSelectionText_14, out ret);
             return Cef3Binder.CopyStringAndDestroyNativeSide(ref ret);
         }
-        //CsCallToNativeCodeGen::GenerateCsMethod , 115
+        //CsCallToNativeCodeGen::GenerateCsMethod , 119
 
         // gen! CefString GetMisspelledWord()
         /// <summary>
@@ -3962,7 +4068,7 @@ namespace LayoutFarm.CefBridge.Auto
             Cef3Binder.MyCefMet_Call0(this.nativePtr, CefContextMenuParams_GetMisspelledWord_15, out ret);
             return Cef3Binder.CopyStringAndDestroyNativeSide(ref ret);
         }
-        //CsCallToNativeCodeGen::GenerateCsMethod , 116
+        //CsCallToNativeCodeGen::GenerateCsMethod , 120
 
         // gen! bool GetDictionarySuggestions(std::vector<CefString>& suggestions)
         /// <summary>
@@ -3981,7 +4087,7 @@ namespace LayoutFarm.CefBridge.Auto
             Cef3Binder.CopyStdStringListAndDestroyNativeSide(v1.Ptr, suggestions);
             return ret.I32 != 0;
         }
-        //CsCallToNativeCodeGen::GenerateCsMethod , 117
+        //CsCallToNativeCodeGen::GenerateCsMethod , 121
 
         // gen! bool IsEditable()
         /// <summary>
@@ -3996,7 +4102,7 @@ namespace LayoutFarm.CefBridge.Auto
             Cef3Binder.MyCefMet_Call0(this.nativePtr, CefContextMenuParams_IsEditable_17, out ret);
             return ret.I32 != 0;
         }
-        //CsCallToNativeCodeGen::GenerateCsMethod , 118
+        //CsCallToNativeCodeGen::GenerateCsMethod , 122
 
         // gen! bool IsSpellCheckEnabled()
         /// <summary>
@@ -4012,7 +4118,7 @@ namespace LayoutFarm.CefBridge.Auto
             Cef3Binder.MyCefMet_Call0(this.nativePtr, CefContextMenuParams_IsSpellCheckEnabled_18, out ret);
             return ret.I32 != 0;
         }
-        //CsCallToNativeCodeGen::GenerateCsMethod , 119
+        //CsCallToNativeCodeGen::GenerateCsMethod , 123
 
         // gen! EditStateFlags GetEditStateFlags()
         /// <summary>
@@ -4029,7 +4135,7 @@ namespace LayoutFarm.CefBridge.Auto
             return (cef_context_menu_edit_state_flags_t)ret.I32;
 
         }
-        //CsCallToNativeCodeGen::GenerateCsMethod , 120
+        //CsCallToNativeCodeGen::GenerateCsMethod , 124
 
         // gen! bool IsCustomMenu()
         /// <summary>
@@ -4045,7 +4151,7 @@ namespace LayoutFarm.CefBridge.Auto
             Cef3Binder.MyCefMet_Call0(this.nativePtr, CefContextMenuParams_IsCustomMenu_20, out ret);
             return ret.I32 != 0;
         }
-        //CsCallToNativeCodeGen::GenerateCsMethod , 121
+        //CsCallToNativeCodeGen::GenerateCsMethod , 125
 
         // gen! bool IsPepperMenu()
         /// <summary>
@@ -4064,7 +4170,7 @@ namespace LayoutFarm.CefBridge.Auto
 
 
     // [virtual] class CefCookieManager
-    //CsCallToNativeCodeGen::GenerateCsCode , 122
+    //CsCallToNativeCodeGen::GenerateCsCode , 126
     /// <summary>
     /// Class used for managing cookies. The methods of this class may be called on
     /// any thread unless otherwise indicated.
@@ -4081,6 +4187,9 @@ namespace LayoutFarm.CefBridge.Auto
         const int CefCookieManager_DeleteCookies_5 = (_typeNAME << 16) | 5;
         const int CefCookieManager_SetStoragePath_6 = (_typeNAME << 16) | 6;
         const int CefCookieManager_FlushStore_7 = (_typeNAME << 16) | 7;
+        //
+        const int CefCookieManager_S_GetGlobalManager_1 = (_typeNAME << 16) | 1;
+        const int CefCookieManager_S_CreateManager_2 = (_typeNAME << 16) | 2;
         internal IntPtr nativePtr;
         internal CefCookieManager(IntPtr nativePtr)
         {
@@ -4092,7 +4201,7 @@ namespace LayoutFarm.CefBridge.Auto
             Cef3Binder.MyCefMet_Call0(this.nativePtr, CefCookieManager_Release_0, out ret);
             this.nativePtr = IntPtr.Zero;
         }
-        //CsCallToNativeCodeGen::GenerateCsMethod , 123
+        //CsCallToNativeCodeGen::GenerateCsMethod , 127
 
         // gen! void SetSupportedSchemes(const std::vector<CefString>& schemes,CefRefPtr<CefCompletionCallback> callback)
         /// <summary>
@@ -4112,7 +4221,7 @@ namespace LayoutFarm.CefBridge.Auto
             Cef3Binder.CopyStdStringListAndDestroyNativeSide(v1.Ptr, schemes);
 
         }
-        //CsCallToNativeCodeGen::GenerateCsMethod , 124
+        //CsCallToNativeCodeGen::GenerateCsMethod , 128
 
         // gen! bool VisitAllCookies(CefRefPtr<CefCookieVisitor> visitor)
         /// <summary>
@@ -4131,7 +4240,7 @@ namespace LayoutFarm.CefBridge.Auto
             Cef3Binder.MyCefMet_Call1(this.nativePtr, CefCookieManager_VisitAllCookies_2, out ret, ref v1);
             return ret.I32 != 0;
         }
-        //CsCallToNativeCodeGen::GenerateCsMethod , 125
+        //CsCallToNativeCodeGen::GenerateCsMethod , 129
 
         // gen! bool VisitUrlCookies(const CefString& url,bool includeHttpOnly,CefRefPtr<CefCookieVisitor> visitor)
         /// <summary>
@@ -4159,7 +4268,7 @@ namespace LayoutFarm.CefBridge.Auto
             Cef3Binder.MyCefDeletePtr(v1.Ptr);
             return ret.I32 != 0;
         }
-        //CsCallToNativeCodeGen::GenerateCsMethod , 126
+        //CsCallToNativeCodeGen::GenerateCsMethod , 130
 
         // gen! bool SetCookie(const CefString& url,const CefCookie& cookie,CefRefPtr<CefSetCookieCallback> callback)
         /// <summary>
@@ -4189,7 +4298,7 @@ namespace LayoutFarm.CefBridge.Auto
             Cef3Binder.MyCefDeletePtr(v1.Ptr);
             return ret.I32 != 0;
         }
-        //CsCallToNativeCodeGen::GenerateCsMethod , 127
+        //CsCallToNativeCodeGen::GenerateCsMethod , 131
 
         // gen! bool DeleteCookies(const CefString& url,const CefString& cookie_name,CefRefPtr<CefDeleteCookiesCallback> callback)
         /// <summary>
@@ -4222,7 +4331,7 @@ namespace LayoutFarm.CefBridge.Auto
             Cef3Binder.MyCefDeletePtr(v2.Ptr);
             return ret.I32 != 0;
         }
-        //CsCallToNativeCodeGen::GenerateCsMethod , 128
+        //CsCallToNativeCodeGen::GenerateCsMethod , 132
 
         // gen! bool SetStoragePath(const CefString& path,bool persist_session_cookies,CefRefPtr<CefCompletionCallback> callback)
         /// <summary>
@@ -4253,7 +4362,7 @@ namespace LayoutFarm.CefBridge.Auto
             Cef3Binder.MyCefDeletePtr(v1.Ptr);
             return ret.I32 != 0;
         }
-        //CsCallToNativeCodeGen::GenerateCsMethod , 129
+        //CsCallToNativeCodeGen::GenerateCsMethod , 133
 
         // gen! bool FlushStore(CefRefPtr<CefCompletionCallback> callback)
         /// <summary>
@@ -4272,11 +4381,63 @@ namespace LayoutFarm.CefBridge.Auto
             Cef3Binder.MyCefMet_Call1(this.nativePtr, CefCookieManager_FlushStore_7, out ret, ref v1);
             return ret.I32 != 0;
         }
+        //
+        //CsCallToNativeCodeGen::GenerateCs_S_Method , 134
+
+        // gen! CefRefPtr<CefCookieManager> GetGlobalManager(CefRefPtr<CefCompletionCallback> callback)
+        /// <summary>
+        /// Returns the global cookie manager. By default data will be stored at
+        /// CefSettings.cache_path if specified or in memory otherwise. If |callback|
+        /// is non-NULL it will be executed asnychronously on the IO thread after the
+        /// manager's storage has been initialized. Using this method is equivalent to
+        /// calling CefRequestContext::GetGlobalContext()->GetDefaultCookieManager().
+        /// /*cef(optional_param=callback)*/
+        /// </summary>
+
+        public CefCookieManager GetGlobalManager(CefCompletionCallback callback)
+        {
+            JsValue v1 = new JsValue();
+            JsValue ret;
+            v1.Ptr = callback.nativePtr;
+
+            Cef3Binder.MyCefMet_S_Call1(CefCookieManager_S_GetGlobalManager_1, out ret, ref v1);
+            return new CefCookieManager(ret.Ptr);
+        }
+        //CsCallToNativeCodeGen::GenerateCs_S_Method , 135
+
+        // gen! CefRefPtr<CefCookieManager> CreateManager(const CefString& path,bool persist_session_cookies,CefRefPtr<CefCompletionCallback> callback)
+        /// <summary>
+        /// Creates a new cookie manager. If |path| is empty data will be stored in
+        /// memory only. Otherwise, data will be stored at the specified |path|. To
+        /// persist session cookies (cookies without an expiry date or validity
+        /// interval) set |persist_session_cookies| to true. Session cookies are
+        /// generally intended to be transient and most Web browsers do not persist
+        /// them. If |callback| is non-NULL it will be executed asnychronously on the
+        /// IO thread after the manager's storage has been initialized.
+        /// /*cef(optional_param=path,optional_param=callback)*/
+        /// </summary>
+
+        public CefCookieManager CreateManager(string path,
+        bool persist_session_cookies,
+        CefCompletionCallback callback)
+        {
+            JsValue v1 = new JsValue();
+            JsValue v2 = new JsValue();
+            JsValue v3 = new JsValue();
+            JsValue ret;
+            v1.Ptr = Cef3Binder.MyCefCreateStringHolder(path);
+            v2.I32 = persist_session_cookies ? 1 : 0;
+            v3.Ptr = callback.nativePtr;
+
+            Cef3Binder.MyCefMet_S_Call3(CefCookieManager_S_CreateManager_2, out ret, ref v1, ref v2, ref v3);
+            Cef3Binder.MyCefDeletePtr(v1.Ptr);
+            return new CefCookieManager(ret.Ptr);
+        }
     }
 
 
     // [virtual] class CefCookieVisitor
-    //CsCallToNativeCodeGen::GenerateCsCode , 130
+    //CsCallToNativeCodeGen::GenerateCsCode , 136
     /// <summary>
     /// Interface to implement for visiting cookie values. The methods of this class
     /// will always be called on the IO thread.
@@ -4306,7 +4467,7 @@ namespace LayoutFarm.CefBridge.Auto
 
 
     // [virtual] class CefDOMVisitor
-    //CsCallToNativeCodeGen::GenerateCsCode , 131
+    //CsCallToNativeCodeGen::GenerateCsCode , 137
     /// <summary>
     /// Interface to implement for visiting the DOM. The methods of this class will
     /// be called on the render process main thread.
@@ -4336,7 +4497,7 @@ namespace LayoutFarm.CefBridge.Auto
 
 
     // [virtual] class CefDOMDocument
-    //CsCallToNativeCodeGen::GenerateCsCode , 132
+    //CsCallToNativeCodeGen::GenerateCsCode , 138
     /// <summary>
     /// Class used to represent a DOM document. The methods of this class should only
     /// be called on the render process main thread thread.
@@ -4371,7 +4532,7 @@ namespace LayoutFarm.CefBridge.Auto
             Cef3Binder.MyCefMet_Call0(this.nativePtr, CefDOMDocument_Release_0, out ret);
             this.nativePtr = IntPtr.Zero;
         }
-        //CsCallToNativeCodeGen::GenerateCsMethod , 133
+        //CsCallToNativeCodeGen::GenerateCsMethod , 139
 
         // gen! Type GetType()
         /// <summary>
@@ -4386,7 +4547,7 @@ namespace LayoutFarm.CefBridge.Auto
             return (cef_dom_document_type_t)ret.I32;
 
         }
-        //CsCallToNativeCodeGen::GenerateCsMethod , 134
+        //CsCallToNativeCodeGen::GenerateCsMethod , 140
 
         // gen! CefRefPtr<CefDOMNode> GetDocument()
         /// <summary>
@@ -4401,7 +4562,7 @@ namespace LayoutFarm.CefBridge.Auto
             Cef3Binder.MyCefMet_Call0(this.nativePtr, CefDOMDocument_GetDocument_2, out ret);
             return new CefDOMNode(ret.Ptr);
         }
-        //CsCallToNativeCodeGen::GenerateCsMethod , 135
+        //CsCallToNativeCodeGen::GenerateCsMethod , 141
 
         // gen! CefRefPtr<CefDOMNode> GetBody()
         /// <summary>
@@ -4416,7 +4577,7 @@ namespace LayoutFarm.CefBridge.Auto
             Cef3Binder.MyCefMet_Call0(this.nativePtr, CefDOMDocument_GetBody_3, out ret);
             return new CefDOMNode(ret.Ptr);
         }
-        //CsCallToNativeCodeGen::GenerateCsMethod , 136
+        //CsCallToNativeCodeGen::GenerateCsMethod , 142
 
         // gen! CefRefPtr<CefDOMNode> GetHead()
         /// <summary>
@@ -4431,7 +4592,7 @@ namespace LayoutFarm.CefBridge.Auto
             Cef3Binder.MyCefMet_Call0(this.nativePtr, CefDOMDocument_GetHead_4, out ret);
             return new CefDOMNode(ret.Ptr);
         }
-        //CsCallToNativeCodeGen::GenerateCsMethod , 137
+        //CsCallToNativeCodeGen::GenerateCsMethod , 143
 
         // gen! CefString GetTitle()
         /// <summary>
@@ -4446,7 +4607,7 @@ namespace LayoutFarm.CefBridge.Auto
             Cef3Binder.MyCefMet_Call0(this.nativePtr, CefDOMDocument_GetTitle_5, out ret);
             return Cef3Binder.CopyStringAndDestroyNativeSide(ref ret);
         }
-        //CsCallToNativeCodeGen::GenerateCsMethod , 138
+        //CsCallToNativeCodeGen::GenerateCsMethod , 144
 
         // gen! CefRefPtr<CefDOMNode> GetElementById(const CefString& id)
         /// <summary>
@@ -4464,7 +4625,7 @@ namespace LayoutFarm.CefBridge.Auto
             Cef3Binder.MyCefDeletePtr(v1.Ptr);
             return new CefDOMNode(ret.Ptr);
         }
-        //CsCallToNativeCodeGen::GenerateCsMethod , 139
+        //CsCallToNativeCodeGen::GenerateCsMethod , 145
 
         // gen! CefRefPtr<CefDOMNode> GetFocusedNode()
         /// <summary>
@@ -4479,7 +4640,7 @@ namespace LayoutFarm.CefBridge.Auto
             Cef3Binder.MyCefMet_Call0(this.nativePtr, CefDOMDocument_GetFocusedNode_7, out ret);
             return new CefDOMNode(ret.Ptr);
         }
-        //CsCallToNativeCodeGen::GenerateCsMethod , 140
+        //CsCallToNativeCodeGen::GenerateCsMethod , 146
 
         // gen! bool HasSelection()
         /// <summary>
@@ -4494,7 +4655,7 @@ namespace LayoutFarm.CefBridge.Auto
             Cef3Binder.MyCefMet_Call0(this.nativePtr, CefDOMDocument_HasSelection_8, out ret);
             return ret.I32 != 0;
         }
-        //CsCallToNativeCodeGen::GenerateCsMethod , 141
+        //CsCallToNativeCodeGen::GenerateCsMethod , 147
 
         // gen! int GetSelectionStartOffset()
         /// <summary>
@@ -4509,7 +4670,7 @@ namespace LayoutFarm.CefBridge.Auto
             Cef3Binder.MyCefMet_Call0(this.nativePtr, CefDOMDocument_GetSelectionStartOffset_9, out ret);
             return ret.I32;
         }
-        //CsCallToNativeCodeGen::GenerateCsMethod , 142
+        //CsCallToNativeCodeGen::GenerateCsMethod , 148
 
         // gen! int GetSelectionEndOffset()
         /// <summary>
@@ -4524,7 +4685,7 @@ namespace LayoutFarm.CefBridge.Auto
             Cef3Binder.MyCefMet_Call0(this.nativePtr, CefDOMDocument_GetSelectionEndOffset_10, out ret);
             return ret.I32;
         }
-        //CsCallToNativeCodeGen::GenerateCsMethod , 143
+        //CsCallToNativeCodeGen::GenerateCsMethod , 149
 
         // gen! CefString GetSelectionAsMarkup()
         /// <summary>
@@ -4539,7 +4700,7 @@ namespace LayoutFarm.CefBridge.Auto
             Cef3Binder.MyCefMet_Call0(this.nativePtr, CefDOMDocument_GetSelectionAsMarkup_11, out ret);
             return Cef3Binder.CopyStringAndDestroyNativeSide(ref ret);
         }
-        //CsCallToNativeCodeGen::GenerateCsMethod , 144
+        //CsCallToNativeCodeGen::GenerateCsMethod , 150
 
         // gen! CefString GetSelectionAsText()
         /// <summary>
@@ -4554,7 +4715,7 @@ namespace LayoutFarm.CefBridge.Auto
             Cef3Binder.MyCefMet_Call0(this.nativePtr, CefDOMDocument_GetSelectionAsText_12, out ret);
             return Cef3Binder.CopyStringAndDestroyNativeSide(ref ret);
         }
-        //CsCallToNativeCodeGen::GenerateCsMethod , 145
+        //CsCallToNativeCodeGen::GenerateCsMethod , 151
 
         // gen! CefString GetBaseURL()
         /// <summary>
@@ -4569,7 +4730,7 @@ namespace LayoutFarm.CefBridge.Auto
             Cef3Binder.MyCefMet_Call0(this.nativePtr, CefDOMDocument_GetBaseURL_13, out ret);
             return Cef3Binder.CopyStringAndDestroyNativeSide(ref ret);
         }
-        //CsCallToNativeCodeGen::GenerateCsMethod , 146
+        //CsCallToNativeCodeGen::GenerateCsMethod , 152
 
         // gen! CefString GetCompleteURL(const CefString& partialURL)
         /// <summary>
@@ -4592,7 +4753,7 @@ namespace LayoutFarm.CefBridge.Auto
 
 
     // [virtual] class CefDOMNode
-    //CsCallToNativeCodeGen::GenerateCsCode , 147
+    //CsCallToNativeCodeGen::GenerateCsCode , 153
     /// <summary>
     /// Class used to represent a DOM node. The methods of this class should only be
     /// called on the render process main thread.
@@ -4639,7 +4800,7 @@ namespace LayoutFarm.CefBridge.Auto
             Cef3Binder.MyCefMet_Call0(this.nativePtr, CefDOMNode_Release_0, out ret);
             this.nativePtr = IntPtr.Zero;
         }
-        //CsCallToNativeCodeGen::GenerateCsMethod , 148
+        //CsCallToNativeCodeGen::GenerateCsMethod , 154
 
         // gen! Type GetType()
         /// <summary>
@@ -4654,7 +4815,7 @@ namespace LayoutFarm.CefBridge.Auto
             return (cef_dom_node_type_t)ret.I32;
 
         }
-        //CsCallToNativeCodeGen::GenerateCsMethod , 149
+        //CsCallToNativeCodeGen::GenerateCsMethod , 155
 
         // gen! bool IsText()
         /// <summary>
@@ -4669,7 +4830,7 @@ namespace LayoutFarm.CefBridge.Auto
             Cef3Binder.MyCefMet_Call0(this.nativePtr, CefDOMNode_IsText_2, out ret);
             return ret.I32 != 0;
         }
-        //CsCallToNativeCodeGen::GenerateCsMethod , 150
+        //CsCallToNativeCodeGen::GenerateCsMethod , 156
 
         // gen! bool IsElement()
         /// <summary>
@@ -4684,7 +4845,7 @@ namespace LayoutFarm.CefBridge.Auto
             Cef3Binder.MyCefMet_Call0(this.nativePtr, CefDOMNode_IsElement_3, out ret);
             return ret.I32 != 0;
         }
-        //CsCallToNativeCodeGen::GenerateCsMethod , 151
+        //CsCallToNativeCodeGen::GenerateCsMethod , 157
 
         // gen! bool IsEditable()
         /// <summary>
@@ -4699,7 +4860,7 @@ namespace LayoutFarm.CefBridge.Auto
             Cef3Binder.MyCefMet_Call0(this.nativePtr, CefDOMNode_IsEditable_4, out ret);
             return ret.I32 != 0;
         }
-        //CsCallToNativeCodeGen::GenerateCsMethod , 152
+        //CsCallToNativeCodeGen::GenerateCsMethod , 158
 
         // gen! bool IsFormControlElement()
         /// <summary>
@@ -4714,7 +4875,7 @@ namespace LayoutFarm.CefBridge.Auto
             Cef3Binder.MyCefMet_Call0(this.nativePtr, CefDOMNode_IsFormControlElement_5, out ret);
             return ret.I32 != 0;
         }
-        //CsCallToNativeCodeGen::GenerateCsMethod , 153
+        //CsCallToNativeCodeGen::GenerateCsMethod , 159
 
         // gen! CefString GetFormControlElementType()
         /// <summary>
@@ -4729,7 +4890,7 @@ namespace LayoutFarm.CefBridge.Auto
             Cef3Binder.MyCefMet_Call0(this.nativePtr, CefDOMNode_GetFormControlElementType_6, out ret);
             return Cef3Binder.CopyStringAndDestroyNativeSide(ref ret);
         }
-        //CsCallToNativeCodeGen::GenerateCsMethod , 154
+        //CsCallToNativeCodeGen::GenerateCsMethod , 160
 
         // gen! bool IsSame(CefRefPtr<CefDOMNode> that)
         /// <summary>
@@ -4747,7 +4908,7 @@ namespace LayoutFarm.CefBridge.Auto
             Cef3Binder.MyCefMet_Call1(this.nativePtr, CefDOMNode_IsSame_7, out ret, ref v1);
             return ret.I32 != 0;
         }
-        //CsCallToNativeCodeGen::GenerateCsMethod , 155
+        //CsCallToNativeCodeGen::GenerateCsMethod , 161
 
         // gen! CefString GetName()
         /// <summary>
@@ -4762,7 +4923,7 @@ namespace LayoutFarm.CefBridge.Auto
             Cef3Binder.MyCefMet_Call0(this.nativePtr, CefDOMNode_GetName_8, out ret);
             return Cef3Binder.CopyStringAndDestroyNativeSide(ref ret);
         }
-        //CsCallToNativeCodeGen::GenerateCsMethod , 156
+        //CsCallToNativeCodeGen::GenerateCsMethod , 162
 
         // gen! CefString GetValue()
         /// <summary>
@@ -4777,7 +4938,7 @@ namespace LayoutFarm.CefBridge.Auto
             Cef3Binder.MyCefMet_Call0(this.nativePtr, CefDOMNode_GetValue_9, out ret);
             return Cef3Binder.CopyStringAndDestroyNativeSide(ref ret);
         }
-        //CsCallToNativeCodeGen::GenerateCsMethod , 157
+        //CsCallToNativeCodeGen::GenerateCsMethod , 163
 
         // gen! bool SetValue(const CefString& value)
         /// <summary>
@@ -4795,7 +4956,7 @@ namespace LayoutFarm.CefBridge.Auto
             Cef3Binder.MyCefDeletePtr(v1.Ptr);
             return ret.I32 != 0;
         }
-        //CsCallToNativeCodeGen::GenerateCsMethod , 158
+        //CsCallToNativeCodeGen::GenerateCsMethod , 164
 
         // gen! CefString GetAsMarkup()
         /// <summary>
@@ -4810,7 +4971,7 @@ namespace LayoutFarm.CefBridge.Auto
             Cef3Binder.MyCefMet_Call0(this.nativePtr, CefDOMNode_GetAsMarkup_11, out ret);
             return Cef3Binder.CopyStringAndDestroyNativeSide(ref ret);
         }
-        //CsCallToNativeCodeGen::GenerateCsMethod , 159
+        //CsCallToNativeCodeGen::GenerateCsMethod , 165
 
         // gen! CefRefPtr<CefDOMDocument> GetDocument()
         /// <summary>
@@ -4825,7 +4986,7 @@ namespace LayoutFarm.CefBridge.Auto
             Cef3Binder.MyCefMet_Call0(this.nativePtr, CefDOMNode_GetDocument_12, out ret);
             return new CefDOMDocument(ret.Ptr);
         }
-        //CsCallToNativeCodeGen::GenerateCsMethod , 160
+        //CsCallToNativeCodeGen::GenerateCsMethod , 166
 
         // gen! CefRefPtr<CefDOMNode> GetParent()
         /// <summary>
@@ -4840,7 +5001,7 @@ namespace LayoutFarm.CefBridge.Auto
             Cef3Binder.MyCefMet_Call0(this.nativePtr, CefDOMNode_GetParent_13, out ret);
             return new CefDOMNode(ret.Ptr);
         }
-        //CsCallToNativeCodeGen::GenerateCsMethod , 161
+        //CsCallToNativeCodeGen::GenerateCsMethod , 167
 
         // gen! CefRefPtr<CefDOMNode> GetPreviousSibling()
         /// <summary>
@@ -4855,7 +5016,7 @@ namespace LayoutFarm.CefBridge.Auto
             Cef3Binder.MyCefMet_Call0(this.nativePtr, CefDOMNode_GetPreviousSibling_14, out ret);
             return new CefDOMNode(ret.Ptr);
         }
-        //CsCallToNativeCodeGen::GenerateCsMethod , 162
+        //CsCallToNativeCodeGen::GenerateCsMethod , 168
 
         // gen! CefRefPtr<CefDOMNode> GetNextSibling()
         /// <summary>
@@ -4870,7 +5031,7 @@ namespace LayoutFarm.CefBridge.Auto
             Cef3Binder.MyCefMet_Call0(this.nativePtr, CefDOMNode_GetNextSibling_15, out ret);
             return new CefDOMNode(ret.Ptr);
         }
-        //CsCallToNativeCodeGen::GenerateCsMethod , 163
+        //CsCallToNativeCodeGen::GenerateCsMethod , 169
 
         // gen! bool HasChildren()
         /// <summary>
@@ -4885,7 +5046,7 @@ namespace LayoutFarm.CefBridge.Auto
             Cef3Binder.MyCefMet_Call0(this.nativePtr, CefDOMNode_HasChildren_16, out ret);
             return ret.I32 != 0;
         }
-        //CsCallToNativeCodeGen::GenerateCsMethod , 164
+        //CsCallToNativeCodeGen::GenerateCsMethod , 170
 
         // gen! CefRefPtr<CefDOMNode> GetFirstChild()
         /// <summary>
@@ -4900,7 +5061,7 @@ namespace LayoutFarm.CefBridge.Auto
             Cef3Binder.MyCefMet_Call0(this.nativePtr, CefDOMNode_GetFirstChild_17, out ret);
             return new CefDOMNode(ret.Ptr);
         }
-        //CsCallToNativeCodeGen::GenerateCsMethod , 165
+        //CsCallToNativeCodeGen::GenerateCsMethod , 171
 
         // gen! CefRefPtr<CefDOMNode> GetLastChild()
         /// <summary>
@@ -4915,7 +5076,7 @@ namespace LayoutFarm.CefBridge.Auto
             Cef3Binder.MyCefMet_Call0(this.nativePtr, CefDOMNode_GetLastChild_18, out ret);
             return new CefDOMNode(ret.Ptr);
         }
-        //CsCallToNativeCodeGen::GenerateCsMethod , 166
+        //CsCallToNativeCodeGen::GenerateCsMethod , 172
 
         // gen! CefString GetElementTagName()
         /// <summary>
@@ -4931,7 +5092,7 @@ namespace LayoutFarm.CefBridge.Auto
             Cef3Binder.MyCefMet_Call0(this.nativePtr, CefDOMNode_GetElementTagName_19, out ret);
             return Cef3Binder.CopyStringAndDestroyNativeSide(ref ret);
         }
-        //CsCallToNativeCodeGen::GenerateCsMethod , 167
+        //CsCallToNativeCodeGen::GenerateCsMethod , 173
 
         // gen! bool HasElementAttributes()
         /// <summary>
@@ -4946,7 +5107,7 @@ namespace LayoutFarm.CefBridge.Auto
             Cef3Binder.MyCefMet_Call0(this.nativePtr, CefDOMNode_HasElementAttributes_20, out ret);
             return ret.I32 != 0;
         }
-        //CsCallToNativeCodeGen::GenerateCsMethod , 168
+        //CsCallToNativeCodeGen::GenerateCsMethod , 174
 
         // gen! bool HasElementAttribute(const CefString& attrName)
         /// <summary>
@@ -4964,7 +5125,7 @@ namespace LayoutFarm.CefBridge.Auto
             Cef3Binder.MyCefDeletePtr(v1.Ptr);
             return ret.I32 != 0;
         }
-        //CsCallToNativeCodeGen::GenerateCsMethod , 169
+        //CsCallToNativeCodeGen::GenerateCsMethod , 175
 
         // gen! CefString GetElementAttribute(const CefString& attrName)
         /// <summary>
@@ -4982,7 +5143,7 @@ namespace LayoutFarm.CefBridge.Auto
             Cef3Binder.MyCefDeletePtr(v1.Ptr);
             return Cef3Binder.CopyStringAndDestroyNativeSide(ref ret);
         }
-        //CsCallToNativeCodeGen::GenerateCsMethod , 170
+        //CsCallToNativeCodeGen::GenerateCsMethod , 176
 
         // gen! void GetElementAttributes(AttributeMap& attrMap)
         /// <summary>
@@ -4999,7 +5160,7 @@ namespace LayoutFarm.CefBridge.Auto
             Cef3Binder.MyCefMet_Call1(this.nativePtr, CefDOMNode_GetElementAttributes_23, out ret, ref v1);
 
         }
-        //CsCallToNativeCodeGen::GenerateCsMethod , 171
+        //CsCallToNativeCodeGen::GenerateCsMethod , 177
 
         // gen! bool SetElementAttribute(const CefString& attrName,const CefString& value)
         /// <summary>
@@ -5022,7 +5183,7 @@ namespace LayoutFarm.CefBridge.Auto
             Cef3Binder.MyCefDeletePtr(v2.Ptr);
             return ret.I32 != 0;
         }
-        //CsCallToNativeCodeGen::GenerateCsMethod , 172
+        //CsCallToNativeCodeGen::GenerateCsMethod , 178
 
         // gen! CefString GetElementInnerText()
         /// <summary>
@@ -5037,7 +5198,7 @@ namespace LayoutFarm.CefBridge.Auto
             Cef3Binder.MyCefMet_Call0(this.nativePtr, CefDOMNode_GetElementInnerText_25, out ret);
             return Cef3Binder.CopyStringAndDestroyNativeSide(ref ret);
         }
-        //CsCallToNativeCodeGen::GenerateCsMethod , 173
+        //CsCallToNativeCodeGen::GenerateCsMethod , 179
 
         // gen! CefRect GetElementBounds()
         /// <summary>
@@ -5057,7 +5218,7 @@ namespace LayoutFarm.CefBridge.Auto
 
 
     // [virtual] class CefDownloadItem
-    //CsCallToNativeCodeGen::GenerateCsCode , 174
+    //CsCallToNativeCodeGen::GenerateCsCode , 180
     /// <summary>
     /// Class used to represent a download item.
     /// /*(source=library)*/
@@ -5094,7 +5255,7 @@ namespace LayoutFarm.CefBridge.Auto
             Cef3Binder.MyCefMet_Call0(this.nativePtr, CefDownloadItem_Release_0, out ret);
             this.nativePtr = IntPtr.Zero;
         }
-        //CsCallToNativeCodeGen::GenerateCsMethod , 175
+        //CsCallToNativeCodeGen::GenerateCsMethod , 181
 
         // gen! bool IsValid()
         /// <summary>
@@ -5108,7 +5269,7 @@ namespace LayoutFarm.CefBridge.Auto
             Cef3Binder.MyCefMet_Call0(this.nativePtr, CefDownloadItem_IsValid_1, out ret);
             return ret.I32 != 0;
         }
-        //CsCallToNativeCodeGen::GenerateCsMethod , 176
+        //CsCallToNativeCodeGen::GenerateCsMethod , 182
 
         // gen! bool IsInProgress()
         /// <summary>
@@ -5123,7 +5284,7 @@ namespace LayoutFarm.CefBridge.Auto
             Cef3Binder.MyCefMet_Call0(this.nativePtr, CefDownloadItem_IsInProgress_2, out ret);
             return ret.I32 != 0;
         }
-        //CsCallToNativeCodeGen::GenerateCsMethod , 177
+        //CsCallToNativeCodeGen::GenerateCsMethod , 183
 
         // gen! bool IsComplete()
         /// <summary>
@@ -5138,7 +5299,7 @@ namespace LayoutFarm.CefBridge.Auto
             Cef3Binder.MyCefMet_Call0(this.nativePtr, CefDownloadItem_IsComplete_3, out ret);
             return ret.I32 != 0;
         }
-        //CsCallToNativeCodeGen::GenerateCsMethod , 178
+        //CsCallToNativeCodeGen::GenerateCsMethod , 184
 
         // gen! bool IsCanceled()
         /// <summary>
@@ -5153,7 +5314,7 @@ namespace LayoutFarm.CefBridge.Auto
             Cef3Binder.MyCefMet_Call0(this.nativePtr, CefDownloadItem_IsCanceled_4, out ret);
             return ret.I32 != 0;
         }
-        //CsCallToNativeCodeGen::GenerateCsMethod , 179
+        //CsCallToNativeCodeGen::GenerateCsMethod , 185
 
         // gen! int64 GetCurrentSpeed()
         /// <summary>
@@ -5168,7 +5329,7 @@ namespace LayoutFarm.CefBridge.Auto
             Cef3Binder.MyCefMet_Call0(this.nativePtr, CefDownloadItem_GetCurrentSpeed_5, out ret);
             return ret.I64;
         }
-        //CsCallToNativeCodeGen::GenerateCsMethod , 180
+        //CsCallToNativeCodeGen::GenerateCsMethod , 186
 
         // gen! int GetPercentComplete()
         /// <summary>
@@ -5184,7 +5345,7 @@ namespace LayoutFarm.CefBridge.Auto
             Cef3Binder.MyCefMet_Call0(this.nativePtr, CefDownloadItem_GetPercentComplete_6, out ret);
             return ret.I32;
         }
-        //CsCallToNativeCodeGen::GenerateCsMethod , 181
+        //CsCallToNativeCodeGen::GenerateCsMethod , 187
 
         // gen! int64 GetTotalBytes()
         /// <summary>
@@ -5199,7 +5360,7 @@ namespace LayoutFarm.CefBridge.Auto
             Cef3Binder.MyCefMet_Call0(this.nativePtr, CefDownloadItem_GetTotalBytes_7, out ret);
             return ret.I64;
         }
-        //CsCallToNativeCodeGen::GenerateCsMethod , 182
+        //CsCallToNativeCodeGen::GenerateCsMethod , 188
 
         // gen! int64 GetReceivedBytes()
         /// <summary>
@@ -5214,7 +5375,7 @@ namespace LayoutFarm.CefBridge.Auto
             Cef3Binder.MyCefMet_Call0(this.nativePtr, CefDownloadItem_GetReceivedBytes_8, out ret);
             return ret.I64;
         }
-        //CsCallToNativeCodeGen::GenerateCsMethod , 183
+        //CsCallToNativeCodeGen::GenerateCsMethod , 189
 
         // gen! CefTime GetStartTime()
         /// <summary>
@@ -5230,7 +5391,7 @@ namespace LayoutFarm.CefBridge.Auto
             return new CefTime(ret.Ptr);
 
         }
-        //CsCallToNativeCodeGen::GenerateCsMethod , 184
+        //CsCallToNativeCodeGen::GenerateCsMethod , 190
 
         // gen! CefTime GetEndTime()
         /// <summary>
@@ -5246,7 +5407,7 @@ namespace LayoutFarm.CefBridge.Auto
             return new CefTime(ret.Ptr);
 
         }
-        //CsCallToNativeCodeGen::GenerateCsMethod , 185
+        //CsCallToNativeCodeGen::GenerateCsMethod , 191
 
         // gen! CefString GetFullPath()
         /// <summary>
@@ -5261,7 +5422,7 @@ namespace LayoutFarm.CefBridge.Auto
             Cef3Binder.MyCefMet_Call0(this.nativePtr, CefDownloadItem_GetFullPath_11, out ret);
             return Cef3Binder.CopyStringAndDestroyNativeSide(ref ret);
         }
-        //CsCallToNativeCodeGen::GenerateCsMethod , 186
+        //CsCallToNativeCodeGen::GenerateCsMethod , 192
 
         // gen! uint32 GetId()
         /// <summary>
@@ -5276,7 +5437,7 @@ namespace LayoutFarm.CefBridge.Auto
             Cef3Binder.MyCefMet_Call0(this.nativePtr, CefDownloadItem_GetId_12, out ret);
             return (uint)ret.I32;
         }
-        //CsCallToNativeCodeGen::GenerateCsMethod , 187
+        //CsCallToNativeCodeGen::GenerateCsMethod , 193
 
         // gen! CefString GetURL()
         /// <summary>
@@ -5291,7 +5452,7 @@ namespace LayoutFarm.CefBridge.Auto
             Cef3Binder.MyCefMet_Call0(this.nativePtr, CefDownloadItem_GetURL_13, out ret);
             return Cef3Binder.CopyStringAndDestroyNativeSide(ref ret);
         }
-        //CsCallToNativeCodeGen::GenerateCsMethod , 188
+        //CsCallToNativeCodeGen::GenerateCsMethod , 194
 
         // gen! CefString GetOriginalUrl()
         /// <summary>
@@ -5306,7 +5467,7 @@ namespace LayoutFarm.CefBridge.Auto
             Cef3Binder.MyCefMet_Call0(this.nativePtr, CefDownloadItem_GetOriginalUrl_14, out ret);
             return Cef3Binder.CopyStringAndDestroyNativeSide(ref ret);
         }
-        //CsCallToNativeCodeGen::GenerateCsMethod , 189
+        //CsCallToNativeCodeGen::GenerateCsMethod , 195
 
         // gen! CefString GetSuggestedFileName()
         /// <summary>
@@ -5321,7 +5482,7 @@ namespace LayoutFarm.CefBridge.Auto
             Cef3Binder.MyCefMet_Call0(this.nativePtr, CefDownloadItem_GetSuggestedFileName_15, out ret);
             return Cef3Binder.CopyStringAndDestroyNativeSide(ref ret);
         }
-        //CsCallToNativeCodeGen::GenerateCsMethod , 190
+        //CsCallToNativeCodeGen::GenerateCsMethod , 196
 
         // gen! CefString GetContentDisposition()
         /// <summary>
@@ -5336,7 +5497,7 @@ namespace LayoutFarm.CefBridge.Auto
             Cef3Binder.MyCefMet_Call0(this.nativePtr, CefDownloadItem_GetContentDisposition_16, out ret);
             return Cef3Binder.CopyStringAndDestroyNativeSide(ref ret);
         }
-        //CsCallToNativeCodeGen::GenerateCsMethod , 191
+        //CsCallToNativeCodeGen::GenerateCsMethod , 197
 
         // gen! CefString GetMimeType()
         /// <summary>
@@ -5355,7 +5516,7 @@ namespace LayoutFarm.CefBridge.Auto
 
 
     // [virtual] class CefDragData
-    //CsCallToNativeCodeGen::GenerateCsCode , 192
+    //CsCallToNativeCodeGen::GenerateCsCode , 198
     /// <summary>
     /// Class used to represent drag data. The methods of this class may be called
     /// on any thread.
@@ -5390,6 +5551,8 @@ namespace LayoutFarm.CefBridge.Auto
         const int CefDragData_GetImage_23 = (_typeNAME << 16) | 23;
         const int CefDragData_GetImageHotspot_24 = (_typeNAME << 16) | 24;
         const int CefDragData_HasImage_25 = (_typeNAME << 16) | 25;
+        //
+        const int CefDragData_S_Create_1 = (_typeNAME << 16) | 1;
         internal IntPtr nativePtr;
         internal CefDragData(IntPtr nativePtr)
         {
@@ -5401,7 +5564,7 @@ namespace LayoutFarm.CefBridge.Auto
             Cef3Binder.MyCefMet_Call0(this.nativePtr, CefDragData_Release_0, out ret);
             this.nativePtr = IntPtr.Zero;
         }
-        //CsCallToNativeCodeGen::GenerateCsMethod , 193
+        //CsCallToNativeCodeGen::GenerateCsMethod , 199
 
         // gen! CefRefPtr<CefDragData> Clone()
         /// <summary>
@@ -5415,7 +5578,7 @@ namespace LayoutFarm.CefBridge.Auto
             Cef3Binder.MyCefMet_Call0(this.nativePtr, CefDragData_Clone_1, out ret);
             return new CefDragData(ret.Ptr);
         }
-        //CsCallToNativeCodeGen::GenerateCsMethod , 194
+        //CsCallToNativeCodeGen::GenerateCsMethod , 200
 
         // gen! bool IsReadOnly()
         /// <summary>
@@ -5430,7 +5593,7 @@ namespace LayoutFarm.CefBridge.Auto
             Cef3Binder.MyCefMet_Call0(this.nativePtr, CefDragData_IsReadOnly_2, out ret);
             return ret.I32 != 0;
         }
-        //CsCallToNativeCodeGen::GenerateCsMethod , 195
+        //CsCallToNativeCodeGen::GenerateCsMethod , 201
 
         // gen! bool IsLink()
         /// <summary>
@@ -5445,7 +5608,7 @@ namespace LayoutFarm.CefBridge.Auto
             Cef3Binder.MyCefMet_Call0(this.nativePtr, CefDragData_IsLink_3, out ret);
             return ret.I32 != 0;
         }
-        //CsCallToNativeCodeGen::GenerateCsMethod , 196
+        //CsCallToNativeCodeGen::GenerateCsMethod , 202
 
         // gen! bool IsFragment()
         /// <summary>
@@ -5460,7 +5623,7 @@ namespace LayoutFarm.CefBridge.Auto
             Cef3Binder.MyCefMet_Call0(this.nativePtr, CefDragData_IsFragment_4, out ret);
             return ret.I32 != 0;
         }
-        //CsCallToNativeCodeGen::GenerateCsMethod , 197
+        //CsCallToNativeCodeGen::GenerateCsMethod , 203
 
         // gen! bool IsFile()
         /// <summary>
@@ -5475,7 +5638,7 @@ namespace LayoutFarm.CefBridge.Auto
             Cef3Binder.MyCefMet_Call0(this.nativePtr, CefDragData_IsFile_5, out ret);
             return ret.I32 != 0;
         }
-        //CsCallToNativeCodeGen::GenerateCsMethod , 198
+        //CsCallToNativeCodeGen::GenerateCsMethod , 204
 
         // gen! CefString GetLinkURL()
         /// <summary>
@@ -5490,7 +5653,7 @@ namespace LayoutFarm.CefBridge.Auto
             Cef3Binder.MyCefMet_Call0(this.nativePtr, CefDragData_GetLinkURL_6, out ret);
             return Cef3Binder.CopyStringAndDestroyNativeSide(ref ret);
         }
-        //CsCallToNativeCodeGen::GenerateCsMethod , 199
+        //CsCallToNativeCodeGen::GenerateCsMethod , 205
 
         // gen! CefString GetLinkTitle()
         /// <summary>
@@ -5505,7 +5668,7 @@ namespace LayoutFarm.CefBridge.Auto
             Cef3Binder.MyCefMet_Call0(this.nativePtr, CefDragData_GetLinkTitle_7, out ret);
             return Cef3Binder.CopyStringAndDestroyNativeSide(ref ret);
         }
-        //CsCallToNativeCodeGen::GenerateCsMethod , 200
+        //CsCallToNativeCodeGen::GenerateCsMethod , 206
 
         // gen! CefString GetLinkMetadata()
         /// <summary>
@@ -5520,7 +5683,7 @@ namespace LayoutFarm.CefBridge.Auto
             Cef3Binder.MyCefMet_Call0(this.nativePtr, CefDragData_GetLinkMetadata_8, out ret);
             return Cef3Binder.CopyStringAndDestroyNativeSide(ref ret);
         }
-        //CsCallToNativeCodeGen::GenerateCsMethod , 201
+        //CsCallToNativeCodeGen::GenerateCsMethod , 207
 
         // gen! CefString GetFragmentText()
         /// <summary>
@@ -5535,7 +5698,7 @@ namespace LayoutFarm.CefBridge.Auto
             Cef3Binder.MyCefMet_Call0(this.nativePtr, CefDragData_GetFragmentText_9, out ret);
             return Cef3Binder.CopyStringAndDestroyNativeSide(ref ret);
         }
-        //CsCallToNativeCodeGen::GenerateCsMethod , 202
+        //CsCallToNativeCodeGen::GenerateCsMethod , 208
 
         // gen! CefString GetFragmentHtml()
         /// <summary>
@@ -5550,7 +5713,7 @@ namespace LayoutFarm.CefBridge.Auto
             Cef3Binder.MyCefMet_Call0(this.nativePtr, CefDragData_GetFragmentHtml_10, out ret);
             return Cef3Binder.CopyStringAndDestroyNativeSide(ref ret);
         }
-        //CsCallToNativeCodeGen::GenerateCsMethod , 203
+        //CsCallToNativeCodeGen::GenerateCsMethod , 209
 
         // gen! CefString GetFragmentBaseURL()
         /// <summary>
@@ -5566,7 +5729,7 @@ namespace LayoutFarm.CefBridge.Auto
             Cef3Binder.MyCefMet_Call0(this.nativePtr, CefDragData_GetFragmentBaseURL_11, out ret);
             return Cef3Binder.CopyStringAndDestroyNativeSide(ref ret);
         }
-        //CsCallToNativeCodeGen::GenerateCsMethod , 204
+        //CsCallToNativeCodeGen::GenerateCsMethod , 210
 
         // gen! CefString GetFileName()
         /// <summary>
@@ -5581,7 +5744,7 @@ namespace LayoutFarm.CefBridge.Auto
             Cef3Binder.MyCefMet_Call0(this.nativePtr, CefDragData_GetFileName_12, out ret);
             return Cef3Binder.CopyStringAndDestroyNativeSide(ref ret);
         }
-        //CsCallToNativeCodeGen::GenerateCsMethod , 205
+        //CsCallToNativeCodeGen::GenerateCsMethod , 211
 
         // gen! size_t GetFileContents(CefRefPtr<CefStreamWriter> writer)
         /// <summary>
@@ -5601,7 +5764,7 @@ namespace LayoutFarm.CefBridge.Auto
             Cef3Binder.MyCefMet_Call1(this.nativePtr, CefDragData_GetFileContents_13, out ret, ref v1);
             return (uint)ret.I32;
         }
-        //CsCallToNativeCodeGen::GenerateCsMethod , 206
+        //CsCallToNativeCodeGen::GenerateCsMethod , 212
 
         // gen! bool GetFileNames(std::vector<CefString>& names)
         /// <summary>
@@ -5620,7 +5783,7 @@ namespace LayoutFarm.CefBridge.Auto
             Cef3Binder.CopyStdStringListAndDestroyNativeSide(v1.Ptr, names);
             return ret.I32 != 0;
         }
-        //CsCallToNativeCodeGen::GenerateCsMethod , 207
+        //CsCallToNativeCodeGen::GenerateCsMethod , 213
 
         // gen! void SetLinkURL(const CefString& url)
         /// <summary>
@@ -5638,7 +5801,7 @@ namespace LayoutFarm.CefBridge.Auto
             Cef3Binder.MyCefDeletePtr(v1.Ptr);
 
         }
-        //CsCallToNativeCodeGen::GenerateCsMethod , 208
+        //CsCallToNativeCodeGen::GenerateCsMethod , 214
 
         // gen! void SetLinkTitle(const CefString& title)
         /// <summary>
@@ -5656,7 +5819,7 @@ namespace LayoutFarm.CefBridge.Auto
             Cef3Binder.MyCefDeletePtr(v1.Ptr);
 
         }
-        //CsCallToNativeCodeGen::GenerateCsMethod , 209
+        //CsCallToNativeCodeGen::GenerateCsMethod , 215
 
         // gen! void SetLinkMetadata(const CefString& data)
         /// <summary>
@@ -5674,7 +5837,7 @@ namespace LayoutFarm.CefBridge.Auto
             Cef3Binder.MyCefDeletePtr(v1.Ptr);
 
         }
-        //CsCallToNativeCodeGen::GenerateCsMethod , 210
+        //CsCallToNativeCodeGen::GenerateCsMethod , 216
 
         // gen! void SetFragmentText(const CefString& text)
         /// <summary>
@@ -5692,7 +5855,7 @@ namespace LayoutFarm.CefBridge.Auto
             Cef3Binder.MyCefDeletePtr(v1.Ptr);
 
         }
-        //CsCallToNativeCodeGen::GenerateCsMethod , 211
+        //CsCallToNativeCodeGen::GenerateCsMethod , 217
 
         // gen! void SetFragmentHtml(const CefString& html)
         /// <summary>
@@ -5710,7 +5873,7 @@ namespace LayoutFarm.CefBridge.Auto
             Cef3Binder.MyCefDeletePtr(v1.Ptr);
 
         }
-        //CsCallToNativeCodeGen::GenerateCsMethod , 212
+        //CsCallToNativeCodeGen::GenerateCsMethod , 218
 
         // gen! void SetFragmentBaseURL(const CefString& base_url)
         /// <summary>
@@ -5728,7 +5891,7 @@ namespace LayoutFarm.CefBridge.Auto
             Cef3Binder.MyCefDeletePtr(v1.Ptr);
 
         }
-        //CsCallToNativeCodeGen::GenerateCsMethod , 213
+        //CsCallToNativeCodeGen::GenerateCsMethod , 219
 
         // gen! void ResetFileContents()
         /// <summary>
@@ -5745,7 +5908,7 @@ namespace LayoutFarm.CefBridge.Auto
             Cef3Binder.MyCefMet_Call0(this.nativePtr, CefDragData_ResetFileContents_21, out ret);
 
         }
-        //CsCallToNativeCodeGen::GenerateCsMethod , 214
+        //CsCallToNativeCodeGen::GenerateCsMethod , 220
 
         // gen! void AddFile(const CefString& path,const CefString& display_name)
         /// <summary>
@@ -5767,7 +5930,7 @@ namespace LayoutFarm.CefBridge.Auto
             Cef3Binder.MyCefDeletePtr(v2.Ptr);
 
         }
-        //CsCallToNativeCodeGen::GenerateCsMethod , 215
+        //CsCallToNativeCodeGen::GenerateCsMethod , 221
 
         // gen! CefRefPtr<CefImage> GetImage()
         /// <summary>
@@ -5783,7 +5946,7 @@ namespace LayoutFarm.CefBridge.Auto
             Cef3Binder.MyCefMet_Call0(this.nativePtr, CefDragData_GetImage_23, out ret);
             return new CefImage(ret.Ptr);
         }
-        //CsCallToNativeCodeGen::GenerateCsMethod , 216
+        //CsCallToNativeCodeGen::GenerateCsMethod , 222
 
         // gen! CefPoint GetImageHotspot()
         /// <summary>
@@ -5799,7 +5962,7 @@ namespace LayoutFarm.CefBridge.Auto
             return new CefPoint(ret.Ptr);
 
         }
-        //CsCallToNativeCodeGen::GenerateCsMethod , 217
+        //CsCallToNativeCodeGen::GenerateCsMethod , 223
 
         // gen! bool HasImage()
         /// <summary>
@@ -5814,11 +5977,27 @@ namespace LayoutFarm.CefBridge.Auto
             Cef3Binder.MyCefMet_Call0(this.nativePtr, CefDragData_HasImage_25, out ret);
             return ret.I32 != 0;
         }
+        //
+        //CsCallToNativeCodeGen::GenerateCs_S_Method , 224
+
+        // gen! CefRefPtr<CefDragData> Create()
+        /// <summary>
+        /// Create a new CefDragData object.
+        /// /*cef()*/
+        /// </summary>
+
+        public CefDragData Create()
+        {
+            JsValue ret;
+
+            Cef3Binder.MyCefMet_S_Call0(CefDragData_S_Create_1, out ret);
+            return new CefDragData(ret.Ptr);
+        }
     }
 
 
     // [virtual] class CefFrame
-    //CsCallToNativeCodeGen::GenerateCsCode , 218
+    //CsCallToNativeCodeGen::GenerateCsCode , 225
     /// <summary>
     /// Class used to represent a frame in the browser window. When used in the
     /// browser process the methods of this class may be called on any thread unless
@@ -5865,7 +6044,7 @@ namespace LayoutFarm.CefBridge.Auto
             Cef3Binder.MyCefMet_Call0(this.nativePtr, CefFrame_Release_0, out ret);
             this.nativePtr = IntPtr.Zero;
         }
-        //CsCallToNativeCodeGen::GenerateCsMethod , 219
+        //CsCallToNativeCodeGen::GenerateCsMethod , 226
 
         // gen! bool IsValid()
         /// <summary>
@@ -5879,7 +6058,7 @@ namespace LayoutFarm.CefBridge.Auto
             Cef3Binder.MyCefMet_Call0(this.nativePtr, CefFrame_IsValid_1, out ret);
             return ret.I32 != 0;
         }
-        //CsCallToNativeCodeGen::GenerateCsMethod , 220
+        //CsCallToNativeCodeGen::GenerateCsMethod , 227
 
         // gen! void Undo()
         /// <summary>
@@ -5894,7 +6073,7 @@ namespace LayoutFarm.CefBridge.Auto
             Cef3Binder.MyCefMet_Call0(this.nativePtr, CefFrame_Undo_2, out ret);
 
         }
-        //CsCallToNativeCodeGen::GenerateCsMethod , 221
+        //CsCallToNativeCodeGen::GenerateCsMethod , 228
 
         // gen! void Redo()
         /// <summary>
@@ -5909,7 +6088,7 @@ namespace LayoutFarm.CefBridge.Auto
             Cef3Binder.MyCefMet_Call0(this.nativePtr, CefFrame_Redo_3, out ret);
 
         }
-        //CsCallToNativeCodeGen::GenerateCsMethod , 222
+        //CsCallToNativeCodeGen::GenerateCsMethod , 229
 
         // gen! void Cut()
         /// <summary>
@@ -5924,7 +6103,7 @@ namespace LayoutFarm.CefBridge.Auto
             Cef3Binder.MyCefMet_Call0(this.nativePtr, CefFrame_Cut_4, out ret);
 
         }
-        //CsCallToNativeCodeGen::GenerateCsMethod , 223
+        //CsCallToNativeCodeGen::GenerateCsMethod , 230
 
         // gen! void Copy()
         /// <summary>
@@ -5939,7 +6118,7 @@ namespace LayoutFarm.CefBridge.Auto
             Cef3Binder.MyCefMet_Call0(this.nativePtr, CefFrame_Copy_5, out ret);
 
         }
-        //CsCallToNativeCodeGen::GenerateCsMethod , 224
+        //CsCallToNativeCodeGen::GenerateCsMethod , 231
 
         // gen! void Paste()
         /// <summary>
@@ -5954,7 +6133,7 @@ namespace LayoutFarm.CefBridge.Auto
             Cef3Binder.MyCefMet_Call0(this.nativePtr, CefFrame_Paste_6, out ret);
 
         }
-        //CsCallToNativeCodeGen::GenerateCsMethod , 225
+        //CsCallToNativeCodeGen::GenerateCsMethod , 232
 
         // gen! void Delete()
         /// <summary>
@@ -5969,7 +6148,7 @@ namespace LayoutFarm.CefBridge.Auto
             Cef3Binder.MyCefMet_Call0(this.nativePtr, CefFrame_Delete_7, out ret);
 
         }
-        //CsCallToNativeCodeGen::GenerateCsMethod , 226
+        //CsCallToNativeCodeGen::GenerateCsMethod , 233
 
         // gen! void SelectAll()
         /// <summary>
@@ -5984,7 +6163,7 @@ namespace LayoutFarm.CefBridge.Auto
             Cef3Binder.MyCefMet_Call0(this.nativePtr, CefFrame_SelectAll_8, out ret);
 
         }
-        //CsCallToNativeCodeGen::GenerateCsMethod , 227
+        //CsCallToNativeCodeGen::GenerateCsMethod , 234
 
         // gen! void ViewSource()
         /// <summary>
@@ -6001,7 +6180,7 @@ namespace LayoutFarm.CefBridge.Auto
             Cef3Binder.MyCefMet_Call0(this.nativePtr, CefFrame_ViewSource_9, out ret);
 
         }
-        //CsCallToNativeCodeGen::GenerateCsMethod , 228
+        //CsCallToNativeCodeGen::GenerateCsMethod , 235
 
         // gen! void GetSource(CefRefPtr<CefStringVisitor> visitor)
         /// <summary>
@@ -6019,7 +6198,7 @@ namespace LayoutFarm.CefBridge.Auto
             Cef3Binder.MyCefMet_Call1(this.nativePtr, CefFrame_GetSource_10, out ret, ref v1);
 
         }
-        //CsCallToNativeCodeGen::GenerateCsMethod , 229
+        //CsCallToNativeCodeGen::GenerateCsMethod , 236
 
         // gen! void GetText(CefRefPtr<CefStringVisitor> visitor)
         /// <summary>
@@ -6037,7 +6216,7 @@ namespace LayoutFarm.CefBridge.Auto
             Cef3Binder.MyCefMet_Call1(this.nativePtr, CefFrame_GetText_11, out ret, ref v1);
 
         }
-        //CsCallToNativeCodeGen::GenerateCsMethod , 230
+        //CsCallToNativeCodeGen::GenerateCsMethod , 237
 
         // gen! void LoadRequest(CefRefPtr<CefRequest> request)
         /// <summary>
@@ -6054,7 +6233,7 @@ namespace LayoutFarm.CefBridge.Auto
             Cef3Binder.MyCefMet_Call1(this.nativePtr, CefFrame_LoadRequest_12, out ret, ref v1);
 
         }
-        //CsCallToNativeCodeGen::GenerateCsMethod , 231
+        //CsCallToNativeCodeGen::GenerateCsMethod , 238
 
         // gen! void LoadURL(const CefString& url)
         /// <summary>
@@ -6072,7 +6251,7 @@ namespace LayoutFarm.CefBridge.Auto
             Cef3Binder.MyCefDeletePtr(v1.Ptr);
 
         }
-        //CsCallToNativeCodeGen::GenerateCsMethod , 232
+        //CsCallToNativeCodeGen::GenerateCsMethod , 239
 
         // gen! void LoadString(const CefString& string_val,const CefString& url)
         /// <summary>
@@ -6096,7 +6275,7 @@ namespace LayoutFarm.CefBridge.Auto
             Cef3Binder.MyCefDeletePtr(v2.Ptr);
 
         }
-        //CsCallToNativeCodeGen::GenerateCsMethod , 233
+        //CsCallToNativeCodeGen::GenerateCsMethod , 240
 
         // gen! void ExecuteJavaScript(const CefString& code,const CefString& script_url,int start_line)
         /// <summary>
@@ -6125,7 +6304,7 @@ namespace LayoutFarm.CefBridge.Auto
             Cef3Binder.MyCefDeletePtr(v2.Ptr);
 
         }
-        //CsCallToNativeCodeGen::GenerateCsMethod , 234
+        //CsCallToNativeCodeGen::GenerateCsMethod , 241
 
         // gen! bool IsMain()
         /// <summary>
@@ -6140,7 +6319,7 @@ namespace LayoutFarm.CefBridge.Auto
             Cef3Binder.MyCefMet_Call0(this.nativePtr, CefFrame_IsMain_16, out ret);
             return ret.I32 != 0;
         }
-        //CsCallToNativeCodeGen::GenerateCsMethod , 235
+        //CsCallToNativeCodeGen::GenerateCsMethod , 242
 
         // gen! bool IsFocused()
         /// <summary>
@@ -6155,7 +6334,7 @@ namespace LayoutFarm.CefBridge.Auto
             Cef3Binder.MyCefMet_Call0(this.nativePtr, CefFrame_IsFocused_17, out ret);
             return ret.I32 != 0;
         }
-        //CsCallToNativeCodeGen::GenerateCsMethod , 236
+        //CsCallToNativeCodeGen::GenerateCsMethod , 243
 
         // gen! CefString GetName()
         /// <summary>
@@ -6174,7 +6353,7 @@ namespace LayoutFarm.CefBridge.Auto
             Cef3Binder.MyCefMet_Call0(this.nativePtr, CefFrame_GetName_18, out ret);
             return Cef3Binder.CopyStringAndDestroyNativeSide(ref ret);
         }
-        //CsCallToNativeCodeGen::GenerateCsMethod , 237
+        //CsCallToNativeCodeGen::GenerateCsMethod , 244
 
         // gen! int64 GetIdentifier()
         /// <summary>
@@ -6190,7 +6369,7 @@ namespace LayoutFarm.CefBridge.Auto
             Cef3Binder.MyCefMet_Call0(this.nativePtr, CefFrame_GetIdentifier_19, out ret);
             return ret.I64;
         }
-        //CsCallToNativeCodeGen::GenerateCsMethod , 238
+        //CsCallToNativeCodeGen::GenerateCsMethod , 245
 
         // gen! CefRefPtr<CefFrame> GetParent()
         /// <summary>
@@ -6206,7 +6385,7 @@ namespace LayoutFarm.CefBridge.Auto
             Cef3Binder.MyCefMet_Call0(this.nativePtr, CefFrame_GetParent_20, out ret);
             return new CefFrame(ret.Ptr);
         }
-        //CsCallToNativeCodeGen::GenerateCsMethod , 239
+        //CsCallToNativeCodeGen::GenerateCsMethod , 246
 
         // gen! CefString GetURL()
         /// <summary>
@@ -6221,7 +6400,7 @@ namespace LayoutFarm.CefBridge.Auto
             Cef3Binder.MyCefMet_Call0(this.nativePtr, CefFrame_GetURL_21, out ret);
             return Cef3Binder.CopyStringAndDestroyNativeSide(ref ret);
         }
-        //CsCallToNativeCodeGen::GenerateCsMethod , 240
+        //CsCallToNativeCodeGen::GenerateCsMethod , 247
 
         // gen! CefRefPtr<CefBrowser> GetBrowser()
         /// <summary>
@@ -6236,7 +6415,7 @@ namespace LayoutFarm.CefBridge.Auto
             Cef3Binder.MyCefMet_Call0(this.nativePtr, CefFrame_GetBrowser_22, out ret);
             return new CefBrowser(ret.Ptr);
         }
-        //CsCallToNativeCodeGen::GenerateCsMethod , 241
+        //CsCallToNativeCodeGen::GenerateCsMethod , 248
 
         // gen! CefRefPtr<CefV8Context> GetV8Context()
         /// <summary>
@@ -6252,7 +6431,7 @@ namespace LayoutFarm.CefBridge.Auto
             Cef3Binder.MyCefMet_Call0(this.nativePtr, CefFrame_GetV8Context_23, out ret);
             return new CefV8Context(ret.Ptr);
         }
-        //CsCallToNativeCodeGen::GenerateCsMethod , 242
+        //CsCallToNativeCodeGen::GenerateCsMethod , 249
 
         // gen! void VisitDOM(CefRefPtr<CefDOMVisitor> visitor)
         /// <summary>
@@ -6274,7 +6453,7 @@ namespace LayoutFarm.CefBridge.Auto
 
 
     // [virtual] class CefImage
-    //CsCallToNativeCodeGen::GenerateCsCode , 243
+    //CsCallToNativeCodeGen::GenerateCsCode , 250
     /// <summary>
     /// Container for a single image represented at different scale factors. All
     /// image representations should be the same size in density independent pixel
@@ -6301,6 +6480,8 @@ namespace LayoutFarm.CefBridge.Auto
         const int CefImage_GetAsBitmap_11 = (_typeNAME << 16) | 11;
         const int CefImage_GetAsPNG_12 = (_typeNAME << 16) | 12;
         const int CefImage_GetAsJPEG_13 = (_typeNAME << 16) | 13;
+        //
+        const int CefImage_S_CreateImage_1 = (_typeNAME << 16) | 1;
         internal IntPtr nativePtr;
         internal CefImage(IntPtr nativePtr)
         {
@@ -6312,7 +6493,7 @@ namespace LayoutFarm.CefBridge.Auto
             Cef3Binder.MyCefMet_Call0(this.nativePtr, CefImage_Release_0, out ret);
             this.nativePtr = IntPtr.Zero;
         }
-        //CsCallToNativeCodeGen::GenerateCsMethod , 244
+        //CsCallToNativeCodeGen::GenerateCsMethod , 251
 
         // gen! bool IsEmpty()
         /// <summary>
@@ -6326,7 +6507,7 @@ namespace LayoutFarm.CefBridge.Auto
             Cef3Binder.MyCefMet_Call0(this.nativePtr, CefImage_IsEmpty_1, out ret);
             return ret.I32 != 0;
         }
-        //CsCallToNativeCodeGen::GenerateCsMethod , 245
+        //CsCallToNativeCodeGen::GenerateCsMethod , 252
 
         // gen! bool IsSame(CefRefPtr<CefImage> that)
         /// <summary>
@@ -6344,7 +6525,7 @@ namespace LayoutFarm.CefBridge.Auto
             Cef3Binder.MyCefMet_Call1(this.nativePtr, CefImage_IsSame_2, out ret, ref v1);
             return ret.I32 != 0;
         }
-        //CsCallToNativeCodeGen::GenerateCsMethod , 246
+        //CsCallToNativeCodeGen::GenerateCsMethod , 253
 
         // gen! bool AddBitmap(float scale_factor,int pixel_width,int pixel_height,cef_color_type_t color_type,cef_alpha_type_t alpha_type,const void* pixel_data,size_t pixel_data_size)
         /// <summary>
@@ -6383,7 +6564,7 @@ namespace LayoutFarm.CefBridge.Auto
             Cef3Binder.MyCefMet_Call7(this.nativePtr, CefImage_AddBitmap_3, out ret, ref v1, ref v2, ref v3, ref v4, ref v5, ref v6, ref v7);
             return ret.I32 != 0;
         }
-        //CsCallToNativeCodeGen::GenerateCsMethod , 247
+        //CsCallToNativeCodeGen::GenerateCsMethod , 254
 
         // gen! bool AddPNG(float scale_factor,const void* png_data,size_t png_data_size)
         /// <summary>
@@ -6408,7 +6589,7 @@ namespace LayoutFarm.CefBridge.Auto
             Cef3Binder.MyCefMet_Call3(this.nativePtr, CefImage_AddPNG_4, out ret, ref v1, ref v2, ref v3);
             return ret.I32 != 0;
         }
-        //CsCallToNativeCodeGen::GenerateCsMethod , 248
+        //CsCallToNativeCodeGen::GenerateCsMethod , 255
 
         // gen! bool AddJPEG(float scale_factor,const void* jpeg_data,size_t jpeg_data_size)
         /// <summary>
@@ -6433,7 +6614,7 @@ namespace LayoutFarm.CefBridge.Auto
             Cef3Binder.MyCefMet_Call3(this.nativePtr, CefImage_AddJPEG_5, out ret, ref v1, ref v2, ref v3);
             return ret.I32 != 0;
         }
-        //CsCallToNativeCodeGen::GenerateCsMethod , 249
+        //CsCallToNativeCodeGen::GenerateCsMethod , 256
 
         // gen! size_t GetWidth()
         /// <summary>
@@ -6448,7 +6629,7 @@ namespace LayoutFarm.CefBridge.Auto
             Cef3Binder.MyCefMet_Call0(this.nativePtr, CefImage_GetWidth_6, out ret);
             return (uint)ret.I32;
         }
-        //CsCallToNativeCodeGen::GenerateCsMethod , 250
+        //CsCallToNativeCodeGen::GenerateCsMethod , 257
 
         // gen! size_t GetHeight()
         /// <summary>
@@ -6463,7 +6644,7 @@ namespace LayoutFarm.CefBridge.Auto
             Cef3Binder.MyCefMet_Call0(this.nativePtr, CefImage_GetHeight_7, out ret);
             return (uint)ret.I32;
         }
-        //CsCallToNativeCodeGen::GenerateCsMethod , 251
+        //CsCallToNativeCodeGen::GenerateCsMethod , 258
 
         // gen! bool HasRepresentation(float scale_factor)
         /// <summary>
@@ -6480,7 +6661,7 @@ namespace LayoutFarm.CefBridge.Auto
             Cef3Binder.MyCefMet_Call1(this.nativePtr, CefImage_HasRepresentation_8, out ret, ref v1);
             return ret.I32 != 0;
         }
-        //CsCallToNativeCodeGen::GenerateCsMethod , 252
+        //CsCallToNativeCodeGen::GenerateCsMethod , 259
 
         // gen! bool RemoveRepresentation(float scale_factor)
         /// <summary>
@@ -6497,7 +6678,7 @@ namespace LayoutFarm.CefBridge.Auto
             Cef3Binder.MyCefMet_Call1(this.nativePtr, CefImage_RemoveRepresentation_9, out ret, ref v1);
             return ret.I32 != 0;
         }
-        //CsCallToNativeCodeGen::GenerateCsMethod , 253
+        //CsCallToNativeCodeGen::GenerateCsMethod , 260
 
         // gen! bool GetRepresentationInfo(float scale_factor,float& actual_scale_factor,int& pixel_width,int& pixel_height)
         /// <summary>
@@ -6529,7 +6710,7 @@ namespace LayoutFarm.CefBridge.Auto
             pixel_height = (int)v4.I32;
             return ret.I32 != 0;
         }
-        //CsCallToNativeCodeGen::GenerateCsMethod , 254
+        //CsCallToNativeCodeGen::GenerateCsMethod , 261
 
         // gen! CefRefPtr<CefBinaryValue> GetAsBitmap(float scale_factor,cef_color_type_t color_type,cef_alpha_type_t alpha_type,int& pixel_width,int& pixel_height)
         /// <summary>
@@ -6565,7 +6746,7 @@ namespace LayoutFarm.CefBridge.Auto
             pixel_height = (int)v5.I32;
             return new CefBinaryValue(ret.Ptr);
         }
-        //CsCallToNativeCodeGen::GenerateCsMethod , 255
+        //CsCallToNativeCodeGen::GenerateCsMethod , 262
 
         // gen! CefRefPtr<CefBinaryValue> GetAsPNG(float scale_factor,bool with_transparency,int& pixel_width,int& pixel_height)
         /// <summary>
@@ -6597,7 +6778,7 @@ namespace LayoutFarm.CefBridge.Auto
             pixel_height = (int)v4.I32;
             return new CefBinaryValue(ret.Ptr);
         }
-        //CsCallToNativeCodeGen::GenerateCsMethod , 256
+        //CsCallToNativeCodeGen::GenerateCsMethod , 263
 
         // gen! CefRefPtr<CefBinaryValue> GetAsJPEG(float scale_factor,int quality,int& pixel_width,int& pixel_height)
         /// <summary>
@@ -6631,11 +6812,28 @@ namespace LayoutFarm.CefBridge.Auto
             pixel_height = (int)v4.I32;
             return new CefBinaryValue(ret.Ptr);
         }
+        //
+        //CsCallToNativeCodeGen::GenerateCs_S_Method , 264
+
+        // gen! CefRefPtr<CefImage> CreateImage()
+        /// <summary>
+        /// Create a new CefImage. It will initially be empty. Use the Add*() methods
+        /// to add representations at different scale factors.
+        /// /*cef()*/
+        /// </summary>
+
+        public CefImage CreateImage()
+        {
+            JsValue ret;
+
+            Cef3Binder.MyCefMet_S_Call0(CefImage_S_CreateImage_1, out ret);
+            return new CefImage(ret.Ptr);
+        }
     }
 
 
     // [virtual] class CefMenuModel
-    //CsCallToNativeCodeGen::GenerateCsCode , 257
+    //CsCallToNativeCodeGen::GenerateCsCode , 265
     /// <summary>
     /// Supports creation and modification of menus. See cef_menu_id_t for the
     /// command ids that have default implementations. All user-defined command ids
@@ -6703,6 +6901,8 @@ namespace LayoutFarm.CefBridge.Auto
         const int CefMenuModel_GetColorAt_54 = (_typeNAME << 16) | 54;
         const int CefMenuModel_SetFontList_55 = (_typeNAME << 16) | 55;
         const int CefMenuModel_SetFontListAt_56 = (_typeNAME << 16) | 56;
+        //
+        const int CefMenuModel_S_CreateMenuModel_1 = (_typeNAME << 16) | 1;
         internal IntPtr nativePtr;
         internal CefMenuModel(IntPtr nativePtr)
         {
@@ -6714,7 +6914,7 @@ namespace LayoutFarm.CefBridge.Auto
             Cef3Binder.MyCefMet_Call0(this.nativePtr, CefMenuModel_Release_0, out ret);
             this.nativePtr = IntPtr.Zero;
         }
-        //CsCallToNativeCodeGen::GenerateCsMethod , 258
+        //CsCallToNativeCodeGen::GenerateCsMethod , 266
 
         // gen! bool IsSubMenu()
         /// <summary>
@@ -6728,7 +6928,7 @@ namespace LayoutFarm.CefBridge.Auto
             Cef3Binder.MyCefMet_Call0(this.nativePtr, CefMenuModel_IsSubMenu_1, out ret);
             return ret.I32 != 0;
         }
-        //CsCallToNativeCodeGen::GenerateCsMethod , 259
+        //CsCallToNativeCodeGen::GenerateCsMethod , 267
 
         // gen! bool Clear()
         /// <summary>
@@ -6743,7 +6943,7 @@ namespace LayoutFarm.CefBridge.Auto
             Cef3Binder.MyCefMet_Call0(this.nativePtr, CefMenuModel_Clear_2, out ret);
             return ret.I32 != 0;
         }
-        //CsCallToNativeCodeGen::GenerateCsMethod , 260
+        //CsCallToNativeCodeGen::GenerateCsMethod , 268
 
         // gen! int GetCount()
         /// <summary>
@@ -6758,7 +6958,7 @@ namespace LayoutFarm.CefBridge.Auto
             Cef3Binder.MyCefMet_Call0(this.nativePtr, CefMenuModel_GetCount_3, out ret);
             return ret.I32;
         }
-        //CsCallToNativeCodeGen::GenerateCsMethod , 261
+        //CsCallToNativeCodeGen::GenerateCsMethod , 269
 
         // gen! bool AddSeparator()
         /// <summary>
@@ -6773,7 +6973,7 @@ namespace LayoutFarm.CefBridge.Auto
             Cef3Binder.MyCefMet_Call0(this.nativePtr, CefMenuModel_AddSeparator_4, out ret);
             return ret.I32 != 0;
         }
-        //CsCallToNativeCodeGen::GenerateCsMethod , 262
+        //CsCallToNativeCodeGen::GenerateCsMethod , 270
 
         // gen! bool AddItem(int command_id,const CefString& label)
         /// <summary>
@@ -6794,7 +6994,7 @@ namespace LayoutFarm.CefBridge.Auto
             Cef3Binder.MyCefDeletePtr(v2.Ptr);
             return ret.I32 != 0;
         }
-        //CsCallToNativeCodeGen::GenerateCsMethod , 263
+        //CsCallToNativeCodeGen::GenerateCsMethod , 271
 
         // gen! bool AddCheckItem(int command_id,const CefString& label)
         /// <summary>
@@ -6815,7 +7015,7 @@ namespace LayoutFarm.CefBridge.Auto
             Cef3Binder.MyCefDeletePtr(v2.Ptr);
             return ret.I32 != 0;
         }
-        //CsCallToNativeCodeGen::GenerateCsMethod , 264
+        //CsCallToNativeCodeGen::GenerateCsMethod , 272
 
         // gen! bool AddRadioItem(int command_id,const CefString& label,int group_id)
         /// <summary>
@@ -6840,7 +7040,7 @@ namespace LayoutFarm.CefBridge.Auto
             Cef3Binder.MyCefDeletePtr(v2.Ptr);
             return ret.I32 != 0;
         }
-        //CsCallToNativeCodeGen::GenerateCsMethod , 265
+        //CsCallToNativeCodeGen::GenerateCsMethod , 273
 
         // gen! CefRefPtr<CefMenuModel> AddSubMenu(int command_id,const CefString& label)
         /// <summary>
@@ -6861,7 +7061,7 @@ namespace LayoutFarm.CefBridge.Auto
             Cef3Binder.MyCefDeletePtr(v2.Ptr);
             return new CefMenuModel(ret.Ptr);
         }
-        //CsCallToNativeCodeGen::GenerateCsMethod , 266
+        //CsCallToNativeCodeGen::GenerateCsMethod , 274
 
         // gen! bool InsertSeparatorAt(int index)
         /// <summary>
@@ -6879,7 +7079,7 @@ namespace LayoutFarm.CefBridge.Auto
             Cef3Binder.MyCefMet_Call1(this.nativePtr, CefMenuModel_InsertSeparatorAt_9, out ret, ref v1);
             return ret.I32 != 0;
         }
-        //CsCallToNativeCodeGen::GenerateCsMethod , 267
+        //CsCallToNativeCodeGen::GenerateCsMethod , 275
 
         // gen! bool InsertItemAt(int index,int command_id,const CefString& label)
         /// <summary>
@@ -6904,7 +7104,7 @@ namespace LayoutFarm.CefBridge.Auto
             Cef3Binder.MyCefDeletePtr(v3.Ptr);
             return ret.I32 != 0;
         }
-        //CsCallToNativeCodeGen::GenerateCsMethod , 268
+        //CsCallToNativeCodeGen::GenerateCsMethod , 276
 
         // gen! bool InsertCheckItemAt(int index,int command_id,const CefString& label)
         /// <summary>
@@ -6929,7 +7129,7 @@ namespace LayoutFarm.CefBridge.Auto
             Cef3Binder.MyCefDeletePtr(v3.Ptr);
             return ret.I32 != 0;
         }
-        //CsCallToNativeCodeGen::GenerateCsMethod , 269
+        //CsCallToNativeCodeGen::GenerateCsMethod , 277
 
         // gen! bool InsertRadioItemAt(int index,int command_id,const CefString& label,int group_id)
         /// <summary>
@@ -6958,7 +7158,7 @@ namespace LayoutFarm.CefBridge.Auto
             Cef3Binder.MyCefDeletePtr(v3.Ptr);
             return ret.I32 != 0;
         }
-        //CsCallToNativeCodeGen::GenerateCsMethod , 270
+        //CsCallToNativeCodeGen::GenerateCsMethod , 278
 
         // gen! CefRefPtr<CefMenuModel> InsertSubMenuAt(int index,int command_id,const CefString& label)
         /// <summary>
@@ -6983,7 +7183,7 @@ namespace LayoutFarm.CefBridge.Auto
             Cef3Binder.MyCefDeletePtr(v3.Ptr);
             return new CefMenuModel(ret.Ptr);
         }
-        //CsCallToNativeCodeGen::GenerateCsMethod , 271
+        //CsCallToNativeCodeGen::GenerateCsMethod , 279
 
         // gen! bool Remove(int command_id)
         /// <summary>
@@ -7000,7 +7200,7 @@ namespace LayoutFarm.CefBridge.Auto
             Cef3Binder.MyCefMet_Call1(this.nativePtr, CefMenuModel_Remove_14, out ret, ref v1);
             return ret.I32 != 0;
         }
-        //CsCallToNativeCodeGen::GenerateCsMethod , 272
+        //CsCallToNativeCodeGen::GenerateCsMethod , 280
 
         // gen! bool RemoveAt(int index)
         /// <summary>
@@ -7017,7 +7217,7 @@ namespace LayoutFarm.CefBridge.Auto
             Cef3Binder.MyCefMet_Call1(this.nativePtr, CefMenuModel_RemoveAt_15, out ret, ref v1);
             return ret.I32 != 0;
         }
-        //CsCallToNativeCodeGen::GenerateCsMethod , 273
+        //CsCallToNativeCodeGen::GenerateCsMethod , 281
 
         // gen! int GetIndexOf(int command_id)
         /// <summary>
@@ -7035,7 +7235,7 @@ namespace LayoutFarm.CefBridge.Auto
             Cef3Binder.MyCefMet_Call1(this.nativePtr, CefMenuModel_GetIndexOf_16, out ret, ref v1);
             return ret.I32;
         }
-        //CsCallToNativeCodeGen::GenerateCsMethod , 274
+        //CsCallToNativeCodeGen::GenerateCsMethod , 282
 
         // gen! int GetCommandIdAt(int index)
         /// <summary>
@@ -7053,7 +7253,7 @@ namespace LayoutFarm.CefBridge.Auto
             Cef3Binder.MyCefMet_Call1(this.nativePtr, CefMenuModel_GetCommandIdAt_17, out ret, ref v1);
             return ret.I32;
         }
-        //CsCallToNativeCodeGen::GenerateCsMethod , 275
+        //CsCallToNativeCodeGen::GenerateCsMethod , 283
 
         // gen! bool SetCommandIdAt(int index,int command_id)
         /// <summary>
@@ -7073,7 +7273,7 @@ namespace LayoutFarm.CefBridge.Auto
             Cef3Binder.MyCefMet_Call2(this.nativePtr, CefMenuModel_SetCommandIdAt_18, out ret, ref v1, ref v2);
             return ret.I32 != 0;
         }
-        //CsCallToNativeCodeGen::GenerateCsMethod , 276
+        //CsCallToNativeCodeGen::GenerateCsMethod , 284
 
         // gen! CefString GetLabel(int command_id)
         /// <summary>
@@ -7090,7 +7290,7 @@ namespace LayoutFarm.CefBridge.Auto
             Cef3Binder.MyCefMet_Call1(this.nativePtr, CefMenuModel_GetLabel_19, out ret, ref v1);
             return Cef3Binder.CopyStringAndDestroyNativeSide(ref ret);
         }
-        //CsCallToNativeCodeGen::GenerateCsMethod , 277
+        //CsCallToNativeCodeGen::GenerateCsMethod , 285
 
         // gen! CefString GetLabelAt(int index)
         /// <summary>
@@ -7108,7 +7308,7 @@ namespace LayoutFarm.CefBridge.Auto
             Cef3Binder.MyCefMet_Call1(this.nativePtr, CefMenuModel_GetLabelAt_20, out ret, ref v1);
             return Cef3Binder.CopyStringAndDestroyNativeSide(ref ret);
         }
-        //CsCallToNativeCodeGen::GenerateCsMethod , 278
+        //CsCallToNativeCodeGen::GenerateCsMethod , 286
 
         // gen! bool SetLabel(int command_id,const CefString& label)
         /// <summary>
@@ -7129,7 +7329,7 @@ namespace LayoutFarm.CefBridge.Auto
             Cef3Binder.MyCefDeletePtr(v2.Ptr);
             return ret.I32 != 0;
         }
-        //CsCallToNativeCodeGen::GenerateCsMethod , 279
+        //CsCallToNativeCodeGen::GenerateCsMethod , 287
 
         // gen! bool SetLabelAt(int index,const CefString& label)
         /// <summary>
@@ -7150,7 +7350,7 @@ namespace LayoutFarm.CefBridge.Auto
             Cef3Binder.MyCefDeletePtr(v2.Ptr);
             return ret.I32 != 0;
         }
-        //CsCallToNativeCodeGen::GenerateCsMethod , 280
+        //CsCallToNativeCodeGen::GenerateCsMethod , 288
 
         // gen! MenuItemType GetType(int command_id)
         /// <summary>
@@ -7168,7 +7368,7 @@ namespace LayoutFarm.CefBridge.Auto
             return (cef_menu_item_type_t)ret.I32;
 
         }
-        //CsCallToNativeCodeGen::GenerateCsMethod , 281
+        //CsCallToNativeCodeGen::GenerateCsMethod , 289
 
         // gen! MenuItemType GetTypeAt(int index)
         /// <summary>
@@ -7186,7 +7386,7 @@ namespace LayoutFarm.CefBridge.Auto
             return (cef_menu_item_type_t)ret.I32;
 
         }
-        //CsCallToNativeCodeGen::GenerateCsMethod , 282
+        //CsCallToNativeCodeGen::GenerateCsMethod , 290
 
         // gen! int GetGroupId(int command_id)
         /// <summary>
@@ -7203,7 +7403,7 @@ namespace LayoutFarm.CefBridge.Auto
             Cef3Binder.MyCefMet_Call1(this.nativePtr, CefMenuModel_GetGroupId_25, out ret, ref v1);
             return ret.I32;
         }
-        //CsCallToNativeCodeGen::GenerateCsMethod , 283
+        //CsCallToNativeCodeGen::GenerateCsMethod , 291
 
         // gen! int GetGroupIdAt(int index)
         /// <summary>
@@ -7220,7 +7420,7 @@ namespace LayoutFarm.CefBridge.Auto
             Cef3Binder.MyCefMet_Call1(this.nativePtr, CefMenuModel_GetGroupIdAt_26, out ret, ref v1);
             return ret.I32;
         }
-        //CsCallToNativeCodeGen::GenerateCsMethod , 284
+        //CsCallToNativeCodeGen::GenerateCsMethod , 292
 
         // gen! bool SetGroupId(int command_id,int group_id)
         /// <summary>
@@ -7240,7 +7440,7 @@ namespace LayoutFarm.CefBridge.Auto
             Cef3Binder.MyCefMet_Call2(this.nativePtr, CefMenuModel_SetGroupId_27, out ret, ref v1, ref v2);
             return ret.I32 != 0;
         }
-        //CsCallToNativeCodeGen::GenerateCsMethod , 285
+        //CsCallToNativeCodeGen::GenerateCsMethod , 293
 
         // gen! bool SetGroupIdAt(int index,int group_id)
         /// <summary>
@@ -7260,7 +7460,7 @@ namespace LayoutFarm.CefBridge.Auto
             Cef3Binder.MyCefMet_Call2(this.nativePtr, CefMenuModel_SetGroupIdAt_28, out ret, ref v1, ref v2);
             return ret.I32 != 0;
         }
-        //CsCallToNativeCodeGen::GenerateCsMethod , 286
+        //CsCallToNativeCodeGen::GenerateCsMethod , 294
 
         // gen! CefRefPtr<CefMenuModel> GetSubMenu(int command_id)
         /// <summary>
@@ -7277,7 +7477,7 @@ namespace LayoutFarm.CefBridge.Auto
             Cef3Binder.MyCefMet_Call1(this.nativePtr, CefMenuModel_GetSubMenu_29, out ret, ref v1);
             return new CefMenuModel(ret.Ptr);
         }
-        //CsCallToNativeCodeGen::GenerateCsMethod , 287
+        //CsCallToNativeCodeGen::GenerateCsMethod , 295
 
         // gen! CefRefPtr<CefMenuModel> GetSubMenuAt(int index)
         /// <summary>
@@ -7294,7 +7494,7 @@ namespace LayoutFarm.CefBridge.Auto
             Cef3Binder.MyCefMet_Call1(this.nativePtr, CefMenuModel_GetSubMenuAt_30, out ret, ref v1);
             return new CefMenuModel(ret.Ptr);
         }
-        //CsCallToNativeCodeGen::GenerateCsMethod , 288
+        //CsCallToNativeCodeGen::GenerateCsMethod , 296
 
         // gen! bool IsVisible(int command_id)
         /// <summary>
@@ -7311,7 +7511,7 @@ namespace LayoutFarm.CefBridge.Auto
             Cef3Binder.MyCefMet_Call1(this.nativePtr, CefMenuModel_IsVisible_31, out ret, ref v1);
             return ret.I32 != 0;
         }
-        //CsCallToNativeCodeGen::GenerateCsMethod , 289
+        //CsCallToNativeCodeGen::GenerateCsMethod , 297
 
         // gen! bool IsVisibleAt(int index)
         /// <summary>
@@ -7328,7 +7528,7 @@ namespace LayoutFarm.CefBridge.Auto
             Cef3Binder.MyCefMet_Call1(this.nativePtr, CefMenuModel_IsVisibleAt_32, out ret, ref v1);
             return ret.I32 != 0;
         }
-        //CsCallToNativeCodeGen::GenerateCsMethod , 290
+        //CsCallToNativeCodeGen::GenerateCsMethod , 298
 
         // gen! bool SetVisible(int command_id,bool visible)
         /// <summary>
@@ -7349,7 +7549,7 @@ namespace LayoutFarm.CefBridge.Auto
             Cef3Binder.MyCefMet_Call2(this.nativePtr, CefMenuModel_SetVisible_33, out ret, ref v1, ref v2);
             return ret.I32 != 0;
         }
-        //CsCallToNativeCodeGen::GenerateCsMethod , 291
+        //CsCallToNativeCodeGen::GenerateCsMethod , 299
 
         // gen! bool SetVisibleAt(int index,bool visible)
         /// <summary>
@@ -7369,7 +7569,7 @@ namespace LayoutFarm.CefBridge.Auto
             Cef3Binder.MyCefMet_Call2(this.nativePtr, CefMenuModel_SetVisibleAt_34, out ret, ref v1, ref v2);
             return ret.I32 != 0;
         }
-        //CsCallToNativeCodeGen::GenerateCsMethod , 292
+        //CsCallToNativeCodeGen::GenerateCsMethod , 300
 
         // gen! bool IsEnabled(int command_id)
         /// <summary>
@@ -7386,7 +7586,7 @@ namespace LayoutFarm.CefBridge.Auto
             Cef3Binder.MyCefMet_Call1(this.nativePtr, CefMenuModel_IsEnabled_35, out ret, ref v1);
             return ret.I32 != 0;
         }
-        //CsCallToNativeCodeGen::GenerateCsMethod , 293
+        //CsCallToNativeCodeGen::GenerateCsMethod , 301
 
         // gen! bool IsEnabledAt(int index)
         /// <summary>
@@ -7403,7 +7603,7 @@ namespace LayoutFarm.CefBridge.Auto
             Cef3Binder.MyCefMet_Call1(this.nativePtr, CefMenuModel_IsEnabledAt_36, out ret, ref v1);
             return ret.I32 != 0;
         }
-        //CsCallToNativeCodeGen::GenerateCsMethod , 294
+        //CsCallToNativeCodeGen::GenerateCsMethod , 302
 
         // gen! bool SetEnabled(int command_id,bool enabled)
         /// <summary>
@@ -7424,7 +7624,7 @@ namespace LayoutFarm.CefBridge.Auto
             Cef3Binder.MyCefMet_Call2(this.nativePtr, CefMenuModel_SetEnabled_37, out ret, ref v1, ref v2);
             return ret.I32 != 0;
         }
-        //CsCallToNativeCodeGen::GenerateCsMethod , 295
+        //CsCallToNativeCodeGen::GenerateCsMethod , 303
 
         // gen! bool SetEnabledAt(int index,bool enabled)
         /// <summary>
@@ -7445,7 +7645,7 @@ namespace LayoutFarm.CefBridge.Auto
             Cef3Binder.MyCefMet_Call2(this.nativePtr, CefMenuModel_SetEnabledAt_38, out ret, ref v1, ref v2);
             return ret.I32 != 0;
         }
-        //CsCallToNativeCodeGen::GenerateCsMethod , 296
+        //CsCallToNativeCodeGen::GenerateCsMethod , 304
 
         // gen! bool IsChecked(int command_id)
         /// <summary>
@@ -7463,7 +7663,7 @@ namespace LayoutFarm.CefBridge.Auto
             Cef3Binder.MyCefMet_Call1(this.nativePtr, CefMenuModel_IsChecked_39, out ret, ref v1);
             return ret.I32 != 0;
         }
-        //CsCallToNativeCodeGen::GenerateCsMethod , 297
+        //CsCallToNativeCodeGen::GenerateCsMethod , 305
 
         // gen! bool IsCheckedAt(int index)
         /// <summary>
@@ -7481,7 +7681,7 @@ namespace LayoutFarm.CefBridge.Auto
             Cef3Binder.MyCefMet_Call1(this.nativePtr, CefMenuModel_IsCheckedAt_40, out ret, ref v1);
             return ret.I32 != 0;
         }
-        //CsCallToNativeCodeGen::GenerateCsMethod , 298
+        //CsCallToNativeCodeGen::GenerateCsMethod , 306
 
         // gen! bool SetChecked(int command_id,bool checked)
         /// <summary>
@@ -7502,7 +7702,7 @@ namespace LayoutFarm.CefBridge.Auto
             Cef3Binder.MyCefMet_Call2(this.nativePtr, CefMenuModel_SetChecked_41, out ret, ref v1, ref v2);
             return ret.I32 != 0;
         }
-        //CsCallToNativeCodeGen::GenerateCsMethod , 299
+        //CsCallToNativeCodeGen::GenerateCsMethod , 307
 
         // gen! bool SetCheckedAt(int index,bool checked)
         /// <summary>
@@ -7523,7 +7723,7 @@ namespace LayoutFarm.CefBridge.Auto
             Cef3Binder.MyCefMet_Call2(this.nativePtr, CefMenuModel_SetCheckedAt_42, out ret, ref v1, ref v2);
             return ret.I32 != 0;
         }
-        //CsCallToNativeCodeGen::GenerateCsMethod , 300
+        //CsCallToNativeCodeGen::GenerateCsMethod , 308
 
         // gen! bool HasAccelerator(int command_id)
         /// <summary>
@@ -7541,7 +7741,7 @@ namespace LayoutFarm.CefBridge.Auto
             Cef3Binder.MyCefMet_Call1(this.nativePtr, CefMenuModel_HasAccelerator_43, out ret, ref v1);
             return ret.I32 != 0;
         }
-        //CsCallToNativeCodeGen::GenerateCsMethod , 301
+        //CsCallToNativeCodeGen::GenerateCsMethod , 309
 
         // gen! bool HasAcceleratorAt(int index)
         /// <summary>
@@ -7558,7 +7758,7 @@ namespace LayoutFarm.CefBridge.Auto
             Cef3Binder.MyCefMet_Call1(this.nativePtr, CefMenuModel_HasAcceleratorAt_44, out ret, ref v1);
             return ret.I32 != 0;
         }
-        //CsCallToNativeCodeGen::GenerateCsMethod , 302
+        //CsCallToNativeCodeGen::GenerateCsMethod , 310
 
         // gen! bool SetAccelerator(int command_id,int key_code,bool shift_pressed,bool ctrl_pressed,bool alt_pressed)
         /// <summary>
@@ -7588,7 +7788,7 @@ namespace LayoutFarm.CefBridge.Auto
             Cef3Binder.MyCefMet_Call5(this.nativePtr, CefMenuModel_SetAccelerator_45, out ret, ref v1, ref v2, ref v3, ref v4, ref v5);
             return ret.I32 != 0;
         }
-        //CsCallToNativeCodeGen::GenerateCsMethod , 303
+        //CsCallToNativeCodeGen::GenerateCsMethod , 311
 
         // gen! bool SetAcceleratorAt(int index,int key_code,bool shift_pressed,bool ctrl_pressed,bool alt_pressed)
         /// <summary>
@@ -7618,7 +7818,7 @@ namespace LayoutFarm.CefBridge.Auto
             Cef3Binder.MyCefMet_Call5(this.nativePtr, CefMenuModel_SetAcceleratorAt_46, out ret, ref v1, ref v2, ref v3, ref v4, ref v5);
             return ret.I32 != 0;
         }
-        //CsCallToNativeCodeGen::GenerateCsMethod , 304
+        //CsCallToNativeCodeGen::GenerateCsMethod , 312
 
         // gen! bool RemoveAccelerator(int command_id)
         /// <summary>
@@ -7636,7 +7836,7 @@ namespace LayoutFarm.CefBridge.Auto
             Cef3Binder.MyCefMet_Call1(this.nativePtr, CefMenuModel_RemoveAccelerator_47, out ret, ref v1);
             return ret.I32 != 0;
         }
-        //CsCallToNativeCodeGen::GenerateCsMethod , 305
+        //CsCallToNativeCodeGen::GenerateCsMethod , 313
 
         // gen! bool RemoveAcceleratorAt(int index)
         /// <summary>
@@ -7654,7 +7854,7 @@ namespace LayoutFarm.CefBridge.Auto
             Cef3Binder.MyCefMet_Call1(this.nativePtr, CefMenuModel_RemoveAcceleratorAt_48, out ret, ref v1);
             return ret.I32 != 0;
         }
-        //CsCallToNativeCodeGen::GenerateCsMethod , 306
+        //CsCallToNativeCodeGen::GenerateCsMethod , 314
 
         // gen! bool GetAccelerator(int command_id,int& key_code,bool& shift_pressed,bool& ctrl_pressed,bool& alt_pressed)
         /// <summary>
@@ -7688,7 +7888,7 @@ namespace LayoutFarm.CefBridge.Auto
             alt_pressed = v5.I32 != 0;
             return ret.I32 != 0;
         }
-        //CsCallToNativeCodeGen::GenerateCsMethod , 307
+        //CsCallToNativeCodeGen::GenerateCsMethod , 315
 
         // gen! bool GetAcceleratorAt(int index,int& key_code,bool& shift_pressed,bool& ctrl_pressed,bool& alt_pressed)
         /// <summary>
@@ -7722,7 +7922,7 @@ namespace LayoutFarm.CefBridge.Auto
             alt_pressed = v5.I32 != 0;
             return ret.I32 != 0;
         }
-        //CsCallToNativeCodeGen::GenerateCsMethod , 308
+        //CsCallToNativeCodeGen::GenerateCsMethod , 316
 
         // gen! bool SetColor(int command_id,cef_menu_color_type_t color_type,cef_color_t color)
         /// <summary>
@@ -7748,7 +7948,7 @@ namespace LayoutFarm.CefBridge.Auto
             Cef3Binder.MyCefMet_Call3(this.nativePtr, CefMenuModel_SetColor_51, out ret, ref v1, ref v2, ref v3);
             return ret.I32 != 0;
         }
-        //CsCallToNativeCodeGen::GenerateCsMethod , 309
+        //CsCallToNativeCodeGen::GenerateCsMethod , 317
 
         // gen! bool SetColorAt(int index,cef_menu_color_type_t color_type,cef_color_t color)
         /// <summary>
@@ -7775,7 +7975,7 @@ namespace LayoutFarm.CefBridge.Auto
             Cef3Binder.MyCefMet_Call3(this.nativePtr, CefMenuModel_SetColorAt_52, out ret, ref v1, ref v2, ref v3);
             return ret.I32 != 0;
         }
-        //CsCallToNativeCodeGen::GenerateCsMethod , 310
+        //CsCallToNativeCodeGen::GenerateCsMethod , 318
 
         // gen! bool GetColor(int command_id,cef_menu_color_type_t color_type,cef_color_t& color)
         /// <summary>
@@ -7800,7 +8000,7 @@ namespace LayoutFarm.CefBridge.Auto
             Cef3Binder.MyCefMet_Call3(this.nativePtr, CefMenuModel_GetColor_53, out ret, ref v1, ref v2, ref v3);
             return ret.I32 != 0;
         }
-        //CsCallToNativeCodeGen::GenerateCsMethod , 311
+        //CsCallToNativeCodeGen::GenerateCsMethod , 319
 
         // gen! bool GetColorAt(int index,cef_menu_color_type_t color_type,cef_color_t& color)
         /// <summary>
@@ -7826,7 +8026,7 @@ namespace LayoutFarm.CefBridge.Auto
             Cef3Binder.MyCefMet_Call3(this.nativePtr, CefMenuModel_GetColorAt_54, out ret, ref v1, ref v2, ref v3);
             return ret.I32 != 0;
         }
-        //CsCallToNativeCodeGen::GenerateCsMethod , 312
+        //CsCallToNativeCodeGen::GenerateCsMethod , 320
 
         // gen! bool SetFontList(int command_id,const CefString& font_list)
         /// <summary>
@@ -7857,7 +8057,7 @@ namespace LayoutFarm.CefBridge.Auto
             Cef3Binder.MyCefDeletePtr(v2.Ptr);
             return ret.I32 != 0;
         }
-        //CsCallToNativeCodeGen::GenerateCsMethod , 313
+        //CsCallToNativeCodeGen::GenerateCsMethod , 321
 
         // gen! bool SetFontListAt(int index,const CefString& font_list)
         /// <summary>
@@ -7889,11 +8089,29 @@ namespace LayoutFarm.CefBridge.Auto
             Cef3Binder.MyCefDeletePtr(v2.Ptr);
             return ret.I32 != 0;
         }
+        //
+        //CsCallToNativeCodeGen::GenerateCs_S_Method , 322
+
+        // gen! CefRefPtr<CefMenuModel> CreateMenuModel(CefRefPtr<CefMenuModelDelegate> delegate)
+        /// <summary>
+        /// Create a new MenuModel with the specified |delegate|.
+        /// /*cef()*/
+        /// </summary>
+
+        public CefMenuModel CreateMenuModel(CefMenuModelDelegate _delegate)
+        {
+            JsValue v1 = new JsValue();
+            JsValue ret;
+            v1.Ptr = _delegate.nativePtr;
+
+            Cef3Binder.MyCefMet_S_Call1(CefMenuModel_S_CreateMenuModel_1, out ret, ref v1);
+            return new CefMenuModel(ret.Ptr);
+        }
     }
 
 
     // [virtual] class CefMenuModelDelegate
-    //CsCallToNativeCodeGen::GenerateCsCode , 314
+    //CsCallToNativeCodeGen::GenerateCsCode , 323
     /// <summary>
     /// Implement this interface to handle menu model events. The methods of this
     /// class will be called on the browser process UI thread unless otherwise
@@ -7924,7 +8142,7 @@ namespace LayoutFarm.CefBridge.Auto
 
 
     // [virtual] class CefNavigationEntry
-    //CsCallToNativeCodeGen::GenerateCsCode , 315
+    //CsCallToNativeCodeGen::GenerateCsCode , 324
     /// <summary>
     /// Class used to represent an entry in navigation history.
     /// /*(source=library)*/
@@ -7954,7 +8172,7 @@ namespace LayoutFarm.CefBridge.Auto
             Cef3Binder.MyCefMet_Call0(this.nativePtr, CefNavigationEntry_Release_0, out ret);
             this.nativePtr = IntPtr.Zero;
         }
-        //CsCallToNativeCodeGen::GenerateCsMethod , 316
+        //CsCallToNativeCodeGen::GenerateCsMethod , 325
 
         // gen! bool IsValid()
         /// <summary>
@@ -7968,7 +8186,7 @@ namespace LayoutFarm.CefBridge.Auto
             Cef3Binder.MyCefMet_Call0(this.nativePtr, CefNavigationEntry_IsValid_1, out ret);
             return ret.I32 != 0;
         }
-        //CsCallToNativeCodeGen::GenerateCsMethod , 317
+        //CsCallToNativeCodeGen::GenerateCsMethod , 326
 
         // gen! CefString GetURL()
         /// <summary>
@@ -7984,7 +8202,7 @@ namespace LayoutFarm.CefBridge.Auto
             Cef3Binder.MyCefMet_Call0(this.nativePtr, CefNavigationEntry_GetURL_2, out ret);
             return Cef3Binder.CopyStringAndDestroyNativeSide(ref ret);
         }
-        //CsCallToNativeCodeGen::GenerateCsMethod , 318
+        //CsCallToNativeCodeGen::GenerateCsMethod , 327
 
         // gen! CefString GetDisplayURL()
         /// <summary>
@@ -7999,7 +8217,7 @@ namespace LayoutFarm.CefBridge.Auto
             Cef3Binder.MyCefMet_Call0(this.nativePtr, CefNavigationEntry_GetDisplayURL_3, out ret);
             return Cef3Binder.CopyStringAndDestroyNativeSide(ref ret);
         }
-        //CsCallToNativeCodeGen::GenerateCsMethod , 319
+        //CsCallToNativeCodeGen::GenerateCsMethod , 328
 
         // gen! CefString GetOriginalURL()
         /// <summary>
@@ -8014,7 +8232,7 @@ namespace LayoutFarm.CefBridge.Auto
             Cef3Binder.MyCefMet_Call0(this.nativePtr, CefNavigationEntry_GetOriginalURL_4, out ret);
             return Cef3Binder.CopyStringAndDestroyNativeSide(ref ret);
         }
-        //CsCallToNativeCodeGen::GenerateCsMethod , 320
+        //CsCallToNativeCodeGen::GenerateCsMethod , 329
 
         // gen! CefString GetTitle()
         /// <summary>
@@ -8029,7 +8247,7 @@ namespace LayoutFarm.CefBridge.Auto
             Cef3Binder.MyCefMet_Call0(this.nativePtr, CefNavigationEntry_GetTitle_5, out ret);
             return Cef3Binder.CopyStringAndDestroyNativeSide(ref ret);
         }
-        //CsCallToNativeCodeGen::GenerateCsMethod , 321
+        //CsCallToNativeCodeGen::GenerateCsMethod , 330
 
         // gen! TransitionType GetTransitionType()
         /// <summary>
@@ -8046,7 +8264,7 @@ namespace LayoutFarm.CefBridge.Auto
             return (cef_transition_type_t)ret.I32;
 
         }
-        //CsCallToNativeCodeGen::GenerateCsMethod , 322
+        //CsCallToNativeCodeGen::GenerateCsMethod , 331
 
         // gen! bool HasPostData()
         /// <summary>
@@ -8061,7 +8279,7 @@ namespace LayoutFarm.CefBridge.Auto
             Cef3Binder.MyCefMet_Call0(this.nativePtr, CefNavigationEntry_HasPostData_7, out ret);
             return ret.I32 != 0;
         }
-        //CsCallToNativeCodeGen::GenerateCsMethod , 323
+        //CsCallToNativeCodeGen::GenerateCsMethod , 332
 
         // gen! CefTime GetCompletionTime()
         /// <summary>
@@ -8079,7 +8297,7 @@ namespace LayoutFarm.CefBridge.Auto
             return new CefTime(ret.Ptr);
 
         }
-        //CsCallToNativeCodeGen::GenerateCsMethod , 324
+        //CsCallToNativeCodeGen::GenerateCsMethod , 333
 
         // gen! int GetHttpStatusCode()
         /// <summary>
@@ -8096,7 +8314,7 @@ namespace LayoutFarm.CefBridge.Auto
             Cef3Binder.MyCefMet_Call0(this.nativePtr, CefNavigationEntry_GetHttpStatusCode_9, out ret);
             return ret.I32;
         }
-        //CsCallToNativeCodeGen::GenerateCsMethod , 325
+        //CsCallToNativeCodeGen::GenerateCsMethod , 334
 
         // gen! CefRefPtr<CefSSLStatus> GetSSLStatus()
         /// <summary>
@@ -8115,7 +8333,7 @@ namespace LayoutFarm.CefBridge.Auto
 
 
     // [virtual] class CefPrintSettings
-    //CsCallToNativeCodeGen::GenerateCsCode , 326
+    //CsCallToNativeCodeGen::GenerateCsCode , 335
     /// <summary>
     /// Class representing print settings.
     /// /*(source=library)*/
@@ -8147,6 +8365,8 @@ namespace LayoutFarm.CefBridge.Auto
         const int CefPrintSettings_GetCopies_21 = (_typeNAME << 16) | 21;
         const int CefPrintSettings_SetDuplexMode_22 = (_typeNAME << 16) | 22;
         const int CefPrintSettings_GetDuplexMode_23 = (_typeNAME << 16) | 23;
+        //
+        const int CefPrintSettings_S_Create_1 = (_typeNAME << 16) | 1;
         internal IntPtr nativePtr;
         internal CefPrintSettings(IntPtr nativePtr)
         {
@@ -8158,7 +8378,7 @@ namespace LayoutFarm.CefBridge.Auto
             Cef3Binder.MyCefMet_Call0(this.nativePtr, CefPrintSettings_Release_0, out ret);
             this.nativePtr = IntPtr.Zero;
         }
-        //CsCallToNativeCodeGen::GenerateCsMethod , 327
+        //CsCallToNativeCodeGen::GenerateCsMethod , 336
 
         // gen! bool IsValid()
         /// <summary>
@@ -8172,7 +8392,7 @@ namespace LayoutFarm.CefBridge.Auto
             Cef3Binder.MyCefMet_Call0(this.nativePtr, CefPrintSettings_IsValid_1, out ret);
             return ret.I32 != 0;
         }
-        //CsCallToNativeCodeGen::GenerateCsMethod , 328
+        //CsCallToNativeCodeGen::GenerateCsMethod , 337
 
         // gen! bool IsReadOnly()
         /// <summary>
@@ -8188,7 +8408,7 @@ namespace LayoutFarm.CefBridge.Auto
             Cef3Binder.MyCefMet_Call0(this.nativePtr, CefPrintSettings_IsReadOnly_2, out ret);
             return ret.I32 != 0;
         }
-        //CsCallToNativeCodeGen::GenerateCsMethod , 329
+        //CsCallToNativeCodeGen::GenerateCsMethod , 338
 
         // gen! CefRefPtr<CefPrintSettings> Copy()
         /// <summary>
@@ -8203,7 +8423,7 @@ namespace LayoutFarm.CefBridge.Auto
             Cef3Binder.MyCefMet_Call0(this.nativePtr, CefPrintSettings_Copy_3, out ret);
             return new CefPrintSettings(ret.Ptr);
         }
-        //CsCallToNativeCodeGen::GenerateCsMethod , 330
+        //CsCallToNativeCodeGen::GenerateCsMethod , 339
 
         // gen! void SetOrientation(bool landscape)
         /// <summary>
@@ -8220,7 +8440,7 @@ namespace LayoutFarm.CefBridge.Auto
             Cef3Binder.MyCefMet_Call1(this.nativePtr, CefPrintSettings_SetOrientation_4, out ret, ref v1);
 
         }
-        //CsCallToNativeCodeGen::GenerateCsMethod , 331
+        //CsCallToNativeCodeGen::GenerateCsMethod , 340
 
         // gen! bool IsLandscape()
         /// <summary>
@@ -8235,7 +8455,7 @@ namespace LayoutFarm.CefBridge.Auto
             Cef3Binder.MyCefMet_Call0(this.nativePtr, CefPrintSettings_IsLandscape_5, out ret);
             return ret.I32 != 0;
         }
-        //CsCallToNativeCodeGen::GenerateCsMethod , 332
+        //CsCallToNativeCodeGen::GenerateCsMethod , 341
 
         // gen! void SetPrinterPrintableArea(const CefSize& physical_size_device_units,const CefRect& printable_area_device_units,bool landscape_needs_flip)
         /// <summary>
@@ -8260,7 +8480,7 @@ namespace LayoutFarm.CefBridge.Auto
             Cef3Binder.MyCefMet_Call3(this.nativePtr, CefPrintSettings_SetPrinterPrintableArea_6, out ret, ref v1, ref v2, ref v3);
 
         }
-        //CsCallToNativeCodeGen::GenerateCsMethod , 333
+        //CsCallToNativeCodeGen::GenerateCsMethod , 342
 
         // gen! void SetDeviceName(const CefString& name)
         /// <summary>
@@ -8278,7 +8498,7 @@ namespace LayoutFarm.CefBridge.Auto
             Cef3Binder.MyCefDeletePtr(v1.Ptr);
 
         }
-        //CsCallToNativeCodeGen::GenerateCsMethod , 334
+        //CsCallToNativeCodeGen::GenerateCsMethod , 343
 
         // gen! CefString GetDeviceName()
         /// <summary>
@@ -8293,7 +8513,7 @@ namespace LayoutFarm.CefBridge.Auto
             Cef3Binder.MyCefMet_Call0(this.nativePtr, CefPrintSettings_GetDeviceName_8, out ret);
             return Cef3Binder.CopyStringAndDestroyNativeSide(ref ret);
         }
-        //CsCallToNativeCodeGen::GenerateCsMethod , 335
+        //CsCallToNativeCodeGen::GenerateCsMethod , 344
 
         // gen! void SetDPI(int dpi)
         /// <summary>
@@ -8310,7 +8530,7 @@ namespace LayoutFarm.CefBridge.Auto
             Cef3Binder.MyCefMet_Call1(this.nativePtr, CefPrintSettings_SetDPI_9, out ret, ref v1);
 
         }
-        //CsCallToNativeCodeGen::GenerateCsMethod , 336
+        //CsCallToNativeCodeGen::GenerateCsMethod , 345
 
         // gen! int GetDPI()
         /// <summary>
@@ -8325,7 +8545,7 @@ namespace LayoutFarm.CefBridge.Auto
             Cef3Binder.MyCefMet_Call0(this.nativePtr, CefPrintSettings_GetDPI_10, out ret);
             return ret.I32;
         }
-        //CsCallToNativeCodeGen::GenerateCsMethod , 337
+        //CsCallToNativeCodeGen::GenerateCsMethod , 346
 
         // gen! void SetPageRanges(const PageRangeList& ranges)
         /// <summary>
@@ -8342,7 +8562,7 @@ namespace LayoutFarm.CefBridge.Auto
             Cef3Binder.MyCefMet_Call1(this.nativePtr, CefPrintSettings_SetPageRanges_11, out ret, ref v1);
 
         }
-        //CsCallToNativeCodeGen::GenerateCsMethod , 338
+        //CsCallToNativeCodeGen::GenerateCsMethod , 347
 
         // gen! size_t GetPageRangesCount()
         /// <summary>
@@ -8357,7 +8577,7 @@ namespace LayoutFarm.CefBridge.Auto
             Cef3Binder.MyCefMet_Call0(this.nativePtr, CefPrintSettings_GetPageRangesCount_12, out ret);
             return (uint)ret.I32;
         }
-        //CsCallToNativeCodeGen::GenerateCsMethod , 339
+        //CsCallToNativeCodeGen::GenerateCsMethod , 348
 
         // gen! void GetPageRanges(PageRangeList& ranges)
         /// <summary>
@@ -8374,7 +8594,7 @@ namespace LayoutFarm.CefBridge.Auto
             Cef3Binder.MyCefMet_Call1(this.nativePtr, CefPrintSettings_GetPageRanges_13, out ret, ref v1);
 
         }
-        //CsCallToNativeCodeGen::GenerateCsMethod , 340
+        //CsCallToNativeCodeGen::GenerateCsMethod , 349
 
         // gen! void SetSelectionOnly(bool selection_only)
         /// <summary>
@@ -8391,7 +8611,7 @@ namespace LayoutFarm.CefBridge.Auto
             Cef3Binder.MyCefMet_Call1(this.nativePtr, CefPrintSettings_SetSelectionOnly_14, out ret, ref v1);
 
         }
-        //CsCallToNativeCodeGen::GenerateCsMethod , 341
+        //CsCallToNativeCodeGen::GenerateCsMethod , 350
 
         // gen! bool IsSelectionOnly()
         /// <summary>
@@ -8406,7 +8626,7 @@ namespace LayoutFarm.CefBridge.Auto
             Cef3Binder.MyCefMet_Call0(this.nativePtr, CefPrintSettings_IsSelectionOnly_15, out ret);
             return ret.I32 != 0;
         }
-        //CsCallToNativeCodeGen::GenerateCsMethod , 342
+        //CsCallToNativeCodeGen::GenerateCsMethod , 351
 
         // gen! void SetCollate(bool collate)
         /// <summary>
@@ -8423,7 +8643,7 @@ namespace LayoutFarm.CefBridge.Auto
             Cef3Binder.MyCefMet_Call1(this.nativePtr, CefPrintSettings_SetCollate_16, out ret, ref v1);
 
         }
-        //CsCallToNativeCodeGen::GenerateCsMethod , 343
+        //CsCallToNativeCodeGen::GenerateCsMethod , 352
 
         // gen! bool WillCollate()
         /// <summary>
@@ -8438,7 +8658,7 @@ namespace LayoutFarm.CefBridge.Auto
             Cef3Binder.MyCefMet_Call0(this.nativePtr, CefPrintSettings_WillCollate_17, out ret);
             return ret.I32 != 0;
         }
-        //CsCallToNativeCodeGen::GenerateCsMethod , 344
+        //CsCallToNativeCodeGen::GenerateCsMethod , 353
 
         // gen! void SetColorModel(ColorModel model)
         /// <summary>
@@ -8455,7 +8675,7 @@ namespace LayoutFarm.CefBridge.Auto
             Cef3Binder.MyCefMet_Call1(this.nativePtr, CefPrintSettings_SetColorModel_18, out ret, ref v1);
 
         }
-        //CsCallToNativeCodeGen::GenerateCsMethod , 345
+        //CsCallToNativeCodeGen::GenerateCsMethod , 354
 
         // gen! ColorModel GetColorModel()
         /// <summary>
@@ -8471,7 +8691,7 @@ namespace LayoutFarm.CefBridge.Auto
             return (cef_color_model_t)ret.I32;
 
         }
-        //CsCallToNativeCodeGen::GenerateCsMethod , 346
+        //CsCallToNativeCodeGen::GenerateCsMethod , 355
 
         // gen! void SetCopies(int copies)
         /// <summary>
@@ -8488,7 +8708,7 @@ namespace LayoutFarm.CefBridge.Auto
             Cef3Binder.MyCefMet_Call1(this.nativePtr, CefPrintSettings_SetCopies_20, out ret, ref v1);
 
         }
-        //CsCallToNativeCodeGen::GenerateCsMethod , 347
+        //CsCallToNativeCodeGen::GenerateCsMethod , 356
 
         // gen! int GetCopies()
         /// <summary>
@@ -8503,7 +8723,7 @@ namespace LayoutFarm.CefBridge.Auto
             Cef3Binder.MyCefMet_Call0(this.nativePtr, CefPrintSettings_GetCopies_21, out ret);
             return ret.I32;
         }
-        //CsCallToNativeCodeGen::GenerateCsMethod , 348
+        //CsCallToNativeCodeGen::GenerateCsMethod , 357
 
         // gen! void SetDuplexMode(DuplexMode mode)
         /// <summary>
@@ -8520,7 +8740,7 @@ namespace LayoutFarm.CefBridge.Auto
             Cef3Binder.MyCefMet_Call1(this.nativePtr, CefPrintSettings_SetDuplexMode_22, out ret, ref v1);
 
         }
-        //CsCallToNativeCodeGen::GenerateCsMethod , 349
+        //CsCallToNativeCodeGen::GenerateCsMethod , 358
 
         // gen! DuplexMode GetDuplexMode()
         /// <summary>
@@ -8536,11 +8756,27 @@ namespace LayoutFarm.CefBridge.Auto
             return (cef_duplex_mode_t)ret.I32;
 
         }
+        //
+        //CsCallToNativeCodeGen::GenerateCs_S_Method , 359
+
+        // gen! CefRefPtr<CefPrintSettings> Create()
+        /// <summary>
+        /// Create a new CefPrintSettings object.
+        /// /*cef()*/
+        /// </summary>
+
+        public CefPrintSettings Create()
+        {
+            JsValue ret;
+
+            Cef3Binder.MyCefMet_S_Call0(CefPrintSettings_S_Create_1, out ret);
+            return new CefPrintSettings(ret.Ptr);
+        }
     }
 
 
     // [virtual] class CefProcessMessage
-    //CsCallToNativeCodeGen::GenerateCsCode , 350
+    //CsCallToNativeCodeGen::GenerateCsCode , 360
     /// <summary>
     /// Class representing a message. Can be used on any process and thread.
     /// /*cef(source=library)*/
@@ -8554,6 +8790,8 @@ namespace LayoutFarm.CefBridge.Auto
         const int CefProcessMessage_Copy_3 = (_typeNAME << 16) | 3;
         const int CefProcessMessage_GetName_4 = (_typeNAME << 16) | 4;
         const int CefProcessMessage_GetArgumentList_5 = (_typeNAME << 16) | 5;
+        //
+        const int CefProcessMessage_S_Create_1 = (_typeNAME << 16) | 1;
         internal IntPtr nativePtr;
         internal CefProcessMessage(IntPtr nativePtr)
         {
@@ -8565,7 +8803,7 @@ namespace LayoutFarm.CefBridge.Auto
             Cef3Binder.MyCefMet_Call0(this.nativePtr, CefProcessMessage_Release_0, out ret);
             this.nativePtr = IntPtr.Zero;
         }
-        //CsCallToNativeCodeGen::GenerateCsMethod , 351
+        //CsCallToNativeCodeGen::GenerateCsMethod , 361
 
         // gen! bool IsValid()
         /// <summary>
@@ -8579,7 +8817,7 @@ namespace LayoutFarm.CefBridge.Auto
             Cef3Binder.MyCefMet_Call0(this.nativePtr, CefProcessMessage_IsValid_1, out ret);
             return ret.I32 != 0;
         }
-        //CsCallToNativeCodeGen::GenerateCsMethod , 352
+        //CsCallToNativeCodeGen::GenerateCsMethod , 362
 
         // gen! bool IsReadOnly()
         /// <summary>
@@ -8595,7 +8833,7 @@ namespace LayoutFarm.CefBridge.Auto
             Cef3Binder.MyCefMet_Call0(this.nativePtr, CefProcessMessage_IsReadOnly_2, out ret);
             return ret.I32 != 0;
         }
-        //CsCallToNativeCodeGen::GenerateCsMethod , 353
+        //CsCallToNativeCodeGen::GenerateCsMethod , 363
 
         // gen! CefRefPtr<CefProcessMessage> Copy()
         /// <summary>
@@ -8610,7 +8848,7 @@ namespace LayoutFarm.CefBridge.Auto
             Cef3Binder.MyCefMet_Call0(this.nativePtr, CefProcessMessage_Copy_3, out ret);
             return new CefProcessMessage(ret.Ptr);
         }
-        //CsCallToNativeCodeGen::GenerateCsMethod , 354
+        //CsCallToNativeCodeGen::GenerateCsMethod , 364
 
         // gen! CefString GetName()
         /// <summary>
@@ -8625,7 +8863,7 @@ namespace LayoutFarm.CefBridge.Auto
             Cef3Binder.MyCefMet_Call0(this.nativePtr, CefProcessMessage_GetName_4, out ret);
             return Cef3Binder.CopyStringAndDestroyNativeSide(ref ret);
         }
-        //CsCallToNativeCodeGen::GenerateCsMethod , 355
+        //CsCallToNativeCodeGen::GenerateCsMethod , 365
 
         // gen! CefRefPtr<CefListValue> GetArgumentList()
         /// <summary>
@@ -8640,11 +8878,30 @@ namespace LayoutFarm.CefBridge.Auto
             Cef3Binder.MyCefMet_Call0(this.nativePtr, CefProcessMessage_GetArgumentList_5, out ret);
             return new CefListValue(ret.Ptr);
         }
+        //
+        //CsCallToNativeCodeGen::GenerateCs_S_Method , 366
+
+        // gen! CefRefPtr<CefProcessMessage> Create(const CefString& name)
+        /// <summary>
+        /// Create a new CefProcessMessage object with the specified name.
+        /// /*cef()*/
+        /// </summary>
+
+        public CefProcessMessage Create(string name)
+        {
+            JsValue v1 = new JsValue();
+            JsValue ret;
+            v1.Ptr = Cef3Binder.MyCefCreateStringHolder(name);
+
+            Cef3Binder.MyCefMet_S_Call1(CefProcessMessage_S_Create_1, out ret, ref v1);
+            Cef3Binder.MyCefDeletePtr(v1.Ptr);
+            return new CefProcessMessage(ret.Ptr);
+        }
     }
 
 
     // [virtual] class CefRequest
-    //CsCallToNativeCodeGen::GenerateCsCode , 356
+    //CsCallToNativeCodeGen::GenerateCsCode , 367
     /// <summary>
     /// Class used to represent a web request. The methods of this class may be
     /// called on any thread.
@@ -8674,6 +8931,8 @@ namespace LayoutFarm.CefBridge.Auto
         const int CefRequest_GetResourceType_18 = (_typeNAME << 16) | 18;
         const int CefRequest_GetTransitionType_19 = (_typeNAME << 16) | 19;
         const int CefRequest_GetIdentifier_20 = (_typeNAME << 16) | 20;
+        //
+        const int CefRequest_S_Create_1 = (_typeNAME << 16) | 1;
         internal IntPtr nativePtr;
         internal CefRequest(IntPtr nativePtr)
         {
@@ -8685,7 +8944,7 @@ namespace LayoutFarm.CefBridge.Auto
             Cef3Binder.MyCefMet_Call0(this.nativePtr, CefRequest_Release_0, out ret);
             this.nativePtr = IntPtr.Zero;
         }
-        //CsCallToNativeCodeGen::GenerateCsMethod , 357
+        //CsCallToNativeCodeGen::GenerateCsMethod , 368
 
         // gen! bool IsReadOnly()
         /// <summary>
@@ -8699,7 +8958,7 @@ namespace LayoutFarm.CefBridge.Auto
             Cef3Binder.MyCefMet_Call0(this.nativePtr, CefRequest_IsReadOnly_1, out ret);
             return ret.I32 != 0;
         }
-        //CsCallToNativeCodeGen::GenerateCsMethod , 358
+        //CsCallToNativeCodeGen::GenerateCsMethod , 369
 
         // gen! CefString GetURL()
         /// <summary>
@@ -8714,7 +8973,7 @@ namespace LayoutFarm.CefBridge.Auto
             Cef3Binder.MyCefMet_Call0(this.nativePtr, CefRequest_GetURL_2, out ret);
             return Cef3Binder.CopyStringAndDestroyNativeSide(ref ret);
         }
-        //CsCallToNativeCodeGen::GenerateCsMethod , 359
+        //CsCallToNativeCodeGen::GenerateCsMethod , 370
 
         // gen! void SetURL(const CefString& url)
         /// <summary>
@@ -8732,7 +8991,7 @@ namespace LayoutFarm.CefBridge.Auto
             Cef3Binder.MyCefDeletePtr(v1.Ptr);
 
         }
-        //CsCallToNativeCodeGen::GenerateCsMethod , 360
+        //CsCallToNativeCodeGen::GenerateCsMethod , 371
 
         // gen! CefString GetMethod()
         /// <summary>
@@ -8748,7 +9007,7 @@ namespace LayoutFarm.CefBridge.Auto
             Cef3Binder.MyCefMet_Call0(this.nativePtr, CefRequest_GetMethod_4, out ret);
             return Cef3Binder.CopyStringAndDestroyNativeSide(ref ret);
         }
-        //CsCallToNativeCodeGen::GenerateCsMethod , 361
+        //CsCallToNativeCodeGen::GenerateCsMethod , 372
 
         // gen! void SetMethod(const CefString& method)
         /// <summary>
@@ -8766,7 +9025,7 @@ namespace LayoutFarm.CefBridge.Auto
             Cef3Binder.MyCefDeletePtr(v1.Ptr);
 
         }
-        //CsCallToNativeCodeGen::GenerateCsMethod , 362
+        //CsCallToNativeCodeGen::GenerateCsMethod , 373
 
         // gen! void SetReferrer(const CefString& referrer_url,ReferrerPolicy policy)
         /// <summary>
@@ -8789,7 +9048,7 @@ namespace LayoutFarm.CefBridge.Auto
             Cef3Binder.MyCefDeletePtr(v1.Ptr);
 
         }
-        //CsCallToNativeCodeGen::GenerateCsMethod , 363
+        //CsCallToNativeCodeGen::GenerateCsMethod , 374
 
         // gen! CefString GetReferrerURL()
         /// <summary>
@@ -8804,7 +9063,7 @@ namespace LayoutFarm.CefBridge.Auto
             Cef3Binder.MyCefMet_Call0(this.nativePtr, CefRequest_GetReferrerURL_7, out ret);
             return Cef3Binder.CopyStringAndDestroyNativeSide(ref ret);
         }
-        //CsCallToNativeCodeGen::GenerateCsMethod , 364
+        //CsCallToNativeCodeGen::GenerateCsMethod , 375
 
         // gen! ReferrerPolicy GetReferrerPolicy()
         /// <summary>
@@ -8820,7 +9079,7 @@ namespace LayoutFarm.CefBridge.Auto
             return (cef_referrer_policy_t)ret.I32;
 
         }
-        //CsCallToNativeCodeGen::GenerateCsMethod , 365
+        //CsCallToNativeCodeGen::GenerateCsMethod , 376
 
         // gen! CefRefPtr<CefPostData> GetPostData()
         /// <summary>
@@ -8835,7 +9094,7 @@ namespace LayoutFarm.CefBridge.Auto
             Cef3Binder.MyCefMet_Call0(this.nativePtr, CefRequest_GetPostData_9, out ret);
             return new CefPostData(ret.Ptr);
         }
-        //CsCallToNativeCodeGen::GenerateCsMethod , 366
+        //CsCallToNativeCodeGen::GenerateCsMethod , 377
 
         // gen! void SetPostData(CefRefPtr<CefPostData> postData)
         /// <summary>
@@ -8852,7 +9111,7 @@ namespace LayoutFarm.CefBridge.Auto
             Cef3Binder.MyCefMet_Call1(this.nativePtr, CefRequest_SetPostData_10, out ret, ref v1);
 
         }
-        //CsCallToNativeCodeGen::GenerateCsMethod , 367
+        //CsCallToNativeCodeGen::GenerateCsMethod , 378
 
         // gen! void GetHeaderMap(HeaderMap& headerMap)
         /// <summary>
@@ -8869,7 +9128,7 @@ namespace LayoutFarm.CefBridge.Auto
             Cef3Binder.MyCefMet_Call1(this.nativePtr, CefRequest_GetHeaderMap_11, out ret, ref v1);
 
         }
-        //CsCallToNativeCodeGen::GenerateCsMethod , 368
+        //CsCallToNativeCodeGen::GenerateCsMethod , 379
 
         // gen! void SetHeaderMap(const HeaderMap& headerMap)
         /// <summary>
@@ -8887,7 +9146,7 @@ namespace LayoutFarm.CefBridge.Auto
             Cef3Binder.MyCefMet_Call1(this.nativePtr, CefRequest_SetHeaderMap_12, out ret, ref v1);
 
         }
-        //CsCallToNativeCodeGen::GenerateCsMethod , 369
+        //CsCallToNativeCodeGen::GenerateCsMethod , 380
 
         // gen! void Set(const CefString& url,const CefString& method,CefRefPtr<CefPostData> postData,const HeaderMap& headerMap)
         /// <summary>
@@ -8915,7 +9174,7 @@ namespace LayoutFarm.CefBridge.Auto
             Cef3Binder.MyCefDeletePtr(v2.Ptr);
 
         }
-        //CsCallToNativeCodeGen::GenerateCsMethod , 370
+        //CsCallToNativeCodeGen::GenerateCsMethod , 381
 
         // gen! int GetFlags()
         /// <summary>
@@ -8931,7 +9190,7 @@ namespace LayoutFarm.CefBridge.Auto
             Cef3Binder.MyCefMet_Call0(this.nativePtr, CefRequest_GetFlags_14, out ret);
             return ret.I32;
         }
-        //CsCallToNativeCodeGen::GenerateCsMethod , 371
+        //CsCallToNativeCodeGen::GenerateCsMethod , 382
 
         // gen! void SetFlags(int flags)
         /// <summary>
@@ -8949,7 +9208,7 @@ namespace LayoutFarm.CefBridge.Auto
             Cef3Binder.MyCefMet_Call1(this.nativePtr, CefRequest_SetFlags_15, out ret, ref v1);
 
         }
-        //CsCallToNativeCodeGen::GenerateCsMethod , 372
+        //CsCallToNativeCodeGen::GenerateCsMethod , 383
 
         // gen! CefString GetFirstPartyForCookies()
         /// <summary>
@@ -8965,7 +9224,7 @@ namespace LayoutFarm.CefBridge.Auto
             Cef3Binder.MyCefMet_Call0(this.nativePtr, CefRequest_GetFirstPartyForCookies_16, out ret);
             return Cef3Binder.CopyStringAndDestroyNativeSide(ref ret);
         }
-        //CsCallToNativeCodeGen::GenerateCsMethod , 373
+        //CsCallToNativeCodeGen::GenerateCsMethod , 384
 
         // gen! void SetFirstPartyForCookies(const CefString& url)
         /// <summary>
@@ -8984,7 +9243,7 @@ namespace LayoutFarm.CefBridge.Auto
             Cef3Binder.MyCefDeletePtr(v1.Ptr);
 
         }
-        //CsCallToNativeCodeGen::GenerateCsMethod , 374
+        //CsCallToNativeCodeGen::GenerateCsMethod , 385
 
         // gen! ResourceType GetResourceType()
         /// <summary>
@@ -9001,7 +9260,7 @@ namespace LayoutFarm.CefBridge.Auto
             return (cef_resource_type_t)ret.I32;
 
         }
-        //CsCallToNativeCodeGen::GenerateCsMethod , 375
+        //CsCallToNativeCodeGen::GenerateCsMethod , 386
 
         // gen! TransitionType GetTransitionType()
         /// <summary>
@@ -9019,7 +9278,7 @@ namespace LayoutFarm.CefBridge.Auto
             return (cef_transition_type_t)ret.I32;
 
         }
-        //CsCallToNativeCodeGen::GenerateCsMethod , 376
+        //CsCallToNativeCodeGen::GenerateCsMethod , 387
 
         // gen! uint64 GetIdentifier()
         /// <summary>
@@ -9036,11 +9295,27 @@ namespace LayoutFarm.CefBridge.Auto
             Cef3Binder.MyCefMet_Call0(this.nativePtr, CefRequest_GetIdentifier_20, out ret);
             return (ulong)ret.I64;
         }
+        //
+        //CsCallToNativeCodeGen::GenerateCs_S_Method , 388
+
+        // gen! CefRefPtr<CefRequest> Create()
+        /// <summary>
+        /// Create a new CefRequest object.
+        /// /*cef()*/
+        /// </summary>
+
+        public CefRequest Create()
+        {
+            JsValue ret;
+
+            Cef3Binder.MyCefMet_S_Call0(CefRequest_S_Create_1, out ret);
+            return new CefRequest(ret.Ptr);
+        }
     }
 
 
     // [virtual] class CefPostData
-    //CsCallToNativeCodeGen::GenerateCsCode , 377
+    //CsCallToNativeCodeGen::GenerateCsCode , 389
     /// <summary>
     /// Class used to represent post data for a web request. The methods of this
     /// class may be called on any thread.
@@ -9057,6 +9332,8 @@ namespace LayoutFarm.CefBridge.Auto
         const int CefPostData_RemoveElement_5 = (_typeNAME << 16) | 5;
         const int CefPostData_AddElement_6 = (_typeNAME << 16) | 6;
         const int CefPostData_RemoveElements_7 = (_typeNAME << 16) | 7;
+        //
+        const int CefPostData_S_Create_1 = (_typeNAME << 16) | 1;
         internal IntPtr nativePtr;
         internal CefPostData(IntPtr nativePtr)
         {
@@ -9068,7 +9345,7 @@ namespace LayoutFarm.CefBridge.Auto
             Cef3Binder.MyCefMet_Call0(this.nativePtr, CefPostData_Release_0, out ret);
             this.nativePtr = IntPtr.Zero;
         }
-        //CsCallToNativeCodeGen::GenerateCsMethod , 378
+        //CsCallToNativeCodeGen::GenerateCsMethod , 390
 
         // gen! bool IsReadOnly()
         /// <summary>
@@ -9082,7 +9359,7 @@ namespace LayoutFarm.CefBridge.Auto
             Cef3Binder.MyCefMet_Call0(this.nativePtr, CefPostData_IsReadOnly_1, out ret);
             return ret.I32 != 0;
         }
-        //CsCallToNativeCodeGen::GenerateCsMethod , 379
+        //CsCallToNativeCodeGen::GenerateCsMethod , 391
 
         // gen! bool HasExcludedElements()
         /// <summary>
@@ -9100,7 +9377,7 @@ namespace LayoutFarm.CefBridge.Auto
             Cef3Binder.MyCefMet_Call0(this.nativePtr, CefPostData_HasExcludedElements_2, out ret);
             return ret.I32 != 0;
         }
-        //CsCallToNativeCodeGen::GenerateCsMethod , 380
+        //CsCallToNativeCodeGen::GenerateCsMethod , 392
 
         // gen! size_t GetElementCount()
         /// <summary>
@@ -9115,7 +9392,7 @@ namespace LayoutFarm.CefBridge.Auto
             Cef3Binder.MyCefMet_Call0(this.nativePtr, CefPostData_GetElementCount_3, out ret);
             return (uint)ret.I32;
         }
-        //CsCallToNativeCodeGen::GenerateCsMethod , 381
+        //CsCallToNativeCodeGen::GenerateCsMethod , 393
 
         // gen! void GetElements(ElementVector& elements)
         /// <summary>
@@ -9132,7 +9409,7 @@ namespace LayoutFarm.CefBridge.Auto
             Cef3Binder.MyCefMet_Call1(this.nativePtr, CefPostData_GetElements_4, out ret, ref v1);
 
         }
-        //CsCallToNativeCodeGen::GenerateCsMethod , 382
+        //CsCallToNativeCodeGen::GenerateCsMethod , 394
 
         // gen! bool RemoveElement(CefRefPtr<CefPostDataElement> element)
         /// <summary>
@@ -9150,7 +9427,7 @@ namespace LayoutFarm.CefBridge.Auto
             Cef3Binder.MyCefMet_Call1(this.nativePtr, CefPostData_RemoveElement_5, out ret, ref v1);
             return ret.I32 != 0;
         }
-        //CsCallToNativeCodeGen::GenerateCsMethod , 383
+        //CsCallToNativeCodeGen::GenerateCsMethod , 395
 
         // gen! bool AddElement(CefRefPtr<CefPostDataElement> element)
         /// <summary>
@@ -9167,7 +9444,7 @@ namespace LayoutFarm.CefBridge.Auto
             Cef3Binder.MyCefMet_Call1(this.nativePtr, CefPostData_AddElement_6, out ret, ref v1);
             return ret.I32 != 0;
         }
-        //CsCallToNativeCodeGen::GenerateCsMethod , 384
+        //CsCallToNativeCodeGen::GenerateCsMethod , 396
 
         // gen! void RemoveElements()
         /// <summary>
@@ -9182,11 +9459,27 @@ namespace LayoutFarm.CefBridge.Auto
             Cef3Binder.MyCefMet_Call0(this.nativePtr, CefPostData_RemoveElements_7, out ret);
 
         }
+        //
+        //CsCallToNativeCodeGen::GenerateCs_S_Method , 397
+
+        // gen! CefRefPtr<CefPostData> Create()
+        /// <summary>
+        /// Create a new CefPostData object.
+        /// /*cef()*/
+        /// </summary>
+
+        public CefPostData Create()
+        {
+            JsValue ret;
+
+            Cef3Binder.MyCefMet_S_Call0(CefPostData_S_Create_1, out ret);
+            return new CefPostData(ret.Ptr);
+        }
     }
 
 
     // [virtual] class CefPostDataElement
-    //CsCallToNativeCodeGen::GenerateCsCode , 385
+    //CsCallToNativeCodeGen::GenerateCsCode , 398
     /// <summary>
     /// Class used to represent a single element in the request post data. The
     /// methods of this class may be called on any thread.
@@ -9204,6 +9497,8 @@ namespace LayoutFarm.CefBridge.Auto
         const int CefPostDataElement_GetFile_6 = (_typeNAME << 16) | 6;
         const int CefPostDataElement_GetBytesCount_7 = (_typeNAME << 16) | 7;
         const int CefPostDataElement_GetBytes_8 = (_typeNAME << 16) | 8;
+        //
+        const int CefPostDataElement_S_Create_1 = (_typeNAME << 16) | 1;
         internal IntPtr nativePtr;
         internal CefPostDataElement(IntPtr nativePtr)
         {
@@ -9215,7 +9510,7 @@ namespace LayoutFarm.CefBridge.Auto
             Cef3Binder.MyCefMet_Call0(this.nativePtr, CefPostDataElement_Release_0, out ret);
             this.nativePtr = IntPtr.Zero;
         }
-        //CsCallToNativeCodeGen::GenerateCsMethod , 386
+        //CsCallToNativeCodeGen::GenerateCsMethod , 399
 
         // gen! bool IsReadOnly()
         /// <summary>
@@ -9229,7 +9524,7 @@ namespace LayoutFarm.CefBridge.Auto
             Cef3Binder.MyCefMet_Call0(this.nativePtr, CefPostDataElement_IsReadOnly_1, out ret);
             return ret.I32 != 0;
         }
-        //CsCallToNativeCodeGen::GenerateCsMethod , 387
+        //CsCallToNativeCodeGen::GenerateCsMethod , 400
 
         // gen! void SetToEmpty()
         /// <summary>
@@ -9244,7 +9539,7 @@ namespace LayoutFarm.CefBridge.Auto
             Cef3Binder.MyCefMet_Call0(this.nativePtr, CefPostDataElement_SetToEmpty_2, out ret);
 
         }
-        //CsCallToNativeCodeGen::GenerateCsMethod , 388
+        //CsCallToNativeCodeGen::GenerateCsMethod , 401
 
         // gen! void SetToFile(const CefString& fileName)
         /// <summary>
@@ -9262,7 +9557,7 @@ namespace LayoutFarm.CefBridge.Auto
             Cef3Binder.MyCefDeletePtr(v1.Ptr);
 
         }
-        //CsCallToNativeCodeGen::GenerateCsMethod , 389
+        //CsCallToNativeCodeGen::GenerateCsMethod , 402
 
         // gen! void SetToBytes(size_t size,const void* bytes)
         /// <summary>
@@ -9283,7 +9578,7 @@ namespace LayoutFarm.CefBridge.Auto
             Cef3Binder.MyCefMet_Call2(this.nativePtr, CefPostDataElement_SetToBytes_4, out ret, ref v1, ref v2);
 
         }
-        //CsCallToNativeCodeGen::GenerateCsMethod , 390
+        //CsCallToNativeCodeGen::GenerateCsMethod , 403
 
         // gen! Type GetType()
         /// <summary>
@@ -9299,7 +9594,7 @@ namespace LayoutFarm.CefBridge.Auto
             return (cef_postdataelement_type_t)ret.I32;
 
         }
-        //CsCallToNativeCodeGen::GenerateCsMethod , 391
+        //CsCallToNativeCodeGen::GenerateCsMethod , 404
 
         // gen! CefString GetFile()
         /// <summary>
@@ -9314,7 +9609,7 @@ namespace LayoutFarm.CefBridge.Auto
             Cef3Binder.MyCefMet_Call0(this.nativePtr, CefPostDataElement_GetFile_6, out ret);
             return Cef3Binder.CopyStringAndDestroyNativeSide(ref ret);
         }
-        //CsCallToNativeCodeGen::GenerateCsMethod , 392
+        //CsCallToNativeCodeGen::GenerateCsMethod , 405
 
         // gen! size_t GetBytesCount()
         /// <summary>
@@ -9329,7 +9624,7 @@ namespace LayoutFarm.CefBridge.Auto
             Cef3Binder.MyCefMet_Call0(this.nativePtr, CefPostDataElement_GetBytesCount_7, out ret);
             return (uint)ret.I32;
         }
-        //CsCallToNativeCodeGen::GenerateCsMethod , 393
+        //CsCallToNativeCodeGen::GenerateCsMethod , 406
 
         // gen! size_t GetBytes(size_t size,void* bytes)
         /// <summary>
@@ -9350,11 +9645,27 @@ namespace LayoutFarm.CefBridge.Auto
             Cef3Binder.MyCefMet_Call2(this.nativePtr, CefPostDataElement_GetBytes_8, out ret, ref v1, ref v2);
             return (uint)ret.I32;
         }
+        //
+        //CsCallToNativeCodeGen::GenerateCs_S_Method , 407
+
+        // gen! CefRefPtr<CefPostDataElement> Create()
+        /// <summary>
+        /// Create a new CefPostDataElement object.
+        /// /*cef()*/
+        /// </summary>
+
+        public CefPostDataElement Create()
+        {
+            JsValue ret;
+
+            Cef3Binder.MyCefMet_S_Call0(CefPostDataElement_S_Create_1, out ret);
+            return new CefPostDataElement(ret.Ptr);
+        }
     }
 
 
     // [virtual] class CefRequestContext
-    //CsCallToNativeCodeGen::GenerateCsCode , 394
+    //CsCallToNativeCodeGen::GenerateCsCode , 408
     /// <summary>
     /// A request context provides request handling for a set of related browser
     /// or URL request objects. A request context can be specified when creating a
@@ -9394,6 +9705,10 @@ namespace LayoutFarm.CefBridge.Auto
         const int CefRequestContext_CloseAllConnections_16 = (_typeNAME << 16) | 16;
         const int CefRequestContext_ResolveHost_17 = (_typeNAME << 16) | 17;
         const int CefRequestContext_ResolveHostCached_18 = (_typeNAME << 16) | 18;
+        //
+        const int CefRequestContext_S_GetGlobalContext_1 = (_typeNAME << 16) | 1;
+        const int CefRequestContext_S_CreateContext_2 = (_typeNAME << 16) | 2;
+        const int CefRequestContext_S_CreateContext_3 = (_typeNAME << 16) | 3;
         internal IntPtr nativePtr;
         internal CefRequestContext(IntPtr nativePtr)
         {
@@ -9405,7 +9720,7 @@ namespace LayoutFarm.CefBridge.Auto
             Cef3Binder.MyCefMet_Call0(this.nativePtr, CefRequestContext_Release_0, out ret);
             this.nativePtr = IntPtr.Zero;
         }
-        //CsCallToNativeCodeGen::GenerateCsMethod , 395
+        //CsCallToNativeCodeGen::GenerateCsMethod , 409
 
         // gen! bool IsSame(CefRefPtr<CefRequestContext> other)
         /// <summary>
@@ -9421,7 +9736,7 @@ namespace LayoutFarm.CefBridge.Auto
             Cef3Binder.MyCefMet_Call1(this.nativePtr, CefRequestContext_IsSame_1, out ret, ref v1);
             return ret.I32 != 0;
         }
-        //CsCallToNativeCodeGen::GenerateCsMethod , 396
+        //CsCallToNativeCodeGen::GenerateCsMethod , 410
 
         // gen! bool IsSharingWith(CefRefPtr<CefRequestContext> other)
         /// <summary>
@@ -9438,7 +9753,7 @@ namespace LayoutFarm.CefBridge.Auto
             Cef3Binder.MyCefMet_Call1(this.nativePtr, CefRequestContext_IsSharingWith_2, out ret, ref v1);
             return ret.I32 != 0;
         }
-        //CsCallToNativeCodeGen::GenerateCsMethod , 397
+        //CsCallToNativeCodeGen::GenerateCsMethod , 411
 
         // gen! bool IsGlobal()
         /// <summary>
@@ -9455,7 +9770,7 @@ namespace LayoutFarm.CefBridge.Auto
             Cef3Binder.MyCefMet_Call0(this.nativePtr, CefRequestContext_IsGlobal_3, out ret);
             return ret.I32 != 0;
         }
-        //CsCallToNativeCodeGen::GenerateCsMethod , 398
+        //CsCallToNativeCodeGen::GenerateCsMethod , 412
 
         // gen! CefRefPtr<CefRequestContextHandler> GetHandler()
         /// <summary>
@@ -9468,9 +9783,9 @@ namespace LayoutFarm.CefBridge.Auto
             JsValue ret;
 
             Cef3Binder.MyCefMet_Call0(this.nativePtr, CefRequestContext_GetHandler_4, out ret);
-            return new CefRequestContextHandler();
+            return new CefRequestContextHandler(ret.Ptr);
         }
-        //CsCallToNativeCodeGen::GenerateCsMethod , 399
+        //CsCallToNativeCodeGen::GenerateCsMethod , 413
 
         // gen! CefString GetCachePath()
         /// <summary>
@@ -9486,7 +9801,7 @@ namespace LayoutFarm.CefBridge.Auto
             Cef3Binder.MyCefMet_Call0(this.nativePtr, CefRequestContext_GetCachePath_5, out ret);
             return Cef3Binder.CopyStringAndDestroyNativeSide(ref ret);
         }
-        //CsCallToNativeCodeGen::GenerateCsMethod , 400
+        //CsCallToNativeCodeGen::GenerateCsMethod , 414
 
         // gen! CefRefPtr<CefCookieManager> GetDefaultCookieManager(CefRefPtr<CefCompletionCallback> callback)
         /// <summary>
@@ -9508,7 +9823,7 @@ namespace LayoutFarm.CefBridge.Auto
             Cef3Binder.MyCefMet_Call1(this.nativePtr, CefRequestContext_GetDefaultCookieManager_6, out ret, ref v1);
             return new CefCookieManager(ret.Ptr);
         }
-        //CsCallToNativeCodeGen::GenerateCsMethod , 401
+        //CsCallToNativeCodeGen::GenerateCsMethod , 415
 
         // gen! bool RegisterSchemeHandlerFactory(const CefString& scheme_name,const CefString& domain_name,CefRefPtr<CefSchemeHandlerFactory> factory)
         /// <summary>
@@ -9543,7 +9858,7 @@ namespace LayoutFarm.CefBridge.Auto
             Cef3Binder.MyCefDeletePtr(v2.Ptr);
             return ret.I32 != 0;
         }
-        //CsCallToNativeCodeGen::GenerateCsMethod , 402
+        //CsCallToNativeCodeGen::GenerateCsMethod , 416
 
         // gen! bool ClearSchemeHandlerFactories()
         /// <summary>
@@ -9559,7 +9874,7 @@ namespace LayoutFarm.CefBridge.Auto
             Cef3Binder.MyCefMet_Call0(this.nativePtr, CefRequestContext_ClearSchemeHandlerFactories_8, out ret);
             return ret.I32 != 0;
         }
-        //CsCallToNativeCodeGen::GenerateCsMethod , 403
+        //CsCallToNativeCodeGen::GenerateCsMethod , 417
 
         // gen! void PurgePluginListCache(bool reload_pages)
         /// <summary>
@@ -9579,7 +9894,7 @@ namespace LayoutFarm.CefBridge.Auto
             Cef3Binder.MyCefMet_Call1(this.nativePtr, CefRequestContext_PurgePluginListCache_9, out ret, ref v1);
 
         }
-        //CsCallToNativeCodeGen::GenerateCsMethod , 404
+        //CsCallToNativeCodeGen::GenerateCsMethod , 418
 
         // gen! bool HasPreference(const CefString& name)
         /// <summary>
@@ -9598,7 +9913,7 @@ namespace LayoutFarm.CefBridge.Auto
             Cef3Binder.MyCefDeletePtr(v1.Ptr);
             return ret.I32 != 0;
         }
-        //CsCallToNativeCodeGen::GenerateCsMethod , 405
+        //CsCallToNativeCodeGen::GenerateCsMethod , 419
 
         // gen! CefRefPtr<CefValue> GetPreference(const CefString& name)
         /// <summary>
@@ -9620,7 +9935,7 @@ namespace LayoutFarm.CefBridge.Auto
             Cef3Binder.MyCefDeletePtr(v1.Ptr);
             return new CefValue(ret.Ptr);
         }
-        //CsCallToNativeCodeGen::GenerateCsMethod , 406
+        //CsCallToNativeCodeGen::GenerateCsMethod , 420
 
         // gen! CefRefPtr<CefDictionaryValue> GetAllPreferences(bool include_defaults)
         /// <summary>
@@ -9642,7 +9957,7 @@ namespace LayoutFarm.CefBridge.Auto
             Cef3Binder.MyCefMet_Call1(this.nativePtr, CefRequestContext_GetAllPreferences_12, out ret, ref v1);
             return new CefDictionaryValue(ret.Ptr);
         }
-        //CsCallToNativeCodeGen::GenerateCsMethod , 407
+        //CsCallToNativeCodeGen::GenerateCsMethod , 421
 
         // gen! bool CanSetPreference(const CefString& name)
         /// <summary>
@@ -9663,7 +9978,7 @@ namespace LayoutFarm.CefBridge.Auto
             Cef3Binder.MyCefDeletePtr(v1.Ptr);
             return ret.I32 != 0;
         }
-        //CsCallToNativeCodeGen::GenerateCsMethod , 408
+        //CsCallToNativeCodeGen::GenerateCsMethod , 422
 
         // gen! bool SetPreference(const CefString& name,CefRefPtr<CefValue> value,CefString& error)
         /// <summary>
@@ -9692,7 +10007,7 @@ namespace LayoutFarm.CefBridge.Auto
             Cef3Binder.MyCefDeletePtr(v3.Ptr);
             return ret.I32 != 0;
         }
-        //CsCallToNativeCodeGen::GenerateCsMethod , 409
+        //CsCallToNativeCodeGen::GenerateCsMethod , 423
 
         // gen! void ClearCertificateExceptions(CefRefPtr<CefCompletionCallback> callback)
         /// <summary>
@@ -9714,7 +10029,7 @@ namespace LayoutFarm.CefBridge.Auto
             Cef3Binder.MyCefMet_Call1(this.nativePtr, CefRequestContext_ClearCertificateExceptions_15, out ret, ref v1);
 
         }
-        //CsCallToNativeCodeGen::GenerateCsMethod , 410
+        //CsCallToNativeCodeGen::GenerateCsMethod , 424
 
         // gen! void CloseAllConnections(CefRefPtr<CefCompletionCallback> callback)
         /// <summary>
@@ -9734,7 +10049,7 @@ namespace LayoutFarm.CefBridge.Auto
             Cef3Binder.MyCefMet_Call1(this.nativePtr, CefRequestContext_CloseAllConnections_16, out ret, ref v1);
 
         }
-        //CsCallToNativeCodeGen::GenerateCsMethod , 411
+        //CsCallToNativeCodeGen::GenerateCsMethod , 425
 
         // gen! void ResolveHost(const CefString& origin,CefRefPtr<CefResolveCallback> callback)
         /// <summary>
@@ -9756,7 +10071,7 @@ namespace LayoutFarm.CefBridge.Auto
             Cef3Binder.MyCefDeletePtr(v1.Ptr);
 
         }
-        //CsCallToNativeCodeGen::GenerateCsMethod , 412
+        //CsCallToNativeCodeGen::GenerateCsMethod , 426
 
         // gen! cef_errorcode_t ResolveHostCached(const CefString& origin,std::vector<CefString>& resolved_ips)
         /// <summary>
@@ -9782,11 +10097,69 @@ namespace LayoutFarm.CefBridge.Auto
             return (cef_errorcode_t)ret.I32;
 
         }
+        //
+        //CsCallToNativeCodeGen::GenerateCs_S_Method , 427
+
+        // gen! CefRefPtr<CefRequestContext> GetGlobalContext()
+        /// <summary>
+        /// Returns the global context object.
+        /// /*cef()*/
+        /// </summary>
+
+        public CefRequestContext GetGlobalContext()
+        {
+            JsValue ret;
+
+            Cef3Binder.MyCefMet_S_Call0(CefRequestContext_S_GetGlobalContext_1, out ret);
+            return new CefRequestContext(ret.Ptr);
+        }
+        //CsCallToNativeCodeGen::GenerateCs_S_Method , 428
+
+        // gen! CefRefPtr<CefRequestContext> CreateContext(const CefRequestContextSettings& settings,CefRefPtr<CefRequestContextHandler> handler)
+        /// <summary>
+        /// Creates a new context object with the specified |settings| and optional
+        /// |handler|.
+        /// /*cef(optional_param=handler)*/
+        /// </summary>
+
+        public CefRequestContext CreateContext(CefRequestContextSettings settings,
+        CefRequestContextHandler handler)
+        {
+            JsValue v1 = new JsValue();
+            JsValue v2 = new JsValue();
+            JsValue ret;
+            v1.Ptr = settings.nativePtr;
+            v2.Ptr = handler.nativePtr;
+
+            Cef3Binder.MyCefMet_S_Call2(CefRequestContext_S_CreateContext_2, out ret, ref v1, ref v2);
+            return new CefRequestContext(ret.Ptr);
+        }
+        //CsCallToNativeCodeGen::GenerateCs_S_Method , 429
+
+        // gen! CefRefPtr<CefRequestContext> CreateContext(CefRefPtr<CefRequestContext> other,CefRefPtr<CefRequestContextHandler> handler)
+        /// <summary>
+        /// Creates a new context object that shares storage with |other| and uses an
+        /// optional |handler|.
+        /// /*cef(capi_name=cef_create_context_shared,optional_param=handler)*/
+        /// </summary>
+
+        public CefRequestContext CreateContext(CefRequestContext other,
+        CefRequestContextHandler handler)
+        {
+            JsValue v1 = new JsValue();
+            JsValue v2 = new JsValue();
+            JsValue ret;
+            v1.Ptr = other.nativePtr;
+            v2.Ptr = handler.nativePtr;
+
+            Cef3Binder.MyCefMet_S_Call2(CefRequestContext_S_CreateContext_3, out ret, ref v1, ref v2);
+            return new CefRequestContext(ret.Ptr);
+        }
     }
 
 
     // [virtual] class CefResourceBundle
-    //CsCallToNativeCodeGen::GenerateCsCode , 413
+    //CsCallToNativeCodeGen::GenerateCsCode , 430
     /// <summary>
     /// Class used for retrieving resources from the resource bundle (*.pak) files
     /// loaded by CEF during startup or via the CefResourceBundleHandler returned
@@ -9802,6 +10175,8 @@ namespace LayoutFarm.CefBridge.Auto
         const int CefResourceBundle_GetLocalizedString_1 = (_typeNAME << 16) | 1;
         const int CefResourceBundle_GetDataResource_2 = (_typeNAME << 16) | 2;
         const int CefResourceBundle_GetDataResourceForScale_3 = (_typeNAME << 16) | 3;
+        //
+        const int CefResourceBundle_S_GetGlobal_1 = (_typeNAME << 16) | 1;
         internal IntPtr nativePtr;
         internal CefResourceBundle(IntPtr nativePtr)
         {
@@ -9813,7 +10188,7 @@ namespace LayoutFarm.CefBridge.Auto
             Cef3Binder.MyCefMet_Call0(this.nativePtr, CefResourceBundle_Release_0, out ret);
             this.nativePtr = IntPtr.Zero;
         }
-        //CsCallToNativeCodeGen::GenerateCsMethod , 414
+        //CsCallToNativeCodeGen::GenerateCsMethod , 431
 
         // gen! CefString GetLocalizedString(int string_id)
         /// <summary>
@@ -9829,7 +10204,7 @@ namespace LayoutFarm.CefBridge.Auto
             Cef3Binder.MyCefMet_Call1(this.nativePtr, CefResourceBundle_GetLocalizedString_1, out ret, ref v1);
             return Cef3Binder.CopyStringAndDestroyNativeSide(ref ret);
         }
-        //CsCallToNativeCodeGen::GenerateCsMethod , 415
+        //CsCallToNativeCodeGen::GenerateCsMethod , 432
 
         // gen! bool GetDataResource(int resource_id,void*& data,size_t& data_size)
         /// <summary>
@@ -9859,7 +10234,7 @@ namespace LayoutFarm.CefBridge.Auto
             data_size = (uint)v3.I32;
             return ret.I32 != 0;
         }
-        //CsCallToNativeCodeGen::GenerateCsMethod , 416
+        //CsCallToNativeCodeGen::GenerateCsMethod , 433
 
         // gen! bool GetDataResourceForScale(int resource_id,ScaleFactor scale_factor,void*& data,size_t& data_size)
         /// <summary>
@@ -9894,11 +10269,27 @@ namespace LayoutFarm.CefBridge.Auto
             data_size = (uint)v4.I32;
             return ret.I32 != 0;
         }
+        //
+        //CsCallToNativeCodeGen::GenerateCs_S_Method , 434
+
+        // gen! CefRefPtr<CefResourceBundle> GetGlobal()
+        /// <summary>
+        /// Returns the global resource bundle instance.
+        /// /*cef()*/
+        /// </summary>
+
+        public CefResourceBundle GetGlobal()
+        {
+            JsValue ret;
+
+            Cef3Binder.MyCefMet_S_Call0(CefResourceBundle_S_GetGlobal_1, out ret);
+            return new CefResourceBundle(ret.Ptr);
+        }
     }
 
 
     // [virtual] class CefResponse
-    //CsCallToNativeCodeGen::GenerateCsCode , 417
+    //CsCallToNativeCodeGen::GenerateCsCode , 435
     /// <summary>
     /// Class used to represent a web response. The methods of this class may be
     /// called on any thread.
@@ -9920,6 +10311,8 @@ namespace LayoutFarm.CefBridge.Auto
         const int CefResponse_GetHeader_10 = (_typeNAME << 16) | 10;
         const int CefResponse_GetHeaderMap_11 = (_typeNAME << 16) | 11;
         const int CefResponse_SetHeaderMap_12 = (_typeNAME << 16) | 12;
+        //
+        const int CefResponse_S_Create_1 = (_typeNAME << 16) | 1;
         internal IntPtr nativePtr;
         internal CefResponse(IntPtr nativePtr)
         {
@@ -9931,7 +10324,7 @@ namespace LayoutFarm.CefBridge.Auto
             Cef3Binder.MyCefMet_Call0(this.nativePtr, CefResponse_Release_0, out ret);
             this.nativePtr = IntPtr.Zero;
         }
-        //CsCallToNativeCodeGen::GenerateCsMethod , 418
+        //CsCallToNativeCodeGen::GenerateCsMethod , 436
 
         // gen! bool IsReadOnly()
         /// <summary>
@@ -9945,7 +10338,7 @@ namespace LayoutFarm.CefBridge.Auto
             Cef3Binder.MyCefMet_Call0(this.nativePtr, CefResponse_IsReadOnly_1, out ret);
             return ret.I32 != 0;
         }
-        //CsCallToNativeCodeGen::GenerateCsMethod , 419
+        //CsCallToNativeCodeGen::GenerateCsMethod , 437
 
         // gen! cef_errorcode_t GetError()
         /// <summary>
@@ -9961,7 +10354,7 @@ namespace LayoutFarm.CefBridge.Auto
             return (cef_errorcode_t)ret.I32;
 
         }
-        //CsCallToNativeCodeGen::GenerateCsMethod , 420
+        //CsCallToNativeCodeGen::GenerateCsMethod , 438
 
         // gen! void SetError(cef_errorcode_t error)
         /// <summary>
@@ -9979,7 +10372,7 @@ namespace LayoutFarm.CefBridge.Auto
             Cef3Binder.MyCefMet_Call1(this.nativePtr, CefResponse_SetError_3, out ret, ref v1);
 
         }
-        //CsCallToNativeCodeGen::GenerateCsMethod , 421
+        //CsCallToNativeCodeGen::GenerateCsMethod , 439
 
         // gen! int GetStatus()
         /// <summary>
@@ -9994,7 +10387,7 @@ namespace LayoutFarm.CefBridge.Auto
             Cef3Binder.MyCefMet_Call0(this.nativePtr, CefResponse_GetStatus_4, out ret);
             return ret.I32;
         }
-        //CsCallToNativeCodeGen::GenerateCsMethod , 422
+        //CsCallToNativeCodeGen::GenerateCsMethod , 440
 
         // gen! void SetStatus(int status)
         /// <summary>
@@ -10011,7 +10404,7 @@ namespace LayoutFarm.CefBridge.Auto
             Cef3Binder.MyCefMet_Call1(this.nativePtr, CefResponse_SetStatus_5, out ret, ref v1);
 
         }
-        //CsCallToNativeCodeGen::GenerateCsMethod , 423
+        //CsCallToNativeCodeGen::GenerateCsMethod , 441
 
         // gen! CefString GetStatusText()
         /// <summary>
@@ -10026,7 +10419,7 @@ namespace LayoutFarm.CefBridge.Auto
             Cef3Binder.MyCefMet_Call0(this.nativePtr, CefResponse_GetStatusText_6, out ret);
             return Cef3Binder.CopyStringAndDestroyNativeSide(ref ret);
         }
-        //CsCallToNativeCodeGen::GenerateCsMethod , 424
+        //CsCallToNativeCodeGen::GenerateCsMethod , 442
 
         // gen! void SetStatusText(const CefString& statusText)
         /// <summary>
@@ -10044,7 +10437,7 @@ namespace LayoutFarm.CefBridge.Auto
             Cef3Binder.MyCefDeletePtr(v1.Ptr);
 
         }
-        //CsCallToNativeCodeGen::GenerateCsMethod , 425
+        //CsCallToNativeCodeGen::GenerateCsMethod , 443
 
         // gen! CefString GetMimeType()
         /// <summary>
@@ -10059,7 +10452,7 @@ namespace LayoutFarm.CefBridge.Auto
             Cef3Binder.MyCefMet_Call0(this.nativePtr, CefResponse_GetMimeType_8, out ret);
             return Cef3Binder.CopyStringAndDestroyNativeSide(ref ret);
         }
-        //CsCallToNativeCodeGen::GenerateCsMethod , 426
+        //CsCallToNativeCodeGen::GenerateCsMethod , 444
 
         // gen! void SetMimeType(const CefString& mimeType)
         /// <summary>
@@ -10077,7 +10470,7 @@ namespace LayoutFarm.CefBridge.Auto
             Cef3Binder.MyCefDeletePtr(v1.Ptr);
 
         }
-        //CsCallToNativeCodeGen::GenerateCsMethod , 427
+        //CsCallToNativeCodeGen::GenerateCsMethod , 445
 
         // gen! CefString GetHeader(const CefString& name)
         /// <summary>
@@ -10095,7 +10488,7 @@ namespace LayoutFarm.CefBridge.Auto
             Cef3Binder.MyCefDeletePtr(v1.Ptr);
             return Cef3Binder.CopyStringAndDestroyNativeSide(ref ret);
         }
-        //CsCallToNativeCodeGen::GenerateCsMethod , 428
+        //CsCallToNativeCodeGen::GenerateCsMethod , 446
 
         // gen! void GetHeaderMap(HeaderMap& headerMap)
         /// <summary>
@@ -10112,7 +10505,7 @@ namespace LayoutFarm.CefBridge.Auto
             Cef3Binder.MyCefMet_Call1(this.nativePtr, CefResponse_GetHeaderMap_11, out ret, ref v1);
 
         }
-        //CsCallToNativeCodeGen::GenerateCsMethod , 429
+        //CsCallToNativeCodeGen::GenerateCsMethod , 447
 
         // gen! void SetHeaderMap(const HeaderMap& headerMap)
         /// <summary>
@@ -10129,11 +10522,27 @@ namespace LayoutFarm.CefBridge.Auto
             Cef3Binder.MyCefMet_Call1(this.nativePtr, CefResponse_SetHeaderMap_12, out ret, ref v1);
 
         }
+        //
+        //CsCallToNativeCodeGen::GenerateCs_S_Method , 448
+
+        // gen! CefRefPtr<CefResponse> Create()
+        /// <summary>
+        /// Create a new CefResponse object.
+        /// /*cef()*/
+        /// </summary>
+
+        public CefResponse Create()
+        {
+            JsValue ret;
+
+            Cef3Binder.MyCefMet_S_Call0(CefResponse_S_Create_1, out ret);
+            return new CefResponse(ret.Ptr);
+        }
     }
 
 
     // [virtual] class CefResponseFilter
-    //CsCallToNativeCodeGen::GenerateCsCode , 430
+    //CsCallToNativeCodeGen::GenerateCsCode , 449
     /// <summary>
     /// Implement this interface to filter resource response content. The methods of
     /// this class will be called on the browser process IO thread.
@@ -10163,7 +10572,7 @@ namespace LayoutFarm.CefBridge.Auto
 
 
     // [virtual] class CefSchemeHandlerFactory
-    //CsCallToNativeCodeGen::GenerateCsCode , 431
+    //CsCallToNativeCodeGen::GenerateCsCode , 450
     /// <summary>
     /// Class that creates CefResourceHandler instances for handling scheme requests.
     /// The methods of this class will always be called on the IO thread.
@@ -10193,7 +10602,7 @@ namespace LayoutFarm.CefBridge.Auto
 
 
     // [virtual] class CefSSLInfo
-    //CsCallToNativeCodeGen::GenerateCsCode , 432
+    //CsCallToNativeCodeGen::GenerateCsCode , 451
     /// <summary>
     /// Class representing SSL information.
     /// /*(source=library)*/
@@ -10215,7 +10624,7 @@ namespace LayoutFarm.CefBridge.Auto
             Cef3Binder.MyCefMet_Call0(this.nativePtr, CefSSLInfo_Release_0, out ret);
             this.nativePtr = IntPtr.Zero;
         }
-        //CsCallToNativeCodeGen::GenerateCsMethod , 433
+        //CsCallToNativeCodeGen::GenerateCsMethod , 452
 
         // gen! cef_cert_status_t GetCertStatus()
         /// <summary>
@@ -10230,7 +10639,7 @@ namespace LayoutFarm.CefBridge.Auto
             return (cef_cert_status_t)ret.I32;
 
         }
-        //CsCallToNativeCodeGen::GenerateCsMethod , 434
+        //CsCallToNativeCodeGen::GenerateCsMethod , 453
 
         // gen! CefRefPtr<CefX509Certificate> GetX509Certificate()
         /// <summary>
@@ -10249,7 +10658,7 @@ namespace LayoutFarm.CefBridge.Auto
 
 
     // [virtual] class CefSSLStatus
-    //CsCallToNativeCodeGen::GenerateCsCode , 435
+    //CsCallToNativeCodeGen::GenerateCsCode , 454
     /// <summary>
     /// Class representing the SSL information for a navigation entry.
     /// /*(source=library)*/
@@ -10274,7 +10683,7 @@ namespace LayoutFarm.CefBridge.Auto
             Cef3Binder.MyCefMet_Call0(this.nativePtr, CefSSLStatus_Release_0, out ret);
             this.nativePtr = IntPtr.Zero;
         }
-        //CsCallToNativeCodeGen::GenerateCsMethod , 436
+        //CsCallToNativeCodeGen::GenerateCsMethod , 455
 
         // gen! bool IsSecureConnection()
         /// <summary>
@@ -10288,7 +10697,7 @@ namespace LayoutFarm.CefBridge.Auto
             Cef3Binder.MyCefMet_Call0(this.nativePtr, CefSSLStatus_IsSecureConnection_1, out ret);
             return ret.I32 != 0;
         }
-        //CsCallToNativeCodeGen::GenerateCsMethod , 437
+        //CsCallToNativeCodeGen::GenerateCsMethod , 456
 
         // gen! cef_cert_status_t GetCertStatus()
         /// <summary>
@@ -10305,7 +10714,7 @@ namespace LayoutFarm.CefBridge.Auto
             return (cef_cert_status_t)ret.I32;
 
         }
-        //CsCallToNativeCodeGen::GenerateCsMethod , 438
+        //CsCallToNativeCodeGen::GenerateCsMethod , 457
 
         // gen! cef_ssl_version_t GetSSLVersion()
         /// <summary>
@@ -10321,7 +10730,7 @@ namespace LayoutFarm.CefBridge.Auto
             return (cef_ssl_version_t)ret.I32;
 
         }
-        //CsCallToNativeCodeGen::GenerateCsMethod , 439
+        //CsCallToNativeCodeGen::GenerateCsMethod , 458
 
         // gen! cef_ssl_content_status_t GetContentStatus()
         /// <summary>
@@ -10337,7 +10746,7 @@ namespace LayoutFarm.CefBridge.Auto
             return (cef_ssl_content_status_t)ret.I32;
 
         }
-        //CsCallToNativeCodeGen::GenerateCsMethod , 440
+        //CsCallToNativeCodeGen::GenerateCsMethod , 459
 
         // gen! CefRefPtr<CefX509Certificate> GetX509Certificate()
         /// <summary>
@@ -10356,7 +10765,7 @@ namespace LayoutFarm.CefBridge.Auto
 
 
     // [virtual] class CefStreamReader
-    //CsCallToNativeCodeGen::GenerateCsCode , 441
+    //CsCallToNativeCodeGen::GenerateCsCode , 460
     /// <summary>
     /// Class used to read data from a stream. The methods of this class may be
     /// called on any thread.
@@ -10371,6 +10780,10 @@ namespace LayoutFarm.CefBridge.Auto
         const int CefStreamReader_Tell_3 = (_typeNAME << 16) | 3;
         const int CefStreamReader_Eof_4 = (_typeNAME << 16) | 4;
         const int CefStreamReader_MayBlock_5 = (_typeNAME << 16) | 5;
+        //
+        const int CefStreamReader_S_CreateForFile_1 = (_typeNAME << 16) | 1;
+        const int CefStreamReader_S_CreateForData_2 = (_typeNAME << 16) | 2;
+        const int CefStreamReader_S_CreateForHandler_3 = (_typeNAME << 16) | 3;
         internal IntPtr nativePtr;
         internal CefStreamReader(IntPtr nativePtr)
         {
@@ -10382,7 +10795,7 @@ namespace LayoutFarm.CefBridge.Auto
             Cef3Binder.MyCefMet_Call0(this.nativePtr, CefStreamReader_Release_0, out ret);
             this.nativePtr = IntPtr.Zero;
         }
-        //CsCallToNativeCodeGen::GenerateCsMethod , 442
+        //CsCallToNativeCodeGen::GenerateCsMethod , 461
 
         // gen! size_t Read(void* ptr,size_t size,size_t n)
         /// <summary>
@@ -10404,7 +10817,7 @@ namespace LayoutFarm.CefBridge.Auto
             Cef3Binder.MyCefMet_Call3(this.nativePtr, CefStreamReader_Read_1, out ret, ref v1, ref v2, ref v3);
             return (uint)ret.I32;
         }
-        //CsCallToNativeCodeGen::GenerateCsMethod , 443
+        //CsCallToNativeCodeGen::GenerateCsMethod , 462
 
         // gen! int Seek(int64 offset,int whence)
         /// <summary>
@@ -10426,7 +10839,7 @@ namespace LayoutFarm.CefBridge.Auto
             Cef3Binder.MyCefMet_Call2(this.nativePtr, CefStreamReader_Seek_2, out ret, ref v1, ref v2);
             return ret.I32;
         }
-        //CsCallToNativeCodeGen::GenerateCsMethod , 444
+        //CsCallToNativeCodeGen::GenerateCsMethod , 463
 
         // gen! int64 Tell()
         /// <summary>
@@ -10441,7 +10854,7 @@ namespace LayoutFarm.CefBridge.Auto
             Cef3Binder.MyCefMet_Call0(this.nativePtr, CefStreamReader_Tell_3, out ret);
             return ret.I64;
         }
-        //CsCallToNativeCodeGen::GenerateCsMethod , 445
+        //CsCallToNativeCodeGen::GenerateCsMethod , 464
 
         // gen! int Eof()
         /// <summary>
@@ -10456,7 +10869,7 @@ namespace LayoutFarm.CefBridge.Auto
             Cef3Binder.MyCefMet_Call0(this.nativePtr, CefStreamReader_Eof_4, out ret);
             return ret.I32;
         }
-        //CsCallToNativeCodeGen::GenerateCsMethod , 446
+        //CsCallToNativeCodeGen::GenerateCsMethod , 465
 
         // gen! bool MayBlock()
         /// <summary>
@@ -10473,11 +10886,67 @@ namespace LayoutFarm.CefBridge.Auto
             Cef3Binder.MyCefMet_Call0(this.nativePtr, CefStreamReader_MayBlock_5, out ret);
             return ret.I32 != 0;
         }
+        //
+        //CsCallToNativeCodeGen::GenerateCs_S_Method , 466
+
+        // gen! CefRefPtr<CefStreamReader> CreateForFile(const CefString& fileName)
+        /// <summary>
+        /// Create a new CefStreamReader object from a file.
+        /// /*cef()*/
+        /// </summary>
+
+        public CefStreamReader CreateForFile(string fileName)
+        {
+            JsValue v1 = new JsValue();
+            JsValue ret;
+            v1.Ptr = Cef3Binder.MyCefCreateStringHolder(fileName);
+
+            Cef3Binder.MyCefMet_S_Call1(CefStreamReader_S_CreateForFile_1, out ret, ref v1);
+            Cef3Binder.MyCefDeletePtr(v1.Ptr);
+            return new CefStreamReader(ret.Ptr);
+        }
+        //CsCallToNativeCodeGen::GenerateCs_S_Method , 467
+
+        // gen! CefRefPtr<CefStreamReader> CreateForData(void* data,size_t size)
+        /// <summary>
+        /// Create a new CefStreamReader object from data.
+        /// /*cef()*/
+        /// </summary>
+
+        public CefStreamReader CreateForData(IntPtr data,
+        uint size)
+        {
+            JsValue v1 = new JsValue();
+            JsValue v2 = new JsValue();
+            JsValue ret;
+            v1.Ptr = data;
+            v2.I32 = (int)size;
+
+            Cef3Binder.MyCefMet_S_Call2(CefStreamReader_S_CreateForData_2, out ret, ref v1, ref v2);
+            return new CefStreamReader(ret.Ptr);
+        }
+        //CsCallToNativeCodeGen::GenerateCs_S_Method , 468
+
+        // gen! CefRefPtr<CefStreamReader> CreateForHandler(CefRefPtr<CefReadHandler> handler)
+        /// <summary>
+        /// Create a new CefStreamReader object from a custom handler.
+        /// /*cef()*/
+        /// </summary>
+
+        public CefStreamReader CreateForHandler(CefReadHandler handler)
+        {
+            JsValue v1 = new JsValue();
+            JsValue ret;
+            v1.Ptr = handler.nativePtr;
+
+            Cef3Binder.MyCefMet_S_Call1(CefStreamReader_S_CreateForHandler_3, out ret, ref v1);
+            return new CefStreamReader(ret.Ptr);
+        }
     }
 
 
     // [virtual] class CefStreamWriter
-    //CsCallToNativeCodeGen::GenerateCsCode , 447
+    //CsCallToNativeCodeGen::GenerateCsCode , 469
     /// <summary>
     /// Class used to write data to a stream. The methods of this class may be called
     /// on any thread.
@@ -10492,6 +10961,9 @@ namespace LayoutFarm.CefBridge.Auto
         const int CefStreamWriter_Tell_3 = (_typeNAME << 16) | 3;
         const int CefStreamWriter_Flush_4 = (_typeNAME << 16) | 4;
         const int CefStreamWriter_MayBlock_5 = (_typeNAME << 16) | 5;
+        //
+        const int CefStreamWriter_S_CreateForFile_1 = (_typeNAME << 16) | 1;
+        const int CefStreamWriter_S_CreateForHandler_2 = (_typeNAME << 16) | 2;
         internal IntPtr nativePtr;
         internal CefStreamWriter(IntPtr nativePtr)
         {
@@ -10503,7 +10975,7 @@ namespace LayoutFarm.CefBridge.Auto
             Cef3Binder.MyCefMet_Call0(this.nativePtr, CefStreamWriter_Release_0, out ret);
             this.nativePtr = IntPtr.Zero;
         }
-        //CsCallToNativeCodeGen::GenerateCsMethod , 448
+        //CsCallToNativeCodeGen::GenerateCsMethod , 470
 
         // gen! size_t Write(const void* ptr,size_t size,size_t n)
         /// <summary>
@@ -10525,7 +10997,7 @@ namespace LayoutFarm.CefBridge.Auto
             Cef3Binder.MyCefMet_Call3(this.nativePtr, CefStreamWriter_Write_1, out ret, ref v1, ref v2, ref v3);
             return (uint)ret.I32;
         }
-        //CsCallToNativeCodeGen::GenerateCsMethod , 449
+        //CsCallToNativeCodeGen::GenerateCsMethod , 471
 
         // gen! int Seek(int64 offset,int whence)
         /// <summary>
@@ -10547,7 +11019,7 @@ namespace LayoutFarm.CefBridge.Auto
             Cef3Binder.MyCefMet_Call2(this.nativePtr, CefStreamWriter_Seek_2, out ret, ref v1, ref v2);
             return ret.I32;
         }
-        //CsCallToNativeCodeGen::GenerateCsMethod , 450
+        //CsCallToNativeCodeGen::GenerateCsMethod , 472
 
         // gen! int64 Tell()
         /// <summary>
@@ -10562,7 +11034,7 @@ namespace LayoutFarm.CefBridge.Auto
             Cef3Binder.MyCefMet_Call0(this.nativePtr, CefStreamWriter_Tell_3, out ret);
             return ret.I64;
         }
-        //CsCallToNativeCodeGen::GenerateCsMethod , 451
+        //CsCallToNativeCodeGen::GenerateCsMethod , 473
 
         // gen! int Flush()
         /// <summary>
@@ -10577,7 +11049,7 @@ namespace LayoutFarm.CefBridge.Auto
             Cef3Binder.MyCefMet_Call0(this.nativePtr, CefStreamWriter_Flush_4, out ret);
             return ret.I32;
         }
-        //CsCallToNativeCodeGen::GenerateCsMethod , 452
+        //CsCallToNativeCodeGen::GenerateCsMethod , 474
 
         // gen! bool MayBlock()
         /// <summary>
@@ -10594,11 +11066,47 @@ namespace LayoutFarm.CefBridge.Auto
             Cef3Binder.MyCefMet_Call0(this.nativePtr, CefStreamWriter_MayBlock_5, out ret);
             return ret.I32 != 0;
         }
+        //
+        //CsCallToNativeCodeGen::GenerateCs_S_Method , 475
+
+        // gen! CefRefPtr<CefStreamWriter> CreateForFile(const CefString& fileName)
+        /// <summary>
+        /// Create a new CefStreamWriter object for a file.
+        /// /*cef()*/
+        /// </summary>
+
+        public CefStreamWriter CreateForFile(string fileName)
+        {
+            JsValue v1 = new JsValue();
+            JsValue ret;
+            v1.Ptr = Cef3Binder.MyCefCreateStringHolder(fileName);
+
+            Cef3Binder.MyCefMet_S_Call1(CefStreamWriter_S_CreateForFile_1, out ret, ref v1);
+            Cef3Binder.MyCefDeletePtr(v1.Ptr);
+            return new CefStreamWriter(ret.Ptr);
+        }
+        //CsCallToNativeCodeGen::GenerateCs_S_Method , 476
+
+        // gen! CefRefPtr<CefStreamWriter> CreateForHandler(CefRefPtr<CefWriteHandler> handler)
+        /// <summary>
+        /// Create a new CefStreamWriter object for a custom handler.
+        /// /*cef()*/
+        /// </summary>
+
+        public CefStreamWriter CreateForHandler(CefWriteHandler handler)
+        {
+            JsValue v1 = new JsValue();
+            JsValue ret;
+            v1.Ptr = handler.nativePtr;
+
+            Cef3Binder.MyCefMet_S_Call1(CefStreamWriter_S_CreateForHandler_2, out ret, ref v1);
+            return new CefStreamWriter(ret.Ptr);
+        }
     }
 
 
     // [virtual] class CefStringVisitor
-    //CsCallToNativeCodeGen::GenerateCsCode , 453
+    //CsCallToNativeCodeGen::GenerateCsCode , 477
     /// <summary>
     /// Implement this interface to receive string values asynchronously.
     /// /*(source=client)*/
@@ -10627,7 +11135,7 @@ namespace LayoutFarm.CefBridge.Auto
 
 
     // [virtual] class CefTask
-    //CsCallToNativeCodeGen::GenerateCsCode , 454
+    //CsCallToNativeCodeGen::GenerateCsCode , 478
     /// <summary>
     /// Implement this interface for asynchronous task execution. If the task is
     /// posted successfully and if the associated message loop is still running then
@@ -10661,7 +11169,7 @@ namespace LayoutFarm.CefBridge.Auto
 
 
     // [virtual] class CefTaskRunner
-    //CsCallToNativeCodeGen::GenerateCsCode , 455
+    //CsCallToNativeCodeGen::GenerateCsCode , 479
     /// <summary>
     /// Class that asynchronously executes tasks on the associated thread. It is safe
     /// to call the methods of this class on any thread.
@@ -10681,6 +11189,9 @@ namespace LayoutFarm.CefBridge.Auto
         const int CefTaskRunner_BelongsToThread_3 = (_typeNAME << 16) | 3;
         const int CefTaskRunner_PostTask_4 = (_typeNAME << 16) | 4;
         const int CefTaskRunner_PostDelayedTask_5 = (_typeNAME << 16) | 5;
+        //
+        const int CefTaskRunner_S_GetForCurrentThread_1 = (_typeNAME << 16) | 1;
+        const int CefTaskRunner_S_GetForThread_2 = (_typeNAME << 16) | 2;
         internal IntPtr nativePtr;
         internal CefTaskRunner(IntPtr nativePtr)
         {
@@ -10692,7 +11203,7 @@ namespace LayoutFarm.CefBridge.Auto
             Cef3Binder.MyCefMet_Call0(this.nativePtr, CefTaskRunner_Release_0, out ret);
             this.nativePtr = IntPtr.Zero;
         }
-        //CsCallToNativeCodeGen::GenerateCsMethod , 456
+        //CsCallToNativeCodeGen::GenerateCsMethod , 480
 
         // gen! bool IsSame(CefRefPtr<CefTaskRunner> that)
         /// <summary>
@@ -10708,7 +11219,7 @@ namespace LayoutFarm.CefBridge.Auto
             Cef3Binder.MyCefMet_Call1(this.nativePtr, CefTaskRunner_IsSame_1, out ret, ref v1);
             return ret.I32 != 0;
         }
-        //CsCallToNativeCodeGen::GenerateCsMethod , 457
+        //CsCallToNativeCodeGen::GenerateCsMethod , 481
 
         // gen! bool BelongsToCurrentThread()
         /// <summary>
@@ -10723,7 +11234,7 @@ namespace LayoutFarm.CefBridge.Auto
             Cef3Binder.MyCefMet_Call0(this.nativePtr, CefTaskRunner_BelongsToCurrentThread_2, out ret);
             return ret.I32 != 0;
         }
-        //CsCallToNativeCodeGen::GenerateCsMethod , 458
+        //CsCallToNativeCodeGen::GenerateCsMethod , 482
 
         // gen! bool BelongsToThread(CefThreadId threadId)
         /// <summary>
@@ -10740,7 +11251,7 @@ namespace LayoutFarm.CefBridge.Auto
             Cef3Binder.MyCefMet_Call1(this.nativePtr, CefTaskRunner_BelongsToThread_3, out ret, ref v1);
             return ret.I32 != 0;
         }
-        //CsCallToNativeCodeGen::GenerateCsMethod , 459
+        //CsCallToNativeCodeGen::GenerateCsMethod , 483
 
         // gen! bool PostTask(CefRefPtr<CefTask> task)
         /// <summary>
@@ -10758,7 +11269,7 @@ namespace LayoutFarm.CefBridge.Auto
             Cef3Binder.MyCefMet_Call1(this.nativePtr, CefTaskRunner_PostTask_4, out ret, ref v1);
             return ret.I32 != 0;
         }
-        //CsCallToNativeCodeGen::GenerateCsMethod , 460
+        //CsCallToNativeCodeGen::GenerateCsMethod , 484
 
         // gen! bool PostDelayedTask(CefRefPtr<CefTask> task,int64 delay_ms)
         /// <summary>
@@ -10781,11 +11292,46 @@ namespace LayoutFarm.CefBridge.Auto
             Cef3Binder.MyCefMet_Call2(this.nativePtr, CefTaskRunner_PostDelayedTask_5, out ret, ref v1, ref v2);
             return ret.I32 != 0;
         }
+        //
+        //CsCallToNativeCodeGen::GenerateCs_S_Method , 485
+
+        // gen! CefRefPtr<CefTaskRunner> GetForCurrentThread()
+        /// <summary>
+        /// Returns the task runner for the current thread. Only CEF threads will have
+        /// task runners. An empty reference will be returned if this method is called
+        /// on an invalid thread.
+        /// /*cef()*/
+        /// </summary>
+
+        public CefTaskRunner GetForCurrentThread()
+        {
+            JsValue ret;
+
+            Cef3Binder.MyCefMet_S_Call0(CefTaskRunner_S_GetForCurrentThread_1, out ret);
+            return new CefTaskRunner(ret.Ptr);
+        }
+        //CsCallToNativeCodeGen::GenerateCs_S_Method , 486
+
+        // gen! CefRefPtr<CefTaskRunner> GetForThread(CefThreadId threadId)
+        /// <summary>
+        /// Returns the task runner for the specified CEF thread.
+        /// /*cef()*/
+        /// </summary>
+
+        public CefTaskRunner GetForThread(cef_thread_id_t threadId)
+        {
+            JsValue v1 = new JsValue();
+            JsValue ret;
+            v1.I32 = (int)threadId;
+
+            Cef3Binder.MyCefMet_S_Call1(CefTaskRunner_S_GetForThread_2, out ret, ref v1);
+            return new CefTaskRunner(ret.Ptr);
+        }
     }
 
 
     // [virtual] class CefURLRequest
-    //CsCallToNativeCodeGen::GenerateCsCode , 461
+    //CsCallToNativeCodeGen::GenerateCsCode , 487
     /// <summary>
     /// Class used to make a URL request. URL requests are not associated with a
     /// browser instance so no CefClient callbacks will be executed. URL requests
@@ -10804,6 +11350,8 @@ namespace LayoutFarm.CefBridge.Auto
         const int CefURLRequest_GetRequestError_4 = (_typeNAME << 16) | 4;
         const int CefURLRequest_GetResponse_5 = (_typeNAME << 16) | 5;
         const int CefURLRequest_Cancel_6 = (_typeNAME << 16) | 6;
+        //
+        const int CefURLRequest_S_Create_1 = (_typeNAME << 16) | 1;
         internal IntPtr nativePtr;
         internal CefURLRequest(IntPtr nativePtr)
         {
@@ -10815,7 +11363,7 @@ namespace LayoutFarm.CefBridge.Auto
             Cef3Binder.MyCefMet_Call0(this.nativePtr, CefURLRequest_Release_0, out ret);
             this.nativePtr = IntPtr.Zero;
         }
-        //CsCallToNativeCodeGen::GenerateCsMethod , 462
+        //CsCallToNativeCodeGen::GenerateCsMethod , 488
 
         // gen! CefRefPtr<CefRequest> GetRequest()
         /// <summary>
@@ -10829,7 +11377,7 @@ namespace LayoutFarm.CefBridge.Auto
             Cef3Binder.MyCefMet_Call0(this.nativePtr, CefURLRequest_GetRequest_1, out ret);
             return new CefRequest(ret.Ptr);
         }
-        //CsCallToNativeCodeGen::GenerateCsMethod , 463
+        //CsCallToNativeCodeGen::GenerateCsMethod , 489
 
         // gen! CefRefPtr<CefURLRequestClient> GetClient()
         /// <summary>
@@ -10844,7 +11392,7 @@ namespace LayoutFarm.CefBridge.Auto
             Cef3Binder.MyCefMet_Call0(this.nativePtr, CefURLRequest_GetClient_2, out ret);
             return new CefURLRequestClient(ret.Ptr);
         }
-        //CsCallToNativeCodeGen::GenerateCsMethod , 464
+        //CsCallToNativeCodeGen::GenerateCsMethod , 490
 
         // gen! Status GetRequestStatus()
         /// <summary>
@@ -10860,7 +11408,7 @@ namespace LayoutFarm.CefBridge.Auto
             return (cef_urlrequest_status_t)ret.I32;
 
         }
-        //CsCallToNativeCodeGen::GenerateCsMethod , 465
+        //CsCallToNativeCodeGen::GenerateCsMethod , 491
 
         // gen! ErrorCode GetRequestError()
         /// <summary>
@@ -10877,7 +11425,7 @@ namespace LayoutFarm.CefBridge.Auto
             return (cef_errorcode_t)ret.I32;
 
         }
-        //CsCallToNativeCodeGen::GenerateCsMethod , 466
+        //CsCallToNativeCodeGen::GenerateCsMethod , 492
 
         // gen! CefRefPtr<CefResponse> GetResponse()
         /// <summary>
@@ -10894,7 +11442,7 @@ namespace LayoutFarm.CefBridge.Auto
             Cef3Binder.MyCefMet_Call0(this.nativePtr, CefURLRequest_GetResponse_5, out ret);
             return new CefResponse(ret.Ptr);
         }
-        //CsCallToNativeCodeGen::GenerateCsMethod , 467
+        //CsCallToNativeCodeGen::GenerateCsMethod , 493
 
         // gen! void Cancel()
         /// <summary>
@@ -10909,11 +11457,47 @@ namespace LayoutFarm.CefBridge.Auto
             Cef3Binder.MyCefMet_Call0(this.nativePtr, CefURLRequest_Cancel_6, out ret);
 
         }
+        //
+        //CsCallToNativeCodeGen::GenerateCs_S_Method , 494
+
+        // gen! CefRefPtr<CefURLRequest> Create(CefRefPtr<CefRequest> request,CefRefPtr<CefURLRequestClient> client,CefRefPtr<CefRequestContext> request_context)
+        /// <summary>
+        /// Create a new URL request. Only GET, POST, HEAD, DELETE and PUT request
+        /// methods are supported. Multiple post data elements are not supported and
+        /// elements of type PDE_TYPE_FILE are only supported for requests originating
+        /// from the browser process. Requests originating from the render process will
+        /// receive the same handling as requests originating from Web content -- if
+        /// the response contains Content-Disposition or Mime-Type header values that
+        /// would not normally be rendered then the response may receive special
+        /// handling inside the browser (for example, via the file download code path
+        /// instead of the URL request code path). The |request| object will be marked
+        /// as read-only after calling this method. In the browser process if
+        /// |request_context| is empty the global request context will be used. In the
+        /// render process |request_context| must be empty and the context associated
+        /// with the current renderer process' browser will be used.
+        /// /*cef(optional_param=request_context)*/
+        /// </summary>
+
+        public CefURLRequest Create(CefRequest request,
+        CefURLRequestClient client,
+        CefRequestContext request_context)
+        {
+            JsValue v1 = new JsValue();
+            JsValue v2 = new JsValue();
+            JsValue v3 = new JsValue();
+            JsValue ret;
+            v1.Ptr = request.nativePtr;
+            v2.Ptr = client.nativePtr;
+            v3.Ptr = request_context.nativePtr;
+
+            Cef3Binder.MyCefMet_S_Call3(CefURLRequest_S_Create_1, out ret, ref v1, ref v2, ref v3);
+            return new CefURLRequest(ret.Ptr);
+        }
     }
 
 
     // [virtual] class CefURLRequestClient
-    //CsCallToNativeCodeGen::GenerateCsCode , 468
+    //CsCallToNativeCodeGen::GenerateCsCode , 495
     /// <summary>
     /// Interface that should be implemented by the CefURLRequest client. The
     /// methods of this class will be called on the same thread that created the
@@ -10944,7 +11528,7 @@ namespace LayoutFarm.CefBridge.Auto
 
 
     // [virtual] class CefV8Context
-    //CsCallToNativeCodeGen::GenerateCsCode , 469
+    //CsCallToNativeCodeGen::GenerateCsCode , 496
     /// <summary>
     /// Class representing a V8 context handle. V8 handles can only be accessed from
     /// the thread on which they are created. Valid threads for creating a V8 handle
@@ -10966,6 +11550,10 @@ namespace LayoutFarm.CefBridge.Auto
         const int CefV8Context_Exit_7 = (_typeNAME << 16) | 7;
         const int CefV8Context_IsSame_8 = (_typeNAME << 16) | 8;
         const int CefV8Context_Eval_9 = (_typeNAME << 16) | 9;
+        //
+        const int CefV8Context_S_GetCurrentContext_1 = (_typeNAME << 16) | 1;
+        const int CefV8Context_S_GetEnteredContext_2 = (_typeNAME << 16) | 2;
+        const int CefV8Context_S_InContext_3 = (_typeNAME << 16) | 3;
         internal IntPtr nativePtr;
         internal CefV8Context(IntPtr nativePtr)
         {
@@ -10977,7 +11565,7 @@ namespace LayoutFarm.CefBridge.Auto
             Cef3Binder.MyCefMet_Call0(this.nativePtr, CefV8Context_Release_0, out ret);
             this.nativePtr = IntPtr.Zero;
         }
-        //CsCallToNativeCodeGen::GenerateCsMethod , 470
+        //CsCallToNativeCodeGen::GenerateCsMethod , 497
 
         // gen! CefRefPtr<CefTaskRunner> GetTaskRunner()
         /// <summary>
@@ -10991,7 +11579,7 @@ namespace LayoutFarm.CefBridge.Auto
             Cef3Binder.MyCefMet_Call0(this.nativePtr, CefV8Context_GetTaskRunner_1, out ret);
             return new CefTaskRunner(ret.Ptr);
         }
-        //CsCallToNativeCodeGen::GenerateCsMethod , 471
+        //CsCallToNativeCodeGen::GenerateCsMethod , 498
 
         // gen! bool IsValid()
         /// <summary>
@@ -11008,7 +11596,7 @@ namespace LayoutFarm.CefBridge.Auto
             Cef3Binder.MyCefMet_Call0(this.nativePtr, CefV8Context_IsValid_2, out ret);
             return ret.I32 != 0;
         }
-        //CsCallToNativeCodeGen::GenerateCsMethod , 472
+        //CsCallToNativeCodeGen::GenerateCsMethod , 499
 
         // gen! CefRefPtr<CefBrowser> GetBrowser()
         /// <summary>
@@ -11024,7 +11612,7 @@ namespace LayoutFarm.CefBridge.Auto
             Cef3Binder.MyCefMet_Call0(this.nativePtr, CefV8Context_GetBrowser_3, out ret);
             return new CefBrowser(ret.Ptr);
         }
-        //CsCallToNativeCodeGen::GenerateCsMethod , 473
+        //CsCallToNativeCodeGen::GenerateCsMethod , 500
 
         // gen! CefRefPtr<CefFrame> GetFrame()
         /// <summary>
@@ -11040,7 +11628,7 @@ namespace LayoutFarm.CefBridge.Auto
             Cef3Binder.MyCefMet_Call0(this.nativePtr, CefV8Context_GetFrame_4, out ret);
             return new CefFrame(ret.Ptr);
         }
-        //CsCallToNativeCodeGen::GenerateCsMethod , 474
+        //CsCallToNativeCodeGen::GenerateCsMethod , 501
 
         // gen! CefRefPtr<CefV8Value> GetGlobal()
         /// <summary>
@@ -11056,7 +11644,7 @@ namespace LayoutFarm.CefBridge.Auto
             Cef3Binder.MyCefMet_Call0(this.nativePtr, CefV8Context_GetGlobal_5, out ret);
             return new CefV8Value(ret.Ptr);
         }
-        //CsCallToNativeCodeGen::GenerateCsMethod , 475
+        //CsCallToNativeCodeGen::GenerateCsMethod , 502
 
         // gen! bool Enter()
         /// <summary>
@@ -11075,7 +11663,7 @@ namespace LayoutFarm.CefBridge.Auto
             Cef3Binder.MyCefMet_Call0(this.nativePtr, CefV8Context_Enter_6, out ret);
             return ret.I32 != 0;
         }
-        //CsCallToNativeCodeGen::GenerateCsMethod , 476
+        //CsCallToNativeCodeGen::GenerateCsMethod , 503
 
         // gen! bool Exit()
         /// <summary>
@@ -11091,7 +11679,7 @@ namespace LayoutFarm.CefBridge.Auto
             Cef3Binder.MyCefMet_Call0(this.nativePtr, CefV8Context_Exit_7, out ret);
             return ret.I32 != 0;
         }
-        //CsCallToNativeCodeGen::GenerateCsMethod , 477
+        //CsCallToNativeCodeGen::GenerateCsMethod , 504
 
         // gen! bool IsSame(CefRefPtr<CefV8Context> that)
         /// <summary>
@@ -11109,7 +11697,7 @@ namespace LayoutFarm.CefBridge.Auto
             Cef3Binder.MyCefMet_Call1(this.nativePtr, CefV8Context_IsSame_8, out ret, ref v1);
             return ret.I32 != 0;
         }
-        //CsCallToNativeCodeGen::GenerateCsMethod , 478
+        //CsCallToNativeCodeGen::GenerateCsMethod , 505
 
         // gen! bool Eval(const CefString& code,const CefString& script_url,int start_line,CefRefPtr<CefV8Value>& retval,CefRefPtr<CefV8Exception>& exception)
         /// <summary>
@@ -11147,11 +11735,57 @@ namespace LayoutFarm.CefBridge.Auto
             exception = v5.Ptr;
             return ret.I32 != 0;
         }
+        //
+        //CsCallToNativeCodeGen::GenerateCs_S_Method , 506
+
+        // gen! CefRefPtr<CefV8Context> GetCurrentContext()
+        /// <summary>
+        /// Returns the current (top) context object in the V8 context stack.
+        /// /*cef()*/
+        /// </summary>
+
+        public CefV8Context GetCurrentContext()
+        {
+            JsValue ret;
+
+            Cef3Binder.MyCefMet_S_Call0(CefV8Context_S_GetCurrentContext_1, out ret);
+            return new CefV8Context(ret.Ptr);
+        }
+        //CsCallToNativeCodeGen::GenerateCs_S_Method , 507
+
+        // gen! CefRefPtr<CefV8Context> GetEnteredContext()
+        /// <summary>
+        /// Returns the entered (bottom) context object in the V8 context stack.
+        /// /*cef()*/
+        /// </summary>
+
+        public CefV8Context GetEnteredContext()
+        {
+            JsValue ret;
+
+            Cef3Binder.MyCefMet_S_Call0(CefV8Context_S_GetEnteredContext_2, out ret);
+            return new CefV8Context(ret.Ptr);
+        }
+        //CsCallToNativeCodeGen::GenerateCs_S_Method , 508
+
+        // gen! bool InContext()
+        /// <summary>
+        /// Returns true if V8 is currently inside a context.
+        /// /*cef()*/
+        /// </summary>
+
+        public bool InContext()
+        {
+            JsValue ret;
+
+            Cef3Binder.MyCefMet_S_Call0(CefV8Context_S_InContext_3, out ret);
+            return ret.I32 != 0;
+        }
     }
 
 
     // [virtual] class CefV8Accessor
-    //CsCallToNativeCodeGen::GenerateCsCode , 479
+    //CsCallToNativeCodeGen::GenerateCsCode , 509
     /// <summary>
     /// Interface that should be implemented to handle V8 accessor calls. Accessor
     /// identifiers are registered by calling CefV8Value::SetValue(). The methods
@@ -11182,7 +11816,7 @@ namespace LayoutFarm.CefBridge.Auto
 
 
     // [virtual] class CefV8Interceptor
-    //CsCallToNativeCodeGen::GenerateCsCode , 480
+    //CsCallToNativeCodeGen::GenerateCsCode , 510
     /// <summary>
     /// Interface that should be implemented to handle V8 interceptor calls. The
     /// methods of this class will be called on the thread associated with the V8
@@ -11216,7 +11850,7 @@ namespace LayoutFarm.CefBridge.Auto
 
 
     // [virtual] class CefV8Exception
-    //CsCallToNativeCodeGen::GenerateCsCode , 481
+    //CsCallToNativeCodeGen::GenerateCsCode , 511
     /// <summary>
     /// Class representing a V8 exception. The methods of this class may be called on
     /// any render process thread.
@@ -11245,7 +11879,7 @@ namespace LayoutFarm.CefBridge.Auto
             Cef3Binder.MyCefMet_Call0(this.nativePtr, CefV8Exception_Release_0, out ret);
             this.nativePtr = IntPtr.Zero;
         }
-        //CsCallToNativeCodeGen::GenerateCsMethod , 482
+        //CsCallToNativeCodeGen::GenerateCsMethod , 512
 
         // gen! CefString GetMessage()
         /// <summary>
@@ -11259,7 +11893,7 @@ namespace LayoutFarm.CefBridge.Auto
             Cef3Binder.MyCefMet_Call0(this.nativePtr, CefV8Exception_GetMessage_1, out ret);
             return Cef3Binder.CopyStringAndDestroyNativeSide(ref ret);
         }
-        //CsCallToNativeCodeGen::GenerateCsMethod , 483
+        //CsCallToNativeCodeGen::GenerateCsMethod , 513
 
         // gen! CefString GetSourceLine()
         /// <summary>
@@ -11274,7 +11908,7 @@ namespace LayoutFarm.CefBridge.Auto
             Cef3Binder.MyCefMet_Call0(this.nativePtr, CefV8Exception_GetSourceLine_2, out ret);
             return Cef3Binder.CopyStringAndDestroyNativeSide(ref ret);
         }
-        //CsCallToNativeCodeGen::GenerateCsMethod , 484
+        //CsCallToNativeCodeGen::GenerateCsMethod , 514
 
         // gen! CefString GetScriptResourceName()
         /// <summary>
@@ -11290,7 +11924,7 @@ namespace LayoutFarm.CefBridge.Auto
             Cef3Binder.MyCefMet_Call0(this.nativePtr, CefV8Exception_GetScriptResourceName_3, out ret);
             return Cef3Binder.CopyStringAndDestroyNativeSide(ref ret);
         }
-        //CsCallToNativeCodeGen::GenerateCsMethod , 485
+        //CsCallToNativeCodeGen::GenerateCsMethod , 515
 
         // gen! int GetLineNumber()
         /// <summary>
@@ -11306,7 +11940,7 @@ namespace LayoutFarm.CefBridge.Auto
             Cef3Binder.MyCefMet_Call0(this.nativePtr, CefV8Exception_GetLineNumber_4, out ret);
             return ret.I32;
         }
-        //CsCallToNativeCodeGen::GenerateCsMethod , 486
+        //CsCallToNativeCodeGen::GenerateCsMethod , 516
 
         // gen! int GetStartPosition()
         /// <summary>
@@ -11322,7 +11956,7 @@ namespace LayoutFarm.CefBridge.Auto
             Cef3Binder.MyCefMet_Call0(this.nativePtr, CefV8Exception_GetStartPosition_5, out ret);
             return ret.I32;
         }
-        //CsCallToNativeCodeGen::GenerateCsMethod , 487
+        //CsCallToNativeCodeGen::GenerateCsMethod , 517
 
         // gen! int GetEndPosition()
         /// <summary>
@@ -11338,7 +11972,7 @@ namespace LayoutFarm.CefBridge.Auto
             Cef3Binder.MyCefMet_Call0(this.nativePtr, CefV8Exception_GetEndPosition_6, out ret);
             return ret.I32;
         }
-        //CsCallToNativeCodeGen::GenerateCsMethod , 488
+        //CsCallToNativeCodeGen::GenerateCsMethod , 518
 
         // gen! int GetStartColumn()
         /// <summary>
@@ -11354,7 +11988,7 @@ namespace LayoutFarm.CefBridge.Auto
             Cef3Binder.MyCefMet_Call0(this.nativePtr, CefV8Exception_GetStartColumn_7, out ret);
             return ret.I32;
         }
-        //CsCallToNativeCodeGen::GenerateCsMethod , 489
+        //CsCallToNativeCodeGen::GenerateCsMethod , 519
 
         // gen! int GetEndColumn()
         /// <summary>
@@ -11374,7 +12008,7 @@ namespace LayoutFarm.CefBridge.Auto
 
 
     // [virtual] class CefV8Value
-    //CsCallToNativeCodeGen::GenerateCsCode , 490
+    //CsCallToNativeCodeGen::GenerateCsCode , 520
     /// <summary>
     /// Class representing a V8 value handle. V8 handles can only be accessed from
     /// the thread on which they are created. Valid threads for creating a V8 handle
@@ -11431,6 +12065,18 @@ namespace LayoutFarm.CefBridge.Auto
         const int CefV8Value_GetFunctionHandler_42 = (_typeNAME << 16) | 42;
         const int CefV8Value_ExecuteFunction_43 = (_typeNAME << 16) | 43;
         const int CefV8Value_ExecuteFunctionWithContext_44 = (_typeNAME << 16) | 44;
+        //
+        const int CefV8Value_S_CreateUndefined_1 = (_typeNAME << 16) | 1;
+        const int CefV8Value_S_CreateNull_2 = (_typeNAME << 16) | 2;
+        const int CefV8Value_S_CreateBool_3 = (_typeNAME << 16) | 3;
+        const int CefV8Value_S_CreateInt_4 = (_typeNAME << 16) | 4;
+        const int CefV8Value_S_CreateUInt_5 = (_typeNAME << 16) | 5;
+        const int CefV8Value_S_CreateDouble_6 = (_typeNAME << 16) | 6;
+        const int CefV8Value_S_CreateDate_7 = (_typeNAME << 16) | 7;
+        const int CefV8Value_S_CreateString_8 = (_typeNAME << 16) | 8;
+        const int CefV8Value_S_CreateObject_9 = (_typeNAME << 16) | 9;
+        const int CefV8Value_S_CreateArray_10 = (_typeNAME << 16) | 10;
+        const int CefV8Value_S_CreateFunction_11 = (_typeNAME << 16) | 11;
         internal IntPtr nativePtr;
         internal CefV8Value(IntPtr nativePtr)
         {
@@ -11442,7 +12088,7 @@ namespace LayoutFarm.CefBridge.Auto
             Cef3Binder.MyCefMet_Call0(this.nativePtr, CefV8Value_Release_0, out ret);
             this.nativePtr = IntPtr.Zero;
         }
-        //CsCallToNativeCodeGen::GenerateCsMethod , 491
+        //CsCallToNativeCodeGen::GenerateCsMethod , 521
 
         // gen! bool IsValid()
         /// <summary>
@@ -11456,7 +12102,7 @@ namespace LayoutFarm.CefBridge.Auto
             Cef3Binder.MyCefMet_Call0(this.nativePtr, CefV8Value_IsValid_1, out ret);
             return ret.I32 != 0;
         }
-        //CsCallToNativeCodeGen::GenerateCsMethod , 492
+        //CsCallToNativeCodeGen::GenerateCsMethod , 522
 
         // gen! bool IsUndefined()
         /// <summary>
@@ -11471,7 +12117,7 @@ namespace LayoutFarm.CefBridge.Auto
             Cef3Binder.MyCefMet_Call0(this.nativePtr, CefV8Value_IsUndefined_2, out ret);
             return ret.I32 != 0;
         }
-        //CsCallToNativeCodeGen::GenerateCsMethod , 493
+        //CsCallToNativeCodeGen::GenerateCsMethod , 523
 
         // gen! bool IsNull()
         /// <summary>
@@ -11486,7 +12132,7 @@ namespace LayoutFarm.CefBridge.Auto
             Cef3Binder.MyCefMet_Call0(this.nativePtr, CefV8Value_IsNull_3, out ret);
             return ret.I32 != 0;
         }
-        //CsCallToNativeCodeGen::GenerateCsMethod , 494
+        //CsCallToNativeCodeGen::GenerateCsMethod , 524
 
         // gen! bool IsBool()
         /// <summary>
@@ -11501,7 +12147,7 @@ namespace LayoutFarm.CefBridge.Auto
             Cef3Binder.MyCefMet_Call0(this.nativePtr, CefV8Value_IsBool_4, out ret);
             return ret.I32 != 0;
         }
-        //CsCallToNativeCodeGen::GenerateCsMethod , 495
+        //CsCallToNativeCodeGen::GenerateCsMethod , 525
 
         // gen! bool IsInt()
         /// <summary>
@@ -11516,7 +12162,7 @@ namespace LayoutFarm.CefBridge.Auto
             Cef3Binder.MyCefMet_Call0(this.nativePtr, CefV8Value_IsInt_5, out ret);
             return ret.I32 != 0;
         }
-        //CsCallToNativeCodeGen::GenerateCsMethod , 496
+        //CsCallToNativeCodeGen::GenerateCsMethod , 526
 
         // gen! bool IsUInt()
         /// <summary>
@@ -11531,7 +12177,7 @@ namespace LayoutFarm.CefBridge.Auto
             Cef3Binder.MyCefMet_Call0(this.nativePtr, CefV8Value_IsUInt_6, out ret);
             return ret.I32 != 0;
         }
-        //CsCallToNativeCodeGen::GenerateCsMethod , 497
+        //CsCallToNativeCodeGen::GenerateCsMethod , 527
 
         // gen! bool IsDouble()
         /// <summary>
@@ -11546,7 +12192,7 @@ namespace LayoutFarm.CefBridge.Auto
             Cef3Binder.MyCefMet_Call0(this.nativePtr, CefV8Value_IsDouble_7, out ret);
             return ret.I32 != 0;
         }
-        //CsCallToNativeCodeGen::GenerateCsMethod , 498
+        //CsCallToNativeCodeGen::GenerateCsMethod , 528
 
         // gen! bool IsDate()
         /// <summary>
@@ -11561,7 +12207,7 @@ namespace LayoutFarm.CefBridge.Auto
             Cef3Binder.MyCefMet_Call0(this.nativePtr, CefV8Value_IsDate_8, out ret);
             return ret.I32 != 0;
         }
-        //CsCallToNativeCodeGen::GenerateCsMethod , 499
+        //CsCallToNativeCodeGen::GenerateCsMethod , 529
 
         // gen! bool IsString()
         /// <summary>
@@ -11576,7 +12222,7 @@ namespace LayoutFarm.CefBridge.Auto
             Cef3Binder.MyCefMet_Call0(this.nativePtr, CefV8Value_IsString_9, out ret);
             return ret.I32 != 0;
         }
-        //CsCallToNativeCodeGen::GenerateCsMethod , 500
+        //CsCallToNativeCodeGen::GenerateCsMethod , 530
 
         // gen! bool IsObject()
         /// <summary>
@@ -11591,7 +12237,7 @@ namespace LayoutFarm.CefBridge.Auto
             Cef3Binder.MyCefMet_Call0(this.nativePtr, CefV8Value_IsObject_10, out ret);
             return ret.I32 != 0;
         }
-        //CsCallToNativeCodeGen::GenerateCsMethod , 501
+        //CsCallToNativeCodeGen::GenerateCsMethod , 531
 
         // gen! bool IsArray()
         /// <summary>
@@ -11606,7 +12252,7 @@ namespace LayoutFarm.CefBridge.Auto
             Cef3Binder.MyCefMet_Call0(this.nativePtr, CefV8Value_IsArray_11, out ret);
             return ret.I32 != 0;
         }
-        //CsCallToNativeCodeGen::GenerateCsMethod , 502
+        //CsCallToNativeCodeGen::GenerateCsMethod , 532
 
         // gen! bool IsFunction()
         /// <summary>
@@ -11621,7 +12267,7 @@ namespace LayoutFarm.CefBridge.Auto
             Cef3Binder.MyCefMet_Call0(this.nativePtr, CefV8Value_IsFunction_12, out ret);
             return ret.I32 != 0;
         }
-        //CsCallToNativeCodeGen::GenerateCsMethod , 503
+        //CsCallToNativeCodeGen::GenerateCsMethod , 533
 
         // gen! bool IsSame(CefRefPtr<CefV8Value> that)
         /// <summary>
@@ -11639,7 +12285,7 @@ namespace LayoutFarm.CefBridge.Auto
             Cef3Binder.MyCefMet_Call1(this.nativePtr, CefV8Value_IsSame_13, out ret, ref v1);
             return ret.I32 != 0;
         }
-        //CsCallToNativeCodeGen::GenerateCsMethod , 504
+        //CsCallToNativeCodeGen::GenerateCsMethod , 534
 
         // gen! bool GetBoolValue()
         /// <summary>
@@ -11654,7 +12300,7 @@ namespace LayoutFarm.CefBridge.Auto
             Cef3Binder.MyCefMet_Call0(this.nativePtr, CefV8Value_GetBoolValue_14, out ret);
             return ret.I32 != 0;
         }
-        //CsCallToNativeCodeGen::GenerateCsMethod , 505
+        //CsCallToNativeCodeGen::GenerateCsMethod , 535
 
         // gen! int32 GetIntValue()
         /// <summary>
@@ -11669,7 +12315,7 @@ namespace LayoutFarm.CefBridge.Auto
             Cef3Binder.MyCefMet_Call0(this.nativePtr, CefV8Value_GetIntValue_15, out ret);
             return ret.I32;
         }
-        //CsCallToNativeCodeGen::GenerateCsMethod , 506
+        //CsCallToNativeCodeGen::GenerateCsMethod , 536
 
         // gen! uint32 GetUIntValue()
         /// <summary>
@@ -11684,7 +12330,7 @@ namespace LayoutFarm.CefBridge.Auto
             Cef3Binder.MyCefMet_Call0(this.nativePtr, CefV8Value_GetUIntValue_16, out ret);
             return (uint)ret.I32;
         }
-        //CsCallToNativeCodeGen::GenerateCsMethod , 507
+        //CsCallToNativeCodeGen::GenerateCsMethod , 537
 
         // gen! double GetDoubleValue()
         /// <summary>
@@ -11699,7 +12345,7 @@ namespace LayoutFarm.CefBridge.Auto
             Cef3Binder.MyCefMet_Call0(this.nativePtr, CefV8Value_GetDoubleValue_17, out ret);
             return ret.Num;
         }
-        //CsCallToNativeCodeGen::GenerateCsMethod , 508
+        //CsCallToNativeCodeGen::GenerateCsMethod , 538
 
         // gen! CefTime GetDateValue()
         /// <summary>
@@ -11715,7 +12361,7 @@ namespace LayoutFarm.CefBridge.Auto
             return new CefTime(ret.Ptr);
 
         }
-        //CsCallToNativeCodeGen::GenerateCsMethod , 509
+        //CsCallToNativeCodeGen::GenerateCsMethod , 539
 
         // gen! CefString GetStringValue()
         /// <summary>
@@ -11730,7 +12376,7 @@ namespace LayoutFarm.CefBridge.Auto
             Cef3Binder.MyCefMet_Call0(this.nativePtr, CefV8Value_GetStringValue_19, out ret);
             return Cef3Binder.CopyStringAndDestroyNativeSide(ref ret);
         }
-        //CsCallToNativeCodeGen::GenerateCsMethod , 510
+        //CsCallToNativeCodeGen::GenerateCsMethod , 540
 
         // gen! bool IsUserCreated()
         /// <summary>
@@ -11748,7 +12394,7 @@ namespace LayoutFarm.CefBridge.Auto
             Cef3Binder.MyCefMet_Call0(this.nativePtr, CefV8Value_IsUserCreated_20, out ret);
             return ret.I32 != 0;
         }
-        //CsCallToNativeCodeGen::GenerateCsMethod , 511
+        //CsCallToNativeCodeGen::GenerateCsMethod , 541
 
         // gen! bool HasException()
         /// <summary>
@@ -11764,7 +12410,7 @@ namespace LayoutFarm.CefBridge.Auto
             Cef3Binder.MyCefMet_Call0(this.nativePtr, CefV8Value_HasException_21, out ret);
             return ret.I32 != 0;
         }
-        //CsCallToNativeCodeGen::GenerateCsMethod , 512
+        //CsCallToNativeCodeGen::GenerateCsMethod , 542
 
         // gen! CefRefPtr<CefV8Exception> GetException()
         /// <summary>
@@ -11780,7 +12426,7 @@ namespace LayoutFarm.CefBridge.Auto
             Cef3Binder.MyCefMet_Call0(this.nativePtr, CefV8Value_GetException_22, out ret);
             return new CefV8Exception(ret.Ptr);
         }
-        //CsCallToNativeCodeGen::GenerateCsMethod , 513
+        //CsCallToNativeCodeGen::GenerateCsMethod , 543
 
         // gen! bool ClearException()
         /// <summary>
@@ -11795,7 +12441,7 @@ namespace LayoutFarm.CefBridge.Auto
             Cef3Binder.MyCefMet_Call0(this.nativePtr, CefV8Value_ClearException_23, out ret);
             return ret.I32 != 0;
         }
-        //CsCallToNativeCodeGen::GenerateCsMethod , 514
+        //CsCallToNativeCodeGen::GenerateCsMethod , 544
 
         // gen! bool WillRethrowExceptions()
         /// <summary>
@@ -11811,7 +12457,7 @@ namespace LayoutFarm.CefBridge.Auto
             Cef3Binder.MyCefMet_Call0(this.nativePtr, CefV8Value_WillRethrowExceptions_24, out ret);
             return ret.I32 != 0;
         }
-        //CsCallToNativeCodeGen::GenerateCsMethod , 515
+        //CsCallToNativeCodeGen::GenerateCsMethod , 545
 
         // gen! bool SetRethrowExceptions(bool rethrow)
         /// <summary>
@@ -11832,7 +12478,7 @@ namespace LayoutFarm.CefBridge.Auto
             Cef3Binder.MyCefMet_Call1(this.nativePtr, CefV8Value_SetRethrowExceptions_25, out ret, ref v1);
             return ret.I32 != 0;
         }
-        //CsCallToNativeCodeGen::GenerateCsMethod , 516
+        //CsCallToNativeCodeGen::GenerateCsMethod , 546
 
         // gen! bool HasValue(const CefString& key)
 
@@ -11846,7 +12492,7 @@ namespace LayoutFarm.CefBridge.Auto
             Cef3Binder.MyCefDeletePtr(v1.Ptr);
             return ret.I32 != 0;
         }
-        //CsCallToNativeCodeGen::GenerateCsMethod , 517
+        //CsCallToNativeCodeGen::GenerateCsMethod , 547
 
         // gen! bool HasValue(int index)
 
@@ -11859,7 +12505,7 @@ namespace LayoutFarm.CefBridge.Auto
             Cef3Binder.MyCefMet_Call1(this.nativePtr, CefV8Value_HasValue_27, out ret, ref v1);
             return ret.I32 != 0;
         }
-        //CsCallToNativeCodeGen::GenerateCsMethod , 518
+        //CsCallToNativeCodeGen::GenerateCsMethod , 548
 
         // gen! bool DeleteValue(const CefString& key)
 
@@ -11873,7 +12519,7 @@ namespace LayoutFarm.CefBridge.Auto
             Cef3Binder.MyCefDeletePtr(v1.Ptr);
             return ret.I32 != 0;
         }
-        //CsCallToNativeCodeGen::GenerateCsMethod , 519
+        //CsCallToNativeCodeGen::GenerateCsMethod , 549
 
         // gen! bool DeleteValue(int index)
 
@@ -11886,7 +12532,7 @@ namespace LayoutFarm.CefBridge.Auto
             Cef3Binder.MyCefMet_Call1(this.nativePtr, CefV8Value_DeleteValue_29, out ret, ref v1);
             return ret.I32 != 0;
         }
-        //CsCallToNativeCodeGen::GenerateCsMethod , 520
+        //CsCallToNativeCodeGen::GenerateCsMethod , 550
 
         // gen! CefRefPtr<CefV8Value> GetValue(const CefString& key)
 
@@ -11900,7 +12546,7 @@ namespace LayoutFarm.CefBridge.Auto
             Cef3Binder.MyCefDeletePtr(v1.Ptr);
             return new CefV8Value(ret.Ptr);
         }
-        //CsCallToNativeCodeGen::GenerateCsMethod , 521
+        //CsCallToNativeCodeGen::GenerateCsMethod , 551
 
         // gen! CefRefPtr<CefV8Value> GetValue(int index)
 
@@ -11913,7 +12559,7 @@ namespace LayoutFarm.CefBridge.Auto
             Cef3Binder.MyCefMet_Call1(this.nativePtr, CefV8Value_GetValue_31, out ret, ref v1);
             return new CefV8Value(ret.Ptr);
         }
-        //CsCallToNativeCodeGen::GenerateCsMethod , 522
+        //CsCallToNativeCodeGen::GenerateCsMethod , 552
 
         // gen! bool SetValue(const CefString& key,CefRefPtr<CefV8Value> value,PropertyAttribute attribute)
 
@@ -11933,7 +12579,7 @@ namespace LayoutFarm.CefBridge.Auto
             Cef3Binder.MyCefDeletePtr(v1.Ptr);
             return ret.I32 != 0;
         }
-        //CsCallToNativeCodeGen::GenerateCsMethod , 523
+        //CsCallToNativeCodeGen::GenerateCsMethod , 553
 
         // gen! bool SetValue(int index,CefRefPtr<CefV8Value> value)
 
@@ -11949,7 +12595,7 @@ namespace LayoutFarm.CefBridge.Auto
             Cef3Binder.MyCefMet_Call2(this.nativePtr, CefV8Value_SetValue_33, out ret, ref v1, ref v2);
             return ret.I32 != 0;
         }
-        //CsCallToNativeCodeGen::GenerateCsMethod , 524
+        //CsCallToNativeCodeGen::GenerateCsMethod , 554
 
         // gen! bool SetValue(const CefString& key,AccessControl settings,PropertyAttribute attribute)
 
@@ -11969,7 +12615,7 @@ namespace LayoutFarm.CefBridge.Auto
             Cef3Binder.MyCefDeletePtr(v1.Ptr);
             return ret.I32 != 0;
         }
-        //CsCallToNativeCodeGen::GenerateCsMethod , 525
+        //CsCallToNativeCodeGen::GenerateCsMethod , 555
 
         // gen! bool GetKeys(std::vector<CefString>& keys)
         /// <summary>
@@ -11988,7 +12634,7 @@ namespace LayoutFarm.CefBridge.Auto
             Cef3Binder.CopyStdStringListAndDestroyNativeSide(v1.Ptr, keys);
             return ret.I32 != 0;
         }
-        //CsCallToNativeCodeGen::GenerateCsMethod , 526
+        //CsCallToNativeCodeGen::GenerateCsMethod , 556
 
         // gen! bool SetUserData(CefRefPtr<CefBaseRefCounted> user_data)
         /// <summary>
@@ -12007,7 +12653,7 @@ namespace LayoutFarm.CefBridge.Auto
             Cef3Binder.MyCefMet_Call1(this.nativePtr, CefV8Value_SetUserData_36, out ret, ref v1);
             return ret.I32 != 0;
         }
-        //CsCallToNativeCodeGen::GenerateCsMethod , 527
+        //CsCallToNativeCodeGen::GenerateCsMethod , 557
 
         // gen! CefRefPtr<CefBaseRefCounted> GetUserData()
         /// <summary>
@@ -12022,7 +12668,7 @@ namespace LayoutFarm.CefBridge.Auto
             Cef3Binder.MyCefMet_Call0(this.nativePtr, CefV8Value_GetUserData_37, out ret);
             return new CefBaseRefCounted(ret.Ptr);
         }
-        //CsCallToNativeCodeGen::GenerateCsMethod , 528
+        //CsCallToNativeCodeGen::GenerateCsMethod , 558
 
         // gen! int GetExternallyAllocatedMemory()
         /// <summary>
@@ -12038,7 +12684,7 @@ namespace LayoutFarm.CefBridge.Auto
             Cef3Binder.MyCefMet_Call0(this.nativePtr, CefV8Value_GetExternallyAllocatedMemory_38, out ret);
             return ret.I32;
         }
-        //CsCallToNativeCodeGen::GenerateCsMethod , 529
+        //CsCallToNativeCodeGen::GenerateCsMethod , 559
 
         // gen! int AdjustExternallyAllocatedMemory(int change_in_bytes)
         /// <summary>
@@ -12063,7 +12709,7 @@ namespace LayoutFarm.CefBridge.Auto
             Cef3Binder.MyCefMet_Call1(this.nativePtr, CefV8Value_AdjustExternallyAllocatedMemory_39, out ret, ref v1);
             return ret.I32;
         }
-        //CsCallToNativeCodeGen::GenerateCsMethod , 530
+        //CsCallToNativeCodeGen::GenerateCsMethod , 560
 
         // gen! int GetArrayLength()
         /// <summary>
@@ -12079,7 +12725,7 @@ namespace LayoutFarm.CefBridge.Auto
             Cef3Binder.MyCefMet_Call0(this.nativePtr, CefV8Value_GetArrayLength_40, out ret);
             return ret.I32;
         }
-        //CsCallToNativeCodeGen::GenerateCsMethod , 531
+        //CsCallToNativeCodeGen::GenerateCsMethod , 561
 
         // gen! CefString GetFunctionName()
         /// <summary>
@@ -12095,7 +12741,7 @@ namespace LayoutFarm.CefBridge.Auto
             Cef3Binder.MyCefMet_Call0(this.nativePtr, CefV8Value_GetFunctionName_41, out ret);
             return Cef3Binder.CopyStringAndDestroyNativeSide(ref ret);
         }
-        //CsCallToNativeCodeGen::GenerateCsMethod , 532
+        //CsCallToNativeCodeGen::GenerateCsMethod , 562
 
         // gen! CefRefPtr<CefV8Handler> GetFunctionHandler()
         /// <summary>
@@ -12108,9 +12754,9 @@ namespace LayoutFarm.CefBridge.Auto
             JsValue ret;
 
             Cef3Binder.MyCefMet_Call0(this.nativePtr, CefV8Value_GetFunctionHandler_42, out ret);
-            return new CefV8Handler();
+            return new CefV8Handler(ret.Ptr);
         }
-        //CsCallToNativeCodeGen::GenerateCsMethod , 533
+        //CsCallToNativeCodeGen::GenerateCsMethod , 563
 
         // gen! CefRefPtr<CefV8Value> ExecuteFunction(CefRefPtr<CefV8Value> object,const CefV8ValueList& arguments)
         /// <summary>
@@ -12137,7 +12783,7 @@ namespace LayoutFarm.CefBridge.Auto
             Cef3Binder.MyCefMet_Call2(this.nativePtr, CefV8Value_ExecuteFunction_43, out ret, ref v1, ref v2);
             return new CefV8Value(ret.Ptr);
         }
-        //CsCallToNativeCodeGen::GenerateCsMethod , 534
+        //CsCallToNativeCodeGen::GenerateCsMethod , 564
 
         // gen! CefRefPtr<CefV8Value> ExecuteFunctionWithContext(CefRefPtr<CefV8Context> context,CefRefPtr<CefV8Value> object,const CefV8ValueList& arguments)
         /// <summary>
@@ -12165,11 +12811,216 @@ namespace LayoutFarm.CefBridge.Auto
             Cef3Binder.MyCefMet_Call3(this.nativePtr, CefV8Value_ExecuteFunctionWithContext_44, out ret, ref v1, ref v2, ref v3);
             return new CefV8Value(ret.Ptr);
         }
+        //
+        //CsCallToNativeCodeGen::GenerateCs_S_Method , 565
+
+        // gen! CefRefPtr<CefV8Value> CreateUndefined()
+        /// <summary>
+        /// Create a new CefV8Value object of type undefined.
+        /// /*cef()*/
+        /// </summary>
+
+        public CefV8Value CreateUndefined()
+        {
+            JsValue ret;
+
+            Cef3Binder.MyCefMet_S_Call0(CefV8Value_S_CreateUndefined_1, out ret);
+            return new CefV8Value(ret.Ptr);
+        }
+        //CsCallToNativeCodeGen::GenerateCs_S_Method , 566
+
+        // gen! CefRefPtr<CefV8Value> CreateNull()
+        /// <summary>
+        /// Create a new CefV8Value object of type null.
+        /// /*cef()*/
+        /// </summary>
+
+        public CefV8Value CreateNull()
+        {
+            JsValue ret;
+
+            Cef3Binder.MyCefMet_S_Call0(CefV8Value_S_CreateNull_2, out ret);
+            return new CefV8Value(ret.Ptr);
+        }
+        //CsCallToNativeCodeGen::GenerateCs_S_Method , 567
+
+        // gen! CefRefPtr<CefV8Value> CreateBool(bool value)
+        /// <summary>
+        /// Create a new CefV8Value object of type bool.
+        /// /*cef()*/
+        /// </summary>
+
+        public CefV8Value CreateBool(bool value)
+        {
+            JsValue v1 = new JsValue();
+            JsValue ret;
+            v1.I32 = value ? 1 : 0;
+
+            Cef3Binder.MyCefMet_S_Call1(CefV8Value_S_CreateBool_3, out ret, ref v1);
+            return new CefV8Value(ret.Ptr);
+        }
+        //CsCallToNativeCodeGen::GenerateCs_S_Method , 568
+
+        // gen! CefRefPtr<CefV8Value> CreateInt(int32 value)
+        /// <summary>
+        /// Create a new CefV8Value object of type int.
+        /// /*cef()*/
+        /// </summary>
+
+        public CefV8Value CreateInt(int value)
+        {
+            JsValue v1 = new JsValue();
+            JsValue ret;
+            v1.I32 = value;
+
+            Cef3Binder.MyCefMet_S_Call1(CefV8Value_S_CreateInt_4, out ret, ref v1);
+            return new CefV8Value(ret.Ptr);
+        }
+        //CsCallToNativeCodeGen::GenerateCs_S_Method , 569
+
+        // gen! CefRefPtr<CefV8Value> CreateUInt(uint32 value)
+        /// <summary>
+        /// Create a new CefV8Value object of type unsigned int.
+        /// /*cef()*/
+        /// </summary>
+
+        public CefV8Value CreateUInt(uint value)
+        {
+            JsValue v1 = new JsValue();
+            JsValue ret;
+            v1.I32 = (int)value;
+
+            Cef3Binder.MyCefMet_S_Call1(CefV8Value_S_CreateUInt_5, out ret, ref v1);
+            return new CefV8Value(ret.Ptr);
+        }
+        //CsCallToNativeCodeGen::GenerateCs_S_Method , 570
+
+        // gen! CefRefPtr<CefV8Value> CreateDouble(double value)
+        /// <summary>
+        /// Create a new CefV8Value object of type double.
+        /// /*cef()*/
+        /// </summary>
+
+        public CefV8Value CreateDouble(double value)
+        {
+            JsValue v1 = new JsValue();
+            JsValue ret;
+            v1.Num = value;
+
+            Cef3Binder.MyCefMet_S_Call1(CefV8Value_S_CreateDouble_6, out ret, ref v1);
+            return new CefV8Value(ret.Ptr);
+        }
+        //CsCallToNativeCodeGen::GenerateCs_S_Method , 571
+
+        // gen! CefRefPtr<CefV8Value> CreateDate(const CefTime& date)
+        /// <summary>
+        /// Create a new CefV8Value object of type Date. This method should only be
+        /// called from within the scope of a CefRenderProcessHandler, CefV8Handler or
+        /// CefV8Accessor callback, or in combination with calling Enter() and Exit()
+        /// on a stored CefV8Context reference.
+        /// /*cef()*/
+        /// </summary>
+
+        public CefV8Value CreateDate(CefTime date)
+        {
+            JsValue v1 = new JsValue();
+            JsValue ret;
+
+            Cef3Binder.MyCefMet_S_Call1(CefV8Value_S_CreateDate_7, out ret, ref v1);
+            return new CefV8Value(ret.Ptr);
+        }
+        //CsCallToNativeCodeGen::GenerateCs_S_Method , 572
+
+        // gen! CefRefPtr<CefV8Value> CreateString(const CefString& value)
+        /// <summary>
+        /// Create a new CefV8Value object of type string.
+        /// /*cef(optional_param=value)*/
+        /// </summary>
+
+        public CefV8Value CreateString(string value)
+        {
+            JsValue v1 = new JsValue();
+            JsValue ret;
+            v1.Ptr = Cef3Binder.MyCefCreateStringHolder(value);
+
+            Cef3Binder.MyCefMet_S_Call1(CefV8Value_S_CreateString_8, out ret, ref v1);
+            Cef3Binder.MyCefDeletePtr(v1.Ptr);
+            return new CefV8Value(ret.Ptr);
+        }
+        //CsCallToNativeCodeGen::GenerateCs_S_Method , 573
+
+        // gen! CefRefPtr<CefV8Value> CreateObject(CefRefPtr<CefV8Accessor> accessor,CefRefPtr<CefV8Interceptor> interceptor)
+        /// <summary>
+        /// Create a new CefV8Value object of type object with optional accessor and/or
+        /// interceptor. This method should only be called from within the scope of a
+        /// CefRenderProcessHandler, CefV8Handler or CefV8Accessor callback, or in
+        /// combination with calling Enter() and Exit() on a stored CefV8Context
+        /// reference.
+        /// /*cef(optional_param=accessor,optional_param=interceptor)*/
+        /// </summary>
+
+        public CefV8Value CreateObject(CefV8Accessor accessor,
+        CefV8Interceptor interceptor)
+        {
+            JsValue v1 = new JsValue();
+            JsValue v2 = new JsValue();
+            JsValue ret;
+            v1.Ptr = accessor.nativePtr;
+            v2.Ptr = interceptor.nativePtr;
+
+            Cef3Binder.MyCefMet_S_Call2(CefV8Value_S_CreateObject_9, out ret, ref v1, ref v2);
+            return new CefV8Value(ret.Ptr);
+        }
+        //CsCallToNativeCodeGen::GenerateCs_S_Method , 574
+
+        // gen! CefRefPtr<CefV8Value> CreateArray(int length)
+        /// <summary>
+        /// Create a new CefV8Value object of type array with the specified |length|.
+        /// If |length| is negative the returned array will have length 0. This method
+        /// should only be called from within the scope of a CefRenderProcessHandler,
+        /// CefV8Handler or CefV8Accessor callback, or in combination with calling
+        /// Enter() and Exit() on a stored CefV8Context reference.
+        /// /*cef()*/
+        /// </summary>
+
+        public CefV8Value CreateArray(int length)
+        {
+            JsValue v1 = new JsValue();
+            JsValue ret;
+            v1.I32 = (int)length;
+
+            Cef3Binder.MyCefMet_S_Call1(CefV8Value_S_CreateArray_10, out ret, ref v1);
+            return new CefV8Value(ret.Ptr);
+        }
+        //CsCallToNativeCodeGen::GenerateCs_S_Method , 575
+
+        // gen! CefRefPtr<CefV8Value> CreateFunction(const CefString& name,CefRefPtr<CefV8Handler> handler)
+        /// <summary>
+        /// Create a new CefV8Value object of type function. This method should only be
+        /// called from within the scope of a CefRenderProcessHandler, CefV8Handler or
+        /// CefV8Accessor callback, or in combination with calling Enter() and Exit()
+        /// on a stored CefV8Context reference.
+        /// /*cef()*/
+        /// </summary>
+
+        public CefV8Value CreateFunction(string name,
+        CefV8Handler handler)
+        {
+            JsValue v1 = new JsValue();
+            JsValue v2 = new JsValue();
+            JsValue ret;
+            v1.Ptr = Cef3Binder.MyCefCreateStringHolder(name);
+            v2.Ptr = handler.nativePtr;
+
+            Cef3Binder.MyCefMet_S_Call2(CefV8Value_S_CreateFunction_11, out ret, ref v1, ref v2);
+            Cef3Binder.MyCefDeletePtr(v1.Ptr);
+            return new CefV8Value(ret.Ptr);
+        }
     }
 
 
     // [virtual] class CefV8StackTrace
-    //CsCallToNativeCodeGen::GenerateCsCode , 535
+    //CsCallToNativeCodeGen::GenerateCsCode , 576
     /// <summary>
     /// Class representing a V8 stack trace handle. V8 handles can only be accessed
     /// from the thread on which they are created. Valid threads for creating a V8
@@ -12185,6 +13036,8 @@ namespace LayoutFarm.CefBridge.Auto
         const int CefV8StackTrace_IsValid_1 = (_typeNAME << 16) | 1;
         const int CefV8StackTrace_GetFrameCount_2 = (_typeNAME << 16) | 2;
         const int CefV8StackTrace_GetFrame_3 = (_typeNAME << 16) | 3;
+        //
+        const int CefV8StackTrace_S_GetCurrent_1 = (_typeNAME << 16) | 1;
         internal IntPtr nativePtr;
         internal CefV8StackTrace(IntPtr nativePtr)
         {
@@ -12196,7 +13049,7 @@ namespace LayoutFarm.CefBridge.Auto
             Cef3Binder.MyCefMet_Call0(this.nativePtr, CefV8StackTrace_Release_0, out ret);
             this.nativePtr = IntPtr.Zero;
         }
-        //CsCallToNativeCodeGen::GenerateCsMethod , 536
+        //CsCallToNativeCodeGen::GenerateCsMethod , 577
 
         // gen! bool IsValid()
         /// <summary>
@@ -12210,7 +13063,7 @@ namespace LayoutFarm.CefBridge.Auto
             Cef3Binder.MyCefMet_Call0(this.nativePtr, CefV8StackTrace_IsValid_1, out ret);
             return ret.I32 != 0;
         }
-        //CsCallToNativeCodeGen::GenerateCsMethod , 537
+        //CsCallToNativeCodeGen::GenerateCsMethod , 578
 
         // gen! int GetFrameCount()
         /// <summary>
@@ -12225,7 +13078,7 @@ namespace LayoutFarm.CefBridge.Auto
             Cef3Binder.MyCefMet_Call0(this.nativePtr, CefV8StackTrace_GetFrameCount_2, out ret);
             return ret.I32;
         }
-        //CsCallToNativeCodeGen::GenerateCsMethod , 538
+        //CsCallToNativeCodeGen::GenerateCsMethod , 579
 
         // gen! CefRefPtr<CefV8StackFrame> GetFrame(int index)
         /// <summary>
@@ -12242,11 +13095,30 @@ namespace LayoutFarm.CefBridge.Auto
             Cef3Binder.MyCefMet_Call1(this.nativePtr, CefV8StackTrace_GetFrame_3, out ret, ref v1);
             return new CefV8StackFrame(ret.Ptr);
         }
+        //
+        //CsCallToNativeCodeGen::GenerateCs_S_Method , 580
+
+        // gen! CefRefPtr<CefV8StackTrace> GetCurrent(int frame_limit)
+        /// <summary>
+        /// Returns the stack trace for the currently active context. |frame_limit| is
+        /// the maximum number of frames that will be captured.
+        /// /*cef()*/
+        /// </summary>
+
+        public CefV8StackTrace GetCurrent(int frame_limit)
+        {
+            JsValue v1 = new JsValue();
+            JsValue ret;
+            v1.I32 = (int)frame_limit;
+
+            Cef3Binder.MyCefMet_S_Call1(CefV8StackTrace_S_GetCurrent_1, out ret, ref v1);
+            return new CefV8StackTrace(ret.Ptr);
+        }
     }
 
 
     // [virtual] class CefV8StackFrame
-    //CsCallToNativeCodeGen::GenerateCsCode , 539
+    //CsCallToNativeCodeGen::GenerateCsCode , 581
     /// <summary>
     /// Class representing a V8 stack frame handle. V8 handles can only be accessed
     /// from the thread on which they are created. Valid threads for creating a V8
@@ -12278,7 +13150,7 @@ namespace LayoutFarm.CefBridge.Auto
             Cef3Binder.MyCefMet_Call0(this.nativePtr, CefV8StackFrame_Release_0, out ret);
             this.nativePtr = IntPtr.Zero;
         }
-        //CsCallToNativeCodeGen::GenerateCsMethod , 540
+        //CsCallToNativeCodeGen::GenerateCsMethod , 582
 
         // gen! bool IsValid()
         /// <summary>
@@ -12292,7 +13164,7 @@ namespace LayoutFarm.CefBridge.Auto
             Cef3Binder.MyCefMet_Call0(this.nativePtr, CefV8StackFrame_IsValid_1, out ret);
             return ret.I32 != 0;
         }
-        //CsCallToNativeCodeGen::GenerateCsMethod , 541
+        //CsCallToNativeCodeGen::GenerateCsMethod , 583
 
         // gen! CefString GetScriptName()
         /// <summary>
@@ -12307,7 +13179,7 @@ namespace LayoutFarm.CefBridge.Auto
             Cef3Binder.MyCefMet_Call0(this.nativePtr, CefV8StackFrame_GetScriptName_2, out ret);
             return Cef3Binder.CopyStringAndDestroyNativeSide(ref ret);
         }
-        //CsCallToNativeCodeGen::GenerateCsMethod , 542
+        //CsCallToNativeCodeGen::GenerateCsMethod , 584
 
         // gen! CefString GetScriptNameOrSourceURL()
         /// <summary>
@@ -12324,7 +13196,7 @@ namespace LayoutFarm.CefBridge.Auto
             Cef3Binder.MyCefMet_Call0(this.nativePtr, CefV8StackFrame_GetScriptNameOrSourceURL_3, out ret);
             return Cef3Binder.CopyStringAndDestroyNativeSide(ref ret);
         }
-        //CsCallToNativeCodeGen::GenerateCsMethod , 543
+        //CsCallToNativeCodeGen::GenerateCsMethod , 585
 
         // gen! CefString GetFunctionName()
         /// <summary>
@@ -12339,7 +13211,7 @@ namespace LayoutFarm.CefBridge.Auto
             Cef3Binder.MyCefMet_Call0(this.nativePtr, CefV8StackFrame_GetFunctionName_4, out ret);
             return Cef3Binder.CopyStringAndDestroyNativeSide(ref ret);
         }
-        //CsCallToNativeCodeGen::GenerateCsMethod , 544
+        //CsCallToNativeCodeGen::GenerateCsMethod , 586
 
         // gen! int GetLineNumber()
         /// <summary>
@@ -12354,7 +13226,7 @@ namespace LayoutFarm.CefBridge.Auto
             Cef3Binder.MyCefMet_Call0(this.nativePtr, CefV8StackFrame_GetLineNumber_5, out ret);
             return ret.I32;
         }
-        //CsCallToNativeCodeGen::GenerateCsMethod , 545
+        //CsCallToNativeCodeGen::GenerateCsMethod , 587
 
         // gen! int GetColumn()
         /// <summary>
@@ -12370,7 +13242,7 @@ namespace LayoutFarm.CefBridge.Auto
             Cef3Binder.MyCefMet_Call0(this.nativePtr, CefV8StackFrame_GetColumn_6, out ret);
             return ret.I32;
         }
-        //CsCallToNativeCodeGen::GenerateCsMethod , 546
+        //CsCallToNativeCodeGen::GenerateCsMethod , 588
 
         // gen! bool IsEval()
         /// <summary>
@@ -12385,7 +13257,7 @@ namespace LayoutFarm.CefBridge.Auto
             Cef3Binder.MyCefMet_Call0(this.nativePtr, CefV8StackFrame_IsEval_7, out ret);
             return ret.I32 != 0;
         }
-        //CsCallToNativeCodeGen::GenerateCsMethod , 547
+        //CsCallToNativeCodeGen::GenerateCsMethod , 589
 
         // gen! bool IsConstructor()
         /// <summary>
@@ -12404,7 +13276,7 @@ namespace LayoutFarm.CefBridge.Auto
 
 
     // [virtual] class CefValue
-    //CsCallToNativeCodeGen::GenerateCsCode , 548
+    //CsCallToNativeCodeGen::GenerateCsCode , 590
     /// <summary>
     /// Class that wraps other data value types. Complex types (binary, dictionary
     /// and list) will be referenced but not owned by this object. Can be used on any
@@ -12437,6 +13309,8 @@ namespace LayoutFarm.CefBridge.Auto
         const int CefValue_SetBinary_20 = (_typeNAME << 16) | 20;
         const int CefValue_SetDictionary_21 = (_typeNAME << 16) | 21;
         const int CefValue_SetList_22 = (_typeNAME << 16) | 22;
+        //
+        const int CefValue_S_Create_1 = (_typeNAME << 16) | 1;
         internal IntPtr nativePtr;
         internal CefValue(IntPtr nativePtr)
         {
@@ -12448,7 +13322,7 @@ namespace LayoutFarm.CefBridge.Auto
             Cef3Binder.MyCefMet_Call0(this.nativePtr, CefValue_Release_0, out ret);
             this.nativePtr = IntPtr.Zero;
         }
-        //CsCallToNativeCodeGen::GenerateCsMethod , 549
+        //CsCallToNativeCodeGen::GenerateCsMethod , 591
 
         // gen! bool IsValid()
         /// <summary>
@@ -12462,7 +13336,7 @@ namespace LayoutFarm.CefBridge.Auto
             Cef3Binder.MyCefMet_Call0(this.nativePtr, CefValue_IsValid_1, out ret);
             return ret.I32 != 0;
         }
-        //CsCallToNativeCodeGen::GenerateCsMethod , 550
+        //CsCallToNativeCodeGen::GenerateCsMethod , 592
 
         // gen! bool IsOwned()
         /// <summary>
@@ -12477,7 +13351,7 @@ namespace LayoutFarm.CefBridge.Auto
             Cef3Binder.MyCefMet_Call0(this.nativePtr, CefValue_IsOwned_2, out ret);
             return ret.I32 != 0;
         }
-        //CsCallToNativeCodeGen::GenerateCsMethod , 551
+        //CsCallToNativeCodeGen::GenerateCsMethod , 593
 
         // gen! bool IsReadOnly()
         /// <summary>
@@ -12493,7 +13367,7 @@ namespace LayoutFarm.CefBridge.Auto
             Cef3Binder.MyCefMet_Call0(this.nativePtr, CefValue_IsReadOnly_3, out ret);
             return ret.I32 != 0;
         }
-        //CsCallToNativeCodeGen::GenerateCsMethod , 552
+        //CsCallToNativeCodeGen::GenerateCsMethod , 594
 
         // gen! bool IsSame(CefRefPtr<CefValue> that)
         /// <summary>
@@ -12512,7 +13386,7 @@ namespace LayoutFarm.CefBridge.Auto
             Cef3Binder.MyCefMet_Call1(this.nativePtr, CefValue_IsSame_4, out ret, ref v1);
             return ret.I32 != 0;
         }
-        //CsCallToNativeCodeGen::GenerateCsMethod , 553
+        //CsCallToNativeCodeGen::GenerateCsMethod , 595
 
         // gen! bool IsEqual(CefRefPtr<CefValue> that)
         /// <summary>
@@ -12530,7 +13404,7 @@ namespace LayoutFarm.CefBridge.Auto
             Cef3Binder.MyCefMet_Call1(this.nativePtr, CefValue_IsEqual_5, out ret, ref v1);
             return ret.I32 != 0;
         }
-        //CsCallToNativeCodeGen::GenerateCsMethod , 554
+        //CsCallToNativeCodeGen::GenerateCsMethod , 596
 
         // gen! CefRefPtr<CefValue> Copy()
         /// <summary>
@@ -12545,7 +13419,7 @@ namespace LayoutFarm.CefBridge.Auto
             Cef3Binder.MyCefMet_Call0(this.nativePtr, CefValue_Copy_6, out ret);
             return new CefValue(ret.Ptr);
         }
-        //CsCallToNativeCodeGen::GenerateCsMethod , 555
+        //CsCallToNativeCodeGen::GenerateCsMethod , 597
 
         // gen! CefValueType GetType()
         /// <summary>
@@ -12561,7 +13435,7 @@ namespace LayoutFarm.CefBridge.Auto
             return (cef_value_type_t)ret.I32;
 
         }
-        //CsCallToNativeCodeGen::GenerateCsMethod , 556
+        //CsCallToNativeCodeGen::GenerateCsMethod , 598
 
         // gen! bool GetBool()
         /// <summary>
@@ -12576,7 +13450,7 @@ namespace LayoutFarm.CefBridge.Auto
             Cef3Binder.MyCefMet_Call0(this.nativePtr, CefValue_GetBool_8, out ret);
             return ret.I32 != 0;
         }
-        //CsCallToNativeCodeGen::GenerateCsMethod , 557
+        //CsCallToNativeCodeGen::GenerateCsMethod , 599
 
         // gen! int GetInt()
         /// <summary>
@@ -12591,7 +13465,7 @@ namespace LayoutFarm.CefBridge.Auto
             Cef3Binder.MyCefMet_Call0(this.nativePtr, CefValue_GetInt_9, out ret);
             return ret.I32;
         }
-        //CsCallToNativeCodeGen::GenerateCsMethod , 558
+        //CsCallToNativeCodeGen::GenerateCsMethod , 600
 
         // gen! double GetDouble()
         /// <summary>
@@ -12606,7 +13480,7 @@ namespace LayoutFarm.CefBridge.Auto
             Cef3Binder.MyCefMet_Call0(this.nativePtr, CefValue_GetDouble_10, out ret);
             return ret.Num;
         }
-        //CsCallToNativeCodeGen::GenerateCsMethod , 559
+        //CsCallToNativeCodeGen::GenerateCsMethod , 601
 
         // gen! CefString GetString()
         /// <summary>
@@ -12621,7 +13495,7 @@ namespace LayoutFarm.CefBridge.Auto
             Cef3Binder.MyCefMet_Call0(this.nativePtr, CefValue_GetString_11, out ret);
             return Cef3Binder.CopyStringAndDestroyNativeSide(ref ret);
         }
-        //CsCallToNativeCodeGen::GenerateCsMethod , 560
+        //CsCallToNativeCodeGen::GenerateCsMethod , 602
 
         // gen! CefRefPtr<CefBinaryValue> GetBinary()
         /// <summary>
@@ -12641,7 +13515,7 @@ namespace LayoutFarm.CefBridge.Auto
             Cef3Binder.MyCefMet_Call0(this.nativePtr, CefValue_GetBinary_12, out ret);
             return new CefBinaryValue(ret.Ptr);
         }
-        //CsCallToNativeCodeGen::GenerateCsMethod , 561
+        //CsCallToNativeCodeGen::GenerateCsMethod , 603
 
         // gen! CefRefPtr<CefDictionaryValue> GetDictionary()
         /// <summary>
@@ -12661,7 +13535,7 @@ namespace LayoutFarm.CefBridge.Auto
             Cef3Binder.MyCefMet_Call0(this.nativePtr, CefValue_GetDictionary_13, out ret);
             return new CefDictionaryValue(ret.Ptr);
         }
-        //CsCallToNativeCodeGen::GenerateCsMethod , 562
+        //CsCallToNativeCodeGen::GenerateCsMethod , 604
 
         // gen! CefRefPtr<CefListValue> GetList()
         /// <summary>
@@ -12681,7 +13555,7 @@ namespace LayoutFarm.CefBridge.Auto
             Cef3Binder.MyCefMet_Call0(this.nativePtr, CefValue_GetList_14, out ret);
             return new CefListValue(ret.Ptr);
         }
-        //CsCallToNativeCodeGen::GenerateCsMethod , 563
+        //CsCallToNativeCodeGen::GenerateCsMethod , 605
 
         // gen! bool SetNull()
         /// <summary>
@@ -12697,7 +13571,7 @@ namespace LayoutFarm.CefBridge.Auto
             Cef3Binder.MyCefMet_Call0(this.nativePtr, CefValue_SetNull_15, out ret);
             return ret.I32 != 0;
         }
-        //CsCallToNativeCodeGen::GenerateCsMethod , 564
+        //CsCallToNativeCodeGen::GenerateCsMethod , 606
 
         // gen! bool SetBool(bool value)
         /// <summary>
@@ -12715,7 +13589,7 @@ namespace LayoutFarm.CefBridge.Auto
             Cef3Binder.MyCefMet_Call1(this.nativePtr, CefValue_SetBool_16, out ret, ref v1);
             return ret.I32 != 0;
         }
-        //CsCallToNativeCodeGen::GenerateCsMethod , 565
+        //CsCallToNativeCodeGen::GenerateCsMethod , 607
 
         // gen! bool SetInt(int value)
         /// <summary>
@@ -12733,7 +13607,7 @@ namespace LayoutFarm.CefBridge.Auto
             Cef3Binder.MyCefMet_Call1(this.nativePtr, CefValue_SetInt_17, out ret, ref v1);
             return ret.I32 != 0;
         }
-        //CsCallToNativeCodeGen::GenerateCsMethod , 566
+        //CsCallToNativeCodeGen::GenerateCsMethod , 608
 
         // gen! bool SetDouble(double value)
         /// <summary>
@@ -12751,7 +13625,7 @@ namespace LayoutFarm.CefBridge.Auto
             Cef3Binder.MyCefMet_Call1(this.nativePtr, CefValue_SetDouble_18, out ret, ref v1);
             return ret.I32 != 0;
         }
-        //CsCallToNativeCodeGen::GenerateCsMethod , 567
+        //CsCallToNativeCodeGen::GenerateCsMethod , 609
 
         // gen! bool SetString(const CefString& value)
         /// <summary>
@@ -12770,7 +13644,7 @@ namespace LayoutFarm.CefBridge.Auto
             Cef3Binder.MyCefDeletePtr(v1.Ptr);
             return ret.I32 != 0;
         }
-        //CsCallToNativeCodeGen::GenerateCsMethod , 568
+        //CsCallToNativeCodeGen::GenerateCsMethod , 610
 
         // gen! bool SetBinary(CefRefPtr<CefBinaryValue> value)
         /// <summary>
@@ -12789,7 +13663,7 @@ namespace LayoutFarm.CefBridge.Auto
             Cef3Binder.MyCefMet_Call1(this.nativePtr, CefValue_SetBinary_20, out ret, ref v1);
             return ret.I32 != 0;
         }
-        //CsCallToNativeCodeGen::GenerateCsMethod , 569
+        //CsCallToNativeCodeGen::GenerateCsMethod , 611
 
         // gen! bool SetDictionary(CefRefPtr<CefDictionaryValue> value)
         /// <summary>
@@ -12808,7 +13682,7 @@ namespace LayoutFarm.CefBridge.Auto
             Cef3Binder.MyCefMet_Call1(this.nativePtr, CefValue_SetDictionary_21, out ret, ref v1);
             return ret.I32 != 0;
         }
-        //CsCallToNativeCodeGen::GenerateCsMethod , 570
+        //CsCallToNativeCodeGen::GenerateCsMethod , 612
 
         // gen! bool SetList(CefRefPtr<CefListValue> value)
         /// <summary>
@@ -12827,11 +13701,27 @@ namespace LayoutFarm.CefBridge.Auto
             Cef3Binder.MyCefMet_Call1(this.nativePtr, CefValue_SetList_22, out ret, ref v1);
             return ret.I32 != 0;
         }
+        //
+        //CsCallToNativeCodeGen::GenerateCs_S_Method , 613
+
+        // gen! CefRefPtr<CefValue> Create()
+        /// <summary>
+        /// Creates a new object.
+        /// /*cef()*/
+        /// </summary>
+
+        public CefValue Create()
+        {
+            JsValue ret;
+
+            Cef3Binder.MyCefMet_S_Call0(CefValue_S_Create_1, out ret);
+            return new CefValue(ret.Ptr);
+        }
     }
 
 
     // [virtual] class CefBinaryValue
-    //CsCallToNativeCodeGen::GenerateCsCode , 571
+    //CsCallToNativeCodeGen::GenerateCsCode , 614
     /// <summary>
     /// Class representing a binary value. Can be used on any process and thread.
     /// /*(source=library)*/
@@ -12847,6 +13737,8 @@ namespace LayoutFarm.CefBridge.Auto
         const int CefBinaryValue_Copy_5 = (_typeNAME << 16) | 5;
         const int CefBinaryValue_GetSize_6 = (_typeNAME << 16) | 6;
         const int CefBinaryValue_GetData_7 = (_typeNAME << 16) | 7;
+        //
+        const int CefBinaryValue_S_Create_1 = (_typeNAME << 16) | 1;
         internal IntPtr nativePtr;
         internal CefBinaryValue(IntPtr nativePtr)
         {
@@ -12858,7 +13750,7 @@ namespace LayoutFarm.CefBridge.Auto
             Cef3Binder.MyCefMet_Call0(this.nativePtr, CefBinaryValue_Release_0, out ret);
             this.nativePtr = IntPtr.Zero;
         }
-        //CsCallToNativeCodeGen::GenerateCsMethod , 572
+        //CsCallToNativeCodeGen::GenerateCsMethod , 615
 
         // gen! bool IsValid()
         /// <summary>
@@ -12872,7 +13764,7 @@ namespace LayoutFarm.CefBridge.Auto
             Cef3Binder.MyCefMet_Call0(this.nativePtr, CefBinaryValue_IsValid_1, out ret);
             return ret.I32 != 0;
         }
-        //CsCallToNativeCodeGen::GenerateCsMethod , 573
+        //CsCallToNativeCodeGen::GenerateCsMethod , 616
 
         // gen! bool IsOwned()
         /// <summary>
@@ -12887,7 +13779,7 @@ namespace LayoutFarm.CefBridge.Auto
             Cef3Binder.MyCefMet_Call0(this.nativePtr, CefBinaryValue_IsOwned_2, out ret);
             return ret.I32 != 0;
         }
-        //CsCallToNativeCodeGen::GenerateCsMethod , 574
+        //CsCallToNativeCodeGen::GenerateCsMethod , 617
 
         // gen! bool IsSame(CefRefPtr<CefBinaryValue> that)
         /// <summary>
@@ -12905,7 +13797,7 @@ namespace LayoutFarm.CefBridge.Auto
             Cef3Binder.MyCefMet_Call1(this.nativePtr, CefBinaryValue_IsSame_3, out ret, ref v1);
             return ret.I32 != 0;
         }
-        //CsCallToNativeCodeGen::GenerateCsMethod , 575
+        //CsCallToNativeCodeGen::GenerateCsMethod , 618
 
         // gen! bool IsEqual(CefRefPtr<CefBinaryValue> that)
         /// <summary>
@@ -12923,7 +13815,7 @@ namespace LayoutFarm.CefBridge.Auto
             Cef3Binder.MyCefMet_Call1(this.nativePtr, CefBinaryValue_IsEqual_4, out ret, ref v1);
             return ret.I32 != 0;
         }
-        //CsCallToNativeCodeGen::GenerateCsMethod , 576
+        //CsCallToNativeCodeGen::GenerateCsMethod , 619
 
         // gen! CefRefPtr<CefBinaryValue> Copy()
         /// <summary>
@@ -12938,7 +13830,7 @@ namespace LayoutFarm.CefBridge.Auto
             Cef3Binder.MyCefMet_Call0(this.nativePtr, CefBinaryValue_Copy_5, out ret);
             return new CefBinaryValue(ret.Ptr);
         }
-        //CsCallToNativeCodeGen::GenerateCsMethod , 577
+        //CsCallToNativeCodeGen::GenerateCsMethod , 620
 
         // gen! size_t GetSize()
         /// <summary>
@@ -12953,7 +13845,7 @@ namespace LayoutFarm.CefBridge.Auto
             Cef3Binder.MyCefMet_Call0(this.nativePtr, CefBinaryValue_GetSize_6, out ret);
             return (uint)ret.I32;
         }
-        //CsCallToNativeCodeGen::GenerateCsMethod , 578
+        //CsCallToNativeCodeGen::GenerateCsMethod , 621
 
         // gen! size_t GetData(void* buffer,size_t buffer_size,size_t data_offset)
         /// <summary>
@@ -12977,11 +13869,33 @@ namespace LayoutFarm.CefBridge.Auto
             Cef3Binder.MyCefMet_Call3(this.nativePtr, CefBinaryValue_GetData_7, out ret, ref v1, ref v2, ref v3);
             return (uint)ret.I32;
         }
+        //
+        //CsCallToNativeCodeGen::GenerateCs_S_Method , 622
+
+        // gen! CefRefPtr<CefBinaryValue> Create(const void* data,size_t data_size)
+        /// <summary>
+        /// Creates a new object that is not owned by any other object. The specified
+        /// |data| will be copied.
+        /// /*cef()*/
+        /// </summary>
+
+        public CefBinaryValue Create(IntPtr data,
+        uint data_size)
+        {
+            JsValue v1 = new JsValue();
+            JsValue v2 = new JsValue();
+            JsValue ret;
+            v1.Ptr = data;
+            v2.I32 = (int)data_size;
+
+            Cef3Binder.MyCefMet_S_Call2(CefBinaryValue_S_Create_1, out ret, ref v1, ref v2);
+            return new CefBinaryValue(ret.Ptr);
+        }
     }
 
 
     // [virtual] class CefDictionaryValue
-    //CsCallToNativeCodeGen::GenerateCsCode , 579
+    //CsCallToNativeCodeGen::GenerateCsCode , 623
     /// <summary>
     /// Class representing a dictionary value. Can be used on any process and thread.
     /// /*(source=library)*/
@@ -13019,6 +13933,8 @@ namespace LayoutFarm.CefBridge.Auto
         const int CefDictionaryValue_SetBinary_27 = (_typeNAME << 16) | 27;
         const int CefDictionaryValue_SetDictionary_28 = (_typeNAME << 16) | 28;
         const int CefDictionaryValue_SetList_29 = (_typeNAME << 16) | 29;
+        //
+        const int CefDictionaryValue_S_Create_1 = (_typeNAME << 16) | 1;
         internal IntPtr nativePtr;
         internal CefDictionaryValue(IntPtr nativePtr)
         {
@@ -13030,7 +13946,7 @@ namespace LayoutFarm.CefBridge.Auto
             Cef3Binder.MyCefMet_Call0(this.nativePtr, CefDictionaryValue_Release_0, out ret);
             this.nativePtr = IntPtr.Zero;
         }
-        //CsCallToNativeCodeGen::GenerateCsMethod , 580
+        //CsCallToNativeCodeGen::GenerateCsMethod , 624
 
         // gen! bool IsValid()
         /// <summary>
@@ -13044,7 +13960,7 @@ namespace LayoutFarm.CefBridge.Auto
             Cef3Binder.MyCefMet_Call0(this.nativePtr, CefDictionaryValue_IsValid_1, out ret);
             return ret.I32 != 0;
         }
-        //CsCallToNativeCodeGen::GenerateCsMethod , 581
+        //CsCallToNativeCodeGen::GenerateCsMethod , 625
 
         // gen! bool IsOwned()
         /// <summary>
@@ -13059,7 +13975,7 @@ namespace LayoutFarm.CefBridge.Auto
             Cef3Binder.MyCefMet_Call0(this.nativePtr, CefDictionaryValue_IsOwned_2, out ret);
             return ret.I32 != 0;
         }
-        //CsCallToNativeCodeGen::GenerateCsMethod , 582
+        //CsCallToNativeCodeGen::GenerateCsMethod , 626
 
         // gen! bool IsReadOnly()
         /// <summary>
@@ -13075,7 +13991,7 @@ namespace LayoutFarm.CefBridge.Auto
             Cef3Binder.MyCefMet_Call0(this.nativePtr, CefDictionaryValue_IsReadOnly_3, out ret);
             return ret.I32 != 0;
         }
-        //CsCallToNativeCodeGen::GenerateCsMethod , 583
+        //CsCallToNativeCodeGen::GenerateCsMethod , 627
 
         // gen! bool IsSame(CefRefPtr<CefDictionaryValue> that)
         /// <summary>
@@ -13094,7 +14010,7 @@ namespace LayoutFarm.CefBridge.Auto
             Cef3Binder.MyCefMet_Call1(this.nativePtr, CefDictionaryValue_IsSame_4, out ret, ref v1);
             return ret.I32 != 0;
         }
-        //CsCallToNativeCodeGen::GenerateCsMethod , 584
+        //CsCallToNativeCodeGen::GenerateCsMethod , 628
 
         // gen! bool IsEqual(CefRefPtr<CefDictionaryValue> that)
         /// <summary>
@@ -13112,7 +14028,7 @@ namespace LayoutFarm.CefBridge.Auto
             Cef3Binder.MyCefMet_Call1(this.nativePtr, CefDictionaryValue_IsEqual_5, out ret, ref v1);
             return ret.I32 != 0;
         }
-        //CsCallToNativeCodeGen::GenerateCsMethod , 585
+        //CsCallToNativeCodeGen::GenerateCsMethod , 629
 
         // gen! CefRefPtr<CefDictionaryValue> Copy(bool exclude_empty_children)
         /// <summary>
@@ -13130,7 +14046,7 @@ namespace LayoutFarm.CefBridge.Auto
             Cef3Binder.MyCefMet_Call1(this.nativePtr, CefDictionaryValue_Copy_6, out ret, ref v1);
             return new CefDictionaryValue(ret.Ptr);
         }
-        //CsCallToNativeCodeGen::GenerateCsMethod , 586
+        //CsCallToNativeCodeGen::GenerateCsMethod , 630
 
         // gen! size_t GetSize()
         /// <summary>
@@ -13145,7 +14061,7 @@ namespace LayoutFarm.CefBridge.Auto
             Cef3Binder.MyCefMet_Call0(this.nativePtr, CefDictionaryValue_GetSize_7, out ret);
             return (uint)ret.I32;
         }
-        //CsCallToNativeCodeGen::GenerateCsMethod , 587
+        //CsCallToNativeCodeGen::GenerateCsMethod , 631
 
         // gen! bool Clear()
         /// <summary>
@@ -13160,7 +14076,7 @@ namespace LayoutFarm.CefBridge.Auto
             Cef3Binder.MyCefMet_Call0(this.nativePtr, CefDictionaryValue_Clear_8, out ret);
             return ret.I32 != 0;
         }
-        //CsCallToNativeCodeGen::GenerateCsMethod , 588
+        //CsCallToNativeCodeGen::GenerateCsMethod , 632
 
         // gen! bool HasKey(const CefString& key)
         /// <summary>
@@ -13178,7 +14094,7 @@ namespace LayoutFarm.CefBridge.Auto
             Cef3Binder.MyCefDeletePtr(v1.Ptr);
             return ret.I32 != 0;
         }
-        //CsCallToNativeCodeGen::GenerateCsMethod , 589
+        //CsCallToNativeCodeGen::GenerateCsMethod , 633
 
         // gen! bool GetKeys(KeyList& keys)
         /// <summary>
@@ -13195,7 +14111,7 @@ namespace LayoutFarm.CefBridge.Auto
             Cef3Binder.MyCefMet_Call1(this.nativePtr, CefDictionaryValue_GetKeys_10, out ret, ref v1);
             return ret.I32 != 0;
         }
-        //CsCallToNativeCodeGen::GenerateCsMethod , 590
+        //CsCallToNativeCodeGen::GenerateCsMethod , 634
 
         // gen! bool Remove(const CefString& key)
         /// <summary>
@@ -13214,7 +14130,7 @@ namespace LayoutFarm.CefBridge.Auto
             Cef3Binder.MyCefDeletePtr(v1.Ptr);
             return ret.I32 != 0;
         }
-        //CsCallToNativeCodeGen::GenerateCsMethod , 591
+        //CsCallToNativeCodeGen::GenerateCsMethod , 635
 
         // gen! CefValueType GetType(const CefString& key)
         /// <summary>
@@ -13233,7 +14149,7 @@ namespace LayoutFarm.CefBridge.Auto
             return (cef_value_type_t)ret.I32;
 
         }
-        //CsCallToNativeCodeGen::GenerateCsMethod , 592
+        //CsCallToNativeCodeGen::GenerateCsMethod , 636
 
         // gen! CefRefPtr<CefValue> GetValue(const CefString& key)
         /// <summary>
@@ -13255,7 +14171,7 @@ namespace LayoutFarm.CefBridge.Auto
             Cef3Binder.MyCefDeletePtr(v1.Ptr);
             return new CefValue(ret.Ptr);
         }
-        //CsCallToNativeCodeGen::GenerateCsMethod , 593
+        //CsCallToNativeCodeGen::GenerateCsMethod , 637
 
         // gen! bool GetBool(const CefString& key)
         /// <summary>
@@ -13273,7 +14189,7 @@ namespace LayoutFarm.CefBridge.Auto
             Cef3Binder.MyCefDeletePtr(v1.Ptr);
             return ret.I32 != 0;
         }
-        //CsCallToNativeCodeGen::GenerateCsMethod , 594
+        //CsCallToNativeCodeGen::GenerateCsMethod , 638
 
         // gen! int GetInt(const CefString& key)
         /// <summary>
@@ -13291,7 +14207,7 @@ namespace LayoutFarm.CefBridge.Auto
             Cef3Binder.MyCefDeletePtr(v1.Ptr);
             return ret.I32;
         }
-        //CsCallToNativeCodeGen::GenerateCsMethod , 595
+        //CsCallToNativeCodeGen::GenerateCsMethod , 639
 
         // gen! double GetDouble(const CefString& key)
         /// <summary>
@@ -13309,7 +14225,7 @@ namespace LayoutFarm.CefBridge.Auto
             Cef3Binder.MyCefDeletePtr(v1.Ptr);
             return ret.Num;
         }
-        //CsCallToNativeCodeGen::GenerateCsMethod , 596
+        //CsCallToNativeCodeGen::GenerateCsMethod , 640
 
         // gen! CefString GetString(const CefString& key)
         /// <summary>
@@ -13327,7 +14243,7 @@ namespace LayoutFarm.CefBridge.Auto
             Cef3Binder.MyCefDeletePtr(v1.Ptr);
             return Cef3Binder.CopyStringAndDestroyNativeSide(ref ret);
         }
-        //CsCallToNativeCodeGen::GenerateCsMethod , 597
+        //CsCallToNativeCodeGen::GenerateCsMethod , 641
 
         // gen! CefRefPtr<CefBinaryValue> GetBinary(const CefString& key)
         /// <summary>
@@ -13346,7 +14262,7 @@ namespace LayoutFarm.CefBridge.Auto
             Cef3Binder.MyCefDeletePtr(v1.Ptr);
             return new CefBinaryValue(ret.Ptr);
         }
-        //CsCallToNativeCodeGen::GenerateCsMethod , 598
+        //CsCallToNativeCodeGen::GenerateCsMethod , 642
 
         // gen! CefRefPtr<CefDictionaryValue> GetDictionary(const CefString& key)
         /// <summary>
@@ -13366,7 +14282,7 @@ namespace LayoutFarm.CefBridge.Auto
             Cef3Binder.MyCefDeletePtr(v1.Ptr);
             return new CefDictionaryValue(ret.Ptr);
         }
-        //CsCallToNativeCodeGen::GenerateCsMethod , 599
+        //CsCallToNativeCodeGen::GenerateCsMethod , 643
 
         // gen! CefRefPtr<CefListValue> GetList(const CefString& key)
         /// <summary>
@@ -13386,7 +14302,7 @@ namespace LayoutFarm.CefBridge.Auto
             Cef3Binder.MyCefDeletePtr(v1.Ptr);
             return new CefListValue(ret.Ptr);
         }
-        //CsCallToNativeCodeGen::GenerateCsMethod , 600
+        //CsCallToNativeCodeGen::GenerateCsMethod , 644
 
         // gen! bool SetValue(const CefString& key,CefRefPtr<CefValue> value)
         /// <summary>
@@ -13412,7 +14328,7 @@ namespace LayoutFarm.CefBridge.Auto
             Cef3Binder.MyCefDeletePtr(v1.Ptr);
             return ret.I32 != 0;
         }
-        //CsCallToNativeCodeGen::GenerateCsMethod , 601
+        //CsCallToNativeCodeGen::GenerateCsMethod , 645
 
         // gen! bool SetNull(const CefString& key)
         /// <summary>
@@ -13431,7 +14347,7 @@ namespace LayoutFarm.CefBridge.Auto
             Cef3Binder.MyCefDeletePtr(v1.Ptr);
             return ret.I32 != 0;
         }
-        //CsCallToNativeCodeGen::GenerateCsMethod , 602
+        //CsCallToNativeCodeGen::GenerateCsMethod , 646
 
         // gen! bool SetBool(const CefString& key,bool value)
         /// <summary>
@@ -13453,7 +14369,7 @@ namespace LayoutFarm.CefBridge.Auto
             Cef3Binder.MyCefDeletePtr(v1.Ptr);
             return ret.I32 != 0;
         }
-        //CsCallToNativeCodeGen::GenerateCsMethod , 603
+        //CsCallToNativeCodeGen::GenerateCsMethod , 647
 
         // gen! bool SetInt(const CefString& key,int value)
         /// <summary>
@@ -13475,7 +14391,7 @@ namespace LayoutFarm.CefBridge.Auto
             Cef3Binder.MyCefDeletePtr(v1.Ptr);
             return ret.I32 != 0;
         }
-        //CsCallToNativeCodeGen::GenerateCsMethod , 604
+        //CsCallToNativeCodeGen::GenerateCsMethod , 648
 
         // gen! bool SetDouble(const CefString& key,double value)
         /// <summary>
@@ -13497,7 +14413,7 @@ namespace LayoutFarm.CefBridge.Auto
             Cef3Binder.MyCefDeletePtr(v1.Ptr);
             return ret.I32 != 0;
         }
-        //CsCallToNativeCodeGen::GenerateCsMethod , 605
+        //CsCallToNativeCodeGen::GenerateCsMethod , 649
 
         // gen! bool SetString(const CefString& key,const CefString& value)
         /// <summary>
@@ -13520,7 +14436,7 @@ namespace LayoutFarm.CefBridge.Auto
             Cef3Binder.MyCefDeletePtr(v2.Ptr);
             return ret.I32 != 0;
         }
-        //CsCallToNativeCodeGen::GenerateCsMethod , 606
+        //CsCallToNativeCodeGen::GenerateCsMethod , 650
 
         // gen! bool SetBinary(const CefString& key,CefRefPtr<CefBinaryValue> value)
         /// <summary>
@@ -13545,7 +14461,7 @@ namespace LayoutFarm.CefBridge.Auto
             Cef3Binder.MyCefDeletePtr(v1.Ptr);
             return ret.I32 != 0;
         }
-        //CsCallToNativeCodeGen::GenerateCsMethod , 607
+        //CsCallToNativeCodeGen::GenerateCsMethod , 651
 
         // gen! bool SetDictionary(const CefString& key,CefRefPtr<CefDictionaryValue> value)
         /// <summary>
@@ -13570,7 +14486,7 @@ namespace LayoutFarm.CefBridge.Auto
             Cef3Binder.MyCefDeletePtr(v1.Ptr);
             return ret.I32 != 0;
         }
-        //CsCallToNativeCodeGen::GenerateCsMethod , 608
+        //CsCallToNativeCodeGen::GenerateCsMethod , 652
 
         // gen! bool SetList(const CefString& key,CefRefPtr<CefListValue> value)
         /// <summary>
@@ -13595,11 +14511,27 @@ namespace LayoutFarm.CefBridge.Auto
             Cef3Binder.MyCefDeletePtr(v1.Ptr);
             return ret.I32 != 0;
         }
+        //
+        //CsCallToNativeCodeGen::GenerateCs_S_Method , 653
+
+        // gen! CefRefPtr<CefDictionaryValue> Create()
+        /// <summary>
+        /// Creates a new object that is not owned by any other object.
+        /// /*cef()*/
+        /// </summary>
+
+        public CefDictionaryValue Create()
+        {
+            JsValue ret;
+
+            Cef3Binder.MyCefMet_S_Call0(CefDictionaryValue_S_Create_1, out ret);
+            return new CefDictionaryValue(ret.Ptr);
+        }
     }
 
 
     // [virtual] class CefListValue
-    //CsCallToNativeCodeGen::GenerateCsCode , 609
+    //CsCallToNativeCodeGen::GenerateCsCode , 654
     /// <summary>
     /// Class representing a list value. Can be used on any process and thread.
     /// /*(source=library)*/
@@ -13636,6 +14568,8 @@ namespace LayoutFarm.CefBridge.Auto
         const int CefListValue_SetBinary_26 = (_typeNAME << 16) | 26;
         const int CefListValue_SetDictionary_27 = (_typeNAME << 16) | 27;
         const int CefListValue_SetList_28 = (_typeNAME << 16) | 28;
+        //
+        const int CefListValue_S_Create_1 = (_typeNAME << 16) | 1;
         internal IntPtr nativePtr;
         internal CefListValue(IntPtr nativePtr)
         {
@@ -13647,7 +14581,7 @@ namespace LayoutFarm.CefBridge.Auto
             Cef3Binder.MyCefMet_Call0(this.nativePtr, CefListValue_Release_0, out ret);
             this.nativePtr = IntPtr.Zero;
         }
-        //CsCallToNativeCodeGen::GenerateCsMethod , 610
+        //CsCallToNativeCodeGen::GenerateCsMethod , 655
 
         // gen! bool IsValid()
         /// <summary>
@@ -13661,7 +14595,7 @@ namespace LayoutFarm.CefBridge.Auto
             Cef3Binder.MyCefMet_Call0(this.nativePtr, CefListValue_IsValid_1, out ret);
             return ret.I32 != 0;
         }
-        //CsCallToNativeCodeGen::GenerateCsMethod , 611
+        //CsCallToNativeCodeGen::GenerateCsMethod , 656
 
         // gen! bool IsOwned()
         /// <summary>
@@ -13676,7 +14610,7 @@ namespace LayoutFarm.CefBridge.Auto
             Cef3Binder.MyCefMet_Call0(this.nativePtr, CefListValue_IsOwned_2, out ret);
             return ret.I32 != 0;
         }
-        //CsCallToNativeCodeGen::GenerateCsMethod , 612
+        //CsCallToNativeCodeGen::GenerateCsMethod , 657
 
         // gen! bool IsReadOnly()
         /// <summary>
@@ -13692,7 +14626,7 @@ namespace LayoutFarm.CefBridge.Auto
             Cef3Binder.MyCefMet_Call0(this.nativePtr, CefListValue_IsReadOnly_3, out ret);
             return ret.I32 != 0;
         }
-        //CsCallToNativeCodeGen::GenerateCsMethod , 613
+        //CsCallToNativeCodeGen::GenerateCsMethod , 658
 
         // gen! bool IsSame(CefRefPtr<CefListValue> that)
         /// <summary>
@@ -13711,7 +14645,7 @@ namespace LayoutFarm.CefBridge.Auto
             Cef3Binder.MyCefMet_Call1(this.nativePtr, CefListValue_IsSame_4, out ret, ref v1);
             return ret.I32 != 0;
         }
-        //CsCallToNativeCodeGen::GenerateCsMethod , 614
+        //CsCallToNativeCodeGen::GenerateCsMethod , 659
 
         // gen! bool IsEqual(CefRefPtr<CefListValue> that)
         /// <summary>
@@ -13729,7 +14663,7 @@ namespace LayoutFarm.CefBridge.Auto
             Cef3Binder.MyCefMet_Call1(this.nativePtr, CefListValue_IsEqual_5, out ret, ref v1);
             return ret.I32 != 0;
         }
-        //CsCallToNativeCodeGen::GenerateCsMethod , 615
+        //CsCallToNativeCodeGen::GenerateCsMethod , 660
 
         // gen! CefRefPtr<CefListValue> Copy()
         /// <summary>
@@ -13744,7 +14678,7 @@ namespace LayoutFarm.CefBridge.Auto
             Cef3Binder.MyCefMet_Call0(this.nativePtr, CefListValue_Copy_6, out ret);
             return new CefListValue(ret.Ptr);
         }
-        //CsCallToNativeCodeGen::GenerateCsMethod , 616
+        //CsCallToNativeCodeGen::GenerateCsMethod , 661
 
         // gen! bool SetSize(size_t size)
         /// <summary>
@@ -13762,7 +14696,7 @@ namespace LayoutFarm.CefBridge.Auto
             Cef3Binder.MyCefMet_Call1(this.nativePtr, CefListValue_SetSize_7, out ret, ref v1);
             return ret.I32 != 0;
         }
-        //CsCallToNativeCodeGen::GenerateCsMethod , 617
+        //CsCallToNativeCodeGen::GenerateCsMethod , 662
 
         // gen! size_t GetSize()
         /// <summary>
@@ -13777,7 +14711,7 @@ namespace LayoutFarm.CefBridge.Auto
             Cef3Binder.MyCefMet_Call0(this.nativePtr, CefListValue_GetSize_8, out ret);
             return (uint)ret.I32;
         }
-        //CsCallToNativeCodeGen::GenerateCsMethod , 618
+        //CsCallToNativeCodeGen::GenerateCsMethod , 663
 
         // gen! bool Clear()
         /// <summary>
@@ -13792,7 +14726,7 @@ namespace LayoutFarm.CefBridge.Auto
             Cef3Binder.MyCefMet_Call0(this.nativePtr, CefListValue_Clear_9, out ret);
             return ret.I32 != 0;
         }
-        //CsCallToNativeCodeGen::GenerateCsMethod , 619
+        //CsCallToNativeCodeGen::GenerateCsMethod , 664
 
         // gen! bool Remove(size_t index)
         /// <summary>
@@ -13809,7 +14743,7 @@ namespace LayoutFarm.CefBridge.Auto
             Cef3Binder.MyCefMet_Call1(this.nativePtr, CefListValue_Remove_10, out ret, ref v1);
             return ret.I32 != 0;
         }
-        //CsCallToNativeCodeGen::GenerateCsMethod , 620
+        //CsCallToNativeCodeGen::GenerateCsMethod , 665
 
         // gen! CefValueType GetType(size_t index)
         /// <summary>
@@ -13827,7 +14761,7 @@ namespace LayoutFarm.CefBridge.Auto
             return (cef_value_type_t)ret.I32;
 
         }
-        //CsCallToNativeCodeGen::GenerateCsMethod , 621
+        //CsCallToNativeCodeGen::GenerateCsMethod , 666
 
         // gen! CefRefPtr<CefValue> GetValue(size_t index)
         /// <summary>
@@ -13848,7 +14782,7 @@ namespace LayoutFarm.CefBridge.Auto
             Cef3Binder.MyCefMet_Call1(this.nativePtr, CefListValue_GetValue_12, out ret, ref v1);
             return new CefValue(ret.Ptr);
         }
-        //CsCallToNativeCodeGen::GenerateCsMethod , 622
+        //CsCallToNativeCodeGen::GenerateCsMethod , 667
 
         // gen! bool GetBool(size_t index)
         /// <summary>
@@ -13865,7 +14799,7 @@ namespace LayoutFarm.CefBridge.Auto
             Cef3Binder.MyCefMet_Call1(this.nativePtr, CefListValue_GetBool_13, out ret, ref v1);
             return ret.I32 != 0;
         }
-        //CsCallToNativeCodeGen::GenerateCsMethod , 623
+        //CsCallToNativeCodeGen::GenerateCsMethod , 668
 
         // gen! int GetInt(size_t index)
         /// <summary>
@@ -13882,7 +14816,7 @@ namespace LayoutFarm.CefBridge.Auto
             Cef3Binder.MyCefMet_Call1(this.nativePtr, CefListValue_GetInt_14, out ret, ref v1);
             return ret.I32;
         }
-        //CsCallToNativeCodeGen::GenerateCsMethod , 624
+        //CsCallToNativeCodeGen::GenerateCsMethod , 669
 
         // gen! double GetDouble(size_t index)
         /// <summary>
@@ -13899,7 +14833,7 @@ namespace LayoutFarm.CefBridge.Auto
             Cef3Binder.MyCefMet_Call1(this.nativePtr, CefListValue_GetDouble_15, out ret, ref v1);
             return ret.Num;
         }
-        //CsCallToNativeCodeGen::GenerateCsMethod , 625
+        //CsCallToNativeCodeGen::GenerateCsMethod , 670
 
         // gen! CefString GetString(size_t index)
         /// <summary>
@@ -13916,7 +14850,7 @@ namespace LayoutFarm.CefBridge.Auto
             Cef3Binder.MyCefMet_Call1(this.nativePtr, CefListValue_GetString_16, out ret, ref v1);
             return Cef3Binder.CopyStringAndDestroyNativeSide(ref ret);
         }
-        //CsCallToNativeCodeGen::GenerateCsMethod , 626
+        //CsCallToNativeCodeGen::GenerateCsMethod , 671
 
         // gen! CefRefPtr<CefBinaryValue> GetBinary(size_t index)
         /// <summary>
@@ -13934,7 +14868,7 @@ namespace LayoutFarm.CefBridge.Auto
             Cef3Binder.MyCefMet_Call1(this.nativePtr, CefListValue_GetBinary_17, out ret, ref v1);
             return new CefBinaryValue(ret.Ptr);
         }
-        //CsCallToNativeCodeGen::GenerateCsMethod , 627
+        //CsCallToNativeCodeGen::GenerateCsMethod , 672
 
         // gen! CefRefPtr<CefDictionaryValue> GetDictionary(size_t index)
         /// <summary>
@@ -13953,7 +14887,7 @@ namespace LayoutFarm.CefBridge.Auto
             Cef3Binder.MyCefMet_Call1(this.nativePtr, CefListValue_GetDictionary_18, out ret, ref v1);
             return new CefDictionaryValue(ret.Ptr);
         }
-        //CsCallToNativeCodeGen::GenerateCsMethod , 628
+        //CsCallToNativeCodeGen::GenerateCsMethod , 673
 
         // gen! CefRefPtr<CefListValue> GetList(size_t index)
         /// <summary>
@@ -13972,7 +14906,7 @@ namespace LayoutFarm.CefBridge.Auto
             Cef3Binder.MyCefMet_Call1(this.nativePtr, CefListValue_GetList_19, out ret, ref v1);
             return new CefListValue(ret.Ptr);
         }
-        //CsCallToNativeCodeGen::GenerateCsMethod , 629
+        //CsCallToNativeCodeGen::GenerateCsMethod , 674
 
         // gen! bool SetValue(size_t index,CefRefPtr<CefValue> value)
         /// <summary>
@@ -13997,7 +14931,7 @@ namespace LayoutFarm.CefBridge.Auto
             Cef3Binder.MyCefMet_Call2(this.nativePtr, CefListValue_SetValue_20, out ret, ref v1, ref v2);
             return ret.I32 != 0;
         }
-        //CsCallToNativeCodeGen::GenerateCsMethod , 630
+        //CsCallToNativeCodeGen::GenerateCsMethod , 675
 
         // gen! bool SetNull(size_t index)
         /// <summary>
@@ -14015,7 +14949,7 @@ namespace LayoutFarm.CefBridge.Auto
             Cef3Binder.MyCefMet_Call1(this.nativePtr, CefListValue_SetNull_21, out ret, ref v1);
             return ret.I32 != 0;
         }
-        //CsCallToNativeCodeGen::GenerateCsMethod , 631
+        //CsCallToNativeCodeGen::GenerateCsMethod , 676
 
         // gen! bool SetBool(size_t index,bool value)
         /// <summary>
@@ -14036,7 +14970,7 @@ namespace LayoutFarm.CefBridge.Auto
             Cef3Binder.MyCefMet_Call2(this.nativePtr, CefListValue_SetBool_22, out ret, ref v1, ref v2);
             return ret.I32 != 0;
         }
-        //CsCallToNativeCodeGen::GenerateCsMethod , 632
+        //CsCallToNativeCodeGen::GenerateCsMethod , 677
 
         // gen! bool SetInt(size_t index,int value)
         /// <summary>
@@ -14057,7 +14991,7 @@ namespace LayoutFarm.CefBridge.Auto
             Cef3Binder.MyCefMet_Call2(this.nativePtr, CefListValue_SetInt_23, out ret, ref v1, ref v2);
             return ret.I32 != 0;
         }
-        //CsCallToNativeCodeGen::GenerateCsMethod , 633
+        //CsCallToNativeCodeGen::GenerateCsMethod , 678
 
         // gen! bool SetDouble(size_t index,double value)
         /// <summary>
@@ -14078,7 +15012,7 @@ namespace LayoutFarm.CefBridge.Auto
             Cef3Binder.MyCefMet_Call2(this.nativePtr, CefListValue_SetDouble_24, out ret, ref v1, ref v2);
             return ret.I32 != 0;
         }
-        //CsCallToNativeCodeGen::GenerateCsMethod , 634
+        //CsCallToNativeCodeGen::GenerateCsMethod , 679
 
         // gen! bool SetString(size_t index,const CefString& value)
         /// <summary>
@@ -14100,7 +15034,7 @@ namespace LayoutFarm.CefBridge.Auto
             Cef3Binder.MyCefDeletePtr(v2.Ptr);
             return ret.I32 != 0;
         }
-        //CsCallToNativeCodeGen::GenerateCsMethod , 635
+        //CsCallToNativeCodeGen::GenerateCsMethod , 680
 
         // gen! bool SetBinary(size_t index,CefRefPtr<CefBinaryValue> value)
         /// <summary>
@@ -14124,7 +15058,7 @@ namespace LayoutFarm.CefBridge.Auto
             Cef3Binder.MyCefMet_Call2(this.nativePtr, CefListValue_SetBinary_26, out ret, ref v1, ref v2);
             return ret.I32 != 0;
         }
-        //CsCallToNativeCodeGen::GenerateCsMethod , 636
+        //CsCallToNativeCodeGen::GenerateCsMethod , 681
 
         // gen! bool SetDictionary(size_t index,CefRefPtr<CefDictionaryValue> value)
         /// <summary>
@@ -14148,7 +15082,7 @@ namespace LayoutFarm.CefBridge.Auto
             Cef3Binder.MyCefMet_Call2(this.nativePtr, CefListValue_SetDictionary_27, out ret, ref v1, ref v2);
             return ret.I32 != 0;
         }
-        //CsCallToNativeCodeGen::GenerateCsMethod , 637
+        //CsCallToNativeCodeGen::GenerateCsMethod , 682
 
         // gen! bool SetList(size_t index,CefRefPtr<CefListValue> value)
         /// <summary>
@@ -14172,11 +15106,27 @@ namespace LayoutFarm.CefBridge.Auto
             Cef3Binder.MyCefMet_Call2(this.nativePtr, CefListValue_SetList_28, out ret, ref v1, ref v2);
             return ret.I32 != 0;
         }
+        //
+        //CsCallToNativeCodeGen::GenerateCs_S_Method , 683
+
+        // gen! CefRefPtr<CefListValue> Create()
+        /// <summary>
+        /// Creates a new object that is not owned by any other object.
+        /// /*cef()*/
+        /// </summary>
+
+        public CefListValue Create()
+        {
+            JsValue ret;
+
+            Cef3Binder.MyCefMet_S_Call0(CefListValue_S_Create_1, out ret);
+            return new CefListValue(ret.Ptr);
+        }
     }
 
 
     // [virtual] class CefWebPluginInfo
-    //CsCallToNativeCodeGen::GenerateCsCode , 638
+    //CsCallToNativeCodeGen::GenerateCsCode , 684
     /// <summary>
     /// Information about a specific web plugin.
     /// /*(source=library)*/
@@ -14200,7 +15150,7 @@ namespace LayoutFarm.CefBridge.Auto
             Cef3Binder.MyCefMet_Call0(this.nativePtr, CefWebPluginInfo_Release_0, out ret);
             this.nativePtr = IntPtr.Zero;
         }
-        //CsCallToNativeCodeGen::GenerateCsMethod , 639
+        //CsCallToNativeCodeGen::GenerateCsMethod , 685
 
         // gen! CefString GetName()
         /// <summary>
@@ -14214,7 +15164,7 @@ namespace LayoutFarm.CefBridge.Auto
             Cef3Binder.MyCefMet_Call0(this.nativePtr, CefWebPluginInfo_GetName_1, out ret);
             return Cef3Binder.CopyStringAndDestroyNativeSide(ref ret);
         }
-        //CsCallToNativeCodeGen::GenerateCsMethod , 640
+        //CsCallToNativeCodeGen::GenerateCsMethod , 686
 
         // gen! CefString GetPath()
         /// <summary>
@@ -14229,7 +15179,7 @@ namespace LayoutFarm.CefBridge.Auto
             Cef3Binder.MyCefMet_Call0(this.nativePtr, CefWebPluginInfo_GetPath_2, out ret);
             return Cef3Binder.CopyStringAndDestroyNativeSide(ref ret);
         }
-        //CsCallToNativeCodeGen::GenerateCsMethod , 641
+        //CsCallToNativeCodeGen::GenerateCsMethod , 687
 
         // gen! CefString GetVersion()
         /// <summary>
@@ -14244,7 +15194,7 @@ namespace LayoutFarm.CefBridge.Auto
             Cef3Binder.MyCefMet_Call0(this.nativePtr, CefWebPluginInfo_GetVersion_3, out ret);
             return Cef3Binder.CopyStringAndDestroyNativeSide(ref ret);
         }
-        //CsCallToNativeCodeGen::GenerateCsMethod , 642
+        //CsCallToNativeCodeGen::GenerateCsMethod , 688
 
         // gen! CefString GetDescription()
         /// <summary>
@@ -14263,7 +15213,7 @@ namespace LayoutFarm.CefBridge.Auto
 
 
     // [virtual] class CefWebPluginInfoVisitor
-    //CsCallToNativeCodeGen::GenerateCsCode , 643
+    //CsCallToNativeCodeGen::GenerateCsCode , 689
     /// <summary>
     /// Interface to implement for visiting web plugin information. The methods of
     /// this class will be called on the browser process UI thread.
@@ -14293,7 +15243,7 @@ namespace LayoutFarm.CefBridge.Auto
 
 
     // [virtual] class CefX509CertPrincipal
-    //CsCallToNativeCodeGen::GenerateCsCode , 644
+    //CsCallToNativeCodeGen::GenerateCsCode , 690
     /// <summary>
     /// Class representing the issuer or subject field of an X.509 certificate.
     /// /*(source=library)*/
@@ -14322,7 +15272,7 @@ namespace LayoutFarm.CefBridge.Auto
             Cef3Binder.MyCefMet_Call0(this.nativePtr, CefX509CertPrincipal_Release_0, out ret);
             this.nativePtr = IntPtr.Zero;
         }
-        //CsCallToNativeCodeGen::GenerateCsMethod , 645
+        //CsCallToNativeCodeGen::GenerateCsMethod , 691
 
         // gen! CefString GetDisplayName()
         /// <summary>
@@ -14336,7 +15286,7 @@ namespace LayoutFarm.CefBridge.Auto
             Cef3Binder.MyCefMet_Call0(this.nativePtr, CefX509CertPrincipal_GetDisplayName_1, out ret);
             return Cef3Binder.CopyStringAndDestroyNativeSide(ref ret);
         }
-        //CsCallToNativeCodeGen::GenerateCsMethod , 646
+        //CsCallToNativeCodeGen::GenerateCsMethod , 692
 
         // gen! CefString GetCommonName()
         /// <summary>
@@ -14351,7 +15301,7 @@ namespace LayoutFarm.CefBridge.Auto
             Cef3Binder.MyCefMet_Call0(this.nativePtr, CefX509CertPrincipal_GetCommonName_2, out ret);
             return Cef3Binder.CopyStringAndDestroyNativeSide(ref ret);
         }
-        //CsCallToNativeCodeGen::GenerateCsMethod , 647
+        //CsCallToNativeCodeGen::GenerateCsMethod , 693
 
         // gen! CefString GetLocalityName()
         /// <summary>
@@ -14366,7 +15316,7 @@ namespace LayoutFarm.CefBridge.Auto
             Cef3Binder.MyCefMet_Call0(this.nativePtr, CefX509CertPrincipal_GetLocalityName_3, out ret);
             return Cef3Binder.CopyStringAndDestroyNativeSide(ref ret);
         }
-        //CsCallToNativeCodeGen::GenerateCsMethod , 648
+        //CsCallToNativeCodeGen::GenerateCsMethod , 694
 
         // gen! CefString GetStateOrProvinceName()
         /// <summary>
@@ -14381,7 +15331,7 @@ namespace LayoutFarm.CefBridge.Auto
             Cef3Binder.MyCefMet_Call0(this.nativePtr, CefX509CertPrincipal_GetStateOrProvinceName_4, out ret);
             return Cef3Binder.CopyStringAndDestroyNativeSide(ref ret);
         }
-        //CsCallToNativeCodeGen::GenerateCsMethod , 649
+        //CsCallToNativeCodeGen::GenerateCsMethod , 695
 
         // gen! CefString GetCountryName()
         /// <summary>
@@ -14396,7 +15346,7 @@ namespace LayoutFarm.CefBridge.Auto
             Cef3Binder.MyCefMet_Call0(this.nativePtr, CefX509CertPrincipal_GetCountryName_5, out ret);
             return Cef3Binder.CopyStringAndDestroyNativeSide(ref ret);
         }
-        //CsCallToNativeCodeGen::GenerateCsMethod , 650
+        //CsCallToNativeCodeGen::GenerateCsMethod , 696
 
         // gen! void GetStreetAddresses(std::vector<CefString>& addresses)
         /// <summary>
@@ -14414,7 +15364,7 @@ namespace LayoutFarm.CefBridge.Auto
             Cef3Binder.CopyStdStringListAndDestroyNativeSide(v1.Ptr, addresses);
 
         }
-        //CsCallToNativeCodeGen::GenerateCsMethod , 651
+        //CsCallToNativeCodeGen::GenerateCsMethod , 697
 
         // gen! void GetOrganizationNames(std::vector<CefString>& names)
         /// <summary>
@@ -14432,7 +15382,7 @@ namespace LayoutFarm.CefBridge.Auto
             Cef3Binder.CopyStdStringListAndDestroyNativeSide(v1.Ptr, names);
 
         }
-        //CsCallToNativeCodeGen::GenerateCsMethod , 652
+        //CsCallToNativeCodeGen::GenerateCsMethod , 698
 
         // gen! void GetOrganizationUnitNames(std::vector<CefString>& names)
         /// <summary>
@@ -14450,7 +15400,7 @@ namespace LayoutFarm.CefBridge.Auto
             Cef3Binder.CopyStdStringListAndDestroyNativeSide(v1.Ptr, names);
 
         }
-        //CsCallToNativeCodeGen::GenerateCsMethod , 653
+        //CsCallToNativeCodeGen::GenerateCsMethod , 699
 
         // gen! void GetDomainComponents(std::vector<CefString>& components)
         /// <summary>
@@ -14472,7 +15422,7 @@ namespace LayoutFarm.CefBridge.Auto
 
 
     // [virtual] class CefX509Certificate
-    //CsCallToNativeCodeGen::GenerateCsCode , 654
+    //CsCallToNativeCodeGen::GenerateCsCode , 700
     /// <summary>
     /// Class representing a X.509 certificate.
     /// /*(source=library)*/
@@ -14502,7 +15452,7 @@ namespace LayoutFarm.CefBridge.Auto
             Cef3Binder.MyCefMet_Call0(this.nativePtr, CefX509Certificate_Release_0, out ret);
             this.nativePtr = IntPtr.Zero;
         }
-        //CsCallToNativeCodeGen::GenerateCsMethod , 655
+        //CsCallToNativeCodeGen::GenerateCsMethod , 701
 
         // gen! CefRefPtr<CefX509CertPrincipal> GetSubject()
         /// <summary>
@@ -14516,7 +15466,7 @@ namespace LayoutFarm.CefBridge.Auto
             Cef3Binder.MyCefMet_Call0(this.nativePtr, CefX509Certificate_GetSubject_1, out ret);
             return new CefX509CertPrincipal(ret.Ptr);
         }
-        //CsCallToNativeCodeGen::GenerateCsMethod , 656
+        //CsCallToNativeCodeGen::GenerateCsMethod , 702
 
         // gen! CefRefPtr<CefX509CertPrincipal> GetIssuer()
         /// <summary>
@@ -14531,7 +15481,7 @@ namespace LayoutFarm.CefBridge.Auto
             Cef3Binder.MyCefMet_Call0(this.nativePtr, CefX509Certificate_GetIssuer_2, out ret);
             return new CefX509CertPrincipal(ret.Ptr);
         }
-        //CsCallToNativeCodeGen::GenerateCsMethod , 657
+        //CsCallToNativeCodeGen::GenerateCsMethod , 703
 
         // gen! CefRefPtr<CefBinaryValue> GetSerialNumber()
         /// <summary>
@@ -14547,7 +15497,7 @@ namespace LayoutFarm.CefBridge.Auto
             Cef3Binder.MyCefMet_Call0(this.nativePtr, CefX509Certificate_GetSerialNumber_3, out ret);
             return new CefBinaryValue(ret.Ptr);
         }
-        //CsCallToNativeCodeGen::GenerateCsMethod , 658
+        //CsCallToNativeCodeGen::GenerateCsMethod , 704
 
         // gen! CefTime GetValidStart()
         /// <summary>
@@ -14564,7 +15514,7 @@ namespace LayoutFarm.CefBridge.Auto
             return new CefTime(ret.Ptr);
 
         }
-        //CsCallToNativeCodeGen::GenerateCsMethod , 659
+        //CsCallToNativeCodeGen::GenerateCsMethod , 705
 
         // gen! CefTime GetValidExpiry()
         /// <summary>
@@ -14581,7 +15531,7 @@ namespace LayoutFarm.CefBridge.Auto
             return new CefTime(ret.Ptr);
 
         }
-        //CsCallToNativeCodeGen::GenerateCsMethod , 660
+        //CsCallToNativeCodeGen::GenerateCsMethod , 706
 
         // gen! CefRefPtr<CefBinaryValue> GetDEREncoded()
         /// <summary>
@@ -14596,7 +15546,7 @@ namespace LayoutFarm.CefBridge.Auto
             Cef3Binder.MyCefMet_Call0(this.nativePtr, CefX509Certificate_GetDEREncoded_6, out ret);
             return new CefBinaryValue(ret.Ptr);
         }
-        //CsCallToNativeCodeGen::GenerateCsMethod , 661
+        //CsCallToNativeCodeGen::GenerateCsMethod , 707
 
         // gen! CefRefPtr<CefBinaryValue> GetPEMEncoded()
         /// <summary>
@@ -14611,7 +15561,7 @@ namespace LayoutFarm.CefBridge.Auto
             Cef3Binder.MyCefMet_Call0(this.nativePtr, CefX509Certificate_GetPEMEncoded_7, out ret);
             return new CefBinaryValue(ret.Ptr);
         }
-        //CsCallToNativeCodeGen::GenerateCsMethod , 662
+        //CsCallToNativeCodeGen::GenerateCsMethod , 708
 
         // gen! size_t GetIssuerChainSize()
         /// <summary>
@@ -14627,7 +15577,7 @@ namespace LayoutFarm.CefBridge.Auto
             Cef3Binder.MyCefMet_Call0(this.nativePtr, CefX509Certificate_GetIssuerChainSize_8, out ret);
             return (uint)ret.I32;
         }
-        //CsCallToNativeCodeGen::GenerateCsMethod , 663
+        //CsCallToNativeCodeGen::GenerateCsMethod , 709
 
         // gen! void GetDEREncodedIssuerChain(IssuerChainBinaryList& chain)
         /// <summary>
@@ -14646,7 +15596,7 @@ namespace LayoutFarm.CefBridge.Auto
             Cef3Binder.MyCefMet_Call1(this.nativePtr, CefX509Certificate_GetDEREncodedIssuerChain_9, out ret, ref v1);
 
         }
-        //CsCallToNativeCodeGen::GenerateCsMethod , 664
+        //CsCallToNativeCodeGen::GenerateCsMethod , 710
 
         // gen! void GetPEMEncodedIssuerChain(IssuerChainBinaryList& chain)
         /// <summary>
@@ -14669,7 +15619,7 @@ namespace LayoutFarm.CefBridge.Auto
 
 
     // [virtual] class CefXmlReader
-    //CsCallToNativeCodeGen::GenerateCsCode , 665
+    //CsCallToNativeCodeGen::GenerateCsCode , 711
     /// <summary>
     /// Class that supports the reading of XML data via the libxml streaming API.
     /// The methods of this class should only be called on the thread that creates
@@ -14709,6 +15659,8 @@ namespace LayoutFarm.CefBridge.Auto
         const int CefXmlReader_MoveToFirstAttribute_27 = (_typeNAME << 16) | 27;
         const int CefXmlReader_MoveToNextAttribute_28 = (_typeNAME << 16) | 28;
         const int CefXmlReader_MoveToCarryingElement_29 = (_typeNAME << 16) | 29;
+        //
+        const int CefXmlReader_S_Create_1 = (_typeNAME << 16) | 1;
         internal IntPtr nativePtr;
         internal CefXmlReader(IntPtr nativePtr)
         {
@@ -14720,7 +15672,7 @@ namespace LayoutFarm.CefBridge.Auto
             Cef3Binder.MyCefMet_Call0(this.nativePtr, CefXmlReader_Release_0, out ret);
             this.nativePtr = IntPtr.Zero;
         }
-        //CsCallToNativeCodeGen::GenerateCsMethod , 666
+        //CsCallToNativeCodeGen::GenerateCsMethod , 712
 
         // gen! bool MoveToNextNode()
         /// <summary>
@@ -14734,7 +15686,7 @@ namespace LayoutFarm.CefBridge.Auto
             Cef3Binder.MyCefMet_Call0(this.nativePtr, CefXmlReader_MoveToNextNode_1, out ret);
             return ret.I32 != 0;
         }
-        //CsCallToNativeCodeGen::GenerateCsMethod , 667
+        //CsCallToNativeCodeGen::GenerateCsMethod , 713
 
         // gen! bool Close()
         /// <summary>
@@ -14750,7 +15702,7 @@ namespace LayoutFarm.CefBridge.Auto
             Cef3Binder.MyCefMet_Call0(this.nativePtr, CefXmlReader_Close_2, out ret);
             return ret.I32 != 0;
         }
-        //CsCallToNativeCodeGen::GenerateCsMethod , 668
+        //CsCallToNativeCodeGen::GenerateCsMethod , 714
 
         // gen! bool HasError()
         /// <summary>
@@ -14765,7 +15717,7 @@ namespace LayoutFarm.CefBridge.Auto
             Cef3Binder.MyCefMet_Call0(this.nativePtr, CefXmlReader_HasError_3, out ret);
             return ret.I32 != 0;
         }
-        //CsCallToNativeCodeGen::GenerateCsMethod , 669
+        //CsCallToNativeCodeGen::GenerateCsMethod , 715
 
         // gen! CefString GetError()
         /// <summary>
@@ -14780,7 +15732,7 @@ namespace LayoutFarm.CefBridge.Auto
             Cef3Binder.MyCefMet_Call0(this.nativePtr, CefXmlReader_GetError_4, out ret);
             return Cef3Binder.CopyStringAndDestroyNativeSide(ref ret);
         }
-        //CsCallToNativeCodeGen::GenerateCsMethod , 670
+        //CsCallToNativeCodeGen::GenerateCsMethod , 716
 
         // gen! NodeType GetType()
         /// <summary>
@@ -14798,7 +15750,7 @@ namespace LayoutFarm.CefBridge.Auto
             return (cef_xml_node_type_t)ret.I32;
 
         }
-        //CsCallToNativeCodeGen::GenerateCsMethod , 671
+        //CsCallToNativeCodeGen::GenerateCsMethod , 717
 
         // gen! int GetDepth()
         /// <summary>
@@ -14813,7 +15765,7 @@ namespace LayoutFarm.CefBridge.Auto
             Cef3Binder.MyCefMet_Call0(this.nativePtr, CefXmlReader_GetDepth_6, out ret);
             return ret.I32;
         }
-        //CsCallToNativeCodeGen::GenerateCsMethod , 672
+        //CsCallToNativeCodeGen::GenerateCsMethod , 718
 
         // gen! CefString GetLocalName()
         /// <summary>
@@ -14829,7 +15781,7 @@ namespace LayoutFarm.CefBridge.Auto
             Cef3Binder.MyCefMet_Call0(this.nativePtr, CefXmlReader_GetLocalName_7, out ret);
             return Cef3Binder.CopyStringAndDestroyNativeSide(ref ret);
         }
-        //CsCallToNativeCodeGen::GenerateCsMethod , 673
+        //CsCallToNativeCodeGen::GenerateCsMethod , 719
 
         // gen! CefString GetPrefix()
         /// <summary>
@@ -14845,7 +15797,7 @@ namespace LayoutFarm.CefBridge.Auto
             Cef3Binder.MyCefMet_Call0(this.nativePtr, CefXmlReader_GetPrefix_8, out ret);
             return Cef3Binder.CopyStringAndDestroyNativeSide(ref ret);
         }
-        //CsCallToNativeCodeGen::GenerateCsMethod , 674
+        //CsCallToNativeCodeGen::GenerateCsMethod , 720
 
         // gen! CefString GetQualifiedName()
         /// <summary>
@@ -14861,7 +15813,7 @@ namespace LayoutFarm.CefBridge.Auto
             Cef3Binder.MyCefMet_Call0(this.nativePtr, CefXmlReader_GetQualifiedName_9, out ret);
             return Cef3Binder.CopyStringAndDestroyNativeSide(ref ret);
         }
-        //CsCallToNativeCodeGen::GenerateCsMethod , 675
+        //CsCallToNativeCodeGen::GenerateCsMethod , 721
 
         // gen! CefString GetNamespaceURI()
         /// <summary>
@@ -14877,7 +15829,7 @@ namespace LayoutFarm.CefBridge.Auto
             Cef3Binder.MyCefMet_Call0(this.nativePtr, CefXmlReader_GetNamespaceURI_10, out ret);
             return Cef3Binder.CopyStringAndDestroyNativeSide(ref ret);
         }
-        //CsCallToNativeCodeGen::GenerateCsMethod , 676
+        //CsCallToNativeCodeGen::GenerateCsMethod , 722
 
         // gen! CefString GetBaseURI()
         /// <summary>
@@ -14893,7 +15845,7 @@ namespace LayoutFarm.CefBridge.Auto
             Cef3Binder.MyCefMet_Call0(this.nativePtr, CefXmlReader_GetBaseURI_11, out ret);
             return Cef3Binder.CopyStringAndDestroyNativeSide(ref ret);
         }
-        //CsCallToNativeCodeGen::GenerateCsMethod , 677
+        //CsCallToNativeCodeGen::GenerateCsMethod , 723
 
         // gen! CefString GetXmlLang()
         /// <summary>
@@ -14909,7 +15861,7 @@ namespace LayoutFarm.CefBridge.Auto
             Cef3Binder.MyCefMet_Call0(this.nativePtr, CefXmlReader_GetXmlLang_12, out ret);
             return Cef3Binder.CopyStringAndDestroyNativeSide(ref ret);
         }
-        //CsCallToNativeCodeGen::GenerateCsMethod , 678
+        //CsCallToNativeCodeGen::GenerateCsMethod , 724
 
         // gen! bool IsEmptyElement()
         /// <summary>
@@ -14925,7 +15877,7 @@ namespace LayoutFarm.CefBridge.Auto
             Cef3Binder.MyCefMet_Call0(this.nativePtr, CefXmlReader_IsEmptyElement_13, out ret);
             return ret.I32 != 0;
         }
-        //CsCallToNativeCodeGen::GenerateCsMethod , 679
+        //CsCallToNativeCodeGen::GenerateCsMethod , 725
 
         // gen! bool HasValue()
         /// <summary>
@@ -14940,7 +15892,7 @@ namespace LayoutFarm.CefBridge.Auto
             Cef3Binder.MyCefMet_Call0(this.nativePtr, CefXmlReader_HasValue_14, out ret);
             return ret.I32 != 0;
         }
-        //CsCallToNativeCodeGen::GenerateCsMethod , 680
+        //CsCallToNativeCodeGen::GenerateCsMethod , 726
 
         // gen! CefString GetValue()
         /// <summary>
@@ -14955,7 +15907,7 @@ namespace LayoutFarm.CefBridge.Auto
             Cef3Binder.MyCefMet_Call0(this.nativePtr, CefXmlReader_GetValue_15, out ret);
             return Cef3Binder.CopyStringAndDestroyNativeSide(ref ret);
         }
-        //CsCallToNativeCodeGen::GenerateCsMethod , 681
+        //CsCallToNativeCodeGen::GenerateCsMethod , 727
 
         // gen! bool HasAttributes()
         /// <summary>
@@ -14970,7 +15922,7 @@ namespace LayoutFarm.CefBridge.Auto
             Cef3Binder.MyCefMet_Call0(this.nativePtr, CefXmlReader_HasAttributes_16, out ret);
             return ret.I32 != 0;
         }
-        //CsCallToNativeCodeGen::GenerateCsMethod , 682
+        //CsCallToNativeCodeGen::GenerateCsMethod , 728
 
         // gen! size_t GetAttributeCount()
         /// <summary>
@@ -14985,7 +15937,7 @@ namespace LayoutFarm.CefBridge.Auto
             Cef3Binder.MyCefMet_Call0(this.nativePtr, CefXmlReader_GetAttributeCount_17, out ret);
             return (uint)ret.I32;
         }
-        //CsCallToNativeCodeGen::GenerateCsMethod , 683
+        //CsCallToNativeCodeGen::GenerateCsMethod , 729
 
         // gen! CefString GetAttribute(int index)
 
@@ -14998,7 +15950,7 @@ namespace LayoutFarm.CefBridge.Auto
             Cef3Binder.MyCefMet_Call1(this.nativePtr, CefXmlReader_GetAttribute_18, out ret, ref v1);
             return Cef3Binder.CopyStringAndDestroyNativeSide(ref ret);
         }
-        //CsCallToNativeCodeGen::GenerateCsMethod , 684
+        //CsCallToNativeCodeGen::GenerateCsMethod , 730
 
         // gen! CefString GetAttribute(const CefString& qualifiedName)
 
@@ -15012,7 +15964,7 @@ namespace LayoutFarm.CefBridge.Auto
             Cef3Binder.MyCefDeletePtr(v1.Ptr);
             return Cef3Binder.CopyStringAndDestroyNativeSide(ref ret);
         }
-        //CsCallToNativeCodeGen::GenerateCsMethod , 685
+        //CsCallToNativeCodeGen::GenerateCsMethod , 731
 
         // gen! CefString GetAttribute(const CefString& localName,const CefString& namespaceURI)
 
@@ -15030,7 +15982,7 @@ namespace LayoutFarm.CefBridge.Auto
             Cef3Binder.MyCefDeletePtr(v2.Ptr);
             return Cef3Binder.CopyStringAndDestroyNativeSide(ref ret);
         }
-        //CsCallToNativeCodeGen::GenerateCsMethod , 686
+        //CsCallToNativeCodeGen::GenerateCsMethod , 732
 
         // gen! CefString GetInnerXml()
         /// <summary>
@@ -15045,7 +15997,7 @@ namespace LayoutFarm.CefBridge.Auto
             Cef3Binder.MyCefMet_Call0(this.nativePtr, CefXmlReader_GetInnerXml_21, out ret);
             return Cef3Binder.CopyStringAndDestroyNativeSide(ref ret);
         }
-        //CsCallToNativeCodeGen::GenerateCsMethod , 687
+        //CsCallToNativeCodeGen::GenerateCsMethod , 733
 
         // gen! CefString GetOuterXml()
         /// <summary>
@@ -15060,7 +16012,7 @@ namespace LayoutFarm.CefBridge.Auto
             Cef3Binder.MyCefMet_Call0(this.nativePtr, CefXmlReader_GetOuterXml_22, out ret);
             return Cef3Binder.CopyStringAndDestroyNativeSide(ref ret);
         }
-        //CsCallToNativeCodeGen::GenerateCsMethod , 688
+        //CsCallToNativeCodeGen::GenerateCsMethod , 734
 
         // gen! int GetLineNumber()
         /// <summary>
@@ -15075,7 +16027,7 @@ namespace LayoutFarm.CefBridge.Auto
             Cef3Binder.MyCefMet_Call0(this.nativePtr, CefXmlReader_GetLineNumber_23, out ret);
             return ret.I32;
         }
-        //CsCallToNativeCodeGen::GenerateCsMethod , 689
+        //CsCallToNativeCodeGen::GenerateCsMethod , 735
 
         // gen! bool MoveToAttribute(int index)
 
@@ -15088,7 +16040,7 @@ namespace LayoutFarm.CefBridge.Auto
             Cef3Binder.MyCefMet_Call1(this.nativePtr, CefXmlReader_MoveToAttribute_24, out ret, ref v1);
             return ret.I32 != 0;
         }
-        //CsCallToNativeCodeGen::GenerateCsMethod , 690
+        //CsCallToNativeCodeGen::GenerateCsMethod , 736
 
         // gen! bool MoveToAttribute(const CefString& qualifiedName)
 
@@ -15102,7 +16054,7 @@ namespace LayoutFarm.CefBridge.Auto
             Cef3Binder.MyCefDeletePtr(v1.Ptr);
             return ret.I32 != 0;
         }
-        //CsCallToNativeCodeGen::GenerateCsMethod , 691
+        //CsCallToNativeCodeGen::GenerateCsMethod , 737
 
         // gen! bool MoveToAttribute(const CefString& localName,const CefString& namespaceURI)
 
@@ -15120,7 +16072,7 @@ namespace LayoutFarm.CefBridge.Auto
             Cef3Binder.MyCefDeletePtr(v2.Ptr);
             return ret.I32 != 0;
         }
-        //CsCallToNativeCodeGen::GenerateCsMethod , 692
+        //CsCallToNativeCodeGen::GenerateCsMethod , 738
 
         // gen! bool MoveToFirstAttribute()
         /// <summary>
@@ -15136,7 +16088,7 @@ namespace LayoutFarm.CefBridge.Auto
             Cef3Binder.MyCefMet_Call0(this.nativePtr, CefXmlReader_MoveToFirstAttribute_27, out ret);
             return ret.I32 != 0;
         }
-        //CsCallToNativeCodeGen::GenerateCsMethod , 693
+        //CsCallToNativeCodeGen::GenerateCsMethod , 739
 
         // gen! bool MoveToNextAttribute()
         /// <summary>
@@ -15152,7 +16104,7 @@ namespace LayoutFarm.CefBridge.Auto
             Cef3Binder.MyCefMet_Call0(this.nativePtr, CefXmlReader_MoveToNextAttribute_28, out ret);
             return ret.I32 != 0;
         }
-        //CsCallToNativeCodeGen::GenerateCsMethod , 694
+        //CsCallToNativeCodeGen::GenerateCsMethod , 740
 
         // gen! bool MoveToCarryingElement()
         /// <summary>
@@ -15168,11 +16120,37 @@ namespace LayoutFarm.CefBridge.Auto
             Cef3Binder.MyCefMet_Call0(this.nativePtr, CefXmlReader_MoveToCarryingElement_29, out ret);
             return ret.I32 != 0;
         }
+        //
+        //CsCallToNativeCodeGen::GenerateCs_S_Method , 741
+
+        // gen! CefRefPtr<CefXmlReader> Create(CefRefPtr<CefStreamReader> stream,EncodingType encodingType,const CefString& URI)
+        /// <summary>
+        /// Create a new CefXmlReader object. The returned object's methods can only
+        /// be called from the thread that created the object.
+        /// /*cef()*/
+        /// </summary>
+
+        public CefXmlReader Create(CefStreamReader stream,
+        cef_xml_encoding_type_t encodingType,
+        string URI)
+        {
+            JsValue v1 = new JsValue();
+            JsValue v2 = new JsValue();
+            JsValue v3 = new JsValue();
+            JsValue ret;
+            v3.Ptr = Cef3Binder.MyCefCreateStringHolder(URI);
+            v1.Ptr = stream.nativePtr;
+            v2.I32 = (int)encodingType;
+
+            Cef3Binder.MyCefMet_S_Call3(CefXmlReader_S_Create_1, out ret, ref v1, ref v2, ref v3);
+            Cef3Binder.MyCefDeletePtr(v3.Ptr);
+            return new CefXmlReader(ret.Ptr);
+        }
     }
 
 
     // [virtual] class CefZipReader
-    //CsCallToNativeCodeGen::GenerateCsCode , 695
+    //CsCallToNativeCodeGen::GenerateCsCode , 742
     /// <summary>
     /// Class that supports the reading of zip archives via the zlib unzip API.
     /// The methods of this class should only be called on the thread that creates
@@ -15195,6 +16173,8 @@ namespace LayoutFarm.CefBridge.Auto
         const int CefZipReader_ReadFile_10 = (_typeNAME << 16) | 10;
         const int CefZipReader_Tell_11 = (_typeNAME << 16) | 11;
         const int CefZipReader_Eof_12 = (_typeNAME << 16) | 12;
+        //
+        const int CefZipReader_S_Create_1 = (_typeNAME << 16) | 1;
         internal IntPtr nativePtr;
         internal CefZipReader(IntPtr nativePtr)
         {
@@ -15206,7 +16186,7 @@ namespace LayoutFarm.CefBridge.Auto
             Cef3Binder.MyCefMet_Call0(this.nativePtr, CefZipReader_Release_0, out ret);
             this.nativePtr = IntPtr.Zero;
         }
-        //CsCallToNativeCodeGen::GenerateCsMethod , 696
+        //CsCallToNativeCodeGen::GenerateCsMethod , 743
 
         // gen! bool MoveToFirstFile()
         /// <summary>
@@ -15220,7 +16200,7 @@ namespace LayoutFarm.CefBridge.Auto
             Cef3Binder.MyCefMet_Call0(this.nativePtr, CefZipReader_MoveToFirstFile_1, out ret);
             return ret.I32 != 0;
         }
-        //CsCallToNativeCodeGen::GenerateCsMethod , 697
+        //CsCallToNativeCodeGen::GenerateCsMethod , 744
 
         // gen! bool MoveToNextFile()
         /// <summary>
@@ -15236,7 +16216,7 @@ namespace LayoutFarm.CefBridge.Auto
             Cef3Binder.MyCefMet_Call0(this.nativePtr, CefZipReader_MoveToNextFile_2, out ret);
             return ret.I32 != 0;
         }
-        //CsCallToNativeCodeGen::GenerateCsMethod , 698
+        //CsCallToNativeCodeGen::GenerateCsMethod , 745
 
         // gen! bool MoveToFile(const CefString& fileName,bool caseSensitive)
         /// <summary>
@@ -15259,7 +16239,7 @@ namespace LayoutFarm.CefBridge.Auto
             Cef3Binder.MyCefDeletePtr(v1.Ptr);
             return ret.I32 != 0;
         }
-        //CsCallToNativeCodeGen::GenerateCsMethod , 699
+        //CsCallToNativeCodeGen::GenerateCsMethod , 746
 
         // gen! bool Close()
         /// <summary>
@@ -15275,7 +16255,7 @@ namespace LayoutFarm.CefBridge.Auto
             Cef3Binder.MyCefMet_Call0(this.nativePtr, CefZipReader_Close_4, out ret);
             return ret.I32 != 0;
         }
-        //CsCallToNativeCodeGen::GenerateCsMethod , 700
+        //CsCallToNativeCodeGen::GenerateCsMethod , 747
 
         // gen! CefString GetFileName()
         /// <summary>
@@ -15291,7 +16271,7 @@ namespace LayoutFarm.CefBridge.Auto
             Cef3Binder.MyCefMet_Call0(this.nativePtr, CefZipReader_GetFileName_5, out ret);
             return Cef3Binder.CopyStringAndDestroyNativeSide(ref ret);
         }
-        //CsCallToNativeCodeGen::GenerateCsMethod , 701
+        //CsCallToNativeCodeGen::GenerateCsMethod , 748
 
         // gen! int64 GetFileSize()
         /// <summary>
@@ -15306,7 +16286,7 @@ namespace LayoutFarm.CefBridge.Auto
             Cef3Binder.MyCefMet_Call0(this.nativePtr, CefZipReader_GetFileSize_6, out ret);
             return ret.I64;
         }
-        //CsCallToNativeCodeGen::GenerateCsMethod , 702
+        //CsCallToNativeCodeGen::GenerateCsMethod , 749
 
         // gen! CefTime GetFileLastModified()
         /// <summary>
@@ -15322,7 +16302,7 @@ namespace LayoutFarm.CefBridge.Auto
             return new CefTime(ret.Ptr);
 
         }
-        //CsCallToNativeCodeGen::GenerateCsMethod , 703
+        //CsCallToNativeCodeGen::GenerateCsMethod , 750
 
         // gen! bool OpenFile(const CefString& password)
         /// <summary>
@@ -15341,7 +16321,7 @@ namespace LayoutFarm.CefBridge.Auto
             Cef3Binder.MyCefDeletePtr(v1.Ptr);
             return ret.I32 != 0;
         }
-        //CsCallToNativeCodeGen::GenerateCsMethod , 704
+        //CsCallToNativeCodeGen::GenerateCsMethod , 751
 
         // gen! bool CloseFile()
         /// <summary>
@@ -15356,7 +16336,7 @@ namespace LayoutFarm.CefBridge.Auto
             Cef3Binder.MyCefMet_Call0(this.nativePtr, CefZipReader_CloseFile_9, out ret);
             return ret.I32 != 0;
         }
-        //CsCallToNativeCodeGen::GenerateCsMethod , 705
+        //CsCallToNativeCodeGen::GenerateCsMethod , 752
 
         // gen! int ReadFile(void* buffer,size_t bufferSize)
         /// <summary>
@@ -15377,7 +16357,7 @@ namespace LayoutFarm.CefBridge.Auto
             Cef3Binder.MyCefMet_Call2(this.nativePtr, CefZipReader_ReadFile_10, out ret, ref v1, ref v2);
             return ret.I32;
         }
-        //CsCallToNativeCodeGen::GenerateCsMethod , 706
+        //CsCallToNativeCodeGen::GenerateCsMethod , 753
 
         // gen! int64 Tell()
         /// <summary>
@@ -15392,7 +16372,7 @@ namespace LayoutFarm.CefBridge.Auto
             Cef3Binder.MyCefMet_Call0(this.nativePtr, CefZipReader_Tell_11, out ret);
             return ret.I64;
         }
-        //CsCallToNativeCodeGen::GenerateCsMethod , 707
+        //CsCallToNativeCodeGen::GenerateCsMethod , 754
 
         // gen! bool Eof()
         /// <summary>
@@ -15407,9 +16387,28 @@ namespace LayoutFarm.CefBridge.Auto
             Cef3Binder.MyCefMet_Call0(this.nativePtr, CefZipReader_Eof_12, out ret);
             return ret.I32 != 0;
         }
+        //
+        //CsCallToNativeCodeGen::GenerateCs_S_Method , 755
+
+        // gen! CefRefPtr<CefZipReader> Create(CefRefPtr<CefStreamReader> stream)
+        /// <summary>
+        /// Create a new CefZipReader object. The returned object's methods can only
+        /// be called from the thread that created the object.
+        /// /*cef()*/
+        /// </summary>
+
+        public CefZipReader Create(CefStreamReader stream)
+        {
+            JsValue v1 = new JsValue();
+            JsValue ret;
+            v1.Ptr = stream.nativePtr;
+
+            Cef3Binder.MyCefMet_S_Call1(CefZipReader_S_Create_1, out ret, ref v1);
+            return new CefZipReader(ret.Ptr);
+        }
     }
 
-    //CsCallToNativeCodeGen::GenerateCsCode , 708
+    //CsCallToNativeCodeGen::GenerateCsCode , 756
     /// <summary>
     /// Callback interface used for asynchronous continuation of authentication
     /// requests.
@@ -15432,7 +16431,7 @@ namespace LayoutFarm.CefBridge.Auto
             Cef3Binder.MyCefMet_Call0(this.nativePtr, CefAuthCallback_Release_0, out ret);
             this.nativePtr = IntPtr.Zero;
         }
-        //CsCallToNativeCodeGen::GenerateCsMethod , 709
+        //CsCallToNativeCodeGen::GenerateCsMethod , 757
 
         // gen! void Continue(const CefString& username,const CefString& password)
         /// <summary>
@@ -15453,7 +16452,7 @@ namespace LayoutFarm.CefBridge.Auto
             Cef3Binder.MyCefDeletePtr(v2.Ptr);
 
         }
-        //CsCallToNativeCodeGen::GenerateCsMethod , 710
+        //CsCallToNativeCodeGen::GenerateCsMethod , 758
 
         // gen! void Cancel()
 
@@ -15465,7 +16464,7 @@ namespace LayoutFarm.CefBridge.Auto
 
         }
     }
-    //CsCallToNativeCodeGen::GenerateCsCode , 711
+    //CsCallToNativeCodeGen::GenerateCsCode , 759
     /// <summary>
     /// Callback interface for CefBrowserHost::RunFileDialog. The methods of this
     /// class will be called on the browser process UI thread.
@@ -15487,7 +16486,7 @@ namespace LayoutFarm.CefBridge.Auto
             this.nativePtr = IntPtr.Zero;
         }
     }
-    //CsCallToNativeCodeGen::GenerateCsCode , 712
+    //CsCallToNativeCodeGen::GenerateCsCode , 760
     /// <summary>
     /// Callback interface for CefBrowserHost::PrintToPDF. The methods of this class
     /// will be called on the browser process UI thread.
@@ -15509,7 +16508,7 @@ namespace LayoutFarm.CefBridge.Auto
             this.nativePtr = IntPtr.Zero;
         }
     }
-    //CsCallToNativeCodeGen::GenerateCsCode , 713
+    //CsCallToNativeCodeGen::GenerateCsCode , 761
     /// <summary>
     /// Callback interface for CefBrowserHost::DownloadImage. The methods of this
     /// class will be called on the browser process UI thread.
@@ -15531,7 +16530,7 @@ namespace LayoutFarm.CefBridge.Auto
             this.nativePtr = IntPtr.Zero;
         }
     }
-    //CsCallToNativeCodeGen::GenerateCsCode , 714
+    //CsCallToNativeCodeGen::GenerateCsCode , 762
     /// <summary>
     /// Generic callback interface used for asynchronous continuation.
     /// /*(source=library)*/
@@ -15553,7 +16552,7 @@ namespace LayoutFarm.CefBridge.Auto
             Cef3Binder.MyCefMet_Call0(this.nativePtr, CefCallback_Release_0, out ret);
             this.nativePtr = IntPtr.Zero;
         }
-        //CsCallToNativeCodeGen::GenerateCsMethod , 715
+        //CsCallToNativeCodeGen::GenerateCsMethod , 763
 
         // gen! void Continue()
         /// <summary>
@@ -15567,7 +16566,7 @@ namespace LayoutFarm.CefBridge.Auto
             Cef3Binder.MyCefMet_Call0(this.nativePtr, CefCallback_Continue_1, out ret);
 
         }
-        //CsCallToNativeCodeGen::GenerateCsMethod , 716
+        //CsCallToNativeCodeGen::GenerateCsMethod , 764
 
         // gen! void Cancel()
 
@@ -15579,7 +16578,7 @@ namespace LayoutFarm.CefBridge.Auto
 
         }
     }
-    //CsCallToNativeCodeGen::GenerateCsCode , 717
+    //CsCallToNativeCodeGen::GenerateCsCode , 765
     /// <summary>
     /// Generic callback interface used for asynchronous completion.
     /// /*(source=client)*/
@@ -15600,7 +16599,7 @@ namespace LayoutFarm.CefBridge.Auto
             this.nativePtr = IntPtr.Zero;
         }
     }
-    //CsCallToNativeCodeGen::GenerateCsCode , 718
+    //CsCallToNativeCodeGen::GenerateCsCode , 766
     /// <summary>
     /// Callback interface used for continuation of custom context menu display.
     /// /*(source=library)*/
@@ -15622,7 +16621,7 @@ namespace LayoutFarm.CefBridge.Auto
             Cef3Binder.MyCefMet_Call0(this.nativePtr, CefRunContextMenuCallback_Release_0, out ret);
             this.nativePtr = IntPtr.Zero;
         }
-        //CsCallToNativeCodeGen::GenerateCsMethod , 719
+        //CsCallToNativeCodeGen::GenerateCsMethod , 767
 
         // gen! void Continue(int command_id,EventFlags event_flags)
         /// <summary>
@@ -15641,7 +16640,7 @@ namespace LayoutFarm.CefBridge.Auto
             Cef3Binder.MyCefMet_Call2(this.nativePtr, CefRunContextMenuCallback_Continue_1, out ret, ref v1, ref v2);
 
         }
-        //CsCallToNativeCodeGen::GenerateCsMethod , 720
+        //CsCallToNativeCodeGen::GenerateCsMethod , 768
 
         // gen! void Cancel()
 
@@ -15653,7 +16652,7 @@ namespace LayoutFarm.CefBridge.Auto
 
         }
     }
-    //CsCallToNativeCodeGen::GenerateCsCode , 721
+    //CsCallToNativeCodeGen::GenerateCsCode , 769
     /// <summary>
     /// Interface to implement to be notified of asynchronous completion via
     /// CefCookieManager::SetCookie().
@@ -15675,7 +16674,7 @@ namespace LayoutFarm.CefBridge.Auto
             this.nativePtr = IntPtr.Zero;
         }
     }
-    //CsCallToNativeCodeGen::GenerateCsCode , 722
+    //CsCallToNativeCodeGen::GenerateCsCode , 770
     /// <summary>
     /// Interface to implement to be notified of asynchronous completion via
     /// CefCookieManager::DeleteCookies().
@@ -15697,7 +16696,7 @@ namespace LayoutFarm.CefBridge.Auto
             this.nativePtr = IntPtr.Zero;
         }
     }
-    //CsCallToNativeCodeGen::GenerateCsCode , 723
+    //CsCallToNativeCodeGen::GenerateCsCode , 771
     /// <summary>
     /// Callback interface for asynchronous continuation of file dialog requests.
     /// /*(source=library)*/
@@ -15719,7 +16718,7 @@ namespace LayoutFarm.CefBridge.Auto
             Cef3Binder.MyCefMet_Call0(this.nativePtr, CefFileDialogCallback_Release_0, out ret);
             this.nativePtr = IntPtr.Zero;
         }
-        //CsCallToNativeCodeGen::GenerateCsMethod , 724
+        //CsCallToNativeCodeGen::GenerateCsMethod , 772
 
         // gen! void Continue(int selected_accept_filter,const std::vector<CefString>& file_paths)
         /// <summary>
@@ -15739,7 +16738,7 @@ namespace LayoutFarm.CefBridge.Auto
             Cef3Binder.CopyStdStringListAndDestroyNativeSide(v2.Ptr, file_paths);
 
         }
-        //CsCallToNativeCodeGen::GenerateCsMethod , 725
+        //CsCallToNativeCodeGen::GenerateCsMethod , 773
 
         // gen! void Cancel()
 
@@ -15751,7 +16750,7 @@ namespace LayoutFarm.CefBridge.Auto
 
         }
     }
-    //CsCallToNativeCodeGen::GenerateCsCode , 726
+    //CsCallToNativeCodeGen::GenerateCsCode , 774
     /// <summary>
     /// Callback interface used to asynchronously continue a download.
     /// /*(source=library)*/
@@ -15772,7 +16771,7 @@ namespace LayoutFarm.CefBridge.Auto
             Cef3Binder.MyCefMet_Call0(this.nativePtr, CefBeforeDownloadCallback_Release_0, out ret);
             this.nativePtr = IntPtr.Zero;
         }
-        //CsCallToNativeCodeGen::GenerateCsMethod , 727
+        //CsCallToNativeCodeGen::GenerateCsMethod , 775
 
         // gen! void Continue(const CefString& download_path,bool show_dialog)
         /// <summary>
@@ -15793,7 +16792,7 @@ namespace LayoutFarm.CefBridge.Auto
 
         }
     }
-    //CsCallToNativeCodeGen::GenerateCsCode , 728
+    //CsCallToNativeCodeGen::GenerateCsCode , 776
     /// <summary>
     /// Callback interface used to asynchronously cancel a download.
     /// /*(source=library)*/
@@ -15816,7 +16815,7 @@ namespace LayoutFarm.CefBridge.Auto
             Cef3Binder.MyCefMet_Call0(this.nativePtr, CefDownloadItemCallback_Release_0, out ret);
             this.nativePtr = IntPtr.Zero;
         }
-        //CsCallToNativeCodeGen::GenerateCsMethod , 729
+        //CsCallToNativeCodeGen::GenerateCsMethod , 777
 
         // gen! void Cancel()
         /// <summary>
@@ -15830,7 +16829,7 @@ namespace LayoutFarm.CefBridge.Auto
             Cef3Binder.MyCefMet_Call0(this.nativePtr, CefDownloadItemCallback_Cancel_1, out ret);
 
         }
-        //CsCallToNativeCodeGen::GenerateCsMethod , 730
+        //CsCallToNativeCodeGen::GenerateCsMethod , 778
 
         // gen! void Pause()
 
@@ -15841,7 +16840,7 @@ namespace LayoutFarm.CefBridge.Auto
             Cef3Binder.MyCefMet_Call0(this.nativePtr, CefDownloadItemCallback_Pause_2, out ret);
 
         }
-        //CsCallToNativeCodeGen::GenerateCsMethod , 731
+        //CsCallToNativeCodeGen::GenerateCsMethod , 779
 
         // gen! void Resume()
 
@@ -15853,7 +16852,7 @@ namespace LayoutFarm.CefBridge.Auto
 
         }
     }
-    //CsCallToNativeCodeGen::GenerateCsCode , 732
+    //CsCallToNativeCodeGen::GenerateCsCode , 780
     /// <summary>
     /// Implement this interface to receive geolocation updates. The methods of this
     /// class will be called on the browser process UI thread.
@@ -15875,7 +16874,7 @@ namespace LayoutFarm.CefBridge.Auto
             this.nativePtr = IntPtr.Zero;
         }
     }
-    //CsCallToNativeCodeGen::GenerateCsCode , 733
+    //CsCallToNativeCodeGen::GenerateCsCode , 781
     /// <summary>
     /// Callback interface used for asynchronous continuation of geolocation
     /// permission requests.
@@ -15897,7 +16896,7 @@ namespace LayoutFarm.CefBridge.Auto
             Cef3Binder.MyCefMet_Call0(this.nativePtr, CefGeolocationCallback_Release_0, out ret);
             this.nativePtr = IntPtr.Zero;
         }
-        //CsCallToNativeCodeGen::GenerateCsMethod , 734
+        //CsCallToNativeCodeGen::GenerateCsMethod , 782
 
         // gen! void Continue(bool allow)
         /// <summary>
@@ -15914,7 +16913,7 @@ namespace LayoutFarm.CefBridge.Auto
 
         }
     }
-    //CsCallToNativeCodeGen::GenerateCsCode , 735
+    //CsCallToNativeCodeGen::GenerateCsCode , 783
     /// <summary>
     /// Callback interface used for asynchronous continuation of JavaScript dialog
     /// requests.
@@ -15936,7 +16935,7 @@ namespace LayoutFarm.CefBridge.Auto
             Cef3Binder.MyCefMet_Call0(this.nativePtr, CefJSDialogCallback_Release_0, out ret);
             this.nativePtr = IntPtr.Zero;
         }
-        //CsCallToNativeCodeGen::GenerateCsMethod , 736
+        //CsCallToNativeCodeGen::GenerateCsMethod , 784
 
         // gen! void Continue(bool success,const CefString& user_input)
         /// <summary>
@@ -15957,7 +16956,7 @@ namespace LayoutFarm.CefBridge.Auto
 
         }
     }
-    //CsCallToNativeCodeGen::GenerateCsCode , 737
+    //CsCallToNativeCodeGen::GenerateCsCode , 785
     /// <summary>
     /// Callback interface for asynchronous continuation of print dialog requests.
     /// /*(source=library)*/
@@ -15979,7 +16978,7 @@ namespace LayoutFarm.CefBridge.Auto
             Cef3Binder.MyCefMet_Call0(this.nativePtr, CefPrintDialogCallback_Release_0, out ret);
             this.nativePtr = IntPtr.Zero;
         }
-        //CsCallToNativeCodeGen::GenerateCsMethod , 738
+        //CsCallToNativeCodeGen::GenerateCsMethod , 786
 
         // gen! void Continue(CefRefPtr<CefPrintSettings> settings)
         /// <summary>
@@ -15995,7 +16994,7 @@ namespace LayoutFarm.CefBridge.Auto
             Cef3Binder.MyCefMet_Call1(this.nativePtr, CefPrintDialogCallback_Continue_1, out ret, ref v1);
 
         }
-        //CsCallToNativeCodeGen::GenerateCsMethod , 739
+        //CsCallToNativeCodeGen::GenerateCsMethod , 787
 
         // gen! void Cancel()
 
@@ -16007,7 +17006,7 @@ namespace LayoutFarm.CefBridge.Auto
 
         }
     }
-    //CsCallToNativeCodeGen::GenerateCsCode , 740
+    //CsCallToNativeCodeGen::GenerateCsCode , 788
     /// <summary>
     /// Callback interface for asynchronous continuation of print job requests.
     /// /*(source=library)*/
@@ -16028,7 +17027,7 @@ namespace LayoutFarm.CefBridge.Auto
             Cef3Binder.MyCefMet_Call0(this.nativePtr, CefPrintJobCallback_Release_0, out ret);
             this.nativePtr = IntPtr.Zero;
         }
-        //CsCallToNativeCodeGen::GenerateCsMethod , 741
+        //CsCallToNativeCodeGen::GenerateCsMethod , 789
 
         // gen! void Continue()
         /// <summary>
@@ -16043,7 +17042,7 @@ namespace LayoutFarm.CefBridge.Auto
 
         }
     }
-    //CsCallToNativeCodeGen::GenerateCsCode , 742
+    //CsCallToNativeCodeGen::GenerateCsCode , 790
     /// <summary>
     /// Callback interface for CefRequestContext::ResolveHost.
     /// /*(source=client)*/
@@ -16064,7 +17063,7 @@ namespace LayoutFarm.CefBridge.Auto
             this.nativePtr = IntPtr.Zero;
         }
     }
-    //CsCallToNativeCodeGen::GenerateCsCode , 743
+    //CsCallToNativeCodeGen::GenerateCsCode , 791
     /// <summary>
     /// Callback interface used for asynchronous continuation of url requests.
     /// /*(source=library)*/
@@ -16086,7 +17085,7 @@ namespace LayoutFarm.CefBridge.Auto
             Cef3Binder.MyCefMet_Call0(this.nativePtr, CefRequestCallback_Release_0, out ret);
             this.nativePtr = IntPtr.Zero;
         }
-        //CsCallToNativeCodeGen::GenerateCsMethod , 744
+        //CsCallToNativeCodeGen::GenerateCsMethod , 792
 
         // gen! void Continue(bool allow)
         /// <summary>
@@ -16102,7 +17101,7 @@ namespace LayoutFarm.CefBridge.Auto
             Cef3Binder.MyCefMet_Call1(this.nativePtr, CefRequestCallback_Continue_1, out ret, ref v1);
 
         }
-        //CsCallToNativeCodeGen::GenerateCsMethod , 745
+        //CsCallToNativeCodeGen::GenerateCsMethod , 793
 
         // gen! void Cancel()
 
@@ -16114,7 +17113,7 @@ namespace LayoutFarm.CefBridge.Auto
 
         }
     }
-    //CsCallToNativeCodeGen::GenerateCsCode , 746
+    //CsCallToNativeCodeGen::GenerateCsCode , 794
     /// <summary>
     /// Callback interface used to select a client certificate for authentication.
     /// /*(source=library)*/
@@ -16135,7 +17134,7 @@ namespace LayoutFarm.CefBridge.Auto
             Cef3Binder.MyCefMet_Call0(this.nativePtr, CefSelectClientCertificateCallback_Release_0, out ret);
             this.nativePtr = IntPtr.Zero;
         }
-        //CsCallToNativeCodeGen::GenerateCsMethod , 747
+        //CsCallToNativeCodeGen::GenerateCsMethod , 795
 
         // gen! void Select(CefRefPtr<CefX509Certificate> cert)
         /// <summary>
@@ -16152,7 +17151,7 @@ namespace LayoutFarm.CefBridge.Auto
 
         }
     }
-    //CsCallToNativeCodeGen::GenerateCsCode , 748
+    //CsCallToNativeCodeGen::GenerateCsCode , 796
     /// <summary>
     /// Implement this interface to receive notification when tracing has completed.
     /// The methods of this class will be called on the browser process UI thread.
@@ -16174,7 +17173,7 @@ namespace LayoutFarm.CefBridge.Auto
             this.nativePtr = IntPtr.Zero;
         }
     }
-    //CsCallToNativeCodeGen::GenerateCsCode , 749
+    //CsCallToNativeCodeGen::GenerateCsCode , 797
     /// <summary>
     /// Interface to implement for receiving unstable plugin information. The methods
     /// of this class will be called on the browser process IO thread.
@@ -16196,7 +17195,7 @@ namespace LayoutFarm.CefBridge.Auto
             this.nativePtr = IntPtr.Zero;
         }
     }
-    //CsCallToNativeCodeGen::GenerateCsCode , 750
+    //CsCallToNativeCodeGen::GenerateCsCode , 798
     /// <summary>
     /// Implement this interface to receive notification when CDM registration is
     /// complete. The methods of this class will be called on the browser process
@@ -16223,6 +17222,11 @@ namespace LayoutFarm.CefBridge.Auto
     public struct CefAccessibilityHandler
     {
         public const int _typeNAME = 56;
+        internal IntPtr nativePtr;
+        public CefAccessibilityHandler(IntPtr nativePtr)
+        {
+            this.nativePtr = nativePtr;
+        }
         const int CefAccessibilityHandlerExt_OnAccessibilityTreeChange_1 = 1;
         const int CefAccessibilityHandlerExt_OnAccessibilityLocationChange_2 = 2;
         //gen! void OnAccessibilityTreeChange(CefRefPtr<CefValue> value)
@@ -16377,6 +17381,11 @@ namespace LayoutFarm.CefBridge.Auto
     public struct CefBrowserProcessHandler
     {
         public const int _typeNAME = 57;
+        internal IntPtr nativePtr;
+        public CefBrowserProcessHandler(IntPtr nativePtr)
+        {
+            this.nativePtr = nativePtr;
+        }
         const int CefBrowserProcessHandlerExt_OnContextInitialized_1 = 1;
         const int CefBrowserProcessHandlerExt_OnBeforeChildProcessLaunch_2 = 2;
         const int CefBrowserProcessHandlerExt_OnRenderProcessThreadCreated_3 = 3;
@@ -16727,6 +17736,11 @@ namespace LayoutFarm.CefBridge.Auto
     public struct CefContextMenuHandler
     {
         public const int _typeNAME = 58;
+        internal IntPtr nativePtr;
+        public CefContextMenuHandler(IntPtr nativePtr)
+        {
+            this.nativePtr = nativePtr;
+        }
         const int CefContextMenuHandlerExt_OnBeforeContextMenu_1 = 1;
         const int CefContextMenuHandlerExt_RunContextMenu_2 = 2;
         const int CefContextMenuHandlerExt_OnContextMenuCommand_3 = 3;
@@ -17143,6 +18157,11 @@ namespace LayoutFarm.CefBridge.Auto
     public struct CefDialogHandler
     {
         public const int _typeNAME = 59;
+        internal IntPtr nativePtr;
+        public CefDialogHandler(IntPtr nativePtr)
+        {
+            this.nativePtr = nativePtr;
+        }
         const int CefDialogHandlerExt_OnFileDialog_1 = 1;
         //gen! bool OnFileDialog(CefRefPtr<CefBrowser> browser,FileDialogMode mode,const CefString& title,const CefString& default_file_path,const std::vector<CefString>& accept_filters,int selected_accept_filter,CefRefPtr<CefFileDialogCallback> callback)
         //CsStructModuleCodeGen:: GenerateCsMethodArgsClass ,88
@@ -17296,6 +18315,11 @@ namespace LayoutFarm.CefBridge.Auto
     public struct CefDisplayHandler
     {
         public const int _typeNAME = 60;
+        internal IntPtr nativePtr;
+        public CefDisplayHandler(IntPtr nativePtr)
+        {
+            this.nativePtr = nativePtr;
+        }
         const int CefDisplayHandlerExt_OnAddressChange_1 = 1;
         const int CefDisplayHandlerExt_OnTitleChange_2 = 2;
         const int CefDisplayHandlerExt_OnFaviconURLChange_3 = 3;
@@ -17889,6 +18913,11 @@ namespace LayoutFarm.CefBridge.Auto
     public struct CefDownloadHandler
     {
         public const int _typeNAME = 61;
+        internal IntPtr nativePtr;
+        public CefDownloadHandler(IntPtr nativePtr)
+        {
+            this.nativePtr = nativePtr;
+        }
         const int CefDownloadHandlerExt_OnBeforeDownload_1 = 1;
         const int CefDownloadHandlerExt_OnDownloadUpdated_2 = 2;
         //gen! void OnBeforeDownload(CefRefPtr<CefBrowser> browser,CefRefPtr<CefDownloadItem> download_item,const CefString& suggested_name,CefRefPtr<CefBeforeDownloadCallback> callback)
@@ -18094,6 +19123,11 @@ namespace LayoutFarm.CefBridge.Auto
     public struct CefDragHandler
     {
         public const int _typeNAME = 62;
+        internal IntPtr nativePtr;
+        public CefDragHandler(IntPtr nativePtr)
+        {
+            this.nativePtr = nativePtr;
+        }
         const int CefDragHandlerExt_OnDragEnter_1 = 1;
         const int CefDragHandlerExt_OnDraggableRegionsChanged_2 = 2;
         //gen! bool OnDragEnter(CefRefPtr<CefBrowser> browser,CefRefPtr<CefDragData> dragData,DragOperationsMask mask)
@@ -18286,6 +19320,11 @@ namespace LayoutFarm.CefBridge.Auto
     public struct CefFindHandler
     {
         public const int _typeNAME = 63;
+        internal IntPtr nativePtr;
+        public CefFindHandler(IntPtr nativePtr)
+        {
+            this.nativePtr = nativePtr;
+        }
         const int CefFindHandlerExt_OnFindResult_1 = 1;
         //gen! void OnFindResult(CefRefPtr<CefBrowser> browser,int identifier,int count,const CefRect& selectionRect,int activeMatchOrdinal,bool finalUpdate)
         //CsStructModuleCodeGen:: GenerateCsMethodArgsClass ,184
@@ -18425,6 +19464,11 @@ namespace LayoutFarm.CefBridge.Auto
     public struct CefFocusHandler
     {
         public const int _typeNAME = 64;
+        internal IntPtr nativePtr;
+        public CefFocusHandler(IntPtr nativePtr)
+        {
+            this.nativePtr = nativePtr;
+        }
         const int CefFocusHandlerExt_OnTakeFocus_1 = 1;
         const int CefFocusHandlerExt_OnSetFocus_2 = 2;
         const int CefFocusHandlerExt_OnGotFocus_3 = 3;
@@ -18677,6 +19721,11 @@ namespace LayoutFarm.CefBridge.Auto
     public struct CefGeolocationHandler
     {
         public const int _typeNAME = 65;
+        internal IntPtr nativePtr;
+        public CefGeolocationHandler(IntPtr nativePtr)
+        {
+            this.nativePtr = nativePtr;
+        }
         const int CefGeolocationHandlerExt_OnRequestGeolocationPermission_1 = 1;
         const int CefGeolocationHandlerExt_OnCancelGeolocationPermission_2 = 2;
         //gen! bool OnRequestGeolocationPermission(CefRefPtr<CefBrowser> browser,const CefString& requesting_url,int request_id,CefRefPtr<CefGeolocationCallback> callback)
@@ -18881,6 +19930,11 @@ namespace LayoutFarm.CefBridge.Auto
     public struct CefJSDialogHandler
     {
         public const int _typeNAME = 66;
+        internal IntPtr nativePtr;
+        public CefJSDialogHandler(IntPtr nativePtr)
+        {
+            this.nativePtr = nativePtr;
+        }
         const int CefJSDialogHandlerExt_OnJSDialog_1 = 1;
         const int CefJSDialogHandlerExt_OnBeforeUnloadDialog_2 = 2;
         const int CefJSDialogHandlerExt_OnResetDialogState_3 = 3;
@@ -19276,6 +20330,11 @@ namespace LayoutFarm.CefBridge.Auto
     public struct CefKeyboardHandler
     {
         public const int _typeNAME = 67;
+        internal IntPtr nativePtr;
+        public CefKeyboardHandler(IntPtr nativePtr)
+        {
+            this.nativePtr = nativePtr;
+        }
         const int CefKeyboardHandlerExt_OnPreKeyEvent_1 = 1;
         const int CefKeyboardHandlerExt_OnKeyEvent_2 = 2;
         //gen! bool OnPreKeyEvent(CefRefPtr<CefBrowser> browser,const CefKeyEvent& event,CefEventHandle os_event,bool* is_keyboard_shortcut)
@@ -19497,6 +20556,11 @@ namespace LayoutFarm.CefBridge.Auto
     public struct CefLifeSpanHandler
     {
         public const int _typeNAME = 68;
+        internal IntPtr nativePtr;
+        public CefLifeSpanHandler(IntPtr nativePtr)
+        {
+            this.nativePtr = nativePtr;
+        }
         const int CefLifeSpanHandlerExt_OnBeforePopup_1 = 1;
         const int CefLifeSpanHandlerExt_OnAfterCreated_2 = 2;
         const int CefLifeSpanHandlerExt_DoClose_3 = 3;
@@ -19898,6 +20962,11 @@ namespace LayoutFarm.CefBridge.Auto
     public struct CefLoadHandler
     {
         public const int _typeNAME = 69;
+        internal IntPtr nativePtr;
+        public CefLoadHandler(IntPtr nativePtr)
+        {
+            this.nativePtr = nativePtr;
+        }
         const int CefLoadHandlerExt_OnLoadingStateChange_1 = 1;
         const int CefLoadHandlerExt_OnLoadStart_2 = 2;
         const int CefLoadHandlerExt_OnLoadEnd_3 = 3;
@@ -20289,6 +21358,11 @@ namespace LayoutFarm.CefBridge.Auto
     public struct CefPrintHandler
     {
         public const int _typeNAME = 70;
+        internal IntPtr nativePtr;
+        public CefPrintHandler(IntPtr nativePtr)
+        {
+            this.nativePtr = nativePtr;
+        }
         const int CefPrintHandlerExt_OnPrintStart_1 = 1;
         const int CefPrintHandlerExt_OnPrintSettings_2 = 2;
         const int CefPrintHandlerExt_OnPrintDialog_3 = 3;
@@ -20803,6 +21877,11 @@ namespace LayoutFarm.CefBridge.Auto
     public struct CefRenderHandler
     {
         public const int _typeNAME = 71;
+        internal IntPtr nativePtr;
+        public CefRenderHandler(IntPtr nativePtr)
+        {
+            this.nativePtr = nativePtr;
+        }
         const int CefRenderHandlerExt_GetAccessibilityHandler_1 = 1;
         const int CefRenderHandlerExt_GetRootScreenRect_2 = 2;
         const int CefRenderHandlerExt_GetViewRect_3 = 3;
@@ -21957,6 +23036,11 @@ namespace LayoutFarm.CefBridge.Auto
     public struct CefRenderProcessHandler
     {
         public const int _typeNAME = 72;
+        internal IntPtr nativePtr;
+        public CefRenderProcessHandler(IntPtr nativePtr)
+        {
+            this.nativePtr = nativePtr;
+        }
         const int CefRenderProcessHandlerExt_OnRenderThreadCreated_1 = 1;
         const int CefRenderProcessHandlerExt_OnWebKitInitialized_2 = 2;
         const int CefRenderProcessHandlerExt_OnBrowserCreated_3 = 3;
@@ -22863,6 +23947,11 @@ namespace LayoutFarm.CefBridge.Auto
     public struct CefRequestContextHandler
     {
         public const int _typeNAME = 73;
+        internal IntPtr nativePtr;
+        public CefRequestContextHandler(IntPtr nativePtr)
+        {
+            this.nativePtr = nativePtr;
+        }
         const int CefRequestContextHandlerExt_GetCookieManager_1 = 1;
         const int CefRequestContextHandlerExt_OnBeforePluginLoad_2 = 2;
         //gen! CefRefPtr<CefCookieManager> GetCookieManager()
@@ -23076,6 +24165,11 @@ namespace LayoutFarm.CefBridge.Auto
     public struct CefRequestHandler
     {
         public const int _typeNAME = 74;
+        internal IntPtr nativePtr;
+        public CefRequestHandler(IntPtr nativePtr)
+        {
+            this.nativePtr = nativePtr;
+        }
         const int CefRequestHandlerExt_OnBeforeBrowse_1 = 1;
         const int CefRequestHandlerExt_OnOpenURLFromTab_2 = 2;
         const int CefRequestHandlerExt_OnBeforeResourceLoad_3 = 3;
@@ -24693,6 +25787,11 @@ namespace LayoutFarm.CefBridge.Auto
     public struct CefResourceBundleHandler
     {
         public const int _typeNAME = 75;
+        internal IntPtr nativePtr;
+        public CefResourceBundleHandler(IntPtr nativePtr)
+        {
+            this.nativePtr = nativePtr;
+        }
         const int CefResourceBundleHandlerExt_GetLocalizedString_1 = 1;
         const int CefResourceBundleHandlerExt_GetDataResource_2 = 2;
         const int CefResourceBundleHandlerExt_GetDataResourceForScale_3 = 3;
@@ -24997,6 +26096,11 @@ namespace LayoutFarm.CefBridge.Auto
     public struct CefResourceHandler
     {
         public const int _typeNAME = 76;
+        internal IntPtr nativePtr;
+        public CefResourceHandler(IntPtr nativePtr)
+        {
+            this.nativePtr = nativePtr;
+        }
         const int CefResourceHandlerExt_ProcessRequest_1 = 1;
         const int CefResourceHandlerExt_GetResponseHeaders_2 = 2;
         const int CefResourceHandlerExt_ReadResponse_3 = 3;
@@ -25499,6 +26603,11 @@ namespace LayoutFarm.CefBridge.Auto
     public struct CefReadHandler
     {
         public const int _typeNAME = 77;
+        internal IntPtr nativePtr;
+        public CefReadHandler(IntPtr nativePtr)
+        {
+            this.nativePtr = nativePtr;
+        }
         const int CefReadHandlerExt_Read_1 = 1;
         const int CefReadHandlerExt_Seek_2 = 2;
         const int CefReadHandlerExt_Tell_3 = 3;
@@ -25897,6 +27006,11 @@ namespace LayoutFarm.CefBridge.Auto
     public struct CefWriteHandler
     {
         public const int _typeNAME = 78;
+        internal IntPtr nativePtr;
+        public CefWriteHandler(IntPtr nativePtr)
+        {
+            this.nativePtr = nativePtr;
+        }
         const int CefWriteHandlerExt_Write_1 = 1;
         const int CefWriteHandlerExt_Seek_2 = 2;
         const int CefWriteHandlerExt_Tell_3 = 3;
@@ -26295,6 +27409,11 @@ namespace LayoutFarm.CefBridge.Auto
     public struct CefV8Handler
     {
         public const int _typeNAME = 79;
+        internal IntPtr nativePtr;
+        public CefV8Handler(IntPtr nativePtr)
+        {
+            this.nativePtr = nativePtr;
+        }
         const int CefV8HandlerExt_Execute_1 = 1;
         //gen! bool Execute(const CefString& name,CefRefPtr<CefV8Value> object,const CefV8ValueList& arguments,CefRefPtr<CefV8Value>& retval,CefString& exception)
         //CsStructModuleCodeGen:: GenerateCsMethodArgsClass ,841
@@ -26426,13 +27545,16 @@ namespace LayoutFarm.CefBridge.Auto
             args.exception()));
         }
     }
+    //CefCStructTx::GenerateCsCode, 1
     [StructLayout(LayoutKind.Sequential)]
     struct _cef_settings_t
     {
+        //CefCStructTx::GenerateCsCode-Field, 2
         /// <summary>
         /// Size of this structure.
         /// </summary>
         public int size;
+        //CefCStructTx::GenerateCsCode-Field, 3
         /// <summary>
         /// Set to true (1) to use a single process for the browser and renderer. This
         /// run mode is not officially supported by Chromium and is less stable than
@@ -26440,12 +27562,14 @@ namespace LayoutFarm.CefBridge.Auto
         /// command-line switch.
         /// </summary>
         public int single_process;
+        //CefCStructTx::GenerateCsCode-Field, 4
         /// <summary>
         /// Set to true (1) to disable the sandbox for sub-processes. See
         /// cef_sandbox_win.h for requirements to enable the sandbox on Windows. Also
         /// configurable using the "no-sandbox" command-line switch.
         /// </summary>
         public int no_sandbox;
+        //CefCStructTx::GenerateCsCode-Field, 5
         /// <summary>
         /// The path to a separate executable that will be launched for sub-processes.
         /// If this value is empty on Windows or Linux then the main process executable
@@ -26456,6 +27580,7 @@ namespace LayoutFarm.CefBridge.Auto
         /// switch.
         /// </summary>
         public _cef_string_utf16_t browser_subprocess_path;
+        //CefCStructTx::GenerateCsCode-Field, 6
         /// <summary>
         /// The path to the CEF framework directory on macOS. If this value is empty
         /// then the framework must exist at "Contents/Frameworks/Chromium Embedded
@@ -26463,6 +27588,7 @@ namespace LayoutFarm.CefBridge.Auto
         /// the "framework-dir-path" command-line switch.
         /// </summary>
         public _cef_string_utf16_t framework_dir_path;
+        //CefCStructTx::GenerateCsCode-Field, 7
         /// <summary>
         /// Set to true (1) to have the browser process message loop run in a separate
         /// thread. If false (0) than the CefDoMessageLoopWork() function must be
@@ -26470,6 +27596,7 @@ namespace LayoutFarm.CefBridge.Auto
         /// Windows.
         /// </summary>
         public int multi_threaded_message_loop;
+        //CefCStructTx::GenerateCsCode-Field, 8
         /// <summary>
         /// Set to true (1) to control browser process main (UI) thread message pump
         /// scheduling via the CefBrowserProcessHandler::OnScheduleMessagePumpWork()
@@ -26481,12 +27608,14 @@ namespace LayoutFarm.CefBridge.Auto
         /// CefRunMessageLoop() function or multi_threaded_message_loop if possible.
         /// </summary>
         public int external_message_pump;
+        //CefCStructTx::GenerateCsCode-Field, 9
         /// <summary>
         /// Set to true (1) to enable windowless (off-screen) rendering support. Do not
         /// enable this value if the application does not use windowless rendering as
         /// it may reduce rendering performance on some systems.
         /// </summary>
         public int windowless_rendering_enabled;
+        //CefCStructTx::GenerateCsCode-Field, 10
         /// <summary>
         /// Set to true (1) to disable configuration of browser process features using
         /// standard CEF and Chromium command-line arguments. Configuration can still
@@ -26494,6 +27623,7 @@ namespace LayoutFarm.CefBridge.Auto
         /// CefApp::OnBeforeCommandLineProcessing() method.
         /// </summary>
         public int command_line_args_disabled;
+        //CefCStructTx::GenerateCsCode-Field, 11
         /// <summary>
         /// The location where cache data will be stored on disk. If empty then
         /// browsers will be created in "incognito mode" where in-memory caches are
@@ -26503,6 +27633,7 @@ namespace LayoutFarm.CefBridge.Auto
         /// the CefRequestContextSettings.cache_path value.
         /// </summary>
         public _cef_string_utf16_t cache_path;
+        //CefCStructTx::GenerateCsCode-Field, 12
         /// <summary>
         /// The location where user data such as spell checking dictionary files will
         /// be stored on disk. If empty then the default platform-specific user data
@@ -26512,6 +27643,7 @@ namespace LayoutFarm.CefBridge.Auto
         /// profile directory on Windows).
         /// </summary>
         public _cef_string_utf16_t user_data_path;
+        //CefCStructTx::GenerateCsCode-Field, 13
         /// <summary>
         /// To persist session cookies (cookies without an expiry date or validity
         /// interval) by default when using the global cookie manager set this value to
@@ -26523,6 +27655,7 @@ namespace LayoutFarm.CefBridge.Auto
         /// CefRequestContextSettings.persist_session_cookies value.
         /// </summary>
         public int persist_session_cookies;
+        //CefCStructTx::GenerateCsCode-Field, 14
         /// <summary>
         /// To persist user preferences as a JSON file in the cache path directory set
         /// this value to true (1). A |cache_path| value must also be specified
@@ -26532,12 +27665,14 @@ namespace LayoutFarm.CefBridge.Auto
         /// CefRequestContextSettings.persist_user_preferences value.
         /// </summary>
         public int persist_user_preferences;
+        //CefCStructTx::GenerateCsCode-Field, 15
         /// <summary>
         /// Value that will be returned as the User-Agent HTTP header. If empty the
         /// default User-Agent string will be used. Also configurable using the
         /// "user-agent" command-line switch.
         /// </summary>
         public _cef_string_utf16_t user_agent;
+        //CefCStructTx::GenerateCsCode-Field, 16
         /// <summary>
         /// Value that will be inserted as the product portion of the default
         /// User-Agent string. If empty the Chromium product version will be used. If
@@ -26545,6 +27680,7 @@ namespace LayoutFarm.CefBridge.Auto
         /// using the "product-version" command-line switch.
         /// </summary>
         public _cef_string_utf16_t product_version;
+        //CefCStructTx::GenerateCsCode-Field, 17
         /// <summary>
         /// The locale string that will be passed to WebKit. If empty the default
         /// locale of "en-US" will be used. This value is ignored on Linux where locale
@@ -26553,6 +27689,7 @@ namespace LayoutFarm.CefBridge.Auto
         /// command-line switch.
         /// </summary>
         public _cef_string_utf16_t locale;
+        //CefCStructTx::GenerateCsCode-Field, 18
         /// <summary>
         /// The directory and file name to use for the debug log. If empty a default
         /// log file name and location will be used. On Windows and Linux a "debug.log"
@@ -26562,6 +27699,7 @@ namespace LayoutFarm.CefBridge.Auto
         /// "log-file" command-line switch.
         /// </summary>
         public _cef_string_utf16_t log_file;
+        //CefCStructTx::GenerateCsCode-Field, 19
         /// <summary>
         /// The log severity. Only messages of this severity level or higher will be
         /// logged. Also configurable using the "log-severity" command-line switch with
@@ -26569,12 +27707,14 @@ namespace LayoutFarm.CefBridge.Auto
         /// "disable".
         /// </summary>
         public cef_log_severity_t log_severity;
+        //CefCStructTx::GenerateCsCode-Field, 20
         /// <summary>
         /// Custom flags that will be used when initializing the V8 JavaScript engine.
         /// The consequences of using custom flags may not be well tested. Also
         /// configurable using the "js-flags" command-line switch.
         /// </summary>
         public _cef_string_utf16_t javascript_flags;
+        //CefCStructTx::GenerateCsCode-Field, 21
         /// <summary>
         /// The fully qualified path for the resources directory. If this value is
         /// empty the cef.pak and/or devtools_resources.pak files must be located in
@@ -26583,6 +27723,7 @@ namespace LayoutFarm.CefBridge.Auto
         /// switch.
         /// </summary>
         public _cef_string_utf16_t resources_dir_path;
+        //CefCStructTx::GenerateCsCode-Field, 22
         /// <summary>
         /// The fully qualified path for the locales directory. If this value is empty
         /// the locales directory must be located in the module directory. This value
@@ -26591,6 +27732,7 @@ namespace LayoutFarm.CefBridge.Auto
         /// command-line switch.
         /// </summary>
         public _cef_string_utf16_t locales_dir_path;
+        //CefCStructTx::GenerateCsCode-Field, 23
         /// <summary>
         /// Set to true (1) to disable loading of pack files for resources and locales.
         /// A resource bundle handler must be provided for the browser and render
@@ -26599,6 +27741,7 @@ namespace LayoutFarm.CefBridge.Auto
         /// line switch.
         /// </summary>
         public int pack_loading_disabled;
+        //CefCStructTx::GenerateCsCode-Field, 24
         /// <summary>
         /// Set to a value between 1024 and 65535 to enable remote debugging on the
         /// specified port. For example, if 8080 is specified the remote debugging URL
@@ -26607,6 +27750,7 @@ namespace LayoutFarm.CefBridge.Auto
         /// command-line switch.
         /// </summary>
         public int remote_debugging_port;
+        //CefCStructTx::GenerateCsCode-Field, 25
         /// <summary>
         /// The number of stack trace frames to capture for uncaught exceptions.
         /// Specify a positive value to enable the CefRenderProcessHandler::
@@ -26615,6 +27759,7 @@ namespace LayoutFarm.CefBridge.Auto
         /// "uncaught-exception-stack-size" command-line switch.
         /// </summary>
         public int uncaught_exception_stack_size;
+        //CefCStructTx::GenerateCsCode-Field, 26
         /// <summary>
         /// Set to true (1) to ignore errors related to invalid SSL certificates.
         /// Enabling this setting can lead to potential security vulnerabilities like
@@ -26625,6 +27770,7 @@ namespace LayoutFarm.CefBridge.Auto
         /// CefRequestContextSettings.ignore_certificate_errors value.
         /// </summary>
         public int ignore_certificate_errors;
+        //CefCStructTx::GenerateCsCode-Field, 27
         /// <summary>
         /// Set to true (1) to enable date-based expiration of built in network
         /// security information (i.e. certificate transparency logs, HSTS preloading
@@ -26637,6 +27783,7 @@ namespace LayoutFarm.CefBridge.Auto
         /// CefRequestContextSettings.enable_net_security_expiration value.
         /// </summary>
         public int enable_net_security_expiration;
+        //CefCStructTx::GenerateCsCode-Field, 28
         /// <summary>
         /// Background color used for the browser before a document is loaded and when
         /// no document color is specified. The alpha component must be either fully
@@ -26648,6 +27795,7 @@ namespace LayoutFarm.CefBridge.Auto
         /// will be enabled.
         /// </summary>
         public cef_color_t background_color;
+        //CefCStructTx::GenerateCsCode-Field, 29
         /// <summary>
         /// Comma delimited ordered list of language codes without any whitespace that
         /// will be used in the "Accept-Language" HTTP header. May be overridden on a
@@ -26658,13 +27806,16 @@ namespace LayoutFarm.CefBridge.Auto
         /// </summary>
         public _cef_string_utf16_t accept_language_list;
     }
+    //CefCStructTx::GenerateCsCode, 30
     [StructLayout(LayoutKind.Sequential)]
     struct _cef_request_context_settings_t
     {
+        //CefCStructTx::GenerateCsCode-Field, 31
         /// <summary>
         /// Size of this structure.
         /// </summary>
         public int size;
+        //CefCStructTx::GenerateCsCode-Field, 32
         /// <summary>
         /// The location where cache data will be stored on disk. If empty then
         /// browsers will be created in "incognito mode" where in-memory caches are
@@ -26674,6 +27825,7 @@ namespace LayoutFarm.CefBridge.Auto
         /// this value to match the CefSettings.cache_path value.
         /// </summary>
         public _cef_string_utf16_t cache_path;
+        //CefCStructTx::GenerateCsCode-Field, 33
         /// <summary>
         /// To persist session cookies (cookies without an expiry date or validity
         /// interval) by default when using the global cookie manager set this value to
@@ -26683,6 +27835,7 @@ namespace LayoutFarm.CefBridge.Auto
         /// |cache_path| is empty or if it matches the CefSettings.cache_path value.
         /// </summary>
         public int persist_session_cookies;
+        //CefCStructTx::GenerateCsCode-Field, 34
         /// <summary>
         /// To persist user preferences as a JSON file in the cache path directory set
         /// this value to true (1). Can be set globally using the
@@ -26690,6 +27843,7 @@ namespace LayoutFarm.CefBridge.Auto
         /// |cache_path| is empty or if it matches the CefSettings.cache_path value.
         /// </summary>
         public int persist_user_preferences;
+        //CefCStructTx::GenerateCsCode-Field, 35
         /// <summary>
         /// Set to true (1) to ignore errors related to invalid SSL certificates.
         /// Enabling this setting can lead to potential security vulnerabilities like
@@ -26699,6 +27853,7 @@ namespace LayoutFarm.CefBridge.Auto
         /// |cache_path| matches the CefSettings.cache_path value.
         /// </summary>
         public int ignore_certificate_errors;
+        //CefCStructTx::GenerateCsCode-Field, 36
         /// <summary>
         /// Set to true (1) to enable date-based expiration of built in network
         /// security information (i.e. certificate transparency logs, HSTS preloading
@@ -26709,6 +27864,7 @@ namespace LayoutFarm.CefBridge.Auto
         /// CefSettings.enable_net_security_expiration value.
         /// </summary>
         public int enable_net_security_expiration;
+        //CefCStructTx::GenerateCsCode-Field, 37
         /// <summary>
         /// Comma delimited ordered list of language codes without any whitespace that
         /// will be used in the "Accept-Language" HTTP header. Can be set globally
@@ -26719,13 +27875,16 @@ namespace LayoutFarm.CefBridge.Auto
         /// </summary>
         public _cef_string_utf16_t accept_language_list;
     }
+    //CefCStructTx::GenerateCsCode, 38
     [StructLayout(LayoutKind.Sequential)]
     struct _cef_browser_settings_t
     {
+        //CefCStructTx::GenerateCsCode-Field, 39
         /// <summary>
         /// Size of this structure.
         /// </summary>
         public int size;
+        //CefCStructTx::GenerateCsCode-Field, 40
         /// <summary>
         /// The maximum rate in frames per second (fps) that CefRenderHandler::OnPaint
         /// will be called for a windowless browser. The actual fps may be lower if
@@ -26734,41 +27893,56 @@ namespace LayoutFarm.CefBridge.Auto
         /// changed dynamically via CefBrowserHost::SetWindowlessFrameRate.
         /// </summary>
         public int windowless_frame_rate;
+        //CefCStructTx::GenerateCsCode-Field, 41
         /// <summary>
         /// The below values map to WebPreferences settings.
         /// Font settings.
         /// </summary>
         public _cef_string_utf16_t standard_font_family;
+        //CefCStructTx::GenerateCsCode-Field, 42
         public _cef_string_utf16_t fixed_font_family;
+        //CefCStructTx::GenerateCsCode-Field, 43
         public _cef_string_utf16_t serif_font_family;
+        //CefCStructTx::GenerateCsCode-Field, 44
         public _cef_string_utf16_t sans_serif_font_family;
+        //CefCStructTx::GenerateCsCode-Field, 45
         public _cef_string_utf16_t cursive_font_family;
+        //CefCStructTx::GenerateCsCode-Field, 46
         public _cef_string_utf16_t fantasy_font_family;
+        //CefCStructTx::GenerateCsCode-Field, 47
         public int default_font_size;
+        //CefCStructTx::GenerateCsCode-Field, 48
         public int default_fixed_font_size;
+        //CefCStructTx::GenerateCsCode-Field, 49
         public int minimum_font_size;
+        //CefCStructTx::GenerateCsCode-Field, 50
         public int minimum_logical_font_size;
+        //CefCStructTx::GenerateCsCode-Field, 51
         /// <summary>
         /// Default encoding for Web content. If empty "ISO-8859-1" will be used. Also
         /// configurable using the "default-encoding" command-line switch.
         /// </summary>
         public _cef_string_utf16_t default_encoding;
+        //CefCStructTx::GenerateCsCode-Field, 52
         /// <summary>
         /// Controls the loading of fonts from remote sources. Also configurable using
         /// the "disable-remote-fonts" command-line switch.
         /// </summary>
         public cef_state_t remote_fonts;
+        //CefCStructTx::GenerateCsCode-Field, 53
         /// <summary>
         /// Controls whether JavaScript can be executed. Also configurable using the
         /// "disable-javascript" command-line switch.
         /// </summary>
         public cef_state_t javascript;
+        //CefCStructTx::GenerateCsCode-Field, 54
         /// <summary>
         /// Controls whether JavaScript can be used for opening windows. Also
         /// configurable using the "disable-javascript-open-windows" command-line
         /// switch.
         /// </summary>
         public cef_state_t javascript_open_windows;
+        //CefCStructTx::GenerateCsCode-Field, 55
         /// <summary>
         /// Controls whether JavaScript can be used to close windows that were not
         /// opened via JavaScript. JavaScript can still be used to close windows that
@@ -26777,11 +27951,13 @@ namespace LayoutFarm.CefBridge.Auto
         /// switch.
         /// </summary>
         public cef_state_t javascript_close_windows;
+        //CefCStructTx::GenerateCsCode-Field, 56
         /// <summary>
         /// Controls whether JavaScript can access the clipboard. Also configurable
         /// using the "disable-javascript-access-clipboard" command-line switch.
         /// </summary>
         public cef_state_t javascript_access_clipboard;
+        //CefCStructTx::GenerateCsCode-Field, 57
         /// <summary>
         /// Controls whether DOM pasting is supported in the editor via
         /// execCommand("paste"). The |javascript_access_clipboard| setting must also
@@ -26789,21 +27965,25 @@ namespace LayoutFarm.CefBridge.Auto
         /// command-line switch.
         /// </summary>
         public cef_state_t javascript_dom_paste;
+        //CefCStructTx::GenerateCsCode-Field, 58
         /// <summary>
         /// Controls whether any plugins will be loaded. Also configurable using the
         /// "disable-plugins" command-line switch.
         /// </summary>
         public cef_state_t plugins;
+        //CefCStructTx::GenerateCsCode-Field, 59
         /// <summary>
         /// Controls whether file URLs will have access to all URLs. Also configurable
         /// using the "allow-universal-access-from-files" command-line switch.
         /// </summary>
         public cef_state_t universal_access_from_file_urls;
+        //CefCStructTx::GenerateCsCode-Field, 60
         /// <summary>
         /// Controls whether file URLs will have access to other file URLs. Also
         /// configurable using the "allow-access-from-files" command-line switch.
         /// </summary>
         public cef_state_t file_access_from_file_urls;
+        //CefCStructTx::GenerateCsCode-Field, 61
         /// <summary>
         /// Controls whether web security restrictions (same-origin policy) will be
         /// enforced. Disabling this setting is not recommend as it will allow risky
@@ -26811,49 +27991,58 @@ namespace LayoutFarm.CefBridge.Auto
         /// using the "disable-web-security" command-line switch.
         /// </summary>
         public cef_state_t web_security;
+        //CefCStructTx::GenerateCsCode-Field, 62
         /// <summary>
         /// Controls whether image URLs will be loaded from the network. A cached image
         /// will still be rendered if requested. Also configurable using the
         /// "disable-image-loading" command-line switch.
         /// </summary>
         public cef_state_t image_loading;
+        //CefCStructTx::GenerateCsCode-Field, 63
         /// <summary>
         /// Controls whether standalone images will be shrunk to fit the page. Also
         /// configurable using the "image-shrink-standalone-to-fit" command-line
         /// switch.
         /// </summary>
         public cef_state_t image_shrink_standalone_to_fit;
+        //CefCStructTx::GenerateCsCode-Field, 64
         /// <summary>
         /// Controls whether text areas can be resized. Also configurable using the
         /// "disable-text-area-resize" command-line switch.
         /// </summary>
         public cef_state_t text_area_resize;
+        //CefCStructTx::GenerateCsCode-Field, 65
         /// <summary>
         /// Controls whether the tab key can advance focus to links. Also configurable
         /// using the "disable-tab-to-links" command-line switch.
         /// </summary>
         public cef_state_t tab_to_links;
+        //CefCStructTx::GenerateCsCode-Field, 66
         /// <summary>
         /// Controls whether local storage can be used. Also configurable using the
         /// "disable-local-storage" command-line switch.
         /// </summary>
         public cef_state_t local_storage;
+        //CefCStructTx::GenerateCsCode-Field, 67
         /// <summary>
         /// Controls whether databases can be used. Also configurable using the
         /// "disable-databases" command-line switch.
         /// </summary>
         public cef_state_t databases;
+        //CefCStructTx::GenerateCsCode-Field, 68
         /// <summary>
         /// Controls whether the application cache can be used. Also configurable using
         /// the "disable-application-cache" command-line switch.
         /// </summary>
         public cef_state_t application_cache;
+        //CefCStructTx::GenerateCsCode-Field, 69
         /// <summary>
         /// Controls whether WebGL can be used. Note that WebGL requires hardware
         /// support and may not work on all systems even when enabled. Also
         /// configurable using the "disable-webgl" command-line switch.
         /// </summary>
         public cef_state_t webgl;
+        //CefCStructTx::GenerateCsCode-Field, 70
         /// <summary>
         /// Background color used for the browser before a document is loaded and when
         /// no document color is specified. The alpha component must be either fully
@@ -26865,6 +28054,7 @@ namespace LayoutFarm.CefBridge.Auto
         /// painting will be enabled.
         /// </summary>
         public cef_color_t background_color;
+        //CefCStructTx::GenerateCsCode-Field, 71
         /// <summary>
         /// Comma delimited ordered list of language codes without any whitespace that
         /// will be used in the "Accept-Language" HTTP header. May be set globally
@@ -26873,34 +28063,42 @@ namespace LayoutFarm.CefBridge.Auto
         /// </summary>
         public _cef_string_utf16_t accept_language_list;
     }
+    //CefCStructTx::GenerateCsCode, 72
     [StructLayout(LayoutKind.Sequential)]
     struct _cef_urlparts_t
     {
+        //CefCStructTx::GenerateCsCode-Field, 73
         /// <summary>
         /// The complete URL specification.
         /// </summary>
         public _cef_string_utf16_t spec;
+        //CefCStructTx::GenerateCsCode-Field, 74
         /// <summary>
         /// Scheme component not including the colon (e.g., "http").
         /// </summary>
         public _cef_string_utf16_t scheme;
+        //CefCStructTx::GenerateCsCode-Field, 75
         /// <summary>
         /// User name component.
         /// </summary>
         public _cef_string_utf16_t username;
+        //CefCStructTx::GenerateCsCode-Field, 76
         /// <summary>
         /// Password component.
         /// </summary>
         public _cef_string_utf16_t password;
+        //CefCStructTx::GenerateCsCode-Field, 77
         /// <summary>
         /// Host component. This may be a hostname, an IPv4 address or an IPv6 literal
         /// surrounded by square brackets (e.g., "[2001:db8::1]").
         /// </summary>
         public _cef_string_utf16_t host;
+        //CefCStructTx::GenerateCsCode-Field, 78
         /// <summary>
         /// Port number component.
         /// </summary>
         public _cef_string_utf16_t port;
+        //CefCStructTx::GenerateCsCode-Field, 79
         /// <summary>
         /// Origin contains just the scheme, host, and port from a URL. Equivalent to
         /// clearing any username and password, replacing the path with a slash, and
@@ -26908,128 +28106,169 @@ namespace LayoutFarm.CefBridge.Auto
         /// URLs.
         /// </summary>
         public _cef_string_utf16_t origin;
+        //CefCStructTx::GenerateCsCode-Field, 80
         /// <summary>
         /// Path component including the first slash following the host.
         /// </summary>
         public _cef_string_utf16_t path;
+        //CefCStructTx::GenerateCsCode-Field, 81
         /// <summary>
         /// Query string component (i.e., everything following the '?').
         /// </summary>
         public _cef_string_utf16_t query;
     }
+    //CefCStructTx::GenerateCsCode, 82
     [StructLayout(LayoutKind.Sequential)]
     struct _cef_cookie_t
     {
+        //CefCStructTx::GenerateCsCode-Field, 83
         /// <summary>
         /// The cookie name.
         /// </summary>
         public _cef_string_utf16_t name;
+        //CefCStructTx::GenerateCsCode-Field, 84
         /// <summary>
         /// The cookie value.
         /// </summary>
         public _cef_string_utf16_t value;
+        //CefCStructTx::GenerateCsCode-Field, 85
         /// <summary>
         /// If |domain| is empty a host cookie will be created instead of a domain
         /// cookie. Domain cookies are stored with a leading "." and are visible to
         /// sub-domains whereas host cookies are not.
         /// </summary>
         public _cef_string_utf16_t domain;
+        //CefCStructTx::GenerateCsCode-Field, 86
         /// <summary>
         /// If |path| is non-empty only URLs at or below the path will get the cookie
         /// value.
         /// </summary>
         public _cef_string_utf16_t path;
+        //CefCStructTx::GenerateCsCode-Field, 87
         /// <summary>
         /// If |secure| is true the cookie will only be sent for HTTPS requests.
         /// </summary>
         public int secure;
+        //CefCStructTx::GenerateCsCode-Field, 88
         /// <summary>
         /// If |httponly| is true the cookie will only be sent for HTTP requests.
         /// </summary>
         public int httponly;
+        //CefCStructTx::GenerateCsCode-Field, 89
         /// <summary>
         /// The cookie creation date. This is automatically populated by the system on
         /// cookie creation.
         /// </summary>
         public cef_time_t creation;
+        //CefCStructTx::GenerateCsCode-Field, 90
         /// <summary>
         /// The cookie last access date. This is automatically populated by the system
         /// on access.
         /// </summary>
         public cef_time_t last_access;
+        //CefCStructTx::GenerateCsCode-Field, 91
         /// <summary>
         /// The cookie expiration date is only valid if |has_expires| is true.
         /// </summary>
         public int has_expires;
+        //CefCStructTx::GenerateCsCode-Field, 92
         public cef_time_t expires;
     }
+    //CefCStructTx::GenerateCsCode, 93
     [StructLayout(LayoutKind.Sequential)]
     struct _cef_point_t
     {
+        //CefCStructTx::GenerateCsCode-Field, 94
         public int x;
+        //CefCStructTx::GenerateCsCode-Field, 95
         public int y;
     }
+    //CefCStructTx::GenerateCsCode, 96
     [StructLayout(LayoutKind.Sequential)]
     struct _cef_rect_t
     {
+        //CefCStructTx::GenerateCsCode-Field, 97
         public int x;
+        //CefCStructTx::GenerateCsCode-Field, 98
         public int y;
+        //CefCStructTx::GenerateCsCode-Field, 99
         public int width;
+        //CefCStructTx::GenerateCsCode-Field, 100
         public int height;
     }
+    //CefCStructTx::GenerateCsCode, 101
     [StructLayout(LayoutKind.Sequential)]
     struct _cef_size_t
     {
+        //CefCStructTx::GenerateCsCode-Field, 102
         public int width;
+        //CefCStructTx::GenerateCsCode-Field, 103
         public int height;
     }
+    //CefCStructTx::GenerateCsCode, 104
     [StructLayout(LayoutKind.Sequential)]
     struct _cef_range_t
     {
+        //CefCStructTx::GenerateCsCode-Field, 105
         public int from;
+        //CefCStructTx::GenerateCsCode-Field, 106
         public int to;
     }
+    //CefCStructTx::GenerateCsCode, 107
     [StructLayout(LayoutKind.Sequential)]
     struct _cef_insets_t
     {
+        //CefCStructTx::GenerateCsCode-Field, 108
         public int top;
+        //CefCStructTx::GenerateCsCode-Field, 109
         public int left;
+        //CefCStructTx::GenerateCsCode-Field, 110
         public int bottom;
+        //CefCStructTx::GenerateCsCode-Field, 111
         public int right;
     }
+    //CefCStructTx::GenerateCsCode, 112
     [StructLayout(LayoutKind.Sequential)]
     struct _cef_draggable_region_t
     {
+        //CefCStructTx::GenerateCsCode-Field, 113
         /// <summary>
         /// Bounds of the region.
         /// </summary>
         public cef_rect_t bounds;
+        //CefCStructTx::GenerateCsCode-Field, 114
         /// <summary>
         /// True (1) this this region is draggable and false (0) otherwise.
         /// </summary>
         public int draggable;
     }
+    //CefCStructTx::GenerateCsCode, 115
     [StructLayout(LayoutKind.Sequential)]
     struct _cef_screen_info_t
     {
+        //CefCStructTx::GenerateCsCode-Field, 116
         /// <summary>
         /// Device scale factor. Specifies the ratio between physical and logical
         /// pixels.
         /// </summary>
         public float device_scale_factor;
+        //CefCStructTx::GenerateCsCode-Field, 117
         /// <summary>
         /// The screen depth in bits per pixel.
         /// </summary>
         public int depth;
+        //CefCStructTx::GenerateCsCode-Field, 118
         /// <summary>
         /// The bits per color component. This assumes that the colors are balanced
         /// equally.
         /// </summary>
         public int depth_per_component;
+        //CefCStructTx::GenerateCsCode-Field, 119
         /// <summary>
         /// This can be true for black and white printers.
         /// </summary>
         public int is_monochrome;
+        //CefCStructTx::GenerateCsCode-Field, 120
         /// <summary>
         /// This is set from the rcMonitor member of MONITORINFOEX, to whit:
         ///   "A RECT structure that specifies the display monitor rectangle,
@@ -27041,6 +28280,7 @@ namespace LayoutFarm.CefBridge.Auto
         /// available surface for rendering popup views.
         /// </summary>
         public cef_rect_t rect;
+        //CefCStructTx::GenerateCsCode-Field, 121
         /// <summary>
         /// This is set from the rcWork member of MONITORINFOEX, to whit:
         ///   "A RECT structure that specifies the work area rectangle of the
@@ -27056,35 +28296,43 @@ namespace LayoutFarm.CefBridge.Auto
         /// </summary>
         public cef_rect_t available_rect;
     }
+    //CefCStructTx::GenerateCsCode, 122
     [StructLayout(LayoutKind.Sequential)]
     struct _cef_mouse_event_t
     {
+        //CefCStructTx::GenerateCsCode-Field, 123
         /// <summary>
         /// X coordinate relative to the left side of the view.
         /// </summary>
         public int x;
+        //CefCStructTx::GenerateCsCode-Field, 124
         /// <summary>
         /// Y coordinate relative to the top side of the view.
         /// </summary>
         public int y;
+        //CefCStructTx::GenerateCsCode-Field, 125
         /// <summary>
         /// Bit flags describing any pressed modifier keys. See
         /// cef_event_flags_t for values.
         /// </summary>
         public uint modifiers;
     }
+    //CefCStructTx::GenerateCsCode, 126
     [StructLayout(LayoutKind.Sequential)]
     struct _cef_key_event_t
     {
+        //CefCStructTx::GenerateCsCode-Field, 127
         /// <summary>
         /// The type of keyboard event.
         /// </summary>
         public cef_key_event_type_t type;
+        //CefCStructTx::GenerateCsCode-Field, 128
         /// <summary>
         /// Bit flags describing any pressed modifier keys. See
         /// cef_event_flags_t for values.
         /// </summary>
         public uint modifiers;
+        //CefCStructTx::GenerateCsCode-Field, 129
         /// <summary>
         /// The Windows key code for the key event. This value is used by the DOM
         /// specification. Sometimes it comes directly from the event (i.e. on
@@ -27092,198 +28340,261 @@ namespace LayoutFarm.CefBridge.Auto
         /// WebCore/platform/chromium/KeyboardCodes.h for the list of values.
         /// </summary>
         public int windows_key_code;
+        //CefCStructTx::GenerateCsCode-Field, 130
         /// <summary>
         /// The actual key code genenerated by the platform.
         /// </summary>
         public int native_key_code;
+        //CefCStructTx::GenerateCsCode-Field, 131
         /// <summary>
         /// Indicates whether the event is considered a "system key" event (see
         /// http://msdn.microsoft.com/en-us/library/ms646286(VS.85).aspx for details).
         /// This value will always be false on non-Windows platforms.
         /// </summary>
         public int is_system_key;
+        //CefCStructTx::GenerateCsCode-Field, 132
         /// <summary>
         /// The character generated by the keystroke.
         /// </summary>
         public char character;
+        //CefCStructTx::GenerateCsCode-Field, 133
         /// <summary>
         /// Same as |character| but unmodified by any concurrently-held modifiers
         /// (except shift). This is useful for working out shortcut keys.
         /// </summary>
         public char unmodified_character;
+        //CefCStructTx::GenerateCsCode-Field, 134
         /// <summary>
         /// True if the focus is currently on an editable field on the page. This is
         /// useful for determining if standard key events should be intercepted.
         /// </summary>
         public int focus_on_editable_field;
     }
+    //CefCStructTx::GenerateCsCode, 135
     [StructLayout(LayoutKind.Sequential)]
     struct _cef_popup_features_t
     {
+        //CefCStructTx::GenerateCsCode-Field, 136
         public int x;
+        //CefCStructTx::GenerateCsCode-Field, 137
         public int xSet;
+        //CefCStructTx::GenerateCsCode-Field, 138
         public int y;
+        //CefCStructTx::GenerateCsCode-Field, 139
         public int ySet;
+        //CefCStructTx::GenerateCsCode-Field, 140
         public int width;
+        //CefCStructTx::GenerateCsCode-Field, 141
         public int widthSet;
+        //CefCStructTx::GenerateCsCode-Field, 142
         public int height;
+        //CefCStructTx::GenerateCsCode-Field, 143
         public int heightSet;
+        //CefCStructTx::GenerateCsCode-Field, 144
         public int menuBarVisible;
+        //CefCStructTx::GenerateCsCode-Field, 145
         public int statusBarVisible;
+        //CefCStructTx::GenerateCsCode-Field, 146
         public int toolBarVisible;
+        //CefCStructTx::GenerateCsCode-Field, 147
         public int locationBarVisible;
+        //CefCStructTx::GenerateCsCode-Field, 148
         public int scrollbarsVisible;
+        //CefCStructTx::GenerateCsCode-Field, 149
         public int resizable;
+        //CefCStructTx::GenerateCsCode-Field, 150
         public int fullscreen;
+        //CefCStructTx::GenerateCsCode-Field, 151
         public int dialog;
     }
+    //CefCStructTx::GenerateCsCode, 152
     [StructLayout(LayoutKind.Sequential)]
     struct _cef_geoposition_t
     {
+        //CefCStructTx::GenerateCsCode-Field, 153
         /// <summary>
         /// Latitude in decimal degrees north (WGS84 coordinate frame).
         /// </summary>
         public double latitude;
+        //CefCStructTx::GenerateCsCode-Field, 154
         /// <summary>
         /// Longitude in decimal degrees west (WGS84 coordinate frame).
         /// </summary>
         public double longitude;
+        //CefCStructTx::GenerateCsCode-Field, 155
         /// <summary>
         /// Altitude in meters (above WGS84 datum).
         /// </summary>
         public double altitude;
+        //CefCStructTx::GenerateCsCode-Field, 156
         /// <summary>
         /// Accuracy of horizontal position in meters.
         /// </summary>
         public double accuracy;
+        //CefCStructTx::GenerateCsCode-Field, 157
         /// <summary>
         /// Accuracy of altitude in meters.
         /// </summary>
         public double altitude_accuracy;
+        //CefCStructTx::GenerateCsCode-Field, 158
         /// <summary>
         /// Heading in decimal degrees clockwise from true north.
         /// </summary>
         public double heading;
+        //CefCStructTx::GenerateCsCode-Field, 159
         /// <summary>
         /// Horizontal component of device velocity in meters per second.
         /// </summary>
         public double speed;
+        //CefCStructTx::GenerateCsCode-Field, 160
         /// <summary>
         /// Time of position measurement in milliseconds since Epoch in UTC time. This
         /// is taken from the host computer's system clock.
         /// </summary>
         public cef_time_t timestamp;
+        //CefCStructTx::GenerateCsCode-Field, 161
         /// <summary>
         /// Error code, see enum above.
         /// </summary>
         public cef_geoposition_error_code_t error_code;
+        //CefCStructTx::GenerateCsCode-Field, 162
         /// <summary>
         /// Human-readable error message.
         /// </summary>
         public _cef_string_utf16_t error_message;
     }
+    //CefCStructTx::GenerateCsCode, 163
     [StructLayout(LayoutKind.Sequential)]
     struct _cef_cursor_info_t
     {
+        //CefCStructTx::GenerateCsCode-Field, 164
         public cef_point_t hotspot;
+        //CefCStructTx::GenerateCsCode-Field, 165
         public float image_scale_factor;
+        //CefCStructTx::GenerateCsCode-Field, 166
         public IntPtr buffer;
+        //CefCStructTx::GenerateCsCode-Field, 167
         public cef_size_t size;
     }
+    //CefCStructTx::GenerateCsCode, 168
     [StructLayout(LayoutKind.Sequential)]
     struct _cef_pdf_print_settings_t
     {
+        //CefCStructTx::GenerateCsCode-Field, 169
         /// <summary>
         /// Page title to display in the header. Only used if |header_footer_enabled|
         /// is set to true (1).
         /// </summary>
         public _cef_string_utf16_t header_footer_title;
+        //CefCStructTx::GenerateCsCode-Field, 170
         /// <summary>
         /// URL to display in the footer. Only used if |header_footer_enabled| is set
         /// to true (1).
         /// </summary>
         public _cef_string_utf16_t header_footer_url;
+        //CefCStructTx::GenerateCsCode-Field, 171
         /// <summary>
         /// Output page size in microns. If either of these values is less than or
         /// equal to zero then the default paper size (A4) will be used.
         /// </summary>
         public int page_width;
+        //CefCStructTx::GenerateCsCode-Field, 172
         public int page_height;
+        //CefCStructTx::GenerateCsCode-Field, 173
         /// <summary>
         /// The percentage to scale the PDF by before printing (e.g. 50 is 50%).
         /// If this value is less than or equal to zero the default value of 100
         /// will be used.
         /// </summary>
         public int scale_factor;
+        //CefCStructTx::GenerateCsCode-Field, 174
         /// <summary>
         /// Margins in millimeters. Only used if |margin_type| is set to
         /// PDF_PRINT_MARGIN_CUSTOM.
         /// </summary>
         public double margin_top;
+        //CefCStructTx::GenerateCsCode-Field, 175
         public double margin_right;
+        //CefCStructTx::GenerateCsCode-Field, 176
         public double margin_bottom;
+        //CefCStructTx::GenerateCsCode-Field, 177
         public double margin_left;
+        //CefCStructTx::GenerateCsCode-Field, 178
         /// <summary>
         /// Margin type.
         /// </summary>
         public cef_pdf_print_margin_type_t margin_type;
+        //CefCStructTx::GenerateCsCode-Field, 179
         /// <summary>
         /// Set to true (1) to print headers and footers or false (0) to not print
         /// headers and footers.
         /// </summary>
         public int header_footer_enabled;
+        //CefCStructTx::GenerateCsCode-Field, 180
         /// <summary>
         /// Set to true (1) to print the selection only or false (0) to print all.
         /// </summary>
         public int selection_only;
+        //CefCStructTx::GenerateCsCode-Field, 181
         /// <summary>
         /// Set to true (1) for landscape mode or false (0) for portrait mode.
         /// </summary>
         public int landscape;
+        //CefCStructTx::GenerateCsCode-Field, 182
         /// <summary>
         /// Set to true (1) to print background graphics or false (0) to not print
         /// background graphics.
         /// </summary>
         public int backgrounds_enabled;
     }
+    //CefCStructTx::GenerateCsCode, 183
     [StructLayout(LayoutKind.Sequential)]
     struct _cef_box_layout_settings_t
     {
+        //CefCStructTx::GenerateCsCode-Field, 184
         /// <summary>
         /// If true (1) the layout will be horizontal, otherwise the layout will be
         /// vertical.
         /// </summary>
         public int horizontal;
+        //CefCStructTx::GenerateCsCode-Field, 185
         /// <summary>
         /// Adds additional horizontal space between the child view area and the host
         /// view border.
         /// </summary>
         public int inside_border_horizontal_spacing;
+        //CefCStructTx::GenerateCsCode-Field, 186
         /// <summary>
         /// Adds additional vertical space between the child view area and the host
         /// view border.
         /// </summary>
         public int inside_border_vertical_spacing;
+        //CefCStructTx::GenerateCsCode-Field, 187
         /// <summary>
         /// Adds additional space around the child view area.
         /// </summary>
         public cef_insets_t inside_border_insets;
+        //CefCStructTx::GenerateCsCode-Field, 188
         /// <summary>
         /// Adds additional space between child views.
         /// </summary>
         public int between_child_spacing;
+        //CefCStructTx::GenerateCsCode-Field, 189
         /// <summary>
         /// Specifies where along the main axis the child views should be laid out.
         /// </summary>
         public cef_main_axis_alignment_t main_axis_alignment;
+        //CefCStructTx::GenerateCsCode-Field, 190
         /// <summary>
         /// Specifies where along the cross axis the child views should be laid out.
         /// </summary>
         public cef_cross_axis_alignment_t cross_axis_alignment;
+        //CefCStructTx::GenerateCsCode-Field, 191
         /// <summary>
         /// Minimum cross axis size.
         /// </summary>
         public int minimum_cross_axis_size;
+        //CefCStructTx::GenerateCsCode-Field, 192
         /// <summary>
         /// Default flex for views when none is specified via CefBoxLayout methods.
         /// Using the preferred size as the basis, free space along the main axis is
@@ -27293,21 +28604,26 @@ namespace LayoutFarm.CefBridge.Auto
         /// </summary>
         public int default_flex;
     }
+    //CefCStructTx::GenerateCsCode, 193
     [StructLayout(LayoutKind.Sequential)]
     struct _cef_composition_underline_t
     {
+        //CefCStructTx::GenerateCsCode-Field, 194
         /// <summary>
         /// Underline character range.
         /// </summary>
         public cef_range_t range;
+        //CefCStructTx::GenerateCsCode-Field, 195
         /// <summary>
         /// Text color.
         /// </summary>
         public cef_color_t color;
+        //CefCStructTx::GenerateCsCode-Field, 196
         /// <summary>
         /// Background color.
         /// </summary>
         public cef_color_t background_color;
+        //CefCStructTx::GenerateCsCode-Field, 197
         /// <summary>
         /// Set to true (1) for thick underline.
         /// </summary>
