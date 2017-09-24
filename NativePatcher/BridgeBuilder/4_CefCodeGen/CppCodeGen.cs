@@ -1118,8 +1118,7 @@ namespace BridgeBuilder
             for (int i = 0; i < j; ++i)
             {
                 CefInstanceElementTx instanceClassPlan = instanceClassPlans[i];
-                int nn = instanceClassPlan.max_staticMethodParCount;
-                if (nn == 0) continue;
+                if (instanceClassPlan.staticMethods == null) continue;
                 //----------------------
 
                 cppStBuilder.AppendLine("case " + "CefTypeName_" + instanceClassPlan.OriginalDecl.Name + ":");
@@ -1127,8 +1126,8 @@ namespace BridgeBuilder
                 cppStBuilder.AppendLine("MyCefMet_S_" + instanceClassPlan.OriginalDecl.Name + "(metName & 0xffff,ret");
 
 
-
-                for (int m = 0; m < nn; ++m)
+                int maxStaticParCount = instanceClassPlan.max_staticMethodParCount;
+                for (int m = 0; m < maxStaticParCount; ++m)
                 {
                     cppStBuilder.Append(",v" + (m + 1));
                 }
