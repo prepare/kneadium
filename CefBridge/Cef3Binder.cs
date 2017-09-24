@@ -148,6 +148,8 @@ namespace LayoutFarm.CefBridge
             }
         }
     }
+
+
     static partial class Cef3Binder
     {
         static Cef3InitEssential cefInitEssential;
@@ -261,16 +263,20 @@ namespace LayoutFarm.CefBridge
         //Cef
         //---------------------------------------------------
         //part 1:  
+        [System.Security.SuppressUnmanagedCodeSecurity]
         [DllImport(CEF_CLIENT_DLL)]
         public static extern int MyCefGetVersion();
         //
+        [System.Security.SuppressUnmanagedCodeSecurity]
         [DllImport(CEF_CLIENT_DLL, CallingConvention = CallingConvention.Cdecl)]
         public static extern int RegisterManagedCallBack(MyCefCallback funcPtr, int callbackKind);
-        //
+
+        //client app init, build native-side process handle, dll-init-main,
+        //when call to this func, native-side will ask back for cef-setting via registered
+        //mananged delegate.
+        [System.Security.SuppressUnmanagedCodeSecurity]
         [DllImport(CEF_CLIENT_DLL, CallingConvention = CallingConvention.Cdecl)]
         public static extern IntPtr MyCefCreateClientApp(IntPtr processHandle);
-
-        //
 
         [DllImport(CEF_CLIENT_DLL, CallingConvention = CallingConvention.Cdecl)]
         public static extern IntPtr MyCefCreateMyWebBrowser(MyCefCallback mxcallback);
@@ -279,27 +285,31 @@ namespace LayoutFarm.CefBridge
         public static extern IntPtr MyCefCreateMyWebBrowserOSR(MyCefCallback mxcallback);
         //
         [DllImport(CEF_CLIENT_DLL, CallingConvention = CallingConvention.Cdecl, CharSet = CharSet.Unicode)]
-        public static extern void MyCefSetupBrowserHwnd(IntPtr myCefBrowser, IntPtr hWndParent, int x, int y, int width, int height, string initUrl, IntPtr requestContext);
+        public static extern void MyCefSetupBrowserHwnd(IntPtr myCefBw, IntPtr hWndParent, int x, int y, int width, int height, string initUrl, IntPtr requestContext);
         //
         [DllImport(CEF_CLIENT_DLL, CallingConvention = CallingConvention.Cdecl, CharSet = CharSet.Unicode)]
-        public static extern void MyCefSetupBrowserHwndOSR(IntPtr myCefBrowser, IntPtr hWndParent, int x, int y, int width, int height, string initUrl, IntPtr requestContext);
-        // 
+        public static extern void MyCefSetupBrowserHwndOSR(IntPtr myCefBw, IntPtr hWndParent, int x, int y, int width, int height, string initUrl, IntPtr requestContext);
+
+        [System.Security.SuppressUnmanagedCodeSecurity]
         [DllImport(CEF_CLIENT_DLL)]
         public static extern void MyCefDoMessageLoopWork();
-        //
+
+        [System.Security.SuppressUnmanagedCodeSecurity]
         [DllImport(CEF_CLIENT_DLL)]
         public static extern void MyCefQuitMessageLoop();
         //
         [DllImport(CEF_CLIENT_DLL)]
         public static extern int MyCefShutDown();
+
         //TODO: review here, send setting as json?
         [DllImport(CEF_CLIENT_DLL, CallingConvention = CallingConvention.Cdecl, CharSet = CharSet.Unicode)]
         public static extern void MyCefSetInitSettings(IntPtr cefSetting, CefSettingsKey keyName, string value);
-        //---------------------------------------------------  
+       
         //
         [DllImport(CEF_CLIENT_DLL, CallingConvention = CallingConvention.Cdecl)]
         public static extern void MyCefShowDevTools(IntPtr myCefBw, IntPtr myCefDevTool, IntPtr parentWindow);
-        //
+
+        [System.Security.SuppressUnmanagedCodeSecurity]
         [DllImport(CEF_CLIENT_DLL, CallingConvention = CallingConvention.Cdecl)]
         public static extern void MyCefDeletePtr(IntPtr nativePtr);
         //
@@ -319,13 +329,14 @@ namespace LayoutFarm.CefBridge
         //
         [DllImport(CEF_CLIENT_DLL, CallingConvention = CallingConvention.Cdecl)]
         public static extern void MyCefDomGetSourceWalk(IntPtr myCefBw, MyCefCallback strCallBack);
+
         //
         [DllImport(CEF_CLIENT_DLL, CallingConvention = CallingConvention.Cdecl)]
         internal static unsafe extern void MyCef_CefRegisterSchemeHandlerFactory(
            string schemeName,
            string startURL,
            IntPtr clientSchemeHandlerFactoryObject);
-        //part 4 js binding
+        //--------------------------------------------------- 
         [DllImport(CEF_CLIENT_DLL, CallingConvention = CallingConvention.Cdecl)]
         internal static extern IntPtr MyCefJsGetCurrentContext();
         //
@@ -443,15 +454,15 @@ namespace LayoutFarm.CefBridge
         }
 
 
-        public static void MyCefCreateNativeStringHolder(ref JsValue ret, string value)
-        {
-            unsafe
-            {
-                ret.Type = JsValueType.NativeCefString;
-                ret.Ptr = Cef3Binder.MyCefCreateStringHolder(value);
-                ret.I32 = value.Length;
-            }
-        }
+        //public static void MyCefCreateNativeStringHolder(ref JsValue ret, string value)
+        //{
+        //    unsafe
+        //    {
+        //        ret.Type = JsValueType.NativeCefString;
+        //        ret.Ptr = Cef3Binder.MyCefCreateStringHolder(value);
+        //        ret.I32 = value.Length;
+        //    }
+        //}
         public static string CopyStringAndDestroyNativeSide(ref JsValue value)
         {
             NativeMyCefStringHolder ret_str = new NativeMyCefStringHolder(value.Ptr);
