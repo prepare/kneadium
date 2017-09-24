@@ -175,14 +175,16 @@ namespace LayoutFarm.CefBridge
         {
             string data = "arg1=val1&arg2=val2";
             byte[] dataBuffer = Encoding.UTF8.GetBytes(data);
-            var nativeBw = cefWebBrowser1.Agent.GetNativeBw();
-            var fr = nativeBw.GetMainFrame();
+            using (var nativeBw = cefWebBrowser1.Agent.GetNativeBw())
+            using (var fr = nativeBw.GetMainFrame())
+            {
+                 
+                Auto.CefRequest req = Auto.CefRequest.Create();
+                req.SetURL("http://tests/request"); 
+                fr.LoadRequest(req);
+            }
             //
-            
-            Auto.CefRequest req = new Auto.CefRequest();
-            req.SetURL("http://tests/request");
-           
-            fr.LoadRequest(req);
+
             //cefWebBrowser1.Agent.PostData(
             //    "http://tests/request",
             //    dataBuffer,
