@@ -3264,7 +3264,7 @@ namespace LayoutFarm.CefBridge.Auto
         /// /*cef(optional_param=client,optional_param=url,optional_param=request_context)*/
         /// </summary>
 
-        public bool CreateBrowser(CefWindowInfo windowInfo,
+        public static bool CreateBrowser(CefWindowInfo windowInfo,
         CefClient client,
         string url,
         CefBrowserSettings settings,
@@ -3297,7 +3297,7 @@ namespace LayoutFarm.CefBridge.Auto
         /// /*cef(optional_param=client,optional_param=url,optional_param=request_context)*/
         /// </summary>
 
-        public CefBrowser CreateBrowserSync(CefWindowInfo windowInfo,
+        public static CefBrowser CreateBrowserSync(CefWindowInfo windowInfo,
         CefClient client,
         string url,
         CefBrowserSettings settings,
@@ -3761,7 +3761,7 @@ namespace LayoutFarm.CefBridge.Auto
         /// /*cef(api_hash_check)*/
         /// </summary>
 
-        public CefCommandLine CreateCommandLine()
+        public static CefCommandLine CreateCommandLine()
         {
             JsValue ret;
 
@@ -3777,7 +3777,7 @@ namespace LayoutFarm.CefBridge.Auto
         /// /*cef(api_hash_check)*/
         /// </summary>
 
-        public CefCommandLine GetGlobalCommandLine()
+        public static CefCommandLine GetGlobalCommandLine()
         {
             JsValue ret;
 
@@ -4394,7 +4394,7 @@ namespace LayoutFarm.CefBridge.Auto
         /// /*cef(optional_param=callback)*/
         /// </summary>
 
-        public CefCookieManager GetGlobalManager(CefCompletionCallback callback)
+        public static CefCookieManager GetGlobalManager(CefCompletionCallback callback)
         {
             JsValue v1 = new JsValue();
             JsValue ret;
@@ -4417,7 +4417,7 @@ namespace LayoutFarm.CefBridge.Auto
         /// /*cef(optional_param=path,optional_param=callback)*/
         /// </summary>
 
-        public CefCookieManager CreateManager(string path,
+        public static CefCookieManager CreateManager(string path,
         bool persist_session_cookies,
         CefCompletionCallback callback)
         {
@@ -5986,7 +5986,7 @@ namespace LayoutFarm.CefBridge.Auto
         /// /*cef()*/
         /// </summary>
 
-        public CefDragData Create()
+        public static CefDragData Create()
         {
             JsValue ret;
 
@@ -6822,7 +6822,7 @@ namespace LayoutFarm.CefBridge.Auto
         /// /*cef()*/
         /// </summary>
 
-        public CefImage CreateImage()
+        public static CefImage CreateImage()
         {
             JsValue ret;
 
@@ -8098,7 +8098,7 @@ namespace LayoutFarm.CefBridge.Auto
         /// /*cef()*/
         /// </summary>
 
-        public CefMenuModel CreateMenuModel(CefMenuModelDelegate _delegate)
+        public static CefMenuModel CreateMenuModel(CefMenuModelDelegate _delegate)
         {
             JsValue v1 = new JsValue();
             JsValue ret;
@@ -8765,7 +8765,7 @@ namespace LayoutFarm.CefBridge.Auto
         /// /*cef()*/
         /// </summary>
 
-        public CefPrintSettings Create()
+        public static CefPrintSettings Create()
         {
             JsValue ret;
 
@@ -8887,7 +8887,7 @@ namespace LayoutFarm.CefBridge.Auto
         /// /*cef()*/
         /// </summary>
 
-        public CefProcessMessage Create(string name)
+        public static CefProcessMessage Create(string name)
         {
             JsValue v1 = new JsValue();
             JsValue ret;
@@ -9304,7 +9304,7 @@ namespace LayoutFarm.CefBridge.Auto
         /// /*cef()*/
         /// </summary>
 
-        public CefRequest Create()
+        public static CefRequest Create()
         {
             JsValue ret;
 
@@ -9468,7 +9468,7 @@ namespace LayoutFarm.CefBridge.Auto
         /// /*cef()*/
         /// </summary>
 
-        public CefPostData Create()
+        public static CefPostData Create()
         {
             JsValue ret;
 
@@ -9654,7 +9654,7 @@ namespace LayoutFarm.CefBridge.Auto
         /// /*cef()*/
         /// </summary>
 
-        public CefPostDataElement Create()
+        public static CefPostDataElement Create()
         {
             JsValue ret;
 
@@ -10106,7 +10106,7 @@ namespace LayoutFarm.CefBridge.Auto
         /// /*cef()*/
         /// </summary>
 
-        public CefRequestContext GetGlobalContext()
+        public static CefRequestContext GetGlobalContext()
         {
             JsValue ret;
 
@@ -10122,7 +10122,7 @@ namespace LayoutFarm.CefBridge.Auto
         /// /*cef(optional_param=handler)*/
         /// </summary>
 
-        public CefRequestContext CreateContext(CefRequestContextSettings settings,
+        public static CefRequestContext CreateContext(CefRequestContextSettings settings,
         CefRequestContextHandler handler)
         {
             JsValue v1 = new JsValue();
@@ -10143,7 +10143,7 @@ namespace LayoutFarm.CefBridge.Auto
         /// /*cef(capi_name=cef_create_context_shared,optional_param=handler)*/
         /// </summary>
 
-        public CefRequestContext CreateContext(CefRequestContext other,
+        public static CefRequestContext CreateContext(CefRequestContext other,
         CefRequestContextHandler handler)
         {
             JsValue v1 = new JsValue();
@@ -10278,7 +10278,7 @@ namespace LayoutFarm.CefBridge.Auto
         /// /*cef()*/
         /// </summary>
 
-        public CefResourceBundle GetGlobal()
+        public static CefResourceBundle GetGlobal()
         {
             JsValue ret;
 
@@ -10531,7 +10531,7 @@ namespace LayoutFarm.CefBridge.Auto
         /// /*cef()*/
         /// </summary>
 
-        public CefResponse Create()
+        public static CefResponse Create()
         {
             JsValue ret;
 
@@ -10895,7 +10895,7 @@ namespace LayoutFarm.CefBridge.Auto
         /// /*cef()*/
         /// </summary>
 
-        public CefStreamReader CreateForFile(string fileName)
+        public static CefStreamReader CreateForFile(string fileName)
         {
             JsValue v1 = new JsValue();
             JsValue ret;
@@ -10913,7 +10913,7 @@ namespace LayoutFarm.CefBridge.Auto
         /// /*cef()*/
         /// </summary>
 
-        public CefStreamReader CreateForData(IntPtr data,
+        public static CefStreamReader CreateForData(IntPtr data,
         uint size)
         {
             JsValue v1 = new JsValue();
@@ -10933,7 +10933,7 @@ namespace LayoutFarm.CefBridge.Auto
         /// /*cef()*/
         /// </summary>
 
-        public CefStreamReader CreateForHandler(CefReadHandler handler)
+        public static CefStreamReader CreateForHandler(CefReadHandler handler)
         {
             JsValue v1 = new JsValue();
             JsValue ret;
@@ -11075,7 +11075,7 @@ namespace LayoutFarm.CefBridge.Auto
         /// /*cef()*/
         /// </summary>
 
-        public CefStreamWriter CreateForFile(string fileName)
+        public static CefStreamWriter CreateForFile(string fileName)
         {
             JsValue v1 = new JsValue();
             JsValue ret;
@@ -11093,7 +11093,7 @@ namespace LayoutFarm.CefBridge.Auto
         /// /*cef()*/
         /// </summary>
 
-        public CefStreamWriter CreateForHandler(CefWriteHandler handler)
+        public static CefStreamWriter CreateForHandler(CefWriteHandler handler)
         {
             JsValue v1 = new JsValue();
             JsValue ret;
@@ -11303,7 +11303,7 @@ namespace LayoutFarm.CefBridge.Auto
         /// /*cef()*/
         /// </summary>
 
-        public CefTaskRunner GetForCurrentThread()
+        public static CefTaskRunner GetForCurrentThread()
         {
             JsValue ret;
 
@@ -11318,7 +11318,7 @@ namespace LayoutFarm.CefBridge.Auto
         /// /*cef()*/
         /// </summary>
 
-        public CefTaskRunner GetForThread(cef_thread_id_t threadId)
+        public static CefTaskRunner GetForThread(cef_thread_id_t threadId)
         {
             JsValue v1 = new JsValue();
             JsValue ret;
@@ -11478,7 +11478,7 @@ namespace LayoutFarm.CefBridge.Auto
         /// /*cef(optional_param=request_context)*/
         /// </summary>
 
-        public CefURLRequest Create(CefRequest request,
+        public static CefURLRequest Create(CefRequest request,
         CefURLRequestClient client,
         CefRequestContext request_context)
         {
@@ -11744,7 +11744,7 @@ namespace LayoutFarm.CefBridge.Auto
         /// /*cef()*/
         /// </summary>
 
-        public CefV8Context GetCurrentContext()
+        public static CefV8Context GetCurrentContext()
         {
             JsValue ret;
 
@@ -11759,7 +11759,7 @@ namespace LayoutFarm.CefBridge.Auto
         /// /*cef()*/
         /// </summary>
 
-        public CefV8Context GetEnteredContext()
+        public static CefV8Context GetEnteredContext()
         {
             JsValue ret;
 
@@ -11774,7 +11774,7 @@ namespace LayoutFarm.CefBridge.Auto
         /// /*cef()*/
         /// </summary>
 
-        public bool InContext()
+        public static bool InContext()
         {
             JsValue ret;
 
@@ -12820,7 +12820,7 @@ namespace LayoutFarm.CefBridge.Auto
         /// /*cef()*/
         /// </summary>
 
-        public CefV8Value CreateUndefined()
+        public static CefV8Value CreateUndefined()
         {
             JsValue ret;
 
@@ -12835,7 +12835,7 @@ namespace LayoutFarm.CefBridge.Auto
         /// /*cef()*/
         /// </summary>
 
-        public CefV8Value CreateNull()
+        public static CefV8Value CreateNull()
         {
             JsValue ret;
 
@@ -12850,7 +12850,7 @@ namespace LayoutFarm.CefBridge.Auto
         /// /*cef()*/
         /// </summary>
 
-        public CefV8Value CreateBool(bool value)
+        public static CefV8Value CreateBool(bool value)
         {
             JsValue v1 = new JsValue();
             JsValue ret;
@@ -12867,7 +12867,7 @@ namespace LayoutFarm.CefBridge.Auto
         /// /*cef()*/
         /// </summary>
 
-        public CefV8Value CreateInt(int value)
+        public static CefV8Value CreateInt(int value)
         {
             JsValue v1 = new JsValue();
             JsValue ret;
@@ -12884,7 +12884,7 @@ namespace LayoutFarm.CefBridge.Auto
         /// /*cef()*/
         /// </summary>
 
-        public CefV8Value CreateUInt(uint value)
+        public static CefV8Value CreateUInt(uint value)
         {
             JsValue v1 = new JsValue();
             JsValue ret;
@@ -12901,7 +12901,7 @@ namespace LayoutFarm.CefBridge.Auto
         /// /*cef()*/
         /// </summary>
 
-        public CefV8Value CreateDouble(double value)
+        public static CefV8Value CreateDouble(double value)
         {
             JsValue v1 = new JsValue();
             JsValue ret;
@@ -12921,7 +12921,7 @@ namespace LayoutFarm.CefBridge.Auto
         /// /*cef()*/
         /// </summary>
 
-        public CefV8Value CreateDate(CefTime date)
+        public static CefV8Value CreateDate(CefTime date)
         {
             JsValue v1 = new JsValue();
             JsValue ret;
@@ -12937,7 +12937,7 @@ namespace LayoutFarm.CefBridge.Auto
         /// /*cef(optional_param=value)*/
         /// </summary>
 
-        public CefV8Value CreateString(string value)
+        public static CefV8Value CreateString(string value)
         {
             JsValue v1 = new JsValue();
             JsValue ret;
@@ -12959,7 +12959,7 @@ namespace LayoutFarm.CefBridge.Auto
         /// /*cef(optional_param=accessor,optional_param=interceptor)*/
         /// </summary>
 
-        public CefV8Value CreateObject(CefV8Accessor accessor,
+        public static CefV8Value CreateObject(CefV8Accessor accessor,
         CefV8Interceptor interceptor)
         {
             JsValue v1 = new JsValue();
@@ -12983,7 +12983,7 @@ namespace LayoutFarm.CefBridge.Auto
         /// /*cef()*/
         /// </summary>
 
-        public CefV8Value CreateArray(int length)
+        public static CefV8Value CreateArray(int length)
         {
             JsValue v1 = new JsValue();
             JsValue ret;
@@ -13003,7 +13003,7 @@ namespace LayoutFarm.CefBridge.Auto
         /// /*cef()*/
         /// </summary>
 
-        public CefV8Value CreateFunction(string name,
+        public static CefV8Value CreateFunction(string name,
         CefV8Handler handler)
         {
             JsValue v1 = new JsValue();
@@ -13105,7 +13105,7 @@ namespace LayoutFarm.CefBridge.Auto
         /// /*cef()*/
         /// </summary>
 
-        public CefV8StackTrace GetCurrent(int frame_limit)
+        public static CefV8StackTrace GetCurrent(int frame_limit)
         {
             JsValue v1 = new JsValue();
             JsValue ret;
@@ -13710,7 +13710,7 @@ namespace LayoutFarm.CefBridge.Auto
         /// /*cef()*/
         /// </summary>
 
-        public CefValue Create()
+        public static CefValue Create()
         {
             JsValue ret;
 
@@ -13879,7 +13879,7 @@ namespace LayoutFarm.CefBridge.Auto
         /// /*cef()*/
         /// </summary>
 
-        public CefBinaryValue Create(IntPtr data,
+        public static CefBinaryValue Create(IntPtr data,
         uint data_size)
         {
             JsValue v1 = new JsValue();
@@ -14520,7 +14520,7 @@ namespace LayoutFarm.CefBridge.Auto
         /// /*cef()*/
         /// </summary>
 
-        public CefDictionaryValue Create()
+        public static CefDictionaryValue Create()
         {
             JsValue ret;
 
@@ -15115,7 +15115,7 @@ namespace LayoutFarm.CefBridge.Auto
         /// /*cef()*/
         /// </summary>
 
-        public CefListValue Create()
+        public static CefListValue Create()
         {
             JsValue ret;
 
@@ -16130,7 +16130,7 @@ namespace LayoutFarm.CefBridge.Auto
         /// /*cef()*/
         /// </summary>
 
-        public CefXmlReader Create(CefStreamReader stream,
+        public static CefXmlReader Create(CefStreamReader stream,
         cef_xml_encoding_type_t encodingType,
         string URI)
         {
@@ -16397,7 +16397,7 @@ namespace LayoutFarm.CefBridge.Auto
         /// /*cef()*/
         /// </summary>
 
-        public CefZipReader Create(CefStreamReader stream)
+        public static CefZipReader Create(CefStreamReader stream)
         {
             JsValue v1 = new JsValue();
             JsValue ret;
