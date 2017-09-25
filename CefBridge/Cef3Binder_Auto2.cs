@@ -418,5 +418,13 @@ namespace LayoutFarm.CefBridge.Auto
             this.nativePtr = nativePtr;
         }
     }
+    public struct CefSchemeRegistrar
+    {
+        internal IntPtr nativePtr;
+        public CefSchemeRegistrar(IntPtr nativePtr)
+        {
+            this.nativePtr = nativePtr;
+        }
+    }
 
 }
