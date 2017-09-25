@@ -107,28 +107,8 @@ namespace BridgeBuilder
                     typeTxInfo,
                     cppHandlerReqCodeGen.callToDotNetMets,
                     orgDecl,
-                    stbuilder);
-
-                //C# part
-                cpp_callToDotNetMets = cppHandlerReqCodeGen.callToDotNetMets;
-
-                //CsCallToNativeCodeGen callToNativeCs = new CsCallToNativeCodeGen();
-                //callToNativeCs.GenerateCsCode(this, orgDecl, implTypeDecl, true, staticMethods, stbuilder, s =>
-                //{
-                //    CsStructModuleCodeGen structModuleCodeGen = new CsStructModuleCodeGen();
-                //    if (cppHandlerReqCodeGen.callToDotNetMets.Count > 0)
-                //    {
-                //        structModuleCodeGen.GenerateCsStructClass(orgDecl,
-                //            cppHandlerReqCodeGen.callToDotNetMets,
-                //            s, true);
-                //    }
-
-                //});
-                //callToNativeCs.GenerateCsCode(this, orgDecl, implTypeDecl, true, staticMethods, stbuilder, s =>
-                //{
-
-
-                //});
+                    stbuilder); 
+                cpp_callToDotNetMets = cppHandlerReqCodeGen.callToDotNetMets; 
                 //-----------------------------------------------------------
                 CppToCsMethodArgsClassGen cppMetArgClassGen = new CppToCsMethodArgsClassGen();
                 //
@@ -204,14 +184,7 @@ namespace BridgeBuilder
                        cpp_callToDotNetMets,
                        ss, true);
 
-                }
-                //CsStructModuleCodeGen structModuleCodeGen = new CsStructModuleCodeGen();
-                //    if (cppHandlerReqCodeGen.callToDotNetMets.Count > 0)
-                //    {
-                //        structModuleCodeGen.GenerateCsStructClass(orgDecl,
-                //            cppHandlerReqCodeGen.callToDotNetMets,
-                //            s, true);
-                //    }
+                } 
 
             });
 
