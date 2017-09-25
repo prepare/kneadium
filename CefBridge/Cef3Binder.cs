@@ -822,21 +822,21 @@ namespace LayoutFarm.CefBridge
             }
         }
 
-        unsafe static string MyCefJsReadString(JsValue* ret)
+        unsafe static string MyCefJsReadString(JsValue* jsval)
         {
             int actualLen;
-            int buffLen = ret->I32 + 1; //string len
+            int buffLen = jsval->I32 + 1; //string len
             //check if string is on method-call's frame stack or heap
-            if (ret->Type == JsValueType.NativeCefString)
+            if (jsval->Type == JsValueType.NativeCefString)
             {
                 char* rawCefString_char16_t;
-                Cef3Binder.MyCefStringGetRawPtr(ret->Ptr, out rawCefString_char16_t, out actualLen);
+                Cef3Binder.MyCefStringGetRawPtr(jsval->Ptr, out rawCefString_char16_t, out actualLen);
                 return new string(rawCefString_char16_t, 0, actualLen);
             }
             if (buffLen < 1024)
             {
                 char* buffHead = stackalloc char[buffLen];
-                Cef3Binder.MyCefStringHolder_Read(ret->Ptr, buffHead, buffLen, out actualLen);
+                Cef3Binder.MyCefStringHolder_Read(jsval->Ptr, buffHead, buffLen, out actualLen);
                 if (actualLen > buffLen)
                 {
                     //read more
@@ -848,7 +848,7 @@ namespace LayoutFarm.CefBridge
                 char[] buffHead = new char[buffLen];
                 fixed (char* h = &buffHead[0])
                 {
-                    Cef3Binder.MyCefStringHolder_Read(ret->Ptr, h, buffLen, out actualLen);
+                    Cef3Binder.MyCefStringHolder_Read(jsval->Ptr, h, buffLen, out actualLen);
                     if (actualLen > buffLen)
                     {
                         //read more
