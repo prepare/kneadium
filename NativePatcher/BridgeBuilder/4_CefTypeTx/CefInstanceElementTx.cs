@@ -109,6 +109,26 @@ namespace BridgeBuilder
                     orgDecl,
                     stbuilder);
 
+                //C# part
+                cpp_callToDotNetMets = cppHandlerReqCodeGen.callToDotNetMets;
+
+                //CsCallToNativeCodeGen callToNativeCs = new CsCallToNativeCodeGen();
+                //callToNativeCs.GenerateCsCode(this, orgDecl, implTypeDecl, true, staticMethods, stbuilder, s =>
+                //{
+                //    CsStructModuleCodeGen structModuleCodeGen = new CsStructModuleCodeGen();
+                //    if (cppHandlerReqCodeGen.callToDotNetMets.Count > 0)
+                //    {
+                //        structModuleCodeGen.GenerateCsStructClass(orgDecl,
+                //            cppHandlerReqCodeGen.callToDotNetMets,
+                //            s, true);
+                //    }
+
+                //});
+                //callToNativeCs.GenerateCsCode(this, orgDecl, implTypeDecl, true, staticMethods, stbuilder, s =>
+                //{
+
+
+                //});
                 //-----------------------------------------------------------
                 CppToCsMethodArgsClassGen cppMetArgClassGen = new CppToCsMethodArgsClassGen();
                 //
@@ -168,13 +188,32 @@ namespace BridgeBuilder
             }
 
         }
+        List<MethodPlan> cpp_callToDotNetMets;
         void GenerateCsCode(CodeStringBuilder stbuilder)
         {
             CodeTypeDeclaration orgDecl = this.OriginalDecl;
             CodeTypeDeclaration implTypeDecl = this.ImplTypeDecl;
             CodeGenUtils.AddComments(orgDecl, implTypeDecl);
             CsCallToNativeCodeGen callToNativeCs = new CsCallToNativeCodeGen();
-            callToNativeCs.GenerateCsCode(this, orgDecl, implTypeDecl, true, staticMethods, stbuilder);
+            callToNativeCs.GenerateCsCode(this, orgDecl, implTypeDecl, true, staticMethods, stbuilder, ss =>
+            {
+                if (cpp_callToDotNetMets != null)
+                {
+                    CsStructModuleCodeGen structModuleCodeGen = new CsStructModuleCodeGen(); 
+                    structModuleCodeGen.GenerateCsStructClass(orgDecl,
+                       cpp_callToDotNetMets,
+                       ss, true);
+
+                }
+                //CsStructModuleCodeGen structModuleCodeGen = new CsStructModuleCodeGen();
+                //    if (cppHandlerReqCodeGen.callToDotNetMets.Count > 0)
+                //    {
+                //        structModuleCodeGen.GenerateCsStructClass(orgDecl,
+                //            cppHandlerReqCodeGen.callToDotNetMets,
+                //            s, true);
+                //    }
+
+            });
 
             //--------------------------------------------------------
         }

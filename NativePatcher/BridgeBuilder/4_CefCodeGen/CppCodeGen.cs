@@ -1076,7 +1076,7 @@ namespace BridgeBuilder
 
     class CppSwicthTableCodeGen : CppCodeGen
     {
-        public void CreateCppSwitchTableForInstanceMethod(StringBuilder stbuilder, List<CefInstanceElementTx> instanceClassPlans)
+        public void CreateCppSwitchTableForInstanceMethods(StringBuilder stbuilder, List<CefInstanceElementTx> instanceClassPlans)
         {
             CodeStringBuilder cppStBuilder = new CodeStringBuilder();
             //------
@@ -1109,7 +1109,7 @@ namespace BridgeBuilder
 
             stbuilder.Append(cppStBuilder.ToString());
         }
-        public void CreateCppSwitchTableForStaticMethod(StringBuilder stbuilder, List<CefInstanceElementTx> instanceClassPlans)
+        public void CreateCppSwitchTableForStaticMethods(StringBuilder stbuilder, List<CefInstanceElementTx> instanceClassPlans)
         {
             CodeStringBuilder cppStBuilder = new CodeStringBuilder();
             //------
