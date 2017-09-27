@@ -462,10 +462,16 @@ namespace BridgeBuilder
             CodeTypeDeclaration implTypeDecl,
             bool withNewMethod,
             List<MethodPlan> staticMethods,
-            CodeStringBuilder stbuilder)
+            CodeStringBuilder stbuilder,
+            Action<CodeStringBuilder> fillOtherMembers = null
+           )
         {
 
             stbuilder.AppendLine("//CsCallToNativeCodeGen::GenerateCsCode , " + (++codeGenNum));
+            if (codeGenNum == 486)
+            {
+
+            }
             //-----------------------------------------------------------------------
             _orgDecl = orgDecl;
             _typeTxInfo = implTypeDecl.TypePlan;//tx 
@@ -474,9 +480,6 @@ namespace BridgeBuilder
             CodeStringBuilder csStruct = new CodeStringBuilder();
             int maxPar = 0;
             CodeGenUtils.AddComment(orgDecl.LineComments, csStruct);
-
-
-
             csStruct.AppendLine("public struct " + orgDecl.Name + ":IDisposable{");
             csStruct.AppendLine("const int _typeNAME=" + orgDecl.TypePlan.CsInterOpTypeNameId + ";");
             string releaseMetName = orgDecl.Name + "_Release_0";
@@ -551,9 +554,6 @@ namespace BridgeBuilder
                     csStruct.Append(met_stbuilder.ToString());
                 }
             }
-
-
-
             //-----------------------------------------------------------------------
             if (withNewMethod && txplan.CppImplClassName != null)
             {
@@ -563,6 +563,11 @@ namespace BridgeBuilder
                 csStruct.AppendLine("}");
             }
             //-----------------------------------------------------------------------
+
+            if (fillOtherMembers != null)
+            {
+                fillOtherMembers(csStruct);
+            }
             csStruct.AppendLine("}");  //close struct 
             //add to stbuilder
             stbuilder.Append(csStruct.ToString());
@@ -710,7 +715,7 @@ namespace BridgeBuilder
             //generate method sig 
             //--------------------------- 
             stbuilder.AppendLine("//CsCallToNativeCodeGen::GenerateCs_S_Method , " + (++codeGenNum));
-            
+
             stbuilder.Append(
                  "\r\n" +
                  "// gen! " + met.ToString() + "\r\n"
@@ -908,7 +913,11 @@ namespace BridgeBuilder
         }
 
 
-        public void GenerateCsStructClass(CodeTypeDeclaration orgDecl, List<MethodPlan> callToDotNetMets, CodeStringBuilder stbuilder)
+        public void GenerateCsStructClass(
+            CodeTypeDeclaration orgDecl,
+            List<MethodPlan> callToDotNetMets,
+            CodeStringBuilder stbuilder,
+            bool skipCtorPart)
         {
 
             int nn = callToDotNetMets.Count;
@@ -921,17 +930,19 @@ namespace BridgeBuilder
 
             stbuilder.AppendLine("//CsStructModuleCodeGen:: GenerateCsStructClass ," + (++codeGenNum));
 
-            //
-            stbuilder.Append("public struct " + className);
-            stbuilder.AppendLine("{");
-            stbuilder.AppendLine("public const int _typeNAME=" + orgDecl.TypePlan.CsInterOpTypeNameId + ";");
+             
+            if (!skipCtorPart)
+            {
+                stbuilder.Append("public struct " + className);
+                stbuilder.AppendLine("{");
+                stbuilder.AppendLine("public const int _typeNAME=" + orgDecl.TypePlan.CsInterOpTypeNameId + ";");
+                //ctor
+                stbuilder.AppendLine("internal IntPtr nativePtr;");
+                stbuilder.AppendLine("public " + className + "(IntPtr nativePtr){");
+                stbuilder.AppendLine("this.nativePtr= nativePtr;");
+                stbuilder.AppendLine("}");
 
-
-            //ctor
-            stbuilder.AppendLine("internal IntPtr nativePtr;");
-            stbuilder.AppendLine("public " + className + "(IntPtr nativePtr){");
-            stbuilder.AppendLine("this.nativePtr= nativePtr;");
-            stbuilder.AppendLine("}");
+            }
 
             for (int mm = 0; mm < nn; ++mm)
             {
@@ -995,7 +1006,10 @@ namespace BridgeBuilder
 
                 GenerateCsSingleArgMethodImplForI1(met.CsArgClassName, met, stbuilder);
             }
-            stbuilder.AppendLine("}"); //end class
+            if (!skipCtorPart)
+            {
+                stbuilder.AppendLine("}"); //end class
+            }
         }
 
         void GenerateHandleNativeReqTable(CodeStringBuilder stbuilder, List<MethodPlan> callToDotNetMets)
@@ -1236,6 +1250,7 @@ namespace BridgeBuilder
                     stbuilder.AppendLine("public int myext_ret_value;");
                     break;
                 case "ReturnValue":
+                case "FilterStatus":
                     //TODO: review here
                     //temp fix
                     stbuilder.AppendLine("public int myext_ret_value;");
@@ -1272,6 +1287,9 @@ namespace BridgeBuilder
                         break;
                     case "event":
                         parTx.Name = "_event";
+                        break;
+                    case "delegate":
+                        parTx.Name = "_delegate";
                         break;
                 }
                 //
@@ -1447,6 +1465,7 @@ namespace BridgeBuilder
                         stbuilder.AppendLine("((" + nativeArgClassName + "*)this.nativePtr)->myext_ret_value=value;");
                         break;
                     case "ReturnValue":
+                    case "FilterStatus":
                         //TODO: review here
                         //temp fix
                         stbuilder.AppendLine("int value){");

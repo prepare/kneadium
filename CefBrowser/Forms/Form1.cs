@@ -178,9 +178,10 @@ namespace LayoutFarm.CefBridge
             using (var nativeBw = cefWebBrowser1.Agent.GetNativeBw())
             using (var fr = nativeBw.GetMainFrame())
             {
-                 
+                
+
                 Auto.CefRequest req = Auto.CefRequest.Create();
-                req.SetURL("http://localhost"); 
+                req.SetURL("http://localhost");
                 fr.LoadRequest(req);
             }
             //

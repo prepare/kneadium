@@ -51,9 +51,6 @@
     <Compile Include="..\CefBridge\Cef3InitEssential.cs">
       <Link>CefBridge\Cef3InitEssential.cs</Link>
     </Compile>
-    <Compile Include="..\CefBridge\Cef3WinForms.cs">
-      <Link>CefBridge\Cef3WinForms.cs</Link>
-    </Compile>
     <Compile Include="..\CefBridge\CefListeners.cs">
       <Link>CefBridge\CefListeners.cs</Link>
     </Compile>
@@ -62,15 +59,6 @@
     </Compile>
     <Compile Include="..\CefBridge\ClientApp.cs">
       <Link>CefBridge\ClientApp.cs</Link>
-    </Compile>
-    <Compile Include="..\CefBridge\CustomSchemeAgent.cs">
-      <Link>CefBridge\CustomSchemeAgent.cs</Link>
-    </Compile>
-    <Compile Include="..\CefBridge\MyCefBrowser.cs">
-      <Link>CefBridge\MyCefBrowser.cs</Link>
-    </Compile>
-    <Compile Include="..\CefBridge\MyCefDevWindow.cs">
-      <Link>CefBridge\MyCefDevWindow.cs</Link>
     </Compile>
     <Compile Include="..\CefBridge\NativeCallArgs.cs">
       <Link>CefBridge\NativeCallArgs.cs</Link>

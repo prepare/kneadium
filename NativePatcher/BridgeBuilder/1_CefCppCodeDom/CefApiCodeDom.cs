@@ -717,7 +717,7 @@ namespace BridgeBuilder
         public readonly int dbugId = dbugTotalId++;
         public CodeMemberDeclaration()
         {
-
+           
         }
 #endif
         public string Name
@@ -880,13 +880,13 @@ namespace BridgeBuilder
             stbuilder.Append(')');
             return stbuilder.ToString();
         }
-         
+
         //transformation 
 
         internal MethodPlan methodTxInfo { get; set; }
 
         internal bool HasMethodBody;
-       
+
 
         public CodeTypeReference CppExplicitOwnerType
         {

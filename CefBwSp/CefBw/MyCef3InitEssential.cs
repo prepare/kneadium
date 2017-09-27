@@ -30,7 +30,7 @@ namespace LayoutFarm.CefBridge
         {
             //must check proper location of libcef, cefclient dir 
 
-            libPath = ReferencePaths.LIB_PATH; 
+            libPath = ReferencePaths.LIB_PATH;
             return base.Init();
         }
         List<string> logMessages = new List<string>();
@@ -53,15 +53,14 @@ namespace LayoutFarm.CefBridge
             return libPath + "\\chrome_elf.dll";
         }
 
-
         public override void AfterProcessLoaded(CefStartArgs cefStartArg)
         {
-            
+
         }
         public override CefClientApp CreateClientApp()
         {
             var renderProcListener = new MyCefRendererProcessListener();
-            var clientApp = new CefClientApp(
+            var clientApp = new SubProcessClientApp(
                 System.Diagnostics.Process.GetCurrentProcess().Handle,
                 renderProcListener);
             return clientApp;

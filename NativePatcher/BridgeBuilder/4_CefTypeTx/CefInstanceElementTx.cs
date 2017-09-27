@@ -54,6 +54,39 @@ namespace BridgeBuilder
             }
 
         }
+        /// <summary>
+        /// find c api name
+        /// </summary>
+        /// <param name="met"></param>
+        /// <returns></returns>
+        static string FindCApiName(CodeMethodDeclaration met)
+        {
+            Token[] lineComments = met.LineComments;
+            if (lineComments == null) { return null; }
+            //
+            string capi_name = "/*cef(capi_name=";
+            int len = capi_name.Length;
+            for (int i = lineComments.Length - 1; i >= 0; --i)
+            {
+                //analyze line-by-line
+                string line = lineComments[i].Content;
+                int index = line.IndexOf(capi_name);
+                if (index > -1)
+                {
+                    int comma = line.IndexOf(',', index);
+                    if (comma > -1)
+                    {
+                        return line.Substring(index + len, comma - (index + len));
+                    }
+                    int closeParen = line.IndexOf(')', index);
+                    if (closeParen > -1)
+                    {
+                        return line.Substring(index + len, closeParen - (index + len));
+                    }
+                }
+            }
+            return null;
+        }
         void GenerateCppCode(CodeStringBuilder stbuilder)
         {
 
@@ -69,6 +102,10 @@ namespace BridgeBuilder
             //
             FindStaticMethods(orgDecl.TypePlan);
             //  
+
+
+
+
             CppHandleCsMethodRequestCodeGen cppHandlerReqCodeGen = new CppHandleCsMethodRequestCodeGen();
             cppHandlerReqCodeGen.GenerateCppCode(this, orgDecl, implTypeDecl, this.UnderlyingCType, stbuilder);
 
@@ -81,25 +118,61 @@ namespace BridgeBuilder
 
                 CodeStringBuilder const_methodNames = new CodeStringBuilder();
                 //check if method has duplicate name or not
+                //----------  
                 Dictionary<string, MethodPlan> uniqueNames = new Dictionary<string, MethodPlan>();
-                for (int i = 0; i < j; ++i)
+                foreach (MethodPlan met in cppHandlerReqCodeGen.callToDotNetMets)
                 {
-                    MethodPlan met = cppHandlerReqCodeGen.callToDotNetMets[i];
-                    MethodPlan existingPlan;
-                    if (uniqueNames.TryGetValue(met.Name, out existingPlan))
+
+                    MethodPlan existingMet;
+                    if (uniqueNames.TryGetValue(met.Name, out existingMet))
                     {
-                        //has some duplicate name 
-                        //TODO: review here again*** 
-                        met.NewOverloadName = met.Name + i;
+                        string met_capi_name = FindCApiName(met.metDecl);
+                        string met_capi_nameOfExistingMet = FindCApiName(existingMet.metDecl);
+                        if (met_capi_nameOfExistingMet == null && met_capi_name == null)
+                        {
+                            throw new NotSupportedException();
+                        }
+                        //rename both if possible 
+                        existingMet.HasDuplicatedMethodName = true;
+                        if (met_capi_nameOfExistingMet != null)
+                        {
+                            existingMet.NewOverloadName = met_capi_nameOfExistingMet;
+                        }
+                        else
+                        {
+                            existingMet.NewOverloadName = existingMet.Name;
+                        }
+                        //
                         met.HasDuplicatedMethodName = true;
-                        const_methodNames.AppendLine("const int " + namespaceName + "_" + met.NewOverloadName + "_" + (i + 1) + "=" + (i + 1) + ";");
+                        if (met_capi_name != null)
+                        {
+                            met.NewOverloadName = met_capi_name;
+                        }
+                        else
+                        {
+                            met.NewOverloadName = met.Name;
+                        }
                     }
                     else
                     {
                         uniqueNames.Add(met.Name, met);
+                    }
+                }
+                //-----------------------
+                for (int i = 0; i < j; ++i)
+                {
+                    MethodPlan met = cppHandlerReqCodeGen.callToDotNetMets[i];
+                    if (met.HasDuplicatedMethodName)
+                    {
+                        const_methodNames.AppendLine("const int " + namespaceName + "_" + met.NewOverloadName + "_" + (i + 1) + "=" + (i + 1) + ";");
+                    }
+                    else
+                    {
                         const_methodNames.AppendLine("const int " + namespaceName + "_" + met.Name + "_" + (i + 1) + "=" + (i + 1) + ";");
                     }
                 }
+
+
 
                 //--------------
                 CppInstanceImplCodeGen instanceImplCodeGen = new CppInstanceImplCodeGen();
@@ -108,7 +181,7 @@ namespace BridgeBuilder
                     cppHandlerReqCodeGen.callToDotNetMets,
                     orgDecl,
                     stbuilder);
-
+                cpp_callToDotNetMets = cppHandlerReqCodeGen.callToDotNetMets;
                 //-----------------------------------------------------------
                 CppToCsMethodArgsClassGen cppMetArgClassGen = new CppToCsMethodArgsClassGen();
                 //
@@ -168,13 +241,25 @@ namespace BridgeBuilder
             }
 
         }
+        List<MethodPlan> cpp_callToDotNetMets;
         void GenerateCsCode(CodeStringBuilder stbuilder)
         {
             CodeTypeDeclaration orgDecl = this.OriginalDecl;
             CodeTypeDeclaration implTypeDecl = this.ImplTypeDecl;
             CodeGenUtils.AddComments(orgDecl, implTypeDecl);
             CsCallToNativeCodeGen callToNativeCs = new CsCallToNativeCodeGen();
-            callToNativeCs.GenerateCsCode(this, orgDecl, implTypeDecl, true, staticMethods, stbuilder);
+            callToNativeCs.GenerateCsCode(this, orgDecl, implTypeDecl, true, staticMethods, stbuilder, ss =>
+            {
+                if (cpp_callToDotNetMets != null)
+                {
+                    CsStructModuleCodeGen structModuleCodeGen = new CsStructModuleCodeGen();
+                    structModuleCodeGen.GenerateCsStructClass(orgDecl,
+                       cpp_callToDotNetMets,
+                       ss, true);
+
+                }
+
+            });
 
             //--------------------------------------------------------
         }

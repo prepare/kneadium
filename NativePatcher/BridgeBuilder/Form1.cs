@@ -1,6 +1,6 @@
 ﻿//MIT, 2016-2017 ,WinterDev
 using System;
-using System.Collections.Generic; 
+using System.Collections.Generic;
 using System.Text;
 using System.Windows.Forms;
 
@@ -358,7 +358,7 @@ namespace BridgeBuilder
                         continue;
                     }
 
-                    
+
                     //cppToCsImplCodeGen.PatchCppMethod(cu, cefDir + @"\libcef_dll\cpptoc\" + onlyFileName, cefDir + @"\cpptoc");
                     cppToCsImplCodeGen.PatchCppMethod(cu, null, cefDir + @"\cpptoc");
                 }
@@ -465,6 +465,9 @@ namespace BridgeBuilder
             CefTypeCollection cefTypeCollection = new CefTypeCollection();
             cefTypeCollection.RootFolder = cefDir;
             cefTypeCollection.SetTypeSystem(totalCuList);
+
+
+
 
             //
             TypeTranformPlanner txPlanner = new TypeTranformPlanner();
@@ -584,8 +587,7 @@ namespace BridgeBuilder
                 ////eg. handlers and callbacks 
 
             }
-            //--------
-
+            //-------- 
             foreach (CodeTypeDeclaration typedecl in cefTypeCollection._plainCStructs)
             {
                 //create raw type
@@ -606,11 +608,15 @@ namespace BridgeBuilder
                 }
             }
             //--------
+
+
+
+
+            //--------
             //code gen
 
 
-            List<CefTypeTx> customImplClasses = new List<CefTypeTx>();
-
+            List<CefTypeTx> customImplClasses = new List<CefTypeTx>(); 
             int tt_count = 0;
             StringBuilder cppCodeStBuilder = new StringBuilder();
             StringBuilder csCodeStBuilder = new StringBuilder();
@@ -710,16 +716,13 @@ namespace BridgeBuilder
                 cppHeaderInternalForExportFunc.Append(codeGenOutput._cppHeaderInternalForExportFuncAuto.ToString());
                 //---------- 
             }
-
-
             foreach (CefCStructTx tx in cstructPlans)
             {
                 codeGenOutput = new CefCodeGenOutput();
                 tx.GenerateCode(codeGenOutput);
                 csCodeStBuilder.Append(codeGenOutput._csCode.ToString());
             }
-
-
+            //--------
             CsNativeHandlerSwitchTableCodeGen csNativeHandlerSwitchTableCodeGen = new CsNativeHandlerSwitchTableCodeGen();
             csNativeHandlerSwitchTableCodeGen.GenerateCefNativeRequestHandlers(handlerPlans, csCodeStBuilder);
 
@@ -728,8 +731,8 @@ namespace BridgeBuilder
             //--------
             //cpp
             CppSwicthTableCodeGen cppSwitchTableCodeGen = new CppSwicthTableCodeGen();
-            cppSwitchTableCodeGen.CreateCppSwitchTableForInstanceMethod(cppCodeStBuilder, instanceClassPlans);
-            cppSwitchTableCodeGen.CreateCppSwitchTableForStaticMethod(cppCodeStBuilder, instanceClassPlans);
+            cppSwitchTableCodeGen.CreateCppSwitchTableForInstanceMethods(cppCodeStBuilder, instanceClassPlans);
+            cppSwitchTableCodeGen.CreateCppSwitchTableForStaticMethods(cppCodeStBuilder, instanceClassPlans);
             //
             CppInstanceMethodCodeGen instanceMetCodeGen = new CppInstanceMethodCodeGen();
             instanceMetCodeGen.CreateCppNewInstanceMethod(cppCodeStBuilder, customImplClasses);
@@ -824,6 +827,6 @@ namespace BridgeBuilder
 
 
 
-    
+
     }
 }

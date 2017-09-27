@@ -66,10 +66,8 @@ namespace BridgeBuilder
 
 
             CodeMethodDeclaration metDecl = (CodeMethodDeclaration)met.metDecl;
-            //--------------------------- 
-
             stbuilder.AppendLine("//CppInstanceImplCodeGen::GenerateCppImplMethod, " + (++codeGenNum2));
-
+             
             stbuilder.AppendLine("//gen! " + metDecl.ToString());
 
 
@@ -313,6 +311,56 @@ namespace BridgeBuilder
 
         internal List<MethodPlan> callToDotNetMets;
 
+
+        public void PrepareInstanceCallFromCppToCsMethodName(CefTypeTx cefTx,
+            CodeTypeDeclaration codeTypeDecl,
+            CodeTypeDeclaration impl,
+            SimpleTypeSymbol underlyingType)
+        {
+            CodeTypeDeclaration orgDecl = codeTypeDecl;
+            CodeTypeDeclaration implTypeDecl = impl;
+            TypePlan typeTxInfo;
+            if (implTypeDecl.Name.Contains("CppToC"))
+            {
+                typeTxInfo = orgDecl.TypePlan;
+            }
+            else
+            {
+                typeTxInfo = implTypeDecl.TypePlan;
+            }
+            //----------
+            int j = typeTxInfo.methods.Count;
+            int maxPar = 0;
+            //----------
+            //check duplicated name
+
+            //----------
+            List<MethodPlan> selectedMets = new List<MethodPlan>();
+            for (int i = 0; i < j; ++i)
+            {
+                MethodPlan metTx = typeTxInfo.methods[i];
+                CodeMethodDeclaration codeMethodDecl = metTx.metDecl;
+                if (codeMethodDecl.IsAbstract || codeMethodDecl.IsVirtual)
+                {
+                    selectedMets.Add(metTx);
+                }
+                //-----------------
+                if (metTx.pars.Count > maxPar)
+                {
+                    maxPar = metTx.pars.Count;
+                }
+            }
+
+
+            //--------
+            int mm = 0;
+            foreach (MethodPlan metTx in selectedMets)
+            {
+                metTx.CppMethodSwitchCaseName = orgDecl.Name + "_" + metTx.Name + "_" + (mm + 1);
+                mm++;
+            }
+
+        }
         public void GenerateCppCodeStatic(
            List<MethodPlan> staticMethods,
             CodeTypeDeclaration codeTypeDecl,
@@ -331,7 +379,7 @@ namespace BridgeBuilder
             int j = staticMethods.Count;
             //-----------------------------------------------------------------------
             CodeStringBuilder const_methodNames = new CodeStringBuilder();
-            callToDotNetMets = new List<MethodPlan>();
+            //callToDotNetMets = new List<MethodPlan>();
             int maxPar = 0;
             for (int i = 0; i < j; ++i)
             {
@@ -340,10 +388,10 @@ namespace BridgeBuilder
                 metTx.CppMethodSwitchCaseName = orgDecl.Name + "_S_" + metTx.Name + "_" + (i + 1);
                 //-----------------
                 CodeMethodDeclaration codeMethodDecl = metTx.metDecl;
-                if (codeMethodDecl.IsAbstract || codeMethodDecl.IsVirtual)
-                {
-                    callToDotNetMets.Add(metTx);
-                }
+                //if (codeMethodDecl.IsAbstract || codeMethodDecl.IsVirtual)
+                //{
+                //    callToDotNetMets.Add(metTx);
+                //}
                 //-----------------
                 if (metTx.pars.Count > maxPar)
                 {
@@ -1076,7 +1124,7 @@ namespace BridgeBuilder
 
     class CppSwicthTableCodeGen : CppCodeGen
     {
-        public void CreateCppSwitchTableForInstanceMethod(StringBuilder stbuilder, List<CefInstanceElementTx> instanceClassPlans)
+        public void CreateCppSwitchTableForInstanceMethods(StringBuilder stbuilder, List<CefInstanceElementTx> instanceClassPlans)
         {
             CodeStringBuilder cppStBuilder = new CodeStringBuilder();
             //------
@@ -1109,7 +1157,7 @@ namespace BridgeBuilder
 
             stbuilder.Append(cppStBuilder.ToString());
         }
-        public void CreateCppSwitchTableForStaticMethod(StringBuilder stbuilder, List<CefInstanceElementTx> instanceClassPlans)
+        public void CreateCppSwitchTableForStaticMethods(StringBuilder stbuilder, List<CefInstanceElementTx> instanceClassPlans)
         {
             CodeStringBuilder cppStBuilder = new CodeStringBuilder();
             //------

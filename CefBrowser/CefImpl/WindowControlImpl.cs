@@ -124,7 +124,7 @@ namespace LayoutFarm.CefBridge
 
         void Form_FormClosed(object sender, FormClosedEventArgs e)
         {
-             
+
             if (FormClosed != null)
             {
                 FormClosed(sender, e);
@@ -179,14 +179,14 @@ namespace LayoutFarm.CefBridge
             }
         }
         static Dictionary<Form, MyWindowForm> registerControls = new Dictionary<Form, MyWindowForm>();
-        public static IWindowForm TryGetWindowFormOrRegisterIfNotExists(Form uControl)
+        public static IWindowForm TryGetWindowFormOrRegisterIfNotExists(Form form)
         {
             MyWindowForm myWinForm;
-            if (!registerControls.TryGetValue(uControl, out myWinForm))
+            if (!registerControls.TryGetValue(form, out myWinForm))
             {
                 //register new one
-                myWinForm = new MyWindowForm(uControl);
-                registerControls.Add(uControl, myWinForm);
+                myWinForm = new MyWindowForm(form);
+                registerControls.Add(form, myWinForm);
             }
             return myWinForm;
         }
