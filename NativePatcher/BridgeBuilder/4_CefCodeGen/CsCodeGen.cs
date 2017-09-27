@@ -1180,6 +1180,14 @@ namespace BridgeBuilder
         void GenerateCsSingleArgMethodImplForInterface(string argClassName, MethodPlan met, CodeStringBuilder stbuilder)
         {
             stbuilder.AppendLine("//CsStructModuleCodeGen:: GenerateCsSingleArgMethodImplForInterface ," + (++codeGenNum));
+
+            //find line comment
+            Token[] lineComments = met.metDecl.LineComments;
+            if (lineComments != null)
+            {
+                CodeGenUtils.AddComment(lineComments, stbuilder);
+            }
+
             CodeMethodDeclaration metDecl = (CodeMethodDeclaration)met.metDecl;
             //temp 
             List<MethodParameter> pars = met.pars;
@@ -1195,6 +1203,15 @@ namespace BridgeBuilder
         void GenerateCsExpandedArgsMethodForInterface(MethodPlan met, CodeStringBuilder stbuilder)
         {
             stbuilder.AppendLine("//CsStructModuleCodeGen:: GenerateCsExpandedArgsMethodForInterface ," + (++codeGenNum));
+
+            //find line comment
+            Token[] lineComments = met.metDecl.LineComments;
+            if (lineComments != null)
+            {
+                CodeGenUtils.AddComment(lineComments, stbuilder);
+            }
+
+
             CodeMethodDeclaration metDecl = (CodeMethodDeclaration)met.metDecl;
 
             //temp             
@@ -1234,7 +1251,7 @@ namespace BridgeBuilder
             string selectedMethodName = met.Name;
             if (met.NewOverloadName != null)
             {
-                selectedMethodName = met.NewOverloadName; 
+                selectedMethodName = met.NewOverloadName;
             }
 
             string className = selectedMethodName + "NativeArgs";
@@ -1408,6 +1425,14 @@ namespace BridgeBuilder
 
             //generate cs method pars
             CodeMethodDeclaration metDecl = (CodeMethodDeclaration)met.metDecl;
+
+            if (metDecl.LineComments != null)
+            {
+                CodeGenUtils.AddComment(metDecl.LineComments, stbuilder);
+            }
+
+
+
             List<CodeMethodParameter> pars = metDecl.Parameters;
             int j = pars.Count;
             //temp 

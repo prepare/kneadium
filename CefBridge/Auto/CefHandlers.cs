@@ -19,6 +19,11 @@ namespace LayoutFarm.CefBridge.Auto
         const int CefAccessibilityHandlerExt_OnAccessibilityLocationChange_2 = 2;
         //gen! void OnAccessibilityTreeChange(CefRefPtr<CefValue> value)
         //CsStructModuleCodeGen:: GenerateCsMethodArgsClass ,373
+        /// <summary>
+        /// Called after renderer process sends accessibility tree changes to the
+        /// browser process.
+        /// /*cef()*/
+        /// </summary>
         public struct OnAccessibilityTreeChangeArgs
         {
             IntPtr nativePtr; //met arg native ptr
@@ -54,6 +59,11 @@ namespace LayoutFarm.CefBridge.Auto
         }
         //gen! void OnAccessibilityLocationChange(CefRefPtr<CefValue> value)
         //CsStructModuleCodeGen:: GenerateCsMethodArgsClass ,375
+        /// <summary>
+        /// Called after renderer process sends accessibility location changes to the
+        /// browser process.
+        /// /*cef()*/
+        /// </summary>
         public struct OnAccessibilityLocationChangeArgs
         {
             IntPtr nativePtr; //met arg native ptr
@@ -90,15 +100,35 @@ namespace LayoutFarm.CefBridge.Auto
         public interface I0
         {
             //CsStructModuleCodeGen:: GenerateCsSingleArgMethodImplForInterface ,377
+            /// <summary>
+            /// Called after renderer process sends accessibility tree changes to the
+            /// browser process.
+            /// /*cef()*/
+            /// </summary>
             void OnAccessibilityTreeChange(OnAccessibilityTreeChangeArgs args);
             //CsStructModuleCodeGen:: GenerateCsSingleArgMethodImplForInterface ,378
+            /// <summary>
+            /// Called after renderer process sends accessibility location changes to the
+            /// browser process.
+            /// /*cef()*/
+            /// </summary>
             void OnAccessibilityLocationChange(OnAccessibilityLocationChangeArgs args);
         }
         public interface I1
         {
             //CsStructModuleCodeGen:: GenerateCsExpandedArgsMethodForInterface ,379
+            /// <summary>
+            /// Called after renderer process sends accessibility tree changes to the
+            /// browser process.
+            /// /*cef()*/
+            /// </summary>
             void OnAccessibilityTreeChange(CefValue value);
             //CsStructModuleCodeGen:: GenerateCsExpandedArgsMethodForInterface ,380
+            /// <summary>
+            /// Called after renderer process sends accessibility location changes to the
+            /// browser process.
+            /// /*cef()*/
+            /// </summary>
             void OnAccessibilityLocationChange(CefValue value);
         }
         //CsStructModuleCodeGen::GenerateHandleNativeReqTable ,381
@@ -181,6 +211,11 @@ namespace LayoutFarm.CefBridge.Auto
         const int CefBrowserProcessHandlerExt_OnScheduleMessagePumpWork_5 = 5;
         //gen! void OnContextInitialized()
         //CsStructModuleCodeGen:: GenerateCsMethodArgsClass ,390
+        /// <summary>
+        /// Called on the browser process UI thread immediately after the CEF context
+        /// has been initialized.
+        /// /*cef()*/
+        /// </summary>
         public struct OnContextInitializedArgs
         {
             IntPtr nativePtr; //met arg native ptr
@@ -211,6 +246,14 @@ namespace LayoutFarm.CefBridge.Auto
         }
         //gen! void OnBeforeChildProcessLaunch(CefRefPtr<CefCommandLine> command_line)
         //CsStructModuleCodeGen:: GenerateCsMethodArgsClass ,392
+        /// <summary>
+        /// Called before a child process is launched. Will be called on the browser
+        /// process UI thread when launching a render process and on the browser
+        /// process IO thread when launching a GPU or plugin process. Provides an
+        /// opportunity to modify the child process command line. Do not keep a
+        /// reference to |command_line| outside of this method.
+        /// /*cef()*/
+        /// </summary>
         public struct OnBeforeChildProcessLaunchArgs
         {
             IntPtr nativePtr; //met arg native ptr
@@ -249,6 +292,14 @@ namespace LayoutFarm.CefBridge.Auto
         }
         //gen! void OnRenderProcessThreadCreated(CefRefPtr<CefListValue> extra_info)
         //CsStructModuleCodeGen:: GenerateCsMethodArgsClass ,394
+        /// <summary>
+        /// Called on the browser process IO thread after the main thread has been
+        /// created for a new render process. Provides an opportunity to specify extra
+        /// information that will be passed to
+        /// CefRenderProcessHandler::OnRenderThreadCreated() in the render process. Do
+        /// not keep a reference to |extra_info| outside of this method.
+        /// /*cef()*/
+        /// </summary>
         public struct OnRenderProcessThreadCreatedArgs
         {
             IntPtr nativePtr; //met arg native ptr
@@ -287,6 +338,11 @@ namespace LayoutFarm.CefBridge.Auto
         }
         //gen! CefRefPtr<CefPrintHandler> GetPrintHandler()
         //CsStructModuleCodeGen:: GenerateCsMethodArgsClass ,396
+        /// <summary>
+        /// Return the handler for printing on Linux. If a print handler is not
+        /// provided then printing will not be supported on the Linux platform.
+        /// /*cef()*/
+        /// </summary>
         public struct GetPrintHandlerArgs
         {
             IntPtr nativePtr; //met arg native ptr
@@ -325,6 +381,20 @@ namespace LayoutFarm.CefBridge.Auto
         }
         //gen! void OnScheduleMessagePumpWork(int64 delay_ms)
         //CsStructModuleCodeGen:: GenerateCsMethodArgsClass ,398
+        /// <summary>
+        /// Called from any thread when work has been scheduled for the browser process
+        /// main (UI) thread. This callback is used in combination with CefSettings.
+        /// external_message_pump and CefDoMessageLoopWork() in cases where the CEF
+        /// message loop must be integrated into an existing application message loop
+        /// (see additional comments and warnings on CefDoMessageLoopWork). This
+        /// callback should schedule a CefDoMessageLoopWork() call to happen on the
+        /// main (UI) thread. |delay_ms| is the requested delay in milliseconds. If
+        /// |delay_ms| is <= 0 then the call should happen reasonably soon. If
+        /// |delay_ms| is > 0 then the call should be scheduled to happen after the
+        /// specified delay and any currently pending scheduled call should be
+        /// cancelled.
+        /// /*cef()*/
+        /// </summary>
         public struct OnScheduleMessagePumpWorkArgs
         {
             IntPtr nativePtr; //met arg native ptr
@@ -364,27 +434,107 @@ namespace LayoutFarm.CefBridge.Auto
         public interface I0
         {
             //CsStructModuleCodeGen:: GenerateCsSingleArgMethodImplForInterface ,400
+            /// <summary>
+            /// Called on the browser process UI thread immediately after the CEF context
+            /// has been initialized.
+            /// /*cef()*/
+            /// </summary>
             void OnContextInitialized(OnContextInitializedArgs args);
             //CsStructModuleCodeGen:: GenerateCsSingleArgMethodImplForInterface ,401
+            /// <summary>
+            /// Called before a child process is launched. Will be called on the browser
+            /// process UI thread when launching a render process and on the browser
+            /// process IO thread when launching a GPU or plugin process. Provides an
+            /// opportunity to modify the child process command line. Do not keep a
+            /// reference to |command_line| outside of this method.
+            /// /*cef()*/
+            /// </summary>
             void OnBeforeChildProcessLaunch(OnBeforeChildProcessLaunchArgs args);
             //CsStructModuleCodeGen:: GenerateCsSingleArgMethodImplForInterface ,402
+            /// <summary>
+            /// Called on the browser process IO thread after the main thread has been
+            /// created for a new render process. Provides an opportunity to specify extra
+            /// information that will be passed to
+            /// CefRenderProcessHandler::OnRenderThreadCreated() in the render process. Do
+            /// not keep a reference to |extra_info| outside of this method.
+            /// /*cef()*/
+            /// </summary>
             void OnRenderProcessThreadCreated(OnRenderProcessThreadCreatedArgs args);
             //CsStructModuleCodeGen:: GenerateCsSingleArgMethodImplForInterface ,403
+            /// <summary>
+            /// Return the handler for printing on Linux. If a print handler is not
+            /// provided then printing will not be supported on the Linux platform.
+            /// /*cef()*/
+            /// </summary>
             void GetPrintHandler(GetPrintHandlerArgs args);
             //CsStructModuleCodeGen:: GenerateCsSingleArgMethodImplForInterface ,404
+            /// <summary>
+            /// Called from any thread when work has been scheduled for the browser process
+            /// main (UI) thread. This callback is used in combination with CefSettings.
+            /// external_message_pump and CefDoMessageLoopWork() in cases where the CEF
+            /// message loop must be integrated into an existing application message loop
+            /// (see additional comments and warnings on CefDoMessageLoopWork). This
+            /// callback should schedule a CefDoMessageLoopWork() call to happen on the
+            /// main (UI) thread. |delay_ms| is the requested delay in milliseconds. If
+            /// |delay_ms| is <= 0 then the call should happen reasonably soon. If
+            /// |delay_ms| is > 0 then the call should be scheduled to happen after the
+            /// specified delay and any currently pending scheduled call should be
+            /// cancelled.
+            /// /*cef()*/
+            /// </summary>
             void OnScheduleMessagePumpWork(OnScheduleMessagePumpWorkArgs args);
         }
         public interface I1
         {
             //CsStructModuleCodeGen:: GenerateCsExpandedArgsMethodForInterface ,405
+            /// <summary>
+            /// Called on the browser process UI thread immediately after the CEF context
+            /// has been initialized.
+            /// /*cef()*/
+            /// </summary>
             void OnContextInitialized();
             //CsStructModuleCodeGen:: GenerateCsExpandedArgsMethodForInterface ,406
+            /// <summary>
+            /// Called before a child process is launched. Will be called on the browser
+            /// process UI thread when launching a render process and on the browser
+            /// process IO thread when launching a GPU or plugin process. Provides an
+            /// opportunity to modify the child process command line. Do not keep a
+            /// reference to |command_line| outside of this method.
+            /// /*cef()*/
+            /// </summary>
             void OnBeforeChildProcessLaunch(CefCommandLine command_line);
             //CsStructModuleCodeGen:: GenerateCsExpandedArgsMethodForInterface ,407
+            /// <summary>
+            /// Called on the browser process IO thread after the main thread has been
+            /// created for a new render process. Provides an opportunity to specify extra
+            /// information that will be passed to
+            /// CefRenderProcessHandler::OnRenderThreadCreated() in the render process. Do
+            /// not keep a reference to |extra_info| outside of this method.
+            /// /*cef()*/
+            /// </summary>
             void OnRenderProcessThreadCreated(CefListValue extra_info);
             //CsStructModuleCodeGen:: GenerateCsExpandedArgsMethodForInterface ,408
+            /// <summary>
+            /// Return the handler for printing on Linux. If a print handler is not
+            /// provided then printing will not be supported on the Linux platform.
+            /// /*cef()*/
+            /// </summary>
             CefPrintHandler GetPrintHandler();
             //CsStructModuleCodeGen:: GenerateCsExpandedArgsMethodForInterface ,409
+            /// <summary>
+            /// Called from any thread when work has been scheduled for the browser process
+            /// main (UI) thread. This callback is used in combination with CefSettings.
+            /// external_message_pump and CefDoMessageLoopWork() in cases where the CEF
+            /// message loop must be integrated into an existing application message loop
+            /// (see additional comments and warnings on CefDoMessageLoopWork). This
+            /// callback should schedule a CefDoMessageLoopWork() call to happen on the
+            /// main (UI) thread. |delay_ms| is the requested delay in milliseconds. If
+            /// |delay_ms| is <= 0 then the call should happen reasonably soon. If
+            /// |delay_ms| is > 0 then the call should be scheduled to happen after the
+            /// specified delay and any currently pending scheduled call should be
+            /// cancelled.
+            /// /*cef()*/
+            /// </summary>
             void OnScheduleMessagePumpWork(long delay_ms);
         }
         //CsStructModuleCodeGen::GenerateHandleNativeReqTable ,410
@@ -535,6 +685,14 @@ namespace LayoutFarm.CefBridge.Auto
         const int CefContextMenuHandlerExt_OnContextMenuDismissed_4 = 4;
         //gen! void OnBeforeContextMenu(CefRefPtr<CefBrowser> browser,CefRefPtr<CefFrame> frame,CefRefPtr<CefContextMenuParams> params,CefRefPtr<CefMenuModel> model)
         //CsStructModuleCodeGen:: GenerateCsMethodArgsClass ,428
+        /// <summary>
+        /// Called before a context menu is displayed. |params| provides information
+        /// about the context menu state. |model| initially contains the default
+        /// context menu. The |model| can be cleared to show no context menu or
+        /// modified to show a custom menu. Do not keep references to |params| or
+        /// |model| outside of this callback.
+        /// /*cef()*/
+        /// </summary>
         public struct OnBeforeContextMenuArgs
         {
             IntPtr nativePtr; //met arg native ptr
@@ -597,6 +755,15 @@ namespace LayoutFarm.CefBridge.Auto
         }
         //gen! bool RunContextMenu(CefRefPtr<CefBrowser> browser,CefRefPtr<CefFrame> frame,CefRefPtr<CefContextMenuParams> params,CefRefPtr<CefMenuModel> model,CefRefPtr<CefRunContextMenuCallback> callback)
         //CsStructModuleCodeGen:: GenerateCsMethodArgsClass ,430
+        /// <summary>
+        /// Called to allow custom display of the context menu. |params| provides
+        /// information about the context menu state. |model| contains the context menu
+        /// model resulting from OnBeforeContextMenu. For custom display return true
+        /// and execute |callback| either synchronously or asynchronously with the
+        /// selected command ID. For default display return false. Do not keep
+        /// references to |params| or |model| outside of this callback.
+        /// /*cef()*/
+        /// </summary>
         public struct RunContextMenuArgs
         {
             IntPtr nativePtr; //met arg native ptr
@@ -675,6 +842,16 @@ namespace LayoutFarm.CefBridge.Auto
         }
         //gen! bool OnContextMenuCommand(CefRefPtr<CefBrowser> browser,CefRefPtr<CefFrame> frame,CefRefPtr<CefContextMenuParams> params,int command_id,EventFlags event_flags)
         //CsStructModuleCodeGen:: GenerateCsMethodArgsClass ,432
+        /// <summary>
+        /// Called to execute a command selected from the context menu. Return true if
+        /// the command was handled or false for the default implementation. See
+        /// cef_menu_id_t for the command ids that have default implementations. All
+        /// user-defined command ids should be between MENU_ID_USER_FIRST and
+        /// MENU_ID_USER_LAST. |params| will have the same values as what was passed to
+        /// OnBeforeContextMenu(). Do not keep a reference to |params| outside of this
+        /// callback.
+        /// /*cef()*/
+        /// </summary>
         public struct OnContextMenuCommandArgs
         {
             IntPtr nativePtr; //met arg native ptr
@@ -753,6 +930,11 @@ namespace LayoutFarm.CefBridge.Auto
         }
         //gen! void OnContextMenuDismissed(CefRefPtr<CefBrowser> browser,CefRefPtr<CefFrame> frame)
         //CsStructModuleCodeGen:: GenerateCsMethodArgsClass ,434
+        /// <summary>
+        /// Called when the context menu is dismissed irregardless of whether the menu
+        /// was empty or a command was selected.
+        /// /*cef()*/
+        /// </summary>
         public struct OnContextMenuDismissedArgs
         {
             IntPtr nativePtr; //met arg native ptr
@@ -800,23 +982,87 @@ namespace LayoutFarm.CefBridge.Auto
         public interface I0
         {
             //CsStructModuleCodeGen:: GenerateCsSingleArgMethodImplForInterface ,436
+            /// <summary>
+            /// Called before a context menu is displayed. |params| provides information
+            /// about the context menu state. |model| initially contains the default
+            /// context menu. The |model| can be cleared to show no context menu or
+            /// modified to show a custom menu. Do not keep references to |params| or
+            /// |model| outside of this callback.
+            /// /*cef()*/
+            /// </summary>
             void OnBeforeContextMenu(OnBeforeContextMenuArgs args);
             //CsStructModuleCodeGen:: GenerateCsSingleArgMethodImplForInterface ,437
+            /// <summary>
+            /// Called to allow custom display of the context menu. |params| provides
+            /// information about the context menu state. |model| contains the context menu
+            /// model resulting from OnBeforeContextMenu. For custom display return true
+            /// and execute |callback| either synchronously or asynchronously with the
+            /// selected command ID. For default display return false. Do not keep
+            /// references to |params| or |model| outside of this callback.
+            /// /*cef()*/
+            /// </summary>
             void RunContextMenu(RunContextMenuArgs args);
             //CsStructModuleCodeGen:: GenerateCsSingleArgMethodImplForInterface ,438
+            /// <summary>
+            /// Called to execute a command selected from the context menu. Return true if
+            /// the command was handled or false for the default implementation. See
+            /// cef_menu_id_t for the command ids that have default implementations. All
+            /// user-defined command ids should be between MENU_ID_USER_FIRST and
+            /// MENU_ID_USER_LAST. |params| will have the same values as what was passed to
+            /// OnBeforeContextMenu(). Do not keep a reference to |params| outside of this
+            /// callback.
+            /// /*cef()*/
+            /// </summary>
             void OnContextMenuCommand(OnContextMenuCommandArgs args);
             //CsStructModuleCodeGen:: GenerateCsSingleArgMethodImplForInterface ,439
+            /// <summary>
+            /// Called when the context menu is dismissed irregardless of whether the menu
+            /// was empty or a command was selected.
+            /// /*cef()*/
+            /// </summary>
             void OnContextMenuDismissed(OnContextMenuDismissedArgs args);
         }
         public interface I1
         {
             //CsStructModuleCodeGen:: GenerateCsExpandedArgsMethodForInterface ,440
+            /// <summary>
+            /// Called before a context menu is displayed. |params| provides information
+            /// about the context menu state. |model| initially contains the default
+            /// context menu. The |model| can be cleared to show no context menu or
+            /// modified to show a custom menu. Do not keep references to |params| or
+            /// |model| outside of this callback.
+            /// /*cef()*/
+            /// </summary>
             void OnBeforeContextMenu(CefBrowser browser, CefFrame frame, CefContextMenuParams _params, CefMenuModel model);
             //CsStructModuleCodeGen:: GenerateCsExpandedArgsMethodForInterface ,441
+            /// <summary>
+            /// Called to allow custom display of the context menu. |params| provides
+            /// information about the context menu state. |model| contains the context menu
+            /// model resulting from OnBeforeContextMenu. For custom display return true
+            /// and execute |callback| either synchronously or asynchronously with the
+            /// selected command ID. For default display return false. Do not keep
+            /// references to |params| or |model| outside of this callback.
+            /// /*cef()*/
+            /// </summary>
             bool RunContextMenu(CefBrowser browser, CefFrame frame, CefContextMenuParams _params, CefMenuModel model, CefRunContextMenuCallback callback);
             //CsStructModuleCodeGen:: GenerateCsExpandedArgsMethodForInterface ,442
+            /// <summary>
+            /// Called to execute a command selected from the context menu. Return true if
+            /// the command was handled or false for the default implementation. See
+            /// cef_menu_id_t for the command ids that have default implementations. All
+            /// user-defined command ids should be between MENU_ID_USER_FIRST and
+            /// MENU_ID_USER_LAST. |params| will have the same values as what was passed to
+            /// OnBeforeContextMenu(). Do not keep a reference to |params| outside of this
+            /// callback.
+            /// /*cef()*/
+            /// </summary>
             bool OnContextMenuCommand(CefBrowser browser, CefFrame frame, CefContextMenuParams _params, int command_id, cef_event_flags_t event_flags);
             //CsStructModuleCodeGen:: GenerateCsExpandedArgsMethodForInterface ,443
+            /// <summary>
+            /// Called when the context menu is dismissed irregardless of whether the menu
+            /// was empty or a command was selected.
+            /// /*cef()*/
+            /// </summary>
             void OnContextMenuDismissed(CefBrowser browser, CefFrame frame);
         }
         //CsStructModuleCodeGen::GenerateHandleNativeReqTable ,444
@@ -953,6 +1199,22 @@ namespace LayoutFarm.CefBridge.Auto
         const int CefDialogHandlerExt_OnFileDialog_1 = 1;
         //gen! bool OnFileDialog(CefRefPtr<CefBrowser> browser,FileDialogMode mode,const CefString& title,const CefString& default_file_path,const std::vector<CefString>& accept_filters,int selected_accept_filter,CefRefPtr<CefFileDialogCallback> callback)
         //CsStructModuleCodeGen:: GenerateCsMethodArgsClass ,459
+        /// <summary>
+        /// Called to run a file chooser dialog. |mode| represents the type of dialog
+        /// to display. |title| to the title to be used for the dialog and may be empty
+        /// to show the default title ("Open" or "Save" depending on the mode).
+        /// |default_file_path| is the path with optional directory and/or file name
+        /// component that should be initially selected in the dialog. |accept_filters|
+        /// are used to restrict the selectable file types and may any combination of
+        /// (a) valid lower-cased MIME types (e.g. "text/*" or "image/*"),
+        /// (b) individual file extensions (e.g. ".txt" or ".png"), or (c) combined
+        /// description and file extension delimited using "|" and ";" (e.g.
+        /// "Image Types|.png;.gif;.jpg"). |selected_accept_filter| is the 0-based
+        /// index of the filter that should be selected by default. To display a custom
+        /// dialog return true and execute |callback| either inline or at a later time.
+        /// To display the default dialog return false.
+        /// /*cef(optional_param=title,optional_param=default_file_path,optional_param=accept_filters,index_param=selected_accept_filter)*/
+        /// </summary>
         public struct OnFileDialogArgs
         {
             IntPtr nativePtr; //met arg native ptr
@@ -1045,11 +1307,43 @@ namespace LayoutFarm.CefBridge.Auto
         public interface I0
         {
             //CsStructModuleCodeGen:: GenerateCsSingleArgMethodImplForInterface ,461
+            /// <summary>
+            /// Called to run a file chooser dialog. |mode| represents the type of dialog
+            /// to display. |title| to the title to be used for the dialog and may be empty
+            /// to show the default title ("Open" or "Save" depending on the mode).
+            /// |default_file_path| is the path with optional directory and/or file name
+            /// component that should be initially selected in the dialog. |accept_filters|
+            /// are used to restrict the selectable file types and may any combination of
+            /// (a) valid lower-cased MIME types (e.g. "text/*" or "image/*"),
+            /// (b) individual file extensions (e.g. ".txt" or ".png"), or (c) combined
+            /// description and file extension delimited using "|" and ";" (e.g.
+            /// "Image Types|.png;.gif;.jpg"). |selected_accept_filter| is the 0-based
+            /// index of the filter that should be selected by default. To display a custom
+            /// dialog return true and execute |callback| either inline or at a later time.
+            /// To display the default dialog return false.
+            /// /*cef(optional_param=title,optional_param=default_file_path,optional_param=accept_filters,index_param=selected_accept_filter)*/
+            /// </summary>
             void OnFileDialog(OnFileDialogArgs args);
         }
         public interface I1
         {
             //CsStructModuleCodeGen:: GenerateCsExpandedArgsMethodForInterface ,462
+            /// <summary>
+            /// Called to run a file chooser dialog. |mode| represents the type of dialog
+            /// to display. |title| to the title to be used for the dialog and may be empty
+            /// to show the default title ("Open" or "Save" depending on the mode).
+            /// |default_file_path| is the path with optional directory and/or file name
+            /// component that should be initially selected in the dialog. |accept_filters|
+            /// are used to restrict the selectable file types and may any combination of
+            /// (a) valid lower-cased MIME types (e.g. "text/*" or "image/*"),
+            /// (b) individual file extensions (e.g. ".txt" or ".png"), or (c) combined
+            /// description and file extension delimited using "|" and ";" (e.g.
+            /// "Image Types|.png;.gif;.jpg"). |selected_accept_filter| is the 0-based
+            /// index of the filter that should be selected by default. To display a custom
+            /// dialog return true and execute |callback| either inline or at a later time.
+            /// To display the default dialog return false.
+            /// /*cef(optional_param=title,optional_param=default_file_path,optional_param=accept_filters,index_param=selected_accept_filter)*/
+            /// </summary>
             bool OnFileDialog(CefBrowser browser, cef_file_dialog_mode_t mode, string title, string default_file_path, List<string> accept_filters, int selected_accept_filter, CefFileDialogCallback callback);
         }
         //CsStructModuleCodeGen::GenerateHandleNativeReqTable ,463
@@ -1117,6 +1411,10 @@ namespace LayoutFarm.CefBridge.Auto
         const int CefDisplayHandlerExt_OnConsoleMessage_7 = 7;
         //gen! void OnAddressChange(CefRefPtr<CefBrowser> browser,CefRefPtr<CefFrame> frame,const CefString& url)
         //CsStructModuleCodeGen:: GenerateCsMethodArgsClass ,469
+        /// <summary>
+        /// Called when a frame's address has changed.
+        /// /*cef()*/
+        /// </summary>
         public struct OnAddressChangeArgs
         {
             IntPtr nativePtr; //met arg native ptr
@@ -1171,6 +1469,10 @@ namespace LayoutFarm.CefBridge.Auto
         }
         //gen! void OnTitleChange(CefRefPtr<CefBrowser> browser,const CefString& title)
         //CsStructModuleCodeGen:: GenerateCsMethodArgsClass ,471
+        /// <summary>
+        /// Called when the page title changes.
+        /// /*cef(optional_param=title)*/
+        /// </summary>
         public struct OnTitleChangeArgs
         {
             IntPtr nativePtr; //met arg native ptr
@@ -1217,6 +1519,10 @@ namespace LayoutFarm.CefBridge.Auto
         }
         //gen! void OnFaviconURLChange(CefRefPtr<CefBrowser> browser,const std::vector<CefString>& icon_urls)
         //CsStructModuleCodeGen:: GenerateCsMethodArgsClass ,473
+        /// <summary>
+        /// Called when the page icon changes.
+        /// /*cef(optional_param=icon_urls)*/
+        /// </summary>
         public struct OnFaviconURLChangeArgs
         {
             IntPtr nativePtr; //met arg native ptr
@@ -1260,6 +1566,14 @@ namespace LayoutFarm.CefBridge.Auto
         }
         //gen! void OnFullscreenModeChange(CefRefPtr<CefBrowser> browser,bool fullscreen)
         //CsStructModuleCodeGen:: GenerateCsMethodArgsClass ,475
+        /// <summary>
+        /// Called when web content in the page has toggled fullscreen mode. If
+        /// |fullscreen| is true the content will automatically be sized to fill the
+        /// browser content area. If |fullscreen| is false the content will
+        /// automatically return to its original size and position. The client is
+        /// responsible for resizing the browser if desired.
+        /// /*cef()*/
+        /// </summary>
         public struct OnFullscreenModeChangeArgs
         {
             IntPtr nativePtr; //met arg native ptr
@@ -1306,6 +1620,15 @@ namespace LayoutFarm.CefBridge.Auto
         }
         //gen! bool OnTooltip(CefRefPtr<CefBrowser> browser,CefString& text)
         //CsStructModuleCodeGen:: GenerateCsMethodArgsClass ,477
+        /// <summary>
+        /// Called when the browser is about to display a tooltip. |text| contains the
+        /// text that will be displayed in the tooltip. To handle the display of the
+        /// tooltip yourself return true. Otherwise, you can optionally modify |text|
+        /// and then return false to allow the browser to display the tooltip.
+        /// When window rendering is disabled the application is responsible for
+        /// drawing tooltips and the return value is ignored.
+        /// /*cef(optional_param=text)*/
+        /// </summary>
         public struct OnTooltipArgs
         {
             IntPtr nativePtr; //met arg native ptr
@@ -1360,6 +1683,11 @@ namespace LayoutFarm.CefBridge.Auto
         }
         //gen! void OnStatusMessage(CefRefPtr<CefBrowser> browser,const CefString& value)
         //CsStructModuleCodeGen:: GenerateCsMethodArgsClass ,479
+        /// <summary>
+        /// Called when the browser receives a status message. |value| contains the
+        /// text that will be displayed in the status message.
+        /// /*cef(optional_param=value)*/
+        /// </summary>
         public struct OnStatusMessageArgs
         {
             IntPtr nativePtr; //met arg native ptr
@@ -1406,6 +1734,11 @@ namespace LayoutFarm.CefBridge.Auto
         }
         //gen! bool OnConsoleMessage(CefRefPtr<CefBrowser> browser,const CefString& message,const CefString& source,int line)
         //CsStructModuleCodeGen:: GenerateCsMethodArgsClass ,481
+        /// <summary>
+        /// Called to display a console message. Return true to stop the message from
+        /// being output to the console.
+        /// /*cef(optional_param=message,optional_param=source)*/
+        /// </summary>
         public struct OnConsoleMessageArgs
         {
             IntPtr nativePtr; //met arg native ptr
@@ -1477,35 +1810,113 @@ namespace LayoutFarm.CefBridge.Auto
         public interface I0
         {
             //CsStructModuleCodeGen:: GenerateCsSingleArgMethodImplForInterface ,483
+            /// <summary>
+            /// Called when a frame's address has changed.
+            /// /*cef()*/
+            /// </summary>
             void OnAddressChange(OnAddressChangeArgs args);
             //CsStructModuleCodeGen:: GenerateCsSingleArgMethodImplForInterface ,484
+            /// <summary>
+            /// Called when the page title changes.
+            /// /*cef(optional_param=title)*/
+            /// </summary>
             void OnTitleChange(OnTitleChangeArgs args);
             //CsStructModuleCodeGen:: GenerateCsSingleArgMethodImplForInterface ,485
+            /// <summary>
+            /// Called when the page icon changes.
+            /// /*cef(optional_param=icon_urls)*/
+            /// </summary>
             void OnFaviconURLChange(OnFaviconURLChangeArgs args);
             //CsStructModuleCodeGen:: GenerateCsSingleArgMethodImplForInterface ,486
+            /// <summary>
+            /// Called when web content in the page has toggled fullscreen mode. If
+            /// |fullscreen| is true the content will automatically be sized to fill the
+            /// browser content area. If |fullscreen| is false the content will
+            /// automatically return to its original size and position. The client is
+            /// responsible for resizing the browser if desired.
+            /// /*cef()*/
+            /// </summary>
             void OnFullscreenModeChange(OnFullscreenModeChangeArgs args);
             //CsStructModuleCodeGen:: GenerateCsSingleArgMethodImplForInterface ,487
+            /// <summary>
+            /// Called when the browser is about to display a tooltip. |text| contains the
+            /// text that will be displayed in the tooltip. To handle the display of the
+            /// tooltip yourself return true. Otherwise, you can optionally modify |text|
+            /// and then return false to allow the browser to display the tooltip.
+            /// When window rendering is disabled the application is responsible for
+            /// drawing tooltips and the return value is ignored.
+            /// /*cef(optional_param=text)*/
+            /// </summary>
             void OnTooltip(OnTooltipArgs args);
             //CsStructModuleCodeGen:: GenerateCsSingleArgMethodImplForInterface ,488
+            /// <summary>
+            /// Called when the browser receives a status message. |value| contains the
+            /// text that will be displayed in the status message.
+            /// /*cef(optional_param=value)*/
+            /// </summary>
             void OnStatusMessage(OnStatusMessageArgs args);
             //CsStructModuleCodeGen:: GenerateCsSingleArgMethodImplForInterface ,489
+            /// <summary>
+            /// Called to display a console message. Return true to stop the message from
+            /// being output to the console.
+            /// /*cef(optional_param=message,optional_param=source)*/
+            /// </summary>
             void OnConsoleMessage(OnConsoleMessageArgs args);
         }
         public interface I1
         {
             //CsStructModuleCodeGen:: GenerateCsExpandedArgsMethodForInterface ,490
+            /// <summary>
+            /// Called when a frame's address has changed.
+            /// /*cef()*/
+            /// </summary>
             void OnAddressChange(CefBrowser browser, CefFrame frame, string url);
             //CsStructModuleCodeGen:: GenerateCsExpandedArgsMethodForInterface ,491
+            /// <summary>
+            /// Called when the page title changes.
+            /// /*cef(optional_param=title)*/
+            /// </summary>
             void OnTitleChange(CefBrowser browser, string title);
             //CsStructModuleCodeGen:: GenerateCsExpandedArgsMethodForInterface ,492
+            /// <summary>
+            /// Called when the page icon changes.
+            /// /*cef(optional_param=icon_urls)*/
+            /// </summary>
             void OnFaviconURLChange(CefBrowser browser, List<string> icon_urls);
             //CsStructModuleCodeGen:: GenerateCsExpandedArgsMethodForInterface ,493
+            /// <summary>
+            /// Called when web content in the page has toggled fullscreen mode. If
+            /// |fullscreen| is true the content will automatically be sized to fill the
+            /// browser content area. If |fullscreen| is false the content will
+            /// automatically return to its original size and position. The client is
+            /// responsible for resizing the browser if desired.
+            /// /*cef()*/
+            /// </summary>
             void OnFullscreenModeChange(CefBrowser browser, bool fullscreen);
             //CsStructModuleCodeGen:: GenerateCsExpandedArgsMethodForInterface ,494
+            /// <summary>
+            /// Called when the browser is about to display a tooltip. |text| contains the
+            /// text that will be displayed in the tooltip. To handle the display of the
+            /// tooltip yourself return true. Otherwise, you can optionally modify |text|
+            /// and then return false to allow the browser to display the tooltip.
+            /// When window rendering is disabled the application is responsible for
+            /// drawing tooltips and the return value is ignored.
+            /// /*cef(optional_param=text)*/
+            /// </summary>
             bool OnTooltip(CefBrowser browser, string text);
             //CsStructModuleCodeGen:: GenerateCsExpandedArgsMethodForInterface ,495
+            /// <summary>
+            /// Called when the browser receives a status message. |value| contains the
+            /// text that will be displayed in the status message.
+            /// /*cef(optional_param=value)*/
+            /// </summary>
             void OnStatusMessage(CefBrowser browser, string value);
             //CsStructModuleCodeGen:: GenerateCsExpandedArgsMethodForInterface ,496
+            /// <summary>
+            /// Called to display a console message. Return true to stop the message from
+            /// being output to the console.
+            /// /*cef(optional_param=message,optional_param=source)*/
+            /// </summary>
             bool OnConsoleMessage(CefBrowser browser, string message, string source, int line);
         }
         //CsStructModuleCodeGen::GenerateHandleNativeReqTable ,497
@@ -1710,6 +2121,14 @@ namespace LayoutFarm.CefBridge.Auto
         const int CefDownloadHandlerExt_OnDownloadUpdated_2 = 2;
         //gen! void OnBeforeDownload(CefRefPtr<CefBrowser> browser,CefRefPtr<CefDownloadItem> download_item,const CefString& suggested_name,CefRefPtr<CefBeforeDownloadCallback> callback)
         //CsStructModuleCodeGen:: GenerateCsMethodArgsClass ,521
+        /// <summary>
+        /// Called before a download begins. |suggested_name| is the suggested name for
+        /// the download file. By default the download will be canceled. Execute
+        /// |callback| either asynchronously or in this method to continue the download
+        /// if desired. Do not keep a reference to |download_item| outside of this
+        /// method.
+        /// /*cef()*/
+        /// </summary>
         public struct OnBeforeDownloadArgs
         {
             IntPtr nativePtr; //met arg native ptr
@@ -1772,6 +2191,14 @@ namespace LayoutFarm.CefBridge.Auto
         }
         //gen! void OnDownloadUpdated(CefRefPtr<CefBrowser> browser,CefRefPtr<CefDownloadItem> download_item,CefRefPtr<CefDownloadItemCallback> callback)
         //CsStructModuleCodeGen:: GenerateCsMethodArgsClass ,523
+        /// <summary>
+        /// Called when a download's status or progress information has been updated.
+        /// This may be called multiple times before and after OnBeforeDownload().
+        /// Execute |callback| either asynchronously or in this method to cancel the
+        /// download if desired. Do not keep a reference to |download_item| outside of
+        /// this method.
+        /// /*cef()*/
+        /// </summary>
         public struct OnDownloadUpdatedArgs
         {
             IntPtr nativePtr; //met arg native ptr
@@ -1827,15 +2254,47 @@ namespace LayoutFarm.CefBridge.Auto
         public interface I0
         {
             //CsStructModuleCodeGen:: GenerateCsSingleArgMethodImplForInterface ,525
+            /// <summary>
+            /// Called before a download begins. |suggested_name| is the suggested name for
+            /// the download file. By default the download will be canceled. Execute
+            /// |callback| either asynchronously or in this method to continue the download
+            /// if desired. Do not keep a reference to |download_item| outside of this
+            /// method.
+            /// /*cef()*/
+            /// </summary>
             void OnBeforeDownload(OnBeforeDownloadArgs args);
             //CsStructModuleCodeGen:: GenerateCsSingleArgMethodImplForInterface ,526
+            /// <summary>
+            /// Called when a download's status or progress information has been updated.
+            /// This may be called multiple times before and after OnBeforeDownload().
+            /// Execute |callback| either asynchronously or in this method to cancel the
+            /// download if desired. Do not keep a reference to |download_item| outside of
+            /// this method.
+            /// /*cef()*/
+            /// </summary>
             void OnDownloadUpdated(OnDownloadUpdatedArgs args);
         }
         public interface I1
         {
             //CsStructModuleCodeGen:: GenerateCsExpandedArgsMethodForInterface ,527
+            /// <summary>
+            /// Called before a download begins. |suggested_name| is the suggested name for
+            /// the download file. By default the download will be canceled. Execute
+            /// |callback| either asynchronously or in this method to continue the download
+            /// if desired. Do not keep a reference to |download_item| outside of this
+            /// method.
+            /// /*cef()*/
+            /// </summary>
             void OnBeforeDownload(CefBrowser browser, CefDownloadItem download_item, string suggested_name, CefBeforeDownloadCallback callback);
             //CsStructModuleCodeGen:: GenerateCsExpandedArgsMethodForInterface ,528
+            /// <summary>
+            /// Called when a download's status or progress information has been updated.
+            /// This may be called multiple times before and after OnBeforeDownload().
+            /// Execute |callback| either asynchronously or in this method to cancel the
+            /// download if desired. Do not keep a reference to |download_item| outside of
+            /// this method.
+            /// /*cef()*/
+            /// </summary>
             void OnDownloadUpdated(CefBrowser browser, CefDownloadItem download_item, CefDownloadItemCallback callback);
         }
         //CsStructModuleCodeGen::GenerateHandleNativeReqTable ,529
@@ -1920,6 +2379,13 @@ namespace LayoutFarm.CefBridge.Auto
         const int CefDragHandlerExt_OnDraggableRegionsChanged_2 = 2;
         //gen! bool OnDragEnter(CefRefPtr<CefBrowser> browser,CefRefPtr<CefDragData> dragData,DragOperationsMask mask)
         //CsStructModuleCodeGen:: GenerateCsMethodArgsClass ,538
+        /// <summary>
+        /// Called when an external drag event enters the browser window. |dragData|
+        /// contains the drag event data and |mask| represents the type of drag
+        /// operation. Return false for default drag handling behavior or true to
+        /// cancel the drag event.
+        /// /*cef()*/
+        /// </summary>
         public struct OnDragEnterArgs
         {
             IntPtr nativePtr; //met arg native ptr
@@ -1982,6 +2448,14 @@ namespace LayoutFarm.CefBridge.Auto
         }
         //gen! void OnDraggableRegionsChanged(CefRefPtr<CefBrowser> browser,const std::vector<CefDraggableRegion>& regions)
         //CsStructModuleCodeGen:: GenerateCsMethodArgsClass ,540
+        /// <summary>
+        /// Called whenever draggable regions for the browser window change. These can
+        /// be specified using the '-webkit-app-region: drag/no-drag' CSS-property. If
+        /// draggable regions are never defined in a document this method will also
+        /// never be called. If the last draggable region is removed from a document
+        /// this method will be called with an empty vector.
+        /// /*cef()*/
+        /// </summary>
         public struct OnDraggableRegionsChangedArgs
         {
             IntPtr nativePtr; //met arg native ptr
@@ -2026,15 +2500,45 @@ namespace LayoutFarm.CefBridge.Auto
         public interface I0
         {
             //CsStructModuleCodeGen:: GenerateCsSingleArgMethodImplForInterface ,542
+            /// <summary>
+            /// Called when an external drag event enters the browser window. |dragData|
+            /// contains the drag event data and |mask| represents the type of drag
+            /// operation. Return false for default drag handling behavior or true to
+            /// cancel the drag event.
+            /// /*cef()*/
+            /// </summary>
             void OnDragEnter(OnDragEnterArgs args);
             //CsStructModuleCodeGen:: GenerateCsSingleArgMethodImplForInterface ,543
+            /// <summary>
+            /// Called whenever draggable regions for the browser window change. These can
+            /// be specified using the '-webkit-app-region: drag/no-drag' CSS-property. If
+            /// draggable regions are never defined in a document this method will also
+            /// never be called. If the last draggable region is removed from a document
+            /// this method will be called with an empty vector.
+            /// /*cef()*/
+            /// </summary>
             void OnDraggableRegionsChanged(OnDraggableRegionsChangedArgs args);
         }
         public interface I1
         {
             //CsStructModuleCodeGen:: GenerateCsExpandedArgsMethodForInterface ,544
+            /// <summary>
+            /// Called when an external drag event enters the browser window. |dragData|
+            /// contains the drag event data and |mask| represents the type of drag
+            /// operation. Return false for default drag handling behavior or true to
+            /// cancel the drag event.
+            /// /*cef()*/
+            /// </summary>
             bool OnDragEnter(CefBrowser browser, CefDragData dragData, cef_drag_operations_mask_t mask);
             //CsStructModuleCodeGen:: GenerateCsExpandedArgsMethodForInterface ,545
+            /// <summary>
+            /// Called whenever draggable regions for the browser window change. These can
+            /// be specified using the '-webkit-app-region: drag/no-drag' CSS-property. If
+            /// draggable regions are never defined in a document this method will also
+            /// never be called. If the last draggable region is removed from a document
+            /// this method will be called with an empty vector.
+            /// /*cef()*/
+            /// </summary>
             void OnDraggableRegionsChanged(CefBrowser browser, List<object> regions);
         }
         //CsStructModuleCodeGen::GenerateHandleNativeReqTable ,546
@@ -2116,6 +2620,15 @@ namespace LayoutFarm.CefBridge.Auto
         const int CefFindHandlerExt_OnFindResult_1 = 1;
         //gen! void OnFindResult(CefRefPtr<CefBrowser> browser,int identifier,int count,const CefRect& selectionRect,int activeMatchOrdinal,bool finalUpdate)
         //CsStructModuleCodeGen:: GenerateCsMethodArgsClass ,555
+        /// <summary>
+        /// Called to report find results returned by CefBrowserHost::Find().
+        /// |identifer| is the identifier passed to Find(), |count| is the number of
+        /// matches currently identified, |selectionRect| is the location of where the
+        /// match was found (in window coordinates), |activeMatchOrdinal| is the
+        /// current position in the search results, and |finalUpdate| is true if this
+        /// is the last find notification.
+        /// /*cef()*/
+        /// </summary>
         public struct OnFindResultArgs
         {
             IntPtr nativePtr; //met arg native ptr
@@ -2195,11 +2708,29 @@ namespace LayoutFarm.CefBridge.Auto
         public interface I0
         {
             //CsStructModuleCodeGen:: GenerateCsSingleArgMethodImplForInterface ,557
+            /// <summary>
+            /// Called to report find results returned by CefBrowserHost::Find().
+            /// |identifer| is the identifier passed to Find(), |count| is the number of
+            /// matches currently identified, |selectionRect| is the location of where the
+            /// match was found (in window coordinates), |activeMatchOrdinal| is the
+            /// current position in the search results, and |finalUpdate| is true if this
+            /// is the last find notification.
+            /// /*cef()*/
+            /// </summary>
             void OnFindResult(OnFindResultArgs args);
         }
         public interface I1
         {
             //CsStructModuleCodeGen:: GenerateCsExpandedArgsMethodForInterface ,558
+            /// <summary>
+            /// Called to report find results returned by CefBrowserHost::Find().
+            /// |identifer| is the identifier passed to Find(), |count| is the number of
+            /// matches currently identified, |selectionRect| is the location of where the
+            /// match was found (in window coordinates), |activeMatchOrdinal| is the
+            /// current position in the search results, and |finalUpdate| is true if this
+            /// is the last find notification.
+            /// /*cef()*/
+            /// </summary>
             void OnFindResult(CefBrowser browser, int identifier, int count, CefRect selectionRect, int activeMatchOrdinal, bool finalUpdate);
         }
         //CsStructModuleCodeGen::GenerateHandleNativeReqTable ,559
@@ -2262,6 +2793,13 @@ namespace LayoutFarm.CefBridge.Auto
         const int CefFocusHandlerExt_OnGotFocus_3 = 3;
         //gen! void OnTakeFocus(CefRefPtr<CefBrowser> browser,bool next)
         //CsStructModuleCodeGen:: GenerateCsMethodArgsClass ,565
+        /// <summary>
+        /// Called when the browser component is about to loose focus. For instance, if
+        /// focus was on the last HTML element and the user pressed the TAB key. |next|
+        /// will be true if the browser is giving focus to the next component and false
+        /// if the browser is giving focus to the previous component.
+        /// /*cef()*/
+        /// </summary>
         public struct OnTakeFocusArgs
         {
             IntPtr nativePtr; //met arg native ptr
@@ -2308,6 +2846,12 @@ namespace LayoutFarm.CefBridge.Auto
         }
         //gen! bool OnSetFocus(CefRefPtr<CefBrowser> browser,FocusSource source)
         //CsStructModuleCodeGen:: GenerateCsMethodArgsClass ,567
+        /// <summary>
+        /// Called when the browser component is requesting focus. |source| indicates
+        /// where the focus request is originating from. Return false to allow the
+        /// focus to be set or true to cancel setting the focus.
+        /// /*cef()*/
+        /// </summary>
         public struct OnSetFocusArgs
         {
             IntPtr nativePtr; //met arg native ptr
@@ -2362,6 +2906,10 @@ namespace LayoutFarm.CefBridge.Auto
         }
         //gen! void OnGotFocus(CefRefPtr<CefBrowser> browser)
         //CsStructModuleCodeGen:: GenerateCsMethodArgsClass ,569
+        /// <summary>
+        /// Called when the browser component has received focus.
+        /// /*cef()*/
+        /// </summary>
         public struct OnGotFocusArgs
         {
             IntPtr nativePtr; //met arg native ptr
@@ -2401,19 +2949,53 @@ namespace LayoutFarm.CefBridge.Auto
         public interface I0
         {
             //CsStructModuleCodeGen:: GenerateCsSingleArgMethodImplForInterface ,571
+            /// <summary>
+            /// Called when the browser component is about to loose focus. For instance, if
+            /// focus was on the last HTML element and the user pressed the TAB key. |next|
+            /// will be true if the browser is giving focus to the next component and false
+            /// if the browser is giving focus to the previous component.
+            /// /*cef()*/
+            /// </summary>
             void OnTakeFocus(OnTakeFocusArgs args);
             //CsStructModuleCodeGen:: GenerateCsSingleArgMethodImplForInterface ,572
+            /// <summary>
+            /// Called when the browser component is requesting focus. |source| indicates
+            /// where the focus request is originating from. Return false to allow the
+            /// focus to be set or true to cancel setting the focus.
+            /// /*cef()*/
+            /// </summary>
             void OnSetFocus(OnSetFocusArgs args);
             //CsStructModuleCodeGen:: GenerateCsSingleArgMethodImplForInterface ,573
+            /// <summary>
+            /// Called when the browser component has received focus.
+            /// /*cef()*/
+            /// </summary>
             void OnGotFocus(OnGotFocusArgs args);
         }
         public interface I1
         {
             //CsStructModuleCodeGen:: GenerateCsExpandedArgsMethodForInterface ,574
+            /// <summary>
+            /// Called when the browser component is about to loose focus. For instance, if
+            /// focus was on the last HTML element and the user pressed the TAB key. |next|
+            /// will be true if the browser is giving focus to the next component and false
+            /// if the browser is giving focus to the previous component.
+            /// /*cef()*/
+            /// </summary>
             void OnTakeFocus(CefBrowser browser, bool next);
             //CsStructModuleCodeGen:: GenerateCsExpandedArgsMethodForInterface ,575
+            /// <summary>
+            /// Called when the browser component is requesting focus. |source| indicates
+            /// where the focus request is originating from. Return false to allow the
+            /// focus to be set or true to cancel setting the focus.
+            /// /*cef()*/
+            /// </summary>
             bool OnSetFocus(CefBrowser browser, cef_focus_source_t source);
             //CsStructModuleCodeGen:: GenerateCsExpandedArgsMethodForInterface ,576
+            /// <summary>
+            /// Called when the browser component has received focus.
+            /// /*cef()*/
+            /// </summary>
             void OnGotFocus(CefBrowser browser);
         }
         //CsStructModuleCodeGen::GenerateHandleNativeReqTable ,577
@@ -2518,6 +3100,15 @@ namespace LayoutFarm.CefBridge.Auto
         const int CefGeolocationHandlerExt_OnCancelGeolocationPermission_2 = 2;
         //gen! bool OnRequestGeolocationPermission(CefRefPtr<CefBrowser> browser,const CefString& requesting_url,int request_id,CefRefPtr<CefGeolocationCallback> callback)
         //CsStructModuleCodeGen:: GenerateCsMethodArgsClass ,589
+        /// <summary>
+        /// Called when a page requests permission to access geolocation information.
+        /// |requesting_url| is the URL requesting permission and |request_id| is the
+        /// unique ID for the permission request. Return true and call
+        /// CefGeolocationCallback::Continue() either in this method or at a later
+        /// time to continue or cancel the request. Return false to cancel the request
+        /// immediately.
+        /// /*cef()*/
+        /// </summary>
         public struct OnRequestGeolocationPermissionArgs
         {
             IntPtr nativePtr; //met arg native ptr
@@ -2588,6 +3179,11 @@ namespace LayoutFarm.CefBridge.Auto
         }
         //gen! void OnCancelGeolocationPermission(CefRefPtr<CefBrowser> browser,int request_id)
         //CsStructModuleCodeGen:: GenerateCsMethodArgsClass ,591
+        /// <summary>
+        /// Called when a geolocation access request is canceled. |request_id| is the
+        /// unique ID for the permission request.
+        /// /*cef()*/
+        /// </summary>
         public struct OnCancelGeolocationPermissionArgs
         {
             IntPtr nativePtr; //met arg native ptr
@@ -2635,15 +3231,43 @@ namespace LayoutFarm.CefBridge.Auto
         public interface I0
         {
             //CsStructModuleCodeGen:: GenerateCsSingleArgMethodImplForInterface ,593
+            /// <summary>
+            /// Called when a page requests permission to access geolocation information.
+            /// |requesting_url| is the URL requesting permission and |request_id| is the
+            /// unique ID for the permission request. Return true and call
+            /// CefGeolocationCallback::Continue() either in this method or at a later
+            /// time to continue or cancel the request. Return false to cancel the request
+            /// immediately.
+            /// /*cef()*/
+            /// </summary>
             void OnRequestGeolocationPermission(OnRequestGeolocationPermissionArgs args);
             //CsStructModuleCodeGen:: GenerateCsSingleArgMethodImplForInterface ,594
+            /// <summary>
+            /// Called when a geolocation access request is canceled. |request_id| is the
+            /// unique ID for the permission request.
+            /// /*cef()*/
+            /// </summary>
             void OnCancelGeolocationPermission(OnCancelGeolocationPermissionArgs args);
         }
         public interface I1
         {
             //CsStructModuleCodeGen:: GenerateCsExpandedArgsMethodForInterface ,595
+            /// <summary>
+            /// Called when a page requests permission to access geolocation information.
+            /// |requesting_url| is the URL requesting permission and |request_id| is the
+            /// unique ID for the permission request. Return true and call
+            /// CefGeolocationCallback::Continue() either in this method or at a later
+            /// time to continue or cancel the request. Return false to cancel the request
+            /// immediately.
+            /// /*cef()*/
+            /// </summary>
             bool OnRequestGeolocationPermission(CefBrowser browser, string requesting_url, int request_id, CefGeolocationCallback callback);
             //CsStructModuleCodeGen:: GenerateCsExpandedArgsMethodForInterface ,596
+            /// <summary>
+            /// Called when a geolocation access request is canceled. |request_id| is the
+            /// unique ID for the permission request.
+            /// /*cef()*/
+            /// </summary>
             void OnCancelGeolocationPermission(CefBrowser browser, int request_id);
         }
         //CsStructModuleCodeGen::GenerateHandleNativeReqTable ,597
@@ -2729,6 +3353,23 @@ namespace LayoutFarm.CefBridge.Auto
         const int CefJSDialogHandlerExt_OnDialogClosed_4 = 4;
         //gen! bool OnJSDialog(CefRefPtr<CefBrowser> browser,const CefString& origin_url,JSDialogType dialog_type,const CefString& message_text,const CefString& default_prompt_text,CefRefPtr<CefJSDialogCallback> callback,bool& suppress_message)
         //CsStructModuleCodeGen:: GenerateCsMethodArgsClass ,606
+        /// <summary>
+        /// Called to run a JavaScript dialog. If |origin_url| is non-empty it can be
+        /// passed to the CefFormatUrlForSecurityDisplay function to retrieve a secure
+        /// and user-friendly display string. The |default_prompt_text| value will be
+        /// specified for prompt dialogs only. Set |suppress_message| to true and
+        /// return false to suppress the message (suppressing messages is preferable to
+        /// immediately executing the callback as this is used to detect presumably
+        /// malicious behavior like spamming alert messages in onbeforeunload). Set
+        /// |suppress_message| to false and return false to use the default
+        /// implementation (the default implementation will show one modal dialog at a
+        /// time and suppress any additional dialog requests until the displayed dialog
+        /// is dismissed). Return true if the application will use a custom dialog or
+        /// if the callback has been executed immediately. Custom dialogs may be either
+        /// modal or modeless. If a custom dialog is used the application must execute
+        /// |callback| once the custom dialog is dismissed.
+        /// /*cef(optional_param=origin_url,optional_param=accept_lang,optional_param=message_text,optional_param=default_prompt_text)*/
+        /// </summary>
         public struct OnJSDialogArgs
         {
             IntPtr nativePtr; //met arg native ptr
@@ -2827,6 +3468,15 @@ namespace LayoutFarm.CefBridge.Auto
         }
         //gen! bool OnBeforeUnloadDialog(CefRefPtr<CefBrowser> browser,const CefString& message_text,bool is_reload,CefRefPtr<CefJSDialogCallback> callback)
         //CsStructModuleCodeGen:: GenerateCsMethodArgsClass ,608
+        /// <summary>
+        /// Called to run a dialog asking the user if they want to leave a page. Return
+        /// false to use the default dialog implementation. Return true if the
+        /// application will use a custom dialog or if the callback has been executed
+        /// immediately. Custom dialogs may be either modal or modeless. If a custom
+        /// dialog is used the application must execute |callback| once the custom
+        /// dialog is dismissed.
+        /// /*cef(optional_param=message_text)*/
+        /// </summary>
         public struct OnBeforeUnloadDialogArgs
         {
             IntPtr nativePtr; //met arg native ptr
@@ -2897,6 +3547,12 @@ namespace LayoutFarm.CefBridge.Auto
         }
         //gen! void OnResetDialogState(CefRefPtr<CefBrowser> browser)
         //CsStructModuleCodeGen:: GenerateCsMethodArgsClass ,610
+        /// <summary>
+        /// Called to cancel any pending dialogs and reset any saved dialog state. Will
+        /// be called due to events like page navigation irregardless of whether any
+        /// dialogs are currently pending.
+        /// /*cef()*/
+        /// </summary>
         public struct OnResetDialogStateArgs
         {
             IntPtr nativePtr; //met arg native ptr
@@ -2935,6 +3591,10 @@ namespace LayoutFarm.CefBridge.Auto
         }
         //gen! void OnDialogClosed(CefRefPtr<CefBrowser> browser)
         //CsStructModuleCodeGen:: GenerateCsMethodArgsClass ,612
+        /// <summary>
+        /// Called when the default implementation dialog is closed.
+        /// /*cef()*/
+        /// </summary>
         public struct OnDialogClosedArgs
         {
             IntPtr nativePtr; //met arg native ptr
@@ -2974,23 +3634,95 @@ namespace LayoutFarm.CefBridge.Auto
         public interface I0
         {
             //CsStructModuleCodeGen:: GenerateCsSingleArgMethodImplForInterface ,614
+            /// <summary>
+            /// Called to run a JavaScript dialog. If |origin_url| is non-empty it can be
+            /// passed to the CefFormatUrlForSecurityDisplay function to retrieve a secure
+            /// and user-friendly display string. The |default_prompt_text| value will be
+            /// specified for prompt dialogs only. Set |suppress_message| to true and
+            /// return false to suppress the message (suppressing messages is preferable to
+            /// immediately executing the callback as this is used to detect presumably
+            /// malicious behavior like spamming alert messages in onbeforeunload). Set
+            /// |suppress_message| to false and return false to use the default
+            /// implementation (the default implementation will show one modal dialog at a
+            /// time and suppress any additional dialog requests until the displayed dialog
+            /// is dismissed). Return true if the application will use a custom dialog or
+            /// if the callback has been executed immediately. Custom dialogs may be either
+            /// modal or modeless. If a custom dialog is used the application must execute
+            /// |callback| once the custom dialog is dismissed.
+            /// /*cef(optional_param=origin_url,optional_param=accept_lang,optional_param=message_text,optional_param=default_prompt_text)*/
+            /// </summary>
             void OnJSDialog(OnJSDialogArgs args);
             //CsStructModuleCodeGen:: GenerateCsSingleArgMethodImplForInterface ,615
+            /// <summary>
+            /// Called to run a dialog asking the user if they want to leave a page. Return
+            /// false to use the default dialog implementation. Return true if the
+            /// application will use a custom dialog or if the callback has been executed
+            /// immediately. Custom dialogs may be either modal or modeless. If a custom
+            /// dialog is used the application must execute |callback| once the custom
+            /// dialog is dismissed.
+            /// /*cef(optional_param=message_text)*/
+            /// </summary>
             void OnBeforeUnloadDialog(OnBeforeUnloadDialogArgs args);
             //CsStructModuleCodeGen:: GenerateCsSingleArgMethodImplForInterface ,616
+            /// <summary>
+            /// Called to cancel any pending dialogs and reset any saved dialog state. Will
+            /// be called due to events like page navigation irregardless of whether any
+            /// dialogs are currently pending.
+            /// /*cef()*/
+            /// </summary>
             void OnResetDialogState(OnResetDialogStateArgs args);
             //CsStructModuleCodeGen:: GenerateCsSingleArgMethodImplForInterface ,617
+            /// <summary>
+            /// Called when the default implementation dialog is closed.
+            /// /*cef()*/
+            /// </summary>
             void OnDialogClosed(OnDialogClosedArgs args);
         }
         public interface I1
         {
             //CsStructModuleCodeGen:: GenerateCsExpandedArgsMethodForInterface ,618
+            /// <summary>
+            /// Called to run a JavaScript dialog. If |origin_url| is non-empty it can be
+            /// passed to the CefFormatUrlForSecurityDisplay function to retrieve a secure
+            /// and user-friendly display string. The |default_prompt_text| value will be
+            /// specified for prompt dialogs only. Set |suppress_message| to true and
+            /// return false to suppress the message (suppressing messages is preferable to
+            /// immediately executing the callback as this is used to detect presumably
+            /// malicious behavior like spamming alert messages in onbeforeunload). Set
+            /// |suppress_message| to false and return false to use the default
+            /// implementation (the default implementation will show one modal dialog at a
+            /// time and suppress any additional dialog requests until the displayed dialog
+            /// is dismissed). Return true if the application will use a custom dialog or
+            /// if the callback has been executed immediately. Custom dialogs may be either
+            /// modal or modeless. If a custom dialog is used the application must execute
+            /// |callback| once the custom dialog is dismissed.
+            /// /*cef(optional_param=origin_url,optional_param=accept_lang,optional_param=message_text,optional_param=default_prompt_text)*/
+            /// </summary>
             bool OnJSDialog(CefBrowser browser, string origin_url, cef_jsdialog_type_t dialog_type, string message_text, string default_prompt_text, CefJSDialogCallback callback, ref bool suppress_message);
             //CsStructModuleCodeGen:: GenerateCsExpandedArgsMethodForInterface ,619
+            /// <summary>
+            /// Called to run a dialog asking the user if they want to leave a page. Return
+            /// false to use the default dialog implementation. Return true if the
+            /// application will use a custom dialog or if the callback has been executed
+            /// immediately. Custom dialogs may be either modal or modeless. If a custom
+            /// dialog is used the application must execute |callback| once the custom
+            /// dialog is dismissed.
+            /// /*cef(optional_param=message_text)*/
+            /// </summary>
             bool OnBeforeUnloadDialog(CefBrowser browser, string message_text, bool is_reload, CefJSDialogCallback callback);
             //CsStructModuleCodeGen:: GenerateCsExpandedArgsMethodForInterface ,620
+            /// <summary>
+            /// Called to cancel any pending dialogs and reset any saved dialog state. Will
+            /// be called due to events like page navigation irregardless of whether any
+            /// dialogs are currently pending.
+            /// /*cef()*/
+            /// </summary>
             void OnResetDialogState(CefBrowser browser);
             //CsStructModuleCodeGen:: GenerateCsExpandedArgsMethodForInterface ,621
+            /// <summary>
+            /// Called when the default implementation dialog is closed.
+            /// /*cef()*/
+            /// </summary>
             void OnDialogClosed(CefBrowser browser);
         }
         //CsStructModuleCodeGen::GenerateHandleNativeReqTable ,622
@@ -3127,6 +3859,14 @@ namespace LayoutFarm.CefBridge.Auto
         const int CefKeyboardHandlerExt_OnKeyEvent_2 = 2;
         //gen! bool OnPreKeyEvent(CefRefPtr<CefBrowser> browser,const CefKeyEvent& event,CefEventHandle os_event,bool* is_keyboard_shortcut)
         //CsStructModuleCodeGen:: GenerateCsMethodArgsClass ,637
+        /// <summary>
+        /// Called before a keyboard event is sent to the renderer. |event| contains
+        /// information about the keyboard event. |os_event| is the operating system
+        /// event message, if any. Return true if the event was handled or false
+        /// otherwise. If the event will be handled in OnKeyEvent() as a keyboard
+        /// shortcut set |is_keyboard_shortcut| to true and return false.
+        /// /*cef()*/
+        /// </summary>
         public struct OnPreKeyEventArgs
         {
             IntPtr nativePtr; //met arg native ptr
@@ -3198,6 +3938,13 @@ namespace LayoutFarm.CefBridge.Auto
         }
         //gen! bool OnKeyEvent(CefRefPtr<CefBrowser> browser,const CefKeyEvent& event,CefEventHandle os_event)
         //CsStructModuleCodeGen:: GenerateCsMethodArgsClass ,639
+        /// <summary>
+        /// Called after the renderer and JavaScript in the page has had a chance to
+        /// handle the event. |event| contains information about the keyboard event.
+        /// |os_event| is the operating system event message, if any. Return true if
+        /// the keyboard event was handled or false otherwise.
+        /// /*cef()*/
+        /// </summary>
         public struct OnKeyEventArgs
         {
             IntPtr nativePtr; //met arg native ptr
@@ -3258,15 +4005,45 @@ namespace LayoutFarm.CefBridge.Auto
         public interface I0
         {
             //CsStructModuleCodeGen:: GenerateCsSingleArgMethodImplForInterface ,641
+            /// <summary>
+            /// Called before a keyboard event is sent to the renderer. |event| contains
+            /// information about the keyboard event. |os_event| is the operating system
+            /// event message, if any. Return true if the event was handled or false
+            /// otherwise. If the event will be handled in OnKeyEvent() as a keyboard
+            /// shortcut set |is_keyboard_shortcut| to true and return false.
+            /// /*cef()*/
+            /// </summary>
             void OnPreKeyEvent(OnPreKeyEventArgs args);
             //CsStructModuleCodeGen:: GenerateCsSingleArgMethodImplForInterface ,642
+            /// <summary>
+            /// Called after the renderer and JavaScript in the page has had a chance to
+            /// handle the event. |event| contains information about the keyboard event.
+            /// |os_event| is the operating system event message, if any. Return true if
+            /// the keyboard event was handled or false otherwise.
+            /// /*cef()*/
+            /// </summary>
             void OnKeyEvent(OnKeyEventArgs args);
         }
         public interface I1
         {
             //CsStructModuleCodeGen:: GenerateCsExpandedArgsMethodForInterface ,643
+            /// <summary>
+            /// Called before a keyboard event is sent to the renderer. |event| contains
+            /// information about the keyboard event. |os_event| is the operating system
+            /// event message, if any. Return true if the event was handled or false
+            /// otherwise. If the event will be handled in OnKeyEvent() as a keyboard
+            /// shortcut set |is_keyboard_shortcut| to true and return false.
+            /// /*cef()*/
+            /// </summary>
             bool OnPreKeyEvent(CefBrowser browser, CefKeyEvent _event, IntPtr os_event, ref bool is_keyboard_shortcut);
             //CsStructModuleCodeGen:: GenerateCsExpandedArgsMethodForInterface ,644
+            /// <summary>
+            /// Called after the renderer and JavaScript in the page has had a chance to
+            /// handle the event. |event| contains information about the keyboard event.
+            /// |os_event| is the operating system event message, if any. Return true if
+            /// the keyboard event was handled or false otherwise.
+            /// /*cef()*/
+            /// </summary>
             bool OnKeyEvent(CefBrowser browser, CefKeyEvent _event, IntPtr os_event);
         }
         //CsStructModuleCodeGen::GenerateHandleNativeReqTable ,645
@@ -3355,6 +4132,29 @@ namespace LayoutFarm.CefBridge.Auto
         const int CefLifeSpanHandlerExt_OnBeforeClose_4 = 4;
         //gen! bool OnBeforePopup(CefRefPtr<CefBrowser> browser,CefRefPtr<CefFrame> frame,const CefString& target_url,const CefString& target_frame_name,WindowOpenDisposition target_disposition,bool user_gesture,const CefPopupFeatures& popupFeatures,CefWindowInfo& windowInfo,CefRefPtr<CefClient>& client,CefBrowserSettings& settings,bool* no_javascript_access)
         //CsStructModuleCodeGen:: GenerateCsMethodArgsClass ,654
+        /// <summary>
+        /// Called on the IO thread before a new popup browser is created. The
+        /// |browser| and |frame| values represent the source of the popup request. The
+        /// |target_url| and |target_frame_name| values indicate where the popup
+        /// browser should navigate and may be empty if not specified with the request.
+        /// The |target_disposition| value indicates where the user intended to open
+        /// the popup (e.g. current tab, new tab, etc). The |user_gesture| value will
+        /// be true if the popup was opened via explicit user gesture (e.g. clicking a
+        /// link) or false if the popup opened automatically (e.g. via the
+        /// DomContentLoaded event). The |popupFeatures| structure contains additional
+        /// information about the requested popup window. To allow creation of the
+        /// popup browser optionally modify |windowInfo|, |client|, |settings| and
+        /// |no_javascript_access| and return false. To cancel creation of the popup
+        /// browser return true. The |client| and |settings| values will default to the
+        /// source browser's values. If the |no_javascript_access| value is set to
+        /// false the new browser will not be scriptable and may not be hosted in the
+        /// same renderer process as the source browser. Any modifications to
+        /// |windowInfo| will be ignored if the parent browser is wrapped in a
+        /// CefBrowserView. Popup browser creation will be canceled if the parent
+        /// browser is destroyed before the popup browser creation completes (indicated
+        /// by a call to OnAfterCreated for the popup browser).
+        /// /*cef(optional_param=target_url,optional_param=target_frame_name)*/
+        /// </summary>
         public struct OnBeforePopupArgs
         {
             IntPtr nativePtr; //met arg native ptr
@@ -3482,6 +4282,11 @@ namespace LayoutFarm.CefBridge.Auto
         }
         //gen! void OnAfterCreated(CefRefPtr<CefBrowser> browser)
         //CsStructModuleCodeGen:: GenerateCsMethodArgsClass ,656
+        /// <summary>
+        /// Called after a new browser is created. This callback will be the first
+        /// notification that references |browser|.
+        /// /*cef()*/
+        /// </summary>
         public struct OnAfterCreatedArgs
         {
             IntPtr nativePtr; //met arg native ptr
@@ -3520,6 +4325,95 @@ namespace LayoutFarm.CefBridge.Auto
         }
         //gen! bool DoClose(CefRefPtr<CefBrowser> browser)
         //CsStructModuleCodeGen:: GenerateCsMethodArgsClass ,658
+        /// <summary>
+        /// Called when a browser has recieved a request to close. This may result
+        /// directly from a call to CefBrowserHost::*CloseBrowser() or indirectly if
+        /// the browser is parented to a top-level window created by CEF and the user
+        /// attempts to close that window (by clicking the 'X', for example). The
+        /// DoClose() method will be called after the JavaScript 'onunload' event has
+        /// been fired.
+        ///
+        /// An application should handle top-level owner window close notifications by
+        /// calling CefBrowserHost::TryCloseBrowser() or
+        /// CefBrowserHost::CloseBrowser(false) instead of allowing the window to close
+        /// immediately (see the examples below). This gives CEF an opportunity to
+        /// process the 'onbeforeunload' event and optionally cancel the close before
+        /// DoClose() is called.
+        ///
+        /// When windowed rendering is enabled CEF will internally create a window or
+        /// view to host the browser. In that case returning false from DoClose() will
+        /// send the standard close notification to the browser's top-level owner
+        /// window (e.g. WM_CLOSE on Windows, performClose: on OS X, "delete_event" on
+        /// Linux or CefWindowDelegate::CanClose() callback from Views). If the
+        /// browser's host window/view has already been destroyed (via view hierarchy
+        /// tear-down, for example) then DoClose() will not be called for that browser
+        /// since is no longer possible to cancel the close.
+        ///
+        /// When windowed rendering is disabled returning false from DoClose() will
+        /// cause the browser object to be destroyed immediately.
+        ///
+        /// If the browser's top-level owner window requires a non-standard close
+        /// notification then send that notification from DoClose() and return true.
+        ///
+        /// The CefLifeSpanHandler::OnBeforeClose() method will be called after
+        /// DoClose() (if DoClose() is called) and immediately before the browser
+        /// object is destroyed. The application should only exit after OnBeforeClose()
+        /// has been called for all existing browsers.
+        ///
+        /// The below examples describe what should happen during window close when the
+        /// browser is parented to an application-provided top-level window.
+        ///
+        /// Example 1: Using CefBrowserHost::TryCloseBrowser(). This is recommended for
+        /// clients using standard close handling and windows created on the browser
+        /// process UI thread.
+        /// 1.  User clicks the window close button which sends a close notification to
+        ///     the application's top-level window.
+        /// 2.  Application's top-level window receives the close notification and
+        ///     calls TryCloseBrowser() (which internally calls CloseBrowser(false)).
+        ///     TryCloseBrowser() returns false so the client cancels the window close.
+        /// 3.  JavaScript 'onbeforeunload' handler executes and shows the close
+        ///     confirmation dialog (which can be overridden via
+        ///     CefJSDialogHandler::OnBeforeUnloadDialog()).
+        /// 4.  User approves the close.
+        /// 5.  JavaScript 'onunload' handler executes.
+        /// 6.  CEF sends a close notification to the application's top-level window
+        ///     (because DoClose() returned false by default).
+        /// 7.  Application's top-level window receives the close notification and
+        ///     calls TryCloseBrowser(). TryCloseBrowser() returns true so the client
+        ///     allows the window close.
+        /// 8.  Application's top-level window is destroyed.
+        /// 9.  Application's OnBeforeClose() handler is called and the browser object
+        ///     is destroyed.
+        /// 10. Application exits by calling CefQuitMessageLoop() if no other browsers
+        ///     exist.
+        ///
+        /// Example 2: Using CefBrowserHost::CloseBrowser(false) and implementing the
+        /// DoClose() callback. This is recommended for clients using non-standard
+        /// close handling or windows that were not created on the browser process UI
+        /// thread.
+        /// 1.  User clicks the window close button which sends a close notification to
+        ///     the application's top-level window.
+        /// 2.  Application's top-level window receives the close notification and:
+        ///     A. Calls CefBrowserHost::CloseBrowser(false).
+        ///     B. Cancels the window close.
+        /// 3.  JavaScript 'onbeforeunload' handler executes and shows the close
+        ///     confirmation dialog (which can be overridden via
+        ///     CefJSDialogHandler::OnBeforeUnloadDialog()).
+        /// 4.  User approves the close.
+        /// 5.  JavaScript 'onunload' handler executes.
+        /// 6.  Application's DoClose() handler is called. Application will:
+        ///     A. Set a flag to indicate that the next close attempt will be allowed.
+        ///     B. Return false.
+        /// 7.  CEF sends an close notification to the application's top-level window.
+        /// 8.  Application's top-level window receives the close notification and
+        ///     allows the window to close based on the flag from #6B.
+        /// 9.  Application's top-level window is destroyed.
+        /// 10. Application's OnBeforeClose() handler is called and the browser object
+        ///     is destroyed.
+        /// 11. Application exits by calling CefQuitMessageLoop() if no other browsers
+        ///     exist.
+        /// /*cef()*/
+        /// </summary>
         public struct DoCloseArgs
         {
             IntPtr nativePtr; //met arg native ptr
@@ -3566,6 +4460,14 @@ namespace LayoutFarm.CefBridge.Auto
         }
         //gen! void OnBeforeClose(CefRefPtr<CefBrowser> browser)
         //CsStructModuleCodeGen:: GenerateCsMethodArgsClass ,660
+        /// <summary>
+        /// Called just before a browser is destroyed. Release all references to the
+        /// browser object and do not attempt to execute any methods on the browser
+        /// object after this callback returns. This callback will be the last
+        /// notification that references |browser|. See DoClose() documentation for
+        /// additional usage information.
+        /// /*cef()*/
+        /// </summary>
         public struct OnBeforeCloseArgs
         {
             IntPtr nativePtr; //met arg native ptr
@@ -3605,23 +4507,273 @@ namespace LayoutFarm.CefBridge.Auto
         public interface I0
         {
             //CsStructModuleCodeGen:: GenerateCsSingleArgMethodImplForInterface ,662
+            /// <summary>
+            /// Called on the IO thread before a new popup browser is created. The
+            /// |browser| and |frame| values represent the source of the popup request. The
+            /// |target_url| and |target_frame_name| values indicate where the popup
+            /// browser should navigate and may be empty if not specified with the request.
+            /// The |target_disposition| value indicates where the user intended to open
+            /// the popup (e.g. current tab, new tab, etc). The |user_gesture| value will
+            /// be true if the popup was opened via explicit user gesture (e.g. clicking a
+            /// link) or false if the popup opened automatically (e.g. via the
+            /// DomContentLoaded event). The |popupFeatures| structure contains additional
+            /// information about the requested popup window. To allow creation of the
+            /// popup browser optionally modify |windowInfo|, |client|, |settings| and
+            /// |no_javascript_access| and return false. To cancel creation of the popup
+            /// browser return true. The |client| and |settings| values will default to the
+            /// source browser's values. If the |no_javascript_access| value is set to
+            /// false the new browser will not be scriptable and may not be hosted in the
+            /// same renderer process as the source browser. Any modifications to
+            /// |windowInfo| will be ignored if the parent browser is wrapped in a
+            /// CefBrowserView. Popup browser creation will be canceled if the parent
+            /// browser is destroyed before the popup browser creation completes (indicated
+            /// by a call to OnAfterCreated for the popup browser).
+            /// /*cef(optional_param=target_url,optional_param=target_frame_name)*/
+            /// </summary>
             void OnBeforePopup(OnBeforePopupArgs args);
             //CsStructModuleCodeGen:: GenerateCsSingleArgMethodImplForInterface ,663
+            /// <summary>
+            /// Called after a new browser is created. This callback will be the first
+            /// notification that references |browser|.
+            /// /*cef()*/
+            /// </summary>
             void OnAfterCreated(OnAfterCreatedArgs args);
             //CsStructModuleCodeGen:: GenerateCsSingleArgMethodImplForInterface ,664
+            /// <summary>
+            /// Called when a browser has recieved a request to close. This may result
+            /// directly from a call to CefBrowserHost::*CloseBrowser() or indirectly if
+            /// the browser is parented to a top-level window created by CEF and the user
+            /// attempts to close that window (by clicking the 'X', for example). The
+            /// DoClose() method will be called after the JavaScript 'onunload' event has
+            /// been fired.
+            ///
+            /// An application should handle top-level owner window close notifications by
+            /// calling CefBrowserHost::TryCloseBrowser() or
+            /// CefBrowserHost::CloseBrowser(false) instead of allowing the window to close
+            /// immediately (see the examples below). This gives CEF an opportunity to
+            /// process the 'onbeforeunload' event and optionally cancel the close before
+            /// DoClose() is called.
+            ///
+            /// When windowed rendering is enabled CEF will internally create a window or
+            /// view to host the browser. In that case returning false from DoClose() will
+            /// send the standard close notification to the browser's top-level owner
+            /// window (e.g. WM_CLOSE on Windows, performClose: on OS X, "delete_event" on
+            /// Linux or CefWindowDelegate::CanClose() callback from Views). If the
+            /// browser's host window/view has already been destroyed (via view hierarchy
+            /// tear-down, for example) then DoClose() will not be called for that browser
+            /// since is no longer possible to cancel the close.
+            ///
+            /// When windowed rendering is disabled returning false from DoClose() will
+            /// cause the browser object to be destroyed immediately.
+            ///
+            /// If the browser's top-level owner window requires a non-standard close
+            /// notification then send that notification from DoClose() and return true.
+            ///
+            /// The CefLifeSpanHandler::OnBeforeClose() method will be called after
+            /// DoClose() (if DoClose() is called) and immediately before the browser
+            /// object is destroyed. The application should only exit after OnBeforeClose()
+            /// has been called for all existing browsers.
+            ///
+            /// The below examples describe what should happen during window close when the
+            /// browser is parented to an application-provided top-level window.
+            ///
+            /// Example 1: Using CefBrowserHost::TryCloseBrowser(). This is recommended for
+            /// clients using standard close handling and windows created on the browser
+            /// process UI thread.
+            /// 1.  User clicks the window close button which sends a close notification to
+            ///     the application's top-level window.
+            /// 2.  Application's top-level window receives the close notification and
+            ///     calls TryCloseBrowser() (which internally calls CloseBrowser(false)).
+            ///     TryCloseBrowser() returns false so the client cancels the window close.
+            /// 3.  JavaScript 'onbeforeunload' handler executes and shows the close
+            ///     confirmation dialog (which can be overridden via
+            ///     CefJSDialogHandler::OnBeforeUnloadDialog()).
+            /// 4.  User approves the close.
+            /// 5.  JavaScript 'onunload' handler executes.
+            /// 6.  CEF sends a close notification to the application's top-level window
+            ///     (because DoClose() returned false by default).
+            /// 7.  Application's top-level window receives the close notification and
+            ///     calls TryCloseBrowser(). TryCloseBrowser() returns true so the client
+            ///     allows the window close.
+            /// 8.  Application's top-level window is destroyed.
+            /// 9.  Application's OnBeforeClose() handler is called and the browser object
+            ///     is destroyed.
+            /// 10. Application exits by calling CefQuitMessageLoop() if no other browsers
+            ///     exist.
+            ///
+            /// Example 2: Using CefBrowserHost::CloseBrowser(false) and implementing the
+            /// DoClose() callback. This is recommended for clients using non-standard
+            /// close handling or windows that were not created on the browser process UI
+            /// thread.
+            /// 1.  User clicks the window close button which sends a close notification to
+            ///     the application's top-level window.
+            /// 2.  Application's top-level window receives the close notification and:
+            ///     A. Calls CefBrowserHost::CloseBrowser(false).
+            ///     B. Cancels the window close.
+            /// 3.  JavaScript 'onbeforeunload' handler executes and shows the close
+            ///     confirmation dialog (which can be overridden via
+            ///     CefJSDialogHandler::OnBeforeUnloadDialog()).
+            /// 4.  User approves the close.
+            /// 5.  JavaScript 'onunload' handler executes.
+            /// 6.  Application's DoClose() handler is called. Application will:
+            ///     A. Set a flag to indicate that the next close attempt will be allowed.
+            ///     B. Return false.
+            /// 7.  CEF sends an close notification to the application's top-level window.
+            /// 8.  Application's top-level window receives the close notification and
+            ///     allows the window to close based on the flag from #6B.
+            /// 9.  Application's top-level window is destroyed.
+            /// 10. Application's OnBeforeClose() handler is called and the browser object
+            ///     is destroyed.
+            /// 11. Application exits by calling CefQuitMessageLoop() if no other browsers
+            ///     exist.
+            /// /*cef()*/
+            /// </summary>
             void DoClose(DoCloseArgs args);
             //CsStructModuleCodeGen:: GenerateCsSingleArgMethodImplForInterface ,665
+            /// <summary>
+            /// Called just before a browser is destroyed. Release all references to the
+            /// browser object and do not attempt to execute any methods on the browser
+            /// object after this callback returns. This callback will be the last
+            /// notification that references |browser|. See DoClose() documentation for
+            /// additional usage information.
+            /// /*cef()*/
+            /// </summary>
             void OnBeforeClose(OnBeforeCloseArgs args);
         }
         public interface I1
         {
             //CsStructModuleCodeGen:: GenerateCsExpandedArgsMethodForInterface ,666
+            /// <summary>
+            /// Called on the IO thread before a new popup browser is created. The
+            /// |browser| and |frame| values represent the source of the popup request. The
+            /// |target_url| and |target_frame_name| values indicate where the popup
+            /// browser should navigate and may be empty if not specified with the request.
+            /// The |target_disposition| value indicates where the user intended to open
+            /// the popup (e.g. current tab, new tab, etc). The |user_gesture| value will
+            /// be true if the popup was opened via explicit user gesture (e.g. clicking a
+            /// link) or false if the popup opened automatically (e.g. via the
+            /// DomContentLoaded event). The |popupFeatures| structure contains additional
+            /// information about the requested popup window. To allow creation of the
+            /// popup browser optionally modify |windowInfo|, |client|, |settings| and
+            /// |no_javascript_access| and return false. To cancel creation of the popup
+            /// browser return true. The |client| and |settings| values will default to the
+            /// source browser's values. If the |no_javascript_access| value is set to
+            /// false the new browser will not be scriptable and may not be hosted in the
+            /// same renderer process as the source browser. Any modifications to
+            /// |windowInfo| will be ignored if the parent browser is wrapped in a
+            /// CefBrowserView. Popup browser creation will be canceled if the parent
+            /// browser is destroyed before the popup browser creation completes (indicated
+            /// by a call to OnAfterCreated for the popup browser).
+            /// /*cef(optional_param=target_url,optional_param=target_frame_name)*/
+            /// </summary>
             bool OnBeforePopup(CefBrowser browser, CefFrame frame, string target_url, string target_frame_name, cef_window_open_disposition_t target_disposition, bool user_gesture, CefPopupFeatures popupFeatures, CefWindowInfo windowInfo, IntPtr client, CefBrowserSettings settings, ref bool no_javascript_access);
             //CsStructModuleCodeGen:: GenerateCsExpandedArgsMethodForInterface ,667
+            /// <summary>
+            /// Called after a new browser is created. This callback will be the first
+            /// notification that references |browser|.
+            /// /*cef()*/
+            /// </summary>
             void OnAfterCreated(CefBrowser browser);
             //CsStructModuleCodeGen:: GenerateCsExpandedArgsMethodForInterface ,668
+            /// <summary>
+            /// Called when a browser has recieved a request to close. This may result
+            /// directly from a call to CefBrowserHost::*CloseBrowser() or indirectly if
+            /// the browser is parented to a top-level window created by CEF and the user
+            /// attempts to close that window (by clicking the 'X', for example). The
+            /// DoClose() method will be called after the JavaScript 'onunload' event has
+            /// been fired.
+            ///
+            /// An application should handle top-level owner window close notifications by
+            /// calling CefBrowserHost::TryCloseBrowser() or
+            /// CefBrowserHost::CloseBrowser(false) instead of allowing the window to close
+            /// immediately (see the examples below). This gives CEF an opportunity to
+            /// process the 'onbeforeunload' event and optionally cancel the close before
+            /// DoClose() is called.
+            ///
+            /// When windowed rendering is enabled CEF will internally create a window or
+            /// view to host the browser. In that case returning false from DoClose() will
+            /// send the standard close notification to the browser's top-level owner
+            /// window (e.g. WM_CLOSE on Windows, performClose: on OS X, "delete_event" on
+            /// Linux or CefWindowDelegate::CanClose() callback from Views). If the
+            /// browser's host window/view has already been destroyed (via view hierarchy
+            /// tear-down, for example) then DoClose() will not be called for that browser
+            /// since is no longer possible to cancel the close.
+            ///
+            /// When windowed rendering is disabled returning false from DoClose() will
+            /// cause the browser object to be destroyed immediately.
+            ///
+            /// If the browser's top-level owner window requires a non-standard close
+            /// notification then send that notification from DoClose() and return true.
+            ///
+            /// The CefLifeSpanHandler::OnBeforeClose() method will be called after
+            /// DoClose() (if DoClose() is called) and immediately before the browser
+            /// object is destroyed. The application should only exit after OnBeforeClose()
+            /// has been called for all existing browsers.
+            ///
+            /// The below examples describe what should happen during window close when the
+            /// browser is parented to an application-provided top-level window.
+            ///
+            /// Example 1: Using CefBrowserHost::TryCloseBrowser(). This is recommended for
+            /// clients using standard close handling and windows created on the browser
+            /// process UI thread.
+            /// 1.  User clicks the window close button which sends a close notification to
+            ///     the application's top-level window.
+            /// 2.  Application's top-level window receives the close notification and
+            ///     calls TryCloseBrowser() (which internally calls CloseBrowser(false)).
+            ///     TryCloseBrowser() returns false so the client cancels the window close.
+            /// 3.  JavaScript 'onbeforeunload' handler executes and shows the close
+            ///     confirmation dialog (which can be overridden via
+            ///     CefJSDialogHandler::OnBeforeUnloadDialog()).
+            /// 4.  User approves the close.
+            /// 5.  JavaScript 'onunload' handler executes.
+            /// 6.  CEF sends a close notification to the application's top-level window
+            ///     (because DoClose() returned false by default).
+            /// 7.  Application's top-level window receives the close notification and
+            ///     calls TryCloseBrowser(). TryCloseBrowser() returns true so the client
+            ///     allows the window close.
+            /// 8.  Application's top-level window is destroyed.
+            /// 9.  Application's OnBeforeClose() handler is called and the browser object
+            ///     is destroyed.
+            /// 10. Application exits by calling CefQuitMessageLoop() if no other browsers
+            ///     exist.
+            ///
+            /// Example 2: Using CefBrowserHost::CloseBrowser(false) and implementing the
+            /// DoClose() callback. This is recommended for clients using non-standard
+            /// close handling or windows that were not created on the browser process UI
+            /// thread.
+            /// 1.  User clicks the window close button which sends a close notification to
+            ///     the application's top-level window.
+            /// 2.  Application's top-level window receives the close notification and:
+            ///     A. Calls CefBrowserHost::CloseBrowser(false).
+            ///     B. Cancels the window close.
+            /// 3.  JavaScript 'onbeforeunload' handler executes and shows the close
+            ///     confirmation dialog (which can be overridden via
+            ///     CefJSDialogHandler::OnBeforeUnloadDialog()).
+            /// 4.  User approves the close.
+            /// 5.  JavaScript 'onunload' handler executes.
+            /// 6.  Application's DoClose() handler is called. Application will:
+            ///     A. Set a flag to indicate that the next close attempt will be allowed.
+            ///     B. Return false.
+            /// 7.  CEF sends an close notification to the application's top-level window.
+            /// 8.  Application's top-level window receives the close notification and
+            ///     allows the window to close based on the flag from #6B.
+            /// 9.  Application's top-level window is destroyed.
+            /// 10. Application's OnBeforeClose() handler is called and the browser object
+            ///     is destroyed.
+            /// 11. Application exits by calling CefQuitMessageLoop() if no other browsers
+            ///     exist.
+            /// /*cef()*/
+            /// </summary>
             bool DoClose(CefBrowser browser);
             //CsStructModuleCodeGen:: GenerateCsExpandedArgsMethodForInterface ,669
+            /// <summary>
+            /// Called just before a browser is destroyed. Release all references to the
+            /// browser object and do not attempt to execute any methods on the browser
+            /// object after this callback returns. This callback will be the last
+            /// notification that references |browser|. See DoClose() documentation for
+            /// additional usage information.
+            /// /*cef()*/
+            /// </summary>
             void OnBeforeClose(CefBrowser browser);
         }
         //CsStructModuleCodeGen::GenerateHandleNativeReqTable ,670
@@ -3761,6 +4913,14 @@ namespace LayoutFarm.CefBridge.Auto
         const int CefLoadHandlerExt_OnLoadError_4 = 4;
         //gen! void OnLoadingStateChange(CefRefPtr<CefBrowser> browser,bool isLoading,bool canGoBack,bool canGoForward)
         //CsStructModuleCodeGen:: GenerateCsMethodArgsClass ,685
+        /// <summary>
+        /// Called when the loading state has changed. This callback will be executed
+        /// twice -- once when loading is initiated either programmatically or by user
+        /// action, and once when loading is terminated due to completion, cancellation
+        /// of failure. It will be called before any calls to OnLoadStart and after all
+        /// calls to OnLoadError and/or OnLoadEnd.
+        /// /*cef()*/
+        /// </summary>
         public struct OnLoadingStateChangeArgs
         {
             IntPtr nativePtr; //met arg native ptr
@@ -3823,6 +4983,19 @@ namespace LayoutFarm.CefBridge.Auto
         }
         //gen! void OnLoadStart(CefRefPtr<CefBrowser> browser,CefRefPtr<CefFrame> frame,TransitionType transition_type)
         //CsStructModuleCodeGen:: GenerateCsMethodArgsClass ,687
+        /// <summary>
+        /// Called after a navigation has been committed and before the browser begins
+        /// loading contents in the frame. The |frame| value will never be empty --
+        /// call the IsMain() method to check if this frame is the main frame.
+        /// |transition_type| provides information about the source of the navigation
+        /// and an accurate value is only available in the browser process. Multiple
+        /// frames may be loading at the same time. Sub-frames may start or continue
+        /// loading after the main frame load has ended. This method will not be called
+        /// for same page navigations (fragments, history state, etc.) or for
+        /// navigations that fail or are canceled before commit. For notification of
+        /// overall browser load status use OnLoadingStateChange instead.
+        /// /*cef()*/
+        /// </summary>
         public struct OnLoadStartArgs
         {
             IntPtr nativePtr; //met arg native ptr
@@ -3877,6 +5050,17 @@ namespace LayoutFarm.CefBridge.Auto
         }
         //gen! void OnLoadEnd(CefRefPtr<CefBrowser> browser,CefRefPtr<CefFrame> frame,int httpStatusCode)
         //CsStructModuleCodeGen:: GenerateCsMethodArgsClass ,689
+        /// <summary>
+        /// Called when the browser is done loading a frame. The |frame| value will
+        /// never be empty -- call the IsMain() method to check if this frame is the
+        /// main frame. Multiple frames may be loading at the same time. Sub-frames may
+        /// start or continue loading after the main frame load has ended. This method
+        /// will not be called for same page navigations (fragments, history state,
+        /// etc.) or for navigations that fail or are canceled before commit. For
+        /// notification of overall browser load status use OnLoadingStateChange
+        /// instead.
+        /// /*cef()*/
+        /// </summary>
         public struct OnLoadEndArgs
         {
             IntPtr nativePtr; //met arg native ptr
@@ -3931,6 +5115,14 @@ namespace LayoutFarm.CefBridge.Auto
         }
         //gen! void OnLoadError(CefRefPtr<CefBrowser> browser,CefRefPtr<CefFrame> frame,ErrorCode errorCode,const CefString& errorText,const CefString& failedUrl)
         //CsStructModuleCodeGen:: GenerateCsMethodArgsClass ,691
+        /// <summary>
+        /// Called when a navigation fails or is canceled. This method may be called
+        /// by itself if before commit or in combination with OnLoadStart/OnLoadEnd if
+        /// after commit. |errorCode| is the error code number, |errorText| is the
+        /// error text and |failedUrl| is the URL that failed to load.
+        /// See net\base\net_error_list.h for complete descriptions of the error codes.
+        /// /*cef(optional_param=errorText)*/
+        /// </summary>
         public struct OnLoadErrorArgs
         {
             IntPtr nativePtr; //met arg native ptr
@@ -4002,23 +5194,103 @@ namespace LayoutFarm.CefBridge.Auto
         public interface I0
         {
             //CsStructModuleCodeGen:: GenerateCsSingleArgMethodImplForInterface ,693
+            /// <summary>
+            /// Called when the loading state has changed. This callback will be executed
+            /// twice -- once when loading is initiated either programmatically or by user
+            /// action, and once when loading is terminated due to completion, cancellation
+            /// of failure. It will be called before any calls to OnLoadStart and after all
+            /// calls to OnLoadError and/or OnLoadEnd.
+            /// /*cef()*/
+            /// </summary>
             void OnLoadingStateChange(OnLoadingStateChangeArgs args);
             //CsStructModuleCodeGen:: GenerateCsSingleArgMethodImplForInterface ,694
+            /// <summary>
+            /// Called after a navigation has been committed and before the browser begins
+            /// loading contents in the frame. The |frame| value will never be empty --
+            /// call the IsMain() method to check if this frame is the main frame.
+            /// |transition_type| provides information about the source of the navigation
+            /// and an accurate value is only available in the browser process. Multiple
+            /// frames may be loading at the same time. Sub-frames may start or continue
+            /// loading after the main frame load has ended. This method will not be called
+            /// for same page navigations (fragments, history state, etc.) or for
+            /// navigations that fail or are canceled before commit. For notification of
+            /// overall browser load status use OnLoadingStateChange instead.
+            /// /*cef()*/
+            /// </summary>
             void OnLoadStart(OnLoadStartArgs args);
             //CsStructModuleCodeGen:: GenerateCsSingleArgMethodImplForInterface ,695
+            /// <summary>
+            /// Called when the browser is done loading a frame. The |frame| value will
+            /// never be empty -- call the IsMain() method to check if this frame is the
+            /// main frame. Multiple frames may be loading at the same time. Sub-frames may
+            /// start or continue loading after the main frame load has ended. This method
+            /// will not be called for same page navigations (fragments, history state,
+            /// etc.) or for navigations that fail or are canceled before commit. For
+            /// notification of overall browser load status use OnLoadingStateChange
+            /// instead.
+            /// /*cef()*/
+            /// </summary>
             void OnLoadEnd(OnLoadEndArgs args);
             //CsStructModuleCodeGen:: GenerateCsSingleArgMethodImplForInterface ,696
+            /// <summary>
+            /// Called when a navigation fails or is canceled. This method may be called
+            /// by itself if before commit or in combination with OnLoadStart/OnLoadEnd if
+            /// after commit. |errorCode| is the error code number, |errorText| is the
+            /// error text and |failedUrl| is the URL that failed to load.
+            /// See net\base\net_error_list.h for complete descriptions of the error codes.
+            /// /*cef(optional_param=errorText)*/
+            /// </summary>
             void OnLoadError(OnLoadErrorArgs args);
         }
         public interface I1
         {
             //CsStructModuleCodeGen:: GenerateCsExpandedArgsMethodForInterface ,697
+            /// <summary>
+            /// Called when the loading state has changed. This callback will be executed
+            /// twice -- once when loading is initiated either programmatically or by user
+            /// action, and once when loading is terminated due to completion, cancellation
+            /// of failure. It will be called before any calls to OnLoadStart and after all
+            /// calls to OnLoadError and/or OnLoadEnd.
+            /// /*cef()*/
+            /// </summary>
             void OnLoadingStateChange(CefBrowser browser, bool isLoading, bool canGoBack, bool canGoForward);
             //CsStructModuleCodeGen:: GenerateCsExpandedArgsMethodForInterface ,698
+            /// <summary>
+            /// Called after a navigation has been committed and before the browser begins
+            /// loading contents in the frame. The |frame| value will never be empty --
+            /// call the IsMain() method to check if this frame is the main frame.
+            /// |transition_type| provides information about the source of the navigation
+            /// and an accurate value is only available in the browser process. Multiple
+            /// frames may be loading at the same time. Sub-frames may start or continue
+            /// loading after the main frame load has ended. This method will not be called
+            /// for same page navigations (fragments, history state, etc.) or for
+            /// navigations that fail or are canceled before commit. For notification of
+            /// overall browser load status use OnLoadingStateChange instead.
+            /// /*cef()*/
+            /// </summary>
             void OnLoadStart(CefBrowser browser, CefFrame frame, cef_transition_type_t transition_type);
             //CsStructModuleCodeGen:: GenerateCsExpandedArgsMethodForInterface ,699
+            /// <summary>
+            /// Called when the browser is done loading a frame. The |frame| value will
+            /// never be empty -- call the IsMain() method to check if this frame is the
+            /// main frame. Multiple frames may be loading at the same time. Sub-frames may
+            /// start or continue loading after the main frame load has ended. This method
+            /// will not be called for same page navigations (fragments, history state,
+            /// etc.) or for navigations that fail or are canceled before commit. For
+            /// notification of overall browser load status use OnLoadingStateChange
+            /// instead.
+            /// /*cef()*/
+            /// </summary>
             void OnLoadEnd(CefBrowser browser, CefFrame frame, int httpStatusCode);
             //CsStructModuleCodeGen:: GenerateCsExpandedArgsMethodForInterface ,700
+            /// <summary>
+            /// Called when a navigation fails or is canceled. This method may be called
+            /// by itself if before commit or in combination with OnLoadStart/OnLoadEnd if
+            /// after commit. |errorCode| is the error code number, |errorText| is the
+            /// error text and |failedUrl| is the URL that failed to load.
+            /// See net\base\net_error_list.h for complete descriptions of the error codes.
+            /// /*cef(optional_param=errorText)*/
+            /// </summary>
             void OnLoadError(CefBrowser browser, CefFrame frame, cef_errorcode_t errorCode, string errorText, string failedUrl);
         }
         //CsStructModuleCodeGen::GenerateHandleNativeReqTable ,701
@@ -4159,6 +5431,13 @@ namespace LayoutFarm.CefBridge.Auto
         const int CefPrintHandlerExt_GetPdfPaperSize_6 = 6;
         //gen! void OnPrintStart(CefRefPtr<CefBrowser> browser)
         //CsStructModuleCodeGen:: GenerateCsMethodArgsClass ,716
+        /// <summary>
+        /// Called when printing has started for the specified |browser|. This method
+        /// will be called before the other OnPrint*() methods and irrespective of how
+        /// printing was initiated (e.g. CefBrowserHost::Print(), JavaScript
+        /// window.print() or PDF extension print button).
+        /// /*cef()*/
+        /// </summary>
         public struct OnPrintStartArgs
         {
             IntPtr nativePtr; //met arg native ptr
@@ -4197,6 +5476,12 @@ namespace LayoutFarm.CefBridge.Auto
         }
         //gen! void OnPrintSettings(CefRefPtr<CefBrowser> browser,CefRefPtr<CefPrintSettings> settings,bool get_defaults)
         //CsStructModuleCodeGen:: GenerateCsMethodArgsClass ,718
+        /// <summary>
+        /// Synchronize |settings| with client state. If |get_defaults| is true then
+        /// populate |settings| with the default print settings. Do not keep a
+        /// reference to |settings| outside of this callback.
+        /// /*cef()*/
+        /// </summary>
         public struct OnPrintSettingsArgs
         {
             IntPtr nativePtr; //met arg native ptr
@@ -4251,6 +5536,12 @@ namespace LayoutFarm.CefBridge.Auto
         }
         //gen! bool OnPrintDialog(CefRefPtr<CefBrowser> browser,bool has_selection,CefRefPtr<CefPrintDialogCallback> callback)
         //CsStructModuleCodeGen:: GenerateCsMethodArgsClass ,720
+        /// <summary>
+        /// Show the print dialog. Execute |callback| once the dialog is dismissed.
+        /// Return true if the dialog will be displayed or false to cancel the
+        /// printing immediately.
+        /// /*cef()*/
+        /// </summary>
         public struct OnPrintDialogArgs
         {
             IntPtr nativePtr; //met arg native ptr
@@ -4313,6 +5604,12 @@ namespace LayoutFarm.CefBridge.Auto
         }
         //gen! bool OnPrintJob(CefRefPtr<CefBrowser> browser,const CefString& document_name,const CefString& pdf_file_path,CefRefPtr<CefPrintJobCallback> callback)
         //CsStructModuleCodeGen:: GenerateCsMethodArgsClass ,722
+        /// <summary>
+        /// Send the print job to the printer. Execute |callback| once the job is
+        /// completed. Return true if the job will proceed or false to cancel the job
+        /// immediately.
+        /// /*cef()*/
+        /// </summary>
         public struct OnPrintJobArgs
         {
             IntPtr nativePtr; //met arg native ptr
@@ -4383,6 +5680,10 @@ namespace LayoutFarm.CefBridge.Auto
         }
         //gen! void OnPrintReset(CefRefPtr<CefBrowser> browser)
         //CsStructModuleCodeGen:: GenerateCsMethodArgsClass ,724
+        /// <summary>
+        /// Reset client state related to printing.
+        /// /*cef()*/
+        /// </summary>
         public struct OnPrintResetArgs
         {
             IntPtr nativePtr; //met arg native ptr
@@ -4421,6 +5722,11 @@ namespace LayoutFarm.CefBridge.Auto
         }
         //gen! CefSize GetPdfPaperSize(int device_units_per_inch)
         //CsStructModuleCodeGen:: GenerateCsMethodArgsClass ,726
+        /// <summary>
+        /// Return the PDF paper size in device units. Used in combination with
+        /// CefBrowserHost::PrintToPDF().
+        /// /*cef()*/
+        /// </summary>
         public struct GetPdfPaperSizeArgs
         {
             IntPtr nativePtr; //met arg native ptr
@@ -4471,31 +5777,99 @@ namespace LayoutFarm.CefBridge.Auto
         public interface I0
         {
             //CsStructModuleCodeGen:: GenerateCsSingleArgMethodImplForInterface ,728
+            /// <summary>
+            /// Called when printing has started for the specified |browser|. This method
+            /// will be called before the other OnPrint*() methods and irrespective of how
+            /// printing was initiated (e.g. CefBrowserHost::Print(), JavaScript
+            /// window.print() or PDF extension print button).
+            /// /*cef()*/
+            /// </summary>
             void OnPrintStart(OnPrintStartArgs args);
             //CsStructModuleCodeGen:: GenerateCsSingleArgMethodImplForInterface ,729
+            /// <summary>
+            /// Synchronize |settings| with client state. If |get_defaults| is true then
+            /// populate |settings| with the default print settings. Do not keep a
+            /// reference to |settings| outside of this callback.
+            /// /*cef()*/
+            /// </summary>
             void OnPrintSettings(OnPrintSettingsArgs args);
             //CsStructModuleCodeGen:: GenerateCsSingleArgMethodImplForInterface ,730
+            /// <summary>
+            /// Show the print dialog. Execute |callback| once the dialog is dismissed.
+            /// Return true if the dialog will be displayed or false to cancel the
+            /// printing immediately.
+            /// /*cef()*/
+            /// </summary>
             void OnPrintDialog(OnPrintDialogArgs args);
             //CsStructModuleCodeGen:: GenerateCsSingleArgMethodImplForInterface ,731
+            /// <summary>
+            /// Send the print job to the printer. Execute |callback| once the job is
+            /// completed. Return true if the job will proceed or false to cancel the job
+            /// immediately.
+            /// /*cef()*/
+            /// </summary>
             void OnPrintJob(OnPrintJobArgs args);
             //CsStructModuleCodeGen:: GenerateCsSingleArgMethodImplForInterface ,732
+            /// <summary>
+            /// Reset client state related to printing.
+            /// /*cef()*/
+            /// </summary>
             void OnPrintReset(OnPrintResetArgs args);
             //CsStructModuleCodeGen:: GenerateCsSingleArgMethodImplForInterface ,733
+            /// <summary>
+            /// Return the PDF paper size in device units. Used in combination with
+            /// CefBrowserHost::PrintToPDF().
+            /// /*cef()*/
+            /// </summary>
             void GetPdfPaperSize(GetPdfPaperSizeArgs args);
         }
         public interface I1
         {
             //CsStructModuleCodeGen:: GenerateCsExpandedArgsMethodForInterface ,734
+            /// <summary>
+            /// Called when printing has started for the specified |browser|. This method
+            /// will be called before the other OnPrint*() methods and irrespective of how
+            /// printing was initiated (e.g. CefBrowserHost::Print(), JavaScript
+            /// window.print() or PDF extension print button).
+            /// /*cef()*/
+            /// </summary>
             void OnPrintStart(CefBrowser browser);
             //CsStructModuleCodeGen:: GenerateCsExpandedArgsMethodForInterface ,735
+            /// <summary>
+            /// Synchronize |settings| with client state. If |get_defaults| is true then
+            /// populate |settings| with the default print settings. Do not keep a
+            /// reference to |settings| outside of this callback.
+            /// /*cef()*/
+            /// </summary>
             void OnPrintSettings(CefBrowser browser, CefPrintSettings settings, bool get_defaults);
             //CsStructModuleCodeGen:: GenerateCsExpandedArgsMethodForInterface ,736
+            /// <summary>
+            /// Show the print dialog. Execute |callback| once the dialog is dismissed.
+            /// Return true if the dialog will be displayed or false to cancel the
+            /// printing immediately.
+            /// /*cef()*/
+            /// </summary>
             bool OnPrintDialog(CefBrowser browser, bool has_selection, CefPrintDialogCallback callback);
             //CsStructModuleCodeGen:: GenerateCsExpandedArgsMethodForInterface ,737
+            /// <summary>
+            /// Send the print job to the printer. Execute |callback| once the job is
+            /// completed. Return true if the job will proceed or false to cancel the job
+            /// immediately.
+            /// /*cef()*/
+            /// </summary>
             bool OnPrintJob(CefBrowser browser, string document_name, string pdf_file_path, CefPrintJobCallback callback);
             //CsStructModuleCodeGen:: GenerateCsExpandedArgsMethodForInterface ,738
+            /// <summary>
+            /// Reset client state related to printing.
+            /// /*cef()*/
+            /// </summary>
             void OnPrintReset(CefBrowser browser);
             //CsStructModuleCodeGen:: GenerateCsExpandedArgsMethodForInterface ,739
+            /// <summary>
+            /// Return the PDF paper size in device units. Used in combination with
+            /// CefBrowserHost::PrintToPDF().
+            /// /*cef()*/
+            /// </summary>
             CefSize GetPdfPaperSize(int device_units_per_inch);
         }
         //CsStructModuleCodeGen::GenerateHandleNativeReqTable ,740
@@ -4685,6 +6059,11 @@ namespace LayoutFarm.CefBridge.Auto
         const int CefRenderHandlerExt_OnImeCompositionRangeChanged_13 = 13;
         //gen! CefRefPtr<CefAccessibilityHandler> GetAccessibilityHandler()
         //CsStructModuleCodeGen:: GenerateCsMethodArgsClass ,761
+        /// <summary>
+        /// Return the handler for accessibility notifications. If no handler is
+        /// provided the default implementation will be used.
+        /// /*cef()*/
+        /// </summary>
         public struct GetAccessibilityHandlerArgs
         {
             IntPtr nativePtr; //met arg native ptr
@@ -4723,6 +6102,11 @@ namespace LayoutFarm.CefBridge.Auto
         }
         //gen! bool GetRootScreenRect(CefRefPtr<CefBrowser> browser,CefRect& rect)
         //CsStructModuleCodeGen:: GenerateCsMethodArgsClass ,763
+        /// <summary>
+        /// Called to retrieve the root window rectangle in screen coordinates. Return
+        /// true if the rectangle was provided.
+        /// /*cef()*/
+        /// </summary>
         public struct GetRootScreenRectArgs
         {
             IntPtr nativePtr; //met arg native ptr
@@ -4777,6 +6161,11 @@ namespace LayoutFarm.CefBridge.Auto
         }
         //gen! bool GetViewRect(CefRefPtr<CefBrowser> browser,CefRect& rect)
         //CsStructModuleCodeGen:: GenerateCsMethodArgsClass ,765
+        /// <summary>
+        /// Called to retrieve the view rectangle which is relative to screen
+        /// coordinates. Return true if the rectangle was provided.
+        /// /*cef()*/
+        /// </summary>
         public struct GetViewRectArgs
         {
             IntPtr nativePtr; //met arg native ptr
@@ -4831,6 +6220,11 @@ namespace LayoutFarm.CefBridge.Auto
         }
         //gen! bool GetScreenPoint(CefRefPtr<CefBrowser> browser,int viewX,int viewY,int& screenX,int& screenY)
         //CsStructModuleCodeGen:: GenerateCsMethodArgsClass ,767
+        /// <summary>
+        /// Called to retrieve the translation from view coordinates to actual screen
+        /// coordinates. Return true if the screen coordinates were provided.
+        /// /*cef()*/
+        /// </summary>
         public struct GetScreenPointArgs
         {
             IntPtr nativePtr; //met arg native ptr
@@ -4911,6 +6305,16 @@ namespace LayoutFarm.CefBridge.Auto
         }
         //gen! bool GetScreenInfo(CefRefPtr<CefBrowser> browser,CefScreenInfo& screen_info)
         //CsStructModuleCodeGen:: GenerateCsMethodArgsClass ,769
+        /// <summary>
+        /// Called to allow the client to fill in the CefScreenInfo object with
+        /// appropriate values. Return true if the |screen_info| structure has been
+        /// modified.
+        ///
+        /// If the screen info rectangle is left empty the rectangle from GetViewRect
+        /// will be used. If the rectangle is still empty or invalid popups may not be
+        /// drawn correctly.
+        /// /*cef()*/
+        /// </summary>
         public struct GetScreenInfoArgs
         {
             IntPtr nativePtr; //met arg native ptr
@@ -4965,6 +6369,11 @@ namespace LayoutFarm.CefBridge.Auto
         }
         //gen! void OnPopupShow(CefRefPtr<CefBrowser> browser,bool show)
         //CsStructModuleCodeGen:: GenerateCsMethodArgsClass ,771
+        /// <summary>
+        /// Called when the browser wants to show or hide the popup widget. The popup
+        /// should be shown if |show| is true and hidden if |show| is false.
+        /// /*cef()*/
+        /// </summary>
         public struct OnPopupShowArgs
         {
             IntPtr nativePtr; //met arg native ptr
@@ -5011,6 +6420,11 @@ namespace LayoutFarm.CefBridge.Auto
         }
         //gen! void OnPopupSize(CefRefPtr<CefBrowser> browser,const CefRect& rect)
         //CsStructModuleCodeGen:: GenerateCsMethodArgsClass ,773
+        /// <summary>
+        /// Called when the browser wants to move or resize the popup widget. |rect|
+        /// contains the new location and size in view coordinates.
+        /// /*cef()*/
+        /// </summary>
         public struct OnPopupSizeArgs
         {
             IntPtr nativePtr; //met arg native ptr
@@ -5057,6 +6471,17 @@ namespace LayoutFarm.CefBridge.Auto
         }
         //gen! void OnPaint(CefRefPtr<CefBrowser> browser,PaintElementType type,const RectList& dirtyRects,const void* buffer,int width,int height)
         //CsStructModuleCodeGen:: GenerateCsMethodArgsClass ,775
+        /// <summary>
+        /// Called when an element should be painted. Pixel values passed to this
+        /// method are scaled relative to view coordinates based on the value of
+        /// CefScreenInfo.device_scale_factor returned from GetScreenInfo. |type|
+        /// indicates whether the element is the view or the popup widget. |buffer|
+        /// contains the pixel data for the whole image. |dirtyRects| contains the set
+        /// of rectangles in pixel coordinates that need to be repainted. |buffer| will
+        /// be |width|*|height|*4 bytes in size and represents a BGRA image with an
+        /// upper-left origin.
+        /// /*cef()*/
+        /// </summary>
         public struct OnPaintArgs
         {
             IntPtr nativePtr; //met arg native ptr
@@ -5129,6 +6554,11 @@ namespace LayoutFarm.CefBridge.Auto
         }
         //gen! void OnCursorChange(CefRefPtr<CefBrowser> browser,CefCursorHandle cursor,CursorType type,const CefCursorInfo& custom_cursor_info)
         //CsStructModuleCodeGen:: GenerateCsMethodArgsClass ,777
+        /// <summary>
+        /// Called when the browser's cursor has changed. If |type| is CT_CUSTOM then
+        /// |custom_cursor_info| will be populated with the custom cursor information.
+        /// /*cef()*/
+        /// </summary>
         public struct OnCursorChangeArgs
         {
             IntPtr nativePtr; //met arg native ptr
@@ -5188,6 +6618,22 @@ namespace LayoutFarm.CefBridge.Auto
         }
         //gen! bool StartDragging(CefRefPtr<CefBrowser> browser,CefRefPtr<CefDragData> drag_data,DragOperationsMask allowed_ops,int x,int y)
         //CsStructModuleCodeGen:: GenerateCsMethodArgsClass ,779
+        /// <summary>
+        /// Called when the user starts dragging content in the web view. Contextual
+        /// information about the dragged content is supplied by |drag_data|.
+        /// (|x|, |y|) is the drag start location in screen coordinates.
+        /// OS APIs that run a system message loop may be used within the
+        /// StartDragging call.
+        ///
+        /// Return false to abort the drag operation. Don't call any of
+        /// CefBrowserHost::DragSource*Ended* methods after returning false.
+        ///
+        /// Return true to handle the drag operation. Call
+        /// CefBrowserHost::DragSourceEndedAt and DragSourceSystemDragEnded either
+        /// synchronously or asynchronously to inform the web view that the drag
+        /// operation has ended.
+        /// /*cef()*/
+        /// </summary>
         public struct StartDraggingArgs
         {
             IntPtr nativePtr; //met arg native ptr
@@ -5266,6 +6712,12 @@ namespace LayoutFarm.CefBridge.Auto
         }
         //gen! void UpdateDragCursor(CefRefPtr<CefBrowser> browser,DragOperation operation)
         //CsStructModuleCodeGen:: GenerateCsMethodArgsClass ,781
+        /// <summary>
+        /// Called when the web view wants to update the mouse cursor during a
+        /// drag & drop operation. |operation| describes the allowed operation
+        /// (none, move, copy, link).
+        /// /*cef()*/
+        /// </summary>
         public struct UpdateDragCursorArgs
         {
             IntPtr nativePtr; //met arg native ptr
@@ -5312,6 +6764,10 @@ namespace LayoutFarm.CefBridge.Auto
         }
         //gen! void OnScrollOffsetChanged(CefRefPtr<CefBrowser> browser,double x,double y)
         //CsStructModuleCodeGen:: GenerateCsMethodArgsClass ,783
+        /// <summary>
+        /// Called when the scroll offset has changed.
+        /// /*cef()*/
+        /// </summary>
         public struct OnScrollOffsetChangedArgs
         {
             IntPtr nativePtr; //met arg native ptr
@@ -5366,6 +6822,12 @@ namespace LayoutFarm.CefBridge.Auto
         }
         //gen! void OnImeCompositionRangeChanged(CefRefPtr<CefBrowser> browser,const CefRange& selected_range,const RectList& character_bounds)
         //CsStructModuleCodeGen:: GenerateCsMethodArgsClass ,785
+        /// <summary>
+        /// Called when the IME composition range has changed. |selected_range| is the
+        /// range of characters that have been selected. |character_bounds| is the
+        /// bounds of each character in view coordinates.
+        /// /*cef()*/
+        /// </summary>
         public struct OnImeCompositionRangeChangedArgs
         {
             IntPtr nativePtr; //met arg native ptr
@@ -5418,59 +6880,235 @@ namespace LayoutFarm.CefBridge.Auto
         public interface I0
         {
             //CsStructModuleCodeGen:: GenerateCsSingleArgMethodImplForInterface ,787
+            /// <summary>
+            /// Return the handler for accessibility notifications. If no handler is
+            /// provided the default implementation will be used.
+            /// /*cef()*/
+            /// </summary>
             void GetAccessibilityHandler(GetAccessibilityHandlerArgs args);
             //CsStructModuleCodeGen:: GenerateCsSingleArgMethodImplForInterface ,788
+            /// <summary>
+            /// Called to retrieve the root window rectangle in screen coordinates. Return
+            /// true if the rectangle was provided.
+            /// /*cef()*/
+            /// </summary>
             void GetRootScreenRect(GetRootScreenRectArgs args);
             //CsStructModuleCodeGen:: GenerateCsSingleArgMethodImplForInterface ,789
+            /// <summary>
+            /// Called to retrieve the view rectangle which is relative to screen
+            /// coordinates. Return true if the rectangle was provided.
+            /// /*cef()*/
+            /// </summary>
             void GetViewRect(GetViewRectArgs args);
             //CsStructModuleCodeGen:: GenerateCsSingleArgMethodImplForInterface ,790
+            /// <summary>
+            /// Called to retrieve the translation from view coordinates to actual screen
+            /// coordinates. Return true if the screen coordinates were provided.
+            /// /*cef()*/
+            /// </summary>
             void GetScreenPoint(GetScreenPointArgs args);
             //CsStructModuleCodeGen:: GenerateCsSingleArgMethodImplForInterface ,791
+            /// <summary>
+            /// Called to allow the client to fill in the CefScreenInfo object with
+            /// appropriate values. Return true if the |screen_info| structure has been
+            /// modified.
+            ///
+            /// If the screen info rectangle is left empty the rectangle from GetViewRect
+            /// will be used. If the rectangle is still empty or invalid popups may not be
+            /// drawn correctly.
+            /// /*cef()*/
+            /// </summary>
             void GetScreenInfo(GetScreenInfoArgs args);
             //CsStructModuleCodeGen:: GenerateCsSingleArgMethodImplForInterface ,792
+            /// <summary>
+            /// Called when the browser wants to show or hide the popup widget. The popup
+            /// should be shown if |show| is true and hidden if |show| is false.
+            /// /*cef()*/
+            /// </summary>
             void OnPopupShow(OnPopupShowArgs args);
             //CsStructModuleCodeGen:: GenerateCsSingleArgMethodImplForInterface ,793
+            /// <summary>
+            /// Called when the browser wants to move or resize the popup widget. |rect|
+            /// contains the new location and size in view coordinates.
+            /// /*cef()*/
+            /// </summary>
             void OnPopupSize(OnPopupSizeArgs args);
             //CsStructModuleCodeGen:: GenerateCsSingleArgMethodImplForInterface ,794
+            /// <summary>
+            /// Called when an element should be painted. Pixel values passed to this
+            /// method are scaled relative to view coordinates based on the value of
+            /// CefScreenInfo.device_scale_factor returned from GetScreenInfo. |type|
+            /// indicates whether the element is the view or the popup widget. |buffer|
+            /// contains the pixel data for the whole image. |dirtyRects| contains the set
+            /// of rectangles in pixel coordinates that need to be repainted. |buffer| will
+            /// be |width|*|height|*4 bytes in size and represents a BGRA image with an
+            /// upper-left origin.
+            /// /*cef()*/
+            /// </summary>
             void OnPaint(OnPaintArgs args);
             //CsStructModuleCodeGen:: GenerateCsSingleArgMethodImplForInterface ,795
+            /// <summary>
+            /// Called when the browser's cursor has changed. If |type| is CT_CUSTOM then
+            /// |custom_cursor_info| will be populated with the custom cursor information.
+            /// /*cef()*/
+            /// </summary>
             void OnCursorChange(OnCursorChangeArgs args);
             //CsStructModuleCodeGen:: GenerateCsSingleArgMethodImplForInterface ,796
+            /// <summary>
+            /// Called when the user starts dragging content in the web view. Contextual
+            /// information about the dragged content is supplied by |drag_data|.
+            /// (|x|, |y|) is the drag start location in screen coordinates.
+            /// OS APIs that run a system message loop may be used within the
+            /// StartDragging call.
+            ///
+            /// Return false to abort the drag operation. Don't call any of
+            /// CefBrowserHost::DragSource*Ended* methods after returning false.
+            ///
+            /// Return true to handle the drag operation. Call
+            /// CefBrowserHost::DragSourceEndedAt and DragSourceSystemDragEnded either
+            /// synchronously or asynchronously to inform the web view that the drag
+            /// operation has ended.
+            /// /*cef()*/
+            /// </summary>
             void StartDragging(StartDraggingArgs args);
             //CsStructModuleCodeGen:: GenerateCsSingleArgMethodImplForInterface ,797
+            /// <summary>
+            /// Called when the web view wants to update the mouse cursor during a
+            /// drag & drop operation. |operation| describes the allowed operation
+            /// (none, move, copy, link).
+            /// /*cef()*/
+            /// </summary>
             void UpdateDragCursor(UpdateDragCursorArgs args);
             //CsStructModuleCodeGen:: GenerateCsSingleArgMethodImplForInterface ,798
+            /// <summary>
+            /// Called when the scroll offset has changed.
+            /// /*cef()*/
+            /// </summary>
             void OnScrollOffsetChanged(OnScrollOffsetChangedArgs args);
             //CsStructModuleCodeGen:: GenerateCsSingleArgMethodImplForInterface ,799
+            /// <summary>
+            /// Called when the IME composition range has changed. |selected_range| is the
+            /// range of characters that have been selected. |character_bounds| is the
+            /// bounds of each character in view coordinates.
+            /// /*cef()*/
+            /// </summary>
             void OnImeCompositionRangeChanged(OnImeCompositionRangeChangedArgs args);
         }
         public interface I1
         {
             //CsStructModuleCodeGen:: GenerateCsExpandedArgsMethodForInterface ,800
+            /// <summary>
+            /// Return the handler for accessibility notifications. If no handler is
+            /// provided the default implementation will be used.
+            /// /*cef()*/
+            /// </summary>
             CefAccessibilityHandler GetAccessibilityHandler();
             //CsStructModuleCodeGen:: GenerateCsExpandedArgsMethodForInterface ,801
+            /// <summary>
+            /// Called to retrieve the root window rectangle in screen coordinates. Return
+            /// true if the rectangle was provided.
+            /// /*cef()*/
+            /// </summary>
             bool GetRootScreenRect(CefBrowser browser, CefRect rect);
             //CsStructModuleCodeGen:: GenerateCsExpandedArgsMethodForInterface ,802
+            /// <summary>
+            /// Called to retrieve the view rectangle which is relative to screen
+            /// coordinates. Return true if the rectangle was provided.
+            /// /*cef()*/
+            /// </summary>
             bool GetViewRect(CefBrowser browser, CefRect rect);
             //CsStructModuleCodeGen:: GenerateCsExpandedArgsMethodForInterface ,803
+            /// <summary>
+            /// Called to retrieve the translation from view coordinates to actual screen
+            /// coordinates. Return true if the screen coordinates were provided.
+            /// /*cef()*/
+            /// </summary>
             bool GetScreenPoint(CefBrowser browser, int viewX, int viewY, ref int screenX, ref int screenY);
             //CsStructModuleCodeGen:: GenerateCsExpandedArgsMethodForInterface ,804
+            /// <summary>
+            /// Called to allow the client to fill in the CefScreenInfo object with
+            /// appropriate values. Return true if the |screen_info| structure has been
+            /// modified.
+            ///
+            /// If the screen info rectangle is left empty the rectangle from GetViewRect
+            /// will be used. If the rectangle is still empty or invalid popups may not be
+            /// drawn correctly.
+            /// /*cef()*/
+            /// </summary>
             bool GetScreenInfo(CefBrowser browser, CefScreenInfo screen_info);
             //CsStructModuleCodeGen:: GenerateCsExpandedArgsMethodForInterface ,805
+            /// <summary>
+            /// Called when the browser wants to show or hide the popup widget. The popup
+            /// should be shown if |show| is true and hidden if |show| is false.
+            /// /*cef()*/
+            /// </summary>
             void OnPopupShow(CefBrowser browser, bool show);
             //CsStructModuleCodeGen:: GenerateCsExpandedArgsMethodForInterface ,806
+            /// <summary>
+            /// Called when the browser wants to move or resize the popup widget. |rect|
+            /// contains the new location and size in view coordinates.
+            /// /*cef()*/
+            /// </summary>
             void OnPopupSize(CefBrowser browser, CefRect rect);
             //CsStructModuleCodeGen:: GenerateCsExpandedArgsMethodForInterface ,807
+            /// <summary>
+            /// Called when an element should be painted. Pixel values passed to this
+            /// method are scaled relative to view coordinates based on the value of
+            /// CefScreenInfo.device_scale_factor returned from GetScreenInfo. |type|
+            /// indicates whether the element is the view or the popup widget. |buffer|
+            /// contains the pixel data for the whole image. |dirtyRects| contains the set
+            /// of rectangles in pixel coordinates that need to be repainted. |buffer| will
+            /// be |width|*|height|*4 bytes in size and represents a BGRA image with an
+            /// upper-left origin.
+            /// /*cef()*/
+            /// </summary>
             void OnPaint(CefBrowser browser, cef_paint_element_type_t type, List<object> dirtyRects, IntPtr buffer, int width, int height);
             //CsStructModuleCodeGen:: GenerateCsExpandedArgsMethodForInterface ,808
+            /// <summary>
+            /// Called when the browser's cursor has changed. If |type| is CT_CUSTOM then
+            /// |custom_cursor_info| will be populated with the custom cursor information.
+            /// /*cef()*/
+            /// </summary>
             void OnCursorChange(CefBrowser browser, IntPtr cursor, cef_cursor_type_t type, CefCursorInfo custom_cursor_info);
             //CsStructModuleCodeGen:: GenerateCsExpandedArgsMethodForInterface ,809
+            /// <summary>
+            /// Called when the user starts dragging content in the web view. Contextual
+            /// information about the dragged content is supplied by |drag_data|.
+            /// (|x|, |y|) is the drag start location in screen coordinates.
+            /// OS APIs that run a system message loop may be used within the
+            /// StartDragging call.
+            ///
+            /// Return false to abort the drag operation. Don't call any of
+            /// CefBrowserHost::DragSource*Ended* methods after returning false.
+            ///
+            /// Return true to handle the drag operation. Call
+            /// CefBrowserHost::DragSourceEndedAt and DragSourceSystemDragEnded either
+            /// synchronously or asynchronously to inform the web view that the drag
+            /// operation has ended.
+            /// /*cef()*/
+            /// </summary>
             bool StartDragging(CefBrowser browser, CefDragData drag_data, cef_drag_operations_mask_t allowed_ops, int x, int y);
             //CsStructModuleCodeGen:: GenerateCsExpandedArgsMethodForInterface ,810
+            /// <summary>
+            /// Called when the web view wants to update the mouse cursor during a
+            /// drag & drop operation. |operation| describes the allowed operation
+            /// (none, move, copy, link).
+            /// /*cef()*/
+            /// </summary>
             void UpdateDragCursor(CefBrowser browser, cef_drag_operations_mask_t operation);
             //CsStructModuleCodeGen:: GenerateCsExpandedArgsMethodForInterface ,811
+            /// <summary>
+            /// Called when the scroll offset has changed.
+            /// /*cef()*/
+            /// </summary>
             void OnScrollOffsetChanged(CefBrowser browser, double x, double y);
             //CsStructModuleCodeGen:: GenerateCsExpandedArgsMethodForInterface ,812
+            /// <summary>
+            /// Called when the IME composition range has changed. |selected_range| is the
+            /// range of characters that have been selected. |character_bounds| is the
+            /// bounds of each character in view coordinates.
+            /// /*cef()*/
+            /// </summary>
             void OnImeCompositionRangeChanged(CefBrowser browser, CefRange selected_range, List<object> character_bounds);
         }
         //CsStructModuleCodeGen::GenerateHandleNativeReqTable ,813
@@ -5842,6 +7480,13 @@ namespace LayoutFarm.CefBridge.Auto
         const int CefRenderProcessHandlerExt_OnProcessMessageReceived_11 = 11;
         //gen! void OnRenderThreadCreated(CefRefPtr<CefListValue> extra_info)
         //CsStructModuleCodeGen:: GenerateCsMethodArgsClass ,855
+        /// <summary>
+        /// Called after the render process main thread has been created. |extra_info|
+        /// is a read-only value originating from
+        /// CefBrowserProcessHandler::OnRenderProcessThreadCreated(). Do not keep a
+        /// reference to |extra_info| outside of this method.
+        /// /*cef()*/
+        /// </summary>
         public struct OnRenderThreadCreatedArgs
         {
             IntPtr nativePtr; //met arg native ptr
@@ -5880,6 +7525,10 @@ namespace LayoutFarm.CefBridge.Auto
         }
         //gen! void OnWebKitInitialized()
         //CsStructModuleCodeGen:: GenerateCsMethodArgsClass ,857
+        /// <summary>
+        /// Called after WebKit has been initialized.
+        /// /*cef()*/
+        /// </summary>
         public struct OnWebKitInitializedArgs
         {
             IntPtr nativePtr; //met arg native ptr
@@ -5910,6 +7559,12 @@ namespace LayoutFarm.CefBridge.Auto
         }
         //gen! void OnBrowserCreated(CefRefPtr<CefBrowser> browser)
         //CsStructModuleCodeGen:: GenerateCsMethodArgsClass ,859
+        /// <summary>
+        /// Called after a browser has been created. When browsing cross-origin a new
+        /// browser will be created before the old browser with the same identifier is
+        /// destroyed.
+        /// /*cef()*/
+        /// </summary>
         public struct OnBrowserCreatedArgs
         {
             IntPtr nativePtr; //met arg native ptr
@@ -5948,6 +7603,10 @@ namespace LayoutFarm.CefBridge.Auto
         }
         //gen! void OnBrowserDestroyed(CefRefPtr<CefBrowser> browser)
         //CsStructModuleCodeGen:: GenerateCsMethodArgsClass ,861
+        /// <summary>
+        /// Called before a browser is destroyed.
+        /// /*cef()*/
+        /// </summary>
         public struct OnBrowserDestroyedArgs
         {
             IntPtr nativePtr; //met arg native ptr
@@ -5986,6 +7645,10 @@ namespace LayoutFarm.CefBridge.Auto
         }
         //gen! CefRefPtr<CefLoadHandler> GetLoadHandler()
         //CsStructModuleCodeGen:: GenerateCsMethodArgsClass ,863
+        /// <summary>
+        /// Return the handler for browser load status events.
+        /// /*cef()*/
+        /// </summary>
         public struct GetLoadHandlerArgs
         {
             IntPtr nativePtr; //met arg native ptr
@@ -6024,6 +7687,12 @@ namespace LayoutFarm.CefBridge.Auto
         }
         //gen! bool OnBeforeNavigation(CefRefPtr<CefBrowser> browser,CefRefPtr<CefFrame> frame,CefRefPtr<CefRequest> request,NavigationType navigation_type,bool is_redirect)
         //CsStructModuleCodeGen:: GenerateCsMethodArgsClass ,865
+        /// <summary>
+        /// Called before browser navigation. Return true to cancel the navigation or
+        /// false to allow the navigation to proceed. The |request| object cannot be
+        /// modified in this callback.
+        /// /*cef()*/
+        /// </summary>
         public struct OnBeforeNavigationArgs
         {
             IntPtr nativePtr; //met arg native ptr
@@ -6102,6 +7771,14 @@ namespace LayoutFarm.CefBridge.Auto
         }
         //gen! void OnContextCreated(CefRefPtr<CefBrowser> browser,CefRefPtr<CefFrame> frame,CefRefPtr<CefV8Context> context)
         //CsStructModuleCodeGen:: GenerateCsMethodArgsClass ,867
+        /// <summary>
+        /// Called immediately after the V8 context for a frame has been created. To
+        /// retrieve the JavaScript 'window' object use the CefV8Context::GetGlobal()
+        /// method. V8 handles can only be accessed from the thread on which they are
+        /// created. A task runner for posting tasks on the associated thread can be
+        /// retrieved via the CefV8Context::GetTaskRunner() method.
+        /// /*cef()*/
+        /// </summary>
         public struct OnContextCreatedArgs
         {
             IntPtr nativePtr; //met arg native ptr
@@ -6156,6 +7833,11 @@ namespace LayoutFarm.CefBridge.Auto
         }
         //gen! void OnContextReleased(CefRefPtr<CefBrowser> browser,CefRefPtr<CefFrame> frame,CefRefPtr<CefV8Context> context)
         //CsStructModuleCodeGen:: GenerateCsMethodArgsClass ,869
+        /// <summary>
+        /// Called immediately before the V8 context for a frame is released. No
+        /// references to the context should be kept after this method is called.
+        /// /*cef()*/
+        /// </summary>
         public struct OnContextReleasedArgs
         {
             IntPtr nativePtr; //met arg native ptr
@@ -6210,6 +7892,12 @@ namespace LayoutFarm.CefBridge.Auto
         }
         //gen! void OnUncaughtException(CefRefPtr<CefBrowser> browser,CefRefPtr<CefFrame> frame,CefRefPtr<CefV8Context> context,CefRefPtr<CefV8Exception> exception,CefRefPtr<CefV8StackTrace> stackTrace)
         //CsStructModuleCodeGen:: GenerateCsMethodArgsClass ,871
+        /// <summary>
+        /// Called for global uncaught exceptions in a frame. Execution of this
+        /// callback is disabled by default. To enable set
+        /// CefSettings.uncaught_exception_stack_size > 0.
+        /// /*cef()*/
+        /// </summary>
         public struct OnUncaughtExceptionArgs
         {
             IntPtr nativePtr; //met arg native ptr
@@ -6280,6 +7968,15 @@ namespace LayoutFarm.CefBridge.Auto
         }
         //gen! void OnFocusedNodeChanged(CefRefPtr<CefBrowser> browser,CefRefPtr<CefFrame> frame,CefRefPtr<CefDOMNode> node)
         //CsStructModuleCodeGen:: GenerateCsMethodArgsClass ,873
+        /// <summary>
+        /// Called when a new node in the the browser gets focus. The |node| value may
+        /// be empty if no specific node has gained focus. The node object passed to
+        /// this method represents a snapshot of the DOM at the time this method is
+        /// executed. DOM objects are only valid for the scope of this method. Do not
+        /// keep references to or attempt to access any DOM objects outside the scope
+        /// of this method.
+        /// /*cef(optional_param=frame,optional_param=node)*/
+        /// </summary>
         public struct OnFocusedNodeChangedArgs
         {
             IntPtr nativePtr; //met arg native ptr
@@ -6334,6 +8031,12 @@ namespace LayoutFarm.CefBridge.Auto
         }
         //gen! bool OnProcessMessageReceived(CefRefPtr<CefBrowser> browser,CefProcessId source_process,CefRefPtr<CefProcessMessage> message)
         //CsStructModuleCodeGen:: GenerateCsMethodArgsClass ,875
+        /// <summary>
+        /// Called when a new message is received from a different process. Return true
+        /// if the message was handled or false otherwise. Do not keep a reference to
+        /// or attempt to access the message outside of this callback.
+        /// /*cef()*/
+        /// </summary>
         public struct OnProcessMessageReceivedArgs
         {
             IntPtr nativePtr; //met arg native ptr
@@ -6397,51 +8100,181 @@ namespace LayoutFarm.CefBridge.Auto
         public interface I0
         {
             //CsStructModuleCodeGen:: GenerateCsSingleArgMethodImplForInterface ,877
+            /// <summary>
+            /// Called after the render process main thread has been created. |extra_info|
+            /// is a read-only value originating from
+            /// CefBrowserProcessHandler::OnRenderProcessThreadCreated(). Do not keep a
+            /// reference to |extra_info| outside of this method.
+            /// /*cef()*/
+            /// </summary>
             void OnRenderThreadCreated(OnRenderThreadCreatedArgs args);
             //CsStructModuleCodeGen:: GenerateCsSingleArgMethodImplForInterface ,878
+            /// <summary>
+            /// Called after WebKit has been initialized.
+            /// /*cef()*/
+            /// </summary>
             void OnWebKitInitialized(OnWebKitInitializedArgs args);
             //CsStructModuleCodeGen:: GenerateCsSingleArgMethodImplForInterface ,879
+            /// <summary>
+            /// Called after a browser has been created. When browsing cross-origin a new
+            /// browser will be created before the old browser with the same identifier is
+            /// destroyed.
+            /// /*cef()*/
+            /// </summary>
             void OnBrowserCreated(OnBrowserCreatedArgs args);
             //CsStructModuleCodeGen:: GenerateCsSingleArgMethodImplForInterface ,880
+            /// <summary>
+            /// Called before a browser is destroyed.
+            /// /*cef()*/
+            /// </summary>
             void OnBrowserDestroyed(OnBrowserDestroyedArgs args);
             //CsStructModuleCodeGen:: GenerateCsSingleArgMethodImplForInterface ,881
+            /// <summary>
+            /// Return the handler for browser load status events.
+            /// /*cef()*/
+            /// </summary>
             void GetLoadHandler(GetLoadHandlerArgs args);
             //CsStructModuleCodeGen:: GenerateCsSingleArgMethodImplForInterface ,882
+            /// <summary>
+            /// Called before browser navigation. Return true to cancel the navigation or
+            /// false to allow the navigation to proceed. The |request| object cannot be
+            /// modified in this callback.
+            /// /*cef()*/
+            /// </summary>
             void OnBeforeNavigation(OnBeforeNavigationArgs args);
             //CsStructModuleCodeGen:: GenerateCsSingleArgMethodImplForInterface ,883
+            /// <summary>
+            /// Called immediately after the V8 context for a frame has been created. To
+            /// retrieve the JavaScript 'window' object use the CefV8Context::GetGlobal()
+            /// method. V8 handles can only be accessed from the thread on which they are
+            /// created. A task runner for posting tasks on the associated thread can be
+            /// retrieved via the CefV8Context::GetTaskRunner() method.
+            /// /*cef()*/
+            /// </summary>
             void OnContextCreated(OnContextCreatedArgs args);
             //CsStructModuleCodeGen:: GenerateCsSingleArgMethodImplForInterface ,884
+            /// <summary>
+            /// Called immediately before the V8 context for a frame is released. No
+            /// references to the context should be kept after this method is called.
+            /// /*cef()*/
+            /// </summary>
             void OnContextReleased(OnContextReleasedArgs args);
             //CsStructModuleCodeGen:: GenerateCsSingleArgMethodImplForInterface ,885
+            /// <summary>
+            /// Called for global uncaught exceptions in a frame. Execution of this
+            /// callback is disabled by default. To enable set
+            /// CefSettings.uncaught_exception_stack_size > 0.
+            /// /*cef()*/
+            /// </summary>
             void OnUncaughtException(OnUncaughtExceptionArgs args);
             //CsStructModuleCodeGen:: GenerateCsSingleArgMethodImplForInterface ,886
+            /// <summary>
+            /// Called when a new node in the the browser gets focus. The |node| value may
+            /// be empty if no specific node has gained focus. The node object passed to
+            /// this method represents a snapshot of the DOM at the time this method is
+            /// executed. DOM objects are only valid for the scope of this method. Do not
+            /// keep references to or attempt to access any DOM objects outside the scope
+            /// of this method.
+            /// /*cef(optional_param=frame,optional_param=node)*/
+            /// </summary>
             void OnFocusedNodeChanged(OnFocusedNodeChangedArgs args);
             //CsStructModuleCodeGen:: GenerateCsSingleArgMethodImplForInterface ,887
+            /// <summary>
+            /// Called when a new message is received from a different process. Return true
+            /// if the message was handled or false otherwise. Do not keep a reference to
+            /// or attempt to access the message outside of this callback.
+            /// /*cef()*/
+            /// </summary>
             void OnProcessMessageReceived(OnProcessMessageReceivedArgs args);
         }
         public interface I1
         {
             //CsStructModuleCodeGen:: GenerateCsExpandedArgsMethodForInterface ,888
+            /// <summary>
+            /// Called after the render process main thread has been created. |extra_info|
+            /// is a read-only value originating from
+            /// CefBrowserProcessHandler::OnRenderProcessThreadCreated(). Do not keep a
+            /// reference to |extra_info| outside of this method.
+            /// /*cef()*/
+            /// </summary>
             void OnRenderThreadCreated(CefListValue extra_info);
             //CsStructModuleCodeGen:: GenerateCsExpandedArgsMethodForInterface ,889
+            /// <summary>
+            /// Called after WebKit has been initialized.
+            /// /*cef()*/
+            /// </summary>
             void OnWebKitInitialized();
             //CsStructModuleCodeGen:: GenerateCsExpandedArgsMethodForInterface ,890
+            /// <summary>
+            /// Called after a browser has been created. When browsing cross-origin a new
+            /// browser will be created before the old browser with the same identifier is
+            /// destroyed.
+            /// /*cef()*/
+            /// </summary>
             void OnBrowserCreated(CefBrowser browser);
             //CsStructModuleCodeGen:: GenerateCsExpandedArgsMethodForInterface ,891
+            /// <summary>
+            /// Called before a browser is destroyed.
+            /// /*cef()*/
+            /// </summary>
             void OnBrowserDestroyed(CefBrowser browser);
             //CsStructModuleCodeGen:: GenerateCsExpandedArgsMethodForInterface ,892
+            /// <summary>
+            /// Return the handler for browser load status events.
+            /// /*cef()*/
+            /// </summary>
             CefLoadHandler GetLoadHandler();
             //CsStructModuleCodeGen:: GenerateCsExpandedArgsMethodForInterface ,893
+            /// <summary>
+            /// Called before browser navigation. Return true to cancel the navigation or
+            /// false to allow the navigation to proceed. The |request| object cannot be
+            /// modified in this callback.
+            /// /*cef()*/
+            /// </summary>
             bool OnBeforeNavigation(CefBrowser browser, CefFrame frame, CefRequest request, cef_navigation_type_t navigation_type, bool is_redirect);
             //CsStructModuleCodeGen:: GenerateCsExpandedArgsMethodForInterface ,894
+            /// <summary>
+            /// Called immediately after the V8 context for a frame has been created. To
+            /// retrieve the JavaScript 'window' object use the CefV8Context::GetGlobal()
+            /// method. V8 handles can only be accessed from the thread on which they are
+            /// created. A task runner for posting tasks on the associated thread can be
+            /// retrieved via the CefV8Context::GetTaskRunner() method.
+            /// /*cef()*/
+            /// </summary>
             void OnContextCreated(CefBrowser browser, CefFrame frame, CefV8Context context);
             //CsStructModuleCodeGen:: GenerateCsExpandedArgsMethodForInterface ,895
+            /// <summary>
+            /// Called immediately before the V8 context for a frame is released. No
+            /// references to the context should be kept after this method is called.
+            /// /*cef()*/
+            /// </summary>
             void OnContextReleased(CefBrowser browser, CefFrame frame, CefV8Context context);
             //CsStructModuleCodeGen:: GenerateCsExpandedArgsMethodForInterface ,896
+            /// <summary>
+            /// Called for global uncaught exceptions in a frame. Execution of this
+            /// callback is disabled by default. To enable set
+            /// CefSettings.uncaught_exception_stack_size > 0.
+            /// /*cef()*/
+            /// </summary>
             void OnUncaughtException(CefBrowser browser, CefFrame frame, CefV8Context context, CefV8Exception exception, CefV8StackTrace stackTrace);
             //CsStructModuleCodeGen:: GenerateCsExpandedArgsMethodForInterface ,897
+            /// <summary>
+            /// Called when a new node in the the browser gets focus. The |node| value may
+            /// be empty if no specific node has gained focus. The node object passed to
+            /// this method represents a snapshot of the DOM at the time this method is
+            /// executed. DOM objects are only valid for the scope of this method. Do not
+            /// keep references to or attempt to access any DOM objects outside the scope
+            /// of this method.
+            /// /*cef(optional_param=frame,optional_param=node)*/
+            /// </summary>
             void OnFocusedNodeChanged(CefBrowser browser, CefFrame frame, CefDOMNode node);
             //CsStructModuleCodeGen:: GenerateCsExpandedArgsMethodForInterface ,898
+            /// <summary>
+            /// Called when a new message is received from a different process. Return true
+            /// if the message was handled or false otherwise. Do not keep a reference to
+            /// or attempt to access the message outside of this callback.
+            /// /*cef()*/
+            /// </summary>
             bool OnProcessMessageReceived(CefBrowser browser, cef_process_id_t source_process, CefProcessMessage message);
         }
         //CsStructModuleCodeGen::GenerateHandleNativeReqTable ,899
@@ -6744,6 +8577,12 @@ namespace LayoutFarm.CefBridge.Auto
         const int CefRequestContextHandlerExt_OnBeforePluginLoad_2 = 2;
         //gen! CefRefPtr<CefCookieManager> GetCookieManager()
         //CsStructModuleCodeGen:: GenerateCsMethodArgsClass ,935
+        /// <summary>
+        /// Called on the browser process IO thread to retrieve the cookie manager. If
+        /// this method returns NULL the default cookie manager retrievable via
+        /// CefRequestContext::GetDefaultCookieManager() will be used.
+        /// /*cef()*/
+        /// </summary>
         public struct GetCookieManagerArgs
         {
             IntPtr nativePtr; //met arg native ptr
@@ -6782,6 +8621,25 @@ namespace LayoutFarm.CefBridge.Auto
         }
         //gen! bool OnBeforePluginLoad(const CefString& mime_type,const CefString& plugin_url,bool is_main_frame,const CefString& top_origin_url,CefRefPtr<CefWebPluginInfo> plugin_info,PluginPolicy* plugin_policy)
         //CsStructModuleCodeGen:: GenerateCsMethodArgsClass ,937
+        /// <summary>
+        /// Called on multiple browser process threads before a plugin instance is
+        /// loaded. |mime_type| is the mime type of the plugin that will be loaded.
+        /// |plugin_url| is the content URL that the plugin will load and may be empty.
+        /// |is_main_frame| will be true if the plugin is being loaded in the main
+        /// (top-level) frame, |top_origin_url| is the URL for the top-level frame that
+        /// contains the plugin when loading a specific plugin instance or empty when
+        /// building the initial list of enabled plugins for 'navigator.plugins'
+        /// JavaScript state. |plugin_info| includes additional information about the
+        /// plugin that will be loaded. |plugin_policy| is the recommended policy.
+        /// Modify |plugin_policy| and return true to change the policy. Return false
+        /// to use the recommended policy. The default plugin policy can be set at
+        /// runtime using the `--plugin-policy=[allow|detect|block]` command-line flag.
+        /// Decisions to mark a plugin as disabled by setting |plugin_policy| to
+        /// PLUGIN_POLICY_DISABLED may be cached when |top_origin_url| is empty. To
+        /// purge the plugin list cache and potentially trigger new calls to this
+        /// method call CefRequestContext::PurgePluginListCache.
+        /// /*cef(optional_param=plugin_url,optional_param=top_origin_url)*/
+        /// </summary>
         public struct OnBeforePluginLoadArgs
         {
             IntPtr nativePtr; //met arg native ptr
@@ -6869,15 +8727,65 @@ namespace LayoutFarm.CefBridge.Auto
         public interface I0
         {
             //CsStructModuleCodeGen:: GenerateCsSingleArgMethodImplForInterface ,939
+            /// <summary>
+            /// Called on the browser process IO thread to retrieve the cookie manager. If
+            /// this method returns NULL the default cookie manager retrievable via
+            /// CefRequestContext::GetDefaultCookieManager() will be used.
+            /// /*cef()*/
+            /// </summary>
             void GetCookieManager(GetCookieManagerArgs args);
             //CsStructModuleCodeGen:: GenerateCsSingleArgMethodImplForInterface ,940
+            /// <summary>
+            /// Called on multiple browser process threads before a plugin instance is
+            /// loaded. |mime_type| is the mime type of the plugin that will be loaded.
+            /// |plugin_url| is the content URL that the plugin will load and may be empty.
+            /// |is_main_frame| will be true if the plugin is being loaded in the main
+            /// (top-level) frame, |top_origin_url| is the URL for the top-level frame that
+            /// contains the plugin when loading a specific plugin instance or empty when
+            /// building the initial list of enabled plugins for 'navigator.plugins'
+            /// JavaScript state. |plugin_info| includes additional information about the
+            /// plugin that will be loaded. |plugin_policy| is the recommended policy.
+            /// Modify |plugin_policy| and return true to change the policy. Return false
+            /// to use the recommended policy. The default plugin policy can be set at
+            /// runtime using the `--plugin-policy=[allow|detect|block]` command-line flag.
+            /// Decisions to mark a plugin as disabled by setting |plugin_policy| to
+            /// PLUGIN_POLICY_DISABLED may be cached when |top_origin_url| is empty. To
+            /// purge the plugin list cache and potentially trigger new calls to this
+            /// method call CefRequestContext::PurgePluginListCache.
+            /// /*cef(optional_param=plugin_url,optional_param=top_origin_url)*/
+            /// </summary>
             void OnBeforePluginLoad(OnBeforePluginLoadArgs args);
         }
         public interface I1
         {
             //CsStructModuleCodeGen:: GenerateCsExpandedArgsMethodForInterface ,941
+            /// <summary>
+            /// Called on the browser process IO thread to retrieve the cookie manager. If
+            /// this method returns NULL the default cookie manager retrievable via
+            /// CefRequestContext::GetDefaultCookieManager() will be used.
+            /// /*cef()*/
+            /// </summary>
             CefCookieManager GetCookieManager();
             //CsStructModuleCodeGen:: GenerateCsExpandedArgsMethodForInterface ,942
+            /// <summary>
+            /// Called on multiple browser process threads before a plugin instance is
+            /// loaded. |mime_type| is the mime type of the plugin that will be loaded.
+            /// |plugin_url| is the content URL that the plugin will load and may be empty.
+            /// |is_main_frame| will be true if the plugin is being loaded in the main
+            /// (top-level) frame, |top_origin_url| is the URL for the top-level frame that
+            /// contains the plugin when loading a specific plugin instance or empty when
+            /// building the initial list of enabled plugins for 'navigator.plugins'
+            /// JavaScript state. |plugin_info| includes additional information about the
+            /// plugin that will be loaded. |plugin_policy| is the recommended policy.
+            /// Modify |plugin_policy| and return true to change the policy. Return false
+            /// to use the recommended policy. The default plugin policy can be set at
+            /// runtime using the `--plugin-policy=[allow|detect|block]` command-line flag.
+            /// Decisions to mark a plugin as disabled by setting |plugin_policy| to
+            /// PLUGIN_POLICY_DISABLED may be cached when |top_origin_url| is empty. To
+            /// purge the plugin list cache and potentially trigger new calls to this
+            /// method call CefRequestContext::PurgePluginListCache.
+            /// /*cef(optional_param=plugin_url,optional_param=top_origin_url)*/
+            /// </summary>
             bool OnBeforePluginLoad(string mime_type, string plugin_url, bool is_main_frame, string top_origin_url, CefWebPluginInfo plugin_info, cef_plugin_policy_t plugin_policy);
         }
         //CsStructModuleCodeGen::GenerateHandleNativeReqTable ,943
@@ -6976,6 +8884,17 @@ namespace LayoutFarm.CefBridge.Auto
         const int CefRequestHandlerExt_OnRenderProcessTerminated_16 = 16;
         //gen! bool OnBeforeBrowse(CefRefPtr<CefBrowser> browser,CefRefPtr<CefFrame> frame,CefRefPtr<CefRequest> request,bool is_redirect)
         //CsStructModuleCodeGen:: GenerateCsMethodArgsClass ,952
+        /// <summary>
+        /// Called on the UI thread before browser navigation. Return true to cancel
+        /// the navigation or false to allow the navigation to proceed. The |request|
+        /// object cannot be modified in this callback.
+        /// CefLoadHandler::OnLoadingStateChange will be called twice in all cases.
+        /// If the navigation is allowed CefLoadHandler::OnLoadStart and
+        /// CefLoadHandler::OnLoadEnd will be called. If the navigation is canceled
+        /// CefLoadHandler::OnLoadError will be called with an |errorCode| value of
+        /// ERR_ABORTED.
+        /// /*cef()*/
+        /// </summary>
         public struct OnBeforeBrowseArgs
         {
             IntPtr nativePtr; //met arg native ptr
@@ -7046,6 +8965,23 @@ namespace LayoutFarm.CefBridge.Auto
         }
         //gen! bool OnOpenURLFromTab(CefRefPtr<CefBrowser> browser,CefRefPtr<CefFrame> frame,const CefString& target_url,WindowOpenDisposition target_disposition,bool user_gesture)
         //CsStructModuleCodeGen:: GenerateCsMethodArgsClass ,954
+        /// <summary>
+        /// Called on the UI thread before OnBeforeBrowse in certain limited cases
+        /// where navigating a new or different browser might be desirable. This
+        /// includes user-initiated navigation that might open in a special way (e.g.
+        /// links clicked via middle-click or ctrl + left-click) and certain types of
+        /// cross-origin navigation initiated from the renderer process (e.g.
+        /// navigating the top-level frame to/from a file URL). The |browser| and
+        /// |frame| values represent the source of the navigation. The
+        /// |target_disposition| value indicates where the user intended to navigate
+        /// the browser based on standard Chromium behaviors (e.g. current tab,
+        /// new tab, etc). The |user_gesture| value will be true if the browser
+        /// navigated via explicit user gesture (e.g. clicking a link) or false if it
+        /// navigated automatically (e.g. via the DomContentLoaded event). Return true
+        /// to cancel the navigation or false to allow the navigation to proceed in the
+        /// source browser's top-level frame.
+        /// /*cef()*/
+        /// </summary>
         public struct OnOpenURLFromTabArgs
         {
             IntPtr nativePtr; //met arg native ptr
@@ -7124,6 +9060,15 @@ namespace LayoutFarm.CefBridge.Auto
         }
         //gen! ReturnValue OnBeforeResourceLoad(CefRefPtr<CefBrowser> browser,CefRefPtr<CefFrame> frame,CefRefPtr<CefRequest> request,CefRefPtr<CefRequestCallback> callback)
         //CsStructModuleCodeGen:: GenerateCsMethodArgsClass ,956
+        /// <summary>
+        /// Called on the IO thread before a resource request is loaded. The |request|
+        /// object may be modified. Return RV_CONTINUE to continue the request
+        /// immediately. Return RV_CONTINUE_ASYNC and call CefRequestCallback::
+        /// Continue() at a later time to continue or cancel the request
+        /// asynchronously. Return RV_CANCEL to cancel the request immediately.
+        ///
+        /// /*cef(default_retval=RV_CONTINUE)*/
+        /// </summary>
         public struct OnBeforeResourceLoadArgs
         {
             IntPtr nativePtr; //met arg native ptr
@@ -7194,6 +9139,13 @@ namespace LayoutFarm.CefBridge.Auto
         }
         //gen! CefRefPtr<CefResourceHandler> GetResourceHandler(CefRefPtr<CefBrowser> browser,CefRefPtr<CefFrame> frame,CefRefPtr<CefRequest> request)
         //CsStructModuleCodeGen:: GenerateCsMethodArgsClass ,958
+        /// <summary>
+        /// Called on the IO thread before a resource is loaded. To allow the resource
+        /// to load normally return NULL. To specify a handler for the resource return
+        /// a CefResourceHandler object. The |request| object should not be modified in
+        /// this callback.
+        /// /*cef()*/
+        /// </summary>
         public struct GetResourceHandlerArgs
         {
             IntPtr nativePtr; //met arg native ptr
@@ -7256,6 +9208,15 @@ namespace LayoutFarm.CefBridge.Auto
         }
         //gen! void OnResourceRedirect(CefRefPtr<CefBrowser> browser,CefRefPtr<CefFrame> frame,CefRefPtr<CefRequest> request,CefRefPtr<CefResponse> response,CefString& new_url)
         //CsStructModuleCodeGen:: GenerateCsMethodArgsClass ,960
+        /// <summary>
+        /// Called on the IO thread when a resource load is redirected. The |request|
+        /// parameter will contain the old URL and other request-related information.
+        /// The |response| parameter will contain the response that resulted in the
+        /// redirect. The |new_url| parameter will contain the new URL and can be
+        /// changed if desired. The |request| object cannot be modified in this
+        /// callback.
+        /// /*cef()*/
+        /// </summary>
         public struct OnResourceRedirectArgs
         {
             IntPtr nativePtr; //met arg native ptr
@@ -7326,6 +9287,13 @@ namespace LayoutFarm.CefBridge.Auto
         }
         //gen! bool OnResourceResponse(CefRefPtr<CefBrowser> browser,CefRefPtr<CefFrame> frame,CefRefPtr<CefRequest> request,CefRefPtr<CefResponse> response)
         //CsStructModuleCodeGen:: GenerateCsMethodArgsClass ,962
+        /// <summary>
+        /// Called on the IO thread when a resource response is received. To allow the
+        /// resource to load normally return false. To redirect or retry the resource
+        /// modify |request| (url, headers or post body) and return true. The
+        /// |response| object cannot be modified in this callback.
+        /// /*cef()*/
+        /// </summary>
         public struct OnResourceResponseArgs
         {
             IntPtr nativePtr; //met arg native ptr
@@ -7396,6 +9364,12 @@ namespace LayoutFarm.CefBridge.Auto
         }
         //gen! CefRefPtr<CefResponseFilter> GetResourceResponseFilter(CefRefPtr<CefBrowser> browser,CefRefPtr<CefFrame> frame,CefRefPtr<CefRequest> request,CefRefPtr<CefResponse> response)
         //CsStructModuleCodeGen:: GenerateCsMethodArgsClass ,964
+        /// <summary>
+        /// Called on the IO thread to optionally filter resource response content.
+        /// |request| and |response| represent the request and response respectively
+        /// and cannot be modified in this callback.
+        /// /*cef()*/
+        /// </summary>
         public struct GetResourceResponseFilterArgs
         {
             IntPtr nativePtr; //met arg native ptr
@@ -7466,6 +9440,13 @@ namespace LayoutFarm.CefBridge.Auto
         }
         //gen! void OnResourceLoadComplete(CefRefPtr<CefBrowser> browser,CefRefPtr<CefFrame> frame,CefRefPtr<CefRequest> request,CefRefPtr<CefResponse> response,URLRequestStatus status,int64 received_content_length)
         //CsStructModuleCodeGen:: GenerateCsMethodArgsClass ,966
+        /// <summary>
+        /// Called on the IO thread when a resource load has completed. |request| and
+        /// |response| represent the request and response respectively and cannot be
+        /// modified in this callback. |status| indicates the load completion status.
+        /// |received_content_length| is the number of response bytes actually read.
+        /// /*cef()*/
+        /// </summary>
         public struct OnResourceLoadCompleteArgs
         {
             IntPtr nativePtr; //met arg native ptr
@@ -7544,6 +9525,18 @@ namespace LayoutFarm.CefBridge.Auto
         }
         //gen! bool GetAuthCredentials(CefRefPtr<CefBrowser> browser,CefRefPtr<CefFrame> frame,bool isProxy,const CefString& host,int port,const CefString& realm,const CefString& scheme,CefRefPtr<CefAuthCallback> callback)
         //CsStructModuleCodeGen:: GenerateCsMethodArgsClass ,968
+        /// <summary>
+        /// Called on the IO thread when the browser needs credentials from the user.
+        /// |isProxy| indicates whether the host is a proxy server. |host| contains the
+        /// hostname and |port| contains the port number. |realm| is the realm of the
+        /// challenge and may be empty. |scheme| is the authentication scheme used,
+        /// such as "basic" or "digest", and will be empty if the source of the request
+        /// is an FTP server. Return true to continue the request and call
+        /// CefAuthCallback::Continue() either in this method or at a later time when
+        /// the authentication information is available. Return false to cancel the
+        /// request immediately.
+        /// /*cef(optional_param=realm,optional_param=scheme)*/
+        /// </summary>
         public struct GetAuthCredentialsArgs
         {
             IntPtr nativePtr; //met arg native ptr
@@ -7646,6 +9639,15 @@ namespace LayoutFarm.CefBridge.Auto
         }
         //gen! bool OnQuotaRequest(CefRefPtr<CefBrowser> browser,const CefString& origin_url,int64 new_size,CefRefPtr<CefRequestCallback> callback)
         //CsStructModuleCodeGen:: GenerateCsMethodArgsClass ,970
+        /// <summary>
+        /// Called on the IO thread when JavaScript requests a specific storage quota
+        /// size via the webkitStorageInfo.requestQuota function. |origin_url| is the
+        /// origin of the page making the request. |new_size| is the requested quota
+        /// size in bytes. Return true to continue the request and call
+        /// CefRequestCallback::Continue() either in this method or at a later time to
+        /// grant or deny the request. Return false to cancel the request immediately.
+        /// /*cef()*/
+        /// </summary>
         public struct OnQuotaRequestArgs
         {
             IntPtr nativePtr; //met arg native ptr
@@ -7716,6 +9718,14 @@ namespace LayoutFarm.CefBridge.Auto
         }
         //gen! void OnProtocolExecution(CefRefPtr<CefBrowser> browser,const CefString& url,bool& allow_os_execution)
         //CsStructModuleCodeGen:: GenerateCsMethodArgsClass ,972
+        /// <summary>
+        /// Called on the UI thread to handle requests for URLs with an unknown
+        /// protocol component. Set |allow_os_execution| to true to attempt execution
+        /// via the registered OS protocol handler, if any.
+        /// SECURITY WARNING: YOU SHOULD USE THIS METHOD TO ENFORCE RESTRICTIONS BASED
+        /// ON SCHEME, HOST OR OTHER URL ANALYSIS BEFORE ALLOWING OS EXECUTION.
+        /// /*cef()*/
+        /// </summary>
         public struct OnProtocolExecutionArgs
         {
             IntPtr nativePtr; //met arg native ptr
@@ -7774,6 +9784,15 @@ namespace LayoutFarm.CefBridge.Auto
         }
         //gen! bool OnCertificateError(CefRefPtr<CefBrowser> browser,cef_errorcode_t cert_error,const CefString& request_url,CefRefPtr<CefSSLInfo> ssl_info,CefRefPtr<CefRequestCallback> callback)
         //CsStructModuleCodeGen:: GenerateCsMethodArgsClass ,974
+        /// <summary>
+        /// Called on the UI thread to handle requests for URLs with an invalid
+        /// SSL certificate. Return true and call CefRequestCallback::Continue() either
+        /// in this method or at a later time to continue or cancel the request. Return
+        /// false to cancel the request immediately. If
+        /// CefSettings.ignore_certificate_errors is set all invalid certificates will
+        /// be accepted without calling this method.
+        /// /*cef()*/
+        /// </summary>
         public struct OnCertificateErrorArgs
         {
             IntPtr nativePtr; //met arg native ptr
@@ -7852,6 +9871,19 @@ namespace LayoutFarm.CefBridge.Auto
         }
         //gen! bool OnSelectClientCertificate(CefRefPtr<CefBrowser> browser,bool isProxy,const CefString& host,int port,const X509CertificateList& certificates,CefRefPtr<CefSelectClientCertificateCallback> callback)
         //CsStructModuleCodeGen:: GenerateCsMethodArgsClass ,976
+        /// <summary>
+        /// Called on the UI thread when a client certificate is being requested for
+        /// authentication. Return false to use the default behavior and automatically
+        /// select the first certificate available. Return true and call
+        /// CefSelectClientCertificateCallback::Select either in this method or at a
+        /// later time to select a certificate. Do not call Select or call it with NULL
+        /// to continue without using any certificate. |isProxy| indicates whether the
+        /// host is an HTTPS proxy or the origin server. |host| and |port| contains the
+        /// hostname and port of the SSL server. |certificates| is the list of
+        /// certificates to choose from; this list has already been pruned by Chromium
+        /// so that it only contains certificates from issuers that the server trusts.
+        /// /*cef()*/
+        /// </summary>
         public struct OnSelectClientCertificateArgs
         {
             IntPtr nativePtr; //met arg native ptr
@@ -7935,6 +9967,11 @@ namespace LayoutFarm.CefBridge.Auto
         }
         //gen! void OnPluginCrashed(CefRefPtr<CefBrowser> browser,const CefString& plugin_path)
         //CsStructModuleCodeGen:: GenerateCsMethodArgsClass ,978
+        /// <summary>
+        /// Called on the browser process UI thread when a plugin has crashed.
+        /// |plugin_path| is the path of the plugin that crashed.
+        /// /*cef()*/
+        /// </summary>
         public struct OnPluginCrashedArgs
         {
             IntPtr nativePtr; //met arg native ptr
@@ -7981,6 +10018,12 @@ namespace LayoutFarm.CefBridge.Auto
         }
         //gen! void OnRenderViewReady(CefRefPtr<CefBrowser> browser)
         //CsStructModuleCodeGen:: GenerateCsMethodArgsClass ,980
+        /// <summary>
+        /// Called on the browser process UI thread when the render view associated
+        /// with |browser| is ready to receive/handle IPC messages in the render
+        /// process.
+        /// /*cef()*/
+        /// </summary>
         public struct OnRenderViewReadyArgs
         {
             IntPtr nativePtr; //met arg native ptr
@@ -8019,6 +10062,12 @@ namespace LayoutFarm.CefBridge.Auto
         }
         //gen! void OnRenderProcessTerminated(CefRefPtr<CefBrowser> browser,TerminationStatus status)
         //CsStructModuleCodeGen:: GenerateCsMethodArgsClass ,982
+        /// <summary>
+        /// Called on the browser process UI thread when the render process
+        /// terminates unexpectedly. |status| indicates how the process
+        /// terminated.
+        /// /*cef()*/
+        /// </summary>
         public struct OnRenderProcessTerminatedArgs
         {
             IntPtr nativePtr; //met arg native ptr
@@ -8066,71 +10115,353 @@ namespace LayoutFarm.CefBridge.Auto
         public interface I0
         {
             //CsStructModuleCodeGen:: GenerateCsSingleArgMethodImplForInterface ,984
+            /// <summary>
+            /// Called on the UI thread before browser navigation. Return true to cancel
+            /// the navigation or false to allow the navigation to proceed. The |request|
+            /// object cannot be modified in this callback.
+            /// CefLoadHandler::OnLoadingStateChange will be called twice in all cases.
+            /// If the navigation is allowed CefLoadHandler::OnLoadStart and
+            /// CefLoadHandler::OnLoadEnd will be called. If the navigation is canceled
+            /// CefLoadHandler::OnLoadError will be called with an |errorCode| value of
+            /// ERR_ABORTED.
+            /// /*cef()*/
+            /// </summary>
             void OnBeforeBrowse(OnBeforeBrowseArgs args);
             //CsStructModuleCodeGen:: GenerateCsSingleArgMethodImplForInterface ,985
+            /// <summary>
+            /// Called on the UI thread before OnBeforeBrowse in certain limited cases
+            /// where navigating a new or different browser might be desirable. This
+            /// includes user-initiated navigation that might open in a special way (e.g.
+            /// links clicked via middle-click or ctrl + left-click) and certain types of
+            /// cross-origin navigation initiated from the renderer process (e.g.
+            /// navigating the top-level frame to/from a file URL). The |browser| and
+            /// |frame| values represent the source of the navigation. The
+            /// |target_disposition| value indicates where the user intended to navigate
+            /// the browser based on standard Chromium behaviors (e.g. current tab,
+            /// new tab, etc). The |user_gesture| value will be true if the browser
+            /// navigated via explicit user gesture (e.g. clicking a link) or false if it
+            /// navigated automatically (e.g. via the DomContentLoaded event). Return true
+            /// to cancel the navigation or false to allow the navigation to proceed in the
+            /// source browser's top-level frame.
+            /// /*cef()*/
+            /// </summary>
             void OnOpenURLFromTab(OnOpenURLFromTabArgs args);
             //CsStructModuleCodeGen:: GenerateCsSingleArgMethodImplForInterface ,986
+            /// <summary>
+            /// Called on the IO thread before a resource request is loaded. The |request|
+            /// object may be modified. Return RV_CONTINUE to continue the request
+            /// immediately. Return RV_CONTINUE_ASYNC and call CefRequestCallback::
+            /// Continue() at a later time to continue or cancel the request
+            /// asynchronously. Return RV_CANCEL to cancel the request immediately.
+            ///
+            /// /*cef(default_retval=RV_CONTINUE)*/
+            /// </summary>
             void OnBeforeResourceLoad(OnBeforeResourceLoadArgs args);
             //CsStructModuleCodeGen:: GenerateCsSingleArgMethodImplForInterface ,987
+            /// <summary>
+            /// Called on the IO thread before a resource is loaded. To allow the resource
+            /// to load normally return NULL. To specify a handler for the resource return
+            /// a CefResourceHandler object. The |request| object should not be modified in
+            /// this callback.
+            /// /*cef()*/
+            /// </summary>
             void GetResourceHandler(GetResourceHandlerArgs args);
             //CsStructModuleCodeGen:: GenerateCsSingleArgMethodImplForInterface ,988
+            /// <summary>
+            /// Called on the IO thread when a resource load is redirected. The |request|
+            /// parameter will contain the old URL and other request-related information.
+            /// The |response| parameter will contain the response that resulted in the
+            /// redirect. The |new_url| parameter will contain the new URL and can be
+            /// changed if desired. The |request| object cannot be modified in this
+            /// callback.
+            /// /*cef()*/
+            /// </summary>
             void OnResourceRedirect(OnResourceRedirectArgs args);
             //CsStructModuleCodeGen:: GenerateCsSingleArgMethodImplForInterface ,989
+            /// <summary>
+            /// Called on the IO thread when a resource response is received. To allow the
+            /// resource to load normally return false. To redirect or retry the resource
+            /// modify |request| (url, headers or post body) and return true. The
+            /// |response| object cannot be modified in this callback.
+            /// /*cef()*/
+            /// </summary>
             void OnResourceResponse(OnResourceResponseArgs args);
             //CsStructModuleCodeGen:: GenerateCsSingleArgMethodImplForInterface ,990
+            /// <summary>
+            /// Called on the IO thread to optionally filter resource response content.
+            /// |request| and |response| represent the request and response respectively
+            /// and cannot be modified in this callback.
+            /// /*cef()*/
+            /// </summary>
             void GetResourceResponseFilter(GetResourceResponseFilterArgs args);
             //CsStructModuleCodeGen:: GenerateCsSingleArgMethodImplForInterface ,991
+            /// <summary>
+            /// Called on the IO thread when a resource load has completed. |request| and
+            /// |response| represent the request and response respectively and cannot be
+            /// modified in this callback. |status| indicates the load completion status.
+            /// |received_content_length| is the number of response bytes actually read.
+            /// /*cef()*/
+            /// </summary>
             void OnResourceLoadComplete(OnResourceLoadCompleteArgs args);
             //CsStructModuleCodeGen:: GenerateCsSingleArgMethodImplForInterface ,992
+            /// <summary>
+            /// Called on the IO thread when the browser needs credentials from the user.
+            /// |isProxy| indicates whether the host is a proxy server. |host| contains the
+            /// hostname and |port| contains the port number. |realm| is the realm of the
+            /// challenge and may be empty. |scheme| is the authentication scheme used,
+            /// such as "basic" or "digest", and will be empty if the source of the request
+            /// is an FTP server. Return true to continue the request and call
+            /// CefAuthCallback::Continue() either in this method or at a later time when
+            /// the authentication information is available. Return false to cancel the
+            /// request immediately.
+            /// /*cef(optional_param=realm,optional_param=scheme)*/
+            /// </summary>
             void GetAuthCredentials(GetAuthCredentialsArgs args);
             //CsStructModuleCodeGen:: GenerateCsSingleArgMethodImplForInterface ,993
+            /// <summary>
+            /// Called on the IO thread when JavaScript requests a specific storage quota
+            /// size via the webkitStorageInfo.requestQuota function. |origin_url| is the
+            /// origin of the page making the request. |new_size| is the requested quota
+            /// size in bytes. Return true to continue the request and call
+            /// CefRequestCallback::Continue() either in this method or at a later time to
+            /// grant or deny the request. Return false to cancel the request immediately.
+            /// /*cef()*/
+            /// </summary>
             void OnQuotaRequest(OnQuotaRequestArgs args);
             //CsStructModuleCodeGen:: GenerateCsSingleArgMethodImplForInterface ,994
+            /// <summary>
+            /// Called on the UI thread to handle requests for URLs with an unknown
+            /// protocol component. Set |allow_os_execution| to true to attempt execution
+            /// via the registered OS protocol handler, if any.
+            /// SECURITY WARNING: YOU SHOULD USE THIS METHOD TO ENFORCE RESTRICTIONS BASED
+            /// ON SCHEME, HOST OR OTHER URL ANALYSIS BEFORE ALLOWING OS EXECUTION.
+            /// /*cef()*/
+            /// </summary>
             void OnProtocolExecution(OnProtocolExecutionArgs args);
             //CsStructModuleCodeGen:: GenerateCsSingleArgMethodImplForInterface ,995
+            /// <summary>
+            /// Called on the UI thread to handle requests for URLs with an invalid
+            /// SSL certificate. Return true and call CefRequestCallback::Continue() either
+            /// in this method or at a later time to continue or cancel the request. Return
+            /// false to cancel the request immediately. If
+            /// CefSettings.ignore_certificate_errors is set all invalid certificates will
+            /// be accepted without calling this method.
+            /// /*cef()*/
+            /// </summary>
             void OnCertificateError(OnCertificateErrorArgs args);
             //CsStructModuleCodeGen:: GenerateCsSingleArgMethodImplForInterface ,996
+            /// <summary>
+            /// Called on the UI thread when a client certificate is being requested for
+            /// authentication. Return false to use the default behavior and automatically
+            /// select the first certificate available. Return true and call
+            /// CefSelectClientCertificateCallback::Select either in this method or at a
+            /// later time to select a certificate. Do not call Select or call it with NULL
+            /// to continue without using any certificate. |isProxy| indicates whether the
+            /// host is an HTTPS proxy or the origin server. |host| and |port| contains the
+            /// hostname and port of the SSL server. |certificates| is the list of
+            /// certificates to choose from; this list has already been pruned by Chromium
+            /// so that it only contains certificates from issuers that the server trusts.
+            /// /*cef()*/
+            /// </summary>
             void OnSelectClientCertificate(OnSelectClientCertificateArgs args);
             //CsStructModuleCodeGen:: GenerateCsSingleArgMethodImplForInterface ,997
+            /// <summary>
+            /// Called on the browser process UI thread when a plugin has crashed.
+            /// |plugin_path| is the path of the plugin that crashed.
+            /// /*cef()*/
+            /// </summary>
             void OnPluginCrashed(OnPluginCrashedArgs args);
             //CsStructModuleCodeGen:: GenerateCsSingleArgMethodImplForInterface ,998
+            /// <summary>
+            /// Called on the browser process UI thread when the render view associated
+            /// with |browser| is ready to receive/handle IPC messages in the render
+            /// process.
+            /// /*cef()*/
+            /// </summary>
             void OnRenderViewReady(OnRenderViewReadyArgs args);
             //CsStructModuleCodeGen:: GenerateCsSingleArgMethodImplForInterface ,999
+            /// <summary>
+            /// Called on the browser process UI thread when the render process
+            /// terminates unexpectedly. |status| indicates how the process
+            /// terminated.
+            /// /*cef()*/
+            /// </summary>
             void OnRenderProcessTerminated(OnRenderProcessTerminatedArgs args);
         }
         public interface I1
         {
             //CsStructModuleCodeGen:: GenerateCsExpandedArgsMethodForInterface ,1000
+            /// <summary>
+            /// Called on the UI thread before browser navigation. Return true to cancel
+            /// the navigation or false to allow the navigation to proceed. The |request|
+            /// object cannot be modified in this callback.
+            /// CefLoadHandler::OnLoadingStateChange will be called twice in all cases.
+            /// If the navigation is allowed CefLoadHandler::OnLoadStart and
+            /// CefLoadHandler::OnLoadEnd will be called. If the navigation is canceled
+            /// CefLoadHandler::OnLoadError will be called with an |errorCode| value of
+            /// ERR_ABORTED.
+            /// /*cef()*/
+            /// </summary>
             bool OnBeforeBrowse(CefBrowser browser, CefFrame frame, CefRequest request, bool is_redirect);
             //CsStructModuleCodeGen:: GenerateCsExpandedArgsMethodForInterface ,1001
+            /// <summary>
+            /// Called on the UI thread before OnBeforeBrowse in certain limited cases
+            /// where navigating a new or different browser might be desirable. This
+            /// includes user-initiated navigation that might open in a special way (e.g.
+            /// links clicked via middle-click or ctrl + left-click) and certain types of
+            /// cross-origin navigation initiated from the renderer process (e.g.
+            /// navigating the top-level frame to/from a file URL). The |browser| and
+            /// |frame| values represent the source of the navigation. The
+            /// |target_disposition| value indicates where the user intended to navigate
+            /// the browser based on standard Chromium behaviors (e.g. current tab,
+            /// new tab, etc). The |user_gesture| value will be true if the browser
+            /// navigated via explicit user gesture (e.g. clicking a link) or false if it
+            /// navigated automatically (e.g. via the DomContentLoaded event). Return true
+            /// to cancel the navigation or false to allow the navigation to proceed in the
+            /// source browser's top-level frame.
+            /// /*cef()*/
+            /// </summary>
             bool OnOpenURLFromTab(CefBrowser browser, CefFrame frame, string target_url, cef_window_open_disposition_t target_disposition, bool user_gesture);
             //CsStructModuleCodeGen:: GenerateCsExpandedArgsMethodForInterface ,1002
+            /// <summary>
+            /// Called on the IO thread before a resource request is loaded. The |request|
+            /// object may be modified. Return RV_CONTINUE to continue the request
+            /// immediately. Return RV_CONTINUE_ASYNC and call CefRequestCallback::
+            /// Continue() at a later time to continue or cancel the request
+            /// asynchronously. Return RV_CANCEL to cancel the request immediately.
+            ///
+            /// /*cef(default_retval=RV_CONTINUE)*/
+            /// </summary>
             cef_return_value_t OnBeforeResourceLoad(CefBrowser browser, CefFrame frame, CefRequest request, CefRequestCallback callback);
             //CsStructModuleCodeGen:: GenerateCsExpandedArgsMethodForInterface ,1003
+            /// <summary>
+            /// Called on the IO thread before a resource is loaded. To allow the resource
+            /// to load normally return NULL. To specify a handler for the resource return
+            /// a CefResourceHandler object. The |request| object should not be modified in
+            /// this callback.
+            /// /*cef()*/
+            /// </summary>
             CefResourceHandler GetResourceHandler(CefBrowser browser, CefFrame frame, CefRequest request);
             //CsStructModuleCodeGen:: GenerateCsExpandedArgsMethodForInterface ,1004
+            /// <summary>
+            /// Called on the IO thread when a resource load is redirected. The |request|
+            /// parameter will contain the old URL and other request-related information.
+            /// The |response| parameter will contain the response that resulted in the
+            /// redirect. The |new_url| parameter will contain the new URL and can be
+            /// changed if desired. The |request| object cannot be modified in this
+            /// callback.
+            /// /*cef()*/
+            /// </summary>
             void OnResourceRedirect(CefBrowser browser, CefFrame frame, CefRequest request, CefResponse response, string new_url);
             //CsStructModuleCodeGen:: GenerateCsExpandedArgsMethodForInterface ,1005
+            /// <summary>
+            /// Called on the IO thread when a resource response is received. To allow the
+            /// resource to load normally return false. To redirect or retry the resource
+            /// modify |request| (url, headers or post body) and return true. The
+            /// |response| object cannot be modified in this callback.
+            /// /*cef()*/
+            /// </summary>
             bool OnResourceResponse(CefBrowser browser, CefFrame frame, CefRequest request, CefResponse response);
             //CsStructModuleCodeGen:: GenerateCsExpandedArgsMethodForInterface ,1006
+            /// <summary>
+            /// Called on the IO thread to optionally filter resource response content.
+            /// |request| and |response| represent the request and response respectively
+            /// and cannot be modified in this callback.
+            /// /*cef()*/
+            /// </summary>
             CefResponseFilter GetResourceResponseFilter(CefBrowser browser, CefFrame frame, CefRequest request, CefResponse response);
             //CsStructModuleCodeGen:: GenerateCsExpandedArgsMethodForInterface ,1007
+            /// <summary>
+            /// Called on the IO thread when a resource load has completed. |request| and
+            /// |response| represent the request and response respectively and cannot be
+            /// modified in this callback. |status| indicates the load completion status.
+            /// |received_content_length| is the number of response bytes actually read.
+            /// /*cef()*/
+            /// </summary>
             void OnResourceLoadComplete(CefBrowser browser, CefFrame frame, CefRequest request, CefResponse response, cef_urlrequest_status_t status, long received_content_length);
             //CsStructModuleCodeGen:: GenerateCsExpandedArgsMethodForInterface ,1008
+            /// <summary>
+            /// Called on the IO thread when the browser needs credentials from the user.
+            /// |isProxy| indicates whether the host is a proxy server. |host| contains the
+            /// hostname and |port| contains the port number. |realm| is the realm of the
+            /// challenge and may be empty. |scheme| is the authentication scheme used,
+            /// such as "basic" or "digest", and will be empty if the source of the request
+            /// is an FTP server. Return true to continue the request and call
+            /// CefAuthCallback::Continue() either in this method or at a later time when
+            /// the authentication information is available. Return false to cancel the
+            /// request immediately.
+            /// /*cef(optional_param=realm,optional_param=scheme)*/
+            /// </summary>
             bool GetAuthCredentials(CefBrowser browser, CefFrame frame, bool isProxy, string host, int port, string realm, string scheme, CefAuthCallback callback);
             //CsStructModuleCodeGen:: GenerateCsExpandedArgsMethodForInterface ,1009
+            /// <summary>
+            /// Called on the IO thread when JavaScript requests a specific storage quota
+            /// size via the webkitStorageInfo.requestQuota function. |origin_url| is the
+            /// origin of the page making the request. |new_size| is the requested quota
+            /// size in bytes. Return true to continue the request and call
+            /// CefRequestCallback::Continue() either in this method or at a later time to
+            /// grant or deny the request. Return false to cancel the request immediately.
+            /// /*cef()*/
+            /// </summary>
             bool OnQuotaRequest(CefBrowser browser, string origin_url, long new_size, CefRequestCallback callback);
             //CsStructModuleCodeGen:: GenerateCsExpandedArgsMethodForInterface ,1010
+            /// <summary>
+            /// Called on the UI thread to handle requests for URLs with an unknown
+            /// protocol component. Set |allow_os_execution| to true to attempt execution
+            /// via the registered OS protocol handler, if any.
+            /// SECURITY WARNING: YOU SHOULD USE THIS METHOD TO ENFORCE RESTRICTIONS BASED
+            /// ON SCHEME, HOST OR OTHER URL ANALYSIS BEFORE ALLOWING OS EXECUTION.
+            /// /*cef()*/
+            /// </summary>
             void OnProtocolExecution(CefBrowser browser, string url, ref bool allow_os_execution);
             //CsStructModuleCodeGen:: GenerateCsExpandedArgsMethodForInterface ,1011
+            /// <summary>
+            /// Called on the UI thread to handle requests for URLs with an invalid
+            /// SSL certificate. Return true and call CefRequestCallback::Continue() either
+            /// in this method or at a later time to continue or cancel the request. Return
+            /// false to cancel the request immediately. If
+            /// CefSettings.ignore_certificate_errors is set all invalid certificates will
+            /// be accepted without calling this method.
+            /// /*cef()*/
+            /// </summary>
             bool OnCertificateError(CefBrowser browser, cef_errorcode_t cert_error, string request_url, CefSSLInfo ssl_info, CefRequestCallback callback);
             //CsStructModuleCodeGen:: GenerateCsExpandedArgsMethodForInterface ,1012
+            /// <summary>
+            /// Called on the UI thread when a client certificate is being requested for
+            /// authentication. Return false to use the default behavior and automatically
+            /// select the first certificate available. Return true and call
+            /// CefSelectClientCertificateCallback::Select either in this method or at a
+            /// later time to select a certificate. Do not call Select or call it with NULL
+            /// to continue without using any certificate. |isProxy| indicates whether the
+            /// host is an HTTPS proxy or the origin server. |host| and |port| contains the
+            /// hostname and port of the SSL server. |certificates| is the list of
+            /// certificates to choose from; this list has already been pruned by Chromium
+            /// so that it only contains certificates from issuers that the server trusts.
+            /// /*cef()*/
+            /// </summary>
             bool OnSelectClientCertificate(CefBrowser browser, bool isProxy, string host, int port, List<CefCompositionUnderline> certificates, CefSelectClientCertificateCallback callback);
             //CsStructModuleCodeGen:: GenerateCsExpandedArgsMethodForInterface ,1013
+            /// <summary>
+            /// Called on the browser process UI thread when a plugin has crashed.
+            /// |plugin_path| is the path of the plugin that crashed.
+            /// /*cef()*/
+            /// </summary>
             void OnPluginCrashed(CefBrowser browser, string plugin_path);
             //CsStructModuleCodeGen:: GenerateCsExpandedArgsMethodForInterface ,1014
+            /// <summary>
+            /// Called on the browser process UI thread when the render view associated
+            /// with |browser| is ready to receive/handle IPC messages in the render
+            /// process.
+            /// /*cef()*/
+            /// </summary>
             void OnRenderViewReady(CefBrowser browser);
             //CsStructModuleCodeGen:: GenerateCsExpandedArgsMethodForInterface ,1015
+            /// <summary>
+            /// Called on the browser process UI thread when the render process
+            /// terminates unexpectedly. |status| indicates how the process
+            /// terminated.
+            /// /*cef()*/
+            /// </summary>
             void OnRenderProcessTerminated(CefBrowser browser, cef_termination_status_t status);
         }
         //CsStructModuleCodeGen::GenerateHandleNativeReqTable ,1016
@@ -8585,6 +10916,13 @@ namespace LayoutFarm.CefBridge.Auto
         const int CefResourceBundleHandlerExt_GetDataResourceForScale_3 = 3;
         //gen! bool GetLocalizedString(int string_id,CefString& string)
         //CsStructModuleCodeGen:: GenerateCsMethodArgsClass ,1067
+        /// <summary>
+        /// Called to retrieve a localized translation for the specified |string_id|.
+        /// To provide the translation set |string| to the translation string and
+        /// return true. To use the default translation return false. Include
+        /// cef_pack_strings.h for a listing of valid string ID values.
+        /// /*cef()*/
+        /// </summary>
         public struct GetLocalizedStringArgs
         {
             IntPtr nativePtr; //met arg native ptr
@@ -8639,6 +10977,15 @@ namespace LayoutFarm.CefBridge.Auto
         }
         //gen! bool GetDataResource(int resource_id,void*& data,size_t& data_size)
         //CsStructModuleCodeGen:: GenerateCsMethodArgsClass ,1069
+        /// <summary>
+        /// Called to retrieve data for the specified scale independent |resource_id|.
+        /// To provide the resource data set |data| and |data_size| to the data pointer
+        /// and size respectively and return true. To use the default resource data
+        /// return false. The resource data will not be copied and must remain resident
+        /// in memory. Include cef_pack_resources.h for a listing of valid resource ID
+        /// values.
+        /// /*cef()*/
+        /// </summary>
         public struct GetDataResourceArgs
         {
             IntPtr nativePtr; //met arg native ptr
@@ -8699,6 +11046,15 @@ namespace LayoutFarm.CefBridge.Auto
         }
         //gen! bool GetDataResourceForScale(int resource_id,ScaleFactor scale_factor,void*& data,size_t& data_size)
         //CsStructModuleCodeGen:: GenerateCsMethodArgsClass ,1071
+        /// <summary>
+        /// Called to retrieve data for the specified |resource_id| nearest the scale
+        /// factor |scale_factor|. To provide the resource data set |data| and
+        /// |data_size| to the data pointer and size respectively and return true. To
+        /// use the default resource data return false. The resource data will not be
+        /// copied and must remain resident in memory. Include cef_pack_resources.h for
+        /// a listing of valid resource ID values.
+        /// /*cef()*/
+        /// </summary>
         public struct GetDataResourceForScaleArgs
         {
             IntPtr nativePtr; //met arg native ptr
@@ -8768,19 +11124,69 @@ namespace LayoutFarm.CefBridge.Auto
         public interface I0
         {
             //CsStructModuleCodeGen:: GenerateCsSingleArgMethodImplForInterface ,1073
+            /// <summary>
+            /// Called to retrieve a localized translation for the specified |string_id|.
+            /// To provide the translation set |string| to the translation string and
+            /// return true. To use the default translation return false. Include
+            /// cef_pack_strings.h for a listing of valid string ID values.
+            /// /*cef()*/
+            /// </summary>
             void GetLocalizedString(GetLocalizedStringArgs args);
             //CsStructModuleCodeGen:: GenerateCsSingleArgMethodImplForInterface ,1074
+            /// <summary>
+            /// Called to retrieve data for the specified scale independent |resource_id|.
+            /// To provide the resource data set |data| and |data_size| to the data pointer
+            /// and size respectively and return true. To use the default resource data
+            /// return false. The resource data will not be copied and must remain resident
+            /// in memory. Include cef_pack_resources.h for a listing of valid resource ID
+            /// values.
+            /// /*cef()*/
+            /// </summary>
             void GetDataResource(GetDataResourceArgs args);
             //CsStructModuleCodeGen:: GenerateCsSingleArgMethodImplForInterface ,1075
+            /// <summary>
+            /// Called to retrieve data for the specified |resource_id| nearest the scale
+            /// factor |scale_factor|. To provide the resource data set |data| and
+            /// |data_size| to the data pointer and size respectively and return true. To
+            /// use the default resource data return false. The resource data will not be
+            /// copied and must remain resident in memory. Include cef_pack_resources.h for
+            /// a listing of valid resource ID values.
+            /// /*cef()*/
+            /// </summary>
             void GetDataResourceForScale(GetDataResourceForScaleArgs args);
         }
         public interface I1
         {
             //CsStructModuleCodeGen:: GenerateCsExpandedArgsMethodForInterface ,1076
+            /// <summary>
+            /// Called to retrieve a localized translation for the specified |string_id|.
+            /// To provide the translation set |string| to the translation string and
+            /// return true. To use the default translation return false. Include
+            /// cef_pack_strings.h for a listing of valid string ID values.
+            /// /*cef()*/
+            /// </summary>
             bool GetLocalizedString(int string_id, string _string);
             //CsStructModuleCodeGen:: GenerateCsExpandedArgsMethodForInterface ,1077
+            /// <summary>
+            /// Called to retrieve data for the specified scale independent |resource_id|.
+            /// To provide the resource data set |data| and |data_size| to the data pointer
+            /// and size respectively and return true. To use the default resource data
+            /// return false. The resource data will not be copied and must remain resident
+            /// in memory. Include cef_pack_resources.h for a listing of valid resource ID
+            /// values.
+            /// /*cef()*/
+            /// </summary>
             bool GetDataResource(int resource_id, IntPtr data, ref uint data_size);
             //CsStructModuleCodeGen:: GenerateCsExpandedArgsMethodForInterface ,1078
+            /// <summary>
+            /// Called to retrieve data for the specified |resource_id| nearest the scale
+            /// factor |scale_factor|. To provide the resource data set |data| and
+            /// |data_size| to the data pointer and size respectively and return true. To
+            /// use the default resource data return false. The resource data will not be
+            /// copied and must remain resident in memory. Include cef_pack_resources.h for
+            /// a listing of valid resource ID values.
+            /// /*cef()*/
+            /// </summary>
             bool GetDataResourceForScale(int resource_id, cef_scale_factor_t scale_factor, IntPtr data, ref uint data_size);
         }
         //CsStructModuleCodeGen::GenerateHandleNativeReqTable ,1079
@@ -8897,6 +11303,14 @@ namespace LayoutFarm.CefBridge.Auto
         const int CefResourceHandlerExt_Cancel_6 = 6;
         //gen! bool ProcessRequest(CefRefPtr<CefRequest> request,CefRefPtr<CefCallback> callback)
         //CsStructModuleCodeGen:: GenerateCsMethodArgsClass ,1091
+        /// <summary>
+        /// Begin processing the request. To handle the request return true and call
+        /// CefCallback::Continue() once the response header information is available
+        /// (CefCallback::Continue() can also be called from inside this method if
+        /// header information is available immediately). To cancel the request return
+        /// false.
+        /// /*cef()*/
+        /// </summary>
         public struct ProcessRequestArgs
         {
             IntPtr nativePtr; //met arg native ptr
@@ -8951,6 +11365,18 @@ namespace LayoutFarm.CefBridge.Auto
         }
         //gen! void GetResponseHeaders(CefRefPtr<CefResponse> response,int64& response_length,CefString& redirectUrl)
         //CsStructModuleCodeGen:: GenerateCsMethodArgsClass ,1093
+        /// <summary>
+        /// Retrieve response header information. If the response length is not known
+        /// set |response_length| to -1 and ReadResponse() will be called until it
+        /// returns false. If the response length is known set |response_length|
+        /// to a positive value and ReadResponse() will be called until it returns
+        /// false or the specified number of bytes have been read. Use the |response|
+        /// object to set the mime type, http status code and other optional header
+        /// values. To redirect the request to a new URL set |redirectUrl| to the new
+        /// URL. If an error occured while setting up the request you can call
+        /// SetError() on |response| to indicate the error condition.
+        /// /*cef()*/
+        /// </summary>
         public struct GetResponseHeadersArgs
         {
             IntPtr nativePtr; //met arg native ptr
@@ -9005,6 +11431,14 @@ namespace LayoutFarm.CefBridge.Auto
         }
         //gen! bool ReadResponse(void* data_out,int bytes_to_read,int& bytes_read,CefRefPtr<CefCallback> callback)
         //CsStructModuleCodeGen:: GenerateCsMethodArgsClass ,1095
+        /// <summary>
+        /// Read response data. If data is available immediately copy up to
+        /// |bytes_to_read| bytes into |data_out|, set |bytes_read| to the number of
+        /// bytes copied, and return true. To read the data at a later time set
+        /// |bytes_read| to 0, return true and call CefCallback::Continue() when the
+        /// data is available. To indicate response completion return false.
+        /// /*cef()*/
+        /// </summary>
         public struct ReadResponseArgs
         {
             IntPtr nativePtr; //met arg native ptr
@@ -9073,6 +11507,12 @@ namespace LayoutFarm.CefBridge.Auto
         }
         //gen! bool CanGetCookie(const CefCookie& cookie)
         //CsStructModuleCodeGen:: GenerateCsMethodArgsClass ,1097
+        /// <summary>
+        /// Return true if the specified cookie can be sent with the request or false
+        /// otherwise. If false is returned for any cookie then no cookies will be sent
+        /// with the request.
+        /// /*cef()*/
+        /// </summary>
         public struct CanGetCookieArgs
         {
             IntPtr nativePtr; //met arg native ptr
@@ -9119,6 +11559,11 @@ namespace LayoutFarm.CefBridge.Auto
         }
         //gen! bool CanSetCookie(const CefCookie& cookie)
         //CsStructModuleCodeGen:: GenerateCsMethodArgsClass ,1099
+        /// <summary>
+        /// Return true if the specified cookie returned with the response can be set
+        /// or false otherwise.
+        /// /*cef()*/
+        /// </summary>
         public struct CanSetCookieArgs
         {
             IntPtr nativePtr; //met arg native ptr
@@ -9165,6 +11610,10 @@ namespace LayoutFarm.CefBridge.Auto
         }
         //gen! void Cancel()
         //CsStructModuleCodeGen:: GenerateCsMethodArgsClass ,1101
+        /// <summary>
+        /// Request processing has been canceled.
+        /// /*cef()*/
+        /// </summary>
         public struct CancelArgs
         {
             IntPtr nativePtr; //met arg native ptr
@@ -9196,31 +11645,117 @@ namespace LayoutFarm.CefBridge.Auto
         public interface I0
         {
             //CsStructModuleCodeGen:: GenerateCsSingleArgMethodImplForInterface ,1103
+            /// <summary>
+            /// Begin processing the request. To handle the request return true and call
+            /// CefCallback::Continue() once the response header information is available
+            /// (CefCallback::Continue() can also be called from inside this method if
+            /// header information is available immediately). To cancel the request return
+            /// false.
+            /// /*cef()*/
+            /// </summary>
             void ProcessRequest(ProcessRequestArgs args);
             //CsStructModuleCodeGen:: GenerateCsSingleArgMethodImplForInterface ,1104
+            /// <summary>
+            /// Retrieve response header information. If the response length is not known
+            /// set |response_length| to -1 and ReadResponse() will be called until it
+            /// returns false. If the response length is known set |response_length|
+            /// to a positive value and ReadResponse() will be called until it returns
+            /// false or the specified number of bytes have been read. Use the |response|
+            /// object to set the mime type, http status code and other optional header
+            /// values. To redirect the request to a new URL set |redirectUrl| to the new
+            /// URL. If an error occured while setting up the request you can call
+            /// SetError() on |response| to indicate the error condition.
+            /// /*cef()*/
+            /// </summary>
             void GetResponseHeaders(GetResponseHeadersArgs args);
             //CsStructModuleCodeGen:: GenerateCsSingleArgMethodImplForInterface ,1105
+            /// <summary>
+            /// Read response data. If data is available immediately copy up to
+            /// |bytes_to_read| bytes into |data_out|, set |bytes_read| to the number of
+            /// bytes copied, and return true. To read the data at a later time set
+            /// |bytes_read| to 0, return true and call CefCallback::Continue() when the
+            /// data is available. To indicate response completion return false.
+            /// /*cef()*/
+            /// </summary>
             void ReadResponse(ReadResponseArgs args);
             //CsStructModuleCodeGen:: GenerateCsSingleArgMethodImplForInterface ,1106
+            /// <summary>
+            /// Return true if the specified cookie can be sent with the request or false
+            /// otherwise. If false is returned for any cookie then no cookies will be sent
+            /// with the request.
+            /// /*cef()*/
+            /// </summary>
             void CanGetCookie(CanGetCookieArgs args);
             //CsStructModuleCodeGen:: GenerateCsSingleArgMethodImplForInterface ,1107
+            /// <summary>
+            /// Return true if the specified cookie returned with the response can be set
+            /// or false otherwise.
+            /// /*cef()*/
+            /// </summary>
             void CanSetCookie(CanSetCookieArgs args);
             //CsStructModuleCodeGen:: GenerateCsSingleArgMethodImplForInterface ,1108
+            /// <summary>
+            /// Request processing has been canceled.
+            /// /*cef()*/
+            /// </summary>
             void Cancel(CancelArgs args);
         }
         public interface I1
         {
             //CsStructModuleCodeGen:: GenerateCsExpandedArgsMethodForInterface ,1109
+            /// <summary>
+            /// Begin processing the request. To handle the request return true and call
+            /// CefCallback::Continue() once the response header information is available
+            /// (CefCallback::Continue() can also be called from inside this method if
+            /// header information is available immediately). To cancel the request return
+            /// false.
+            /// /*cef()*/
+            /// </summary>
             bool ProcessRequest(CefRequest request, CefCallback callback);
             //CsStructModuleCodeGen:: GenerateCsExpandedArgsMethodForInterface ,1110
+            /// <summary>
+            /// Retrieve response header information. If the response length is not known
+            /// set |response_length| to -1 and ReadResponse() will be called until it
+            /// returns false. If the response length is known set |response_length|
+            /// to a positive value and ReadResponse() will be called until it returns
+            /// false or the specified number of bytes have been read. Use the |response|
+            /// object to set the mime type, http status code and other optional header
+            /// values. To redirect the request to a new URL set |redirectUrl| to the new
+            /// URL. If an error occured while setting up the request you can call
+            /// SetError() on |response| to indicate the error condition.
+            /// /*cef()*/
+            /// </summary>
             void GetResponseHeaders(CefResponse response, long response_length, string redirectUrl);
             //CsStructModuleCodeGen:: GenerateCsExpandedArgsMethodForInterface ,1111
+            /// <summary>
+            /// Read response data. If data is available immediately copy up to
+            /// |bytes_to_read| bytes into |data_out|, set |bytes_read| to the number of
+            /// bytes copied, and return true. To read the data at a later time set
+            /// |bytes_read| to 0, return true and call CefCallback::Continue() when the
+            /// data is available. To indicate response completion return false.
+            /// /*cef()*/
+            /// </summary>
             bool ReadResponse(IntPtr data_out, int bytes_to_read, ref int bytes_read, CefCallback callback);
             //CsStructModuleCodeGen:: GenerateCsExpandedArgsMethodForInterface ,1112
+            /// <summary>
+            /// Return true if the specified cookie can be sent with the request or false
+            /// otherwise. If false is returned for any cookie then no cookies will be sent
+            /// with the request.
+            /// /*cef()*/
+            /// </summary>
             bool CanGetCookie(CefCookie cookie);
             //CsStructModuleCodeGen:: GenerateCsExpandedArgsMethodForInterface ,1113
+            /// <summary>
+            /// Return true if the specified cookie returned with the response can be set
+            /// or false otherwise.
+            /// /*cef()*/
+            /// </summary>
             bool CanSetCookie(CefCookie cookie);
             //CsStructModuleCodeGen:: GenerateCsExpandedArgsMethodForInterface ,1114
+            /// <summary>
+            /// Request processing has been canceled.
+            /// /*cef()*/
+            /// </summary>
             void Cancel();
         }
         //CsStructModuleCodeGen::GenerateHandleNativeReqTable ,1115
@@ -9403,6 +11938,10 @@ namespace LayoutFarm.CefBridge.Auto
         const int CefReadHandlerExt_MayBlock_5 = 5;
         //gen! size_t Read(void* ptr,size_t size,size_t n)
         //CsStructModuleCodeGen:: GenerateCsMethodArgsClass ,1136
+        /// <summary>
+        /// Read raw binary data.
+        /// /*cef()*/
+        /// </summary>
         public struct ReadArgs
         {
             IntPtr nativePtr; //met arg native ptr
@@ -9462,6 +12001,12 @@ namespace LayoutFarm.CefBridge.Auto
         }
         //gen! int Seek(int64 offset,int whence)
         //CsStructModuleCodeGen:: GenerateCsMethodArgsClass ,1138
+        /// <summary>
+        /// Seek to the specified offset position. |whence| may be any one of
+        /// SEEK_CUR, SEEK_END or SEEK_SET. Return zero on success and non-zero on
+        /// failure.
+        /// /*cef()*/
+        /// </summary>
         public struct SeekArgs
         {
             IntPtr nativePtr; //met arg native ptr
@@ -9516,6 +12061,10 @@ namespace LayoutFarm.CefBridge.Auto
         }
         //gen! int64 Tell()
         //CsStructModuleCodeGen:: GenerateCsMethodArgsClass ,1140
+        /// <summary>
+        /// Return the current offset position.
+        /// /*cef()*/
+        /// </summary>
         public struct TellArgs
         {
             IntPtr nativePtr; //met arg native ptr
@@ -9554,6 +12103,10 @@ namespace LayoutFarm.CefBridge.Auto
         }
         //gen! int Eof()
         //CsStructModuleCodeGen:: GenerateCsMethodArgsClass ,1142
+        /// <summary>
+        /// Return non-zero if at end of file.
+        /// /*cef()*/
+        /// </summary>
         public struct EofArgs
         {
             IntPtr nativePtr; //met arg native ptr
@@ -9592,6 +12145,12 @@ namespace LayoutFarm.CefBridge.Auto
         }
         //gen! bool MayBlock()
         //CsStructModuleCodeGen:: GenerateCsMethodArgsClass ,1144
+        /// <summary>
+        /// Return true if this handler performs work like accessing the file system
+        /// which may block. Used as a hint for determining the thread to access the
+        /// handler from.
+        /// /*cef()*/
+        /// </summary>
         public struct MayBlockArgs
         {
             IntPtr nativePtr; //met arg native ptr
@@ -9631,27 +12190,75 @@ namespace LayoutFarm.CefBridge.Auto
         public interface I0
         {
             //CsStructModuleCodeGen:: GenerateCsSingleArgMethodImplForInterface ,1146
+            /// <summary>
+            /// Read raw binary data.
+            /// /*cef()*/
+            /// </summary>
             void Read(ReadArgs args);
             //CsStructModuleCodeGen:: GenerateCsSingleArgMethodImplForInterface ,1147
+            /// <summary>
+            /// Seek to the specified offset position. |whence| may be any one of
+            /// SEEK_CUR, SEEK_END or SEEK_SET. Return zero on success and non-zero on
+            /// failure.
+            /// /*cef()*/
+            /// </summary>
             void Seek(SeekArgs args);
             //CsStructModuleCodeGen:: GenerateCsSingleArgMethodImplForInterface ,1148
+            /// <summary>
+            /// Return the current offset position.
+            /// /*cef()*/
+            /// </summary>
             void Tell(TellArgs args);
             //CsStructModuleCodeGen:: GenerateCsSingleArgMethodImplForInterface ,1149
+            /// <summary>
+            /// Return non-zero if at end of file.
+            /// /*cef()*/
+            /// </summary>
             void Eof(EofArgs args);
             //CsStructModuleCodeGen:: GenerateCsSingleArgMethodImplForInterface ,1150
+            /// <summary>
+            /// Return true if this handler performs work like accessing the file system
+            /// which may block. Used as a hint for determining the thread to access the
+            /// handler from.
+            /// /*cef()*/
+            /// </summary>
             void MayBlock(MayBlockArgs args);
         }
         public interface I1
         {
             //CsStructModuleCodeGen:: GenerateCsExpandedArgsMethodForInterface ,1151
+            /// <summary>
+            /// Read raw binary data.
+            /// /*cef()*/
+            /// </summary>
             uint Read(IntPtr ptr, uint size, uint n);
             //CsStructModuleCodeGen:: GenerateCsExpandedArgsMethodForInterface ,1152
+            /// <summary>
+            /// Seek to the specified offset position. |whence| may be any one of
+            /// SEEK_CUR, SEEK_END or SEEK_SET. Return zero on success and non-zero on
+            /// failure.
+            /// /*cef()*/
+            /// </summary>
             int Seek(long offset, int whence);
             //CsStructModuleCodeGen:: GenerateCsExpandedArgsMethodForInterface ,1153
+            /// <summary>
+            /// Return the current offset position.
+            /// /*cef()*/
+            /// </summary>
             long Tell();
             //CsStructModuleCodeGen:: GenerateCsExpandedArgsMethodForInterface ,1154
+            /// <summary>
+            /// Return non-zero if at end of file.
+            /// /*cef()*/
+            /// </summary>
             int Eof();
             //CsStructModuleCodeGen:: GenerateCsExpandedArgsMethodForInterface ,1155
+            /// <summary>
+            /// Return true if this handler performs work like accessing the file system
+            /// which may block. Used as a hint for determining the thread to access the
+            /// handler from.
+            /// /*cef()*/
+            /// </summary>
             bool MayBlock();
         }
         //CsStructModuleCodeGen::GenerateHandleNativeReqTable ,1156
@@ -9806,6 +12413,10 @@ namespace LayoutFarm.CefBridge.Auto
         const int CefWriteHandlerExt_MayBlock_5 = 5;
         //gen! size_t Write(const void* ptr,size_t size,size_t n)
         //CsStructModuleCodeGen:: GenerateCsMethodArgsClass ,1174
+        /// <summary>
+        /// Write raw binary data.
+        /// /*cef()*/
+        /// </summary>
         public struct WriteArgs
         {
             IntPtr nativePtr; //met arg native ptr
@@ -9865,6 +12476,12 @@ namespace LayoutFarm.CefBridge.Auto
         }
         //gen! int Seek(int64 offset,int whence)
         //CsStructModuleCodeGen:: GenerateCsMethodArgsClass ,1176
+        /// <summary>
+        /// Seek to the specified offset position. |whence| may be any one of
+        /// SEEK_CUR, SEEK_END or SEEK_SET. Return zero on success and non-zero on
+        /// failure.
+        /// /*cef()*/
+        /// </summary>
         public struct SeekArgs
         {
             IntPtr nativePtr; //met arg native ptr
@@ -9919,6 +12536,10 @@ namespace LayoutFarm.CefBridge.Auto
         }
         //gen! int64 Tell()
         //CsStructModuleCodeGen:: GenerateCsMethodArgsClass ,1178
+        /// <summary>
+        /// Return the current offset position.
+        /// /*cef()*/
+        /// </summary>
         public struct TellArgs
         {
             IntPtr nativePtr; //met arg native ptr
@@ -9957,6 +12578,10 @@ namespace LayoutFarm.CefBridge.Auto
         }
         //gen! int Flush()
         //CsStructModuleCodeGen:: GenerateCsMethodArgsClass ,1180
+        /// <summary>
+        /// Flush the stream.
+        /// /*cef()*/
+        /// </summary>
         public struct FlushArgs
         {
             IntPtr nativePtr; //met arg native ptr
@@ -9995,6 +12620,12 @@ namespace LayoutFarm.CefBridge.Auto
         }
         //gen! bool MayBlock()
         //CsStructModuleCodeGen:: GenerateCsMethodArgsClass ,1182
+        /// <summary>
+        /// Return true if this handler performs work like accessing the file system
+        /// which may block. Used as a hint for determining the thread to access the
+        /// handler from.
+        /// /*cef()*/
+        /// </summary>
         public struct MayBlockArgs
         {
             IntPtr nativePtr; //met arg native ptr
@@ -10034,27 +12665,75 @@ namespace LayoutFarm.CefBridge.Auto
         public interface I0
         {
             //CsStructModuleCodeGen:: GenerateCsSingleArgMethodImplForInterface ,1184
+            /// <summary>
+            /// Write raw binary data.
+            /// /*cef()*/
+            /// </summary>
             void Write(WriteArgs args);
             //CsStructModuleCodeGen:: GenerateCsSingleArgMethodImplForInterface ,1185
+            /// <summary>
+            /// Seek to the specified offset position. |whence| may be any one of
+            /// SEEK_CUR, SEEK_END or SEEK_SET. Return zero on success and non-zero on
+            /// failure.
+            /// /*cef()*/
+            /// </summary>
             void Seek(SeekArgs args);
             //CsStructModuleCodeGen:: GenerateCsSingleArgMethodImplForInterface ,1186
+            /// <summary>
+            /// Return the current offset position.
+            /// /*cef()*/
+            /// </summary>
             void Tell(TellArgs args);
             //CsStructModuleCodeGen:: GenerateCsSingleArgMethodImplForInterface ,1187
+            /// <summary>
+            /// Flush the stream.
+            /// /*cef()*/
+            /// </summary>
             void Flush(FlushArgs args);
             //CsStructModuleCodeGen:: GenerateCsSingleArgMethodImplForInterface ,1188
+            /// <summary>
+            /// Return true if this handler performs work like accessing the file system
+            /// which may block. Used as a hint for determining the thread to access the
+            /// handler from.
+            /// /*cef()*/
+            /// </summary>
             void MayBlock(MayBlockArgs args);
         }
         public interface I1
         {
             //CsStructModuleCodeGen:: GenerateCsExpandedArgsMethodForInterface ,1189
+            /// <summary>
+            /// Write raw binary data.
+            /// /*cef()*/
+            /// </summary>
             uint Write(IntPtr ptr, uint size, uint n);
             //CsStructModuleCodeGen:: GenerateCsExpandedArgsMethodForInterface ,1190
+            /// <summary>
+            /// Seek to the specified offset position. |whence| may be any one of
+            /// SEEK_CUR, SEEK_END or SEEK_SET. Return zero on success and non-zero on
+            /// failure.
+            /// /*cef()*/
+            /// </summary>
             int Seek(long offset, int whence);
             //CsStructModuleCodeGen:: GenerateCsExpandedArgsMethodForInterface ,1191
+            /// <summary>
+            /// Return the current offset position.
+            /// /*cef()*/
+            /// </summary>
             long Tell();
             //CsStructModuleCodeGen:: GenerateCsExpandedArgsMethodForInterface ,1192
+            /// <summary>
+            /// Flush the stream.
+            /// /*cef()*/
+            /// </summary>
             int Flush();
             //CsStructModuleCodeGen:: GenerateCsExpandedArgsMethodForInterface ,1193
+            /// <summary>
+            /// Return true if this handler performs work like accessing the file system
+            /// which may block. Used as a hint for determining the thread to access the
+            /// handler from.
+            /// /*cef()*/
+            /// </summary>
             bool MayBlock();
         }
         //CsStructModuleCodeGen::GenerateHandleNativeReqTable ,1194
@@ -10205,6 +12884,14 @@ namespace LayoutFarm.CefBridge.Auto
         const int CefV8HandlerExt_Execute_1 = 1;
         //gen! bool Execute(const CefString& name,CefRefPtr<CefV8Value> object,const CefV8ValueList& arguments,CefRefPtr<CefV8Value>& retval,CefString& exception)
         //CsStructModuleCodeGen:: GenerateCsMethodArgsClass ,1212
+        /// <summary>
+        /// Handle execution of the function identified by |name|. |object| is the
+        /// receiver ('this' object) of the function. |arguments| is the list of
+        /// arguments passed to the function. If execution succeeds set |retval| to the
+        /// function return value. If execution fails set |exception| to the exception
+        /// that will be thrown. Return true if execution was handled.
+        /// /*cef()*/
+        /// </summary>
         public struct ExecuteArgs
         {
             IntPtr nativePtr; //met arg native ptr
@@ -10281,11 +12968,27 @@ namespace LayoutFarm.CefBridge.Auto
         public interface I0
         {
             //CsStructModuleCodeGen:: GenerateCsSingleArgMethodImplForInterface ,1214
+            /// <summary>
+            /// Handle execution of the function identified by |name|. |object| is the
+            /// receiver ('this' object) of the function. |arguments| is the list of
+            /// arguments passed to the function. If execution succeeds set |retval| to the
+            /// function return value. If execution fails set |exception| to the exception
+            /// that will be thrown. Return true if execution was handled.
+            /// /*cef()*/
+            /// </summary>
             void Execute(ExecuteArgs args);
         }
         public interface I1
         {
             //CsStructModuleCodeGen:: GenerateCsExpandedArgsMethodForInterface ,1215
+            /// <summary>
+            /// Handle execution of the function identified by |name|. |object| is the
+            /// receiver ('this' object) of the function. |arguments| is the list of
+            /// arguments passed to the function. If execution succeeds set |retval| to the
+            /// function return value. If execution fails set |exception| to the exception
+            /// that will be thrown. Return true if execution was handled.
+            /// /*cef()*/
+            /// </summary>
             bool Execute(string name, CefV8Value _object, CefV8ValueList arguments, IntPtr retval, string exception);
         }
         //CsStructModuleCodeGen::GenerateHandleNativeReqTable ,1216

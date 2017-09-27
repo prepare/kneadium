@@ -38,7 +38,8 @@
     <Compile Include="Auto\CefCallbacks.cs" />
     <Compile Include="Auto\CefEnums.cs" />
     <Compile Include="Auto\CefHandlers.cs" />
-    <Compile Include="Auto\CefInstances.cs" />
+    <Compile Include="Auto\CefInstances_P1.cs" />
+    <Compile Include="Auto\CefInstances_P2.cs" />
     <Compile Include="Auto\CefPlainCStructs.cs" />
     <Compile Include="Cef3Binder.cs" />
     <Compile Include="Cef3Binder_Auto.cs" />
